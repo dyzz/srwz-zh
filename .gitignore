@@ -1,0 +1,23 @@
+.DS_Store
+.idea/
+.vscode/
+.venv/
+__pycache__/
+*.py[cod]
+.env
+
+# Never commit original game data or reconstructed disc images.
+/rom/
+/work/
+/build/
+*.iso
+*.chd
+*.elf
+*.p2s
+*.sav
+
+# Generated font artifacts are reproducible build outputs.
+/font/generated/
+
+# A local upstream checkout may be mounted here later.
+/vendor/upstream/
