@@ -1,0 +1,86 @@
+{
+  "schema_version": 2,
+  "profile_id": "canary-menu",
+  "source_iso": {
+    "path": "rom/srwz.iso",
+    "size": 3758358528,
+    "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014",
+    "member_count": 66,
+    "iso9660_system_id": "PLAYSTATION",
+    "udf_volume_recognition_sequence": "NSR02"
+  },
+  "toolchain": {
+    "repository": "https://github.com/N4gtan/mkps2iso.git",
+    "tag": "v1.1.1",
+    "commit": "f9a3dea18b67dc5f10093e72114a16283d277af0",
+    "version": "1.1.1",
+    "license_spdx": "GPL-2.0-only",
+    "source_dir": "work/toolchain/mkps2iso-v1.1.1/source",
+    "mkps2iso": {
+      "executable": "mkps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/mkps2iso",
+      "version": "1.1.1",
+      "version_line": "MKPS2ISO 1.1.1 - PlayStation 2 Image Maker"
+    },
+    "dumps2iso": {
+      "executable": "dumps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/dumps2iso",
+      "version": "1.1.1",
+      "version_line": "DUMPS2ISO 1.1.1 - PlayStation 2 Image Dumper"
+    }
+  },
+  "workspace": {
+    "original_tree": "work/build/canary-menu/iso/original",
+    "staging_tree": "work/build/canary-menu/iso/staging",
+    "base_xml": "work/build/canary-menu/iso/layout/original.xml",
+    "build_xml": "work/build/canary-menu/iso/layout/build.xml",
+    "lba_log": "work/build/canary-menu/iso/layout/lba.txt"
+  },
+  "layout": {
+    "volume_id": "SRWZ_CANARY",
+    "first_shifted_member": "DATA/STAGE.BIN",
+    "expected_shift_sectors": 50,
+    "preserve_original_gaps": true,
+    "trailing_dummy_sectors": 10240
+  },
+  "replacements": [
+    {
+      "member": "SLPS_258.87",
+      "source": "work/build/canary-menu/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "69356a20d643ccfd63f22fa21b6254ec98cf9c9abd2a91d8ef1f82a27ce5c51b"
+    },
+    {
+      "member": "DATA/VT1.BIN",
+      "source": "work/build/canary-menu/components/DATA/VT1.BIN",
+      "size": 127604304,
+      "sha256": "8828340ba848e4162252886562a3c58e6eabdd7bc2920f6cc7ae6b7fad8b721c"
+    }
+  ],
+  "output": {
+    "path": "build/iso/canary-menu/srwz-canary.iso",
+    "report": "build/iso/canary-menu/iso-validation.json",
+    "expected_size": 3758456832,
+    "expected_sha256": "7b1817421d408e39117cd1c335bf79a4872cfc51f2599fd53a995928b130844d",
+    "expected_member_manifest_sha256": "7a790983d355286a8bef38c94e7100e058dfa387112c749acb671d8a2f3558ab",
+    "expected_root_directory_size": 960,
+    "expected_pcsx2_v263_image_type": "DVD",
+    "expected_udf_volume_recognition_sequence": "NSR02",
+    "byte_reproducible": true
+  },
+  "acceptance": {
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "iso9660_present": true,
+    "udf_present": true,
+    "udf_verify_members": [
+      "SYSTEM.CNF",
+      "SLPS_258.87",
+      "DATA/VT1.BIN",
+      "DATA/STAGE.BIN"
+    ]
+  }
+}

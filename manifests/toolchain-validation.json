@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "content_policy": "Official source provenance, tool hashes, counts and binary-diff digests only; no game or patched bytes are embedded.",
+  "status": "pass",
+  "runtime_acceptance": "not tested",
+  "platform": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "compiler": "AppleClang 21.0.0.21000101",
+    "cmake": "4.4.0",
+    "ninja": "1.13.2"
+  },
+  "armips": {
+    "repository": "https://github.com/Kingcom/armips.git",
+    "license": {
+      "spdx": "MIT",
+      "sha256": "791ff46884cdf62188f17cabf0f099b462e92ec68986033bab243b26573b7573"
+    },
+    "versions": {
+      "reference_2023": {
+        "commit": "a8d71f0f279eb0d30ecf6af51473b66ae0cf8e8d",
+        "tree": "3f18db3383b5591f00d8795b071842c88d3483f0",
+        "source_date_epoch": 1695287411,
+        "clean_build_count": 2,
+        "ctest_pass_count": 2,
+        "binary_sha256": "7c7554f2b9712cc63604a0e6da189dd52a9029cd4e6a340c0d73ae6617af4787",
+        "clean_builds_identical": true
+      },
+      "selected": {
+        "commit": "2d7f351e640ec260b43943f07a00c57211940378",
+        "tree": "3f462f2290d1ca264342e265b887f1312933c110",
+        "source_date_epoch": 1783441838,
+        "clean_build_count": 2,
+        "ctest_pass_count": 2,
+        "binary_sha256": "386fb58a03e53f6f67ef6c027dde85c11b72bc98c1d8f702d7797aaf97730b5c",
+        "clean_builds_identical": true
+      }
+    }
+  },
+  "project_asm": {
+    "upstream_commit": "a6cefe8b51dfd949e16000442084d24594841e8f",
+    "upstream_clean": true,
+    "versions_identical_for_all_targets": true,
+    "targets": {
+      "slps": {
+        "input_size": 3471624,
+        "input_sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+        "output_sha256": "ca465f4498720f8df29e425ad1e086d75773389d26f155c22d23b9b1f92011a6",
+        "diff_count": 1573,
+        "range_count": 590,
+        "offsets_sha256": "baebf4c99133ddc9b09fe0aee7c32f30098ef972c93849ce2be8a64ea778a71d",
+        "before_values_sha256": "a291791975d5d32797a2c749e2cee261dddb94dece34acd296eebe5191a0d4ac",
+        "after_values_sha256": "28ffdf4e6021a7e900f8ada41ec89f2d3eab0362753d30b870a7f91a7d873bb5",
+        "owner_count": 20,
+        "explicit_overlap_count": 2
+      },
+      "kuro_stage": {
+        "input_size": 239664,
+        "input_sha256": "39caf7f108b6f98226d9bd5860fc6287389e5ba69a69f3e443434ccec55c5e2a",
+        "output_sha256": "1cb263b7cd08a4a393ef38eae58470914696cb77a83112cff4535b82486629bd",
+        "diff_count": 4,
+        "range_count": 4,
+        "offsets_sha256": "11f91821150cd970eadb66ce5be0b5c3f19f735db373682a3db97d57447ced5e",
+        "before_values_sha256": "6647d547773b513e2c83b940d7213dc607892ca086e7cfc4061b1abc96c70d42",
+        "after_values_sha256": "ad95131bc0b799c0b1af477fb14fcf26a6a9f76079e48bf090acb7e8367bfd0e",
+        "owner_count": 1,
+        "explicit_overlap_count": 0
+      }
+    }
+  },
+  "completion_gates": {
+    "two_clean_builds_identical": true,
+    "pinned_versions_project_outputs_identical": true,
+    "input_size_original_bytes_allowed_ranges_final_diff_output_hash": true,
+    "unknown_input_rejected": true,
+    "out_of_range_write_rejected": true,
+    "implicit_overlap_rejected": true,
+    "file_expansion_rejected": true
+  }
+}

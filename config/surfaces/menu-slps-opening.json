@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "surface_id": "menu/SLPS/embedded/opening-select-scenario-description",
+  "source_member": "SLPS_258.87",
+  "record": {
+    "entry_id": "menu/SLPS/embedded/opening-select-scenario-description",
+    "source_text_sha256": "786025bd6540be44e9ac1f34aa7979b04f0a5fc06f1dac31c1f65d4954571372"
+  },
+  "layout": {
+    "kind": "embedded_fixed_text",
+    "offsets": [
+      3390826
+    ],
+    "encoded_size_with_terminator": 27
+  },
+  "codec_profile": "srwz-text-table-v1",
+  "render": {
+    "profile": "opening-menu-standard-double-byte",
+    "width_class": "default_double_byte",
+    "measure_function": "SLPS 0x139B00",
+    "draw_function": "SLPS 0x13A290"
+  },
+  "writer": {
+    "kind": "fixed_preimage",
+    "require_equal_encoded_size": true
+  },
+  "runtime_fixture": "opening-select-scenario-canary"
+}

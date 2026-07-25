@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "content_policy": "Hashes, counts and decoded offsets only. Font bytes remain under ignored work/ or the read-only adjacent upstream checkout.",
+  "command": "python3 tools/analyze_srwz_font.py --force",
+  "original_font_stream": {
+    "compressed_size": 599344,
+    "compressed_sha256": "b582111406b953e7db977352608c673f9767b3581ba50353fe1173d3ae9fa224",
+    "consumed": 599329,
+    "padding": 15,
+    "padding_all_zero": true,
+    "decoded_size": 1290240,
+    "decoded_sha256": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd"
+  },
+  "upstream_candidate_font_stream": {
+    "compressed_size": 614050,
+    "compressed_sha256": "0a4563c91b7c6dd6fe0ea81d6508bc6c3efdd8f41d750682ba510b26afb84061",
+    "consumed": 614050,
+    "padding": 0,
+    "decoded_size": 1290240,
+    "decoded_sha256": "6c66412d9fb7510397bf3b8588729eb4edd8f861d22755404a3adc0a6f8ad921"
+  },
+  "patch_analysis": {
+    "changed_byte_count": 9648,
+    "difference_range_count": 2502,
+    "first_changed_offset": 48113,
+    "last_changed_offset": 82545,
+    "region_start": 48096,
+    "region_end": 82656,
+    "region_size": 34560,
+    "block_size": 288,
+    "block_count": 120,
+    "changed_block_count": 100,
+    "unchanged_block_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      24,
+      34,
+      52,
+      54,
+      56,
+      86,
+      87
+    ],
+    "changed_bytes_outside_region": 0,
+    "glyph_contract": {
+      "width": 24,
+      "height": 24,
+      "bits_per_pixel": 4,
+      "row_bytes": 12,
+      "glyph_size": 288,
+      "glyph_count": 4480,
+      "nibble_order": "low nibble is the left pixel"
+    },
+    "changed_glyph_range": [
+      167,
+      286
+    ],
+    "changed_glyph_count": 100,
+    "printable_ascii_glyph_count": 95,
+    "changed_ascii_glyph_count": 89,
+    "unchanged_ascii_glyph_indices": [
+      191,
+      201,
+      219,
+      221,
+      223,
+      254
+    ],
+    "evidence": {
+      "source_copy_function": "original SLPS 0x13C5C0",
+      "source_offset_rule": "glyph_index * 288",
+      "copy_shape": "24 rows * 12 bytes",
+      "destination_stride": 256,
+      "visual_fixture": "candidate glyphs 0, 1, A, B, M, W, a, g and ~"
+    }
+  },
+  "codebook_inventory": {
+    "mapped_code_count": 6860,
+    "unique_character_count": 6859,
+    "duplicate_character_count": 1,
+    "lead_byte_count": 40,
+    "candidate_capacity": 7520,
+    "candidate_unmapped_count": 660,
+    "candidate_classification": "Candidates only; glyph backing and runtime safety are not yet established."
+  },
+  "glyph_mapping": {
+    "evidence": {
+      "resolver_function": "original SLPS 0x13A7AC..0x13A990",
+      "standard_formula": "(lead - 0x81) * 192 + (trail - 0x40)",
+      "extension_threshold": "0x989F",
+      "extension_table_virtual_address": "0x3F7D70",
+      "extension_table_file_offset": "0x2F97F0",
+      "extension_record": "little-endian uint16 code, signed row byte, packed position byte",
+      "extension_index_formula": "row * 224 + packed_position",
+      "duplicate_rule": "linear search; first matching record wins"
+    },
+    "standard_text_code_count": 3488,
+    "extended_table_entry_count": 229,
+    "extended_table_unique_code_count": 223,
+    "reachable_extended_entry_count": 227,
+    "reachable_extended_unique_code_count": 221,
+    "reachable_extended_duplicate_count": 6,
+    "unreachable_extended_entry_count": 2,
+    "supported_extended_text_code_count": 216,
+    "extended_codes_absent_from_text_table": [
+      "995B",
+      "FA93",
+      "FABA",
+      "FAE5",
+      "FBE9"
+    ],
+    "supported_text_code_count": 3704,
+    "unsupported_text_code_count": 3156,
+    "referenced_glyph_count": 3704,
+    "glyphs_not_referenced_by_text_table_count": 776,
+    "standard_extended_glyph_overlap_count": 0,
+    "classification": "Every supported record now has code, character, glyph index and decoded byte offset under ignored work/font/glyph-code-map.json. Unreferenced glyphs are not automatically safe to overwrite."
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "content_policy": "Hashes, counts and aggregate sizes only. Rebuilt game bytes remain in memory or ignored work/ and are not committed.",
+  "command": "python3 tools/validate_srwz_archive_rebuild.py --force",
+  "strategy": "greedy",
+  "runtime_acceptance": "not tested",
+  "sources": {
+    "SLPS_258.87": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+    "DATA/STAGE.BIN": "9c56d42f96df7b409ccf468b24412322ed627b9cbbd656864818a404d89240dc",
+    "DATA/MTV_PROS.BIN": "47999cb2994d9775a68ecca49ebe3e5f73c0118b92168a6ba577f836886e1b5a"
+  },
+  "stage": {
+    "source_size": 3910128,
+    "chunk_count": 205,
+    "decoded_round_trip_exact_count": 205,
+    "rebuilt_archive_size": 4358368,
+    "rebuilt_archive_sha256": "0d2d4ef8aaddec4b963a3c0797ee64333847707602358060d7a9b0788a003532",
+    "encoded_size": 4356836,
+    "padding_size": 1532,
+    "offset_count": 206,
+    "offsets_aligned_16": true,
+    "stage_offset_table_size": 824,
+    "stage_offset_table_sha256": "9291f0deca0398a1ce77bdbb05fe4f04ae085b80c915ff3ee214f1485bb9e056",
+    "stage_offset_target": "HEDBDY/HB.BIN + 0x7670",
+    "stage_offset_source_available": false
+  },
+  "mtv_pros": {
+    "source_size": 9056,
+    "chunk_count": 14,
+    "summary_entry_count": 28,
+    "summary_plan_operation_count": 28,
+    "summary_identity_exact_chunk_count": 14,
+    "decoded_round_trip_exact_count": 14,
+    "rebuilt_archive_size": 9648,
+    "rebuilt_archive_sha256": "4e7e0fa3cdc2437e9b9f7c590da390b10f1665151b8db45c9ee355d624eeac16",
+    "encoded_size": 9536,
+    "padding_size": 112,
+    "offset_count": 15,
+    "offsets_aligned_16": true,
+    "slps_offset_table_includes_terminal_size": true,
+    "slps_offset_patch_size": 60,
+    "slps_offset_reread_exact": true,
+    "patched_slps_sha256": "e3f72a802c677a4935d320de8ea480c46bfad59e715c095bc0801c4baa7c4f76"
+  }
+}

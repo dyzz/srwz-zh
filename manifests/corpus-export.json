@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "content_policy": "The source JSONL contains extracted Japanese text and remains under ignored work/. This manifest contains aggregate counts and hashes only.",
+  "command": "python3 tools/export_srwz_corpus.py --force",
+  "entry_count": 94189,
+  "text_round_trip_exact_count": 94189,
+  "domain_counts": {
+    "menu": 2415,
+    "story": 91746,
+    "summary": 28
+  },
+  "kind_counts": {
+    "condition": 558,
+    "dialogue": 82719,
+    "menu": 2415,
+    "speaker": 8469,
+    "summary": 28
+  },
+  "aggregate_sha256": "a221f7a057b4464dcf3703167cb046579c692707c5760df1dfbdafe11675fbdd"
+}

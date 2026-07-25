@@ -1,0 +1,167 @@
+{
+  "schema_version": 2,
+  "status": "pcsx2_pine_and_opening_visual_accept_canary",
+  "content_policy": "Hashes, sizes, counts, paths, layout facts and tool versions only; no original or rebuilt game bytes embedded.",
+  "production_inputs": {
+    "profile_id": "canary-menu",
+    "profile": "config/build-profiles/canary-menu.json",
+    "surfaces": [
+      {
+        "surface_id": "menu/SLPS/embedded/opening-select-scenario-description",
+        "entry_id": "menu/SLPS/embedded/opening-select-scenario-description",
+        "spec": "config/surfaces/menu-slps-opening.json"
+      }
+    ],
+    "translation_sources": [
+      "corpus/zh/menu.json"
+    ],
+    "codebook": "config/encoding/codebook.json",
+    "codebook_assignments": [
+      "canary-ce",
+      "canary-shi"
+    ],
+    "required_gates": [
+      "source_baseline",
+      "profile_reconciliation",
+      "font_codebook_consistency",
+      "slot_liveness",
+      "codec_game_grammar",
+      "component_diff_allowlist",
+      "archive_layout",
+      "iso_layout",
+      "runtime_evidence_fresh"
+    ],
+    "reconciled_after_profile_migration": true
+  },
+  "source_iso": {
+    "size": 3758358528,
+    "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014",
+    "member_count": 66,
+    "root_directory_size": 960,
+    "pcsx2_v263_image_type": "DVD",
+    "udf_volume_recognition_sequence": "NSR02"
+  },
+  "observed_output_iso": {
+    "path": "build/iso/canary-menu/srwz-canary.iso",
+    "size": 3758456832,
+    "sha256": "7b1817421d408e39117cd1c335bf79a4872cfc51f2599fd53a995928b130844d",
+    "sector_count": 1835184,
+    "member_count": 66,
+    "iso9660_system_id": "PLAYSTATION",
+    "iso9660_volume_id": "SRWZ_CANARY",
+    "root_directory_size": 960,
+    "pcsx2_v263_image_type": "DVD",
+    "udf_volume_recognition_sequence": "NSR02",
+    "whole_image_byte_reproducible": true
+  },
+  "layout": {
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_count": 64,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "member_manifest_sha256": "7a790983d355286a8bef38c94e7100e058dfa387112c749acb671d8a2f3558ab",
+    "semantic_reproducible": true,
+    "lba_prefix_preserved_through": "DATA/VT1.BIN",
+    "shifted_member_count": 5,
+    "shift_sectors": 50,
+    "trailing_dummy_sectors": 10240
+  },
+  "replacements": [
+    {
+      "member": "SLPS_258.87",
+      "size": 3471624,
+      "sha256": "69356a20d643ccfd63f22fa21b6254ec98cf9c9abd2a91d8ef1f82a27ce5c51b",
+      "extent_lba": 455
+    },
+    {
+      "member": "DATA/VT1.BIN",
+      "size": 127604304,
+      "sha256": "8828340ba848e4162252886562a3c58e6eabdd7bc2920f6cc7ae6b7fad8b721c",
+      "extent_lba": 1588772
+    }
+  ],
+  "independent_udf_reads": {
+    "SYSTEM.CNF": "bbcf58170d2556c2d2365c0f1c25113c8371b6b2bb15555b61c874a3e3c62fc1",
+    "SLPS_258.87": "69356a20d643ccfd63f22fa21b6254ec98cf9c9abd2a91d8ef1f82a27ce5c51b",
+    "DATA/VT1.BIN": "8828340ba848e4162252886562a3c58e6eabdd7bc2920f6cc7ae6b7fad8b721c",
+    "DATA/STAGE.BIN": "9c56d42f96df7b409ccf468b24412322ed627b9cbbd656864818a404d89240dc"
+  },
+  "builder": {
+    "name": "mkps2iso",
+    "version": "1.1.1",
+    "repository": "https://github.com/N4gtan/mkps2iso.git",
+    "tag": "v1.1.1",
+    "commit": "f9a3dea18b67dc5f10093e72114a16283d277af0",
+    "license_spdx": "GPL-2.0-only",
+    "built_from_source_on_macos": true
+  },
+  "runtime": {
+    "emulator": "PCSX2",
+    "version": "2.6.3",
+    "date": "2026-07-25",
+    "mode": "-portable -nogui -fastboot -nofullscreen",
+    "log": "work/runtime/canary-menu/logs/pcsx2-visible-opening-canary.log",
+    "log_sha256": "c8c85e35fa5887f56923c776fd7e42374485099a6d391c5fd30924ac78e300d3",
+    "pine_report": "work/runtime/canary-menu/pine/font-runtime-validation.json",
+    "pine_report_sha256": "d768dbe8892a30cfe7d084a81121a68624ef9bcbcf18e2bb6f1afd8830da08a1",
+    "control_logs": [
+      "work/runtime/canary-menu/logs/pcsx2-original-control.log",
+      "work/runtime/canary-menu/logs/pcsx2-mkps2iso-roundtrip-control.log"
+    ],
+    "observed_play_seconds": 256,
+    "image_type": "DVD",
+    "elf_crc": "9F0B1015",
+    "elf_entry": "0x00100008",
+    "iop_modules_loaded": true,
+    "ntsc_59_94_frame_loop_reached": true,
+    "tlb_miss_count": 0,
+    "new_host_crash_report": false,
+    "manual_stop_after_capture": true,
+    "game_decompressor": {
+      "wrapper_virtual_address": "0x001C6C40",
+      "core_virtual_address": "0x001C6D70",
+      "literal_copy_loop_virtual_address": "0x001C6DE8",
+      "font_pointer_address": "0x0046E3A8",
+      "font_runtime_pointer": "0x009AE610",
+      "font_decoded_size": 1290240,
+      "font_runtime_sha256": "cc44fa82d1581c3eb1c5852d017efbcbe8e454d4cbd9f374688c408fb236a119",
+      "font_expected_sha256": "cc44fa82d1581c3eb1c5852d017efbcbe8e454d4cbd9f374688c408fb236a119",
+      "full_decoded_font_exact": true,
+      "pine_status_before": "running",
+      "pine_status_after": "running"
+    },
+    "opening_canary": {
+      "entry_id": "menu/SLPS/embedded/opening-select-scenario-description",
+      "runtime_address": "0x0043A2EA",
+      "runtime_size": 27,
+      "runtime_sha256": "d672e7dab676be4a323ae16efe42e313966e61b6cb7889bc9070ff5d14880743",
+      "expected_sha256": "d672e7dab676be4a323ae16efe42e313966e61b6cb7889bc9070ff5d14880743",
+      "runtime_bytes_exact": true,
+      "screen": "SELECT SCENARIO after choosing START",
+      "rendered_text": "ゲーム测试をプレイします。",
+      "screenshot": "work/runtime/canary-menu/screenshots/opening-select-scenario-canary.png",
+      "screenshot_width": 1280,
+      "screenshot_height": 960,
+      "screenshot_sha256": "d2f02c7d83a0f79f0550e657b77ecba07983d9252430c27e0fd7f512589432e2",
+      "characters_visible": true,
+      "overlap_or_clipping_observed": false
+    },
+    "superseded_canary_failure": {
+      "iso_sha256": "ab6c0844f9738cf467fa666683a00a6ec8f8bf13729675bdd90510ece2c30ebd",
+      "encoded_font_size": 980561,
+      "encoded_block_count": 175385,
+      "zero_literal_block_count": 139993,
+      "first_zero_literal_block_index": 8,
+      "first_zero_literal_input_offset": 48,
+      "first_zero_literal_output_offset": 576,
+      "fault_pc": "0x001C6DE8",
+      "fault_address": "0x02000000",
+      "root_cause": "A zero literal count underflows the game's post-tested literal-copy loop; the earlier compressed-size boundary inference is superseded."
+    }
+  },
+  "runtime_acceptance": "passed_full_game_decoder_output_hash_and_opening_visual_canary",
+  "emulator_executed": true,
+  "visual_menu_acceptance": "passed_select_scenario_screenshot"
+}

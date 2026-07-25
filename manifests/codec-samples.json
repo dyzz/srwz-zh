@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "archive": {
+    "path": "DATA/STAGE.BIN",
+    "size": 3910128,
+    "sha256": "9c56d42f96df7b409ccf468b24412322ed627b9cbbd656864818a404d89240dc"
+  },
+  "local_paths": {
+    "archive": "work/disc/DATA/STAGE.BIN",
+    "chunks": "work/stage/compressed"
+  },
+  "content_policy": "Only sizes, offsets and hashes are tracked. Game bytes remain under ignored work/.",
+  "samples": [
+    {
+      "index": 0,
+      "start": 0,
+      "end": 55392,
+      "size": 55392,
+      "sha256": "3b334daeec1d18be3827c0e6fe874a592c2f7902ed193b710936255bec08f1c9"
+    },
+    {
+      "index": 1,
+      "start": 55392,
+      "end": 72416,
+      "size": 17024,
+      "sha256": "7871a3f384612b8a33465de17f35a8036e12b95796bfd98b3dd7981dd298a803"
+    },
+    {
+      "index": 2,
+      "start": 72416,
+      "end": 95024,
+      "size": 22608,
+      "sha256": "84aaa58595918e20538d65d34844ca664663bd74d868f9c12a3d8992232ac19b"
+    }
+  ]
+}

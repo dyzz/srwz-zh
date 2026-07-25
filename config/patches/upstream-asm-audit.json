@@ -1,0 +1,377 @@
+{
+  "schema_version": 1,
+  "description": "Byte-free audit contract for the pinned upstream ASM behavior. Paths are repository-relative and all ranges use an exclusive end.",
+  "targets": [
+    {
+      "id": "slps",
+      "script": "main.asm",
+      "before_path": "work/disc/SLPS_258.87",
+      "after_path": "work/research/patch-audit/SLPS-current.elf",
+      "input": {
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "output": {
+        "size": 3471624,
+        "sha256": "ca465f4498720f8df29e425ad1e086d75773389d26f155c22d23b9b1f92011a6"
+      },
+      "expected_diff": {
+        "diff_count": 1573,
+        "range_count": 590,
+        "first_offset": 243192,
+        "last_offset": 3431265,
+        "offsets_sha256": "baebf4c99133ddc9b09fe0aee7c32f30098ef972c93849ce2be8a64ea778a71d",
+        "ranges_sha256": "c43eea965e5fda19f0326d9598c2478813a3e7d8a3a39ade9cfab75122344dc0",
+        "before_values_sha256": "a291791975d5d32797a2c749e2cee261dddb94dece34acd296eebe5191a0d4ac",
+        "after_values_sha256": "28ffdf4e6021a7e900f8ada41ec89f2d3eab0362753d30b870a7f91a7d873bb5"
+      },
+      "allowed_ranges": [
+        {
+          "start": "0x2A8030",
+          "end": "0x2A8DF0",
+          "owner": "menu_agil"
+        },
+        {
+          "start": "0xD0024",
+          "end": "0xD2360",
+          "owner": "menu_bazaar_purchase"
+        },
+        {
+          "start": "0x252298",
+          "end": "0x25B3E0",
+          "owner": "menu_command"
+        },
+        {
+          "start": "0x24345C",
+          "end": "0x24542D",
+          "owner": "menu_get_results_level_up"
+        },
+        {
+          "start": "0x255B70",
+          "end": "0x255C60",
+          "owner": "menu_map"
+        },
+        {
+          "start": "0x28E53C",
+          "end": "0x28EDC0",
+          "owner": "menu_mech_info"
+        },
+        {
+          "start": "0x25C3F4",
+          "end": "0x25C488",
+          "owner": "menu_operation"
+        },
+        {
+          "start": "0x28F0C4",
+          "end": "0x28FB11",
+          "owner": "menu_pilot_info"
+        },
+        {
+          "start": "0x27328C",
+          "end": "0x33173B",
+          "owner": "menu_search"
+        },
+        {
+          "start": "0x27328C",
+          "end": "0x2AAD9C",
+          "owner": "menu_search_skills_select"
+        },
+        {
+          "start": "0x2733A4",
+          "end": "0x2734A4",
+          "owner": "menu_search_spirits_select"
+        },
+        {
+          "start": "0x2865AC",
+          "end": "0x2B9FE8",
+          "owner": "menu_spirits"
+        },
+        {
+          "start": "0x21B170",
+          "end": "0x31FCD4",
+          "owner": "menu_stage"
+        },
+        {
+          "start": "0x2A8030",
+          "end": "0x2A8DF0",
+          "owner": "menu_stats"
+        },
+        {
+          "start": "0x27E6BC",
+          "end": "0x27EAB1",
+          "owner": "menu_tactical"
+        },
+        {
+          "start": "0x28BE84",
+          "end": "0x28D518",
+          "owner": "menu_unit_info"
+        },
+        {
+          "start": "0x28D5A4",
+          "end": "0x28E26C",
+          "owner": "menu_unit_info_2"
+        },
+        {
+          "start": "0x291AF8",
+          "end": "0x293C69",
+          "owner": "menu_weapons_alternate"
+        },
+        {
+          "start": "0x293014",
+          "end": "0x2943B4",
+          "owner": "menu_weapons_info"
+        },
+        {
+          "start": "0x3B5F8",
+          "end": "0x345B62",
+          "owner": "slps_ascii"
+        }
+      ],
+      "owners": {
+        "menu_agil": {
+          "script": "menu_agil.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_agil.elf",
+          "output_sha256": "9d24a870b94a1a5dcffb6700a39856ed0534d42d9904b32b70de9def17f2c292",
+          "diff": {
+            "diff_count": 30,
+            "offsets_sha256": "e7c726eb07c2892a3afc405d87680fa1d525e2ccbb8071571089aeb4cb6da650"
+          }
+        },
+        "menu_bazaar_purchase": {
+          "script": "menu_bazaar_purchase.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_bazaar_purchase.elf",
+          "output_sha256": "8344ea1c19598890ef50913ca21f79543bd3dd9f8e299b9a21497b05d9c2368d",
+          "diff": {
+            "diff_count": 8,
+            "offsets_sha256": "da7300fc102fba3b5e43577f1b84cc479cee254dd0ebf0ef0c4f3f47e74639ae"
+          }
+        },
+        "menu_command": {
+          "script": "menu_command.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_command.elf",
+          "output_sha256": "902a17ced5b25fdba791c75e68bea682339004c2db74c42b6e35eb944906fa37",
+          "diff": {
+            "diff_count": 42,
+            "offsets_sha256": "30363b2ec642fe48aaeb55e0c59fea81be58e2dba734abe7cd663e73e0367788"
+          }
+        },
+        "menu_get_results_level_up": {
+          "script": "menu_get_results_level_up.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_get_results_level_up.elf",
+          "output_sha256": "631bba4a7572200b4c9bf45109d75dcb6542f9573d1ed8fb131188d9eb29e922",
+          "diff": {
+            "diff_count": 47,
+            "offsets_sha256": "5775160d38dd5d977ab17c532e0d5481b09c9af51706b52ace525db91a8a75d6"
+          }
+        },
+        "menu_map": {
+          "script": "menu_map.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_map.elf",
+          "output_sha256": "e584a3ff16e1f33b077964ccb898314fa8a98f873e42290eba3193e2c451c9af",
+          "diff": {
+            "diff_count": 8,
+            "offsets_sha256": "0ef773789c33911692b0c105e699d08b23b0d7857c29a3f3da31445473d84dc5"
+          }
+        },
+        "menu_mech_info": {
+          "script": "menu_mech_info.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_mech_info.elf",
+          "output_sha256": "f6da8bfc40989659bc591307e56cea062643f2629b8f3472f7db2dd97a497fe1",
+          "diff": {
+            "diff_count": 23,
+            "offsets_sha256": "1ea726b21ffd62f4dd6140d902694f9173517db531ca24ac362d9a655043c535"
+          }
+        },
+        "menu_operation": {
+          "script": "menu_operation.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_operation.elf",
+          "output_sha256": "f7d97d25f513bd99125e79798873f0921594986f8743bb7756ffd1e546fc6b26",
+          "diff": {
+            "diff_count": 6,
+            "offsets_sha256": "fa65a822fd92ee7093c52d608789c55a99c1764835c1056ca88a57cf5c20a723"
+          }
+        },
+        "menu_pilot_info": {
+          "script": "menu_pilot_info.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_pilot_info.elf",
+          "output_sha256": "cc42a07be6b94f42cc8a67f45e6408765b5d5d771d291d892d91cfd466524d0b",
+          "diff": {
+            "diff_count": 39,
+            "offsets_sha256": "14e266091c356f8d9e326815bda604d30da66a4ee4a97cd2c9a05cad96ab827d"
+          }
+        },
+        "menu_search": {
+          "script": "menu_search.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_search.elf",
+          "output_sha256": "605ad0f9c60f416838f19560703c3d9ff23f10a2886c56f81227b513c088e053",
+          "diff": {
+            "diff_count": 56,
+            "offsets_sha256": "ae7e139178902ad4ec0da0a97c99cc0f979abacda93e92bec9440c0c2bf94598"
+          }
+        },
+        "menu_search_skills_select": {
+          "script": "menu_search_skills_select.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_search_skills_select.elf",
+          "output_sha256": "d73c58e64948ad87607ba3e697ead7ba1e8c1c33f1bf8f25c126c50f2e34efd8",
+          "diff": {
+            "diff_count": 10,
+            "offsets_sha256": "cb0c999a6eec1931e973ecf38e4dfc352acfa8db285d1e43efff1646be91e5f8"
+          }
+        },
+        "menu_search_spirits_select": {
+          "script": "menu_search_spirits_select.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_search_spirits_select.elf",
+          "output_sha256": "7d13b921a65dca12d8bb5e777e54c277533c51a00586c0d76f0078b6f78d6ad7",
+          "diff": {
+            "diff_count": 7,
+            "offsets_sha256": "6105292e61282c3a6c779b6d13da157caf6e4e3fb1630063d05d08fdd0835fa0"
+          }
+        },
+        "menu_spirits": {
+          "script": "menu_spirits.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_spirits.elf",
+          "output_sha256": "41ce03295fbf90e8b1fb4a74acb2c591980ea3769faf57d418b8b13634092ee8",
+          "diff": {
+            "diff_count": 22,
+            "offsets_sha256": "811506adc772fc1f766d897aef8f534a4500e1f7fdb162f5de369fe8ab72d360"
+          }
+        },
+        "menu_stage": {
+          "script": "menu_stage.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_stage.elf",
+          "output_sha256": "520a4211f3cf602faeba9c6e10e7fe7ea3bd005aa1cfee057be64b5ef5e2b1c3",
+          "diff": {
+            "diff_count": 22,
+            "offsets_sha256": "31e83c601343d32938bb04dcf85b0a97758c9be7e7028f2f08721867db062136"
+          }
+        },
+        "menu_stats": {
+          "script": "menu_stats.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_stats.elf",
+          "output_sha256": "9d24a870b94a1a5dcffb6700a39856ed0534d42d9904b32b70de9def17f2c292",
+          "diff": {
+            "diff_count": 30,
+            "offsets_sha256": "e7c726eb07c2892a3afc405d87680fa1d525e2ccbb8071571089aeb4cb6da650"
+          }
+        },
+        "menu_tactical": {
+          "script": "menu_tactical.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_tactical.elf",
+          "output_sha256": "55fffff499159e8e006127b30a56985d68a42ffbb4b255dc0a1efbe2a4db903b",
+          "diff": {
+            "diff_count": 23,
+            "offsets_sha256": "7d078816ce5c49d77b34d715ca98fdf593f69d4493af8c557ddc3886ee4262d0"
+          }
+        },
+        "menu_unit_info": {
+          "script": "menu_unit_info.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_unit_info.elf",
+          "output_sha256": "9edac1135f2fb2c3818ddc3834d4e882409e17f40d1baddee50ff25151923101",
+          "diff": {
+            "diff_count": 70,
+            "offsets_sha256": "a57b688f1d79dff55445420f5a96de7ceaddfd84da3edd4a4757b9df2b2b8ace"
+          }
+        },
+        "menu_unit_info_2": {
+          "script": "menu_unit_info_2.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_unit_info_2.elf",
+          "output_sha256": "20cad5bf0dbc19099004d9ed5b2462190fa8c45627d24091d1ade5f4d5b2c1f9",
+          "diff": {
+            "diff_count": 67,
+            "offsets_sha256": "38ba82afec139af0d6495ff7227a75419176c08ce9afad8ff0a295b679d5aa84"
+          }
+        },
+        "menu_weapons_alternate": {
+          "script": "menu_weapons_alternate.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_weapons_alternate.elf",
+          "output_sha256": "132d57a68b40f6d18be0a5e7c616c768c36e202d0ec301662928e71d774fe4c5",
+          "diff": {
+            "diff_count": 61,
+            "offsets_sha256": "8486fbae9e2f5848fb7bfe30fa6460164de5852bc8e62e53ab9387d801bbf1c7"
+          }
+        },
+        "menu_weapons_info": {
+          "script": "menu_weapons_info.asm",
+          "output_path": "work/research/patch-audit/by-source/menu_weapons_info.elf",
+          "output_sha256": "e97d2307ea2d7c7e31fb75ea54a43afd946603da499b4f9d8f5212c904d85bcc",
+          "diff": {
+            "diff_count": 41,
+            "offsets_sha256": "e550f46d490e68a72a075fc456042098c1cf473e6add24ddfbf260a70f32c98f"
+          }
+        },
+        "slps_ascii": {
+          "script": "slps_ascii.asm",
+          "output_path": "work/research/patch-audit/by-source/slps_ascii.elf",
+          "output_sha256": "fffab2365c13ca592c62c80030c1f8c19a8eb75f34a9b84a8ec8fadf2b0fad39",
+          "diff": {
+            "diff_count": 995,
+            "offsets_sha256": "4f2f44440222496660d44dfec119b80959d14a88d682e71dc15115c8c4e76b65"
+          }
+        }
+      },
+      "allowed_overlaps": [
+        {
+          "owners": [
+            "menu_agil",
+            "menu_stats"
+          ],
+          "final_owner": "menu_stats",
+          "count": 30,
+          "offsets_sha256": "e7c726eb07c2892a3afc405d87680fa1d525e2ccbb8071571089aeb4cb6da650"
+        },
+        {
+          "owners": [
+            "menu_search",
+            "menu_search_skills_select"
+          ],
+          "final_owner": "menu_search_skills_select",
+          "count": 4,
+          "offsets_sha256": "7639dcd1a6b8ccc8f790fc8a12e906ebbf9033d39b895d583dc501f32ec5b718"
+        }
+      ]
+    },
+    {
+      "id": "kuro_stage",
+      "script": "kuro_stage.asm",
+      "before_path": "work/disc/KURODATA/KVPDATA.BIN",
+      "after_path": "work/research/patch-audit/KVPDATA-current.BIN",
+      "input": {
+        "size": 239664,
+        "sha256": "39caf7f108b6f98226d9bd5860fc6287389e5ba69a69f3e443434ccec55c5e2a"
+      },
+      "output": {
+        "size": 239664,
+        "sha256": "1cb263b7cd08a4a393ef38eae58470914696cb77a83112cff4535b82486629bd"
+      },
+      "expected_diff": {
+        "diff_count": 4,
+        "range_count": 4,
+        "first_offset": 237114,
+        "last_offset": 239458,
+        "offsets_sha256": "11f91821150cd970eadb66ce5be0b5c3f19f735db373682a3db97d57447ced5e",
+        "ranges_sha256": "bed920a14402ca88c4db456dc45428f3c3e68c4f1492a628ad27e3cbd002e1a9",
+        "before_values_sha256": "6647d547773b513e2c83b940d7213dc607892ca086e7cfc4061b1abc96c70d42",
+        "after_values_sha256": "ad95131bc0b799c0b1af477fb14fcf26a6a9f76079e48bf090acb7e8367bfd0e"
+      },
+      "allowed_ranges": [
+        {
+          "start": "0x39E3A",
+          "end": "0x3A763",
+          "owner": "kuro_stage"
+        }
+      ],
+      "owners": {
+        "kuro_stage": {
+          "script": "kuro_stage.asm",
+          "output_path": "work/research/patch-audit/KVPDATA-current.BIN",
+          "output_sha256": "1cb263b7cd08a4a393ef38eae58470914696cb77a83112cff4535b82486629bd",
+          "diff": {
+            "diff_count": 4,
+            "offsets_sha256": "11f91821150cd970eadb66ce5be0b5c3f19f735db373682a3db97d57447ced5e"
+          }
+        }
+      },
+      "allowed_overlaps": []
+    }
+  ]
+}

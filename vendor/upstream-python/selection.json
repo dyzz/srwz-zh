@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "upstream_commit": "a6cefe8b51dfd949e16000442084d24594841e8f",
+  "selection_principle": "保留 SRWZ 专用逆向知识、数据定义、测试样本，以及使核心模块保持原样可导入的最小依赖闭包。",
+  "selected_files": [
+    {
+      "path": "project/archives.json",
+      "role": "归档位置、边界和类型等游戏专用配置"
+    },
+    {
+      "path": "project/menu_files.json",
+      "role": "菜单文件与文本处理配置"
+    },
+    {
+      "path": "project/sections.json",
+      "role": "可执行文件区段和文本区域配置"
+    },
+    {
+      "path": "project/tbl_all.json",
+      "role": "游戏文本编码表"
+    },
+    {
+      "path": "tools/python/Stages_Offset.bin",
+      "role": "205 个 STAGE.BIN 分段的上游原始偏移表"
+    },
+    {
+      "path": "tools/python/__init__.py",
+      "role": "保留上游 Python 包结构"
+    },
+    {
+      "path": "tools/python/files.txt",
+      "role": "isotool 重建所用的原始 ISO 文件顺序清单"
+    },
+    {
+      "path": "tools/python/isotool.py",
+      "role": "上游完整 ISO 提取和重建流程参考；当前中文活动链不导入或执行"
+    },
+    {
+      "path": "tools/python/lib/FileIO.py",
+      "role": "核心模块直接依赖的二进制读写基础"
+    },
+    {
+      "path": "tools/python/lib/SRWZ.py",
+      "role": "集中保存归档、菜单、SLPS 偏移和回包流程等主要逆向知识"
+    },
+    {
+      "path": "tools/python/lib/__init__.py",
+      "role": "保留上游 Python 包结构"
+    },
+    {
+      "path": "tools/python/lib/archive.py",
+      "role": "SRWZ.py 的直接依赖和归档拆包参考"
+    },
+    {
+      "path": "tools/python/lib/binary_extracted.py",
+      "role": "文本编码、控制码和自动换行逻辑"
+    },
+    {
+      "path": "tools/python/lib/compdata.py",
+      "role": "SRWZ.py 的直接依赖和 CompData 回包流程参考"
+    },
+    {
+      "path": "tools/python/lib/decompressor.py",
+      "role": "自定义压缩流逆向分析和新解码器的行为参考"
+    },
+    {
+      "path": "tools/python/lib/kurodata.py",
+      "role": "SRWZ.py 的直接依赖，保留核心模块导入闭包"
+    },
+    {
+      "path": "tools/python/lib/mtvpros.py",
+      "role": "MTVPROS 专用结构、文本和回包逻辑"
+    },
+    {
+      "path": "tools/python/lib/stage.py",
+      "role": "剧情段结构、指针、文本提取和插入逻辑"
+    },
+    {
+      "path": "tools/python/lib/vt1.py",
+      "role": "SRWZ.py 的直接依赖和 VT1 字库归档替换参考"
+    },
+    {
+      "path": "tools/python/lib/xml.py",
+      "role": "stage.py 与 mtvpros.py 直接依赖的中间数据格式"
+    },
+    {
+      "path": "tools/python/tests/tags_to_text.bin",
+      "role": "控制码解码的原始二进制 fixture"
+    },
+    {
+      "path": "tools/python/tests/test_tags.json",
+      "role": "控制码往返测试数据"
+    },
+    {
+      "path": "tools/python/tests/test_tags.py",
+      "role": "文本编码和控制码行为参考测试"
+    }
+  ],
+  "excluded_files": [
+    {
+      "path": "project/requirements.txt",
+      "reason": "通用环境快照；中文工程应维护自己的最小依赖"
+    },
+    {
+      "path": "tools/python/cd.py",
+      "reason": "旧 IML 构建链的一部分；当前中文回包使用固定 mkps2iso"
+    },
+    {
+      "path": "tools/python/dvd.py",
+      "reason": "旧 IML 构建链的一部分；当前中文回包使用固定 mkps2iso"
+    },
+    {
+      "path": "tools/python/files_list.txt",
+      "reason": "旧 IML 构建链的路径清单，未被保留流程引用"
+    },
+    {
+      "path": "tools/python/iml.py",
+      "reason": "通用且未被核心编排调用的旧 IML 构建实现"
+    },
+    {
+      "path": "tools/python/main.py",
+      "reason": "仅为薄 CLI 入口，后续按中文工程命令重写更简单"
+    },
+    {
+      "path": "tools/python/main_iml.py",
+      "reason": "旧 IML 构建链入口，未被核心编排调用"
+    },
+    {
+      "path": "tools/python/mtv_bgc.py",
+      "reason": "硬编码本机路径，且其偏移信息已存在 archives.json"
+    },
+    {
+      "path": "tools/python/srwz.ims",
+      "reason": "548 KiB 的光盘布局生成物，路径和镜像相关，不是逆向源码"
+    },
+    {
+      "path": "tools/python/lib/library.py",
+      "reason": "未被引用的空壳模块"
+    }
+  ]
+}

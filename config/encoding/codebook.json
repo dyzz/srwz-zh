@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "registry_id": "srwz-zh-v1",
+  "policy": {
+    "source": "Only explicit assignments are encodable. Blank or unreferenced glyphs remain candidates until separately allocated.",
+    "mapping": "Original SLPS standard two-byte glyph formula",
+    "allocation_ledger": "This registry is the current allocation ledger for encodable Chinese characters."
+  },
+  "assignments": [
+    {
+      "id": "canary-ce",
+      "character": "测",
+      "code": "987E",
+      "glyph_index": 4478,
+      "mapping": "standard",
+      "status": "assigned",
+      "allocation": {
+        "owner": "menu/SLPS/embedded/opening-select-scenario-description",
+        "basis": "pinned blank glyph and zero corpus/codebook references",
+        "blank_preimage_sha256": "2d5565fb483d8ea4525a7a9229677d1038ad34b6e22c8d5152e1d7f7b9817597"
+      },
+      "raster": {
+        "raw_gray_sha256": "569a54c9252a3151ae08f7bf11fc8b00910d4135dbf0fd9d5c9b8356b8b65b70",
+        "pixels_4bpp_sha256": "41681d68d44fe263d41dc075828744fa0da724ec3d9b5fa0ac20e88dfab890ce",
+        "packed_glyph_sha256": "01065e4d02a77115c075c4cf477aee27c785523c242d40154726250385a15a50"
+      }
+    },
+    {
+      "id": "canary-shi",
+      "character": "试",
+      "code": "987F",
+      "glyph_index": 4479,
+      "mapping": "standard",
+      "status": "assigned",
+      "allocation": {
+        "owner": "menu/SLPS/embedded/opening-select-scenario-description",
+        "basis": "pinned blank glyph and zero corpus/codebook references",
+        "blank_preimage_sha256": "2d5565fb483d8ea4525a7a9229677d1038ad34b6e22c8d5152e1d7f7b9817597"
+      },
+      "raster": {
+        "raw_gray_sha256": "0d238447b53dc8b3c4c9bc9ff49aa9f8b9acc3a51c9474fe9b2860d929834854",
+        "pixels_4bpp_sha256": "11bd84e2fef3544ea2e6c848964198e1da6aadb9bed4ddd6fa506caf8a9479db",
+        "packed_glyph_sha256": "31c1a2896199a60d691f83b8adbc9c76868aa2f3de6f60f10a21ddcafd21560d"
+      }
+    }
+  ]
+}

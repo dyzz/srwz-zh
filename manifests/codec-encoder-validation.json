@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "content_policy": "Hashes and aggregate sizes only. Encoded and decoded game bytes remain in memory and are not saved.",
+  "command": "python3 tools/validate_srwz_encoder.py --strategy greedy --force",
+  "strategy": "greedy",
+  "runtime_acceptance": "grammar checked for all encoded streams; canary accepted by the game decoder under PCSX2/PINE",
+  "game_runtime_grammar": {
+    "core_virtual_address": "0x001C6D70",
+    "literal_copy_loop_virtual_address": "0x001C6DE8",
+    "literal_count": "at least one in every block",
+    "match_count": "at least one unless literals finish declared output",
+    "reason": "the original game uses post-tested literal and match copy loops"
+  },
+  "sources": {
+    "SLPS_258.87": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+    "DATA/STAGE.BIN": "9c56d42f96df7b409ccf468b24412322ed627b9cbbd656864818a404d89240dc",
+    "DATA/COMPDATA.BN": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+    "DATA/MTV_PROS.BIN": "47999cb2994d9775a68ecca49ebe3e5f73c0118b92168a6ba577f836886e1b5a",
+    "DATA/VT1.BIN": "9b380618001b7f4d8a008f24bbf75b5409054e1b054e64d27ba4d0eb0b3a4964"
+  },
+  "totals": {
+    "record_count": 234,
+    "tested_stream_count": 232,
+    "round_trip_exact_count": 232,
+    "game_runtime_grammar_compatible_count": 232,
+    "encoded_block_count": 539875,
+    "zero_literal_block_count": 0,
+    "nonfinal_zero_match_block_count": 0,
+    "failure_count": 0,
+    "decoded_size": 20512176,
+    "original_consumed": 6116566,
+    "encoded_size": 6902750,
+    "encoded_to_original_ratio": 1.1285335595168924,
+    "encoded_to_decoded_ratio": 0.33651963594696144,
+    "flags_match_original_count": 232
+  },
+  "domains": {
+    "stage": {
+      "tested_stream_count": 205,
+      "round_trip_exact_count": 205,
+      "game_runtime_grammar_compatible_count": 205,
+      "encoded_block_count": 365063,
+      "zero_literal_block_count": 0,
+      "nonfinal_zero_match_block_count": 0,
+      "decoded_size": 11687504,
+      "original_consumed": 3908650,
+      "encoded_size": 4356836
+    },
+    "compdata": {
+      "tested_stream_count": 1,
+      "round_trip_exact_count": 1,
+      "game_runtime_grammar_compatible_count": 1,
+      "encoded_block_count": 13491,
+      "zero_literal_block_count": 0,
+      "nonfinal_zero_match_block_count": 0,
+      "decoded_size": 524032,
+      "original_consumed": 144990,
+      "encoded_size": 165590
+    },
+    "mtv_pros": {
+      "tested_stream_count": 14,
+      "round_trip_exact_count": 14,
+      "game_runtime_grammar_compatible_count": 14,
+      "encoded_block_count": 895,
+      "zero_literal_block_count": 0,
+      "nonfinal_zero_match_block_count": 0,
+      "decoded_size": 13088,
+      "original_consumed": 8947,
+      "encoded_size": 9536
+    },
+    "vt1": {
+      "record_count": 14,
+      "tested_stream_count": 12,
+      "round_trip_exact_count": 12,
+      "game_runtime_grammar_compatible_count": 12,
+      "encoded_block_count": 160426,
+      "zero_literal_block_count": 0,
+      "nonfinal_zero_match_block_count": 0,
+      "reconstruction_safe_count": 8,
+      "stream_prefix_with_nonzero_tail_count": 4,
+      "not_decoded_as_stream_count": 2,
+      "decoded_size": 8287552,
+      "original_consumed": 2053979,
+      "encoded_size": 2370788
+    }
+  }
+}
