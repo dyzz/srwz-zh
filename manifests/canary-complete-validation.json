@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "content_policy": "Hashes, offsets, counts, paths and reviewed runtime observations only; no game bytes embedded.",
+  "profile_id": "canary-complete",
+  "component_build": {
+    "config": "config/canary/complete-content.json",
+    "report": "work/build/canary-complete/components/component-validation.json",
+    "report_sha256": "db057ae7dcc7bd8e8e55645890c364738605387f209c3d2de5747670d6fd4694",
+    "surface_count": 3,
+    "profile_reconciliation_exact": true,
+    "isolated_profile_reconciliation_exact": true,
+    "all_component_output_locks_exact": true,
+    "summary_text_reread_exact": true,
+    "story_text_and_pointer_reread_exact": true
+  },
+  "iso_build": {
+    "config": "config/iso/canary-complete-build.json",
+    "report": "build/iso/canary-complete/iso-validation.json",
+    "report_sha256": "c326d94268ffa15ca21095d53c0bfeb203855a364be59da42381f7e71f8603a0",
+    "path": "build/iso/canary-complete/srwz-canary-complete.iso",
+    "size": 3758358528,
+    "sha256": "585f378f6bc4701324d76f7d01443eec65d671973df9b9fe7affe94566ab9b60",
+    "member_manifest_sha256": "8241e85c5e3e369e1a9d61262a2f4d092a922b0b32e944d820dafcc664ab850a",
+    "unchanged_member_count": 61,
+    "shifted_member_count": 0,
+    "byte_reproducible": true
+  },
+  "independent_runtime_fixtures": {
+    "canary-menu": {
+      "manifest": "manifests/canary-iso-validation.json",
+      "candidate_iso_sha256": "f21c67c77442ed5c5cf9b150a3f09afd2bab25f015db72d764fe37c727a13795",
+      "result": "passed"
+    },
+    "canary-summary": {
+      "manifest": "manifests/canary-summary-validation.json",
+      "candidate_iso_sha256": "26845aa8a1c1833da9b7f4e02b3ebd2bd70ca7e432253fad692378be71dfd347",
+      "result": "passed"
+    },
+    "canary-story": {
+      "manifest": "manifests/canary-story-validation.json",
+      "candidate_iso_sha256": "e89492f3cf4464b8a1df3ffc8128b8cdfbf19145fe72e0ecb01154aa2f65ae5b",
+      "result": "passed"
+    }
+  },
+  "combined_runtime_smoke": {
+    "emulator": "PCSX2 v2.6.3",
+    "date": "2026-07-26",
+    "mode": "-nogui -fastboot -nofullscreen",
+    "candidate_iso_sha256": "585f378f6bc4701324d76f7d01443eec65d671973df9b9fe7affe94566ab9b60",
+    "pine_report": "work/runtime/canary-complete-current/pine/font-runtime.json",
+    "pine_report_sha256": "5658bac741924d8d8ab7564c67beb125c1a6751277e1553c110ba868d4d6aeb9",
+    "decoded_font_exact": true,
+    "log": "work/runtime/canary-complete-current/logs/emulog.txt",
+    "log_sha256": "8b1890106a30e2e10afbfe3fd6313c1e8a4dfc62b805cb264c666cab2ef1d4b4",
+    "tlb_miss_count": 0,
+    "menu_visual": {
+      "screenshot": "work/runtime/canary-complete-current/screenshots/menu-surface.png",
+      "screenshot_sha256": "96b47cc4d255ce9114da587dbbb8e88e16e7447c7adb066a84f7206941a5c945",
+      "characters_visible": true,
+      "overlap_or_clipping_observed": false
+    },
+    "summary_visual": {
+      "screenshot": "work/runtime/canary-complete-current/screenshots/summary-surface.png",
+      "screenshot_sha256": "84cf619d53286b4364b09b968ea95864269f8d49e3bef6af90eb5b520f4e0213",
+      "characters_visible": true,
+      "overlap_or_clipping_observed": false
+    },
+    "story_archive_load": {
+      "screenshot": "work/runtime/canary-complete-current/screenshots/story-load-smoke.png",
+      "screenshot_sha256": "58536174015ec3078edd21cdcf27a989a6f2b8be15ebf86b6f1020a7255e9df8",
+      "opening_stage_loaded": true
+    },
+    "pcsx2_config_restored_byte_identical": true,
+    "pcsx2_config_sha256": "25598a063e962638c92b2e8514b2a0c7e5952973de694f3d005b67d998526a35"
+  },
+  "runtime_acceptance": "passed_three_independent_fixtures_and_combined_smoke"
+}

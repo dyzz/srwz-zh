@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "content_policy": "Hashes, sizes, counts, translations and workspace evidence paths only; no game bytes, pixels or texture payloads are committed.",
+  "profile_id": "title-menu-zh",
+  "translations": [
+    {
+      "label_index": 0,
+      "source": "START",
+      "target": "开始"
+    },
+    {
+      "label_index": 1,
+      "source": "LOAD",
+      "target": "读取"
+    },
+    {
+      "label_index": 2,
+      "source": "CONTINUE",
+      "target": "继续"
+    },
+    {
+      "label_index": 3,
+      "source": "LIBRARY",
+      "target": "资料库"
+    }
+  ],
+  "source_ownership": {
+    "member": "DATA/VT1.BIN",
+    "chunk_index": 6,
+    "record_index": 1,
+    "picture_index": 0,
+    "width": 512,
+    "height": 256,
+    "bits_per_pixel": 8,
+    "picture_count": 6,
+    "available_index_count": 77,
+    "selected_palette_indexes": {
+      "start": 48,
+      "end_exclusive": 64
+    },
+    "unselected_palette_indexes": {
+      "start": 64,
+      "end_exclusive": 80
+    },
+    "source_runtime_texture_png_sha256": "8e354b9d9c5d4d325cb1368f736a8dd6fa1f1f61558290fbbfaccc63a7a62315",
+    "source_runtime_texture_rgba_sha256": "0853211318e7f4479357d1dafd190374b779cca800286273d1924f8ba33a56c6"
+  },
+  "render_input": {
+    "font": {
+      "family": "Noto Sans CJK SC",
+      "version": "2.004",
+      "license_spdx": "OFL-1.1",
+      "size": 16437364,
+      "sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b"
+    },
+    "imagemagick_version": "7.1.2-27",
+    "mask_sha256": [
+      "e00b536da571f2052bec7730b05ed8d8b65464ce91cd1aae21b16115551a6b20",
+      "0e4cec6da1ee2ab4d99df6e078e7a70b77d87d393f49dc14bae2c481d1b77763",
+      "2629308a81c41287a63106cd4a3afca30377021b08b7d55c68b3d14e0c1f0898",
+      "5f4601b1674cc3049bd20b821d8c87e1bd4bed98b4c653d04cab297b402a8c91"
+    ]
+  },
+  "component_build": {
+    "config": {
+      "path": "config/canary/tim2-vt1-title-zh.json",
+      "sha256": "74a28fcc908197e024e743ffda90f54194aa01d0222b77b6249525daf4f67eae"
+    },
+    "report": {
+      "workspace_path": "work/build/title-menu-zh/component-validation.json",
+      "sha256": "47631d2454c7d1f098ab5980109f548c5b880e1dd4245570a950df4db3a89b68"
+    },
+    "injection": {
+      "changed_pixel_count": 12514,
+      "changed_image_byte_count": 12514,
+      "tim2_container_size_preserved": true,
+      "tim2_metadata_preserved": true,
+      "clut_preserved": true,
+      "other_picture_bytes_preserved": true,
+      "psmt8_round_trip_exact": true,
+      "non_target_decoded_bytes_exact": true
+    },
+    "codec": {
+      "strategy": "greedy",
+      "encoded_size": 541085,
+      "encoded_sha256": "3e99267734fbe524ccec68f7c2327f8c95fa2ba9eddf614367cccfc21b973aab",
+      "decoded_round_trip_exact": true
+    },
+    "executable": {
+      "member": "SLPS_258.87",
+      "size": 3471624,
+      "sha256": "dc4ae75f10f7b1f624f5f42a1a687ebb1f1e80f930bacaeb840ee329dda30b92",
+      "only_vt1_offset_table_changed": true
+    },
+    "archive": {
+      "member": "DATA/VT1.BIN",
+      "size": 127573504,
+      "sha256": "44ec21f4313f96d0e9fdc4ff0590dd6fe91a98b898783411c96eb44bb9ac4d2d",
+      "unchanged_chunk_count": 13,
+      "target_decoded_round_trip_exact": true
+    },
+    "preview_rgba": {
+      "width": 512,
+      "height": 256,
+      "sha256": "19539f6f607aed4fa52b1b99dc003950982e0a7470792dbd9a8b09e596f99d7e"
+    }
+  },
+  "iso_build": {
+    "config": {
+      "path": "config/iso/title-menu-zh-build.json",
+      "sha256": "6327b8309eda596631361463d0bdf950b5c4b6653b4626dd4625d34ed16131a6"
+    },
+    "report": {
+      "path": "build/iso/title-menu-zh/iso-validation.json",
+      "sha256": "4fbee2b564b9bb9f6a19c8b6f97ba5ee81dd75e3e143c662b6ccf6df6e41c709"
+    },
+    "iso": {
+      "path": "build/iso/title-menu-zh/srwz-title-menu-zh.iso",
+      "size": 3758424064,
+      "sha256": "fdeebb1b86b86f883e5ce8e3ecd3667f3ae665eb82cbe0f191ec133c6c4df1d4"
+    },
+    "member_count": 66,
+    "unchanged_member_count": 64,
+    "member_manifest_sha256": "79778d5315852b3b6221f74334c849146f1b85a4266de0b9aec3db4692c6ded0",
+    "iso9660_member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "udf_volume_recognition_sequence": "NSR02",
+    "pcsx2_media_type": "DVD",
+    "byte_reproducible": true
+  },
+  "runtime": {
+    "emulator": {
+      "name": "PCSX2",
+      "version": "2.6.3",
+      "architecture": "x86_64",
+      "mode": "nogui fastboot nofullscreen"
+    },
+    "transport": {
+      "protocol": "PINE IPC",
+      "game_title": "Super Robot Taisen Z",
+      "game_id": "SLPS-25887",
+      "status": 0
+    },
+    "disc": {
+      "image_type": "DVD",
+      "game_crc": "32187E3B",
+      "tlb_miss_count": 0
+    },
+    "visual_run": {
+      "log": {
+        "workspace_path": "work/runtime/title-menu-zh/logs/pcsx2-title-menu-zh.log",
+        "sha256": "7d827676811b96d6a92646a4ed5f026d01e87f710ba49b19d0f024b433931217"
+      },
+      "start_selected": {
+        "workspace_path": "work/runtime/title-menu-zh/screenshots/title-start-selected.png",
+        "width": 1280,
+        "height": 960,
+        "sha256": "d89d709079a8c9d11e6bdb9acf8c9f82233a126be825e77246d679d795dbcbf1",
+        "selected_label": "开始",
+        "unselected_labels": [
+          "读取",
+          "继续",
+          "资料库"
+        ]
+      },
+      "library_selected": {
+        "workspace_path": "work/runtime/title-menu-zh/screenshots/title-library-selected.png",
+        "width": 1280,
+        "height": 960,
+        "sha256": "d230553bed3fbe0a83abcb82d09fd9e872f2e744bcf9d226606429c1300c0a88",
+        "selected_label": "资料库",
+        "unselected_labels": [
+          "开始",
+          "读取",
+          "继续"
+        ]
+      },
+      "all_labels_visible": true,
+      "layout_intact": true,
+      "clipping_or_overlap_observed": false
+    },
+    "texture_dump": {
+      "workspace_path": "work/runtime/title-menu-zh/title-menu-texture.png",
+      "width": 512,
+      "height": 256,
+      "png_sha256": "3b0bf32a4960c8d51d12d45725babf5db0cf868e1c0e8438a8c7b78992a60ad1",
+      "rgba_sha256": "19539f6f607aed4fa52b1b99dc003950982e0a7470792dbd9a8b09e596f99d7e",
+      "offline_preview_rgba_sha256": "19539f6f607aed4fa52b1b99dc003950982e0a7470792dbd9a8b09e596f99d7e",
+      "offline_runtime_rgba_exact": true
+    },
+    "input_method": "Process-targeted CoreGraphics key events; no Computer Use.",
+    "external_state_restore": {
+      "pcsx2_config_restored_byte_identical": true,
+      "sha256": "25598a063e962638c92b2e8514b2a0c7e5952973de694f3d005b67d998526a35"
+    }
+  },
+  "runtime_acceptance": "passed"
+}

@@ -7,6 +7,7 @@ from pathlib import Path
 from tools.build_canary_iso import (
     IsoBuildError,
     _sanitize_dump_xml,
+    expected_shift_segments,
     load_config,
     tree_file_map,
     validate_directory_contract,
@@ -76,6 +77,37 @@ class Mkps2isoBuildTests(unittest.TestCase):
             "build/iso/canary-menu/srwz-canary.iso",
         )
         validate_directory_contract(config)
+        self.assertEqual(
+            expected_shift_segments(config),
+            (("DATA/STAGE.BIN", 0),),
+        )
+
+    def test_explicit_shift_segments_are_validated(self):
+        root = Path(__file__).resolve().parents[1]
+        config = json.loads(
+            (root / "config" / "iso" / "canary-build.json").read_text()
+        )
+        config["layout"]["shift_segments"] = [
+            {"first_member": "A.BIN", "shift_sectors": 2},
+            {"first_member": "B.BIN", "shift_sectors": 3},
+        ]
+        validate_directory_contract(config)
+        self.assertEqual(
+            expected_shift_segments(config),
+            (("A.BIN", 2), ("B.BIN", 3)),
+        )
+
+    def test_shift_segments_must_be_monotonic(self):
+        root = Path(__file__).resolve().parents[1]
+        config = json.loads(
+            (root / "config" / "iso" / "canary-build.json").read_text()
+        )
+        config["layout"]["shift_segments"] = [
+            {"first_member": "A.BIN", "shift_sectors": 3},
+            {"first_member": "B.BIN", "shift_sectors": 2},
+        ]
+        with self.assertRaisesRegex(IsoBuildError, "shift is invalid"):
+            validate_directory_contract(config)
 
     def test_iso_output_cannot_fall_back_into_work(self):
         root = Path(__file__).resolve().parents[1]
@@ -96,6 +128,125 @@ class Mkps2isoBuildTests(unittest.TestCase):
             root / "config" / "iso" / "canary-build.json"
         )
         self.assertEqual(config["profile_id"], "canary-menu")
+
+    def test_image_canary_config_has_isolated_profile_paths(self):
+        root = Path(__file__).resolve().parents[1]
+        config = load_config(
+            root / "config" / "iso" / "image-canary-build.json"
+        )
+        self.assertEqual(config["profile_id"], "canary-image-vt1-title")
+        self.assertEqual(config["layout"]["expected_shift_sectors"], 37)
+        self.assertEqual(
+            config["runtime_evidence_manifest"],
+            "manifests/image-canary-validation.json",
+        )
+        self.assertEqual(
+            config["output"]["path"],
+            "build/iso/canary-image-vt1-title/srwz-image-canary.iso",
+        )
+        self.assertEqual(
+            [item["member"] for item in config["replacements"]],
+            ["SLPS_258.87", "DATA/VT1.BIN"],
+        )
+
+    def test_image_component_and_iso_configs_share_profile_and_hash(self):
+        root = Path(__file__).resolve().parents[1]
+        iso_config = json.loads(
+            (
+                root / "config" / "iso" / "image-canary-build.json"
+            ).read_text()
+        )
+        component_config = json.loads(
+            (
+                root
+                / "config"
+                / "canary"
+                / "tim2-vt1-title-index.json"
+            ).read_text()
+        )
+        replacements = {
+            item["member"]: item
+            for item in iso_config["replacements"]
+        }
+        self.assertEqual(
+            iso_config["profile_id"],
+            component_config["profile_id"],
+        )
+        self.assertEqual(
+            replacements["SLPS_258.87"]["source"],
+            component_config["outputs"]["executable"],
+        )
+        self.assertEqual(
+            replacements["SLPS_258.87"]["sha256"],
+            component_config["expected_outputs"]["executable"]["sha256"],
+        )
+        self.assertEqual(
+            replacements["SLPS_258.87"]["size"],
+            component_config["expected_outputs"]["executable"]["size"],
+        )
+        self.assertEqual(
+            replacements["DATA/VT1.BIN"]["source"],
+            component_config["outputs"]["archive"],
+        )
+        self.assertEqual(
+            replacements["DATA/VT1.BIN"]["sha256"],
+            component_config["expected_outputs"]["archive"]["sha256"],
+        )
+        self.assertEqual(
+            replacements["DATA/VT1.BIN"]["size"],
+            component_config["expected_outputs"]["archive"]["size"],
+        )
+
+    def test_title_menu_chinese_configs_share_profile_and_hashes(self):
+        root = Path(__file__).resolve().parents[1]
+        iso_config = load_config(
+            root / "config" / "iso" / "title-menu-zh-build.json"
+        )
+        component_config = json.loads(
+            (
+                root
+                / "config"
+                / "canary"
+                / "tim2-vt1-title-zh.json"
+            ).read_text()
+        )
+        self.assertEqual(iso_config["profile_id"], "title-menu-zh")
+        self.assertEqual(
+            iso_config["runtime_evidence_manifest"],
+            "manifests/title-menu-zh-validation.json",
+        )
+        self.assertEqual(
+            iso_config["layout"]["expected_shift_sectors"],
+            35,
+        )
+        self.assertEqual(
+            iso_config["output"]["path"],
+            "build/iso/title-menu-zh/srwz-title-menu-zh.iso",
+        )
+        self.assertEqual(
+            iso_config["profile_id"],
+            component_config["profile_id"],
+        )
+        replacements = {
+            item["member"]: item
+            for item in iso_config["replacements"]
+        }
+        for member, output_name in (
+            ("SLPS_258.87", "executable"),
+            ("DATA/VT1.BIN", "archive"),
+        ):
+            self.assertEqual(
+                replacements[member]["source"],
+                component_config["outputs"][output_name],
+            )
+            self.assertEqual(
+                replacements[member]["size"],
+                component_config["expected_outputs"][output_name]["size"],
+            )
+            self.assertEqual(
+                replacements[member]["sha256"],
+                component_config["expected_outputs"][output_name]["sha256"],
+            )
 
     def test_component_and_iso_configs_share_profile_paths(self):
         root = Path(__file__).resolve().parents[1]
@@ -129,6 +280,67 @@ class Mkps2isoBuildTests(unittest.TestCase):
                 component_config["outputs"]["vt1"],
             },
         )
+
+    def test_complete_component_build_emits_isolated_fixture_inputs(self):
+        root = Path(__file__).resolve().parents[1]
+        component_config = json.loads(
+            (
+                root
+                / "config"
+                / "canary"
+                / "complete-content.json"
+            ).read_text()
+        )
+        self.assertEqual(
+            component_config["isolated_profiles"],
+            {
+                "canary-summary": (
+                    "config/build-profiles/canary-summary.json"
+                ),
+                "canary-story": (
+                    "config/build-profiles/canary-story.json"
+                ),
+            },
+        )
+        expected = {
+            "canary-summary": {
+                "slps",
+                "vt1",
+                "mtv_pros",
+            },
+            "canary-story": {
+                "slps",
+                "vt1",
+                "stage",
+                "hb",
+            },
+        }
+        self.assertEqual(
+            {
+                profile_id: set(outputs)
+                for profile_id, outputs
+                in component_config["isolated_outputs"].items()
+            },
+            expected,
+        )
+        for profile_id, output_names in expected.items():
+            iso_config = load_config(
+                root
+                / "config"
+                / "iso"
+                / f"{profile_id}-build.json"
+            )
+            replacements = {
+                item["source"]
+                for item in iso_config["replacements"]
+            }
+            self.assertEqual(
+                replacements,
+                {
+                    component_config["isolated_outputs"][profile_id][name]
+                    for name in output_names
+                },
+            )
 
 
 if __name__ == "__main__":

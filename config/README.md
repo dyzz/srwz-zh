@@ -10,18 +10,31 @@
 | `surfaces/` | 原版成员、稳定 entry ID、地址、allocation、codec/render/writer |
 | `encoding/codebook.json` | 中文字符到游戏 code/glyph 的唯一分配账本 |
 | `build-profiles/` | 构建选择集、最低编辑状态和必需 gates |
-| `canary/` | E0 golden 的原版输入、构建环境和预期输出，不拥有译文/码位 |
+| `canary/` | 验证切片的原版输入、构建参数和 golden；文本 canary 不拥有译文/码位，TIM2 探索 profile 暂存固定视觉标签 |
 | `iso/` | PS2 DVD 容器工具链、profile workspace、最终输出和布局锁 |
 | `patches/` | ASM/二进制前像、允许差异和写入所有者 |
+| `assets/` | 图片归档成员、压缩标志和 SLPS offset 表范围；不包含游戏字节 |
 
 当前所有生产 JSON 使用 `schema_version: 1`，由
 `tools/srwz/project.py` 在读取时 fail-closed 校验。最小端到端实例是
-`build-profiles/canary-menu.json`；执行：
+`build-profiles/canary-menu.json`；E2 还包括 `canary-summary.json`、
+`canary-story.json` 和组合选择 `canary-complete.json`。执行：
 
 ```bash
 python3 tools/validate_build_profile.py
+python3 tools/build_complete_canary.py --force
 ```
 
 详细字段、数据流和新增 surface 步骤见
 `docs/PRODUCTION_PIPELINE.md`。
 ISO 的 `rom/work/build` 所有权见 `docs/ISO_DIRECTORY_LAYOUT.md`。
+
+`assets/archive-inventory.json` 由 `tools/srwz/assets.py` 独立执行严格 schema
+检查：未知字段、重复 member、路径穿越、archive/direct 重叠、未知 storage
+模式和非法上游提交都会失败。TIM2 外部工具选择尚未形成 lock；准入条件见
+`docs/TIM2_TOOLCHAIN_ACCEPTANCE.md`。`canary/tim2-vt1-title-index.json`
+固定已通过运行验证的 VT1 标题 index canary，`iso/image-canary-build.json`
+固定其独立组件、ISO 路径和 golden hash；两者都不拥有正式图片译文。
+`canary/tim2-vt1-title-zh.json` 登记标题四项中文、OFL 字体、ImageMagick
+参数和 mask/output golden，`iso/title-menu-zh-build.json` 固定对应独立
+ISO；这是当前首个坐标级 8-bpp 图片汉化 profile。

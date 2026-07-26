@@ -18,6 +18,13 @@
   内容摘要、两项替换哈希、独立 UDF 读取结果、PCSX2/PINE 完整字库解压
   哈希、开场文本内存哈希和 `SELECT SCENARIO` 实机渲染截图摘要；同时回指
   `canary-menu` 的 production inputs。
+- `canary-summary-validation.json`：MTV_PROS 世界史定长 surface 的 profile
+  reconciliation、suffix 重编码、SLPS offset 重读、隔离 ISO 和 PCSX2
+  `测试。` 画面证据。
+- `canary-story-validation.json`：STAGE 开场剧情增长文本的 allocation、
+  pointer/HB 重读、隔离 ISO 和 Denzel 两行中文 PCSX2 画面证据。
+- `canary-complete-validation.json`：三类 component/ISO lock、三条独立运行
+  fixture，以及最终组合 ISO 的菜单、摘要和剧情加载 smoke。
 - `codec-samples.json`：本地 codec 研究样本的 index、offset、大小和 SHA-256；不包含游戏字节。
 - `iso-data-parse.json`：菜单、剧情、摘要和 VT1 字库段的解析计数、哈希及
   上游 XML 精确对照结果；不包含原文或解码字节。
@@ -38,3 +45,19 @@
   重编码/offset 重读结果；`production_inputs` 和 `profile_validation` 记录
   SurfaceSpec、中文语料、codebook、gates 及实际编码摘要；不包含原版或重建
   后的游戏字节。
+- `asset-inventory.json`：14 个 SLPS offset 归档和 3 个直接成员的严格
+  TIM2 数量、picture 格式、成员哈希、解码状态及上游 KVMDATA 差异块；不包含
+  像素或游戏字节。
+- `map-name-parse.json`：`MAP/MAPNAME.BIN` 的 256-byte 固定记录几何、
+  195 条稳定 ID 计数和聚合哈希；日文正文只在 `work/`。
+- `tim2-writeback-noop.json`：真实 `KVMDATA` chunk 5 的固定 4-bpp 布局、
+  ImageMagick 版本、byte-identical no-op、视觉 RGBA 和完整 archive 前像结果；
+  不包含 TIM2、CLUT、像素或重建归档字节。
+- `image-canary-validation.json`：运行时纹理转储反查到
+  `VT1 chunk 6 / record 1 / picture 0` 后的固定 8-bpp 索引 canary；
+  记录 351 个索引替换、重压缩/offset/ISO 静态验证、PCSX2/PINE 标题画面和
+  运行时纹理直方图证据；游戏字节和 PNG 只留在 `work/`/`build/`。
+- `title-menu-zh-validation.json`：标题
+  `START/LOAD/CONTINUE/LIBRARY → 开始/读取/继续/资料库` 的坐标级 PSMT8
+  写回；记录固定字体/mask、12,514 个像素修改、重压缩与 ISO、两种光标状态
+  截图，以及 PCSX2 转储纹理与离线预览逐像素一致的运行证据。

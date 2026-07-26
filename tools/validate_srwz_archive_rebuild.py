@@ -14,8 +14,11 @@ from srwz.codec import decode
 from srwz.diagnostics import require_work_output
 from srwz.iso_layout import (
     CORE_ARCHIVE_SPECS,
+    ExecutableOffsetSpec,
     read_executable_archive_offsets,
 )
+from srwz.iso9660 import SECTOR_SIZE, member_map, scan_iso9660
+from srwz.project import load_build_profile
 from srwz.summary import parse_summary
 from srwz.text import load_text_table
 from srwz.writers import (
@@ -64,6 +67,25 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--story-profile",
+        type=Path,
+        default=(
+            PROJECT_ROOT
+            / "config"
+            / "build-profiles"
+            / "canary-story.json"
+        ),
+        help=(
+            "profile whose SurfaceSpec owns the HB STAGE offset-table range"
+        ),
+    )
+    parser.add_argument(
+        "--source-iso",
+        type=Path,
+        default=PROJECT_ROOT / "rom" / "srwz.iso",
+        help="verified original ISO used to read the HB offset-table member",
+    )
+    parser.add_argument(
         "--json-output",
         type=Path,
         default=WORK_ROOT / "writeback" / "archive-rebuild-validation.json",
@@ -84,6 +106,43 @@ def main() -> int:
     stage_path = DISC_ROOT / "DATA" / "STAGE.BIN"
     stage_source = stage_path.read_bytes()
     stage_layout = load_offset_layout(args.stage_layout)
+    story_selection = load_build_profile(
+        PROJECT_ROOT,
+        args.story_profile.resolve(),
+    )
+    story_surface = story_selection.single_surface()
+    if (
+        story_surface.source_member != "DATA/STAGE.BIN"
+        or story_surface.offset_table_member is None
+        or story_surface.offset_table_start is None
+        or story_surface.offset_table_end is None
+    ):
+        raise RuntimeError(
+            "story profile has no STAGE/HB offset-table contract"
+        )
+    hb_spec = ExecutableOffsetSpec(
+        name="DATA/STAGE.BIN",
+        member=story_surface.offset_table_member,
+        table_start=story_surface.offset_table_start,
+        table_end=story_surface.offset_table_end,
+    )
+    source_iso = args.source_iso.resolve()
+    source_image = scan_iso9660(source_iso)
+    hb_member = member_map(source_image).get(hb_spec.member)
+    if hb_member is None:
+        raise RuntimeError(f"source ISO has no {hb_spec.member}")
+    with source_iso.open("rb") as source:
+        source.seek(hb_member.extent_lba * SECTOR_SIZE)
+        hb_source = source.read(hb_member.size)
+    if len(hb_source) != hb_member.size:
+        raise RuntimeError(f"short ISO member read for {hb_spec.member}")
+    source_stage_offsets = read_executable_archive_offsets(
+        hb_source,
+        hb_spec,
+        len(stage_source),
+    )
+    if source_stage_offsets != stage_layout.offsets:
+        raise RuntimeError("source HB offsets differ from pinned STAGE layout")
     stage_decoded = tuple(
         decode(chunk).output
         for chunk in slice_archive(stage_source, stage_layout)
@@ -95,11 +154,25 @@ def main() -> int:
     stage_table = b"".join(
         struct.pack("<I", offset) for offset in stage_rebuilt.offsets
     )
+    hb_offset_plan = build_executable_offset_patch_plan(
+        hb_source,
+        hb_spec,
+        stage_rebuilt.offsets,
+        source_name=hb_spec.member,
+    )
+    patched_hb = hb_offset_plan.apply(hb_source)
+    if read_executable_archive_offsets(
+        patched_hb,
+        hb_spec,
+        len(stage_rebuilt.data),
+    ) != stage_rebuilt.offsets:
+        raise RuntimeError("rebuilt STAGE offsets failed HB reread")
     print(
         "stage:",
         f"chunks={stage_rebuilt.chunk_count}",
         f"old={len(stage_source)}",
         f"new={len(stage_rebuilt.data)}",
+        "hb_offsets=exact",
     )
 
     mtv_path = DISC_ROOT / "DATA" / "MTV_PROS.BIN"
@@ -175,6 +248,7 @@ def main() -> int:
         "runtime_acceptance": "not tested",
         "sources": {
             "SLPS_258.87": sha256_bytes(executable),
+            hb_spec.member: sha256_bytes(hb_source),
             "DATA/STAGE.BIN": sha256_bytes(stage_source),
             "DATA/MTV_PROS.BIN": sha256_bytes(mtv_source),
         },
@@ -186,8 +260,11 @@ def main() -> int:
             "stage_offset_table_size": len(stage_table),
             "stage_offset_table_sha256": sha256_bytes(stage_table),
             "stage_offset_target": (
-                "HEDBDY/HB.BIN + 0x7670; source member not present in work/"
+                f"{hb_spec.member} + 0x{hb_spec.table_start:X}"
             ),
+            "hb_offset_plan": hb_offset_plan.to_metadata(),
+            "hb_offset_reread_exact": True,
+            "patched_hb_sha256": sha256_bytes(patched_hb),
         },
         "mtv_pros": {
             "source_size": len(mtv_source),

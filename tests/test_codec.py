@@ -8,6 +8,7 @@ from tools.srwz.codec import (
     encode_coded_integer,
     flags_for_size,
     read_coded_integer,
+    reencode_changed_suffix,
 )
 from tools.srwz.codec_contract import SrwzCodecError
 
@@ -264,6 +265,28 @@ class EncodeTests(unittest.TestCase):
     def test_rejects_unknown_strategy(self):
         with self.assertRaisesRegex(ValueError, "unknown encoding strategy"):
             encode(b"x", strategy="optimal")
+
+    def test_reencodes_only_the_changed_tail_from_a_block_boundary(self):
+        source = (
+            bytes(range(64))
+            + (b"\0" * 4096)
+            + (b"unchanged tail" * 32)
+        )
+        original = encode(source, strategy="greedy")
+        modified = source[:-16] + b"changed suffix!!"
+        encoded = reencode_changed_suffix(original, modified)
+        self.assertEqual(decode(encoded).output, modified)
+        self.assertEqual(
+            encoded,
+            reencode_changed_suffix(original, modified),
+        )
+
+    def test_suffix_reencode_supports_appended_output(self):
+        source = b"same prefix" + (b"\0" * 1024)
+        original = encode(source, strategy="greedy")
+        modified = source + b"growing suffix"
+        encoded = reencode_changed_suffix(original, modified)
+        self.assertEqual(decode(encoded).output, modified)
 
 
 if __name__ == "__main__":

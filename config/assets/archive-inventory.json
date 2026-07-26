@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "provenance": {
+    "upstream_commit": "a6cefe8b51dfd949e16000442084d24594841e8f",
+    "source_path": "project/archives.json",
+    "reuse_scope": "Archive member names, compression flags, and SLPS table ranges only; parsing and validation are implemented in this repository."
+  },
+  "executable_member": "SLPS_258.87",
+  "archives": [
+    {
+      "name": "VEFF2DX.BIN",
+      "member": "EFF/VEFF2DX.BIN",
+      "table_start": "0x31ABB0",
+      "table_end": "0x31B067",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "KVMDATA.BIN",
+      "member": "KURODATA/KVMDATA.BIN",
+      "table_start": "0x3303F0",
+      "table_end": "0x330447",
+      "storage": "raw"
+    },
+    {
+      "name": "MTV_BGC.BIN",
+      "member": "DATA/MTV_BGC.BIN",
+      "table_start": "0x32BEF0",
+      "table_end": "0x32C203",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "MTV_PROS.BIN",
+      "member": "DATA/MTV_PROS.BIN",
+      "table_start": "0x32BAA0",
+      "table_end": "0x32BADB",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "MTV_PROP.BIN",
+      "member": "DATA/MTV_PROP.BIN",
+      "table_start": "0x32BB70",
+      "table_end": "0x32BBCF",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "MTVZKNRT.BIN",
+      "member": "DATA/MTVZKNRT.BIN",
+      "table_start": "0x32B390",
+      "table_end": "0x32B897",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "MTVZKNKW.BIN",
+      "member": "DATA/MTVZKNKW.BIN",
+      "table_start": "0x32B980",
+      "table_end": "0x32BA4F",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "MTVZKNPT.BIN",
+      "member": "DATA/MTVZKNPT.BIN",
+      "table_start": "0x32A810",
+      "table_end": "0x32AE7B",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "VT1.BIN",
+      "member": "DATA/VT1.BIN",
+      "table_start": "0x2FA100",
+      "table_end": "0x2FA13B",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "NISVDATA.BIN",
+      "member": "DATA/NISVDATA.BIN",
+      "table_start": "0x328E90",
+      "table_end": "0x328EAB",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "AIDDATA.BIN",
+      "member": "AID_DATA/AIDDATA.BIN",
+      "table_start": "0x322440",
+      "table_end": "0x322447",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "COMPDATA.BN",
+      "member": "DATA/COMPDATA.BN",
+      "table_start": "0x322440",
+      "table_end": "0x322444",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "HSFC.BIN",
+      "member": "DATA/HSFC.BIN",
+      "table_start": "0x3476A0",
+      "table_end": "0x3476AF",
+      "storage": "srwz_stream"
+    },
+    {
+      "name": "MAPMODEL.BIN",
+      "member": "MAP/MAPMODEL.BIN",
+      "table_start": "0x2FAAD0",
+      "table_end": "0x2FAADF",
+      "storage": "srwz_stream"
+    }
+  ],
+  "direct_members": [
+    "DATA/JTIM.BIN",
+    "DATA/MTV_ITEM.BIN",
+    "MAP/MAPNAME.BIN"
+  ]
+}

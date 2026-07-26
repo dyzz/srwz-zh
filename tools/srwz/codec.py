@@ -228,22 +228,25 @@ def _greedy_payload(
     window_size: int,
     min_match_length: int,
     max_match_chain: int,
+    prefix_size: int = 0,
 ) -> bytes:
-    if not data:
+    if not data or prefix_size == len(data):
         return b""
     if min_match_length < 2:
         raise ValueError("min_match_length must be at least 2")
     if max_match_chain <= 0:
         raise ValueError("max_match_chain must be positive")
+    if not 0 <= prefix_size <= len(data):
+        raise ValueError("prefix_size is outside the decoded output")
 
     positions: Dict[bytes, Deque[int]] = defaultdict(
         lambda: deque(maxlen=max_match_chain)
     )
     output = bytearray()
-    literal_start = 0
+    literal_start = prefix_size
     match_sequence_start = None
     pending_matches = []
-    position = 0
+    position = prefix_size
     size = len(data)
 
     def add_position(index: int) -> None:
@@ -285,8 +288,22 @@ def _greedy_payload(
             return None
         return best_distance, best_length
 
+    for seed_position in range(
+        max(0, prefix_size - window_size),
+        prefix_size,
+    ):
+        add_position(seed_position)
+
     while position < size:
         match = find_match(position)
+        if (
+            match is not None
+            and not pending_matches
+            and position == literal_start
+        ):
+            # A seeded suffix can have a match at byte zero, but every block
+            # accepted by the game must start with at least one literal.
+            match = None
         if match is None:
             if pending_matches:
                 output.extend(
@@ -325,6 +342,96 @@ def _greedy_payload(
     elif literal_start < size:
         output.extend(_encode_block(data[literal_start:], ()))
     return bytes(output)
+
+
+def reencode_changed_suffix(
+    original_stream: BytesLike,
+    modified_output: BytesLike,
+    *,
+    min_match_length: int = DEFAULT_MIN_MATCH_LENGTH,
+    max_match_chain: int = DEFAULT_MAX_MATCH_CHAIN,
+) -> bytes:
+    """Preserve complete original blocks before a changed decoded suffix."""
+
+    source = memoryview(original_stream).cast("B").tobytes()
+    replacement = memoryview(modified_output).cast("B").tobytes()
+    blocks = []
+
+    def collect_blocks(event: TraceEvent) -> None:
+        if event["kind"] == "block":
+            blocks.append(event)
+
+    original = decode(source, trace_sink=collect_blocks)
+    if not replacement:
+        raise ValueError("suffix re-encode requires non-empty output")
+    first_changed = next(
+        (
+            index
+            for index, (before, after) in enumerate(
+                zip(original.output, replacement)
+            )
+            if before != after
+        ),
+        None,
+    )
+    if first_changed is None:
+        if len(replacement) == len(original.output):
+            return source[:original.consumed]
+        first_changed = min(len(original.output), len(replacement))
+
+    header_reader = ByteReader(source)
+    old_declared = read_coded_integer(
+        header_reader,
+        context="declared output size",
+    )
+    new_declared = encode_coded_integer(len(replacement))
+    old_conditional = _uses_conditional_header_value(
+        original.flags,
+        int(original.metadata["window_size"]),
+        len(original.output),
+    )
+    new_conditional = _uses_conditional_header_value(
+        original.flags,
+        int(original.metadata["window_size"]),
+        len(replacement),
+    )
+    if old_conditional != new_conditional:
+        raise ValueError(
+            "suffix size change would alter the original header shape"
+        )
+
+    block = max(
+        (
+            event
+            for event in blocks
+            if int(event["output_offset"]) <= first_changed
+        ),
+        key=lambda event: int(event["output_offset"]),
+    )
+    output_prefix_size = int(block["output_offset"])
+    input_prefix_size = int(block["input_offset"])
+    if (
+        original.output[:output_prefix_size]
+        != replacement[:output_prefix_size]
+    ):
+        raise ValueError("suffix splice would preserve changed prefix bytes")
+
+    payload = _greedy_payload(
+        replacement,
+        window_size=int(original.metadata["window_size"]),
+        min_match_length=min_match_length,
+        max_match_chain=max_match_chain,
+        prefix_size=output_prefix_size,
+    )
+    encoded = (
+        new_declared
+        + source[old_declared.end:input_prefix_size]
+        + payload
+    )
+    reread = decode(encoded)
+    if reread.output != replacement or reread.consumed != len(encoded):
+        raise ValueError("suffix re-encode failed its decoded round-trip")
+    return encoded
 
 
 def encode(
@@ -614,4 +721,5 @@ __all__ = [
     "encode_coded_integer",
     "flags_for_size",
     "read_coded_integer",
+    "reencode_changed_suffix",
 ]

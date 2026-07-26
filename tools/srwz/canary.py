@@ -8,7 +8,7 @@ import subprocess
 from pathlib import Path
 from typing import Iterable, Mapping
 
-from .codec import decode, encode
+from .codec import decode, reencode_changed_suffix
 from .corpus import text_sha256
 from .font import (
     GLYPH_COUNT,
@@ -168,6 +168,7 @@ def rebuild_archive_with_replacement(
     chunk_index: int,
     encoded_replacement: bytes,
     alignment: int = 16,
+    minimum_allocation: int = 0,
 ) -> tuple[bytes, tuple[int, ...], int]:
     offsets = tuple(offsets)
     if len(offsets) < 2:
@@ -178,10 +179,18 @@ def rebuild_archive_with_replacement(
         raise CanaryError("archive offsets do not cover the source")
     if alignment <= 0 or alignment & (alignment - 1):
         raise CanaryError("archive alignment must be a power of two")
+    if minimum_allocation < 0 or minimum_allocation % alignment:
+        raise CanaryError(
+            "minimum archive allocation must be aligned and non-negative"
+        )
     if any(offset % alignment for offset in offsets):
         raise CanaryError("source archive offsets are not aligned")
 
-    replacement_padding = (-len(encoded_replacement)) & (alignment - 1)
+    replacement_size = max(
+        (len(encoded_replacement) + alignment - 1) & -alignment,
+        minimum_allocation,
+    )
+    replacement_padding = replacement_size - len(encoded_replacement)
     replacement = encoded_replacement + bytes(replacement_padding)
     output = bytearray()
     new_offsets = []
@@ -278,6 +287,8 @@ def _verify_raster_hashes(
 def build_static_canary(
     project_root: Path,
     config_path: Path,
+    *,
+    enforce_expected_outputs: bool = True,
 ) -> tuple[bytes, bytes, bytes, dict]:
     project_root = project_root.resolve()
     config = _load_json(config_path)
@@ -560,19 +571,26 @@ def build_static_canary(
     if changed_glyphs != tuple(glyph_indices):
         raise CanaryError("decoded font changed outside assigned glyphs")
 
-    encoded_font = encode(modified_font, strategy="greedy")
-    decoded_check = decode(encoded_font)
-    if decoded_check.output != modified_font:
-        raise CanaryError("encoded canary font does not round-trip")
-    if decoded_check.consumed != len(encoded_font):
-        raise CanaryError("encoded canary font consumed length mismatch")
-
     vt1_spec = CORE_ARCHIVE_SPECS["VT1.BIN"]
     old_offsets = read_executable_archive_offsets(
         slps,
         vt1_spec,
         len(vt1),
     )
+    font_stream = vt1[
+        old_offsets[segment_lock["index"]]:
+        old_offsets[segment_lock["index"] + 1]
+    ]
+    encoded_font = reencode_changed_suffix(
+        font_stream,
+        modified_font,
+    )
+    decoded_check = decode(encoded_font)
+    if decoded_check.output != modified_font:
+        raise CanaryError("encoded canary font does not round-trip")
+    if decoded_check.consumed != len(encoded_font):
+        raise CanaryError("encoded canary font consumed length mismatch")
+
     rebuilt_vt1, new_offsets, font_padding = (
         rebuild_archive_with_replacement(
             vt1,
@@ -710,41 +728,45 @@ def build_static_canary(
         scale=12,
     )
     slps_diff = summarize_diff(slps, rebuilt_slps)
-    expected_outputs = config.get("expected_outputs", {})
-    expected_decoded = expected_outputs.get("decoded_font_sha256")
     actual_decoded = sha256_bytes(modified_font)
-    if actual_decoded != expected_decoded:
-        raise CanaryError(
-            "decoded canary font output SHA-256 mismatch"
-        )
-    expected_encoded = expected_outputs.get("encoded_font", {})
-    if (
-        len(encoded_font) != expected_encoded.get("size")
-        or sha256_bytes(encoded_font) != expected_encoded.get("sha256")
-    ):
-        raise CanaryError(
-            "encoded canary font output does not match the lock"
-        )
-    expected_slps = expected_outputs.get("slps", {})
-    if (
-        len(rebuilt_slps) != expected_slps.get("size")
-        or sha256_bytes(rebuilt_slps) != expected_slps.get("sha256")
-        or slps_diff.diff_count != expected_slps.get("diff_count")
-        or slps_diff.offsets_sha256
-        != expected_slps.get("offsets_sha256")
-    ):
-        raise CanaryError("canary SLPS output does not match the lock")
-    expected_vt1 = expected_outputs.get("vt1", {})
-    if (
-        len(rebuilt_vt1) != expected_vt1.get("size")
-        or sha256_bytes(rebuilt_vt1) != expected_vt1.get("sha256")
-    ):
-        raise CanaryError("canary VT1 output does not match the lock")
-    if sha256_bytes(preview) != expected_outputs.get(
-        "preview",
-        {},
-    ).get("sha256"):
-        raise CanaryError("canary preview does not match the lock")
+    if enforce_expected_outputs:
+        expected_outputs = config.get("expected_outputs", {})
+        expected_decoded = expected_outputs.get("decoded_font_sha256")
+        if actual_decoded != expected_decoded:
+            raise CanaryError(
+                "decoded canary font output SHA-256 mismatch"
+            )
+        expected_encoded = expected_outputs.get("encoded_font", {})
+        if (
+            len(encoded_font) != expected_encoded.get("size")
+            or sha256_bytes(encoded_font)
+            != expected_encoded.get("sha256")
+        ):
+            raise CanaryError(
+                "encoded canary font output does not match the lock"
+            )
+        expected_slps = expected_outputs.get("slps", {})
+        if (
+            len(rebuilt_slps) != expected_slps.get("size")
+            or sha256_bytes(rebuilt_slps)
+            != expected_slps.get("sha256")
+            or slps_diff.diff_count != expected_slps.get("diff_count")
+            or slps_diff.offsets_sha256
+            != expected_slps.get("offsets_sha256")
+        ):
+            raise CanaryError("canary SLPS output does not match the lock")
+        expected_vt1 = expected_outputs.get("vt1", {})
+        if (
+            len(rebuilt_vt1) != expected_vt1.get("size")
+            or sha256_bytes(rebuilt_vt1)
+            != expected_vt1.get("sha256")
+        ):
+            raise CanaryError("canary VT1 output does not match the lock")
+        if sha256_bytes(preview) != expected_outputs.get(
+            "preview",
+            {},
+        ).get("sha256"):
+            raise CanaryError("canary preview does not match the lock")
 
     report = {
         "schema_version": 1,

@@ -2,11 +2,12 @@
 
 状态：上游汉化流程实际使用的菜单、数据库、剧情、摘要和 VT1 字库归档已经能够
 从日版 ISO 基线独立解析。文本结果可与固定上游工作区逐条对照；当前对照为
-94,189/94,189 条完全一致。
+94,189/94,189 条完全一致。此后又确认 `MAP/MAPNAME.BIN` 包含 195 条固定记录
+文本；它尚未并入原 94,189 条语料统计，见 `ASSET_ANALYSIS.md`。
 
-本页描述的数据解析阶段只做只读提取、解码和结构解析。后续已经单独实现
-clean-room 编码器和通用写回 dry-run 原语，但仍没有正式成员 writer、
-ISO 回包或游戏运行验证。
+本页描述的五成员解析阶段只做只读提取、解码和结构解析。后续已经单独实现
+clean-room 编码器、部分 writer、ISO 回包和首个 PCSX2 canary；这些后续结果
+不改变本页对五成员 extractor 覆盖范围的定义。
 
 ## 解析范围
 
@@ -21,8 +22,9 @@ ISO 回包或游戏运行验证。
 | `DATA/VT1.BIN` | 字库归档 | 14 段 offset 清单；第 2 段严格解码为 1,290,240 字节 |
 
 ISO 共有 66 个普通文件。其余大部分为音频、影片、战斗资源、模型或上游只做整体
-替换的图像归档；固定上游没有从这些文件提取额外可翻译 XML。这里不把“未见文本
-解析器”扩张成“文件没有任何文字”的格式结论。
+替换的图像归档；固定上游没有从这些文件提取额外可翻译 XML。后续独立扫描已经
+证明该范围之外至少还有 195 条 MAPNAME 文本和多处 TIM2 图像内文字。因此
+“未见上游 parser”明确不能解释成“文件没有任何文字”。
 
 一个上游遗漏已在中文流程中补齐：`extract_all_archives()` 的白名单只有
 `COMPDATA.BN` 和 `VT1.BIN`，但后续 `extract_all_summary()` 实际依赖
@@ -159,15 +161,9 @@ python3 tools/parse_srwz_iso_data.py --no-reference --force
 - 可用于中文语料层的唯一稳定 ID；
 - 与固定上游 XML 的逐条精确对照。
 
-尚未包含在“数据解析完成”结论中的写回工作：
-
-- SLPS/COMPDATA 文本池、STAGE 文本 arena 和 VT1 专用 writer；
-- 文本池重排、pointer/embedded MIPS 写回；
-- 中文字体 rasterize 和稳定槽位分配；
-- ISO 回包；
-- PCSX2 正常流程和运行接受性验证。
-
-STAGE/MTV_PROS 的原生重压缩和对齐归档重建、MTV_PROS 定长文本覆盖及 SLPS
-offset dry-run 已单独完成，见 `docs/WRITEBACK_CONTRACT.md`。
-
-这些属于后续构建和运行验证阶段，不能由只读解析结果代替。
+“数据解析完成”本身不等同于写回或运行证明。后续 E2 已另外完成
+SLPS/COMPDATA pool、MTV_PROS 定长、STAGE allocation/pointer、VT1 canary、
+ISO 回包和三条 PCSX2 fixture；证据见 `docs/WRITEBACK_CONTRACT.md` 和
+`manifests/canary-complete-validation.json`。其中真实 SLPS/COMPDATA 批量池区、
+全量 STAGE arena policy 和通用全量 VT1 writer 仍属于 E3，不能由本页只读
+解析结果代替。

@@ -142,6 +142,60 @@ def validate_directory_contract(config: dict) -> None:
     )
     if Path(config["output"]["path"]).suffix.lower() != ".iso":
         raise IsoBuildError("output ISO path must end in .iso")
+    layout = config.get("layout")
+    if not isinstance(layout, dict):
+        raise IsoBuildError("ISO layout contract is missing")
+    raw_segments = layout.get("shift_segments")
+    if raw_segments is not None:
+        if not isinstance(raw_segments, list) or not raw_segments:
+            raise IsoBuildError(
+                "layout shift_segments must be a non-empty array"
+            )
+        seen = set()
+        previous_shift = -1
+        for index, segment in enumerate(raw_segments):
+            if not isinstance(segment, dict):
+                raise IsoBuildError(
+                    f"layout shift segment {index} is invalid"
+                )
+            first_member = segment.get("first_member")
+            shift_sectors = segment.get("shift_sectors")
+            if (
+                not isinstance(first_member, str)
+                or not first_member
+                or first_member in seen
+            ):
+                raise IsoBuildError(
+                    f"layout shift segment {index} first_member is invalid"
+                )
+            if (
+                not isinstance(shift_sectors, int)
+                or isinstance(shift_sectors, bool)
+                or shift_sectors < 0
+                or shift_sectors < previous_shift
+            ):
+                raise IsoBuildError(
+                    f"layout shift segment {index} shift is invalid"
+                )
+            seen.add(first_member)
+            previous_shift = shift_sectors
+
+
+def expected_shift_segments(config: dict) -> tuple[tuple[str, int], ...]:
+    """Return explicit LBA-shift breakpoints, with legacy compatibility."""
+
+    raw_segments = config["layout"].get("shift_segments")
+    if raw_segments is not None:
+        return tuple(
+            (segment["first_member"], segment["shift_sectors"])
+            for segment in raw_segments
+        )
+    return (
+        (
+            config["layout"]["first_shifted_member"],
+            config["layout"]["expected_shift_sectors"],
+        ),
+    )
 
 
 def resolve_project_path(value: str) -> Path:
@@ -472,23 +526,33 @@ def validate_output(
     ):
         raise IsoBuildError("output UDF volume recognition sequence changed")
 
-    shift = config["layout"]["expected_shift_sectors"]
-    first_shifted = config["layout"]["first_shifted_member"]
-    shifted = False
+    shift_segments = expected_shift_segments(config)
+    segment_by_member = dict(shift_segments)
+    found_segments = []
+    current_shift = 0
     shifted_members = []
     prefix_members = []
     for path in extent_order(source_image):
-        if path == first_shifted:
-            shifted = True
-        expected_lba = source_members[path].extent_lba + (shift if shifted else 0)
+        if path in segment_by_member:
+            current_shift = segment_by_member[path]
+            found_segments.append(path)
+        expected_lba = source_members[path].extent_lba + current_shift
         if output_members[path].extent_lba != expected_lba:
             raise IsoBuildError(
                 f"unexpected output LBA for {path}: "
                 f"{output_members[path].extent_lba}, expected {expected_lba}"
             )
-        (shifted_members if shifted else prefix_members).append(path)
-    if not shifted:
-        raise IsoBuildError(f"first shifted member not found: {first_shifted}")
+        (shifted_members if current_shift else prefix_members).append(path)
+    expected_segment_members = tuple(
+        first_member for first_member, _ in shift_segments
+    )
+    if tuple(found_segments) != expected_segment_members:
+        missing = [
+            first_member
+            for first_member in expected_segment_members
+            if first_member not in found_segments
+        ]
+        raise IsoBuildError(f"shift segment members not found: {missing}")
 
     replacement_config = {
         item["member"]: item for item in config["replacements"]
@@ -608,11 +672,25 @@ def validate_output(
             "semantic_reproducible": True,
             "lba_prefix_preserved_through": prefix_members[-1],
             "shifted_member_count": len(shifted_members),
-            "shift_sectors": shift,
+            "shift_sectors": (
+                shift_segments[0][1]
+                if len(shift_segments) == 1
+                else None
+            ),
+            "shift_segments": [
+                {
+                    "first_member": first_member,
+                    "shift_sectors": shift_sectors,
+                }
+                for first_member, shift_sectors in shift_segments
+            ],
         },
         "independent_udf_reads": udf_hashes,
         "replacements": replacements,
-        "runtime_acceptance": "see manifests/canary-iso-validation.json",
+        "runtime_acceptance": "not tested by ISO builder",
+        "runtime_evidence_manifest": config.get(
+            "runtime_evidence_manifest"
+        ),
         "emulator_executed_by_builder": False,
     }
 

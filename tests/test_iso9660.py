@@ -166,7 +166,7 @@ class Iso9660Tests(unittest.TestCase):
         )
         self.assertEqual(
             manifest["layout"]["lba_prefix_preserved_through"],
-            "DATA/VT1.BIN",
+            "DMY/DMY.BIN",
         )
         self.assertEqual(
             manifest["runtime_acceptance"],

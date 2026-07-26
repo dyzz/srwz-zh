@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "surface_id": "story/001/dialogue/01.01/0000",
+  "source_member": "DATA/STAGE.BIN",
+  "record": {
+    "entry_id": "story/001/dialogue/01.01/0000",
+    "source_text_sha256": "1b20451178be5f5d5898aefa6ec8ab7e9d1ae1af99b60fb942cba91d9b7ef84f"
+  },
+  "layout": {
+    "kind": "compressed_chunk_direct_pointer_text",
+    "chunk_index": 1,
+    "offsets": [
+      22288
+    ],
+    "pointer_offsets": [
+      2752
+    ],
+    "encoded_size_with_terminator": 58
+  },
+  "codec_profile": "srwz-stream-greedy-v1",
+  "render": {
+    "profile": "stage-dialogue-standard-double-byte",
+    "width_class": "default_double_byte",
+    "line_count": 2
+  },
+  "writer": {
+    "kind": "stage_arena_pointer",
+    "require_equal_encoded_size": false,
+    "arena_alignment": 16,
+    "archive_offset_table": {
+      "member": "HEDBDY/HB.BIN",
+      "start": 30320,
+      "end_inclusive": 31143
+    }
+  },
+  "runtime_fixture": "setsuko-stage-001-opening-dialogue-canary"
+}

@@ -174,7 +174,9 @@ runtime fixture
 2. `menu/compdata`；
 3. `summary/mtv-pros`；
 4. `story/stage`；
-5. `font/vt1/main-24x24`。
+5. `font/vt1/main-24x24`；
+6. `map/mapname/fixed-records`；
+7. `image/kvm/*` 和 `image/jtim/*`。
 
 同一文本如果在多个渲染路径出现，应登记为多个 surface acceptance，不能因为
 在一个菜单中显示正常就推断其他路径同样安全。
@@ -334,6 +336,7 @@ unit tests
 | `archive_layout` | chunk、对齐、padding 和 offset 重读 |
 | `pointer_semantics` | 普通指针、HI/LO 和表项指向正确 owner |
 | `font_codebook_consistency` | 码位、glyph、字形和容量一致 |
+| `asset_roundtrip` | TIM2 像素、CLUT、header、padding 和容器重读一致 |
 | `slot_liveness` | 分配目标无现有引用或所有者冲突 |
 | `text_budget` | 字节、行数、框体和文本池不过载 |
 | `iso_layout` | 成员、顺序、LBA、UDF/ISO9660 和 DVD 判定 |
@@ -426,9 +429,10 @@ affected components/surfaces
 
 | 阶段 | 状态 | 已落地 | 尚缺 |
 | --- | --- | --- | --- |
-| E0 | golden 已固定，收尾中 | component/ISO/runtime/visual 哈希链和事故 gates | 按逻辑提交整理 |
-| E1 | 进行中 | SurfaceSpec、中文记录、codebook、`canary-menu`、reconciliation、旧 golden differential | 全量 extraction freshness、双向 reconciliation、统一 build/verify、自动 component manifest |
-| E2–E5 | 未开始 | 仅有可复用 clean-room 基础 | 按下述退出条件实施 |
+| E0 | 已完成 | component/ISO/runtime/visual 哈希链和事故 gates | 后续只允许显式更新 golden |
+| E1 | 已完成 | SurfaceSpec、中文记录、codebook、`canary-menu`、reconciliation 和固定 component/ISO lock | 后续统一 CLI 属于 E3 工程化 |
+| E2 | 已完成 | menu、MTV_PROS summary、STAGE growing dialogue 三类 writer/profile/fixture；三条独立 PCSX2 证据和完整组合 smoke | 扩大语料前进入 E3 |
+| E3–E5 | 未开始 | E2 可复用 clean-room 生产基础 | 按下述退出条件实施 |
 
 ### E0：冻结首个纵向切片
 
@@ -469,6 +473,15 @@ affected components/surfaces
 - 新路径生成与 E0 相同或经显式批准的新 golden。
 
 ### E2：三类 surface canary
+
+状态：已完成。`canary-summary` 使用固定 allocation 和 suffix 重编码；
+`canary-story` 在原条目 allocation 加相邻零 slack 中容纳增长文本，并对
+pointer 前像、重读、HB offset、归档对齐和非目标 chunk 自动门禁。三个隔离
+ISO 分别通过 PCSX2 运行与画面验证，`canary-complete` 组合 ISO 另通过菜单、
+摘要和剧情加载 smoke，详见
+`manifests/canary-complete-validation.json`。SLPS/COMPDATA pool writer
+也已完成普通 pointer、MIPS HI/LO、零池、对齐、溢出和重读单元门禁；当前菜单
+canary 仍刻意使用已验证的原位定长 allocation。
 
 目标：证明菜单、数据库/摘要和剧情三种数据/渲染路径。
 
@@ -563,16 +576,15 @@ affected components/surfaces
 
 ## 17. 当前优先队列
 
-1. E0：整理并固定当前可运行 canary 的 Git/manifest/evidence 边界；
-2. E1：实现全量 extraction freshness 与双向 reconciliation；
-3. E1：建立自动 component manifest 和统一 build/verify 入口；
-4. E2：依次完成 MTV_PROS 和 STAGE canary；
-5. E2/E3：扩展正式 codebook、全量字体 writer 和 offline oracle；
-6. E3 通过后再开始批量翻译。
+1. E3：把真实 SLPS/COMPDATA 池区、全量 STAGE arena 和通用 VT1 writer
+   接入批量 profile；
+2. E3：补全 offline render oracle、coverage ratchet 和 evidence freshness；
+3. E3：建立 clean-copy deterministic build 验收；
+4. E3 通过后再开始批量翻译。
 
-已完成的首批 E1 项：最小 SurfaceSpec、正式 `测/试` codebook 分配、
-`corpus/zh/menu.json`、`canary-menu` profile，以及让静态 writer/PINE 从同一
-选择集读取数据。新路径已重建出与 E0 相同的 SLPS、VT1 和预览 SHA-256。
+E0-E2 已完成：SurfaceSpec、正式 `测/试` codebook、三域 `corpus/zh`、
+四个隔离/组合 profile、自动 component manifest，以及菜单、摘要、剧情三条
+独立 PCSX2 fixture 均已落地。
 
 工程规划期间不把“文档数量”“脚本数量”或“单元测试数量”当作完成标准。每一阶段
 是否完成，只由该阶段声明的可重建产物、机器门禁和运行/视觉证据决定。

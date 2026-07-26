@@ -1,11 +1,12 @@
 # 语料与写回契约
 
-状态：已建立生产 profile reconciliation、语料导出、严格文本序列化和通用写回原语；MTV_PROS 定长文本
-writer、STAGE/MTV_PROS 原生重压缩与归档重建、MTV_PROS 的 SLPS offset
-写回已经通过真实样本 dry-run。VT1 第 2 段的两 glyph 替换、归档重建和
-SLPS offset 写回也已由静态 canary 完成；开场菜单已从正式
-SurfaceSpec、`corpus/zh` 和 codebook 驱动同一 writer。通用 SLPS/COMPDATA 文本池、
-STAGE 文本 arena 和通用 VT1 writer 仍需完成。
+状态：已建立生产 profile reconciliation、语料导出、严格文本序列化和通用
+写回原语；MTV_PROS 定长 writer、STAGE allocation/pointer writer、
+STAGE/MTV_PROS 原生 suffix 重编码与归档重建，以及 SLPS/HB offset 写回都已
+通过 E2 真实 canary。VT1 第 2 段的两 glyph 替换、归档重建和 SLPS offset
+写回也已完成运行验证。通用 SLPS/COMPDATA 文本池 writer 已实现普通指针、
+MIPS HI/LO、零池前像、对齐、边界和重读门禁；真实批量池区登记、全量 STAGE
+arena policy 和通用全量 VT1 writer 仍需在 E3 完成。
 
 ## 语料边界
 
@@ -59,6 +60,9 @@ todo -> draft -> reviewed -> final -> runtime_verified
 
 `tools/srwz/writers.py` 在这些原语上实现：
 
+- `relocate_menu_texts_to_pool()`：把 SLPS/COMPDATA 语义记录写入已验证的
+  零填充池，并按原始前像回写所有普通 32-bit pointer 和 MIPS HI/LO；
+  inline `T` 记录、非零池、溢出、未配对 HI/LO 和重读不一致立即失败；
 - `build_summary_patch_plan()`：按 MTV_PROS 记录原有 `nul` 或 `end`
   终止方式生成定长覆盖，未知 ID 和溢出立即失败；
 - `rebuild_codec_archive()`：原生编码每个 decoded chunk、16 字节对齐，
@@ -83,28 +87,31 @@ python3 tools/validate_srwz_archive_rebuild.py --force
 
 greedy 编码器的真实结果：
 
-- STAGE：205/205 decoded 内容重建后完全一致；新归档 5,869,648 字节，
+- STAGE：205/205 decoded 内容重建后完全一致；新归档 4,358,368 字节，
   206 个 offset 全部 16 字节对齐；
 - STAGE offset 表为 824 字节，目标已确认是 `HEDBDY/HB.BIN + 0x7670`；
-  当前 `work/` 没有该成员，所以只验证了确定性表数据，没有修改 HB；
+  原表与固定布局一致，内存写回后 206 个 offset 重读完全一致；
 - MTV_PROS：14/14 decoded 内容一致；28 条 summary 记录全部经过定长
   identity plan，14/14 decoded chunk 保持字节相同；
-- 新 MTV_PROS 为 10,512 字节；15-entry SLPS 表包含 terminal size，
+- 新 MTV_PROS 为 9,648 字节；15-entry SLPS 表包含 terminal size，
   内存写回后重新读取的 offset 与重建结果完全一致。
 
 可提交聚合结果见 `manifests/archive-rebuild-validation.json`。
 
-## 正式 writer 仍需完成
+## E3 仍需完成
 
-1. SLPS 和 COMPDATA 文本池、普通指针及 MIPS HI/LO 写回。
-2. 所有剧情块的安全文本 arena、speaker 合并和指针重建。
-3. 抽取原版 `HEDBDY/HB.BIN` 后，对 STAGE offset 前像和重读进行验证。
+1. 为 SLPS 和解压后的 COMPDATA 登记经来源哈希绑定的真实池区，并把已完成的
+   普通指针/MIPS HI/LO writer 接入批量 production profile。
+2. 把已验证的单条 STAGE allocation/slack 策略扩展为所有剧情块的安全
+   arena、speaker 合并和指针重建。
+3. 把当前真实 `HEDBDY/HB.BIN` 的 STAGE offset 前像和重读门禁扩展到批量
+   profile。
 4. 将当前 VT1 第 2 段的 profile 驱动实现抽象为通用全量字库 writer。
 
-第 4 项已有最小生产输入证据：`build_static_canary.py` 保留其他 13 个 VT1 chunk
-的原始压缩字节，只重编码第 2 段并重读候选 SLPS offset。当前实现固定为两个
-glyph 的验证入口；译文、surface 和 assignment 已迁出 canary 配置，但尚未
-抽象成正式全量字库 writer。
+第 4 项已有最小生产输入和运行证据：`build_static_canary.py` 保留其他 13 个
+VT1 chunk 的原始压缩字节，只对第 2 段执行 header-preserving suffix 重编码并
+重读候选 SLPS offset。当前实现固定为两个 glyph 的验证入口；译文、surface
+和 assignment 已迁出 canary 配置，但尚未抽象成正式全量字库 writer。
 
 任何 writer 都不得复现上游的静默截断、未截断旧尾部或计算 offset 后不写回的
 行为。

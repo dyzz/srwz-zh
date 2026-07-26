@@ -2,14 +2,24 @@
 
 本仓库用于从日文原版开始建立《超级机器人大战 Z》的独立中文化工具链、译文、字体、补丁和验证记录。
 
-当前状态：clean-room 数据、字库、写回、ISO 和运行验证链已经打通；已登记
-本地日版 ISO 基线并生成可见的两字 canary 测试镜像，但尚未生成或发布正式
-游戏补丁。
+当前状态：clean-room 数据、字库、写回、ISO 和运行验证链已经打通；菜单、
+MTV_PROS 摘要和 STAGE 剧情三类中文 canary 已从正式
+surface/corpus/codebook/profile 生成，并分别通过静态、PCSX2 运行和画面验证。
+尚未生成或发布正式游戏补丁。
 
 已完成第一批基础设施迁移：可以从 ISO 只读提取指定成员、按固定 offset
 切分 `STAGE.BIN`，并使用严格的 clean-room 解码器解析菜单、数据库、剧情和摘要。
 当前 94,189 条文本可按结构逐条对照固定上游 XML，结果完全一致。可复用的上游
 Python 源码也已按固定提交保存在 `vendor/upstream-python/`。
+此外，首轮图片/遗漏文本扫描已严格识别 706 个 TIM2 记录、1,146 个 picture，
+并新增解析 `MAP/MAPNAME.BIN` 的 195 条固定 Shift-JIS 地图名。外部 TIM2
+writer 调查已确定没有候选同时满足当前许可证、原生 macOS CLI 和真实 4-bpp
+CLUT fixture。当前已实现严格原位、保留既有 CLUT 的 4-bpp 注入器，以及
+固定 VT1 标题记录的 8-bpp index writer。真实 `KVMDATA` chunk 5 no-op
+已证明整个 3,335,408-byte 归档 byte-identical；VT1 标题 canary 已完成
+重压缩、ISO 回包、PCSX2/PINE 截图和运行时纹理转储验证。坐标级 PSMT8
+写回现已把标题四项改为 `开始/读取/继续/资料库`；第一项和第四项选中态均已
+实机截图，PCSX2 转储纹理与离线构建预览逐像素一致。
 
 当前还完成了以下写回和构建基础：
 
@@ -24,10 +34,11 @@ Python 源码也已按固定提交保存在 `vendor/upstream-python/`。
   `测试`，并确定性生成 VT1 和 SLPS 副本。
 
 STAGE 205 块和 MTV_PROS 14 块也已完成内存归档重建与 decoded 往返；
-MTV_PROS 有定长文本 writer。当前已生成首个 UDF/ISO9660 canary 镜像并完成
-逐成员静态校验；PCSX2/PINE 已确认游戏内完整解压字库和开场文本内存均与
-构建预期一致，且没有 TLB miss。命令行运行已进入 `SELECT SCENARIO` 并保存
-`ゲーム测试をプレイします。` 的实际渲染截图，中文字可见且未挤压或截断。
+MTV_PROS 定长 writer、STAGE allocation/pointer writer 和保留原流前缀的
+suffix 重编码已经进入完整 canary 构建。四张 UDF/ISO9660 镜像均保持原盘
+3,758,358,528-byte 大小和原成员 LBA；PCSX2/PINE 已确认游戏内完整解压字库，
+三条独立 fixture 分别显示菜单 `测试`、世界史 `测试。` 和 Denzel 的两行增长
+文本，且日志均无 TLB miss。完整组合镜像还通过菜单、摘要和剧情加载 smoke。
 
 ## 工程边界
 
@@ -86,6 +97,7 @@ python3 tools/verify_codec_samples.py
 
 上游资源评估见 `docs/UPSTREAM_REUSE.md`，压缩格式研究边界见 `docs/SRWZ_COMPRESSION.md`。
 完整数据覆盖和上游对照见 `docs/SRWZ_DATA_PARSING.md`。
+图片资源、地图名和复杂字体边界见 `docs/ASSET_ANALYSIS.md`。
 
 ## 检查压缩流
 
@@ -154,6 +166,36 @@ PCSX2 已启用 PINE 且 canary 正在运行时，可复验游戏内完整字库
 ```bash
 python3 tools/verify_pcsx2_font_runtime.py --force
 ```
+
+生成 E2 三类 surface 的隔离组件和完整组合镜像：
+
+```bash
+python3 tools/build_complete_canary.py --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/canary-summary-build.json
+python3 tools/build_canary_iso.py \
+  --config config/iso/canary-story-build.json
+python3 tools/build_canary_iso.py \
+  --config config/iso/canary-complete-build.json
+```
+
+最终组合镜像位于
+`build/iso/canary-complete/srwz-canary-complete.iso`；三个独立运行
+fixture 和组合 smoke 的 byte-free 记录见
+`manifests/canary-complete-validation.json`。
+
+构建已经通过运行时验证的图片 canary：
+
+```bash
+python3 tools/build_tim2_runtime_canary.py --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/image-canary-build.json
+```
+
+输出位于
+`build/iso/canary-image-vt1-title/srwz-image-canary.iso`；组件、ISO、PCSX2
+截图和纹理直方图的 byte-free 验收记录见
+`manifests/image-canary-validation.json`。
 
 验证固定 armips 源码、两次干净构建、双版本 ASM 一致性和真实补丁差异：
 

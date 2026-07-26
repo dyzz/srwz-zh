@@ -28,6 +28,11 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument(
+        "--print-output-locks",
+        action="store_true",
+        help="Development-only: print computed locks without enforcing them.",
+    )
     return parser.parse_args()
 
 
@@ -44,15 +49,42 @@ def main() -> int:
         for name, path in config["outputs"].items()
     }
     existing = [path for path in outputs.values() if path.exists()]
-    if existing and not args.force:
+    if existing and not args.force and not args.print_output_locks:
         raise SystemExit(f"output exists; use --force: {existing[0]}")
     try:
         slps, vt1, preview, report = build_static_canary(
             PROJECT_ROOT,
             args.config,
+            enforce_expected_outputs=not args.print_output_locks,
         )
     except CanaryError as error:
         raise SystemExit(f"canary build failed: {error}") from error
+
+    if args.print_output_locks:
+        locks = {
+            "decoded_font_sha256": report["decoded_font"]["output_sha256"],
+            "encoded_font": {
+                "size": report["vt1_output"]["replaced_encoded_size"],
+                "sha256": report["vt1_output"][
+                    "replaced_encoded_sha256"
+                ],
+            },
+            "slps": {
+                "size": report["slps_output"]["size"],
+                "sha256": report["slps_output"]["sha256"],
+                "diff_count": report["slps_output"]["diff"]["diff_count"],
+                "offsets_sha256": report["slps_output"]["diff"][
+                    "offsets_sha256"
+                ],
+            },
+            "vt1": {
+                "size": report["vt1_output"]["size"],
+                "sha256": report["vt1_output"]["sha256"],
+            },
+            "preview": {"sha256": report["preview_sha256"]},
+        }
+        print(json.dumps(locks, indent=2))
+        return 0
 
     payloads = {
         "slps": slps,

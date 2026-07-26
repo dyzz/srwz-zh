@@ -65,10 +65,18 @@ class SurfaceSpec:
     entry_id: str
     source_member: str
     source_text_sha256: str
+    layout_kind: str
     offsets: tuple[int, ...]
     encoded_size_with_terminator: int
+    chunk_index: int | None
+    allocated_length: int | None
+    pointer_offsets: tuple[int, ...]
     writer_kind: str
     require_equal_encoded_size: bool
+    arena_alignment: int | None
+    offset_table_member: str | None
+    offset_table_start: int | None
+    offset_table_end: int | None
     codec_profile: str
     render_profile: str
     runtime_fixture: str
@@ -172,6 +180,18 @@ def _require_string_list(value: object, *, context: str) -> tuple[str, ...]:
     return result
 
 
+def _optional_nonnegative_int(
+    value: object,
+    *,
+    context: str,
+) -> int | None:
+    if value is None:
+        return None
+    if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+        raise ProjectConfigError(f"{context} must be a non-negative integer")
+    return value
+
+
 def _resolve_project_source(
     project_root: Path,
     raw: str,
@@ -257,6 +277,112 @@ def _load_surface(
     writer = document.get("writer")
     if not isinstance(writer, dict):
         raise ProjectConfigError(f"surface {surface_id} has no writer")
+    writer_kind = _require_string(
+        writer.get("kind"),
+        context=f"surface {surface_id} writer kind",
+    )
+    chunk_index = _optional_nonnegative_int(
+        layout.get("chunk_index"),
+        context=f"surface {surface_id} chunk index",
+    )
+    allocated_length = _optional_nonnegative_int(
+        layout.get("allocated_length"),
+        context=f"surface {surface_id} allocated length",
+    )
+    raw_pointer_offsets = layout.get("pointer_offsets", [])
+    if not isinstance(raw_pointer_offsets, list):
+        raise ProjectConfigError(
+            f"surface {surface_id} pointer offsets must be an array"
+        )
+    pointer_offsets = tuple(raw_pointer_offsets)
+    if any(
+        not isinstance(offset, int)
+        or isinstance(offset, bool)
+        or offset < 0
+        for offset in pointer_offsets
+    ):
+        raise ProjectConfigError(
+            f"surface {surface_id} has invalid pointer offsets"
+        )
+    if len(pointer_offsets) != len(set(pointer_offsets)):
+        raise ProjectConfigError(
+            f"surface {surface_id} pointer offsets contain duplicates"
+        )
+    arena_alignment = _optional_nonnegative_int(
+        writer.get("arena_alignment"),
+        context=f"surface {surface_id} arena alignment",
+    )
+    raw_offset_table = writer.get("archive_offset_table")
+    if raw_offset_table is None:
+        offset_table_member = None
+        offset_table_start = None
+        offset_table_end = None
+    elif isinstance(raw_offset_table, dict):
+        offset_table_member = _require_string(
+            raw_offset_table.get("member"),
+            context=f"surface {surface_id} offset table member",
+        )
+        offset_table_start = _optional_nonnegative_int(
+            raw_offset_table.get("start"),
+            context=f"surface {surface_id} offset table start",
+        )
+        offset_table_end = _optional_nonnegative_int(
+            raw_offset_table.get("end_inclusive"),
+            context=f"surface {surface_id} offset table end",
+        )
+        if (
+            offset_table_start is None
+            or offset_table_end is None
+            or offset_table_start >= offset_table_end
+        ):
+            raise ProjectConfigError(
+                f"surface {surface_id} offset table range is invalid"
+            )
+    else:
+        raise ProjectConfigError(
+            f"surface {surface_id} archive offset table is invalid"
+        )
+    if writer_kind == "fixed_preimage":
+        if (
+            chunk_index is not None
+            or allocated_length is not None
+            or pointer_offsets
+            or arena_alignment is not None
+            or offset_table_member is not None
+        ):
+            raise ProjectConfigError(
+                f"surface {surface_id} fixed writer has archive-only fields"
+            )
+    elif writer_kind == "summary_fixed_allocation":
+        if (
+            chunk_index is None
+            or len(offsets) != 1
+            or allocated_length != encoded_size
+            or pointer_offsets
+            or arena_alignment is not None
+            or offset_table_member != "SLPS_258.87"
+        ):
+            raise ProjectConfigError(
+                f"surface {surface_id} summary writer contract is invalid"
+            )
+    elif writer_kind == "stage_arena_pointer":
+        if (
+            chunk_index is None
+            or len(offsets) != 1
+            or allocated_length is not None
+            or len(pointer_offsets) != 1
+            or arena_alignment is None
+            or arena_alignment <= 0
+            or arena_alignment & (arena_alignment - 1)
+            or offset_table_member != "HEDBDY/HB.BIN"
+        ):
+            raise ProjectConfigError(
+                f"surface {surface_id} stage writer contract is invalid"
+            )
+    else:
+        raise ProjectConfigError(
+            f"surface {surface_id} has unsupported writer {writer_kind!r}"
+        )
     render = document.get("render")
     if not isinstance(render, dict):
         raise ProjectConfigError(f"surface {surface_id} has no render profile")
@@ -274,15 +400,23 @@ def _load_surface(
             record.get("source_text_sha256"),
             context=f"surface {surface_id} source text hash",
         ),
+        layout_kind=_require_string(
+            layout.get("kind"),
+            context=f"surface {surface_id} layout kind",
+        ),
         offsets=offsets,
         encoded_size_with_terminator=encoded_size,
-        writer_kind=_require_string(
-            writer.get("kind"),
-            context=f"surface {surface_id} writer kind",
-        ),
+        chunk_index=chunk_index,
+        allocated_length=allocated_length,
+        pointer_offsets=pointer_offsets,
+        writer_kind=writer_kind,
         require_equal_encoded_size=(
             writer.get("require_equal_encoded_size") is True
         ),
+        arena_alignment=arena_alignment,
+        offset_table_member=offset_table_member,
+        offset_table_start=offset_table_start,
+        offset_table_end=offset_table_end,
         codec_profile=_require_string(
             document.get("codec_profile"),
             context=f"surface {surface_id} codec profile",

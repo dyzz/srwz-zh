@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "surface_id": "summary/00/000",
+  "source_member": "DATA/MTV_PROS.BIN",
+  "record": {
+    "entry_id": "summary/00/000",
+    "source_text_sha256": "9653ce5534a52ba22758f6148570dcab1c1519d38ff21a555dc1c913b26169d5"
+  },
+  "layout": {
+    "kind": "compressed_chunk_fixed_allocation",
+    "chunk_index": 0,
+    "offsets": [
+      198
+    ],
+    "allocated_length": 1489,
+    "encoded_size_with_terminator": 1489
+  },
+  "codec_profile": "srwz-stream-greedy-v1",
+  "render": {
+    "profile": "library-world-history-summary",
+    "width_class": "default_double_byte",
+    "line_count": 39
+  },
+  "writer": {
+    "kind": "summary_fixed_allocation",
+    "require_equal_encoded_size": false,
+    "archive_offset_table": {
+      "member": "SLPS_258.87",
+      "start": 3324576,
+      "end_inclusive": 3324635
+    }
+  },
+  "runtime_fixture": "library-world-history-summary-canary"
+}

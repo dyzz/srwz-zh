@@ -185,9 +185,10 @@ PCSX2/PINE 已确认游戏内完整 1,290,240-byte 解压字库和开场文本�
 3. 已对 232 条真实流做内存重编码验证；STAGE/MTV_PROS 已进一步完成归档级
    offset、alignment 和逐块回解验证。新编码的 539,875 个 block 没有零
    literal 或非最终零 match block。
-4. 下一步为 STAGE 文本 arena、SLPS/COMPDATA 文本池、HB offset 前像及
-   VT1 第 2 段替换实现专用 writer。
-5. writer 只输出 `work/` 下的独立成员或归档，不写 ISO。
+4. E2 已实现 STAGE allocation/arena、SLPS/COMPDATA 文本池、HB offset
+   前像和 VT1 第 2 段 writer；文本池普通 pointer 与 MIPS HI/LO 已有合成门禁。
+5. E3 将登记真实批量池区并扩展全量 STAGE/VT1 policy；writer 仍只返回独立
+   component bytes 和 metadata，由 ISO 层负责最终组装。
 
 ### P3：ISO 重建与运行验证（打包链和游戏内解压验证已完成）
 

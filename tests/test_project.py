@@ -25,6 +25,7 @@ class ProjectProfileTests(unittest.TestCase):
                     "source_text_sha256": source_hash,
                 },
                 "layout": {
+                    "kind": "embedded_fixed_text",
                     "offsets": [16],
                     "encoded_size_with_terminator": 3,
                 },

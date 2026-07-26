@@ -2,7 +2,8 @@
 
 状态：`mkps2iso v1.1.1` 构建和 PCSX2 v2.6.3/PINE 游戏内字库解压验证已
 完成。镜像不触发 TLB miss，完整运行时字库和开场文本与构建预期一致；
-`SELECT SCENARIO` 的中文字已完成实际渲染截图。
+`SELECT SCENARIO` 的中文字已完成实际渲染截图；E2 摘要、剧情和完整组合镜像
+的证据见 `manifests/canary-complete-validation.json`。
 
 ## 镜像位置
 
@@ -14,9 +15,9 @@ canary：build/iso/canary-menu/srwz-canary.iso
 当前 canary：
 
 ```text
-size     3,758,456,832 bytes
-sectors  1,835,184
-SHA-256  7b1817421d408e39117cd1c335bf79a4872cfc51f2599fd53a995928b130844d
+size     3,758,358,528 bytes
+sectors  1,835,136
+SHA-256  f21c67c77442ed5c5cf9b150a3f09afd2bab25f015db72d764fe37c727a13795
 ```
 
 它包含与原盘相同的 66 个普通文件：
@@ -28,9 +29,7 @@ SHA-256  7b1817421d408e39117cd1c335bf79a4872cfc51f2599fd53a995928b130844d
 - `SYSTEM.CNF` byte-exact；
 - ISO9660 和 UDF 两套目录均为 `NSR02`，独立 UDF 读取的四个关键成员哈希
   正确；
-- 文件顺序不变，`DATA/VT1.BIN` 及之前的文件保留原 LBA；
-- 扩大的 VT1 占用多 50 sectors，从 `DATA/STAGE.BIN` 起的 5 个成员统一
-  后移 50 sectors；
+- 文件顺序和全部成员 LBA 不变；扩大的 VT1 仍落在原 sector allocation；
 - 原盘的主要 gap 和末尾 10,240-sector dummy 得到保留。
 
 ## 构建工具
@@ -104,7 +103,7 @@ build/iso/canary-menu/iso-validation.json
 使用本机 PCSX2 v2.6.3：
 
 ```text
--portable -nogui -fastboot -nofullscreen
+-nogui -fastboot -nofullscreen
 ```
 
 原文件 `mkps2iso` 往返对照运行 13 秒：
@@ -114,7 +113,7 @@ build/iso/canary-menu/iso-validation.json
 - IOP 模块和 NTSC 帧循环正常；
 - 无 TLB miss、无新 crash report。
 
-当前开场可见 canary 运行 256 秒：
+当前菜单隔离 canary：
 
 - `Image type = DVD`；
 - ELF CRC `9F0B1015`，entry `0x00100008`；
@@ -138,28 +137,34 @@ PINE 进一步读取了游戏实际使用的解压目标：
 命令行键盘映射进入 Start 后的 `SELECT SCENARIO` 并由 PCSX2 自身保存截图：
 
 ```text
-work/runtime/canary-menu/screenshots/opening-select-scenario-canary.png
+work/runtime/canary-menu-current/screenshots/menu-surface.png
+```
+
+需要复现无界面按键序列时，可向已经启动的 PCSX2 PID 发送 macOS virtual
+keycode；该 helper 不启动模拟器、不读取画面，也不使用 Computer Use：
+
+```bash
+swift tools/send_pcsx2_keys.swift <PCSX2_PID> 500 <KEYCODE> [KEYCODE ...]
 ```
 
 截图为 1280×960，SHA-256
-`d2f02c7d83a0f79f0550e657b77ecba07983d9252430c27e0fd7f512589432e2`。
+`ce6fc5caf5d4f67ff06b616a52928ea69f427ff875d4b46e4abac38b19e1258c`。
 `测试` 两字完整可见、基线一致，没有挤压、重叠或截断。
 
 运行日志：
 
 ```text
-work/runtime/canary-menu/logs/pcsx2-original-control.log
-work/runtime/canary-menu/logs/pcsx2-mkps2iso-roundtrip-control.log
-work/runtime/canary-menu/logs/pcsx2-visible-opening-canary.log
-work/runtime/canary-menu/pine/font-runtime-validation.json
+work/runtime/canary-menu-current/logs/emulog.txt
+work/runtime/canary-menu-current/pine/font-runtime.json
 ```
 
 旧 canary 的 TLB 原因已经修正：旧 greedy 为每个 match 生成独立块，其中
 139,993 个块的 literal count 为 0。游戏在 `0x001C6DE8` 使用 post-tested
 copy loop，0 会先减成 `0xFFFFFFFF` 再继续复制。先前“仅因 980,561-byte
 输入跨过 32 MiB”的推断已被运行时存档、反汇编和块统计取代。新版编码器把
-一个非空 literal 后的连续 match 合并，新字库流为 702,899 字节且没有零
-literal block。
+一个非空 literal 后的连续 match 合并；当前 production writer 又进一步使用
+header-preserving suffix 重编码，新字库流为 599,742 字节且没有零 literal
+block。
 
 当前 runtime 结论为：
 
@@ -170,7 +175,8 @@ DVD 识别 + ELF/IOP/视频初始化 + 完整字库哈希一致
 
 尚未证明：
 
-- 存档、战斗和长时间流程正常。
+- 存档和全路线长时间流程正常；剧情隔离 fixture 已进入战斗地图，但不等于
+  完整战斗回归。
 
 PINE 复验（需先按上述参数启动当前 canary）：
 
@@ -200,7 +206,7 @@ PCSX2 必须使用从自己合法持有的 PS2 主机导出的 BIOS。官方步�
 将以下目录加入 Game List：
 
 ```text
-/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/canary-menu
+build/iso/canary-menu
 ```
 
 启动 `srwz-canary.iso`，不要再使用旧的 `srwz-canary-mkps2iso.iso` 或

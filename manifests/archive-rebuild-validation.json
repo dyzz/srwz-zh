@@ -6,6 +6,7 @@
   "runtime_acceptance": "not tested",
   "sources": {
     "SLPS_258.87": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+    "HEDBDY/HB.BIN": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21",
     "DATA/STAGE.BIN": "9c56d42f96df7b409ccf468b24412322ed627b9cbbd656864818a404d89240dc",
     "DATA/MTV_PROS.BIN": "47999cb2994d9775a68ecca49ebe3e5f73c0118b92168a6ba577f836886e1b5a"
   },
@@ -20,9 +21,12 @@
     "offset_count": 206,
     "offsets_aligned_16": true,
     "stage_offset_table_size": 824,
-    "stage_offset_table_sha256": "9291f0deca0398a1ce77bdbb05fe4f04ae085b80c915ff3ee214f1485bb9e056",
+    "stage_offset_table_sha256": "3779002345ebbe82bc476ee04a5b5545b8f4935b8fa1d69abaaa646a860a62c1",
     "stage_offset_target": "HEDBDY/HB.BIN + 0x7670",
-    "stage_offset_source_available": false
+    "stage_offset_source_available": true,
+    "hb_offset_patch_size": 824,
+    "hb_offset_reread_exact": true,
+    "patched_hb_sha256": "49e9a01e4278e486a99ff644c8af6b381c40fd5cedad9bedd0336aec32563823"
   },
   "mtv_pros": {
     "source_size": 9056,

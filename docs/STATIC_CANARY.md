@@ -124,27 +124,28 @@ python3 tools/build_static_canary.py --force
 输出全部位于 `work/build/canary-menu/components/`：
 
 - `SLPS_258.87`：原尺寸，SHA-256
-  `69356a20d643ccfd63f22fa21b6254ec98cf9c9abd2a91d8ef1f82a27ce5c51b`；
-- `DATA/VT1.BIN`：127,604,304 字节，SHA-256
-  `8828340ba848e4162252886562a3c58e6eabdd7bc2920f6cc7ae6b7fad8b721c`；
+  `a78158abde3b5a6e4ec1861f23690d59da48afaca37d2836811b5b16ae0dbdfe`；
+- `DATA/VT1.BIN`：127,501,136 字节，SHA-256
+  `49b01d15102bf8544acca1aa7164523a02cf5b29dbc7c6dcf97d0ca7e2bf73fa`；
 - `canary-glyphs.png`：两个量化后 glyph 的预览；
 - `canary-validation.json`：完整的 byte-free 验证报告。
 
-SLPS 只有 40 个实际差异字节：开场句中的 4 个文本字节和因 VT1 第 2 段
-变大而更新的 36 个 offset 表字节；五个原版指令窗口均不变。
+SLPS 只有 28 个实际差异字节：开场句中的 4 个文本字节和因 VT1 第 2 段
+增长而更新的 offset 表字节；五个原版指令窗口均不变。
 
-VT1 第 2 段的 clean-room greedy 编码结果为 702,899 字节，导致整个 VT1
-增长 103,568 字节。其余 13 个 chunk 的压缩字节完全不变，新 offset 全部
-16 字节对齐并能从候选 SLPS 精确重读。ISO 构建后的后续成员统一移动 50
-sectors；PCSX2/PINE 的完整目标缓冲区哈希证明该流已被游戏解压器接受。
+VT1 第 2 段现在使用 header-preserving suffix 重编码：变更前的完整压缩块
+逐字节保留，只从首个受影响 block 重新编码。结果为 599,742 字节，整个 VT1
+只增长 400 字节，仍落在原成员 sector allocation 内。其余 13 个 chunk 完全
+不变，新 offset 全部 16 字节对齐并能从候选 SLPS 精确重读；ISO 后续成员无需
+移动。PCSX2/PINE 的完整目标缓冲区哈希证明该流已被游戏解压器接受。
 
 可提交摘要见 `manifests/static-canary-validation.json` 和
 `manifests/canary-iso-validation.json`。
 
 ## 开场可见性验证
 
-2026-07-25 使用 PCSX2 v2.6.3，以
-`-portable -nogui -fastboot -nofullscreen` 启动当前 ISO，并通过命令行
+2026-07-26 使用 PCSX2 v2.6.3，以
+`-nogui -fastboot -nofullscreen` 启动当前 ISO，并通过命令行
 键盘映射进入 Start 后的 `SELECT SCENARIO`。上项说明实际显示为：
 
 ```text
@@ -154,10 +155,10 @@ sectors；PCSX2/PINE 的完整目标缓冲区哈希证明该流已被游戏解�
 验证材料：
 
 - 截图：
-  `work/runtime/canary-menu/screenshots/opening-select-scenario-canary.png`，
+  `work/runtime/canary-menu-current/screenshots/menu-surface.png`，
   1280×960，
   SHA-256
-  `d2f02c7d83a0f79f0550e657b77ecba07983d9252430c27e0fd7f512589432e2`；
+  `ce6fc5caf5d4f67ff06b616a52928ea69f427ff875d4b46e4abac38b19e1258c`；
 - PINE：`0x0043A2EA` 的 27 字节字符串 SHA-256 为
   `d672e7dab676be4a323ae16efe42e313966e61b6cb7889bc9070ff5d14880743`，
   与构建预期完全一致；

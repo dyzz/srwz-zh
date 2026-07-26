@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "content_policy": "Hashes, sizes, counts and workspace evidence paths only; no game bytes, pixels or texture payloads are committed.",
+  "profile_id": "canary-image-vt1-title",
+  "source_ownership": {
+    "runtime_texture": {
+      "workspace_path": "work/runtime/texture-source-discovery/title-menu-texture.png",
+      "width": 512,
+      "height": 256,
+      "sha256": "8e354b9d9c5d4d325cb1368f736a8dd6fa1f1f61558290fbbfaccc63a7a62315"
+    },
+    "source_member": "DATA/VT1.BIN",
+    "chunk_index": 6,
+    "record_index": 1,
+    "picture_index": 0,
+    "source_index": 63,
+    "source_index_runtime_rgba": "FFFF1F80",
+    "source_index_occurrence_count": 351,
+    "replacement_index": 97,
+    "replacement_index_runtime_rgba": "64646480",
+    "histogram_count_mapping_exact": true,
+    "evidence": "The runtime texture and stored picture have identical per-index pixel counts after accounting for the four fully transparent source indexes."
+  },
+  "component_build": {
+    "config": {
+      "path": "config/canary/tim2-vt1-title-index.json",
+      "sha256": "9b62ecfe3e2e9838587332f22767728e5846385c24af9d04641519193aa46920"
+    },
+    "report": {
+      "workspace_path": "work/build/canary-image-vt1-title/component-validation.json",
+      "sha256": "69f5cdb763422b258627b6b55e912b8d6cb71a6b9ea39aa598c4f47f64c276d1"
+    },
+    "executable": {
+      "member": "SLPS_258.87",
+      "size": 3471624,
+      "sha256": "cc6b8012111e81a8940b49d0b7718bb906d4d95965264292437aa04a8d196c7f",
+      "only_vt1_offset_table_changed": true
+    },
+    "archive": {
+      "member": "DATA/VT1.BIN",
+      "size": 127577904,
+      "sha256": "3eaecfea93e9c177c4a4ff34850f682af8fd04ebe6c8597a912ba7ab095b7b7e",
+      "unchanged_chunk_count": 13,
+      "target_decoded_round_trip_exact": true
+    },
+    "injection": {
+      "changed_index_byte_count": 351,
+      "changed_pixel_count": 351,
+      "tim2_container_size_preserved": true,
+      "tim2_metadata_preserved": true,
+      "clut_preserved": true,
+      "non_target_decoded_bytes_exact": true
+    },
+    "codec": {
+      "strategy": "greedy",
+      "encoded_size": 545487,
+      "encoded_sha256": "25a73832d1b5cb16da31d8ed022c9d12cd52f84da4b656326f9cf51a1c15c490",
+      "decoded_round_trip_exact": true
+    }
+  },
+  "iso_build": {
+    "config": {
+      "path": "config/iso/image-canary-build.json",
+      "sha256": "617b6937f5c77ada129c0b0eb6344088722ca9b8db03a3e938f63a77288a63bc"
+    },
+    "report": {
+      "path": "build/iso/canary-image-vt1-title/iso-validation.json",
+      "sha256": "8fce1ca2e59218c62b5ede2b5a6660e64461217b96597cfad858c13b3cc590a6"
+    },
+    "iso": {
+      "path": "build/iso/canary-image-vt1-title/srwz-image-canary.iso",
+      "size": 3758424064,
+      "sha256": "3214488e0dd08184db8f05cd2e8b698c772768936e24cbbe56013635bf786d5a"
+    },
+    "member_count": 66,
+    "unchanged_member_count": 64,
+    "member_manifest_sha256": "933487a508ab4ffabed7cab3cb521ee502a6bfc9dc03ce505e1615ea924a60ac",
+    "iso9660_member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "udf_volume_recognition_sequence": "NSR02",
+    "pcsx2_media_type": "DVD",
+    "byte_reproducible": true
+  },
+  "runtime": {
+    "emulator": {
+      "name": "PCSX2",
+      "version": "2.6.3",
+      "architecture": "x86_64",
+      "mode": "nogui fastboot nofullscreen"
+    },
+    "transport": {
+      "protocol": "PINE IPC",
+      "game_title": "Super Robot Taisen Z",
+      "game_id": "SLPS-25887",
+      "status": 0
+    },
+    "disc": {
+      "image_type": "DVD",
+      "game_crc": "32181D5B",
+      "tlb_miss_count": 0
+    },
+    "visual_run": {
+      "log": {
+        "workspace_path": "work/runtime/canary-image-vt1-title/logs/pcsx2-image-canary.log",
+        "sha256": "c25f2230a9fe81000803843f2039c8a110363ead8396994de546e5f2ed48d4f9"
+      },
+      "screenshot": {
+        "workspace_path": "work/runtime/canary-image-vt1-title/screenshots/title-index-canary.png",
+        "width": 1280,
+        "height": 960,
+        "sha256": "4f0fa9f7a79bcff04d513d36dbdccf39f17b0a3b778c4cec0742b26fd386deb8"
+      },
+      "comparison": {
+        "workspace_path": "work/runtime/canary-image-vt1-title/screenshots/title-menu-comparison.png",
+        "width": 840,
+        "height": 220,
+        "sha256": "c0c40ab7b82d9dd783f29e9bd661119ec211752f6b291a737a5b8b0731542280",
+        "expected_start_fill_changed": true,
+        "menu_layout_intact": true
+      }
+    },
+    "texture_dump_run": {
+      "log": {
+        "workspace_path": "work/runtime/canary-image-vt1-title/logs/pcsx2-texture-dump.log",
+        "sha256": "5706fa7fc1b0fe2c42de45413bcc526d3ce73b79c677a6eeec9ce1212c09b2c4"
+      },
+      "canary_texture": {
+        "workspace_path": "work/runtime/canary-image-vt1-title/title-menu-texture-canary.png",
+        "width": 512,
+        "height": 256,
+        "sha256": "438839370bb516d1e44428afe91abba35f23659c8b562326466b37bc2dc34a6f"
+      },
+      "changed_pixel_count": 351,
+      "changed_channel_byte_count": 1053,
+      "unexpected_substitution_count": 0,
+      "original_color_counts": {
+        "FFFF1F80": 351,
+        "64646480": 4022,
+        "00000000": 87096
+      },
+      "canary_color_counts": {
+        "FFFF1F80": 0,
+        "64646480": 4373,
+        "00000000": 87096
+      },
+      "expected_rgba_substitution_exact": true
+    },
+    "input_method": "Process-targeted CoreGraphics key events; no Computer Use.",
+    "external_state_restore": {
+      "pcsx2_config_restored_byte_identical": true,
+      "sha256": "25598a063e962638c92b2e8514b2a0c7e5952973de694f3d005b67d998526a35"
+    }
+  },
+  "runtime_acceptance": "passed"
+}

@@ -1,6 +1,7 @@
 {
   "schema_version": 2,
   "profile_id": "canary-menu",
+  "runtime_evidence_manifest": "manifests/canary-iso-validation.json",
   "source_iso": {
     "path": "rom/srwz.iso",
     "size": 3758358528,
@@ -39,7 +40,7 @@
   "layout": {
     "volume_id": "SRWZ_CANARY",
     "first_shifted_member": "DATA/STAGE.BIN",
-    "expected_shift_sectors": 50,
+    "expected_shift_sectors": 0,
     "preserve_original_gaps": true,
     "trailing_dummy_sectors": 10240
   },
@@ -48,25 +49,25 @@
       "member": "SLPS_258.87",
       "source": "work/build/canary-menu/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "69356a20d643ccfd63f22fa21b6254ec98cf9c9abd2a91d8ef1f82a27ce5c51b"
+      "sha256": "a78158abde3b5a6e4ec1861f23690d59da48afaca37d2836811b5b16ae0dbdfe"
     },
     {
       "member": "DATA/VT1.BIN",
       "source": "work/build/canary-menu/components/DATA/VT1.BIN",
-      "size": 127604304,
-      "sha256": "8828340ba848e4162252886562a3c58e6eabdd7bc2920f6cc7ae6b7fad8b721c"
+      "size": 127501136,
+      "sha256": "49b01d15102bf8544acca1aa7164523a02cf5b29dbc7c6dcf97d0ca7e2bf73fa"
     }
   ],
   "output": {
     "path": "build/iso/canary-menu/srwz-canary.iso",
     "report": "build/iso/canary-menu/iso-validation.json",
-    "expected_size": 3758456832,
-    "expected_sha256": "7b1817421d408e39117cd1c335bf79a4872cfc51f2599fd53a995928b130844d",
-    "expected_member_manifest_sha256": "7a790983d355286a8bef38c94e7100e058dfa387112c749acb671d8a2f3558ab",
     "expected_root_directory_size": 960,
     "expected_pcsx2_v263_image_type": "DVD",
     "expected_udf_volume_recognition_sequence": "NSR02",
-    "byte_reproducible": true
+    "byte_reproducible": true,
+    "expected_size": 3758358528,
+    "expected_sha256": "f21c67c77442ed5c5cf9b150a3f09afd2bab25f015db72d764fe37c727a13795",
+    "expected_member_manifest_sha256": "e691b6af6ddfb1c2b75a301b82c51908915527aad569885ad642b52076eec59c"
   },
   "acceptance": {
     "member_paths_exact": true,

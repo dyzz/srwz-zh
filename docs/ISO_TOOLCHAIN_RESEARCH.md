@@ -93,11 +93,11 @@ license     GPL-2.0-only
 
 canary 构建：
 
-- 输出尺寸 `3,758,456,832` bytes，`1,835,184` sectors；
+- 输出尺寸 `3,758,358,528` bytes，`1,835,136` sectors；
 - 根目录长度 960，PCSX2 判定 DVD；
 - 66 个成员路径、顺序完全一致；
-- `SLPS_258.87` 和扩大的 `DATA/VT1.BIN` 保持原 LBA；
-- 从 `DATA/STAGE.BIN` 起的 5 个成员统一后移 50 sectors；
+- 所有 66 个成员保持原 LBA；扩大的 `DATA/VT1.BIN` 仍落在原 sector
+  allocation；
 - 64 个未替换成员 byte-exact；
 - ISO9660 读取和独立 7-Zip UDF 读取的关键成员哈希一致；
 - PCSX2 载入开场可见 canary ELF `CRC 9F0B1015`、完成 IOP 模块加载并进入
@@ -110,7 +110,8 @@ canary 构建：
 故障存档、反汇编游戏 core 和统计旧流后确认：旧流有 139,993 个零 literal
 block，而游戏 literal copy 是 post-tested loop；计数 0 会下溢。先前
 “较大的 980,561-byte 输入自然跨过 EE RAM 边界”的解释已被此直接证据取代。
-新版 702,899-byte 字库流没有零 literal block，并取得游戏内完整输出哈希。
+当前 599,742-byte suffix 重编码字库流没有零 literal block，并取得游戏内
+完整输出哈希。
 
 这些结果说明 ISO 回包链、当前压缩流和开场菜单中文字均已通过对应的运行
 验证；战斗、存档和长时间流程仍未覆盖。

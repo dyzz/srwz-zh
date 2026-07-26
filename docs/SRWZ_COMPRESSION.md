@@ -3,7 +3,8 @@
 状态：中文仓库已经实现严格的 clean-room **编解码器**和只读诊断工具，并用
 原版 `STAGE.BIN` 的全部 205 个 chunk，以及 `COMPDATA.BN`、`MTV_PROS.BIN`
 和 VT1 的可解码流完成验证。归档重建、PS2 DVD 回包和 canary 字库的游戏内
-解压也已验证；完整菜单流程仍需人工验收。
+解压也已验证；菜单、MTV_PROS 摘要和 STAGE 剧情三类 canary 均已完成
+PCSX2 运行与画面验收。
 
 ## 证据等级
 
@@ -204,6 +205,12 @@ slice 边界；不能外推为所有 SRWZ 归档的通用 padding 规范。
   默认最短 match 为 3、每个 key 最多检查 64 个历史候选，并把一个非空
   literal run 后连续出现的 match 合并到同一 block。
 
+production writer 还可调用 `reencode_changed_suffix()`。它解析并逐字节保留
+首个修改位置之前的原版 header 和完整 block，只对受影响 suffix 使用同一
+确定性编码规则；decoded size 改变时只重写 header 中声明大小的 coded
+integer。调用方仍必须执行完整 decode round-trip、archive alignment 和
+offset 重读，不能把前缀保留当作正确性捷径。
+
 `SRWZ.dll` 是 10,240 字节的 .NET 8 程序集
 （SHA-256 `79567ccced11b2478d8ea195f9492114482a9b15c256bef72d818649d2f0277d`）。
 静态 CIL 显示其 `Compress` 方法同样先累积 literal entry，再收集随后连续的
@@ -268,7 +275,8 @@ VT1 的 12 个测试项包含 8 个完整流和 4 个“流前缀 + 非零外层
 
 ### 游戏内解压验证
 
-新 canary 字库压缩流为 702,899 字节。使用命令行 PCSX2/PINE 运行重建 ISO 后：
+当前 canary 字库的 suffix 重编码压缩流为 599,742 字节。使用命令行
+PCSX2/PINE 运行重建 ISO 后：
 
 - 游戏 ID 为 `SLPS-25887`，PINE 前后状态均为 Running；
 - 游戏字库目标指针 `0x0046E3A8` 的值为 `0x009AE610`；
@@ -276,7 +284,8 @@ VT1 的 12 个测试项包含 8 个完整流和 4 个“流前缀 + 非零外层
 - 通过 PINE 读取完整目标缓冲区所得 SHA-256 为
   `cc44fa82d1581c3eb1c5852d017efbcbe8e454d4cbd9f374688c408fb236a119`，
   与构建前修改字库完全一致；
-- 29 秒日志没有 TLB miss，PCSX2 正常退出。
+- 菜单、摘要和剧情三条独立 fixture 以及完整组合 smoke 的日志均没有
+  TLB miss，PCSX2 均由命令行正常停止。
 
 可复验命令（PCSX2 已启用 PINE 且 canary 正在运行时）：
 
@@ -284,8 +293,10 @@ VT1 的 12 个测试项包含 8 个完整流和 4 个“流前缀 + 非零外层
 python3 tools/verify_pcsx2_font_runtime.py --force
 ```
 
-该验证证明当前 canary 流已由游戏自己的 R5900 解压器完整接受，不只是被
-clean-room Python 解码器接受。
+该验证证明当前字体 canary 流已由游戏自己的 R5900 解压器完整接受，不只是被
+clean-room Python 解码器接受。MTV_PROS 与 STAGE 修改流还分别取得目标文本
+画面证据，详见 `manifests/canary-summary-validation.json` 和
+`manifests/canary-story-validation.json`。
 
 ## 仍未知或未验证
 

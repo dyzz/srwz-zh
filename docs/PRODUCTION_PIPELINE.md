@@ -189,14 +189,15 @@ python3 -m unittest discover -s tests -p 'test_*.py'
 
 ## 6. 当前边界
 
-本次只把已验证的 SLPS 开场定长菜单接入生产输入层。尚未完成：
+E2 已把 SLPS 菜单、MTV_PROS 摘要和 STAGE 剧情接入正式
+SurfaceSpec/corpus/codebook/profile，并生成隔离 component manifest 和
+PCSX2 fixture。`canary-complete` 只组合这三个已登记 surface，不代表数据库、
+剧情或全游戏已经可批量写回。
 
-- 全量 extraction freshness 自动生成；
-- 多域中文语料双向 reconciliation；
-- 通用 SLPS/COMPDATA pool writer；
-- MTV_PROS 和 STAGE 的正式中文 writer/profile；
-- 自动生成并签名所有 component manifest 的统一 build/verify 入口；
-- 新 profile 对应的 PCSX2 fixture 编排。
+`relocate_menu_texts_to_pool()` 已提供通用 SLPS/COMPDATA 普通 pointer 与
+MIPS HI/LO 写回门禁，但尚未为真实文件登记可批量使用的池区。E3 还需完成：
 
-因此 `canary-menu` 证明的是生产输入链和既有两字 writer 可以组合，不代表
-数据库、剧情或全游戏已经可批量写回。
+- 全量 extraction freshness 与双向 reconciliation 的规模化运行；
+- 真实 SLPS/COMPDATA 池区及批量 profile；
+- 全量 STAGE arena policy 和通用 VT1 writer；
+- offline render oracle、coverage ratchet 和 clean-copy deterministic build。

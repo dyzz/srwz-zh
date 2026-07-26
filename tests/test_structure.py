@@ -10,6 +10,8 @@ ALLOWED_IMPORT_ROOTS = {
     "argparse",
     "binascii",
     "collections",
+    "concurrent",
+    "csv",
     "dataclasses",
     "hashlib",
     "json",
