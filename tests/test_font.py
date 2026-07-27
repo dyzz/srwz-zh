@@ -16,6 +16,7 @@ from tools.srwz.font import (
     extended_glyph_mapping,
     glyph_index_for_code,
     inventory_codebook,
+    is_cjk_unified_ideograph,
     read_extended_glyph_table,
     render_glyph_grid,
     replace_glyph,
@@ -25,6 +26,14 @@ from tools.srwz.text import TextTable
 
 
 class FontAnalysisTests(unittest.TestCase):
+    def test_classifies_cjk_ideographs_without_absorbing_kana_or_symbols(self):
+        self.assertTrue(is_cjk_unified_ideograph("中"))
+        self.assertTrue(is_cjk_unified_ideograph("测"))
+        self.assertFalse(is_cjk_unified_ideograph("セ"))
+        self.assertFalse(is_cjk_unified_ideograph("“"))
+        with self.assertRaisesRegex(ValueError, "one character"):
+            is_cjk_unified_ideograph("中文")
+
     def test_decodes_compressed_font_without_absorbing_padding(self):
         # declared=3, flags=1, unknown=0, literal block, five zero pad bytes
         segment = b"\x07\x03\x01\x03\x01abc" + b"\x00" * 5
@@ -78,6 +87,7 @@ class FontAnalysisTests(unittest.TestCase):
     def test_standard_renderer_formula_covers_font_boundary(self):
         self.assertEqual(standard_glyph_index(0x8140), 0)
         self.assertEqual(standard_glyph_index(0x8240), 192)
+        self.assertEqual(standard_glyph_index(0x8540), 768)
         self.assertEqual(standard_glyph_index(0x8940), 1536)
         self.assertEqual(standard_glyph_index(0x987E), 4478)
         self.assertEqual(standard_glyph_index(0x987F), 4479)

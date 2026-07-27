@@ -1,8 +1,8 @@
 # 正式生产流水线
 
-状态：E1 最小纵向切片已实现。当前 `canary-menu` 已从正式
-`SurfaceSpec + corpus/zh + codebook + BuildProfile` 进入原有、已验证的
-canary writer；专用 canary 配置不再保存字形分配或 replacement text。
+状态：E1 最小纵向切片已实现。当前 `canary-menu` 通过
+`SurfaceSpec + corpus/fixtures + codebook + BuildProfile` 进入原有、已验证的
+canary writer；技术 fixture 与正式 `corpus/zh` 译文已经分离。
 
 本文规定当前可运行入口，也规定后续菜单、摘要和剧情 writer 必须接入的输入
 契约。字段设计的完整方向见 `ENGINEERING_PLAN.md`；本文只描述已经实现、可以
@@ -17,7 +17,7 @@ canary writer；专用 canary 配置不再保存字形分配或 replacement text
           BuildProfile 选择集
              /      |       \
             v       v        v
-     SurfaceSpec  corpus/zh  codebook
+     SurfaceSpec  corpus/zh 或 fixtures  codebook
             \       |        /
              v      v       v
        profile reconciliation
@@ -61,7 +61,9 @@ rasterizer、字库段和 golden 输出。生产语义来自下面四类文件�
 
 ### 2.2 中文语料
 
-当前实例：`corpus/zh/menu.json`
+正式翻译实例：`corpus/zh/summary.json`
+
+技术 canary 实例：`corpus/fixtures/menu-canary.json`
 
 每条记录只保存：
 
@@ -69,10 +71,12 @@ rasterizer、字库段和 golden 输出。生产语义来自下面四类文件�
 - `source_text_sha256`；
 - `translation`；
 - `editorial_status`；
+- `glossary_refs`（正式翻译批次必需）；
 - 可选 `notes`。
 
-`corpus/zh` 不重复提交日文正文。修改当前菜单译文的唯一生产入口是
-`translation`；修改专用 canary 配置不会改变译文。
+`corpus/zh` 不重复提交日文正文。技术 fixture 不计入翻译覆盖率，也不能作为
+术语或编辑质量的事实源。v1 的来源集合与日文聚合哈希由
+`corpus/releases/v1.json` 固定。
 
 当前 profile 支持：
 
@@ -171,6 +175,83 @@ python3 tools/verify_pcsx2_font_runtime.py --force
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
+### 4.1 节子路线前五关
+
+当前受限生产切片只选择 STAGE 001～005，不包含 006，也不把关卡标题菜单算进
+剧情正文范围。构建顺序如下：
+
+```bash
+python3 tools/review_srwz_translations.py
+python3 tools/reflow_first_five_dialogue.py --force
+python3 tools/audit_first_five_language_quality.py --force
+python3 tools/audit_first_five_upstream_english.py --force
+python3 tools/fetch_first_five_font.py
+python3 tools/audit_first_five_writeback.py --force
+python3 tools/build_first_five_font.py --force
+python3 tools/audit_first_five_font_coverage.py --force
+python3 tools/build_first_five_stage.py \
+  --force \
+  --stages 1-5 \
+  --strategy greedy \
+  --min-match-length 4 \
+  --max-match-chain 256 \
+  --lazy-matching
+python3 tools/build_canary_iso.py \
+  --config config/iso/first-five-build.json
+python3 tools/verify_first_five_iso_content.py --force
+```
+
+最终 ISO 位于 `build/iso/first-five/srwz-first-five.iso`。最后一条命令不读取
+组件目录中的 STAGE 数据，而是从最终 ISO 自身读取 SLPS、HB 和 STAGE，重新
+读取 206 项 offset、解压前五个块，并把 1,833 条正文、条件和说话人逐 ID
+比对中文语料。
+
+字体源由 `config/fonts/lxgw-neo-xihei-screen.lock.json` 固定到明确版本、提交、
+字体 SHA-256 和 IPA 许可证。`config/encoding/first-five-allocations.json`
+是追加式分配账本：已分配字符不会因译文删改而换码，退役字符保留槽位，新字符
+只能追加。当前 638 个已登记槽位中 630 个在用、8 个退役，安全候选还剩 12 个。
+构建另把前五关译文使用的 806 个原字库可达汉字用同一字体重绘；连同自定义
+码位，共登记 1,436 个 glyph assignment，其中空格槽为预期 no-op。假名、原有
+拉丁字符、既有可达标点、控制符及本切片之外的字形保持原样。
+默认栅格字号为 22pt；`config/fonts/first-five-font.json` 另把截图确认视觉
+偏小的“班”固定为 22.1pt。该最小光学校正只补回 22pt 取整时丢失的一列像素，
+不增加 20px 栅格高度；它保留原码位和 glyph 槽位，并随每字的 point size 与
+raster hash 一同写进 proposal 和构建报告。
+
+下面的诊断是正式通过门：
+
+```bash
+python3 tools/audit_first_five_font_coverage.py --force
+```
+
+固定码表中 121 个原本无法由 renderer 解析到 glyph 的字符，现已通过追加式
+override 进入游戏原生双字节标准分支。普通 ASCII 也分配双字节 glyph，只有
+`$n/$F` 玩家名占位符保留原始字节，因此不需要采用无许可证上游的 ASCII ASM。
+当前报告的 renderer 不可达字、普通一字节 ASCII、可达汉字字体混用均为 0。
+扩容只追加原标准公式支持但固定表未使用的 `0x85xx` 码位，不搬移扩展表。
+
+中文布局命令必须以检查模式返回零改动；它将日文原行形视为可参考的语义候选，
+而不是强制行数。当前规则按 24 个 glyph cell、最多 3 行重排，`$n/$F` 按
+运行时最长 6 格预算，术语、标题和 ASCII 词组不可拆分，续行不得以闭标点或
+语气助词开头。1,711 条正文由 3,124 行降为 2,160 行，只有 4 条保留三行。
+
+语言质量命令只覆盖 STAGE 001～005 的 1,711 条正文。它在写回前阻止假名残留、
+结构占位符漂移、标点结构错误、超过 24 字符或 3 行的显示串和没有显式说明的同源异译；
+当前 4 组同源语境差异涉及 14 条记录，均以“跨关同源”备注说明，硬错误为 0。
+这项机械检查不能替代人工逐句校对。
+
+上游英语审计严格验证相邻上游仍是固定提交且工作树干净。当前 001～005 XML
+没有直接英语译文；工具只将其他已英译关卡中日文完全相同的句子写入
+`work/review/first-five-upstream-english-reference.tsv`，并明确标为跨关
+参考。它用于发现语义可能性，不把上游英文当官方术语，也不把短句的异关语气
+自动套回本关。
+
+验收边界必须分开表述：上一字体候选曾在 PCSX2 v2.6.3 通过 ISO 启动、完整
+字库解压和无 TLB miss 验证；STAGE 001 的中文剧情截图也来自更早候选。这些
+证据不能沿用到当前 LXGW 字体 ISO。STAGE 001～005 当前均通过最终 ISO 静态
+回读、解压和重解析，但当前镜像尚未运行 PCSX2，更不能表述为五场战斗已完整
+游玩。完整清单见 `manifests/first-five-validation.json`。
+
 ## 5. 新增一个 surface 的顺序
 
 1. 从固定原版解析结果确认实际读取源、稳定 ID、位置、allocation、codec 和
@@ -193,6 +274,12 @@ E2 已把 SLPS 菜单、MTV_PROS 摘要和 STAGE 剧情接入正式
 SurfaceSpec/corpus/codebook/profile，并生成隔离 component manifest 和
 PCSX2 fixture。`canary-complete` 只组合这三个已登记 surface，不代表数据库、
 剧情或全游戏已经可批量写回。
+
+此外，节子路线 STAGE 001～005 已形成一个边界明确的生产候选：全部 1,833 条
+正文、条件和说话人已写回，630 个在用自定义码位与 806 个原有可达汉字已统一
+使用固定的 LXGW 字体；VT1 与所有 ISO 成员 LBA 保持原值，最终 ISO 回读及
+renderer 覆盖验证通过。当前镜像的 PCSX2 验证、第 2～5 关完整玩法回归、关卡
+标题菜单和后续关卡仍不在完成声明内。
 
 `relocate_menu_texts_to_pool()` 已提供通用 SLPS/COMPDATA 普通 pointer 与
 MIPS HI/LO 写回门禁，但尚未为真实文件登记可批量使用的池区。E3 还需完成：

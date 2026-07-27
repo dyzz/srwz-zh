@@ -1,0 +1,595 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-battle-lines-v1",
+  "language": "zh-Hans",
+  "default_source_match": "substring",
+  "terms": [
+    {
+      "id": "unit/lady-command",
+      "source_terms": [
+        "レディコマンド"
+      ],
+      "translation": "Lady Command",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《盖塔机器人G》早乙女美智琉所驾驶的支援机；中文资料缺少稳定统一译名，初稿保留英文名，列为人工重点复核项。"
+    },
+    {
+      "id": "people/burai",
+      "source_terms": [
+        "ブライ"
+      ],
+      "translation": "布莱",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《盖塔机器人G》的布莱大帝；台词是否带“大帝”由原句敬称决定。"
+    },
+    {
+      "id": "people/gagan",
+      "source_terms": [
+        "ガガーン"
+      ],
+      "translation": "加冈",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "总司令 Gagarn／Gagaan 的暂定音译；简体中文资料稀少，待按作品角色表复核。"
+    },
+    {
+      "id": "people/garrison",
+      "source_terms": [
+        "ギャリソン"
+      ],
+      "translation": "加里森",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《无敌钢人泰坦3》的加里森时田；采用简体音译，待与完整角色表统一。"
+    },
+    {
+      "id": "people/rag",
+      "source_terms": [
+        "ラグ"
+      ],
+      "translation": "拉格",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": false,
+      "notes": "《战斗机甲萨芬格尔》的拉格·乌拉洛。短词“ラグ”也会出现在“ドラグーン”等机械名中，因此关闭全局子串强制，仅在明确指人名的记录中引用。"
+    },
+    {
+      "id": "people/jiron",
+      "source_terms": [
+        "ジロン",
+        "ジロ〜ン"
+      ],
+      "translation": "吉隆",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《战斗机甲萨芬格尔》的吉隆·阿莫斯。"
+    },
+    {
+      "id": "unit/landship",
+      "source_terms": [
+        "ランドシップ"
+      ],
+      "translation": "陆行舰",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《战斗机甲萨芬格尔》的陆上大型移动舰种，不是特定单舰名。"
+    },
+    {
+      "id": "people/quattro",
+      "source_terms": [
+        "クワトロ"
+      ],
+      "translation": "克瓦特罗",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》的克瓦特罗·巴吉纳；采用简体中文常见写法。"
+    },
+    {
+      "id": "unit/argama",
+      "source_terms": [
+        "アーガマ"
+      ],
+      "translation": "阿伽玛",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》的阿伽玛号。"
+    },
+    {
+      "id": "organization/new-federation",
+      "source_terms": [
+        "新連邦"
+      ],
+      "translation": "新联邦",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》的新地球联邦简称；与完整称呼“新联邦军”分开记录。"
+    },
+    {
+      "id": "people/emma",
+      "source_terms": [
+        "エマ"
+      ],
+      "translation": "爱玛",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": false,
+      "notes": "《机动战士Z高达》的爱玛·辛；中文资料亦见“爱玛”，v1 采用大陆高达资料常见的“爱玛”。短词“エマ”也会误命中势力名“エマーン”，因此仅显式引用。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+    },
+    {
+      "id": "unit/garuda",
+      "source_terms": [
+        "ガルダ"
+      ],
+      "translation": "迦楼罗",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》的迦楼罗级大型运输机；canonical 形式不带“号／级”，以兼容具体舰体和舰级两种语境。"
+    },
+    {
+      "id": "unit/radish",
+      "source_terms": [
+        "ラーディッシュ"
+      ],
+      "translation": "拉迪修号",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》的 Radish；中文资料另见“拉迪朱”，本稿暂用机战玩家常见的“拉迪修号”。"
+    },
+    {
+      "id": "organization/suicide-squad",
+      "source_terms": [
+        "スエサイド隊"
+      ],
+      "translation": "自杀队",
+      "category": "organization",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》的 Suicide 部队；先按词义译为“自杀队”，待与作品完整译名表统一。"
+    },
+    {
+      "id": "unit/turn-x",
+      "source_terms": [
+        "ターンＸ"
+      ],
+      "translation": "倒X",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》机体 Turn X 的简体中文常见译名。"
+    },
+    {
+      "id": "unit/freeden",
+      "source_terms": [
+        "フリーデン"
+      ],
+      "translation": "自由号",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》的 Freeden；采用中文动画资料常见的“自由号”。"
+    },
+    {
+      "id": "people/durandal",
+      "source_terms": [
+        "デュランダル"
+      ],
+      "translation": "迪兰达尔",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士高达SEED DESTINY》的吉尔伯特·迪兰达尔。"
+    },
+    {
+      "id": "unit/minerva",
+      "source_terms": [
+        "ミネルバ"
+      ],
+      "translation": "密涅瓦",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士高达SEED DESTINY》的密涅瓦号；canonical 形式不含“号”，以兼容说明句中的语法位置。"
+    },
+    {
+      "id": "unit/archangel",
+      "source_terms": [
+        "アークエンジェル"
+      ],
+      "translation": "大天使号",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "高达SEED系列战舰 Archangel 的通行译名。"
+    },
+    {
+      "id": "people/neo",
+      "source_terms": [
+        "ネオ"
+      ],
+      "translation": "尼奥",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士高达SEED DESTINY》的尼奥·罗阿诺克。"
+    },
+    {
+      "id": "people/shinn",
+      "source_terms": [
+        "シン"
+      ],
+      "translation": "真",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": false,
+      "notes": "《机动战士高达SEED DESTINY》的真·飞鸟。因短词“シン”也包含于“シンシア”，关闭全局子串强制，仅在明确指人名的记录中引用。"
+    },
+    {
+      "id": "organization/orb",
+      "source_terms": [
+        "オーブ"
+      ],
+      "translation": "奥布",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "高达SEED系列的奥布联合酋长国简称。"
+    },
+    {
+      "id": "people/sara-kodama",
+      "source_terms": [
+        "サラ・コダマ"
+      ],
+      "translation": "莎拉·柯达玛",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》的 Sara Kodama；简体音译待按全角色表复核。"
+    },
+    {
+      "id": "people/gainer",
+      "source_terms": [
+        "ゲイナー"
+      ],
+      "translation": "盖纳",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》的盖纳·桑加。"
+    },
+    {
+      "id": "people/cynthia",
+      "source_terms": [
+        "シンシア"
+      ],
+      "translation": "辛西娅",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》的辛西娅·莱恩。"
+    },
+    {
+      "id": "place/yapan",
+      "source_terms": [
+        "ヤーパン"
+      ],
+      "translation": "雅邦",
+      "category": "place",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》的 Yapan；采用现有中文语料中的“雅邦”，待人工统一译名来源。"
+    },
+    {
+      "id": "organization/siberian-railway",
+      "source_terms": [
+        "シベ鉄"
+      ],
+      "translation": "西伯铁",
+      "category": "organization",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "“西伯利亚铁路”的日文简称；台词中保留相应中文简称“西伯铁”。"
+    },
+    {
+      "id": "unit/overdevil",
+      "source_terms": [
+        "オーバーデビル"
+      ],
+      "translation": "超限恶魔",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》的 Over Devil；中文资料译名不统一，v1 暂用“超限恶魔”并列为重点复核项。"
+    },
+    {
+      "id": "people/norman",
+      "source_terms": [
+        "ノーマン"
+      ],
+      "translation": "诺曼",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "角色 Norman 的简体音译；待按所属作品角色表补全姓氏和译名依据。"
+    },
+    {
+      "id": "people/sandman",
+      "source_terms": [
+        "サンドマン"
+      ],
+      "translation": "桑德曼",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超重神GRAVION》的克莱因·桑德曼。"
+    },
+    {
+      "id": "species/wingless",
+      "source_terms": [
+        "翅なし",
+        "翅無し"
+      ],
+      "translation": "无翼者",
+      "category": "species",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《创圣的大天使》中堕天翅族对人类的蔑称；统一两种日文写法，暂译“无翼者”。"
+    },
+    {
+      "id": "unit/nirvash",
+      "source_terms": [
+        "ニルヴァーシュ"
+      ],
+      "translation": "尼尔瓦修",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》的尼尔瓦修。"
+    },
+    {
+      "id": "people/eureka",
+      "source_terms": [
+        "エウレカ"
+      ],
+      "translation": "优莱卡",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》女主人公 Eureka 的简体中文常见译名。"
+    },
+    {
+      "id": "people/stoner",
+      "source_terms": [
+        "ストナー"
+      ],
+      "translation": "斯托纳",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》的 Stoner；采用直接音译，待与作品完整角色表统一。"
+    },
+    {
+      "id": "unit/gekkostate-ship",
+      "source_terms": [
+        "月光号"
+      ],
+      "translation": "月光号",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》月光州的母舰月光号。"
+    },
+    {
+      "id": "people/ray",
+      "source_terms": [
+        "レイ"
+      ],
+      "translation": "雷",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": false,
+      "notes": "《交响诗篇》的雷·比姆斯；本批台词由查尔斯称呼其名。短词“レイ”会误命中“ブレイク”“ブレイド”和多项武器名，因此仅显式引用。"
+    },
+    {
+      "id": "people/edel-bernal",
+      "source_terms": [
+        "エーデル・ベルナル"
+      ],
+      "translation": "艾黛尔·贝尔纳尔",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ 原创角色 Edel Bernal；中文社区另见“艾岱尔”等写法，v1 暂定“艾黛尔·贝尔纳尔”。"
+    },
+    {
+      "id": "people/leben-general",
+      "source_terms": [
+        "レーベン・ゲネラール"
+      ],
+      "translation": "雷本·盖涅拉尔",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ 原创角色 Leben General；中文资料亦见“雷朋·盖涅拉鲁”，v1 采用较贴近日文长音和 General 拼写的暂译。"
+    },
+    {
+      "id": "people/leben",
+      "source_terms": [
+        "レーベン"
+      ],
+      "translation": "雷本",
+      "category": "people",
+      "status": "proposed",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "雷本·盖涅拉尔的名字简称；单列后可审查只称名字的台词。"
+    }
+  ]
+}

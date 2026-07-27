@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-story-dialogue-stage-004-v1",
+  "language": "zh-Hans",
+  "default_source_match": "substring",
+  "research_basis": [
+    "Current fixed SRWZ source corpus, stage 004 speaker assignments and complete surrounding dialogue",
+    "Existing v1 glossary terms take precedence over every stage-local term",
+    "Official simplified-Chinese Gundam SEED DESTINY character, mecha and product pages: https://gundam-official.cn/seed/destiny/character/, https://gundam-official.cn/seed/destiny/mecha/ and https://gundam-official.cn/seed/destiny/product/",
+    "Official Bandai Force Impulse Gundam manual for Chest Flyer and Leg Flyer component names: https://manual.bandai-hobby.net/pdf/681.pdf",
+    "Chinese Chemical Society periodic-table explanation identifying lutetium as 镥: https://www.chemsoc.org.cn/IYPT2019/a3157.html",
+    "Established simplified-Chinese Gundam terminology for the Z Gundam factions, vessels and locations, cross-checked against existing v1 terms"
+  ],
+  "terms": [
+    {
+      "id": "system/extended-reconditioning",
+      "source_terms": [
+        "再調整"
+      ],
+      "translation": "重新调整",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "结合前后句“充分休息”和“比上次战争时好得多”，此处指 Extended 驾驶员出状况后接受的精神与身体再处理；译为语义透明的“重新调整”。"
+    },
+    {
+      "id": "organization/biological-lab-short",
+      "source_terms": [
+        "ラボ"
+      ],
+      "translation": "研究所",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "本句的ラボ指制造、管理并重新调整 Extended 驾驶员的研究设施；译为“研究所”。短称可能泛指其他实验室，因此只由第 004 关显式引用。"
+    },
+    {
+      "id": "unit/blast-silhouette-short",
+      "source_terms": [
+        "ブラスト"
+      ],
+      "translation": "轰击型",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "Blast Silhouette 的模块短称；采用 Gundam 简中官方现行“轰击型脉冲高达”用字。短词只在本关装备选择语境显式引用。"
+    },
+    {
+      "id": "unit/chest-flyer",
+      "source_terms": [
+        "チェストフライヤー"
+      ],
+      "translation": "胸部飞行器",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Chest Flyer，脉冲高达上半身组件；按官方说明书结构名称直译。"
+    },
+    {
+      "id": "unit/leg-flyer",
+      "source_terms": [
+        "レッグフライヤー"
+      ],
+      "translation": "腿部飞行器",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Leg Flyer，脉冲高达下半身组件；按官方说明书结构名称直译。"
+    },
+    {
+      "id": "unit/blast-silhouette",
+      "source_terms": [
+        "ブラストシルエット"
+      ],
+      "translation": "轰击型剪影",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Blast Silhouette；与本项目既有“剪影飞行器／剪影机库”用字及官方“轰击型”一致。"
+    },
+    {
+      "id": "organization/zaft-red",
+      "source_terms": [
+        "ザフト・レッド"
+      ],
+      "translation": "ZAFT红衣",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "上一句明确说“身上的红衣不是摆设”；Gundam 官方简中人物页也说明精英驾驶员身穿赤色制服。本项目保留既有 ZAFT 缩写，将称号译为“ZAFT红衣”。"
+    },
+    {
+      "id": "system/block-word",
+      "source_terms": [
+        "ブロックワード"
+      ],
+      "translation": "BLOCK WORD",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "控制 Extended 心理反应的触发词；系列设定资料常保留 BLOCK WORD，本项目以全大写专名区别普通“禁语”。"
+    },
+    {
+      "id": "unit/white-base",
+      "source_terms": [
+        "ホワイトベース"
+      ],
+      "translation": "白色基地",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "White Base；采用《机动战士高达》简中通行舰名“白色基地”。"
+    },
+    {
+      "id": "place/axis",
+      "source_terms": [
+        "アクシズ"
+      ],
+      "translation": "阿克西斯",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Axis；采用宇宙世纪简中通行译名“阿克西斯”。"
+    },
+    {
+      "id": "system/black-unknown-callsign",
+      "source_terms": [
+        "ブラック"
+      ],
+      "translation": "黑方",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "密涅瓦舰长在同一句中把敌对未知部队临时指定为 Black、受援未知部队指定为 White；为体现阵营识别而非颜色描写，成对译为“黑方／白方”。普通颜色词只由相关句子显式引用。"
+    },
+    {
+      "id": "system/white-unknown-callsign",
+      "source_terms": [
+        "ホワイト"
+      ],
+      "translation": "白方",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "密涅瓦舰长在同一句中把受援未知部队临时指定为 White、敌对未知部队指定为 Black；为体现阵营识别而非颜色描写，成对译为“白方／黑方”。普通颜色词只由相关句子显式引用。"
+    },
+    {
+      "id": "unit/gundam-mk-ii-short",
+      "source_terms": [
+        "Ｍｋ−Ⅱ"
+      ],
+      "translation": "Mk-II",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "Gundam Mk-II 的剧情短称；沿用既有 unit/gundam-mk-ii 的半角形式。短串可能进入其他型号，只由本关显式启用。"
+    },
+    {
+      "id": "place/grips",
+      "source_terms": [
+        "グリプス"
+      ],
+      "translation": "格里普斯",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Green Noa 1 改造后的殖民卫星都市 Gryps；采用《Z 高达》简中通行译名“格里普斯”。"
+    },
+    {
+      "id": "place/lutetium-base-short",
+      "source_terms": [
+        "ルテチウム"
+      ],
+      "translation": "卢特提姆基地",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "原文是既有 place/lutetium-base 的省略称呼；中文句中补足日文省略的“基地”，并沿用 2026-07-27 人工确认的专有地名音译“卢特提姆基地”。字面元素名“镥”和社区保留写法“Lutetium基地”只作为来源说明，不进入正文。"
+    },
+    {
+      "id": "unit/mobile-armor",
+      "source_terms": [
+        "モビルアーマー"
+      ],
+      "translation": "MA",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Mobile Armor；与既有 Mobile Suit→MS 的缩写策略一致。"
+    },
+    {
+      "id": "unit/dagger-series",
+      "source_terms": [
+        "ダガー系"
+      ],
+      "translation": "短剑系",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "地球联合量产 MS Dagger 系列；Gundam 简中官方产品页采用“短剑L”，本条据此统一为“短剑系”。"
+    },
+    {
+      "id": "organization/orb-union-chief-state",
+      "source_terms": [
+        "オーブ連合首長国"
+      ],
+      "translation": "奥布联合首长国",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Orb Union；采用完整政体名“奥布联合首长国”，与既有短称“奥布”区分。"
+    },
+    {
+      "id": "technology/parallel-world",
+      "source_terms": [
+        "並行世界"
+      ],
+      "translation": "平行世界",
+      "category": "technology",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "本作多世界汇合现象的描述性术语；采用现代简体中文常用写法“平行世界”。"
+    },
+    {
+      "id": "people/jamaican-daninghan-full",
+      "source_terms": [
+        "ジャマイカン・ダニンガン"
+      ],
+      "translation": "牙买加·达宁汉",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》Jamaican Daninghan；按用户指定的 Biligame 人物页采用“牙买加·达宁汉”，与说话人短名“牙买加”统一。"
+    }
+  ]
+}

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Mapping
@@ -28,7 +27,7 @@ from .project import (
 from .stage import parse_stage, read_stage_function_addresses
 from .summary import parse_summary
 from .text import TextTable, encode_text, load_text_table
-from .writeback import WritebackError, sha256_bytes
+from .writeback import sha256_bytes
 from .writers import (
     apply_summary_replacements,
     build_executable_offset_patch_plan,

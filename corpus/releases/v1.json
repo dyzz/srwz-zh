@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "release_id": "srwz-zh-corpus-v1",
+  "status": "in_progress",
+  "language": "zh-Hans",
+  "source_corpus": {
+    "path": "work/corpus/srwz-corpus.jsonl",
+    "aggregate_sha256": "a221f7a057b4464dcf3703167cb046579c692707c5760df1dfbdafe11675fbdd",
+    "entry_count": 94189
+  },
+  "translation_sources": [
+    "corpus/zh/summary.json",
+    "corpus/zh/menu/system-ui-leadership.json",
+    "corpus/zh/menu/system-ui-search.json",
+    "corpus/zh/menu/system-ui-buttons.json",
+    "corpus/zh/menu/system-ui-name-screen.json",
+    "corpus/zh/menu/system-ui-map-data.json",
+    "corpus/zh/menu/system-ui-tactical.json",
+    "corpus/zh/menu/system-ui-character-setup.json",
+    "corpus/zh/menu/system-ui-battle-conditions.json",
+    "corpus/zh/menu/system-ui-results.json",
+    "corpus/zh/menu/system-ui-spirit-acronyms.json",
+    "corpus/zh/menu/system-ui-search-menu.json",
+    "corpus/zh/menu/system-ui-command-menu.json",
+    "corpus/zh/menu/system-ui-unit-mech-pilot-weapons.json",
+    "corpus/zh/menu/system-ui-skills.json",
+    "corpus/zh/menu/system-ui-spirit-commands.json",
+    "corpus/zh/menu/system-ui-parts.json",
+    "corpus/zh/menu/system-ui-special-abilities.json",
+    "corpus/zh/menu/stage-names.json",
+    "corpus/zh/menu/weapons.json",
+    "corpus/zh/menu/unclassified.json",
+    "corpus/zh/menu/battle-lines.json",
+    "corpus/zh/story-conditions.json",
+    "corpus/zh/story-speakers.json",
+    "corpus/zh/story-dialogue/stage-001.json",
+    "corpus/zh/story-dialogue/stage-002.json",
+    "corpus/zh/story-dialogue/stage-003.json",
+    "corpus/zh/story-dialogue/stage-004.json",
+    "corpus/zh/story-dialogue/stage-005.json"
+  ],
+  "glossary_sources": [
+    "corpus/glossary/terms-v1.json",
+    "corpus/glossary/skills-v1.json",
+    "corpus/glossary/spirit-commands-v1.json",
+    "corpus/glossary/parts-v1.json",
+    "corpus/glossary/special-abilities-v1.json",
+    "corpus/glossary/stage-titles-v1.json",
+    "corpus/glossary/weapons-v1.json",
+    "corpus/glossary/menu-terms-v1.json",
+    "corpus/glossary/battle-lines-v1.json",
+    "corpus/glossary/story-conditions-v1.json",
+    "corpus/glossary/story-speakers-v1.json",
+    "corpus/glossary/story-dialogue-stage-001-v1.json",
+    "corpus/glossary/story-dialogue-stage-002-v1.json",
+    "corpus/glossary/story-dialogue-stage-003-v1.json",
+    "corpus/glossary/story-dialogue-stage-004-v1.json",
+    "corpus/glossary/story-dialogue-stage-005-v1.json"
+  ],
+  "review_policy": {
+    "source_text_in_git": false,
+    "minimum_final_editorial_status": "reviewed",
+    "kana_residue_allowed": false,
+    "enforced_glossary_refs": true
+  },
+  "coverage_plan": [
+    {
+      "batch_id": "v1-summary-world-history",
+      "domain": "summary",
+      "target_entry_count": 28,
+      "status": "draft_complete"
+    },
+    {
+      "batch_id": "v1-menu-system-ui",
+      "domain": "menu",
+      "target_entry_count": 903,
+      "status": "draft_complete"
+    },
+    {
+      "batch_id": "v1-menu-weapons",
+      "domain": "menu",
+      "target_entry_count": 711,
+      "status": "draft_complete"
+    },
+    {
+      "batch_id": "v1-menu-battle-lines",
+      "domain": "menu",
+      "target_entry_count": 297,
+      "status": "draft_complete"
+    },
+    {
+      "batch_id": "v1-menu-stage-names",
+      "domain": "menu",
+      "target_entry_count": 122,
+      "status": "draft_complete"
+    },
+    {
+      "batch_id": "v1-menu-unclassified",
+      "domain": "menu",
+      "target_entry_count": 382,
+      "status": "draft_complete"
+    },
+    {
+      "batch_id": "v1-story-conditions",
+      "domain": "story",
+      "target_entry_count": 558,
+      "status": "draft_complete"
+    },
+    {
+      "batch_id": "v1-story-speakers",
+      "domain": "story",
+      "target_entry_count": 8469,
+      "status": "draft_complete"
+    },
+    {
+      "batch_id": "v1-story-dialogue",
+      "domain": "story",
+      "target_entry_count": 82719,
+      "status": "in_progress"
+    }
+  ],
+  "notes": "v1 is in progress. The 28-entry world-history summary, all 2,415 menu entries, all 558 story victory/defeat/SR-condition records and all 8,469 story speaker records have complete first drafts. Story dialogue translation now includes every record from stages 001-005 (312 + 542 + 36 + 523 + 298 = 1,711); 81,008 dialogue records remain outstanding."
+}

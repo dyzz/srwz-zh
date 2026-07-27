@@ -15,8 +15,10 @@
 | `patches/` | ASM/二进制前像、允许差异和写入所有者 |
 | `assets/` | 图片归档成员、压缩标志和 SLPS offset 表范围；不包含游戏字节 |
 
-当前所有生产 JSON 使用 `schema_version: 1`，由
-`tools/srwz/project.py` 在读取时 fail-closed 校验。最小端到端实例是
+每类生产 JSON 都必须显式声明自己的 `schema_version`，由对应 loader
+fail-closed 校验；不同领域的 schema 独立演进，不能假设全仓库共用同一版本。
+SurfaceSpec、BuildProfile 和语料当前使用 v1，前五关 ISO 构建配置使用 v2。
+最小端到端实例是
 `build-profiles/canary-menu.json`；E2 还包括 `canary-summary.json`、
 `canary-story.json` 和组合选择 `canary-complete.json`。执行：
 
@@ -28,6 +30,12 @@ python3 tools/build_complete_canary.py --force
 详细字段、数据流和新增 surface 步骤见
 `docs/PRODUCTION_PIPELINE.md`。
 ISO 的 `rom/work/build` 所有权见 `docs/ISO_DIRECTORY_LAYOUT.md`。
+
+节子路线前五关的追加式码位账本、字体参数和 ISO 配置分别位于
+`encoding/first-five-allocations.json`、`fonts/first-five-font.json` 和
+`iso/first-five-build.json`。码位只允许追加，退役槽不复用；字体与工具来源
+由相邻 lock 固定，当前候选的精确组件和镜像哈希只记录在
+`manifests/first-five-validation.json`。
 
 `assets/archive-inventory.json` 由 `tools/srwz/assets.py` 独立执行严格 schema
 检查：未知字段、重复 member、路径穿越、archive/direct 重叠、未知 storage

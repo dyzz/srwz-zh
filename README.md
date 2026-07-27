@@ -4,8 +4,54 @@
 
 当前状态：clean-room 数据、字库、写回、ISO 和运行验证链已经打通；菜单、
 MTV_PROS 摘要和 STAGE 剧情三类中文 canary 已从正式
-surface/corpus/codebook/profile 生成，并分别通过静态、PCSX2 运行和画面验证。
+surface/fixture/codebook/profile 生成，并分别通过静态、PCSX2 运行和画面验证。
 尚未生成或发布正式游戏补丁。
+
+翻译生产已进入 v1：28 条世界历史摘要、全部 2,415 条菜单文本、558 条剧情
+胜利／败北／SR 条件、全部 8,469 条剧情说话人记录，以及第 001～005 关全部
+1,711 条剧情正文已有完整简体中文首轮译稿。菜单部分包括 903 条菜单／系统 UI、122 条
+关卡标题、711 条武器名称、382 条原上游未分类文本和 297 条战斗退场台词。
+当前合计 13,181 条译文；1,687 个跨作品、系统、人物、机体、技能、精神指令、
+强化部件、特殊能力和武器术语已独立登记并逐条引用。说话人批次覆盖 425 个
+唯一显示名，340 个新增人物／身份词条单独列出，538 条空白、玩家名或未知身份
+槽位显式保留。第 001～005 关正文分别覆盖 288、321、36、469 和 280 个唯一句，新增 112 个
+关卡专名，并保留 `$n/$F` 玩家名和原文黑圆点遮蔽结构。第 002 关另对
+军械库一号、第二阶段系列、幻象化粒子、Evidence 01、三架被夺机体和脉冲高达
+出击系统建立了独立术语决策；第 004 关继续固定 BLOCK WORD、轰击型剪影、
+白色基地、阿克西斯、格里普斯、平行世界等交汇剧情术语；第 005 关新增
+古连泰沙、杜克·弗里德、骷髅月基地、MidiFO、第二次雅金·杜威攻防战、
+PLANT评议会议长、藤泽与骏河湾等独立决定。前五关合计 1,711 条记录、
+按关内去重的 1,394 个译文决定（跨关再去重为 1,359 段原文）已经逐句二校并
+全部提升为 `reviewed`；“古连泰沙”和
+“弗里德星”也已有官方简中依据。用户指定 Biligame 为本切片高达名称口径后，
+其中 4 项官方简中异名已显式决定保留当前 Biligame 口径，另 5 项继续作为
+人工选择题；所有改名均由术语 ID 传播，没有无记录的字符串替换；
+112 项关卡术语中 109 项已完成来源研究，剩余 3 项为 Gunnery Carver
+全称、简称和 MidiFO，均保留证据边界与备选方案供人工定名；
+固定上游前五关 XML 本身没有英语译文；现有英语稿只按“其他关卡日文完全相同”
+建立辅助核对表，不能替代本关日文上下文或官方术语来源；
+前五关语言质量门另检查假名残留、结构占位符、引号／括号、混合标点和
+24 字符显示行宽、最多 3 行及中文标点禁则，当前硬错误为 0；中文重排把
+1,711 条正文从 3,124 行收敛到 2,160 行，三行记录从 395 条降到 4 条；
+4 组同源语气或省略句的 14 次语境异译均已逐条写明保留理由；
+技术 canary 已移到 `corpus/fixtures/`，不会再被误计为正式翻译。
+
+节子路线前五个 STAGE 块现已形成受限生产候选：1,711 条正文、21 条条件和
+101 条实际说话人记录共 1,833 条内容已写回。当前字体候选固定使用
+LXGW Neo XiHei Screen：追加式账本共登记 638 个码位，其中 630 个在用、
+8 个退役且不复用，另有 12 个安全候选；806 个原字库可达汉字也使用同一字体
+重绘，共登记 1,436 个 glyph assignment，其中空格槽为预期 no-op。假名、原有
+拉丁字符、既有可达标点以及本切片之外的字形保持原样；前五关实际出现的普通
+ASCII 另走双字节 glyph，`$n/$F` 玩家名占位符保持原始运行语义。字形默认以
+22pt 栅格化；实机截图确认“班”在 24×24 小字号下视觉偏小，因此只对该字使用
+配置锁定的 22.1pt 最小光学校正：只补回取整丢失的一列像素，不增加栅格高度，
+码位和 glyph 槽位不变。VT1 保持原大小，最终 ISO
+的 66 个成员均保持原 LBA。最终镜像已独立回读
+SLPS/HB/STAGE，并逐 ID 复核前五关全部译文；renderer 覆盖审计的缺字、
+一字节 ASCII 风险和混合汉字来源均为 0。但这张新候选尚未运行 PCSX2，上一
+候选的运行证据不能沿用。第二至第五关也未完整游玩，不能把静态回读称为五关
+通关测试。完整边界和哈希见
+`manifests/first-five-validation.json`。
 
 已完成第一批基础设施迁移：可以从 ISO 只读提取指定成员、按固定 offset
 切分 `STAGE.BIN`，并使用严格的 clean-room 解码器解析菜单、数据库、剧情和摘要。
@@ -56,6 +102,8 @@ config/             上游版本和项目配置
 corpus/ja/          不可修改的日文语料基准
 corpus/zh/          中文译文
 corpus/glossary/    作品、人物、机体、招式和系统术语
+corpus/fixtures/    仅用于验证写回/运行链的技术 canary
+corpus/releases/    翻译语料版本范围、来源哈希和审核策略
 docs/               架构、流程和里程碑
 font/source/        有明确许可证的字体及许可证记录
 font/generated/     生成的字库文件，不进入 Git
@@ -81,7 +129,7 @@ vendor/             固定提交的上游源码快照
 详细计划见 `docs/ROADMAP.md`。
 
 文档入口见 `docs/README.md`；代码模块、命令入口和第三方依赖边界见
-`tools/README.md`。
+`tools/README.md`；提交范围、验证分层和发布前检查见 `CONTRIBUTING.md`。
 
 ## 准备压缩流样本
 
@@ -124,6 +172,8 @@ python3 tools/parse_srwz_iso_data.py --force
 
 ```bash
 python3 tools/export_srwz_corpus.py --force
+python3 tools/review_srwz_translations.py
+python3 tools/audit_first_five_language_quality.py --force
 python3 tools/analyze_srwz_font.py --force
 python3 tools/render_srwz_font.py --force
 python3 tools/validate_srwz_encoder.py --strategy greedy --force
@@ -143,7 +193,7 @@ python3 tools/build_static_canary.py --force
 
 它只写 `work/build/canary-menu/components/`，不修改原版、不重建 ISO，也不运行游戏；具体原理、
 指令前像、码位边界和验证结果见 `docs/STATIC_CANARY.md`。当前译文、surface
-地址和 `测/试` 字形分配分别来自 `corpus/zh/menu.json`、
+地址和 `测/试` 字形分配分别来自 `corpus/fixtures/menu-canary.json`、
 `config/surfaces/menu-slps-opening.json` 和
 `config/encoding/codebook.json`，由 `canary-menu` profile 统一选择；完整
 契约见 `docs/PRODUCTION_PIPELINE.md`。

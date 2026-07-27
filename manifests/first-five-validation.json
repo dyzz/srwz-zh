@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "status": "static_and_renderer_coverage_passed_runtime_pending",
+  "profile_id": "first-five",
+  "scope": {
+    "route": "female protagonist / Setsuko",
+    "stage_indices": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "excluded_stage_indices": [
+      6
+    ],
+    "content": [
+      "story dialogue",
+      "story conditions",
+      "story speakers",
+      "selected-font glyph writeback"
+    ],
+    "not_claimed": [
+      "stage-title menu writeback",
+      "current-candidate five-stage visual or gameplay playthrough",
+      "encoder or ISO patch distribution"
+    ]
+  },
+  "translation": {
+    "dialogue_record_count": 1711,
+    "dialogue_stage_local_unique_decision_count": 1394,
+    "dialogue_cross_stage_unique_source_count": 1359,
+    "condition_record_count": 21,
+    "speaker_record_count": 101,
+    "writeback_entry_count": 1833,
+    "editorial_status": "reviewed",
+    "milestone_term_count": 112,
+    "milestone_proposed_term_count": 3,
+    "milestone_researched_term_count": 109,
+    "official_variant_decisions_pending": 5,
+    "review_check": {
+      "command": "python3 tools/review_srwz_translations.py --check-only",
+      "translation_entry_count_all_domains": 13181,
+      "glossary_entry_count_all_domains": 1687,
+      "error_count": 0
+    },
+    "chinese_layout_check": {
+      "command": "python3 tools/reflow_first_five_dialogue.py --force",
+      "report": "work/review/first-five-chinese-layout.json",
+      "report_sha256": "24e4828b03452bba976a3fe30b696d86af11d3626c0c75a5ba8a8ab64e38ba13",
+      "status": "passed",
+      "changed_entry_count": 0,
+      "render_line_character_limit": 24,
+      "render_line_count_limit": 3,
+      "player_name_render_width": 6,
+      "source_shaped_line_count": 3124,
+      "reflowed_line_count": 2160,
+      "reflowed_line_count_distribution": {
+        "1": 1266,
+        "2": 441,
+        "3": 4
+      }
+    },
+    "language_quality_check": {
+      "command": "python3 tools/audit_first_five_language_quality.py --force",
+      "report": "work/review/first-five-language-quality.json",
+      "report_sha256": "0ca7d7bf9b05ff1295effaf2bbdd0d614033060ba10f984d6d9cc855f9a334d4",
+      "findings": "work/review/first-five-language-quality-findings.tsv",
+      "findings_sha256": "c966f3acce935076bea37b683d416f74414aa8ef9ad6462fa19be4a56ae7695e",
+      "hard_issue_count": 0,
+      "render_line_character_limit": 24,
+      "maximum_render_line_characters": 24,
+      "render_line_count_limit": 3,
+      "maximum_render_line_count": 3,
+      "same_source_translation_variant_source_count": 4,
+      "reviewed_contextual_variant_record_count": 14
+    },
+    "upstream_english_reference_check": {
+      "command": "python3 tools/audit_first_five_upstream_english.py --force",
+      "upstream_commit": "a6cefe8b51dfd949e16000442084d24594841e8f",
+      "upstream_clean": true,
+      "direct_upstream_english_entry_count": 0,
+      "exact_source_fallback_entry_count": 152,
+      "reference_unique_source_count": 34,
+      "no_reference_entry_count": 1559,
+      "reference_coverage": "limited",
+      "report": "work/review/first-five-upstream-english-reference.json",
+      "report_sha256": "bb5ec3832dcebaf891cc8063716a7ffd2e3d68f1413c7519a5658bc1be105024",
+      "reference_tsv": "work/review/first-five-upstream-english-reference.tsv",
+      "reference_tsv_sha256": "ad2b1b9a3ff9c248cb6fb4fc07c043fc73684f95f121f4f2701fb8d3b4e0fe3a",
+      "interpretation": "No direct English exists for stages 001-005 in the pinned upstream XML. Exact-Japanese matches from other stages are review hints only and never overwrite Chinese automatically."
+    }
+  },
+  "codebook": {
+    "unique_character_count": 1456,
+    "base_encodable_character_count": 826,
+    "active_new_assignment_count": 630,
+    "registered_assignment_count": 638,
+    "retired_assignment_count": 8,
+    "retired_characters": [
+      "冈",
+      "娅",
+      "挖",
+      "杰",
+      "艾",
+      "贯",
+      "贾",
+      "镥"
+    ],
+    "allocation_registry": "config/encoding/first-five-allocations.json",
+    "allocation_registry_sha256": "068a0a61e74c114b1e09250fc403d9e184a5209fe7db8700c18196813447e7e6",
+    "safe_candidate_slot_count": 650,
+    "legacy_safe_candidate_slot_count": 486,
+    "expanded_standard_candidate_slot_count": 164,
+    "remaining_candidate_slot_count": 12,
+    "reraster_existing_han_count": 806,
+    "font_assignment_count": 1436,
+    "readiness_report": "work/writeback/first-five-readiness.json",
+    "readiness_report_sha256": "4138c971a32e65386d7f8b988bb42a4d5a262057123a73314bfa81a0fc00d218",
+    "proposal": "work/writeback/first-five-codebook-proposal.json",
+    "proposal_sha256": "74e51d073146a891b8aeb0634d8b3d1fc2b13adf02e71395ceedf6ec2948b5b8"
+  },
+  "font_component": {
+    "report": "work/build/first-five/components/font-validation.json",
+    "report_sha256": "683df351d2672431d207d31d26edf236bb89106226f3554109b9506399959a63",
+    "font_family": "LXGW Neo XiHei Screen",
+    "font_version": "26.07.14",
+    "font_commit": "501c9c41c1e5cf1eb24a67f57d10080bf5cef0b4",
+    "font_sha256": "f2e0d9fa33d83f712fed2f3b45e57a35e4f536537a90633f25c00fd2563bfe70",
+    "license_spdx": "IPA",
+    "license_sha256": "daf91386d6f9a6a78e4e736c0c00375cae30214ac5c1dab2479f0a05fcb63edd",
+    "active_new_assignment_count": 630,
+    "reraster_existing_han_count": 806,
+    "glyph_assignment_count": 1436,
+    "changed_glyph_count": 1435,
+    "unchanged_assignment_count": 1,
+    "rasterizer_default_point_size": 22,
+    "optical_corrections": {
+      "班": {
+        "point_size": 22.1,
+        "reason": "At 22pt the right outline bound snaps to a 21px raster while adjacent 研 reaches 22px; 22.1pt restores one horizontal pixel without changing the 20px height or 4bpp ink materially."
+      }
+    },
+    "decoded_size": 1290240,
+    "decoded_sha256": "a5b9a58097c78c75ebcd80419266450288e7be123b9afe3af9a46c92798b766e",
+    "encoded_size": 784837,
+    "encoder_strategy": "lazy_greedy",
+    "vt1_source_size": 127500736,
+    "vt1_output_size": 127500736,
+    "borrowed_preceding_zero_slack": 185504,
+    "slps_sha256": "65fc00b2ff2dd223a0c6c4bfb97643871612db0a97eb68709a7da90787d91169",
+    "vt1_sha256": "7f60acbb3df024f352ed404c9cd0331d95a606f6e116994d0785ea8c4f076f11"
+  },
+  "font_coverage": {
+    "command": "python3 tools/audit_first_five_font_coverage.py --force",
+    "status": "passed",
+    "report": "work/review/first-five-font-coverage.json",
+    "report_sha256": "6501e7f1eddc7086d8d1bdaaa04cc15fd832788da714f93cca481822a47fff5b",
+    "findings": "work/review/first-five-font-coverage-findings.tsv",
+    "findings_sha256": "126291c86fd91c4848771facef3379bd2fd5f021401eebc14588adccb2416e63",
+    "reachable_mixed_han_source_entry_count": 0,
+    "renderer_unreachable_character_count": 0,
+    "renderer_unreachable_occurrence_count": 0,
+    "renderer_unreachable_entry_count": 0,
+    "literal_ascii_risk_entry_count": 0
+  },
+  "stage_component": {
+    "report": "work/build/first-five/components/component-validation.json",
+    "report_sha256": "ba33bfb3d2d7fcd9c32ac9852659671e804a4ef7712dd200de3af5f2357b3fae",
+    "codec": {
+      "strategy": "preserved_prefix_greedy_suffix",
+      "min_match_length": 4,
+      "max_match_chain": 256,
+      "lazy_matching": true
+    },
+    "decoded_sizes": {
+      "1": 45968,
+      "2": 75152,
+      "3": 7312,
+      "4": 74768,
+      "5": 44304
+    },
+    "encoded_sizes": {
+      "1": 17113,
+      "2": 22961,
+      "3": 2943,
+      "4": 26495,
+      "5": 17137
+    },
+    "hb_sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9",
+    "stage_sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9",
+    "unchanged_stage_chunk_count": 200,
+    "codec_round_trip_exact": true,
+    "translated_reread_exact": true,
+    "hb_offset_reread_exact": true
+  },
+  "iso": {
+    "path": "build/iso/first-five/srwz-first-five.iso",
+    "size": 3758358528,
+    "sha256": "d0e9ab7233f6d3763b4280932b4574b3512d54686a540e0ea28dea6af9cbb5b4",
+    "report": "build/iso/first-five/iso-validation.json",
+    "report_sha256": "856acfbd51dc7008e74c9b255fece03317ee4830bd9cc7c816ec193c66ea0992",
+    "member_count": 66,
+    "unchanged_member_count": 62,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "member_manifest_sha256": "3c83251795738880cdc587ff57736639b3d2b1698d6f03ccf4c87196f71ac628",
+    "shifted_member_count": 0,
+    "shift_sectors": 0,
+    "original_lba_preserved": true,
+    "byte_reproducible": true
+  },
+  "final_iso_content_readback": {
+    "command": "python3 tools/verify_first_five_iso_content.py --force",
+    "report": "work/verification/first-five-iso-content.json",
+    "report_sha256": "783ae47f55fc750dc59cc7c983b35d340cb4671a9bb0bfd865d53dd7d262f686",
+    "stage_count": 5,
+    "translation_entry_count": 1833,
+    "replacement_members_exact": true,
+    "hb_stage_offsets_valid": true,
+    "encoded_streams_exact": true,
+    "decoded_sizes_exact": true,
+    "archive_padding_zero": true,
+    "entry_id_sets_exact": true,
+    "dialogue_conditions_speakers_exact": true,
+    "unknown_code_count_zero": true
+  },
+  "runtime": {
+    "current_candidate": {
+      "emulator": "PCSX2 v2.6.3",
+      "game_id": "SLPS-25887",
+      "date": "2026-07-27",
+      "iso_sha256": "d0e9ab7233f6d3763b4280932b4574b3512d54686a540e0ea28dea6af9cbb5b4",
+      "status": "not_tested",
+      "reason": "The human-approved Lutetium place-name change to 卢特提姆基地 added 卢, retired 镥, and changed dialogue, codebook, VT1, STAGE and the ISO; runtime evidence from preceding candidates is not transferable."
+    },
+    "predecessor_23pt_optical_candidate": {
+      "emulator": "PCSX2 v2.6.3",
+      "game_id": "SLPS-25887",
+      "date": "2026-07-27",
+      "iso_sha256": "2c7ad3bf5d6bc05c86283f5eba0ca6cf653b6fae6b9a7604ef366dd03d32cc87",
+      "status": "static_only_not_runtime_tested",
+      "finding": "The 23pt correction enlarged 班 to 22x21 and was superseded before runtime acceptance; 22.1pt keeps the corrected 22px width while restoring the global 20px height."
+    },
+    "predecessor_reflow_candidate_visual": {
+      "emulator": "PCSX2",
+      "game_id": "SLPS-25887",
+      "date": "2026-07-27",
+      "iso_sha256": "eaa7ce37bb14335c6be3365e5077a7d10010d221c0d83c9ce019e754ac621140",
+      "status": "visible_chinese_and_layout_passed_with_ban_optical_issue",
+      "visible_entry_id": "story/001/dialogue/02.01/0008",
+      "visible_text": "“隶属月面驻军战技研究班‘荣耀之星’。\n　我在10天前到任”",
+      "screenshot": "work/runtime/first-five/snaps/first-five-stage-001-ban-22pt.png",
+      "screenshot_sha256": "022511f5df8320b5b2e6688ed96bde76c741db20f4bbc6552901a9161e8b4cbf",
+      "finding": "Text, line wrapping and character coverage are visible; 班 appears optically smaller than adjacent CJK glyphs."
+    },
+    "predecessor_font_candidate": {
+      "emulator": "PCSX2 v2.6.3",
+      "game_id": "SLPS-25887",
+      "date": "2026-07-26",
+      "iso_sha256": "36b20656e419ffdaa17574af1a71270548196b80e3118e3ff633ba7690aca384",
+      "status": "boot_and_complete_font_decompression_passed",
+      "pine_report": "work/runtime/first-five/pine/font-runtime.json",
+      "pine_report_sha256": "57dc337ae46a30a5bcb6c157d3892697e0d0cf7bdfb7c348970dd0096bad8647",
+      "log": "work/runtime/first-five/logs/emulog-first-five-current-boot-passed.txt",
+      "log_sha256": "ce89f80f631ef42b72259c195422f24c0f681fbeac3b3dd82c93577b9a131a22",
+      "decoded_font_sha256_exact": true,
+      "dvd_recognized": true,
+      "elf_executing": true,
+      "tlb_miss_count": 0,
+      "visual_stage_dialogue": "not re-confirmed after the language-quality rebuild"
+    },
+    "stage_001_predecessor_visual": {
+      "status": "visible_chinese_passed_on_predecessor_candidate",
+      "candidate_iso_sha256": "43913b0fc62335f6d4da33b0d2628f3ccb1c4c1b11eb95dcd0fde3ed9cc29b72",
+      "screenshot": "work/runtime/first-five/snaps/first-five-stage-001-zh.png",
+      "screenshot_sha256": "f78a29f888b288920eb8077450fbf9c2c72ad94c8ff6279cfdfab5c982b286c4",
+      "log": "work/runtime/first-five/logs/emulog-first-five-female-stage001-passed.txt",
+      "log_sha256": "db82120ee8f2dcaeaf1cc9c72d12eeb0f35748dcdabe63671c442c38b94e29cf",
+      "visible_speaker": "卡克里孔",
+      "visible_entry_id": "story/001/dialogue/02.01/0010",
+      "visible_text": "“你是来当吉祥物，\n　还是当啦啦队员的？”",
+      "evidence_boundary": "renderer and stage-001 Chinese visibility only; not exact-current-ISO visual evidence"
+    },
+    "stages_001_005_current_candidate": {
+      "status": "not_manually_played",
+      "evidence": "final-ISO static decoded/reparsed readback only"
+    }
+  },
+  "acceptance": {
+    "translation_and_writeback_first_five": "passed",
+    "final_iso_static_first_five": "passed",
+    "reachable_han_font_unification": "passed",
+    "all_encoded_characters_renderer_reachable": "passed",
+    "ordinary_literal_ascii_risk": "passed: 0 entries",
+    "current_iso_boot_and_font_runtime": "not performed",
+    "predecessor_iso_boot_and_font_runtime": "passed with predecessor-only boundary",
+    "stage_001_predecessor_visual_runtime": "passed with predecessor-only boundary",
+    "current_iso_stage_dialogue_visual": "not performed",
+    "stages_002_005_full_gameplay": "not performed",
+    "overall": "static layout/writeback and renderer coverage passed; current-candidate runtime acceptance remains pending"
+  }
+}

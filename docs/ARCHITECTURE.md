@@ -2,7 +2,7 @@
 
 ## 数据边界
 
-工程将数据分为三层：
+工程将数据分为四层：
 
 1. `rom/`：用户本地、不可变的原版 ISO，永不提交。
 2. `corpus/`、`config/`、`patches/`：中文工程的可审查源数据；
@@ -34,10 +34,12 @@ ISO 相关目录不得混用：`rom/` 只读，`work/build/<profile>/` 可重建
 
 当前已实现的最小生产路径是
 `config/build-profiles/canary-menu.json`。它连接
-`config/surfaces/menu-slps-opening.json`、`corpus/zh/menu.json` 和
+`config/surfaces/menu-slps-opening.json`、`corpus/fixtures/menu-canary.json` 和
 `config/encoding/codebook.json`，并由 `tools/srwz/project.py` fail-closed
 校验。静态 canary 与 PINE 验证器从同一个 profile 读取译文、字形和地址；
-旧 canary 配置只保留构建环境与 E0 golden。字段和新增 surface 流程见
+技术 fixture 不进入翻译覆盖率；正式 v1 译文位于 `corpus/zh/`，并由
+`corpus/releases/v1.json` 和独立 glossary 约束。旧 canary 配置只保留
+构建环境与 E0 golden。字段和新增 surface 流程见
 `PRODUCTION_PIPELINE.md`。
 
 ASM 阶段额外由 `config/toolchain/armips.lock.json` 固定官方 MIT armips 源码、

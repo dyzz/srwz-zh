@@ -62,6 +62,20 @@ SHIFT_JIS_TRAILS = tuple(
 )
 
 
+def is_cjk_unified_ideograph(character: str) -> bool:
+    """Return whether one character belongs to a CJK ideograph block."""
+
+    if not isinstance(character, str) or len(character) != 1:
+        raise ValueError("CJK classification needs one character")
+    codepoint = ord(character)
+    return (
+        0x3400 <= codepoint <= 0x4DBF
+        or 0x4E00 <= codepoint <= 0x9FFF
+        or 0xF900 <= codepoint <= 0xFAFF
+        or 0x20000 <= codepoint <= 0x323AF
+    )
+
+
 def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -782,6 +796,7 @@ __all__ = [
     "glyph_offset",
     "grayscale_png",
     "inventory_codebook",
+    "is_cjk_unified_ideograph",
     "render_glyph_grid",
     "read_extended_glyph_table",
     "replace_glyph",

@@ -13,6 +13,7 @@ ALLOWED_IMPORT_ROOTS = {
     "concurrent",
     "csv",
     "dataclasses",
+    "functools",
     "hashlib",
     "json",
     "os",
@@ -31,6 +32,7 @@ ALLOWED_IMPORT_ROOTS = {
     "types",
     "typing",
     "urllib",
+    "verify_pcsx2_font_runtime",
     "xml",
     "zlib",
 }

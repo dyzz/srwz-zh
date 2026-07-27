@@ -288,6 +288,58 @@ class EncodeTests(unittest.TestCase):
         encoded = reencode_changed_suffix(original, modified)
         self.assertEqual(decode(encoded).output, modified)
 
+    def test_reencodes_changed_tail_as_one_literal_block(self):
+        original = encode(
+            b"prefix-" + b"A" * 256 + b"-tail",
+            strategy="greedy",
+        )
+        modified = b"prefix-" + b"B" * 256 + b"-tail"
+        events = []
+        encoded = reencode_changed_suffix(
+            original,
+            modified,
+            strategy="literal",
+        )
+        result = decode(encoded, trace_sink=events.append)
+        self.assertEqual(result.output, modified)
+        self.assertEqual(result.consumed, len(encoded))
+        blocks = [event for event in events if event["kind"] == "block"]
+        self.assertEqual(blocks[-1]["match_count"], 0)
+        self.assertGreater(blocks[-1]["literal_count"], 256)
+
+    def test_suffix_reencode_lazy_match_is_deterministic_and_round_trips(self):
+        original = encode(b"P" * 8 + b"Q" * 200, strategy="literal")
+        modified = (
+            b"PPPPPPPPDEBAFAABBBECCEECCCACBEFDBACADADBBCAEAEEBE"
+            b"ACCCADCAACAEFAAAABBEDBADFBBFAAABBEDBADAABBEDBADAEE"
+            b"BEACCCAEEBEACCCFBBFAADCAACAEFAACCEECCACADADBBCAE"
+        )
+        greedy = reencode_changed_suffix(
+            original,
+            modified,
+            min_match_length=4,
+            max_match_chain=64,
+        )
+        lazy = reencode_changed_suffix(
+            original,
+            modified,
+            min_match_length=4,
+            max_match_chain=64,
+            lazy_matching=True,
+        )
+        self.assertEqual(decode(lazy).output, modified)
+        self.assertLess(len(lazy), len(greedy))
+        self.assertEqual(
+            lazy,
+            reencode_changed_suffix(
+                original,
+                modified,
+                min_match_length=4,
+                max_match_chain=64,
+                lazy_matching=True,
+            ),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

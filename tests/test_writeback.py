@@ -7,6 +7,7 @@ from tools.srwz.writeback import (
     WritebackError,
     fit_fixed_allocation,
     rebuild_aligned_archive,
+    replace_archive_chunk_with_preceding_zero_slack,
     sha256_bytes,
 )
 
@@ -85,6 +86,37 @@ class WritebackContractTests(unittest.TestCase):
         self.assertEqual(len(data), 32)
         self.assertEqual(data[:3], b"abc")
         self.assertEqual(data[16:21], b"12345")
+
+    def test_archive_chunk_borrows_only_preceding_zero_slack(self):
+        source = b"A" * 16 + bytes(16) + b"B" * 16
+        rebuilt, offsets, padding, borrowed = (
+            replace_archive_chunk_with_preceding_zero_slack(
+                source,
+                (0, 32, 48),
+                chunk_index=1,
+                replacement=b"C" * 24,
+            )
+        )
+        self.assertEqual(len(rebuilt), len(source))
+        self.assertEqual(offsets, (0, 16, 48))
+        self.assertEqual(rebuilt[:16], b"A" * 16)
+        self.assertEqual(rebuilt[16:40], b"C" * 24)
+        self.assertEqual(rebuilt[40:], bytes(8))
+        self.assertEqual(padding, 8)
+        self.assertEqual(borrowed, 16)
+
+    def test_archive_chunk_rejects_nonzero_borrowed_preimage(self):
+        source = b"A" * 32 + b"B" * 16
+        with self.assertRaisesRegex(
+            WritebackError,
+            "slack contains nonzero",
+        ):
+            replace_archive_chunk_with_preceding_zero_slack(
+                source,
+                (0, 32, 48),
+                chunk_index=1,
+                replacement=b"C" * 24,
+            )
 
 
 if __name__ == "__main__":

@@ -16,9 +16,9 @@
 | 压缩格式 | `codec.py`、`codec_contract.py`、`diagnostics.py` | 严格解码、确定性 literal/greedy 编码、header-preserving suffix 重编码、边界和 trace |
 | 归档与布局 | `archive.py`、`iso_layout.py` | offset 表、chunk 切分/重建、SLPS 内嵌布局 |
 | 文本数据 | `text.py`、`menu.py`、`stage.py`、`summary.py`、`reference.py` | 码表、控制码、菜单/剧情/摘要解析和参考结果对照 |
-| 语料与写回 | `corpus.py`、`writeback.py`、`writers.py` | 稳定 ID、严格序列化、前像保护、文本池/指针、定长文本和归档 writer |
+| 语料与写回 | `corpus.py`、`translation_review.py`、`writeback.py`、`writers.py` | 稳定 ID、译文/术语审核、严格序列化、前像保护、文本池/指针、定长文本和归档 writer |
 | 生产选择 | `project.py` | SurfaceSpec、中文语料、codebook 和 BuildProfile reconciliation |
-| 字库与 canary | `font.py`、`canary.py`、`complete_canary.py` | VT1 字库段、24×24/4-bpp glyph、菜单/摘要/剧情完整 canary |
+| 字库与 canary | `font.py`、`font_source.py`、`canary.py`、`complete_canary.py` | 许可证/哈希锁定的字体源、VT1 字库段、24×24/4-bpp glyph、菜单/摘要/剧情完整 canary |
 | 图片与地图名 | `tim2.py`、`tim2_writeback.py`、`image_export.py`、`image_dashboard.py`、`imagemagick.py`、`assets.py`、`mapname.py` | TIM2 v4 严格元数据、全量图片导出与本地 Dashboard、固定 4-bpp/VT1 8-bpp index 注入、ImageMagick adapter、归档清单和 MAPNAME |
 | 镜像验证 | `iso9660.py` | 只读 ISO9660 扫描、成员哈希、布局和 PCSX2 介质判定 |
 | 补丁审计 | `patch_audit.py`、`toolchain.py` | 写入所有者、允许范围、armips 来源/构建/结果审计 |
@@ -33,14 +33,14 @@
 | --- | --- |
 | 原版与样本 | `verify_original_disc.py`、`extract_iso_member.py`、`split_stage_archive.py`、`verify_codec_samples.py` |
 | 解码诊断 | `inspect_srwz_stream.py`、`scan_stage_streams.py` |
-| 全量解析与语料 | `parse_srwz_iso_data.py`、`export_srwz_corpus.py` |
+| 全量解析与语料 | `parse_srwz_iso_data.py`、`export_srwz_corpus.py`、`review_srwz_translations.py`（含当前剧情里程碑术语、例外和官方简中异名专项表）、`build_biligame_gundam_reference.py`（从 Jina 缓存离线重建 SRWZ 高达人物／机体审核索引，不自动采用社区 WIKI 译名）、`reflow_first_five_dialogue.py`（24 字宽、最多 3 行、术语／运行时 token 不拆分和中文标点禁则）、`audit_first_five_language_quality.py`（前五关显示行宽、结构符号和同源异译说明门）、`audit_first_five_upstream_english.py`（固定上游英语直接覆盖与跨关同源参考审计）、`export_story_dialogue_stage_review.py`、`build_story_dialogue_stage_translation.py` |
 | 生产 profile | `validate_build_profile.py` |
-| 字库 | `analyze_srwz_font.py`、`render_srwz_font.py`、`fetch_canary_font.py` |
+| 字库 | `analyze_srwz_font.py`、`render_srwz_font.py`、`fetch_canary_font.py`、`fetch_first_five_font.py`、`audit_first_five_writeback.py`、`build_first_five_font.py`、`audit_first_five_font_coverage.py` |
 | 图片/地图名 | `inventory_srwz_assets.py`、`export_srwz_images.py`、`build_image_dashboard.py`、`render_srwz_tim2.py`、`inject_srwz_tim2.py`、`build_tim2_runtime_canary.py`、`parse_srwz_map_names.py` |
 | 编码与归档写回验证 | `validate_srwz_encoder.py`、`validate_srwz_archive_rebuild.py` |
 | 静态 canary | `build_static_canary.py`、`build_complete_canary.py` |
-| ISO | `bootstrap_mkps2iso.py`、`build_canary_iso.py` |
-| PCSX2/PINE | `verify_pcsx2_font_runtime.py`、`send_pcsx2_keys.swift` |
+| ISO | `bootstrap_mkps2iso.py`、`build_canary_iso.py`、`verify_first_five_iso_content.py` |
+| PCSX2/PINE | `verify_pcsx2_font_runtime.py`、`verify_first_five_runtime.py`、`send_pcsx2_keys.swift` |
 | ASM 与二进制审计 | `check_armips_toolchain.py`、`audit_binary_patch.py` |
 | 上游快照 | `compare_upstream_snapshot.py` |
 
@@ -86,8 +86,9 @@
 | --- | --- | --- |
 | Python 3 标准库 | 全部本项目 Python 工具 | 不需要上游 Python 依赖集合 |
 | 7-Zip | ISO/UDF 指定成员读取 | 只读；路径和结果受校验 |
-| ImageMagick | Noto 字形/mask rasterize、单 picture TIM2 只读 PNG 预览 | 生成灰度 mask 和预览；PSMT8/index 写回、CLUT 保留及边界验证由项目 writer 完成 |
+| ImageMagick | 固定字体的 glyph/mask rasterize、单 picture TIM2 只读 PNG 预览 | 生成灰度 mask 和预览；PSMT8/index 写回、CLUT 保留及边界验证由项目 writer 完成 |
 | Noto Sans CJK SC | canary 中文字形 | OFL-1.1，文件和许可证哈希固定 |
+| LXGW Neo XiHei Screen | 前五关统一汉字字形 | IPA Font License 1.0；版本、提交、字体和许可证哈希固定 |
 | Git、CMake、Ninja、CTest | 固定源码获取与本机构建 | 版本/提交受 lock 校验 |
 | armips | 上游 ASM 行为复现和审计 | 官方 MIT 源码在 macOS 构建；不是本项目实现 |
 | mkps2iso/dumps2iso | PS2 DVD 提取布局与 ISO 回包 | 官方 GPL-2.0-only 固定版本；不是本项目实现 |

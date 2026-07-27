@@ -229,6 +229,7 @@ def _greedy_payload(
     min_match_length: int,
     max_match_chain: int,
     prefix_size: int = 0,
+    lazy_matching: bool = False,
 ) -> bytes:
     if not data or prefix_size == len(data):
         return b""
@@ -296,6 +297,10 @@ def _greedy_payload(
 
     while position < size:
         match = find_match(position)
+        if match is not None and lazy_matching and position + 1 < size:
+            following = find_match(position + 1)
+            if following is not None and following[1] > match[1] + 1:
+                match = None
         if (
             match is not None
             and not pending_matches
@@ -348,11 +353,15 @@ def reencode_changed_suffix(
     original_stream: BytesLike,
     modified_output: BytesLike,
     *,
+    strategy: str = "greedy",
     min_match_length: int = DEFAULT_MIN_MATCH_LENGTH,
     max_match_chain: int = DEFAULT_MAX_MATCH_CHAIN,
+    lazy_matching: bool = False,
 ) -> bytes:
     """Preserve complete original blocks before a changed decoded suffix."""
 
+    if strategy not in {"greedy", "literal"}:
+        raise ValueError("suffix strategy must be 'greedy' or 'literal'")
     source = memoryview(original_stream).cast("B").tobytes()
     replacement = memoryview(modified_output).cast("B").tobytes()
     blocks = []
@@ -416,13 +425,17 @@ def reencode_changed_suffix(
     ):
         raise ValueError("suffix splice would preserve changed prefix bytes")
 
-    payload = _greedy_payload(
-        replacement,
-        window_size=int(original.metadata["window_size"]),
-        min_match_length=min_match_length,
-        max_match_chain=max_match_chain,
-        prefix_size=output_prefix_size,
-    )
+    if strategy == "literal":
+        payload = _literal_payload(replacement[output_prefix_size:])
+    else:
+        payload = _greedy_payload(
+            replacement,
+            window_size=int(original.metadata["window_size"]),
+            min_match_length=min_match_length,
+            max_match_chain=max_match_chain,
+            prefix_size=output_prefix_size,
+            lazy_matching=lazy_matching,
+        )
     encoded = (
         new_declared
         + source[old_declared.end:input_prefix_size]

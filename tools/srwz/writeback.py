@@ -199,6 +199,69 @@ def rebuild_aligned_archive(
     return bytes(output), tuple(offsets)
 
 
+def replace_archive_chunk_with_preceding_zero_slack(
+    archive: bytes,
+    offsets: Iterable[int],
+    *,
+    chunk_index: int,
+    replacement: bytes,
+    alignment: int = 16,
+) -> tuple[bytes, tuple[int, ...], int, int]:
+    """Grow one chunk backward into proven zero slack without moving its end.
+
+    This keeps the archive size and every following offset unchanged.  The
+    only borrowed bytes must be the aligned zero tail of the immediately
+    preceding chunk.
+    """
+
+    positions = tuple(offsets)
+    if len(positions) < 3:
+        raise WritebackError("archive needs at least two chunks")
+    if not 0 < chunk_index < len(positions) - 1:
+        raise WritebackError(
+            "zero-slack replacement needs a preceding archive chunk"
+        )
+    if positions[0] != 0 or positions[-1] != len(archive):
+        raise WritebackError("archive offsets do not cover the source")
+    if any(
+        current >= following
+        for current, following in zip(positions, positions[1:])
+    ):
+        raise WritebackError("archive offsets are not strictly increasing")
+    if alignment <= 0 or alignment & (alignment - 1):
+        raise ValueError("alignment must be a positive power of two")
+    if any(position % alignment for position in positions):
+        raise WritebackError("archive offsets are not aligned")
+
+    old_start = positions[chunk_index]
+    end = positions[chunk_index + 1]
+    old_allocation = end - old_start
+    new_allocation = (
+        len(replacement) + alignment - 1
+    ) & -alignment
+    borrowed = max(new_allocation - old_allocation, 0)
+    new_start = old_start - borrowed
+    if new_start < positions[chunk_index - 1]:
+        raise WritebackError(
+            "replacement exceeds the preceding archive chunk"
+        )
+    borrowed_preimage = archive[new_start:old_start]
+    if any(borrowed_preimage):
+        raise WritebackError(
+            "preceding archive slack contains nonzero bytes"
+        )
+
+    allocation = end - new_start
+    padding = allocation - len(replacement)
+    output = bytearray(archive)
+    output[new_start:end] = replacement + bytes(padding)
+    rebuilt_offsets = list(positions)
+    rebuilt_offsets[chunk_index] = new_start
+    if len(output) != len(archive):
+        raise WritebackError("zero-slack replacement changed archive size")
+    return bytes(output), tuple(rebuilt_offsets), padding, borrowed
+
+
 __all__ = [
     "AllocationPool",
     "PatchOperation",
@@ -206,5 +269,6 @@ __all__ = [
     "WritebackError",
     "fit_fixed_allocation",
     "rebuild_aligned_archive",
+    "replace_archive_chunk_with_preceding_zero_slack",
     "sha256_bytes",
 ]

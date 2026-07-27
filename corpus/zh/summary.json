@@ -1,12 +1,317 @@
 {
   "schema_version": 1,
+  "batch_id": "v1-summary-world-history",
+  "language": "zh-Hans",
+  "scope": {
+    "domain": "summary",
+    "entry_count": 28,
+    "description": "游戏内世界历史摘要的完整首轮译稿"
+  },
   "entries": [
     {
       "id": "summary/00/000",
       "source_text_sha256": "9653ce5534a52ba22758f6148570dcab1c1519d38ff21a555dc1c913b26169d5",
-      "translation": "　测试。",
-      "editorial_status": "final",
-      "notes": "MTV_PROS fixed-allocation production canary; runtime evidence is bound separately to the exact ISO."
+      "translation": "这是一个被称为宇宙世纪的时代。\n人类废除国家，在地球联邦政府之下实现统一，并成功建造宇宙殖民地，将生活空间拓展到了宇宙。\n\n然而，这也成了孕育新一轮战争的土壤。诞生于宇宙殖民地群“Side 3”的吉翁公国发表脱离地球联邦的独立宣言，事态最终发展为“一年战争”。这场规模空前的巨大战争带来惨重灾祸，也给此后的社会留下了深重伤痕。\n\n一年战争夺走了总人口的三分之一，最终以地球联邦获胜告终，但战火并未就此熄灭。继企图将超古代文明之力据为己有、进而征服世界的地狱博士发动进攻之后，人类又接连经历了与非人智慧生命的战争：以古代迈锡尼人为先祖的迈锡尼帝国、盘踞地底的爬虫人类所建立的恐龙帝国，以及来自外宇宙的侵略者维加星联合军。\n人类以魔神Z、盖塔机器人等超级机器人为核心投入战斗，先后击败地狱博士与迈锡尼帝国；对恐龙帝国和维加星联合军的战争也即将进入最后阶段。\n\n但即便身处这些战火之中，人类依然无法团结为一体。一年战争使“地球居民”与“宇宙移民”之间的矛盾公开化。战争结束七年后的今天，这场对立又迎来了新的局面。\n正逐步从内部控制地球联邦军的精英集团“泰坦斯”，肆无忌惮地压迫宇宙移民；意识到其危险的人们则组建反地球联邦组织“奥古”，开始进行抵抗。\n\n一场战争落幕，另一场战争又将开始。席卷一切的命运风暴，正悄然吞没这个世界。",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "era/universal-century",
+        "event/one-year-war",
+        "organization/earth-federation",
+        "organization/principality-of-zeon",
+        "organization/titans",
+        "organization/aeug",
+        "organization/mycenae-empire",
+        "organization/dinosaur-empire",
+        "organization/vega-alliance-force",
+        "people/earthnoid",
+        "people/spacenoid",
+        "people/dr-hell",
+        "place/space-colony",
+        "place/side-3",
+        "species/reptilian-humanity",
+        "unit/mazinger-z",
+        "unit/getter-robo"
+      ],
+      "notes": "首轮意译稿；段落结构保留，原版画面换行尚未处理。"
+    },
+    {
+      "id": "summary/01/000",
+      "source_text_sha256": "96a20dd29ff832e3d627ee66215421ef5fbb84ee98cdfc3f45717b835fc9396d",
+      "translation": "这是一个地球早已失去往昔文明与自然环境，各个地区分别形成自身社会与文化的时代。纵观历史，人类失去了许多事物，却也不断创造出新的东西。\n\n曾经统治北半球最大大陆大部分地区的特权阶级“天真者”，其社会最终在他们创造的新人类“平民”手中走向终结。另一方面，统治其他地区的中央政府虽因十五年前第七次宇宙战争的灾难一度濒临崩溃，如今却正逐步恢复统治；与中央政府敌对的宇宙革命军也同样如此。就连始终坚持不干涉立场的“月之民”，也开始为了实现夙愿而采取行动。\n\n世界即将迎来剧变，人们却仍在为今日的生计拼尽全力。他们不知道未来等待着自己的是什么，也不知道过去究竟发生过什么……",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "event/seventh-space-war",
+        "organization/central-government",
+        "organization/space-revolutionary-army",
+        "faction/innocent",
+        "people/civilian",
+        "people/moonrace"
+      ],
+      "notes": "“天真者／平民”存在作品异译，已列入术语人工审核。"
+    },
+    {
+      "id": "summary/02/000",
+      "source_text_sha256": "5a19dd9ed44bc117e0a8d260159c721ec0fdf771e2bb04ee02ade9f5621a5fd2",
+      "translation": "发生在某个世界、某段时间的巨大时空震动击溃了次元壁垒，由此诞生出一个由不同世界与时代交融而成的新世界。",
+      "editorial_status": "draft",
+      "glossary_refs": ["event/dimensional-shock"],
+      "notes": ""
+    },
+    {
+      "id": "summary/02/001",
+      "source_text_sha256": "1b57c095ac9153c85e507b253d36a98515a5a9dd139f701cea15cb77f6d41b35",
+      "translation": "然而，人类并未灭亡。",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": ""
+    },
+    {
+      "id": "summary/02/002",
+      "source_text_sha256": "c0bec2de690b23dd3a36b5bf5c549fc3ec76a478078ae1430f8d4afd4df88b7e",
+      "translation": "在因时空破坏“世界崩坏”而诞生的“多元世界”中，人类正试图建立新的秩序。",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "event/break-the-world",
+        "place/multiverse"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "summary/03/000",
+      "source_text_sha256": "dce242d6f1256af6b8614a569e648466b1cabc711b77565756a4d1e59dfe6231",
+      "translation": "地球联邦、地球联合、中央政府与塔州联邦共同建立了统一国家“新地球联邦”，各方人民和组织均加入其中。新地球联邦宣告，未来将以其名义统合全人类。\n它秉持这一方针，自诩为世界警察，积极介入各地纷争，接连吞并弱小国家。这引起了多元世界原生国家“奇拉姆”的反对；不过，双方最终互认彼此为友好国家，并确认双方是在这个新世界中共同生活的邻邦。\n由此，新地球联邦与奇拉姆的势力范围以阿美利亚大陆为中心，覆盖了地球总面积的百分之七十，并将总人口的百分之七十五纳入统治之下。",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "organization/earth-federation",
+        "organization/earth-alliance",
+        "organization/central-government",
+        "organization/tower-state-federation",
+        "organization/new-earth-federation",
+        "organization/chiram",
+        "place/multiverse",
+        "place/ameria-continent"
+      ],
+      "notes": "“奇拉姆／阿美利亚大陆”音译待跨剧情复核。"
+    },
+    {
+      "id": "summary/04/000",
+      "source_text_sha256": "213df0c83e2885c95bd29dfaa52760eb04ee3ebcc5ec061195a70378260d59be",
+      "translation": "其他地区则在新地球联邦之外，形成了各自独立的社会。其中规模最大的，是与奇拉姆大致同时成为多元世界一员的“埃曼”。\n埃曼以加利亚大陆东南部为中心，身处各个地区交汇之地，商品与信息在此活跃流通；与此同时，埃曼人也派遣商队前往世界各地，从事贸易。",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "organization/earth-federation",
+        "organization/new-earth-federation",
+        "organization/chiram",
+        "organization/emaan",
+        "place/multiverse",
+        "place/gallia-continent"
+      ],
+      "notes": "“埃曼／加利亚大陆”已查常见译法，仍待跨剧情人工复核。"
+    },
+    {
+      "id": "summary/05/000",
+      "source_text_sha256": "82f22ac9fab177c0578e660ee3f1822230ba0c72a5a8b4de04136808c2b934cb",
+      "translation": "凭借埃曼人的活跃，以及以新地球联邦为核心建立的全球“信息集中与共享”系统——通称“UN”，人类逐渐理解、接纳并适应多元世界，最终建立起生活的基础。\n\n然而，这个世界对人类而言依旧太过陌生，也太不稳定。\n\n大气层上空存在一道名为“相克界”的次元壁垒。受其阻隔，宇宙与地球之间的往来仅限于相克界较为薄弱的加利亚大陆南部，以及太平洋上的特定区域。与此同时，小规模时空震动至今仍在不断发生；被卷入其中的人，再也没有回来。\n\n挥之不去的焦虑促使人们追逐转瞬即逝的享乐。多元世界的一切，都如同这个世界本身一样动荡不安。\n\n有人不断追逐笼罩世界的特拉帕波；有人跟随埃曼商队奔走各地，梦想一夜暴富；也有人为了称霸这片乱世，正在暗中磨利自己的獠牙。",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "event/dimensional-shock",
+        "organization/earth-federation",
+        "organization/new-earth-federation",
+        "organization/emaan",
+        "place/multiverse",
+        "place/gallia-continent",
+        "technology/dimensional-boundary",
+        "technology/trapar",
+        "system/un-network"
+      ],
+      "notes": "UN 明确指游戏内信息系统，不译为联合国。"
+    },
+    {
+      "id": "summary/06/000",
+      "source_text_sha256": "9bee1b5c603c6d742c4e05a5ddbf5954c84dbfd33a23c1d242cb5cd85f369eb7",
+      "translation": "多元世纪元年（MC.00）。\n距离世界崩坏已过去约半年……\n围绕这个新世界，某种无形的力量正一点点开始运转。",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "era/multiversal-century",
+        "event/break-the-world"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "summary/07/000",
+      "source_text_sha256": "1e7587032daf0e4b2cc2f55f3b9cae5f4a270dafb1eaef2894641dbcf0baff25",
+      "translation": "新的世界，孕育出新的战争。正因为这里是多元世界，这些战争愈发混乱，也即将呈现出更加错综复杂的局面。\n\n新地球联邦将生活在宇宙中的人类视为敌人，宣布对PLANT与月之民采取敌对立场。起初，他们也希望通过对话解决问题；但面对新联邦军的进攻，最终不得不进行还击。\n\n然而，人类不仅要彼此为敌，还必须抵御盖佐克、泽拉拜亚、伊尔塔星人、阿尔德巴朗和堕天翅等外敌。而在世界的阴影之中，更有新的敌人蠢蠢欲动。\n\n就在此时，一些人着眼于世界的未来，准备采取下一步行动。新地球联邦、ZAFT、月之民、奇拉姆、埃曼，以及……\n\n在这片混乱的世界里，人们仍在竭力求生。无法活过今天，就不可能迎来明天。即使不知道世界将去向何方，人们依旧为了让今日的生命延续至明日，各自投身战斗。",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "organization/earth-federation",
+        "organization/new-earth-federation",
+        "organization/new-federation-forces",
+        "organization/chiram",
+        "organization/emaan",
+        "organization/plant",
+        "organization/zaft",
+        "faction/gaizok",
+        "faction/zeravire",
+        "faction/elder",
+        "faction/aldébaran",
+        "people/moonrace",
+        "place/multiverse",
+        "species/fallen-angel"
+      ],
+      "notes": "四个外敌势力的音译均保留在术语待审队列。"
+    },
+    {
+      "id": "summary/08/000",
+      "source_text_sha256": "76005a5bbba1cb69891cfb51bad6a1b1257fe12fc15b70a1dc8e94b15cc40bc4",
+      "translation": "战斗中启动的另一枚时空震动弹，再次摧毁了次元壁垒。这场被称为“第二次崩坏”的时空破坏，不仅打乱了逐渐趋于稳定的秩序，甚至改变了大陆的形状与天体的运行。",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "event/dimensional-shock",
+        "event/second-break"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "summary/08/001",
+      "source_text_sha256": "00fad7710cc07eb66c3386b848ec45e075bda39feb39d7d85840e860ddd7fbf1",
+      "translation": "人们只能再次意识到，自己所在的地方不过是一个毫无保障、如泡沫般脆弱的世界。",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": ""
+    },
+    {
+      "id": "summary/09/000",
+      "source_text_sha256": "3aa3d212399ce6821f845fec97436bb5f7a317786cfb0fb16ae1bf85b03c376f",
+      "translation": "民众积压的焦虑彻底爆发，最终演变为暴动；",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "与 summary/09/001—006 连读。"
+    },
+    {
+      "id": "summary/09/001",
+      "source_text_sha256": "34631aae2cffd432ce1eb461b6d92474f944ae3ebee6ee98c8c848c0e393c14b",
+      "translation": "相关消息又裹挟着不负责任的谣言，在UN上",
+      "editorial_status": "draft",
+      "glossary_refs": ["system/un-network"],
+      "notes": "与 summary/09/000—006 连读。"
+    },
+    {
+      "id": "summary/09/002",
+      "source_text_sha256": "203de57c326cd8b53cf4a515c2b63a41c41c7048ed188eb3a8ea15c4db73abf9",
+      "translation": "四处传播，进一步煽动着人们的不安。",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "与 summary/09/000—006 连读。"
+    },
+    {
+      "id": "summary/09/003",
+      "source_text_sha256": "d26aa00a63891dacbaf173e4a8c8241bacdbd6e944f72c48636a5925ae878aac",
+      "translation": "经政变重组的新地球联邦政府",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "organization/earth-federation",
+        "organization/new-earth-federation"
+      ],
+      "notes": "与 summary/09/000—006 连读。"
+    },
+    {
+      "id": "summary/09/004",
+      "source_text_sha256": "6e00635226cd87380fb7a7893524b49bf7365abf9e1d8611a8227ff8fdf9b4c9",
+      "translation": "虽派遣军队镇压暴徒，却无法将",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "与 summary/09/000—006 连读。"
+    },
+    {
+      "id": "summary/09/005",
+      "source_text_sha256": "1e6b20def629c9b6a5182f00bdeaea7288028b1b10aaaed220a5cf08c757c90c",
+      "translation": "早已扎根在人们心底的不安与恐惧",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "与 summary/09/000—006 连读。"
+    },
+    {
+      "id": "summary/09/006",
+      "source_text_sha256": "96cd31365543f53d0c98198c2c561df097f09aee9cb1a91b8ebc31ee74f0cc44",
+      "translation": "彻底驱散。",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": "与 summary/09/000—006 连读。"
+    },
+    {
+      "id": "summary/10/000",
+      "source_text_sha256": "30270961ebc85b8b5802e58cdcfaccdf5fad0a2d7da2e5225b979f322c4629e0",
+      "translation": "此外，第二次崩坏也改变了分隔地球与",
+      "editorial_status": "draft",
+      "glossary_refs": ["event/second-break"],
+      "notes": "与 summary/10/001—006 连读。"
+    },
+    {
+      "id": "summary/10/001",
+      "source_text_sha256": "d5cd567d0bb41436385cb2611b1c7ae2eae3aa9107bd27f63f5f6b4f2761886b",
+      "translation": "宇宙的相克界。",
+      "editorial_status": "draft",
+      "glossary_refs": ["technology/dimensional-boundary"],
+      "notes": "与 summary/10/000—006 连读。"
+    },
+    {
+      "id": "summary/10/002",
+      "source_text_sha256": "51d67bde00086bb190a82b73067cbcea7e056e6d0d65b88eb34ec57cf6b64b38",
+      "translation": "全世界范围内，相克界的力量都在减弱，取而代之的是",
+      "editorial_status": "draft",
+      "glossary_refs": ["technology/dimensional-boundary"],
+      "notes": "与 summary/10/000—006 连读。"
+    },
+    {
+      "id": "summary/10/003",
+      "source_text_sha256": "9fa97e7d5611f6934ac2c6ec79be350bab773033c8e5336cea7c258a325b92e4",
+      "translation": "特拉帕含量增加。",
+      "editorial_status": "draft",
+      "glossary_refs": ["technology/trapar"],
+      "notes": "与 summary/10/000—006 连读。"
+    },
+    {
+      "id": "summary/10/004",
+      "source_text_sha256": "2d6dbc6aa393614df5fe5b66493a02fef60a43cd78dc0026d916a55cfee3df6f",
+      "translation": "受此影响，异星人联合的攻势，以及地球居民",
+      "editorial_status": "draft",
+      "glossary_refs": [
+        "organization/alien-alliance",
+        "people/earthnoid"
+      ],
+      "notes": "与 summary/10/000—006 连读。"
+    },
+    {
+      "id": "summary/10/005",
+      "source_text_sha256": "335fa622af4a5208930c47200b74cd6d62588743d31e7d9fb9e6bd647e874059",
+      "translation": "与宇宙移民之间的战争愈演愈烈；与此同时，各地",
+      "editorial_status": "draft",
+      "glossary_refs": ["people/spacenoid"],
+      "notes": "与 summary/10/000—006 连读。"
+    },
+    {
+      "id": "summary/10/006",
+      "source_text_sha256": "b484ada18e1cf46f0c57e097d56e0b4be1545d6a10e5a0c5fae1dcf60259447d",
+      "translation": "抗体柯拉利安的活动也日益频繁。",
+      "editorial_status": "draft",
+      "glossary_refs": ["species/antibody-coralian"],
+      "notes": "与 summary/10/000—006 连读。"
+    },
+    {
+      "id": "summary/11/000",
+      "source_text_sha256": "19ce5e4a3f3926530de5ce83cdfa1b9ed56e1728954bb1b4a7b24c971652f6a8",
+      "translation": "人们担忧世界将迎来终结，却又无计可施，只能因UN上四处流传的可疑消息而愈发惶恐。",
+      "editorial_status": "draft",
+      "glossary_refs": ["system/un-network"],
+      "notes": ""
+    },
+    {
+      "id": "summary/11/001",
+      "source_text_sha256": "05e2cfbc03f089c7f364edeee6336072b6e6047e20299e3f65065f1ddcb2742d",
+      "translation": "就在世界本身的存续都受到威胁之际，那些企图夺取霸权与未来的人们，即将展开最后的战争……",
+      "editorial_status": "draft",
+      "glossary_refs": [],
+      "notes": ""
     }
   ]
 }

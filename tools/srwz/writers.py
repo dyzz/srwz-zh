@@ -106,6 +106,67 @@ class StageArenaWrite:
 
 
 @dataclass(frozen=True)
+class StageBatchAllocation:
+    entry_id: str
+    pointer_offset: int
+    source_text_offset: int
+    arena_offset: int
+    payload_size: int
+
+    def to_metadata(self) -> dict:
+        return {
+            "entry_id": self.entry_id,
+            "pointer_offset": self.pointer_offset,
+            "source_text_offset": self.source_text_offset,
+            "arena_offset": self.arena_offset,
+            "payload_size": self.payload_size,
+        }
+
+
+@dataclass(frozen=True)
+class StageBatchWrite:
+    data: bytes
+    stage_index: int
+    source_size: int
+    alignment: int
+    allocations: tuple[StageBatchAllocation, ...]
+    mode: str = "appended_arena"
+    owned_regions: tuple[tuple[int, int], ...] = ()
+    unique_payload_count: int = 0
+
+    @property
+    def decoded_growth(self) -> int:
+        return len(self.data) - self.source_size
+
+    def to_metadata(self) -> dict:
+        return {
+            "stage_index": self.stage_index,
+            "source_size": self.source_size,
+            "output_size": len(self.data),
+            "decoded_growth": self.decoded_growth,
+            "alignment": self.alignment,
+            "mode": self.mode,
+            "owned_regions": [
+                {
+                    "start": start,
+                    "end": end,
+                    "size": end - start,
+                }
+                for start, end in self.owned_regions
+            ],
+            "owned_capacity": sum(
+                end - start for start, end in self.owned_regions
+            ),
+            "unique_payload_count": self.unique_payload_count,
+            "allocation_count": len(self.allocations),
+            "allocations": [
+                allocation.to_metadata()
+                for allocation in self.allocations
+            ],
+        }
+
+
+@dataclass(frozen=True)
 class TextPoolAllocation:
     entry_id: str
     pool_offset: int
@@ -671,6 +732,453 @@ def relocate_stage_text_to_arena(
         source_decoded_size=len(data),
         used_source_tail=used_source_tail,
         used_source_allocation=used_source_allocation,
+    )
+
+
+def relocate_stage_texts_to_arena(
+    data: bytes,
+    table: TextTable,
+    *,
+    stage_index: int,
+    function_address: int,
+    replacements: Mapping[str, str],
+    speaker_replacements: Mapping[int, str] | None = None,
+    overrides: Mapping[str, int] | None = None,
+    alignment: int = 16,
+    base_address: int = STAGE_BASE_ADDRESS,
+) -> StageBatchWrite:
+    """Relocate a fail-closed batch of dialogue/condition strings.
+
+    Every selected record receives its own aligned arena allocation. Dialogue
+    speaker prefixes may be translated by their parsed stage-local speaker ID;
+    message-only records and conditions have no synthetic prefix added.
+    """
+
+    if alignment <= 0 or alignment & (alignment - 1):
+        raise ValueError("stage arena alignment must be a power of two")
+    if not replacements:
+        raise WritebackError("stage batch replacements are empty")
+    parsed = parse_stage(
+        data,
+        table,
+        stage_index=stage_index,
+        function_address=function_address,
+        base_address=base_address,
+    )
+    entries = {entry.entry_id: entry for entry in parsed.entries}
+    unknown = sorted(set(replacements) - set(entries))
+    if unknown:
+        raise WritebackError(f"unknown stage replacement ids: {unknown!r}")
+    selected = [entries[entry_id] for entry_id in sorted(replacements)]
+    if any(
+        entry.pointer_offset is None or entry.text_offset is None
+        for entry in selected
+    ):
+        raise WritebackError("stage batch contains a non-relocatable record")
+    pointer_offsets = [entry.pointer_offset for entry in selected]
+    if len(pointer_offsets) != len(set(pointer_offsets)):
+        raise WritebackError("stage batch contains duplicate pointer sites")
+
+    speaker_replacements = speaker_replacements or {}
+    known_speakers = {
+        entry.speaker_id
+        for entry in parsed.entries
+        if entry.speaker_id is not None
+    }
+    unknown_speakers = sorted(set(speaker_replacements) - known_speakers)
+    if unknown_speakers:
+        raise WritebackError(
+            f"unknown stage speaker ids: {unknown_speakers!r}"
+        )
+
+    output = bytearray(data)
+    allocations = []
+    expected_speakers = {}
+    for entry in selected:
+        assert entry.pointer_offset is not None
+        assert entry.text_offset is not None
+        actual_address = struct.unpack_from(
+            "<I", data, entry.pointer_offset
+        )[0]
+        if actual_address != base_address + entry.text_offset:
+            raise WritebackError(
+                f"{entry.entry_id} pointer preimage mismatch"
+            )
+
+        prefix = b""
+        expected_speaker = None
+        if entry.kind == "dialogue":
+            speaker = decode_text(
+                data,
+                entry.text_offset,
+                table,
+                stop_at_newline=True,
+            )
+            if speaker.terminator == "newline":
+                message = decode_text(data, speaker.end, table)
+                expected_speaker = speaker_replacements.get(
+                    entry.speaker_id,
+                    speaker.text,
+                )
+                prefix = encode_text(
+                    expected_speaker,
+                    table,
+                    overrides=overrides,
+                ) + b"\n"
+            else:
+                message = speaker
+        else:
+            message = decode_text(data, entry.text_offset, table)
+        if message.text != entry.text:
+            raise WritebackError(
+                f"{entry.entry_id} parser/source text mismatch"
+            )
+        payload = prefix + encode_text(
+            replacements[entry.entry_id],
+            table,
+            overrides=overrides,
+            terminate=True,
+        )
+        arena_offset = (len(output) + alignment - 1) & -alignment
+        output.extend(bytes(arena_offset - len(output)))
+        output.extend(payload)
+        struct.pack_into(
+            "<I",
+            output,
+            entry.pointer_offset,
+            base_address + arena_offset,
+        )
+        allocations.append(
+            StageBatchAllocation(
+                entry_id=entry.entry_id,
+                pointer_offset=entry.pointer_offset,
+                source_text_offset=entry.text_offset,
+                arena_offset=arena_offset,
+                payload_size=len(payload),
+            )
+        )
+        expected_speakers[entry.entry_id] = expected_speaker
+
+    output.extend(bytes((-len(output)) & (alignment - 1)))
+    rebuilt = bytes(output)
+    output_table = _table_with_overrides(table, overrides)
+    reparsed = parse_stage(
+        rebuilt,
+        output_table,
+        stage_index=stage_index,
+        function_address=function_address,
+        base_address=base_address,
+    )
+    actual_messages = {
+        entry.entry_id: entry.text for entry in reparsed.entries
+    }
+    for allocation in allocations:
+        expected_message = replacements[allocation.entry_id]
+        if actual_messages.get(allocation.entry_id) != expected_message:
+            raise WritebackError(
+                f"{allocation.entry_id} reparse mismatch after batch "
+                f"relocation: expected {expected_message!r}, got "
+                f"{actual_messages.get(allocation.entry_id)!r}"
+            )
+        expected_speaker = expected_speakers[allocation.entry_id]
+        if expected_speaker is not None:
+            actual_speaker = decode_text(
+                rebuilt,
+                allocation.arena_offset,
+                output_table,
+                stop_at_newline=True,
+            )
+            if (
+                actual_speaker.terminator != "newline"
+                or actual_speaker.text != expected_speaker
+            ):
+                raise WritebackError(
+                    f"{allocation.entry_id} speaker reparse mismatch"
+                )
+
+    return StageBatchWrite(
+        data=rebuilt,
+        stage_index=stage_index,
+        source_size=len(data),
+        alignment=alignment,
+        allocations=tuple(allocations),
+        unique_payload_count=len(allocations),
+    )
+
+
+def repack_stage_texts_in_place(
+    data: bytes,
+    table: TextTable,
+    *,
+    stage_index: int,
+    function_address: int,
+    replacements: Mapping[str, str],
+    speaker_replacements: Mapping[int, str] | None = None,
+    overrides: Mapping[str, int] | None = None,
+    alignment: int = 16,
+    base_address: int = STAGE_BASE_ADDRESS,
+) -> StageBatchWrite:
+    """Repack every direct-pointer STAGE text into owned source regions.
+
+    The game loads a decoded stage into a fixed memory region, so production
+    batches must remain size-preserving. Ownership is derived only from each
+    parsed source payload plus its immediately following zero slack. Every
+    relocatable dialogue and condition must be selected before those regions
+    can be cleared and reused.
+    """
+
+    if alignment <= 0 or alignment & (alignment - 1):
+        raise ValueError("stage pool alignment must be a power of two")
+    if not replacements:
+        raise WritebackError("stage in-place replacements are empty")
+    parsed = parse_stage(
+        data,
+        table,
+        stage_index=stage_index,
+        function_address=function_address,
+        base_address=base_address,
+    )
+    relocatable = {
+        entry.entry_id: entry
+        for entry in parsed.entries
+        if entry.kind in {"dialogue", "condition"}
+        and entry.pointer_offset is not None
+        and entry.text_offset is not None
+    }
+    non_relocatable = sorted(
+        entry.entry_id
+        for entry in parsed.entries
+        if entry.kind in {"dialogue", "condition"}
+        and (
+            entry.pointer_offset is None
+            or entry.text_offset is None
+        )
+    )
+    if non_relocatable:
+        raise WritebackError(
+            "stage in-place batch contains non-relocatable records: "
+            f"{non_relocatable!r}"
+        )
+    selected_ids = set(replacements)
+    expected_ids = set(relocatable)
+    if selected_ids != expected_ids:
+        missing = sorted(expected_ids - selected_ids)
+        unknown = sorted(selected_ids - expected_ids)
+        raise WritebackError(
+            "stage in-place repack requires every relocatable record; "
+            f"missing={missing!r}, unknown={unknown!r}"
+        )
+    selected = [relocatable[entry_id] for entry_id in sorted(replacements)]
+    pointer_offsets = [entry.pointer_offset for entry in selected]
+    if len(pointer_offsets) != len(set(pointer_offsets)):
+        raise WritebackError(
+            "stage in-place batch contains duplicate pointer sites"
+        )
+
+    speaker_replacements = speaker_replacements or {}
+    known_speakers = {
+        entry.speaker_id
+        for entry in parsed.entries
+        if entry.speaker_id is not None
+    }
+    unknown_speakers = sorted(set(speaker_replacements) - known_speakers)
+    if unknown_speakers:
+        raise WritebackError(
+            f"unknown stage speaker ids: {unknown_speakers!r}"
+        )
+
+    records = []
+    source_regions = []
+    for entry in selected:
+        assert entry.pointer_offset is not None
+        assert entry.text_offset is not None
+        actual_address = struct.unpack_from(
+            "<I", data, entry.pointer_offset
+        )[0]
+        if actual_address != base_address + entry.text_offset:
+            raise WritebackError(
+                f"{entry.entry_id} pointer preimage mismatch"
+            )
+
+        prefix = b""
+        expected_speaker = None
+        if entry.kind == "dialogue":
+            speaker = decode_text(
+                data,
+                entry.text_offset,
+                table,
+                stop_at_newline=True,
+            )
+            if speaker.terminator == "newline":
+                message = decode_text(data, speaker.end, table)
+                expected_speaker = speaker_replacements.get(
+                    entry.speaker_id,
+                    speaker.text,
+                )
+                prefix = encode_text(
+                    expected_speaker,
+                    table,
+                    overrides=overrides,
+                ) + b"\n"
+                source_end = message.end
+            else:
+                message = speaker
+                source_end = speaker.end
+        else:
+            message = decode_text(data, entry.text_offset, table)
+            source_end = message.end
+        if message.text != entry.text:
+            raise WritebackError(
+                f"{entry.entry_id} parser/source text mismatch"
+            )
+        payload = prefix + encode_text(
+            replacements[entry.entry_id],
+            table,
+            overrides=overrides,
+            terminate=True,
+        )
+        slack_end = source_end
+        while slack_end < len(data) and data[slack_end] == 0:
+            slack_end += 1
+        source_regions.append((entry.text_offset, slack_end))
+        records.append(
+            {
+                "entry": entry,
+                "payload": payload,
+                "expected_speaker": expected_speaker,
+            }
+        )
+
+    owned_regions = []
+    for start, end in sorted(source_regions):
+        if not owned_regions or start > owned_regions[-1][1]:
+            owned_regions.append([start, end])
+        else:
+            owned_regions[-1][1] = max(owned_regions[-1][1], end)
+    if not owned_regions:
+        raise WritebackError("stage in-place repack has no owned regions")
+    pools = [
+        AllocationPool(
+            owner=f"stage {stage_index:03d} text region {index}",
+            start=start,
+            end=end,
+        )
+        for index, (start, end) in enumerate(owned_regions)
+    ]
+
+    grouped = {}
+    for record in records:
+        entry = record["entry"]
+        key = (entry.text_offset, record["payload"])
+        grouped.setdefault(key, []).append(record)
+    placements = {}
+    for key, group in sorted(
+        grouped.items(),
+        key=lambda item: min(
+            record["entry"].entry_id for record in item[1]
+        ),
+    ):
+        payload = key[1]
+        for pool in pools:
+            position = (
+                (pool.cursor + alignment - 1) & ~(alignment - 1)
+            )
+            if position + len(payload) <= pool.end:
+                placements[key] = pool.allocate(
+                    len(payload),
+                    alignment=alignment,
+                )
+                break
+        else:
+            capacity = sum(end - start for start, end in owned_regions)
+            used = sum(
+                len(group_key[1]) for group_key in placements
+            )
+            raise WritebackError(
+                f"stage {stage_index:03d} owned text regions overflow: "
+                f"capacity {capacity}, placed payload bytes {used}, "
+                f"next payload {len(payload)}"
+            )
+
+    output = bytearray(data)
+    for start, end in owned_regions:
+        output[start:end] = bytes(end - start)
+    for key, position in placements.items():
+        payload = key[1]
+        output[position:position + len(payload)] = payload
+
+    allocations = []
+    expected_speakers = {}
+    for record in records:
+        entry = record["entry"]
+        key = (entry.text_offset, record["payload"])
+        arena_offset = placements[key]
+        struct.pack_into(
+            "<I",
+            output,
+            entry.pointer_offset,
+            base_address + arena_offset,
+        )
+        allocations.append(
+            StageBatchAllocation(
+                entry_id=entry.entry_id,
+                pointer_offset=entry.pointer_offset,
+                source_text_offset=entry.text_offset,
+                arena_offset=arena_offset,
+                payload_size=len(record["payload"]),
+            )
+        )
+        expected_speakers[entry.entry_id] = record["expected_speaker"]
+
+    rebuilt = bytes(output)
+    if len(rebuilt) != len(data):
+        raise WritebackError("stage in-place repack changed decoded size")
+    output_table = _table_with_overrides(table, overrides)
+    reparsed = parse_stage(
+        rebuilt,
+        output_table,
+        stage_index=stage_index,
+        function_address=function_address,
+        base_address=base_address,
+    )
+    actual_messages = {
+        entry.entry_id: entry.text for entry in reparsed.entries
+    }
+    for allocation in allocations:
+        expected_message = replacements[allocation.entry_id]
+        if actual_messages.get(allocation.entry_id) != expected_message:
+            raise WritebackError(
+                f"{allocation.entry_id} reparse mismatch after in-place "
+                f"repack: expected {expected_message!r}, got "
+                f"{actual_messages.get(allocation.entry_id)!r}"
+            )
+        expected_speaker = expected_speakers[allocation.entry_id]
+        if expected_speaker is not None:
+            actual_speaker = decode_text(
+                rebuilt,
+                allocation.arena_offset,
+                output_table,
+                stop_at_newline=True,
+            )
+            if (
+                actual_speaker.terminator != "newline"
+                or actual_speaker.text != expected_speaker
+            ):
+                raise WritebackError(
+                    f"{allocation.entry_id} speaker reparse mismatch"
+                )
+
+    return StageBatchWrite(
+        data=rebuilt,
+        stage_index=stage_index,
+        source_size=len(data),
+        alignment=alignment,
+        allocations=tuple(allocations),
+        mode="in_place_owned_regions",
+        owned_regions=tuple(
+            (start, end) for start, end in owned_regions
+        ),
+        unique_payload_count=len(placements),
     )
 
 

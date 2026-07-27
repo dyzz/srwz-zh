@@ -14,6 +14,11 @@ from typing import Mapping, Optional
 PRINTABLE_ASCII = frozenset(
     "".join((string.digits, string.ascii_letters, string.punctuation, " "))
 )
+CONTROL_NOTATION = re.compile(
+    r"\$[nF]"
+    r"|\{[0-9A-Fa-f]{2}\}"
+    r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
+)
 
 
 class SrwzTextError(ValueError):
@@ -232,6 +237,15 @@ def _inverse_characters(
     return inverse
 
 
+def control_notation_positions(text: str) -> frozenset[int]:
+    """Return character positions occupied by lossless runtime notation."""
+
+    positions = set()
+    for match in CONTROL_NOTATION.finditer(text):
+        positions.update(range(*match.span()))
+    return frozenset(positions)
+
+
 def encode_text(
     text: str,
     table: TextTable,
@@ -254,6 +268,12 @@ def encode_text(
         if character == "\n":
             output.append(0x0A)
             index += 1
+            continue
+
+        runtime_name_match = re.match(r"\$[nF]", text[index:])
+        if runtime_name_match:
+            output.extend(runtime_name_match.group(0).encode("ascii"))
+            index += len(runtime_name_match.group(0))
             continue
 
         raw_match = re.match(r"\{([0-9A-Fa-f]{2})\}", text[index:])
@@ -279,6 +299,14 @@ def encode_text(
                 )
             output.extend((tag, int(tag_match.group(2), 16)))
             index += len(tag_match.group(0))
+            continue
+
+        override_code = (
+            overrides.get(character) if overrides is not None else None
+        )
+        if override_code is not None:
+            output.extend(override_code.to_bytes(2, "big"))
+            index += 1
             continue
 
         if character in PRINTABLE_ASCII:
@@ -319,6 +347,7 @@ __all__ = [
     "SrwzTextError",
     "SrwzTextEncodeError",
     "TextTable",
+    "control_notation_positions",
     "decode_text",
     "encode_text",
     "load_text_table",

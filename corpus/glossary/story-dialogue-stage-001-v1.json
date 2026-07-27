@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-story-dialogue-stage-001-v1",
+  "language": "zh-Hans",
+  "default_source_match": "substring",
+  "research_basis": [
+    "Current fixed SRWZ source corpus, stage 001 speaker assignments and surrounding dialogue",
+    "Existing v1 glossary terms take precedence over every stage-local term",
+    "Akurasu Stage 01S transcript and setting notes: https://akurasu.net/wiki/Super_Robot_Wars/Z/Story/Stage_01S/Moon",
+    "2008 NewWise Chinese story guide preserving the place as Lutetium基地: https://bbs.newwise.com/thread-396670-1-1.html",
+    "Super Robot Wars Wiki Virgola equipment notes: https://srw.wiki.cre.jp/wiki/%E3%83%90%E3%83%AB%E3%82%B4%E3%83%A9",
+    "NASA and National Air and Space Museum explanations of The Right Stuff in test-pilot culture: https://www.nasa.gov/aeronautics/airplanes-or-langleys-and-other-tales-of-the-naca/ and https://airandspace.si.edu/stories/editorial/remembering-tom-wolfe-and-right-stuff",
+    "New Balance official definition of a shoe fitter as a specialist who matches shoes to individual feet: https://store.newbalance.co.jp/store/shoefitter",
+    "Chinese Chemical Society periodic-table explanation identifying lutetium as 镥: https://www.chemsoc.org.cn/IYPT2019/a3157.html",
+    "Chinese SRW Z and Z Gundam terminology references: https://zh.wikipedia.org/wiki/%E8%B6%85%E7%B4%9A%E6%A9%9F%E5%99%A8%E4%BA%BA%E5%A4%A7%E6%88%B0Z and https://zh.wikipedia.org/wiki/%E6%9C%BA%E5%8A%A8%E6%88%98%E5%A3%ABZ%E9%AB%98%E8%BE%BE"
+  ],
+  "terms": [
+    {
+      "id": "place/lutetium-base",
+      "source_terms": [
+        "ルテチウム基地"
+      ],
+      "translation": "卢特提姆基地",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "固定日文语料记作“ルテチウム基地”，Akurasu 英文资料记作 Lutetium Base，中国化学会给出的元素规范名为“镥”；但中文社区未形成统一译名，2008 年 NewWise 攻略保留为“Lutetium基地”。为避免把虚构设施名写成突兀的化学名，本项目按专有地名自然音译为“卢特提姆基地”，并于 2026-07-27 经人工确认。"
+    },
+    {
+      "id": "organization/glory-star",
+      "source_terms": [
+        "グローリー・スター"
+      ],
+      "translation": "荣耀之星",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "地球联邦军月面战技研究班 Glory Star；采用中文《超级机器人大战Z》资料常见译名“荣耀之星”。"
+    },
+    {
+      "id": "organization/moon-combat-research-unit",
+      "source_terms": [
+        "月面駐留軍戦技研究班"
+      ],
+      "translation": "月面驻军战技研究班",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "荣耀之星的正式所属；按原文职能直译并压缩“驻留军”为中文军语更自然的“驻军”。"
+    },
+    {
+      "id": "system/shoe-fitter-role",
+      "source_terms": [
+        "シューフィッター"
+      ],
+      "translation": "适配测试",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Shoe fitter 的本义是按个体差异进行匹配的专业人员；本句用作巴尔戈拉新人试飞职责的比喻。正文按职能译为“负责适配测试”，既保留“匹配”含义，也避免误解为真的鞋匠。"
+    },
+    {
+      "id": "system/right-stuff",
+      "source_terms": [
+        "ライトスタッフ"
+      ],
+      "translation": "精英",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "The Right Stuff 在英语试飞员文化中指由技术、胆识与自信构成的精英资质；本句带挖苦语气且不是关卡标题，正文自然化为“传说中的精英”。"
+    },
+    {
+      "id": "system/test-pilot",
+      "source_terms": [
+        "テストパイロット"
+      ],
+      "translation": "试飞员",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "军用航空与试验机语境中的 test pilot；采用简体中文规范职业名“试飞员”。"
+    },
+    {
+      "id": "technology/gs-combat-action",
+      "source_terms": [
+        "ＧＳコンバットアクション"
+      ],
+      "translation": "GS战斗术",
+      "category": "technology",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "原文后续直接将其定义为使用加纳利·卡弗的“戦闘術”；保留荣耀之星缩写 GS，并译作更符合中文专名和上下文的“GS战斗术”。"
+    },
+    {
+      "id": "weapon/gunnery-carver",
+      "source_terms": [
+        "ガナリー・カーバー"
+      ],
+      "translation": "加纳利·卡弗",
+      "category": "weapon",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "本作原文定义其为巴尔戈拉的全领域泛用武装系统，Akurasu 英文资料记作 Gunnery Carver，但未找到官方简中名。当前“加纳利·卡弗”是按日文读音给出的暂定音译；人工终审可在保留英文、较贴近 Gunnery 的“冈纳里·卡弗”，或与既有 Carver 武器族统一为“切割器”之间选择。"
+    },
+    {
+      "id": "weapon/gunnery-carver-short",
+      "source_terms": [
+        "カーバー"
+      ],
+      "translation": "卡弗",
+      "category": "weapon",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "完整武装名在对话中的 Carver 简称；当前暂译“卡弗”只用于保持同一稿内一致。最终应随 weapon/gunnery-carver 一并决定采用英文、音译，还是与既有 Carver 武器族统一为“切割器”。"
+    },
+    {
+      "id": "unit/gm",
+      "source_terms": [
+        "ＧＭ"
+      ],
+      "translation": "吉姆",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士高达》RGM 系列通行简体译名。"
+    },
+    {
+      "id": "unit/gundam-mk-ii",
+      "source_terms": [
+        "ガンダムＭｋ−Ⅱ"
+      ],
+      "translation": "高达Mk-II",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "RX-178 Gundam Mk-II；采用简体中文高达资料常见写法，并统一半角拉丁字母与罗马数字。"
+    },
+    {
+      "id": "unit/rick-dias",
+      "source_terms": [
+        "リック・ディアス"
+      ],
+      "translation": "力克·迪亚斯",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》RMS-099 Rick Dias 的简体中文常见译名。"
+    },
+    {
+      "id": "place/green-noa",
+      "source_terms": [
+        "グリーンノア"
+      ],
+      "translation": "格林诺亚",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》殖民卫星 Green Noa；简中资料同时存在“绿色诺亚”，本项目采用音译“格林诺亚”并列为统一性复核项。"
+    },
+    {
+      "id": "people/char-aznable-full",
+      "source_terms": [
+        "シャア・アズナブル"
+      ],
+      "translation": "夏亚·阿兹纳布尔",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士高达》Char Aznable 的简体中文通行译名。"
+    },
+    {
+      "id": "people/amuro-ray-full",
+      "source_terms": [
+        "アムロ・レイ"
+      ],
+      "translation": "阿姆罗·雷",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士高达》Amuro Ray 的简体中文通行译名。"
+    },
+    {
+      "id": "people/red-comet",
+      "source_terms": [
+        "赤い彗星"
+      ],
+      "translation": "红色彗星",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "夏亚·阿兹纳布尔的通行别称。"
+    },
+    {
+      "id": "people/jerid-messa-full",
+      "source_terms": [
+        "ジェリド・メサ"
+      ],
+      "translation": "捷利特·梅萨",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》Jerid Messa；与本项目说话人短名“捷利特”保持一致。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+    },
+    {
+      "id": "people/kacricon-cacooler-full",
+      "source_terms": [
+        "カクリコン・カクーラー"
+      ],
+      "translation": "卡克里孔·卡库拉",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》Kacricon Cacooler；与本项目说话人短名“卡克里孔”保持一致，姓氏采用简洁音译“卡克拉”。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+    },
+    {
+      "id": "people/emma-sheen-full",
+      "source_terms": [
+        "エマ・シーン"
+      ],
+      "translation": "爱玛·辛",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》Emma Sheen；与本项目说话人短名“爱玛”保持一致。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+    },
+    {
+      "id": "people/denzel-hamer-full",
+      "source_terms": [
+        "デンゼル・ハマー"
+      ],
+      "translation": "丹泽尔·哈默",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ 原创角色 Denzel Hamer；与本项目说话人短名“丹泽尔”保持一致。"
+    },
+    {
+      "id": "people/michael-glory-star",
+      "source_terms": [
+        "マイケル"
+      ],
+      "translation": "迈克尔",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "荣耀之星前任试飞员，仅在本关两处背景对话中提及；マイケル对应 Michael，采用稳定常见音译“迈克尔”。"
+    },
+    {
+      "id": "organization/mycenae-short",
+      "source_terms": [
+        "ミケーネ"
+      ],
+      "translation": "迈锡尼",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《大魔神》迈锡尼帝国在口语中的简称；与现有 organization/mycenae-empire 统一。"
+    },
+    {
+      "id": "people/ares",
+      "source_terms": [
+        "軍神アレス"
+      ],
+      "translation": "战神阿瑞斯",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "希腊神话战神 Ares；原句后半含游戏自身黑圆点遮蔽，术语只约束未遮蔽的神名。"
+    }
+  ]
+}

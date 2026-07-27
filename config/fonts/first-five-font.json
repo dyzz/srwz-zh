@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "font_lock": "config/fonts/lxgw-neo-xihei-screen.lock.json",
+  "scope": {
+    "stage_indices": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "rerasterize": "All CJK unified ideographs used by the selected Chinese translations, plus every newly allocated character.",
+    "preserve": "Original kana, Latin glyphs, punctuation with an existing reachable glyph, control symbols, and glyphs outside the selected Chinese translations."
+  },
+  "rasterizer": {
+    "executable": "magick",
+    "density": 72,
+    "point_size": 22,
+    "gravity": "center",
+    "hinting": false,
+    "antialias": true,
+    "quantization": "round(gray * 15 / 255)",
+    "optical_corrections": {
+      "班": {
+        "point_size": 22.1,
+        "reason": "At 22pt the right outline bound snaps to a 21px raster while adjacent 研 reaches 22px; 22.1pt restores one horizontal pixel without changing the 20px height or 4bpp ink materially."
+      }
+    }
+  }
+}

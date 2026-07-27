@@ -6,7 +6,7 @@ import hashlib
 import json
 import subprocess
 from pathlib import Path
-from typing import Iterable, Mapping
+from typing import Iterable, Mapping, Union
 
 from .codec import decode, reencode_changed_suffix
 from .corpus import text_sha256
@@ -96,6 +96,53 @@ def rasterizer_version(executable: str) -> str:
     return result.stdout.splitlines()[0]
 
 
+def rasterizer_point_size(
+    character: str,
+    rasterizer: Mapping,
+) -> Union[int, float]:
+    """Resolve a deterministic per-character optical point size."""
+
+    if not isinstance(character, str) or len(character) != 1:
+        raise CanaryError("glyph point-size lookup needs one character")
+    point_size = rasterizer.get("point_size")
+    if (
+        not isinstance(point_size, (int, float))
+        or isinstance(point_size, bool)
+        or not float("-inf") < point_size < float("inf")
+        or point_size <= 0
+    ):
+        raise CanaryError(
+            "rasterizer point size must be a finite positive number"
+        )
+    corrections = rasterizer.get("optical_corrections", {})
+    if not isinstance(corrections, Mapping):
+        raise CanaryError("rasterizer optical corrections must be a mapping")
+    for corrected_character, correction in corrections.items():
+        if (
+            not isinstance(corrected_character, str)
+            or len(corrected_character) != 1
+            or not isinstance(correction, Mapping)
+        ):
+            raise CanaryError("invalid rasterizer optical correction")
+        if set(correction) != {"point_size", "reason"}:
+            raise CanaryError(
+                "rasterizer optical correction must pin point_size and reason"
+            )
+        corrected_size = correction["point_size"]
+        reason = correction["reason"]
+        if (
+            not isinstance(corrected_size, (int, float))
+            or isinstance(corrected_size, bool)
+            or not float("-inf") < corrected_size < float("inf")
+            or corrected_size <= 0
+            or not isinstance(reason, str)
+            or not reason.strip()
+        ):
+            raise CanaryError("invalid rasterizer optical correction")
+    correction = corrections.get(character)
+    return point_size if correction is None else correction["point_size"]
+
+
 def rasterize_character(
     executable: str,
     font_path: Path,
@@ -108,6 +155,11 @@ def rasterize_character(
     antialias = rasterizer.get("antialias")
     if not isinstance(hinting, bool) or not isinstance(antialias, bool):
         raise CanaryError("rasterizer hinting/antialias lock is invalid")
+    point_size = rasterizer_point_size(character, rasterizer)
+    if character == " ":
+        gray = bytes(GLYPH_WIDTH * GLYPH_HEIGHT)
+        pixels = quantize_gray_4bpp(gray)
+        return gray, pixels, encode_glyph(pixels)
     command = [
         executable,
         "-background",
@@ -121,7 +173,7 @@ def rasterize_character(
         "-font",
         str(font_path),
         "-pointsize",
-        str(rasterizer["point_size"]),
+        str(point_size),
         "-define",
         f"type:hinting={'true' if hinting else 'false'}",
         "-antialias" if antialias else "+antialias",
@@ -877,6 +929,7 @@ __all__ = [
     "double_byte_width_class",
     "quantize_gray_4bpp",
     "rasterize_character",
+    "rasterizer_point_size",
     "rasterizer_version",
     "rebuild_archive_with_replacement",
     "resolve_project_path",

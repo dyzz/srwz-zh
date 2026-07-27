@@ -1,0 +1,659 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-story-dialogue-stage-002-v1",
+  "language": "zh-Hans",
+  "default_source_match": "substring",
+  "research_basis": [
+    "Current fixed SRWZ source corpus, stage 002 speaker assignments and surrounding dialogue",
+    "Existing v1 glossary terms take precedence over every stage-local term",
+    "Official Gundam SEED DESTINY PHASE-01 synopsis and character/mecha pages: https://gundam-official.cn/seed/destiny/story/1/ and https://gundam-official.cn/seed/destiny/character/1/",
+    "Official Gundam SEED DESTINY Impulse Gundam page: https://tw.gundam-official.com/seed/destiny/mecha/1/",
+    "Simplified-Chinese Gundam reference pages for the SEED DESTINY mecha roster, Silhouette Flyer, Mirage Colloid and Junius Treaty: https://wiki.biligame.com/gundam/机动战士高达SEED_DESTINY机体, https://wiki.biligame.com/gundam/剪影飞行器, https://wiki.biligame.com/gundam/幻象化粒子 and https://wiki.biligame.com/gundam/尤尼乌斯条约"
+  ],
+  "terms": [
+    {
+      "id": "place/armory-one",
+      "source_terms": [
+        "アーモリーワン"
+      ],
+      "translation": "军械库一号",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Armory One，ZAFT 军事卫星；采用 Gundam 中文官方站剧情与人物页用名“军械库一号”。"
+    },
+    {
+      "id": "technology/second-stage-series",
+      "source_terms": [
+        "セカンドステージシリーズ"
+      ],
+      "translation": "第二阶段系列",
+      "category": "technology",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Second Stage Series，尤尼乌斯条约后开发的 ZAFT 新世代 MS 系列；采用简中高达资料常见译名。"
+    },
+    {
+      "id": "technology/second-stage-short",
+      "source_terms": [
+        "セカンドステージ"
+      ],
+      "translation": "第二阶段",
+      "category": "technology",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "第二阶段系列在对话中的简称；短串可能在其他复合词中出现，因此只在确认语境后显式引用。"
+    },
+    {
+      "id": "technology/mirage-colloid",
+      "source_terms": [
+        "ミラージュコロイド"
+      ],
+      "translation": "幻象化粒子",
+      "category": "technology",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Mirage Colloid；中文资料也作“海市蜃楼胶质”，本项目采用简中高达资料中指隐形粒子技术的“幻象化粒子”。"
+    },
+    {
+      "id": "species/natural",
+      "source_terms": [
+        "ナチュラル"
+      ],
+      "translation": "自然人",
+      "category": "species",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SEED 世界中未接受遗传基因调整的人类；采用中文官方站用名。"
+    },
+    {
+      "id": "species/coordinator",
+      "source_terms": [
+        "コーディネイター"
+      ],
+      "translation": "调整者",
+      "category": "species",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SEED 世界中接受遗传基因调整的人类；采用中文官方站用名。"
+    },
+    {
+      "id": "system/mobile-suit",
+      "source_terms": [
+        "モビルスーツ"
+      ],
+      "translation": "MS",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "Mobile Suit；剧情口语统一采用系列资料中常见的缩写“MS”，避免与作品标题“机动战士”混淆。"
+    },
+    {
+      "id": "system/space-colony-short",
+      "source_terms": [
+        "コロニー"
+      ],
+      "translation": "殖民卫星",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "Space Colony 的口语简称；本场景指军械库一号这类宇宙殖民卫星。"
+    },
+    {
+      "id": "unit/gundam-generic",
+      "source_terms": [
+        "ガンダム"
+      ],
+      "translation": "高达",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "Gundam 的简体中文通行译名；短串会命中大量完整机体名，只在本批确认后的对话中显式引用。"
+    },
+    {
+      "id": "unit/zaku-generic",
+      "source_terms": [
+        "ザク"
+      ],
+      "translation": "扎古",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "Zaku 系机体的简体中文通行译名；本场景同时借此表现两套世界观对相似机体的误认。"
+    },
+    {
+      "id": "unit/hizack",
+      "source_terms": [
+        "ハイザック"
+      ],
+      "translation": "高扎古",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士Z高达》Hi-Zack 的简体中文常见译名。"
+    },
+    {
+      "id": "organization/zeon-short",
+      "source_terms": [
+        "ジオン"
+      ],
+      "translation": "吉翁",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "Principality of Zeon 的简称；与既有“吉翁公国”术语保持一致。"
+    },
+    {
+      "id": "system/open-channel",
+      "source_terms": [
+        "オープンチャンネル"
+      ],
+      "translation": "公共频道",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "句中通信来自尚未识别的机体，且对方主动公开联络；open channel 在此指双方均可接收的开放通信频道，按中文无线电语境译为“公共频道”。"
+    },
+    {
+      "id": "system/unknown-machine",
+      "source_terms": [
+        "アンノウン"
+      ],
+      "translation": "未知机体",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "逐条核对第 002～005 关用例：作为名词时均指无法识别阵营或型号的机体；正文统一为“未知机体”，其他目标、部队或整舰语境通过显式例外处理。"
+    },
+    {
+      "id": "system/cockpit",
+      "source_terms": [
+        "コックピット"
+      ],
+      "translation": "驾驶舱",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "Cockpit 的标准航空与机甲用语；短词在其他已译批次中可能出现，因此只显式引用。"
+    },
+    {
+      "id": "event/junius-treaty",
+      "source_terms": [
+        "ユニウス条約"
+      ],
+      "translation": "尤尼乌斯条约",
+      "category": "event",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "C.E.72 年地球联合与 PLANT 缔结的停战及军备限制条约；采用中文官方站与简中资料用名。"
+    },
+    {
+      "id": "event/orb-defense-battle",
+      "source_terms": [
+        "オーブ防衛戦"
+      ],
+      "translation": "奥布保卫战",
+      "category": "event",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "前次大战中奥布遭地球联合侵攻的战役；与既有组织译名“奥布”统一。"
+    },
+    {
+      "id": "technology/evidence-01",
+      "source_terms": [
+        "エビデンス・ゼロワン"
+      ],
+      "translation": "Evidence 01",
+      "category": "technology",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SEED 世界观中的翼鲸化石专名；中文高达资料保留英文写法 Evidence 01。"
+    },
+    {
+      "id": "species/space-whale",
+      "source_terms": [
+        "宇宙クジラ"
+      ],
+      "translation": "太空鲸",
+      "category": "species",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Evidence 01 所代表的翼鲸状地外生物俗称；按场景口语译为“太空鲸”。"
+    },
+    {
+      "id": "place/io",
+      "source_terms": [
+        "イオ"
+      ],
+      "translation": "木卫一",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "Jupiter I，即木星第一卫星 Io；短串可能命中其他片假名复合词，只在明确天体语境中引用。"
+    },
+    {
+      "id": "unit/chaos-gundam-short",
+      "source_terms": [
+        "カオス"
+      ],
+      "translation": "混沌",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "ZGMF-X24S 混沌高达在对话中的短称；canonical 形式不带“高达”，以适配三机并列句。"
+    },
+    {
+      "id": "unit/abyss-gundam-short",
+      "source_terms": [
+        "アビス"
+      ],
+      "translation": "深渊",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "ZGMF-X31S 深渊高达在对话中的短称；canonical 形式不带“高达”，以适配三机并列句。"
+    },
+    {
+      "id": "unit/gaia-gundam-short",
+      "source_terms": [
+        "ガイア"
+      ],
+      "translation": "盖亚",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "ZGMF-X88S 盖亚高达在对话中的短称；采用简中资料的音译“盖亚”。"
+    },
+    {
+      "id": "unit/impulse-gundam-short",
+      "source_terms": [
+        "インパルス"
+      ],
+      "translation": "脉冲高达",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "ZGMF-X56S Impulse Gundam；采用 Gundam 中文官方站与简中资料用名“脉冲高达”。短称会命中旧批次复合机名“フォースインパルスガンダム”，因此不做全库强制匹配，由第 002 话草稿显式启用引用。"
+    },
+    {
+      "id": "unit/core-splendor",
+      "source_terms": [
+        "コアスプレンダー"
+      ],
+      "translation": "核心飞梭",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "YFX-M56S Core Splendor，脉冲高达的独立驾驶舱兼战斗机；采用中文官方资料用名。"
+    },
+    {
+      "id": "system/silhouette-hangar",
+      "source_terms": [
+        "シルエットハンガー"
+      ],
+      "translation": "剪影机库",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Silhouette Hangar 是密涅瓦号内存放剪影飞行器及换装背包、开舱后送往中央弹射器的专用库位；这里是 hangar 而非外置 mounting rack，因此由“剪影挂架”修订为“剪影机库”。"
+    },
+    {
+      "id": "unit/silhouette-flyer",
+      "source_terms": [
+        "シルエットフライヤー"
+      ],
+      "translation": "剪影飞行器",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Silhouette Flyer，为脉冲高达运送剪影背包的无人支援机；采用简中高达资料用名。"
+    },
+    {
+      "id": "unit/sword-impulse-module",
+      "source_terms": [
+        "ソード"
+      ],
+      "translation": "巨剑型",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "本句指 Sword Impulse 的模块选择；采用简中机体表中的“巨剑型脉冲高达”，短串只在明确模块语境中引用。"
+    },
+    {
+      "id": "people/cagalli-short",
+      "source_terms": [
+        "カガリ"
+      ],
+      "translation": "卡嘉莉",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "卡嘉莉·尤拉·阿斯哈的对话短名；与既有说话人术语统一。"
+    },
+    {
+      "id": "people/rey-za-burrel-short",
+      "source_terms": [
+        "レイ"
+      ],
+      "translation": "雷",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "本场景明确指雷·扎·巴雷尔；因短串会命中多位同名角色和复合片假名，只显式引用。"
+    },
+    {
+      "id": "people/alex-dino-full",
+      "source_terms": [
+        "アレックス・ディノ"
+      ],
+      "translation": "亚历士",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "阿斯兰·萨拉在 C.E.73 年使用的化名 Alex Dino；官方剧情梗概确认其身份。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+    },
+    {
+      "id": "people/uzumi-short",
+      "source_terms": [
+        "ウズミ"
+      ],
+      "translation": "乌兹米",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "乌兹米·纳拉·阿斯哈的短名，卡嘉莉之父。"
+    },
+    {
+      "id": "people/athha-representative",
+      "source_terms": [
+        "アスハ代表"
+      ],
+      "translation": "阿斯哈代表",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "迪兰达尔对卡嘉莉的正式称呼；按其姓氏 Athha 与国家元首职衔译为“阿斯哈代表”。"
+    },
+    {
+      "id": "people/orb-lion",
+      "source_terms": [
+        "オーブの獅子"
+      ],
+      "translation": "奥布之狮",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "乌兹米·纳拉·阿斯哈的别称“奥布之狮”。"
+    },
+    {
+      "id": "people/toby-short",
+      "source_terms": [
+        "トビー"
+      ],
+      "translation": "托比",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "托比·沃森的短名；与既有说话人及 stage 001 对话用名统一。"
+    },
+    {
+      "id": "people/lunamaria-short",
+      "source_terms": [
+        "ルナ"
+      ],
+      "translation": "露娜",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "露娜玛利亚·霍克的昵称；短串可能命中完整名和其他复合词，只显式引用。"
+    },
+    {
+      "id": "people/meyrin-short",
+      "source_terms": [
+        "メイリン"
+      ],
+      "translation": "美玲",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "美玲·霍克的短名；与既有说话人术语统一。"
+    },
+    {
+      "id": "people/arthur-short",
+      "source_terms": [
+        "アーサー"
+      ],
+      "translation": "阿瑟",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "阿瑟·特莱恩的短名；与既有说话人术语统一。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+    },
+    {
+      "id": "people/talia-gladys-title",
+      "source_terms": [
+        "グラディス艦長"
+      ],
+      "translation": "库拉迪斯舰长",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "真对塔丽亚·格拉迪斯的军中称呼；保留姓氏与舰长职衔。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+    },
+    {
+      "id": "people/vino-short",
+      "source_terms": [
+        "ヴィーノ"
+      ],
+      "translation": "维诺",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "维诺·杜普雷的短名；与既有说话人术语统一。"
+    },
+    {
+      "id": "people/youlan-short",
+      "source_terms": [
+        "ヨウラン"
+      ],
+      "translation": "尤兰",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "尤兰·肯特的短名；与既有说话人术语统一。"
+    },
+    {
+      "id": "people/denzel-short",
+      "source_terms": [
+        "デンゼル"
+      ],
+      "translation": "丹泽尔",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "丹泽尔·哈默的短名；与 stage 001 及既有说话人术语统一。"
+    },
+    {
+      "id": "system/chief",
+      "source_terms": [
+        "チーフ"
+      ],
+      "translation": "队长",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "荣耀之星队内对丹泽尔的称呼；延续 stage 001 的口语译法“队长”。"
+    },
+    {
+      "id": "system/star-2-callsign",
+      "source_terms": [
+        "スター２"
+      ],
+      "translation": "星2号",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "荣耀之星小队二号机的无线电呼号；同一段中另有“スター３”，按中文口令统一为简短的“星2号”。"
+    },
+    {
+      "id": "system/star-3-callsign",
+      "source_terms": [
+        "スター３"
+      ],
+      "translation": "星3号",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "荣耀之星小队三号机的无线电呼号；与“星2号”成对，统一保持数字呼号格式。"
+    },
+    {
+      "id": "system/lucky-lecher",
+      "source_terms": [
+        "ラッキースケベ"
+      ],
+      "translation": "幸运色狼",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "尤兰用ラッキースケベ戏称真在意外身体接触中占了便宜；“幸运色狼”保留固定戏谑表达和当面对人的责骂语气。"
+    }
+  ]
+}

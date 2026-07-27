@@ -15,7 +15,7 @@ VT1 中都是全零字形，固定码表没有使用这两个 code，94,189 条�
 当前构建仍保留这个 E0 golden，但生产数据已迁到：
 
 - surface/layout：`config/surfaces/menu-slps-opening.json`；
-- 中文决策：`corpus/zh/menu.json`；
+- 技术文字 fixture：`corpus/fixtures/menu-canary.json`；
 - 字形分配：`config/encoding/codebook.json`；
 - 选择和 gates：`config/build-profiles/canary-menu.json`。
 

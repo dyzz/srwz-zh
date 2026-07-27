@@ -13,6 +13,8 @@ from tools.srwz.writers import (
     rebuild_codec_archive,
     relocate_menu_texts_to_pool,
     relocate_stage_text_to_arena,
+    relocate_stage_texts_to_arena,
+    repack_stage_texts_in_place,
 )
 
 
@@ -213,6 +215,83 @@ class WriterTests(unittest.TestCase):
                 replacement="x",
                 alignment=3,
             )
+
+    def test_stage_batch_writer_translates_speaker_and_message(self):
+        base = 0x7566F0
+        source = bytearray(0x220)
+        for index, target in enumerate((0x100, 0x120, 0x140)):
+            high = ((base + target + 0x8000) >> 16) & 0xFFFF
+            low = (base + target) & 0xFFFF
+            struct.pack_into("<h", source, 0x90 + index * 16, high)
+            struct.pack_into("<h", source, 0x98 + index * 16, low)
+        struct.pack_into("<II", source, 0x120, base + 0x160, 1)
+        struct.pack_into("<II", source, 0x140, 0, 1)
+        struct.pack_into("<II", source, 0x160, base + 0x180, 0)
+        struct.pack_into("<I", source, 0x1A0, 1)
+        struct.pack_into("<I", source, 0x1B0, base + 0x200)
+        struct.pack_into("<I", source, 0x1C0, 0x60)
+        source[0x200:0x209] = b"Pilot\nHi\x00"
+
+        result = relocate_stage_texts_to_arena(
+            bytes(source),
+            self.table,
+            stage_index=1,
+            function_address=0,
+            replacements={
+                "story/001/dialogue/01.01/0000": "Longer message",
+            },
+            speaker_replacements={1: "Lead"},
+        )
+        self.assertEqual(result.allocations[0].arena_offset, 0x220)
+        self.assertEqual(result.decoded_growth, 32)
+        self.assertEqual(
+            result.data[0x220:0x234],
+            b"Lead\nLonger message\x00",
+        )
+        self.assertEqual(
+            struct.unpack_from("<I", result.data, 0x1B0)[0],
+            base + 0x220,
+        )
+
+    def test_stage_in_place_repack_reuses_owned_source_region(self):
+        base = 0x7566F0
+        source = bytearray(0x220)
+        for index, target in enumerate((0x100, 0x120, 0x140)):
+            high = ((base + target + 0x8000) >> 16) & 0xFFFF
+            low = (base + target) & 0xFFFF
+            struct.pack_into("<h", source, 0x90 + index * 16, high)
+            struct.pack_into("<h", source, 0x98 + index * 16, low)
+        struct.pack_into("<II", source, 0x120, base + 0x160, 1)
+        struct.pack_into("<II", source, 0x140, 0, 1)
+        struct.pack_into("<II", source, 0x160, base + 0x180, 0)
+        struct.pack_into("<I", source, 0x1A0, 1)
+        struct.pack_into("<I", source, 0x1B0, base + 0x200)
+        struct.pack_into("<I", source, 0x1C0, 0x60)
+        source[0x200:0x209] = b"Pilot\nHi\x00"
+
+        result = repack_stage_texts_in_place(
+            bytes(source),
+            self.table,
+            stage_index=1,
+            function_address=0,
+            replacements={
+                "story/001/dialogue/01.01/0000": "Longer message",
+            },
+            speaker_replacements={1: "Lead"},
+        )
+        self.assertEqual(len(result.data), len(source))
+        self.assertEqual(result.decoded_growth, 0)
+        self.assertEqual(result.mode, "in_place_owned_regions")
+        self.assertEqual(result.owned_regions, ((0x200, 0x220),))
+        self.assertEqual(result.allocations[0].arena_offset, 0x200)
+        self.assertEqual(
+            result.data[0x200:0x214],
+            b"Lead\nLonger message\x00",
+        )
+        self.assertEqual(
+            struct.unpack_from("<I", result.data, 0x1B0)[0],
+            base + 0x200,
+        )
 
     def test_menu_pool_writer_updates_direct_and_mips_pointers(self):
         base = 0x100000

@@ -3,13 +3,19 @@
 .vscode/
 .venv/
 __pycache__/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
 *.py[cod]
+.coverage
+htmlcov/
 .env
 
 # Never commit original game data or reconstructed disc images.
 /rom/
 /work/
 /build/
+/outputs/
 *.iso
 *.chd
 *.elf

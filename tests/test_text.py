@@ -91,6 +91,35 @@ class TextDecodeTests(unittest.TestCase):
         encoded = encode_text("中", self.table, overrides={"中": 0x8140})
         self.assertEqual(encoded, b"\x81\x40")
 
+    def test_encode_override_takes_priority_over_ascii_control_tag_bytes(self):
+        encoded = encode_text("12345", self.table, overrides={
+            "1": 0x8140,
+            "2": 0x8141,
+            "3": 0x8142,
+            "4": 0x8143,
+            "5": 0x8144,
+        })
+        self.assertEqual(
+            encoded,
+            b"\x81\x40\x81\x41\x81\x42\x81\x43\x81\x44",
+        )
+
+    def test_runtime_name_tokens_bypass_ascii_glyph_overrides(self):
+        encoded = encode_text(
+            "$n与$F",
+            self.table,
+            overrides={
+                "$": 0x8140,
+                "n": 0x8141,
+                "F": 0x8142,
+            },
+        )
+        self.assertEqual(
+            encoded,
+            b"$n" + self.table.inverse_characters["与"].to_bytes(2, "big")
+            + b"$F",
+        )
+
     def test_encode_rejects_unmapped_character(self):
         with self.assertRaises(SrwzTextEncodeError) as raised:
             encode_text("🙂", self.table)

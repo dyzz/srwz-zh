@@ -7,7 +7,7 @@ import json
 import string
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Mapping
+from typing import Iterable
 
 from .font import standard_glyph_index
 from .text import SrwzTextEncodeError, TextTable, encode_text

@@ -7,6 +7,7 @@ from tools.srwz.canary import (
     CanaryError,
     double_byte_width_class,
     quantize_gray_4bpp,
+    rasterizer_point_size,
     rebuild_archive_with_replacement,
     verify_reserved_codes_absent,
 )
@@ -28,6 +29,52 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class CanaryTests(unittest.TestCase):
+    def test_rasterizer_point_size_uses_audited_optical_correction(self):
+        rasterizer = {
+            "point_size": 22,
+            "optical_corrections": {
+                "班": {
+                    "point_size": 22.1,
+                    "reason": "Small-size optical correction.",
+                }
+            },
+        }
+        self.assertEqual(rasterizer_point_size("研", rasterizer), 22)
+        self.assertEqual(rasterizer_point_size("班", rasterizer), 22.1)
+
+    def test_rasterizer_point_size_rejects_unaudited_correction(self):
+        with self.assertRaisesRegex(
+            CanaryError,
+            "must pin point_size and reason",
+        ):
+            rasterizer_point_size(
+                "班",
+                {
+                    "point_size": 22,
+                    "optical_corrections": {
+                        "班": {"point_size": 22.1},
+                    },
+                },
+            )
+
+    def test_rasterizer_point_size_rejects_non_finite_correction(self):
+        with self.assertRaisesRegex(
+            CanaryError,
+            "invalid rasterizer optical correction",
+        ):
+            rasterizer_point_size(
+                "班",
+                {
+                    "point_size": 22,
+                    "optical_corrections": {
+                        "班": {
+                            "point_size": float("nan"),
+                            "reason": "Invalid non-finite correction.",
+                        },
+                    },
+                },
+            )
+
     def test_gray_quantization_is_bounded_and_deterministic(self):
         values = bytes((0, 8, 9, 127, 128, 246, 247, 255))
         self.assertEqual(

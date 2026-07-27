@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-story-dialogue-stage-005-v1",
+  "language": "zh-Hans",
+  "default_source_match": "substring",
+  "research_basis": [
+    "Current fixed SRWZ source corpus, stage 005 speaker assignments and complete surrounding dialogue",
+    "Existing v1 glossary terms take precedence over every stage-local term",
+    "Official Toei Animation UFO Robot Grendizer story and episode pages for Grendizer, Duke Fleed, Fleed, Skull Moon, Space Science Laboratory, Lady Gandal and the Vega forces: https://lineup.toei-anim.co.jp/ja/tv/grendaizer/story/, https://lineup.toei-anim.co.jp/ja/tv/grendaizer/episode/50/ and https://lineup.toei-anim.co.jp/ja/tv/grendaizer/episode/74/",
+    "Official Grendizer U character page for the Roman spellings GRENDIZER, Duke Fleed, Gandal and Lady Gandal: https://grendizer-official.net/",
+    "Official simplified-Chinese Megaton Musashi W collaboration page for 古连泰沙 and 弗里德星: https://www.megaton-musashi.jp/wired/zh-cn/collabo/",
+    "Official simplified-Chinese Gundam SEED and SEED DESTINY pages for 第二次雅金・杜威战 and PLANT评议会议长: https://gundam-official.cn/seed/destiny/character/19/ and https://gundam-official.cn/seed/seed/story/9/",
+    "Official Zambot 3 episode 1 page for Domira and its role: https://www.zambot3.net/story01.html",
+    "Akurasu Banpresto-original unit descriptions for the Roman spelling Toby Watson: https://akurasu.net/wiki/Units_List/Banpresto_Originals/Unit_Descriptions",
+    "Japanese geographic names use standard simplified-Chinese forms 藤泽 and 骏河湾"
+  ],
+  "terms": [
+    {
+      "id": "people/duke-fleed-full",
+      "source_terms": [
+        "デュークフリード"
+      ],
+      "translation": "杜克·弗里德",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "东映官方作品页确认デュークフリード是主人公身份，Grendizer U 官网确认罗马字 Duke Fleed；中文采用与既有短称“杜克”一致的规范音译。尚未找到直接给出全名的官方简中页面，因此 researched 不等同于人工批准。"
+    },
+    {
+      "id": "unit/grendizer",
+      "source_terms": [
+        "グレンダイザー"
+      ],
+      "translation": "古连泰沙",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "GRENDIZER；Level-5 官方简中《百万吨级武藏W：WIRED》联动页明确采用“古连泰沙”，据此固定。"
+    },
+    {
+      "id": "place/fleed-planet",
+      "source_terms": [
+        "フリード星"
+      ],
+      "translation": "弗里德星",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Fleed；Level-5 官方简中《百万吨级武藏W：WIRED》联动页明确采用“弗里德星”，据此固定。"
+    },
+    {
+      "id": "place/skull-moon-base",
+      "source_terms": [
+        "スカルムーン基地"
+      ],
+      "translation": "骷髅月基地",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "东映官方作品页确认スカルムーン是维加星联合军建在月球背面的前线基地；中文按 Skull Moon 的语义规范为“骷髅月基地”。尚无直接官方简中专名，保留人工终审边界。"
+    },
+    {
+      "id": "organization/space-science-laboratory",
+      "source_terms": [
+        "宇宙科学研究所"
+      ],
+      "translation": "宇宙科学研究所",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "古连泰沙小队的地球基地；日文汉字直接转换为简体。"
+    },
+    {
+      "id": "unit/midifo",
+      "source_terms": [
+        "ミディフォー"
+      ],
+      "translation": "MidiFO",
+      "category": "unit",
+      "status": "proposed",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "固定日文语料写作“ミディフォー”。《古连泰沙U》官网明确给出相邻命名“ミニフォー / Minifo”，能支持 FO 命名结构，却没有列出 Midifo；因此当前 MidiFO 只是结合原文和 Minifo 体系推导的暂定罗马字，并非官方确认，继续保留为 proposed。"
+    },
+    {
+      "id": "people/lady-gandal",
+      "source_terms": [
+        "レディガンダル"
+      ],
+      "translation": "蕾蒂·甘达尔",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "东映官方第 50、74 话确认レディガンダル及其与ガンダル的双重人格关系，Grendizer U 官网确认罗马字 Lady Gandal；中文规范为“蕾蒂·甘达尔”，尚无直接官方简中全名。"
+    },
+    {
+      "id": "unit/saucer-beast",
+      "source_terms": [
+        "円盤獣"
+      ],
+      "translation": "圆盘兽",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "东映官方多话资料以円盤獣指维加星联合军的常规战斗怪兽，官方英文作品页概括为 UFO monsters；中文采用日文汉字的规范简化“圆盘兽”。"
+    },
+    {
+      "id": "unit/vega-beast",
+      "source_terms": [
+        "ベガ獣"
+      ],
+      "translation": "维加兽",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "东映官方第 52 话明确说明ベガ獣是战斗能力超过円盤獣的新兵器；中文规范为“维加兽”，与既有“维加星联合军”统一用字。"
+    },
+    {
+      "id": "technology/other-world",
+      "source_terms": [
+        "異世界"
+      ],
+      "translation": "异世界",
+      "category": "technology",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "指与原世界不同的世界；与既有“平行世界”概念区分，按原文采用“异世界”。"
+    },
+    {
+      "id": "place/fujisawa",
+      "source_terms": [
+        "フジサワ",
+        "藤沢"
+      ],
+      "translation": "藤泽",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "日本神奈川县藤泽市；片假名和汉字写法统一为简体“藤泽”。"
+    },
+    {
+      "id": "event/second-battle-of-jachin-due",
+      "source_terms": [
+        "第２次ヤキン・ドゥーエ攻防戦"
+      ],
+      "translation": "第二次雅金·杜威攻防战",
+      "category": "event",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "官方 Gundam SEED DESTINY 简中页面使用“第二次雅金・杜威战”；本项目补足原文“攻防战”的战役类型。"
+    },
+    {
+      "id": "organization/plant-council-chair",
+      "source_terms": [
+        "プラント評議会議長"
+      ],
+      "translation": "PLANT评议会议长",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "沿用 Gundam 简中官网“PLANT评议会议长”的职衔写法。"
+    },
+    {
+      "id": "place/suruga-bay",
+      "source_terms": [
+        "駿河湾"
+      ],
+      "translation": "骏河湾",
+      "category": "place",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "日本本州太平洋沿岸海湾；日文汉字转换为简体。"
+    },
+    {
+      "id": "unit/domira",
+      "source_terms": [
+        "ドミラ"
+      ],
+      "translation": "多米拉",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《无敌超人赞波特3》官方第 1 话直接确认ドミラ是盖佐克最初袭击地球、与赞波特Ace交战的敌机；中文按读音规范为“多米拉”，尚无官方简中机体表。"
+    },
+    {
+      "id": "organization/earth-alliance-forces-short",
+      "source_terms": [
+        "連合軍"
+      ],
+      "translation": "联合军",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "SEED 世界中地球联合军的剧情短称。因字符串也包含在“ベガ星連合軍”中，只允许相关句子显式引用。"
+    },
+    {
+      "id": "people/toby-watson-full",
+      "source_terms": [
+        "トビー・ワトソン"
+      ],
+      "translation": "托比·沃森",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "英文资料将トビー・ワトソン写作 Toby Watson；沿用前四关既有短称“托比”，姓氏采用稳定常用音译“沃森”。未发现官方简中全名，当前结论只确认原名与内部一致性。"
+    },
+    {
+      "id": "script/black-screen",
+      "source_terms": [
+        "黒ベタ"
+      ],
+      "translation": "黑屏",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "脚本演出标记，表示画面以纯黑填充；该记录不是角色台词。"
+    }
+  ]
+}

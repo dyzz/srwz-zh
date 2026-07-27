@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-story-dialogue-stage-003-v1",
+  "language": "zh-Hans",
+  "default_source_match": "substring",
+  "research_basis": [
+    "Current fixed SRWZ source corpus, stage 003 speaker assignments and surrounding dialogue",
+    "Existing v1 glossary terms take precedence over every stage-local term",
+    "Official simplified-Chinese Gundam SEED DESTINY character list and Neo Roanoke page: https://gundam-official.cn/seed/destiny/character/ and https://gundaminfo.cn/series/seeddestiny/youlant-kent/",
+    "Official Gundam SEED FREEDOM Arthur Trine character page: https://gundam-official.com/seed/freedom/character/chara29.php",
+    "SEED DESTINY episode context for the unknown-ship callsign Bogey One and Condition Red"
+  ],
+  "terms": [
+    {
+      "id": "organization/earth-alliance-short",
+      "source_terms": [
+        "連合"
+      ],
+      "translation": "地球联合",
+      "category": "organization",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "“地球連合”的剧情短称。短词可能出现在其他“联合”组织名称中，因此不做全库强制匹配，只由本关草稿显式启用。"
+    },
+    {
+      "id": "people/neo-roanoke-full",
+      "source_terms": [
+        "ネオ・ロアノーク"
+      ],
+      "translation": "尼奥·罗阿诺克",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Neo Roanoke；Gundam 简中官方页作“尼欧･罗安那克”，本项目按既有 people/neo 的“尼奥”统一名字前半。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+    },
+    {
+      "id": "system/bogey-one",
+      "source_terms": [
+        "ボギーワン"
+      ],
+      "translation": "Bogey One",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "密涅瓦为身份不明敌舰临时登记的呼号；保留英文 Bogey One，避免误解为舰只真名。"
+    },
+    {
+      "id": "system/condition-red",
+      "source_terms": [
+        "コンディション・レッド"
+      ],
+      "translation": "红色警戒",
+      "category": "system",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "两处用例均由舰桥发布并要求全员进入岗位，明确是舰内最高战斗警戒 Condition Red；采用自然且能直接传达状态的“红色警戒”。"
+    },
+    {
+      "id": "people/arthur-trine-full",
+      "source_terms": [
+        "アーサー・トライン"
+      ],
+      "translation": "阿瑟·川恩",
+      "category": "people",
+      "status": "researched",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Arthur Trine，密涅瓦副长；采用 Gundam 中文官方旧页面所用“阿瑟·川恩”，并与既有短称“阿瑟”一致。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+    }
+  ]
+}

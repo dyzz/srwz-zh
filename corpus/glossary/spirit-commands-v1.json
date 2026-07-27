@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-spirit-commands-v1",
+  "language": "zh-Hans",
+  "default_source_match": "token",
+  "terms": [
+    {
+      "id": "spirit/attune",
+      "source_terms": ["感応"],
+      "translation": "感应",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "令指定友方单位在一回合内必中。"
+    },
+    {
+      "id": "spirit/focus",
+      "source_terms": ["集中"],
+      "translation": "集中",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "一回合内提高命中率与回避率。"
+    },
+    {
+      "id": "spirit/sure-hit",
+      "source_terms": ["必中"],
+      "translation": "必中",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "一回合内命中率变为 100%。"
+    },
+    {
+      "id": "spirit/intuition",
+      "source_terms": ["直感"],
+      "translation": "直觉",
+      "category": "system",
+      "status": "researched",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "同时获得“必中”和“闪身”；采用简体中文资料常见译名。"
+    },
+    {
+      "id": "spirit/flash",
+      "source_terms": ["ひらめき"],
+      "translation": "闪身",
+      "category": "system",
+      "status": "researched",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "一次战斗中完全回避敌方攻击；采用官方中文作品常见译名。"
+    },
+    {
+      "id": "spirit/indomitable",
+      "source_terms": ["不屈"],
+      "translation": "不屈",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "一次战斗中承受伤害变为 10。"
+    },
+    {
+      "id": "spirit/iron-wall",
+      "source_terms": ["鉄壁"],
+      "translation": "铁壁",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "一回合内承受伤害降为四分之一。"
+    },
+    {
+      "id": "spirit/guts",
+      "source_terms": ["根性"],
+      "translation": "根性",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "回复自身 30% 最大 HP。"
+    },
+    {
+      "id": "spirit/great-guts",
+      "source_terms": ["ド根性"],
+      "translation": "大根性",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "完全回复自身 HP；中文术语待人工批准。"
+    },
+    {
+      "id": "spirit/luck",
+      "source_terms": ["幸運"],
+      "translation": "幸运",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "下一场战斗获得资金翻倍。"
+    },
+    {
+      "id": "spirit/effort",
+      "source_terms": ["努力"],
+      "translation": "努力",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "下一场战斗获得经验值翻倍。"
+    },
+    {
+      "id": "spirit/mercy",
+      "source_terms": ["てかげん"],
+      "translation": "手下留情",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "对技量较低的对手保留 10 HP。"
+    },
+    {
+      "id": "spirit/snipe",
+      "source_terms": ["狙撃"],
+      "translation": "狙击",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "令符合条件的武器射程增加 2。"
+    },
+    {
+      "id": "spirit/direct-hit",
+      "source_terms": ["直撃"],
+      "translation": "直击",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "无视尺寸／小队数量修正及对方防御能力。"
+    },
+    {
+      "id": "spirit/accel",
+      "source_terms": ["加速"],
+      "translation": "加速",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "移动前令小队移动力增加 2。"
+    },
+    {
+      "id": "spirit/dash",
+      "source_terms": ["迅速"],
+      "translation": "迅速",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "移动前令小队移动力增加 4。"
+    },
+    {
+      "id": "spirit/valor",
+      "source_terms": ["熱血"],
+      "translation": "热血",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "令一次攻击伤害翻倍。"
+    },
+    {
+      "id": "spirit/soul",
+      "source_terms": ["魂"],
+      "translation": "魂",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "令一次攻击伤害变为 2.5 倍。"
+    },
+    {
+      "id": "spirit/awaken",
+      "source_terms": ["覚醒"],
+      "translation": "觉醒",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "令本小队增加一次行动机会。"
+    },
+    {
+      "id": "spirit/love",
+      "source_terms": ["愛"],
+      "translation": "爱",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "同时赋予多项战斗型精神指令。"
+    },
+    {
+      "id": "spirit/courage",
+      "source_terms": ["勇気"],
+      "translation": "勇气",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "同时赋予加速、必中、不屈、热血、气合和直击。"
+    },
+    {
+      "id": "spirit/fighting-spirit",
+      "source_terms": ["気合"],
+      "translation": "气合",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "提高自身气力 10；保留系列常用汉字术语。"
+    },
+    {
+      "id": "spirit/drive",
+      "source_terms": ["気迫"],
+      "translation": "气魄",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "提高自身气力 30。"
+    },
+    {
+      "id": "spirit/rouse",
+      "source_terms": ["激励"],
+      "translation": "激励",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "提高本小队全体驾驶员气力。"
+    },
+    {
+      "id": "spirit/scout",
+      "source_terms": ["偵察"],
+      "translation": "侦察",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "查看指定敌方小队的能力值。"
+    },
+    {
+      "id": "spirit/analyze",
+      "source_terms": ["分析"],
+      "translation": "分析",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "一回合内降低指定敌方小队的攻击力与防御力。"
+    },
+    {
+      "id": "spirit/daunt",
+      "source_terms": ["脱力"],
+      "translation": "脱力",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "降低一个敌方小队全体驾驶员的气力。"
+    },
+    {
+      "id": "spirit/disrupt",
+      "source_terms": ["かく乱"],
+      "translation": "扰乱",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "一回合内令所有敌方命中率减半。"
+    },
+    {
+      "id": "spirit/trust",
+      "source_terms": ["信頼"],
+      "translation": "信赖",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "回复指定友方机体 2500 HP。"
+    },
+    {
+      "id": "spirit/friendship",
+      "source_terms": ["友情"],
+      "translation": "友情",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "完全回复指定友方小队全体机体 HP。"
+    },
+    {
+      "id": "spirit/bond",
+      "source_terms": ["絆"],
+      "translation": "羁绊",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "回复地图上全部友方机体 50% 最大 HP。"
+    },
+    {
+      "id": "spirit/blessing",
+      "source_terms": ["祝福"],
+      "translation": "祝福",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "令指定友方小队下一场战斗获得资金翻倍。"
+    },
+    {
+      "id": "spirit/cheer",
+      "source_terms": ["応援"],
+      "translation": "声援",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "令指定友方小队下一场战斗获得经验值翻倍。"
+    },
+    {
+      "id": "spirit/resupply",
+      "source_terms": ["補給"],
+      "translation": "补给",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "完全回复指定友方机体的弹药与 EN。"
+    },
+    {
+      "id": "spirit/hope",
+      "source_terms": ["希望"],
+      "translation": "希望",
+      "category": "system",
+      "status": "proposed",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "提高指定友方小队全体气力并赋予祝福、声援和友情。"
+    }
+  ]
+}

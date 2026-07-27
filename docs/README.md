@@ -22,6 +22,7 @@
 | `ISO_BUILD_AND_PCSX2.md` | `mkps2iso` 构建、PCSX2 和 PINE 验证 |
 | `ROADMAP.md` | 按游戏内容划分的正式汉化里程碑 |
 | `LESSONS_LEARNED.md` | 被证据推翻的错误判断和防复发 gate |
+| `../CONTRIBUTING.md` | 贡献边界、翻译决策、验证分层和提交发布清单 |
 
 代码模块、命令入口和“自研/上游参考/第三方工具”归属见
 `../tools/README.md`。

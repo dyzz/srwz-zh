@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "review_id": "srwz-zh-first-five-official-variants-v1",
+  "language": "zh-Hans",
+  "scope": {
+    "domain": "story",
+    "kinds": [
+      "dialogue",
+      "speaker"
+    ],
+    "stage_indices": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "notes": "只记录官方简中口径与项目当前统一译名不同、且确实在前五关正文中出现的项目。该表不自动改写译文，供人工决定是否整批迁移。",
+  "decisions": [
+    {
+      "id": "seed-destiny-zaft",
+      "term_ids": [
+        "organization/zaft"
+      ],
+      "current_translation": "ZAFT",
+      "official_variant": "札夫特",
+      "decision_status": "needs_human_review",
+      "evidence_url": "https://gundam-official.cn/seed/destiny/character/",
+      "current_rationale": "项目沿用机战与高达社群常见的英文组织缩写，且便于与徽标和机体资料统一。",
+      "review_question": "全项目继续使用ZAFT，还是迁移到该官方简中站的札夫特？"
+    },
+    {
+      "id": "seed-destiny-durandal",
+      "term_ids": [
+        "people/durandal"
+      ],
+      "current_translation": "迪兰达尔",
+      "official_variant": "杜兰朵",
+      "decision_status": "needs_human_review",
+      "evidence_url": "https://gundam-official.cn/seed/destiny/character/",
+      "current_rationale": "项目采用Durandal的常见音译迪兰达尔，并已在菜单、说话人和正文中统一。",
+      "review_question": "保留社群常见的迪兰达尔，还是按官方简中角色页迁移为杜兰朵？"
+    },
+    {
+      "id": "seed-destiny-neo-short",
+      "term_ids": [
+        "people/neo"
+      ],
+      "current_translation": "尼奥",
+      "official_variant": "尼欧",
+      "decision_status": "keep_current",
+      "evidence_url": "https://gundam-official.cn/seed/destiny/character/",
+      "current_rationale": "2026-07-27 人工指定 Biligame 为本切片高达名称口径；其角色页采用尼奥，项目继续统一为尼奥。",
+      "review_question": "已决定保留尼奥；只有全项目名称口径改版时才重新评估。"
+    },
+    {
+      "id": "seed-destiny-neo-full",
+      "term_ids": [
+        "people/neo-roanoke-full"
+      ],
+      "current_translation": "尼奥·罗阿诺克",
+      "official_variant": "尼欧·罗安那克",
+      "decision_status": "keep_current",
+      "evidence_url": "https://gundam-official.cn/seed/destiny/character/",
+      "current_rationale": "2026-07-27 人工指定 Biligame 为本切片高达名称口径；其角色页采用尼奥·罗阿诺克。",
+      "review_question": "已决定采用尼奥·罗阿诺克；只有全项目名称口径改版时才重新评估。"
+    },
+    {
+      "id": "seed-destiny-sting",
+      "term_ids": [
+        "people/sting"
+      ],
+      "current_translation": "斯汀",
+      "official_variant": "史汀格",
+      "decision_status": "needs_human_review",
+      "evidence_url": "https://gundam-official.cn/seed/destiny/character/",
+      "current_rationale": "日文对白多使用短名スティング，项目采用简短的斯汀；官方角色页全名作史汀格·欧格雷。",
+      "review_question": "对白短名保留斯汀，还是统一采用官方全名中的史汀格？"
+    },
+    {
+      "id": "seed-destiny-stella",
+      "term_ids": [
+        "people/stella"
+      ],
+      "current_translation": "史黛拉",
+      "official_variant": "史黛菈",
+      "decision_status": "needs_human_review",
+      "evidence_url": "https://gundam-official.cn/seed/destiny/character/",
+      "current_rationale": "项目采用更常见且便于输入显示的拉字。",
+      "review_question": "保留史黛拉，还是逐字采用官方简中角色页的史黛菈？"
+    },
+    {
+      "id": "seed-destiny-talia",
+      "term_ids": [
+        "people/speaker-aa16fea188ec"
+      ],
+      "current_translation": "塔丽亚",
+      "official_variant": "泰莉亚",
+      "decision_status": "keep_current",
+      "evidence_url": "https://gundam-official.cn/seed/destiny/character/",
+      "current_rationale": "2026-07-27 人工指定 Biligame 为本切片高达名称口径；其角色页采用塔丽亚·库拉迪斯。",
+      "review_question": "已决定采用塔丽亚；只有全项目名称口径改版时才重新评估。"
+    },
+    {
+      "id": "seed-destiny-meyrin",
+      "term_ids": [
+        "people/meyrin-short",
+        "people/speaker-346f43dc50d5"
+      ],
+      "current_translation": "美玲",
+      "official_variant": "美铃",
+      "decision_status": "needs_human_review",
+      "evidence_url": "https://gundam-official.cn/seed/destiny/character/",
+      "current_rationale": "项目沿用高达社群中常见的美玲·霍克译法。",
+      "review_question": "保留美玲，还是按官方简中角色页迁移为美铃？"
+    },
+    {
+      "id": "seed-destiny-lunamaria",
+      "term_ids": [
+        "people/lunamaria"
+      ],
+      "current_translation": "露娜玛利亚",
+      "official_variant": "露娜玛莉亚",
+      "decision_status": "keep_current",
+      "evidence_url": "https://gundam-official.cn/seed/destiny/character/",
+      "current_rationale": "2026-07-27 人工指定 Biligame 为本切片高达名称口径；其角色页采用露娜玛利亚·霍克。",
+      "review_question": "已决定采用露娜玛利亚；只有全项目名称口径改版时才重新评估。"
+    }
+  ]
+}
