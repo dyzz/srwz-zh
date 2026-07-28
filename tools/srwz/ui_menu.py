@@ -86,7 +86,7 @@ def _load_hashed_path(
     return path
 
 
-def _load_overrides(
+def load_ui_font_overrides(
     project_root: Path,
     config: Mapping[str, object],
     font_manifest: Mapping[str, object],
@@ -547,7 +547,7 @@ def build_fixed_slps_component(
         project_root,
         config["scene_inventory"],
     )
-    overrides, codebook_report = _load_overrides(
+    overrides, codebook_report = load_ui_font_overrides(
         project_root,
         config,
         font_manifest,
@@ -769,7 +769,7 @@ def build_fixed_compdata_component(
         "offline_font_and_p0_renderer_coverage_passed_runtime_pending"
     ):
         raise UiMenuError("UI font candidate status is invalid")
-    overrides, codebook_report = _load_overrides(
+    overrides, codebook_report = load_ui_font_overrides(
         project_root,
         config,
         font_manifest,
@@ -1044,6 +1044,7 @@ __all__ = [
     "UiMenuError",
     "build_fixed_compdata_component",
     "build_fixed_slps_component",
+    "load_ui_font_overrides",
     "select_fixed_menu_replacements",
     "select_fixed_slps_replacements",
 ]

@@ -6,6 +6,7 @@ from pathlib import Path
 from tools.srwz.text import (
     SrwzTextEncodeError,
     SrwzTextError,
+    augment_text_table,
     decode_text,
     encode_text,
     load_text_table,
@@ -138,6 +139,14 @@ class TextDecodeTests(unittest.TestCase):
             encoded,
             b"%s" + self.table.inverse_characters["："].to_bytes(2, "big") + b"%2$s",
         )
+
+    def test_augmented_table_reads_explicit_override(self):
+        augmented = augment_text_table(self.table, {"测": 0x987E})
+        self.assertEqual(decode_text(b"\x98\x7e\x00", 0, augmented).text, "测")
+
+    def test_augmented_table_rejects_code_collision(self):
+        with self.assertRaises(SrwzTextEncodeError):
+            augment_text_table(self.table, {"错": 0x8140})
 
     def test_encode_rejects_unmapped_character(self):
         with self.assertRaises(SrwzTextEncodeError) as raised:

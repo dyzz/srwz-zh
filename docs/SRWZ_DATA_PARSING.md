@@ -71,6 +71,22 @@ summary/09/004
 
 当前 94,189 个 ID 全部唯一，文本解码过程中没有出现未知字符码。
 
+### COMPDATA 动态名称表
+
+通用菜单 section 之外，COMPDATA 还包含人物和机体的运行时显示名表。当前
+clean-room parser 由 `config/display-names/compdata.json` 锁定并确认：
+
+- 933 条人物记录，每条 `0xB0` 字节，具有 display／family／given 三个固定
+  字段，共 2,799 个稳定 ID；
+- 808 条机体记录，其 808 个指针归并为 348 个 8-byte 对齐的唯一名称槽；
+- 共 3,147 个稳定 ID，其中 2,800 个非空；所有字段 NUL 终止且 padding 为零；
+- 人物顺序 ID、机体指针、记录区和名称槽均有独立聚合哈希。
+
+运行 `python3 tools/parse_srwz_display_names.py --force` 会把含日文名称的完整
+结果写入被忽略的 `work/parsed/display-names.json`；可提交的
+`manifests/display-name-structure.json` 只保存结构和哈希。该 parser 不表示
+名称已经翻译，也不表示 ISO 或运行时已验证。
+
 ## 与上游结果对照
 
 默认参考目录是相邻固定上游的 `2_translated/`。比较只使用 XML 中不应随翻译变化的

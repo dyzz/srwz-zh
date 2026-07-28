@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "status": "structure_validated",
+  "scope": "Full clean-room structure parse. Japanese names and game bytes remain only in ignored work output; ISO/runtime are not tested.",
+  "structure_id": "srwz-compdata-display-names-v1",
+  "inputs": {
+    "config": {
+      "path": "config/display-names/compdata.json",
+      "sha256": "cd0b06663d0c25af23b8dda13729c3a97b6bee44d43b7bc1834e7f11b840cb9b"
+    },
+    "source_member": {
+      "path": "work/disc/DATA/COMPDATA.BN",
+      "size": 144990,
+      "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+      "decoded_size": 524032,
+      "decoded_sha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb",
+      "flags": 23,
+      "fully_consumed": true
+    },
+    "text_table": {
+      "path": "vendor/upstream-python/project/tbl_all.json",
+      "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+    }
+  },
+  "pilot_table": {
+    "record_count": 933,
+    "entry_count": 2799,
+    "non_empty_entry_count": 2452,
+    "table_sha256": "95556e72b1f8cc31036bd1bca56bf1c4ba891f2a34d2e9d64bb51298ed9e0298",
+    "id_bytes_sha256": "e61de04964563ec97157686987071f2a07303ca9cbcfd757a36426e23408ff71"
+  },
+  "unit_table": {
+    "record_count": 808,
+    "pointer_count": 808,
+    "unique_name_count": 348,
+    "record_bytes_sha256": "513886b7c0ccf9121c9add75df0924dc6157be5b717586728e31ef16cd00c130",
+    "pointer_bytes_sha256": "d765cbf11125de6e09490e14e924654c340179cb8b7eebc174b5fe96a0250375",
+    "target_slot_bytes_sha256": "85915413b120b2f3f5a180db492c6cf570d9bab363ae3782f4b1df090a9d2472"
+  },
+  "totals": {
+    "entry_count": 3147,
+    "non_empty_entry_count": 2800,
+    "entry_signature_sha256": "3cc15cf395ca3e7f33b30c9ca1582fd0fc1427d4456fcb9b658b72b47e4a3258"
+  },
+  "probes": [
+    {
+      "semantic_id": "pilot/female-protagonist/display-name",
+      "entry_id": "display-name/pilot/0702/display",
+      "decoded_offset": "0x20402",
+      "capacity": 21,
+      "encoded_size_with_terminator": 7,
+      "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+      "exact": true
+    },
+    {
+      "semantic_id": "pilot/squadron-leader/display-name",
+      "entry_id": "display-name/pilot/0708/display",
+      "decoded_offset": "0x20822",
+      "capacity": 21,
+      "encoded_size_with_terminator": 9,
+      "source_text_sha256": "decf724cc995dde493e13e15e93a5739520e7385e611af707b60dec51d9af230",
+      "exact": true
+    },
+    {
+      "semantic_id": "unit/vargora-01/display-name",
+      "entry_id": "display-name/unit/0316/name",
+      "decoded_offset": "0x6E9F0",
+      "capacity": 24,
+      "encoded_size_with_terminator": 19,
+      "source_text_sha256": "78ad68a8838797f884811227a14166f47bf0d1bb08fedf912be6b409b20e5a0c",
+      "exact": true
+    }
+  ],
+  "runtime": {
+    "status": "not_tested",
+    "reason": "This manifest proves source structure only; it does not contain translated display-name bytes or an ISO."
+  }
+}

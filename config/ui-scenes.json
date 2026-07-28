@@ -27,7 +27,18 @@
       "source_id": "compdata-fixed-record-display-names",
       "member": "work/disc/DATA/COMPDATA.BN",
       "storage": "srwz_stream",
-      "status": "probe_verified_parser_and_writer_missing",
+      "status": "structure_and_p0_opening_writer_validated_iso_runtime_pending",
+      "structure_manifest": {
+        "path": "manifests/display-name-structure.json",
+        "sha256": "66ab32f6a4a2d77c0b7a78a10e00d6833dc608ff4da20f415664309ce29f4bf3",
+        "required_status": "structure_validated"
+      },
+      "writer_manifest": {
+        "path": "manifests/ui-p0-display-names-validation.json",
+        "required_status": "p0_compdata_and_opening_display_names_validated_iso_runtime_pending",
+        "selected_translation_entry_count": 45,
+        "unselected_non_empty_entry_count": 2755
+      },
       "probes": [
         {
           "semantic_id": "pilot/female-protagonist/display-name",
@@ -248,9 +259,9 @@
         }
       ],
       "implementation": {
-        "text": "labels_translated_dynamic_name_parser_and_bulk_writer_missing",
+        "text": "labels_and_opening_dynamic_name_component_validated_full_roster_pending",
         "asset": "generic_tim2_writer_available_chinese_info_atlas_not_authored",
-        "integration": "pending"
+        "integration": "component_only_iso_runtime_pending"
       },
       "route": [
         "From intermission unit list, open unit information.",

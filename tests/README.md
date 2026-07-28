@@ -62,6 +62,10 @@ archive/report 输出边界；`test_mapname.py` 固定 Shift-JIS/NUL/全零 padd
 `test_ui_p0_fixed_slps.py` 与 `test_ui_p0_fixed_compdata.py` 另固定 P0
 fixed-span 选择 ratchet、指针／非目标字节不变、组件哈希和压缩回解；两者均
 明确要求运行状态仍为 `not_tested`。
+`test_display_names.py` 固定 COMPDATA 人物／机体表几何、稳定 ID、指针归并、
+零 padding 和 hash-only 提交投影；`test_ui_p0_display_names.py` 固定开场
+45 个名称决策、原 allocation 写回、人物 ID／机体指针／非目标字节不变和
+压缩流精确回解，并要求 ISO／运行状态仍未测试。
 真实 ISO 工具构建、镜像构建与 66 项逐成员校验单独运行：
 
 ```bash

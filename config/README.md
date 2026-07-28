@@ -8,6 +8,7 @@
 | `upstream.lock.json` | 固定上游 Python 快照及授权/来源边界 |
 | `toolchain/`、`fonts/` | 第三方工具、字体来源、版本和哈希 |
 | `surfaces/` | 原版成员、稳定 entry ID、地址、allocation、codec/render/writer |
+| `display-names/` | COMPDATA 人物／机体名称表几何、固定前像和结构 ratchet |
 | `encoding/codebook.json` | 中文字符到游戏 code/glyph 的唯一分配账本 |
 | `build-profiles/` | 构建选择集、最低编辑状态和必需 gates |
 | `ui-scenes.json` | UI 场景 selector、优先级、运行路线、容量 ratchet 和动态名称 hash-only 探针 |
@@ -48,6 +49,11 @@ P0 UI 字库通过 `encoding/ui-p0-allocations.json` 和
 `ui-writeback/ui-p0-compdata-fixed.json` 对压缩 COMPDATA 采用相同 span
 契约，并锁定 preserve-prefix suffix 重编码参数和成员增长 ratchet；当前
 P0 同样无 overflow。
+`ui-writeback/ui-p0-display-names.json` 在该静态组件之上选择
+`corpus/zh/display-names/p0-opening.json` 的 45 个已审校字段；只允许原
+allocation 内写回，人物 ID、机体指针和非目标字节均不可修改。完整结构和
+组件结果分别锁定在 `manifests/display-name-structure.json` 与
+`manifests/ui-p0-display-names-validation.json`。
 
 `assets/archive-inventory.json` 由 `tools/srwz/assets.py` 独立执行严格 schema
 检查：未知字段、重复 member、路径穿越、archive/direct 重叠、未知 storage

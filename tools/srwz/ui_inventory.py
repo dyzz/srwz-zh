@@ -501,6 +501,49 @@ def verify_dynamic_sources(
                 f"unsupported dynamic source storage: {source.get('source_id')}"
             )
         decoded = decode(stored).output
+        structure_reference = source.get("structure_manifest")
+        writer_reference = source.get("writer_manifest")
+        if not isinstance(structure_reference, dict) or not isinstance(
+            writer_reference, dict
+        ):
+            raise UiInventoryError(
+                f"dynamic source manifests are missing: {source.get('source_id')}"
+            )
+        structure_path = _project_path(
+            project_root,
+            structure_reference.get("path"),
+        )
+        writer_path = _project_path(
+            project_root,
+            writer_reference.get("path"),
+        )
+        if sha256_bytes(structure_path.read_bytes()) != structure_reference.get(
+            "sha256"
+        ):
+            raise UiInventoryError("dynamic structure manifest SHA-256 drift")
+        structure_manifest = _json_object(structure_path)
+        writer_manifest = _json_object(writer_path)
+        if structure_manifest.get("status") != structure_reference.get(
+            "required_status"
+        ):
+            raise UiInventoryError("dynamic structure manifest status drift")
+        if writer_manifest.get("status") != writer_reference.get("required_status"):
+            raise UiInventoryError("dynamic writer manifest status drift")
+        structure_source = structure_manifest.get("inputs", {}).get("source_member", {})
+        if structure_source.get("sha256") != sha256_bytes(
+            stored
+        ) or structure_source.get("decoded_sha256") != sha256_bytes(decoded):
+            raise UiInventoryError("dynamic structure source identity drift")
+        if writer_manifest.get("runtime", {}).get("status") != "not_tested":
+            raise UiInventoryError("dynamic writer runtime status is unsupported")
+        if writer_manifest.get("selection", {}).get(
+            "translation_entry_count"
+        ) != writer_reference.get(
+            "selected_translation_entry_count"
+        ) or writer_manifest.get("remaining_work", {}).get(
+            "unselected_non_empty_entry_count"
+        ) != writer_reference.get("unselected_non_empty_entry_count"):
+            raise UiInventoryError("dynamic writer coverage ratchet drift")
         probes = []
         for raw in source.get("probes", []):
             if not isinstance(raw, dict):
@@ -523,6 +566,21 @@ def verify_dynamic_sources(
                     "exact": True,
                 }
             )
+        structure_probes = {
+            item["semantic_id"]: item
+            for item in structure_manifest.get("probes", [])
+            if isinstance(item, dict) and isinstance(item.get("semantic_id"), str)
+        }
+        for probe in probes:
+            structured = structure_probes.get(probe["semantic_id"])
+            if (
+                structured is None
+                or structured.get("decoded_offset") != probe["decoded_offset"]
+                or structured.get("source_text_sha256") != probe["source_text_sha256"]
+            ):
+                raise UiInventoryError(
+                    f"dynamic structure probe mismatch: {probe['semantic_id']}"
+                )
         reports.append(
             {
                 "source_id": source["source_id"],
@@ -532,6 +590,27 @@ def verify_dynamic_sources(
                 "stored_sha256": sha256_bytes(stored),
                 "decoded_size": len(decoded),
                 "decoded_sha256": sha256_bytes(decoded),
+                "structure_manifest": {
+                    "path": str(structure_path.relative_to(project_root.resolve())),
+                    "sha256": sha256_bytes(structure_path.read_bytes()),
+                    "status": structure_manifest["status"],
+                    "entry_count": structure_manifest["totals"]["entry_count"],
+                    "non_empty_entry_count": structure_manifest["totals"][
+                        "non_empty_entry_count"
+                    ],
+                },
+                "writer_manifest": {
+                    "path": str(writer_path.relative_to(project_root.resolve())),
+                    "sha256": sha256_bytes(writer_path.read_bytes()),
+                    "status": writer_manifest["status"],
+                    "selected_translation_entry_count": writer_manifest["selection"][
+                        "translation_entry_count"
+                    ],
+                    "unselected_non_empty_entry_count": writer_manifest[
+                        "remaining_work"
+                    ]["unselected_non_empty_entry_count"],
+                    "runtime_status": writer_manifest["runtime"]["status"],
+                },
                 "probe_count": len(probes),
                 "probes": probes,
             }

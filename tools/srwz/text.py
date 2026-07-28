@@ -346,12 +346,41 @@ def encode_text(
     return bytes(output)
 
 
+def augment_text_table(
+    table: TextTable,
+    overrides: Mapping[str, int],
+) -> TextTable:
+    """Return a readback table containing explicit character/code overrides."""
+
+    characters = dict(table.characters)
+    for character, code in overrides.items():
+        if not isinstance(character, str) or len(character) != 1:
+            raise SrwzTextEncodeError(
+                "text-table override character must have length one",
+                character_index=0,
+            )
+        if not isinstance(code, int) or not 0 <= code <= 0xFFFF:
+            raise SrwzTextEncodeError(
+                "text-table override code must fit 16 bits",
+                character_index=0,
+            )
+        previous = characters.get(code)
+        if previous is not None and previous != character:
+            raise SrwzTextEncodeError(
+                f"text-table override collision at code 0x{code:04X}",
+                character_index=0,
+            )
+        characters[code] = character
+    return TextTable(characters=characters, tags=table.tags)
+
+
 __all__ = [
     "DecodedText",
     "RUNTIME_FORMAT_TOKEN",
     "SrwzTextError",
     "SrwzTextEncodeError",
     "TextTable",
+    "augment_text_table",
     "control_notation_positions",
     "decode_text",
     "encode_text",

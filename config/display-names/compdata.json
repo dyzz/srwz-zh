@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "structure_id": "srwz-compdata-display-names-v1",
+  "scope": "Clean-room parsing of fixed-record pilot names and pointer-backed unit display names in decoded DATA/COMPDATA.BN.",
+  "source_member": {
+    "path": "work/disc/DATA/COMPDATA.BN",
+    "size": 144990,
+    "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+    "decoded_size": 524032,
+    "decoded_sha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb",
+    "flags": 23
+  },
+  "text_table": {
+    "path": "vendor/upstream-python/project/tbl_all.json",
+    "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+  },
+  "pilot_table": {
+    "start": "0x2160",
+    "record_stride": 176,
+    "record_count": 933,
+    "id_offset": 0,
+    "end": "0x2A2D0",
+    "table_sha256": "95556e72b1f8cc31036bd1bca56bf1c4ba891f2a34d2e9d64bb51298ed9e0298",
+    "id_bytes_sha256": "e61de04964563ec97157686987071f2a07303ca9cbcfd757a36426e23408ff71",
+    "terminal_preimage": {
+      "offset": "0x2A2D0",
+      "hex": "ffff0000000000000000000000000000"
+    },
+    "fields": [
+      {
+        "name": "display",
+        "offset": 2,
+        "capacity": 21,
+        "expected_empty_count": 0,
+        "expected_max_encoded_size": 19
+      },
+      {
+        "name": "family",
+        "offset": 23,
+        "capacity": 23,
+        "expected_empty_count": 332,
+        "expected_max_encoded_size": 23
+      },
+      {
+        "name": "given",
+        "offset": 46,
+        "capacity": 23,
+        "expected_empty_count": 15,
+        "expected_max_encoded_size": 23
+      }
+    ],
+    "expected_entry_count": 2799,
+    "expected_non_empty_entry_count": 2452
+  },
+  "unit_table": {
+    "record_start": "0x4CAE4",
+    "record_stride": 68,
+    "record_count": 808,
+    "pointer_offset": 0,
+    "record_end": "0x5A184",
+    "pointer_base_address": "0x6D6800",
+    "record_bytes_sha256": "513886b7c0ccf9121c9add75df0924dc6157be5b717586728e31ef16cd00c130",
+    "pointer_bytes_sha256": "d765cbf11125de6e09490e14e924654c340179cb8b7eebc174b5fe96a0250375",
+    "target_slot_bytes_sha256": "85915413b120b2f3f5a180db492c6cf570d9bab363ae3782f4b1df090a9d2472",
+    "target_alignment": 8,
+    "allocation_policy": "minimum_zero_padded_alignment",
+    "allowed_target_regions": [
+      {
+        "start": "0x6B818",
+        "end": "0x6B8D0"
+      },
+      {
+        "start": "0x6D0C0",
+        "end": "0x6EBF0"
+      }
+    ],
+    "expected_pointer_count": 808,
+    "expected_unique_target_count": 348,
+    "expected_unique_text_count": 348
+  },
+  "probes": [
+    {
+      "semantic_id": "pilot/female-protagonist/display-name",
+      "entry_id": "display-name/pilot/0702/display",
+      "decoded_offset": "0x20402",
+      "encoded_size_with_terminator": 7,
+      "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77"
+    },
+    {
+      "semantic_id": "pilot/squadron-leader/display-name",
+      "entry_id": "display-name/pilot/0708/display",
+      "decoded_offset": "0x20822",
+      "encoded_size_with_terminator": 9,
+      "source_text_sha256": "decf724cc995dde493e13e15e93a5739520e7385e611af707b60dec51d9af230"
+    },
+    {
+      "semantic_id": "unit/vargora-01/display-name",
+      "entry_id": "display-name/unit/0316/name",
+      "decoded_offset": "0x6E9F0",
+      "encoded_size_with_terminator": 19,
+      "source_text_sha256": "78ad68a8838797f884811227a14166f47bf0d1bb08fedf912be6b409b20e5a0c"
+    }
+  ],
+  "outputs": {
+    "report": "work/parsed/display-names.json",
+    "manifest": "manifests/display-name-structure.json"
+  }
+}

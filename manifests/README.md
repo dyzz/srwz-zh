@@ -62,8 +62,9 @@
   写回；记录固定字体/mask、12,514 个像素修改、重压缩与 ISO、两种光标状态
   截图，以及 PCSX2 转储纹理与离线预览逐像素一致的运行证据。
 - `ui-surface-inventory.json`：从真实语料、当前前五关字库和 COMPDATA
-  hash-only 探针确定性投影的 UI 场景摘要；固定 P0 的 462 条文本、九个缺字、
-  12 个剩余候选槽和三槽余量，并明确区分译文决策、writer、ISO 与运行状态。
+  动态名称结构确定性投影的 UI 场景摘要；固定 P0 的 462 条文本、九个缺字、
+  12 个剩余候选槽、三槽余量和开场名称 writer 状态，并明确区分译文决策、
+  writer、ISO 与运行状态。
 - `ui-p0-font-validation.json`：在不改变 first-five 组件的前提下追加九个
   P0 UI 字符并统一重绘九个原版汉字；记录 1,454 个 assignment、VT1
   size-preserving 重压缩、SLPS offset 回读、462 条文本零缺字／零原版汉字
@@ -76,3 +77,9 @@
   byte-exact no-op 和 41 条 fixed-span 写入；证明 28,100 个指针字节及
   非目标解码字节不变、suffix 重编码完整回解，并记录 2,060 字节成员增长。
   ISO 和运行验证仍待完成。
+- `display-name-structure.json`：COMPDATA 的 933 条人物记录、2,799 个固定
+  人物字段、808 个机体指针和 348 个唯一名称槽的完整结构清单；保存稳定 ID、
+  前像、计数和聚合哈希，不保存日文名称或游戏字节。
+- `ui-p0-display-names-validation.json`：在固定 P0 COMPDATA 组件上写入开场
+  45 个已审校动态名称字段；证明人物 ID、机体指针和非目标字节不变、所有文本
+  留在原 allocation、压缩流精确回解。ISO 和运行验证仍待完成。

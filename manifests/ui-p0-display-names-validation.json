@@ -1,0 +1,775 @@
+{
+  "schema_version": 1,
+  "status": "p0_compdata_and_opening_display_names_validated_iso_runtime_pending",
+  "profile_id": "srwz-ui-p0-display-names-v1",
+  "scope": "Opening-route pilot and unit display names composed on top of the validated P0 fixed COMPDATA component. All fields remain in their original allocations and all pointers remain unchanged.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-writeback/ui-p0-display-names.json",
+      "sha256": "3cb266c5f7140c4f758c0fe3b609aa8de29e2833c461a9f0d8387fdebf5a93a1"
+    },
+    "structure": {
+      "config": {
+        "path": "config/display-names/compdata.json",
+        "sha256": "cd0b06663d0c25af23b8dda13729c3a97b6bee44d43b7bc1834e7f11b840cb9b"
+      },
+      "manifest": {
+        "path": "manifests/display-name-structure.json",
+        "sha256": "66ab32f6a4a2d77c0b7a78a10e00d6833dc608ff4da20f415664309ce29f4bf3",
+        "status": "structure_validated",
+        "entry_signature_sha256": "3cc15cf395ca3e7f33b30c9ca1582fd0fc1427d4456fcb9b658b72b47e4a3258"
+      },
+      "source_member": {
+        "path": "work/disc/DATA/COMPDATA.BN",
+        "size": 144990,
+        "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+        "decoded_size": 524032,
+        "decoded_sha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb",
+        "flags": 23,
+        "fully_consumed": true
+      },
+      "text_table": {
+        "path": "vendor/upstream-python/project/tbl_all.json",
+        "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+      }
+    },
+    "translation_source": {
+      "path": "corpus/zh/display-names/p0-opening.json",
+      "sha256": "f8b1aa60c9261e66137578aa921b11a933f0fa406cbc791ee2e0945e12c1d910",
+      "batch_id": "v1-display-names-p0-opening",
+      "minimum_editorial_status": "reviewed",
+      "entry_count": 45,
+      "selection_sha256": "040e9a44678abb305788d753d309fbc9b0a92224bbf6a600d814b8538d700812"
+    },
+    "terminology_sources": [
+      {
+        "path": "corpus/glossary/terms-v1.json",
+        "sha256": "6318bfb3624d9f72c2fd507176b63d78b59923be02f0f4df3b0bd02c5e9689f6",
+        "term_count": 127
+      },
+      {
+        "path": "corpus/glossary/story-speakers-v1.json",
+        "sha256": "3c5c81e17672b56e3823c00ed946a8797dc5f52325f93aace970c9ebf20fd3b6",
+        "term_count": 340
+      },
+      {
+        "path": "corpus/glossary/story-dialogue-stage-001-v1.json",
+        "sha256": "e6558f25ab44e6793f92790010bcf909e0a9ab03741c557837b1fad2cc136f67",
+        "term_count": 23
+      },
+      {
+        "path": "corpus/glossary/story-dialogue-stage-005-v1.json",
+        "sha256": "f98b60caf3837f6dad358d1a6333bc456c02adc62718450f3ca222f7ad429b14",
+        "term_count": 18
+      },
+      {
+        "path": "corpus/glossary/story-conditions-v1.json",
+        "sha256": "94b83dc429dfe1c8226bb76f26f79110a5aa0e577b1223e879584cc31ebec8d7",
+        "term_count": 146
+      }
+    ],
+    "font_manifest": {
+      "path": "manifests/ui-p0-font-validation.json",
+      "sha256": "fb63fcffcfd839093f895b0a19654ff3ae53908a8a972b0497c095a653c13811"
+    },
+    "codebook": {
+      "base_codebook": {
+        "path": "config/encoding/codebook.json",
+        "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+      },
+      "proposal": {
+        "path": "work/writeback/ui-p0-codebook-proposal.json",
+        "sha256": "5d6b32b302b572289d019483ed8601814185fc3828b07c1d01bd7f637d117ab7"
+      },
+      "override_count": 1454
+    },
+    "base_component": {
+      "config": {
+        "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
+        "sha256": "ec1d473d5d1e795b6779fa0be0cc4718ebeb8a0c0bdda476d351e46c180d43e1"
+      },
+      "manifest": {
+        "path": "manifests/ui-p0-fixed-compdata-validation.json",
+        "sha256": "d12a7e3d3622fb5eb4d2f98b074a82e2f65c813bc4d30d9e2671ef44cfc0e71d"
+      },
+      "compressed_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d",
+      "decoded_sha256": "8e1d9a25a33ac445b53b9bbb789f3ece940043276436f45917575c93783754ea",
+      "static_p0_entry_count": 44
+    }
+  },
+  "selection": {
+    "translation_entry_count": 45,
+    "pilot_translation_entry_count": 42,
+    "unit_translation_entry_count": 3,
+    "no_op_entry_count": 0,
+    "write_entry_count": 45,
+    "pointer_write_count": 0,
+    "preserved_base_compressed_prefix_size": 29093,
+    "no_op_entry_ids": [],
+    "selected_metadata_sha256": "c3a6b7b2f6073780892785f93582752cf666a56916a94c682628f2f4a862fb6a",
+    "entries": [
+      {
+        "id": "display-name/pilot/0702/display",
+        "table": "pilot",
+        "record_index": 702,
+        "field": "display",
+        "target_offset": 132098,
+        "capacity": 21,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0702/family",
+        "table": "pilot",
+        "record_index": 702,
+        "field": "family",
+        "target_offset": 132119,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f4e5c6839c6c22bf28efca8cd747c6d5ef2a9531a5e597995fbd551935f37ce9",
+        "translation_sha256": "31dd735cdb330407fc2daf229b207d9b5eb48081f0d059f3695a785dd095c4ea",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0702/given",
+        "table": "pilot",
+        "record_index": 702,
+        "field": "given",
+        "target_offset": 132142,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0703/display",
+        "table": "pilot",
+        "record_index": 703,
+        "field": "display",
+        "target_offset": 132274,
+        "capacity": 21,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0703/family",
+        "table": "pilot",
+        "record_index": 703,
+        "field": "family",
+        "target_offset": 132295,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f4e5c6839c6c22bf28efca8cd747c6d5ef2a9531a5e597995fbd551935f37ce9",
+        "translation_sha256": "31dd735cdb330407fc2daf229b207d9b5eb48081f0d059f3695a785dd095c4ea",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0703/given",
+        "table": "pilot",
+        "record_index": 703,
+        "field": "given",
+        "target_offset": 132318,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0704/display",
+        "table": "pilot",
+        "record_index": 704,
+        "field": "display",
+        "target_offset": 132450,
+        "capacity": 21,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0704/family",
+        "table": "pilot",
+        "record_index": 704,
+        "field": "family",
+        "target_offset": 132471,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f4e5c6839c6c22bf28efca8cd747c6d5ef2a9531a5e597995fbd551935f37ce9",
+        "translation_sha256": "31dd735cdb330407fc2daf229b207d9b5eb48081f0d059f3695a785dd095c4ea",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0704/given",
+        "table": "pilot",
+        "record_index": 704,
+        "field": "given",
+        "target_offset": 132494,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0705/display",
+        "table": "pilot",
+        "record_index": 705,
+        "field": "display",
+        "target_offset": 132626,
+        "capacity": 21,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0705/family",
+        "table": "pilot",
+        "record_index": 705,
+        "field": "family",
+        "target_offset": 132647,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f4e5c6839c6c22bf28efca8cd747c6d5ef2a9531a5e597995fbd551935f37ce9",
+        "translation_sha256": "31dd735cdb330407fc2daf229b207d9b5eb48081f0d059f3695a785dd095c4ea",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0705/given",
+        "table": "pilot",
+        "record_index": 705,
+        "field": "given",
+        "target_offset": 132670,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0706/display",
+        "table": "pilot",
+        "record_index": 706,
+        "field": "display",
+        "target_offset": 132802,
+        "capacity": 21,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0706/family",
+        "table": "pilot",
+        "record_index": 706,
+        "field": "family",
+        "target_offset": 132823,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f4e5c6839c6c22bf28efca8cd747c6d5ef2a9531a5e597995fbd551935f37ce9",
+        "translation_sha256": "31dd735cdb330407fc2daf229b207d9b5eb48081f0d059f3695a785dd095c4ea",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0706/given",
+        "table": "pilot",
+        "record_index": 706,
+        "field": "given",
+        "target_offset": 132846,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0707/display",
+        "table": "pilot",
+        "record_index": 707,
+        "field": "display",
+        "target_offset": 132978,
+        "capacity": 21,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0707/family",
+        "table": "pilot",
+        "record_index": 707,
+        "field": "family",
+        "target_offset": 132999,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f4e5c6839c6c22bf28efca8cd747c6d5ef2a9531a5e597995fbd551935f37ce9",
+        "translation_sha256": "31dd735cdb330407fc2daf229b207d9b5eb48081f0d059f3695a785dd095c4ea",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0707/given",
+        "table": "pilot",
+        "record_index": 707,
+        "field": "given",
+        "target_offset": 133022,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0708/display",
+        "table": "pilot",
+        "record_index": 708,
+        "field": "display",
+        "target_offset": 133154,
+        "capacity": 21,
+        "source_encoded_size": 9,
+        "output_encoded_size": 7,
+        "source_text_sha256": "decf724cc995dde493e13e15e93a5739520e7385e611af707b60dec51d9af230",
+        "translation_sha256": "573681dabc4c2845cf26f4aa10a6caa3aa76714fec8d18d9748ac6cb3832a3e9",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0708/family",
+        "table": "pilot",
+        "record_index": 708,
+        "field": "family",
+        "target_offset": 133175,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "c3b709890fa2550fa7fbca4672a8af2be8999a8f721936011406eb43fb73251c",
+        "translation_sha256": "5f4b185ed06390556d0fef44423f1d9275c3c7ed781b3b37cef041698a804a27",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0708/given",
+        "table": "pilot",
+        "record_index": 708,
+        "field": "given",
+        "target_offset": 133198,
+        "capacity": 23,
+        "source_encoded_size": 9,
+        "output_encoded_size": 7,
+        "source_text_sha256": "decf724cc995dde493e13e15e93a5739520e7385e611af707b60dec51d9af230",
+        "translation_sha256": "573681dabc4c2845cf26f4aa10a6caa3aa76714fec8d18d9748ac6cb3832a3e9",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0709/display",
+        "table": "pilot",
+        "record_index": 709,
+        "field": "display",
+        "target_offset": 133330,
+        "capacity": 21,
+        "source_encoded_size": 9,
+        "output_encoded_size": 7,
+        "source_text_sha256": "decf724cc995dde493e13e15e93a5739520e7385e611af707b60dec51d9af230",
+        "translation_sha256": "573681dabc4c2845cf26f4aa10a6caa3aa76714fec8d18d9748ac6cb3832a3e9",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0709/family",
+        "table": "pilot",
+        "record_index": 709,
+        "field": "family",
+        "target_offset": 133351,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "c3b709890fa2550fa7fbca4672a8af2be8999a8f721936011406eb43fb73251c",
+        "translation_sha256": "5f4b185ed06390556d0fef44423f1d9275c3c7ed781b3b37cef041698a804a27",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0709/given",
+        "table": "pilot",
+        "record_index": 709,
+        "field": "given",
+        "target_offset": 133374,
+        "capacity": 23,
+        "source_encoded_size": 9,
+        "output_encoded_size": 7,
+        "source_text_sha256": "decf724cc995dde493e13e15e93a5739520e7385e611af707b60dec51d9af230",
+        "translation_sha256": "573681dabc4c2845cf26f4aa10a6caa3aa76714fec8d18d9748ac6cb3832a3e9",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0710/display",
+        "table": "pilot",
+        "record_index": 710,
+        "field": "display",
+        "target_offset": 133506,
+        "capacity": 21,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "bdc0fa70d5142ff245e9b46fc0f731a1e4c80d2e30833585fc1a0cf01d122a24",
+        "translation_sha256": "9aa8bb123c279c29020d74708b077c46ed365c5ae9350b8ad9cfa1fc00a0d56c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0710/family",
+        "table": "pilot",
+        "record_index": 710,
+        "field": "family",
+        "target_offset": 133527,
+        "capacity": 23,
+        "source_encoded_size": 9,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f647dd4c48467620dae7507448ab1691243c86f4acf073d49060d7c08f7ecb20",
+        "translation_sha256": "abd13399afde7ffd9a6aa34c6288e01386969fb0de6533e82cb5a6496e79432b",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0710/given",
+        "table": "pilot",
+        "record_index": 710,
+        "field": "given",
+        "target_offset": 133550,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "bdc0fa70d5142ff245e9b46fc0f731a1e4c80d2e30833585fc1a0cf01d122a24",
+        "translation_sha256": "9aa8bb123c279c29020d74708b077c46ed365c5ae9350b8ad9cfa1fc00a0d56c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0711/display",
+        "table": "pilot",
+        "record_index": 711,
+        "field": "display",
+        "target_offset": 133682,
+        "capacity": 21,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "bdc0fa70d5142ff245e9b46fc0f731a1e4c80d2e30833585fc1a0cf01d122a24",
+        "translation_sha256": "9aa8bb123c279c29020d74708b077c46ed365c5ae9350b8ad9cfa1fc00a0d56c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0711/family",
+        "table": "pilot",
+        "record_index": 711,
+        "field": "family",
+        "target_offset": 133703,
+        "capacity": 23,
+        "source_encoded_size": 9,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f647dd4c48467620dae7507448ab1691243c86f4acf073d49060d7c08f7ecb20",
+        "translation_sha256": "abd13399afde7ffd9a6aa34c6288e01386969fb0de6533e82cb5a6496e79432b",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0711/given",
+        "table": "pilot",
+        "record_index": 711,
+        "field": "given",
+        "target_offset": 133726,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "bdc0fa70d5142ff245e9b46fc0f731a1e4c80d2e30833585fc1a0cf01d122a24",
+        "translation_sha256": "9aa8bb123c279c29020d74708b077c46ed365c5ae9350b8ad9cfa1fc00a0d56c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0712/display",
+        "table": "pilot",
+        "record_index": 712,
+        "field": "display",
+        "target_offset": 133858,
+        "capacity": 21,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "bdc0fa70d5142ff245e9b46fc0f731a1e4c80d2e30833585fc1a0cf01d122a24",
+        "translation_sha256": "9aa8bb123c279c29020d74708b077c46ed365c5ae9350b8ad9cfa1fc00a0d56c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0712/family",
+        "table": "pilot",
+        "record_index": 712,
+        "field": "family",
+        "target_offset": 133879,
+        "capacity": 23,
+        "source_encoded_size": 9,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f647dd4c48467620dae7507448ab1691243c86f4acf073d49060d7c08f7ecb20",
+        "translation_sha256": "abd13399afde7ffd9a6aa34c6288e01386969fb0de6533e82cb5a6496e79432b",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0712/given",
+        "table": "pilot",
+        "record_index": 712,
+        "field": "given",
+        "target_offset": 133902,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "bdc0fa70d5142ff245e9b46fc0f731a1e4c80d2e30833585fc1a0cf01d122a24",
+        "translation_sha256": "9aa8bb123c279c29020d74708b077c46ed365c5ae9350b8ad9cfa1fc00a0d56c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0913/display",
+        "table": "pilot",
+        "record_index": 913,
+        "field": "display",
+        "target_offset": 169234,
+        "capacity": 21,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0913/family",
+        "table": "pilot",
+        "record_index": 913,
+        "field": "family",
+        "target_offset": 169255,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f4e5c6839c6c22bf28efca8cd747c6d5ef2a9531a5e597995fbd551935f37ce9",
+        "translation_sha256": "31dd735cdb330407fc2daf229b207d9b5eb48081f0d059f3695a785dd095c4ea",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0913/given",
+        "table": "pilot",
+        "record_index": 913,
+        "field": "given",
+        "target_offset": 169278,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+        "translation_sha256": "d1b34af15a4bbd5c3bd4919149b87ea839bae975eac292357eebd9fd00b5218c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0914/display",
+        "table": "pilot",
+        "record_index": 914,
+        "field": "display",
+        "target_offset": 169410,
+        "capacity": 21,
+        "source_encoded_size": 9,
+        "output_encoded_size": 7,
+        "source_text_sha256": "decf724cc995dde493e13e15e93a5739520e7385e611af707b60dec51d9af230",
+        "translation_sha256": "573681dabc4c2845cf26f4aa10a6caa3aa76714fec8d18d9748ac6cb3832a3e9",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0914/family",
+        "table": "pilot",
+        "record_index": 914,
+        "field": "family",
+        "target_offset": 169431,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "c3b709890fa2550fa7fbca4672a8af2be8999a8f721936011406eb43fb73251c",
+        "translation_sha256": "5f4b185ed06390556d0fef44423f1d9275c3c7ed781b3b37cef041698a804a27",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0914/given",
+        "table": "pilot",
+        "record_index": 914,
+        "field": "given",
+        "target_offset": 169454,
+        "capacity": 23,
+        "source_encoded_size": 9,
+        "output_encoded_size": 7,
+        "source_text_sha256": "decf724cc995dde493e13e15e93a5739520e7385e611af707b60dec51d9af230",
+        "translation_sha256": "573681dabc4c2845cf26f4aa10a6caa3aa76714fec8d18d9748ac6cb3832a3e9",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0915/display",
+        "table": "pilot",
+        "record_index": 915,
+        "field": "display",
+        "target_offset": 169586,
+        "capacity": 21,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "bdc0fa70d5142ff245e9b46fc0f731a1e4c80d2e30833585fc1a0cf01d122a24",
+        "translation_sha256": "9aa8bb123c279c29020d74708b077c46ed365c5ae9350b8ad9cfa1fc00a0d56c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0915/family",
+        "table": "pilot",
+        "record_index": 915,
+        "field": "family",
+        "target_offset": 169607,
+        "capacity": 23,
+        "source_encoded_size": 9,
+        "output_encoded_size": 5,
+        "source_text_sha256": "f647dd4c48467620dae7507448ab1691243c86f4acf073d49060d7c08f7ecb20",
+        "translation_sha256": "abd13399afde7ffd9a6aa34c6288e01386969fb0de6533e82cb5a6496e79432b",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/pilot/0915/given",
+        "table": "pilot",
+        "record_index": 915,
+        "field": "given",
+        "target_offset": 169630,
+        "capacity": 23,
+        "source_encoded_size": 7,
+        "output_encoded_size": 5,
+        "source_text_sha256": "bdc0fa70d5142ff245e9b46fc0f731a1e4c80d2e30833585fc1a0cf01d122a24",
+        "translation_sha256": "9aa8bb123c279c29020d74708b077c46ed365c5ae9350b8ad9cfa1fc00a0d56c",
+        "pointer_record_indices": []
+      },
+      {
+        "id": "display-name/unit/0316/name",
+        "table": "unit",
+        "record_index": 316,
+        "field": "name",
+        "target_offset": 453104,
+        "capacity": 24,
+        "source_encoded_size": 19,
+        "output_encoded_size": 19,
+        "source_text_sha256": "78ad68a8838797f884811227a14166f47bf0d1bb08fedf912be6b409b20e5a0c",
+        "translation_sha256": "4d2126146964fcb165b229a81c5bef733e98d8aee9a8055673c11bad8cd64b76",
+        "pointer_record_indices": [
+          732,
+          733,
+          739,
+          740
+        ]
+      },
+      {
+        "id": "display-name/unit/0317/name",
+        "table": "unit",
+        "record_index": 317,
+        "field": "name",
+        "target_offset": 453136,
+        "capacity": 24,
+        "source_encoded_size": 19,
+        "output_encoded_size": 19,
+        "source_text_sha256": "efeef167557cb85ed31901cade998cc06ea364a6eecba2812201d9ccb6490b42",
+        "translation_sha256": "00ec2b036bf4576e5992da3ebeb4e389c912e83355f123db72d8907a2158800a",
+        "pointer_record_indices": [
+          734,
+          735,
+          736
+        ]
+      },
+      {
+        "id": "display-name/unit/0318/name",
+        "table": "unit",
+        "record_index": 318,
+        "field": "name",
+        "target_offset": 453168,
+        "capacity": 24,
+        "source_encoded_size": 19,
+        "output_encoded_size": 19,
+        "source_text_sha256": "38971154b98c98e73f3126c6abda07b5bfe538a9f7550aff08c609b2a930ba84",
+        "translation_sha256": "eb715ed2adbed2ac7536c4009d6e9a65d97a6108d1bde8b0c008eaa51a7af6bb",
+        "pointer_record_indices": [
+          737,
+          738
+        ]
+      }
+    ]
+  },
+  "write": {
+    "operation_count": 45,
+    "owned_capacity": 1010,
+    "changed_byte_count": 308,
+    "difference_range_count": 51,
+    "patch_plan_metadata_sha256": "34f05fb9d5433aa8f6d90cb1b84f1f15d1da2518a0d949163f9bd1ff53c89bd8",
+    "unit_pointer_site_byte_count": 3232,
+    "pilot_id_byte_count": 1866,
+    "pointer_bytes_unchanged": true,
+    "pilot_ids_unchanged": true,
+    "non_target_bytes_unchanged": true,
+    "target_reparse_exact": true
+  },
+  "decoded_component": {
+    "size": 524032,
+    "base_sha256": "8e1d9a25a33ac445b53b9bbb789f3ece940043276436f45917575c93783754ea",
+    "output_sha256": "a2064b1d5eb02b0f6d220df539716813007218d3c85b76658d0bd256fc13cbc3"
+  },
+  "compressed_component": {
+    "base_size": 147050,
+    "output_size": 156161,
+    "size_delta_from_base": 9111,
+    "base_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d",
+    "output_sha256": "9fb5066ecf4fa0550cc13f8e4defe06ee75a833ae55e8e40a261a811fd718a7d",
+    "preserved_base_prefix_size": 29093,
+    "strategy": "greedy",
+    "min_match_length": 4,
+    "max_match_chain": 256,
+    "lazy_matching": true,
+    "flags_preserved": true,
+    "decoded_round_trip_exact": true,
+    "fully_consumed": true
+  },
+  "ratchet": {
+    "expected": {
+      "translation_entry_count": 45,
+      "pilot_translation_entry_count": 42,
+      "unit_translation_entry_count": 3,
+      "no_op_entry_count": 0,
+      "write_entry_count": 45,
+      "pointer_write_count": 0,
+      "minimum_preserved_base_compressed_prefix": 29000
+    },
+    "checks": {
+      "translation_entry_count": true,
+      "pilot_translation_entry_count": true,
+      "unit_translation_entry_count": true,
+      "no_op_entry_count": true,
+      "write_entry_count": true,
+      "pointer_write_count": true,
+      "minimum_preserved_base_compressed_prefix": true
+    },
+    "passed": true
+  },
+  "remaining_work": {
+    "source_entry_count": 3147,
+    "non_empty_source_entry_count": 2800,
+    "selected_translation_entry_count": 45,
+    "unselected_non_empty_entry_count": 2755,
+    "scope": "The remaining names require terminology review and are not implicitly approved by this opening-route slice."
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "This is an isolated combined COMPDATA member. It has not been placed in an ISO or viewed in PCSX2."
+  }
+}

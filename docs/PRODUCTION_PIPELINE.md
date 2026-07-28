@@ -262,6 +262,22 @@ python3 tools/verify_ui_p0_fixed_compdata.py --force
 前缀并精确回解；输出增长 2,060 字节。SLPS 与 COMPDATA 两项组件结果都不能
 当作组合 ISO 或 PCSX2 验收，后续 ISO profile 必须显式处理成员增长。
 
+COMPDATA 动态人物／机体名称由独立结构配置和语料批次叠加在上述静态组件上：
+
+```bash
+python3 tools/parse_srwz_display_names.py --force
+python3 tools/build_ui_p0_display_names.py --force
+python3 tools/verify_ui_p0_display_names.py --force
+```
+
+完整 parser 输出 3,147 个稳定字段 ID：933 条人物记录的 2,799 个字段，以及
+808 条机体记录引用的 348 个唯一名称槽。提交清单只保存结构和聚合哈希，带
+日文原文的完整解析留在 `work/parsed/`。首批
+`corpus/zh/display-names/p0-opening.json` 选择 45 个已审校字段，writer
+禁止修改人物 ID、机体指针和非目标字节，并要求所有文本在原 allocation 内
+终止。组件已完成压缩流重编码和精确回解；它仍只是独立组件，不是 ISO 或
+PCSX2 运行证明。
+
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求
 源文和译文的格式 token multiset 完全一致。这个门禁不能用“最终显示看起来
@@ -324,7 +340,7 @@ MIPS HI/LO 写回门禁。P0 的 462 条静态菜单文本当前都能在原 spa
 还需完成：
 
 - 全量 extraction freshness 与双向 reconciliation 的规模化运行；
-- COMPDATA 动态人物／机体名 parser、稳定语料与 writer；
+- 扩展 COMPDATA 动态人物／机体名的全量审校语料；当前只完成开场 45 个字段；
 - 人物／机体信息页 atlas、组合 UI ISO profile 和逐屏 PCSX2 路线；
 - 全量 STAGE arena policy 和通用 VT1 writer；
 - offline render oracle、coverage ratchet 和 clean-copy deterministic build。

@@ -6,8 +6,9 @@
 MTV_PROS 摘要和 STAGE 剧情三类中文 canary 已从正式
 surface/fixture/codebook/profile 生成，并分别通过静态、PCSX2 运行和画面验证。
 系统 UI 的 P0 静态范围另已覆盖 418 条 SLPS 与 44 条 COMPDATA 文本，并由
-独立 fixed-span 组件通过离线回读；动态人物／机体名、信息页 atlas、组合
-UI ISO 和逐屏 PCSX2 验证仍待完成。
+独立 fixed-span 组件通过离线回读。COMPDATA 动态名称表也已完成全结构解析，
+并将开场路线 45 个节子／丹泽尔／托比及巴尔戈拉名称字段写入独立组件；
+其余人物／机体名、信息页 atlas、组合 UI ISO 和逐屏 PCSX2 验证仍待完成。
 尚未生成或发布正式游戏补丁。
 
 翻译生产已进入 v1：28 条世界历史摘要、全部 2,415 条菜单文本、558 条剧情

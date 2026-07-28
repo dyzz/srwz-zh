@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-ui-p0-display-names-v1",
+  "scope": "Opening-route pilot and unit display names composed on top of the validated P0 fixed COMPDATA component. All fields remain in their original allocations and all pointers remain unchanged.",
+  "structure": {
+    "config": "config/display-names/compdata.json",
+    "config_sha256": "cd0b06663d0c25af23b8dda13729c3a97b6bee44d43b7bc1834e7f11b840cb9b",
+    "manifest": "manifests/display-name-structure.json",
+    "manifest_sha256": "66ab32f6a4a2d77c0b7a78a10e00d6833dc608ff4da20f415664309ce29f4bf3",
+    "required_status": "structure_validated"
+  },
+  "translation_source": {
+    "path": "corpus/zh/display-names/p0-opening.json",
+    "sha256": "f8b1aa60c9261e66137578aa921b11a933f0fa406cbc791ee2e0945e12c1d910",
+    "batch_id": "v1-display-names-p0-opening",
+    "minimum_editorial_status": "reviewed"
+  },
+  "terminology_sources": [
+    {
+      "path": "corpus/glossary/terms-v1.json",
+      "sha256": "6318bfb3624d9f72c2fd507176b63d78b59923be02f0f4df3b0bd02c5e9689f6"
+    },
+    {
+      "path": "corpus/glossary/story-speakers-v1.json",
+      "sha256": "3c5c81e17672b56e3823c00ed946a8797dc5f52325f93aace970c9ebf20fd3b6"
+    },
+    {
+      "path": "corpus/glossary/story-dialogue-stage-001-v1.json",
+      "sha256": "e6558f25ab44e6793f92790010bcf909e0a9ab03741c557837b1fad2cc136f67"
+    },
+    {
+      "path": "corpus/glossary/story-dialogue-stage-005-v1.json",
+      "sha256": "f98b60caf3837f6dad358d1a6333bc456c02adc62718450f3ca222f7ad429b14"
+    },
+    {
+      "path": "corpus/glossary/story-conditions-v1.json",
+      "sha256": "94b83dc429dfe1c8226bb76f26f79110a5aa0e577b1223e879584cc31ebec8d7"
+    }
+  ],
+  "base_component": {
+    "config": "config/ui-writeback/ui-p0-compdata-fixed.json",
+    "config_sha256": "ec1d473d5d1e795b6779fa0be0cc4718ebeb8a0c0bdda476d351e46c180d43e1",
+    "manifest": "manifests/ui-p0-fixed-compdata-validation.json",
+    "manifest_sha256": "d12a7e3d3622fb5eb4d2f98b074a82e2f65c813bc4d30d9e2671ef44cfc0e71d",
+    "output_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d"
+  },
+  "font_candidate": {
+    "manifest": "manifests/ui-p0-font-validation.json",
+    "sha256": "fb63fcffcfd839093f895b0a19654ff3ae53908a8a972b0497c095a653c13811"
+  },
+  "base_codebook": {
+    "path": "config/encoding/codebook.json",
+    "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+  },
+  "selection_policy": {
+    "require_every_translation_id": true,
+    "require_source_text_hash": true,
+    "require_minimum_editorial_status": true,
+    "require_source_refs": true,
+    "require_payload_with_terminator_within_allocation": true,
+    "pointer_write_policy": "forbidden"
+  },
+  "codec": {
+    "mode": "preserve-base-prefix-reencode-suffix",
+    "strategy": "greedy",
+    "min_match_length": 4,
+    "max_match_chain": 256,
+    "lazy_matching": true
+  },
+  "ratchet": {
+    "translation_entry_count": 45,
+    "pilot_translation_entry_count": 42,
+    "unit_translation_entry_count": 3,
+    "no_op_entry_count": 0,
+    "write_entry_count": 45,
+    "pointer_write_count": 0,
+    "minimum_preserved_base_compressed_prefix": 29000
+  },
+  "outputs": {
+    "component_root": "work/build/ui-p0-display-names/components",
+    "validation": "work/review/ui-p0-display-names-validation.json",
+    "manifest": "manifests/ui-p0-display-names-validation.json"
+  }
+}
