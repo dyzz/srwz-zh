@@ -58,6 +58,10 @@ byte-exact no-op、VT1 六 picture 8-bpp index 替换、PSMT8 双向映射、CSM
 绿色 ramp 的量化、八个 128×32 槽写回和纹理右侧 byte-exact；
 `test_ui_atlas_map_canary.py` 以同一数据表固定 chunk 2/4/5/6/7 的 mask、
 组件／预览锁、单成员 ISO 及 `runtime_not_tested` 边界；
+`test_ui_runtime_matrix.py` 固定 14 类场景的完整去向、19 个逐屏用例、
+001～005 五个独立开场序列、世界史起点／中点／终点、五张 atlas 的截图＋
+texture-delta 双门，以及六份尚未取得的原生 memory-card fixture；旧 `.p2s`
+savestate 不会自动替代 `.ps2`＋SHA-256 证据；
 `test_inject_srwz_tim2.py` 固定
 archive/report 输出边界；`test_mapname.py` 固定 Shift-JIS/NUL/全零 padding。
 真实图片清单、MAPNAME 聚合计数、PCSX2 图片 canary 的 351-pixel 精确 RGBA

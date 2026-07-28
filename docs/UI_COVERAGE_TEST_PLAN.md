@@ -332,6 +332,37 @@ override；序列化器现统一保留该运行时 token 的原始 ASCII 字节�
 SLPS 418 条和 COMPDATA 44 条都能在原 span 内覆盖，不需要 P0 文本池。
 未来 P1/P2 若需要搬移，仍必须先证明真实池区、所有引用者和容量。
 
+### 4.4 运行场景矩阵
+
+自然语言路线现已提升为独立事实源
+`config/runtime/ui-test-matrix.json`，由下列命令校验，并在 `work/review/`
+生成完整 JSON 和逐用例 TSV：
+
+```bash
+python3 tools/audit_ui_runtime_matrix.py --force
+```
+
+提交投影为 `manifests/ui-runtime-test-matrix.json`。它不修改
+`config/ui-scenes.json` 的语料选择，只把 14 类场景绑定到精确候选、fixture、
+到达步骤、截图点和证据门。当前结果是：
+
+- 10 类进入运行测试：全部七类 P0，加关卡标题／路线、世界史滚动和前五关开场；
+- 4 类显式延期：275 条未拆屏提示、两条后期专用提示、1,250 条大型数据库、
+  297 条退场台词；每类都登记继续推进所需的 exit gate；
+- 19 个用例：9 个 UI／路线验收、5 个 001～005 开场序列、5 个 atlas
+  场景映射实验；
+- 7 张候选 ISO 均由现有 manifest 锁定精确 SHA-256；
+- 计划采集 42 张截图、6 组截图序列和 5 份 texture delta；
+- fresh boot 是唯一已就绪 fixture，因此标题、玩家设置、世界史滚动和
+  stage 001 开场共 4 个用例可直接执行；其余 15 个用例等待六份原生
+  memory card。
+
+所有 memory card 都必须放在被忽略的
+`work/runtime/ui-fixtures/<fixture>/SLPS-25887.ps2`，登记 SHA-256 后才可
+晋级。现有 `.p2s` savestate 既不满足 fresh-process 契约，也不会自动替代
+原生存档。矩阵当前的 19 个 `runtime_status` 全部为 `not_tested`；
+`route_ready` 只表示路线无需存档，不表示 PCSX2 已执行。
+
 ## 5. 实施顺序
 
 1. **已完成：**为 P0 追加九个新字符，并用统一字体重绘 P0 引用的九个原版
@@ -358,7 +389,9 @@ SLPS 418 条和 COMPDATA 44 条都能在原 span 内覆盖，不需要 P0 文本
    mask／背景色集合约束，
    完整 KVMDATA 等长、65 个未替换 ISO 成员 byte-exact、零 LBA 位移，并
    分别固定最终 ISO hash。
-9. **当前下一步：**用五张精确 canary ISO 分别证明
+9. **已完成运行矩阵；当前执行目标：**19 个用例已绑定七张精确 ISO、
+   fixture、截图点和断言。先执行四个 fresh-boot 用例；取得并哈希锁定六份
+   原生 memory card 后，再用五张精确 canary ISO 分别证明
    `SHIP`／`COMMAND MENU`／`バザー`／幕间标题／`新規編成` 的截图消失与
    299／2,297／2,197／803／1,325 像素 texture delta 同时命中；另用 UI
    core 精确 ISO 完成标题、玩家设置、战场、搜索和世界史滚动路线，同时按
@@ -405,6 +438,8 @@ SLPS 418 条和 COMPDATA 44 条都能在原 span 内覆盖，不需要 P0 文本
 ### R0：运行绑定
 
 - PCSX2 版本、BuildProfile、ISO SHA-256 和存档 SHA-256 一并记录；
+- 每次执行必须命中 `ui-runtime-test-matrix` 的 case、artifact、fixture 和
+  capture ID；没有到达目标状态算失败，不能记为 skipped pass；
 - PINE 读取的 SLPS/字库内存哈希与当前候选一致；
 - 冷启动无 TLB miss、黑屏或意外回退到旧 ISO。
 

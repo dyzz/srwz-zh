@@ -102,6 +102,11 @@
   动态名称结构确定性投影的 UI 场景摘要；固定 P0 的 462 条文本、九个缺字、
   12 个剩余候选槽、三槽余量和开场名称 writer 状态，并明确区分译文决策、
   writer、ISO 与运行状态。
+- `ui-runtime-test-matrix.json`：把 14 类 UI 场景完整分成 10 类当前测试目标
+  和 4 类显式延期，锁定 7 张精确 ISO、19 个逐屏用例、7 类 fixture、
+  42 个截图点、6 个截图序列和 5 个 texture delta。当前只有 fresh-boot
+  fixture 就绪，六份原生 memory card 尚未取得，因此 19 个用例均保持
+  `not_tested`，清单不保存存档、截图或游戏字节。
 - `ui-p0-font-validation.json`：在不改变 first-five 组件的前提下追加九个
   P0 UI 字符并统一重绘九个原版汉字；记录 1,454 个 assignment、VT1
   size-preserving 重压缩、SLPS offset 回读、462 条文本零缺字／零原版汉字

@@ -12,6 +12,7 @@
 | `encoding/codebook.json` | 中文字符到游戏 code/glyph 的唯一分配账本 |
 | `build-profiles/` | 构建选择集、最低编辑状态和必需 gates |
 | `ui-scenes.json` | UI 场景 selector、优先级、运行路线、容量 ratchet 和动态名称 hash-only 探针 |
+| `runtime/ui-test-matrix.json` | 选定 UI 场景到精确 ISO、原生存档 fixture、截图点和运行证据门的绑定；不保存存档或截图 |
 | `ui-writeback/` | UI 文本写回选择策略、锁定输入、容量 ratchet 和输出位置；不包含游戏字节 |
 | `ui-integration/` | 已验证 UI 组件的所有权、三方合并、依赖哈希、输出 golden 和运行边界 |
 | `summary/` | MTV_PROS 世界史中文断行、原 allocation、字库容量和运行边界 |
@@ -25,6 +26,13 @@
 `ui-surface-inventory` 只投影这些语义 ratchet，不回写下游 manifest 的整文件
 哈希。否则会形成“场景清单 → 字库 → COMPDATA writer → 场景清单”的哈希环，
 导致每次合法重建都产生新的 freshness 漂移；详细本地报告仍保留下游哈希。
+
+`runtime/ui-test-matrix.json` 不改变上述生产选择。它锁定
+`ui-scenes.json`、组合 UI／前五关镜像及五张 atlas canary 的提交清单，并为
+每个运行用例登记 fixture 状态、到达步骤、截图点和证据要求。存档必须位于
+被忽略的 `work/runtime/ui-fixtures/`，只有原生 `.ps2` memory card 和 SHA-256
+都登记后才能从 `not_acquired` 晋级；已有 `.p2s` savestate 不会被自动当作
+可替代证据。
 
 每类生产 JSON 都必须显式声明自己的 `schema_version`，由对应 loader
 fail-closed 校验；不同领域的 schema 独立演进，不能假设全仓库共用同一版本。

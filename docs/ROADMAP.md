@@ -60,6 +60,12 @@ STAGE/HB 或信息页 atlas；28 条仍为 `draft`，raw-trail 新类别和滚�
 验证尚未验收。上述五张 atlas canary 也尚未合入这个组合镜像。具体实施见
 [`UI_COVERAGE_TEST_PLAN.md`](UI_COVERAGE_TEST_PLAN.md)。
 
+运行场景已进一步收敛为独立 `ui-runtime-test-matrix`：14 类场景都有唯一
+去向，10 类进入 19 个逐屏用例，4 类登记延期原因和 exit gate；七张候选
+ISO、42 个截图点、6 个截图序列及五份 texture delta 均有机器锁。当前只有
+fresh-boot fixture 就绪，六份原生 memory card 仍待取得，因此该矩阵仍是
+测试计划而不是运行通过证明。
+
 ## M0：可重复基线
 
 - 记录原版 ISO、`SLPS_258.87` 和关键归档的 SHA-256。

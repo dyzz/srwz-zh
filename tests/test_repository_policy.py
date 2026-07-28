@@ -15,6 +15,7 @@ FORBIDDEN_DISC_SUFFIXES = {
     ".chd",
     ".iso",
     ".p2s",
+    ".ps2",
     ".sav",
 }
 FORBIDDEN_HELPER_NAMES = {
