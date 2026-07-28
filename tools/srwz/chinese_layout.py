@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from functools import lru_cache
 from typing import Iterable, Sequence
 
+from .text import RUNTIME_FORMAT_TOKEN
+
 
 DEFAULT_LINE_WIDTH = 24
 DEFAULT_MAX_LINES = 3
@@ -27,27 +29,21 @@ COMMON_PROTECTED_WORDS = (
 
 _STRUCTURAL_TOKEN = re.compile(
     r"\$[A-Za-z]"
-    r"|%(?:\d+\$)?[diouxXeEfFgGcrsa]"
+    rf"|{RUNTIME_FORMAT_TOKEN.pattern}"
     r"|\{[0-9A-Fa-f]{2}\}"
     r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
 )
-_LATIN_TERM = re.compile(
-    r"[A-Za-z0-9]+(?:[ .·_-][A-Za-z0-9]+)*"
-)
+_LATIN_TERM = re.compile(r"[A-Za-z0-9]+(?:[ .·_-][A-Za-z0-9]+)*")
 _TITLE = re.compile(r"《[^》\n]{1,22}》|‘[^’\n]{1,22}’")
 _SEPARATE_QUOTED_LINES = re.compile(r"”\n[　 ]*“")
 
 _STRONG_BREAK_END = frozenset("。！？!?")
 _CLAUSE_BREAK_END = frozenset("，、；：,;:")
 _WEAK_BREAK_END = frozenset("…—")
-_CLOSING_PUNCTUATION = frozenset(
-    "，。！？；：、,.!?;:％%”’）》】〕〉」』…—"
-)
+_CLOSING_PUNCTUATION = frozenset("，。！？；：、,.!?;:％%”’）》】〕〉」』…—")
 _OPENING_PUNCTUATION = frozenset("“‘（《【〔〈「『")
 _MODAL_PARTICLES = frozenset("啊呀呢吗吧嘛么啦哟哦")
-FORBIDDEN_LINE_START_CHARACTERS = (
-    _CLOSING_PUNCTUATION | _MODAL_PARTICLES
-)
+FORBIDDEN_LINE_START_CHARACTERS = _CLOSING_PUNCTUATION | _MODAL_PARTICLES
 FORBIDDEN_LINE_END_CHARACTERS = _OPENING_PUNCTUATION
 
 
@@ -110,10 +106,7 @@ def _protected_term_index(
     grouped: dict[str, list[str]] = {}
     for term in protected_terms:
         grouped.setdefault(term[0], []).append(term)
-    return {
-        character: tuple(terms)
-        for character, terms in grouped.items()
-    }
+    return {character: tuple(terms) for character, terms in grouped.items()}
 
 
 def _protected_match(
@@ -258,9 +251,9 @@ def _partition_tokens(
                 final_width = width(start, len(tokens))
                 if final_width > line_width:
                     return None
-                raggedness = (
-                    final_width * requested_lines - target_total
-                ) ** 2 // (requested_lines * requested_lines)
+                raggedness = (final_width * requested_lines - target_total) ** 2 // (
+                    requested_lines * requested_lines
+                )
                 return raggedness, ((start, len(tokens)),)
 
             best = None
@@ -281,9 +274,9 @@ def _partition_tokens(
                 penalty = _break_penalty(tokens[end - 1].text)
                 if character_offsets[end] in preferred_break_offsets:
                     penalty = min(penalty, 60)
-                raggedness = (
-                    current_width * requested_lines - target_total
-                ) ** 2 // (requested_lines * requested_lines)
+                raggedness = (current_width * requested_lines - target_total) ** 2 // (
+                    requested_lines * requested_lines
+                )
                 cost = penalty + raggedness + tail[0]
                 candidate = (cost, ((start, end), *tail[1]))
                 if best is None or candidate < best:
@@ -355,8 +348,7 @@ def reflow_chinese_dialogue(
         preferred_break_offsets=_original_break_offsets(text),
     )
     lines = [
-        "".join(token.text for token in tokens[start:end])
-        for start, end in partitions
+        "".join(token.text for token in tokens[start:end]) for start, end in partitions
     ]
     reflowed = ("\n" + CONTINUATION_INDENT).join(lines)
     if logical_dialogue_text(reflowed) != logical:

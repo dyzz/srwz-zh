@@ -254,7 +254,6 @@ def expand_scene_entries(
     return tuple(selected)
 
 
-_FORMAT_TOKEN = re.compile(r"%[A-Za-z]")
 _TAG_PREFIX = re.compile(r"@(?=<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>)")
 
 
@@ -264,8 +263,6 @@ def rendered_characters(text: str) -> tuple[str, ...]:
     if not isinstance(text, str):
         raise TypeError("rendered text must be a string")
     skipped = set(control_notation_positions(text))
-    for match in _FORMAT_TOKEN.finditer(text):
-        skipped.update(range(*match.span()))
     for match in _TAG_PREFIX.finditer(text):
         skipped.add(match.start())
     return tuple(

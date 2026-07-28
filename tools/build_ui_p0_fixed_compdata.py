@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the fixed-span P0 SLPS menu component."""
+"""Build the fixed-span P0 COMPDATA component."""
 
 from __future__ import annotations
 
@@ -8,19 +8,22 @@ import json
 from pathlib import Path
 
 from srwz.diagnostics import require_work_output
-from srwz.ui_menu import UiMenuError, build_fixed_slps_component
+from srwz.ui_menu import (
+    UiMenuError,
+    build_fixed_compdata_component,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORK_ROOT = PROJECT_ROOT / "work"
-DEFAULT_CONFIG = PROJECT_ROOT / "config/ui-writeback/ui-p0-slps-fixed.json"
+DEFAULT_CONFIG = PROJECT_ROOT / "config/ui-writeback/ui-p0-compdata-fixed.json"
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Write only P0 SLPS translations that fit every original "
-            "terminated span; pointers are immutable."
+            "Write P0 COMPDATA translations that fit their original "
+            "terminated spans, then preserve-prefix re-encode the member."
         )
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
@@ -37,29 +40,28 @@ def main() -> int:
         args.output_root or PROJECT_ROOT / config["outputs"]["component_root"],
         WORK_ROOT,
     )
-    output_path = output_root / "SLPS_258.87"
+    output_path = output_root / "DATA/COMPDATA.BN"
     report_path = output_root / "component-validation.json"
     if (output_path.exists() or report_path.exists()) and not args.force:
         raise SystemExit(f"output exists; use --force: {output_root}")
     try:
-        output, report = build_fixed_slps_component(
+        output, report = build_fixed_compdata_component(
             PROJECT_ROOT,
             config_path,
         )
     except UiMenuError as error:
         raise SystemExit(str(error)) from error
-    output_root.mkdir(parents=True, exist_ok=True)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(output)
     report_path.write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     print(
-        "UI P0 fixed SLPS:",
+        "UI P0 fixed COMPDATA:",
         f"covered={report['selection']['fixed_covered_entry_count']}",
         f"writes={report['write']['entry_count']}",
-        f"targets={report['write']['target_count']}",
-        f"overflow={report['remaining_work']['growing_slps_entry_count']}",
+        f"overflow={report['remaining_work']['growing_compdata_entry_count']}",
         "pointers=unchanged",
     )
     print(f"component: {output_path}")

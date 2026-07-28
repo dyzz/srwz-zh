@@ -7,6 +7,8 @@ STAGE/MTV_PROS 原生 suffix 重编码与归档重建，以及 SLPS/HB offset �
 写回也已完成运行验证。通用 SLPS/COMPDATA 文本池 writer 已实现普通指针、
 MIPS HI/LO、零池前像、对齐、边界和重读门禁；真实批量池区登记、全量 STAGE
 arena policy 和通用全量 VT1 writer 仍需在 E3 完成。
+P0 的 fixed-span 层现已分别对真实 SLPS 和压缩 COMPDATA 生成确定性组件；
+只处理原 allocation 可容纳的文本，不修改任何指针。
 
 ## 语料边界
 
@@ -43,6 +45,8 @@ todo -> draft -> reviewed -> final -> runtime_verified
 
 - 反向使用固定双字节码表，重复映射固定选择最低 code；
 - 支持换行、四类控制码和 lossless `{XX}` 原始字节表示；
+- `$n/$F` 与 printf 风格 `%s` 运行时 token 始终保留原始 ASCII 字节，不受
+  可见 ASCII glyph override 影响；
 - 可传入明确的中文字符→码位 override；
 - 未映射字符和未知控制码立即失败；
 - 当前 94,189 条解析文本全部满足
@@ -63,6 +67,8 @@ todo -> draft -> reviewed -> final -> runtime_verified
 - `relocate_menu_texts_to_pool()`：把 SLPS/COMPDATA 语义记录写入已验证的
   零填充池，并按原始前像回写所有普通 32-bit pointer 和 MIPS HI/LO；
   inline `T` 记录、非零池、溢出、未配对 HI/LO 和重读不一致立即失败；
+- `replace_menu_texts_in_place()`：只在每个原 NUL span 内覆盖菜单文本；
+  共享目标要求所有写入 owner 和 payload 一致，overflow 必须转入显式池区；
 - `build_summary_patch_plan()`：按 MTV_PROS 记录原有 `nul` 或 `end`
   终止方式生成定长覆盖，未知 ID 和溢出立即失败；
 - `rebuild_codec_archive()`：原生编码每个 decoded chunk、16 字节对齐，
@@ -100,8 +106,9 @@ greedy 编码器的真实结果：
 
 ## E3 仍需完成
 
-1. 为 SLPS 和解压后的 COMPDATA 登记经来源哈希绑定的真实池区，并把已完成的
-   普通指针/MIPS HI/LO writer 接入批量 production profile。
+1. P0 的 462 条 SLPS/COMPDATA 文本已由 fixed-span profile 全部覆盖；
+   后续 P1/P2 只有出现真实增长项时，才登记来源哈希绑定的池区并接入普通
+   指针/MIPS HI/LO writer。
 2. 把已验证的单条 STAGE allocation/slack 策略扩展为所有剧情块的安全
    arena、speaker 合并和指针重建。
 3. 把当前真实 `HEDBDY/HB.BIN` 的 STAGE offset 前像和重读门禁扩展到批量

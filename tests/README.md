@@ -59,6 +59,9 @@ byte-exact no-op、VT1 六 picture 8-bpp index 替换、PSMT8 双向映射、CSM
 archive/report 输出边界；`test_mapname.py` 固定 Shift-JIS/NUL/全零 padding。
 真实图片清单、MAPNAME 聚合计数、PCSX2 图片 canary 的 351-pixel 精确 RGBA
 替换，以及标题四项中文的两种光标状态/运行时纹理一致性由 manifest 测试固定。
+`test_ui_p0_fixed_slps.py` 与 `test_ui_p0_fixed_compdata.py` 另固定 P0
+fixed-span 选择 ratchet、指针／非目标字节不变、组件哈希和压缩回解；两者均
+明确要求运行状态仍为 `not_tested`。
 真实 ISO 工具构建、镜像构建与 66 项逐成员校验单独运行：
 
 ```bash

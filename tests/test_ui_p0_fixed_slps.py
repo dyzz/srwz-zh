@@ -18,13 +18,13 @@ class UiP0FixedSlpsTests(unittest.TestCase):
 
     def test_fixed_span_selection_matches_ratchet(self):
         selection = self.manifest["selection"]
-        self.assertEqual(selection["selected_entry_count"], 384)
-        self.assertEqual(selection["selected_target_count"], 479)
-        self.assertEqual(selection["excluded_entry_count"], 34)
-        self.assertEqual(
-            selection["excluded_reason_counts"],
-            {"overflow": 34},
-        )
+        self.assertEqual(selection["p0_entry_count"], 418)
+        self.assertEqual(selection["no_op_entry_count"], 101)
+        self.assertEqual(selection["selected_write_entry_count"], 317)
+        self.assertEqual(selection["selected_write_target_count"], 378)
+        self.assertEqual(selection["fixed_covered_entry_count"], 418)
+        self.assertEqual(selection["excluded_entry_count"], 0)
+        self.assertEqual(selection["excluded_reason_counts"], {})
         self.assertTrue(self.manifest["ratchet"]["passed"])
         self.assertEqual(
             self.manifest["ratchet"]["expected"],
@@ -55,8 +55,11 @@ class UiP0FixedSlpsTests(unittest.TestCase):
     def test_remaining_work_is_explicit_and_runtime_is_pending(self):
         remaining = self.manifest["remaining_work"]
         excluded_ids = {item["entry_id"] for item in self.manifest["excluded"]}
-        self.assertEqual(remaining["growing_slps_entry_count"], 34)
-        self.assertEqual(remaining["compdata_p0_entry_count"], 44)
+        self.assertEqual(remaining["growing_slps_entry_count"], 0)
+        self.assertEqual(
+            remaining["out_of_scope_compdata_p0_entry_count"],
+            44,
+        )
         self.assertEqual(
             set(remaining["requires_registered_pool_or_other_allocation"]),
             excluded_ids,

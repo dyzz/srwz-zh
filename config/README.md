@@ -44,7 +44,10 @@ P0 UI 字库通过 `encoding/ui-p0-allocations.json` 和
 九个新增汉字只追加到组合 registry，栅格器继续由 first-five 字体配置单点拥有；
 离线候选和 coverage 结果见 `manifests/ui-p0-font-validation.json`。
 第一层 P0 SLPS 写回由 `ui-writeback/ui-p0-slps-fixed.json` 锁定；它只允许
-原 span 内写回，禁止修改指针，并把增长文本显式留给后续池区 profile。
+原 span 内写回，禁止修改指针；当前 P0 无增长文本。
+`ui-writeback/ui-p0-compdata-fixed.json` 对压缩 COMPDATA 采用相同 span
+契约，并锁定 preserve-prefix suffix 重编码参数和成员增长 ratchet；当前
+P0 同样无 overflow。
 
 `assets/archive-inventory.json` 由 `tools/srwz/assets.py` 独立执行严格 schema
 检查：未知字段、重复 member、路径穿越、archive/direct 重叠、未知 storage

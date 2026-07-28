@@ -245,9 +245,27 @@ python3 tools/build_ui_p0_fixed_slps.py --force
 python3 tools/verify_ui_p0_fixed_slps.py --force
 ```
 
-当前确定性组件写入 384 条／479 个去重目标，所有目标可重读，指针、MIPS
-HI/LO、非目标字节和解压字库哈希均不变。34 条增长 SLPS 与全部 44 条 P0
-COMPDATA 文本仍明确排除；这项组件结果不能当作组合 ISO 或 PCSX2 验收。
+当前确定性 SLPS 组件记录 101 条 byte-exact no-op，并将其余 317 条写入
+378 个去重目标；全部 418 条均覆盖。所有目标可重读，指针、MIPS HI/LO、
+非目标字节和解压字库哈希均不变。44 条 P0 COMPDATA 文本由独立 profile
+处理。
+
+COMPDATA 第一层由 `config/ui-writeback/ui-p0-compdata-fixed.json` 驱动：
+
+```bash
+python3 tools/build_ui_p0_fixed_compdata.py --force
+python3 tools/verify_ui_p0_fixed_compdata.py --force
+```
+
+44 条中 3 条为原字节已满足决策的 no-op，41 条完成原位写回，无 overflow。
+压缩成员使用原生 prefix-preserving suffix 重编码，保留 128,781 字节压缩
+前缀并精确回解；输出增长 2,060 字节。SLPS 与 COMPDATA 两项组件结果都不能
+当作组合 ISO 或 PCSX2 验收，后续 ISO profile 必须显式处理成员增长。
+
+菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
+ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求
+源文和译文的格式 token multiset 完全一致。这个门禁不能用“最终显示看起来
+像 `%s`”代替。
 
 中文布局命令必须以检查模式返回零改动；它将日文原行形视为可参考的语义候选，
 而不是强制行数。当前规则按 24 个 glyph cell、最多 3 行重排，`$n/$F` 按
@@ -301,9 +319,12 @@ renderer 覆盖验证通过。当前镜像的 PCSX2 验证、第 2～5 关完整
 标题菜单和后续关卡仍不在完成声明内。
 
 `relocate_menu_texts_to_pool()` 已提供通用 SLPS/COMPDATA 普通 pointer 与
-MIPS HI/LO 写回门禁，但尚未为真实文件登记可批量使用的池区。E3 还需完成：
+MIPS HI/LO 写回门禁。P0 的 462 条静态菜单文本当前都能在原 span 内覆盖，
+因此没有为它们虚构池区；后续 P1/P2 只有出现真实增长项时才登记池区。E3
+还需完成：
 
 - 全量 extraction freshness 与双向 reconciliation 的规模化运行；
-- 真实 SLPS/COMPDATA 池区及批量 profile；
+- COMPDATA 动态人物／机体名 parser、稳定语料与 writer；
+- 人物／机体信息页 atlas、组合 UI ISO profile 和逐屏 PCSX2 路线；
 - 全量 STAGE arena policy 和通用 VT1 writer；
 - offline render oracle、coverage ratchet 和 clean-copy deterministic build。

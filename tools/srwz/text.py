@@ -14,8 +14,10 @@ from typing import Mapping, Optional
 PRINTABLE_ASCII = frozenset(
     "".join((string.digits, string.ascii_letters, string.punctuation, " "))
 )
+RUNTIME_FORMAT_TOKEN = re.compile(r"%(?:\d+\$)?[diouxXeEfFgGcrsa]")
 CONTROL_NOTATION = re.compile(
     r"\$[nF]"
+    rf"|{RUNTIME_FORMAT_TOKEN.pattern}"
     r"|\{[0-9A-Fa-f]{2}\}"
     r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
 )
@@ -68,9 +70,7 @@ class TextTable:
         object.__setattr__(
             self,
             "inverse_tags",
-            MappingProxyType(
-                {name: encoded for encoded, name in tags.items()}
-            ),
+            MappingProxyType({name: encoded for encoded, name in tags.items()}),
         )
 
 
@@ -276,6 +276,12 @@ def encode_text(
             index += len(runtime_name_match.group(0))
             continue
 
+        runtime_format_match = RUNTIME_FORMAT_TOKEN.match(text, index)
+        if runtime_format_match:
+            output.extend(runtime_format_match.group(0).encode("ascii"))
+            index = runtime_format_match.end()
+            continue
+
         raw_match = re.match(r"\{([0-9A-Fa-f]{2})\}", text[index:])
         if raw_match:
             output.append(int(raw_match.group(1), 16))
@@ -301,9 +307,7 @@ def encode_text(
             index += len(tag_match.group(0))
             continue
 
-        override_code = (
-            overrides.get(character) if overrides is not None else None
-        )
+        override_code = overrides.get(character) if overrides is not None else None
         if override_code is not None:
             output.extend(override_code.to_bytes(2, "big"))
             index += 1
@@ -344,6 +348,7 @@ def encode_text(
 
 __all__ = [
     "DecodedText",
+    "RUNTIME_FORMAT_TOKEN",
     "SrwzTextError",
     "SrwzTextEncodeError",
     "TextTable",

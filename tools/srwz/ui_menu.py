@@ -1,4 +1,4 @@
-"""Select and build the fixed-span P0 SLPS menu localization slice."""
+"""Select and build fixed-span P0 SLPS and COMPDATA localization slices."""
 
 from __future__ import annotations
 
@@ -9,6 +9,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Mapping
 
+from .codec import decode, reencode_changed_suffix
 from .corpus import text_sha256
 from .font import decode_vt1_font_segment, sha256_bytes
 from .menu import MenuParseResult, parse_menu_file
@@ -19,6 +20,16 @@ from .writers import replace_menu_texts_in_place
 
 class UiMenuError(ValueError):
     """The fixed-span UI menu selection or component has drifted."""
+
+
+_FIXED_SELECTION_POLICY = {
+    "accept_exact_no_op_entries": True,
+    "require_every_target": True,
+    "require_all_shared_target_owners_for_writes": True,
+    "require_identical_shared_payload": True,
+    "require_payload_with_terminator_within_original_consumed_size": True,
+    "pointer_write_policy": "forbidden",
+}
 
 
 def _json_object(path: Path) -> dict:
@@ -45,6 +56,22 @@ def _project_path(project_root: Path, relative: str) -> Path:
 
 def _hash_file(path: Path) -> str:
     return sha256_bytes(path.read_bytes())
+
+
+def _validate_fixed_selection_policy(
+    config: Mapping[str, object],
+    *,
+    source_file: str,
+) -> None:
+    policy = config.get("selection_policy")
+    expected = {
+        "source_file": source_file,
+        **_FIXED_SELECTION_POLICY,
+    }
+    if policy != expected:
+        raise UiMenuError(
+            f"{source_file} fixed-span selection policy is unsupported or incomplete"
+        )
 
 
 def _load_hashed_path(
@@ -139,9 +166,12 @@ def _load_menu_descriptor(
     return path, matches[0]
 
 
-def _selected_p0_entries(
+def _selected_p0_entries_for_prefix(
     project_root: Path,
     reference: Mapping[str, object],
+    *,
+    entry_prefix: str,
+    count_key: str,
 ) -> tuple[dict[str, dict], dict]:
     path = _load_hashed_path(
         project_root,
@@ -155,7 +185,7 @@ def _selected_p0_entries(
     if not isinstance(priorities, list) or not priorities:
         raise UiMenuError("UI menu priorities are invalid")
     all_entries = {}
-    slps_entries = {}
+    selected_entries = {}
     scene_ids = []
     for scene in config["scenes"]:
         if scene["priority"] not in priorities:
@@ -166,17 +196,29 @@ def _selected_p0_entries(
             previous = all_entries.setdefault(entry_id, entry)
             if previous != entry:
                 raise UiMenuError(f"UI decision differs for {entry_id}")
-            if entry_id.startswith("menu/SLPS/"):
-                slps_entries[entry_id] = entry
-    return slps_entries, {
+            if entry_id.startswith(entry_prefix):
+                selected_entries[entry_id] = entry
+    return selected_entries, {
         "path": str(path.relative_to(project_root.resolve())),
         "sha256": _hash_file(path),
         "inventory_id": config["inventory_id"],
         "priorities": priorities,
         "scene_ids": scene_ids,
         "p0_unique_entry_count": len(all_entries),
-        "p0_slps_entry_count": len(slps_entries),
+        count_key: len(selected_entries),
     }
+
+
+def _selected_p0_entries(
+    project_root: Path,
+    reference: Mapping[str, object],
+) -> tuple[dict[str, dict], dict]:
+    return _selected_p0_entries_for_prefix(
+        project_root,
+        reference,
+        entry_prefix="menu/SLPS/",
+        count_key="p0_slps_entry_count",
+    )
 
 
 def _selection_hash(
@@ -202,7 +244,7 @@ def _selection_hash(
     return digest.hexdigest()
 
 
-def select_fixed_slps_replacements(
+def select_fixed_menu_replacements(
     source: bytes,
     parsed: MenuParseResult,
     table,
@@ -215,7 +257,7 @@ def select_fixed_slps_replacements(
     entries = {entry.entry_id: entry for entry in parsed.entries}
     missing_ids = sorted(set(p0_entries) - set(entries))
     if missing_ids:
-        raise UiMenuError(f"P0 SLPS IDs are absent from parser: {missing_ids!r}")
+        raise UiMenuError(f"P0 menu IDs are absent from parser: {missing_ids!r}")
     target_owners: defaultdict[int, set[str]] = defaultdict(set)
     for entry in parsed.entries:
         for target_offset in set(entry.target_offsets):
@@ -312,6 +354,138 @@ def select_fixed_slps_replacements(
     )
 
 
+def select_fixed_slps_replacements(
+    source: bytes,
+    parsed: MenuParseResult,
+    table,
+    *,
+    p0_entries: Mapping[str, Mapping[str, object]],
+    overrides: Mapping[str, int],
+) -> tuple[dict[str, str], tuple[dict, ...], dict]:
+    """Backward-compatible name for the generic fixed menu selector."""
+
+    return select_fixed_menu_replacements(
+        source,
+        parsed,
+        table,
+        p0_entries=p0_entries,
+        overrides=overrides,
+    )
+
+
+def _partition_noop_entries(
+    source: bytes,
+    parsed: MenuParseResult,
+    table,
+    *,
+    decisions: Mapping[str, Mapping[str, object]],
+    overrides: Mapping[str, int],
+) -> tuple[dict[str, Mapping[str, object]], tuple[str, ...]]:
+    entries = {entry.entry_id: entry for entry in parsed.entries}
+    actionable = {}
+    noops = []
+    for entry_id, decision in decisions.items():
+        entry = entries.get(entry_id)
+        if entry is None:
+            raise UiMenuError(f"P0 menu ID is absent from parser: {entry_id}")
+        translation = decision.get("translation")
+        if not isinstance(translation, str):
+            raise UiMenuError(f"{entry_id} translation is not text")
+        if text_sha256(entry.text) != decision.get("source_text_sha256"):
+            raise UiMenuError(f"{entry_id} source text hash drift")
+        payload = encode_text(
+            translation,
+            table,
+            overrides=overrides,
+            terminate=True,
+        )
+        exact = bool(entry.target_offsets)
+        for target_offset in set(entry.target_offsets):
+            decoded = decode_text(source, target_offset, table)
+            if decoded.text != entry.text:
+                raise UiMenuError(f"{entry_id} source target preimage drift")
+            if len(payload) > decoded.consumed:
+                exact = False
+                break
+            before = source[target_offset : target_offset + decoded.consumed]
+            after = payload + bytes(decoded.consumed - len(payload))
+            if before != after:
+                exact = False
+                break
+        if exact:
+            noops.append(entry_id)
+        else:
+            actionable[entry_id] = decision
+    return actionable, tuple(sorted(noops))
+
+
+def _changed_offsets(before: bytes, after: bytes) -> list[int]:
+    if len(before) != len(after):
+        raise UiMenuError("fixed-span component changed decoded size")
+    return [
+        offset
+        for offset, (source_byte, output_byte) in enumerate(zip(before, after))
+        if source_byte != output_byte
+    ]
+
+
+def _difference_range_count(offsets: list[int]) -> int:
+    count = 0
+    previous = None
+    for offset in offsets:
+        if previous is None or offset != previous + 1:
+            count += 1
+        previous = offset
+    return count
+
+
+def _menu_pointer_sites(
+    data: bytes,
+    parsed: MenuParseResult,
+) -> set[int]:
+    sites = set()
+    for entry in parsed.entries:
+        target_addresses = {
+            parsed.base_offset + target for target in entry.target_offsets
+        }
+        for pointer_offset in entry.pointer_offsets:
+            if (
+                0 <= pointer_offset <= len(data) - 4
+                and struct.unpack_from("<I", data, pointer_offset)[0]
+                in target_addresses
+            ):
+                sites.update(range(pointer_offset, pointer_offset + 4))
+        for address in (*entry.embedded_hi, *entry.embedded_lo):
+            offset = address - parsed.base_offset
+            if not 0 <= offset <= len(data) - 2:
+                raise UiMenuError("embedded pointer site is outside source")
+            sites.update(range(offset, offset + 2))
+    return sites
+
+
+def _verify_fixed_span_differences(
+    source: bytes,
+    output: bytes,
+    parsed: MenuParseResult,
+    targets,
+) -> list[int]:
+    allowed_offsets = set()
+    for target in targets:
+        allowed_offsets.update(
+            range(
+                target.target_offset,
+                target.target_offset + target.capacity,
+            )
+        )
+    changed_offsets = _changed_offsets(source, output)
+    if any(offset not in allowed_offsets for offset in changed_offsets):
+        raise UiMenuError("fixed menu component changed bytes outside text targets")
+    pointer_sites = _menu_pointer_sites(source, parsed)
+    if any(source[offset] != output[offset] for offset in pointer_sites):
+        raise UiMenuError("fixed menu component modified a pointer instruction byte")
+    return changed_offsets
+
+
 def build_fixed_slps_component(
     project_root: Path,
     config_path: Path,
@@ -321,6 +495,7 @@ def build_fixed_slps_component(
     config = _json_object(config_path)
     if config.get("schema_version") != 1:
         raise UiMenuError("unsupported UI menu writeback schema")
+    _validate_fixed_selection_policy(config, source_file="SLPS")
     font_reference = config.get("font_candidate")
     if not isinstance(font_reference, dict):
         raise UiMenuError("UI menu profile has no font_candidate")
@@ -377,13 +552,33 @@ def build_fixed_slps_component(
         config,
         font_manifest,
     )
-    replacements, excluded, selection = select_fixed_slps_replacements(
+    actionable_entries, no_op_entry_ids = _partition_noop_entries(
         source_slps,
         parsed,
         table,
-        p0_entries=p0_entries,
+        decisions=p0_entries,
         overrides=overrides,
     )
+    replacements, excluded, writable_selection = select_fixed_menu_replacements(
+        source_slps,
+        parsed,
+        table,
+        p0_entries=actionable_entries,
+        overrides=overrides,
+    )
+    selection = {
+        "p0_entry_count": len(p0_entries),
+        "no_op_entry_count": len(no_op_entry_ids),
+        "no_op_entry_ids": list(no_op_entry_ids),
+        "selected_write_entry_count": writable_selection["selected_entry_count"],
+        "selected_write_target_count": writable_selection["selected_target_count"],
+        "fixed_covered_entry_count": (
+            len(no_op_entry_ids) + writable_selection["selected_entry_count"]
+        ),
+        "selection_sha256": writable_selection["selection_sha256"],
+        "excluded_entry_count": writable_selection["excluded_entry_count"],
+        "excluded_reason_counts": writable_selection["excluded_reason_counts"],
+    }
     ratchet = config.get("ratchet")
     if not isinstance(ratchet, dict):
         raise UiMenuError("UI menu profile has no ratchet")
@@ -394,11 +589,20 @@ def build_fixed_slps_component(
         "p0_slps_entry_count": (
             scene_report["p0_slps_entry_count"] == ratchet["p0_slps_entry_count"]
         ),
-        "selected_fixed_entry_count": (
-            selection["selected_entry_count"] == ratchet["selected_fixed_entry_count"]
+        "no_op_entry_count": (
+            selection["no_op_entry_count"] == ratchet["no_op_entry_count"]
         ),
-        "selected_target_count": (
-            selection["selected_target_count"] == ratchet["selected_target_count"]
+        "selected_write_entry_count": (
+            selection["selected_write_entry_count"]
+            == ratchet["selected_write_entry_count"]
+        ),
+        "selected_write_target_count": (
+            selection["selected_write_target_count"]
+            == ratchet["selected_write_target_count"]
+        ),
+        "fixed_covered_entry_count": (
+            selection["fixed_covered_entry_count"]
+            == ratchet["fixed_covered_entry_count"]
         ),
         "excluded_overflow_entry_count": (
             selection["excluded_reason_counts"].get("overflow", 0)
@@ -426,34 +630,12 @@ def build_fixed_slps_component(
     )
     output = result.data
 
-    allowed_offsets = set()
-    for target in result.targets:
-        allowed_offsets.update(
-            range(
-                target.target_offset,
-                target.target_offset + target.capacity,
-            )
-        )
-    changed_offsets = [
-        offset
-        for offset, (before, after) in enumerate(zip(source_slps, output))
-        if before != after
-    ]
-    if any(offset not in allowed_offsets for offset in changed_offsets):
-        raise UiMenuError("UI fixed SLPS changed bytes outside text targets")
-
-    pointer_sites = set()
-    for entry in parsed.entries:
-        for pointer_offset in entry.pointer_offsets:
-            if 0 <= pointer_offset <= len(source_slps) - 4 and struct.unpack_from(
-                "<I", source_slps, pointer_offset
-            )[0] in {parsed.base_offset + target for target in entry.target_offsets}:
-                pointer_sites.update(range(pointer_offset, pointer_offset + 4))
-        for address in (*entry.embedded_hi, *entry.embedded_lo):
-            offset = address - parsed.base_offset
-            pointer_sites.update(range(offset, offset + 2))
-    if any(source_slps[offset] != output[offset] for offset in pointer_sites):
-        raise UiMenuError("UI fixed SLPS modified a pointer instruction byte")
+    changed_offsets = _verify_fixed_span_differences(
+        source_slps,
+        output,
+        parsed,
+        result.targets,
+    )
 
     source_font_hash = sha256_bytes(
         decode_vt1_font_segment(source_slps, source_vt1).decoded
@@ -462,15 +644,10 @@ def build_fixed_slps_component(
     if source_font_hash != output_font_hash:
         raise UiMenuError("UI fixed SLPS changed the decoded font component")
 
-    difference_ranges = 0
-    previous = None
-    for offset in changed_offsets:
-        if previous is None or offset != previous + 1:
-            difference_ranges += 1
-        previous = offset
+    difference_ranges = _difference_range_count(changed_offsets)
     report = {
         "schema_version": 1,
-        "status": ("fixed_slps_component_validated_pool_and_runtime_pending"),
+        "status": "fixed_slps_component_validated_iso_runtime_pending",
         "profile_id": config["profile_id"],
         "scope": config["scope"],
         "inputs": {
@@ -547,7 +724,7 @@ def build_fixed_slps_component(
         },
         "remaining_work": {
             "growing_slps_entry_count": len(excluded),
-            "compdata_p0_entry_count": (
+            "out_of_scope_compdata_p0_entry_count": (
                 scene_report["p0_unique_entry_count"]
                 - scene_report["p0_slps_entry_count"]
             ),
@@ -567,8 +744,306 @@ def build_fixed_slps_component(
     return output, report
 
 
+def build_fixed_compdata_component(
+    project_root: Path,
+    config_path: Path,
+) -> tuple[bytes, dict]:
+    """Build and independently decode the fixed-span P0 COMPDATA member."""
+
+    config = _json_object(config_path)
+    if config.get("schema_version") != 1:
+        raise UiMenuError("unsupported UI menu writeback schema")
+    _validate_fixed_selection_policy(config, source_file="Compdata")
+
+    font_reference = config.get("font_candidate")
+    if not isinstance(font_reference, dict):
+        raise UiMenuError("UI menu profile has no font_candidate")
+    font_manifest_path = _project_path(
+        project_root,
+        font_reference.get("manifest"),
+    )
+    if _hash_file(font_manifest_path) != font_reference.get("sha256"):
+        raise UiMenuError("UI font candidate manifest SHA-256 drift")
+    font_manifest = _json_object(font_manifest_path)
+    if font_manifest.get("status") != (
+        "offline_font_and_p0_renderer_coverage_passed_runtime_pending"
+    ):
+        raise UiMenuError("UI font candidate status is invalid")
+    overrides, codebook_report = _load_overrides(
+        project_root,
+        config,
+        font_manifest,
+    )
+
+    source_reference = config.get("source_member")
+    if not isinstance(source_reference, dict):
+        raise UiMenuError("UI COMPDATA profile has no source_member")
+    source_path = _load_hashed_path(
+        project_root,
+        source_reference,
+        label="COMPDATA source member",
+    )
+    source_member = source_path.read_bytes()
+    if len(source_member) != source_reference.get("size"):
+        raise UiMenuError("COMPDATA source member size drift")
+    decoded_result = decode(source_member)
+    source_decoded = decoded_result.output
+    if decoded_result.consumed != len(source_member):
+        raise UiMenuError("COMPDATA source has trailing bytes")
+    if (
+        len(source_decoded) != source_reference.get("decoded_size")
+        or sha256_bytes(source_decoded) != source_reference.get("decoded_sha256")
+        or decoded_result.flags != source_reference.get("flags")
+    ):
+        raise UiMenuError("COMPDATA decoded source drift")
+
+    descriptor_path, descriptor = _load_menu_descriptor(
+        project_root,
+        config["menu_descriptor"],
+    )
+    text_table_path = _load_hashed_path(
+        project_root,
+        config["text_table"],
+        label="text table",
+    )
+    table = load_text_table(text_table_path)
+    parsed = parse_menu_file(source_decoded, descriptor, table)
+    p0_entries, scene_report = _selected_p0_entries_for_prefix(
+        project_root,
+        config["scene_inventory"],
+        entry_prefix="menu/Compdata/",
+        count_key="p0_compdata_entry_count",
+    )
+    actionable_entries, no_op_entry_ids = _partition_noop_entries(
+        source_decoded,
+        parsed,
+        table,
+        decisions=p0_entries,
+        overrides=overrides,
+    )
+    replacements, excluded, writable_selection = select_fixed_menu_replacements(
+        source_decoded,
+        parsed,
+        table,
+        p0_entries=actionable_entries,
+        overrides=overrides,
+    )
+    selection = {
+        "p0_entry_count": len(p0_entries),
+        "no_op_entry_count": len(no_op_entry_ids),
+        "no_op_entry_ids": list(no_op_entry_ids),
+        "selected_write_entry_count": writable_selection["selected_entry_count"],
+        "selected_write_target_count": writable_selection["selected_target_count"],
+        "fixed_covered_entry_count": (
+            len(no_op_entry_ids) + writable_selection["selected_entry_count"]
+        ),
+        "selection_sha256": writable_selection["selection_sha256"],
+        "excluded_entry_count": writable_selection["excluded_entry_count"],
+        "excluded_reason_counts": writable_selection["excluded_reason_counts"],
+    }
+
+    ratchet = config.get("ratchet")
+    if not isinstance(ratchet, dict):
+        raise UiMenuError("UI COMPDATA profile has no ratchet")
+    checks = {
+        "p0_unique_entry_count": (
+            scene_report["p0_unique_entry_count"] == ratchet["p0_unique_entry_count"]
+        ),
+        "p0_compdata_entry_count": (
+            scene_report["p0_compdata_entry_count"]
+            == ratchet["p0_compdata_entry_count"]
+        ),
+        "no_op_entry_count": (
+            selection["no_op_entry_count"] == ratchet["no_op_entry_count"]
+        ),
+        "selected_write_entry_count": (
+            selection["selected_write_entry_count"]
+            == ratchet["selected_write_entry_count"]
+        ),
+        "selected_write_target_count": (
+            selection["selected_write_target_count"]
+            == ratchet["selected_write_target_count"]
+        ),
+        "fixed_covered_entry_count": (
+            selection["fixed_covered_entry_count"]
+            == ratchet["fixed_covered_entry_count"]
+        ),
+        "excluded_overflow_entry_count": (
+            selection["excluded_reason_counts"].get("overflow", 0)
+            == ratchet["excluded_overflow_entry_count"]
+        ),
+        "excluded_other_entry_count": (
+            sum(
+                count
+                for reason, count in selection["excluded_reason_counts"].items()
+                if reason != "overflow"
+            )
+            == ratchet["excluded_other_entry_count"]
+        ),
+    }
+    if not all(checks.values()):
+        raise UiMenuError(f"UI fixed COMPDATA ratchet failed: {checks}")
+
+    result = replace_menu_texts_in_place(
+        source_decoded,
+        parsed,
+        table,
+        replacements=replacements,
+        overrides=overrides,
+        source_name="original decoded DATA/COMPDATA.BN",
+    )
+    output_decoded = result.data
+    changed_offsets = _verify_fixed_span_differences(
+        source_decoded,
+        output_decoded,
+        parsed,
+        result.targets,
+    )
+
+    codec_config = config.get("codec")
+    if not isinstance(codec_config, dict):
+        raise UiMenuError("UI COMPDATA profile has no codec policy")
+    if codec_config.get("mode") != "preserve-prefix-reencode-suffix":
+        raise UiMenuError("unsupported UI COMPDATA codec mode")
+    output_member = reencode_changed_suffix(
+        source_member,
+        output_decoded,
+        strategy=codec_config["strategy"],
+        min_match_length=codec_config["min_match_length"],
+        max_match_chain=codec_config["max_match_chain"],
+        lazy_matching=codec_config["lazy_matching"],
+    )
+    output_decoded_result = decode(output_member)
+    if (
+        output_decoded_result.consumed != len(output_member)
+        or output_decoded_result.output != output_decoded
+        or output_decoded_result.flags != decoded_result.flags
+    ):
+        raise UiMenuError("rebuilt COMPDATA member fails codec round-trip")
+    compressed_common_prefix = next(
+        (
+            offset
+            for offset, (before, after) in enumerate(zip(source_member, output_member))
+            if before != after
+        ),
+        min(len(source_member), len(output_member)),
+    )
+    if compressed_common_prefix < ratchet["minimum_preserved_compressed_prefix"]:
+        raise UiMenuError("COMPDATA preserved compressed prefix regressed")
+
+    pointer_site_count = len(_menu_pointer_sites(source_decoded, parsed))
+    report = {
+        "schema_version": 1,
+        "status": "fixed_compdata_component_validated_iso_runtime_pending",
+        "profile_id": config["profile_id"],
+        "scope": config["scope"],
+        "inputs": {
+            "config": {
+                "path": str(config_path.relative_to(project_root.resolve())),
+                "sha256": _hash_file(config_path),
+            },
+            "font_manifest": {
+                "path": str(font_manifest_path.relative_to(project_root.resolve())),
+                "sha256": _hash_file(font_manifest_path),
+            },
+            "source_member": {
+                "path": str(source_path.relative_to(project_root.resolve())),
+                "size": len(source_member),
+                "sha256": sha256_bytes(source_member),
+                "decoded_size": len(source_decoded),
+                "decoded_sha256": sha256_bytes(source_decoded),
+                "flags": decoded_result.flags,
+                "fully_consumed": True,
+            },
+            "scene_inventory": scene_report,
+            "menu_descriptor": {
+                "path": str(descriptor_path.relative_to(project_root.resolve())),
+                "sha256": _hash_file(descriptor_path),
+                "friendly_name": parsed.friendly_name,
+                "parsed_entry_count": len(parsed.entries),
+            },
+            "text_table": {
+                "path": str(text_table_path.relative_to(project_root.resolve())),
+                "sha256": _hash_file(text_table_path),
+            },
+            "codebook": codebook_report,
+        },
+        "selection": selection,
+        "excluded": list(excluded),
+        "write": {
+            "entry_count": result.entry_count,
+            "target_count": len(result.targets),
+            "payload_size": sum(target.payload_size for target in result.targets),
+            "owned_capacity": sum(target.capacity for target in result.targets),
+            "target_metadata_sha256": sha256_bytes(
+                json.dumps(
+                    [target.to_metadata() for target in result.targets],
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode("utf-8")
+            ),
+            "patch_plan_metadata_sha256": sha256_bytes(
+                json.dumps(
+                    result.patch_plan.to_metadata(),
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode("utf-8")
+            ),
+            "pointer_write_count": 0,
+            "pointer_site_byte_count": pointer_site_count,
+            "pointer_bytes_unchanged": True,
+            "non_target_bytes_unchanged": True,
+            "target_reparse_exact": True,
+        },
+        "decoded_component": {
+            "size": len(output_decoded),
+            "source_sha256": sha256_bytes(source_decoded),
+            "output_sha256": sha256_bytes(output_decoded),
+            "changed_byte_count": len(changed_offsets),
+            "difference_range_count": _difference_range_count(changed_offsets),
+        },
+        "compressed_component": {
+            "source_size": len(source_member),
+            "output_size": len(output_member),
+            "size_delta": len(output_member) - len(source_member),
+            "source_sha256": sha256_bytes(source_member),
+            "output_sha256": sha256_bytes(output_member),
+            "strategy": codec_config["strategy"],
+            "min_match_length": codec_config["min_match_length"],
+            "max_match_chain": codec_config["max_match_chain"],
+            "lazy_matching": codec_config["lazy_matching"],
+            "preserved_prefix_size": compressed_common_prefix,
+            "flags_preserved": True,
+            "decoded_round_trip_exact": True,
+            "fully_consumed": True,
+        },
+        "ratchet": {
+            "expected": ratchet,
+            "checks": checks,
+            "passed": True,
+        },
+        "remaining_work": {
+            "growing_compdata_entry_count": len(excluded),
+            "requires_registered_pool_or_other_allocation": [
+                item["entry_id"] for item in excluded
+            ],
+        },
+        "runtime": {
+            "status": "not_tested",
+            "reason": (
+                "This is an isolated COMPDATA member. It has not been "
+                "combined with the UI font, SLPS, title assets, STAGE "
+                "or an exact ISO."
+            ),
+        },
+    }
+    return output_member, report
+
+
 __all__ = [
     "UiMenuError",
+    "build_fixed_compdata_component",
     "build_fixed_slps_component",
+    "select_fixed_menu_replacements",
     "select_fixed_slps_replacements",
 ]

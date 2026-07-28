@@ -576,15 +576,18 @@ canary 仍刻意使用已验证的原位定长 allocation。
 
 ## 17. 当前优先队列
 
-1. E3：把真实 SLPS/COMPDATA 池区、全量 STAGE arena 和通用 VT1 writer
-   接入批量 profile；
-2. E3：补全 offline render oracle、coverage ratchet 和 evidence freshness；
-3. E3：建立 clean-copy deterministic build 验收；
-4. E3 通过后再开始批量翻译。
+1. E3：完成 COMPDATA 动态人物／机体名的记录 parser、稳定语料和 writer；
+2. E3：定位人物／机体信息页 atlas，并把 P0 字库、SLPS、COMPDATA、图片和
+   前五关 STAGE 合并到同一个 ISO profile；
+3. E3：补全 offline render oracle、coverage ratchet、evidence freshness
+   和 clean-copy deterministic build；
+4. 对同一候选 ISO 完成 PCSX2 逐屏路线后，再扩展 P1/P2 和后续剧情。
 
 E0-E2 已完成：SurfaceSpec、正式 `测/试` codebook、三域 `corpus/zh`、
 四个隔离/组合 profile、自动 component manifest，以及菜单、摘要、剧情三条
-独立 PCSX2 fixture 均已落地。
+独立 PCSX2 fixture 均已落地。P0 的 418 条 SLPS 与 44 条 COMPDATA 静态菜单
+文本也已由 fixed-span profile 全部覆盖；这项离线结果不包括动态显示名、图片
+atlas、组合 ISO 或运行验证。
 
 工程规划期间不把“文档数量”“脚本数量”或“单元测试数量”当作完成标准。每一阶段
 是否完成，只由该阶段声明的可重建产物、机器门禁和运行/视觉证据决定。

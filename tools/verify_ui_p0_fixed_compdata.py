@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild and verify the fixed-span P0 SLPS component manifest."""
+"""Rebuild and verify the fixed-span P0 COMPDATA manifest."""
 
 from __future__ import annotations
 
@@ -8,12 +8,15 @@ import json
 from pathlib import Path
 
 from srwz.diagnostics import require_work_output
-from srwz.ui_menu import UiMenuError, build_fixed_slps_component
+from srwz.ui_menu import (
+    UiMenuError,
+    build_fixed_compdata_component,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORK_ROOT = PROJECT_ROOT / "work"
-DEFAULT_CONFIG = PROJECT_ROOT / "config/ui-writeback/ui-p0-slps-fixed.json"
+DEFAULT_CONFIG = PROJECT_ROOT / "config/ui-writeback/ui-p0-compdata-fixed.json"
 
 
 def parse_args() -> argparse.Namespace:
@@ -35,7 +38,7 @@ def main() -> int:
         PROJECT_ROOT / outputs["component_root"],
         WORK_ROOT,
     )
-    component_path = component_root / "SLPS_258.87"
+    component_path = component_root / "DATA/COMPDATA.BN"
     report_path = require_work_output(
         args.report or PROJECT_ROOT / outputs["validation"],
         WORK_ROOT,
@@ -44,7 +47,7 @@ def main() -> int:
     if report_path.exists() and not args.force:
         raise SystemExit(f"output exists; use --force: {report_path}")
     try:
-        expected_component, report = build_fixed_slps_component(
+        expected_component, report = build_fixed_compdata_component(
             PROJECT_ROOT,
             config_path,
         )
@@ -52,13 +55,11 @@ def main() -> int:
         raise SystemExit(str(error)) from error
     if not component_path.is_file():
         raise SystemExit(
-            f"component missing; run build_ui_p0_fixed_slps.py: {component_path}"
+            f"component missing; run build_ui_p0_fixed_compdata.py: {component_path}"
         )
     actual_component = component_path.read_bytes()
     if actual_component != expected_component:
-        raise SystemExit(
-            "UI P0 fixed SLPS component differs from deterministic rebuild"
-        )
+        raise SystemExit("UI P0 fixed COMPDATA differs from deterministic rebuild")
 
     if args.refresh_manifest:
         manifest_path.parent.mkdir(parents=True, exist_ok=True)
@@ -70,18 +71,18 @@ def main() -> int:
     else:
         if not manifest_path.is_file():
             raise SystemExit(
-                f"manifest not found; review and run --refresh-manifest: "
+                "manifest not found; review and run --refresh-manifest: "
                 f"{manifest_path}"
             )
         try:
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as error:
             raise SystemExit(
-                f"cannot load UI fixed SLPS manifest {manifest_path}: {error}"
+                f"cannot load UI fixed COMPDATA manifest {manifest_path}: {error}"
             ) from error
         if manifest != report:
             raise SystemExit(
-                "UI fixed SLPS manifest drift; review, then run --refresh-manifest"
+                "UI fixed COMPDATA manifest drift; review, then run --refresh-manifest"
             )
         manifest_status = "verified"
 
@@ -91,11 +92,10 @@ def main() -> int:
         encoding="utf-8",
     )
     print(
-        "UI P0 fixed SLPS verified:",
+        "UI P0 fixed COMPDATA verified:",
         f"covered={report['selection']['fixed_covered_entry_count']}",
         f"writes={report['write']['entry_count']}",
-        f"targets={report['write']['target_count']}",
-        f"sha256={report['component']['sha256']}",
+        f"sha256={report['compressed_component']['output_sha256']}",
     )
     print(f"manifest {manifest_status}: {manifest_path}")
     print(f"report: {report_path}")

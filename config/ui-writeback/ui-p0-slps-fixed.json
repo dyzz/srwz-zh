@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "profile_id": "srwz-ui-p0-slps-fixed-v1",
-  "scope": "P0 SLPS menu translations that fit inside every original NUL-terminated target span. Pointer and MIPS instruction bytes remain unchanged; growing SLPS entries and all COMPDATA entries are excluded.",
+  "scope": "All P0 SLPS menu decisions that are already byte-exact or fit inside every original NUL-terminated target span. Pointer and MIPS instruction bytes remain unchanged; COMPDATA is built separately.",
   "font_candidate": {
     "manifest": "manifests/ui-p0-font-validation.json",
-    "sha256": "87847f94f285d950c1e8c0aae425d5e23cd5655731b28ab2c140b2b1524337cc",
+    "sha256": "b315d6b0ec7a1f7fa6bdefaff76eda02cb84d89ae2a97d8cf8eb12f443b5cf8b",
     "source_slps": "work/build/ui-p0/components/SLPS_258.87",
     "source_vt1": "work/build/ui-p0/components/DATA/VT1.BIN"
   },
@@ -31,8 +31,9 @@
   },
   "selection_policy": {
     "source_file": "SLPS",
+    "accept_exact_no_op_entries": true,
     "require_every_target": true,
-    "require_all_shared_target_owners": true,
+    "require_all_shared_target_owners_for_writes": true,
     "require_identical_shared_payload": true,
     "require_payload_with_terminator_within_original_consumed_size": true,
     "pointer_write_policy": "forbidden"
@@ -40,9 +41,11 @@
   "ratchet": {
     "p0_unique_entry_count": 462,
     "p0_slps_entry_count": 418,
-    "selected_fixed_entry_count": 384,
-    "selected_target_count": 479,
-    "excluded_overflow_entry_count": 34,
+    "no_op_entry_count": 101,
+    "selected_write_entry_count": 317,
+    "selected_write_target_count": 378,
+    "fixed_covered_entry_count": 418,
+    "excluded_overflow_entry_count": 0,
     "excluded_other_entry_count": 0
   },
   "outputs": {

@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "status": "fixed_slps_component_validated_pool_and_runtime_pending",
+  "status": "fixed_slps_component_validated_iso_runtime_pending",
   "profile_id": "srwz-ui-p0-slps-fixed-v1",
-  "scope": "P0 SLPS menu translations that fit inside every original NUL-terminated target span. Pointer and MIPS instruction bytes remain unchanged; growing SLPS entries and all COMPDATA entries are excluded.",
+  "scope": "All P0 SLPS menu decisions that are already byte-exact or fit inside every original NUL-terminated target span. Pointer and MIPS instruction bytes remain unchanged; COMPDATA is built separately.",
   "inputs": {
     "config": {
       "path": "config/ui-writeback/ui-p0-slps-fixed.json",
-      "sha256": "a619ae2f68ea1fa0438b5b602952398da328b4c339ea4d0bdb78a469e771c4c5"
+      "sha256": "753e2976d22f445480b5d39b1496acf0549d2e20e5ad9e345055184aa779f837"
     },
     "font_manifest": {
       "path": "manifests/ui-p0-font-validation.json",
-      "sha256": "87847f94f285d950c1e8c0aae425d5e23cd5655731b28ab2c140b2b1524337cc"
+      "sha256": "b315d6b0ec7a1f7fa6bdefaff76eda02cb84d89ae2a97d8cf8eb12f443b5cf8b"
     },
     "source_slps": {
       "path": "work/build/ui-p0/components/SLPS_258.87",
@@ -58,233 +58,132 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p0-codebook-proposal.json",
-        "sha256": "8807712775d40c870d06850c8a0b8f76484c2047447d6086bdd361889b093a81"
+        "sha256": "2c350a9f5adc3c624a4ec40a962cdfb725c0d313d0c593827a9a251e289b8ae3"
       },
       "override_count": 1454
     }
   },
   "selection": {
-    "selected_entry_count": 384,
-    "selected_target_count": 479,
-    "selection_sha256": "7b6336385829358a7d51ea406ee3d588ccf21701c36ef55649575e09989ac378",
-    "excluded_entry_count": 34,
-    "excluded_reason_counts": {
-      "overflow": 34
-    }
+    "p0_entry_count": 418,
+    "no_op_entry_count": 101,
+    "no_op_entry_ids": [
+      "menu/SLPS/00/0001",
+      "menu/SLPS/00/0002",
+      "menu/SLPS/00/0110",
+      "menu/SLPS/00/0111",
+      "menu/SLPS/00/0115",
+      "menu/SLPS/00/0119",
+      "menu/SLPS/00/0121",
+      "menu/SLPS/00/0122",
+      "menu/SLPS/00/0123",
+      "menu/SLPS/00/0146",
+      "menu/SLPS/00/0147",
+      "menu/SLPS/00/0185",
+      "menu/SLPS/00/0265",
+      "menu/SLPS/00/0346",
+      "menu/SLPS/00/0349",
+      "menu/SLPS/00/0369",
+      "menu/SLPS/00/0373",
+      "menu/SLPS/01/0001",
+      "menu/SLPS/01/0002",
+      "menu/SLPS/01/0010",
+      "menu/SLPS/01/0012",
+      "menu/SLPS/02/0000",
+      "menu/SLPS/02/0001",
+      "menu/SLPS/02/0002",
+      "menu/SLPS/02/0006",
+      "menu/SLPS/02/0007",
+      "menu/SLPS/02/0008",
+      "menu/SLPS/02/0009",
+      "menu/SLPS/02/0010",
+      "menu/SLPS/02/0012",
+      "menu/SLPS/02/0014",
+      "menu/SLPS/02/0024",
+      "menu/SLPS/02/0025",
+      "menu/SLPS/02/0026",
+      "menu/SLPS/02/0030",
+      "menu/SLPS/03/0012",
+      "menu/SLPS/03/0013",
+      "menu/SLPS/03/0014",
+      "menu/SLPS/03/0019",
+      "menu/SLPS/03/0027",
+      "menu/SLPS/03/0028",
+      "menu/SLPS/03/0029",
+      "menu/SLPS/03/0030",
+      "menu/SLPS/04/0023",
+      "menu/SLPS/04/0024",
+      "menu/SLPS/04/0037",
+      "menu/SLPS/04/0039",
+      "menu/SLPS/04/0041",
+      "menu/SLPS/04/0045",
+      "menu/SLPS/04/0048",
+      "menu/SLPS/04/0049",
+      "menu/SLPS/04/0052",
+      "menu/SLPS/05/0001",
+      "menu/SLPS/05/0002",
+      "menu/SLPS/05/0006",
+      "menu/SLPS/07/0003",
+      "menu/SLPS/07/0012",
+      "menu/SLPS/07/0014",
+      "menu/SLPS/07/0015",
+      "menu/SLPS/07/0017",
+      "menu/SLPS/07/0019",
+      "menu/SLPS/07/0020",
+      "menu/SLPS/07/0021",
+      "menu/SLPS/07/0023",
+      "menu/SLPS/10/0000",
+      "menu/SLPS/10/0002",
+      "menu/SLPS/10/0003",
+      "menu/SLPS/10/0004",
+      "menu/SLPS/11/0003",
+      "menu/SLPS/11/0004",
+      "menu/SLPS/11/0015",
+      "menu/SLPS/11/0020",
+      "menu/SLPS/11/0021",
+      "menu/SLPS/11/0023",
+      "menu/SLPS/11/0024",
+      "menu/SLPS/11/0025",
+      "menu/SLPS/11/0031",
+      "menu/SLPS/11/0033",
+      "menu/SLPS/11/0041",
+      "menu/SLPS/11/0042",
+      "menu/SLPS/11/0043",
+      "menu/SLPS/11/0044",
+      "menu/SLPS/11/0046",
+      "menu/SLPS/11/0050",
+      "menu/SLPS/11/0056",
+      "menu/SLPS/11/0057",
+      "menu/SLPS/11/0058",
+      "menu/SLPS/11/0059",
+      "menu/SLPS/11/0060",
+      "menu/SLPS/11/0061",
+      "menu/SLPS/11/0067",
+      "menu/SLPS/11/0071",
+      "menu/SLPS/11/0081",
+      "menu/SLPS/11/0082",
+      "menu/SLPS/11/0086",
+      "menu/SLPS/11/0098",
+      "menu/SLPS/11/0100",
+      "menu/SLPS/11/0102",
+      "menu/SLPS/12/0005",
+      "menu/SLPS/12/0006",
+      "menu/SLPS/12/0007"
+    ],
+    "selected_write_entry_count": 317,
+    "selected_write_target_count": 378,
+    "fixed_covered_entry_count": 418,
+    "selection_sha256": "4b8526de7a34e7b1c0b05a9940cfdf5d3e6c77cf0162f10eeee5af74087728c0",
+    "excluded_entry_count": 0,
+    "excluded_reason_counts": {}
   },
-  "excluded": [
-    {
-      "entry_id": "menu/SLPS/00/0082",
-      "reason": "overflow",
-      "payload_size": 15,
-      "minimum_capacity": 13
-    },
-    {
-      "entry_id": "menu/SLPS/01/0000",
-      "reason": "overflow",
-      "payload_size": 9,
-      "minimum_capacity": 7
-    },
-    {
-      "entry_id": "menu/SLPS/01/0004",
-      "reason": "overflow",
-      "payload_size": 13,
-      "minimum_capacity": 9
-    },
-    {
-      "entry_id": "menu/SLPS/01/0005",
-      "reason": "overflow",
-      "payload_size": 13,
-      "minimum_capacity": 9
-    },
-    {
-      "entry_id": "menu/SLPS/02/0019",
-      "reason": "overflow",
-      "payload_size": 9,
-      "minimum_capacity": 5
-    },
-    {
-      "entry_id": "menu/SLPS/02/0024",
-      "reason": "overflow",
-      "payload_size": 9,
-      "minimum_capacity": 7
-    },
-    {
-      "entry_id": "menu/SLPS/02/0030",
-      "reason": "overflow",
-      "payload_size": 8,
-      "minimum_capacity": 7
-    },
-    {
-      "entry_id": "menu/SLPS/02/0032",
-      "reason": "overflow",
-      "payload_size": 10,
-      "minimum_capacity": 9
-    },
-    {
-      "entry_id": "menu/SLPS/03/0007",
-      "reason": "overflow",
-      "payload_size": 9,
-      "minimum_capacity": 7
-    },
-    {
-      "entry_id": "menu/SLPS/03/0010",
-      "reason": "overflow",
-      "payload_size": 16,
-      "minimum_capacity": 15
-    },
-    {
-      "entry_id": "menu/SLPS/03/0011",
-      "reason": "overflow",
-      "payload_size": 16,
-      "minimum_capacity": 15
-    },
-    {
-      "entry_id": "menu/SLPS/03/0012",
-      "reason": "overflow",
-      "payload_size": 4,
-      "minimum_capacity": 3
-    },
-    {
-      "entry_id": "menu/SLPS/04/0009",
-      "reason": "overflow",
-      "payload_size": 9,
-      "minimum_capacity": 7
-    },
-    {
-      "entry_id": "menu/SLPS/04/0011",
-      "reason": "overflow",
-      "payload_size": 11,
-      "minimum_capacity": 9
-    },
-    {
-      "entry_id": "menu/SLPS/04/0012",
-      "reason": "overflow",
-      "payload_size": 13,
-      "minimum_capacity": 11
-    },
-    {
-      "entry_id": "menu/SLPS/04/0013",
-      "reason": "overflow",
-      "payload_size": 13,
-      "minimum_capacity": 9
-    },
-    {
-      "entry_id": "menu/SLPS/04/0027",
-      "reason": "overflow",
-      "payload_size": 17,
-      "minimum_capacity": 15
-    },
-    {
-      "entry_id": "menu/SLPS/04/0029",
-      "reason": "overflow",
-      "payload_size": 17,
-      "minimum_capacity": 15
-    },
-    {
-      "entry_id": "menu/SLPS/04/0031",
-      "reason": "overflow",
-      "payload_size": 10,
-      "minimum_capacity": 9
-    },
-    {
-      "entry_id": "menu/SLPS/04/0057",
-      "reason": "overflow",
-      "payload_size": 9,
-      "minimum_capacity": 7
-    },
-    {
-      "entry_id": "menu/SLPS/07/0009",
-      "reason": "overflow",
-      "payload_size": 7,
-      "minimum_capacity": 5
-    },
-    {
-      "entry_id": "menu/SLPS/07/0014",
-      "reason": "overflow",
-      "payload_size": 4,
-      "minimum_capacity": 3
-    },
-    {
-      "entry_id": "menu/SLPS/07/0016",
-      "reason": "overflow",
-      "payload_size": 13,
-      "minimum_capacity": 7
-    },
-    {
-      "entry_id": "menu/SLPS/07/0017",
-      "reason": "overflow",
-      "payload_size": 9,
-      "minimum_capacity": 7
-    },
-    {
-      "entry_id": "menu/SLPS/07/0018",
-      "reason": "overflow",
-      "payload_size": 18,
-      "minimum_capacity": 11
-    },
-    {
-      "entry_id": "menu/SLPS/07/0023",
-      "reason": "overflow",
-      "payload_size": 7,
-      "minimum_capacity": 5
-    },
-    {
-      "entry_id": "menu/SLPS/07/0024",
-      "reason": "overflow",
-      "payload_size": 9,
-      "minimum_capacity": 7
-    },
-    {
-      "entry_id": "menu/SLPS/11/0016",
-      "reason": "overflow",
-      "payload_size": 13,
-      "minimum_capacity": 11
-    },
-    {
-      "entry_id": "menu/SLPS/11/0034",
-      "reason": "overflow",
-      "payload_size": 11,
-      "minimum_capacity": 9
-    },
-    {
-      "entry_id": "menu/SLPS/11/0035",
-      "reason": "overflow",
-      "payload_size": 11,
-      "minimum_capacity": 9
-    },
-    {
-      "entry_id": "menu/SLPS/11/0083",
-      "reason": "overflow",
-      "payload_size": 9,
-      "minimum_capacity": 7
-    },
-    {
-      "entry_id": "menu/SLPS/11/0085",
-      "reason": "overflow",
-      "payload_size": 6,
-      "minimum_capacity": 5
-    },
-    {
-      "entry_id": "menu/SLPS/11/0086",
-      "reason": "overflow",
-      "payload_size": 4,
-      "minimum_capacity": 3
-    },
-    {
-      "entry_id": "menu/SLPS/12/0007",
-      "reason": "overflow",
-      "payload_size": 11,
-      "minimum_capacity": 9
-    }
-  ],
+  "excluded": [],
   "write": {
-    "entry_count": 384,
-    "target_count": 479,
-    "payload_size": 3890,
-    "owned_capacity": 4482,
-    "target_metadata_sha256": "ac60f3da09008dbb9ef9d64f7eb298faa468a925c82c7813530b7b645b75c40a",
-    "patch_plan_metadata_sha256": "6fb4c1e73f09d0fba41168701262fdd81f763b58e7983d6cdd28346249620d56",
+    "entry_count": 317,
+    "target_count": 378,
+    "payload_size": 3428,
+    "owned_capacity": 4026,
+    "target_metadata_sha256": "c684397b137940c01fb42c55266a064339f6a10e23f36cf4acd1b85f08e08635",
+    "patch_plan_metadata_sha256": "75277e0fa6d219364bc5919425730803cdd26673554b436077e7883213f1f68c",
     "pointer_write_count": 0,
     "pointer_bytes_unchanged": true,
     "non_target_bytes_unchanged": true,
@@ -292,9 +191,9 @@
   },
   "component": {
     "size": 3471624,
-    "sha256": "79410e003400ad6f3ab32d8d7c6ed7ff18b367a34537cae48aab2493cda59bd1",
-    "changed_byte_count": 2560,
-    "difference_range_count": 461,
+    "sha256": "33827b1495cac59cd84bd2de028ca86839bb7eb2ceacaa35dd0a45ad11d9d331",
+    "changed_byte_count": 2659,
+    "difference_range_count": 496,
     "source_font_decoded_sha256": "32307efc39ad9788d1b0c96e7008a0ceee122a7d60407e3e75bd6d2684c2bf53",
     "output_font_decoded_sha256": "32307efc39ad9788d1b0c96e7008a0ceee122a7d60407e3e75bd6d2684c2bf53",
     "font_decoded_unchanged": true
@@ -303,60 +202,29 @@
     "expected": {
       "p0_unique_entry_count": 462,
       "p0_slps_entry_count": 418,
-      "selected_fixed_entry_count": 384,
-      "selected_target_count": 479,
-      "excluded_overflow_entry_count": 34,
+      "no_op_entry_count": 101,
+      "selected_write_entry_count": 317,
+      "selected_write_target_count": 378,
+      "fixed_covered_entry_count": 418,
+      "excluded_overflow_entry_count": 0,
       "excluded_other_entry_count": 0
     },
     "checks": {
       "p0_unique_entry_count": true,
       "p0_slps_entry_count": true,
-      "selected_fixed_entry_count": true,
-      "selected_target_count": true,
+      "no_op_entry_count": true,
+      "selected_write_entry_count": true,
+      "selected_write_target_count": true,
+      "fixed_covered_entry_count": true,
       "excluded_overflow_entry_count": true,
       "excluded_other_entry_count": true
     },
     "passed": true
   },
   "remaining_work": {
-    "growing_slps_entry_count": 34,
-    "compdata_p0_entry_count": 44,
-    "requires_registered_pool_or_other_allocation": [
-      "menu/SLPS/00/0082",
-      "menu/SLPS/01/0000",
-      "menu/SLPS/01/0004",
-      "menu/SLPS/01/0005",
-      "menu/SLPS/02/0019",
-      "menu/SLPS/02/0024",
-      "menu/SLPS/02/0030",
-      "menu/SLPS/02/0032",
-      "menu/SLPS/03/0007",
-      "menu/SLPS/03/0010",
-      "menu/SLPS/03/0011",
-      "menu/SLPS/03/0012",
-      "menu/SLPS/04/0009",
-      "menu/SLPS/04/0011",
-      "menu/SLPS/04/0012",
-      "menu/SLPS/04/0013",
-      "menu/SLPS/04/0027",
-      "menu/SLPS/04/0029",
-      "menu/SLPS/04/0031",
-      "menu/SLPS/04/0057",
-      "menu/SLPS/07/0009",
-      "menu/SLPS/07/0014",
-      "menu/SLPS/07/0016",
-      "menu/SLPS/07/0017",
-      "menu/SLPS/07/0018",
-      "menu/SLPS/07/0023",
-      "menu/SLPS/07/0024",
-      "menu/SLPS/11/0016",
-      "menu/SLPS/11/0034",
-      "menu/SLPS/11/0035",
-      "menu/SLPS/11/0083",
-      "menu/SLPS/11/0085",
-      "menu/SLPS/11/0086",
-      "menu/SLPS/12/0007"
-    ]
+    "growing_slps_entry_count": 0,
+    "out_of_scope_compdata_p0_entry_count": 44,
+    "requires_registered_pool_or_other_allocation": []
   },
   "runtime": {
     "status": "not_tested",

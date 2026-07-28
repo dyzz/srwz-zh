@@ -68,7 +68,11 @@
   P0 UI 字符并统一重绘九个原版汉字；记录 1,454 个 assignment、VT1
   size-preserving 重压缩、SLPS offset 回读、462 条文本零缺字／零原版汉字
   混用和三槽余量。状态仅为离线通过，ISO 和运行验证仍待完成。
-- `ui-p0-fixed-slps-validation.json`：在 UI 字库候选 SLPS 上写入 384 条
-  fixed-span P0 文本／479 个去重目标；记录 34 条 overflow，证明指针、MIPS
-  HI/LO、非目标字节和解压字库哈希不变。COMPDATA、增长池、ISO 和运行验证
+- `ui-p0-fixed-slps-validation.json`：在 UI 字库候选 SLPS 上记录 101 条
+  byte-exact no-op，并写入 317 条／378 个去重目标；全部 418 条 P0 SLPS
+  均覆盖，指针、MIPS HI/LO、非目标字节和解压字库哈希不变。ISO 和运行验证
   仍待完成。
+- `ui-p0-fixed-compdata-validation.json`：44 条 P0 COMPDATA 中记录 3 条
+  byte-exact no-op 和 41 条 fixed-span 写入；证明 28,100 个指针字节及
+  非目标解码字节不变、suffix 重编码完整回解，并记录 2,060 字节成员增长。
+  ISO 和运行验证仍待完成。

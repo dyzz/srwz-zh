@@ -92,13 +92,17 @@ class TextDecodeTests(unittest.TestCase):
         self.assertEqual(encoded, b"\x81\x40")
 
     def test_encode_override_takes_priority_over_ascii_control_tag_bytes(self):
-        encoded = encode_text("12345", self.table, overrides={
-            "1": 0x8140,
-            "2": 0x8141,
-            "3": 0x8142,
-            "4": 0x8143,
-            "5": 0x8144,
-        })
+        encoded = encode_text(
+            "12345",
+            self.table,
+            overrides={
+                "1": 0x8140,
+                "2": 0x8141,
+                "3": 0x8142,
+                "4": 0x8143,
+                "5": 0x8144,
+            },
+        )
         self.assertEqual(
             encoded,
             b"\x81\x40\x81\x41\x81\x42\x81\x43\x81\x44",
@@ -116,8 +120,23 @@ class TextDecodeTests(unittest.TestCase):
         )
         self.assertEqual(
             encoded,
-            b"$n" + self.table.inverse_characters["与"].to_bytes(2, "big")
-            + b"$F",
+            b"$n" + self.table.inverse_characters["与"].to_bytes(2, "big") + b"$F",
+        )
+
+    def test_runtime_format_tokens_bypass_ascii_glyph_overrides(self):
+        encoded = encode_text(
+            "%s：%2$s",
+            self.table,
+            overrides={
+                "%": 0x8140,
+                "s": 0x8141,
+                "2": 0x8142,
+                "$": 0x8143,
+            },
+        )
+        self.assertEqual(
+            encoded,
+            b"%s" + self.table.inverse_characters["："].to_bytes(2, "big") + b"%2$s",
         )
 
     def test_encode_rejects_unmapped_character(self):

@@ -11,6 +11,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Mapping, Sequence
 
+from .text import RUNTIME_FORMAT_TOKEN
+
 
 VALID_EDITORIAL_STATUSES = ("todo", "draft", "reviewed", "final")
 EDITORIAL_STATUS_RANK = {
@@ -47,13 +49,11 @@ VALID_TERMINOLOGY_DECISION_STATUSES = (
 )
 # Exclude Japanese punctuation such as the middle dot U+30FB. It is also used
 # as a list marker in Chinese UI text and is not untranslated kana by itself.
-KANA_PATTERN = re.compile(
-    r"[\u3041-\u3096\u30a1-\u30fa\u30fd-\u30ff\u31f0-\u31ff]"
-)
+KANA_PATTERN = re.compile(r"[\u3041-\u3096\u30a1-\u30fa\u30fd-\u30ff\u31f0-\u31ff]")
 STRUCTURAL_TOKEN_PATTERN = re.compile(
     r"\{[0-9A-Fa-f]{2}\}"
     r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
-    r"|%(?:\d+\$)?[diouxXeEfFgGcrsa]"
+    rf"|{RUNTIME_FORMAT_TOKEN.pattern}"
     r"|\$[A-Za-z]"
     r"|●+"
 )
@@ -110,9 +110,7 @@ def _require_string_list(value: object, *, context: str) -> tuple[str, ...]:
     if not isinstance(value, list) or not all(
         isinstance(item, str) and item for item in value
     ):
-        raise TranslationReviewError(
-            f"{context} must be an array of non-empty strings"
-        )
+        raise TranslationReviewError(f"{context} must be an array of non-empty strings")
     if len(value) != len(set(value)):
         raise TranslationReviewError(f"{context} contains duplicates")
     return tuple(value)
@@ -145,9 +143,7 @@ def load_source_corpus(path: Path) -> tuple[dict, ...]:
             context=f"source corpus id at {path}:{line_number}",
         )
         if entry_id in seen:
-            raise TranslationReviewError(
-                f"duplicate source corpus id {entry_id!r}"
-            )
+            raise TranslationReviewError(f"duplicate source corpus id {entry_id!r}")
         seen.add(entry_id)
         entries.append(entry)
     return tuple(entries)
@@ -168,9 +164,7 @@ def load_glossary(paths: Iterable[Path]) -> tuple[GlossaryTerm, ...]:
     for path in paths:
         document = _load_json_object(path)
         if document.get("schema_version") != 1:
-            raise TranslationReviewError(
-                f"unsupported glossary schema in {path}"
-            )
+            raise TranslationReviewError(f"unsupported glossary schema in {path}")
         raw_terms = document.get("terms")
         if not isinstance(raw_terms, list):
             raise TranslationReviewError(f"glossary terms must be an array: {path}")
@@ -180,8 +174,7 @@ def load_glossary(paths: Iterable[Path]) -> tuple[GlossaryTerm, ...]:
         )
         if default_source_match not in VALID_GLOSSARY_MATCH_MODES:
             raise TranslationReviewError(
-                f"invalid default_source_match in {path}: "
-                f"{default_source_match!r}"
+                f"invalid default_source_match in {path}: {default_source_match!r}"
             )
         for index, raw in enumerate(raw_terms):
             context = f"{path} term {index}"
@@ -189,9 +182,7 @@ def load_glossary(paths: Iterable[Path]) -> tuple[GlossaryTerm, ...]:
                 raise TranslationReviewError(f"{context} must be an object")
             term_id = _require_string(raw.get("id"), context=f"{context} id")
             if term_id in seen:
-                raise TranslationReviewError(
-                    f"duplicate glossary term id {term_id!r}"
-                )
+                raise TranslationReviewError(f"duplicate glossary term id {term_id!r}")
             seen.add(term_id)
             category = _require_string(
                 raw.get("category"),
@@ -206,30 +197,23 @@ def load_glossary(paths: Iterable[Path]) -> tuple[GlossaryTerm, ...]:
                 context=f"{context} status",
             )
             if status not in VALID_GLOSSARY_STATUSES:
-                raise TranslationReviewError(
-                    f"{context} has invalid status {status!r}"
-                )
+                raise TranslationReviewError(f"{context} has invalid status {status!r}")
             domains = _require_string_list(
                 raw.get("domains"),
                 context=f"{context} domains",
             )
             if not set(domains) <= {"menu", "story", "summary"}:
-                raise TranslationReviewError(
-                    f"{context} has an invalid domain"
-                )
+                raise TranslationReviewError(f"{context} has an invalid domain")
             enforce = raw.get("enforce")
             if not isinstance(enforce, bool):
-                raise TranslationReviewError(
-                    f"{context} enforce must be boolean"
-                )
+                raise TranslationReviewError(f"{context} enforce must be boolean")
             source_match = raw.get(
                 "source_match",
                 default_source_match,
             )
             if source_match not in VALID_GLOSSARY_MATCH_MODES:
                 raise TranslationReviewError(
-                    f"{context} has invalid source_match "
-                    f"{source_match!r}"
+                    f"{context} has invalid source_match {source_match!r}"
                 )
             terms.append(
                 GlossaryTerm(
@@ -247,9 +231,7 @@ def load_glossary(paths: Iterable[Path]) -> tuple[GlossaryTerm, ...]:
                     domains=domains,
                     enforce=enforce,
                     notes=(
-                        raw.get("notes")
-                        if isinstance(raw.get("notes"), str)
-                        else ""
+                        raw.get("notes") if isinstance(raw.get("notes"), str) else ""
                     ),
                     source_match=str(source_match),
                 )
@@ -259,10 +241,7 @@ def load_glossary(paths: Iterable[Path]) -> tuple[GlossaryTerm, ...]:
 
 def _term_occurs(term: GlossaryTerm, source_text: str) -> bool:
     if term.source_match == "substring":
-        return any(
-            source_term in source_text
-            for source_term in term.source_terms
-        )
+        return any(source_term in source_text for source_term in term.source_terms)
     return any(
         source_text == source_term
         or f"「{source_term}」" in source_text
@@ -283,9 +262,7 @@ def load_translations(paths: Iterable[Path]) -> tuple[TranslationRecord, ...]:
     for path in paths:
         document = _load_json_object(path)
         if document.get("schema_version") != 1:
-            raise TranslationReviewError(
-                f"unsupported translation schema in {path}"
-            )
+            raise TranslationReviewError(f"unsupported translation schema in {path}")
         batch_id = _require_string(
             document.get("batch_id"),
             context=f"{path} batch_id",
@@ -305,9 +282,7 @@ def load_translations(paths: Iterable[Path]) -> tuple[TranslationRecord, ...]:
                 )
             entry_id = _require_string(raw.get("id"), context=f"{context} id")
             if entry_id in seen:
-                raise TranslationReviewError(
-                    f"duplicate translation id {entry_id!r}"
-                )
+                raise TranslationReviewError(f"duplicate translation id {entry_id!r}")
             seen.add(entry_id)
             source_hash = _require_string(
                 raw.get("source_text_sha256"),
@@ -327,19 +302,13 @@ def load_translations(paths: Iterable[Path]) -> tuple[TranslationRecord, ...]:
                 )
             translation = raw.get("translation")
             if not isinstance(translation, str):
-                raise TranslationReviewError(
-                    f"{context} translation must be a string"
-                )
+                raise TranslationReviewError(f"{context} translation must be a string")
             action = raw.get("translation_action", "translate")
             if action not in VALID_TRANSLATION_ACTIONS:
                 raise TranslationReviewError(
                     f"{context} has invalid translation_action {action!r}"
                 )
-            if (
-                action == "translate"
-                and status != "todo"
-                and not translation
-            ):
+            if action == "translate" and status != "todo" and not translation:
                 raise TranslationReviewError(
                     f"{context} status {status!r} requires translation"
                 )
@@ -359,9 +328,7 @@ def load_translations(paths: Iterable[Path]) -> tuple[TranslationRecord, ...]:
                         context=f"{context} glossary_exceptions",
                     ),
                     notes=(
-                        raw.get("notes")
-                        if isinstance(raw.get("notes"), str)
-                        else ""
+                        raw.get("notes") if isinstance(raw.get("notes"), str) else ""
                     ),
                     batch_id=batch_id,
                     source_path=str(path),
@@ -397,28 +364,19 @@ def audit_translation_release(
             record.translation_action == "preserve"
             and record.translation != source_text
         ):
-            errors.append(
-                f"{record.entry_id}: preserve decision differs from source"
-            )
-        if (
-            record.translation_action == "translate"
-            and KANA_PATTERN.search(record.translation)
+            errors.append(f"{record.entry_id}: preserve decision differs from source")
+        if record.translation_action == "translate" and KANA_PATTERN.search(
+            record.translation
         ):
-            errors.append(
-                f"{record.entry_id}: translation contains Japanese kana"
-            )
+            errors.append(f"{record.entry_id}: translation contains Japanese kana")
         if "..." in record.translation:
-            errors.append(
-                f"{record.entry_id}: use the Chinese ellipsis character"
-            )
+            errors.append(f"{record.entry_id}: use the Chinese ellipsis character")
         source_tokens = Counter(STRUCTURAL_TOKEN_PATTERN.findall(source_text))
         translated_tokens = Counter(
             STRUCTURAL_TOKEN_PATTERN.findall(record.translation)
         )
         if source_tokens != translated_tokens:
-            errors.append(
-                f"{record.entry_id}: structural/control token set changed"
-            )
+            errors.append(f"{record.entry_id}: structural/control token set changed")
 
         refs = set(record.glossary_refs)
         exceptions = set(record.glossary_exceptions)
@@ -431,9 +389,7 @@ def audit_translation_release(
         for term_id in record.glossary_refs:
             term = term_by_id.get(term_id)
             if term is None:
-                errors.append(
-                    f"{record.entry_id}: unknown glossary ref {term_id!r}"
-                )
+                errors.append(f"{record.entry_id}: unknown glossary ref {term_id!r}")
                 continue
             term_usage[term_id] += 1
             if domain not in term.domains:
@@ -456,8 +412,7 @@ def audit_translation_release(
             term = term_by_id.get(term_id)
             if term is None:
                 errors.append(
-                    f"{record.entry_id}: unknown glossary exception "
-                    f"{term_id!r}"
+                    f"{record.entry_id}: unknown glossary exception {term_id!r}"
                 )
                 continue
             term_exceptions[term_id] += 1
@@ -481,8 +436,7 @@ def audit_translation_release(
                 and term.term_id not in exceptions
             ):
                 errors.append(
-                    f"{record.entry_id}: missing enforced glossary ref "
-                    f"{term.term_id!r}"
+                    f"{record.entry_id}: missing enforced glossary ref {term.term_id!r}"
                 )
 
     if errors:
@@ -493,12 +447,9 @@ def audit_translation_release(
 
     source_domains = Counter(str(entry["domain"]) for entry in source_entries)
     translated_domains = Counter(
-        str(source_by_id[record.entry_id]["domain"])
-        for record in translations
+        str(source_by_id[record.entry_id]["domain"]) for record in translations
     )
-    editorial_statuses = Counter(
-        record.editorial_status for record in translations
-    )
+    editorial_statuses = Counter(record.editorial_status for record in translations)
     glossary_statuses = Counter(term.status for term in glossary)
     glossary_categories = Counter(term.category for term in glossary)
     batches = Counter(record.batch_id for record in translations)
@@ -530,9 +481,7 @@ def audit_coverage_plan(
     translations: Sequence[TranslationRecord],
 ) -> dict:
     if not isinstance(plan, list) or not plan:
-        raise TranslationReviewError(
-            "release coverage_plan must be a non-empty array"
-        )
+        raise TranslationReviewError("release coverage_plan must be a non-empty array")
     source_domains = Counter(str(entry["domain"]) for entry in source_entries)
     planned_domains = Counter()
     translated_batches = Counter(record.batch_id for record in translations)
@@ -572,9 +521,7 @@ def audit_coverage_plan(
         status_counts[str(status)] += 1
         actual = translated_batches[batch_id]
         if actual > target:
-            errors.append(
-                f"{batch_id}: {actual} translations exceed target {target}"
-            )
+            errors.append(f"{batch_id}: {actual} translations exceed target {target}")
         if status == "planned" and actual:
             errors.append(
                 f"{batch_id}: planned batch already has {actual} translations"
@@ -587,9 +534,7 @@ def audit_coverage_plan(
         if str(status).endswith("_complete") and any(
             record.editorial_status == "todo" for record in batch_records
         ):
-            errors.append(
-                f"{batch_id}: complete batch still contains todo records"
-            )
+            errors.append(f"{batch_id}: complete batch still contains todo records")
         minimum_status = {
             "reviewed_complete": "reviewed",
             "final_complete": "final",
@@ -600,15 +545,12 @@ def audit_coverage_plan(
             for record in batch_records
         ):
             errors.append(
-                f"{batch_id}: {status} batch has records below "
-                f"{minimum_status}"
+                f"{batch_id}: {status} batch has records below {minimum_status}"
             )
 
     unknown_batches = sorted(set(translated_batches) - seen)
     for batch_id in unknown_batches:
-        errors.append(
-            f"translation batch {batch_id!r} is absent from coverage plan"
-        )
+        errors.append(f"translation batch {batch_id!r} is absent from coverage plan")
     if planned_domains != source_domains:
         errors.append(
             "coverage plan domain totals do not match source corpus: "
@@ -680,14 +622,10 @@ def write_glossary_tsv(
     translations: Sequence[TranslationRecord],
 ) -> None:
     usage = Counter(
-        term_id
-        for record in translations
-        for term_id in record.glossary_refs
+        term_id for record in translations for term_id in record.glossary_refs
     )
     exceptions = Counter(
-        term_id
-        for record in translations
-        for term_id in record.glossary_exceptions
+        term_id for record in translations for term_id in record.glossary_exceptions
     )
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as handle:
@@ -733,9 +671,7 @@ def write_terminology_variant_tsv(
     glossary: Sequence[GlossaryTerm],
 ) -> dict:
     if review.get("schema_version") != 1:
-        raise TranslationReviewError(
-            "unsupported terminology variant review schema"
-        )
+        raise TranslationReviewError("unsupported terminology variant review schema")
     review_id = _require_string(
         review.get("review_id"),
         context="terminology variant review id",
@@ -850,17 +786,14 @@ def write_terminology_variant_tsv(
         )
         if decision_status not in VALID_TERMINOLOGY_DECISION_STATUSES:
             raise TranslationReviewError(
-                f"{context} has invalid decision_status "
-                f"{decision_status!r}"
+                f"{context} has invalid decision_status {decision_status!r}"
             )
         evidence_url = _require_string(
             raw.get("evidence_url"),
             context=f"{context} evidence_url",
         )
         if not evidence_url.startswith("https://"):
-            raise TranslationReviewError(
-                f"{context} evidence_url must use https"
-            )
+            raise TranslationReviewError(f"{context} evidence_url must use https")
         current_rationale = _require_string(
             raw.get("current_rationale"),
             context=f"{context} current_rationale",
@@ -870,9 +803,7 @@ def write_terminology_variant_tsv(
             context=f"{context} review_question",
         )
         decision_usage = [
-            pair
-            for term_id in term_ids
-            for pair in usage.get(term_id, ())
+            pair for term_id in term_ids for pair in usage.get(term_id, ())
         ]
         if not decision_usage:
             raise TranslationReviewError(
@@ -951,9 +882,7 @@ def _dialogue_milestone_records(
     tuple[tuple[TranslationRecord, Mapping[str, object]], ...],
 ]:
     stages = set(stage_indices)
-    if not stages or any(
-        not isinstance(stage, int) or stage < 0 for stage in stages
-    ):
+    if not stages or any(not isinstance(stage, int) or stage < 0 for stage in stages):
         raise TranslationReviewError(
             "dialogue milestone needs non-negative stage indices"
         )
@@ -974,9 +903,7 @@ def _dialogue_milestone_records(
         ):
             selected.append((record, source))
     if not selected:
-        raise TranslationReviewError(
-            "dialogue milestone has no translated records"
-        )
+        raise TranslationReviewError("dialogue milestone has no translated records")
     return source_by_id, tuple(selected)
 
 
@@ -1050,15 +977,9 @@ def write_dialogue_milestone_term_tsv(
                 related[other.term_id] = other
                 if other.translation != term.translation:
                     conflict_details.append(
-                        f"{source_term}:"
-                        f"{other.term_id}={other.translation}"
+                        f"{source_term}:{other.term_id}={other.translation}"
                     )
-        used_stages = sorted(
-            {
-                int(source["scope_index"])
-                for _, source in usage_rows
-            }
-        )
+        used_stages = sorted({int(source["scope_index"]) for _, source in usage_rows})
         example_ids = []
         for record, _ in usage_rows:
             if record.entry_id not in example_ids:
@@ -1164,9 +1085,7 @@ def write_dialogue_milestone_term_tsv(
         "researched_term_count": sum(
             term.status == "researched" for term in selected_terms
         ),
-        "translation_conflict_term_count": sum(
-            bool(row[-1]) for row in rows
-        ),
+        "translation_conflict_term_count": sum(bool(row[-1]) for row in rows),
         "priority_counts": dict(sorted(priority_counts.items())),
     }
 
@@ -1185,9 +1104,7 @@ def write_dialogue_milestone_exception_tsv(
         translations,
         stage_indices=stage_indices,
     )
-    translation_by_id = {
-        record.entry_id: record for record in translations
-    }
+    translation_by_id = {record.entry_id: record for record in translations}
     rows = []
     for record, source in selected_records:
         if not record.glossary_exceptions:
@@ -1199,9 +1116,7 @@ def write_dialogue_milestone_exception_tsv(
         stage_index = int(source["scope_index"])
         provenance = source.get("provenance")
         speaker_id = (
-            provenance.get("speaker_id")
-            if isinstance(provenance, Mapping)
-            else None
+            provenance.get("speaker_id") if isinstance(provenance, Mapping) else None
         )
         speaker_zh = ""
         if isinstance(speaker_id, int) and speaker_id >= 0:
@@ -1249,9 +1164,7 @@ def write_dialogue_milestone_exception_tsv(
                 )
             )
     exception_counts = Counter(
-        term_id
-        for _, record, _, _ in rows
-        for term_id in record.glossary_exceptions
+        term_id for _, record, _, _ in rows for term_id in record.glossary_exceptions
     )
     return {
         "stage_indices": sorted(set(stage_indices)),
@@ -1354,9 +1267,7 @@ def write_stage_dialogue_source_tsv(
 
     if stage_index < 0:
         raise TranslationReviewError("stage_index must be non-negative")
-    translation_by_id = {
-        record.entry_id: record for record in translations
-    }
+    translation_by_id = {record.entry_id: record for record in translations}
     rows = [
         entry
         for entry in source_entries
@@ -1384,17 +1295,13 @@ def write_stage_dialogue_source_tsv(
         )
         provenance = source.get("provenance")
         speaker_id = (
-            provenance.get("speaker_id")
-            if isinstance(provenance, Mapping)
-            else None
+            provenance.get("speaker_id") if isinstance(provenance, Mapping) else None
         )
         if not isinstance(speaker_id, int) or speaker_id < 0:
             raise TranslationReviewError(
                 f"{entry_id}: dialogue speaker_id is malformed"
             )
-        speaker_entry_id = (
-            f"story/{stage_index:03d}/speaker/{speaker_id:03d}"
-        )
+        speaker_entry_id = f"story/{stage_index:03d}/speaker/{speaker_id:03d}"
         speaker = translation_by_id.get(speaker_entry_id)
         if speaker is None:
             missing_speakers.append(speaker_entry_id)
@@ -1418,11 +1325,7 @@ def write_stage_dialogue_source_tsv(
                 translation.translation_action if translation else "",
                 translation.editorial_status if translation else "",
                 ", ".join(translation.glossary_refs) if translation else "",
-                (
-                    ", ".join(translation.glossary_exceptions)
-                    if translation
-                    else ""
-                ),
+                (", ".join(translation.glossary_exceptions) if translation else ""),
                 translation.notes if translation else "",
             )
         )
@@ -1474,9 +1377,7 @@ def write_stage_dialogue_unique_draft(
 
     if stage_index < 0:
         raise TranslationReviewError("stage_index must be non-negative")
-    translation_by_id = {
-        record.entry_id: record for record in translations
-    }
+    translation_by_id = {record.entry_id: record for record in translations}
     stage_sources = [
         entry
         for entry in source_entries
@@ -1503,8 +1404,7 @@ def write_stage_dialogue_unique_draft(
     document: dict[str, object] = {
         "stage_index": stage_index,
         "ordering": (
-            "first occurrence of each source_text_sha256 in the fixed "
-            "source corpus"
+            "first occurrence of each source_text_sha256 in the fixed source corpus"
         ),
         "translations": [],
     }
@@ -1547,9 +1447,7 @@ def write_stage_dialogue_unique_draft(
         if first.glossary_refs:
             refs_by_index[str(index)] = list(first.glossary_refs)
         if first.glossary_exceptions:
-            exceptions_by_index[str(index)] = list(
-                first.glossary_exceptions
-            )
+            exceptions_by_index[str(index)] = list(first.glossary_exceptions)
         if first.editorial_status != "draft":
             statuses_by_index[str(index)] = first.editorial_status
     if notes_by_index:
