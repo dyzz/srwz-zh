@@ -39,6 +39,20 @@ def validate_directory_contract(config: dict) -> None:
         raise IsoBuildError(
             "ISO build profile_id must be one path segment"
         )
+    for field in (
+        "component_validation_manifest",
+        "runtime_evidence_manifest",
+    ):
+        raw = config.get(field)
+        if raw is None:
+            continue
+        _require_config_path_under(
+            raw,
+            Path("manifests"),
+            context=field.replace("_", " "),
+        )
+        if Path(raw).suffix.lower() != ".json":
+            raise IsoBuildError(f"{field} path must end in .json")
 
     _require_config_path_under(
         config.get("source_iso", {}).get("path"),

@@ -235,45 +235,59 @@ PCSX2 v2.6.3 中第一项、第四项选中截图均显示正确，DVD、PINE ru
 该能力仍是绑定已验证 VT1 标题布局的最小 writer，不是任意尺寸、任意 PSM、
 任意 CLUT 的通用 TIM2 编码器。
 
-## 8. 下一项实际工作
+## 8. UI atlas 映射 canary
 
-信息页候选现已固定为
-`KURODATA/KVMDATA.BIN / chunk 2 / record 0 / picture 0`。它是
+通用 4-bpp 定位器现在接受一个固定矩形、一个原图已有的替换 RGBA，以及必须
+逐像素保留的背景 RGBA 集合。它只擦除 mask 内非背景像素；mask 外、登记背景、
+TIM2 header/CLUT/padding、其他 chunk 和完整归档长度必须不变。这样既能处理
+透明底的 chunk 2，也能处理同时含透明黑和不透明黑的 chunk 6，而不会把整块
+背景 alpha 一并改掉。
+
+### 8.1 信息页 `SHIP`
+
+`KURODATA/KVMDATA.BIN / chunk 2 / record 0 / picture 0` 是
 256×256/4-bpp indexed atlas，离线可见
-`SHIP/PARTS/PILOT/ROBO/SEARCH/WEAPON/MAP DATA`。当前已完成一个隔离映射
-canary：只把顶行 `SHIP` 的 `x=80, y=0, width=49, height=16` 矩形改为原
-CLUT 已有的透明色，不制作中文 atlas，也不修改其他 chunk、TIM2 header、
-CLUT 或归档长度。
+`SHIP/PARTS/PILOT/ROBO/SEARCH/WEAPON/MAP DATA`。其隔离 canary 只擦除
+`SHIP` 的 `x=80, y=0, width=49, height=16`，改变 299 个逻辑像素和
+185 个 image/archive byte。完整 KVMDATA 等长，ISO 有 65 个未替换成员、
+零 LBA 位移，SHA-256 为
+`9343889dc72c6d3fc2287f0ac279912fb1ae7e1e1123ee15150f667e50bc78f6`。
 
-组件和隔离 ISO 的复验命令为：
+复验：
 
 ```bash
-python3 tools/build_ui_info_atlas_map_canary.py --force
-python3 tools/verify_ui_info_atlas_map_canary.py --force
+python3 tools/build_ui_atlas_map_canary.py --force
+python3 tools/verify_ui_atlas_map_canary.py --force
 python3 tools/build_canary_iso.py \
   --config config/iso/ui-info-atlas-map-canary-build.json
-python3 tools/verify_ui_info_atlas_map_canary_iso.py --force
+python3 tools/verify_ui_atlas_map_canary_iso.py --force
 ```
 
-组件精确改变 299 个逻辑像素和 185 个 image/archive byte；完整
-`KVMDATA.BIN` 仍为 3,335,408 字节，其他 chunk byte-exact。隔离 ISO 只替换
-这一成员，66 个成员中 65 个保持原字节、零成员发生 LBA 位移，固定 SHA-256
-为
-`9343889dc72c6d3fc2287f0ac279912fb1ae7e1e1123ee15150f667e50bc78f6`。
-这些结果只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
+### 8.2 幕间标题
 
-运行验收顺序固定为：
+`KVMDATA chunk 6 / record 0 / picture 0` 的第二个隔离 canary 只擦除顶部
+`インターミッション`，mask 为 `x=0, y=0, width=185, height=31`。替换色
+为既有不透明黑，并同时保留透明黑与不透明黑背景；右侧箭头、数字行和其余标签
+保持不变。组件改变 803 个逻辑像素和 509 个 archive byte，完整 KVMDATA
+等长。隔离 ISO 同样只有一个替换成员、65 个未替换成员和零 LBA 位移，
+SHA-256 为
+`dafe4737f797b611e02a0dcf68096a40e9b3c61ae4fa98d979b19a00ce0ca0df`。
 
-1. 用上述精确 canary ISO 和首个幕间存档，分别进入两台机体的机体、驾驶员、
-   武器、零件、技能和精神子页，并开启 PCSX2 texture dump；
-2. 画面必须显示原 `SHIP` 位置缺失，而非仅出现任意 UI 变化；
-3. 运行时纹理 delta 必须与同一矩形的 299 像素索引集合精确相同；
-4. 记录 PCSX2、ISO、存档、截图和转储哈希后，才把
-   `config/assets/ui-atlas-candidates.json` 的候选升级为正式映射。
+复验：
 
-提交证据分别见
-`manifests/ui-info-atlas-map-canary-validation.json` 与
-`manifests/ui-info-atlas-map-canary-runtime-validation.json`。只有截图和
-texture dump 同时命中才允许把状态升级为运行映射；单凭静态 preview 或 ISO
-启动都不够。chunk 4/5/6/7 继续分别保留为战场、商店、幕间和编成候选，不与
-chunk 2 共用未经验证的写回配置。
+```bash
+python3 tools/build_ui_atlas_map_canary.py \
+  --config config/canary/tim2-kvm6-intermission-map.json --force
+python3 tools/verify_ui_atlas_map_canary.py \
+  --config config/canary/tim2-kvm6-intermission-map.json --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-intermission-atlas-map-canary-build.json
+python3 tools/verify_ui_atlas_map_canary_iso.py \
+  --config config/iso/ui-intermission-atlas-map-canary-build.json --force
+```
+
+两项结果都只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
+信息页必须同时看到 `SHIP` 缺失和同一 299 像素 texture delta；幕间必须同时
+看到顶部标题缺失和同一 803 像素 delta。记录精确 PCSX2、ISO、存档、截图及
+转储哈希后，才可升级候选场景映射。静态 preview、ISO 启动或任意 UI 变化都
+不够。chunk 4/5/7 继续分别保留为战场、商店和编成候选。

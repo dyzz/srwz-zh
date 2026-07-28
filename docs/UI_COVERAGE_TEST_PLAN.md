@@ -189,7 +189,7 @@ P0 选择开场至首个幕间可稳定访问的高频界面。七个场景共�
 | --- | ---: | --- | --- |
 | 标题主菜单 | 0，另有 4 项图片文字 | 0 | 已进入组合 ISO；既有独立运行证据不能自动沿用到新镜像 |
 | 开局路线、主人公与姓名设置 | 31 | 昵、节 | 静态文本和节子默认名字段已进入组合 ISO；玩家编辑后的动态值待运行验证 |
-| 幕间主菜单、系统选项与编成入口 | 121 | 养、删、编、览 | 静态文本已进入组合 ISO；atlas 与逐页运行验证待完成 |
+| 幕间主菜单、系统选项与编成入口 | 121 | 养、删、编、览 | 静态文本已进入组合 ISO；幕间标题 atlas 已有隔离映射 canary、待运行归属，其余 atlas 与逐页验证待完成 |
 | 人物、机体与武器信息页骨架 | 128 | 养、减、效、览、陆 | 静态文本及开场 45 个名称字段已进入组合 ISO；全名表仍缺失，信息页 atlas 已有隔离映射 canary、待运行归属 |
 | 战场指令、条件与战况页面 | 80 | 陆 | 静态文本已进入组合 ISO；战斗菜单 atlas 与运行路线待接入 |
 | 结算、升级与出击确认 | 52 | 0 | 静态文本已进入组合 ISO；结算／出击 atlas 与运行路线待接入 |
@@ -288,21 +288,35 @@ writer，也不能替代本项目自己的前像、差异和运行门禁。
 | 2 | `SHIP / PARTS / PILOT / ROBO / SEARCH / WEAPON / MAP DATA` | 人物／机体／武器信息页、搜索、战况 | 隔离 `SHIP` 清除 canary 静态 ISO 已锁定，未做运行映射 |
 | 4 | `COMMAND MENU / FORMATION / BONUS / HIT&AWAY / HP / EN` | 战场指令、结算 | 离线候选，未做运行映射 |
 | 5 | `バザー / 購入 / 売却 / 強化パーツ / アイテム` | 商店／交易 | 上游修改过的离线候选，未做运行映射 |
-| 6 | `インターミッション / オプション / 小隊編成 / データ管理` | 幕间、编成入口 | 上游修改过的离线候选，未做运行映射 |
+| 6 | `インターミッション / オプション / 小隊編成 / データ管理` | 幕间、编成入口 | 隔离幕间标题清除 canary 静态 ISO 已锁定，未做运行映射 |
 | 7 | `Event No / Leader / Pilot / 新規編成 / リザーブへ` | 编成、出击 | 离线候选，未做运行映射 |
 
 这里的“可见词”只用于定位，不是译名权威，也不能证明游戏在目标页面加载了该
-chunk。现有 canary 只把 `x=80, y=0, width=49, height=16` 改为原 CLUT 已有
-透明色：组件改变 299 个逻辑像素／185 个 archive byte，完整归档等长；隔离
-ISO 只替换 `KURODATA/KVMDATA.BIN`，65 个未替换成员 byte-exact、零 LBA
-位移，SHA-256 为
-`9343889dc72c6d3fc2287f0ac279912fb1ae7e1e1123ee15150f667e50bc78f6`。
+chunk。现有两个 canary 均只擦除 mask 内非背景像素，并逐像素保留登记的透明
+或不透明背景：
 
-下一轮必须使用这个精确 ISO 在至少两台机体的信息页和驾驶员／武器／零件／
-技能／精神子页逐页检查。只有画面中 `SHIP` 同位置消失，且 PCSX2 texture
-dump 恰好出现同一 299 像素集合的 delta，才能把 `candidate_scene_ids`
-升级为正式 member/chunk/record/picture 映射。静态 preview、ISO 构建通过或
-任意页面变化都不能单独晋级。
+- chunk 2：`SHIP` mask `80,0,49,16`，299 个逻辑像素／185 个 archive byte；
+  ISO SHA-256
+  `9343889dc72c6d3fc2287f0ac279912fb1ae7e1e1123ee15150f667e50bc78f6`；
+- chunk 6：幕间标题 mask `0,0,185,31`，803 个逻辑像素／509 个 archive
+  byte；ISO SHA-256
+  `dafe4737f797b611e02a0dcf68096a40e9b3c61ae4fa98d979b19a00ce0ca0df`。
+
+两张 ISO 都只替换 `KURODATA/KVMDATA.BIN`，完整归档等长，65 个未替换成员
+byte-exact、零 LBA 位移。下一轮分别检查至少两台机体的信息子页和首个幕间
+主菜单。只有画面中目标词同位置消失，且 PCSX2 texture dump 恰好出现各自
+299／803 像素集合的 delta，才能把对应 `candidate_scene_ids` 升级为正式
+member/chunk/record/picture 映射。静态 preview、ISO 构建通过或任意页面变化
+都不能单独晋级。
+
+后续定位顺序固定为：
+
+1. chunk 4 `COMMAND MENU`：优先覆盖战场高频入口及结算候选；
+2. chunk 7 `Event No / Leader / Pilot`：覆盖编成和出击页面；
+3. chunk 5 `バザー`：最后处理商店／交易路线。
+
+每一步都必须使用独立配置、独立单成员 ISO 和独立截图／texture-dump 双门；
+前一张 atlas 的运行归属不得推断到后一张，也不得在定位前合入中文生产镜像。
 
 ### 4.3 SLPS/COMPDATA 文本池
 
@@ -333,13 +347,14 @@ SLPS 418 条和 COMPDATA 44 条都能在原 span 内覆盖，不需要 P0 文本
 7. **已完成 UI core 组合 ISO 静态验收：**标题 TIM2、P0 菜单、开场动态名、
    P1 字库和世界史以明确 owner 合并；四项成员独立 UDF 回读、62 个未替换
    成员 byte-exact，并固定最终 ISO hash。
-8. **已完成信息页最小映射 canary 的静态组件和隔离 ISO：**只清除 chunk 2
-   的 `SHIP` 矩形，299 像素变化全部在 mask 内；完整 KVMDATA 等长、65 个
-   未替换 ISO 成员 byte-exact、零 LBA 位移，并固定最终 ISO hash。
-9. **当前下一步：**用该精确 canary ISO 证明截图中的 `SHIP` 消失与 texture
-   dump 的 299 像素 delta 同时命中；另用 UI core 精确 ISO 完成标题、玩家
-   设置、幕间、战场、搜索和世界史滚动路线，同时按官方术语扩大人物／机体名
-   语料。
+8. **已完成两项最小映射 canary 的静态组件和隔离 ISO：**chunk 2 只清除
+   `SHIP`，chunk 6 只清除幕间标题；两者变化均受 mask／背景色集合约束，
+   完整 KVMDATA 等长、65 个未替换 ISO 成员 byte-exact、零 LBA 位移，并
+   分别固定最终 ISO hash。
+9. **当前下一步：**用两张精确 canary ISO 分别证明 `SHIP`／幕间标题的截图
+   消失与 299／803 像素 texture delta 同时命中；另用 UI core 精确 ISO
+   完成标题、玩家设置、战场、搜索和世界史滚动路线，同时按官方术语扩大
+   人物／机体名语料。
 10. 把已完成运行映射的中文信息页 atlas 和前五关 STAGE/HB 纳入同一候选；
    只能从一个明确 profile
    构建后续完整测试 ISO。

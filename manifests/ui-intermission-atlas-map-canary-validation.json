@@ -1,0 +1,783 @@
+{
+  "schema_version": 1,
+  "status": "static_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-intermission-atlas-map-canary",
+  "scope": "A reversible mapping canary that erases only the intermission title inside the offline KVMDATA chunk 6 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "content_policy": "Hashes, coordinates, counts and diff summaries only; game bytes and preview PNGs remain under ignored work/.",
+  "inputs": {
+    "config": {
+      "path": "config/canary/tim2-kvm6-intermission-map.json",
+      "size": 3566,
+      "sha256": "81b51ea8fa73e05dacc71ac067b0d0e83cac03b383b23aab9650a5cb6df8bfa8"
+    },
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "asset_config": {
+      "path": "config/assets/archive-inventory.json",
+      "size": 2882,
+      "sha256": "6afc3beb1f67c82d355f572f0de92e2a5185790e17a1670a5a479a7e5b6e57ab"
+    },
+    "candidate_registry": {
+      "path": "config/assets/ui-atlas-candidates.json",
+      "size": 5596,
+      "sha256": "b3c2fd0032314f55566bb99d1c2bd77fc9cdc4469eab8cf6647371d397c05e12"
+    },
+    "members": {
+      "executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "archive": {
+        "member": "KURODATA/KVMDATA.BIN",
+        "size": 3335408,
+        "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+      }
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 6,
+    "chunk_start": 200064,
+    "chunk_end": 233408,
+    "record_index": 0,
+    "picture_index": 0,
+    "source_chunk": {
+      "size": 33344,
+      "sha256": "f934afc15cb2cd12b6dd1319fdb06b142c6fa4520cdd8f9ddf85d3cde39c9f52"
+    },
+    "semantic_locator": "インターミッション",
+    "operation": "erase_non_background_pixels",
+    "candidate_evidence_status": "upstream_changed_offline_visual_candidate_not_runtime_mapped",
+    "candidate_scene_ids": [
+      "intermission/main-and-options",
+      "information/unit-pilot-mech-core"
+    ],
+    "mask": {
+      "x": 0,
+      "y": 0,
+      "width": 185,
+      "height": 31,
+      "replacement_rgba": "000000ff",
+      "preserve_rgba": [
+        "000000ff",
+        "00000000"
+      ]
+    },
+    "mask_audit": {
+      "changed_pixel_count": 803,
+      "preserved_pixel_count": 4932,
+      "preserved_rgba_counts": {
+        "000000ff": 4877,
+        "00000000": 55
+      },
+      "changed_pixel_indexes_sha256": "d989382d13c86b3dae0fb8bbfdba9c8abe5a9e1efb382182cb88c61bc09f3632",
+      "outside_mask_rgba_exact": true,
+      "replacement_rgba_exact": true,
+      "preserved_rgba_exact": true
+    }
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 803,
+    "changed_image_byte_count": 509,
+    "changed_image_byte_ranges": [
+      {
+        "start": 669,
+        "end": 670
+      },
+      {
+        "start": 776,
+        "end": 778
+      },
+      {
+        "start": 796,
+        "end": 798
+      },
+      {
+        "start": 818,
+        "end": 821
+      },
+      {
+        "start": 840,
+        "end": 842
+      },
+      {
+        "start": 904,
+        "end": 906
+      },
+      {
+        "start": 909,
+        "end": 911
+      },
+      {
+        "start": 924,
+        "end": 926
+      },
+      {
+        "start": 945,
+        "end": 951
+      },
+      {
+        "start": 968,
+        "end": 970
+      },
+      {
+        "start": 1031,
+        "end": 1033
+      },
+      {
+        "start": 1038,
+        "end": 1040
+      },
+      {
+        "start": 1051,
+        "end": 1058
+      },
+      {
+        "start": 1073,
+        "end": 1080
+      },
+      {
+        "start": 1096,
+        "end": 1099
+      },
+      {
+        "start": 1159,
+        "end": 1162
+      },
+      {
+        "start": 1165,
+        "end": 1169
+      },
+      {
+        "start": 1180,
+        "end": 1186
+      },
+      {
+        "start": 1204,
+        "end": 1209
+      },
+      {
+        "start": 1225,
+        "end": 1227
+      },
+      {
+        "start": 1287,
+        "end": 1289
+      },
+      {
+        "start": 1294,
+        "end": 1297
+      },
+      {
+        "start": 1307,
+        "end": 1314
+      },
+      {
+        "start": 1334,
+        "end": 1335
+      },
+      {
+        "start": 1336,
+        "end": 1337
+      },
+      {
+        "start": 1353,
+        "end": 1356
+      },
+      {
+        "start": 1415,
+        "end": 1417
+      },
+      {
+        "start": 1423,
+        "end": 1425
+      },
+      {
+        "start": 1429,
+        "end": 1431
+      },
+      {
+        "start": 1434,
+        "end": 1436
+      },
+      {
+        "start": 1440,
+        "end": 1442
+      },
+      {
+        "start": 1471,
+        "end": 1473
+      },
+      {
+        "start": 1482,
+        "end": 1484
+      },
+      {
+        "start": 1487,
+        "end": 1489
+      },
+      {
+        "start": 1492,
+        "end": 1499
+      },
+      {
+        "start": 1542,
+        "end": 1544
+      },
+      {
+        "start": 1551,
+        "end": 1553
+      },
+      {
+        "start": 1557,
+        "end": 1559
+      },
+      {
+        "start": 1562,
+        "end": 1564
+      },
+      {
+        "start": 1568,
+        "end": 1570
+      },
+      {
+        "start": 1586,
+        "end": 1588
+      },
+      {
+        "start": 1596,
+        "end": 1598
+      },
+      {
+        "start": 1599,
+        "end": 1601
+      },
+      {
+        "start": 1602,
+        "end": 1604
+      },
+      {
+        "start": 1607,
+        "end": 1609
+      },
+      {
+        "start": 1615,
+        "end": 1617
+      },
+      {
+        "start": 1620,
+        "end": 1627
+      },
+      {
+        "start": 1669,
+        "end": 1672
+      },
+      {
+        "start": 1685,
+        "end": 1687
+      },
+      {
+        "start": 1689,
+        "end": 1693
+      },
+      {
+        "start": 1695,
+        "end": 1698
+      },
+      {
+        "start": 1713,
+        "end": 1718
+      },
+      {
+        "start": 1724,
+        "end": 1726
+      },
+      {
+        "start": 1727,
+        "end": 1729
+      },
+      {
+        "start": 1730,
+        "end": 1732
+      },
+      {
+        "start": 1735,
+        "end": 1738
+      },
+      {
+        "start": 1743,
+        "end": 1745
+      },
+      {
+        "start": 1748,
+        "end": 1755
+      },
+      {
+        "start": 1796,
+        "end": 1800
+      },
+      {
+        "start": 1812,
+        "end": 1815
+      },
+      {
+        "start": 1817,
+        "end": 1822
+      },
+      {
+        "start": 1824,
+        "end": 1825
+      },
+      {
+        "start": 1828,
+        "end": 1838
+      },
+      {
+        "start": 1841,
+        "end": 1848
+      },
+      {
+        "start": 1852,
+        "end": 1854
+      },
+      {
+        "start": 1855,
+        "end": 1857
+      },
+      {
+        "start": 1859,
+        "end": 1860
+      },
+      {
+        "start": 1863,
+        "end": 1867
+      },
+      {
+        "start": 1870,
+        "end": 1873
+      },
+      {
+        "start": 1881,
+        "end": 1883
+      },
+      {
+        "start": 1923,
+        "end": 1928
+      },
+      {
+        "start": 1940,
+        "end": 1943
+      },
+      {
+        "start": 1944,
+        "end": 1953
+      },
+      {
+        "start": 1956,
+        "end": 1967
+      },
+      {
+        "start": 1972,
+        "end": 1976
+      },
+      {
+        "start": 1980,
+        "end": 1985
+      },
+      {
+        "start": 1986,
+        "end": 1988
+      },
+      {
+        "start": 1992,
+        "end": 1995
+      },
+      {
+        "start": 1998,
+        "end": 2001
+      },
+      {
+        "start": 2009,
+        "end": 2011
+      },
+      {
+        "start": 2051,
+        "end": 2056
+      },
+      {
+        "start": 2067,
+        "end": 2070
+      },
+      {
+        "start": 2072,
+        "end": 2075
+      },
+      {
+        "start": 2076,
+        "end": 2081
+      },
+      {
+        "start": 2084,
+        "end": 2095
+      },
+      {
+        "start": 2101,
+        "end": 2104
+      },
+      {
+        "start": 2109,
+        "end": 2110
+      },
+      {
+        "start": 2112,
+        "end": 2113
+      },
+      {
+        "start": 2114,
+        "end": 2116
+      },
+      {
+        "start": 2121,
+        "end": 2122
+      },
+      {
+        "start": 2126,
+        "end": 2128
+      },
+      {
+        "start": 2137,
+        "end": 2139
+      },
+      {
+        "start": 2178,
+        "end": 2181
+      },
+      {
+        "start": 2182,
+        "end": 2184
+      },
+      {
+        "start": 2195,
+        "end": 2198
+      },
+      {
+        "start": 2205,
+        "end": 2209
+      },
+      {
+        "start": 2237,
+        "end": 2241
+      },
+      {
+        "start": 2242,
+        "end": 2243
+      },
+      {
+        "start": 2254,
+        "end": 2256
+      },
+      {
+        "start": 2260,
+        "end": 2267
+      },
+      {
+        "start": 2306,
+        "end": 2309
+      },
+      {
+        "start": 2310,
+        "end": 2312
+      },
+      {
+        "start": 2322,
+        "end": 2325
+      },
+      {
+        "start": 2334,
+        "end": 2336
+      },
+      {
+        "start": 2365,
+        "end": 2367
+      },
+      {
+        "start": 2369,
+        "end": 2372
+      },
+      {
+        "start": 2380,
+        "end": 2383
+      },
+      {
+        "start": 2388,
+        "end": 2395
+      },
+      {
+        "start": 2434,
+        "end": 2436
+      },
+      {
+        "start": 2438,
+        "end": 2440
+      },
+      {
+        "start": 2449,
+        "end": 2453
+      },
+      {
+        "start": 2461,
+        "end": 2464
+      },
+      {
+        "start": 2481,
+        "end": 2484
+      },
+      {
+        "start": 2497,
+        "end": 2499
+      },
+      {
+        "start": 2508,
+        "end": 2511
+      },
+      {
+        "start": 2521,
+        "end": 2523
+      },
+      {
+        "start": 2566,
+        "end": 2568
+      },
+      {
+        "start": 2576,
+        "end": 2580
+      },
+      {
+        "start": 2589,
+        "end": 2592
+      },
+      {
+        "start": 2609,
+        "end": 2613
+      },
+      {
+        "start": 2625,
+        "end": 2627
+      },
+      {
+        "start": 2635,
+        "end": 2638
+      },
+      {
+        "start": 2649,
+        "end": 2651
+      },
+      {
+        "start": 2694,
+        "end": 2696
+      },
+      {
+        "start": 2703,
+        "end": 2707
+      },
+      {
+        "start": 2716,
+        "end": 2719
+      },
+      {
+        "start": 2736,
+        "end": 2743
+      },
+      {
+        "start": 2752,
+        "end": 2755
+      },
+      {
+        "start": 2762,
+        "end": 2766
+      },
+      {
+        "start": 2777,
+        "end": 2779
+      },
+      {
+        "start": 2822,
+        "end": 2824
+      },
+      {
+        "start": 2830,
+        "end": 2834
+      },
+      {
+        "start": 2843,
+        "end": 2847
+      },
+      {
+        "start": 2867,
+        "end": 2872
+      },
+      {
+        "start": 2880,
+        "end": 2882
+      },
+      {
+        "start": 2889,
+        "end": 2893
+      },
+      {
+        "start": 2905,
+        "end": 2907
+      },
+      {
+        "start": 2950,
+        "end": 2952
+      },
+      {
+        "start": 2957,
+        "end": 2961
+      },
+      {
+        "start": 2970,
+        "end": 2974
+      },
+      {
+        "start": 2996,
+        "end": 3001
+      },
+      {
+        "start": 3007,
+        "end": 3010
+      },
+      {
+        "start": 3015,
+        "end": 3020
+      },
+      {
+        "start": 3027,
+        "end": 3035
+      },
+      {
+        "start": 3078,
+        "end": 3080
+      },
+      {
+        "start": 3085,
+        "end": 3088
+      },
+      {
+        "start": 3097,
+        "end": 3101
+      },
+      {
+        "start": 3126,
+        "end": 3129
+      },
+      {
+        "start": 3135,
+        "end": 3137
+      },
+      {
+        "start": 3143,
+        "end": 3147
+      },
+      {
+        "start": 3155,
+        "end": 3162
+      },
+      {
+        "start": 3206,
+        "end": 3207
+      },
+      {
+        "start": 3214,
+        "end": 3215
+      },
+      {
+        "start": 3225,
+        "end": 3228
+      },
+      {
+        "start": 3255,
+        "end": 3257
+      },
+      {
+        "start": 3263,
+        "end": 3265
+      },
+      {
+        "start": 3271,
+        "end": 3274
+      },
+      {
+        "start": 3334,
+        "end": 3336
+      }
+    ],
+    "available_color_count": 10,
+    "archive_diff": {
+      "diff_count": 509,
+      "range_count": 158,
+      "first_offset": 200797,
+      "last_offset": 203463,
+      "offsets_sha256": "9c040699b4a09b55de0099f3976a8ba4411a4f544524be2c99fb49e3d4dff231",
+      "ranges_sha256": "58efb359341c0d1cb2ac170890267b4e6ce0d1322eabfc1574de933e32fa17e7",
+      "before_values_sha256": "1b6a46c8894a1394ce0f047517ec928214eb5818c7e8f48113907c4116df6140",
+      "after_values_sha256": "1a298a6363c91266a155fd10c1f1ee1dc0882d07955ce8c47170569658050c85"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "077334e8cd6b1cd57c497fc5dcc41b2be37c4dc64ce2b9abb7cab1fcc7fb7391"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "28ed7b9c53cdbe049abc7402de8ba4adfbf2de7e5d49670343ce083e1b9a35f5"
+    },
+    "reference_png": {
+      "size": 21968,
+      "sha256": "e438d4668d9dee7bc664ed841dcfc65efcad49d396a2966cacb572b99dbec583"
+    },
+    "edited_png": {
+      "size": 20920,
+      "sha256": "ed8bd618cbbdbdcf3e449dc421ad33fc72305bcba1b55e83385e1a9e350314a9"
+    }
+  },
+  "acceptance": {
+    "candidate_registry_exact": true,
+    "single_picture_4bpp_geometry_exact": true,
+    "mask_contains_every_rgba_change": true,
+    "replacement_uses_existing_source_color": true,
+    "preserved_background_rgba_exact": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Prove whether KVMDATA chunk 6 is consumed by the first intermission main menu before authoring translation.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_save",
+      "open_intermission_main_menu_and_options",
+      "capture_visible_missing_intermission_title_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The top-left intermission title is absent while the arrow icons and number rows remain intact.",
+    "promotion_rule": "Only a matching first-intermission screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
+  }
+}

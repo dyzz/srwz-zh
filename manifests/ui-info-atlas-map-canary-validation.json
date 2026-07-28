@@ -7,8 +7,8 @@
   "inputs": {
     "config": {
       "path": "config/canary/tim2-kvm2-info-map.json",
-      "size": 2709,
-      "sha256": "335b5bf4f29219d0d64f4984e8e80fdd320eda9d5acf4e32a6271ec3604e1135"
+      "size": 3435,
+      "sha256": "c3aba327d0fd3813946fefc682dcd19efad74ceda817b02057671b9cbb98964e"
     },
     "iso": {
       "path": "rom/srwz.iso",
@@ -50,20 +50,33 @@
       "sha256": "26d14fe28c93722201597487a1597fb998d084c3345a6c27e9724fe515173815"
     },
     "semantic_locator": "SHIP",
-    "operation": "transparent_rectangle_fill",
+    "operation": "erase_non_background_pixels",
     "candidate_evidence_status": "offline_visual_candidate_not_runtime_mapped",
+    "candidate_scene_ids": [
+      "information/unit-pilot-mech-core",
+      "search/filter-and-results",
+      "battle/map-and-tactical"
+    ],
     "mask": {
       "x": 80,
       "y": 0,
       "width": 49,
       "height": 16,
-      "replacement_rgba": "00000000"
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
     },
     "mask_audit": {
       "changed_pixel_count": 299,
+      "preserved_pixel_count": 485,
+      "preserved_rgba_counts": {
+        "00000000": 485
+      },
       "changed_pixel_indexes_sha256": "33499f730c59adab3f36a53df061e2e5c9f76b78846ebb1bfc45bf8c1fd52f12",
       "outside_mask_rgba_exact": true,
-      "replacement_rgba_exact": true
+      "replacement_rgba_exact": true,
+      "preserved_rgba_exact": true
     }
   },
   "toolchain": {
@@ -306,7 +319,8 @@
     "candidate_registry_exact": true,
     "single_picture_4bpp_geometry_exact": true,
     "mask_contains_every_rgba_change": true,
-    "replacement_uses_existing_transparent_color": true,
+    "replacement_uses_existing_source_color": true,
+    "preserved_background_rgba_exact": true,
     "tim2_header_clut_and_padding_exact": true,
     "archive_geometry_and_other_chunks_exact": true,
     "imagemagick_output_rgba_exact": true,
@@ -316,11 +330,13 @@
     "status": "not_tested",
     "purpose": "Prove whether KVMDATA chunk 2 is consumed by the unit information-page SHIP label before authoring translation.",
     "required_routes": [
+      "fresh_process_boot_exact_iso",
       "open_unit_information_for_two_units",
       "visit_pilot_weapon_parts_skill_and_spirit_subpages",
       "capture_visible_missing_ship_label_if_loaded",
       "capture_texture_dump_delta_for_the_same_mask"
     ],
-    "promotion_rule": "Only matching screenshot and texture-dump deltas may promote the candidate to a runtime scene mapping."
+    "expected_visual_effect": "The top-row SHIP locator is absent while SELECT and SHAPE PARTS remain intact.",
+    "promotion_rule": "Only a matching screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
   }
 }

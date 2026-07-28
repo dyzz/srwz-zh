@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the isolated KVMDATA chunk 2 information-page mapping canary."""
+"""Build one isolated KVMDATA UI-atlas mapping canary."""
 
 from __future__ import annotations
 
@@ -30,11 +30,15 @@ def main() -> int:
     config_path = args.config.resolve()
     config = json.loads(config_path.read_text(encoding="utf-8"))
     outputs = config["outputs"]
+    target_member = config["target"]["member"]
     component_root = require_work_output(
         PROJECT_ROOT / outputs["component_root"],
         WORK_ROOT,
     )
-    archive_path = component_root / "KURODATA/KVMDATA.BIN"
+    archive_path = require_work_output(
+        component_root / target_member,
+        WORK_ROOT,
+    )
     reference_path = require_work_output(
         PROJECT_ROOT / outputs["reference_png"],
         WORK_ROOT,
@@ -67,8 +71,10 @@ def main() -> int:
         encoding="utf-8",
     )
     print(
-        "UI information-atlas mapping canary:",
+        "UI atlas mapping canary:",
+        f"profile={report['profile_id']}",
         f"chunk={report['target']['chunk_index']}",
+        f"locator={report['target']['semantic_locator']}",
         f"pixels={report['injection']['changed_pixel_count']}",
         f"bytes={report['injection']['archive_diff']['diff_count']}",
         "runtime=mapping-pending",

@@ -361,21 +361,23 @@ component 清单是 `manifests/ui-p1-core-validation.json`。静态 ISO 清单�
 信息页 atlas；PCSX2 标题、玩家设置、幕间、信息页、战场、搜索和世界史路线
 全部保持 `not_tested`。
 
-### 4.4 信息页 atlas 映射 canary
+### 4.4 UI atlas 映射 canary
 
-信息页图片文字尚未进入中文生产 profile。为避免在场景归属不明时先制作整张
-中文图，`config/canary/tim2-kvm2-info-map.json` 只拥有一个可逆定位实验：
-在 `KURODATA/KVMDATA.BIN / chunk 2 / record 0 / picture 0` 内把顶行
-`SHIP` 的固定矩形替换为原图已有透明色。
+图片文字尚未进入中文生产 profile。为避免在场景归属不明时先制作整张中文图，
+当前有两个互相隔离的可逆定位实验：
 
-可重复入口为：
+- `config/canary/tim2-kvm2-info-map.json`：chunk 2 顶行 `SHIP`；
+- `config/canary/tim2-kvm6-intermission-map.json`：chunk 6 顶部幕间标题。
+
+两者都只把 mask 内非背景像素替换为原图已有颜色，并显式登记必须保持的背景
+RGBA 集合。通用入口接受对应配置；信息页默认配置可直接运行：
 
 ```bash
-python3 tools/build_ui_info_atlas_map_canary.py --force
-python3 tools/verify_ui_info_atlas_map_canary.py --force
+python3 tools/build_ui_atlas_map_canary.py --force
+python3 tools/verify_ui_atlas_map_canary.py --force
 python3 tools/build_canary_iso.py \
   --config config/iso/ui-info-atlas-map-canary-build.json
-python3 tools/verify_ui_info_atlas_map_canary_iso.py --force
+python3 tools/verify_ui_atlas_map_canary_iso.py --force
 ```
 
 component 门证明 299 个逻辑像素变化全部在 mask 内、185 个 archive byte
@@ -385,11 +387,18 @@ ISO 门只接受这一项 replacement；固定结果有 66 个成员、65 个未
 `manifests/ui-info-atlas-map-canary-validation.json` 与
 `manifests/ui-info-atlas-map-canary-runtime-validation.json`。
 
-该 profile 的状态有意保持
-`static_mapping_iso_validated_runtime_not_tested`。只有同一 ISO 的信息页截图
-显示 `SHIP` 在目标位置消失，且 PCSX2 texture dump 精确匹配同一 299 像素
-集合，才可登记正式运行映射。它不拥有译名、中文 atlas 或 `ui-p1-core`
-集成结论。
+幕间配置同样运行四步入口并显式传入
+`config/canary/tim2-kvm6-intermission-map.json` 与
+`config/iso/ui-intermission-atlas-map-canary-build.json`。其 component
+改变 803 个逻辑像素／509 个 archive byte；ISO 有 65 个未替换成员、零 LBA
+位移，SHA-256 为
+`dafe4737f797b611e02a0dcf68096a40e9b3c61ae4fa98d979b19a00ce0ca0df`。
+两级清单使用 `ui-intermission-atlas-map-canary` 同名路径。
+
+两个 profile 的状态都有意保持
+`static_mapping_iso_validated_runtime_not_tested`。只有同一 ISO 的目标页面截图
+显示相应标签消失，且 PCSX2 texture dump 精确匹配各自 299／803 像素集合，
+才可登记正式运行映射。它们不拥有译名、中文 atlas 或 `ui-p1-core` 集成结论。
 
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求

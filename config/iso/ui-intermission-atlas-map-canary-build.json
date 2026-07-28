@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "profile_id": "ui-info-atlas-map-canary",
-  "component_validation_manifest": "manifests/ui-info-atlas-map-canary-validation.json",
-  "runtime_evidence_manifest": "manifests/ui-info-atlas-map-canary-runtime-validation.json",
+  "profile_id": "ui-intermission-atlas-map-canary",
+  "component_validation_manifest": "manifests/ui-intermission-atlas-map-canary-validation.json",
+  "runtime_evidence_manifest": "manifests/ui-intermission-atlas-map-canary-runtime-validation.json",
   "source_iso": {
     "path": "rom/srwz.iso",
     "size": 3758358528,
@@ -32,14 +32,14 @@
     }
   },
   "workspace": {
-    "original_tree": "work/build/ui-info-atlas-map-canary/iso/original",
-    "staging_tree": "work/build/ui-info-atlas-map-canary/iso/staging",
-    "base_xml": "work/build/ui-info-atlas-map-canary/iso/layout/original.xml",
-    "build_xml": "work/build/ui-info-atlas-map-canary/iso/layout/build.xml",
-    "lba_log": "work/build/ui-info-atlas-map-canary/iso/layout/lba.txt"
+    "original_tree": "work/build/ui-intermission-atlas-map-canary/iso/original",
+    "staging_tree": "work/build/ui-intermission-atlas-map-canary/iso/staging",
+    "base_xml": "work/build/ui-intermission-atlas-map-canary/iso/layout/original.xml",
+    "build_xml": "work/build/ui-intermission-atlas-map-canary/iso/layout/build.xml",
+    "lba_log": "work/build/ui-intermission-atlas-map-canary/iso/layout/lba.txt"
   },
   "layout": {
-    "volume_id": "SRWZ_UI_INFO_MAP",
+    "volume_id": "SRWZ_UI_INTER_MAP",
     "first_shifted_member": "KURODATA/KVMDATA.BIN",
     "expected_shift_sectors": 0,
     "preserve_original_gaps": true,
@@ -48,21 +48,21 @@
   "replacements": [
     {
       "member": "KURODATA/KVMDATA.BIN",
-      "source": "work/build/ui-info-atlas-map-canary/components/KURODATA/KVMDATA.BIN",
+      "source": "work/build/ui-intermission-atlas-map-canary/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "507548f7bff48dbdd18203a20a01205ec43f6d4e556c023152cc7af2cf20b19a"
+      "sha256": "077334e8cd6b1cd57c497fc5dcc41b2be37c4dc64ce2b9abb7cab1fcc7fb7391"
     }
   ],
   "output": {
-    "path": "build/iso/ui-info-atlas-map-canary/srwz-ui-info-atlas-map-canary.iso",
-    "report": "build/iso/ui-info-atlas-map-canary/iso-validation.json",
+    "path": "build/iso/ui-intermission-atlas-map-canary/srwz-ui-intermission-atlas-map-canary.iso",
+    "report": "build/iso/ui-intermission-atlas-map-canary/iso-validation.json",
     "expected_root_directory_size": 960,
     "expected_pcsx2_v263_image_type": "DVD",
     "expected_udf_volume_recognition_sequence": "NSR02",
     "byte_reproducible": true,
     "expected_size": 3758358528,
-    "expected_sha256": "9343889dc72c6d3fc2287f0ac279912fb1ae7e1e1123ee15150f667e50bc78f6",
-    "expected_member_manifest_sha256": "aabe2bcd0f384ee4c8ea74644ab271fd229a5cd46e40c9facab3f61e0a202e76"
+    "expected_sha256": "dafe4737f797b611e02a0dcf68096a40e9b3c61ae4fa98d979b19a00ce0ca0df",
+    "expected_member_manifest_sha256": "1d21f86cf5252816a5958ecf7dbc36b3c80947d6049fd3e9c2c5613bb279feee"
   },
   "acceptance": {
     "member_paths_exact": true,

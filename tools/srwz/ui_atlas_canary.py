@@ -11,7 +11,6 @@ from typing import Mapping
 
 from .assets import AssetInventoryConfig
 from .imagemagick import (
-    fill_rgba_rectangle,
     imagemagick_version,
     read_rgba8,
     render_tim2_png8,
@@ -43,6 +42,7 @@ class AtlasMask:
     width: int
     height: int
     replacement_rgba: bytes
+    preserve_rgba: tuple[bytes, ...]
 
     @classmethod
     def from_mapping(cls, raw: Mapping[str, object]) -> "AtlasMask":
@@ -71,12 +71,41 @@ class AtlasMask:
             raise UiAtlasCanaryError(
                 "atlas replacement_rgba is not hexadecimal"
             ) from error
+        raw_preserve = raw.get("preserve_rgba")
+        if (
+            not isinstance(raw_preserve, list)
+            or not raw_preserve
+            or any(
+                not isinstance(value, str) or len(value) != 8
+                for value in raw_preserve
+            )
+        ):
+            raise UiAtlasCanaryError(
+                "atlas preserve_rgba must be a non-empty hex array"
+            )
+        try:
+            preserve_rgba = tuple(
+                bytes.fromhex(value) for value in raw_preserve
+            )
+        except ValueError as error:
+            raise UiAtlasCanaryError(
+                "atlas preserve_rgba contains non-hexadecimal data"
+            ) from error
+        if len(set(preserve_rgba)) != len(preserve_rgba):
+            raise UiAtlasCanaryError(
+                "atlas preserve_rgba contains duplicates"
+            )
+        if replacement_rgba not in preserve_rgba:
+            raise UiAtlasCanaryError(
+                "atlas replacement_rgba must also be preserved"
+            )
         return cls(
             x=x,
             y=y,
             width=width,
             height=height,
             replacement_rgba=replacement_rgba,
+            preserve_rgba=preserve_rgba,
         )
 
     def to_mapping(self) -> dict:
@@ -86,7 +115,27 @@ class AtlasMask:
             "width": self.width,
             "height": self.height,
             "replacement_rgba": self.replacement_rgba.hex(),
+            "preserve_rgba": [
+                value.hex() for value in self.preserve_rgba
+            ],
         }
+
+
+def apply_masked_rgba(original: bytes, mask: AtlasMask) -> bytes:
+    """Erase non-background pixels inside a bounded logical rectangle."""
+
+    expected_size = CANARY_WIDTH * CANARY_HEIGHT * 4
+    if len(original) != expected_size:
+        raise UiAtlasCanaryError("atlas RGBA size is invalid")
+    edited = bytearray(original)
+    for y in range(mask.y, mask.y + mask.height):
+        for x in range(mask.x, mask.x + mask.width):
+            start = (y * CANARY_WIDTH + x) * 4
+            before = original[start : start + 4]
+            if before in mask.preserve_rgba:
+                continue
+            edited[start : start + 4] = mask.replacement_rgba
+    return bytes(edited)
 
 
 def verify_masked_rgba(
@@ -100,35 +149,63 @@ def verify_masked_rgba(
     if len(original) != expected_size or len(edited) != expected_size:
         raise UiAtlasCanaryError("atlas RGBA size is invalid")
     changed = []
+    preserved_counts = {
+        rgba: 0 for rgba in mask.preserve_rgba
+    }
     for pixel_index in range(CANARY_WIDTH * CANARY_HEIGHT):
         start = pixel_index * 4
         before = original[start : start + 4]
         after = edited[start : start + 4]
-        if before == after:
-            continue
         x = pixel_index % CANARY_WIDTH
         y = pixel_index // CANARY_WIDTH
-        if not (
+        inside = (
             mask.x <= x < mask.x + mask.width
             and mask.y <= y < mask.y + mask.height
-        ):
+        )
+        if not inside:
+            if before == after:
+                continue
             raise UiAtlasCanaryError(
                 f"atlas edit escaped its mask at ({x},{y})"
             )
+        if before in mask.preserve_rgba:
+            if after != before:
+                raise UiAtlasCanaryError(
+                    f"atlas edit changed preserved RGBA at ({x},{y})"
+                )
+            preserved_counts[before] += 1
+            continue
         if after != mask.replacement_rgba:
             raise UiAtlasCanaryError(
                 f"atlas edit used an unexpected color at ({x},{y})"
             )
-        changed.append(pixel_index)
+        if before != after:
+            changed.append(pixel_index)
     if not changed:
         raise UiAtlasCanaryError("atlas mask did not change a visible pixel")
+    missing_preserved = [
+        rgba.hex()
+        for rgba, count in preserved_counts.items()
+        if count == 0
+    ]
+    if missing_preserved:
+        raise UiAtlasCanaryError(
+            "atlas mask does not contain preserved RGBA: "
+            + ", ".join(missing_preserved)
+        )
     return {
         "changed_pixel_count": len(changed),
+        "preserved_pixel_count": sum(preserved_counts.values()),
+        "preserved_rgba_counts": {
+            rgba.hex(): count
+            for rgba, count in preserved_counts.items()
+        },
         "changed_pixel_indexes_sha256": sha256_bytes(
             b"".join(index.to_bytes(4, "little") for index in changed)
         ),
         "outside_mask_rgba_exact": True,
         "replacement_rgba_exact": True,
+        "preserved_rgba_exact": True,
     }
 
 
@@ -223,6 +300,7 @@ def _matching_candidate(
         raise UiAtlasCanaryError("atlas candidate picture is invalid")
     semantic_locator = target.get("semantic_locator")
     observed_tokens = candidate.get("observed_tokens")
+    candidate_scene_ids = candidate.get("candidate_scene_ids")
     if (
         not isinstance(semantic_locator, str)
         or not isinstance(observed_tokens, list)
@@ -231,7 +309,18 @@ def _matching_candidate(
         raise UiAtlasCanaryError(
             "atlas semantic locator is not in the candidate evidence"
         )
-    if target.get("operation") != "transparent_rectangle_fill":
+    if (
+        not isinstance(candidate_scene_ids, list)
+        or not candidate_scene_ids
+        or any(
+            not isinstance(scene_id, str) or not scene_id
+            for scene_id in candidate_scene_ids
+        )
+    ):
+        raise UiAtlasCanaryError(
+            "atlas candidate scene identifiers are invalid"
+        )
+    if target.get("operation") != "erase_non_background_pixels":
         raise UiAtlasCanaryError("unsupported atlas-canary operation")
     expected = {
         "payload_size": target.get("source_chunk_size"),
@@ -247,9 +336,14 @@ def _matching_candidate(
     }
     if actual != expected:
         raise UiAtlasCanaryError("atlas candidate coordinates drift")
-    if candidate.get("evidence_status") != (
-        "offline_visual_candidate_not_runtime_mapped"
-    ):
+    evidence_status = candidate.get("evidence_status")
+    if evidence_status not in {
+        "offline_visual_candidate_not_runtime_mapped",
+        (
+            "upstream_changed_offline_visual_candidate_"
+            "not_runtime_mapped"
+        ),
+    }:
         raise UiAtlasCanaryError("atlas candidate evidence status drift")
     return candidate
 
@@ -269,11 +363,36 @@ def build_ui_atlas_map_canary(
     source_config = config.get("source")
     target = config.get("target")
     expected = config.get("expected")
+    runtime_config = config.get("runtime")
     if not all(
         isinstance(item, Mapping)
-        for item in (source_config, target, expected)
+        for item in (source_config, target, expected, runtime_config)
     ):
         raise UiAtlasCanaryError("atlas-canary config is incomplete")
+    required_routes = runtime_config.get("required_routes")
+    if (
+        not isinstance(required_routes, list)
+        or not required_routes
+        or any(
+            not isinstance(route, str) or not route
+            for route in required_routes
+        )
+    ):
+        raise UiAtlasCanaryError(
+            "atlas-canary runtime routes are invalid"
+        )
+    runtime_statements = (
+        runtime_config.get("purpose"),
+        runtime_config.get("expected_visual_effect"),
+        runtime_config.get("promotion_rule"),
+    )
+    if any(
+        not isinstance(statement, str) or not statement.strip()
+        for statement in runtime_statements
+    ):
+        raise UiAtlasCanaryError(
+            "atlas-canary runtime evidence contract is invalid"
+        )
 
     iso_path = _verify_file_lock(
         root,
@@ -395,35 +514,19 @@ def build_ui_atlas_map_canary(
         temporary = Path(directory)
         source_tm2 = temporary / "source.tm2"
         source_png = temporary / "reference.png"
-        edited_png = temporary / "edited.png"
         reference_preview = temporary / "reference-preview.png"
         edited_preview = temporary / "edited-preview.png"
         output_tm2 = temporary / "output.tm2"
         output_png = temporary / "output.png"
         source_tm2.write_bytes(chunk)
         render_tim2_png8(magick, source_tm2, source_png)
-        fill_rgba_rectangle(
-            magick,
-            source_png,
-            edited_png,
-            x=mask.x,
-            y=mask.y,
-            width=mask.width,
-            height=mask.height,
-            rgba=f"#{mask.replacement_rgba.hex()}",
-        )
         original_rgba = read_rgba8(
             magick,
             source_png,
             expected_width=CANARY_WIDTH,
             expected_height=CANARY_HEIGHT,
         )
-        edited_rgba = read_rgba8(
-            magick,
-            edited_png,
-            expected_width=CANARY_WIDTH,
-            expected_height=CANARY_HEIGHT,
-        )
+        edited_rgba = apply_masked_rgba(original_rgba, mask)
         mask_report = verify_masked_rgba(
             original_rgba,
             edited_rgba,
@@ -545,6 +648,7 @@ def build_ui_atlas_map_canary(
             "semantic_locator": target["semantic_locator"],
             "operation": target["operation"],
             "candidate_evidence_status": candidate["evidence_status"],
+            "candidate_scene_ids": candidate["candidate_scene_ids"],
             "mask": mask.to_mapping(),
             "mask_audit": mask_report,
         },
@@ -569,7 +673,8 @@ def build_ui_atlas_map_canary(
             "candidate_registry_exact": True,
             "single_picture_4bpp_geometry_exact": True,
             "mask_contains_every_rgba_change": True,
-            "replacement_uses_existing_transparent_color": True,
+            "replacement_uses_existing_source_color": True,
+            "preserved_background_rgba_exact": True,
             "tim2_header_clut_and_padding_exact": True,
             "archive_geometry_and_other_chunks_exact": True,
             "imagemagick_output_rgba_exact": True,
@@ -577,20 +682,12 @@ def build_ui_atlas_map_canary(
         },
         "runtime": {
             "status": "not_tested",
-            "purpose": (
-                "Prove whether KVMDATA chunk 2 is consumed by the unit "
-                "information-page SHIP label before authoring translation."
-            ),
-            "required_routes": [
-                "open_unit_information_for_two_units",
-                "visit_pilot_weapon_parts_skill_and_spirit_subpages",
-                "capture_visible_missing_ship_label_if_loaded",
-                "capture_texture_dump_delta_for_the_same_mask",
+            "purpose": runtime_config["purpose"],
+            "required_routes": required_routes,
+            "expected_visual_effect": runtime_config[
+                "expected_visual_effect"
             ],
-            "promotion_rule": (
-                "Only matching screenshot and texture-dump deltas may "
-                "promote the candidate to a runtime scene mapping."
-            ),
+            "promotion_rule": runtime_config["promotion_rule"],
         },
     }
     return outputs, report
@@ -599,6 +696,7 @@ def build_ui_atlas_map_canary(
 __all__ = [
     "AtlasMask",
     "UiAtlasCanaryError",
+    "apply_masked_rgba",
     "build_ui_atlas_map_canary",
     "verify_masked_rgba",
 ]

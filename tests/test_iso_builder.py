@@ -122,6 +122,34 @@ class Mkps2isoBuildTests(unittest.TestCase):
         ):
             validate_directory_contract(invalid)
 
+    def test_evidence_manifests_must_stay_under_manifests(self):
+        root = Path(__file__).resolve().parents[1]
+        config = json.loads(
+            (root / "config" / "iso" / "canary-build.json").read_text()
+        )
+        invalid = copy.deepcopy(config)
+        invalid["component_validation_manifest"] = (
+            "work/review/component-validation.json"
+        )
+        with self.assertRaisesRegex(
+            IsoBuildError,
+            "component validation manifest must be under manifests/",
+        ):
+            validate_directory_contract(invalid)
+
+    def test_evidence_manifests_must_be_json(self):
+        root = Path(__file__).resolve().parents[1]
+        config = json.loads(
+            (root / "config" / "iso" / "canary-build.json").read_text()
+        )
+        invalid = copy.deepcopy(config)
+        invalid["runtime_evidence_manifest"] = "manifests/runtime.txt"
+        with self.assertRaisesRegex(
+            IsoBuildError,
+            "runtime_evidence_manifest path must end in .json",
+        ):
+            validate_directory_contract(invalid)
+
     def test_repository_iso_config_loads_with_directory_contract(self):
         root = Path(__file__).resolve().parents[1]
         config = load_config(

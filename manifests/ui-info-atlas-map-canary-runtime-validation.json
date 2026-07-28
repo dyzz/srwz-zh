@@ -7,8 +7,8 @@
   "component": {
     "manifest": {
       "path": "manifests/ui-info-atlas-map-canary-validation.json",
-      "size": 7720,
-      "sha256": "deb32f44f4958f6a2f55cb7a111eee171a40eb9871870d010773e40f7de848d6"
+      "size": 8248,
+      "sha256": "29860f931c047755eb85096332114275d77de9dcf244a8dd71c87b7ef8291c7c"
     },
     "target": {
       "member": "KURODATA/KVMDATA.BIN",
@@ -22,20 +22,33 @@
         "sha256": "26d14fe28c93722201597487a1597fb998d084c3345a6c27e9724fe515173815"
       },
       "semantic_locator": "SHIP",
-      "operation": "transparent_rectangle_fill",
+      "operation": "erase_non_background_pixels",
       "candidate_evidence_status": "offline_visual_candidate_not_runtime_mapped",
+      "candidate_scene_ids": [
+        "information/unit-pilot-mech-core",
+        "search/filter-and-results",
+        "battle/map-and-tactical"
+      ],
       "mask": {
         "x": 80,
         "y": 0,
         "width": 49,
         "height": 16,
-        "replacement_rgba": "00000000"
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
       },
       "mask_audit": {
         "changed_pixel_count": 299,
+        "preserved_pixel_count": 485,
+        "preserved_rgba_counts": {
+          "00000000": 485
+        },
         "changed_pixel_indexes_sha256": "33499f730c59adab3f36a53df061e2e5c9f76b78846ebb1bfc45bf8c1fd52f12",
         "outside_mask_rgba_exact": true,
-        "replacement_rgba_exact": true
+        "replacement_rgba_exact": true,
+        "preserved_rgba_exact": true
       }
     },
     "outputs": {
@@ -60,7 +73,8 @@
       "candidate_registry_exact": true,
       "single_picture_4bpp_geometry_exact": true,
       "mask_contains_every_rgba_change": true,
-      "replacement_uses_existing_transparent_color": true,
+      "replacement_uses_existing_source_color": true,
+      "preserved_background_rgba_exact": true,
       "tim2_header_clut_and_padding_exact": true,
       "archive_geometry_and_other_chunks_exact": true,
       "imagemagick_output_rgba_exact": true,
@@ -70,8 +84,8 @@
   "iso_build": {
     "config": {
       "path": "config/iso/ui-info-atlas-map-canary-build.json",
-      "size": 3021,
-      "sha256": "5aa936a78481c76805813ba389380c6e9f7c65bd4d655617f49903ec838a0387"
+      "size": 3110,
+      "sha256": "4976c13455aaa49b3f9f12efb922794982effd90409d32d75406dd593ff3cb20"
     },
     "report": {
       "path": "build/iso/ui-info-atlas-map-canary/iso-validation.json",
@@ -130,7 +144,7 @@
     ],
     "expected_visual_delta": {
       "semantic_locator": "SHIP",
-      "effect": "the top-row SHIP locator is absent"
+      "effect": "The top-row SHIP locator is absent while SELECT and SHAPE PARTS remain intact."
     },
     "expected_texture_delta": {
       "chunk_index": 2,
@@ -139,11 +153,14 @@
         "y": 0,
         "width": 49,
         "height": 16,
-        "replacement_rgba": "00000000"
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
       },
       "changed_pixel_count": 299,
       "changed_pixel_indexes_sha256": "33499f730c59adab3f36a53df061e2e5c9f76b78846ebb1bfc45bf8c1fd52f12"
     },
-    "promotion_rule": "Promote KVMDATA chunk 2 to a runtime information-page mapping only when a matching screenshot and texture-dump delta satisfy both expected deltas."
+    "promotion_rule": "Only a matching screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
   }
 }

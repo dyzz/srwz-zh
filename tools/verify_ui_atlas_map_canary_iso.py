@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bind the information-atlas mapping canary to its static ISO evidence."""
+"""Bind one UI-atlas mapping canary to its static ISO evidence."""
 
 from __future__ import annotations
 
@@ -17,20 +17,9 @@ WORK_ROOT = PROJECT_ROOT / "work"
 DEFAULT_CONFIG = (
     PROJECT_ROOT / "config/iso/ui-info-atlas-map-canary-build.json"
 )
-DEFAULT_COMPONENT_MANIFEST = (
-    PROJECT_ROOT / "manifests/ui-info-atlas-map-canary-validation.json"
-)
-DEFAULT_MANIFEST = (
-    PROJECT_ROOT
-    / "manifests/ui-info-atlas-map-canary-runtime-validation.json"
-)
-DEFAULT_REPORT = (
-    WORK_ROOT
-    / "review/ui-info-atlas-map-canary/iso-validation.json"
-)
 
 
-class UiInfoAtlasMapCanaryIsoError(RuntimeError):
+class UiAtlasMapCanaryIsoError(RuntimeError):
     """The mapping-canary ISO does not match its component evidence."""
 
 
@@ -45,7 +34,7 @@ def sha256_file(path: Path) -> str:
 def load_json(path: Path) -> dict:
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, dict):
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             f"JSON root must be an object: {path}"
         )
     return value
@@ -65,10 +54,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--component-manifest",
         type=Path,
-        default=DEFAULT_COMPONENT_MANIFEST,
     )
-    parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
-    parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
+    parser.add_argument("--manifest", type=Path)
+    parser.add_argument("--report", type=Path)
     parser.add_argument("--refresh-manifest", action="store_true")
     parser.add_argument("--force", action="store_true")
     return parser.parse_args()
@@ -77,25 +65,21 @@ def parse_args() -> argparse.Namespace:
 def build_report(config_path: Path, component_manifest_path: Path) -> dict:
     config = load_config(config_path)
     component = load_json(component_manifest_path)
-    if config.get("profile_id") != "ui-info-atlas-map-canary":
-        raise UiInfoAtlasMapCanaryIsoError(
-            "unexpected information-atlas mapping-canary ISO profile"
-        )
     if component.get("status") != (
         "static_component_validated_runtime_mapping_pending"
     ):
-        raise UiInfoAtlasMapCanaryIsoError(
-            "information-atlas mapping-canary component is not validated"
+        raise UiAtlasMapCanaryIsoError(
+            "UI-atlas mapping-canary component is not validated"
         )
     if component.get("profile_id") != config["profile_id"]:
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             "component and ISO profile identifiers differ"
         )
 
     iso_report_path = PROJECT_ROOT / config["output"]["report"]
     iso_path = PROJECT_ROOT / config["output"]["path"]
     if not iso_report_path.is_file() or not iso_path.is_file():
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             "mapping-canary ISO or report is missing; run "
             "build_canary_iso.py"
         )
@@ -112,31 +96,31 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
         "sha256": expected_output["expected_sha256"],
     }
     if actual_output != expected_lock:
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             "mapping-canary ISO bytes do not match lock"
         )
     if {
         "size": output_iso["size"],
         "sha256": output_iso["sha256"],
     } != expected_lock:
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             "mapping-canary ISO report lock drift"
         )
     if layout["member_manifest_sha256"] != expected_output[
         "expected_member_manifest_sha256"
     ]:
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             "mapping-canary member-manifest lock drift"
         )
 
     replacements = config["replacements"]
     if len(replacements) != 1:
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             "mapping-canary ISO must replace exactly one member"
         )
     replacement = replacements[0]
     if replacement["member"] != component["target"]["member"]:
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             "mapping-canary target member differs from component"
         )
     replacement_lock = {
@@ -144,14 +128,14 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
         "sha256": replacement["sha256"],
     }
     if replacement_lock != component["outputs"]["archive"]:
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             "mapping-canary replacement differs from component"
         )
     report_replacements = iso_report.get("replacements")
     if not isinstance(report_replacements, list) or len(
         report_replacements
     ) != 1:
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             "mapping-canary ISO report replacement set drift"
         )
     report_replacement = report_replacements[0]
@@ -163,13 +147,13 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
         "member": replacement["member"],
         **replacement_lock,
     }:
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             "mapping-canary ISO report replacement lock drift"
         )
     if iso_report["independent_udf_reads"].get(
         replacement["member"]
     ) != replacement_lock["sha256"]:
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             "mapping-canary independent UDF reread mismatch"
         )
 
@@ -205,7 +189,7 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
         ),
     }
     if not all(acceptance.values()):
-        raise UiInfoAtlasMapCanaryIsoError(
+        raise UiAtlasMapCanaryIsoError(
             f"mapping-canary static ISO acceptance failed: {acceptance}"
         )
 
@@ -253,16 +237,14 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
             "status": "not_tested",
             "required_iso_sha256": actual_output["sha256"],
             "required_emulator": "PCSX2 v2.6.3",
-            "required_routes": [
-                "fresh_process_boot_exact_iso",
-                "open_unit_information_for_two_units",
-                "visit_pilot_weapon_parts_skill_and_spirit_subpages",
-                "capture_visible_missing_ship_label_if_loaded",
-                "capture_texture_dump_delta_for_the_same_mask",
-            ],
+            "required_routes": component["runtime"]["required_routes"],
             "expected_visual_delta": {
-                "semantic_locator": "SHIP",
-                "effect": "the top-row SHIP locator is absent",
+                "semantic_locator": component["target"][
+                    "semantic_locator"
+                ],
+                "effect": component["runtime"][
+                    "expected_visual_effect"
+                ],
             },
             "expected_texture_delta": {
                 "chunk_index": component["target"]["chunk_index"],
@@ -274,11 +256,7 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
                     "mask_audit"
                 ]["changed_pixel_indexes_sha256"],
             },
-            "promotion_rule": (
-                "Promote KVMDATA chunk 2 to a runtime information-page "
-                "mapping only when a matching screenshot and texture-dump "
-                "delta satisfy both expected deltas."
-            ),
+            "promotion_rule": component["runtime"]["promotion_rule"],
         },
     }
 
@@ -286,9 +264,25 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
 def main() -> int:
     args = parse_args()
     config_path = args.config.resolve()
-    component_manifest_path = args.component_manifest.resolve()
-    manifest_path = args.manifest.resolve()
-    report_path = require_work_output(args.report.resolve(), WORK_ROOT)
+    config = load_config(config_path)
+    component_manifest_path = (
+        args.component_manifest
+        or PROJECT_ROOT / config["component_validation_manifest"]
+    ).resolve()
+    manifest_path = (
+        args.manifest
+        or PROJECT_ROOT / config["runtime_evidence_manifest"]
+    ).resolve()
+    report_path = require_work_output(
+        (
+            args.report
+            or WORK_ROOT
+            / "review"
+            / config["profile_id"]
+            / "iso-validation.json"
+        ).resolve(),
+        WORK_ROOT,
+    )
     if report_path.exists() and not args.force:
         raise SystemExit(f"output exists; use --force: {report_path}")
     try:
@@ -298,7 +292,7 @@ def main() -> int:
         OSError,
         RuntimeError,
         ValueError,
-        UiInfoAtlasMapCanaryIsoError,
+        UiAtlasMapCanaryIsoError,
     ) as error:
         raise SystemExit(str(error)) from error
 
@@ -328,7 +322,8 @@ def main() -> int:
         encoding="utf-8",
     )
     print(
-        "UI information-atlas mapping-canary ISO verified:",
+        "UI atlas mapping-canary ISO verified:",
+        f"profile={report['profile_id']}",
         f"members={report['iso_build']['member_count']}",
         f"sha256={report['iso_build']['output']['sha256']}",
         "runtime=not-tested",

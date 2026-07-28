@@ -69,6 +69,14 @@
   `KURODATA/KVMDATA.BIN` 的隔离 DVD 静态绑定；记录 66 个成员、65 个未替换
   成员、零 LBA 位移、独立 UDF 回读和精确 ISO SHA-256，并将 `SHIP` 截图缺失
   与同一 299 像素 texture-dump delta 登记为运行晋级双门。
+- `ui-intermission-atlas-map-canary-validation.json`：chunk 6 幕间候选的最小
+  定位组件；只擦除顶部 `インターミッション`，保留透明黑／不透明黑背景和
+  右侧箭头，记录 803 个逻辑像素、509 个 archive byte、非目标 chunk 与等长
+  KVMDATA 门。
+- `ui-intermission-atlas-map-canary-runtime-validation.json`：把幕间组件绑定
+  到另一个单成员、零 LBA 位移的隔离 DVD；固定 65 个未替换成员、独立 UDF
+  回读和 ISO SHA-256，并将幕间截图与同一 803 像素 texture delta 登记为运行
+  晋级双门。
 - `ui-surface-inventory.json`：从真实语料、当前前五关字库和 COMPDATA
   动态名称结构确定性投影的 UI 场景摘要；固定 P0 的 462 条文本、九个缺字、
   12 个剩余候选槽、三槽余量和开场名称 writer 状态，并明确区分译文决策、

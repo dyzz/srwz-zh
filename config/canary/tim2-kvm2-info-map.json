@@ -35,14 +35,29 @@
     "source_chunk_size": 33344,
     "source_chunk_sha256": "26d14fe28c93722201597487a1597fb998d084c3345a6c27e9724fe515173815",
     "semantic_locator": "SHIP",
-    "operation": "transparent_rectangle_fill",
+    "operation": "erase_non_background_pixels",
     "mask": {
       "x": 80,
       "y": 0,
       "width": 49,
       "height": 16,
-      "replacement_rgba": "00000000"
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
     }
+  },
+  "runtime": {
+    "purpose": "Prove whether KVMDATA chunk 2 is consumed by the unit information-page SHIP label before authoring translation.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "open_unit_information_for_two_units",
+      "visit_pilot_weapon_parts_skill_and_spirit_subpages",
+      "capture_visible_missing_ship_label_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The top-row SHIP locator is absent while SELECT and SHAPE PARTS remain intact.",
+    "promotion_rule": "Only a matching screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
   },
   "toolchain": {
     "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
