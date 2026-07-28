@@ -64,7 +64,9 @@ STAGE/HB 或信息页 atlas；28 条仍为 `draft`，raw-trail 新类别和滚�
 去向，10 类进入 19 个逐屏用例，4 类登记延期原因和 exit gate；七张候选
 ISO、42 个截图点、6 个截图序列及五份 texture delta 均有机器锁。当前只有
 fresh-boot fixture 就绪，六份原生 memory card 仍待取得，因此该矩阵仍是
-测试计划而不是运行通过证明。
+测试计划而不是运行通过证明。四个 fresh-boot 用例的 case plan 与空白证据
+草稿已生成；统一 session probe／receipt verifier 会检查精确 ISO、PINE、
+DVD/ELF、零 TLB、截图、断言和 atlas RGBA delta，但当前尚无通过 receipt。
 
 ## M0：可重复基线
 

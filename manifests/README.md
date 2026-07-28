@@ -107,6 +107,11 @@
   42 个截图点、6 个截图序列和 5 个 texture delta。当前只有 fresh-boot
   fixture 就绪，六份原生 memory card 尚未取得，因此 19 个用例均保持
   `not_tested`，清单不保存存档、截图或游戏字节。
+- `runtime/ui-cases/*.json`：未来每个已通过用例的 hash-only receipt。receipt
+  必须由 case-owned session probe、截图／序列、全部断言及可选 atlas
+  texture delta 生成；矩阵锁定 receipt SHA-256，receipt 反向锁定排除运行
+  状态和自身 receipt 字段的稳定 `matrix_plan_sha256`。当前没有任何此类
+  通过清单。
 - `ui-p0-font-validation.json`：在不改变 first-five 组件的前提下追加九个
   P0 UI 字符并统一重绘九个原版汉字；记录 1,454 个 assignment、VT1
   size-preserving 重压缩、SLPS offset 回读、462 条文本零缺字／零原版汉字

@@ -32,7 +32,9 @@
 每个运行用例登记 fixture 状态、到达步骤、截图点和证据要求。存档必须位于
 被忽略的 `work/runtime/ui-fixtures/`，只有原生 `.ps2` memory card 和 SHA-256
 都登记后才能从 `not_acquired` 晋级；已有 `.p2s` savestate 不会被自动当作
-可替代证据。
+可替代证据。用例只有在 `manifests/runtime/ui-cases/` 下存在通过校验的
+hash-only receipt，并由矩阵锁定 receipt SHA-256 后，才允许把
+`runtime_status` 改为 `passed`。
 
 每类生产 JSON 都必须显式声明自己的 `schema_version`，由对应 loader
 fail-closed 校验；不同领域的 schema 独立演进，不能假设全仓库共用同一版本。

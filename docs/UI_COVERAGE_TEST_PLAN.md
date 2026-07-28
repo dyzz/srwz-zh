@@ -363,6 +363,41 @@ python3 tools/audit_ui_runtime_matrix.py --force
 原生存档。矩阵当前的 19 个 `runtime_status` 全部为 `not_tested`；
 `route_ready` 只表示路线无需存档，不表示 PCSX2 已执行。
 
+每个用例的执行链固定为：
+
+```bash
+# 1. 只生成被忽略的路线、目录和空白证据草稿，不启动模拟器
+python3 tools/prepare_ui_runtime_case.py \
+  --case-id core/title-main-menu --force
+
+# 2. PCSX2 已从新进程启动精确 ISO 后，验证 ISO、PINE、DVD/ELF 和零 TLB
+python3 tools/probe_ui_runtime_session.py \
+  --case-id core/title-main-menu \
+  --fresh-process --force
+
+# 3. 填完 evidence-draft.json 的截图路径、断言和 verdict 后生成 hash-only 收据
+python3 tools/verify_ui_runtime_evidence.py \
+  --case-id core/title-main-menu --force
+```
+
+第一步现已为 `core/title-main-menu`、`core/opening-player-setup`、
+`core/world-history-scroll` 和 `first-five/stage-001-opening` 建好本地工作区。
+第二、三步尚未执行。session probe 必须同时确认精确 ISO、PINE
+`SLPS-25887/Running`、fresh process、DVD、ELF executing 和零 TLB miss；
+视觉 verifier 要求每个 capture ID 都有哈希／尺寸、每条断言为真。atlas
+用例还会把运行纹理与锁定 reference PNG 做完整 256×256 RGBA 比较，只有
+mask 内预期像素变化才可通过。
+
+通过后的 receipt 先留在 `work/runtime/ui-cases/.../evidence-receipt.json`
+供审阅。只有复制为 `manifests/runtime/ui-cases/*.json`、在矩阵中登记路径和
+SHA-256，并重新通过矩阵审计后，`runtime_status: passed` 才成立；直接手改
+状态、沿用旧候选截图或只有 session probe 都会失败。
+
+receipt 绑定稳定的 `matrix_plan_sha256`：它覆盖路线、采集点、断言、精确
+制品、fixture 和模拟器约束，只排除运行结果状态与 receipt 自身锁。完整
+矩阵文件 SHA-256 仍单独写入派生 manifest 做 freshness 检查；两种哈希分工
+避免“矩阵锁 receipt、receipt 又锁整个矩阵”的循环依赖。
+
 ## 5. 实施顺序
 
 1. **已完成：**为 P0 追加九个新字符，并用统一字体重绘 P0 引用的九个原版

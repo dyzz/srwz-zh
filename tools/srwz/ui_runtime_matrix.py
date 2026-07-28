@@ -93,6 +93,33 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _matrix_plan_sha256(config: Mapping[str, object]) -> str:
+    """Hash immutable test planning while excluding receipt state.
+
+    A passed case stores its receipt hash back in this config, so hashing the
+    complete file inside that receipt would create a circular dependency.
+    Runtime status and receipt locks are therefore excluded; routes, captures,
+    assertions, artifacts, fixtures and emulator policy remain bound.
+    """
+
+    plan = json.loads(json.dumps(config))
+    raw_cases = plan.get("cases")
+    if not isinstance(raw_cases, list):
+        raise UiRuntimeMatrixError("runtime matrix needs test cases")
+    for raw_case in raw_cases:
+        if not isinstance(raw_case, dict):
+            raise UiRuntimeMatrixError("runtime test case must be an object")
+        raw_case.pop("runtime_status", None)
+        raw_case.pop("runtime_evidence", None)
+    payload = json.dumps(
+        plan,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
 def _require_sha256(raw: object, *, context: str) -> str:
     if (
         not isinstance(raw, str)
@@ -352,11 +379,15 @@ def _fixtures(project_root: Path, raw_fixtures: object) -> tuple[dict, ...]:
 
 
 def _cases(
+    project_root: Path,
+    matrix_id: str,
+    matrix_plan_sha256: str,
     raw_cases: object,
     *,
     scenes: Mapping[str, Mapping[str, object]],
     artifacts: Mapping[str, Mapping[str, object]],
     fixtures: Mapping[str, Mapping[str, object]],
+    emulator: Mapping[str, object],
 ) -> tuple[dict, ...]:
     if not isinstance(raw_cases, list) or not raw_cases:
         raise UiRuntimeMatrixError("runtime matrix needs test cases")
@@ -476,29 +507,67 @@ def _cases(
             raise UiRuntimeMatrixError(
                 f"world-history case {case_id} must capture start, middle and end"
             )
-        cases.append(
-            {
-                "case_id": case_id,
-                "purpose": purpose,
-                "priority": priority,
-                "scene_ids": list(scene_ids),
-                "artifact_id": artifact_id,
-                "fixture_id": fixture_id,
-                "fixture_status": fixtures[fixture_id]["status"],
-                "variant": raw.get("variant"),
-                "route_step_count": len(route),
-                "assertion_count": len(assertions),
-                "capture_counts": dict(sorted(kinds.items())),
-                "capture_points": captures,
-                "runtime_status": runtime_status,
-                "execution_readiness": (
+        case_projection = {
+            "case_id": case_id,
+            "purpose": purpose,
+            "priority": priority,
+            "scene_ids": list(scene_ids),
+            "artifact_id": artifact_id,
+            "fixture_id": fixture_id,
+            "fixture_status": fixtures[fixture_id]["status"],
+            "variant": raw.get("variant"),
+            "route_step_count": len(route),
+            "assertion_count": len(assertions),
+            "route": list(route),
+            "assertions": list(assertions),
+            "capture_counts": dict(sorted(kinds.items())),
+            "capture_points": captures,
+            "runtime_status": runtime_status,
+            "execution_readiness": (
+                "runtime_passed"
+                if runtime_status == "passed"
+                else (
                     "route_ready_runtime_not_tested"
                     if fixtures[fixture_id]["status"] == "ready"
                     else "blocked_by_missing_fixture"
-                ),
-                "texture_delta": mapping,
-            }
-        )
+                )
+            ),
+            "texture_delta": mapping,
+        }
+        evidence_lock = raw.get("runtime_evidence")
+        if runtime_status == "not_tested":
+            if evidence_lock is not None:
+                raise UiRuntimeMatrixError(
+                    f"not-tested case {case_id} cannot claim runtime evidence"
+                )
+            evidence_projection = None
+        else:
+            if fixtures[fixture_id]["status"] != "ready":
+                raise UiRuntimeMatrixError(
+                    f"passed case {case_id} uses an unready fixture"
+                )
+            from .ui_runtime_evidence import (
+                UiRuntimeEvidenceError,
+                validate_committed_runtime_receipt,
+            )
+
+            try:
+                evidence_projection = validate_committed_runtime_receipt(
+                    project_root,
+                    evidence_lock,
+                    matrix_id=matrix_id,
+                    matrix_plan_sha256=matrix_plan_sha256,
+                    case=case_projection,
+                    artifact=artifacts[artifact_id],
+                    fixture=fixtures[fixture_id],
+                    emulator=emulator,
+                    capture_points=captures,
+                    assertion_count=len(assertions),
+                )
+            except UiRuntimeEvidenceError as error:
+                raise UiRuntimeMatrixError(str(error)) from error
+        case_projection["runtime_evidence"] = evidence_projection
+        cases.append(case_projection)
     return tuple(cases)
 
 
@@ -590,6 +659,8 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
     scope = config.get("scope")
     if not isinstance(scope, str) or not scope:
         raise UiRuntimeMatrixError("UI runtime matrix needs scope")
+    matrix_config_sha256 = _sha256(config_path)
+    matrix_plan_sha256 = _matrix_plan_sha256(config)
 
     scene_lock = config.get("scene_inventory")
     if not isinstance(scene_lock, dict):
@@ -630,16 +701,40 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
         raise UiRuntimeMatrixError("common runtime evidence policy is incomplete")
     if not _MAPPING_EVIDENCE <= mapping:
         raise UiRuntimeMatrixError("asset mapping evidence policy is incomplete")
+    emulator = evidence_policy.get("required_emulator")
+    if not isinstance(emulator, dict):
+        raise UiRuntimeMatrixError("runtime matrix needs required_emulator")
+    emulator_fields = {
+        "name",
+        "version",
+        "pine_version",
+        "architecture",
+        "launch_mode",
+        "game_id",
+    }
+    if set(emulator) != emulator_fields or any(
+        not isinstance(emulator[field], str) or not emulator[field]
+        for field in emulator_fields
+    ):
+        raise UiRuntimeMatrixError("runtime emulator lock is invalid")
+    if emulator["pine_version"] != (
+        f"{emulator['name']} v{emulator['version']}"
+    ):
+        raise UiRuntimeMatrixError("runtime PINE emulator version lock is invalid")
 
     artifacts = _locked_artifacts(project_root, config.get("artifact_profiles"))
     artifacts_by_id = {artifact["artifact_id"]: artifact for artifact in artifacts}
     fixtures = _fixtures(project_root, config.get("fixtures"))
     fixtures_by_id = {fixture["fixture_id"]: fixture for fixture in fixtures}
     cases = _cases(
+        project_root,
+        matrix_id,
+        matrix_plan_sha256,
         config.get("cases"),
         scenes=scenes,
         artifacts=artifacts_by_id,
         fixtures=fixtures_by_id,
+        emulator=emulator,
     )
     cases_by_id = {case["case_id"]: case for case in cases}
     dispositions = _scene_dispositions(
@@ -657,11 +752,6 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
         raise UiRuntimeMatrixError(
             "first-five opening cases must cover variants 001 through 005"
         )
-    if any(case["runtime_status"] != "not_tested" for case in cases):
-        raise UiRuntimeMatrixError(
-            "committed runtime matrix cannot claim unreviewed passed cases"
-        )
-
     purpose_counts = Counter(case["purpose"] for case in cases)
     priority_counts = Counter(case["priority"] for case in cases)
     capture_counts = Counter()
@@ -690,12 +780,23 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
         for case in cases
         if case["execution_readiness"] == "blocked_by_missing_fixture"
     ]
+    passed_cases = [
+        case for case in cases if case["runtime_status"] == "passed"
+    ]
+    not_tested_cases = [
+        case for case in cases if case["runtime_status"] == "not_tested"
+    ]
 
     return {
         "schema_version": 1,
         "status": "runtime_matrix_validated_execution_pending",
         "matrix_id": matrix_id,
         "scope": scope,
+        "matrix_config": {
+            "path": str(config_path.resolve().relative_to(project_root)),
+            "sha256": matrix_config_sha256,
+        },
+        "matrix_plan_sha256": matrix_plan_sha256,
         "scene_inventory": {
             "path": str(scene_path.relative_to(project_root)),
             "sha256": scene_sha256,
@@ -705,6 +806,7 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
         "evidence_policy": {
             "required_common": sorted(common),
             "required_for_asset_mapping": sorted(mapping),
+            "required_emulator": emulator,
         },
         "summary": {
             "scene_count": len(scenes),
@@ -719,8 +821,8 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
             "route_ready_case_count": len(ready_cases),
             "missing_fixture_case_count": len(blocked_cases),
             "capture_counts": dict(sorted(capture_counts.items())),
-            "runtime_passed_case_count": 0,
-            "runtime_not_tested_case_count": len(cases),
+            "runtime_passed_case_count": len(passed_cases),
+            "runtime_not_tested_case_count": len(not_tested_cases),
         },
         "artifacts": list(artifacts),
         "fixtures": list(fixtures),
@@ -737,6 +839,8 @@ def build_runtime_matrix_manifest(report: Mapping[str, object]) -> dict:
         "status": report["status"],
         "matrix_id": report["matrix_id"],
         "scope": report["scope"],
+        "matrix_config": report["matrix_config"],
+        "matrix_plan_sha256": report["matrix_plan_sha256"],
         "scene_inventory": report["scene_inventory"],
         "evidence_policy": report["evidence_policy"],
         "summary": report["summary"],
@@ -760,6 +864,7 @@ def build_runtime_matrix_manifest(report: Mapping[str, object]) -> dict:
                     "runtime_status",
                     "execution_readiness",
                     "texture_delta",
+                    "runtime_evidence",
                 )
             }
             for case in report["cases"]

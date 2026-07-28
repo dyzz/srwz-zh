@@ -23,7 +23,15 @@
       "texture_dump_sha256",
       "texture_delta_pixel_count",
       "texture_delta_index_sha256"
-    ]
+    ],
+    "required_emulator": {
+      "name": "PCSX2",
+      "version": "2.6.3",
+      "pine_version": "PCSX2 v2.6.3",
+      "architecture": "x86_64",
+      "launch_mode": "nogui fastboot nofullscreen",
+      "game_id": "SLPS-25887"
+    }
   },
   "artifact_profiles": [
     {

@@ -7,6 +7,7 @@ from pathlib import Path
 
 from tools.srwz.ui_runtime_matrix import (
     UiRuntimeMatrixError,
+    _matrix_plan_sha256,
     audit_ui_runtime_matrix,
     build_runtime_matrix_manifest,
     write_runtime_matrix_tsv,
@@ -250,6 +251,41 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             "needs one locked texture delta",
         ):
             self._audit_mutation(mutate)
+
+    def test_passed_case_without_committed_receipt_fails_closed(self):
+        def mutate(document):
+            case = next(
+                case
+                for case in document["cases"]
+                if case["case_id"] == "core/title-main-menu"
+            )
+            case["runtime_status"] = "passed"
+
+        with self.assertRaisesRegex(
+            UiRuntimeMatrixError,
+            "needs runtime_evidence",
+        ):
+            self._audit_mutation(mutate)
+
+    def test_plan_hash_excludes_only_runtime_result_state(self):
+        document = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+        changed_status = copy.deepcopy(document)
+        changed_status["cases"][0]["runtime_status"] = "passed"
+        changed_status["cases"][0]["runtime_evidence"] = {
+            "manifest": "manifests/runtime/ui-cases/fixture.json",
+            "sha256": "0" * 64,
+        }
+        self.assertEqual(
+            _matrix_plan_sha256(document),
+            _matrix_plan_sha256(changed_status),
+        )
+
+        changed_route = copy.deepcopy(document)
+        changed_route["cases"][0]["route"][0] += " changed"
+        self.assertNotEqual(
+            _matrix_plan_sha256(document),
+            _matrix_plan_sha256(changed_route),
+        )
 
 
 if __name__ == "__main__":

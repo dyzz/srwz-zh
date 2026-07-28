@@ -18,7 +18,7 @@
 | 文本数据 | `text.py`、`menu.py`、`stage.py`、`summary.py`、`summary_layout.py`、`display_names.py`、`reference.py` | 码表、控制码、菜单/剧情/摘要、世界史固定 allocation 中文布局、COMPDATA 名称表解析和参考结果对照 |
 | 语料与写回 | `corpus.py`、`translation_review.py`、`writeback.py`、`writers.py` | 稳定 ID、译文/术语审核、严格序列化、前像保护、文本池/指针、定长文本和归档 writer |
 | 生产选择 | `project.py` | SurfaceSpec、中文语料、codebook 和 BuildProfile reconciliation |
-| 字库、canary 与 UI 集成 | `font.py`、`font_source.py`、`ui_font.py`、`canary.py`、`complete_canary.py`、`ui_integration.py` | 许可证/哈希锁定的字体源、VT1 字库段、24×24/4-bpp glyph、继承式 UI 字库 profile、菜单/摘要/剧情 canary，以及已验证 UI 组件的无冲突确定性组合 |
+| 字库、canary 与 UI 集成 | `font.py`、`font_source.py`、`ui_font.py`、`canary.py`、`complete_canary.py`、`ui_integration.py`、`ui_runtime_matrix.py`、`ui_runtime_evidence.py` | 许可证/哈希锁定的字体源、VT1 字库段、24×24/4-bpp glyph、继承式 UI 字库 profile、菜单/摘要/剧情 canary、已验证 UI 组件组合，以及逐屏运行计划／证据收据 |
 | 图片与地图名 | `tim2.py`、`tim2_writeback.py`、`ui_atlas_canary.py`、`image_export.py`、`image_dashboard.py`、`imagemagick.py`、`assets.py`、`mapname.py` | TIM2 v4 严格元数据、全量图片导出与本地 Dashboard、固定 4-bpp/VT1 8-bpp index 注入、受 mask 约束的信息页定位 canary、确定性 ImageMagick adapter、归档清单和 MAPNAME |
 | 镜像验证 | `iso_config.py`、`iso9660.py` | ISO profile schema／目录所有权契约、只读 ISO9660 扫描、成员哈希、布局和 PCSX2 介质判定 |
 | 补丁审计 | `patch_audit.py`、`toolchain.py` | 写入所有者、允许范围、armips 来源/构建/结果审计 |
@@ -41,7 +41,7 @@
 | 编码与归档写回验证 | `validate_srwz_encoder.py`、`validate_srwz_archive_rebuild.py` |
 | 静态 canary | `build_static_canary.py`、`build_complete_canary.py` |
 | ISO | `bootstrap_mkps2iso.py`、`build_canary_iso.py`、`verify_first_five_iso_content.py`、`verify_ui_p1_world_history_iso.py`（世界史 component→隔离 ISO 静态绑定）、`verify_ui_p1_core_iso.py`（组合 UI component→ISO 静态绑定）、`verify_ui_atlas_map_canary_iso.py`（UI atlas 定位 component→单成员、零 LBA 位移的隔离 ISO 静态绑定） |
-| PCSX2/PINE | `verify_pcsx2_font_runtime.py`、`verify_first_five_runtime.py`、`send_pcsx2_keys.swift`；UI 的 ISO verifier 只登记待执行路线，不冒充运行证明 |
+| PCSX2/PINE | `prepare_ui_runtime_case.py`（生成 case plan／空白草稿）、`probe_ui_runtime_session.py`（精确 ISO＋PINE＋日志 R0）、`verify_ui_runtime_evidence.py`（截图／序列／atlas delta＋断言收据）、`verify_pcsx2_font_runtime.py`、`verify_first_five_runtime.py`、`send_pcsx2_keys.swift`；准备工作区或 ISO verifier 都不冒充运行证明 |
 | ASM 与二进制审计 | `check_armips_toolchain.py`、`audit_binary_patch.py` |
 | 上游快照 | `compare_upstream_snapshot.py` |
 

@@ -62,6 +62,10 @@ byte-exact no-op、VT1 六 picture 8-bpp index 替换、PSMT8 双向映射、CSM
 001～005 五个独立开场序列、世界史起点／中点／终点、五张 atlas 的截图＋
 texture-delta 双门，以及六份尚未取得的原生 memory-card fixture；旧 `.p2s`
 savestate 不会自动替代 `.ps2`＋SHA-256 证据；
+`test_ui_runtime_evidence.py` 固定 case plan、精确 ISO、PINE Running、
+fresh-process、DVD／ELF／零 TLB 日志、原生 memory-card 哈希、截图收据和
+矩阵 receipt 晋级边界；草稿、失败断言或没有提交 receipt 的 `passed` 状态
+必须失败；
 `test_inject_srwz_tim2.py` 固定
 archive/report 输出边界；`test_mapname.py` 固定 Shift-JIS/NUL/全零 padding。
 真实图片清单、MAPNAME 聚合计数、PCSX2 图片 canary 的 351-pixel 精确 RGBA

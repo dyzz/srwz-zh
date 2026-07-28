@@ -25,7 +25,10 @@ LBA 位移 ISO 均已静态锁定，但尚无截图／texture dump 双证据，�
 正式运行映射或中文 atlas。对应运行范围已整理为 19 个机器可检查用例：
 14 类场景完整分成 10 类当前目标和 4 类显式延期，绑定 7 张精确 ISO、
 42 个截图点、6 个开场／滚动序列与 5 个 texture delta；目前六份原生
-memory card 尚未取得，19 个用例均保持 `not_tested`。
+memory card 尚未取得，19 个用例均保持 `not_tested`。四个 fresh-boot
+用例已生成精确 case plan 和空白证据草稿；统一 verifier 会把 ISO、PINE、
+日志、截图／序列、断言和 atlas RGBA delta 收敛为 hash-only receipt，但
+当前尚无 receipt 通过。
 尚未生成或发布正式游戏补丁。
 
 翻译生产已进入 v1：28 条世界历史摘要、全部 2,415 条菜单文本、558 条剧情

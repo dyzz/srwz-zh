@@ -3,6 +3,11 @@
   "status": "runtime_matrix_validated_execution_pending",
   "matrix_id": "srwz-ui-runtime-v1",
   "scope": "Runtime scene selection for the current UI core, first-five opening sequences and five isolated KVMDATA mapping canaries. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
+  "matrix_config": {
+    "path": "config/runtime/ui-test-matrix.json",
+    "sha256": "87e71aa06d1323a18f593b9d25eb87ba9f82503a7b1643a7363caabbf9edfd26"
+  },
+  "matrix_plan_sha256": "2375c94b7044f24e80fb6cb1a6a8264de4ce330e6ee3c7fada3f8fe821173469",
   "scene_inventory": {
     "path": "config/ui-scenes.json",
     "sha256": "359186c2ad46ec19a3c9b63cf14230160a684fd37f3fe805b8842b2713b5784c",
@@ -25,7 +30,15 @@
       "texture_delta_index_sha256",
       "texture_delta_pixel_count",
       "texture_dump_sha256"
-    ]
+    ],
+    "required_emulator": {
+      "name": "PCSX2",
+      "version": "2.6.3",
+      "pine_version": "PCSX2 v2.6.3",
+      "architecture": "x86_64",
+      "launch_mode": "nogui fastboot nofullscreen",
+      "game_id": "SLPS-25887"
+    }
   },
   "summary": {
     "scene_count": 14,
@@ -233,7 +246,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "route_ready_runtime_not_tested",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "core/opening-player-setup",
@@ -253,7 +267,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "route_ready_runtime_not_tested",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "core/intermission-main-options",
@@ -273,7 +288,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "blocked_by_missing_fixture",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "core/information-pages",
@@ -293,7 +309,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "blocked_by_missing_fixture",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "core/battle-map-tactical",
@@ -313,7 +330,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "blocked_by_missing_fixture",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "core/results-deployment",
@@ -333,7 +351,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "blocked_by_missing_fixture",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "core/search-filter-results",
@@ -353,7 +372,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "blocked_by_missing_fixture",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "core/world-history-scroll",
@@ -374,7 +394,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "route_ready_runtime_not_tested",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "first-five/stage-001-opening",
@@ -395,7 +416,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "route_ready_runtime_not_tested",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "first-five/stage-002-opening",
@@ -416,7 +438,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "blocked_by_missing_fixture",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "first-five/stage-003-opening",
@@ -437,7 +460,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "blocked_by_missing_fixture",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "first-five/stage-004-opening",
@@ -458,7 +482,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "blocked_by_missing_fixture",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "first-five/stage-005-opening",
@@ -479,7 +504,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "blocked_by_missing_fixture",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "first-five/stage-title-route-branch",
@@ -499,7 +525,8 @@
       },
       "runtime_status": "not_tested",
       "execution_readiness": "blocked_by_missing_fixture",
-      "texture_delta": null
+      "texture_delta": null,
+      "runtime_evidence": null
     },
     {
       "case_id": "mapping/info-atlas",
@@ -525,7 +552,8 @@
         "chunk_index": 2,
         "changed_pixel_count": 299,
         "changed_pixel_indexes_sha256": "33499f730c59adab3f36a53df061e2e5c9f76b78846ebb1bfc45bf8c1fd52f12"
-      }
+      },
+      "runtime_evidence": null
     },
     {
       "case_id": "mapping/battle-command-atlas",
@@ -550,7 +578,8 @@
         "chunk_index": 4,
         "changed_pixel_count": 2297,
         "changed_pixel_indexes_sha256": "94cd432c08164769bf11163a86eef52e359cc8c94e86341e141422b5f871c154"
-      }
+      },
+      "runtime_evidence": null
     },
     {
       "case_id": "mapping/bazaar-atlas",
@@ -575,7 +604,8 @@
         "chunk_index": 5,
         "changed_pixel_count": 2197,
         "changed_pixel_indexes_sha256": "0cc8942b9b2287191d4fd03bc7f2d5f600a9d504f8d2088895234b63775999c2"
-      }
+      },
+      "runtime_evidence": null
     },
     {
       "case_id": "mapping/intermission-atlas",
@@ -600,7 +630,8 @@
         "chunk_index": 6,
         "changed_pixel_count": 803,
         "changed_pixel_indexes_sha256": "d989382d13c86b3dae0fb8bbfdba9c8abe5a9e1efb382182cb88c61bc09f3632"
-      }
+      },
+      "runtime_evidence": null
     },
     {
       "case_id": "mapping/formation-atlas",
@@ -626,7 +657,8 @@
         "chunk_index": 7,
         "changed_pixel_count": 1325,
         "changed_pixel_indexes_sha256": "3419d22b9315e706ec7f962732c0174f52b5d7be9f5c26f4be3b5047fd0afecc"
-      }
+      },
+      "runtime_evidence": null
     }
   ],
   "scene_dispositions": [
