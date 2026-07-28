@@ -278,6 +278,27 @@ python3 tools/verify_ui_p0_display_names.py --force
 终止。组件已完成压缩流重编码和精确回解；它仍只是独立组件，不是 ISO 或
 PCSX2 运行证明。
 
+### 4.2 世界史滚动文本布局
+
+`config/summary/world-history-layout.json` 锁定真实 SLPS、MTV_PROS、上游码表、
+语料 release 和当前 UI P0 字库清单。检查模式不会改写语料：
+
+```bash
+python3 tools/reflow_world_history.py --force
+```
+
+排版器以人工换行和段落缩进为优先事实，只对超过 22 格的行自动重排；术语、
+ASCII 词组和中文标点禁则不会被拆开。MTV_PROS 中三个跨记录连续组不能按普通
+段落处理，因此会在保持完整逻辑正文的同时，按每条原始字节 allocation 求解
+新的记录边界。当前 28 条共 146 行，14 个空行与原版一致，最大宽度 22 格，
+全部定长记录 overflow 为 0。
+
+这项门禁不分配字形。当前 28 条仍为 `draft`，相对 UI P0 字库缺 27 个字符，
+只剩 3 个安全候选槽，短缺 24 个；运行状态明确为 `not_tested`。只有人工审阅
+报告后才能运行 `--apply`，再次取得零差异后才可用 `--refresh-manifest` 更新
+`manifests/world-history-layout.json`。该清单证明布局和容量，不证明完整中文
+组件、ISO 或滚动起点／中段／结尾的实机效果。
+
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求
 源文和译文的格式 token multiset 完全一致。这个门禁不能用“最终显示看起来

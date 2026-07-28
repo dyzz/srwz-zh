@@ -432,7 +432,8 @@ affected components/surfaces
 | E0 | 已完成 | component/ISO/runtime/visual 哈希链和事故 gates | 后续只允许显式更新 golden |
 | E1 | 已完成 | SurfaceSpec、中文记录、codebook、`canary-menu`、reconciliation 和固定 component/ISO lock | 后续统一 CLI 属于 E3 工程化 |
 | E2 | 已完成 | menu、MTV_PROS summary、STAGE growing dialogue 三类 writer/profile/fixture；三条独立 PCSX2 证据和完整组合 smoke | 扩大语料前进入 E3 |
-| E3–E5 | 未开始 | E2 可复用 clean-room 生产基础 | 按下述退出条件实施 |
+| E3 | 进行中 | 前五关和世界史布局门、P0 UI 字库／fixed-span writer、动态名称结构与首批写回 | 补齐字库容量、离线 render oracle、组合 ISO 和运行矩阵 |
+| E4–E5 | 未开始 | E2 可复用 clean-room 生产基础 | 在 E3 退出条件满足后实施 |
 
 ### E0：冻结首个纵向切片
 

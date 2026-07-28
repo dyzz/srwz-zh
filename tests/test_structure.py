@@ -11,6 +11,7 @@ ALLOWED_IMPORT_ROOTS = {
     "binascii",
     "collections",
     "concurrent",
+    "copy",
     "csv",
     "dataclasses",
     "functools",
@@ -50,8 +51,7 @@ class SourceStructureTests(unittest.TestCase):
                 for node in ast.walk(tree):
                     if isinstance(node, ast.Import):
                         roots.update(
-                            alias.name.partition(".")[0]
-                            for alias in node.names
+                            alias.name.partition(".")[0] for alias in node.names
                         )
                     elif (
                         isinstance(node, ast.ImportFrom)
@@ -85,8 +85,7 @@ class SourceStructureTests(unittest.TestCase):
                         isinstance(node, ast.ImportFrom)
                         and node.level == 0
                         and node.module
-                        and node.module.partition(".")[0]
-                        in {"srwz", "tools", "vendor"}
+                        and node.module.partition(".")[0] in {"srwz", "tools", "vendor"}
                     ):
                         absolute_project_imports.append(node.module)
                 self.assertEqual(absolute_project_imports, [])

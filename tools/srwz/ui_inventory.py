@@ -90,6 +90,10 @@ def load_scene_config(path: Path) -> dict:
             or not scene["runtime_assertions"]
         ):
             raise UiInventoryError(f"{scene_id} needs runtime assertions")
+        if "layout_manifest" in scene and not isinstance(
+            scene["layout_manifest"], dict
+        ):
+            raise UiInventoryError(f"{scene_id} layout_manifest must be an object")
     if len(scene_ids) != len(set(scene_ids)):
         raise UiInventoryError("UI scene IDs must be unique")
     return document
@@ -635,6 +639,61 @@ def _asset_report(project_root: Path, source: Mapping[str, object]) -> dict:
     }
 
 
+def _layout_manifest_report(
+    project_root: Path,
+    reference: Mapping[str, object],
+    *,
+    selected_entry_count: int,
+) -> dict:
+    path = _project_path(project_root, reference.get("path"))
+    manifest = _json_object(path)
+    selection = manifest.get("selection")
+    layout = manifest.get("layout")
+    allocation = manifest.get("allocation")
+    editorial = manifest.get("editorial")
+    font = manifest.get("font_capacity")
+    runtime = manifest.get("runtime")
+    if not all(
+        isinstance(value, dict)
+        for value in (selection, layout, allocation, editorial, font, runtime)
+    ):
+        raise UiInventoryError(f"layout manifest shape drift: {reference.get('path')}")
+
+    actual = {
+        "required_status": manifest.get("status"),
+        "expected_entry_count": selection.get("entry_count"),
+        "maximum_line_width": layout.get("maximum_line_width"),
+        "fixed_allocation_overflow_count": allocation.get("overflow_count"),
+        "editorial_draft_entry_count": editorial.get("status_counts", {}).get("draft"),
+        "font_missing_character_count": font.get("missing_character_count"),
+        "font_candidate_shortfall": font.get("candidate_shortfall"),
+        "runtime_status": runtime.get("status"),
+    }
+    expected = {key: reference.get(key) for key in actual}
+    if actual != expected:
+        raise UiInventoryError(
+            f"layout manifest ratchet drift: {reference.get('path')}"
+        )
+    if actual["expected_entry_count"] != selected_entry_count:
+        raise UiInventoryError(
+            f"layout manifest selection drift: {reference.get('path')}"
+        )
+
+    return {
+        "path": str(path.relative_to(project_root.resolve())),
+        "sha256": sha256_bytes(path.read_bytes()),
+        "status": manifest["status"],
+        "entry_count": selection["entry_count"],
+        "output_line_count": layout.get("output_line_count"),
+        "maximum_line_width": layout["maximum_line_width"],
+        "fixed_allocation_overflow_count": allocation["overflow_count"],
+        "editorial_draft_entry_count": editorial["status_counts"]["draft"],
+        "font_missing_character_count": font["missing_character_count"],
+        "font_candidate_shortfall": font["candidate_shortfall"],
+        "runtime_status": runtime["status"],
+    }
+
+
 def audit_ui_inventory(project_root: Path, config_path: Path) -> dict:
     """Audit selectors, source freshness, font demand and planning ratchets."""
 
@@ -667,6 +726,13 @@ def audit_ui_inventory(project_root: Path, config_path: Path) -> dict:
         assets = [
             _asset_report(project_root, raw) for raw in scene.get("asset_sources", [])
         ]
+        layout_report = None
+        if "layout_manifest" in scene:
+            layout_report = _layout_manifest_report(
+                project_root,
+                scene["layout_manifest"],
+                selected_entry_count=len(entries),
+            )
         font_report = audit_entry_font(entries, font_baseline)
         if scene["priority"] == "P0":
             for entry in entries:
@@ -688,6 +754,7 @@ def audit_ui_inventory(project_root: Path, config_path: Path) -> dict:
                 ),
                 "font": font_report,
                 "assets": assets,
+                "layout": layout_report,
                 "implementation": scene["implementation"],
                 "runtime_route_step_count": len(scene["route"]),
                 "runtime_assertion_count": len(scene["runtime_assertions"]),
@@ -761,24 +828,25 @@ def build_inventory_manifest(report: Mapping[str, object]) -> dict:
 
     scenes = []
     for scene in report["scenes"]:
-        scenes.append(
-            {
-                "scene_id": scene["scene_id"],
-                "priority": scene["priority"],
-                "label": scene["label"],
-                "category": scene["category"],
-                "selected_entry_count": scene["selected_entry_count"],
-                "decision_complete_count": scene["decision_complete_count"],
-                "asset_translation_count": scene["asset_translation_count"],
-                "missing_renderer_character_count": scene["font"][
-                    "missing_character_count"
-                ],
-                "assets": scene["assets"],
-                "implementation": scene["implementation"],
-                "runtime_route_step_count": scene["runtime_route_step_count"],
-                "runtime_assertion_count": scene["runtime_assertion_count"],
-            }
-        )
+        projected = {
+            "scene_id": scene["scene_id"],
+            "priority": scene["priority"],
+            "label": scene["label"],
+            "category": scene["category"],
+            "selected_entry_count": scene["selected_entry_count"],
+            "decision_complete_count": scene["decision_complete_count"],
+            "asset_translation_count": scene["asset_translation_count"],
+            "missing_renderer_character_count": scene["font"][
+                "missing_character_count"
+            ],
+            "assets": scene["assets"],
+            "implementation": scene["implementation"],
+            "runtime_route_step_count": scene["runtime_route_step_count"],
+            "runtime_assertion_count": scene["runtime_assertion_count"],
+        }
+        if scene.get("layout") is not None:
+            projected["layout"] = scene["layout"]
+        scenes.append(projected)
 
     return {
         "schema_version": 1,

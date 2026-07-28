@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "layout_id": "srwz-world-history-zh-layout-v1",
+  "scope": "Canonical Chinese line layout for all 28 MTV_PROS world-history text records. This profile validates fixed allocations but does not allocate new glyphs, build an ISO or prove runtime scrolling.",
+  "source": {
+    "slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "member": {
+      "path": "work/disc/DATA/MTV_PROS.BIN",
+      "size": 9056,
+      "sha256": "47999cb2994d9775a68ecca49ebe3e5f73c0118b92168a6ba577f836886e1b5a"
+    },
+    "text_table": {
+      "path": "vendor/upstream-python/project/tbl_all.json",
+      "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+    }
+  },
+  "translation_source": {
+    "path": "corpus/zh/summary.json",
+    "batch_id": "v1-summary-world-history",
+    "expected_entry_count": 28
+  },
+  "release": {
+    "path": "corpus/releases/v1.json",
+    "sha256": "1db560ab01af0665be4626560e7aed368b109cd80571cd14783ae30e0f5dbdf5",
+    "release_id": "srwz-zh-corpus-v1"
+  },
+  "font_candidate": {
+    "manifest": "manifests/ui-p0-font-validation.json",
+    "required_status": "offline_font_and_p0_renderer_coverage_passed_runtime_pending"
+  },
+  "base_codebook": {
+    "path": "config/encoding/codebook.json",
+    "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+  },
+  "layout": {
+    "line_width": 22,
+    "paragraph_indent": "　",
+    "blank_line": "　",
+    "preserve_blank_line_count": true,
+    "preserve_logical_text": true,
+    "fixed_line_group_policy": "source_indentation_starts_group"
+  },
+  "ratchet": {
+    "entry_count": 28,
+    "text_chunk_count": 12,
+    "source_blank_line_count": 14,
+    "output_blank_line_count": 14,
+    "maximum_line_width": 22,
+    "fixed_allocation_overflow_count": 0,
+    "editorial_draft_entry_count": 28,
+    "font_missing_character_count": 27,
+    "remaining_safe_candidate_slot_count": 3,
+    "font_candidate_shortfall": 24
+  },
+  "outputs": {
+    "report": "work/review/world-history-layout.json",
+    "manifest": "manifests/world-history-layout.json"
+  }
+}

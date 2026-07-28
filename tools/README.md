@@ -15,7 +15,7 @@
 | --- | --- | --- |
 | 压缩格式 | `codec.py`、`codec_contract.py`、`diagnostics.py` | 严格解码、确定性 literal/greedy 编码、header-preserving suffix 重编码、边界和 trace |
 | 归档与布局 | `archive.py`、`iso_layout.py` | offset 表、chunk 切分/重建、SLPS 内嵌布局 |
-| 文本数据 | `text.py`、`menu.py`、`stage.py`、`summary.py`、`display_names.py`、`reference.py` | 码表、控制码、菜单/剧情/摘要、COMPDATA 名称表解析和参考结果对照 |
+| 文本数据 | `text.py`、`menu.py`、`stage.py`、`summary.py`、`summary_layout.py`、`display_names.py`、`reference.py` | 码表、控制码、菜单/剧情/摘要、世界史固定 allocation 中文布局、COMPDATA 名称表解析和参考结果对照 |
 | 语料与写回 | `corpus.py`、`translation_review.py`、`writeback.py`、`writers.py` | 稳定 ID、译文/术语审核、严格序列化、前像保护、文本池/指针、定长文本和归档 writer |
 | 生产选择 | `project.py` | SurfaceSpec、中文语料、codebook 和 BuildProfile reconciliation |
 | 字库与 canary | `font.py`、`font_source.py`、`canary.py`、`complete_canary.py` | 许可证/哈希锁定的字体源、VT1 字库段、24×24/4-bpp glyph、菜单/摘要/剧情完整 canary |
@@ -33,7 +33,7 @@
 | --- | --- |
 | 原版与样本 | `verify_original_disc.py`、`extract_iso_member.py`、`split_stage_archive.py`、`verify_codec_samples.py` |
 | 解码诊断 | `inspect_srwz_stream.py`、`scan_stage_streams.py` |
-| 全量解析与语料 | `parse_srwz_iso_data.py`、`parse_srwz_display_names.py`（COMPDATA 人物／机体名称结构）、`export_srwz_corpus.py`、`review_srwz_translations.py`（含当前剧情里程碑术语、例外和官方简中异名专项表）、`build_biligame_gundam_reference.py`（从 Jina 缓存离线重建 SRWZ 高达人物／机体审核索引，不自动采用社区 WIKI 译名）、`reflow_first_five_dialogue.py`（24 字宽、最多 3 行、术语／运行时 token 不拆分和中文标点禁则）、`audit_first_five_language_quality.py`（前五关显示行宽、结构符号和同源异译说明门）、`audit_first_five_upstream_english.py`（固定上游英语直接覆盖与跨关同源参考审计）、`audit_ui_coverage.py`（UI 场景选择、当前字库需求、动态名称结构／writer 和提交清单 freshness）、`build_ui_p0_fixed_slps.py`／`verify_ui_p0_fixed_slps.py`（原 span 内 P0 SLPS 写回、独立复建和指针／非目标字节门禁）、`build_ui_p0_fixed_compdata.py`／`verify_ui_p0_fixed_compdata.py`（COMPDATA 原位写回、保留前缀重编码和完整回解）、`build_ui_p0_display_names.py`／`verify_ui_p0_display_names.py`（开场 45 个动态名称字段及 ID／指针／非目标字节门禁）、`export_story_dialogue_stage_review.py`、`build_story_dialogue_stage_translation.py` |
+| 全量解析与语料 | `parse_srwz_iso_data.py`、`parse_srwz_display_names.py`（COMPDATA 人物／机体名称结构）、`export_srwz_corpus.py`、`review_srwz_translations.py`（含当前剧情里程碑术语、例外和官方简中异名专项表）、`build_biligame_gundam_reference.py`（从 Jina 缓存离线重建 SRWZ 高达人物／机体审核索引，不自动采用社区 WIKI 译名）、`reflow_first_five_dialogue.py`（24 字宽、最多 3 行、术语／运行时 token 不拆分和中文标点禁则）、`reflow_world_history.py`（28 条 MTV_PROS、22 格、空行和固定 allocation 门）、`audit_first_five_language_quality.py`（前五关显示行宽、结构符号和同源异译说明门）、`audit_first_five_upstream_english.py`（固定上游英语直接覆盖与跨关同源参考审计）、`audit_ui_coverage.py`（UI 场景选择、当前字库需求、动态名称结构／writer、世界史布局和提交清单 freshness）、`build_ui_p0_fixed_slps.py`／`verify_ui_p0_fixed_slps.py`（原 span 内 P0 SLPS 写回、独立复建和指针／非目标字节门禁）、`build_ui_p0_fixed_compdata.py`／`verify_ui_p0_fixed_compdata.py`（COMPDATA 原位写回、保留前缀重编码和完整回解）、`build_ui_p0_display_names.py`／`verify_ui_p0_display_names.py`（开场 45 个动态名称字段及 ID／指针／非目标字节门禁）、`export_story_dialogue_stage_review.py`、`build_story_dialogue_stage_translation.py` |
 | 生产 profile | `validate_build_profile.py` |
 | 字库 | `analyze_srwz_font.py`、`render_srwz_font.py`、`fetch_canary_font.py`、`fetch_first_five_font.py`、`audit_first_five_writeback.py`、`build_first_five_font.py`（也接受独立 proposal/config/output 参数）、`audit_first_five_font_coverage.py`、`audit_ui_p0_font.py`、`verify_ui_p0_font.py` |
 | 图片/地图名 | `inventory_srwz_assets.py`、`export_srwz_images.py`、`build_image_dashboard.py`、`render_srwz_tim2.py`、`inject_srwz_tim2.py`、`build_tim2_runtime_canary.py`、`parse_srwz_map_names.py` |

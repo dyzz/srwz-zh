@@ -304,6 +304,35 @@ def _original_break_offsets(text: str) -> frozenset[int]:
     return frozenset(offsets)
 
 
+def partition_chinese_text(
+    text: str,
+    *,
+    protected_terms: Iterable[str] = (),
+    line_width: int,
+    max_lines: int,
+    preferred_break_offsets: frozenset[int] = frozenset(),
+) -> tuple[str, ...]:
+    """Partition one logical Chinese string without adding indentation."""
+
+    if not text or "\n" in text or "\r" in text:
+        raise ChineseLayoutError("partition input must be one non-empty logical line")
+    if line_width <= 0 or max_lines <= 0:
+        raise ChineseLayoutError("line_width and max_lines must be positive")
+    tokens = tokenize_dialogue(text, protected_terms=protected_terms)
+    partitions = _partition_tokens(
+        tokens,
+        line_width=line_width,
+        max_lines=max_lines,
+        preferred_break_offsets=preferred_break_offsets,
+    )
+    lines = tuple(
+        "".join(token.text for token in tokens[start:end]) for start, end in partitions
+    )
+    if "".join(lines) != text:
+        raise AssertionError("Chinese partition changed logical text")
+    return lines
+
+
 def reflow_chinese_dialogue(
     text: str,
     *,
@@ -340,16 +369,13 @@ def reflow_chinese_dialogue(
         )
 
     logical = logical_dialogue_text(text)
-    tokens = tokenize_dialogue(logical, protected_terms=protected_terms)
-    partitions = _partition_tokens(
-        tokens,
+    lines = partition_chinese_text(
+        logical,
+        protected_terms=protected_terms,
         line_width=line_width,
         max_lines=max_lines,
         preferred_break_offsets=_original_break_offsets(text),
     )
-    lines = [
-        "".join(token.text for token in tokens[start:end]) for start, end in partitions
-    ]
     reflowed = ("\n" + CONTINUATION_INDENT).join(lines)
     if logical_dialogue_text(reflowed) != logical:
         raise AssertionError("Chinese reflow changed dialogue content")

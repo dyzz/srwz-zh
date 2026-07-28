@@ -83,3 +83,6 @@
 - `ui-p0-display-names-validation.json`：在固定 P0 COMPDATA 组件上写入开场
   45 个已审校动态名称字段；证明人物 ID、机体指针和非目标字节不变、所有文本
   留在原 allocation、压缩流精确回解。ISO 和运行验证仍待完成。
+- `world-history-layout.json`：28 条 MTV_PROS 世界史的 22 格中文断行、
+  14 个空行、三个跨记录连续组和零定长溢出清单；同时记录 27 个缺字、24 槽
+  短缺及 `not_tested` 运行边界，不包含原文或游戏字节。

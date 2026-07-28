@@ -63,7 +63,7 @@
       },
       "writer_manifest": {
         "path": "manifests/ui-p0-display-names-validation.json",
-        "sha256": "29a096f0c2fe7a899b68b0a18bf4909138bf30177ab345dbfdd39d9f73cc1720",
+        "sha256": "b56b87c69d412f1f1d82d5617432818aafec26c86f2364831189382de20e909e",
         "status": "p0_compdata_and_opening_display_names_validated_iso_runtime_pending",
         "selected_translation_entry_count": 45,
         "unselected_non_empty_entry_count": 2755,
@@ -258,12 +258,25 @@
       "missing_renderer_character_count": 43,
       "assets": [],
       "implementation": {
-        "text": "fixed_allocation_writer_and_one_canary_runtime_verified_full_chinese_reflow_missing",
+        "text": "full_chinese_layout_and_fixed_allocation_validated_editorial_font_component_runtime_pending",
         "asset": "backgrounds_untouched",
         "integration": "pending"
       },
       "runtime_route_step_count": 3,
-      "runtime_assertion_count": 3
+      "runtime_assertion_count": 3,
+      "layout": {
+        "path": "manifests/world-history-layout.json",
+        "sha256": "3eb7f3594a8c0fac21e2e6518c591b24932ee7ae32b1d7dc97e0a3aef417e387",
+        "status": "layout_validated_editorial_font_runtime_pending",
+        "entry_count": 28,
+        "output_line_count": 146,
+        "maximum_line_width": 22,
+        "fixed_allocation_overflow_count": 0,
+        "editorial_draft_entry_count": 28,
+        "font_missing_character_count": 27,
+        "font_candidate_shortfall": 24,
+        "runtime_status": "not_tested"
+      }
     },
     {
       "scene_id": "story/first-five-opening-sequences",

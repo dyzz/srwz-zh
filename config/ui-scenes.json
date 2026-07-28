@@ -443,8 +443,19 @@
       "surface_specs": [
         "config/surfaces/summary-mtv-pros-world-history.json"
       ],
+      "layout_manifest": {
+        "path": "manifests/world-history-layout.json",
+        "required_status": "layout_validated_editorial_font_runtime_pending",
+        "expected_entry_count": 28,
+        "maximum_line_width": 22,
+        "fixed_allocation_overflow_count": 0,
+        "editorial_draft_entry_count": 28,
+        "font_missing_character_count": 27,
+        "font_candidate_shortfall": 24,
+        "runtime_status": "not_tested"
+      },
       "implementation": {
-        "text": "fixed_allocation_writer_and_one_canary_runtime_verified_full_chinese_reflow_missing",
+        "text": "full_chinese_layout_and_fixed_allocation_validated_editorial_font_component_runtime_pending",
         "asset": "backgrounds_untouched",
         "integration": "pending"
       },

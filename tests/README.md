@@ -66,6 +66,9 @@ fixed-span 选择 ratchet、指针／非目标字节不变、组件哈希和压�
 零 padding 和 hash-only 提交投影；`test_ui_p0_display_names.py` 固定开场
 45 个名称决策、原 allocation 写回、人物 ID／机体指针／非目标字节不变和
 压缩流精确回解，并要求 ISO／运行状态仍未测试。
+`test_summary_layout.py` 固定世界史 28 条、146 行、22 格、14 个空行、
+三个跨记录连续组、零 allocation overflow、字库短缺和未运行边界，并检查
+提交语料的标点禁则与 `UN` 术语引用随重分配记录移动。
 真实 ISO 工具构建、镜像构建与 66 项逐成员校验单独运行：
 
 ```bash

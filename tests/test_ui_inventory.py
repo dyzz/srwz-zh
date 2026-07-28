@@ -175,6 +175,23 @@ class UiInventoryTests(unittest.TestCase):
             for probe in source["probes"]:
                 self.assertNotIn("source_text", probe)
                 self.assertEqual(len(probe["source_text_sha256"]), 64)
+        summary_scene = next(
+            scene
+            for scene in manifest["scenes"]
+            if scene["scene_id"] == "opening/world-history-scroll"
+        )
+        self.assertEqual(
+            summary_scene["layout"]["status"],
+            "layout_validated_editorial_font_runtime_pending",
+        )
+        self.assertEqual(summary_scene["layout"]["entry_count"], 28)
+        self.assertEqual(summary_scene["layout"]["maximum_line_width"], 22)
+        self.assertEqual(
+            summary_scene["layout"]["fixed_allocation_overflow_count"],
+            0,
+        )
+        self.assertEqual(summary_scene["layout"]["font_candidate_shortfall"], 24)
+        self.assertEqual(summary_scene["layout"]["runtime_status"], "not_tested")
 
 
 if __name__ == "__main__":
