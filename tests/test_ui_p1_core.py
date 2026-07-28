@@ -3,7 +3,7 @@ import json
 import unittest
 from pathlib import Path
 
-from tools.build_canary_iso import load_config
+from tools.srwz.iso_config import load_config
 from tools.srwz.ui_integration import (
     UiIntegrationError,
     _apply_three_way_menu_patch,

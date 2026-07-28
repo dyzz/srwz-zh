@@ -61,6 +61,14 @@
   `START/LOAD/CONTINUE/LIBRARY → 开始/读取/继续/资料库` 的坐标级 PSMT8
   写回；记录固定字体/mask、12,514 个像素修改、重压缩与 ISO、两种光标状态
   截图，以及 PCSX2 转储纹理与离线预览逐像素一致的运行证据。
+- `ui-info-atlas-map-canary-validation.json`：信息页离线候选
+  `KVMDATA chunk 2` 的最小定位组件；只清除 `SHIP` 矩形，记录 299 个逻辑
+  像素／185 个 archive byte 变化、TIM2 header/CLUT/padding、非目标 chunk、
+  等长归档和确定性预览锁。状态仍是 `runtime_mapping_pending`。
+- `ui-info-atlas-map-canary-runtime-validation.json`：把上述组件与只替换
+  `KURODATA/KVMDATA.BIN` 的隔离 DVD 静态绑定；记录 66 个成员、65 个未替换
+  成员、零 LBA 位移、独立 UDF 回读和精确 ISO SHA-256，并将 `SHIP` 截图缺失
+  与同一 299 像素 texture-dump delta 登记为运行晋级双门。
 - `ui-surface-inventory.json`：从真实语料、当前前五关字库和 COMPDATA
   动态名称结构确定性投影的 UI 场景摘要；固定 P0 的 462 条文本、九个缺字、
   12 个剩余候选槽、三槽余量和开场名称 writer 状态，并明确区分译文决策、

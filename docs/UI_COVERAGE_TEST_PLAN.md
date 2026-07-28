@@ -190,7 +190,7 @@ P0 选择开场至首个幕间可稳定访问的高频界面。七个场景共�
 | 标题主菜单 | 0，另有 4 项图片文字 | 0 | 已进入组合 ISO；既有独立运行证据不能自动沿用到新镜像 |
 | 开局路线、主人公与姓名设置 | 31 | 昵、节 | 静态文本和节子默认名字段已进入组合 ISO；玩家编辑后的动态值待运行验证 |
 | 幕间主菜单、系统选项与编成入口 | 121 | 养、删、编、览 | 静态文本已进入组合 ISO；atlas 与逐页运行验证待完成 |
-| 人物、机体与武器信息页骨架 | 128 | 养、减、效、览、陆 | 静态文本及开场 45 个名称字段已进入组合 ISO；全名表和信息页 atlas 仍缺失 |
+| 人物、机体与武器信息页骨架 | 128 | 养、减、效、览、陆 | 静态文本及开场 45 个名称字段已进入组合 ISO；全名表仍缺失，信息页 atlas 已有隔离映射 canary、待运行归属 |
 | 战场指令、条件与战况页面 | 80 | 陆 | 静态文本已进入组合 ISO；战斗菜单 atlas 与运行路线待接入 |
 | 结算、升级与出击确认 | 52 | 0 | 静态文本已进入组合 ISO；结算／出击 atlas 与运行路线待接入 |
 | 搜索条件、筛选与结果 | 50 | 效 | 静态文本已进入组合 ISO；筛选行为与拼接结果待运行验证 |
@@ -205,8 +205,9 @@ P0 缺字和原版汉字混用均为零。
 字库和两个 fixed-span writer 现在证明全部 462 条 P0 SLPS／COMPDATA 文本
 决策均可生产，不再依赖未登记池区。动态名称的结构和开场 45 个字段也已形成
 独立组件；它们现已与标题、P1 字库和世界史合并为静态验证的可玩候选 ISO。
-剩余 2,755 个非空字段尚未审校选入，信息页 atlas 仍未定位，新镜像也尚未完成
-PCSX2 逐屏运行验收。
+剩余 2,755 个非空字段尚未审校选入。信息页 atlas 已从离线候选推进到隔离
+映射 canary，但尚未获得 PCSX2 截图和纹理 delta，因此仍不能称为正式场景
+映射；组合镜像也尚未完成逐屏运行验收。
 
 P0 明确排除了两条含未定英语专名的后期专用提示。它们已独立归入
 `menus/late-game-special-prompts`，不会为了凑开场覆盖而消耗当前三个余量槽。
@@ -272,8 +273,10 @@ writer 只做原 allocation 内写回，禁止人物 ID 或机体指针变化。
 
 ### 4.2 信息页图片文字
 
-通用 TIM2 writer 已能对真实 KVMDATA fixture 做 byte-identical no-op，
-但人物／机体／武器信息页的具体 TIM2 记录尚未逐屏归属，也没有中文 atlas。
+固定 4-bpp TIM2 writer 已能对真实 KVMDATA fixture 做 byte-identical
+no-op。人物／机体／武器信息页当前仍没有逐屏运行归属或中文 atlas，但
+`chunk 2 / record 0 / picture 0` 已完成一个只清除顶行 `SHIP` 的隔离映射
+canary。
 上游 ASM 中存在信息页布局研究，只能作为研究证据；它不是当前中文候选的
 writer，也不能替代本项目自己的前像、差异和运行门禁。
 
@@ -282,17 +285,24 @@ writer，也不能替代本项目自己的前像、差异和运行门禁。
 
 | chunk | 离线可见词 | 最可能场景 | 当前证据等级 |
 | ---: | --- | --- | --- |
-| 2 | `SHIP / PARTS / PILOT / ROBO / SEARCH / WEAPON / MAP DATA` | 人物／机体／武器信息页、搜索、战况 | 离线候选，未做运行映射 |
+| 2 | `SHIP / PARTS / PILOT / ROBO / SEARCH / WEAPON / MAP DATA` | 人物／机体／武器信息页、搜索、战况 | 隔离 `SHIP` 清除 canary 静态 ISO 已锁定，未做运行映射 |
 | 4 | `COMMAND MENU / FORMATION / BONUS / HIT&AWAY / HP / EN` | 战场指令、结算 | 离线候选，未做运行映射 |
 | 5 | `バザー / 購入 / 売却 / 強化パーツ / アイテム` | 商店／交易 | 上游修改过的离线候选，未做运行映射 |
 | 6 | `インターミッション / オプション / 小隊編成 / データ管理` | 幕间、编成入口 | 上游修改过的离线候选，未做运行映射 |
 | 7 | `Event No / Leader / Pilot / 新規編成 / リザーブへ` | 编成、出击 | 离线候选，未做运行映射 |
 
 这里的“可见词”只用于定位，不是译名权威，也不能证明游戏在目标页面加载了该
-chunk。下一轮必须用原版 ISO 在信息页逐页做 PCSX2 texture dump，以尺寸、
-调色板和 index 直方图唯一匹配 stored picture；匹配后再做一个只覆盖目标词
-mask 的可逆颜色 canary，要求画面变化与运行时纹理 delta 同时命中，才能把
-`candidate_scene_ids` 升级为正式 member/chunk/record/picture 映射。
+chunk。现有 canary 只把 `x=80, y=0, width=49, height=16` 改为原 CLUT 已有
+透明色：组件改变 299 个逻辑像素／185 个 archive byte，完整归档等长；隔离
+ISO 只替换 `KURODATA/KVMDATA.BIN`，65 个未替换成员 byte-exact、零 LBA
+位移，SHA-256 为
+`9343889dc72c6d3fc2287f0ac279912fb1ae7e1e1123ee15150f667e50bc78f6`。
+
+下一轮必须使用这个精确 ISO 在至少两台机体的信息页和驾驶员／武器／零件／
+技能／精神子页逐页检查。只有画面中 `SHIP` 同位置消失，且 PCSX2 texture
+dump 恰好出现同一 299 像素集合的 delta，才能把 `candidate_scene_ids`
+升级为正式 member/chunk/record/picture 映射。静态 preview、ISO 构建通过或
+任意页面变化都不能单独晋级。
 
 ### 4.3 SLPS/COMPDATA 文本池
 
@@ -323,11 +333,15 @@ SLPS 418 条和 COMPDATA 44 条都能在原 span 内覆盖，不需要 P0 文本
 7. **已完成 UI core 组合 ISO 静态验收：**标题 TIM2、P0 菜单、开场动态名、
    P1 字库和世界史以明确 owner 合并；四项成员独立 UDF 回读、62 个未替换
    成员 byte-exact，并固定最终 ISO hash。
-8. **当前下一步：**用该精确 ISO 完成标题、玩家设置、幕间、信息页、战场、
-   搜索和世界史滚动路线；同时按官方术语扩大人物／机体名语料，通过运行时
-   纹理转储和离线预览，把信息页 atlas 精确映射到
-   archive/member/record/picture。
-9. 把信息页 atlas 和前五关 STAGE/HB 纳入同一候选；只能从一个明确 profile
+8. **已完成信息页最小映射 canary 的静态组件和隔离 ISO：**只清除 chunk 2
+   的 `SHIP` 矩形，299 像素变化全部在 mask 内；完整 KVMDATA 等长、65 个
+   未替换 ISO 成员 byte-exact、零 LBA 位移，并固定最终 ISO hash。
+9. **当前下一步：**用该精确 canary ISO 证明截图中的 `SHIP` 消失与 texture
+   dump 的 299 像素 delta 同时命中；另用 UI core 精确 ISO 完成标题、玩家
+   设置、幕间、战场、搜索和世界史滚动路线，同时按官方术语扩大人物／机体名
+   语料。
+10. 把已完成运行映射的中文信息页 atlas 和前五关 STAGE/HB 纳入同一候选；
+   只能从一个明确 profile
    构建后续完整测试 ISO。
 
 每一步都先建立可失败的门禁和最小 fixture，再扩展场景数；不直接修改

@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "status": "static_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-info-atlas-map-canary",
+  "scope": "A reversible mapping canary that clears only the SHIP locator inside the offline KVMDATA chunk 2 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "content_policy": "Hashes, coordinates, counts and diff summaries only; game bytes and preview PNGs remain under ignored work/.",
+  "inputs": {
+    "config": {
+      "path": "config/canary/tim2-kvm2-info-map.json",
+      "size": 2709,
+      "sha256": "335b5bf4f29219d0d64f4984e8e80fdd320eda9d5acf4e32a6271ec3604e1135"
+    },
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "asset_config": {
+      "path": "config/assets/archive-inventory.json",
+      "size": 2882,
+      "sha256": "6afc3beb1f67c82d355f572f0de92e2a5185790e17a1670a5a479a7e5b6e57ab"
+    },
+    "candidate_registry": {
+      "path": "config/assets/ui-atlas-candidates.json",
+      "size": 5596,
+      "sha256": "b3c2fd0032314f55566bb99d1c2bd77fc9cdc4469eab8cf6647371d397c05e12"
+    },
+    "members": {
+      "executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "archive": {
+        "member": "KURODATA/KVMDATA.BIN",
+        "size": 3335408,
+        "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+      }
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 2,
+    "chunk_start": 66688,
+    "chunk_end": 100032,
+    "record_index": 0,
+    "picture_index": 0,
+    "source_chunk": {
+      "size": 33344,
+      "sha256": "26d14fe28c93722201597487a1597fb998d084c3345a6c27e9724fe515173815"
+    },
+    "semantic_locator": "SHIP",
+    "operation": "transparent_rectangle_fill",
+    "candidate_evidence_status": "offline_visual_candidate_not_runtime_mapped",
+    "mask": {
+      "x": 80,
+      "y": 0,
+      "width": 49,
+      "height": 16,
+      "replacement_rgba": "00000000"
+    },
+    "mask_audit": {
+      "changed_pixel_count": 299,
+      "changed_pixel_indexes_sha256": "33499f730c59adab3f36a53df061e2e5c9f76b78846ebb1bfc45bf8c1fd52f12",
+      "outside_mask_rgba_exact": true,
+      "replacement_rgba_exact": true
+    }
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 299,
+    "changed_image_byte_count": 185,
+    "changed_image_byte_ranges": [
+      {
+        "start": 298,
+        "end": 302
+      },
+      {
+        "start": 303,
+        "end": 305
+      },
+      {
+        "start": 307,
+        "end": 309
+      },
+      {
+        "start": 310,
+        "end": 317
+      },
+      {
+        "start": 425,
+        "end": 433
+      },
+      {
+        "start": 435,
+        "end": 437
+      },
+      {
+        "start": 438,
+        "end": 445
+      },
+      {
+        "start": 553,
+        "end": 561
+      },
+      {
+        "start": 563,
+        "end": 565
+      },
+      {
+        "start": 566,
+        "end": 570
+      },
+      {
+        "start": 571,
+        "end": 574
+      },
+      {
+        "start": 681,
+        "end": 683
+      },
+      {
+        "start": 687,
+        "end": 689
+      },
+      {
+        "start": 691,
+        "end": 693
+      },
+      {
+        "start": 694,
+        "end": 698
+      },
+      {
+        "start": 700,
+        "end": 702
+      },
+      {
+        "start": 809,
+        "end": 812
+      },
+      {
+        "start": 815,
+        "end": 817
+      },
+      {
+        "start": 819,
+        "end": 821
+      },
+      {
+        "start": 822,
+        "end": 826
+      },
+      {
+        "start": 828,
+        "end": 830
+      },
+      {
+        "start": 937,
+        "end": 942
+      },
+      {
+        "start": 943,
+        "end": 949
+      },
+      {
+        "start": 950,
+        "end": 958
+      },
+      {
+        "start": 1066,
+        "end": 1077
+      },
+      {
+        "start": 1078,
+        "end": 1085
+      },
+      {
+        "start": 1196,
+        "end": 1201
+      },
+      {
+        "start": 1203,
+        "end": 1205
+      },
+      {
+        "start": 1206,
+        "end": 1212
+      },
+      {
+        "start": 1321,
+        "end": 1323
+      },
+      {
+        "start": 1325,
+        "end": 1329
+      },
+      {
+        "start": 1331,
+        "end": 1333
+      },
+      {
+        "start": 1334,
+        "end": 1338
+      },
+      {
+        "start": 1449,
+        "end": 1451
+      },
+      {
+        "start": 1453,
+        "end": 1457
+      },
+      {
+        "start": 1459,
+        "end": 1461
+      },
+      {
+        "start": 1462,
+        "end": 1466
+      },
+      {
+        "start": 1577,
+        "end": 1585
+      },
+      {
+        "start": 1587,
+        "end": 1589
+      },
+      {
+        "start": 1590,
+        "end": 1594
+      },
+      {
+        "start": 1705,
+        "end": 1713
+      },
+      {
+        "start": 1715,
+        "end": 1717
+      },
+      {
+        "start": 1718,
+        "end": 1722
+      },
+      {
+        "start": 1834,
+        "end": 1838
+      },
+      {
+        "start": 1839,
+        "end": 1841
+      },
+      {
+        "start": 1844,
+        "end": 1845
+      },
+      {
+        "start": 1846,
+        "end": 1847
+      },
+      {
+        "start": 1848,
+        "end": 1849
+      }
+    ],
+    "available_color_count": 11,
+    "archive_diff": {
+      "diff_count": 185,
+      "range_count": 48,
+      "first_offset": 67050,
+      "last_offset": 68600,
+      "offsets_sha256": "02825113984a9b0450d606d73d4c0797b55e53c98f63af3dc4d8eeb53c43d236",
+      "ranges_sha256": "19b6d1fd18c19c47a14b7ad31d10045a292837873e273cf264d2ec0393230586",
+      "before_values_sha256": "f72a7a2e718e6203114f9fa315b7cc5589e0e912ce5f6e0c55bf3b7d1b0c5738",
+      "after_values_sha256": "babd6f664158d665504571b169a1e81ef75470cdca4fdd7d95be6cdb7826136d"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "507548f7bff48dbdd18203a20a01205ec43f6d4e556c023152cc7af2cf20b19a"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "7b463272f2bd912349cb1a261c77c111bcc17812daa4044e446067abac40a415"
+    },
+    "reference_png": {
+      "size": 21229,
+      "sha256": "21b78aa7dc1557bbd928e8f8ed740379b7aa3701d087fb76e579e337293e3d88"
+    },
+    "edited_png": {
+      "size": 21172,
+      "sha256": "69a742042b79b20f179d2e63c24bc02678df7be627d35c02d54c6dc072acd079"
+    }
+  },
+  "acceptance": {
+    "candidate_registry_exact": true,
+    "single_picture_4bpp_geometry_exact": true,
+    "mask_contains_every_rgba_change": true,
+    "replacement_uses_existing_transparent_color": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Prove whether KVMDATA chunk 2 is consumed by the unit information-page SHIP label before authoring translation.",
+    "required_routes": [
+      "open_unit_information_for_two_units",
+      "visit_pilot_weapon_parts_skill_and_spirit_subpages",
+      "capture_visible_missing_ship_label_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "promotion_rule": "Only matching screenshot and texture-dump deltas may promote the candidate to a runtime scene mapping."
+  }
+}

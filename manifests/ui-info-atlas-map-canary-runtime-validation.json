@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "status": "static_mapping_iso_validated_runtime_not_tested",
+  "content_policy": "Hashes, coordinates, counts, paths and runtime gates only; no game bytes, localized text or preview PNGs are embedded.",
+  "profile_id": "ui-info-atlas-map-canary",
+  "scope": "A reversible mapping canary that clears only the SHIP locator inside the offline KVMDATA chunk 2 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "component": {
+    "manifest": {
+      "path": "manifests/ui-info-atlas-map-canary-validation.json",
+      "size": 7720,
+      "sha256": "deb32f44f4958f6a2f55cb7a111eee171a40eb9871870d010773e40f7de848d6"
+    },
+    "target": {
+      "member": "KURODATA/KVMDATA.BIN",
+      "chunk_index": 2,
+      "chunk_start": 66688,
+      "chunk_end": 100032,
+      "record_index": 0,
+      "picture_index": 0,
+      "source_chunk": {
+        "size": 33344,
+        "sha256": "26d14fe28c93722201597487a1597fb998d084c3345a6c27e9724fe515173815"
+      },
+      "semantic_locator": "SHIP",
+      "operation": "transparent_rectangle_fill",
+      "candidate_evidence_status": "offline_visual_candidate_not_runtime_mapped",
+      "mask": {
+        "x": 80,
+        "y": 0,
+        "width": 49,
+        "height": 16,
+        "replacement_rgba": "00000000"
+      },
+      "mask_audit": {
+        "changed_pixel_count": 299,
+        "changed_pixel_indexes_sha256": "33499f730c59adab3f36a53df061e2e5c9f76b78846ebb1bfc45bf8c1fd52f12",
+        "outside_mask_rgba_exact": true,
+        "replacement_rgba_exact": true
+      }
+    },
+    "outputs": {
+      "archive": {
+        "size": 3335408,
+        "sha256": "507548f7bff48dbdd18203a20a01205ec43f6d4e556c023152cc7af2cf20b19a"
+      },
+      "chunk": {
+        "size": 33344,
+        "sha256": "7b463272f2bd912349cb1a261c77c111bcc17812daa4044e446067abac40a415"
+      },
+      "reference_png": {
+        "size": 21229,
+        "sha256": "21b78aa7dc1557bbd928e8f8ed740379b7aa3701d087fb76e579e337293e3d88"
+      },
+      "edited_png": {
+        "size": 21172,
+        "sha256": "69a742042b79b20f179d2e63c24bc02678df7be627d35c02d54c6dc072acd079"
+      }
+    },
+    "acceptance": {
+      "candidate_registry_exact": true,
+      "single_picture_4bpp_geometry_exact": true,
+      "mask_contains_every_rgba_change": true,
+      "replacement_uses_existing_transparent_color": true,
+      "tim2_header_clut_and_padding_exact": true,
+      "archive_geometry_and_other_chunks_exact": true,
+      "imagemagick_output_rgba_exact": true,
+      "all_output_locks_exact": true
+    }
+  },
+  "iso_build": {
+    "config": {
+      "path": "config/iso/ui-info-atlas-map-canary-build.json",
+      "size": 3021,
+      "sha256": "5aa936a78481c76805813ba389380c6e9f7c65bd4d655617f49903ec838a0387"
+    },
+    "report": {
+      "path": "build/iso/ui-info-atlas-map-canary/iso-validation.json",
+      "size": 2792,
+      "sha256": "9fe9fda168c6e6d1ec5895650c442c8d32ab9de58dd25e21469f99f95b6947c7"
+    },
+    "path": "build/iso/ui-info-atlas-map-canary/srwz-ui-info-atlas-map-canary.iso",
+    "output": {
+      "size": 3758358528,
+      "sha256": "9343889dc72c6d3fc2287f0ac279912fb1ae7e1e1123ee15150f667e50bc78f6"
+    },
+    "member_count": 66,
+    "unchanged_member_count": 65,
+    "shifted_member_count": 0,
+    "shift_segments": [
+      {
+        "first_member": "KURODATA/KVMDATA.BIN",
+        "shift_sectors": 0
+      }
+    ],
+    "member_manifest_sha256": "aabe2bcd0f384ee4c8ea74644ab271fd229a5cd46e40c9facab3f61e0a202e76",
+    "pcsx2_v263_image_type": "DVD",
+    "udf_volume_recognition_sequence": "NSR02",
+    "replacement": {
+      "member": "KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "507548f7bff48dbdd18203a20a01205ec43f6d4e556c023152cc7af2cf20b19a",
+      "independent_udf_reread_exact": true
+    }
+  },
+  "static_acceptance": {
+    "component_manifest_validated": true,
+    "single_replacement_matches_component": true,
+    "iso_size_and_sha256_pinned": true,
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "shift_segments_exact": true,
+    "zero_shifted_members": true,
+    "replacement_independently_reread": true,
+    "pcsx2_media_type_dvd": true,
+    "udf_nsr02": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_iso_sha256": "9343889dc72c6d3fc2287f0ac279912fb1ae7e1e1123ee15150f667e50bc78f6",
+    "required_emulator": "PCSX2 v2.6.3",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "open_unit_information_for_two_units",
+      "visit_pilot_weapon_parts_skill_and_spirit_subpages",
+      "capture_visible_missing_ship_label_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_delta": {
+      "semantic_locator": "SHIP",
+      "effect": "the top-row SHIP locator is absent"
+    },
+    "expected_texture_delta": {
+      "chunk_index": 2,
+      "mask": {
+        "x": 80,
+        "y": 0,
+        "width": 49,
+        "height": 16,
+        "replacement_rgba": "00000000"
+      },
+      "changed_pixel_count": 299,
+      "changed_pixel_indexes_sha256": "33499f730c59adab3f36a53df061e2e5c9f76b78846ebb1bfc45bf8c1fd52f12"
+    },
+    "promotion_rule": "Promote KVMDATA chunk 2 to a runtime information-page mapping only when a matching screenshot and texture-dump delta satisfy both expected deltas."
+  }
+}

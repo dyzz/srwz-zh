@@ -19,8 +19,8 @@
 | 语料与写回 | `corpus.py`、`translation_review.py`、`writeback.py`、`writers.py` | 稳定 ID、译文/术语审核、严格序列化、前像保护、文本池/指针、定长文本和归档 writer |
 | 生产选择 | `project.py` | SurfaceSpec、中文语料、codebook 和 BuildProfile reconciliation |
 | 字库、canary 与 UI 集成 | `font.py`、`font_source.py`、`ui_font.py`、`canary.py`、`complete_canary.py`、`ui_integration.py` | 许可证/哈希锁定的字体源、VT1 字库段、24×24/4-bpp glyph、继承式 UI 字库 profile、菜单/摘要/剧情 canary，以及已验证 UI 组件的无冲突确定性组合 |
-| 图片与地图名 | `tim2.py`、`tim2_writeback.py`、`image_export.py`、`image_dashboard.py`、`imagemagick.py`、`assets.py`、`mapname.py` | TIM2 v4 严格元数据、全量图片导出与本地 Dashboard、固定 4-bpp/VT1 8-bpp index 注入、ImageMagick adapter、归档清单和 MAPNAME |
-| 镜像验证 | `iso9660.py` | 只读 ISO9660 扫描、成员哈希、布局和 PCSX2 介质判定 |
+| 图片与地图名 | `tim2.py`、`tim2_writeback.py`、`ui_atlas_canary.py`、`image_export.py`、`image_dashboard.py`、`imagemagick.py`、`assets.py`、`mapname.py` | TIM2 v4 严格元数据、全量图片导出与本地 Dashboard、固定 4-bpp/VT1 8-bpp index 注入、受 mask 约束的信息页定位 canary、确定性 ImageMagick adapter、归档清单和 MAPNAME |
+| 镜像验证 | `iso_config.py`、`iso9660.py` | ISO profile schema／目录所有权契约、只读 ISO9660 扫描、成员哈希、布局和 PCSX2 介质判定 |
 | 补丁审计 | `patch_audit.py`、`toolchain.py` | 写入所有者、允许范围、armips 来源/构建/结果审计 |
 
 没有通用 ISO 编辑器、编码器 GUI 或 Windows helper 兼容层。当前 ISO 构建由
@@ -37,10 +37,10 @@
 | 生产 profile | `validate_build_profile.py` |
 | 字库 | `analyze_srwz_font.py`、`render_srwz_font.py`、`fetch_canary_font.py`、`fetch_first_five_font.py`、`audit_first_five_writeback.py`、`build_first_five_font.py`（也接受独立 proposal/config/output 参数）、`audit_first_five_font_coverage.py`、`audit_ui_p0_font.py`／`verify_ui_p0_font.py`（兼容 P0 入口）、`audit_ui_font.py`／`verify_ui_font.py`（显式 profile 的 P1+ 通用入口） |
 | UI 集成 | `build_ui_p1_core.py`／`verify_ui_p1_core.py`（标题、P0 菜单、开场动态名、P1 字库和世界史的所有权合并、确定性复建与全文回读） |
-| 图片/地图名 | `inventory_srwz_assets.py`、`export_srwz_images.py`、`build_image_dashboard.py`、`render_srwz_tim2.py`、`inject_srwz_tim2.py`、`build_tim2_runtime_canary.py`、`parse_srwz_map_names.py` |
+| 图片/地图名 | `inventory_srwz_assets.py`、`export_srwz_images.py`、`build_image_dashboard.py`、`render_srwz_tim2.py`、`inject_srwz_tim2.py`、`build_tim2_runtime_canary.py`、`build_ui_info_atlas_map_canary.py`／`verify_ui_info_atlas_map_canary.py`（KVMDATA chunk 2 的 `SHIP` 定位组件）、`parse_srwz_map_names.py` |
 | 编码与归档写回验证 | `validate_srwz_encoder.py`、`validate_srwz_archive_rebuild.py` |
 | 静态 canary | `build_static_canary.py`、`build_complete_canary.py` |
-| ISO | `bootstrap_mkps2iso.py`、`build_canary_iso.py`、`verify_first_five_iso_content.py`、`verify_ui_p1_world_history_iso.py`（世界史 component→隔离 ISO 静态绑定）、`verify_ui_p1_core_iso.py`（组合 UI component→ISO 静态绑定） |
+| ISO | `bootstrap_mkps2iso.py`、`build_canary_iso.py`、`verify_first_five_iso_content.py`、`verify_ui_p1_world_history_iso.py`（世界史 component→隔离 ISO 静态绑定）、`verify_ui_p1_core_iso.py`（组合 UI component→ISO 静态绑定）、`verify_ui_info_atlas_map_canary_iso.py`（信息页定位 component→单成员、零 LBA 位移的隔离 ISO 静态绑定） |
 | PCSX2/PINE | `verify_pcsx2_font_runtime.py`、`verify_first_five_runtime.py`、`send_pcsx2_keys.swift`；UI 的 ISO verifier 只登记待执行路线，不冒充运行证明 |
 | ASM 与二进制审计 | `check_armips_toolchain.py`、`audit_binary_patch.py` |
 | 上游快照 | `compare_upstream_snapshot.py` |

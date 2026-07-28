@@ -237,22 +237,43 @@ PCSX2 v2.6.3 中第一项、第四项选中截图均显示正确，DVD、PINE ru
 
 ## 8. 下一项实际工作
 
-下一张固定为信息页候选
+信息页候选现已固定为
 `KURODATA/KVMDATA.BIN / chunk 2 / record 0 / picture 0`。它是
 256×256/4-bpp indexed atlas，离线可见
-`SHIP/PARTS/PILOT/ROBO/SEARCH/WEAPON/MAP DATA`；这只把范围缩到候选，尚未
-证明目标信息页实际加载它。
+`SHIP/PARTS/PILOT/ROBO/SEARCH/WEAPON/MAP DATA`。当前已完成一个隔离映射
+canary：只把顶行 `SHIP` 的 `x=80, y=0, width=49, height=16` 矩形改为原
+CLUT 已有的透明色，不制作中文 atlas，也不修改其他 chunk、TIM2 header、
+CLUT 或归档长度。
+
+组件和隔离 ISO 的复验命令为：
+
+```bash
+python3 tools/build_ui_info_atlas_map_canary.py --force
+python3 tools/verify_ui_info_atlas_map_canary.py --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-info-atlas-map-canary-build.json
+python3 tools/verify_ui_info_atlas_map_canary_iso.py --force
+```
+
+组件精确改变 299 个逻辑像素和 185 个 image/archive byte；完整
+`KVMDATA.BIN` 仍为 3,335,408 字节，其他 chunk byte-exact。隔离 ISO 只替换
+这一成员，66 个成员中 65 个保持原字节、零成员发生 LBA 位移，固定 SHA-256
+为
+`9343889dc72c6d3fc2287f0ac279912fb1ae7e1e1123ee15150f667e50bc78f6`。
+这些结果只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
 
 运行验收顺序固定为：
 
-1. 用哈希锁定的原版 ISO 和首个幕间存档，分别进入两台机体的机体、驾驶员、
+1. 用上述精确 canary ISO 和首个幕间存档，分别进入两台机体的机体、驾驶员、
    武器、零件、技能和精神子页，并开启 PCSX2 texture dump；
-2. 以尺寸、CLUT 和 index/RGBA 直方图把运行时纹理唯一匹配到 stored picture；
-3. 只在一个已匹配词的 mask 内执行可逆颜色 canary，不先制作整张中文 atlas；
-4. 用同一存档重进同一页面，同时证明截图变化和转储纹理 delta 精确命中；
-5. 记录 PCSX2、ISO、存档、截图和转储哈希后，才把
+2. 画面必须显示原 `SHIP` 位置缺失，而非仅出现任意 UI 变化；
+3. 运行时纹理 delta 必须与同一矩形的 299 像素索引集合精确相同；
+4. 记录 PCSX2、ISO、存档、截图和转储哈希后，才把
    `config/assets/ui-atlas-candidates.json` 的候选升级为正式映射。
 
-只有在 PSM、CLUT、swizzle 和 atlas 消费方式分别确认后才能扩展 writer
-契约。chunk 4/5/6/7 继续分别保留为战场、商店、幕间和编成候选，不与
+提交证据分别见
+`manifests/ui-info-atlas-map-canary-validation.json` 与
+`manifests/ui-info-atlas-map-canary-runtime-validation.json`。只有截图和
+texture dump 同时命中才允许把状态升级为运行映射；单凭静态 preview 或 ISO
+启动都不够。chunk 4/5/6/7 继续分别保留为战场、商店、幕间和编成候选，不与
 chunk 2 共用未经验证的写回配置。

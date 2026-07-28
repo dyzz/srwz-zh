@@ -361,6 +361,36 @@ component 清单是 `manifests/ui-p1-core-validation.json`。静态 ISO 清单�
 信息页 atlas；PCSX2 标题、玩家设置、幕间、信息页、战场、搜索和世界史路线
 全部保持 `not_tested`。
 
+### 4.4 信息页 atlas 映射 canary
+
+信息页图片文字尚未进入中文生产 profile。为避免在场景归属不明时先制作整张
+中文图，`config/canary/tim2-kvm2-info-map.json` 只拥有一个可逆定位实验：
+在 `KURODATA/KVMDATA.BIN / chunk 2 / record 0 / picture 0` 内把顶行
+`SHIP` 的固定矩形替换为原图已有透明色。
+
+可重复入口为：
+
+```bash
+python3 tools/build_ui_info_atlas_map_canary.py --force
+python3 tools/verify_ui_info_atlas_map_canary.py --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-info-atlas-map-canary-build.json
+python3 tools/verify_ui_info_atlas_map_canary_iso.py --force
+```
+
+component 门证明 299 个逻辑像素变化全部在 mask 内、185 个 archive byte
+变化、TIM2 header/CLUT/padding 和其他 chunk byte-exact，完整 KVMDATA 等长。
+ISO 门只接受这一项 replacement；固定结果有 66 个成员、65 个未替换成员、
+零 LBA 位移和独立 UDF 回读。两级清单分别为
+`manifests/ui-info-atlas-map-canary-validation.json` 与
+`manifests/ui-info-atlas-map-canary-runtime-validation.json`。
+
+该 profile 的状态有意保持
+`static_mapping_iso_validated_runtime_not_tested`。只有同一 ISO 的信息页截图
+显示 `SHIP` 在目标位置消失，且 PCSX2 texture dump 精确匹配同一 299 像素
+集合，才可登记正式运行映射。它不拥有译名、中文 atlas 或 `ui-p1-core`
+集成结论。
+
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求
 源文和译文的格式 token multiset 完全一致。这个门禁不能用“最终显示看起来
@@ -425,7 +455,7 @@ MIPS HI/LO 写回门禁。P0 的 462 条静态菜单文本当前都能在原 spa
 
 - 全量 extraction freshness 与双向 reconciliation 的规模化运行；
 - 扩展 COMPDATA 动态人物／机体名的全量审校语料；当前只完成开场 45 个字段；
-- 人物／机体信息页 atlas，把前五关 STAGE/HB 合并到候选，并完成逐屏 PCSX2
-  路线；
+- 用已锁定的 `SHIP` canary 完成人物／机体信息页 atlas 运行归属，再制作中文
+  atlas、把前五关 STAGE/HB 合并到候选并完成逐屏 PCSX2 路线；
 - 全量 STAGE arena policy 和通用 VT1 writer；
 - offline render oracle、coverage ratchet 和 clean-copy deterministic build。

@@ -96,3 +96,8 @@ STAGE、信息页 atlas 或 PCSX2 运行结论。
 `canary/tim2-vt1-title-zh.json` 登记标题四项中文、OFL 字体、ImageMagick
 参数和 mask/output golden，`iso/title-menu-zh-build.json` 固定对应独立
 ISO；这是当前首个坐标级 8-bpp 图片汉化 profile。
+`canary/tim2-kvm2-info-map.json` 则固定信息页候选 chunk 2 的最小定位实验：
+只用既有透明色清除 `SHIP` 矩形，并锁定 mask、像素集合、完整 KVMDATA 输出
+和确定性 PNG 预览。`iso/ui-info-atlas-map-canary-build.json` 只把这个等长
+成员写入隔离 ISO；两份配置都明确保持 `runtime_mapping_pending`，不拥有中文
+atlas 或场景归属结论。

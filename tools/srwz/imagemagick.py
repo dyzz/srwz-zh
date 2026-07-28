@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -156,6 +157,90 @@ def write_rgba8_png(
         )
 
 
+def write_deterministic_rgba8_png(
+    executable: str,
+    pixels: bytes,
+    output: Path,
+    *,
+    width: int,
+    height: int,
+) -> None:
+    """Write PNG32 while removing time and other incidental metadata."""
+
+    expected_size = width * height * 4
+    if len(pixels) != expected_size:
+        raise ImageMagickError(
+            f"RGBA input has {len(pixels)} bytes, expected {expected_size}"
+        )
+    _run(
+        [
+            executable,
+            "-size",
+            f"{width}x{height}",
+            "-depth",
+            "8",
+            "RGBA:-",
+            "-strip",
+            "-define",
+            "png:exclude-chunks=date,time",
+            f"PNG32:{output}",
+        ],
+        f"ImageMagick deterministic RGBA PNG write for {output}",
+        input_data=pixels,
+    )
+    if not output.is_file():
+        raise ImageMagickError(
+            f"ImageMagick did not create the expected PNG: {output}"
+        )
+
+
+def fill_rgba_rectangle(
+    executable: str,
+    source: Path,
+    output: Path,
+    *,
+    x: int,
+    y: int,
+    width: int,
+    height: int,
+    rgba: str,
+) -> None:
+    """Fill one bounded rectangle without quantizing the remaining RGBA."""
+
+    source_width, source_height = identify_dimensions(executable, source)
+    values = (x, y, width, height)
+    if any(
+        not isinstance(value, int) or isinstance(value, bool)
+        for value in values
+    ):
+        raise ImageMagickError("rectangle geometry must use integers")
+    if x < 0 or y < 0 or width <= 0 or height <= 0:
+        raise ImageMagickError("rectangle geometry is invalid")
+    if x + width > source_width or y + height > source_height:
+        raise ImageMagickError("rectangle exceeds the source image")
+    if re.fullmatch(r"#[0-9A-Fa-f]{8}", rgba) is None:
+        raise ImageMagickError("rectangle fill must be #RRGGBBAA")
+    _run(
+        [
+            executable,
+            str(source),
+            "-region",
+            f"{width}x{height}+{x}+{y}",
+            "-fill",
+            rgba,
+            "-colorize",
+            "100",
+            "+region",
+            f"PNG32:{output}",
+        ],
+        f"ImageMagick rectangle fill for {source}",
+    )
+    if not output.is_file():
+        raise ImageMagickError(
+            f"ImageMagick did not create the expected PNG: {output}"
+        )
+
+
 def render_grayscale_text_mask(
     executable: str,
     font: Path,
@@ -229,11 +314,13 @@ def render_grayscale_text_mask(
 
 __all__ = [
     "ImageMagickError",
+    "fill_rgba_rectangle",
     "imagemagick_version",
     "identify_dimensions",
     "read_rgba8",
     "render_grayscale_text_mask",
     "render_tim2_png8",
     "require_imagemagick",
+    "write_deterministic_rgba8_png",
     "write_rgba8_png",
 ]
