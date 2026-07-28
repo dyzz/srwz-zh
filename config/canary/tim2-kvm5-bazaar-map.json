@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "profile_id": "ui-bazaar-atlas-map-canary",
+  "scope": "A reversible mapping canary that erases only the large bazaar locator inside the offline KVMDATA chunk 5 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "source": {
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "asset_config": {
+      "path": "config/assets/archive-inventory.json",
+      "sha256": "6afc3beb1f67c82d355f572f0de92e2a5185790e17a1670a5a479a7e5b6e57ab"
+    },
+    "candidate_registry": {
+      "path": "config/assets/ui-atlas-candidates.json",
+      "sha256": "b3c2fd0032314f55566bb99d1c2bd77fc9cdc4469eab8cf6647371d397c05e12"
+    },
+    "members": {
+      "executable": {
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "archive": {
+        "size": 3335408,
+        "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+      }
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 5,
+    "record_index": 0,
+    "picture_index": 0,
+    "source_chunk_size": 33344,
+    "source_chunk_sha256": "9f7e7c8bad898cd1bcd1d9596237fcfec5239cd00522ac1643d975bbe6c0369f",
+    "semantic_locator": "バザー",
+    "operation": "erase_non_background_pixels",
+    "mask": {
+      "x": 3,
+      "y": 1,
+      "width": 137,
+      "height": 61,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    }
+  },
+  "runtime": {
+    "purpose": "Prove whether KVMDATA chunk 5 is consumed by the bazaar purchase and sale pages before authoring translation.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_bazaar_available_save",
+      "open_bazaar_purchase_and_sale_pages",
+      "visit_parts_item_and_sorting_routes",
+      "capture_visible_missing_bazaar_label_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The large top-left bazaar label is absent while Bazaar, purchase, sale, parts, item and profile labels remain intact.",
+    "promotion_rule": "Only a matching bazaar screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "expected": {
+    "reference_png": {
+      "size": 16117,
+      "sha256": "4c2da38c2ba01b513ea06f12a06dac930948860ca0adb27853c9590031d17673"
+    },
+    "edited_png": {
+      "size": 14606,
+      "sha256": "296b2d23ddbb813bf6c6f0ecf82c847e07aa414e00946f0e08deaf0b5d4a50b2"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "ae58ac003b7bc9bdd78cc2a3937114938b55312beb413af1fcd383bc3779bab0"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "746524d38967b695bbd98ff024455d492aa16d8d5a15a2b3aa70f382ec6d05e6"
+    },
+    "changed_pixel_count": 2197,
+    "changed_archive_byte_count": 1210,
+    "changed_archive_range_count": 212
+  },
+  "outputs": {
+    "component_root": "work/build/ui-bazaar-atlas-map-canary/components",
+    "reference_png": "work/build/ui-bazaar-atlas-map-canary/reference.png",
+    "edited_png": "work/build/ui-bazaar-atlas-map-canary/edited.png",
+    "validation": "work/review/ui-bazaar-atlas-map-canary/component-validation.json",
+    "manifest": "manifests/ui-bazaar-atlas-map-canary-validation.json"
+  }
+}

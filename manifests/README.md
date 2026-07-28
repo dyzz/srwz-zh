@@ -76,6 +76,13 @@
   绑定到单成员、零 LBA 位移的隔离 DVD；固定 65 个未替换成员、独立 UDF
   回读和 ISO SHA-256，并将战场截图与同一 2,297 像素 texture delta 登记为
   运行晋级双门。
+- `ui-bazaar-atlas-map-canary-validation.json`：chunk 5 商店候选的最小定位
+  组件；只擦除大号 `バザー`，记录 2,197 个逻辑像素、1,210 个 archive
+  byte、非目标 chunk 与等长 KVMDATA 门。
+- `ui-bazaar-atlas-map-canary-runtime-validation.json`：把商店组件绑定到
+  单成员、零 LBA 位移的隔离 DVD；固定 65 个未替换成员、独立 UDF 回读和
+  ISO SHA-256，并将商店截图与同一 2,197 像素 texture delta 登记为运行晋级
+  双门。
 - `ui-intermission-atlas-map-canary-validation.json`：chunk 6 幕间候选的最小
   定位组件；只擦除顶部 `インターミッション`，保留透明黑／不透明黑背景和
   右侧箭头，记录 803 个逻辑像素、509 个 archive byte、非目标 chunk 与等长

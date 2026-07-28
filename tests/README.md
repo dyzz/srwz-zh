@@ -56,6 +56,8 @@ manifest 投影；`test_image_export.py` 固定 SEG offset、路径安全和
 byte-exact no-op、VT1 六 picture 8-bpp index 替换、PSMT8 双向映射、CSM1
 静态渲染和尺寸/格式/颜色失败门；`test_title_menu.py` 固定四张 mask 到黄色/
 绿色 ramp 的量化、八个 128×32 槽写回和纹理右侧 byte-exact；
+`test_ui_atlas_map_canary.py` 以同一数据表固定 chunk 2/4/5/6/7 的 mask、
+组件／预览锁、单成员 ISO 及 `runtime_not_tested` 边界；
 `test_inject_srwz_tim2.py` 固定
 archive/report 输出边界；`test_mapname.py` 固定 Shift-JIS/NUL/全零 padding。
 真实图片清单、MAPNAME 聚合计数、PCSX2 图片 canary 的 351-pixel 精确 RGBA

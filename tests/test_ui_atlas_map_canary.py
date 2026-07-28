@@ -79,6 +79,36 @@ PROFILE_CASES = (
         ),
     },
     {
+        "name": "bazaar",
+        "config": "config/canary/tim2-kvm5-bazaar-map.json",
+        "manifest": (
+            "manifests/ui-bazaar-atlas-map-canary-validation.json"
+        ),
+        "iso_config": (
+            "config/iso/ui-bazaar-atlas-map-canary-build.json"
+        ),
+        "runtime_manifest": (
+            "manifests/"
+            "ui-bazaar-atlas-map-canary-runtime-validation.json"
+        ),
+        "chunk_index": 5,
+        "semantic_locator": "バザー",
+        "candidate_evidence_status": (
+            "upstream_changed_offline_visual_candidate_"
+            "not_runtime_mapped"
+        ),
+        "candidate_scene_ids": [
+            "intermission/main-and-options",
+        ],
+        "changed_pixel_count": 2197,
+        "preserved_rgba_counts": {"00000000": 6160},
+        "changed_archive_byte_count": 1210,
+        "iso_sha256": (
+            "6805fbd0bbfe98ef613ab7a4f4eddf18"
+            "4517b681a800b06a3fa1ba5af2ec2d04"
+        ),
+    },
+    {
         "name": "intermission",
         "config": (
             "config/canary/tim2-kvm6-intermission-map.json"

@@ -333,8 +333,30 @@ python3 tools/verify_ui_atlas_map_canary_iso.py \
   --config config/iso/ui-formation-atlas-map-canary-build.json --force
 ```
 
-四项结果都只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
-信息页、战场、幕间和编成必须分别同时看到目标标题缺失和同一
-299／2,297／803／1,325 像素 texture delta。记录精确 PCSX2、ISO、存档、
-截图及转储哈希后，才可升级候选场景映射。静态 preview、ISO 启动或任意 UI
-变化都不够。chunk 5 继续保留为商店候选。
+### 8.5 商店 `バザー`
+
+`KVMDATA chunk 5 / record 0 / picture 0` 的隔离 canary 只擦除顶部大号
+`バザー`，mask 为 `x=3, y=1, width=137, height=61`。右侧文字从 `x=143`
+开始，下方英文 `Bazaar` 从 `y=65` 开始，均不在 mask 内。组件改变 2,197 个
+逻辑像素和 1,210 个 archive byte，完整 KVMDATA 等长。隔离 ISO 只有一个
+替换成员、65 个未替换成员和零 LBA 位移，SHA-256 为
+`6805fbd0bbfe98ef613ab7a4f4eddf184517b681a800b06a3fa1ba5af2ec2d04`。
+
+复验：
+
+```bash
+python3 tools/build_ui_atlas_map_canary.py \
+  --config config/canary/tim2-kvm5-bazaar-map.json --force
+python3 tools/verify_ui_atlas_map_canary.py \
+  --config config/canary/tim2-kvm5-bazaar-map.json --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-bazaar-atlas-map-canary-build.json
+python3 tools/verify_ui_atlas_map_canary_iso.py \
+  --config config/iso/ui-bazaar-atlas-map-canary-build.json --force
+```
+
+五项结果都只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
+信息页、战场、商店、幕间和编成必须分别同时看到目标标题缺失和同一
+299／2,297／2,197／803／1,325 像素 texture delta。记录精确 PCSX2、ISO、
+存档、截图及转储哈希后，才可升级候选场景映射。静态 preview、ISO 启动或
+任意 UI 变化都不够。

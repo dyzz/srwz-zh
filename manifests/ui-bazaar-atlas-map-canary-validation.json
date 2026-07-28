@@ -1,0 +1,997 @@
+{
+  "schema_version": 1,
+  "status": "static_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-bazaar-atlas-map-canary",
+  "scope": "A reversible mapping canary that erases only the large bazaar locator inside the offline KVMDATA chunk 5 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "content_policy": "Hashes, coordinates, counts and diff summaries only; game bytes and preview PNGs remain under ignored work/.",
+  "inputs": {
+    "config": {
+      "path": "config/canary/tim2-kvm5-bazaar-map.json",
+      "size": 3542,
+      "sha256": "6faa36b4e8b0fa973863e9114737c5224bffa7026a9d0e699365badd377817d9"
+    },
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "asset_config": {
+      "path": "config/assets/archive-inventory.json",
+      "size": 2882,
+      "sha256": "6afc3beb1f67c82d355f572f0de92e2a5185790e17a1670a5a479a7e5b6e57ab"
+    },
+    "candidate_registry": {
+      "path": "config/assets/ui-atlas-candidates.json",
+      "size": 5596,
+      "sha256": "b3c2fd0032314f55566bb99d1c2bd77fc9cdc4469eab8cf6647371d397c05e12"
+    },
+    "members": {
+      "executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "archive": {
+        "member": "KURODATA/KVMDATA.BIN",
+        "size": 3335408,
+        "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+      }
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 5,
+    "chunk_start": 166720,
+    "chunk_end": 200064,
+    "record_index": 0,
+    "picture_index": 0,
+    "source_chunk": {
+      "size": 33344,
+      "sha256": "9f7e7c8bad898cd1bcd1d9596237fcfec5239cd00522ac1643d975bbe6c0369f"
+    },
+    "semantic_locator": "バザー",
+    "operation": "erase_non_background_pixels",
+    "candidate_evidence_status": "upstream_changed_offline_visual_candidate_not_runtime_mapped",
+    "candidate_scene_ids": [
+      "intermission/main-and-options"
+    ],
+    "mask": {
+      "x": 3,
+      "y": 1,
+      "width": 137,
+      "height": 61,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    },
+    "mask_audit": {
+      "changed_pixel_count": 2197,
+      "preserved_pixel_count": 6160,
+      "preserved_rgba_counts": {
+        "00000000": 6160
+      },
+      "changed_pixel_indexes_sha256": "0cc8942b9b2287191d4fd03bc7f2d5f600a9d504f8d2088895234b63775999c2",
+      "outside_mask_rgba_exact": true,
+      "replacement_rgba_exact": true,
+      "preserved_rgba_exact": true
+    }
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 2197,
+    "changed_image_byte_count": 1210,
+    "changed_image_byte_ranges": [
+      {
+        "start": 194,
+        "end": 196
+      },
+      {
+        "start": 322,
+        "end": 325
+      },
+      {
+        "start": 450,
+        "end": 453
+      },
+      {
+        "start": 572,
+        "end": 581
+      },
+      {
+        "start": 672,
+        "end": 674
+      },
+      {
+        "start": 686,
+        "end": 688
+      },
+      {
+        "start": 699,
+        "end": 710
+      },
+      {
+        "start": 800,
+        "end": 803
+      },
+      {
+        "start": 813,
+        "end": 817
+      },
+      {
+        "start": 827,
+        "end": 838
+      },
+      {
+        "start": 910,
+        "end": 912
+      },
+      {
+        "start": 925,
+        "end": 931
+      },
+      {
+        "start": 941,
+        "end": 945
+      },
+      {
+        "start": 955,
+        "end": 966
+      },
+      {
+        "start": 1037,
+        "end": 1041
+      },
+      {
+        "start": 1048,
+        "end": 1050
+      },
+      {
+        "start": 1053,
+        "end": 1060
+      },
+      {
+        "start": 1069,
+        "end": 1073
+      },
+      {
+        "start": 1083,
+        "end": 1094
+      },
+      {
+        "start": 1165,
+        "end": 1169
+      },
+      {
+        "start": 1175,
+        "end": 1179
+      },
+      {
+        "start": 1181,
+        "end": 1188
+      },
+      {
+        "start": 1197,
+        "end": 1201
+      },
+      {
+        "start": 1211,
+        "end": 1222
+      },
+      {
+        "start": 1292,
+        "end": 1297
+      },
+      {
+        "start": 1303,
+        "end": 1307
+      },
+      {
+        "start": 1309,
+        "end": 1316
+      },
+      {
+        "start": 1325,
+        "end": 1329
+      },
+      {
+        "start": 1339,
+        "end": 1350
+      },
+      {
+        "start": 1420,
+        "end": 1425
+      },
+      {
+        "start": 1431,
+        "end": 1435
+      },
+      {
+        "start": 1437,
+        "end": 1444
+      },
+      {
+        "start": 1453,
+        "end": 1457
+      },
+      {
+        "start": 1467,
+        "end": 1478
+      },
+      {
+        "start": 1548,
+        "end": 1553
+      },
+      {
+        "start": 1559,
+        "end": 1563
+      },
+      {
+        "start": 1565,
+        "end": 1572
+      },
+      {
+        "start": 1580,
+        "end": 1585
+      },
+      {
+        "start": 1595,
+        "end": 1599
+      },
+      {
+        "start": 1600,
+        "end": 1606
+      },
+      {
+        "start": 1676,
+        "end": 1681
+      },
+      {
+        "start": 1687,
+        "end": 1692
+      },
+      {
+        "start": 1693,
+        "end": 1701
+      },
+      {
+        "start": 1708,
+        "end": 1712
+      },
+      {
+        "start": 1723,
+        "end": 1727
+      },
+      {
+        "start": 1728,
+        "end": 1734
+      },
+      {
+        "start": 1804,
+        "end": 1809
+      },
+      {
+        "start": 1815,
+        "end": 1820
+      },
+      {
+        "start": 1822,
+        "end": 1829
+      },
+      {
+        "start": 1836,
+        "end": 1840
+      },
+      {
+        "start": 1851,
+        "end": 1855
+      },
+      {
+        "start": 1856,
+        "end": 1859
+      },
+      {
+        "start": 1932,
+        "end": 1936
+      },
+      {
+        "start": 1943,
+        "end": 1948
+      },
+      {
+        "start": 1950,
+        "end": 1957
+      },
+      {
+        "start": 1964,
+        "end": 1968
+      },
+      {
+        "start": 1978,
+        "end": 1983
+      },
+      {
+        "start": 1984,
+        "end": 1986
+      },
+      {
+        "start": 2059,
+        "end": 2064
+      },
+      {
+        "start": 2072,
+        "end": 2076
+      },
+      {
+        "start": 2078,
+        "end": 2084
+      },
+      {
+        "start": 2087,
+        "end": 2088
+      },
+      {
+        "start": 2092,
+        "end": 2096
+      },
+      {
+        "start": 2106,
+        "end": 2110
+      },
+      {
+        "start": 2114,
+        "end": 2115
+      },
+      {
+        "start": 2187,
+        "end": 2192
+      },
+      {
+        "start": 2200,
+        "end": 2204
+      },
+      {
+        "start": 2206,
+        "end": 2209
+      },
+      {
+        "start": 2210,
+        "end": 2212
+      },
+      {
+        "start": 2214,
+        "end": 2244
+      },
+      {
+        "start": 2315,
+        "end": 2320
+      },
+      {
+        "start": 2328,
+        "end": 2332
+      },
+      {
+        "start": 2334,
+        "end": 2337
+      },
+      {
+        "start": 2342,
+        "end": 2372
+      },
+      {
+        "start": 2443,
+        "end": 2448
+      },
+      {
+        "start": 2456,
+        "end": 2460
+      },
+      {
+        "start": 2463,
+        "end": 2464
+      },
+      {
+        "start": 2469,
+        "end": 2500
+      },
+      {
+        "start": 2571,
+        "end": 2576
+      },
+      {
+        "start": 2584,
+        "end": 2589
+      },
+      {
+        "start": 2597,
+        "end": 2628
+      },
+      {
+        "start": 2699,
+        "end": 2703
+      },
+      {
+        "start": 2712,
+        "end": 2717
+      },
+      {
+        "start": 2725,
+        "end": 2756
+      },
+      {
+        "start": 2826,
+        "end": 2831
+      },
+      {
+        "start": 2840,
+        "end": 2845
+      },
+      {
+        "start": 2854,
+        "end": 2884
+      },
+      {
+        "start": 2954,
+        "end": 2959
+      },
+      {
+        "start": 2968,
+        "end": 2973
+      },
+      {
+        "start": 2983,
+        "end": 3011
+      },
+      {
+        "start": 3082,
+        "end": 3087
+      },
+      {
+        "start": 3097,
+        "end": 3101
+      },
+      {
+        "start": 3115,
+        "end": 3119
+      },
+      {
+        "start": 3130,
+        "end": 3134
+      },
+      {
+        "start": 3210,
+        "end": 3215
+      },
+      {
+        "start": 3225,
+        "end": 3229
+      },
+      {
+        "start": 3243,
+        "end": 3247
+      },
+      {
+        "start": 3258,
+        "end": 3262
+      },
+      {
+        "start": 3337,
+        "end": 3342
+      },
+      {
+        "start": 3353,
+        "end": 3357
+      },
+      {
+        "start": 3371,
+        "end": 3375
+      },
+      {
+        "start": 3385,
+        "end": 3390
+      },
+      {
+        "start": 3465,
+        "end": 3470
+      },
+      {
+        "start": 3481,
+        "end": 3485
+      },
+      {
+        "start": 3499,
+        "end": 3503
+      },
+      {
+        "start": 3513,
+        "end": 3517
+      },
+      {
+        "start": 3593,
+        "end": 3598
+      },
+      {
+        "start": 3609,
+        "end": 3614
+      },
+      {
+        "start": 3627,
+        "end": 3631
+      },
+      {
+        "start": 3641,
+        "end": 3645
+      },
+      {
+        "start": 3721,
+        "end": 3726
+      },
+      {
+        "start": 3737,
+        "end": 3742
+      },
+      {
+        "start": 3755,
+        "end": 3759
+      },
+      {
+        "start": 3769,
+        "end": 3773
+      },
+      {
+        "start": 3849,
+        "end": 3853
+      },
+      {
+        "start": 3865,
+        "end": 3870
+      },
+      {
+        "start": 3883,
+        "end": 3887
+      },
+      {
+        "start": 3897,
+        "end": 3901
+      },
+      {
+        "start": 3976,
+        "end": 3981
+      },
+      {
+        "start": 3993,
+        "end": 3998
+      },
+      {
+        "start": 4011,
+        "end": 4015
+      },
+      {
+        "start": 4025,
+        "end": 4029
+      },
+      {
+        "start": 4104,
+        "end": 4109
+      },
+      {
+        "start": 4121,
+        "end": 4126
+      },
+      {
+        "start": 4139,
+        "end": 4143
+      },
+      {
+        "start": 4153,
+        "end": 4157
+      },
+      {
+        "start": 4232,
+        "end": 4237
+      },
+      {
+        "start": 4250,
+        "end": 4254
+      },
+      {
+        "start": 4267,
+        "end": 4271
+      },
+      {
+        "start": 4281,
+        "end": 4285
+      },
+      {
+        "start": 4360,
+        "end": 4364
+      },
+      {
+        "start": 4378,
+        "end": 4382
+      },
+      {
+        "start": 4394,
+        "end": 4399
+      },
+      {
+        "start": 4409,
+        "end": 4413
+      },
+      {
+        "start": 4487,
+        "end": 4492
+      },
+      {
+        "start": 4506,
+        "end": 4510
+      },
+      {
+        "start": 4522,
+        "end": 4527
+      },
+      {
+        "start": 4537,
+        "end": 4541
+      },
+      {
+        "start": 4615,
+        "end": 4620
+      },
+      {
+        "start": 4634,
+        "end": 4638
+      },
+      {
+        "start": 4650,
+        "end": 4654
+      },
+      {
+        "start": 4664,
+        "end": 4669
+      },
+      {
+        "start": 4743,
+        "end": 4748
+      },
+      {
+        "start": 4762,
+        "end": 4767
+      },
+      {
+        "start": 4778,
+        "end": 4782
+      },
+      {
+        "start": 4792,
+        "end": 4797
+      },
+      {
+        "start": 4871,
+        "end": 4875
+      },
+      {
+        "start": 4890,
+        "end": 4895
+      },
+      {
+        "start": 4906,
+        "end": 4910
+      },
+      {
+        "start": 4920,
+        "end": 4924
+      },
+      {
+        "start": 4998,
+        "end": 5003
+      },
+      {
+        "start": 5018,
+        "end": 5023
+      },
+      {
+        "start": 5034,
+        "end": 5038
+      },
+      {
+        "start": 5048,
+        "end": 5052
+      },
+      {
+        "start": 5126,
+        "end": 5131
+      },
+      {
+        "start": 5146,
+        "end": 5151
+      },
+      {
+        "start": 5163,
+        "end": 5166
+      },
+      {
+        "start": 5176,
+        "end": 5180
+      },
+      {
+        "start": 5254,
+        "end": 5259
+      },
+      {
+        "start": 5274,
+        "end": 5279
+      },
+      {
+        "start": 5303,
+        "end": 5308
+      },
+      {
+        "start": 5381,
+        "end": 5386
+      },
+      {
+        "start": 5402,
+        "end": 5407
+      },
+      {
+        "start": 5431,
+        "end": 5436
+      },
+      {
+        "start": 5509,
+        "end": 5514
+      },
+      {
+        "start": 5530,
+        "end": 5535
+      },
+      {
+        "start": 5559,
+        "end": 5563
+      },
+      {
+        "start": 5637,
+        "end": 5642
+      },
+      {
+        "start": 5658,
+        "end": 5663
+      },
+      {
+        "start": 5686,
+        "end": 5691
+      },
+      {
+        "start": 5765,
+        "end": 5769
+      },
+      {
+        "start": 5787,
+        "end": 5791
+      },
+      {
+        "start": 5814,
+        "end": 5819
+      },
+      {
+        "start": 5892,
+        "end": 5897
+      },
+      {
+        "start": 5915,
+        "end": 5919
+      },
+      {
+        "start": 5941,
+        "end": 5947
+      },
+      {
+        "start": 6020,
+        "end": 6025
+      },
+      {
+        "start": 6043,
+        "end": 6047
+      },
+      {
+        "start": 6069,
+        "end": 6074
+      },
+      {
+        "start": 6147,
+        "end": 6152
+      },
+      {
+        "start": 6171,
+        "end": 6175
+      },
+      {
+        "start": 6196,
+        "end": 6202
+      },
+      {
+        "start": 6275,
+        "end": 6280
+      },
+      {
+        "start": 6299,
+        "end": 6303
+      },
+      {
+        "start": 6323,
+        "end": 6329
+      },
+      {
+        "start": 6403,
+        "end": 6408
+      },
+      {
+        "start": 6427,
+        "end": 6432
+      },
+      {
+        "start": 6451,
+        "end": 6457
+      },
+      {
+        "start": 6530,
+        "end": 6535
+      },
+      {
+        "start": 6555,
+        "end": 6560
+      },
+      {
+        "start": 6578,
+        "end": 6584
+      },
+      {
+        "start": 6658,
+        "end": 6663
+      },
+      {
+        "start": 6683,
+        "end": 6688
+      },
+      {
+        "start": 6705,
+        "end": 6712
+      },
+      {
+        "start": 6786,
+        "end": 6791
+      },
+      {
+        "start": 6811,
+        "end": 6815
+      },
+      {
+        "start": 6831,
+        "end": 6839
+      },
+      {
+        "start": 6913,
+        "end": 6918
+      },
+      {
+        "start": 6939,
+        "end": 6943
+      },
+      {
+        "start": 6958,
+        "end": 6966
+      },
+      {
+        "start": 7041,
+        "end": 7046
+      },
+      {
+        "start": 7067,
+        "end": 7071
+      },
+      {
+        "start": 7083,
+        "end": 7094
+      },
+      {
+        "start": 7169,
+        "end": 7173
+      },
+      {
+        "start": 7210,
+        "end": 7221
+      },
+      {
+        "start": 7297,
+        "end": 7301
+      },
+      {
+        "start": 7338,
+        "end": 7348
+      },
+      {
+        "start": 7426,
+        "end": 7428
+      },
+      {
+        "start": 7466,
+        "end": 7475
+      },
+      {
+        "start": 7594,
+        "end": 7601
+      },
+      {
+        "start": 7722,
+        "end": 7728
+      },
+      {
+        "start": 7851,
+        "end": 7853
+      }
+    ],
+    "available_color_count": 9,
+    "archive_diff": {
+      "diff_count": 1210,
+      "range_count": 212,
+      "first_offset": 166978,
+      "last_offset": 174636,
+      "offsets_sha256": "22039c0d243efeeb2b5164ce85d236763d9f581513686a014ceb7184b6d218c3",
+      "ranges_sha256": "d40c2cd8985c317940b4d573faa275661eb372d0bf8e3e341b1f947f677d8e3f",
+      "before_values_sha256": "a8d46a16934d62e706c5b66d0e8c3f43c42a0f82d8361f413363930575c81480",
+      "after_values_sha256": "73c3efdd50bc06448a04f76112503699dc47d4c0743f6a4c32e45213fced17e7"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "ae58ac003b7bc9bdd78cc2a3937114938b55312beb413af1fcd383bc3779bab0"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "746524d38967b695bbd98ff024455d492aa16d8d5a15a2b3aa70f382ec6d05e6"
+    },
+    "reference_png": {
+      "size": 16117,
+      "sha256": "4c2da38c2ba01b513ea06f12a06dac930948860ca0adb27853c9590031d17673"
+    },
+    "edited_png": {
+      "size": 14606,
+      "sha256": "296b2d23ddbb813bf6c6f0ecf82c847e07aa414e00946f0e08deaf0b5d4a50b2"
+    }
+  },
+  "acceptance": {
+    "candidate_registry_exact": true,
+    "single_picture_4bpp_geometry_exact": true,
+    "mask_contains_every_rgba_change": true,
+    "replacement_uses_existing_source_color": true,
+    "preserved_background_rgba_exact": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Prove whether KVMDATA chunk 5 is consumed by the bazaar purchase and sale pages before authoring translation.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_bazaar_available_save",
+      "open_bazaar_purchase_and_sale_pages",
+      "visit_parts_item_and_sorting_routes",
+      "capture_visible_missing_bazaar_label_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The large top-left bazaar label is absent while Bazaar, purchase, sale, parts, item and profile labels remain intact.",
+    "promotion_rule": "Only a matching bazaar screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
+  }
+}
