@@ -16,7 +16,7 @@
 | `ui-writeback/` | UI 文本写回选择策略、锁定输入、容量 ratchet 和输出位置；不包含游戏字节 |
 | `ui-integration/` | 已验证 UI 组件的所有权、三方合并、依赖哈希、输出 golden 和运行边界 |
 | `summary/` | MTV_PROS 世界史中文断行、原 allocation、字库容量和运行边界 |
-| `assets/ui-atlas-candidates.json` | 信息页、战场、商店和编成文字 atlas 的离线候选及运行映射门禁 |
+| `assets/ui-atlas-candidates.json` | 信息页、战场、商店、幕间和编成文字 atlas 的离线候选及运行映射门禁 |
 | `canary/` | 验证切片的原版输入、构建参数和 golden；文本 canary 不拥有译文/码位，TIM2 探索 profile 暂存固定视觉标签 |
 | `iso/` | PS2 DVD 容器工具链、profile workspace、最终输出和布局锁 |
 | `patches/` | ASM/二进制前像、允许差异和写入所有者 |
@@ -28,7 +28,8 @@
 导致每次合法重建都产生新的 freshness 漂移；详细本地报告仍保留下游哈希。
 
 `runtime/ui-test-matrix.json` 不改变上述生产选择。它锁定
-`ui-scenes.json`、组合 UI／前五关镜像及五张中文 atlas 候选的提交清单，并为
+`ui-scenes.json`、综合 UI／前五关／atlas 测试镜像及五张隔离中文 atlas
+候选的提交清单，并为
 每个运行用例登记 fixture 状态、到达步骤、截图点和证据要求。存档必须位于
 被忽略的 `work/runtime/ui-fixtures/`，只有原生 `.ps2` memory card 和 SHA-256
 都登记后才能从 `not_acquired` 晋级；已有 `.p2s` savestate 不会被自动当作
@@ -112,6 +113,14 @@ STAGE、信息页 atlas 或 PCSX2 运行结论。
 P0 菜单、1,307 项动态名称、P2 字库和世界史。最终只由
 `iso/ui-p2-core-build.json` 放入 `ui-p2-core` 镜像；四个 replacement、
 两段 LBA 位移和镜像 golden 均固定，但运行状态仍为 `not_tested`。
+
+`assets/ui-atlas-suite-zh.json` 只在测试域内将五份已验证中文 atlas 对
+原版 `KVMDATA.BIN` 的互不相交字节所有权合并；它不改变任何单图的
+`runtime_mapping_pending`。`ui-integration/p2-first-five-atlas-test.json`
+再以完整成员为单位组合 P2 UI 的四个成员、前五关 `HB/STAGE` 和合成
+`KVMDATA`，由 `iso/ui-p2-first-five-atlas-test-build.json` 生成当前广覆盖
+测试 DVD。五张隔离 ISO 继续是场景归因的唯一证据，综合 ISO 只减少逐屏测试
+时的候选切换。
 
 `assets/archive-inventory.json` 由 `tools/srwz/assets.py` 独立执行严格 schema
 检查：未知字段、重复 member、路径穿越、archive/direct 重叠、未知 storage

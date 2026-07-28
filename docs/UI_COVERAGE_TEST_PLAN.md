@@ -5,14 +5,16 @@
 截图猜测文本归属。
 
 当前场景结论是 `inventory_passed_work_remaining`：场景筛选、源哈希、译文
-决策、字形需求和完整动态名称结构已经通过静态审计。增量 P0 字库候选也已达到
+决策、字形需求、完整动态名称结构和五份中文 atlas 候选已经通过静态审计。
+增量 P0 字库候选也已达到
 `offline_font_and_p0_renderer_coverage_passed_runtime_pending`。在该字库组件
 上，P0 SLPS 的 418 条已全部覆盖：101 条原字节已满足决策，317 条写入 378
 个目标。P0 COMPDATA 的 44 条也全部覆盖：3 条原本一致、41 条实际写入。
 开场路线另有 45 个动态人物／机体名称字段完成定长写回和独立回解。
 标题、上述 P0 内容、开场 45 项加 researched 1,262 项动态名称、P2 字库和
-28 条世界史已经进入同一个 `ui-p2-core` 候选并通过 ISO 静态回读；
-PCSX2 逐屏路线仍未因此自动通过。
+28 条世界史已经进入 `ui-p2-core`；测试专用综合候选进一步加入前五关
+`HB/STAGE` 和五图 `KVMDATA` suite，并通过 7 成员 ISO 静态回读。PCSX2
+逐屏路线和五张 atlas 的场景归因仍未因此自动通过。
 
 ## 1. 可重复入口
 
@@ -33,7 +35,7 @@ python3 tools/audit_display_name_coverage.py --force
 - 当前前五关 SLPS、VT1、codebook 与字形实际可达性；
 - COMPDATA 全部动态名称记录的结构、稳定 ID、分配边界和聚合 hash；
 - 45 个开场动态名称决策及 writer 清单，和三个既有探针的精确对应；
-- 标题菜单已有图片证据；
+- 标题菜单已有图片证据，五份中文 atlas manifest 的状态和哈希均被锁定；
 - P0 条数、缺字上限和候选槽余量；
 - 提交清单与本地审计结果完全一致。
 
@@ -182,7 +184,8 @@ code/glyph，另重绘 29 个原版汉字，余 19 槽。COMPDATA 合计 1,307 �
 SHA-256 为
 `2ce5c844cd623c1bfd2f6ec1bc7acc0aa9565fc069f451a0b736ad3e8aa13a65`。
 66 个成员中 62 个未替换成员保持原字节，四项 replacement 独立 UDF 回读；
-以上均为静态证据，运行状态仍为 `not_tested`。
+以上均为 P2 核心历史基线的静态证据，运行状态仍为 `not_tested`。当前
+运行矩阵改用下文的综合测试候选，避免核心 UI 与前五关之间切换镜像。
 
 固定长度的第一层 SLPS 写回使用独立 profile：
 
@@ -399,8 +402,33 @@ member/chunk/record/picture 映射。静态 preview、ISO 构建通过或任意�
 变化都不能单独晋级。
 
 下一阶段不再新增同类离线 canary，而是逐张完成截图／texture-dump 双门；
-前一张 atlas 的运行归属不得推断到后一张，任何一张也不得在定位前合入组合
-中文生产镜像。
+前一张 atlas 的运行归属不得推断到后一张。五图可以进入明确标为测试专用的
+综合镜像以减少候选切换，但不能据此晋级生产状态，也不能替代五张隔离 ISO
+的映射证据。
+
+### 4.2.1 综合 UI／前五关／atlas 测试候选
+
+五份中文 atlas 先以原版 `KVMDATA.BIN` 为共同基线做字节所有权合成，再与
+P2 UI 四成员及前五关 `HB/STAGE` 做完整成员组合：
+
+```bash
+python3 tools/build_ui_atlas_suite.py --force
+python3 tools/verify_ui_atlas_suite.py --force
+python3 tools/build_ui_test_candidate.py --force
+python3 tools/verify_ui_test_candidate.py --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-p2-first-five-atlas-test-build.json
+python3 tools/verify_ui_test_candidate_iso.py --force
+```
+
+atlas suite 相对原版归档共改变 5,568 个字节，五类 owner 零重叠，所有权外
+字节完全不变。综合 component 的 7 个成员也零重叠：P2 UI 拥有
+SLPS／COMPDATA／MTV_PROS／VT1，前五关拥有 HB／STAGE，suite 拥有
+KVMDATA。最终 DVD 大小为 3,758,456,832 字节，SHA-256 为
+`af5c1c5a510db1d86bee2054935400e51c86df34902972ef2ebafa71bb3eb52a`；
+59 个未替换成员 byte-exact，7 个 replacement 独立 UDF 回读，LBA 位移仅为
+`DATA/NISVDATA.BIN +7` 和 `DATA/STAGE.BIN +42`。这只建立综合运行候选的
+静态身份；五个 isolated atlas profile 仍是 scene mapping 的唯一归因依据。
 
 ### 4.3 SLPS/COMPDATA 文本池
 
@@ -430,9 +458,11 @@ python3 tools/audit_ui_runtime_matrix.py --force
   297 条退场台词；每类都登记继续推进所需的 exit gate；
 - 19 个用例：9 个 UI／路线验收、5 个 001～005 开场序列和 5 个中文 atlas
   场景映射／显示实验；
-- 7 张候选 ISO 均由现有 manifest 锁定精确 SHA-256；
-- 八个核心 UI 用例绑定 `ui-p2-core` 的精确 SHA-256；P1 镜像保留为历史
-  可复建基线，不再是当前矩阵的核心候选；
+- 6 张候选 ISO 均由现有 manifest 锁定精确 SHA-256：1 张综合镜像和 5 张
+  atlas 隔离镜像；
+- 14 个非映射用例（核心 UI、路线与前五关）绑定同一综合镜像；5 个映射用例
+  仍绑定各自隔离 atlas ISO，P1/P2 core 和 first-five 原镜像保留为历史
+  可复建基线；
 - 计划采集 42 张截图、6 组截图序列和 5 份 texture delta；
 - fresh boot 是唯一已就绪 fixture，因此标题、玩家设置、世界史滚动和
   stage 001 开场共 4 个用例可直接执行；其余 15 个用例等待六份原生
@@ -507,15 +537,15 @@ receipt 绑定稳定的 `matrix_plan_sha256`：它覆盖路线、采集点、断
    分别固定最终 ISO hash。五张受审中文候选 `机体`／`指令菜单`／`交易所`／
    `中场休息`／`新建小队` 也已锁定，相对原图分别变化
    421／2,292／3,634／2,083／1,262 个像素。
-9. **已完成运行矩阵；当前执行目标：**19 个用例已绑定七张精确 ISO、
-   fixture、截图点和断言。先执行四个 fresh-boot 用例；取得并哈希锁定六份
-   原生 memory card 后，用五张中文候选分别证明中文标签出现与
-   421／2,292／3,634／2,083／1,262 像素 texture delta 同时命中；另用 UI
-   core 精确 ISO 完成标题、玩家设置、战场、搜索和世界史滚动路线，同时按
-   官方术语扩大人物／机体名语料。
-10. 每张中文 atlas 只有通过自身运行双门后，才能与前五关 STAGE/HB
-   纳入同一候选；只能从一个明确 profile
-   构建后续完整测试 ISO。
+9. **已完成综合测试候选静态验收：**五图 suite 的 5,568 个实际修改字节
+   所有权互斥；P2 UI、前五关和 suite 以 7 个完整成员组合，最终 ISO 的
+   59 个未替换成员、两段 LBA 位移、UDF 回读和 SHA-256 均固定。
+10. **已完成运行矩阵；当前执行目标：**19 个用例已绑定 1 张综合 ISO 和
+   5 张隔离 atlas ISO、fixture、截图点和断言。先执行四个 fresh-boot 用例；
+   取得并哈希锁定六份原生 memory card 后，用五张隔离候选分别证明中文标签
+   出现与 421／2,292／3,634／2,083／1,262 像素 texture delta 同时命中；
+   另用综合 ISO 完成标题、玩家设置、战场、搜索、世界史滚动和前五关路线，
+   同时按官方术语扩大人物／机体名语料。
 
 每一步都先建立可失败的门禁和最小 fixture，再扩展场景数；不直接修改
 `work/` 中间产物作为生产输入。

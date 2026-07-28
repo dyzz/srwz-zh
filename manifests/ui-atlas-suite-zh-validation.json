@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "status": "static_combined_atlas_component_validated_runtime_mapping_pending",
+  "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes or localized text are embedded.",
+  "profile_id": "ui-atlas-suite-zh",
+  "scope": "A deterministic test-only composition of the five independently validated Chinese KVMDATA atlas candidates. Isolated profiles remain the authority for runtime scene mapping.",
+  "inputs": {
+    "config": {
+      "path": "config/assets/ui-atlas-suite-zh.json",
+      "size": 5834,
+      "sha256": "e17a4e07a6067d1e6bd79bf9ba82bd37ba56caa511cd1ec8dfe4d328f3362909"
+    },
+    "source_iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "source_member": {
+      "member": "KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8",
+      "independent_iso9660_read_exact": true
+    },
+    "components": [
+      {
+        "profile_id": "ui-info-atlas-zh",
+        "chunk_index": 2,
+        "config": {
+          "path": "config/assets/ui-info-atlas-zh.json",
+          "size": 3935,
+          "sha256": "ce7f09da6b2a0127b81fc7a1725375d8e05d0e61de46ea87b30e2c2376a03c65"
+        },
+        "manifest": {
+          "path": "manifests/ui-info-atlas-zh-validation.json",
+          "size": 9930,
+          "sha256": "b9acdac6d172cc2aaa274385cb20e2ce1ba148fe65262d9270ed59bf39d7459f"
+        },
+        "archive": {
+          "path": "work/build/ui-info-atlas-zh/components/KURODATA/KVMDATA.BIN",
+          "size": 3335408,
+          "sha256": "04c7b44d99676ada6cd19dccf3ef3d250b9f440902f854857a59645245aad933"
+        },
+        "target": {
+          "member": "KURODATA/KVMDATA.BIN",
+          "chunk_start": 66688,
+          "chunk_end": 100032
+        },
+        "diff": {
+          "diff_count": 247,
+          "range_count": 27,
+          "first_offset": 66798,
+          "last_offset": 68600,
+          "offsets_sha256": "ab494f15d7429911d23c2bd898f145dddacb57b8d3c34d43ad721bc1cb1596c0",
+          "ranges_sha256": "bbedbda491de32b7bd4c288527430b68ee186aa0bf7e2aae23cb2e012e0ba419",
+          "before_values_sha256": "f6524946741042a20a13a3fd582fd7881419225aa6810d87c123a2becc14177c",
+          "after_values_sha256": "b74434c3da7660a9abd41326dd061af47a57f86b6806ae0e8bb269a2eba6754a"
+        },
+        "runtime_status": "not_tested",
+        "exact": true
+      },
+      {
+        "profile_id": "ui-battle-command-atlas-zh",
+        "chunk_index": 4,
+        "config": {
+          "path": "config/assets/ui-battle-command-atlas-zh.json",
+          "size": 4096,
+          "sha256": "2e09d050e7683ae9ab345d469cf9bf4fbd15f2caf5051ba34064121056323377"
+        },
+        "manifest": {
+          "path": "manifests/ui-battle-command-atlas-zh-validation.json",
+          "size": 11905,
+          "sha256": "557d8240aebb4f73634f3b32197c455840b9684f228a5d637990782fa5c6b64d"
+        },
+        "archive": {
+          "path": "work/build/ui-battle-command-atlas-zh/components/KURODATA/KVMDATA.BIN",
+          "size": 3335408,
+          "sha256": "368df8ada21b0232e62b18e12c3689d07277dbb133f8f717488ddade1084ec83"
+        },
+        "target": {
+          "member": "KURODATA/KVMDATA.BIN",
+          "chunk_start": 133376,
+          "chunk_end": 166720
+        },
+        "diff": {
+          "diff_count": 1253,
+          "range_count": 83,
+          "first_offset": 146243,
+          "last_offset": 148340,
+          "offsets_sha256": "849e6f85dc9817e35dff84f81694ca123559135fc1b25097fd143086ab2a351c",
+          "ranges_sha256": "bf90d9393fa4e3618e3810cb95a1a37790461f83073617aa9215737b34b22c3b",
+          "before_values_sha256": "4f01e9b8b772b369fa170941d0716d9e892a210240c8de765b100779ecafb3f3",
+          "after_values_sha256": "0ad867382809a6496156e3636a016d88da5ccc2d8b665d50803c08e71cf02b01"
+        },
+        "runtime_status": "not_tested",
+        "exact": true
+      },
+      {
+        "profile_id": "ui-bazaar-atlas-zh",
+        "chunk_index": 5,
+        "config": {
+          "path": "config/assets/ui-bazaar-atlas-zh.json",
+          "size": 3972,
+          "sha256": "90cd9a616a1d5f08f8a902d31dd17c35e3c7e1fba2825009d5b61372a6d62bfe"
+        },
+        "manifest": {
+          "path": "manifests/ui-bazaar-atlas-zh-validation.json",
+          "size": 20931,
+          "sha256": "c771e19dbddb8cd706d201659890cbed50214fbaceca7d5e489dd60c7cc24eb8"
+        },
+        "archive": {
+          "path": "work/build/ui-bazaar-atlas-zh/components/KURODATA/KVMDATA.BIN",
+          "size": 3335408,
+          "sha256": "c758c0062eed21214a2266b1ddd017eb3b4a06f861a586db18c32451cb7800e5"
+        },
+        "target": {
+          "member": "KURODATA/KVMDATA.BIN",
+          "chunk_start": 166720,
+          "chunk_end": 200064
+        },
+        "diff": {
+          "diff_count": 2205,
+          "range_count": 249,
+          "first_offset": 166978,
+          "last_offset": 174636,
+          "offsets_sha256": "ce8707b8a96001456e5484374be0aca769ac898584d211478e320860a4810068",
+          "ranges_sha256": "da192f964f9c51abf267fa60d93ae6d5b24bbeac1aafc7734f21a83e009e2172",
+          "before_values_sha256": "9845be9173a8256decf1183475bedf163ec663c881d8f997b7a23fa46d6cedf5",
+          "after_values_sha256": "e6c14404fcf23ff170d17a11a990d588dcac1f59c818a4992dcc09a211cdc622"
+        },
+        "runtime_status": "not_tested",
+        "exact": true
+      },
+      {
+        "profile_id": "ui-intermission-atlas-zh",
+        "chunk_index": 6,
+        "config": {
+          "path": "config/assets/ui-intermission-atlas-zh.json",
+          "size": 3989,
+          "sha256": "a55e53ab5607486e8bb5d57dc7f2fa83b2af7fe87638930047589b4168cc26a0"
+        },
+        "manifest": {
+          "path": "manifests/ui-intermission-atlas-zh-validation.json",
+          "size": 15949,
+          "sha256": "6731fe09b7fe856f9a30ec77d9729a842d7026d2147941f76869816b6f566851"
+        },
+        "archive": {
+          "path": "work/build/ui-intermission-atlas-zh/components/KURODATA/KVMDATA.BIN",
+          "size": 3335408,
+          "sha256": "d1f03fc351f9d8547616d7870bedf72ddb235eb58b61e24e6c990d268f51ce70"
+        },
+        "target": {
+          "member": "KURODATA/KVMDATA.BIN",
+          "chunk_start": 200064,
+          "chunk_end": 233408
+        },
+        "diff": {
+          "diff_count": 1180,
+          "range_count": 188,
+          "first_offset": 200409,
+          "last_offset": 203639,
+          "offsets_sha256": "00fb03a9c3bbec6cd13bbae1dac93fa90d461b2f139e4395151d6b1120568668",
+          "ranges_sha256": "cddb27d0d7497171c17774e93271c2fa7187addb253447f4b3d3ab73c449b6d3",
+          "before_values_sha256": "ee0e24823263e681e0e04b542536600c69358f58660fe245b08189f2c43f3a99",
+          "after_values_sha256": "0044fda9ecf86d6ca35d4a12eb6cf5cb291ff4f14376626877d5ce2574a765e9"
+        },
+        "runtime_status": "not_tested",
+        "exact": true
+      },
+      {
+        "profile_id": "ui-formation-atlas-zh",
+        "chunk_index": 7,
+        "config": {
+          "path": "config/assets/ui-formation-atlas-zh.json",
+          "size": 4054,
+          "sha256": "1d6a3af7b0e44c3d4e9028bc5b9ea399245e80c06cb5484d4a7bda6c10e1ae38"
+        },
+        "manifest": {
+          "path": "manifests/ui-formation-atlas-zh-validation.json",
+          "size": 12438,
+          "sha256": "f83d4d70a16e641228993efd0e7c9ea1c4120ed5a2ced521b5f62d5321cf2998"
+        },
+        "archive": {
+          "path": "work/build/ui-formation-atlas-zh/components/KURODATA/KVMDATA.BIN",
+          "size": 3335408,
+          "sha256": "36b89e340ea57c996075d8711d4d85ce6971bf2d02f3a9904b0f72b249996375"
+        },
+        "target": {
+          "member": "KURODATA/KVMDATA.BIN",
+          "chunk_start": 233408,
+          "chunk_end": 266752
+        },
+        "diff": {
+          "diff_count": 683,
+          "range_count": 41,
+          "first_offset": 236851,
+          "last_offset": 239316,
+          "offsets_sha256": "c026244ce570a30e54640e0c9303ca695621a479f7d989944686f019146d8873",
+          "ranges_sha256": "e39e5da0cd961a93c7ce1def69cdf4265544702d9042003c9f0515cba89f0e29",
+          "before_values_sha256": "955132bb8c21646b4789870df70b7f886ffb4f3634ee05ccd7c1cb5e89cfd942",
+          "after_values_sha256": "018a4f7b293736b5bd2e134170f14ac7a6518dd37698862ee5395b2eb20440c3"
+        },
+        "runtime_status": "not_tested",
+        "exact": true
+      }
+    ]
+  },
+  "composition": {
+    "mode": "disjoint-byte-patch",
+    "component_count": 5,
+    "chunk_indices": [
+      2,
+      4,
+      5,
+      6,
+      7
+    ],
+    "ownership_overlap_count": 0,
+    "changed_byte_count": 5568,
+    "changed_range_count": 588,
+    "combined_diff": {
+      "diff_count": 5568,
+      "range_count": 588,
+      "first_offset": 66798,
+      "last_offset": 239316,
+      "offsets_sha256": "d80b97b8269edf153c3e335995a04086c1350f85981004bbb06ecfc9e85305c2",
+      "ranges_sha256": "52fea8af674aaef1f5bf1beedc54cc0399991c474a27996a1d60ddce2f786f05",
+      "before_values_sha256": "85d6befc3cfbbe00d40ace0dafac9f47847afb4c31750f1bbf56decc5366d3a8",
+      "after_values_sha256": "a65c1cf2caf1492c355ca0bbc6d91d4bed6cf379a59cd32afc499e653cb575b2"
+    }
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921"
+    }
+  },
+  "acceptance": {
+    "source_iso_and_member_locked": true,
+    "component_configs_and_manifests_locked": true,
+    "component_archives_match_manifests": true,
+    "component_diffs_within_owned_chunks": true,
+    "component_byte_ownership_disjoint": true,
+    "combined_bytes_match_component_owners": true,
+    "bytes_outside_component_ownership_exact": true,
+    "archive_size_preserved": true,
+    "output_lock_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Exercise all five localized atlas candidates in one test image after isolated mapping evidence remains available.",
+    "isolated_mapping_profiles_remain_required": true,
+    "required_chunk_indices": [
+      2,
+      4,
+      5,
+      6,
+      7
+    ],
+    "promotion_rule": "The suite may be integrated into the P2 UI candidate only as a test layer; each atlas still needs its own screenshot and exact texture-delta receipt before runtime promotion."
+  }
+}

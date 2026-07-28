@@ -25,15 +25,23 @@ P2 字库和世界史已通过无冲突组合，生成静态验证的 `ui-p2-cor
 COMPDATA 合计选择 1,307 个字段，其中 1,213 个产生字节写入、94 个为
 已相同 no-op，人物 ID、机体指针和非目标字节均保持不变；仍有 1,493 个
 非空名称没有满足当前 researched 精确传播门。该镜像尚未绑定当前环境中的
-PCSX2 逐屏证据，也不包含前五关 STAGE。五张已筛 KVMDATA 图集现均有受审
+PCSX2 逐屏证据。五张已筛 KVMDATA 图集现均有受审
 中文隔离候选：信息页 `机体`、战场 `指令菜单`、商店 `交易所`、幕间
 `中场休息` 和编成 `新建小队`。相对原图分别精确变化
 421／2,292／3,634／2,083／1,262 个像素；每张独立 ISO 都只替换等长
 `KVMDATA.BIN`，65 个其余成员 byte-exact、零 LBA 位移。旧的五张擦除
 mapping canary 继续保留为定位前像证据。五项都尚无截图／texture dump
-双证据，因此全部保持 `runtime_mapping_pending`，也尚未合入 `ui-p2-core`。
+双证据，因此全部保持 `runtime_mapping_pending`。
+当前另有一个明确标为测试专用的综合候选，把 `ui-p2-core`、前五关
+`HB/STAGE` 和五张中文 atlas 组合为 7 个互不重叠的 replacement。该 DVD
+大小为 3,758,456,832 字节，SHA-256 为
+`af5c1c5a510db1d86bee2054935400e51c86df34902972ef2ebafa71bb3eb52a`；
+59 个未替换成员保持原字节，7 个 replacement 均由 UDF 独立回读，LBA
+位移严格保持 `+7/+42` 两段。这仍只是静态容器证据；五张隔离 ISO 继续负责
+场景归因，综合镜像不能替代截图与 texture delta 双门。
 对应运行范围已整理为 19 个机器可检查用例：
-14 类场景完整分成 10 类当前目标和 4 类显式延期，绑定 7 张精确 ISO、
+14 类场景完整分成 10 类当前目标和 4 类显式延期，绑定 6 张精确 ISO
+（1 张综合候选加 5 张隔离 atlas）、
 42 个截图点、6 个开场／滚动序列与 5 个 texture delta；目前六份原生
 memory card 尚未取得，19 个用例均保持 `not_tested`。四个 fresh-boot
 用例已生成精确 case plan 和空白证据草稿；统一 verifier 会把 ISO、PINE、

@@ -55,6 +55,31 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             self.manifest["summary"]["runtime_not_tested_case_count"],
             19,
         )
+        self.assertEqual(self.manifest["summary"]["artifact_count"], 6)
+        integrated = self.manifest["artifacts"][0]
+        self.assertEqual(
+            integrated["artifact_id"],
+            "ui-p2-first-five-atlas-test",
+        )
+        self.assertEqual(
+            integrated["iso_sha256"],
+            (
+                "af5c1c5a510db1d86bee2054935400e51c86df34902972"
+                "ef2ebafa71bb3eb52a"
+            ),
+        )
+        non_mapping_cases = [
+            case
+            for case in self.manifest["cases"]
+            if case["purpose"] != "asset_mapping"
+        ]
+        self.assertTrue(
+            all(
+                case["artifact_id"]
+                == "ui-p2-first-five-atlas-test"
+                for case in non_mapping_cases
+            )
+        )
 
     def test_every_inventory_scene_has_one_explicit_disposition(self):
         inventory = json.loads(

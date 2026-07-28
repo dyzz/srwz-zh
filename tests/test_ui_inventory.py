@@ -3,6 +3,7 @@ import unittest
 from pathlib import Path
 
 from tools.srwz.ui_inventory import (
+    audit_ui_inventory,
     build_inventory_manifest,
     decision_is_complete,
     expand_scene_entries,
@@ -217,6 +218,62 @@ class UiInventoryTests(unittest.TestCase):
         self.assertEqual(summary_scene["layout"]["font_missing_character_count"], 41)
         self.assertEqual(summary_scene["layout"]["font_candidate_shortfall"], 38)
         self.assertEqual(summary_scene["layout"]["runtime_status"], "not_tested")
+
+    def test_committed_manifest_matches_current_sources(self):
+        report = audit_ui_inventory(PROJECT_ROOT, CONFIG_PATH)
+        manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(build_inventory_manifest(report), manifest)
+
+    def test_p0_asset_candidates_are_hash_locked_by_scene(self):
+        manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        scenes = {scene["scene_id"]: scene for scene in manifest["scenes"]}
+        expected = {
+            "intermission/main-and-options": {
+                "manifests/ui-bazaar-atlas-zh-validation.json",
+                "manifests/ui-intermission-atlas-zh-validation.json",
+                "manifests/ui-formation-atlas-zh-validation.json",
+            },
+            "information/unit-pilot-mech-core": {
+                "manifests/ui-info-atlas-zh-validation.json",
+            },
+            "battle/map-and-tactical": {
+                "manifests/ui-battle-command-atlas-zh-validation.json",
+                "manifests/ui-info-atlas-zh-validation.json",
+            },
+            "results/level-up-and-deployment": {
+                "manifests/ui-formation-atlas-zh-validation.json",
+            },
+            "search/filter-and-results": {
+                "manifests/ui-info-atlas-zh-validation.json",
+            },
+        }
+        for scene_id, expected_manifests in expected.items():
+            with self.subTest(scene_id=scene_id):
+                assets = scenes[scene_id]["assets"]
+                self.assertEqual(
+                    {asset["manifest"] for asset in assets},
+                    expected_manifests,
+                )
+                self.assertTrue(all(len(asset["sha256"]) == 64 for asset in assets))
+                self.assertTrue(
+                    all(asset["runtime_status"] == "not_tested" for asset in assets)
+                )
+                self.assertEqual(
+                    scenes[scene_id]["asset_translation_count"],
+                    len(expected_manifests),
+                )
+
+    def test_dynamic_inventory_tracks_p2_researched_names(self):
+        manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        source = manifest["dynamic_sources"][0]
+        self.assertEqual(
+            source["writer_manifest"]["selected_translation_entry_count"],
+            1307,
+        )
+        self.assertEqual(
+            source["writer_manifest"]["unselected_non_empty_entry_count"],
+            1493,
+        )
 
 
 if __name__ == "__main__":

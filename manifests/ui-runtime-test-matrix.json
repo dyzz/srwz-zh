@@ -2,15 +2,15 @@
   "schema_version": 1,
   "status": "runtime_matrix_validated_execution_pending",
   "matrix_id": "srwz-ui-runtime-v1",
-  "scope": "Runtime scene selection for the current P2 UI core with researched display names, first-five opening sequences and five localized KVMDATA atlas candidates. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
+  "scope": "Runtime scene selection for the integrated P2 UI, first-five and five-atlas test ISO, with five isolated atlas ISOs retained for scene attribution. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
   "matrix_config": {
     "path": "config/runtime/ui-test-matrix.json",
-    "sha256": "956c8eefe1b5b690f33649801f84aacc9d14602901544f6d21de2c1c1a5e225a"
+    "sha256": "6f3e6f7e99b44c2906af588ed4b4c80ded0f4d259322fd7f7987d7bc3681e7d7"
   },
-  "matrix_plan_sha256": "ef76848998853ab8258a4a7e970e324be9345bc764287a176e5654178ce85d0f",
+  "matrix_plan_sha256": "e0a2ad96c395df5065ff5ddf67dda5047312f82eade4cdceee5be9f9ef100c79",
   "scene_inventory": {
     "path": "config/ui-scenes.json",
-    "sha256": "359186c2ad46ec19a3c9b63cf14230160a684fd37f3fe805b8842b2713b5784c",
+    "sha256": "8728314e98343cb6abc72d65059515b120ab42bd01046116bbe95e55191152bb",
     "inventory_id": "srwz-ui-scenes-v1",
     "scene_count": 14
   },
@@ -54,7 +54,7 @@
       "P0": 12,
       "P1": 7
     },
-    "artifact_count": 7,
+    "artifact_count": 6,
     "fixture_count": 7,
     "fixture_status_counts": {
       "not_acquired": 6,
@@ -72,25 +72,14 @@
   },
   "artifacts": [
     {
-      "artifact_id": "ui-p2-core",
-      "manifest": "manifests/ui-p2-core-runtime-validation.json",
-      "manifest_sha256": "5b3fcb838a10834fc513612161ed0aa0b6e09ca7f548ac57edf60eed367b98d0",
-      "status": "static_integrated_iso_validated_runtime_pending",
+      "artifact_id": "ui-p2-first-five-atlas-test",
+      "manifest": "manifests/ui-p2-first-five-atlas-test-runtime-validation.json",
+      "manifest_sha256": "6d8509740084f50db66342f61a1b214dc6dd37252f51e40c296684000ee82852",
+      "status": "static_integrated_ui_p2_first_five_atlas_test_iso_validated_runtime_pending",
       "runtime_status": "not_tested",
-      "iso_path": "build/iso/ui-p2-core/srwz-ui-p2-core.iso",
+      "iso_path": "build/iso/ui-p2-first-five-atlas-test/srwz-ui-p2-first-five-atlas-test.iso",
       "iso_size": 3758456832,
-      "iso_sha256": "2ce5c844cd623c1bfd2f6ec1bc7acc0aa9565fc069f451a0b736ad3e8aa13a65",
-      "mapping": null
-    },
-    {
-      "artifact_id": "first-five",
-      "manifest": "manifests/first-five-validation.json",
-      "manifest_sha256": "4a12751a407563b452d284fcfb127453aa23d27c8b03d1000e494c95be2153b7",
-      "status": "static_and_renderer_coverage_passed_runtime_pending",
-      "runtime_status": "not_tested",
-      "iso_path": "build/iso/first-five/srwz-first-five.iso",
-      "iso_size": 3758358528,
-      "iso_sha256": "d0e9ab7233f6d3763b4280932b4574b3512d54686a540e0ea28dea6af9cbb5b4",
+      "iso_sha256": "af5c1c5a510db1d86bee2054935400e51c86df34902972ef2ebafa71bb3eb52a",
       "mapping": null
     },
     {
@@ -235,7 +224,7 @@
       "scene_ids": [
         "title/main-menu"
       ],
-      "artifact_id": "ui-p2-core",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "fresh-boot",
       "fixture_status": "ready",
       "variant": null,
@@ -256,7 +245,7 @@
       "scene_ids": [
         "opening/player-setup"
       ],
-      "artifact_id": "ui-p2-core",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "fresh-boot",
       "fixture_status": "ready",
       "variant": null,
@@ -277,7 +266,7 @@
       "scene_ids": [
         "intermission/main-and-options"
       ],
-      "artifact_id": "ui-p2-core",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "first-intermission-card",
       "fixture_status": "not_acquired",
       "variant": null,
@@ -298,7 +287,7 @@
       "scene_ids": [
         "information/unit-pilot-mech-core"
       ],
-      "artifact_id": "ui-p2-core",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "first-intermission-card",
       "fixture_status": "not_acquired",
       "variant": null,
@@ -319,7 +308,7 @@
       "scene_ids": [
         "battle/map-and-tactical"
       ],
-      "artifact_id": "ui-p2-core",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "first-battle-card",
       "fixture_status": "not_acquired",
       "variant": null,
@@ -340,7 +329,7 @@
       "scene_ids": [
         "results/level-up-and-deployment"
       ],
-      "artifact_id": "ui-p2-core",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "pre-results-card",
       "fixture_status": "not_acquired",
       "variant": null,
@@ -361,7 +350,7 @@
       "scene_ids": [
         "search/filter-and-results"
       ],
-      "artifact_id": "ui-p2-core",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "first-intermission-card",
       "fixture_status": "not_acquired",
       "variant": null,
@@ -382,7 +371,7 @@
       "scene_ids": [
         "opening/world-history-scroll"
       ],
-      "artifact_id": "ui-p2-core",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "fresh-boot",
       "fixture_status": "ready",
       "variant": null,
@@ -404,7 +393,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "first-five",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "fresh-boot",
       "fixture_status": "ready",
       "variant": "001",
@@ -426,7 +415,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "first-five",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "first-five-progress-card",
       "fixture_status": "not_acquired",
       "variant": "002",
@@ -448,7 +437,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "first-five",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "first-five-progress-card",
       "fixture_status": "not_acquired",
       "variant": "003",
@@ -470,7 +459,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "first-five",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "first-five-progress-card",
       "fixture_status": "not_acquired",
       "variant": "004",
@@ -492,7 +481,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "first-five",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "first-five-progress-card",
       "fixture_status": "not_acquired",
       "variant": "005",
@@ -514,7 +503,7 @@
       "scene_ids": [
         "route/stage-title-and-branch"
       ],
-      "artifact_id": "first-five",
+      "artifact_id": "ui-p2-first-five-atlas-test",
       "fixture_id": "route-branch-card",
       "fixture_status": "not_acquired",
       "variant": null,

@@ -399,8 +399,8 @@ python3 tools/verify_ui_core_iso.py \
 最终 ISO 大小为 3,758,456,832 字节，SHA-256 为
 `2ce5c844cd623c1bfd2f6ec1bc7acc0aa9565fc069f451a0b736ad3e8aa13a65`；
 66 个成员中 62 个未替换成员保持原字节，四项 replacement 独立 UDF 回读。
-这只证明 component 与容器；当前运行矩阵的八个核心 UI 用例均绑定该精确
-镜像，但全部仍为 `not_tested`。
+这只证明 component 与容器；该镜像作为 P2 core 历史基线保留。当前运行
+矩阵的非映射用例改为绑定下文的综合测试镜像，仍全部为 `not_tested`。
 
 ### 4.4 UI atlas 映射 canary 与中文候选
 
@@ -458,8 +458,34 @@ python3 tools/verify_ui_atlas_map_canary_iso.py \
 零 LBA 位移并独立 UDF 回读。五个中文 profile 均保持
 `static_localization_iso_validated_runtime_mapping_pending`：只有同一 ISO
 的目标页面出现相应中文标签，且 PCSX2 texture dump 精确匹配表中原图 delta，
-才可晋级。静态预览、容器构建或任意 UI 变化都不能证明场景归属，也不能授权
-合入 `ui-p2-core`。
+才可晋级。静态预览、容器构建或任意 UI 变化都不能证明场景归属。测试专用
+综合镜像允许提前携带五张 atlas 以减少逐屏测试切换，但不改变任何单图的
+`runtime_mapping_pending`，也不能替代隔离 ISO 的映射证据。
+
+### 4.4.1 综合测试候选
+
+`config/assets/ui-atlas-suite-zh.json` 从原版 `KVMDATA.BIN` 出发，验证五份
+中文 atlas 的实际修改字节互不重叠后生成单一 suite。随后
+`config/ui-integration/p2-first-five-atlas-test.json` 以完整成员为单位组合
+P2 UI 四成员、前五关 `HB/STAGE` 和 suite：
+
+```bash
+python3 tools/build_ui_atlas_suite.py --force
+python3 tools/verify_ui_atlas_suite.py --force
+python3 tools/build_ui_test_candidate.py --force
+python3 tools/verify_ui_test_candidate.py --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-p2-first-five-atlas-test-build.json
+python3 tools/verify_ui_test_candidate_iso.py --force
+```
+
+suite 相对原版共改变 5,568 个归档字节，owner overlap 为零，owner 外字节
+完全相同。综合 component 有 7 个互不重叠的 replacement；最终 DVD
+3,758,456,832 字节，SHA-256 为
+`af5c1c5a510db1d86bee2054935400e51c86df34902972ef2ebafa71bb3eb52a`。
+66 个成员中 59 个未替换成员 byte-exact，7 个 replacement 均独立 UDF
+回读，LBA 只按既有 P2 增长形成 `+7/+42` 两段位移。静态验收不能升级任何
+PCSX2、逐屏视觉或 atlas mapping 结论。
 
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求
@@ -527,7 +553,7 @@ MIPS HI/LO 写回门禁。P0 的 462 条静态菜单文本当前都能在原 spa
 - 全量 extraction freshness 与双向 reconciliation 的规模化运行；
 - 扩展 COMPDATA 动态人物／机体名的全量审校语料；当前已完成开场 45 项与
   researched 精确切片 1,262 项；
-- 用五张已生成的中文 atlas 候选逐一完成运行归属和精确像素双门，再把已通过
-  的 atlas 与前五关 STAGE/HB 合并到候选并完成逐屏 PCSX2 路线；
+- 用五张已生成的中文 atlas 隔离候选逐一完成运行归属和精确像素双门；同时
+  用已静态通过的综合测试候选完成 P2 UI、前五关和 atlas 的逐屏 PCSX2 路线；
 - 全量 STAGE arena policy 和通用 VT1 writer；
 - offline render oracle、coverage ratchet 和 clean-copy deterministic build。

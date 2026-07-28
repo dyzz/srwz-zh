@@ -117,17 +117,27 @@
 - 对应四份 `ui-*-atlas-zh-runtime-validation.json`：分别绑定单成员、
   65 个未替换成员、零 LBA 位移的隔离 DVD，并锁定 ISO SHA-256。只有目标页
   出现中文标签且 texture dump 精确匹配各自原图 delta，才允许晋级。
-- `ui-surface-inventory.json`：从真实语料、当前前五关字库和 COMPDATA
-  动态名称结构确定性投影的 UI 场景摘要；固定 P0 的 462 条文本、九个缺字、
-  12 个剩余候选槽、三槽余量和开场名称 writer 状态，并明确区分译文决策、
-  writer、ISO 与运行状态。
+- `ui-surface-inventory.json`：从真实语料、当前 P2 字库、COMPDATA
+  动态名称结构和五份 atlas manifest 确定性投影的 UI 场景摘要；记录
+  1,307 个已选名称、1,493 个剩余非空名称和各场景的哈希锁定图片候选，并
+  明确区分译文决策、writer、ISO 与运行状态。
+- `ui-atlas-suite-zh-validation.json`：证明五份中文 atlas 对原版
+  `KVMDATA.BIN` 的字节所有权互不重叠；组合后只改变 5,568 个归档字节，
+  所有权外字节保持原样。该清单只拥有测试用 component，不拥有场景归因。
+- `ui-p2-first-five-atlas-test-validation.json`：以完整成员组合 P2 UI、
+  前五关 `HB/STAGE` 和五图 atlas suite，锁定 7 个成员、三类 owner 与输出
+  golden；不携带游戏字节或译文。
+- `ui-p2-first-five-atlas-test-runtime-validation.json`：把上述综合
+  component 静态绑定到 66 成员 DVD；记录 59 个未替换成员、7 个 replacement、
+  `+7/+42` 两段 LBA 位移、独立 UDF 回读和镜像 SHA-256。运行仍为
+  `not_tested`，五张隔离 atlas 的场景映射证据仍必需。
 - `ui-runtime-test-matrix.json`：把 14 类 UI 场景完整分成 10 类当前测试目标
-  和 4 类显式延期，锁定 7 张精确 ISO、19 个逐屏用例、7 类 fixture、
+  和 4 类显式延期，锁定 6 张精确 ISO、19 个逐屏用例、7 类 fixture、
   42 个截图点、6 个截图序列和 5 个 texture delta；五张 atlas 用例均绑定
   中文候选及其 421／2,292／3,634／2,083／1,262 像素 delta。当前只有
   fresh-boot fixture 就绪，六份原生 memory card 尚未取得，因此 19 个用例
-  均保持 `not_tested`；八个核心 UI 用例绑定精确 `ui-p2-core` ISO，清单
-  不保存存档、截图或游戏字节。
+  均保持 `not_tested`；14 个非映射用例绑定同一综合测试 ISO，五个映射用例
+  仍绑定各自隔离 ISO。清单不保存存档、截图或游戏字节。
 - `runtime/ui-cases/*.json`：未来每个已通过用例的 hash-only receipt。receipt
   必须由 case-owned session probe、截图／序列、全部断言及可选 atlas
   texture delta 生成；矩阵锁定 receipt SHA-256，receipt 反向锁定排除运行

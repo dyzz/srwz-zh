@@ -94,6 +94,11 @@ def load_scene_config(path: Path) -> dict:
             scene["layout_manifest"], dict
         ):
             raise UiInventoryError(f"{scene_id} layout_manifest must be an object")
+        asset_sources = scene.get("asset_sources", [])
+        if not isinstance(asset_sources, list) or any(
+            not isinstance(source, dict) for source in asset_sources
+        ):
+            raise UiInventoryError(f"{scene_id} asset_sources must be a list")
     if len(scene_ids) != len(set(scene_ids)):
         raise UiInventoryError("UI scene IDs must be unique")
     return document
@@ -623,20 +628,42 @@ def verify_dynamic_sources(
 
 
 def _asset_report(project_root: Path, source: Mapping[str, object]) -> dict:
-    manifest = _json_object(_project_path(project_root, source["manifest"]))
+    relative = source.get("manifest")
+    path = _project_path(project_root, relative)
+    manifest = _json_object(path)
     translations = manifest.get("translations")
-    actual_count = len(translations) if isinstance(translations, list) else 0
+    localized_label = manifest.get("localized_label")
+    if isinstance(translations, list):
+        actual_count = len(translations)
+    elif isinstance(localized_label, dict):
+        actual_count = 1
+    else:
+        actual_count = 0
     expected_count = source.get("expected_translation_count")
     required_status = source.get("required_status")
-    exact = actual_count == expected_count and manifest.get("status") == required_status
+    runtime = manifest.get("runtime")
+    runtime_status = runtime.get("status") if isinstance(runtime, dict) else None
+    required_runtime_status = source.get("required_runtime_status")
+    exact = (
+        actual_count == expected_count
+        and manifest.get("status") == required_status
+        and (
+            required_runtime_status is None
+            or runtime_status == required_runtime_status
+        )
+    )
     if not exact:
-        raise UiInventoryError(f"asset manifest drift: {source['manifest']}")
-    return {
-        "manifest": source["manifest"],
+        raise UiInventoryError(f"asset manifest drift: {relative}")
+    report = {
+        "manifest": relative,
+        "sha256": sha256_bytes(path.read_bytes()),
         "translation_count": actual_count,
         "status": manifest["status"],
         "exact": True,
     }
+    if required_runtime_status is not None:
+        report["runtime_status"] = runtime_status
+    return report
 
 
 def _layout_manifest_report(

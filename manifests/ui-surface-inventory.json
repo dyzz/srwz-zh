@@ -48,7 +48,7 @@
   "dynamic_sources": [
     {
       "source_id": "compdata-fixed-record-display-names",
-      "status": "structure_and_p0_opening_writer_validated_iso_runtime_pending",
+      "status": "structure_and_p2_researched_writer_validated_iso_runtime_pending",
       "member": "work/disc/DATA/COMPDATA.BN",
       "stored_size": 144990,
       "stored_sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
@@ -62,10 +62,10 @@
         "non_empty_entry_count": 2800
       },
       "writer_manifest": {
-        "path": "manifests/ui-p0-display-names-validation.json",
-        "status": "p0_compdata_and_opening_display_names_validated_iso_runtime_pending",
-        "selected_translation_entry_count": 45,
-        "unselected_non_empty_entry_count": 2755,
+        "path": "manifests/ui-p2-display-names-validation.json",
+        "status": "p0_compdata_and_researched_display_names_validated_iso_runtime_pending",
+        "selected_translation_entry_count": 1307,
+        "unselected_non_empty_entry_count": 1493,
         "runtime_status": "not_tested"
       },
       "probe_count": 3,
@@ -107,6 +107,7 @@
       "assets": [
         {
           "manifest": "manifests/title-menu-zh-validation.json",
+          "sha256": "c905fecb25dfe2fc5c1789b11e0dc3463a9c3a37f0b90837803991a0a0dbb180",
           "translation_count": 4,
           "status": "passed",
           "exact": true
@@ -115,7 +116,7 @@
       "implementation": {
         "text": "not_applicable",
         "asset": "tim2_writer_and_exact_runtime_evidence_available",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_runtime_pending"
       },
       "runtime_route_step_count": 3,
       "runtime_assertion_count": 3
@@ -133,7 +134,7 @@
       "implementation": {
         "text": "fixed_p0_slps_and_opening_display_names_integrated_static",
         "asset": "title_menu_integrated_setup_atlas_runtime_mapping_pending",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_runtime_pending"
       },
       "runtime_route_step_count": 3,
       "runtime_assertion_count": 3
@@ -145,13 +146,38 @@
       "category": "runtime-text-ui",
       "selected_entry_count": 121,
       "decision_complete_count": 121,
-      "asset_translation_count": 0,
+      "asset_translation_count": 3,
       "missing_renderer_character_count": 4,
-      "assets": [],
+      "assets": [
+        {
+          "manifest": "manifests/ui-bazaar-atlas-zh-validation.json",
+          "sha256": "c771e19dbddb8cd706d201659890cbed50214fbaceca7d5e489dd60c7cc24eb8",
+          "translation_count": 1,
+          "status": "static_localized_component_validated_runtime_mapping_pending",
+          "exact": true,
+          "runtime_status": "not_tested"
+        },
+        {
+          "manifest": "manifests/ui-intermission-atlas-zh-validation.json",
+          "sha256": "6731fe09b7fe856f9a30ec77d9729a842d7026d2147941f76869816b6f566851",
+          "translation_count": 1,
+          "status": "static_localized_component_validated_runtime_mapping_pending",
+          "exact": true,
+          "runtime_status": "not_tested"
+        },
+        {
+          "manifest": "manifests/ui-formation-atlas-zh-validation.json",
+          "sha256": "f83d4d70a16e641228993efd0e7c9ea1c4120ed5a2ced521b5f62d5321cf2998",
+          "translation_count": 1,
+          "status": "static_localized_component_validated_runtime_mapping_pending",
+          "exact": true,
+          "runtime_status": "not_tested"
+        }
+      ],
       "implementation": {
         "text": "fixed_p0_slps_and_compdata_integrated_static",
-        "asset": "menu_atlas_candidates_narrowed_runtime_mapping_pending",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "asset": "three_localized_atlas_candidates_static_validated_runtime_mapping_pending",
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_atlas_mapping_pending"
       },
       "runtime_route_step_count": 3,
       "runtime_assertion_count": 3
@@ -163,13 +189,22 @@
       "category": "mixed-runtime-text-and-atlas-ui",
       "selected_entry_count": 128,
       "decision_complete_count": 128,
-      "asset_translation_count": 0,
+      "asset_translation_count": 1,
       "missing_renderer_character_count": 5,
-      "assets": [],
+      "assets": [
+        {
+          "manifest": "manifests/ui-info-atlas-zh-validation.json",
+          "sha256": "b9acdac6d172cc2aaa274385cb20e2ce1ba148fe65262d9270ed59bf39d7459f",
+          "translation_count": 1,
+          "status": "static_localized_component_validated_runtime_mapping_pending",
+          "exact": true,
+          "runtime_status": "not_tested"
+        }
+      ],
       "implementation": {
-        "text": "labels_and_opening_dynamic_names_integrated_full_roster_pending",
-        "asset": "generic_tim2_writer_available_chinese_info_atlas_not_authored",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "text": "labels_and_1307_researched_dynamic_names_integrated_full_roster_pending",
+        "asset": "localized_info_atlas_candidate_static_validated_runtime_mapping_pending",
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_atlas_mapping_pending"
       },
       "runtime_route_step_count": 3,
       "runtime_assertion_count": 4
@@ -181,13 +216,30 @@
       "category": "runtime-text-ui",
       "selected_entry_count": 80,
       "decision_complete_count": 80,
-      "asset_translation_count": 0,
+      "asset_translation_count": 2,
       "missing_renderer_character_count": 1,
-      "assets": [],
+      "assets": [
+        {
+          "manifest": "manifests/ui-battle-command-atlas-zh-validation.json",
+          "sha256": "557d8240aebb4f73634f3b32197c455840b9684f228a5d637990782fa5c6b64d",
+          "translation_count": 1,
+          "status": "static_localized_component_validated_runtime_mapping_pending",
+          "exact": true,
+          "runtime_status": "not_tested"
+        },
+        {
+          "manifest": "manifests/ui-info-atlas-zh-validation.json",
+          "sha256": "b9acdac6d172cc2aaa274385cb20e2ce1ba148fe65262d9270ed59bf39d7459f",
+          "translation_count": 1,
+          "status": "static_localized_component_validated_runtime_mapping_pending",
+          "exact": true,
+          "runtime_status": "not_tested"
+        }
+      ],
       "implementation": {
         "text": "fixed_p0_slps_and_compdata_integrated_static",
-        "asset": "battle_menu_atlas_not_in_current_ui_profile",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "asset": "localized_battle_and_shared_info_atlas_candidates_static_validated_runtime_mapping_pending",
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_atlas_mapping_pending"
       },
       "runtime_route_step_count": 3,
       "runtime_assertion_count": 3
@@ -199,13 +251,22 @@
       "category": "runtime-text-ui",
       "selected_entry_count": 52,
       "decision_complete_count": 52,
-      "asset_translation_count": 0,
+      "asset_translation_count": 1,
       "missing_renderer_character_count": 0,
-      "assets": [],
+      "assets": [
+        {
+          "manifest": "manifests/ui-formation-atlas-zh-validation.json",
+          "sha256": "f83d4d70a16e641228993efd0e7c9ea1c4120ed5a2ced521b5f62d5321cf2998",
+          "translation_count": 1,
+          "status": "static_localized_component_validated_runtime_mapping_pending",
+          "exact": true,
+          "runtime_status": "not_tested"
+        }
+      ],
       "implementation": {
         "text": "fixed_p0_slps_and_compdata_integrated_static",
-        "asset": "result_and_deployment_atlas_not_in_current_ui_profile",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "asset": "localized_formation_atlas_candidate_static_validated_runtime_mapping_pending",
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_atlas_mapping_pending"
       },
       "runtime_route_step_count": 3,
       "runtime_assertion_count": 3
@@ -217,13 +278,22 @@
       "category": "runtime-text-ui",
       "selected_entry_count": 50,
       "decision_complete_count": 50,
-      "asset_translation_count": 0,
+      "asset_translation_count": 1,
       "missing_renderer_character_count": 1,
-      "assets": [],
+      "assets": [
+        {
+          "manifest": "manifests/ui-info-atlas-zh-validation.json",
+          "sha256": "b9acdac6d172cc2aaa274385cb20e2ce1ba148fe65262d9270ed59bf39d7459f",
+          "translation_count": 1,
+          "status": "static_localized_component_validated_runtime_mapping_pending",
+          "exact": true,
+          "runtime_status": "not_tested"
+        }
+      ],
       "implementation": {
         "text": "fixed_p0_slps_and_compdata_integrated_static",
-        "asset": "search_atlas_not_in_current_ui_profile",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "asset": "localized_info_atlas_candidate_static_validated_runtime_mapping_pending",
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_atlas_mapping_pending"
       },
       "runtime_route_step_count": 3,
       "runtime_assertion_count": 3
@@ -259,13 +329,13 @@
       "implementation": {
         "text": "full_chinese_component_and_integrated_iso_static_validated_editorial_runtime_pending",
         "asset": "backgrounds_untouched",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_runtime_pending"
       },
       "runtime_route_step_count": 3,
       "runtime_assertion_count": 3,
       "layout": {
         "path": "manifests/world-history-layout.json",
-        "sha256": "a0821dd04a6fcd9c22cba30202905a359d934fca1ee0954d018389fd46e788b4",
+        "sha256": "fe871299e8f5b350b8246eaac20a02b9dfbb73b492360ef56a4d0f01aa00c4d1",
         "status": "layout_validated_editorial_font_runtime_pending",
         "entry_count": 28,
         "output_line_count": 146,
@@ -290,7 +360,7 @@
       "implementation": {
         "text": "final_iso_static_reread_passed_current_candidate_runtime_pending",
         "asset": "portraits_and_backgrounds_untouched",
-        "integration": "present_in_first_five_iso"
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_runtime_pending"
       },
       "runtime_route_step_count": 3,
       "runtime_assertion_count": 3

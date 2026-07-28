@@ -61,6 +61,12 @@ byte-exact no-op、VT1 六 picture 8-bpp index 替换、PSMT8 双向映射、CSM
 `test_ui_atlas_localization.py` 固定五张中文候选只从受审 corpus 取词、
 只在各自已擦除或保留背景的 mask 内写入，逐项锁定新增文字像素、原图 delta、
 TIM2 RGBA 回读、等长归档、独立 ISO 和运行映射未通过边界；
+`test_ui_atlas_suite.py` 固定五张中文候选对原版 KVMDATA 的 5,568 个实际
+归档字节修改互不重叠，所有权外字节保持原样；
+`test_ui_test_candidate.py` 固定 P2 UI、前五关和 atlas suite 的 7 个完整成员
+所有权、上游 manifest 字段锁与确定性复建；
+`test_ui_test_candidate_iso.py` 固定综合 DVD 的 59 个未替换成员、7 个
+replacement、两段 LBA 位移、独立 UDF 回读和运行未验收边界；
 `test_ui_runtime_matrix.py` 固定 14 类场景的完整去向、19 个逐屏用例、
 001～005 五个独立开场序列、世界史起点／中点／终点、五张中文 atlas 候选的
 截图＋texture-delta 双门，以及六份尚未取得的原生

@@ -27,17 +27,17 @@
       "source_id": "compdata-fixed-record-display-names",
       "member": "work/disc/DATA/COMPDATA.BN",
       "storage": "srwz_stream",
-      "status": "structure_and_p0_opening_writer_validated_iso_runtime_pending",
+      "status": "structure_and_p2_researched_writer_validated_iso_runtime_pending",
       "structure_manifest": {
         "path": "manifests/display-name-structure.json",
         "sha256": "66ab32f6a4a2d77c0b7a78a10e00d6833dc608ff4da20f415664309ce29f4bf3",
         "required_status": "structure_validated"
       },
       "writer_manifest": {
-        "path": "manifests/ui-p0-display-names-validation.json",
-        "required_status": "p0_compdata_and_opening_display_names_validated_iso_runtime_pending",
-        "selected_translation_entry_count": 45,
-        "unselected_non_empty_entry_count": 2755
+        "path": "manifests/ui-p2-display-names-validation.json",
+        "required_status": "p0_compdata_and_researched_display_names_validated_iso_runtime_pending",
+        "selected_translation_entry_count": 1307,
+        "unselected_non_empty_entry_count": 1493
       },
       "probes": [
         {
@@ -79,7 +79,7 @@
       "implementation": {
         "text": "not_applicable",
         "asset": "tim2_writer_and_exact_runtime_evidence_available",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_runtime_pending"
       },
       "route": [
         "Cold boot the exact candidate ISO.",
@@ -132,7 +132,7 @@
       "implementation": {
         "text": "fixed_p0_slps_and_opening_display_names_integrated_static",
         "asset": "title_menu_integrated_setup_atlas_runtime_mapping_pending",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_runtime_pending"
       },
       "route": [
         "START -> main story -> female protagonist.",
@@ -191,10 +191,30 @@
           "expected_entry_count": 30
         }
       ],
+      "asset_sources": [
+        {
+          "manifest": "manifests/ui-bazaar-atlas-zh-validation.json",
+          "expected_translation_count": 1,
+          "required_status": "static_localized_component_validated_runtime_mapping_pending",
+          "required_runtime_status": "not_tested"
+        },
+        {
+          "manifest": "manifests/ui-intermission-atlas-zh-validation.json",
+          "expected_translation_count": 1,
+          "required_status": "static_localized_component_validated_runtime_mapping_pending",
+          "required_runtime_status": "not_tested"
+        },
+        {
+          "manifest": "manifests/ui-formation-atlas-zh-validation.json",
+          "expected_translation_count": 1,
+          "required_status": "static_localized_component_validated_runtime_mapping_pending",
+          "required_runtime_status": "not_tested"
+        }
+      ],
       "implementation": {
         "text": "fixed_p0_slps_and_compdata_integrated_static",
-        "asset": "menu_atlas_candidates_narrowed_runtime_mapping_pending",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "asset": "three_localized_atlas_candidates_static_validated_runtime_mapping_pending",
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_atlas_mapping_pending"
       },
       "route": [
         "Reach the first intermission with a matching memory-card save.",
@@ -252,6 +272,14 @@
       "dynamic_source_refs": [
         "compdata-fixed-record-display-names"
       ],
+      "asset_sources": [
+        {
+          "manifest": "manifests/ui-info-atlas-zh-validation.json",
+          "expected_translation_count": 1,
+          "required_status": "static_localized_component_validated_runtime_mapping_pending",
+          "required_runtime_status": "not_tested"
+        }
+      ],
       "asset_members": [
         {
           "member": "KURODATA/KVMDATA.BIN",
@@ -259,9 +287,9 @@
         }
       ],
       "implementation": {
-        "text": "labels_and_opening_dynamic_names_integrated_full_roster_pending",
-        "asset": "generic_tim2_writer_available_chinese_info_atlas_not_authored",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "text": "labels_and_1307_researched_dynamic_names_integrated_full_roster_pending",
+        "asset": "localized_info_atlas_candidate_static_validated_runtime_mapping_pending",
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_atlas_mapping_pending"
       },
       "route": [
         "From intermission unit list, open unit information.",
@@ -313,10 +341,24 @@
           "expected_entry_count": 22
         }
       ],
+      "asset_sources": [
+        {
+          "manifest": "manifests/ui-battle-command-atlas-zh-validation.json",
+          "expected_translation_count": 1,
+          "required_status": "static_localized_component_validated_runtime_mapping_pending",
+          "required_runtime_status": "not_tested"
+        },
+        {
+          "manifest": "manifests/ui-info-atlas-zh-validation.json",
+          "expected_translation_count": 1,
+          "required_status": "static_localized_component_validated_runtime_mapping_pending",
+          "required_runtime_status": "not_tested"
+        }
+      ],
       "implementation": {
         "text": "fixed_p0_slps_and_compdata_integrated_static",
-        "asset": "battle_menu_atlas_not_in_current_ui_profile",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "asset": "localized_battle_and_shared_info_atlas_candidates_static_validated_runtime_mapping_pending",
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_atlas_mapping_pending"
       },
       "route": [
         "Load a first-five battle-map save.",
@@ -353,10 +395,18 @@
           "expected_entry_count": 21
         }
       ],
+      "asset_sources": [
+        {
+          "manifest": "manifests/ui-formation-atlas-zh-validation.json",
+          "expected_translation_count": 1,
+          "required_status": "static_localized_component_validated_runtime_mapping_pending",
+          "required_runtime_status": "not_tested"
+        }
+      ],
       "implementation": {
         "text": "fixed_p0_slps_and_compdata_integrated_static",
-        "asset": "result_and_deployment_atlas_not_in_current_ui_profile",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "asset": "localized_formation_atlas_candidate_static_validated_runtime_mapping_pending",
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_atlas_mapping_pending"
       },
       "route": [
         "Trigger one level-up and one item or funds reward.",
@@ -385,10 +435,18 @@
           "expected_entry_count": 20
         }
       ],
+      "asset_sources": [
+        {
+          "manifest": "manifests/ui-info-atlas-zh-validation.json",
+          "expected_translation_count": 1,
+          "required_status": "static_localized_component_validated_runtime_mapping_pending",
+          "required_runtime_status": "not_tested"
+        }
+      ],
       "implementation": {
         "text": "fixed_p0_slps_and_compdata_integrated_static",
-        "asset": "search_atlas_not_in_current_ui_profile",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "asset": "localized_info_atlas_candidate_static_validated_runtime_mapping_pending",
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_atlas_mapping_pending"
       },
       "route": [
         "Open search from intermission.",
@@ -457,7 +515,7 @@
       "implementation": {
         "text": "full_chinese_component_and_integrated_iso_static_validated_editorial_runtime_pending",
         "asset": "backgrounds_untouched",
-        "integration": "ui_p1_core_iso_static_validated_runtime_pending"
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_runtime_pending"
       },
       "route": [
         "Open LIBRARY -> world history and select the first record.",
@@ -523,7 +581,7 @@
       "implementation": {
         "text": "final_iso_static_reread_passed_current_candidate_runtime_pending",
         "asset": "portraits_and_backgrounds_untouched",
-        "integration": "present_in_first_five_iso"
+        "integration": "ui_p2_first_five_atlas_test_iso_static_validated_runtime_pending"
       },
       "route": [
         "Play each stage from its opening scene through battle-map entry.",

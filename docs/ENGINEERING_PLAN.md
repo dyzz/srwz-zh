@@ -580,13 +580,14 @@ canary 仍刻意使用已验证的原位定长 allocation。
 
 ## 17. 当前优先队列
 
-1. E3：继续按官方术语／人工确认批次扩展当前 1,493 个尚未满足 researched
-   精确传播门的非空名称字段；
-2. E3：用五张已静态验证的中文 atlas 独立候选逐一完成截图和
-   421／2,292／3,634／2,083／1,262 像素 texture-delta 双门；通过后再在
-   `ui-p2-core` 上加入图片和前五关 STAGE/HB；
-3. E3：补全 offline render oracle、coverage ratchet、evidence freshness
-   和 clean-copy deterministic build；
+1. E3：为综合测试 ISO 取得六份原生 memory card，并执行 14 个非映射逐屏
+   用例；每个结果必须绑定精确 ISO、PINE、日志、截图／序列和断言；
+2. E3：继续用五张隔离中文 atlas 候选逐一完成截图和
+   421／2,292／3,634／2,083／1,262 像素 texture-delta 双门；综合候选中的
+   同一图片不能替代场景归因；
+3. E3：继续按官方术语／人工确认批次扩展当前 1,493 个尚未满足 researched
+   精确传播门的非空名称字段，并补全 offline render oracle、coverage ratchet、
+   evidence freshness 和 clean-copy deterministic build；
 4. 对同一候选 ISO 完成 PCSX2 逐屏路线后，再扩展 P1/P2 和后续剧情。
 
 E0-E2 已完成：SurfaceSpec、正式 `测/试` codebook、三域 `corpus/zh`、
@@ -596,9 +597,10 @@ E0-E2 已完成：SurfaceSpec、正式 `测/试` codebook、三域 `corpus/zh`�
 开场 45 字段组件；researched 精确切片另选 1,262 项，并以 29 个新
 allocation、4 个退役 assignment 复用和 29 个重绘字形完成统一 renderer。
 标题、P0 菜单、合计 1,307 项动态名、P2 字库和世界史已经进入静态验证的
-`ui-p2-core` ISO。五张中文 atlas 均已有独立、等长、零 LBA 位移候选，但
-尚未完成运行归属或组合；余下 1,493 个非空名称、前五关 STAGE/HB 合并和
-逐屏运行验收也仍未覆盖。
+`ui-p2-core` ISO。五张中文 atlas 均已有独立、等长、零 LBA 位移候选；测试
+专用综合镜像也已把它们与前五关 `HB/STAGE` 合入 P2 UI，完成 7 成员静态
+容器验收。余下 1,493 个非空名称、五张 atlas 的运行归属和逐屏运行验收仍未
+覆盖。
 
 工程规划期间不把“文档数量”“脚本数量”或“单元测试数量”当作完成标准。每一阶段
 是否完成，只由该阶段声明的可重建产物、机器门禁和运行/视觉证据决定。
