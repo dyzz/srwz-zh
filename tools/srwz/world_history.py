@@ -647,9 +647,10 @@ def build_world_history_component(
         "runtime": {
             "status": "not_tested",
             "reason": (
-                "No P1 world-history ISO or fresh PCSX2 evidence exists. "
-                "The first, middle and final scroll segments and the new raw "
-                "trail classes remain runtime acceptance gates."
+                "The isolated P1 world-history ISO is statically validated, "
+                "but no fresh PCSX2 evidence exists. The first, middle and "
+                "final scroll segments and the new raw trail classes remain "
+                "runtime acceptance gates."
             ),
         },
     }

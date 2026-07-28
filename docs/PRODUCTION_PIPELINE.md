@@ -300,7 +300,8 @@ ASCII 词组和中文标点禁则不会被拆开。MTV_PROS 中三个跨记录�
 `config/summary/world-history-component.json` 已把 28/28 条写入完整 MTV_PROS：
 12 个文本块执行 changed-suffix 重编码，两个无文本块 byte-exact，14/14 块
 解码往返且独立全文重读一致；SLPS 只改变 MTV_PROS offset 表，VT1 与 P1
-字库组件一致。raw-trail 新类别、ISO 和滚动运行状态仍为 `not_tested`。
+字库组件一致。隔离 ISO 已完成 66 成员静态容器校验、三项替换独立 UDF
+回读并固定最终 SHA-256；raw-trail 新类别和滚动运行状态仍为 `not_tested`。
 只有人工审阅报告后才能运行 `--apply`，再次取得零
 差异后才可用 `--refresh-manifest` 更新 `manifests/world-history-layout.json`。
 该布局清单证明布局和相对 P0 的容量需求，不证明完整中文组件、ISO 或滚动
@@ -311,10 +312,16 @@ ASCII 词组和中文标点禁则不会被拆开。MTV_PROS 中三个跨记录�
 ```bash
 python3 tools/build_ui_p1_world_history.py --force
 python3 tools/verify_ui_p1_world_history.py --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-p1-world-history-build.json
+python3 tools/verify_ui_p1_world_history_iso.py --force
 ```
 
-其提交门禁是 `manifests/ui-p1-world-history-validation.json`；该清单证明
-离线组件，不证明 ISO 或 PCSX2。
+component 提交门禁是 `manifests/ui-p1-world-history-validation.json`。
+隔离 ISO 提交门禁是
+`manifests/ui-p1-world-history-runtime-validation.json`：它已固定 66 个成员、
+63 个未替换成员逐字节一致、三项替换独立 UDF 回读、DVD/NSR02 和最终 ISO
+SHA-256；PCSX2 滚动起点／中段／结尾及 raw-trail 新类别仍未验收。
 
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求

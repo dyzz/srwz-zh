@@ -342,6 +342,61 @@ class Mkps2isoBuildTests(unittest.TestCase):
                 },
             )
 
+    def test_world_history_component_and_iso_configs_share_output_locks(self):
+        root = Path(__file__).resolve().parents[1]
+        iso_config = load_config(
+            root
+            / "config"
+            / "iso"
+            / "ui-p1-world-history-build.json"
+        )
+        component_config = json.loads(
+            (
+                root
+                / "config"
+                / "summary"
+                / "world-history-component.json"
+            ).read_text()
+        )
+        self.assertEqual(
+            iso_config["profile_id"],
+            "ui-p1-world-history",
+        )
+        self.assertEqual(
+            iso_config["runtime_evidence_manifest"],
+            "manifests/ui-p1-world-history-runtime-validation.json",
+        )
+        self.assertEqual(
+            iso_config["output"]["path"],
+            (
+                "build/iso/ui-p1-world-history/"
+                "srwz-ui-p1-world-history.iso"
+            ),
+        )
+        replacements = {
+            item["member"]: item
+            for item in iso_config["replacements"]
+        }
+        for member, output_name, relative_path in (
+            ("SLPS_258.87", "slps", "SLPS_258.87"),
+            ("DATA/VT1.BIN", "vt1", "DATA/VT1.BIN"),
+            ("DATA/MTV_PROS.BIN", "mtv_pros", "DATA/MTV_PROS.BIN"),
+        ):
+            self.assertEqual(
+                replacements[member]["source"],
+                (
+                    f'{component_config["outputs"]["component_root"]}/'
+                    f"{relative_path}"
+                ),
+            )
+            self.assertEqual(
+                {
+                    "size": replacements[member]["size"],
+                    "sha256": replacements[member]["sha256"],
+                },
+                component_config["expected_outputs"][output_name],
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

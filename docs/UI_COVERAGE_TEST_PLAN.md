@@ -95,6 +95,9 @@ ISO。提交结果见 `manifests/ui-p1-summary-font-validation.json`。
 ```bash
 python3 tools/build_ui_p1_world_history.py --force
 python3 tools/verify_ui_p1_world_history.py --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-p1-world-history-build.json
+python3 tools/verify_ui_p1_world_history_iso.py --force
 ```
 
 builder 按原 14 块 offset 表解析真实 MTV_PROS，只对含文本的 12 块执行
@@ -102,8 +105,13 @@ fixed-allocation 写回和 changed-suffix 重编码；两个无文本块保持�
 验证器既做确定性重建逐字节比较，也从产物 SLPS offset 表重新切分 14 块，
 用 P1 codebook 重读全部 28 条。当前成员由 9,056 缩至 8,640 字节，SLPS
 只允许 60 字节 MTV_PROS offset 表变化，VT1 必须与 P1 字库组件完全一致。
-提交结果见 `manifests/ui-p1-world-history-validation.json`；它仍不构建 ISO，
-也不证明滚动画面或 raw-trail 新类别已通过实机验收。
+component 结果见 `manifests/ui-p1-world-history-validation.json`。隔离 ISO
+固定为 3,758,358,528 字节，SHA-256
+`49cba4170cabf17bfeaa8320518c429831abd309156e68f14d8e85b28dd6feb2`；
+66 个成员、63 个未替换成员逐字节一致，三项替换均通过独立 UDF 回读。
+静态容器结果见
+`manifests/ui-p1-world-history-runtime-validation.json`；它不证明滚动画面或
+raw-trail 新类别已通过实机验收。
 
 固定长度的第一层 SLPS 写回使用独立 profile：
 
@@ -186,7 +194,7 @@ P0 明确排除了两条含未定英语专名的后期专用提示。它们已�
 | 优先级 | 场景 | 文本数 | 推迟原因 |
 | --- | --- | ---: | --- |
 | P1 | 关卡标题与路线选择 | 122 | P1 字库、容量与运行路线尚未进入独立 profile，当前还缺 36 个字符 |
-| P1 | 开场／资料库世界史滚动文本 | 28 | 布局、P1 字库和完整 MTV_PROS 离线组件已通过；28 条仍为 `draft`，ISO、raw-trail 新类别和滚动运行待验收 |
+| P1 | 开场／资料库世界史滚动文本 | 28 | 布局、P1 字库、完整 MTV_PROS 组件和隔离 ISO 静态回读已通过；28 条仍为 `draft`，raw-trail 新类别和滚动运行待验收 |
 | P1 | 前五关开场、黑屏字幕与对话 | 1,833 | ISO 静态全量回读已通过，当前精确候选仍待运行验证 |
 | P1 | 其余内嵌设置、编成与提示文本 | 275 | 仍是上游 unknown 聚合，必须先按可见界面继续拆分 |
 | P1 | 后期专用指令与合神提示 | 2 | 英语专名需要人工确认 |
@@ -201,8 +209,8 @@ P0 明确排除了两条含未定英语专名的后期专用提示。它们已�
 全部 41 字并统一重绘另 53 个汉字，从候选组件重读 490 条 P0＋世界史文本后
 缺字与原版汉字混用均为零、余 48 个 renderer-addressable 槽。完整中文
 MTV_PROS 离线组件现已写入 28/28 条：14/14 块解码往返、12 块重编码、
-2 个无文本块原字节不变，输出重读未知码为零；但尚未生成相应 ISO 或
-起点／中段／结尾运行证据。前五关 1,833 条
+2 个无文本块原字节不变，输出重读未知码为零。隔离 ISO 已通过完整静态容器
+校验并锁定精确 SHA-256；尚缺起点／中段／结尾运行证据。前五关 1,833 条
 已写入现有候选并通过静态回读，但不能据此推导每个开场、黑屏字幕或战场触发
 都已在 PCSX2 中出现。
 
@@ -287,10 +295,11 @@ SLPS 418 条和 COMPDATA 44 条都能在原 span 内覆盖，不需要 P0 文本
 5. **已完成 P1 离线字库候选：**继承 P0 分配，追加世界史 41 字、重绘另
    53 个汉字，490 条选择零缺字且 VT1 大小保持不变；raw-trail 的新类别仍需
    绑定未来精确 ISO 做 PCSX2 验收。
-6. **已完成 P1 世界史离线组件：**28 条 fixed-allocation 写回、14 块解码
-   往返、SLPS offset 重读和独立全文重读均通过；运行状态仍为 `not_tested`。
-7. **当前下一步：**把 28 条世界史从 `draft` 提升到已审校状态并接入组合
-   ISO；同时按官方术语扩大人物／机体名语料，
+6. **已完成 P1 世界史组件和隔离 ISO 静态验收：**28 条 fixed-allocation
+   写回、14 块解码往返、SLPS offset 重读、独立全文重读、成员级 UDF 回读和
+   精确 ISO hash 均通过；运行状态仍为 `not_tested`。
+7. **当前下一步：**把 28 条世界史从 `draft` 提升到已审校状态并用当前
+   隔离 ISO 完成滚动运行验收；同时按官方术语扩大人物／机体名语料，
    通过运行时纹理转储和离线预览，把人物／机体／武器信息页 atlas 精确映射到
    archive/member/record/picture。
 8. 合并标题 TIM2、P0 字库、P0 文本、动态名、P1 世界史和前五关 STAGE；只从同一个

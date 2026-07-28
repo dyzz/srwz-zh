@@ -69,6 +69,10 @@ byte-free 清单，不拥有字形分配，也不把布局通过升级为组件�
 `summary/world-history-component.json` 在已验证 P1 SLPS/VT1 上拥有完整
 MTV_PROS 离线写回：锁定 28 条译文、布局清单、字库清单、14 块 codec 策略、
 输出哈希和运行边界；它不拥有 ISO 构建或 PCSX2 验收。
+`iso/ui-p1-world-history-build.json` 只负责把该组件绑定到隔离 DVD 镜像；
+静态容器证据见
+`manifests/ui-p1-world-history-runtime-validation.json`，其中运行门禁仍保持
+未通过。
 
 `assets/archive-inventory.json` 由 `tools/srwz/assets.py` 独立执行严格 schema
 检查：未知字段、重复 member、路径穿越、archive/direct 重叠、未知 storage

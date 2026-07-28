@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p1-summary-font.json",
-      "sha256": "f3ca465aad4389cd7db2e68070291f8e01283fad01fa6a8b92b754f51f7cbb16"
+      "sha256": "9fb613d1e8b728e82d4d94aaa156eea28d5fd7b91cd83926d0bab4441b4e5672"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p1-summary-allocations.json",
@@ -14,7 +14,7 @@
     },
     "scene_selection": {
       "path": "config/ui-scenes.json",
-      "sha256": "d4b1e17868299dd386f84ef4ad15dd62605588fe72ff2e3b9263abd7ff0b60af",
+      "sha256": "20e490cf293c1fa013d5ea9438cfe23e1e195753eb21b9d72b35fd9a3a76bb42",
       "inventory_id": "srwz-ui-scenes-v1",
       "priorities": [
         "P0",
@@ -35,13 +35,13 @@
     },
     "base_proposal": {
       "path": "work/writeback/ui-p0-codebook-proposal.json",
-      "sha256": "fa0e3eaae2d726aca0c2db2431699a237ffe58d3df7a72ea33cfb41eb0db731d",
+      "sha256": "9094d0d4fdc9813fe0c97511f97ee8ec88690c8620c564cbe8fa1246e0cde66e",
       "proposal_id": "srwz-ui-p0-unified-font-v1",
       "assignment_count": 1454
     },
     "base_validation_manifest": {
       "path": "manifests/ui-p0-font-validation.json",
-      "sha256": "cffcdb04370f551cca159752ebd3b180ec23dedfe04ca55fcac1089f93f19ff0"
+      "sha256": "6fc093039e984d9290cfe09b3c395ba6e174ec9d092b66a2788a62ea8edb8302"
     }
   },
   "capacity": {
@@ -71,11 +71,11 @@
   },
   "proposal": {
     "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-    "sha256": "96ec0214627b30f1a67895e2444537c0c76b66ae04ca920a76bd22a5a294f737"
+    "sha256": "0e44eead13db47309612b9e4674c8b671bec9e3d4b34b53b4cc75654790c7d9f"
   },
   "readiness": {
     "path": "work/writeback/ui-p1-summary-font-readiness.json",
-    "sha256": "1b9e745ba2a1f92b1e348f44173e9a97b75febaa9bc74017737bd6d517cf508a"
+    "sha256": "bb91fa6bdc5c9420340c16210558cbadcda1317dec2584952ec97390891715b8"
   },
   "font_component": {
     "report": "work/build/ui-p1-summary/components/font-validation.json",
@@ -143,7 +143,7 @@
   },
   "runtime": {
     "status": "not_tested",
-    "reason": "No full Chinese MTV_PROS component or combined ISO exists; raw trail classes beyond the inherited 0x7F canary and world-history scroll start/middle/end remain runtime pending."
+    "reason": "The full Chinese MTV_PROS component and matching ISO are statically validated, but no fresh runtime evidence exists; raw trail classes beyond the inherited 0x7F canary and world-history scroll start/middle/end remain runtime pending."
   },
   "allocation_policy": {
     "mode": "valid-sjis-then-raw-standard-trail-gaps",

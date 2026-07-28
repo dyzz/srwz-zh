@@ -51,7 +51,7 @@
   },
   "scene_inventory": {
     "path": "config/ui-scenes.json",
-    "sha256": "d4b1e17868299dd386f84ef4ad15dd62605588fe72ff2e3b9263abd7ff0b60af",
+    "sha256": "20e490cf293c1fa013d5ea9438cfe23e1e195753eb21b9d72b35fd9a3a76bb42",
     "inventory_id": "srwz-ui-scenes-v1",
     "priorities": [
       "P0",
@@ -99,7 +99,7 @@
     "base_acceptance_key": "base_ui_p0_components_unchanged",
     "missing_acceptance_key": "selected_renderer_missing_character_count_zero",
     "han_acceptance_key": "selected_original_font_han_count_zero",
-    "runtime_reason": "No full Chinese MTV_PROS component or combined ISO exists; raw trail classes beyond the inherited 0x7F canary and world-history scroll start/middle/end remain runtime pending."
+    "runtime_reason": "The full Chinese MTV_PROS component and matching ISO are statically validated, but no fresh runtime evidence exists; raw trail classes beyond the inherited 0x7F canary and world-history scroll start/middle/end remain runtime pending."
   },
   "outputs": {
     "readiness": "work/writeback/ui-p1-summary-font-readiness.json",

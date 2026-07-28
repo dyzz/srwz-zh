@@ -7,7 +7,7 @@
     "config": {
       "path": "config/summary/world-history-component.json",
       "size": 2902,
-      "sha256": "a4ae78cd824681d54443dbd2497a8d53b4ade00dc8f7c0d7396cfd1cb99f184c"
+      "sha256": "015c78b50904fc759d9dcf064716ced5d7c9f21cfd56c5e695c57d7219167d0b"
     },
     "source_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -46,8 +46,8 @@
     "font_component": {
       "manifest": {
         "path": "manifests/ui-p1-summary-font-validation.json",
-        "size": 7249,
-        "sha256": "4b29b14c72e4cc007e065183240f0960608f6b05b10f91d433c6328bc45a3007",
+        "size": 7307,
+        "sha256": "1412f6cb0052166f78dcfa6d14881edfa3e89cab46a190fe86cea9ebc3b40433",
         "status": "offline_font_and_selected_ui_renderer_coverage_passed_runtime_pending"
       },
       "report": {
@@ -73,7 +73,7 @@
         },
         "proposal": {
           "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-          "sha256": "96ec0214627b30f1a67895e2444537c0c76b66ae04ca920a76bd22a5a294f737"
+          "sha256": "0e44eead13db47309612b9e4674c8b671bec9e3d4b34b53b4cc75654790c7d9f"
         },
         "override_count": 1548
       }
@@ -398,7 +398,7 @@
   },
   "runtime": {
     "status": "not_tested",
-    "reason": "No P1 world-history ISO or fresh PCSX2 evidence exists. The first, middle and final scroll segments and the new raw trail classes remain runtime acceptance gates."
+    "reason": "The isolated P1 world-history ISO is statically validated, but no fresh PCSX2 evidence exists. The first, middle and final scroll segments and the new raw trail classes remain runtime acceptance gates."
   },
   "independent_reread": {
     "entry_count": 28,
@@ -406,7 +406,7 @@
     "all_texts_exact": true,
     "unknown_code_count": 0,
     "p1_vt1_exact": true,
-    "font_manifest_sha256": "4b29b14c72e4cc007e065183240f0960608f6b05b10f91d433c6328bc45a3007",
+    "font_manifest_sha256": "1412f6cb0052166f78dcfa6d14881edfa3e89cab46a190fe86cea9ebc3b40433",
     "chunks": [
       {
         "chunk_index": 0,

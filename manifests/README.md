@@ -77,8 +77,11 @@
 - `ui-p1-world-history-validation.json`：在 P1 字库之上写入全部 28 条
   MTV_PROS 世界史记录；记录 12 个重编码文本块、两个 byte-exact 无文本块、
   14/14 解码往返、定长 allocation、SLPS 60 字节 offset 表所有权以及
-  独立全文重读。ISO、滚动起点／中段／结尾和 raw-trail 新类别仍为
-  `not_tested`。
+  独立全文重读。该清单只拥有 component 证据。
+- `ui-p1-world-history-runtime-validation.json`：把上述 component 与独立
+  `ui-p1-world-history` ISO 绑定；记录 66 个成员、63 个未替换成员逐字节
+  一致、三项替换独立 UDF 回读、DVD/NSR02 和固定 ISO SHA-256。滚动
+  起点／中段／结尾及 raw-trail 新类别仍为 `not_tested`。
 - `ui-p0-fixed-slps-validation.json`：在 UI 字库候选 SLPS 上记录 101 条
   byte-exact no-op，并写入 317 条／378 个去重目标；全部 418 条 P0 SLPS
   均覆盖，指针、MIPS HI/LO、非目标字节和解压字库哈希不变。ISO 和运行验证

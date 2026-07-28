@@ -40,7 +40,7 @@
 | 编码与归档写回验证 | `validate_srwz_encoder.py`、`validate_srwz_archive_rebuild.py` |
 | 静态 canary | `build_static_canary.py`、`build_complete_canary.py` |
 | ISO | `bootstrap_mkps2iso.py`、`build_canary_iso.py`、`verify_first_five_iso_content.py` |
-| PCSX2/PINE | `verify_pcsx2_font_runtime.py`、`verify_first_five_runtime.py`、`send_pcsx2_keys.swift` |
+| PCSX2/PINE | `verify_pcsx2_font_runtime.py`、`verify_first_five_runtime.py`、`verify_ui_p1_world_history_iso.py`（完整世界史 component→ISO 静态绑定，运行证据仍单独记录）、`send_pcsx2_keys.swift` |
 | ASM 与二进制审计 | `check_armips_toolchain.py`、`audit_binary_patch.py` |
 | 上游快照 | `compare_upstream_snapshot.py` |
 

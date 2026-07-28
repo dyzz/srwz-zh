@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "status": "static_iso_validated_runtime_pending",
+  "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes are embedded.",
+  "profile_id": "ui-p1-world-history",
+  "component": {
+    "manifest": {
+      "path": "manifests/ui-p1-world-history-validation.json",
+      "size": 18541,
+      "sha256": "be307edd95f044c65d391aec8ddb24700c7f288b6adf804173dc19a91a6bb3a1"
+    },
+    "profile_id": "srwz-ui-p1-world-history-component-v1",
+    "entry_count": 28,
+    "archive_chunk_count": 14,
+    "outputs": {
+      "slps": {
+        "size": 3471624,
+        "sha256": "25f1659d17173336bfb748ae04e2bd22652e1464296d5bad02ac3f07a7c6f797"
+      },
+      "vt1": {
+        "size": 127500736,
+        "sha256": "ab25d669a37dfa023267b1cd0fbc392e68c52835668958e01887b80cea4c503e"
+      },
+      "mtv_pros": {
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      }
+    }
+  },
+  "iso_build": {
+    "config": {
+      "path": "config/iso/ui-p1-world-history-build.json",
+      "size": 3456,
+      "sha256": "cdeb06220f8b96569c592e9d19833be300ce38c1f227dc984a50c0e5870aab93"
+    },
+    "report": {
+      "path": "build/iso/ui-p1-world-history/iso-validation.json",
+      "size": 3186,
+      "sha256": "8d201cdef9e5013deb6ef7dfd5efdaec3d49204a37449d39398e6aaf588aaa25"
+    },
+    "output": {
+      "size": 3758358528,
+      "sha256": "49cba4170cabf17bfeaa8320518c429831abd309156e68f14d8e85b28dd6feb2"
+    },
+    "path": "build/iso/ui-p1-world-history/srwz-ui-p1-world-history.iso",
+    "member_count": 66,
+    "unchanged_member_count": 63,
+    "member_manifest_sha256": "d443b145249a0d8ec21de2265565f29137143d45ea53ba1772a3e793a9152b03",
+    "pcsx2_v263_image_type": "DVD",
+    "udf_volume_recognition_sequence": "NSR02",
+    "replacements": {
+      "SLPS_258.87": {
+        "size": 3471624,
+        "sha256": "25f1659d17173336bfb748ae04e2bd22652e1464296d5bad02ac3f07a7c6f797",
+        "component_output": "slps",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/MTV_PROS.BIN": {
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+        "component_output": "mtv_pros",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/VT1.BIN": {
+        "size": 127500736,
+        "sha256": "ab25d669a37dfa023267b1cd0fbc392e68c52835668958e01887b80cea4c503e",
+        "component_output": "vt1",
+        "independent_udf_reread_exact": true
+      }
+    }
+  },
+  "static_acceptance": {
+    "component_manifest_validated": true,
+    "iso_size_and_sha256_pinned": true,
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "pcsx2_media_type_dvd": true,
+    "udf_nsr02": true,
+    "all_replacements_independently_reread": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_iso_sha256": "49cba4170cabf17bfeaa8320518c429831abd309156e68f14d8e85b28dd6feb2",
+    "required_emulator": "PCSX2 v2.6.3",
+    "pending_gates": [
+      "fresh_process_boot_exact_iso",
+      "pine_running_and_decoded_font_exact",
+      "world_history_scroll_first_segment_visible",
+      "world_history_scroll_middle_segment_visible",
+      "world_history_scroll_final_segment_visible",
+      "new_0x7f_and_0xfd_raw_trail_classes_visible",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss"
+    ]
+  }
+}

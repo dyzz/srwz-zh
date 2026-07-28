@@ -16,6 +16,10 @@ from tools.srwz.ui_menu import load_ui_font_overrides
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = PROJECT_ROOT / "config/summary/world-history-component.json"
 MANIFEST_PATH = PROJECT_ROOT / "manifests/ui-p1-world-history-validation.json"
+RUNTIME_MANIFEST_PATH = (
+    PROJECT_ROOT
+    / "manifests/ui-p1-world-history-runtime-validation.json"
+)
 COMPONENT_ROOT = PROJECT_ROOT / "work/build/ui-p1-world-history/components"
 
 
@@ -24,6 +28,9 @@ class UiP1WorldHistoryTests(unittest.TestCase):
     def setUpClass(cls):
         cls.config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
         cls.manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        cls.runtime_manifest = json.loads(
+            RUNTIME_MANIFEST_PATH.read_text(encoding="utf-8")
+        )
 
     def test_complete_selection_and_allocation_ratchets(self):
         self.assertEqual(
@@ -144,6 +151,34 @@ class UiP1WorldHistoryTests(unittest.TestCase):
             self.manifest["independent_reread"]["all_texts_exact"]
         )
         self.assertEqual(self.manifest["runtime"]["status"], "not_tested")
+
+    def test_static_iso_is_bound_without_overclaiming_runtime(self):
+        runtime = self.runtime_manifest
+        self.assertEqual(
+            runtime["status"],
+            "static_iso_validated_runtime_pending",
+        )
+        self.assertEqual(runtime["profile_id"], "ui-p1-world-history")
+        self.assertEqual(runtime["component"]["entry_count"], 28)
+        self.assertEqual(runtime["iso_build"]["member_count"], 66)
+        self.assertEqual(
+            runtime["iso_build"]["unchanged_member_count"],
+            63,
+        )
+        self.assertEqual(
+            runtime["iso_build"]["pcsx2_v263_image_type"],
+            "DVD",
+        )
+        self.assertTrue(all(runtime["static_acceptance"].values()))
+        self.assertEqual(runtime["runtime"]["status"], "not_tested")
+        self.assertEqual(
+            runtime["runtime"]["required_iso_sha256"],
+            runtime["iso_build"]["output"]["sha256"],
+        )
+        self.assertIn(
+            "world_history_scroll_final_segment_visible",
+            runtime["runtime"]["pending_gates"],
+        )
 
 
 if __name__ == "__main__":
