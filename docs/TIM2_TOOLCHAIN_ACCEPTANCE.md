@@ -241,7 +241,9 @@ PCSX2 v2.6.3 中第一项、第四项选中截图均显示正确，DVD、PINE ru
 逐像素保留的背景 RGBA 集合。它只擦除 mask 内非背景像素；mask 外、登记背景、
 TIM2 header/CLUT/padding、其他 chunk 和完整归档长度必须不变。这样既能处理
 透明底的 chunk 2，也能处理同时含透明黑和不透明黑的 chunk 6，而不会把整块
-背景 alpha 一并改掉。
+背景 alpha 一并改掉。TIM2→PNG8 展开必须显式使用 `+dither`：chunk 7 的
+轻微色偏 CLUT 已证明默认 palette dithering 会让同一源 index 量化成多个
+RGBA，从而破坏可逆写回映射；关闭抖动后 16 个源 index 均保持一对一 RGBA。
 
 ### 8.1 信息页 `SHIP`
 
@@ -308,8 +310,31 @@ python3 tools/verify_ui_atlas_map_canary_iso.py \
   --config config/iso/ui-intermission-atlas-map-canary-build.json --force
 ```
 
-三项结果都只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
-信息页、战场和幕间必须分别同时看到目标标题缺失和同一
-299／2,297／803 像素 texture delta。记录精确 PCSX2、ISO、存档、截图及
-转储哈希后，才可升级候选场景映射。静态 preview、ISO 启动或任意 UI 变化都
-不够。chunk 5/7 继续分别保留为商店和编成候选。
+### 8.4 编成 `新規編成`
+
+`KVMDATA chunk 7 / record 0 / picture 0` 的隔离 canary 只擦除
+`新規編成`，mask 为 `x=98, y=26, width=74, height=20`。该矩形与右侧
+`リザーブへ` 之间保留两列空隙，不覆盖上方 `Event No/Leader/Pilot` 或下方
+数字列。组件改变 1,325 个逻辑像素和 691 个 archive byte，完整 KVMDATA
+等长。隔离 ISO 只有一个替换成员、65 个未替换成员和零 LBA 位移，SHA-256
+为
+`5f05e41f9ba2e410d36a985ca9a87f177d6622ee4e5340d5c0f0ad1ba4fe844c`。
+
+复验：
+
+```bash
+python3 tools/build_ui_atlas_map_canary.py \
+  --config config/canary/tim2-kvm7-formation-map.json --force
+python3 tools/verify_ui_atlas_map_canary.py \
+  --config config/canary/tim2-kvm7-formation-map.json --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-formation-atlas-map-canary-build.json
+python3 tools/verify_ui_atlas_map_canary_iso.py \
+  --config config/iso/ui-formation-atlas-map-canary-build.json --force
+```
+
+四项结果都只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
+信息页、战场、幕间和编成必须分别同时看到目标标题缺失和同一
+299／2,297／803／1,325 像素 texture delta。记录精确 PCSX2、ISO、存档、
+截图及转储哈希后，才可升级候选场景映射。静态 preview、ISO 启动或任意 UI
+变化都不够。chunk 5 继续保留为商店候选。

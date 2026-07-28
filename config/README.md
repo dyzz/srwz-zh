@@ -102,9 +102,12 @@ KVMDATA 输出和确定性 PNG 预览。
 `canary/tim2-kvm4-battle-command-map.json` 以同一契约固定 chunk 4 的
 `COMMAND MENU` 战场候选。
 `canary/tim2-kvm6-intermission-map.json` 以相同契约固定 chunk 6 顶部幕间
-标题，分别保留透明黑与不透明黑背景。对应的
+标题，分别保留透明黑与不透明黑背景。
+`canary/tim2-kvm7-formation-map.json` 则固定 chunk 7 的 `新規編成`。
+对应的
 `iso/ui-info-atlas-map-canary-build.json`、
 `iso/ui-battle-command-atlas-map-canary-build.json` 和
-`iso/ui-intermission-atlas-map-canary-build.json` 都只写入一个等长成员；
-六份配置都明确保持 `runtime_mapping_pending`，不拥有中文 atlas 或场景归属
+`iso/ui-intermission-atlas-map-canary-build.json`、
+`iso/ui-formation-atlas-map-canary-build.json` 都只写入一个等长成员；
+八份配置都明确保持 `runtime_mapping_pending`，不拥有中文 atlas 或场景归属
 结论。

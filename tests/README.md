@@ -49,7 +49,8 @@ python3 tools/build_static_canary.py --force
 `test_tim2.py` 固定 TIM2 header/边界、indexed/shared CLUT 和 false-magic
 拒绝；`test_asset_inventory.py` 固定资产 schema、来源路径、成员唯一性和
 manifest 投影；`test_image_export.py` 固定 SEG offset、路径安全和
-单-picture/调色板 bank 导出边界；`test_image_dashboard.py` 固定本地 HTML
+单-picture/调色板 bank 导出边界；`test_imagemagick.py` 固定 TIM2→PNG8
+渲染必须关闭 palette dithering；`test_image_dashboard.py` 固定本地 HTML
 数据投影、重复 PNG 分组和输出路径边界；`test_render_srwz_tim2.py` 固定 ImageMagick wrapper 只能写入
 被忽略的 `work/*.png`；`test_tim2_writeback.py` 固定 4-bpp low/high nibble、
 byte-exact no-op、VT1 六 picture 8-bpp index 替换、PSMT8 双向映射、CSM1

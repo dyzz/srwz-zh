@@ -1,0 +1,282 @@
+{
+  "schema_version": 1,
+  "status": "static_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-formation-atlas-map-canary",
+  "scope": "A reversible mapping canary that erases only the new-formation locator inside the offline KVMDATA chunk 7 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "content_policy": "Hashes, coordinates, counts and diff summaries only; game bytes and preview PNGs remain under ignored work/.",
+  "inputs": {
+    "config": {
+      "path": "config/canary/tim2-kvm7-formation-map.json",
+      "size": 3591,
+      "sha256": "eeb613705b24bbb8a4b12db3d957c92b237e4cb588ef6c1ccdf73e4d9dfff5e2"
+    },
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "asset_config": {
+      "path": "config/assets/archive-inventory.json",
+      "size": 2882,
+      "sha256": "6afc3beb1f67c82d355f572f0de92e2a5185790e17a1670a5a479a7e5b6e57ab"
+    },
+    "candidate_registry": {
+      "path": "config/assets/ui-atlas-candidates.json",
+      "size": 5596,
+      "sha256": "b3c2fd0032314f55566bb99d1c2bd77fc9cdc4469eab8cf6647371d397c05e12"
+    },
+    "members": {
+      "executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "archive": {
+        "member": "KURODATA/KVMDATA.BIN",
+        "size": 3335408,
+        "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+      }
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 7,
+    "chunk_start": 233408,
+    "chunk_end": 266752,
+    "record_index": 0,
+    "picture_index": 0,
+    "source_chunk": {
+      "size": 33344,
+      "sha256": "e35cb99e36ccfe32d6428f93268d674014229d2271d4c18e178a17e9d9853852"
+    },
+    "semantic_locator": "新規編成",
+    "operation": "erase_non_background_pixels",
+    "candidate_evidence_status": "offline_visual_candidate_not_runtime_mapped",
+    "candidate_scene_ids": [
+      "intermission/main-and-options",
+      "results/level-up-and-deployment"
+    ],
+    "mask": {
+      "x": 98,
+      "y": 26,
+      "width": 74,
+      "height": 20,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    },
+    "mask_audit": {
+      "changed_pixel_count": 1325,
+      "preserved_pixel_count": 155,
+      "preserved_rgba_counts": {
+        "00000000": 155
+      },
+      "changed_pixel_indexes_sha256": "3419d22b9315e706ec7f962732c0174f52b5d7be9f5c26f4be3b5047fd0afecc",
+      "outside_mask_rgba_exact": true,
+      "replacement_rgba_exact": true,
+      "preserved_rgba_exact": true
+    }
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 1325,
+    "changed_image_byte_count": 691,
+    "changed_image_byte_ranges": [
+      {
+        "start": 3379,
+        "end": 3381
+      },
+      {
+        "start": 3384,
+        "end": 3386
+      },
+      {
+        "start": 3388,
+        "end": 3395
+      },
+      {
+        "start": 3396,
+        "end": 3399
+      },
+      {
+        "start": 3409,
+        "end": 3412
+      },
+      {
+        "start": 3507,
+        "end": 3510
+      },
+      {
+        "start": 3511,
+        "end": 3533
+      },
+      {
+        "start": 3536,
+        "end": 3541
+      },
+      {
+        "start": 3634,
+        "end": 3661
+      },
+      {
+        "start": 3664,
+        "end": 3669
+      },
+      {
+        "start": 3761,
+        "end": 3798
+      },
+      {
+        "start": 3889,
+        "end": 3926
+      },
+      {
+        "start": 4017,
+        "end": 4054
+      },
+      {
+        "start": 4145,
+        "end": 4182
+      },
+      {
+        "start": 4273,
+        "end": 4309
+      },
+      {
+        "start": 4401,
+        "end": 4437
+      },
+      {
+        "start": 4529,
+        "end": 4565
+      },
+      {
+        "start": 4657,
+        "end": 4693
+      },
+      {
+        "start": 4785,
+        "end": 4821
+      },
+      {
+        "start": 4913,
+        "end": 4950
+      },
+      {
+        "start": 5041,
+        "end": 5078
+      },
+      {
+        "start": 5169,
+        "end": 5206
+      },
+      {
+        "start": 5297,
+        "end": 5334
+      },
+      {
+        "start": 5425,
+        "end": 5462
+      },
+      {
+        "start": 5553,
+        "end": 5590
+      },
+      {
+        "start": 5681,
+        "end": 5718
+      },
+      {
+        "start": 5811,
+        "end": 5815
+      },
+      {
+        "start": 5816,
+        "end": 5818
+      },
+      {
+        "start": 5821,
+        "end": 5823
+      },
+      {
+        "start": 5824,
+        "end": 5828
+      },
+      {
+        "start": 5829,
+        "end": 5838
+      },
+      {
+        "start": 5839,
+        "end": 5841
+      },
+      {
+        "start": 5843,
+        "end": 5845
+      }
+    ],
+    "available_color_count": 14,
+    "archive_diff": {
+      "diff_count": 691,
+      "range_count": 33,
+      "first_offset": 236851,
+      "last_offset": 239316,
+      "offsets_sha256": "a28406a1b046f77a795fdb00b365c47a7c24fee9ccd9263f7c3be8e3637d473a",
+      "ranges_sha256": "fe90eec7b174c7e187c28f93026a6007476692add0969fc455014a85427aff87",
+      "before_values_sha256": "016106a05a1ddfb47a6ca251686ade5fb683eaa0f581f977e30d191928907026",
+      "after_values_sha256": "410265392d4dc7571b68e99fbe6e6c228fdb6b2a5ba6d7f6f71559947ea97e6c"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "4047e0eed26c2fb2d85340f73688229b20f1c0874ff528f6f76ee3c260036a60"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "5c1dd665f12c8a7663dd7ece3cca6fe72c8a0653a543d81f410ab96777e22648"
+    },
+    "reference_png": {
+      "size": 23240,
+      "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
+    },
+    "edited_png": {
+      "size": 21693,
+      "sha256": "3905916b5857dd746da99d4f2b24f7edcac677d14c450ba21bc63857e880d635"
+    }
+  },
+  "acceptance": {
+    "candidate_registry_exact": true,
+    "single_picture_4bpp_geometry_exact": true,
+    "mask_contains_every_rgba_change": true,
+    "replacement_uses_existing_source_color": true,
+    "preserved_background_rgba_exact": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Prove whether KVMDATA chunk 7 is consumed by the squad-formation and deployment pages before authoring translation.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_save",
+      "open_squad_formation_and_deployment_pages",
+      "visit_new_formation_reserve_and_squad_group_routes",
+      "capture_visible_missing_new_formation_label_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The new-formation label is absent while the adjacent hexagon, reserve label and number rows remain intact.",
+    "promotion_rule": "Only a matching formation screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
+  }
+}

@@ -74,10 +74,20 @@ def identify_dimensions(executable: str, path: Path) -> tuple[int, int]:
 
 
 def render_tim2_png8(executable: str, source: Path, output: Path) -> None:
-    """Render a single-picture TIM2 through its active CLUT into PNG8."""
+    """Render one TIM2 without palette-color dithering into PNG8.
+
+    ImageMagick otherwise dithers slightly colored CLUT entries while
+    quantizing to PNG8.  That can map one source index to multiple RGBA
+    values, which is unsuitable for a lossless indexed writeback audit.
+    """
 
     _run(
-        [executable, str(source), f"png8:{output}"],
+        [
+            executable,
+            str(source),
+            "+dither",
+            f"png8:{output}",
+        ],
         f"ImageMagick TIM2 render for {source}",
     )
     if not output.is_file():

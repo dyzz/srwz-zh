@@ -116,6 +116,36 @@ PROFILE_CASES = (
             "e9b3c61ae4fa98d979b19a00ce0ca0df"
         ),
     },
+    {
+        "name": "formation",
+        "config": "config/canary/tim2-kvm7-formation-map.json",
+        "manifest": (
+            "manifests/ui-formation-atlas-map-canary-validation.json"
+        ),
+        "iso_config": (
+            "config/iso/ui-formation-atlas-map-canary-build.json"
+        ),
+        "runtime_manifest": (
+            "manifests/"
+            "ui-formation-atlas-map-canary-runtime-validation.json"
+        ),
+        "chunk_index": 7,
+        "semantic_locator": "新規編成",
+        "candidate_evidence_status": (
+            "offline_visual_candidate_not_runtime_mapped"
+        ),
+        "candidate_scene_ids": [
+            "intermission/main-and-options",
+            "results/level-up-and-deployment",
+        ],
+        "changed_pixel_count": 1325,
+        "preserved_rgba_counts": {"00000000": 155},
+        "changed_archive_byte_count": 691,
+        "iso_sha256": (
+            "5f05e41f9ba2e410d36a985ca9a87f17"
+            "7d6622ee4e5340d5c0f0ad1ba4fe844c"
+        ),
+    },
 )
 
 

@@ -84,6 +84,13 @@
   到另一个单成员、零 LBA 位移的隔离 DVD；固定 65 个未替换成员、独立 UDF
   回读和 ISO SHA-256，并将幕间截图与同一 803 像素 texture delta 登记为运行
   晋级双门。
+- `ui-formation-atlas-map-canary-validation.json`：chunk 7 编成候选的最小
+  定位组件；只擦除 `新規編成`，记录 1,325 个逻辑像素、691 个 archive
+  byte、非目标 chunk 与等长 KVMDATA 门。
+- `ui-formation-atlas-map-canary-runtime-validation.json`：把编成组件绑定到
+  单成员、零 LBA 位移的隔离 DVD；固定 65 个未替换成员、独立 UDF 回读和
+  ISO SHA-256，并将编成截图与同一 1,325 像素 texture delta 登记为运行晋级
+  双门。
 - `ui-surface-inventory.json`：从真实语料、当前前五关字库和 COMPDATA
   动态名称结构确定性投影的 UI 场景摘要；固定 P0 的 462 条文本、九个缺字、
   12 个剩余候选槽、三槽余量和开场名称 writer 状态，并明确区分译文决策、

@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "status": "static_mapping_iso_validated_runtime_not_tested",
+  "content_policy": "Hashes, coordinates, counts, paths and runtime gates only; no game bytes, localized text or preview PNGs are embedded.",
+  "profile_id": "ui-formation-atlas-map-canary",
+  "scope": "A reversible mapping canary that erases only the new-formation locator inside the offline KVMDATA chunk 7 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "component": {
+    "manifest": {
+      "path": "manifests/ui-formation-atlas-map-canary-validation.json",
+      "size": 7506,
+      "sha256": "25f0afe3853e9c6275e4dba4cdcb5d036ad00298727c707702f95cd82c1943ab"
+    },
+    "target": {
+      "member": "KURODATA/KVMDATA.BIN",
+      "chunk_index": 7,
+      "chunk_start": 233408,
+      "chunk_end": 266752,
+      "record_index": 0,
+      "picture_index": 0,
+      "source_chunk": {
+        "size": 33344,
+        "sha256": "e35cb99e36ccfe32d6428f93268d674014229d2271d4c18e178a17e9d9853852"
+      },
+      "semantic_locator": "新規編成",
+      "operation": "erase_non_background_pixels",
+      "candidate_evidence_status": "offline_visual_candidate_not_runtime_mapped",
+      "candidate_scene_ids": [
+        "intermission/main-and-options",
+        "results/level-up-and-deployment"
+      ],
+      "mask": {
+        "x": 98,
+        "y": 26,
+        "width": 74,
+        "height": 20,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "mask_audit": {
+        "changed_pixel_count": 1325,
+        "preserved_pixel_count": 155,
+        "preserved_rgba_counts": {
+          "00000000": 155
+        },
+        "changed_pixel_indexes_sha256": "3419d22b9315e706ec7f962732c0174f52b5d7be9f5c26f4be3b5047fd0afecc",
+        "outside_mask_rgba_exact": true,
+        "replacement_rgba_exact": true,
+        "preserved_rgba_exact": true
+      }
+    },
+    "outputs": {
+      "archive": {
+        "size": 3335408,
+        "sha256": "4047e0eed26c2fb2d85340f73688229b20f1c0874ff528f6f76ee3c260036a60"
+      },
+      "chunk": {
+        "size": 33344,
+        "sha256": "5c1dd665f12c8a7663dd7ece3cca6fe72c8a0653a543d81f410ab96777e22648"
+      },
+      "reference_png": {
+        "size": 23240,
+        "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
+      },
+      "edited_png": {
+        "size": 21693,
+        "sha256": "3905916b5857dd746da99d4f2b24f7edcac677d14c450ba21bc63857e880d635"
+      }
+    },
+    "acceptance": {
+      "candidate_registry_exact": true,
+      "single_picture_4bpp_geometry_exact": true,
+      "mask_contains_every_rgba_change": true,
+      "replacement_uses_existing_source_color": true,
+      "preserved_background_rgba_exact": true,
+      "tim2_header_clut_and_padding_exact": true,
+      "archive_geometry_and_other_chunks_exact": true,
+      "imagemagick_output_rgba_exact": true,
+      "all_output_locks_exact": true
+    }
+  },
+  "iso_build": {
+    "config": {
+      "path": "config/iso/ui-formation-atlas-map-canary-build.json",
+      "size": 3170,
+      "sha256": "7695790c8a38630234a0edae007f2c96921070306284615e07b2d46fdd6d4614"
+    },
+    "report": {
+      "path": "build/iso/ui-formation-atlas-map-canary/iso-validation.json",
+      "size": 2827,
+      "sha256": "a8964a98a061f11ac61889151baf88b21b99edcf79bd4c57c48f1b1ff49df6da"
+    },
+    "path": "build/iso/ui-formation-atlas-map-canary/srwz-ui-formation-atlas-map-canary.iso",
+    "output": {
+      "size": 3758358528,
+      "sha256": "5f05e41f9ba2e410d36a985ca9a87f177d6622ee4e5340d5c0f0ad1ba4fe844c"
+    },
+    "member_count": 66,
+    "unchanged_member_count": 65,
+    "shifted_member_count": 0,
+    "shift_segments": [
+      {
+        "first_member": "KURODATA/KVMDATA.BIN",
+        "shift_sectors": 0
+      }
+    ],
+    "member_manifest_sha256": "5a613407a0be38b8c995cbf30b88b22a85f499dedb42728eb18c003a1999d90a",
+    "pcsx2_v263_image_type": "DVD",
+    "udf_volume_recognition_sequence": "NSR02",
+    "replacement": {
+      "member": "KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "4047e0eed26c2fb2d85340f73688229b20f1c0874ff528f6f76ee3c260036a60",
+      "independent_udf_reread_exact": true
+    }
+  },
+  "static_acceptance": {
+    "component_manifest_validated": true,
+    "single_replacement_matches_component": true,
+    "iso_size_and_sha256_pinned": true,
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "shift_segments_exact": true,
+    "zero_shifted_members": true,
+    "replacement_independently_reread": true,
+    "pcsx2_media_type_dvd": true,
+    "udf_nsr02": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_iso_sha256": "5f05e41f9ba2e410d36a985ca9a87f177d6622ee4e5340d5c0f0ad1ba4fe844c",
+    "required_emulator": "PCSX2 v2.6.3",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_save",
+      "open_squad_formation_and_deployment_pages",
+      "visit_new_formation_reserve_and_squad_group_routes",
+      "capture_visible_missing_new_formation_label_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_delta": {
+      "semantic_locator": "新規編成",
+      "effect": "The new-formation label is absent while the adjacent hexagon, reserve label and number rows remain intact."
+    },
+    "expected_texture_delta": {
+      "chunk_index": 7,
+      "mask": {
+        "x": 98,
+        "y": 26,
+        "width": 74,
+        "height": 20,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "changed_pixel_count": 1325,
+      "changed_pixel_indexes_sha256": "3419d22b9315e706ec7f962732c0174f52b5d7be9f5c26f4be3b5047fd0afecc"
+    },
+    "promotion_rule": "Only a matching formation screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
+  }
+}

@@ -136,3 +136,19 @@
 - **守门：** canary 配置已移除 `glyphs` 和 `text_patch`；静态 writer 与 PINE
   都调用 `load_build_profile()`；单元测试明确拒绝事实源回流，并验证新链生成
   与 E0 完全相同的 SLPS、VT1 和预览 SHA-256。
+
+## E. 图片索引和渲染
+
+### E1. PNG8 默认抖动会破坏源 index 到 RGBA 的一对一关系
+
+- **曾以为：** ImageMagick 读取 indexed TIM2 后直接输出 `PNG8:`，同一个
+  palette index 在整张图中自然会得到同一个 RGBA。
+- **为什么看似合理：** chunk 2、4、6 的灰阶 CLUT 都满足该假设，定位
+  canary 能 byte-exact 回写。
+- **如何被推翻：** chunk 7 的轻微色偏 CLUT 触发默认 palette dithering；
+  同一个源 index 4 被量化成多个灰度，严格 writer 在 `(22,30)` 主动拒绝。
+- **事实：** PNG8 颜色量化是渲染步骤，不是源 TIM2 索引事实；抖动后的 RGBA
+  不能作为可逆索引映射。
+- **守门：** `render_tim2_png8()` 强制传入 `+dither`；单元测试固定命令，
+  原三项 profile 必须保持全部输出锁不变，chunk 7 还必须证明 16 个源 index
+  各自只有一个展开 RGBA 后才允许写回。

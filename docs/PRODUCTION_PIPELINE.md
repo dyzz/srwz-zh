@@ -364,14 +364,15 @@ component 清单是 `manifests/ui-p1-core-validation.json`。静态 ISO 清单�
 ### 4.4 UI atlas 映射 canary
 
 图片文字尚未进入中文生产 profile。为避免在场景归属不明时先制作整张中文图，
-当前有三个互相隔离的可逆定位实验：
+当前有四个互相隔离的可逆定位实验：
 
 - `config/canary/tim2-kvm2-info-map.json`：chunk 2 顶行 `SHIP`；
 - `config/canary/tim2-kvm4-battle-command-map.json`：chunk 4
   `COMMAND MENU`；
-- `config/canary/tim2-kvm6-intermission-map.json`：chunk 6 顶部幕间标题。
+- `config/canary/tim2-kvm6-intermission-map.json`：chunk 6 顶部幕间标题；
+- `config/canary/tim2-kvm7-formation-map.json`：chunk 7 `新規編成`。
 
-三者都只把 mask 内非背景像素替换为原图已有颜色，并显式登记必须保持的背景
+四者都只把 mask 内非背景像素替换为原图已有颜色，并显式登记必须保持的背景
 RGBA 集合。通用入口接受对应配置；信息页默认配置可直接运行：
 
 ```bash
@@ -405,11 +406,18 @@ ISO 门只接受这一项 replacement；固定结果有 66 个成员、65 个未
 `dafe4737f797b611e02a0dcf68096a40e9b3c61ae4fa98d979b19a00ce0ca0df`。
 两级清单使用 `ui-intermission-atlas-map-canary` 同名路径。
 
-三个 profile 的状态都有意保持
+编成配置显式传入 `config/canary/tim2-kvm7-formation-map.json` 与
+`config/iso/ui-formation-atlas-map-canary-build.json`。其 component
+改变 1,325 个逻辑像素／691 个 archive byte；ISO 有 65 个未替换成员、
+零 LBA 位移，SHA-256 为
+`5f05e41f9ba2e410d36a985ca9a87f177d6622ee4e5340d5c0f0ad1ba4fe844c`。
+两级清单使用 `ui-formation-atlas-map-canary` 同名路径。
+
+四个 profile 的状态都有意保持
 `static_mapping_iso_validated_runtime_not_tested`。只有同一 ISO 的目标页面截图
 显示相应标签消失，且 PCSX2 texture dump 精确匹配各自
-299／2,297／803 像素集合，才可登记正式运行映射。它们不拥有译名、中文
-atlas 或 `ui-p1-core` 集成结论。
+299／2,297／803／1,325 像素集合，才可登记正式运行映射。它们不拥有译名、
+中文 atlas 或 `ui-p1-core` 集成结论。
 
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求

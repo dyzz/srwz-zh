@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "profile_id": "ui-formation-atlas-map-canary",
+  "scope": "A reversible mapping canary that erases only the new-formation locator inside the offline KVMDATA chunk 7 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "source": {
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "asset_config": {
+      "path": "config/assets/archive-inventory.json",
+      "sha256": "6afc3beb1f67c82d355f572f0de92e2a5185790e17a1670a5a479a7e5b6e57ab"
+    },
+    "candidate_registry": {
+      "path": "config/assets/ui-atlas-candidates.json",
+      "sha256": "b3c2fd0032314f55566bb99d1c2bd77fc9cdc4469eab8cf6647371d397c05e12"
+    },
+    "members": {
+      "executable": {
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "archive": {
+        "size": 3335408,
+        "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+      }
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 7,
+    "record_index": 0,
+    "picture_index": 0,
+    "source_chunk_size": 33344,
+    "source_chunk_sha256": "e35cb99e36ccfe32d6428f93268d674014229d2271d4c18e178a17e9d9853852",
+    "semantic_locator": "新規編成",
+    "operation": "erase_non_background_pixels",
+    "mask": {
+      "x": 98,
+      "y": 26,
+      "width": 74,
+      "height": 20,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    }
+  },
+  "runtime": {
+    "purpose": "Prove whether KVMDATA chunk 7 is consumed by the squad-formation and deployment pages before authoring translation.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_save",
+      "open_squad_formation_and_deployment_pages",
+      "visit_new_formation_reserve_and_squad_group_routes",
+      "capture_visible_missing_new_formation_label_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The new-formation label is absent while the adjacent hexagon, reserve label and number rows remain intact.",
+    "promotion_rule": "Only a matching formation screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "expected": {
+    "reference_png": {
+      "size": 23240,
+      "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
+    },
+    "edited_png": {
+      "size": 21693,
+      "sha256": "3905916b5857dd746da99d4f2b24f7edcac677d14c450ba21bc63857e880d635"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "4047e0eed26c2fb2d85340f73688229b20f1c0874ff528f6f76ee3c260036a60"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "5c1dd665f12c8a7663dd7ece3cca6fe72c8a0653a543d81f410ab96777e22648"
+    },
+    "changed_pixel_count": 1325,
+    "changed_archive_byte_count": 691,
+    "changed_archive_range_count": 33
+  },
+  "outputs": {
+    "component_root": "work/build/ui-formation-atlas-map-canary/components",
+    "reference_png": "work/build/ui-formation-atlas-map-canary/reference.png",
+    "edited_png": "work/build/ui-formation-atlas-map-canary/edited.png",
+    "validation": "work/review/ui-formation-atlas-map-canary/component-validation.json",
+    "manifest": "manifests/ui-formation-atlas-map-canary-validation.json"
+  }
+}

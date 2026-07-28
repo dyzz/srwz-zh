@@ -43,7 +43,9 @@ atlas 已完成一个只清除 `KVMDATA chunk 2` 顶行 `SHIP` 的隔离映射 c
 零 LBA 位移。战场 chunk 4 已完成只清除 `COMMAND MENU` 的隔离 canary：
 2,297 像素变化受 mask 约束。幕间 chunk 6 也已完成只清除顶部标题的隔离
 canary：803 像素变化受背景色集合和 mask 约束；两张新增单成员 ISO 同样
-零 LBA 位移。三者的截图／texture dump 运行双门仍未完成。世界史 28 条已完成
+零 LBA 位移。编成 chunk 7 也已完成只清除 `新規編成` 的隔离 canary：
+1,325 像素变化受 mask 约束，单成员 ISO 零 LBA 位移。四者的截图／texture
+dump 运行双门仍未完成。世界史 28 条已完成
 22 格中文断行、14 个空行
 保持和零定长溢出审计，但仍为 `draft`；相对 P0 候选真实缺 41 字且短缺
 38 槽。独立 P1 字库候选已继承 P0、补全这 41 字并统一重绘另 53 个汉字，
@@ -54,7 +56,7 @@ canary：803 像素变化受背景色集合和 mask 约束；两张新增单成�
 所有权合并成 `ui-p1-core` 组件；组合 ISO 的 66 个成员、62 个未替换成员、
 四项替换 UDF 回读和精确 SHA-256 均已静态通过。该镜像不包含前五关
 STAGE/HB 或信息页 atlas；28 条仍为 `draft`，raw-trail 新类别和滚动实机
-验证尚未验收。上述三张 atlas canary 也尚未合入这个组合镜像。具体实施见
+验证尚未验收。上述四张 atlas canary 也尚未合入这个组合镜像。具体实施见
 [`UI_COVERAGE_TEST_PLAN.md`](UI_COVERAGE_TEST_PLAN.md)。
 
 ## M0：可重复基线
