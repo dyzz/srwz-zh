@@ -826,6 +826,20 @@ def audit_ui_inventory(project_root: Path, config_path: Path) -> dict:
 def build_inventory_manifest(report: Mapping[str, object]) -> dict:
     """Project a bounded, source-text-free manifest from a full local report."""
 
+    dynamic_sources = []
+    for source in report["dynamic_sources"]:
+        writer_manifest = {
+            key: value
+            for key, value in source["writer_manifest"].items()
+            if key != "sha256"
+        }
+        dynamic_sources.append(
+            {
+                **source,
+                "writer_manifest": writer_manifest,
+            }
+        )
+
     scenes = []
     for scene in report["scenes"]:
         projected = {
@@ -857,7 +871,7 @@ def build_inventory_manifest(report: Mapping[str, object]) -> dict:
         "font_baseline": report["font_baseline"],
         "summary": report["summary"],
         "ratchet": report["ratchet"],
-        "dynamic_sources": report["dynamic_sources"],
+        "dynamic_sources": dynamic_sources,
         "scenes": scenes,
     }
 

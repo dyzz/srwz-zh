@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "status": "integrated_component_validated_iso_runtime_pending",
+  "profile_id": "srwz-ui-p1-core-integrated-v1",
+  "scope": "One deterministic UI candidate combining the validated Chinese title menu, P0 fixed-span menu text, reviewed opening display names, P1 unified font and all 28 world-history records. Runtime acceptance remains separate.",
+  "content_policy": "Hashes, sizes, counts and diff summaries only; no game bytes or localized text are embedded.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-integration/p1-core.json",
+      "size": 5896,
+      "sha256": "69c4f86ae38052c17ce33267ee998c1a0f891ecb2a794e1f15e29661095945d2"
+    },
+    "components": {
+      "title_menu": {
+        "config": {
+          "path": "config/canary/tim2-vt1-title-zh.json",
+          "size": 3080,
+          "sha256": "74a28fcc908197e024e743ffda90f54194aa01d0222b77b6249525daf4f67eae"
+        },
+        "manifest": {
+          "path": "manifests/title-menu-zh-validation.json",
+          "size": 6631,
+          "sha256": "c905fecb25dfe2fc5c1789b11e0dc3463a9c3a37f0b90837803991a0a0dbb180"
+        },
+        "slps": {
+          "path": "work/build/title-menu-zh/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "dc4ae75f10f7b1f624f5f42a1a687ebb1f1e80f930bacaeb840ee329dda30b92"
+        },
+        "vt1": {
+          "path": "work/build/title-menu-zh/components/DATA/VT1.BIN",
+          "size": 127573504,
+          "sha256": "44ec21f4313f96d0e9fdc4ff0590dd6fe91a98b898783411c96eb44bb9ac4d2d"
+        }
+      },
+      "p0_font_base": {
+        "manifest": {
+          "path": "manifests/ui-p0-font-validation.json",
+          "size": 5294,
+          "sha256": "03a31ce688d513f9dcb1fd7810491dfcb88bf972fb13196c9ce73ff6f900cda7"
+        },
+        "slps": {
+          "path": "work/build/ui-p0/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "b4d822cbc3ea58ff9cd3ba6d64f3229f029af3578c126b5b001b5d9e737bb369"
+        }
+      },
+      "p0_fixed_slps": {
+        "config": {
+          "path": "config/ui-writeback/ui-p0-slps-fixed.json",
+          "size": 2175,
+          "sha256": "54d17ad8fd19fb6693872600c0f667d9f27ac732bf858e37ec903fd3e2a8b31d"
+        },
+        "manifest": {
+          "path": "manifests/ui-p0-fixed-slps-validation.json",
+          "size": 7567,
+          "sha256": "4acecfe28c9220d7880c8e00756edb70ae55ff5414d75490234220295e0c95ef"
+        },
+        "slps": {
+          "path": "work/build/ui-p0-fixed-slps/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "33827b1495cac59cd84bd2de028ca86839bb7eb2ceacaa35dd0a45ad11d9d331"
+        }
+      },
+      "p0_display_names": {
+        "config": {
+          "path": "config/ui-writeback/ui-p0-display-names.json",
+          "size": 3397,
+          "sha256": "1ca38808d9f8b223ededf6261e3d78a81ad03c11dc1b07020f7b215b0f9a3651"
+        },
+        "manifest": {
+          "path": "manifests/ui-p0-display-names-validation.json",
+          "size": 29777,
+          "sha256": "982f0d711e437ad0d2d5d68d6e6e2d76cdd664385b789a9f7da07155384aeb1b"
+        },
+        "compdata": {
+          "path": "work/build/ui-p0-display-names/components/DATA/COMPDATA.BN",
+          "size": 156161,
+          "sha256": "9fb5066ecf4fa0550cc13f8e4defe06ee75a833ae55e8e40a261a811fd718a7d"
+        }
+      },
+      "world_history": {
+        "config": {
+          "path": "config/summary/world-history-component.json",
+          "size": 2902,
+          "sha256": "544e6a84e1b7f967282bee4aefba306c1483908f4cfaaf4086b3b3decc10845d"
+        },
+        "manifest": {
+          "path": "manifests/ui-p1-world-history-validation.json",
+          "size": 18541,
+          "sha256": "7dd69af75c90d77509b6c65c454cf2f53cbfb597e2811391e2c7da5d77af4c2f"
+        },
+        "slps": {
+          "path": "work/build/ui-p1-world-history/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "25f1659d17173336bfb748ae04e2bd22652e1464296d5bad02ac3f07a7c6f797"
+        },
+        "vt1": {
+          "path": "work/build/ui-p1-world-history/components/DATA/VT1.BIN",
+          "size": 127500736,
+          "sha256": "ab25d669a37dfa023267b1cd0fbc392e68c52835668958e01887b80cea4c503e"
+        },
+        "mtv_pros": {
+          "path": "work/build/ui-p1-world-history/components/DATA/MTV_PROS.BIN",
+          "size": 8640,
+          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+        }
+      }
+    }
+  },
+  "composition": {
+    "slps_menu": {
+      "mode": "three-way-byte-patch",
+      "menu_diff": {
+        "diff_count": 2659,
+        "range_count": 496,
+        "first_offset": 3416458,
+        "last_offset": 3439380,
+        "offsets_sha256": "5155b3d87afbe90c5e9997dc78c777a6f24d2ec85597f3c375cfca15a22d549c",
+        "ranges_sha256": "fe0e86d445b4fdb8717c31c38c04558a4cea52bb49ebd59e1c95d34e5c3a7063",
+        "before_values_sha256": "a9c82d832d0de907f490a3c3546b335d05701297bc12d7972a6ac44d163c6914",
+        "after_values_sha256": "878a367858b87ae1b172abd5baaee644aae252639c0c9fdd3018a74427d090e4"
+      },
+      "world_base_diff": {
+        "diff_count": 28,
+        "range_count": 15,
+        "first_offset": 3121416,
+        "last_offset": 3324633,
+        "offsets_sha256": "dd45c06818810dfbd3972ed1c87801150019be49393787560629384afe85a77a",
+        "ranges_sha256": "8533dd12fef4242b46aa04722b0388887f5dbdc4a5a71d8d97f8b46493b58a15",
+        "before_values_sha256": "745093f9e0438c36fd6360e6d3ec2654c10dd6e87cef79853ab80fa5020fa8aa",
+        "after_values_sha256": "f5c8b12cf41cbb0486225b5a10439efa5a3cd18f73686c3b82c399a47a0616b4"
+      },
+      "overlap_count": 0,
+      "menu_bytes_exact": true,
+      "world_bytes_outside_menu_exact": true
+    },
+    "title_menu": {
+      "archive": "DATA/VT1.BIN",
+      "chunk_index": 6,
+      "record_index": 1,
+      "picture_index": 0,
+      "source_record": {
+        "size": 792880,
+        "sha256": "e0de56b715f41736f601a3e0ac03783bb4c899a3915576d649c33e29f86c3919"
+      },
+      "localized_record": {
+        "size": 792880,
+        "sha256": "81ce93c32fdc4698271aa8f6124020741bdfde732fb26320291745931304d6ec"
+      },
+      "changed_pixel_count": 12514,
+      "preview_rgba_sha256": "19539f6f607aed4fa52b1b99dc003950982e0a7470792dbd9a8b09e596f99d7e",
+      "encoded_size": 541085,
+      "encoded_sha256": "3e99267734fbe524ccec68f7c2327f8c95fa2ba9eddf614367cccfc21b973aab",
+      "padding_size": 3,
+      "decoded_round_trip_exact": true,
+      "chunk_count": 14,
+      "unchanged_chunk_count": 13,
+      "offset_patch_plan": {
+        "source_name": "SLPS_258.87",
+        "source_size": 3471624,
+        "source_sha256": "4ef7b663dfb76144fdda109824c244cdd5cabf34e57cf7eb377da6ea44a42024",
+        "operation_count": 1,
+        "operations": [
+          {
+            "owner": "VT1.BIN offset table",
+            "offset": 3121408,
+            "end": 3121468,
+            "size": 60,
+            "before_sha256": "083f5c46c480f3818b718f8161cc6b27a482b262d7ab384cde7d949a2ef81805",
+            "after_sha256": "e69c01d52d82b7164f52600bb4113af01f6aa283e57b1517d057bd0b7e8b4c0c"
+          }
+        ]
+      },
+      "offset_reread_exact": true,
+      "final_record_exact": true
+    },
+    "mtv_pros": {
+      "source_component_exact": true,
+      "entry_count": 28,
+      "chunk_count": 14,
+      "all_texts_exact": true,
+      "unknown_code_count": 0,
+      "decoded_chunk_signature_sha256": "0763efdb3b6bf5070a255e99ef6bd0861f428572da748a7d550009b46fd682bf"
+    },
+    "compdata": {
+      "display_name_component_exact": true,
+      "entry_count": 45
+    }
+  },
+  "outputs": {
+    "slps": {
+      "size": 3471624,
+      "sha256": "d45bf4927dcea7b2141877db27fcc2150e31c6c99f734f2a3de889eb7d48396e"
+    },
+    "vt1": {
+      "size": 127573504,
+      "sha256": "fc525dfd7ec965211fe33ce241851775448d68518c4645f907af12499b073bf6"
+    },
+    "mtv_pros": {
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    },
+    "compdata": {
+      "size": 156161,
+      "sha256": "9fb5066ecf4fa0550cc13f8e4defe06ee75a833ae55e8e40a261a811fd718a7d"
+    }
+  },
+  "ratchet": {
+    "expected": {
+      "p0_slps_covered_entry_count": 418,
+      "p0_slps_changed_byte_count": 2659,
+      "p0_slps_changed_range_count": 496,
+      "p0_display_name_entry_count": 45,
+      "world_history_entry_count": 28,
+      "vt1_chunk_count": 14,
+      "vt1_unchanged_chunk_count": 13,
+      "title_changed_pixel_count": 12514,
+      "slps_component_overlap_count": 0
+    },
+    "actual": {
+      "p0_slps_covered_entry_count": 418,
+      "p0_slps_changed_byte_count": 2659,
+      "p0_slps_changed_range_count": 496,
+      "p0_display_name_entry_count": 45,
+      "world_history_entry_count": 28,
+      "vt1_chunk_count": 14,
+      "vt1_unchanged_chunk_count": 13,
+      "title_changed_pixel_count": 12514,
+      "slps_component_overlap_count": 0
+    },
+    "passed": true
+  },
+  "acceptance": {
+    "all_input_hashes_locked": true,
+    "p0_menu_patch_applied_exactly": true,
+    "slps_owner_overlap_count_zero": true,
+    "p1_vt1_non_title_chunks_exact": true,
+    "localized_title_record_and_preview_exact": true,
+    "vt1_offset_table_reread_exact": true,
+    "all_28_world_history_texts_reread_exact": true,
+    "display_name_compdata_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "pending_gates": [
+      "fresh_process_boot_exact_iso",
+      "title_selected_and_unselected_states",
+      "opening_player_setup_and_dynamic_name",
+      "p0_menu_routes_and_information_pages",
+      "world_history_scroll_start_middle_end",
+      "new_raw_trail_glyph_classes",
+      "zero_tlb_miss"
+    ]
+  }
+}

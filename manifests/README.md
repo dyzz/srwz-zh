@@ -82,6 +82,15 @@
   `ui-p1-world-history` ISO 绑定；记录 66 个成员、63 个未替换成员逐字节
   一致、三项替换独立 UDF 回读、DVD/NSR02 和固定 ISO SHA-256。滚动
   起点／中段／结尾及 raw-trail 新类别仍为 `not_tested`。
+- `ui-p1-core-validation.json`：把标题中文 TIM2、P0 菜单 SLPS、开场
+  45 个动态名称字段、P1 字库和 28 条世界史组合为同一 component；锁定
+  2,659 个 P0 菜单修改字节、零 SLPS owner 重叠、13 个非标题 VT1 chunk
+  byte-exact、世界史全文回读和四项最终输出。
+- `ui-p1-core-runtime-validation.json`：把上述组合 component 与
+  `ui-p1-core` DVD 镜像静态绑定；记录 66 个成员、62 个未替换成员、四项
+  替换独立 UDF 回读、分段 LBA 位移、DVD/NSR02 和固定 ISO SHA-256。
+  标题、玩家设置、幕间、信息页、战场、搜索和世界史逐屏运行仍为
+  `not_tested`。
 - `ui-p0-fixed-slps-validation.json`：在 UI 字库候选 SLPS 上记录 101 条
   byte-exact no-op，并写入 317 条／378 个去重目标；全部 418 条 P0 SLPS
   均覆盖，指针、MIPS HI/LO、非目标字节和解压字库哈希不变。ISO 和运行验证

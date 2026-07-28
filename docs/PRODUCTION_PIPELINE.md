@@ -260,7 +260,8 @@ python3 tools/verify_ui_p0_fixed_compdata.py --force
 44 条中 3 条为原字节已满足决策的 no-op，41 条完成原位写回，无 overflow。
 压缩成员使用原生 prefix-preserving suffix 重编码，保留 128,781 字节压缩
 前缀并精确回解；输出增长 2,060 字节。SLPS 与 COMPDATA 两项组件结果都不能
-当作组合 ISO 或 PCSX2 验收，后续 ISO profile 必须显式处理成员增长。
+单独当作组合 ISO 或 PCSX2 验收。`ui-p1-core` ISO profile 已显式处理最终
+COMPDATA 的累计增长和后续成员 LBA 位移；运行验收仍是另一层证据。
 
 COMPDATA 动态人物／机体名称由独立结构配置和语料批次叠加在上述静态组件上：
 
@@ -275,8 +276,8 @@ python3 tools/verify_ui_p0_display_names.py --force
 日文原文的完整解析留在 `work/parsed/`。首批
 `corpus/zh/display-names/p0-opening.json` 选择 45 个已审校字段，writer
 禁止修改人物 ID、机体指针和非目标字节，并要求所有文本在原 allocation 内
-终止。组件已完成压缩流重编码和精确回解；它仍只是独立组件，不是 ISO 或
-PCSX2 运行证明。
+终止。组件已完成压缩流重编码和精确回解，并作为 `ui-p1-core` 的 COMPDATA
+唯一来源进入组合 ISO；这仍不构成 PCSX2 运行证明。
 
 ### 4.2 世界史滚动文本布局
 
@@ -322,6 +323,43 @@ component 提交门禁是 `manifests/ui-p1-world-history-validation.json`。
 `manifests/ui-p1-world-history-runtime-validation.json`：它已固定 66 个成员、
 63 个未替换成员逐字节一致、三项替换独立 UDF 回读、DVD/NSR02 和最终 ISO
 SHA-256；PCSX2 滚动起点／中段／结尾及 raw-trail 新类别仍未验收。
+
+### 4.3 UI P1 core 组合
+
+`config/ui-integration/p1-core.json` 不重新实现各 domain writer，而是锁定并
+组合已经独立验证的五层输入：
+
+- 标题四项中文 TIM2；
+- P0 统一字库和 418 条固定 SLPS 文本；
+- 44 条固定 COMPDATA 文本及其上的 45 个开场动态名称字段；
+- P1 统一字库；
+- 28 条世界史及其 MTV_PROS。
+
+SLPS 不是按“最后一个文件覆盖前一个文件”合并。集成器以 P0 字库 SLPS 为
+共同基线，提取 P0 菜单组件的 2,659 个变化字节，并要求它们与 P1 字库、
+MTV_PROS offset 表修改零重叠后才应用。标题层只替换
+`VT1 chunk 6 / record 1`，13 个非标题 chunk 必须 byte-exact；重压缩后
+SLPS 中的 VT1 offset 表必须重新读取一致。最终还会从组合 SLPS/MTV_PROS
+独立重读全部 28 条文本。
+
+可重复入口为：
+
+```bash
+python3 tools/build_ui_p1_core.py --force
+python3 tools/verify_ui_p1_core.py --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-p1-core-build.json
+python3 tools/verify_ui_p1_core_iso.py --force
+```
+
+component 清单是 `manifests/ui-p1-core-validation.json`。静态 ISO 清单是
+`manifests/ui-p1-core-runtime-validation.json`：镜像大小为
+3,758,456,832 字节，SHA-256 为
+`5f558ae794dec6d2e95bf56f391b5a0789eba78f4c330aa441a935b13973891b`；
+66 个成员中 62 个未替换成员逐字节一致，SLPS、VT1、MTV_PROS 和 COMPDATA
+四项替换均由 UDF 独立回读。该 profile 不包含 first-five STAGE/HB，也没有
+信息页 atlas；PCSX2 标题、玩家设置、幕间、信息页、战场、搜索和世界史路线
+全部保持 `not_tested`。
 
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求
@@ -381,11 +419,13 @@ renderer 覆盖验证通过。当前镜像的 PCSX2 验证、第 2～5 关完整
 
 `relocate_menu_texts_to_pool()` 已提供通用 SLPS/COMPDATA 普通 pointer 与
 MIPS HI/LO 写回门禁。P0 的 462 条静态菜单文本当前都能在原 span 内覆盖，
-因此没有为它们虚构池区；后续 P1/P2 只有出现真实增长项时才登记池区。E3
-还需完成：
+因此没有为它们虚构池区。标题、P0 文本、开场动态名、P1 字库和世界史已进入
+同一个静态验证的 `ui-p1-core` ISO；后续 P1/P2 只有出现真实增长项时才登记
+池区。E3 还需完成：
 
 - 全量 extraction freshness 与双向 reconciliation 的规模化运行；
 - 扩展 COMPDATA 动态人物／机体名的全量审校语料；当前只完成开场 45 个字段；
-- 人物／机体信息页 atlas、组合 UI ISO profile 和逐屏 PCSX2 路线；
+- 人物／机体信息页 atlas，把前五关 STAGE/HB 合并到候选，并完成逐屏 PCSX2
+  路线；
 - 全量 STAGE arena policy 和通用 VT1 writer；
 - offline render oracle、coverage ratchet 和 clean-copy deterministic build。

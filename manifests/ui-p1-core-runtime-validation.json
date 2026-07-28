@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "status": "static_integrated_iso_validated_runtime_pending",
+  "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes or localized text are embedded.",
+  "profile_id": "ui-p1-core",
+  "component": {
+    "manifest": {
+      "path": "manifests/ui-p1-core-validation.json",
+      "size": 9696,
+      "sha256": "fb2bf0cc32473ac793f406263b9b387143f98edce8896c89dde2ebe67193c4a5"
+    },
+    "profile_id": "srwz-ui-p1-core-integrated-v1",
+    "outputs": {
+      "slps": {
+        "size": 3471624,
+        "sha256": "d45bf4927dcea7b2141877db27fcc2150e31c6c99f734f2a3de889eb7d48396e"
+      },
+      "vt1": {
+        "size": 127573504,
+        "sha256": "fc525dfd7ec965211fe33ce241851775448d68518c4645f907af12499b073bf6"
+      },
+      "mtv_pros": {
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      },
+      "compdata": {
+        "size": 156161,
+        "sha256": "9fb5066ecf4fa0550cc13f8e4defe06ee75a833ae55e8e40a261a811fd718a7d"
+      }
+    },
+    "acceptance": {
+      "all_input_hashes_locked": true,
+      "p0_menu_patch_applied_exactly": true,
+      "slps_owner_overlap_count_zero": true,
+      "p1_vt1_non_title_chunks_exact": true,
+      "localized_title_record_and_preview_exact": true,
+      "vt1_offset_table_reread_exact": true,
+      "all_28_world_history_texts_reread_exact": true,
+      "display_name_compdata_exact": true,
+      "all_output_locks_exact": true
+    }
+  },
+  "iso_build": {
+    "config": {
+      "path": "config/iso/ui-p1-core-build.json",
+      "size": 3678,
+      "sha256": "3c2c73feba4d89a9be94dd93e9444ac612c0ddaf5246e252a5e2b824cd79aed4"
+    },
+    "report": {
+      "path": "build/iso/ui-p1-core/iso-validation.json",
+      "size": 3497,
+      "sha256": "d978462b0069931792fe40678744efb366073fc3ec78cef00343aa4abebc95ec"
+    },
+    "path": "build/iso/ui-p1-core/srwz-ui-p1-core.iso",
+    "output": {
+      "size": 3758456832,
+      "sha256": "5f558ae794dec6d2e95bf56f391b5a0789eba78f4c330aa441a935b13973891b"
+    },
+    "member_count": 66,
+    "unchanged_member_count": 62,
+    "shifted_member_count": 16,
+    "shift_segments": [
+      {
+        "first_member": "DATA/NISVDATA.BIN",
+        "shift_sectors": 6
+      },
+      {
+        "first_member": "DATA/STAGE.BIN",
+        "shift_sectors": 41
+      }
+    ],
+    "member_manifest_sha256": "fd2decfcba9041c8dd7b0072c9618dff9f7ed54f490457fc683fcfb4c2fc46fc",
+    "pcsx2_v263_image_type": "DVD",
+    "udf_volume_recognition_sequence": "NSR02",
+    "replacements": {
+      "SLPS_258.87": {
+        "size": 3471624,
+        "sha256": "d45bf4927dcea7b2141877db27fcc2150e31c6c99f734f2a3de889eb7d48396e",
+        "component_output": "slps",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/COMPDATA.BN": {
+        "size": 156161,
+        "sha256": "9fb5066ecf4fa0550cc13f8e4defe06ee75a833ae55e8e40a261a811fd718a7d",
+        "component_output": "compdata",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/MTV_PROS.BIN": {
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+        "component_output": "mtv_pros",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/VT1.BIN": {
+        "size": 127573504,
+        "sha256": "fc525dfd7ec965211fe33ce241851775448d68518c4645f907af12499b073bf6",
+        "component_output": "vt1",
+        "independent_udf_reread_exact": true
+      }
+    }
+  },
+  "static_acceptance": {
+    "component_manifest_validated": true,
+    "iso_size_and_sha256_pinned": true,
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "shift_segments_exact": true,
+    "pcsx2_media_type_dvd": true,
+    "udf_nsr02": true,
+    "all_replacements_independently_reread": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_iso_sha256": "5f558ae794dec6d2e95bf56f391b5a0789eba78f4c330aa441a935b13973891b",
+    "required_emulator": "PCSX2 v2.6.3",
+    "required_routes": [
+      "title_all_four_selected_and_unselected_states",
+      "opening_player_setup_default_and_edited_name",
+      "first_intermission_core_menu_routes",
+      "two_unit_information_page_matrix",
+      "battle_command_and_conditions",
+      "search_zero_and_multiple_results",
+      "world_history_scroll_start_middle_end"
+    ],
+    "pending_gates": [
+      "fresh_process_boot_exact_iso",
+      "pine_running_and_decoded_font_exact",
+      "new_raw_trail_glyph_classes_visible",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss"
+    ]
+  }
+}

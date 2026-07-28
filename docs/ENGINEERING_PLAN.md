@@ -435,7 +435,7 @@ affected components/surfaces
 | E0 | 已完成 | component/ISO/runtime/visual 哈希链和事故 gates | 后续只允许显式更新 golden |
 | E1 | 已完成 | SurfaceSpec、中文记录、codebook、`canary-menu`、reconciliation 和固定 component/ISO lock | 后续统一 CLI 属于 E3 工程化 |
 | E2 | 已完成 | menu、MTV_PROS summary、STAGE growing dialogue 三类 writer/profile/fixture；三条独立 PCSX2 证据和完整组合 smoke | 扩大语料前进入 E3 |
-| E3 | 进行中 | 前五关和世界史布局门、P0 UI 字库／fixed-span writer、动态名称结构与首批写回 | 补齐字库容量、离线 render oracle、组合 ISO 和运行矩阵 |
+| E3 | 进行中 | 前五关和世界史布局门、P0/P1 UI 字库、fixed-span writer、首批动态名和静态组合 UI ISO | 信息页 atlas、全名表、STAGE/HB 合并、离线 render oracle 和运行矩阵 |
 | E4–E5 | 未开始 | E2 可复用 clean-room 生产基础 | 在 E3 退出条件满足后实施 |
 
 ### E0：冻结首个纵向切片
@@ -582,8 +582,8 @@ canary 仍刻意使用已验证的原位定长 allocation。
 
 1. E3：在已验证的 COMPDATA 完整名称结构和开场 45 字段 writer 上，继续按
    官方术语／人工确认批次扩展其余 2,755 个非空字段；
-2. E3：定位人物／机体信息页 atlas，并把 P0 字库、SLPS、COMPDATA、动态名、图片和
-   前五关 STAGE 合并到同一个 ISO profile；
+2. E3：定位人物／机体信息页 atlas；在已静态验证的 `ui-p1-core` profile
+   上加入图片和前五关 STAGE/HB；
 3. E3：补全 offline render oracle、coverage ratchet、evidence freshness
    和 clean-copy deterministic build；
 4. 对同一候选 ISO 完成 PCSX2 逐屏路线后，再扩展 P1/P2 和后续剧情。
@@ -592,8 +592,9 @@ E0-E2 已完成：SurfaceSpec、正式 `测/试` codebook、三域 `corpus/zh`�
 四个隔离/组合 profile、自动 component manifest，以及菜单、摘要、剧情三条
 独立 PCSX2 fixture 均已落地。P0 的 418 条 SLPS 与 44 条 COMPDATA 静态菜单
 文本也已由 fixed-span profile 全部覆盖。动态显示名现已完成全结构解析和
-开场 45 字段独立组件，但尚未覆盖全名表，也未进入图片 atlas、组合 ISO 或
-运行验收。
+开场 45 字段组件；标题、P0 菜单、开场动态名、P1 字库和世界史已经进入
+静态验证的 `ui-p1-core` ISO，但尚未覆盖全名表、图片 atlas、前五关
+STAGE/HB 或逐屏运行验收。
 
 工程规划期间不把“文档数量”“脚本数量”或“单元测试数量”当作完成标准。每一阶段
 是否完成，只由该阶段声明的可重建产物、机器门禁和运行/视觉证据决定。

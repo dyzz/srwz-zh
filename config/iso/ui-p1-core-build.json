@@ -1,0 +1,109 @@
+{
+  "schema_version": 2,
+  "profile_id": "ui-p1-core",
+  "runtime_evidence_manifest": "manifests/ui-p1-core-runtime-validation.json",
+  "source_iso": {
+    "path": "rom/srwz.iso",
+    "size": 3758358528,
+    "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014",
+    "member_count": 66,
+    "iso9660_system_id": "PLAYSTATION",
+    "udf_volume_recognition_sequence": "NSR02"
+  },
+  "toolchain": {
+    "repository": "https://github.com/N4gtan/mkps2iso.git",
+    "tag": "v1.1.1",
+    "commit": "f9a3dea18b67dc5f10093e72114a16283d277af0",
+    "version": "1.1.1",
+    "license_spdx": "GPL-2.0-only",
+    "source_dir": "work/toolchain/mkps2iso-v1.1.1/source",
+    "mkps2iso": {
+      "executable": "mkps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/mkps2iso",
+      "version": "1.1.1",
+      "version_line": "MKPS2ISO 1.1.1 - PlayStation 2 Image Maker"
+    },
+    "dumps2iso": {
+      "executable": "dumps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/dumps2iso",
+      "version": "1.1.1",
+      "version_line": "DUMPS2ISO 1.1.1 - PlayStation 2 Image Dumper"
+    }
+  },
+  "workspace": {
+    "original_tree": "work/build/ui-p1-core/iso/original",
+    "staging_tree": "work/build/ui-p1-core/iso/staging",
+    "base_xml": "work/build/ui-p1-core/iso/layout/original.xml",
+    "build_xml": "work/build/ui-p1-core/iso/layout/build.xml",
+    "lba_log": "work/build/ui-p1-core/iso/layout/lba.txt"
+  },
+  "layout": {
+    "volume_id": "SRWZ_UI_P1_CORE",
+    "shift_segments": [
+      {
+        "first_member": "DATA/NISVDATA.BIN",
+        "shift_sectors": 6
+      },
+      {
+        "first_member": "DATA/STAGE.BIN",
+        "shift_sectors": 41
+      }
+    ],
+    "preserve_original_gaps": true,
+    "trailing_dummy_sectors": 10240
+  },
+  "replacements": [
+    {
+      "member": "SLPS_258.87",
+      "source": "work/build/ui-p1-core/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "d45bf4927dcea7b2141877db27fcc2150e31c6c99f734f2a3de889eb7d48396e"
+    },
+    {
+      "member": "DATA/COMPDATA.BN",
+      "source": "work/build/ui-p1-core/components/DATA/COMPDATA.BN",
+      "size": 156161,
+      "sha256": "9fb5066ecf4fa0550cc13f8e4defe06ee75a833ae55e8e40a261a811fd718a7d"
+    },
+    {
+      "member": "DATA/MTV_PROS.BIN",
+      "source": "work/build/ui-p1-core/components/DATA/MTV_PROS.BIN",
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    },
+    {
+      "member": "DATA/VT1.BIN",
+      "source": "work/build/ui-p1-core/components/DATA/VT1.BIN",
+      "size": 127573504,
+      "sha256": "fc525dfd7ec965211fe33ce241851775448d68518c4645f907af12499b073bf6"
+    }
+  ],
+  "output": {
+    "path": "build/iso/ui-p1-core/srwz-ui-p1-core.iso",
+    "report": "build/iso/ui-p1-core/iso-validation.json",
+    "expected_root_directory_size": 960,
+    "expected_pcsx2_v263_image_type": "DVD",
+    "expected_udf_volume_recognition_sequence": "NSR02",
+    "byte_reproducible": true,
+    "expected_size": 3758456832,
+    "expected_sha256": "5f558ae794dec6d2e95bf56f391b5a0789eba78f4c330aa441a935b13973891b",
+    "expected_member_manifest_sha256": "fd2decfcba9041c8dd7b0072c9618dff9f7ed54f490457fc683fcfb4c2fc46fc"
+  },
+  "acceptance": {
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "iso9660_present": true,
+    "udf_present": true,
+    "udf_verify_members": [
+      "SYSTEM.CNF",
+      "SLPS_258.87",
+      "DATA/COMPDATA.BN",
+      "DATA/MTV_PROS.BIN",
+      "DATA/VT1.BIN",
+      "DATA/STAGE.BIN"
+    ]
+  }
+}

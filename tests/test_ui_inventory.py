@@ -129,7 +129,21 @@ class UiInventoryTests(unittest.TestCase):
             "font_baseline": {},
             "summary": {},
             "ratchet": {},
-            "dynamic_sources": [],
+            "dynamic_sources": [
+                {
+                    "source_id": "fixture",
+                    "structure_manifest": {
+                        "sha256": "structure-hash",
+                    },
+                    "writer_manifest": {
+                        "path": "manifests/downstream.json",
+                        "sha256": "downstream-hash",
+                        "status": "validated",
+                        "selected_translation_entry_count": 1,
+                    },
+                    "probes": [],
+                }
+            ],
             "scenes": [
                 {
                     "scene_id": "fixture",
@@ -160,6 +174,16 @@ class UiInventoryTests(unittest.TestCase):
         self.assertEqual(scene["missing_renderer_character_count"], 1)
         self.assertNotIn("font", scene)
         self.assertNotIn("missing_characters", scene)
+        dynamic = manifest["dynamic_sources"][0]
+        self.assertEqual(
+            dynamic["structure_manifest"]["sha256"],
+            "structure-hash",
+        )
+        self.assertNotIn("sha256", dynamic["writer_manifest"])
+        self.assertEqual(
+            dynamic["writer_manifest"]["status"],
+            "validated",
+        )
 
     def test_committed_manifest_has_hash_only_dynamic_probes(self):
         manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
