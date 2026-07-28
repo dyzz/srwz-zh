@@ -45,6 +45,12 @@ P0 UI 字库通过 `encoding/ui-p0-allocations.json` 和
 `fonts/ui-p0-font.json` 增量引用并锁定上述基线，不修改 first-five 账本。
 九个新增汉字只追加到组合 registry，栅格器继续由 first-five 字体配置单点拥有；
 离线候选和 coverage 结果见 `manifests/ui-p0-font-validation.json`。
+世界史 P1 字库通过 `encoding/ui-p1-summary-allocations.json` 继续继承 P0，
+只追加相对 P0 缺失的 41 字；`fonts/ui-p1-summary-font.json` 单独锁定普通
+renderer 的测量／glyph 解析指令窗口与 `987F=试` 运行先例。合法 Shift-JIS
+安全候选和 raw-trail 公式可寻址空隙必须分栏统计；后者不会因为进入离线
+proposal 就自动升级为运行安全。结果见
+`manifests/ui-p1-summary-font-validation.json`。
 第一层 P0 SLPS 写回由 `ui-writeback/ui-p0-slps-fixed.json` 锁定；它只允许
 原 span 内写回，禁止修改指针；当前 P0 无增长文本。
 `ui-writeback/ui-p0-compdata-fixed.json` 对压缩 COMPDATA 采用相同 span

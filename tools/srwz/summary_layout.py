@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import json
+from collections import Counter
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
@@ -18,11 +19,18 @@ from .chinese_layout import (
 )
 from .codec import decode
 from .corpus import text_sha256
-from .font import sha256_bytes
+from .font import (
+    GLYPH_SIZE,
+    decode_vt1_font_segment,
+    glyph_index_for_code,
+    read_extended_glyph_table,
+    sha256_bytes,
+)
 from .iso_layout import CORE_ARCHIVE_SPECS, read_executable_archive_offsets
 from .summary import SummaryTextEntry, parse_summary
-from .text import SrwzTextEncodeError, TextTable, encode_text, load_text_table
+from .text import TextTable, encode_text, load_text_table
 from .ui_menu import load_ui_font_overrides
+from .ui_inventory import rendered_characters
 
 
 class SummaryLayoutError(ValueError):
@@ -253,17 +261,101 @@ def _load_font_context(
     except ValueError as error:
         raise SummaryLayoutError(str(error)) from error
 
-    missing = set()
+    font_component = _object(
+        manifest.get("font_component"),
+        context="world-history font component",
+    )
+    component_report_path = _project_path(
+        project_root,
+        font_component.get("report"),
+    )
+    if sha256_bytes(component_report_path.read_bytes()) != font_component.get(
+        "report_sha256"
+    ):
+        raise SummaryLayoutError("world-history font component report drift")
+    component_root = component_report_path.parent
+    candidate_slps_path = component_root / "SLPS_258.87"
+    candidate_vt1_path = component_root / "DATA/VT1.BIN"
+    root = project_root.resolve()
+    for path in (candidate_slps_path, candidate_vt1_path):
+        try:
+            path.resolve().relative_to(root)
+        except ValueError as error:
+            raise SummaryLayoutError(
+                "world-history font component escapes project"
+            ) from error
+    candidate_slps = candidate_slps_path.read_bytes()
+    candidate_vt1 = candidate_vt1_path.read_bytes()
+    component_outputs = _object(
+        font_component.get("outputs"),
+        context="world-history font outputs",
+    )
+    for label, payload in (("slps", candidate_slps), ("vt1", candidate_vt1)):
+        expected = _object(
+            component_outputs.get(label),
+            context=f"world-history font {label} output",
+        )
+        if len(payload) != expected.get("size") or sha256_bytes(
+            payload
+        ) != expected.get("sha256"):
+            raise SummaryLayoutError(
+                f"world-history font {label} component drift"
+            )
+    candidate_font = decode_vt1_font_segment(
+        candidate_slps,
+        candidate_vt1,
+    ).decoded
+    if sha256_bytes(candidate_font) != font_component.get("decoded_sha256"):
+        raise SummaryLayoutError("world-history decoded font drift")
+    extended_entries = read_extended_glyph_table(candidate_slps)
+
+    counts: Counter[str] = Counter()
     for text in translations:
-        for character in text:
-            try:
-                encode_text(character, table, overrides=overrides)
-            except SrwzTextEncodeError:
-                missing.add(character)
+        counts.update(rendered_characters(text))
+    missing = []
+    for character in sorted(counts):
+        code = overrides.get(character)
+        if code is None:
+            code = table.inverse_characters.get(character)
+        if code is None:
+            missing.append(
+                {
+                    "character": character,
+                    "reason": "unmapped",
+                    "occurrence_count": counts[character],
+                }
+            )
+            continue
+        try:
+            glyph_index = glyph_index_for_code(code, extended_entries)
+        except ValueError:
+            missing.append(
+                {
+                    "character": character,
+                    "reason": "resolver_unreachable",
+                    "occurrence_count": counts[character],
+                    "code": f"{code:04X}",
+                }
+            )
+            continue
+        start = glyph_index * GLYPH_SIZE
+        glyph = candidate_font[start : start + GLYPH_SIZE]
+        if not any(glyph) and character not in {" ", "　"}:
+            missing.append(
+                {
+                    "character": character,
+                    "reason": "blank_glyph",
+                    "occurrence_count": counts[character],
+                    "code": f"{code:04X}",
+                    "glyph_index": glyph_index,
+                }
+            )
+
     sizing_overrides = dict(overrides)
     used_codes = set(sizing_overrides.values())
     candidate = 0xE000
-    for character in sorted(missing):
+    for item in missing:
+        character = item["character"]
         while candidate in used_codes:
             candidate += 1
         if candidate > 0xFFFF:
@@ -276,6 +368,7 @@ def _load_font_context(
     remaining = capacity.get("remaining_candidate_slot_count")
     if not isinstance(remaining, int) or remaining < 0:
         raise SummaryLayoutError("UI font remaining capacity is invalid")
+    reason_counts = Counter(item["reason"] for item in missing)
     return (
         overrides,
         sizing_overrides,
@@ -286,13 +379,34 @@ def _load_font_context(
                 "status": manifest["status"],
             },
             "codebook": codebook_report,
+            "component": {
+                "report": str(component_report_path.relative_to(root)),
+                "report_sha256": sha256_bytes(component_report_path.read_bytes()),
+                "slps": {
+                    "path": str(candidate_slps_path.relative_to(root)),
+                    "size": len(candidate_slps),
+                    "sha256": sha256_bytes(candidate_slps),
+                },
+                "vt1": {
+                    "path": str(candidate_vt1_path.relative_to(root)),
+                    "size": len(candidate_vt1),
+                    "sha256": sha256_bytes(candidate_vt1),
+                },
+                "decoded_font_sha256": sha256_bytes(candidate_font),
+            },
             "missing_character_count": len(missing),
-            "missing_characters": "".join(sorted(missing)),
+            "missing_characters": "".join(
+                item["character"] for item in missing
+            ),
+            "missing_reason_counts": dict(sorted(reason_counts.items())),
+            "missing": missing,
             "remaining_safe_candidate_slot_count": remaining,
             "candidate_shortfall": max(0, len(missing) - remaining),
             "sizing_policy": (
-                "Missing characters are counted as two-byte codes only for fixed-"
-                "allocation feasibility; they are not allocated or written."
+                "The actual candidate SLPS/VT1 must map every visible character "
+                "to a reachable, nonblank glyph. Missing characters receive "
+                "sizing-only two-byte codes for allocation feasibility; they "
+                "are not allocated or written."
             ),
         },
     )

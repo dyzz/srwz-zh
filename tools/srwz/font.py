@@ -57,6 +57,12 @@ UPSTREAM_CHANGED_REGION_END = (
 )
 
 SHIFT_JIS_TRAILS = tuple(list(range(0x40, 0x7F)) + list(range(0x80, 0xFD)))
+# The original standard renderer does not validate Shift-JIS trail bytes.  It
+# consumes the low byte directly and addresses a 192-glyph row.  These four
+# values are therefore formula-addressable gaps rather than valid Shift-JIS
+# codes.  They are kept separate from the conservative candidate pool and
+# require an explicit profile opt-in.
+RAW_STANDARD_TRAILS = (0x7F, 0xFD, 0xFE, 0xFF)
 
 
 def is_cjk_unified_ideograph(character: str) -> bool:
@@ -752,6 +758,55 @@ def safe_standard_allocation_candidates(
     return usable(legacy_codes), usable(expanded_codes)
 
 
+def raw_standard_allocation_candidates(
+    table: TextTable,
+    extended_entries: Iterable[ExtendedGlyphEntry],
+    *,
+    reserved_codes: Iterable[int] = (),
+    reserved_glyphs: Iterable[int] = (),
+) -> tuple[tuple[int, int], ...]:
+    """Return renderer-addressable non-Shift-JIS trail gaps in stable order.
+
+    This is intentionally not part of :func:`safe_standard_allocation_candidates`.
+    The codes are accepted by the original renderer's standard formula but are
+    not valid Shift-JIS byte pairs.  A production profile must opt in only
+    after locking the original measurement/resolver instruction windows and
+    suitable runtime precedent.
+    """
+
+    entries = tuple(extended_entries)
+    blocked_codes = set(reserved_codes)
+    used_glyphs = set(reserved_glyphs)
+    for code in table.characters:
+        try:
+            used_glyphs.add(glyph_index_for_code(code, entries))
+        except ValueError:
+            pass
+    used_glyphs.update(
+        ascii_glyph_index(code) for code in range(ASCII_FIRST, ASCII_LAST + 1)
+    )
+    used_glyphs.update(extended_glyph_mapping(entries).values())
+
+    result = []
+    for trail in RAW_STANDARD_TRAILS:
+        for lead in range(STANDARD_LEAD_START, STANDARD_LEAD_END + 1):
+            code = (lead << 8) | trail
+            if (
+                code >= EXTENDED_CODE_START
+                or code in table.characters
+                or code in blocked_codes
+            ):
+                continue
+            try:
+                glyph_index = standard_glyph_index(code)
+            except ValueError:
+                continue
+            if glyph_index in used_glyphs:
+                continue
+            result.append((code, glyph_index))
+    return tuple(result)
+
+
 __all__ = [
     "ASCII_FIRST",
     "ASCII_GLYPH_BASE",
@@ -773,6 +828,7 @@ __all__ = [
     "GLYPH_SIZE",
     "GLYPH_WIDTH",
     "GlyphCodeMappingAnalysis",
+    "RAW_STANDARD_TRAILS",
     "SHIFT_JIS_TRAILS",
     "STANDARD_CODE_START",
     "STANDARD_GLYPH_STRIDE",
@@ -799,6 +855,7 @@ __all__ = [
     "is_cjk_unified_ideograph",
     "render_glyph_grid",
     "read_extended_glyph_table",
+    "raw_standard_allocation_candidates",
     "replace_glyph",
     "safe_standard_allocation_candidates",
     "sha256_bytes",

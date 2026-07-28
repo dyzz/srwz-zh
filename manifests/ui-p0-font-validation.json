@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p0-font.json",
-      "sha256": "c6a0663fecb2a32822d66118cba122c0e3ff72a37860232945b0a48dcf58bb2e"
+      "sha256": "8f733c8e1e2e09a41cdd80c29694bb96350df4d52bdbfb625f743c9a2966ae73"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p0-allocations.json",
@@ -14,7 +14,7 @@
     },
     "scene_selection": {
       "path": "config/ui-scenes.json",
-      "sha256": "587e7d8f29fed4cfd70f588e24d9a962920d60fa11788746e509705dd2c2a67a",
+      "sha256": "d4b1e17868299dd386f84ef4ad15dd62605588fe72ff2e3b9263abd7ff0b60af",
       "inventory_id": "srwz-ui-scenes-v1",
       "priorities": [
         "P0"
@@ -44,15 +44,19 @@
   },
   "capacity": {
     "safe_candidate_slot_count": 650,
+    "valid_sjis_safe_candidate_slot_count": 650,
     "legacy_safe_candidate_slot_count": 486,
     "expanded_standard_candidate_slot_count": 164,
+    "raw_standard_addressable_candidate_slot_count": 0,
     "base_registered_character_count": 638,
     "combined_registered_character_count": 647,
     "remaining_candidate_slot_count": 3
   },
   "additional_allocations": {
     "count": 9,
-    "characters": "养减删效昵编节览陆"
+    "characters": "养减删效昵编节览陆",
+    "blank_preimage_count": 9,
+    "raw_standard_trail_gap_count": 0
   },
   "additional_reraster_existing_han": {
     "count": 9,
@@ -65,11 +69,11 @@
   },
   "proposal": {
     "path": "work/writeback/ui-p0-codebook-proposal.json",
-    "sha256": "52d752abdbd5fbe690c35793c87a13c50151815b8459997d9a9196a520fa088c"
+    "sha256": "fa0e3eaae2d726aca0c2db2431699a237ffe58d3df7a72ea33cfb41eb0db731d"
   },
   "readiness": {
     "path": "work/writeback/ui-p0-font-readiness.json",
-    "sha256": "b0a9062a16b14fa853474a4dea78303ae7c2855d7dacca28c9ef8ce2f2b72bcb"
+    "sha256": "2c7c120967a67d180273590631ff6ae7b66477c4ff2c5e23acf75ec8b3b6b665"
   },
   "font_component": {
     "report": "work/build/ui-p0/components/font-validation.json",

@@ -11,9 +11,11 @@ from typing import Mapping
 from .canary import rasterize_character, rasterizer_point_size
 from .font import (
     GLYPH_SIZE,
+    RAW_STANDARD_TRAILS,
     decode_vt1_font_segment,
     glyph_index_for_code,
     is_cjk_unified_ideograph,
+    raw_standard_allocation_candidates,
     read_extended_glyph_table,
     safe_standard_allocation_candidates,
     sha256_bytes,
@@ -30,7 +32,6 @@ from .ui_inventory import (
     audit_ui_inventory,
     build_inventory_manifest,
     expand_scene_entries,
-    load_font_baseline,
     load_scene_config,
     rendered_characters,
 )
@@ -150,12 +151,19 @@ def _selected_ui_entries(
         or not isinstance(expected_scene_ids, list)
     ):
         raise UiFontError("UI font scene selection is invalid")
+    expected_scene_id_set = set(expected_scene_ids)
+    if len(expected_scene_id_set) != len(expected_scene_ids):
+        raise UiFontError("UI font scene IDs must be unique")
     selected_scenes = [
-        scene for scene in scene_config["scenes"] if scene["priority"] in priorities
+        scene
+        for scene in scene_config["scenes"]
+        if scene["scene_id"] in expected_scene_id_set
     ]
     actual_scene_ids = [scene["scene_id"] for scene in selected_scenes]
     if actual_scene_ids != expected_scene_ids:
         raise UiFontError("UI font scene ID selection drift")
+    if any(scene["priority"] not in priorities for scene in selected_scenes):
+        raise UiFontError("UI font selected scene priority drift")
 
     entries = {}
     entry_scenes: defaultdict[str, set[str]] = defaultdict(set)
@@ -207,26 +215,43 @@ def _character_provenance(
     return counts, dict(scenes)
 
 
-def _load_incremental_registry(
+def _resolve_registry(
     project_root: Path,
     registry_path: Path,
-) -> tuple[dict, dict, tuple[str, ...], set[str]]:
+    *,
+    seen: frozenset[Path] = frozenset(),
+) -> tuple[dict, tuple[str, ...], set[str]]:
+    resolved = registry_path.resolve()
+    if resolved in seen:
+        raise UiFontError("UI allocation registry inheritance cycle")
     registry = _json_object(registry_path)
     if registry.get("schema_version") != 1:
         raise UiFontError("unsupported UI allocation registry")
+
+    allocated = registry.get("allocated_characters")
     base_reference = registry.get("base_registry")
+    if isinstance(allocated, str):
+        if base_reference is not None:
+            raise UiFontError("base allocation registry cannot also be incremental")
+        characters = tuple(allocated)
+        if not characters or len(characters) != len(set(characters)):
+            raise UiFontError("base allocation registry characters are invalid")
+        retired = set(registry.get("retired_characters", []))
+        if not retired <= set(characters):
+            raise UiFontError("retired base allocation is not registered")
+        return registry, characters, retired
+
     if not isinstance(base_reference, dict):
         raise UiFontError("UI allocation registry has no base_registry")
     base_path = _project_path(project_root, base_reference.get("path"))
     if _hash_file(base_path) != base_reference.get("sha256"):
         raise UiFontError("base allocation registry SHA-256 drift")
-    base = _json_object(base_path)
-    if base.get("schema_version") != 1:
-        raise UiFontError("unsupported base allocation registry")
-    base_characters = tuple(base.get("allocated_characters", ""))
-    if len(base_characters) != base_reference.get("registered_character_count") or len(
-        base_characters
-    ) != len(set(base_characters)):
+    base, base_characters, retired = _resolve_registry(
+        project_root,
+        base_path,
+        seen=seen | {resolved},
+    )
+    if len(base_characters) != base_reference.get("registered_character_count"):
         raise UiFontError("base allocation registry character count drift")
 
     appended = tuple(registry.get("appended_characters", ""))
@@ -238,8 +263,26 @@ def _load_incremental_registry(
     if not retired_appended <= set(appended):
         raise UiFontError("retired UI allocation is not registered")
     registered = (*base_characters, *appended)
-    retired = set(base.get("retired_characters", [])) | retired_appended
-    return registry, base, registered, retired
+    return registry, registered, retired | retired_appended
+
+
+def _load_incremental_registry(
+    project_root: Path,
+    registry_path: Path,
+) -> tuple[dict, dict, tuple[str, ...], tuple[str, ...], set[str]]:
+    registry = _json_object(registry_path)
+    base_reference = registry.get("base_registry")
+    if not isinstance(base_reference, dict):
+        raise UiFontError("UI allocation registry has no base_registry")
+    base_path = _project_path(project_root, base_reference.get("path"))
+    base, base_characters, _ = _resolve_registry(project_root, base_path)
+    resolved, registered, retired = _resolve_registry(
+        project_root,
+        registry_path,
+    )
+    if resolved != registry:
+        raise UiFontError("UI allocation registry changed during load")
+    return registry, base, base_characters, registered, retired
 
 
 def _new_assignment(
@@ -256,6 +299,7 @@ def _new_assignment(
     original_font: bytes,
     rasterizer: Mapping[str, object],
     font_path: Path,
+    assignment_id_prefix: str,
 ) -> dict:
     gray, pixels, packed = rasterize_character(
         rasterizer["executable"],
@@ -266,7 +310,7 @@ def _new_assignment(
     start = glyph_index * GLYPH_SIZE
     preimage = original_font[start : start + GLYPH_SIZE]
     return {
-        "id": f"ui-p0-u{ord(character):04x}",
+        "id": f"{assignment_id_prefix}-u{ord(character):04x}",
         "character": character,
         "code": f"{code:04X}",
         "glyph_index": glyph_index,
@@ -278,6 +322,7 @@ def _new_assignment(
             "source_occurrences": occurrence_count,
             "scene_ids": sorted(scene_ids),
             "glyph_preimage_sha256": sha256_bytes(preimage),
+            "glyph_preimage_all_zero": not any(preimage),
         },
         "raster": {
             "point_size": rasterizer_point_size(character, rasterizer),
@@ -288,12 +333,225 @@ def _new_assignment(
     }
 
 
+def _validation_proposal_reference(
+    project_root: Path,
+    validation: Mapping[str, object],
+) -> tuple[Path, str]:
+    proposal = validation.get("proposal")
+    if isinstance(proposal, dict):
+        raw_path = proposal.get("path")
+        expected_hash = proposal.get("sha256")
+    else:
+        codebook = validation.get("codebook")
+        if not isinstance(codebook, dict):
+            raise UiFontError("base validation manifest has no proposal")
+        raw_path = codebook.get("proposal")
+        expected_hash = codebook.get("proposal_sha256")
+    path = _project_path(project_root, raw_path)
+    if _hash_file(path) != expected_hash:
+        raise UiFontError("base proposal SHA-256 drift")
+    return path, expected_hash
+
+
+def _validation_component_hash(
+    validation: Mapping[str, object],
+    label: str,
+) -> str:
+    component = validation.get("font_component")
+    if not isinstance(component, dict):
+        raise UiFontError("base validation manifest has no font component")
+    outputs = component.get("outputs")
+    if isinstance(outputs, dict):
+        output = outputs.get(label)
+        if isinstance(output, dict) and isinstance(output.get("sha256"), str):
+            return output["sha256"]
+    value = component.get(f"{label}_sha256")
+    if not isinstance(value, str):
+        raise UiFontError(f"base validation has no {label} component hash")
+    return value
+
+
+def _load_base_font_baseline(
+    project_root: Path,
+    document: Mapping[str, object],
+    scene_config: Mapping[str, object],
+    validation: Mapping[str, object],
+    base_proposal_path: Path,
+) -> tuple[dict, dict]:
+    reference = document.get("base_font_component")
+    if reference is None:
+        baseline = scene_config["baseline"]
+        raw_paths = {
+            "slps": baseline["built_slps"],
+            "vt1": baseline["built_vt1"],
+        }
+    elif isinstance(reference, dict):
+        raw_paths = {
+            "slps": reference.get("slps"),
+            "vt1": reference.get("vt1"),
+        }
+    else:
+        raise UiFontError("base_font_component must be an object")
+
+    paths = {
+        label: _project_path(project_root, raw_path)
+        for label, raw_path in raw_paths.items()
+    }
+    for label, path in paths.items():
+        if _hash_file(path) != _validation_component_hash(validation, label):
+            raise UiFontError(f"locked base {label} component changed")
+
+    slps = paths["slps"].read_bytes()
+    vt1 = paths["vt1"].read_bytes()
+    font = decode_vt1_font_segment(slps, vt1).decoded
+    table = load_text_table(
+        _project_path(project_root, scene_config["baseline"]["text_table"])
+    )
+    base_assignments = _assignment_index(
+        _project_path(project_root, scene_config["baseline"]["base_codebook"])
+    )
+    proposal_assignments = _assignment_index(base_proposal_path)
+    root = project_root.resolve()
+    return (
+        {
+            "table": table,
+            "extended_entries": read_extended_glyph_table(slps),
+            "font": font,
+            "base_assignments": base_assignments,
+            "proposal_assignments": proposal_assignments,
+        },
+        {
+            label: {
+                "path": str(path.relative_to(root)),
+                "sha256": _hash_file(path),
+                "exact": True,
+            }
+            for label, path in paths.items()
+        },
+    )
+
+
+def _raw_standard_policy_report(
+    project_root: Path,
+    document: Mapping[str, object],
+    source_slps: bytes,
+) -> dict | None:
+    policy = document.get("allocation_policy")
+    if policy is None:
+        return None
+    if not isinstance(policy, dict):
+        raise UiFontError("UI font allocation_policy must be an object")
+    if policy.get("mode") != "valid-sjis-then-raw-standard-trail-gaps":
+        raise UiFontError("unsupported UI font allocation policy")
+    raw_trails = policy.get("raw_standard_trails")
+    try:
+        trail_values = tuple(int(value, 16) for value in raw_trails)
+    except (TypeError, ValueError) as error:
+        raise UiFontError("raw standard trail list is invalid") from error
+    if trail_values != RAW_STANDARD_TRAILS:
+        raise UiFontError("raw standard trail policy drift")
+
+    raw_windows = policy.get("instruction_windows")
+    if not isinstance(raw_windows, list) or len(raw_windows) != 2:
+        raise UiFontError("raw standard policy needs two instruction windows")
+    windows = []
+    for raw in raw_windows:
+        if not isinstance(raw, dict):
+            raise UiFontError("raw standard instruction window is malformed")
+        offset = raw.get("file_offset")
+        size = raw.get("size")
+        expected_hash = raw.get("sha256")
+        if (
+            not isinstance(offset, int)
+            or not isinstance(size, int)
+            or size <= 0
+            or not isinstance(expected_hash, str)
+            or offset < 0
+            or offset + size > len(source_slps)
+        ):
+            raise UiFontError("raw standard instruction window is invalid")
+        actual_hash = sha256_bytes(source_slps[offset : offset + size])
+        if actual_hash != expected_hash:
+            raise UiFontError("raw standard instruction window drift")
+        windows.append(
+            {
+                "name": raw.get("name"),
+                "virtual_address": raw.get("virtual_address"),
+                "file_offset": offset,
+                "size": size,
+                "sha256": actual_hash,
+            }
+        )
+
+    evidence = policy.get("runtime_precedent")
+    if not isinstance(evidence, dict):
+        raise UiFontError("raw standard policy has no runtime precedent")
+    static_path = _project_path(project_root, evidence.get("static_manifest"))
+    runtime_path = _project_path(project_root, evidence.get("runtime_manifest"))
+    if _hash_file(static_path) != evidence.get("static_sha256"):
+        raise UiFontError("raw standard static evidence drift")
+    if _hash_file(runtime_path) != evidence.get("runtime_sha256"):
+        raise UiFontError("raw standard runtime evidence drift")
+    static = _json_object(static_path)
+    runtime = _json_object(runtime_path)
+    if static.get("status") != evidence.get("required_static_status"):
+        raise UiFontError("raw standard static evidence status drift")
+    if runtime.get("runtime_acceptance") != evidence.get(
+        "required_runtime_acceptance"
+    ):
+        raise UiFontError("raw standard runtime acceptance drift")
+    assignment = {
+        "character": evidence.get("character"),
+        "code": evidence.get("code"),
+        "glyph_index": evidence.get("glyph_index"),
+    }
+    if not any(
+        {
+            "character": item.get("character"),
+            "code": item.get("code"),
+            "glyph_index": item.get("glyph_index"),
+        }
+        == assignment
+        for item in static.get("slot_safety", {}).get("assignments", [])
+        if isinstance(item, dict)
+    ):
+        raise UiFontError("raw standard runtime precedent assignment drift")
+    opening = runtime.get("runtime", {}).get("opening_canary", {})
+    if (
+        assignment["character"] not in opening.get("rendered_text", "")
+        or not opening.get("runtime_bytes_exact")
+        or not opening.get("characters_visible")
+    ):
+        raise UiFontError("raw standard runtime precedent is incomplete")
+
+    root = project_root.resolve()
+    return {
+        "mode": policy["mode"],
+        "raw_standard_trails": list(raw_trails),
+        "instruction_windows": windows,
+        "runtime_precedent": {
+            **assignment,
+            "static_manifest": str(static_path.relative_to(root)),
+            "static_sha256": _hash_file(static_path),
+            "runtime_manifest": str(runtime_path.relative_to(root)),
+            "runtime_sha256": _hash_file(runtime_path),
+            "runtime_bytes_exact": True,
+            "characters_visible": True,
+        },
+        "classification": (
+            "Instruction windows prove formula addressability for all listed "
+            "trail gaps. Runtime evidence exists for 0x7F only; the combined "
+            "P1 component and every additional trail class remain runtime pending."
+        ),
+    }
+
+
 def build_ui_font_proposal(
     project_root: Path,
     work_root: Path,
     config_path: Path,
 ) -> tuple[dict, dict]:
-    """Return a combined first-five + P0 UI proposal and byte-free report."""
+    """Return one inherited UI font proposal and byte-free readiness report."""
 
     try:
         profile = load_font_profile(project_root, config_path)
@@ -309,17 +567,49 @@ def build_ui_font_proposal(
     scene_config = load_scene_config(
         _project_path(project_root, document["scene_inventory"]["path"])
     )
-    font_baseline = load_font_baseline(project_root, scene_config)
-    demand = audit_entry_font(entries.values(), font_baseline)
 
     registry_path = _project_path(
         project_root,
         document.get("allocation_registry"),
     )
-    registry, base_registry, registered, retired = _load_incremental_registry(
+    (
+        registry,
+        base_registry,
+        base_registered,
+        registered,
+        retired,
+    ) = _load_incremental_registry(
         project_root,
         registry_path,
     )
+
+    validation = _json_object(
+        _project_path(
+            project_root,
+            document.get("base_validation_manifest"),
+        )
+    )
+    base_proposal_path, base_proposal_hash = _validation_proposal_reference(
+        project_root,
+        validation,
+    )
+    base_proposal = _json_object(base_proposal_path)
+    if (
+        base_proposal.get("allocation_registry", {}).get("sha256")
+        != (registry["base_registry"]["sha256"])
+    ):
+        raise UiFontError("base proposal allocation registry drift")
+    base_assignments = list(base_proposal.get("assignments", []))
+    if not base_assignments:
+        raise UiFontError("base proposal has no assignments")
+    font_baseline, base_components = _load_base_font_baseline(
+        project_root,
+        document,
+        scene_config,
+        validation,
+        base_proposal_path,
+    )
+    demand = audit_entry_font(entries.values(), font_baseline)
     appended = tuple(registry["appended_characters"])
     if tuple(demand["missing_characters"]) != appended:
         raise UiFontError(
@@ -330,29 +620,6 @@ def build_ui_font_proposal(
     ratchet = registry.get("ratchet")
     if not isinstance(ratchet, dict):
         raise UiFontError("UI allocation registry has no ratchet")
-
-    validation = _json_object(
-        _project_path(
-            project_root,
-            document.get("base_validation_manifest"),
-        )
-    )
-    base_proposal_path = _project_path(
-        project_root,
-        validation["codebook"]["proposal"],
-    )
-    base_proposal_hash = _hash_file(base_proposal_path)
-    if base_proposal_hash != validation["codebook"]["proposal_sha256"]:
-        raise UiFontError("base first-five proposal SHA-256 drift")
-    base_proposal = _json_object(base_proposal_path)
-    if (
-        base_proposal.get("allocation_registry", {}).get("sha256")
-        != (registry["base_registry"]["sha256"])
-    ):
-        raise UiFontError("base proposal allocation registry drift")
-    base_assignments = list(base_proposal.get("assignments", []))
-    if not base_assignments:
-        raise UiFontError("base proposal has no assignments")
 
     try:
         font_lock = load_font_lock(project_root / profile["font_lock"])
@@ -384,42 +651,79 @@ def build_ui_font_proposal(
         scene_config["baseline"]["base_codebook"],
     )
     base_codebook = _assignment_index(base_codebook_path)
+    reserved_codes = tuple(
+        assignment["code_value"] for assignment in base_codebook.values()
+    )
+    reserved_glyphs = tuple(
+        assignment["glyph_index"] for assignment in base_codebook.values()
+    )
     legacy_candidates, expanded_candidates = safe_standard_allocation_candidates(
         table,
         extended_entries,
-        reserved_codes=(
-            assignment["code_value"] for assignment in base_codebook.values()
-        ),
-        reserved_glyphs=(
-            assignment["glyph_index"] for assignment in base_codebook.values()
-        ),
+        reserved_codes=reserved_codes,
+        reserved_glyphs=reserved_glyphs,
     )
-    candidates = (*legacy_candidates, *expanded_candidates)
+    allocation_policy = _raw_standard_policy_report(
+        project_root,
+        document,
+        source_slps,
+    )
+    raw_candidates = (
+        raw_standard_allocation_candidates(
+            table,
+            extended_entries,
+            reserved_codes=reserved_codes,
+            reserved_glyphs=reserved_glyphs,
+        )
+        if allocation_policy is not None
+        else ()
+    )
+    candidates = (*legacy_candidates, *expanded_candidates, *raw_candidates)
     if len(candidates) < len(registered):
         raise UiFontError("insufficient safe candidates for UI allocation")
     allocation_by_character = dict(zip(registered, candidates))
+    assignment_id_prefix = document.get("assignment_id_prefix", "ui-p0")
+    allocation_owner = document.get("allocation_owner", "ui/p0")
+    if (
+        not isinstance(assignment_id_prefix, str)
+        or not assignment_id_prefix
+        or not isinstance(allocation_owner, str)
+        or not allocation_owner
+    ):
+        raise UiFontError("UI font assignment identity is invalid")
+    raw_codes = {code for code, _ in raw_candidates}
 
     new_allocations = []
     for character in appended:
         code, glyph_index = allocation_by_character[character]
+        raw_standard = code in raw_codes
         new_allocations.append(
             _new_assignment(
                 character=character,
                 code=code,
                 glyph_index=glyph_index,
-                mapping="standard",
+                mapping=("standard_raw_trail_gap" if raw_standard else "standard"),
                 status="proposed_allocation",
-                owner="ui/p0",
+                owner=allocation_owner,
                 basis=(
-                    "append-only slot absent from the pinned text table, "
-                    "ASCII mapping, executable extension table and base "
-                    "codebook"
+                    (
+                        "append-only renderer-addressable raw standard-trail "
+                        "gap absent from the pinned text table, ASCII mapping, "
+                        "executable extension table and inherited codebook"
+                    )
+                    if raw_standard
+                    else (
+                        "append-only valid Shift-JIS slot absent from the "
+                        "pinned text table, ASCII mapping, executable extension "
+                        "table and inherited codebook"
+                    )
                 ),
                 occurrence_count=counts[character],
                 scene_ids=character_scenes[character],
                 original_font=original_font,
                 rasterizer=profile["rasterizer"],
                 font_path=locked_paths["font"],
+                assignment_id_prefix=assignment_id_prefix,
             )
         )
 
@@ -453,9 +757,9 @@ def build_ui_font_proposal(
                 glyph_index=glyph_index,
                 mapping=mapping,
                 status="proposed_reraster",
-                owner="ui/p0",
+                owner=allocation_owner,
                 basis=(
-                    "existing reachable Han used by selected P0 UI "
+                    "existing reachable Han used by the selected UI "
                     "translations; rerasterized to keep one font source"
                 ),
                 occurrence_count=counts[character],
@@ -463,6 +767,7 @@ def build_ui_font_proposal(
                 original_font=original_font,
                 rasterizer=profile["rasterizer"],
                 font_path=locked_paths["font"],
+                assignment_id_prefix=assignment_id_prefix,
             )
         )
 
@@ -519,6 +824,7 @@ def build_ui_font_proposal(
             "proposal_id": base_proposal["proposal_id"],
             "assignment_count": len(base_assignments),
         },
+        "base_font_components": base_components,
         "font_source": font_source,
         "selection_policy": profile["scope"],
         "rasterizer": profile["rasterizer"],
@@ -545,6 +851,7 @@ def build_ui_font_proposal(
         "font_profile_id": profile["profile_id"],
         "base_font_config": profile["base_font_config"],
         "base_proposal": proposal["base_proposal"],
+        "base_font_components": base_components,
         "ui_selection": selection,
         "font_demand_before": {
             "missing_renderer_character_count": demand["missing_character_count"],
@@ -555,18 +862,32 @@ def build_ui_font_proposal(
         "additional_allocations": {
             "count": len(new_allocations),
             "characters": "".join(appended),
+            "blank_preimage_count": sum(
+                assignment["allocation"]["glyph_preimage_all_zero"]
+                for assignment in new_allocations
+            ),
+            "raw_standard_trail_gap_count": sum(
+                assignment["mapping"] == "standard_raw_trail_gap"
+                for assignment in new_allocations
+            ),
         },
         "additional_reraster_existing_han": {
             "count": len(new_reraster),
             "characters": "".join(original_han),
         },
         "capacity": {
-            "safe_candidate_slot_count": len(candidates),
+            (
+                "combined_renderer_addressable_candidate_slot_count"
+                if allocation_policy is not None
+                else "safe_candidate_slot_count"
+            ): len(candidates),
+            "valid_sjis_safe_candidate_slot_count": (
+                len(legacy_candidates) + len(expanded_candidates)
+            ),
             "legacy_safe_candidate_slot_count": len(legacy_candidates),
             "expanded_standard_candidate_slot_count": len(expanded_candidates),
-            "base_registered_character_count": len(
-                base_registry["allocated_characters"]
-            ),
+            "raw_standard_addressable_candidate_slot_count": len(raw_candidates),
+            "base_registered_character_count": len(base_registered),
             "combined_registered_character_count": len(registered),
             "remaining_candidate_slot_count": remaining,
         },
@@ -588,6 +909,9 @@ def build_ui_font_proposal(
         },
         "runtime_acceptance": "not tested",
     }
+    if allocation_policy is not None:
+        proposal["allocation_policy"] = allocation_policy
+        report["allocation_policy"] = allocation_policy
     return proposal, report
 
 
@@ -596,7 +920,7 @@ def audit_ui_font_candidate(
     work_root: Path,
     config_path: Path,
 ) -> dict:
-    """Rebuild planning facts and prove the generated P0 font component."""
+    """Rebuild planning facts and prove one generated UI font component."""
 
     expected_proposal, expected_readiness = build_ui_font_proposal(
         project_root,
@@ -615,9 +939,9 @@ def audit_ui_font_candidate(
         outputs.get("component_root"),
     )
     if _json_object(proposal_path) != expected_proposal:
-        raise UiFontError("UI font proposal drift; rerun audit_ui_p0_font.py")
+        raise UiFontError("UI font proposal drift; rerun the profile audit")
     if _json_object(readiness_path) != expected_readiness:
-        raise UiFontError("UI font readiness drift; rerun audit_ui_p0_font.py")
+        raise UiFontError("UI font readiness drift; rerun the profile audit")
 
     component_report_path = component_root / "font-validation.json"
     component_report = _json_object(component_report_path)
@@ -721,28 +1045,66 @@ def audit_ui_font_candidate(
         project_root,
         document["base_validation_manifest"],
     )
-    base_validation = _json_object(base_validation_path)
-    base_component_root = work_root / "build/first-five/components"
-    base_components = {}
-    for label, relative, expected_key in (
-        ("slps", "SLPS_258.87", "slps_sha256"),
-        ("vt1", "DATA/VT1.BIN", "vt1_sha256"),
+    base_components = expected_proposal["base_font_components"]
+
+    contract = document.get("manifest_contract", {})
+    if not isinstance(contract, dict):
+        raise UiFontError("UI font manifest_contract must be an object")
+    manifest_status = contract.get(
+        "status",
+        "offline_font_and_p0_renderer_coverage_passed_runtime_pending",
+    )
+    manifest_scope = contract.get(
+        "scope",
+        (
+            "Incremental first-five plus P0 UI font/codebook component. "
+            "This does not write UI text, build an ISO or prove runtime "
+            "rendering."
+        ),
+    )
+    coverage_key = contract.get("coverage_key", "p0_renderer_coverage")
+    base_component_key = contract.get(
+        "base_component_key",
+        "base_first_five_components",
+    )
+    base_acceptance_key = contract.get(
+        "base_acceptance_key",
+        "base_first_five_components_unchanged",
+    )
+    missing_acceptance_key = contract.get(
+        "missing_acceptance_key",
+        "p0_renderer_missing_character_count_zero",
+    )
+    han_acceptance_key = contract.get(
+        "han_acceptance_key",
+        "p0_original_font_han_count_zero",
+    )
+    runtime_reason = contract.get(
+        "runtime_reason",
+        (
+            "No P0 UI text writer or combined ISO exists yet; runtime "
+            "evidence must bind to that future exact ISO hash."
+        ),
+    )
+    if not all(
+        isinstance(value, str) and value
+        for value in (
+            manifest_status,
+            manifest_scope,
+            coverage_key,
+            base_component_key,
+            base_acceptance_key,
+            missing_acceptance_key,
+            han_acceptance_key,
+            runtime_reason,
+        )
     ):
-        path = base_component_root / relative
-        actual_hash = _hash_file(path)
-        expected_hash = base_validation["font_component"][expected_key]
-        if actual_hash != expected_hash:
-            raise UiFontError(f"locked first-five {label} component changed")
-        base_components[label] = {
-            "path": str(path.relative_to(project_root.resolve())),
-            "sha256": actual_hash,
-            "exact": True,
-        }
+        raise UiFontError("UI font manifest contract is invalid")
 
     acceptance = {
         "proposal_reproduced_exact": True,
         "readiness_reproduced_exact": True,
-        "base_first_five_components_unchanged": True,
+        base_acceptance_key: True,
         "assignment_counts_exact": True,
         "glyph_preimages_and_rasters_exact": True,
         "codec_round_trip_exact": component_report["font"]["codec_round_trip_exact"],
@@ -751,21 +1113,17 @@ def audit_ui_font_candidate(
             == component_report["archive"]["output_size"]
         ),
         "offset_reread_exact": component_report["archive"]["offset_reread_exact"],
-        "p0_renderer_missing_character_count_zero": True,
-        "p0_original_font_han_count_zero": True,
+        missing_acceptance_key: True,
+        han_acceptance_key: True,
     }
     if not all(acceptance.values()):
         raise UiFontError(f"UI font candidate acceptance failed: {acceptance}")
 
-    return {
+    manifest = {
         "schema_version": 1,
-        "status": ("offline_font_and_p0_renderer_coverage_passed_runtime_pending"),
+        "status": manifest_status,
         "font_profile_id": profile["profile_id"],
-        "scope": (
-            "Incremental first-five plus P0 UI font/codebook component. "
-            "This does not write UI text, build an ISO or prove runtime "
-            "rendering."
-        ),
+        "scope": manifest_scope,
         "inputs": {
             "config": {
                 "path": str(config_path.relative_to(project_root.resolve())),
@@ -818,7 +1176,7 @@ def audit_ui_font_candidate(
             "archive": component_report["archive"],
             "outputs": component_report["outputs"],
         },
-        "p0_renderer_coverage": {
+        coverage_key: {
             "unique_entry_count": len(entries),
             "literal_character_count": coverage["literal_character_count"],
             "unique_literal_character_count": coverage[
@@ -831,16 +1189,16 @@ def audit_ui_font_candidate(
             "selected_font_han_count": coverage["selected_font_han_count"],
             "original_font_han_count": coverage["original_font_han_count"],
         },
-        "base_first_five_components": base_components,
+        base_component_key: base_components,
         "acceptance": acceptance,
         "runtime": {
             "status": "not_tested",
-            "reason": (
-                "No P0 UI text writer or combined ISO exists yet; runtime "
-                "evidence must bind to that future exact ISO hash."
-            ),
+            "reason": runtime_reason,
         },
     }
+    if "allocation_policy" in expected_readiness:
+        manifest["allocation_policy"] = expected_readiness["allocation_policy"]
+    return manifest
 
 
 __all__ = [

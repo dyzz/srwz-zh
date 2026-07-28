@@ -126,6 +126,11 @@ def main() -> int:
         expected_preimage = assignment["allocation"]["glyph_preimage_sha256"]
         if sha256_bytes(before) != expected_preimage:
             raise SystemExit(f"glyph preimage drift for {character!r}")
+        expected_blank = assignment["allocation"].get("glyph_preimage_all_zero")
+        if expected_blank is not None and expected_blank != (not any(before)):
+            raise SystemExit(
+                f"glyph blank-preimage classification drift for {character!r}"
+            )
         gray, pixels, packed = rasterize_character(
             rasterizer["executable"],
             font_path,

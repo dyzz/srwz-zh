@@ -20,6 +20,7 @@ from tools.srwz.font import (
     read_extended_glyph_table,
     render_glyph_grid,
     replace_glyph,
+    raw_standard_allocation_candidates,
     safe_standard_allocation_candidates,
     standard_glyph_index,
 )
@@ -231,6 +232,37 @@ class FontAnalysisTests(unittest.TestCase):
         self.assertNotIn(ascii_glyph_index(ord("A")), glyphs)
         self.assertEqual(len(codes), len(candidates))
         self.assertEqual(len(glyphs), len(candidates))
+
+    def test_raw_standard_candidates_are_separate_and_stable(self):
+        table = TextTable(
+            characters={0x8140: "A", 0x8240: "B"},
+            tags={},
+        )
+        safe = {
+            code
+            for group in safe_standard_allocation_candidates(table, ())
+            for code, _ in group
+        }
+        raw = raw_standard_allocation_candidates(
+            table,
+            (),
+            reserved_codes=(0x817F,),
+            reserved_glyphs=(standard_glyph_index(0x82FD),),
+        )
+        self.assertTrue(raw)
+        self.assertNotIn(0x817F, {code for code, _ in raw})
+        self.assertNotIn(standard_glyph_index(0x82FD), {glyph for _, glyph in raw})
+        self.assertTrue(all(code not in safe for code, _ in raw))
+        self.assertEqual(
+            [code & 0xFF for code, _ in raw],
+            sorted(
+                (code & 0xFF for code, _ in raw),
+                key=(0x7F, 0xFD, 0xFE, 0xFF).index,
+            ),
+        )
+        self.assertTrue(
+            all(standard_glyph_index(code) == glyph for code, glyph in raw)
+        )
 
 
 if __name__ == "__main__":

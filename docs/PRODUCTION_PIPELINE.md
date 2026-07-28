@@ -293,11 +293,14 @@ ASCII 词组和中文标点禁则不会被拆开。MTV_PROS 中三个跨记录�
 新的记录边界。当前 28 条共 146 行，14 个空行与原版一致，最大宽度 22 格，
 全部定长记录 overflow 为 0。
 
-这项门禁不分配字形。当前 28 条仍为 `draft`，相对 UI P0 字库缺 27 个字符，
-只剩 3 个安全候选槽，短缺 24 个；运行状态明确为 `not_tested`。只有人工审阅
-报告后才能运行 `--apply`，再次取得零差异后才可用 `--refresh-manifest` 更新
-`manifests/world-history-layout.json`。该清单证明布局和容量，不证明完整中文
-组件、ISO 或滚动起点／中段／结尾的实机效果。
+这项门禁不分配字形。当前 28 条仍为 `draft`，相对 UI P0 字库缺 41 个字符：
+27 个未映射、14 个在码表中但原 glyph resolver 不可达；只剩 3 个合法安全
+候选槽，短缺 38 个。独立 `ui-p1-summary` profile 已继承 P0、补齐这 41 字并
+对 490 条选择取得零缺字离线结果，但 raw-trail 新类别、MTV_PROS 组件和运行
+状态仍为 `not_tested`。只有人工审阅报告后才能运行 `--apply`，再次取得零
+差异后才可用 `--refresh-manifest` 更新 `manifests/world-history-layout.json`。
+该布局清单证明布局和相对 P0 的容量需求，不证明完整中文组件、ISO 或滚动
+起点／中段／结尾的实机效果。
 
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求

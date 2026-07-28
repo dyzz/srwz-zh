@@ -190,7 +190,8 @@ class UiInventoryTests(unittest.TestCase):
             summary_scene["layout"]["fixed_allocation_overflow_count"],
             0,
         )
-        self.assertEqual(summary_scene["layout"]["font_candidate_shortfall"], 24)
+        self.assertEqual(summary_scene["layout"]["font_missing_character_count"], 41)
+        self.assertEqual(summary_scene["layout"]["font_candidate_shortfall"], 38)
         self.assertEqual(summary_scene["layout"]["runtime_status"], "not_tested")
 
 

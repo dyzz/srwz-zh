@@ -69,6 +69,9 @@ fixed-span 选择 ratchet、指针／非目标字节不变、组件哈希和压�
 `test_summary_layout.py` 固定世界史 28 条、146 行、22 格、14 个空行、
 三个跨记录连续组、零 allocation overflow、字库短缺和未运行边界，并检查
 提交语料的标点禁则与 `UN` 术语引用随重分配记录移动。
+`test_ui_p1_summary_font.py` 另固定 P1 对 P0 账本的无重排继承、41 个新增字、
+53 个统一重绘汉字、650 个合法 Shift-JIS 安全候选与 86 个 raw-trail
+可寻址空隙的分栏统计、490 条零缺字和 `not_tested` 运行边界。
 真实 ISO 工具构建、镜像构建与 66 项逐成员校验单独运行：
 
 ```bash

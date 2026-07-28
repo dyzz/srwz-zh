@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/summary/world-history-layout.json",
-      "sha256": "41f1bb25e831807449c36b1c1e568309dbf6b4b00b7c1ea1119c540f2958022b"
+      "sha256": "84e0fd22a8bc5351a6b7adcfa93662591ae0b449785161b11ca5d7d2aeb742dc"
     },
     "source": {
       "slps": {
@@ -264,7 +264,7 @@
     "font": {
       "manifest": {
         "path": "manifests/ui-p0-font-validation.json",
-        "sha256": "b3f134aac71cd61d463e8bc34fbf626c93a0308e83c1159e2cbac421a0c907d4",
+        "sha256": "cffcdb04370f551cca159752ebd3b180ec23dedfe04ca55fcac1089f93f19ff0",
         "status": "offline_font_and_p0_renderer_coverage_passed_runtime_pending"
       },
       "codebook": {
@@ -274,15 +274,255 @@
         },
         "proposal": {
           "path": "work/writeback/ui-p0-codebook-proposal.json",
-          "sha256": "52d752abdbd5fbe690c35793c87a13c50151815b8459997d9a9196a520fa088c"
+          "sha256": "fa0e3eaae2d726aca0c2db2431699a237ffe58d3df7a72ea33cfb41eb0db731d"
         },
         "override_count": 1454
       },
-      "missing_character_count": 27,
-      "missing_characters": "创响团垒层帕废忧惮汇濒灾獠环笼综胁荡诩谣趋跃邻针镇际驱",
+      "component": {
+        "report": "work/build/ui-p0/components/font-validation.json",
+        "report_sha256": "19c7125acd2cbcdb8f72f2b23bcfb861e66732665920787ea2e82d28c529a6e7",
+        "slps": {
+          "path": "work/build/ui-p0/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "b4d822cbc3ea58ff9cd3ba6d64f3229f029af3578c126b5b001b5d9e737bb369"
+        },
+        "vt1": {
+          "path": "work/build/ui-p0/components/DATA/VT1.BIN",
+          "size": 127500736,
+          "sha256": "eeb25f1b6c403777637e1c7f132db38901f51dd107069661223d77badd8471f8"
+        },
+        "decoded_font_sha256": "32307efc39ad9788d1b0c96e7008a0ceee122a7d60407e3e75bd6d2684c2bf53"
+      },
+      "missing_character_count": 41,
+      "missing_characters": "仍创响团垒壤孕层帕废忧悄惮惶曼汇濒灾熄爬獠环秉笼综罩胁范荡裹诩谣趋跃邻针镇际陌霸驱",
+      "missing_reason_counts": {
+        "resolver_unreachable": 14,
+        "unmapped": 27
+      },
+      "missing": [
+        {
+          "character": "仍",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 3,
+          "code": "98B9"
+        },
+        {
+          "character": "创",
+          "reason": "unmapped",
+          "occurrence_count": 2
+        },
+        {
+          "character": "响",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "团",
+          "reason": "unmapped",
+          "occurrence_count": 2
+        },
+        {
+          "character": "垒",
+          "reason": "unmapped",
+          "occurrence_count": 3
+        },
+        {
+          "character": "壤",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 1,
+          "code": "9ADF"
+        },
+        {
+          "character": "孕",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 2,
+          "code": "9B73"
+        },
+        {
+          "character": "层",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "帕",
+          "reason": "unmapped",
+          "occurrence_count": 2
+        },
+        {
+          "character": "废",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "忧",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "悄",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 1,
+          "code": "9C9F"
+        },
+        {
+          "character": "惮",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "惶",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 1,
+          "code": "9CB3"
+        },
+        {
+          "character": "曼",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 6,
+          "code": "99D6"
+        },
+        {
+          "character": "汇",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "濒",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "灾",
+          "reason": "unmapped",
+          "occurrence_count": 2
+        },
+        {
+          "character": "熄",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 1,
+          "code": "E08F"
+        },
+        {
+          "character": "爬",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 1,
+          "code": "E0A6"
+        },
+        {
+          "character": "獠",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "环",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "秉",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 1,
+          "code": "E25C"
+        },
+        {
+          "character": "笼",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "综",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "罩",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 1,
+          "code": "E3AB"
+        },
+        {
+          "character": "胁",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "范",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 2,
+          "code": "E497"
+        },
+        {
+          "character": "荡",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "裹",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 1,
+          "code": "E5E5"
+        },
+        {
+          "character": "诩",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "谣",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "趋",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "跃",
+          "reason": "unmapped",
+          "occurrence_count": 2
+        },
+        {
+          "character": "邻",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "针",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "镇",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "际",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        },
+        {
+          "character": "陌",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 1,
+          "code": "E899"
+        },
+        {
+          "character": "霸",
+          "reason": "resolver_unreachable",
+          "occurrence_count": 2,
+          "code": "9E50"
+        },
+        {
+          "character": "驱",
+          "reason": "unmapped",
+          "occurrence_count": 1
+        }
+      ],
       "remaining_safe_candidate_slot_count": 3,
-      "candidate_shortfall": 24,
-      "sizing_policy": "Missing characters are counted as two-byte codes only for fixed-allocation feasibility; they are not allocated or written."
+      "candidate_shortfall": 38,
+      "sizing_policy": "The actual candidate SLPS/VT1 must map every visible character to a reachable, nonblank glyph. Missing characters receive sizing-only two-byte codes for allocation feasibility; they are not allocated or written."
     }
   },
   "selection": {
@@ -317,10 +557,10 @@
     "ready_for_production": false
   },
   "font_capacity": {
-    "missing_character_count": 27,
-    "missing_characters": "创响团垒层帕废忧惮汇濒灾獠环笼综胁荡诩谣趋跃邻针镇际驱",
+    "missing_character_count": 41,
+    "missing_characters": "仍创响团垒壤孕层帕废忧悄惮惶曼汇濒灾熄爬獠环秉笼综罩胁范荡裹诩谣趋跃邻针镇际陌霸驱",
     "remaining_safe_candidate_slot_count": 3,
-    "candidate_shortfall": 24,
+    "candidate_shortfall": 38,
     "ready_for_component": false
   },
   "ratchet": {
@@ -332,9 +572,9 @@
       "maximum_line_width": 22,
       "fixed_allocation_overflow_count": 0,
       "editorial_draft_entry_count": 28,
-      "font_missing_character_count": 27,
+      "font_missing_character_count": 41,
       "remaining_safe_candidate_slot_count": 3,
-      "font_candidate_shortfall": 24
+      "font_candidate_shortfall": 38
     },
     "actual": {
       "entry_count": 28,
@@ -344,9 +584,9 @@
       "maximum_line_width": 22,
       "fixed_allocation_overflow_count": 0,
       "editorial_draft_entry_count": 28,
-      "font_missing_character_count": 27,
+      "font_missing_character_count": 41,
       "remaining_safe_candidate_slot_count": 3,
-      "font_candidate_shortfall": 24
+      "font_candidate_shortfall": 38
     },
     "checks": {
       "entry_count": true,

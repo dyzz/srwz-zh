@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "font_profile_id": "srwz-ui-p1-world-history-unified-font-v1",
+  "base_font_config": {
+    "path": "config/fonts/first-five-font.json",
+    "sha256": "90b7a41f78657a40bc75abd73381d8807f1779c4f0bd9c5269f7799e1949b7cd"
+  },
+  "base_validation_manifest": "manifests/ui-p0-font-validation.json",
+  "base_font_component": {
+    "slps": "work/build/ui-p0/components/SLPS_258.87",
+    "vt1": "work/build/ui-p0/components/DATA/VT1.BIN"
+  },
+  "allocation_registry": "config/encoding/ui-p1-summary-allocations.json",
+  "assignment_id_prefix": "ui-p1-summary",
+  "allocation_owner": "ui/p1/world-history",
+  "allocation_policy": {
+    "mode": "valid-sjis-then-raw-standard-trail-gaps",
+    "raw_standard_trails": [
+      "7F",
+      "FD",
+      "FE",
+      "FF"
+    ],
+    "instruction_windows": [
+      {
+        "name": "two-byte-measurement-consumes-unchecked-trail",
+        "virtual_address": "0x00139BE8",
+        "file_offset": 243304,
+        "size": 32,
+        "sha256": "225b820d0637e9cf7b15f6d79b61c0497744c20d11f0f7a563c86ae4796b59b2"
+      },
+      {
+        "name": "standard-glyph-resolver-uses-low-byte-directly",
+        "virtual_address": "0x0013A968",
+        "file_offset": 246760,
+        "size": 40,
+        "sha256": "fe8955a7ef6efb818424fdd89b421e95074535d460d8232c00a8244bbdf75bb4"
+      }
+    ],
+    "runtime_precedent": {
+      "static_manifest": "manifests/static-canary-validation.json",
+      "static_sha256": "c264e515d09e8d360628d3b7e3c3d58e2ccea2833e632b24011f5c5550d921cc",
+      "required_static_status": "static_candidate_runtime_verified_separately",
+      "runtime_manifest": "manifests/canary-iso-validation.json",
+      "runtime_sha256": "fd391150af647538576c770c78bee3092dc0d1b3673868cb23714099f5f5146a",
+      "required_runtime_acceptance": "passed_full_game_decoder_output_hash_and_opening_visual_canary",
+      "character": "试",
+      "code": "987F",
+      "glyph_index": 4479
+    }
+  },
+  "scene_inventory": {
+    "path": "config/ui-scenes.json",
+    "sha256": "d4b1e17868299dd386f84ef4ad15dd62605588fe72ff2e3b9263abd7ff0b60af",
+    "inventory_id": "srwz-ui-scenes-v1",
+    "priorities": [
+      "P0",
+      "P1"
+    ],
+    "scene_ids": [
+      "title/main-menu",
+      "opening/player-setup",
+      "intermission/main-and-options",
+      "information/unit-pilot-mech-core",
+      "battle/map-and-tactical",
+      "results/level-up-and-deployment",
+      "search/filter-and-results",
+      "opening/world-history-scroll"
+    ],
+    "expected_unique_entry_count": 490
+  },
+  "scope": {
+    "base_stage_indices": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "ui_inventory": "srwz-ui-scenes-v1",
+    "ui_scene_ids": [
+      "title/main-menu",
+      "opening/player-setup",
+      "intermission/main-and-options",
+      "information/unit-pilot-mech-core",
+      "battle/map-and-tactical",
+      "results/level-up-and-deployment",
+      "search/filter-and-results",
+      "opening/world-history-scroll"
+    ],
+    "rerasterize": "All CJK unified ideographs used by the inherited P0 selection or the 28 world-history translations, plus every allocated character.",
+    "preserve": "Original kana, Latin glyphs, punctuation with an existing reachable glyph, control symbols, and glyphs outside the combined selection."
+  },
+  "manifest_contract": {
+    "status": "offline_font_and_selected_ui_renderer_coverage_passed_runtime_pending",
+    "scope": "Incremental P0 plus world-history UI font/codebook component. It proves the selected 490 translation records have reachable unified glyphs; it does not write MTV_PROS text, build an ISO or prove runtime scrolling.",
+    "coverage_key": "selected_renderer_coverage",
+    "base_component_key": "base_ui_p0_components",
+    "base_acceptance_key": "base_ui_p0_components_unchanged",
+    "missing_acceptance_key": "selected_renderer_missing_character_count_zero",
+    "han_acceptance_key": "selected_original_font_han_count_zero",
+    "runtime_reason": "No full Chinese MTV_PROS component or combined ISO exists; raw trail classes beyond the inherited 0x7F canary and world-history scroll start/middle/end remain runtime pending."
+  },
+  "outputs": {
+    "readiness": "work/writeback/ui-p1-summary-font-readiness.json",
+    "proposal": "work/writeback/ui-p1-summary-codebook-proposal.json",
+    "component_root": "work/build/ui-p1-summary/components",
+    "validation": "work/review/ui-p1-summary-font-validation.json",
+    "manifest": "manifests/ui-p1-summary-font-validation.json"
+  }
+}

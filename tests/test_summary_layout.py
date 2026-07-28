@@ -61,12 +61,16 @@ class SummaryLayoutTests(unittest.TestCase):
         self.assertEqual(manifest["allocation"]["overflow_count"], 0)
         self.assertEqual(manifest["editorial"]["status_counts"]["draft"], 28)
         self.assertFalse(manifest["editorial"]["ready_for_production"])
-        self.assertEqual(manifest["font_capacity"]["missing_character_count"], 27)
+        self.assertEqual(manifest["font_capacity"]["missing_character_count"], 41)
         self.assertEqual(
             manifest["font_capacity"]["remaining_safe_candidate_slot_count"],
             3,
         )
-        self.assertEqual(manifest["font_capacity"]["candidate_shortfall"], 24)
+        self.assertEqual(manifest["font_capacity"]["candidate_shortfall"], 38)
+        self.assertEqual(
+            manifest["inputs"]["font"]["missing_reason_counts"],
+            {"resolver_unreachable": 14, "unmapped": 27},
+        )
         self.assertFalse(manifest["font_capacity"]["ready_for_component"])
         self.assertEqual(manifest["runtime"]["status"], "not_tested")
         self.assertTrue(manifest["ratchet"]["passed"])

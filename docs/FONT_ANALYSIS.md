@@ -125,6 +125,37 @@ glyph index 和 `glyph_index × 288` byte offset。这里的“未引用”不�
 此前按 40 个 lead byte 和标准 trail 枚举出的 660 个
 `candidate_unmapped` 也仍只是码位空间统计，不能替代上述 renderer 映射。
 
+## P1 的 raw standard-trail 容量
+
+进一步核对原版 SLPS 的两个指令窗口后，普通分支还有一类必须与“合法
+Shift-JIS 安全候选”分开描述的容量：
+
+- `0x139BE8..0x139C08` 把第一个字节左移 8 位，直接读取第二个字节并合成
+  16-bit code，随后指针加二；中间没有 trail 合法性分支；
+- `0x13A968..0x13A98C` 直接读取 code 低字节，并按每 lead 192 个 glyph
+  计算 index；同样没有排除 `0x7F/0xFD/0xFE/0xFF`。
+
+因此每个普通 lead 行的这四个无效 Shift-JIS 尾字节，仍可能通过原版公式
+寻址字体槽。`raw_standard_allocation_candidates()` 只枚举这四类空隙，
+同时排除固定文本表、可打印 ASCII、扩展表和继承账本已经占用的 glyph。
+在当前原版与 `测/试` codebook 下得到：
+
+- 合法 Shift-JIS 安全候选：650；
+- raw-trail 公式可寻址空隙：86；
+- 合计 renderer-addressable 候选：736。
+
+`config/encoding/ui-p1-summary-allocations.json` 继承 P0 的 647 个登记字符，
+为世界史追加 41 字。前三字使用剩余合法候选，另外 38 字使用 21 个 `0x7F`
+和 17 个 `0xFD` 空隙，登记后尚余 48 槽。对应 profile 会逐字节哈希验证上述
+两个指令窗口，并锁定 `manifests/static-canary-validation.json` 与
+`manifests/canary-iso-validation.json` 中 `987F=试` 的运行先例。
+
+证据边界很重要：指令窗口证明四类低字节按相同公式“可寻址”，现有实机只证明
+过 `0x7F` 类的一个字符。它没有证明整张 P1 字库、`0xFD` 类、世界史文本
+组件或滚动界面已经运行安全。因此清单称这些位置为
+`raw_standard_addressable`，不称为安全槽；P1 manifest 仍保持
+`runtime.status=not_tested`。
+
 ## 当前静态 canary
 
 `config/canary/minimal-slps-font.json` 使用 code `987E/987F` 对应的
@@ -144,11 +175,11 @@ glyph 4478/4479，生成两个简体中文字形并重建 VT1 第 2 段。该路
 
 ## 下一完成门
 
-1. 继续对其余 glyph 建立“可显示、保留、静态候选、未知”分类，并用
+1. 为 P1 精确组件构建 ISO，分别覆盖一个新 `0x7F` 和 `0xFD` 分配，并在
+   PCSX2 中绑定完整 decoded-font 哈希与世界史起点／中段／结尾画面。
+2. 继续对其余 glyph 建立“可显示、保留、静态候选、未知”分类，并用
    PCSX2 决定静态候选能否升级为可覆盖。
-2. 扫描现有 94,189 条语料、新增 195 条 MAPNAME 及硬编码区域的实际 code
+3. 扫描现有 94,189 条语料、新增 195 条 MAPNAME 及硬编码区域的实际 code
    使用，排除非文本引用。
-3. 为中文字形确定字体来源、字号、hinting、基线和 4-bpp raster 参数。
-4. 用 `replace_glyph()` 生成 decoded 字体候选，并用原生编码器重建 VT1 第 2 段。
-5. 继续把“完整字库加载通过”和“具体 glyph 在目标界面正确显示”分开验收；
+4. 继续把“完整字库加载通过”和“具体 glyph 在目标界面正确显示”分开验收；
    未单独覆盖的槽位仍只能算静态候选。

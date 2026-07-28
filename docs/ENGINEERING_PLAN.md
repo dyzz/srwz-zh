@@ -249,8 +249,11 @@ runtime_acceptance:
 6. codebook 与 VT1 字形必须在同一组件构建中一起验证；
 7. 字体段大小、压缩语法、offset 和运行时完整解压哈希都是门禁。
 
-当前 `987E/987F` 与 glyph 4478/4479 只作为已验证 canary 分配，不据此批准
-`9873..987D` 或其他未引用 glyph。
+当前 `987E/987F` 与 glyph 4478/4479 只作为已验证 canary 分配；其中
+`987F` 证明原 renderer 能实际消费一次 `0x7F` 尾字节。P1 世界史 profile
+另把反汇编证明可寻址的 `0x7F/0xFD/0xFE/0xFF` 空隙登记为
+`raw_standard_addressable` 离线候选，不把它们升级为运行安全槽；每种实际
+使用的新 trail 类仍须在精确组件／ISO 上单独绑定 PCSX2 证据。
 
 ## 9. Build profile 和一次构建
 

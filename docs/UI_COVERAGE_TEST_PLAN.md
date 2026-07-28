@@ -72,6 +72,24 @@ python3 tools/verify_ui_p0_font.py --force
 文本的 renderer 缺字和原版汉字字形混用均为零。提交结果见
 `manifests/ui-p0-font-validation.json`。
 
+世界史 P1 字库使用通用 profile 入口，并显式继承 P0 账本和组件：
+
+```bash
+python3 tools/audit_ui_font.py \
+  --config config/fonts/ui-p1-summary-font.json --force
+python3 tools/build_first_five_font.py \
+  --force \
+  --proposal work/writeback/ui-p1-summary-codebook-proposal.json \
+  --output-root work/build/ui-p1-summary/components \
+  --font-config config/fonts/ui-p1-summary-font.json \
+  --allocation-registry config/encoding/ui-p1-summary-allocations.json
+python3 tools/verify_ui_font.py \
+  --config config/fonts/ui-p1-summary-font.json --force
+```
+
+该 profile 只生成／验证离线 SLPS、VT1 和字形账本，不写 MTV_PROS，也不构建
+ISO。提交结果见 `manifests/ui-p1-summary-font-validation.json`。
+
 固定长度的第一层 SLPS 写回使用独立 profile：
 
 ```bash
@@ -153,7 +171,7 @@ P0 明确排除了两条含未定英语专名的后期专用提示。它们已�
 | 优先级 | 场景 | 文本数 | 推迟原因 |
 | --- | --- | ---: | --- |
 | P1 | 关卡标题与路线选择 | 122 | P1 字库、容量与运行路线尚未进入独立 profile，当前还缺 36 个字符 |
-| P1 | 开场／资料库世界史滚动文本 | 28 | 22 格断行与定长 allocation 已通过；相对当前 P0 字库缺 27 个字，安全槽 3 个，短缺 24 个 |
+| P1 | 开场／资料库世界史滚动文本 | 28 | 布局已通过；相对 P0 实缺 41 字、短缺 38。独立 P1 字库候选已做到 490 条零缺字并余 48 槽，但 raw-trail 分配、MTV_PROS 组件和运行仍待验收 |
 | P1 | 前五关开场、黑屏字幕与对话 | 1,833 | ISO 静态全量回读已通过，当前精确候选仍待运行验证 |
 | P1 | 其余内嵌设置、编成与提示文本 | 275 | 仍是上游 unknown 聚合，必须先按可见界面继续拆分 |
 | P1 | 后期专用指令与合神提示 | 2 | 英语专名需要人工确认 |
@@ -163,10 +181,20 @@ P0 明确排除了两条含未定英语专名的后期专用提示。它们已�
 世界史 28 条现已排成 146 个显示行，最大宽度 22 格；14 个段落空行保持不变，
 三个跨记录连续组共 14 条按照各自原 allocation 重新分配后没有溢出。清单见
 `manifests/world-history-layout.json`。这只证明逻辑正文未改变、断行可显示且
-原位记录容量足够；28 条仍是 `draft`，当前字库还短缺 24 个安全槽，也没有
-生成完整中文 MTV_PROS 组件、ISO 或起点／中段／结尾运行证据。前五关 1,833 条
+原位记录容量足够；28 条仍是 `draft`。该清单相对 P0 候选记录 27 个未映射字
+和 14 个 resolver 不可达字，三个安全槽仍短缺 38 个。独立 P1 字库候选已追加
+全部 41 字并统一重绘另 53 个汉字，从候选组件重读 490 条 P0＋世界史文本后
+缺字与原版汉字混用均为零、余 48 个 renderer-addressable 槽；但尚未生成完整
+中文 MTV_PROS 组件、ISO 或起点／中段／结尾运行证据。前五关 1,833 条
 已写入现有候选并通过静态回读，但不能据此推导每个开场、黑屏字幕或战场触发
 都已在 PCSX2 中出现。
+
+P1 容量的 736 个候选由 650 个合法 Shift-JIS 安全候选和 86 个 raw-trail
+可寻址空隙组成。当前 688 个登记字符占用后余 48 槽；新增世界史 41 字中三字
+使用最后三个合法候选，38 字使用 `0x7F/0xFD` 尾字节空隙。原 SLPS 的测量和
+glyph resolver 指令窗口均已哈希锁定，证明这四类空隙走同一 192-glyph 公式；
+既有 `987F=试` 只为 `0x7F` 类提供一次运行先例，不能替代本 P1 组件或
+`0xFD` 类的实机验收。
 
 ## 4. 当前发现的结构缺口
 
@@ -222,11 +250,14 @@ SLPS 418 条和 COMPDATA 44 条都能在原 span 内覆盖，不需要 P0 文本
    44 条；压缩流完成 prefix-preserving suffix 重编码和完整回解。
 4. **已完成开场动态名切片：**完整解析 3,147 个稳定 ID，并对 45 个已审校
    字段执行定长写回；人物 ID、机体指针、非目标字节和完整解码往返均不变。
-5. **当前下一步：**先解决 P1 字库容量，再把 28 条世界史从 `draft` 提升到
-   已审校状态并构建完整 MTV_PROS 组件；同时按官方术语扩大人物／机体名语料，
+5. **已完成 P1 离线字库候选：**继承 P0 分配，追加世界史 41 字、重绘另
+   53 个汉字，490 条选择零缺字且 VT1 大小保持不变；raw-trail 的新类别仍需
+   绑定未来精确 ISO 做 PCSX2 验收。
+6. **当前下一步：**把 28 条世界史从 `draft` 提升到已审校状态并构建完整
+   MTV_PROS 组件；同时按官方术语扩大人物／机体名语料，
    通过运行时纹理转储和离线预览，把人物／机体／武器信息页 atlas 精确映射到
    archive/member/record/picture。
-6. 合并标题 TIM2、P0 字库、P0 文本、动态名和前五关 STAGE；只从同一个
+7. 合并标题 TIM2、P0 字库、P0 文本、动态名和前五关 STAGE；只从同一个
    profile 构建一张候选 ISO。
 
 每一步都先建立可失败的门禁和最小 fixture，再扩展场景数；不直接修改
@@ -238,7 +269,10 @@ SLPS 418 条和 COMPDATA 44 条都能在原 span 内覆盖，不需要 P0 文本
 
 - selector 条数、稳定 ID、source hash 和译文决策精确；
 - 世界史布局清单的 28 条、22 格、14 个空行、零 allocation overflow、
-  27 个缺字和 24 槽短缺 ratchet 未漂移；
+  41 个缺字（27 unmapped＋14 resolver-unreachable）和 38 槽短缺 ratchet
+  未漂移；
+- P1 字库必须继承 P0 的 647 个登记字符，新增 41 个字符后共 688 个；
+  合法 Shift-JIS 与 raw-trail 容量必须分开报告，不得把后者称为运行安全槽；
 - 运行时 token 不计入字形需求；
 - 所需字符全部可编码、glyph 非空且风格统一；
 - 动态名称结构、已选译文、writer 清单和图片证据 manifest 未漂移。
