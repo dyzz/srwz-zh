@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the complete P1 Chinese MTV_PROS world-history component."""
+"""Build a configured Chinese MTV_PROS world-history component."""
 
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Write all 28 Chinese world-history records into MTV_PROS and "
-            "compose the result with the P1 SLPS/VT1 font component. "
+            "compose the result with the configured SLPS/VT1 font component. "
             "No ISO or emulator is executed."
         )
     )

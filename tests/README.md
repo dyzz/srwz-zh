@@ -76,11 +76,18 @@ fixed-span 选择 ratchet、指针／非目标字节不变、组件哈希和压�
 `test_display_names.py` 固定 COMPDATA 人物／机体表几何、稳定 ID、指针归并、
 零 padding 和 hash-only 提交投影；`test_display_name_coverage.py` 固定
 researched 精确源词的 1,262 字段选择、1,166 个当前字库直通项、96 个缺字
-项／21 个编码缺字、33 个 renderer allocation、29 个统一重绘汉字、15 个
-预计剩余槽、零 projected allocation 溢出、2,800 行审核 TSV 和提交清单
-不含原始日文；`test_ui_p0_display_names.py` 固定开场
+项／21 个编码缺字、33 个 renderer 缺字、其中 4 个退役 assignment 复用与
+29 个新 allocation、29 个统一重绘汉字、19 个预计剩余槽、零 projected
+allocation 溢出、2,800 行审核 TSV 和提交清单不含原始日文；
+`test_ui_p0_display_names.py` 固定开场
 45 个名称决策、原 allocation 写回、人物 ID／机体指针／非目标字节不变和
 压缩流精确回解，并要求 ISO／运行状态仍未测试。
+`test_ui_p2_display_name_font.py` 固定 P2 对 P1 账本的无重排继承、29 个新增
+assignment、4 个退役 assignment 复用、29 个重绘项、1,262 个字段零
+renderer 缺字和 19 槽余量；`test_ui_p2_display_names.py` 固定 1,307 项
+选择、1,213 项写入、94 项 no-op、完整重解析和不含译文 payload 的清单；
+`test_ui_p2_core.py` 固定 P2 世界史／四成员组合、ISO 替换、两段 LBA 位移、
+镜像 golden 和 `not_tested` 运行边界。
 `test_summary_layout.py` 固定世界史 28 条、146 行、22 格、14 个空行、
 三个跨记录连续组、零 allocation overflow、字库短缺和未运行边界，并检查
 提交语料的标点禁则与 `UN` 术语引用随重分配记录移动。

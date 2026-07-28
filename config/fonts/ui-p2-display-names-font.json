@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "font_profile_id": "srwz-ui-p2-researched-display-names-unified-font-v1",
+  "base_font_config": {
+    "path": "config/fonts/first-five-font.json",
+    "sha256": "90b7a41f78657a40bc75abd73381d8807f1779c4f0bd9c5269f7799e1949b7cd"
+  },
+  "base_validation_manifest": "manifests/ui-p1-summary-font-validation.json",
+  "base_font_component": {
+    "slps": "work/build/ui-p1-summary/components/SLPS_258.87",
+    "vt1": "work/build/ui-p1-summary/components/DATA/VT1.BIN"
+  },
+  "allocation_registry": "config/encoding/ui-p2-display-name-allocations.json",
+  "assignment_id_prefix": "ui-p2-display-name",
+  "allocation_owner": "ui/p2/researched-display-names",
+  "allocation_policy": {
+    "mode": "valid-sjis-then-raw-standard-trail-gaps",
+    "raw_standard_trails": [
+      "7F",
+      "FD",
+      "FE",
+      "FF"
+    ],
+    "instruction_windows": [
+      {
+        "name": "two-byte-measurement-consumes-unchecked-trail",
+        "virtual_address": "0x00139BE8",
+        "file_offset": 243304,
+        "size": 32,
+        "sha256": "225b820d0637e9cf7b15f6d79b61c0497744c20d11f0f7a563c86ae4796b59b2"
+      },
+      {
+        "name": "standard-glyph-resolver-uses-low-byte-directly",
+        "virtual_address": "0x0013A968",
+        "file_offset": 246760,
+        "size": 40,
+        "sha256": "fe8955a7ef6efb818424fdd89b421e95074535d460d8232c00a8244bbdf75bb4"
+      }
+    ],
+    "runtime_precedent": {
+      "static_manifest": "manifests/static-canary-validation.json",
+      "static_sha256": "c264e515d09e8d360628d3b7e3c3d58e2ccea2833e632b24011f5c5550d921cc",
+      "required_static_status": "static_candidate_runtime_verified_separately",
+      "runtime_manifest": "manifests/canary-iso-validation.json",
+      "runtime_sha256": "fd391150af647538576c770c78bee3092dc0d1b3673868cb23714099f5f5146a",
+      "required_runtime_acceptance": "passed_full_game_decoder_output_hash_and_opening_visual_canary",
+      "character": "试",
+      "code": "987F",
+      "glyph_index": 4479
+    }
+  },
+  "scene_inventory": {
+    "path": "config/ui-scenes.json",
+    "sha256": "359186c2ad46ec19a3c9b63cf14230160a684fd37f3fe805b8842b2713b5784c",
+    "inventory_id": "srwz-ui-scenes-v1"
+  },
+  "display_name_selection": {
+    "config": "config/display-names/researched-coverage.json",
+    "config_sha256": "bf434cb9c217f4e25dbc8a8ec44b919242161ef4c909f2190b94efea57d3438c",
+    "manifest": "manifests/display-name-researched-coverage.json",
+    "manifest_sha256": "91b7d6c71e23807d2ac17cb6ffa797796f615bc4ddec8f9fa1092feb3115d3b3",
+    "selection_id": "srwz-display-names-researched-v1",
+    "required_status": "researched_selection_ready",
+    "surface_id": "information/researched-pilot-unit-display-names",
+    "expected_entry_count": 1262
+  },
+  "scope": {
+    "base_stage_indices": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "ui_inventory": "srwz-ui-scenes-v1",
+    "display_name_selection": "srwz-display-names-researched-v1",
+    "rerasterize": "All CJK unified ideographs used by the researched display-name selection, plus every allocated character; inherited P1 assignments remain exact.",
+    "preserve": "Original kana, punctuation with an existing reachable glyph, control symbols, glyphs outside the researched selection, and every inherited assignment."
+  },
+  "manifest_contract": {
+    "status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending",
+    "scope": "Incremental P1 plus researched pilot/unit display-name font/codebook component. It proves the selected 1,262 fields have reachable unified glyphs; it does not write COMPDATA, build an ISO or prove runtime rendering.",
+    "coverage_key": "researched_display_name_renderer_coverage",
+    "base_component_key": "base_ui_p1_components",
+    "base_acceptance_key": "base_ui_p1_components_unchanged",
+    "missing_acceptance_key": "researched_display_name_renderer_missing_character_count_zero",
+    "han_acceptance_key": "researched_display_name_original_font_han_count_zero",
+    "runtime_reason": "The component inherits raw standard-trail allocations from P1 and adds more raw-trail glyphs. Only the inherited 0x7F canary has runtime evidence; the exact combined font, names and UI routes remain runtime pending."
+  },
+  "outputs": {
+    "readiness": "work/writeback/ui-p2-display-name-font-readiness.json",
+    "proposal": "work/writeback/ui-p2-display-name-codebook-proposal.json",
+    "component_root": "work/build/ui-p2-display-name-font/components",
+    "validation": "work/review/ui-p2-display-name-font-validation.json",
+    "manifest": "manifests/ui-p2-display-name-font-validation.json"
+  }
+}

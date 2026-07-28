@@ -580,9 +580,9 @@ canary 仍刻意使用已验证的原位定长 allocation。
 
 ## 17. 当前优先队列
 
-1. E3：在已验证的 COMPDATA 完整名称结构和开场 45 字段 writer 上，继续按
-   官方术语／人工确认批次扩展其余 2,755 个非空字段；
-2. E3：定位人物／机体信息页 atlas；在已静态验证的 `ui-p1-core` profile
+1. E3：继续按官方术语／人工确认批次扩展当前 1,493 个尚未满足 researched
+   精确传播门的非空名称字段；
+2. E3：定位人物／机体信息页 atlas；在已静态验证的 `ui-p2-core` profile
    上加入图片和前五关 STAGE/HB；
 3. E3：补全 offline render oracle、coverage ratchet、evidence freshness
    和 clean-copy deterministic build；
@@ -592,8 +592,10 @@ E0-E2 已完成：SurfaceSpec、正式 `测/试` codebook、三域 `corpus/zh`�
 四个隔离/组合 profile、自动 component manifest，以及菜单、摘要、剧情三条
 独立 PCSX2 fixture 均已落地。P0 的 418 条 SLPS 与 44 条 COMPDATA 静态菜单
 文本也已由 fixed-span profile 全部覆盖。动态显示名现已完成全结构解析和
-开场 45 字段组件；标题、P0 菜单、开场动态名、P1 字库和世界史已经进入
-静态验证的 `ui-p1-core` ISO，但尚未覆盖全名表、图片 atlas、前五关
+开场 45 字段组件；researched 精确切片另选 1,262 项，并以 29 个新
+allocation、4 个退役 assignment 复用和 29 个重绘字形完成统一 renderer。
+标题、P0 菜单、合计 1,307 项动态名、P2 字库和世界史已经进入静态验证的
+`ui-p2-core` ISO，但尚未覆盖余下 1,493 个非空名称、图片 atlas、前五关
 STAGE/HB 或逐屏运行验收。
 
 工程规划期间不把“文档数量”“脚本数量”或“单元测试数量”当作完成标准。每一阶段

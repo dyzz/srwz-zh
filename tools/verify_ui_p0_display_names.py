@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild and verify the opening-route P0 display-name component."""
+"""Rebuild and verify a configured display-name COMPDATA component."""
 
 from __future__ import annotations
 
@@ -86,7 +86,7 @@ def main() -> int:
         encoding="utf-8",
     )
     print(
-        "UI P0 display names verified:",
+        "UI display names verified:",
         f"translations={report['selection']['translation_entry_count']}",
         f"writes={report['write']['operation_count']}",
         f"sha256={report['compressed_component']['output_sha256']}",

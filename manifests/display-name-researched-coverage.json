@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "status": "researched_selection_ready_writer_not_implemented",
+  "status": "researched_selection_ready",
   "selection_id": "srwz-display-names-researched-v1",
   "scope": "Exact-source propagation from researched glossary decisions into unselected pilot and unit display-name fields. This profile selects candidates and proves capacity/font readiness; it does not write COMPDATA or claim runtime coverage.",
   "content_policy": "This ignored report and TSV contain original Japanese display names. The committed manifest contains counts, hashes, missing characters and decision provenance only.",
   "inputs": {
     "config": {
       "path": "config/display-names/researched-coverage.json",
-      "sha256": "c44fe0ce4444afd3675e8013694d3f884cc5f0542fa966e68a5d5e6e6e4e5fe7"
+      "sha256": "bf434cb9c217f4e25dbc8a8ec44b919242161ef4c909f2190b94efea57d3438c"
     },
     "structure": {
       "config": {
@@ -192,9 +192,11 @@
     "current_renderer_ready_entry_count": 1129,
     "current_renderer_missing_entry_count": 133,
     "current_renderer_missing_character_count": 33,
+    "current_renderer_reactivatable_character_count": 4,
+    "current_renderer_new_allocation_character_count": 29,
     "current_renderer_original_han_character_count": 29,
     "current_renderer_original_han_entry_count": 124,
-    "projected_remaining_candidate_slot_count": 15,
+    "projected_remaining_candidate_slot_count": 19,
     "projected_overflow_entry_count": 0,
     "unresolved_entry_count": 1493
   },
@@ -405,11 +407,14 @@
         "occurrence_count": 1
       }
     ],
+    "reactivatable_registered_character_count": 4,
+    "reactivatable_registered_characters": "娅杰艾贾",
+    "new_allocation_character_count": 29,
     "original_font_han_character_count": 29,
     "original_font_han_characters": "丈乙亨僧医吾咲塞奈媚弁彩志枝桑洛温琉琳穆耶芙茜茨荷薇裁隆隼",
     "original_font_han_entry_count": 124,
     "available_candidate_slot_count": 48,
-    "projected_remaining_candidate_slot_count": 15
+    "projected_remaining_candidate_slot_count": 19
   },
   "review_queue": {
     "row_count": 2800,
@@ -430,8 +435,8 @@
     "renderer_readiness_measured": true,
     "renderer_allocation_fits_available_slots": true,
     "projected_fixed_allocation_overflow_count_zero": true,
-    "writer_not_implemented": true,
+    "selection_only_no_game_write": true,
     "runtime_not_tested": true
   },
-  "next_gate": "Allocate and rasterize the missing characters, review the exact selection, rerasterize selected original-font Han, then compose the selected fixed allocations on top of the P0 display-name COMPDATA component."
+  "next_gate": "A separate font profile and fixed-allocation COMPDATA component must consume this exact selection. Their static and runtime acceptance remain independent from this selection manifest."
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministically rebuild and reparse the P1 world-history component."""
+"""Deterministically rebuild and reparse a world-history component."""
 
 from __future__ import annotations
 
@@ -55,7 +55,7 @@ def main() -> int:
     if missing:
         raise SystemExit(
             "world-history component missing; run "
-            f"build_ui_p1_world_history.py: {missing[0]}"
+            f"build_ui_world_history.py: {missing[0]}"
         )
     actual_outputs = {name: path.read_bytes() for name, path in paths.items()}
     try:
@@ -99,7 +99,8 @@ def main() -> int:
         encoding="utf-8",
     )
     print(
-        "UI P1 world history verified:",
+        "UI world history verified:",
+        f"profile={report['profile_id']}",
         f"entries={report['selection']['translation_entry_count']}",
         f"chunks={report['archive']['chunk_count']}",
         f"changed={report['archive']['changed_chunk_count']}",

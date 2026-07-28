@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bind the integrated P1 core UI component to its static ISO evidence."""
+"""Bind a configured integrated core UI component to static ISO evidence."""
 
 from __future__ import annotations
 
@@ -68,8 +68,15 @@ def parse_args() -> argparse.Namespace:
 def build_report(config_path: Path, component_manifest_path: Path) -> dict:
     config = load_json(config_path)
     component = load_json(component_manifest_path)
-    if config.get("profile_id") != "ui-p1-core":
-        raise UiP1CoreIsoError("unexpected UI P1 core ISO profile")
+    if config.get("profile_id") not in {"ui-p1-core", "ui-p2-core"}:
+        raise UiP1CoreIsoError("unexpected integrated UI core ISO profile")
+    configured_component = config.get("component_validation_manifest")
+    if configured_component is not None and (
+        PROJECT_ROOT / configured_component
+    ).resolve() != component_manifest_path.resolve():
+        raise UiP1CoreIsoError(
+            "component manifest does not match the ISO profile"
+        )
     if component.get("status") != (
         "integrated_component_validated_iso_runtime_pending"
     ):
@@ -271,7 +278,7 @@ def main() -> int:
         encoding="utf-8",
     )
     print(
-        "UI P1 core ISO verified:",
+        "UI core ISO verified:",
         f"members={report['iso_build']['member_count']}",
         f"sha256={report['iso_build']['output']['sha256']}",
         "runtime=pending",

@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "status": "static_integrated_iso_validated_runtime_pending",
+  "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes or localized text are embedded.",
+  "profile_id": "ui-p2-core",
+  "component": {
+    "manifest": {
+      "path": "manifests/ui-p2-core-validation.json",
+      "size": 9804,
+      "sha256": "88f34a3564ddfebcd3bcc3b1d65650391d2bd4dd36933c924e5fb9ebe33c8e3a"
+    },
+    "profile_id": "srwz-ui-p2-researched-display-names-integrated-v1",
+    "outputs": {
+      "slps": {
+        "size": 3471624,
+        "sha256": "a9368796265c64e67b185a772639007ac7edf3da450ea3e08bfd8ce158e86512"
+      },
+      "vt1": {
+        "size": 127573504,
+        "sha256": "d4e84ec8e482444397edabd2f7a1d24d600e1477f02642e95769f699383fd468"
+      },
+      "mtv_pros": {
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      },
+      "compdata": {
+        "size": 159693,
+        "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f"
+      }
+    },
+    "acceptance": {
+      "all_input_hashes_locked": true,
+      "p0_menu_patch_applied_exactly": true,
+      "slps_owner_overlap_count_zero": true,
+      "p1_vt1_non_title_chunks_exact": true,
+      "localized_title_record_and_preview_exact": true,
+      "vt1_offset_table_reread_exact": true,
+      "all_28_world_history_texts_reread_exact": true,
+      "display_name_compdata_exact": true,
+      "all_output_locks_exact": true
+    }
+  },
+  "iso_build": {
+    "config": {
+      "path": "config/iso/ui-p2-core-build.json",
+      "size": 3753,
+      "sha256": "12ebd7eb0880963669ac61a1fd5b78199fad3394f7bc4f9023e29ab55e96aa62"
+    },
+    "report": {
+      "path": "build/iso/ui-p2-core/iso-validation.json",
+      "size": 3497,
+      "sha256": "765b9b40667d727efa87501a902def828ed8ff5255ff2c088bc691a4d51a0b2f"
+    },
+    "path": "build/iso/ui-p2-core/srwz-ui-p2-core.iso",
+    "output": {
+      "size": 3758456832,
+      "sha256": "2ce5c844cd623c1bfd2f6ec1bc7acc0aa9565fc069f451a0b736ad3e8aa13a65"
+    },
+    "member_count": 66,
+    "unchanged_member_count": 62,
+    "shifted_member_count": 16,
+    "shift_segments": [
+      {
+        "first_member": "DATA/NISVDATA.BIN",
+        "shift_sectors": 7
+      },
+      {
+        "first_member": "DATA/STAGE.BIN",
+        "shift_sectors": 42
+      }
+    ],
+    "member_manifest_sha256": "7a44dcfb3f6b712f489175c5c5b5a429dff542580b847476df74d989a2dc1c28",
+    "pcsx2_v263_image_type": "DVD",
+    "udf_volume_recognition_sequence": "NSR02",
+    "replacements": {
+      "SLPS_258.87": {
+        "size": 3471624,
+        "sha256": "a9368796265c64e67b185a772639007ac7edf3da450ea3e08bfd8ce158e86512",
+        "component_output": "slps",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/COMPDATA.BN": {
+        "size": 159693,
+        "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f",
+        "component_output": "compdata",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/MTV_PROS.BIN": {
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+        "component_output": "mtv_pros",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/VT1.BIN": {
+        "size": 127573504,
+        "sha256": "d4e84ec8e482444397edabd2f7a1d24d600e1477f02642e95769f699383fd468",
+        "component_output": "vt1",
+        "independent_udf_reread_exact": true
+      }
+    }
+  },
+  "static_acceptance": {
+    "component_manifest_validated": true,
+    "iso_size_and_sha256_pinned": true,
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "shift_segments_exact": true,
+    "pcsx2_media_type_dvd": true,
+    "udf_nsr02": true,
+    "all_replacements_independently_reread": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_iso_sha256": "2ce5c844cd623c1bfd2f6ec1bc7acc0aa9565fc069f451a0b736ad3e8aa13a65",
+    "required_emulator": "PCSX2 v2.6.3",
+    "required_routes": [
+      "title_all_four_selected_and_unselected_states",
+      "opening_player_setup_default_and_edited_name",
+      "first_intermission_core_menu_routes",
+      "two_unit_information_page_matrix",
+      "battle_command_and_conditions",
+      "search_zero_and_multiple_results",
+      "world_history_scroll_start_middle_end"
+    ],
+    "pending_gates": [
+      "fresh_process_boot_exact_iso",
+      "pine_running_and_decoded_font_exact",
+      "new_raw_trail_glyph_classes_visible",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss"
+    ]
+  }
+}

@@ -10,8 +10,9 @@
 上，P0 SLPS 的 418 条已全部覆盖：101 条原字节已满足决策，317 条写入 378
 个目标。P0 COMPDATA 的 44 条也全部覆盖：3 条原本一致、41 条实际写入。
 开场路线另有 45 个动态人物／机体名称字段完成定长写回和独立回解。
-标题、上述 P0 内容、P1 字库和 28 条世界史已经进入同一个
-`ui-p1-core` 候选并通过 ISO 静态回读；PCSX2 逐屏路线仍未因此自动通过。
+标题、上述 P0 内容、开场 45 项加 researched 1,262 项动态名称、P2 字库和
+28 条世界史已经进入同一个 `ui-p2-core` 候选并通过 ISO 静态回读；
+PCSX2 逐屏路线仍未因此自动通过。
 
 ## 1. 可重复入口
 
@@ -38,8 +39,9 @@ python3 tools/audit_display_name_coverage.py --force
 
 第二条命令单独重建余下动态名称的 researched 精确源词选择，验证当前
 P1 字库的编码／renderer 缺口和每项原 allocation 容量，并把含日文的
-2,800 行审核队列写入被忽略的 `work/review/`。它只验证候选，不执行
-COMPDATA writer 或 ISO 构建。
+2,800 行审核队列写入被忽略的 `work/review/`。该命令只拥有选择结论；
+字库、COMPDATA writer、组合 component、ISO 和运行结论分别由后续 P2
+profile 与清单拥有。
 
 只有审核配置或基线变化后，才能显式更新提交清单：
 
@@ -139,6 +141,48 @@ P1／世界史修改零重叠；标题只替换已验证的 VT1 chunk 6 TIM2 rec
 均通过独立 UDF 回读。提交结果见 `manifests/ui-p1-core-validation.json` 和
 `manifests/ui-p1-core-runtime-validation.json`。该镜像不包含前五关
 STAGE/HB 或信息页 atlas，运行状态仍为 `not_tested`。
+
+当前 P2 production profile 在 P1 之上增加 researched 动态名称，完整命令为：
+
+```bash
+python3 tools/audit_ui_font.py \
+  --config config/fonts/ui-p2-display-names-font.json --force
+python3 tools/build_first_five_font.py \
+  --force \
+  --proposal work/writeback/ui-p2-display-name-codebook-proposal.json \
+  --output-root work/build/ui-p2-display-name-font/components \
+  --font-config config/fonts/ui-p2-display-names-font.json \
+  --allocation-registry config/encoding/ui-p2-display-name-allocations.json
+python3 tools/verify_ui_font.py \
+  --config config/fonts/ui-p2-display-names-font.json --force
+python3 tools/build_ui_display_names.py \
+  --config config/ui-writeback/ui-p2-display-names.json --force
+python3 tools/verify_ui_display_names.py \
+  --config config/ui-writeback/ui-p2-display-names.json --force
+python3 tools/build_ui_world_history.py \
+  --config config/summary/world-history-p2-display-names-component.json --force
+python3 tools/verify_ui_world_history.py \
+  --config config/summary/world-history-p2-display-names-component.json --force
+python3 tools/build_ui_core.py \
+  --config config/ui-integration/p2-researched-display-names.json --force
+python3 tools/verify_ui_core.py \
+  --config config/ui-integration/p2-researched-display-names.json --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-p2-core-build.json
+python3 tools/verify_ui_core_iso.py \
+  --config config/iso/ui-p2-core-build.json \
+  --component-manifest manifests/ui-p2-core-validation.json \
+  --manifest manifests/ui-p2-core-runtime-validation.json \
+  --report work/review/ui-p2-core-iso-validation.json --force
+```
+
+账本结果不是 33 个新槽：29 字新分配，`娅杰艾贾` 四字恢复原已登记的
+code/glyph，另重绘 29 个原版汉字，余 19 槽。COMPDATA 合计 1,307 项，
+1,213 项实际写入、94 项 no-op；当前 ISO 大小为 3,758,456,832 字节，
+SHA-256 为
+`2ce5c844cd623c1bfd2f6ec1bc7acc0aa9565fc069f451a0b736ad3e8aa13a65`。
+66 个成员中 62 个未替换成员保持原字节，四项 replacement 独立 UDF 回读；
+以上均为静态证据，运行状态仍为 `not_tested`。
 
 固定长度的第一层 SLPS 写回使用独立 profile：
 
@@ -285,10 +329,12 @@ writer 只做原 allocation 内写回，禁止人物 ID 或机体指针变化。
 译名来源、计数和选择哈希。当前 P1 字库已能编码其中 1,166 个字段，另外
 96 个字段合计只缺 `伦侣凤凯妮姬娅岛庆户滨琪苏萝谦贾赛赞钢钱阳` 21 字，
 但统一 renderer 还要为普通 ASCII `a/f/h/r/u` 和 7 个原表不可达汉字新增
-字形，因此完整新增 allocation 是 33 个，并需统一重绘另 29 个原版汉字；
-48 槽预计余 15 槽。全部 1,262 个 projected payload 均不溢出原 allocation。
+字形，因此共有 33 个 renderer 缺字；账本复核确认 29 个需要新 allocation，
+`娅杰艾贾` 四字复用已登记退役 assignment，并需统一重绘另 29 个原版汉字，
+最终余 19 槽。全部 1,262 个 payload 均不溢出原 allocation。
 该门禁不是按“同原文”盲填：只有已研究术语的一对一精确决定才进入选择；
-字库追加、审核晋级、COMPDATA writer、组合 ISO 和运行验证仍是后续独立门。
+P2 字库、COMPDATA writer 和组合 ISO 已由各自 profile 静态验证；审核晋级
+和 PCSX2 运行验证仍是独立门。
 
 ### 4.2 信息页图片文字
 
@@ -371,6 +417,8 @@ python3 tools/audit_ui_runtime_matrix.py --force
 - 19 个用例：9 个 UI／路线验收、5 个 001～005 开场序列、5 个 atlas
   场景映射实验；
 - 7 张候选 ISO 均由现有 manifest 锁定精确 SHA-256；
+- 八个核心 UI 用例绑定 `ui-p2-core` 的精确 SHA-256；P1 镜像保留为历史
+  可复建基线，不再是当前矩阵的核心候选；
 - 计划采集 42 张截图、6 组截图序列和 5 份 texture delta；
 - fresh boot 是唯一已就绪 fixture，因此标题、玩家设置、世界史滚动和
   stage 001 开场共 4 个用例可直接执行；其余 15 个用例等待六份原生

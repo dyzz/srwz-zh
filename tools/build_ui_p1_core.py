@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the integrated P1 core UI component."""
+"""Build a configured integrated core UI component."""
 
 from __future__ import annotations
 
@@ -22,13 +22,18 @@ DEFAULT_CONFIG = PROJECT_ROOT / "config/ui-integration/p1-core.json"
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Compose the validated title, P0 menu, display-name, P1 font "
+            "Compose the validated title, menu, display-name, font "
             "and world-history layers into one deterministic component."
         )
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--output-root", type=Path)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument(
+        "--print-output-locks",
+        action="store_true",
+        help="Print deterministic output locks without writing components.",
+    )
     return parser.parse_args()
 
 
@@ -48,15 +53,19 @@ def main() -> int:
     }
     report_path = output_root / "component-validation.json"
     existing = [path for path in (*paths.values(), report_path) if path.exists()]
-    if existing and not args.force:
+    if existing and not args.force and not args.print_output_locks:
         raise SystemExit(f"output exists; use --force: {existing[0]}")
     try:
         outputs, report = build_ui_p1_core_component(
             PROJECT_ROOT,
             config_path,
+            enforce_expected_outputs=not args.print_output_locks,
         )
     except (KeyError, UiIntegrationError) as error:
         raise SystemExit(str(error)) from error
+    if args.print_output_locks:
+        print(json.dumps(report["outputs"], indent=2))
+        return 0
     for name, path in paths.items():
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(outputs[name])
@@ -65,7 +74,8 @@ def main() -> int:
         encoding="utf-8",
     )
     print(
-        "UI P1 core component:",
+        "UI core component:",
+        f"profile={report['profile_id']}",
         f"menu={report['ratchet']['actual']['p0_slps_covered_entry_count']}",
         f"names={report['ratchet']['actual']['p0_display_name_entry_count']}",
         f"history={report['ratchet']['actual']['world_history_entry_count']}",

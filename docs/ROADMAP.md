@@ -39,9 +39,10 @@ canary、原生 armips 固定
 未登记池区。动态名称表的 3,147 个稳定字段 ID 已完成结构解析，开场路线
 45 个字段也已完成定长组件写回；其余 2,755 个非空字段中，保守的
 researched 精确源词门已筛出 1,262 个候选（1,221 人物／41 机体），1,166
-个当前 P1 字库可编码；统一 renderer 需新增 33 个 allocation、重绘 29 个
-原版汉字，48 槽预计余 15 槽，全部 projected allocation 零溢出；另 1,493
-个仍待人工审校，筛选尚未进入 writer 或 ISO。信息页
+个当前 P1 字库可编码；统一 renderer 的 33 个缺字中 29 个需要新
+allocation，`娅杰艾贾` 四字复用已登记退役 assignment，另重绘 29 个原版
+汉字，余 19 槽且全部 projected allocation 零溢出。该 1,262 项已与开场
+45 项合并进入 P2 writer 和 ISO；另 1,493 个仍待人工审校。信息页
 atlas 已完成一个只清除 `KVMDATA chunk 2` 顶行 `SHIP` 的隔离映射 canary：
 299 像素变化均在 mask 内，完整归档等长；单成员 ISO 有 65 个未替换成员和
 零 LBA 位移。战场 chunk 4 已完成只清除 `COMMAND MENU` 的隔离 canary：
@@ -61,7 +62,11 @@ canary：2,197 像素变化受 mask 约束。幕间 chunk 6 已完成只清除�
 所有权合并成 `ui-p1-core` 组件；组合 ISO 的 66 个成员、62 个未替换成员、
 四项替换 UDF 回读和精确 SHA-256 均已静态通过。该镜像不包含前五关
 STAGE/HB 或信息页 atlas；28 条仍为 `draft`，raw-trail 新类别和滚动实机
-验证尚未验收。上述五张 atlas canary 也尚未合入这个组合镜像。具体实施见
+验证尚未验收。在此基线上，researched 精确名称切片已继续完成：
+1,262 项与开场 45 项合并为 1,307 项 COMPDATA 选择；字库只新增 29 槽并
+复用 `娅杰艾贾` 四个退役 assignment，另重绘 29 个原版汉字，余 19 槽。
+新的 `ui-p2-core` 已完成四成员组合、66 成员容器校验和精确 ISO 锁定。
+上述五张 atlas canary 仍未合入组合镜像，P2 逐屏运行也仍未验收。具体实施见
 [`UI_COVERAGE_TEST_PLAN.md`](UI_COVERAGE_TEST_PLAN.md)。
 
 运行场景已进一步收敛为独立 `ui-runtime-test-matrix`：14 类场景都有唯一
@@ -69,7 +74,8 @@ STAGE/HB 或信息页 atlas；28 条仍为 `draft`，raw-trail 新类别和滚�
 ISO、42 个截图点、6 个截图序列及五份 texture delta 均有机器锁。当前只有
 fresh-boot fixture 就绪，六份原生 memory card 仍待取得，因此该矩阵仍是
 测试计划而不是运行通过证明。四个 fresh-boot 用例的 case plan 与空白证据
-草稿已生成；统一 session probe／receipt verifier 会检查精确 ISO、PINE、
+草稿已刷新，其中核心 UI 路线绑定精确 `ui-p2-core` ISO；统一 session
+probe／receipt verifier 会检查精确 ISO、PINE、
 DVD/ELF、零 TLB、截图、断言和 atlas RGBA delta，但当前尚无通过 receipt。
 
 ## M0：可重复基线

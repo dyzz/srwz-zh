@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the opening-route P0 display-name COMPDATA component."""
+"""Build a configured fixed-allocation display-name COMPDATA component."""
 
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ DEFAULT_CONFIG = PROJECT_ROOT / "config/ui-writeback/ui-p0-display-names.json"
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Compose reviewed opening pilot/unit display names on top of "
+            "Compose a locked pilot/unit display-name selection on top of "
             "the validated P0 fixed COMPDATA component."
         )
     )
@@ -58,7 +58,7 @@ def main() -> int:
         encoding="utf-8",
     )
     print(
-        "UI P0 display names:",
+        "UI display names:",
         f"translations={report['selection']['translation_entry_count']}",
         f"writes={report['write']['operation_count']}",
         f"remaining={report['remaining_work']['unselected_non_empty_entry_count']}",

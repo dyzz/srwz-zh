@@ -106,7 +106,8 @@
   和 4 类显式延期，锁定 7 张精确 ISO、19 个逐屏用例、7 类 fixture、
   42 个截图点、6 个截图序列和 5 个 texture delta。当前只有 fresh-boot
   fixture 就绪，六份原生 memory card 尚未取得，因此 19 个用例均保持
-  `not_tested`，清单不保存存档、截图或游戏字节。
+  `not_tested`；八个核心 UI 用例绑定精确 `ui-p2-core` ISO，清单不保存
+  存档、截图或游戏字节。
 - `runtime/ui-cases/*.json`：未来每个已通过用例的 hash-only receipt。receipt
   必须由 case-owned session probe、截图／序列、全部断言及可选 atlas
   texture delta 生成；矩阵锁定 receipt SHA-256，receipt 反向锁定排除运行
@@ -138,6 +139,21 @@
   替换独立 UDF 回读、分段 LBA 位移、DVD/NSR02 和固定 ISO SHA-256。
   标题、玩家设置、幕间、信息页、战场、搜索和世界史逐屏运行仍为
   `not_tested`。
+- `ui-p2-display-name-font-validation.json`：继承 P1 字库，为 researched
+  名称新增 29 个 allocation、重新启用 `娅杰艾贾` 四个退役 assignment，
+  并统一重绘 29 个原版汉字；1,262 个字段 renderer 缺字为零，余 19 槽，
+  运行仍为 `not_tested`。
+- `ui-p2-display-names-validation.json`：在固定 P0 COMPDATA 基线上合并
+  开场 45 项和 researched 1,262 项；1,307 项中 1,213 项写入、94 项 no-op，
+  人物 ID、机体指针和非目标字节不变，压缩流精确回解。
+- `ui-p2-world-history-validation.json`：将 P2 名称字库与 28 条世界史合成
+  SLPS／VT1／MTV_PROS 组件；保持世界史 allocation、14 块 codec 和全文
+  回读契约。
+- `ui-p2-core-validation.json`：把标题、P0 菜单、1,307 项动态名称、P2
+  字库和世界史合并为四成员 component，锁定所有输入、所有权和输出 golden。
+- `ui-p2-core-runtime-validation.json`：把 P2 component 静态绑定到
+  `ui-p2-core` DVD；记录 66 个成员、62 个未替换成员、两段 LBA 位移、
+  四项独立 UDF 回读和镜像 SHA-256。逐屏运行仍为 `not_tested`。
 - `ui-p0-fixed-slps-validation.json`：在 UI 字库候选 SLPS 上记录 101 条
   byte-exact no-op，并写入 317 条／378 个去重目标；全部 418 条 P0 SLPS
   均覆盖，指针、MIPS HI/LO、非目标字节和解压字库哈希不变。ISO 和运行验证
@@ -152,10 +168,11 @@
 - `display-name-researched-coverage.json`：排除开场 45 个已写回字段后，
   以 v1 术语库 `researched` 决定作精确源词传播；选择 1,262 个字段
   （1,221 人物／41 机体、307 个唯一源词），当前 P1 字库可直接覆盖
-  1,166 个编码项；统一 renderer 需要新增 33 个 allocation（含 21 个编码
-  缺字、5 个普通 ASCII 和 7 个原表不可达汉字）并重绘 29 个原版汉字，
-  48 槽预计余 15 槽且零 projected allocation 溢出。日文只在被忽略的
-  审核 JSON／TSV；writer 和 runtime 均未完成。
+  1,166 个编码项；统一 renderer 有 33 个缺字（含 21 个编码缺字、
+  5 个普通 ASCII 和 7 个原表不可达汉字）。其中 4 个复用已登记退役槽，
+  29 个需要新 allocation，另重绘 29 个原版汉字，预计余 19 槽且零
+  projected allocation 溢出。日文只在被忽略的审核 JSON／TSV；该清单
+  只拥有选择结论，writer 和 runtime 状态由各自 P2 清单拥有。
 - `ui-p0-display-names-validation.json`：在固定 P0 COMPDATA 组件上写入开场
   45 个已审校动态名称字段；证明人物 ID、机体指针和非目标字节不变、所有文本
   留在原 allocation、压缩流精确回解。ISO 和运行验证仍待完成。

@@ -81,8 +81,13 @@ allocation 内写回，人物 ID、机体指针和非目标字节均不可修改
 `display-names/researched-coverage.json` 则在完整结构上只接受 v1 术语库
 中 `researched` 的精确源词匹配，排除上述 45 项及一源多译冲突；它生成
 被忽略的 2,800 行审核 TSV，并把 1,262 个候选、21 个编码缺字、33 个
-renderer allocation、29 个统一重绘汉字和零定长溢出收敛为不含日文的
-提交清单；48 槽预计余 15 槽，尚不执行 COMPDATA 写回。
+renderer 缺字、29 个统一重绘汉字和零定长溢出收敛为不含日文的提交清单。
+其中 `娅杰艾贾` 四字复用 `encoding/first-five-allocations.json` 中已登记
+但退役的 code/glyph，`encoding/ui-p2-display-name-allocations.json`
+只新增其余 29 个 allocation；P2 组合账本余 19 槽。
+`fonts/ui-p2-display-names-font.json` 将这 33 字和 29 个重绘字形组成统一
+renderer，`ui-writeback/ui-p2-display-names.json` 再把开场 45 项与
+researched 1,262 项合并为 1,307 项 fixed-allocation COMPDATA 组件。
 
 `summary/world-history-layout.json` 锁定 28 条世界史的真实 MTV_PROS 输入、
 22 格显示宽度、14 个原版空行和跨记录定长分配策略。它只允许生成布局报告和
@@ -101,6 +106,12 @@ SLPS 为共同基线的三方字节补丁，必须证明与 P1／世界史修改
 替换 VT1 chunk 6 的已登记 TIM2 record，并重写、回读 offset 表。输出只由
 `iso/ui-p1-core-build.json` 放入 `ui-p1-core` 镜像；该 profile 不拥有
 STAGE、信息页 atlas 或 PCSX2 运行结论。
+
+`summary/world-history-p2-display-names-component.json` 复用 P2 字库写入同一
+28 条世界史；`ui-integration/p2-researched-display-names.json` 合并标题、
+P0 菜单、1,307 项动态名称、P2 字库和世界史。最终只由
+`iso/ui-p2-core-build.json` 放入 `ui-p2-core` 镜像；四个 replacement、
+两段 LBA 位移和镜像 golden 均固定，但运行状态仍为 `not_tested`。
 
 `assets/archive-inventory.json` 由 `tools/srwz/assets.py` 独立执行严格 schema
 检查：未知字段、重复 member、路径穿越、archive/direct 重叠、未知 storage

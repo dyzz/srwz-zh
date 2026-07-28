@@ -261,7 +261,8 @@ python3 tools/verify_ui_p0_fixed_compdata.py --force
 压缩成员使用原生 prefix-preserving suffix 重编码，保留 128,781 字节压缩
 前缀并精确回解；输出增长 2,060 字节。SLPS 与 COMPDATA 两项组件结果都不能
 单独当作组合 ISO 或 PCSX2 验收。`ui-p1-core` ISO profile 已显式处理最终
-COMPDATA 的累计增长和后续成员 LBA 位移；运行验收仍是另一层证据。
+COMPDATA 的累计增长和后续成员 LBA 位移；`ui-p2-core` 在同一契约上继续
+处理 researched 名称组件。运行验收仍是另一层证据。
 
 COMPDATA 动态人物／机体名称由独立结构配置和语料批次叠加在上述静态组件上：
 
@@ -278,6 +279,14 @@ python3 tools/verify_ui_p0_display_names.py --force
 禁止修改人物 ID、机体指针和非目标字节，并要求所有文本在原 allocation 内
 终止。组件已完成压缩流重编码和精确回解，并作为 `ui-p1-core` 的 COMPDATA
 唯一来源进入组合 ISO；这仍不构成 PCSX2 运行证明。
+
+P2 不复制 1,262 项译文，而是由
+`config/display-names/researched-coverage.json` 的精确选择和原语料决策
+动态合成。`config/encoding/ui-p2-display-name-allocations.json` 继承 P1
+账本，只为 29 字分配新槽，并恢复 `娅杰艾贾` 四个已登记退役 assignment；
+`config/ui-writeback/ui-p2-display-names.json` 合并开场 45 项后写入
+1,307 项，其中 1,213 项产生字节变化、94 项为 no-op。人物 ID、机体指针、
+非目标解码字节和每项 fixed allocation 均由 verifier 重新检查。
 
 ### 4.2 世界史滚动文本布局
 
@@ -360,6 +369,38 @@ component 清单是 `manifests/ui-p1-core-validation.json`。静态 ISO 清单�
 四项替换均由 UDF 独立回读。该 profile 不包含 first-five STAGE/HB，也没有
 信息页 atlas；PCSX2 标题、玩家设置、幕间、信息页、战场、搜索和世界史路线
 全部保持 `not_tested`。
+
+### 4.3.1 UI P2 researched 名称组合
+
+P2 使用通用入口复用上述 domain writer，不改写 P1 历史 profile：
+
+```bash
+python3 tools/build_ui_display_names.py \
+  --config config/ui-writeback/ui-p2-display-names.json --force
+python3 tools/verify_ui_display_names.py \
+  --config config/ui-writeback/ui-p2-display-names.json --force
+python3 tools/build_ui_world_history.py \
+  --config config/summary/world-history-p2-display-names-component.json --force
+python3 tools/verify_ui_world_history.py \
+  --config config/summary/world-history-p2-display-names-component.json --force
+python3 tools/build_ui_core.py \
+  --config config/ui-integration/p2-researched-display-names.json --force
+python3 tools/verify_ui_core.py \
+  --config config/ui-integration/p2-researched-display-names.json --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-p2-core-build.json
+python3 tools/verify_ui_core_iso.py \
+  --config config/iso/ui-p2-core-build.json \
+  --component-manifest manifests/ui-p2-core-validation.json \
+  --manifest manifests/ui-p2-core-runtime-validation.json \
+  --report work/review/ui-p2-core-iso-validation.json --force
+```
+
+最终 ISO 大小为 3,758,456,832 字节，SHA-256 为
+`2ce5c844cd623c1bfd2f6ec1bc7acc0aa9565fc069f451a0b736ad3e8aa13a65`；
+66 个成员中 62 个未替换成员保持原字节，四项 replacement 独立 UDF 回读。
+这只证明 component 与容器；当前运行矩阵的八个核心 UI 用例均绑定该精确
+镜像，但全部仍为 `not_tested`。
 
 ### 4.4 UI atlas 映射 canary
 
@@ -486,11 +527,13 @@ renderer 覆盖验证通过。当前镜像的 PCSX2 验证、第 2～5 关完整
 `relocate_menu_texts_to_pool()` 已提供通用 SLPS/COMPDATA 普通 pointer 与
 MIPS HI/LO 写回门禁。P0 的 462 条静态菜单文本当前都能在原 span 内覆盖，
 因此没有为它们虚构池区。标题、P0 文本、开场动态名、P1 字库和世界史已进入
-同一个静态验证的 `ui-p1-core` ISO；后续 P1/P2 只有出现真实增长项时才登记
-池区。E3 还需完成：
+同一个静态验证的 `ui-p1-core` ISO；researched 1,262 项已经进一步进入
+`ui-p2-core`，仍未满足选择门的非空名称为 1,493 项。后续只有出现真实增长项
+时才登记池区。E3 还需完成：
 
 - 全量 extraction freshness 与双向 reconciliation 的规模化运行；
-- 扩展 COMPDATA 动态人物／机体名的全量审校语料；当前只完成开场 45 个字段；
+- 扩展 COMPDATA 动态人物／机体名的全量审校语料；当前已完成开场 45 项与
+  researched 精确切片 1,262 项；
 - 用已锁定的 `SHIP` canary 完成人物／机体信息页 atlas 运行归属，再制作中文
   atlas、把前五关 STAGE/HB 合并到候选并完成逐屏 PCSX2 路线；
 - 全量 STAGE arena policy 和通用 VT1 writer；

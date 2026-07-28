@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild and verify the integrated P1 core UI component."""
+"""Rebuild and verify a configured integrated core UI component."""
 
 from __future__ import annotations
 
@@ -63,7 +63,7 @@ def main() -> int:
     for name, path in paths.items():
         if not path.is_file():
             raise SystemExit(
-                f"integrated component missing; run build_ui_p1_core.py: {path}"
+                f"integrated component missing; run build_ui_core.py: {path}"
             )
         if path.read_bytes() != expected_outputs[name]:
             raise SystemExit(
@@ -97,7 +97,8 @@ def main() -> int:
         encoding="utf-8",
     )
     print(
-        "UI P1 core verified:",
+        "UI core verified:",
+        f"profile={report['profile_id']}",
         f"SLPS={report['outputs']['slps']['sha256']}",
         f"VT1={report['outputs']['vt1']['sha256']}",
         "runtime=pending",

@@ -9,6 +9,10 @@ from pathlib import Path
 from typing import Mapping
 
 from .canary import rasterize_character, rasterizer_point_size
+from .display_name_coverage import (
+    DisplayNameCoverageError,
+    audit_display_name_coverage,
+)
 from .font import (
     GLYPH_SIZE,
     RAW_STANDARD_TRAILS,
@@ -199,6 +203,119 @@ def _selected_ui_entries(
     )
 
 
+def _selected_display_name_entries(
+    project_root: Path,
+    profile_document: Mapping[str, object],
+) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
+    scene_reference = profile_document.get("scene_inventory")
+    if not isinstance(scene_reference, dict):
+        raise UiFontError("UI font profile has no baseline scene inventory")
+    scene_path = _project_path(
+        project_root,
+        scene_reference.get("path"),
+    )
+    if _hash_file(scene_path) != scene_reference.get("sha256"):
+        raise UiFontError("baseline scene inventory SHA-256 drift")
+    scene_config = load_scene_config(scene_path)
+    if scene_config["inventory_id"] != scene_reference.get("inventory_id"):
+        raise UiFontError("baseline scene inventory ID drift")
+
+    reference = profile_document.get("display_name_selection")
+    if not isinstance(reference, dict):
+        raise UiFontError("UI font profile has no display_name_selection")
+    config_path = _project_path(
+        project_root,
+        reference.get("config"),
+    )
+    manifest_path = _project_path(
+        project_root,
+        reference.get("manifest"),
+    )
+    if _hash_file(config_path) != reference.get("config_sha256"):
+        raise UiFontError("display-name selection config SHA-256 drift")
+    if _hash_file(manifest_path) != reference.get("manifest_sha256"):
+        raise UiFontError("display-name selection manifest SHA-256 drift")
+    committed = _json_object(manifest_path)
+    if committed.get("status") != reference.get("required_status"):
+        raise UiFontError("display-name selection status drift")
+    if committed.get("selection_id") != reference.get("selection_id"):
+        raise UiFontError("display-name selection ID drift")
+    try:
+        report, expected_manifest = audit_display_name_coverage(
+            project_root,
+            config_path,
+        )
+    except DisplayNameCoverageError as error:
+        raise UiFontError(str(error)) from error
+    if committed != expected_manifest:
+        raise UiFontError("display-name selection manifest is not reproducible")
+
+    raw_entries = report.get("selection", {}).get("entries")
+    expected_count = reference.get("expected_entry_count")
+    surface_id = reference.get("surface_id")
+    if (
+        not isinstance(raw_entries, list)
+        or not isinstance(expected_count, int)
+        or isinstance(expected_count, bool)
+        or expected_count <= 0
+        or len(raw_entries) != expected_count
+        or not isinstance(surface_id, str)
+        or not surface_id
+    ):
+        raise UiFontError("display-name font selection is invalid")
+    entries = {}
+    for raw in raw_entries:
+        if not isinstance(raw, dict):
+            raise UiFontError("display-name font entry is malformed")
+        entry_id = raw.get("id")
+        if not isinstance(entry_id, str) or not entry_id or entry_id in entries:
+            raise UiFontError("display-name font entry ID is invalid")
+        entries[entry_id] = raw
+    selection_sha256 = committed.get("selection", {}).get(
+        "selection_sha256"
+    )
+    if not isinstance(selection_sha256, str):
+        raise UiFontError("display-name selection hash is missing")
+    root = project_root.resolve()
+    return (
+        entries,
+        {entry_id: {surface_id} for entry_id in entries},
+        {
+            "kind": "display_name_coverage",
+            "selection_id": committed["selection_id"],
+            "config": {
+                "path": str(config_path.relative_to(root)),
+                "sha256": _hash_file(config_path),
+            },
+            "manifest": {
+                "path": str(manifest_path.relative_to(root)),
+                "sha256": _hash_file(manifest_path),
+                "status": committed["status"],
+            },
+            "surface_ids": [surface_id],
+            "unique_entry_count": len(entries),
+            "selection_sha256": selection_sha256,
+            "baseline_scene_inventory": {
+                "path": str(scene_path.relative_to(root)),
+                "sha256": _hash_file(scene_path),
+                "inventory_id": scene_config["inventory_id"],
+            },
+        },
+    )
+
+
+def _selected_font_entries(
+    project_root: Path,
+    profile_document: Mapping[str, object],
+) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
+    if "display_name_selection" in profile_document:
+        return _selected_display_name_entries(
+            project_root,
+            profile_document,
+        )
+    return _selected_ui_entries(project_root, profile_document)
+
+
 def _character_provenance(
     entries: Mapping[str, Mapping[str, object]],
     entry_scenes: Mapping[str, set[str]],
@@ -262,14 +379,24 @@ def _resolve_registry(
     retired_appended = set(registry.get("retired_appended_characters", []))
     if not retired_appended <= set(appended):
         raise UiFontError("retired UI allocation is not registered")
+    reactivated = set(registry.get("reactivated_characters", []))
+    if not reactivated <= retired or reactivated & set(appended):
+        raise UiFontError("reactivated UI allocation is invalid")
     registered = (*base_characters, *appended)
-    return registry, registered, retired | retired_appended
+    return registry, registered, (retired - reactivated) | retired_appended
 
 
 def _load_incremental_registry(
     project_root: Path,
     registry_path: Path,
-) -> tuple[dict, dict, tuple[str, ...], tuple[str, ...], set[str]]:
+) -> tuple[
+    dict,
+    dict,
+    tuple[str, ...],
+    tuple[str, ...],
+    tuple[str, ...],
+    set[str],
+]:
     registry = _json_object(registry_path)
     base_reference = registry.get("base_registry")
     if not isinstance(base_reference, dict):
@@ -282,7 +409,15 @@ def _load_incremental_registry(
     )
     if resolved != registry:
         raise UiFontError("UI allocation registry changed during load")
-    return registry, base, base_characters, registered, retired
+    reactivated = tuple(registry.get("reactivated_characters", []))
+    return (
+        registry,
+        base,
+        base_characters,
+        registered,
+        reactivated,
+        retired,
+    )
 
 
 def _new_assignment(
@@ -558,7 +693,7 @@ def build_ui_font_proposal(
     except FontProfileError as error:
         raise UiFontError(str(error)) from error
     document = profile["document"]
-    entries, entry_scenes, selection = _selected_ui_entries(
+    entries, entry_scenes, selection = _selected_font_entries(
         project_root,
         document,
     )
@@ -577,6 +712,7 @@ def build_ui_font_proposal(
         base_registry,
         base_registered,
         registered,
+        reactivated,
         retired,
     ) = _load_incremental_registry(
         project_root,
@@ -611,9 +747,13 @@ def build_ui_font_proposal(
     )
     demand = audit_entry_font(entries.values(), font_baseline)
     appended = tuple(registry["appended_characters"])
-    if tuple(demand["missing_characters"]) != appended:
+    allocation_demand = tuple(demand["missing_characters"])
+    if (
+        tuple(sorted((*appended, *reactivated))) != allocation_demand
+        or set(appended) & set(reactivated)
+    ):
         raise UiFontError(
-            "UI allocation registry must exactly append current missing "
+            "UI allocation registry must append or reactivate every missing "
             f"characters: {demand['missing_characters']}"
         )
     original_han = tuple(demand["original_font_han_characters"])
@@ -694,18 +834,30 @@ def build_ui_font_proposal(
     raw_codes = {code for code, _ in raw_candidates}
 
     new_allocations = []
-    for character in appended:
+    reactivated_set = set(reactivated)
+    for character in allocation_demand:
         code, glyph_index = allocation_by_character[character]
         raw_standard = code in raw_codes
+        is_reactivated = character in reactivated_set
         new_allocations.append(
             _new_assignment(
                 character=character,
                 code=code,
                 glyph_index=glyph_index,
                 mapping=("standard_raw_trail_gap" if raw_standard else "standard"),
-                status="proposed_allocation",
+                status=(
+                    "proposed_reactivation"
+                    if is_reactivated
+                    else "proposed_allocation"
+                ),
                 owner=allocation_owner,
                 basis=(
+                    (
+                        "reactivate the character's reserved append-only "
+                        "allocation without changing its code or glyph index"
+                    )
+                    if is_reactivated
+                    else
                     (
                         "append-only renderer-addressable raw standard-trail "
                         "gap absent from the pinned text table, ASCII mapping, "
@@ -804,12 +956,22 @@ def build_ui_font_proposal(
             len(new_reraster) == ratchet["additional_reraster_existing_han_count"]
         ),
     }
+    if "reactivated_character_count" in ratchet:
+        checks["reactivated_character_count"] = (
+            len(reactivated) == ratchet["reactivated_character_count"]
+        )
+    if "additional_allocation_assignment_count" in ratchet:
+        checks["additional_allocation_assignment_count"] = (
+            len(new_allocations)
+            == ratchet["additional_allocation_assignment_count"]
+        )
     if not all(checks.values()):
         raise UiFontError(f"UI font ratchet failed: {checks}")
 
     active_count = (
         base_proposal["allocation_registry"]["active_character_count"]
         + len(appended)
+        + len(reactivated)
         - len(registry["retired_appended_characters"])
     )
     proposal = {
@@ -861,7 +1023,20 @@ def build_ui_font_proposal(
         },
         "additional_allocations": {
             "count": len(new_allocations),
-            "characters": "".join(appended),
+            "characters": "".join(allocation_demand),
+            **(
+                {
+                    "appended_character_count": len(appended),
+                    "appended_characters": "".join(appended),
+                    "reactivated_character_count": len(reactivated),
+                    "reactivated_characters": "".join(reactivated),
+                }
+                if (
+                    "reactivated_characters" in registry
+                    or "reactivated_character_count" in ratchet
+                )
+                else {}
+            ),
             "blank_preimage_count": sum(
                 assignment["allocation"]["glyph_preimage_all_zero"]
                 for assignment in new_allocations
@@ -1009,7 +1184,7 @@ def audit_ui_font_candidate(
     if len(actual_changed_glyphs) != component_report["changed_glyph_count"]:
         raise UiFontError("UI changed glyph count drift")
 
-    entries, _, selection = _selected_ui_entries(project_root, document)
+    entries, _, selection = _selected_font_entries(project_root, document)
     scene_config = load_scene_config(
         _project_path(project_root, document["scene_inventory"]["path"])
     )
@@ -1133,7 +1308,11 @@ def audit_ui_font_candidate(
                 "path": document["allocation_registry"],
                 "sha256": expected_proposal["allocation_registry"]["sha256"],
             },
-            "scene_selection": selection,
+            (
+                "display_name_selection"
+                if "display_name_selection" in document
+                else "scene_selection"
+            ): selection,
             "base_proposal": expected_proposal["base_proposal"],
             "base_validation_manifest": {
                 "path": document["base_validation_manifest"],

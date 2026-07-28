@@ -46,6 +46,14 @@ _P0_WRITE_POLICY = {
     "require_payload_with_terminator_within_allocation": True,
     "pointer_write_policy": "forbidden",
 }
+_RESEARCHED_WRITE_POLICY = {
+    "require_reviewed_prior_batch": True,
+    "require_researched_exact_selection": True,
+    "require_source_text_hash": True,
+    "require_source_refs": True,
+    "require_payload_with_terminator_within_allocation": True,
+    "pointer_write_policy": "forbidden",
+}
 
 
 @dataclass(frozen=True)
@@ -876,6 +884,117 @@ def _load_translation_decisions(
     }
 
 
+def _load_researched_coverage_decisions(
+    project_root: Path,
+    reference: Mapping[str, object],
+    parsed: DisplayNameParseResult,
+) -> tuple[dict[str, dict], dict]:
+    config_path, _ = _load_hashed_project_object(
+        project_root,
+        reference.get("config"),
+        reference.get("config_sha256"),
+        label="researched display-name selection config",
+    )
+    manifest_path, committed = _load_hashed_project_object(
+        project_root,
+        reference.get("manifest"),
+        reference.get("manifest_sha256"),
+        label="researched display-name selection manifest",
+    )
+    if committed.get("selection_id") != reference.get("selection_id"):
+        raise DisplayNameError("researched display-name selection ID drift")
+    if committed.get("status") != reference.get("required_status"):
+        raise DisplayNameError("researched display-name selection status drift")
+
+    from .display_name_coverage import (  # Avoid module import cycle.
+        DisplayNameCoverageError,
+        audit_display_name_coverage,
+    )
+
+    try:
+        report, expected_manifest = audit_display_name_coverage(
+            project_root,
+            config_path,
+        )
+    except DisplayNameCoverageError as error:
+        raise DisplayNameError(str(error)) from error
+    if committed != expected_manifest:
+        raise DisplayNameError(
+            "researched display-name selection is not reproducible"
+        )
+    raw_entries = report.get("selection", {}).get("entries")
+    expected_count = reference.get("expected_entry_count")
+    if (
+        not isinstance(raw_entries, list)
+        or not isinstance(expected_count, int)
+        or isinstance(expected_count, bool)
+        or len(raw_entries) != expected_count
+    ):
+        raise DisplayNameError("researched display-name selection count drift")
+    source_by_id = {entry.entry_id: entry for entry in parsed.entries}
+    decisions = {}
+    source_refs = set()
+    for raw in raw_entries:
+        decision = _require_object(
+            raw,
+            context="researched display-name selection entry",
+        )
+        entry_id = decision.get("id")
+        if (
+            not isinstance(entry_id, str)
+            or entry_id not in source_by_id
+            or entry_id in decisions
+        ):
+            raise DisplayNameError(
+                "researched display-name selection has an invalid ID"
+            )
+        source = source_by_id[entry_id]
+        if decision.get("source_text_sha256") != source.source_text_sha256:
+            raise DisplayNameError(
+                f"researched display-name source hash drift: {entry_id}"
+            )
+        translation = decision.get("translation")
+        refs = decision.get("source_refs")
+        if (
+            not isinstance(translation, str)
+            or not translation
+            or "\n" in translation
+            or "\r" in translation
+            or _KANA_PATTERN.search(translation)
+            or not isinstance(refs, list)
+            or not refs
+            or not all(isinstance(item, str) and item for item in refs)
+        ):
+            raise DisplayNameError(
+                f"researched display-name decision is invalid: {entry_id}"
+            )
+        decisions[entry_id] = {
+            "id": entry_id,
+            "source_text_sha256": source.source_text_sha256,
+            "translation": translation,
+            "source_refs": list(refs),
+            "editorial_status": "researched_exact",
+        }
+        source_refs.update(refs)
+
+    root = project_root.resolve()
+    return decisions, {
+        "config": {
+            "path": str(config_path.relative_to(root)),
+            "sha256": sha256_bytes(config_path.read_bytes()),
+        },
+        "manifest": {
+            "path": str(manifest_path.relative_to(root)),
+            "sha256": sha256_bytes(manifest_path.read_bytes()),
+            "status": committed["status"],
+        },
+        "selection_id": committed["selection_id"],
+        "entry_count": len(decisions),
+        "unique_source_ref_count": len(source_refs),
+        "selection_sha256": committed["selection"]["selection_sha256"],
+    }
+
+
 def _changed_offsets(before: bytes, after: bytes) -> list[int]:
     if len(before) != len(after):
         raise DisplayNameError("display-name patch changed decoded size")
@@ -896,18 +1015,22 @@ def _difference_range_count(offsets: Sequence[int]) -> int:
     return ranges
 
 
-def build_p0_display_name_component(
+def build_display_name_component(
     project_root: Path,
     config_path: Path,
 ) -> tuple[bytes, dict]:
-    """Compose reviewed opening display names onto the fixed P0 COMPDATA."""
+    """Compose one locked display-name selection onto fixed P0 COMPDATA."""
 
     root = project_root.resolve()
     config_path = config_path.resolve()
     config = _load_json_object(config_path)
     if config.get("schema_version") != 1:
         raise DisplayNameError("unsupported display-name writeback schema")
-    if config.get("selection_policy") != _P0_WRITE_POLICY:
+    selection_policy = config.get("selection_policy")
+    if selection_policy not in (
+        _P0_WRITE_POLICY,
+        _RESEARCHED_WRITE_POLICY,
+    ):
         raise DisplayNameError("display-name writeback policy is incomplete")
 
     structure_reference = _require_object(
@@ -943,17 +1066,58 @@ def build_p0_display_name_component(
         root,
         config.get("terminology_sources"),
     )
-    translation_reference = _require_object(
-        config.get("translation_source"),
-        context="display-name translation source",
-    )
-    decisions, translation_report = _load_translation_decisions(
-        root,
-        translation_reference,
-        structure_manifest,
-        parsed,
-        terminology_ids=terminology_ids,
-    )
+    if selection_policy == _P0_WRITE_POLICY:
+        translation_reference = _require_object(
+            config.get("translation_source"),
+            context="display-name translation source",
+        )
+        decisions, translation_report = _load_translation_decisions(
+            root,
+            translation_reference,
+            structure_manifest,
+            parsed,
+            terminology_ids=terminology_ids,
+        )
+    else:
+        translation_sources = _require_object(
+            config.get("translation_sources"),
+            context="display-name translation sources",
+        )
+        prior_reference = _require_object(
+            translation_sources.get("reviewed_prior"),
+            context="reviewed prior display-name source",
+        )
+        prior_decisions, prior_report = _load_translation_decisions(
+            root,
+            prior_reference,
+            structure_manifest,
+            parsed,
+            terminology_ids=terminology_ids,
+        )
+        coverage_reference = _require_object(
+            translation_sources.get("researched_coverage"),
+            context="researched display-name selection",
+        )
+        researched_decisions, researched_report = (
+            _load_researched_coverage_decisions(
+                root,
+                coverage_reference,
+                parsed,
+            )
+        )
+        overlap = sorted(set(prior_decisions) & set(researched_decisions))
+        if overlap:
+            raise DisplayNameError(
+                "reviewed and researched display-name selections overlap"
+            )
+        decisions = {**prior_decisions, **researched_decisions}
+        translation_report = {
+            "mode": "reviewed-prior-plus-researched-exact",
+            "reviewed_prior": prior_report,
+            "researched_coverage": researched_report,
+            "combined_entry_count": len(decisions),
+            "overlap_count": 0,
+        }
 
     font_reference = _require_object(
         config.get("font_candidate"),
@@ -965,9 +1129,11 @@ def build_p0_display_name_component(
         font_reference.get("sha256"),
         label="display-name font manifest",
     )
-    if font_manifest.get("status") != (
-        "offline_font_and_p0_renderer_coverage_passed_runtime_pending"
-    ):
+    required_font_status = font_reference.get(
+        "required_status",
+        "offline_font_and_p0_renderer_coverage_passed_runtime_pending",
+    )
+    if font_manifest.get("status") != required_font_status:
         raise DisplayNameError("display-name font candidate status is invalid")
     try:
         overrides, codebook_report = load_ui_font_overrides(
@@ -1213,11 +1379,36 @@ def build_p0_display_name_component(
             }
         )
     non_empty_total = sum(bool(entry.text) for entry in parsed.entries)
+    manifest_contract = config.get("manifest_contract", {})
+    if not isinstance(manifest_contract, dict):
+        raise DisplayNameError("display-name manifest contract is invalid")
+    status = manifest_contract.get(
+        "status",
+        "p0_compdata_and_opening_display_names_validated_iso_runtime_pending",
+    )
+    remaining_scope = manifest_contract.get(
+        "remaining_scope",
+        (
+            "The remaining names require terminology review and are not "
+            "implicitly approved by this opening-route slice."
+        ),
+    )
+    runtime_reason = manifest_contract.get(
+        "runtime_reason",
+        (
+            "This is an isolated combined COMPDATA member. It has not "
+            "been placed in an ISO or viewed in PCSX2."
+        ),
+    )
+    if not all(
+        isinstance(value, str) and value
+        for value in (status, remaining_scope, runtime_reason)
+    ):
+        raise DisplayNameError("display-name manifest contract is incomplete")
+
     report = {
         "schema_version": 1,
-        "status": (
-            "p0_compdata_and_opening_display_names_validated_iso_runtime_pending"
-        ),
+        "status": status,
         "profile_id": config["profile_id"],
         "scope": config["scope"],
         "inputs": {
@@ -1323,19 +1514,26 @@ def build_p0_display_name_component(
             "selected_translation_entry_count": len(decisions),
             "unselected_non_empty_entry_count": non_empty_total - len(decisions),
             "scope": (
-                "The remaining names require terminology review and are not "
-                "implicitly approved by this opening-route slice."
+                remaining_scope
             ),
         },
         "runtime": {
             "status": "not_tested",
             "reason": (
-                "This is an isolated combined COMPDATA member. It has not "
-                "been placed in an ISO or viewed in PCSX2."
+                runtime_reason
             ),
         },
     }
     return output_component, report
+
+
+def build_p0_display_name_component(
+    project_root: Path,
+    config_path: Path,
+) -> tuple[bytes, dict]:
+    """Backward-compatible opening-route display-name component entry."""
+
+    return build_display_name_component(project_root, config_path)
 
 
 __all__ = [
@@ -1343,6 +1541,7 @@ __all__ = [
     "DisplayNameError",
     "DisplayNameParseResult",
     "build_display_name_report",
+    "build_display_name_component",
     "build_p0_display_name_component",
     "entry_signature_sha256",
     "load_display_name_source",

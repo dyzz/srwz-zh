@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-ui-p2-researched-display-names-v1",
+  "scope": "The 45 reviewed opening-route names plus 1,262 exact researched glossary matches, written over the validated P0 fixed COMPDATA component. Every field stays inside its original allocation; pilot IDs, unit pointers and all non-target bytes remain unchanged.",
+  "structure": {
+    "config": "config/display-names/compdata.json",
+    "config_sha256": "cd0b06663d0c25af23b8dda13729c3a97b6bee44d43b7bc1834e7f11b840cb9b",
+    "manifest": "manifests/display-name-structure.json",
+    "manifest_sha256": "66ab32f6a4a2d77c0b7a78a10e00d6833dc608ff4da20f415664309ce29f4bf3",
+    "required_status": "structure_validated"
+  },
+  "translation_sources": {
+    "reviewed_prior": {
+      "path": "corpus/zh/display-names/p0-opening.json",
+      "sha256": "f8b1aa60c9261e66137578aa921b11a933f0fa406cbc791ee2e0945e12c1d910",
+      "batch_id": "v1-display-names-p0-opening",
+      "minimum_editorial_status": "reviewed"
+    },
+    "researched_coverage": {
+      "config": "config/display-names/researched-coverage.json",
+      "config_sha256": "bf434cb9c217f4e25dbc8a8ec44b919242161ef4c909f2190b94efea57d3438c",
+      "manifest": "manifests/display-name-researched-coverage.json",
+      "manifest_sha256": "91b7d6c71e23807d2ac17cb6ffa797796f615bc4ddec8f9fa1092feb3115d3b3",
+      "selection_id": "srwz-display-names-researched-v1",
+      "required_status": "researched_selection_ready",
+      "expected_entry_count": 1262
+    }
+  },
+  "terminology_sources": [
+    {
+      "path": "corpus/glossary/terms-v1.json",
+      "sha256": "6318bfb3624d9f72c2fd507176b63d78b59923be02f0f4df3b0bd02c5e9689f6"
+    },
+    {
+      "path": "corpus/glossary/story-speakers-v1.json",
+      "sha256": "3c5c81e17672b56e3823c00ed946a8797dc5f52325f93aace970c9ebf20fd3b6"
+    },
+    {
+      "path": "corpus/glossary/story-dialogue-stage-001-v1.json",
+      "sha256": "e6558f25ab44e6793f92790010bcf909e0a9ab03741c557837b1fad2cc136f67"
+    },
+    {
+      "path": "corpus/glossary/story-dialogue-stage-005-v1.json",
+      "sha256": "f98b60caf3837f6dad358d1a6333bc456c02adc62718450f3ca222f7ad429b14"
+    },
+    {
+      "path": "corpus/glossary/story-conditions-v1.json",
+      "sha256": "94b83dc429dfe1c8226bb76f26f79110a5aa0e577b1223e879584cc31ebec8d7"
+    }
+  ],
+  "base_component": {
+    "config": "config/ui-writeback/ui-p0-compdata-fixed.json",
+    "config_sha256": "3ac123ed5649f76adfb8683ce523d1833809073f7518e0b0334a11f78aea86ac",
+    "manifest": "manifests/ui-p0-fixed-compdata-validation.json",
+    "manifest_sha256": "14202113473604f980b9d63b5fd85372c5bbaa56537417164ac02e56741cf979",
+    "output_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d"
+  },
+  "font_candidate": {
+    "manifest": "manifests/ui-p2-display-name-font-validation.json",
+    "sha256": "b3309c6168b9b647828cd1118e528b98b2a9c5a45a307c7727d956d4a10d12df",
+    "required_status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
+  },
+  "base_codebook": {
+    "path": "config/encoding/codebook.json",
+    "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+  },
+  "selection_policy": {
+    "require_reviewed_prior_batch": true,
+    "require_researched_exact_selection": true,
+    "require_source_text_hash": true,
+    "require_source_refs": true,
+    "require_payload_with_terminator_within_allocation": true,
+    "pointer_write_policy": "forbidden"
+  },
+  "codec": {
+    "mode": "preserve-base-prefix-reencode-suffix",
+    "strategy": "greedy",
+    "min_match_length": 4,
+    "max_match_chain": 256,
+    "lazy_matching": true
+  },
+  "ratchet": {
+    "translation_entry_count": 1307,
+    "pilot_translation_entry_count": 1263,
+    "unit_translation_entry_count": 44,
+    "no_op_entry_count": 94,
+    "write_entry_count": 1213,
+    "pointer_write_count": 0,
+    "minimum_preserved_base_compressed_prefix": 4000
+  },
+  "manifest_contract": {
+    "status": "p0_compdata_and_researched_display_names_validated_iso_runtime_pending",
+    "remaining_scope": "The remaining 1,493 non-empty fields do not have one researched exact glossary decision and remain outside this component.",
+    "runtime_reason": "This isolated COMPDATA candidate proves deterministic fixed-allocation writeback only. It is not yet bound to an ISO or PCSX2 screenshots of pilot/unit information surfaces."
+  },
+  "outputs": {
+    "component_root": "work/build/ui-p2-display-names/components",
+    "validation": "work/review/ui-p2-display-names-validation.json",
+    "manifest": "manifests/ui-p2-display-names-validation.json"
+  }
+}

@@ -211,8 +211,14 @@ def _load_font_component(
     manifest = _json_object(manifest_path)
     if manifest.get("status") != reference.get("required_status"):
         raise WorldHistoryError("world-history font manifest status drift")
+    coverage_key = reference.get(
+        "coverage_key",
+        "selected_renderer_coverage",
+    )
     if (
-        manifest.get("selected_renderer_coverage", {}).get(
+        not isinstance(coverage_key, str)
+        or not coverage_key
+        or manifest.get(coverage_key, {}).get(
             "missing_renderer_character_count"
         )
         != 0
@@ -296,8 +302,8 @@ def build_world_history_component(
     config = _json_object(config_path)
     if (
         config.get("schema_version") != 1
-        or config.get("profile_id")
-        != "srwz-ui-p1-world-history-component-v1"
+        or not isinstance(config.get("profile_id"), str)
+        or not config["profile_id"]
     ):
         raise WorldHistoryError("unsupported world-history component profile")
     codec = _object(config.get("codec"), context="world-history codec")
@@ -562,6 +568,30 @@ def build_world_history_component(
             f"world-history component ratchet failed: {ratchet_checks}"
         )
 
+    manifest_contract = config.get("manifest_contract", {})
+    if not isinstance(manifest_contract, dict):
+        raise WorldHistoryError("world-history manifest contract is invalid")
+    font_acceptance_key = manifest_contract.get(
+        "font_acceptance_key",
+        "p1_font_component_exact",
+    )
+    runtime_reason = manifest_contract.get(
+        "runtime_reason",
+        (
+            "The isolated P1 world-history ISO is statically validated, "
+            "but no fresh PCSX2 evidence exists. The first, middle and "
+            "final scroll segments and the new raw trail classes remain "
+            "runtime acceptance gates."
+        ),
+    )
+    if (
+        not isinstance(font_acceptance_key, str)
+        or not font_acceptance_key
+        or not isinstance(runtime_reason, str)
+        or not runtime_reason
+    ):
+        raise WorldHistoryError("world-history manifest contract is incomplete")
+
     report = {
         "schema_version": 1,
         "status": "offline_component_validated_runtime_not_tested",
@@ -621,7 +651,7 @@ def build_world_history_component(
         },
         "vt1_component": {
             "output": _payload_lock(font_vt1),
-            "p1_font_component_exact": True,
+            font_acceptance_key: True,
         },
         "outputs": {
             name: _payload_lock(payload) for name, payload in outputs.items()
@@ -635,7 +665,7 @@ def build_world_history_component(
         "acceptance": {
             "translation_source_hash_locked": True,
             "layout_manifest_exact": True,
-            "p1_font_component_exact": True,
+            font_acceptance_key: True,
             "all_28_records_written_and_reparsed": True,
             "fixed_allocations_within_bounds": True,
             "all_14_chunks_codec_round_trip_exact": True,
@@ -646,12 +676,7 @@ def build_world_history_component(
         },
         "runtime": {
             "status": "not_tested",
-            "reason": (
-                "The isolated P1 world-history ISO is statically validated, "
-                "but no fresh PCSX2 evidence exists. The first, middle and "
-                "final scroll segments and the new raw trail classes remain "
-                "runtime acceptance gates."
-            ),
+            "reason": runtime_reason,
         },
     }
     return outputs, report

@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-ui-p2-researched-display-names-integrated-v1",
+  "scope": "One deterministic UI candidate combining the validated Chinese title menu, P0 fixed-span menu text, 45 reviewed opening names, 1,262 researched exact display-name matches, the P2 unified font and all 28 world-history records. Runtime acceptance remains separate.",
+  "components": {
+    "title_menu": {
+      "config": {
+        "path": "config/canary/tim2-vt1-title-zh.json",
+        "sha256": "74a28fcc908197e024e743ffda90f54194aa01d0222b77b6249525daf4f67eae"
+      },
+      "manifest": {
+        "path": "manifests/title-menu-zh-validation.json",
+        "sha256": "c905fecb25dfe2fc5c1789b11e0dc3463a9c3a37f0b90837803991a0a0dbb180",
+        "required_status": "passed"
+      },
+      "slps": {
+        "path": "work/build/title-menu-zh/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "dc4ae75f10f7b1f624f5f42a1a687ebb1f1e80f930bacaeb840ee329dda30b92"
+      },
+      "vt1": {
+        "path": "work/build/title-menu-zh/components/DATA/VT1.BIN",
+        "size": 127573504,
+        "sha256": "44ec21f4313f96d0e9fdc4ff0590dd6fe91a98b898783411c96eb44bb9ac4d2d"
+      }
+    },
+    "p0_font_base": {
+      "manifest": {
+        "path": "manifests/ui-p0-font-validation.json",
+        "sha256": "03a31ce688d513f9dcb1fd7810491dfcb88bf972fb13196c9ce73ff6f900cda7",
+        "required_status": "offline_font_and_p0_renderer_coverage_passed_runtime_pending"
+      },
+      "slps": {
+        "path": "work/build/ui-p0/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "b4d822cbc3ea58ff9cd3ba6d64f3229f029af3578c126b5b001b5d9e737bb369"
+      }
+    },
+    "p0_fixed_slps": {
+      "config": {
+        "path": "config/ui-writeback/ui-p0-slps-fixed.json",
+        "sha256": "54d17ad8fd19fb6693872600c0f667d9f27ac732bf858e37ec903fd3e2a8b31d"
+      },
+      "manifest": {
+        "path": "manifests/ui-p0-fixed-slps-validation.json",
+        "sha256": "4acecfe28c9220d7880c8e00756edb70ae55ff5414d75490234220295e0c95ef",
+        "required_status": "fixed_slps_component_validated_iso_runtime_pending"
+      },
+      "slps": {
+        "path": "work/build/ui-p0-fixed-slps/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "33827b1495cac59cd84bd2de028ca86839bb7eb2ceacaa35dd0a45ad11d9d331"
+      }
+    },
+    "p0_display_names": {
+      "config": {
+        "path": "config/ui-writeback/ui-p2-display-names.json",
+        "sha256": "d10d13d9def99659d03a63f6b7cf84abbbe49c1b735d5b25ceb75a65284de5bf"
+      },
+      "manifest": {
+        "path": "manifests/ui-p2-display-names-validation.json",
+        "sha256": "dc928bbd3a45456898d9175943f8fe93a6898aff6dcf78da58575f00fab3f16a",
+        "required_status": "p0_compdata_and_researched_display_names_validated_iso_runtime_pending"
+      },
+      "compdata": {
+        "path": "work/build/ui-p2-display-names/components/DATA/COMPDATA.BN",
+        "size": 159693,
+        "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f"
+      }
+    },
+    "world_history": {
+      "config": {
+        "path": "config/summary/world-history-p2-display-names-component.json",
+        "sha256": "5bbf0961de0067fb520dbf045149a08e40055089ceeae71f2643d21da09b169a"
+      },
+      "manifest": {
+        "path": "manifests/ui-p2-world-history-validation.json",
+        "sha256": "e0067a3eff2adecadb2ecf2ab79746d18ec94559a2acb64dd89d67aeb2a8f590",
+        "required_status": "offline_component_validated_runtime_not_tested"
+      },
+      "slps": {
+        "path": "work/build/ui-p2-world-history/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "934f49aa35383b8e192b2ec84e59eabc5d939320b5958082bc5c863def8566a9"
+      },
+      "vt1": {
+        "path": "work/build/ui-p2-world-history/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "67737d0437d2deee6dd0a980dfd581d48c69599a2143bc2df3d553744f9677c9"
+      },
+      "mtv_pros": {
+        "path": "work/build/ui-p2-world-history/components/DATA/MTV_PROS.BIN",
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      }
+    }
+  },
+  "composition": {
+    "slps_menu_patch": {
+      "mode": "three-way-byte-patch",
+      "expected_changed_byte_count": 2659,
+      "expected_changed_range_count": 496,
+      "expected_base_overlap_count": 0
+    },
+    "title_menu": {
+      "archive": "VT1.BIN",
+      "chunk_index": 6,
+      "record_index": 1,
+      "picture_index": 0,
+      "source_record_sha256": "e0de56b715f41736f601a3e0ac03783bb4c899a3915576d649c33e29f86c3919",
+      "localized_record_sha256": "81ce93c32fdc4698271aa8f6124020741bdfde732fb26320291745931304d6ec",
+      "preview_rgba_sha256": "19539f6f607aed4fa52b1b99dc003950982e0a7470792dbd9a8b09e596f99d7e"
+    },
+    "codec": {
+      "strategy": "greedy",
+      "archive_alignment": 16
+    }
+  },
+  "ratchet": {
+    "p0_slps_covered_entry_count": 418,
+    "p0_slps_changed_byte_count": 2659,
+    "p0_slps_changed_range_count": 496,
+    "p0_display_name_entry_count": 1307,
+    "world_history_entry_count": 28,
+    "vt1_chunk_count": 14,
+    "vt1_unchanged_chunk_count": 13,
+    "title_changed_pixel_count": 12514,
+    "slps_component_overlap_count": 0
+  },
+  "expected_outputs": {
+    "slps": {
+      "size": 3471624,
+      "sha256": "a9368796265c64e67b185a772639007ac7edf3da450ea3e08bfd8ce158e86512"
+    },
+    "vt1": {
+      "size": 127573504,
+      "sha256": "d4e84ec8e482444397edabd2f7a1d24d600e1477f02642e95769f699383fd468"
+    },
+    "mtv_pros": {
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    },
+    "compdata": {
+      "size": 159693,
+      "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f"
+    }
+  },
+  "outputs": {
+    "component_root": "work/build/ui-p2-core/components",
+    "validation": "work/review/ui-p2-core-validation.json",
+    "manifest": "manifests/ui-p2-core-validation.json"
+  }
+}

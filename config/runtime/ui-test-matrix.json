@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "matrix_id": "srwz-ui-runtime-v1",
-  "scope": "Runtime scene selection for the current UI core, first-five opening sequences and five isolated KVMDATA mapping canaries. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
+  "scope": "Runtime scene selection for the current P2 UI core with researched display names, first-five opening sequences and five isolated KVMDATA mapping canaries. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
   "scene_inventory": {
     "path": "config/ui-scenes.json",
     "sha256": "359186c2ad46ec19a3c9b63cf14230160a684fd37f3fe805b8842b2713b5784c",
@@ -35,9 +35,9 @@
   },
   "artifact_profiles": [
     {
-      "artifact_id": "ui-p1-core",
-      "manifest": "manifests/ui-p1-core-runtime-validation.json",
-      "manifest_sha256": "9f6c7ff58fc81c1bef982a9fcadf8777d9c2ac08099bd9dd886e62aa543dd925",
+      "artifact_id": "ui-p2-core",
+      "manifest": "manifests/ui-p2-core-runtime-validation.json",
+      "manifest_sha256": "5b3fcb838a10834fc513612161ed0aa0b6e09ca7f548ac57edf60eed367b98d0",
       "status_lock": {
         "field": "status",
         "equals": "static_integrated_iso_validated_runtime_pending"
@@ -50,9 +50,9 @@
         "path_field": "iso_build.path",
         "size_field": "iso_build.output.size",
         "sha256_field": "iso_build.output.sha256",
-        "expected_path": "build/iso/ui-p1-core/srwz-ui-p1-core.iso",
+        "expected_path": "build/iso/ui-p2-core/srwz-ui-p2-core.iso",
         "expected_size": 3758456832,
-        "expected_sha256": "5f558ae794dec6d2e95bf56f391b5a0789eba78f4c330aa441a935b13973891b"
+        "expected_sha256": "2ce5c844cd623c1bfd2f6ec1bc7acc0aa9565fc069f451a0b736ad3e8aa13a65"
       }
     },
     {
@@ -289,7 +289,7 @@
       "scene_ids": [
         "title/main-menu"
       ],
-      "artifact_id": "ui-p1-core",
+      "artifact_id": "ui-p2-core",
       "fixture_id": "fresh-boot",
       "variant": null,
       "route": [
@@ -321,7 +321,7 @@
       "scene_ids": [
         "opening/player-setup"
       ],
-      "artifact_id": "ui-p1-core",
+      "artifact_id": "ui-p2-core",
       "fixture_id": "fresh-boot",
       "variant": null,
       "route": [
@@ -365,7 +365,7 @@
       "scene_ids": [
         "intermission/main-and-options"
       ],
-      "artifact_id": "ui-p1-core",
+      "artifact_id": "ui-p2-core",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -409,7 +409,7 @@
       "scene_ids": [
         "information/unit-pilot-mech-core"
       ],
-      "artifact_id": "ui-p1-core",
+      "artifact_id": "ui-p2-core",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -458,7 +458,7 @@
       "scene_ids": [
         "battle/map-and-tactical"
       ],
-      "artifact_id": "ui-p1-core",
+      "artifact_id": "ui-p2-core",
       "fixture_id": "first-battle-card",
       "variant": null,
       "route": [
@@ -502,7 +502,7 @@
       "scene_ids": [
         "results/level-up-and-deployment"
       ],
-      "artifact_id": "ui-p1-core",
+      "artifact_id": "ui-p2-core",
       "fixture_id": "pre-results-card",
       "variant": null,
       "route": [
@@ -546,7 +546,7 @@
       "scene_ids": [
         "search/filter-and-results"
       ],
-      "artifact_id": "ui-p1-core",
+      "artifact_id": "ui-p2-core",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -585,7 +585,7 @@
       "scene_ids": [
         "opening/world-history-scroll"
       ],
-      "artifact_id": "ui-p1-core",
+      "artifact_id": "ui-p2-core",
       "fixture_id": "fresh-boot",
       "variant": null,
       "route": [

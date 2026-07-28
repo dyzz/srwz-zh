@@ -60,11 +60,21 @@ def main() -> int:
             json.dumps(document, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
         )
+    allocation = report["additional_allocations"]
+    allocation_summary = (
+        (
+            f"assignments={allocation['count']} "
+            f"appended={allocation['appended_character_count']} "
+            f"reactivated={allocation['reactivated_character_count']}"
+        )
+        if "reactivated_character_count" in allocation
+        else f"new={allocation['count']}"
+    )
     print(
         "UI font proposal:",
         f"profile={report['font_profile_id']}",
         f"entries={report['ui_selection']['unique_entry_count']}",
-        f"new={report['additional_allocations']['count']}",
+        allocation_summary,
         f"reraster={report['additional_reraster_existing_han']['count']}",
         f"remaining={report['capacity']['remaining_candidate_slot_count']}",
     )

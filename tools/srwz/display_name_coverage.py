@@ -29,7 +29,7 @@ _SELECTION_POLICY = {
     "require_one_translation_per_source": True,
     "exclude_prior_translation_ids": True,
     "source_text_in_git": False,
-    "writer_status": "not_implemented",
+    "writer_relationship": "separate_component",
 }
 
 
@@ -178,6 +178,11 @@ def _renderer_baseline(
         ).decoded,
         "base_assignments": _assignment_index(base_path),
         "proposal_assignments": _assignment_index(proposal_path),
+        "retired_characters": tuple(
+            _json_object(proposal_path)
+            .get("allocation_registry", {})
+            .get("retired_characters", [])
+        ),
     }
     return baseline, {
         "report": str(report_path.relative_to(root.resolve())),
@@ -556,6 +561,14 @@ def audit_display_name_coverage(
     renderer_coverage = audit_entry_font(selected, renderer_baseline)
     renderer_missing_characters = renderer_coverage["missing_characters"]
     renderer_missing_set = set(renderer_missing_characters)
+    reactivatable_characters = "".join(
+        character
+        for character in renderer_missing_characters
+        if character in renderer_baseline["retired_characters"]
+    )
+    new_allocation_character_count = (
+        len(renderer_missing_characters) - len(reactivatable_characters)
+    )
     renderer_missing_entry_count = sum(
         bool(set(entry["translation"]) & renderer_missing_set)
         for entry in selected
@@ -579,7 +592,7 @@ def audit_display_name_coverage(
             "font candidate remaining-slot count is invalid"
         )
     projected_remaining_slots = (
-        remaining_slots - len(renderer_missing_characters)
+        remaining_slots - new_allocation_character_count
     )
     ratchet = config.get("ratchet")
     actual_ratchet = {
@@ -602,6 +615,12 @@ def audit_display_name_coverage(
         "current_renderer_missing_character_count": len(
             renderer_missing_characters
         ),
+        "current_renderer_reactivatable_character_count": len(
+            reactivatable_characters
+        ),
+        "current_renderer_new_allocation_character_count": (
+            new_allocation_character_count
+        ),
         "current_renderer_original_han_character_count": len(
             renderer_original_han
         ),
@@ -621,7 +640,7 @@ def audit_display_name_coverage(
 
     report = {
         "schema_version": 1,
-        "status": "researched_selection_ready_writer_not_implemented",
+        "status": "researched_selection_ready",
         "content_policy": (
             "This ignored report and TSV contain original Japanese display "
             "names. The committed manifest contains counts, hashes, missing "
@@ -682,6 +701,15 @@ def audit_display_name_coverage(
                 "missing_character_occurrence_count"
             ],
             "missing": renderer_coverage["missing"],
+            "reactivatable_registered_character_count": len(
+                reactivatable_characters
+            ),
+            "reactivatable_registered_characters": (
+                reactivatable_characters
+            ),
+            "new_allocation_character_count": (
+                new_allocation_character_count
+            ),
             "original_font_han_character_count": len(renderer_original_han),
             "original_font_han_characters": renderer_original_han,
             "original_font_han_entry_count": (
@@ -698,10 +726,9 @@ def audit_display_name_coverage(
             "rows": rows,
         },
         "next_gate": (
-            "Allocate and rasterize the missing characters, review the exact "
-            "selection, rerasterize selected original-font Han, then compose "
-            "the selected fixed allocations on top of the P0 display-name "
-            "COMPDATA component."
+            "A separate font profile and fixed-allocation COMPDATA component "
+            "must consume this exact selection. Their static and runtime "
+            "acceptance remain independent from this selection manifest."
         ),
     }
     manifest = {
@@ -737,7 +764,7 @@ def audit_display_name_coverage(
             "projected_fixed_allocation_overflow_count_zero": (
                 not projected_overflow_ids
             ),
-            "writer_not_implemented": True,
+            "selection_only_no_game_write": True,
             "runtime_not_tested": True,
         },
         "next_gate": report["next_gate"],

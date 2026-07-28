@@ -497,6 +497,8 @@ def _audit_world_history(
 def build_ui_p1_core_component(
     project_root: Path,
     config_path: Path,
+    *,
+    enforce_expected_outputs: bool = True,
 ) -> tuple[dict[str, bytes], dict]:
     """Compose the validated title, text, name, font and history layers."""
 
@@ -605,11 +607,12 @@ def build_ui_p1_core_component(
         raise UiIntegrationError(
             "UI integration expected outputs are missing"
         )
-    for name, payload in outputs.items():
-        if _payload_lock(payload) != expected_outputs.get(name):
-            raise UiIntegrationError(
-                f"integrated output lock drift: {name}"
-            )
+    if enforce_expected_outputs:
+        for name, payload in outputs.items():
+            if _payload_lock(payload) != expected_outputs.get(name):
+                raise UiIntegrationError(
+                    f"integrated output lock drift: {name}"
+                )
 
     fixed_slps_manifest = loaded_json[
         ("p0_fixed_slps", "manifest")

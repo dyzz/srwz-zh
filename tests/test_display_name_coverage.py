@@ -80,8 +80,17 @@ class DisplayNameCoverageTests(unittest.TestCase):
             29,
         )
         self.assertEqual(
+            renderer["reactivatable_registered_character_count"],
+            4,
+        )
+        self.assertEqual(
+            renderer["reactivatable_registered_characters"],
+            "娅杰艾贾",
+        )
+        self.assertEqual(renderer["new_allocation_character_count"], 29)
+        self.assertEqual(
             renderer["projected_remaining_candidate_slot_count"],
-            15,
+            19,
         )
         self.assertTrue(
             self.manifest["acceptance"][
