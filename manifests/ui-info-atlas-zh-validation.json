@@ -1,0 +1,330 @@
+{
+  "schema_version": 1,
+  "status": "static_localized_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-info-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the SHIP locator inside the locked KVMDATA chunk 2 mapping mask. Static construction does not prove which runtime information pages consume this atlas.",
+  "content_policy": "Hashes, coordinates, counts and render parameters only; game bytes, localized text and preview PNGs remain outside this committed manifest.",
+  "inputs": {
+    "config": {
+      "path": "config/assets/ui-info-atlas-zh.json",
+      "size": 3935,
+      "sha256": "ce7f09da6b2a0127b81fc7a1725375d8e05d0e61de46ea87b30e2c2376a03c65"
+    },
+    "base_mapping": {
+      "config": {
+        "path": "config/canary/tim2-kvm2-info-map.json",
+        "size": 3435,
+        "sha256": "c3aba327d0fd3813946fefc682dcd19efad74ceda817b02057671b9cbb98964e"
+      },
+      "manifest": {
+        "path": "manifests/ui-info-atlas-map-canary-validation.json",
+        "size": 8248,
+        "sha256": "29860f931c047755eb85096332114275d77de9dcf244a8dd71c87b7ef8291c7c"
+      },
+      "profile_id": "ui-info-atlas-map-canary",
+      "status": "static_component_validated_runtime_mapping_pending",
+      "archive": {
+        "size": 3335408,
+        "sha256": "507548f7bff48dbdd18203a20a01205ec43f6d4e556c023152cc7af2cf20b19a"
+      }
+    },
+    "font": {
+      "lock": {
+        "path": "config/fonts/lxgw-neo-xihei-screen.lock.json",
+        "size": 933,
+        "sha256": "5c51eaeb8f65c9a7ea126c7b711e567a872b32e29287c0f02d1ab369bb0e95d6"
+      },
+      "family": "LXGW Neo XiHei Screen",
+      "version": "26.07.14",
+      "commit": "501c9c41c1e5cf1eb24a67f57d10080bf5cef0b4",
+      "font_sha256": "f2e0d9fa33d83f712fed2f3b45e57a35e4f536537a90633f25c00fd2563bfe70",
+      "license_spdx": "IPA",
+      "license_sha256": "daf91386d6f9a6a78e4e736c0c00375cae30214ac5c1dab2479f0a05fcb63edd"
+    },
+    "translation_source": {
+      "file": {
+        "path": "corpus/zh/ui-atlas/info-v1.json",
+        "size": 678,
+        "sha256": "5c964d0390ea024179146c81bba853c05850a120a3e9cf2e2122821db372fb70"
+      },
+      "batch_id": "v1-ui-atlas-information",
+      "entry_id": "ui-atlas/kvm2/ship",
+      "editorial_status": "reviewed",
+      "source_ref_count": 1
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 2,
+    "chunk_start": 66688,
+    "chunk_end": 100032,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "SHIP",
+    "operation": "replace_erased_locator_with_text",
+    "candidate_scene_ids": [
+      "information/unit-pilot-mech-core",
+      "search/filter-and-results",
+      "battle/map-and-tactical"
+    ],
+    "mask": {
+      "x": 80,
+      "y": 0,
+      "width": 49,
+      "height": 16,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    },
+    "mask_audit": {
+      "changed_pixel_count": 421,
+      "changed_pixel_indexes_sha256": "b5af768a13c7bfa585c20e7c5e7de984c561a9525529d9e04c7dcde123a792e0",
+      "outside_mask_rgba_exact": true
+    }
+  },
+  "localized_label": {
+    "source_locator_sha256": "39e1775d82d2eb9cf0d2862d6e2d59c5b7a1e85c543d89a8fe0594b51115f427",
+    "text_sha256": "5df04ea2a039a2c7fe8ed677e74500c57708a10e72bdb3890b21a8b956f1758f",
+    "character_count": 2,
+    "render": {
+      "point_size": 14,
+      "stroke_gray": "#303030",
+      "stroke_width": 0.35,
+      "fill_stroke_width": 0,
+      "ramp_rgba": [
+        "101010ff",
+        "202020ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "606060ff",
+        "686868ff",
+        "707070ff",
+        "787878ff"
+      ],
+      "text_mask": {
+        "size": 784,
+        "sha256": "9e8e561e26a5e5f3b2cff95e33815d1b63b0ecdef5b7bfea36eb9e931ac5912d",
+        "nonzero_pixel_count": 318
+      }
+    }
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "text_audit": {
+    "added_pixel_count": 318,
+    "added_pixel_indexes_sha256": "2fddd16eaf17f7ff62d28fe44ed8e472e1f847763f0f7192e3fcf87a30009a6f",
+    "ramp_rgba_counts": {
+      "101010ff": 17,
+      "202020ff": 14,
+      "303030ff": 9,
+      "404040ff": 26,
+      "505050ff": 13,
+      "606060ff": 11,
+      "686868ff": 12,
+      "707070ff": 26,
+      "787878ff": 190
+    },
+    "outside_mask_rgba_exact": true,
+    "erased_background_preimage_exact": true,
+    "delta_from_erased": {
+      "changed_pixel_count": 318,
+      "changed_pixel_indexes_sha256": "2fddd16eaf17f7ff62d28fe44ed8e472e1f847763f0f7192e3fcf87a30009a6f",
+      "outside_mask_rgba_exact": true
+    },
+    "delta_from_original": {
+      "changed_pixel_count": 421,
+      "changed_pixel_indexes_sha256": "b5af768a13c7bfa585c20e7c5e7de984c561a9525529d9e04c7dcde123a792e0",
+      "outside_mask_rgba_exact": true
+    }
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 318,
+    "changed_image_byte_count": 183,
+    "changed_image_byte_ranges": [
+      {
+        "start": 46,
+        "end": 48
+      },
+      {
+        "start": 53,
+        "end": 57
+      },
+      {
+        "start": 174,
+        "end": 180
+      },
+      {
+        "start": 181,
+        "end": 186
+      },
+      {
+        "start": 302,
+        "end": 308
+      },
+      {
+        "start": 309,
+        "end": 314
+      },
+      {
+        "start": 429,
+        "end": 443
+      },
+      {
+        "start": 557,
+        "end": 571
+      },
+      {
+        "start": 685,
+        "end": 699
+      },
+      {
+        "start": 813,
+        "end": 826
+      },
+      {
+        "start": 941,
+        "end": 955
+      },
+      {
+        "start": 1069,
+        "end": 1083
+      },
+      {
+        "start": 1197,
+        "end": 1204
+      },
+      {
+        "start": 1205,
+        "end": 1212
+      },
+      {
+        "start": 1325,
+        "end": 1340
+      },
+      {
+        "start": 1453,
+        "end": 1467
+      },
+      {
+        "start": 1582,
+        "end": 1593
+      },
+      {
+        "start": 1710,
+        "end": 1713
+      },
+      {
+        "start": 1714,
+        "end": 1721
+      },
+      {
+        "start": 1838,
+        "end": 1841
+      },
+      {
+        "start": 1842,
+        "end": 1844
+      },
+      {
+        "start": 1845,
+        "end": 1847
+      },
+      {
+        "start": 1848,
+        "end": 1849
+      }
+    ],
+    "available_color_count": 11,
+    "archive_diff_from_erased_base": {
+      "diff_count": 183,
+      "range_count": 23,
+      "first_offset": 66798,
+      "last_offset": 68600,
+      "offsets_sha256": "d5b3e063e0e94658fdcde7a9a9fe3161fde21fdd0b40c667d245cb0cd6dfa459",
+      "ranges_sha256": "59adcdd576278ff2e5a86e26e51747d7acc57940a1eed8ba773ae5f9fa3bb430",
+      "before_values_sha256": "f147dfc00bc88266987b75f69065432c7c9730dbece276e2c913b47080c7c0ba",
+      "after_values_sha256": "f0a67b76458cb54a8f5a6f3541d5cc0a713b05717a4e4649648eed18066aa66c"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "04c7b44d99676ada6cd19dccf3ef3d250b9f440902f854857a59645245aad933"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "99ac04922245fcd21b841ccc2612a3dd799229935bbddc61445abdbbefabc287"
+    },
+    "reference_png": {
+      "size": 21229,
+      "sha256": "21b78aa7dc1557bbd928e8f8ed740379b7aa3701d087fb76e579e337293e3d88"
+    },
+    "localized_png": {
+      "size": 21536,
+      "sha256": "8dbef9a53d52c7f8af5747252ea1c9cfffddf8f5da6ecbabc409af0c0dec0c16"
+    }
+  },
+  "expected_lock": {
+    "text_mask": {
+      "size": 784,
+      "sha256": "9e8e561e26a5e5f3b2cff95e33815d1b63b0ecdef5b7bfea36eb9e931ac5912d",
+      "nonzero_pixel_count": 318
+    },
+    "reference_png": {
+      "size": 21229,
+      "sha256": "21b78aa7dc1557bbd928e8f8ed740379b7aa3701d087fb76e579e337293e3d88"
+    },
+    "localized_png": {
+      "size": 21536,
+      "sha256": "8dbef9a53d52c7f8af5747252ea1c9cfffddf8f5da6ecbabc409af0c0dec0c16"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "04c7b44d99676ada6cd19dccf3ef3d250b9f440902f854857a59645245aad933"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "99ac04922245fcd21b841ccc2612a3dd799229935bbddc61445abdbbefabc287"
+    },
+    "added_pixel_count": 318,
+    "original_changed_pixel_count": 421,
+    "original_changed_pixel_indexes_sha256": "b5af768a13c7bfa585c20e7c5e7de984c561a9525529d9e04c7dcde123a792e0",
+    "changed_archive_byte_count": 183,
+    "changed_archive_range_count": 23
+  },
+  "acceptance": {
+    "base_mapping_reproduced_exact": true,
+    "font_and_license_locked": true,
+    "text_mask_hash_locked": true,
+    "ramp_uses_only_source_palette_rgba": true,
+    "localized_pixels_within_mapping_mask": true,
+    "erased_locator_preimage_exact": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Prove that KVMDATA chunk 2 supplies the unit-information locator and that the localized label renders at the intended position.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_memory_card",
+      "open_unit_information_for_two_units",
+      "visit_pilot_weapon_parts_skill_and_spirit_subpages",
+      "capture_visible_chinese_unit_locator_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The original SHIP locator is replaced by the locked compact Chinese unit label while SELECT and SHAPE PARTS remain intact.",
+    "promotion_rule": "Only a matching screenshot and exact original-to-localized texture delta may promote both the scene mapping and localized atlas."
+  }
+}

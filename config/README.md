@@ -20,7 +20,7 @@
 | `canary/` | 验证切片的原版输入、构建参数和 golden；文本 canary 不拥有译文/码位，TIM2 探索 profile 暂存固定视觉标签 |
 | `iso/` | PS2 DVD 容器工具链、profile workspace、最终输出和布局锁 |
 | `patches/` | ASM/二进制前像、允许差异和写入所有者 |
-| `assets/` | 图片归档成员、压缩标志和 SLPS offset 表范围；不包含游戏字节 |
+| `assets/` | 图片归档成员、压缩标志、SLPS offset 表范围和中文图集生产参数；不包含游戏字节或译文 |
 
 `ui-scenes.json` 可以实时读取下游动态名称 writer 的状态和覆盖计数，但提交的
 `ui-surface-inventory` 只投影这些语义 ratchet，不回写下游 manifest 的整文件
@@ -28,7 +28,8 @@
 导致每次合法重建都产生新的 freshness 漂移；详细本地报告仍保留下游哈希。
 
 `runtime/ui-test-matrix.json` 不改变上述生产选择。它锁定
-`ui-scenes.json`、组合 UI／前五关镜像及五张 atlas canary 的提交清单，并为
+`ui-scenes.json`、组合 UI／前五关镜像、信息页中文图集候选及其余四张 atlas
+映射 canary 的提交清单，并为
 每个运行用例登记 fixture 状态、到达步骤、截图点和证据要求。存档必须位于
 被忽略的 `work/runtime/ui-fixtures/`，只有原生 `.ps2` memory card 和 SHA-256
 都登记后才能从 `not_acquired` 晋级；已有 `.p2s` savestate 不会被自动当作
@@ -125,6 +126,11 @@ ISO；这是当前首个坐标级 8-bpp 图片汉化 profile。
 `canary/tim2-kvm2-info-map.json` 则固定信息页候选 chunk 2 的最小定位实验：
 只擦除 `SHIP` mask 内的非背景像素，并锁定背景色集合、像素集合、完整
 KVMDATA 输出和确定性 PNG 预览。
+`assets/ui-info-atlas-zh.json` 在复建该定位前像后，从
+`corpus/zh/ui-atlas/info-v1.json` 取得唯一受审译文，锁定 LXGW 字体、
+ImageMagick 版本、灰度 mask、原调色板 ramp 和输出哈希，在同一 mask 内生成
+中文 `机体` 候选。译文本身只由 corpus 拥有，提交的 component manifest
+只保存哈希、坐标、计数和渲染参数。
 `canary/tim2-kvm4-battle-command-map.json` 以同一契约固定 chunk 4 的
 `COMMAND MENU` 战场候选。
 `canary/tim2-kvm5-bazaar-map.json` 固定 chunk 5 的大号 `バザー` 商店候选。
@@ -136,6 +142,8 @@ KVMDATA 输出和确定性 PNG 预览。
 `iso/ui-battle-command-atlas-map-canary-build.json`、
 `iso/ui-bazaar-atlas-map-canary-build.json`、
 `iso/ui-intermission-atlas-map-canary-build.json`、
-`iso/ui-formation-atlas-map-canary-build.json` 都只写入一个等长成员；
-十份配置都明确保持 `runtime_mapping_pending`，不拥有中文 atlas 或场景
-归属结论。
+`iso/ui-formation-atlas-map-canary-build.json` 都只写入一个等长成员。
+`iso/ui-info-atlas-zh-build.json` 以相同容器约束绑定中文信息页候选。
+信息页中文候选状态为
+`static_localization_iso_validated_runtime_mapping_pending`，五项映射仍都没有
+场景归属结论；其余四张定位配置不拥有译文或中文 atlas。

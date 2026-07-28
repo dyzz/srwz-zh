@@ -1,0 +1,84 @@
+{
+  "schema_version": 2,
+  "profile_id": "ui-info-atlas-zh",
+  "component_validation_manifest": "manifests/ui-info-atlas-zh-validation.json",
+  "runtime_evidence_manifest": "manifests/ui-info-atlas-zh-runtime-validation.json",
+  "required_component_status": "static_localized_component_validated_runtime_mapping_pending",
+  "runtime_manifest_status": "static_localization_iso_validated_runtime_mapping_pending",
+  "source_iso": {
+    "path": "rom/srwz.iso",
+    "size": 3758358528,
+    "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014",
+    "member_count": 66,
+    "iso9660_system_id": "PLAYSTATION",
+    "udf_volume_recognition_sequence": "NSR02"
+  },
+  "toolchain": {
+    "repository": "https://github.com/N4gtan/mkps2iso.git",
+    "tag": "v1.1.1",
+    "commit": "f9a3dea18b67dc5f10093e72114a16283d277af0",
+    "version": "1.1.1",
+    "license_spdx": "GPL-2.0-only",
+    "source_dir": "work/toolchain/mkps2iso-v1.1.1/source",
+    "mkps2iso": {
+      "executable": "mkps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/mkps2iso",
+      "version": "1.1.1",
+      "version_line": "MKPS2ISO 1.1.1 - PlayStation 2 Image Maker"
+    },
+    "dumps2iso": {
+      "executable": "dumps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/dumps2iso",
+      "version": "1.1.1",
+      "version_line": "DUMPS2ISO 1.1.1 - PlayStation 2 Image Dumper"
+    }
+  },
+  "workspace": {
+    "original_tree": "work/build/ui-info-atlas-zh/iso/original",
+    "staging_tree": "work/build/ui-info-atlas-zh/iso/staging",
+    "base_xml": "work/build/ui-info-atlas-zh/iso/layout/original.xml",
+    "build_xml": "work/build/ui-info-atlas-zh/iso/layout/build.xml",
+    "lba_log": "work/build/ui-info-atlas-zh/iso/layout/lba.txt"
+  },
+  "layout": {
+    "volume_id": "SRWZ_UI_INFO_ZH",
+    "first_shifted_member": "KURODATA/KVMDATA.BIN",
+    "expected_shift_sectors": 0,
+    "preserve_original_gaps": true,
+    "trailing_dummy_sectors": 10240
+  },
+  "replacements": [
+    {
+      "member": "KURODATA/KVMDATA.BIN",
+      "source": "work/build/ui-info-atlas-zh/components/KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "04c7b44d99676ada6cd19dccf3ef3d250b9f440902f854857a59645245aad933"
+    }
+  ],
+  "output": {
+    "path": "build/iso/ui-info-atlas-zh/srwz-ui-info-atlas-zh.iso",
+    "report": "build/iso/ui-info-atlas-zh/iso-validation.json",
+    "expected_root_directory_size": 960,
+    "expected_pcsx2_v263_image_type": "DVD",
+    "expected_udf_volume_recognition_sequence": "NSR02",
+    "byte_reproducible": true,
+    "expected_size": 3758358528,
+    "expected_sha256": "d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0",
+    "expected_member_manifest_sha256": "aa90c8821191892ed3b176b6b9fe8fbbee40f98a974be307c6dfdab51411b612"
+  },
+  "acceptance": {
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "iso9660_present": true,
+    "udf_present": true,
+    "udf_verify_members": [
+      "SYSTEM.CNF",
+      "SLPS_258.87",
+      "KURODATA/KVMDATA.BIN",
+      "DATA/STAGE.BIN"
+    ]
+  }
+}

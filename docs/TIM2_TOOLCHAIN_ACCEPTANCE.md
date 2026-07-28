@@ -265,6 +265,22 @@ python3 tools/build_canary_iso.py \
 python3 tools/verify_ui_atlas_map_canary_iso.py --force
 ```
 
+同一 mask 现另有中文生产候选。`config/assets/ui-info-atlas-zh.json` 从受审
+corpus 取得 `机体`，用锁定 LXGW 字体和原图调色板 ramp 在已擦除前像内增加
+318 个文字像素；相对原图精确变化 421 个像素和 183 个 archive byte。
+TIM2 回读 RGBA 精确，完整 KVMDATA 等长；独立 ISO 有 65 个未替换成员、
+零 LBA 位移，SHA-256 为
+`d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0`。
+
+```bash
+python3 tools/build_ui_atlas_localization.py --force
+python3 tools/verify_ui_atlas_localization.py --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-info-atlas-zh-build.json
+python3 tools/verify_ui_atlas_map_canary_iso.py \
+  --config config/iso/ui-info-atlas-zh-build.json --force
+```
+
 ### 8.2 战场 `COMMAND MENU`
 
 `KVMDATA chunk 4 / record 0 / picture 0` 的隔离 canary 只擦除
@@ -355,8 +371,9 @@ python3 tools/verify_ui_atlas_map_canary_iso.py \
   --config config/iso/ui-bazaar-atlas-map-canary-build.json --force
 ```
 
-五项结果都只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
-信息页、战场、商店、幕间和编成必须分别同时看到目标标题缺失和同一
-299／2,297／2,197／803／1,325 像素 texture delta。记录精确 PCSX2、ISO、
-存档、截图及转储哈希后，才可升级候选场景映射。静态 preview、ISO 启动或
-任意 UI 变化都不够。
+上述结果都只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
+信息页必须同时看到中文标签出现在原位置和 421 像素 texture delta；战场、
+商店、幕间和编成仍必须分别看到目标标题缺失和
+2,297／2,197／803／1,325 像素 delta。记录精确 PCSX2、ISO、存档、截图及
+转储哈希后，才可升级候选场景映射。静态 preview、ISO 启动或任意 UI 变化
+都不够。

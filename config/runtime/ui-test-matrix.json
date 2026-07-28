@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "matrix_id": "srwz-ui-runtime-v1",
-  "scope": "Runtime scene selection for the current P2 UI core with researched display names, first-five opening sequences and five isolated KVMDATA mapping canaries. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
+  "scope": "Runtime scene selection for the current P2 UI core with researched display names, first-five opening sequences, one localized information-page atlas and four remaining isolated KVMDATA mapping canaries. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
   "scene_inventory": {
     "path": "config/ui-scenes.json",
     "sha256": "359186c2ad46ec19a3c9b63cf14230160a684fd37f3fe805b8842b2713b5784c",
@@ -77,12 +77,12 @@
       }
     },
     {
-      "artifact_id": "atlas-info-map",
-      "manifest": "manifests/ui-info-atlas-map-canary-runtime-validation.json",
-      "manifest_sha256": "23d94e8d7c4ea61ea4555c3d71ca394ff257158823dd82e7961818c4fd3950a5",
+      "artifact_id": "atlas-info-zh",
+      "manifest": "manifests/ui-info-atlas-zh-runtime-validation.json",
+      "manifest_sha256": "c5dd931f75c0c935f5e19259cdea994d0f8c90c29d7a6992873c5d46c461bc51",
       "status_lock": {
         "field": "status",
-        "equals": "static_mapping_iso_validated_runtime_not_tested"
+        "equals": "static_localization_iso_validated_runtime_mapping_pending"
       },
       "runtime_lock": {
         "field": "runtime.status",
@@ -92,13 +92,13 @@
         "path_field": "iso_build.path",
         "size_field": "iso_build.output.size",
         "sha256_field": "iso_build.output.sha256",
-        "expected_path": "build/iso/ui-info-atlas-map-canary/srwz-ui-info-atlas-map-canary.iso",
+        "expected_path": "build/iso/ui-info-atlas-zh/srwz-ui-info-atlas-zh.iso",
         "expected_size": 3758358528,
-        "expected_sha256": "9343889dc72c6d3fc2287f0ac279912fb1ae7e1e1123ee15150f667e50bc78f6"
+        "expected_sha256": "d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0"
       },
       "mapping": {
         "field": "runtime.expected_texture_delta",
-        "expected_changed_pixel_count": 299
+        "expected_changed_pixel_count": 421
       }
     },
     {
@@ -837,19 +837,19 @@
         "information/unit-pilot-mech-core",
         "search/filter-and-results"
       ],
-      "artifact_id": "atlas-info-map",
+      "artifact_id": "atlas-info-zh",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
         "Fresh boot the exact isolated ISO and load the first-intermission save.",
         "Open information pages for two units and visit search, pilot, weapon and parts tabs.",
-        "Capture the loaded texture and the page where the SHIP locator disappears."
+        "Capture the loaded texture and the page where the localized unit locator appears."
       ],
       "capture_points": [
         {
           "capture_id": "mapping-info-visual",
           "kind": "screenshot",
-          "state": "information or search page with the SHIP locator absent"
+          "state": "information or search page with the localized unit locator visible"
         },
         {
           "capture_id": "mapping-info-texture",
@@ -858,7 +858,7 @@
         }
       ],
       "assertions": [
-        "SHIP is absent at the expected position.",
+        "The locked Chinese unit locator is visible at the original SHIP position.",
         "SELECT, SHAPE PARTS and all content outside the mask remain intact.",
         "Screenshot and texture delta must both match before scene promotion."
       ],

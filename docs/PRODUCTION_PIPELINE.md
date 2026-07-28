@@ -402,10 +402,9 @@ python3 tools/verify_ui_core_iso.py \
 这只证明 component 与容器；当前运行矩阵的八个核心 UI 用例均绑定该精确
 镜像，但全部仍为 `not_tested`。
 
-### 4.4 UI atlas 映射 canary
+### 4.4 UI atlas 映射 canary 与中文候选
 
-图片文字尚未进入中文生产 profile。为避免在场景归属不明时先制作整张中文图，
-当前有五个互相隔离的可逆定位实验：
+为避免在场景归属不明时直接重做整张图，先建立五个互相隔离的可逆定位实验：
 
 - `config/canary/tim2-kvm2-info-map.json`：chunk 2 顶行 `SHIP`；
 - `config/canary/tim2-kvm4-battle-command-map.json`：chunk 4
@@ -431,6 +430,30 @@ ISO 门只接受这一项 replacement；固定结果有 66 个成员、65 个未
 零 LBA 位移和独立 UDF 回读。两级清单分别为
 `manifests/ui-info-atlas-map-canary-validation.json` 与
 `manifests/ui-info-atlas-map-canary-runtime-validation.json`。
+
+信息页在此基础上增加首个中文生产候选。唯一译文由
+`corpus/zh/ui-atlas/info-v1.json` 所有；配置
+`config/assets/ui-info-atlas-zh.json` 固定基础 mapping 清单、LXGW
+字体／许可证、ImageMagick 版本、灰度文字 mask、原图调色板 ramp 和所有输出
+哈希。它逐字节复建已擦除前像后，只在同一 `49×16` mask 内增加 318 个文字
+像素；相对原图精确变化 421 个像素／183 个 archive byte，完整 KVMDATA
+等长，TIM2 RGBA 回读精确。构建和独立 ISO 门为：
+
+```bash
+python3 tools/build_ui_atlas_localization.py --force
+python3 tools/verify_ui_atlas_localization.py --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-info-atlas-zh-build.json
+python3 tools/verify_ui_atlas_map_canary_iso.py \
+  --config config/iso/ui-info-atlas-zh-build.json --force
+```
+
+ISO 只替换 `KURODATA/KVMDATA.BIN`，65 个未替换成员 byte-exact、零 LBA
+位移；SHA-256 为
+`d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0`。
+两级清单为 `manifests/ui-info-atlas-zh-validation.json` 与
+`manifests/ui-info-atlas-zh-runtime-validation.json`。这仍只证明静态中文
+组件和容器，不能证明运行场景归属或游戏内显示。
 
 战场配置显式传入
 `config/canary/tim2-kvm4-battle-command-map.json` 与
@@ -462,11 +485,13 @@ ISO 门只接受这一项 replacement；固定结果有 66 个成员、65 个未
 `5f05e41f9ba2e410d36a985ca9a87f177d6622ee4e5340d5c0f0ad1ba4fe844c`。
 两级清单使用 `ui-formation-atlas-map-canary` 同名路径。
 
-五个 profile 的状态都有意保持
-`static_mapping_iso_validated_runtime_not_tested`。只有同一 ISO 的目标页面截图
-显示相应标签消失，且 PCSX2 texture dump 精确匹配各自
-299／2,297／2,197／803／1,325 像素集合，才可登记正式运行映射。它们不拥有
-译名、中文 atlas 或 `ui-p1-core` 集成结论。
+五个基础 mapping profile 的状态都有意保持
+`static_mapping_iso_validated_runtime_not_tested`；信息页中文候选则保持
+`static_localization_iso_validated_runtime_mapping_pending`。信息页只有在
+同一 ISO 的目标页面出现中文标签，且 PCSX2 texture dump 精确匹配 421 像素
+集合后才可晋级。其余四项仍要求目标标签消失并分别匹配
+2,297／2,197／803／1,325 像素集合。任何 profile 都不拥有未经运行证明的
+场景归属或 `ui-p2-core` 集成结论。
 
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求
@@ -534,7 +559,7 @@ MIPS HI/LO 写回门禁。P0 的 462 条静态菜单文本当前都能在原 spa
 - 全量 extraction freshness 与双向 reconciliation 的规模化运行；
 - 扩展 COMPDATA 动态人物／机体名的全量审校语料；当前已完成开场 45 项与
   researched 精确切片 1,262 项；
-- 用已锁定的 `SHIP` canary 完成人物／机体信息页 atlas 运行归属，再制作中文
-  atlas、把前五关 STAGE/HB 合并到候选并完成逐屏 PCSX2 路线；
+- 用已生成的中文信息页候选完成 atlas 运行归属和 421 像素双门，再把该 atlas
+  与前五关 STAGE/HB 合并到候选并完成逐屏 PCSX2 路线；
 - 全量 STAGE arena policy 和通用 VT1 writer；
 - offline render oracle、coverage ratchet 和 clean-copy deterministic build。

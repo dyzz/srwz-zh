@@ -2,12 +2,12 @@
   "schema_version": 1,
   "status": "runtime_matrix_validated_execution_pending",
   "matrix_id": "srwz-ui-runtime-v1",
-  "scope": "Runtime scene selection for the current P2 UI core with researched display names, first-five opening sequences and five isolated KVMDATA mapping canaries. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
+  "scope": "Runtime scene selection for the current P2 UI core with researched display names, first-five opening sequences, one localized information-page atlas and four remaining isolated KVMDATA mapping canaries. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
   "matrix_config": {
     "path": "config/runtime/ui-test-matrix.json",
-    "sha256": "83dc5d167184e12c5bc9cf5aaf598d7737c3778c67bde604499540d29fe73dc9"
+    "sha256": "1a4f6de9d9e0e84b7d92cce5726996c60344a8edb3d0144f6624f4a629ca4089"
   },
-  "matrix_plan_sha256": "947169b3f0cec20c0c12f9b2de85aae77982ccde4812f49f5d7022e9c4656794",
+  "matrix_plan_sha256": "e4d317b8adffa5a805974b67a46a7c20cf1810ad55cab5f2ddda355b6abedc2d",
   "scene_inventory": {
     "path": "config/ui-scenes.json",
     "sha256": "359186c2ad46ec19a3c9b63cf14230160a684fd37f3fe805b8842b2713b5784c",
@@ -94,18 +94,18 @@
       "mapping": null
     },
     {
-      "artifact_id": "atlas-info-map",
-      "manifest": "manifests/ui-info-atlas-map-canary-runtime-validation.json",
-      "manifest_sha256": "23d94e8d7c4ea61ea4555c3d71ca394ff257158823dd82e7961818c4fd3950a5",
-      "status": "static_mapping_iso_validated_runtime_not_tested",
+      "artifact_id": "atlas-info-zh",
+      "manifest": "manifests/ui-info-atlas-zh-runtime-validation.json",
+      "manifest_sha256": "c5dd931f75c0c935f5e19259cdea994d0f8c90c29d7a6992873c5d46c461bc51",
+      "status": "static_localization_iso_validated_runtime_mapping_pending",
       "runtime_status": "not_tested",
-      "iso_path": "build/iso/ui-info-atlas-map-canary/srwz-ui-info-atlas-map-canary.iso",
+      "iso_path": "build/iso/ui-info-atlas-zh/srwz-ui-info-atlas-zh.iso",
       "iso_size": 3758358528,
-      "iso_sha256": "9343889dc72c6d3fc2287f0ac279912fb1ae7e1e1123ee15150f667e50bc78f6",
+      "iso_sha256": "d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0",
       "mapping": {
         "chunk_index": 2,
-        "changed_pixel_count": 299,
-        "changed_pixel_indexes_sha256": "33499f730c59adab3f36a53df061e2e5c9f76b78846ebb1bfc45bf8c1fd52f12"
+        "changed_pixel_count": 421,
+        "changed_pixel_indexes_sha256": "b5af768a13c7bfa585c20e7c5e7de984c561a9525529d9e04c7dcde123a792e0"
       }
     },
     {
@@ -536,7 +536,7 @@
         "information/unit-pilot-mech-core",
         "search/filter-and-results"
       ],
-      "artifact_id": "atlas-info-map",
+      "artifact_id": "atlas-info-zh",
       "fixture_id": "first-intermission-card",
       "fixture_status": "not_acquired",
       "variant": null,
@@ -550,8 +550,8 @@
       "execution_readiness": "blocked_by_missing_fixture",
       "texture_delta": {
         "chunk_index": 2,
-        "changed_pixel_count": 299,
-        "changed_pixel_indexes_sha256": "33499f730c59adab3f36a53df061e2e5c9f76b78846ebb1bfc45bf8c1fd52f12"
+        "changed_pixel_count": 421,
+        "changed_pixel_indexes_sha256": "b5af768a13c7bfa585c20e7c5e7de984c561a9525529d9e04c7dcde123a792e0"
       },
       "runtime_evidence": null
     },

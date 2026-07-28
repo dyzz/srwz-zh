@@ -69,6 +69,15 @@
   `KURODATA/KVMDATA.BIN` 的隔离 DVD 静态绑定；记录 66 个成员、65 个未替换
   成员、零 LBA 位移、独立 UDF 回读和精确 ISO SHA-256，并将 `SHIP` 截图缺失
   与同一 299 像素 texture-dump delta 登记为运行晋级双门。
+- `ui-info-atlas-zh-validation.json`：在逐字节复建上述擦除前像后，从受审
+  corpus 取得中文标签并在同一 `49×16` mask 内栅格化；记录 318 个新增文字
+  像素、相对原图 421 个像素变化、183 个 archive byte 变化、字体／许可证、
+  调色板 ramp、TIM2 回读、非目标 chunk 和等长 KVMDATA 门。状态仍是
+  `runtime_mapping_pending`。
+- `ui-info-atlas-zh-runtime-validation.json`：把中文信息页候选绑定到只替换
+  `KURODATA/KVMDATA.BIN` 的独立 DVD；固定 ISO SHA-256、65 个未替换成员、
+  零 LBA 位移和独立 UDF 回读，并要求目标页出现中文标签和同一 421 像素
+  texture-dump delta 后才能晋级。
 - `ui-battle-command-atlas-map-canary-validation.json`：chunk 4 战场候选的
   最小定位组件；只擦除 `COMMAND MENU`，记录 2,297 个逻辑像素、1,221 个
   archive byte、非目标 chunk 和等长 KVMDATA 门。
@@ -104,7 +113,8 @@
   writer、ISO 与运行状态。
 - `ui-runtime-test-matrix.json`：把 14 类 UI 场景完整分成 10 类当前测试目标
   和 4 类显式延期，锁定 7 张精确 ISO、19 个逐屏用例、7 类 fixture、
-  42 个截图点、6 个截图序列和 5 个 texture delta。当前只有 fresh-boot
+  42 个截图点、6 个截图序列和 5 个 texture delta；信息页用例绑定中文候选
+  及其 421 像素 delta，其余四项仍绑定擦除定位 canary。当前只有 fresh-boot
   fixture 就绪，六份原生 memory card 尚未取得，因此 19 个用例均保持
   `not_tested`；八个核心 UI 用例绑定精确 `ui-p2-core` ISO，清单不保存
   存档、截图或游戏字节。

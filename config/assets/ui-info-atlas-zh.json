@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "profile_id": "ui-info-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the SHIP locator inside the locked KVMDATA chunk 2 mapping mask. Static construction does not prove which runtime information pages consume this atlas.",
+  "base_mapping": {
+    "config": "config/canary/tim2-kvm2-info-map.json",
+    "config_sha256": "c3aba327d0fd3813946fefc682dcd19efad74ceda817b02057671b9cbb98964e",
+    "manifest": "manifests/ui-info-atlas-map-canary-validation.json",
+    "manifest_sha256": "29860f931c047755eb85096332114275d77de9dcf244a8dd71c87b7ef8291c7c",
+    "required_status": "static_component_validated_runtime_mapping_pending"
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 2,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "SHIP",
+    "operation": "replace_erased_locator_with_text"
+  },
+  "localized_label": {
+    "translation_source": {
+      "path": "corpus/zh/ui-atlas/info-v1.json",
+      "sha256": "5c964d0390ea024179146c81bba853c05850a120a3e9cf2e2122821db372fb70",
+      "entry_id": "ui-atlas/kvm2/ship",
+      "minimum_editorial_status": "reviewed"
+    },
+    "font_lock": "config/fonts/lxgw-neo-xihei-screen.lock.json",
+    "font_lock_sha256": "5c51eaeb8f65c9a7ea126c7b711e567a872b32e29287c0f02d1ab369bb0e95d6",
+    "render": {
+      "point_size": 14,
+      "stroke_gray": "#303030",
+      "stroke_width": 0.35,
+      "fill_stroke_width": 0,
+      "ramp_rgba": [
+        "101010ff",
+        "202020ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "606060ff",
+        "686868ff",
+        "707070ff",
+        "787878ff"
+      ]
+    }
+  },
+  "runtime": {
+    "purpose": "Prove that KVMDATA chunk 2 supplies the unit-information locator and that the localized label renders at the intended position.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_memory_card",
+      "open_unit_information_for_two_units",
+      "visit_pilot_weapon_parts_skill_and_spirit_subpages",
+      "capture_visible_chinese_unit_locator_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The original SHIP locator is replaced by the locked compact Chinese unit label while SELECT and SHAPE PARTS remain intact.",
+    "promotion_rule": "Only a matching screenshot and exact original-to-localized texture delta may promote both the scene mapping and localized atlas."
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "expected": {
+    "text_mask": {
+      "size": 784,
+      "sha256": "9e8e561e26a5e5f3b2cff95e33815d1b63b0ecdef5b7bfea36eb9e931ac5912d",
+      "nonzero_pixel_count": 318
+    },
+    "reference_png": {
+      "size": 21229,
+      "sha256": "21b78aa7dc1557bbd928e8f8ed740379b7aa3701d087fb76e579e337293e3d88"
+    },
+    "localized_png": {
+      "size": 21536,
+      "sha256": "8dbef9a53d52c7f8af5747252ea1c9cfffddf8f5da6ecbabc409af0c0dec0c16"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "04c7b44d99676ada6cd19dccf3ef3d250b9f440902f854857a59645245aad933"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "99ac04922245fcd21b841ccc2612a3dd799229935bbddc61445abdbbefabc287"
+    },
+    "added_pixel_count": 318,
+    "original_changed_pixel_count": 421,
+    "original_changed_pixel_indexes_sha256": "b5af768a13c7bfa585c20e7c5e7de984c561a9525529d9e04c7dcde123a792e0",
+    "changed_archive_byte_count": 183,
+    "changed_archive_range_count": 23
+  },
+  "outputs": {
+    "component_root": "work/build/ui-info-atlas-zh/components",
+    "reference_png": "work/build/ui-info-atlas-zh/reference.png",
+    "localized_png": "work/build/ui-info-atlas-zh/localized.png",
+    "validation": "work/review/ui-info-atlas-zh/component-validation.json",
+    "manifest": "manifests/ui-info-atlas-zh-validation.json"
+  }
+}

@@ -138,7 +138,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
                 for case in mapping_cases
             },
             {
-                2: 299,
+                2: 421,
                 4: 2297,
                 5: 2197,
                 6: 803,

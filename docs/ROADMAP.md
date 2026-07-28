@@ -42,16 +42,18 @@ researched 精确源词门已筛出 1,262 个候选（1,221 人物／41 机体�
 个当前 P1 字库可编码；统一 renderer 的 33 个缺字中 29 个需要新
 allocation，`娅杰艾贾` 四字复用已登记退役 assignment，另重绘 29 个原版
 汉字，余 19 槽且全部 projected allocation 零溢出。该 1,262 项已与开场
-45 项合并进入 P2 writer 和 ISO；另 1,493 个仍待人工审校。信息页
-atlas 已完成一个只清除 `KVMDATA chunk 2` 顶行 `SHIP` 的隔离映射 canary：
-299 像素变化均在 mask 内，完整归档等长；单成员 ISO 有 65 个未替换成员和
-零 LBA 位移。战场 chunk 4 已完成只清除 `COMMAND MENU` 的隔离 canary：
+45 项合并进入 P2 writer 和 ISO；另 1,493 个仍待人工审校。信息页先完成
+只清除 `KVMDATA chunk 2` 顶行 `SHIP` 的隔离映射 canary，继而生成受审中文
+`机体` 候选：在同一 `49×16` mask 内新增 318 个文字像素、相对原图变化
+421 个像素／183 个 archive byte，完整归档等长；单成员 ISO 有 65 个未替换
+成员和零 LBA 位移。战场 chunk 4 已完成只清除 `COMMAND MENU` 的隔离 canary：
 2,297 像素变化受 mask 约束。商店 chunk 5 已完成只清除大号 `バザー` 的隔离
 canary：2,197 像素变化受 mask 约束。幕间 chunk 6 已完成只清除顶部标题的
 隔离 canary：803 像素变化受背景色集合和 mask 约束。编成 chunk 7 也已完成
 只清除 `新規編成` 的隔离 canary：1,325 像素变化受 mask 约束。四张新增
-单成员 ISO 均零 LBA 位移。至此五张已筛 atlas 均有静态定位 profile，但
-五者的截图／texture dump 运行双门仍未完成。世界史 28 条已完成
+单成员 ISO 均零 LBA 位移。至此五张已筛 atlas 均有静态定位 profile，
+chunk 2 另有中文生产候选，但五者的截图／texture dump 运行双门仍未完成。
+世界史 28 条已完成
 22 格中文断行、14 个空行
 保持和零定长溢出审计，但仍为 `draft`；相对 P0 候选真实缺 41 字且短缺
 38 槽。独立 P1 字库候选已继承 P0、补全这 41 字并统一重绘另 53 个汉字，
@@ -66,7 +68,7 @@ STAGE/HB 或信息页 atlas；28 条仍为 `draft`，raw-trail 新类别和滚�
 1,262 项与开场 45 项合并为 1,307 项 COMPDATA 选择；字库只新增 29 槽并
 复用 `娅杰艾贾` 四个退役 assignment，另重绘 29 个原版汉字，余 19 槽。
 新的 `ui-p2-core` 已完成四成员组合、66 成员容器校验和精确 ISO 锁定。
-上述五张 atlas canary 仍未合入组合镜像，P2 逐屏运行也仍未验收。具体实施见
+上述 atlas 制品仍未合入组合镜像，P2 逐屏运行也仍未验收。具体实施见
 [`UI_COVERAGE_TEST_PLAN.md`](UI_COVERAGE_TEST_PLAN.md)。
 
 运行场景已进一步收敛为独立 `ui-runtime-test-matrix`：14 类场景都有唯一
@@ -122,8 +124,9 @@ DVD/ELF、零 TLB、截图、断言和 atlas RGBA delta，但当前尚无通过 
 - P0 场景选择、译文决策、动态名称结构和独立统一字库候选已建立机器门禁；
   fixed-span SLPS／COMPDATA writer 已覆盖全部 462 条文本决策；开场 45 个
   动态名称字段、标题和世界史已进入静态验证的组合 ISO；下一批 1,262 个
-  researched 精确名称已通过选择、字库缺口和定长门，但追加字库／writer
-  尚未实现；信息页 atlas、前五关 STAGE/HB 合并和逐屏运行验证待完成。
+  researched 精确名称也已完成追加字库、writer 和 P2 组合 ISO。信息页已有
+  独立中文 atlas 候选；其运行归属、与 P2／前五关 STAGE/HB 的合并和逐屏
+  运行验证待完成。
 - 命令、按钮和战斗条件。
 - 精神、技能和特殊能力。
 - 零件、武器、机体、驾驶员和关卡名。
