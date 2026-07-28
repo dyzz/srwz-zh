@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "profile_id": "ui-battle-command-atlas-map-canary",
+  "scope": "A reversible mapping canary that erases only the COMMAND MENU locator inside the offline KVMDATA chunk 4 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "source": {
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "asset_config": {
+      "path": "config/assets/archive-inventory.json",
+      "sha256": "6afc3beb1f67c82d355f572f0de92e2a5185790e17a1670a5a479a7e5b6e57ab"
+    },
+    "candidate_registry": {
+      "path": "config/assets/ui-atlas-candidates.json",
+      "sha256": "b3c2fd0032314f55566bb99d1c2bd77fc9cdc4469eab8cf6647371d397c05e12"
+    },
+    "members": {
+      "executable": {
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "archive": {
+        "size": 3335408,
+        "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+      }
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 4,
+    "record_index": 0,
+    "picture_index": 0,
+    "source_chunk_size": 33344,
+    "source_chunk_sha256": "bfa7142ce3582b4325d27fe0d522e509f65340cf92174770092904df9c2515c1",
+    "semantic_locator": "COMMAND MENU",
+    "operation": "erase_non_background_pixels",
+    "mask": {
+      "x": 2,
+      "y": 100,
+      "width": 164,
+      "height": 17,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    }
+  },
+  "runtime": {
+    "purpose": "Prove whether KVMDATA chunk 4 is consumed by the tactical battle command menu before authoring translation.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_battle_save",
+      "open_command_menu_for_two_units",
+      "visit_move_attack_target_and_battle_status_routes",
+      "capture_visible_missing_command_menu_label_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The COMMAND MENU title is absent while the adjacent symbols, number rows, HP, EN and formation labels remain intact.",
+    "promotion_rule": "Only a matching battle screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "expected": {
+    "reference_png": {
+      "size": 27121,
+      "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
+    },
+    "edited_png": {
+      "size": 25850,
+      "sha256": "c6d1c8bbabf51d09dcf1637bbb8b3e1eae579764092d506890ef7ca396e59089"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "6f186cdcfd84b62736d023d492ddb0963f26a3aa12787c7f2c8c642a527be13a"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "41501aeff4c0f109e528cd0d58c7e1fd4a0dd50e65b3249afc99ad1001513143"
+    },
+    "changed_pixel_count": 2297,
+    "changed_archive_byte_count": 1221,
+    "changed_archive_range_count": 106
+  },
+  "outputs": {
+    "component_root": "work/build/ui-battle-command-atlas-map-canary/components",
+    "reference_png": "work/build/ui-battle-command-atlas-map-canary/reference.png",
+    "edited_png": "work/build/ui-battle-command-atlas-map-canary/edited.png",
+    "validation": "work/review/ui-battle-command-atlas-map-canary/component-validation.json",
+    "manifest": "manifests/ui-battle-command-atlas-map-canary-validation.json"
+  }
+}

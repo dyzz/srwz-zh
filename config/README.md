@@ -99,9 +99,12 @@ ISO；这是当前首个坐标级 8-bpp 图片汉化 profile。
 `canary/tim2-kvm2-info-map.json` 则固定信息页候选 chunk 2 的最小定位实验：
 只擦除 `SHIP` mask 内的非背景像素，并锁定背景色集合、像素集合、完整
 KVMDATA 输出和确定性 PNG 预览。
+`canary/tim2-kvm4-battle-command-map.json` 以同一契约固定 chunk 4 的
+`COMMAND MENU` 战场候选。
 `canary/tim2-kvm6-intermission-map.json` 以相同契约固定 chunk 6 顶部幕间
 标题，分别保留透明黑与不透明黑背景。对应的
-`iso/ui-info-atlas-map-canary-build.json` 和
+`iso/ui-info-atlas-map-canary-build.json`、
+`iso/ui-battle-command-atlas-map-canary-build.json` 和
 `iso/ui-intermission-atlas-map-canary-build.json` 都只写入一个等长成员；
-四份配置都明确保持 `runtime_mapping_pending`，不拥有中文 atlas 或场景归属
+六份配置都明确保持 `runtime_mapping_pending`，不拥有中文 atlas 或场景归属
 结论。

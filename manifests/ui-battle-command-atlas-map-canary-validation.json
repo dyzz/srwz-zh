@@ -1,0 +1,574 @@
+{
+  "schema_version": 1,
+  "status": "static_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-battle-command-atlas-map-canary",
+  "scope": "A reversible mapping canary that erases only the COMMAND MENU locator inside the offline KVMDATA chunk 4 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "content_policy": "Hashes, coordinates, counts and diff summaries only; game bytes and preview PNGs remain under ignored work/.",
+  "inputs": {
+    "config": {
+      "path": "config/canary/tim2-kvm4-battle-command-map.json",
+      "size": 3604,
+      "sha256": "e6af9ddee3bb1c7d58f542b18c10c0f6cb537dec81c92d17777551b2b42eea1d"
+    },
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "asset_config": {
+      "path": "config/assets/archive-inventory.json",
+      "size": 2882,
+      "sha256": "6afc3beb1f67c82d355f572f0de92e2a5185790e17a1670a5a479a7e5b6e57ab"
+    },
+    "candidate_registry": {
+      "path": "config/assets/ui-atlas-candidates.json",
+      "size": 5596,
+      "sha256": "b3c2fd0032314f55566bb99d1c2bd77fc9cdc4469eab8cf6647371d397c05e12"
+    },
+    "members": {
+      "executable": {
+        "member": "SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "archive": {
+        "member": "KURODATA/KVMDATA.BIN",
+        "size": 3335408,
+        "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+      }
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 4,
+    "chunk_start": 133376,
+    "chunk_end": 166720,
+    "record_index": 0,
+    "picture_index": 0,
+    "source_chunk": {
+      "size": 33344,
+      "sha256": "bfa7142ce3582b4325d27fe0d522e509f65340cf92174770092904df9c2515c1"
+    },
+    "semantic_locator": "COMMAND MENU",
+    "operation": "erase_non_background_pixels",
+    "candidate_evidence_status": "offline_visual_candidate_not_runtime_mapped",
+    "candidate_scene_ids": [
+      "battle/map-and-tactical",
+      "results/level-up-and-deployment"
+    ],
+    "mask": {
+      "x": 2,
+      "y": 100,
+      "width": 164,
+      "height": 17,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    },
+    "mask_audit": {
+      "changed_pixel_count": 2297,
+      "preserved_pixel_count": 491,
+      "preserved_rgba_counts": {
+        "00000000": 491
+      },
+      "changed_pixel_indexes_sha256": "94cd432c08164769bf11163a86eef52e359cc8c94e86341e141422b5f871c154",
+      "outside_mask_rgba_exact": true,
+      "replacement_rgba_exact": true,
+      "preserved_rgba_exact": true
+    }
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 2297,
+    "changed_image_byte_count": 1221,
+    "changed_image_byte_ranges": [
+      {
+        "start": 12803,
+        "end": 12808
+      },
+      {
+        "start": 12810,
+        "end": 12815
+      },
+      {
+        "start": 12816,
+        "end": 12819
+      },
+      {
+        "start": 12822,
+        "end": 12827
+      },
+      {
+        "start": 12830,
+        "end": 12833
+      },
+      {
+        "start": 12835,
+        "end": 12838
+      },
+      {
+        "start": 12840,
+        "end": 12843
+      },
+      {
+        "start": 12845,
+        "end": 12852
+      },
+      {
+        "start": 12857,
+        "end": 12859
+      },
+      {
+        "start": 12862,
+        "end": 12864
+      },
+      {
+        "start": 12865,
+        "end": 12872
+      },
+      {
+        "start": 12874,
+        "end": 12876
+      },
+      {
+        "start": 12877,
+        "end": 12879
+      },
+      {
+        "start": 12881,
+        "end": 12883
+      },
+      {
+        "start": 12930,
+        "end": 12936
+      },
+      {
+        "start": 12937,
+        "end": 12947
+      },
+      {
+        "start": 12949,
+        "end": 12956
+      },
+      {
+        "start": 12958,
+        "end": 12961
+      },
+      {
+        "start": 12963,
+        "end": 12966
+      },
+      {
+        "start": 12968,
+        "end": 12971
+      },
+      {
+        "start": 12972,
+        "end": 12981
+      },
+      {
+        "start": 12985,
+        "end": 12988
+      },
+      {
+        "start": 12990,
+        "end": 13001
+      },
+      {
+        "start": 13002,
+        "end": 13007
+      },
+      {
+        "start": 13008,
+        "end": 13011
+      },
+      {
+        "start": 13058,
+        "end": 13075
+      },
+      {
+        "start": 13077,
+        "end": 13084
+      },
+      {
+        "start": 13086,
+        "end": 13089
+      },
+      {
+        "start": 13090,
+        "end": 13095
+      },
+      {
+        "start": 13096,
+        "end": 13110
+      },
+      {
+        "start": 13112,
+        "end": 13116
+      },
+      {
+        "start": 13117,
+        "end": 13129
+      },
+      {
+        "start": 13130,
+        "end": 13135
+      },
+      {
+        "start": 13136,
+        "end": 13139
+      },
+      {
+        "start": 13185,
+        "end": 13204
+      },
+      {
+        "start": 13205,
+        "end": 13212
+      },
+      {
+        "start": 13213,
+        "end": 13217
+      },
+      {
+        "start": 13218,
+        "end": 13223
+      },
+      {
+        "start": 13224,
+        "end": 13238
+      },
+      {
+        "start": 13240,
+        "end": 13244
+      },
+      {
+        "start": 13245,
+        "end": 13263
+      },
+      {
+        "start": 13264,
+        "end": 13267
+      },
+      {
+        "start": 13313,
+        "end": 13332
+      },
+      {
+        "start": 13333,
+        "end": 13340
+      },
+      {
+        "start": 13341,
+        "end": 13345
+      },
+      {
+        "start": 13346,
+        "end": 13351
+      },
+      {
+        "start": 13352,
+        "end": 13366
+      },
+      {
+        "start": 13368,
+        "end": 13391
+      },
+      {
+        "start": 13392,
+        "end": 13395
+      },
+      {
+        "start": 13441,
+        "end": 13473
+      },
+      {
+        "start": 13474,
+        "end": 13479
+      },
+      {
+        "start": 13480,
+        "end": 13495
+      },
+      {
+        "start": 13496,
+        "end": 13519
+      },
+      {
+        "start": 13520,
+        "end": 13523
+      },
+      {
+        "start": 13569,
+        "end": 13573
+      },
+      {
+        "start": 13574,
+        "end": 13580
+      },
+      {
+        "start": 13581,
+        "end": 13607
+      },
+      {
+        "start": 13608,
+        "end": 13618
+      },
+      {
+        "start": 13619,
+        "end": 13623
+      },
+      {
+        "start": 13624,
+        "end": 13647
+      },
+      {
+        "start": 13648,
+        "end": 13651
+      },
+      {
+        "start": 13697,
+        "end": 13701
+      },
+      {
+        "start": 13702,
+        "end": 13707
+      },
+      {
+        "start": 13709,
+        "end": 13746
+      },
+      {
+        "start": 13747,
+        "end": 13751
+      },
+      {
+        "start": 13752,
+        "end": 13775
+      },
+      {
+        "start": 13776,
+        "end": 13779
+      },
+      {
+        "start": 13825,
+        "end": 13828
+      },
+      {
+        "start": 13832,
+        "end": 13835
+      },
+      {
+        "start": 13837,
+        "end": 13874
+      },
+      {
+        "start": 13875,
+        "end": 13879
+      },
+      {
+        "start": 13880,
+        "end": 13903
+      },
+      {
+        "start": 13904,
+        "end": 13907
+      },
+      {
+        "start": 13953,
+        "end": 13957
+      },
+      {
+        "start": 13958,
+        "end": 13963
+      },
+      {
+        "start": 13965,
+        "end": 14002
+      },
+      {
+        "start": 14003,
+        "end": 14007
+      },
+      {
+        "start": 14008,
+        "end": 14031
+      },
+      {
+        "start": 14032,
+        "end": 14035
+      },
+      {
+        "start": 14081,
+        "end": 14085
+      },
+      {
+        "start": 14086,
+        "end": 14092
+      },
+      {
+        "start": 14093,
+        "end": 14130
+      },
+      {
+        "start": 14131,
+        "end": 14135
+      },
+      {
+        "start": 14136,
+        "end": 14163
+      },
+      {
+        "start": 14209,
+        "end": 14263
+      },
+      {
+        "start": 14264,
+        "end": 14291
+      },
+      {
+        "start": 14337,
+        "end": 14391
+      },
+      {
+        "start": 14392,
+        "end": 14419
+      },
+      {
+        "start": 14465,
+        "end": 14518
+      },
+      {
+        "start": 14520,
+        "end": 14547
+      },
+      {
+        "start": 14594,
+        "end": 14628
+      },
+      {
+        "start": 14629,
+        "end": 14635
+      },
+      {
+        "start": 14636,
+        "end": 14646
+      },
+      {
+        "start": 14648,
+        "end": 14675
+      },
+      {
+        "start": 14722,
+        "end": 14756
+      },
+      {
+        "start": 14757,
+        "end": 14763
+      },
+      {
+        "start": 14764,
+        "end": 14773
+      },
+      {
+        "start": 14777,
+        "end": 14792
+      },
+      {
+        "start": 14794,
+        "end": 14802
+      },
+      {
+        "start": 14851,
+        "end": 14856
+      },
+      {
+        "start": 14858,
+        "end": 14863
+      },
+      {
+        "start": 14864,
+        "end": 14866
+      },
+      {
+        "start": 14867,
+        "end": 14878
+      },
+      {
+        "start": 14879,
+        "end": 14883
+      },
+      {
+        "start": 14886,
+        "end": 14890
+      },
+      {
+        "start": 14892,
+        "end": 14901
+      }
+    ],
+    "available_color_count": 11,
+    "archive_diff": {
+      "diff_count": 1221,
+      "range_count": 106,
+      "first_offset": 146243,
+      "last_offset": 148340,
+      "offsets_sha256": "190201c6c2e38f2e597f79651395c6be33cda02faf8250f038d25f95b04cd169",
+      "ranges_sha256": "d8ffa83c8d961c2511bdf158da585308b30f0967554b21975d60828ce1c27893",
+      "before_values_sha256": "a8d1f70efd1ea579ab355ea5fc7f1da6bbb81c4709213ab9d5be0d93f9a516bf",
+      "after_values_sha256": "4806a182b8ee3fb41983a9f1aaa70b9ff880174f1b9f9ff5c561be916acc3fa9"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "6f186cdcfd84b62736d023d492ddb0963f26a3aa12787c7f2c8c642a527be13a"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "41501aeff4c0f109e528cd0d58c7e1fd4a0dd50e65b3249afc99ad1001513143"
+    },
+    "reference_png": {
+      "size": 27121,
+      "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
+    },
+    "edited_png": {
+      "size": 25850,
+      "sha256": "c6d1c8bbabf51d09dcf1637bbb8b3e1eae579764092d506890ef7ca396e59089"
+    }
+  },
+  "acceptance": {
+    "candidate_registry_exact": true,
+    "single_picture_4bpp_geometry_exact": true,
+    "mask_contains_every_rgba_change": true,
+    "replacement_uses_existing_source_color": true,
+    "preserved_background_rgba_exact": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Prove whether KVMDATA chunk 4 is consumed by the tactical battle command menu before authoring translation.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_battle_save",
+      "open_command_menu_for_two_units",
+      "visit_move_attack_target_and_battle_status_routes",
+      "capture_visible_missing_command_menu_label_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The COMMAND MENU title is absent while the adjacent symbols, number rows, HP, EN and formation labels remain intact.",
+    "promotion_rule": "Only a matching battle screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
+  }
+}

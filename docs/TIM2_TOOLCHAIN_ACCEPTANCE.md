@@ -263,9 +263,31 @@ python3 tools/build_canary_iso.py \
 python3 tools/verify_ui_atlas_map_canary_iso.py --force
 ```
 
-### 8.2 幕间标题
+### 8.2 战场 `COMMAND MENU`
 
-`KVMDATA chunk 6 / record 0 / picture 0` 的第二个隔离 canary 只擦除顶部
+`KVMDATA chunk 4 / record 0 / picture 0` 的隔离 canary 只擦除
+`COMMAND MENU`，mask 为 `x=2, y=100, width=164, height=17`。该矩形结束于
+右侧相邻符号之前、下方数字行之上；背景透明像素保持不变。组件改变 2,297 个
+逻辑像素和 1,221 个 archive byte，完整 KVMDATA 等长。隔离 ISO 只有一个
+替换成员、65 个未替换成员和零 LBA 位移，SHA-256 为
+`067626adbaac4ab0189df3b653c1da040d1ea18783667dc2b3ba7b598cae65c1`。
+
+复验：
+
+```bash
+python3 tools/build_ui_atlas_map_canary.py \
+  --config config/canary/tim2-kvm4-battle-command-map.json --force
+python3 tools/verify_ui_atlas_map_canary.py \
+  --config config/canary/tim2-kvm4-battle-command-map.json --force
+python3 tools/build_canary_iso.py \
+  --config config/iso/ui-battle-command-atlas-map-canary-build.json
+python3 tools/verify_ui_atlas_map_canary_iso.py \
+  --config config/iso/ui-battle-command-atlas-map-canary-build.json --force
+```
+
+### 8.3 幕间标题
+
+`KVMDATA chunk 6 / record 0 / picture 0` 的隔离 canary 只擦除顶部
 `インターミッション`，mask 为 `x=0, y=0, width=185, height=31`。替换色
 为既有不透明黑，并同时保留透明黑与不透明黑背景；右侧箭头、数字行和其余标签
 保持不变。组件改变 803 个逻辑像素和 509 个 archive byte，完整 KVMDATA
@@ -286,8 +308,8 @@ python3 tools/verify_ui_atlas_map_canary_iso.py \
   --config config/iso/ui-intermission-atlas-map-canary-build.json --force
 ```
 
-两项结果都只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
-信息页必须同时看到 `SHIP` 缺失和同一 299 像素 texture delta；幕间必须同时
-看到顶部标题缺失和同一 803 像素 delta。记录精确 PCSX2、ISO、存档、截图及
+三项结果都只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
+信息页、战场和幕间必须分别同时看到目标标题缺失和同一
+299／2,297／803 像素 texture delta。记录精确 PCSX2、ISO、存档、截图及
 转储哈希后，才可升级候选场景映射。静态 preview、ISO 启动或任意 UI 变化都
-不够。chunk 4/5/7 继续分别保留为战场、商店和编成候选。
+不够。chunk 5/7 继续分别保留为商店和编成候选。
