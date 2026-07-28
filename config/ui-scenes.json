@@ -1,0 +1,725 @@
+{
+  "schema_version": 1,
+  "inventory_id": "srwz-ui-scenes-v1",
+  "scope": "UI-first localization scene inventory. Japanese source text remains in ignored work/corpus; this file stores selectors, routes, readiness states and hash-only dynamic probes.",
+  "baseline": {
+    "corpus_manifest": "manifests/corpus-export.json",
+    "source_corpus": "work/corpus/srwz-corpus.jsonl",
+    "text_table": "vendor/upstream-python/project/tbl_all.json",
+    "built_slps": "work/build/first-five/components/SLPS_258.87",
+    "built_vt1": "work/build/first-five/components/DATA/VT1.BIN",
+    "base_codebook": "config/encoding/codebook.json",
+    "font_proposal": "work/writeback/first-five-codebook-proposal.json",
+    "capacity_manifest": "manifests/first-five-validation.json"
+  },
+  "priority_policy": {
+    "P0": "Next integrated UI candidate: frequently visited screens reachable during the opening and first intermission.",
+    "P1": "Visible route, scrolling-summary and embedded-menu surfaces after the P0 writer and font gates are stable.",
+    "P2": "Large vocabulary databases and contextual battle lines that exceed the current append-only glyph margin."
+  },
+  "ratchet": {
+    "p0_unique_entry_count": 462,
+    "p0_missing_renderer_character_limit": 9,
+    "p0_minimum_candidate_slot_margin": 3
+  },
+  "dynamic_sources": [
+    {
+      "source_id": "compdata-fixed-record-display-names",
+      "member": "work/disc/DATA/COMPDATA.BN",
+      "storage": "srwz_stream",
+      "status": "probe_verified_parser_and_writer_missing",
+      "probes": [
+        {
+          "semantic_id": "pilot/female-protagonist/display-name",
+          "decoded_offset": "0x20402",
+          "encoded_size_with_terminator": 7,
+          "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77"
+        },
+        {
+          "semantic_id": "pilot/squadron-leader/display-name",
+          "decoded_offset": "0x20822",
+          "encoded_size_with_terminator": 9,
+          "source_text_sha256": "decf724cc995dde493e13e15e93a5739520e7385e611af707b60dec51d9af230"
+        },
+        {
+          "semantic_id": "unit/vargora-01/display-name",
+          "decoded_offset": "0x6E9F0",
+          "encoded_size_with_terminator": 19,
+          "source_text_sha256": "78ad68a8838797f884811227a14166f47bf0d1bb08fedf912be6b409b20e5a0c"
+        }
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "scene_id": "title/main-menu",
+      "priority": "P0",
+      "label": "标题主菜单",
+      "category": "bitmap-ui",
+      "expected_selected_entry_count": 0,
+      "selectors": [],
+      "asset_sources": [
+        {
+          "manifest": "manifests/title-menu-zh-validation.json",
+          "expected_translation_count": 4,
+          "required_status": "passed"
+        }
+      ],
+      "implementation": {
+        "text": "not_applicable",
+        "asset": "tim2_writer_and_exact_runtime_evidence_available",
+        "integration": "separate_title_menu_iso_not_yet_merged_with_next_ui_candidate"
+      },
+      "route": [
+        "Cold boot the exact candidate ISO.",
+        "Wait for the title menu.",
+        "Move selection from START through LIBRARY and back."
+      ],
+      "runtime_assertions": [
+        "all four labels visible in selected and unselected palette states",
+        "no clipping, overlap or palette corruption",
+        "candidate ISO hash and screenshot hash recorded"
+      ]
+    },
+    {
+      "scene_id": "opening/player-setup",
+      "priority": "P0",
+      "label": "开局路线、主人公与姓名设置",
+      "category": "runtime-text-ui",
+      "expected_selected_entry_count": 31,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-name-screen.json",
+          "expected_entry_count": 13
+        },
+        {
+          "translation_file": "corpus/zh/menu/system-ui-character-setup.json",
+          "expected_entry_count": 8
+        },
+        {
+          "translation_file": "corpus/zh/menu/unclassified.json",
+          "id_ranges": [
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 264,
+              "end": 268,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 346,
+              "end": 350,
+              "width": 4
+            }
+          ],
+          "expected_entry_count": 10
+        }
+      ],
+      "surface_specs": [
+        "config/surfaces/menu-slps-opening.json"
+      ],
+      "implementation": {
+        "text": "fixed_canary_writer_only_bulk_slps_pool_not_registered",
+        "asset": "title_and_select_scenario_textures_not_integrated_as_one_profile",
+        "integration": "pending"
+      },
+      "route": [
+        "START -> main story -> female protagonist.",
+        "Open the default-name screen and visit surname, given-name, nickname, birthday and blood-type fields.",
+        "Confirm the name and reach the scenario-start confirmation."
+      ],
+      "runtime_assertions": [
+        "player-entered name tokens remain dynamic",
+        "field labels and help text fit every tab",
+        "default and edited names render with the same font baseline"
+      ]
+    },
+    {
+      "scene_id": "intermission/main-and-options",
+      "priority": "P0",
+      "label": "幕间主菜单、系统选项与编成入口",
+      "category": "runtime-text-ui",
+      "expected_selected_entry_count": 121,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-command-menu.json",
+          "exclude_ids": [
+            "menu/SLPS/04/0053"
+          ],
+          "expected_entry_count": 67
+        },
+        {
+          "translation_file": "corpus/zh/menu/system-ui-buttons.json",
+          "exclude_ids": [
+            "menu/Compdata/07/0024"
+          ],
+          "expected_entry_count": 24
+        },
+        {
+          "translation_file": "corpus/zh/menu/unclassified.json",
+          "id_ranges": [
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 74,
+              "end": 82,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 182,
+              "end": 186,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 366,
+              "end": 381,
+              "width": 4
+            }
+          ],
+          "expected_entry_count": 30
+        }
+      ],
+      "implementation": {
+        "text": "generic_slps_pointer_writer_implemented_verified_pool_missing",
+        "asset": "menu_atlas_ownership_not_yet_selected",
+        "integration": "pending"
+      },
+      "route": [
+        "Reach the first intermission with a matching memory-card save.",
+        "Visit unit list, upgrade, parts, pilot list, pilot training, transfer and formation.",
+        "Open system options, toggle at least one value, cancel once and confirm once."
+      ],
+      "runtime_assertions": [
+        "top-level labels, descriptions and button hints are Chinese",
+        "selected and disabled states remain aligned",
+        "save/load prompts preserve dynamic stage title and number substitutions"
+      ]
+    },
+    {
+      "scene_id": "information/unit-pilot-mech-core",
+      "priority": "P0",
+      "label": "人物、机体与武器信息页骨架",
+      "category": "mixed-runtime-text-and-atlas-ui",
+      "expected_selected_entry_count": 128,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-unit-mech-pilot-weapons.json",
+          "expected_entry_count": 104
+        },
+        {
+          "translation_file": "corpus/zh/menu/unclassified.json",
+          "id_ranges": [
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 103,
+              "end": 111,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 254,
+              "end": 254,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 316,
+              "end": 324,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 337,
+              "end": 341,
+              "width": 4
+            }
+          ],
+          "expected_entry_count": 24
+        }
+      ],
+      "dynamic_source_refs": [
+        "compdata-fixed-record-display-names"
+      ],
+      "asset_members": [
+        {
+          "member": "KURODATA/KVMDATA.BIN",
+          "status": "tim2_noop_writer_verified_specific_info_page_records_not_mapped"
+        }
+      ],
+      "implementation": {
+        "text": "labels_translated_dynamic_name_parser_and_bulk_writer_missing",
+        "asset": "generic_tim2_writer_available_chinese_info_atlas_not_authored",
+        "integration": "pending"
+      },
+      "route": [
+        "From intermission unit list, open unit information.",
+        "Cycle unit, mech, pilot and weapon tabs for at least two units.",
+        "Open parts, abilities, skills and spirit-command subpanels."
+      ],
+      "runtime_assertions": [
+        "static labels and dynamic pilot/unit names are both Chinese",
+        "long unit and pilot names stay inside their fields",
+        "tab backgrounds and runtime text do not duplicate or overlap labels",
+        "all stat values and terrain grades remain unchanged"
+      ]
+    },
+    {
+      "scene_id": "battle/map-and-tactical",
+      "priority": "P0",
+      "label": "战场指令、条件与战况页面",
+      "category": "runtime-text-ui",
+      "expected_selected_entry_count": 80,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-battle-conditions.json",
+          "expected_entry_count": 33
+        },
+        {
+          "translation_file": "corpus/zh/menu/system-ui-map-data.json",
+          "expected_entry_count": 7
+        },
+        {
+          "translation_file": "corpus/zh/menu/system-ui-tactical.json",
+          "expected_entry_count": 18
+        },
+        {
+          "translation_file": "corpus/zh/menu/unclassified.json",
+          "id_ranges": [
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 0,
+              "end": 15,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 144,
+              "end": 149,
+              "width": 4
+            }
+          ],
+          "expected_entry_count": 22
+        }
+      ],
+      "implementation": {
+        "text": "translations_selected_bulk_slps_pool_not_registered",
+        "asset": "battle_menu_atlas_not_in_current_ui_profile",
+        "integration": "pending"
+      },
+      "route": [
+        "Load a first-five battle-map save.",
+        "Open unit command, all-command, battle conditions and tactical situation.",
+        "Enter an attack preview and cycle attack, evade, defend and support choices."
+      ],
+      "runtime_assertions": [
+        "victory, defeat and SR conditions remain structurally correct",
+        "attack-preview labels do not collide with dynamic unit and weapon names",
+        "map terrain and recovery percentages remain unchanged"
+      ]
+    },
+    {
+      "scene_id": "results/level-up-and-deployment",
+      "priority": "P0",
+      "label": "结算、升级与出击确认",
+      "category": "runtime-text-ui",
+      "expected_selected_entry_count": 52,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-results.json",
+          "expected_entry_count": 31
+        },
+        {
+          "translation_file": "corpus/zh/menu/unclassified.json",
+          "id_ranges": [
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 113,
+              "end": 133,
+              "width": 4
+            }
+          ],
+          "expected_entry_count": 21
+        }
+      ],
+      "implementation": {
+        "text": "translations_selected_bulk_slps_pool_not_registered",
+        "asset": "result_and_deployment_atlas_not_in_current_ui_profile",
+        "integration": "pending"
+      },
+      "route": [
+        "Trigger one level-up and one item or funds reward.",
+        "Finish a stage and inspect the complete results sequence.",
+        "Continue to deployment and visit formation and map-preview choices."
+      ],
+      "runtime_assertions": [
+        "numeric substitutions and item/unit names remain intact",
+        "multi-line acquisition messages fit",
+        "results-to-intermission transition has no archive or TLB failure"
+      ]
+    },
+    {
+      "scene_id": "search/filter-and-results",
+      "priority": "P0",
+      "label": "搜索条件、筛选与结果",
+      "category": "runtime-text-ui",
+      "expected_selected_entry_count": 50,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-search-menu.json",
+          "expected_entry_count": 30
+        },
+        {
+          "translation_file": "corpus/zh/menu/system-ui-search.json",
+          "expected_entry_count": 20
+        }
+      ],
+      "implementation": {
+        "text": "translations_selected_bulk_slps_and_compdata_pools_not_registered",
+        "asset": "search_atlas_not_in_current_ui_profile",
+        "integration": "pending"
+      },
+      "route": [
+        "Open search from intermission.",
+        "Search once each by spirit, skill, captain effect, special ability and squad bonus.",
+        "Exercise zero-result and multiple-result cases."
+      ],
+      "runtime_assertions": [
+        "format substitutions show the selected term and level correctly",
+        "zero-result message and result list are both Chinese",
+        "button hints and priority toggles remain aligned"
+      ]
+    },
+    {
+      "scene_id": "route/stage-title-and-branch",
+      "priority": "P1",
+      "label": "关卡标题与路线选择",
+      "category": "runtime-text-ui",
+      "expected_selected_entry_count": 122,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/stage-names.json",
+          "expected_entry_count": 122
+        }
+      ],
+      "implementation": {
+        "text": "translations_draft_compdata_pool_not_registered",
+        "asset": "route_selection_atlas_not_in_current_ui_profile",
+        "integration": "pending"
+      },
+      "route": [
+        "Enter scenario chart and a route-choice screen.",
+        "Check normal, branch, guidance and hidden-placeholder entries."
+      ],
+      "runtime_assertions": [
+        "visible order matches the parsed route map",
+        "long titles fit without changing route semantics",
+        "hidden and debug placeholders remain intentionally preserved"
+      ]
+    },
+    {
+      "scene_id": "opening/world-history-scroll",
+      "priority": "P1",
+      "label": "开场／资料库世界史滚动文本",
+      "category": "scrolling-runtime-text",
+      "expected_selected_entry_count": 28,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/summary.json",
+          "expected_entry_count": 28
+        }
+      ],
+      "surface_specs": [
+        "config/surfaces/summary-mtv-pros-world-history.json"
+      ],
+      "implementation": {
+        "text": "fixed_allocation_writer_and_one_canary_runtime_verified_full_chinese_reflow_missing",
+        "asset": "backgrounds_untouched",
+        "integration": "pending"
+      },
+      "route": [
+        "Open LIBRARY -> world history and select the first record.",
+        "Capture start, middle and end of the scroll.",
+        "Repeat with a multi-entry later record."
+      ],
+      "runtime_assertions": [
+        "paragraph order and blank-line cadence are preserved",
+        "no line clips at either edge during scrolling",
+        "scroll completes without stale Japanese fragments"
+      ]
+    },
+    {
+      "scene_id": "story/first-five-opening-sequences",
+      "priority": "P1",
+      "label": "前五关开场、黑屏字幕与对话",
+      "category": "story-runtime-text",
+      "expected_selected_entry_count": 1833,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/story-dialogue/stage-001.json",
+          "expected_entry_count": 312
+        },
+        {
+          "translation_file": "corpus/zh/story-dialogue/stage-002.json",
+          "expected_entry_count": 542
+        },
+        {
+          "translation_file": "corpus/zh/story-dialogue/stage-003.json",
+          "expected_entry_count": 36
+        },
+        {
+          "translation_file": "corpus/zh/story-dialogue/stage-004.json",
+          "expected_entry_count": 523
+        },
+        {
+          "translation_file": "corpus/zh/story-dialogue/stage-005.json",
+          "expected_entry_count": 298
+        },
+        {
+          "translation_file": "corpus/zh/story-speakers.json",
+          "id_prefixes": [
+            "story/001/",
+            "story/002/",
+            "story/003/",
+            "story/004/",
+            "story/005/"
+          ],
+          "expected_entry_count": 101
+        },
+        {
+          "translation_file": "corpus/zh/story-conditions.json",
+          "id_prefixes": [
+            "story/001/",
+            "story/002/",
+            "story/003/",
+            "story/004/",
+            "story/005/"
+          ],
+          "expected_entry_count": 21
+        }
+      ],
+      "implementation": {
+        "text": "final_iso_static_reread_passed_current_candidate_runtime_pending",
+        "asset": "portraits_and_backgrounds_untouched",
+        "integration": "present_in_first_five_iso"
+      },
+      "route": [
+        "Play each stage from its opening scene through battle-map entry.",
+        "For black-screen and no-dialog-box lines, capture the complete timed sequence.",
+        "Verify pre-battle, battle-event and post-battle dialogue separately."
+      ],
+      "runtime_assertions": [
+        "speaker, body and condition records stay paired",
+        "black-screen lines are not skipped or truncated",
+        "the exact ISO hash is bound to every runtime record"
+      ]
+    },
+    {
+      "scene_id": "menus/extended-embedded-dialogs",
+      "priority": "P1",
+      "label": "其余内嵌设置、编成与提示文本",
+      "category": "runtime-text-ui",
+      "expected_selected_entry_count": 275,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/unclassified.json",
+          "exclude_id_ranges": [
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 0,
+              "end": 15,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 74,
+              "end": 82,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 103,
+              "end": 111,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 113,
+              "end": 133,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 144,
+              "end": 149,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 182,
+              "end": 186,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 254,
+              "end": 254,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 264,
+              "end": 268,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 316,
+              "end": 324,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 337,
+              "end": 341,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 346,
+              "end": 350,
+              "width": 4
+            },
+            {
+              "prefix": "menu/SLPS/00/",
+              "start": 366,
+              "end": 381,
+              "width": 4
+            }
+          ],
+          "expected_entry_count": 275
+        }
+      ],
+      "implementation": {
+        "text": "translated_but_still_grouped_as_upstream_unknown",
+        "asset": "not_selected",
+        "integration": "must_be_split_by_visible_screen_before_writeback"
+      },
+      "route": [
+        "Do not treat this group as one runtime fixture.",
+        "Split it by visible screen using pointer ownership and screenshots before promotion."
+      ],
+      "runtime_assertions": [
+        "every promoted subset has a named route and screenshot fixture"
+      ]
+    },
+    {
+      "scene_id": "menus/late-game-special-prompts",
+      "priority": "P1",
+      "label": "后期专用指令与合神提示",
+      "category": "runtime-text-ui",
+      "expected_selected_entry_count": 2,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-command-menu.json",
+          "entry_ids": [
+            "menu/SLPS/04/0053"
+          ],
+          "expected_entry_count": 1
+        },
+        {
+          "translation_file": "corpus/zh/menu/system-ui-buttons.json",
+          "entry_ids": [
+            "menu/Compdata/07/0024"
+          ],
+          "expected_entry_count": 1
+        }
+      ],
+      "implementation": {
+        "text": "translations_use_unsettled_english_names_and_need_human_terminology_review",
+        "asset": "not_applicable",
+        "integration": "deferred_from_opening_first_intermission_p0"
+      },
+      "route": [
+        "Load a late-game save with the relevant units and command unlocked.",
+        "Trigger both the dedicated command and its timed-combination prompt."
+      ],
+      "runtime_assertions": [
+        "the approved unit and command names fit without extra ASCII glyph allocation",
+        "the multi-line prompt preserves turn count and automatic-separation semantics"
+      ]
+    },
+    {
+      "scene_id": "database/parts-skills-abilities-weapons",
+      "priority": "P2",
+      "label": "零件、技能、能力、精神与武器数据库",
+      "category": "large-vocabulary-runtime-text",
+      "expected_selected_entry_count": 1250,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-parts.json",
+          "expected_entry_count": 133
+        },
+        {
+          "translation_file": "corpus/zh/menu/weapons.json",
+          "expected_entry_count": 711
+        },
+        {
+          "translation_file": "corpus/zh/menu/system-ui-skills.json",
+          "expected_entry_count": 88
+        },
+        {
+          "translation_file": "corpus/zh/menu/system-ui-special-abilities.json",
+          "expected_entry_count": 158
+        },
+        {
+          "translation_file": "corpus/zh/menu/system-ui-spirit-commands.json",
+          "expected_entry_count": 145
+        },
+        {
+          "translation_file": "corpus/zh/menu/system-ui-leadership.json",
+          "expected_entry_count": 15
+        }
+      ],
+      "implementation": {
+        "text": "translations_exist_current_append_only_font_capacity_insufficient",
+        "asset": "shared_with_information_pages",
+        "integration": "deferred_until_glyph_strategy_expands"
+      },
+      "route": [
+        "Sample shortest, longest and multi-line records in each database.",
+        "Test list, detail and disabled/unavailable states."
+      ],
+      "runtime_assertions": [
+        "names, descriptions and numeric effects preserve meaning",
+        "long weapon and skill descriptions obey per-surface line limits"
+      ]
+    },
+    {
+      "scene_id": "battle/retreat-lines",
+      "priority": "P2",
+      "label": "战斗退场台词",
+      "category": "battle-runtime-text",
+      "expected_selected_entry_count": 297,
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/battle-lines.json",
+          "expected_entry_count": 297
+        }
+      ],
+      "implementation": {
+        "text": "translations_exist_compdata_pool_and_runtime_trigger_matrix_missing",
+        "asset": "not_applicable",
+        "integration": "deferred"
+      },
+      "route": [
+        "Trigger representative ally, enemy, ship and boss retreat lines.",
+        "Record speaker identity and trigger conditions for each sampled line."
+      ],
+      "runtime_assertions": [
+        "speaker-specific wording is paired with the correct trigger",
+        "line count and battle transition timing remain intact"
+      ]
+    }
+  ]
+}

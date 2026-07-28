@@ -33,7 +33,7 @@
 | --- | --- |
 | 原版与样本 | `verify_original_disc.py`、`extract_iso_member.py`、`split_stage_archive.py`、`verify_codec_samples.py` |
 | 解码诊断 | `inspect_srwz_stream.py`、`scan_stage_streams.py` |
-| 全量解析与语料 | `parse_srwz_iso_data.py`、`export_srwz_corpus.py`、`review_srwz_translations.py`（含当前剧情里程碑术语、例外和官方简中异名专项表）、`build_biligame_gundam_reference.py`（从 Jina 缓存离线重建 SRWZ 高达人物／机体审核索引，不自动采用社区 WIKI 译名）、`reflow_first_five_dialogue.py`（24 字宽、最多 3 行、术语／运行时 token 不拆分和中文标点禁则）、`audit_first_five_language_quality.py`（前五关显示行宽、结构符号和同源异译说明门）、`audit_first_five_upstream_english.py`（固定上游英语直接覆盖与跨关同源参考审计）、`export_story_dialogue_stage_review.py`、`build_story_dialogue_stage_translation.py` |
+| 全量解析与语料 | `parse_srwz_iso_data.py`、`export_srwz_corpus.py`、`review_srwz_translations.py`（含当前剧情里程碑术语、例外和官方简中异名专项表）、`build_biligame_gundam_reference.py`（从 Jina 缓存离线重建 SRWZ 高达人物／机体审核索引，不自动采用社区 WIKI 译名）、`reflow_first_five_dialogue.py`（24 字宽、最多 3 行、术语／运行时 token 不拆分和中文标点禁则）、`audit_first_five_language_quality.py`（前五关显示行宽、结构符号和同源异译说明门）、`audit_first_five_upstream_english.py`（固定上游英语直接覆盖与跨关同源参考审计）、`audit_ui_coverage.py`（UI 场景选择、当前字库需求、动态名称探针和提交清单 freshness）、`export_story_dialogue_stage_review.py`、`build_story_dialogue_stage_translation.py` |
 | 生产 profile | `validate_build_profile.py` |
 | 字库 | `analyze_srwz_font.py`、`render_srwz_font.py`、`fetch_canary_font.py`、`fetch_first_five_font.py`、`audit_first_five_writeback.py`、`build_first_five_font.py`、`audit_first_five_font_coverage.py` |
 | 图片/地图名 | `inventory_srwz_assets.py`、`export_srwz_images.py`、`build_image_dashboard.py`、`render_srwz_tim2.py`、`inject_srwz_tim2.py`、`build_tim2_runtime_canary.py`、`parse_srwz_map_names.py` |

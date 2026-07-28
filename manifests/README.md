@@ -61,3 +61,6 @@
   `START/LOAD/CONTINUE/LIBRARY → 开始/读取/继续/资料库` 的坐标级 PSMT8
   写回；记录固定字体/mask、12,514 个像素修改、重压缩与 ISO、两种光标状态
   截图，以及 PCSX2 转储纹理与离线预览逐像素一致的运行证据。
+- `ui-surface-inventory.json`：从真实语料、当前前五关字库和 COMPDATA
+  hash-only 探针确定性投影的 UI 场景摘要；固定 P0 的 462 条文本、九个缺字、
+  12 个剩余候选槽和三槽余量，并明确区分译文决策、writer、ISO 与运行状态。

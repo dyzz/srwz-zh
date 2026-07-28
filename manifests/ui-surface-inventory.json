@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "status": "inventory_passed_work_remaining",
+  "inventory_id": "srwz-ui-scenes-v1",
+  "scope": "Scene selection, source freshness, translation-decision coverage, current first-five font demand and hash-only dynamic probes. This is not writer, ISO or runtime acceptance.",
+  "source_corpus": {
+    "path": "work/corpus/srwz-corpus.jsonl",
+    "entry_count": 94189,
+    "aggregate_sha256": "a221f7a057b4464dcf3703167cb046579c692707c5760df1dfbdafe11675fbdd",
+    "manifest": "manifests/corpus-export.json",
+    "exact": true
+  },
+  "font_baseline": {
+    "slps_sha256": "65fc00b2ff2dd223a0c6c4bfb97643871612db0a97eb68709a7da90787d91169",
+    "vt1_sha256": "7f60acbb3df024f352ed404c9cd0331d95a606f6e116994d0785ea8c4f076f11",
+    "decoded_font_sha256": "a5b9a58097c78c75ebcd80419266450288e7be123b9afe3af9a46c92798b766e",
+    "remaining_candidate_slot_count": 12,
+    "interpretation": "Planning baseline only; a future UI candidate must rebuild and revalidate the exact font and ISO."
+  },
+  "summary": {
+    "scene_count": 14,
+    "priority_scene_counts": {
+      "P0": 7,
+      "P1": 5,
+      "P2": 2
+    },
+    "p0_unique_entry_count": 462,
+    "p0_missing_renderer_character_count": 9,
+    "p0_missing_renderer_characters": "养减删效昵编节览陆",
+    "p0_original_font_han_count": 9,
+    "p0_remaining_candidate_slot_count": 12,
+    "p0_candidate_slot_margin": 3,
+    "dynamic_probe_count": 3
+  },
+  "ratchet": {
+    "expected": {
+      "p0_unique_entry_count": 462,
+      "p0_missing_renderer_character_limit": 9,
+      "p0_minimum_candidate_slot_margin": 3
+    },
+    "checks": {
+      "p0_unique_entry_count": true,
+      "p0_missing_renderer_character_limit": true,
+      "p0_candidate_slot_margin": true
+    },
+    "passed": true
+  },
+  "dynamic_sources": [
+    {
+      "source_id": "compdata-fixed-record-display-names",
+      "status": "probe_verified_parser_and_writer_missing",
+      "member": "work/disc/DATA/COMPDATA.BN",
+      "stored_size": 144990,
+      "stored_sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+      "decoded_size": 524032,
+      "decoded_sha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb",
+      "probe_count": 3,
+      "probes": [
+        {
+          "semantic_id": "pilot/female-protagonist/display-name",
+          "decoded_offset": "0x20402",
+          "encoded_size_with_terminator": 7,
+          "source_text_sha256": "f849df175db52f6ccaff797b65ad3e239034dd6d642c912465bcf6e888cfaf77",
+          "exact": true
+        },
+        {
+          "semantic_id": "pilot/squadron-leader/display-name",
+          "decoded_offset": "0x20822",
+          "encoded_size_with_terminator": 9,
+          "source_text_sha256": "decf724cc995dde493e13e15e93a5739520e7385e611af707b60dec51d9af230",
+          "exact": true
+        },
+        {
+          "semantic_id": "unit/vargora-01/display-name",
+          "decoded_offset": "0x6E9F0",
+          "encoded_size_with_terminator": 19,
+          "source_text_sha256": "78ad68a8838797f884811227a14166f47bf0d1bb08fedf912be6b409b20e5a0c",
+          "exact": true
+        }
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "scene_id": "title/main-menu",
+      "priority": "P0",
+      "label": "标题主菜单",
+      "category": "bitmap-ui",
+      "selected_entry_count": 0,
+      "decision_complete_count": 0,
+      "asset_translation_count": 4,
+      "missing_renderer_character_count": 0,
+      "assets": [
+        {
+          "manifest": "manifests/title-menu-zh-validation.json",
+          "translation_count": 4,
+          "status": "passed",
+          "exact": true
+        }
+      ],
+      "implementation": {
+        "text": "not_applicable",
+        "asset": "tim2_writer_and_exact_runtime_evidence_available",
+        "integration": "separate_title_menu_iso_not_yet_merged_with_next_ui_candidate"
+      },
+      "runtime_route_step_count": 3,
+      "runtime_assertion_count": 3
+    },
+    {
+      "scene_id": "opening/player-setup",
+      "priority": "P0",
+      "label": "开局路线、主人公与姓名设置",
+      "category": "runtime-text-ui",
+      "selected_entry_count": 31,
+      "decision_complete_count": 31,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 2,
+      "assets": [],
+      "implementation": {
+        "text": "fixed_canary_writer_only_bulk_slps_pool_not_registered",
+        "asset": "title_and_select_scenario_textures_not_integrated_as_one_profile",
+        "integration": "pending"
+      },
+      "runtime_route_step_count": 3,
+      "runtime_assertion_count": 3
+    },
+    {
+      "scene_id": "intermission/main-and-options",
+      "priority": "P0",
+      "label": "幕间主菜单、系统选项与编成入口",
+      "category": "runtime-text-ui",
+      "selected_entry_count": 121,
+      "decision_complete_count": 121,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 4,
+      "assets": [],
+      "implementation": {
+        "text": "generic_slps_pointer_writer_implemented_verified_pool_missing",
+        "asset": "menu_atlas_ownership_not_yet_selected",
+        "integration": "pending"
+      },
+      "runtime_route_step_count": 3,
+      "runtime_assertion_count": 3
+    },
+    {
+      "scene_id": "information/unit-pilot-mech-core",
+      "priority": "P0",
+      "label": "人物、机体与武器信息页骨架",
+      "category": "mixed-runtime-text-and-atlas-ui",
+      "selected_entry_count": 128,
+      "decision_complete_count": 128,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 5,
+      "assets": [],
+      "implementation": {
+        "text": "labels_translated_dynamic_name_parser_and_bulk_writer_missing",
+        "asset": "generic_tim2_writer_available_chinese_info_atlas_not_authored",
+        "integration": "pending"
+      },
+      "runtime_route_step_count": 3,
+      "runtime_assertion_count": 4
+    },
+    {
+      "scene_id": "battle/map-and-tactical",
+      "priority": "P0",
+      "label": "战场指令、条件与战况页面",
+      "category": "runtime-text-ui",
+      "selected_entry_count": 80,
+      "decision_complete_count": 80,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 1,
+      "assets": [],
+      "implementation": {
+        "text": "translations_selected_bulk_slps_pool_not_registered",
+        "asset": "battle_menu_atlas_not_in_current_ui_profile",
+        "integration": "pending"
+      },
+      "runtime_route_step_count": 3,
+      "runtime_assertion_count": 3
+    },
+    {
+      "scene_id": "results/level-up-and-deployment",
+      "priority": "P0",
+      "label": "结算、升级与出击确认",
+      "category": "runtime-text-ui",
+      "selected_entry_count": 52,
+      "decision_complete_count": 52,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 0,
+      "assets": [],
+      "implementation": {
+        "text": "translations_selected_bulk_slps_pool_not_registered",
+        "asset": "result_and_deployment_atlas_not_in_current_ui_profile",
+        "integration": "pending"
+      },
+      "runtime_route_step_count": 3,
+      "runtime_assertion_count": 3
+    },
+    {
+      "scene_id": "search/filter-and-results",
+      "priority": "P0",
+      "label": "搜索条件、筛选与结果",
+      "category": "runtime-text-ui",
+      "selected_entry_count": 50,
+      "decision_complete_count": 50,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 1,
+      "assets": [],
+      "implementation": {
+        "text": "translations_selected_bulk_slps_and_compdata_pools_not_registered",
+        "asset": "search_atlas_not_in_current_ui_profile",
+        "integration": "pending"
+      },
+      "runtime_route_step_count": 3,
+      "runtime_assertion_count": 3
+    },
+    {
+      "scene_id": "route/stage-title-and-branch",
+      "priority": "P1",
+      "label": "关卡标题与路线选择",
+      "category": "runtime-text-ui",
+      "selected_entry_count": 122,
+      "decision_complete_count": 122,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 36,
+      "assets": [],
+      "implementation": {
+        "text": "translations_draft_compdata_pool_not_registered",
+        "asset": "route_selection_atlas_not_in_current_ui_profile",
+        "integration": "pending"
+      },
+      "runtime_route_step_count": 2,
+      "runtime_assertion_count": 3
+    },
+    {
+      "scene_id": "opening/world-history-scroll",
+      "priority": "P1",
+      "label": "开场／资料库世界史滚动文本",
+      "category": "scrolling-runtime-text",
+      "selected_entry_count": 28,
+      "decision_complete_count": 28,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 43,
+      "assets": [],
+      "implementation": {
+        "text": "fixed_allocation_writer_and_one_canary_runtime_verified_full_chinese_reflow_missing",
+        "asset": "backgrounds_untouched",
+        "integration": "pending"
+      },
+      "runtime_route_step_count": 3,
+      "runtime_assertion_count": 3
+    },
+    {
+      "scene_id": "story/first-five-opening-sequences",
+      "priority": "P1",
+      "label": "前五关开场、黑屏字幕与对话",
+      "category": "story-runtime-text",
+      "selected_entry_count": 1833,
+      "decision_complete_count": 1833,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 0,
+      "assets": [],
+      "implementation": {
+        "text": "final_iso_static_reread_passed_current_candidate_runtime_pending",
+        "asset": "portraits_and_backgrounds_untouched",
+        "integration": "present_in_first_five_iso"
+      },
+      "runtime_route_step_count": 3,
+      "runtime_assertion_count": 3
+    },
+    {
+      "scene_id": "menus/extended-embedded-dialogs",
+      "priority": "P1",
+      "label": "其余内嵌设置、编成与提示文本",
+      "category": "runtime-text-ui",
+      "selected_entry_count": 275,
+      "decision_complete_count": 275,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 14,
+      "assets": [],
+      "implementation": {
+        "text": "translated_but_still_grouped_as_upstream_unknown",
+        "asset": "not_selected",
+        "integration": "must_be_split_by_visible_screen_before_writeback"
+      },
+      "runtime_route_step_count": 2,
+      "runtime_assertion_count": 1
+    },
+    {
+      "scene_id": "menus/late-game-special-prompts",
+      "priority": "P1",
+      "label": "后期专用指令与合神提示",
+      "category": "runtime-text-ui",
+      "selected_entry_count": 2,
+      "decision_complete_count": 2,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 3,
+      "assets": [],
+      "implementation": {
+        "text": "translations_use_unsettled_english_names_and_need_human_terminology_review",
+        "asset": "not_applicable",
+        "integration": "deferred_from_opening_first_intermission_p0"
+      },
+      "runtime_route_step_count": 2,
+      "runtime_assertion_count": 2
+    },
+    {
+      "scene_id": "database/parts-skills-abilities-weapons",
+      "priority": "P2",
+      "label": "零件、技能、能力、精神与武器数据库",
+      "category": "large-vocabulary-runtime-text",
+      "selected_entry_count": 1250,
+      "decision_complete_count": 1250,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 146,
+      "assets": [],
+      "implementation": {
+        "text": "translations_exist_current_append_only_font_capacity_insufficient",
+        "asset": "shared_with_information_pages",
+        "integration": "deferred_until_glyph_strategy_expands"
+      },
+      "runtime_route_step_count": 2,
+      "runtime_assertion_count": 2
+    },
+    {
+      "scene_id": "battle/retreat-lines",
+      "priority": "P2",
+      "label": "战斗退场台词",
+      "category": "battle-runtime-text",
+      "selected_entry_count": 297,
+      "decision_complete_count": 297,
+      "asset_translation_count": 0,
+      "missing_renderer_character_count": 31,
+      "assets": [],
+      "implementation": {
+        "text": "translations_exist_compdata_pool_and_runtime_trigger_matrix_missing",
+        "asset": "not_applicable",
+        "integration": "deferred"
+      },
+      "runtime_route_step_count": 2,
+      "runtime_assertion_count": 2
+    }
+  ]
+}
