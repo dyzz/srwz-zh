@@ -1,0 +1,365 @@
+{
+  "schema_version": 1,
+  "status": "fixed_slps_component_validated_pool_and_runtime_pending",
+  "profile_id": "srwz-ui-p0-slps-fixed-v1",
+  "scope": "P0 SLPS menu translations that fit inside every original NUL-terminated target span. Pointer and MIPS instruction bytes remain unchanged; growing SLPS entries and all COMPDATA entries are excluded.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-writeback/ui-p0-slps-fixed.json",
+      "sha256": "a619ae2f68ea1fa0438b5b602952398da328b4c339ea4d0bdb78a469e771c4c5"
+    },
+    "font_manifest": {
+      "path": "manifests/ui-p0-font-validation.json",
+      "sha256": "87847f94f285d950c1e8c0aae425d5e23cd5655731b28ab2c140b2b1524337cc"
+    },
+    "source_slps": {
+      "path": "work/build/ui-p0/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "b4d822cbc3ea58ff9cd3ba6d64f3229f029af3578c126b5b001b5d9e737bb369"
+    },
+    "source_vt1": {
+      "path": "work/build/ui-p0/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "eeb25f1b6c403777637e1c7f132db38901f51dd107069661223d77badd8471f8"
+    },
+    "scene_inventory": {
+      "path": "config/ui-scenes.json",
+      "sha256": "59462e6430e1f75295a600ed39af22fba7b9d83e912fba75bc445f29d4fca0cc",
+      "inventory_id": "srwz-ui-scenes-v1",
+      "priorities": [
+        "P0"
+      ],
+      "scene_ids": [
+        "title/main-menu",
+        "opening/player-setup",
+        "intermission/main-and-options",
+        "information/unit-pilot-mech-core",
+        "battle/map-and-tactical",
+        "results/level-up-and-deployment",
+        "search/filter-and-results"
+      ],
+      "p0_unique_entry_count": 462,
+      "p0_slps_entry_count": 418
+    },
+    "menu_descriptor": {
+      "path": "vendor/upstream-python/project/menu_files.json",
+      "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a",
+      "friendly_name": "SLPS",
+      "parsed_entry_count": 934
+    },
+    "text_table": {
+      "path": "vendor/upstream-python/project/tbl_all.json",
+      "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+    },
+    "codebook": {
+      "base_codebook": {
+        "path": "config/encoding/codebook.json",
+        "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+      },
+      "proposal": {
+        "path": "work/writeback/ui-p0-codebook-proposal.json",
+        "sha256": "8807712775d40c870d06850c8a0b8f76484c2047447d6086bdd361889b093a81"
+      },
+      "override_count": 1454
+    }
+  },
+  "selection": {
+    "selected_entry_count": 384,
+    "selected_target_count": 479,
+    "selection_sha256": "7b6336385829358a7d51ea406ee3d588ccf21701c36ef55649575e09989ac378",
+    "excluded_entry_count": 34,
+    "excluded_reason_counts": {
+      "overflow": 34
+    }
+  },
+  "excluded": [
+    {
+      "entry_id": "menu/SLPS/00/0082",
+      "reason": "overflow",
+      "payload_size": 15,
+      "minimum_capacity": 13
+    },
+    {
+      "entry_id": "menu/SLPS/01/0000",
+      "reason": "overflow",
+      "payload_size": 9,
+      "minimum_capacity": 7
+    },
+    {
+      "entry_id": "menu/SLPS/01/0004",
+      "reason": "overflow",
+      "payload_size": 13,
+      "minimum_capacity": 9
+    },
+    {
+      "entry_id": "menu/SLPS/01/0005",
+      "reason": "overflow",
+      "payload_size": 13,
+      "minimum_capacity": 9
+    },
+    {
+      "entry_id": "menu/SLPS/02/0019",
+      "reason": "overflow",
+      "payload_size": 9,
+      "minimum_capacity": 5
+    },
+    {
+      "entry_id": "menu/SLPS/02/0024",
+      "reason": "overflow",
+      "payload_size": 9,
+      "minimum_capacity": 7
+    },
+    {
+      "entry_id": "menu/SLPS/02/0030",
+      "reason": "overflow",
+      "payload_size": 8,
+      "minimum_capacity": 7
+    },
+    {
+      "entry_id": "menu/SLPS/02/0032",
+      "reason": "overflow",
+      "payload_size": 10,
+      "minimum_capacity": 9
+    },
+    {
+      "entry_id": "menu/SLPS/03/0007",
+      "reason": "overflow",
+      "payload_size": 9,
+      "minimum_capacity": 7
+    },
+    {
+      "entry_id": "menu/SLPS/03/0010",
+      "reason": "overflow",
+      "payload_size": 16,
+      "minimum_capacity": 15
+    },
+    {
+      "entry_id": "menu/SLPS/03/0011",
+      "reason": "overflow",
+      "payload_size": 16,
+      "minimum_capacity": 15
+    },
+    {
+      "entry_id": "menu/SLPS/03/0012",
+      "reason": "overflow",
+      "payload_size": 4,
+      "minimum_capacity": 3
+    },
+    {
+      "entry_id": "menu/SLPS/04/0009",
+      "reason": "overflow",
+      "payload_size": 9,
+      "minimum_capacity": 7
+    },
+    {
+      "entry_id": "menu/SLPS/04/0011",
+      "reason": "overflow",
+      "payload_size": 11,
+      "minimum_capacity": 9
+    },
+    {
+      "entry_id": "menu/SLPS/04/0012",
+      "reason": "overflow",
+      "payload_size": 13,
+      "minimum_capacity": 11
+    },
+    {
+      "entry_id": "menu/SLPS/04/0013",
+      "reason": "overflow",
+      "payload_size": 13,
+      "minimum_capacity": 9
+    },
+    {
+      "entry_id": "menu/SLPS/04/0027",
+      "reason": "overflow",
+      "payload_size": 17,
+      "minimum_capacity": 15
+    },
+    {
+      "entry_id": "menu/SLPS/04/0029",
+      "reason": "overflow",
+      "payload_size": 17,
+      "minimum_capacity": 15
+    },
+    {
+      "entry_id": "menu/SLPS/04/0031",
+      "reason": "overflow",
+      "payload_size": 10,
+      "minimum_capacity": 9
+    },
+    {
+      "entry_id": "menu/SLPS/04/0057",
+      "reason": "overflow",
+      "payload_size": 9,
+      "minimum_capacity": 7
+    },
+    {
+      "entry_id": "menu/SLPS/07/0009",
+      "reason": "overflow",
+      "payload_size": 7,
+      "minimum_capacity": 5
+    },
+    {
+      "entry_id": "menu/SLPS/07/0014",
+      "reason": "overflow",
+      "payload_size": 4,
+      "minimum_capacity": 3
+    },
+    {
+      "entry_id": "menu/SLPS/07/0016",
+      "reason": "overflow",
+      "payload_size": 13,
+      "minimum_capacity": 7
+    },
+    {
+      "entry_id": "menu/SLPS/07/0017",
+      "reason": "overflow",
+      "payload_size": 9,
+      "minimum_capacity": 7
+    },
+    {
+      "entry_id": "menu/SLPS/07/0018",
+      "reason": "overflow",
+      "payload_size": 18,
+      "minimum_capacity": 11
+    },
+    {
+      "entry_id": "menu/SLPS/07/0023",
+      "reason": "overflow",
+      "payload_size": 7,
+      "minimum_capacity": 5
+    },
+    {
+      "entry_id": "menu/SLPS/07/0024",
+      "reason": "overflow",
+      "payload_size": 9,
+      "minimum_capacity": 7
+    },
+    {
+      "entry_id": "menu/SLPS/11/0016",
+      "reason": "overflow",
+      "payload_size": 13,
+      "minimum_capacity": 11
+    },
+    {
+      "entry_id": "menu/SLPS/11/0034",
+      "reason": "overflow",
+      "payload_size": 11,
+      "minimum_capacity": 9
+    },
+    {
+      "entry_id": "menu/SLPS/11/0035",
+      "reason": "overflow",
+      "payload_size": 11,
+      "minimum_capacity": 9
+    },
+    {
+      "entry_id": "menu/SLPS/11/0083",
+      "reason": "overflow",
+      "payload_size": 9,
+      "minimum_capacity": 7
+    },
+    {
+      "entry_id": "menu/SLPS/11/0085",
+      "reason": "overflow",
+      "payload_size": 6,
+      "minimum_capacity": 5
+    },
+    {
+      "entry_id": "menu/SLPS/11/0086",
+      "reason": "overflow",
+      "payload_size": 4,
+      "minimum_capacity": 3
+    },
+    {
+      "entry_id": "menu/SLPS/12/0007",
+      "reason": "overflow",
+      "payload_size": 11,
+      "minimum_capacity": 9
+    }
+  ],
+  "write": {
+    "entry_count": 384,
+    "target_count": 479,
+    "payload_size": 3890,
+    "owned_capacity": 4482,
+    "target_metadata_sha256": "ac60f3da09008dbb9ef9d64f7eb298faa468a925c82c7813530b7b645b75c40a",
+    "patch_plan_metadata_sha256": "6fb4c1e73f09d0fba41168701262fdd81f763b58e7983d6cdd28346249620d56",
+    "pointer_write_count": 0,
+    "pointer_bytes_unchanged": true,
+    "non_target_bytes_unchanged": true,
+    "target_reparse_exact": true
+  },
+  "component": {
+    "size": 3471624,
+    "sha256": "79410e003400ad6f3ab32d8d7c6ed7ff18b367a34537cae48aab2493cda59bd1",
+    "changed_byte_count": 2560,
+    "difference_range_count": 461,
+    "source_font_decoded_sha256": "32307efc39ad9788d1b0c96e7008a0ceee122a7d60407e3e75bd6d2684c2bf53",
+    "output_font_decoded_sha256": "32307efc39ad9788d1b0c96e7008a0ceee122a7d60407e3e75bd6d2684c2bf53",
+    "font_decoded_unchanged": true
+  },
+  "ratchet": {
+    "expected": {
+      "p0_unique_entry_count": 462,
+      "p0_slps_entry_count": 418,
+      "selected_fixed_entry_count": 384,
+      "selected_target_count": 479,
+      "excluded_overflow_entry_count": 34,
+      "excluded_other_entry_count": 0
+    },
+    "checks": {
+      "p0_unique_entry_count": true,
+      "p0_slps_entry_count": true,
+      "selected_fixed_entry_count": true,
+      "selected_target_count": true,
+      "excluded_overflow_entry_count": true,
+      "excluded_other_entry_count": true
+    },
+    "passed": true
+  },
+  "remaining_work": {
+    "growing_slps_entry_count": 34,
+    "compdata_p0_entry_count": 44,
+    "requires_registered_pool_or_other_allocation": [
+      "menu/SLPS/00/0082",
+      "menu/SLPS/01/0000",
+      "menu/SLPS/01/0004",
+      "menu/SLPS/01/0005",
+      "menu/SLPS/02/0019",
+      "menu/SLPS/02/0024",
+      "menu/SLPS/02/0030",
+      "menu/SLPS/02/0032",
+      "menu/SLPS/03/0007",
+      "menu/SLPS/03/0010",
+      "menu/SLPS/03/0011",
+      "menu/SLPS/03/0012",
+      "menu/SLPS/04/0009",
+      "menu/SLPS/04/0011",
+      "menu/SLPS/04/0012",
+      "menu/SLPS/04/0013",
+      "menu/SLPS/04/0027",
+      "menu/SLPS/04/0029",
+      "menu/SLPS/04/0031",
+      "menu/SLPS/04/0057",
+      "menu/SLPS/07/0009",
+      "menu/SLPS/07/0014",
+      "menu/SLPS/07/0016",
+      "menu/SLPS/07/0017",
+      "menu/SLPS/07/0018",
+      "menu/SLPS/07/0023",
+      "menu/SLPS/07/0024",
+      "menu/SLPS/11/0016",
+      "menu/SLPS/11/0034",
+      "menu/SLPS/11/0035",
+      "menu/SLPS/11/0083",
+      "menu/SLPS/11/0085",
+      "menu/SLPS/11/0086",
+      "menu/SLPS/12/0007"
+    ]
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "This is an isolated SLPS component. It has not been combined with VT1, title assets, COMPDATA, STAGE or an exact ISO."
+  }
+}

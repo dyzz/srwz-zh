@@ -64,3 +64,11 @@
 - `ui-surface-inventory.json`：从真实语料、当前前五关字库和 COMPDATA
   hash-only 探针确定性投影的 UI 场景摘要；固定 P0 的 462 条文本、九个缺字、
   12 个剩余候选槽和三槽余量，并明确区分译文决策、writer、ISO 与运行状态。
+- `ui-p0-font-validation.json`：在不改变 first-five 组件的前提下追加九个
+  P0 UI 字符并统一重绘九个原版汉字；记录 1,454 个 assignment、VT1
+  size-preserving 重压缩、SLPS offset 回读、462 条文本零缺字／零原版汉字
+  混用和三槽余量。状态仅为离线通过，ISO 和运行验证仍待完成。
+- `ui-p0-fixed-slps-validation.json`：在 UI 字库候选 SLPS 上写入 384 条
+  fixed-span P0 文本／479 个去重目标；记录 34 条 overflow，证明指针、MIPS
+  HI/LO、非目标字节和解压字库哈希不变。COMPDATA、增长池、ISO 和运行验证
+  仍待完成。

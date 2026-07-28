@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "font_profile_id": "srwz-ui-p0-unified-font-v1",
+  "base_font_config": {
+    "path": "config/fonts/first-five-font.json",
+    "sha256": "90b7a41f78657a40bc75abd73381d8807f1779c4f0bd9c5269f7799e1949b7cd"
+  },
+  "base_validation_manifest": "manifests/first-five-validation.json",
+  "allocation_registry": "config/encoding/ui-p0-allocations.json",
+  "scene_inventory": {
+    "path": "config/ui-scenes.json",
+    "sha256": "59462e6430e1f75295a600ed39af22fba7b9d83e912fba75bc445f29d4fca0cc",
+    "inventory_id": "srwz-ui-scenes-v1",
+    "priorities": [
+      "P0"
+    ],
+    "scene_ids": [
+      "title/main-menu",
+      "opening/player-setup",
+      "intermission/main-and-options",
+      "information/unit-pilot-mech-core",
+      "battle/map-and-tactical",
+      "results/level-up-and-deployment",
+      "search/filter-and-results"
+    ],
+    "expected_unique_entry_count": 462
+  },
+  "scope": {
+    "base_stage_indices": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "ui_inventory": "srwz-ui-scenes-v1",
+    "ui_priorities": [
+      "P0"
+    ],
+    "rerasterize": "All CJK unified ideographs used by the first-five translations or selected P0 UI translations, plus every allocated character.",
+    "preserve": "Original kana, Latin glyphs, punctuation with an existing reachable glyph, control symbols, and glyphs outside the combined selection."
+  },
+  "outputs": {
+    "readiness": "work/writeback/ui-p0-font-readiness.json",
+    "proposal": "work/writeback/ui-p0-codebook-proposal.json",
+    "component_root": "work/build/ui-p0/components",
+    "validation": "work/review/ui-p0-font-validation.json",
+    "manifest": "manifests/ui-p0-font-validation.json"
+  }
+}

@@ -53,13 +53,10 @@ UPSTREAM_CHANGED_GLYPH_START = 167
 UPSTREAM_CHANGED_GLYPH_COUNT = 120
 UPSTREAM_CHANGED_REGION_START = UPSTREAM_CHANGED_GLYPH_START * GLYPH_SIZE
 UPSTREAM_CHANGED_REGION_END = (
-    UPSTREAM_CHANGED_REGION_START
-    + UPSTREAM_CHANGED_GLYPH_COUNT * GLYPH_SIZE
+    UPSTREAM_CHANGED_REGION_START + UPSTREAM_CHANGED_GLYPH_COUNT * GLYPH_SIZE
 )
 
-SHIFT_JIS_TRAILS = tuple(
-    list(range(0x40, 0x7F)) + list(range(0x80, 0xFD))
-)
+SHIFT_JIS_TRAILS = tuple(list(range(0x40, 0x7F)) + list(range(0x80, 0xFD)))
 
 
 def is_cjk_unified_ideograph(character: str) -> bool:
@@ -144,15 +141,9 @@ class FontPatchAnalysis:
             "glyph_count": self.glyph_count,
             "changed_glyph_count": len(self.changed_glyph_indices),
             "changed_glyph_indices": list(self.changed_glyph_indices),
-            "changed_ascii_glyph_count": len(
-                self.changed_ascii_glyph_indices
-            ),
-            "changed_ascii_glyph_indices": list(
-                self.changed_ascii_glyph_indices
-            ),
-            "unchanged_ascii_glyph_indices": list(
-                self.unchanged_ascii_glyph_indices
-            ),
+            "changed_ascii_glyph_count": len(self.changed_ascii_glyph_indices),
+            "changed_ascii_glyph_indices": list(self.changed_ascii_glyph_indices),
+            "unchanged_ascii_glyph_indices": list(self.unchanged_ascii_glyph_indices),
         }
 
 
@@ -229,32 +220,23 @@ class GlyphCodeMappingAnalysis:
             "text_code_count": self.text_code_count,
             "standard_text_code_count": self.standard_text_code_count,
             "extended_table_entry_count": self.extended_table_entry_count,
-            "extended_table_unique_code_count": (
-                self.extended_table_unique_code_count
-            ),
-            "reachable_extended_entry_count": (
-                self.reachable_extended_entry_count
-            ),
+            "extended_table_unique_code_count": (self.extended_table_unique_code_count),
+            "reachable_extended_entry_count": (self.reachable_extended_entry_count),
             "reachable_extended_unique_code_count": (
                 self.reachable_extended_unique_code_count
             ),
             "reachable_extended_duplicate_count": (
                 self.reachable_extended_duplicate_count
             ),
-            "unreachable_extended_entry_count": (
-                self.unreachable_extended_entry_count
-            ),
+            "unreachable_extended_entry_count": (self.unreachable_extended_entry_count),
             "supported_extended_text_code_count": (
                 self.supported_extended_text_code_count
             ),
             "extended_codes_absent_from_text_table": [
-                f"{code:04X}"
-                for code in self.extended_codes_absent_from_text_table
+                f"{code:04X}" for code in self.extended_codes_absent_from_text_table
             ],
             "supported_text_code_count": self.supported_text_code_count,
-            "unsupported_text_code_count": len(
-                self.unsupported_text_codes
-            ),
+            "unsupported_text_code_count": len(self.unsupported_text_codes),
             "referenced_glyph_count": self.referenced_glyph_count,
             "glyphs_not_referenced_by_text_table_count": (
                 self.glyphs_not_referenced_by_text_table_count
@@ -272,7 +254,7 @@ class GlyphCodeMappingAnalysis:
 
 def decode_font_stream(data: bytes) -> DecodedFontSegment:
     result = decode(data)
-    padding = data[result.consumed:]
+    padding = data[result.consumed :]
     return DecodedFontSegment(
         compressed_size=len(data),
         compressed_sha256=sha256_bytes(data),
@@ -296,9 +278,7 @@ def decode_vt1_font_segment(
     )
     if not 0 <= segment_index < len(offsets) - 1:
         raise ValueError("font segment index is outside VT1")
-    return decode_font_stream(
-        vt1[offsets[segment_index]:offsets[segment_index + 1]]
-    )
+    return decode_font_stream(vt1[offsets[segment_index] : offsets[segment_index + 1]])
 
 
 def _difference_range_count(indices: Iterable[int]) -> int:
@@ -360,10 +340,7 @@ def extended_glyph_index(row: int, packed_position: int) -> int:
 
     if not isinstance(row, int) or not -0x80 <= row <= 0x7F:
         raise ValueError("extended glyph row is outside signed byte range")
-    if (
-        not isinstance(packed_position, int)
-        or not 0 <= packed_position <= 0xFF
-    ):
+    if not isinstance(packed_position, int) or not 0 <= packed_position <= 0xFF:
         raise ValueError("extended glyph position is outside byte range")
     # The renderer spells this out as row * 7 * 32, followed by the high
     # nibble * 16 and the low nibble.  The latter two terms equal the byte.
@@ -398,9 +375,7 @@ def read_extended_glyph_table(
             return tuple(entries)
         index = extended_glyph_index(row, packed_position)
         if not 0 <= index < glyph_count:
-            raise ValueError(
-                "extended glyph entry resolves outside font data"
-            )
+            raise ValueError("extended glyph entry resolves outside font data")
         entries.append(
             ExtendedGlyphEntry(
                 code=code,
@@ -487,43 +462,27 @@ def analyze_glyph_code_mapping(
             extended_slots.add(index)
 
     extended_codes_absent = tuple(
-        sorted(
-            code
-            for code in reachable_mapping
-            if code not in table.characters
-        )
+        sorted(code for code in reachable_mapping if code not in table.characters)
     )
     referenced_slots = standard_slots | extended_slots
     return GlyphCodeMappingAnalysis(
         text_code_count=len(table.characters),
         standard_text_code_count=len(standard_codes),
         extended_table_entry_count=len(entries),
-        extended_table_unique_code_count=len(
-            {entry.code for entry in entries}
-        ),
+        extended_table_unique_code_count=len({entry.code for entry in entries}),
         reachable_extended_entry_count=len(reachable_entries),
         reachable_extended_unique_code_count=len(reachable_mapping),
         reachable_extended_duplicate_count=(
             len(reachable_entries) - len(reachable_mapping)
         ),
-        unreachable_extended_entry_count=(
-            len(entries) - len(reachable_entries)
-        ),
-        supported_extended_text_code_count=len(
-            supported_extended_codes
-        ),
+        unreachable_extended_entry_count=(len(entries) - len(reachable_entries)),
+        supported_extended_text_code_count=len(supported_extended_codes),
         extended_codes_absent_from_text_table=extended_codes_absent,
-        supported_text_code_count=(
-            len(standard_codes) + len(supported_extended_codes)
-        ),
+        supported_text_code_count=(len(standard_codes) + len(supported_extended_codes)),
         unsupported_text_codes=tuple(unsupported_codes),
         referenced_glyph_count=len(referenced_slots),
-        glyphs_not_referenced_by_text_table_count=(
-            glyph_count - len(referenced_slots)
-        ),
-        standard_extended_glyph_overlap_count=len(
-            standard_slots & extended_slots
-        ),
+        glyphs_not_referenced_by_text_table_count=(glyph_count - len(referenced_slots)),
+        standard_extended_glyph_overlap_count=len(standard_slots & extended_slots),
     )
 
 
@@ -544,7 +503,7 @@ def decode_glyph(data: bytes, index: int) -> bytes:
     """Decode one 24x24 4-bpp glyph to one byte per pixel (values 0..15)."""
 
     offset = glyph_offset(index, data_size=len(data))
-    packed = data[offset:offset + GLYPH_SIZE]
+    packed = data[offset : offset + GLYPH_SIZE]
     pixels = bytearray()
     for value in packed:
         pixels.append(value & 0x0F)
@@ -558,13 +517,8 @@ def encode_glyph(pixels: Iterable[int]) -> bytes:
     values = tuple(pixels)
     expected = GLYPH_WIDTH * GLYPH_HEIGHT
     if len(values) != expected:
-        raise ValueError(
-            f"glyph needs {expected} pixels, got {len(values)}"
-        )
-    if any(
-        not isinstance(value, int) or not 0 <= value <= 0x0F
-        for value in values
-    ):
+        raise ValueError(f"glyph needs {expected} pixels, got {len(values)}")
+    if any(not isinstance(value, int) or not 0 <= value <= 0x0F for value in values):
         raise ValueError("glyph pixels must be integer values in 0..15")
     output = bytearray()
     for position in range(0, len(values), 2):
@@ -577,7 +531,7 @@ def replace_glyph(data: bytes, index: int, pixels: Iterable[int]) -> bytes:
 
     offset = glyph_offset(index, data_size=len(data))
     output = bytearray(data)
-    output[offset:offset + GLYPH_SIZE] = encode_glyph(pixels)
+    output[offset : offset + GLYPH_SIZE] = encode_glyph(pixels)
     return bytes(output)
 
 
@@ -600,8 +554,7 @@ def grayscale_png(width: int, height: int, pixels: Iterable[int]) -> bytes:
         )
 
     rows = b"".join(
-        b"\x00" + values[y * width:(y + 1) * width]
-        for y in range(height)
+        b"\x00" + values[y * width : (y + 1) * width] for y in range(height)
     )
     header = struct.pack(">IIBBBBB", width, height, 8, 0, 0, 0, 0)
     return (
@@ -645,7 +598,7 @@ def render_glyph_grid(
                 target_y = origin_y + y * scale
                 for scaled_y in range(scale):
                     start = (target_y + scaled_y) * width + target_x
-                    canvas[start:start + scale] = bytes([value]) * scale
+                    canvas[start : start + scale] = bytes([value]) * scale
     return grayscale_png(width, height, canvas)
 
 
@@ -688,18 +641,15 @@ def analyze_font_patch(
         index
         for index in range(len(original) // GLYPH_SIZE)
         if (
-            original[index * GLYPH_SIZE:(index + 1) * GLYPH_SIZE]
-            != candidate[index * GLYPH_SIZE:(index + 1) * GLYPH_SIZE]
+            original[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
+            != candidate[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
         )
     )
     ascii_glyphs = tuple(
-        ascii_glyph_index(code)
-        for code in range(ASCII_FIRST, ASCII_LAST + 1)
+        ascii_glyph_index(code) for code in range(ASCII_FIRST, ASCII_LAST + 1)
     )
     changed_glyph_set = set(changed_glyphs)
-    changed_ascii = tuple(
-        index for index in ascii_glyphs if index in changed_glyph_set
-    )
+    changed_ascii = tuple(index for index in ascii_glyphs if index in changed_glyph_set)
     unchanged_ascii = tuple(
         index for index in ascii_glyphs if index not in changed_glyph_set
     )
@@ -732,9 +682,7 @@ def analyze_font_patch(
 def inventory_codebook(table: TextTable) -> CodebookInventory:
     lead_bytes = tuple(sorted({code >> 8 for code in table.characters}))
     candidate_codes = tuple(
-        (lead << 8) | trail
-        for lead in lead_bytes
-        for trail in SHIFT_JIS_TRAILS
+        (lead << 8) | trail for lead in lead_bytes for trail in SHIFT_JIS_TRAILS
     )
     candidate_unmapped = tuple(
         code for code in candidate_codes if code not in table.characters
@@ -743,13 +691,65 @@ def inventory_codebook(table: TextTable) -> CodebookInventory:
     return CodebookInventory(
         mapped_code_count=len(table.characters),
         unique_character_count=len(unique_characters),
-        duplicate_character_count=(
-            len(table.characters) - len(unique_characters)
-        ),
+        duplicate_character_count=(len(table.characters) - len(unique_characters)),
         lead_bytes=lead_bytes,
         candidate_capacity=len(candidate_codes),
         candidate_unmapped_codes=candidate_unmapped,
     )
+
+
+def safe_standard_allocation_candidates(
+    table: TextTable,
+    extended_entries: Iterable[ExtendedGlyphEntry],
+    *,
+    reserved_codes: Iterable[int] = (),
+    reserved_glyphs: Iterable[int] = (),
+) -> tuple[tuple[tuple[int, int], ...], tuple[tuple[int, int], ...]]:
+    """Return legacy and expanded code/glyph candidates in stable order.
+
+    A candidate must be absent from the pinned text table and must not share
+    a glyph with printable ASCII, a reachable table entry, the executable's
+    extension table, or an explicitly reserved assignment.
+    """
+
+    entries = tuple(extended_entries)
+    blocked_codes = set(reserved_codes)
+    used_glyphs = set(reserved_glyphs)
+    for code in table.characters:
+        try:
+            used_glyphs.add(glyph_index_for_code(code, entries))
+        except ValueError:
+            pass
+    used_glyphs.update(
+        ascii_glyph_index(code) for code in range(ASCII_FIRST, ASCII_LAST + 1)
+    )
+    used_glyphs.update(extended_glyph_mapping(entries).values())
+
+    legacy_codes = inventory_codebook(table).candidate_unmapped_codes
+    legacy_set = set(legacy_codes)
+    expanded_codes = tuple(
+        (lead << 8) | trail
+        for lead in range(STANDARD_LEAD_START, STANDARD_LEAD_END + 1)
+        for trail in SHIFT_JIS_TRAILS
+        if (lead << 8) | trail not in table.characters
+        and (lead << 8) | trail not in legacy_set
+    )
+
+    def usable(codes: Iterable[int]) -> tuple[tuple[int, int], ...]:
+        result = []
+        for code in codes:
+            if code in blocked_codes:
+                continue
+            try:
+                glyph_index = standard_glyph_index(code)
+            except ValueError:
+                continue
+            if glyph_index in used_glyphs:
+                continue
+            result.append((code, glyph_index))
+        return tuple(result)
+
+    return usable(legacy_codes), usable(expanded_codes)
 
 
 __all__ = [
@@ -800,6 +800,7 @@ __all__ = [
     "render_glyph_grid",
     "read_extended_glyph_table",
     "replace_glyph",
+    "safe_standard_allocation_candidates",
     "sha256_bytes",
     "standard_glyph_index",
 ]

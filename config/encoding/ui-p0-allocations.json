@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "registry_id": "srwz-ui-p0-v1",
+  "policy": "Extend the locked first-five registry without changing any existing code/glyph assignment. New UI characters are append-only and remain reserved even if later translations stop using them.",
+  "base_registry": {
+    "path": "config/encoding/first-five-allocations.json",
+    "sha256": "068a0a61e74c114b1e09250fc403d9e184a5209fe7db8700c18196813447e7e6",
+    "registered_character_count": 638
+  },
+  "appended_characters": "养减删效昵编节览陆",
+  "retired_appended_characters": [],
+  "ratchet": {
+    "appended_character_count": 9,
+    "combined_registered_character_count": 647,
+    "remaining_candidate_slot_count": 3,
+    "additional_reraster_existing_han_count": 9
+  }
+}

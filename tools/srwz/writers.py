@@ -58,9 +58,7 @@ class CodecArchiveRebuild:
             "archive_size": len(self.data),
             "archive_sha256": sha256_bytes(self.data),
             "offset_count": len(self.offsets),
-            "offsets_aligned_16": all(
-                offset % 16 == 0 for offset in self.offsets
-            ),
+            "offsets_aligned_16": all(offset % 16 == 0 for offset in self.offsets),
             "encoded_size": sum(self.encoded_sizes),
             "padding_size": sum(self.padding_sizes),
             "decoded_sha256": list(self.decoded_sha256),
@@ -154,14 +152,11 @@ class StageBatchWrite:
                 }
                 for start, end in self.owned_regions
             ],
-            "owned_capacity": sum(
-                end - start for start, end in self.owned_regions
-            ),
+            "owned_capacity": sum(end - start for start, end in self.owned_regions),
             "unique_payload_count": self.unique_payload_count,
             "allocation_count": len(self.allocations),
             "allocations": [
-                allocation.to_metadata()
-                for allocation in self.allocations
+                allocation.to_metadata() for allocation in self.allocations
             ],
         }
 
@@ -185,6 +180,46 @@ class TextPoolAllocation:
             "direct_pointer_offsets": list(self.direct_pointer_offsets),
             "embedded_hi_offsets": list(self.embedded_hi_offsets),
             "embedded_lo_offsets": list(self.embedded_lo_offsets),
+        }
+
+
+@dataclass(frozen=True)
+class FixedMenuTargetWrite:
+    entry_ids: tuple[str, ...]
+    target_offset: int
+    capacity: int
+    payload_size: int
+
+    def to_metadata(self) -> dict:
+        return {
+            "entry_ids": list(self.entry_ids),
+            "target_offset": self.target_offset,
+            "capacity": self.capacity,
+            "payload_size": self.payload_size,
+        }
+
+
+@dataclass(frozen=True)
+class FixedMenuWrite:
+    data: bytes
+    source_size: int
+    source_sha256: str
+    entry_count: int
+    targets: tuple[FixedMenuTargetWrite, ...]
+    patch_plan: PatchPlan
+
+    def to_metadata(self) -> dict:
+        return {
+            "source_size": self.source_size,
+            "output_size": len(self.data),
+            "source_sha256": self.source_sha256,
+            "output_sha256": sha256_bytes(self.data),
+            "entry_count": self.entry_count,
+            "target_count": len(self.targets),
+            "payload_size": sum(target.payload_size for target in self.targets),
+            "owned_capacity": sum(target.capacity for target in self.targets),
+            "targets": [target.to_metadata() for target in self.targets],
+            "patch_plan": self.patch_plan.to_metadata(),
         }
 
 
@@ -213,8 +248,7 @@ class TextPoolWrite:
             "alignment": self.alignment,
             "allocation_count": len(self.allocations),
             "allocations": [
-                allocation.to_metadata()
-                for allocation in self.allocations
+                allocation.to_metadata() for allocation in self.allocations
             ],
             "patch_plan": self.patch_plan.to_metadata(),
         }
@@ -224,6 +258,125 @@ def _split_mips_address(address: int) -> tuple:
     if not 0 <= address <= 0xFFFFFFFF:
         raise WritebackError("text pool pointer exceeds 32 bits")
     return ((address + 0x8000) >> 16) & 0xFFFF, address & 0xFFFF
+
+
+def replace_menu_texts_in_place(
+    data: bytes,
+    parsed: MenuParseResult,
+    table: TextTable,
+    *,
+    replacements: Mapping[str, str],
+    overrides: Mapping[str, int] | None = None,
+    source_name: str | None = None,
+) -> FixedMenuWrite:
+    """Replace menu strings only inside their original terminated spans.
+
+    Pointer bytes never change. A target shared by multiple parsed entries is
+    writable only when every owner is selected and resolves to one identical
+    payload. Longer translations must use an explicitly registered pool.
+    """
+
+    if parsed.source_size != len(data):
+        raise WritebackError(f"{parsed.friendly_name} parse/source size mismatch")
+    entries = {entry.entry_id: entry for entry in parsed.entries}
+    unknown = sorted(set(replacements) - set(entries))
+    if unknown:
+        raise WritebackError(f"unknown menu replacement ids: {unknown!r}")
+    target_owners: dict[int, set[str]] = {}
+    for entry in parsed.entries:
+        for target_offset in set(entry.target_offsets):
+            target_owners.setdefault(target_offset, set()).add(entry.entry_id)
+
+    payloads = {}
+    for entry_id, replacement in replacements.items():
+        entry = entries[entry_id]
+        if not entry.target_offsets:
+            raise WritebackError(f"{entry_id} has no writable text target")
+        payloads[entry_id] = encode_text(
+            replacement,
+            table,
+            overrides=overrides,
+            terminate=True,
+        )
+
+    operations = []
+    target_reports = []
+    for target_offset in sorted(
+        {
+            target
+            for entry_id in replacements
+            for target in entries[entry_id].target_offsets
+        }
+    ):
+        owners = target_owners[target_offset]
+        missing_owners = sorted(owners - set(replacements))
+        if missing_owners:
+            raise WritebackError(
+                f"menu target 0x{target_offset:X} is shared with "
+                f"unselected entries: {missing_owners!r}"
+            )
+        owner_payloads = {payloads[entry_id] for entry_id in owners}
+        if len(owner_payloads) != 1:
+            raise WritebackError(
+                f"menu target 0x{target_offset:X} has conflicting replacement payloads"
+            )
+        payload = owner_payloads.pop()
+        decoded = decode_text(data, target_offset, table)
+        for entry_id in owners:
+            if decoded.text != entries[entry_id].text:
+                raise WritebackError(f"{entry_id} source text preimage mismatch")
+        if len(payload) > decoded.consumed:
+            raise WritebackError(
+                f"menu target 0x{target_offset:X} overflow: need "
+                f"{len(payload)}, capacity {decoded.consumed}"
+            )
+        before = data[target_offset : target_offset + decoded.consumed]
+        after = payload + bytes(decoded.consumed - len(payload))
+        operations.append(
+            PatchOperation(
+                owner=" / ".join(sorted(owners)),
+                offset=target_offset,
+                before=before,
+                after=after,
+            )
+        )
+        target_reports.append(
+            FixedMenuTargetWrite(
+                entry_ids=tuple(sorted(owners)),
+                target_offset=target_offset,
+                capacity=decoded.consumed,
+                payload_size=len(payload),
+            )
+        )
+
+    plan = PatchPlan(
+        source_name=source_name or parsed.friendly_name,
+        source_size=len(data),
+        source_sha256=sha256_bytes(data),
+        operations=tuple(operations),
+    )
+    output = plan.apply(data)
+    output_table = _table_with_overrides(table, overrides)
+    for target in target_reports:
+        decoded = decode_text(
+            output,
+            target.target_offset,
+            output_table,
+        )
+        expected = replacements[target.entry_ids[0]]
+        if decoded.text != expected:
+            raise WritebackError(
+                f"menu target 0x{target.target_offset:X} reparse mismatch"
+            )
+
+    return FixedMenuWrite(
+        data=output,
+        source_size=len(data),
+        source_sha256=sha256_bytes(data),
+        entry_count=len(replacements),
+        targets=tuple(target_reports),
+        patch_plan=plan,
+    )
 
 
 def relocate_menu_texts_to_pool(
@@ -247,9 +400,7 @@ def relocate_menu_texts_to_pool(
     """
 
     if parsed.source_size != len(data):
-        raise WritebackError(
-            f"{parsed.friendly_name} parse/source size mismatch"
-        )
+        raise WritebackError(f"{parsed.friendly_name} parse/source size mismatch")
     if alignment <= 0 or alignment & (alignment - 1):
         raise ValueError("text pool alignment must be a power of two")
     if not 0 <= pool_start <= pool_end <= len(data):
@@ -260,9 +411,7 @@ def relocate_menu_texts_to_pool(
     entries = {entry.entry_id: entry for entry in parsed.entries}
     unknown = sorted(set(replacements) - set(entries))
     if unknown:
-        raise WritebackError(
-            f"unknown menu replacement ids: {unknown!r}"
-        )
+        raise WritebackError(f"unknown menu replacement ids: {unknown!r}")
 
     pool = AllocationPool(
         f"{parsed.friendly_name} text",
@@ -276,28 +425,19 @@ def relocate_menu_texts_to_pool(
     for entry_id in sorted(replacements):
         entry = entries[entry_id]
         if not entry.pointer_offsets and not entry.embedded_hi:
-            raise WritebackError(
-                f"{entry_id} has no relocatable pointer references"
-            )
+            raise WritebackError(f"{entry_id} has no relocatable pointer references")
         if len(entry.embedded_hi) != len(entry.embedded_lo):
-            raise WritebackError(
-                f"{entry_id} has unmatched MIPS HI/LO references"
-            )
+            raise WritebackError(f"{entry_id} has unmatched MIPS HI/LO references")
         if len(entry.pointer_offsets) > len(entry.target_offsets):
-            raise WritebackError(
-                f"{entry_id} pointer provenance is incomplete"
-            )
+            raise WritebackError(f"{entry_id} pointer provenance is incomplete")
 
         source_addresses = {
-            parsed.base_offset + target
-            for target in entry.target_offsets
+            parsed.base_offset + target for target in entry.target_offsets
         }
         for target_offset in entry.target_offsets:
             source = decode_text(data, target_offset, table)
             if source.text != entry.text:
-                raise WritebackError(
-                    f"{entry_id} source text preimage mismatch"
-                )
+                raise WritebackError(f"{entry_id} source text preimage mismatch")
 
         direct_sites = []
         for pointer_offset, target_offset in zip(
@@ -305,16 +445,12 @@ def relocate_menu_texts_to_pool(
             entry.target_offsets,
         ):
             if not 0 <= pointer_offset <= len(data) - 4:
-                raise WritebackError(
-                    f"{entry_id} direct pointer is outside source"
-                )
-            before = data[pointer_offset:pointer_offset + 4]
+                raise WritebackError(f"{entry_id} direct pointer is outside source")
+            before = data[pointer_offset : pointer_offset + 4]
             actual_address = struct.unpack("<I", before)[0]
             expected_address = parsed.base_offset + target_offset
             if actual_address != expected_address:
-                raise WritebackError(
-                    f"{entry_id} direct pointer preimage mismatch"
-                )
+                raise WritebackError(f"{entry_id} direct pointer preimage mismatch")
             direct_sites.append((pointer_offset, before))
 
         embedded_sites = []
@@ -325,24 +461,17 @@ def relocate_menu_texts_to_pool(
             hi_offset = hi_address - parsed.base_offset
             lo_offset = lo_address - parsed.base_offset
             if not (
-                0 <= hi_offset <= len(data) - 2
-                and 0 <= lo_offset <= len(data) - 2
+                0 <= hi_offset <= len(data) - 2 and 0 <= lo_offset <= len(data) - 2
             ):
-                raise WritebackError(
-                    f"{entry_id} embedded pointer is outside source"
-                )
-            before_hi = data[hi_offset:hi_offset + 2]
-            before_lo = data[lo_offset:lo_offset + 2]
+                raise WritebackError(f"{entry_id} embedded pointer is outside source")
+            before_hi = data[hi_offset : hi_offset + 2]
+            before_lo = data[lo_offset : lo_offset + 2]
             old_hi = struct.unpack("<H", before_hi)[0]
             old_lo = struct.unpack("<h", before_lo)[0]
             actual_address = (old_hi << 16) + old_lo
             if actual_address not in source_addresses:
-                raise WritebackError(
-                    f"{entry_id} embedded pointer preimage mismatch"
-                )
-            embedded_sites.append(
-                (hi_offset, lo_offset, before_hi, before_lo)
-            )
+                raise WritebackError(f"{entry_id} embedded pointer preimage mismatch")
+            embedded_sites.append((hi_offset, lo_offset, before_hi, before_lo))
 
         payload = encode_text(
             replacements[entry_id],
@@ -360,9 +489,7 @@ def relocate_menu_texts_to_pool(
             PatchOperation(
                 owner=f"{entry_id} pool allocation",
                 offset=allocation_offset,
-                before=data[
-                    allocation_offset:allocation_offset + len(payload)
-                ],
+                before=data[allocation_offset : allocation_offset + len(payload)],
                 after=payload,
             )
         )
@@ -399,15 +526,9 @@ def relocate_menu_texts_to_pool(
                 pool_offset=allocation_offset,
                 pointer_address=pointer_address,
                 payload_size=len(payload),
-                direct_pointer_offsets=tuple(
-                    site[0] for site in direct_sites
-                ),
-                embedded_hi_offsets=tuple(
-                    site[0] for site in embedded_sites
-                ),
-                embedded_lo_offsets=tuple(
-                    site[1] for site in embedded_sites
-                ),
+                direct_pointer_offsets=tuple(site[0] for site in direct_sites),
+                embedded_hi_offsets=tuple(site[0] for site in embedded_sites),
+                embedded_lo_offsets=tuple(site[1] for site in embedded_sites),
             )
         )
 
@@ -427,9 +548,7 @@ def relocate_menu_texts_to_pool(
             output_table,
         )
         if decoded.text != replacement:
-            raise WritebackError(
-                f"{allocation.entry_id} pool text reparse mismatch"
-            )
+            raise WritebackError(f"{allocation.entry_id} pool text reparse mismatch")
         for pointer_offset in allocation.direct_pointer_offsets:
             actual = struct.unpack_from("<I", output, pointer_offset)[0]
             if actual != allocation.pointer_address:
@@ -474,9 +593,7 @@ def build_summary_patch_plan(
     entries = {entry.entry_id: entry for entry in parsed.entries}
     unknown = sorted(set(replacements) - set(entries))
     if unknown:
-        raise WritebackError(
-            f"unknown summary replacement ids: {unknown!r}"
-        )
+        raise WritebackError(f"unknown summary replacement ids: {unknown!r}")
 
     operations = []
     for entry_id in sorted(replacements):
@@ -489,13 +606,9 @@ def build_summary_patch_plan(
         after = fit_fixed_allocation(
             payload,
             entry.allocated_length,
-            terminator=(
-                b"\x00" if entry.terminator == "nul" else b""
-            ),
+            terminator=(b"\x00" if entry.terminator == "nul" else b""),
         )
-        before = data[
-            entry.text_offset:entry.text_offset + entry.allocated_length
-        ]
+        before = data[entry.text_offset : entry.text_offset + entry.allocated_length]
         operations.append(
             PatchOperation(
                 owner=entry_id,
@@ -539,9 +652,7 @@ def apply_summary_replacements(
     actual = {entry.entry_id: entry.text for entry in reparsed.entries}
     for entry_id, expected in replacements.items():
         if actual.get(entry_id) != expected:
-            raise WritebackError(
-                f"{entry_id} reparse mismatch after summary write"
-            )
+            raise WritebackError(f"{entry_id} reparse mismatch after summary write")
     return output
 
 
@@ -575,13 +686,9 @@ def relocate_stage_text_to_arena(
         function_address=function_address,
         base_address=base_address,
     )
-    matches = tuple(
-        entry for entry in parsed.entries if entry.entry_id == entry_id
-    )
+    matches = tuple(entry for entry in parsed.entries if entry.entry_id == entry_id)
     if len(matches) != 1:
-        raise WritebackError(
-            f"stage entry {entry_id!r} has {len(matches)} matches"
-        )
+        raise WritebackError(f"stage entry {entry_id!r} has {len(matches)} matches")
     entry = matches[0]
     if entry.pointer_offset is None or entry.text_offset is None:
         raise WritebackError(
@@ -592,9 +699,7 @@ def relocate_stage_text_to_arena(
     expected_address = base_address + text_offset
     actual_address = struct.unpack_from("<I", data, pointer_offset)[0]
     if actual_address != expected_address:
-        raise WritebackError(
-            f"stage entry {entry_id!r} pointer preimage mismatch"
-        )
+        raise WritebackError(f"stage entry {entry_id!r} pointer preimage mismatch")
 
     if entry.kind == "dialogue":
         speaker = decode_text(
@@ -605,7 +710,7 @@ def relocate_stage_text_to_arena(
         )
         if speaker.terminator == "newline":
             message = decode_text(data, speaker.end, table)
-            prefix = data[text_offset:speaker.end]
+            prefix = data[text_offset : speaker.end]
         else:
             message = speaker
             prefix = b""
@@ -613,9 +718,7 @@ def relocate_stage_text_to_arena(
         message = decode_text(data, text_offset, table)
         prefix = b""
     if message.text != entry.text:
-        raise WritebackError(
-            f"stage entry {entry_id!r} parser/source text mismatch"
-        )
+        raise WritebackError(f"stage entry {entry_id!r} parser/source text mismatch")
 
     encoded_message = encode_text(
         replacement,
@@ -627,14 +730,10 @@ def relocate_stage_text_to_arena(
     source_payload_size = len(prefix) + message.consumed
     source_payload_end = text_offset + source_payload_size
     source_slack_end = source_payload_end
-    while (
-        source_slack_end < len(data)
-        and data[source_slack_end] == 0
-    ):
+    while source_slack_end < len(data) and data[source_slack_end] == 0:
         source_slack_end += 1
     used_source_allocation = (
-        text_offset % alignment == 0
-        and text_offset + len(payload) <= source_slack_end
+        text_offset % alignment == 0 and text_offset + len(payload) <= source_slack_end
     )
 
     last_nonzero = max(
@@ -642,9 +741,7 @@ def relocate_stage_text_to_arena(
         default=-1,
     )
     source_tail_start = last_nonzero + 1
-    source_tail_arena = (
-        source_tail_start + alignment - 1
-    ) & ~(alignment - 1)
+    source_tail_arena = (source_tail_start + alignment - 1) & ~(alignment - 1)
     used_source_tail = (
         not used_source_allocation
         and source_tail_arena + len(payload) <= len(data)
@@ -674,12 +771,10 @@ def relocate_stage_text_to_arena(
 
     output = bytearray(data)
     if used_source_allocation:
-        output[arena_offset:arena_offset + len(payload)] = payload
-        arena_tail_padding = (
-            source_slack_end - arena_offset - len(payload)
-        )
+        output[arena_offset : arena_offset + len(payload)] = payload
+        arena_tail_padding = source_slack_end - arena_offset - len(payload)
     elif used_source_tail:
-        output[arena_offset:arena_offset + len(payload)] = payload
+        output[arena_offset : arena_offset + len(payload)] = payload
         arena_tail_padding = len(output) - arena_offset - len(payload)
     else:
         output.extend(bytes(arena_padding))
@@ -691,7 +786,7 @@ def relocate_stage_text_to_arena(
 
     expected = bytearray(data)
     if used_source_allocation or used_source_tail:
-        expected[arena_offset:arena_offset + len(payload)] = payload
+        expected[arena_offset : arena_offset + len(payload)] = payload
     else:
         expected.extend(bytes(arena_padding))
         expected.extend(payload)
@@ -708,9 +803,7 @@ def relocate_stage_text_to_arena(
         function_address=function_address,
         base_address=base_address,
     )
-    rematches = tuple(
-        item for item in reparsed.entries if item.entry_id == entry_id
-    )
+    rematches = tuple(item for item in reparsed.entries if item.entry_id == entry_id)
     if (
         len(rematches) != 1
         or rematches[0].text != replacement
@@ -771,8 +864,7 @@ def relocate_stage_texts_to_arena(
         raise WritebackError(f"unknown stage replacement ids: {unknown!r}")
     selected = [entries[entry_id] for entry_id in sorted(replacements)]
     if any(
-        entry.pointer_offset is None or entry.text_offset is None
-        for entry in selected
+        entry.pointer_offset is None or entry.text_offset is None for entry in selected
     ):
         raise WritebackError("stage batch contains a non-relocatable record")
     pointer_offsets = [entry.pointer_offset for entry in selected]
@@ -781,15 +873,11 @@ def relocate_stage_texts_to_arena(
 
     speaker_replacements = speaker_replacements or {}
     known_speakers = {
-        entry.speaker_id
-        for entry in parsed.entries
-        if entry.speaker_id is not None
+        entry.speaker_id for entry in parsed.entries if entry.speaker_id is not None
     }
     unknown_speakers = sorted(set(speaker_replacements) - known_speakers)
     if unknown_speakers:
-        raise WritebackError(
-            f"unknown stage speaker ids: {unknown_speakers!r}"
-        )
+        raise WritebackError(f"unknown stage speaker ids: {unknown_speakers!r}")
 
     output = bytearray(data)
     allocations = []
@@ -797,13 +885,9 @@ def relocate_stage_texts_to_arena(
     for entry in selected:
         assert entry.pointer_offset is not None
         assert entry.text_offset is not None
-        actual_address = struct.unpack_from(
-            "<I", data, entry.pointer_offset
-        )[0]
+        actual_address = struct.unpack_from("<I", data, entry.pointer_offset)[0]
         if actual_address != base_address + entry.text_offset:
-            raise WritebackError(
-                f"{entry.entry_id} pointer preimage mismatch"
-            )
+            raise WritebackError(f"{entry.entry_id} pointer preimage mismatch")
 
         prefix = b""
         expected_speaker = None
@@ -820,19 +904,20 @@ def relocate_stage_texts_to_arena(
                     entry.speaker_id,
                     speaker.text,
                 )
-                prefix = encode_text(
-                    expected_speaker,
-                    table,
-                    overrides=overrides,
-                ) + b"\n"
+                prefix = (
+                    encode_text(
+                        expected_speaker,
+                        table,
+                        overrides=overrides,
+                    )
+                    + b"\n"
+                )
             else:
                 message = speaker
         else:
             message = decode_text(data, entry.text_offset, table)
         if message.text != entry.text:
-            raise WritebackError(
-                f"{entry.entry_id} parser/source text mismatch"
-            )
+            raise WritebackError(f"{entry.entry_id} parser/source text mismatch")
         payload = prefix + encode_text(
             replacements[entry.entry_id],
             table,
@@ -869,9 +954,7 @@ def relocate_stage_texts_to_arena(
         function_address=function_address,
         base_address=base_address,
     )
-    actual_messages = {
-        entry.entry_id: entry.text for entry in reparsed.entries
-    }
+    actual_messages = {entry.entry_id: entry.text for entry in reparsed.entries}
     for allocation in allocations:
         expected_message = replacements[allocation.entry_id]
         if actual_messages.get(allocation.entry_id) != expected_message:
@@ -892,9 +975,7 @@ def relocate_stage_texts_to_arena(
                 actual_speaker.terminator != "newline"
                 or actual_speaker.text != expected_speaker
             ):
-                raise WritebackError(
-                    f"{allocation.entry_id} speaker reparse mismatch"
-                )
+                raise WritebackError(f"{allocation.entry_id} speaker reparse mismatch")
 
     return StageBatchWrite(
         data=rebuilt,
@@ -949,10 +1030,7 @@ def repack_stage_texts_in_place(
         entry.entry_id
         for entry in parsed.entries
         if entry.kind in {"dialogue", "condition"}
-        and (
-            entry.pointer_offset is None
-            or entry.text_offset is None
-        )
+        and (entry.pointer_offset is None or entry.text_offset is None)
     )
     if non_relocatable:
         raise WritebackError(
@@ -971,34 +1049,24 @@ def repack_stage_texts_in_place(
     selected = [relocatable[entry_id] for entry_id in sorted(replacements)]
     pointer_offsets = [entry.pointer_offset for entry in selected]
     if len(pointer_offsets) != len(set(pointer_offsets)):
-        raise WritebackError(
-            "stage in-place batch contains duplicate pointer sites"
-        )
+        raise WritebackError("stage in-place batch contains duplicate pointer sites")
 
     speaker_replacements = speaker_replacements or {}
     known_speakers = {
-        entry.speaker_id
-        for entry in parsed.entries
-        if entry.speaker_id is not None
+        entry.speaker_id for entry in parsed.entries if entry.speaker_id is not None
     }
     unknown_speakers = sorted(set(speaker_replacements) - known_speakers)
     if unknown_speakers:
-        raise WritebackError(
-            f"unknown stage speaker ids: {unknown_speakers!r}"
-        )
+        raise WritebackError(f"unknown stage speaker ids: {unknown_speakers!r}")
 
     records = []
     source_regions = []
     for entry in selected:
         assert entry.pointer_offset is not None
         assert entry.text_offset is not None
-        actual_address = struct.unpack_from(
-            "<I", data, entry.pointer_offset
-        )[0]
+        actual_address = struct.unpack_from("<I", data, entry.pointer_offset)[0]
         if actual_address != base_address + entry.text_offset:
-            raise WritebackError(
-                f"{entry.entry_id} pointer preimage mismatch"
-            )
+            raise WritebackError(f"{entry.entry_id} pointer preimage mismatch")
 
         prefix = b""
         expected_speaker = None
@@ -1015,11 +1083,14 @@ def repack_stage_texts_in_place(
                     entry.speaker_id,
                     speaker.text,
                 )
-                prefix = encode_text(
-                    expected_speaker,
-                    table,
-                    overrides=overrides,
-                ) + b"\n"
+                prefix = (
+                    encode_text(
+                        expected_speaker,
+                        table,
+                        overrides=overrides,
+                    )
+                    + b"\n"
+                )
                 source_end = message.end
             else:
                 message = speaker
@@ -1028,9 +1099,7 @@ def repack_stage_texts_in_place(
             message = decode_text(data, entry.text_offset, table)
             source_end = message.end
         if message.text != entry.text:
-            raise WritebackError(
-                f"{entry.entry_id} parser/source text mismatch"
-            )
+            raise WritebackError(f"{entry.entry_id} parser/source text mismatch")
         payload = prefix + encode_text(
             replacements[entry.entry_id],
             table,
@@ -1074,15 +1143,11 @@ def repack_stage_texts_in_place(
     placements = {}
     for key, group in sorted(
         grouped.items(),
-        key=lambda item: min(
-            record["entry"].entry_id for record in item[1]
-        ),
+        key=lambda item: min(record["entry"].entry_id for record in item[1]),
     ):
         payload = key[1]
         for pool in pools:
-            position = (
-                (pool.cursor + alignment - 1) & ~(alignment - 1)
-            )
+            position = (pool.cursor + alignment - 1) & ~(alignment - 1)
             if position + len(payload) <= pool.end:
                 placements[key] = pool.allocate(
                     len(payload),
@@ -1091,9 +1156,7 @@ def repack_stage_texts_in_place(
                 break
         else:
             capacity = sum(end - start for start, end in owned_regions)
-            used = sum(
-                len(group_key[1]) for group_key in placements
-            )
+            used = sum(len(group_key[1]) for group_key in placements)
             raise WritebackError(
                 f"stage {stage_index:03d} owned text regions overflow: "
                 f"capacity {capacity}, placed payload bytes {used}, "
@@ -1105,7 +1168,7 @@ def repack_stage_texts_in_place(
         output[start:end] = bytes(end - start)
     for key, position in placements.items():
         payload = key[1]
-        output[position:position + len(payload)] = payload
+        output[position : position + len(payload)] = payload
 
     allocations = []
     expected_speakers = {}
@@ -1141,9 +1204,7 @@ def repack_stage_texts_in_place(
         function_address=function_address,
         base_address=base_address,
     )
-    actual_messages = {
-        entry.entry_id: entry.text for entry in reparsed.entries
-    }
+    actual_messages = {entry.entry_id: entry.text for entry in reparsed.entries}
     for allocation in allocations:
         expected_message = replacements[allocation.entry_id]
         if actual_messages.get(allocation.entry_id) != expected_message:
@@ -1164,9 +1225,7 @@ def repack_stage_texts_in_place(
                 actual_speaker.terminator != "newline"
                 or actual_speaker.text != expected_speaker
             ):
-                raise WritebackError(
-                    f"{allocation.entry_id} speaker reparse mismatch"
-                )
+                raise WritebackError(f"{allocation.entry_id} speaker reparse mismatch")
 
     return StageBatchWrite(
         data=rebuilt,
@@ -1175,9 +1234,7 @@ def repack_stage_texts_in_place(
         alignment=alignment,
         allocations=tuple(allocations),
         mode="in_place_owned_regions",
-        owned_regions=tuple(
-            (start, end) for start, end in owned_regions
-        ),
+        owned_regions=tuple((start, end) for start, end in owned_regions),
         unique_payload_count=len(placements),
     )
 
@@ -1214,14 +1271,10 @@ def rebuild_codec_archive(
                 f"expected {encoded_sizes[index]}"
             )
         if result.output != expected:
-            raise WritebackError(
-                f"rebuilt chunk {index} decoded content mismatch"
-            )
-        trailing = rebuilt_slice[result.consumed:]
+            raise WritebackError(f"rebuilt chunk {index} decoded content mismatch")
+        trailing = rebuilt_slice[result.consumed :]
         if any(trailing):
-            raise WritebackError(
-                f"rebuilt chunk {index} has nonzero archive padding"
-            )
+            raise WritebackError(f"rebuilt chunk {index} has nonzero archive padding")
         decoded_hashes.append(sha256_bytes(result.output))
 
     return CodecArchiveRebuild(
@@ -1260,21 +1313,14 @@ def build_executable_offset_patch_plan(
             f"layout has {len(offsets)} offsets"
         )
     if offsets[0] != 0 or any(
-        current >= following
-        for current, following in zip(offsets, offsets[1:])
+        current >= following for current, following in zip(offsets, offsets[1:])
     ):
         raise WritebackError(f"{spec.name} rebuilt offsets are invalid")
-    if spec.table_start < 0 or spec.table_start + len(positions) * 4 > len(
-        executable
-    ):
+    if spec.table_start < 0 or spec.table_start + len(positions) * 4 > len(executable):
         raise WritebackError(f"{spec.name} SLPS table is outside source")
 
-    before = executable[
-        spec.table_start:spec.table_start + len(positions) * 4
-    ]
-    after = b"".join(
-        struct.pack("<I", offset) for offset in stored_offsets
-    )
+    before = executable[spec.table_start : spec.table_start + len(positions) * 4]
+    after = b"".join(struct.pack("<I", offset) for offset in stored_offsets)
     return PatchPlan(
         source_name=source_name,
         source_size=len(executable),
@@ -1292,6 +1338,8 @@ def build_executable_offset_patch_plan(
 
 __all__ = [
     "CodecArchiveRebuild",
+    "FixedMenuTargetWrite",
+    "FixedMenuWrite",
     "StageArenaWrite",
     "TextPoolAllocation",
     "TextPoolWrite",
@@ -1299,6 +1347,7 @@ __all__ = [
     "build_executable_offset_patch_plan",
     "build_summary_patch_plan",
     "rebuild_codec_archive",
+    "replace_menu_texts_in_place",
     "relocate_menu_texts_to_pool",
     "relocate_stage_text_to_arena",
 ]

@@ -9,6 +9,7 @@ from pathlib import Path
 
 from srwz.canary import rasterize_character, rasterizer_point_size
 from srwz.codec import decode, reencode_changed_suffix
+from srwz.diagnostics import require_work_output
 from srwz.font import (
     GLYPH_COUNT,
     GLYPH_SIZE,
@@ -18,6 +19,7 @@ from srwz.font import (
     replace_glyph,
     sha256_bytes,
 )
+from srwz.font_profile import FontProfileError, load_font_profile
 from srwz.font_source import (
     FontSourceError,
     load_font_lock,
@@ -36,36 +38,44 @@ WORK_ROOT = PROJECT_ROOT / "work"
 PROPOSAL = WORK_ROOT / "writeback/first-five-codebook-proposal.json"
 OUTPUT_ROOT = WORK_ROOT / "build/first-five/components"
 FONT_CONFIG = PROJECT_ROOT / "config/fonts/first-five-font.json"
-ALLOCATION_REGISTRY = (
-    PROJECT_ROOT / "config/encoding/first-five-allocations.json"
-)
+ALLOCATION_REGISTRY = PROJECT_ROOT / "config/encoding/first-five-allocations.json"
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--proposal", type=Path, default=PROPOSAL)
+    parser.add_argument("--output-root", type=Path, default=OUTPUT_ROOT)
+    parser.add_argument("--font-config", type=Path, default=FONT_CONFIG)
+    parser.add_argument(
+        "--allocation-registry",
+        type=Path,
+        default=ALLOCATION_REGISTRY,
+    )
     parser.add_argument("--force", action="store_true")
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    report_path = OUTPUT_ROOT / "font-validation.json"
+    proposal_path = require_work_output(args.proposal, WORK_ROOT)
+    output_root = require_work_output(args.output_root, WORK_ROOT)
+    font_config_path = args.font_config.resolve()
+    allocation_registry_path = args.allocation_registry.resolve()
+    report_path = output_root / "font-validation.json"
     if report_path.exists() and not args.force:
         raise SystemExit(f"output exists; use --force: {report_path}")
-    proposal = json.loads(PROPOSAL.read_text(encoding="utf-8"))
+    proposal = json.loads(proposal_path.read_text(encoding="utf-8"))
     if proposal.get("status") != "static_proposal_not_runtime_verified":
         raise SystemExit("codebook proposal status is invalid")
-    config = json.loads(FONT_CONFIG.read_text(encoding="utf-8"))
-    if config.get("schema_version") != 1:
-        raise SystemExit("unsupported first-five font config")
     try:
-        font_lock = load_font_lock(PROJECT_ROOT / config["font_lock"])
+        profile = load_font_profile(PROJECT_ROOT, font_config_path)
+        font_lock = load_font_lock(PROJECT_ROOT / profile["font_lock"])
         locked_paths = verify_font_lock_files(
             PROJECT_ROOT,
             WORK_ROOT,
             font_lock,
         )
-    except FontSourceError as error:
+    except (FontProfileError, FontSourceError) as error:
         raise SystemExit(str(error)) from error
     if proposal.get("font_source") != {
         "family": font_lock["family"],
@@ -76,14 +86,14 @@ def main() -> int:
         "license_sha256": font_lock["license"]["sha256"],
     }:
         raise SystemExit("font proposal source does not match font lock")
-    if proposal.get("selection_policy") != config["scope"]:
+    if proposal.get("selection_policy") != profile["scope"]:
         raise SystemExit("font proposal selection policy drift")
     if proposal.get("allocation_registry", {}).get("sha256") != (
-        sha256_bytes(ALLOCATION_REGISTRY.read_bytes())
+        sha256_bytes(allocation_registry_path.read_bytes())
     ):
         raise SystemExit("font proposal allocation registry drift")
     font_path = locked_paths["font"]
-    rasterizer = config["rasterizer"]
+    rasterizer = profile["rasterizer"]
     if proposal.get("rasterizer") != rasterizer:
         raise SystemExit("font proposal rasterizer config drift")
     slps_path = WORK_ROOT / "disc/SLPS_258.87"
@@ -112,10 +122,8 @@ def main() -> int:
         seen_codes.add(code)
         seen_glyphs.add(glyph_index)
         start = glyph_index * GLYPH_SIZE
-        before = original_font.decoded[start:start + GLYPH_SIZE]
-        expected_preimage = assignment["allocation"][
-            "glyph_preimage_sha256"
-        ]
+        before = original_font.decoded[start : start + GLYPH_SIZE]
+        expected_preimage = assignment["allocation"]["glyph_preimage_sha256"]
         if sha256_bytes(before) != expected_preimage:
             raise SystemExit(f"glyph preimage drift for {character!r}")
         gray, pixels, packed = rasterize_character(
@@ -151,16 +159,10 @@ def main() -> int:
     changed_glyphs = [
         index
         for index in range(GLYPH_COUNT)
-        if original_font.decoded[
-            index * GLYPH_SIZE:(index + 1) * GLYPH_SIZE
-        ]
-        != modified_font[
-            index * GLYPH_SIZE:(index + 1) * GLYPH_SIZE
-        ]
+        if original_font.decoded[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
+        != modified_font[index * GLYPH_SIZE : (index + 1) * GLYPH_SIZE]
     ]
-    if changed_glyphs != sorted(
-        seen_glyphs - unchanged_assignment_glyphs
-    ):
+    if changed_glyphs != sorted(seen_glyphs - unchanged_assignment_glyphs):
         raise SystemExit("font changed outside proposed glyph assignments")
 
     spec = CORE_ARCHIVE_SPECS["VT1.BIN"]
@@ -170,7 +172,7 @@ def main() -> int:
         len(source_vt1),
     )
     index = 2
-    source_stream = source_vt1[old_offsets[index]:old_offsets[index + 1]]
+    source_stream = source_vt1[old_offsets[index] : old_offsets[index + 1]]
     greedy_font = reencode_changed_suffix(source_stream, modified_font)
     lazy_font = reencode_changed_suffix(
         source_stream,
@@ -181,13 +183,9 @@ def main() -> int:
         (greedy_font, lazy_font),
         key=lambda candidate: (len(candidate), candidate),
     )
-    selected_strategy = (
-        "lazy_greedy" if encoded_font is lazy_font else "greedy"
-    )
+    selected_strategy = "lazy_greedy" if encoded_font is lazy_font else "greedy"
     round_trip = decode(encoded_font)
-    if round_trip.output != modified_font or round_trip.consumed != len(
-        encoded_font
-    ):
+    if round_trip.output != modified_font or round_trip.consumed != len(encoded_font):
         raise SystemExit("font codec round-trip mismatch")
     rebuilt_vt1, rebuilt_offsets, padding, borrowed = (
         replace_archive_chunk_with_preceding_zero_slack(
@@ -203,11 +201,14 @@ def main() -> int:
         rebuilt_offsets,
     )
     rebuilt_slps = plan.apply(source_slps)
-    if read_executable_archive_offsets(
-        rebuilt_slps,
-        spec,
-        len(rebuilt_vt1),
-    ) != rebuilt_offsets:
+    if (
+        read_executable_archive_offsets(
+            rebuilt_slps,
+            spec,
+            len(rebuilt_vt1),
+        )
+        != rebuilt_offsets
+    ):
         raise SystemExit("VT1 offsets fail SLPS reread")
     reread_font = decode_vt1_font_segment(rebuilt_slps, rebuilt_vt1)
     if reread_font.decoded != modified_font:
@@ -217,16 +218,12 @@ def main() -> int:
         "schema_version": 1,
         "status": "offline_font_validated_runtime_not_tested",
         "assignment_count": len(glyph_reports),
-        "allocation_assignment_count": proposal[
-            "allocation_assignment_count"
-        ],
+        "allocation_assignment_count": proposal["allocation_assignment_count"],
         "reraster_existing_assignment_count": proposal[
             "reraster_existing_assignment_count"
         ],
         "changed_glyph_count": len(changed_glyphs),
-        "unchanged_assignment_count": len(
-            unchanged_assignment_glyphs
-        ),
+        "unchanged_assignment_count": len(unchanged_assignment_glyphs),
         "allocation_registry": proposal["allocation_registry"],
         "font_source": proposal["font_source"],
         "selection_policy": proposal["selection_policy"],
@@ -263,8 +260,8 @@ def main() -> int:
         "runtime_acceptance": "not tested",
     }
     for path, data in (
-        (OUTPUT_ROOT / "SLPS_258.87", rebuilt_slps),
-        (OUTPUT_ROOT / "DATA/VT1.BIN", rebuilt_vt1),
+        (output_root / "SLPS_258.87", rebuilt_slps),
+        (output_root / "DATA/VT1.BIN", rebuilt_vt1),
     ):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(data)
@@ -273,7 +270,7 @@ def main() -> int:
         encoding="utf-8",
     )
     print(
-        "first-five font:",
+        f"{proposal['proposal_id']} font:",
         f"glyphs={len(glyph_reports)}",
         f"VT1={len(source_vt1)}->{len(rebuilt_vt1)}",
         "round-trip=exact",

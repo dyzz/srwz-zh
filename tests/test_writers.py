@@ -15,6 +15,7 @@ from tools.srwz.writers import (
     relocate_stage_text_to_arena,
     relocate_stage_texts_to_arena,
     repack_stage_texts_in_place,
+    replace_menu_texts_in_place,
 )
 
 
@@ -71,7 +72,7 @@ class WriterTests(unittest.TestCase):
             replacements={"summary/00/000": "测"},
             overrides={"测": 0x987E},
         )
-        self.assertEqual(output[0x6A:0x72], b"\x98\x7E\x00\x00\x00\x00\x00\x00")
+        self.assertEqual(output[0x6A:0x72], b"\x98\x7e\x00\x00\x00\x00\x00\x00")
 
     def test_summary_writer_fails_on_overflow_and_unknown_id(self):
         source = summary_fixture()
@@ -115,9 +116,7 @@ class WriterTests(unittest.TestCase):
         self.assertTrue(all(offset % 16 == 0 for offset in rebuilt.offsets))
         for index, expected in enumerate(sources):
             result = decode(
-                rebuilt.data[
-                    rebuilt.offsets[index]:rebuilt.offsets[index + 1]
-                ]
+                rebuilt.data[rebuilt.offsets[index] : rebuilt.offsets[index + 1]]
             )
             self.assertEqual(result.output, expected)
 
@@ -407,6 +406,98 @@ class WriterTests(unittest.TestCase):
                 replacements={"menu/SLPS/00/0000": "New"},
                 pool_start=0x60,
                 pool_end=0x70,
+            )
+
+    def test_fixed_menu_writer_preserves_pointers_and_deduplicates_target(self):
+        source = bytearray(0x80)
+        source[0x40:0x44] = b"Old\x00"
+        struct.pack_into("<I", source, 0x10, 0x1040)
+        entries = (
+            MenuTextEntry(
+                entry_id="menu/SLPS/00/0000",
+                section="one",
+                ordinal=0,
+                text="Old",
+                pointer_offsets=(0x10,),
+                target_offsets=(0x40,),
+            ),
+            MenuTextEntry(
+                entry_id="menu/SLPS/01/0000",
+                section="two",
+                ordinal=0,
+                text="Old",
+                pointer_offsets=(),
+                target_offsets=(0x40,),
+                embedded_hi=(0x1020,),
+                embedded_lo=(0x1024,),
+            ),
+        )
+        parsed = MenuParseResult(
+            friendly_name="SLPS",
+            source_size=len(source),
+            base_offset=0x1000,
+            entries=entries,
+            section_names=("one", "two"),
+        )
+        result = replace_menu_texts_in_place(
+            bytes(source),
+            parsed,
+            self.table,
+            replacements={
+                "menu/SLPS/00/0000": "Hi",
+                "menu/SLPS/01/0000": "Hi",
+            },
+        )
+        self.assertEqual(result.data[0x40:0x44], b"Hi\x00\x00")
+        self.assertEqual(result.data[0x10:0x14], source[0x10:0x14])
+        self.assertEqual(result.entry_count, 2)
+        self.assertEqual(len(result.targets), 1)
+        self.assertEqual(result.targets[0].capacity, 4)
+
+    def test_fixed_menu_writer_rejects_overflow_and_partial_shared_owner(self):
+        source = bytearray(0x80)
+        source[0x40:0x44] = b"Old\x00"
+        entries = (
+            MenuTextEntry(
+                entry_id="menu/SLPS/00/0000",
+                section="one",
+                ordinal=0,
+                text="Old",
+                pointer_offsets=(),
+                target_offsets=(0x40,),
+            ),
+            MenuTextEntry(
+                entry_id="menu/SLPS/01/0000",
+                section="two",
+                ordinal=0,
+                text="Old",
+                pointer_offsets=(),
+                target_offsets=(0x40,),
+            ),
+        )
+        parsed = MenuParseResult(
+            friendly_name="SLPS",
+            source_size=len(source),
+            base_offset=0x1000,
+            entries=entries,
+            section_names=("one", "two"),
+        )
+        with self.assertRaisesRegex(WritebackError, "unselected entries"):
+            replace_menu_texts_in_place(
+                bytes(source),
+                parsed,
+                self.table,
+                replacements={"menu/SLPS/00/0000": "Hi"},
+            )
+        with self.assertRaisesRegex(WritebackError, "overflow"):
+            replace_menu_texts_in_place(
+                bytes(source),
+                parsed,
+                self.table,
+                replacements={
+                    "menu/SLPS/00/0000": "Long",
+                    "menu/SLPS/01/0000": "Long",
+                },
             )
 
 

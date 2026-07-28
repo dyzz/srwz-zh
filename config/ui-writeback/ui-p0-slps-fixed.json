@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-ui-p0-slps-fixed-v1",
+  "scope": "P0 SLPS menu translations that fit inside every original NUL-terminated target span. Pointer and MIPS instruction bytes remain unchanged; growing SLPS entries and all COMPDATA entries are excluded.",
+  "font_candidate": {
+    "manifest": "manifests/ui-p0-font-validation.json",
+    "sha256": "87847f94f285d950c1e8c0aae425d5e23cd5655731b28ab2c140b2b1524337cc",
+    "source_slps": "work/build/ui-p0/components/SLPS_258.87",
+    "source_vt1": "work/build/ui-p0/components/DATA/VT1.BIN"
+  },
+  "scene_inventory": {
+    "path": "config/ui-scenes.json",
+    "sha256": "59462e6430e1f75295a600ed39af22fba7b9d83e912fba75bc445f29d4fca0cc",
+    "inventory_id": "srwz-ui-scenes-v1",
+    "priorities": [
+      "P0"
+    ]
+  },
+  "menu_descriptor": {
+    "path": "vendor/upstream-python/project/menu_files.json",
+    "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a",
+    "friendly_name": "SLPS"
+  },
+  "text_table": {
+    "path": "vendor/upstream-python/project/tbl_all.json",
+    "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+  },
+  "base_codebook": {
+    "path": "config/encoding/codebook.json",
+    "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+  },
+  "selection_policy": {
+    "source_file": "SLPS",
+    "require_every_target": true,
+    "require_all_shared_target_owners": true,
+    "require_identical_shared_payload": true,
+    "require_payload_with_terminator_within_original_consumed_size": true,
+    "pointer_write_policy": "forbidden"
+  },
+  "ratchet": {
+    "p0_unique_entry_count": 462,
+    "p0_slps_entry_count": 418,
+    "selected_fixed_entry_count": 384,
+    "selected_target_count": 479,
+    "excluded_overflow_entry_count": 34,
+    "excluded_other_entry_count": 0
+  },
+  "outputs": {
+    "component_root": "work/build/ui-p0-fixed-slps/components",
+    "validation": "work/review/ui-p0-fixed-slps-validation.json",
+    "manifest": "manifests/ui-p0-fixed-slps-validation.json"
+  }
+}

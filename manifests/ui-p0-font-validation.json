@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "status": "offline_font_and_p0_renderer_coverage_passed_runtime_pending",
+  "font_profile_id": "srwz-ui-p0-unified-font-v1",
+  "scope": "Incremental first-five plus P0 UI font/codebook component. This does not write UI text, build an ISO or prove runtime rendering.",
+  "inputs": {
+    "config": {
+      "path": "config/fonts/ui-p0-font.json",
+      "sha256": "e7f3358df9e72a652f80fca2c7ad5b83c768a30651cc5d9ff826f070a11e11be"
+    },
+    "allocation_registry": {
+      "path": "config/encoding/ui-p0-allocations.json",
+      "sha256": "b40a6c3f9714dd1de3b1a03a7d4c9ae6d6d12be225ed34955c63e49541d537bb"
+    },
+    "scene_selection": {
+      "path": "config/ui-scenes.json",
+      "sha256": "59462e6430e1f75295a600ed39af22fba7b9d83e912fba75bc445f29d4fca0cc",
+      "inventory_id": "srwz-ui-scenes-v1",
+      "priorities": [
+        "P0"
+      ],
+      "scene_ids": [
+        "title/main-menu",
+        "opening/player-setup",
+        "intermission/main-and-options",
+        "information/unit-pilot-mech-core",
+        "battle/map-and-tactical",
+        "results/level-up-and-deployment",
+        "search/filter-and-results"
+      ],
+      "unique_entry_count": 462,
+      "selection_sha256": "61328858fea1666ba21dd657ea9a14172979f2fc6d712a7ee5352999377118ec"
+    },
+    "base_proposal": {
+      "path": "work/writeback/first-five-codebook-proposal.json",
+      "sha256": "74e51d073146a891b8aeb0634d8b3d1fc2b13adf02e71395ceedf6ec2948b5b8",
+      "proposal_id": "srwz-first-five-unified-font-v3",
+      "assignment_count": 1436
+    },
+    "base_validation_manifest": {
+      "path": "manifests/first-five-validation.json",
+      "sha256": "4a12751a407563b452d284fcfb127453aa23d27c8b03d1000e494c95be2153b7"
+    }
+  },
+  "capacity": {
+    "safe_candidate_slot_count": 650,
+    "legacy_safe_candidate_slot_count": 486,
+    "expanded_standard_candidate_slot_count": 164,
+    "base_registered_character_count": 638,
+    "combined_registered_character_count": 647,
+    "remaining_candidate_slot_count": 3
+  },
+  "additional_allocations": {
+    "count": 9,
+    "characters": "养减删效昵编节览陆"
+  },
+  "additional_reraster_existing_han": {
+    "count": 9,
+    "characters": "励培姓御恢播耗菜覆"
+  },
+  "combined_assignments": {
+    "allocation_assignment_count": 639,
+    "reraster_existing_assignment_count": 815,
+    "font_assignment_count": 1454
+  },
+  "proposal": {
+    "path": "work/writeback/ui-p0-codebook-proposal.json",
+    "sha256": "8807712775d40c870d06850c8a0b8f76484c2047447d6086bdd361889b093a81"
+  },
+  "readiness": {
+    "path": "work/writeback/ui-p0-font-readiness.json",
+    "sha256": "a0509c5d9614683b9e581f227f11f422c0fbd5e755788cb35b4e2ae4a611afd5"
+  },
+  "font_component": {
+    "report": "work/build/ui-p0/components/font-validation.json",
+    "report_sha256": "19c7125acd2cbcdb8f72f2b23bcfb861e66732665920787ea2e82d28c529a6e7",
+    "assignment_count": 1454,
+    "allocation_assignment_count": 639,
+    "reraster_existing_assignment_count": 815,
+    "changed_glyph_count": 1453,
+    "unchanged_assignment_count": 1,
+    "built_raster_hash_exact_count": 1454,
+    "decoded_size": 1290240,
+    "decoded_sha256": "32307efc39ad9788d1b0c96e7008a0ceee122a7d60407e3e75bd6d2684c2bf53",
+    "encoded_size": 786404,
+    "encoder_strategy": "lazy_greedy",
+    "archive": {
+      "source_size": 127500736,
+      "output_size": 127500736,
+      "padding_size": 12,
+      "borrowed_preceding_zero_slack": 187072,
+      "offset_reread_exact": true
+    },
+    "outputs": {
+      "slps": {
+        "size": 3471624,
+        "sha256": "b4d822cbc3ea58ff9cd3ba6d64f3229f029af3578c126b5b001b5d9e737bb369"
+      },
+      "vt1": {
+        "size": 127500736,
+        "sha256": "eeb25f1b6c403777637e1c7f132db38901f51dd107069661223d77badd8471f8"
+      }
+    }
+  },
+  "p0_renderer_coverage": {
+    "unique_entry_count": 462,
+    "literal_character_count": 1823,
+    "unique_literal_character_count": 368,
+    "missing_renderer_character_count": 0,
+    "missing_renderer_occurrence_count": 0,
+    "selected_font_han_count": 312,
+    "original_font_han_count": 0
+  },
+  "base_first_five_components": {
+    "slps": {
+      "path": "work/build/first-five/components/SLPS_258.87",
+      "sha256": "65fc00b2ff2dd223a0c6c4bfb97643871612db0a97eb68709a7da90787d91169",
+      "exact": true
+    },
+    "vt1": {
+      "path": "work/build/first-five/components/DATA/VT1.BIN",
+      "sha256": "7f60acbb3df024f352ed404c9cd0331d95a606f6e116994d0785ea8c4f076f11",
+      "exact": true
+    }
+  },
+  "acceptance": {
+    "proposal_reproduced_exact": true,
+    "readiness_reproduced_exact": true,
+    "base_first_five_components_unchanged": true,
+    "assignment_counts_exact": true,
+    "glyph_preimages_and_rasters_exact": true,
+    "codec_round_trip_exact": true,
+    "archive_size_preserved": true,
+    "offset_reread_exact": true,
+    "p0_renderer_missing_character_count_zero": true,
+    "p0_original_font_han_count_zero": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "No P0 UI text writer or combined ISO exists yet; runtime evidence must bind to that future exact ISO hash."
+  }
+}

@@ -4,9 +4,11 @@
 可追踪场景。场景选择来自当前真实语料、原版成员和构建后的前五关字库，不根据
 截图猜测文本归属。
 
-当前结论是 `inventory_passed_work_remaining`：场景筛选、源哈希、译文决策、
-字形需求和三个动态名称探针已经通过静态审计；真实批量 writer、组合 ISO 和
-PCSX2 路线尚未因此自动通过。
+当前场景结论是 `inventory_passed_work_remaining`：场景筛选、源哈希、译文
+决策、字形需求和三个动态名称探针已经通过静态审计。增量 P0 字库候选也已达到
+`offline_font_and_p0_renderer_coverage_passed_runtime_pending`。在该字库组件
+上，第一层真实 SLPS writer 已安全写入 384 条／479 个目标；另外 34 条增长
+文本、44 条 COMPDATA 文本、组合 ISO 和 PCSX2 路线仍未因此自动通过。
 
 ## 1. 可重复入口
 
@@ -39,12 +41,42 @@ git diff -- manifests/ui-surface-inventory.json
 清单和配置不保存日文原文或游戏字节；日文语料、解码数据及详细本地报告仍留在
 被忽略的 `work/`。
 
+P0 字库候选使用独立 profile，不改变已验收的 first-five 组件：
+
+```bash
+python3 tools/audit_ui_p0_font.py --force
+python3 tools/build_first_five_font.py \
+  --force \
+  --proposal work/writeback/ui-p0-codebook-proposal.json \
+  --output-root work/build/ui-p0/components \
+  --font-config config/fonts/ui-p0-font.json \
+  --allocation-registry config/encoding/ui-p0-allocations.json
+python3 tools/verify_ui_p0_font.py --force
+```
+
+最后一条命令会重新生成 proposal 事实、解析候选 SLPS/VT1，并要求 462 条 P0
+文本的 renderer 缺字和原版汉字字形混用均为零。提交结果见
+`manifests/ui-p0-font-validation.json`。
+
+固定长度的第一层 SLPS 写回使用独立 profile：
+
+```bash
+python3 tools/build_ui_p0_fixed_slps.py --force
+python3 tools/verify_ui_p0_fixed_slps.py --force
+```
+
+writer 只选择含终止符后能装进每个原有 span 的 P0 文本，并要求共享目标的
+所有解析 owner 同时入选且编码结果一致。验证器从字库候选 SLPS 重新构建并
+逐字节比较，要求 384 条／479 个目标可重读、所有指针和 MIPS HI/LO 指令字节
+不变、目标外字节不变、解压字库哈希不变。提交结果见
+`manifests/ui-p0-fixed-slps-validation.json`。
+
 ## 2. P0：下一张组合候选的范围
 
 P0 选择开场至首个幕间可稳定访问的高频界面。七个场景共选择 462 条唯一文本
 决策；标题四项另走已验证的 TIM2 图片路径。
 
-| 场景 | 文本数 | 当前缺字 | 当前结构缺口 |
+| 场景 | 文本数 | 相对 first-five 基线的新增字 | 当前结构缺口 |
 | --- | ---: | --- | --- |
 | 标题主菜单 | 0，另有 4 项图片文字 | 0 | 已有独立运行证据，尚未合并进下一张 UI ISO |
 | 开局路线、主人公与姓名设置 | 31 | 昵、节 | 只有固定 canary writer，尚无 SLPS 批量池 |
@@ -54,10 +86,16 @@ P0 选择开场至首个幕间可稳定访问的高频界面。七个场景共�
 | 结算、升级与出击确认 | 52 | 0 | 真实 SLPS 池和结算／出击 atlas 未接入 |
 | 搜索条件、筛选与结果 | 50 | 效 | SLPS/COMPDATA 两类真实池均未登记 |
 
-合并去重后只缺 `养减删效昵编节览陆` 九个汉字。当前追加式分配还剩 12 个安全
-候选槽，因此 P0 可以在不扩展码位机制的前提下保留 3 槽余量。P0 还引用了
-9 个仍使用原版字形的汉字；为避免再次出现字体风格或字号不一致，制作候选时应
-用当前统一字体重新栅格化这些既有码位，而不是只补九个空白字形。
+合并去重后相对 first-five 基线需要新增 `养减删效昵编节览陆` 九个汉字。
+`ui-p0` 增量账本已把它们稳定分配到 `86F1～86F9` / glyph
+`1137～1145`；原来剩余的 12 个安全候选槽现在保留 3 个。P0 另引用的
+`励培姓御恢播耗菜覆` 九个原版汉字也已用同一 LXGW 字体重绘。候选包含
+639 个分配、815 个既有汉字重绘，共 1,454 个 assignment；从候选组件重读后，
+P0 缺字和原版汉字混用均为零。
+
+字库和固定 span writer 现在共同证明第一层 SLPS 组件可生产，但还不是全量 UI
+写回：34 条增长 SLPS 文本和全部 44 条 P0 COMPDATA 文本仍未写入，也尚无
+包含这些新增字符和文本的可玩组合 ISO。
 
 P0 明确排除了两条含未定英语专名的后期专用提示。它们已独立归入
 `menus/late-game-special-prompts`，不会为了凑开场覆盖而消耗当前三个余量槽。
@@ -105,20 +143,27 @@ writer，也不能替代本项目自己的前像、差异和运行门禁。
 ### 4.3 SLPS/COMPDATA 文本池
 
 `relocate_menu_texts_to_pool()` 已覆盖普通指针和 MIPS HI/LO 写回，单元测试
-也已通过；当前缺少的是原版真实文件中可安全使用的池区、所有引用者和容量证明。
-在这些事实登记为 SurfaceSpec 之前，不进行全量菜单写回。
+也已通过。实际 P0 审计表明，SLPS 的 418 条中有 384 条可在原 span 内写入，
+形成 479 个去重目标；writer 已完成写回和重解析，且不修改任何指针字节。剩余
+34 条确实增长，仍缺原版文件中可安全使用的池区、所有引用者和容量证明。
+COMPDATA 的 44 条暂未写入，其中 4 条增长；在这些事实登记前不做搬移写回。
 
 ## 5. 实施顺序
 
-1. 为 P0 追加九个新字符，并用统一字体重绘 P0 引用的九个原版汉字；重新验证
-   code→glyph、空字形、冲突和 VT1 重压缩。
-2. 在干净原版副本上识别并登记真实 SLPS/COMPDATA 池区、指针所有者、最大
-   分配和前像；把 P0 选择集接入一个小 BuildProfile。
-3. 实现 COMPDATA 动态人物／机体名的完整记录 parser、稳定语料和定长或搬移
+1. **已完成：**为 P0 追加九个新字符，并用统一字体重绘 P0 引用的九个原版
+   汉字；code→glyph、空字形、冲突、VT1 重压缩、offset 回读和 P0 全量
+   renderer coverage 已通过。
+2. **已完成第一层：**把能装进原 span 的 384 条 SLPS 文本写入独立候选，
+   去重后覆盖 479 个目标；输出逐字节复建、指针／非目标字节／字库哈希不变，
+   34 条增长文本明确留待后续。
+3. **当前下一步：**只为 34 条增长 SLPS 和 4 条增长 COMPDATA 文本识别并
+   登记真实池区、指针所有者、最大分配和前像；其余 COMPDATA 先采用同样的
+   fixed-span 策略。
+4. 实现 COMPDATA 动态人物／机体名的完整记录 parser、稳定语料和定长或搬移
    writer；用三个现有探针作为 freshness gate。
-4. 通过运行时纹理转储和离线预览，把人物／机体／武器信息页 atlas 精确映射到
+5. 通过运行时纹理转储和离线预览，把人物／机体／武器信息页 atlas 精确映射到
    archive/member/record/picture，再制作中文图像。
-5. 合并标题 TIM2、P0 字库、P0 文本、动态名和前五关 STAGE；只从同一个
+6. 合并标题 TIM2、P0 字库、P0 文本、动态名和前五关 STAGE；只从同一个
    profile 构建一张候选 ISO。
 
 每一步都先建立可失败的门禁和最小 fixture，再扩展场景数；不直接修改

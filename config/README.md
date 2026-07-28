@@ -11,6 +11,7 @@
 | `encoding/codebook.json` | 中文字符到游戏 code/glyph 的唯一分配账本 |
 | `build-profiles/` | 构建选择集、最低编辑状态和必需 gates |
 | `ui-scenes.json` | UI 场景 selector、优先级、运行路线、容量 ratchet 和动态名称 hash-only 探针 |
+| `ui-writeback/` | UI 文本写回选择策略、锁定输入、容量 ratchet 和输出位置；不包含游戏字节 |
 | `canary/` | 验证切片的原版输入、构建参数和 golden；文本 canary 不拥有译文/码位，TIM2 探索 profile 暂存固定视觉标签 |
 | `iso/` | PS2 DVD 容器工具链、profile workspace、最终输出和布局锁 |
 | `patches/` | ASM/二进制前像、允许差异和写入所有者 |
@@ -37,6 +38,13 @@ ISO 的 `rom/work/build` 所有权见 `docs/ISO_DIRECTORY_LAYOUT.md`。
 `iso/first-five-build.json`。码位只允许追加，退役槽不复用；字体与工具来源
 由相邻 lock 固定，当前候选的精确组件和镜像哈希只记录在
 `manifests/first-five-validation.json`。
+
+P0 UI 字库通过 `encoding/ui-p0-allocations.json` 和
+`fonts/ui-p0-font.json` 增量引用并锁定上述基线，不修改 first-five 账本。
+九个新增汉字只追加到组合 registry，栅格器继续由 first-five 字体配置单点拥有；
+离线候选和 coverage 结果见 `manifests/ui-p0-font-validation.json`。
+第一层 P0 SLPS 写回由 `ui-writeback/ui-p0-slps-fixed.json` 锁定；它只允许
+原 span 内写回，禁止修改指针，并把增长文本显式留给后续池区 profile。
 
 `assets/archive-inventory.json` 由 `tools/srwz/assets.py` 独立执行严格 schema
 检查：未知字段、重复 member、路径穿越、archive/direct 重叠、未知 storage

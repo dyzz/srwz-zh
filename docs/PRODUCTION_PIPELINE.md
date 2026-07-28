@@ -230,6 +230,25 @@ override 进入游戏原生双字节标准分支。普通 ASCII 也分配双字�
 当前报告的 renderer 不可达字、普通一字节 ASCII、可达汉字字体混用均为 0。
 扩容只追加原标准公式支持但固定表未使用的 `0x85xx` 码位，不搬移扩展表。
 
+P0 UI 不修改上述 first-five 账本或组件，而是由
+`config/encoding/ui-p0-allocations.json` 以 hash-locked base registry
+追加九个字符，并由 `config/fonts/ui-p0-font.json` 继承同一字体源、栅格器和
+“班”光学校正。独立候选构建和回读命令见
+`docs/UI_COVERAGE_TEST_PLAN.md`。当前候选为 1,454 个 assignment，VT1 大小
+不变，462 条 P0 文本的 renderer 缺字与原版汉字混用均为 0。
+
+`config/ui-writeback/ui-p0-slps-fixed.json` 在该字体组件上建立第一层真实
+SLPS 写回。它只选择含终止符后能装进所有原 span 的条目：
+
+```bash
+python3 tools/build_ui_p0_fixed_slps.py --force
+python3 tools/verify_ui_p0_fixed_slps.py --force
+```
+
+当前确定性组件写入 384 条／479 个去重目标，所有目标可重读，指针、MIPS
+HI/LO、非目标字节和解压字库哈希均不变。34 条增长 SLPS 与全部 44 条 P0
+COMPDATA 文本仍明确排除；这项组件结果不能当作组合 ISO 或 PCSX2 验收。
+
 中文布局命令必须以检查模式返回零改动；它将日文原行形视为可参考的语义候选，
 而不是强制行数。当前规则按 24 个 glyph cell、最多 3 行重排，`$n/$F` 按
 运行时最长 6 格预算，术语、标题和 ASCII 词组不可拆分，续行不得以闭标点或

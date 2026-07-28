@@ -20,6 +20,7 @@ from tools.srwz.font import (
     read_extended_glyph_table,
     render_glyph_grid,
     replace_glyph,
+    safe_standard_allocation_candidates,
     standard_glyph_index,
 )
 from tools.srwz.text import TextTable
@@ -174,10 +175,7 @@ class FontAnalysisTests(unittest.TestCase):
         )
 
     def test_glyph_pack_order_is_low_nibble_first(self):
-        pixels = bytes(
-            index & 0x0F
-            for index in range(GLYPH_WIDTH * GLYPH_HEIGHT)
-        )
+        pixels = bytes(index & 0x0F for index in range(GLYPH_WIDTH * GLYPH_HEIGHT))
         packed = encode_glyph(pixels)
         self.assertEqual(len(packed), GLYPH_SIZE)
         self.assertEqual(packed[0], 0x10)
@@ -211,6 +209,28 @@ class FontAnalysisTests(unittest.TestCase):
         self.assertEqual(inventory.unique_character_count, 2)
         self.assertEqual(inventory.duplicate_character_count, 1)
         self.assertNotIn(0x8140, inventory.candidate_unmapped_codes)
+
+    def test_safe_allocation_candidates_exclude_all_known_glyph_owners(self):
+        table = TextTable(
+            characters={0x8140: "A", 0x8240: "B"},
+            tags={},
+        )
+        legacy, expanded = safe_standard_allocation_candidates(
+            table,
+            (),
+            reserved_codes=(0x8141,),
+            reserved_glyphs=(standard_glyph_index(0x8142),),
+        )
+        candidates = (*legacy, *expanded)
+        codes = {code for code, _ in candidates}
+        glyphs = {glyph for _, glyph in candidates}
+        self.assertNotIn(0x8140, codes)
+        self.assertNotIn(0x8240, codes)
+        self.assertNotIn(0x8141, codes)
+        self.assertNotIn(standard_glyph_index(0x8142), glyphs)
+        self.assertNotIn(ascii_glyph_index(ord("A")), glyphs)
+        self.assertEqual(len(codes), len(candidates))
+        self.assertEqual(len(glyphs), len(candidates))
 
 
 if __name__ == "__main__":
