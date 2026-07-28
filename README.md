@@ -8,6 +8,10 @@ surface/fixture/codebook/profile 生成，并分别通过静态、PCSX2 运行�
 系统 UI 的 P0 静态范围另已覆盖 418 条 SLPS 与 44 条 COMPDATA 文本，并由
 独立 fixed-span 组件通过离线回读。COMPDATA 动态名称表也已完成全结构解析，
 并将开场路线 45 个节子／丹泽尔／托比及巴尔戈拉名称字段写入独立组件；
+余下 2,755 个非空字段中，researched 精确源词门已保守筛出 1,262 个
+候选：1,166 个当前 P1 字库可编码；统一 renderer 需新增 33 个 allocation、
+重绘 29 个原版汉字，48 槽预计余 15 槽，全部 projected allocation
+零溢出；这批尚未进入字库追加、COMPDATA writer 或 ISO。
 MTV_PROS 的 28 条世界史文本也已完成 22 格中文断行、段落空行和定长
 allocation 审计。该布局仍是 28 条 `draft`；相对当前 P0 字库真实缺 41 个字
 （27 个未映射、14 个码表存在但原解析器不可达），三个安全槽仍短缺 38 个。

@@ -22,9 +22,10 @@
 
 ```bash
 python3 tools/audit_ui_coverage.py --force
+python3 tools/audit_display_name_coverage.py --force
 ```
 
-该命令会同时验证：
+第一条命令会同时验证：
 
 - 94,189 条源语料的条数和聚合 SHA-256；
 - 每个 selector 的稳定 ID、条数、source hash 和翻译决策；
@@ -34,6 +35,11 @@ python3 tools/audit_ui_coverage.py --force
 - 标题菜单已有图片证据；
 - P0 条数、缺字上限和候选槽余量；
 - 提交清单与本地审计结果完全一致。
+
+第二条命令单独重建余下动态名称的 researched 精确源词选择，验证当前
+P1 字库的编码／renderer 缺口和每项原 allocation 容量，并把含日文的
+2,800 行审核队列写入被忽略的 `work/review/`。它只验证候选，不执行
+COMPDATA writer 或 ISO 构建。
 
 只有审核配置或基线变化后，才能显式更新提交清单：
 
@@ -268,8 +274,21 @@ glyph resolver 指令窗口均已哈希锁定，证明这四类空隙走同一 1
 覆盖节子、小原、丹泽尔·哈默、托比·沃森的重复人物字段及三台巴尔戈拉。
 writer 只做原 allocation 内写回，禁止人物 ID 或机体指针变化。节子是可由玩家
 改名的默认值；玩家确认新名字后的运行时值仍应由游戏自身处理，静态组件不应
-覆盖该行为。剩余 2,755 个非空字段需要继续按官方／人工确认的术语批次扩展，
-不能由同原文自动填充来替代审校。
+覆盖该行为。
+
+第二批现已通过 `config/display-names/researched-coverage.json` 做保守筛选：
+只接受 v1 术语库中状态为 `researched` 的精确日文源词，排除一源多译冲突和
+首批 45 个稳定 ID。结果从余下 2,755 个非空字段中选出 1,262 个
+（1,221 人物／41 机体、307 个唯一源词），另有 1,493 个继续留在人工队列。
+完整 2,800 行含日文审核表只写入
+`work/review/display-name-researched-coverage.tsv`；提交清单只有源哈希、
+译名来源、计数和选择哈希。当前 P1 字库已能编码其中 1,166 个字段，另外
+96 个字段合计只缺 `伦侣凤凯妮姬娅岛庆户滨琪苏萝谦贾赛赞钢钱阳` 21 字，
+但统一 renderer 还要为普通 ASCII `a/f/h/r/u` 和 7 个原表不可达汉字新增
+字形，因此完整新增 allocation 是 33 个，并需统一重绘另 29 个原版汉字；
+48 槽预计余 15 槽。全部 1,262 个 projected payload 均不溢出原 allocation。
+该门禁不是按“同原文”盲填：只有已研究术语的一对一精确决定才进入选择；
+字库追加、审核晋级、COMPDATA writer、组合 ISO 和运行验证仍是后续独立门。
 
 ### 4.2 信息页图片文字
 

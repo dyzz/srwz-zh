@@ -78,6 +78,11 @@ P0 同样无 overflow。
 allocation 内写回，人物 ID、机体指针和非目标字节均不可修改。完整结构和
 组件结果分别锁定在 `manifests/display-name-structure.json` 与
 `manifests/ui-p0-display-names-validation.json`。
+`display-names/researched-coverage.json` 则在完整结构上只接受 v1 术语库
+中 `researched` 的精确源词匹配，排除上述 45 项及一源多译冲突；它生成
+被忽略的 2,800 行审核 TSV，并把 1,262 个候选、21 个编码缺字、33 个
+renderer allocation、29 个统一重绘汉字和零定长溢出收敛为不含日文的
+提交清单；48 槽预计余 15 槽，尚不执行 COMPDATA 写回。
 
 `summary/world-history-layout.json` 锁定 28 条世界史的真实 MTV_PROS 输入、
 22 格显示宽度、14 个原版空行和跨记录定长分配策略。它只允许生成布局报告和

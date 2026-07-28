@@ -1,0 +1,437 @@
+{
+  "schema_version": 1,
+  "status": "researched_selection_ready_writer_not_implemented",
+  "selection_id": "srwz-display-names-researched-v1",
+  "scope": "Exact-source propagation from researched glossary decisions into unselected pilot and unit display-name fields. This profile selects candidates and proves capacity/font readiness; it does not write COMPDATA or claim runtime coverage.",
+  "content_policy": "This ignored report and TSV contain original Japanese display names. The committed manifest contains counts, hashes, missing characters and decision provenance only.",
+  "inputs": {
+    "config": {
+      "path": "config/display-names/researched-coverage.json",
+      "sha256": "c44fe0ce4444afd3675e8013694d3f884cc5f0542fa966e68a5d5e6e6e4e5fe7"
+    },
+    "structure": {
+      "config": {
+        "path": "config/display-names/compdata.json",
+        "sha256": "cd0b06663d0c25af23b8dda13729c3a97b6bee44d43b7bc1834e7f11b840cb9b"
+      },
+      "manifest": {
+        "path": "manifests/display-name-structure.json",
+        "sha256": "66ab32f6a4a2d77c0b7a78a10e00d6833dc608ff4da20f415664309ce29f4bf3",
+        "status": "structure_validated",
+        "entry_signature_sha256": "3cc15cf395ca3e7f33b30c9ca1582fd0fc1427d4456fcb9b658b72b47e4a3258"
+      }
+    },
+    "glossary": {
+      "release": {
+        "path": "corpus/releases/v1.json",
+        "sha256": "1db560ab01af0665be4626560e7aed368b109cd80571cd14783ae30e0f5dbdf5",
+        "release_id": "srwz-zh-corpus-v1"
+      },
+      "accepted_statuses": [
+        "researched"
+      ],
+      "sources": [
+        {
+          "path": "corpus/glossary/terms-v1.json",
+          "sha256": "6318bfb3624d9f72c2fd507176b63d78b59923be02f0f4df3b0bd02c5e9689f6",
+          "term_count": 127,
+          "accepted_term_count": 6
+        },
+        {
+          "path": "corpus/glossary/skills-v1.json",
+          "sha256": "9d89271aaae03048e3ee05cc381cea08b3496dc0ea90091d001fb13750baa75d",
+          "term_count": 45,
+          "accepted_term_count": 9
+        },
+        {
+          "path": "corpus/glossary/spirit-commands-v1.json",
+          "sha256": "a729cc6e9217f197b451fce0d88c872d2a6bd4a9770649de8e0b77d4f8b39e17",
+          "term_count": 35,
+          "accepted_term_count": 2
+        },
+        {
+          "path": "corpus/glossary/parts-v1.json",
+          "sha256": "11841f5d16be13092d8a343005f53047bad69fc6f4d60a6a220d1b4f147dcf08",
+          "term_count": 64,
+          "accepted_term_count": 7
+        },
+        {
+          "path": "corpus/glossary/special-abilities-v1.json",
+          "sha256": "260305cd43525f4606a9315c0fa423083116f698d8ef732e146d29837cac3dfe",
+          "term_count": 38,
+          "accepted_term_count": 9
+        },
+        {
+          "path": "corpus/glossary/stage-titles-v1.json",
+          "sha256": "88e15377d67b8b61fd0ec259a1914a8fd735de18860251ae7e9f8fbf60de3d6c",
+          "term_count": 10,
+          "accepted_term_count": 6
+        },
+        {
+          "path": "corpus/glossary/weapons-v1.json",
+          "sha256": "46358eb4081f576c307b3aab41de1941d3cfde68b820a74a542fc39d83997386",
+          "term_count": 711,
+          "accepted_term_count": 0
+        },
+        {
+          "path": "corpus/glossary/menu-terms-v1.json",
+          "sha256": "3b2eddc6be97bf2d0567f7249e595c80f83cc697093a297ad5e56c861b4265ff",
+          "term_count": 20,
+          "accepted_term_count": 2
+        },
+        {
+          "path": "corpus/glossary/battle-lines-v1.json",
+          "sha256": "d5fe3887e5679c4952075a5ca07ccde9da4e13d7b8669db1c1480a3aee82a8a6",
+          "term_count": 39,
+          "accepted_term_count": 24
+        },
+        {
+          "path": "corpus/glossary/story-conditions-v1.json",
+          "sha256": "94b83dc429dfe1c8226bb76f26f79110a5aa0e577b1223e879584cc31ebec8d7",
+          "term_count": 146,
+          "accepted_term_count": 71
+        },
+        {
+          "path": "corpus/glossary/story-speakers-v1.json",
+          "sha256": "3c5c81e17672b56e3823c00ed946a8797dc5f52325f93aace970c9ebf20fd3b6",
+          "term_count": 340,
+          "accepted_term_count": 223
+        },
+        {
+          "path": "corpus/glossary/story-dialogue-stage-001-v1.json",
+          "sha256": "e6558f25ab44e6793f92790010bcf909e0a9ab03741c557837b1fad2cc136f67",
+          "term_count": 23,
+          "accepted_term_count": 21
+        },
+        {
+          "path": "corpus/glossary/story-dialogue-stage-002-v1.json",
+          "sha256": "81f74451a1c11d2f45005f3722e573c2c429d6c06ac1aa874ad6748b2462249b",
+          "term_count": 46,
+          "accepted_term_count": 46
+        },
+        {
+          "path": "corpus/glossary/story-dialogue-stage-003-v1.json",
+          "sha256": "6b3c6bc150633f12076ee68c23a0a7deb23f8ac8fcc2410e26ddb87819c60b7e",
+          "term_count": 5,
+          "accepted_term_count": 5
+        },
+        {
+          "path": "corpus/glossary/story-dialogue-stage-004-v1.json",
+          "sha256": "8daeadd60580ec57beebd28d37f001551cebba56a350ab71abe69b13729d9f95",
+          "term_count": 20,
+          "accepted_term_count": 20
+        },
+        {
+          "path": "corpus/glossary/story-dialogue-stage-005-v1.json",
+          "sha256": "f98b60caf3837f6dad358d1a6333bc456c02adc62718450f3ca222f7ad429b14",
+          "term_count": 18,
+          "accepted_term_count": 17
+        }
+      ],
+      "accepted_term_count": 468,
+      "exact_source_count": 463,
+      "eligible_exact_source_count": 463,
+      "conflict_source_count": 0,
+      "same_translation_multi_ref_count": 8
+    },
+    "prior_translations": [
+      {
+        "path": "corpus/zh/display-names/p0-opening.json",
+        "sha256": "f8b1aa60c9261e66137578aa921b11a933f0fa406cbc791ee2e0945e12c1d910",
+        "batch_id": "v1-display-names-p0-opening",
+        "entry_count": 45
+      }
+    ],
+    "font_candidate": {
+      "manifest": "manifests/ui-p1-summary-font-validation.json",
+      "sha256": "305b95187b79ef583d921346358b54de6a063015aec672c35f82307e64e80162",
+      "status": "offline_font_and_selected_ui_renderer_coverage_passed_runtime_pending",
+      "codebook": {
+        "base_codebook": {
+          "path": "config/encoding/codebook.json",
+          "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+        },
+        "proposal": {
+          "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
+          "sha256": "20d28b7a7618cecc2b9d12f84a9af105e48ee878a66c4de085625dae25f3a0c8"
+        },
+        "override_count": 1548
+      },
+      "renderer_baseline": {
+        "report": "work/build/ui-p1-summary/components/font-validation.json",
+        "report_sha256": "5e1dbed09ca8511a9eda43ee7559ac7798c164028ef9d8aee1f9f13271248b25",
+        "slps": {
+          "path": "work/build/ui-p1-summary/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "d8b7104e7463070188d7df9047fb487adca445500dc14a6aee8b2e72ef883084"
+        },
+        "vt1": {
+          "path": "work/build/ui-p1-summary/components/DATA/VT1.BIN",
+          "size": 127500736,
+          "sha256": "ab25d669a37dfa023267b1cd0fbc392e68c52835668958e01887b80cea4c503e"
+        },
+        "proposal": {
+          "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
+          "sha256": "20d28b7a7618cecc2b9d12f84a9af105e48ee878a66c4de085625dae25f3a0c8"
+        },
+        "component_status": "offline_font_validated_runtime_not_tested"
+      }
+    }
+  },
+  "summary": {
+    "structure_entry_count": 3147,
+    "non_empty_entry_count": 2800,
+    "prior_translation_entry_count": 45,
+    "selected_entry_count": 1262,
+    "selected_pilot_entry_count": 1221,
+    "selected_unit_entry_count": 41,
+    "selected_unique_source_count": 307,
+    "current_font_ready_entry_count": 1166,
+    "current_font_missing_entry_count": 96,
+    "current_font_missing_character_count": 21,
+    "current_renderer_ready_entry_count": 1129,
+    "current_renderer_missing_entry_count": 133,
+    "current_renderer_missing_character_count": 33,
+    "current_renderer_original_han_character_count": 29,
+    "current_renderer_original_han_entry_count": 124,
+    "projected_remaining_candidate_slot_count": 15,
+    "projected_overflow_entry_count": 0,
+    "unresolved_entry_count": 1493
+  },
+  "selection": {
+    "entry_count": 1262,
+    "selection_sha256": "73a4105b62fdd69986c605228d538bf6a722f38d64881164f0d4e0f345d450f2",
+    "font_ready_entry_count": 1166,
+    "font_missing_entry_count": 96,
+    "missing_character_count": 21,
+    "missing_characters": "伦侣凤凯妮姬娅岛庆户滨琪苏萝谦贾赛赞钢钱阳",
+    "missing_character_occurrence_counts": {
+      "伦": 4,
+      "侣": 2,
+      "凤": 8,
+      "凯": 2,
+      "妮": 10,
+      "姬": 4,
+      "娅": 20,
+      "岛": 1,
+      "庆": 4,
+      "户": 2,
+      "滨": 2,
+      "琪": 10,
+      "苏": 6,
+      "萝": 1,
+      "谦": 2,
+      "贾": 10,
+      "赛": 2,
+      "赞": 4,
+      "钢": 1,
+      "钱": 2,
+      "阳": 1
+    },
+    "projected_overflow_entry_count": 0,
+    "projected_overflow_ids": []
+  },
+  "renderer_readiness": {
+    "entry_count": 1262,
+    "ready_entry_count": 1129,
+    "missing_entry_count": 133,
+    "missing_character_count": 33,
+    "missing_characters": "afhru伦佛侣凤凯勒妮姬娅岛庆惠户杰滨琪艾苏莎菲萝谦贾赛赞钢钱阳",
+    "missing_character_occurrence_count": 155,
+    "missing": [
+      {
+        "character": "a",
+        "reason": "unmapped",
+        "occurrence_count": 2
+      },
+      {
+        "character": "f",
+        "reason": "unmapped",
+        "occurrence_count": 1
+      },
+      {
+        "character": "h",
+        "reason": "unmapped",
+        "occurrence_count": 1
+      },
+      {
+        "character": "r",
+        "reason": "unmapped",
+        "occurrence_count": 2
+      },
+      {
+        "character": "u",
+        "reason": "unmapped",
+        "occurrence_count": 3
+      },
+      {
+        "character": "伦",
+        "reason": "unmapped",
+        "occurrence_count": 4
+      },
+      {
+        "character": "佛",
+        "reason": "resolver_unreachable",
+        "occurrence_count": 2
+      },
+      {
+        "character": "侣",
+        "reason": "unmapped",
+        "occurrence_count": 2
+      },
+      {
+        "character": "凤",
+        "reason": "unmapped",
+        "occurrence_count": 8
+      },
+      {
+        "character": "凯",
+        "reason": "unmapped",
+        "occurrence_count": 2
+      },
+      {
+        "character": "勒",
+        "reason": "resolver_unreachable",
+        "occurrence_count": 2
+      },
+      {
+        "character": "妮",
+        "reason": "unmapped",
+        "occurrence_count": 10
+      },
+      {
+        "character": "姬",
+        "reason": "unmapped",
+        "occurrence_count": 4
+      },
+      {
+        "character": "娅",
+        "reason": "unmapped",
+        "occurrence_count": 20
+      },
+      {
+        "character": "岛",
+        "reason": "unmapped",
+        "occurrence_count": 1
+      },
+      {
+        "character": "庆",
+        "reason": "unmapped",
+        "occurrence_count": 4
+      },
+      {
+        "character": "惠",
+        "reason": "resolver_unreachable",
+        "occurrence_count": 6
+      },
+      {
+        "character": "户",
+        "reason": "unmapped",
+        "occurrence_count": 2
+      },
+      {
+        "character": "杰",
+        "reason": "resolver_unreachable",
+        "occurrence_count": 8
+      },
+      {
+        "character": "滨",
+        "reason": "unmapped",
+        "occurrence_count": 2
+      },
+      {
+        "character": "琪",
+        "reason": "unmapped",
+        "occurrence_count": 10
+      },
+      {
+        "character": "艾",
+        "reason": "resolver_unreachable",
+        "occurrence_count": 12
+      },
+      {
+        "character": "苏",
+        "reason": "unmapped",
+        "occurrence_count": 6
+      },
+      {
+        "character": "莎",
+        "reason": "resolver_unreachable",
+        "occurrence_count": 4
+      },
+      {
+        "character": "菲",
+        "reason": "resolver_unreachable",
+        "occurrence_count": 14
+      },
+      {
+        "character": "萝",
+        "reason": "unmapped",
+        "occurrence_count": 1
+      },
+      {
+        "character": "谦",
+        "reason": "unmapped",
+        "occurrence_count": 2
+      },
+      {
+        "character": "贾",
+        "reason": "unmapped",
+        "occurrence_count": 10
+      },
+      {
+        "character": "赛",
+        "reason": "unmapped",
+        "occurrence_count": 2
+      },
+      {
+        "character": "赞",
+        "reason": "unmapped",
+        "occurrence_count": 4
+      },
+      {
+        "character": "钢",
+        "reason": "unmapped",
+        "occurrence_count": 1
+      },
+      {
+        "character": "钱",
+        "reason": "unmapped",
+        "occurrence_count": 2
+      },
+      {
+        "character": "阳",
+        "reason": "unmapped",
+        "occurrence_count": 1
+      }
+    ],
+    "original_font_han_character_count": 29,
+    "original_font_han_characters": "丈乙亨僧医吾咲塞奈媚弁彩志枝桑洛温琉琳穆耶芙茜茨荷薇裁隆隼",
+    "original_font_han_entry_count": 124,
+    "available_candidate_slot_count": 48,
+    "projected_remaining_candidate_slot_count": 15
+  },
+  "review_queue": {
+    "row_count": 2800,
+    "disposition_counts": {
+      "prior_translation": 45,
+      "selected_researched_exact": 1262,
+      "unresolved": 1493
+    }
+  },
+  "acceptance": {
+    "structure_reproducible": true,
+    "researched_exact_match_only": true,
+    "conflicting_researched_sources_excluded": true,
+    "prior_translation_ids_excluded": true,
+    "source_text_absent_from_manifest": true,
+    "selection_hash_locked": true,
+    "current_font_readiness_measured": true,
+    "renderer_readiness_measured": true,
+    "renderer_allocation_fits_available_slots": true,
+    "projected_fixed_allocation_overflow_count_zero": true,
+    "writer_not_implemented": true,
+    "runtime_not_tested": true
+  },
+  "next_gate": "Allocate and rasterize the missing characters, review the exact selection, rerasterize selected original-font Han, then compose the selected fixed allocations on top of the P0 display-name COMPDATA component."
+}

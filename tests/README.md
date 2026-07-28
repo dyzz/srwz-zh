@@ -74,7 +74,11 @@ archive/report 输出边界；`test_mapname.py` 固定 Shift-JIS/NUL/全零 padd
 fixed-span 选择 ratchet、指针／非目标字节不变、组件哈希和压缩回解；两者均
 明确要求运行状态仍为 `not_tested`。
 `test_display_names.py` 固定 COMPDATA 人物／机体表几何、稳定 ID、指针归并、
-零 padding 和 hash-only 提交投影；`test_ui_p0_display_names.py` 固定开场
+零 padding 和 hash-only 提交投影；`test_display_name_coverage.py` 固定
+researched 精确源词的 1,262 字段选择、1,166 个当前字库直通项、96 个缺字
+项／21 个编码缺字、33 个 renderer allocation、29 个统一重绘汉字、15 个
+预计剩余槽、零 projected allocation 溢出、2,800 行审核 TSV 和提交清单
+不含原始日文；`test_ui_p0_display_names.py` 固定开场
 45 个名称决策、原 allocation 写回、人物 ID／机体指针／非目标字节不变和
 压缩流精确回解，并要求 ISO／运行状态仍未测试。
 `test_summary_layout.py` 固定世界史 28 条、146 行、22 格、14 个空行、

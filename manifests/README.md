@@ -149,6 +149,13 @@
 - `display-name-structure.json`：COMPDATA 的 933 条人物记录、2,799 个固定
   人物字段、808 个机体指针和 348 个唯一名称槽的完整结构清单；保存稳定 ID、
   前像、计数和聚合哈希，不保存日文名称或游戏字节。
+- `display-name-researched-coverage.json`：排除开场 45 个已写回字段后，
+  以 v1 术语库 `researched` 决定作精确源词传播；选择 1,262 个字段
+  （1,221 人物／41 机体、307 个唯一源词），当前 P1 字库可直接覆盖
+  1,166 个编码项；统一 renderer 需要新增 33 个 allocation（含 21 个编码
+  缺字、5 个普通 ASCII 和 7 个原表不可达汉字）并重绘 29 个原版汉字，
+  48 槽预计余 15 槽且零 projected allocation 溢出。日文只在被忽略的
+  审核 JSON／TSV；writer 和 runtime 均未完成。
 - `ui-p0-display-names-validation.json`：在固定 P0 COMPDATA 组件上写入开场
   45 个已审校动态名称字段；证明人物 ID、机体指针和非目标字节不变、所有文本
   留在原 allocation、压缩流精确回解。ISO 和运行验证仍待完成。
