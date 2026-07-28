@@ -169,6 +169,9 @@ def build_ui_test_candidate(
         for reference in (p2_reference, atlas_reference, story_reference)
     ):
         raise UiTestCandidateError("UI test candidate component references are incomplete")
+    ui_component_id = p2_reference.get("component_id", "ui-p2-core")
+    if not isinstance(ui_component_id, str) or not ui_component_id:
+        raise UiTestCandidateError("UI core component ID is invalid")
 
     p2_manifest_path, p2_manifest = _verify_json_reference(
         root,
@@ -190,7 +193,7 @@ def build_ui_test_candidate(
     output_reports = {}
     source_reports = []
     for component_id, reference, manifest, manifest_path in (
-        ("ui-p2-core", p2_reference, p2_manifest, p2_manifest_path),
+        (ui_component_id, p2_reference, p2_manifest, p2_manifest_path),
         ("ui-atlas-suite-zh", atlas_reference, atlas_manifest, atlas_manifest_path),
         ("first-five-story", story_reference, story_manifest, story_manifest_path),
     ):
@@ -287,8 +290,8 @@ def build_ui_test_candidate(
         or composition.get("member_owner_overlap_count") != 0
     ):
         raise UiTestCandidateError("UI test candidate composition ratchet drift")
-    if composition.get("font_owner") != "ui-p2-core":
-        raise UiTestCandidateError("P2 UI core must own the final font")
+    if composition.get("font_owner") != ui_component_id:
+        raise UiTestCandidateError("configured UI core must own the final font")
     if composition.get("story_data_owner") != "first-five-story":
         raise UiTestCandidateError("first-five story must own HB and STAGE")
     if composition.get("atlas_owner") != "ui-atlas-suite-zh":
@@ -304,12 +307,17 @@ def build_ui_test_candidate(
     if actual_outputs != expected_outputs:
         raise UiTestCandidateError("UI test candidate output lock drift")
 
+    ui_owner_acceptance_key = (
+        "p2_core_owns_final_font_and_ui_text"
+        if ui_component_id == "ui-p2-core"
+        else "ui_core_owns_final_font_and_ui_text"
+    )
     acceptance = {
         "component_manifests_locked": True,
         "component_statuses_validated": True,
         "component_payloads_match_manifest_locks": True,
         "member_ownership_disjoint": len(output_payloads) == len(actual_members),
-        "p2_core_owns_final_font_and_ui_text": True,
+        ui_owner_acceptance_key: True,
         "first_five_owns_story_archives": True,
         "atlas_suite_owns_kvmdata": True,
         "all_output_locks_exact": actual_outputs == expected_outputs,
@@ -319,12 +327,30 @@ def build_ui_test_candidate(
             f"UI test candidate acceptance failed: {acceptance}"
         )
 
-    report = {
-        "schema_version": 1,
-        "status": (
+    manifest_contract = config.get("manifest_contract", {})
+    if not isinstance(manifest_contract, dict):
+        raise UiTestCandidateError("UI test manifest contract is invalid")
+    report_status = manifest_contract.get(
+        "status",
+        (
             "integrated_ui_p2_first_five_atlas_test_component_"
             "validated_runtime_pending"
         ),
+    )
+    if not isinstance(report_status, str) or not report_status:
+        raise UiTestCandidateError("UI test manifest status is invalid")
+    runtime_purpose = manifest_contract.get(
+        "runtime_purpose",
+        (
+            "Exercise the current P2 UI core, first-five story data and "
+            "all five localized atlas candidates in one exact ISO."
+        ),
+    )
+    if not isinstance(runtime_purpose, str) or not runtime_purpose:
+        raise UiTestCandidateError("UI test runtime purpose is invalid")
+    report = {
+        "schema_version": 1,
+        "status": report_status,
         "content_policy": (
             "Hashes, counts, paths and runtime gates only; no game bytes or "
             "localized text are embedded."
@@ -343,10 +369,7 @@ def build_ui_test_candidate(
         "acceptance": acceptance,
         "runtime": {
             "status": "not_tested",
-            "purpose": (
-                "Exercise the current P2 UI core, first-five story data and "
-                "all five localized atlas candidates in one exact ISO."
-            ),
+            "purpose": runtime_purpose,
             "isolated_atlas_mapping_profiles_remain_required": True,
             "required_scene_families": config.get("runtime", {}).get(
                 "required_scene_families",

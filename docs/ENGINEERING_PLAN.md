@@ -435,7 +435,7 @@ affected components/surfaces
 | E0 | 已完成 | component/ISO/runtime/visual 哈希链和事故 gates | 后续只允许显式更新 golden |
 | E1 | 已完成 | SurfaceSpec、中文记录、codebook、`canary-menu`、reconciliation 和固定 component/ISO lock | 后续统一 CLI 属于 E3 工程化 |
 | E2 | 已完成 | menu、MTV_PROS summary、STAGE growing dialogue 三类 writer/profile/fixture；三条独立 PCSX2 证据和完整组合 smoke | 扩大语料前进入 E3 |
-| E3 | 进行中 | 前五关和世界史布局门、P0/P1/P2 UI 字库、fixed-span writer、1,307 项动态名、静态组合 UI ISO、五张中文 atlas 独立候选和运行矩阵 | atlas 运行归属、余下名称、STAGE/HB 合并、离线 render oracle 和逐屏证据 |
+| E3 | 进行中 | 前五关和世界史布局门、P0/P1/P2 UI 字库、fixed-span writer、1,307 项动态名、两个 embedded fresh-boot 分区的 P3 slice、静态组合 UI ISO、五张中文 atlas 独立候选和 21 用例运行矩阵 | P3／atlas 运行归属、余下名称、其余 embedded UI、离线 render oracle 和逐屏证据 |
 | E4–E5 | 未开始 | E2 可复用 clean-room 生产基础 | 在 E3 退出条件满足后实施 |
 
 ### E0：冻结首个纵向切片
@@ -598,9 +598,10 @@ E0-E2 已完成：SurfaceSpec、正式 `测/试` codebook、三域 `corpus/zh`�
 allocation、4 个退役 assignment 复用和 29 个重绘字形完成统一 renderer。
 标题、P0 菜单、合计 1,307 项动态名、P2 字库和世界史已经进入静态验证的
 `ui-p2-core` ISO。五张中文 atlas 均已有独立、等长、零 LBA 位移候选；测试
-专用综合镜像也已把它们与前五关 `HB/STAGE` 合入 P2 UI，完成 7 成员静态
-容器验收。余下 1,493 个非空名称、五张 atlas 的运行归属和逐屏运行验收仍未
-覆盖。
+专用 P3 综合镜像另把两个 fresh-boot embedded UI 分区的 23 条决定、五图
+suite 和前五关 `HB/STAGE` 合入 P2 UI，完成 7 成员静态容器验收并锁定
+21 个运行用例。余下 1,493 个非空名称、其余 embedded UI、五张 atlas 的
+运行归属和逐屏运行验收仍未覆盖。
 
 工程规划期间不把“文档数量”“脚本数量”或“单元测试数量”当作完成标准。每一阶段
 是否完成，只由该阶段声明的可重建产物、机器门禁和运行/视觉证据决定。

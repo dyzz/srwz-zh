@@ -1,0 +1,785 @@
+{
+  "schema_version": 1,
+  "map_id": "srwz-ui-embedded-scenes-v1",
+  "scope": "Static, exhaustive subdivision of the 275 deferred SLPS Unknown entries into screen-oriented clusters. This map selects future writeback and runtime-test units; it does not claim that a cluster has been observed in PCSX2.",
+  "aggregate_scene": {
+    "inventory": "config/ui-scenes.json",
+    "scene_id": "menus/extended-embedded-dialogs",
+    "expected_entry_count": 275
+  },
+  "source": {
+    "translation_file": "corpus/zh/menu/unclassified.json",
+    "source_corpus": "work/corpus/srwz-corpus.jsonl"
+  },
+  "writeback_readiness": {
+    "writer_baseline_config": "config/ui-writeback/ui-p0-slps-fixed.json",
+    "font_manifest": "manifests/ui-p2-display-name-font-validation.json",
+    "required_font_status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending",
+    "source_slps": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
+    "source_vt1": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
+    "policy": "A group is fixed-span ready only when every decision encodes with the exact P2 font proposal, fits every original NUL-terminated target, and closes over all shared target owners with identical payloads."
+  },
+  "classification_policy": {
+    "user_facing_candidate": "The contiguous text cluster has a plausible player-visible screen route and may be promoted after runtime attribution.",
+    "mixed_user_and_diagnostic": "The cluster combines visible labels with debug, placeholder or internal formatting strings and must be split using runtime or code-reference evidence.",
+    "diagnostic_or_format_fragment": "The cluster has no safe direct UI route; preserve it until code-reference evidence proves player visibility.",
+    "promotion_gate": "A production selector requires a hash-locked ISO, native fixture, exact route, before/after captures and confirmation that every promoted ID renders on that route."
+  },
+  "ratchet": {
+    "group_count": 22,
+    "classified_entry_count": 275,
+    "classification_group_counts": {
+      "diagnostic_or_format_fragment": 2,
+      "mixed_user_and_diagnostic": 2,
+      "user_facing_candidate": 18
+    },
+    "classification_entry_counts": {
+      "diagnostic_or_format_fragment": 5,
+      "mixed_user_and_diagnostic": 17,
+      "user_facing_candidate": 253
+    },
+    "writeback_readiness_counts": {
+      "allocation_or_shared_owner_required": 4,
+      "fixed_span_ready": 13,
+      "font_extension_required": 5
+    },
+    "fixed_span_ready_entry_count": 123,
+    "fixed_span_ready_user_facing_entry_count": 101,
+    "font_missing_character_count": 6,
+    "overflow_entry_count": 7
+  },
+  "groups": [
+    {
+      "scene_id": "battle/end-phase-map-command-tail",
+      "label": "战场结束阶段与地图指令尾项",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 16,
+            "end": 21,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 6
+      },
+      "fixture_id": "first-battle-card",
+      "route": [
+        "Load a native first-battle card with one controllable squad.",
+        "Open the map command menu and visit search and end-phase confirmation.",
+        "Return to the battle map without advancing the turn."
+      ],
+      "capture_points": [
+        "map command tail",
+        "end-phase confirmation"
+      ],
+      "runtime_assertions": [
+        "labels and confirmation sentence are Chinese",
+        "format fragments remain aligned with dynamic values",
+        "cancel returns to the same battle state"
+      ]
+    },
+    {
+      "scene_id": "options/bgm-controller-and-map-settings",
+      "label": "系统选项、BGM、控制与地图设置",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 22,
+            "end": 50,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 29
+      },
+      "fixture_id": "first-intermission-card",
+      "route": [
+        "Load the first native intermission card.",
+        "Open Options and visit every BGM, vibration, cursor and map-display row.",
+        "Toggle each binary and multi-value setting once, then cancel changes."
+      ],
+      "capture_points": [
+        "options first page",
+        "options controller page",
+        "options map page"
+      ],
+      "runtime_assertions": [
+        "every setting label and value is visible without clipping",
+        "ON/OFF and multi-value toggles keep their original behavior",
+        "dynamic button hints do not overlap translated labels"
+      ]
+    },
+    {
+      "scene_id": "tutorial/unit-stat-and-terrain-legend",
+      "label": "教学中的机体数值与地形适应图例",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 51,
+            "end": 70,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 20
+      },
+      "fixture_id": "fresh-boot",
+      "route": [
+        "Cold boot the candidate ISO and select the tutorial route.",
+        "Advance until unit statistics and terrain grades are introduced.",
+        "Open the referenced information panel if the tutorial permits it."
+      ],
+      "capture_points": [
+        "tutorial unit-stat legend",
+        "terrain grade legend"
+      ],
+      "runtime_assertions": [
+        "HP, EN, armor, mobility, accuracy and range labels align with values",
+        "terrain letters and grades preserve their compact layout",
+        "tutorial progression is not blocked"
+      ]
+    },
+    {
+      "scene_id": "opening/default-protagonist-labels",
+      "label": "开局默认主人公与相关名称标签",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 71,
+            "end": 73,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 3
+      },
+      "fixture_id": "fresh-boot",
+      "route": [
+        "Cold boot and start each protagonist route.",
+        "Reach the default-name confirmation without editing the name.",
+        "Toggle focus between the visible default-name fields."
+      ],
+      "capture_points": [
+        "male-route default labels",
+        "female-route default labels"
+      ],
+      "runtime_assertions": [
+        "default labels match the separately written dynamic names",
+        "focus and selection frames retain their original dimensions",
+        "player-entered names remain editable"
+      ]
+    },
+    {
+      "scene_id": "preparation/reboard-status-and-internal-warnings",
+      "label": "战斗准备中的换乘状态与内部警告",
+      "classification": "mixed_user_and_diagnostic",
+      "mapping_confidence": "mixed_cluster_requires_runtime_split",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 83,
+            "end": 92,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 10
+      },
+      "fixture_id": "first-intermission-card",
+      "route": [
+        "Open battle preparation and perform a legal reboard operation.",
+        "Visit squad status and attack-value displays.",
+        "Record any entry that appears only under invalid or debug state."
+      ],
+      "capture_points": [
+        "reboard completion",
+        "preparation squad status"
+      ],
+      "runtime_assertions": [
+        "visible reboard and status labels are Chinese",
+        "percent and level fragments remain attached to their values",
+        "debug-only strings are not promoted without a reproducible trigger"
+      ]
+    },
+    {
+      "scene_id": "battle/action-restriction-messages",
+      "label": "战斗行动、队形与援护限制提示",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 93,
+            "end": 102,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 10
+      },
+      "fixture_id": "first-battle-card",
+      "route": [
+        "Load a battle fixture with TRI, Wide and support-capable squads.",
+        "Attempt every disallowed target, formation and support action.",
+        "Dismiss each restriction dialog without changing the fixture state."
+      ],
+      "capture_points": [
+        "TRI target restriction",
+        "formation restriction",
+        "support-defense restriction"
+      ],
+      "runtime_assertions": [
+        "each restriction message identifies the correct failed action",
+        "manual line breaks fit the message box",
+        "no restriction path accepts an invalid action"
+      ]
+    },
+    {
+      "scene_id": "diagnostics/sort-table-integrity",
+      "label": "排序表完整性诊断",
+      "classification": "diagnostic_or_format_fragment",
+      "mapping_confidence": "code_reference_required_before_runtime_route",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 112,
+            "end": 112,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 1
+      },
+      "fixture_id": "not-directly-routable",
+      "route": [
+        "Locate every code reference to the diagnostic target.",
+        "Prove whether normal saved-game state can satisfy the branch."
+      ],
+      "capture_points": [
+        "diagnostic branch if normally reachable"
+      ],
+      "runtime_assertions": [
+        "the diagnostic is not classified as player UI without a normal trigger"
+      ]
+    },
+    {
+      "scene_id": "formation/terrain-variant-selector",
+      "label": "编成中的编号与地形类型选择",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 134,
+            "end": 143,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 10
+      },
+      "fixture_id": "first-intermission-card",
+      "route": [
+        "Open formation with units covering air, land and water movement.",
+        "Visit numbered slots and every terrain-type filter.",
+        "Change the active filter and return to the full list."
+      ],
+      "capture_points": [
+        "formation numbered slots",
+        "terrain-type filter"
+      ],
+      "runtime_assertions": [
+        "terrain-type labels correspond to the filtered units",
+        "number and question-mark placeholders keep their alignment",
+        "filter changes do not corrupt the squad list"
+      ]
+    },
+    {
+      "scene_id": "battle/weapon-selection-and-use-conditions",
+      "label": "战斗武器选择与使用条件",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 150,
+            "end": 171,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 22
+      },
+      "fixture_id": "first-battle-card",
+      "route": [
+        "Load a battle fixture containing TRI, combined, post-move and support weapons.",
+        "Open weapon selection under satisfied and unsatisfied conditions.",
+        "Inspect every displayed failure reason."
+      ],
+      "capture_points": [
+        "weapon selection",
+        "weapon use-condition list",
+        "combined-attack restriction"
+      ],
+      "runtime_assertions": [
+        "weapon conditions correspond to actual usability",
+        "condition bullets and two-line failure text fit the panel",
+        "disabled and enabled weapon rows retain distinct states"
+      ]
+    },
+    {
+      "scene_id": "system/quick-command-save-and-cancel-confirmations",
+      "label": "快捷指令、容量与取消确认",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 172,
+            "end": 176,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 5
+      },
+      "fixture_id": "first-battle-card",
+      "route": [
+        "Open quick-command settings from a battle map.",
+        "Change one mapping and visit both cursor-context help states.",
+        "Attempt to cancel with marks present and decline confirmation."
+      ],
+      "capture_points": [
+        "quick-command settings",
+        "cancel-marks confirmation"
+      ],
+      "runtime_assertions": [
+        "capacity and context labels align with numeric values",
+        "confirmation text fits without losing its question",
+        "declining cancellation preserves all marks"
+      ]
+    },
+    {
+      "scene_id": "results/settlement-and-support-setup",
+      "label": "击坠结算、交涉与援护设置",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 177,
+            "end": 181,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 5
+      },
+      "fixture_id": "pre-results-card",
+      "route": [
+        "Load a pre-results fixture containing negotiation and support-capable units.",
+        "Advance through destroyed-unit settlement and negotiation.",
+        "Open support attack setup before leaving results."
+      ],
+      "capture_points": [
+        "destroyed-unit settlement",
+        "negotiation result",
+        "support setup"
+      ],
+      "runtime_assertions": [
+        "settlement values retain their correct labels",
+        "zero-value negotiation text is complete",
+        "support setup opens and returns normally"
+      ]
+    },
+    {
+      "scene_id": "formation/list-search-and-priority",
+      "label": "编成列表、搜索条件与优先顺序",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 187,
+            "end": 219,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 33
+      },
+      "fixture_id": "first-intermission-card",
+      "route": [
+        "Open formation and enter unit search.",
+        "Visit type, pilot, performance, ability and squad-bonus criteria.",
+        "Toggle priority, clear the criterion and run a zero-result search."
+      ],
+      "capture_points": [
+        "formation list counter",
+        "search criterion list",
+        "zero-result message"
+      ],
+      "runtime_assertions": [
+        "list counters and punctuation surround dynamic values correctly",
+        "criteria and ON/OFF priority states remain distinguishable",
+        "zero-result text fits and returns to search"
+      ]
+    },
+    {
+      "scene_id": "upgrade/full-upgrade-reward",
+      "label": "全改造奖励选择与确认",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 220,
+            "end": 236,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 17
+      },
+      "fixture_id": "full-upgrade-card",
+      "route": [
+        "Load a native card immediately before a unit reaches full upgrade.",
+        "Open every reward option and inspect the defer path.",
+        "Select one reward, reject confirmation, then confirm it."
+      ],
+      "capture_points": [
+        "full-upgrade reward list",
+        "defer explanation",
+        "reward confirmation"
+      ],
+      "runtime_assertions": [
+        "every reward description fits and preserves numeric modifiers",
+        "defer text is shown on the correct path",
+        "only the confirmed reward changes the save state"
+      ]
+    },
+    {
+      "scene_id": "formation/squad-and-reboard-confirmations",
+      "label": "小队编成、命名与换乘确认",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 237,
+            "end": 246,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 10
+      },
+      "fixture_id": "first-intermission-card",
+      "route": [
+        "Open squad formation and rename a squad.",
+        "Attempt a reboard that would leave one unit without a pilot.",
+        "Reject and then accept the resulting confirmation."
+      ],
+      "capture_points": [
+        "squad rename confirmation",
+        "unpiloted-unit warning",
+        "reboard confirmation"
+      ],
+      "runtime_assertions": [
+        "chapter and turn fragments remain attached to their values",
+        "multi-line reboard warning fits the dialog",
+        "reject and accept paths preserve their original behavior"
+      ]
+    },
+    {
+      "scene_id": "information/pilot-ability-format-and-control-fragments",
+      "label": "驾驶员能力页格式与控制片段",
+      "classification": "mixed_user_and_diagnostic",
+      "mapping_confidence": "mixed_cluster_requires_runtime_split",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 247,
+            "end": 253,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 7
+      },
+      "fixture_id": "first-intermission-card",
+      "route": [
+        "Open pilot abilities for a unit with multiple special skills.",
+        "Switch between both ability subpages.",
+        "Record which control and debug-looking fragments are actually drawn."
+      ],
+      "capture_points": [
+        "pilot ability page 1",
+        "pilot ability page 2"
+      ],
+      "runtime_assertions": [
+        "visible ability labels are Chinese",
+        "color and width controls are interpreted rather than printed",
+        "internal Set text is not promoted without visible evidence"
+      ]
+    },
+    {
+      "scene_id": "archive/scenario-progress-and-route-headings",
+      "label": "资料库关卡进度与路线标题",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 255,
+            "end": 263,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 9
+      },
+      "fixture_id": "first-five-progress-card",
+      "route": [
+        "Load a native card with multiple completed stages and routes.",
+        "Open Library and visit scenario progress.",
+        "Move between route headings and completed-stage counters."
+      ],
+      "capture_points": [
+        "scenario progress counter",
+        "route heading list"
+      ],
+      "runtime_assertions": [
+        "stage counters preserve their surrounding grammar",
+        "route headings align in their fixed frame",
+        "completed and incomplete states remain distinguishable"
+      ]
+    },
+    {
+      "scene_id": "information/tactical-status-metrics",
+      "label": "人物机体页的战术状态数值",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 269,
+            "end": 282,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 14
+      },
+      "fixture_id": "first-intermission-card",
+      "route": [
+        "Open pilot and unit information for support, repair and resupply units.",
+        "Visit experience, PP, kill-count and next-level panels.",
+        "Switch between unit and weapon-property subpages."
+      ],
+      "capture_points": [
+        "pilot progression metrics",
+        "support and repair metrics",
+        "weapon properties"
+      ],
+      "runtime_assertions": [
+        "all metric labels remain adjacent to their numeric values",
+        "support attack and defense abbreviations are unambiguous",
+        "page switching does not leave stale labels"
+      ]
+    },
+    {
+      "scene_id": "battle/repair-resupply-spirit-targeting",
+      "label": "修理、补给与精神指令目标选择",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 283,
+            "end": 299,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 17
+      },
+      "fixture_id": "first-battle-card",
+      "route": [
+        "Load a battle fixture with repair, resupply and targetable spirit commands.",
+        "Acquire a part or reward if needed to visit the result messages.",
+        "Open each target selector and inspect the no-support state."
+      ],
+      "capture_points": [
+        "repair target selection",
+        "resupply target selection",
+        "spirit target confirmation",
+        "acquired-item message"
+      ],
+      "runtime_assertions": [
+        "dynamic unit and item names are inserted inside Chinese sentences",
+        "repair, resupply and spirit selectors identify the correct target type",
+        "no-support state is readable and blocks invalid confirmation"
+      ]
+    },
+    {
+      "scene_id": "deployment/squad-selection-and-size-format",
+      "label": "出击小队选择与尺寸格式",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 300,
+            "end": 315,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 16
+      },
+      "fixture_id": "pre-results-card",
+      "route": [
+        "Load a fixture before squad deployment selection.",
+        "Open squad details, size filters and name search.",
+        "Select and deselect one squad without starting the stage."
+      ],
+      "capture_points": [
+        "deployment squad list",
+        "unit-size filter",
+        "deployment search"
+      ],
+      "runtime_assertions": [
+        "placeholder separators and dynamic squad names align",
+        "small, medium and large filters return the correct units",
+        "selection counts update without stale glyphs"
+      ]
+    },
+    {
+      "scene_id": "information/reboard-and-option-subpages",
+      "label": "换乘信息与选项子页面",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 325,
+            "end": 336,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 12
+      },
+      "fixture_id": "first-intermission-card",
+      "route": [
+        "Open reboard confirmation for a unit with a sub-pilot.",
+        "Inspect melee, skill, ranged and accuracy fields.",
+        "Open each option subpage and return without applying changes."
+      ],
+      "capture_points": [
+        "main and sub-pilot labels",
+        "reboard stat comparison",
+        "option subpage heading"
+      ],
+      "runtime_assertions": [
+        "main and sub-pilot labels point to the correct rows",
+        "stat comparison plus signs align with numbers",
+        "formatted option headings do not print raw placeholders"
+      ]
+    },
+    {
+      "scene_id": "runtime/dynamic-label-format-fragments",
+      "label": "动态名称与数值格式片段",
+      "classification": "diagnostic_or_format_fragment",
+      "mapping_confidence": "code_reference_required_before_runtime_route",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 342,
+            "end": 345,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 4
+      },
+      "fixture_id": "not-directly-routable",
+      "route": [
+        "Locate all call sites that format these placeholder fragments.",
+        "Bind each call site to a player-visible screen before changing bytes."
+      ],
+      "capture_points": [
+        "each proven formatted output"
+      ],
+      "runtime_assertions": [
+        "raw percent placeholders never appear on screen",
+        "format fragments are not translated independently of their call site"
+      ]
+    },
+    {
+      "scene_id": "parts/equipment-and-predeployment-actions",
+      "label": "强化部件、装备与出击前操作",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "selector": {
+        "translation_file": "corpus/zh/menu/unclassified.json",
+        "id_ranges": [
+          {
+            "prefix": "menu/SLPS/00/",
+            "start": 351,
+            "end": 365,
+            "width": 4
+          }
+        ],
+        "expected_entry_count": 15
+      },
+      "fixture_id": "first-intermission-card",
+      "route": [
+        "Open enhancement parts for a unit with equipped and spare parts.",
+        "Visit remove, quantity, terrain and marker rows.",
+        "Open every predeployment action and then return to intermission."
+      ],
+      "capture_points": [
+        "part removal selection",
+        "part quantity and terrain rows",
+        "predeployment action menu"
+      ],
+      "runtime_assertions": [
+        "part quantity and possession states match inventory",
+        "terrain and marker hints remain aligned",
+        "every predeployment action reaches its original destination"
+      ]
+    }
+  ]
+}

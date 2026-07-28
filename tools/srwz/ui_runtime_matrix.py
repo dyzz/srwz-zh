@@ -314,6 +314,185 @@ def _locked_artifacts(
     return tuple(artifacts)
 
 
+def _locked_scene_extensions(
+    project_root: Path,
+    raw_extensions: object,
+    *,
+    base_scenes: Mapping[str, Mapping[str, object]],
+) -> tuple[tuple[dict, ...], dict[str, dict]]:
+    if raw_extensions is None:
+        return (), {}
+    if not isinstance(raw_extensions, list):
+        raise UiRuntimeMatrixError("scene_extensions must be an array")
+    extensions = []
+    extension_scenes: dict[str, dict] = {}
+    seen_extensions = set()
+    for raw in raw_extensions:
+        if not isinstance(raw, dict):
+            raise UiRuntimeMatrixError("scene extension must be an object")
+        extension_id = raw.get("extension_id")
+        if (
+            not isinstance(extension_id, str)
+            or not extension_id
+            or extension_id in seen_extensions
+        ):
+            raise UiRuntimeMatrixError("scene extension ID is invalid or duplicated")
+        seen_extensions.add(extension_id)
+        manifest_path = _project_path(
+            project_root,
+            raw.get("manifest"),
+            context=f"scene extension {extension_id} manifest",
+            prefix="manifests",
+        )
+        manifest_sha256 = _require_sha256(
+            raw.get("manifest_sha256"),
+            context=f"scene extension {extension_id} manifest hash",
+        )
+        if _sha256(manifest_path) != manifest_sha256:
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} manifest SHA-256 drift"
+            )
+        manifest = _json_object(manifest_path)
+        if manifest.get("map_id") != raw.get("map_id"):
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} map ID drift"
+            )
+        status_lock = raw.get("status_lock")
+        if not isinstance(status_lock, dict):
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} status lock is invalid"
+            )
+        status = _field(
+            manifest,
+            status_lock.get("field"),
+            context=f"scene extension {extension_id} status",
+        )
+        if status != status_lock.get("equals"):
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} status drift: {status!r}"
+            )
+        parent_scene_id = raw.get("parent_scene_id")
+        if parent_scene_id not in base_scenes:
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} parent is unknown"
+            )
+        priority = raw.get("priority")
+        if priority != base_scenes[parent_scene_id]["priority"]:
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} priority does not match its parent"
+            )
+        selected_scene_ids = _string_list(
+            raw.get("selected_scene_ids"),
+            context=f"scene extension {extension_id} selected_scene_ids",
+        )
+        if len(selected_scene_ids) != len(set(selected_scene_ids)):
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} selected scenes are duplicated"
+            )
+        raw_groups = manifest.get("groups")
+        if not isinstance(raw_groups, list):
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} manifest groups are invalid"
+            )
+        groups = {
+            group.get("scene_id"): group
+            for group in raw_groups
+            if isinstance(group, dict)
+            and isinstance(group.get("scene_id"), str)
+            and group.get("scene_id")
+        }
+        missing = sorted(set(selected_scene_ids) - set(groups))
+        if missing:
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} scenes are absent: {missing!r}"
+            )
+        projected_scenes = []
+        for scene_id in selected_scene_ids:
+            if scene_id in base_scenes or scene_id in extension_scenes:
+                raise UiRuntimeMatrixError(
+                    f"scene extension scene is duplicated: {scene_id}"
+                )
+            group = groups[scene_id]
+            readiness = group.get("writeback_readiness")
+            if (
+                group.get("classification") != "user_facing_candidate"
+                or group.get("runtime_status") != "not_tested"
+                or not isinstance(readiness, dict)
+                or readiness.get("status") != "fixed_span_ready"
+                or readiness.get("excluded_entry_count") != 0
+            ):
+                raise UiRuntimeMatrixError(
+                    f"scene extension {scene_id} is not promotion-ready"
+                )
+            entry_count = group.get("entry_count")
+            fixture_id = group.get("fixture_id")
+            if (
+                not isinstance(entry_count, int)
+                or isinstance(entry_count, bool)
+                or entry_count <= 0
+                or not isinstance(fixture_id, str)
+                or not fixture_id
+            ):
+                raise UiRuntimeMatrixError(
+                    f"scene extension {scene_id} projection is invalid"
+                )
+            extension_scenes[scene_id] = {
+                "scene_id": scene_id,
+                "priority": priority,
+                "parent_scene_id": parent_scene_id,
+                "entry_count": entry_count,
+                "fixture_id": fixture_id,
+            }
+            projected_scenes.append(
+                {
+                    "scene_id": scene_id,
+                    "entry_count": entry_count,
+                    "fixture_id": fixture_id,
+                    "runtime_status": group["runtime_status"],
+                    "writeback_readiness": readiness["status"],
+                }
+            )
+        aggregate_entry_count = manifest.get("summary", {}).get(
+            "aggregate_entry_count"
+        )
+        if (
+            not isinstance(aggregate_entry_count, int)
+            or isinstance(aggregate_entry_count, bool)
+            or aggregate_entry_count <= 0
+        ):
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} aggregate count is invalid"
+            )
+        promoted_entry_count = sum(
+            scene["entry_count"] for scene in projected_scenes
+        )
+        if promoted_entry_count >= aggregate_entry_count:
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} leaves no deferred remainder"
+            )
+        extensions.append(
+            {
+                "extension_id": extension_id,
+                "manifest": str(
+                    manifest_path.relative_to(project_root.resolve())
+                ),
+                "manifest_sha256": manifest_sha256,
+                "map_id": manifest["map_id"],
+                "status": status,
+                "parent_scene_id": parent_scene_id,
+                "priority": priority,
+                "scene_count": len(projected_scenes),
+                "promoted_entry_count": promoted_entry_count,
+                "aggregate_entry_count": aggregate_entry_count,
+                "remaining_entry_count": (
+                    aggregate_entry_count - promoted_entry_count
+                ),
+                "scenes": projected_scenes,
+            }
+        )
+    return tuple(extensions), extension_scenes
+
+
 def _fixtures(project_root: Path, raw_fixtures: object) -> tuple[dict, ...]:
     if not isinstance(raw_fixtures, list) or not raw_fixtures:
         raise UiRuntimeMatrixError("runtime matrix needs fixtures")
@@ -435,6 +614,15 @@ def _cases(
             raise UiRuntimeMatrixError(
                 f"case {case_id} references unknown fixture {fixture_id!r}"
             )
+        for scene_id in scene_ids:
+            expected_fixture_id = scenes[scene_id].get("fixture_id")
+            if (
+                expected_fixture_id is not None
+                and fixture_id != expected_fixture_id
+            ):
+                raise UiRuntimeMatrixError(
+                    f"case {case_id} fixture does not match scene {scene_id}"
+                )
         route = _string_list(raw.get("route"), context=f"case {case_id} route")
         assertions = _string_list(
             raw.get("assertions"),
@@ -680,7 +868,15 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
     scene_config = load_scene_config(scene_path)
     if scene_config["inventory_id"] != scene_lock.get("inventory_id"):
         raise UiRuntimeMatrixError("scene inventory ID drift")
-    scenes = {scene["scene_id"]: scene for scene in scene_config["scenes"]}
+    base_scenes = {
+        scene["scene_id"]: scene for scene in scene_config["scenes"]
+    }
+    scene_extensions, extension_scenes = _locked_scene_extensions(
+        project_root,
+        config.get("scene_extensions"),
+        base_scenes=base_scenes,
+    )
+    scenes = {**base_scenes, **extension_scenes}
 
     evidence_policy = config.get("evidence_policy")
     if not isinstance(evidence_policy, dict):
@@ -742,6 +938,33 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
         scenes=scenes,
         cases=cases_by_id,
     )
+    dispositions_by_scene = {
+        disposition["scene_id"]: disposition for disposition in dispositions
+    }
+    for scene_id, disposition in dispositions_by_scene.items():
+        if disposition["disposition"] != "selected":
+            continue
+        expected_case_ids = {
+            case["case_id"] for case in cases if scene_id in case["scene_ids"]
+        }
+        if set(disposition["case_ids"]) != expected_case_ids:
+            raise UiRuntimeMatrixError(
+                f"scene {scene_id} disposition does not own every case"
+            )
+    for extension in scene_extensions:
+        parent_scene_id = extension["parent_scene_id"]
+        if dispositions_by_scene[parent_scene_id]["disposition"] != "deferred":
+            raise UiRuntimeMatrixError(
+                f"scene extension parent {parent_scene_id} must remain deferred"
+            )
+        for scene in extension["scenes"]:
+            if (
+                dispositions_by_scene[scene["scene_id"]]["disposition"]
+                != "selected"
+            ):
+                raise UiRuntimeMatrixError(
+                    f"scene extension {scene['scene_id']} must be selected"
+                )
 
     story_variants = {
         case["variant"]
@@ -801,8 +1024,9 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
             "path": str(scene_path.relative_to(project_root)),
             "sha256": scene_sha256,
             "inventory_id": scene_config["inventory_id"],
-            "scene_count": len(scenes),
+            "scene_count": len(base_scenes),
         },
+        "scene_extensions": list(scene_extensions),
         "evidence_policy": {
             "required_common": sorted(common),
             "required_for_asset_mapping": sorted(mapping),
@@ -810,6 +1034,8 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
         },
         "summary": {
             "scene_count": len(scenes),
+            "base_scene_count": len(base_scenes),
+            "extended_scene_count": len(extension_scenes),
             "selected_scene_count": len(selected),
             "deferred_scene_count": len(deferred),
             "case_count": len(cases),
@@ -842,6 +1068,7 @@ def build_runtime_matrix_manifest(report: Mapping[str, object]) -> dict:
         "matrix_config": report["matrix_config"],
         "matrix_plan_sha256": report["matrix_plan_sha256"],
         "scene_inventory": report["scene_inventory"],
+        "scene_extensions": report["scene_extensions"],
         "evidence_policy": report["evidence_policy"],
         "summary": report["summary"],
         "artifacts": report["artifacts"],

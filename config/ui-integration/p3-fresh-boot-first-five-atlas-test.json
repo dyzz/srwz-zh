@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "profile_id": "ui-p3-fresh-boot-first-five-atlas-test",
+  "scope": "A test-only whole-member composition of the validated P3 fresh-boot UI core, first-five story component and five-atlas Chinese suite. The five isolated atlas profiles remain authoritative for scene attribution.",
+  "manifest_contract": {
+    "status": "integrated_ui_p3_fresh_boot_first_five_atlas_test_component_validated_runtime_pending",
+    "runtime_purpose": "Exercise the P3 fresh-boot UI slice, prior P2 UI core, first-five story data and all five localized atlas candidates in one exact ISO."
+  },
+  "components": {
+    "ui_p2_core": {
+      "component_id": "ui-p3-fresh-boot-core",
+      "manifest": {
+        "path": "manifests/ui-p3-fresh-boot-validation.json",
+        "sha256": "6e663fe122d087a55ea5f1d5f11693d665e4e89d329d77cc190fd3fff6d9c6c7",
+        "required_profile_id": "srwz-ui-p3-fresh-boot-integrated-v1",
+        "required_status": "integrated_ui_p3_fresh_boot_component_validated_iso_runtime_pending",
+        "runtime_status_field": "runtime.status",
+        "required_runtime_status": "not_tested"
+      },
+      "outputs": [
+        {
+          "member": "SLPS_258.87",
+          "path": "work/build/ui-p3-fresh-boot/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "f916d9da31ee1cef4220f0aa07e26eee5320a83f51f9105dd11c1b8272909123",
+          "manifest_lock_field": "outputs.slps"
+        },
+        {
+          "member": "DATA/COMPDATA.BN",
+          "path": "work/build/ui-p3-fresh-boot/components/DATA/COMPDATA.BN",
+          "size": 159693,
+          "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f",
+          "manifest_lock_field": "outputs.compdata"
+        },
+        {
+          "member": "DATA/MTV_PROS.BIN",
+          "path": "work/build/ui-p3-fresh-boot/components/DATA/MTV_PROS.BIN",
+          "size": 8640,
+          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+          "manifest_lock_field": "outputs.mtv_pros"
+        },
+        {
+          "member": "DATA/VT1.BIN",
+          "path": "work/build/ui-p3-fresh-boot/components/DATA/VT1.BIN",
+          "size": 127573504,
+          "sha256": "d4e84ec8e482444397edabd2f7a1d24d600e1477f02642e95769f699383fd468",
+          "manifest_lock_field": "outputs.vt1"
+        }
+      ]
+    },
+    "atlas_suite": {
+      "manifest": {
+        "path": "manifests/ui-atlas-suite-zh-validation.json",
+        "sha256": "410121f38a43aa1f1fc18bf6d41d9d16805a1e7997c79a6191ece12eb85799f0",
+        "required_profile_id": "ui-atlas-suite-zh",
+        "required_status": "static_combined_atlas_component_validated_runtime_mapping_pending",
+        "runtime_status_field": "runtime.status",
+        "required_runtime_status": "not_tested"
+      },
+      "outputs": [
+        {
+          "member": "KURODATA/KVMDATA.BIN",
+          "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
+          "size": 3335408,
+          "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921",
+          "manifest_lock_field": "outputs.archive"
+        }
+      ]
+    },
+    "first_five_story": {
+      "manifest": {
+        "path": "manifests/first-five-validation.json",
+        "sha256": "4a12751a407563b452d284fcfb127453aa23d27c8b03d1000e494c95be2153b7",
+        "required_profile_id": "first-five",
+        "required_status": "static_and_renderer_coverage_passed_runtime_pending",
+        "runtime_status_field": "runtime.current_candidate.status",
+        "required_runtime_status": "not_tested"
+      },
+      "outputs": [
+        {
+          "member": "HEDBDY/HB.BIN",
+          "path": "work/build/first-five/components/HEDBDY/HB.BIN",
+          "size": 31152,
+          "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9",
+          "manifest_sha256_field": "stage_component.hb_sha256"
+        },
+        {
+          "member": "DATA/STAGE.BIN",
+          "path": "work/build/first-five/components/DATA/STAGE.BIN",
+          "size": 3910272,
+          "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9",
+          "manifest_sha256_field": "stage_component.stage_sha256"
+        }
+      ]
+    }
+  },
+  "composition": {
+    "mode": "whole-member-composition",
+    "member_count": 7,
+    "members": [
+      "DATA/COMPDATA.BN",
+      "DATA/MTV_PROS.BIN",
+      "DATA/STAGE.BIN",
+      "DATA/VT1.BIN",
+      "HEDBDY/HB.BIN",
+      "KURODATA/KVMDATA.BIN",
+      "SLPS_258.87"
+    ],
+    "member_owner_overlap_count": 0,
+    "font_owner": "ui-p3-fresh-boot-core",
+    "story_data_owner": "first-five-story",
+    "atlas_owner": "ui-atlas-suite-zh"
+  },
+  "expected_outputs": {
+    "DATA/COMPDATA.BN": {
+      "size": 159693,
+      "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f"
+    },
+    "DATA/MTV_PROS.BIN": {
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    },
+    "DATA/STAGE.BIN": {
+      "size": 3910272,
+      "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
+    },
+    "DATA/VT1.BIN": {
+      "size": 127573504,
+      "sha256": "d4e84ec8e482444397edabd2f7a1d24d600e1477f02642e95769f699383fd468"
+    },
+    "HEDBDY/HB.BIN": {
+      "size": 31152,
+      "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9"
+    },
+    "KURODATA/KVMDATA.BIN": {
+      "size": 3335408,
+      "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921"
+    },
+    "SLPS_258.87": {
+      "size": 3471624,
+      "sha256": "f916d9da31ee1cef4220f0aa07e26eee5320a83f51f9105dd11c1b8272909123"
+    }
+  },
+  "runtime": {
+    "required_scene_families": [
+      "title/main-menu",
+      "opening/player-setup",
+      "tutorial/unit-stat-and-terrain-legend",
+      "opening/default-protagonist-labels",
+      "intermission/main-and-options",
+      "information/unit-pilot-mech-core",
+      "battle/map-and-tactical",
+      "results/level-up-and-deployment",
+      "search/filter-and-results",
+      "route/stage-title-and-branch",
+      "opening/world-history-scroll",
+      "story/first-five-opening-sequences"
+    ]
+  },
+  "outputs": {
+    "component_root": "work/build/ui-p3-fresh-boot-first-five-atlas-test/components",
+    "validation": "work/review/ui-p3-fresh-boot-first-five-atlas-test/component-validation.json",
+    "manifest": "manifests/ui-p3-fresh-boot-first-five-atlas-test-validation.json"
+  }
+}

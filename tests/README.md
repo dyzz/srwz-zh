@@ -67,7 +67,19 @@ TIM2 RGBA 回读、等长归档、独立 ISO 和运行映射未通过边界；
 所有权、上游 manifest 字段锁与确定性复建；
 `test_ui_test_candidate_iso.py` 固定综合 DVD 的 59 个未替换成员、7 个
 replacement、两段 LBA 位移、独立 UDF 回读和运行未验收边界；
-`test_ui_runtime_matrix.py` 固定 14 类场景的完整去向、19 个逐屏用例、
+`test_ui_embedded_scenes.py` 固定延期的 275 条 SLPS UI 文本被 22 个场景
+分区零遗漏／零重叠覆盖，253／17／5 条三类可见性 ratchet、真实
+pointer／embedded HI/LO 所有权哈希，以及每组 fixture、路线、截图和
+`not_tested` 边界；它还固定当前 P2 字库下 13 组／123 条 fixed-span ready、
+5 组 font extension、4 组 allocation／owner work、六个缺字与七条 overflow；
+`test_ui_embedded_candidate.py` 固定两个 fresh-boot 分区的 23 条决定、
+11 条 no-op、12 条／32 target 写入、124 字节／35 段 SLPS 修改、P2 core
+零重叠和三个非 SLPS 成员 byte-exact；
+`test_ui_p3_test_candidate.py` 与 `test_ui_p3_test_candidate_iso.py` 固定
+P3／前五关／atlas 的 7 成员所有权、完整复建、59 个未替换 ISO 成员、
+独立 UDF 回读、精确镜像哈希和运行未验收边界；
+`test_ui_runtime_matrix.py` 固定 14 类基础场景和两个哈希锁定扩展场景的完整
+去向、21 个逐屏用例、
 001～005 五个独立开场序列、世界史起点／中点／终点、五张中文 atlas 候选的
 截图＋texture-delta 双门，以及六份尚未取得的原生
 memory-card fixture；旧 `.p2s`

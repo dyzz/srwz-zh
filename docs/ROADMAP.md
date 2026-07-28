@@ -65,18 +65,31 @@ STAGE/HB 或信息页 atlas；28 条仍为 `draft`，raw-trail 新类别和滚�
 1,262 项与开场 45 项合并为 1,307 项 COMPDATA 选择；字库只新增 29 槽并
 复用 `娅杰艾贾` 四个退役 assignment，另重绘 29 个原版汉字，余 19 槽。
 新的 `ui-p2-core` 已完成四成员组合、66 成员容器校验和精确 ISO 锁定。
-测试专用综合候选现进一步组合前五关 `HB/STAGE` 和五图 atlas suite：
+测试专用综合候选现进一步以 P3 fresh-boot slice 覆盖两个 embedded UI
+分区的 23 条决定，再组合前五关 `HB/STAGE` 和五图 atlas suite：
 7 个 replacement 所有权互斥、59 个成员原样、两段 LBA 位移和最终 ISO
-哈希均已锁定。五张 atlas 的运行归因与 P2 逐屏运行仍未验收。具体实施见
+哈希均已锁定。五张 atlas 的运行归因与 P3 逐屏运行仍未验收。具体实施见
 [`UI_COVERAGE_TEST_PLAN.md`](UI_COVERAGE_TEST_PLAN.md)。
 
-运行场景已进一步收敛为独立 `ui-runtime-test-matrix`：14 类场景都有唯一
-去向，10 类进入 19 个逐屏用例，4 类登记延期原因和 exit gate；1 张综合
-候选与五张 atlas 隔离 ISO、42 个截图点、6 个截图序列及五份 texture delta
+P0 之外原来笼统延期的 275 条 SLPS `Unknown` 文本也已完成第一轮静态分屏：
+22 个分区零遗漏、零重叠，全部绑定真实 target、普通 pointer 或 MIPS HI/LO
+所有权；其中 18 组／253 条具有明确可见界面候选路线，两组／17 条混合内部
+诊断内容，两组／5 条必须先查调用点。每组已登记 fixture、截图点和验收断言，
+当前 P2 字库／allocation 预审进一步筛出 13 组／123 条整组 fixed-span
+ready，其中九个明确可见组共 101 条；剩余批次合计只缺六字并有七条真实
+overflow。两个 fresh-boot 分区现已由独立 P3 selector 进行 12 条／32 target
+fixed-span 写入，SLPS 只改变 124 字节且与 P2 core 零重叠；运行归因仍待
+确认。其余分区继续按单组“原版归因 → 字库／allocation 门 → 隔离写回 →
+运行 receipt → 综合合并”晋级。
+
+运行场景已进一步收敛为独立 `ui-runtime-test-matrix`：14 类基础场景都有
+唯一去向，10 类进入测试、4 类登记延期原因和 exit gate；两个 P3 scene
+extension 另作为独立选择加入，共 16 类场景、21 个逐屏用例。1 张 P3 综合
+候选与五张 atlas 隔离 ISO、46 个截图点、6 个截图序列及五份 texture delta
 均有机器锁。当前只有
 fresh-boot fixture 就绪，六份原生 memory card 仍待取得，因此该矩阵仍是
-测试计划而不是运行通过证明。四个 fresh-boot 用例的 case plan 与空白证据
-草稿已刷新，其中核心 UI、路线和前五关绑定同一精确综合 ISO；统一 session
+测试计划而不是运行通过证明。六个 fresh-boot 用例可直接生成 case plan，
+其中核心 UI、P3 场景、路线和前五关绑定同一精确综合 ISO；统一 session
 probe／receipt verifier 会检查精确 ISO、PINE、
 DVD/ELF、零 TLB、截图、断言和 atlas RGBA delta，但当前尚无通过 receipt。
 

@@ -26,6 +26,7 @@
 ```bash
 python3 tools/audit_ui_coverage.py --force
 python3 tools/audit_display_name_coverage.py --force
+python3 tools/audit_ui_embedded_scenes.py --force
 ```
 
 第一条命令会同时验证：
@@ -44,6 +45,14 @@ P1 字库的编码／renderer 缺口和每项原 allocation 容量，并把含�
 2,800 行审核队列写入被忽略的 `work/review/`。该命令只拥有选择结论；
 字库、COMPDATA writer、组合 component、ISO 和运行结论分别由后续 P2
 profile 与清单拥有。
+
+第三条命令把原来笼统延期的 275 条 SLPS `Unknown` 文本拆成 22 个屏幕导向
+静态分区。它要求每条 ID 恰好出现一次，绑定真实 pointer／embedded HI/LO
+所有权，并为每组登记 fixture、路线、截图点和运行断言。提交摘要是
+`manifests/ui-embedded-scene-map.json`，逐组审阅表写入被忽略的
+`work/review/ui-embedded-scene-map.tsv`。分区状态仍是
+`runtime_attribution_pending`：语义相邻和代码所有权能够筛选测试单位，但
+不能替代 PCSX2 中“该组确实出现在该画面”的证据。
 
 只有审核配置或基线变化后，才能显式更新提交清单：
 
@@ -273,7 +282,7 @@ P0 明确排除了两条含未定英语专名的后期专用提示。它们已�
 | P1 | 关卡标题与路线选择 | 122 | P1 字库、容量与运行路线尚未进入独立 profile，当前还缺 36 个字符 |
 | P1 | 开场／资料库世界史滚动文本 | 28 | 布局、P1 字库、完整 MTV_PROS 组件、隔离和组合 ISO 静态回读已通过；28 条仍为 `draft`，raw-trail 新类别和滚动运行待验收 |
 | P1 | 前五关开场、黑屏字幕与对话 | 1,833 | ISO 静态全量回读已通过，当前精确候选仍待运行验证 |
-| P1 | 其余内嵌设置、编成与提示文本 | 275 | 仍是上游 unknown 聚合，必须先按可见界面继续拆分 |
+| P1 | 其余内嵌设置、编成与提示文本 | 275 | 已静态拆成 22 组且零遗漏／零重叠；253 条是可见界面候选，17 条混合诊断内容，5 条需代码引用；逐组运行归因和 writer 晋级待完成 |
 | P1 | 后期专用指令与合神提示 | 2 | 英语专名需要人工确认 |
 | P2 | 零件、技能、能力、精神与武器数据库 | 1,250 | 当前追加式字库容量不足 |
 | P2 | 战斗退场台词 | 297 | COMPDATA writer 和触发路线矩阵均缺失 |
@@ -297,6 +306,74 @@ P1 容量的 736 个候选由 650 个合法 Shift-JIS 安全候选和 86 个 raw
 glyph resolver 指令窗口均已哈希锁定，证明这四类空隙走同一 192-glyph 公式；
 既有 `987F=试` 只为 `0x7F` 类提供一次运行先例，不能替代本 P1 组件或
 `0xFD` 类的实机验收。
+
+### 3.1 275 条 embedded UI 的静态分屏结果
+
+`config/ui-embedded-scenes.json` 是晋级前的研究层，不直接改变 P0 writer。
+22 组的精确选择如下；fixture 只是所需起点，`not-directly-routable` 表示必须
+先查调用点，不能通过破坏存档或制造异常来强行触发。
+
+| 场景分区 | 条数 | 分类 | 计划 fixture |
+| --- | ---: | --- | --- |
+| 战场结束阶段与地图指令尾项 | 6 | 可见候选 | `first-battle-card` |
+| 系统选项、BGM、控制与地图设置 | 29 | 可见候选 | `first-intermission-card` |
+| 教学中的机体数值与地形适应图例 | 20 | 可见候选 | `fresh-boot` |
+| 开局默认主人公与相关名称标签 | 3 | 可见候选 | `fresh-boot` |
+| 战斗准备中的换乘状态与内部警告 | 10 | 混合，需再拆 | `first-intermission-card` |
+| 战斗行动、队形与援护限制提示 | 10 | 可见候选 | `first-battle-card` |
+| 排序表完整性诊断 | 1 | 代码引用优先 | `not-directly-routable` |
+| 编成中的编号与地形类型选择 | 10 | 可见候选 | `first-intermission-card` |
+| 战斗武器选择与使用条件 | 22 | 可见候选 | `first-battle-card` |
+| 快捷指令、容量与取消确认 | 5 | 可见候选 | `first-battle-card` |
+| 击坠结算、交涉与援护设置 | 5 | 可见候选 | `pre-results-card` |
+| 编成列表、搜索条件与优先顺序 | 33 | 可见候选 | `first-intermission-card` |
+| 全改造奖励选择与确认 | 17 | 可见候选 | `full-upgrade-card` |
+| 小队编成、命名与换乘确认 | 10 | 可见候选 | `first-intermission-card` |
+| 驾驶员能力页格式与控制片段 | 7 | 混合，需再拆 | `first-intermission-card` |
+| 资料库关卡进度与路线标题 | 9 | 可见候选 | `first-five-progress-card` |
+| 人物机体页的战术状态数值 | 14 | 可见候选 | `first-intermission-card` |
+| 修理、补给与精神指令目标选择 | 17 | 可见候选 | `first-battle-card` |
+| 出击小队选择与尺寸格式 | 16 | 可见候选 | `pre-results-card` |
+| 换乘信息与选项子页面 | 12 | 可见候选 | `first-intermission-card` |
+| 动态名称与数值格式片段 | 4 | 代码引用优先 | `not-directly-routable` |
+| 强化部件、装备与出击前操作 | 15 | 可见候选 | `first-intermission-card` |
+
+静态合计为 275 条：253 条 `user_facing_candidate`、17 条
+`mixed_user_and_diagnostic`、5 条 `diagnostic_or_format_fragment`。
+22 组共覆盖所有登记 target，且没有未引用条目；每组的 target、普通指针、
+embedded HI/LO 数量和所有权聚合哈希均写入提交清单。下一步不是一次性写入
+253 条。审计器另用当前 P2 字库 proposal 和真实 SLPS span 做了只读预审：
+
+- 13 组／123 条已经整组满足编码、原 span 和共享 owner 闭包，其中
+  9 个明确可见界面组合计 101 条；
+- 5 组／93 条合计只缺 `忆显额页缓锋` 六字；清单只提交字符集合哈希，本地
+  报告保留字符明细；
+- 4 组／59 条可编码，但共有 7 条超过原 allocation，必须短译、登记池区或
+  以更细的共享 owner 单元处理。
+
+两个 fresh-boot 组——20 条教学机体数值／地形图例和 3 条默认主人公标签——
+都属于整组 fixed-span ready，现已由
+`config/ui-writeback/ui-p3-fresh-boot-slps.json` 晋级为首个 P3 slice：
+
+```bash
+python3 tools/build_ui_embedded_candidate.py --force
+python3 tools/verify_ui_embedded_candidate.py --force
+```
+
+23 条决定中 11 条与原字节相同，12 条实际写入 32 个 target；slice 只改变
+SLPS 的 124 字节／35 段，和完整 P2 UI core 的 2,709 个修改字节零重叠，
+每个 slice 偏移的 P2 前像都精确匹配。合成后 SLPS SHA-256 为
+`f916d9da31ee1cef4220f0aa07e26eee5320a83f51f9105dd11c1b8272909123`；
+VT1、COMPDATA、MTV_PROS 与 P2 core byte-exact，指针、非目标字节和解码
+字库均不变。该组件及下文 ISO 的运行状态仍为 `not_tested`。
+
+后续逐组晋级顺序为：
+
+1. 先取得对应原生 `.ps2` fixture，并在原版或当前综合镜像上确认画面归属；
+2. 将同一画面实际出现的 ID 提升为独立 production selector，混合组必须先拆；
+3. 对该 selector 单独计算字库需求、原 span 容量和共享 target owner；
+4. 构建隔离 component／ISO，进行 before/after 截图和动态值格式检查；
+5. 只有运行 receipt 通过后，才并入下一张综合候选。
 
 ## 4. 当前发现的结构缺口
 
@@ -409,23 +486,35 @@ member/chunk/record/picture 映射。静态 preview、ISO 构建通过或任意�
 ### 4.2.1 综合 UI／前五关／atlas 测试候选
 
 五份中文 atlas 先以原版 `KVMDATA.BIN` 为共同基线做字节所有权合成，再与
-P2 UI 四成员及前五关 `HB/STAGE` 做完整成员组合：
+P3 fresh-boot UI 四成员及前五关 `HB/STAGE` 做完整成员组合：
 
 ```bash
 python3 tools/build_ui_atlas_suite.py --force
 python3 tools/verify_ui_atlas_suite.py --force
-python3 tools/build_ui_test_candidate.py --force
-python3 tools/verify_ui_test_candidate.py --force
+python3 tools/build_ui_test_candidate.py \
+  --config config/ui-integration/p3-fresh-boot-first-five-atlas-test.json \
+  --force
+python3 tools/verify_ui_test_candidate.py \
+  --config config/ui-integration/p3-fresh-boot-first-five-atlas-test.json \
+  --force
 python3 tools/build_canary_iso.py \
-  --config config/iso/ui-p2-first-five-atlas-test-build.json
-python3 tools/verify_ui_test_candidate_iso.py --force
+  --config config/iso/ui-p3-fresh-boot-first-five-atlas-test-build.json
+python3 tools/verify_ui_test_candidate_iso.py \
+  --config config/iso/ui-p3-fresh-boot-first-five-atlas-test-build.json \
+  --component-manifest \
+    manifests/ui-p3-fresh-boot-first-five-atlas-test-validation.json \
+  --manifest \
+    manifests/ui-p3-fresh-boot-first-five-atlas-test-runtime-validation.json \
+  --report \
+    work/review/ui-p3-fresh-boot-first-five-atlas-test/iso-validation.json \
+  --force
 ```
 
 atlas suite 相对原版归档共改变 5,568 个字节，五类 owner 零重叠，所有权外
-字节完全不变。综合 component 的 7 个成员也零重叠：P2 UI 拥有
+字节完全不变。综合 component 的 7 个成员也零重叠：P3 UI 拥有
 SLPS／COMPDATA／MTV_PROS／VT1，前五关拥有 HB／STAGE，suite 拥有
 KVMDATA。最终 DVD 大小为 3,758,456,832 字节，SHA-256 为
-`af5c1c5a510db1d86bee2054935400e51c86df34902972ef2ebafa71bb3eb52a`；
+`cc4575bdc94a71d79c3a40810308d4eb41f8d3f69f1fd40139e63c83fde038c0`；
 59 个未替换成员 byte-exact，7 个 replacement 独立 UDF 回读，LBA 位移仅为
 `DATA/NISVDATA.BIN +7` 和 `DATA/STAGE.BIN +42`。这只建立综合运行候选的
 静态身份；五个 isolated atlas profile 仍是 scene mapping 的唯一归因依据。
@@ -450,28 +539,32 @@ python3 tools/audit_ui_runtime_matrix.py --force
 ```
 
 提交投影为 `manifests/ui-runtime-test-matrix.json`。它不修改
-`config/ui-scenes.json` 的语料选择，只把 14 类场景绑定到精确候选、fixture、
-到达步骤、截图点和证据门。当前结果是：
+`config/ui-scenes.json` 的语料选择；两个 P3 fresh-boot 分区通过
+`scene_extensions` 哈希锁定 embedded scene map，不反向改写 14 类基础
+inventory。当前结果是：
 
-- 10 类进入运行测试：全部七类 P0，加关卡标题／路线、世界史滚动和前五关开场；
-- 4 类显式延期：275 条未拆屏提示、两条后期专用提示、1,250 条大型数据库、
-  297 条退场台词；每类都登记继续推进所需的 exit gate；
-- 19 个用例：9 个 UI／路线验收、5 个 001～005 开场序列和 5 个中文 atlas
+- 14 类基础场景中 10 类进入运行测试，4 类显式延期；两个 P3 scene extension
+  作为独立选择加入后，共 16 类场景、12 类当前目标；
+- 275 条 embedded UI 的父场景仍显式延期，但已注明 23 条由两个 P3 子场景
+  晋级、252 条仍等待 writer 或运行归因；其余延期类为两条后期专用提示、
+  1,250 条大型数据库和 297 条退场台词；
+- 21 个用例：11 个 UI／路线验收、5 个 001～005 开场序列和 5 个中文 atlas
   场景映射／显示实验；
 - 6 张候选 ISO 均由现有 manifest 锁定精确 SHA-256：1 张综合镜像和 5 张
   atlas 隔离镜像；
-- 14 个非映射用例（核心 UI、路线与前五关）绑定同一综合镜像；5 个映射用例
+- 16 个非映射用例（核心 UI、两个 P3 fresh-boot 场景、路线与前五关）绑定
+  同一 P3 综合镜像；5 个映射用例
   仍绑定各自隔离 atlas ISO，P1/P2 core 和 first-five 原镜像保留为历史
   可复建基线；
-- 计划采集 42 张截图、6 组截图序列和 5 份 texture delta；
+- 计划采集 46 张截图、6 组截图序列和 5 份 texture delta；
 - fresh boot 是唯一已就绪 fixture，因此标题、玩家设置、世界史滚动和
-  stage 001 开场共 4 个用例可直接执行；其余 15 个用例等待六份原生
-  memory card。
+  stage 001 开场及两个 P3 场景共 6 个用例可直接执行；其余 15 个用例等待
+  六份原生 memory card。
 
 所有 memory card 都必须放在被忽略的
 `work/runtime/ui-fixtures/<fixture>/SLPS-25887.ps2`，登记 SHA-256 后才可
 晋级。现有 `.p2s` savestate 既不满足 fresh-process 契约，也不会自动替代
-原生存档。矩阵当前的 19 个 `runtime_status` 全部为 `not_tested`；
+原生存档。矩阵当前的 21 个 `runtime_status` 全部为 `not_tested`；
 `route_ready` 只表示路线无需存档，不表示 PCSX2 已执行。
 
 每个用例的执行链固定为：
@@ -537,11 +630,13 @@ receipt 绑定稳定的 `matrix_plan_sha256`：它覆盖路线、采集点、断
    分别固定最终 ISO hash。五张受审中文候选 `机体`／`指令菜单`／`交易所`／
    `中场休息`／`新建小队` 也已锁定，相对原图分别变化
    421／2,292／3,634／2,083／1,262 个像素。
-9. **已完成综合测试候选静态验收：**五图 suite 的 5,568 个实际修改字节
-   所有权互斥；P2 UI、前五关和 suite 以 7 个完整成员组合，最终 ISO 的
-   59 个未替换成员、两段 LBA 位移、UDF 回读和 SHA-256 均固定。
-10. **已完成运行矩阵；当前执行目标：**19 个用例已绑定 1 张综合 ISO 和
-   5 张隔离 atlas ISO、fixture、截图点和断言。先执行四个 fresh-boot 用例；
+9. **已完成 P3 fresh-boot slice 与综合测试候选静态验收：**两个 embedded
+   分区的 23 条决定中 12 条写入 32 个 target，只改变 SLPS 124 字节且和
+   P2 core 零重叠；五图 suite 的 5,568 个实际修改字节所有权互斥。P3 UI、
+   前五关和 suite 以 7 个完整成员组合，最终 ISO 的 59 个未替换成员、两段
+   LBA 位移、UDF 回读和 SHA-256 均固定。
+10. **已完成运行矩阵；当前执行目标：**21 个用例已绑定 1 张 P3 综合 ISO 和
+   5 张隔离 atlas ISO、fixture、截图点和断言。先执行六个 fresh-boot 用例；
    取得并哈希锁定六份原生 memory card 后，用五张隔离候选分别证明中文标签
    出现与 421／2,292／3,634／2,083／1,262 像素 texture delta 同时命中；
    另用综合 ISO 完成标题、玩家设置、战场、搜索、世界史滚动和前五关路线，

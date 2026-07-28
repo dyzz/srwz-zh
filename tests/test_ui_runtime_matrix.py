@@ -53,19 +53,19 @@ class UiRuntimeMatrixTests(unittest.TestCase):
         self.assertEqual(self.manifest["summary"]["runtime_passed_case_count"], 0)
         self.assertEqual(
             self.manifest["summary"]["runtime_not_tested_case_count"],
-            19,
+            21,
         )
         self.assertEqual(self.manifest["summary"]["artifact_count"], 6)
         integrated = self.manifest["artifacts"][0]
         self.assertEqual(
             integrated["artifact_id"],
-            "ui-p2-first-five-atlas-test",
+            "ui-p3-fresh-boot-first-five-atlas-test",
         )
         self.assertEqual(
             integrated["iso_sha256"],
             (
-                "af5c1c5a510db1d86bee2054935400e51c86df34902972"
-                "ef2ebafa71bb3eb52a"
+                "cc4575bdc94a71d79c3a40810308d4eb41f8d3f69f1fd4"
+                "0139e63c83fde038c0"
             ),
         )
         non_mapping_cases = [
@@ -76,7 +76,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
         self.assertTrue(
             all(
                 case["artifact_id"]
-                == "ui-p2-first-five-atlas-test"
+                == "ui-p3-fresh-boot-first-five-atlas-test"
                 for case in non_mapping_cases
             )
         )
@@ -86,12 +86,20 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             (PROJECT_ROOT / "config/ui-scenes.json").read_text(encoding="utf-8")
         )
         inventory_ids = {scene["scene_id"] for scene in inventory["scenes"]}
+        extension_ids = {
+            scene["scene_id"]
+            for extension in self.manifest["scene_extensions"]
+            for scene in extension["scenes"]
+        }
         dispositions = self.manifest["scene_dispositions"]
         self.assertEqual(
             {item["scene_id"] for item in dispositions},
-            inventory_ids,
+            inventory_ids | extension_ids,
         )
-        self.assertEqual(len(dispositions), len(inventory_ids))
+        self.assertEqual(
+            len(dispositions),
+            len(inventory_ids) + len(extension_ids),
+        )
         self.assertEqual(
             {
                 item["scene_id"]
@@ -109,6 +117,8 @@ class UiRuntimeMatrixTests(unittest.TestCase):
                 "route/stage-title-and-branch",
                 "opening/world-history-scroll",
                 "story/first-five-opening-sequences",
+                "tutorial/unit-stat-and-terrain-legend",
+                "opening/default-protagonist-labels",
             },
         )
         self.assertTrue(
@@ -118,6 +128,35 @@ class UiRuntimeMatrixTests(unittest.TestCase):
                 if item["priority"] == "P0"
             )
         )
+
+    def test_fresh_boot_extension_is_hash_locked_and_selected(self):
+        self.assertEqual(self.manifest["summary"]["base_scene_count"], 14)
+        self.assertEqual(self.manifest["summary"]["extended_scene_count"], 2)
+        self.assertEqual(self.manifest["summary"]["scene_count"], 16)
+        extension, = self.manifest["scene_extensions"]
+        self.assertEqual(extension["scene_count"], 2)
+        self.assertEqual(extension["promoted_entry_count"], 23)
+        self.assertEqual(extension["remaining_entry_count"], 252)
+        self.assertEqual(
+            {
+                scene["scene_id"]: scene["entry_count"]
+                for scene in extension["scenes"]
+            },
+            {
+                "tutorial/unit-stat-and-terrain-legend": 20,
+                "opening/default-protagonist-labels": 3,
+            },
+        )
+        for case_id in (
+            "fresh-boot/tutorial-unit-stat-terrain",
+            "fresh-boot/default-protagonist-labels",
+        ):
+            case = self.cases[case_id]
+            self.assertEqual(case["fixture_id"], "fresh-boot")
+            self.assertEqual(
+                case["artifact_id"],
+                "ui-p3-fresh-boot-first-five-atlas-test",
+            )
 
     def test_first_five_opening_variants_are_independent_cases(self):
         variants = {
@@ -194,7 +233,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             self.assertNotIn(".p2s", fixture["workspace_path"])
         self.assertEqual(
             self.manifest["summary"]["route_ready_case_count"],
-            4,
+            6,
         )
         self.assertEqual(
             self.manifest["summary"]["missing_fixture_case_count"],
@@ -205,7 +244,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
         stream = io.StringIO()
         write_runtime_matrix_tsv(self.report, stream)
         rows = stream.getvalue().splitlines()
-        self.assertEqual(len(rows), 20)
+        self.assertEqual(len(rows), 22)
         self.assertIn("iso_sha256", rows[0])
         self.assertIn("texture_delta_pixels", rows[0])
         self.assertTrue(any("mapping/info-atlas" in row for row in rows[1:]))
@@ -220,6 +259,32 @@ class UiRuntimeMatrixTests(unittest.TestCase):
                     {"sha256": "0" * 64}
                 )
             )
+
+    def test_scene_extension_hash_drift_fails_closed(self):
+        with self.assertRaisesRegex(
+            UiRuntimeMatrixError,
+            "scene extension embedded-ui-fresh-boot-p3 manifest SHA-256 drift",
+        ):
+            self._audit_mutation(
+                lambda document: document["scene_extensions"][0].update(
+                    {"manifest_sha256": "0" * 64}
+                )
+            )
+
+    def test_scene_extension_fixture_drift_fails_closed(self):
+        def mutate(document):
+            case = next(
+                case
+                for case in document["cases"]
+                if case["case_id"] == "fresh-boot/tutorial-unit-stat-terrain"
+            )
+            case["fixture_id"] = "first-intermission-card"
+
+        with self.assertRaisesRegex(
+            UiRuntimeMatrixError,
+            "fixture does not match scene",
+        ):
+            self._audit_mutation(mutate)
 
     def test_duplicate_capture_id_fails_closed(self):
         def mutate(document):

@@ -12,6 +12,7 @@
 | `encoding/codebook.json` | 中文字符到游戏 code/glyph 的唯一分配账本 |
 | `build-profiles/` | 构建选择集、最低编辑状态和必需 gates |
 | `ui-scenes.json` | UI 场景 selector、优先级、运行路线、容量 ratchet 和动态名称 hash-only 探针 |
+| `ui-embedded-scenes.json` | 将延期的 275 条 SLPS embedded UI 零遗漏／零重叠拆成 22 个静态屏幕候选；登记 fixture、路线、截图点和晋级门，不直接选择生产写回 |
 | `runtime/ui-test-matrix.json` | 选定 UI 场景到精确 ISO、原生存档 fixture、截图点和运行证据门的绑定；不保存存档或截图 |
 | `ui-writeback/` | UI 文本写回选择策略、锁定输入、容量 ratchet 和输出位置；不包含游戏字节 |
 | `ui-integration/` | 已验证 UI 组件的所有权、三方合并、依赖哈希、输出 golden 和运行边界 |
@@ -27,9 +28,19 @@
 哈希。否则会形成“场景清单 → 字库 → COMPDATA writer → 场景清单”的哈希环，
 导致每次合法重建都产生新的 freshness 漂移；详细本地报告仍保留下游哈希。
 
+`ui-embedded-scenes.json` 是 production selector 之前的研究层。22 组共同
+精确覆盖 `menus/extended-embedded-dialogs` 的 275 条决定，审计时绑定
+`work/corpus` 中真实 SLPS target、普通指针和 MIPS HI/LO 引用。组名来自静态
+语义聚类，因此状态统一为运行归因待定；只有取得登记 fixture、画面证据并把
+混合组继续拆净后，单组 ID 才能晋级到 writer 配置。`writeback_readiness`
+另锁定当前 P2 字库 proposal 和真实 SLPS span，只量化整组编码、容量和共享
+owner 闭包；它能筛出 fixed-span 首选批次，但不拥有实际 writer 输出。
+
 `runtime/ui-test-matrix.json` 不改变上述生产选择。它锁定
-`ui-scenes.json`、综合 UI／前五关／atlas 测试镜像及五张隔离中文 atlas
-候选的提交清单，并为
+`ui-scenes.json`、当前 P3 综合 UI／前五关／atlas 测试镜像及五张隔离中文
+atlas 候选的提交清单；两个已晋级的 fresh-boot 分区另通过
+`scene_extensions` 锁定 `ui-embedded-scene-map.json`，不会反向改写基础
+14 类 inventory。矩阵为
 每个运行用例登记 fixture 状态、到达步骤、截图点和证据要求。存档必须位于
 被忽略的 `work/runtime/ui-fixtures/`，只有原生 `.ps2` memory card 和 SHA-256
 都登记后才能从 `not_acquired` 晋级；已有 `.p2s` savestate 不会被自动当作
@@ -114,13 +125,18 @@ P0 菜单、1,307 项动态名称、P2 字库和世界史。最终只由
 `iso/ui-p2-core-build.json` 放入 `ui-p2-core` 镜像；四个 replacement、
 两段 LBA 位移和镜像 golden 均固定，但运行状态仍为 `not_tested`。
 
+`ui-writeback/ui-p3-fresh-boot-slps.json` 只从上述 22 组研究层选择两个
+`fixed_span_ready` 的 fresh-boot 分区，共 23 条决定，并要求它们与完整
+P2 core 的 SLPS 修改零重叠、每个写入偏移的 P2 前像精确、指针和解码字库
+不变。`ui-integration/p3-fresh-boot-first-five-atlas-test.json` 再将这份
+P3 UI 四成员与前五关 `HB/STAGE`、五图 suite 合成 7 成员测试组件；
+`iso/ui-p3-fresh-boot-first-five-atlas-test-build.json` 是当前运行矩阵绑定
+的综合 DVD。旧 P2 综合 profile 仍保留为可复建历史基线。
+
 `assets/ui-atlas-suite-zh.json` 只在测试域内将五份已验证中文 atlas 对
 原版 `KVMDATA.BIN` 的互不相交字节所有权合并；它不改变任何单图的
-`runtime_mapping_pending`。`ui-integration/p2-first-five-atlas-test.json`
-再以完整成员为单位组合 P2 UI 的四个成员、前五关 `HB/STAGE` 和合成
-`KVMDATA`，由 `iso/ui-p2-first-five-atlas-test-build.json` 生成当前广覆盖
-测试 DVD。五张隔离 ISO 继续是场景归因的唯一证据，综合 ISO 只减少逐屏测试
-时的候选切换。
+`runtime_mapping_pending`。五张隔离 ISO 继续是场景归因的唯一证据，综合
+ISO 只减少逐屏测试时的候选切换。
 
 `assets/archive-inventory.json` 由 `tools/srwz/assets.py` 独立执行严格 schema
 检查：未知字段、重复 member、路径穿越、archive/direct 重叠、未知 storage

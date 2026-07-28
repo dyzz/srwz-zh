@@ -1,0 +1,1140 @@
+{
+  "schema_version": 1,
+  "status": "static_scene_partition_validated_runtime_attribution_pending",
+  "map_id": "srwz-ui-embedded-scenes-v1",
+  "content_policy": "Hashes, counts, stable IDs and runtime gates only; no game bytes, Japanese source text or localized UI strings are embedded.",
+  "scope": "Static, exhaustive subdivision of the 275 deferred SLPS Unknown entries into screen-oriented clusters. This map selects future writeback and runtime-test units; it does not claim that a cluster has been observed in PCSX2.",
+  "sources": {
+    "config": {
+      "path": "config/ui-embedded-scenes.json",
+      "sha256": "56279c6eb082a045d947703af45058be33cca3fc2bbdc424261c6e825c0648bf"
+    },
+    "scene_inventory": {
+      "path": "config/ui-scenes.json",
+      "sha256": "8728314e98343cb6abc72d65059515b120ab42bd01046116bbe95e55191152bb",
+      "inventory_id": "srwz-ui-scenes-v1",
+      "aggregate_scene_id": "menus/extended-embedded-dialogs"
+    },
+    "translation_file": {
+      "path": "corpus/zh/menu/unclassified.json",
+      "sha256": "df9a8f4381449ede6ef046c0c6ce713115340cd7c4104806209cb9989d4ea161"
+    },
+    "source_corpus": {
+      "path": "work/corpus/srwz-corpus.jsonl",
+      "sha256": "a221f7a057b4464dcf3703167cb046579c692707c5760df1dfbdafe11675fbdd"
+    },
+    "writeback_readiness": {
+      "writer_baseline_config": {
+        "path": "config/ui-writeback/ui-p0-slps-fixed.json",
+        "sha256": "70d8e911c9c8c32234068149c8d3a32e2ab497c04d4cc962c79c9a38d1b462ae"
+      },
+      "font_manifest": {
+        "path": "manifests/ui-p2-display-name-font-validation.json",
+        "sha256": "6619a16279c73b91ae29351aba30b82d57512045621ed4f020d970a83614af98",
+        "status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
+      },
+      "source_slps": {
+        "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "f80d8167cde3da6f7cbaea495778a76e4140cf976787ccf0561f4dc879edd44d"
+      },
+      "source_vt1": {
+        "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "67737d0437d2deee6dd0a980dfd581d48c69599a2143bc2df3d553744f9677c9"
+      },
+      "menu_descriptor": {
+        "path": "vendor/upstream-python/project/menu_files.json",
+        "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+      },
+      "text_table": {
+        "path": "vendor/upstream-python/project/tbl_all.json",
+        "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+      },
+      "base_codebook": {
+        "path": "config/encoding/codebook.json",
+        "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+      },
+      "proposal": {
+        "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
+        "sha256": "1a586ce5930a04e5f1b2609d5eded9dea4879e580b75c478576bbca623eb8d60"
+      },
+      "override_count": 1610,
+      "policy": "A group is fixed-span ready only when every decision encodes with the exact P2 font proposal, fits every original NUL-terminated target, and closes over all shared target owners with identical payloads."
+    }
+  },
+  "summary": {
+    "group_count": 22,
+    "aggregate_entry_count": 275,
+    "classified_entry_count": 275,
+    "unclassified_entry_count": 0,
+    "overlap_entry_count": 0,
+    "classification_group_counts": {
+      "diagnostic_or_format_fragment": 2,
+      "mixed_user_and_diagnostic": 2,
+      "user_facing_candidate": 18
+    },
+    "classification_entry_counts": {
+      "diagnostic_or_format_fragment": 5,
+      "mixed_user_and_diagnostic": 17,
+      "user_facing_candidate": 253
+    },
+    "writeback_readiness_group_counts": {
+      "allocation_or_shared_owner_required": 4,
+      "fixed_span_ready": 13,
+      "font_extension_required": 5
+    },
+    "writeback_readiness_entry_counts": {
+      "allocation_or_shared_owner_required": 59,
+      "fixed_span_ready": 123,
+      "font_extension_required": 93
+    },
+    "fixed_span_ready_entry_count": 123,
+    "fixed_span_ready_user_facing_entry_count": 101,
+    "font_missing_character_count": 6,
+    "font_missing_characters_sha256": "466706611528a9e11c0e6124287b7076d7bab6333750a4d67f8dfa9150962390",
+    "overflow_entry_count": 7,
+    "decision_complete_count": 275,
+    "aggregate_decision_sha256": "984812e601552429a2e5addad668fe87afce2fe32e4b2678b8077190cdbeba8d",
+    "runtime_passed_group_count": 0,
+    "runtime_not_tested_group_count": 22
+  },
+  "ratchet": {
+    "expected": {
+      "group_count": 22,
+      "classified_entry_count": 275,
+      "classification_group_counts": {
+        "diagnostic_or_format_fragment": 2,
+        "mixed_user_and_diagnostic": 2,
+        "user_facing_candidate": 18
+      },
+      "classification_entry_counts": {
+        "diagnostic_or_format_fragment": 5,
+        "mixed_user_and_diagnostic": 17,
+        "user_facing_candidate": 253
+      },
+      "writeback_readiness_counts": {
+        "allocation_or_shared_owner_required": 4,
+        "fixed_span_ready": 13,
+        "font_extension_required": 5
+      },
+      "fixed_span_ready_entry_count": 123,
+      "fixed_span_ready_user_facing_entry_count": 101,
+      "font_missing_character_count": 6,
+      "overflow_entry_count": 7
+    },
+    "checks": {
+      "group_count": true,
+      "classified_entry_count": true,
+      "classification_group_counts": true,
+      "classification_entry_counts": true,
+      "writeback_readiness_counts": true,
+      "fixed_span_ready_entry_count": true,
+      "fixed_span_ready_user_facing_entry_count": true,
+      "font_missing_character_count": true,
+      "overflow_entry_count": true
+    },
+    "passed": true
+  },
+  "groups": [
+    {
+      "scene_id": "battle/end-phase-map-command-tail",
+      "label": "战场结束阶段与地图指令尾项",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 6,
+      "first_entry_id": "menu/SLPS/00/0016",
+      "last_entry_id": "menu/SLPS/00/0021",
+      "entry_ids_sha256": "efc8e597bc6e36620f0e656a0a7c964d88fd4dc238924b2423f3fe6391f50882",
+      "decision_complete_count": 6,
+      "decision_sha256": "3fd915356a4ca3e734fea95d41a4f02088fa884050651f14bb6652adee71928a",
+      "rendered_character_count": 20,
+      "preserve_entry_count": 3,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 7,
+        "pointer_reference_count": 8,
+        "embedded_reference_pair_count": 0,
+        "entry_backing_counts": {
+          "pointer": 6
+        },
+        "ownership_sha256": "3697b4ee766cd910e7802496e1497442946a05ca6710ad389c8e088da734f4f0"
+      },
+      "fixture_id": "first-battle-card",
+      "route_step_count": 3,
+      "capture_point_count": 2,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 6,
+        "fixed_selected_target_count": 7,
+        "selection_sha256": "cf963e6d8c07b3655fe8a1b805b8ad2a8a41026be88feabc8ebc6ecb44fe803a",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "options/bgm-controller-and-map-settings",
+      "label": "系统选项、BGM、控制与地图设置",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 29,
+      "first_entry_id": "menu/SLPS/00/0022",
+      "last_entry_id": "menu/SLPS/00/0050",
+      "entry_ids_sha256": "6183225a4de499cb1b883ce917f72a9b9d386d343a753e7cb104a2cb6a1902bc",
+      "decision_complete_count": 29,
+      "decision_sha256": "0b802b1233c09b1d6a0284e673b9a9a29e7d212903c919f8e3f51d6e21ebd44f",
+      "rendered_character_count": 81,
+      "preserve_entry_count": 1,
+      "empty_translation_count": 1,
+      "provenance": {
+        "unique_target_count": 37,
+        "pointer_reference_count": 56,
+        "embedded_reference_pair_count": 9,
+        "entry_backing_counts": {
+          "pointer": 28,
+          "pointer_and_embedded": 1
+        },
+        "ownership_sha256": "778abcfc70a582a60314c8806fe1707ce56609929da85b5e1084ff97258ecec6"
+      },
+      "fixture_id": "first-intermission-card",
+      "route_step_count": 3,
+      "capture_point_count": 3,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "font_extension_required",
+        "font_missing_entry_count": 2,
+        "font_missing_entry_ids": [
+          "menu/SLPS/00/0032",
+          "menu/SLPS/00/0036"
+        ],
+        "font_missing_character_count": 2,
+        "font_missing_characters_sha256": "15da3b4e3c6fea357d873c6d3fe2b763b77c671db5cc6ccb81a5095eaf0ba8ef",
+        "fixed_selected_entry_count": 0,
+        "fixed_selected_target_count": 0,
+        "excluded_entry_count": 29,
+        "excluded_reason_counts": {
+          "font_extension_required": 29
+        },
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "tutorial/unit-stat-and-terrain-legend",
+      "label": "教学中的机体数值与地形适应图例",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 20,
+      "first_entry_id": "menu/SLPS/00/0051",
+      "last_entry_id": "menu/SLPS/00/0070",
+      "entry_ids_sha256": "c7d565f62ad3c2712814a1049df8ee8936951b9f0ed035f6e11e67aa25ab55c8",
+      "decision_complete_count": 20,
+      "decision_sha256": "0e953901f4aafd95652415dfac48dc1ed2abd4a56d28ab60507411096f320165",
+      "rendered_character_count": 40,
+      "preserve_entry_count": 7,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 50,
+        "pointer_reference_count": 20,
+        "embedded_reference_pair_count": 41,
+        "entry_backing_counts": {
+          "pointer": 10,
+          "pointer_and_embedded": 10
+        },
+        "ownership_sha256": "a3fedbcb77ea0e49d25aed82012b11c6d51279bb6ac431632d3ff0922fba500b"
+      },
+      "fixture_id": "fresh-boot",
+      "route_step_count": 3,
+      "capture_point_count": 2,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 20,
+        "fixed_selected_target_count": 50,
+        "selection_sha256": "77dc7359237574fb9aeba9cd8216b81b2335c4e6287c1340b33c36224259dc85",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "opening/default-protagonist-labels",
+      "label": "开局默认主人公与相关名称标签",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 3,
+      "first_entry_id": "menu/SLPS/00/0071",
+      "last_entry_id": "menu/SLPS/00/0073",
+      "entry_ids_sha256": "32147260a326908e0bfff3416fe6821b307d37333bc545174e60327c4123b07d",
+      "decision_complete_count": 3,
+      "decision_sha256": "6654ff6fb364f40dd282093973779906bf620d9708eb33a6ff6decfd27bf9a07",
+      "rendered_character_count": 6,
+      "preserve_entry_count": 0,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 3,
+        "pointer_reference_count": 4,
+        "embedded_reference_pair_count": 0,
+        "entry_backing_counts": {
+          "pointer": 3
+        },
+        "ownership_sha256": "53f0a5151025afd6ec887170dcd08e4fce34ab686be655aecbab5028b109d333"
+      },
+      "fixture_id": "fresh-boot",
+      "route_step_count": 3,
+      "capture_point_count": 2,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 3,
+        "fixed_selected_target_count": 3,
+        "selection_sha256": "a9c88bb66bf3bb0c10b9b70465f451d9b20e671845bc1ad2742556f65451c8ab",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "preparation/reboard-status-and-internal-warnings",
+      "label": "战斗准备中的换乘状态与内部警告",
+      "classification": "mixed_user_and_diagnostic",
+      "mapping_confidence": "mixed_cluster_requires_runtime_split",
+      "entry_count": 10,
+      "first_entry_id": "menu/SLPS/00/0083",
+      "last_entry_id": "menu/SLPS/00/0092",
+      "entry_ids_sha256": "c63954503c346949cd54e0cd7b3c103db1de8f0188c944142e7c7c386fc4404f",
+      "decision_complete_count": 10,
+      "decision_sha256": "9d16d9887a002c60e6b94be00c9bbad20b309c4fa762dc21979952a07153626b",
+      "rendered_character_count": 43,
+      "preserve_entry_count": 3,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 34,
+        "pointer_reference_count": 4,
+        "embedded_reference_pair_count": 50,
+        "entry_backing_counts": {
+          "embedded": 6,
+          "pointer": 2,
+          "pointer_and_embedded": 2
+        },
+        "ownership_sha256": "2bc2252641ce88cfc84d72a17dd2f37c1313a773c06dce418f0983a12fc55b73"
+      },
+      "fixture_id": "first-intermission-card",
+      "route_step_count": 3,
+      "capture_point_count": 2,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 10,
+        "fixed_selected_target_count": 34,
+        "selection_sha256": "21644a8aa087e6fc6524e0488d7b7517da1828222732de0e2d756191e6c1e50f",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "battle/action-restriction-messages",
+      "label": "战斗行动、队形与援护限制提示",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 10,
+      "first_entry_id": "menu/SLPS/00/0093",
+      "last_entry_id": "menu/SLPS/00/0102",
+      "entry_ids_sha256": "94f5e88ff8ef1e2168cac1ddc596027af89b2f281208a8d3dcb2063f0fd0b962",
+      "decision_complete_count": 10,
+      "decision_sha256": "c74909ff906bfc757c76356a448a028850b7ef131ef04f9ac946f632913601b6",
+      "rendered_character_count": 54,
+      "preserve_entry_count": 0,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 10,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 17,
+        "entry_backing_counts": {
+          "embedded": 10
+        },
+        "ownership_sha256": "73ba24d6b0518ffada1a5c8eba1c65491d51a645a0a937dace21b4a401ab1b98"
+      },
+      "fixture_id": "first-battle-card",
+      "route_step_count": 3,
+      "capture_point_count": 3,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 10,
+        "fixed_selected_target_count": 10,
+        "selection_sha256": "5e7f146ba7d0a9bb9fa5bf5610b68afd3b00c7407ef531681378299198e997cd",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "diagnostics/sort-table-integrity",
+      "label": "排序表完整性诊断",
+      "classification": "diagnostic_or_format_fragment",
+      "mapping_confidence": "code_reference_required_before_runtime_route",
+      "entry_count": 1,
+      "first_entry_id": "menu/SLPS/00/0112",
+      "last_entry_id": "menu/SLPS/00/0112",
+      "entry_ids_sha256": "ae73d2d2aaf010edb2cf57cb1b7a67aff80bcacee5c3add179b308248e5ffdab",
+      "decision_complete_count": 1,
+      "decision_sha256": "e5511500140e98e265b7188a3941b037c9a40d3fff285b6407f5302ebcdc44e9",
+      "rendered_character_count": 10,
+      "preserve_entry_count": 0,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 7,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 8,
+        "entry_backing_counts": {
+          "embedded": 1
+        },
+        "ownership_sha256": "091952aa27fae003de2fdd2743b26500af7f7632b88f9ef2014489e105fdad71"
+      },
+      "fixture_id": "not-directly-routable",
+      "route_step_count": 2,
+      "capture_point_count": 1,
+      "runtime_assertion_count": 1,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 1,
+        "fixed_selected_target_count": 7,
+        "selection_sha256": "5faca4cbb6eabaa140f759c24d036a3e184905a73eb4ae0616bbbf02ed2c22e7",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "formation/terrain-variant-selector",
+      "label": "编成中的编号与地形类型选择",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 10,
+      "first_entry_id": "menu/SLPS/00/0134",
+      "last_entry_id": "menu/SLPS/00/0143",
+      "entry_ids_sha256": "6de7b24907537b524be649642ca52f006e76578fd5b3624e284a270bdf0a93d2",
+      "decision_complete_count": 10,
+      "decision_sha256": "623923f5310c9d274d01e4a8fbdfb2454aa32480a2a19b1c60290ff5a3c22ffc",
+      "rendered_character_count": 13,
+      "preserve_entry_count": 7,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 23,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 32,
+        "entry_backing_counts": {
+          "embedded": 10
+        },
+        "ownership_sha256": "5594cae52e8a9be62e40b9820b78cc8f1d0fba8d3f9037f9ca5ec363885ded33"
+      },
+      "fixture_id": "first-intermission-card",
+      "route_step_count": 3,
+      "capture_point_count": 2,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "allocation_or_shared_owner_required",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 7,
+        "fixed_selected_target_count": 14,
+        "selection_sha256": "2ddc53d3f7c90668b1535aefc4857db7b5b70033c1d11e3c06091549547cb336",
+        "excluded_entry_count": 3,
+        "excluded_reason_counts": {
+          "overflow": 3
+        },
+        "excluded": [
+          {
+            "entry_id": "menu/SLPS/00/0141",
+            "reason": "overflow",
+            "payload_size": 9,
+            "minimum_capacity": 7
+          },
+          {
+            "entry_id": "menu/SLPS/00/0142",
+            "reason": "overflow",
+            "payload_size": 9,
+            "minimum_capacity": 7
+          },
+          {
+            "entry_id": "menu/SLPS/00/0143",
+            "reason": "overflow",
+            "payload_size": 9,
+            "minimum_capacity": 7
+          }
+        ]
+      }
+    },
+    {
+      "scene_id": "battle/weapon-selection-and-use-conditions",
+      "label": "战斗武器选择与使用条件",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 22,
+      "first_entry_id": "menu/SLPS/00/0150",
+      "last_entry_id": "menu/SLPS/00/0171",
+      "entry_ids_sha256": "8ebb1116aa5d99bace9690d1d698299820ac8c491033d411b6ffcd4dc9a290e2",
+      "decision_complete_count": 22,
+      "decision_sha256": "f8e65fe02a815456dae2936f1d8aad9a5714253a4cc8639417918eeb1575d500",
+      "rendered_character_count": 65,
+      "preserve_entry_count": 1,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 22,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 22,
+        "entry_backing_counts": {
+          "embedded": 22
+        },
+        "ownership_sha256": "5f4914b081b93fb81249e925783b52363bcce039b1543762a25453477a4e69c7"
+      },
+      "fixture_id": "first-battle-card",
+      "route_step_count": 3,
+      "capture_point_count": 3,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "allocation_or_shared_owner_required",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 21,
+        "fixed_selected_target_count": 21,
+        "selection_sha256": "dc5f7b185f1c6680a850b5a8924862019e0935f4447262aa4cfe965c26597bf6",
+        "excluded_entry_count": 1,
+        "excluded_reason_counts": {
+          "overflow": 1
+        },
+        "excluded": [
+          {
+            "entry_id": "menu/SLPS/00/0153",
+            "reason": "overflow",
+            "payload_size": 11,
+            "minimum_capacity": 7
+          }
+        ]
+      }
+    },
+    {
+      "scene_id": "system/quick-command-save-and-cancel-confirmations",
+      "label": "快捷指令、容量与取消确认",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 5,
+      "first_entry_id": "menu/SLPS/00/0172",
+      "last_entry_id": "menu/SLPS/00/0176",
+      "entry_ids_sha256": "1ccdae5643e7a2e61cf4989117ecb704a8f23fd1ec0a8f625593faba8a2e84a2",
+      "decision_complete_count": 5,
+      "decision_sha256": "ffb4d8425cea062c3cdb9bf3f6132958a21400f1c4b55f8967d579f55526a726",
+      "rendered_character_count": 47,
+      "preserve_entry_count": 0,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 5,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 5,
+        "entry_backing_counts": {
+          "embedded": 5
+        },
+        "ownership_sha256": "4ab2e79878d95f52e0ddde7eea015881b5ffb6f05fc97c0bc678d37a117e93b6"
+      },
+      "fixture_id": "first-battle-card",
+      "route_step_count": 3,
+      "capture_point_count": 2,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 5,
+        "fixed_selected_target_count": 5,
+        "selection_sha256": "d14f568578185e5d7822c9dcb897f3724d26d8a7614ea77ac5dac6082d493a41",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "results/settlement-and-support-setup",
+      "label": "击坠结算、交涉与援护设置",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 5,
+      "first_entry_id": "menu/SLPS/00/0177",
+      "last_entry_id": "menu/SLPS/00/0181",
+      "entry_ids_sha256": "fedc5b16d5efe616d01310159e641d65ca3955ea369189c5095f71a3c191e6e3",
+      "decision_complete_count": 5,
+      "decision_sha256": "7efbbcd4a3cf588c9e547ef7232df84730428b9cf2520ae245e8b04c2ffe2782",
+      "rendered_character_count": 40,
+      "preserve_entry_count": 0,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 5,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 5,
+        "entry_backing_counts": {
+          "embedded": 5
+        },
+        "ownership_sha256": "3f979f0ad7ebe71448230520833b8b7306c63f6813ef2a3e50f74295b59e9ed8"
+      },
+      "fixture_id": "pre-results-card",
+      "route_step_count": 3,
+      "capture_point_count": 3,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "font_extension_required",
+        "font_missing_entry_count": 1,
+        "font_missing_entry_ids": [
+          "menu/SLPS/00/0179"
+        ],
+        "font_missing_character_count": 1,
+        "font_missing_characters_sha256": "0ed6017339837e2f8e17366cc57c36c85a2cd4cdd9f481cd450abd391a3e1c96",
+        "fixed_selected_entry_count": 0,
+        "fixed_selected_target_count": 0,
+        "excluded_entry_count": 5,
+        "excluded_reason_counts": {
+          "font_extension_required": 5
+        },
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "formation/list-search-and-priority",
+      "label": "编成列表、搜索条件与优先顺序",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 33,
+      "first_entry_id": "menu/SLPS/00/0187",
+      "last_entry_id": "menu/SLPS/00/0219",
+      "entry_ids_sha256": "bfa290a11b7f7c9cc9646c0835bf1d72b1dc900f20baf9c25c59aa839797fa9c",
+      "decision_complete_count": 33,
+      "decision_sha256": "67a0434e4dcd067b59ea5eb9e65e3d905f952fee8d5a69b1b8fc731ddf3c134f",
+      "rendered_character_count": 96,
+      "preserve_entry_count": 8,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 49,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 76,
+        "entry_backing_counts": {
+          "embedded": 33
+        },
+        "ownership_sha256": "d1afba52041551fef2fb06432d1b788a557322c27e7110ef6fcb37c3730ab60f"
+      },
+      "fixture_id": "first-intermission-card",
+      "route_step_count": 3,
+      "capture_point_count": 3,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "font_extension_required",
+        "font_missing_entry_count": 2,
+        "font_missing_entry_ids": [
+          "menu/SLPS/00/0193",
+          "menu/SLPS/00/0216"
+        ],
+        "font_missing_character_count": 2,
+        "font_missing_characters_sha256": "51423663939914ff26be35a6884f915e59b0ffff054a55c225f33ff5d2ba7f5a",
+        "fixed_selected_entry_count": 0,
+        "fixed_selected_target_count": 0,
+        "excluded_entry_count": 33,
+        "excluded_reason_counts": {
+          "font_extension_required": 33
+        },
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "upgrade/full-upgrade-reward",
+      "label": "全改造奖励选择与确认",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 17,
+      "first_entry_id": "menu/SLPS/00/0220",
+      "last_entry_id": "menu/SLPS/00/0236",
+      "entry_ids_sha256": "8b5cd5be5dd52d8b43aaa11939d12bd2a5415bde1b3cb3417874859672d9d226",
+      "decision_complete_count": 17,
+      "decision_sha256": "9002dfda338ca3de3c2ed047fb7454a8e43290e560dfcaca3cb48fec88a486e3",
+      "rendered_character_count": 74,
+      "preserve_entry_count": 0,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 17,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 18,
+        "entry_backing_counts": {
+          "embedded": 17
+        },
+        "ownership_sha256": "f3a635149e56e1948a1a4e72b28e70e7d448761917809d9504d684dee00f9b53"
+      },
+      "fixture_id": "full-upgrade-card",
+      "route_step_count": 3,
+      "capture_point_count": 3,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "font_extension_required",
+        "font_missing_entry_count": 1,
+        "font_missing_entry_ids": [
+          "menu/SLPS/00/0231"
+        ],
+        "font_missing_character_count": 1,
+        "font_missing_characters_sha256": "2ab7f27cc946b841c7a8776b6bd3dcb5054e11de4f35baf97d436ad17968d081",
+        "fixed_selected_entry_count": 0,
+        "fixed_selected_target_count": 0,
+        "excluded_entry_count": 17,
+        "excluded_reason_counts": {
+          "font_extension_required": 17
+        },
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "formation/squad-and-reboard-confirmations",
+      "label": "小队编成、命名与换乘确认",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 10,
+      "first_entry_id": "menu/SLPS/00/0237",
+      "last_entry_id": "menu/SLPS/00/0246",
+      "entry_ids_sha256": "5032f623b57b6a990ccfc3c4a5fd3fdc358a25aa70f28d9e5dd23568ed65bc92",
+      "decision_complete_count": 10,
+      "decision_sha256": "6c07534a6556850fbb9b260808596aed0e01b299f37ac1aa8572ef11f5dba558",
+      "rendered_character_count": 47,
+      "preserve_entry_count": 0,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 16,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 16,
+        "entry_backing_counts": {
+          "embedded": 10
+        },
+        "ownership_sha256": "225339388ed2143fc14c1a0174c7585ebe9ecd6ea43dfe34e0210df254a5aa89"
+      },
+      "fixture_id": "first-intermission-card",
+      "route_step_count": 3,
+      "capture_point_count": 3,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 10,
+        "fixed_selected_target_count": 16,
+        "selection_sha256": "e571b1792acfb4906b14191ff91e842462d1e530a786c60299a7a138891b37e5",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "information/pilot-ability-format-and-control-fragments",
+      "label": "驾驶员能力页格式与控制片段",
+      "classification": "mixed_user_and_diagnostic",
+      "mapping_confidence": "mixed_cluster_requires_runtime_split",
+      "entry_count": 7,
+      "first_entry_id": "menu/SLPS/00/0247",
+      "last_entry_id": "menu/SLPS/00/0253",
+      "entry_ids_sha256": "e19083553ab1fd090b1fce0f0cf0816747f42d3a273870980c86fdfdd7c4792c",
+      "decision_complete_count": 7,
+      "decision_sha256": "76dea7fa1e481e2e4a67737f0ed226fbf8e955af0bedc144a33cd1a51a804132",
+      "rendered_character_count": 20,
+      "preserve_entry_count": 2,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 9,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 11,
+        "entry_backing_counts": {
+          "embedded": 7
+        },
+        "ownership_sha256": "8acbcbd020d3c67961966bfd8894a8eb6ed0a09f116954a586fc39ecf68f89f1"
+      },
+      "fixture_id": "first-intermission-card",
+      "route_step_count": 3,
+      "capture_point_count": 2,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 7,
+        "fixed_selected_target_count": 9,
+        "selection_sha256": "658dc45586973d560450391714de617239f4818a56f479f429534f233454bc71",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "archive/scenario-progress-and-route-headings",
+      "label": "资料库关卡进度与路线标题",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 9,
+      "first_entry_id": "menu/SLPS/00/0255",
+      "last_entry_id": "menu/SLPS/00/0263",
+      "entry_ids_sha256": "bcca8f635c5f5b8a8f11c76ad3d86b72153a7f0a56ae171c039cd8e8c463f85f",
+      "decision_complete_count": 9,
+      "decision_sha256": "09166fcf090fee3847de914a106c50cae6fe3b681e7e07ddf207eefeb188fe90",
+      "rendered_character_count": 23,
+      "preserve_entry_count": 5,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 9,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 10,
+        "entry_backing_counts": {
+          "embedded": 9
+        },
+        "ownership_sha256": "00568131c9adc025595bc6fafc0b2e1e8027035b29dccd802129b7037f0a9234"
+      },
+      "fixture_id": "first-five-progress-card",
+      "route_step_count": 3,
+      "capture_point_count": 2,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "font_extension_required",
+        "font_missing_entry_count": 1,
+        "font_missing_entry_ids": [
+          "menu/SLPS/00/0263"
+        ],
+        "font_missing_character_count": 1,
+        "font_missing_characters_sha256": "b136417e88aacea7813a3cdb820c835ca0f870e291350c5457a31cc772e3e708",
+        "fixed_selected_entry_count": 0,
+        "fixed_selected_target_count": 0,
+        "excluded_entry_count": 9,
+        "excluded_reason_counts": {
+          "font_extension_required": 9
+        },
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "information/tactical-status-metrics",
+      "label": "人物机体页的战术状态数值",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 14,
+      "first_entry_id": "menu/SLPS/00/0269",
+      "last_entry_id": "menu/SLPS/00/0282",
+      "entry_ids_sha256": "ab8b7bc07e177d11ce5893132da0beb00cee11833065c4f1cb090d03504c6ee2",
+      "decision_complete_count": 14,
+      "decision_sha256": "0d4ede91cdcb6b2ee2448f653375ccdf96f29cc7b9ad275622ee1574cfa99061",
+      "rendered_character_count": 31,
+      "preserve_entry_count": 2,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 24,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 32,
+        "entry_backing_counts": {
+          "embedded": 14
+        },
+        "ownership_sha256": "578e5933bad1b9ee31b430cd03f2a920080553dd842d15718bbadaac5b6c4b7d"
+      },
+      "fixture_id": "first-intermission-card",
+      "route_step_count": 3,
+      "capture_point_count": 3,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 14,
+        "fixed_selected_target_count": 24,
+        "selection_sha256": "f63cd822521b94af5fd7537e9d680ad0c8355896626e2afb4b64015ff2f91294",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "battle/repair-resupply-spirit-targeting",
+      "label": "修理、补给与精神指令目标选择",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 17,
+      "first_entry_id": "menu/SLPS/00/0283",
+      "last_entry_id": "menu/SLPS/00/0299",
+      "entry_ids_sha256": "46858ab63ed6c5ec7315aae7b2410c8c4f7d11c412dfba5becc141fd3175362c",
+      "decision_complete_count": 17,
+      "decision_sha256": "06ebf0362e61044a0bf496c755bc6c915ffe3259048ab42abf84f887f843aac9",
+      "rendered_character_count": 55,
+      "preserve_entry_count": 2,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 20,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 23,
+        "entry_backing_counts": {
+          "embedded": 17
+        },
+        "ownership_sha256": "82ea2e7b4f7af0dc35d67c3c44b37293a9a86e4e5c4a95fa63ea97ee8b802b2b"
+      },
+      "fixture_id": "first-battle-card",
+      "route_step_count": 3,
+      "capture_point_count": 4,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 17,
+        "fixed_selected_target_count": 20,
+        "selection_sha256": "d2273f3f16a54dae6b2d7da52745d5ea4e47117ca8a022d717e27b90c41d02bc",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "deployment/squad-selection-and-size-format",
+      "label": "出击小队选择与尺寸格式",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 16,
+      "first_entry_id": "menu/SLPS/00/0300",
+      "last_entry_id": "menu/SLPS/00/0315",
+      "entry_ids_sha256": "71c964f3e12e2f8c49c73b8a5d405426c14d3299a078cb556a4dff672befb6dd",
+      "decision_complete_count": 16,
+      "decision_sha256": "433de4504c008e602258fbc18425580d6311e0a303aca46d877f782ea0158e3f",
+      "rendered_character_count": 21,
+      "preserve_entry_count": 10,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 18,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 38,
+        "entry_backing_counts": {
+          "embedded": 16
+        },
+        "ownership_sha256": "d65e8f93685b228c3d832572580f50e053c46741cfcdad2b20f636934b45052a"
+      },
+      "fixture_id": "pre-results-card",
+      "route_step_count": 3,
+      "capture_point_count": 3,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 16,
+        "fixed_selected_target_count": 18,
+        "selection_sha256": "cad247be856ebb54b0f15c88f8db1ce52139f657843c549ede4fe68790c90917",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "information/reboard-and-option-subpages",
+      "label": "换乘信息与选项子页面",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 12,
+      "first_entry_id": "menu/SLPS/00/0325",
+      "last_entry_id": "menu/SLPS/00/0336",
+      "entry_ids_sha256": "64654e9f11ee56d556b65082748533f412a67d07c0ad6f7c7e3b58eb06896571",
+      "decision_complete_count": 12,
+      "decision_sha256": "f3338df06c4845b4d720c94bcbe5d9e17ac2bb7cbdda1a3898e7fb9b64c4f805",
+      "rendered_character_count": 30,
+      "preserve_entry_count": 3,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 16,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 21,
+        "entry_backing_counts": {
+          "embedded": 12
+        },
+        "ownership_sha256": "05b76c4288a1a6a92a7e7ace4e169c65cff671159dcfbabdf0e70f90cb1a3717"
+      },
+      "fixture_id": "first-intermission-card",
+      "route_step_count": 3,
+      "capture_point_count": 3,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "allocation_or_shared_owner_required",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 11,
+        "fixed_selected_target_count": 15,
+        "selection_sha256": "8aea1d265d96d8fe9b48802cbbe03d3475f0afc28a07900c3faf7a9d8998eb95",
+        "excluded_entry_count": 1,
+        "excluded_reason_counts": {
+          "overflow": 1
+        },
+        "excluded": [
+          {
+            "entry_id": "menu/SLPS/00/0326",
+            "reason": "overflow",
+            "payload_size": 11,
+            "minimum_capacity": 9
+          }
+        ]
+      }
+    },
+    {
+      "scene_id": "runtime/dynamic-label-format-fragments",
+      "label": "动态名称与数值格式片段",
+      "classification": "diagnostic_or_format_fragment",
+      "mapping_confidence": "code_reference_required_before_runtime_route",
+      "entry_count": 4,
+      "first_entry_id": "menu/SLPS/00/0342",
+      "last_entry_id": "menu/SLPS/00/0345",
+      "entry_ids_sha256": "63485b679f3210d383df5358b9d6a6deba8cf3e9a56e7b79e0576a3c5e1a68d2",
+      "decision_complete_count": 4,
+      "decision_sha256": "5272f51533fe4adb8ed2359f6ce1b4a77330ab8d49dea61890ca4177c3444219",
+      "rendered_character_count": 5,
+      "preserve_entry_count": 2,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 6,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 6,
+        "entry_backing_counts": {
+          "embedded": 4
+        },
+        "ownership_sha256": "59575f6a16aeb6aa295229c72b5e5db187c69b5e6d8dc26db3ea94958d3d2532"
+      },
+      "fixture_id": "not-directly-routable",
+      "route_step_count": 2,
+      "capture_point_count": 1,
+      "runtime_assertion_count": 2,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "fixed_span_ready",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 4,
+        "fixed_selected_target_count": 6,
+        "selection_sha256": "68c2146e8544882fa11ea4f9801a48e6355643d509f4b7d86066136f041a4d4d",
+        "excluded_entry_count": 0,
+        "excluded_reason_counts": {},
+        "excluded": []
+      }
+    },
+    {
+      "scene_id": "parts/equipment-and-predeployment-actions",
+      "label": "强化部件、装备与出击前操作",
+      "classification": "user_facing_candidate",
+      "mapping_confidence": "static_semantic_cluster_runtime_attribution_pending",
+      "entry_count": 15,
+      "first_entry_id": "menu/SLPS/00/0351",
+      "last_entry_id": "menu/SLPS/00/0365",
+      "entry_ids_sha256": "7291ba3bf5679e5ef8c0f4a697e4d136dd020e14d72957d3db3509e585c5a067",
+      "decision_complete_count": 15,
+      "decision_sha256": "e1b80b1db1350680162bed605fd836e22d98b837e34bd9767af577dc965df3b7",
+      "rendered_character_count": 49,
+      "preserve_entry_count": 2,
+      "empty_translation_count": 0,
+      "provenance": {
+        "unique_target_count": 19,
+        "pointer_reference_count": 0,
+        "embedded_reference_pair_count": 25,
+        "entry_backing_counts": {
+          "embedded": 15
+        },
+        "ownership_sha256": "e807ebe1ccca74e5a6655cb89e2706342760d19c4c6302ba0902e51fb4c5d6e9"
+      },
+      "fixture_id": "first-intermission-card",
+      "route_step_count": 3,
+      "capture_point_count": 3,
+      "runtime_assertion_count": 3,
+      "runtime_status": "not_tested",
+      "writeback_readiness": {
+        "status": "allocation_or_shared_owner_required",
+        "font_missing_entry_count": 0,
+        "font_missing_entry_ids": [],
+        "font_missing_character_count": 0,
+        "font_missing_characters_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fixed_selected_entry_count": 13,
+        "fixed_selected_target_count": 17,
+        "selection_sha256": "0ffe94b6cdb4f4232a2824157c106eadf675c8d604f79f9325eeae665948f7a9",
+        "excluded_entry_count": 2,
+        "excluded_reason_counts": {
+          "overflow": 2
+        },
+        "excluded": [
+          {
+            "entry_id": "menu/SLPS/00/0357",
+            "reason": "overflow",
+            "payload_size": 11,
+            "minimum_capacity": 9
+          },
+          {
+            "entry_id": "menu/SLPS/00/0361",
+            "reason": "overflow",
+            "payload_size": 15,
+            "minimum_capacity": 13
+          }
+        ]
+      }
+    }
+  ]
+}

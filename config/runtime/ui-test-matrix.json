@@ -1,12 +1,30 @@
 {
   "schema_version": 1,
   "matrix_id": "srwz-ui-runtime-v1",
-  "scope": "Runtime scene selection for the integrated P2 UI, first-five and five-atlas test ISO, with five isolated atlas ISOs retained for scene attribution. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
+  "scope": "Runtime scene selection for the integrated P3 fresh-boot UI, first-five and five-atlas test ISO, with five isolated atlas ISOs retained for scene attribution. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
   "scene_inventory": {
     "path": "config/ui-scenes.json",
     "sha256": "8728314e98343cb6abc72d65059515b120ab42bd01046116bbe95e55191152bb",
     "inventory_id": "srwz-ui-scenes-v1"
   },
+  "scene_extensions": [
+    {
+      "extension_id": "embedded-ui-fresh-boot-p3",
+      "manifest": "manifests/ui-embedded-scene-map.json",
+      "manifest_sha256": "24e913ac36e77f6c4919eb3f9b2558ab8394e16f3a8b8d41a250d8bd9c7868a0",
+      "map_id": "srwz-ui-embedded-scenes-v1",
+      "status_lock": {
+        "field": "status",
+        "equals": "static_scene_partition_validated_runtime_attribution_pending"
+      },
+      "parent_scene_id": "menus/extended-embedded-dialogs",
+      "priority": "P1",
+      "selected_scene_ids": [
+        "tutorial/unit-stat-and-terrain-legend",
+        "opening/default-protagonist-labels"
+      ]
+    }
+  ],
   "evidence_policy": {
     "required_common": [
       "artifact_manifest_sha256",
@@ -35,12 +53,12 @@
   },
   "artifact_profiles": [
     {
-      "artifact_id": "ui-p2-first-five-atlas-test",
-      "manifest": "manifests/ui-p2-first-five-atlas-test-runtime-validation.json",
-      "manifest_sha256": "6d8509740084f50db66342f61a1b214dc6dd37252f51e40c296684000ee82852",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "manifest": "manifests/ui-p3-fresh-boot-first-five-atlas-test-runtime-validation.json",
+      "manifest_sha256": "060faab01a63a3daa3da6996013667117f7db88f1affc7524d05e57137c3ac56",
       "status_lock": {
         "field": "status",
-        "equals": "static_integrated_ui_p2_first_five_atlas_test_iso_validated_runtime_pending"
+        "equals": "static_integrated_ui_p3_fresh_boot_first_five_atlas_test_iso_validated_runtime_pending"
       },
       "runtime_lock": {
         "field": "runtime.status",
@@ -50,9 +68,9 @@
         "path_field": "iso_build.path",
         "size_field": "iso_build.output.size",
         "sha256_field": "iso_build.output.sha256",
-        "expected_path": "build/iso/ui-p2-first-five-atlas-test/srwz-ui-p2-first-five-atlas-test.iso",
+        "expected_path": "build/iso/ui-p3-fresh-boot-first-five-atlas-test/srwz-ui-p3-fresh-boot-first-five-atlas-test.iso",
         "expected_size": 3758456832,
-        "expected_sha256": "af5c1c5a510db1d86bee2054935400e51c86df34902972ef2ebafa71bb3eb52a"
+        "expected_sha256": "cc4575bdc94a71d79c3a40810308d4eb41f8d3f69f1fd40139e63c83fde038c0"
       }
     },
     {
@@ -268,7 +286,7 @@
       "scene_ids": [
         "title/main-menu"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "fresh-boot",
       "variant": null,
       "route": [
@@ -300,7 +318,7 @@
       "scene_ids": [
         "opening/player-setup"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "fresh-boot",
       "variant": null,
       "route": [
@@ -344,7 +362,7 @@
       "scene_ids": [
         "intermission/main-and-options"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -388,7 +406,7 @@
       "scene_ids": [
         "information/unit-pilot-mech-core"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -437,7 +455,7 @@
       "scene_ids": [
         "battle/map-and-tactical"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "first-battle-card",
       "variant": null,
       "route": [
@@ -481,7 +499,7 @@
       "scene_ids": [
         "results/level-up-and-deployment"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "pre-results-card",
       "variant": null,
       "route": [
@@ -525,7 +543,7 @@
       "scene_ids": [
         "search/filter-and-results"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -564,7 +582,7 @@
       "scene_ids": [
         "opening/world-history-scroll"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "fresh-boot",
       "variant": null,
       "route": [
@@ -605,13 +623,81 @@
       "runtime_status": "not_tested"
     },
     {
+      "case_id": "fresh-boot/tutorial-unit-stat-terrain",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "tutorial/unit-stat-and-terrain-legend"
+      ],
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "fixture_id": "fresh-boot",
+      "variant": null,
+      "route": [
+        "Cold boot the exact P3 candidate ISO and select the tutorial route.",
+        "Advance until unit statistics and terrain grades are introduced.",
+        "Open the referenced information panel if the tutorial permits it."
+      ],
+      "capture_points": [
+        {
+          "capture_id": "fresh-boot-tutorial-unit-stat",
+          "kind": "screenshot",
+          "state": "tutorial unit-stat legend"
+        },
+        {
+          "capture_id": "fresh-boot-tutorial-terrain-grade",
+          "kind": "screenshot",
+          "state": "tutorial terrain-grade legend"
+        }
+      ],
+      "assertions": [
+        "HP, EN, armor, mobility, accuracy and range labels align with values.",
+        "Terrain letters and grades preserve their compact layout.",
+        "Tutorial progression is not blocked."
+      ],
+      "runtime_status": "not_tested"
+    },
+    {
+      "case_id": "fresh-boot/default-protagonist-labels",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "opening/default-protagonist-labels"
+      ],
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "fixture_id": "fresh-boot",
+      "variant": null,
+      "route": [
+        "Cold boot the exact P3 candidate ISO and start each protagonist route.",
+        "Reach the default-name confirmation without editing the name.",
+        "Toggle focus between the visible default-name fields."
+      ],
+      "capture_points": [
+        {
+          "capture_id": "fresh-boot-male-default-labels",
+          "kind": "screenshot",
+          "state": "male-route default labels"
+        },
+        {
+          "capture_id": "fresh-boot-female-default-labels",
+          "kind": "screenshot",
+          "state": "female-route default labels"
+        }
+      ],
+      "assertions": [
+        "Default labels match the separately written dynamic names.",
+        "Focus and selection frames retain their original dimensions.",
+        "Player-entered names remain editable."
+      ],
+      "runtime_status": "not_tested"
+    },
+    {
       "case_id": "first-five/stage-001-opening",
       "purpose": "story_sequence_acceptance",
       "priority": "P1",
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "fresh-boot",
       "variant": "001",
       "route": [
@@ -644,7 +730,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "first-five-progress-card",
       "variant": "002",
       "route": [
@@ -677,7 +763,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "first-five-progress-card",
       "variant": "003",
       "route": [
@@ -710,7 +796,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "first-five-progress-card",
       "variant": "004",
       "route": [
@@ -743,7 +829,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "first-five-progress-card",
       "variant": "005",
       "route": [
@@ -776,7 +862,7 @@
       "scene_ids": [
         "route/stage-title-and-branch"
       ],
-      "artifact_id": "ui-p2-first-five-atlas-test",
+      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
       "fixture_id": "route-branch-card",
       "variant": null,
       "route": [
@@ -1064,10 +1150,24 @@
       ]
     },
     {
+      "scene_id": "tutorial/unit-stat-and-terrain-legend",
+      "disposition": "selected",
+      "case_ids": [
+        "fresh-boot/tutorial-unit-stat-terrain"
+      ]
+    },
+    {
+      "scene_id": "opening/default-protagonist-labels",
+      "disposition": "selected",
+      "case_ids": [
+        "fresh-boot/default-protagonist-labels"
+      ]
+    },
+    {
       "scene_id": "menus/extended-embedded-dialogs",
       "disposition": "deferred",
-      "reason": "The 275 entries are still an upstream-unknown aggregate rather than visible screen subsets.",
-      "exit_gate": "Split every promoted subset by pointer ownership, named route and screenshot fixture."
+      "reason": "The 275-entry aggregate has a disjoint 22-group static scene map. Two fresh-boot groups covering 23 entries now have a promoted fixed-span writer and exact runtime routes; the remaining 252 entries still lack promoted writers or screen attribution.",
+      "exit_gate": "Execute the two fresh-boot P3 cases, then use config/ui-embedded-scenes.json to acquire the remaining native fixtures, prove exact screen ownership, split both mixed clusters, and promote one hash-locked selector plus screenshot receipt at a time."
     },
     {
       "scene_id": "menus/late-game-special-prompts",

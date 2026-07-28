@@ -250,6 +250,36 @@ python3 tools/verify_ui_p0_fixed_slps.py --force
 非目标字节和解压字库哈希均不变。44 条 P0 COMPDATA 文本由独立 profile
 处理。
 
+P0 之外的 275 条 SLPS `Unknown` 决定先经过独立研究层，不会因“已经有译文”
+而直接扩大 writer：
+
+```bash
+python3 tools/audit_ui_embedded_scenes.py --force
+```
+
+`config/ui-embedded-scenes.json` 将它们按连续 ID、文本语义和真实
+pointer／embedded HI/LO 所有权拆成 22 组，要求零遗漏、零重叠，并为每组
+登记原生 fixture、路线、截图点和运行断言。该阶段只产生
+`manifests/ui-embedded-scene-map.json` 及被忽略的本地审阅表；生产晋级必须
+逐组完成原版画面归因、混合诊断项拆分、字库／allocation 门、隔离写回和运行
+receipt，不能把静态聚类当成已证实的屏幕映射。当前 P2 readiness 基线证明
+13 组／123 条整组可在原 span 内写入，5 组只需补六字，4 组共有七条
+overflow；研究层本身只提供实现排序，仍不自动选择任何字节写回。
+
+首个受限 P3 selector 另由
+`config/ui-writeback/ui-p3-fresh-boot-slps.json` 明确选择两个
+fresh-boot 分区：
+
+```bash
+python3 tools/build_ui_embedded_candidate.py --force
+python3 tools/verify_ui_embedded_candidate.py --force
+```
+
+它要求 23 条决定全部 fixed-span ready，并在 P2 core 前像上合成；实际 12 条
+写入 32 个 target、SLPS 改变 124 字节／35 段，与既有 P2 修改零重叠，
+VT1／COMPDATA／MTV_PROS byte-exact。该门只证明静态 writer 和合成正确，
+不证明教学页或默认主人公标签已在 PCSX2 中出现。
+
 COMPDATA 第一层由 `config/ui-writeback/ui-p0-compdata-fixed.json` 驱动：
 
 ```bash
@@ -466,23 +496,35 @@ python3 tools/verify_ui_atlas_map_canary_iso.py \
 
 `config/assets/ui-atlas-suite-zh.json` 从原版 `KVMDATA.BIN` 出发，验证五份
 中文 atlas 的实际修改字节互不重叠后生成单一 suite。随后
-`config/ui-integration/p2-first-five-atlas-test.json` 以完整成员为单位组合
-P2 UI 四成员、前五关 `HB/STAGE` 和 suite：
+`config/ui-integration/p3-fresh-boot-first-five-atlas-test.json` 以完整成员
+为单位组合 P3 UI 四成员、前五关 `HB/STAGE` 和 suite：
 
 ```bash
 python3 tools/build_ui_atlas_suite.py --force
 python3 tools/verify_ui_atlas_suite.py --force
-python3 tools/build_ui_test_candidate.py --force
-python3 tools/verify_ui_test_candidate.py --force
+python3 tools/build_ui_test_candidate.py \
+  --config config/ui-integration/p3-fresh-boot-first-five-atlas-test.json \
+  --force
+python3 tools/verify_ui_test_candidate.py \
+  --config config/ui-integration/p3-fresh-boot-first-five-atlas-test.json \
+  --force
 python3 tools/build_canary_iso.py \
-  --config config/iso/ui-p2-first-five-atlas-test-build.json
-python3 tools/verify_ui_test_candidate_iso.py --force
+  --config config/iso/ui-p3-fresh-boot-first-five-atlas-test-build.json
+python3 tools/verify_ui_test_candidate_iso.py \
+  --config config/iso/ui-p3-fresh-boot-first-five-atlas-test-build.json \
+  --component-manifest \
+    manifests/ui-p3-fresh-boot-first-five-atlas-test-validation.json \
+  --manifest \
+    manifests/ui-p3-fresh-boot-first-five-atlas-test-runtime-validation.json \
+  --report \
+    work/review/ui-p3-fresh-boot-first-five-atlas-test/iso-validation.json \
+  --force
 ```
 
 suite 相对原版共改变 5,568 个归档字节，owner overlap 为零，owner 外字节
 完全相同。综合 component 有 7 个互不重叠的 replacement；最终 DVD
 3,758,456,832 字节，SHA-256 为
-`af5c1c5a510db1d86bee2054935400e51c86df34902972ef2ebafa71bb3eb52a`。
+`cc4575bdc94a71d79c3a40810308d4eb41f8d3f69f1fd40139e63c83fde038c0`。
 66 个成员中 59 个未替换成员 byte-exact，7 个 replacement 均独立 UDF
 回读，LBA 只按既有 P2 增长形成 `+7/+42` 两段位移。静态验收不能升级任何
 PCSX2、逐屏视觉或 atlas mapping 结论。
@@ -553,7 +595,10 @@ MIPS HI/LO 写回门禁。P0 的 462 条静态菜单文本当前都能在原 spa
 - 全量 extraction freshness 与双向 reconciliation 的规模化运行；
 - 扩展 COMPDATA 动态人物／机体名的全量审校语料；当前已完成开场 45 项与
   researched 精确切片 1,262 项；
+- 按 22 组 embedded UI 场景图逐组完成原版运行归因、writer 晋级和隔离
+  receipt；两个 fresh-boot 分区已静态晋级 P3，仍待实机验收，其余不得整批
+  写入；
 - 用五张已生成的中文 atlas 隔离候选逐一完成运行归属和精确像素双门；同时
-  用已静态通过的综合测试候选完成 P2 UI、前五关和 atlas 的逐屏 PCSX2 路线；
+  用已静态通过的 P3 综合测试候选完成 UI、前五关和 atlas 的逐屏 PCSX2 路线；
 - 全量 STAGE arena policy 和通用 VT1 writer；
 - offline render oracle、coverage ratchet 和 clean-copy deterministic build。

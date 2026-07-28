@@ -121,6 +121,13 @@
   动态名称结构和五份 atlas manifest 确定性投影的 UI 场景摘要；记录
   1,307 个已选名称、1,493 个剩余非空名称和各场景的哈希锁定图片候选，并
   明确区分译文决策、writer、ISO 与运行状态。
+- `ui-embedded-scene-map.json`：把 `menus/extended-embedded-dialogs` 的
+  275 条 SLPS 决定穷尽拆为 22 个静态屏幕候选；18 组／253 条是可见候选，
+  两组／17 条混合诊断内容，两组／5 条要求先查代码引用。清单锁定每组的
+  ID、target、普通 pointer、embedded HI/LO 所有权聚合哈希和运行路线计数，
+  并以当前 P2 字库和真实 allocation 证明 13 组／123 条整组 fixed-span
+  ready、5 组只缺六字、4 组共有七条 overflow；不保存日文原文、中文译文
+  或游戏字节，22 组均仍为 `not_tested`。
 - `ui-atlas-suite-zh-validation.json`：证明五份中文 atlas 对原版
   `KVMDATA.BIN` 的字节所有权互不重叠；组合后只改变 5,568 个归档字节，
   所有权外字节保持原样。该清单只拥有测试用 component，不拥有场景归因。
@@ -130,13 +137,27 @@
 - `ui-p2-first-five-atlas-test-runtime-validation.json`：把上述综合
   component 静态绑定到 66 成员 DVD；记录 59 个未替换成员、7 个 replacement、
   `+7/+42` 两段 LBA 位移、独立 UDF 回读和镜像 SHA-256。运行仍为
-  `not_tested`，五张隔离 atlas 的场景映射证据仍必需。
-- `ui-runtime-test-matrix.json`：把 14 类 UI 场景完整分成 10 类当前测试目标
-  和 4 类显式延期，锁定 6 张精确 ISO、19 个逐屏用例、7 类 fixture、
-  42 个截图点、6 个截图序列和 5 个 texture delta；五张 atlas 用例均绑定
+  `not_tested`，作为当前 P3 候选的历史可复建基线。
+- `ui-p3-fresh-boot-validation.json`：从 embedded scene map 只选择两个
+  `fixed_span_ready` 的 fresh-boot 分区。23 条决定中 11 条 no-op、12 条写入
+  32 个 target；SLPS 改变 124 字节／35 段，和 P2 core 修改零重叠，三个
+  非 SLPS 成员及解码字库保持精确不变。
+- `ui-p3-fresh-boot-first-five-atlas-test-validation.json`：以完整成员组合
+  P3 fresh-boot UI、前五关 `HB/STAGE` 和五图 suite；锁定 7 个成员和三类
+  owner，运行仍为 `not_tested`。
+- `ui-p3-fresh-boot-first-five-atlas-test-runtime-validation.json`：把上述
+  P3 component 静态绑定到 66 成员 DVD，固定 59 个未替换成员、7 个
+  replacement、`+7/+42` LBA 位移和镜像 SHA-256
+  `cc4575bdc94a71d79c3a40810308d4eb41f8d3f69f1fd40139e63c83fde038c0`。
+  五张隔离 atlas 的场景映射证据仍必需。
+- `ui-runtime-test-matrix.json`：把 14 类基础 UI 场景完整分成 10 类当前
+  测试目标和 4 类显式延期，并通过哈希锁定的 scene extension 选择两个 P3
+  fresh-boot 分区；共 16 类／12 类当前目标，锁定 6 张精确 ISO、21 个逐屏
+  用例、7 类 fixture、46 个截图点、6 个截图序列和 5 个 texture delta；
+  五张 atlas 用例均绑定
   中文候选及其 421／2,292／3,634／2,083／1,262 像素 delta。当前只有
-  fresh-boot fixture 就绪，六份原生 memory card 尚未取得，因此 19 个用例
-  均保持 `not_tested`；14 个非映射用例绑定同一综合测试 ISO，五个映射用例
+  fresh-boot fixture 就绪，六份原生 memory card 尚未取得，因此 21 个用例
+  均保持 `not_tested`；16 个非映射用例绑定同一 P3 综合测试 ISO，五个映射用例
   仍绑定各自隔离 ISO。清单不保存存档、截图或游戏字节。
 - `runtime/ui-cases/*.json`：未来每个已通过用例的 hash-only receipt。receipt
   必须由 case-owned session probe、截图／序列、全部断言及可选 atlas

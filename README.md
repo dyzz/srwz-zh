@@ -32,19 +32,33 @@ PCSX2 逐屏证据。五张已筛 KVMDATA 图集现均有受审
 `KVMDATA.BIN`，65 个其余成员 byte-exact、零 LBA 位移。旧的五张擦除
 mapping canary 继续保留为定位前像证据。五项都尚无截图／texture dump
 双证据，因此全部保持 `runtime_mapping_pending`。
-当前另有一个明确标为测试专用的综合候选，把 `ui-p2-core`、前五关
-`HB/STAGE` 和五张中文 atlas 组合为 7 个互不重叠的 replacement。该 DVD
+当前另有一个明确标为测试专用的 P3 综合候选：它在 `ui-p2-core` 之上
+以原 span 写入两个 fresh-boot embedded UI 分区的 23 条决定，再与前五关
+`HB/STAGE` 和五张中文 atlas 组合为 7 个互不重叠的 replacement。23 条中
+11 条为 byte-exact no-op，12 条写入 32 个 target；SLPS 改变 124 字节／35
+段，和既有 P2 core 修改零重叠，VT1、COMPDATA、MTV_PROS 完全沿用 P2。该 DVD
 大小为 3,758,456,832 字节，SHA-256 为
-`af5c1c5a510db1d86bee2054935400e51c86df34902972ef2ebafa71bb3eb52a`；
+`cc4575bdc94a71d79c3a40810308d4eb41f8d3f69f1fd40139e63c83fde038c0`；
 59 个未替换成员保持原字节，7 个 replacement 均由 UDF 独立回读，LBA
 位移严格保持 `+7/+42` 两段。这仍只是静态容器证据；五张隔离 ISO 继续负责
 场景归因，综合镜像不能替代截图与 texture delta 双门。
-对应运行范围已整理为 19 个机器可检查用例：
-14 类场景完整分成 10 类当前目标和 4 类显式延期，绑定 6 张精确 ISO
+原来作为一个整体延期的 275 条 SLPS `Unknown` UI 文本现已进一步拆成
+22 个零遗漏／零重叠的静态屏幕分区：253 条归入 18 个可见界面候选，
+17 条归入两个可见／诊断混合组，5 条归入两个必须先查代码引用的格式或诊断
+组。每组均已绑定真实 target、普通 pointer、embedded HI/LO 所有权以及
+fixture、路线、截图点和断言；这些分区仍需运行归因，尚未自动进入 production
+writer。以当前 P2 字库和原 allocation 预审后，13 组／123 条已整组
+fixed-span ready，其中九个明确可见界面组合计 101 条；其余只涉及六个缺字
+和七条 overflow。两个 fresh-boot 分区的 23 条现已晋级上述 P3 writer 与
+综合 ISO，但运行归因仍为 `not_tested`。
+对应运行范围已整理为 21 个机器可检查用例：
+14 类基础场景完整分成 10 类当前目标和 4 类显式延期，另以哈希锁定的
+scene extension 选择两个 P3 fresh-boot 分区，共 16 类／12 类当前目标；
+矩阵绑定 6 张精确 ISO
 （1 张综合候选加 5 张隔离 atlas）、
-42 个截图点、6 个开场／滚动序列与 5 个 texture delta；目前六份原生
-memory card 尚未取得，19 个用例均保持 `not_tested`。四个 fresh-boot
-用例已生成精确 case plan 和空白证据草稿；统一 verifier 会把 ISO、PINE、
+46 个截图点、6 个开场／滚动序列与 5 个 texture delta；目前六份原生
+memory card 尚未取得，21 个用例均保持 `not_tested`。六个 fresh-boot
+用例已具备可直接生成的精确 case plan；统一 verifier 会把 ISO、PINE、
 日志、截图／序列、断言和 atlas RGBA delta 收敛为 hash-only receipt，但
 当前尚无 receipt 通过。
 尚未生成或发布正式游戏补丁。

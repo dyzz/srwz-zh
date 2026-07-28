@@ -81,8 +81,13 @@ def parse_args() -> argparse.Namespace:
 def build_report(config_path: Path, component_manifest_path: Path) -> dict:
     config = load_json(config_path)
     component = load_json(component_manifest_path)
-    if config.get("profile_id") != "ui-p2-first-five-atlas-test":
-        raise UiTestCandidateIsoError("unexpected UI test ISO profile")
+    profile_id = config.get("profile_id")
+    if (
+        not isinstance(profile_id, str)
+        or not profile_id
+        or component.get("profile_id") != profile_id
+    ):
+        raise UiTestCandidateIsoError("UI test ISO/component profile drift")
     configured_component = config.get("component_validation_manifest")
     if (
         not isinstance(configured_component, str)
@@ -92,10 +97,14 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
         raise UiTestCandidateIsoError(
             "component manifest does not match the ISO profile"
         )
-    if component.get("status") != (
-        "integrated_ui_p2_first_five_atlas_test_component_"
-        "validated_runtime_pending"
-    ):
+    required_component_status = config.get(
+        "component_required_status",
+        (
+            "integrated_ui_p2_first_five_atlas_test_component_"
+            "validated_runtime_pending"
+        ),
+    )
+    if component.get("status") != required_component_status:
         raise UiTestCandidateIsoError(
             "integrated UI test component is not validated"
         )
@@ -211,12 +220,18 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
             f"integrated static ISO acceptance failed: {acceptance}"
         )
 
-    return {
-        "schema_version": 1,
-        "status": (
+    manifest_status = config.get(
+        "runtime_manifest_status",
+        (
             "static_integrated_ui_p2_first_five_atlas_test_iso_"
             "validated_runtime_pending"
         ),
+    )
+    if not isinstance(manifest_status, str) or not manifest_status:
+        raise UiTestCandidateIsoError("integrated runtime manifest status is invalid")
+    return {
+        "schema_version": 1,
+        "status": manifest_status,
         "content_policy": (
             "Hashes, counts, paths and runtime gates only; no game bytes "
             "or localized text are embedded."

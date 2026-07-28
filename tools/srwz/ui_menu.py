@@ -13,7 +13,7 @@ from .codec import decode, reencode_changed_suffix
 from .corpus import text_sha256
 from .font import decode_vt1_font_segment, sha256_bytes
 from .menu import MenuParseResult, parse_menu_file
-from .text import decode_text, encode_text, load_text_table
+from .text import augment_text_table, decode_text, encode_text, load_text_table
 from .ui_inventory import expand_scene_entries, load_scene_config
 from .writers import replace_menu_texts_in_place
 
@@ -373,6 +373,128 @@ def select_fixed_slps_replacements(
     )
 
 
+def build_fixed_slps_slice(
+    source_slps: bytes,
+    source_vt1: bytes,
+    parsed: MenuParseResult,
+    table,
+    *,
+    decisions: Mapping[str, Mapping[str, object]],
+    overrides: Mapping[str, int],
+    source_name: str,
+) -> tuple[bytes, dict]:
+    """Build one exact fixed-span SLPS slice without owning profile I/O."""
+
+    actionable_entries, no_op_entry_ids = _partition_noop_entries(
+        source_slps,
+        parsed,
+        table,
+        decisions=decisions,
+        overrides=overrides,
+    )
+    replacements, excluded, writable_selection = select_fixed_menu_replacements(
+        source_slps,
+        parsed,
+        table,
+        p0_entries=actionable_entries,
+        overrides=overrides,
+    )
+    result = replace_menu_texts_in_place(
+        source_slps,
+        parsed,
+        table,
+        replacements=replacements,
+        overrides=overrides,
+        source_name=source_name,
+    )
+    output = result.data
+    changed_offsets = _verify_fixed_span_differences(
+        source_slps,
+        output,
+        parsed,
+        result.targets,
+    )
+    output_table = augment_text_table(table, overrides)
+    parsed_entries = {entry.entry_id: entry for entry in parsed.entries}
+    for entry_id, decision in decisions.items():
+        parsed_entry = parsed_entries.get(entry_id)
+        if parsed_entry is None or not parsed_entry.target_offsets:
+            raise UiMenuError(f"fixed SLPS slice has no target for {entry_id}")
+        for target_offset in set(parsed_entry.target_offsets):
+            if (
+                decode_text(output, target_offset, output_table).text
+                != decision["translation"]
+            ):
+                raise UiMenuError(
+                    f"fixed SLPS slice readback differs for {entry_id}"
+                )
+    source_font_hash = sha256_bytes(
+        decode_vt1_font_segment(source_slps, source_vt1).decoded
+    )
+    output_font_hash = sha256_bytes(
+        decode_vt1_font_segment(output, source_vt1).decoded
+    )
+    if source_font_hash != output_font_hash:
+        raise UiMenuError("fixed SLPS slice changed the decoded font component")
+
+    selection = {
+        "entry_count": len(decisions),
+        "no_op_entry_count": len(no_op_entry_ids),
+        "no_op_entry_ids": list(no_op_entry_ids),
+        "selected_write_entry_count": writable_selection["selected_entry_count"],
+        "selected_write_target_count": writable_selection["selected_target_count"],
+        "fixed_covered_entry_count": (
+            len(no_op_entry_ids) + writable_selection["selected_entry_count"]
+        ),
+        "selection_sha256": writable_selection["selection_sha256"],
+        "excluded_entry_count": writable_selection["excluded_entry_count"],
+        "excluded_reason_counts": writable_selection["excluded_reason_counts"],
+    }
+    return output, {
+        "selection": selection,
+        "excluded": list(excluded),
+        "write": {
+            "entry_count": result.entry_count,
+            "target_count": len(result.targets),
+            "payload_size": sum(target.payload_size for target in result.targets),
+            "owned_capacity": sum(target.capacity for target in result.targets),
+            "target_metadata_sha256": sha256_bytes(
+                json.dumps(
+                    [target.to_metadata() for target in result.targets],
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode("utf-8")
+            ),
+            "patch_plan_metadata_sha256": sha256_bytes(
+                json.dumps(
+                    result.patch_plan.to_metadata(),
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode("utf-8")
+            ),
+            "pointer_write_count": 0,
+            "pointer_bytes_unchanged": True,
+            "non_target_bytes_unchanged": True,
+            "target_reparse_exact": True,
+        },
+        "component": {
+            "source_size": len(source_slps),
+            "output_size": len(output),
+            "source_sha256": sha256_bytes(source_slps),
+            "output_sha256": sha256_bytes(output),
+            "changed_byte_count": len(changed_offsets),
+            "difference_range_count": _difference_range_count(changed_offsets),
+            "changed_offsets_sha256": sha256_bytes(
+                json.dumps(changed_offsets, separators=(",", ":")).encode("utf-8")
+            ),
+            "source_font_decoded_sha256": source_font_hash,
+            "output_font_decoded_sha256": output_font_hash,
+            "font_decoded_unchanged": True,
+        },
+        "changed_offsets": changed_offsets,
+    }
+
+
 def _partition_noop_entries(
     source: bytes,
     parsed: MenuParseResult,
@@ -387,7 +509,7 @@ def _partition_noop_entries(
     for entry_id, decision in decisions.items():
         entry = entries.get(entry_id)
         if entry is None:
-            raise UiMenuError(f"P0 menu ID is absent from parser: {entry_id}")
+            raise UiMenuError(f"fixed menu ID is absent from parser: {entry_id}")
         translation = decision.get("translation")
         if not isinstance(translation, str):
             raise UiMenuError(f"{entry_id} translation is not text")
@@ -1042,6 +1164,7 @@ def build_fixed_compdata_component(
 
 __all__ = [
     "UiMenuError",
+    "build_fixed_slps_slice",
     "build_fixed_compdata_component",
     "build_fixed_slps_component",
     "load_ui_font_overrides",
