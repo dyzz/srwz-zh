@@ -107,17 +107,27 @@
   单成员、零 LBA 位移的隔离 DVD；固定 65 个未替换成员、独立 UDF 回读和
   ISO SHA-256，并将编成截图与同一 1,325 像素 texture delta 登记为运行晋级
   双门。
+- `ui-battle-command-atlas-zh-validation.json`、
+  `ui-bazaar-atlas-zh-validation.json`、
+  `ui-intermission-atlas-zh-validation.json` 和
+  `ui-formation-atlas-zh-validation.json`：分别在上述擦除前像和 mask 内
+  栅格化受审中文标签；相对原图锁定
+  2,292／3,634／2,083／1,262 个逻辑像素变化，完整 KVMDATA 等长且非目标
+  chunk 不变。四者均保持 `runtime_mapping_pending`。
+- 对应四份 `ui-*-atlas-zh-runtime-validation.json`：分别绑定单成员、
+  65 个未替换成员、零 LBA 位移的隔离 DVD，并锁定 ISO SHA-256。只有目标页
+  出现中文标签且 texture dump 精确匹配各自原图 delta，才允许晋级。
 - `ui-surface-inventory.json`：从真实语料、当前前五关字库和 COMPDATA
   动态名称结构确定性投影的 UI 场景摘要；固定 P0 的 462 条文本、九个缺字、
   12 个剩余候选槽、三槽余量和开场名称 writer 状态，并明确区分译文决策、
   writer、ISO 与运行状态。
 - `ui-runtime-test-matrix.json`：把 14 类 UI 场景完整分成 10 类当前测试目标
   和 4 类显式延期，锁定 7 张精确 ISO、19 个逐屏用例、7 类 fixture、
-  42 个截图点、6 个截图序列和 5 个 texture delta；信息页用例绑定中文候选
-  及其 421 像素 delta，其余四项仍绑定擦除定位 canary。当前只有 fresh-boot
-  fixture 就绪，六份原生 memory card 尚未取得，因此 19 个用例均保持
-  `not_tested`；八个核心 UI 用例绑定精确 `ui-p2-core` ISO，清单不保存
-  存档、截图或游戏字节。
+  42 个截图点、6 个截图序列和 5 个 texture delta；五张 atlas 用例均绑定
+  中文候选及其 421／2,292／3,634／2,083／1,262 像素 delta。当前只有
+  fresh-boot fixture 就绪，六份原生 memory card 尚未取得，因此 19 个用例
+  均保持 `not_tested`；八个核心 UI 用例绑定精确 `ui-p2-core` ISO，清单
+  不保存存档、截图或游戏字节。
 - `runtime/ui-cases/*.json`：未来每个已通过用例的 hash-only receipt。receipt
   必须由 case-owned session probe、截图／序列、全部断言及可选 atlas
   texture delta 生成；矩阵锁定 receipt SHA-256，receipt 反向锁定排除运行

@@ -371,9 +371,19 @@ python3 tools/verify_ui_atlas_map_canary_iso.py \
   --config config/iso/ui-bazaar-atlas-map-canary-build.json --force
 ```
 
-上述结果都只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。
-信息页必须同时看到中文标签出现在原位置和 421 像素 texture delta；战场、
-商店、幕间和编成仍必须分别看到目标标题缺失和
-2,297／2,197／803／1,325 像素 delta。记录精确 PCSX2、ISO、存档、截图及
-转储哈希后，才可升级候选场景映射。静态 preview、ISO 启动或任意 UI 变化
-都不够。
+五个擦除前像现均有受审中文候选；除上面的信息页外，其余四项由
+`corpus/zh/ui-atlas/core-menus-v1.json` 和对应
+`config/assets/ui-*-atlas-zh.json` profile 所有：
+
+| chunk / 标签 | 新增文字像素 | 相对原图像素 delta | 独立 ISO SHA-256 |
+| --- | ---: | ---: | --- |
+| 2 / `机体` | 318 | 421 | `d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0` |
+| 4 / `指令菜单` | 569 | 2,292 | `3e9ed4b155867cefc6b03775a20ab1ca58f7bc4c29ef7bcdfa6feceb14182dda` |
+| 5 / `交易所` | 2,756 | 3,634 | `9fcf33ba40c717497d6750e303db44e3a48bf814f43f4dbdebef3639912bf363` |
+| 6 / `中场休息` | 1,642 | 2,083 | `27a7563c517c155cb9fc44e2b80a06be41d1a1fb294c0f633537b19c4f9e9de2` |
+| 7 / `新建小队` | 723 | 1,262 | `cc8cd7cf82583cb5ea8d52ccac6aabafa730a653ff70613ac2a07da1f763a293` |
+
+这些结果只证明离线写回和 ISO 注入确定性，运行映射仍为 `not_tested`。每项
+都必须在精确候选 ISO 的目标页面看到中文标签，并在 PCSX2 texture dump 中
+匹配表内原图 delta。记录精确 PCSX2、ISO、存档、截图及转储哈希后，才可升级
+候选场景映射。静态 preview、ISO 启动或任意 UI 变化都不够。

@@ -1,0 +1,489 @@
+{
+  "schema_version": 1,
+  "status": "static_localized_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-formation-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the new-formation locator inside the locked KVMDATA chunk 7 mapping mask. Static construction does not prove which runtime squad-formation pages consume this atlas.",
+  "content_policy": "Hashes, coordinates, counts and render parameters only; game bytes, localized text and preview PNGs remain outside this committed manifest.",
+  "inputs": {
+    "config": {
+      "path": "config/assets/ui-formation-atlas-zh.json",
+      "size": 4054,
+      "sha256": "1d6a3af7b0e44c3d4e9028bc5b9ea399245e80c06cb5484d4a7bda6c10e1ae38"
+    },
+    "base_mapping": {
+      "config": {
+        "path": "config/canary/tim2-kvm7-formation-map.json",
+        "size": 3591,
+        "sha256": "eeb613705b24bbb8a4b12db3d957c92b237e4cb588ef6c1ccdf73e4d9dfff5e2"
+      },
+      "manifest": {
+        "path": "manifests/ui-formation-atlas-map-canary-validation.json",
+        "size": 7506,
+        "sha256": "25f0afe3853e9c6275e4dba4cdcb5d036ad00298727c707702f95cd82c1943ab"
+      },
+      "profile_id": "ui-formation-atlas-map-canary",
+      "status": "static_component_validated_runtime_mapping_pending",
+      "archive": {
+        "size": 3335408,
+        "sha256": "4047e0eed26c2fb2d85340f73688229b20f1c0874ff528f6f76ee3c260036a60"
+      }
+    },
+    "font": {
+      "lock": {
+        "path": "config/fonts/lxgw-neo-xihei-screen.lock.json",
+        "size": 933,
+        "sha256": "5c51eaeb8f65c9a7ea126c7b711e567a872b32e29287c0f02d1ab369bb0e95d6"
+      },
+      "family": "LXGW Neo XiHei Screen",
+      "version": "26.07.14",
+      "commit": "501c9c41c1e5cf1eb24a67f57d10080bf5cef0b4",
+      "font_sha256": "f2e0d9fa33d83f712fed2f3b45e57a35e4f536537a90633f25c00fd2563bfe70",
+      "license_spdx": "IPA",
+      "license_sha256": "daf91386d6f9a6a78e4e736c0c00375cae30214ac5c1dab2479f0a05fcb63edd"
+    },
+    "translation_source": {
+      "file": {
+        "path": "corpus/zh/ui-atlas/core-menus-v1.json",
+        "size": 2378,
+        "sha256": "2ab59190c3792cbce85756186b13253d403224b6bf9031e07d46a2baad37573f"
+      },
+      "batch_id": "v1-ui-atlas-core-menus",
+      "entry_id": "ui-atlas/kvm7/new-formation",
+      "editorial_status": "reviewed",
+      "source_ref_count": 3
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 7,
+    "chunk_start": 233408,
+    "chunk_end": 266752,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "新規編成",
+    "operation": "replace_erased_locator_with_text",
+    "candidate_scene_ids": [
+      "intermission/main-and-options",
+      "results/level-up-and-deployment"
+    ],
+    "mask": {
+      "x": 98,
+      "y": 26,
+      "width": 74,
+      "height": 20,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    },
+    "mask_audit": {
+      "changed_pixel_count": 1262,
+      "changed_pixel_indexes_sha256": "a4cb73f4adafb6e068a5e57f3e01da88a6ca930e492d39f03a34a03ea3574b7a",
+      "outside_mask_rgba_exact": true
+    }
+  },
+  "localized_label": {
+    "source_locator_sha256": "5d942acc1778b526f869edd2ecdb9b6fe261d7489cac208e4261a44d72aca5b6",
+    "text_sha256": "433e65060a38f5fc8b521bf47883d1c8b7164d6194d6dcca3c4f496304646f45",
+    "character_count": 4,
+    "render": {
+      "point_size": 16,
+      "stroke_gray": "#303030",
+      "stroke_width": 0.4,
+      "fill_stroke_width": 0,
+      "ramp_rgba": [
+        "101010ff",
+        "171717ff",
+        "1a1a1aff",
+        "202020ff",
+        "262626ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "808080ff"
+      ],
+      "text_mask": {
+        "size": 1480,
+        "sha256": "46a01524d97568810df859b45ea03aa256600c20092343550a6cbeb3f41b6c01",
+        "nonzero_pixel_count": 723
+      }
+    }
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "text_audit": {
+    "added_pixel_count": 723,
+    "added_pixel_indexes_sha256": "01c19d9319b5aa8eb0c425202feeef05cd66376a85da63edde33f50908cdb139",
+    "ramp_rgba_counts": {
+      "101010ff": 47,
+      "171717ff": 53,
+      "1a1a1aff": 31,
+      "202020ff": 28,
+      "262626ff": 25,
+      "303030ff": 34,
+      "404040ff": 24,
+      "505050ff": 40,
+      "808080ff": 441
+    },
+    "outside_mask_rgba_exact": true,
+    "erased_background_preimage_exact": true,
+    "delta_from_erased": {
+      "changed_pixel_count": 723,
+      "changed_pixel_indexes_sha256": "01c19d9319b5aa8eb0c425202feeef05cd66376a85da63edde33f50908cdb139",
+      "outside_mask_rgba_exact": true
+    },
+    "delta_from_original": {
+      "changed_pixel_count": 1262,
+      "changed_pixel_indexes_sha256": "a4cb73f4adafb6e068a5e57f3e01da88a6ca930e492d39f03a34a03ea3574b7a",
+      "outside_mask_rgba_exact": true
+    }
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 723,
+    "changed_image_byte_count": 411,
+    "changed_image_byte_ranges": [
+      {
+        "start": 3509,
+        "end": 3510
+      },
+      {
+        "start": 3637,
+        "end": 3639
+      },
+      {
+        "start": 3641,
+        "end": 3647
+      },
+      {
+        "start": 3648,
+        "end": 3650
+      },
+      {
+        "start": 3655,
+        "end": 3657
+      },
+      {
+        "start": 3660,
+        "end": 3663
+      },
+      {
+        "start": 3664,
+        "end": 3666
+      },
+      {
+        "start": 3764,
+        "end": 3779
+      },
+      {
+        "start": 3783,
+        "end": 3785
+      },
+      {
+        "start": 3788,
+        "end": 3794
+      },
+      {
+        "start": 3892,
+        "end": 3907
+      },
+      {
+        "start": 3911,
+        "end": 3914
+      },
+      {
+        "start": 3916,
+        "end": 3922
+      },
+      {
+        "start": 4020,
+        "end": 4027
+      },
+      {
+        "start": 4028,
+        "end": 4036
+      },
+      {
+        "start": 4037,
+        "end": 4038
+      },
+      {
+        "start": 4039,
+        "end": 4042
+      },
+      {
+        "start": 4044,
+        "end": 4050
+      },
+      {
+        "start": 4148,
+        "end": 4164
+      },
+      {
+        "start": 4165,
+        "end": 4170
+      },
+      {
+        "start": 4172,
+        "end": 4175
+      },
+      {
+        "start": 4176,
+        "end": 4178
+      },
+      {
+        "start": 4275,
+        "end": 4299
+      },
+      {
+        "start": 4300,
+        "end": 4303
+      },
+      {
+        "start": 4304,
+        "end": 4306
+      },
+      {
+        "start": 4403,
+        "end": 4419
+      },
+      {
+        "start": 4420,
+        "end": 4427
+      },
+      {
+        "start": 4428,
+        "end": 4431
+      },
+      {
+        "start": 4432,
+        "end": 4434
+      },
+      {
+        "start": 4532,
+        "end": 4555
+      },
+      {
+        "start": 4556,
+        "end": 4562
+      },
+      {
+        "start": 4660,
+        "end": 4667
+      },
+      {
+        "start": 4668,
+        "end": 4678
+      },
+      {
+        "start": 4679,
+        "end": 4683
+      },
+      {
+        "start": 4684,
+        "end": 4690
+      },
+      {
+        "start": 4788,
+        "end": 4795
+      },
+      {
+        "start": 4796,
+        "end": 4806
+      },
+      {
+        "start": 4807,
+        "end": 4819
+      },
+      {
+        "start": 4916,
+        "end": 4923
+      },
+      {
+        "start": 4924,
+        "end": 4934
+      },
+      {
+        "start": 4935,
+        "end": 4937
+      },
+      {
+        "start": 4938,
+        "end": 4947
+      },
+      {
+        "start": 5043,
+        "end": 5051
+      },
+      {
+        "start": 5052,
+        "end": 5065
+      },
+      {
+        "start": 5066,
+        "end": 5067
+      },
+      {
+        "start": 5068,
+        "end": 5075
+      },
+      {
+        "start": 5171,
+        "end": 5179
+      },
+      {
+        "start": 5180,
+        "end": 5188
+      },
+      {
+        "start": 5189,
+        "end": 5193
+      },
+      {
+        "start": 5196,
+        "end": 5204
+      },
+      {
+        "start": 5300,
+        "end": 5316
+      },
+      {
+        "start": 5317,
+        "end": 5321
+      },
+      {
+        "start": 5324,
+        "end": 5329
+      },
+      {
+        "start": 5330,
+        "end": 5332
+      },
+      {
+        "start": 5428,
+        "end": 5435
+      },
+      {
+        "start": 5436,
+        "end": 5444
+      },
+      {
+        "start": 5445,
+        "end": 5448
+      },
+      {
+        "start": 5452,
+        "end": 5456
+      },
+      {
+        "start": 5458,
+        "end": 5460
+      },
+      {
+        "start": 5556,
+        "end": 5560
+      },
+      {
+        "start": 5561,
+        "end": 5563
+      },
+      {
+        "start": 5564,
+        "end": 5572
+      },
+      {
+        "start": 5580,
+        "end": 5583
+      }
+    ],
+    "available_color_count": 14,
+    "archive_diff_from_erased_base": {
+      "diff_count": 411,
+      "range_count": 63,
+      "first_offset": 236981,
+      "last_offset": 239054,
+      "offsets_sha256": "56a78626a3a41766b0e23098aeadcf0f85bde2871e5c794b27932a1bc557a35b",
+      "ranges_sha256": "3c0bc154b231d7e639d1bed5734e35fd3b08c9b2e800f3b3df494bf16b0ed4f4",
+      "before_values_sha256": "00fdcdfde9f0811645a4dad3868c50970a24b2b2a33d15ae272896928e6c4b9a",
+      "after_values_sha256": "3541b08ace4ec14fe80b77fc46cbe0740434fcc568b3ff940a6cabbc81a60568"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "36b89e340ea57c996075d8711d4d85ce6971bf2d02f3a9904b0f72b249996375"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "a3033a6c098c54c715a912f4ee1775eb7b13332af3c1e388cb621daefd89afbf"
+    },
+    "reference_png": {
+      "size": 23240,
+      "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
+    },
+    "localized_png": {
+      "size": 22616,
+      "sha256": "865fc94e036abb3c7575b4316d3fb37d256ca4423c2f1b6460e55c1504754e48"
+    }
+  },
+  "expected_lock": {
+    "text_mask": {
+      "size": 1480,
+      "sha256": "46a01524d97568810df859b45ea03aa256600c20092343550a6cbeb3f41b6c01",
+      "nonzero_pixel_count": 723
+    },
+    "reference_png": {
+      "size": 23240,
+      "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
+    },
+    "localized_png": {
+      "size": 22616,
+      "sha256": "865fc94e036abb3c7575b4316d3fb37d256ca4423c2f1b6460e55c1504754e48"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "36b89e340ea57c996075d8711d4d85ce6971bf2d02f3a9904b0f72b249996375"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "a3033a6c098c54c715a912f4ee1775eb7b13332af3c1e388cb621daefd89afbf"
+    },
+    "added_pixel_count": 723,
+    "original_changed_pixel_count": 1262,
+    "original_changed_pixel_indexes_sha256": "a4cb73f4adafb6e068a5e57f3e01da88a6ca930e492d39f03a34a03ea3574b7a",
+    "changed_archive_byte_count": 411,
+    "changed_archive_range_count": 63
+  },
+  "acceptance": {
+    "base_mapping_reproduced_exact": true,
+    "font_and_license_locked": true,
+    "text_mask_hash_locked": true,
+    "ramp_uses_only_source_palette_rgba": true,
+    "localized_pixels_within_mapping_mask": true,
+    "erased_locator_preimage_exact": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Prove that KVMDATA chunk 7 supplies the new-squad locator and that the localized label renders at the intended position.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_save",
+      "open_squad_formation_and_deployment_pages",
+      "visit_new_formation_reserve_and_squad_group_routes",
+      "capture_visible_chinese_new_squad_locator_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The original new-formation locator is replaced by the locked Chinese new-squad label while the adjacent hexagon, reserve label and number rows remain intact.",
+    "promotion_rule": "Only a matching formation screenshot and exact original-to-localized texture delta may promote both the scene mapping and localized atlas."
+  }
+}

@@ -58,13 +58,17 @@ python3 tools/export_srwz_corpus.py --force
 提交提取的日文正文。导出过程还会严格序列化并重新解码全部条目，当前结果为
 94,189/94,189。
 
-v1 当前已有八个完整首译批次，另有首个 UI 图片标签切片；剧情正文批次已开始
+v1 当前已有八个完整首译批次，另有五个 UI 图片标签切片；剧情正文批次已开始
 逐关推进：
 
 - `zh/ui-atlas/info-v1.json`：信息页图集首个受审标签 `SHIP → 机体`。它以
   图集定位串的哈希为源前像，并引用既有菜单语义记录；具体字体、mask、调色板
   和输出锁由 `config/assets/ui-info-atlas-zh.json` 所有。静态候选不等于
   已证明运行场景归属。
+- `zh/ui-atlas/core-menus-v1.json`：战场、商店、幕间和编成图集的四个受审
+  标签，分别由四个 `config/assets/ui-*-atlas-zh.json` profile 锁定字体、
+  mask、调色板和输出。语料只拥有翻译决定，旧擦除 canary 仍拥有定位前像；
+  四张静态候选同样不等于已证明运行场景归属。
 - `zh/summary.json`：28/28 条世界历史摘要；
 - `zh/menu/system-ui-*.json`：903/903 条菜单与系统 UI；
 - `zh/menu/stage-names.json`：122/122 条关卡标题、路线标签和内部测试标题；

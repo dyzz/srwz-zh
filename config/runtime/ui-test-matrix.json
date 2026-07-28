@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "matrix_id": "srwz-ui-runtime-v1",
-  "scope": "Runtime scene selection for the current P2 UI core with researched display names, first-five opening sequences, one localized information-page atlas and four remaining isolated KVMDATA mapping canaries. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
+  "scope": "Runtime scene selection for the current P2 UI core with researched display names, first-five opening sequences and five localized KVMDATA atlas candidates. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
   "scene_inventory": {
     "path": "config/ui-scenes.json",
     "sha256": "359186c2ad46ec19a3c9b63cf14230160a684fd37f3fe805b8842b2713b5784c",
@@ -102,12 +102,12 @@
       }
     },
     {
-      "artifact_id": "atlas-battle-command-map",
-      "manifest": "manifests/ui-battle-command-atlas-map-canary-runtime-validation.json",
-      "manifest_sha256": "9a18a8f7c7e61b51f7206151961d3dc93c90cdc70ef0ff5eb7cf12366840955b",
+      "artifact_id": "atlas-battle-command-zh",
+      "manifest": "manifests/ui-battle-command-atlas-zh-runtime-validation.json",
+      "manifest_sha256": "8ba641bf04d2c7bc69021c543fa935489eab1ede8a1b63359facb0c222fda798",
       "status_lock": {
         "field": "status",
-        "equals": "static_mapping_iso_validated_runtime_not_tested"
+        "equals": "static_localization_iso_validated_runtime_mapping_pending"
       },
       "runtime_lock": {
         "field": "runtime.status",
@@ -117,22 +117,22 @@
         "path_field": "iso_build.path",
         "size_field": "iso_build.output.size",
         "sha256_field": "iso_build.output.sha256",
-        "expected_path": "build/iso/ui-battle-command-atlas-map-canary/srwz-ui-battle-command-atlas-map-canary.iso",
+        "expected_path": "build/iso/ui-battle-command-atlas-zh/srwz-ui-battle-command-atlas-zh.iso",
         "expected_size": 3758358528,
-        "expected_sha256": "067626adbaac4ab0189df3b653c1da040d1ea18783667dc2b3ba7b598cae65c1"
+        "expected_sha256": "3e9ed4b155867cefc6b03775a20ab1ca58f7bc4c29ef7bcdfa6feceb14182dda"
       },
       "mapping": {
         "field": "runtime.expected_texture_delta",
-        "expected_changed_pixel_count": 2297
+        "expected_changed_pixel_count": 2292
       }
     },
     {
-      "artifact_id": "atlas-bazaar-map",
-      "manifest": "manifests/ui-bazaar-atlas-map-canary-runtime-validation.json",
-      "manifest_sha256": "8deaaf507d652562a850621480dcb0bc15f6e481d0c856a086dd2814e40f0266",
+      "artifact_id": "atlas-bazaar-zh",
+      "manifest": "manifests/ui-bazaar-atlas-zh-runtime-validation.json",
+      "manifest_sha256": "f38e8953a9bcf71c8c2c2f654a61624e97f783f8cd275f91eb14cab7d8886e32",
       "status_lock": {
         "field": "status",
-        "equals": "static_mapping_iso_validated_runtime_not_tested"
+        "equals": "static_localization_iso_validated_runtime_mapping_pending"
       },
       "runtime_lock": {
         "field": "runtime.status",
@@ -142,22 +142,22 @@
         "path_field": "iso_build.path",
         "size_field": "iso_build.output.size",
         "sha256_field": "iso_build.output.sha256",
-        "expected_path": "build/iso/ui-bazaar-atlas-map-canary/srwz-ui-bazaar-atlas-map-canary.iso",
+        "expected_path": "build/iso/ui-bazaar-atlas-zh/srwz-ui-bazaar-atlas-zh.iso",
         "expected_size": 3758358528,
-        "expected_sha256": "6805fbd0bbfe98ef613ab7a4f4eddf184517b681a800b06a3fa1ba5af2ec2d04"
+        "expected_sha256": "9fcf33ba40c717497d6750e303db44e3a48bf814f43f4dbdebef3639912bf363"
       },
       "mapping": {
         "field": "runtime.expected_texture_delta",
-        "expected_changed_pixel_count": 2197
+        "expected_changed_pixel_count": 3634
       }
     },
     {
-      "artifact_id": "atlas-intermission-map",
-      "manifest": "manifests/ui-intermission-atlas-map-canary-runtime-validation.json",
-      "manifest_sha256": "20c963fb824de1d42f4e02b114e27f8e73d8e37159ca840219ddc2358e9bdf4a",
+      "artifact_id": "atlas-intermission-zh",
+      "manifest": "manifests/ui-intermission-atlas-zh-runtime-validation.json",
+      "manifest_sha256": "31f40dd843c883afae2ec3ad524a8b9daf6ae9ee011fba6848972792b4ae075c",
       "status_lock": {
         "field": "status",
-        "equals": "static_mapping_iso_validated_runtime_not_tested"
+        "equals": "static_localization_iso_validated_runtime_mapping_pending"
       },
       "runtime_lock": {
         "field": "runtime.status",
@@ -167,22 +167,22 @@
         "path_field": "iso_build.path",
         "size_field": "iso_build.output.size",
         "sha256_field": "iso_build.output.sha256",
-        "expected_path": "build/iso/ui-intermission-atlas-map-canary/srwz-ui-intermission-atlas-map-canary.iso",
+        "expected_path": "build/iso/ui-intermission-atlas-zh/srwz-ui-intermission-atlas-zh.iso",
         "expected_size": 3758358528,
-        "expected_sha256": "dafe4737f797b611e02a0dcf68096a40e9b3c61ae4fa98d979b19a00ce0ca0df"
+        "expected_sha256": "27a7563c517c155cb9fc44e2b80a06be41d1a1fb294c0f633537b19c4f9e9de2"
       },
       "mapping": {
         "field": "runtime.expected_texture_delta",
-        "expected_changed_pixel_count": 803
+        "expected_changed_pixel_count": 2083
       }
     },
     {
-      "artifact_id": "atlas-formation-map",
-      "manifest": "manifests/ui-formation-atlas-map-canary-runtime-validation.json",
-      "manifest_sha256": "d757cbc99a6cd5f945a5e3f30e3987062ebc7dce6ae8c114fcc79222bf0c7a31",
+      "artifact_id": "atlas-formation-zh",
+      "manifest": "manifests/ui-formation-atlas-zh-runtime-validation.json",
+      "manifest_sha256": "014c1d6ba07c31c6dcd7c8656cdea4e20c138346419517855123c4df97e14c00",
       "status_lock": {
         "field": "status",
-        "equals": "static_mapping_iso_validated_runtime_not_tested"
+        "equals": "static_localization_iso_validated_runtime_mapping_pending"
       },
       "runtime_lock": {
         "field": "runtime.status",
@@ -192,13 +192,13 @@
         "path_field": "iso_build.path",
         "size_field": "iso_build.output.size",
         "sha256_field": "iso_build.output.sha256",
-        "expected_path": "build/iso/ui-formation-atlas-map-canary/srwz-ui-formation-atlas-map-canary.iso",
+        "expected_path": "build/iso/ui-formation-atlas-zh/srwz-ui-formation-atlas-zh.iso",
         "expected_size": 3758358528,
-        "expected_sha256": "5f05e41f9ba2e410d36a985ca9a87f177d6622ee4e5340d5c0f0ad1ba4fe844c"
+        "expected_sha256": "cc8cd7cf82583cb5ea8d52ccac6aabafa730a653ff70613ac2a07da1f763a293"
       },
       "mapping": {
         "field": "runtime.expected_texture_delta",
-        "expected_changed_pixel_count": 1325
+        "expected_changed_pixel_count": 1262
       }
     }
   ],
@@ -871,19 +871,19 @@
       "scene_ids": [
         "battle/map-and-tactical"
       ],
-      "artifact_id": "atlas-battle-command-map",
+      "artifact_id": "atlas-battle-command-zh",
       "fixture_id": "first-battle-card",
       "variant": null,
       "route": [
         "Fresh boot the exact isolated ISO and load the first-battle save.",
         "Open command menus for two units and visit move, attack, target and battle-status routes.",
-        "Capture the loaded texture and the page where COMMAND MENU disappears."
+        "Capture the loaded texture and the page where the localized command-menu label appears."
       ],
       "capture_points": [
         {
           "capture_id": "mapping-battle-command-visual",
           "kind": "screenshot",
-          "state": "battle command page with COMMAND MENU absent"
+          "state": "battle command page with the localized command-menu label visible"
         },
         {
           "capture_id": "mapping-battle-command-texture",
@@ -892,7 +892,7 @@
         }
       ],
       "assertions": [
-        "COMMAND MENU is absent at the expected position.",
+        "The locked Chinese command-menu label is visible at the original COMMAND MENU position.",
         "Adjacent symbols, number rows, HP, EN and formation labels remain intact.",
         "Screenshot and texture delta must both match before scene promotion."
       ],
@@ -905,19 +905,19 @@
       "scene_ids": [
         "intermission/main-and-options"
       ],
-      "artifact_id": "atlas-bazaar-map",
+      "artifact_id": "atlas-bazaar-zh",
       "fixture_id": "bazaar-unlocked-card",
       "variant": null,
       "route": [
         "Fresh boot the exact isolated ISO and load the Bazaar-unlocked save.",
         "Open purchase, sale, parts, item and sort routes.",
-        "Capture the loaded texture and the page where the large Bazaar title disappears."
+        "Capture the loaded texture and the page where the localized exchange label appears."
       ],
       "capture_points": [
         {
           "capture_id": "mapping-bazaar-visual",
           "kind": "screenshot",
-          "state": "Bazaar page with the large top title absent"
+          "state": "Bazaar page with the localized exchange label visible"
         },
         {
           "capture_id": "mapping-bazaar-texture",
@@ -926,7 +926,7 @@
         }
       ],
       "assertions": [
-        "The large Bazaar title is absent at the expected position.",
+        "The locked Chinese exchange label is visible at the original Bazaar-title position.",
         "Purchase, sale, parts, item and right-side profile labels remain intact.",
         "Screenshot and texture delta must both match before scene promotion."
       ],
@@ -939,19 +939,19 @@
       "scene_ids": [
         "intermission/main-and-options"
       ],
-      "artifact_id": "atlas-intermission-map",
+      "artifact_id": "atlas-intermission-zh",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
         "Fresh boot the exact isolated ISO and load the first-intermission save.",
         "Open the main intermission page and options once.",
-        "Capture the loaded texture and the page where the top intermission title disappears."
+        "Capture the loaded texture and the page where the localized intermission title appears."
       ],
       "capture_points": [
         {
           "capture_id": "mapping-intermission-visual",
           "kind": "screenshot",
-          "state": "intermission page with the top title absent"
+          "state": "intermission page with the localized intermission title visible"
         },
         {
           "capture_id": "mapping-intermission-texture",
@@ -960,7 +960,7 @@
         }
       ],
       "assertions": [
-        "The intermission title is absent at the expected position.",
+        "The locked Chinese intermission title is visible at the original title position.",
         "The right arrow and transparent or opaque background pixels remain intact.",
         "Screenshot and texture delta must both match before scene promotion."
       ],
@@ -974,19 +974,19 @@
         "intermission/main-and-options",
         "results/level-up-and-deployment"
       ],
-      "artifact_id": "atlas-formation-map",
+      "artifact_id": "atlas-formation-zh",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
         "Fresh boot the exact isolated ISO and load the first-intermission save.",
         "Open new formation, reserve transfer and deployment formation routes.",
-        "Capture the loaded texture and the page where the new-formation label disappears."
+        "Capture the loaded texture and the page where the localized new-squad label appears."
       ],
       "capture_points": [
         {
           "capture_id": "mapping-formation-visual",
           "kind": "screenshot",
-          "state": "formation page with the new-formation label absent"
+          "state": "formation page with the localized new-squad label visible"
         },
         {
           "capture_id": "mapping-formation-texture",
@@ -995,7 +995,7 @@
         }
       ],
       "assertions": [
-        "The new-formation label is absent at the expected position.",
+        "The locked Chinese new-squad label is visible at the original new-formation position.",
         "Event number, leader, pilot and reserve labels remain intact.",
         "Screenshot and texture delta must both match before scene promotion."
       ],

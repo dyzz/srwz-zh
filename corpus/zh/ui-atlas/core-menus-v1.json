@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "batch_id": "v1-ui-atlas-core-menus",
+  "language": "zh-Hans",
+  "scope": "Reviewed Chinese labels for the isolated battle-command, bazaar, intermission and formation atlas slices. Runtime scene ownership remains a separate evidence gate.",
+  "entries": [
+    {
+      "id": "ui-atlas/kvm4/command-menu",
+      "source_text": "COMMAND MENU",
+      "source_text_sha256": "feb876749d2d67995be194160b16883ef3bafa69997f980bdf306c437d8d7da8",
+      "translation": "指令菜单",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "menu/SLPS/04/0047",
+        "config/ui-scenes.json#battle/map-and-tactical"
+      ],
+      "notes": "Use the direct and compact tactical-UI label; the surrounding source section is the game's command menu."
+    },
+    {
+      "id": "ui-atlas/kvm5/bazaar",
+      "source_text": "バザー",
+      "source_text_sha256": "1ebdff31cbd3fe9cb7ee3994375360cc3b09b286ec181372ccb9121cf627f3f3",
+      "translation": "交易所",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "config/ui-scenes.json#intermission/main-and-options",
+        "config/assets/ui-atlas-candidates.json#/candidates/2"
+      ],
+      "notes": "Use a functional Chinese game-UI term for the purchase and sale surface instead of transliterating Bazaar."
+    },
+    {
+      "id": "ui-atlas/kvm6/intermission",
+      "source_text": "インターミッション",
+      "source_text_sha256": "462d71946f8fdba900954c0c72e78b4e1223aea6740b4774e91facaab84d821e",
+      "translation": "中场休息",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "config/ui-scenes.json#intermission/main-and-options"
+      ],
+      "notes": "Use the established Chinese intermission label while preserving the repository's shorter 幕间 wording for prose descriptions."
+    },
+    {
+      "id": "ui-atlas/kvm7/new-formation",
+      "source_text": "新規編成",
+      "source_text_sha256": "5d942acc1778b526f869edd2ecdb9b6fe261d7489cac208e4261a44d72aca5b6",
+      "translation": "新建小队",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "menu/SLPS/00/0358",
+        "menu/SLPS/00/0375",
+        "config/ui-scenes.json#intermission/main-and-options"
+      ],
+      "notes": "Use the natural action label and the project's established 小队 term for the platoon-formation system."
+    }
+  ]
+}

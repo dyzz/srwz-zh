@@ -114,6 +114,10 @@ def apply_text_mask(
             "localized atlas grayscale mask size is invalid"
         )
     normalized_ramp = tuple(bytes(color) for color in ramp)
+    allowed_backgrounds = {
+        mask.replacement_rgba,
+        *mask.preserve_rgba,
+    }
     if (
         len(normalized_ramp) < 2
         or len(normalized_ramp) != len(set(normalized_ramp))
@@ -133,9 +137,10 @@ def apply_text_mask(
             pixel_index = y * CANARY_WIDTH + x
             start = pixel_index * 4
             before = erased_rgba[start : start + 4]
-            if before != mask.replacement_rgba:
+            if before not in allowed_backgrounds:
                 raise UiAtlasLocalizationError(
-                    f"localized atlas base is not erased at ({x},{y})"
+                    "localized atlas base is not erased or preserved "
+                    f"background at ({x},{y})"
                 )
             if coverage == 0:
                 continue

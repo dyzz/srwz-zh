@@ -58,12 +58,12 @@ byte-exact no-op、VT1 六 picture 8-bpp index 替换、PSMT8 双向映射、CSM
 绿色 ramp 的量化、八个 128×32 槽写回和纹理右侧 byte-exact；
 `test_ui_atlas_map_canary.py` 以同一数据表固定 chunk 2/4/5/6/7 的 mask、
 组件／预览锁、单成员 ISO 及 `runtime_not_tested` 边界；
-`test_ui_atlas_localization.py` 固定信息页中文候选只从受审 corpus 取词、
-只在已擦除的 `49×16` mask 内写入、318 个新增文字像素／421 个原图 delta、
+`test_ui_atlas_localization.py` 固定五张中文候选只从受审 corpus 取词、
+只在各自已擦除或保留背景的 mask 内写入，逐项锁定新增文字像素、原图 delta、
 TIM2 RGBA 回读、等长归档、独立 ISO 和运行映射未通过边界；
 `test_ui_runtime_matrix.py` 固定 14 类场景的完整去向、19 个逐屏用例、
-001～005 五个独立开场序列、世界史起点／中点／终点、一张中文信息页候选及
-四张擦除 canary 的截图＋texture-delta 双门，以及六份尚未取得的原生
+001～005 五个独立开场序列、世界史起点／中点／终点、五张中文 atlas 候选的
+截图＋texture-delta 双门，以及六份尚未取得的原生
 memory-card fixture；旧 `.p2s`
 savestate 不会自动替代 `.ps2`＋SHA-256 证据；
 `test_ui_runtime_evidence.py` 固定 case plan、精确 ISO、PINE Running、

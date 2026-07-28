@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "status": "static_localized_component_validated_runtime_mapping_pending",
+  "profile_id": "ui-battle-command-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the COMMAND MENU locator inside the locked KVMDATA chunk 4 mapping mask. Static construction does not prove which runtime battle pages consume this atlas.",
+  "content_policy": "Hashes, coordinates, counts and render parameters only; game bytes, localized text and preview PNGs remain outside this committed manifest.",
+  "inputs": {
+    "config": {
+      "path": "config/assets/ui-battle-command-atlas-zh.json",
+      "size": 4096,
+      "sha256": "2e09d050e7683ae9ab345d469cf9bf4fbd15f2caf5051ba34064121056323377"
+    },
+    "base_mapping": {
+      "config": {
+        "path": "config/canary/tim2-kvm4-battle-command-map.json",
+        "size": 3604,
+        "sha256": "e6af9ddee3bb1c7d58f542b18c10c0f6cb537dec81c92d17777551b2b42eea1d"
+      },
+      "manifest": {
+        "path": "manifests/ui-battle-command-atlas-map-canary-validation.json",
+        "size": 12086,
+        "sha256": "0b98310510473319e79b4da8b8320933bd41a3b357f37fdb84c74a83858e4e55"
+      },
+      "profile_id": "ui-battle-command-atlas-map-canary",
+      "status": "static_component_validated_runtime_mapping_pending",
+      "archive": {
+        "size": 3335408,
+        "sha256": "6f186cdcfd84b62736d023d492ddb0963f26a3aa12787c7f2c8c642a527be13a"
+      }
+    },
+    "font": {
+      "lock": {
+        "path": "config/fonts/lxgw-neo-xihei-screen.lock.json",
+        "size": 933,
+        "sha256": "5c51eaeb8f65c9a7ea126c7b711e567a872b32e29287c0f02d1ab369bb0e95d6"
+      },
+      "family": "LXGW Neo XiHei Screen",
+      "version": "26.07.14",
+      "commit": "501c9c41c1e5cf1eb24a67f57d10080bf5cef0b4",
+      "font_sha256": "f2e0d9fa33d83f712fed2f3b45e57a35e4f536537a90633f25c00fd2563bfe70",
+      "license_spdx": "IPA",
+      "license_sha256": "daf91386d6f9a6a78e4e736c0c00375cae30214ac5c1dab2479f0a05fcb63edd"
+    },
+    "translation_source": {
+      "file": {
+        "path": "corpus/zh/ui-atlas/core-menus-v1.json",
+        "size": 2378,
+        "sha256": "2ab59190c3792cbce85756186b13253d403224b6bf9031e07d46a2baad37573f"
+      },
+      "batch_id": "v1-ui-atlas-core-menus",
+      "entry_id": "ui-atlas/kvm4/command-menu",
+      "editorial_status": "reviewed",
+      "source_ref_count": 2
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 4,
+    "chunk_start": 133376,
+    "chunk_end": 166720,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "COMMAND MENU",
+    "operation": "replace_erased_locator_with_text",
+    "candidate_scene_ids": [
+      "battle/map-and-tactical",
+      "results/level-up-and-deployment"
+    ],
+    "mask": {
+      "x": 2,
+      "y": 100,
+      "width": 164,
+      "height": 17,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    },
+    "mask_audit": {
+      "changed_pixel_count": 2292,
+      "changed_pixel_indexes_sha256": "7c79a75a038017a2efb84883da24708d00a2726d362d4dbdfceef1a3027d17b0",
+      "outside_mask_rgba_exact": true
+    }
+  },
+  "localized_label": {
+    "source_locator_sha256": "feb876749d2d67995be194160b16883ef3bafa69997f980bdf306c437d8d7da8",
+    "text_sha256": "136319467aa92e682db554639661d0eaeb8c85725ad264627c5288d09f7ee231",
+    "character_count": 4,
+    "render": {
+      "point_size": 14,
+      "stroke_gray": "#303030",
+      "stroke_width": 0.35,
+      "fill_stroke_width": 0,
+      "ramp_rgba": [
+        "101010ff",
+        "202020ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "606060ff",
+        "686868ff",
+        "707070ff",
+        "787878ff"
+      ],
+      "text_mask": {
+        "size": 2788,
+        "sha256": "51624631f7480f716d1ef27b71acdda09cc5f1d0bab85ec4c44628aa601fe522",
+        "nonzero_pixel_count": 569
+      }
+    }
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "text_audit": {
+    "added_pixel_count": 569,
+    "added_pixel_indexes_sha256": "38266a83664bfd34515c08b37f720b093cfbb98b7a2270d5cdd40864ee14d692",
+    "ramp_rgba_counts": {
+      "101010ff": 36,
+      "202020ff": 38,
+      "303030ff": 18,
+      "404040ff": 15,
+      "505050ff": 28,
+      "606060ff": 18,
+      "686868ff": 13,
+      "707070ff": 23,
+      "787878ff": 380
+    },
+    "outside_mask_rgba_exact": true,
+    "erased_background_preimage_exact": true,
+    "delta_from_erased": {
+      "changed_pixel_count": 569,
+      "changed_pixel_indexes_sha256": "38266a83664bfd34515c08b37f720b093cfbb98b7a2270d5cdd40864ee14d692",
+      "outside_mask_rgba_exact": true
+    },
+    "delta_from_original": {
+      "changed_pixel_count": 2292,
+      "changed_pixel_indexes_sha256": "7c79a75a038017a2efb84883da24708d00a2726d362d4dbdfceef1a3027d17b0",
+      "outside_mask_rgba_exact": true
+    }
+  },
+  "injection": {
+    "image_offset": 64,
+    "image_size": 32768,
+    "changed_pixel_count": 569,
+    "changed_image_byte_count": 318,
+    "changed_image_byte_ranges": [
+      {
+        "start": 12829,
+        "end": 12830
+      },
+      {
+        "start": 12957,
+        "end": 12960
+      },
+      {
+        "start": 12965,
+        "end": 12968
+      },
+      {
+        "start": 12972,
+        "end": 12976
+      },
+      {
+        "start": 12978,
+        "end": 12980
+      },
+      {
+        "start": 12981,
+        "end": 12983
+      },
+      {
+        "start": 13085,
+        "end": 13091
+      },
+      {
+        "start": 13093,
+        "end": 13096
+      },
+      {
+        "start": 13098,
+        "end": 13105
+      },
+      {
+        "start": 13106,
+        "end": 13111
+      },
+      {
+        "start": 13212,
+        "end": 13219
+      },
+      {
+        "start": 13221,
+        "end": 13225
+      },
+      {
+        "start": 13226,
+        "end": 13233
+      },
+      {
+        "start": 13235,
+        "end": 13239
+      },
+      {
+        "start": 13340,
+        "end": 13347
+      },
+      {
+        "start": 13348,
+        "end": 13353
+      },
+      {
+        "start": 13354,
+        "end": 13361
+      },
+      {
+        "start": 13362,
+        "end": 13368
+      },
+      {
+        "start": 13468,
+        "end": 13489
+      },
+      {
+        "start": 13490,
+        "end": 13496
+      },
+      {
+        "start": 13597,
+        "end": 13617
+      },
+      {
+        "start": 13618,
+        "end": 13624
+      },
+      {
+        "start": 13725,
+        "end": 13745
+      },
+      {
+        "start": 13746,
+        "end": 13752
+      },
+      {
+        "start": 13852,
+        "end": 13866
+      },
+      {
+        "start": 13867,
+        "end": 13872
+      },
+      {
+        "start": 13874,
+        "end": 13880
+      },
+      {
+        "start": 13980,
+        "end": 13987
+      },
+      {
+        "start": 13988,
+        "end": 14001
+      },
+      {
+        "start": 14002,
+        "end": 14008
+      },
+      {
+        "start": 14108,
+        "end": 14115
+      },
+      {
+        "start": 14117,
+        "end": 14121
+      },
+      {
+        "start": 14122,
+        "end": 14137
+      },
+      {
+        "start": 14237,
+        "end": 14243
+      },
+      {
+        "start": 14245,
+        "end": 14249
+      },
+      {
+        "start": 14251,
+        "end": 14256
+      },
+      {
+        "start": 14257,
+        "end": 14265
+      },
+      {
+        "start": 14364,
+        "end": 14371
+      },
+      {
+        "start": 14373,
+        "end": 14376
+      },
+      {
+        "start": 14378,
+        "end": 14386
+      },
+      {
+        "start": 14388,
+        "end": 14390
+      },
+      {
+        "start": 14492,
+        "end": 14499
+      },
+      {
+        "start": 14502,
+        "end": 14505
+      },
+      {
+        "start": 14506,
+        "end": 14514
+      },
+      {
+        "start": 14516,
+        "end": 14518
+      },
+      {
+        "start": 14620,
+        "end": 14624
+      },
+      {
+        "start": 14625,
+        "end": 14627
+      },
+      {
+        "start": 14630,
+        "end": 14633
+      },
+      {
+        "start": 14634,
+        "end": 14636
+      },
+      {
+        "start": 14637,
+        "end": 14639
+      },
+      {
+        "start": 14640,
+        "end": 14641
+      },
+      {
+        "start": 14644,
+        "end": 14646
+      }
+    ],
+    "available_color_count": 11,
+    "archive_diff_from_erased_base": {
+      "diff_count": 318,
+      "range_count": 52,
+      "first_offset": 146269,
+      "last_offset": 148085,
+      "offsets_sha256": "c6c79a064a71876f4c424b498ae9de8087fb4b737d0388b9bbbcd5bd119d53b4",
+      "ranges_sha256": "5c9e1c7f89760199399231f46816c94d570f4506825496715b784817a826457f",
+      "before_values_sha256": "b57536fb8401facf2e6aed14ed0f15e42a4f38b1e05eebc1a8be1613909c5165",
+      "after_values_sha256": "82a6be59db6956d8110259f48037b01676502fe9b83eb6ba357f7beec1edb772"
+    },
+    "chunk_size_unchanged": true,
+    "archive_size_unchanged": true,
+    "non_target_chunks_exact": true,
+    "output_rgba_exact": true
+  },
+  "outputs": {
+    "archive": {
+      "size": 3335408,
+      "sha256": "368df8ada21b0232e62b18e12c3689d07277dbb133f8f717488ddade1084ec83"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "d02af403ca7f2f932b2c89addef457e8a89b02233b06f8694de5f2698d3257e8"
+    },
+    "reference_png": {
+      "size": 27121,
+      "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
+    },
+    "localized_png": {
+      "size": 26379,
+      "sha256": "df37570f0ab376a9a26ccd2fa15ec1f22eaed9b15f7e696be47c8ca1c309a869"
+    }
+  },
+  "expected_lock": {
+    "text_mask": {
+      "size": 2788,
+      "sha256": "51624631f7480f716d1ef27b71acdda09cc5f1d0bab85ec4c44628aa601fe522",
+      "nonzero_pixel_count": 569
+    },
+    "reference_png": {
+      "size": 27121,
+      "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
+    },
+    "localized_png": {
+      "size": 26379,
+      "sha256": "df37570f0ab376a9a26ccd2fa15ec1f22eaed9b15f7e696be47c8ca1c309a869"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "368df8ada21b0232e62b18e12c3689d07277dbb133f8f717488ddade1084ec83"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "d02af403ca7f2f932b2c89addef457e8a89b02233b06f8694de5f2698d3257e8"
+    },
+    "added_pixel_count": 569,
+    "original_changed_pixel_count": 2292,
+    "original_changed_pixel_indexes_sha256": "7c79a75a038017a2efb84883da24708d00a2726d362d4dbdfceef1a3027d17b0",
+    "changed_archive_byte_count": 318,
+    "changed_archive_range_count": 52
+  },
+  "acceptance": {
+    "base_mapping_reproduced_exact": true,
+    "font_and_license_locked": true,
+    "text_mask_hash_locked": true,
+    "ramp_uses_only_source_palette_rgba": true,
+    "localized_pixels_within_mapping_mask": true,
+    "erased_locator_preimage_exact": true,
+    "tim2_header_clut_and_padding_exact": true,
+    "archive_geometry_and_other_chunks_exact": true,
+    "imagemagick_output_rgba_exact": true,
+    "all_output_locks_exact": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Prove that KVMDATA chunk 4 supplies the tactical command-menu locator and that the localized label renders at the intended position.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_battle_save",
+      "open_command_menu_for_two_units",
+      "visit_move_attack_target_and_battle_status_routes",
+      "capture_visible_chinese_command_menu_locator_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The original COMMAND MENU locator is replaced by the locked compact Chinese command-menu label while adjacent symbols, number rows, HP, EN and formation labels remain intact.",
+    "promotion_rule": "Only a matching battle screenshot and exact original-to-localized texture delta may promote both the scene mapping and localized atlas."
+  }
+}

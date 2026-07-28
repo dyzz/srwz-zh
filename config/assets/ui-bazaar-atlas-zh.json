@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "profile_id": "ui-bazaar-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the large bazaar locator inside the locked KVMDATA chunk 5 mapping mask. Static construction does not prove which runtime purchase and sale pages consume this atlas.",
+  "base_mapping": {
+    "config": "config/canary/tim2-kvm5-bazaar-map.json",
+    "config_sha256": "6faa36b4e8b0fa973863e9114737c5224bffa7026a9d0e699365badd377817d9",
+    "manifest": "manifests/ui-bazaar-atlas-map-canary-validation.json",
+    "manifest_sha256": "eae0a30f9bdc302d0ca90592167a2d6121072e2c32985de7cbbbf14c16fa28df",
+    "required_status": "static_component_validated_runtime_mapping_pending"
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 5,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "バザー",
+    "operation": "replace_erased_locator_with_text"
+  },
+  "localized_label": {
+    "translation_source": {
+      "path": "corpus/zh/ui-atlas/core-menus-v1.json",
+      "sha256": "2ab59190c3792cbce85756186b13253d403224b6bf9031e07d46a2baad37573f",
+      "entry_id": "ui-atlas/kvm5/bazaar",
+      "minimum_editorial_status": "reviewed"
+    },
+    "font_lock": "config/fonts/lxgw-neo-xihei-screen.lock.json",
+    "font_lock_sha256": "5c51eaeb8f65c9a7ea126c7b711e567a872b32e29287c0f02d1ab369bb0e95d6",
+    "render": {
+      "point_size": 42,
+      "stroke_gray": "#303030",
+      "stroke_width": 1.0,
+      "fill_stroke_width": 0,
+      "ramp_rgba": [
+        "101010ff",
+        "202020ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "606060ff",
+        "707070ff"
+      ]
+    }
+  },
+  "runtime": {
+    "purpose": "Prove that KVMDATA chunk 5 supplies the bazaar purchase-and-sale locator and that the localized label renders at the intended position.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_bazaar_available_save",
+      "open_bazaar_purchase_and_sale_pages",
+      "visit_parts_item_and_sorting_routes",
+      "capture_visible_chinese_bazaar_locator_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The original large bazaar locator is replaced by the locked Chinese exchange label while Bazaar, purchase, sale, parts, item and profile labels remain intact.",
+    "promotion_rule": "Only a matching bazaar screenshot and exact original-to-localized texture delta may promote both the scene mapping and localized atlas."
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "expected": {
+    "text_mask": {
+      "size": 8357,
+      "sha256": "000cb30356d7ab706fdd83b90a41b8c96c16a4d8ab49831dc8c41d6fdaa8e9c9",
+      "nonzero_pixel_count": 2756
+    },
+    "reference_png": {
+      "size": 16117,
+      "sha256": "4c2da38c2ba01b513ea06f12a06dac930948860ca0adb27853c9590031d17673"
+    },
+    "localized_png": {
+      "size": 16066,
+      "sha256": "61e6e673f6c3b2bcf9ef63c50b0d6b48a6a3843bb5d9be6ee7f43294617fe08f"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "c758c0062eed21214a2266b1ddd017eb3b4a06f861a586db18c32451cb7800e5"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "3632994c0c3326e961e28222512cbfebdfb5b178ab8bd3a8055f1fcc93383ed3"
+    },
+    "added_pixel_count": 2756,
+    "original_changed_pixel_count": 3634,
+    "original_changed_pixel_indexes_sha256": "8131799b0567dfecefddc7f81a75331d78a64c5b07baf8973025cef5eec21dd1",
+    "changed_archive_byte_count": 1507,
+    "changed_archive_range_count": 207
+  },
+  "outputs": {
+    "component_root": "work/build/ui-bazaar-atlas-zh/components",
+    "reference_png": "work/build/ui-bazaar-atlas-zh/reference.png",
+    "localized_png": "work/build/ui-bazaar-atlas-zh/localized.png",
+    "validation": "work/review/ui-bazaar-atlas-zh/component-validation.json",
+    "manifest": "manifests/ui-bazaar-atlas-zh-validation.json"
+  }
+}

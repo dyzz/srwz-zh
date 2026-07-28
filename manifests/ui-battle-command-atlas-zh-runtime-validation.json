@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "status": "static_localization_iso_validated_runtime_mapping_pending",
+  "content_policy": "Hashes, coordinates, counts, paths and runtime gates only; no game bytes, localized text or preview PNGs are embedded.",
+  "profile_id": "ui-battle-command-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the COMMAND MENU locator inside the locked KVMDATA chunk 4 mapping mask. Static construction does not prove which runtime battle pages consume this atlas.",
+  "component": {
+    "manifest": {
+      "path": "manifests/ui-battle-command-atlas-zh-validation.json",
+      "size": 11905,
+      "sha256": "557d8240aebb4f73634f3b32197c455840b9684f228a5d637990782fa5c6b64d"
+    },
+    "target": {
+      "member": "KURODATA/KVMDATA.BIN",
+      "chunk_index": 4,
+      "chunk_start": 133376,
+      "chunk_end": 166720,
+      "record_index": 0,
+      "picture_index": 0,
+      "semantic_locator": "COMMAND MENU",
+      "operation": "replace_erased_locator_with_text",
+      "candidate_scene_ids": [
+        "battle/map-and-tactical",
+        "results/level-up-and-deployment"
+      ],
+      "mask": {
+        "x": 2,
+        "y": 100,
+        "width": 164,
+        "height": 17,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "mask_audit": {
+        "changed_pixel_count": 2292,
+        "changed_pixel_indexes_sha256": "7c79a75a038017a2efb84883da24708d00a2726d362d4dbdfceef1a3027d17b0",
+        "outside_mask_rgba_exact": true
+      }
+    },
+    "outputs": {
+      "archive": {
+        "size": 3335408,
+        "sha256": "368df8ada21b0232e62b18e12c3689d07277dbb133f8f717488ddade1084ec83"
+      },
+      "chunk": {
+        "size": 33344,
+        "sha256": "d02af403ca7f2f932b2c89addef457e8a89b02233b06f8694de5f2698d3257e8"
+      },
+      "reference_png": {
+        "size": 27121,
+        "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
+      },
+      "localized_png": {
+        "size": 26379,
+        "sha256": "df37570f0ab376a9a26ccd2fa15ec1f22eaed9b15f7e696be47c8ca1c309a869"
+      }
+    },
+    "acceptance": {
+      "base_mapping_reproduced_exact": true,
+      "font_and_license_locked": true,
+      "text_mask_hash_locked": true,
+      "ramp_uses_only_source_palette_rgba": true,
+      "localized_pixels_within_mapping_mask": true,
+      "erased_locator_preimage_exact": true,
+      "tim2_header_clut_and_padding_exact": true,
+      "archive_geometry_and_other_chunks_exact": true,
+      "imagemagick_output_rgba_exact": true,
+      "all_output_locks_exact": true
+    }
+  },
+  "iso_build": {
+    "config": {
+      "path": "config/iso/ui-battle-command-atlas-zh-build.json",
+      "size": 3320,
+      "sha256": "8e58ae8b18dcb420c1bc6eeb58afd7be8223e26773b2c82e4d0c62cd0952a01d"
+    },
+    "report": {
+      "path": "build/iso/ui-battle-command-atlas-zh/iso-validation.json",
+      "size": 2807,
+      "sha256": "69bf852cf72dd61728bf91fdc4e8cb468ab80865fca2caa3876bc5830b543b35"
+    },
+    "path": "build/iso/ui-battle-command-atlas-zh/srwz-ui-battle-command-atlas-zh.iso",
+    "output": {
+      "size": 3758358528,
+      "sha256": "3e9ed4b155867cefc6b03775a20ab1ca58f7bc4c29ef7bcdfa6feceb14182dda"
+    },
+    "member_count": 66,
+    "unchanged_member_count": 65,
+    "shifted_member_count": 0,
+    "shift_segments": [
+      {
+        "first_member": "KURODATA/KVMDATA.BIN",
+        "shift_sectors": 0
+      }
+    ],
+    "member_manifest_sha256": "94d38a9690f099eb439a69b8d51e50948a8daa94d5d41978c4c06d0d7e250936",
+    "pcsx2_v263_image_type": "DVD",
+    "udf_volume_recognition_sequence": "NSR02",
+    "replacement": {
+      "member": "KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "368df8ada21b0232e62b18e12c3689d07277dbb133f8f717488ddade1084ec83",
+      "independent_udf_reread_exact": true
+    }
+  },
+  "static_acceptance": {
+    "component_manifest_validated": true,
+    "single_replacement_matches_component": true,
+    "iso_size_and_sha256_pinned": true,
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "shift_segments_exact": true,
+    "zero_shifted_members": true,
+    "replacement_independently_reread": true,
+    "pcsx2_media_type_dvd": true,
+    "udf_nsr02": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_iso_sha256": "3e9ed4b155867cefc6b03775a20ab1ca58f7bc4c29ef7bcdfa6feceb14182dda",
+    "required_emulator": "PCSX2 v2.6.3",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_battle_save",
+      "open_command_menu_for_two_units",
+      "visit_move_attack_target_and_battle_status_routes",
+      "capture_visible_chinese_command_menu_locator_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_delta": {
+      "semantic_locator": "COMMAND MENU",
+      "effect": "The original COMMAND MENU locator is replaced by the locked compact Chinese command-menu label while adjacent symbols, number rows, HP, EN and formation labels remain intact."
+    },
+    "expected_texture_delta": {
+      "chunk_index": 4,
+      "mask": {
+        "x": 2,
+        "y": 100,
+        "width": 164,
+        "height": 17,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "changed_pixel_count": 2292,
+      "changed_pixel_indexes_sha256": "7c79a75a038017a2efb84883da24708d00a2726d362d4dbdfceef1a3027d17b0"
+    },
+    "promotion_rule": "Only a matching battle screenshot and exact original-to-localized texture delta may promote both the scene mapping and localized atlas."
+  }
+}

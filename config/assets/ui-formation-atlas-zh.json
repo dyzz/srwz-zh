@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "profile_id": "ui-formation-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the new-formation locator inside the locked KVMDATA chunk 7 mapping mask. Static construction does not prove which runtime squad-formation pages consume this atlas.",
+  "base_mapping": {
+    "config": "config/canary/tim2-kvm7-formation-map.json",
+    "config_sha256": "eeb613705b24bbb8a4b12db3d957c92b237e4cb588ef6c1ccdf73e4d9dfff5e2",
+    "manifest": "manifests/ui-formation-atlas-map-canary-validation.json",
+    "manifest_sha256": "25f0afe3853e9c6275e4dba4cdcb5d036ad00298727c707702f95cd82c1943ab",
+    "required_status": "static_component_validated_runtime_mapping_pending"
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 7,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "新規編成",
+    "operation": "replace_erased_locator_with_text"
+  },
+  "localized_label": {
+    "translation_source": {
+      "path": "corpus/zh/ui-atlas/core-menus-v1.json",
+      "sha256": "2ab59190c3792cbce85756186b13253d403224b6bf9031e07d46a2baad37573f",
+      "entry_id": "ui-atlas/kvm7/new-formation",
+      "minimum_editorial_status": "reviewed"
+    },
+    "font_lock": "config/fonts/lxgw-neo-xihei-screen.lock.json",
+    "font_lock_sha256": "5c51eaeb8f65c9a7ea126c7b711e567a872b32e29287c0f02d1ab369bb0e95d6",
+    "render": {
+      "point_size": 16,
+      "stroke_gray": "#303030",
+      "stroke_width": 0.4,
+      "fill_stroke_width": 0,
+      "ramp_rgba": [
+        "101010ff",
+        "171717ff",
+        "1a1a1aff",
+        "202020ff",
+        "262626ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "808080ff"
+      ]
+    }
+  },
+  "runtime": {
+    "purpose": "Prove that KVMDATA chunk 7 supplies the new-squad locator and that the localized label renders at the intended position.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_save",
+      "open_squad_formation_and_deployment_pages",
+      "visit_new_formation_reserve_and_squad_group_routes",
+      "capture_visible_chinese_new_squad_locator_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The original new-formation locator is replaced by the locked Chinese new-squad label while the adjacent hexagon, reserve label and number rows remain intact.",
+    "promotion_rule": "Only a matching formation screenshot and exact original-to-localized texture delta may promote both the scene mapping and localized atlas."
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "expected": {
+    "text_mask": {
+      "size": 1480,
+      "sha256": "46a01524d97568810df859b45ea03aa256600c20092343550a6cbeb3f41b6c01",
+      "nonzero_pixel_count": 723
+    },
+    "reference_png": {
+      "size": 23240,
+      "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
+    },
+    "localized_png": {
+      "size": 22616,
+      "sha256": "865fc94e036abb3c7575b4316d3fb37d256ca4423c2f1b6460e55c1504754e48"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "36b89e340ea57c996075d8711d4d85ce6971bf2d02f3a9904b0f72b249996375"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "a3033a6c098c54c715a912f4ee1775eb7b13332af3c1e388cb621daefd89afbf"
+    },
+    "added_pixel_count": 723,
+    "original_changed_pixel_count": 1262,
+    "original_changed_pixel_indexes_sha256": "a4cb73f4adafb6e068a5e57f3e01da88a6ca930e492d39f03a34a03ea3574b7a",
+    "changed_archive_byte_count": 411,
+    "changed_archive_range_count": 63
+  },
+  "outputs": {
+    "component_root": "work/build/ui-formation-atlas-zh/components",
+    "reference_png": "work/build/ui-formation-atlas-zh/reference.png",
+    "localized_png": "work/build/ui-formation-atlas-zh/localized.png",
+    "validation": "work/review/ui-formation-atlas-zh/component-validation.json",
+    "manifest": "manifests/ui-formation-atlas-zh-validation.json"
+  }
+}

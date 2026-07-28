@@ -404,7 +404,8 @@ python3 tools/verify_ui_core_iso.py \
 
 ### 4.4 UI atlas 映射 canary 与中文候选
 
-为避免在场景归属不明时直接重做整张图，先建立五个互相隔离的可逆定位实验：
+为避免在场景归属不明时直接重做整张图，五个目标先各自建立互相隔离、可逆的
+擦除定位实验：
 
 - `config/canary/tim2-kvm2-info-map.json`：chunk 2 顶行 `SHIP`；
 - `config/canary/tim2-kvm4-battle-command-map.json`：chunk 4
@@ -414,7 +415,9 @@ python3 tools/verify_ui_core_iso.py \
 - `config/canary/tim2-kvm7-formation-map.json`：chunk 7 `新規編成`。
 
 五者都只把 mask 内非背景像素替换为原图已有颜色，并显式登记必须保持的背景
-RGBA 集合。通用入口接受对应配置；信息页默认配置可直接运行：
+RGBA 集合。基础 canary 的组件、像素集合、等长 KVMDATA 和单成员 ISO golden
+继续保留，作为中文候选必须逐字节复建的定位前像；它们不拥有译文，也不证明
+运行场景归属。通用入口接受对应配置；信息页默认配置可直接运行：
 
 ```bash
 python3 tools/build_ui_atlas_map_canary.py --force
@@ -424,20 +427,13 @@ python3 tools/build_canary_iso.py \
 python3 tools/verify_ui_atlas_map_canary_iso.py --force
 ```
 
-component 门证明 299 个逻辑像素变化全部在 mask 内、185 个 archive byte
-变化、TIM2 header/CLUT/padding 和其他 chunk byte-exact，完整 KVMDATA 等长。
-ISO 门只接受这一项 replacement；固定结果有 66 个成员、65 个未替换成员、
-零 LBA 位移和独立 UDF 回读。两级清单分别为
-`manifests/ui-info-atlas-map-canary-validation.json` 与
-`manifests/ui-info-atlas-map-canary-runtime-validation.json`。
-
-信息页在此基础上增加首个中文生产候选。唯一译文由
-`corpus/zh/ui-atlas/info-v1.json` 所有；配置
-`config/assets/ui-info-atlas-zh.json` 固定基础 mapping 清单、LXGW
-字体／许可证、ImageMagick 版本、灰度文字 mask、原图调色板 ramp 和所有输出
-哈希。它逐字节复建已擦除前像后，只在同一 `49×16` mask 内增加 318 个文字
-像素；相对原图精确变化 421 个像素／183 个 archive byte，完整 KVMDATA
-等长，TIM2 RGBA 回读精确。构建和独立 ISO 门为：
+中文标签由 `corpus/zh/ui-atlas/info-v1.json` 和
+`corpus/zh/ui-atlas/core-menus-v1.json` 所有。五个
+`config/assets/ui-*-atlas-zh.json` profile 分别锁定基础 mapping 清单、
+LXGW 字体／许可证、ImageMagick 版本、灰度文字 mask、原图调色板 ramp 和所有
+输出哈希。构建器逐字节复建各自擦除前像，只允许在同一 mask 内写入受审文字；
+TIM2 header、CLUT、padding、非目标 chunk 和 mask 外 RGBA 都必须不变。
+每个 profile 使用同一四步门，以下以信息页为例：
 
 ```bash
 python3 tools/build_ui_atlas_localization.py --force
@@ -448,50 +444,22 @@ python3 tools/verify_ui_atlas_map_canary_iso.py \
   --config config/iso/ui-info-atlas-zh-build.json --force
 ```
 
-ISO 只替换 `KURODATA/KVMDATA.BIN`，65 个未替换成员 byte-exact、零 LBA
-位移；SHA-256 为
-`d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0`。
-两级清单为 `manifests/ui-info-atlas-zh-validation.json` 与
-`manifests/ui-info-atlas-zh-runtime-validation.json`。这仍只证明静态中文
-组件和容器，不能证明运行场景归属或游戏内显示。
+五张中文候选的静态结果为：
 
-战场配置显式传入
-`config/canary/tim2-kvm4-battle-command-map.json` 与
-`config/iso/ui-battle-command-atlas-map-canary-build.json`。其 component
-改变 2,297 个逻辑像素／1,221 个 archive byte；ISO 有 65 个未替换成员、
-零 LBA 位移，SHA-256 为
-`067626adbaac4ab0189df3b653c1da040d1ea18783667dc2b3ba7b598cae65c1`。
-两级清单使用 `ui-battle-command-atlas-map-canary` 同名路径。
+| chunk / 标签 | 相对原图像素 delta | 独立 ISO SHA-256 |
+| --- | ---: | --- |
+| 2 / `机体` | 421 | `d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0` |
+| 4 / `指令菜单` | 2,292 | `3e9ed4b155867cefc6b03775a20ab1ca58f7bc4c29ef7bcdfa6feceb14182dda` |
+| 5 / `交易所` | 3,634 | `9fcf33ba40c717497d6750e303db44e3a48bf814f43f4dbdebef3639912bf363` |
+| 6 / `中场休息` | 2,083 | `27a7563c517c155cb9fc44e2b80a06be41d1a1fb294c0f633537b19c4f9e9de2` |
+| 7 / `新建小队` | 1,262 | `cc8cd7cf82583cb5ea8d52ccac6aabafa730a653ff70613ac2a07da1f763a293` |
 
-商店配置显式传入 `config/canary/tim2-kvm5-bazaar-map.json` 与
-`config/iso/ui-bazaar-atlas-map-canary-build.json`。其 component 改变
-2,197 个逻辑像素／1,210 个 archive byte；ISO 有 65 个未替换成员、零 LBA
-位移，SHA-256 为
-`6805fbd0bbfe98ef613ab7a4f4eddf184517b681a800b06a3fa1ba5af2ec2d04`。
-两级清单使用 `ui-bazaar-atlas-map-canary` 同名路径。
-
-幕间配置同样运行四步入口并显式传入
-`config/canary/tim2-kvm6-intermission-map.json` 与
-`config/iso/ui-intermission-atlas-map-canary-build.json`。其 component
-改变 803 个逻辑像素／509 个 archive byte；ISO 有 65 个未替换成员、零 LBA
-位移，SHA-256 为
-`dafe4737f797b611e02a0dcf68096a40e9b3c61ae4fa98d979b19a00ce0ca0df`。
-两级清单使用 `ui-intermission-atlas-map-canary` 同名路径。
-
-编成配置显式传入 `config/canary/tim2-kvm7-formation-map.json` 与
-`config/iso/ui-formation-atlas-map-canary-build.json`。其 component
-改变 1,325 个逻辑像素／691 个 archive byte；ISO 有 65 个未替换成员、
-零 LBA 位移，SHA-256 为
-`5f05e41f9ba2e410d36a985ca9a87f177d6622ee4e5340d5c0f0ad1ba4fe844c`。
-两级清单使用 `ui-formation-atlas-map-canary` 同名路径。
-
-五个基础 mapping profile 的状态都有意保持
-`static_mapping_iso_validated_runtime_not_tested`；信息页中文候选则保持
-`static_localization_iso_validated_runtime_mapping_pending`。信息页只有在
-同一 ISO 的目标页面出现中文标签，且 PCSX2 texture dump 精确匹配 421 像素
-集合后才可晋级。其余四项仍要求目标标签消失并分别匹配
-2,297／2,197／803／1,325 像素集合。任何 profile 都不拥有未经运行证明的
-场景归属或 `ui-p2-core` 集成结论。
+每张 ISO 都只替换 `KURODATA/KVMDATA.BIN`，65 个未替换成员 byte-exact、
+零 LBA 位移并独立 UDF 回读。五个中文 profile 均保持
+`static_localization_iso_validated_runtime_mapping_pending`：只有同一 ISO
+的目标页面出现相应中文标签，且 PCSX2 texture dump 精确匹配表中原图 delta，
+才可晋级。静态预览、容器构建或任意 UI 变化都不能证明场景归属，也不能授权
+合入 `ui-p2-core`。
 
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求
@@ -559,7 +527,7 @@ MIPS HI/LO 写回门禁。P0 的 462 条静态菜单文本当前都能在原 spa
 - 全量 extraction freshness 与双向 reconciliation 的规模化运行；
 - 扩展 COMPDATA 动态人物／机体名的全量审校语料；当前已完成开场 45 项与
   researched 精确切片 1,262 项；
-- 用已生成的中文信息页候选完成 atlas 运行归属和 421 像素双门，再把该 atlas
-  与前五关 STAGE/HB 合并到候选并完成逐屏 PCSX2 路线；
+- 用五张已生成的中文 atlas 候选逐一完成运行归属和精确像素双门，再把已通过
+  的 atlas 与前五关 STAGE/HB 合并到候选并完成逐屏 PCSX2 路线；
 - 全量 STAGE arena policy 和通用 VT1 writer；
 - offline render oracle、coverage ratchet 和 clean-copy deterministic build。

@@ -28,8 +28,7 @@
 导致每次合法重建都产生新的 freshness 漂移；详细本地报告仍保留下游哈希。
 
 `runtime/ui-test-matrix.json` 不改变上述生产选择。它锁定
-`ui-scenes.json`、组合 UI／前五关镜像、信息页中文图集候选及其余四张 atlas
-映射 canary 的提交清单，并为
+`ui-scenes.json`、组合 UI／前五关镜像及五张中文 atlas 候选的提交清单，并为
 每个运行用例登记 fixture 状态、到达步骤、截图点和证据要求。存档必须位于
 被忽略的 `work/runtime/ui-fixtures/`，只有原生 `.ps2` memory card 和 SHA-256
 都登记后才能从 `not_acquired` 晋级；已有 `.p2s` savestate 不会被自动当作
@@ -127,10 +126,15 @@ ISO；这是当前首个坐标级 8-bpp 图片汉化 profile。
 只擦除 `SHIP` mask 内的非背景像素，并锁定背景色集合、像素集合、完整
 KVMDATA 输出和确定性 PNG 预览。
 `assets/ui-info-atlas-zh.json` 在复建该定位前像后，从
-`corpus/zh/ui-atlas/info-v1.json` 取得唯一受审译文，锁定 LXGW 字体、
-ImageMagick 版本、灰度 mask、原调色板 ramp 和输出哈希，在同一 mask 内生成
-中文 `机体` 候选。译文本身只由 corpus 拥有，提交的 component manifest
-只保存哈希、坐标、计数和渲染参数。
+`corpus/zh/ui-atlas/info-v1.json` 取得唯一受审译文；其余
+`assets/ui-battle-command-atlas-zh.json`、
+`assets/ui-bazaar-atlas-zh.json`、
+`assets/ui-intermission-atlas-zh.json` 和
+`assets/ui-formation-atlas-zh.json` 从
+`corpus/zh/ui-atlas/core-menus-v1.json` 取得四条受审译文。五者都锁定
+LXGW 字体、ImageMagick 版本、灰度 mask、原调色板 ramp 和输出哈希，并在
+各自原 mask 内生成中文候选。译文本身只由 corpus 拥有，提交的 component
+manifest 只保存哈希、坐标、计数和渲染参数。
 `canary/tim2-kvm4-battle-command-map.json` 以同一契约固定 chunk 4 的
 `COMMAND MENU` 战场候选。
 `canary/tim2-kvm5-bazaar-map.json` 固定 chunk 5 的大号 `バザー` 商店候选。
@@ -143,7 +147,7 @@ ImageMagick 版本、灰度 mask、原调色板 ramp 和输出哈希，在同一
 `iso/ui-bazaar-atlas-map-canary-build.json`、
 `iso/ui-intermission-atlas-map-canary-build.json`、
 `iso/ui-formation-atlas-map-canary-build.json` 都只写入一个等长成员。
-`iso/ui-info-atlas-zh-build.json` 以相同容器约束绑定中文信息页候选。
-信息页中文候选状态为
-`static_localization_iso_validated_runtime_mapping_pending`，五项映射仍都没有
-场景归属结论；其余四张定位配置不拥有译文或中文 atlas。
+五个 `iso/ui-*-atlas-zh-build.json` 以相同容器约束分别绑定中文候选。
+五项状态均为
+`static_localization_iso_validated_runtime_mapping_pending`，都还没有运行
+场景归属结论；旧定位配置不拥有译文，继续作为擦除前像和 mask 证据。

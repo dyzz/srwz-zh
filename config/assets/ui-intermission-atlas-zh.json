@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "profile_id": "ui-intermission-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the intermission locator inside the locked KVMDATA chunk 6 mapping mask. Static construction does not prove which runtime intermission pages consume this atlas.",
+  "base_mapping": {
+    "config": "config/canary/tim2-kvm6-intermission-map.json",
+    "config_sha256": "81b51ea8fa73e05dacc71ac067b0d0e83cac03b383b23aab9650a5cb6df8bfa8",
+    "manifest": "manifests/ui-intermission-atlas-map-canary-validation.json",
+    "manifest_sha256": "30037b9dea518ac5bd6a3df9016234de1e84a21e2c350def7dc777146e0a3a8a",
+    "required_status": "static_component_validated_runtime_mapping_pending"
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 6,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "インターミッション",
+    "operation": "replace_erased_locator_with_text"
+  },
+  "localized_label": {
+    "translation_source": {
+      "path": "corpus/zh/ui-atlas/core-menus-v1.json",
+      "sha256": "2ab59190c3792cbce85756186b13253d403224b6bf9031e07d46a2baad37573f",
+      "entry_id": "ui-atlas/kvm6/intermission",
+      "minimum_editorial_status": "reviewed"
+    },
+    "font_lock": "config/fonts/lxgw-neo-xihei-screen.lock.json",
+    "font_lock_sha256": "5c51eaeb8f65c9a7ea126c7b711e567a872b32e29287c0f02d1ab369bb0e95d6",
+    "render": {
+      "point_size": 26,
+      "stroke_gray": "#303030",
+      "stroke_width": 0.75,
+      "fill_stroke_width": 0,
+      "ramp_rgba": [
+        "101010ff",
+        "202020ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "707070ff",
+        "787878ff"
+      ]
+    }
+  },
+  "runtime": {
+    "purpose": "Prove that KVMDATA chunk 6 supplies the first-intermission locator and that the localized label renders at the intended position.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_save",
+      "open_intermission_main_menu_and_options",
+      "capture_visible_chinese_intermission_locator_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The original intermission locator is replaced by the locked Chinese intermission label while arrow icons and number rows remain intact.",
+    "promotion_rule": "Only a matching first-intermission screenshot and exact original-to-localized texture delta may promote both the scene mapping and localized atlas."
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "expected": {
+    "text_mask": {
+      "size": 5735,
+      "sha256": "19059a3fbeef7c2a3ba637689bde82e876e357ad98d9bba1834146c35f6bd9cd",
+      "nonzero_pixel_count": 1642
+    },
+    "reference_png": {
+      "size": 21968,
+      "sha256": "e438d4668d9dee7bc664ed841dcfc65efcad49d396a2966cacb572b99dbec583"
+    },
+    "localized_png": {
+      "size": 21864,
+      "sha256": "3c75e51ccb4b22263299a5782ac7995eacf6bf07862683338a8a9df3ed8da253"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "d1f03fc351f9d8547616d7870bedf72ddb235eb58b61e24e6c990d268f51ce70"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "76b72e006dbcec19b97e1c63a3ff772592057563a0b7d91c26def4a49ffccf12"
+    },
+    "added_pixel_count": 1642,
+    "original_changed_pixel_count": 2083,
+    "original_changed_pixel_indexes_sha256": "eb52d977004f70a53f4e8cf232ac3ee813e70a69e90f36b5c90e32efcda3ac1e",
+    "changed_archive_byte_count": 910,
+    "changed_archive_range_count": 124
+  },
+  "outputs": {
+    "component_root": "work/build/ui-intermission-atlas-zh/components",
+    "reference_png": "work/build/ui-intermission-atlas-zh/reference.png",
+    "localized_png": "work/build/ui-intermission-atlas-zh/localized.png",
+    "validation": "work/review/ui-intermission-atlas-zh/component-validation.json",
+    "manifest": "manifests/ui-intermission-atlas-zh-validation.json"
+  }
+}
