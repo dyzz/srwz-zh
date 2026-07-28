@@ -14,6 +14,7 @@
 | `ui-scenes.json` | UI 场景 selector、优先级、运行路线、容量 ratchet 和动态名称 hash-only 探针 |
 | `ui-writeback/` | UI 文本写回选择策略、锁定输入、容量 ratchet 和输出位置；不包含游戏字节 |
 | `summary/` | MTV_PROS 世界史中文断行、原 allocation、字库容量和运行边界 |
+| `assets/ui-atlas-candidates.json` | 信息页、战场、商店和编成文字 atlas 的离线候选及运行映射门禁 |
 | `canary/` | 验证切片的原版输入、构建参数和 golden；文本 canary 不拥有译文/码位，TIM2 探索 profile 暂存固定视觉标签 |
 | `iso/` | PS2 DVD 容器工具链、profile workspace、最终输出和布局锁 |
 | `patches/` | ASM/二进制前像、允许差异和写入所有者 |
@@ -65,6 +66,9 @@ allocation 内写回，人物 ID、机体指针和非目标字节均不可修改
 `summary/world-history-layout.json` 锁定 28 条世界史的真实 MTV_PROS 输入、
 22 格显示宽度、14 个原版空行和跨记录定长分配策略。它只允许生成布局报告和
 byte-free 清单，不拥有字形分配，也不把布局通过升级为组件、ISO 或运行验收。
+`summary/world-history-component.json` 在已验证 P1 SLPS/VT1 上拥有完整
+MTV_PROS 离线写回：锁定 28 条译文、布局清单、字库清单、14 块 codec 策略、
+输出哈希和运行边界；它不拥有 ISO 构建或 PCSX2 验收。
 
 `assets/archive-inventory.json` 由 `tools/srwz/assets.py` 独立执行严格 schema
 检查：未知字段、重复 member、路径穿越、archive/direct 重叠、未知 storage

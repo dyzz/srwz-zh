@@ -42,7 +42,9 @@ ISO 和 PCSX2 路线仍未完成。世界史 28 条已完成 22 格中文断行�
 保持和零定长溢出审计，但仍为 `draft`；相对 P0 候选真实缺 41 字且短缺
 38 槽。独立 P1 字库候选已继承 P0、补全这 41 字并统一重绘另 53 个汉字，
 对 490 条选择做到零缺字并保留 48 个 renderer-addressable 候选槽。新增
-raw-trail 类别、完整 MTV_PROS 组件和滚动实机验证尚未验收。具体实施见
+世界史离线组件已把 28/28 条写入 MTV_PROS，完成 14/14 块往返、SLPS offset
+重读和独立全文重读；28 条仍为 `draft`，raw-trail 新类别、组合 ISO 和滚动
+实机验证尚未验收。具体实施见
 [`UI_COVERAGE_TEST_PLAN.md`](UI_COVERAGE_TEST_PLAN.md)。
 
 ## M0：可重复基线

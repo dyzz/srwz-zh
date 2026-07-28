@@ -1,0 +1,525 @@
+{
+  "schema_version": 1,
+  "status": "offline_component_validated_runtime_not_tested",
+  "profile_id": "srwz-ui-p1-world-history-component-v1",
+  "scope": "All 28 canonical Chinese MTV_PROS world-history records composed with the validated P1 unified font. This is an offline component only; it does not build an ISO or prove runtime scrolling.",
+  "inputs": {
+    "config": {
+      "path": "config/summary/world-history-component.json",
+      "size": 2902,
+      "sha256": "a4ae78cd824681d54443dbd2497a8d53b4ade00dc8f7c0d7396cfd1cb99f184c"
+    },
+    "source_slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "source_member": {
+      "path": "work/disc/DATA/MTV_PROS.BIN",
+      "size": 9056,
+      "sha256": "47999cb2994d9775a68ecca49ebe3e5f73c0118b92168a6ba577f836886e1b5a"
+    },
+    "text_table": {
+      "path": "vendor/upstream-python/project/tbl_all.json",
+      "size": 164751,
+      "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+    },
+    "translation_source": {
+      "path": "corpus/zh/summary.json",
+      "size": 18195,
+      "sha256": "4bfa32c41655e72c09933b18a3d123bc4bfe92169fd5c3ea6f96e016403f64f6",
+      "batch_id": "v1-summary-world-history",
+      "language": "zh-Hans",
+      "minimum_editorial_status": "draft",
+      "status_counts": {
+        "draft": 28
+      },
+      "entry_signature_sha256": "c66907cecc0770df4620945592101dd5efbd1a5017add6ba2b8daff9011aaff6"
+    },
+    "layout_manifest": {
+      "path": "manifests/world-history-layout.json",
+      "size": 20268,
+      "sha256": "a0821dd04a6fcd9c22cba30202905a359d934fca1ee0954d018389fd46e788b4",
+      "status": "layout_validated_editorial_font_runtime_pending",
+      "allocation_entry_signature_sha256": "1f18d3738e4822f1a0c5e874af55fe78dc719cd549f32667dca3431fdc5f3173"
+    },
+    "font_component": {
+      "manifest": {
+        "path": "manifests/ui-p1-summary-font-validation.json",
+        "size": 7249,
+        "sha256": "4b29b14c72e4cc007e065183240f0960608f6b05b10f91d433c6328bc45a3007",
+        "status": "offline_font_and_selected_ui_renderer_coverage_passed_runtime_pending"
+      },
+      "report": {
+        "path": "work/build/ui-p1-summary/components/font-validation.json",
+        "size": 770706,
+        "sha256": "5e1dbed09ca8511a9eda43ee7559ac7798c164028ef9d8aee1f9f13271248b25"
+      },
+      "slps": {
+        "path": "work/build/ui-p1-summary/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "d8b7104e7463070188d7df9047fb487adca445500dc14a6aee8b2e72ef883084"
+      },
+      "vt1": {
+        "path": "work/build/ui-p1-summary/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "ab25d669a37dfa023267b1cd0fbc392e68c52835668958e01887b80cea4c503e"
+      },
+      "selected_renderer_missing_character_count": 0,
+      "codebook": {
+        "base_codebook": {
+          "path": "config/encoding/codebook.json",
+          "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+        },
+        "proposal": {
+          "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
+          "sha256": "96ec0214627b30f1a67895e2444537c0c76b66ae04ca920a76bd22a5a294f737"
+        },
+        "override_count": 1548
+      }
+    }
+  },
+  "selection": {
+    "translation_entry_count": 28,
+    "text_chunk_count": 12,
+    "editorial_status_counts": {
+      "draft": 28
+    },
+    "translation_entry_signature_sha256": "c66907cecc0770df4620945592101dd5efbd1a5017add6ba2b8daff9011aaff6"
+  },
+  "fixed_allocations": {
+    "write_operation_count": 28,
+    "overflow_count": 0,
+    "minimum_margin": 0,
+    "maximum_margin": 334,
+    "entry_signature_sha256": "1f18d3738e4822f1a0c5e874af55fe78dc719cd549f32667dca3431fdc5f3173"
+  },
+  "archive": {
+    "source": {
+      "size": 9056,
+      "sha256": "47999cb2994d9775a68ecca49ebe3e5f73c0118b92168a6ba577f836886e1b5a"
+    },
+    "output": {
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    },
+    "chunk_count": 14,
+    "changed_chunk_count": 12,
+    "unchanged_chunk_count": 2,
+    "source_offsets_sha256": "e74ea0c85a8d047cedb847863502cf82e359137bb49e0917f973decfd69cf727",
+    "output_offsets_sha256": "9e96695e93385a4dc16f4963c21f63d918ccd9a7880d2518db22d370df84fbaa",
+    "offsets": [
+      0,
+      1296,
+      2096,
+      2544,
+      3360,
+      3952,
+      5008,
+      5280,
+      6160,
+      6608,
+      7312,
+      8032,
+      8416,
+      8528,
+      8640
+    ],
+    "alignment": 16,
+    "decoded_round_trip_exact_count": 14,
+    "unknown_output_code_count": 0,
+    "chunks": [
+      {
+        "chunk_index": 0,
+        "entry_count": 1,
+        "changed": true,
+        "source_allocation_size": 1376,
+        "source_consumed_size": 1373,
+        "source_decoded_sha256": "55d53a26db8726ec5c15d6c579ca819f6cf863285282774c058a35b147d3723b",
+        "output_encoded_size": 1292,
+        "output_decoded_size": 1824,
+        "output_decoded_sha256": "30079dd5b04f4ae9096c7370f84603e6e01e4ba1ce1967ed9cef96eea31f64ae",
+        "write_operation_count": 1
+      },
+      {
+        "chunk_index": 1,
+        "entry_count": 1,
+        "changed": true,
+        "source_allocation_size": 896,
+        "source_consumed_size": 886,
+        "source_decoded_sha256": "481f8fafc26bec2986fa4b34f85f21c92e5dafe223286006fe610d37ec5f8fc3",
+        "output_encoded_size": 792,
+        "output_decoded_size": 1152,
+        "output_decoded_sha256": "60cf0f10dae605c1c1fff6bc1d45557476912426a84cf37085d431abe4b4c2ca",
+        "write_operation_count": 1
+      },
+      {
+        "chunk_index": 2,
+        "entry_count": 3,
+        "changed": true,
+        "source_allocation_size": 448,
+        "source_consumed_size": 448,
+        "source_decoded_sha256": "71285ef01d7787a9cdc3c6f9db17c3b0d28cb965783be6d0ffd21836a5471f64",
+        "output_encoded_size": 448,
+        "output_decoded_size": 672,
+        "output_decoded_sha256": "a6588af25877c7fd0e7c0ba77b06180a3c640b532be4548878e5de74ed7ddd82",
+        "write_operation_count": 3
+      },
+      {
+        "chunk_index": 3,
+        "entry_count": 1,
+        "changed": true,
+        "source_allocation_size": 864,
+        "source_consumed_size": 854,
+        "source_decoded_sha256": "abad1aeb35c8b4af7f28b0f6fb5db6d99fe373c747f0a715e2967232c4c35a63",
+        "output_encoded_size": 807,
+        "output_decoded_size": 1200,
+        "output_decoded_sha256": "bdfca969800a3b6ad366ef9c7d9656366342f27c0a12e9556a23a102fb602582",
+        "write_operation_count": 1
+      },
+      {
+        "chunk_index": 4,
+        "entry_count": 1,
+        "changed": true,
+        "source_allocation_size": 640,
+        "source_consumed_size": 628,
+        "source_decoded_sha256": "062c7bc1670f0a637d512e3289b960ee3b0d3cef07254a49114a1127d3608114",
+        "output_encoded_size": 587,
+        "output_decoded_size": 864,
+        "output_decoded_sha256": "787fb14f507e9d8a4cc0ae6979ac593ee06cfdaa5fa709fa88111b6ee2ef8baa",
+        "write_operation_count": 1
+      },
+      {
+        "chunk_index": 5,
+        "entry_count": 1,
+        "changed": true,
+        "source_allocation_size": 1104,
+        "source_consumed_size": 1103,
+        "source_decoded_sha256": "5f2a0c6029fe06e787acd9c252340fac735924fbf414f8a22b9daf10628f6589",
+        "output_encoded_size": 1049,
+        "output_decoded_size": 1552,
+        "output_decoded_sha256": "41d543216ee170a1726a10a945e73bcd3b23991512bd08edfdcd319931a5b446",
+        "write_operation_count": 1
+      },
+      {
+        "chunk_index": 6,
+        "entry_count": 1,
+        "changed": true,
+        "source_allocation_size": 288,
+        "source_consumed_size": 276,
+        "source_decoded_sha256": "f5c9f84af269c7bed3c91f29886413ea82095c7939c25b1cdf1fb11b55fa59cc",
+        "output_encoded_size": 260,
+        "output_decoded_size": 352,
+        "output_decoded_sha256": "979852b881862e1b7398ba5f9f1f60d6dc6a544510cf65f77a5ada338e9fbfa1",
+        "write_operation_count": 1
+      },
+      {
+        "chunk_index": 7,
+        "entry_count": 1,
+        "changed": true,
+        "source_allocation_size": 944,
+        "source_consumed_size": 940,
+        "source_decoded_sha256": "43b1dc082018c92e5e1c6e3f9e074ebbd2bf523d86602b9297dc6ddff5706aa4",
+        "output_encoded_size": 879,
+        "output_decoded_size": 1232,
+        "output_decoded_sha256": "06fbf4ce0bd8bcf58e4d2e8457fe61cc7d02acd2734d006305b49cd9964d3ad5",
+        "write_operation_count": 1
+      },
+      {
+        "chunk_index": 8,
+        "entry_count": 2,
+        "changed": true,
+        "source_allocation_size": 464,
+        "source_consumed_size": 461,
+        "source_decoded_sha256": "cdd59e3f4eb0ab29534ec5d7f84ee9c1f6a2853b0b193603c925cc5281ea62ad",
+        "output_encoded_size": 439,
+        "output_decoded_size": 592,
+        "output_decoded_sha256": "4240f53d10a99da0635d744ca9b7abf6b382cc2c733b221e5b79eaed89982b84",
+        "write_operation_count": 2
+      },
+      {
+        "chunk_index": 9,
+        "entry_count": 7,
+        "changed": true,
+        "source_allocation_size": 704,
+        "source_consumed_size": 689,
+        "source_decoded_sha256": "4e722b41d2e20f4bbf38ffbcb9ef32a417dc06405ca78d364f0139dabf149a91",
+        "output_encoded_size": 694,
+        "output_decoded_size": 1392,
+        "output_decoded_sha256": "bb5bf7c6c223aad9e4087f4239030f87852b8dcac5a6523904373b62ef81a04f",
+        "write_operation_count": 7
+      },
+      {
+        "chunk_index": 10,
+        "entry_count": 7,
+        "changed": true,
+        "source_allocation_size": 688,
+        "source_consumed_size": 686,
+        "source_decoded_sha256": "5be6c83388d7e94c21f39787f7e5b578e3b3e59bfa7d7f84b6fb59d624fd9be7",
+        "output_encoded_size": 720,
+        "output_decoded_size": 1392,
+        "output_decoded_sha256": "7677ad60b307d0de73f19d228972b7a79616a9afab1672c1228567e105ec66e2",
+        "write_operation_count": 7
+      },
+      {
+        "chunk_index": 11,
+        "entry_count": 2,
+        "changed": true,
+        "source_allocation_size": 416,
+        "source_consumed_size": 401,
+        "source_decoded_sha256": "d590d403fd2a6342022a9794ddeff1cc7066ab4cd3275826a4dd4e4f8b875744",
+        "output_encoded_size": 369,
+        "output_decoded_size": 544,
+        "output_decoded_sha256": "20e9fa72386cc13aac0eeb6cdf9ff1d6d268a8a65600081061e5a4e9a365ab17",
+        "write_operation_count": 2
+      },
+      {
+        "chunk_index": 12,
+        "entry_count": 0,
+        "changed": false,
+        "source_allocation_size": 112,
+        "source_consumed_size": 101,
+        "source_decoded_sha256": "9f9f2a50a72e22ac4774b44de92f60c12bd29f7cce46b5b624496ed28830fce2",
+        "output_encoded_size": 101,
+        "output_decoded_size": 160,
+        "output_decoded_sha256": "9f9f2a50a72e22ac4774b44de92f60c12bd29f7cce46b5b624496ed28830fce2",
+        "write_operation_count": 0
+      },
+      {
+        "chunk_index": 13,
+        "entry_count": 0,
+        "changed": false,
+        "source_allocation_size": 112,
+        "source_consumed_size": 101,
+        "source_decoded_sha256": "232f5c452a3effae5816fae0a30b8c7867c338cc8d2fa996fc8c93790c3288ec",
+        "output_encoded_size": 101,
+        "output_decoded_size": 160,
+        "output_decoded_sha256": "232f5c452a3effae5816fae0a30b8c7867c338cc8d2fa996fc8c93790c3288ec",
+        "write_operation_count": 0
+      }
+    ]
+  },
+  "slps_component": {
+    "font_base": {
+      "size": 3471624,
+      "sha256": "d8b7104e7463070188d7df9047fb487adca445500dc14a6aee8b2e72ef883084"
+    },
+    "output": {
+      "size": 3471624,
+      "sha256": "25f1659d17173336bfb748ae04e2bd22652e1464296d5bad02ac3f07a7c6f797"
+    },
+    "offset_table_start": 3324576,
+    "offset_table_end_inclusive": 3324635,
+    "offset_table_end_exclusive": 3324636,
+    "offset_table_reread_exact": true,
+    "outside_offset_table_unchanged": true,
+    "patch_plan": {
+      "source_name": "SLPS_258.87",
+      "source_size": 3471624,
+      "source_sha256": "d8b7104e7463070188d7df9047fb487adca445500dc14a6aee8b2e72ef883084",
+      "operation_count": 1,
+      "operations": [
+        {
+          "owner": "MTV_PROS.BIN offset table",
+          "offset": 3324576,
+          "end": 3324636,
+          "size": 60,
+          "before_sha256": "e74ea0c85a8d047cedb847863502cf82e359137bb49e0917f973decfd69cf727",
+          "after_sha256": "9e96695e93385a4dc16f4963c21f63d918ccd9a7880d2518db22d370df84fbaa"
+        }
+      ]
+    }
+  },
+  "vt1_component": {
+    "output": {
+      "size": 127500736,
+      "sha256": "ab25d669a37dfa023267b1cd0fbc392e68c52835668958e01887b80cea4c503e"
+    },
+    "p1_font_component_exact": true
+  },
+  "outputs": {
+    "slps": {
+      "size": 3471624,
+      "sha256": "25f1659d17173336bfb748ae04e2bd22652e1464296d5bad02ac3f07a7c6f797"
+    },
+    "vt1": {
+      "size": 127500736,
+      "sha256": "ab25d669a37dfa023267b1cd0fbc392e68c52835668958e01887b80cea4c503e"
+    },
+    "mtv_pros": {
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    }
+  },
+  "ratchet": {
+    "expected": {
+      "archive_chunk_count": 14,
+      "text_chunk_count": 12,
+      "translation_entry_count": 28,
+      "write_operation_count": 28,
+      "unchanged_chunk_count": 2,
+      "fixed_allocation_overflow_count": 0,
+      "unknown_output_code_count": 0,
+      "maximum_line_width": 22
+    },
+    "actual": {
+      "archive_chunk_count": 14,
+      "text_chunk_count": 12,
+      "translation_entry_count": 28,
+      "write_operation_count": 28,
+      "unchanged_chunk_count": 2,
+      "fixed_allocation_overflow_count": 0,
+      "unknown_output_code_count": 0,
+      "maximum_line_width": 22
+    },
+    "checks": {
+      "archive_chunk_count": true,
+      "text_chunk_count": true,
+      "translation_entry_count": true,
+      "write_operation_count": true,
+      "unchanged_chunk_count": true,
+      "fixed_allocation_overflow_count": true,
+      "unknown_output_code_count": true,
+      "maximum_line_width": true
+    },
+    "passed": true
+  },
+  "acceptance": {
+    "translation_source_hash_locked": true,
+    "layout_manifest_exact": true,
+    "p1_font_component_exact": true,
+    "all_28_records_written_and_reparsed": true,
+    "fixed_allocations_within_bounds": true,
+    "all_14_chunks_codec_round_trip_exact": true,
+    "two_non_text_chunks_byte_exact": true,
+    "slps_changes_limited_to_mtv_pros_offset_table": true,
+    "slps_offset_reread_exact": true,
+    "unknown_output_code_count_zero": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "No P1 world-history ISO or fresh PCSX2 evidence exists. The first, middle and final scroll segments and the new raw trail classes remain runtime acceptance gates."
+  },
+  "independent_reread": {
+    "entry_count": 28,
+    "chunk_count": 14,
+    "all_texts_exact": true,
+    "unknown_code_count": 0,
+    "p1_vt1_exact": true,
+    "font_manifest_sha256": "4b29b14c72e4cc007e065183240f0960608f6b05b10f91d433c6328bc45a3007",
+    "chunks": [
+      {
+        "chunk_index": 0,
+        "stored_size": 1296,
+        "consumed_size": 1292,
+        "padding_size": 4,
+        "decoded_sha256": "30079dd5b04f4ae9096c7370f84603e6e01e4ba1ce1967ed9cef96eea31f64ae",
+        "entry_count": 1
+      },
+      {
+        "chunk_index": 1,
+        "stored_size": 800,
+        "consumed_size": 792,
+        "padding_size": 8,
+        "decoded_sha256": "60cf0f10dae605c1c1fff6bc1d45557476912426a84cf37085d431abe4b4c2ca",
+        "entry_count": 1
+      },
+      {
+        "chunk_index": 2,
+        "stored_size": 448,
+        "consumed_size": 448,
+        "padding_size": 0,
+        "decoded_sha256": "a6588af25877c7fd0e7c0ba77b06180a3c640b532be4548878e5de74ed7ddd82",
+        "entry_count": 3
+      },
+      {
+        "chunk_index": 3,
+        "stored_size": 816,
+        "consumed_size": 807,
+        "padding_size": 9,
+        "decoded_sha256": "bdfca969800a3b6ad366ef9c7d9656366342f27c0a12e9556a23a102fb602582",
+        "entry_count": 1
+      },
+      {
+        "chunk_index": 4,
+        "stored_size": 592,
+        "consumed_size": 587,
+        "padding_size": 5,
+        "decoded_sha256": "787fb14f507e9d8a4cc0ae6979ac593ee06cfdaa5fa709fa88111b6ee2ef8baa",
+        "entry_count": 1
+      },
+      {
+        "chunk_index": 5,
+        "stored_size": 1056,
+        "consumed_size": 1049,
+        "padding_size": 7,
+        "decoded_sha256": "41d543216ee170a1726a10a945e73bcd3b23991512bd08edfdcd319931a5b446",
+        "entry_count": 1
+      },
+      {
+        "chunk_index": 6,
+        "stored_size": 272,
+        "consumed_size": 260,
+        "padding_size": 12,
+        "decoded_sha256": "979852b881862e1b7398ba5f9f1f60d6dc6a544510cf65f77a5ada338e9fbfa1",
+        "entry_count": 1
+      },
+      {
+        "chunk_index": 7,
+        "stored_size": 880,
+        "consumed_size": 879,
+        "padding_size": 1,
+        "decoded_sha256": "06fbf4ce0bd8bcf58e4d2e8457fe61cc7d02acd2734d006305b49cd9964d3ad5",
+        "entry_count": 1
+      },
+      {
+        "chunk_index": 8,
+        "stored_size": 448,
+        "consumed_size": 439,
+        "padding_size": 9,
+        "decoded_sha256": "4240f53d10a99da0635d744ca9b7abf6b382cc2c733b221e5b79eaed89982b84",
+        "entry_count": 2
+      },
+      {
+        "chunk_index": 9,
+        "stored_size": 704,
+        "consumed_size": 694,
+        "padding_size": 10,
+        "decoded_sha256": "bb5bf7c6c223aad9e4087f4239030f87852b8dcac5a6523904373b62ef81a04f",
+        "entry_count": 7
+      },
+      {
+        "chunk_index": 10,
+        "stored_size": 720,
+        "consumed_size": 720,
+        "padding_size": 0,
+        "decoded_sha256": "7677ad60b307d0de73f19d228972b7a79616a9afab1672c1228567e105ec66e2",
+        "entry_count": 7
+      },
+      {
+        "chunk_index": 11,
+        "stored_size": 384,
+        "consumed_size": 369,
+        "padding_size": 15,
+        "decoded_sha256": "20e9fa72386cc13aac0eeb6cdf9ff1d6d268a8a65600081061e5a4e9a365ab17",
+        "entry_count": 2
+      },
+      {
+        "chunk_index": 12,
+        "stored_size": 112,
+        "consumed_size": 101,
+        "padding_size": 11,
+        "decoded_sha256": "9f9f2a50a72e22ac4774b44de92f60c12bd29f7cce46b5b624496ed28830fce2",
+        "entry_count": 0
+      },
+      {
+        "chunk_index": 13,
+        "stored_size": 112,
+        "consumed_size": 101,
+        "padding_size": 11,
+        "decoded_sha256": "232f5c452a3effae5816fae0a30b8c7867c338cc8d2fa996fc8c93790c3288ec",
+        "entry_count": 0
+      }
+    ]
+  }
+}

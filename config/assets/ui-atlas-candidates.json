@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "inventory_id": "srwz-ui-atlas-candidates-v1",
+  "scope": "Offline visual classification of the five text-bearing KVMDATA TIM2 candidates relevant to the selected UI scenes. Candidate means source narrowing only; no entry is a runtime-proven scene mapping.",
+  "source": {
+    "slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "member": {
+      "path": "KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+    },
+    "asset_config": {
+      "path": "config/assets/archive-inventory.json",
+      "sha256": "6afc3beb1f67c82d355f572f0de92e2a5185790e17a1670a5a479a7e5b6e57ab"
+    },
+    "asset_manifest": {
+      "path": "manifests/asset-inventory.json",
+      "sha256": "2230e7f1c7b7e8cfb6a609ee2a63bdba5114b2c5c2e8d2fe6d5bbe343a9efd41"
+    }
+  },
+  "classification_policy": {
+    "offline_visual_candidate_is_not_runtime_mapping": true,
+    "observed_tokens_are_locator_hints_not_translation_authority": true,
+    "scene_mapping_requires_original_runtime_texture_dump": true,
+    "writeback_requires_dedicated_mask_and_reversible_runtime_canary": true
+  },
+  "candidates": [
+    {
+      "chunk_index": 2,
+      "payload_size": 33344,
+      "payload_sha256": "26d14fe28c93722201597487a1597fb998d084c3345a6c27e9724fe515173815",
+      "picture": {
+        "record_index": 0,
+        "picture_index": 0,
+        "width": 256,
+        "height": 256,
+        "bits_per_pixel": 4
+      },
+      "observed_tokens": [
+        "SELECT",
+        "SHIP",
+        "PARTS",
+        "PILOT",
+        "ROBO",
+        "SET UP",
+        "SEARCH",
+        "WEAPON",
+        "Situation",
+        "MAP DATA"
+      ],
+      "candidate_scene_ids": [
+        "information/unit-pilot-mech-core",
+        "search/filter-and-results",
+        "battle/map-and-tactical"
+      ],
+      "evidence_status": "offline_visual_candidate_not_runtime_mapped"
+    },
+    {
+      "chunk_index": 4,
+      "payload_size": 33344,
+      "payload_sha256": "bfa7142ce3582b4325d27fe0d522e509f65340cf92174770092904df9c2515c1",
+      "picture": {
+        "record_index": 0,
+        "picture_index": 0,
+        "width": 256,
+        "height": 256,
+        "bits_per_pixel": 4
+      },
+      "observed_tokens": [
+        "COMMAND MENU",
+        "FORMATION",
+        "BONUS",
+        "HIT&AWAY",
+        "HP",
+        "EN",
+        "攻",
+        "反"
+      ],
+      "candidate_scene_ids": [
+        "battle/map-and-tactical",
+        "results/level-up-and-deployment"
+      ],
+      "evidence_status": "offline_visual_candidate_not_runtime_mapped"
+    },
+    {
+      "chunk_index": 5,
+      "payload_size": 33344,
+      "payload_sha256": "9f7e7c8bad898cd1bcd1d9596237fcfec5239cd00522ac1643d975bbe6c0369f",
+      "picture": {
+        "record_index": 0,
+        "picture_index": 0,
+        "width": 256,
+        "height": 256,
+        "bits_per_pixel": 4
+      },
+      "observed_tokens": [
+        "バザー",
+        "Bazaar",
+        "購入",
+        "売却",
+        "強化パーツ",
+        "アイテム"
+      ],
+      "candidate_scene_ids": [
+        "intermission/main-and-options"
+      ],
+      "evidence_status": "upstream_changed_offline_visual_candidate_not_runtime_mapped"
+    },
+    {
+      "chunk_index": 6,
+      "payload_size": 33344,
+      "payload_sha256": "f934afc15cb2cd12b6dd1319fdb06b142c6fa4520cdd8f9ddf85d3cde39c9f52",
+      "picture": {
+        "record_index": 0,
+        "picture_index": 0,
+        "width": 256,
+        "height": 256,
+        "bits_per_pixel": 4
+      },
+      "observed_tokens": [
+        "インターミッション",
+        "オプション",
+        "小隊編成",
+        "データ管理",
+        "機体系",
+        "パイロット系"
+      ],
+      "candidate_scene_ids": [
+        "intermission/main-and-options",
+        "information/unit-pilot-mech-core"
+      ],
+      "evidence_status": "upstream_changed_offline_visual_candidate_not_runtime_mapped"
+    },
+    {
+      "chunk_index": 7,
+      "payload_size": 33344,
+      "payload_sha256": "e35cb99e36ccfe32d6428f93268d674014229d2271d4c18e178a17e9d9853852",
+      "picture": {
+        "record_index": 0,
+        "picture_index": 0,
+        "width": 256,
+        "height": 256,
+        "bits_per_pixel": 4
+      },
+      "observed_tokens": [
+        "Event No",
+        "Leader",
+        "Pilot",
+        "新規編成",
+        "リザーブへ",
+        "小隊群へ"
+      ],
+      "candidate_scene_ids": [
+        "intermission/main-and-options",
+        "results/level-up-and-deployment"
+      ],
+      "evidence_status": "offline_visual_candidate_not_runtime_mapped"
+    }
+  ],
+  "runtime_acceptance": {
+    "status": "not_tested",
+    "required_route": [
+      "Boot a hash-locked original ISO and save with texture dumping enabled.",
+      "Visit unit, pilot, weapon, parts, skill and spirit subpages for two units.",
+      "Match dumped texture dimensions, palette and index histogram to exactly one stored candidate.",
+      "Build a dedicated one-mask reversible canary for the matched token area.",
+      "Revisit the same page and prove both the visible pixel change and dumped texture delta.",
+      "Record PCSX2 version, ISO hash, save hash, member/chunk/record/picture and screenshots in a committed runtime manifest."
+    ]
+  }
+}

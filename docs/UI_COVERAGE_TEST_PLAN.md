@@ -90,6 +90,21 @@ python3 tools/verify_ui_font.py \
 该 profile 只生成／验证离线 SLPS、VT1 和字形账本，不写 MTV_PROS，也不构建
 ISO。提交结果见 `manifests/ui-p1-summary-font-validation.json`。
 
+28 条世界史正文在 P1 字库之上使用独立 production component：
+
+```bash
+python3 tools/build_ui_p1_world_history.py --force
+python3 tools/verify_ui_p1_world_history.py --force
+```
+
+builder 按原 14 块 offset 表解析真实 MTV_PROS，只对含文本的 12 块执行
+fixed-allocation 写回和 changed-suffix 重编码；两个无文本块保持原字节。
+验证器既做确定性重建逐字节比较，也从产物 SLPS offset 表重新切分 14 块，
+用 P1 codebook 重读全部 28 条。当前成员由 9,056 缩至 8,640 字节，SLPS
+只允许 60 字节 MTV_PROS offset 表变化，VT1 必须与 P1 字库组件完全一致。
+提交结果见 `manifests/ui-p1-world-history-validation.json`；它仍不构建 ISO，
+也不证明滚动画面或 raw-trail 新类别已通过实机验收。
+
 固定长度的第一层 SLPS 写回使用独立 profile：
 
 ```bash
@@ -171,7 +186,7 @@ P0 明确排除了两条含未定英语专名的后期专用提示。它们已�
 | 优先级 | 场景 | 文本数 | 推迟原因 |
 | --- | --- | ---: | --- |
 | P1 | 关卡标题与路线选择 | 122 | P1 字库、容量与运行路线尚未进入独立 profile，当前还缺 36 个字符 |
-| P1 | 开场／资料库世界史滚动文本 | 28 | 布局已通过；相对 P0 实缺 41 字、短缺 38。独立 P1 字库候选已做到 490 条零缺字并余 48 槽，但 raw-trail 分配、MTV_PROS 组件和运行仍待验收 |
+| P1 | 开场／资料库世界史滚动文本 | 28 | 布局、P1 字库和完整 MTV_PROS 离线组件已通过；28 条仍为 `draft`，ISO、raw-trail 新类别和滚动运行待验收 |
 | P1 | 前五关开场、黑屏字幕与对话 | 1,833 | ISO 静态全量回读已通过，当前精确候选仍待运行验证 |
 | P1 | 其余内嵌设置、编成与提示文本 | 275 | 仍是上游 unknown 聚合，必须先按可见界面继续拆分 |
 | P1 | 后期专用指令与合神提示 | 2 | 英语专名需要人工确认 |
@@ -184,8 +199,10 @@ P0 明确排除了两条含未定英语专名的后期专用提示。它们已�
 原位记录容量足够；28 条仍是 `draft`。该清单相对 P0 候选记录 27 个未映射字
 和 14 个 resolver 不可达字，三个安全槽仍短缺 38 个。独立 P1 字库候选已追加
 全部 41 字并统一重绘另 53 个汉字，从候选组件重读 490 条 P0＋世界史文本后
-缺字与原版汉字混用均为零、余 48 个 renderer-addressable 槽；但尚未生成完整
-中文 MTV_PROS 组件、ISO 或起点／中段／结尾运行证据。前五关 1,833 条
+缺字与原版汉字混用均为零、余 48 个 renderer-addressable 槽。完整中文
+MTV_PROS 离线组件现已写入 28/28 条：14/14 块解码往返、12 块重编码、
+2 个无文本块原字节不变，输出重读未知码为零；但尚未生成相应 ISO 或
+起点／中段／结尾运行证据。前五关 1,833 条
 已写入现有候选并通过静态回读，但不能据此推导每个开场、黑屏字幕或战场触发
 都已在 PCSX2 中出现。
 
@@ -230,6 +247,23 @@ writer 只做原 allocation 内写回，禁止人物 ID 或机体指针变化。
 上游 ASM 中存在信息页布局研究，只能作为研究证据；它不是当前中文候选的
 writer，也不能替代本项目自己的前像、差异和运行门禁。
 
+离线 contact sheet 已将检索范围从 20 个 TIM2 缩至五个 256×256/4-bpp
+候选，机器锁见 `config/assets/ui-atlas-candidates.json`：
+
+| chunk | 离线可见词 | 最可能场景 | 当前证据等级 |
+| ---: | --- | --- | --- |
+| 2 | `SHIP / PARTS / PILOT / ROBO / SEARCH / WEAPON / MAP DATA` | 人物／机体／武器信息页、搜索、战况 | 离线候选，未做运行映射 |
+| 4 | `COMMAND MENU / FORMATION / BONUS / HIT&AWAY / HP / EN` | 战场指令、结算 | 离线候选，未做运行映射 |
+| 5 | `バザー / 購入 / 売却 / 強化パーツ / アイテム` | 商店／交易 | 上游修改过的离线候选，未做运行映射 |
+| 6 | `インターミッション / オプション / 小隊編成 / データ管理` | 幕间、编成入口 | 上游修改过的离线候选，未做运行映射 |
+| 7 | `Event No / Leader / Pilot / 新規編成 / リザーブへ` | 编成、出击 | 离线候选，未做运行映射 |
+
+这里的“可见词”只用于定位，不是译名权威，也不能证明游戏在目标页面加载了该
+chunk。下一轮必须用原版 ISO 在信息页逐页做 PCSX2 texture dump，以尺寸、
+调色板和 index 直方图唯一匹配 stored picture；匹配后再做一个只覆盖目标词
+mask 的可逆颜色 canary，要求画面变化与运行时纹理 delta 同时命中，才能把
+`candidate_scene_ids` 升级为正式 member/chunk/record/picture 映射。
+
 ### 4.3 SLPS/COMPDATA 文本池
 
 `relocate_menu_texts_to_pool()` 已覆盖普通指针和 MIPS HI/LO 写回，单元测试
@@ -253,11 +287,13 @@ SLPS 418 条和 COMPDATA 44 条都能在原 span 内覆盖，不需要 P0 文本
 5. **已完成 P1 离线字库候选：**继承 P0 分配，追加世界史 41 字、重绘另
    53 个汉字，490 条选择零缺字且 VT1 大小保持不变；raw-trail 的新类别仍需
    绑定未来精确 ISO 做 PCSX2 验收。
-6. **当前下一步：**把 28 条世界史从 `draft` 提升到已审校状态并构建完整
-   MTV_PROS 组件；同时按官方术语扩大人物／机体名语料，
+6. **已完成 P1 世界史离线组件：**28 条 fixed-allocation 写回、14 块解码
+   往返、SLPS offset 重读和独立全文重读均通过；运行状态仍为 `not_tested`。
+7. **当前下一步：**把 28 条世界史从 `draft` 提升到已审校状态并接入组合
+   ISO；同时按官方术语扩大人物／机体名语料，
    通过运行时纹理转储和离线预览，把人物／机体／武器信息页 atlas 精确映射到
    archive/member/record/picture。
-7. 合并标题 TIM2、P0 字库、P0 文本、动态名和前五关 STAGE；只从同一个
+8. 合并标题 TIM2、P0 字库、P0 文本、动态名、P1 世界史和前五关 STAGE；只从同一个
    profile 构建一张候选 ISO。
 
 每一步都先建立可失败的门禁和最小 fixture，再扩展场景数；不直接修改
@@ -281,6 +317,8 @@ SLPS 418 条和 COMPDATA 44 条都能在原 span 内覆盖，不需要 P0 文本
 
 - 原版成员 SHA-256 与 SurfaceSpec 前像一致；
 - 所有新文本可重读，指针、HI/LO、终止符和对齐一致；
+- 世界史 28 条必须全部留在原 allocation；12 个文本块可重编码，两个无文本
+  块必须 byte-exact，SLPS 变化只能位于 MTV_PROS offset 表；
 - 分配互不重叠且不越过登记池区；
 - TIM2 只改变登记 picture/index/mask，CLUT 和非目标字节保持不变；
 - 已知的错误前像、超长文本、重复分配和缺字 mutation 能使门禁失败。

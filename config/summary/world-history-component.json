@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-ui-p1-world-history-component-v1",
+  "scope": "All 28 canonical Chinese MTV_PROS world-history records composed with the validated P1 unified font. This is an offline component only; it does not build an ISO or prove runtime scrolling.",
+  "source": {
+    "slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "member": {
+      "path": "work/disc/DATA/MTV_PROS.BIN",
+      "size": 9056,
+      "sha256": "47999cb2994d9775a68ecca49ebe3e5f73c0118b92168a6ba577f836886e1b5a"
+    },
+    "text_table": {
+      "path": "vendor/upstream-python/project/tbl_all.json",
+      "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+    }
+  },
+  "translation_source": {
+    "path": "corpus/zh/summary.json",
+    "sha256": "4bfa32c41655e72c09933b18a3d123bc4bfe92169fd5c3ea6f96e016403f64f6",
+    "batch_id": "v1-summary-world-history",
+    "language": "zh-Hans",
+    "expected_entry_count": 28,
+    "minimum_editorial_status": "draft"
+  },
+  "layout_manifest": {
+    "path": "manifests/world-history-layout.json",
+    "sha256": "a0821dd04a6fcd9c22cba30202905a359d934fca1ee0954d018389fd46e788b4",
+    "required_status": "layout_validated_editorial_font_runtime_pending"
+  },
+  "font_candidate": {
+    "manifest": "manifests/ui-p1-summary-font-validation.json",
+    "sha256": "4b29b14c72e4cc007e065183240f0960608f6b05b10f91d433c6328bc45a3007",
+    "required_status": "offline_font_and_selected_ui_renderer_coverage_passed_runtime_pending"
+  },
+  "base_codebook": {
+    "path": "config/encoding/codebook.json",
+    "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+  },
+  "codec": {
+    "mode": "preserve-unchanged-chunks-and-reencode-changed-suffixes",
+    "strategy": "greedy",
+    "archive_alignment": 16,
+    "min_match_length": 4,
+    "max_match_chain": 256,
+    "lazy_matching": true
+  },
+  "ratchet": {
+    "archive_chunk_count": 14,
+    "text_chunk_count": 12,
+    "translation_entry_count": 28,
+    "write_operation_count": 28,
+    "unchanged_chunk_count": 2,
+    "fixed_allocation_overflow_count": 0,
+    "unknown_output_code_count": 0,
+    "maximum_line_width": 22
+  },
+  "expected_outputs": {
+    "slps": {
+      "size": 3471624,
+      "sha256": "25f1659d17173336bfb748ae04e2bd22652e1464296d5bad02ac3f07a7c6f797"
+    },
+    "vt1": {
+      "size": 127500736,
+      "sha256": "ab25d669a37dfa023267b1cd0fbc392e68c52835668958e01887b80cea4c503e"
+    },
+    "mtv_pros": {
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    }
+  },
+  "outputs": {
+    "component_root": "work/build/ui-p1-world-history/components",
+    "validation": "work/review/ui-p1-world-history-validation.json",
+    "manifest": "manifests/ui-p1-world-history-validation.json"
+  }
+}

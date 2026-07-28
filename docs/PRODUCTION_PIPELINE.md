@@ -296,11 +296,25 @@ ASCII 词组和中文标点禁则不会被拆开。MTV_PROS 中三个跨记录�
 这项门禁不分配字形。当前 28 条仍为 `draft`，相对 UI P0 字库缺 41 个字符：
 27 个未映射、14 个在码表中但原 glyph resolver 不可达；只剩 3 个合法安全
 候选槽，短缺 38 个。独立 `ui-p1-summary` profile 已继承 P0、补齐这 41 字并
-对 490 条选择取得零缺字离线结果，但 raw-trail 新类别、MTV_PROS 组件和运行
-状态仍为 `not_tested`。只有人工审阅报告后才能运行 `--apply`，再次取得零
+对 490 条选择取得零缺字离线结果。随后
+`config/summary/world-history-component.json` 已把 28/28 条写入完整 MTV_PROS：
+12 个文本块执行 changed-suffix 重编码，两个无文本块 byte-exact，14/14 块
+解码往返且独立全文重读一致；SLPS 只改变 MTV_PROS offset 表，VT1 与 P1
+字库组件一致。raw-trail 新类别、ISO 和滚动运行状态仍为 `not_tested`。
+只有人工审阅报告后才能运行 `--apply`，再次取得零
 差异后才可用 `--refresh-manifest` 更新 `manifests/world-history-layout.json`。
 该布局清单证明布局和相对 P0 的容量需求，不证明完整中文组件、ISO 或滚动
 起点／中段／结尾的实机效果。
+
+组件的可重复入口为：
+
+```bash
+python3 tools/build_ui_p1_world_history.py --force
+python3 tools/verify_ui_p1_world_history.py --force
+```
+
+其提交门禁是 `manifests/ui-p1-world-history-validation.json`；该清单证明
+离线组件，不证明 ISO 或 PCSX2。
 
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
 ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审计同时要求
