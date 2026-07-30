@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "status": "integrated_ui_p5_battle_menus_first_five_atlas_test_component_validated_runtime_pending",
+  "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes or localized text are embedded.",
+  "profile_id": "ui-p5-battle-menus-first-five-atlas-test",
+  "scope": "A test-only whole-member composition of the validated P5 battle-menu UI core, first-five story component and five-atlas Chinese suite. The five isolated atlas profiles remain authoritative for scene attribution.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-integration/p5-battle-menus-first-five-atlas-test.json",
+      "size": 6796,
+      "sha256": "a49f2f70ca82306ae33c662286d14301292d766da48e1cd1b4f844a8761ce698"
+    },
+    "components": [
+      {
+        "component_id": "ui-p5-battle-menus-core",
+        "manifest": {
+          "path": "manifests/ui-p5-battle-menus-validation.json",
+          "size": 11894,
+          "sha256": "6936f9b339c61f506a458934324ff83625bda5baa2444a8c976811d8724949bb"
+        },
+        "profile_id": "srwz-ui-p5-battle-menus-integrated-v1",
+        "status": "integrated_ui_p5_battle_menus_component_validated_iso_runtime_pending",
+        "members": [
+          "SLPS_258.87",
+          "DATA/COMPDATA.BN",
+          "DATA/MTV_PROS.BIN",
+          "DATA/VT1.BIN"
+        ],
+        "runtime_status": "not_tested"
+      },
+      {
+        "component_id": "ui-atlas-suite-zh",
+        "manifest": {
+          "path": "manifests/ui-atlas-suite-zh-validation.json",
+          "size": 10365,
+          "sha256": "410121f38a43aa1f1fc18bf6d41d9d16805a1e7997c79a6191ece12eb85799f0"
+        },
+        "profile_id": "ui-atlas-suite-zh",
+        "status": "static_combined_atlas_component_validated_runtime_mapping_pending",
+        "members": [
+          "KURODATA/KVMDATA.BIN"
+        ],
+        "runtime_status": "not_tested"
+      },
+      {
+        "component_id": "first-five-story",
+        "manifest": {
+          "path": "manifests/first-five-validation.json",
+          "size": 13504,
+          "sha256": "4a12751a407563b452d284fcfb127453aa23d27c8b03d1000e494c95be2153b7"
+        },
+        "profile_id": "first-five",
+        "status": "static_and_renderer_coverage_passed_runtime_pending",
+        "members": [
+          "HEDBDY/HB.BIN",
+          "DATA/STAGE.BIN"
+        ],
+        "runtime_status": "not_tested"
+      }
+    ]
+  },
+  "composition": {
+    "mode": "whole-member-composition",
+    "member_count": 7,
+    "members": [
+      "DATA/COMPDATA.BN",
+      "DATA/MTV_PROS.BIN",
+      "DATA/STAGE.BIN",
+      "DATA/VT1.BIN",
+      "HEDBDY/HB.BIN",
+      "KURODATA/KVMDATA.BIN",
+      "SLPS_258.87"
+    ],
+    "member_owner_overlap_count": 0,
+    "font_owner": "ui-p5-battle-menus-core",
+    "story_data_owner": "first-five-story",
+    "atlas_owner": "ui-atlas-suite-zh"
+  },
+  "outputs": {
+    "SLPS_258.87": {
+      "path": "work/build/ui-p5-battle-menus-first-five-atlas-test/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "473b5f5fee31d78aacbe5e6f78db1c9207a52f33ff50ef65a846e880b080d16d",
+      "owner": "ui-p5-battle-menus-core",
+      "source": {
+        "path": "work/build/ui-p5-battle-menus/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "473b5f5fee31d78aacbe5e6f78db1c9207a52f33ff50ef65a846e880b080d16d"
+      },
+      "manifest_output_lock_exact": true
+    },
+    "DATA/COMPDATA.BN": {
+      "path": "work/build/ui-p5-battle-menus-first-five-atlas-test/components/DATA/COMPDATA.BN",
+      "size": 144485,
+      "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405",
+      "owner": "ui-p5-battle-menus-core",
+      "source": {
+        "path": "work/build/ui-p5-battle-menus/components/DATA/COMPDATA.BN",
+        "size": 144485,
+        "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+      },
+      "manifest_output_lock_exact": true
+    },
+    "DATA/MTV_PROS.BIN": {
+      "path": "work/build/ui-p5-battle-menus-first-five-atlas-test/components/DATA/MTV_PROS.BIN",
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+      "owner": "ui-p5-battle-menus-core",
+      "source": {
+        "path": "work/build/ui-p5-battle-menus/components/DATA/MTV_PROS.BIN",
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      },
+      "manifest_output_lock_exact": true
+    },
+    "DATA/VT1.BIN": {
+      "path": "work/build/ui-p5-battle-menus-first-five-atlas-test/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c",
+      "owner": "ui-p5-battle-menus-core",
+      "source": {
+        "path": "work/build/ui-p5-battle-menus/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+      },
+      "manifest_output_lock_exact": true
+    },
+    "KURODATA/KVMDATA.BIN": {
+      "path": "work/build/ui-p5-battle-menus-first-five-atlas-test/components/KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921",
+      "owner": "ui-atlas-suite-zh",
+      "source": {
+        "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
+        "size": 3335408,
+        "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921"
+      },
+      "manifest_output_lock_exact": true
+    },
+    "HEDBDY/HB.BIN": {
+      "path": "work/build/ui-p5-battle-menus-first-five-atlas-test/components/HEDBDY/HB.BIN",
+      "size": 31152,
+      "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9",
+      "owner": "first-five-story",
+      "source": {
+        "path": "work/build/first-five/components/HEDBDY/HB.BIN",
+        "size": 31152,
+        "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9"
+      },
+      "manifest_output_lock_exact": true
+    },
+    "DATA/STAGE.BIN": {
+      "path": "work/build/ui-p5-battle-menus-first-five-atlas-test/components/DATA/STAGE.BIN",
+      "size": 3910272,
+      "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9",
+      "owner": "first-five-story",
+      "source": {
+        "path": "work/build/first-five/components/DATA/STAGE.BIN",
+        "size": 3910272,
+        "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
+      },
+      "manifest_output_lock_exact": true
+    }
+  },
+  "acceptance": {
+    "component_manifests_locked": true,
+    "component_statuses_validated": true,
+    "component_payloads_match_manifest_locks": true,
+    "member_ownership_disjoint": true,
+    "ui_core_owns_final_font_and_ui_text": true,
+    "first_five_owns_story_archives": true,
+    "all_output_locks_exact": true,
+    "atlas_suite_owns_kvmdata": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Exercise the P5 battle-menu slice, prior P4/P3/P2 UI cores, first-five story data and all five localized atlas candidates in one exact ISO.",
+    "isolated_atlas_mapping_profiles_remain_required": true,
+    "required_scene_families": [
+      "title/main-menu",
+      "opening/player-setup",
+      "tutorial/unit-stat-and-terrain-legend",
+      "opening/default-protagonist-labels",
+      "formation/squad-and-reboard-confirmations",
+      "information/tactical-status-metrics",
+      "battle/end-phase-map-command-tail",
+      "battle/action-restriction-messages",
+      "system/quick-command-save-and-cancel-confirmations",
+      "battle/repair-resupply-spirit-targeting",
+      "intermission/main-and-options",
+      "information/unit-pilot-mech-core",
+      "battle/map-and-tactical",
+      "results/level-up-and-deployment",
+      "search/filter-and-results",
+      "route/stage-title-and-branch",
+      "opening/world-history-scroll",
+      "story/first-five-opening-sequences"
+    ],
+    "promotion_rule": "This integrated candidate may prove combined boot and visual coverage, but isolated atlas receipts remain necessary for member/chunk scene attribution."
+  }
+}

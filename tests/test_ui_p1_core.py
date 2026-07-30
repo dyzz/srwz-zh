@@ -161,11 +161,7 @@ class UiP1CoreTests(unittest.TestCase):
             [
                 {
                     "first_member": "DATA/NISVDATA.BIN",
-                    "shift_sectors": 6,
-                },
-                {
-                    "first_member": "DATA/STAGE.BIN",
-                    "shift_sectors": 41,
+                    "shift_sectors": 0,
                 },
             ],
         )
@@ -173,7 +169,7 @@ class UiP1CoreTests(unittest.TestCase):
     def test_static_iso_is_bound_without_runtime_overclaim(self):
         self.assertEqual(
             self.runtime["status"],
-            "static_integrated_iso_validated_runtime_pending",
+            "integrated_iso_boot_smoke_passed_visual_pending",
         )
         self.assertEqual(self.runtime["iso_build"]["member_count"], 66)
         self.assertEqual(
@@ -185,7 +181,13 @@ class UiP1CoreTests(unittest.TestCase):
             "DVD",
         )
         self.assertTrue(all(self.runtime["static_acceptance"].values()))
-        self.assertEqual(self.runtime["runtime"]["status"], "not_tested")
+        self.assertEqual(
+            self.runtime["runtime"]["status"],
+            "boot_smoke_passed_visual_not_tested",
+        )
+        self.assertEqual(self.runtime["runtime"]["pine_status"], 0)
+        self.assertEqual(self.runtime["runtime"]["tlb_miss_count"], 0)
+        self.assertTrue(self.runtime["runtime"]["fresh_process"])
         self.assertEqual(
             self.runtime["runtime"]["required_iso_sha256"],
             self.runtime["iso_build"]["output"]["sha256"],

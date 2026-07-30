@@ -1,0 +1,491 @@
+{
+  "schema_version": 1,
+  "status": "validated_with_known_compdata_runtime_blocker",
+  "chain": {
+    "chain_id": "first-five-ui-incremental-v1",
+    "config_path": "config/iso/ui-incremental-chain.json",
+    "config_sha256": "95b0bbb92a9f903f1b5b32cd35937b2bc9a38983fd37b089f08247c1e30ef450",
+    "step_count": 6
+  },
+  "promoted_candidate": {
+    "step_id": "first-five-noncompdata-ui",
+    "iso_path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
+    "iso_size": 3758424064,
+    "iso_sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39",
+    "boundary": "Fresh-process boot smoke passed. Navigation and visual acceptance remain separate runtime work."
+  },
+  "blocked_candidate": {
+    "step_id": "first-five-full-ui-with-compdata",
+    "iso_path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso",
+    "iso_size": 3758456832,
+    "iso_sha256": "2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431",
+    "runtime_status": "failed_tlb",
+    "delta_from_promoted": [
+      "DATA/COMPDATA.BN"
+    ],
+    "reason": "modified COMPDATA.BN triggers a runtime TLB miss"
+  },
+  "steps": [
+    {
+      "index": 0,
+      "step_id": "first-five",
+      "purpose": "Known-good five-stage story, font and stage baseline.",
+      "delta_from_previous": [
+        "first-five baseline"
+      ],
+      "build_config": {
+        "path": "config/iso/first-five-build.json",
+        "sha256": "db3451884b12c3eb7984170c223976e39a77e1ed324cebe7839d206793a69211"
+      },
+      "materialization": {
+        "mode": "existing_profile",
+        "component_sources": {}
+      },
+      "iso": {
+        "path": "build/iso/first-five/srwz-first-five.iso",
+        "size": 3758358528,
+        "sha256": "d0e9ab7233f6d3763b4280932b4574b3512d54686a540e0ea28dea6af9cbb5b4"
+      },
+      "iso_build_report": {
+        "path": "build/iso/first-five/iso-validation.json",
+        "sha256": "856acfbd51dc7008e74c9b255fece03317ee4830bd9cc7c816ec193c66ea0992",
+        "member_manifest_sha256": "3c83251795738880cdc587ff57736639b3d2b1698d6f03ccf4c87196f71ac628",
+        "unchanged_member_count": 62,
+        "shift_segments": [
+          {
+            "first_member": "DATA/STAGE.BIN",
+            "shift_sectors": 0
+          }
+        ]
+      },
+      "boot_smoke": {
+        "path": "work/runtime/iso-incremental/00-first-five/boot-smoke.json",
+        "sha256": "f6630171430209f6326cbf4ab48af573dc9a0302ad6767ef67f1bdbb61aa3094",
+        "status": "passed",
+        "pine_status": 0,
+        "checks": {
+          "pcsx2_version": true,
+          "game_id": true,
+          "pine_running": true,
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "no_tlb_miss": true
+        },
+        "log": {
+          "path": "work/runtime/iso-incremental/00-first-five/emulog.txt",
+          "size": 18566,
+          "sha256": "7f48d827f2ff591ca8fb22a3cd4620c6b54ea5d23b4baf32654685fa27c33db7",
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "tlb_miss_count": 0,
+          "no_tlb_miss": true,
+          "first_tlb_miss": null
+        }
+      },
+      "promotion_eligible": true
+    },
+    {
+      "index": 1,
+      "step_id": "first-five-atlas",
+      "purpose": "Add only the combined KVM UI atlas to the known-good baseline.",
+      "delta_from_previous": [
+        "KURODATA/KVMDATA.BIN"
+      ],
+      "build_config": {
+        "path": "config/iso/ui-step-01-first-five-atlas-build.json",
+        "sha256": "ec324ad207801fac7e760837ac7485d42043bcb63fd2480003fba63b65b4c79e"
+      },
+      "materialization": {
+        "mode": "copy_locked_components",
+        "component_sources": {
+          "SLPS_258.87": {
+            "path": "work/build/first-five/components/SLPS_258.87",
+            "size": 3471624,
+            "sha256": "65fc00b2ff2dd223a0c6c4bfb97643871612db0a97eb68709a7da90787d91169"
+          },
+          "DATA/VT1.BIN": {
+            "path": "work/build/first-five/components/DATA/VT1.BIN",
+            "size": 127500736,
+            "sha256": "7f60acbb3df024f352ed404c9cd0331d95a606f6e116994d0785ea8c4f076f11"
+          },
+          "DATA/STAGE.BIN": {
+            "path": "work/build/first-five/components/DATA/STAGE.BIN",
+            "size": 3910272,
+            "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
+          },
+          "HEDBDY/HB.BIN": {
+            "path": "work/build/first-five/components/HEDBDY/HB.BIN",
+            "size": 31152,
+            "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9"
+          },
+          "KURODATA/KVMDATA.BIN": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN",
+            "size": 3335408,
+            "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921"
+          }
+        }
+      },
+      "iso": {
+        "path": "build/iso/ui-step-01-first-five-atlas/srwz-ui-step-01-first-five-atlas.iso",
+        "size": 3758358528,
+        "sha256": "76a31c7e58baa0a293559eed653517d93689961b91487d1d02c064ec4c6828a9"
+      },
+      "iso_build_report": {
+        "path": "build/iso/ui-step-01-first-five-atlas/iso-validation.json",
+        "sha256": "a58f04be315e99f6cc54f8ba61da69a47393e547a4cd9333e76ad6cde8d1b4e8",
+        "member_manifest_sha256": "dc2cabfa8e9d450f4e735952ada43c79d8270ac1dd0c5055deadaa214ddf27dd",
+        "unchanged_member_count": 61,
+        "shift_segments": [
+          {
+            "first_member": "DATA/STAGE.BIN",
+            "shift_sectors": 0
+          }
+        ]
+      },
+      "boot_smoke": {
+        "path": "work/runtime/iso-incremental/01-first-five-atlas/boot-smoke.json",
+        "sha256": "753da55d11593438ae71793d2fdab4131979f367d885fc574776448e52cfe3eb",
+        "status": "passed",
+        "pine_status": 0,
+        "checks": {
+          "pcsx2_version": true,
+          "game_id": true,
+          "pine_running": true,
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "no_tlb_miss": true
+        },
+        "log": {
+          "path": "work/runtime/iso-incremental/01-first-five-atlas/emulog.txt",
+          "size": 18555,
+          "sha256": "ae2201b117a3f6fe4f44dc6317524f0abee5f54fb55c189135e21d3eb8df2c5d",
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "tlb_miss_count": 0,
+          "no_tlb_miss": true,
+          "first_tlb_miss": null
+        }
+      },
+      "promotion_eligible": true
+    },
+    {
+      "index": 2,
+      "step_id": "first-five-atlas-vt1",
+      "purpose": "Add only the current VT1 font and title resources after the atlas layer.",
+      "delta_from_previous": [
+        "DATA/VT1.BIN"
+      ],
+      "build_config": {
+        "path": "config/iso/ui-step-02-first-five-atlas-vt1-build.json",
+        "sha256": "9aff0f5a562eff29a8e6c049a009d60f9891e9a99086ab4029f53a43594379a2"
+      },
+      "materialization": {
+        "mode": "copy_locked_components",
+        "component_sources": {
+          "SLPS_258.87": {
+            "path": "work/build/first-five/components/SLPS_258.87",
+            "size": 3471624,
+            "sha256": "65fc00b2ff2dd223a0c6c4bfb97643871612db0a97eb68709a7da90787d91169"
+          },
+          "DATA/VT1.BIN": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
+            "size": 127576768,
+            "sha256": "75a116330305e73786c50335e3b987d7ab3645d4eefcdc2ce8236db5483b2c36"
+          },
+          "DATA/STAGE.BIN": {
+            "path": "work/build/first-five/components/DATA/STAGE.BIN",
+            "size": 3910272,
+            "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
+          },
+          "HEDBDY/HB.BIN": {
+            "path": "work/build/first-five/components/HEDBDY/HB.BIN",
+            "size": 31152,
+            "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9"
+          },
+          "KURODATA/KVMDATA.BIN": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN",
+            "size": 3335408,
+            "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921"
+          }
+        }
+      },
+      "iso": {
+        "path": "build/iso/ui-step-02-first-five-atlas-vt1/srwz-ui-step-02-first-five-atlas-vt1.iso",
+        "size": 3758424064,
+        "sha256": "2e52fb3dd6de0a2e2d5b8b710bb1e2fdda95f9956cfd4ca37e5fa8efb3e3ffdb"
+      },
+      "iso_build_report": {
+        "path": "build/iso/ui-step-02-first-five-atlas-vt1/iso-validation.json",
+        "sha256": "a9b1c8138e7fa0af3f00d854fd5eeb41d95a22898bb60e62be34356d921dd39f",
+        "member_manifest_sha256": "79652ef55b1c4d77c1be7e93effdf2435c6cdb75de9f65e48a59c7ac76dd1234",
+        "unchanged_member_count": 61,
+        "shift_segments": [
+          {
+            "first_member": "DATA/STAGE.BIN",
+            "shift_sectors": 37
+          }
+        ]
+      },
+      "boot_smoke": {
+        "path": "work/runtime/iso-incremental/02-first-five-atlas-vt1/boot-smoke.json",
+        "sha256": "4057583ffb78bb80fc529c3a7cfd17ed52e64e239138bf5c40ae422fbf30c503",
+        "status": "passed",
+        "pine_status": 0,
+        "checks": {
+          "pcsx2_version": true,
+          "game_id": true,
+          "pine_running": true,
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "no_tlb_miss": true
+        },
+        "log": {
+          "path": "work/runtime/iso-incremental/02-first-five-atlas-vt1/emulog.txt",
+          "size": 18650,
+          "sha256": "d1dd3913e8cad4513855933c63218ff4055c043092942e2b0c09e8a171e66dd9",
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "tlb_miss_count": 0,
+          "no_tlb_miss": true,
+          "first_tlb_miss": null
+        }
+      },
+      "promotion_eligible": true
+    },
+    {
+      "index": 3,
+      "step_id": "first-five-atlas-vt1-slps",
+      "purpose": "Add only the current SLPS fixed-span UI translations after the font layer.",
+      "delta_from_previous": [
+        "SLPS_258.87"
+      ],
+      "build_config": {
+        "path": "config/iso/ui-step-03-first-five-atlas-vt1-slps-build.json",
+        "sha256": "2628765336e2e3f87202e6ab5fd6b3410b6c4f140de76a6c45752790d2a6289c"
+      },
+      "materialization": {
+        "mode": "copy_locked_components",
+        "component_sources": {
+          "SLPS_258.87": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/SLPS_258.87",
+            "size": 3471624,
+            "sha256": "0cfea3e0106d9eed6e81faf0916f9a9092b2b25d705e9c60e2c889ee2b6f1a10"
+          },
+          "DATA/VT1.BIN": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
+            "size": 127576768,
+            "sha256": "75a116330305e73786c50335e3b987d7ab3645d4eefcdc2ce8236db5483b2c36"
+          },
+          "DATA/STAGE.BIN": {
+            "path": "work/build/first-five/components/DATA/STAGE.BIN",
+            "size": 3910272,
+            "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
+          },
+          "HEDBDY/HB.BIN": {
+            "path": "work/build/first-five/components/HEDBDY/HB.BIN",
+            "size": 31152,
+            "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9"
+          },
+          "KURODATA/KVMDATA.BIN": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN",
+            "size": 3335408,
+            "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921"
+          }
+        }
+      },
+      "iso": {
+        "path": "build/iso/ui-step-03-first-five-atlas-vt1-slps/srwz-ui-step-03-first-five-atlas-vt1-slps.iso",
+        "size": 3758424064,
+        "sha256": "8ce59de31543389df4a07b1e137df2b190309daa1af693c6265881743de97c9b"
+      },
+      "iso_build_report": {
+        "path": "build/iso/ui-step-03-first-five-atlas-vt1-slps/iso-validation.json",
+        "sha256": "15978395a006b06a404b29d958babe0fdc2c3505c3a7c3349a40d24d0b984522",
+        "member_manifest_sha256": "9a6bf631a5f35575a710cbb80c8985c68ab19bf7ccb37727e005370becf439b3",
+        "unchanged_member_count": 61,
+        "shift_segments": [
+          {
+            "first_member": "DATA/STAGE.BIN",
+            "shift_sectors": 37
+          }
+        ]
+      },
+      "boot_smoke": {
+        "path": "work/runtime/iso-incremental/03-first-five-atlas-vt1-slps/boot-smoke.json",
+        "sha256": "0cb5c54f7aca79b1caa280b6609de0f8b46b7edc429a8b8c9f26ab0580c14684",
+        "status": "passed",
+        "pine_status": 0,
+        "checks": {
+          "pcsx2_version": true,
+          "game_id": true,
+          "pine_running": true,
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "no_tlb_miss": true
+        },
+        "log": {
+          "path": "work/runtime/iso-incremental/03-first-five-atlas-vt1-slps/emulog.txt",
+          "size": 18670,
+          "sha256": "765bab5f075d644835c1fad05184cd1e89d124c03537f9a4cca4b5afc421957c",
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "tlb_miss_count": 0,
+          "no_tlb_miss": true,
+          "first_tlb_miss": null
+        }
+      },
+      "promotion_eligible": true
+    },
+    {
+      "index": 4,
+      "step_id": "first-five-noncompdata-ui",
+      "purpose": "Add the current SLPS, VT1 font/UI and world-history assets while retaining the original COMPDATA.BN.",
+      "delta_from_previous": [
+        "DATA/MTV_PROS.BIN"
+      ],
+      "build_config": {
+        "path": "config/iso/ui-step-02-first-five-noncompdata-build.json",
+        "sha256": "8ed6d92b60455ec98111c17267f07996d13dab77587c5052777514826714e204"
+      },
+      "materialization": {
+        "mode": "copy_locked_components",
+        "component_sources": {
+          "SLPS_258.87": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/SLPS_258.87",
+            "size": 3471624,
+            "sha256": "0cfea3e0106d9eed6e81faf0916f9a9092b2b25d705e9c60e2c889ee2b6f1a10"
+          },
+          "DATA/MTV_PROS.BIN": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/MTV_PROS.BIN",
+            "size": 8640,
+            "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+          },
+          "DATA/VT1.BIN": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
+            "size": 127576768,
+            "sha256": "75a116330305e73786c50335e3b987d7ab3645d4eefcdc2ce8236db5483b2c36"
+          },
+          "DATA/STAGE.BIN": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/STAGE.BIN",
+            "size": 3910272,
+            "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
+          },
+          "HEDBDY/HB.BIN": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/HEDBDY/HB.BIN",
+            "size": 31152,
+            "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9"
+          },
+          "KURODATA/KVMDATA.BIN": {
+            "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN",
+            "size": 3335408,
+            "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921"
+          }
+        }
+      },
+      "iso": {
+        "path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
+        "size": 3758424064,
+        "sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39"
+      },
+      "iso_build_report": {
+        "path": "build/iso/ui-step-02-first-five-noncompdata/iso-validation.json",
+        "sha256": "797b81afd0aac5ea2f1a650f9c4d6971afbc78cf1c358587afc7f8c91b3ad718",
+        "member_manifest_sha256": "72624c89fbeb3d8a38b28c0c94f4e6b82e181ede8f603cd3735e138d275e8d0c",
+        "unchanged_member_count": 60,
+        "shift_segments": [
+          {
+            "first_member": "DATA/STAGE.BIN",
+            "shift_sectors": 37
+          }
+        ]
+      },
+      "boot_smoke": {
+        "path": "work/runtime/iso-incremental/04-first-five-noncompdata/boot-smoke.json",
+        "sha256": "9147150f8ab787e497cbeddc2f01a80e7e69c88fecfab7c01e8d751fef7018c2",
+        "status": "passed",
+        "pine_status": 0,
+        "checks": {
+          "pcsx2_version": true,
+          "game_id": true,
+          "pine_running": true,
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "no_tlb_miss": true
+        },
+        "log": {
+          "path": "work/runtime/iso-incremental/04-first-five-noncompdata/emulog.txt",
+          "size": 18658,
+          "sha256": "ccfbb1df0d02f94ba87abf9abab5408f91693bac1cb599ba6ac4efb940d548f4",
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "tlb_miss_count": 0,
+          "no_tlb_miss": true,
+          "first_tlb_miss": null
+        }
+      },
+      "promotion_eligible": true
+    },
+    {
+      "index": 5,
+      "step_id": "first-five-full-ui-with-compdata",
+      "purpose": "Add the re-encoded COMPDATA database only after every other layer passes.",
+      "delta_from_previous": [
+        "DATA/COMPDATA.BN"
+      ],
+      "build_config": {
+        "path": "config/iso/ui-p10-database-fixed-core-first-five-atlas-test-build.json",
+        "sha256": "64805a78c662eea90c359a3796e9b464a2631621485af6521aba928f8275c41a"
+      },
+      "materialization": {
+        "mode": "existing_profile",
+        "component_sources": {}
+      },
+      "iso": {
+        "path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso",
+        "size": 3758456832,
+        "sha256": "2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431"
+      },
+      "iso_build_report": {
+        "path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/iso-validation.json",
+        "sha256": "bba5cddf7a6d44ab1410dedf5899fddd6c6bf75836190bc4eb714d35f91f692c",
+        "member_manifest_sha256": "c06c22db15c81155fee3bb59b5c4e41a79c54b2431a4043714206309b407e2b4",
+        "unchanged_member_count": 59,
+        "shift_segments": [
+          {
+            "first_member": "DATA/NISVDATA.BIN",
+            "shift_sectors": 8
+          },
+          {
+            "first_member": "DATA/STAGE.BIN",
+            "shift_sectors": 45
+          }
+        ]
+      },
+      "boot_smoke": {
+        "path": "work/runtime/iso-incremental/05-full-with-compdata/boot-smoke.json",
+        "sha256": "f5283b1aa9ac4f77e2e73d1f0ca9b319cf4ad6b1803df95e3737e7f3bf00d89c",
+        "status": "failed",
+        "pine_status": 1,
+        "checks": {
+          "pcsx2_version": true,
+          "game_id": true,
+          "pine_running": false,
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "no_tlb_miss": false
+        },
+        "log": {
+          "path": "work/runtime/iso-incremental/05-full-with-compdata/emulog.txt",
+          "size": 18653,
+          "sha256": "b521a1d582242da9ffb7c6b7a7edf86504c3b44a53de82b7b0a131dc39d49a45",
+          "dvd_recognized": true,
+          "elf_executing": true,
+          "tlb_miss_count": 1,
+          "no_tlb_miss": false,
+          "first_tlb_miss": "[    4.4457] ReportErrorAsync: R5900 Exception: TLB Miss, pc=0x1c6ea0 addr=0x2000000 [store]"
+        }
+      },
+      "promotion_eligible": false
+    }
+  ]
+}

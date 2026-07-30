@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "chain_id": "first-five-ui-incremental-v1",
+  "principle": "Keep the proven first-five story as the baseline, add one independently attributable UI layer at a time, and stop promotion at the first runtime boot failure.",
+  "steps": [
+    {
+      "index": 0,
+      "step_id": "first-five",
+      "purpose": "Known-good five-stage story, font and stage baseline.",
+      "build_config": "config/iso/first-five-build.json",
+      "iso_path": "build/iso/first-five/srwz-first-five.iso",
+      "iso_size": 3758358528,
+      "iso_sha256": "d0e9ab7233f6d3763b4280932b4574b3512d54686a540e0ea28dea6af9cbb5b4",
+      "boot_smoke_report": "work/runtime/iso-incremental/00-first-five/boot-smoke.json",
+      "materialization": "existing_profile",
+      "changed_members": [
+        "SLPS_258.87",
+        "DATA/VT1.BIN",
+        "DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN"
+      ],
+      "delta_from_previous": [
+        "first-five baseline"
+      ],
+      "runtime_expectation": "must_boot_without_tlb",
+      "runtime_status": "passed"
+    },
+    {
+      "index": 1,
+      "step_id": "first-five-atlas",
+      "purpose": "Add only the combined KVM UI atlas to the known-good baseline.",
+      "build_config": "config/iso/ui-step-01-first-five-atlas-build.json",
+      "iso_path": "build/iso/ui-step-01-first-five-atlas/srwz-ui-step-01-first-five-atlas.iso",
+      "iso_size": 3758358528,
+      "iso_sha256": "76a31c7e58baa0a293559eed653517d93689961b91487d1d02c064ec4c6828a9",
+      "boot_smoke_report": "work/runtime/iso-incremental/01-first-five-atlas/boot-smoke.json",
+      "materialization": "copy_locked_components",
+      "component_sources": {
+        "SLPS_258.87": "work/build/first-five/components/SLPS_258.87",
+        "DATA/VT1.BIN": "work/build/first-five/components/DATA/VT1.BIN",
+        "DATA/STAGE.BIN": "work/build/first-five/components/DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN": "work/build/first-five/components/HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN"
+      },
+      "changed_members": [
+        "SLPS_258.87",
+        "DATA/VT1.BIN",
+        "DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN"
+      ],
+      "delta_from_previous": [
+        "KURODATA/KVMDATA.BIN"
+      ],
+      "runtime_expectation": "must_boot_without_tlb",
+      "runtime_status": "passed",
+      "extended_runtime_status": "fixture_blocked",
+      "promotion_eligible": false,
+      "extended_runtime_boundary": "The six-second boot receipt does not exercise any of the five atlas target surfaces. First-intermission, first-battle and bazaar memory-card fixtures are still required."
+    },
+    {
+      "index": 2,
+      "step_id": "first-five-atlas-vt1",
+      "purpose": "Negative control: pair the current VT1 archive with the old first-five SLPS offset table.",
+      "build_config": "config/iso/ui-step-02-first-five-atlas-vt1-build.json",
+      "iso_path": "build/iso/ui-step-02-first-five-atlas-vt1/srwz-ui-step-02-first-five-atlas-vt1.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "2e52fb3dd6de0a2e2d5b8b710bb1e2fdda95f9956cfd4ca37e5fa8efb3e3ffdb",
+      "boot_smoke_report": "work/runtime/iso-incremental/02-first-five-atlas-vt1/boot-smoke.json",
+      "materialization": "copy_locked_components",
+      "component_sources": {
+        "SLPS_258.87": "work/build/first-five/components/SLPS_258.87",
+        "DATA/VT1.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
+        "DATA/STAGE.BIN": "work/build/first-five/components/DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN": "work/build/first-five/components/HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN"
+      },
+      "changed_members": [
+        "SLPS_258.87",
+        "DATA/VT1.BIN",
+        "DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN"
+      ],
+      "delta_from_previous": [
+        "DATA/VT1.BIN"
+      ],
+      "runtime_expectation": "must_boot_without_tlb",
+      "runtime_status": "passed",
+      "extended_runtime_status": "failed_tlb_after_fmv",
+      "promotion_eligible": false,
+      "extended_runtime_evidence": "work/runtime/iso-incremental/02-first-five-atlas-vt1/title-visual/emulog-retry.txt",
+      "extended_runtime_boundary": "The historical six-second boot receipt passed before the title resource path was exercised. At 112.8233 seconds the mismatched VT1/SLPS pair produced 12 TLB misses and paused PCSX2."
+    },
+    {
+      "index": 3,
+      "step_id": "first-five-atlas-vt1-slps",
+      "purpose": "Complete the atomic compatibility unit by adding the SLPS whose VT1 offset table matches the current VT1 archive.",
+      "build_config": "config/iso/ui-step-03-first-five-atlas-vt1-slps-build.json",
+      "iso_path": "build/iso/ui-step-03-first-five-atlas-vt1-slps/srwz-ui-step-03-first-five-atlas-vt1-slps.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "8ce59de31543389df4a07b1e137df2b190309daa1af693c6265881743de97c9b",
+      "boot_smoke_report": "work/runtime/iso-incremental/03-first-five-atlas-vt1-slps/boot-smoke.json",
+      "materialization": "copy_locked_components",
+      "component_sources": {
+        "SLPS_258.87": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/SLPS_258.87",
+        "DATA/VT1.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
+        "DATA/STAGE.BIN": "work/build/first-five/components/DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN": "work/build/first-five/components/HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN"
+      },
+      "changed_members": [
+        "SLPS_258.87",
+        "DATA/VT1.BIN",
+        "DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN"
+      ],
+      "delta_from_previous": [
+        "SLPS_258.87"
+      ],
+      "runtime_expectation": "must_boot_without_tlb",
+      "runtime_status": "passed",
+      "extended_runtime_status": "passed_title_visual",
+      "promotion_eligible": true,
+      "extended_runtime_evidence": [
+        "work/runtime/iso-incremental/03-first-five-atlas-vt1-slps/title-visual/emulog.txt",
+        "work/runtime/iso-incremental/03-first-five-atlas-vt1-slps/title-visual/title-start-selected.png",
+        "work/runtime/iso-incremental/03-first-five-atlas-vt1-slps/title-visual/title-library-selected.png"
+      ],
+      "extended_runtime_boundary": "The full title path reached both cursor states with PCSX2/PINE Running and zero logged TLB misses. Non-title UI surfaces remain separate fixture-gated work."
+    },
+    {
+      "index": 4,
+      "step_id": "first-five-noncompdata-ui",
+      "purpose": "Add the current SLPS, VT1 font/UI and world-history assets while retaining the original COMPDATA.BN.",
+      "build_config": "config/iso/ui-step-02-first-five-noncompdata-build.json",
+      "iso_path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39",
+      "boot_smoke_report": "work/runtime/iso-incremental/04-first-five-noncompdata/boot-smoke.json",
+      "materialization": "copy_locked_components",
+      "component_sources": {
+        "SLPS_258.87": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/SLPS_258.87",
+        "DATA/MTV_PROS.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/MTV_PROS.BIN",
+        "DATA/VT1.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
+        "DATA/STAGE.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN"
+      },
+      "changed_members": [
+        "SLPS_258.87",
+        "DATA/MTV_PROS.BIN",
+        "DATA/VT1.BIN",
+        "DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN"
+      ],
+      "delta_from_previous": [
+        "DATA/MTV_PROS.BIN"
+      ],
+      "runtime_expectation": "must_boot_without_tlb",
+      "runtime_status": "passed",
+      "extended_runtime_status": "historical_boot_only_not_rebuilt_in_current_run",
+      "promotion_eligible": false
+    },
+    {
+      "index": 5,
+      "step_id": "first-five-full-ui-with-compdata",
+      "purpose": "Add the re-encoded COMPDATA database only after every other layer passes.",
+      "build_config": "config/iso/ui-p10-database-fixed-core-first-five-atlas-test-build.json",
+      "iso_path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso",
+      "iso_size": 3758456832,
+      "iso_sha256": "2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431",
+      "boot_smoke_report": "work/runtime/iso-incremental/05-full-with-compdata/boot-smoke.json",
+      "materialization": "existing_profile",
+      "changed_members": [
+        "SLPS_258.87",
+        "DATA/COMPDATA.BN",
+        "DATA/MTV_PROS.BIN",
+        "DATA/VT1.BIN",
+        "DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN"
+      ],
+      "delta_from_previous": [
+        "DATA/COMPDATA.BN"
+      ],
+      "runtime_expectation": "known_tlb_failure_do_not_promote",
+      "runtime_status": "failed_tlb"
+    }
+  ]
+}

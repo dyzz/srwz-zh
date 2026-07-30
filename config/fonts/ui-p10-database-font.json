@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1",
+  "base_font_config": {
+    "path": "config/fonts/first-five-font.json",
+    "sha256": "90b7a41f78657a40bc75abd73381d8807f1779c4f0bd9c5269f7799e1949b7cd"
+  },
+  "base_validation_manifest": "manifests/ui-p7-embedded-font-validation.json",
+  "base_font_component": {
+    "slps": "work/build/ui-p7-embedded-font/components/SLPS_258.87",
+    "vt1": "work/build/ui-p7-embedded-font/components/DATA/VT1.BIN"
+  },
+  "allocation_registry": "config/encoding/ui-p10-database-font-allocations.json",
+  "assignment_id_prefix": "ui-p10-database",
+  "allocation_owner": "ui/p10/database-fixed-core",
+  "allocation_policy": {
+    "mode": "valid-sjis-then-raw-standard-trail-gaps",
+    "raw_standard_trails": [
+      "7F",
+      "FD",
+      "FE",
+      "FF"
+    ],
+    "instruction_windows": [
+      {
+        "name": "two-byte-measurement-consumes-unchecked-trail",
+        "virtual_address": "0x00139BE8",
+        "file_offset": 243304,
+        "size": 32,
+        "sha256": "225b820d0637e9cf7b15f6d79b61c0497744c20d11f0f7a563c86ae4796b59b2"
+      },
+      {
+        "name": "standard-glyph-resolver-uses-low-byte-directly",
+        "virtual_address": "0x0013A968",
+        "file_offset": 246760,
+        "size": 40,
+        "sha256": "fe8955a7ef6efb818424fdd89b421e95074535d460d8232c00a8244bbdf75bb4"
+      }
+    ],
+    "runtime_precedent": {
+      "static_manifest": "manifests/static-canary-validation.json",
+      "static_sha256": "c264e515d09e8d360628d3b7e3c3d58e2ccea2833e632b24011f5c5550d921cc",
+      "required_static_status": "static_candidate_runtime_verified_separately",
+      "runtime_manifest": "manifests/canary-iso-validation.json",
+      "runtime_sha256": "fd391150af647538576c770c78bee3092dc0d1b3673868cb23714099f5f5146a",
+      "required_runtime_acceptance": "passed_full_game_decoder_output_hash_and_opening_visual_canary",
+      "character": "试",
+      "code": "987F",
+      "glyph_index": 4479
+    }
+  },
+  "scene_inventory": {
+    "path": "config/ui-scenes.json",
+    "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
+    "inventory_id": "srwz-ui-scenes-v1"
+  },
+  "database_selection": {
+    "config": "config/ui-database-selection.json",
+    "config_sha256": "32398b7b1fb371ae6a6a51a4abf1e135c00f330424c43405126b3ea70f767b76",
+    "manifest": "manifests/ui-database-fixed-core-selection.json",
+    "manifest_sha256": "f455f99a1a336b4374a58f8948e6cda1b7538758d798a38b78177f8bf2ec84d8",
+    "selection_id": "srwz-ui-database-fixed-core-v1",
+    "required_status": "static_database_fixed_subset_selected_font_extension_required",
+    "expected_entry_count": 402
+  },
+  "scope": {
+    "base_stage_indices": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "ui_inventory": "srwz-ui-scenes-v1",
+    "database_selection": "srwz-ui-database-fixed-core-v1",
+    "rerasterize": "Every selected CJK unified ideograph still using an original reachable glyph, plus every newly allocated character; inherited P7 assignments remain exact.",
+    "preserve": "Original kana, reachable punctuation, printable ASCII, control symbols, glyphs outside the selected database core, and every inherited assignment."
+  },
+  "manifest_contract": {
+    "status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
+    "scope": "Incremental P7 plus the 402-entry skills, special-abilities, spirit-command and leadership database core. It proves renderer coverage only; it does not write SLPS/COMPDATA, build an ISO or prove runtime pages.",
+    "coverage_key": "database_fixed_core_renderer_coverage",
+    "base_component_key": "base_ui_p7_components",
+    "base_acceptance_key": "base_ui_p7_components_unchanged",
+    "missing_acceptance_key": "database_fixed_core_renderer_missing_character_count_zero",
+    "han_acceptance_key": "database_fixed_core_original_font_han_count_zero",
+    "runtime_reason": "The component consumes the final twelve renderer-addressable candidates and rerasterizes fourteen inherited Han glyphs. The exact combined font and all four database routes remain runtime pending."
+  },
+  "outputs": {
+    "readiness": "work/writeback/ui-p10-database-font-readiness.json",
+    "proposal": "work/writeback/ui-p10-database-codebook-proposal.json",
+    "component_root": "work/build/ui-p10-database-font/components",
+    "validation": "work/review/ui-p10-database-font-validation.json",
+    "manifest": "manifests/ui-p10-database-font-validation.json"
+  }
+}

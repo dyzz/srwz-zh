@@ -127,6 +127,25 @@ def case_workspace(project_root: Path, case_id: str) -> Path:
     return root.joinpath("work", "runtime", "ui-cases", *parts)
 
 
+def route_ready_case_ids(
+    project_root: Path,
+    matrix_config_path: Path,
+) -> tuple[str, ...]:
+    """Return every not-tested case whose fixture is already available."""
+
+    from .ui_runtime_matrix import audit_ui_runtime_matrix
+
+    report = audit_ui_runtime_matrix(
+        project_root.resolve(),
+        matrix_config_path.resolve(),
+    )
+    return tuple(
+        case["case_id"]
+        for case in report["cases"]
+        if case["execution_readiness"] == "route_ready_runtime_not_tested"
+    )
+
+
 def build_case_plan(
     project_root: Path,
     matrix_config_path: Path,

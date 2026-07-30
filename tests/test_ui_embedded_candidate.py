@@ -73,7 +73,7 @@ class UiEmbeddedCandidateTests(unittest.TestCase):
         self.assertNotEqual(outputs["slps"]["sha256"], base["slps"]["sha256"])
         self.assertEqual(
             outputs["slps"]["sha256"],
-            "f916d9da31ee1cef4220f0aa07e26eee5320a83f51f9105dd11c1b8272909123",
+            "fa703c5d7cdf4e5113e50743374547adb2031bd5393d15c05d01037c188c3a44",
         )
         for name in ("vt1", "compdata", "mtv_pros"):
             self.assertEqual(outputs[name]["sha256"], base[name]["sha256"])
@@ -88,7 +88,7 @@ class UiEmbeddedCandidateTests(unittest.TestCase):
         )
         with self.assertRaisesRegex(
             UiEmbeddedCandidateError,
-            "not fixed-span ready",
+            "does not match required scene-map readiness",
         ):
             build_ui_embedded_candidate(PROJECT_ROOT, path)
 
@@ -101,6 +101,22 @@ class UiEmbeddedCandidateTests(unittest.TestCase):
         with self.assertRaisesRegex(
             UiEmbeddedCandidateError,
             "size or SHA-256 drift",
+        ):
+            build_ui_embedded_candidate(PROJECT_ROOT, path)
+
+    def test_ratchet_failure_reports_actual_counts_and_checks(self):
+        path = self._mutated_config(
+            lambda document: document["ratchet"].update(
+                {
+                    "selected_entry_count": (
+                        document["ratchet"]["selected_entry_count"] + 1
+                    )
+                }
+            )
+        )
+        with self.assertRaisesRegex(
+            UiEmbeddedCandidateError,
+            r"ratchet failed: actual=.*checks=",
         ):
             build_ui_embedded_candidate(PROJECT_ROOT, path)
 

@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-ui-p4-intermission-integrated-v1",
+  "scope": "Promote the fixed-span squad/reboard confirmation and tactical-status metric groups for the intermission menu and pilot/mech information pages, then merge their SLPS bytes onto the complete P3 fresh-boot UI core without changing VT1, COMPDATA or MTV_PROS.",
+  "scene_map": {
+    "config": {
+      "path": "config/ui-embedded-scenes.json",
+      "sha256": "d467b1a8e0cf76f19d331ec31cdd470ceb27f401a715360ec45d005f3fb45c4e"
+    },
+    "manifest": {
+      "path": "manifests/ui-embedded-scene-map.json",
+      "sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651",
+      "required_status": "static_scene_partition_validated_runtime_attribution_pending"
+    },
+    "selected_scene_ids": [
+      "formation/squad-and-reboard-confirmations",
+      "information/tactical-status-metrics"
+    ]
+  },
+  "base_ui_core": {
+    "component_id": "ui-p3-fresh-boot-core",
+    "manifest": {
+      "path": "manifests/ui-p3-fresh-boot-validation.json",
+      "sha256": "12a625ac8784d0d816027f729b4b1dd6ed24abadc8803627ac634798ecd0fc23",
+      "required_profile_id": "srwz-ui-p3-fresh-boot-integrated-v1",
+      "required_status": "integrated_ui_p3_fresh_boot_component_validated_iso_runtime_pending",
+      "required_runtime_status": "not_tested"
+    },
+    "outputs": {
+      "slps": {
+        "path": "work/build/ui-p3-fresh-boot/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "fa703c5d7cdf4e5113e50743374547adb2031bd5393d15c05d01037c188c3a44"
+      },
+      "vt1": {
+        "path": "work/build/ui-p3-fresh-boot/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+      },
+      "compdata": {
+        "path": "work/build/ui-p3-fresh-boot/components/DATA/COMPDATA.BN",
+        "size": 144485,
+        "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+      },
+      "mtv_pros": {
+        "path": "work/build/ui-p3-fresh-boot/components/DATA/MTV_PROS.BIN",
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      }
+    }
+  },
+  "composition": {
+    "require_selected_groups_fixed_span_ready": true,
+    "require_slice_changed_offsets_disjoint_from_base_core_changes": true,
+    "require_base_preimage_exact_at_every_slice_offset": true,
+    "require_pointer_bytes_unchanged": true,
+    "require_decoded_font_unchanged": true,
+    "copy_non_slps_members_byte_exact": true
+  },
+  "manifest_contract": {
+    "status": "integrated_ui_p4_intermission_component_validated_iso_runtime_pending"
+  },
+  "runtime": {
+    "required_routes": [
+      "first_intermission_squad_and_reboard_confirmations",
+      "first_intermission_pilot_and_mech_tactical_status_metrics"
+    ],
+    "pending_gates": [
+      "exact_iso_static_binding",
+      "native_first_intermission_memory_card",
+      "squad_and_reboard_confirmation_routes",
+      "pilot_and_mech_information_subpages",
+      "dynamic_values_and_format_fragments_unchanged",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss"
+    ]
+  },
+  "ratchet": {
+    "selected_scene_count": 2,
+    "selected_entry_count": 24,
+    "no_op_entry_count": 6,
+    "selected_write_entry_count": 18,
+    "selected_write_target_count": 30,
+    "fixed_covered_entry_count": 24,
+    "excluded_entry_count": 0,
+    "slice_changed_byte_count": 408,
+    "slice_difference_range_count": 38
+  },
+  "outputs": {
+    "component_root": "work/build/ui-p4-intermission/components",
+    "validation": "work/review/ui-p4-intermission-validation.json",
+    "manifest": "manifests/ui-p4-intermission-validation.json"
+  }
+}

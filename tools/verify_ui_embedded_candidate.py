@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild and verify the P3 fresh-boot embedded UI component."""
+"""Rebuild and verify a configured fixed-span embedded UI component."""
 
 from __future__ import annotations
 

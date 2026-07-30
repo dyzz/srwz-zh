@@ -8,10 +8,22 @@ meaning.
 
 from __future__ import annotations
 
+import ctypes
+import subprocess
+import sys
+import tempfile
+from array import array
 from collections import defaultdict, deque
+from functools import lru_cache
+from pathlib import Path
 from typing import Callable, Deque, Dict, Mapping, Optional, Union
 
-from .codec_contract import CodedInteger, DecodeResult, SrwzCodecError
+from .codec_contract import (
+    CodedInteger,
+    DecodeResult,
+    SrwzCodecError,
+    SrwzEncodeError,
+)
 
 
 DEFAULT_MAX_OUTPUT_SIZE = 256 * 1024 * 1024
@@ -19,6 +31,10 @@ DEFAULT_MAX_CODED_INTEGER_BYTES = 10
 DEFAULT_MAX_TOKENS = 10_000_000
 DEFAULT_MAX_MATCH_CHAIN = 64
 DEFAULT_MIN_MATCH_LENGTH = 3
+MAXIMUM_MATCH_CHAIN = 0xFFFF
+MAXIMUM_MATCH_LENGTH = 0xFFFFFF
+MAXIMUM_LAZY_BIASES = tuple(range(9))
+MAXIMUM_LEGACY_PORTFOLIO_LIMIT = 64 * 1024
 MAX_WINDOW_EXPONENT = 23
 MIN_WINDOW_EXPONENT = 8
 
@@ -171,7 +187,65 @@ def _encode_header(
     return bytes(output)
 
 
-def _encode_block(literals: bytes, matches) -> bytes:
+def _distance_encoding(
+    distance: int,
+    *,
+    compact_seed: bool,
+) -> tuple[int, bytes]:
+    """Return the token distance bits and exact coded-integer extension."""
+
+    if distance <= 0:
+        raise ValueError("match distance must be positive")
+    distance_value = distance - 1
+    if distance_value <= 7:
+        return (distance_value << 1) | 1, b""
+
+    encoded = encode_coded_integer(distance_value)
+    if (
+        compact_seed
+        and len(encoded) > 1
+        and encoded[0] >> 1 < 8
+    ):
+        # The decoder continues the coded integer from the token's three-bit
+        # seed. The DLL CIL and every eligible original COMPDATA token use
+        # this shorter representation.
+        return (encoded[0] >> 1) << 1, encoded[1:]
+    return 0, encoded
+
+
+def _encoded_block_size(
+    literals: bytes,
+    matches,
+    *,
+    compact_distance_seed: bool,
+) -> int:
+    """Calculate the real serialized cost of one block in bytes."""
+
+    literal_count = len(literals)
+    match_count = len(matches)
+    size = 1 + literal_count
+    if literal_count > 0x0F:
+        size += len(encode_coded_integer(literal_count))
+    if match_count == 0 or match_count > 0x0F:
+        size += len(encode_coded_integer(match_count))
+    for distance, length in matches:
+        _, distance_extension = _distance_encoding(
+            distance,
+            compact_seed=compact_distance_seed,
+        )
+        length_value = length - 1
+        size += 1 + len(distance_extension)
+        if not 1 <= length_value <= 0x0F:
+            size += len(encode_coded_integer(length_value))
+    return size
+
+
+def _encode_block(
+    literals: bytes,
+    matches,
+    *,
+    compact_distance_seed: bool = False,
+) -> bytes:
     literal_count = len(literals)
     match_count = len(matches)
     if literal_count == 0:
@@ -188,18 +262,13 @@ def _encode_block(literals: bytes, matches) -> bytes:
     output.extend(literals)
 
     for distance, length in matches:
-        if distance <= 0:
-            raise ValueError("match distance must be positive")
         if length <= 0:
             raise ValueError("match length must be positive")
 
-        distance_value = distance - 1
-        if distance_value <= 7:
-            distance_bits = (distance_value << 1) | 1
-            distance_extension = b""
-        else:
-            distance_bits = 0
-            distance_extension = encode_coded_integer(distance_value)
+        distance_bits, distance_extension = _distance_encoding(
+            distance,
+            compact_seed=compact_distance_seed,
+        )
 
         length_value = length - 1
         if 1 <= length_value <= 0x0F:
@@ -213,6 +282,13 @@ def _encode_block(literals: bytes, matches) -> bytes:
         output.extend(distance_extension)
         output.extend(length_extension)
 
+    expected_size = _encoded_block_size(
+        literals,
+        matches,
+        compact_distance_seed=compact_distance_seed,
+    )
+    if len(output) != expected_size:
+        raise AssertionError("encoded block cost calculation drift")
     return bytes(output)
 
 
@@ -230,6 +306,7 @@ def _greedy_payload(
     max_match_chain: int,
     prefix_size: int = 0,
     lazy_matching: bool = False,
+    compact_distance_seed: bool = False,
 ) -> bytes:
     if not data or prefix_size == len(data):
         return b""
@@ -315,6 +392,7 @@ def _greedy_payload(
                     _encode_block(
                         data[literal_start:match_sequence_start],
                         pending_matches,
+                        compact_distance_seed=compact_distance_seed,
                     )
                 )
                 literal_start = position
@@ -342,11 +420,501 @@ def _greedy_payload(
             _encode_block(
                 data[literal_start:match_sequence_start],
                 pending_matches,
+                compact_distance_seed=compact_distance_seed,
             )
         )
     elif literal_start < size:
         output.extend(_encode_block(data[literal_start:], ()))
     return bytes(output)
+
+
+def _size_constrained_payload(
+    data: bytes,
+    *,
+    window_size: int,
+    min_match_length: int,
+    max_match_chain: int,
+    prefix_size: int = 0,
+    lazy_matching: bool = False,
+) -> bytes:
+    """Choose the shortest exact-byte candidate under a bounded search cap."""
+
+    candidate_chains = sorted({min(64, max_match_chain), max_match_chain})
+    candidates = [
+        _greedy_payload(
+            data,
+            window_size=window_size,
+            min_match_length=min_match_length,
+            max_match_chain=chain,
+            prefix_size=prefix_size,
+            lazy_matching=lazy_matching,
+            compact_distance_seed=True,
+        )
+        for chain in candidate_chains
+    ]
+    # The serialized payload already contains control bytes, coded integers,
+    # literals, distance extensions and length extensions. Length is therefore
+    # the real byte cost, not a token-count proxy. Bytes provide a stable final
+    # tie-break if two bounded parses cost the same.
+    return min(candidates, key=lambda candidate: (len(candidate), candidate))
+
+
+def _coded_integer_size(value: int) -> int:
+    """Return the encoded size without allocating the coded integer."""
+
+    if value < 0:
+        raise ValueError("coded integer value must be non-negative")
+    return max(1, (value.bit_length() + 6) // 7)
+
+
+def _compact_match_size(distance: int, length: int) -> int:
+    """Return the exact compact token, distance and length byte cost."""
+
+    if distance <= 0:
+        raise ValueError("match distance must be positive")
+    if length < 2:
+        raise ValueError("match length must be at least two")
+
+    distance_value = distance - 1
+    if distance_value <= 7:
+        distance_extension_size = 0
+    else:
+        groups = _coded_integer_size(distance_value)
+        top_group = distance_value >> (7 * (groups - 1))
+        distance_extension_size = (
+            groups - 1 if groups > 1 and top_group < 8 else groups
+        )
+
+    length_value = length - 1
+    length_extension_size = (
+        0
+        if length_value <= 0x0F
+        else _coded_integer_size(length_value)
+    )
+    return 1 + distance_extension_size + length_extension_size
+
+
+def _maximum_gain_upper_bound(maximum_length: int) -> int:
+    """Best possible local byte gain for any match up to this length."""
+
+    if maximum_length < 2:
+        return 0
+    short_gain = min(maximum_length, 16) - 1
+    if maximum_length <= 16:
+        return short_gain
+    long_gain = (
+        maximum_length
+        - 1
+        - _coded_integer_size(maximum_length - 1)
+    )
+    return max(short_gain, long_gain)
+
+
+@lru_cache(maxsize=1)
+def _maximum_match_library():
+    if sys.platform == "darwin":
+        filename = "libsrwz_maximum_match.dylib"
+    elif sys.platform.startswith("linux"):
+        filename = "libsrwz_maximum_match.so"
+    else:
+        return None
+    project_root = Path(__file__).resolve().parents[2]
+    path = (
+        project_root
+        / "work/toolchain/srwz-maximum-match"
+        / filename
+    )
+    if not path.is_file():
+        return None
+    try:
+        library = ctypes.CDLL(str(path))
+    except OSError:
+        return None
+    function = library.srwz_maximum_match_table
+    function.argtypes = [
+        ctypes.POINTER(ctypes.c_uint8),
+        ctypes.c_uint32,
+        ctypes.c_uint32,
+        ctypes.c_uint32,
+        ctypes.c_uint32,
+        ctypes.c_uint32,
+        ctypes.POINTER(ctypes.c_uint32),
+        ctypes.POINTER(ctypes.c_uint32),
+        ctypes.POINTER(ctypes.c_int32),
+    ]
+    function.restype = ctypes.c_int
+    return library
+
+
+def _accelerate_maximum_match_table(
+    data: bytes,
+    *,
+    window_size: int,
+    min_match_length: int,
+    max_match_chain: int,
+    prefix_size: int,
+    distances: array,
+    lengths: array,
+    gains: array,
+) -> bool:
+    """Fill tables with the optional independently authored C helper."""
+
+    library = _maximum_match_library()
+    if library is None:
+        return False
+    if (
+        distances.itemsize != ctypes.sizeof(ctypes.c_uint32)
+        or lengths.itemsize != ctypes.sizeof(ctypes.c_uint32)
+        or gains.itemsize != ctypes.sizeof(ctypes.c_int32)
+    ):
+        return False
+    data_buffer = (ctypes.c_uint8 * len(data)).from_buffer_copy(data)
+    distance_buffer = (
+        ctypes.c_uint32 * len(distances)
+    ).from_buffer(distances)
+    length_buffer = (
+        ctypes.c_uint32 * len(lengths)
+    ).from_buffer(lengths)
+    gain_buffer = (ctypes.c_int32 * len(gains)).from_buffer(gains)
+    status = library.srwz_maximum_match_table(
+        data_buffer,
+        len(data),
+        window_size,
+        min_match_length,
+        max_match_chain,
+        prefix_size,
+        distance_buffer,
+        length_buffer,
+        gain_buffer,
+    )
+    if status != 0:
+        raise RuntimeError(
+            f"maximum match accelerator failed with status {status}"
+        )
+    return True
+
+
+def _maximum_match_table(
+    data: bytes,
+    *,
+    window_size: int,
+    min_match_length: int,
+    max_match_chain: int,
+    prefix_size: int,
+) -> tuple[array, array, array]:
+    """Find the best local serialized-byte gain at every suffix position.
+
+    The two-byte rolling index and 65,535-candidate cap are statically
+    recovered from the bundled upstream ``CompressTool.exe`` level-9 path.
+    Unlike that tool's longest-match parser, this table ranks candidates by
+    the exact compact token cost.  Computing every suffix position once lets
+    the maximum strategy compare several lazy parses without repeating the
+    expensive chain search.
+    """
+
+    if not 0 <= prefix_size <= len(data):
+        raise ValueError("prefix_size is outside the decoded output")
+    if min_match_length < 2:
+        raise ValueError("min_match_length must be at least 2")
+    if max_match_chain <= 0:
+        raise ValueError("max_match_chain must be positive")
+
+    size = len(data)
+    distances = array("I", [0]) * size
+    lengths = array("I", [0]) * size
+    gains = array("i", [0]) * size
+    if size < 2 or prefix_size == size:
+        return distances, lengths, gains
+    if _accelerate_maximum_match_table(
+        data,
+        window_size=window_size,
+        min_match_length=min_match_length,
+        max_match_chain=max_match_chain,
+        prefix_size=prefix_size,
+        distances=distances,
+        lengths=lengths,
+        gains=gains,
+    ):
+        return distances, lengths, gains
+
+    padded = data + b"\0"
+    heads = array("i", [-1]) * 65536
+    previous = array("i", [-1]) * size
+    history_start = max(0, prefix_size - window_size)
+
+    for position in range(history_start, size):
+        key = (padded[position] << 8) | padded[position + 1]
+        candidate = heads[key]
+        previous[position] = candidate
+        heads[key] = position
+
+        maximum_length = min(
+            size - position,
+            MAXIMUM_MATCH_LENGTH,
+        )
+        if (
+            position < prefix_size
+            or maximum_length < min_match_length
+            or candidate < history_start
+        ):
+            continue
+
+        lower_bound = max(history_start, position - window_size)
+        best_distance = 0
+        best_length = 0
+        best_gain = 0
+        maximum_gain = _maximum_gain_upper_bound(maximum_length)
+        chain_remaining = min(max_match_chain, position - lower_bound)
+
+        while (
+            candidate >= lower_bound
+            and chain_remaining > 0
+        ):
+            distance = position - candidate
+            length = 2
+            while (
+                length < maximum_length
+                and data[position + length]
+                == data[candidate + length]
+            ):
+                length += 1
+
+            if length >= min_match_length:
+                gain = length - _compact_match_size(distance, length)
+                if (
+                    gain > best_gain
+                    or (
+                        gain == best_gain
+                        and (
+                            length > best_length
+                            or (
+                                length == best_length
+                                and (
+                                    best_distance == 0
+                                    or distance < best_distance
+                                )
+                            )
+                        )
+                    )
+                ):
+                    best_distance = distance
+                    best_length = length
+                    best_gain = gain
+                    if (
+                        best_gain == maximum_gain
+                        and best_length == maximum_length
+                    ):
+                        break
+
+            candidate = previous[candidate]
+            chain_remaining -= 1
+
+        if best_gain > 0:
+            distances[position] = best_distance
+            lengths[position] = best_length
+            gains[position] = best_gain
+
+    return distances, lengths, gains
+
+
+def _payload_from_match_table(
+    data: bytes,
+    *,
+    distances: array,
+    lengths: array,
+    gains: array,
+    prefix_size: int,
+    lazy_bias: int,
+) -> bytes:
+    """Serialize one deterministic one-byte-lookahead parse."""
+
+    output = bytearray()
+    literal_start = prefix_size
+    match_sequence_start = None
+    pending_matches = []
+    position = prefix_size
+    size = len(data)
+
+    while position < size:
+        distance = int(distances[position])
+        length = int(lengths[position])
+        gain = int(gains[position])
+        use_match = length >= 2 and gain > 0
+
+        if use_match and position + 1 < size:
+            next_gain = int(gains[position + 1])
+            if next_gain > gain + lazy_bias:
+                use_match = False
+
+        if (
+            use_match
+            and not pending_matches
+            and position == literal_start
+        ):
+            # A preserved prefix ends at a complete block boundary. The game
+            # decoder's post-tested literal loop still requires the new block
+            # to begin with at least one literal.
+            use_match = False
+
+        if not use_match:
+            if pending_matches:
+                output.extend(
+                    _encode_block(
+                        data[literal_start:match_sequence_start],
+                        pending_matches,
+                        compact_distance_seed=True,
+                    )
+                )
+                literal_start = position
+                match_sequence_start = None
+                pending_matches = []
+            position += 1
+            continue
+
+        if not pending_matches:
+            match_sequence_start = position
+        pending_matches.append((distance, length))
+        position += length
+
+    if pending_matches:
+        output.extend(
+            _encode_block(
+                data[literal_start:match_sequence_start],
+                pending_matches,
+                compact_distance_seed=True,
+            )
+        )
+    elif literal_start < size:
+        output.extend(_encode_block(data[literal_start:], ()))
+    return bytes(output)
+
+
+def _maximum_payload(
+    data: bytes,
+    *,
+    window_size: int,
+    min_match_length: int,
+    max_match_chain: int,
+    prefix_size: int = 0,
+) -> bytes:
+    """Choose the shortest member of a deliberately expensive parse portfolio.
+
+    ``maximum`` is an engineering name, not a proof of global optimality. It
+    runs one full level-9-style match search ranked by serialized gain, then
+    compares nine one-byte-lookahead biases by their final byte strings.
+    Small payloads also retain the older bounded-greedy portfolio as a
+    regression candidate. Large production payloads omit that redundant
+    pure-Python pass so the independently verified native match-table helper
+    controls the build cost.
+    """
+
+    if not data or prefix_size == len(data):
+        return b""
+    search_chain = max(max_match_chain, MAXIMUM_MATCH_CHAIN)
+    distances, lengths, gains = _maximum_match_table(
+        data,
+        window_size=window_size,
+        min_match_length=min_match_length,
+        max_match_chain=search_chain,
+        prefix_size=prefix_size,
+    )
+    candidates = list(
+        _payload_from_match_table(
+            data,
+            distances=distances,
+            lengths=lengths,
+            gains=gains,
+            prefix_size=prefix_size,
+            lazy_bias=lazy_bias,
+        )
+        for lazy_bias in MAXIMUM_LAZY_BIASES
+    )
+    if len(data) - prefix_size <= MAXIMUM_LEGACY_PORTFOLIO_LIMIT:
+        candidates.append(
+            _size_constrained_payload(
+                data,
+                window_size=window_size,
+                min_match_length=min_match_length,
+                max_match_chain=max_match_chain,
+                prefix_size=prefix_size,
+                lazy_matching=True,
+            )
+        )
+    return min(candidates, key=lambda candidate: (len(candidate), candidate))
+
+
+def _rust_compressor_path() -> Path:
+    project_root = Path(__file__).resolve().parents[2]
+    return (
+        project_root
+        / "work/toolchain/srwz-compressor-rs/target/release/srwz-compress"
+    )
+
+
+def _rust_maximum_payload(
+    data: bytes,
+    *,
+    window_size: int,
+    min_match_length: int,
+    max_match_chain: int,
+    prefix_size: int = 0,
+) -> bytes:
+    """Run the repository-owned Rust payload encoder.
+
+    The process boundary keeps the Rust implementation independent from the
+    Python decoder used as the round-trip oracle. Generated inputs and outputs
+    stay inside the ignored work tree.
+    """
+
+    binary = _rust_compressor_path()
+    if not binary.is_file():
+        raise RuntimeError(
+            "Rust compressor is not built; run "
+            "`python3 tools/build_rust_compressor.py --force`"
+        )
+    project_root = Path(__file__).resolve().parents[2]
+    work_root = project_root / "work"
+    work_root.mkdir(parents=True, exist_ok=True)
+    search_chain = max(max_match_chain, MAXIMUM_MATCH_CHAIN)
+    with tempfile.TemporaryDirectory(
+        prefix="srwz-rust-compressor-",
+        dir=work_root,
+    ) as temporary:
+        temporary_root = Path(temporary)
+        input_path = temporary_root / "decoded.bin"
+        output_path = temporary_root / "payload.bin"
+        input_path.write_bytes(data)
+        completed = subprocess.run(
+            [
+                str(binary),
+                "payload",
+                "--input",
+                str(input_path),
+                "--output",
+                str(output_path),
+                "--window-size",
+                str(window_size),
+                "--prefix-size",
+                str(prefix_size),
+                "--min-match-length",
+                str(min_match_length),
+                "--max-match-chain",
+                str(search_chain),
+            ],
+            check=False,
+            cwd=project_root,
+            capture_output=True,
+            text=True,
+        )
+        if completed.returncode != 0:
+            detail = completed.stderr.strip() or completed.stdout.strip()
+            raise RuntimeError(
+                f"Rust compressor failed with status "
+                f"{completed.returncode}: {detail}"
+            )
+        if not output_path.is_file():
+            raise RuntimeError("Rust compressor did not produce a payload")
+        return output_path.read_bytes()
 
 
 def reencode_changed_suffix(
@@ -357,11 +925,23 @@ def reencode_changed_suffix(
     min_match_length: int = DEFAULT_MIN_MATCH_LENGTH,
     max_match_chain: int = DEFAULT_MAX_MATCH_CHAIN,
     lazy_matching: bool = False,
+    max_output_size: Optional[int] = None,
 ) -> bytes:
     """Preserve complete original blocks before a changed decoded suffix."""
 
-    if strategy not in {"greedy", "literal"}:
-        raise ValueError("suffix strategy must be 'greedy' or 'literal'")
+    if strategy not in {
+        "greedy",
+        "literal",
+        "maximum",
+        "rust-maximum",
+        "size-constrained",
+    }:
+        raise ValueError(
+            "suffix strategy must be 'greedy', 'literal', 'maximum', "
+            "'rust-maximum' or 'size-constrained'"
+        )
+    if max_output_size is not None and max_output_size < 0:
+        raise ValueError("max_output_size must be non-negative")
     source = memoryview(original_stream).cast("B").tobytes()
     replacement = memoryview(modified_output).cast("B").tobytes()
     blocks = []
@@ -385,7 +965,16 @@ def reencode_changed_suffix(
     )
     if first_changed is None:
         if len(replacement) == len(original.output):
-            return source[:original.consumed]
+            encoded = source[:original.consumed]
+            if (
+                max_output_size is not None
+                and len(encoded) > max_output_size
+            ):
+                raise SrwzEncodeError(
+                    f"encoded output size {len(encoded)} exceeds "
+                    f"limit {max_output_size}"
+                )
+            return encoded
         first_changed = min(len(original.output), len(replacement))
 
     header_reader = ByteReader(source)
@@ -427,6 +1016,31 @@ def reencode_changed_suffix(
 
     if strategy == "literal":
         payload = _literal_payload(replacement[output_prefix_size:])
+    elif strategy == "maximum":
+        payload = _maximum_payload(
+            replacement,
+            window_size=int(original.metadata["window_size"]),
+            min_match_length=min_match_length,
+            max_match_chain=max_match_chain,
+            prefix_size=output_prefix_size,
+        )
+    elif strategy == "rust-maximum":
+        payload = _rust_maximum_payload(
+            replacement,
+            window_size=int(original.metadata["window_size"]),
+            min_match_length=min_match_length,
+            max_match_chain=max_match_chain,
+            prefix_size=output_prefix_size,
+        )
+    elif strategy == "size-constrained":
+        payload = _size_constrained_payload(
+            replacement,
+            window_size=int(original.metadata["window_size"]),
+            min_match_length=min_match_length,
+            max_match_chain=max_match_chain,
+            prefix_size=output_prefix_size,
+            lazy_matching=lazy_matching,
+        )
     else:
         payload = _greedy_payload(
             replacement,
@@ -444,6 +1058,11 @@ def reencode_changed_suffix(
     reread = decode(encoded)
     if reread.output != replacement or reread.consumed != len(encoded):
         raise ValueError("suffix re-encode failed its decoded round-trip")
+    if max_output_size is not None and len(encoded) > max_output_size:
+        raise SrwzEncodeError(
+            f"encoded output size {len(encoded)} exceeds "
+            f"limit {max_output_size}"
+        )
     return encoded
 
 
@@ -456,13 +1075,23 @@ def encode(
     header_unknown_1: int = 0,
     min_match_length: int = DEFAULT_MIN_MATCH_LENGTH,
     max_match_chain: int = DEFAULT_MAX_MATCH_CHAIN,
+    max_output_size: Optional[int] = None,
 ) -> bytes:
     """Encode one deterministic SRWZ stream without archive padding.
 
     ``literal`` emits a single literal-only block and is the smallest
-    evidence-dependent baseline. ``greedy`` adds deterministic back-references
-    while using the exact token grammar exercised by the decoder fixtures and
-    original game streams.
+    evidence-dependent baseline. ``greedy`` preserves the original clean-room
+    encoder behavior as a byte-level regression baseline. ``size-constrained``
+    compares bounded greedy parses by their exact serialized size and uses the
+    compact extended-distance seed observed in both the DLL CIL and original
+    game streams. ``maximum`` adds the statically recovered level-9 two-byte
+    hash-chain bound, exact token-gain ranking and a nine-bias lazy portfolio;
+    small payloads also compare the legacy bounded-greedy portfolio. It is not
+    a mathematical optimality claim. Large production payloads deliberately
+    skip the redundant legacy pass to keep offline build time bounded.
+    ``rust-maximum`` uses the repository-owned Rust implementation and keeps
+    this decoder as an independent round-trip oracle. ``max_output_size`` is a
+    hard failure gate, never truncation.
     """
 
     source = memoryview(data).cast("B").tobytes()
@@ -474,6 +1103,8 @@ def encode(
         header_unknown_0=header_unknown_0,
         header_unknown_1=header_unknown_1,
     )
+    if max_output_size is not None and max_output_size < 0:
+        raise ValueError("max_output_size must be non-negative")
     if strategy == "literal":
         payload = _literal_payload(source)
     elif strategy == "greedy":
@@ -483,9 +1114,36 @@ def encode(
             min_match_length=min_match_length,
             max_match_chain=max_match_chain,
         )
+    elif strategy == "size-constrained":
+        payload = _size_constrained_payload(
+            source,
+            window_size=window_size,
+            min_match_length=min_match_length,
+            max_match_chain=max_match_chain,
+        )
+    elif strategy == "maximum":
+        payload = _maximum_payload(
+            source,
+            window_size=window_size,
+            min_match_length=min_match_length,
+            max_match_chain=max_match_chain,
+        )
+    elif strategy == "rust-maximum":
+        payload = _rust_maximum_payload(
+            source,
+            window_size=window_size,
+            min_match_length=min_match_length,
+            max_match_chain=max_match_chain,
+        )
     else:
         raise ValueError(f"unknown encoding strategy: {strategy!r}")
-    return header + payload
+    encoded = header + payload
+    if max_output_size is not None and len(encoded) > max_output_size:
+        raise SrwzEncodeError(
+            f"encoded output size {len(encoded)} exceeds "
+            f"limit {max_output_size}"
+        )
+    return encoded
 
 
 def decode(

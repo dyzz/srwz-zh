@@ -1,8 +1,9 @@
 {
   "schema_version": 1,
-  "status": "passed",
+  "status": "fixed_span_component_validated_runtime_pending",
   "content_policy": "Hashes, sizes, counts, translations and workspace evidence paths only; no game bytes, pixels or texture payloads are committed.",
   "profile_id": "title-menu-zh",
+  "runtime_acceptance": "current Rust-compressed stream not tested",
   "translations": [
     {
       "label_index": 0,
@@ -28,23 +29,20 @@
   "source_ownership": {
     "member": "DATA/VT1.BIN",
     "chunk_index": 6,
+    "stored_start": 10965424,
+    "stored_end": 11433744,
+    "stored_size": 468320,
+    "source_compressed_stream_size": 468312,
+    "decoded_size": 2349392,
     "record_index": 1,
+    "record_offset": 980896,
+    "record_size": 792880,
     "picture_index": 0,
     "width": 512,
     "height": 256,
     "bits_per_pixel": 8,
     "picture_count": 6,
-    "available_index_count": 77,
-    "selected_palette_indexes": {
-      "start": 48,
-      "end_exclusive": 64
-    },
-    "unselected_palette_indexes": {
-      "start": 64,
-      "end_exclusive": 80
-    },
-    "source_runtime_texture_png_sha256": "8e354b9d9c5d4d325cb1368f736a8dd6fa1f1f61558290fbbfaccc63a7a62315",
-    "source_runtime_texture_rgba_sha256": "0853211318e7f4479357d1dafd190374b779cca800286273d1924f8ba33a56c6"
+    "available_index_count": 77
   },
   "render_input": {
     "font": {
@@ -65,11 +63,11 @@
   "component_build": {
     "config": {
       "path": "config/canary/tim2-vt1-title-zh.json",
-      "sha256": "74a28fcc908197e024e743ffda90f54194aa01d0222b77b6249525daf4f67eae"
+      "sha256": "0a9da8a5f86414c0870b9205e9cc829bad9ea361dc45bc55ad922f076d1380cd"
     },
     "report": {
       "workspace_path": "work/build/title-menu-zh/component-validation.json",
-      "sha256": "47631d2454c7d1f098ab5980109f548c5b880e1dd4245570a950df4db3a89b68"
+      "sha256": "c1809338a4bf944a7e840994e4c7c92b8ed7dc21e2e2379500077b3260fcd53b"
     },
     "injection": {
       "changed_pixel_count": 12514,
@@ -82,21 +80,27 @@
       "non_target_decoded_bytes_exact": true
     },
     "codec": {
-      "strategy": "greedy",
-      "encoded_size": 541085,
-      "encoded_sha256": "3e99267734fbe524ccec68f7c2327f8c95fa2ba9eddf614367cccfc21b973aab",
+      "strategy": "rust-maximum",
+      "encoded_size": 463318,
+      "encoded_sha256": "ebda9c0a290504ff87d60d1fbdbe356b1c408b27176875d94a7626103451f224",
+      "maximum_size": 468320,
+      "budget_headroom": 5002,
+      "stored_allocation": 468320,
       "decoded_round_trip_exact": true
     },
     "executable": {
       "member": "SLPS_258.87",
       "size": 3471624,
-      "sha256": "dc4ae75f10f7b1f624f5f42a1a687ebb1f1e80f930bacaeb840ee329dda30b92",
-      "only_vt1_offset_table_changed": true
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+      "source_bytes_exact": true,
+      "vt1_offsets_unchanged": true
     },
     "archive": {
       "member": "DATA/VT1.BIN",
-      "size": 127573504,
-      "sha256": "44ec21f4313f96d0e9fdc4ff0590dd6fe91a98b898783411c96eb44bb9ac4d2d",
+      "size": 127500736,
+      "sha256": "f1fac123539dcb709a283d7f3ebec1c6b9419e1bcfe8d45c8da4ab5ce903086b",
+      "source_size_preserved": true,
+      "all_offsets_unchanged": true,
       "unchanged_chunk_count": 13,
       "target_decoded_round_trip_exact": true
     },
@@ -106,95 +110,21 @@
       "sha256": "19539f6f607aed4fa52b1b99dc003950982e0a7470792dbd9a8b09e596f99d7e"
     }
   },
-  "iso_build": {
-    "config": {
-      "path": "config/iso/title-menu-zh-build.json",
-      "sha256": "6327b8309eda596631361463d0bdf950b5c4b6653b4626dd4625d34ed16131a6"
-    },
-    "report": {
-      "path": "build/iso/title-menu-zh/iso-validation.json",
-      "sha256": "4fbee2b564b9bb9f6a19c8b6f97ba5ee81dd75e3e143c662b6ccf6df6e41c709"
-    },
-    "iso": {
-      "path": "build/iso/title-menu-zh/srwz-title-menu-zh.iso",
-      "size": 3758424064,
-      "sha256": "fdeebb1b86b86f883e5ce8e3ecd3667f3ae665eb82cbe0f191ec133c6c4df1d4"
-    },
-    "member_count": 66,
-    "unchanged_member_count": 64,
-    "member_manifest_sha256": "79778d5315852b3b6221f74334c849146f1b85a4266de0b9aec3db4692c6ded0",
-    "iso9660_member_order_exact": true,
-    "unchanged_member_bytes_exact": true,
-    "replacement_bytes_exact": true,
-    "udf_volume_recognition_sequence": "NSR02",
-    "pcsx2_media_type": "DVD",
-    "byte_reproducible": true
+  "static_acceptance": {
+    "complete_game_compatible_blocks": true,
+    "decoded_output_exact": true,
+    "compressed_stream_within_original_chunk": true,
+    "vt1_member_size_preserved": true,
+    "vt1_offset_table_preserved": true,
+    "later_iso_member_lbas_can_remain_unchanged": true
   },
   "runtime": {
-    "emulator": {
-      "name": "PCSX2",
-      "version": "2.6.3",
-      "architecture": "x86_64",
-      "mode": "nogui fastboot nofullscreen"
-    },
-    "transport": {
-      "protocol": "PINE IPC",
-      "game_title": "Super Robot Taisen Z",
-      "game_id": "SLPS-25887",
-      "status": 0
-    },
-    "disc": {
-      "image_type": "DVD",
-      "game_crc": "32187E3B",
-      "tlb_miss_count": 0
-    },
-    "visual_run": {
-      "log": {
-        "workspace_path": "work/runtime/title-menu-zh/logs/pcsx2-title-menu-zh.log",
-        "sha256": "7d827676811b96d6a92646a4ed5f026d01e87f710ba49b19d0f024b433931217"
-      },
-      "start_selected": {
-        "workspace_path": "work/runtime/title-menu-zh/screenshots/title-start-selected.png",
-        "width": 1280,
-        "height": 960,
-        "sha256": "d89d709079a8c9d11e6bdb9acf8c9f82233a126be825e77246d679d795dbcbf1",
-        "selected_label": "开始",
-        "unselected_labels": [
-          "读取",
-          "继续",
-          "资料库"
-        ]
-      },
-      "library_selected": {
-        "workspace_path": "work/runtime/title-menu-zh/screenshots/title-library-selected.png",
-        "width": 1280,
-        "height": 960,
-        "sha256": "d230553bed3fbe0a83abcb82d09fd9e872f2e744bcf9d226606429c1300c0a88",
-        "selected_label": "资料库",
-        "unselected_labels": [
-          "开始",
-          "读取",
-          "继续"
-        ]
-      },
-      "all_labels_visible": true,
-      "layout_intact": true,
-      "clipping_or_overlap_observed": false
-    },
-    "texture_dump": {
-      "workspace_path": "work/runtime/title-menu-zh/title-menu-texture.png",
-      "width": 512,
-      "height": 256,
-      "png_sha256": "3b0bf32a4960c8d51d12d45725babf5db0cf868e1c0e8438a8c7b78992a60ad1",
-      "rgba_sha256": "19539f6f607aed4fa52b1b99dc003950982e0a7470792dbd9a8b09e596f99d7e",
+    "status": "not_tested_current_rust_stream",
+    "required_next_gate": "PCSX2 title render followed by the character-confirmation to scenario transition",
+    "visual_equivalence_only": {
       "offline_preview_rgba_sha256": "19539f6f607aed4fa52b1b99dc003950982e0a7470792dbd9a8b09e596f99d7e",
-      "offline_runtime_rgba_exact": true
-    },
-    "input_method": "Process-targeted CoreGraphics key events; no Computer Use.",
-    "external_state_restore": {
-      "pcsx2_config_restored_byte_identical": true,
-      "sha256": "25598a063e962638c92b2e8514b2a0c7e5952973de694f3d005b67d998526a35"
+      "matches_previously_observed_title_texture": true,
+      "does_not_prove_current_compressed_stream_runtime": true
     }
-  },
-  "runtime_acceptance": "passed"
+  }
 }

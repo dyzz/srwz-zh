@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Mapping
 
 from .canary import rebuild_archive_with_replacement
-from .codec import decode, encode
+from .codec import decode
 from .iso_layout import (
     CORE_ARCHIVE_SPECS,
     read_executable_archive_offsets,
@@ -294,17 +294,36 @@ def _compose_title_menu(
     if not isinstance(codec, Mapping):
         raise UiIntegrationError("missing UI integration codec")
     strategy = codec.get("strategy")
+    source_strategy = codec.get("source_strategy")
     alignment = codec.get("archive_alignment")
-    if strategy != "greedy" or alignment != 16:
-        raise UiIntegrationError("unsupported UI integration codec")
-    encoded = encode(modified_decoded, strategy=strategy)
-    round_trip = decode(encoded)
+    fixed_allocation = codec.get("fixed_allocation")
     if (
-        round_trip.consumed != len(encoded)
-        or round_trip.output != modified_decoded
+        strategy != "precompressed-fixed-span"
+        or source_strategy != "rust-maximum"
+        or alignment != 16
+        or not isinstance(fixed_allocation, int)
+        or isinstance(fixed_allocation, bool)
+        or fixed_allocation <= 0
+    ):
+        raise UiIntegrationError("unsupported UI integration codec")
+    title_stored = title_vt1[
+        title_offsets[chunk_index] : title_offsets[chunk_index + 1]
+    ]
+    if (
+        len(title_stored) != fixed_allocation
+        or len(title_stored)
+        != world_offsets[chunk_index + 1] - world_offsets[chunk_index]
     ):
         raise UiIntegrationError(
-            "integrated title stream does not decode exactly"
+            "precompressed title chunk does not preserve its allocation"
+        )
+    round_trip = decode(title_stored)
+    if (
+        round_trip.output != modified_decoded
+        or any(title_stored[round_trip.consumed :])
+    ):
+        raise UiIntegrationError(
+            "precompressed title stream does not decode exactly"
         )
 
     rebuilt_vt1, new_offsets, padding_size = (
@@ -312,8 +331,9 @@ def _compose_title_menu(
             world_vt1,
             world_offsets,
             chunk_index=chunk_index,
-            encoded_replacement=encoded,
+            encoded_replacement=title_stored,
             alignment=alignment,
+            minimum_allocation=fixed_allocation,
         )
     )
     unchanged_chunk_count = 0
@@ -380,9 +400,14 @@ def _compose_title_menu(
             for before, after in zip(source_record, localized_record)
         ),
         "preview_rgba_sha256": sha256_bytes(preview_rgba),
-        "encoded_size": len(encoded),
-        "encoded_sha256": sha256_bytes(encoded),
-        "padding_size": padding_size,
+        "codec_strategy": source_strategy,
+        "encoded_size": round_trip.consumed,
+        "encoded_sha256": sha256_bytes(
+            title_stored[: round_trip.consumed]
+        ),
+        "padding_size": len(title_stored) - round_trip.consumed,
+        "rebuild_padding_size": padding_size,
+        "fixed_allocation": fixed_allocation,
         "decoded_round_trip_exact": True,
         "chunk_count": len(world_offsets) - 1,
         "unchanged_chunk_count": unchanged_chunk_count,

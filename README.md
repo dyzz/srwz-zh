@@ -2,6 +2,17 @@
 
 本仓库用于从日文原版开始建立《超级机器人大战 Z》的独立中文化工具链、译文、字体、补丁和验证记录。
 
+当前唯一测试镜像为 `ui-p2-default-names-first-five`：它包含 P2 UI core、
+默认主人公中文名和 STAGE 001～005 剧情，共替换 6 个 ISO 成员；其余 60 个
+成员保持原字节，全部 LBA 不变。精确 ISO SHA-256 为
+`308c2b308df74952730d4206151c781853c976fbfa9259b66fa3c4166b3f2250`；
+PCSX2 v2.6.3 fresh-process 检查已证明 DVD、ELF、PINE Running 和零 TLB。
+P4～P10 及五张隔离 atlas 仍是后续静态分层，不属于该镜像的运行结论。
+增量构建、运行证据和清理规则见
+[`docs/ISO_INCREMENTAL_VALIDATION.md`](docs/ISO_INCREMENTAL_VALIDATION.md)，
+截图证明的已完成范围和待办见
+[`docs/RUNTIME_LOCALIZATION_AUDIT.md`](docs/RUNTIME_LOCALIZATION_AUDIT.md)。
+
 当前状态：clean-room 数据、字库、写回、ISO 和运行验证链已经打通；菜单、
 MTV_PROS 摘要和 STAGE 剧情三类中文 canary 已从正式
 surface/fixture/codebook/profile 生成，并分别通过静态、PCSX2 运行和画面验证。
@@ -9,9 +20,10 @@ surface/fixture/codebook/profile 生成，并分别通过静态、PCSX2 运行�
 独立 fixed-span 组件通过离线回读。COMPDATA 动态名称表也已完成全结构解析，
 并将开场路线 45 个节子／丹泽尔／托比及巴尔戈拉名称字段写入独立组件；
 余下 2,755 个非空字段中，researched 精确源词门已保守筛出 1,262 个
-候选。字库账本复核后确认其中 29 字需要新 allocation，`娅杰艾贾` 四字
-复用原已登记但退役的 code/glyph，另统一重绘 29 个原版汉字；全部 1,262
-个字段现均可由同一 renderer 覆盖，候选槽余 19 个。
+候选。修正可打印 ASCII 审计后，确认其中 24 个汉字需要活跃新 allocation，
+`娅杰艾贾` 四字复用原已登记但退役的 code/glyph，误分配给
+`a/f/h/r/u` 的五槽则退休保留、不重排后续编码；另统一重绘 29 个原版汉字。
+全部 1,262 个字段现均可由同一 renderer 覆盖，候选槽余 19 个。
 MTV_PROS 的 28 条世界史文本也已完成 22 格中文断行、段落空行和定长
 allocation 审计。该布局仍是 28 条 `draft`；相对当前 P0 字库真实缺 41 个字
 （27 个未映射、14 个码表存在但原解析器不可达），三个安全槽仍短缺 38 个。
@@ -32,35 +44,74 @@ PCSX2 逐屏证据。五张已筛 KVMDATA 图集现均有受审
 `KVMDATA.BIN`，65 个其余成员 byte-exact、零 LBA 位移。旧的五张擦除
 mapping canary 继续保留为定位前像证据。五项都尚无截图／texture dump
 双证据，因此全部保持 `runtime_mapping_pending`。
-当前另有一个明确标为测试专用的 P3 综合候选：它在 `ui-p2-core` 之上
-以原 span 写入两个 fresh-boot embedded UI 分区的 23 条决定，再与前五关
-`HB/STAGE` 和五张中文 atlas 组合为 7 个互不重叠的 replacement。23 条中
-11 条为 byte-exact no-op，12 条写入 32 个 target；SLPS 改变 124 字节／35
-段，和既有 P2 core 修改零重叠，VT1、COMPDATA、MTV_PROS 完全沿用 P2。该 DVD
-大小为 3,758,456,832 字节，SHA-256 为
-`cc4575bdc94a71d79c3a40810308d4eb41f8d3f69f1fd40139e63c83fde038c0`；
+测试专用综合候选现已推进到 P10：P3 先在 `ui-p2-core` 上以原 span 晋级两个
+fresh-boot embedded UI 分区的 23 条决定；P4 再以 P3 为精确前像，晋级
+`formation/squad-and-reboard-confirmations` 与
+`information/tactical-status-metrics` 两组幕间／信息页文本。P4 新增 24 条
+决定，其中 6 条为 byte-exact no-op，18 条写入 30 个 target；SLPS 相对 P3
+改变 408 字节／38 段，与 P3 已有修改零重叠。P5 继续选择地图指令尾项、
+行动限制、快捷指令和修理／补给／精神目标四组 38 条决定，其中 5 条 no-op、
+33 条写入 37 个 target；SLPS 相对 P4 改变 1,024 字节／60 段且零重叠。P6
+最后晋级出击小队选择／尺寸筛选组的 16 条决定，其中 13 条 no-op、3 条写入
+3 个 target；SLPS 相对 P5 只改变 44 字节／5 段。P7 再为此前受字库阻塞的
+选项、结算、编成检索、全改造奖励和关卡进度五组新增 `忆显缓网锋页额`
+七个 allocation，并统一重绘 `振滑画符` 四字。六条溢出译文经等义短译后，
+五组 93 条决定全部可在原 span 内覆盖：20 条 no-op、73 条写入 86 个
+target，SLPS 文本变化 969 字节／117 段。字体只替换 VT1 chunk 2，其余
+13 个 chunk 与 P6 byte-exact；字体 offset 与文本写入零重叠。
+P8 最后把地形类型选择、武器选择／使用条件、换乘／选项子页面和强化部件／
+出击前操作四组也纳入写回；七条定长溢出文本先做等义短译，四组 59 条中
+19 条 no-op、40 条写入 47 个 target，SLPS 相对 P7 改变 418 字节／61 段，
+字库及其余三个 UI 成员 byte-exact。至此十八个纯玩家可见分区共 253 条决定
+均已晋级。P9 继续把两个混合组拆到逐条选择：换乘完成、小队、等级、攻击力、
+运动、特殊技能、无可选驾驶员和两项能力标签共 9 条写入 34 个 target，
+SLPS 相对 P8 改变 174 字节／36 段；13 条损坏、NULL 诊断、控制码、独立
+格式片段及未证实的 `Set` 保持原字节。P10 又从 1,250 条大型数据库中筛出
+402 条术语安全且定长可写的核心决定：驾驶员技能 88 条、机体特殊能力
+155 条、精神指令 144 条和小队长能力 15 条。它用最后 12 个
+renderer-addressable 槽补入 `咫垫挡斩框歼药赋赖镜闪－`，统一重绘 14 个
+仍在使用原字形的汉字；232 条 SLPS 与 170 条 COMPDATA 决定全部完成原位
+回读，指针和非目标字节不变，COMPDATA 仅重编码首变点后的压缩后缀。其余
+848 条零件、武器、争议专名和无法容纳“羁绊”的三字节源 allocation 保持
+延期。P10 UI 再与前五关 `HB/STAGE` 和五张中文 atlas 组合为 7 个互不
+重叠的 replacement。该 DVD 大小为 3,758,456,832 字节，SHA-256 为
+`2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431`；
 59 个未替换成员保持原字节，7 个 replacement 均由 UDF 独立回读，LBA
-位移严格保持 `+7/+42` 两段。这仍只是静态容器证据；五张隔离 ISO 继续负责
-场景归因，综合镜像不能替代截图与 texture delta 双门。
+位移严格保持 `+8/+45` 两段。PCSX2 fresh-process 已确认该完整镜像在加入
+COMPDATA 后触发 TLB，不能作为当前运行候选；五张 atlas 的场景归因、截图与
+texture delta 双门也仍然独立。
 原来作为一个整体延期的 275 条 SLPS `Unknown` UI 文本现已进一步拆成
 22 个零遗漏／零重叠的静态屏幕分区：253 条归入 18 个可见界面候选，
 17 条归入两个可见／诊断混合组，5 条归入两个必须先查代码引用的格式或诊断
 组。每组均已绑定真实 target、普通 pointer、embedded HI/LO 所有权以及
 fixture、路线、截图点和断言；这些分区仍需运行归因，尚未自动进入 production
-writer。以当前 P2 字库和原 allocation 预审后，13 组／123 条已整组
-fixed-span ready，其中九个明确可见界面组合计 101 条；其余只涉及六个缺字
-和七条 overflow。两个 fresh-boot 分区的 23 条现已晋级上述 P3 writer 与
-综合 ISO，但运行归因仍为 `not_tested`。
-对应运行范围已整理为 21 个机器可检查用例：
+writer。以当前 P2 字库和原 allocation 预审后，17 组／182 条已整组
+fixed-span ready，其中十三个纯玩家可见界面组合计 160 条；P7 又解决五个
+`font_extension_required` 组的 renderer 与定长门。两个 fresh-boot 分区的
+23 条已由 P3 晋级，另两组幕间／
+信息页的 24 条已由 P4 晋级，四组战场菜单的 38 条已由 P5 晋级，出击选择的
+16 条已由 P6 晋级，五组 93 条受字库阻塞文本已由 P7 晋级，余下四组 59 条
+fixed-span 文本已由 P8 晋级，两个混合组中 9 条可证明的玩家标签再由 P9
+逐条晋级；合计 262 条进入候选，13 条继续排除。运行归因仍为
+`not_tested`。
+对应运行范围已整理为 46 个机器可检查用例：
 14 类基础场景完整分成 10 类当前目标和 4 类显式延期，另以哈希锁定的
-scene extension 选择两个 P3 fresh-boot 分区，共 16 类／12 类当前目标；
-矩阵绑定 6 张精确 ISO
-（1 张综合候选加 5 张隔离 atlas）、
-46 个截图点、6 个开场／滚动序列与 5 个 texture delta；目前六份原生
-memory card 尚未取得，21 个用例均保持 `not_tested`。六个 fresh-boot
-用例已具备可直接生成的精确 case plan；统一 verifier 会把 ISO、PINE、
-日志、截图／序列、断言和 atlas RGBA delta 收敛为 hash-only receipt，但
-当前尚无 receipt 通过。
+scene extension 选择十八个整组分区、两个逐条子集和四个数据库核心家族，
+共 38 类／34 类当前目标；
+矩阵绑定 7 个制品 profile：可运行的非 COMPDATA 综合候选、明确阻塞的完整
+COMPDATA 候选，以及 5 个在可运行综合 ISO 上保持独立 mapping manifest 的
+atlas profile；共计划 112 个截图点、6 个开场／滚动序列与 5 个 texture
+delta。目前标题主菜单已在精确非 COMPDATA ISO 上通过 fresh-process
+PINE／日志和两张 1280×960 截图验收；其余 45 个用例仍为 `not_tested`。
+当前另有 4 个 fresh-boot 用例可直接执行，34 个用例等待六类当前有效的原生
+memory card，7 个 COMPDATA 所有权用例由已复现的 TLB 阻塞；第七类路线分支
+存档只有在该阻塞解除后才会解锁用例。统一 verifier 会把
+ISO、PINE、日志、截图／序列、断言和 atlas RGBA delta 收敛为 hash-only
+receipt。P4 两个用例需要原生 `first-intermission-card`，
+P5 及 P8 的战场用例需要原生 `first-battle-card`，P6～P10 还需要
+`pre-results-card`、`first-five-progress-card` 与新增
+`full-upgrade-card`；四个 P10 数据库用例另依赖 `first-intermission-card`，
+因此相关路线暂列 `missing_fixture`。
 尚未生成或发布正式游戏补丁。
 
 翻译生产已进入 v1：28 条世界历史摘要、全部 2,415 条菜单文本、558 条剧情
@@ -128,7 +179,9 @@ CLUT fixture。当前已实现严格原位、保留既有 CLUT 的 4-bpp 注入�
 - VT1 字体段的 `24×24/4-bpp` glyph 读写，以及 3,704 项经原版 SLPS
   普通/扩展分支验证的 code→glyph 映射；
 - 94,189 条稳定语料导出、严格文本序列化和带前像/所有者/边界检查的写回原语；
-- 确定性的 clean-room 压缩编码器，已在 232 条真实可解码流上全部往返成功。
+- 确定性的 clean-room 压缩编码器，已在 232 条真实可解码流上全部往返成功；
+  另有离线 `maximum` 组合，用上游 native compressor 的静态规格和真实
+  序列化成本压缩受影响后缀。
 - 固定官方 MIT armips 源码的 macOS 原生可重复构建，以及逐写入所有者、原始
   字节摘要、允许区间和显式覆盖校验的二进制补丁审计。
 - 不改运行时代码的两字简体中文静态 canary：使用原版普通 glyph 路径和两个
@@ -137,7 +190,7 @@ CLUT fixture。当前已实现严格原位、保留既有 CLUT 的 4-bpp 注入�
 
 STAGE 205 块和 MTV_PROS 14 块也已完成内存归档重建与 decoded 往返；
 MTV_PROS 定长 writer、STAGE allocation/pointer writer 和保留原流前缀的
-suffix 重编码已经进入完整 canary 构建。四张 UDF/ISO9660 镜像均保持原盘
+suffix 重编码已经进入完整 canary 构建。六张 UDF/ISO9660 镜像均保持原盘
 3,758,358,528-byte 大小和原成员 LBA；PCSX2/PINE 已确认游戏内完整解压字库，
 三条独立 fixture 分别显示菜单 `测试`、世界史 `测试。` 和 Denzel 的两行增长
 文本，且日志均无 TLB miss。完整组合镜像还通过菜单、摘要和剧情加载 smoke。
@@ -199,7 +252,9 @@ python3 tools/verify_codec_samples.py
 
 第一条命令只通过 `7z` 提取明确指定的 ISO 成员；第二条命令依据 `config/stage-offsets.json` 做 byte-range 切分。所有输出都在被 Git 忽略的 `work/` 下。
 
-上游资源评估见 `docs/UPSTREAM_REUSE.md`，压缩格式研究边界见 `docs/SRWZ_COMPRESSION.md`。
+上游资源评估见 `docs/UPSTREAM_REUSE.md`，压缩格式研究边界见
+`docs/SRWZ_COMPRESSION.md`，native level-9 恢复见
+`docs/SRWZ_COMPRESS_TOOL_STATIC_ANALYSIS.md`。
 完整数据覆盖和上游对照见 `docs/SRWZ_DATA_PARSING.md`。
 图片资源、地图名和复杂字体边界见 `docs/ASSET_ANALYSIS.md`。
 

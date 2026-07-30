@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/ui-writeback/ui-p2-display-names.json",
-      "sha256": "4fa4ab509ed69e1cd087124e8d3ce4a5aabbce43c39236b5bbccaf4f961fc0c1"
+      "sha256": "1b99a37db372582dfb762de9b7332e0ea1d9effc17584163f9d6aa699329d891"
     },
     "structure": {
       "config": {
@@ -46,11 +46,11 @@
       "researched_coverage": {
         "config": {
           "path": "config/display-names/researched-coverage.json",
-          "sha256": "dc394660ed492409cb1a53a6ec952fc4776f4bc26ca99199035e52f89aa7f1f1"
+          "sha256": "20bec4b8a79d212165e55ff8831eef8e19ba1807db7538bc781b8b47f5b9b347"
         },
         "manifest": {
           "path": "manifests/display-name-researched-coverage.json",
-          "sha256": "e6739b55170e96a8bf86433054f91446b88987ac69f7b709ffb1db82e53c2973",
+          "sha256": "e68851488a4d28e7c4ab867c522c9cc663dd9bb02a991acbef0d09194ec229be",
           "status": "researched_selection_ready"
         },
         "selection_id": "srwz-display-names-researched-v1",
@@ -90,7 +90,7 @@
     ],
     "font_manifest": {
       "path": "manifests/ui-p2-display-name-font-validation.json",
-      "sha256": "6619a16279c73b91ae29351aba30b82d57512045621ed4f020d970a83614af98"
+      "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc"
     },
     "codebook": {
       "base_codebook": {
@@ -99,18 +99,18 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
-        "sha256": "1a586ce5930a04e5f1b2609d5eded9dea4879e580b75c478576bbca623eb8d60"
+        "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b"
       },
-      "override_count": 1610
+      "override_count": 1605
     },
     "base_component": {
       "config": {
         "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
-        "sha256": "d116c7e9c08acc7a7a71fa9cbf702bdb1c58d257203890f8261fdb9344cf50c9"
+        "sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43"
       },
       "manifest": {
         "path": "manifests/ui-p0-fixed-compdata-validation.json",
-        "sha256": "d22eb94364d3ed39aab8caeb0d3de092f9df4ec7965fb22faee52fe86680803d"
+        "sha256": "6fcadb76f10aa866465c382d171f1a596824c1357750a1ed01d199eb0f4f3bf8"
       },
       "compressed_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d",
       "decoded_sha256": "8e1d9a25a33ac445b53b9bbb789f3ece940043276436f45917575c93783754ea",
@@ -221,7 +221,7 @@
       "display-name/pilot/0754/given",
       "display-name/unit/0304/name"
     ],
-    "selected_metadata_sha256": "315cbba9afa3b0668471e2ab9de2eb5694b39569b6f08e1c9b81a961bd54c5fa",
+    "selected_metadata_sha256": "949a360193b04ca38a6277d9c95611f703ad30e19709725018a1e37628a77a62",
     "entries": [
       {
         "id": "display-name/pilot/0001/display",
@@ -17207,7 +17207,7 @@
         "target_offset": 451344,
         "capacity": 16,
         "source_encoded_size": 13,
-        "output_encoded_size": 15,
+        "output_encoded_size": 14,
         "source_text_sha256": "86c4c81a9ed0ae719ef3af1e0ceaa698200bab1f8f764e43f84df24fae43d161",
         "translation_sha256": "ed2a4c8f94132122ba62d4d2097f20fd6bbcc1f6a07630b4a96367341512c6f5",
         "pointer_record_indices": [
@@ -17224,7 +17224,7 @@
         "target_offset": 451360,
         "capacity": 32,
         "source_encoded_size": 27,
-        "output_encoded_size": 31,
+        "output_encoded_size": 28,
         "source_text_sha256": "eec14e6ac18f64f37cb02e7191fa9bb975f0a3e636741717563b45ad02371146",
         "translation_sha256": "fd783cbcef705cd08e59f9548f5f80979c63520b2255a1e5b6b021368da85f18",
         "pointer_record_indices": [
@@ -17239,7 +17239,7 @@
         "target_offset": 451392,
         "capacity": 16,
         "source_encoded_size": 13,
-        "output_encoded_size": 15,
+        "output_encoded_size": 13,
         "source_text_sha256": "ec538a91787a453989084d69910e0efa67f7f128c193d811772339040f039a04",
         "translation_sha256": "7d4c51818281883daa477ab74b986825f4d0f2a9fca2dfa56ab9a5169f1f8500",
         "pointer_record_indices": [
@@ -17255,7 +17255,7 @@
         "target_offset": 451552,
         "capacity": 24,
         "source_encoded_size": 19,
-        "output_encoded_size": 23,
+        "output_encoded_size": 21,
         "source_text_sha256": "6289a1d5b0096b8d7bd1594994249b0a5f114315b5fafe6b8d63e51f4ca352db",
         "translation_sha256": "7f2d5f0c666289addaba98fa63e75242793012f4d83f7bcbe54416ccb148d43b",
         "pointer_record_indices": [
@@ -17307,7 +17307,7 @@
         "target_offset": 452928,
         "capacity": 32,
         "source_encoded_size": 31,
-        "output_encoded_size": 25,
+        "output_encoded_size": 24,
         "source_text_sha256": "ba654e871c707a4c10eb1228bf972fd91e9292379e4155a060247cbb01065fa0",
         "translation_sha256": "25bc2ff7762dbad1d696195fe987ecab647b9ede8be39e16d0db2a17dfc7e378",
         "pointer_record_indices": [
@@ -17392,9 +17392,9 @@
   "write": {
     "operation_count": 1213,
     "owned_capacity": 26598,
-    "changed_byte_count": 8516,
-    "difference_range_count": 1363,
-    "patch_plan_metadata_sha256": "b7729db39bc2161e916929fd7343e5d55a8bd25a01be142023d01be825bbf356",
+    "changed_byte_count": 8507,
+    "difference_range_count": 1364,
+    "patch_plan_metadata_sha256": "49a06901aeb94cec904173266b05fa2a2d05dfa1009a7f1ac887526833773687",
     "unit_pointer_site_byte_count": 3232,
     "pilot_id_byte_count": 1866,
     "pointer_bytes_unchanged": true,
@@ -17405,19 +17405,25 @@
   "decoded_component": {
     "size": 524032,
     "base_sha256": "8e1d9a25a33ac445b53b9bbb789f3ece940043276436f45917575c93783754ea",
-    "output_sha256": "bf7c0f00235292ca9f2cc19c9a4808d245a2cf13d48361c311a349a023ac0fa1"
+    "output_sha256": "ad7894981e59748623141a0d625958f84fdca53d63cbf74e2dc61b02e86d3de2"
   },
   "compressed_component": {
     "base_size": 147050,
-    "output_size": 159693,
-    "size_delta_from_base": 12643,
+    "output_size": 144485,
+    "size_delta_from_base": -2565,
     "base_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d",
-    "output_sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f",
+    "output_sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405",
     "preserved_base_prefix_size": 4015,
-    "strategy": "greedy",
-    "min_match_length": 4,
-    "max_match_chain": 256,
+    "strategy": "rust-maximum",
+    "min_match_length": 2,
+    "max_match_chain": 65535,
     "lazy_matching": true,
+    "maximum_output_size": 145408,
+    "sector_size": 2048,
+    "maximum_sectors": 71,
+    "sector_count": 71,
+    "within_sector_budget": true,
+    "budget_headroom": 923,
     "flags_preserved": true,
     "decoded_round_trip_exact": true,
     "fully_consumed": true

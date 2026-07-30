@@ -29,6 +29,7 @@ _PURPOSES = {
     "asset_mapping",
 }
 _RUNTIME_STATUSES = {"not_tested", "passed"}
+_ARTIFACT_AVAILABILITY = {"runnable", "blocked_runtime"}
 _COMMON_EVIDENCE = {
     "artifact_manifest_sha256",
     "iso_sha256",
@@ -188,6 +189,11 @@ def _locked_artifacts(
                 f"{actual_manifest_sha256} != {manifest_sha256}"
             )
         manifest = _json_object(manifest_path)
+        availability = raw.get("availability")
+        if availability not in _ARTIFACT_AVAILABILITY:
+            raise UiRuntimeMatrixError(
+                f"artifact {artifact_id} availability is invalid"
+            )
 
         status_lock = raw.get("status_lock")
         runtime_lock = raw.get("runtime_lock")
@@ -216,18 +222,40 @@ def _locked_artifacts(
                 f"{runtime_status!r}"
             )
 
+        iso_manifest = manifest
+        iso_manifest_path = manifest_path
+        iso_manifest_sha256 = manifest_sha256
+        raw_iso_manifest = iso_lock.get("source_manifest")
+        raw_iso_manifest_sha256 = iso_lock.get("source_manifest_sha256")
+        if raw_iso_manifest is not None or raw_iso_manifest_sha256 is not None:
+            iso_manifest_path = _project_path(
+                project_root,
+                raw_iso_manifest,
+                context=f"artifact {artifact_id} ISO source manifest",
+                prefix="manifests",
+            )
+            iso_manifest_sha256 = _require_sha256(
+                raw_iso_manifest_sha256,
+                context=f"artifact {artifact_id} ISO source manifest hash",
+            )
+            if _sha256(iso_manifest_path) != iso_manifest_sha256:
+                raise UiRuntimeMatrixError(
+                    f"artifact {artifact_id} ISO source manifest hash drift"
+                )
+            iso_manifest = _json_object(iso_manifest_path)
+
         actual_iso_path = _field(
-            manifest,
+            iso_manifest,
             iso_lock.get("path_field"),
             context=f"artifact {artifact_id} ISO path",
         )
         actual_iso_size = _field(
-            manifest,
+            iso_manifest,
             iso_lock.get("size_field"),
             context=f"artifact {artifact_id} ISO size",
         )
         actual_iso_sha256 = _field(
-            manifest,
+            iso_manifest,
             iso_lock.get("sha256_field"),
             context=f"artifact {artifact_id} ISO hash",
         )
@@ -305,9 +333,16 @@ def _locked_artifacts(
                 "manifest_sha256": manifest_sha256,
                 "status": status,
                 "runtime_status": runtime_status,
+                "availability": availability,
                 "iso_path": actual_iso_path,
                 "iso_size": actual_iso_size,
                 "iso_sha256": actual_iso_sha256,
+                "iso_source_manifest": {
+                    "path": str(
+                        iso_manifest_path.relative_to(project_root.resolve())
+                    ),
+                    "sha256": iso_manifest_sha256,
+                },
                 "mapping": mapping_projection,
             }
         )
@@ -371,6 +406,23 @@ def _locked_scene_extensions(
             raise UiRuntimeMatrixError(
                 f"scene extension {extension_id} status drift: {status!r}"
             )
+        if raw.get("extension_kind") == "database_selection":
+            (
+                projected_extension,
+                projected_database_scenes,
+            ) = _locked_database_scene_extension(
+                project_root,
+                raw,
+                manifest_path=manifest_path,
+                manifest_sha256=manifest_sha256,
+                manifest=manifest,
+                status=status,
+                base_scenes=base_scenes,
+                extension_scenes=extension_scenes,
+            )
+            extension_scenes.update(projected_database_scenes)
+            extensions.append(projected_extension)
+            continue
         parent_scene_id = raw.get("parent_scene_id")
         if parent_scene_id not in base_scenes:
             raise UiRuntimeMatrixError(
@@ -381,13 +433,57 @@ def _locked_scene_extensions(
             raise UiRuntimeMatrixError(
                 f"scene extension {extension_id} priority does not match its parent"
             )
-        selected_scene_ids = _string_list(
-            raw.get("selected_scene_ids"),
-            context=f"scene extension {extension_id} selected_scene_ids",
-        )
+        raw_selected_scene_ids = raw.get("selected_scene_ids", [])
+        if (
+            not isinstance(raw_selected_scene_ids, list)
+            or any(
+                not isinstance(scene_id, str) or not scene_id
+                for scene_id in raw_selected_scene_ids
+            )
+        ):
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} selected_scene_ids "
+                "must be a string array"
+            )
+        selected_scene_ids = tuple(raw_selected_scene_ids)
         if len(selected_scene_ids) != len(set(selected_scene_ids)):
             raise UiRuntimeMatrixError(
                 f"scene extension {extension_id} selected scenes are duplicated"
+            )
+        raw_entry_subsets = raw.get("selected_entry_subsets", [])
+        if not isinstance(raw_entry_subsets, list) or any(
+            not isinstance(subset, dict) for subset in raw_entry_subsets
+        ):
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} entry subsets are invalid"
+            )
+        if not selected_scene_ids and not raw_entry_subsets:
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} selects no scenes"
+            )
+        subset_scene_ids = [
+            subset.get("scene_id") for subset in raw_entry_subsets
+        ]
+        if (
+            any(
+                not isinstance(scene_id, str) or not scene_id
+                for scene_id in subset_scene_ids
+            )
+            or len(subset_scene_ids) != len(set(subset_scene_ids))
+        ):
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} subset scene IDs are invalid"
+            )
+        subset_source_scene_ids = [
+            subset.get("source_scene_id")
+            for subset in raw_entry_subsets
+        ]
+        if any(
+            not isinstance(scene_id, str) or not scene_id
+            for scene_id in subset_source_scene_ids
+        ):
+            raise UiRuntimeMatrixError(
+                f"scene extension {extension_id} subset sources are invalid"
             )
         raw_groups = manifest.get("groups")
         if not isinstance(raw_groups, list):
@@ -401,11 +497,99 @@ def _locked_scene_extensions(
             and isinstance(group.get("scene_id"), str)
             and group.get("scene_id")
         }
-        missing = sorted(set(selected_scene_ids) - set(groups))
+        missing = sorted(
+            (
+                set(selected_scene_ids)
+                | set(subset_source_scene_ids)
+            )
+            - set(groups)
+        )
         if missing:
             raise UiRuntimeMatrixError(
                 f"scene extension {extension_id} scenes are absent: {missing!r}"
             )
+        promotion_reference = raw.get("promotion_manifest")
+        promotion = None
+        promoted_scenes: dict[str, dict] = {}
+        promoted_entry_subsets: dict[str, dict] = {}
+        if promotion_reference is not None:
+            if not isinstance(promotion_reference, dict):
+                raise UiRuntimeMatrixError(
+                    f"scene extension {extension_id} promotion manifest is invalid"
+                )
+            promotion_path = _project_path(
+                project_root,
+                promotion_reference.get("path"),
+                context=f"scene extension {extension_id} promotion manifest",
+                prefix="manifests",
+            )
+            promotion_sha256 = _require_sha256(
+                promotion_reference.get("sha256"),
+                context=(
+                    f"scene extension {extension_id} promotion manifest hash"
+                ),
+            )
+            if _sha256(promotion_path) != promotion_sha256:
+                raise UiRuntimeMatrixError(
+                    f"scene extension {extension_id} promotion manifest "
+                    "SHA-256 drift"
+                )
+            promotion_document = _json_object(promotion_path)
+            if (
+                promotion_document.get("profile_id")
+                != promotion_reference.get("required_profile_id")
+                or promotion_document.get("status")
+                != promotion_reference.get("required_status")
+                or promotion_document.get("runtime", {}).get("status")
+                != promotion_reference.get("required_runtime_status")
+                or not promotion_document.get("acceptance", {}).get(
+                    "all_selected_entries_covered"
+                )
+                or promotion_document.get("selection", {}).get(
+                    "excluded_entry_count"
+                )
+                != 0
+                or promotion_document.get("inputs", {})
+                .get("scene_map", {})
+                .get("manifest", {})
+                .get("sha256")
+                != manifest_sha256
+            ):
+                raise UiRuntimeMatrixError(
+                    f"scene extension {extension_id} promotion manifest drift"
+                )
+            raw_promoted_scenes = promotion_document.get(
+                "selection",
+                {},
+            ).get("scenes")
+            if not isinstance(raw_promoted_scenes, list):
+                raise UiRuntimeMatrixError(
+                    f"scene extension {extension_id} promotion scenes are invalid"
+                )
+            promoted_scenes = {
+                scene.get("scene_id"): scene
+                for scene in raw_promoted_scenes
+                if isinstance(scene, dict)
+                and isinstance(scene.get("scene_id"), str)
+                and scene.get("scene_id")
+            }
+            promoted_entry_subsets = {
+                scene.get("runtime_scene_id"): scene
+                for scene in raw_promoted_scenes
+                if isinstance(scene, dict)
+                and scene.get("selection_mode") == "entry_subset"
+                and isinstance(scene.get("runtime_scene_id"), str)
+                and scene.get("runtime_scene_id")
+            }
+            promotion = {
+                "path": str(promotion_path.relative_to(project_root.resolve())),
+                "sha256": promotion_sha256,
+                "profile_id": promotion_document["profile_id"],
+                "status": promotion_document["status"],
+                "runtime_status": promotion_document["runtime"]["status"],
+                "scene_count": len(promoted_scenes),
+                "entry_count": promotion_document["selection"]["entry_count"],
+            }
         projected_scenes = []
         for scene_id in selected_scene_ids:
             if scene_id in base_scenes or scene_id in extension_scenes:
@@ -414,12 +598,24 @@ def _locked_scene_extensions(
                 )
             group = groups[scene_id]
             readiness = group.get("writeback_readiness")
+            directly_ready = (
+                isinstance(readiness, dict)
+                and readiness.get("status") == "fixed_span_ready"
+                and readiness.get("excluded_entry_count") == 0
+            )
+            promoted_scene = promoted_scenes.get(scene_id)
+            promotion_ready = (
+                isinstance(readiness, dict)
+                and isinstance(promoted_scene, dict)
+                and promoted_scene.get("entry_count") == group.get("entry_count")
+                and promoted_scene.get("readiness_status")
+                == readiness.get("status")
+                and promoted_scene.get("runtime_status") == "not_tested"
+            )
             if (
                 group.get("classification") != "user_facing_candidate"
                 or group.get("runtime_status") != "not_tested"
-                or not isinstance(readiness, dict)
-                or readiness.get("status") != "fixed_span_ready"
-                or readiness.get("excluded_entry_count") != 0
+                or not (directly_ready or promotion_ready)
             ):
                 raise UiRuntimeMatrixError(
                     f"scene extension {scene_id} is not promotion-ready"
@@ -449,7 +645,88 @@ def _locked_scene_extensions(
                     "entry_count": entry_count,
                     "fixture_id": fixture_id,
                     "runtime_status": group["runtime_status"],
-                    "writeback_readiness": readiness["status"],
+                    "writeback_readiness": (
+                        "fixed_span_ready"
+                        if directly_ready
+                        else "font_extension_resolved_by_component"
+                    ),
+                }
+            )
+        for raw_subset in raw_entry_subsets:
+            scene_id = raw_subset["scene_id"]
+            source_scene_id = raw_subset["source_scene_id"]
+            if scene_id in base_scenes or scene_id in extension_scenes:
+                raise UiRuntimeMatrixError(
+                    f"scene extension scene is duplicated: {scene_id}"
+                )
+            group = groups[source_scene_id]
+            readiness = group.get("writeback_readiness")
+            promoted_subset = promoted_entry_subsets.get(scene_id)
+            entry_count = raw_subset.get("entry_count")
+            entry_ids_sha256 = _require_sha256(
+                raw_subset.get("entry_ids_sha256"),
+                context=(
+                    f"scene extension {extension_id} subset {scene_id} "
+                    "entry hash"
+                ),
+            )
+            fixture_id = group.get("fixture_id")
+            if (
+                promotion is None
+                or group.get("classification")
+                != "mixed_user_and_diagnostic"
+                or group.get("runtime_status") != "not_tested"
+                or not isinstance(readiness, dict)
+                or readiness.get("status") != "fixed_span_ready"
+                or readiness.get("excluded_entry_count") != 0
+                or not isinstance(promoted_subset, dict)
+                or promoted_subset.get("scene_id") != source_scene_id
+                or promoted_subset.get("selection_mode")
+                != "entry_subset"
+                or promoted_subset.get("entry_count") != entry_count
+                or promoted_subset.get("entry_ids_sha256")
+                != entry_ids_sha256
+                or promoted_subset.get("source_group_entry_count")
+                != group.get("entry_count")
+                or promoted_subset.get("source_group_entry_ids_sha256")
+                != group.get("entry_ids_sha256")
+                or promoted_subset.get("readiness_status")
+                != readiness.get("status")
+                or promoted_subset.get("runtime_status") != "not_tested"
+            ):
+                raise UiRuntimeMatrixError(
+                    f"scene extension subset {scene_id} is not promotion-ready"
+                )
+            if (
+                not isinstance(entry_count, int)
+                or isinstance(entry_count, bool)
+                or entry_count <= 0
+                or entry_count >= group.get("entry_count", 0)
+                or not isinstance(fixture_id, str)
+                or not fixture_id
+            ):
+                raise UiRuntimeMatrixError(
+                    f"scene extension subset {scene_id} projection is invalid"
+                )
+            extension_scenes[scene_id] = {
+                "scene_id": scene_id,
+                "priority": priority,
+                "parent_scene_id": parent_scene_id,
+                "source_scene_id": source_scene_id,
+                "entry_count": entry_count,
+                "fixture_id": fixture_id,
+            }
+            projected_scenes.append(
+                {
+                    "scene_id": scene_id,
+                    "source_scene_id": source_scene_id,
+                    "entry_count": entry_count,
+                    "entry_ids_sha256": entry_ids_sha256,
+                    "fixture_id": fixture_id,
+                    "runtime_status": group["runtime_status"],
+                    "writeback_readiness": (
+                        "entry_subset_fixed_span_ready"
+                    ),
                 }
             )
         aggregate_entry_count = manifest.get("summary", {}).get(
@@ -488,9 +765,252 @@ def _locked_scene_extensions(
                     aggregate_entry_count - promoted_entry_count
                 ),
                 "scenes": projected_scenes,
+                **(
+                    {"promotion_manifest": promotion}
+                    if promotion is not None
+                    else {}
+                ),
             }
         )
     return tuple(extensions), extension_scenes
+
+
+def _locked_database_scene_extension(
+    project_root: Path,
+    raw: Mapping[str, object],
+    *,
+    manifest_path: Path,
+    manifest_sha256: str,
+    manifest: Mapping[str, object],
+    status: object,
+    base_scenes: Mapping[str, Mapping[str, object]],
+    extension_scenes: Mapping[str, Mapping[str, object]],
+) -> tuple[dict, dict[str, dict]]:
+    """Project a reviewed database selection into bounded runtime scenes."""
+
+    extension_id = raw["extension_id"]
+    selection_id = raw.get("selection_id")
+    if manifest.get("selection_id") != selection_id:
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} selection ID drift"
+        )
+    parent_scene_id = raw.get("parent_scene_id")
+    if parent_scene_id not in base_scenes:
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} parent is unknown"
+        )
+    parent = base_scenes[parent_scene_id]
+    priority = raw.get("priority")
+    if (
+        parent.get("priority") != raw.get("parent_priority")
+        or priority != "P1"
+        or parent.get("priority") != "P2"
+        or not isinstance(raw.get("priority_override_reason"), str)
+        or not raw["priority_override_reason"]
+    ):
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} priority override is invalid"
+        )
+    fixture_id = raw.get("fixture_id")
+    if not isinstance(fixture_id, str) or not fixture_id:
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} fixture is invalid"
+        )
+
+    selection = manifest.get("selection")
+    if not isinstance(selection, Mapping):
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} selection is invalid"
+        )
+    families = selection.get("families")
+    if not isinstance(families, list) or not families:
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} families are invalid"
+        )
+    selected_scene_ids = raw.get("selected_family_scene_ids")
+    if (
+        not isinstance(selected_scene_ids, list)
+        or not selected_scene_ids
+        or any(
+            not isinstance(scene_id, str) or not scene_id
+            for scene_id in selected_scene_ids
+        )
+        or len(selected_scene_ids) != len(set(selected_scene_ids))
+    ):
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} family scenes are invalid"
+        )
+    families_by_scene = {
+        family.get("runtime_scene_id"): family
+        for family in families
+        if isinstance(family, Mapping)
+        and isinstance(family.get("runtime_scene_id"), str)
+        and family.get("runtime_scene_id")
+    }
+    if set(selected_scene_ids) != set(families_by_scene):
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} does not select every family"
+        )
+
+    promotion_reference = raw.get("promotion_manifest")
+    if not isinstance(promotion_reference, Mapping):
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} promotion manifest is invalid"
+        )
+    promotion_path = _project_path(
+        project_root,
+        promotion_reference.get("path"),
+        context=f"scene extension {extension_id} promotion manifest",
+        prefix="manifests",
+    )
+    promotion_sha256 = _require_sha256(
+        promotion_reference.get("sha256"),
+        context=f"scene extension {extension_id} promotion manifest hash",
+    )
+    if _sha256(promotion_path) != promotion_sha256:
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} promotion manifest SHA-256 drift"
+        )
+    promotion = _json_object(promotion_path)
+    promotion_selection = promotion.get("selection")
+    promotion_acceptance = promotion.get("acceptance")
+    bound_selection = (
+        promotion.get("inputs", {})
+        .get("database_selection", {})
+        .get("manifest", {})
+        .get("sha256")
+    )
+    if (
+        promotion.get("profile_id")
+        != promotion_reference.get("required_profile_id")
+        or promotion.get("status")
+        != promotion_reference.get("required_status")
+        or promotion.get("runtime", {}).get("status")
+        != promotion_reference.get("required_runtime_status")
+        or bound_selection != manifest_sha256
+        or not isinstance(promotion_selection, Mapping)
+        or not isinstance(promotion_acceptance, Mapping)
+        or not promotion_acceptance.get(
+            "all_402_selected_entries_fixed_span_covered"
+        )
+        or not promotion_acceptance.get(
+            "selected_targets_reread_exact"
+        )
+        or promotion_selection.get("entry_count")
+        != selection.get("selected_entry_count")
+        or promotion_selection.get("deferred_entry_count")
+        != selection.get("deferred_entry_count")
+    ):
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} promotion manifest drift"
+        )
+    promoted_families = {
+        family.get("runtime_scene_id"): family
+        for family in promotion_selection.get("families", [])
+        if isinstance(family, Mapping)
+        and isinstance(family.get("runtime_scene_id"), str)
+        and family.get("runtime_scene_id")
+    }
+
+    projected_scenes = []
+    projected_scene_map = {}
+    for scene_id in selected_scene_ids:
+        if scene_id in base_scenes or scene_id in extension_scenes:
+            raise UiRuntimeMatrixError(
+                f"scene extension scene is duplicated: {scene_id}"
+            )
+        family = families_by_scene[scene_id]
+        promoted_family = promoted_families.get(scene_id)
+        entry_count = family.get("entry_count")
+        entry_ids_sha256 = _require_sha256(
+            family.get("entry_ids_sha256"),
+            context=(
+                f"scene extension {extension_id} family {scene_id} entry hash"
+            ),
+        )
+        if (
+            not isinstance(entry_count, int)
+            or isinstance(entry_count, bool)
+            or entry_count <= 0
+            or not isinstance(promoted_family, Mapping)
+            or promoted_family.get("family_id") != family.get("family_id")
+            or promoted_family.get("entry_count") != entry_count
+            or promoted_family.get("entry_ids_sha256")
+            != entry_ids_sha256
+        ):
+            raise UiRuntimeMatrixError(
+                f"scene extension family {scene_id} is not promotion-ready"
+            )
+        projected_scene_map[scene_id] = {
+            "scene_id": scene_id,
+            "priority": priority,
+            "parent_scene_id": parent_scene_id,
+            "entry_count": entry_count,
+            "fixture_id": fixture_id,
+        }
+        projected_scenes.append(
+            {
+                "scene_id": scene_id,
+                "family_id": family["family_id"],
+                "label": family.get("label"),
+                "entry_count": entry_count,
+                "entry_ids_sha256": entry_ids_sha256,
+                "fixture_id": fixture_id,
+                "runtime_status": "not_tested",
+                "writeback_readiness": (
+                    "fixed_span_and_font_extension_resolved_by_component"
+                ),
+            }
+        )
+
+    aggregate_entry_count = parent.get("expected_selected_entry_count")
+    promoted_entry_count = sum(
+        scene["entry_count"] for scene in projected_scenes
+    )
+    deferred_entry_count = selection.get("deferred_entry_count")
+    if (
+        not isinstance(aggregate_entry_count, int)
+        or isinstance(aggregate_entry_count, bool)
+        or promoted_entry_count != selection.get("selected_entry_count")
+        or deferred_entry_count != aggregate_entry_count - promoted_entry_count
+        or deferred_entry_count <= 0
+    ):
+        raise UiRuntimeMatrixError(
+            f"scene extension {extension_id} aggregate count drift"
+        )
+    return (
+        {
+            "extension_id": extension_id,
+            "extension_kind": "database_selection",
+            "manifest": str(
+                manifest_path.relative_to(project_root.resolve())
+            ),
+            "manifest_sha256": manifest_sha256,
+            "selection_id": selection_id,
+            "status": status,
+            "parent_scene_id": parent_scene_id,
+            "parent_priority": parent["priority"],
+            "priority": priority,
+            "priority_override_reason": raw["priority_override_reason"],
+            "scene_count": len(projected_scenes),
+            "promoted_entry_count": promoted_entry_count,
+            "aggregate_entry_count": aggregate_entry_count,
+            "remaining_entry_count": deferred_entry_count,
+            "scenes": projected_scenes,
+            "promotion_manifest": {
+                "path": str(
+                    promotion_path.relative_to(project_root.resolve())
+                ),
+                "sha256": promotion_sha256,
+                "profile_id": promotion["profile_id"],
+                "status": promotion["status"],
+                "runtime_status": promotion["runtime"]["status"],
+                "scene_count": len(projected_scenes),
+                "entry_count": promotion_selection["entry_count"],
+            },
+        },
+        projected_scene_map,
+    )
 
 
 def _fixtures(project_root: Path, raw_fixtures: object) -> tuple[dict, ...]:
@@ -695,6 +1215,11 @@ def _cases(
             raise UiRuntimeMatrixError(
                 f"world-history case {case_id} must capture start, middle and end"
             )
+        artifact_availability = artifacts[artifact_id]["availability"]
+        if runtime_status == "passed" and artifact_availability != "runnable":
+            raise UiRuntimeMatrixError(
+                f"passed case {case_id} uses a blocked runtime artifact"
+            )
         case_projection = {
             "case_id": case_id,
             "purpose": purpose,
@@ -715,9 +1240,13 @@ def _cases(
                 "runtime_passed"
                 if runtime_status == "passed"
                 else (
-                    "route_ready_runtime_not_tested"
-                    if fixtures[fixture_id]["status"] == "ready"
-                    else "blocked_by_missing_fixture"
+                    "blocked_by_artifact_runtime"
+                    if artifact_availability == "blocked_runtime"
+                    else (
+                        "route_ready_runtime_not_tested"
+                        if fixtures[fixture_id]["status"] == "ready"
+                        else "blocked_by_missing_fixture"
+                    )
                 )
             ),
             "texture_delta": mapping,
@@ -1003,6 +1532,11 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
         for case in cases
         if case["execution_readiness"] == "blocked_by_missing_fixture"
     ]
+    artifact_blocked_cases = [
+        case
+        for case in cases
+        if case["execution_readiness"] == "blocked_by_artifact_runtime"
+    ]
     passed_cases = [
         case for case in cases if case["runtime_status"] == "passed"
     ]
@@ -1046,6 +1580,9 @@ def audit_ui_runtime_matrix(project_root: Path, config_path: Path) -> dict:
             "fixture_status_counts": dict(sorted(fixture_status_counts.items())),
             "route_ready_case_count": len(ready_cases),
             "missing_fixture_case_count": len(blocked_cases),
+            "artifact_runtime_blocked_case_count": len(
+                artifact_blocked_cases
+            ),
             "capture_counts": dict(sorted(capture_counts.items())),
             "runtime_passed_case_count": len(passed_cases),
             "runtime_not_tested_case_count": len(not_tested_cases),

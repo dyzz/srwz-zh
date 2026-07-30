@@ -7,7 +7,7 @@
   "inputs": {
     "config": {
       "path": "config/display-names/researched-coverage.json",
-      "sha256": "dc394660ed492409cb1a53a6ec952fc4776f4bc26ca99199035e52f89aa7f1f1"
+      "sha256": "20bec4b8a79d212165e55ff8831eef8e19ba1807db7538bc781b8b47f5b9b347"
     },
     "structure": {
       "config": {
@@ -144,7 +144,7 @@
     ],
     "font_candidate": {
       "manifest": "manifests/ui-p1-summary-font-validation.json",
-      "sha256": "2f5a7ce582f6760f0c9f29bf6087b53c7873f57234c7f76b8c78bfa99d59ef04",
+      "sha256": "d8d198f644991249759ca4e781c452c7069ffe879f193010ddc35b4c5a31315c",
       "status": "offline_font_and_selected_ui_renderer_coverage_passed_runtime_pending",
       "codebook": {
         "base_codebook": {
@@ -153,7 +153,7 @@
         },
         "proposal": {
           "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-          "sha256": "e7f926a65a6feed63da02eb19ecabd9e9a1ba510740bb8477b4b244d5abc938c"
+          "sha256": "30b01d0e5b78ab2d0931cd313de48558eb1f6fbad27938795fe121c6f20496c6"
         },
         "override_count": 1548
       },
@@ -172,7 +172,7 @@
         },
         "proposal": {
           "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-          "sha256": "e7f926a65a6feed63da02eb19ecabd9e9a1ba510740bb8477b4b244d5abc938c"
+          "sha256": "30b01d0e5b78ab2d0931cd313de48558eb1f6fbad27938795fe121c6f20496c6"
         },
         "component_status": "offline_font_validated_runtime_not_tested"
       }
@@ -189,14 +189,14 @@
     "current_font_ready_entry_count": 1166,
     "current_font_missing_entry_count": 96,
     "current_font_missing_character_count": 21,
-    "current_renderer_ready_entry_count": 1129,
-    "current_renderer_missing_entry_count": 133,
-    "current_renderer_missing_character_count": 33,
+    "current_renderer_ready_entry_count": 1134,
+    "current_renderer_missing_entry_count": 128,
+    "current_renderer_missing_character_count": 28,
     "current_renderer_reactivatable_character_count": 4,
-    "current_renderer_new_allocation_character_count": 29,
+    "current_renderer_new_allocation_character_count": 24,
     "current_renderer_original_han_character_count": 29,
     "current_renderer_original_han_entry_count": 124,
-    "projected_remaining_candidate_slot_count": 19,
+    "projected_remaining_candidate_slot_count": 24,
     "projected_overflow_entry_count": 0,
     "unresolved_entry_count": 1493
   },
@@ -235,37 +235,12 @@
   },
   "renderer_readiness": {
     "entry_count": 1262,
-    "ready_entry_count": 1129,
-    "missing_entry_count": 133,
-    "missing_character_count": 33,
-    "missing_characters": "afhru伦佛侣凤凯勒妮姬娅岛庆惠户杰滨琪艾苏莎菲萝谦贾赛赞钢钱阳",
-    "missing_character_occurrence_count": 155,
+    "ready_entry_count": 1134,
+    "missing_entry_count": 128,
+    "missing_character_count": 28,
+    "missing_characters": "伦佛侣凤凯勒妮姬娅岛庆惠户杰滨琪艾苏莎菲萝谦贾赛赞钢钱阳",
+    "missing_character_occurrence_count": 146,
     "missing": [
-      {
-        "character": "a",
-        "reason": "unmapped",
-        "occurrence_count": 2
-      },
-      {
-        "character": "f",
-        "reason": "unmapped",
-        "occurrence_count": 1
-      },
-      {
-        "character": "h",
-        "reason": "unmapped",
-        "occurrence_count": 1
-      },
-      {
-        "character": "r",
-        "reason": "unmapped",
-        "occurrence_count": 2
-      },
-      {
-        "character": "u",
-        "reason": "unmapped",
-        "occurrence_count": 3
-      },
       {
         "character": "伦",
         "reason": "unmapped",
@@ -409,12 +384,12 @@
     ],
     "reactivatable_registered_character_count": 4,
     "reactivatable_registered_characters": "娅杰艾贾",
-    "new_allocation_character_count": 29,
+    "new_allocation_character_count": 24,
     "original_font_han_character_count": 29,
     "original_font_han_characters": "丈乙亨僧医吾咲塞奈媚弁彩志枝桑洛温琉琳穆耶芙茜茨荷薇裁隆隼",
     "original_font_han_entry_count": 124,
     "available_candidate_slot_count": 48,
-    "projected_remaining_candidate_slot_count": 19
+    "projected_remaining_candidate_slot_count": 24
   },
   "review_queue": {
     "row_count": 2800,

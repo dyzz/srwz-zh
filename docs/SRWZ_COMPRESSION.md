@@ -16,6 +16,8 @@ PCSX2 运行与画面验收。
 - **[MIPS]**：原版 `SLPS_258.87` 中游戏实际运行的 R5900 解压器反汇编。
 - **[DLL-IL]**：`SRWZ.dll` 的 PE/.NET 元数据和 CIL 静态反汇编；没有加载或
   执行 DLL，也没有复制反编译源码。
+- **[NATIVE-PE]**：`CompressTool.exe` 的 Ghidra headless 函数级静态分析；
+  没有执行目标程序，也没有保存反编译源码。
 - **[RUNTIME]**：PCSX2 v2.6.3 + PINE 对游戏运行状态和 EE 内存的读取验证。
 
 上游分析函数 `tools/python/lib/decompressor.py::decompress2` 只能作为
@@ -197,13 +199,26 @@ slice 边界；不能外推为所有 SRWZ 归档的通用 padding 规范。
 
 ## Clean-room 编码器
 
-`tools/srwz/codec.py::encode()` 提供两种确定性策略：
+`tools/srwz/codec.py::encode()` 提供四种确定性策略：
 
 - `literal`：一个纯 literal block；只依赖已经由解码器 fixture 和原版流验证的
   语法，是最保守的格式接受性基线。
 - `greedy`：使用相同 block/match 语法增加确定性的 greedy back-reference；
   默认最短 match 为 3、每个 key 最多检查 64 个历史候选，并把一个非空
   literal run 后连续出现的 match 合并到同一 block。
+- `size-constrained`：保留 `greedy` 作为字节级回归基线，另行启用原版码流和
+  DLL CIL 共同支持的 compact extended-distance seed；在 64 和配置的
+  `max_match_chain` 两个有界 parse 间，按包含 block control、coded integer、
+  literal、distance 和 length 的完整序列化 byte 数选择较短结果。
+- `maximum`：离线发布用的高成本策略。它使用 **[NATIVE-PE]** 恢复的两字节
+  hash 和 65,535 候选链，但按 compact token 的真实 byte gain 排名；一次
+  match-table 搜索后比较 lazy bias `0..8`。不超过 64 KiB 的 suffix 还会与
+  `size-constrained` 回归候选按最终序列化大小竞争；大型生产 suffix 省略这
+  个已知不会胜出的旧纯 Python pass，以避免重复链搜索。名称表示当前工程
+  最强生产组合，不声称数学全局最优。
+
+编码 API 和 suffix writer 都接受 `max_output_size`。输出超过预算时抛出明确的
+`SrwzEncodeError`，不会截断、改 declared size 或吞掉 decoded tail。
 
 production writer 还可调用 `reencode_changed_suffix()`。它解析并逐字节保留
 首个修改位置之前的原版 header 和完整 block，只对受影响 suffix 使用同一
@@ -214,10 +229,42 @@ offset 重读，不能把前缀保留当作正确性捷径。
 `SRWZ.dll` 是 10,240 字节的 .NET 8 程序集
 （SHA-256 `79567ccced11b2478d8ea195f9492114482a9b15c256bef72d818649d2f0277d`）。
 静态 CIL 显示其 `Compress` 方法同样先累积 literal entry，再收集随后连续的
-compressed entry；这与当前块组织方式一致。该 DLL 证据只作交叉验证，游戏
-兼容性以 **[MIPS]** 和 **[RUNTIME]** 为准。
+compressed entry；它还确认 extended distance 可以把最高 3 bit 放入 token
+seed，省略一个 coded-integer byte。该 DLL 固定写 header `(size, 0, 0)`，与
+原版真实 flags 不同，因此不能视作原厂或直接可用 compressor。完整静态规格见
+`docs/SRWZ_DLL_COMPRESSION_STATIC_ANALYSIS.md`。
+
+上游附带的 `CompressTool.exe` 是独立 native PE32 debug compressor。静态恢复
+了 level 0–9、两字节 hash、level-9 的 65,535 chain、一字节 lazy parse、
+compact distance 和原版式 odd flags。独立模型把原版 COMPDATA 重压到
+145,064 bytes，与原版 144,990 只差 74 bytes。它的 PDB 路径和来源不足以证明
+原厂身份，完整规格见 `docs/SRWZ_COMPRESS_TOOL_STATIC_ANALYSIS.md`。
 
 编码器不写 archive padding，调用方必须在归档层明确处理 alignment。
+
+### Rust 性能／压缩率档位
+
+仓库自有的 clean-room Rust 实现位于
+`tools/native/srwz-codec-rs/`。默认行为仍是逐个尝试 lazy bias `0..8`，
+选择最终序列化后最小的码流；这是“极限档”，不是日常迭代必须承担的成本。
+
+命令行现在接受 `--lazy-bias 0..8`。指定后只执行该档的一次在线匹配扫描，
+方便在同一 decoded 输入、flags 和 byte budget 下量化速度／体积。这里没有
+预先指定所谓最佳值：必须先对真实标题块和 COMPDATA 分别测量，结果不能从
+小型 fixture 外推。
+
+后续寻找平衡点时按以下顺序改变参数，每次只改变一个维度：
+
+1. 固定 `min-match-length=3`、`max-match-chain=65535`，分别测 bias `0..8`；
+2. 在能通过 `max-output_size` 硬预算的 bias 中选择单次扫描候选；
+3. 再按 `65535`、`32768`、`16384`、`8192` 降低 match chain，观察时间和
+   输出大小的边际变化；
+4. 每个候选都用独立 Python decoder 做完整 round-trip，并重新检查 archive
+   allocation、offset/LBA 和确定性 hash。
+
+不能用截断、吞尾、修改 decoded size 或挪动 LBA 来换取表面上的“压缩率”。
+在真实基准完成前，生产配置继续使用已验证的极限档；不会把未经测量的单 bias
+静默设为默认值。
 
 ### 头部写入规则
 
@@ -273,6 +320,31 @@ VT1 的 12 个测试项包含 8 个完整流和 4 个“流前缀 + 非零外层
 完整逐流结果位于被忽略的 `work/encoder/encoder-validation.json`，可提交聚合
 结果位于 `manifests/codec-encoder-validation.json`。
 
+### COMPDATA size-constrained 与 maximum 回归
+
+完整 P0 的旧 lazy-greedy 输出为 147,050 bytes。bounded token 成本审计确认：
+
+- 原版 decoded offset 474,256 对应 compressed offset 128,781；
+- 原版已存储后缀 16,209 bytes；
+- 旧策略重压原始后缀 18,139 bytes，差 1,930；
+- compact distance seed 重压原始后缀 16,331 bytes，只差 122；
+- 完整 P0 新输出 145,237 bytes／71 sectors，比旧输出少 1,813 bytes，
+  距离 145,408-byte 硬上限余 171 bytes。
+
+随后对 native level-9 行为做函数级静态恢复。保持同一个原版 compressed
+prefix，工具式最长匹配得到 145,145 bytes；工程 `maximum` 按 compact token
+真实 gain 搜索并比较 lazy bias `0..8`，得到 **145,057 bytes／71 sectors**，
+相对 `size-constrained` 再少 180 bytes，余 351 bytes。该候选严格回解为同一
+524,032-byte decoded payload 且压缩流全部消费。绑定新候选的精确 ISO
+`4ddaa695…fd30c3e` 已完成 PCSX2 v2.6.3 fresh-process 启动，PINE Running、
+0 TLB；这证明游戏启动路径接受新 parse，不声称第一幕间目标画面已验收。
+
+原版全部 12,521 个符合 compact 条件的 extended distance 都使用非零 seed；
+旧完整 P0 后缀有 1,796 个符合条件的 token 把 seed 写成 0，新策略为 0。
+完整 block、literal、match、distance/length 分布、真实 cost breakdown 和
+16-KiB decoded interval 成本见
+`manifests/compdata-compression-comparison.json`。
+
 ### 游戏内解压验证
 
 当前 canary 字库的 suffix 重编码压缩流为 599,742 字节。使用命令行
@@ -307,8 +379,8 @@ clean-room Python 解码器接受。MTV_PROS 与 STAGE 修改流还分别取得�
 - padding 是否由归档层、压缩器或某个对齐规则产生。
 - VT1 中 4 个“压缩流前缀 + 非零尾部”段和 2 个非当前码流段的外层结构。
 - 其他未扫描归档是否共享相同的头部变体。
-- 原版压缩器的 match 选择和压缩率优化策略；clean-room encoder 已有自己的
-  确定性选择，但不声称复制原算法。
+- 原版压缩器的全局 match 选择和压缩率优化策略；compact distance seed 已由
+  原版流验证，但 clean-room parse 仍不声称复制原算法。
 - 当前运行证明覆盖 canary 字库流，不自动证明每个将来写回的 STAGE、COMPDATA
   或其他归档在所有游戏路径上都已执行。
 

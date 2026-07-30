@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "status": "fixed_compdata_component_validated_iso_runtime_pending",
+  "profile_id": "srwz-compdata-step-01a-p0-buttons-v1",
+  "scope": "Diagnostic production slice containing only the 24 P0 COMPDATA intermission button decisions. The compressed member must remain inside the original 71-sector allocation so every later member keeps its original LBA.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-writeback/compdata-step-01a-p0-buttons.json",
+      "sha256": "342fcd5b069e0456035f99b1375b19979c39aa1e68b4f5ea75a4d37fb22eaa0c"
+    },
+    "font_manifest": {
+      "path": "manifests/ui-p0-font-validation.json",
+      "sha256": "bb1419de942c1d99cf7cb88a1fa9f7c9d9d5e31b1ecaf13598893c779b3c7184"
+    },
+    "source_member": {
+      "path": "work/disc/DATA/COMPDATA.BN",
+      "size": 144990,
+      "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+      "decoded_size": 524032,
+      "decoded_sha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb",
+      "flags": 23,
+      "fully_consumed": true
+    },
+    "scene_inventory": {
+      "path": "config/ui-scenes.json",
+      "sha256": "8728314e98343cb6abc72d65059515b120ab42bd01046116bbe95e55191152bb",
+      "inventory_id": "srwz-ui-scenes-v1",
+      "priorities": [
+        "P0"
+      ],
+      "scene_ids": [
+        "intermission/main-and-options"
+      ],
+      "p0_unique_entry_count": 121,
+      "p0_compdata_entry_count": 24
+    },
+    "menu_descriptor": {
+      "path": "vendor/upstream-python/project/menu_files.json",
+      "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a",
+      "friendly_name": "Compdata",
+      "parsed_entry_count": 1481
+    },
+    "text_table": {
+      "path": "vendor/upstream-python/project/tbl_all.json",
+      "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+    },
+    "codebook": {
+      "base_codebook": {
+        "path": "config/encoding/codebook.json",
+        "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+      },
+      "proposal": {
+        "path": "work/writeback/ui-p0-codebook-proposal.json",
+        "sha256": "9d4166b7e089d96756b9c92581c69d619a7d1bf5f59feeddcbff3fefc5717240"
+      },
+      "override_count": 1454
+    }
+  },
+  "selection": {
+    "p0_entry_count": 24,
+    "no_op_entry_count": 1,
+    "no_op_entry_ids": [
+      "menu/Compdata/07/0007"
+    ],
+    "selected_write_entry_count": 23,
+    "selected_write_target_count": 23,
+    "fixed_covered_entry_count": 24,
+    "selection_sha256": "a1fa7a5620554863cce9c191de449c916e369620e0aea055e85063e2616e730b",
+    "excluded_entry_count": 0,
+    "excluded_reason_counts": {}
+  },
+  "excluded": [],
+  "write": {
+    "entry_count": 23,
+    "target_count": 23,
+    "payload_size": 240,
+    "owned_capacity": 258,
+    "target_metadata_sha256": "6a58eafbd0ca433efa07125a7adfc0dac037f38edcc1a96e80df4d5a362758f3",
+    "patch_plan_metadata_sha256": "328481d7a52fb449d595ee5c906b0744d3cc4edd8857289384f30e03d7c14b3b",
+    "pointer_write_count": 0,
+    "pointer_site_byte_count": 28100,
+    "pointer_bytes_unchanged": true,
+    "non_target_bytes_unchanged": true,
+    "target_reparse_exact": true
+  },
+  "decoded_component": {
+    "size": 524032,
+    "source_sha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb",
+    "output_sha256": "7492f211e47d2252e6959350ee3e353fdd1be72ead8d28751ba0b1fa09c09879",
+    "changed_byte_count": 161,
+    "difference_range_count": 34
+  },
+  "compressed_component": {
+    "source_size": 144990,
+    "output_size": 145300,
+    "size_delta": 310,
+    "source_sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+    "output_sha256": "a27b5f813928c32e3f7b9535f3af4f6de3ca523d4653e1247a2d864d141bd306",
+    "strategy": "greedy",
+    "min_match_length": 4,
+    "max_match_chain": 256,
+    "lazy_matching": true,
+    "preserved_prefix_size": 143055,
+    "flags_preserved": true,
+    "decoded_round_trip_exact": true,
+    "fully_consumed": true
+  },
+  "ratchet": {
+    "expected": {
+      "p0_unique_entry_count": 121,
+      "p0_compdata_entry_count": 24,
+      "no_op_entry_count": 1,
+      "selected_write_entry_count": 23,
+      "selected_write_target_count": 23,
+      "fixed_covered_entry_count": 24,
+      "excluded_overflow_entry_count": 0,
+      "excluded_other_entry_count": 0,
+      "minimum_preserved_compressed_prefix": 143000
+    },
+    "checks": {
+      "p0_unique_entry_count": true,
+      "p0_compdata_entry_count": true,
+      "no_op_entry_count": true,
+      "selected_write_entry_count": true,
+      "selected_write_target_count": true,
+      "fixed_covered_entry_count": true,
+      "excluded_overflow_entry_count": true,
+      "excluded_other_entry_count": true
+    },
+    "passed": true
+  },
+  "remaining_work": {
+    "growing_compdata_entry_count": 0,
+    "requires_registered_pool_or_other_allocation": []
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "This is an isolated COMPDATA member. It has not been combined with the UI font, SLPS, title assets, STAGE or an exact ISO."
+  }
+}

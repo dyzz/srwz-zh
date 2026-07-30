@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "selection_id": "srwz-ui-database-fixed-core-v1",
+  "scope": "Select the largest terminology-safe fixed-span subset of the parts, weapons, skills, special-abilities, spirit-command and leadership database scene that fits the P7 renderer-addressable font budget. Proper-name disputes, the two-CJK label that cannot fit its one-CJK source allocation, and the remaining parts/weapons vocabulary stay excluded.",
+  "parent_scene": {
+    "inventory": {
+      "path": "config/ui-scenes.json",
+      "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
+      "inventory_id": "srwz-ui-scenes-v1"
+    },
+    "scene_id": "database/parts-skills-abilities-weapons",
+    "expected_entry_count": 1250
+  },
+  "families": [
+    {
+      "family_id": "skills",
+      "runtime_scene_id": "database/pilot-skills-core",
+      "label": "驾驶员技能名称与说明",
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-skills.json",
+          "expected_entry_count": 88
+        }
+      ],
+      "expected_entry_count": 88
+    },
+    {
+      "family_id": "special-abilities",
+      "runtime_scene_id": "database/unit-special-abilities-core",
+      "label": "机体特殊能力名称与说明",
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-special-abilities.json",
+          "exclude_ids": [
+            "menu/Compdata/04/0011",
+            "menu/Compdata/04/0012",
+            "menu/Compdata/04/0025",
+            "menu/Compdata/04/0029"
+          ],
+          "expected_entry_count": 154
+        },
+        {
+          "translation_file": "corpus/zh/menu/weapons.json",
+          "entry_ids": [
+            "menu/Compdata/02/0518"
+          ],
+          "expected_entry_count": 1
+        }
+      ],
+      "expected_entry_count": 155
+    },
+    {
+      "family_id": "spirit-commands",
+      "runtime_scene_id": "database/spirit-commands-core",
+      "label": "精神指令名称与说明",
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-spirit-commands.json",
+          "exclude_ids": [
+            "menu/SLPS/08/0079"
+          ],
+          "expected_entry_count": 144
+        }
+      ],
+      "expected_entry_count": 144
+    },
+    {
+      "family_id": "leadership-effects",
+      "runtime_scene_id": "database/leadership-effects-core",
+      "label": "小队长能力分类与效果",
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/system-ui-leadership.json",
+          "expected_entry_count": 15
+        }
+      ],
+      "expected_entry_count": 15
+    }
+  ],
+  "protected_exclusions": [
+    {
+      "entry_id": "menu/Compdata/04/0011",
+      "reason": "Trinity Charge terminology and the matching late-game command remain under human review."
+    },
+    {
+      "entry_id": "menu/Compdata/04/0012",
+      "reason": "Element System terminology remains under human review."
+    },
+    {
+      "entry_id": "menu/Compdata/04/0025",
+      "reason": "OverSkill terminology remains under human review."
+    },
+    {
+      "entry_id": "menu/Compdata/04/0029",
+      "reason": "DRAGOON Barrier terminology remains under human review."
+    },
+    {
+      "entry_id": "menu/SLPS/08/0079",
+      "reason": "The reviewed two-CJK label 羁绊 needs five encoded bytes but its source allocation is three bytes; do not degrade it to one character."
+    }
+  ],
+  "font_baseline": {
+    "manifest": "manifests/ui-p7-embedded-font-validation.json",
+    "sha256": "7b423cd290628f9b9fe3ea5fa0e2da2368ef939610e244b2c78b8044768bdf36",
+    "required_status": "offline_font_and_embedded_ui_renderer_coverage_passed_runtime_pending",
+    "writer_baseline_config": "config/ui-writeback/ui-p0-compdata-fixed.json",
+    "expected_missing_characters": "咫垫挡斩框歼药赋赖镜闪－"
+  },
+  "base_ui_core": {
+    "manifest": "manifests/ui-p9-mixed-user-facing-subset-validation.json",
+    "sha256": "2a8b6ffd21253c1cab66c29f05ca670f1744c6f0eefd7cf09e49443c725eef0d",
+    "required_profile_id": "srwz-ui-p9-mixed-user-facing-subset-integrated-v1",
+    "required_status": "integrated_ui_p9_mixed_user_facing_subset_component_validated_iso_runtime_pending",
+    "required_runtime_status": "not_tested",
+    "outputs": {
+      "slps": {
+        "path": "work/build/ui-p9-mixed-user-facing-subset/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "51adcd5c79f422924743d758eaab77cc46d939e7c1272f88dcd614eb2c704657"
+      },
+      "vt1": {
+        "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/VT1.BIN",
+        "size": 127501920,
+        "sha256": "1424eb1626b624eb637130e08a11c320e5fb39ebf40077e91cbbfe6875839fbf"
+      },
+      "compdata": {
+        "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/COMPDATA.BN",
+        "size": 144485,
+        "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+      },
+      "mtv_pros": {
+        "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/MTV_PROS.BIN",
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      }
+    }
+  },
+  "menu_descriptor": {
+    "path": "vendor/upstream-python/project/menu_files.json",
+    "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+  },
+  "text_table": {
+    "path": "vendor/upstream-python/project/tbl_all.json",
+    "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+  },
+  "ratchet": {
+    "parent_entry_count": 1250,
+    "selected_entry_count": 402,
+    "deferred_entry_count": 848,
+    "selected_slps_entry_count": 232,
+    "selected_compdata_entry_count": 170,
+    "missing_renderer_character_count": 12,
+    "slps_no_op_entry_count": 53,
+    "slps_selected_write_entry_count": 179,
+    "slps_selected_write_target_count": 183,
+    "compdata_no_op_entry_count": 5,
+    "compdata_selected_write_entry_count": 165,
+    "compdata_selected_write_target_count": 164,
+    "excluded_after_font_entry_count": 0
+  },
+  "outputs": {
+    "report": "work/review/ui-database-fixed-core-selection.json",
+    "manifest": "manifests/ui-database-fixed-core-selection.json"
+  }
+}

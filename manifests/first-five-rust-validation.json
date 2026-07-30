@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "status": "static_first_five_rust_component_validated_runtime_pending",
+  "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes or localized text are embedded.",
+  "profile_id": "first-five-rust",
+  "scope": "Stages 001-005 use the reviewed first-five Chinese corpus and retain every runtime $n player-name token. No pre-story world-map image or flow-summary text is included; all archive offsets and member sizes remain fixed.",
+  "inputs": {
+    "reviewed_content_manifest": {
+      "path": "manifests/first-five-validation.json",
+      "size": 13504,
+      "sha256": "4a12751a407563b452d284fcfb127453aa23d27c8b03d1000e494c95be2153b7"
+    },
+    "component_report": {
+      "path": "work/build/first-five-rust/components/component-validation.json",
+      "size": 373086,
+      "sha256": "f241fe5e5afcbca50705a01fd3fc4dd9611c477697b1a0dd01a5a13947250730"
+    }
+  },
+  "codec": {
+    "strategy": "preserved_prefix_rust-maximum_suffix",
+    "implementation": "repository-owned clean-room Rust compressor",
+    "min_match_length": 2,
+    "max_match_chain": 1024,
+    "lazy_matching": true,
+    "decoded_sizes": {
+      "1": 45968,
+      "2": 75152,
+      "3": 7312,
+      "4": 74768,
+      "5": 44304
+    },
+    "source_encoded_sizes": {
+      "1": 17019,
+      "2": 22600,
+      "3": 2931,
+      "4": 26741,
+      "5": 17206
+    },
+    "output_encoded_sizes": {
+      "1": 16162,
+      "2": 21527,
+      "3": 2809,
+      "4": 24932,
+      "5": 16179
+    }
+  },
+  "translation_surface": {
+    "stage_indices": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "dialogue_count": 1711,
+    "condition_count": 21,
+    "speaker_count": 101,
+    "allocation_count": 1732,
+    "runtime_player_name_token": "$n",
+    "runtime_player_name_token_count": 17,
+    "runtime_player_name_token_preserved": true
+  },
+  "outputs": {
+    "stage": {
+      "path": "work/build/first-five-rust/components/DATA/STAGE.BIN",
+      "size": 3910128,
+      "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff"
+    },
+    "hb": {
+      "path": "work/build/first-five-rust/components/HEDBDY/HB.BIN",
+      "size": 31152,
+      "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21"
+    }
+  },
+  "acceptance": {
+    "reviewed_first_five_content_locked": true,
+    "only_stage_indices_1_through_5_rebuilt": true,
+    "unchanged_stage_chunk_count": 200,
+    "all_five_codec_round_trips_exact": true,
+    "all_1732_translations_reread_exact": true,
+    "all_five_original_chunk_spans_preserved": true,
+    "stage_size_and_offsets_preserved": true,
+    "hb_offset_table_reread_exact": true,
+    "hb_bytes_unchanged": true,
+    "runtime_player_name_tokens_preserved": true,
+    "stage_member_size_preserved": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_routes": [
+      "female_route_default_name_flows_through_story_token",
+      "female_route_edited_name_flows_through_story_token",
+      "stages_001_through_005_story_dialogue"
+    ],
+    "pending_gates": [
+      "exact_iso_static_binding",
+      "fresh_process_boot",
+      "default_name_visual_acceptance",
+      "edited_name_visual_acceptance",
+      "first_five_story_visual_acceptance",
+      "zero_tlb_miss"
+    ]
+  }
+}

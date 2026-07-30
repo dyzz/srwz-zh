@@ -16,6 +16,10 @@ class SrwzCodecError(ValueError):
         super().__init__(f"{message}{location}")
 
 
+class SrwzEncodeError(ValueError):
+    """A deterministic encoder could not satisfy its output contract."""
+
+
 @dataclass(frozen=True)
 class CodedInteger:
     """One decoded SRWZ variable-length integer and its source span."""

@@ -4,6 +4,13 @@
 可追踪场景。场景选择来自当前真实语料、原版成员和构建后的前五关字库，不根据
 截图猜测文本归属。
 
+运行候选现已按 `first-five → atlas → 非 COMPDATA UI → COMPDATA`
+重建。前三层均通过 PCSX2 v2.6.3 fresh-process 的 DVD、ELF、PINE
+Running 和零 TLB 检查；只增加改写后的 `DATA/COMPDATA.BN` 即触发 TLB。
+因此逐屏测试改用 `first-five-noncompdata-ui`，COMPDATA 所属场景保持
+阻塞。精确成员、哈希和运行收据见
+[`ISO_INCREMENTAL_VALIDATION.md`](ISO_INCREMENTAL_VALIDATION.md)。
+
 当前场景结论是 `inventory_passed_work_remaining`：场景筛选、源哈希、译文
 决策、字形需求、完整动态名称结构和五份中文 atlas 候选已经通过静态审计。
 增量 P0 字库候选也已达到
@@ -146,12 +153,14 @@ python3 tools/verify_ui_p1_core_iso.py --force
 集成器以 P0 字库 SLPS 为共同基线做三方补丁，要求 2,659 个菜单变化字节与
 P1／世界史修改零重叠；标题只替换已验证的 VT1 chunk 6 TIM2 record，另外
 13 个 VT1 chunk 保持原字节。最终 component 重新读取全部 28 条世界史和四项
-输出锁。组合 ISO 为 3,758,456,832 字节，SHA-256
-`5f558ae794dec6d2e95bf56f391b5a0789eba78f4c330aa441a935b13973891b`；
+输出锁。组合 ISO 为 3,758,424,064 字节，SHA-256
+`32ef774c62eddb149b6d23d566645716bdbbdca02a124f1d5030083c50185454`；
 66 个成员中 62 个未替换成员逐字节一致，SLPS、VT1、MTV_PROS、COMPDATA
 均通过独立 UDF 回读。提交结果见 `manifests/ui-p1-core-validation.json` 和
 `manifests/ui-p1-core-runtime-validation.json`。该镜像不包含前五关
-STAGE/HB 或信息页 atlas，运行状态仍为 `not_tested`。
+STAGE/HB 或信息页 atlas。精确镜像已完成 PCSX2 v2.6.3 fresh-process、
+PINE Running 和零 TLB boot smoke；开场姓名画面与其余逐屏视觉验收仍为
+`not_tested`。
 
 当前 P2 production profile 在 P1 之上增加 researched 动态名称，完整命令为：
 
@@ -238,8 +247,10 @@ python3 tools/verify_ui_p0_display_names.py --force
 中选择 45 个已审校字段：42 个人物字段和 3 个机体字段，全部在原 allocation
 内写入。验证器要求人物 ID 字节、808 个机体指针、非目标字节和解压后结构均
 不变，并从重编码流完整回解。动态名称组件在静态 P0 COMPDATA 上保留
-29,093 字节压缩前缀，成员由 147,050 增至 156,161 字节；ISO 层仍须显式接受
-并验证这个增长。提交结果分别见 `manifests/display-name-structure.json` 和
+29,093 字节压缩前缀；`maximum` 重编码后成员由 147,050 降至 143,493
+字节，保持 71 sectors，余 1,915 字节。writer 直接执行 145,408-byte
+硬门，不允许依靠 ISO LBA 位移隐藏溢出。提交结果分别见
+`manifests/display-name-structure.json` 和
 `manifests/ui-p0-display-names-validation.json`。
 
 ## 2. P0：下一张组合候选的范围
@@ -363,9 +374,130 @@ python3 tools/verify_ui_embedded_candidate.py --force
 23 条决定中 11 条与原字节相同，12 条实际写入 32 个 target；slice 只改变
 SLPS 的 124 字节／35 段，和完整 P2 UI core 的 2,709 个修改字节零重叠，
 每个 slice 偏移的 P2 前像都精确匹配。合成后 SLPS SHA-256 为
-`f916d9da31ee1cef4220f0aa07e26eee5320a83f51f9105dd11c1b8272909123`；
+`fa703c5d7cdf4e5113e50743374547adb2031bd5393d15c05d01037c188c3a44`；
 VT1、COMPDATA、MTV_PROS 与 P2 core byte-exact，指针、非目标字节和解码
-字库均不变。该组件及下文 ISO 的运行状态仍为 `not_tested`。
+字库均不变。该组件作为 P4 的精确历史基线保留。
+
+下一批从首个幕间可访问的高价值界面中选择编成确认和战术状态指标两组：
+
+```bash
+python3 tools/build_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p4-intermission-slps.json \
+  --force
+python3 tools/verify_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p4-intermission-slps.json \
+  --force
+```
+
+P4 以 P3 输出为精确前像，新增 24 条决定：6 条 no-op、18 条写入 30 个
+target；SLPS 相对 P3 改变 408 字节／38 段，与 P3 已有修改零重叠。合成后
+SLPS SHA-256 为
+`1a822e1f503aeb73684f7fb9f336f50e880791f2c58c1a2c9311b5e1121bfd65`；
+VT1、COMPDATA、MTV_PROS byte-exact。四组累计晋级 47 条 embedded UI
+决定。P4 两组都依赖原生 `first-intermission-card`，因此组件和下文 ISO
+仍只通过静态门，运行状态为 `not_tested`。
+
+P5 继续选择四组分类为纯玩家可见、使用同一 `first-battle-card` 的战场
+菜单；混入 `@<color>`、`@<width>` 与 `Set` 的驾驶员能力页组仍保持延期：
+
+```bash
+python3 tools/build_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p5-battle-menus-slps.json \
+  --force
+python3 tools/verify_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p5-battle-menus-slps.json \
+  --force
+```
+
+四组共 38 条决定：5 条 no-op、33 条写入 37 个 target；SLPS 相对 P4
+改变 1,024 字节／60 段，与既有修改零重叠。合成后 SLPS SHA-256 为
+`473b5f5fee31d78aacbe5e6f78db1c9207a52f33ff50ef65a846e880b080d16d`；
+八组累计晋级 85 条 embedded UI 决定。P5 四组都要求原生
+`first-battle-card`，运行状态继续为 `not_tested`。
+
+P6 晋级最后一组纯玩家可见且整组 fixed-span-ready 的出击选择文本：
+
+```bash
+python3 tools/build_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p6-deployment-slps.json \
+  --force
+python3 tools/verify_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p6-deployment-slps.json \
+  --force
+```
+
+16 条决定中 13 条 no-op、3 条写入 3 个 target；SLPS 相对 P5 只改变
+44 字节／5 段且零重叠，最终 SHA-256 为
+`f03b1b3487afe15772973ae3d5214679fdf7d3ffbd356dfe5a3514ce2745b93d`。
+九个纯玩家可见 fixed-span 分区共 101 条已全部晋级。P6 需要原生
+`pre-results-card`；剩余 fixed-span 组均含诊断或控制片段，必须先做运行拆分。
+
+P7 继续处理五个 `font_extension_required` 组。深入 renderer 审计除场景图
+发现的六个不可编码字符外，还确认原码表中的 `网` 对当前 resolver 不可达；
+因此账本实际追加 `忆显缓网锋页额` 七字，并统一重绘仍落在原字库的
+`振滑画符` 四字。六条原译超过固定 span 两字节，现分别收敛为
+`＜进入设置＞`、`・部队改名`、`（全属性）`、`：切换优先级`、
+`武器CT修正`，并将组合片段改为 `下次，`＋`进入改造画面时，`。
+
+```bash
+python3 tools/audit_ui_font.py \
+  --config config/fonts/ui-p7-embedded-font.json --force
+python3 tools/build_first_five_font.py \
+  --proposal work/writeback/ui-p7-embedded-codebook-proposal.json \
+  --output-root work/build/ui-p7-embedded-font/components \
+  --font-config config/fonts/ui-p7-embedded-font.json \
+  --allocation-registry config/encoding/ui-p7-embedded-font-allocations.json \
+  --force
+python3 tools/verify_ui_font.py \
+  --config config/fonts/ui-p7-embedded-font.json --force
+python3 tools/build_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p7-embedded-font-groups-slps.json --force
+python3 tools/verify_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p7-embedded-font-groups-slps.json --force
+```
+
+五组共 93 条决定：20 条 no-op、73 条写入 86 个 target；文本只改变
+969 字节／117 段。组合器把 P7 字体流重建到 P6 VT1 的 chunk 2，13 个
+非字体 chunk byte-exact，再基于新 archive offsets 重建 SLPS offset 表；
+24 个 offset 字节与文本写入零重叠，COMPDATA／MTV_PROS 沿用 P6。
+P8 再处理余下四个纯玩家可见 fixed-span 组：地形类型选择、武器选择／
+使用条件、换乘／选项子页面和强化部件／出击前操作。七条超出原 span 的译文
+先收敛为等义短标签，再执行：
+
+```bash
+python3 tools/build_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p8-remaining-user-facing-slps.json \
+  --force
+python3 tools/verify_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p8-remaining-user-facing-slps.json \
+  --force
+```
+
+四组共 59 条决定：19 条 no-op、40 条写入 47 个 target；SLPS 相对 P7 只
+改变 418 字节／61 段且零重叠，VT1／COMPDATA／MTV_PROS byte-exact。
+十八个纯玩家可见分区共 253 条由此全部晋级。P9 再把余下两个混合组拆到
+逐条选择，只晋级 9 条可静态证明为玩家界面的标签：
+
+```bash
+python3 tools/build_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p9-mixed-user-facing-subset-slps.json \
+  --force
+python3 tools/verify_ui_embedded_candidate.py \
+  --config config/ui-writeback/ui-p9-mixed-user-facing-subset-slps.json \
+  --force
+```
+
+这 9 条覆盖换乘完成、小队、等级、攻击力、运动、特殊技能、无可选驾驶员和
+能力 1／2；全部实际写入，共 34 个 target、174 字节／36 段。其余 13 条
+明确保持原字节：
+
+- 损坏或诊断：`0083`、`0087`、`0088`、`0112`；
+- 控制或独立格式片段：`0089`、`0090`、`0248`、`0249`、
+  `0342`～`0345`；
+- 尚无可见证据的独立 `Set`：`0250`。
+
+因此当前 275 条中已有 262 条进入候选，13 条保持排除；排除项不能因与玩家
+文本相邻而整组晋级。
 
 后续逐组晋级顺序为：
 
@@ -409,10 +541,11 @@ writer 只做原 allocation 内写回，禁止人物 ID 或机体指针变化。
 `work/review/display-name-researched-coverage.tsv`；提交清单只有源哈希、
 译名来源、计数和选择哈希。当前 P1 字库已能编码其中 1,166 个字段，另外
 96 个字段合计只缺 `伦侣凤凯妮姬娅岛庆户滨琪苏萝谦贾赛赞钢钱阳` 21 字，
-但统一 renderer 还要为普通 ASCII `a/f/h/r/u` 和 7 个原表不可达汉字新增
-字形，因此共有 33 个 renderer 缺字；账本复核确认 29 个需要新 allocation，
-`娅杰艾贾` 四字复用已登记退役 assignment，并需统一重绘另 29 个原版汉字，
-最终余 19 槽。全部 1,262 个 payload 均不溢出原 allocation。
+修正可打印 ASCII 审计后，`a/f/h/r/u` 由游戏原生 ASCII renderer 处理，
+不再虚报缺字；统一 renderer 实际有 28 个缺字，其中 24 个汉字需要活跃新
+allocation，`娅杰艾贾` 四字复用已登记退役 assignment。早期误分配给这五个
+ASCII 的槽位标记为退休保留，不回收、不重排后续编码；另统一重绘 29 个原版
+汉字，最终余 19 槽。全部 1,262 个 payload 均不溢出原 allocation。
 该门禁不是按“同原文”盲填：只有已研究术语的一对一精确决定才进入选择；
 P2 字库、COMPDATA writer 和组合 ISO 已由各自 profile 静态验证；审核晋级
 和 PCSX2 运行验证仍是独立门。
@@ -486,37 +619,56 @@ member/chunk/record/picture 映射。静态 preview、ISO 构建通过或任意�
 ### 4.2.1 综合 UI／前五关／atlas 测试候选
 
 五份中文 atlas 先以原版 `KVMDATA.BIN` 为共同基线做字节所有权合成，再与
-P3 fresh-boot UI 四成员及前五关 `HB/STAGE` 做完整成员组合：
+P10 database fixed-core UI 四成员及前五关 `HB/STAGE` 做完整成员组合：
 
 ```bash
+python3 tools/audit_ui_database_selection.py --force
+python3 tools/audit_ui_font.py \
+  --config config/fonts/ui-p10-database-font.json --force
+python3 tools/build_first_five_font.py \
+  --proposal work/writeback/ui-p10-database-codebook-proposal.json \
+  --output-root work/build/ui-p10-database-font/components \
+  --font-config config/fonts/ui-p10-database-font.json \
+  --allocation-registry config/encoding/ui-p10-database-font-allocations.json \
+  --force
+python3 tools/verify_ui_font.py \
+  --config config/fonts/ui-p10-database-font.json --force
+python3 tools/build_ui_database_candidate.py --force
+python3 tools/verify_ui_database_candidate.py --force
 python3 tools/build_ui_atlas_suite.py --force
 python3 tools/verify_ui_atlas_suite.py --force
 python3 tools/build_ui_test_candidate.py \
-  --config config/ui-integration/p3-fresh-boot-first-five-atlas-test.json \
+  --config config/ui-integration/p10-database-fixed-core-first-five-atlas-test.json \
   --force
 python3 tools/verify_ui_test_candidate.py \
-  --config config/ui-integration/p3-fresh-boot-first-five-atlas-test.json \
+  --config config/ui-integration/p10-database-fixed-core-first-five-atlas-test.json \
   --force
 python3 tools/build_canary_iso.py \
-  --config config/iso/ui-p3-fresh-boot-first-five-atlas-test-build.json
+  --config config/iso/ui-p10-database-fixed-core-first-five-atlas-test-build.json
 python3 tools/verify_ui_test_candidate_iso.py \
-  --config config/iso/ui-p3-fresh-boot-first-five-atlas-test-build.json \
+  --config config/iso/ui-p10-database-fixed-core-first-five-atlas-test-build.json \
   --component-manifest \
-    manifests/ui-p3-fresh-boot-first-five-atlas-test-validation.json \
+    manifests/ui-p10-database-fixed-core-first-five-atlas-test-validation.json \
   --manifest \
-    manifests/ui-p3-fresh-boot-first-five-atlas-test-runtime-validation.json \
+    manifests/ui-p10-database-fixed-core-first-five-atlas-test-runtime-validation.json \
   --report \
-    work/review/ui-p3-fresh-boot-first-five-atlas-test/iso-validation.json \
+    work/review/ui-p10-database-fixed-core-first-five-atlas-test/iso-validation.json \
   --force
 ```
 
 atlas suite 相对原版归档共改变 5,568 个字节，五类 owner 零重叠，所有权外
-字节完全不变。综合 component 的 7 个成员也零重叠：P3 UI 拥有
+字节完全不变。综合 component 的 7 个成员也零重叠：P10 UI 拥有
 SLPS／COMPDATA／MTV_PROS／VT1，前五关拥有 HB／STAGE，suite 拥有
 KVMDATA。最终 DVD 大小为 3,758,456,832 字节，SHA-256 为
-`cc4575bdc94a71d79c3a40810308d4eb41f8d3f69f1fd40139e63c83fde038c0`；
+`2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431`；
 59 个未替换成员 byte-exact，7 个 replacement 独立 UDF 回读，LBA 位移仅为
-`DATA/NISVDATA.BIN +7` 和 `DATA/STAGE.BIN +42`。这只建立综合运行候选的
+`DATA/NISVDATA.BIN +8` 和 `DATA/STAGE.BIN +45`。P10 在 P9 基线上新增
+402 条数据库核心决定：88 条驾驶员技能、155 条机体特殊能力、144 条精神
+指令和 15 条小队长能力；232 条 SLPS 与 170 条 COMPDATA 均为 fixed-span，
+零排除、零指针写入。字体耗尽最后 12 个候选槽并重绘 14 个继承汉字，VT1
+只替换 chunk 2，其余 13 块 byte-exact。COMPDATA 的 113,266 字节压缩
+前缀原样保留，完整解压结果和 flags 回读一致。
+这只建立综合运行候选的
 静态身份；五个 isolated atlas profile 仍是 scene mapping 的唯一归因依据。
 
 ### 4.3 SLPS/COMPDATA 文本池
@@ -539,40 +691,86 @@ python3 tools/audit_ui_runtime_matrix.py --force
 ```
 
 提交投影为 `manifests/ui-runtime-test-matrix.json`。它不修改
-`config/ui-scenes.json` 的语料选择；两个 P3 fresh-boot 分区通过
-`scene_extensions` 哈希锁定 embedded scene map，不反向改写 14 类基础
+`config/ui-scenes.json` 的语料选择；十八个整组分区、两个逐条子集和四个
+数据库核心家族通过
+`scene_extensions` 同时锁定 embedded scene map、数据库 selection、P7／P9／
+P10 promotion manifest，
+不反向改写 14 类基础
 inventory。当前结果是：
 
-- 14 类基础场景中 10 类进入运行测试，4 类显式延期；两个 P3 scene extension
-  作为独立选择加入后，共 16 类场景、12 类当前目标；
-- 275 条 embedded UI 的父场景仍显式延期，但已注明 23 条由两个 P3 子场景
-  晋级、252 条仍等待 writer 或运行归因；其余延期类为两条后期专用提示、
-  1,250 条大型数据库和 297 条退场台词；
-- 21 个用例：11 个 UI／路线验收、5 个 001～005 开场序列和 5 个中文 atlas
+- 14 类基础场景中 10 类进入运行测试，4 类显式延期；十八个整组 scene
+  extension、两个逐条子集与四个数据库家族加入后，共 38 类场景、34 类
+  当前目标；
+- 275 条 embedded UI 的父场景仍显式延期，但十八个纯玩家可见组
+  的 253 条及两个混合组内 9 条可见标签已经晋级；余下 13 条需要正常调用点
+  和画面证明；
+  1,250 条数据库父场景也保持延期，但 402 条技能、机体能力、精神和小队长
+  能力已作为四个 P1 子场景晋级，余下 848 条仍明确排除；
+  其余延期类为两条后期专用提示和 297 条退场台词；
+- 46 个用例：36 个 UI／路线验收、5 个 001～005 开场序列和 5 个中文 atlas
   场景映射／显示实验；
-- 6 张候选 ISO 均由现有 manifest 锁定精确 SHA-256：1 张综合镜像和 5 张
-  atlas 隔离镜像；
-- 16 个非映射用例（核心 UI、两个 P3 fresh-boot 场景、路线与前五关）绑定
-  同一 P3 综合镜像；5 个映射用例
-  仍绑定各自隔离 atlas ISO，P1/P2 core 和 first-five 原镜像保留为历史
-  可复建基线；
-- 计划采集 46 张截图、6 组截图序列和 5 份 texture delta；
-- fresh boot 是唯一已就绪 fixture，因此标题、玩家设置、世界史滚动和
-  stage 001 开场及两个 P3 场景共 6 个用例可直接执行；其余 15 个用例等待
-  六份原生 memory card。
+- 7 个制品 profile 均由现有 manifest 锁定：可运行的非 COMPDATA 综合候选、
+  明确阻塞的完整 COMPDATA 候选，以及 5 个保留独立 mapping manifest 的
+  atlas profile；
+- 34 个可运行非映射用例和 5 个 atlas 映射用例绑定晋级 ISO；7 个
+  COMPDATA 所有权用例绑定已复现 TLB 的阻塞候选；
+- 计划采集 112 张截图、6 组截图序列和 5 份 texture delta；
+- fresh boot 是唯一已就绪 fixture；标题主菜单已通过，玩家设置、世界史、
+  stage 001 开场及一个非 COMPDATA
+  P3 场景共 4 个用例仍可直接执行；P4 两组需要
+  `first-intermission-card`，四个 P10 数据库用例也由该卡解锁；P5 与 P8
+  战场组需要 `first-battle-card`，P6～P10 还需
+  `pre-results-card`、`first-five-progress-card` 和
+  `full-upgrade-card`，合计 34 个用例等待六类当前有效的原生 memory card；
+  `route-branch-card` 只有在 COMPDATA 启动边界解除后才能解锁其用例，另外
+  7 个用例当前直接受该制品边界阻塞。
 
 所有 memory card 都必须放在被忽略的
 `work/runtime/ui-fixtures/<fixture>/SLPS-25887.ps2`，登记 SHA-256 后才可
 晋级。现有 `.p2s` savestate 既不满足 fresh-process 契约，也不会自动替代
-原生存档。矩阵当前的 21 个 `runtime_status` 全部为 `not_tested`；
-`route_ready` 只表示路线无需存档，不表示 PCSX2 已执行。
+原生存档。矩阵当前已有 1 个 `passed`、45 个 `not_tested`；`route_ready`
+只表示路线无需存档且制品可运行，不表示 PCSX2 已执行。
+
+存档缺口使用只读预检，不复制或修改 PCSX2 卡：
+
+```bash
+python3 tools/audit_ui_runtime_fixtures.py --force
+```
+
+本地报告写入
+`work/review/ui-runtime-fixture-preflight.json`。当前只发现 PCSX2 的
+`Mcd001.ps2` 和 `Mcd002.ps2`：两者都是 8 MiB logical／528-byte page
+格式，原始 SHA-256 同为
+`47ebe237a3987f843fc19b0f801ce1edc1690768ef6b18e4b03a12ca6b298358`，
+逐字节全为 `0xFF`，因此是同一张未格式化空卡，没有
+`SLPS-25887` 候选。即使以后发现已格式化且含目标标记的卡，也只能列为人工
+核验候选，不能据此断言游戏进度或自动把 fixture 改为 `ready`。
+
+按一次取得后可解锁的用例数，fixture 采集顺序为：
+
+| 顺序 | fixture | 解锁用例 | 计划采集 |
+| ---: | --- | ---: | --- |
+| 1 | `first-intermission-card` | 17 | 45 截图＋3 texture delta |
+| 2 | `first-battle-card` | 7 | 19 截图＋1 texture delta |
+| 3 | `first-five-progress-card` | 5 | 6 截图＋4 截图序列 |
+| 4 | `pre-results-card` | 3 | 10 截图 |
+| 5 | `full-upgrade-card` | 1 | 3 截图 |
+| 6 | `bazaar-unlocked-card` | 1 | 1 截图＋1 texture delta |
+| 7 | `route-branch-card` | 0（另受 COMPDATA 阻塞） | 3 截图 |
 
 每个用例的执行链固定为：
 
 ```bash
+# 0. 核对 PCSX2 架构、Rosetta、精确 ISO 和 route-ready 集合；不启动模拟器
+python3 tools/check_ui_runtime_host.py --force
+
 # 1. 只生成被忽略的路线、目录和空白证据草稿，不启动模拟器
 python3 tools/prepare_ui_runtime_case.py \
   --case-id core/title-main-menu --force
+
+# 或一次生成当前全部 4 个尚未执行的 route-ready / fresh-boot 用例
+python3 tools/prepare_ui_runtime_case.py \
+  --all-route-ready --force
 
 # 2. PCSX2 已从新进程启动精确 ISO 后，验证 ISO、PINE、DVD/ELF 和零 TLB
 python3 tools/probe_ui_runtime_session.py \
@@ -584,9 +782,15 @@ python3 tools/verify_ui_runtime_evidence.py \
   --case-id core/title-main-menu --force
 ```
 
-第一步现已为 `core/title-main-menu`、`core/opening-player-setup`、
-`core/world-history-scroll` 和 `first-five/stage-001-opening` 建好本地工作区。
-第二、三步尚未执行。session probe 必须同时确认精确 ISO、PINE
+第零步无论成功或被阻塞，都会生成被忽略的
+`work/review/ui-runtime-host-preflight.json`，并把矩阵计划、当前四个
+route-ready case、晋级 ISO 大小／SHA-256、PCSX2 可执行文件架构和 Rosetta
+状态写入同一份报告。它不会执行 PCSX2；只有 `launch.safe_to_launch: true`
+才能进入第二步的真实新进程。当前 arm64 主机上的 PCSX2 2.6.3 只有 x86_64
+切片；当前 Rosetta 已可用，报告为 `runtime_host_ready`，没有 blocker。
+
+标题主菜单已经完成第二、三步并提交 hash-only receipt；其余四个 route-ready
+用例仍待执行。session probe 必须同时确认精确 ISO、PINE
 `SLPS-25887/Running`、fresh process、DVD、ELF executing 和零 TLB miss；
 视觉 verifier 要求每个 capture ID 都有哈希／尺寸、每条断言为真。atlas
 用例还会把运行纹理与锁定 reference PNG 做完整 256×256 RGBA 比较，只有
@@ -630,14 +834,29 @@ receipt 绑定稳定的 `matrix_plan_sha256`：它覆盖路线、采集点、断
    分别固定最终 ISO hash。五张受审中文候选 `机体`／`指令菜单`／`交易所`／
    `中场休息`／`新建小队` 也已锁定，相对原图分别变化
    421／2,292／3,634／2,083／1,262 个像素。
-9. **已完成 P3 fresh-boot slice 与综合测试候选静态验收：**两个 embedded
-   分区的 23 条决定中 12 条写入 32 个 target，只改变 SLPS 124 字节且和
-   P2 core 零重叠；五图 suite 的 5,568 个实际修改字节所有权互斥。P3 UI、
-   前五关和 suite 以 7 个完整成员组合，最终 ISO 的 59 个未替换成员、两段
-   LBA 位移、UDF 回读和 SHA-256 均固定。
-10. **已完成运行矩阵；当前执行目标：**21 个用例已绑定 1 张 P3 综合 ISO 和
-   5 张隔离 atlas ISO、fixture、截图点和断言。先执行六个 fresh-boot 用例；
-   取得并哈希锁定六份原生 memory card 后，用五张隔离候选分别证明中文标签
+9. **已完成 P6 deployment slice：**P3/P4/P5 八组
+   85 条决定作为精确基线；P6 晋级最后一组纯玩家可见 fixed-span 的 16 条
+   决定，其中 3 条写入 3 个 target，只改变 SLPS 44 字节且和 P5 零重叠。
+   九组 101 条已全部晋级。五图 suite 的 5,568 个实际修改字节所有权互斥。
+10. **已完成 P7 字库与五组 UI 静态验收：**追加七字、统一重绘四字并收短
+   六条译文后，五组 93 条全部通过原 span；字体 chunk、SLPS offsets 和
+   文本 owner 零冲突。P7 UI、前五关和 suite 以 7 个完整成员组合，最终
+   ISO 的 59 个未替换成员、`+7/+43` LBA 位移、UDF 回读和 SHA-256 均固定。
+11. **已完成 P8 余下纯玩家可见组静态验收：**四组 59 条决定已全部进入
+   bounded writer，19 条 no-op、40 条写入 47 个 target；P8 ISO 的 7 个
+   replacement、UDF 回读、成员清单和 SHA-256 均已锁定。
+12. **已完成 P9 混合组逐条拆分：**从两个混合组中只晋级 9 条玩家标签，
+   写入 34 个 target、改变 SLPS 174 字节／36 段；13 条诊断、控制、格式或
+   证据不足项保持原字节。P9 综合 ISO 的 7 个 replacement、UDF 回读、
+   成员清单和 SHA-256 均已锁定。
+13. **已完成 P10 数据库核心静态候选：**从 1,250 条父数据库中晋级
+   402 条（88／155／144／15），最后 12 个候选字槽和 14 个统一重绘字形已
+   进入同一 renderer；SLPS／COMPDATA 原位回读、VT1 非字体块、压缩 flags、
+   指针和非目标字节均通过门禁。其余 848 条保持延期。
+14. **已完成运行矩阵；当前执行目标：**46 个用例已绑定可运行／阻塞制品、
+   fixture、截图点和断言。标题 fresh-boot 已通过；继续执行其余四个可运行
+   fresh-boot 用例；
+   取得并哈希锁定七份原生 memory card 后，用五张隔离候选分别证明中文标签
    出现与 421／2,292／3,634／2,083／1,262 像素 texture delta 同时命中；
    另用综合 ISO 完成标题、玩家设置、战场、搜索、世界史滚动和前五关路线，
    同时按官方术语扩大人物／机体名语料。

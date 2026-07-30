@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "status": "static_integrated_ui_p7_embedded_font_groups_first_five_atlas_test_iso_validated_runtime_pending",
+  "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes or localized text are embedded.",
+  "profile_id": "ui-p7-embedded-font-groups-first-five-atlas-test",
+  "component": {
+    "manifest": {
+      "path": "manifests/ui-p7-embedded-font-groups-first-five-atlas-test-validation.json",
+      "size": 8633,
+      "sha256": "64d952f233cadb1018afc9674ca19e6998739e87aae3edb9ece43472e7c7d5aa"
+    },
+    "profile_id": "ui-p7-embedded-font-groups-first-five-atlas-test",
+    "composition": {
+      "mode": "whole-member-composition",
+      "member_count": 7,
+      "members": [
+        "DATA/COMPDATA.BN",
+        "DATA/MTV_PROS.BIN",
+        "DATA/STAGE.BIN",
+        "DATA/VT1.BIN",
+        "HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN",
+        "SLPS_258.87"
+      ],
+      "member_owner_overlap_count": 0,
+      "font_owner": "ui-p7-embedded-font-groups-core",
+      "story_data_owner": "first-five-story",
+      "atlas_owner": "ui-atlas-suite-zh"
+    },
+    "outputs": {
+      "SLPS_258.87": {
+        "path": "work/build/ui-p7-embedded-font-groups-first-five-atlas-test/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "7d2c5eb9294b2a1ebdbd8cc0d2a05329a294bac18dc90b81bd8e6d31245080c3",
+        "owner": "ui-p7-embedded-font-groups-core",
+        "source": {
+          "path": "work/build/ui-p7-embedded-font-groups/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "7d2c5eb9294b2a1ebdbd8cc0d2a05329a294bac18dc90b81bd8e6d31245080c3"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "DATA/COMPDATA.BN": {
+        "path": "work/build/ui-p7-embedded-font-groups-first-five-atlas-test/components/DATA/COMPDATA.BN",
+        "size": 159688,
+        "sha256": "32a5d9c70d3b156f5a756d59d97571fce90e9188f9ff1f87e41ee79aebd48c14",
+        "owner": "ui-p7-embedded-font-groups-core",
+        "source": {
+          "path": "work/build/ui-p7-embedded-font-groups/components/DATA/COMPDATA.BN",
+          "size": 159688,
+          "sha256": "32a5d9c70d3b156f5a756d59d97571fce90e9188f9ff1f87e41ee79aebd48c14"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "DATA/MTV_PROS.BIN": {
+        "path": "work/build/ui-p7-embedded-font-groups-first-five-atlas-test/components/DATA/MTV_PROS.BIN",
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+        "owner": "ui-p7-embedded-font-groups-core",
+        "source": {
+          "path": "work/build/ui-p7-embedded-font-groups/components/DATA/MTV_PROS.BIN",
+          "size": 8640,
+          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "DATA/VT1.BIN": {
+        "path": "work/build/ui-p7-embedded-font-groups-first-five-atlas-test/components/DATA/VT1.BIN",
+        "size": 127574688,
+        "sha256": "49bc9e892532c6266c0596875fbb746ae660d04d03c0fa50d26d194433b61c08",
+        "owner": "ui-p7-embedded-font-groups-core",
+        "source": {
+          "path": "work/build/ui-p7-embedded-font-groups/components/DATA/VT1.BIN",
+          "size": 127574688,
+          "sha256": "49bc9e892532c6266c0596875fbb746ae660d04d03c0fa50d26d194433b61c08"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "KURODATA/KVMDATA.BIN": {
+        "path": "work/build/ui-p7-embedded-font-groups-first-five-atlas-test/components/KURODATA/KVMDATA.BIN",
+        "size": 3335408,
+        "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921",
+        "owner": "ui-atlas-suite-zh",
+        "source": {
+          "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
+          "size": 3335408,
+          "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "HEDBDY/HB.BIN": {
+        "path": "work/build/ui-p7-embedded-font-groups-first-five-atlas-test/components/HEDBDY/HB.BIN",
+        "size": 31152,
+        "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9",
+        "owner": "first-five-story",
+        "source": {
+          "path": "work/build/first-five/components/HEDBDY/HB.BIN",
+          "size": 31152,
+          "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "DATA/STAGE.BIN": {
+        "path": "work/build/ui-p7-embedded-font-groups-first-five-atlas-test/components/DATA/STAGE.BIN",
+        "size": 3910272,
+        "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9",
+        "owner": "first-five-story",
+        "source": {
+          "path": "work/build/first-five/components/DATA/STAGE.BIN",
+          "size": 3910272,
+          "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
+        },
+        "manifest_output_lock_exact": true
+      }
+    },
+    "acceptance": {
+      "component_manifests_locked": true,
+      "component_statuses_validated": true,
+      "component_payloads_match_manifest_locks": true,
+      "member_ownership_disjoint": true,
+      "ui_core_owns_final_font_and_ui_text": true,
+      "first_five_owns_story_archives": true,
+      "atlas_suite_owns_kvmdata": true,
+      "all_output_locks_exact": true
+    }
+  },
+  "iso_build": {
+    "config": {
+      "path": "config/iso/ui-p7-embedded-font-groups-first-five-atlas-test-build.json",
+      "size": 5417,
+      "sha256": "97a9b25e59893c35362fdeeef1c46bd0e7cd95c8dc7a8ffa6edb82747f61b2c8"
+    },
+    "report": {
+      "path": "build/iso/ui-p7-embedded-font-groups-first-five-atlas-test/iso-validation.json",
+      "size": 4494,
+      "sha256": "5bd152f132af16a0fa0c6951f2ea1fbdacf479e2fd43d3d4f9d9aa76f32da8d6"
+    },
+    "path": "build/iso/ui-p7-embedded-font-groups-first-five-atlas-test/srwz-ui-p7-embedded-font-groups-first-five-atlas-test.iso",
+    "output": {
+      "size": 3758456832,
+      "sha256": "743b26bf2ad211e65a9a56638f295ceca5f53c965b4435a8a9b5ed6ac4882348"
+    },
+    "member_count": 66,
+    "unchanged_member_count": 59,
+    "shifted_member_count": 16,
+    "shift_segments": [
+      {
+        "first_member": "DATA/NISVDATA.BIN",
+        "shift_sectors": 7
+      },
+      {
+        "first_member": "DATA/STAGE.BIN",
+        "shift_sectors": 43
+      }
+    ],
+    "member_manifest_sha256": "e94b97b142c6d7b1be81e80fb635cb8ffc076a3524df6f8dadc3ba6255f92bb6",
+    "pcsx2_v263_image_type": "DVD",
+    "udf_volume_recognition_sequence": "NSR02",
+    "replacements": {
+      "SLPS_258.87": {
+        "size": 3471624,
+        "sha256": "7d2c5eb9294b2a1ebdbd8cc0d2a05329a294bac18dc90b81bd8e6d31245080c3",
+        "owner": "ui-p7-embedded-font-groups-core",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/COMPDATA.BN": {
+        "size": 159688,
+        "sha256": "32a5d9c70d3b156f5a756d59d97571fce90e9188f9ff1f87e41ee79aebd48c14",
+        "owner": "ui-p7-embedded-font-groups-core",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/MTV_PROS.BIN": {
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+        "owner": "ui-p7-embedded-font-groups-core",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/VT1.BIN": {
+        "size": 127574688,
+        "sha256": "49bc9e892532c6266c0596875fbb746ae660d04d03c0fa50d26d194433b61c08",
+        "owner": "ui-p7-embedded-font-groups-core",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/STAGE.BIN": {
+        "size": 3910272,
+        "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9",
+        "owner": "first-five-story",
+        "independent_udf_reread_exact": true
+      },
+      "HEDBDY/HB.BIN": {
+        "size": 31152,
+        "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9",
+        "owner": "first-five-story",
+        "independent_udf_reread_exact": true
+      },
+      "KURODATA/KVMDATA.BIN": {
+        "size": 3335408,
+        "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921",
+        "owner": "ui-atlas-suite-zh",
+        "independent_udf_reread_exact": true
+      }
+    }
+  },
+  "static_acceptance": {
+    "component_manifest_validated": true,
+    "iso_size_and_sha256_pinned": true,
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "shift_segments_exact": true,
+    "pcsx2_media_type_dvd": true,
+    "udf_nsr02": true,
+    "all_replacements_independently_reread": true,
+    "isolated_atlas_mapping_profiles_still_required": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_iso_sha256": "743b26bf2ad211e65a9a56638f295ceca5f53c965b4435a8a9b5ed6ac4882348",
+    "required_emulator": "PCSX2 v2.6.3",
+    "required_scene_families": [
+      "title/main-menu",
+      "opening/player-setup",
+      "tutorial/unit-stat-and-terrain-legend",
+      "opening/default-protagonist-labels",
+      "formation/squad-and-reboard-confirmations",
+      "information/tactical-status-metrics",
+      "battle/end-phase-map-command-tail",
+      "battle/action-restriction-messages",
+      "system/quick-command-save-and-cancel-confirmations",
+      "battle/repair-resupply-spirit-targeting",
+      "deployment/squad-selection-and-size-format",
+      "options/bgm-controller-and-map-settings",
+      "results/settlement-and-support-setup",
+      "formation/list-search-and-priority",
+      "upgrade/full-upgrade-reward",
+      "archive/scenario-progress-and-route-headings",
+      "intermission/main-and-options",
+      "information/unit-pilot-mech-core",
+      "battle/map-and-tactical",
+      "results/level-up-and-deployment",
+      "search/filter-and-results",
+      "route/stage-title-and-branch",
+      "opening/world-history-scroll",
+      "story/first-five-opening-sequences"
+    ],
+    "isolated_atlas_mapping_profiles_remain_required": true,
+    "pending_gates": [
+      "fresh_process_boot_exact_iso",
+      "pine_running_and_decoded_font_exact",
+      "all_required_scene_families_visited",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss",
+      "five_isolated_atlas_scene_mapping_receipts"
+    ]
+  }
+}

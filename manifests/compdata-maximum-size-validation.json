@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "status": "maximum_compdata_sizes_fit_p1_boot_passed_later_runtime_pending",
+  "content_policy": "Hashes and aggregate sizes only. Re-encoded and decoded game bytes are not saved.",
+  "source": {
+    "path": "work/disc/DATA/COMPDATA.BN",
+    "size": 144990,
+    "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+    "decoded_size": 524032,
+    "decoded_sha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb"
+  },
+  "strategy": {
+    "name": "maximum",
+    "minimum_match_length": 2,
+    "configured_match_chain": 256,
+    "gain_search_chain": 65535,
+    "lazy_biases": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "legacy_portfolio_suffix_limit": 65536,
+    "global_optimality_proven": false
+  },
+  "accelerator": {
+    "optional": true,
+    "fallback": "pure Python with identical table semantics",
+    "source": "tools/native/srwz_maximum_match.c",
+    "source_sha256": "e181acfc34459dfa48a34964abfdb6ec27c76ad4d0a7559793476c7b40c2748e",
+    "build_command": "python3 tools/build_maximum_match_accelerator.py --force",
+    "host": "Apple clang 21.0.0, maximum 8 pthread workers, 8-byte LCP",
+    "equivalence_test": "tests/test_maximum_match_accelerator.py",
+    "output_bytes_changed_by_acceleration": false
+  },
+  "sector_budget": {
+    "maximum_size": 145408,
+    "sector_size": 2048,
+    "maximum_sectors": 71
+  },
+  "candidates": [
+    {
+      "id": "p1-opening-names",
+      "path": "work/build/ui-p1-core/components/DATA/COMPDATA.BN",
+      "input_size": 143493,
+      "input_sha256": "3178915d69a2ebd5f9d785bd08b6a1f49270f4406bc071dc558f46b64bd44529",
+      "legacy_input_size": 156161,
+      "legacy_input_sha256": "9fb5066ecf4fa0550cc13f8e4defe06ee75a833ae55e8e40a261a811fd718a7d",
+      "decoded_size": 524032,
+      "decoded_sha256": "a2064b1d5eb02b0f6d220df539716813007218d3c85b76658d0bd256fc13cbc3",
+      "maximum_size": 143493,
+      "maximum_sha256": "3178915d69a2ebd5f9d785bd08b6a1f49270f4406bc071dc558f46b64bd44529",
+      "size_delta": 0,
+      "size_delta_from_legacy": -12668,
+      "budget_headroom": 1915,
+      "within_sector_budget": true,
+      "preserved_compressed_prefix_size": 29093,
+      "round_trip_exact": true,
+      "fully_consumed": true,
+      "static_game_decoder_grammar_compatible": true,
+      "accelerated_elapsed_seconds": 3.497,
+      "runtime_status": "boot_smoke_passed_visual_not_tested",
+      "runtime_iso_sha256": "32ef774c62eddb149b6d23d566645716bdbbdca02a124f1d5030083c50185454"
+    },
+    {
+      "id": "p2-researched-display-names",
+      "path": "work/build/ui-p2-display-names/components/DATA/COMPDATA.BN",
+      "input_size": 159688,
+      "input_sha256": "32a5d9c70d3b156f5a756d59d97571fce90e9188f9ff1f87e41ee79aebd48c14",
+      "decoded_size": 524032,
+      "decoded_sha256": "ad7894981e59748623141a0d625958f84fdca53d63cbf74e2dc61b02e86d3de2",
+      "maximum_size": 143973,
+      "maximum_sha256": "ee39c3f787f3bbf611e888a8c997aad119bbb821fd4b2a23a75ae6327ac2e154",
+      "size_delta": -15715,
+      "budget_headroom": 1435,
+      "within_sector_budget": true,
+      "preserved_compressed_prefix_size": 4015,
+      "round_trip_exact": true,
+      "fully_consumed": true,
+      "static_game_decoder_grammar_compatible": true,
+      "accelerated_elapsed_seconds": 4.182,
+      "runtime_status": "not_tested"
+    },
+    {
+      "id": "p10-database-fixed-core",
+      "path": "work/build/ui-p10-database-fixed-core/components/DATA/COMPDATA.BN",
+      "input_size": 160291,
+      "input_sha256": "e3e11aa1c5dfd4a0b9f25bd8905f25976304c7df87cfd734e012935cc202188b",
+      "decoded_size": 524032,
+      "decoded_sha256": "12a7ce7bc5160a4affa52106a831990fd998a216b303eb173d00dbc21c1b96c2",
+      "maximum_size": 144700,
+      "maximum_sha256": "75ffbe68e684d9afa070f2fdce2766a78fd797f528e9c3c49d5272d9b962ed5b",
+      "size_delta": -15591,
+      "budget_headroom": 708,
+      "within_sector_budget": true,
+      "preserved_compressed_prefix_size": 4015,
+      "round_trip_exact": true,
+      "fully_consumed": true,
+      "static_game_decoder_grammar_compatible": true,
+      "accelerated_elapsed_seconds": 4.192,
+      "runtime_status": "not_tested"
+    }
+  ],
+  "p0_decompression_work": {
+    "size_constrained": {
+      "compressed_size": 145237,
+      "block_count": 17529,
+      "match_count": 32456,
+      "literal_bytes": 42027,
+      "match_output_bytes": 482005
+    },
+    "maximum": {
+      "compressed_size": 145057,
+      "block_count": 17500,
+      "match_count": 32582,
+      "literal_bytes": 41613,
+      "match_output_bytes": 482419
+    },
+    "fixed_decoded_size": 524032,
+    "match_token_count_delta": 126,
+    "match_token_count_delta_ratio": 0.003882,
+    "block_count_delta": -29,
+    "copy_byte_count_delta": 0,
+    "runtime": {
+      "iso_sha256": "4ddaa69512d5118c549016b0cea28d720f7039dfdd7da571d4f1bff21fd30c3e",
+      "pcsx2_version": "2.6.3",
+      "pine_state": "Running",
+      "tlb_miss_count": 0
+    }
+  }
+}

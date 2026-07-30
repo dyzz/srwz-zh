@@ -2,31 +2,31 @@
   "schema_version": 1,
   "status": "runtime_matrix_validated_execution_pending",
   "matrix_id": "srwz-ui-runtime-v1",
-  "scope": "Runtime scene selection for the integrated P3 fresh-boot UI, first-five and five-atlas test ISO, with five isolated atlas ISOs retained for scene attribution. This file plans evidence; every case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
+  "scope": "Runtime scene selection for the promoted first-five-noncompdata-ui ISO. Runnable SLPS, VT1, MTV_PROS, STAGE and combined-atlas surfaces are kept separate from COMPDATA-dependent cases blocked by the known TLB failure. This file plans evidence; a case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
   "matrix_config": {
     "path": "config/runtime/ui-test-matrix.json",
-    "sha256": "39760f65b57e9acd90fb2532ade9b5993ae319439b9461c2ad5f7e37cf287e81"
+    "sha256": "0c942a71d7ebf9f013e086ff8aa91368aeecd43d5449a43d20fd4c123c18cba8"
   },
-  "matrix_plan_sha256": "208b91d6c5fc9da25eb79ac2e045d2e1f963612c7691bd1b3e64ff0ef38b1dd7",
+  "matrix_plan_sha256": "745ad9dcf70006037aa0a0f719e7f93921e656b9a31186988342541129f4e18f",
   "scene_inventory": {
     "path": "config/ui-scenes.json",
-    "sha256": "8728314e98343cb6abc72d65059515b120ab42bd01046116bbe95e55191152bb",
+    "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
     "inventory_id": "srwz-ui-scenes-v1",
     "scene_count": 14
   },
   "scene_extensions": [
     {
-      "extension_id": "embedded-ui-fresh-boot-p3",
+      "extension_id": "embedded-ui-promoted-p8",
       "manifest": "manifests/ui-embedded-scene-map.json",
-      "manifest_sha256": "24e913ac36e77f6c4919eb3f9b2558ab8394e16f3a8b8d41a250d8bd9c7868a0",
+      "manifest_sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651",
       "map_id": "srwz-ui-embedded-scenes-v1",
       "status": "static_scene_partition_validated_runtime_attribution_pending",
       "parent_scene_id": "menus/extended-embedded-dialogs",
       "priority": "P1",
-      "scene_count": 2,
-      "promoted_entry_count": 23,
+      "scene_count": 18,
+      "promoted_entry_count": 253,
       "aggregate_entry_count": 275,
-      "remaining_entry_count": 252,
+      "remaining_entry_count": 22,
       "scenes": [
         {
           "scene_id": "tutorial/unit-stat-and-terrain-legend",
@@ -41,8 +41,238 @@
           "fixture_id": "fresh-boot",
           "runtime_status": "not_tested",
           "writeback_readiness": "fixed_span_ready"
+        },
+        {
+          "scene_id": "formation/squad-and-reboard-confirmations",
+          "entry_count": 10,
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_ready"
+        },
+        {
+          "scene_id": "information/tactical-status-metrics",
+          "entry_count": 14,
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_ready"
+        },
+        {
+          "scene_id": "battle/end-phase-map-command-tail",
+          "entry_count": 6,
+          "fixture_id": "first-battle-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_ready"
+        },
+        {
+          "scene_id": "battle/action-restriction-messages",
+          "entry_count": 10,
+          "fixture_id": "first-battle-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_ready"
+        },
+        {
+          "scene_id": "system/quick-command-save-and-cancel-confirmations",
+          "entry_count": 5,
+          "fixture_id": "first-battle-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_ready"
+        },
+        {
+          "scene_id": "battle/repair-resupply-spirit-targeting",
+          "entry_count": 17,
+          "fixture_id": "first-battle-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_ready"
+        },
+        {
+          "scene_id": "deployment/squad-selection-and-size-format",
+          "entry_count": 16,
+          "fixture_id": "pre-results-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_ready"
+        },
+        {
+          "scene_id": "options/bgm-controller-and-map-settings",
+          "entry_count": 29,
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "font_extension_resolved_by_component"
+        },
+        {
+          "scene_id": "results/settlement-and-support-setup",
+          "entry_count": 5,
+          "fixture_id": "pre-results-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "font_extension_resolved_by_component"
+        },
+        {
+          "scene_id": "formation/list-search-and-priority",
+          "entry_count": 33,
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "font_extension_resolved_by_component"
+        },
+        {
+          "scene_id": "upgrade/full-upgrade-reward",
+          "entry_count": 17,
+          "fixture_id": "full-upgrade-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "font_extension_resolved_by_component"
+        },
+        {
+          "scene_id": "archive/scenario-progress-and-route-headings",
+          "entry_count": 9,
+          "fixture_id": "first-five-progress-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "font_extension_resolved_by_component"
+        },
+        {
+          "scene_id": "formation/terrain-variant-selector",
+          "entry_count": 10,
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_ready"
+        },
+        {
+          "scene_id": "battle/weapon-selection-and-use-conditions",
+          "entry_count": 22,
+          "fixture_id": "first-battle-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_ready"
+        },
+        {
+          "scene_id": "information/reboard-and-option-subpages",
+          "entry_count": 12,
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_ready"
+        },
+        {
+          "scene_id": "parts/equipment-and-predeployment-actions",
+          "entry_count": 15,
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_ready"
         }
-      ]
+      ],
+      "promotion_manifest": {
+        "path": "manifests/ui-p7-embedded-font-groups-validation.json",
+        "sha256": "08d581d28a6cac08048896d63553dd3c6e9fa41edd1913dd2e6241bc84b72c76",
+        "profile_id": "srwz-ui-p7-embedded-font-groups-integrated-v1",
+        "status": "integrated_ui_p7_embedded_font_groups_component_validated_iso_runtime_pending",
+        "runtime_status": "not_tested",
+        "scene_count": 5,
+        "entry_count": 93
+      }
+    },
+    {
+      "extension_id": "embedded-ui-mixed-entry-subsets-p9",
+      "manifest": "manifests/ui-embedded-scene-map.json",
+      "manifest_sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651",
+      "map_id": "srwz-ui-embedded-scenes-v1",
+      "status": "static_scene_partition_validated_runtime_attribution_pending",
+      "parent_scene_id": "menus/extended-embedded-dialogs",
+      "priority": "P1",
+      "scene_count": 2,
+      "promoted_entry_count": 9,
+      "aggregate_entry_count": 275,
+      "remaining_entry_count": 266,
+      "scenes": [
+        {
+          "scene_id": "preparation/reboard-status-visible-subset",
+          "source_scene_id": "preparation/reboard-status-and-internal-warnings",
+          "entry_count": 5,
+          "entry_ids_sha256": "3f9038e14c75796fdad7c3ad73ae3edec57f7c4206791629fbc0a9b3157de34a",
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "entry_subset_fixed_span_ready"
+        },
+        {
+          "scene_id": "information/pilot-ability-visible-subset",
+          "source_scene_id": "information/pilot-ability-format-and-control-fragments",
+          "entry_count": 4,
+          "entry_ids_sha256": "d896c6f40fd722ff6dfcb46e80be1005886a04ee34d6559c9f9bf1d69d2fcad1",
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "entry_subset_fixed_span_ready"
+        }
+      ],
+      "promotion_manifest": {
+        "path": "manifests/ui-p9-mixed-user-facing-subset-validation.json",
+        "sha256": "2a8b6ffd21253c1cab66c29f05ca670f1744c6f0eefd7cf09e49443c725eef0d",
+        "profile_id": "srwz-ui-p9-mixed-user-facing-subset-integrated-v1",
+        "status": "integrated_ui_p9_mixed_user_facing_subset_component_validated_iso_runtime_pending",
+        "runtime_status": "not_tested",
+        "scene_count": 2,
+        "entry_count": 9
+      }
+    },
+    {
+      "extension_id": "database-fixed-core-p10",
+      "extension_kind": "database_selection",
+      "manifest": "manifests/ui-database-fixed-core-selection.json",
+      "manifest_sha256": "f455f99a1a336b4374a58f8948e6cda1b7538758d798a38b78177f8bf2ec84d8",
+      "selection_id": "srwz-ui-database-fixed-core-v1",
+      "status": "static_database_fixed_subset_selected_font_extension_required",
+      "parent_scene_id": "database/parts-skills-abilities-weapons",
+      "parent_priority": "P2",
+      "priority": "P1",
+      "priority_override_reason": "The 402-entry core is now renderer-complete, fixed-span validated and reachable from first-intermission information pages; the unselected 848-entry remainder stays P2.",
+      "scene_count": 4,
+      "promoted_entry_count": 402,
+      "aggregate_entry_count": 1250,
+      "remaining_entry_count": 848,
+      "scenes": [
+        {
+          "scene_id": "database/pilot-skills-core",
+          "family_id": "skills",
+          "label": "驾驶员技能名称与说明",
+          "entry_count": 88,
+          "entry_ids_sha256": "b3c36b9ffc225285d64ad3d261de82ac1332b7f555fcff679582f46eefa5b103",
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_and_font_extension_resolved_by_component"
+        },
+        {
+          "scene_id": "database/unit-special-abilities-core",
+          "family_id": "special-abilities",
+          "label": "机体特殊能力名称与说明",
+          "entry_count": 155,
+          "entry_ids_sha256": "ac77dd01b755795f2bd24cdffb9d17199856aa80cd8081d21a4d412d9723274a",
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_and_font_extension_resolved_by_component"
+        },
+        {
+          "scene_id": "database/spirit-commands-core",
+          "family_id": "spirit-commands",
+          "label": "精神指令名称与说明",
+          "entry_count": 144,
+          "entry_ids_sha256": "3c5b1f049c777d113050fbe39dda3fbbcf9c87e8e620054a066f2dc44e3d0125",
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_and_font_extension_resolved_by_component"
+        },
+        {
+          "scene_id": "database/leadership-effects-core",
+          "family_id": "leadership-effects",
+          "label": "小队长能力分类与效果",
+          "entry_count": 15,
+          "entry_ids_sha256": "03a6d7927a7cf24cd433978b015e7c5b1bc794b6b8cf38fca90a892bbacb522e",
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_and_font_extension_resolved_by_component"
+        }
+      ],
+      "promotion_manifest": {
+        "path": "manifests/ui-p10-database-fixed-core-validation.json",
+        "sha256": "41c96c2a7151ff69d918e184ecd4bf01b473a9c3d8019a83308681ac7be31333",
+        "profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
+        "status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
+        "runtime_status": "not_tested",
+        "scene_count": 4,
+        "entry_count": 402
+      }
     }
   ],
   "evidence_policy": {
@@ -72,47 +302,85 @@
     }
   },
   "summary": {
-    "scene_count": 16,
+    "scene_count": 38,
     "base_scene_count": 14,
-    "extended_scene_count": 2,
-    "selected_scene_count": 12,
+    "extended_scene_count": 24,
+    "selected_scene_count": 34,
     "deferred_scene_count": 4,
-    "case_count": 21,
+    "case_count": 46,
     "purpose_case_counts": {
       "asset_mapping": 5,
-      "localization_acceptance": 11,
+      "localization_acceptance": 36,
       "story_sequence_acceptance": 5
     },
     "priority_case_counts": {
-      "P0": 12,
-      "P1": 9
+      "P0": 15,
+      "P1": 31
     },
-    "artifact_count": 6,
-    "fixture_count": 7,
+    "artifact_count": 8,
+    "fixture_count": 8,
     "fixture_status_counts": {
-      "not_acquired": 6,
+      "not_acquired": 7,
       "ready": 1
     },
     "route_ready_case_count": 6,
-    "missing_fixture_case_count": 15,
+    "missing_fixture_case_count": 35,
+    "artifact_runtime_blocked_case_count": 5,
     "capture_counts": {
-      "screenshot": 46,
+      "screenshot": 112,
       "screenshot_sequence": 6,
       "texture_delta": 5
     },
     "runtime_passed_case_count": 0,
-    "runtime_not_tested_case_count": 21
+    "runtime_not_tested_case_count": 46
   },
   "artifacts": [
     {
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
-      "manifest": "manifests/ui-p3-fresh-boot-first-five-atlas-test-runtime-validation.json",
-      "manifest_sha256": "060faab01a63a3daa3da6996013667117f7db88f1affc7524d05e57137c3ac56",
-      "status": "static_integrated_ui_p3_fresh_boot_first_five_atlas_test_iso_validated_runtime_pending",
-      "runtime_status": "not_tested",
-      "iso_path": "build/iso/ui-p3-fresh-boot-first-five-atlas-test/srwz-ui-p3-fresh-boot-first-five-atlas-test.iso",
+      "artifact_id": "first-five-noncompdata-ui",
+      "manifest": "manifests/ui-iso-incremental-validation.json",
+      "manifest_sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5",
+      "status": "validated_with_known_compdata_runtime_blocker",
+      "runtime_status": "first-five-noncompdata-ui",
+      "availability": "runnable",
+      "iso_path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39",
+      "iso_source_manifest": {
+        "path": "manifests/ui-iso-incremental-validation.json",
+        "sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5"
+      },
+      "mapping": null
+    },
+    {
+      "artifact_id": "first-five-full-ui-with-compdata",
+      "manifest": "manifests/ui-iso-incremental-validation.json",
+      "manifest_sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5",
+      "status": "validated_with_known_compdata_runtime_blocker",
+      "runtime_status": "failed_tlb",
+      "availability": "blocked_runtime",
+      "iso_path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso",
       "iso_size": 3758456832,
-      "iso_sha256": "cc4575bdc94a71d79c3a40810308d4eb41f8d3f69f1fd40139e63c83fde038c0",
+      "iso_sha256": "2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431",
+      "iso_source_manifest": {
+        "path": "manifests/ui-iso-incremental-validation.json",
+        "sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5"
+      },
+      "mapping": null
+    },
+    {
+      "artifact_id": "ui-p1-opening-names-maximum",
+      "manifest": "manifests/ui-p1-core-runtime-validation.json",
+      "manifest_sha256": "46d6e9c67cfcc261c289fda6c8df033a05f048cc39edfc857811fce7868a3e8e",
+      "status": "integrated_iso_boot_smoke_passed_visual_pending",
+      "runtime_status": "boot_smoke_passed_visual_not_tested",
+      "availability": "runnable",
+      "iso_path": "build/iso/ui-p1-core/srwz-ui-p1-core.iso",
+      "iso_size": 3758358528,
+      "iso_sha256": "69771b8dfa5800d3ce6652436d3cbad24ed71e5d83b4c5dc12b8ed0c3ae33854",
+      "iso_source_manifest": {
+        "path": "manifests/ui-p1-core-runtime-validation.json",
+        "sha256": "46d6e9c67cfcc261c289fda6c8df033a05f048cc39edfc857811fce7868a3e8e"
+      },
       "mapping": null
     },
     {
@@ -121,9 +389,14 @@
       "manifest_sha256": "c5dd931f75c0c935f5e19259cdea994d0f8c90c29d7a6992873c5d46c461bc51",
       "status": "static_localization_iso_validated_runtime_mapping_pending",
       "runtime_status": "not_tested",
-      "iso_path": "build/iso/ui-info-atlas-zh/srwz-ui-info-atlas-zh.iso",
-      "iso_size": 3758358528,
-      "iso_sha256": "d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0",
+      "availability": "runnable",
+      "iso_path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39",
+      "iso_source_manifest": {
+        "path": "manifests/ui-iso-incremental-validation.json",
+        "sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5"
+      },
       "mapping": {
         "chunk_index": 2,
         "changed_pixel_count": 421,
@@ -136,9 +409,14 @@
       "manifest_sha256": "8ba641bf04d2c7bc69021c543fa935489eab1ede8a1b63359facb0c222fda798",
       "status": "static_localization_iso_validated_runtime_mapping_pending",
       "runtime_status": "not_tested",
-      "iso_path": "build/iso/ui-battle-command-atlas-zh/srwz-ui-battle-command-atlas-zh.iso",
-      "iso_size": 3758358528,
-      "iso_sha256": "3e9ed4b155867cefc6b03775a20ab1ca58f7bc4c29ef7bcdfa6feceb14182dda",
+      "availability": "runnable",
+      "iso_path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39",
+      "iso_source_manifest": {
+        "path": "manifests/ui-iso-incremental-validation.json",
+        "sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5"
+      },
       "mapping": {
         "chunk_index": 4,
         "changed_pixel_count": 2292,
@@ -151,9 +429,14 @@
       "manifest_sha256": "f38e8953a9bcf71c8c2c2f654a61624e97f783f8cd275f91eb14cab7d8886e32",
       "status": "static_localization_iso_validated_runtime_mapping_pending",
       "runtime_status": "not_tested",
-      "iso_path": "build/iso/ui-bazaar-atlas-zh/srwz-ui-bazaar-atlas-zh.iso",
-      "iso_size": 3758358528,
-      "iso_sha256": "9fcf33ba40c717497d6750e303db44e3a48bf814f43f4dbdebef3639912bf363",
+      "availability": "runnable",
+      "iso_path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39",
+      "iso_source_manifest": {
+        "path": "manifests/ui-iso-incremental-validation.json",
+        "sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5"
+      },
       "mapping": {
         "chunk_index": 5,
         "changed_pixel_count": 3634,
@@ -166,9 +449,14 @@
       "manifest_sha256": "31f40dd843c883afae2ec3ad524a8b9daf6ae9ee011fba6848972792b4ae075c",
       "status": "static_localization_iso_validated_runtime_mapping_pending",
       "runtime_status": "not_tested",
-      "iso_path": "build/iso/ui-intermission-atlas-zh/srwz-ui-intermission-atlas-zh.iso",
-      "iso_size": 3758358528,
-      "iso_sha256": "27a7563c517c155cb9fc44e2b80a06be41d1a1fb294c0f633537b19c4f9e9de2",
+      "availability": "runnable",
+      "iso_path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39",
+      "iso_source_manifest": {
+        "path": "manifests/ui-iso-incremental-validation.json",
+        "sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5"
+      },
       "mapping": {
         "chunk_index": 6,
         "changed_pixel_count": 2083,
@@ -181,9 +469,14 @@
       "manifest_sha256": "014c1d6ba07c31c6dcd7c8656cdea4e20c138346419517855123c4df97e14c00",
       "status": "static_localization_iso_validated_runtime_mapping_pending",
       "runtime_status": "not_tested",
-      "iso_path": "build/iso/ui-formation-atlas-zh/srwz-ui-formation-atlas-zh.iso",
-      "iso_size": 3758358528,
-      "iso_sha256": "cc8cd7cf82583cb5ea8d52ccac6aabafa730a653ff70613ac2a07da1f763a293",
+      "availability": "runnable",
+      "iso_path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39",
+      "iso_source_manifest": {
+        "path": "manifests/ui-iso-incremental-validation.json",
+        "sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5"
+      },
       "mapping": {
         "chunk_index": 7,
         "changed_pixel_count": 1262,
@@ -225,6 +518,14 @@
       "requirement_count": 2
     },
     {
+      "fixture_id": "full-upgrade-card",
+      "kind": "memory_card",
+      "status": "not_acquired",
+      "workspace_path": "work/runtime/ui-fixtures/full-upgrade/SLPS-25887.ps2",
+      "sha256": null,
+      "requirement_count": 2
+    },
+    {
       "fixture_id": "bazaar-unlocked-card",
       "kind": "memory_card",
       "status": "not_acquired",
@@ -257,7 +558,7 @@
       "scene_ids": [
         "title/main-menu"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "fresh-boot",
       "fixture_status": "ready",
       "variant": null,
@@ -278,7 +579,7 @@
       "scene_ids": [
         "opening/player-setup"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "fresh-boot",
       "fixture_status": "ready",
       "variant": null,
@@ -299,12 +600,12 @@
       "scene_ids": [
         "intermission/main-and-options"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "first-intermission-card",
       "fixture_status": "not_acquired",
       "variant": null,
       "route_step_count": 3,
-      "assertion_count": 3,
+      "assertion_count": 4,
       "capture_counts": {
         "screenshot": 4
       },
@@ -320,7 +621,7 @@
       "scene_ids": [
         "information/unit-pilot-mech-core"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "first-intermission-card",
       "fixture_status": "not_acquired",
       "variant": null,
@@ -341,7 +642,7 @@
       "scene_ids": [
         "battle/map-and-tactical"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "first-battle-card",
       "fixture_status": "not_acquired",
       "variant": null,
@@ -362,7 +663,7 @@
       "scene_ids": [
         "results/level-up-and-deployment"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "pre-results-card",
       "fixture_status": "not_acquired",
       "variant": null,
@@ -383,7 +684,7 @@
       "scene_ids": [
         "search/filter-and-results"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "first-intermission-card",
       "fixture_status": "not_acquired",
       "variant": null,
@@ -404,7 +705,7 @@
       "scene_ids": [
         "opening/world-history-scroll"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "fresh-boot",
       "fixture_status": "ready",
       "variant": null,
@@ -426,7 +727,7 @@
       "scene_ids": [
         "tutorial/unit-stat-and-terrain-legend"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "fresh-boot",
       "fixture_status": "ready",
       "variant": null,
@@ -447,7 +748,7 @@
       "scene_ids": [
         "opening/default-protagonist-labels"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "ui-p1-opening-names-maximum",
       "fixture_id": "fresh-boot",
       "fixture_status": "ready",
       "variant": null,
@@ -462,13 +763,349 @@
       "runtime_evidence": null
     },
     {
+      "case_id": "intermission/squad-reboard-confirmations",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "formation/squad-and-reboard-confirmations"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "information/tactical-status-metrics",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "information/tactical-status-metrics"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "battle/end-phase-map-command-tail",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "battle/end-phase-map-command-tail"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-battle-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 2
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "battle/action-restriction-messages",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "battle/action-restriction-messages"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-battle-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "system/quick-command-save-and-cancel-confirmations",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "system/quick-command-save-and-cancel-confirmations"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-battle-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 2
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "battle/repair-resupply-spirit-targeting",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "battle/repair-resupply-spirit-targeting"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-battle-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 4
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "deployment/squad-selection-and-size-format",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "deployment/squad-selection-and-size-format"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "pre-results-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "options/bgm-controller-and-map-settings",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "options/bgm-controller-and-map-settings"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "results/settlement-and-support-setup",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "results/settlement-and-support-setup"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "pre-results-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "formation/list-search-and-priority",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "formation/list-search-and-priority"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "upgrade/full-upgrade-reward",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "upgrade/full-upgrade-reward"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "full-upgrade-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "archive/scenario-progress-and-route-headings",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "archive/scenario-progress-and-route-headings"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-five-progress-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 2
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "formation/terrain-variant-selector",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "formation/terrain-variant-selector"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 2
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "battle/weapon-selection-and-use-conditions",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "battle/weapon-selection-and-use-conditions"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-battle-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "information/reboard-and-option-subpages",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "information/reboard-and-option-subpages"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "parts/equipment-and-predeployment-actions",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "parts/equipment-and-predeployment-actions"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
       "case_id": "first-five/stage-001-opening",
       "purpose": "story_sequence_acceptance",
       "priority": "P1",
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "fresh-boot",
       "fixture_status": "ready",
       "variant": "001",
@@ -490,7 +1127,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "first-five-progress-card",
       "fixture_status": "not_acquired",
       "variant": "002",
@@ -512,7 +1149,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "first-five-progress-card",
       "fixture_status": "not_acquired",
       "variant": "003",
@@ -534,7 +1171,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "first-five-progress-card",
       "fixture_status": "not_acquired",
       "variant": "004",
@@ -556,7 +1193,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-noncompdata-ui",
       "fixture_id": "first-five-progress-card",
       "fixture_status": "not_acquired",
       "variant": "005",
@@ -578,7 +1215,7 @@
       "scene_ids": [
         "route/stage-title-and-branch"
       ],
-      "artifact_id": "ui-p3-fresh-boot-first-five-atlas-test",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "route-branch-card",
       "fixture_status": "not_acquired",
       "variant": null,
@@ -588,7 +1225,70 @@
         "screenshot": 3
       },
       "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_artifact_runtime",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "compdata/intermission-buttons",
+      "purpose": "localization_acceptance",
+      "priority": "P0",
+      "scene_ids": [
+        "intermission/main-and-options"
+      ],
+      "artifact_id": "ui-p1-opening-names-maximum",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": "compdata",
+      "route_step_count": 2,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 2
+      },
+      "runtime_status": "not_tested",
       "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "compdata/information-display-names",
+      "purpose": "localization_acceptance",
+      "priority": "P0",
+      "scene_ids": [
+        "information/unit-pilot-mech-core"
+      ],
+      "artifact_id": "first-five-full-ui-with-compdata",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": "compdata",
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_artifact_runtime",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "compdata/search-filter-terms",
+      "purpose": "localization_acceptance",
+      "priority": "P0",
+      "scene_ids": [
+        "search/filter-and-results"
+      ],
+      "artifact_id": "first-five-full-ui-with-compdata",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": "compdata",
+      "route_step_count": 2,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 2
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_artifact_runtime",
       "texture_delta": null,
       "runtime_evidence": null
     },
@@ -723,6 +1423,132 @@
         "changed_pixel_indexes_sha256": "a4cb73f4adafb6e068a5e57f3e01da88a6ca930e492d39f03a34a03ea3574b7a"
       },
       "runtime_evidence": null
+    },
+    {
+      "case_id": "preparation/reboard-status-visible-subset",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "preparation/reboard-status-visible-subset"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 2
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "information/pilot-ability-visible-subset",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "information/pilot-ability-visible-subset"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 2
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "database/pilot-skills-core",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "database/pilot-skills-core"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "database/unit-special-abilities-core",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "database/unit-special-abilities-core"
+      ],
+      "artifact_id": "first-five-full-ui-with-compdata",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 2
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_artifact_runtime",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "database/spirit-commands-core",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "database/spirit-commands-core"
+      ],
+      "artifact_id": "first-five-noncompdata-ui",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 3
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
+    },
+    {
+      "case_id": "database/leadership-effects-core",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "database/leadership-effects-core"
+      ],
+      "artifact_id": "first-five-full-ui-with-compdata",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 2
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_artifact_runtime",
+      "texture_delta": null,
+      "runtime_evidence": null
     }
   ],
   "scene_dispositions": [
@@ -752,6 +1578,7 @@
       "disposition": "selected",
       "case_ids": [
         "core/intermission-main-options",
+        "compdata/intermission-buttons",
         "mapping/bazaar-atlas",
         "mapping/intermission-atlas",
         "mapping/formation-atlas"
@@ -765,6 +1592,7 @@
       "disposition": "selected",
       "case_ids": [
         "core/information-pages",
+        "compdata/information-display-names",
         "mapping/info-atlas"
       ],
       "reason": null,
@@ -798,6 +1626,7 @@
       "disposition": "selected",
       "case_ids": [
         "core/search-filter-results",
+        "compdata/search-filter-terms",
         "mapping/info-atlas"
       ],
       "reason": null,
@@ -858,12 +1687,232 @@
       "exit_gate": null
     },
     {
+      "scene_id": "formation/squad-and-reboard-confirmations",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "intermission/squad-reboard-confirmations"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "information/tactical-status-metrics",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "information/tactical-status-metrics"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "battle/end-phase-map-command-tail",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "battle/end-phase-map-command-tail"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "battle/action-restriction-messages",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "battle/action-restriction-messages"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "system/quick-command-save-and-cancel-confirmations",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "system/quick-command-save-and-cancel-confirmations"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "battle/repair-resupply-spirit-targeting",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "battle/repair-resupply-spirit-targeting"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "deployment/squad-selection-and-size-format",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "deployment/squad-selection-and-size-format"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "options/bgm-controller-and-map-settings",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "options/bgm-controller-and-map-settings"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "results/settlement-and-support-setup",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "results/settlement-and-support-setup"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "formation/list-search-and-priority",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "formation/list-search-and-priority"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "upgrade/full-upgrade-reward",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "upgrade/full-upgrade-reward"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "archive/scenario-progress-and-route-headings",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "archive/scenario-progress-and-route-headings"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "formation/terrain-variant-selector",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "formation/terrain-variant-selector"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "battle/weapon-selection-and-use-conditions",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "battle/weapon-selection-and-use-conditions"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "information/reboard-and-option-subpages",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "information/reboard-and-option-subpages"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "parts/equipment-and-predeployment-actions",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "parts/equipment-and-predeployment-actions"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "preparation/reboard-status-visible-subset",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "preparation/reboard-status-visible-subset"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "information/pilot-ability-visible-subset",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "information/pilot-ability-visible-subset"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "database/pilot-skills-core",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "database/pilot-skills-core"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "database/unit-special-abilities-core",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "database/unit-special-abilities-core"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "database/spirit-commands-core",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "database/spirit-commands-core"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
+      "scene_id": "database/leadership-effects-core",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "database/leadership-effects-core"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
       "scene_id": "menus/extended-embedded-dialogs",
       "priority": "P1",
       "disposition": "deferred",
       "case_ids": [],
-      "reason": "The 275-entry aggregate has a disjoint 22-group static scene map. Two fresh-boot groups covering 23 entries now have a promoted fixed-span writer and exact runtime routes; the remaining 252 entries still lack promoted writers or screen attribution.",
-      "exit_gate": "Execute the two fresh-boot P3 cases, then use config/ui-embedded-scenes.json to acquire the remaining native fixtures, prove exact screen ownership, split both mixed clusters, and promote one hash-locked selector plus screenshot receipt at a time."
+      "reason": "The 275-entry aggregate has a disjoint 22-group static scene map. All eighteen purely player-facing groups covering 253 entries and nine statically identifiable player-facing entries from two mixed groups now have promoted writers and exact runtime routes. The remaining thirteen corrupt, NULL diagnostic, raw control, standalone format and ambiguous Set fragments remain deliberately excluded.",
+      "exit_gate": "Execute all twenty full-group or entry-subset cases against the promoted first-five-noncompdata-ui ISO. Promote any of the remaining thirteen fragments only after a normal player route and screenshot prove that the exact fragment is rendered."
     },
     {
       "scene_id": "menus/late-game-special-prompts",
@@ -878,8 +1927,8 @@
       "priority": "P2",
       "disposition": "deferred",
       "case_ids": [],
-      "reason": "The 1,250-entry database exceeds the current append-only glyph strategy.",
-      "exit_gate": "Expand the renderer-addressable glyph plan and add list/detail/disabled runtime samples for every database family."
+      "reason": "The 1,250-entry aggregate now has a promoted 402-entry skills, special-abilities, spirit-command and leadership fixed core. The remaining 848 parts, weapons, disputed proper-name terms and the two-CJK label that cannot fit its source span stay deferred.",
+      "exit_gate": "Execute the four exact-P10 list/detail/disabled cases, then design a new storage and renderer strategy before promoting any of the remaining 848 decisions."
     },
     {
       "scene_id": "battle/retreat-lines",

@@ -126,11 +126,7 @@ class UiP2CoreTests(unittest.TestCase):
             [
                 {
                     "first_member": "DATA/NISVDATA.BIN",
-                    "shift_sectors": 7,
-                },
-                {
-                    "first_member": "DATA/STAGE.BIN",
-                    "shift_sectors": 42,
+                    "shift_sectors": 0,
                 },
             ],
         )
@@ -138,7 +134,7 @@ class UiP2CoreTests(unittest.TestCase):
     def test_static_iso_is_pinned_without_runtime_overclaim(self):
         self.assertEqual(
             self.runtime["status"],
-            "static_integrated_iso_validated_runtime_pending",
+            "integrated_iso_boot_smoke_passed_visual_pending",
         )
         self.assertEqual(self.runtime["iso_build"]["member_count"], 66)
         self.assertEqual(
@@ -147,10 +143,17 @@ class UiP2CoreTests(unittest.TestCase):
         )
         self.assertEqual(
             self.runtime["iso_build"]["output"]["sha256"],
-            "2ce5c844cd623c1bfd2f6ec1bc7acc0aa9565fc069f451a0b736ad3e8aa13a65",
+            "be95af17bcfe62ff6b0dfc5f7d9665118440c9adaa8061c071881471f76ef811",
         )
         self.assertTrue(all(self.runtime["static_acceptance"].values()))
-        self.assertEqual(self.runtime["runtime"]["status"], "not_tested")
+        self.assertEqual(
+            self.runtime["runtime"]["status"],
+            "boot_smoke_passed_visual_not_tested",
+        )
+        self.assertEqual(
+            self.runtime["runtime"]["tlb_miss_count"],
+            0,
+        )
 
 
 if __name__ == "__main__":

@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "profile_id": "compdata-step-01a-p0-buttons-inplace",
+  "component_validation_manifest": "manifests/compdata-step-01a-p0-buttons-validation.json",
+  "component_required_status": "fixed_compdata_component_validated_iso_runtime_pending",
+  "runtime_manifest_status": "static_compdata_step_01a_p0_buttons_inplace_iso_validated_runtime_pending",
+  "runtime_evidence_manifest": "manifests/compdata-step-01a-p0-buttons-inplace-runtime-validation.json",
+  "source_iso": {
+    "path": "rom/srwz.iso",
+    "size": 3758358528,
+    "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014",
+    "member_count": 66,
+    "iso9660_system_id": "PLAYSTATION",
+    "udf_volume_recognition_sequence": "NSR02"
+  },
+  "toolchain": {
+    "repository": "https://github.com/N4gtan/mkps2iso.git",
+    "tag": "v1.1.1",
+    "commit": "f9a3dea18b67dc5f10093e72114a16283d277af0",
+    "version": "1.1.1",
+    "license_spdx": "GPL-2.0-only",
+    "source_dir": "work/toolchain/mkps2iso-v1.1.1/source",
+    "mkps2iso": {
+      "executable": "mkps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/mkps2iso",
+      "version": "1.1.1",
+      "version_line": "MKPS2ISO 1.1.1 - PlayStation 2 Image Maker"
+    },
+    "dumps2iso": {
+      "executable": "dumps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/dumps2iso",
+      "version": "1.1.1",
+      "version_line": "DUMPS2ISO 1.1.1 - PlayStation 2 Image Dumper"
+    }
+  },
+  "workspace": {
+    "original_tree": "work/build/compdata-step-01a-p0-buttons-inplace/iso/original",
+    "staging_tree": "work/build/compdata-step-01a-p0-buttons-inplace/iso/staging",
+    "base_xml": "work/build/compdata-step-01a-p0-buttons-inplace/iso/layout/original.xml",
+    "build_xml": "work/build/compdata-step-01a-p0-buttons-inplace/iso/layout/build.xml",
+    "lba_log": "work/build/compdata-step-01a-p0-buttons-inplace/iso/layout/lba.txt"
+  },
+  "layout": {
+    "volume_id": "SRWZ_CD_P0_BTN",
+    "shift_segments": [
+      {
+        "first_member": "DATA/STAGE.BIN",
+        "shift_sectors": 37
+      }
+    ],
+    "preserve_original_gaps": true,
+    "trailing_dummy_sectors": 10240
+  },
+  "replacements": [
+    {
+      "member": "SLPS_258.87",
+      "source": "work/build/compdata-step-01a-p0-buttons-inplace/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "0cfea3e0106d9eed6e81faf0916f9a9092b2b25d705e9c60e2c889ee2b6f1a10"
+    },
+    {
+      "member": "DATA/COMPDATA.BN",
+      "source": "work/build/compdata-step-01a-p0-buttons-inplace/components/DATA/COMPDATA.BN",
+      "size": 145300,
+      "sha256": "a27b5f813928c32e3f7b9535f3af4f6de3ca523d4653e1247a2d864d141bd306"
+    },
+    {
+      "member": "DATA/MTV_PROS.BIN",
+      "source": "work/build/compdata-step-01a-p0-buttons-inplace/components/DATA/MTV_PROS.BIN",
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    },
+    {
+      "member": "DATA/VT1.BIN",
+      "source": "work/build/compdata-step-01a-p0-buttons-inplace/components/DATA/VT1.BIN",
+      "size": 127576768,
+      "sha256": "75a116330305e73786c50335e3b987d7ab3645d4eefcdc2ce8236db5483b2c36"
+    },
+    {
+      "member": "DATA/STAGE.BIN",
+      "source": "work/build/compdata-step-01a-p0-buttons-inplace/components/DATA/STAGE.BIN",
+      "size": 3910272,
+      "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
+    },
+    {
+      "member": "HEDBDY/HB.BIN",
+      "source": "work/build/compdata-step-01a-p0-buttons-inplace/components/HEDBDY/HB.BIN",
+      "size": 31152,
+      "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9"
+    },
+    {
+      "member": "KURODATA/KVMDATA.BIN",
+      "source": "work/build/compdata-step-01a-p0-buttons-inplace/components/KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921"
+    }
+  ],
+  "output": {
+    "path": "build/iso/compdata-step-01a-p0-buttons-inplace/srwz-compdata-step-01a-p0-buttons-inplace.iso",
+    "report": "build/iso/compdata-step-01a-p0-buttons-inplace/iso-validation.json",
+    "expected_root_directory_size": 960,
+    "expected_pcsx2_v263_image_type": "DVD",
+    "expected_udf_volume_recognition_sequence": "NSR02",
+    "byte_reproducible": true,
+    "expected_size": 3758424064,
+    "expected_sha256": "53abf0c9135087e95b77295b6654ca79574926f6ef3a377a4d741c9d30ead5fe",
+    "expected_member_manifest_sha256": "5fad18d52d3e2426876f4196a8b435bb3ce10185e2812bfdacc5f8bc1504a525"
+  },
+  "acceptance": {
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "iso9660_present": true,
+    "udf_present": true,
+    "udf_verify_members": [
+      "SYSTEM.CNF",
+      "SLPS_258.87",
+      "DATA/COMPDATA.BN",
+      "DATA/MTV_PROS.BIN",
+      "DATA/VT1.BIN",
+      "DATA/STAGE.BIN",
+      "HEDBDY/HB.BIN",
+      "KURODATA/KVMDATA.BIN"
+    ]
+  }
+}

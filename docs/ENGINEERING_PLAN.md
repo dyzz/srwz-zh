@@ -435,7 +435,7 @@ affected components/surfaces
 | E0 | 已完成 | component/ISO/runtime/visual 哈希链和事故 gates | 后续只允许显式更新 golden |
 | E1 | 已完成 | SurfaceSpec、中文记录、codebook、`canary-menu`、reconciliation 和固定 component/ISO lock | 后续统一 CLI 属于 E3 工程化 |
 | E2 | 已完成 | menu、MTV_PROS summary、STAGE growing dialogue 三类 writer/profile/fixture；三条独立 PCSX2 证据和完整组合 smoke | 扩大语料前进入 E3 |
-| E3 | 进行中 | 前五关和世界史布局门、P0/P1/P2 UI 字库、fixed-span writer、1,307 项动态名、两个 embedded fresh-boot 分区的 P3 slice、静态组合 UI ISO、五张中文 atlas 独立候选和 21 用例运行矩阵 | P3／atlas 运行归属、余下名称、其余 embedded UI、离线 render oracle 和逐屏证据 |
+| E3 | 进行中 | 前五关和世界史布局门、P0/P1/P2/P7/P10 UI 字库、fixed-span writer、1,307 项动态名、十八个整组与两个逐条子集的 P3～P9 embedded slice、402 条 P10 数据库核心、静态组合 UI ISO、五张中文 atlas 独立候选和 43 用例运行矩阵 | P10／atlas 运行归属、余下名称、848 条数据库余项、13 条诊断／格式 embedded 项调用点、离线 render oracle 和逐屏证据 |
 | E4–E5 | 未开始 | E2 可复用 clean-room 生产基础 | 在 E3 退出条件满足后实施 |
 
 ### E0：冻结首个纵向切片
@@ -580,7 +580,7 @@ canary 仍刻意使用已验证的原位定长 allocation。
 
 ## 17. 当前优先队列
 
-1. E3：为综合测试 ISO 取得六份原生 memory card，并执行 14 个非映射逐屏
+1. E3：为综合测试 ISO 取得七份原生 memory card，并执行 20 个 embedded 逐屏
    用例；每个结果必须绑定精确 ISO、PINE、日志、截图／序列和断言；
 2. E3：继续用五张隔离中文 atlas 候选逐一完成截图和
    421／2,292／3,634／2,083／1,262 像素 texture-delta 双门；综合候选中的
@@ -594,13 +594,21 @@ E0-E2 已完成：SurfaceSpec、正式 `测/试` codebook、三域 `corpus/zh`�
 四个隔离/组合 profile、自动 component manifest，以及菜单、摘要、剧情三条
 独立 PCSX2 fixture 均已落地。P0 的 418 条 SLPS 与 44 条 COMPDATA 静态菜单
 文本也已由 fixed-span profile 全部覆盖。动态显示名现已完成全结构解析和
-开场 45 字段组件；researched 精确切片另选 1,262 项，并以 29 个新
-allocation、4 个退役 assignment 复用和 29 个重绘字形完成统一 renderer。
+开场 45 字段组件；researched 精确切片另选 1,262 项，并以 24 个活跃新
+allocation、4 个退役 assignment 复用、5 个误分配 ASCII 槽退休保留和
+29 个重绘字形完成统一 renderer。
 标题、P0 菜单、合计 1,307 项动态名、P2 字库和世界史已经进入静态验证的
 `ui-p2-core` ISO。五张中文 atlas 均已有独立、等长、零 LBA 位移候选；测试
-专用 P3 综合镜像另把两个 fresh-boot embedded UI 分区的 23 条决定、五图
-suite 和前五关 `HB/STAGE` 合入 P2 UI，完成 7 成员静态容器验收并锁定
-21 个运行用例。余下 1,493 个非空名称、其余 embedded UI、五张 atlas 的
+专用 P10 综合镜像在 P3～P6 九组 101 条 embedded UI 决定之上，又为五个
+受字库阻塞组追加七字、重绘四字并加入 93 条决定；十四个纯玩家可见组的
+194 条先由 P7 晋级，P8 再晋级四组 59 条，十八组 253 条已全部进入候选。
+P9 再从两个混合组中逐条晋级 9 条玩家标签；13 条损坏／NULL 诊断、控制码、
+独立格式或未证实 `Set` 保持原字节。五图 suite 和前五关 `HB/STAGE`
+合入同一 7 成员静态容器。P10 再晋级 402 条技能、机体能力、精神和小队长
+能力数据库决定，最后 12 个候选字槽和 14 个继承汉字重绘已进入统一字体；
+余下 848 条数据库项延期。当前锁定 43 个运行用例。
+余下 1,493 个
+非空名称、13 条需调用点证据的 embedded UI、五张 atlas 的
 运行归属和逐屏运行验收仍未覆盖。
 
 工程规划期间不把“文档数量”“脚本数量”或“单元测试数量”当作完成标准。每一阶段

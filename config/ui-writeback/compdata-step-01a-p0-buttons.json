@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-compdata-step-01a-p0-buttons-v1",
+  "scope": "Diagnostic production slice containing only the 24 P0 COMPDATA intermission button decisions. The compressed member must remain inside the original 71-sector allocation so every later member keeps its original LBA.",
+  "font_candidate": {
+    "manifest": "manifests/ui-p0-font-validation.json",
+    "sha256": "1626b56025b3863c997ce6fdccf7196d8b26bdd9031d50d08ebee9e091d67591"
+  },
+  "source_member": {
+    "path": "work/disc/DATA/COMPDATA.BN",
+    "size": 144990,
+    "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+    "decoded_size": 524032,
+    "decoded_sha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb",
+    "flags": 23
+  },
+  "scene_inventory": {
+    "path": "config/ui-scenes.json",
+    "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
+    "inventory_id": "srwz-ui-scenes-v1",
+    "priorities": [
+      "P0"
+    ],
+    "included_scene_ids": [
+      "intermission/main-and-options"
+    ]
+  },
+  "menu_descriptor": {
+    "path": "vendor/upstream-python/project/menu_files.json",
+    "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a",
+    "friendly_name": "Compdata"
+  },
+  "text_table": {
+    "path": "vendor/upstream-python/project/tbl_all.json",
+    "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+  },
+  "base_codebook": {
+    "path": "config/encoding/codebook.json",
+    "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+  },
+  "selection_policy": {
+    "source_file": "Compdata",
+    "accept_exact_no_op_entries": true,
+    "require_every_target": true,
+    "require_all_shared_target_owners_for_writes": true,
+    "require_identical_shared_payload": true,
+    "require_payload_with_terminator_within_original_consumed_size": true,
+    "pointer_write_policy": "forbidden"
+  },
+  "codec": {
+    "mode": "preserve-prefix-reencode-suffix",
+    "strategy": "greedy",
+    "min_match_length": 4,
+    "max_match_chain": 256,
+    "lazy_matching": true
+  },
+  "ratchet": {
+    "p0_unique_entry_count": 121,
+    "p0_compdata_entry_count": 24,
+    "no_op_entry_count": 1,
+    "selected_write_entry_count": 23,
+    "selected_write_target_count": 23,
+    "fixed_covered_entry_count": 24,
+    "excluded_overflow_entry_count": 0,
+    "excluded_other_entry_count": 0,
+    "minimum_preserved_compressed_prefix": 143000
+  },
+  "outputs": {
+    "component_root": "work/build/compdata-step-01a-p0-buttons/components",
+    "validation": "work/review/compdata-step-01a-p0-buttons-validation.json",
+    "manifest": "manifests/compdata-step-01a-p0-buttons-validation.json"
+  }
+}

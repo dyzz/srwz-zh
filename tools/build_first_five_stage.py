@@ -41,9 +41,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--strategy",
-        choices=("greedy", "literal"),
+        choices=("greedy", "literal", "rust-maximum"),
         default="greedy",
-        help="Changed-suffix encoding strategy (default: greedy).",
+        help=(
+            "Changed-suffix encoding strategy: greedy, literal or the "
+            "repository-owned Rust maximum parser (default: greedy)."
+        ),
     )
     parser.add_argument(
         "--min-match-length",
@@ -67,6 +70,15 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=OUTPUT_ROOT,
         help="Component output directory (default: first-five production path).",
+    )
+    parser.add_argument(
+        "--preserve-stage-layout",
+        action="store_true",
+        help=(
+            "Require every rebuilt stream to fit its original aligned chunk "
+            "and pad it back to the original span, preserving all STAGE/HB "
+            "offsets and the ISO member size."
+        ),
     )
     return parser.parse_args()
 
@@ -257,7 +269,18 @@ def main() -> int:
         actual = {entry.entry_id: entry.text for entry in reparsed.entries}
         if any(actual.get(key) != value for key, value in replacements.items()):
             raise SystemExit(f"stage {stage:03d} translated reread mismatch")
-        output_chunks[stage] = encoded
+        if args.preserve_stage_layout:
+            source_chunk_size = len(source_chunks[stage])
+            if len(encoded) > source_chunk_size:
+                raise SystemExit(
+                    f"stage {stage:03d} encoded stream exceeds its fixed "
+                    f"chunk: {len(encoded)} > {source_chunk_size}"
+                )
+            output_chunks[stage] = encoded + bytes(
+                source_chunk_size - len(encoded)
+            )
+        else:
+            output_chunks[stage] = encoded
         stage_reports.append(
             {
                 **write.to_metadata(),
@@ -266,6 +289,11 @@ def main() -> int:
                 "speaker_count": len(speakers[stage]),
                 "source_encoded_size": decoded.consumed,
                 "output_encoded_size": len(encoded),
+                "source_chunk_size": len(source_chunks[stage]),
+                "output_chunk_size": len(output_chunks[stage]),
+                "chunk_span_preserved": (
+                    len(output_chunks[stage]) == len(source_chunks[stage])
+                ),
                 "output_encoded_sha256": sha256_bytes(encoded),
                 "codec_strategy": (
                     f"preserved_prefix_{args.strategy}_suffix"
@@ -329,6 +357,9 @@ def main() -> int:
             },
         },
         "unchanged_chunk_count": len(output_chunks) - len(stages),
+        "stage_layout_preserved": (
+            tuple(rebuilt_offsets) == tuple(layout.offsets)
+        ),
         "hb_offset_reread_exact": True,
         "runtime_acceptance": "not tested",
     }

@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
+  "scope": "Extend the P9 UI core with the final twelve renderer-addressable glyph allocations, fourteen unified rerasterized Han glyphs, and 402 terminology-safe fixed-span database decisions across skills, unit abilities, spirit commands and leadership effects. Four disputed proper-name terms, 羁绊, and the remaining parts/weapons database stay unchanged.",
+  "database_selection": {
+    "config": {
+      "path": "config/ui-database-selection.json",
+      "sha256": "32398b7b1fb371ae6a6a51a4abf1e135c00f330424c43405126b3ea70f767b76"
+    },
+    "manifest": {
+      "path": "manifests/ui-database-fixed-core-selection.json",
+      "sha256": "f455f99a1a336b4374a58f8948e6cda1b7538758d798a38b78177f8bf2ec84d8",
+      "required_status": "static_database_fixed_subset_selected_font_extension_required",
+      "required_selection_id": "srwz-ui-database-fixed-core-v1"
+    }
+  },
+  "font_extension": {
+    "manifest": {
+      "path": "manifests/ui-p10-database-font-validation.json",
+      "sha256": "82980cff466f07b2b563528226699126b90f73894496ab56540488688a302134",
+      "required_status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
+      "required_font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1"
+    },
+    "slps": {
+      "path": "work/build/ui-p10-database-font/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "2754969721cd45c6809853bb9676d9f3239adcdf0e4993b1d651b5f65bddf86d"
+    },
+    "vt1": {
+      "path": "work/build/ui-p10-database-font/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "3cffc1f0e68f142a6442fdc13b6264ec67ec41d66c4000fd07d22e65ea7cdc22"
+    },
+    "mode": "replace-vt1-font-chunk-and-compose-slps-offset-delta",
+    "chunk_index": 2,
+    "archive_alignment": 16
+  },
+  "base_ui_core": {
+    "component_id": "ui-p9-mixed-user-facing-subset-core",
+    "manifest": {
+      "path": "manifests/ui-p9-mixed-user-facing-subset-validation.json",
+      "sha256": "2a8b6ffd21253c1cab66c29f05ca670f1744c6f0eefd7cf09e49443c725eef0d",
+      "required_profile_id": "srwz-ui-p9-mixed-user-facing-subset-integrated-v1",
+      "required_status": "integrated_ui_p9_mixed_user_facing_subset_component_validated_iso_runtime_pending",
+      "required_runtime_status": "not_tested"
+    },
+    "outputs": {
+      "slps": {
+        "path": "work/build/ui-p9-mixed-user-facing-subset/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "51adcd5c79f422924743d758eaab77cc46d939e7c1272f88dcd614eb2c704657"
+      },
+      "vt1": {
+        "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/VT1.BIN",
+        "size": 127501920,
+        "sha256": "1424eb1626b624eb637130e08a11c320e5fb39ebf40077e91cbbfe6875839fbf"
+      },
+      "compdata": {
+        "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/COMPDATA.BN",
+        "size": 144485,
+        "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+      },
+      "mtv_pros": {
+        "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/MTV_PROS.BIN",
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      }
+    }
+  },
+  "writer_baseline_config": {
+    "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
+    "sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43"
+  },
+  "menu_descriptor": {
+    "path": "vendor/upstream-python/project/menu_files.json",
+    "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+  },
+  "text_table": {
+    "path": "vendor/upstream-python/project/tbl_all.json",
+    "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+  },
+  "codec": {
+    "mode": "preserve-prefix-reencode-suffix",
+    "strategy": "greedy",
+    "min_match_length": 4,
+    "max_match_chain": 256,
+    "lazy_matching": true,
+    "minimum_preserved_compressed_prefix": 113200
+  },
+  "composition": {
+    "require_selection_manifest_reproducible": true,
+    "require_every_selected_entry_fixed_span": true,
+    "replace_only_vt1_font_chunk": true,
+    "preserve_every_non_font_vt1_chunk_byte_exact": true,
+    "rebase_vt1_offset_table_on_p9_slps": true,
+    "require_font_offset_bytes_disjoint_from_slps_text_bytes": true,
+    "require_compdata_pointer_bytes_unchanged": true,
+    "copy_mtv_pros_byte_exact": true
+  },
+  "manifest_contract": {
+    "status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending"
+  },
+  "runtime": {
+    "required_routes": [
+      "first_intermission_pilot_skill_list_detail_and_disabled_state",
+      "first_intermission_unit_special_ability_list_and_detail",
+      "first_intermission_spirit_command_list_detail_and_unavailable_state",
+      "first_intermission_leadership_effect_list_and_detail"
+    ],
+    "pending_gates": [
+      "exact_iso_static_binding",
+      "native_first_intermission_memory_card",
+      "all_four_database_routes",
+      "list_detail_and_disabled_or_unavailable_states",
+      "twelve_new_and_fourteen_rerasterized_glyphs_visible",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss"
+    ]
+  },
+  "ratchet": {
+    "family_count": 4,
+    "selected_entry_count": 402,
+    "selected_slps_entry_count": 232,
+    "selected_compdata_entry_count": 170,
+    "font_allocation_count": 12,
+    "font_reraster_count": 14,
+    "slps_no_op_entry_count": 53,
+    "slps_selected_write_entry_count": 179,
+    "slps_selected_write_target_count": 183,
+    "compdata_no_op_entry_count": 5,
+    "compdata_selected_write_entry_count": 165,
+    "compdata_selected_write_target_count": 164,
+    "fixed_covered_entry_count": 402,
+    "excluded_entry_count": 0
+  },
+  "outputs": {
+    "component_root": "work/build/ui-p10-database-fixed-core/components",
+    "validation": "work/review/ui-p10-database-fixed-core-validation.json",
+    "manifest": "manifests/ui-p10-database-fixed-core-validation.json"
+  }
+}

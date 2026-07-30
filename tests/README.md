@@ -6,6 +6,11 @@ round-trip 和 PINE 协议均已落到可自动运行的测试文件，不再保
 `docs/ISO_BUILD_AND_PCSX2.md`。
 
 静态测试通过不能替代运行验证；涉及渲染和流程的结论必须有对应运行记录。
+`test_pcsx2_boot_smoke.py` 固定 DVD／ELF／TLB 日志解析和证据边界；
+`test_ui_iso_incremental.py` 强制实读当前六级 ISO、构建报告、PINE receipt
+和日志，只允许晋级 `first-five-noncompdata-ui`。已经清理、但可由配置重建
+的旧大 ISO 未物化时，其历史 ISO 重读用例明确 skip；对应 component 与
+manifest 测试仍执行。
 
 `test_project.py` 固定生产输入层的正向和负向契约：source hash 漂移、中文源
 重复日文正文、编辑状态不足、未使用 codebook assignment 和编码结果都会被
@@ -19,13 +24,23 @@ component/ISO lock。
 `test_writeback.py`、`test_writers.py` 和其他 manifest/layout 测试验证
 clean-room 基础设施、严格编解码边界、overlap copy、文本控制码、
 24×24 glyph pack、原版 code→glyph 扩展表、语料契约、写回前像、归档重建，
-以及 armips 来源锁和补丁差异/覆盖失败门：
+`maximum` 压缩组合的确定性／完整回解／游戏 block 语法，以及 armips 来源锁
+和补丁差异/覆盖失败门：
+
+`test_maximum_match_accelerator.py` 在临时目录编译独立 C 加速器，并要求其
+distance/length/gain table 与纯 Python fallback 逐项一致；没有 clang 时明确
+skip，不把本地 `work/` 动态库当作测试前提。
+
+`test_rust_compressor.py` 通过正式 build helper 构建仓库自有 Rust 压缩器，
+用 Python 严格解码器检查确定性、suffix 写回，并在本地原始素材存在时要求
+标题 VT1 修改块压入原 468,320 字节槽位。
 
 ```bash
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
-单元测试不读取 ISO，也不运行任何上游二进制。真实编码器验证单独运行：
+除当前增量 ISO 审计和显式 ISO 集成测试外，单元测试不读取大镜像；测试不会
+运行任何上游 Windows 二进制。真实编码器验证单独运行：
 
 ```bash
 python3 tools/validate_srwz_encoder.py --strategy greedy --force
@@ -78,16 +93,65 @@ pointer／embedded HI/LO 所有权哈希，以及每组 fixture、路线、截�
 `test_ui_p3_test_candidate.py` 与 `test_ui_p3_test_candidate_iso.py` 固定
 P3／前五关／atlas 的 7 成员所有权、完整复建、59 个未替换 ISO 成员、
 独立 UDF 回读、精确镜像哈希和运行未验收边界；
-`test_ui_runtime_matrix.py` 固定 14 类基础场景和两个哈希锁定扩展场景的完整
-去向、21 个逐屏用例、
+`test_ui_p4_intermission_candidate.py` 固定 P4 从 P3 前像晋级两组 24 条
+决定、6 条 no-op、18 条／30 target 写入、408 字节／38 段修改、P3
+零重叠和三个非 SLPS 成员 byte-exact；
+`test_ui_p4_test_candidate.py` 与 `test_ui_p4_test_candidate_iso.py` 固定
+P4／前五关／atlas 的 7 成员所有权、完整复建、59 个未替换 ISO 成员、
+独立 UDF 回读、精确镜像哈希和运行未验收边界；
+`test_ui_p5_battle_menus_candidate.py` 固定 P5 从 P4 前像晋级四组 38 条
+决定、5 条 no-op、33 条／37 target 写入、1,024 字节／60 段修改、P4
+零重叠和三个非 SLPS 成员 byte-exact；
+`test_ui_p5_test_candidate.py` 与 `test_ui_p5_test_candidate_iso.py` 固定
+P5／前五关／atlas 的 7 成员所有权、完整复建、59 个未替换 ISO 成员、
+独立 UDF 回读、精确镜像哈希和运行未验收边界；
+`test_ui_p6_deployment_candidate.py` 固定 P6 从 P5 前像晋级出击选择组的
+16 条决定、13 条 no-op、3 条／3 target 写入、44 字节／5 段修改、P5
+零重叠和三个非 SLPS 成员 byte-exact；
+`test_ui_p6_test_candidate.py` 与 `test_ui_p6_test_candidate_iso.py` 固定
+P6／前五关／atlas 的 7 成员所有权、完整复建、59 个未替换 ISO 成员、
+独立 UDF 回读、精确镜像哈希和运行未验收边界；
+`test_ui_p7_embedded_font.py` 固定 P7 对 P2 字库账本的无重排继承、七个
+allocation、四个统一重绘字形、93 条文本零 renderer 缺字与 12 槽余量；
+`test_ui_p7_embedded_font_groups_candidate.py` 固定五组 93 条决定、20 条
+no-op、73 条／86 target 写入、VT1 只替换字体 chunk 2、其余 13 个 chunk
+byte-exact，以及字体 offset／文本／P6 core 三方零冲突；
+`test_ui_p7_test_candidate.py` 与 `test_ui_p7_test_candidate_iso.py` 固定
+P7／前五关／atlas 的 7 成员所有权、59 个未替换 ISO 成员、`+7/+43` LBA
+位移、独立 UDF 回读、精确镜像哈希和运行未验收边界；
+`test_ui_p8_remaining_user_facing_candidate.py` 固定余下四个纯玩家可见
+分区的 59 条决定、19 条 no-op、40 条／47 target 写入和 418 字节／61 段
+有界修改；`test_ui_p8_test_candidate.py` 与
+`test_ui_p8_test_candidate_iso.py` 固定 P8 7 成员组合、精确 ISO 哈希及运行
+未验收边界；
+`test_ui_p9_mixed_user_facing_subset_candidate.py` 固定两个混合组的 9 条
+玩家标签、34 个 target、174 字节／36 段修改和 13 条明确排除项；
+`test_ui_p9_test_candidate.py` 与 `test_ui_p9_test_candidate_iso.py` 固定
+P9 7 成员组合、精确 ISO 哈希及运行未验收边界；
+`test_ui_database_selection.py` 固定 P10 从 1,250 条数据库中选择四家族
+402 条、延期 848 条、五项受保护排除及定长／术语门；
+`test_ui_p10_database_font.py` 固定最后 12 个 allocation、14 个统一重绘字形、
+402 条 renderer 零缺字和零剩余候选槽；
+`test_ui_p10_database_candidate.py` 固定 SLPS 232 条、COMPDATA 170 条写回、
+preserve-prefix 回解、指针／非目标字节与非字体 chunk 不变；
+`test_ui_p10_test_candidate.py` 与 `test_ui_p10_test_candidate_iso.py` 固定
+P10 7 成员组合、59 个未替换成员、`+8/+45` LBA 位移、独立 UDF 回读、精确
+镜像哈希及运行未验收边界；
+`test_ui_runtime_matrix.py` 固定 14 类基础场景、十八个整组扩展场景、两个逐条
+子集和四个数据库家族的完整去向、46 个逐屏用例、
 001～005 五个独立开场序列、世界史起点／中点／终点、五张中文 atlas 候选的
-截图＋texture-delta 双门，以及六份尚未取得的原生
+截图＋texture-delta 双门，以及七份尚未取得的原生
 memory-card fixture；旧 `.p2s`
 savestate 不会自动替代 `.ps2`＋SHA-256 证据；
 `test_ui_runtime_evidence.py` 固定 case plan、精确 ISO、PINE Running、
 fresh-process、DVD／ELF／零 TLB 日志、原生 memory-card 哈希、截图收据和
 矩阵 receipt 晋级边界；草稿、失败断言或没有提交 receipt 的 `passed` 状态
-必须失败；
+必须失败；`test_ui_runtime_host.py` 固定宿主预检必须锁定当前四个尚未执行的
+route-ready 用例和非 COMPDATA 晋级 ISO，并在 arm64 主机使用 x86_64
+PCSX2、但 Rosetta 缺失时 fail closed；宿主预检本身不改变任何用例运行状态；
+`test_ui_runtime_fixtures.py` 固定 528-byte page 卡格式、全 `0xFF` 空卡、
+`SLPS-25887` 候选标记、重复哈希、七类 fixture 的 34 个阻塞用例优先级，
+并禁止仅凭发现候选卡自动晋级；
 `test_inject_srwz_tim2.py` 固定
 archive/report 输出边界；`test_mapname.py` 固定 Shift-JIS/NUL/全零 padding。
 真实图片清单、MAPNAME 聚合计数、PCSX2 图片 canary 的 351-pixel 精确 RGBA
@@ -95,17 +159,26 @@ archive/report 输出边界；`test_mapname.py` 固定 Shift-JIS/NUL/全零 padd
 `test_ui_p0_fixed_slps.py` 与 `test_ui_p0_fixed_compdata.py` 另固定 P0
 fixed-span 选择 ratchet、指针／非目标字节不变、组件哈希和压缩回解；两者均
 明确要求运行状态仍为 `not_tested`。
+`test_compdata_incremental.py` 固定单场景 COMPDATA 选择、原始压缩流不变的
+最小 71→72 sector 零尾控制，以及 71-sector 重编码按钮组件启动通过、
+72-sector 纯 LBA 控制和完整 P0 组件以同一 `0x1c6ea0/0x02000000` TLB
+签名失败的因果清单。
+`test_single_iso_candidate.py` 固定单候选 ISO 工作流：已有镜像时默认拒绝继续
+构建，只有显式替换才删除旧候选；构建后只能删除精确的
+`work/build/<profile>/iso/{original,staging}` 整盘工作树；同时固定 SLPS
+offset 表与 VT1 字体段的构建前兼容门，错误配对必须在删除当前 ISO 之前失败。
 `test_display_names.py` 固定 COMPDATA 人物／机体表几何、稳定 ID、指针归并、
 零 padding 和 hash-only 提交投影；`test_display_name_coverage.py` 固定
 researched 精确源词的 1,262 字段选择、1,166 个当前字库直通项、96 个缺字
-项／21 个编码缺字、33 个 renderer 缺字、其中 4 个退役 assignment 复用与
-29 个新 allocation、29 个统一重绘汉字、19 个预计剩余槽、零 projected
+项／21 个编码缺字、28 个 renderer 缺字、其中 4 个退役 assignment 复用与
+24 个活跃新 allocation、5 个误分配 ASCII 槽退休保留、29 个统一重绘汉字、
+19 个预计剩余槽、零 projected
 allocation 溢出、2,800 行审核 TSV 和提交清单不含原始日文；
 `test_ui_p0_display_names.py` 固定开场
 45 个名称决策、原 allocation 写回、人物 ID／机体指针／非目标字节不变和
 压缩流精确回解，并要求 ISO／运行状态仍未测试。
-`test_ui_p2_display_name_font.py` 固定 P2 对 P1 账本的无重排继承、29 个新增
-assignment、4 个退役 assignment 复用、29 个重绘项、1,262 个字段零
+`test_ui_p2_display_name_font.py` 固定 P2 对 P1 账本的无重排继承、24 个新增
+assignment、4 个退役 assignment 复用、5 个 ASCII 槽退休保留、29 个重绘项、1,262 个字段零
 renderer 缺字和 19 槽余量；`test_ui_p2_display_names.py` 固定 1,307 项
 选择、1,213 项写入、94 项 no-op、完整重解析和不含译文 payload 的清单；
 `test_ui_p2_core.py` 固定 P2 世界史／四成员组合、ISO 替换、两段 LBA 位移、

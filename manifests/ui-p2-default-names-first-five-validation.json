@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "status": "integrated_ui_p2_default_names_first_five_component_validated_runtime_pending",
+  "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes or localized text are embedded.",
+  "profile_id": "ui-p2-default-names-first-five",
+  "scope": "Whole-member composition of the fixed-size P2 UI core, three localized default protagonist labels and the Rust-compressed first-five Chinese story. No atlas canary or pre-story world-map image localization is included. Story $n tokens remain dynamic so a player edit overrides the localized default.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-integration/p2-default-names-first-five.json",
+      "size": 5512,
+      "sha256": "6a33043010b3e3b31255f9d9af4888f244738199d943f61a6b1e4d7333f5e18c"
+    },
+    "components": [
+      {
+        "component_id": "ui-p2-default-protagonist-names",
+        "manifest": {
+          "path": "manifests/ui-p2-default-protagonist-names-validation.json",
+          "size": 10748,
+          "sha256": "d59f87e57cda1c7dfc8208bc664e08d9ffae0f234b16f8923071728e49d013aa"
+        },
+        "profile_id": "srwz-ui-p2-default-protagonist-names-integrated-v1",
+        "status": "integrated_ui_p2_default_protagonist_names_component_validated_iso_runtime_pending",
+        "members": [
+          "SLPS_258.87",
+          "DATA/COMPDATA.BN",
+          "DATA/MTV_PROS.BIN",
+          "DATA/VT1.BIN"
+        ],
+        "runtime_status": "not_tested"
+      },
+      {
+        "component_id": "first-five-story",
+        "manifest": {
+          "path": "manifests/first-five-rust-validation.json",
+          "size": 3272,
+          "sha256": "ce46441612804255bd0340417a4c37317937226e909b2667b21f520271d20cbc"
+        },
+        "profile_id": "first-five-rust",
+        "status": "static_first_five_rust_component_validated_runtime_pending",
+        "members": [
+          "HEDBDY/HB.BIN",
+          "DATA/STAGE.BIN"
+        ],
+        "runtime_status": "not_tested"
+      }
+    ]
+  },
+  "composition": {
+    "mode": "whole-member-composition",
+    "member_count": 6,
+    "members": [
+      "DATA/COMPDATA.BN",
+      "DATA/MTV_PROS.BIN",
+      "DATA/STAGE.BIN",
+      "DATA/VT1.BIN",
+      "HEDBDY/HB.BIN",
+      "SLPS_258.87"
+    ],
+    "member_owner_overlap_count": 0,
+    "font_owner": "ui-p2-default-protagonist-names",
+    "story_data_owner": "first-five-story",
+    "atlas_owner": null
+  },
+  "outputs": {
+    "SLPS_258.87": {
+      "path": "work/build/ui-p2-default-names-first-five/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "8e61f8ef0aad9346252c47e0383855b62c12b1c77b76eaf1bafc3eac02dba6e3",
+      "owner": "ui-p2-default-protagonist-names",
+      "source": {
+        "path": "work/build/ui-p2-default-protagonist-names/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "8e61f8ef0aad9346252c47e0383855b62c12b1c77b76eaf1bafc3eac02dba6e3"
+      },
+      "manifest_output_lock_exact": true
+    },
+    "DATA/COMPDATA.BN": {
+      "path": "work/build/ui-p2-default-names-first-five/components/DATA/COMPDATA.BN",
+      "size": 144485,
+      "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405",
+      "owner": "ui-p2-default-protagonist-names",
+      "source": {
+        "path": "work/build/ui-p2-default-protagonist-names/components/DATA/COMPDATA.BN",
+        "size": 144485,
+        "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+      },
+      "manifest_output_lock_exact": true
+    },
+    "DATA/MTV_PROS.BIN": {
+      "path": "work/build/ui-p2-default-names-first-five/components/DATA/MTV_PROS.BIN",
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+      "owner": "ui-p2-default-protagonist-names",
+      "source": {
+        "path": "work/build/ui-p2-default-protagonist-names/components/DATA/MTV_PROS.BIN",
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      },
+      "manifest_output_lock_exact": true
+    },
+    "DATA/VT1.BIN": {
+      "path": "work/build/ui-p2-default-names-first-five/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c",
+      "owner": "ui-p2-default-protagonist-names",
+      "source": {
+        "path": "work/build/ui-p2-default-protagonist-names/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+      },
+      "manifest_output_lock_exact": true
+    },
+    "HEDBDY/HB.BIN": {
+      "path": "work/build/ui-p2-default-names-first-five/components/HEDBDY/HB.BIN",
+      "size": 31152,
+      "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21",
+      "owner": "first-five-story",
+      "source": {
+        "path": "work/build/first-five-rust/components/HEDBDY/HB.BIN",
+        "size": 31152,
+        "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21"
+      },
+      "manifest_output_lock_exact": true
+    },
+    "DATA/STAGE.BIN": {
+      "path": "work/build/ui-p2-default-names-first-five/components/DATA/STAGE.BIN",
+      "size": 3910128,
+      "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff",
+      "owner": "first-five-story",
+      "source": {
+        "path": "work/build/first-five-rust/components/DATA/STAGE.BIN",
+        "size": 3910128,
+        "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff"
+      },
+      "manifest_output_lock_exact": true
+    }
+  },
+  "acceptance": {
+    "component_manifests_locked": true,
+    "component_statuses_validated": true,
+    "component_payloads_match_manifest_locks": true,
+    "member_ownership_disjoint": true,
+    "ui_core_owns_final_font_and_ui_text": true,
+    "first_five_owns_story_archives": true,
+    "all_output_locks_exact": true,
+    "atlas_component_excluded": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "purpose": "Verify one exact candidate where accepting the Chinese protagonist defaults produces localized story names, editing the name still overrides $n, and stages 001-005 remain translated. The pre-story world-map title remains a separate unresolved rendering surface.",
+    "isolated_atlas_mapping_profiles_remain_required": false,
+    "required_scene_families": [
+      "opening/player-setup-default-name",
+      "opening/player-setup-edited-name",
+      "story/dynamic-player-name-token",
+      "story/stages-001-through-005"
+    ],
+    "promotion_rule": "Fresh-process boot evidence does not prove either default-name propagation, edited-name propagation or first-five visual acceptance; each route remains a separate manual gate."
+  }
+}

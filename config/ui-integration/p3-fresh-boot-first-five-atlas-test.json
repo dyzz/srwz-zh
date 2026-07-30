@@ -11,7 +11,7 @@
       "component_id": "ui-p3-fresh-boot-core",
       "manifest": {
         "path": "manifests/ui-p3-fresh-boot-validation.json",
-        "sha256": "6e663fe122d087a55ea5f1d5f11693d665e4e89d329d77cc190fd3fff6d9c6c7",
+        "sha256": "12a625ac8784d0d816027f729b4b1dd6ed24abadc8803627ac634798ecd0fc23",
         "required_profile_id": "srwz-ui-p3-fresh-boot-integrated-v1",
         "required_status": "integrated_ui_p3_fresh_boot_component_validated_iso_runtime_pending",
         "runtime_status_field": "runtime.status",
@@ -22,14 +22,14 @@
           "member": "SLPS_258.87",
           "path": "work/build/ui-p3-fresh-boot/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "f916d9da31ee1cef4220f0aa07e26eee5320a83f51f9105dd11c1b8272909123",
+          "sha256": "fa703c5d7cdf4e5113e50743374547adb2031bd5393d15c05d01037c188c3a44",
           "manifest_lock_field": "outputs.slps"
         },
         {
           "member": "DATA/COMPDATA.BN",
           "path": "work/build/ui-p3-fresh-boot/components/DATA/COMPDATA.BN",
-          "size": 159693,
-          "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f",
+          "size": 144485,
+          "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405",
           "manifest_lock_field": "outputs.compdata"
         },
         {
@@ -42,8 +42,8 @@
         {
           "member": "DATA/VT1.BIN",
           "path": "work/build/ui-p3-fresh-boot/components/DATA/VT1.BIN",
-          "size": 127573504,
-          "sha256": "d4e84ec8e482444397edabd2f7a1d24d600e1477f02642e95769f699383fd468",
+          "size": 127500736,
+          "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c",
           "manifest_lock_field": "outputs.vt1"
         }
       ]
@@ -113,8 +113,8 @@
   },
   "expected_outputs": {
     "DATA/COMPDATA.BN": {
-      "size": 159693,
-      "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f"
+      "size": 144485,
+      "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
     },
     "DATA/MTV_PROS.BIN": {
       "size": 8640,
@@ -125,8 +125,8 @@
       "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
     },
     "DATA/VT1.BIN": {
-      "size": 127573504,
-      "sha256": "d4e84ec8e482444397edabd2f7a1d24d600e1477f02642e95769f699383fd468"
+      "size": 127500736,
+      "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
     },
     "HEDBDY/HB.BIN": {
       "size": 31152,
@@ -138,7 +138,7 @@
     },
     "SLPS_258.87": {
       "size": 3471624,
-      "sha256": "f916d9da31ee1cef4220f0aa07e26eee5320a83f51f9105dd11c1b8272909123"
+      "sha256": "fa703c5d7cdf4e5113e50743374547adb2031bd5393d15c05d01037c188c3a44"
     }
   },
   "runtime": {

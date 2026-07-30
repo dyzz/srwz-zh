@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "status": "integrated_ui_p5_battle_menus_component_validated_iso_runtime_pending",
+  "content_policy": "Hashes, offsets, stable IDs and counts only; no game bytes, Japanese source text or localized UI strings are embedded.",
+  "profile_id": "srwz-ui-p5-battle-menus-integrated-v1",
+  "scope": "Promote four fixed-span player-facing battle-menu groups covering map-command tail items, action-restriction messages, quick-command confirmations, and repair/resupply/spirit targeting, then merge their SLPS bytes onto the complete P4 intermission UI core without changing VT1, COMPDATA or MTV_PROS.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-writeback/ui-p5-battle-menus-slps.json",
+      "size": 4090,
+      "sha256": "2aaf27f06a122f7f22edbc42c81b9003b3a4a318fd0530ce180349db00444e34"
+    },
+    "scene_map": {
+      "config": {
+        "path": "config/ui-embedded-scenes.json",
+        "size": 28374,
+        "sha256": "d467b1a8e0cf76f19d331ec31cdd470ceb27f401a715360ec45d005f3fb45c4e"
+      },
+      "manifest": {
+        "path": "manifests/ui-embedded-scene-map.json",
+        "size": 44936,
+        "sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651"
+      },
+      "map_id": "srwz-ui-embedded-scenes-v1"
+    },
+    "readiness_baseline": {
+      "writer_baseline_config": {
+        "path": "config/ui-writeback/ui-p0-slps-fixed.json",
+        "sha256": "bd8237c0f9addc461a5c9752c7f49723ec03812028115c997dd3ddeb3b5b1f00"
+      },
+      "font_manifest": {
+        "path": "manifests/ui-p2-display-name-font-validation.json",
+        "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc",
+        "status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
+      },
+      "source_slps": {
+        "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22"
+      },
+      "source_vt1": {
+        "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "636246a0611517c35419cbbc2aee73b6d1af91a2b337b68ba630828f74cbfcbc"
+      },
+      "menu_descriptor": {
+        "path": "vendor/upstream-python/project/menu_files.json",
+        "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+      },
+      "text_table": {
+        "path": "vendor/upstream-python/project/tbl_all.json",
+        "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+      },
+      "base_codebook": {
+        "path": "config/encoding/codebook.json",
+        "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+      },
+      "proposal": {
+        "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
+        "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b"
+      },
+      "override_count": 1605,
+      "policy": "A group is fixed-span ready only when every decision encodes with the exact P2 font proposal, fits every original NUL-terminated target, and closes over all shared target owners with identical payloads."
+    },
+    "base_ui_core": {
+      "manifest": {
+        "path": "manifests/ui-p4-intermission-validation.json",
+        "size": 11040,
+        "sha256": "6d7dbffb180f26108b3ac99f1f5ca45af36aa6b77150f6f42657a55b091a5f64"
+      },
+      "profile_id": "srwz-ui-p4-intermission-integrated-v1",
+      "status": "integrated_ui_p4_intermission_component_validated_iso_runtime_pending",
+      "runtime_status": "not_tested",
+      "outputs": {
+        "slps": {
+          "path": "work/build/ui-p4-intermission/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "1a822e1f503aeb73684f7fb9f336f50e880791f2c58c1a2c9311b5e1121bfd65"
+        },
+        "vt1": {
+          "path": "work/build/ui-p4-intermission/components/DATA/VT1.BIN",
+          "size": 127500736,
+          "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+        },
+        "compdata": {
+          "path": "work/build/ui-p4-intermission/components/DATA/COMPDATA.BN",
+          "size": 144485,
+          "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+        },
+        "mtv_pros": {
+          "path": "work/build/ui-p4-intermission/components/DATA/MTV_PROS.BIN",
+          "size": 8640,
+          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+        }
+      }
+    }
+  },
+  "selection": {
+    "scene_count": 4,
+    "scenes": [
+      {
+        "scene_id": "battle/end-phase-map-command-tail",
+        "entry_count": 6,
+        "fixture_id": "first-battle-card",
+        "entry_ids_sha256": "efc8e597bc6e36620f0e656a0a7c964d88fd4dc238924b2423f3fe6391f50882",
+        "readiness_status": "fixed_span_ready",
+        "runtime_status": "not_tested"
+      },
+      {
+        "scene_id": "battle/action-restriction-messages",
+        "entry_count": 10,
+        "fixture_id": "first-battle-card",
+        "entry_ids_sha256": "94f5e88ff8ef1e2168cac1ddc596027af89b2f281208a8d3dcb2063f0fd0b962",
+        "readiness_status": "fixed_span_ready",
+        "runtime_status": "not_tested"
+      },
+      {
+        "scene_id": "system/quick-command-save-and-cancel-confirmations",
+        "entry_count": 5,
+        "fixture_id": "first-battle-card",
+        "entry_ids_sha256": "1ccdae5643e7a2e61cf4989117ecb704a8f23fd1ec0a8f625593faba8a2e84a2",
+        "readiness_status": "fixed_span_ready",
+        "runtime_status": "not_tested"
+      },
+      {
+        "scene_id": "battle/repair-resupply-spirit-targeting",
+        "entry_count": 17,
+        "fixture_id": "first-battle-card",
+        "entry_ids_sha256": "46858ab63ed6c5ec7315aae7b2410c8c4f7d11c412dfba5becc141fd3175362c",
+        "readiness_status": "fixed_span_ready",
+        "runtime_status": "not_tested"
+      }
+    ],
+    "entry_count": 38,
+    "entry_ids_sha256": "b2684f66a8449fdd7a668f4826d92d798375d17d429d9538b601d7b3c752eb65",
+    "decision_sha256": "e46e1fb0006b7094236f90660aa7f9cac991482112b4997ff30fcef7d093fd6e",
+    "no_op_entry_count": 5,
+    "no_op_entry_ids": [
+      "menu/SLPS/00/0016",
+      "menu/SLPS/00/0017",
+      "menu/SLPS/00/0018",
+      "menu/SLPS/00/0285",
+      "menu/SLPS/00/0295"
+    ],
+    "selected_write_entry_count": 33,
+    "selected_write_target_count": 37,
+    "fixed_covered_entry_count": 38,
+    "selection_sha256": "73e2017e8254fe4c7e034d24be2a887a6d6713292fa92d090543aa04c5ce8e7c",
+    "excluded_entry_count": 0,
+    "excluded_reason_counts": {}
+  },
+  "slice": {
+    "selection": {
+      "entry_count": 38,
+      "no_op_entry_count": 5,
+      "no_op_entry_ids": [
+        "menu/SLPS/00/0016",
+        "menu/SLPS/00/0017",
+        "menu/SLPS/00/0018",
+        "menu/SLPS/00/0285",
+        "menu/SLPS/00/0295"
+      ],
+      "selected_write_entry_count": 33,
+      "selected_write_target_count": 37,
+      "fixed_covered_entry_count": 38,
+      "selection_sha256": "73e2017e8254fe4c7e034d24be2a887a6d6713292fa92d090543aa04c5ce8e7c",
+      "excluded_entry_count": 0,
+      "excluded_reason_counts": {}
+    },
+    "excluded": [],
+    "write": {
+      "entry_count": 33,
+      "target_count": 37,
+      "payload_size": 808,
+      "owned_capacity": 1141,
+      "target_metadata_sha256": "11f204175a9d0469ae66fdd441f8a85d4170b6938f7a79be7610637627ca1b76",
+      "patch_plan_metadata_sha256": "dca2afd372340bbd78b451e2cfc2cede92544871328c56572aef62271da44912",
+      "pointer_write_count": 0,
+      "pointer_bytes_unchanged": true,
+      "non_target_bytes_unchanged": true,
+      "target_reparse_exact": true
+    },
+    "component": {
+      "source_size": 3471624,
+      "output_size": 3471624,
+      "source_sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22",
+      "output_sha256": "3eb3f0fdf9871aea6ca6fed565b6bf0e257e36dbfe4cb9591e8584732d3bbfab",
+      "changed_byte_count": 1024,
+      "difference_range_count": 60,
+      "changed_offsets_sha256": "fa35c301eed4d4a78e307bb62fcfbc4326f9b0b03ff07220369ed3581dd908d5",
+      "source_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
+      "output_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
+      "font_decoded_unchanged": true
+    },
+    "changed_offsets_sha256": "fa35c301eed4d4a78e307bb62fcfbc4326f9b0b03ff07220369ed3581dd908d5"
+  },
+  "composition": {
+    "base_changed_byte_count": 3217,
+    "base_changed_offsets_sha256": "20c299501d3f7b7e9856fb0490813a25fd773786743ca6319b40f56901b2245d",
+    "slice_changed_byte_count": 1024,
+    "slice_changed_offsets_sha256": "fa35c301eed4d4a78e307bb62fcfbc4326f9b0b03ff07220369ed3581dd908d5",
+    "overlap_byte_count": 0,
+    "base_preimage_exact_at_slice_offsets": true,
+    "final_changed_from_base_byte_count": 1024,
+    "final_changed_from_base_offsets_sha256": "fa35c301eed4d4a78e307bb62fcfbc4326f9b0b03ff07220369ed3581dd908d5",
+    "decoded_font_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8"
+  },
+  "outputs": {
+    "slps": {
+      "path": "work/build/ui-p5-battle-menus/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "473b5f5fee31d78aacbe5e6f78db1c9207a52f33ff50ef65a846e880b080d16d"
+    },
+    "vt1": {
+      "path": "work/build/ui-p5-battle-menus/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+    },
+    "compdata": {
+      "path": "work/build/ui-p5-battle-menus/components/DATA/COMPDATA.BN",
+      "size": 144485,
+      "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+    },
+    "mtv_pros": {
+      "path": "work/build/ui-p5-battle-menus/components/DATA/MTV_PROS.BIN",
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    }
+  },
+  "ratchet": {
+    "expected": {
+      "selected_scene_count": 4,
+      "selected_entry_count": 38,
+      "no_op_entry_count": 5,
+      "selected_write_entry_count": 33,
+      "selected_write_target_count": 37,
+      "fixed_covered_entry_count": 38,
+      "excluded_entry_count": 0,
+      "slice_changed_byte_count": 1024,
+      "slice_difference_range_count": 60
+    },
+    "checks": {
+      "selected_scene_count": true,
+      "selected_entry_count": true,
+      "no_op_entry_count": true,
+      "selected_write_entry_count": true,
+      "selected_write_target_count": true,
+      "fixed_covered_entry_count": true,
+      "excluded_entry_count": true,
+      "slice_changed_byte_count": true,
+      "slice_difference_range_count": true
+    },
+    "passed": true
+  },
+  "acceptance": {
+    "selected_groups_fixed_span_ready": true,
+    "all_selected_entries_covered": true,
+    "slice_and_base_changes_disjoint": true,
+    "base_preimage_exact_at_slice_offsets": true,
+    "pointer_bytes_unchanged": true,
+    "non_target_bytes_unchanged": true,
+    "selected_targets_reread_exact": true,
+    "compdata_byte_exact_from_base": true,
+    "mtv_pros_byte_exact_from_base": true,
+    "vt1_byte_exact_from_base": true,
+    "decoded_font_unchanged": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_routes": [
+      "first_battle_map_command_tail_and_end_phase",
+      "first_battle_action_restriction_messages",
+      "first_battle_quick_command_and_cancel_confirmations",
+      "first_battle_repair_resupply_and_spirit_targeting"
+    ],
+    "pending_gates": [
+      "exact_iso_static_binding",
+      "native_first_battle_memory_card",
+      "map_command_and_end_phase_routes",
+      "invalid_action_restriction_routes",
+      "quick_command_and_cancel_confirmation_routes",
+      "repair_resupply_and_spirit_target_routes",
+      "dynamic_names_values_and_format_fragments_unchanged",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss"
+    ]
+  }
+}

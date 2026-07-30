@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild and verify the integrated P2 UI and first-five test component."""
+"""Rebuild and verify an integrated UI and first-five test component."""
 
 from __future__ import annotations
 

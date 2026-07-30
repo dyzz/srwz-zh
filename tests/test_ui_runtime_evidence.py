@@ -10,6 +10,7 @@ from tools.srwz.ui_runtime_evidence import (
     UiRuntimeEvidenceError,
     build_case_plan,
     build_session_probe,
+    route_ready_case_ids,
     validate_committed_runtime_receipt,
     verify_runtime_evidence,
 )
@@ -102,7 +103,7 @@ class UiRuntimeEvidenceTests(unittest.TestCase):
         self.assertEqual(plan["status"], "prepared_runtime_not_executed")
         self.assertEqual(
             plan["artifact"]["iso_sha256"],
-            "cc4575bdc94a71d79c3a40810308d4eb41f8d3f69f1fd40139e63c83fde038c0",
+            "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39",
         )
         self.assertEqual(plan["fixture"]["fixture_id"], "fresh-boot")
         self.assertEqual(len(plan["case"]["route"]), 2)
@@ -115,6 +116,19 @@ class UiRuntimeEvidenceTests(unittest.TestCase):
         )
         self.assertEqual(draft["status"], "draft")
         self.assertEqual(draft["verdict"], "not_tested")
+
+    def test_route_ready_batch_excludes_compdata_blocked_case(self):
+        self.assertEqual(
+            route_ready_case_ids(PROJECT_ROOT, MATRIX_PATH),
+            (
+                "core/title-main-menu",
+                "core/opening-player-setup",
+                "core/world-history-scroll",
+                "fresh-boot/tutorial-unit-stat-terrain",
+                "fresh-boot/default-protagonist-labels",
+                "first-five/stage-001-opening",
+            ),
+        )
 
     def test_session_probe_requires_exact_iso_running_dvd_elf_and_no_tlb(self):
         with tempfile.TemporaryDirectory() as directory:

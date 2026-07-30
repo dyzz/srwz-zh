@@ -1,0 +1,102 @@
+{
+  "schema_version": 2,
+  "profile_id": "compdata-step-02-p0-menu-inplace",
+  "component_validation_manifest": "manifests/compdata-step-02-p0-menu-inplace-validation.json",
+  "component_required_status": "fixed_compdata_component_validated_iso_runtime_pending",
+  "runtime_manifest_status": "compdata_p0_menu_inplace_iso_runtime_validated",
+  "runtime_evidence_manifest": "manifests/compdata-step-02-p0-menu-inplace-runtime-validation.json",
+  "source_iso": {
+    "path": "rom/srwz.iso",
+    "size": 3758358528,
+    "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014",
+    "member_count": 66,
+    "iso9660_system_id": "PLAYSTATION",
+    "udf_volume_recognition_sequence": "NSR02"
+  },
+  "toolchain": {
+    "repository": "https://github.com/N4gtan/mkps2iso.git",
+    "tag": "v1.1.1",
+    "commit": "f9a3dea18b67dc5f10093e72114a16283d277af0",
+    "version": "1.1.1",
+    "license_spdx": "GPL-2.0-only",
+    "source_dir": "work/toolchain/mkps2iso-v1.1.1/source",
+    "mkps2iso": {
+      "executable": "mkps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/mkps2iso",
+      "version": "1.1.1",
+      "version_line": "MKPS2ISO 1.1.1 - PlayStation 2 Image Maker"
+    },
+    "dumps2iso": {
+      "executable": "dumps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/dumps2iso",
+      "version": "1.1.1",
+      "version_line": "DUMPS2ISO 1.1.1 - PlayStation 2 Image Dumper"
+    }
+  },
+  "workspace": {
+    "original_tree": "work/build/compdata-step-02-p0-menu-inplace/iso/original",
+    "staging_tree": "work/build/compdata-step-02-p0-menu-inplace/iso/staging",
+    "base_xml": "work/build/compdata-step-02-p0-menu-inplace/iso/layout/original.xml",
+    "build_xml": "work/build/compdata-step-02-p0-menu-inplace/iso/layout/build.xml",
+    "lba_log": "work/build/compdata-step-02-p0-menu-inplace/iso/layout/lba.txt"
+  },
+  "layout": {
+    "volume_id": "SRWZ_P0_COMPDATA",
+    "shift_segments": [
+      {
+        "first_member": "DATA/NISVDATA.BIN",
+        "shift_sectors": 0
+      }
+    ],
+    "preserve_original_gaps": true,
+    "trailing_dummy_sectors": 10240
+  },
+  "replacements": [
+    {
+      "member": "SLPS_258.87",
+      "source": "work/build/compdata-step-02-p0-menu-inplace/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "33827b1495cac59cd84bd2de028ca86839bb7eb2ceacaa35dd0a45ad11d9d331"
+    },
+    {
+      "member": "DATA/COMPDATA.BN",
+      "source": "work/build/compdata-step-02-p0-menu-inplace/components/DATA/COMPDATA.BN",
+      "size": 145057,
+      "sha256": "a81a7149e53529c0585c0f55c3e96cdefe7c6f89618803b6ff0ee87b9c8a6c76"
+    },
+    {
+      "member": "DATA/VT1.BIN",
+      "source": "work/build/compdata-step-02-p0-menu-inplace/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "eeb25f1b6c403777637e1c7f132db38901f51dd107069661223d77badd8471f8"
+    }
+  ],
+  "output": {
+    "path": "build/iso/compdata-step-02-p0-menu-inplace/srwz-compdata-step-02-p0-menu-inplace.iso",
+    "report": "build/iso/compdata-step-02-p0-menu-inplace/iso-validation.json",
+    "expected_root_directory_size": 960,
+    "expected_pcsx2_v263_image_type": "DVD",
+    "expected_udf_volume_recognition_sequence": "NSR02",
+    "byte_reproducible": true,
+    "expected_size": 3758358528,
+    "expected_sha256": "4ddaa69512d5118c549016b0cea28d720f7039dfdd7da571d4f1bff21fd30c3e",
+    "expected_member_manifest_sha256": "b1f954ff843021e5e331c4167cb9133ca57a3d28329724aa1d4b2ad88edc0e57"
+  },
+  "acceptance": {
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "iso9660_present": true,
+    "udf_present": true,
+    "udf_verify_members": [
+      "SYSTEM.CNF",
+      "SLPS_258.87",
+      "DATA/COMPDATA.BN",
+      "DATA/NISVDATA.BIN",
+      "DATA/VT1.BIN",
+      "DATA/STAGE.BIN"
+    ]
+  }
+}

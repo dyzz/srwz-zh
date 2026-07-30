@@ -34,6 +34,23 @@
     "encoded_to_decoded_ratio": 0.33651963594696144,
     "flags_match_original_count": 232
   },
+  "size_constrained_compdata_regression": {
+    "command": "python3 tools/analyze_compdata_compression.py --force",
+    "comparison_manifest": "manifests/compdata-compression-comparison.json",
+    "strategy": "size-constrained",
+    "legacy_greedy_preserved_as_baseline": true,
+    "decoded_size": 524032,
+    "complete_p0_decision_count": 44,
+    "complete_p0_write_count": 41,
+    "legacy_complete_p0_size": 147050,
+    "encoded_size": 145237,
+    "maximum_output_size": 145408,
+    "sector_size": 2048,
+    "sector_count": 71,
+    "budget_headroom": 171,
+    "strict_decode_fully_consumed": true,
+    "runtime_acceptance": "PCSX2 v2.6.3 fresh-process PINE Running with zero logged TLB misses"
+  },
   "domains": {
     "stage": {
       "tested_stream_count": 205,

@@ -84,26 +84,24 @@ class UiEmbeddedSceneTests(unittest.TestCase):
         self.assertEqual(
             summary["writeback_readiness_group_counts"],
             {
-                "allocation_or_shared_owner_required": 4,
-                "fixed_span_ready": 13,
+                "fixed_span_ready": 17,
                 "font_extension_required": 5,
             },
         )
         self.assertEqual(
             summary["writeback_readiness_entry_counts"],
             {
-                "allocation_or_shared_owner_required": 59,
-                "fixed_span_ready": 123,
+                "fixed_span_ready": 182,
                 "font_extension_required": 93,
             },
         )
-        self.assertEqual(summary["fixed_span_ready_entry_count"], 123)
+        self.assertEqual(summary["fixed_span_ready_entry_count"], 182)
         self.assertEqual(
             summary["fixed_span_ready_user_facing_entry_count"],
-            101,
+            160,
         )
         self.assertEqual(summary["font_missing_character_count"], 6)
-        self.assertEqual(summary["overflow_entry_count"], 7)
+        self.assertEqual(summary["overflow_entry_count"], 0)
         self.assertNotIn("font_missing_characters", summary)
 
     def test_fresh_boot_groups_are_fixed_span_ready(self):

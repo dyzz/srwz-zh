@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "status": "integrated_ui_p6_deployment_component_validated_iso_runtime_pending",
+  "content_policy": "Hashes, offsets, stable IDs and counts only; no game bytes, Japanese source text or localized UI strings are embedded.",
+  "profile_id": "srwz-ui-p6-deployment-integrated-v1",
+  "scope": "Promote the final fixed-span fully player-facing group covering deployment squad selection, size filters and search formatting, then merge its SLPS bytes onto the complete P5 battle-menu UI core without changing VT1, COMPDATA or MTV_PROS.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-writeback/ui-p6-deployment-slps.json",
+      "size": 3658,
+      "sha256": "73dace4b7fd9246b7cbdad55575a6a66564f456b5b9f4a67a34b7fa677160ca7"
+    },
+    "scene_map": {
+      "config": {
+        "path": "config/ui-embedded-scenes.json",
+        "size": 28374,
+        "sha256": "d467b1a8e0cf76f19d331ec31cdd470ceb27f401a715360ec45d005f3fb45c4e"
+      },
+      "manifest": {
+        "path": "manifests/ui-embedded-scene-map.json",
+        "size": 44936,
+        "sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651"
+      },
+      "map_id": "srwz-ui-embedded-scenes-v1"
+    },
+    "readiness_baseline": {
+      "writer_baseline_config": {
+        "path": "config/ui-writeback/ui-p0-slps-fixed.json",
+        "sha256": "bd8237c0f9addc461a5c9752c7f49723ec03812028115c997dd3ddeb3b5b1f00"
+      },
+      "font_manifest": {
+        "path": "manifests/ui-p2-display-name-font-validation.json",
+        "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc",
+        "status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
+      },
+      "source_slps": {
+        "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22"
+      },
+      "source_vt1": {
+        "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "636246a0611517c35419cbbc2aee73b6d1af91a2b337b68ba630828f74cbfcbc"
+      },
+      "menu_descriptor": {
+        "path": "vendor/upstream-python/project/menu_files.json",
+        "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+      },
+      "text_table": {
+        "path": "vendor/upstream-python/project/tbl_all.json",
+        "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+      },
+      "base_codebook": {
+        "path": "config/encoding/codebook.json",
+        "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+      },
+      "proposal": {
+        "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
+        "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b"
+      },
+      "override_count": 1605,
+      "policy": "A group is fixed-span ready only when every decision encodes with the exact P2 font proposal, fits every original NUL-terminated target, and closes over all shared target owners with identical payloads."
+    },
+    "base_ui_core": {
+      "manifest": {
+        "path": "manifests/ui-p5-battle-menus-validation.json",
+        "size": 11894,
+        "sha256": "6936f9b339c61f506a458934324ff83625bda5baa2444a8c976811d8724949bb"
+      },
+      "profile_id": "srwz-ui-p5-battle-menus-integrated-v1",
+      "status": "integrated_ui_p5_battle_menus_component_validated_iso_runtime_pending",
+      "runtime_status": "not_tested",
+      "outputs": {
+        "slps": {
+          "path": "work/build/ui-p5-battle-menus/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "473b5f5fee31d78aacbe5e6f78db1c9207a52f33ff50ef65a846e880b080d16d"
+        },
+        "vt1": {
+          "path": "work/build/ui-p5-battle-menus/components/DATA/VT1.BIN",
+          "size": 127500736,
+          "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+        },
+        "compdata": {
+          "path": "work/build/ui-p5-battle-menus/components/DATA/COMPDATA.BN",
+          "size": 144485,
+          "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+        },
+        "mtv_pros": {
+          "path": "work/build/ui-p5-battle-menus/components/DATA/MTV_PROS.BIN",
+          "size": 8640,
+          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+        }
+      }
+    }
+  },
+  "selection": {
+    "scene_count": 1,
+    "scenes": [
+      {
+        "scene_id": "deployment/squad-selection-and-size-format",
+        "entry_count": 16,
+        "fixture_id": "pre-results-card",
+        "entry_ids_sha256": "71c964f3e12e2f8c49c73b8a5d405426c14d3299a078cb556a4dff672befb6dd",
+        "readiness_status": "fixed_span_ready",
+        "runtime_status": "not_tested"
+      }
+    ],
+    "entry_count": 16,
+    "entry_ids_sha256": "71c964f3e12e2f8c49c73b8a5d405426c14d3299a078cb556a4dff672befb6dd",
+    "decision_sha256": "c4784682c8a4f3ec140143c73ff17bd3660968f55ab3aced13ee69ccaf45e52b",
+    "no_op_entry_count": 13,
+    "no_op_entry_ids": [
+      "menu/SLPS/00/0300",
+      "menu/SLPS/00/0301",
+      "menu/SLPS/00/0302",
+      "menu/SLPS/00/0303",
+      "menu/SLPS/00/0306",
+      "menu/SLPS/00/0307",
+      "menu/SLPS/00/0308",
+      "menu/SLPS/00/0309",
+      "menu/SLPS/00/0310",
+      "menu/SLPS/00/0311",
+      "menu/SLPS/00/0312",
+      "menu/SLPS/00/0313",
+      "menu/SLPS/00/0314"
+    ],
+    "selected_write_entry_count": 3,
+    "selected_write_target_count": 3,
+    "fixed_covered_entry_count": 16,
+    "selection_sha256": "2dfd6fb15b376e1b72e8726e42272faf9e3b3b20982b7f0f0f269c07b4c6d817",
+    "excluded_entry_count": 0,
+    "excluded_reason_counts": {}
+  },
+  "slice": {
+    "selection": {
+      "entry_count": 16,
+      "no_op_entry_count": 13,
+      "no_op_entry_ids": [
+        "menu/SLPS/00/0300",
+        "menu/SLPS/00/0301",
+        "menu/SLPS/00/0302",
+        "menu/SLPS/00/0303",
+        "menu/SLPS/00/0306",
+        "menu/SLPS/00/0307",
+        "menu/SLPS/00/0308",
+        "menu/SLPS/00/0309",
+        "menu/SLPS/00/0310",
+        "menu/SLPS/00/0311",
+        "menu/SLPS/00/0312",
+        "menu/SLPS/00/0313",
+        "menu/SLPS/00/0314"
+      ],
+      "selected_write_entry_count": 3,
+      "selected_write_target_count": 3,
+      "fixed_covered_entry_count": 16,
+      "selection_sha256": "2dfd6fb15b376e1b72e8726e42272faf9e3b3b20982b7f0f0f269c07b4c6d817",
+      "excluded_entry_count": 0,
+      "excluded_reason_counts": {}
+    },
+    "excluded": [],
+    "write": {
+      "entry_count": 3,
+      "target_count": 3,
+      "payload_size": 49,
+      "owned_capacity": 63,
+      "target_metadata_sha256": "cdf91ae100a7de050626dd67deebad2cc099928331785f0a6d329c21dc34b0be",
+      "patch_plan_metadata_sha256": "9672c0762a6371493db18e488998ee97698a0f17f57cbf1e34b840d1d687aee7",
+      "pointer_write_count": 0,
+      "pointer_bytes_unchanged": true,
+      "non_target_bytes_unchanged": true,
+      "target_reparse_exact": true
+    },
+    "component": {
+      "source_size": 3471624,
+      "output_size": 3471624,
+      "source_sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22",
+      "output_sha256": "d0005a203c89394fc471a2c731a98e3bd0e0908ef10a30944a9b7126ceff6748",
+      "changed_byte_count": 44,
+      "difference_range_count": 5,
+      "changed_offsets_sha256": "83d999c7dd1d81fcb64bf6718a5abc263bcaec62dd7647beec2c21d8667750e8",
+      "source_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
+      "output_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
+      "font_decoded_unchanged": true
+    },
+    "changed_offsets_sha256": "83d999c7dd1d81fcb64bf6718a5abc263bcaec62dd7647beec2c21d8667750e8"
+  },
+  "composition": {
+    "base_changed_byte_count": 4241,
+    "base_changed_offsets_sha256": "eb49b1d8ad4cfb8c5580930b11f5049f7171f8bb160170a2f3474108ffcf983a",
+    "slice_changed_byte_count": 44,
+    "slice_changed_offsets_sha256": "83d999c7dd1d81fcb64bf6718a5abc263bcaec62dd7647beec2c21d8667750e8",
+    "overlap_byte_count": 0,
+    "base_preimage_exact_at_slice_offsets": true,
+    "final_changed_from_base_byte_count": 44,
+    "final_changed_from_base_offsets_sha256": "83d999c7dd1d81fcb64bf6718a5abc263bcaec62dd7647beec2c21d8667750e8",
+    "decoded_font_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8"
+  },
+  "outputs": {
+    "slps": {
+      "path": "work/build/ui-p6-deployment/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "f03b1b3487afe15772973ae3d5214679fdf7d3ffbd356dfe5a3514ce2745b93d"
+    },
+    "vt1": {
+      "path": "work/build/ui-p6-deployment/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+    },
+    "compdata": {
+      "path": "work/build/ui-p6-deployment/components/DATA/COMPDATA.BN",
+      "size": 144485,
+      "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+    },
+    "mtv_pros": {
+      "path": "work/build/ui-p6-deployment/components/DATA/MTV_PROS.BIN",
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    }
+  },
+  "ratchet": {
+    "expected": {
+      "selected_scene_count": 1,
+      "selected_entry_count": 16,
+      "no_op_entry_count": 13,
+      "selected_write_entry_count": 3,
+      "selected_write_target_count": 3,
+      "fixed_covered_entry_count": 16,
+      "excluded_entry_count": 0,
+      "slice_changed_byte_count": 44,
+      "slice_difference_range_count": 5
+    },
+    "checks": {
+      "selected_scene_count": true,
+      "selected_entry_count": true,
+      "no_op_entry_count": true,
+      "selected_write_entry_count": true,
+      "selected_write_target_count": true,
+      "fixed_covered_entry_count": true,
+      "excluded_entry_count": true,
+      "slice_changed_byte_count": true,
+      "slice_difference_range_count": true
+    },
+    "passed": true
+  },
+  "acceptance": {
+    "selected_groups_fixed_span_ready": true,
+    "all_selected_entries_covered": true,
+    "slice_and_base_changes_disjoint": true,
+    "base_preimage_exact_at_slice_offsets": true,
+    "pointer_bytes_unchanged": true,
+    "non_target_bytes_unchanged": true,
+    "selected_targets_reread_exact": true,
+    "compdata_byte_exact_from_base": true,
+    "mtv_pros_byte_exact_from_base": true,
+    "vt1_byte_exact_from_base": true,
+    "decoded_font_unchanged": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_routes": [
+      "pre_results_deployment_squad_selection_size_filters_and_search"
+    ],
+    "pending_gates": [
+      "exact_iso_static_binding",
+      "native_pre_results_memory_card",
+      "deployment_squad_selection_route",
+      "small_medium_large_size_filters",
+      "deployment_search_and_dynamic_squad_names",
+      "dynamic_values_and_format_fragments_unchanged",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss"
+    ]
+  }
+}

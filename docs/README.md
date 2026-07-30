@@ -13,6 +13,7 @@
 | `ISO_DIRECTORY_LAYOUT.md` | 原盘、中间态、最终 ISO 和运行证据目录契约 |
 | `SRWZ_DATA_PARSING.md` | ISO 数据覆盖、结构解析和上游 XML 对照 |
 | `ASSET_ANALYSIS.md` | TIM2 图片清单、MAPNAME 文本、图像汉化和复杂字体边界 |
+| `RUNTIME_LOCALIZATION_AUDIT.md` | 基于 PCSX2 实际截图的已汉化范围、人物能力／武器／系统菜单缺口和后续优先级 |
 | `IMAGE_EXPORT.md` | 按 BIN/归档层级全量导出 TIM2、调色板预览规则和覆盖边界 |
 | `TIM2_TOOLCHAIN_ACCEPTANCE.md` | TIM2 writer 候选调查、真实 fixture 结果和最小注入器验收门 |
 | `SRWZ_COMPRESSION.md` | 自定义压缩格式、严格解码和确定性编码 |

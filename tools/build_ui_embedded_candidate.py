@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the P3 fresh-boot embedded UI component."""
+"""Build a configured fixed-span embedded UI component."""
 
 from __future__ import annotations
 

@@ -18,7 +18,7 @@ try:
         IsoBuildError,
         expected_shift_segments,
         load_config,
-        validate_directory_contract,
+        validate_directory_contract as _validate_directory_contract,
     )
     from srwz.iso9660 import (
         Iso9660Error,
@@ -34,7 +34,7 @@ except ModuleNotFoundError:
         IsoBuildError,
         expected_shift_segments,
         load_config,
-        validate_directory_contract,
+        validate_directory_contract as _validate_directory_contract,
     )
     from tools.srwz.iso9660 import (
         Iso9660Error,
@@ -51,6 +51,12 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = PROJECT_ROOT / "config" / "iso" / "canary-build.json"
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 BOOT_LOGO_SIZE = 12 * 2048
+
+
+def validate_directory_contract(config: dict) -> None:
+    """Keep the historical builder import surface while sharing one validator."""
+
+    _validate_directory_contract(config)
 
 
 def sha256_file(path: Path) -> tuple[int, str]:

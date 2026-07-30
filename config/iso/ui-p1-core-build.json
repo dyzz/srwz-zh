@@ -2,6 +2,9 @@
   "schema_version": 2,
   "profile_id": "ui-p1-core",
   "runtime_evidence_manifest": "manifests/ui-p1-core-runtime-validation.json",
+  "runtime_evidence": {
+    "boot_smoke_report": "work/runtime/iso-incremental/12-ui-p1-core-rust-fixed-span/boot-smoke.json"
+  },
   "source_iso": {
     "path": "rom/srwz.iso",
     "size": 3758358528,
@@ -42,11 +45,7 @@
     "shift_segments": [
       {
         "first_member": "DATA/NISVDATA.BIN",
-        "shift_sectors": 6
-      },
-      {
-        "first_member": "DATA/STAGE.BIN",
-        "shift_sectors": 41
+        "shift_sectors": 0
       }
     ],
     "preserve_original_gaps": true,
@@ -57,13 +56,13 @@
       "member": "SLPS_258.87",
       "source": "work/build/ui-p1-core/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "d45bf4927dcea7b2141877db27fcc2150e31c6c99f734f2a3de889eb7d48396e"
+      "sha256": "4ef7b663dfb76144fdda109824c244cdd5cabf34e57cf7eb377da6ea44a42024"
     },
     {
       "member": "DATA/COMPDATA.BN",
       "source": "work/build/ui-p1-core/components/DATA/COMPDATA.BN",
-      "size": 156161,
-      "sha256": "9fb5066ecf4fa0550cc13f8e4defe06ee75a833ae55e8e40a261a811fd718a7d"
+      "size": 143493,
+      "sha256": "3178915d69a2ebd5f9d785bd08b6a1f49270f4406bc071dc558f46b64bd44529"
     },
     {
       "member": "DATA/MTV_PROS.BIN",
@@ -74,8 +73,8 @@
     {
       "member": "DATA/VT1.BIN",
       "source": "work/build/ui-p1-core/components/DATA/VT1.BIN",
-      "size": 127573504,
-      "sha256": "fc525dfd7ec965211fe33ce241851775448d68518c4645f907af12499b073bf6"
+      "size": 127500736,
+      "sha256": "ba63968a2ef7bd424e965d648df2bd6a2f1edc28fc61430473fdc4644e556ec5"
     }
   ],
   "output": {
@@ -85,9 +84,9 @@
     "expected_pcsx2_v263_image_type": "DVD",
     "expected_udf_volume_recognition_sequence": "NSR02",
     "byte_reproducible": true,
-    "expected_size": 3758456832,
-    "expected_sha256": "5f558ae794dec6d2e95bf56f391b5a0789eba78f4c330aa441a935b13973891b",
-    "expected_member_manifest_sha256": "fd2decfcba9041c8dd7b0072c9618dff9f7ed54f490457fc683fcfb4c2fc46fc"
+    "expected_size": 3758358528,
+    "expected_sha256": "69771b8dfa5800d3ce6652436d3cbad24ed71e5d83b4c5dc12b8ed0c3ae33854",
+    "expected_member_manifest_sha256": "f8bde4cbeeb8c0f37b611052c32375b416e042c4be385a2ead2f5a4717120857"
   },
   "acceptance": {
     "member_paths_exact": true,

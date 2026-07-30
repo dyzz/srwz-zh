@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "chain_id": "compdata-only-incremental-v1",
+  "baseline": {
+    "step_id": "first-five-noncompdata-ui",
+    "iso_path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
+    "iso_size": 3758424064,
+    "iso_sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39",
+    "boot_smoke_report": "work/runtime/iso-incremental/04-first-five-noncompdata/boot-smoke.json",
+    "runtime_status": "passed"
+  },
+  "principle": "Hold the boot-proven non-COMPDATA UI members fixed and change only DATA/COMPDATA.BN. Promote each semantic layer only after a fresh-process PCSX2/PINE boot passes without a logged TLB miss.",
+  "steps": [
+    {
+      "index": 1,
+      "step_id": "lba-shift-control",
+      "purpose": "Keep the original compressed and decoded COMPDATA stream exact, append the minimum 419-byte zero tail, and shift later members by exactly one sector.",
+      "build_config": "config/iso/compdata-step-00-lba-shift-control-build.json",
+      "iso_path": "build/iso/compdata-step-00-lba-shift-control/srwz-compdata-step-00-lba-shift-control.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "5e651455f296631bae1a8d79d1650f49f0d965ee758fb01bebc1d781a308139b",
+      "boot_smoke_report": "work/runtime/iso-incremental/07-compdata-lba-shift-control/boot-smoke.json",
+      "materialization": "copy_locked_components",
+      "component_sources": {
+        "SLPS_258.87": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/SLPS_258.87",
+        "DATA/COMPDATA.BN": "work/build/compdata-step-00-lba-shift-control/components/DATA/COMPDATA.BN",
+        "DATA/MTV_PROS.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/MTV_PROS.BIN",
+        "DATA/VT1.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
+        "DATA/STAGE.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN"
+      },
+      "delta_from_baseline": [
+        "DATA/COMPDATA.BN"
+      ],
+      "runtime_expectation": "known_tlb_failure_proves_lba_dependency",
+      "runtime_status": "failed_tlb"
+    },
+    {
+      "index": 2,
+      "step_id": "p0-buttons-inplace",
+      "purpose": "Add only the 24 P0 intermission button decisions while keeping COMPDATA inside its original 71-sector allocation.",
+      "build_config": "config/iso/compdata-step-01a-p0-buttons-inplace-build.json",
+      "iso_path": "build/iso/compdata-step-01a-p0-buttons-inplace/srwz-compdata-step-01a-p0-buttons-inplace.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "53abf0c9135087e95b77295b6654ca79574926f6ef3a377a4d741c9d30ead5fe",
+      "boot_smoke_report": "work/runtime/iso-incremental/06-compdata-p0-buttons-inplace/boot-smoke.json",
+      "materialization": "copy_locked_components",
+      "component_sources": {
+        "SLPS_258.87": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/SLPS_258.87",
+        "DATA/COMPDATA.BN": "work/build/compdata-step-01a-p0-buttons/components/DATA/COMPDATA.BN",
+        "DATA/MTV_PROS.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/MTV_PROS.BIN",
+        "DATA/VT1.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
+        "DATA/STAGE.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN"
+      },
+      "delta_from_baseline": [
+        "DATA/COMPDATA.BN"
+      ],
+      "runtime_expectation": "must_boot_without_tlb",
+      "runtime_status": "passed"
+    },
+    {
+      "index": 3,
+      "step_id": "p0-menu",
+      "purpose": "Add only the 44 selected P0 fixed-allocation COMPDATA menu entries.",
+      "build_config": "config/iso/compdata-step-01-p0-menu-build.json",
+      "iso_path": "build/iso/compdata-step-01-p0-menu/srwz-compdata-step-01-p0-menu.iso",
+      "iso_size": 3758424064,
+      "iso_sha256": "1a2a42a7d009a8283c4a7f2f9b98c13599bd1a22c11543ad48043ee2ad9f8ea7",
+      "boot_smoke_report": "work/runtime/iso-incremental/06-compdata-p0-menu/boot-smoke.json",
+      "materialization": "copy_locked_components",
+      "component_sources": {
+        "SLPS_258.87": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/SLPS_258.87",
+        "DATA/COMPDATA.BN": "work/build/ui-p0-fixed-compdata/components/DATA/COMPDATA.BN",
+        "DATA/MTV_PROS.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/MTV_PROS.BIN",
+        "DATA/VT1.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
+        "DATA/STAGE.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/STAGE.BIN",
+        "HEDBDY/HB.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN"
+      },
+      "delta_from_baseline": [
+        "DATA/COMPDATA.BN"
+      ],
+      "runtime_expectation": "known_tlb_failure_exceeds_original_allocation",
+      "runtime_status": "failed_tlb"
+    }
+  ],
+  "promotion": {
+    "step_id": "p0-menu-inplace-maximum",
+    "purpose": "Promote all 44 P0 COMPDATA decisions with the clean-room maximum compression portfolio, a 145408-byte hard gate, fixed-size P0 SLPS/VT1 components and zero ISO LBA shifts.",
+    "build_config": "config/iso/compdata-step-02-p0-menu-inplace-build.json",
+    "component_manifest": "manifests/compdata-step-02-p0-menu-inplace-validation.json",
+    "runtime_manifest": "manifests/compdata-step-02-p0-menu-inplace-runtime-validation.json",
+    "iso_path": "build/iso/compdata-step-02-p0-menu-inplace/srwz-compdata-step-02-p0-menu-inplace.iso",
+    "iso_size": 3758358528,
+    "iso_sha256": "4ddaa69512d5118c549016b0cea28d720f7039dfdd7da571d4f1bff21fd30c3e",
+    "boot_smoke_report": "work/runtime/iso-incremental/09-compdata-p0-maximum/boot-smoke.json",
+    "runtime_status": "passed",
+    "runtime_expectation": "must_boot_without_tlb_and_keep_all_member_lbas"
+  }
+}

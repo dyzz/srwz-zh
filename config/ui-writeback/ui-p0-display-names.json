@@ -39,14 +39,14 @@
   ],
   "base_component": {
     "config": "config/ui-writeback/ui-p0-compdata-fixed.json",
-    "config_sha256": "d116c7e9c08acc7a7a71fa9cbf702bdb1c58d257203890f8261fdb9344cf50c9",
+    "config_sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43",
     "manifest": "manifests/ui-p0-fixed-compdata-validation.json",
-    "manifest_sha256": "d22eb94364d3ed39aab8caeb0d3de092f9df4ec7965fb22faee52fe86680803d",
+    "manifest_sha256": "6fcadb76f10aa866465c382d171f1a596824c1357750a1ed01d199eb0f4f3bf8",
     "output_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d"
   },
   "font_candidate": {
     "manifest": "manifests/ui-p0-font-validation.json",
-    "sha256": "bb1419de942c1d99cf7cb88a1fa9f7c9d9d5e31b1ecaf13598893c779b3c7184"
+    "sha256": "1626b56025b3863c997ce6fdccf7196d8b26bdd9031d50d08ebee9e091d67591"
   },
   "base_codebook": {
     "path": "config/encoding/codebook.json",
@@ -62,10 +62,13 @@
   },
   "codec": {
     "mode": "preserve-base-prefix-reencode-suffix",
-    "strategy": "greedy",
-    "min_match_length": 4,
-    "max_match_chain": 256,
-    "lazy_matching": true
+    "strategy": "maximum",
+    "min_match_length": 2,
+    "max_match_chain": 65535,
+    "lazy_matching": true,
+    "max_output_size": 145408,
+    "sector_size": 2048,
+    "max_sectors": 71
   },
   "ratchet": {
     "translation_entry_count": 45,

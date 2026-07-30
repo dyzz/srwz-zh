@@ -1,0 +1,929 @@
+{
+  "schema_version": 1,
+  "status": "compdata_compression_loss_quantified_and_budget_met",
+  "content_policy": "Hashes, aggregate token counts, bounded distributions and encoded costs only; no game literals or decoded bytes.",
+  "streams": {
+    "original": {
+      "path": "work/disc/DATA/COMPDATA.BN",
+      "size": 144990,
+      "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+      "decoded_size": 524032,
+      "decoded_sha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb",
+      "flags": 23,
+      "fully_consumed": true,
+      "block_count": 17547,
+      "literal_bytes": 41516,
+      "match_count": 32544,
+      "match_output_bytes": 482516,
+      "distance_distribution": {
+        "1-8": 2978,
+        "9-127": 6969,
+        "128-1023": 7931,
+        "1024-16383": 8672,
+        "16384-131071": 4659,
+        "131072+": 1335
+      },
+      "length_distribution": {
+        "1-4": 9168,
+        "5-16": 15915,
+        "65-256": 1334,
+        "17-64": 6083,
+        "257-1024": 44
+      },
+      "distance_seed": {
+        "eligible_count": 12521,
+        "embedded_nonzero_count": 12521,
+        "missed_compact_count": 0
+      },
+      "encoded_cost_bytes": {
+        "header_bytes": 5,
+        "block_control_bytes": 17547,
+        "block_count_coded_integer_bytes": 140,
+        "literal_bytes": 41516,
+        "match_token_bytes": 32544,
+        "distance_coded_integer_bytes": 45562,
+        "length_coded_integer_bytes": 7676
+      },
+      "decoded_intervals": [
+        {
+          "decoded_start": 0,
+          "decoded_end": 16384,
+          "compressed_bytes_by_block_start": 5578
+        },
+        {
+          "decoded_start": 16384,
+          "decoded_end": 32768,
+          "compressed_bytes_by_block_start": 3733
+        },
+        {
+          "decoded_start": 32768,
+          "decoded_end": 49152,
+          "compressed_bytes_by_block_start": 3303
+        },
+        {
+          "decoded_start": 49152,
+          "decoded_end": 65536,
+          "compressed_bytes_by_block_start": 3882
+        },
+        {
+          "decoded_start": 65536,
+          "decoded_end": 81920,
+          "compressed_bytes_by_block_start": 2821
+        },
+        {
+          "decoded_start": 81920,
+          "decoded_end": 98304,
+          "compressed_bytes_by_block_start": 2947
+        },
+        {
+          "decoded_start": 98304,
+          "decoded_end": 114688,
+          "compressed_bytes_by_block_start": 3444
+        },
+        {
+          "decoded_start": 114688,
+          "decoded_end": 131072,
+          "compressed_bytes_by_block_start": 3236
+        },
+        {
+          "decoded_start": 131072,
+          "decoded_end": 147456,
+          "compressed_bytes_by_block_start": 2511
+        },
+        {
+          "decoded_start": 147456,
+          "decoded_end": 163840,
+          "compressed_bytes_by_block_start": 1719
+        },
+        {
+          "decoded_start": 163840,
+          "decoded_end": 180224,
+          "compressed_bytes_by_block_start": 3054
+        },
+        {
+          "decoded_start": 180224,
+          "decoded_end": 196608,
+          "compressed_bytes_by_block_start": 4307
+        },
+        {
+          "decoded_start": 196608,
+          "decoded_end": 212992,
+          "compressed_bytes_by_block_start": 3503
+        },
+        {
+          "decoded_start": 212992,
+          "decoded_end": 229376,
+          "compressed_bytes_by_block_start": 3757
+        },
+        {
+          "decoded_start": 229376,
+          "decoded_end": 245760,
+          "compressed_bytes_by_block_start": 3029
+        },
+        {
+          "decoded_start": 245760,
+          "decoded_end": 262144,
+          "compressed_bytes_by_block_start": 3345
+        },
+        {
+          "decoded_start": 262144,
+          "decoded_end": 278528,
+          "compressed_bytes_by_block_start": 3429
+        },
+        {
+          "decoded_start": 278528,
+          "decoded_end": 294912,
+          "compressed_bytes_by_block_start": 3188
+        },
+        {
+          "decoded_start": 294912,
+          "decoded_end": 311296,
+          "compressed_bytes_by_block_start": 2950
+        },
+        {
+          "decoded_start": 311296,
+          "decoded_end": 327680,
+          "compressed_bytes_by_block_start": 6334
+        },
+        {
+          "decoded_start": 327680,
+          "decoded_end": 344064,
+          "compressed_bytes_by_block_start": 6428
+        },
+        {
+          "decoded_start": 344064,
+          "decoded_end": 360448,
+          "compressed_bytes_by_block_start": 5919
+        },
+        {
+          "decoded_start": 360448,
+          "decoded_end": 376832,
+          "compressed_bytes_by_block_start": 8704
+        },
+        {
+          "decoded_start": 376832,
+          "decoded_end": 393216,
+          "compressed_bytes_by_block_start": 5733
+        },
+        {
+          "decoded_start": 393216,
+          "decoded_end": 409600,
+          "compressed_bytes_by_block_start": 8018
+        },
+        {
+          "decoded_start": 409600,
+          "decoded_end": 425984,
+          "compressed_bytes_by_block_start": 6809
+        },
+        {
+          "decoded_start": 425984,
+          "decoded_end": 442368,
+          "compressed_bytes_by_block_start": 5578
+        },
+        {
+          "decoded_start": 442368,
+          "decoded_end": 458752,
+          "compressed_bytes_by_block_start": 5993
+        },
+        {
+          "decoded_start": 458752,
+          "decoded_end": 475136,
+          "compressed_bytes_by_block_start": 5821
+        },
+        {
+          "decoded_start": 475136,
+          "decoded_end": 491520,
+          "compressed_bytes_by_block_start": 6560
+        },
+        {
+          "decoded_start": 491520,
+          "decoded_end": 507904,
+          "compressed_bytes_by_block_start": 4363
+        },
+        {
+          "decoded_start": 507904,
+          "decoded_end": 524032,
+          "compressed_bytes_by_block_start": 4994
+        }
+      ]
+    },
+    "p0_buttons_legacy": {
+      "path": "work/build/compdata-step-01a-p0-buttons/components/DATA/COMPDATA.BN",
+      "size": 145300,
+      "sha256": "a27b5f813928c32e3f7b9535f3af4f6de3ca523d4653e1247a2d864d141bd306",
+      "decoded_size": 524032,
+      "decoded_sha256": "7492f211e47d2252e6959350ee3e353fdd1be72ead8d28751ba0b1fa09c09879",
+      "flags": 23,
+      "fully_consumed": true,
+      "block_count": 17559,
+      "literal_bytes": 41659,
+      "match_count": 32524,
+      "match_output_bytes": 482373,
+      "distance_distribution": {
+        "1-8": 2977,
+        "9-127": 6976,
+        "128-1023": 7926,
+        "1024-16383": 8661,
+        "16384-131071": 4649,
+        "131072+": 1335
+      },
+      "length_distribution": {
+        "1-4": 9164,
+        "5-16": 15900,
+        "65-256": 1334,
+        "17-64": 6082,
+        "257-1024": 44
+      },
+      "distance_seed": {
+        "eligible_count": 12504,
+        "embedded_nonzero_count": 12290,
+        "missed_compact_count": 214
+      },
+      "encoded_cost_bytes": {
+        "header_bytes": 5,
+        "block_control_bytes": 17559,
+        "block_count_coded_integer_bytes": 142,
+        "literal_bytes": 41659,
+        "match_token_bytes": 32524,
+        "distance_coded_integer_bytes": 45736,
+        "length_coded_integer_bytes": 7675
+      },
+      "decoded_intervals": [
+        {
+          "decoded_start": 0,
+          "decoded_end": 16384,
+          "compressed_bytes_by_block_start": 5578
+        },
+        {
+          "decoded_start": 16384,
+          "decoded_end": 32768,
+          "compressed_bytes_by_block_start": 3733
+        },
+        {
+          "decoded_start": 32768,
+          "decoded_end": 49152,
+          "compressed_bytes_by_block_start": 3303
+        },
+        {
+          "decoded_start": 49152,
+          "decoded_end": 65536,
+          "compressed_bytes_by_block_start": 3882
+        },
+        {
+          "decoded_start": 65536,
+          "decoded_end": 81920,
+          "compressed_bytes_by_block_start": 2821
+        },
+        {
+          "decoded_start": 81920,
+          "decoded_end": 98304,
+          "compressed_bytes_by_block_start": 2947
+        },
+        {
+          "decoded_start": 98304,
+          "decoded_end": 114688,
+          "compressed_bytes_by_block_start": 3444
+        },
+        {
+          "decoded_start": 114688,
+          "decoded_end": 131072,
+          "compressed_bytes_by_block_start": 3236
+        },
+        {
+          "decoded_start": 131072,
+          "decoded_end": 147456,
+          "compressed_bytes_by_block_start": 2511
+        },
+        {
+          "decoded_start": 147456,
+          "decoded_end": 163840,
+          "compressed_bytes_by_block_start": 1719
+        },
+        {
+          "decoded_start": 163840,
+          "decoded_end": 180224,
+          "compressed_bytes_by_block_start": 3054
+        },
+        {
+          "decoded_start": 180224,
+          "decoded_end": 196608,
+          "compressed_bytes_by_block_start": 4307
+        },
+        {
+          "decoded_start": 196608,
+          "decoded_end": 212992,
+          "compressed_bytes_by_block_start": 3503
+        },
+        {
+          "decoded_start": 212992,
+          "decoded_end": 229376,
+          "compressed_bytes_by_block_start": 3757
+        },
+        {
+          "decoded_start": 229376,
+          "decoded_end": 245760,
+          "compressed_bytes_by_block_start": 3029
+        },
+        {
+          "decoded_start": 245760,
+          "decoded_end": 262144,
+          "compressed_bytes_by_block_start": 3345
+        },
+        {
+          "decoded_start": 262144,
+          "decoded_end": 278528,
+          "compressed_bytes_by_block_start": 3429
+        },
+        {
+          "decoded_start": 278528,
+          "decoded_end": 294912,
+          "compressed_bytes_by_block_start": 3188
+        },
+        {
+          "decoded_start": 294912,
+          "decoded_end": 311296,
+          "compressed_bytes_by_block_start": 2950
+        },
+        {
+          "decoded_start": 311296,
+          "decoded_end": 327680,
+          "compressed_bytes_by_block_start": 6334
+        },
+        {
+          "decoded_start": 327680,
+          "decoded_end": 344064,
+          "compressed_bytes_by_block_start": 6428
+        },
+        {
+          "decoded_start": 344064,
+          "decoded_end": 360448,
+          "compressed_bytes_by_block_start": 5919
+        },
+        {
+          "decoded_start": 360448,
+          "decoded_end": 376832,
+          "compressed_bytes_by_block_start": 8704
+        },
+        {
+          "decoded_start": 376832,
+          "decoded_end": 393216,
+          "compressed_bytes_by_block_start": 5733
+        },
+        {
+          "decoded_start": 393216,
+          "decoded_end": 409600,
+          "compressed_bytes_by_block_start": 8018
+        },
+        {
+          "decoded_start": 409600,
+          "decoded_end": 425984,
+          "compressed_bytes_by_block_start": 6809
+        },
+        {
+          "decoded_start": 425984,
+          "decoded_end": 442368,
+          "compressed_bytes_by_block_start": 5578
+        },
+        {
+          "decoded_start": 442368,
+          "decoded_end": 458752,
+          "compressed_bytes_by_block_start": 5993
+        },
+        {
+          "decoded_start": 458752,
+          "decoded_end": 475136,
+          "compressed_bytes_by_block_start": 5821
+        },
+        {
+          "decoded_start": 475136,
+          "decoded_end": 491520,
+          "compressed_bytes_by_block_start": 6560
+        },
+        {
+          "decoded_start": 491520,
+          "decoded_end": 507904,
+          "compressed_bytes_by_block_start": 4363
+        },
+        {
+          "decoded_start": 507904,
+          "decoded_end": 524032,
+          "compressed_bytes_by_block_start": 5304
+        }
+      ]
+    },
+    "p0_full_legacy": {
+      "path": "work/build/ui-p0-fixed-compdata/components/DATA/COMPDATA.BN",
+      "size": 147050,
+      "sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d",
+      "decoded_size": 524032,
+      "decoded_sha256": "8e1d9a25a33ac445b53b9bbb789f3ece940043276436f45917575c93783754ea",
+      "flags": 23,
+      "fully_consumed": true,
+      "block_count": 17533,
+      "literal_bytes": 42031,
+      "match_count": 32433,
+      "match_output_bytes": 482001,
+      "distance_distribution": {
+        "1-8": 2960,
+        "9-127": 6959,
+        "128-1023": 7869,
+        "1024-16383": 8676,
+        "16384-131071": 4632,
+        "131072+": 1337
+      },
+      "length_distribution": {
+        "1-4": 9057,
+        "5-16": 15933,
+        "65-256": 1334,
+        "17-64": 6065,
+        "257-1024": 44
+      },
+      "distance_seed": {
+        "eligible_count": 12430,
+        "embedded_nonzero_count": 10634,
+        "missed_compact_count": 1796
+      },
+      "encoded_cost_bytes": {
+        "header_bytes": 5,
+        "block_control_bytes": 17533,
+        "block_count_coded_integer_bytes": 144,
+        "literal_bytes": 42031,
+        "match_token_bytes": 32433,
+        "distance_coded_integer_bytes": 47246,
+        "length_coded_integer_bytes": 7658
+      },
+      "decoded_intervals": [
+        {
+          "decoded_start": 0,
+          "decoded_end": 16384,
+          "compressed_bytes_by_block_start": 5578
+        },
+        {
+          "decoded_start": 16384,
+          "decoded_end": 32768,
+          "compressed_bytes_by_block_start": 3733
+        },
+        {
+          "decoded_start": 32768,
+          "decoded_end": 49152,
+          "compressed_bytes_by_block_start": 3303
+        },
+        {
+          "decoded_start": 49152,
+          "decoded_end": 65536,
+          "compressed_bytes_by_block_start": 3882
+        },
+        {
+          "decoded_start": 65536,
+          "decoded_end": 81920,
+          "compressed_bytes_by_block_start": 2821
+        },
+        {
+          "decoded_start": 81920,
+          "decoded_end": 98304,
+          "compressed_bytes_by_block_start": 2947
+        },
+        {
+          "decoded_start": 98304,
+          "decoded_end": 114688,
+          "compressed_bytes_by_block_start": 3444
+        },
+        {
+          "decoded_start": 114688,
+          "decoded_end": 131072,
+          "compressed_bytes_by_block_start": 3236
+        },
+        {
+          "decoded_start": 131072,
+          "decoded_end": 147456,
+          "compressed_bytes_by_block_start": 2511
+        },
+        {
+          "decoded_start": 147456,
+          "decoded_end": 163840,
+          "compressed_bytes_by_block_start": 1719
+        },
+        {
+          "decoded_start": 163840,
+          "decoded_end": 180224,
+          "compressed_bytes_by_block_start": 3054
+        },
+        {
+          "decoded_start": 180224,
+          "decoded_end": 196608,
+          "compressed_bytes_by_block_start": 4307
+        },
+        {
+          "decoded_start": 196608,
+          "decoded_end": 212992,
+          "compressed_bytes_by_block_start": 3503
+        },
+        {
+          "decoded_start": 212992,
+          "decoded_end": 229376,
+          "compressed_bytes_by_block_start": 3757
+        },
+        {
+          "decoded_start": 229376,
+          "decoded_end": 245760,
+          "compressed_bytes_by_block_start": 3029
+        },
+        {
+          "decoded_start": 245760,
+          "decoded_end": 262144,
+          "compressed_bytes_by_block_start": 3345
+        },
+        {
+          "decoded_start": 262144,
+          "decoded_end": 278528,
+          "compressed_bytes_by_block_start": 3429
+        },
+        {
+          "decoded_start": 278528,
+          "decoded_end": 294912,
+          "compressed_bytes_by_block_start": 3188
+        },
+        {
+          "decoded_start": 294912,
+          "decoded_end": 311296,
+          "compressed_bytes_by_block_start": 2950
+        },
+        {
+          "decoded_start": 311296,
+          "decoded_end": 327680,
+          "compressed_bytes_by_block_start": 6334
+        },
+        {
+          "decoded_start": 327680,
+          "decoded_end": 344064,
+          "compressed_bytes_by_block_start": 6428
+        },
+        {
+          "decoded_start": 344064,
+          "decoded_end": 360448,
+          "compressed_bytes_by_block_start": 5919
+        },
+        {
+          "decoded_start": 360448,
+          "decoded_end": 376832,
+          "compressed_bytes_by_block_start": 8704
+        },
+        {
+          "decoded_start": 376832,
+          "decoded_end": 393216,
+          "compressed_bytes_by_block_start": 5733
+        },
+        {
+          "decoded_start": 393216,
+          "decoded_end": 409600,
+          "compressed_bytes_by_block_start": 8018
+        },
+        {
+          "decoded_start": 409600,
+          "decoded_end": 425984,
+          "compressed_bytes_by_block_start": 6809
+        },
+        {
+          "decoded_start": 425984,
+          "decoded_end": 442368,
+          "compressed_bytes_by_block_start": 5578
+        },
+        {
+          "decoded_start": 442368,
+          "decoded_end": 458752,
+          "compressed_bytes_by_block_start": 5993
+        },
+        {
+          "decoded_start": 458752,
+          "decoded_end": 475136,
+          "compressed_bytes_by_block_start": 5877
+        },
+        {
+          "decoded_start": 475136,
+          "decoded_end": 491520,
+          "compressed_bytes_by_block_start": 7296
+        },
+        {
+          "decoded_start": 491520,
+          "decoded_end": 507904,
+          "compressed_bytes_by_block_start": 4782
+        },
+        {
+          "decoded_start": 507904,
+          "decoded_end": 524032,
+          "compressed_bytes_by_block_start": 5843
+        }
+      ]
+    },
+    "p0_full_size_constrained": {
+      "path": "work/build/compdata-step-02-p0-menu-inplace/components/DATA/COMPDATA.BN",
+      "size": 145237,
+      "sha256": "6a904a81ffd5c0aab3794950b02227c7141e073d86b8d6c8519c4708b3a9d602",
+      "decoded_size": 524032,
+      "decoded_sha256": "8e1d9a25a33ac445b53b9bbb789f3ece940043276436f45917575c93783754ea",
+      "flags": 23,
+      "fully_consumed": true,
+      "block_count": 17529,
+      "literal_bytes": 42027,
+      "match_count": 32456,
+      "match_output_bytes": 482005,
+      "distance_distribution": {
+        "1-8": 2976,
+        "9-127": 6981,
+        "128-1023": 7886,
+        "1024-16383": 8661,
+        "16384-131071": 4615,
+        "131072+": 1337
+      },
+      "length_distribution": {
+        "1-4": 9066,
+        "5-16": 15954,
+        "65-256": 1334,
+        "17-64": 6058,
+        "257-1024": 44
+      },
+      "distance_seed": {
+        "eligible_count": 12429,
+        "embedded_nonzero_count": 12429,
+        "missed_compact_count": 0
+      },
+      "encoded_cost_bytes": {
+        "header_bytes": 5,
+        "block_control_bytes": 17529,
+        "block_count_coded_integer_bytes": 144,
+        "literal_bytes": 42027,
+        "match_token_bytes": 32456,
+        "distance_coded_integer_bytes": 45425,
+        "length_coded_integer_bytes": 7651
+      },
+      "decoded_intervals": [
+        {
+          "decoded_start": 0,
+          "decoded_end": 16384,
+          "compressed_bytes_by_block_start": 5578
+        },
+        {
+          "decoded_start": 16384,
+          "decoded_end": 32768,
+          "compressed_bytes_by_block_start": 3733
+        },
+        {
+          "decoded_start": 32768,
+          "decoded_end": 49152,
+          "compressed_bytes_by_block_start": 3303
+        },
+        {
+          "decoded_start": 49152,
+          "decoded_end": 65536,
+          "compressed_bytes_by_block_start": 3882
+        },
+        {
+          "decoded_start": 65536,
+          "decoded_end": 81920,
+          "compressed_bytes_by_block_start": 2821
+        },
+        {
+          "decoded_start": 81920,
+          "decoded_end": 98304,
+          "compressed_bytes_by_block_start": 2947
+        },
+        {
+          "decoded_start": 98304,
+          "decoded_end": 114688,
+          "compressed_bytes_by_block_start": 3444
+        },
+        {
+          "decoded_start": 114688,
+          "decoded_end": 131072,
+          "compressed_bytes_by_block_start": 3236
+        },
+        {
+          "decoded_start": 131072,
+          "decoded_end": 147456,
+          "compressed_bytes_by_block_start": 2511
+        },
+        {
+          "decoded_start": 147456,
+          "decoded_end": 163840,
+          "compressed_bytes_by_block_start": 1719
+        },
+        {
+          "decoded_start": 163840,
+          "decoded_end": 180224,
+          "compressed_bytes_by_block_start": 3054
+        },
+        {
+          "decoded_start": 180224,
+          "decoded_end": 196608,
+          "compressed_bytes_by_block_start": 4307
+        },
+        {
+          "decoded_start": 196608,
+          "decoded_end": 212992,
+          "compressed_bytes_by_block_start": 3503
+        },
+        {
+          "decoded_start": 212992,
+          "decoded_end": 229376,
+          "compressed_bytes_by_block_start": 3757
+        },
+        {
+          "decoded_start": 229376,
+          "decoded_end": 245760,
+          "compressed_bytes_by_block_start": 3029
+        },
+        {
+          "decoded_start": 245760,
+          "decoded_end": 262144,
+          "compressed_bytes_by_block_start": 3345
+        },
+        {
+          "decoded_start": 262144,
+          "decoded_end": 278528,
+          "compressed_bytes_by_block_start": 3429
+        },
+        {
+          "decoded_start": 278528,
+          "decoded_end": 294912,
+          "compressed_bytes_by_block_start": 3188
+        },
+        {
+          "decoded_start": 294912,
+          "decoded_end": 311296,
+          "compressed_bytes_by_block_start": 2950
+        },
+        {
+          "decoded_start": 311296,
+          "decoded_end": 327680,
+          "compressed_bytes_by_block_start": 6334
+        },
+        {
+          "decoded_start": 327680,
+          "decoded_end": 344064,
+          "compressed_bytes_by_block_start": 6428
+        },
+        {
+          "decoded_start": 344064,
+          "decoded_end": 360448,
+          "compressed_bytes_by_block_start": 5919
+        },
+        {
+          "decoded_start": 360448,
+          "decoded_end": 376832,
+          "compressed_bytes_by_block_start": 8704
+        },
+        {
+          "decoded_start": 376832,
+          "decoded_end": 393216,
+          "compressed_bytes_by_block_start": 5733
+        },
+        {
+          "decoded_start": 393216,
+          "decoded_end": 409600,
+          "compressed_bytes_by_block_start": 8018
+        },
+        {
+          "decoded_start": 409600,
+          "decoded_end": 425984,
+          "compressed_bytes_by_block_start": 6809
+        },
+        {
+          "decoded_start": 425984,
+          "decoded_end": 442368,
+          "compressed_bytes_by_block_start": 5578
+        },
+        {
+          "decoded_start": 442368,
+          "decoded_end": 458752,
+          "compressed_bytes_by_block_start": 5993
+        },
+        {
+          "decoded_start": 458752,
+          "decoded_end": 475136,
+          "compressed_bytes_by_block_start": 5843
+        },
+        {
+          "decoded_start": 475136,
+          "decoded_end": 491520,
+          "compressed_bytes_by_block_start": 6674
+        },
+        {
+          "decoded_start": 491520,
+          "decoded_end": 507904,
+          "compressed_bytes_by_block_start": 4361
+        },
+        {
+          "decoded_start": 507904,
+          "decoded_end": 524032,
+          "compressed_bytes_by_block_start": 5107
+        }
+      ]
+    }
+  },
+  "changed_suffix": {
+    "decoded_boundary": 474256,
+    "compressed_boundary": 128781,
+    "original_stored_suffix_size": 16209,
+    "legacy_reencoded_original_suffix_size": 18139,
+    "compact_reencoded_original_suffix_size": 16331,
+    "legacy_gap_to_original": 1930,
+    "compact_gap_to_original": 122,
+    "bytes_recovered_by_compact_distance_seed": 1808
+  },
+  "strategy_trials": [
+    {
+      "max_match_chain": 64,
+      "lazy_matching": false,
+      "compact_distance_seed": false,
+      "suffix_size": 18263,
+      "full_stream_size": 147044
+    },
+    {
+      "max_match_chain": 64,
+      "lazy_matching": false,
+      "compact_distance_seed": true,
+      "suffix_size": 16401,
+      "full_stream_size": 145182
+    },
+    {
+      "max_match_chain": 64,
+      "lazy_matching": true,
+      "compact_distance_seed": false,
+      "suffix_size": 18124,
+      "full_stream_size": 146905
+    },
+    {
+      "max_match_chain": 64,
+      "lazy_matching": true,
+      "compact_distance_seed": true,
+      "suffix_size": 16317,
+      "full_stream_size": 145098
+    },
+    {
+      "max_match_chain": 256,
+      "lazy_matching": false,
+      "compact_distance_seed": false,
+      "suffix_size": 18271,
+      "full_stream_size": 147052
+    },
+    {
+      "max_match_chain": 256,
+      "lazy_matching": false,
+      "compact_distance_seed": true,
+      "suffix_size": 16405,
+      "full_stream_size": 145186
+    },
+    {
+      "max_match_chain": 256,
+      "lazy_matching": true,
+      "compact_distance_seed": false,
+      "suffix_size": 18139,
+      "full_stream_size": 146920
+    },
+    {
+      "max_match_chain": 256,
+      "lazy_matching": true,
+      "compact_distance_seed": true,
+      "suffix_size": 16331,
+      "full_stream_size": 145112
+    },
+    {
+      "max_match_chain": 4096,
+      "lazy_matching": false,
+      "compact_distance_seed": false,
+      "suffix_size": 18294,
+      "full_stream_size": 147075
+    },
+    {
+      "max_match_chain": 4096,
+      "lazy_matching": false,
+      "compact_distance_seed": true,
+      "suffix_size": 16430,
+      "full_stream_size": 145211
+    },
+    {
+      "max_match_chain": 4096,
+      "lazy_matching": true,
+      "compact_distance_seed": false,
+      "suffix_size": 18138,
+      "full_stream_size": 146919
+    },
+    {
+      "max_match_chain": 4096,
+      "lazy_matching": true,
+      "compact_distance_seed": true,
+      "suffix_size": 16341,
+      "full_stream_size": 145122
+    }
+  ],
+  "p0_budget": {
+    "maximum_output_size": 145408,
+    "legacy_size": 147050,
+    "legacy_excess": 1642,
+    "size_constrained_size": 145237,
+    "size_constrained_headroom": 171,
+    "bytes_reduced": 1813,
+    "later_member_lba_can_remain_unchanged": true
+  },
+  "finding": "The dominant loss was not candidate depth. Legacy suffix tokens omitted the legal three-bit extended-distance seed; compact seed packing recovers the sector budget, while bounded 64/256-chain candidates are compared by exact serialized size."
+}

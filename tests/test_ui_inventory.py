@@ -3,10 +3,12 @@ import unittest
 from pathlib import Path
 
 from tools.srwz.ui_inventory import (
+    audit_entry_font,
     audit_ui_inventory,
     build_inventory_manifest,
     decision_is_complete,
     expand_scene_entries,
+    load_font_baseline,
     load_scene_config,
     rendered_characters,
 )
@@ -113,6 +115,14 @@ class UiInventoryTests(unittest.TestCase):
             rendered_characters("第%s话$n@<color:31>陆<width:00>"),
             ("第", "话", "陆"),
         )
+
+    def test_font_audit_resolves_printable_ascii_through_ascii_glyphs(self):
+        baseline = load_font_baseline(PROJECT_ROOT, self.config)
+        report = audit_entry_font(
+            [{"id": "fixture/ascii", "translation": "Y"}],
+            baseline,
+        )
+        self.assertEqual(report["missing_character_count"], 0)
 
     def test_dynamic_probes_store_hashes_not_source_text(self):
         for source in self.config["dynamic_sources"]:

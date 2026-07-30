@@ -18,9 +18,9 @@
     },
     "researched_coverage": {
       "config": "config/display-names/researched-coverage.json",
-      "config_sha256": "dc394660ed492409cb1a53a6ec952fc4776f4bc26ca99199035e52f89aa7f1f1",
+      "config_sha256": "20bec4b8a79d212165e55ff8831eef8e19ba1807db7538bc781b8b47f5b9b347",
       "manifest": "manifests/display-name-researched-coverage.json",
-      "manifest_sha256": "e6739b55170e96a8bf86433054f91446b88987ac69f7b709ffb1db82e53c2973",
+      "manifest_sha256": "e68851488a4d28e7c4ab867c522c9cc663dd9bb02a991acbef0d09194ec229be",
       "selection_id": "srwz-display-names-researched-v1",
       "required_status": "researched_selection_ready",
       "expected_entry_count": 1262
@@ -50,14 +50,14 @@
   ],
   "base_component": {
     "config": "config/ui-writeback/ui-p0-compdata-fixed.json",
-    "config_sha256": "d116c7e9c08acc7a7a71fa9cbf702bdb1c58d257203890f8261fdb9344cf50c9",
+    "config_sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43",
     "manifest": "manifests/ui-p0-fixed-compdata-validation.json",
-    "manifest_sha256": "d22eb94364d3ed39aab8caeb0d3de092f9df4ec7965fb22faee52fe86680803d",
+    "manifest_sha256": "6fcadb76f10aa866465c382d171f1a596824c1357750a1ed01d199eb0f4f3bf8",
     "output_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d"
   },
   "font_candidate": {
     "manifest": "manifests/ui-p2-display-name-font-validation.json",
-    "sha256": "6619a16279c73b91ae29351aba30b82d57512045621ed4f020d970a83614af98",
+    "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc",
     "required_status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
   },
   "base_codebook": {
@@ -74,10 +74,13 @@
   },
   "codec": {
     "mode": "preserve-base-prefix-reencode-suffix",
-    "strategy": "greedy",
-    "min_match_length": 4,
-    "max_match_chain": 256,
-    "lazy_matching": true
+    "strategy": "rust-maximum",
+    "min_match_length": 2,
+    "max_match_chain": 65535,
+    "lazy_matching": true,
+    "max_output_size": 145408,
+    "sector_size": 2048,
+    "max_sectors": 71
   },
   "ratchet": {
     "translation_entry_count": 1307,

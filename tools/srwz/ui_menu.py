@@ -9,7 +9,12 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Mapping
 
-from .codec import decode, reencode_changed_suffix
+from .codec import (
+    MAXIMUM_LAZY_BIASES,
+    MAXIMUM_MATCH_CHAIN,
+    decode,
+    reencode_changed_suffix,
+)
 from .corpus import text_sha256
 from .font import decode_vt1_font_segment, sha256_bytes
 from .menu import MenuParseResult, parse_menu_file
@@ -184,11 +189,29 @@ def _selected_p0_entries_for_prefix(
     priorities = reference.get("priorities")
     if not isinstance(priorities, list) or not priorities:
         raise UiMenuError("UI menu priorities are invalid")
+    included_scene_ids = reference.get("included_scene_ids")
+    if included_scene_ids is not None:
+        if (
+            not isinstance(included_scene_ids, list)
+            or not included_scene_ids
+            or any(
+                not isinstance(scene_id, str) or not scene_id
+                for scene_id in included_scene_ids
+            )
+            or len(set(included_scene_ids)) != len(included_scene_ids)
+        ):
+            raise UiMenuError("included UI scene IDs are invalid")
+        included_scene_ids = set(included_scene_ids)
     all_entries = {}
     selected_entries = {}
     scene_ids = []
     for scene in config["scenes"]:
         if scene["priority"] not in priorities:
+            continue
+        if (
+            included_scene_ids is not None
+            and scene["scene_id"] not in included_scene_ids
+        ):
             continue
         scene_ids.append(scene["scene_id"])
         for entry in expand_scene_entries(project_root, scene):
@@ -198,6 +221,12 @@ def _selected_p0_entries_for_prefix(
                 raise UiMenuError(f"UI decision differs for {entry_id}")
             if entry_id.startswith(entry_prefix):
                 selected_entries[entry_id] = entry
+    if (
+        included_scene_ids is not None
+        and set(scene_ids) != included_scene_ids
+    ):
+        missing = sorted(included_scene_ids - set(scene_ids))
+        raise UiMenuError(f"included UI scenes are absent: {missing}")
     return selected_entries, {
         "path": str(path.relative_to(project_root.resolve())),
         "sha256": _hash_file(path),
@@ -373,9 +402,8 @@ def select_fixed_slps_replacements(
     )
 
 
-def build_fixed_slps_slice(
-    source_slps: bytes,
-    source_vt1: bytes,
+def build_fixed_menu_slice(
+    source: bytes,
     parsed: MenuParseResult,
     table,
     *,
@@ -383,24 +411,24 @@ def build_fixed_slps_slice(
     overrides: Mapping[str, int],
     source_name: str,
 ) -> tuple[bytes, dict]:
-    """Build one exact fixed-span SLPS slice without owning profile I/O."""
+    """Build one exact fixed-span menu slice without owning profile I/O."""
 
     actionable_entries, no_op_entry_ids = _partition_noop_entries(
-        source_slps,
+        source,
         parsed,
         table,
         decisions=decisions,
         overrides=overrides,
     )
     replacements, excluded, writable_selection = select_fixed_menu_replacements(
-        source_slps,
+        source,
         parsed,
         table,
         p0_entries=actionable_entries,
         overrides=overrides,
     )
     result = replace_menu_texts_in_place(
-        source_slps,
+        source,
         parsed,
         table,
         replacements=replacements,
@@ -409,7 +437,7 @@ def build_fixed_slps_slice(
     )
     output = result.data
     changed_offsets = _verify_fixed_span_differences(
-        source_slps,
+        source,
         output,
         parsed,
         result.targets,
@@ -428,14 +456,6 @@ def build_fixed_slps_slice(
                 raise UiMenuError(
                     f"fixed SLPS slice readback differs for {entry_id}"
                 )
-    source_font_hash = sha256_bytes(
-        decode_vt1_font_segment(source_slps, source_vt1).decoded
-    )
-    output_font_hash = sha256_bytes(
-        decode_vt1_font_segment(output, source_vt1).decoded
-    )
-    if source_font_hash != output_font_hash:
-        raise UiMenuError("fixed SLPS slice changed the decoded font component")
 
     selection = {
         "entry_count": len(decisions),
@@ -478,21 +498,56 @@ def build_fixed_slps_slice(
             "target_reparse_exact": True,
         },
         "component": {
-            "source_size": len(source_slps),
+            "source_size": len(source),
             "output_size": len(output),
-            "source_sha256": sha256_bytes(source_slps),
+            "source_sha256": sha256_bytes(source),
             "output_sha256": sha256_bytes(output),
             "changed_byte_count": len(changed_offsets),
             "difference_range_count": _difference_range_count(changed_offsets),
             "changed_offsets_sha256": sha256_bytes(
                 json.dumps(changed_offsets, separators=(",", ":")).encode("utf-8")
             ),
-            "source_font_decoded_sha256": source_font_hash,
-            "output_font_decoded_sha256": output_font_hash,
-            "font_decoded_unchanged": True,
         },
         "changed_offsets": changed_offsets,
     }
+
+
+def build_fixed_slps_slice(
+    source_slps: bytes,
+    source_vt1: bytes,
+    parsed: MenuParseResult,
+    table,
+    *,
+    decisions: Mapping[str, Mapping[str, object]],
+    overrides: Mapping[str, int],
+    source_name: str,
+) -> tuple[bytes, dict]:
+    """Build one exact fixed-span SLPS slice without owning profile I/O."""
+
+    output, report = build_fixed_menu_slice(
+        source_slps,
+        parsed,
+        table,
+        decisions=decisions,
+        overrides=overrides,
+        source_name=source_name,
+    )
+    source_font_hash = sha256_bytes(
+        decode_vt1_font_segment(source_slps, source_vt1).decoded
+    )
+    output_font_hash = sha256_bytes(
+        decode_vt1_font_segment(output, source_vt1).decoded
+    )
+    if source_font_hash != output_font_hash:
+        raise UiMenuError("fixed SLPS slice changed the decoded font component")
+    report["component"].update(
+        {
+            "source_font_decoded_sha256": source_font_hash,
+            "output_font_decoded_sha256": output_font_hash,
+            "font_decoded_unchanged": True,
+        }
+    )
+    return output, report
 
 
 def _partition_noop_entries(
@@ -1027,6 +1082,30 @@ def build_fixed_compdata_component(
         raise UiMenuError("UI COMPDATA profile has no codec policy")
     if codec_config.get("mode") != "preserve-prefix-reencode-suffix":
         raise UiMenuError("unsupported UI COMPDATA codec mode")
+    max_output_size = codec_config.get("max_output_size")
+    sector_size = codec_config.get("sector_size")
+    max_sectors = codec_config.get("max_sectors")
+    has_sector_budget = any(
+        value is not None
+        for value in (max_output_size, sector_size, max_sectors)
+    )
+    if has_sector_budget:
+        if any(
+            not isinstance(value, int) or value <= 0
+            for value in (max_output_size, sector_size, max_sectors)
+        ):
+            raise UiMenuError("UI COMPDATA codec sector budget is invalid")
+        if max_output_size != sector_size * max_sectors:
+            raise UiMenuError(
+                "UI COMPDATA max_output_size differs from its sector budget"
+            )
+    if (
+        codec_config.get("strategy") in {"maximum", "size-constrained"}
+        and not has_sector_budget
+    ):
+        raise UiMenuError(
+            "compressed COMPDATA optimization requires a sector budget"
+        )
     output_member = reencode_changed_suffix(
         source_member,
         output_decoded,
@@ -1034,6 +1113,7 @@ def build_fixed_compdata_component(
         min_match_length=codec_config["min_match_length"],
         max_match_chain=codec_config["max_match_chain"],
         lazy_matching=codec_config["lazy_matching"],
+        max_output_size=max_output_size,
     )
     output_decoded_result = decode(output_member)
     if (
@@ -1054,6 +1134,75 @@ def build_fixed_compdata_component(
         raise UiMenuError("COMPDATA preserved compressed prefix regressed")
 
     pointer_site_count = len(_menu_pointer_sites(source_decoded, parsed))
+    compressed_component = {
+        "source_size": len(source_member),
+        "output_size": len(output_member),
+        "size_delta": len(output_member) - len(source_member),
+        "source_sha256": sha256_bytes(source_member),
+        "output_sha256": sha256_bytes(output_member),
+        "strategy": codec_config["strategy"],
+        "min_match_length": codec_config["min_match_length"],
+        "max_match_chain": codec_config["max_match_chain"],
+        "lazy_matching": codec_config["lazy_matching"],
+        "preserved_prefix_size": compressed_common_prefix,
+        "flags_preserved": True,
+        "decoded_round_trip_exact": True,
+        "fully_consumed": True,
+    }
+    if has_sector_budget:
+        strategy = codec_config["strategy"]
+        if strategy == "maximum":
+            search = {
+                "candidate_match_chains": sorted(
+                    {
+                        min(64, codec_config["max_match_chain"]),
+                        codec_config["max_match_chain"],
+                        MAXIMUM_MATCH_CHAIN,
+                    }
+                ),
+                "maximum_lazy_biases": list(MAXIMUM_LAZY_BIASES),
+                "global_optimality_proven": False,
+                "optimization_scope": (
+                    "exact-byte portfolio over bounded greedy and "
+                    "serialized-gain one-byte-lookahead parses"
+                ),
+            }
+        elif strategy == "size-constrained":
+            search = {
+                "candidate_match_chains": sorted(
+                    {
+                        min(64, codec_config["max_match_chain"]),
+                        codec_config["max_match_chain"],
+                    }
+                ),
+                "global_optimality_proven": False,
+                "optimization_scope": (
+                    "exact-byte choice between bounded greedy parses"
+                ),
+            }
+        else:
+            search = {}
+        compressed_component.update(
+            {
+                "compact_distance_seed": (
+                    strategy in {"maximum", "size-constrained"}
+                ),
+                "candidate_cost": (
+                    "exact serialized bytes including block control, "
+                    "coded integers, literals, distance and length"
+                ),
+                "max_output_size": max_output_size,
+                "sector_size": sector_size,
+                "max_sectors": max_sectors,
+                "output_sectors": (
+                    len(output_member) + sector_size - 1
+                ) // sector_size,
+                "within_sector_budget": len(output_member) <= max_output_size,
+                "budget_headroom": max_output_size - len(output_member),
+                **search,
+            }
+        )
+
     report = {
         "schema_version": 1,
         "status": "fixed_compdata_component_validated_iso_runtime_pending",
@@ -1124,21 +1273,7 @@ def build_fixed_compdata_component(
             "changed_byte_count": len(changed_offsets),
             "difference_range_count": _difference_range_count(changed_offsets),
         },
-        "compressed_component": {
-            "source_size": len(source_member),
-            "output_size": len(output_member),
-            "size_delta": len(output_member) - len(source_member),
-            "source_sha256": sha256_bytes(source_member),
-            "output_sha256": sha256_bytes(output_member),
-            "strategy": codec_config["strategy"],
-            "min_match_length": codec_config["min_match_length"],
-            "max_match_chain": codec_config["max_match_chain"],
-            "lazy_matching": codec_config["lazy_matching"],
-            "preserved_prefix_size": compressed_common_prefix,
-            "flags_preserved": True,
-            "decoded_round_trip_exact": True,
-            "fully_consumed": True,
-        },
+        "compressed_component": compressed_component,
         "ratchet": {
             "expected": ratchet,
             "checks": checks,
@@ -1164,6 +1299,7 @@ def build_fixed_compdata_component(
 
 __all__ = [
     "UiMenuError",
+    "build_fixed_menu_slice",
     "build_fixed_slps_slice",
     "build_fixed_compdata_component",
     "build_fixed_slps_component",

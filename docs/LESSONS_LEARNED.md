@@ -28,6 +28,22 @@
   zero-match；单元测试固定故障；greedy 构建还必须通过游戏内完整 decoded-font
   SHA-256。
 
+### A2. 能表达 extended distance，不等于使用了最短表示
+
+- **曾以为：** distance 大于 8 时把 token seed 写成 0，再写完整 coded integer，
+  已经是合法且足够接近原版的编码。
+- **为什么看似合理：** strict decoder 能完整回解，按钮子集也能在 71 sectors
+  内启动；继续增加 match chain 看起来才是压缩率优化方向。
+- **如何被推翻：** DLL CIL 显示最高 7-bit 组小于 8 时会放入三 bit seed；原版
+  COMPDATA 的 12,521 个合格 token 全部这样编码。旧完整 P0 后缀有 1,796 个
+  合格 token 把 seed 写成 0，逐个多占 1 byte。
+- **事实：** coded integer 的 seed 是压缩决策的一部分。原始后缀 1,930-byte
+  差距中，compact seed 单独收回 1,808 bytes；完整 P0 从 147,050 降至
+  145,237，恢复 71-sector 原位布局。
+- **守门：** `greedy` 保持旧字节行为；`size-constrained` 用真实序列化成本和
+  compact seed，并以 `max_output_size=145408` 失败关闭。真实流 manifest
+  固定 missed-seed 数、cost 总和、71-sector gate 和 PCSX2/PINE 0 TLB。
+
 ## B. ISO 容器和模拟器判定
 
 ### B1. 成员内容正确，不等于 PS2 DVD 镜像正确

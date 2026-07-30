@@ -8,40 +8,40 @@
     "config": {
       "path": "config/ui-writeback/ui-p3-fresh-boot-slps.json",
       "size": 2988,
-      "sha256": "c079c3e79ede132d5d3ed59d2bfdb5d4a54f9c6007d5277aced6c240da3cce20"
+      "sha256": "1a208e0deefee31dd7d522b98799f5bff2156bebbc72fe66482c52249315518a"
     },
     "scene_map": {
       "config": {
         "path": "config/ui-embedded-scenes.json",
-        "size": 28422,
-        "sha256": "56279c6eb082a045d947703af45058be33cca3fc2bbdc424261c6e825c0648bf"
+        "size": 28374,
+        "sha256": "d467b1a8e0cf76f19d331ec31cdd470ceb27f401a715360ec45d005f3fb45c4e"
       },
       "manifest": {
         "path": "manifests/ui-embedded-scene-map.json",
-        "size": 46510,
-        "sha256": "24e913ac36e77f6c4919eb3f9b2558ab8394e16f3a8b8d41a250d8bd9c7868a0"
+        "size": 44936,
+        "sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651"
       },
       "map_id": "srwz-ui-embedded-scenes-v1"
     },
     "readiness_baseline": {
       "writer_baseline_config": {
         "path": "config/ui-writeback/ui-p0-slps-fixed.json",
-        "sha256": "70d8e911c9c8c32234068149c8d3a32e2ab497c04d4cc962c79c9a38d1b462ae"
+        "sha256": "bd8237c0f9addc461a5c9752c7f49723ec03812028115c997dd3ddeb3b5b1f00"
       },
       "font_manifest": {
         "path": "manifests/ui-p2-display-name-font-validation.json",
-        "sha256": "6619a16279c73b91ae29351aba30b82d57512045621ed4f020d970a83614af98",
+        "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc",
         "status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
       },
       "source_slps": {
         "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "f80d8167cde3da6f7cbaea495778a76e4140cf976787ccf0561f4dc879edd44d"
+        "sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22"
       },
       "source_vt1": {
         "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "67737d0437d2deee6dd0a980dfd581d48c69599a2143bc2df3d553744f9677c9"
+        "sha256": "636246a0611517c35419cbbc2aee73b6d1af91a2b337b68ba630828f74cbfcbc"
       },
       "menu_descriptor": {
         "path": "vendor/upstream-python/project/menu_files.json",
@@ -57,16 +57,16 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
-        "sha256": "1a586ce5930a04e5f1b2609d5eded9dea4879e580b75c478576bbca623eb8d60"
+        "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b"
       },
-      "override_count": 1610,
+      "override_count": 1605,
       "policy": "A group is fixed-span ready only when every decision encodes with the exact P2 font proposal, fits every original NUL-terminated target, and closes over all shared target owners with identical payloads."
     },
     "base_ui_core": {
       "manifest": {
         "path": "manifests/ui-p2-core-validation.json",
-        "size": 9804,
-        "sha256": "00ce80ed0ff48bb6566e5f10edb85dbdfde227b70d27c6610149573194b0c4cd"
+        "size": 9914,
+        "sha256": "3dd387c9b13ecb3eb04d899f7b423084cebb9af581a3a3d2e44002a104d8ca77"
       },
       "profile_id": "srwz-ui-p2-researched-display-names-integrated-v1",
       "status": "integrated_component_validated_iso_runtime_pending",
@@ -75,17 +75,17 @@
         "slps": {
           "path": "work/build/ui-p2-core/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "a9368796265c64e67b185a772639007ac7edf3da450ea3e08bfd8ce158e86512"
+          "sha256": "dcb7a5d26febeaa9a75e9e9308a812a072cb10710a359409489852d7d0bbdd47"
         },
         "vt1": {
           "path": "work/build/ui-p2-core/components/DATA/VT1.BIN",
-          "size": 127573504,
-          "sha256": "d4e84ec8e482444397edabd2f7a1d24d600e1477f02642e95769f699383fd468"
+          "size": 127500736,
+          "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
         },
         "compdata": {
           "path": "work/build/ui-p2-core/components/DATA/COMPDATA.BN",
-          "size": 159693,
-          "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f"
+          "size": 144485,
+          "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
         },
         "mtv_pros": {
           "path": "work/build/ui-p2-core/components/DATA/MTV_PROS.BIN",
@@ -170,7 +170,7 @@
       "payload_size": 172,
       "owned_capacity": 192,
       "target_metadata_sha256": "ec0b55216e4a4383db32a1dbdfc367ff6ac5cbb80fd714d4735b4341c79484df",
-      "patch_plan_metadata_sha256": "6d991d5348f666a9b2396168b22daa6c85b7c71e3713f48cf86f4753c16c9167",
+      "patch_plan_metadata_sha256": "8052bd9242a0640e27631fac0d29db81b3cb7239df04dabf0164bc60ac5493c9",
       "pointer_write_count": 0,
       "pointer_bytes_unchanged": true,
       "non_target_bytes_unchanged": true,
@@ -179,43 +179,43 @@
     "component": {
       "source_size": 3471624,
       "output_size": 3471624,
-      "source_sha256": "f80d8167cde3da6f7cbaea495778a76e4140cf976787ccf0561f4dc879edd44d",
-      "output_sha256": "b8212107f1d1b547bbbf0cf22709214a37ededa21f3b71ce2526c5e1c2be3208",
+      "source_sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22",
+      "output_sha256": "118bd90683875b7536bf14178170b37f309cf972ac88854b3a0f3ced29ffa7e1",
       "changed_byte_count": 124,
       "difference_range_count": 35,
       "changed_offsets_sha256": "29d52b3977f21a26127a66eba062f14f62cbfda725274800f7b5526f36cd31b9",
-      "source_font_decoded_sha256": "c70ee36a6094a08769692367e48040b0912bf767d0691e3cc6fe9411a94ffa26",
-      "output_font_decoded_sha256": "c70ee36a6094a08769692367e48040b0912bf767d0691e3cc6fe9411a94ffa26",
+      "source_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
+      "output_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
       "font_decoded_unchanged": true
     },
     "changed_offsets_sha256": "29d52b3977f21a26127a66eba062f14f62cbfda725274800f7b5526f36cd31b9"
   },
   "composition": {
-    "base_changed_byte_count": 2709,
-    "base_changed_offsets_sha256": "cab1c0a9381173e0d0225eefc0a2b7d9757c59e323d5df9cec84053b517a7e54",
+    "base_changed_byte_count": 2685,
+    "base_changed_offsets_sha256": "38b2d8cbce179c73efe7ec90bcd428ee26bc8cc5bcafa1c9063758eef53695ae",
     "slice_changed_byte_count": 124,
     "slice_changed_offsets_sha256": "29d52b3977f21a26127a66eba062f14f62cbfda725274800f7b5526f36cd31b9",
     "overlap_byte_count": 0,
     "base_preimage_exact_at_slice_offsets": true,
     "final_changed_from_base_byte_count": 124,
     "final_changed_from_base_offsets_sha256": "29d52b3977f21a26127a66eba062f14f62cbfda725274800f7b5526f36cd31b9",
-    "decoded_font_sha256": "c70ee36a6094a08769692367e48040b0912bf767d0691e3cc6fe9411a94ffa26"
+    "decoded_font_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8"
   },
   "outputs": {
     "slps": {
       "path": "work/build/ui-p3-fresh-boot/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "f916d9da31ee1cef4220f0aa07e26eee5320a83f51f9105dd11c1b8272909123"
+      "sha256": "fa703c5d7cdf4e5113e50743374547adb2031bd5393d15c05d01037c188c3a44"
     },
     "vt1": {
       "path": "work/build/ui-p3-fresh-boot/components/DATA/VT1.BIN",
-      "size": 127573504,
-      "sha256": "d4e84ec8e482444397edabd2f7a1d24d600e1477f02642e95769f699383fd468"
+      "size": 127500736,
+      "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
     },
     "compdata": {
       "path": "work/build/ui-p3-fresh-boot/components/DATA/COMPDATA.BN",
-      "size": 159693,
-      "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f"
+      "size": 144485,
+      "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
     },
     "mtv_pros": {
       "path": "work/build/ui-p3-fresh-boot/components/DATA/MTV_PROS.BIN",
@@ -256,10 +256,10 @@
     "pointer_bytes_unchanged": true,
     "non_target_bytes_unchanged": true,
     "selected_targets_reread_exact": true,
-    "decoded_font_unchanged": true,
-    "vt1_byte_exact_from_p2": true,
     "compdata_byte_exact_from_p2": true,
-    "mtv_pros_byte_exact_from_p2": true
+    "mtv_pros_byte_exact_from_p2": true,
+    "vt1_byte_exact_from_p2": true,
+    "decoded_font_unchanged": true
   },
   "runtime": {
     "status": "not_tested",

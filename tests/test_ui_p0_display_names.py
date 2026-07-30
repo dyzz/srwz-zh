@@ -57,6 +57,12 @@ class UiP0DisplayNameTests(unittest.TestCase):
         )
         self.assertTrue(compressed["decoded_round_trip_exact"])
         self.assertTrue(compressed["flags_preserved"])
+        self.assertEqual(compressed["maximum_output_size"], 145408)
+        self.assertEqual(compressed["sector_size"], 2048)
+        self.assertEqual(compressed["maximum_sectors"], 71)
+        self.assertEqual(compressed["sector_count"], 71)
+        self.assertTrue(compressed["within_sector_budget"])
+        self.assertGreaterEqual(compressed["budget_headroom"], 0)
 
     def test_pointer_id_and_non_target_bytes_are_preserved(self):
         write = self.manifest["write"]

@@ -39,8 +39,9 @@ canary、原生 armips 固定
 未登记池区。动态名称表的 3,147 个稳定字段 ID 已完成结构解析，开场路线
 45 个字段也已完成定长组件写回；其余 2,755 个非空字段中，保守的
 researched 精确源词门已筛出 1,262 个候选（1,221 人物／41 机体），1,166
-个当前 P1 字库可编码；统一 renderer 的 33 个缺字中 29 个需要新
-allocation，`娅杰艾贾` 四字复用已登记退役 assignment，另重绘 29 个原版
+个当前 P1 字库可编码；修正 ASCII 审计后，统一 renderer 的 28 个缺字中
+24 个需要活跃新 allocation，`娅杰艾贾` 四字复用已登记退役 assignment；
+误分配给 `a/f/h/r/u` 的五槽退休保留，后续编码不重排。另重绘 29 个原版
 汉字，余 19 槽且全部 projected allocation 零溢出。该 1,262 项已与开场
 45 项合并进入 P2 writer 和 ISO；另 1,493 个仍待人工审校。五张已筛
 KVMDATA atlas 都先完成只清除原标签的隔离 mapping canary，再生成受审中文
@@ -59,37 +60,58 @@ golden 继续保留为定位前像证据；五张中文候选的截图／texture
 重读和独立全文重读。隔离 ISO 也已通过 66 成员容器校验、三项替换 UDF 回读
 并锁定精确 SHA-256。标题、P0 菜单、开场动态名、P1 字库和世界史现已按
 所有权合并成 `ui-p1-core` 组件；组合 ISO 的 66 个成员、62 个未替换成员、
-四项替换 UDF 回读和精确 SHA-256 均已静态通过。该镜像不包含前五关
-STAGE/HB 或信息页 atlas；28 条仍为 `draft`，raw-trail 新类别和滚动实机
-验证尚未验收。在此基线上，researched 精确名称切片已继续完成：
-1,262 项与开场 45 项合并为 1,307 项 COMPDATA 选择；字库只新增 29 槽并
-复用 `娅杰艾贾` 四个退役 assignment，另重绘 29 个原版汉字，余 19 槽。
+四项替换 UDF 回读和精确 SHA-256 均已静态通过；精确镜像也已完成
+fresh-process PINE Running 和零 TLB boot smoke。该镜像不包含前五关
+STAGE/HB 或信息页 atlas；开场姓名画面、28 条仍为 `draft` 的世界史、
+raw-trail 新类别和滚动实机验证尚未验收。在此基线上，researched 精确名称
+切片已继续完成：
+1,262 项与开场 45 项合并为 1,307 项 COMPDATA 选择；字库启用 24 个新增
+汉字槽并复用 `娅杰艾贾` 四个退役 assignment，五个历史误分配 ASCII 槽
+退休保留，另重绘 29 个原版汉字，余 19 槽。
 新的 `ui-p2-core` 已完成四成员组合、66 成员容器校验和精确 ISO 锁定。
-测试专用综合候选现进一步以 P3 fresh-boot slice 覆盖两个 embedded UI
-分区的 23 条决定，再组合前五关 `HB/STAGE` 和五图 atlas suite：
+测试专用综合候选现进一步推进到 P10：P3 先覆盖两个 fresh-boot embedded UI
+分区的 23 条决定，P4 再覆盖编成确认与战术状态指标两组 24 条决定，P5 继续
+覆盖四组战场菜单 38 条决定，P6 覆盖出击选择组 16 条决定；P7 又为五个
+受字库阻塞场景追加七字、统一重绘四字并写入 93 条决定；P8 再写入余下
+四个纯玩家可见 fixed-span 组的 59 条决定；P9 从两个混合组中逐条选出
+9 条可静态证明的玩家标签，然后组合
+前五关 `HB/STAGE` 和五图 atlas suite：
 7 个 replacement 所有权互斥、59 个成员原样、两段 LBA 位移和最终 ISO
-哈希均已锁定。五张 atlas 的运行归因与 P3 逐屏运行仍未验收。具体实施见
+哈希均已锁定。P10 又从 1,250 条数据库中晋级 402 条驾驶员技能、机体特殊
+能力、精神指令和小队长能力，补入最后 12 个候选字槽并重绘 14 个继承汉字；
+232 条 SLPS 和 170 条 COMPDATA 均定长回读，余下 848 条明确延期。
+五张 atlas 的运行归因与 P10 逐屏运行仍未验收。具体实施见
 [`UI_COVERAGE_TEST_PLAN.md`](UI_COVERAGE_TEST_PLAN.md)。
 
 P0 之外原来笼统延期的 275 条 SLPS `Unknown` 文本也已完成第一轮静态分屏：
 22 个分区零遗漏、零重叠，全部绑定真实 target、普通 pointer 或 MIPS HI/LO
 所有权；其中 18 组／253 条具有明确可见界面候选路线，两组／17 条混合内部
 诊断内容，两组／5 条必须先查调用点。每组已登记 fixture、截图点和验收断言，
-当前 P2 字库／allocation 预审进一步筛出 13 组／123 条整组 fixed-span
-ready，其中九个明确可见组共 101 条；剩余批次合计只缺六字并有七条真实
-overflow。两个 fresh-boot 分区现已由独立 P3 selector 进行 12 条／32 target
-fixed-span 写入，SLPS 只改变 124 字节且与 P2 core 零重叠；运行归因仍待
-确认。其余分区继续按单组“原版归因 → 字库／allocation 门 → 隔离写回 →
-运行 receipt → 综合合并”晋级。
+当前 P2 字库／allocation 预审进一步筛出 17 组／182 条整组 fixed-span
+ready，其中十三个纯玩家可见组共 160 条；另五组／93 条原先被六个编码缺字
+阻塞。P7 renderer 审计补充确认 `网` 原码不可达，最终追加七字、重绘四字，
+并以六条等义短译消除隐藏的定长溢出。两个 fresh-boot 分区已由 P3 selector
+进行 12 条／32 target
+fixed-span 写入；P4 又以 P3 为前像，对编成确认和战术状态指标两组完成
+18 条／30 target 写入；P5 以 P4 为前像，对四组战场菜单完成 33 条／37
+target 写入；P6 继续对出击选择组完成 3 条／3 target 写入，SLPS 相对 P5
+只改变 44 字节且零重叠；P7 再完成五组 73 条／86 target 写入；P8 完成
+余下四组 40 条／47 target 写入，只改变 418 字节／61 段。十八个纯玩家
+可见组共 253 条决定已全部晋级；P9 再从两个混合组逐条写入 9 条／34
+target，只改变 174 字节／36 段。当前合计 262 条进入候选，运行归因仍待
+确认。余下 13 条是损坏／NULL 诊断、控制码、独立格式片段或尚未证实的
+`Set`，保持原字节，除非后续取得正常调用点证据，不再按整组晋级。
 
 运行场景已进一步收敛为独立 `ui-runtime-test-matrix`：14 类基础场景都有
-唯一去向，10 类进入测试、4 类登记延期原因和 exit gate；两个 P3 scene
-extension 另作为独立选择加入，共 16 类场景、21 个逐屏用例。1 张 P3 综合
-候选与五张 atlas 隔离 ISO、46 个截图点、6 个截图序列及五份 texture delta
-均有机器锁。当前只有
-fresh-boot fixture 就绪，六份原生 memory card 仍待取得，因此该矩阵仍是
-测试计划而不是运行通过证明。六个 fresh-boot 用例可直接生成 case plan，
-其中核心 UI、P3 场景、路线和前五关绑定同一精确综合 ISO；统一 session
+唯一去向，10 类进入测试、4 类登记延期原因和 exit gate；十八个已晋级 scene
+extension、两个混合组逐条子集和四个数据库核心家族另作为独立选择加入，
+共 38 类场景、43 个
+逐屏用例。1 张 P10 综合候选与五张 atlas 隔离 ISO、105 个截图点、6 个截图
+序列及五份 texture delta 均有机器锁。当前只有
+fresh-boot fixture 就绪，七份原生 memory card 仍待取得，因此该矩阵仍是
+测试计划而不是运行通过证明。六个用例 route-ready，37 个用例因 fixture
+未取得而阻塞；其中核心 UI、二十个 embedded 场景、路线和前五关绑定同一精确
+P10 综合 ISO。统一 session
 probe／receipt verifier 会检查精确 ISO、PINE、
 DVD/ELF、零 TLB、截图、断言和 atlas RGBA delta，但当前尚无通过 receipt。
 
@@ -149,7 +171,10 @@ DVD/ELF、零 TLB、截图、断言和 atlas RGBA delta，但当前尚无通过 
 ## M4：剧情生产
 
 - 节子路线 STAGE 001～005：译文、字库、写回和最终 ISO 静态回读已完成；
-  STAGE 001 已通过实际中文画面，002～005 完整玩法回归待执行。
+  STAGE 001 已通过实际中文画面；第一关前世界地图地点字幕仍是独立未定位
+  surface。运行截图已证明 `flow.bin`／HSFC 的同名摘要文本不是该标题来源，
+  相关伪修复已撤销；后续按栅格或其他渲染资源继续调查。002～005 完整玩法
+  回归待执行。
 - 序章和教程的其余 surface。
 - 主人公路线的其余关卡。
 - 共通路线和分支。

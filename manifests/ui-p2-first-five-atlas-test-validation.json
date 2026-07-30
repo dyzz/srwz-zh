@@ -8,15 +8,15 @@
     "config": {
       "path": "config/ui-integration/p2-first-five-atlas-test.json",
       "size": 5975,
-      "sha256": "9fb54c5040c00fd5fdeb733cc2110972af73c46d516ca8a79cc68231a92f0f05"
+      "sha256": "17af02561742a0add96ceb52dc19ab6f0a78d9c762a241630e06cc1f750a4aac"
     },
     "components": [
       {
         "component_id": "ui-p2-core",
         "manifest": {
           "path": "manifests/ui-p2-core-validation.json",
-          "size": 9804,
-          "sha256": "00ce80ed0ff48bb6566e5f10edb85dbdfde227b70d27c6610149573194b0c4cd"
+          "size": 9914,
+          "sha256": "3dd387c9b13ecb3eb04d899f7b423084cebb9af581a3a3d2e44002a104d8ca77"
         },
         "profile_id": "srwz-ui-p2-researched-display-names-integrated-v1",
         "status": "integrated_component_validated_iso_runtime_pending",
@@ -80,24 +80,24 @@
     "SLPS_258.87": {
       "path": "work/build/ui-p2-first-five-atlas-test/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "a9368796265c64e67b185a772639007ac7edf3da450ea3e08bfd8ce158e86512",
+      "sha256": "dcb7a5d26febeaa9a75e9e9308a812a072cb10710a359409489852d7d0bbdd47",
       "owner": "ui-p2-core",
       "source": {
         "path": "work/build/ui-p2-core/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "a9368796265c64e67b185a772639007ac7edf3da450ea3e08bfd8ce158e86512"
+        "sha256": "dcb7a5d26febeaa9a75e9e9308a812a072cb10710a359409489852d7d0bbdd47"
       },
       "manifest_output_lock_exact": true
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/ui-p2-first-five-atlas-test/components/DATA/COMPDATA.BN",
-      "size": 159693,
-      "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f",
+      "size": 144485,
+      "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405",
       "owner": "ui-p2-core",
       "source": {
         "path": "work/build/ui-p2-core/components/DATA/COMPDATA.BN",
-        "size": 159693,
-        "sha256": "135de02699bef54f973947c9eda112950f175672d08dc57f148450ea174d5d7f"
+        "size": 144485,
+        "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
       },
       "manifest_output_lock_exact": true
     },
@@ -115,13 +115,13 @@
     },
     "DATA/VT1.BIN": {
       "path": "work/build/ui-p2-first-five-atlas-test/components/DATA/VT1.BIN",
-      "size": 127573504,
-      "sha256": "d4e84ec8e482444397edabd2f7a1d24d600e1477f02642e95769f699383fd468",
+      "size": 127500736,
+      "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c",
       "owner": "ui-p2-core",
       "source": {
         "path": "work/build/ui-p2-core/components/DATA/VT1.BIN",
-        "size": 127573504,
-        "sha256": "d4e84ec8e482444397edabd2f7a1d24d600e1477f02642e95769f699383fd468"
+        "size": 127500736,
+        "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
       },
       "manifest_output_lock_exact": true
     },
@@ -169,8 +169,8 @@
     "member_ownership_disjoint": true,
     "p2_core_owns_final_font_and_ui_text": true,
     "first_five_owns_story_archives": true,
-    "atlas_suite_owns_kvmdata": true,
-    "all_output_locks_exact": true
+    "all_output_locks_exact": true,
+    "atlas_suite_owns_kvmdata": true
   },
   "runtime": {
     "status": "not_tested",

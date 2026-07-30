@@ -244,8 +244,13 @@ class Mkps2isoBuildTests(unittest.TestCase):
             "manifests/title-menu-zh-validation.json",
         )
         self.assertEqual(
-            iso_config["layout"]["expected_shift_sectors"],
-            35,
+            iso_config["layout"]["shift_segments"],
+            [
+                {
+                    "first_member": "DATA/NISVDATA.BIN",
+                    "shift_sectors": 0,
+                },
+            ],
         )
         self.assertEqual(
             iso_config["output"]["path"],

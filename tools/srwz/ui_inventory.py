@@ -14,6 +14,7 @@ from .codec import decode
 from .corpus import text_sha256
 from .font import (
     GLYPH_SIZE,
+    ascii_glyph_index,
     decode_vt1_font_segment,
     glyph_index_for_code,
     is_cjk_unified_ideograph,
@@ -426,10 +427,17 @@ def audit_entry_font(
             assignment = base_assignments.get(character)
             mapping = "base_codebook"
         if assignment is None:
-            code = table.inverse_characters.get(character)
-            mapping = "pinned_text_table"
+            if len(character) == 1 and 0x20 <= ord(character) <= 0x7E:
+                code = ord(character)
+                glyph_index = ascii_glyph_index(code)
+                mapping = "printable_ascii"
+            else:
+                code = table.inverse_characters.get(character)
+                glyph_index = None
+                mapping = "pinned_text_table"
         else:
             code = assignment["code_value"]
+            glyph_index = None
 
         if code is None:
             missing.append(
@@ -440,17 +448,18 @@ def audit_entry_font(
                 }
             )
             continue
-        try:
-            glyph_index = glyph_index_for_code(code, extended_entries)
-        except ValueError:
-            missing.append(
-                {
-                    "character": character,
-                    "reason": "resolver_unreachable",
-                    "occurrence_count": counts[character],
-                }
-            )
-            continue
+        if glyph_index is None:
+            try:
+                glyph_index = glyph_index_for_code(code, extended_entries)
+            except ValueError:
+                missing.append(
+                    {
+                        "character": character,
+                        "reason": "resolver_unreachable",
+                        "occurrence_count": counts[character],
+                    }
+                )
+                continue
         glyph = font[glyph_index * GLYPH_SIZE : (glyph_index + 1) * GLYPH_SIZE]
         if not any(glyph) and character not in {" ", "\u3000"}:
             missing.append(

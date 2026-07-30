@@ -1,4 +1,4 @@
-"""Build the first fixed-span embedded UI slice on top of the P2 core."""
+"""Build one layered fixed-span embedded UI slice on a validated UI core."""
 
 from __future__ import annotations
 
@@ -7,7 +7,10 @@ import json
 from pathlib import Path
 from typing import Mapping
 
+from .canary import CanaryError, rebuild_archive_with_replacement
+from .codec import decode
 from .font import decode_vt1_font_segment
+from .iso_layout import CORE_ARCHIVE_SPECS, read_executable_archive_offsets
 from .text import augment_text_table, decode_text
 from .ui_embedded_scenes import (
     UiEmbeddedSceneError,
@@ -16,10 +19,11 @@ from .ui_embedded_scenes import (
 )
 from .ui_inventory import UiInventoryError, expand_selector
 from .ui_menu import UiMenuError, build_fixed_slps_slice
+from .writers import build_executable_offset_patch_plan
 
 
 class UiEmbeddedCandidateError(ValueError):
-    """The promoted embedded UI slice or its P2 composition has drifted."""
+    """The promoted embedded UI slice or its base composition has drifted."""
 
 
 def _json_object(path: Path) -> dict:
@@ -142,7 +146,7 @@ def build_ui_embedded_candidate(
     project_root: Path,
     config_path: Path,
 ) -> tuple[dict[str, bytes], dict]:
-    """Return the four-member P3 UI core with a promoted fresh-boot slice."""
+    """Return one four-member UI core with a promoted embedded fixed-span slice."""
 
     root = project_root.resolve()
     config_path = config_path.resolve()
@@ -189,8 +193,62 @@ def build_ui_embedded_candidate(
         raise UiEmbeddedCandidateError(
             f"selected embedded scenes are absent: {missing_groups!r}"
         )
+    raw_entry_subsets = scene_reference.get(
+        "selected_entry_subsets",
+        {},
+    )
+    if not isinstance(raw_entry_subsets, dict):
+        raise UiEmbeddedCandidateError(
+            "selected embedded entry subsets must be an object"
+        )
+    unknown_subset_scenes = sorted(
+        set(raw_entry_subsets) - set(selected_scene_ids)
+    )
+    if unknown_subset_scenes:
+        raise UiEmbeddedCandidateError(
+            "entry subsets reference unselected scenes: "
+            f"{unknown_subset_scenes!r}"
+        )
+    runtime_subset_scene_ids = []
+    for scene_id, subset in raw_entry_subsets.items():
+        if not isinstance(subset, dict):
+            raise UiEmbeddedCandidateError(
+                f"entry subset is invalid: {scene_id}"
+            )
+        runtime_scene_id = subset.get("runtime_scene_id")
+        entry_ids = subset.get("entry_ids")
+        if (
+            not isinstance(runtime_scene_id, str)
+            or not runtime_scene_id
+            or not isinstance(entry_ids, list)
+            or not entry_ids
+            or any(
+                not isinstance(entry_id, str) or not entry_id
+                for entry_id in entry_ids
+            )
+            or len(entry_ids) != len(set(entry_ids))
+        ):
+            raise UiEmbeddedCandidateError(
+                f"entry subset contract is invalid: {scene_id}"
+            )
+        runtime_subset_scene_ids.append(runtime_scene_id)
+    if len(runtime_subset_scene_ids) != len(set(runtime_subset_scene_ids)):
+        raise UiEmbeddedCandidateError(
+            "entry subset runtime scene IDs are duplicated"
+        )
     decisions: dict[str, dict] = {}
     selected_group_reports = []
+    required_scene_readiness = scene_reference.get(
+        "required_writeback_status",
+        "fixed_span_ready",
+    )
+    if (
+        not isinstance(required_scene_readiness, str)
+        or not required_scene_readiness
+    ):
+        raise UiEmbeddedCandidateError(
+            "selected embedded scene readiness status is invalid"
+        )
     for scene_id in selected_scene_ids:
         group = groups_by_id[scene_id]
         manifest_group = manifest_groups_by_id.get(scene_id)
@@ -201,16 +259,67 @@ def build_ui_embedded_candidate(
         readiness = manifest_group.get("writeback_readiness")
         if (
             not isinstance(readiness, dict)
-            or readiness.get("status") != "fixed_span_ready"
-            or readiness.get("excluded_entry_count") != 0
+            or readiness.get("status") != required_scene_readiness
+            or (
+                required_scene_readiness == "fixed_span_ready"
+                and readiness.get("excluded_entry_count") != 0
+            )
         ):
             raise UiEmbeddedCandidateError(
-                f"selected group is not fixed-span ready: {scene_id}"
+                "selected group does not match required scene-map readiness: "
+                f"{scene_id}"
             )
         try:
-            entries = expand_selector(root, group["selector"])
+            group_entries = expand_selector(root, group["selector"])
         except UiInventoryError as error:
             raise UiEmbeddedCandidateError(str(error)) from error
+        subset = raw_entry_subsets.get(scene_id)
+        subset_report = {}
+        if subset is None:
+            entries = group_entries
+        else:
+            if group.get("classification") != "mixed_user_and_diagnostic":
+                raise UiEmbeddedCandidateError(
+                    "entry subsets are only allowed for mixed UI groups: "
+                    f"{scene_id}"
+                )
+            requested_entry_ids = subset["entry_ids"]
+            group_entries_by_id = {
+                entry["id"]: entry for entry in group_entries
+            }
+            missing_entry_ids = sorted(
+                set(requested_entry_ids) - set(group_entries_by_id)
+            )
+            if missing_entry_ids:
+                raise UiEmbeddedCandidateError(
+                    f"entry subset {scene_id} has foreign IDs: "
+                    f"{missing_entry_ids!r}"
+                )
+            source_order = [
+                entry["id"]
+                for entry in group_entries
+                if entry["id"] in set(requested_entry_ids)
+            ]
+            if requested_entry_ids != source_order:
+                raise UiEmbeddedCandidateError(
+                    f"entry subset {scene_id} is not in source order"
+                )
+            if len(requested_entry_ids) >= len(group_entries):
+                raise UiEmbeddedCandidateError(
+                    f"entry subset {scene_id} does not leave a remainder"
+                )
+            entries = tuple(
+                group_entries_by_id[entry_id]
+                for entry_id in requested_entry_ids
+            )
+            subset_report = {
+                "selection_mode": "entry_subset",
+                "runtime_scene_id": subset["runtime_scene_id"],
+                "source_group_entry_count": len(group_entries),
+                "source_group_entry_ids_sha256": manifest_group[
+                    "entry_ids_sha256"
+                ],
+            }
         for entry in entries:
             entry_id = entry["id"]
             if entry_id in decisions:
@@ -223,13 +332,26 @@ def build_ui_embedded_candidate(
                 "scene_id": scene_id,
                 "entry_count": len(entries),
                 "fixture_id": group["fixture_id"],
-                "entry_ids_sha256": manifest_group["entry_ids_sha256"],
+                "entry_ids_sha256": (
+                    _stable_hash([entry["id"] for entry in entries])
+                    if subset is not None
+                    else manifest_group["entry_ids_sha256"]
+                ),
                 "readiness_status": readiness["status"],
                 "runtime_status": manifest_group["runtime_status"],
+                **subset_report,
             }
         )
 
     try:
+        writeback_reference = config.get(
+            "writeback_readiness",
+            scene_config["writeback_readiness"],
+        )
+        if not isinstance(writeback_reference, dict):
+            raise UiEmbeddedCandidateError(
+                "embedded UI writeback readiness is invalid"
+            )
         (
             readiness_slps,
             readiness_vt1,
@@ -239,7 +361,7 @@ def build_ui_embedded_candidate(
             readiness_sources,
         ) = load_embedded_writeback_baseline(
             root,
-            scene_config["writeback_readiness"],
+            writeback_reference,
         )
         slice_output, slice_report = build_fixed_slps_slice(
             readiness_slps,
@@ -256,62 +378,319 @@ def build_ui_embedded_candidate(
     base_reference = config.get("base_ui_core")
     if not isinstance(base_reference, dict):
         raise UiEmbeddedCandidateError("embedded UI candidate lacks base_ui_core")
+    base_component_id = base_reference.get("component_id", "ui-p2-core")
+    if not isinstance(base_component_id, str) or not base_component_id:
+        raise UiEmbeddedCandidateError("embedded UI base component ID is invalid")
     base_manifest_path, base_manifest = _verified_json_reference(
         root,
         base_reference["manifest"],
-        label="P2 UI core manifest",
+        label="base UI core manifest",
     )
     output_references = base_reference.get("outputs")
     if not isinstance(output_references, dict):
-        raise UiEmbeddedCandidateError("P2 UI core outputs are missing")
+        raise UiEmbeddedCandidateError("base UI core outputs are missing")
     base_paths: dict[str, Path] = {}
     base_payloads: dict[str, bytes] = {}
     for output_id in ("slps", "vt1", "compdata", "mtv_pros"):
         reference = output_references.get(output_id)
         if not isinstance(reference, dict):
             raise UiEmbeddedCandidateError(
-                f"P2 UI core output is missing: {output_id}"
+                f"base UI core output is missing: {output_id}"
             )
         path, payload = _verified_payload(
             root,
             reference,
-            label=f"P2 UI core {output_id}",
+            label=f"base UI core {output_id}",
         )
-        if _payload_lock(payload) != base_manifest.get("outputs", {}).get(
-            output_id
-        ):
+        manifest_output = base_manifest.get("outputs", {}).get(output_id)
+        if not isinstance(manifest_output, dict) or _payload_lock(payload) != {
+            "size": manifest_output.get("size"),
+            "sha256": manifest_output.get("sha256"),
+        }:
             raise UiEmbeddedCandidateError(
-                f"P2 UI core manifest output drift: {output_id}"
+                f"base UI core manifest output drift: {output_id}"
             )
         base_paths[output_id] = path
         base_payloads[output_id] = payload
 
     base_slps = base_payloads["slps"]
-    if len(base_slps) != len(readiness_slps):
-        raise UiEmbeddedCandidateError("P2 core and readiness SLPS sizes differ")
-    slice_changed_offsets = slice_report.pop("changed_offsets")
-    base_changed_offsets = _changed_offsets(readiness_slps, base_slps)
-    overlap = sorted(set(slice_changed_offsets) & set(base_changed_offsets))
-    if overlap:
-        raise UiEmbeddedCandidateError(
-            f"fresh-boot slice overlaps P2 core changes: {overlap[:16]!r}"
+    required_localized_entries = base_reference.get(
+        "required_localized_entries",
+        {},
+    )
+    if (
+        not isinstance(required_localized_entries, dict)
+        or any(
+            not isinstance(entry_id, str)
+            or not entry_id
+            or not isinstance(translation, str)
+            or not translation
+            for entry_id, translation in required_localized_entries.items()
         )
-    if any(
-        base_slps[offset] != readiness_slps[offset]
-        for offset in slice_changed_offsets
     ):
         raise UiEmbeddedCandidateError(
-            "P2 core preimage differs at a fresh-boot slice offset"
+            "base UI required localized entries are invalid"
         )
-    merged_slps = bytearray(base_slps)
-    for offset in slice_changed_offsets:
-        merged_slps[offset] = slice_output[offset]
-    final_slps = bytes(merged_slps)
-    final_changed_offsets = _changed_offsets(base_slps, final_slps)
-    if final_changed_offsets != slice_changed_offsets:
-        raise UiEmbeddedCandidateError(
-            "P3 core delta differs from the fixed-span slice"
+    readiness_entries_by_id = {
+        entry.entry_id: entry for entry in readiness_parsed.entries
+    }
+    readiness_output_table = augment_text_table(
+        readiness_table,
+        readiness_overrides,
+    )
+    required_localized_target_count = 0
+    for entry_id, translation in required_localized_entries.items():
+        parsed_entry = readiness_entries_by_id.get(entry_id)
+        if parsed_entry is None or not parsed_entry.target_offsets:
+            raise UiEmbeddedCandidateError(
+                f"base UI required entry has no parsed target: {entry_id}"
+            )
+        target_offsets = set(parsed_entry.target_offsets)
+        required_localized_target_count += len(target_offsets)
+        for target_offset in target_offsets:
+            decoded = decode_text(
+                base_slps,
+                target_offset,
+                readiness_output_table,
+            )
+            if decoded.text != translation:
+                raise UiEmbeddedCandidateError(
+                    "base UI required localized entry reread differs: "
+                    f"{entry_id}"
+                )
+    required_localized_report = {
+        "entry_count": len(required_localized_entries),
+        "entry_ids_sha256": _stable_hash(
+            sorted(required_localized_entries)
+        ),
+        "target_count": required_localized_target_count,
+        "reread_exact": True,
+    }
+    slice_changed_offsets = slice_report.pop("changed_offsets")
+    font_extension = config.get("font_extension")
+    if font_extension is None:
+        if len(base_slps) != len(readiness_slps):
+            raise UiEmbeddedCandidateError(
+                "base core and readiness SLPS sizes differ"
+            )
+        base_changed_offsets = _changed_offsets(readiness_slps, base_slps)
+        overlap = sorted(
+            set(slice_changed_offsets) & set(base_changed_offsets)
         )
+        if overlap:
+            raise UiEmbeddedCandidateError(
+                "embedded UI slice overlaps base core changes: "
+                f"{overlap[:16]!r}"
+            )
+        if any(
+            base_slps[offset] != readiness_slps[offset]
+            for offset in slice_changed_offsets
+        ):
+            raise UiEmbeddedCandidateError(
+                "base core preimage differs at an embedded UI slice offset"
+            )
+        merged_slps = bytearray(base_slps)
+        for offset in slice_changed_offsets:
+            merged_slps[offset] = slice_output[offset]
+        final_slps = bytes(merged_slps)
+        final_vt1 = base_payloads["vt1"]
+        final_changed_offsets = _changed_offsets(base_slps, final_slps)
+        if final_changed_offsets != slice_changed_offsets:
+            raise UiEmbeddedCandidateError(
+                "embedded UI core delta differs from the fixed-span slice"
+            )
+        font_composition = None
+    else:
+        if (
+            not isinstance(font_extension, dict)
+            or font_extension.get("mode")
+            != "replace-vt1-and-compose-slps-offset-delta"
+        ):
+            raise UiEmbeddedCandidateError(
+                "embedded UI font-extension mode is invalid"
+            )
+        try:
+            (
+                font_base_slps,
+                font_base_vt1,
+                _font_base_parsed,
+                _font_base_table,
+                _font_base_overrides,
+                font_base_sources,
+            ) = load_embedded_writeback_baseline(
+                root,
+                scene_config["writeback_readiness"],
+            )
+        except UiEmbeddedSceneError as error:
+            raise UiEmbeddedCandidateError(str(error)) from error
+        if not (
+            len(font_base_slps)
+            == len(readiness_slps)
+            == len(base_slps)
+        ):
+            raise UiEmbeddedCandidateError(
+                "font baseline, extension and base core SLPS sizes differ"
+            )
+        font_base_hash = _sha256_bytes(
+            decode_vt1_font_segment(
+                font_base_slps,
+                font_base_vt1,
+            ).decoded
+        )
+        base_core_font_hash = _sha256_bytes(
+            decode_vt1_font_segment(
+                base_slps,
+                base_payloads["vt1"],
+            ).decoded
+        )
+        if base_core_font_hash != font_base_hash:
+            raise UiEmbeddedCandidateError(
+                "base core decoded font differs from the scene-map baseline"
+            )
+        chunk_index = font_extension.get("chunk_index")
+        alignment = font_extension.get("archive_alignment")
+        if (
+            chunk_index != 2
+            or alignment != 16
+        ):
+            raise UiEmbeddedCandidateError(
+                "embedded UI font-extension archive contract is invalid"
+            )
+        spec = CORE_ARCHIVE_SPECS["VT1.BIN"]
+        base_vt1_offsets = read_executable_archive_offsets(
+            base_slps,
+            spec,
+            len(base_payloads["vt1"]),
+        )
+        readiness_vt1_offsets = read_executable_archive_offsets(
+            readiness_slps,
+            spec,
+            len(readiness_vt1),
+        )
+        stored_font = readiness_vt1[
+            readiness_vt1_offsets[chunk_index]:
+            readiness_vt1_offsets[chunk_index + 1]
+        ]
+        decoded_font = decode(stored_font)
+        if any(stored_font[decoded_font.consumed:]):
+            raise UiEmbeddedCandidateError(
+                "extended VT1 font stream has nonzero padding"
+            )
+        try:
+            (
+                final_vt1,
+                final_vt1_offsets,
+                font_padding_size,
+            ) = rebuild_archive_with_replacement(
+                base_payloads["vt1"],
+                base_vt1_offsets,
+                chunk_index=chunk_index,
+                encoded_replacement=stored_font[:decoded_font.consumed],
+                alignment=alignment,
+            )
+        except CanaryError as error:
+            raise UiEmbeddedCandidateError(str(error)) from error
+        font_offset_plan = build_executable_offset_patch_plan(
+            base_slps,
+            spec,
+            final_vt1_offsets,
+        )
+        font_rebased_slps = font_offset_plan.apply(base_slps)
+        if (
+            read_executable_archive_offsets(
+                font_rebased_slps,
+                spec,
+                len(final_vt1),
+            )
+            != final_vt1_offsets
+        ):
+            raise UiEmbeddedCandidateError(
+                "rebased VT1 offsets fail SLPS reread"
+            )
+        unchanged_vt1_chunk_count = 0
+        for index, (
+            base_start,
+            base_end,
+            final_start,
+            final_end,
+        ) in enumerate(
+            zip(
+                base_vt1_offsets,
+                base_vt1_offsets[1:],
+                final_vt1_offsets,
+                final_vt1_offsets[1:],
+            )
+        ):
+            if index == chunk_index:
+                continue
+            if (
+                base_payloads["vt1"][base_start:base_end]
+                != final_vt1[final_start:final_end]
+            ):
+                raise UiEmbeddedCandidateError(
+                    f"non-font VT1 chunk {index} changed"
+                )
+            unchanged_vt1_chunk_count += 1
+        font_changed_offsets = _changed_offsets(
+            base_slps,
+            font_rebased_slps,
+        )
+        base_changed_offsets = _changed_offsets(font_base_slps, base_slps)
+        font_slice_overlap = sorted(
+            set(font_changed_offsets) & set(slice_changed_offsets)
+        )
+        candidate_changed_offsets = sorted(
+            {*font_changed_offsets, *slice_changed_offsets}
+        )
+        overlap = sorted(
+            set(slice_changed_offsets) & set(base_changed_offsets)
+        )
+        if font_slice_overlap:
+            raise UiEmbeddedCandidateError(
+                "font SLPS offsets overlap selected UI text: "
+                f"{font_slice_overlap[:16]!r}"
+            )
+        if overlap:
+            raise UiEmbeddedCandidateError(
+                "selected UI text overlaps base core changes: "
+                f"{overlap[:16]!r}"
+            )
+        if any(
+            base_slps[offset] != readiness_slps[offset]
+            for offset in slice_changed_offsets
+        ):
+            raise UiEmbeddedCandidateError(
+                "base core preimage differs at a selected UI text offset"
+            )
+        merged_slps = bytearray(font_rebased_slps)
+        for offset in slice_changed_offsets:
+            merged_slps[offset] = slice_output[offset]
+        final_slps = bytes(merged_slps)
+        final_changed_offsets = _changed_offsets(base_slps, final_slps)
+        if final_changed_offsets != candidate_changed_offsets:
+            raise UiEmbeddedCandidateError(
+                "font/text core delta differs from the owned candidate bytes"
+            )
+        font_composition = {
+            "mode": font_extension["mode"],
+            "base_readiness": font_base_sources,
+            "font_changed_byte_count": len(font_changed_offsets),
+            "font_changed_offsets_sha256": _stable_hash(
+                font_changed_offsets
+            ),
+            "font_and_slice_overlap_byte_count": 0,
+            "candidate_changed_byte_count": len(
+                candidate_changed_offsets
+            ),
+            "candidate_changed_offsets_sha256": _stable_hash(
+                candidate_changed_offsets
+            ),
+            "font_chunk_index": chunk_index,
+            "font_padding_size": font_padding_size,
+            "vt1_chunk_count": len(base_vt1_offsets) - 1,
+            "unchanged_vt1_chunk_count": unchanged_vt1_chunk_count,
+            "base_core_decoded_font_matches_scene_baseline": True,
+        }
 
     parsed_entries = {
         entry.entry_id: entry for entry in readiness_parsed.entries
@@ -327,17 +706,27 @@ def build_ui_embedded_candidate(
             decoded = decode_text(final_slps, target_offset, output_table)
             if decoded.text != decision["translation"]:
                 raise UiEmbeddedCandidateError(
-                    f"final P3 SLPS reread differs for {entry_id}"
+                    f"final layered SLPS reread differs for {entry_id}"
                 )
 
     base_font_hash = _sha256_bytes(
         decode_vt1_font_segment(base_slps, base_payloads["vt1"]).decoded
     )
-    final_font_hash = _sha256_bytes(
-        decode_vt1_font_segment(final_slps, base_payloads["vt1"]).decoded
+    readiness_font_hash = _sha256_bytes(
+        decode_vt1_font_segment(readiness_slps, readiness_vt1).decoded
     )
-    if final_font_hash != base_font_hash:
-        raise UiEmbeddedCandidateError("P3 fresh-boot slice changed the font")
+    final_font_hash = _sha256_bytes(
+        decode_vt1_font_segment(final_slps, final_vt1).decoded
+    )
+    if font_extension is None:
+        if final_font_hash != base_font_hash:
+            raise UiEmbeddedCandidateError(
+                "embedded UI slice changed the font"
+            )
+    elif final_font_hash != readiness_font_hash:
+        raise UiEmbeddedCandidateError(
+            "final embedded UI font differs from the extension component"
+        )
 
     outputs_config = config.get("outputs")
     if not isinstance(outputs_config, dict):
@@ -348,7 +737,7 @@ def build_ui_embedded_candidate(
     )
     output_payloads = {
         "slps": final_slps,
-        "vt1": base_payloads["vt1"],
+        "vt1": final_vt1,
         "compdata": base_payloads["compdata"],
         "mtv_pros": base_payloads["mtv_pros"],
     }
@@ -370,36 +759,58 @@ def build_ui_embedded_candidate(
     ratchet = config.get("ratchet")
     if not isinstance(ratchet, dict):
         raise UiEmbeddedCandidateError("embedded UI candidate lacks ratchet")
-    checks = {
-        "selected_scene_count": len(selected_scene_ids)
-        == ratchet.get("selected_scene_count"),
-        "selected_entry_count": len(decisions)
-        == ratchet.get("selected_entry_count"),
-        "no_op_entry_count": selection["no_op_entry_count"]
-        == ratchet.get("no_op_entry_count"),
-        "selected_write_entry_count": selection["selected_write_entry_count"]
-        == ratchet.get("selected_write_entry_count"),
-        "selected_write_target_count": selection["selected_write_target_count"]
-        == ratchet.get("selected_write_target_count"),
-        "fixed_covered_entry_count": selection["fixed_covered_entry_count"]
-        == ratchet.get("fixed_covered_entry_count"),
-        "excluded_entry_count": selection["excluded_entry_count"]
-        == ratchet.get("excluded_entry_count"),
-        "slice_changed_byte_count": len(slice_changed_offsets)
-        == ratchet.get("slice_changed_byte_count"),
+    actual_ratchet = {
+        "selected_scene_count": len(selected_scene_ids),
+        "selected_entry_count": len(decisions),
+        "no_op_entry_count": selection["no_op_entry_count"],
+        "selected_write_entry_count": selection["selected_write_entry_count"],
+        "selected_write_target_count": selection["selected_write_target_count"],
+        "fixed_covered_entry_count": selection["fixed_covered_entry_count"],
+        "excluded_entry_count": selection["excluded_entry_count"],
+        "slice_changed_byte_count": len(slice_changed_offsets),
         "slice_difference_range_count": slice_report["component"][
             "difference_range_count"
-        ]
-        == ratchet.get("slice_difference_range_count"),
+        ],
+    }
+    checks = {
+        key: actual == ratchet.get(key)
+        for key, actual in actual_ratchet.items()
     }
     if not all(checks.values()):
         raise UiEmbeddedCandidateError(
-            f"fresh-boot UI candidate ratchet failed: {checks}"
+            "embedded UI candidate ratchet failed: "
+            f"actual={actual_ratchet} checks={checks}"
         )
 
+    if base_component_id == "ui-p2-core":
+        unchanged_member_acceptance = {
+            "compdata_byte_exact_from_p2": output_payloads["compdata"]
+            == base_payloads["compdata"],
+            "mtv_pros_byte_exact_from_p2": output_payloads["mtv_pros"]
+            == base_payloads["mtv_pros"],
+        }
+        if font_extension is None:
+            unchanged_member_acceptance["vt1_byte_exact_from_p2"] = (
+                output_payloads["vt1"] == base_payloads["vt1"]
+            )
+    else:
+        unchanged_member_acceptance = {
+            "compdata_byte_exact_from_base": output_payloads["compdata"]
+            == base_payloads["compdata"],
+            "mtv_pros_byte_exact_from_base": output_payloads["mtv_pros"]
+            == base_payloads["mtv_pros"],
+        }
+        if font_extension is None:
+            unchanged_member_acceptance["vt1_byte_exact_from_base"] = (
+                output_payloads["vt1"] == base_payloads["vt1"]
+            )
     acceptance = {
-        "selected_groups_fixed_span_ready": all(
-            group["readiness_status"] == "fixed_span_ready"
+        (
+            "selected_groups_fixed_span_ready"
+            if required_scene_readiness == "fixed_span_ready"
+            else "selected_groups_match_required_scene_readiness"
+        ): all(
+            group["readiness_status"] == required_scene_readiness
             for group in selected_group_reports
         ),
         "all_selected_entries_covered": (
@@ -415,25 +826,85 @@ def build_ui_embedded_candidate(
             "non_target_bytes_unchanged"
         ],
         "selected_targets_reread_exact": True,
-        "decoded_font_unchanged": final_font_hash == base_font_hash,
-        "vt1_byte_exact_from_p2": output_payloads["vt1"]
-        == base_payloads["vt1"],
-        "compdata_byte_exact_from_p2": output_payloads["compdata"]
-        == base_payloads["compdata"],
-        "mtv_pros_byte_exact_from_p2": output_payloads["mtv_pros"]
-        == base_payloads["mtv_pros"],
+        **(
+            {
+                "base_required_localized_entries_reread_exact": (
+                    required_localized_report["reread_exact"]
+                )
+            }
+            if required_localized_entries
+            else {}
+        ),
+        **unchanged_member_acceptance,
     }
+    if font_extension is None:
+        acceptance["decoded_font_unchanged"] = (
+            final_font_hash == base_font_hash
+        )
+    else:
+        acceptance["font_and_slice_offsets_disjoint"] = (
+            font_composition["font_and_slice_overlap_byte_count"] == 0
+        )
+        acceptance["base_core_decoded_font_matches_scene_baseline"] = (
+            base_core_font_hash == font_base_hash
+        )
+        acceptance["non_font_vt1_chunks_byte_exact_from_base"] = (
+            font_composition["unchanged_vt1_chunk_count"]
+            == font_composition["vt1_chunk_count"] - 1
+        )
+        acceptance["decoded_font_matches_extension"] = (
+            final_font_hash == readiness_font_hash
+        )
     if not all(acceptance.values()):
         raise UiEmbeddedCandidateError(
-            f"fresh-boot UI candidate acceptance failed: {acceptance}"
+            f"embedded UI candidate acceptance failed: {acceptance}"
         )
 
-    report = {
-        "schema_version": 1,
-        "status": (
+    manifest_contract = config.get("manifest_contract", {})
+    if not isinstance(manifest_contract, dict):
+        raise UiEmbeddedCandidateError("embedded UI manifest contract is invalid")
+    report_status = manifest_contract.get(
+        "status",
+        (
             "integrated_ui_p3_fresh_boot_component_"
             "validated_iso_runtime_pending"
         ),
+    )
+    if not isinstance(report_status, str) or not report_status:
+        raise UiEmbeddedCandidateError("embedded UI manifest status is invalid")
+    runtime_contract = config.get("runtime", {})
+    if not isinstance(runtime_contract, dict):
+        raise UiEmbeddedCandidateError("embedded UI runtime contract is invalid")
+    required_routes = runtime_contract.get(
+        "required_routes",
+        [
+            "fresh_boot_tutorial_unit_stat_and_terrain_legend",
+            "fresh_boot_default_protagonist_labels_both_routes",
+        ],
+    )
+    pending_gates = runtime_contract.get(
+        "pending_gates",
+        [
+            "exact_iso_static_binding",
+            "fresh_process_boot",
+            "both_protagonist_routes",
+            "tutorial_stat_and_terrain_pages",
+            "no_clipping_overlap_or_missing_glyphs",
+            "zero_tlb_miss",
+        ],
+    )
+    if (
+        not isinstance(required_routes, list)
+        or not required_routes
+        or any(not isinstance(value, str) or not value for value in required_routes)
+        or not isinstance(pending_gates, list)
+        or not pending_gates
+        or any(not isinstance(value, str) or not value for value in pending_gates)
+    ):
+        raise UiEmbeddedCandidateError("embedded UI runtime gates are invalid")
+    report = {
+        "schema_version": 1,
+        "status": report_status,
         "content_policy": (
             "Hashes, offsets, stable IDs and counts only; no game bytes, "
             "Japanese source text or localized UI strings are embedded."
@@ -457,10 +928,29 @@ def build_ui_embedded_candidate(
                     output_id: _file_lock(root, base_paths[output_id])
                     for output_id in member_paths
                 },
+                **(
+                    {
+                        "required_localized_entries": (
+                            required_localized_report
+                        )
+                    }
+                    if required_localized_entries
+                    else {}
+                ),
             },
         },
         "selection": {
             "scene_count": len(selected_scene_ids),
+            **(
+                {
+                    "entry_subset_scene_count": len(
+                        raw_entry_subsets
+                    ),
+                    "runtime_scene_ids": runtime_subset_scene_ids,
+                }
+                if raw_entry_subsets
+                else {}
+            ),
             "scenes": selected_group_reports,
             "entry_count": len(decisions),
             "entry_ids_sha256": _stable_hash(sorted(decisions)),
@@ -494,6 +984,11 @@ def build_ui_embedded_candidate(
                 final_changed_offsets
             ),
             "decoded_font_sha256": final_font_hash,
+            **(
+                {"font_extension": font_composition}
+                if font_composition is not None
+                else {}
+            ),
         },
         "outputs": output_report,
         "ratchet": {
@@ -505,17 +1000,9 @@ def build_ui_embedded_candidate(
         "runtime": {
             "status": "not_tested",
             "required_routes": [
-                "fresh_boot_tutorial_unit_stat_and_terrain_legend",
-                "fresh_boot_default_protagonist_labels_both_routes",
+                *required_routes,
             ],
-            "pending_gates": [
-                "exact_iso_static_binding",
-                "fresh_process_boot",
-                "both_protagonist_routes",
-                "tutorial_stat_and_terrain_pages",
-                "no_clipping_overlap_or_missing_glyphs",
-                "zero_tlb_miss",
-            ],
+            "pending_gates": [*pending_gates],
         },
     }
     return {

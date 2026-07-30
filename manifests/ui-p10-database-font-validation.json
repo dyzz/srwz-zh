@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
+  "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1",
+  "scope": "Incremental P7 plus the 402-entry skills, special-abilities, spirit-command and leadership database core. It proves renderer coverage only; it does not write SLPS/COMPDATA, build an ISO or prove runtime pages.",
+  "inputs": {
+    "config": {
+      "path": "config/fonts/ui-p10-database-font.json",
+      "sha256": "c9cc030f10d56b47ce4fce64c38ab9f7bd4139391220225e136c7d8958c3d6c1"
+    },
+    "allocation_registry": {
+      "path": "config/encoding/ui-p10-database-font-allocations.json",
+      "sha256": "f108999d450c10409a942b97229a28c1246f1e8b70a3fcd1a14ad5c24a2fe4c7"
+    },
+    "database_selection": {
+      "kind": "database_fixed_subset",
+      "selection_id": "srwz-ui-database-fixed-core-v1",
+      "config": {
+        "path": "config/ui-database-selection.json",
+        "sha256": "32398b7b1fb371ae6a6a51a4abf1e135c00f330424c43405126b3ea70f767b76"
+      },
+      "manifest": {
+        "path": "manifests/ui-database-fixed-core-selection.json",
+        "sha256": "f455f99a1a336b4374a58f8948e6cda1b7538758d798a38b78177f8bf2ec84d8",
+        "status": "static_database_fixed_subset_selected_font_extension_required"
+      },
+      "parent_scene": {
+        "inventory": {
+          "path": "config/ui-scenes.json",
+          "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55"
+        },
+        "inventory_id": "srwz-ui-scenes-v1",
+        "scene_id": "database/parts-skills-abilities-weapons",
+        "entry_count": 1250,
+        "entry_ids_sha256": "833eff0899346fe9537bba7612e882cd2a8c5fb956ab20214578a349341ae45d"
+      },
+      "families": [
+        {
+          "family_id": "skills",
+          "runtime_scene_id": "database/pilot-skills-core",
+          "label": "驾驶员技能名称与说明",
+          "entry_count": 88,
+          "slps_entry_count": 88,
+          "compdata_entry_count": 0,
+          "entry_ids_sha256": "b3c36b9ffc225285d64ad3d261de82ac1332b7f555fcff679582f46eefa5b103",
+          "selectors": [
+            {
+              "translation_file": "corpus/zh/menu/system-ui-skills.json",
+              "entry_count": 88,
+              "entry_ids_sha256": "b3c36b9ffc225285d64ad3d261de82ac1332b7f555fcff679582f46eefa5b103"
+            }
+          ]
+        },
+        {
+          "family_id": "special-abilities",
+          "runtime_scene_id": "database/unit-special-abilities-core",
+          "label": "机体特殊能力名称与说明",
+          "entry_count": 155,
+          "slps_entry_count": 0,
+          "compdata_entry_count": 155,
+          "entry_ids_sha256": "ac77dd01b755795f2bd24cdffb9d17199856aa80cd8081d21a4d412d9723274a",
+          "selectors": [
+            {
+              "translation_file": "corpus/zh/menu/system-ui-special-abilities.json",
+              "entry_count": 154,
+              "entry_ids_sha256": "990804a4362eac85d722174e80041673003fc1084a0e4675723ff3f6ffb3e78d"
+            },
+            {
+              "translation_file": "corpus/zh/menu/weapons.json",
+              "entry_count": 1,
+              "entry_ids_sha256": "d7e3d54f405bea1b44c0892bd5c2540062b1953b17aa6872008407db6ea971c2"
+            }
+          ]
+        },
+        {
+          "family_id": "spirit-commands",
+          "runtime_scene_id": "database/spirit-commands-core",
+          "label": "精神指令名称与说明",
+          "entry_count": 144,
+          "slps_entry_count": 144,
+          "compdata_entry_count": 0,
+          "entry_ids_sha256": "3c5b1f049c777d113050fbe39dda3fbbcf9c87e8e620054a066f2dc44e3d0125",
+          "selectors": [
+            {
+              "translation_file": "corpus/zh/menu/system-ui-spirit-commands.json",
+              "entry_count": 144,
+              "entry_ids_sha256": "3c5b1f049c777d113050fbe39dda3fbbcf9c87e8e620054a066f2dc44e3d0125"
+            }
+          ]
+        },
+        {
+          "family_id": "leadership-effects",
+          "runtime_scene_id": "database/leadership-effects-core",
+          "label": "小队长能力分类与效果",
+          "entry_count": 15,
+          "slps_entry_count": 0,
+          "compdata_entry_count": 15,
+          "entry_ids_sha256": "03a6d7927a7cf24cd433978b015e7c5b1bc794b6b8cf38fca90a892bbacb522e",
+          "selectors": [
+            {
+              "translation_file": "corpus/zh/menu/system-ui-leadership.json",
+              "entry_count": 15,
+              "entry_ids_sha256": "03a6d7927a7cf24cd433978b015e7c5b1bc794b6b8cf38fca90a892bbacb522e"
+            }
+          ]
+        }
+      ],
+      "unique_entry_count": 402,
+      "selection_sha256": "0df00f72aef94debdd70902ccdcf7b9cf5b939c8f5cf5d7462bceafed1cbe5f3"
+    },
+    "base_proposal": {
+      "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
+      "sha256": "7d3e52dd51820dc283afe5fe9d284f3648ba082f5e8f4f6205eebd795987ddd9",
+      "proposal_id": "srwz-ui-p7-embedded-menu-unified-font-v1",
+      "assignment_count": 1616
+    },
+    "base_validation_manifest": {
+      "path": "manifests/ui-p7-embedded-font-validation.json",
+      "sha256": "7b423cd290628f9b9fe3ea5fa0e2da2368ef939610e244b2c78b8044768bdf36"
+    }
+  },
+  "capacity": {
+    "combined_renderer_addressable_candidate_slot_count": 736,
+    "valid_sjis_safe_candidate_slot_count": 650,
+    "legacy_safe_candidate_slot_count": 486,
+    "expanded_standard_candidate_slot_count": 164,
+    "raw_standard_addressable_candidate_slot_count": 86,
+    "base_registered_character_count": 724,
+    "combined_registered_character_count": 736,
+    "remaining_candidate_slot_count": 0
+  },
+  "additional_allocations": {
+    "count": 12,
+    "characters": "咫垫挡斩框歼药赋赖镜闪－",
+    "blank_preimage_count": 12,
+    "raw_standard_trail_gap_count": 12
+  },
+  "additional_reraster_existing_han": {
+    "count": 14,
+    "characters": "予倍冠努寸尺狙疫福衰赫醒魂魄"
+  },
+  "combined_assignments": {
+    "allocation_assignment_count": 727,
+    "reraster_existing_assignment_count": 915,
+    "font_assignment_count": 1642
+  },
+  "proposal": {
+    "path": "work/writeback/ui-p10-database-codebook-proposal.json",
+    "sha256": "925d92af46bdd7e52d501a40bae566d67848e1e5df699f42572e7fea5338df55"
+  },
+  "readiness": {
+    "path": "work/writeback/ui-p10-database-font-readiness.json",
+    "sha256": "747f31852d0c75887606683710aa91844b546e234502fd3494f17d348d921863"
+  },
+  "font_component": {
+    "report": "work/build/ui-p10-database-font/components/font-validation.json",
+    "report_sha256": "8f29de683bd453027c2944e7dfb8bcd79a083bbc9b5fcfcce0900ea028b2691b",
+    "assignment_count": 1642,
+    "allocation_assignment_count": 727,
+    "reraster_existing_assignment_count": 915,
+    "changed_glyph_count": 1641,
+    "unchanged_assignment_count": 1,
+    "built_raster_hash_exact_count": 1642,
+    "decoded_size": 1290240,
+    "decoded_sha256": "4798a2f62af9d4fb6ad65502ca25a772a5eabbc196633aebacc3ff8728005ad6",
+    "encoded_size": 802548,
+    "encoder_strategy": "lazy_greedy",
+    "archive": {
+      "source_size": 127500736,
+      "output_size": 127500736,
+      "padding_size": 12,
+      "borrowed_preceding_zero_slack": 203216,
+      "offset_reread_exact": true
+    },
+    "outputs": {
+      "slps": {
+        "size": 3471624,
+        "sha256": "2754969721cd45c6809853bb9676d9f3239adcdf0e4993b1d651b5f65bddf86d"
+      },
+      "vt1": {
+        "size": 127500736,
+        "sha256": "3cffc1f0e68f142a6442fdc13b6264ec67ec41d66c4000fd07d22e65ea7cdc22"
+      }
+    }
+  },
+  "database_fixed_core_renderer_coverage": {
+    "unique_entry_count": 402,
+    "literal_character_count": 5252,
+    "unique_literal_character_count": 512,
+    "missing_renderer_character_count": 0,
+    "missing_renderer_occurrence_count": 0,
+    "selected_font_han_count": 444,
+    "original_font_han_count": 0
+  },
+  "base_ui_p7_components": {
+    "slps": {
+      "path": "work/build/ui-p7-embedded-font/components/SLPS_258.87",
+      "sha256": "1ec6afd571b18352d8f2a3c5b1d0d9a2f678c0aafc0106653e78c483eca27fa1",
+      "exact": true
+    },
+    "vt1": {
+      "path": "work/build/ui-p7-embedded-font/components/DATA/VT1.BIN",
+      "sha256": "6a4dfcee2618603aee4e779ecdf24a420a08aeaa70bfe760310fac0322f17a62",
+      "exact": true
+    }
+  },
+  "acceptance": {
+    "proposal_reproduced_exact": true,
+    "readiness_reproduced_exact": true,
+    "base_ui_p7_components_unchanged": true,
+    "assignment_counts_exact": true,
+    "glyph_preimages_and_rasters_exact": true,
+    "codec_round_trip_exact": true,
+    "archive_size_preserved": true,
+    "offset_reread_exact": true,
+    "database_fixed_core_renderer_missing_character_count_zero": true,
+    "database_fixed_core_original_font_han_count_zero": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "The component consumes the final twelve renderer-addressable candidates and rerasterizes fourteen inherited Han glyphs. The exact combined font and all four database routes remain runtime pending."
+  },
+  "allocation_policy": {
+    "mode": "valid-sjis-then-raw-standard-trail-gaps",
+    "raw_standard_trails": [
+      "7F",
+      "FD",
+      "FE",
+      "FF"
+    ],
+    "instruction_windows": [
+      {
+        "name": "two-byte-measurement-consumes-unchecked-trail",
+        "virtual_address": "0x00139BE8",
+        "file_offset": 243304,
+        "size": 32,
+        "sha256": "225b820d0637e9cf7b15f6d79b61c0497744c20d11f0f7a563c86ae4796b59b2"
+      },
+      {
+        "name": "standard-glyph-resolver-uses-low-byte-directly",
+        "virtual_address": "0x0013A968",
+        "file_offset": 246760,
+        "size": 40,
+        "sha256": "fe8955a7ef6efb818424fdd89b421e95074535d460d8232c00a8244bbdf75bb4"
+      }
+    ],
+    "runtime_precedent": {
+      "character": "试",
+      "code": "987F",
+      "glyph_index": 4479,
+      "static_manifest": "manifests/static-canary-validation.json",
+      "static_sha256": "c264e515d09e8d360628d3b7e3c3d58e2ccea2833e632b24011f5c5550d921cc",
+      "runtime_manifest": "manifests/canary-iso-validation.json",
+      "runtime_sha256": "fd391150af647538576c770c78bee3092dc0d1b3673868cb23714099f5f5146a",
+      "runtime_bytes_exact": true,
+      "characters_visible": true
+    },
+    "classification": "Instruction windows prove formula addressability for all listed trail gaps. Runtime evidence exists for 0x7F only; the combined P1 component and every additional trail class remain runtime pending."
+  }
+}

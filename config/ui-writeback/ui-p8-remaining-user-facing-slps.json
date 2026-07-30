@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-ui-p8-remaining-user-facing-integrated-v1",
+  "scope": "Promote the last four purely player-facing embedded-menu groups on top of P7. Seven fixed-span overflows are resolved by faithful compact labels; the paired main/sub-pilot labels are shortened together for visual consistency. Mixed diagnostic fragments remain excluded.",
+  "scene_map": {
+    "config": {
+      "path": "config/ui-embedded-scenes.json",
+      "sha256": "d467b1a8e0cf76f19d331ec31cdd470ceb27f401a715360ec45d005f3fb45c4e"
+    },
+    "manifest": {
+      "path": "manifests/ui-embedded-scene-map.json",
+      "sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651",
+      "required_status": "static_scene_partition_validated_runtime_attribution_pending"
+    },
+    "selected_scene_ids": [
+      "formation/terrain-variant-selector",
+      "battle/weapon-selection-and-use-conditions",
+      "information/reboard-and-option-subpages",
+      "parts/equipment-and-predeployment-actions"
+    ]
+  },
+  "base_ui_core": {
+    "component_id": "ui-p7-embedded-font-groups-core",
+    "manifest": {
+      "path": "manifests/ui-p7-embedded-font-groups-validation.json",
+      "sha256": "08d581d28a6cac08048896d63553dd3c6e9fa41edd1913dd2e6241bc84b72c76",
+      "required_profile_id": "srwz-ui-p7-embedded-font-groups-integrated-v1",
+      "required_status": "integrated_ui_p7_embedded_font_groups_component_validated_iso_runtime_pending",
+      "required_runtime_status": "not_tested"
+    },
+    "outputs": {
+      "slps": {
+        "path": "work/build/ui-p7-embedded-font-groups/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "8822c29da791295e534ba72e300e9167ded4fa95028986013d253238e4e52220"
+      },
+      "vt1": {
+        "path": "work/build/ui-p7-embedded-font-groups/components/DATA/VT1.BIN",
+        "size": 127501920,
+        "sha256": "1424eb1626b624eb637130e08a11c320e5fb39ebf40077e91cbbfe6875839fbf"
+      },
+      "compdata": {
+        "path": "work/build/ui-p7-embedded-font-groups/components/DATA/COMPDATA.BN",
+        "size": 144485,
+        "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+      },
+      "mtv_pros": {
+        "path": "work/build/ui-p7-embedded-font-groups/components/DATA/MTV_PROS.BIN",
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      }
+    }
+  },
+  "composition": {
+    "require_selected_groups_fixed_span_ready": true,
+    "require_slice_changed_offsets_disjoint_from_base_core_changes": true,
+    "require_base_preimage_exact_at_every_slice_offset": true,
+    "require_pointer_bytes_unchanged": true,
+    "require_decoded_font_unchanged": true,
+    "copy_non_slps_members_byte_exact": true
+  },
+  "manifest_contract": {
+    "status": "integrated_ui_p8_remaining_user_facing_component_validated_iso_runtime_pending"
+  },
+  "runtime": {
+    "required_routes": [
+      "first_intermission_terrain_variant_selector",
+      "first_battle_weapon_selection_and_use_conditions",
+      "first_intermission_reboard_and_option_subpages",
+      "first_intermission_equipment_and_predeployment_actions"
+    ],
+    "pending_gates": [
+      "exact_iso_static_binding",
+      "native_first_intermission_memory_card",
+      "native_first_battle_memory_card",
+      "all_four_embedded_menu_routes",
+      "dynamic_values_and_format_fragments_unchanged",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss"
+    ]
+  },
+  "ratchet": {
+    "selected_scene_count": 4,
+    "selected_entry_count": 59,
+    "no_op_entry_count": 19,
+    "selected_write_entry_count": 40,
+    "selected_write_target_count": 47,
+    "fixed_covered_entry_count": 59,
+    "excluded_entry_count": 0,
+    "slice_changed_byte_count": 418,
+    "slice_difference_range_count": 61
+  },
+  "outputs": {
+    "component_root": "work/build/ui-p8-remaining-user-facing/components",
+    "validation": "work/review/ui-p8-remaining-user-facing-validation.json",
+    "manifest": "manifests/ui-p8-remaining-user-facing-validation.json"
+  }
+}

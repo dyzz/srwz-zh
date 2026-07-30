@@ -75,8 +75,10 @@
     }
   },
   "codec": {
-    "strategy": "greedy",
-    "alignment": 16
+    "strategy": "rust-maximum",
+    "alignment": 16,
+    "maximum_size": 468320,
+    "minimum_allocation": 468320
   },
   "outputs": {
     "executable": "work/build/title-menu-zh/components/SLPS_258.87",
@@ -87,11 +89,11 @@
   "expected_outputs": {
     "executable": {
       "size": 3471624,
-      "sha256": "dc4ae75f10f7b1f624f5f42a1a687ebb1f1e80f930bacaeb840ee329dda30b92"
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
     },
     "archive": {
-      "size": 127573504,
-      "sha256": "44ec21f4313f96d0e9fdc4ff0590dd6fe91a98b898783411c96eb44bb9ac4d2d"
+      "size": 127500736,
+      "sha256": "f1fac123539dcb709a283d7f3ebec1c6b9419e1bcfe8d45c8da4ab5ce903086b"
     }
   }
 }

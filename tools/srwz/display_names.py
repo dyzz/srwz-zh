@@ -1289,14 +1289,50 @@ def build_display_name_component(
     )
     if codec.get("mode") != "preserve-base-prefix-reencode-suffix":
         raise DisplayNameError("unsupported display-name codec mode")
-    output_component = reencode_changed_suffix(
-        base_component,
-        output_decoded,
-        strategy=codec["strategy"],
-        min_match_length=codec["min_match_length"],
-        max_match_chain=codec["max_match_chain"],
-        lazy_matching=codec["lazy_matching"],
+    max_output_size = codec.get("max_output_size")
+    sector_size = codec.get("sector_size")
+    max_sectors = codec.get("max_sectors")
+    has_sector_budget = any(
+        value is not None
+        for value in (max_output_size, sector_size, max_sectors)
     )
+    if has_sector_budget:
+        if any(
+            not isinstance(value, int)
+            or isinstance(value, bool)
+            or value <= 0
+            for value in (max_output_size, sector_size, max_sectors)
+        ):
+            raise DisplayNameError(
+                "display-name COMPDATA codec sector budget is invalid"
+            )
+        if max_output_size != sector_size * max_sectors:
+            raise DisplayNameError(
+                "display-name COMPDATA max_output_size differs from its "
+                "sector budget"
+            )
+    if (
+        codec.get("strategy")
+        in {"maximum", "rust-maximum", "size-constrained"}
+        and not has_sector_budget
+    ):
+        raise DisplayNameError(
+            "optimized display-name COMPDATA requires a sector budget"
+        )
+    try:
+        output_component = reencode_changed_suffix(
+            base_component,
+            output_decoded,
+            strategy=codec["strategy"],
+            min_match_length=codec["min_match_length"],
+            max_match_chain=codec["max_match_chain"],
+            lazy_matching=codec["lazy_matching"],
+            max_output_size=max_output_size,
+        )
+    except (RuntimeError, ValueError) as error:
+        raise DisplayNameError(
+            f"display-name COMPDATA compression failed: {error}"
+        ) from error
     output_result = decode(output_component)
     if (
         output_result.consumed != len(output_component)
@@ -1499,6 +1535,25 @@ def build_display_name_component(
             "min_match_length": codec["min_match_length"],
             "max_match_chain": codec["max_match_chain"],
             "lazy_matching": codec["lazy_matching"],
+            **(
+                {
+                    "maximum_output_size": max_output_size,
+                    "sector_size": sector_size,
+                    "maximum_sectors": max_sectors,
+                    "sector_count": (
+                        len(output_component) + sector_size - 1
+                    )
+                    // sector_size,
+                    "within_sector_budget": (
+                        len(output_component) <= max_output_size
+                    ),
+                    "budget_headroom": (
+                        max_output_size - len(output_component)
+                    ),
+                }
+                if has_sector_budget
+                else {}
+            ),
             "flags_preserved": True,
             "decoded_round_trip_exact": True,
             "fully_consumed": True,

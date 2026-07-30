@@ -44,13 +44,17 @@ class UiP2DisplayNameFontTests(unittest.TestCase):
             MANIFEST_PATH.read_text(encoding="utf-8")
         )
 
-    def test_registry_appends_twenty_nine_and_reactivates_four(self):
+    def test_registry_preserves_five_retired_ascii_slots(self):
         self.assertEqual(
             self.registry["base_registry"]["registered_character_count"],
             688,
         )
         self.assertEqual(len(self.registry["appended_characters"]), 29)
         self.assertEqual(self.registry["reactivated_characters"], "娅杰艾贾")
+        self.assertEqual(
+            self.registry["retired_appended_characters"],
+            ["a", "f", "h", "r", "u"],
+        )
         capacity = self.manifest["capacity"]
         self.assertEqual(capacity["combined_registered_character_count"], 717)
         self.assertEqual(capacity["remaining_candidate_slot_count"], 19)
@@ -73,11 +77,16 @@ class UiP2DisplayNameFontTests(unittest.TestCase):
             Counter(assignment["status"] for assignment in added),
             Counter(
                 {
-                    "proposed_allocation": 29,
+                    "proposed_allocation": 24,
                     "proposed_reactivation": 4,
                     "proposed_reraster": 29,
                 }
             ),
+        )
+        self.assertTrue(
+            set("afhru").isdisjoint(
+                assignment["character"] for assignment in added
+            )
         )
         reactivated = {
             assignment["character"]: (
@@ -97,10 +106,12 @@ class UiP2DisplayNameFontTests(unittest.TestCase):
             },
         )
         allocations = self.manifest["additional_allocations"]
-        self.assertEqual(allocations["count"], 33)
+        self.assertEqual(allocations["count"], 28)
         self.assertEqual(allocations["appended_character_count"], 29)
+        self.assertEqual(allocations["retired_appended_character_count"], 5)
+        self.assertEqual(allocations["retired_appended_characters"], "afhru")
         self.assertEqual(allocations["reactivated_character_count"], 4)
-        self.assertEqual(allocations["raw_standard_trail_gap_count"], 29)
+        self.assertEqual(allocations["raw_standard_trail_gap_count"], 24)
         self.assertEqual(
             self.manifest["additional_reraster_existing_han"]["count"],
             29,

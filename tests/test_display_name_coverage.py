@@ -68,12 +68,12 @@ class DisplayNameCoverageTests(unittest.TestCase):
 
     def test_renderer_gap_fits_remaining_candidate_slots(self):
         renderer = self.manifest["renderer_readiness"]
-        self.assertEqual(renderer["ready_entry_count"], 1129)
-        self.assertEqual(renderer["missing_entry_count"], 133)
-        self.assertEqual(renderer["missing_character_count"], 33)
+        self.assertEqual(renderer["ready_entry_count"], 1134)
+        self.assertEqual(renderer["missing_entry_count"], 128)
+        self.assertEqual(renderer["missing_character_count"], 28)
         self.assertEqual(
             renderer["missing_characters"],
-            "afhru伦佛侣凤凯勒妮姬娅岛庆惠户杰滨琪艾苏莎菲萝谦贾赛赞钢钱阳",
+            "伦佛侣凤凯勒妮姬娅岛庆惠户杰滨琪艾苏莎菲萝谦贾赛赞钢钱阳",
         )
         self.assertEqual(
             renderer["original_font_han_character_count"],
@@ -87,10 +87,10 @@ class DisplayNameCoverageTests(unittest.TestCase):
             renderer["reactivatable_registered_characters"],
             "娅杰艾贾",
         )
-        self.assertEqual(renderer["new_allocation_character_count"], 29)
+        self.assertEqual(renderer["new_allocation_character_count"], 24)
         self.assertEqual(
             renderer["projected_remaining_candidate_slot_count"],
-            19,
+            24,
         )
         self.assertTrue(
             self.manifest["acceptance"][

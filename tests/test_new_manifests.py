@@ -266,8 +266,14 @@ class NewManifestTests(unittest.TestCase):
 
     def test_title_menu_chinese_has_exact_runtime_texture_acceptance(self):
         report = self.title_menu_zh
-        self.assertEqual(report["status"], "passed")
-        self.assertEqual(report["runtime_acceptance"], "passed")
+        self.assertEqual(
+            report["status"],
+            "fixed_span_component_validated_runtime_pending",
+        )
+        self.assertEqual(
+            report["runtime_acceptance"],
+            "current Rust-compressed stream not tested",
+        )
         self.assertEqual(
             [
                 (item["source"], item["target"])
@@ -291,17 +297,6 @@ class NewManifestTests(unittest.TestCase):
                 ).read_bytes()
             ).hexdigest(),
         )
-        self.assertEqual(
-            report["iso_build"]["config"]["sha256"],
-            hashlib.sha256(
-                (
-                    PROJECT_ROOT
-                    / "config"
-                    / "iso"
-                    / "title-menu-zh-build.json"
-                ).read_bytes()
-            ).hexdigest(),
-        )
         injection = report["component_build"]["injection"]
         self.assertEqual(injection["changed_pixel_count"], 12514)
         self.assertEqual(
@@ -311,29 +306,29 @@ class NewManifestTests(unittest.TestCase):
         self.assertTrue(injection["psmt8_round_trip_exact"])
         self.assertTrue(injection["tim2_metadata_preserved"])
         self.assertTrue(injection["clut_preserved"])
-        self.assertEqual(
-            report["iso_build"]["unchanged_member_count"],
-            64,
+        codec = report["component_build"]["codec"]
+        self.assertEqual(codec["strategy"], "rust-maximum")
+        self.assertEqual(codec["encoded_size"], 463318)
+        self.assertLessEqual(
+            codec["encoded_size"],
+            codec["maximum_size"],
         )
+        self.assertEqual(codec["budget_headroom"], 5002)
+        archive = report["component_build"]["archive"]
+        self.assertEqual(archive["size"], 127500736)
+        self.assertTrue(archive["all_offsets_unchanged"])
         runtime = report["runtime"]
-        self.assertEqual(runtime["disc"]["image_type"], "DVD")
-        self.assertEqual(runtime["disc"]["tlb_miss_count"], 0)
-        self.assertTrue(
-            runtime["visual_run"]["all_labels_visible"]
-        )
-        self.assertFalse(
-            runtime["visual_run"]["clipping_or_overlap_observed"]
-        )
-        texture = runtime["texture_dump"]
         self.assertEqual(
-            texture["rgba_sha256"],
-            texture["offline_preview_rgba_sha256"],
+            runtime["status"],
+            "not_tested_current_rust_stream",
         )
-        self.assertTrue(texture["offline_runtime_rgba_exact"])
+        texture = runtime["visual_equivalence_only"]
+        self.assertEqual(
+            texture["offline_preview_rgba_sha256"],
+            report["component_build"]["preview_rgba"]["sha256"],
+        )
         self.assertTrue(
-            runtime["external_state_restore"][
-                "pcsx2_config_restored_byte_identical"
-            ]
+            texture["does_not_prove_current_compressed_stream_runtime"]
         )
 
 

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "status": "passed_with_vt1_only_negative_control",
+  "compatibility_unit": {
+    "members": [
+      "SLPS_258.87",
+      "DATA/VT1.BIN"
+    ],
+    "slps_offset_table": {
+      "start": "0x2FA100",
+      "end_exclusive": "0x2FA13C",
+      "size": 60
+    },
+    "decoded_font_size": 1290240,
+    "conclusion": "A rebuilt VT1 archive and the SLPS VT1 offset table must be selected, built and promoted together."
+  },
+  "negative_control": {
+    "step_id": "first-five-atlas-vt1",
+    "iso": {
+      "path": "build/iso/ui-step-02-first-five-atlas-vt1/srwz-ui-step-02-first-five-atlas-vt1.iso",
+      "size": 3758424064,
+      "sha256": "2e52fb3dd6de0a2e2d5b8b710bb1e2fdda95f9956cfd4ca37e5fa8efb3e3ffdb"
+    },
+    "boot_smoke": {
+      "path": "work/runtime/iso-incremental/02-first-five-atlas-vt1/boot-smoke.json",
+      "status": "passed",
+      "tlb_miss_count": 0,
+      "boundary": "The six-second run ended before the title resource path exercised the mismatched offsets."
+    },
+    "offline_decode": {
+      "status": "rejected",
+      "error": "back-reference distance 4446 exceeds produced output size 1 at input offset 0x8"
+    },
+    "extended_runtime": {
+      "status": "failed_tlb",
+      "log": {
+        "path": "work/runtime/iso-incremental/02-first-five-atlas-vt1/title-visual/emulog-retry.txt",
+        "size": 21589,
+        "sha256": "ffb2c8b675411153f0d6968c2fbe435807944bb089fbb71e539bd006c8b36040"
+      },
+      "tlb_miss_count": 12,
+      "first_tlb_miss": "R5900 Exception: TLB Miss, pc=0x154d60 addr=0x2b4d8789 [load]",
+      "first_tlb_timestamp_seconds": 112.8233,
+      "promotion_eligible": false
+    }
+  },
+  "matching_pair": {
+    "step_id": "first-five-atlas-vt1-slps",
+    "iso": {
+      "path": "build/iso/ui-step-03-first-five-atlas-vt1-slps/srwz-ui-step-03-first-five-atlas-vt1-slps.iso",
+      "size": 3758424064,
+      "sha256": "8ce59de31543389df4a07b1e137df2b190309daa1af693c6265881743de97c9b"
+    },
+    "offline_decode": {
+      "status": "passed",
+      "decoded_size": 1290240,
+      "compressed_size": 802560
+    },
+    "boot_smoke": {
+      "path": "work/runtime/iso-incremental/03-first-five-atlas-vt1-slps/boot-smoke.json",
+      "status": "passed",
+      "pine_version": "PCSX2 v2.6.3",
+      "game_id": "SLPS-25887",
+      "pine_status": 0,
+      "tlb_miss_count": 0
+    },
+    "extended_runtime": {
+      "status": "passed_title_visual",
+      "log": {
+        "path": "work/runtime/iso-incremental/03-first-five-atlas-vt1-slps/title-visual/emulog.txt",
+        "size": 21947,
+        "sha256": "43de0ca73f8e54516aaa8de2e5f991c115e1773628e6519c33e7d87d48082f49",
+        "tlb_miss_count": 0
+      },
+      "screenshots": [
+        {
+          "path": "work/runtime/iso-incremental/03-first-five-atlas-vt1-slps/title-visual/title-start-selected.png",
+          "width": 1280,
+          "height": 960,
+          "sha256": "ce1eafb5fe863591c333d967846a8a2403977895df899892f8c77f917cff6785"
+        },
+        {
+          "path": "work/runtime/iso-incremental/03-first-five-atlas-vt1-slps/title-visual/title-library-selected.png",
+          "width": 1280,
+          "height": 960,
+          "sha256": "4d2ae7958e5e9e97701b37a2fe4ef739e34498437f2b722095d0a89ae438354a"
+        }
+      ],
+      "visual_assertions": [
+        "开始, 读取, 继续 and 资料库 are visible",
+        "selected and unselected palettes are distinct",
+        "no observed clipping or overlap"
+      ],
+      "promotion_eligible": true
+    }
+  },
+  "build_guard": {
+    "entrypoint": "tools/build_ui_iso_step.py",
+    "behavior": "Decode the selected VT1 font segment through the selected SLPS offset table before deleting the retained ISO.",
+    "unit_test": "tests/test_single_iso_candidate.py"
+  },
+  "boundary": "This validates the VT1 and SLPS atomic pair through the title path. It does not validate the five atlas target pages, intermission menus, tactical battle menus or world-history pages."
+}

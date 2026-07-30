@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "status": "integrated_ui_p2_default_protagonist_names_component_validated_iso_runtime_pending",
+  "content_policy": "Hashes, offsets, stable IDs and counts only; no game bytes, Japanese source text or localized UI strings are embedded.",
+  "profile_id": "srwz-ui-p2-default-protagonist-names-integrated-v1",
+  "scope": "Complete both opening routes' localized defaults over the validated fixed-size P2 UI core. P2 already contains the name-screen values 特拉维斯, 兰德, 小原 and 节子; this slice writes the three remaining hidden defaults 钢狮, 节子 and 小原. The runtime player-name buffer and story $n token remain untouched, so accepting a default yields the localized name while an edited name remains player-controlled.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-writeback/ui-p2-default-protagonist-names.json",
+      "size": 3997,
+      "sha256": "f241a97f03512f8a981576a54bb94538107a5017945db0e2b7d061ad6ce1d586"
+    },
+    "scene_map": {
+      "config": {
+        "path": "config/ui-embedded-scenes.json",
+        "size": 28374,
+        "sha256": "d467b1a8e0cf76f19d331ec31cdd470ceb27f401a715360ec45d005f3fb45c4e"
+      },
+      "manifest": {
+        "path": "manifests/ui-embedded-scene-map.json",
+        "size": 44936,
+        "sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651"
+      },
+      "map_id": "srwz-ui-embedded-scenes-v1"
+    },
+    "readiness_baseline": {
+      "writer_baseline_config": {
+        "path": "config/ui-writeback/ui-p0-slps-fixed.json",
+        "sha256": "bd8237c0f9addc461a5c9752c7f49723ec03812028115c997dd3ddeb3b5b1f00"
+      },
+      "font_manifest": {
+        "path": "manifests/ui-p2-display-name-font-validation.json",
+        "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc",
+        "status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
+      },
+      "source_slps": {
+        "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22"
+      },
+      "source_vt1": {
+        "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "636246a0611517c35419cbbc2aee73b6d1af91a2b337b68ba630828f74cbfcbc"
+      },
+      "menu_descriptor": {
+        "path": "vendor/upstream-python/project/menu_files.json",
+        "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+      },
+      "text_table": {
+        "path": "vendor/upstream-python/project/tbl_all.json",
+        "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+      },
+      "base_codebook": {
+        "path": "config/encoding/codebook.json",
+        "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+      },
+      "proposal": {
+        "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
+        "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b"
+      },
+      "override_count": 1605,
+      "policy": "A group is fixed-span ready only when every decision encodes with the exact P2 font proposal, fits every original NUL-terminated target, and closes over all shared target owners with identical payloads."
+    },
+    "base_ui_core": {
+      "manifest": {
+        "path": "manifests/ui-p2-core-validation.json",
+        "size": 9914,
+        "sha256": "3dd387c9b13ecb3eb04d899f7b423084cebb9af581a3a3d2e44002a104d8ca77"
+      },
+      "profile_id": "srwz-ui-p2-researched-display-names-integrated-v1",
+      "status": "integrated_component_validated_iso_runtime_pending",
+      "runtime_status": "not_tested",
+      "outputs": {
+        "slps": {
+          "path": "work/build/ui-p2-core/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "dcb7a5d26febeaa9a75e9e9308a812a072cb10710a359409489852d7d0bbdd47"
+        },
+        "vt1": {
+          "path": "work/build/ui-p2-core/components/DATA/VT1.BIN",
+          "size": 127500736,
+          "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+        },
+        "compdata": {
+          "path": "work/build/ui-p2-core/components/DATA/COMPDATA.BN",
+          "size": 144485,
+          "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+        },
+        "mtv_pros": {
+          "path": "work/build/ui-p2-core/components/DATA/MTV_PROS.BIN",
+          "size": 8640,
+          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+        }
+      },
+      "required_localized_entries": {
+        "entry_count": 4,
+        "entry_ids_sha256": "22f4df0a03885d78680229dad23129306a06817ef6c40f2ba967f2abe967225b",
+        "target_count": 10,
+        "reread_exact": true
+      }
+    }
+  },
+  "selection": {
+    "scene_count": 1,
+    "scenes": [
+      {
+        "scene_id": "opening/default-protagonist-labels",
+        "entry_count": 3,
+        "fixture_id": "fresh-boot",
+        "entry_ids_sha256": "32147260a326908e0bfff3416fe6821b307d37333bc545174e60327c4123b07d",
+        "readiness_status": "fixed_span_ready",
+        "runtime_status": "not_tested"
+      }
+    ],
+    "entry_count": 3,
+    "entry_ids_sha256": "32147260a326908e0bfff3416fe6821b307d37333bc545174e60327c4123b07d",
+    "decision_sha256": "98c3c51a861f4b5d7c0ed912667e5d4b416d3f1ca17f2640c3cd197d12a5d90f",
+    "no_op_entry_count": 0,
+    "no_op_entry_ids": [],
+    "selected_write_entry_count": 3,
+    "selected_write_target_count": 3,
+    "fixed_covered_entry_count": 3,
+    "selection_sha256": "a9c88bb66bf3bb0c10b9b70465f451d9b20e671845bc1ad2742556f65451c8ab",
+    "excluded_entry_count": 0,
+    "excluded_reason_counts": {}
+  },
+  "slice": {
+    "selection": {
+      "entry_count": 3,
+      "no_op_entry_count": 0,
+      "no_op_entry_ids": [],
+      "selected_write_entry_count": 3,
+      "selected_write_target_count": 3,
+      "fixed_covered_entry_count": 3,
+      "selection_sha256": "a9c88bb66bf3bb0c10b9b70465f451d9b20e671845bc1ad2742556f65451c8ab",
+      "excluded_entry_count": 0,
+      "excluded_reason_counts": {}
+    },
+    "excluded": [],
+    "write": {
+      "entry_count": 3,
+      "target_count": 3,
+      "payload_size": 15,
+      "owned_capacity": 25,
+      "target_metadata_sha256": "2528f086bd0b338e0dcfb73393158f27c07209b92cb33b17c525fc0b556a6d27",
+      "patch_plan_metadata_sha256": "5e7645ee953aafc21d30fbc4ffc97b5a507a8bfd5e7fdc61cfa212be559c0564",
+      "pointer_write_count": 0,
+      "pointer_bytes_unchanged": true,
+      "non_target_bytes_unchanged": true,
+      "target_reparse_exact": true
+    },
+    "component": {
+      "source_size": 3471624,
+      "output_size": 3471624,
+      "source_sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22",
+      "output_sha256": "964f558d9864a45cd060e30c20672fead72cb869d610bb594c7bc781ed292b55",
+      "changed_byte_count": 22,
+      "difference_range_count": 3,
+      "changed_offsets_sha256": "1e82ea3694ac5de3eaf3bfde6d91999f5e3e8547f5438ba89d43eb1195a00e20",
+      "source_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
+      "output_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
+      "font_decoded_unchanged": true
+    },
+    "changed_offsets_sha256": "1e82ea3694ac5de3eaf3bfde6d91999f5e3e8547f5438ba89d43eb1195a00e20"
+  },
+  "composition": {
+    "base_changed_byte_count": 2685,
+    "base_changed_offsets_sha256": "38b2d8cbce179c73efe7ec90bcd428ee26bc8cc5bcafa1c9063758eef53695ae",
+    "slice_changed_byte_count": 22,
+    "slice_changed_offsets_sha256": "1e82ea3694ac5de3eaf3bfde6d91999f5e3e8547f5438ba89d43eb1195a00e20",
+    "overlap_byte_count": 0,
+    "base_preimage_exact_at_slice_offsets": true,
+    "final_changed_from_base_byte_count": 22,
+    "final_changed_from_base_offsets_sha256": "1e82ea3694ac5de3eaf3bfde6d91999f5e3e8547f5438ba89d43eb1195a00e20",
+    "decoded_font_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8"
+  },
+  "outputs": {
+    "slps": {
+      "path": "work/build/ui-p2-default-protagonist-names/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "8e61f8ef0aad9346252c47e0383855b62c12b1c77b76eaf1bafc3eac02dba6e3"
+    },
+    "vt1": {
+      "path": "work/build/ui-p2-default-protagonist-names/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+    },
+    "compdata": {
+      "path": "work/build/ui-p2-default-protagonist-names/components/DATA/COMPDATA.BN",
+      "size": 144485,
+      "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+    },
+    "mtv_pros": {
+      "path": "work/build/ui-p2-default-protagonist-names/components/DATA/MTV_PROS.BIN",
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    }
+  },
+  "ratchet": {
+    "expected": {
+      "selected_scene_count": 1,
+      "selected_entry_count": 3,
+      "no_op_entry_count": 0,
+      "selected_write_entry_count": 3,
+      "selected_write_target_count": 3,
+      "fixed_covered_entry_count": 3,
+      "excluded_entry_count": 0,
+      "slice_changed_byte_count": 22,
+      "slice_difference_range_count": 3
+    },
+    "checks": {
+      "selected_scene_count": true,
+      "selected_entry_count": true,
+      "no_op_entry_count": true,
+      "selected_write_entry_count": true,
+      "selected_write_target_count": true,
+      "fixed_covered_entry_count": true,
+      "excluded_entry_count": true,
+      "slice_changed_byte_count": true,
+      "slice_difference_range_count": true
+    },
+    "passed": true
+  },
+  "acceptance": {
+    "selected_groups_fixed_span_ready": true,
+    "all_selected_entries_covered": true,
+    "slice_and_base_changes_disjoint": true,
+    "base_preimage_exact_at_slice_offsets": true,
+    "pointer_bytes_unchanged": true,
+    "non_target_bytes_unchanged": true,
+    "selected_targets_reread_exact": true,
+    "base_required_localized_entries_reread_exact": true,
+    "compdata_byte_exact_from_p2": true,
+    "mtv_pros_byte_exact_from_p2": true,
+    "vt1_byte_exact_from_p2": true,
+    "decoded_font_unchanged": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_routes": [
+      "fresh_boot_default_protagonist_labels_both_routes",
+      "fresh_boot_edited_name_flows_into_story_token"
+    ],
+    "pending_gates": [
+      "exact_iso_static_binding",
+      "fresh_process_boot",
+      "both_protagonist_routes",
+      "default_name_visible_without_editing",
+      "edited_name_remains_dynamic",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss"
+    ]
+  }
+}

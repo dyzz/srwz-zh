@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "status": "integrated_ui_p4_intermission_component_validated_iso_runtime_pending",
+  "content_policy": "Hashes, offsets, stable IDs and counts only; no game bytes, Japanese source text or localized UI strings are embedded.",
+  "profile_id": "srwz-ui-p4-intermission-integrated-v1",
+  "scope": "Promote the fixed-span squad/reboard confirmation and tactical-status metric groups for the intermission menu and pilot/mech information pages, then merge their SLPS bytes onto the complete P3 fresh-boot UI core without changing VT1, COMPDATA or MTV_PROS.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-writeback/ui-p4-intermission-slps.json",
+      "size": 3736,
+      "sha256": "d930eae049426781cdd8fb9c79e5c29f41df096662757b77e27a45e6b4efd06b"
+    },
+    "scene_map": {
+      "config": {
+        "path": "config/ui-embedded-scenes.json",
+        "size": 28374,
+        "sha256": "d467b1a8e0cf76f19d331ec31cdd470ceb27f401a715360ec45d005f3fb45c4e"
+      },
+      "manifest": {
+        "path": "manifests/ui-embedded-scene-map.json",
+        "size": 44936,
+        "sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651"
+      },
+      "map_id": "srwz-ui-embedded-scenes-v1"
+    },
+    "readiness_baseline": {
+      "writer_baseline_config": {
+        "path": "config/ui-writeback/ui-p0-slps-fixed.json",
+        "sha256": "bd8237c0f9addc461a5c9752c7f49723ec03812028115c997dd3ddeb3b5b1f00"
+      },
+      "font_manifest": {
+        "path": "manifests/ui-p2-display-name-font-validation.json",
+        "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc",
+        "status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
+      },
+      "source_slps": {
+        "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22"
+      },
+      "source_vt1": {
+        "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "636246a0611517c35419cbbc2aee73b6d1af91a2b337b68ba630828f74cbfcbc"
+      },
+      "menu_descriptor": {
+        "path": "vendor/upstream-python/project/menu_files.json",
+        "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+      },
+      "text_table": {
+        "path": "vendor/upstream-python/project/tbl_all.json",
+        "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+      },
+      "base_codebook": {
+        "path": "config/encoding/codebook.json",
+        "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+      },
+      "proposal": {
+        "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
+        "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b"
+      },
+      "override_count": 1605,
+      "policy": "A group is fixed-span ready only when every decision encodes with the exact P2 font proposal, fits every original NUL-terminated target, and closes over all shared target owners with identical payloads."
+    },
+    "base_ui_core": {
+      "manifest": {
+        "path": "manifests/ui-p3-fresh-boot-validation.json",
+        "size": 11097,
+        "sha256": "12a625ac8784d0d816027f729b4b1dd6ed24abadc8803627ac634798ecd0fc23"
+      },
+      "profile_id": "srwz-ui-p3-fresh-boot-integrated-v1",
+      "status": "integrated_ui_p3_fresh_boot_component_validated_iso_runtime_pending",
+      "runtime_status": "not_tested",
+      "outputs": {
+        "slps": {
+          "path": "work/build/ui-p3-fresh-boot/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "fa703c5d7cdf4e5113e50743374547adb2031bd5393d15c05d01037c188c3a44"
+        },
+        "vt1": {
+          "path": "work/build/ui-p3-fresh-boot/components/DATA/VT1.BIN",
+          "size": 127500736,
+          "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+        },
+        "compdata": {
+          "path": "work/build/ui-p3-fresh-boot/components/DATA/COMPDATA.BN",
+          "size": 144485,
+          "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+        },
+        "mtv_pros": {
+          "path": "work/build/ui-p3-fresh-boot/components/DATA/MTV_PROS.BIN",
+          "size": 8640,
+          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+        }
+      }
+    }
+  },
+  "selection": {
+    "scene_count": 2,
+    "scenes": [
+      {
+        "scene_id": "formation/squad-and-reboard-confirmations",
+        "entry_count": 10,
+        "fixture_id": "first-intermission-card",
+        "entry_ids_sha256": "5032f623b57b6a990ccfc3c4a5fd3fdc358a25aa70f28d9e5dd23568ed65bc92",
+        "readiness_status": "fixed_span_ready",
+        "runtime_status": "not_tested"
+      },
+      {
+        "scene_id": "information/tactical-status-metrics",
+        "entry_count": 14,
+        "fixture_id": "first-intermission-card",
+        "entry_ids_sha256": "ab8b7bc07e177d11ce5893132da0beb00cee11833065c4f1cb090d03504c6ee2",
+        "readiness_status": "fixed_span_ready",
+        "runtime_status": "not_tested"
+      }
+    ],
+    "entry_count": 24,
+    "entry_ids_sha256": "84c694d352ec2c8dd3de92bbc5ba1bb27bafbfba2a3090a669c081a61a8e2293",
+    "decision_sha256": "1a81b2440aa59574e1ac13d43e0850f70ff6907c10e2e8b84760febe12bf5c19",
+    "no_op_entry_count": 6,
+    "no_op_entry_ids": [
+      "menu/SLPS/00/0269",
+      "menu/SLPS/00/0272",
+      "menu/SLPS/00/0277",
+      "menu/SLPS/00/0279",
+      "menu/SLPS/00/0280",
+      "menu/SLPS/00/0281"
+    ],
+    "selected_write_entry_count": 18,
+    "selected_write_target_count": 30,
+    "fixed_covered_entry_count": 24,
+    "selection_sha256": "50529b62fcf98aa175b445ed274a4e1070b052aade9f486cf64d00e34f1ca16c",
+    "excluded_entry_count": 0,
+    "excluded_reason_counts": {}
+  },
+  "slice": {
+    "selection": {
+      "entry_count": 24,
+      "no_op_entry_count": 6,
+      "no_op_entry_ids": [
+        "menu/SLPS/00/0269",
+        "menu/SLPS/00/0272",
+        "menu/SLPS/00/0277",
+        "menu/SLPS/00/0279",
+        "menu/SLPS/00/0280",
+        "menu/SLPS/00/0281"
+      ],
+      "selected_write_entry_count": 18,
+      "selected_write_target_count": 30,
+      "fixed_covered_entry_count": 24,
+      "selection_sha256": "50529b62fcf98aa175b445ed274a4e1070b052aade9f486cf64d00e34f1ca16c",
+      "excluded_entry_count": 0,
+      "excluded_reason_counts": {}
+    },
+    "excluded": [],
+    "write": {
+      "entry_count": 18,
+      "target_count": 30,
+      "payload_size": 346,
+      "owned_capacity": 474,
+      "target_metadata_sha256": "6bff5d0d426c3db66670412d7ca2c69d460addf8f545345d75b7c3fe85fcbcdb",
+      "patch_plan_metadata_sha256": "ca107e2340988495a72112d3da5faa8b8f0c66e668bf71b525c032ccca48e44d",
+      "pointer_write_count": 0,
+      "pointer_bytes_unchanged": true,
+      "non_target_bytes_unchanged": true,
+      "target_reparse_exact": true
+    },
+    "component": {
+      "source_size": 3471624,
+      "output_size": 3471624,
+      "source_sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22",
+      "output_sha256": "0249d361ff90b16e613de8a25e46d597800e5be0221657449f90824fd70d3772",
+      "changed_byte_count": 408,
+      "difference_range_count": 38,
+      "changed_offsets_sha256": "e3d328a3d0ccdf8a878dd3a025377b47ca5cd2fc3c3c44f0c420a0f2a122e89e",
+      "source_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
+      "output_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
+      "font_decoded_unchanged": true
+    },
+    "changed_offsets_sha256": "e3d328a3d0ccdf8a878dd3a025377b47ca5cd2fc3c3c44f0c420a0f2a122e89e"
+  },
+  "composition": {
+    "base_changed_byte_count": 2809,
+    "base_changed_offsets_sha256": "ac4bd48b8accf0625f7041659c8cbb285eab84f36734df9ae77d87a5f6d1070e",
+    "slice_changed_byte_count": 408,
+    "slice_changed_offsets_sha256": "e3d328a3d0ccdf8a878dd3a025377b47ca5cd2fc3c3c44f0c420a0f2a122e89e",
+    "overlap_byte_count": 0,
+    "base_preimage_exact_at_slice_offsets": true,
+    "final_changed_from_base_byte_count": 408,
+    "final_changed_from_base_offsets_sha256": "e3d328a3d0ccdf8a878dd3a025377b47ca5cd2fc3c3c44f0c420a0f2a122e89e",
+    "decoded_font_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8"
+  },
+  "outputs": {
+    "slps": {
+      "path": "work/build/ui-p4-intermission/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "1a822e1f503aeb73684f7fb9f336f50e880791f2c58c1a2c9311b5e1121bfd65"
+    },
+    "vt1": {
+      "path": "work/build/ui-p4-intermission/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+    },
+    "compdata": {
+      "path": "work/build/ui-p4-intermission/components/DATA/COMPDATA.BN",
+      "size": 144485,
+      "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+    },
+    "mtv_pros": {
+      "path": "work/build/ui-p4-intermission/components/DATA/MTV_PROS.BIN",
+      "size": 8640,
+      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+    }
+  },
+  "ratchet": {
+    "expected": {
+      "selected_scene_count": 2,
+      "selected_entry_count": 24,
+      "no_op_entry_count": 6,
+      "selected_write_entry_count": 18,
+      "selected_write_target_count": 30,
+      "fixed_covered_entry_count": 24,
+      "excluded_entry_count": 0,
+      "slice_changed_byte_count": 408,
+      "slice_difference_range_count": 38
+    },
+    "checks": {
+      "selected_scene_count": true,
+      "selected_entry_count": true,
+      "no_op_entry_count": true,
+      "selected_write_entry_count": true,
+      "selected_write_target_count": true,
+      "fixed_covered_entry_count": true,
+      "excluded_entry_count": true,
+      "slice_changed_byte_count": true,
+      "slice_difference_range_count": true
+    },
+    "passed": true
+  },
+  "acceptance": {
+    "selected_groups_fixed_span_ready": true,
+    "all_selected_entries_covered": true,
+    "slice_and_base_changes_disjoint": true,
+    "base_preimage_exact_at_slice_offsets": true,
+    "pointer_bytes_unchanged": true,
+    "non_target_bytes_unchanged": true,
+    "selected_targets_reread_exact": true,
+    "compdata_byte_exact_from_base": true,
+    "mtv_pros_byte_exact_from_base": true,
+    "vt1_byte_exact_from_base": true,
+    "decoded_font_unchanged": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_routes": [
+      "first_intermission_squad_and_reboard_confirmations",
+      "first_intermission_pilot_and_mech_tactical_status_metrics"
+    ],
+    "pending_gates": [
+      "exact_iso_static_binding",
+      "native_first_intermission_memory_card",
+      "squad_and_reboard_confirmation_routes",
+      "pilot_and_mech_information_subpages",
+      "dynamic_values_and_format_fragments_unchanged",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss"
+    ]
+  }
+}

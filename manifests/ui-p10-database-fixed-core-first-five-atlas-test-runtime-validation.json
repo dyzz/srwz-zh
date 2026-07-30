@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "status": "static_integrated_ui_p10_database_fixed_core_first_five_atlas_test_iso_validated_runtime_pending",
+  "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes or localized text are embedded.",
+  "profile_id": "ui-p10-database-fixed-core-first-five-atlas-test",
+  "component": {
+    "manifest": {
+      "path": "manifests/ui-p10-database-fixed-core-first-five-atlas-test-validation.json",
+      "size": 9175,
+      "sha256": "206d0e339ca473ad6827e372493d0b7e0c361c9f3ce7401f960103da701dc7f3"
+    },
+    "profile_id": "ui-p10-database-fixed-core-first-five-atlas-test",
+    "composition": {
+      "mode": "whole-member-composition",
+      "member_count": 7,
+      "members": [
+        "DATA/COMPDATA.BN",
+        "DATA/MTV_PROS.BIN",
+        "DATA/STAGE.BIN",
+        "DATA/VT1.BIN",
+        "HEDBDY/HB.BIN",
+        "KURODATA/KVMDATA.BIN",
+        "SLPS_258.87"
+      ],
+      "member_owner_overlap_count": 0,
+      "font_owner": "ui-p10-database-fixed-core",
+      "story_data_owner": "first-five-story",
+      "atlas_owner": "ui-atlas-suite-zh"
+    },
+    "outputs": {
+      "SLPS_258.87": {
+        "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "0cfea3e0106d9eed6e81faf0916f9a9092b2b25d705e9c60e2c889ee2b6f1a10",
+        "owner": "ui-p10-database-fixed-core",
+        "source": {
+          "path": "work/build/ui-p10-database-fixed-core/components/SLPS_258.87",
+          "size": 3471624,
+          "sha256": "0cfea3e0106d9eed6e81faf0916f9a9092b2b25d705e9c60e2c889ee2b6f1a10"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "DATA/COMPDATA.BN": {
+        "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/COMPDATA.BN",
+        "size": 160291,
+        "sha256": "e3e11aa1c5dfd4a0b9f25bd8905f25976304c7df87cfd734e012935cc202188b",
+        "owner": "ui-p10-database-fixed-core",
+        "source": {
+          "path": "work/build/ui-p10-database-fixed-core/components/DATA/COMPDATA.BN",
+          "size": 160291,
+          "sha256": "e3e11aa1c5dfd4a0b9f25bd8905f25976304c7df87cfd734e012935cc202188b"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "DATA/MTV_PROS.BIN": {
+        "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/MTV_PROS.BIN",
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+        "owner": "ui-p10-database-fixed-core",
+        "source": {
+          "path": "work/build/ui-p10-database-fixed-core/components/DATA/MTV_PROS.BIN",
+          "size": 8640,
+          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "DATA/VT1.BIN": {
+        "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
+        "size": 127576768,
+        "sha256": "75a116330305e73786c50335e3b987d7ab3645d4eefcdc2ce8236db5483b2c36",
+        "owner": "ui-p10-database-fixed-core",
+        "source": {
+          "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
+          "size": 127576768,
+          "sha256": "75a116330305e73786c50335e3b987d7ab3645d4eefcdc2ce8236db5483b2c36"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "KURODATA/KVMDATA.BIN": {
+        "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/KURODATA/KVMDATA.BIN",
+        "size": 3335408,
+        "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921",
+        "owner": "ui-atlas-suite-zh",
+        "source": {
+          "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
+          "size": 3335408,
+          "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "HEDBDY/HB.BIN": {
+        "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/HEDBDY/HB.BIN",
+        "size": 31152,
+        "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9",
+        "owner": "first-five-story",
+        "source": {
+          "path": "work/build/first-five/components/HEDBDY/HB.BIN",
+          "size": 31152,
+          "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9"
+        },
+        "manifest_output_lock_exact": true
+      },
+      "DATA/STAGE.BIN": {
+        "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/STAGE.BIN",
+        "size": 3910272,
+        "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9",
+        "owner": "first-five-story",
+        "source": {
+          "path": "work/build/first-five/components/DATA/STAGE.BIN",
+          "size": 3910272,
+          "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
+        },
+        "manifest_output_lock_exact": true
+      }
+    },
+    "acceptance": {
+      "component_manifests_locked": true,
+      "component_statuses_validated": true,
+      "component_payloads_match_manifest_locks": true,
+      "member_ownership_disjoint": true,
+      "ui_core_owns_final_font_and_ui_text": true,
+      "first_five_owns_story_archives": true,
+      "atlas_suite_owns_kvmdata": true,
+      "all_output_locks_exact": true
+    }
+  },
+  "iso_build": {
+    "config": {
+      "path": "config/iso/ui-p10-database-fixed-core-first-five-atlas-test-build.json",
+      "size": 5416,
+      "sha256": "64805a78c662eea90c359a3796e9b464a2631621485af6521aba928f8275c41a"
+    },
+    "report": {
+      "path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/iso-validation.json",
+      "size": 4493,
+      "sha256": "bba5cddf7a6d44ab1410dedf5899fddd6c6bf75836190bc4eb714d35f91f692c"
+    },
+    "path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso",
+    "output": {
+      "size": 3758456832,
+      "sha256": "2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431"
+    },
+    "member_count": 66,
+    "unchanged_member_count": 59,
+    "shifted_member_count": 16,
+    "shift_segments": [
+      {
+        "first_member": "DATA/NISVDATA.BIN",
+        "shift_sectors": 8
+      },
+      {
+        "first_member": "DATA/STAGE.BIN",
+        "shift_sectors": 45
+      }
+    ],
+    "member_manifest_sha256": "c06c22db15c81155fee3bb59b5c4e41a79c54b2431a4043714206309b407e2b4",
+    "pcsx2_v263_image_type": "DVD",
+    "udf_volume_recognition_sequence": "NSR02",
+    "replacements": {
+      "SLPS_258.87": {
+        "size": 3471624,
+        "sha256": "0cfea3e0106d9eed6e81faf0916f9a9092b2b25d705e9c60e2c889ee2b6f1a10",
+        "owner": "ui-p10-database-fixed-core",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/COMPDATA.BN": {
+        "size": 160291,
+        "sha256": "e3e11aa1c5dfd4a0b9f25bd8905f25976304c7df87cfd734e012935cc202188b",
+        "owner": "ui-p10-database-fixed-core",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/MTV_PROS.BIN": {
+        "size": 8640,
+        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+        "owner": "ui-p10-database-fixed-core",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/VT1.BIN": {
+        "size": 127576768,
+        "sha256": "75a116330305e73786c50335e3b987d7ab3645d4eefcdc2ce8236db5483b2c36",
+        "owner": "ui-p10-database-fixed-core",
+        "independent_udf_reread_exact": true
+      },
+      "DATA/STAGE.BIN": {
+        "size": 3910272,
+        "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9",
+        "owner": "first-five-story",
+        "independent_udf_reread_exact": true
+      },
+      "HEDBDY/HB.BIN": {
+        "size": 31152,
+        "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9",
+        "owner": "first-five-story",
+        "independent_udf_reread_exact": true
+      },
+      "KURODATA/KVMDATA.BIN": {
+        "size": 3335408,
+        "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921",
+        "owner": "ui-atlas-suite-zh",
+        "independent_udf_reread_exact": true
+      }
+    }
+  },
+  "static_acceptance": {
+    "component_manifest_validated": true,
+    "iso_size_and_sha256_pinned": true,
+    "member_paths_exact": true,
+    "member_order_exact": true,
+    "unchanged_member_bytes_exact": true,
+    "replacement_bytes_exact": true,
+    "system_cnf_exact": true,
+    "shift_segments_exact": true,
+    "pcsx2_media_type_dvd": true,
+    "udf_nsr02": true,
+    "all_replacements_independently_reread": true,
+    "isolated_atlas_mapping_profiles_still_required": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "required_iso_sha256": "2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431",
+    "required_emulator": "PCSX2 v2.6.3",
+    "required_scene_families": [
+      "title/main-menu",
+      "opening/player-setup",
+      "tutorial/unit-stat-and-terrain-legend",
+      "opening/default-protagonist-labels",
+      "formation/squad-and-reboard-confirmations",
+      "information/tactical-status-metrics",
+      "battle/end-phase-map-command-tail",
+      "battle/action-restriction-messages",
+      "system/quick-command-save-and-cancel-confirmations",
+      "battle/repair-resupply-spirit-targeting",
+      "deployment/squad-selection-and-size-format",
+      "options/bgm-controller-and-map-settings",
+      "results/settlement-and-support-setup",
+      "formation/list-search-and-priority",
+      "upgrade/full-upgrade-reward",
+      "archive/scenario-progress-and-route-headings",
+      "formation/terrain-variant-selector",
+      "battle/weapon-selection-and-use-conditions",
+      "information/reboard-and-option-subpages",
+      "parts/equipment-and-predeployment-actions",
+      "preparation/reboard-status-visible-subset",
+      "information/pilot-ability-visible-subset",
+      "intermission/main-and-options",
+      "information/unit-pilot-mech-core",
+      "battle/map-and-tactical",
+      "results/level-up-and-deployment",
+      "search/filter-and-results",
+      "route/stage-title-and-branch",
+      "opening/world-history-scroll",
+      "story/first-five-opening-sequences",
+      "database/pilot-skills-core",
+      "database/unit-special-abilities-core",
+      "database/spirit-commands-core",
+      "database/leadership-effects-core"
+    ],
+    "isolated_atlas_mapping_profiles_remain_required": true,
+    "pending_gates": [
+      "fresh_process_boot_exact_iso",
+      "pine_running_and_decoded_font_exact",
+      "all_required_scene_families_visited",
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss",
+      "five_isolated_atlas_scene_mapping_receipts"
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "layout_id": "srwz-ui-p10-database-fixed-core-offline-layout-v1",
+  "scope": "Reread all 402 selected P10 database strings from the exact candidate members, compare localized line widths and counts with conservative envelopes observed in the original strings, verify the final 24x24 glyph rasters, and render deterministic local review pages. This is an offline gate and does not replace PCSX2 scene evidence.",
+  "candidate": {
+    "config": {
+      "path": "config/ui-writeback/ui-p10-database-fixed-core.json",
+      "sha256": "95181c53473bd9f0fe3b72848ca4d9f9934139a1b64afcfc12dfdfa6cbde6dfe"
+    },
+    "manifest": {
+      "path": "manifests/ui-p10-database-fixed-core-validation.json",
+      "sha256": "41c96c2a7151ff69d918e184ecd4bf01b473a9c3d8019a83308681ac7be31333",
+      "required_status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
+      "required_profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
+      "required_runtime_status": "not_tested"
+    }
+  },
+  "source_envelope": {
+    "policy": "For each selected runtime family, the maximum rendered cell width and line count observed across the original Japanese strings form a conservative regression envelope. Runtime placeholders reserve six cells. These values are not measured panel geometry and do not prove runtime fit.",
+    "families": [
+      {
+        "runtime_scene_id": "database/leadership-effects-core",
+        "expected_entry_count": 15,
+        "expected_source_max_line_cells": 9,
+        "expected_source_max_line_count": 1
+      },
+      {
+        "runtime_scene_id": "database/pilot-skills-core",
+        "expected_entry_count": 88,
+        "expected_source_max_line_cells": 23,
+        "expected_source_max_line_count": 3
+      },
+      {
+        "runtime_scene_id": "database/spirit-commands-core",
+        "expected_entry_count": 144,
+        "expected_source_max_line_cells": 28,
+        "expected_source_max_line_count": 2
+      },
+      {
+        "runtime_scene_id": "database/unit-special-abilities-core",
+        "expected_entry_count": 155,
+        "expected_source_max_line_cells": 30,
+        "expected_source_max_line_count": 3
+      }
+    ]
+  },
+  "render": {
+    "glyph_width": 24,
+    "glyph_height": 24,
+    "scale": 2,
+    "entries_per_page": 50,
+    "index_cells": 4,
+    "row_gap": 1,
+    "rule_value": 32,
+    "placeholder_value": 96
+  },
+  "ratchet": {
+    "family_count": 4,
+    "entry_count": 402,
+    "source_readback_count": 402,
+    "target_readback_count": 402,
+    "line_width_overflow_count": 0,
+    "line_count_overflow_count": 0,
+    "literal_character_count": 512,
+    "missing_glyph_character_count": 0,
+    "empty_glyph_character_count": 0,
+    "target_han_character_count": 444,
+    "original_font_han_character_count": 0,
+    "han_raster_mismatch_count": 0,
+    "preview_page_count": 10,
+    "preview_entry_count": 402
+  },
+  "outputs": {
+    "report": "work/review/ui-p10-database-layout/layout-validation.json",
+    "tsv": "work/review/ui-p10-database-layout/layout-review.tsv",
+    "preview_root": "work/review/ui-p10-database-layout/previews",
+    "manifest": "manifests/ui-p10-database-layout-validation.json"
+  }
+}

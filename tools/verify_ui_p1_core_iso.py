@@ -50,6 +50,133 @@ def file_lock(path: Path) -> dict:
     }
 
 
+def build_runtime_projection(config: dict, actual_output: dict) -> dict:
+    evidence = config.get("runtime_evidence")
+    if config.get("profile_id") == "ui-p2-default-names-first-five":
+        required_routes = [
+            "fresh_boot_default_name_is_chinese",
+            "accept_default_name_flows_into_story_token",
+            "edit_name_overrides_story_token",
+            "stages_001_through_005_story_dialogue",
+        ]
+    else:
+        required_routes = [
+            "title_all_four_selected_and_unselected_states",
+            "opening_player_setup_default_and_edited_name",
+            "first_intermission_core_menu_routes",
+            "two_unit_information_page_matrix",
+            "battle_command_and_conditions",
+            "search_zero_and_multiple_results",
+            "world_history_scroll_start_middle_end",
+        ]
+    if evidence is None:
+        pending_gates = (
+            [
+                "fresh_process_boot_exact_iso",
+                "default_name_visual_acceptance",
+                "edited_name_visual_acceptance",
+                "stages_001_through_005_visual_acceptance",
+                "zero_tlb_miss",
+            ]
+            if config.get("profile_id")
+            == "ui-p2-default-names-first-five"
+            else [
+                "fresh_process_boot_exact_iso",
+                "pine_running_and_decoded_font_exact",
+                "new_raw_trail_glyph_classes_visible",
+                "no_clipping_overlap_or_missing_glyphs",
+                "zero_tlb_miss",
+            ]
+        )
+        return {
+            "status": "not_tested",
+            "required_iso_sha256": actual_output["sha256"],
+            "required_emulator": "PCSX2 v2.6.3",
+            "required_routes": required_routes,
+            "pending_gates": pending_gates,
+        }
+    if not isinstance(evidence, dict):
+        raise UiP1CoreIsoError("runtime_evidence must be an object")
+    raw_path = evidence.get("boot_smoke_report")
+    if not isinstance(raw_path, str) or not raw_path:
+        raise UiP1CoreIsoError("runtime_evidence needs boot_smoke_report")
+    receipt_path = (PROJECT_ROOT / raw_path).resolve()
+    try:
+        receipt_path.relative_to(
+            PROJECT_ROOT / "work/runtime/iso-incremental"
+        )
+    except ValueError as error:
+        raise UiP1CoreIsoError(
+            "boot-smoke receipt leaves work/runtime/iso-incremental"
+        ) from error
+    if not receipt_path.is_file():
+        raise UiP1CoreIsoError("boot-smoke receipt is missing")
+    receipt = load_json(receipt_path)
+    emulator = receipt.get("emulator")
+    log = receipt.get("log")
+    checks = receipt.get("checks")
+    if (
+        receipt.get("schema_version") != 1
+        or receipt.get("status") != "passed"
+        or receipt.get("iso")
+        != {
+            "path": config["output"]["path"],
+            **actual_output,
+        }
+        or not isinstance(emulator, dict)
+        or emulator.get("pine_version") != "PCSX2 v2.6.3"
+        or emulator.get("game_id") != "SLPS-25887"
+        or emulator.get("pine_status") != 0
+        or emulator.get("fresh_process") is not True
+        or emulator.get("process_exit_code_after_sigint") != 0
+        or not isinstance(log, dict)
+        or log.get("dvd_recognized") is not True
+        or log.get("elf_executing") is not True
+        or log.get("no_tlb_miss") is not True
+        or log.get("tlb_miss_count") != 0
+        or not isinstance(checks, dict)
+        or not checks
+        or not all(checks.values())
+    ):
+        raise UiP1CoreIsoError(
+            "boot-smoke receipt does not prove the exact integrated ISO"
+        )
+    pending_gates = (
+        [
+            "default_name_visual_acceptance",
+            "edited_name_visual_acceptance",
+            "stages_001_through_005_visual_acceptance",
+        ]
+        if config.get("profile_id")
+        == "ui-p2-default-names-first-five"
+        else [
+            "opening_player_setup_visual_acceptance",
+            "pine_decoded_font_exact",
+            "new_raw_trail_glyph_classes_visible",
+            "no_clipping_overlap_or_missing_glyphs",
+        ]
+    )
+    return {
+        "status": "boot_smoke_passed_visual_not_tested",
+        "required_iso_sha256": actual_output["sha256"],
+        "required_emulator": "PCSX2 v2.6.3",
+        "receipt": file_lock(receipt_path),
+        "fresh_process": True,
+        "game_id": "SLPS-25887",
+        "pine_status": 0,
+        "pine_state": "Running",
+        "dvd_recognized": True,
+        "elf_executing": True,
+        "tlb_miss_count": 0,
+        "required_routes": required_routes,
+        "pending_gates": pending_gates,
+        "boundary": (
+            "Fresh-process boot proves DVD, ELF, PINE and zero logged TLB "
+            "misses only; no route navigation or visual acceptance is claimed."
+        ),
+    }
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
@@ -68,7 +195,12 @@ def parse_args() -> argparse.Namespace:
 def build_report(config_path: Path, component_manifest_path: Path) -> dict:
     config = load_json(config_path)
     component = load_json(component_manifest_path)
-    if config.get("profile_id") not in {"ui-p1-core", "ui-p2-core"}:
+    profile_id = config.get("profile_id")
+    if profile_id not in {
+        "ui-p1-core",
+        "ui-p2-core",
+        "ui-p2-default-names-first-five",
+    }:
         raise UiP1CoreIsoError("unexpected integrated UI core ISO profile")
     configured_component = config.get("component_validation_manifest")
     if configured_component is not None and (
@@ -77,9 +209,13 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
         raise UiP1CoreIsoError(
             "component manifest does not match the ISO profile"
         )
-    if component.get("status") != (
-        "integrated_component_validated_iso_runtime_pending"
-    ):
+    required_component_status = (
+        "integrated_ui_p2_default_names_first_five_component_"
+        "validated_runtime_pending"
+        if profile_id == "ui-p2-default-names-first-five"
+        else "integrated_component_validated_iso_runtime_pending"
+    )
+    if component.get("status") != required_component_status:
         raise UiP1CoreIsoError("integrated UI component is not validated")
 
     iso_report_path = PROJECT_ROOT / config["output"]["report"]
@@ -112,12 +248,18 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
     ]:
         raise UiP1CoreIsoError("member-manifest lock drift")
 
-    member_to_output = {
-        "SLPS_258.87": "slps",
-        "DATA/COMPDATA.BN": "compdata",
-        "DATA/MTV_PROS.BIN": "mtv_pros",
-        "DATA/VT1.BIN": "vt1",
-    }
+    if profile_id == "ui-p2-default-names-first-five":
+        member_to_output = {
+            member: member
+            for member in component["composition"]["members"]
+        }
+    else:
+        member_to_output = {
+            "SLPS_258.87": "slps",
+            "DATA/COMPDATA.BN": "compdata",
+            "DATA/MTV_PROS.BIN": "mtv_pros",
+            "DATA/VT1.BIN": "vt1",
+        }
     component_outputs = component["outputs"]
     replacements = {}
     for replacement in config["replacements"]:
@@ -131,7 +273,12 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
             "size": replacement["size"],
             "sha256": replacement["sha256"],
         }
-        if actual != component_outputs[output_name]:
+        component_output = component_outputs[output_name]
+        component_lock = {
+            "size": component_output["size"],
+            "sha256": component_output["sha256"],
+        }
+        if actual != component_lock:
             raise UiP1CoreIsoError(
                 f"{member} does not match integrated component"
             )
@@ -180,9 +327,14 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
             f"integrated static ISO acceptance failed: {acceptance}"
         )
 
+    runtime = build_runtime_projection(config, actual_output)
     return {
         "schema_version": 1,
-        "status": "static_integrated_iso_validated_runtime_pending",
+        "status": (
+            "integrated_iso_boot_smoke_passed_visual_pending"
+            if runtime["status"] == "boot_smoke_passed_visual_not_tested"
+            else "static_integrated_iso_validated_runtime_pending"
+        ),
         "content_policy": (
             "Hashes, counts, paths and runtime gates only; no game bytes "
             "or localized text are embedded."
@@ -215,27 +367,7 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
             "replacements": replacements,
         },
         "static_acceptance": acceptance,
-        "runtime": {
-            "status": "not_tested",
-            "required_iso_sha256": actual_output["sha256"],
-            "required_emulator": "PCSX2 v2.6.3",
-            "required_routes": [
-                "title_all_four_selected_and_unselected_states",
-                "opening_player_setup_default_and_edited_name",
-                "first_intermission_core_menu_routes",
-                "two_unit_information_page_matrix",
-                "battle_command_and_conditions",
-                "search_zero_and_multiple_results",
-                "world_history_scroll_start_middle_end",
-            ],
-            "pending_gates": [
-                "fresh_process_boot_exact_iso",
-                "pine_running_and_decoded_font_exact",
-                "new_raw_trail_glyph_classes_visible",
-                "no_clipping_overlap_or_missing_glyphs",
-                "zero_tlb_miss",
-            ],
-        },
+        "runtime": runtime,
     }
 
 
@@ -281,7 +413,7 @@ def main() -> int:
         "UI core ISO verified:",
         f"members={report['iso_build']['member_count']}",
         f"sha256={report['iso_build']['output']['sha256']}",
-        "runtime=pending",
+        f"runtime={report['runtime']['status']}",
     )
     print(f"manifest {manifest_status}: {manifest_path}")
     print(f"report: {report_path}")

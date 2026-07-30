@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "status": "offline_p10_database_layout_and_exact_glyph_previews_validated_runtime_pending",
+  "layout_id": "srwz-ui-p10-database-fixed-core-offline-layout-v1",
+  "scope": "Reread all 402 selected P10 database strings from the exact candidate members, compare localized line widths and counts with conservative envelopes observed in the original strings, verify the final 24x24 glyph rasters, and render deterministic local review pages. This is an offline gate and does not replace PCSX2 scene evidence.",
+  "content_policy": "Hashes, counts, dimensions, entry IDs and runtime gates only; source text, localized text, game bytes and preview PNG bytes remain outside this committed manifest.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-database-layout.json",
+      "size": 3217,
+      "sha256": "8f16898d0c27350c6d89802ce3805ed43e9c9df3a621c98541a62ae0d2f7002f"
+    },
+    "candidate_config": {
+      "path": "config/ui-writeback/ui-p10-database-fixed-core.json",
+      "size": 6035,
+      "sha256": "95181c53473bd9f0fe3b72848ca4d9f9934139a1b64afcfc12dfdfa6cbde6dfe"
+    },
+    "candidate_manifest": {
+      "path": "manifests/ui-p10-database-fixed-core-validation.json",
+      "size": 18670,
+      "sha256": "41c96c2a7151ff69d918e184ecd4bf01b473a9c3d8019a83308681ac7be31333"
+    },
+    "selection_config": {
+      "path": "config/ui-database-selection.json",
+      "size": 6208,
+      "sha256": "32398b7b1fb371ae6a6a51a4abf1e135c00f330424c43405126b3ea70f767b76"
+    },
+    "selection_manifest": {
+      "path": "manifests/ui-database-fixed-core-selection.json",
+      "size": 16445,
+      "sha256": "f455f99a1a336b4374a58f8948e6cda1b7538758d798a38b78177f8bf2ec84d8"
+    },
+    "font_manifest": {
+      "path": "manifests/ui-p10-database-font-validation.json",
+      "size": 10482,
+      "sha256": "82980cff466f07b2b563528226699126b90f73894496ab56540488688a302134"
+    },
+    "font_proposal": {
+      "path": "work/writeback/ui-p10-database-codebook-proposal.json",
+      "size": 1592059,
+      "sha256": "925d92af46bdd7e52d501a40bae566d67848e1e5df699f42572e7fea5338df55"
+    },
+    "writer_config": {
+      "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
+      "size": 2553,
+      "sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43"
+    },
+    "text_table": {
+      "path": "vendor/upstream-python/project/tbl_all.json",
+      "size": 164751,
+      "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+    },
+    "menu_descriptor": {
+      "path": "vendor/upstream-python/project/menu_files.json",
+      "size": 137657,
+      "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+    },
+    "source_members": {
+      "slps": {
+        "path": "work/build/ui-p9-mixed-user-facing-subset/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "51adcd5c79f422924743d758eaab77cc46d939e7c1272f88dcd614eb2c704657"
+      },
+      "compdata": {
+        "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/COMPDATA.BN",
+        "size": 144485,
+        "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+      }
+    },
+    "candidate_members": {
+      "slps": {
+        "path": "work/build/ui-p10-database-fixed-core/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "5eae555d6ec6287ac1ede7c0d27b9a3482eacff89a2bab092c2c7c50e434542f"
+      },
+      "vt1": {
+        "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
+        "size": 127504000,
+        "sha256": "32a7ec8c9125efe4c723f24fe5c4cbabfdb85ae84757522e052251aec90fc502"
+      },
+      "compdata": {
+        "path": "work/build/ui-p10-database-fixed-core/components/DATA/COMPDATA.BN",
+        "size": 148705,
+        "sha256": "102b5f2e97bd7143e1d820c1b2a62c73dc41f274a44394103c3b5c547bfa6d62"
+      }
+    },
+    "decoded_font": {
+      "size": 1290240,
+      "sha256": "4798a2f62af9d4fb6ad65502ca25a772a5eabbc196633aebacc3ff8728005ad6"
+    },
+    "codebook": {
+      "base_codebook": {
+        "path": "config/encoding/codebook.json",
+        "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+      },
+      "proposal": {
+        "path": "work/writeback/ui-p10-database-codebook-proposal.json",
+        "sha256": "925d92af46bdd7e52d501a40bae566d67848e1e5df699f42572e7fea5338df55"
+      },
+      "override_count": 1642
+    }
+  },
+  "source_envelope_policy": "For each selected runtime family, the maximum rendered cell width and line count observed across the original Japanese strings form a conservative regression envelope. Runtime placeholders reserve six cells. These values are not measured panel geometry and do not prove runtime fit.",
+  "families": [
+    {
+      "runtime_scene_id": "database/leadership-effects-core",
+      "entry_count": 15,
+      "source_max_line_cells": 9,
+      "source_max_line_count": 1,
+      "target_max_line_cells": 9,
+      "target_max_line_count": 1,
+      "line_width_overflow_count": 0,
+      "line_count_overflow_count": 0,
+      "preview_page_count": 1,
+      "previews": [
+        {
+          "path": "work/review/ui-p10-database-layout/previews/leadership-effects-core-01.png",
+          "runtime_scene_id": "database/leadership-effects-core",
+          "page_index": 1,
+          "entry_count": 15,
+          "first_entry_id": "menu/Compdata/05/0000",
+          "last_entry_id": "menu/Compdata/05/0014",
+          "size": 17781,
+          "sha256": "e5eb70fb7936a76cf73da332293a2d05d1a1ede50763a2c06b6c069fa704ff67",
+          "width": 624,
+          "height": 750
+        }
+      ]
+    },
+    {
+      "runtime_scene_id": "database/pilot-skills-core",
+      "entry_count": 88,
+      "source_max_line_cells": 23,
+      "source_max_line_count": 3,
+      "target_max_line_cells": 21,
+      "target_max_line_count": 3,
+      "line_width_overflow_count": 0,
+      "line_count_overflow_count": 0,
+      "preview_page_count": 2,
+      "previews": [
+        {
+          "path": "work/review/ui-p10-database-layout/previews/pilot-skills-core-01.png",
+          "runtime_scene_id": "database/pilot-skills-core",
+          "page_index": 1,
+          "entry_count": 50,
+          "first_entry_id": "menu/SLPS/09/0000",
+          "last_entry_id": "menu/SLPS/09/0049",
+          "size": 140611,
+          "sha256": "425136f0e89e7189aa40312e6b4660db17a3f310636fb6074b2a06d8e212e74c",
+          "width": 1296,
+          "height": 3460
+        },
+        {
+          "path": "work/review/ui-p10-database-layout/previews/pilot-skills-core-02.png",
+          "runtime_scene_id": "database/pilot-skills-core",
+          "page_index": 2,
+          "entry_count": 38,
+          "first_entry_id": "menu/SLPS/09/0050",
+          "last_entry_id": "menu/SLPS/09/0087",
+          "size": 107172,
+          "sha256": "81e6dfc2b0640b977aea3d39d10731998ab233c9f8d0c5a7205975bcbc9621f5",
+          "width": 1296,
+          "height": 2764
+        }
+      ]
+    },
+    {
+      "runtime_scene_id": "database/spirit-commands-core",
+      "entry_count": 144,
+      "source_max_line_cells": 28,
+      "source_max_line_count": 2,
+      "target_max_line_cells": 25,
+      "target_max_line_count": 2,
+      "line_width_overflow_count": 0,
+      "line_count_overflow_count": 0,
+      "preview_page_count": 3,
+      "previews": [
+        {
+          "path": "work/review/ui-p10-database-layout/previews/spirit-commands-core-01.png",
+          "runtime_scene_id": "database/spirit-commands-core",
+          "page_index": 1,
+          "entry_count": 50,
+          "first_entry_id": "menu/SLPS/08/0000",
+          "last_entry_id": "menu/SLPS/08/0049",
+          "size": 87875,
+          "sha256": "871804c5e476e6f55295d989f95f8a1300299f3bc954d5923c25a8c736861b96",
+          "width": 1536,
+          "height": 2692
+        },
+        {
+          "path": "work/review/ui-p10-database-layout/previews/spirit-commands-core-02.png",
+          "runtime_scene_id": "database/spirit-commands-core",
+          "page_index": 2,
+          "entry_count": 50,
+          "first_entry_id": "menu/SLPS/08/0050",
+          "last_entry_id": "menu/SLPS/08/0100",
+          "size": 93242,
+          "sha256": "2c6944cf2f4b979800b1426c358ca7521cbf9426eeebe9ad46a6bbbe1bfbe1a3",
+          "width": 1536,
+          "height": 2692
+        },
+        {
+          "path": "work/review/ui-p10-database-layout/previews/spirit-commands-core-03.png",
+          "runtime_scene_id": "database/spirit-commands-core",
+          "page_index": 3,
+          "entry_count": 44,
+          "first_entry_id": "menu/SLPS/08/0101",
+          "last_entry_id": "menu/SLPS/08/0144",
+          "size": 54470,
+          "sha256": "124000023cb25ec13a9a0892b781b3777fe2da54a269ed230a822870ccbdb7d9",
+          "width": 1536,
+          "height": 2248
+        }
+      ]
+    },
+    {
+      "runtime_scene_id": "database/unit-special-abilities-core",
+      "entry_count": 155,
+      "source_max_line_cells": 30,
+      "source_max_line_count": 3,
+      "target_max_line_cells": 27,
+      "target_max_line_count": 3,
+      "line_width_overflow_count": 0,
+      "line_count_overflow_count": 0,
+      "preview_page_count": 4,
+      "previews": [
+        {
+          "path": "work/review/ui-p10-database-layout/previews/unit-special-abilities-core-01.png",
+          "runtime_scene_id": "database/unit-special-abilities-core",
+          "page_index": 1,
+          "entry_count": 50,
+          "first_entry_id": "menu/Compdata/02/0518",
+          "last_entry_id": "menu/Compdata/04/0052",
+          "size": 101429,
+          "sha256": "6efd5ecc1a3ee2bafff3bca4b8085d0a5b7fc5115526aa390c6b4b47d70210cb",
+          "width": 1632,
+          "height": 2884
+        },
+        {
+          "path": "work/review/ui-p10-database-layout/previews/unit-special-abilities-core-02.png",
+          "runtime_scene_id": "database/unit-special-abilities-core",
+          "page_index": 2,
+          "entry_count": 50,
+          "first_entry_id": "menu/Compdata/04/0053",
+          "last_entry_id": "menu/Compdata/04/0102",
+          "size": 325850,
+          "sha256": "b3ab420597b9204ad2e9f16ed3613bf617c7f0002df94c12a7667c3280c3c1e9",
+          "width": 1632,
+          "height": 5812
+        },
+        {
+          "path": "work/review/ui-p10-database-layout/previews/unit-special-abilities-core-03.png",
+          "runtime_scene_id": "database/unit-special-abilities-core",
+          "page_index": 3,
+          "entry_count": 50,
+          "first_entry_id": "menu/Compdata/04/0103",
+          "last_entry_id": "menu/Compdata/04/0152",
+          "size": 104868,
+          "sha256": "88d51bcc8e28ce2d70886e4ca7587c3feb8d8e48499b8b380f7cf825adcaa7a1",
+          "width": 1632,
+          "height": 2548
+        },
+        {
+          "path": "work/review/ui-p10-database-layout/previews/unit-special-abilities-core-04.png",
+          "runtime_scene_id": "database/unit-special-abilities-core",
+          "page_index": 4,
+          "entry_count": 5,
+          "first_entry_id": "menu/Compdata/04/0153",
+          "last_entry_id": "menu/Compdata/04/0157",
+          "size": 11817,
+          "sha256": "5be55412c5494ca7529a334d3eb53c888b78e9c85b21e2b39d38a24a92afa56b",
+          "width": 1632,
+          "height": 250
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "family_count": 4,
+    "entry_count": 402,
+    "source_readback_count": 402,
+    "target_readback_count": 402,
+    "line_width_overflow_count": 0,
+    "line_count_overflow_count": 0,
+    "literal_character_count": 512,
+    "missing_glyph_character_count": 0,
+    "empty_glyph_character_count": 0,
+    "target_han_character_count": 444,
+    "original_font_han_character_count": 0,
+    "han_raster_mismatch_count": 0,
+    "preview_page_count": 10,
+    "preview_entry_count": 402
+  },
+  "entry_plan_sha256": "538d1417a9679146d6475e27b24732fb3e4658b51e67ad7d8a3e36f2d1ba4ce7",
+  "ratchet": {
+    "expected": {
+      "family_count": 4,
+      "entry_count": 402,
+      "source_readback_count": 402,
+      "target_readback_count": 402,
+      "line_width_overflow_count": 0,
+      "line_count_overflow_count": 0,
+      "literal_character_count": 512,
+      "missing_glyph_character_count": 0,
+      "empty_glyph_character_count": 0,
+      "target_han_character_count": 444,
+      "original_font_han_character_count": 0,
+      "han_raster_mismatch_count": 0,
+      "preview_page_count": 10,
+      "preview_entry_count": 402
+    },
+    "actual": {
+      "family_count": 4,
+      "entry_count": 402,
+      "source_readback_count": 402,
+      "target_readback_count": 402,
+      "line_width_overflow_count": 0,
+      "line_count_overflow_count": 0,
+      "literal_character_count": 512,
+      "missing_glyph_character_count": 0,
+      "empty_glyph_character_count": 0,
+      "target_han_character_count": 444,
+      "original_font_han_character_count": 0,
+      "han_raster_mismatch_count": 0,
+      "preview_page_count": 10,
+      "preview_entry_count": 402
+    },
+    "checks": {
+      "family_count": true,
+      "entry_count": true,
+      "source_readback_count": true,
+      "target_readback_count": true,
+      "line_width_overflow_count": true,
+      "line_count_overflow_count": true,
+      "literal_character_count": true,
+      "missing_glyph_character_count": true,
+      "empty_glyph_character_count": true,
+      "target_han_character_count": true,
+      "original_font_han_character_count": true,
+      "han_raster_mismatch_count": true,
+      "preview_page_count": true,
+      "preview_entry_count": true
+    },
+    "passed": true
+  },
+  "acceptance": {
+    "source_envelopes_exact": true,
+    "all_selected_sources_reread": true,
+    "all_selected_targets_reread": true,
+    "zero_line_width_overflow": true,
+    "zero_line_count_overflow": true,
+    "zero_missing_glyphs": true,
+    "zero_empty_non_space_glyphs": true,
+    "all_han_use_selected_font": true,
+    "all_han_rasters_exact": true,
+    "all_entries_rendered_once": true,
+    "ratchet_passed": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "boundary": "The family widths are conservative envelopes observed in the original strings, not measured runtime panel geometry. Exact-glyph previews cannot prove clipping, animation, dynamic substitution or final PCSX2 rendering."
+  }
+}

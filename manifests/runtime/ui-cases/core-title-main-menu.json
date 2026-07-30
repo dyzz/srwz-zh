@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "content_policy": "Hashes, dimensions, route identities and verdicts only; screenshots, logs, textures, saves and game bytes remain under ignored work/ or build/.",
+  "matrix": {
+    "matrix_id": "srwz-ui-runtime-v1",
+    "plan_sha256": "fc16ca57908d88158a78fecca41840b875bfe3f01f97a5c2c36a9f19ecf0e4cb"
+  },
+  "case": {
+    "case_id": "core/title-main-menu",
+    "purpose": "localization_acceptance",
+    "scene_ids": [
+      "title/main-menu"
+    ],
+    "variant": null
+  },
+  "artifact": {
+    "artifact_id": "first-five-noncompdata-ui",
+    "manifest_sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5",
+    "iso_path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
+    "iso_size": 3758424064,
+    "iso_sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39"
+  },
+  "fixture": {
+    "fixture_id": "fresh-boot",
+    "kind": "fresh_boot",
+    "sha256": null
+  },
+  "session": {
+    "workspace_path": "work/runtime/ui-cases/core/title-main-menu/sessions/combined-locked/session-probe.json",
+    "size": 1389,
+    "sha256": "9b010bc9a6db22d2d926ee2948251ff815ce791658b18d2d2c0f745d63fd0696",
+    "emulator": {
+      "name": "PCSX2",
+      "version": "PCSX2 v2.6.3",
+      "architecture": "x86_64",
+      "launch_mode": "nogui fastboot nofullscreen",
+      "game_title": "Super Robot Taisen Z",
+      "game_id": "SLPS-25887",
+      "status_before": 0,
+      "status_after": 0,
+      "fresh_process": true
+    },
+    "log": {
+      "workspace_path": "work/runtime/ui-cases/core/title-main-menu/sessions/combined-locked/emulog.txt",
+      "size": 19823,
+      "sha256": "129ae34eccf44032823ac3f59bca3a79d02da463bb21f4db25265727bd58a0c9"
+    },
+    "checks": {
+      "iso_size": true,
+      "iso_sha256": true,
+      "pcsx2_version": true,
+      "game_id": true,
+      "running_before": true,
+      "running_after": true,
+      "fresh_process": true,
+      "dvd_recognized": true,
+      "elf_executing": true,
+      "no_tlb_miss": true
+    }
+  },
+  "captures": [
+    {
+      "capture_id": "core-title-start-selected",
+      "kind": "screenshot",
+      "state": "START selected",
+      "phase": null,
+      "images": [
+        {
+          "workspace_path": "work/runtime/ui-cases/core/title-main-menu/screenshots/core-title-start-selected.png",
+          "size": 1261891,
+          "sha256": "87a0fd06d208bbfe013f4bd126f6db87ce212bf537fafad9adc72203ecde8149",
+          "width": 1280,
+          "height": 960
+        }
+      ],
+      "texture_delta": null,
+      "passed": true
+    },
+    {
+      "capture_id": "core-title-library-selected",
+      "kind": "screenshot",
+      "state": "LIBRARY selected",
+      "phase": null,
+      "images": [
+        {
+          "workspace_path": "work/runtime/ui-cases/core/title-main-menu/screenshots/core-title-library-selected.png",
+          "size": 1276681,
+          "sha256": "0cdddf0325b56bc69769ad56209ec1db25cf22adc8f42bfb32c563862e8a8193",
+          "width": 1280,
+          "height": 960
+        }
+      ],
+      "texture_delta": null,
+      "passed": true
+    }
+  ],
+  "assertions": [
+    {
+      "index": 1,
+      "text": "All four Chinese labels remain visible in selected and unselected palettes.",
+      "passed": true,
+      "notes": "开始、读取、继续、资料库 are all legible in both captured cursor states."
+    },
+    {
+      "index": 2,
+      "text": "No clipping, overlap or palette corruption appears.",
+      "passed": true,
+      "notes": "Manual inspection of both 1280x960 captures found no clipping, overlap, missing glyph or palette corruption."
+    }
+  ],
+  "verdict": "passed",
+  "known_limits": [
+    "This receipt proves only the title main-menu route and its two required cursor states; it does not prove downstream menus, story scenes or COMPDATA-backed labels.",
+    "Visual assertions were reviewed from command-line PCSX2 screenshots; they are not an automated semantic image judgment."
+  ]
+}

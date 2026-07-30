@@ -13,6 +13,9 @@
 | `build-profiles/` | 构建选择集、最低编辑状态和必需 gates |
 | `ui-scenes.json` | UI 场景 selector、优先级、运行路线、容量 ratchet 和动态名称 hash-only 探针 |
 | `ui-embedded-scenes.json` | 将延期的 275 条 SLPS embedded UI 零遗漏／零重叠拆成 22 个静态屏幕候选；登记 fixture、路线、截图点和晋级门，不直接选择生产写回 |
+| `ui-database-selection.json` | 从大型技能／能力／精神／小队长数据库中筛出术语已审、定长可写的 P10 核心子集；显式登记受保护排除项和四条运行路线 |
+| `iso/ui-incremental-chain.json` | 以 first-five 为基线，按 atlas、非 COMPDATA UI、COMPDATA 三层锁定成员增量、ISO、PINE boot receipt 和晋级边界 |
+| `iso/compdata-incremental-chain.json` | 固定 71-sector 原位重编码、原始压缩流不变的 72-sector LBA 控制及完整 P0 溢出候选；只允许改变 COMPDATA |
 | `runtime/ui-test-matrix.json` | 选定 UI 场景到精确 ISO、原生存档 fixture、截图点和运行证据门的绑定；不保存存档或截图 |
 | `ui-writeback/` | UI 文本写回选择策略、锁定输入、容量 ratchet 和输出位置；不包含游戏字节 |
 | `ui-integration/` | 已验证 UI 组件的所有权、三方合并、依赖哈希、输出 golden 和运行边界 |
@@ -37,10 +40,10 @@
 owner 闭包；它能筛出 fixed-span 首选批次，但不拥有实际 writer 输出。
 
 `runtime/ui-test-matrix.json` 不改变上述生产选择。它锁定
-`ui-scenes.json`、当前 P3 综合 UI／前五关／atlas 测试镜像及五张隔离中文
-atlas 候选的提交清单；两个已晋级的 fresh-boot 分区另通过
-`scene_extensions` 锁定 `ui-embedded-scene-map.json`，不会反向改写基础
-14 类 inventory。矩阵为
+`ui-scenes.json`、当前 P10 综合 UI／前五关／atlas 测试镜像及五张隔离中文
+atlas 候选的提交清单；十八个整组分区、两个逐条子集和四个数据库家族通过
+`scene_extensions` 锁定各自 promotion manifest，不会反向改写基础 14 类
+inventory。矩阵为
 每个运行用例登记 fixture 状态、到达步骤、截图点和证据要求。存档必须位于
 被忽略的 `work/runtime/ui-fixtures/`，只有原生 `.ps2` memory card 和 SHA-256
 都登记后才能从 `not_acquired` 晋级；已有 `.p2s` savestate 不会被自动当作
@@ -69,6 +72,9 @@ ISO 的 `rom/work/build` 所有权见 `docs/ISO_DIRECTORY_LAYOUT.md`。
 `iso/first-five-build.json`。码位只允许追加，退役槽不复用；字体与工具来源
 由相邻 lock 固定，当前候选的精确组件和镜像哈希只记录在
 `manifests/first-five-validation.json`。
+第一关剧情前世界地图地点字幕不属于普通 STAGE 对话。运行截图已排除
+STAGE 0 号 `flow.bin` 流程梗概和 `DATA/HSFC.BIN` Scenario Chart 摘要；
+当前 first-five 配置不会修改这两个误命中的同名文本。
 
 P0 UI 字库通过 `encoding/ui-p0-allocations.json` 和
 `fonts/ui-p0-font.json` 增量引用并锁定上述基线，不修改 first-five 账本。
@@ -84,7 +90,11 @@ proposal 就自动升级为运行安全。结果见
 原 span 内写回，禁止修改指针；当前 P0 无增长文本。
 `ui-writeback/ui-p0-compdata-fixed.json` 对压缩 COMPDATA 采用相同 span
 契约，并锁定 preserve-prefix suffix 重编码参数和成员增长 ratchet；当前
-P0 同样无 overflow。
+P0 文本 allocation 无 overflow，但压缩结果 147,050 bytes 超出原版
+71-sector／145,408-byte 物理 allocation，不能直接晋级。可启动的首个拆分
+`ui-writeback/compdata-step-01a-p0-buttons.json` 只选择幕间按钮场景，
+145,300-byte 重编码组件保持后续 LBA；因果验证见
+`manifests/compdata-incremental-validation.json`。
 `ui-writeback/ui-p0-display-names.json` 在该静态组件之上选择
 `corpus/zh/display-names/p0-opening.json` 的 45 个已审校字段；只允许原
 allocation 内写回，人物 ID、机体指针和非目标字节均不可修改。完整结构和
@@ -92,12 +102,13 @@ allocation 内写回，人物 ID、机体指针和非目标字节均不可修改
 `manifests/ui-p0-display-names-validation.json`。
 `display-names/researched-coverage.json` 则在完整结构上只接受 v1 术语库
 中 `researched` 的精确源词匹配，排除上述 45 项及一源多译冲突；它生成
-被忽略的 2,800 行审核 TSV，并把 1,262 个候选、21 个编码缺字、33 个
+被忽略的 2,800 行审核 TSV，并把 1,262 个候选、21 个编码缺字、28 个
 renderer 缺字、29 个统一重绘汉字和零定长溢出收敛为不含日文的提交清单。
 其中 `娅杰艾贾` 四字复用 `encoding/first-five-allocations.json` 中已登记
-但退役的 code/glyph，`encoding/ui-p2-display-name-allocations.json`
-只新增其余 29 个 allocation；P2 组合账本余 19 槽。
-`fonts/ui-p2-display-names-font.json` 将这 33 字和 29 个重绘字形组成统一
+但退役的 code/glyph；`encoding/ui-p2-display-name-allocations.json`
+启用其余 24 个汉字 allocation，并把曾误分配给 `a/f/h/r/u` 的五槽标记为
+退休保留。注册顺序不变，P2 组合账本余 19 槽。
+`fonts/ui-p2-display-names-font.json` 将这 28 字和 29 个重绘字形组成统一
 renderer，`ui-writeback/ui-p2-display-names.json` 再把开场 45 项与
 researched 1,262 项合并为 1,307 项 fixed-allocation COMPDATA 组件。
 
@@ -130,8 +141,36 @@ P0 菜单、1,307 项动态名称、P2 字库和世界史。最终只由
 P2 core 的 SLPS 修改零重叠、每个写入偏移的 P2 前像精确、指针和解码字库
 不变。`ui-integration/p3-fresh-boot-first-five-atlas-test.json` 再将这份
 P3 UI 四成员与前五关 `HB/STAGE`、五图 suite 合成 7 成员测试组件；
-`iso/ui-p3-fresh-boot-first-five-atlas-test-build.json` 是当前运行矩阵绑定
-的综合 DVD。旧 P2 综合 profile 仍保留为可复建历史基线。
+`iso/ui-p3-fresh-boot-first-five-atlas-test-build.json` 保留为可复建的
+P4 精确基线。`ui-writeback/ui-p4-intermission-slps.json` 以 P3 输出为前像，
+再选择编成确认与战术状态指标两组 24 条 fixed-span 决定；
+`ui-integration/p4-intermission-first-five-atlas-test.json` 和
+`iso/ui-p4-intermission-first-five-atlas-test-build.json` 形成下一层历史
+基线。`ui-writeback/ui-p5-battle-menus-slps.json` 继续选择四组首场战斗
+菜单；`ui-integration/p5-battle-menus-first-five-atlas-test.json` 和
+`iso/ui-p5-battle-menus-first-five-atlas-test-build.json` 形成 P6 的精确
+历史基线。`ui-writeback/ui-p6-deployment-slps.json` 晋级最后一组纯玩家
+可见 fixed-span 场景；P7 的
+`encoding/ui-p7-embedded-font-allocations.json` 与
+`fonts/ui-p7-embedded-font.json` 为五个受字库阻塞分区追加七字并统一重绘
+四个既有汉字，`ui-writeback/ui-p7-embedded-font-groups-slps.json`
+将其与 P6 core 做 VT1 chunk／SLPS offset／文本三层无冲突组合。
+`ui-integration/p7-embedded-font-groups-first-five-atlas-test.json` 和
+`iso/ui-p7-embedded-font-groups-first-five-atlas-test-build.json` 保留该层
+精确基线。P8 的 `ui-writeback/ui-p8-remaining-user-facing-slps.json`
+再晋级地形类型、武器使用条件、换乘／选项子页和强化部件／出击前操作四组
+59 条 fixed-span 决定；P9 的
+`ui-writeback/ui-p9-mixed-user-facing-subset-slps.json` 再从两个混合组中
+只选 9 条可静态证明的玩家标签，并留下 13 条诊断、控制、格式或证据不足项。
+对应 P9 integration 与 ISO 配置保留为历史基线。
+`ui-database-selection.json` 再从 1,250 条大型数据库中晋级驾驶员技能 88 条、
+机体特殊能力 155 条、精神指令 144 条和小队长能力 15 条，共 402 条；余下
+848 条与五项受保护条目继续延期。`encoding/ui-p10-database-font-allocations.json`
+和 `fonts/ui-p10-database-font.json` 使用 P7 余下全部 12 个可寻址槽，并统一
+重绘 14 个继承汉字。`ui-writeback/ui-p10-database-fixed-core.json` 对 SLPS
+232 条和 COMPDATA 170 条执行定长／preserve-prefix 写回；对应 P10 integration
+与 ISO 配置生成当前运行矩阵绑定的 7 成员综合 DVD。旧 P2～P9 综合 profile
+均作为可复建历史基线保留。
 
 `assets/ui-atlas-suite-zh.json` 只在测试域内将五份已验证中文 atlas 对
 原版 `KVMDATA.BIN` 的互不相交字节所有权合并；它不改变任何单图的

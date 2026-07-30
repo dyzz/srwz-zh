@@ -1,0 +1,405 @@
+{
+  "schema_version": 1,
+  "status": "static_database_fixed_subset_selected_font_extension_required",
+  "selection_id": "srwz-ui-database-fixed-core-v1",
+  "scope": "Select the largest terminology-safe fixed-span subset of the parts, weapons, skills, special-abilities, spirit-command and leadership database scene that fits the P7 renderer-addressable font budget. Proper-name disputes, the two-CJK label that cannot fit its one-CJK source allocation, and the remaining parts/weapons vocabulary stay excluded.",
+  "inputs": {
+    "config": {
+      "path": "config/ui-database-selection.json",
+      "sha256": "32398b7b1fb371ae6a6a51a4abf1e135c00f330424c43405126b3ea70f767b76"
+    },
+    "parent_scene": {
+      "inventory": {
+        "path": "config/ui-scenes.json",
+        "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55"
+      },
+      "inventory_id": "srwz-ui-scenes-v1",
+      "scene_id": "database/parts-skills-abilities-weapons",
+      "entry_count": 1250,
+      "entry_ids_sha256": "833eff0899346fe9537bba7612e882cd2a8c5fb956ab20214578a349341ae45d"
+    },
+    "translation_files": [
+      {
+        "path": "corpus/zh/menu/system-ui-leadership.json",
+        "sha256": "fd7c6cbcd6161cab9b77fde2f63a8f6fbf683c59c6b7b2ba06ab53b0a58632af"
+      },
+      {
+        "path": "corpus/zh/menu/system-ui-skills.json",
+        "sha256": "ec34fc15844be76903f7cdfe8920c5062574090d2f3d6430020153f01a14ed90"
+      },
+      {
+        "path": "corpus/zh/menu/system-ui-special-abilities.json",
+        "sha256": "467b7fcca48ce5d69768599f6fb0111f0f00aadf7883dc5709667192b767806a"
+      },
+      {
+        "path": "corpus/zh/menu/system-ui-spirit-commands.json",
+        "sha256": "634ffc3a15bb7fd7b95f0fc3a62b8dc069db29c6f4bb6c8bfad399daa3438213"
+      },
+      {
+        "path": "corpus/zh/menu/weapons.json",
+        "sha256": "649e62e7d235de0fb96e336efcef8cbcb0bae66b08f3009342fa6c993ce3b5e7"
+      }
+    ],
+    "font_baseline": {
+      "manifest": {
+        "path": "manifests/ui-p7-embedded-font-validation.json",
+        "sha256": "7b423cd290628f9b9fe3ea5fa0e2da2368ef939610e244b2c78b8044768bdf36"
+      },
+      "status": "offline_font_and_embedded_ui_renderer_coverage_passed_runtime_pending",
+      "proposal": {
+        "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
+        "sha256": "7d3e52dd51820dc283afe5fe9d284f3648ba082f5e8f4f6205eebd795987ddd9"
+      },
+      "writer_baseline_config": {
+        "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
+        "sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43"
+      },
+      "codebook": {
+        "base_codebook": {
+          "path": "config/encoding/codebook.json",
+          "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+        },
+        "proposal": {
+          "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
+          "sha256": "7d3e52dd51820dc283afe5fe9d284f3648ba082f5e8f4f6205eebd795987ddd9"
+        },
+        "override_count": 1616
+      }
+    },
+    "base_ui_core": {
+      "manifest": {
+        "path": "manifests/ui-p9-mixed-user-facing-subset-validation.json",
+        "sha256": "2a8b6ffd21253c1cab66c29f05ca670f1744c6f0eefd7cf09e49443c725eef0d"
+      },
+      "profile_id": "srwz-ui-p9-mixed-user-facing-subset-integrated-v1",
+      "status": "integrated_ui_p9_mixed_user_facing_subset_component_validated_iso_runtime_pending",
+      "runtime_status": "not_tested",
+      "outputs": {
+        "slps": {
+          "path": "work/build/ui-p9-mixed-user-facing-subset/components/SLPS_258.87",
+          "sha256": "51adcd5c79f422924743d758eaab77cc46d939e7c1272f88dcd614eb2c704657"
+        },
+        "vt1": {
+          "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/VT1.BIN",
+          "sha256": "1424eb1626b624eb637130e08a11c320e5fb39ebf40077e91cbbfe6875839fbf"
+        },
+        "compdata": {
+          "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/COMPDATA.BN",
+          "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+        },
+        "mtv_pros": {
+          "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/MTV_PROS.BIN",
+          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+        }
+      }
+    },
+    "menu_descriptor": {
+      "path": "vendor/upstream-python/project/menu_files.json",
+      "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+    },
+    "text_table": {
+      "path": "vendor/upstream-python/project/tbl_all.json",
+      "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+    }
+  },
+  "selection": {
+    "selected_entry_count": 402,
+    "selected_slps_entry_count": 232,
+    "selected_compdata_entry_count": 170,
+    "selected_entry_ids_sha256": "3d40920e50e99fe8f48ae68caea3d69432a17832bfd6c86bb390fe65abd58259",
+    "selected_decisions_sha256": "0df00f72aef94debdd70902ccdcf7b9cf5b939c8f5cf5d7462bceafed1cbe5f3",
+    "deferred_entry_count": 848,
+    "deferred_entry_ids_sha256": "6e687228ff194cbb72cb257007bd9b77dd41c736396b6db089ec349662092b63",
+    "families": [
+      {
+        "family_id": "skills",
+        "runtime_scene_id": "database/pilot-skills-core",
+        "label": "驾驶员技能名称与说明",
+        "entry_count": 88,
+        "slps_entry_count": 88,
+        "compdata_entry_count": 0,
+        "entry_ids_sha256": "b3c36b9ffc225285d64ad3d261de82ac1332b7f555fcff679582f46eefa5b103",
+        "selectors": [
+          {
+            "translation_file": "corpus/zh/menu/system-ui-skills.json",
+            "entry_count": 88,
+            "entry_ids_sha256": "b3c36b9ffc225285d64ad3d261de82ac1332b7f555fcff679582f46eefa5b103"
+          }
+        ]
+      },
+      {
+        "family_id": "special-abilities",
+        "runtime_scene_id": "database/unit-special-abilities-core",
+        "label": "机体特殊能力名称与说明",
+        "entry_count": 155,
+        "slps_entry_count": 0,
+        "compdata_entry_count": 155,
+        "entry_ids_sha256": "ac77dd01b755795f2bd24cdffb9d17199856aa80cd8081d21a4d412d9723274a",
+        "selectors": [
+          {
+            "translation_file": "corpus/zh/menu/system-ui-special-abilities.json",
+            "entry_count": 154,
+            "entry_ids_sha256": "990804a4362eac85d722174e80041673003fc1084a0e4675723ff3f6ffb3e78d"
+          },
+          {
+            "translation_file": "corpus/zh/menu/weapons.json",
+            "entry_count": 1,
+            "entry_ids_sha256": "d7e3d54f405bea1b44c0892bd5c2540062b1953b17aa6872008407db6ea971c2"
+          }
+        ]
+      },
+      {
+        "family_id": "spirit-commands",
+        "runtime_scene_id": "database/spirit-commands-core",
+        "label": "精神指令名称与说明",
+        "entry_count": 144,
+        "slps_entry_count": 144,
+        "compdata_entry_count": 0,
+        "entry_ids_sha256": "3c5b1f049c777d113050fbe39dda3fbbcf9c87e8e620054a066f2dc44e3d0125",
+        "selectors": [
+          {
+            "translation_file": "corpus/zh/menu/system-ui-spirit-commands.json",
+            "entry_count": 144,
+            "entry_ids_sha256": "3c5b1f049c777d113050fbe39dda3fbbcf9c87e8e620054a066f2dc44e3d0125"
+          }
+        ]
+      },
+      {
+        "family_id": "leadership-effects",
+        "runtime_scene_id": "database/leadership-effects-core",
+        "label": "小队长能力分类与效果",
+        "entry_count": 15,
+        "slps_entry_count": 0,
+        "compdata_entry_count": 15,
+        "entry_ids_sha256": "03a6d7927a7cf24cd433978b015e7c5b1bc794b6b8cf38fca90a892bbacb522e",
+        "selectors": [
+          {
+            "translation_file": "corpus/zh/menu/system-ui-leadership.json",
+            "entry_count": 15,
+            "entry_ids_sha256": "03a6d7927a7cf24cd433978b015e7c5b1bc794b6b8cf38fca90a892bbacb522e"
+          }
+        ]
+      }
+    ],
+    "protected_exclusions": [
+      {
+        "entry_id": "menu/Compdata/04/0011",
+        "reason": "Trinity Charge terminology and the matching late-game command remain under human review."
+      },
+      {
+        "entry_id": "menu/Compdata/04/0012",
+        "reason": "Element System terminology remains under human review."
+      },
+      {
+        "entry_id": "menu/Compdata/04/0025",
+        "reason": "OverSkill terminology remains under human review."
+      },
+      {
+        "entry_id": "menu/Compdata/04/0029",
+        "reason": "DRAGOON Barrier terminology remains under human review."
+      },
+      {
+        "entry_id": "menu/SLPS/08/0079",
+        "reason": "The reviewed two-CJK label 羁绊 needs five encoded bytes but its source allocation is three bytes; do not degrade it to one character."
+      }
+    ]
+  },
+  "font_demand": {
+    "literal_character_count": 5252,
+    "unique_literal_character_count": 512,
+    "missing_renderer_character_count": 12,
+    "missing_renderer_characters": "咫垫挡斩框歼药赋赖镜闪－",
+    "missing_renderer_occurrence_count": 36,
+    "selected_font_han_count": 419,
+    "original_font_han_count": 14,
+    "original_font_han_characters": "予倍冠努寸尺狙疫福衰赫醒魂魄"
+  },
+  "fixed_span_readiness": {
+    "status": "fixed_span_ready_after_declared_font_extension",
+    "planning_code_policy": "Every missing literal receives a unique synthetic two-byte planning code. The production font profile must allocate the same character set; only encoded size is consumed here.",
+    "members": {
+      "slps": {
+        "selection": {
+          "entry_count": 232,
+          "no_op_entry_count": 53,
+          "no_op_entry_ids": [
+            "menu/SLPS/08/0000",
+            "menu/SLPS/08/0001",
+            "menu/SLPS/08/0003",
+            "menu/SLPS/08/0005",
+            "menu/SLPS/08/0006",
+            "menu/SLPS/08/0008",
+            "menu/SLPS/08/0011",
+            "menu/SLPS/08/0016",
+            "menu/SLPS/08/0017",
+            "menu/SLPS/08/0022",
+            "menu/SLPS/08/0027",
+            "menu/SLPS/08/0029",
+            "menu/SLPS/08/0030",
+            "menu/SLPS/08/0033",
+            "menu/SLPS/08/0036",
+            "menu/SLPS/08/0039",
+            "menu/SLPS/08/0041",
+            "menu/SLPS/08/0042",
+            "menu/SLPS/08/0044",
+            "menu/SLPS/08/0045",
+            "menu/SLPS/08/0050",
+            "menu/SLPS/08/0063",
+            "menu/SLPS/08/0067",
+            "menu/SLPS/08/0068",
+            "menu/SLPS/08/0070",
+            "menu/SLPS/08/0073",
+            "menu/SLPS/08/0077",
+            "menu/SLPS/08/0081",
+            "menu/SLPS/08/0087",
+            "menu/SLPS/08/0089",
+            "menu/SLPS/08/0090",
+            "menu/SLPS/08/0091",
+            "menu/SLPS/08/0092",
+            "menu/SLPS/08/0093",
+            "menu/SLPS/08/0094",
+            "menu/SLPS/08/0096",
+            "menu/SLPS/08/0097",
+            "menu/SLPS/08/0098",
+            "menu/SLPS/08/0099",
+            "menu/SLPS/08/0105",
+            "menu/SLPS/08/0118",
+            "menu/SLPS/08/0123",
+            "menu/SLPS/08/0129",
+            "menu/SLPS/08/0134",
+            "menu/SLPS/08/0135",
+            "menu/SLPS/08/0137",
+            "menu/SLPS/08/0138",
+            "menu/SLPS/09/0000",
+            "menu/SLPS/09/0001",
+            "menu/SLPS/09/0004",
+            "menu/SLPS/09/0046",
+            "menu/SLPS/09/0058",
+            "menu/SLPS/09/0062"
+          ],
+          "selected_write_entry_count": 179,
+          "selected_write_target_count": 183,
+          "fixed_covered_entry_count": 232,
+          "selection_sha256": "307391abff49814f3c4a9736aa99995a36c2be3f17df20c2aa9ce0db67ed1348",
+          "excluded_entry_count": 0,
+          "excluded_reason_counts": {}
+        },
+        "write": {
+          "entry_count": 179,
+          "target_count": 183,
+          "payload_size": 4582,
+          "owned_capacity": 5755,
+          "target_metadata_sha256": "54217fba118f17eaed791551212d71cf8040f04c2bdd8a6085f7e979e03c920c",
+          "patch_plan_metadata_sha256": "7a73e5792dd60508206f57b9bb41a5e7c5c90b5891dd71dd56966197faac971e",
+          "pointer_write_count": 0,
+          "pointer_bytes_unchanged": true,
+          "non_target_bytes_unchanged": true,
+          "target_reparse_exact": true
+        },
+        "component": {
+          "source_size": 3471624,
+          "output_size": 3471624,
+          "source_sha256": "51adcd5c79f422924743d758eaab77cc46d939e7c1272f88dcd614eb2c704657",
+          "output_sha256": "6fa585bb42ad1226a770ed2c544b04028e4f94c5fbe25655d7866c7ca16e3ffa",
+          "changed_byte_count": 5073,
+          "difference_range_count": 333,
+          "changed_offsets_sha256": "160a9c8e9242f83e5e026f92d4bba4410c7decd980a4f3e289c853ebaa6b3db5"
+        }
+      },
+      "compdata": {
+        "selection": {
+          "entry_count": 170,
+          "no_op_entry_count": 5,
+          "no_op_entry_ids": [
+            "menu/Compdata/04/0022",
+            "menu/Compdata/04/0024",
+            "menu/Compdata/04/0034",
+            "menu/Compdata/04/0042",
+            "menu/Compdata/04/0124"
+          ],
+          "selected_write_entry_count": 165,
+          "selected_write_target_count": 164,
+          "fixed_covered_entry_count": 170,
+          "selection_sha256": "d186586ea530eacaba9b0ff26217fb59c7bc6c7be5c1ae491eabcc3de4947379",
+          "excluded_entry_count": 0,
+          "excluded_reason_counts": {}
+        },
+        "write": {
+          "entry_count": 165,
+          "target_count": 164,
+          "payload_size": 6190,
+          "owned_capacity": 7726,
+          "target_metadata_sha256": "d5852359a7732a9dd5876aaa2038f2a842da0a0265581fa3b6c74fb610777a3f",
+          "patch_plan_metadata_sha256": "14583fed28a14d541e8d8114e1f1df0b95ee0c4ee83724e4e09a74248f55e518",
+          "pointer_write_count": 0,
+          "pointer_bytes_unchanged": true,
+          "non_target_bytes_unchanged": true,
+          "target_reparse_exact": true
+        },
+        "component": {
+          "source_size": 524032,
+          "output_size": 524032,
+          "source_sha256": "ad7894981e59748623141a0d625958f84fdca53d63cbf74e2dc61b02e86d3de2",
+          "output_sha256": "b29e8dbb9fd15326384e8d81d04c3bd6e9a7a227fa3a6f9cead1cfeb272d2a5d",
+          "changed_byte_count": 7006,
+          "difference_range_count": 348,
+          "changed_offsets_sha256": "dbcb310267898f1c257dec2ff974f14678bab4bcb83a4fcf73c6f5626dff7b98"
+        }
+      }
+    },
+    "all_selected_entries_covered": true,
+    "pointer_write_policy": "forbidden"
+  },
+  "ratchet": {
+    "expected": {
+      "parent_entry_count": 1250,
+      "selected_entry_count": 402,
+      "deferred_entry_count": 848,
+      "selected_slps_entry_count": 232,
+      "selected_compdata_entry_count": 170,
+      "missing_renderer_character_count": 12,
+      "slps_no_op_entry_count": 53,
+      "slps_selected_write_entry_count": 179,
+      "slps_selected_write_target_count": 183,
+      "compdata_no_op_entry_count": 5,
+      "compdata_selected_write_entry_count": 165,
+      "compdata_selected_write_target_count": 164,
+      "excluded_after_font_entry_count": 0
+    },
+    "actual": {
+      "parent_entry_count": 1250,
+      "selected_entry_count": 402,
+      "deferred_entry_count": 848,
+      "selected_slps_entry_count": 232,
+      "selected_compdata_entry_count": 170,
+      "missing_renderer_character_count": 12,
+      "slps_no_op_entry_count": 53,
+      "slps_selected_write_entry_count": 179,
+      "slps_selected_write_target_count": 183,
+      "compdata_no_op_entry_count": 5,
+      "compdata_selected_write_entry_count": 165,
+      "compdata_selected_write_target_count": 164,
+      "excluded_after_font_entry_count": 0
+    },
+    "checks": {
+      "parent_entry_count": true,
+      "selected_entry_count": true,
+      "deferred_entry_count": true,
+      "selected_slps_entry_count": true,
+      "selected_compdata_entry_count": true,
+      "missing_renderer_character_count": true,
+      "slps_no_op_entry_count": true,
+      "slps_selected_write_entry_count": true,
+      "slps_selected_write_target_count": true,
+      "compdata_no_op_entry_count": true,
+      "compdata_selected_write_entry_count": true,
+      "compdata_selected_write_target_count": true,
+      "excluded_after_font_entry_count": true
+    },
+    "passed": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "The selection proves bounded font demand and fixed spans only. It does not build the P10 font, write either member, build an ISO or prove any database page in PCSX2."
+  }
+}

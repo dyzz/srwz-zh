@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "registry_id": "srwz-ui-p7-embedded-font-v1",
+  "policy": "Extend the locked P2 UI registry without changing any existing code/glyph assignment. New embedded-menu characters are append-only and remain reserved even if later terminology decisions change.",
+  "base_registry": {
+    "path": "config/encoding/ui-p2-display-name-allocations.json",
+    "sha256": "35cf90a43df31226702d26cf2eb6ce5c33de2efb58af38366e2d3e005db4b2cf",
+    "registered_character_count": 717
+  },
+  "appended_characters": "忆显缓网锋页额",
+  "retired_appended_characters": [],
+  "ratchet": {
+    "appended_character_count": 7,
+    "combined_registered_character_count": 724,
+    "remaining_candidate_slot_count": 12,
+    "additional_reraster_existing_han_count": 4
+  }
+}

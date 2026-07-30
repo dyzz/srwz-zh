@@ -419,7 +419,29 @@ def build(config_path: Path) -> tuple[bytes, bytes, dict, bytes | None]:
 
     strategy = config["codec"]["strategy"]
     alignment = config["codec"]["alignment"]
-    encoded = encode(modified_decoded, strategy=strategy)
+    maximum_size = config["codec"].get("maximum_size")
+    if maximum_size is not None and (
+        not isinstance(maximum_size, int)
+        or isinstance(maximum_size, bool)
+        or maximum_size <= 0
+    ):
+        raise Tim2CanaryBuildError(
+            "codec.maximum_size must be a positive integer"
+        )
+    minimum_allocation = config["codec"].get("minimum_allocation", 0)
+    if (
+        not isinstance(minimum_allocation, int)
+        or isinstance(minimum_allocation, bool)
+        or minimum_allocation < 0
+    ):
+        raise Tim2CanaryBuildError(
+            "codec.minimum_allocation must be a non-negative integer"
+        )
+    encoded = encode(
+        modified_decoded,
+        strategy=strategy,
+        max_output_size=maximum_size,
+    )
     encoded_round_trip = decode(encoded)
     if (
         encoded_round_trip.consumed != len(encoded)
@@ -435,6 +457,7 @@ def build(config_path: Path) -> tuple[bytes, bytes, dict, bytes | None]:
             chunk_index=chunk_index,
             encoded_replacement=encoded,
             alignment=alignment,
+            minimum_allocation=minimum_allocation,
         )
     )
 
@@ -551,6 +574,11 @@ def build(config_path: Path) -> tuple[bytes, bytes, dict, bytes | None]:
             "encoded_size": len(encoded),
             "encoded_sha256": sha256_bytes(encoded),
             "padding_size": padding_size,
+            "maximum_size": maximum_size,
+            "minimum_allocation": minimum_allocation,
+            "within_size_budget": (
+                maximum_size is None or len(encoded) <= maximum_size
+            ),
             "decoded_round_trip_exact": True,
         },
         "outputs": {

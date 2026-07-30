@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the integrated P2 UI, first-five and atlas test component."""
+"""Build an integrated UI, first-five and atlas test component."""
 
 from __future__ import annotations
 

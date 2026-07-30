@@ -64,6 +64,11 @@ class UiP2DisplayNameTests(unittest.TestCase):
 
     def test_component_round_trip_and_non_target_contract(self):
         compressed = self.manifest["compressed_component"]
+        self.assertEqual(compressed["strategy"], "rust-maximum")
+        self.assertEqual(compressed["maximum_output_size"], 145408)
+        self.assertEqual(compressed["sector_count"], 71)
+        self.assertEqual(compressed["budget_headroom"], 923)
+        self.assertTrue(compressed["within_sector_budget"])
         self.assertEqual(len(self.component), compressed["output_size"])
         self.assertEqual(
             hashlib.sha256(self.component).hexdigest(),

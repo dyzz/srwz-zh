@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "status": "offline_font_and_embedded_ui_renderer_coverage_passed_runtime_pending",
+  "font_profile_id": "srwz-ui-p7-embedded-menu-unified-font-v1",
+  "scope": "Incremental P2 plus five embedded-menu scene groups. It proves the selected 93 fields have reachable unified glyphs; it does not write UI text, build an ISO or prove runtime rendering.",
+  "inputs": {
+    "config": {
+      "path": "config/fonts/ui-p7-embedded-font.json",
+      "sha256": "ce63d3577ff23871360cf766ae019582c4d626412fdb61d07285b08e889e6fbe"
+    },
+    "allocation_registry": {
+      "path": "config/encoding/ui-p7-embedded-font-allocations.json",
+      "sha256": "9e5802e962693426bf3cfe0ca880d817deebb52862fcb6c14d44fc93f84c2d78"
+    },
+    "embedded_scene_selection": {
+      "kind": "embedded_scene_groups",
+      "map_id": "srwz-ui-embedded-scenes-v1",
+      "config": {
+        "path": "config/ui-embedded-scenes.json",
+        "sha256": "d467b1a8e0cf76f19d331ec31cdd470ceb27f401a715360ec45d005f3fb45c4e"
+      },
+      "manifest": {
+        "path": "manifests/ui-embedded-scene-map.json",
+        "sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651",
+        "status": "static_scene_partition_validated_runtime_attribution_pending"
+      },
+      "required_writeback_status": "font_extension_required",
+      "scene_ids": [
+        "options/bgm-controller-and-map-settings",
+        "results/settlement-and-support-setup",
+        "formation/list-search-and-priority",
+        "upgrade/full-upgrade-reward",
+        "archive/scenario-progress-and-route-headings"
+      ],
+      "unique_entry_count": 93,
+      "selection_sha256": "06222d246ad53fb630151121693e22e0187ea604a903c2ddd3d459ea49c55863",
+      "baseline_scene_inventory": {
+        "path": "config/ui-scenes.json",
+        "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
+        "inventory_id": "srwz-ui-scenes-v1"
+      }
+    },
+    "base_proposal": {
+      "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
+      "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b",
+      "proposal_id": "srwz-ui-p2-researched-display-names-unified-font-v1",
+      "assignment_count": 1605
+    },
+    "base_validation_manifest": {
+      "path": "manifests/ui-p2-display-name-font-validation.json",
+      "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc"
+    }
+  },
+  "capacity": {
+    "combined_renderer_addressable_candidate_slot_count": 736,
+    "valid_sjis_safe_candidate_slot_count": 650,
+    "legacy_safe_candidate_slot_count": 486,
+    "expanded_standard_candidate_slot_count": 164,
+    "raw_standard_addressable_candidate_slot_count": 86,
+    "base_registered_character_count": 717,
+    "combined_registered_character_count": 724,
+    "remaining_candidate_slot_count": 12
+  },
+  "additional_allocations": {
+    "count": 7,
+    "characters": "忆显缓网锋页额",
+    "blank_preimage_count": 7,
+    "raw_standard_trail_gap_count": 7
+  },
+  "additional_reraster_existing_han": {
+    "count": 4,
+    "characters": "振滑画符"
+  },
+  "combined_assignments": {
+    "allocation_assignment_count": 715,
+    "reraster_existing_assignment_count": 901,
+    "font_assignment_count": 1616
+  },
+  "proposal": {
+    "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
+    "sha256": "7d3e52dd51820dc283afe5fe9d284f3648ba082f5e8f4f6205eebd795987ddd9"
+  },
+  "readiness": {
+    "path": "work/writeback/ui-p7-embedded-font-readiness.json",
+    "sha256": "40bf76b0e3ca508ebd8b945e77dad4296075378cb6cbc740f219779934b29a4a"
+  },
+  "font_component": {
+    "report": "work/build/ui-p7-embedded-font/components/font-validation.json",
+    "report_sha256": "9c32278f1bde97e64a659c94861f0a291a352c5dcb8814a5877df619ea2a92a5",
+    "assignment_count": 1616,
+    "allocation_assignment_count": 715,
+    "reraster_existing_assignment_count": 901,
+    "changed_glyph_count": 1615,
+    "unchanged_assignment_count": 1,
+    "built_raster_hash_exact_count": 1616,
+    "decoded_size": 1290240,
+    "decoded_sha256": "33ca7c6e1bd398ede3f2c2ccd948e2e308097f30cc0c07575513c1b6f99c1862",
+    "encoded_size": 800475,
+    "encoder_strategy": "lazy_greedy",
+    "archive": {
+      "source_size": 127500736,
+      "output_size": 127500736,
+      "padding_size": 5,
+      "borrowed_preceding_zero_slack": 201136,
+      "offset_reread_exact": true
+    },
+    "outputs": {
+      "slps": {
+        "size": 3471624,
+        "sha256": "1ec6afd571b18352d8f2a3c5b1d0d9a2f678c0aafc0106653e78c483eca27fa1"
+      },
+      "vt1": {
+        "size": 127500736,
+        "sha256": "6a4dfcee2618603aee4e779ecdf24a420a08aeaa70bfe760310fac0322f17a62"
+      }
+    }
+  },
+  "embedded_ui_renderer_coverage": {
+    "unique_entry_count": 93,
+    "literal_character_count": 491,
+    "unique_literal_character_count": 216,
+    "missing_renderer_character_count": 0,
+    "missing_renderer_occurrence_count": 0,
+    "selected_font_han_count": 179,
+    "original_font_han_count": 0
+  },
+  "base_ui_p2_components": {
+    "slps": {
+      "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
+      "sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22",
+      "exact": true
+    },
+    "vt1": {
+      "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
+      "sha256": "636246a0611517c35419cbbc2aee73b6d1af91a2b337b68ba630828f74cbfcbc",
+      "exact": true
+    }
+  },
+  "acceptance": {
+    "proposal_reproduced_exact": true,
+    "readiness_reproduced_exact": true,
+    "base_ui_p2_components_unchanged": true,
+    "assignment_counts_exact": true,
+    "glyph_preimages_and_rasters_exact": true,
+    "codec_round_trip_exact": true,
+    "archive_size_preserved": true,
+    "offset_reread_exact": true,
+    "embedded_ui_renderer_missing_character_count_zero": true,
+    "embedded_ui_original_font_han_count_zero": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "The component adds seven renderer allocations and four rerasterized existing Han glyphs. The exact combined font and five embedded-menu routes remain runtime pending."
+  },
+  "allocation_policy": {
+    "mode": "valid-sjis-then-raw-standard-trail-gaps",
+    "raw_standard_trails": [
+      "7F",
+      "FD",
+      "FE",
+      "FF"
+    ],
+    "instruction_windows": [
+      {
+        "name": "two-byte-measurement-consumes-unchecked-trail",
+        "virtual_address": "0x00139BE8",
+        "file_offset": 243304,
+        "size": 32,
+        "sha256": "225b820d0637e9cf7b15f6d79b61c0497744c20d11f0f7a563c86ae4796b59b2"
+      },
+      {
+        "name": "standard-glyph-resolver-uses-low-byte-directly",
+        "virtual_address": "0x0013A968",
+        "file_offset": 246760,
+        "size": 40,
+        "sha256": "fe8955a7ef6efb818424fdd89b421e95074535d460d8232c00a8244bbdf75bb4"
+      }
+    ],
+    "runtime_precedent": {
+      "character": "试",
+      "code": "987F",
+      "glyph_index": 4479,
+      "static_manifest": "manifests/static-canary-validation.json",
+      "static_sha256": "c264e515d09e8d360628d3b7e3c3d58e2ccea2833e632b24011f5c5550d921cc",
+      "runtime_manifest": "manifests/canary-iso-validation.json",
+      "runtime_sha256": "fd391150af647538576c770c78bee3092dc0d1b3673868cb23714099f5f5146a",
+      "runtime_bytes_exact": true,
+      "characters_visible": true
+    },
+    "classification": "Instruction windows prove formula addressability for all listed trail gaps. Runtime evidence exists for 0x7F only; the combined P1 component and every additional trail class remain runtime pending."
+  }
+}

@@ -1,4 +1,4 @@
-"""Compose the P2 UI core, first-five story and localized atlas suite."""
+"""Compose a validated UI core and first-five story, optionally with atlases."""
 
 from __future__ import annotations
 
@@ -140,7 +140,7 @@ def build_ui_test_candidate(
     project_root: Path,
     config_path: Path,
 ) -> tuple[dict[str, bytes], dict]:
-    """Return the seven-member integrated UI and first-five test candidate."""
+    """Return an integrated UI and first-five test candidate."""
 
     root = project_root.resolve()
     config_path = config_path.resolve()
@@ -161,42 +161,64 @@ def build_ui_test_candidate(
     components = config.get("components")
     if not isinstance(components, dict):
         raise UiTestCandidateError("UI test candidate components are missing")
-    p2_reference = components.get("ui_p2_core")
+    ui_reference = components.get("ui_p2_core")
     atlas_reference = components.get("atlas_suite")
     story_reference = components.get("first_five_story")
     if not all(
         isinstance(reference, dict)
-        for reference in (p2_reference, atlas_reference, story_reference)
+        for reference in (ui_reference, story_reference)
+    ) or (
+        atlas_reference is not None
+        and not isinstance(atlas_reference, dict)
     ):
         raise UiTestCandidateError("UI test candidate component references are incomplete")
-    ui_component_id = p2_reference.get("component_id", "ui-p2-core")
+    ui_component_id = ui_reference.get("component_id", "ui-p2-core")
     if not isinstance(ui_component_id, str) or not ui_component_id:
         raise UiTestCandidateError("UI core component ID is invalid")
 
-    p2_manifest_path, p2_manifest = _verify_json_reference(
+    ui_manifest_path, ui_manifest = _verify_json_reference(
         root,
-        p2_reference["manifest"],
-        label="P2 UI core manifest",
-    )
-    atlas_manifest_path, atlas_manifest = _verify_json_reference(
-        root,
-        atlas_reference["manifest"],
-        label="atlas suite manifest",
+        ui_reference["manifest"],
+        label="UI core manifest",
     )
     story_manifest_path, story_manifest = _verify_json_reference(
         root,
         story_reference["manifest"],
         label="first-five manifest",
     )
+    atlas_manifest_path = None
+    atlas_manifest = None
+    if atlas_reference is not None:
+        atlas_manifest_path, atlas_manifest = _verify_json_reference(
+            root,
+            atlas_reference["manifest"],
+            label="atlas suite manifest",
+        )
 
     output_payloads: dict[str, bytes] = {}
     output_reports = {}
     source_reports = []
-    for component_id, reference, manifest, manifest_path in (
-        (ui_component_id, p2_reference, p2_manifest, p2_manifest_path),
-        ("ui-atlas-suite-zh", atlas_reference, atlas_manifest, atlas_manifest_path),
-        ("first-five-story", story_reference, story_manifest, story_manifest_path),
-    ):
+    component_specs = [
+        (ui_component_id, ui_reference, ui_manifest, ui_manifest_path),
+    ]
+    if atlas_reference is not None:
+        component_specs.append(
+            (
+                "ui-atlas-suite-zh",
+                atlas_reference,
+                atlas_manifest,
+                atlas_manifest_path,
+            )
+        )
+    component_specs.append(
+        (
+            "first-five-story",
+            story_reference,
+            story_manifest,
+            story_manifest_path,
+        )
+    )
+    for component_id, reference, manifest, manifest_path in component_specs:
         manifest_reference = reference["manifest"]
         runtime_status = _manifest_field(
             manifest,
@@ -294,8 +316,13 @@ def build_ui_test_candidate(
         raise UiTestCandidateError("configured UI core must own the final font")
     if composition.get("story_data_owner") != "first-five-story":
         raise UiTestCandidateError("first-five story must own HB and STAGE")
-    if composition.get("atlas_owner") != "ui-atlas-suite-zh":
-        raise UiTestCandidateError("atlas suite must own KVMDATA")
+    if atlas_reference is not None:
+        if composition.get("atlas_owner") != "ui-atlas-suite-zh":
+            raise UiTestCandidateError("atlas suite must own KVMDATA")
+    elif composition.get("atlas_owner") is not None:
+        raise UiTestCandidateError(
+            "atlas-free candidate must not declare an atlas owner"
+        )
 
     expected_outputs = config.get("expected_outputs")
     if not isinstance(expected_outputs, dict):
@@ -319,9 +346,12 @@ def build_ui_test_candidate(
         "member_ownership_disjoint": len(output_payloads) == len(actual_members),
         ui_owner_acceptance_key: True,
         "first_five_owns_story_archives": True,
-        "atlas_suite_owns_kvmdata": True,
         "all_output_locks_exact": actual_outputs == expected_outputs,
     }
+    if atlas_reference is not None:
+        acceptance["atlas_suite_owns_kvmdata"] = True
+    else:
+        acceptance["atlas_component_excluded"] = True
     if not all(acceptance.values()):
         raise UiTestCandidateError(
             f"UI test candidate acceptance failed: {acceptance}"
@@ -370,15 +400,26 @@ def build_ui_test_candidate(
         "runtime": {
             "status": "not_tested",
             "purpose": runtime_purpose,
-            "isolated_atlas_mapping_profiles_remain_required": True,
+            "isolated_atlas_mapping_profiles_remain_required": (
+                atlas_reference is not None
+            ),
             "required_scene_families": config.get("runtime", {}).get(
                 "required_scene_families",
                 [],
             ),
             "promotion_rule": (
-                "This integrated candidate may prove combined boot and visual "
-                "coverage, but isolated atlas receipts remain necessary for "
-                "member/chunk scene attribution."
+                (
+                    "This integrated candidate may prove combined boot and "
+                    "visual coverage, but isolated atlas receipts remain "
+                    "necessary for member/chunk scene attribution."
+                )
+                if atlas_reference is not None
+                else (
+                    "Fresh-process boot evidence does not prove either "
+                    "default-name propagation, edited-name propagation or "
+                    "first-five visual acceptance; each route remains a "
+                    "separate manual gate."
+                )
             ),
         },
     }

@@ -6,22 +6,22 @@
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p2-display-names-font.json",
-      "sha256": "c35851dc741dd39be9ccf62ff631a1559f1b937209b14d63a60094abb63339f2"
+      "sha256": "fd1e94570bbcecf8b77988a0ee68136bdde74654c7474abccab954b2c6c39510"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p2-display-name-allocations.json",
-      "sha256": "a615ba85a3e77cd5f10d721b6adf343e120830564969a962ec602b1f36dbc61e"
+      "sha256": "35cf90a43df31226702d26cf2eb6ce5c33de2efb58af38366e2d3e005db4b2cf"
     },
     "display_name_selection": {
       "kind": "display_name_coverage",
       "selection_id": "srwz-display-names-researched-v1",
       "config": {
         "path": "config/display-names/researched-coverage.json",
-        "sha256": "dc394660ed492409cb1a53a6ec952fc4776f4bc26ca99199035e52f89aa7f1f1"
+        "sha256": "20bec4b8a79d212165e55ff8831eef8e19ba1807db7538bc781b8b47f5b9b347"
       },
       "manifest": {
         "path": "manifests/display-name-researched-coverage.json",
-        "sha256": "e6739b55170e96a8bf86433054f91446b88987ac69f7b709ffb1db82e53c2973",
+        "sha256": "e68851488a4d28e7c4ab867c522c9cc663dd9bb02a991acbef0d09194ec229be",
         "status": "researched_selection_ready"
       },
       "surface_ids": [
@@ -31,19 +31,19 @@
       "selection_sha256": "73a4105b62fdd69986c605228d538bf6a722f38d64881164f0d4e0f345d450f2",
       "baseline_scene_inventory": {
         "path": "config/ui-scenes.json",
-        "sha256": "8728314e98343cb6abc72d65059515b120ab42bd01046116bbe95e55191152bb",
+        "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
         "inventory_id": "srwz-ui-scenes-v1"
       }
     },
     "base_proposal": {
       "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-      "sha256": "e7f926a65a6feed63da02eb19ecabd9e9a1ba510740bb8477b4b244d5abc938c",
+      "sha256": "30b01d0e5b78ab2d0931cd313de48558eb1f6fbad27938795fe121c6f20496c6",
       "proposal_id": "srwz-ui-p1-world-history-unified-font-v1",
       "assignment_count": 1548
     },
     "base_validation_manifest": {
       "path": "manifests/ui-p1-summary-font-validation.json",
-      "sha256": "2f5a7ce582f6760f0c9f29bf6087b53c7873f57234c7f76b8c78bfa99d59ef04"
+      "sha256": "d8d198f644991249759ca4e781c452c7069ffe879f193010ddc35b4c5a31315c"
     }
   },
   "capacity": {
@@ -57,60 +57,62 @@
     "remaining_candidate_slot_count": 19
   },
   "additional_allocations": {
-    "count": 33,
-    "characters": "afhru伦佛侣凤凯勒妮姬娅岛庆惠户杰滨琪艾苏莎菲萝谦贾赛赞钢钱阳",
+    "count": 28,
+    "characters": "伦佛侣凤凯勒妮姬娅岛庆惠户杰滨琪艾苏莎菲萝谦贾赛赞钢钱阳",
     "appended_character_count": 29,
     "appended_characters": "afhru伦佛侣凤凯勒妮姬岛庆惠户滨琪苏莎菲萝谦赛赞钢钱阳",
+    "retired_appended_character_count": 5,
+    "retired_appended_characters": "afhru",
     "reactivated_character_count": 4,
     "reactivated_characters": "娅杰艾贾",
-    "blank_preimage_count": 32,
-    "raw_standard_trail_gap_count": 29
+    "blank_preimage_count": 27,
+    "raw_standard_trail_gap_count": 24
   },
   "additional_reraster_existing_han": {
     "count": 29,
     "characters": "丈乙亨僧医吾咲塞奈媚弁彩志枝桑洛温琉琳穆耶芙茜茨荷薇裁隆隼"
   },
   "combined_assignments": {
-    "allocation_assignment_count": 713,
+    "allocation_assignment_count": 708,
     "reraster_existing_assignment_count": 897,
-    "font_assignment_count": 1610
+    "font_assignment_count": 1605
   },
   "proposal": {
     "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
-    "sha256": "1a586ce5930a04e5f1b2609d5eded9dea4879e580b75c478576bbca623eb8d60"
+    "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b"
   },
   "readiness": {
     "path": "work/writeback/ui-p2-display-name-font-readiness.json",
-    "sha256": "fddfebd1cfc64e6b0241460884b55c64cb15eb86cfc452b470ff59e49f1acecf"
+    "sha256": "b8ae3db358a0ac3d3791dfcc45bd3ec08fc2fa4f582afbcdea5739b455c0a757"
   },
   "font_component": {
     "report": "work/build/ui-p2-display-name-font/components/font-validation.json",
-    "report_sha256": "7c3494ccd6eef8f900acc7ab3fe66f2c41986d0a20efbd0cdae2ef8a69b452ae",
-    "assignment_count": 1610,
-    "allocation_assignment_count": 713,
+    "report_sha256": "d9964ea8f923b074b404ab385ca80ca3ec002777a60e85425647414fb13616f6",
+    "assignment_count": 1605,
+    "allocation_assignment_count": 708,
     "reraster_existing_assignment_count": 897,
-    "changed_glyph_count": 1609,
+    "changed_glyph_count": 1604,
     "unchanged_assignment_count": 1,
-    "built_raster_hash_exact_count": 1610,
+    "built_raster_hash_exact_count": 1605,
     "decoded_size": 1290240,
-    "decoded_sha256": "c70ee36a6094a08769692367e48040b0912bf767d0691e3cc6fe9411a94ffa26",
-    "encoded_size": 799556,
+    "decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
+    "encoded_size": 799291,
     "encoder_strategy": "lazy_greedy",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
-      "padding_size": 12,
-      "borrowed_preceding_zero_slack": 200224,
+      "padding_size": 5,
+      "borrowed_preceding_zero_slack": 199952,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "f80d8167cde3da6f7cbaea495778a76e4140cf976787ccf0561f4dc879edd44d"
+        "sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "67737d0437d2deee6dd0a980dfd581d48c69599a2143bc2df3d553744f9677c9"
+        "sha256": "636246a0611517c35419cbbc2aee73b6d1af91a2b337b68ba630828f74cbfcbc"
       }
     }
   },

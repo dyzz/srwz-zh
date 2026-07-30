@@ -10,7 +10,7 @@ from tools.srwz.codec import (
     read_coded_integer,
     reencode_changed_suffix,
 )
-from tools.srwz.codec_contract import SrwzCodecError
+from tools.srwz.codec_contract import SrwzCodecError, SrwzEncodeError
 
 
 def coded_integer(value):
@@ -235,6 +235,81 @@ class EncodeTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual(decode(first).output, source)
 
+    def test_size_constrained_compacts_extended_distance_seed(self):
+        source = b"ABCD" + bytes(range(5, 205)) + b"ABCD"
+        baseline = encode(
+            source,
+            strategy="greedy",
+            min_match_length=4,
+        )
+        optimized = encode(
+            source,
+            strategy="size-constrained",
+            min_match_length=4,
+        )
+        self.assertEqual(decode(baseline).output, source)
+        self.assertEqual(decode(optimized).output, source)
+        self.assertEqual(len(baseline) - len(optimized), 1)
+
+    def test_maximum_strategy_is_deterministic_and_game_compatible(self):
+        source = (
+            b"PPPPPPPPDEBAFAABBBECCEECCCACBEFDBACADADBBCAEAEEBE"
+            b"ACCCADCAACAEFAAAABBEDBADFBBFAAABBEDBADAABBEDBADAEE"
+            b"BEACCCAEEBEACCCFBBFAADCAACAEFAACCEECCACADADBBCAE"
+        )
+        baseline = encode(
+            source,
+            strategy="size-constrained",
+            min_match_length=2,
+            max_match_chain=64,
+        )
+        first = encode(
+            source,
+            strategy="maximum",
+            min_match_length=2,
+            max_match_chain=64,
+        )
+        second = encode(
+            source,
+            strategy="maximum",
+            min_match_length=2,
+            max_match_chain=64,
+        )
+        events = []
+        result = decode(first, trace_sink=events.append)
+        blocks = [event for event in events if event["kind"] == "block"]
+        self.assertEqual(first, second)
+        self.assertEqual(result.output, source)
+        self.assertEqual(result.consumed, len(first))
+        self.assertLessEqual(len(first), len(baseline))
+        self.assertTrue(
+            all(int(block["literal_count"]) >= 1 for block in blocks)
+        )
+        self.assertTrue(
+            all(
+                int(block["match_count"]) >= 1
+                or (
+                    int(block["output_offset"])
+                    + int(block["literal_count"])
+                    == len(source)
+                )
+                for block in blocks
+            )
+        )
+
+    def test_encoder_output_budget_fails_explicitly(self):
+        source = b"bounded output"
+        encoded = encode(source, strategy="literal")
+        with self.assertRaisesRegex(
+            SrwzEncodeError,
+            "encoded output size .* exceeds limit",
+        ):
+            encode(
+                source,
+                strategy="literal",
+                max_output_size=len(encoded) - 1,
+            )
+
     def test_greedy_round_trips_seeded_random_inputs(self):
         random_source = random.Random(0x5352575A)
         for size in (2, 3, 31, 256, 1025):
@@ -339,6 +414,26 @@ class EncodeTests(unittest.TestCase):
                 lazy_matching=True,
             ),
         )
+
+    def test_suffix_size_constrained_strategy_enforces_budget(self):
+        original = encode(b"prefix and original tail", strategy="literal")
+        modified = b"prefix and modified tail"
+        optimized = reencode_changed_suffix(
+            original,
+            modified,
+            strategy="size-constrained",
+        )
+        self.assertEqual(decode(optimized).output, modified)
+        with self.assertRaisesRegex(
+            SrwzEncodeError,
+            "encoded output size .* exceeds limit",
+        ):
+            reencode_changed_suffix(
+                original,
+                modified,
+                strategy="size-constrained",
+                max_output_size=len(optimized) - 1,
+            )
 
 
 if __name__ == "__main__":

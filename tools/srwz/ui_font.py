@@ -31,10 +31,24 @@ from .font_source import (
     verify_font_lock_files,
 )
 from .text import load_text_table
+from .ui_database_selection import (
+    UiDatabaseSelectionError,
+    audit_ui_database_selection,
+    build_database_selection_manifest,
+    select_database_entries,
+)
+from .ui_embedded_scenes import (
+    UiEmbeddedSceneError,
+    audit_ui_embedded_scenes,
+    build_embedded_scene_manifest,
+    load_embedded_scene_config,
+)
 from .ui_inventory import (
+    UiInventoryError,
     audit_entry_font,
     audit_ui_inventory,
     build_inventory_manifest,
+    expand_selector,
     expand_scene_entries,
     load_scene_config,
     rendered_characters,
@@ -304,12 +318,220 @@ def _selected_display_name_entries(
     )
 
 
+def _selected_embedded_scene_entries(
+    project_root: Path,
+    profile_document: Mapping[str, object],
+) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
+    scene_reference = profile_document.get("scene_inventory")
+    if not isinstance(scene_reference, dict):
+        raise UiFontError("UI font profile has no baseline scene inventory")
+    scene_path = _project_path(
+        project_root,
+        scene_reference.get("path"),
+    )
+    if _hash_file(scene_path) != scene_reference.get("sha256"):
+        raise UiFontError("baseline scene inventory SHA-256 drift")
+    scene_config = load_scene_config(scene_path)
+    if scene_config["inventory_id"] != scene_reference.get("inventory_id"):
+        raise UiFontError("baseline scene inventory ID drift")
+
+    reference = profile_document.get("embedded_scene_selection")
+    if not isinstance(reference, dict):
+        raise UiFontError("UI font profile has no embedded_scene_selection")
+    config_path = _project_path(project_root, reference.get("config"))
+    manifest_path = _project_path(project_root, reference.get("manifest"))
+    if _hash_file(config_path) != reference.get("config_sha256"):
+        raise UiFontError("embedded-scene selection config SHA-256 drift")
+    if _hash_file(manifest_path) != reference.get("manifest_sha256"):
+        raise UiFontError("embedded-scene selection manifest SHA-256 drift")
+
+    committed = _json_object(manifest_path)
+    if committed.get("status") != reference.get("required_status"):
+        raise UiFontError("embedded-scene selection status drift")
+    if committed.get("map_id") != reference.get("map_id"):
+        raise UiFontError("embedded-scene selection map ID drift")
+    try:
+        report = audit_ui_embedded_scenes(project_root, config_path)
+    except UiEmbeddedSceneError as error:
+        raise UiFontError(str(error)) from error
+    if committed != build_embedded_scene_manifest(report):
+        raise UiFontError("embedded-scene selection manifest is not reproducible")
+
+    expected_scene_ids = reference.get("scene_ids")
+    expected_count = reference.get("expected_entry_count")
+    required_writeback_status = reference.get("required_writeback_status")
+    if (
+        not isinstance(expected_scene_ids, list)
+        or not expected_scene_ids
+        or any(
+            not isinstance(scene_id, str) or not scene_id
+            for scene_id in expected_scene_ids
+        )
+        or len(expected_scene_ids) != len(set(expected_scene_ids))
+        or not isinstance(expected_count, int)
+        or isinstance(expected_count, bool)
+        or expected_count <= 0
+        or not isinstance(required_writeback_status, str)
+        or not required_writeback_status
+    ):
+        raise UiFontError("embedded-scene font selection is invalid")
+
+    config = load_embedded_scene_config(config_path)
+    selected_groups = [
+        group
+        for group in config["groups"]
+        if group["scene_id"] in set(expected_scene_ids)
+    ]
+    actual_scene_ids = [group["scene_id"] for group in selected_groups]
+    if actual_scene_ids != expected_scene_ids:
+        raise UiFontError("embedded-scene font group selection drift")
+    report_by_id = {
+        group["scene_id"]: group
+        for group in report["groups"]
+    }
+
+    entries: dict[str, dict] = {}
+    entry_scenes: defaultdict[str, set[str]] = defaultdict(set)
+    for group in selected_groups:
+        group_id = group["scene_id"]
+        group_report = report_by_id.get(group_id)
+        if (
+            not isinstance(group_report, dict)
+            or group_report.get("classification") != "user_facing_candidate"
+            or group_report.get("writeback_readiness", {}).get("status")
+            != required_writeback_status
+        ):
+            raise UiFontError(
+                f"embedded-scene font group is not eligible: {group_id}"
+            )
+        try:
+            selected_entries = expand_selector(
+                project_root,
+                group["selector"],
+            )
+        except UiInventoryError as error:
+            raise UiFontError(str(error)) from error
+        for entry in selected_entries:
+            entry_id = entry["id"]
+            previous = entries.setdefault(entry_id, entry)
+            if previous != entry:
+                raise UiFontError(
+                    f"embedded-scene decision differs for {entry_id}"
+                )
+            entry_scenes[entry_id].add(group_id)
+    if len(entries) != expected_count:
+        raise UiFontError(
+            "embedded-scene font entry selection drift: "
+            f"{len(entries)} != {expected_count}"
+        )
+
+    root = project_root.resolve()
+    return (
+        entries,
+        dict(entry_scenes),
+        {
+            "kind": "embedded_scene_groups",
+            "map_id": config["map_id"],
+            "config": {
+                "path": str(config_path.relative_to(root)),
+                "sha256": _hash_file(config_path),
+            },
+            "manifest": {
+                "path": str(manifest_path.relative_to(root)),
+                "sha256": _hash_file(manifest_path),
+                "status": committed["status"],
+            },
+            "required_writeback_status": required_writeback_status,
+            "scene_ids": actual_scene_ids,
+            "unique_entry_count": len(entries),
+            "selection_sha256": _selection_digest(entries),
+            "baseline_scene_inventory": {
+                "path": str(scene_path.relative_to(root)),
+                "sha256": _hash_file(scene_path),
+                "inventory_id": scene_config["inventory_id"],
+            },
+        },
+    )
+
+
+def _selected_database_entries(
+    project_root: Path,
+    profile_document: Mapping[str, object],
+) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
+    reference = profile_document.get("database_selection")
+    if not isinstance(reference, dict):
+        raise UiFontError("UI font profile has no database_selection")
+    config_path = _project_path(project_root, reference.get("config"))
+    manifest_path = _project_path(project_root, reference.get("manifest"))
+    if _hash_file(config_path) != reference.get("config_sha256"):
+        raise UiFontError("database selection config SHA-256 drift")
+    if _hash_file(manifest_path) != reference.get("manifest_sha256"):
+        raise UiFontError("database selection manifest SHA-256 drift")
+    committed = _json_object(manifest_path)
+    if (
+        committed.get("status") != reference.get("required_status")
+        or committed.get("selection_id") != reference.get("selection_id")
+    ):
+        raise UiFontError("database selection manifest identity drift")
+    try:
+        report = audit_ui_database_selection(project_root, config_path)
+        entries, entry_scenes, _metadata = select_database_entries(
+            project_root,
+            config_path,
+        )
+    except UiDatabaseSelectionError as error:
+        raise UiFontError(str(error)) from error
+    if committed != build_database_selection_manifest(report):
+        raise UiFontError("database selection manifest is not reproducible")
+    expected_count = reference.get("expected_entry_count")
+    if (
+        not isinstance(expected_count, int)
+        or isinstance(expected_count, bool)
+        or len(entries) != expected_count
+    ):
+        raise UiFontError("database font entry selection drift")
+    root = project_root.resolve()
+    return (
+        entries,
+        entry_scenes,
+        {
+            "kind": "database_fixed_subset",
+            "selection_id": report["selection_id"],
+            "config": {
+                "path": str(config_path.relative_to(root)),
+                "sha256": _hash_file(config_path),
+            },
+            "manifest": {
+                "path": str(manifest_path.relative_to(root)),
+                "sha256": _hash_file(manifest_path),
+                "status": committed["status"],
+            },
+            "parent_scene": report["inputs"]["parent_scene"],
+            "families": report["selection"]["families"],
+            "unique_entry_count": len(entries),
+            "selection_sha256": report["selection"][
+                "selected_decisions_sha256"
+            ],
+        },
+    )
+
+
 def _selected_font_entries(
     project_root: Path,
     profile_document: Mapping[str, object],
 ) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
     if "display_name_selection" in profile_document:
         return _selected_display_name_entries(
+            project_root,
+            profile_document,
+        )
+    if "embedded_scene_selection" in profile_document:
+        return _selected_embedded_scene_entries(
+            project_root,
+            profile_document,
+        )
+    if "database_selection" in profile_document:
+        return _selected_database_entries(
             project_root,
             profile_document,
         )
@@ -747,10 +969,16 @@ def build_ui_font_proposal(
     )
     demand = audit_entry_font(entries.values(), font_baseline)
     appended = tuple(registry["appended_characters"])
+    retired_appended = set(registry["retired_appended_characters"])
+    active_appended = tuple(
+        character
+        for character in appended
+        if character not in retired_appended
+    )
     allocation_demand = tuple(demand["missing_characters"])
     if (
-        tuple(sorted((*appended, *reactivated))) != allocation_demand
-        or set(appended) & set(reactivated)
+        tuple(sorted((*active_appended, *reactivated))) != allocation_demand
+        or set(active_appended) & set(reactivated)
     ):
         raise UiFontError(
             "UI allocation registry must append or reactivate every missing "
@@ -972,7 +1200,7 @@ def build_ui_font_proposal(
         base_proposal["allocation_registry"]["active_character_count"]
         + len(appended)
         + len(reactivated)
-        - len(registry["retired_appended_characters"])
+        - len(retired_appended)
     )
     proposal = {
         "schema_version": 1,
@@ -1028,6 +1256,14 @@ def build_ui_font_proposal(
                 {
                     "appended_character_count": len(appended),
                     "appended_characters": "".join(appended),
+                    "retired_appended_character_count": len(
+                        retired_appended
+                    ),
+                    "retired_appended_characters": "".join(
+                        character
+                        for character in appended
+                        if character in retired_appended
+                    ),
                     "reactivated_character_count": len(reactivated),
                     "reactivated_characters": "".join(reactivated),
                 }
@@ -1311,6 +1547,10 @@ def audit_ui_font_candidate(
             (
                 "display_name_selection"
                 if "display_name_selection" in document
+                else "embedded_scene_selection"
+                if "embedded_scene_selection" in document
+                else "database_selection"
+                if "database_selection" in document
                 else "scene_selection"
             ): selection,
             "base_proposal": expected_proposal["base_proposal"],
