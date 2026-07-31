@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "layout_id": "srwz-ui-p10-database-fixed-core-offline-layout-v1",
-  "scope": "Reread all 402 selected P10 database strings from the exact candidate members, compare localized line widths and counts with conservative envelopes observed in the original strings, verify the final 24x24 glyph rasters, and render deterministic local review pages. This is an offline gate and does not replace PCSX2 scene evidence.",
+  "scope": "Reread all 403 selected P10 database strings from the exact candidate members, compare localized line widths and counts with conservative envelopes observed in the original strings, verify the final 24x24 glyph rasters including the 絆-to-绊 same-code replacement, and render deterministic local review pages. This is an offline gate and does not replace PCSX2 scene evidence.",
   "candidate": {
     "config": {
       "path": "config/ui-writeback/ui-p10-database-fixed-core.json",
-      "sha256": "95181c53473bd9f0fe3b72848ca4d9f9934139a1b64afcfc12dfdfa6cbde6dfe"
+      "sha256": "cf77a2f67543f0748c46be53ea7d7ea42aa8677729ab9bc8efb88adc485c9265"
     },
     "manifest": {
       "path": "manifests/ui-p10-database-fixed-core-validation.json",
-      "sha256": "41c96c2a7151ff69d918e184ecd4bf01b473a9c3d8019a83308681ac7be31333",
+      "sha256": "18a87f42731fa597147d800e52c21b01743e7fb95d51860c25ae6a9937230094",
       "required_status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
       "required_profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
       "required_runtime_status": "not_tested"
@@ -32,7 +32,7 @@
       },
       {
         "runtime_scene_id": "database/spirit-commands-core",
-        "expected_entry_count": 144,
+        "expected_entry_count": 145,
         "expected_source_max_line_cells": 28,
         "expected_source_max_line_count": 2
       },
@@ -56,19 +56,19 @@
   },
   "ratchet": {
     "family_count": 4,
-    "entry_count": 402,
-    "source_readback_count": 402,
-    "target_readback_count": 402,
+    "entry_count": 403,
+    "source_readback_count": 403,
+    "target_readback_count": 403,
     "line_width_overflow_count": 0,
     "line_count_overflow_count": 0,
-    "literal_character_count": 512,
+    "literal_character_count": 513,
     "missing_glyph_character_count": 0,
     "empty_glyph_character_count": 0,
-    "target_han_character_count": 444,
+    "target_han_character_count": 445,
     "original_font_han_character_count": 0,
     "han_raster_mismatch_count": 0,
     "preview_page_count": 10,
-    "preview_entry_count": 402
+    "preview_entry_count": 403
   },
   "outputs": {
     "report": "work/review/ui-p10-database-layout/layout-validation.json",

@@ -2,9 +2,6 @@
   "schema_version": 2,
   "profile_id": "ui-p1-core",
   "runtime_evidence_manifest": "manifests/ui-p1-core-runtime-validation.json",
-  "runtime_evidence": {
-    "boot_smoke_report": "work/runtime/iso-incremental/12-ui-p1-core-rust-fixed-span/boot-smoke.json"
-  },
   "source_iso": {
     "path": "rom/srwz.iso",
     "size": 3758358528,
@@ -56,25 +53,25 @@
       "member": "SLPS_258.87",
       "source": "work/build/ui-p1-core/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "4ef7b663dfb76144fdda109824c244cdd5cabf34e57cf7eb377da6ea44a42024"
+      "sha256": "47181384fc69b936870187474759576b77df1af71598a8744e3142d53e426fa5"
     },
     {
       "member": "DATA/COMPDATA.BN",
       "source": "work/build/ui-p1-core/components/DATA/COMPDATA.BN",
-      "size": 143493,
-      "sha256": "3178915d69a2ebd5f9d785bd08b6a1f49270f4406bc071dc558f46b64bd44529"
+      "size": 143952,
+      "sha256": "89c3c13b0de52d4241a7b186f6e4a0a92afdb83a95d49ca3f0b0f26422b4178a"
     },
     {
       "member": "DATA/MTV_PROS.BIN",
       "source": "work/build/ui-p1-core/components/DATA/MTV_PROS.BIN",
-      "size": 8640,
-      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      "size": 8368,
+      "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
     },
     {
       "member": "DATA/VT1.BIN",
       "source": "work/build/ui-p1-core/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "ba63968a2ef7bd424e965d648df2bd6a2f1edc28fc61430473fdc4644e556ec5"
+      "sha256": "f453330b15026196353088a1362e2865ad671d8e57aa3c8da29500af2327ef15"
     }
   ],
   "output": {
@@ -85,8 +82,8 @@
     "expected_udf_volume_recognition_sequence": "NSR02",
     "byte_reproducible": true,
     "expected_size": 3758358528,
-    "expected_sha256": "69771b8dfa5800d3ce6652436d3cbad24ed71e5d83b4c5dc12b8ed0c3ae33854",
-    "expected_member_manifest_sha256": "f8bde4cbeeb8c0f37b611052c32375b416e042c4be385a2ead2f5a4717120857"
+    "expected_sha256": "6e691c194d02443b31f2f68998c806a13b23dbda6b3e46ed0784c55ecc252041",
+    "expected_member_manifest_sha256": "0b63c13a9ca40163f2bbcdff2be8a8293e21f37d099a836e3eb1d7dcec13ed33"
   },
   "acceptance": {
     "member_paths_exact": true,

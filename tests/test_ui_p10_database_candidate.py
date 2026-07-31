@@ -44,16 +44,22 @@ class UiP10DatabaseCandidateTests(unittest.TestCase):
             )
             self.assertEqual(path.read_bytes(), payload)
 
-    def test_all_402_entries_are_fixed_span_and_reread(self):
+    def test_all_403_entries_are_fixed_span_and_reread(self):
         selection = self.manifest["selection"]
-        self.assertEqual(selection["entry_count"], 402)
-        self.assertEqual(selection["slps_entry_count"], 232)
+        self.assertEqual(selection["entry_count"], 403)
+        self.assertEqual(selection["slps_entry_count"], 233)
         self.assertEqual(selection["compdata_entry_count"], 170)
         self.assertEqual(
             self.manifest["ratchet"]["actual"][
                 "fixed_covered_entry_count"
             ],
-            402,
+            403,
+        )
+        self.assertEqual(
+            self.manifest["ratchet"]["actual"][
+                "font_semantic_replacement_count"
+            ],
+            1,
         )
         self.assertEqual(
             self.manifest["ratchet"]["actual"]["excluded_entry_count"],
@@ -78,16 +84,21 @@ class UiP10DatabaseCandidateTests(unittest.TestCase):
             composition["compdata_compressed_common_prefix"],
             113266,
         )
+        codec = composition["compdata_codec"]
+        self.assertEqual(codec["strategy"], "rust-maximum")
+        self.assertEqual(codec["maximum_output_size"], 145408)
+        self.assertTrue(codec["within_sector_budget"])
+        self.assertGreaterEqual(codec["budget_headroom"], 0)
         self.assertTrue(all(self.manifest["acceptance"].values()))
 
     def test_output_locks_and_runtime_boundary_are_explicit(self):
         self.assertEqual(
             self.manifest["outputs"]["slps"]["sha256"],
-            "5eae555d6ec6287ac1ede7c0d27b9a3482eacff89a2bab092c2c7c50e434542f",
+            "c5ab62a6e530118805a2025d2598872838012ae6d0c7fab023c4722eb6433cc0",
         )
         self.assertEqual(
             self.manifest["outputs"]["compdata"]["sha256"],
-            "102b5f2e97bd7143e1d820c1b2a62c73dc41f274a44394103c3b5c547bfa6d62",
+            "d91e38bd0ede4520362ae1e08047887623e5c0586e3224d4ba8d19a39615d8f2",
         )
         self.assertEqual(self.manifest["runtime"]["status"], "not_tested")
         self.assertEqual(

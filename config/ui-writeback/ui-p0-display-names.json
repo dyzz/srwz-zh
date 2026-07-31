@@ -39,14 +39,14 @@
   ],
   "base_component": {
     "config": "config/ui-writeback/ui-p0-compdata-fixed.json",
-    "config_sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43",
+    "config_sha256": "35af6297e4ba2cde318a0466116afc59a003960bc41ce000f3c47992f1619e59",
     "manifest": "manifests/ui-p0-fixed-compdata-validation.json",
-    "manifest_sha256": "6fcadb76f10aa866465c382d171f1a596824c1357750a1ed01d199eb0f4f3bf8",
-    "output_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d"
+    "manifest_sha256": "b23e9daf19be2a5e11d32aa5cce367d027f88fcde45414768a57e49e4763984a",
+    "output_sha256": "9933127220837966ff5c4cb06f1a10a15e78225a02d846250c7b3b4e8a156eeb"
   },
   "font_candidate": {
     "manifest": "manifests/ui-p0-font-validation.json",
-    "sha256": "1626b56025b3863c997ce6fdccf7196d8b26bdd9031d50d08ebee9e091d67591"
+    "sha256": "2e3ef59510b93dbbe65793df81fe7962aa7f5d97f4c991a0ab064f98224474f4"
   },
   "base_codebook": {
     "path": "config/encoding/codebook.json",
@@ -62,7 +62,7 @@
   },
   "codec": {
     "mode": "preserve-base-prefix-reencode-suffix",
-    "strategy": "maximum",
+    "strategy": "rust-maximum",
     "min_match_length": 2,
     "max_match_chain": 65535,
     "lazy_matching": true,

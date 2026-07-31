@@ -53,7 +53,7 @@ class UiP9TestCandidateTests(unittest.TestCase):
         )
         self.assertEqual(
             outputs["SLPS_258.87"]["sha256"],
-            "51adcd5c79f422924743d758eaab77cc46d939e7c1272f88dcd614eb2c704657",
+            "1087ebc84d5268ad31dcec61673f3ba06b3ee497effb0e4d019bab2866be740c",
         )
         self.assertEqual(
             self.manifest["composition"]["font_owner"],

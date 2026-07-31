@@ -45,11 +45,7 @@
     "shift_segments": [
       {
         "first_member": "DATA/NISVDATA.BIN",
-        "shift_sectors": 7
-      },
-      {
-        "first_member": "DATA/STAGE.BIN",
-        "shift_sectors": 42
+        "shift_sectors": 0
       }
     ],
     "preserve_original_gaps": true,
@@ -60,37 +56,37 @@
       "member": "SLPS_258.87",
       "source": "work/build/ui-p3-fresh-boot-first-five-atlas-test/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "bdc5c1567556933923bd976cc83b047a4645edbd23fa9925a1c57a455002111e"
+      "sha256": "84c19cba14cc9583bfd49b8105149684b445231691a4ec736ffb4d788b0568f0"
     },
     {
       "member": "DATA/COMPDATA.BN",
       "source": "work/build/ui-p3-fresh-boot-first-five-atlas-test/components/DATA/COMPDATA.BN",
-      "size": 159688,
-      "sha256": "32a5d9c70d3b156f5a756d59d97571fce90e9188f9ff1f87e41ee79aebd48c14"
+      "size": 144485,
+      "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
     },
     {
       "member": "DATA/MTV_PROS.BIN",
       "source": "work/build/ui-p3-fresh-boot-first-five-atlas-test/components/DATA/MTV_PROS.BIN",
-      "size": 8640,
-      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      "size": 8368,
+      "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
     },
     {
       "member": "DATA/VT1.BIN",
       "source": "work/build/ui-p3-fresh-boot-first-five-atlas-test/components/DATA/VT1.BIN",
-      "size": 127573504,
-      "sha256": "9917aad4825731e0ba13f43b175a8a6a043373202143432349ae9b237a83c7f0"
+      "size": 127500736,
+      "sha256": "a024a5ad026074ae37ccd3bbe84ade2ba0160cb1194daa80ad7101ce7d0646ca"
     },
     {
       "member": "DATA/STAGE.BIN",
       "source": "work/build/ui-p3-fresh-boot-first-five-atlas-test/components/DATA/STAGE.BIN",
-      "size": 3910272,
-      "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
+      "size": 3910128,
+      "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff"
     },
     {
       "member": "HEDBDY/HB.BIN",
       "source": "work/build/ui-p3-fresh-boot-first-five-atlas-test/components/HEDBDY/HB.BIN",
       "size": 31152,
-      "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9"
+      "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21"
     },
     {
       "member": "KURODATA/KVMDATA.BIN",
@@ -106,9 +102,9 @@
     "expected_pcsx2_v263_image_type": "DVD",
     "expected_udf_volume_recognition_sequence": "NSR02",
     "byte_reproducible": true,
-    "expected_size": 3758456832,
-    "expected_sha256": "f16814461b353aae054a5e8634bf6c28d247d8bee2eee31a73e64e24b618d47b",
-    "expected_member_manifest_sha256": "03168cd870844f80466e0f06953e703c89a66668b44bcd794233adcd39b94bf0"
+    "expected_size": 3758358528,
+    "expected_sha256": "78e5b17847f348cf0d084491ae67e15ef03e3207963b989ca8f0f642525efc92",
+    "expected_member_manifest_sha256": "204e3780a009673eb84d13bacacca252643ec8e8891debd3c21a17f9299cb528"
   },
   "acceptance": {
     "member_paths_exact": true,

@@ -7,8 +7,8 @@
   "inputs": {
     "config": {
       "path": "config/ui-integration/p8-remaining-user-facing-first-five-atlas-test.json",
-      "size": 7449,
-      "sha256": "00aeb871b72b5785e66ab1037ddf2d816fd916b4a21da369600b4bc07a91c882"
+      "size": 7424,
+      "sha256": "f66bc0878760a10c04661cd454e3f77b13b339387cdae992154550f9b8c28fcb"
     },
     "components": [
       {
@@ -16,7 +16,7 @@
         "manifest": {
           "path": "manifests/ui-p8-remaining-user-facing-validation.json",
           "size": 12684,
-          "sha256": "a4701efb40fedd855a15404dd422f3e1d48708d36b86e1c1a7aa381a13b3da7d"
+          "sha256": "8686fffc9251c710e54601f2f10dc2b95aa7960034a94c2af3d785b824026811"
         },
         "profile_id": "srwz-ui-p8-remaining-user-facing-integrated-v1",
         "status": "integrated_ui_p8_remaining_user_facing_component_validated_iso_runtime_pending",
@@ -45,12 +45,12 @@
       {
         "component_id": "first-five-story",
         "manifest": {
-          "path": "manifests/first-five-validation.json",
-          "size": 13504,
-          "sha256": "4a12751a407563b452d284fcfb127453aa23d27c8b03d1000e494c95be2153b7"
+          "path": "manifests/first-five-rust-validation.json",
+          "size": 3272,
+          "sha256": "c5662c05559dd1cf0f61d4c3b22f11d05d12fe474897c59355d23113b0f1880a"
         },
-        "profile_id": "first-five",
-        "status": "static_and_renderer_coverage_passed_runtime_pending",
+        "profile_id": "first-five-rust",
+        "status": "static_first_five_rust_component_validated_runtime_pending",
         "members": [
           "HEDBDY/HB.BIN",
           "DATA/STAGE.BIN"
@@ -80,12 +80,12 @@
     "SLPS_258.87": {
       "path": "work/build/ui-p8-remaining-user-facing-first-five-atlas-test/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "2b6e9909f50f49186079fe5908c3191b47ddafb50fe86d631fc1091945b2353d",
+      "sha256": "f8fca47ee42cc35520a3271fbe72dc06d292f864020dc01de867cfbba4823ec4",
       "owner": "ui-p8-remaining-user-facing-core",
       "source": {
         "path": "work/build/ui-p8-remaining-user-facing/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "2b6e9909f50f49186079fe5908c3191b47ddafb50fe86d631fc1091945b2353d"
+        "sha256": "f8fca47ee42cc35520a3271fbe72dc06d292f864020dc01de867cfbba4823ec4"
       },
       "manifest_output_lock_exact": true
     },
@@ -103,25 +103,25 @@
     },
     "DATA/MTV_PROS.BIN": {
       "path": "work/build/ui-p8-remaining-user-facing-first-five-atlas-test/components/DATA/MTV_PROS.BIN",
-      "size": 8640,
-      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+      "size": 8368,
+      "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617",
       "owner": "ui-p8-remaining-user-facing-core",
       "source": {
         "path": "work/build/ui-p8-remaining-user-facing/components/DATA/MTV_PROS.BIN",
-        "size": 8640,
-        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+        "size": 8368,
+        "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
       },
       "manifest_output_lock_exact": true
     },
     "DATA/VT1.BIN": {
       "path": "work/build/ui-p8-remaining-user-facing-first-five-atlas-test/components/DATA/VT1.BIN",
-      "size": 127501920,
-      "sha256": "1424eb1626b624eb637130e08a11c320e5fb39ebf40077e91cbbfe6875839fbf",
+      "size": 127501728,
+      "sha256": "3e3d3ad784feacd8e8729c44578ccbdba14dc95311c2fee276c5c6eaf6bb4873",
       "owner": "ui-p8-remaining-user-facing-core",
       "source": {
         "path": "work/build/ui-p8-remaining-user-facing/components/DATA/VT1.BIN",
-        "size": 127501920,
-        "sha256": "1424eb1626b624eb637130e08a11c320e5fb39ebf40077e91cbbfe6875839fbf"
+        "size": 127501728,
+        "sha256": "3e3d3ad784feacd8e8729c44578ccbdba14dc95311c2fee276c5c6eaf6bb4873"
       },
       "manifest_output_lock_exact": true
     },
@@ -140,24 +140,24 @@
     "HEDBDY/HB.BIN": {
       "path": "work/build/ui-p8-remaining-user-facing-first-five-atlas-test/components/HEDBDY/HB.BIN",
       "size": 31152,
-      "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9",
+      "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21",
       "owner": "first-five-story",
       "source": {
-        "path": "work/build/first-five/components/HEDBDY/HB.BIN",
+        "path": "work/build/first-five-rust/components/HEDBDY/HB.BIN",
         "size": 31152,
-        "sha256": "f37d723f1335ccde36a71594e9e64dd21d04d3b51da2abe7412affe95197e8c9"
+        "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21"
       },
       "manifest_output_lock_exact": true
     },
     "DATA/STAGE.BIN": {
       "path": "work/build/ui-p8-remaining-user-facing-first-five-atlas-test/components/DATA/STAGE.BIN",
-      "size": 3910272,
-      "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9",
+      "size": 3910128,
+      "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff",
       "owner": "first-five-story",
       "source": {
-        "path": "work/build/first-five/components/DATA/STAGE.BIN",
-        "size": 3910272,
-        "sha256": "a36b72144a00d76ad322ffd80c2924f1c55bd11c685a0e79654e5a9c25ca5cd9"
+        "path": "work/build/first-five-rust/components/DATA/STAGE.BIN",
+        "size": 3910128,
+        "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff"
       },
       "manifest_output_lock_exact": true
     }

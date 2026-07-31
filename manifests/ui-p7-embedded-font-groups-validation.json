@@ -8,7 +8,7 @@
     "config": {
       "path": "config/ui-writeback/ui-p7-embedded-font-groups-slps.json",
       "size": 5212,
-      "sha256": "3269408ce86d01cb71e0c9f746e343e0924704c1f83bd0ceb52fc7a6d9983ce5"
+      "sha256": "ef3750385a42a0f859a3740f5f8341c863703b2adf986aa379ad43cc9f16caf3"
     },
     "scene_map": {
       "config": {
@@ -19,29 +19,29 @@
       "manifest": {
         "path": "manifests/ui-embedded-scene-map.json",
         "size": 44936,
-        "sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651"
+        "sha256": "17bd76bad91988993bf2b51415b6335578686f37a7bedd2a9388014aa142b2f4"
       },
       "map_id": "srwz-ui-embedded-scenes-v1"
     },
     "readiness_baseline": {
       "writer_baseline_config": {
         "path": "config/ui-writeback/ui-p0-slps-fixed.json",
-        "sha256": "bd8237c0f9addc461a5c9752c7f49723ec03812028115c997dd3ddeb3b5b1f00"
+        "sha256": "df3bcc67505bf10c43c9442a9aa00edc3f31cc1f4845284f694054e1166f9002"
       },
       "font_manifest": {
         "path": "manifests/ui-p7-embedded-font-validation.json",
-        "sha256": "7b423cd290628f9b9fe3ea5fa0e2da2368ef939610e244b2c78b8044768bdf36",
+        "sha256": "577767062b1df3cb60162a98ecbb9ecd0320893c3d399f3f8cf423f5248d4d76",
         "status": "offline_font_and_embedded_ui_renderer_coverage_passed_runtime_pending"
       },
       "source_slps": {
         "path": "work/build/ui-p7-embedded-font/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "1ec6afd571b18352d8f2a3c5b1d0d9a2f678c0aafc0106653e78c483eca27fa1"
+        "sha256": "9cbc6d9c62a23ad6d031367fae8a973542fc0e3ad7d2b3b115dd130281a3fd44"
       },
       "source_vt1": {
         "path": "work/build/ui-p7-embedded-font/components/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "6a4dfcee2618603aee4e779ecdf24a420a08aeaa70bfe760310fac0322f17a62"
+        "sha256": "1bb60b50c052531afffd3c347b9addd375053f43ab55c817f9026a84b004a679"
       },
       "menu_descriptor": {
         "path": "vendor/upstream-python/project/menu_files.json",
@@ -57,7 +57,7 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
-        "sha256": "7d3e52dd51820dc283afe5fe9d284f3648ba082f5e8f4f6205eebd795987ddd9"
+        "sha256": "f2af222a7a71c2ce4442fdfe8a6519b75cae57932721c4eb5736fc8b8fc64563"
       },
       "override_count": 1616,
       "policy": "Every selected decision must encode with the exact P7 proposal, fit every original NUL-terminated target, close over shared owners with identical payloads, and reread exactly before composition."
@@ -66,7 +66,7 @@
       "manifest": {
         "path": "manifests/ui-p6-deployment-validation.json",
         "size": 11041,
-        "sha256": "bcd9c03e94d1938b873442a5d256d49f51b33c0d78a0597e0a66c924ddf09c55"
+        "sha256": "5f163d90275a81a8e9f12894f2c4b47a1e3b433abec2f7113e892ae789a4dd7b"
       },
       "profile_id": "srwz-ui-p6-deployment-integrated-v1",
       "status": "integrated_ui_p6_deployment_component_validated_iso_runtime_pending",
@@ -75,12 +75,12 @@
         "slps": {
           "path": "work/build/ui-p6-deployment/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "f03b1b3487afe15772973ae3d5214679fdf7d3ffbd356dfe5a3514ce2745b93d"
+          "sha256": "d9dd35b2209d05bb96d65316b601f17ea49ae1bdb4bbccefe0ecc73f76e4ff37"
         },
         "vt1": {
           "path": "work/build/ui-p6-deployment/components/DATA/VT1.BIN",
           "size": 127500736,
-          "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+          "sha256": "a024a5ad026074ae37ccd3bbe84ade2ba0160cb1194daa80ad7101ce7d0646ca"
         },
         "compdata": {
           "path": "work/build/ui-p6-deployment/components/DATA/COMPDATA.BN",
@@ -89,8 +89,8 @@
         },
         "mtv_pros": {
           "path": "work/build/ui-p6-deployment/components/DATA/MTV_PROS.BIN",
-          "size": 8640,
-          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+          "size": 8368,
+          "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
         }
       }
     }
@@ -212,7 +212,7 @@
       "payload_size": 1027,
       "owned_capacity": 1301,
       "target_metadata_sha256": "a3144913bd0b65523e834db23077ef03091b2baecca0977a7e92f4be11c43bd1",
-      "patch_plan_metadata_sha256": "0bb0cfc48768e5667a9fc8b84887cc4d580a8fd0966260a891a0bbffd2122de4",
+      "patch_plan_metadata_sha256": "f3306a535686c0f2dec6f9a805cd0a9b62aad3f797477a3c1228cc43711754c3",
       "pointer_write_count": 0,
       "pointer_bytes_unchanged": true,
       "non_target_bytes_unchanged": true,
@@ -221,48 +221,48 @@
     "component": {
       "source_size": 3471624,
       "output_size": 3471624,
-      "source_sha256": "1ec6afd571b18352d8f2a3c5b1d0d9a2f678c0aafc0106653e78c483eca27fa1",
-      "output_sha256": "1f716272d5b57ba6a805d0a43e4f18e01e49f8735ebe779ad41f4ca45f927ece",
+      "source_sha256": "9cbc6d9c62a23ad6d031367fae8a973542fc0e3ad7d2b3b115dd130281a3fd44",
+      "output_sha256": "ca7e3d66f7324f92c53041b0396958905b750658cc685c9bb3242ed0ef2e8005",
       "changed_byte_count": 969,
       "difference_range_count": 117,
       "changed_offsets_sha256": "d29680a566eb90d3132880cf2e8a41d2d1cd2a50875512b7749d2cfa1836e7d3",
-      "source_font_decoded_sha256": "33ca7c6e1bd398ede3f2c2ccd948e2e308097f30cc0c07575513c1b6f99c1862",
-      "output_font_decoded_sha256": "33ca7c6e1bd398ede3f2c2ccd948e2e308097f30cc0c07575513c1b6f99c1862",
+      "source_font_decoded_sha256": "6a20c8362f88c8ff4ac8512761d8508780597afca39168fb8e827b24bef9785a",
+      "output_font_decoded_sha256": "6a20c8362f88c8ff4ac8512761d8508780597afca39168fb8e827b24bef9785a",
       "font_decoded_unchanged": true
     },
     "changed_offsets_sha256": "d29680a566eb90d3132880cf2e8a41d2d1cd2a50875512b7749d2cfa1836e7d3"
   },
   "composition": {
-    "base_changed_byte_count": 4285,
-    "base_changed_offsets_sha256": "907d25ead1dfe6f110d202eb844ecaff176a32c747107eaf23cd3428e4287611",
+    "base_changed_byte_count": 4286,
+    "base_changed_offsets_sha256": "4c6d477c0dd19e78c22a178ff3805685bdac270c4852d12c39dc6005edbf75c4",
     "slice_changed_byte_count": 969,
     "slice_changed_offsets_sha256": "d29680a566eb90d3132880cf2e8a41d2d1cd2a50875512b7749d2cfa1836e7d3",
     "overlap_byte_count": 0,
     "base_preimage_exact_at_slice_offsets": true,
     "final_changed_from_base_byte_count": 993,
     "final_changed_from_base_offsets_sha256": "8c4ca17dcdfa71f07e9a2bd32e5db176e4aaf48164af6e088f108dd19e8db0c6",
-    "decoded_font_sha256": "33ca7c6e1bd398ede3f2c2ccd948e2e308097f30cc0c07575513c1b6f99c1862",
+    "decoded_font_sha256": "6a20c8362f88c8ff4ac8512761d8508780597afca39168fb8e827b24bef9785a",
     "font_extension": {
       "mode": "replace-vt1-and-compose-slps-offset-delta",
       "base_readiness": {
         "writer_baseline_config": {
           "path": "config/ui-writeback/ui-p0-slps-fixed.json",
-          "sha256": "bd8237c0f9addc461a5c9752c7f49723ec03812028115c997dd3ddeb3b5b1f00"
+          "sha256": "df3bcc67505bf10c43c9442a9aa00edc3f31cc1f4845284f694054e1166f9002"
         },
         "font_manifest": {
           "path": "manifests/ui-p2-display-name-font-validation.json",
-          "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc",
+          "sha256": "81394e80d9a1ff0dac17d7fd9d69b23a1b1d0ba48960da9fc7079bc45b8c441c",
           "status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
         },
         "source_slps": {
           "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22"
+          "sha256": "4334607c5c00c12062599064b4a6ace2f572e36087ea5d0a055fbab6797078a4"
         },
         "source_vt1": {
           "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
           "size": 127500736,
-          "sha256": "636246a0611517c35419cbbc2aee73b6d1af91a2b337b68ba630828f74cbfcbc"
+          "sha256": "2d541fc2a20ebac321a48c996c2ed7bba354bf24d857887cd522e2d0627f261b"
         },
         "menu_descriptor": {
           "path": "vendor/upstream-python/project/menu_files.json",
@@ -278,7 +278,7 @@
         },
         "proposal": {
           "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
-          "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b"
+          "sha256": "96acae46806a228d132c3a3518d3d96f28ac9484c6f221184a518dd18428f9f6"
         },
         "override_count": 1605,
         "policy": "A group is fixed-span ready only when every decision encodes with the exact P2 font proposal, fits every original NUL-terminated target, and closes over all shared target owners with identical payloads."
@@ -289,7 +289,7 @@
       "candidate_changed_byte_count": 993,
       "candidate_changed_offsets_sha256": "8c4ca17dcdfa71f07e9a2bd32e5db176e4aaf48164af6e088f108dd19e8db0c6",
       "font_chunk_index": 2,
-      "font_padding_size": 5,
+      "font_padding_size": 7,
       "vt1_chunk_count": 14,
       "unchanged_vt1_chunk_count": 13,
       "base_core_decoded_font_matches_scene_baseline": true
@@ -299,12 +299,12 @@
     "slps": {
       "path": "work/build/ui-p7-embedded-font-groups/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "8822c29da791295e534ba72e300e9167ded4fa95028986013d253238e4e52220"
+      "sha256": "bd745389babccc6b243833a92a4eae4b095fb01f8aac70917244b78dd1c5837a"
     },
     "vt1": {
       "path": "work/build/ui-p7-embedded-font-groups/components/DATA/VT1.BIN",
-      "size": 127501920,
-      "sha256": "1424eb1626b624eb637130e08a11c320e5fb39ebf40077e91cbbfe6875839fbf"
+      "size": 127501728,
+      "sha256": "3e3d3ad784feacd8e8729c44578ccbdba14dc95311c2fee276c5c6eaf6bb4873"
     },
     "compdata": {
       "path": "work/build/ui-p7-embedded-font-groups/components/DATA/COMPDATA.BN",
@@ -313,8 +313,8 @@
     },
     "mtv_pros": {
       "path": "work/build/ui-p7-embedded-font-groups/components/DATA/MTV_PROS.BIN",
-      "size": 8640,
-      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      "size": 8368,
+      "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
     }
   },
   "ratchet": {

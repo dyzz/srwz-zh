@@ -48,11 +48,11 @@ class UiP7TestCandidateTests(unittest.TestCase):
         )
         self.assertEqual(
             outputs["SLPS_258.87"]["sha256"],
-            "8822c29da791295e534ba72e300e9167ded4fa95028986013d253238e4e52220",
+            "bd745389babccc6b243833a92a4eae4b095fb01f8aac70917244b78dd1c5837a",
         )
         self.assertEqual(
             outputs["DATA/VT1.BIN"]["sha256"],
-            "1424eb1626b624eb637130e08a11c320e5fb39ebf40077e91cbbfe6875839fbf",
+            "3e3d3ad784feacd8e8729c44578ccbdba14dc95311c2fee276c5c6eaf6bb4873",
         )
         self.assertEqual(
             self.manifest["composition"]["font_owner"],

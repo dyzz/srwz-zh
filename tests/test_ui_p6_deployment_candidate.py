@@ -55,7 +55,7 @@ class UiP6DeploymentCandidateTests(unittest.TestCase):
         base = self.manifest["inputs"]["base_ui_core"]["outputs"]
         self.assertEqual(
             outputs["slps"]["sha256"],
-            "f03b1b3487afe15772973ae3d5214679fdf7d3ffbd356dfe5a3514ce2745b93d",
+            "d9dd35b2209d05bb96d65316b601f17ea49ae1bdb4bbccefe0ecc73f76e4ff37",
         )
         self.assertNotEqual(outputs["slps"]["sha256"], base["slps"]["sha256"])
         for name in ("vt1", "compdata", "mtv_pros"):

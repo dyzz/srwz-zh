@@ -21,6 +21,7 @@
 | `FONT_ANALYSIS.md` | VT1 字库格式、码位到 glyph 映射、P1 raw-trail 可寻址容量与运行边界 |
 | `STATIC_CANARY.md` | `本編` → `测试` 无 hook 基础与 E2 共用字体路径 |
 | `ISO_BUILD_AND_PCSX2.md` | `mkps2iso` 构建、PCSX2 和 PINE 验证 |
+| `PCSX2_RUNTIME_WORKFLOW.md` | 隔离 portable 会话、memory card、savestate 谱系、启动／停止和证据回收 |
 | `UI_COVERAGE_TEST_PLAN.md` | UI 场景清单、P0/P1 字库门槛、实施顺序和 PCSX2 路线矩阵 |
 | `ROADMAP.md` | 按游戏内容划分的正式汉化里程碑 |
 | `LESSONS_LEARNED.md` | 被证据推翻的错误判断和防复发 gate |

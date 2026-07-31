@@ -13,9 +13,12 @@
 | 全部 P0 COMPDATA 菜单（旧 greedy） | 44（41 写入、3 no-op） | 147,050 | 超 1,642 | 历史失败对照 |
 | 全部 P0 COMPDATA 菜单（size-constrained） | 44（41 写入、3 no-op） | 145,237 | 余 171 | 71 sectors；启动通过；目标画面待原生存档 |
 | 全部 P0 COMPDATA 菜单（maximum） | 44（41 写入、3 no-op） | 145,057 | 余 351 | 71 sectors；严格回解；fresh-process 启动通过、0 TLB |
-| 开场姓名 | 45 | 156,161 | 超 10,753 | 被原位容量门阻塞 |
-| researched 人物／机体名 | 1,262（连同开场共 1,307） | 144,485 | 余 923 | 已进入当前 P2 候选并通过 boot smoke |
-| P10 数据库 COMPDATA 核心 | 170 | 148,705 | 超 3,297 | 仍被原位容量门阻塞 |
+| 全部 P0 COMPDATA 菜单（当前 Rust） | 44（41 写入、3 no-op） | 145,105 | 余 303 | production；严格回解、71 sectors |
+| 开场姓名（旧 greedy） | 45 | 156,161 | 超 10,753 | 历史容量失败对照 |
+| 开场姓名（当前 Rust） | 45 | 143,952 | 余 1,456 | production 中间组件；严格回解 |
+| researched 人物／机体名（当前 Rust，连同开场） | 1,307 | 144,485 | 余 923 | 当前 P2 ISO fresh-process 启动通过、0 TLB |
+| P10 数据库 COMPDATA 核心（旧 greedy） | 170 | 148,705 | 超 3,297 | 历史容量失败对照 |
+| P10 数据库 COMPDATA 核心（当前 Rust） | 170 | 145,191 | 余 217 | production；精确 P10 ISO fresh-process 启动通过、0 TLB |
 | 开场姓名（maximum 离线测量） | 45 | 143,493 | 余 1,915 | 严格回解；下一层运行候选 |
 | researched 人物／机体名（maximum 离线测量） | 1,262（连同开场共 1,307） | 143,973 | 余 1,435 | 严格回解；P1 运行通过后再测 |
 | P10 数据库 COMPDATA 核心（maximum 离线测量） | 170 | 144,700 | 余 708 | 严格回解；前序层运行通过后再测 |
@@ -24,9 +27,10 @@
 `corpus/zh/menu/stage-names.json` 中的翻译草稿，COMPDATA 文本池尚未注册，
 不能把它们记为“已经写入但被 TLB 阻塞”。
 
-前三个“被阻塞”行保留旧 greedy 组件的历史事实；其后的 `maximum` 行是对
-完全相同 decoded payload 的新测量。体积过线只解除容量门，不自动继承 P0 的
-运行结论。晋级仍按 P1 → P2 → P10，每次只替换当前唯一 ISO 并绑定新哈希。
+旧 greedy、size-constrained 与 Python `maximum` 行保留既有测量和因果证据；
+标为“当前 Rust”的行才是 production selector。Rust 体积通过硬门后仍分别
+执行精确回解与 fresh-process 启动；boot smoke 只解除 DVD／ELF／PINE／TLB
+门，不自动证明目标页面。
 
 ## 因果实验
 
@@ -40,6 +44,8 @@
 | 纯 LBA 控制 | 原始压缩流逐字节不变，只追加 419 个零字节；72 sectors | `NisVData.bin` 起 +1 sector | PINE Paused；1 TLB |
 | 全部 P0 菜单 | 重编码 147,050 bytes／72 sectors | `NisVData.bin` 起 +1 sector | PINE Paused；1 TLB |
 | 全部 P0 菜单优化版 | 重编码 145,237 bytes／71 sectors | 全部成员原 LBA | PINE Running；0 TLB |
+| 当前 Rust P2 | 重编码 144,485 bytes／71 sectors | COMPDATA 后成员原位 | PINE Running；0 TLB |
+| 当前 Rust P10 综合候选 | 重编码 145,191 bytes／71 sectors | COMPDATA 后成员原位；另从 `STAGE.BIN` 起 `+1 sector` | PINE Running；0 TLB |
 
 两个失败镜像的首个异常均为：
 
@@ -64,6 +70,14 @@ shift；PCSX2 v2.6.3 fresh-process 连接 PINE，状态为 Running，日志 0 TL
 PCSX2 v2.6.3 fresh-process 为 PINE Running、0 TLB。该运行证据证明新压缩
 parse 被游戏启动路径接受，仍不替代第一幕间的目标画面验收。
 
+当前 production 已继续迁移到 Rust `rust-maximum`。精确 P10 综合 DVD
+SHA-256 为
+`218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b`；
+其 boot receipt 锁定在
+`manifests/ui-p10-database-fixed-core-first-five-atlas-test-runtime-validation.json`。
+这证明当前最深 COMPDATA 层可由游戏启动路径接受，但驾驶员技能、机体特殊能力、
+精神指令和小队长能力四类仍需第一幕间存档和逐页截图。
+
 ## 可重复验证
 
 ```bash
@@ -85,6 +99,12 @@ python3 tools/build_canary_iso.py \
 python3 tools/record_pcsx2_boot_smoke.py \
   --iso build/iso/compdata-step-02-p0-menu-inplace/srwz-compdata-step-02-p0-menu-inplace.iso \
   --run-id 08-compdata-p0-menu-inplace --duration 8 --force
+
+# 当前 production Rust 路径
+python3 tools/build_ui_p0_fixed_compdata.py --force
+python3 tools/verify_ui_p0_fixed_compdata.py --force
+python3 tools/build_ui_database_candidate.py --force
+python3 tools/verify_ui_database_candidate.py --force
 ```
 
 精确镜像、构建报告、PINE receipt 和日志由
@@ -92,8 +112,9 @@ python3 tools/record_pcsx2_boot_smoke.py \
 
 ## 下一步顺序
 
-1. 取得第一幕间原生 memory-card fixture，完成完整 P0 目标画面验收；
-2. 再逐层加入开场姓名、research 名称和 170 条数据库文本；
-3. 每层都必须保持后续 LBA，不通过就继续拆分，不得直接晋级；
+1. 取得第一幕间原生 memory-card fixture，完成 P0 与 P10 四个数据库家族的
+   目标画面验收；
+2. 保持 P2／P10 的当前 Rust 输出、硬预算和精确哈希，不再回退旧压缩路径；
+3. 后续每层都必须保持 COMPDATA 后续 LBA，不通过就继续拆分，不得直接晋级；
 4. boot smoke 只证明 DVD／ELF／PINE／TLB。幕间按钮仍需匹配存档、导航和
    截图才能完成目标画面验收。

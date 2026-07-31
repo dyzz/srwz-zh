@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p0-font.json",
-      "sha256": "10d6f9e93068be1c0890e25caa3705a69e19fd5f0a121de3974c4737fee7e1a3"
+      "sha256": "b8fc767abfc50a982c8e21435ada4bb42281118675c23ac263e7d0a58b29e319"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p0-allocations.json",
@@ -33,13 +33,13 @@
     },
     "base_proposal": {
       "path": "work/writeback/first-five-codebook-proposal.json",
-      "sha256": "74e51d073146a891b8aeb0634d8b3d1fc2b13adf02e71395ceedf6ec2948b5b8",
+      "sha256": "b07b80bf1ef4b9fa57c7c73923b5b550d963eef9444cb0cb68259d797818913b",
       "proposal_id": "srwz-first-five-unified-font-v3",
       "assignment_count": 1436
     },
     "base_validation_manifest": {
       "path": "manifests/first-five-validation.json",
-      "sha256": "4a12751a407563b452d284fcfb127453aa23d27c8b03d1000e494c95be2153b7"
+      "sha256": "c1cc884919ecd997c789cd3ace379cefd49a098a4c7cffa2ef6831b015a1ccce"
     }
   },
   "capacity": {
@@ -62,6 +62,10 @@
     "count": 9,
     "characters": "励培姓御恢播耗菜覆"
   },
+  "semantic_code_replacements": {
+    "count": 0,
+    "entries": []
+  },
   "combined_assignments": {
     "allocation_assignment_count": 639,
     "reraster_existing_assignment_count": 815,
@@ -69,15 +73,15 @@
   },
   "proposal": {
     "path": "work/writeback/ui-p0-codebook-proposal.json",
-    "sha256": "3f7fa7e72adb33cc3020d9929d11864ea806f327ae7839adf53d694fc22f1a2f"
+    "sha256": "cce51f7feb737082ca3d6f115ce43ad30de308ce6094536fce6569a7109949c8"
   },
   "readiness": {
     "path": "work/writeback/ui-p0-font-readiness.json",
-    "sha256": "1440833807a07909413da66fcb33f72551e72047fa7dca75c524bc4b6de00017"
+    "sha256": "b1f8364ad96577994c1be65da3002259739a65c6223ff573b89412de1e14de2c"
   },
   "font_component": {
     "report": "work/build/ui-p0/components/font-validation.json",
-    "report_sha256": "19c7125acd2cbcdb8f72f2b23bcfb861e66732665920787ea2e82d28c529a6e7",
+    "report_sha256": "ad4d4adf18a92a003a99da0c01bcb757aae9756ff83f274d7e00fcf8604946b2",
     "assignment_count": 1454,
     "allocation_assignment_count": 639,
     "reraster_existing_assignment_count": 815,
@@ -85,24 +89,24 @@
     "unchanged_assignment_count": 1,
     "built_raster_hash_exact_count": 1454,
     "decoded_size": 1290240,
-    "decoded_sha256": "32307efc39ad9788d1b0c96e7008a0ceee122a7d60407e3e75bd6d2684c2bf53",
-    "encoded_size": 786404,
-    "encoder_strategy": "lazy_greedy",
+    "decoded_sha256": "a9670139432bb8a3def2f8afc10cdfb0527c640950da2afa7042b2db3ede7efb",
+    "encoded_size": 681433,
+    "encoder_strategy": "rust-maximum",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
-      "padding_size": 12,
-      "borrowed_preceding_zero_slack": 187072,
+      "padding_size": 7,
+      "borrowed_preceding_zero_slack": 82096,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "b4d822cbc3ea58ff9cd3ba6d64f3229f029af3578c126b5b001b5d9e737bb369"
+        "sha256": "250452f8c4af9d2948ce60fdfc1fc66b99141f2c457d5199c7896e0deb243909"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "eeb25f1b6c403777637e1c7f132db38901f51dd107069661223d77badd8471f8"
+        "sha256": "1dbb97857f819b43c1d1315c9c76732547d491c3289f13bb09015a82377d939c"
       }
     }
   },
@@ -118,12 +122,12 @@
   "base_first_five_components": {
     "slps": {
       "path": "work/build/first-five/components/SLPS_258.87",
-      "sha256": "65fc00b2ff2dd223a0c6c4bfb97643871612db0a97eb68709a7da90787d91169",
+      "sha256": "fd1c7cf6c5cdbb603bc3ef2e2a6c84beb1253ec1b835cfff3c13bbd8fae3401c",
       "exact": true
     },
     "vt1": {
       "path": "work/build/first-five/components/DATA/VT1.BIN",
-      "sha256": "7f60acbb3df024f352ed404c9cd0331d95a606f6e116994d0785ea8c4f076f11",
+      "sha256": "36f987866f128debe9540e06fb0c9143e563f8a4b3945522c3be96c3380e57b4",
       "exact": true
     }
   },

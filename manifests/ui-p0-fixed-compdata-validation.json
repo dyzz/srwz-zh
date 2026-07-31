@@ -6,11 +6,11 @@
   "inputs": {
     "config": {
       "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
-      "sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43"
+      "sha256": "35af6297e4ba2cde318a0466116afc59a003960bc41ce000f3c47992f1619e59"
     },
     "font_manifest": {
       "path": "manifests/ui-p0-font-validation.json",
-      "sha256": "1626b56025b3863c997ce6fdccf7196d8b26bdd9031d50d08ebee9e091d67591"
+      "sha256": "2e3ef59510b93dbbe65793df81fe7962aa7f5d97f4c991a0ab064f98224474f4"
     },
     "source_member": {
       "path": "work/disc/DATA/COMPDATA.BN",
@@ -57,9 +57,10 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p0-codebook-proposal.json",
-        "sha256": "3f7fa7e72adb33cc3020d9929d11864ea806f327ae7839adf53d694fc22f1a2f"
+        "sha256": "cce51f7feb737082ca3d6f115ce43ad30de308ce6094536fce6569a7109949c8"
       },
-      "override_count": 1454
+      "override_count": 1454,
+      "semantic_code_replacements": []
     }
   },
   "selection": {
@@ -100,18 +101,26 @@
   },
   "compressed_component": {
     "source_size": 144990,
-    "output_size": 147050,
-    "size_delta": 2060,
+    "output_size": 145105,
+    "size_delta": 115,
     "source_sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
-    "output_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d",
-    "strategy": "greedy",
-    "min_match_length": 4,
-    "max_match_chain": 256,
+    "output_sha256": "9933127220837966ff5c4cb06f1a10a15e78225a02d846250c7b3b4e8a156eeb",
+    "strategy": "rust-maximum",
+    "min_match_length": 2,
+    "max_match_chain": 65535,
     "lazy_matching": true,
     "preserved_prefix_size": 128781,
     "flags_preserved": true,
     "decoded_round_trip_exact": true,
-    "fully_consumed": true
+    "fully_consumed": true,
+    "compact_distance_seed": true,
+    "candidate_cost": "exact serialized bytes including block control, coded integers, literals, distance and length",
+    "max_output_size": 145408,
+    "sector_size": 2048,
+    "max_sectors": 71,
+    "output_sectors": 71,
+    "within_sector_budget": true,
+    "budget_headroom": 303
   },
   "ratchet": {
     "expected": {

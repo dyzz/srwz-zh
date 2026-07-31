@@ -56,7 +56,7 @@ class UiP10DatabaseFontTests(unittest.TestCase):
         self.assertEqual(capacity["combined_registered_character_count"], 736)
         self.assertEqual(capacity["remaining_candidate_slot_count"], 0)
 
-    def test_increment_has_twelve_allocations_and_fourteen_rerasters(self):
+    def test_increment_reuses_bond_code_after_allocations_and_rerasters(self):
         added = [
             assignment
             for assignment in self.proposal["assignments"]
@@ -68,8 +68,30 @@ class UiP10DatabaseFontTests(unittest.TestCase):
                 {
                     "proposed_allocation": 12,
                     "proposed_reraster": 14,
+                    "proposed_semantic_reraster": 1,
                 }
             ),
+        )
+        bond = next(
+            assignment
+            for assignment in added
+            if assignment["character"] == "绊"
+        )
+        self.assertEqual(
+            {
+                "code": bond["code"],
+                "glyph_index": bond["glyph_index"],
+                "mapping": bond["mapping"],
+                "status": bond["status"],
+                "source_character": bond["source_character"],
+            },
+            {
+                "code": "E34A",
+                "glyph_index": 910,
+                "mapping": "pinned_text_table_semantic_replacement",
+                "status": "proposed_semantic_reraster",
+                "source_character": "絆",
+            },
         )
         inherited = [
             assignment
@@ -82,7 +104,7 @@ class UiP10DatabaseFontTests(unittest.TestCase):
         coverage = self.manifest[
             "database_fixed_core_renderer_coverage"
         ]
-        self.assertEqual(coverage["unique_entry_count"], 402)
+        self.assertEqual(coverage["unique_entry_count"], 403)
         self.assertEqual(coverage["missing_renderer_character_count"], 0)
         self.assertEqual(coverage["original_font_han_count"], 0)
         self.assertEqual(
@@ -92,6 +114,10 @@ class UiP10DatabaseFontTests(unittest.TestCase):
         self.assertTrue(self.build["font"]["codec_round_trip_exact"])
         self.assertTrue(self.build["archive"]["offset_reread_exact"])
         self.assertEqual(self.manifest["runtime"]["status"], "not_tested")
+        self.assertEqual(
+            self.manifest["semantic_code_replacements"]["count"],
+            1,
+        )
 
 
 if __name__ == "__main__":

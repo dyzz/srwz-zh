@@ -968,6 +968,42 @@ def build_ui_font_proposal(
         base_proposal_path,
     )
     demand = audit_entry_font(entries.values(), font_baseline)
+    raw_semantic_replacements = document.get(
+        "semantic_code_replacements",
+        [],
+    )
+    if not isinstance(raw_semantic_replacements, list):
+        raise UiFontError("UI semantic code replacements must be a list")
+    semantic_replacements = []
+    semantic_sources = set()
+    semantic_targets = set()
+    for raw in raw_semantic_replacements:
+        if not isinstance(raw, dict):
+            raise UiFontError("malformed UI semantic code replacement")
+        source_character = raw.get("source_character")
+        target_character = raw.get("target_character")
+        reason = raw.get("reason")
+        if (
+            not isinstance(source_character, str)
+            or len(source_character) != 1
+            or not isinstance(target_character, str)
+            or len(target_character) != 1
+            or source_character == target_character
+            or not isinstance(reason, str)
+            or not reason
+            or source_character in semantic_sources
+            or target_character in semantic_targets
+        ):
+            raise UiFontError("invalid UI semantic code replacement")
+        semantic_sources.add(source_character)
+        semantic_targets.add(target_character)
+        semantic_replacements.append(
+            {
+                "source_character": source_character,
+                "target_character": target_character,
+                "reason": reason,
+            }
+        )
     appended = tuple(registry["appended_characters"])
     retired_appended = set(registry["retired_appended_characters"])
     active_appended = tuple(
@@ -975,7 +1011,16 @@ def build_ui_font_proposal(
         for character in appended
         if character not in retired_appended
     )
-    allocation_demand = tuple(demand["missing_characters"])
+    missing_characters = tuple(demand["missing_characters"])
+    if not semantic_targets <= set(missing_characters):
+        raise UiFontError(
+            "UI semantic replacement target must be renderer-missing"
+        )
+    allocation_demand = tuple(
+        character
+        for character in missing_characters
+        if character not in semantic_targets
+    )
     if (
         tuple(sorted((*active_appended, *reactivated))) != allocation_demand
         or set(active_appended) & set(reactivated)
@@ -1151,7 +1196,57 @@ def build_ui_font_proposal(
             )
         )
 
-    assignments = [*base_assignments, *new_allocations, *new_reraster]
+    new_semantic_replacements = []
+    for replacement in semantic_replacements:
+        source_character = replacement["source_character"]
+        target_character = replacement["target_character"]
+        if (
+            target_character in base_by_character
+            or source_character in base_by_character
+        ):
+            raise UiFontError(
+                "UI semantic replacement collides with the inherited proposal"
+            )
+        code = table.inverse_characters.get(source_character)
+        if code is None:
+            raise UiFontError(
+                "UI semantic replacement source code is absent for "
+                f"{source_character!r}"
+            )
+        try:
+            glyph_index = glyph_index_for_code(code, extended_entries)
+        except ValueError as error:
+            raise UiFontError(
+                "UI semantic replacement glyph is unreachable for "
+                f"{source_character!r}"
+            ) from error
+        assignment = _new_assignment(
+            character=target_character,
+            code=code,
+            glyph_index=glyph_index,
+            mapping="pinned_text_table_semantic_replacement",
+            status="proposed_semantic_reraster",
+            owner=allocation_owner,
+            basis=(
+                "reuse the source character's reachable code and glyph for "
+                f"its localized one-character replacement: {replacement['reason']}"
+            ),
+            occurrence_count=counts[target_character],
+            scene_ids=character_scenes[target_character],
+            original_font=original_font,
+            rasterizer=profile["rasterizer"],
+            font_path=locked_paths["font"],
+            assignment_id_prefix=assignment_id_prefix,
+        )
+        assignment["source_character"] = source_character
+        new_semantic_replacements.append(assignment)
+
+    assignments = [
+        *base_assignments,
+        *new_allocations,
+        *new_reraster,
+        *new_semantic_replacements,
+    ]
     assignments.sort(
         key=lambda assignment: (
             assignment["glyph_index"],
@@ -1193,6 +1288,11 @@ def build_ui_font_proposal(
             len(new_allocations)
             == ratchet["additional_allocation_assignment_count"]
         )
+    if "additional_semantic_code_replacement_count" in ratchet:
+        checks["additional_semantic_code_replacement_count"] = (
+            len(new_semantic_replacements)
+            == ratchet["additional_semantic_code_replacement_count"]
+        )
     if not all(checks.values()):
         raise UiFontError(f"UI font ratchet failed: {checks}")
 
@@ -1231,7 +1331,9 @@ def build_ui_font_proposal(
             base_proposal["allocation_assignment_count"] + len(new_allocations)
         ),
         "reraster_existing_assignment_count": (
-            base_proposal["reraster_existing_assignment_count"] + len(new_reraster)
+            base_proposal["reraster_existing_assignment_count"]
+            + len(new_reraster)
+            + len(new_semantic_replacements)
         ),
         "assignments": assignments,
     }
@@ -1285,6 +1387,22 @@ def build_ui_font_proposal(
         "additional_reraster_existing_han": {
             "count": len(new_reraster),
             "characters": "".join(original_han),
+        },
+        "semantic_code_replacements": {
+            "count": len(new_semantic_replacements),
+            "entries": [
+                {
+                    "source_character": replacement["source_character"],
+                    "target_character": replacement["target_character"],
+                    "code": assignment["code"],
+                    "glyph_index": assignment["glyph_index"],
+                    "reason": replacement["reason"],
+                }
+                for replacement, assignment in zip(
+                    semantic_replacements,
+                    new_semantic_replacements,
+                )
+            ],
         },
         "capacity": {
             (
@@ -1563,6 +1681,9 @@ def audit_ui_font_candidate(
         "additional_allocations": expected_readiness["additional_allocations"],
         "additional_reraster_existing_han": expected_readiness[
             "additional_reraster_existing_han"
+        ],
+        "semantic_code_replacements": expected_readiness[
+            "semantic_code_replacements"
         ],
         "combined_assignments": expected_readiness["combined_assignments"],
         "proposal": {

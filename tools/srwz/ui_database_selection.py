@@ -519,6 +519,56 @@ def audit_ui_database_selection(
             font_demand["missing_characters"],
         )
     )
+    semantic_replacements = document.get(
+        "semantic_code_replacements",
+        [],
+    )
+    if not isinstance(semantic_replacements, list):
+        raise UiDatabaseSelectionError(
+            "database semantic code replacements must be a list"
+        )
+    semantic_report = []
+    seen_sources = set()
+    seen_targets = set()
+    for replacement in semantic_replacements:
+        if not isinstance(replacement, dict):
+            raise UiDatabaseSelectionError(
+                "malformed database semantic code replacement"
+            )
+        source_character = replacement.get("source_character")
+        target_character = replacement.get("target_character")
+        reason = replacement.get("reason")
+        if (
+            not isinstance(source_character, str)
+            or len(source_character) != 1
+            or not isinstance(target_character, str)
+            or len(target_character) != 1
+            or source_character == target_character
+            or not isinstance(reason, str)
+            or not reason
+            or source_character in seen_sources
+            or target_character in seen_targets
+            or target_character not in font_demand["missing_characters"]
+        ):
+            raise UiDatabaseSelectionError(
+                "invalid database semantic code replacement"
+            )
+        code = table.inverse_characters.get(source_character)
+        if code is None:
+            raise UiDatabaseSelectionError(
+                "database semantic replacement source is unmapped"
+            )
+        seen_sources.add(source_character)
+        seen_targets.add(target_character)
+        planning_overrides[target_character] = code
+        semantic_report.append(
+            {
+                "source_character": source_character,
+                "target_character": target_character,
+                "code": f"{code:04X}",
+                "reason": reason,
+            }
+        )
 
     try:
         descriptors = json.loads(descriptor_path.read_text(encoding="utf-8"))
@@ -708,13 +758,16 @@ def audit_ui_database_selection(
             "original_font_han_characters": font_demand[
                 "original_font_han_characters"
             ],
+            "semantic_code_replacements": semantic_report,
         },
         "fixed_span_readiness": {
             "status": "fixed_span_ready_after_declared_font_extension",
             "planning_code_policy": (
                 "Every missing literal receives a unique synthetic two-byte "
-                "planning code. The production font profile must allocate the "
-                "same character set; only encoded size is consumed here."
+                "planning code unless an explicit semantic replacement reuses "
+                "the mapped source code. The production font profile must "
+                "allocate or replace the same character set; only encoded size "
+                "is consumed here."
             ),
             "members": member_reports,
             "all_selected_entries_covered": (

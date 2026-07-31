@@ -7,6 +7,10 @@ round-trip 和 PINE 协议均已落到可自动运行的测试文件，不再保
 
 静态测试通过不能替代运行验证；涉及渲染和流程的结论必须有对应运行记录。
 `test_pcsx2_boot_smoke.py` 固定 DVD／ELF／TLB 日志解析和证据边界；
+`test_pcsx2_session.py` 固定 portable 会话不接触系统 memory card、精确
+ISO／PCSX2／INI 输入锁、候选存档的 exploratory 边界、savestate＋配套
+card snapshot 收据、`-statefile` 重载计划、输入漂移失败和稳定日志／截图
+回收；savestate 收据只能声明 `acceleration_only`；
 `test_ui_iso_incremental.py` 强制实读当前六级 ISO、构建报告、PINE receipt
 和日志，只允许晋级 `first-five-noncompdata-ui`。已经清理、但可由配置重建
 的旧大 ISO 未物化时，其历史 ISO 重读用例明确 skip；对应 component 与
@@ -129,10 +133,10 @@ P7／前五关／atlas 的 7 成员所有权、59 个未替换 ISO 成员、`+7/
 `test_ui_p9_test_candidate.py` 与 `test_ui_p9_test_candidate_iso.py` 固定
 P9 7 成员组合、精确 ISO 哈希及运行未验收边界；
 `test_ui_database_selection.py` 固定 P10 从 1,250 条数据库中选择四家族
-402 条、延期 848 条、五项受保护排除及定长／术语门；
+403 条、延期 847 条、四项受保护排除及定长／术语门；
 `test_ui_p10_database_font.py` 固定最后 12 个 allocation、14 个统一重绘字形、
-402 条 renderer 零缺字和零剩余候选槽；
-`test_ui_p10_database_candidate.py` 固定 SLPS 232 条、COMPDATA 170 条写回、
+403 条 renderer 零缺字和零剩余候选槽；
+`test_ui_p10_database_candidate.py` 固定 SLPS 233 条、COMPDATA 170 条写回、
 preserve-prefix 回解、指针／非目标字节与非字体 chunk 不变；
 `test_ui_p10_test_candidate.py` 与 `test_ui_p10_test_candidate_iso.py` 固定
 P10 7 成员组合、59 个未替换成员、`+8/+45` LBA 位移、独立 UDF 回读、精确

@@ -3,23 +3,23 @@
   "status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
   "content_policy": "Hashes, offsets, stable IDs and counts only; no game bytes, Japanese source text or localized database strings are embedded.",
   "profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
-  "scope": "Extend the P9 UI core with the final twelve renderer-addressable glyph allocations, fourteen unified rerasterized Han glyphs, and 402 terminology-safe fixed-span database decisions across skills, unit abilities, spirit commands and leadership effects. Four disputed proper-name terms, 羁绊, and the remaining parts/weapons database stay unchanged.",
+  "scope": "Extend the P9 UI core with the final twelve renderer-addressable glyph allocations, fourteen unified rerasterized Han glyphs, the explicit 絆-to-绊 same-code replacement, and 403 terminology-safe fixed-span database decisions across skills, unit abilities, spirit commands and leadership effects. Four disputed proper-name terms and the remaining parts/weapons database stay unchanged.",
   "inputs": {
     "config": {
       "path": "config/ui-writeback/ui-p10-database-fixed-core.json",
-      "size": 6035,
-      "sha256": "95181c53473bd9f0fe3b72848ca4d9f9934139a1b64afcfc12dfdfa6cbde6dfe"
+      "size": 6216,
+      "sha256": "cf77a2f67543f0748c46be53ea7d7ea42aa8677729ab9bc8efb88adc485c9265"
     },
     "database_selection": {
       "config": {
         "path": "config/ui-database-selection.json",
-        "size": 6208,
-        "sha256": "32398b7b1fb371ae6a6a51a4abf1e135c00f330424c43405126b3ea70f767b76"
+        "size": 6205,
+        "sha256": "0ae75acd8b03310676eae7ab7fa114a833d45cbc12448f1274a6b7050c290965"
       },
       "manifest": {
         "path": "manifests/ui-database-fixed-core-selection.json",
-        "size": 16445,
-        "sha256": "f455f99a1a336b4374a58f8948e6cda1b7538758d798a38b78177f8bf2ec84d8"
+        "size": 16700,
+        "sha256": "0af0b7bf25db59cae38c0e376fed1095594fd287b4edba4fc1c9516c64c153e7"
       },
       "selection_id": "srwz-ui-database-fixed-core-v1",
       "status": "static_database_fixed_subset_selected_font_extension_required",
@@ -28,27 +28,27 @@
     "font_extension": {
       "manifest": {
         "path": "manifests/ui-p10-database-font-validation.json",
-        "size": 10482,
-        "sha256": "82980cff466f07b2b563528226699126b90f73894496ab56540488688a302134"
+        "size": 10938,
+        "sha256": "bd8db3593730f4d0622a8d5702cdee60e06f2b092466734af7bb9d12c7c40825"
       },
       "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1",
       "status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
       "slps": {
         "path": "work/build/ui-p10-database-font/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "2754969721cd45c6809853bb9676d9f3239adcdf0e4993b1d651b5f65bddf86d"
+        "sha256": "1f1d51d705b9f8734a333d0a72f64c643610f58fe7f5a8dc114a12db8e7fc867"
       },
       "vt1": {
         "path": "work/build/ui-p10-database-font/components/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "3cffc1f0e68f142a6442fdc13b6264ec67ec41d66c4000fd07d22e65ea7cdc22"
+        "sha256": "0971dcbd2724360bc5594aae283d0fa0a6016a7ac8fb6e54426ded51e5288c02"
       }
     },
     "base_ui_core": {
       "manifest": {
         "path": "manifests/ui-p9-mixed-user-facing-subset-validation.json",
         "size": 11488,
-        "sha256": "2a8b6ffd21253c1cab66c29f05ca670f1744c6f0eefd7cf09e49443c725eef0d"
+        "sha256": "50268596393adc77ab11207050cd85db5ad2f24ab94e92e9bb35a5e586995204"
       },
       "component_id": "ui-p9-mixed-user-facing-subset-core",
       "profile_id": "srwz-ui-p9-mixed-user-facing-subset-integrated-v1",
@@ -58,12 +58,12 @@
         "slps": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "51adcd5c79f422924743d758eaab77cc46d939e7c1272f88dcd614eb2c704657"
+          "sha256": "1087ebc84d5268ad31dcec61673f3ba06b3ee497effb0e4d019bab2866be740c"
         },
         "vt1": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/VT1.BIN",
-          "size": 127501920,
-          "sha256": "1424eb1626b624eb637130e08a11c320e5fb39ebf40077e91cbbfe6875839fbf"
+          "size": 127501728,
+          "sha256": "3e3d3ad784feacd8e8729c44578ccbdba14dc95311c2fee276c5c6eaf6bb4873"
         },
         "compdata": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/COMPDATA.BN",
@@ -72,15 +72,15 @@
         },
         "mtv_pros": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/MTV_PROS.BIN",
-          "size": 8640,
-          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+          "size": 8368,
+          "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
         }
       }
     },
     "writer_baseline_config": {
       "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
-      "size": 2553,
-      "sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43"
+      "size": 2640,
+      "sha256": "35af6297e4ba2cde318a0466116afc59a003960bc41ce000f3c47992f1619e59"
     },
     "menu_descriptor": {
       "path": "vendor/upstream-python/project/menu_files.json",
@@ -99,17 +99,24 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p10-database-codebook-proposal.json",
-        "sha256": "925d92af46bdd7e52d501a40bae566d67848e1e5df699f42572e7fea5338df55"
+        "sha256": "63413d4cae24a56bff995c0d02f7f6f918dbc712d236506e33c2fe2719f7a980"
       },
-      "override_count": 1642
+      "override_count": 1643,
+      "semantic_code_replacements": [
+        {
+          "source_character": "絆",
+          "target_character": "绊",
+          "code": "E34A"
+        }
+      ]
     }
   },
   "selection": {
-    "entry_count": 402,
-    "slps_entry_count": 232,
+    "entry_count": 403,
+    "slps_entry_count": 233,
     "compdata_entry_count": 170,
-    "entry_ids_sha256": "3d40920e50e99fe8f48ae68caea3d69432a17832bfd6c86bb390fe65abd58259",
-    "decisions_sha256": "0df00f72aef94debdd70902ccdcf7b9cf5b939c8f5cf5d7462bceafed1cbe5f3",
+    "entry_ids_sha256": "fcf97d1201b725aa0ff0e1d99bc6076bfa49bc1e3991014753c9626444d82e09",
+    "decisions_sha256": "fb3e78a26a5d71650ff0bcc73c70c32635fc626a8990ee2b9324ed8b9e30e93b",
     "families": [
       {
         "family_id": "skills",
@@ -152,15 +159,15 @@
         "family_id": "spirit-commands",
         "runtime_scene_id": "database/spirit-commands-core",
         "label": "精神指令名称与说明",
-        "entry_count": 144,
-        "slps_entry_count": 144,
+        "entry_count": 145,
+        "slps_entry_count": 145,
         "compdata_entry_count": 0,
-        "entry_ids_sha256": "3c5b1f049c777d113050fbe39dda3fbbcf9c87e8e620054a066f2dc44e3d0125",
+        "entry_ids_sha256": "8310b9b96b2a258fcc405afe63e7b19f6b3a144f42602a39b9fef1b7769ed5dc",
         "selectors": [
           {
             "translation_file": "corpus/zh/menu/system-ui-spirit-commands.json",
-            "entry_count": 144,
-            "entry_ids_sha256": "3c5b1f049c777d113050fbe39dda3fbbcf9c87e8e620054a066f2dc44e3d0125"
+            "entry_count": 145,
+            "entry_ids_sha256": "8310b9b96b2a258fcc405afe63e7b19f6b3a144f42602a39b9fef1b7769ed5dc"
           }
         ]
       },
@@ -181,7 +188,7 @@
         ]
       }
     ],
-    "deferred_entry_count": 848,
+    "deferred_entry_count": 847,
     "protected_exclusions": [
       {
         "entry_id": "menu/Compdata/04/0011",
@@ -198,18 +205,14 @@
       {
         "entry_id": "menu/Compdata/04/0029",
         "reason": "DRAGOON Barrier terminology remains under human review."
-      },
-      {
-        "entry_id": "menu/SLPS/08/0079",
-        "reason": "The reviewed two-CJK label 羁绊 needs five encoded bytes but its source allocation is three bytes; do not degrade it to one character."
       }
     ]
   },
   "fixed_span": {
     "slps": {
       "selection": {
-        "entry_count": 232,
-        "no_op_entry_count": 53,
+        "entry_count": 233,
+        "no_op_entry_count": 54,
         "no_op_entry_ids": [
           "menu/SLPS/08/0000",
           "menu/SLPS/08/0001",
@@ -238,6 +241,7 @@
           "menu/SLPS/08/0070",
           "menu/SLPS/08/0073",
           "menu/SLPS/08/0077",
+          "menu/SLPS/08/0079",
           "menu/SLPS/08/0081",
           "menu/SLPS/08/0087",
           "menu/SLPS/08/0089",
@@ -267,7 +271,7 @@
         ],
         "selected_write_entry_count": 179,
         "selected_write_target_count": 183,
-        "fixed_covered_entry_count": 232,
+        "fixed_covered_entry_count": 233,
         "selection_sha256": "d12b51ece52445830f7506785b9a332e12ff94fe2886b34c1c756119ff76b665",
         "excluded_entry_count": 0,
         "excluded_reason_counts": {}
@@ -279,7 +283,7 @@
         "payload_size": 4582,
         "owned_capacity": 5755,
         "target_metadata_sha256": "54217fba118f17eaed791551212d71cf8040f04c2bdd8a6085f7e979e03c920c",
-        "patch_plan_metadata_sha256": "67be00ef81c68ce92e5249c80f05964935363ed393480fa6cd2556f8aa03dd38",
+        "patch_plan_metadata_sha256": "62cd4cea33f08bf262db0a5c1f9c71072d5d7f9714e2241be10c056ff7aa2d80",
         "pointer_write_count": 0,
         "pointer_bytes_unchanged": true,
         "non_target_bytes_unchanged": true,
@@ -288,8 +292,8 @@
       "component": {
         "source_size": 3471624,
         "output_size": 3471624,
-        "source_sha256": "51adcd5c79f422924743d758eaab77cc46d939e7c1272f88dcd614eb2c704657",
-        "output_sha256": "de77c5979aecc9bdd855bb2a6d072ff877c73b78ca6025bba42a6d98098f885d",
+        "source_sha256": "1087ebc84d5268ad31dcec61673f3ba06b3ee497effb0e4d019bab2866be740c",
+        "output_sha256": "ff971b8652d2e4c4881504e97b8034b5661b1120714268c1a64d42d646d60052",
         "changed_byte_count": 5076,
         "difference_range_count": 331,
         "changed_offsets_sha256": "62a3107f2e091541bac8e46080575a2436ff07c72435bee92140e2e124b735e3"
@@ -351,68 +355,86 @@
     "font_padding_size": 12,
     "vt1_chunk_count": 14,
     "unchanged_vt1_chunk_count": 13,
-    "decoded_font_sha256": "4798a2f62af9d4fb6ad65502ca25a772a5eabbc196633aebacc3ff8728005ad6",
+    "decoded_font_sha256": "2170658a3608eab33f93c337ae0caabc374778cfcd7ada609280b94934d90599",
     "compdata_decoded_changed_byte_count": 7006,
     "compdata_decoded_difference_range_count": 348,
     "compdata_decoded_changed_offsets_sha256": "dbcb310267898f1c257dec2ff974f14678bab4bcb83a4fcf73c6f5626dff7b98",
     "compdata_source_compressed_size": 144485,
-    "compdata_output_compressed_size": 148705,
+    "compdata_output_compressed_size": 145191,
     "compdata_compressed_common_prefix": 113266,
-    "compdata_flags": 23
+    "compdata_flags": 23,
+    "compdata_codec": {
+      "strategy": "rust-maximum",
+      "min_match_length": 2,
+      "max_match_chain": 65535,
+      "lazy_matching": true,
+      "output_size": 145191,
+      "maximum_output_size": 145408,
+      "sector_size": 2048,
+      "maximum_sectors": 71,
+      "sector_count": 71,
+      "within_sector_budget": true,
+      "budget_headroom": 217,
+      "decoded_round_trip_exact": true,
+      "flags_preserved": true,
+      "fully_consumed": true
+    }
   },
   "outputs": {
     "slps": {
       "path": "work/build/ui-p10-database-fixed-core/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "5eae555d6ec6287ac1ede7c0d27b9a3482eacff89a2bab092c2c7c50e434542f"
+      "sha256": "c5ab62a6e530118805a2025d2598872838012ae6d0c7fab023c4722eb6433cc0"
     },
     "vt1": {
       "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
-      "size": 127504000,
-      "sha256": "32a7ec8c9125efe4c723f24fe5c4cbabfdb85ae84757522e052251aec90fc502"
+      "size": 127503424,
+      "sha256": "0ea32ad8d2e81d8da826922550ce140255595aff43645baa83b36332c4e04194"
     },
     "compdata": {
       "path": "work/build/ui-p10-database-fixed-core/components/DATA/COMPDATA.BN",
-      "size": 148705,
-      "sha256": "102b5f2e97bd7143e1d820c1b2a62c73dc41f274a44394103c3b5c547bfa6d62"
+      "size": 145191,
+      "sha256": "d91e38bd0ede4520362ae1e08047887623e5c0586e3224d4ba8d19a39615d8f2"
     },
     "mtv_pros": {
       "path": "work/build/ui-p10-database-fixed-core/components/DATA/MTV_PROS.BIN",
-      "size": 8640,
-      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      "size": 8368,
+      "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
     }
   },
   "ratchet": {
     "expected": {
       "family_count": 4,
-      "selected_entry_count": 402,
-      "selected_slps_entry_count": 232,
+      "selected_entry_count": 403,
+      "selected_slps_entry_count": 233,
       "selected_compdata_entry_count": 170,
       "font_allocation_count": 12,
       "font_reraster_count": 14,
-      "slps_no_op_entry_count": 53,
+      "font_semantic_replacement_count": 1,
+      "slps_no_op_entry_count": 54,
       "slps_selected_write_entry_count": 179,
       "slps_selected_write_target_count": 183,
       "compdata_no_op_entry_count": 5,
       "compdata_selected_write_entry_count": 165,
       "compdata_selected_write_target_count": 164,
-      "fixed_covered_entry_count": 402,
+      "fixed_covered_entry_count": 403,
       "excluded_entry_count": 0
     },
     "actual": {
       "family_count": 4,
-      "selected_entry_count": 402,
-      "selected_slps_entry_count": 232,
+      "selected_entry_count": 403,
+      "selected_slps_entry_count": 233,
       "selected_compdata_entry_count": 170,
       "font_allocation_count": 12,
       "font_reraster_count": 14,
-      "slps_no_op_entry_count": 53,
+      "font_semantic_replacement_count": 1,
+      "slps_no_op_entry_count": 54,
       "slps_selected_write_entry_count": 179,
       "slps_selected_write_target_count": 183,
       "compdata_no_op_entry_count": 5,
       "compdata_selected_write_entry_count": 165,
       "compdata_selected_write_target_count": 164,
-      "fixed_covered_entry_count": 402,
+      "fixed_covered_entry_count": 403,
       "excluded_entry_count": 0
     },
     "checks": {
@@ -422,6 +444,7 @@
       "selected_compdata_entry_count": true,
       "font_allocation_count": true,
       "font_reraster_count": true,
+      "font_semantic_replacement_count": true,
       "slps_no_op_entry_count": true,
       "slps_selected_write_entry_count": true,
       "slps_selected_write_target_count": true,
@@ -435,7 +458,7 @@
   },
   "acceptance": {
     "selection_manifest_reproduced_exact": true,
-    "all_402_selected_entries_fixed_span_covered": true,
+    "all_selected_entries_fixed_span_covered": true,
     "slps_pointer_bytes_unchanged": true,
     "compdata_pointer_bytes_unchanged": true,
     "slps_non_target_bytes_unchanged": true,
@@ -463,7 +486,7 @@
       "native_first_intermission_memory_card",
       "all_four_database_routes",
       "list_detail_and_disabled_or_unavailable_states",
-      "twelve_new_and_fourteen_rerasterized_glyphs_visible",
+      "twelve_new_fourteen_rerasterized_and_bond_semantic_glyphs_visible",
       "no_clipping_overlap_or_missing_glyphs",
       "zero_tlb_miss"
     ]

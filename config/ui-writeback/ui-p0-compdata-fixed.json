@@ -4,7 +4,7 @@
   "scope": "All P0 COMPDATA menu decisions that are already byte-exact or fit inside every original NUL-terminated target span. Pointer bytes remain unchanged.",
   "font_candidate": {
     "manifest": "manifests/ui-p0-font-validation.json",
-    "sha256": "1626b56025b3863c997ce6fdccf7196d8b26bdd9031d50d08ebee9e091d67591"
+    "sha256": "2e3ef59510b93dbbe65793df81fe7962aa7f5d97f4c991a0ab064f98224474f4"
   },
   "source_member": {
     "path": "work/disc/DATA/COMPDATA.BN",
@@ -46,10 +46,13 @@
   },
   "codec": {
     "mode": "preserve-prefix-reencode-suffix",
-    "strategy": "greedy",
-    "min_match_length": 4,
-    "max_match_chain": 256,
-    "lazy_matching": true
+    "strategy": "rust-maximum",
+    "min_match_length": 2,
+    "max_match_chain": 65535,
+    "lazy_matching": true,
+    "max_output_size": 145408,
+    "sector_size": 2048,
+    "max_sectors": 71
   },
   "ratchet": {
     "p0_unique_entry_count": 462,

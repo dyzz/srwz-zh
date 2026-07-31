@@ -5,9 +5,10 @@
 当前唯一测试镜像为 `ui-p2-default-names-first-five`：它包含 P2 UI core、
 默认主人公中文名和 STAGE 001～005 剧情，共替换 6 个 ISO 成员；其余 60 个
 成员保持原字节，全部 LBA 不变。精确 ISO SHA-256 为
-`308c2b308df74952730d4206151c781853c976fbfa9259b66fa3c4166b3f2250`；
+`026f29e3e77b78a19f000c6781317ebc95aeb672b5b2848ad2a30bf8d2f5c473`；
 PCSX2 v2.6.3 fresh-process 检查已证明 DVD、ELF、PINE Running 和零 TLB。
-P4～P10 及五张隔离 atlas 仍是后续静态分层，不属于该镜像的运行结论。
+P4～P9 与五张隔离 atlas 仍是后续静态分层；P10 另有精确综合 ISO 的启动
+证据，但都不属于当前唯一 P2 镜像的逐屏运行结论。
 增量构建、运行证据和清理规则见
 [`docs/ISO_INCREMENTAL_VALIDATION.md`](docs/ISO_INCREMENTAL_VALIDATION.md)，
 截图证明的已完成范围和待办见
@@ -67,19 +68,22 @@ P8 最后把地形类型选择、武器选择／使用条件、换乘／选项�
 运动、特殊技能、无可选驾驶员和两项能力标签共 9 条写入 34 个 target，
 SLPS 相对 P8 改变 174 字节／36 段；13 条损坏、NULL 诊断、控制码、独立
 格式片段及未证实的 `Set` 保持原字节。P10 又从 1,250 条大型数据库中筛出
-402 条术语安全且定长可写的核心决定：驾驶员技能 88 条、机体特殊能力
-155 条、精神指令 144 条和小队长能力 15 条。它用最后 12 个
+403 条术语安全且定长可写的核心决定：驾驶员技能 88 条、机体特殊能力
+155 条、精神指令 145 条和小队长能力 15 条。它用最后 12 个
 renderer-addressable 槽补入 `咫垫挡斩框歼药赋赖镜闪－`，统一重绘 14 个
-仍在使用原字形的汉字；232 条 SLPS 与 170 条 COMPDATA 决定全部完成原位
+仍在使用原字形的汉字，并将原“絆”的码位直接重绘为简体“绊”；233 条
+SLPS 与 170 条 COMPDATA 决定全部完成原位
 回读，指针和非目标字节不变，COMPDATA 仅重编码首变点后的压缩后缀。其余
-848 条零件、武器、争议专名和无法容纳“羁绊”的三字节源 allocation 保持
+847 条零件、武器和争议专名保持
 延期。P10 UI 再与前五关 `HB/STAGE` 和五张中文 atlas 组合为 7 个互不
-重叠的 replacement。该 DVD 大小为 3,758,456,832 字节，SHA-256 为
-`2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431`；
-59 个未替换成员保持原字节，7 个 replacement 均由 UDF 独立回读，LBA
-位移严格保持 `+8/+45` 两段。PCSX2 fresh-process 已确认该完整镜像在加入
-COMPDATA 后触发 TLB，不能作为当前运行候选；五张 atlas 的场景归因、截图与
-texture delta 双门也仍然独立。
+重叠的 replacement。全部当前生产层均使用 clean-room Rust compressor；
+P10 COMPDATA 为 145,191 字节，保持 71 扇区并在 145,408-byte 硬上限内
+余 217 字节。该 DVD 大小为 3,758,358,528 字节，SHA-256 为
+`218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b`；
+59 个未替换成员保持原字节，7 个 replacement 均由 UDF 独立回读，只有一段
+从 `DATA/STAGE.BIN` 开始的 `+1 sector` 位移。PCSX2 v2.6.3 fresh-process
+已确认 DVD、ELF、PINE Running 和零 TLB；这只解除启动阻塞，四个数据库
+家族的页面视觉验收与五张 atlas 的场景归因／texture delta 双门仍然独立。
 原来作为一个整体延期的 275 条 SLPS `Unknown` UI 文本现已进一步拆成
 22 个零遗漏／零重叠的静态屏幕分区：253 条归入 18 个可见界面候选，
 17 条归入两个可见／诊断混合组，5 条归入两个必须先查代码引用的格式或诊断
@@ -98,14 +102,12 @@ fixed-span 文本已由 P8 晋级，两个混合组中 9 条可证明的玩家�
 14 类基础场景完整分成 10 类当前目标和 4 类显式延期，另以哈希锁定的
 scene extension 选择十八个整组分区、两个逐条子集和四个数据库核心家族，
 共 38 类／34 类当前目标；
-矩阵绑定 7 个制品 profile：可运行的非 COMPDATA 综合候选、明确阻塞的完整
-COMPDATA 候选，以及 5 个在可运行综合 ISO 上保持独立 mapping manifest 的
+矩阵绑定 7 个制品 profile：已通过启动门的完整 P10 COMPDATA 候选、当前 P2
+默认姓名／前五关候选，以及 5 个保持独立 mapping manifest 的
 atlas profile；共计划 112 个截图点、6 个开场／滚动序列与 5 个 texture
-delta。目前标题主菜单已在精确非 COMPDATA ISO 上通过 fresh-process
-PINE／日志和两张 1280×960 截图验收；其余 45 个用例仍为 `not_tested`。
-当前另有 4 个 fresh-boot 用例可直接执行，34 个用例等待六类当前有效的原生
-memory card，7 个 COMPDATA 所有权用例由已复现的 TLB 阻塞；第七类路线分支
-存档只有在该阻塞解除后才会解锁用例。统一 verifier 会把
+delta。当前 46 个用例都仍为逐屏 `not_tested`：6 个 route-ready，40 个等待
+七类原生 memory-card fixture，已没有被制品启动状态阻塞的用例。统一
+verifier 会把
 ISO、PINE、日志、截图／序列、断言和 atlas RGBA delta 收敛为 hash-only
 receipt。P4 两个用例需要原生 `first-intermission-card`，
 P5 及 P8 的战场用例需要原生 `first-battle-card`，P6～P10 还需要
@@ -150,14 +152,14 @@ LXGW Neo XiHei Screen：追加式账本共登记 638 个码位，其中 630 个�
 重绘，共登记 1,436 个 glyph assignment，其中空格槽为预期 no-op。假名、原有
 拉丁字符、既有可达标点以及本切片之外的字形保持原样；前五关实际出现的普通
 ASCII 另走双字节 glyph，`$n/$F` 玩家名占位符保持原始运行语义。字形默认以
-22pt 栅格化；实机截图确认“班”在 24×24 小字号下视觉偏小，因此只对该字使用
-配置锁定的 22.1pt 最小光学校正：只补回取整丢失的一列像素，不增加栅格高度，
-码位和 glyph 槽位不变。VT1 保持原大小，最终 ISO
-的 66 个成员均保持原 LBA。最终镜像已独立回读
-SLPS/HB/STAGE，并逐 ID 复核前五关全部译文；renderer 覆盖审计的缺字、
-一字节 ASCII 风险和混合汉字来源均为 0。但这张新候选尚未运行 PCSX2，上一
-候选的运行证据不能沿用。第二至第五关也未完整游玩，不能把静态回读称为五关
-通关测试。完整边界和哈希见
+22pt 栅格化；实机截图确认“班”和“任”在 24×24 小字号下视觉偏小，因此对
+这两个字使用配置锁定的 23.5pt 光学校正，分别形成 22×21 的有效字形包围盒；
+码位、glyph 槽位和字符前进宽度都不变。VT1 组件保持原大小；新的光学校正已
+沿 P0～P10 组件链完成回读，但尚未生成 ISO。上一张镜像的 66 个成员保持原
+LBA，并已独立回读 SLPS/HB/STAGE 及逐 ID 复核前五关全部译文；renderer
+覆盖审计的缺字、一字节 ASCII 风险和混合汉字来源均为 0。该镜像仍使用旧字形，
+其运行证据不能转移到新的“班／任”组件。第二至第五关也未完整游玩，不能把
+静态回读称为五关通关测试。完整边界和哈希见
 `manifests/first-five-validation.json`。
 
 已完成第一批基础设施迁移：可以从 ISO 只读提取指定成员、按固定 offset
@@ -180,8 +182,8 @@ CLUT fixture。当前已实现严格原位、保留既有 CLUT 的 4-bpp 注入�
   普通/扩展分支验证的 code→glyph 映射；
 - 94,189 条稳定语料导出、严格文本序列化和带前像/所有者/边界检查的写回原语；
 - 确定性的 clean-room 压缩编码器，已在 232 条真实可解码流上全部往返成功；
-  另有离线 `maximum` 组合，用上游 native compressor 的静态规格和真实
-  序列化成本压缩受影响后缀。
+  当前 production profile 统一使用仓内 Rust `rust-maximum` 路径，按真实
+  序列化成本压缩受影响后缀，并对 COMPDATA 执行 145,408-byte 硬门。
 - 固定官方 MIT armips 源码的 macOS 原生可重复构建，以及逐写入所有者、原始
   字节摘要、允许区间和显式覆盖校验的二进制补丁审计。
 - 不改运行时代码的两字简体中文静态 canary：使用原版普通 glyph 路径和两个
@@ -321,6 +323,8 @@ python3 tools/build_canary_iso.py
 成员和 2 个替换成员，保持原盘成员顺序与 VT1 之前的绝对 LBA，并独立读取
 UDF 关键成员。固定工具链调研见 `docs/ISO_TOOLCHAIN_RESEARCH.md`；安装
 PCSX2、导入调试符号和运行验证步骤见 `docs/ISO_BUILD_AND_PCSX2.md`。
+逐屏测试使用 `docs/PCSX2_RUNTIME_WORKFLOW.md` 的独立 portable
+会话；memory card 必须复制到会话内，savestate 仅限同一 ISO 的加速复测。
 完整目录所有权见 `docs/ISO_DIRECTORY_LAYOUT.md`。
 PCSX2 已启用 PINE 且 canary 正在运行时，可复验游戏内完整字库：
 

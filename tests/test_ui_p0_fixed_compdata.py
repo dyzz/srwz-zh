@@ -58,6 +58,10 @@ class UiP0FixedCompdataTests(unittest.TestCase):
         )
         self.assertTrue(compressed["decoded_round_trip_exact"])
         self.assertTrue(compressed["flags_preserved"])
+        self.assertEqual(compressed["strategy"], "rust-maximum")
+        self.assertEqual(compressed["max_output_size"], 145408)
+        self.assertTrue(compressed["within_sector_budget"])
+        self.assertGreaterEqual(compressed["budget_headroom"], 0)
 
     def test_no_p0_compdata_text_requires_a_pool(self):
         remaining = self.manifest["remaining_work"]

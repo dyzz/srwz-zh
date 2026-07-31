@@ -3,7 +3,7 @@
   "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1",
   "base_font_config": {
     "path": "config/fonts/first-five-font.json",
-    "sha256": "90b7a41f78657a40bc75abd73381d8807f1779c4f0bd9c5269f7799e1949b7cd"
+    "sha256": "28ac817d4fa9ae146889fe7886e13b5f38db88aa3c4786ed8f5838c1040f093a"
   },
   "base_validation_manifest": "manifests/ui-p7-embedded-font-validation.json",
   "base_font_component": {
@@ -13,6 +13,13 @@
   "allocation_registry": "config/encoding/ui-p10-database-font-allocations.json",
   "assignment_id_prefix": "ui-p10-database",
   "allocation_owner": "ui/p10/database-fixed-core",
+  "semantic_code_replacements": [
+    {
+      "source_character": "絆",
+      "target_character": "绊",
+      "reason": "The reviewed spirit-command label is a one-character simplified replacement and the final Chinese build does not retain the original Japanese glyph."
+    }
+  ],
   "allocation_policy": {
     "mode": "valid-sjis-then-raw-standard-trail-gaps",
     "raw_standard_trails": [
@@ -56,12 +63,12 @@
   },
   "database_selection": {
     "config": "config/ui-database-selection.json",
-    "config_sha256": "32398b7b1fb371ae6a6a51a4abf1e135c00f330424c43405126b3ea70f767b76",
+    "config_sha256": "0ae75acd8b03310676eae7ab7fa114a833d45cbc12448f1274a6b7050c290965",
     "manifest": "manifests/ui-database-fixed-core-selection.json",
-    "manifest_sha256": "f455f99a1a336b4374a58f8948e6cda1b7538758d798a38b78177f8bf2ec84d8",
+    "manifest_sha256": "0af0b7bf25db59cae38c0e376fed1095594fd287b4edba4fc1c9516c64c153e7",
     "selection_id": "srwz-ui-database-fixed-core-v1",
     "required_status": "static_database_fixed_subset_selected_font_extension_required",
-    "expected_entry_count": 402
+    "expected_entry_count": 403
   },
   "scope": {
     "base_stage_indices": [
@@ -73,18 +80,18 @@
     ],
     "ui_inventory": "srwz-ui-scenes-v1",
     "database_selection": "srwz-ui-database-fixed-core-v1",
-    "rerasterize": "Every selected CJK unified ideograph still using an original reachable glyph, plus every newly allocated character; inherited P7 assignments remain exact.",
-    "preserve": "Original kana, reachable punctuation, printable ASCII, control symbols, glyphs outside the selected database core, and every inherited assignment."
+    "rerasterize": "Every selected CJK unified ideograph still using an original reachable glyph, every newly allocated character, and the explicit 絆-to-绊 semantic code replacement; inherited P7 assignments remain exact.",
+    "preserve": "Original kana, reachable punctuation, printable ASCII, control symbols, glyphs outside the selected database core except the explicit 絆-to-绊 replacement, and every inherited assignment."
   },
   "manifest_contract": {
     "status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
-    "scope": "Incremental P7 plus the 402-entry skills, special-abilities, spirit-command and leadership database core. It proves renderer coverage only; it does not write SLPS/COMPDATA, build an ISO or prove runtime pages.",
+    "scope": "Incremental P7 plus the 403-entry skills, special-abilities, spirit-command and leadership database core. It proves renderer coverage only; it does not write SLPS/COMPDATA, build an ISO or prove runtime pages.",
     "coverage_key": "database_fixed_core_renderer_coverage",
     "base_component_key": "base_ui_p7_components",
     "base_acceptance_key": "base_ui_p7_components_unchanged",
     "missing_acceptance_key": "database_fixed_core_renderer_missing_character_count_zero",
     "han_acceptance_key": "database_fixed_core_original_font_han_count_zero",
-    "runtime_reason": "The component consumes the final twelve renderer-addressable candidates and rerasterizes fourteen inherited Han glyphs. The exact combined font and all four database routes remain runtime pending."
+    "runtime_reason": "The component consumes the final twelve renderer-addressable candidates, rerasterizes fourteen inherited Han glyphs, and replaces the original 絆 glyph with simplified 绊 at the same code. The exact combined font and all four database routes remain runtime pending."
   },
   "outputs": {
     "readiness": "work/writeback/ui-p10-database-font-readiness.json",

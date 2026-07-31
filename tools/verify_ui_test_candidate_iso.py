@@ -63,6 +63,106 @@ def file_lock(path: Path) -> dict:
     }
 
 
+def build_runtime_projection(
+    config: dict,
+    actual_output: dict,
+    component: dict,
+) -> dict:
+    required_scene_families = component["runtime"][
+        "required_scene_families"
+    ]
+    evidence = config.get("runtime_evidence")
+    if evidence is None:
+        return {
+            "status": "not_tested",
+            "required_iso_sha256": actual_output["sha256"],
+            "required_emulator": "PCSX2 v2.6.3",
+            "required_scene_families": required_scene_families,
+            "isolated_atlas_mapping_profiles_remain_required": True,
+            "pending_gates": [
+                "fresh_process_boot_exact_iso",
+                "pine_running_and_decoded_font_exact",
+                "all_required_scene_families_visited",
+                "no_clipping_overlap_or_missing_glyphs",
+                "zero_tlb_miss",
+                "five_isolated_atlas_scene_mapping_receipts",
+            ],
+        }
+    if not isinstance(evidence, dict):
+        raise UiTestCandidateIsoError("runtime_evidence must be an object")
+    raw_path = evidence.get("boot_smoke_report")
+    if not isinstance(raw_path, str) or not raw_path:
+        raise UiTestCandidateIsoError(
+            "runtime_evidence needs boot_smoke_report"
+        )
+    receipt_path = (PROJECT_ROOT / raw_path).resolve()
+    try:
+        receipt_path.relative_to(
+            PROJECT_ROOT / "work/runtime/iso-incremental"
+        )
+    except ValueError as error:
+        raise UiTestCandidateIsoError(
+            "boot-smoke receipt leaves work/runtime/iso-incremental"
+        ) from error
+    if not receipt_path.is_file():
+        raise UiTestCandidateIsoError("boot-smoke receipt is missing")
+    receipt = load_json(receipt_path)
+    emulator = receipt.get("emulator")
+    log = receipt.get("log")
+    checks = receipt.get("checks")
+    if (
+        receipt.get("schema_version") != 1
+        or receipt.get("status") != "passed"
+        or receipt.get("iso")
+        != {
+            "path": config["output"]["path"],
+            **actual_output,
+        }
+        or not isinstance(emulator, dict)
+        or emulator.get("pine_version") != "PCSX2 v2.6.3"
+        or emulator.get("game_id") != "SLPS-25887"
+        or emulator.get("pine_status") != 0
+        or emulator.get("fresh_process") is not True
+        or emulator.get("process_exit_code_after_sigint") != 0
+        or not isinstance(log, dict)
+        or log.get("dvd_recognized") is not True
+        or log.get("elf_executing") is not True
+        or log.get("no_tlb_miss") is not True
+        or log.get("tlb_miss_count") != 0
+        or not isinstance(checks, dict)
+        or not checks
+        or not all(checks.values())
+    ):
+        raise UiTestCandidateIsoError(
+            "boot-smoke receipt does not prove the exact integrated ISO"
+        )
+    return {
+        "status": "boot_smoke_passed_visual_not_tested",
+        "required_iso_sha256": actual_output["sha256"],
+        "required_emulator": "PCSX2 v2.6.3",
+        "receipt": file_lock(receipt_path),
+        "fresh_process": True,
+        "game_id": "SLPS-25887",
+        "pine_status": 0,
+        "pine_state": "Running",
+        "dvd_recognized": True,
+        "elf_executing": True,
+        "tlb_miss_count": 0,
+        "required_scene_families": required_scene_families,
+        "isolated_atlas_mapping_profiles_remain_required": True,
+        "pending_gates": [
+            "pine_decoded_font_exact",
+            "all_required_scene_families_visited",
+            "no_clipping_overlap_or_missing_glyphs",
+            "five_isolated_atlas_scene_mapping_receipts",
+        ],
+        "boundary": (
+            "Fresh-process boot proves DVD, ELF, PINE and zero logged TLB "
+            "misses only; no route navigation or visual acceptance is claimed."
+        ),
+    }
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
@@ -229,6 +329,7 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
     )
     if not isinstance(manifest_status, str) or not manifest_status:
         raise UiTestCandidateIsoError("integrated runtime manifest status is invalid")
+    runtime = build_runtime_projection(config, actual_output, component)
     return {
         "schema_version": 1,
         "status": manifest_status,
@@ -265,23 +366,7 @@ def build_report(config_path: Path, component_manifest_path: Path) -> dict:
             "replacements": replacements,
         },
         "static_acceptance": acceptance,
-        "runtime": {
-            "status": "not_tested",
-            "required_iso_sha256": actual_output["sha256"],
-            "required_emulator": "PCSX2 v2.6.3",
-            "required_scene_families": component["runtime"][
-                "required_scene_families"
-            ],
-            "isolated_atlas_mapping_profiles_remain_required": True,
-            "pending_gates": [
-                "fresh_process_boot_exact_iso",
-                "pine_running_and_decoded_font_exact",
-                "all_required_scene_families_visited",
-                "no_clipping_overlap_or_missing_glyphs",
-                "zero_tlb_miss",
-                "five_isolated_atlas_scene_mapping_receipts",
-            ],
-        },
+        "runtime": runtime,
     }
 
 

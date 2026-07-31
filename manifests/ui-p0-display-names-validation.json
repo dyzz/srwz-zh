@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/ui-writeback/ui-p0-display-names.json",
-      "sha256": "42f05928fbd1aec98afa17f36236c0e7f37f7785ffb1afb06fc0ac5056007d78"
+      "sha256": "fafc42b895a9804ad3cd7c9f4b8766fc818dc154044544f6a79d57c4cd23a865"
     },
     "structure": {
       "config": {
@@ -70,7 +70,7 @@
     ],
     "font_manifest": {
       "path": "manifests/ui-p0-font-validation.json",
-      "sha256": "1626b56025b3863c997ce6fdccf7196d8b26bdd9031d50d08ebee9e091d67591"
+      "sha256": "2e3ef59510b93dbbe65793df81fe7962aa7f5d97f4c991a0ab064f98224474f4"
     },
     "codebook": {
       "base_codebook": {
@@ -79,20 +79,21 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p0-codebook-proposal.json",
-        "sha256": "3f7fa7e72adb33cc3020d9929d11864ea806f327ae7839adf53d694fc22f1a2f"
+        "sha256": "cce51f7feb737082ca3d6f115ce43ad30de308ce6094536fce6569a7109949c8"
       },
-      "override_count": 1454
+      "override_count": 1454,
+      "semantic_code_replacements": []
     },
     "base_component": {
       "config": {
         "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
-        "sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43"
+        "sha256": "35af6297e4ba2cde318a0466116afc59a003960bc41ce000f3c47992f1619e59"
       },
       "manifest": {
         "path": "manifests/ui-p0-fixed-compdata-validation.json",
-        "sha256": "6fcadb76f10aa866465c382d171f1a596824c1357750a1ed01d199eb0f4f3bf8"
+        "sha256": "b23e9daf19be2a5e11d32aa5cce367d027f88fcde45414768a57e49e4763984a"
       },
-      "compressed_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d",
+      "compressed_sha256": "9933127220837966ff5c4cb06f1a10a15e78225a02d846250c7b3b4e8a156eeb",
       "decoded_sha256": "8e1d9a25a33ac445b53b9bbb789f3ece940043276436f45917575c93783754ea",
       "static_p0_entry_count": 44
     }
@@ -726,13 +727,13 @@
     "output_sha256": "a2064b1d5eb02b0f6d220df539716813007218d3c85b76658d0bd256fc13cbc3"
   },
   "compressed_component": {
-    "base_size": 147050,
-    "output_size": 143493,
-    "size_delta_from_base": -3557,
-    "base_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d",
-    "output_sha256": "3178915d69a2ebd5f9d785bd08b6a1f49270f4406bc071dc558f46b64bd44529",
+    "base_size": 145105,
+    "output_size": 143952,
+    "size_delta_from_base": -1153,
+    "base_sha256": "9933127220837966ff5c4cb06f1a10a15e78225a02d846250c7b3b4e8a156eeb",
+    "output_sha256": "89c3c13b0de52d4241a7b186f6e4a0a92afdb83a95d49ca3f0b0f26422b4178a",
     "preserved_base_prefix_size": 29093,
-    "strategy": "maximum",
+    "strategy": "rust-maximum",
     "min_match_length": 2,
     "max_match_chain": 65535,
     "lazy_matching": true,
@@ -741,7 +742,7 @@
     "maximum_sectors": 71,
     "sector_count": 71,
     "within_sector_budget": true,
-    "budget_headroom": 1915,
+    "budget_headroom": 1456,
     "flags_preserved": true,
     "decoded_round_trip_exact": true,
     "fully_consumed": true

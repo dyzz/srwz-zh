@@ -62,7 +62,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             self.manifest["summary"]["runtime_not_tested_case_count"],
             46,
         )
-        self.assertEqual(self.manifest["summary"]["artifact_count"], 8)
+        self.assertEqual(self.manifest["summary"]["artifact_count"], 7)
         self.assertEqual(
             self.manifest["summary"]["capture_counts"],
             {
@@ -74,13 +74,13 @@ class UiRuntimeMatrixTests(unittest.TestCase):
         integrated = self.manifest["artifacts"][0]
         self.assertEqual(
             integrated["artifact_id"],
-            "first-five-noncompdata-ui",
+            "first-five-full-ui-with-compdata",
         )
         self.assertEqual(
             integrated["iso_sha256"],
             (
-                "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec4"
-                "1d9e70263851ec39"
+                "218de6c432fd0d076cc464b68a8868349ced4f585e31608b8"
+                "c4b0f49e4dff63b"
             ),
         )
         non_mapping_cases = [
@@ -88,43 +88,23 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             for case in self.manifest["cases"]
             if case["purpose"] != "asset_mapping"
         ]
-        blocked_case_ids = {
-            "first-five/stage-title-route-branch",
-            "compdata/information-display-names",
-            "compdata/search-filter-terms",
-            "database/unit-special-abilities-core",
-            "database/leadership-effects-core",
+        p2_case_ids = {
+            "fresh-boot/default-protagonist-labels",
+            "compdata/intermission-buttons",
         }
-        self.assertEqual(
-            {
-                case["case_id"]
-                for case in non_mapping_cases
-                if case["artifact_id"]
-                == "first-five-full-ui-with-compdata"
-            },
-            blocked_case_ids,
-        )
         self.assertTrue(
             all(
-                case["artifact_id"] == "first-five-noncompdata-ui"
+                case["artifact_id"] == "first-five-full-ui-with-compdata"
                 for case in non_mapping_cases
-                if case["case_id"] not in blocked_case_ids
-                and case["case_id"]
-                not in {
-                    "fresh-boot/default-protagonist-labels",
-                    "compdata/intermission-buttons",
-                }
+                if case["case_id"] not in p2_case_ids
             )
         )
         self.assertEqual(
             {
                 self.cases[case_id]["artifact_id"]
-                for case_id in {
-                    "fresh-boot/default-protagonist-labels",
-                    "compdata/intermission-buttons",
-                }
+                for case_id in p2_case_ids
             },
-            {"ui-p1-opening-names-maximum"},
+            {"ui-p2-default-names-first-five"},
         )
 
     def test_every_inventory_scene_has_one_explicit_disposition(self):
@@ -247,8 +227,8 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             "srwz-ui-database-fixed-core-v1",
         )
         self.assertEqual(database_extension["scene_count"], 4)
-        self.assertEqual(database_extension["promoted_entry_count"], 402)
-        self.assertEqual(database_extension["remaining_entry_count"], 848)
+        self.assertEqual(database_extension["promoted_entry_count"], 403)
+        self.assertEqual(database_extension["remaining_entry_count"], 847)
         self.assertEqual(
             {
                 scene["scene_id"]: scene["entry_count"]
@@ -257,7 +237,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             {
                 "database/pilot-skills-core": 88,
                 "database/unit-special-abilities-core": 155,
-                "database/spirit-commands-core": 144,
+                "database/spirit-commands-core": 145,
                 "database/leadership-effects-core": 15,
             },
         )
@@ -303,10 +283,10 @@ class UiRuntimeMatrixTests(unittest.TestCase):
         )
         for case_id, artifact_id in {
             "fresh-boot/tutorial-unit-stat-terrain": (
-                "first-five-noncompdata-ui"
+                "first-five-full-ui-with-compdata"
             ),
             "fresh-boot/default-protagonist-labels": (
-                "ui-p1-opening-names-maximum"
+                "ui-p2-default-names-first-five"
             ),
         }.items():
             case = self.cases[case_id]
@@ -323,7 +303,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             self.assertEqual(case["fixture_id"], "first-intermission-card")
             self.assertEqual(
                 case["artifact_id"],
-                "first-five-noncompdata-ui",
+                "first-five-full-ui-with-compdata",
             )
         for case_id in (
             "battle/end-phase-map-command-tail",
@@ -335,13 +315,13 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             self.assertEqual(case["fixture_id"], "first-battle-card")
             self.assertEqual(
                 case["artifact_id"],
-                "first-five-noncompdata-ui",
+                "first-five-full-ui-with-compdata",
             )
         deployment = self.cases["deployment/squad-selection-and-size-format"]
         self.assertEqual(deployment["fixture_id"], "pre-results-card")
         self.assertEqual(
             deployment["artifact_id"],
-            "first-five-noncompdata-ui",
+            "first-five-full-ui-with-compdata",
         )
         for case_id in (
             "formation/terrain-variant-selector",
@@ -352,7 +332,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             self.assertEqual(case["fixture_id"], "first-intermission-card")
             self.assertEqual(
                 case["artifact_id"],
-                "first-five-noncompdata-ui",
+                "first-five-full-ui-with-compdata",
             )
         weapon = self.cases[
             "battle/weapon-selection-and-use-conditions"
@@ -360,7 +340,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
         self.assertEqual(weapon["fixture_id"], "first-battle-card")
         self.assertEqual(
             weapon["artifact_id"],
-            "first-five-noncompdata-ui",
+            "first-five-full-ui-with-compdata",
         )
         for case_id, screenshot_count in {
             "database/pilot-skills-core": 3,
@@ -381,7 +361,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
                     "database/unit-special-abilities-core",
                     "database/leadership-effects-core",
                 }
-                else "first-five-noncompdata-ui"
+                else "first-five-full-ui-with-compdata"
             )
             self.assertEqual(case["artifact_id"], expected_artifact)
             self.assertEqual(
@@ -468,13 +448,13 @@ class UiRuntimeMatrixTests(unittest.TestCase):
         )
         self.assertEqual(
             self.manifest["summary"]["missing_fixture_case_count"],
-            35,
+            40,
         )
         self.assertEqual(
             self.manifest["summary"][
                 "artifact_runtime_blocked_case_count"
             ],
-            5,
+            0,
         )
 
     def test_tsv_is_one_bounded_row_per_case(self):

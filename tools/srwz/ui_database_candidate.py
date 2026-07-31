@@ -12,7 +12,7 @@ from .codec import decode, reencode_changed_suffix
 from .font import decode_vt1_font_segment, sha256_bytes
 from .iso_layout import CORE_ARCHIVE_SPECS, read_executable_archive_offsets
 from .menu import parse_menu_file
-from .text import augment_text_table, decode_text, load_text_table
+from .text import decode_text, load_text_table
 from .ui_database_selection import (
     UiDatabaseSelectionError,
     audit_ui_database_selection,
@@ -21,8 +21,10 @@ from .ui_database_selection import (
 )
 from .ui_menu import (
     UiMenuError,
+    augment_ui_source_text_table,
     build_fixed_menu_slice,
     load_ui_font_overrides,
+    normalize_ui_font_aliases,
 )
 from .writers import WritebackError, build_executable_offset_patch_plan
 
@@ -215,7 +217,7 @@ def _verify_selected_readback(
     *,
     label: str,
 ) -> None:
-    output_table = augment_text_table(table, overrides)
+    output_table = augment_ui_source_text_table(table, overrides)
     parsed_entries = {entry.entry_id: entry for entry in parsed.entries}
     for entry_id, decision in decisions.items():
         parsed_entry = parsed_entries.get(entry_id)
@@ -225,7 +227,11 @@ def _verify_selected_readback(
             )
         for target_offset in set(parsed_entry.target_offsets):
             if (
-                decode_text(source, target_offset, output_table).text
+                normalize_ui_font_aliases(
+                    decode_text(source, target_offset, output_table).text,
+                    table,
+                    overrides,
+                )
                 != decision["translation"]
             ):
                 raise UiDatabaseCandidateError(
@@ -412,7 +418,7 @@ def build_ui_database_candidate(
         raise UiDatabaseCandidateError("text table SHA-256 drift")
     descriptors = _menu_descriptors(descriptor_path)
     table = load_text_table(table_path)
-    source_table = augment_text_table(table, overrides)
+    source_table = augment_ui_source_text_table(table, overrides)
 
     decoded_compdata_result = decode(base_payloads["compdata"])
     if decoded_compdata_result.consumed != len(base_payloads["compdata"]):
@@ -467,20 +473,43 @@ def build_ui_database_candidate(
     slps_text_changed_offsets = slps_slice_report.pop("changed_offsets")
     compdata_changed_offsets = compdata_slice_report.pop("changed_offsets")
     codec = config.get("codec")
-    if not isinstance(codec, dict) or codec.get("mode") != (
-        "preserve-prefix-reencode-suffix"
+    if (
+        not isinstance(codec, dict)
+        or codec.get("mode") != "preserve-prefix-reencode-suffix"
+        or codec.get("strategy") != "rust-maximum"
     ):
         raise UiDatabaseCandidateError(
             "UI database COMPDATA codec policy is invalid"
         )
-    output_compdata = reencode_changed_suffix(
-        base_payloads["compdata"],
-        compdata_decoded,
-        strategy=codec["strategy"],
-        min_match_length=codec["min_match_length"],
-        max_match_chain=codec["max_match_chain"],
-        lazy_matching=codec["lazy_matching"],
-    )
+    max_output_size = codec.get("max_output_size")
+    sector_size = codec.get("sector_size")
+    max_sectors = codec.get("max_sectors")
+    if (
+        any(
+            not isinstance(value, int)
+            or isinstance(value, bool)
+            or value <= 0
+            for value in (max_output_size, sector_size, max_sectors)
+        )
+        or max_output_size != sector_size * max_sectors
+    ):
+        raise UiDatabaseCandidateError(
+            "P10 COMPDATA codec sector budget is invalid"
+        )
+    try:
+        output_compdata = reencode_changed_suffix(
+            base_payloads["compdata"],
+            compdata_decoded,
+            strategy=codec["strategy"],
+            min_match_length=codec["min_match_length"],
+            max_match_chain=codec["max_match_chain"],
+            lazy_matching=codec["lazy_matching"],
+            max_output_size=max_output_size,
+        )
+    except (RuntimeError, ValueError) as error:
+        raise UiDatabaseCandidateError(
+            f"P10 COMPDATA compression failed: {error}"
+        ) from error
     output_compdata_result = decode(output_compdata)
     if (
         output_compdata_result.consumed != len(output_compdata)
@@ -676,6 +705,9 @@ def build_ui_database_candidate(
         "font_reraster_count": font_manifest[
             "additional_reraster_existing_han"
         ]["count"],
+        "font_semantic_replacement_count": font_manifest[
+            "semantic_code_replacements"
+        ]["count"],
         "slps_no_op_entry_count": slps_selection["no_op_entry_count"],
         "slps_selected_write_entry_count": slps_selection[
             "selected_write_entry_count"
@@ -759,7 +791,7 @@ def build_ui_database_candidate(
         )
     acceptance = {
         "selection_manifest_reproduced_exact": True,
-        "all_402_selected_entries_fixed_span_covered": (
+        "all_selected_entries_fixed_span_covered": (
             actual_ratchet["fixed_covered_entry_count"] == len(decisions)
             and actual_ratchet["excluded_entry_count"] == 0
         ),
@@ -947,6 +979,27 @@ def build_ui_database_candidate(
             "compdata_output_compressed_size": len(output_compdata),
             "compdata_compressed_common_prefix": compressed_common_prefix,
             "compdata_flags": output_compdata_result.flags,
+            "compdata_codec": {
+                "strategy": codec["strategy"],
+                "min_match_length": codec["min_match_length"],
+                "max_match_chain": codec["max_match_chain"],
+                "lazy_matching": codec["lazy_matching"],
+                "output_size": len(output_compdata),
+                "maximum_output_size": max_output_size,
+                "sector_size": sector_size,
+                "maximum_sectors": max_sectors,
+                "sector_count": (
+                    len(output_compdata) + sector_size - 1
+                )
+                // sector_size,
+                "within_sector_budget": (
+                    len(output_compdata) <= max_output_size
+                ),
+                "budget_headroom": max_output_size - len(output_compdata),
+                "decoded_round_trip_exact": True,
+                "flags_preserved": True,
+                "fully_consumed": True,
+            },
         },
         "outputs": output_report,
         "ratchet": {

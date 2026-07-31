@@ -80,7 +80,7 @@ class UiP8RemainingUserFacingCandidateTests(unittest.TestCase):
         self.assertTrue(all(self.manifest["acceptance"].values()))
         self.assertEqual(
             self.manifest["outputs"]["vt1"]["sha256"],
-            "1424eb1626b624eb637130e08a11c320e5fb39ebf40077e91cbbfe6875839fbf",
+            "3e3d3ad784feacd8e8729c44578ccbdba14dc95311c2fee276c5c6eaf6bb4873",
         )
         self.assertEqual(
             self.manifest["outputs"]["compdata"]["sha256"],

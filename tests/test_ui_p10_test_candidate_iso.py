@@ -54,7 +54,7 @@ class UiP10TestCandidateIsoTests(unittest.TestCase):
             },
         )
 
-    def test_seven_members_and_two_shift_segments_are_bound(self):
+    def test_seven_members_and_single_shift_segment_are_bound(self):
         replacements = self.runtime["iso_build"]["replacements"]
         self.assertEqual(set(replacements), set(self.component["outputs"]))
         self.assertEqual(len(replacements), 7)
@@ -68,19 +68,20 @@ class UiP10TestCandidateIsoTests(unittest.TestCase):
             self.runtime["iso_build"]["shift_segments"],
             [
                 {
-                    "first_member": "DATA/NISVDATA.BIN",
-                    "shift_sectors": 8,
-                },
-                {
                     "first_member": "DATA/STAGE.BIN",
-                    "shift_sectors": 45,
+                    "shift_sectors": 1,
                 },
             ],
         )
 
     def test_runtime_boundary_is_explicit(self):
         self.assertTrue(all(self.runtime["static_acceptance"].values()))
-        self.assertEqual(self.runtime["runtime"]["status"], "not_tested")
+        self.assertEqual(
+            self.runtime["runtime"]["status"],
+            "boot_smoke_passed_visual_not_tested",
+        )
+        self.assertEqual(self.runtime["runtime"]["pine_state"], "Running")
+        self.assertEqual(self.runtime["runtime"]["tlb_miss_count"], 0)
         self.assertEqual(
             self.runtime["runtime"]["required_iso_sha256"],
             self.runtime["iso_build"]["output"]["sha256"],

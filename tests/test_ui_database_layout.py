@@ -36,24 +36,24 @@ class UiDatabaseLayoutTests(unittest.TestCase):
         self.assertNotIn("source_text", serialized)
         self.assertNotIn("target_text", serialized)
 
-    def test_all_402_entries_fit_observed_source_envelopes(self):
+    def test_all_403_entries_fit_observed_source_envelopes(self):
         self.assertEqual(
             self.report["summary"],
             {
                 "family_count": 4,
-                "entry_count": 402,
-                "source_readback_count": 402,
-                "target_readback_count": 402,
+                "entry_count": 403,
+                "source_readback_count": 403,
+                "target_readback_count": 403,
                 "line_width_overflow_count": 0,
                 "line_count_overflow_count": 0,
-                "literal_character_count": 512,
+                "literal_character_count": 513,
                 "missing_glyph_character_count": 0,
                 "empty_glyph_character_count": 0,
-                "target_han_character_count": 444,
+                "target_han_character_count": 445,
                 "original_font_han_character_count": 0,
                 "han_raster_mismatch_count": 0,
                 "preview_page_count": 10,
-                "preview_entry_count": 402,
+                "preview_entry_count": 403,
             },
         )
         self.assertTrue(all(self.report["acceptance"].values()))
@@ -75,7 +75,7 @@ class UiDatabaseLayoutTests(unittest.TestCase):
             {
                 "database/leadership-effects-core": (15, 9, 1, 9, 1, 1),
                 "database/pilot-skills-core": (88, 23, 3, 21, 3, 2),
-                "database/spirit-commands-core": (144, 28, 2, 25, 2, 3),
+                "database/spirit-commands-core": (145, 28, 2, 25, 2, 3),
                 "database/unit-special-abilities-core": (
                     155,
                     30,
@@ -102,6 +102,18 @@ class UiDatabaseLayoutTests(unittest.TestCase):
         for entry_id in ("menu/SLPS/09/0007", "menu/SLPS/08/0058"):
             self.assertFalse(rows[entry_id]["line_width_overflow"])
             self.assertFalse(rows[entry_id]["line_count_overflow"])
+
+    def test_bond_keeps_one_cell_and_rereads_as_simplified_chinese(self):
+        row = next(
+            row
+            for row in self.report["entries"]
+            if row["entry_id"] == "menu/SLPS/08/0079"
+        )
+        self.assertEqual(row["source_text"], "絆")
+        self.assertEqual(row["target_text"], "绊")
+        self.assertEqual(row["source_line_widths"], [1])
+        self.assertEqual(row["target_line_widths"], [1])
+        self.assertFalse(row["line_width_overflow"])
 
     def test_exact_glyph_preview_pages_match_png_locks(self):
         self.assertEqual(len(self.previews), 10)

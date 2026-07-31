@@ -28,7 +28,6 @@ from .menu import parse_menu_file
 from .text import (
     CONTROL_NOTATION,
     PRINTABLE_ASCII,
-    augment_text_table,
     control_notation_positions,
     load_text_table,
 )
@@ -36,7 +35,12 @@ from .ui_database_selection import (
     UiDatabaseSelectionError,
     select_database_entries,
 )
-from .ui_menu import UiMenuError, load_ui_font_overrides
+from .ui_menu import (
+    UiMenuError,
+    augment_ui_source_text_table,
+    load_ui_font_overrides,
+    normalize_ui_font_aliases,
+)
 
 
 class UiDatabaseLayoutError(ValueError):
@@ -675,7 +679,8 @@ def audit_ui_database_layout(
     ):
         if _sha256_path(path) != reference["sha256"]:
             raise UiDatabaseLayoutError(f"{label} SHA-256 drift")
-    table = augment_text_table(load_text_table(text_table_path), overrides)
+    table = load_text_table(text_table_path)
+    source_table = augment_ui_source_text_table(table, overrides)
     descriptors = _menu_descriptors(descriptor_path)
     source_data = {
         "slps": base_payloads["slps"],
@@ -693,7 +698,7 @@ def audit_ui_database_layout(
                 for entry in parse_menu_file(
                     source_data[member_id],
                     descriptors[member_id],
-                    table,
+                    source_table,
                 ).entries
             },
             "target": {
@@ -701,7 +706,7 @@ def audit_ui_database_layout(
                 for entry in parse_menu_file(
                     target_data[member_id],
                     descriptors[member_id],
-                    table,
+                    source_table,
                 ).entries
             },
         }
@@ -731,10 +736,15 @@ def audit_ui_database_layout(
                 f"database entry is absent from parsed members: {entry_id}"
             )
         decision = decisions[entry_id]
+        target_text = normalize_ui_font_aliases(
+            target_entry.text,
+            table,
+            overrides,
+        )
         if (
             text_sha256(source_entry.text)
             != decision["source_text_sha256"]
-            or target_entry.text != decision["translation"]
+            or target_text != decision["translation"]
         ):
             raise UiDatabaseLayoutError(
                 f"database source/target readback drift: {entry_id}"
@@ -752,14 +762,14 @@ def audit_ui_database_layout(
         )
         target_widths = tuple(
             rendered_line_width(line)
-            for line in target_entry.text.splitlines()
+            for line in target_text.splitlines()
         )
         row = {
             "entry_id": entry_id,
             "member_id": member_id,
             "runtime_scene_id": family_id,
             "source_text": source_entry.text,
-            "target_text": target_entry.text,
+            "target_text": target_text,
             "source_line_widths": list(source_widths),
             "target_line_widths": list(target_widths),
             "source_line_count": len(source_widths),

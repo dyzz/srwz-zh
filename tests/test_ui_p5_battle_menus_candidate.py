@@ -64,7 +64,7 @@ class UiP5BattleMenusCandidateTests(unittest.TestCase):
         base = self.manifest["inputs"]["base_ui_core"]["outputs"]
         self.assertEqual(
             outputs["slps"]["sha256"],
-            "473b5f5fee31d78aacbe5e6f78db1c9207a52f33ff50ef65a846e880b080d16d",
+            "49c3b28955b074bff147065254a60aaecdf696369f5476cd6bac3f4aba9aa1ed",
         )
         self.assertNotEqual(outputs["slps"]["sha256"], base["slps"]["sha256"])
         for name in ("vt1", "compdata", "mtv_pros"):

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "matrix_id": "srwz-ui-runtime-v1",
-  "scope": "Runtime scene selection for the promoted first-five-noncompdata-ui ISO. Runnable SLPS, VT1, MTV_PROS, STAGE and combined-atlas surfaces are kept separate from COMPDATA-dependent cases blocked by the known TLB failure. This file plans evidence; a case remains not_tested until exact-ISO PCSX2 evidence is reviewed.",
+  "scope": "Runtime scene selection for the promoted first-five UI candidates. The Rust-compressed P10 COMPDATA candidate now passes the exact-ISO fresh-process boot gate with zero logged TLB misses; route navigation, database-page visuals and isolated atlas mapping remain separate pending evidence.",
   "scene_inventory": {
     "path": "config/ui-scenes.json",
     "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
@@ -11,7 +11,7 @@
     {
       "extension_id": "embedded-ui-promoted-p8",
       "manifest": "manifests/ui-embedded-scene-map.json",
-      "manifest_sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651",
+      "manifest_sha256": "17bd76bad91988993bf2b51415b6335578686f37a7bedd2a9388014aa142b2f4",
       "map_id": "srwz-ui-embedded-scenes-v1",
       "status_lock": {
         "field": "status",
@@ -19,7 +19,7 @@
       },
       "promotion_manifest": {
         "path": "manifests/ui-p7-embedded-font-groups-validation.json",
-        "sha256": "08d581d28a6cac08048896d63553dd3c6e9fa41edd1913dd2e6241bc84b72c76",
+        "sha256": "85878642ea832d37bf84ec65e1d98e3d0fa73c02660586ffe2f9886747ec9244",
         "required_profile_id": "srwz-ui-p7-embedded-font-groups-integrated-v1",
         "required_status": "integrated_ui_p7_embedded_font_groups_component_validated_iso_runtime_pending",
         "required_runtime_status": "not_tested"
@@ -50,7 +50,7 @@
     {
       "extension_id": "embedded-ui-mixed-entry-subsets-p9",
       "manifest": "manifests/ui-embedded-scene-map.json",
-      "manifest_sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651",
+      "manifest_sha256": "17bd76bad91988993bf2b51415b6335578686f37a7bedd2a9388014aa142b2f4",
       "map_id": "srwz-ui-embedded-scenes-v1",
       "status_lock": {
         "field": "status",
@@ -58,7 +58,7 @@
       },
       "promotion_manifest": {
         "path": "manifests/ui-p9-mixed-user-facing-subset-validation.json",
-        "sha256": "2a8b6ffd21253c1cab66c29f05ca670f1744c6f0eefd7cf09e49443c725eef0d",
+        "sha256": "50268596393adc77ab11207050cd85db5ad2f24ab94e92e9bb35a5e586995204",
         "required_profile_id": "srwz-ui-p9-mixed-user-facing-subset-integrated-v1",
         "required_status": "integrated_ui_p9_mixed_user_facing_subset_component_validated_iso_runtime_pending",
         "required_runtime_status": "not_tested"
@@ -84,7 +84,7 @@
       "extension_id": "database-fixed-core-p10",
       "extension_kind": "database_selection",
       "manifest": "manifests/ui-database-fixed-core-selection.json",
-      "manifest_sha256": "f455f99a1a336b4374a58f8948e6cda1b7538758d798a38b78177f8bf2ec84d8",
+      "manifest_sha256": "0af0b7bf25db59cae38c0e376fed1095594fd287b4edba4fc1c9516c64c153e7",
       "selection_id": "srwz-ui-database-fixed-core-v1",
       "status_lock": {
         "field": "status",
@@ -92,7 +92,7 @@
       },
       "promotion_manifest": {
         "path": "manifests/ui-p10-database-fixed-core-validation.json",
-        "sha256": "41c96c2a7151ff69d918e184ecd4bf01b473a9c3d8019a83308681ac7be31333",
+        "sha256": "18a87f42731fa597147d800e52c21b01743e7fb95d51860c25ae6a9937230094",
         "required_profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
         "required_status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
         "required_runtime_status": "not_tested"
@@ -100,7 +100,7 @@
       "parent_scene_id": "database/parts-skills-abilities-weapons",
       "parent_priority": "P2",
       "priority": "P1",
-      "priority_override_reason": "The 402-entry core is now renderer-complete, fixed-span validated and reachable from first-intermission information pages; the unselected 848-entry remainder stays P2.",
+      "priority_override_reason": "The 403-entry core is now renderer-complete and fixed-span validated; the previous 402-entry ISO proved the four routes reachable, while the new same-code 绊 glyph remains runtime pending. The unselected 847-entry remainder stays P2.",
       "fixture_id": "first-intermission-card",
       "selected_family_scene_ids": [
         "database/pilot-skills-core",
@@ -138,53 +138,31 @@
   },
   "artifact_profiles": [
     {
-      "artifact_id": "first-five-noncompdata-ui",
-      "manifest": "manifests/ui-iso-incremental-validation.json",
-      "manifest_sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5",
+      "artifact_id": "first-five-full-ui-with-compdata",
+      "manifest": "manifests/ui-p10-database-fixed-core-first-five-atlas-test-runtime-validation.json",
+      "manifest_sha256": "46eb0eeefc718e13d177ad623dbe05e62848398acc12af0d6c775530f9634037",
       "status_lock": {
         "field": "status",
-        "equals": "validated_with_known_compdata_runtime_blocker"
+        "equals": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_iso_boot_smoke_passed_visual_pending"
       },
       "runtime_lock": {
-        "field": "promoted_candidate.step_id",
-        "equals": "first-five-noncompdata-ui"
+        "field": "runtime.status",
+        "equals": "boot_smoke_passed_visual_not_tested"
       },
       "availability": "runnable",
       "iso_lock": {
-        "path_field": "promoted_candidate.iso_path",
-        "size_field": "promoted_candidate.iso_size",
-        "sha256_field": "promoted_candidate.iso_sha256",
-        "expected_path": "build/iso/ui-step-02-first-five-noncompdata/srwz-ui-step-02-first-five-noncompdata.iso",
-        "expected_size": 3758424064,
-        "expected_sha256": "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39"
-      }
-    },
-    {
-      "artifact_id": "first-five-full-ui-with-compdata",
-      "manifest": "manifests/ui-iso-incremental-validation.json",
-      "manifest_sha256": "64dcc44693d5f2ab313cb8a7c98876577b3847a0a2a866893667ec19eb2935d5",
-      "status_lock": {
-        "field": "status",
-        "equals": "validated_with_known_compdata_runtime_blocker"
-      },
-      "runtime_lock": {
-        "field": "blocked_candidate.runtime_status",
-        "equals": "failed_tlb"
-      },
-      "availability": "blocked_runtime",
-      "iso_lock": {
-        "path_field": "blocked_candidate.iso_path",
-        "size_field": "blocked_candidate.iso_size",
-        "sha256_field": "blocked_candidate.iso_sha256",
+        "path_field": "iso_build.path",
+        "size_field": "iso_build.output.size",
+        "sha256_field": "iso_build.output.sha256",
         "expected_path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso",
-        "expected_size": 3758456832,
-        "expected_sha256": "2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431"
+        "expected_size": 3758358528,
+        "expected_sha256": "218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b"
       }
     },
     {
-      "artifact_id": "ui-p1-opening-names-maximum",
-      "manifest": "manifests/ui-p1-core-runtime-validation.json",
-      "manifest_sha256": "46d6e9c67cfcc261c289fda6c8df033a05f048cc39edfc857811fce7868a3e8e",
+      "artifact_id": "ui-p2-default-names-first-five",
+      "manifest": "manifests/ui-p2-default-names-first-five-runtime-validation.json",
+      "manifest_sha256": "bf9bb29e847d0ca9f58e99933baa9e6166af7dc5541965c9b78022af6402ca9a",
       "status_lock": {
         "field": "status",
         "equals": "integrated_iso_boot_smoke_passed_visual_pending"
@@ -198,9 +176,9 @@
         "path_field": "iso_build.path",
         "size_field": "iso_build.output.size",
         "sha256_field": "iso_build.output.sha256",
-        "expected_path": "build/iso/ui-p1-core/srwz-ui-p1-core.iso",
+        "expected_path": "build/iso/ui-p2-default-names-first-five/srwz-ui-p2-default-names-first-five.iso",
         "expected_size": 3758358528,
-        "expected_sha256": "69771b8dfa5800d3ce6652436d3cbad24ed71e5d83b4c5dc12b8ed0c3ae33854"
+        "expected_sha256": "026f29e3e77b78a19f000c6781317ebc95aeb672b5b2848ad2a30bf8d2f5c473"
       }
     },
     {
@@ -442,7 +420,7 @@
       "scene_ids": [
         "title/main-menu"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "fresh-boot",
       "variant": null,
       "route": [
@@ -474,7 +452,7 @@
       "scene_ids": [
         "opening/player-setup"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "fresh-boot",
       "variant": null,
       "route": [
@@ -518,7 +496,7 @@
       "scene_ids": [
         "intermission/main-and-options"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -563,7 +541,7 @@
       "scene_ids": [
         "information/unit-pilot-mech-core"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -612,7 +590,7 @@
       "scene_ids": [
         "battle/map-and-tactical"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-battle-card",
       "variant": null,
       "route": [
@@ -656,7 +634,7 @@
       "scene_ids": [
         "results/level-up-and-deployment"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "pre-results-card",
       "variant": null,
       "route": [
@@ -700,7 +678,7 @@
       "scene_ids": [
         "search/filter-and-results"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -739,7 +717,7 @@
       "scene_ids": [
         "opening/world-history-scroll"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "fresh-boot",
       "variant": null,
       "route": [
@@ -786,7 +764,7 @@
       "scene_ids": [
         "tutorial/unit-stat-and-terrain-legend"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "fresh-boot",
       "variant": null,
       "route": [
@@ -820,7 +798,7 @@
       "scene_ids": [
         "opening/default-protagonist-labels"
       ],
-      "artifact_id": "ui-p1-opening-names-maximum",
+      "artifact_id": "ui-p2-default-names-first-five",
       "fixture_id": "fresh-boot",
       "variant": null,
       "route": [
@@ -854,7 +832,7 @@
       "scene_ids": [
         "formation/squad-and-reboard-confirmations"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -893,7 +871,7 @@
       "scene_ids": [
         "information/tactical-status-metrics"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -932,7 +910,7 @@
       "scene_ids": [
         "battle/end-phase-map-command-tail"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-battle-card",
       "variant": null,
       "route": [
@@ -966,7 +944,7 @@
       "scene_ids": [
         "battle/action-restriction-messages"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-battle-card",
       "variant": null,
       "route": [
@@ -1005,7 +983,7 @@
       "scene_ids": [
         "system/quick-command-save-and-cancel-confirmations"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-battle-card",
       "variant": null,
       "route": [
@@ -1039,7 +1017,7 @@
       "scene_ids": [
         "battle/repair-resupply-spirit-targeting"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-battle-card",
       "variant": null,
       "route": [
@@ -1083,7 +1061,7 @@
       "scene_ids": [
         "deployment/squad-selection-and-size-format"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "pre-results-card",
       "variant": null,
       "route": [
@@ -1122,7 +1100,7 @@
       "scene_ids": [
         "options/bgm-controller-and-map-settings"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -1161,7 +1139,7 @@
       "scene_ids": [
         "results/settlement-and-support-setup"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "pre-results-card",
       "variant": null,
       "route": [
@@ -1200,7 +1178,7 @@
       "scene_ids": [
         "formation/list-search-and-priority"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -1239,7 +1217,7 @@
       "scene_ids": [
         "upgrade/full-upgrade-reward"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "full-upgrade-card",
       "variant": null,
       "route": [
@@ -1278,7 +1256,7 @@
       "scene_ids": [
         "archive/scenario-progress-and-route-headings"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-five-progress-card",
       "variant": null,
       "route": [
@@ -1312,7 +1290,7 @@
       "scene_ids": [
         "formation/terrain-variant-selector"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -1346,7 +1324,7 @@
       "scene_ids": [
         "battle/weapon-selection-and-use-conditions"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-battle-card",
       "variant": null,
       "route": [
@@ -1385,7 +1363,7 @@
       "scene_ids": [
         "information/reboard-and-option-subpages"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -1424,7 +1402,7 @@
       "scene_ids": [
         "parts/equipment-and-predeployment-actions"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -1463,7 +1441,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "fresh-boot",
       "variant": "001",
       "route": [
@@ -1496,7 +1474,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-five-progress-card",
       "variant": "002",
       "route": [
@@ -1529,7 +1507,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-five-progress-card",
       "variant": "003",
       "route": [
@@ -1562,7 +1540,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-five-progress-card",
       "variant": "004",
       "route": [
@@ -1595,7 +1573,7 @@
       "scene_ids": [
         "story/first-five-opening-sequences"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-five-progress-card",
       "variant": "005",
       "route": [
@@ -1667,11 +1645,11 @@
       "scene_ids": [
         "intermission/main-and-options"
       ],
-      "artifact_id": "ui-p1-opening-names-maximum",
+      "artifact_id": "ui-p2-default-names-first-five",
       "fixture_id": "first-intermission-card",
       "variant": "compdata",
       "route": [
-        "Fresh boot the exact P1 ISO whose 71-sector COMPDATA boot gate passed.",
+        "Fresh boot the exact current P2 ISO whose Rust 71-sector COMPDATA boot gate passed.",
         "Load the first-intermission save and visit button-hint states in the main menu, options, save and load flows."
       ],
       "capture_points": [
@@ -1777,7 +1755,7 @@
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
-        "Fresh boot the promoted first-five-noncompdata-ui ISO and load the first-intermission save.",
+        "Fresh boot the current Rust P10 full-UI ISO and load the first-intermission save.",
         "Open information pages for two units and visit search, pilot, weapon and parts tabs.",
         "Capture the loaded texture and the page where the localized unit locator appears."
       ],
@@ -1811,7 +1789,7 @@
       "fixture_id": "first-battle-card",
       "variant": null,
       "route": [
-        "Fresh boot the promoted first-five-noncompdata-ui ISO and load the first-battle save.",
+        "Fresh boot the current Rust P10 full-UI ISO and load the first-battle save.",
         "Open command menus for two units and visit move, attack, target and battle-status routes.",
         "Capture the loaded texture and the page where the localized command-menu label appears."
       ],
@@ -1845,7 +1823,7 @@
       "fixture_id": "bazaar-unlocked-card",
       "variant": null,
       "route": [
-        "Fresh boot the promoted first-five-noncompdata-ui ISO and load the Bazaar-unlocked save.",
+        "Fresh boot the current Rust P10 full-UI ISO and load the Bazaar-unlocked save.",
         "Open purchase, sale, parts, item and sort routes.",
         "Capture the loaded texture and the page where the localized exchange label appears."
       ],
@@ -1879,7 +1857,7 @@
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
-        "Fresh boot the promoted first-five-noncompdata-ui ISO and load the first-intermission save.",
+        "Fresh boot the current Rust P10 full-UI ISO and load the first-intermission save.",
         "Open the main intermission page and options once.",
         "Capture the loaded texture and the page where the localized intermission title appears."
       ],
@@ -1914,7 +1892,7 @@
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
-        "Fresh boot the promoted first-five-noncompdata-ui ISO and load the first-intermission save.",
+        "Fresh boot the current Rust P10 full-UI ISO and load the first-intermission save.",
         "Open new formation, reserve transfer and deployment formation routes.",
         "Capture the loaded texture and the page where the localized new-squad label appears."
       ],
@@ -1944,7 +1922,7 @@
       "scene_ids": [
         "preparation/reboard-status-visible-subset"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -1978,7 +1956,7 @@
       "scene_ids": [
         "information/pilot-ability-visible-subset"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
@@ -2012,11 +1990,11 @@
       "scene_ids": [
         "database/pilot-skills-core"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
-        "Fresh boot the promoted first-five-noncompdata-ui ISO and load the first-intermission native save.",
+        "Fresh boot the current Rust P10 full-UI ISO and load the first-intermission native save.",
         "Open pilot information, enter the skill list and inspect short, long and multi-line descriptions.",
         "Move to a pilot or row where a skill is unavailable, disabled or not yet learned without using a savestate."
       ],
@@ -2085,11 +2063,11 @@
       "scene_ids": [
         "database/spirit-commands-core"
       ],
-      "artifact_id": "first-five-noncompdata-ui",
+      "artifact_id": "first-five-full-ui-with-compdata",
       "fixture_id": "first-intermission-card",
       "variant": null,
       "route": [
-        "Fresh boot the promoted first-five-noncompdata-ui ISO and load the first-intermission native save.",
+        "Fresh boot the current Rust P10 full-UI ISO and load the first-intermission native save.",
         "Open pilot information or a legal spirit-command selection page and inspect list plus detail text.",
         "Move to a command that is unavailable because of SP, target or current-state restrictions."
       ],
@@ -2409,7 +2387,7 @@
       "scene_id": "menus/extended-embedded-dialogs",
       "disposition": "deferred",
       "reason": "The 275-entry aggregate has a disjoint 22-group static scene map. All eighteen purely player-facing groups covering 253 entries and nine statically identifiable player-facing entries from two mixed groups now have promoted writers and exact runtime routes. The remaining thirteen corrupt, NULL diagnostic, raw control, standalone format and ambiguous Set fragments remain deliberately excluded.",
-      "exit_gate": "Execute all twenty full-group or entry-subset cases against the promoted first-five-noncompdata-ui ISO. Promote any of the remaining thirteen fragments only after a normal player route and screenshot prove that the exact fragment is rendered."
+      "exit_gate": "Execute all twenty full-group or entry-subset cases against the current Rust P10 full-UI ISO. Promote any of the remaining thirteen fragments only after a normal player route and screenshot prove that the exact fragment is rendered."
     },
     {
       "scene_id": "menus/late-game-special-prompts",
@@ -2420,8 +2398,8 @@
     {
       "scene_id": "database/parts-skills-abilities-weapons",
       "disposition": "deferred",
-      "reason": "The 1,250-entry aggregate now has a promoted 402-entry skills, special-abilities, spirit-command and leadership fixed core. The remaining 848 parts, weapons, disputed proper-name terms and the two-CJK label that cannot fit its source span stay deferred.",
-      "exit_gate": "Execute the four exact-P10 list/detail/disabled cases, then design a new storage and renderer strategy before promoting any of the remaining 848 decisions."
+      "reason": "The 1,250-entry aggregate now has a promoted 403-entry skills, special-abilities, spirit-command and leadership fixed core. The one-character label 绊 reuses and rerasterizes the original 絆 code/glyph. The remaining 847 parts, weapons and disputed proper-name terms stay deferred.",
+      "exit_gate": "Execute the four exact-P10 list/detail/disabled cases against a newly built candidate, including visual acceptance of 绊, then design a new storage and renderer strategy before promoting any of the remaining 847 decisions."
     },
     {
       "scene_id": "battle/retreat-lines",

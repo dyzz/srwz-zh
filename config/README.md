@@ -26,6 +26,15 @@
 | `patches/` | ASM/二进制前像、允许差异和写入所有者 |
 | `assets/` | 图片归档成员、压缩标志、SLPS offset 表范围和中文图集生产参数；不包含游戏字节或译文 |
 
+当前生产压缩策略统一为仓内 clean-room Rust `rust-maximum`：前五关
+`HB/STAGE`、所有生产字库、MTV_PROS 世界史和 P0／P2／P10 COMPDATA 都由
+配置显式锁定 `min_match_length`、`max_match_chain` 与 lazy matching。
+COMPDATA profile 还必须声明 145,408-byte／71-sector 硬门并由 verifier
+精确回解。`ui-writeback/compdata-step-01a-p0-buttons.json`、
+`ui-writeback/compdata-step-02-p0-menu-inplace.json` 和
+`canary/tim2-vt1-title-index.json` 是旧实验／运行证据，故意保留原策略，
+不属于当前 production selector。
+
 `ui-scenes.json` 可以实时读取下游动态名称 writer 的状态和覆盖计数，但提交的
 `ui-surface-inventory` 只投影这些语义 ratchet，不回写下游 manifest 的整文件
 哈希。否则会形成“场景清单 → 字库 → COMPDATA writer → 场景清单”的哈希环，
@@ -90,8 +99,8 @@ proposal 就自动升级为运行安全。结果见
 原 span 内写回，禁止修改指针；当前 P0 无增长文本。
 `ui-writeback/ui-p0-compdata-fixed.json` 对压缩 COMPDATA 采用相同 span
 契约，并锁定 preserve-prefix suffix 重编码参数和成员增长 ratchet；当前
-P0 文本 allocation 无 overflow，但压缩结果 147,050 bytes 超出原版
-71-sector／145,408-byte 物理 allocation，不能直接晋级。可启动的首个拆分
+P0 文本 allocation 无 overflow，Rust 重编码结果为 145,105 bytes，保持
+71-sector／145,408-byte 物理 allocation 并余 303 bytes。可启动的历史拆分
 `ui-writeback/compdata-step-01a-p0-buttons.json` 只选择幕间按钮场景，
 145,300-byte 重编码组件保持后续 LBA；因果验证见
 `manifests/compdata-incremental-validation.json`。
@@ -111,6 +120,8 @@ renderer 缺字、29 个统一重绘汉字和零定长溢出收敛为不含日�
 `fonts/ui-p2-display-names-font.json` 将这 28 字和 29 个重绘字形组成统一
 renderer，`ui-writeback/ui-p2-display-names.json` 再把开场 45 项与
 researched 1,262 项合并为 1,307 项 fixed-allocation COMPDATA 组件。
+开场 45 项的中间 Rust 组件为 143,952 bytes，距硬上限 1,456 bytes；
+合并 researched 名称后的 P2 组件为 144,485 bytes，仍保持 71 sectors。
 
 `summary/world-history-layout.json` 锁定 28 条世界史的真实 MTV_PROS 输入、
 22 格显示宽度、14 个原版空行和跨记录定长分配策略。它只允许生成布局报告和
@@ -169,8 +180,10 @@ P4 精确基线。`ui-writeback/ui-p4-intermission-slps.json` 以 P3 输出为�
 和 `fonts/ui-p10-database-font.json` 使用 P7 余下全部 12 个可寻址槽，并统一
 重绘 14 个继承汉字。`ui-writeback/ui-p10-database-fixed-core.json` 对 SLPS
 232 条和 COMPDATA 170 条执行定长／preserve-prefix 写回；对应 P10 integration
-与 ISO 配置生成当前运行矩阵绑定的 7 成员综合 DVD。旧 P2～P9 综合 profile
-均作为可复建历史基线保留。
+与 ISO 配置生成当前运行矩阵绑定的 7 成员综合 DVD。Rust COMPDATA 输出为
+145,191 bytes，距硬上限 217 bytes；精确 DVD 已通过 fresh-process
+DVD／ELF／PINE Running／零 TLB 启动门，逐屏和 atlas mapping 仍待验证。
+旧 P2～P9 综合 profile 均作为可复建历史基线保留。
 
 `assets/ui-atlas-suite-zh.json` 只在测试域内将五份已验证中文 atlas 对
 原版 `KVMDATA.BIN` 的互不相交字节所有权合并；它不改变任何单图的

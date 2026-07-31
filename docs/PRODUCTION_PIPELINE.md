@@ -224,9 +224,9 @@ fresh-process PCSX2/PINE boot smoke 与前五关正文验收不代表该地图�
 码位，共登记 1,436 个 glyph assignment，其中空格槽为预期 no-op。假名、原有
 拉丁字符、既有可达标点、控制符及本切片之外的字形保持原样。
 默认栅格字号为 22pt；`config/fonts/first-five-font.json` 另把截图确认视觉
-偏小的“班”固定为 22.1pt。该最小光学校正只补回 22pt 取整时丢失的一列像素，
-不增加 20px 栅格高度；它保留原码位和 glyph 槽位，并随每字的 point size 与
-raster hash 一同写进 proposal 和构建报告。
+偏小的“班”和“任”固定为 23.5pt。两者都形成 22×21 的有效字形包围盒，并
+保留原码位、glyph 槽位和字符前进宽度；每字 point size 与 raster hash 一同
+写进 proposal 和构建报告。
 
 下面的诊断是正式通过门：
 
@@ -392,8 +392,8 @@ python3 tools/verify_ui_embedded_candidate.py \
 候选，运行状态仍为 `not_tested`。
 
 P10 从原先整体延期的 1,250 条数据库中选择术语已审且可定长覆盖的四个
-家族：驾驶员技能 88 条、机体特殊能力 155 条、精神指令 144 条、小队长
-能力 15 条，共 402 条：
+家族：驾驶员技能 88 条、机体特殊能力 155 条、精神指令 145 条、小队长
+能力 15 条，共 403 条：
 
 ```bash
 python3 tools/audit_ui_database_selection.py --force
@@ -412,10 +412,11 @@ python3 tools/verify_ui_database_candidate.py --force
 ```
 
 P10 消耗 P7 余下全部 12 个 renderer-addressable 槽，并统一重绘 14 个继承
-汉字。SLPS 232 条和 COMPDATA 170 条决定全部 fixed-span 覆盖、零排除；
+汉字，并把原“絆”码位直接重绘为简体“绊”。SLPS 233 条和 COMPDATA
+170 条决定全部 fixed-span 覆盖、零排除；
 COMPDATA 从 P9 成员的第 113,266 个压缩字节前保持完全相同，只重编码后缀，
 完整回解和 flags 一致。VT1 只替换 chunk 2，其余 13 块 byte-exact；
-SLPS 字体 offset 与文本写入零重叠。其余 848 条继续延期。
+SLPS 字体 offset 与文本写入零重叠。其余 847 条继续延期。
 
 COMPDATA 第一层由 `config/ui-writeback/ui-p0-compdata-fixed.json` 驱动：
 
@@ -425,11 +426,11 @@ python3 tools/verify_ui_p0_fixed_compdata.py --force
 ```
 
 44 条中 3 条为原字节已满足决策的 no-op，41 条完成原位写回，无 overflow。
-压缩成员使用原生 prefix-preserving suffix 重编码，保留 128,781 字节压缩
-前缀并精确回解；输出增长 2,060 字节。SLPS 与 COMPDATA 两项组件结果都不能
-单独当作组合 ISO 或 PCSX2 验收。`ui-p1-core` ISO profile 已显式处理最终
-COMPDATA 的累计增长和后续成员 LBA 位移；`ui-p2-core` 在同一契约上继续
-处理 researched 名称组件。运行验收仍是另一层证据。
+压缩成员使用 Rust `rust-maximum` 的 prefix-preserving suffix 重编码，保留
+128,781 字节压缩前缀并精确回解；成员由 144,990 增至 145,105 字节，
+保持 71 sectors 并余 303 字节。SLPS 与 COMPDATA 两项组件结果都不能单独
+当作组合 ISO 或 PCSX2 验收。`ui-p1-core` 与 `ui-p2-core` 在同一硬门上继续
+叠加开场及 researched 名称组件；运行验收仍是另一层证据。
 
 COMPDATA 动态人物／机体名称由独立结构配置和语料批次叠加在上述静态组件上：
 
@@ -531,13 +532,14 @@ python3 tools/verify_ui_p1_core_iso.py --force
 
 component 清单是 `manifests/ui-p1-core-validation.json`。ISO／boot 清单是
 `manifests/ui-p1-core-runtime-validation.json`：镜像大小为
-3,758,424,064 字节，SHA-256 为
-`32ef774c62eddb149b6d23d566645716bdbbdca02a124f1d5030083c50185454`；
+3,758,358,528 字节，SHA-256 为
+`6e691c194d02443b31f2f68998c806a13b23dbda6b3e46ed0784c55ecc252041`；
 66 个成员中 62 个未替换成员逐字节一致，SLPS、VT1、MTV_PROS 和 COMPDATA
 四项替换均由 UDF 独立回读。该 profile 不包含 first-five STAGE/HB，也没有
-信息页 atlas；精确镜像已通过 PCSX2 v2.6.3 fresh-process、PINE Running、
-DVD/ELF 和零 TLB boot smoke。开场姓名及标题、幕间、信息页、战场、搜索、
-世界史的逐屏视觉路线仍保持 `not_tested`。
+信息页 atlas；当前 Rust 重建后的精确镜像尚未重新执行 PCSX2，旧 P1 boot
+receipt 不沿用。开场姓名及标题、幕间、信息页、战场、搜索、世界史的逐屏
+视觉路线也保持 `not_tested`；相关 fresh-boot 用例改绑已经启动通过的当前
+P2 Rust ISO。
 
 ### 4.3.1 UI P2 researched 名称组合
 
@@ -662,17 +664,20 @@ python3 tools/verify_ui_test_candidate_iso.py \
 
 suite 相对原版共改变 5,568 个归档字节，owner overlap 为零，owner 外字节
 完全相同。综合 component 有 7 个互不重叠的 replacement；最终 DVD
-3,758,456,832 字节，SHA-256 为
-`2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431`。
+3,758,358,528 字节，SHA-256 为
+`218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b`。
 66 个成员中 59 个未替换成员 byte-exact，7 个 replacement 均独立 UDF
-回读，LBA 位移为 `+8/+45` 两段。静态验收不能升级任何
-PCSX2、逐屏视觉或 atlas mapping 结论。
+回读；唯一位移段从 `DATA/STAGE.BIN` 开始，为 `+1 sector`，共 5 个后续
+成员发生位移。P10 COMPDATA 使用 Rust `rust-maximum` 压到 145,191 字节，
+保持 71 sectors 并余 217 字节。精确 DVD 已通过 PCSX2 v2.6.3
+fresh-process、DVD／ELF、PINE Running 和零 TLB 启动门；逐屏视觉与 atlas
+mapping 结论仍未因此升级。
 
 ### 4.4.2 从 first-five 逐层晋级
 
-完整 P10 已证明会在启动时因改写后的 `DATA/COMPDATA.BN` 触发 TLB。当前
-生产运行候选因此按成员边界拆成四层，并只晋级连续通过 boot smoke 的最高
-层：
+旧的超出 71 扇区 P10 候选曾因后续 LBA 位移触发 TLB；该结果保留为因果
+对照。当前 Rust P10 COMPDATA 已回到 71 扇区，精确综合 ISO 的 fresh-process
+启动为 PINE Running、零 TLB。旧的按成员边界拆层仍保留为可复现实验：
 
 ```bash
 python3 tools/prepare_ui_iso_incremental_chain.py
@@ -683,9 +688,10 @@ python3 tools/build_canary_iso.py \
 python3 tools/audit_ui_iso_incremental_chain.py --force
 ```
 
-当前晋级层为 `first-five-noncompdata-ui`，ISO SHA-256
-`85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39`。
-它保留原版 COMPDATA；完整四级命令、运行结果和视觉验收边界见
+旧链的晋级层为 `first-five-noncompdata-ui`，ISO SHA-256
+`85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39`；
+当前运行矩阵已另绑定启动通过的 Rust P10 综合候选。完整四级命令、历史运行
+结果和视觉验收边界见
 [`ISO_INCREMENTAL_VALIDATION.md`](ISO_INCREMENTAL_VALIDATION.md)。
 
 菜单文本中的 `%s` 属于游戏运行时格式 token。`encode_text()` 即使收到完整
@@ -709,11 +715,14 @@ ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审�
 参考。它用于发现语义可能性，不把上游英文当官方术语，也不把短句的异关语气
 自动套回本关。
 
-验收边界必须分开表述：上一字体候选曾在 PCSX2 v2.6.3 通过 ISO 启动、完整
-字库解压和无 TLB miss 验证；STAGE 001 的中文剧情截图也来自更早候选。这些
-证据不能沿用到当前 LXGW 字体 ISO。STAGE 001～005 当前均通过最终 ISO 静态
-回读、解压和重解析，但当前镜像尚未运行 PCSX2，更不能表述为五场战斗已完整
-游玩。完整清单见 `manifests/first-five-validation.json`。
+验收边界必须分开表述：当前唯一
+`ui-p2-default-names-first-five` ISO（SHA-256
+`026f29e3e77b78a19f000c6781317ebc95aeb672b5b2848ad2a30bf8d2f5c473`）
+已在 PCSX2 v2.6.3 通过 fresh-process DVD／ELF／PINE Running／零 TLB
+启动门。此前 STAGE 001 的中文剧情截图仍来自旧候选，不能自动沿用为当前精确
+ISO 的视觉证据；STAGE 001～005 虽均通过静态回读、解压和重解析，也不能
+表述为五场战斗已完整游玩。完整清单见
+`manifests/first-five-rust-validation.json`。
 
 ## 5. 新增一个 surface 的顺序
 

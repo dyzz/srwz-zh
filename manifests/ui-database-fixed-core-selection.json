@@ -2,11 +2,11 @@
   "schema_version": 1,
   "status": "static_database_fixed_subset_selected_font_extension_required",
   "selection_id": "srwz-ui-database-fixed-core-v1",
-  "scope": "Select the largest terminology-safe fixed-span subset of the parts, weapons, skills, special-abilities, spirit-command and leadership database scene that fits the P7 renderer-addressable font budget. Proper-name disputes, the two-CJK label that cannot fit its one-CJK source allocation, and the remaining parts/weapons vocabulary stay excluded.",
+  "scope": "Select the largest terminology-safe fixed-span subset of the parts, weapons, skills, special-abilities, spirit-command and leadership database scene that fits the P7 renderer-addressable font budget. The one-character spirit label 绊 reuses the original 絆 code/glyph, while disputed proper names and the remaining parts/weapons vocabulary stay excluded.",
   "inputs": {
     "config": {
       "path": "config/ui-database-selection.json",
-      "sha256": "32398b7b1fb371ae6a6a51a4abf1e135c00f330424c43405126b3ea70f767b76"
+      "sha256": "0ae75acd8b03310676eae7ab7fa114a833d45cbc12448f1274a6b7050c290965"
     },
     "parent_scene": {
       "inventory": {
@@ -33,7 +33,7 @@
       },
       {
         "path": "corpus/zh/menu/system-ui-spirit-commands.json",
-        "sha256": "634ffc3a15bb7fd7b95f0fc3a62b8dc069db29c6f4bb6c8bfad399daa3438213"
+        "sha256": "66e61565f4700ffde2a70e15312f0b6da0eb7b8a11a68d73bf80aa5cd7ab3943"
       },
       {
         "path": "corpus/zh/menu/weapons.json",
@@ -43,16 +43,16 @@
     "font_baseline": {
       "manifest": {
         "path": "manifests/ui-p7-embedded-font-validation.json",
-        "sha256": "7b423cd290628f9b9fe3ea5fa0e2da2368ef939610e244b2c78b8044768bdf36"
+        "sha256": "577767062b1df3cb60162a98ecbb9ecd0320893c3d399f3f8cf423f5248d4d76"
       },
       "status": "offline_font_and_embedded_ui_renderer_coverage_passed_runtime_pending",
       "proposal": {
         "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
-        "sha256": "7d3e52dd51820dc283afe5fe9d284f3648ba082f5e8f4f6205eebd795987ddd9"
+        "sha256": "f2af222a7a71c2ce4442fdfe8a6519b75cae57932721c4eb5736fc8b8fc64563"
       },
       "writer_baseline_config": {
         "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
-        "sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43"
+        "sha256": "35af6297e4ba2cde318a0466116afc59a003960bc41ce000f3c47992f1619e59"
       },
       "codebook": {
         "base_codebook": {
@@ -61,15 +61,16 @@
         },
         "proposal": {
           "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
-          "sha256": "7d3e52dd51820dc283afe5fe9d284f3648ba082f5e8f4f6205eebd795987ddd9"
+          "sha256": "f2af222a7a71c2ce4442fdfe8a6519b75cae57932721c4eb5736fc8b8fc64563"
         },
-        "override_count": 1616
+        "override_count": 1616,
+        "semantic_code_replacements": []
       }
     },
     "base_ui_core": {
       "manifest": {
         "path": "manifests/ui-p9-mixed-user-facing-subset-validation.json",
-        "sha256": "2a8b6ffd21253c1cab66c29f05ca670f1744c6f0eefd7cf09e49443c725eef0d"
+        "sha256": "50268596393adc77ab11207050cd85db5ad2f24ab94e92e9bb35a5e586995204"
       },
       "profile_id": "srwz-ui-p9-mixed-user-facing-subset-integrated-v1",
       "status": "integrated_ui_p9_mixed_user_facing_subset_component_validated_iso_runtime_pending",
@@ -77,11 +78,11 @@
       "outputs": {
         "slps": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/SLPS_258.87",
-          "sha256": "51adcd5c79f422924743d758eaab77cc46d939e7c1272f88dcd614eb2c704657"
+          "sha256": "1087ebc84d5268ad31dcec61673f3ba06b3ee497effb0e4d019bab2866be740c"
         },
         "vt1": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/VT1.BIN",
-          "sha256": "1424eb1626b624eb637130e08a11c320e5fb39ebf40077e91cbbfe6875839fbf"
+          "sha256": "3e3d3ad784feacd8e8729c44578ccbdba14dc95311c2fee276c5c6eaf6bb4873"
         },
         "compdata": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/COMPDATA.BN",
@@ -89,7 +90,7 @@
         },
         "mtv_pros": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/MTV_PROS.BIN",
-          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+          "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
         }
       }
     },
@@ -103,13 +104,13 @@
     }
   },
   "selection": {
-    "selected_entry_count": 402,
-    "selected_slps_entry_count": 232,
+    "selected_entry_count": 403,
+    "selected_slps_entry_count": 233,
     "selected_compdata_entry_count": 170,
-    "selected_entry_ids_sha256": "3d40920e50e99fe8f48ae68caea3d69432a17832bfd6c86bb390fe65abd58259",
-    "selected_decisions_sha256": "0df00f72aef94debdd70902ccdcf7b9cf5b939c8f5cf5d7462bceafed1cbe5f3",
-    "deferred_entry_count": 848,
-    "deferred_entry_ids_sha256": "6e687228ff194cbb72cb257007bd9b77dd41c736396b6db089ec349662092b63",
+    "selected_entry_ids_sha256": "fcf97d1201b725aa0ff0e1d99bc6076bfa49bc1e3991014753c9626444d82e09",
+    "selected_decisions_sha256": "fb3e78a26a5d71650ff0bcc73c70c32635fc626a8990ee2b9324ed8b9e30e93b",
+    "deferred_entry_count": 847,
+    "deferred_entry_ids_sha256": "5a0ca947f35157d23ec6833cd82f7c0bed19135f8ed006a353a852c2b10adaf8",
     "families": [
       {
         "family_id": "skills",
@@ -152,15 +153,15 @@
         "family_id": "spirit-commands",
         "runtime_scene_id": "database/spirit-commands-core",
         "label": "精神指令名称与说明",
-        "entry_count": 144,
-        "slps_entry_count": 144,
+        "entry_count": 145,
+        "slps_entry_count": 145,
         "compdata_entry_count": 0,
-        "entry_ids_sha256": "3c5b1f049c777d113050fbe39dda3fbbcf9c87e8e620054a066f2dc44e3d0125",
+        "entry_ids_sha256": "8310b9b96b2a258fcc405afe63e7b19f6b3a144f42602a39b9fef1b7769ed5dc",
         "selectors": [
           {
             "translation_file": "corpus/zh/menu/system-ui-spirit-commands.json",
-            "entry_count": 144,
-            "entry_ids_sha256": "3c5b1f049c777d113050fbe39dda3fbbcf9c87e8e620054a066f2dc44e3d0125"
+            "entry_count": 145,
+            "entry_ids_sha256": "8310b9b96b2a258fcc405afe63e7b19f6b3a144f42602a39b9fef1b7769ed5dc"
           }
         ]
       },
@@ -197,31 +198,35 @@
       {
         "entry_id": "menu/Compdata/04/0029",
         "reason": "DRAGOON Barrier terminology remains under human review."
-      },
-      {
-        "entry_id": "menu/SLPS/08/0079",
-        "reason": "The reviewed two-CJK label 羁绊 needs five encoded bytes but its source allocation is three bytes; do not degrade it to one character."
       }
     ]
   },
   "font_demand": {
-    "literal_character_count": 5252,
-    "unique_literal_character_count": 512,
-    "missing_renderer_character_count": 12,
-    "missing_renderer_characters": "咫垫挡斩框歼药赋赖镜闪－",
-    "missing_renderer_occurrence_count": 36,
+    "literal_character_count": 5253,
+    "unique_literal_character_count": 513,
+    "missing_renderer_character_count": 13,
+    "missing_renderer_characters": "咫垫挡斩框歼绊药赋赖镜闪－",
+    "missing_renderer_occurrence_count": 37,
     "selected_font_han_count": 419,
     "original_font_han_count": 14,
-    "original_font_han_characters": "予倍冠努寸尺狙疫福衰赫醒魂魄"
+    "original_font_han_characters": "予倍冠努寸尺狙疫福衰赫醒魂魄",
+    "semantic_code_replacements": [
+      {
+        "source_character": "絆",
+        "target_character": "绊",
+        "code": "E34A",
+        "reason": "The fixed one-character spirit label keeps the original encoded bytes and replaces the source glyph with its simplified form."
+      }
+    ]
   },
   "fixed_span_readiness": {
     "status": "fixed_span_ready_after_declared_font_extension",
-    "planning_code_policy": "Every missing literal receives a unique synthetic two-byte planning code. The production font profile must allocate the same character set; only encoded size is consumed here.",
+    "planning_code_policy": "Every missing literal receives a unique synthetic two-byte planning code unless an explicit semantic replacement reuses the mapped source code. The production font profile must allocate or replace the same character set; only encoded size is consumed here.",
     "members": {
       "slps": {
         "selection": {
-          "entry_count": 232,
-          "no_op_entry_count": 53,
+          "entry_count": 233,
+          "no_op_entry_count": 54,
           "no_op_entry_ids": [
             "menu/SLPS/08/0000",
             "menu/SLPS/08/0001",
@@ -250,6 +255,7 @@
             "menu/SLPS/08/0070",
             "menu/SLPS/08/0073",
             "menu/SLPS/08/0077",
+            "menu/SLPS/08/0079",
             "menu/SLPS/08/0081",
             "menu/SLPS/08/0087",
             "menu/SLPS/08/0089",
@@ -279,8 +285,8 @@
           ],
           "selected_write_entry_count": 179,
           "selected_write_target_count": 183,
-          "fixed_covered_entry_count": 232,
-          "selection_sha256": "307391abff49814f3c4a9736aa99995a36c2be3f17df20c2aa9ce0db67ed1348",
+          "fixed_covered_entry_count": 233,
+          "selection_sha256": "d401c08670cad63c7ef9f790bf490f53d818d69733b805dd26bcdbca7bf983c5",
           "excluded_entry_count": 0,
           "excluded_reason_counts": {}
         },
@@ -290,7 +296,7 @@
           "payload_size": 4582,
           "owned_capacity": 5755,
           "target_metadata_sha256": "54217fba118f17eaed791551212d71cf8040f04c2bdd8a6085f7e979e03c920c",
-          "patch_plan_metadata_sha256": "7a73e5792dd60508206f57b9bb41a5e7c5c90b5891dd71dd56966197faac971e",
+          "patch_plan_metadata_sha256": "d9cf7f5dd4a8c0fecaa3c20f676a5163135fdbef168f0980acdac969622cdddc",
           "pointer_write_count": 0,
           "pointer_bytes_unchanged": true,
           "non_target_bytes_unchanged": true,
@@ -299,8 +305,8 @@
         "component": {
           "source_size": 3471624,
           "output_size": 3471624,
-          "source_sha256": "51adcd5c79f422924743d758eaab77cc46d939e7c1272f88dcd614eb2c704657",
-          "output_sha256": "6fa585bb42ad1226a770ed2c544b04028e4f94c5fbe25655d7866c7ca16e3ffa",
+          "source_sha256": "1087ebc84d5268ad31dcec61673f3ba06b3ee497effb0e4d019bab2866be740c",
+          "output_sha256": "249fbcda51d59ae65a51978af4f569f323280b8dfbc211d6686e2a01dcfd42c8",
           "changed_byte_count": 5073,
           "difference_range_count": 333,
           "changed_offsets_sha256": "160a9c8e9242f83e5e026f92d4bba4410c7decd980a4f3e289c853ebaa6b3db5"
@@ -320,7 +326,7 @@
           "selected_write_entry_count": 165,
           "selected_write_target_count": 164,
           "fixed_covered_entry_count": 170,
-          "selection_sha256": "d186586ea530eacaba9b0ff26217fb59c7bc6c7be5c1ae491eabcc3de4947379",
+          "selection_sha256": "dfd1bfe1d1ca41881d32268b7a88bab968071aac95ccc04a9105f88db6370125",
           "excluded_entry_count": 0,
           "excluded_reason_counts": {}
         },
@@ -330,7 +336,7 @@
           "payload_size": 6190,
           "owned_capacity": 7726,
           "target_metadata_sha256": "d5852359a7732a9dd5876aaa2038f2a842da0a0265581fa3b6c74fb610777a3f",
-          "patch_plan_metadata_sha256": "14583fed28a14d541e8d8114e1f1df0b95ee0c4ee83724e4e09a74248f55e518",
+          "patch_plan_metadata_sha256": "883e5ff905cfebc33cecb7f687d408e71f37d06b0d58a005101a1311e18b5b52",
           "pointer_write_count": 0,
           "pointer_bytes_unchanged": true,
           "non_target_bytes_unchanged": true,
@@ -340,7 +346,7 @@
           "source_size": 524032,
           "output_size": 524032,
           "source_sha256": "ad7894981e59748623141a0d625958f84fdca53d63cbf74e2dc61b02e86d3de2",
-          "output_sha256": "b29e8dbb9fd15326384e8d81d04c3bd6e9a7a227fa3a6f9cead1cfeb272d2a5d",
+          "output_sha256": "377f3ec06ab3e908dcc4bf1a9ae237a1af6408961bd80f0ef61e1218a1f9a015",
           "changed_byte_count": 7006,
           "difference_range_count": 348,
           "changed_offsets_sha256": "dbcb310267898f1c257dec2ff974f14678bab4bcb83a4fcf73c6f5626dff7b98"
@@ -353,12 +359,12 @@
   "ratchet": {
     "expected": {
       "parent_entry_count": 1250,
-      "selected_entry_count": 402,
-      "deferred_entry_count": 848,
-      "selected_slps_entry_count": 232,
+      "selected_entry_count": 403,
+      "deferred_entry_count": 847,
+      "selected_slps_entry_count": 233,
       "selected_compdata_entry_count": 170,
-      "missing_renderer_character_count": 12,
-      "slps_no_op_entry_count": 53,
+      "missing_renderer_character_count": 13,
+      "slps_no_op_entry_count": 54,
       "slps_selected_write_entry_count": 179,
       "slps_selected_write_target_count": 183,
       "compdata_no_op_entry_count": 5,
@@ -368,12 +374,12 @@
     },
     "actual": {
       "parent_entry_count": 1250,
-      "selected_entry_count": 402,
-      "deferred_entry_count": 848,
-      "selected_slps_entry_count": 232,
+      "selected_entry_count": 403,
+      "deferred_entry_count": 847,
+      "selected_slps_entry_count": 233,
       "selected_compdata_entry_count": 170,
-      "missing_renderer_character_count": 12,
-      "slps_no_op_entry_count": 53,
+      "missing_renderer_character_count": 13,
+      "slps_no_op_entry_count": 54,
       "slps_selected_write_entry_count": 179,
       "slps_selected_write_target_count": 183,
       "compdata_no_op_entry_count": 5,

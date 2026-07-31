@@ -2,48 +2,48 @@
   "schema_version": 1,
   "status": "offline_p10_database_layout_and_exact_glyph_previews_validated_runtime_pending",
   "layout_id": "srwz-ui-p10-database-fixed-core-offline-layout-v1",
-  "scope": "Reread all 402 selected P10 database strings from the exact candidate members, compare localized line widths and counts with conservative envelopes observed in the original strings, verify the final 24x24 glyph rasters, and render deterministic local review pages. This is an offline gate and does not replace PCSX2 scene evidence.",
+  "scope": "Reread all 403 selected P10 database strings from the exact candidate members, compare localized line widths and counts with conservative envelopes observed in the original strings, verify the final 24x24 glyph rasters including the 絆-to-绊 same-code replacement, and render deterministic local review pages. This is an offline gate and does not replace PCSX2 scene evidence.",
   "content_policy": "Hashes, counts, dimensions, entry IDs and runtime gates only; source text, localized text, game bytes and preview PNG bytes remain outside this committed manifest.",
   "inputs": {
     "config": {
       "path": "config/ui-database-layout.json",
-      "size": 3217,
-      "sha256": "8f16898d0c27350c6d89802ce3805ed43e9c9df3a621c98541a62ae0d2f7002f"
+      "size": 3264,
+      "sha256": "52dda8c0928afdc47e1ae1d5282364b9e1b8081e905f575e1bb60df8bdf44172"
     },
     "candidate_config": {
       "path": "config/ui-writeback/ui-p10-database-fixed-core.json",
-      "size": 6035,
-      "sha256": "95181c53473bd9f0fe3b72848ca4d9f9934139a1b64afcfc12dfdfa6cbde6dfe"
+      "size": 6216,
+      "sha256": "cf77a2f67543f0748c46be53ea7d7ea42aa8677729ab9bc8efb88adc485c9265"
     },
     "candidate_manifest": {
       "path": "manifests/ui-p10-database-fixed-core-validation.json",
-      "size": 18670,
-      "sha256": "41c96c2a7151ff69d918e184ecd4bf01b473a9c3d8019a83308681ac7be31333"
+      "size": 19304,
+      "sha256": "18a87f42731fa597147d800e52c21b01743e7fb95d51860c25ae6a9937230094"
     },
     "selection_config": {
       "path": "config/ui-database-selection.json",
-      "size": 6208,
-      "sha256": "32398b7b1fb371ae6a6a51a4abf1e135c00f330424c43405126b3ea70f767b76"
+      "size": 6205,
+      "sha256": "0ae75acd8b03310676eae7ab7fa114a833d45cbc12448f1274a6b7050c290965"
     },
     "selection_manifest": {
       "path": "manifests/ui-database-fixed-core-selection.json",
-      "size": 16445,
-      "sha256": "f455f99a1a336b4374a58f8948e6cda1b7538758d798a38b78177f8bf2ec84d8"
+      "size": 16700,
+      "sha256": "0af0b7bf25db59cae38c0e376fed1095594fd287b4edba4fc1c9516c64c153e7"
     },
     "font_manifest": {
       "path": "manifests/ui-p10-database-font-validation.json",
-      "size": 10482,
-      "sha256": "82980cff466f07b2b563528226699126b90f73894496ab56540488688a302134"
+      "size": 10938,
+      "sha256": "bd8db3593730f4d0622a8d5702cdee60e06f2b092466734af7bb9d12c7c40825"
     },
     "font_proposal": {
       "path": "work/writeback/ui-p10-database-codebook-proposal.json",
-      "size": 1592059,
-      "sha256": "925d92af46bdd7e52d501a40bae566d67848e1e5df699f42572e7fea5338df55"
+      "size": 1593629,
+      "sha256": "63413d4cae24a56bff995c0d02f7f6f918dbc712d236506e33c2fe2719f7a980"
     },
     "writer_config": {
       "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
-      "size": 2553,
-      "sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43"
+      "size": 2640,
+      "sha256": "35af6297e4ba2cde318a0466116afc59a003960bc41ce000f3c47992f1619e59"
     },
     "text_table": {
       "path": "vendor/upstream-python/project/tbl_all.json",
@@ -59,7 +59,7 @@
       "slps": {
         "path": "work/build/ui-p9-mixed-user-facing-subset/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "51adcd5c79f422924743d758eaab77cc46d939e7c1272f88dcd614eb2c704657"
+        "sha256": "1087ebc84d5268ad31dcec61673f3ba06b3ee497effb0e4d019bab2866be740c"
       },
       "compdata": {
         "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/COMPDATA.BN",
@@ -71,22 +71,22 @@
       "slps": {
         "path": "work/build/ui-p10-database-fixed-core/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "5eae555d6ec6287ac1ede7c0d27b9a3482eacff89a2bab092c2c7c50e434542f"
+        "sha256": "c5ab62a6e530118805a2025d2598872838012ae6d0c7fab023c4722eb6433cc0"
       },
       "vt1": {
         "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
-        "size": 127504000,
-        "sha256": "32a7ec8c9125efe4c723f24fe5c4cbabfdb85ae84757522e052251aec90fc502"
+        "size": 127503424,
+        "sha256": "0ea32ad8d2e81d8da826922550ce140255595aff43645baa83b36332c4e04194"
       },
       "compdata": {
         "path": "work/build/ui-p10-database-fixed-core/components/DATA/COMPDATA.BN",
-        "size": 148705,
-        "sha256": "102b5f2e97bd7143e1d820c1b2a62c73dc41f274a44394103c3b5c547bfa6d62"
+        "size": 145191,
+        "sha256": "d91e38bd0ede4520362ae1e08047887623e5c0586e3224d4ba8d19a39615d8f2"
       }
     },
     "decoded_font": {
       "size": 1290240,
-      "sha256": "4798a2f62af9d4fb6ad65502ca25a772a5eabbc196633aebacc3ff8728005ad6"
+      "sha256": "2170658a3608eab33f93c337ae0caabc374778cfcd7ada609280b94934d90599"
     },
     "codebook": {
       "base_codebook": {
@@ -95,9 +95,16 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p10-database-codebook-proposal.json",
-        "sha256": "925d92af46bdd7e52d501a40bae566d67848e1e5df699f42572e7fea5338df55"
+        "sha256": "63413d4cae24a56bff995c0d02f7f6f918dbc712d236506e33c2fe2719f7a980"
       },
-      "override_count": 1642
+      "override_count": 1643,
+      "semantic_code_replacements": [
+        {
+          "source_character": "絆",
+          "target_character": "绊",
+          "code": "E34A"
+        }
+      ]
     }
   },
   "source_envelope_policy": "For each selected runtime family, the maximum rendered cell width and line count observed across the original Japanese strings form a conservative regression envelope. Runtime placeholders reserve six cells. These values are not measured panel geometry and do not prove runtime fit.",
@@ -145,8 +152,8 @@
           "entry_count": 50,
           "first_entry_id": "menu/SLPS/09/0000",
           "last_entry_id": "menu/SLPS/09/0049",
-          "size": 140611,
-          "sha256": "425136f0e89e7189aa40312e6b4660db17a3f310636fb6074b2a06d8e212e74c",
+          "size": 140627,
+          "sha256": "1ce42ee50c0a4c693b7d6d6645aeb15dab12abb4c543cef2a2f2f54473613eb3",
           "width": 1296,
           "height": 3460
         },
@@ -166,7 +173,7 @@
     },
     {
       "runtime_scene_id": "database/spirit-commands-core",
-      "entry_count": 144,
+      "entry_count": 145,
       "source_max_line_cells": 28,
       "source_max_line_count": 2,
       "target_max_line_cells": 25,
@@ -193,9 +200,9 @@
           "page_index": 2,
           "entry_count": 50,
           "first_entry_id": "menu/SLPS/08/0050",
-          "last_entry_id": "menu/SLPS/08/0100",
-          "size": 93242,
-          "sha256": "2c6944cf2f4b979800b1426c358ca7521cbf9426eeebe9ad46a6bbbe1bfbe1a3",
+          "last_entry_id": "menu/SLPS/08/0099",
+          "size": 91780,
+          "sha256": "5a112991fdcbae47359611dee9d6e3a25cf1806298dcd2a10577ab31b4af1b54",
           "width": 1536,
           "height": 2692
         },
@@ -203,13 +210,13 @@
           "path": "work/review/ui-p10-database-layout/previews/spirit-commands-core-03.png",
           "runtime_scene_id": "database/spirit-commands-core",
           "page_index": 3,
-          "entry_count": 44,
-          "first_entry_id": "menu/SLPS/08/0101",
+          "entry_count": 45,
+          "first_entry_id": "menu/SLPS/08/0100",
           "last_entry_id": "menu/SLPS/08/0144",
-          "size": 54470,
-          "sha256": "124000023cb25ec13a9a0892b781b3777fe2da54a269ed230a822870ccbdb7d9",
+          "size": 56522,
+          "sha256": "ff6e6668e83f30d6f376a33ae63969fcad50ff86abc7fb201925fabbd53a26f8",
           "width": 1536,
-          "height": 2248
+          "height": 2298
         }
       ]
     },
@@ -277,53 +284,53 @@
   ],
   "summary": {
     "family_count": 4,
-    "entry_count": 402,
-    "source_readback_count": 402,
-    "target_readback_count": 402,
+    "entry_count": 403,
+    "source_readback_count": 403,
+    "target_readback_count": 403,
     "line_width_overflow_count": 0,
     "line_count_overflow_count": 0,
-    "literal_character_count": 512,
+    "literal_character_count": 513,
     "missing_glyph_character_count": 0,
     "empty_glyph_character_count": 0,
-    "target_han_character_count": 444,
+    "target_han_character_count": 445,
     "original_font_han_character_count": 0,
     "han_raster_mismatch_count": 0,
     "preview_page_count": 10,
-    "preview_entry_count": 402
+    "preview_entry_count": 403
   },
-  "entry_plan_sha256": "538d1417a9679146d6475e27b24732fb3e4658b51e67ad7d8a3e36f2d1ba4ce7",
+  "entry_plan_sha256": "56fd1b6027f804a9df3e33188f8b630e3b7dafcba041b1764b67884228da8bae",
   "ratchet": {
     "expected": {
       "family_count": 4,
-      "entry_count": 402,
-      "source_readback_count": 402,
-      "target_readback_count": 402,
+      "entry_count": 403,
+      "source_readback_count": 403,
+      "target_readback_count": 403,
       "line_width_overflow_count": 0,
       "line_count_overflow_count": 0,
-      "literal_character_count": 512,
+      "literal_character_count": 513,
       "missing_glyph_character_count": 0,
       "empty_glyph_character_count": 0,
-      "target_han_character_count": 444,
+      "target_han_character_count": 445,
       "original_font_han_character_count": 0,
       "han_raster_mismatch_count": 0,
       "preview_page_count": 10,
-      "preview_entry_count": 402
+      "preview_entry_count": 403
     },
     "actual": {
       "family_count": 4,
-      "entry_count": 402,
-      "source_readback_count": 402,
-      "target_readback_count": 402,
+      "entry_count": 403,
+      "source_readback_count": 403,
+      "target_readback_count": 403,
       "line_width_overflow_count": 0,
       "line_count_overflow_count": 0,
-      "literal_character_count": 512,
+      "literal_character_count": 513,
       "missing_glyph_character_count": 0,
       "empty_glyph_character_count": 0,
-      "target_han_character_count": 444,
+      "target_han_character_count": 445,
       "original_font_han_character_count": 0,
       "han_raster_mismatch_count": 0,
       "preview_page_count": 10,
-      "preview_entry_count": 402
+      "preview_entry_count": 403
     },
     "checks": {
       "family_count": true,

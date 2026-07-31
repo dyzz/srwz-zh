@@ -891,7 +891,7 @@ def _locked_database_scene_extension(
         or not isinstance(promotion_selection, Mapping)
         or not isinstance(promotion_acceptance, Mapping)
         or not promotion_acceptance.get(
-            "all_402_selected_entries_fixed_span_covered"
+            "all_selected_entries_fixed_span_covered"
         )
         or not promotion_acceptance.get(
             "selected_targets_reread_exact"

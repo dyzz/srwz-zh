@@ -33,7 +33,7 @@
   },
   "font_candidate": {
     "manifest": "manifests/ui-p2-display-name-font-validation.json",
-    "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc",
+    "sha256": "81394e80d9a1ff0dac17d7fd9d69b23a1b1d0ba48960da9fc7079bc45b8c441c",
     "required_status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending",
     "coverage_key": "researched_display_name_renderer_coverage"
   },
@@ -43,10 +43,10 @@
   },
   "codec": {
     "mode": "preserve-unchanged-chunks-and-reencode-changed-suffixes",
-    "strategy": "greedy",
+    "strategy": "rust-maximum",
     "archive_alignment": 16,
-    "min_match_length": 4,
-    "max_match_chain": 256,
+    "min_match_length": 2,
+    "max_match_chain": 65535,
     "lazy_matching": true
   },
   "ratchet": {
@@ -66,15 +66,15 @@
   "expected_outputs": {
     "slps": {
       "size": 3471624,
-      "sha256": "0b4f196f47e6bd4ef59d1fc856b683993b0c53a3da701b95bd607bccd3be3fee"
+      "sha256": "14d756abca5185421c763a1c0dba83506e5c41b94c91030e224fbd0d26e1bfe4"
     },
     "vt1": {
       "size": 127500736,
-      "sha256": "636246a0611517c35419cbbc2aee73b6d1af91a2b337b68ba630828f74cbfcbc"
+      "sha256": "2d541fc2a20ebac321a48c996c2ed7bba354bf24d857887cd522e2d0627f261b"
     },
     "mtv_pros": {
-      "size": 8640,
-      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      "size": 8368,
+      "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
     }
   },
   "outputs": {

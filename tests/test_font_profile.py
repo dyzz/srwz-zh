@@ -21,6 +21,8 @@ class FontProfileTests(unittest.TestCase):
         )
         self.assertEqual(profile["profile_id"], "srwz-ui-p0-unified-font-v1")
         self.assertEqual(profile["font_lock"], base["font_lock"])
+        self.assertEqual(profile["codec"], base["codec"])
+        self.assertEqual(profile["codec"]["strategy"], "rust-maximum")
         self.assertEqual(profile["rasterizer"], base["rasterizer"])
         self.assertEqual(
             profile["document"]["scene_inventory"]["expected_unique_entry_count"],

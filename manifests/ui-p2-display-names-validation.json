@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/ui-writeback/ui-p2-display-names.json",
-      "sha256": "1b99a37db372582dfb762de9b7332e0ea1d9effc17584163f9d6aa699329d891"
+      "sha256": "39e258fe00adde640675cae6b22c2771c10be74efb7622efc3fcabfeb809b5f8"
     },
     "structure": {
       "config": {
@@ -46,11 +46,11 @@
       "researched_coverage": {
         "config": {
           "path": "config/display-names/researched-coverage.json",
-          "sha256": "20bec4b8a79d212165e55ff8831eef8e19ba1807db7538bc781b8b47f5b9b347"
+          "sha256": "fbfff852c88436c0fb7a11adad2bb847b1ee9b88a746b4302aa7be99c7256e96"
         },
         "manifest": {
           "path": "manifests/display-name-researched-coverage.json",
-          "sha256": "e68851488a4d28e7c4ab867c522c9cc663dd9bb02a991acbef0d09194ec229be",
+          "sha256": "c0d82ce8e425e77cc2eec263235e31d57aeadd8e4db066f6779b280454f4af60",
           "status": "researched_selection_ready"
         },
         "selection_id": "srwz-display-names-researched-v1",
@@ -90,7 +90,7 @@
     ],
     "font_manifest": {
       "path": "manifests/ui-p2-display-name-font-validation.json",
-      "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc"
+      "sha256": "81394e80d9a1ff0dac17d7fd9d69b23a1b1d0ba48960da9fc7079bc45b8c441c"
     },
     "codebook": {
       "base_codebook": {
@@ -99,20 +99,21 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
-        "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b"
+        "sha256": "96acae46806a228d132c3a3518d3d96f28ac9484c6f221184a518dd18428f9f6"
       },
-      "override_count": 1605
+      "override_count": 1605,
+      "semantic_code_replacements": []
     },
     "base_component": {
       "config": {
         "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
-        "sha256": "2e7f752a30c847a32f469e4932c63300e78392bd869404d0fbd6fcddc94daa43"
+        "sha256": "35af6297e4ba2cde318a0466116afc59a003960bc41ce000f3c47992f1619e59"
       },
       "manifest": {
         "path": "manifests/ui-p0-fixed-compdata-validation.json",
-        "sha256": "6fcadb76f10aa866465c382d171f1a596824c1357750a1ed01d199eb0f4f3bf8"
+        "sha256": "b23e9daf19be2a5e11d32aa5cce367d027f88fcde45414768a57e49e4763984a"
       },
-      "compressed_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d",
+      "compressed_sha256": "9933127220837966ff5c4cb06f1a10a15e78225a02d846250c7b3b4e8a156eeb",
       "decoded_sha256": "8e1d9a25a33ac445b53b9bbb789f3ece940043276436f45917575c93783754ea",
       "static_p0_entry_count": 44
     }
@@ -17408,10 +17409,10 @@
     "output_sha256": "ad7894981e59748623141a0d625958f84fdca53d63cbf74e2dc61b02e86d3de2"
   },
   "compressed_component": {
-    "base_size": 147050,
+    "base_size": 145105,
     "output_size": 144485,
-    "size_delta_from_base": -2565,
-    "base_sha256": "793060e8306450b5fa0d2126a02e671162a787aee6f4b6279ec29bc6ebc0066d",
+    "size_delta_from_base": -620,
+    "base_sha256": "9933127220837966ff5c4cb06f1a10a15e78225a02d846250c7b3b4e8a156eeb",
     "output_sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405",
     "preserved_base_prefix_size": 4015,
     "strategy": "rust-maximum",

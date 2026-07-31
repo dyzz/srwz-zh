@@ -53,12 +53,12 @@ class UiDatabaseSelectionTests(unittest.TestCase):
             "static_database_fixed_subset_selected_font_extension_required",
         )
 
-    def test_four_families_select_402_and_defer_848(self):
+    def test_four_families_select_403_and_defer_847(self):
         selection = self.manifest["selection"]
-        self.assertEqual(selection["selected_entry_count"], 402)
-        self.assertEqual(selection["selected_slps_entry_count"], 232)
+        self.assertEqual(selection["selected_entry_count"], 403)
+        self.assertEqual(selection["selected_slps_entry_count"], 233)
         self.assertEqual(selection["selected_compdata_entry_count"], 170)
-        self.assertEqual(selection["deferred_entry_count"], 848)
+        self.assertEqual(selection["deferred_entry_count"], 847)
         self.assertEqual(
             {
                 family["runtime_scene_id"]: family["entry_count"]
@@ -67,7 +67,7 @@ class UiDatabaseSelectionTests(unittest.TestCase):
             {
                 "database/pilot-skills-core": 88,
                 "database/unit-special-abilities-core": 155,
-                "database/spirit-commands-core": 144,
+                "database/spirit-commands-core": 145,
                 "database/leadership-effects-core": 15,
             },
         )
@@ -76,17 +76,32 @@ class UiDatabaseSelectionTests(unittest.TestCase):
         demand = self.manifest["font_demand"]
         self.assertEqual(
             demand["missing_renderer_characters"],
-            "咫垫挡斩框歼药赋赖镜闪－",
+            "咫垫挡斩框歼绊药赋赖镜闪－",
         )
-        self.assertEqual(demand["missing_renderer_character_count"], 12)
+        self.assertEqual(demand["missing_renderer_character_count"], 13)
         self.assertEqual(demand["original_font_han_count"], 14)
+        self.assertEqual(
+            self.manifest["font_demand"]["semantic_code_replacements"],
+            [
+                {
+                    "source_character": "絆",
+                    "target_character": "绊",
+                    "code": "E34A",
+                    "reason": (
+                        "The fixed one-character spirit label keeps the "
+                        "original encoded bytes and replaces the source "
+                        "glyph with its simplified form."
+                    ),
+                }
+            ],
+        )
         fixed = self.manifest["fixed_span_readiness"]
         self.assertTrue(fixed["all_selected_entries_covered"])
         self.assertEqual(
             fixed["members"]["slps"]["selection"][
                 "fixed_covered_entry_count"
             ],
-            232,
+            233,
         )
         self.assertEqual(
             fixed["members"]["compdata"]["selection"][

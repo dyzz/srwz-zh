@@ -47,6 +47,7 @@ class UiP1WorldHistoryTests(unittest.TestCase):
         )
         self.assertEqual(self.manifest["fixed_allocations"]["overflow_count"], 0)
         self.assertTrue(self.manifest["ratchet"]["passed"])
+        self.assertEqual(self.config["codec"]["strategy"], "rust-maximum")
         self.assertEqual(
             self.manifest["ratchet"]["expected"],
             self.config["ratchet"],

@@ -1,5 +1,10 @@
 # Canary ISO 构建与 PCSX2 调试
 
+逐屏测试、隔离 memory card、同一 ISO 的 savestate 加速与证据回收见
+[`PCSX2_RUNTIME_WORKFLOW.md`](PCSX2_RUNTIME_WORKFLOW.md)。本页保留 ISO
+构建、基础启动和 PINE 字库检查；不要再用共享系统 `memcards` 符号链接执行
+新的存档测试。
+
 状态：`mkps2iso v1.1.1` 构建和 PCSX2 v2.6.3/PINE 游戏内字库解压验证已
 完成。镜像不触发 TLB miss，完整运行时字库和开场文本与构建预期一致；
 `SELECT SCENARIO` 的中文字已完成实际渲染截图；E2 摘要、剧情和完整组合镜像

@@ -42,23 +42,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--strategy",
         choices=("greedy", "literal", "rust-maximum"),
-        default="greedy",
+        default="rust-maximum",
         help=(
             "Changed-suffix encoding strategy: greedy, literal or the "
-            "repository-owned Rust maximum parser (default: greedy)."
+            "repository-owned Rust maximum parser "
+            "(default: rust-maximum)."
         ),
     )
     parser.add_argument(
         "--min-match-length",
         type=int,
-        default=3,
-        help="Greedy encoder minimum match length (default: 3).",
+        default=2,
+        help="Encoder minimum match length (default: 2).",
     )
     parser.add_argument(
         "--max-match-chain",
         type=int,
-        default=64,
-        help="Greedy encoder candidate-chain limit (default: 64).",
+        default=1024,
+        help="Encoder candidate-chain limit (default: 1024).",
     )
     parser.add_argument(
         "--lazy-matching",

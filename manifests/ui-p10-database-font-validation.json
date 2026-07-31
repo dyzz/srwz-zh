@@ -2,26 +2,26 @@
   "schema_version": 1,
   "status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
   "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1",
-  "scope": "Incremental P7 plus the 402-entry skills, special-abilities, spirit-command and leadership database core. It proves renderer coverage only; it does not write SLPS/COMPDATA, build an ISO or prove runtime pages.",
+  "scope": "Incremental P7 plus the 403-entry skills, special-abilities, spirit-command and leadership database core. It proves renderer coverage only; it does not write SLPS/COMPDATA, build an ISO or prove runtime pages.",
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p10-database-font.json",
-      "sha256": "c9cc030f10d56b47ce4fce64c38ab9f7bd4139391220225e136c7d8958c3d6c1"
+      "sha256": "db93d0581aca97d0440f3e88c8279f22379e777dbe06e02464c4315affa30df9"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p10-database-font-allocations.json",
-      "sha256": "f108999d450c10409a942b97229a28c1246f1e8b70a3fcd1a14ad5c24a2fe4c7"
+      "sha256": "076d924ca025154398035a2d9be8638b8ffa4700c6fae4a4355f3ad3a9c7c85b"
     },
     "database_selection": {
       "kind": "database_fixed_subset",
       "selection_id": "srwz-ui-database-fixed-core-v1",
       "config": {
         "path": "config/ui-database-selection.json",
-        "sha256": "32398b7b1fb371ae6a6a51a4abf1e135c00f330424c43405126b3ea70f767b76"
+        "sha256": "0ae75acd8b03310676eae7ab7fa114a833d45cbc12448f1274a6b7050c290965"
       },
       "manifest": {
         "path": "manifests/ui-database-fixed-core-selection.json",
-        "sha256": "f455f99a1a336b4374a58f8948e6cda1b7538758d798a38b78177f8bf2ec84d8",
+        "sha256": "0af0b7bf25db59cae38c0e376fed1095594fd287b4edba4fc1c9516c64c153e7",
         "status": "static_database_fixed_subset_selected_font_extension_required"
       },
       "parent_scene": {
@@ -76,15 +76,15 @@
           "family_id": "spirit-commands",
           "runtime_scene_id": "database/spirit-commands-core",
           "label": "精神指令名称与说明",
-          "entry_count": 144,
-          "slps_entry_count": 144,
+          "entry_count": 145,
+          "slps_entry_count": 145,
           "compdata_entry_count": 0,
-          "entry_ids_sha256": "3c5b1f049c777d113050fbe39dda3fbbcf9c87e8e620054a066f2dc44e3d0125",
+          "entry_ids_sha256": "8310b9b96b2a258fcc405afe63e7b19f6b3a144f42602a39b9fef1b7769ed5dc",
           "selectors": [
             {
               "translation_file": "corpus/zh/menu/system-ui-spirit-commands.json",
-              "entry_count": 144,
-              "entry_ids_sha256": "3c5b1f049c777d113050fbe39dda3fbbcf9c87e8e620054a066f2dc44e3d0125"
+              "entry_count": 145,
+              "entry_ids_sha256": "8310b9b96b2a258fcc405afe63e7b19f6b3a144f42602a39b9fef1b7769ed5dc"
             }
           ]
         },
@@ -105,18 +105,18 @@
           ]
         }
       ],
-      "unique_entry_count": 402,
-      "selection_sha256": "0df00f72aef94debdd70902ccdcf7b9cf5b939c8f5cf5d7462bceafed1cbe5f3"
+      "unique_entry_count": 403,
+      "selection_sha256": "fb3e78a26a5d71650ff0bcc73c70c32635fc626a8990ee2b9324ed8b9e30e93b"
     },
     "base_proposal": {
       "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
-      "sha256": "7d3e52dd51820dc283afe5fe9d284f3648ba082f5e8f4f6205eebd795987ddd9",
+      "sha256": "f2af222a7a71c2ce4442fdfe8a6519b75cae57932721c4eb5736fc8b8fc64563",
       "proposal_id": "srwz-ui-p7-embedded-menu-unified-font-v1",
       "assignment_count": 1616
     },
     "base_validation_manifest": {
       "path": "manifests/ui-p7-embedded-font-validation.json",
-      "sha256": "7b423cd290628f9b9fe3ea5fa0e2da2368ef939610e244b2c78b8044768bdf36"
+      "sha256": "577767062b1df3cb60162a98ecbb9ecd0320893c3d399f3f8cf423f5248d4d76"
     }
   },
   "capacity": {
@@ -139,68 +139,80 @@
     "count": 14,
     "characters": "予倍冠努寸尺狙疫福衰赫醒魂魄"
   },
+  "semantic_code_replacements": {
+    "count": 1,
+    "entries": [
+      {
+        "source_character": "絆",
+        "target_character": "绊",
+        "code": "E34A",
+        "glyph_index": 910,
+        "reason": "The reviewed spirit-command label is a one-character simplified replacement and the final Chinese build does not retain the original Japanese glyph."
+      }
+    ]
+  },
   "combined_assignments": {
     "allocation_assignment_count": 727,
-    "reraster_existing_assignment_count": 915,
-    "font_assignment_count": 1642
+    "reraster_existing_assignment_count": 916,
+    "font_assignment_count": 1643
   },
   "proposal": {
     "path": "work/writeback/ui-p10-database-codebook-proposal.json",
-    "sha256": "925d92af46bdd7e52d501a40bae566d67848e1e5df699f42572e7fea5338df55"
+    "sha256": "63413d4cae24a56bff995c0d02f7f6f918dbc712d236506e33c2fe2719f7a980"
   },
   "readiness": {
     "path": "work/writeback/ui-p10-database-font-readiness.json",
-    "sha256": "747f31852d0c75887606683710aa91844b546e234502fd3494f17d348d921863"
+    "sha256": "7fa521fef10d43ba1ed406b13435297b11824df99052a6754ee1c4f86c2e63d7"
   },
   "font_component": {
     "report": "work/build/ui-p10-database-font/components/font-validation.json",
-    "report_sha256": "8f29de683bd453027c2944e7dfb8bcd79a083bbc9b5fcfcce0900ea028b2691b",
-    "assignment_count": 1642,
+    "report_sha256": "d9bee18168fa517e4adc13e486f39efb98a825f24d0d92b1fd8d6bd06f2e2899",
+    "assignment_count": 1643,
     "allocation_assignment_count": 727,
-    "reraster_existing_assignment_count": 915,
-    "changed_glyph_count": 1641,
+    "reraster_existing_assignment_count": 916,
+    "changed_glyph_count": 1642,
     "unchanged_assignment_count": 1,
-    "built_raster_hash_exact_count": 1642,
+    "built_raster_hash_exact_count": 1643,
     "decoded_size": 1290240,
-    "decoded_sha256": "4798a2f62af9d4fb6ad65502ca25a772a5eabbc196633aebacc3ff8728005ad6",
-    "encoded_size": 802548,
-    "encoder_strategy": "lazy_greedy",
+    "decoded_sha256": "2170658a3608eab33f93c337ae0caabc374778cfcd7ada609280b94934d90599",
+    "encoded_size": 694660,
+    "encoder_strategy": "rust-maximum",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
       "padding_size": 12,
-      "borrowed_preceding_zero_slack": 203216,
+      "borrowed_preceding_zero_slack": 95328,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "2754969721cd45c6809853bb9676d9f3239adcdf0e4993b1d651b5f65bddf86d"
+        "sha256": "1f1d51d705b9f8734a333d0a72f64c643610f58fe7f5a8dc114a12db8e7fc867"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "3cffc1f0e68f142a6442fdc13b6264ec67ec41d66c4000fd07d22e65ea7cdc22"
+        "sha256": "0971dcbd2724360bc5594aae283d0fa0a6016a7ac8fb6e54426ded51e5288c02"
       }
     }
   },
   "database_fixed_core_renderer_coverage": {
-    "unique_entry_count": 402,
-    "literal_character_count": 5252,
-    "unique_literal_character_count": 512,
+    "unique_entry_count": 403,
+    "literal_character_count": 5253,
+    "unique_literal_character_count": 513,
     "missing_renderer_character_count": 0,
     "missing_renderer_occurrence_count": 0,
-    "selected_font_han_count": 444,
+    "selected_font_han_count": 445,
     "original_font_han_count": 0
   },
   "base_ui_p7_components": {
     "slps": {
       "path": "work/build/ui-p7-embedded-font/components/SLPS_258.87",
-      "sha256": "1ec6afd571b18352d8f2a3c5b1d0d9a2f678c0aafc0106653e78c483eca27fa1",
+      "sha256": "9cbc6d9c62a23ad6d031367fae8a973542fc0e3ad7d2b3b115dd130281a3fd44",
       "exact": true
     },
     "vt1": {
       "path": "work/build/ui-p7-embedded-font/components/DATA/VT1.BIN",
-      "sha256": "6a4dfcee2618603aee4e779ecdf24a420a08aeaa70bfe760310fac0322f17a62",
+      "sha256": "1bb60b50c052531afffd3c347b9addd375053f43ab55c817f9026a84b004a679",
       "exact": true
     }
   },
@@ -218,7 +230,7 @@
   },
   "runtime": {
     "status": "not_tested",
-    "reason": "The component consumes the final twelve renderer-addressable candidates and rerasterizes fourteen inherited Han glyphs. The exact combined font and all four database routes remain runtime pending."
+    "reason": "The component consumes the final twelve renderer-addressable candidates, rerasterizes fourteen inherited Han glyphs, and replaces the original 絆 glyph with simplified 绊 at the same code. The exact combined font and all four database routes remain runtime pending."
   },
   "allocation_policy": {
     "mode": "valid-sjis-then-raw-standard-trail-gaps",

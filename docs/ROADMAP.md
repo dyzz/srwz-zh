@@ -76,11 +76,13 @@ raw-trail 新类别和滚动实机验证尚未验收。在此基线上，researc
 四个纯玩家可见 fixed-span 组的 59 条决定；P9 从两个混合组中逐条选出
 9 条可静态证明的玩家标签，然后组合
 前五关 `HB/STAGE` 和五图 atlas suite：
-7 个 replacement 所有权互斥、59 个成员原样、两段 LBA 位移和最终 ISO
-哈希均已锁定。P10 又从 1,250 条数据库中晋级 402 条驾驶员技能、机体特殊
+7 个 replacement 所有权互斥、59 个成员原样、单段 `+1 sector` LBA 位移和
+最终 ISO 哈希均已锁定。P10 又从 1,250 条数据库中晋级 403 条驾驶员技能、机体特殊
 能力、精神指令和小队长能力，补入最后 12 个候选字槽并重绘 14 个继承汉字；
-232 条 SLPS 和 170 条 COMPDATA 均定长回读，余下 848 条明确延期。
-五张 atlas 的运行归因与 P10 逐屏运行仍未验收。具体实施见
+233 条 SLPS 和 170 条 COMPDATA 均定长回读，Rust COMPDATA 为
+145,191 bytes、距硬上限余 217 bytes；精确 P10 DVD 已通过 fresh-process
+DVD／ELF／PINE Running／零 TLB 启动门。余下 847 条明确延期，五张 atlas
+的运行归因与 P10 逐屏运行仍未验收。具体实施见
 [`UI_COVERAGE_TEST_PLAN.md`](UI_COVERAGE_TEST_PLAN.md)。
 
 P0 之外原来笼统延期的 275 条 SLPS `Unknown` 文本也已完成第一轮静态分屏：
@@ -105,13 +107,13 @@ target，只改变 174 字节／36 段。当前合计 262 条进入候选，运�
 运行场景已进一步收敛为独立 `ui-runtime-test-matrix`：14 类基础场景都有
 唯一去向，10 类进入测试、4 类登记延期原因和 exit gate；十八个已晋级 scene
 extension、两个混合组逐条子集和四个数据库核心家族另作为独立选择加入，
-共 38 类场景、43 个
-逐屏用例。1 张 P10 综合候选与五张 atlas 隔离 ISO、105 个截图点、6 个截图
+共 38 类场景、46 个
+逐屏用例。1 张 P10 综合候选与五张 atlas 隔离 profile、112 个截图点、6 个截图
 序列及五份 texture delta 均有机器锁。当前只有
 fresh-boot fixture 就绪，七份原生 memory card 仍待取得，因此该矩阵仍是
-测试计划而不是运行通过证明。六个用例 route-ready，37 个用例因 fixture
-未取得而阻塞；其中核心 UI、二十个 embedded 场景、路线和前五关绑定同一精确
-P10 综合 ISO。统一 session
+测试计划而不是运行通过证明。六个用例 route-ready，40 个用例因 fixture
+未取得而等待；当前没有用例被制品启动状态阻塞。核心 UI、二十个 embedded
+场景、路线和前五关绑定精确候选。统一 session
 probe／receipt verifier 会检查精确 ISO、PINE、
 DVD/ELF、零 TLB、截图、断言和 atlas RGBA delta，但当前尚无通过 receipt。
 

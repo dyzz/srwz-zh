@@ -12,6 +12,12 @@
     "rerasterize": "All CJK unified ideographs used by the selected Chinese translations, plus every newly allocated character.",
     "preserve": "Original kana, Latin glyphs, punctuation with an existing reachable glyph, control symbols, and glyphs outside the selected Chinese translations."
   },
+  "codec": {
+    "strategy": "rust-maximum",
+    "min_match_length": 2,
+    "max_match_chain": 65535,
+    "lazy_matching": true
+  },
   "rasterizer": {
     "executable": "magick",
     "density": 72,
@@ -22,8 +28,12 @@
     "quantization": "round(gray * 15 / 255)",
     "optical_corrections": {
       "班": {
-        "point_size": 22.1,
-        "reason": "At 22pt the right outline bound snaps to a 21px raster while adjacent 研 reaches 22px; 22.1pt restores one horizontal pixel without changing the 20px height or 4bpp ink materially."
+        "point_size": 23.5,
+        "reason": "The 2026-07-31 runtime screenshot still shows 班 optically smaller at 22.1pt; 23.5pt produces a stable 22x21 raster with 250 ink pixels, matching adjacent CJK density without changing its code or advance."
+      },
+      "任": {
+        "point_size": 23.5,
+        "reason": "The 2026-07-31 runtime screenshot shows 任 optically smaller at 22pt; 23.5pt produces a stable 22x21 raster with 212 ink pixels while preserving the existing code and advance."
       }
     }
   }

@@ -1,31 +1,31 @@
 {
   "schema_version": 1,
-  "status": "integrated_iso_boot_smoke_passed_visual_pending",
+  "status": "static_integrated_iso_validated_runtime_pending",
   "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes or localized text are embedded.",
   "profile_id": "ui-p1-core",
   "component": {
     "manifest": {
       "path": "manifests/ui-p1-core-validation.json",
       "size": 9806,
-      "sha256": "0e42c5f505b91d2d72c406e5c88c6b4914a74558cb3a26aa29f1bc1b54da328e"
+      "sha256": "083f5df2f9f02e4a13ca468e03930aabef57dd2ad6a9baa767b38b2084592045"
     },
     "profile_id": "srwz-ui-p1-core-integrated-v1",
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "4ef7b663dfb76144fdda109824c244cdd5cabf34e57cf7eb377da6ea44a42024"
+        "sha256": "b96fa6156285b8645a13d4f3d6981e88a4114af48517d26c4fe32e013ee954ac"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "ba63968a2ef7bd424e965d648df2bd6a2f1edc28fc61430473fdc4644e556ec5"
+        "sha256": "5bc3c932b5f671f4408bfea2fc21f79bdecf7b9e0e3596d9ac2aec34fcc6548d"
       },
       "mtv_pros": {
-        "size": 8640,
-        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+        "size": 8368,
+        "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
       },
       "compdata": {
-        "size": 143493,
-        "sha256": "3178915d69a2ebd5f9d785bd08b6a1f49270f4406bc071dc558f46b64bd44529"
+        "size": 143952,
+        "sha256": "89c3c13b0de52d4241a7b186f6e4a0a92afdb83a95d49ca3f0b0f26422b4178a"
       }
     },
     "acceptance": {
@@ -43,18 +43,18 @@
   "iso_build": {
     "config": {
       "path": "config/iso/ui-p1-core-build.json",
-      "size": 3722,
-      "sha256": "d84efd21b4cae7a81532fdebfee20c841272ce5858392e5b134e74c072eca0b4"
+      "size": 3591,
+      "sha256": "945a3816ceb0ca04944b2ca370523eaf01c7846728b09be6582e58dee0d03baf"
     },
     "report": {
       "path": "build/iso/ui-p1-core/iso-validation.json",
       "size": 3401,
-      "sha256": "05bd3038256a444ee15c5565cf5b19cce085d70ac1c2cbf2a9e305ac47b454d9"
+      "sha256": "edc5c7f7137399aefbcf910269969be535381c9af4711e650d22e205deff4b2b"
     },
     "path": "build/iso/ui-p1-core/srwz-ui-p1-core.iso",
     "output": {
       "size": 3758358528,
-      "sha256": "69771b8dfa5800d3ce6652436d3cbad24ed71e5d83b4c5dc12b8ed0c3ae33854"
+      "sha256": "6e691c194d02443b31f2f68998c806a13b23dbda6b3e46ed0784c55ecc252041"
     },
     "member_count": 66,
     "unchanged_member_count": 62,
@@ -65,31 +65,31 @@
         "shift_sectors": 0
       }
     ],
-    "member_manifest_sha256": "f8bde4cbeeb8c0f37b611052c32375b416e042c4be385a2ead2f5a4717120857",
+    "member_manifest_sha256": "0b63c13a9ca40163f2bbcdff2be8a8293e21f37d099a836e3eb1d7dcec13ed33",
     "pcsx2_v263_image_type": "DVD",
     "udf_volume_recognition_sequence": "NSR02",
     "replacements": {
       "SLPS_258.87": {
         "size": 3471624,
-        "sha256": "4ef7b663dfb76144fdda109824c244cdd5cabf34e57cf7eb377da6ea44a42024",
+        "sha256": "b96fa6156285b8645a13d4f3d6981e88a4114af48517d26c4fe32e013ee954ac",
         "component_output": "slps",
         "independent_udf_reread_exact": true
       },
       "DATA/COMPDATA.BN": {
-        "size": 143493,
-        "sha256": "3178915d69a2ebd5f9d785bd08b6a1f49270f4406bc071dc558f46b64bd44529",
+        "size": 143952,
+        "sha256": "89c3c13b0de52d4241a7b186f6e4a0a92afdb83a95d49ca3f0b0f26422b4178a",
         "component_output": "compdata",
         "independent_udf_reread_exact": true
       },
       "DATA/MTV_PROS.BIN": {
-        "size": 8640,
-        "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907",
+        "size": 8368,
+        "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617",
         "component_output": "mtv_pros",
         "independent_udf_reread_exact": true
       },
       "DATA/VT1.BIN": {
         "size": 127500736,
-        "sha256": "ba63968a2ef7bd424e965d648df2bd6a2f1edc28fc61430473fdc4644e556ec5",
+        "sha256": "5bc3c932b5f671f4408bfea2fc21f79bdecf7b9e0e3596d9ac2aec34fcc6548d",
         "component_output": "vt1",
         "independent_udf_reread_exact": true
       }
@@ -109,21 +109,9 @@
     "all_replacements_independently_reread": true
   },
   "runtime": {
-    "status": "boot_smoke_passed_visual_not_tested",
-    "required_iso_sha256": "69771b8dfa5800d3ce6652436d3cbad24ed71e5d83b4c5dc12b8ed0c3ae33854",
+    "status": "not_tested",
+    "required_iso_sha256": "6e691c194d02443b31f2f68998c806a13b23dbda6b3e46ed0784c55ecc252041",
     "required_emulator": "PCSX2 v2.6.3",
-    "receipt": {
-      "path": "work/runtime/iso-incremental/12-ui-p1-core-rust-fixed-span/boot-smoke.json",
-      "size": 1862,
-      "sha256": "0ce207467c6c5b4c91330597684495b1a6c9dfe4796d562260593860bde2f6cc"
-    },
-    "fresh_process": true,
-    "game_id": "SLPS-25887",
-    "pine_status": 0,
-    "pine_state": "Running",
-    "dvd_recognized": true,
-    "elf_executing": true,
-    "tlb_miss_count": 0,
     "required_routes": [
       "title_all_four_selected_and_unselected_states",
       "opening_player_setup_default_and_edited_name",
@@ -134,11 +122,11 @@
       "world_history_scroll_start_middle_end"
     ],
     "pending_gates": [
-      "opening_player_setup_visual_acceptance",
-      "pine_decoded_font_exact",
+      "fresh_process_boot_exact_iso",
+      "pine_running_and_decoded_font_exact",
       "new_raw_trail_glyph_classes_visible",
-      "no_clipping_overlap_or_missing_glyphs"
-    ],
-    "boundary": "Fresh-process boot proves DVD, ELF, PINE and zero logged TLB misses only; no route navigation or visual acceptance is claimed."
+      "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss"
+    ]
   }
 }

@@ -116,15 +116,25 @@ def load_ui_font_overrides(
     ]
     overrides = {}
     codes = {}
+    semantic_replacements = []
     for assignment in assignments:
         if not isinstance(assignment, dict):
             raise UiMenuError("malformed UI codebook assignment")
         character = assignment.get("character")
         code = assignment.get("code")
+        source_character = assignment.get("source_character")
         if (
             not isinstance(character, str)
             or len(character) != 1
             or not isinstance(code, str)
+            or (
+                source_character is not None
+                and (
+                    not isinstance(source_character, str)
+                    or len(source_character) != 1
+                    or source_character == character
+                )
+            )
         ):
             raise UiMenuError("malformed UI codebook assignment")
         value = int(code, 16)
@@ -132,6 +142,14 @@ def load_ui_font_overrides(
         previous_character = codes.setdefault(value, character)
         if previous_code != value or previous_character != character:
             raise UiMenuError("UI codebook assignment collision")
+        if source_character is not None:
+            semantic_replacements.append(
+                {
+                    "source_character": source_character,
+                    "target_character": character,
+                    "code": f"{value:04X}",
+                }
+            )
     return overrides, {
         "base_codebook": {
             "path": str(base_path.relative_to(project_root.resolve())),
@@ -142,7 +160,53 @@ def load_ui_font_overrides(
             "sha256": _hash_file(proposal_path),
         },
         "override_count": len(overrides),
+        "semantic_code_replacements": semantic_replacements,
     }
+
+
+def split_ui_font_overrides(
+    table,
+    overrides: Mapping[str, int],
+) -> tuple[dict[str, int], dict[str, str]]:
+    """Separate additive mappings from deliberate source-code glyph reuse."""
+
+    additive = {}
+    aliases = {}
+    target_characters = set()
+    for character, code in overrides.items():
+        source_character = table.characters.get(code)
+        if source_character is None or source_character == character:
+            additive[character] = code
+            continue
+        if (
+            source_character in aliases
+            or character in target_characters
+            or source_character in target_characters
+        ):
+            raise UiMenuError("UI semantic code replacement collision")
+        aliases[source_character] = character
+        target_characters.add(character)
+    return additive, aliases
+
+
+def augment_ui_source_text_table(table, overrides: Mapping[str, int]):
+    """Add ordinary UI mappings while preserving original source decoding."""
+
+    additive, _aliases = split_ui_font_overrides(table, overrides)
+    return augment_text_table(table, additive)
+
+
+def normalize_ui_font_aliases(
+    text: str,
+    table,
+    overrides: Mapping[str, int],
+) -> str:
+    """Project reused source-code characters to their localized glyph names."""
+
+    _additive, aliases = split_ui_font_overrides(table, overrides)
+    if not aliases:
+        return text
+    return text.translate(str.maketrans(aliases))
 
 
 def _load_menu_descriptor(
@@ -442,7 +506,7 @@ def build_fixed_menu_slice(
         parsed,
         result.targets,
     )
-    output_table = augment_text_table(table, overrides)
+    output_table = augment_ui_source_text_table(table, overrides)
     parsed_entries = {entry.entry_id: entry for entry in parsed.entries}
     for entry_id, decision in decisions.items():
         parsed_entry = parsed_entries.get(entry_id)
@@ -450,7 +514,11 @@ def build_fixed_menu_slice(
             raise UiMenuError(f"fixed SLPS slice has no target for {entry_id}")
         for target_offset in set(parsed_entry.target_offsets):
             if (
-                decode_text(output, target_offset, output_table).text
+                normalize_ui_font_aliases(
+                    decode_text(output, target_offset, output_table).text,
+                    table,
+                    overrides,
+                )
                 != decision["translation"]
             ):
                 raise UiMenuError(
@@ -1100,7 +1168,8 @@ def build_fixed_compdata_component(
                 "UI COMPDATA max_output_size differs from its sector budget"
             )
     if (
-        codec_config.get("strategy") in {"maximum", "size-constrained"}
+        codec_config.get("strategy")
+        in {"maximum", "rust-maximum", "size-constrained"}
         and not has_sector_budget
     ):
         raise UiMenuError(
@@ -1185,7 +1254,8 @@ def build_fixed_compdata_component(
         compressed_component.update(
             {
                 "compact_distance_seed": (
-                    strategy in {"maximum", "size-constrained"}
+                    strategy
+                    in {"maximum", "rust-maximum", "size-constrained"}
                 ),
                 "candidate_cost": (
                     "exact serialized bytes including block control, "

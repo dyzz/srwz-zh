@@ -26,22 +26,22 @@
     "writeback_readiness": {
       "writer_baseline_config": {
         "path": "config/ui-writeback/ui-p0-slps-fixed.json",
-        "sha256": "bd8237c0f9addc461a5c9752c7f49723ec03812028115c997dd3ddeb3b5b1f00"
+        "sha256": "df3bcc67505bf10c43c9442a9aa00edc3f31cc1f4845284f694054e1166f9002"
       },
       "font_manifest": {
         "path": "manifests/ui-p2-display-name-font-validation.json",
-        "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc",
+        "sha256": "81394e80d9a1ff0dac17d7fd9d69b23a1b1d0ba48960da9fc7079bc45b8c441c",
         "status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
       },
       "source_slps": {
         "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22"
+        "sha256": "4334607c5c00c12062599064b4a6ace2f572e36087ea5d0a055fbab6797078a4"
       },
       "source_vt1": {
         "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "636246a0611517c35419cbbc2aee73b6d1af91a2b337b68ba630828f74cbfcbc"
+        "sha256": "2d541fc2a20ebac321a48c996c2ed7bba354bf24d857887cd522e2d0627f261b"
       },
       "menu_descriptor": {
         "path": "vendor/upstream-python/project/menu_files.json",
@@ -57,7 +57,7 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
-        "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b"
+        "sha256": "96acae46806a228d132c3a3518d3d96f28ac9484c6f221184a518dd18428f9f6"
       },
       "override_count": 1605,
       "policy": "A group is fixed-span ready only when every decision encodes with the exact P2 font proposal, fits every original NUL-terminated target, and closes over all shared target owners with identical payloads."

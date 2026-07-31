@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "registry_id": "srwz-ui-p10-database-font-v1",
-  "policy": "Extend the locked P7 UI registry without changing any existing code/glyph assignment. The database core consumes the final twelve renderer-addressable candidates; every appended character remains reserved even if later terminology changes.",
+  "policy": "Extend the locked P7 UI registry without changing any existing allocation. The database core consumes the final twelve renderer-addressable candidates; the simplified label 绊 reuses and rerasterizes the original 絆 code/glyph without consuming a candidate; every appended character remains reserved even if later terminology changes.",
   "base_registry": {
     "path": "config/encoding/ui-p7-embedded-font-allocations.json",
     "sha256": "9e5802e962693426bf3cfe0ca880d817deebb52862fcb6c14d44fc93f84c2d78",
@@ -13,6 +13,7 @@
     "appended_character_count": 12,
     "combined_registered_character_count": 736,
     "remaining_candidate_slot_count": 0,
-    "additional_reraster_existing_han_count": 14
+    "additional_reraster_existing_han_count": 14,
+    "additional_semantic_code_replacement_count": 1
   }
 }

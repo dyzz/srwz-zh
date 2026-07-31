@@ -15,7 +15,7 @@ class UiRuntimeHostTests(unittest.TestCase):
         *,
         binary_architectures,
         has_rosetta,
-        artifact_id="first-five-noncompdata-ui",
+        artifact_id="first-five-full-ui-with-compdata",
     ):
         with tempfile.TemporaryDirectory() as directory:
             pcsx2 = Path(directory) / "PCSX2"
@@ -69,14 +69,14 @@ class UiRuntimeHostTests(unittest.TestCase):
         )
         self.assertEqual(
             report["artifact"]["iso_sha256"],
-            "85ba645d980d84861f233a11c93b1f0cb3742a8a0583cec41d9e70263851ec39",
+            "218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b",
         )
 
-    def test_p1_opening_name_artifact_can_be_selected_exactly(self):
+    def test_p2_default_name_artifact_can_be_selected_exactly(self):
         report = self._report(
             binary_architectures=("x86_64",),
             has_rosetta=True,
-            artifact_id="ui-p1-opening-names-maximum",
+            artifact_id="ui-p2-default-names-first-five",
         )
         self.assertEqual(report["ready_cases"]["count"], 1)
         self.assertEqual(
@@ -85,7 +85,7 @@ class UiRuntimeHostTests(unittest.TestCase):
         )
         self.assertEqual(
             report["artifact"]["iso_sha256"],
-            "69771b8dfa5800d3ce6652436d3cbad24ed71e5d83b4c5dc12b8ed0c3ae33854",
+            "026f29e3e77b78a19f000c6781317ebc95aeb672b5b2848ad2a30bf8d2f5c473",
         )
 
     def test_wrong_binary_architecture_is_reported(self):

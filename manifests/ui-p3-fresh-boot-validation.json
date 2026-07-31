@@ -8,7 +8,7 @@
     "config": {
       "path": "config/ui-writeback/ui-p3-fresh-boot-slps.json",
       "size": 2988,
-      "sha256": "1a208e0deefee31dd7d522b98799f5bff2156bebbc72fe66482c52249315518a"
+      "sha256": "230903718e371c5c444647ff75e8a64f2730df463f9aaf2c3296060b5fc77652"
     },
     "scene_map": {
       "config": {
@@ -19,29 +19,29 @@
       "manifest": {
         "path": "manifests/ui-embedded-scene-map.json",
         "size": 44936,
-        "sha256": "bb8cde5f7fa419b075cdf72affc10e5537f9afb569bf950b93a00c67d234a651"
+        "sha256": "17bd76bad91988993bf2b51415b6335578686f37a7bedd2a9388014aa142b2f4"
       },
       "map_id": "srwz-ui-embedded-scenes-v1"
     },
     "readiness_baseline": {
       "writer_baseline_config": {
         "path": "config/ui-writeback/ui-p0-slps-fixed.json",
-        "sha256": "bd8237c0f9addc461a5c9752c7f49723ec03812028115c997dd3ddeb3b5b1f00"
+        "sha256": "df3bcc67505bf10c43c9442a9aa00edc3f31cc1f4845284f694054e1166f9002"
       },
       "font_manifest": {
         "path": "manifests/ui-p2-display-name-font-validation.json",
-        "sha256": "ff642d6579277924554d9c34a181be90666f7dec9cea79abdef14d9fe089befc",
+        "sha256": "81394e80d9a1ff0dac17d7fd9d69b23a1b1d0ba48960da9fc7079bc45b8c441c",
         "status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
       },
       "source_slps": {
         "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22"
+        "sha256": "4334607c5c00c12062599064b4a6ace2f572e36087ea5d0a055fbab6797078a4"
       },
       "source_vt1": {
         "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "636246a0611517c35419cbbc2aee73b6d1af91a2b337b68ba630828f74cbfcbc"
+        "sha256": "2d541fc2a20ebac321a48c996c2ed7bba354bf24d857887cd522e2d0627f261b"
       },
       "menu_descriptor": {
         "path": "vendor/upstream-python/project/menu_files.json",
@@ -57,7 +57,7 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
-        "sha256": "f306a0c9c14fb9089d9df4cdc77bd80e6eac1888f5c2c85f11fd19de8c69ab3b"
+        "sha256": "96acae46806a228d132c3a3518d3d96f28ac9484c6f221184a518dd18428f9f6"
       },
       "override_count": 1605,
       "policy": "A group is fixed-span ready only when every decision encodes with the exact P2 font proposal, fits every original NUL-terminated target, and closes over all shared target owners with identical payloads."
@@ -66,7 +66,7 @@
       "manifest": {
         "path": "manifests/ui-p2-core-validation.json",
         "size": 9914,
-        "sha256": "3dd387c9b13ecb3eb04d899f7b423084cebb9af581a3a3d2e44002a104d8ca77"
+        "sha256": "e6d52f7bc0e11934a2c6fcb32f184e8f6bff120f541de3e6cd1b5cdb8de1c533"
       },
       "profile_id": "srwz-ui-p2-researched-display-names-integrated-v1",
       "status": "integrated_component_validated_iso_runtime_pending",
@@ -75,12 +75,12 @@
         "slps": {
           "path": "work/build/ui-p2-core/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "dcb7a5d26febeaa9a75e9e9308a812a072cb10710a359409489852d7d0bbdd47"
+          "sha256": "8a322f1e20febdf9cd4ac1a9e1803c9fa997246aa448cd0a62d08fb6a453013d"
         },
         "vt1": {
           "path": "work/build/ui-p2-core/components/DATA/VT1.BIN",
           "size": 127500736,
-          "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+          "sha256": "a024a5ad026074ae37ccd3bbe84ade2ba0160cb1194daa80ad7101ce7d0646ca"
         },
         "compdata": {
           "path": "work/build/ui-p2-core/components/DATA/COMPDATA.BN",
@@ -89,8 +89,8 @@
         },
         "mtv_pros": {
           "path": "work/build/ui-p2-core/components/DATA/MTV_PROS.BIN",
-          "size": 8640,
-          "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+          "size": 8368,
+          "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
         }
       }
     }
@@ -170,7 +170,7 @@
       "payload_size": 172,
       "owned_capacity": 192,
       "target_metadata_sha256": "ec0b55216e4a4383db32a1dbdfc367ff6ac5cbb80fd714d4735b4341c79484df",
-      "patch_plan_metadata_sha256": "8052bd9242a0640e27631fac0d29db81b3cb7239df04dabf0164bc60ac5493c9",
+      "patch_plan_metadata_sha256": "44585d0077485f975d47a8af094276721f730ca286b2ccfa13525c299ae96778",
       "pointer_write_count": 0,
       "pointer_bytes_unchanged": true,
       "non_target_bytes_unchanged": true,
@@ -179,38 +179,38 @@
     "component": {
       "source_size": 3471624,
       "output_size": 3471624,
-      "source_sha256": "986d36fed7d34a9c0df38fc84f715ae26a51e837d7292ce7131afd1f65eaab22",
-      "output_sha256": "118bd90683875b7536bf14178170b37f309cf972ac88854b3a0f3ced29ffa7e1",
+      "source_sha256": "4334607c5c00c12062599064b4a6ace2f572e36087ea5d0a055fbab6797078a4",
+      "output_sha256": "d45dfe560081eb4ee3407b1881954dffea6151863c968a00bc31026f24b439fd",
       "changed_byte_count": 124,
       "difference_range_count": 35,
       "changed_offsets_sha256": "29d52b3977f21a26127a66eba062f14f62cbfda725274800f7b5526f36cd31b9",
-      "source_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
-      "output_font_decoded_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8",
+      "source_font_decoded_sha256": "68b3e5a6f337e97a26443d9fa761aa2c65d6c233782343563a32e8ebfc1e315a",
+      "output_font_decoded_sha256": "68b3e5a6f337e97a26443d9fa761aa2c65d6c233782343563a32e8ebfc1e315a",
       "font_decoded_unchanged": true
     },
     "changed_offsets_sha256": "29d52b3977f21a26127a66eba062f14f62cbfda725274800f7b5526f36cd31b9"
   },
   "composition": {
-    "base_changed_byte_count": 2685,
-    "base_changed_offsets_sha256": "38b2d8cbce179c73efe7ec90bcd428ee26bc8cc5bcafa1c9063758eef53695ae",
+    "base_changed_byte_count": 2686,
+    "base_changed_offsets_sha256": "27b2434aee2ee66b5448148e7f93ec9e26383cf505687bc4b609349f13e89602",
     "slice_changed_byte_count": 124,
     "slice_changed_offsets_sha256": "29d52b3977f21a26127a66eba062f14f62cbfda725274800f7b5526f36cd31b9",
     "overlap_byte_count": 0,
     "base_preimage_exact_at_slice_offsets": true,
     "final_changed_from_base_byte_count": 124,
     "final_changed_from_base_offsets_sha256": "29d52b3977f21a26127a66eba062f14f62cbfda725274800f7b5526f36cd31b9",
-    "decoded_font_sha256": "ff6804384fa997fa79033ed3324bae70756126738171a3ce00502643537b9eb8"
+    "decoded_font_sha256": "68b3e5a6f337e97a26443d9fa761aa2c65d6c233782343563a32e8ebfc1e315a"
   },
   "outputs": {
     "slps": {
       "path": "work/build/ui-p3-fresh-boot/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "fa703c5d7cdf4e5113e50743374547adb2031bd5393d15c05d01037c188c3a44"
+      "sha256": "84c19cba14cc9583bfd49b8105149684b445231691a4ec736ffb4d788b0568f0"
     },
     "vt1": {
       "path": "work/build/ui-p3-fresh-boot/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "823860383d40f10cb90b6c97468d010929138a3e05781307c556739112d98e2c"
+      "sha256": "a024a5ad026074ae37ccd3bbe84ade2ba0160cb1194daa80ad7101ce7d0646ca"
     },
     "compdata": {
       "path": "work/build/ui-p3-fresh-boot/components/DATA/COMPDATA.BN",
@@ -219,8 +219,8 @@
     },
     "mtv_pros": {
       "path": "work/build/ui-p3-fresh-boot/components/DATA/MTV_PROS.BIN",
-      "size": 8640,
-      "sha256": "05c85324dc34b7c44007e4f4b2ad8d9369ebd0d90967d6061587cebf9f64d907"
+      "size": 8368,
+      "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
     }
   },
   "ratchet": {

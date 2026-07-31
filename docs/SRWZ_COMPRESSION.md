@@ -247,6 +247,10 @@ compact distance 和原版式 odd flags。独立模型把原版 COMPDATA 重压�
 仓库自有的 clean-room Rust 实现位于
 `tools/native/srwz-codec-rs/`。默认行为仍是逐个尝试 lazy bias `0..8`，
 选择最终序列化后最小的码流；这是“极限档”，不是日常迭代必须承担的成本。
+当前前五关、生产字库、世界史和 P0／P2／P10 COMPDATA profile 已全部锁定
+该 Rust 路径；COMPDATA 使用 `min-match-length=2`、
+`max-match-chain=65535` 和 145,408-byte 硬门。旧 greedy／Python maximum
+配置只作为历史测量与运行证据保留。
 
 命令行现在接受 `--lazy-bias 0..8`。指定后只执行该档的一次在线匹配扫描，
 方便在同一 decoded 输入、flags 和 byte budget 下量化速度／体积。这里没有

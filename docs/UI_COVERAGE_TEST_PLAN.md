@@ -5,10 +5,11 @@
 截图猜测文本归属。
 
 运行候选现已按 `first-five → atlas → 非 COMPDATA UI → COMPDATA`
-重建。前三层均通过 PCSX2 v2.6.3 fresh-process 的 DVD、ELF、PINE
-Running 和零 TLB 检查；只增加改写后的 `DATA/COMPDATA.BN` 即触发 TLB。
-因此逐屏测试改用 `first-five-noncompdata-ui`，COMPDATA 所属场景保持
-阻塞。精确成员、哈希和运行收据见
+重建。旧的 72-sector COMPDATA 因后续 LBA 位移触发过 TLB；当前 Rust
+compressor 已把完整 P10 COMPDATA 控制在原 71 sectors。精确 P10 综合 ISO
+已通过 PCSX2 v2.6.3 fresh-process 的 DVD、ELF、PINE Running 和零 TLB
+检查，因此 COMPDATA 场景不再受启动制品阻塞；逐屏与 atlas mapping 证据仍
+必须单独取得。精确成员、哈希和运行收据见
 [`ISO_INCREMENTAL_VALIDATION.md`](ISO_INCREMENTAL_VALIDATION.md)。
 
 当前场景结论是 `inventory_passed_work_remaining`：场景筛选、源哈希、译文
@@ -130,11 +131,11 @@ python3 tools/verify_ui_p1_world_history_iso.py --force
 builder 按原 14 块 offset 表解析真实 MTV_PROS，只对含文本的 12 块执行
 fixed-allocation 写回和 changed-suffix 重编码；两个无文本块保持原字节。
 验证器既做确定性重建逐字节比较，也从产物 SLPS offset 表重新切分 14 块，
-用 P1 codebook 重读全部 28 条。当前成员由 9,056 缩至 8,640 字节，SLPS
+用 P1 codebook 重读全部 28 条。当前成员由 9,056 缩至 8,368 字节，SLPS
 只允许 60 字节 MTV_PROS offset 表变化，VT1 必须与 P1 字库组件完全一致。
 component 结果见 `manifests/ui-p1-world-history-validation.json`。隔离 ISO
 固定为 3,758,358,528 字节，SHA-256
-`49cba4170cabf17bfeaa8320518c429831abd309156e68f14d8e85b28dd6feb2`；
+`464a664ee3406e976bd1cbe603363da3544611690fcd86c4a7f766ed21747a01`；
 66 个成员、63 个未替换成员逐字节一致，三项替换均通过独立 UDF 回读。
 静态容器结果见
 `manifests/ui-p1-world-history-runtime-validation.json`；它不证明滚动画面或
@@ -153,14 +154,14 @@ python3 tools/verify_ui_p1_core_iso.py --force
 集成器以 P0 字库 SLPS 为共同基线做三方补丁，要求 2,659 个菜单变化字节与
 P1／世界史修改零重叠；标题只替换已验证的 VT1 chunk 6 TIM2 record，另外
 13 个 VT1 chunk 保持原字节。最终 component 重新读取全部 28 条世界史和四项
-输出锁。组合 ISO 为 3,758,424,064 字节，SHA-256
-`32ef774c62eddb149b6d23d566645716bdbbdca02a124f1d5030083c50185454`；
+输出锁。组合 ISO 为 3,758,358,528 字节，SHA-256
+`6e691c194d02443b31f2f68998c806a13b23dbda6b3e46ed0784c55ecc252041`；
 66 个成员中 62 个未替换成员逐字节一致，SLPS、VT1、MTV_PROS、COMPDATA
 均通过独立 UDF 回读。提交结果见 `manifests/ui-p1-core-validation.json` 和
 `manifests/ui-p1-core-runtime-validation.json`。该镜像不包含前五关
-STAGE/HB 或信息页 atlas。精确镜像已完成 PCSX2 v2.6.3 fresh-process、
-PINE Running 和零 TLB boot smoke；开场姓名画面与其余逐屏视觉验收仍为
-`not_tested`。
+STAGE/HB 或信息页 atlas。当前 Rust 重建后的精确镜像尚未重新执行 PCSX2，
+旧 P1 boot receipt 不沿用；开场姓名相关用例改绑已经启动通过的当前 P2
+Rust ISO，逐屏视觉验收仍为 `not_tested`。
 
 当前 P2 production profile 在 P1 之上增加 researched 动态名称，完整命令为：
 
@@ -230,8 +231,8 @@ python3 tools/verify_ui_p0_fixed_compdata.py --force
 当前 44 条 P0 COMPDATA 中，3 条为 byte-exact no-op，41 条／41 个目标完成
 写回，没有 overflow。验证器要求 524,032 字节解码输出大小不变、所有变化
 字节均位于登记 span、28,100 个指针字节不变、压缩流完整消费并精确回解。
-重编码保留原流前 128,781 字节，成员由 144,990 增至 147,050 字节；ISO 层
-必须显式接受并回读这个 2,060 字节增长。提交结果见
+Rust 重编码保留原流前 128,781 字节，成员由 144,990 增至 145,105 字节，
+保持 71 sectors，距 145,408-byte 硬上限余 303 字节。提交结果见
 `manifests/ui-p0-fixed-compdata-validation.json`。
 
 动态名称解析和开场切片写回使用独立配置，不把日文原文提交到仓库：
@@ -247,8 +248,8 @@ python3 tools/verify_ui_p0_display_names.py --force
 中选择 45 个已审校字段：42 个人物字段和 3 个机体字段，全部在原 allocation
 内写入。验证器要求人物 ID 字节、808 个机体指针、非目标字节和解压后结构均
 不变，并从重编码流完整回解。动态名称组件在静态 P0 COMPDATA 上保留
-29,093 字节压缩前缀；`maximum` 重编码后成员由 147,050 降至 143,493
-字节，保持 71 sectors，余 1,915 字节。writer 直接执行 145,408-byte
+29,093 字节压缩前缀；Rust `rust-maximum` 重编码后成员由 145,105 降至
+143,952 字节，保持 71 sectors，余 1,456 字节。writer 直接执行 145,408-byte
 硬门，不允许依靠 ISO LBA 位移隐藏溢出。提交结果分别见
 `manifests/display-name-structure.json` 和
 `manifests/ui-p0-display-names-validation.json`。
@@ -659,17 +660,18 @@ python3 tools/verify_ui_test_candidate_iso.py \
 atlas suite 相对原版归档共改变 5,568 个字节，五类 owner 零重叠，所有权外
 字节完全不变。综合 component 的 7 个成员也零重叠：P10 UI 拥有
 SLPS／COMPDATA／MTV_PROS／VT1，前五关拥有 HB／STAGE，suite 拥有
-KVMDATA。最终 DVD 大小为 3,758,456,832 字节，SHA-256 为
-`2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431`；
-59 个未替换成员 byte-exact，7 个 replacement 独立 UDF 回读，LBA 位移仅为
-`DATA/NISVDATA.BIN +8` 和 `DATA/STAGE.BIN +45`。P10 在 P9 基线上新增
-402 条数据库核心决定：88 条驾驶员技能、155 条机体特殊能力、144 条精神
-指令和 15 条小队长能力；232 条 SLPS 与 170 条 COMPDATA 均为 fixed-span，
+KVMDATA。最终 DVD 大小为 3,758,358,528 字节，SHA-256 为
+`218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b`；
+59 个未替换成员 byte-exact，7 个 replacement 独立 UDF 回读；唯一位移段从
+`DATA/STAGE.BIN` 开始，为 `+1 sector`，共 5 个后续成员发生位移。P10 在 P9 基线上新增
+403 条数据库核心决定：88 条驾驶员技能、155 条机体特殊能力、145 条精神
+指令和 15 条小队长能力；233 条 SLPS 与 170 条 COMPDATA 均为 fixed-span，
 零排除、零指针写入。字体耗尽最后 12 个候选槽并重绘 14 个继承汉字，VT1
-只替换 chunk 2，其余 13 块 byte-exact。COMPDATA 的 113,266 字节压缩
-前缀原样保留，完整解压结果和 flags 回读一致。
-这只建立综合运行候选的
-静态身份；五个 isolated atlas profile 仍是 scene mapping 的唯一归因依据。
+只替换 chunk 2，其余 13 块 byte-exact。Rust COMPDATA 的 113,266 字节
+压缩前缀原样保留，输出 145,191 字节，距硬上限余 217 字节；完整解压结果和
+flags 回读一致。精确 DVD 已通过 fresh-process DVD／ELF／PINE Running／
+零 TLB 启动门；这不替代逐屏视觉验收，五个 isolated atlas profile 仍是
+scene mapping 的唯一归因依据。
 
 ### 4.3 SLPS/COMPDATA 文本池
 
@@ -704,16 +706,16 @@ inventory。当前结果是：
 - 275 条 embedded UI 的父场景仍显式延期，但十八个纯玩家可见组
   的 253 条及两个混合组内 9 条可见标签已经晋级；余下 13 条需要正常调用点
   和画面证明；
-  1,250 条数据库父场景也保持延期，但 402 条技能、机体能力、精神和小队长
-  能力已作为四个 P1 子场景晋级，余下 848 条仍明确排除；
+  1,250 条数据库父场景也保持延期，但 403 条技能、机体能力、精神和小队长
+  能力已作为四个 P1 子场景晋级，余下 847 条仍明确排除；
   其余延期类为两条后期专用提示和 297 条退场台词；
 - 46 个用例：36 个 UI／路线验收、5 个 001～005 开场序列和 5 个中文 atlas
   场景映射／显示实验；
-- 7 个制品 profile 均由现有 manifest 锁定：可运行的非 COMPDATA 综合候选、
-  明确阻塞的完整 COMPDATA 候选，以及 5 个保留独立 mapping manifest 的
-  atlas profile；
-- 34 个可运行非映射用例和 5 个 atlas 映射用例绑定晋级 ISO；7 个
-  COMPDATA 所有权用例绑定已复现 TLB 的阻塞候选；
+- 7 个制品 profile 均由现有 manifest 锁定：已通过启动门的完整 Rust P10
+  候选、当前 P2 默认姓名／前五关候选，以及 5 个保留独立
+  mapping manifest 的 atlas profile；
+- 46 个用例绑定的制品都可启动；其中 P10 所有权用例使用精确 Rust P10
+  候选，atlas 映射仍使用各自独立 mapping manifest；
 - 计划采集 112 张截图、6 组截图序列和 5 份 texture delta；
 - fresh boot 是唯一已就绪 fixture；标题主菜单已通过，玩家设置、世界史、
   stage 001 开场及一个非 COMPDATA
@@ -721,14 +723,14 @@ inventory。当前结果是：
   `first-intermission-card`，四个 P10 数据库用例也由该卡解锁；P5 与 P8
   战场组需要 `first-battle-card`，P6～P10 还需
   `pre-results-card`、`first-five-progress-card` 和
-  `full-upgrade-card`，合计 34 个用例等待六类当前有效的原生 memory card；
-  `route-branch-card` 只有在 COMPDATA 启动边界解除后才能解锁其用例，另外
-  7 个用例当前直接受该制品边界阻塞。
+  `full-upgrade-card`，加上 `bazaar-unlocked-card` 与
+  `route-branch-card`，合计 40 个用例等待七类当前有效的原生 memory card；
+  当前没有用例受制品启动状态阻塞。
 
 所有 memory card 都必须放在被忽略的
 `work/runtime/ui-fixtures/<fixture>/SLPS-25887.ps2`，登记 SHA-256 后才可
 晋级。现有 `.p2s` savestate 既不满足 fresh-process 契约，也不会自动替代
-原生存档。矩阵当前已有 1 个 `passed`、45 个 `not_tested`；`route_ready`
+原生存档。矩阵当前为 0 个 `passed`、46 个 `not_tested`；`route_ready`
 只表示路线无需存档且制品可运行，不表示 PCSX2 已执行。
 
 存档缺口使用只读预检，不复制或修改 PCSX2 卡：
@@ -750,13 +752,13 @@ python3 tools/audit_ui_runtime_fixtures.py --force
 
 | 顺序 | fixture | 解锁用例 | 计划采集 |
 | ---: | --- | ---: | --- |
-| 1 | `first-intermission-card` | 17 | 45 截图＋3 texture delta |
+| 1 | `first-intermission-card` | 22 | 45 截图＋3 texture delta |
 | 2 | `first-battle-card` | 7 | 19 截图＋1 texture delta |
 | 3 | `first-five-progress-card` | 5 | 6 截图＋4 截图序列 |
 | 4 | `pre-results-card` | 3 | 10 截图 |
 | 5 | `full-upgrade-card` | 1 | 3 截图 |
 | 6 | `bazaar-unlocked-card` | 1 | 1 截图＋1 texture delta |
-| 7 | `route-branch-card` | 0（另受 COMPDATA 阻塞） | 3 截图 |
+| 7 | `route-branch-card` | 1 | 3 截图 |
 
 每个用例的执行链固定为：
 
@@ -768,7 +770,7 @@ python3 tools/check_ui_runtime_host.py --force
 python3 tools/prepare_ui_runtime_case.py \
   --case-id core/title-main-menu --force
 
-# 或一次生成当前全部 4 个尚未执行的 route-ready / fresh-boot 用例
+# 或一次生成当前全部 6 个 route-ready / fresh-boot 用例
 python3 tools/prepare_ui_runtime_case.py \
   --all-route-ready --force
 
@@ -783,14 +785,14 @@ python3 tools/verify_ui_runtime_evidence.py \
 ```
 
 第零步无论成功或被阻塞，都会生成被忽略的
-`work/review/ui-runtime-host-preflight.json`，并把矩阵计划、当前四个
+`work/review/ui-runtime-host-preflight.json`，并把矩阵计划、当前六个
 route-ready case、晋级 ISO 大小／SHA-256、PCSX2 可执行文件架构和 Rosetta
 状态写入同一份报告。它不会执行 PCSX2；只有 `launch.safe_to_launch: true`
 才能进入第二步的真实新进程。当前 arm64 主机上的 PCSX2 2.6.3 只有 x86_64
 切片；当前 Rosetta 已可用，报告为 `runtime_host_ready`，没有 blocker。
 
-标题主菜单已经完成第二、三步并提交 hash-only receipt；其余四个 route-ready
-用例仍待执行。session probe 必须同时确认精确 ISO、PINE
+当前没有逐屏用例提交通过的 hash-only receipt；六个 route-ready 用例仍待
+执行。session probe 必须同时确认精确 ISO、PINE
 `SLPS-25887/Running`、fresh process、DVD、ELF executing 和零 TLB miss；
 视觉 verifier 要求每个 capture ID 都有哈希／尺寸、每条断言为真。atlas
 用例还会把运行纹理与锁定 reference PNG 做完整 256×256 RGBA 比较，只有
@@ -850,9 +852,10 @@ receipt 绑定稳定的 `matrix_plan_sha256`：它覆盖路线、采集点、断
    证据不足项保持原字节。P9 综合 ISO 的 7 个 replacement、UDF 回读、
    成员清单和 SHA-256 均已锁定。
 13. **已完成 P10 数据库核心静态候选：**从 1,250 条父数据库中晋级
-   402 条（88／155／144／15），最后 12 个候选字槽和 14 个统一重绘字形已
+   403 条（88／155／145／15），最后 12 个候选字槽、14 个统一重绘字形和
+   “絆”到“绊”的同码位重绘已
    进入同一 renderer；SLPS／COMPDATA 原位回读、VT1 非字体块、压缩 flags、
-   指针和非目标字节均通过门禁。其余 848 条保持延期。
+   指针和非目标字节均通过门禁。其余 847 条保持延期。
 14. **已完成运行矩阵；当前执行目标：**46 个用例已绑定可运行／阻塞制品、
    fixture、截图点和断言。标题 fresh-boot 已通过；继续执行其余四个可运行
    fresh-boot 用例；

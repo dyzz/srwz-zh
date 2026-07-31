@@ -62,7 +62,7 @@ class UiP4IntermissionCandidateTests(unittest.TestCase):
         base = self.manifest["inputs"]["base_ui_core"]["outputs"]
         self.assertEqual(
             outputs["slps"]["sha256"],
-            "1a822e1f503aeb73684f7fb9f336f50e880791f2c58c1a2c9311b5e1121bfd65",
+            "a741076b8ebce36f123ac29a949ff6dcd6dca55c7a610172fa159a36f6f9d414",
         )
         self.assertNotEqual(outputs["slps"]["sha256"], base["slps"]["sha256"])
         for name in ("vt1", "compdata", "mtv_pros"):

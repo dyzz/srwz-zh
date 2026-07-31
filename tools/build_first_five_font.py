@@ -178,17 +178,15 @@ def main() -> int:
     )
     index = 2
     source_stream = source_vt1[old_offsets[index] : old_offsets[index + 1]]
-    greedy_font = reencode_changed_suffix(source_stream, modified_font)
-    lazy_font = reencode_changed_suffix(
+    codec = profile["codec"]
+    encoded_font = reencode_changed_suffix(
         source_stream,
         modified_font,
-        lazy_matching=True,
+        strategy=codec["strategy"],
+        min_match_length=codec["min_match_length"],
+        max_match_chain=codec["max_match_chain"],
+        lazy_matching=codec["lazy_matching"],
     )
-    encoded_font = min(
-        (greedy_font, lazy_font),
-        key=lambda candidate: (len(candidate), candidate),
-    )
-    selected_strategy = "lazy_greedy" if encoded_font is lazy_font else "greedy"
     round_trip = decode(encoded_font)
     if round_trip.output != modified_font or round_trip.consumed != len(encoded_font):
         raise SystemExit("font codec round-trip mismatch")
@@ -240,9 +238,10 @@ def main() -> int:
             "output_decoded_sha256": sha256_bytes(modified_font),
             "source_encoded_size": original_font.consumed,
             "output_encoded_size": len(encoded_font),
-            "greedy_encoded_size": len(greedy_font),
-            "lazy_greedy_encoded_size": len(lazy_font),
-            "selected_encoder_strategy": selected_strategy,
+            "selected_encoder_strategy": codec["strategy"],
+            "min_match_length": codec["min_match_length"],
+            "max_match_chain": codec["max_match_chain"],
+            "lazy_matching": codec["lazy_matching"],
             "codec_round_trip_exact": True,
         },
         "archive": {

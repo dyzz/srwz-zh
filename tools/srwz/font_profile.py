@@ -64,12 +64,25 @@ def load_font_profile(project_root: Path, path: Path) -> dict:
         }
 
     font_lock = base.get("font_lock")
+    codec = base.get("codec")
     rasterizer = base.get("rasterizer")
     scope = document.get("scope")
     if not isinstance(font_lock, str) or not font_lock:
         raise FontProfileError("font profile has no font_lock")
     if not isinstance(rasterizer, dict):
         raise FontProfileError("font profile has no rasterizer")
+    if (
+        not isinstance(codec, dict)
+        or codec.get("strategy") != "rust-maximum"
+        or not isinstance(codec.get("min_match_length"), int)
+        or codec["min_match_length"] < 2
+        or not isinstance(codec.get("max_match_chain"), int)
+        or codec["max_match_chain"] <= 0
+        or codec.get("lazy_matching") is not True
+    ):
+        raise FontProfileError(
+            "font profile must use the Rust maximum codec contract"
+        )
     if not isinstance(scope, dict):
         raise FontProfileError("font profile has no scope")
     _project_path(project_root, font_lock)
@@ -84,6 +97,7 @@ def load_font_profile(project_root: Path, path: Path) -> dict:
         "document": document,
         "profile_id": profile_id,
         "font_lock": font_lock,
+        "codec": codec,
         "rasterizer": rasterizer,
         "scope": scope,
         "base_font_config": base_metadata,

@@ -116,13 +116,13 @@
     "reraster_existing_han_count": 806,
     "font_assignment_count": 1436,
     "readiness_report": "work/writeback/first-five-readiness.json",
-    "readiness_report_sha256": "4138c971a32e65386d7f8b988bb42a4d5a262057123a73314bfa81a0fc00d218",
+    "readiness_report_sha256": "4fd349be597e5ecc79db426a008b809bfe6ea0dcee6089329c3d5525d3e06c44",
     "proposal": "work/writeback/first-five-codebook-proposal.json",
-    "proposal_sha256": "74e51d073146a891b8aeb0634d8b3d1fc2b13adf02e71395ceedf6ec2948b5b8"
+    "proposal_sha256": "b07b80bf1ef4b9fa57c7c73923b5b550d963eef9444cb0cb68259d797818913b"
   },
   "font_component": {
     "report": "work/build/first-five/components/font-validation.json",
-    "report_sha256": "683df351d2672431d207d31d26edf236bb89106226f3554109b9506399959a63",
+    "report_sha256": "9cdf256cabbacedb5d9fe9aba8415f330a73dc1b76d4a710e5ded6276da85d9b",
     "font_family": "LXGW Neo XiHei Screen",
     "font_version": "26.07.14",
     "font_commit": "501c9c41c1e5cf1eb24a67f57d10080bf5cef0b4",
@@ -137,25 +137,29 @@
     "rasterizer_default_point_size": 22,
     "optical_corrections": {
       "班": {
-        "point_size": 22.1,
-        "reason": "At 22pt the right outline bound snaps to a 21px raster while adjacent 研 reaches 22px; 22.1pt restores one horizontal pixel without changing the 20px height or 4bpp ink materially."
+        "point_size": 23.5,
+        "reason": "The 2026-07-31 runtime screenshot still shows 班 optically smaller at 22.1pt; 23.5pt produces a stable 22x21 raster with 250 ink pixels, matching adjacent CJK density without changing its code or advance."
+      },
+      "任": {
+        "point_size": 23.5,
+        "reason": "The 2026-07-31 runtime screenshot shows 任 optically smaller at 22pt; 23.5pt produces a stable 22x21 raster with 212 ink pixels while preserving the existing code and advance."
       }
     },
     "decoded_size": 1290240,
-    "decoded_sha256": "a5b9a58097c78c75ebcd80419266450288e7be123b9afe3af9a46c92798b766e",
-    "encoded_size": 784837,
-    "encoder_strategy": "lazy_greedy",
+    "decoded_sha256": "10fdb278dfcb0d08f155267514029802daa51662b1902e17a869279e36771367",
+    "encoded_size": 680016,
+    "encoder_strategy": "rust-maximum",
     "vt1_source_size": 127500736,
     "vt1_output_size": 127500736,
-    "borrowed_preceding_zero_slack": 185504,
-    "slps_sha256": "65fc00b2ff2dd223a0c6c4bfb97643871612db0a97eb68709a7da90787d91169",
-    "vt1_sha256": "7f60acbb3df024f352ed404c9cd0331d95a606f6e116994d0785ea8c4f076f11"
+    "borrowed_preceding_zero_slack": 80672,
+    "slps_sha256": "fd1c7cf6c5cdbb603bc3ef2e2a6c84beb1253ec1b835cfff3c13bbd8fae3401c",
+    "vt1_sha256": "36f987866f128debe9540e06fb0c9143e563f8a4b3945522c3be96c3380e57b4"
   },
   "font_coverage": {
     "command": "python3 tools/audit_first_five_font_coverage.py --force",
     "status": "passed",
     "report": "work/review/first-five-font-coverage.json",
-    "report_sha256": "6501e7f1eddc7086d8d1bdaaa04cc15fd832788da714f93cca481822a47fff5b",
+    "report_sha256": "c86f413e0535b88e21769422f334c93a82b0831beebea1f485c5263cd0326f2d",
     "findings": "work/review/first-five-font-coverage-findings.tsv",
     "findings_sha256": "126291c86fd91c4848771facef3379bd2fd5f021401eebc14588adccb2416e63",
     "reachable_mixed_han_source_entry_count": 0,

@@ -7,7 +7,7 @@
   "inputs": {
     "config": {
       "path": "config/display-names/researched-coverage.json",
-      "sha256": "20bec4b8a79d212165e55ff8831eef8e19ba1807db7538bc781b8b47f5b9b347"
+      "sha256": "fbfff852c88436c0fb7a11adad2bb847b1ee9b88a746b4302aa7be99c7256e96"
     },
     "structure": {
       "config": {
@@ -45,9 +45,9 @@
         },
         {
           "path": "corpus/glossary/spirit-commands-v1.json",
-          "sha256": "a729cc6e9217f197b451fce0d88c872d2a6bd4a9770649de8e0b77d4f8b39e17",
+          "sha256": "80bbce74acadf5073edfd85449dd83bd132f74ea0b5bfe265bb17213a2cc67e8",
           "term_count": 35,
-          "accepted_term_count": 2
+          "accepted_term_count": 3
         },
         {
           "path": "corpus/glossary/parts-v1.json",
@@ -128,9 +128,9 @@
           "accepted_term_count": 17
         }
       ],
-      "accepted_term_count": 468,
-      "exact_source_count": 463,
-      "eligible_exact_source_count": 463,
+      "accepted_term_count": 469,
+      "exact_source_count": 464,
+      "eligible_exact_source_count": 464,
       "conflict_source_count": 0,
       "same_translation_multi_ref_count": 8
     },
@@ -144,7 +144,7 @@
     ],
     "font_candidate": {
       "manifest": "manifests/ui-p1-summary-font-validation.json",
-      "sha256": "d8d198f644991249759ca4e781c452c7069ffe879f193010ddc35b4c5a31315c",
+      "sha256": "327b3cd34a8fc243bd6bc9282da0afcad14ca491d9075fe1ccf7e96d64d08de6",
       "status": "offline_font_and_selected_ui_renderer_coverage_passed_runtime_pending",
       "codebook": {
         "base_codebook": {
@@ -153,26 +153,27 @@
         },
         "proposal": {
           "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-          "sha256": "30b01d0e5b78ab2d0931cd313de48558eb1f6fbad27938795fe121c6f20496c6"
+          "sha256": "26732c416b2e116b273fe3f1c5e3bd5d97dd39a7036f9ab3b552ffd0479788bc"
         },
-        "override_count": 1548
+        "override_count": 1548,
+        "semantic_code_replacements": []
       },
       "renderer_baseline": {
         "report": "work/build/ui-p1-summary/components/font-validation.json",
-        "report_sha256": "5e1dbed09ca8511a9eda43ee7559ac7798c164028ef9d8aee1f9f13271248b25",
+        "report_sha256": "736ef21d5584aca179fcf2a2ea16d7778f1933f3a1e0c0848f502b05f1e903eb",
         "slps": {
           "path": "work/build/ui-p1-summary/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "d8b7104e7463070188d7df9047fb487adca445500dc14a6aee8b2e72ef883084"
+          "sha256": "647edc03793d6d6f0b1a00871dd08088a0737845c9b7a817963f27e0da7ff4f7"
         },
         "vt1": {
           "path": "work/build/ui-p1-summary/components/DATA/VT1.BIN",
           "size": 127500736,
-          "sha256": "ab25d669a37dfa023267b1cd0fbc392e68c52835668958e01887b80cea4c503e"
+          "sha256": "89ac088915a3402104b5454acd5c5ed6eeebc89cc5111227c91ec8648e610389"
         },
         "proposal": {
           "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-          "sha256": "30b01d0e5b78ab2d0931cd313de48558eb1f6fbad27938795fe121c6f20496c6"
+          "sha256": "26732c416b2e116b273fe3f1c5e3bd5d97dd39a7036f9ab3b552ffd0479788bc"
         },
         "component_status": "offline_font_validated_runtime_not_tested"
       }

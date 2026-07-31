@@ -57,6 +57,7 @@ class UiP0DisplayNameTests(unittest.TestCase):
         )
         self.assertTrue(compressed["decoded_round_trip_exact"])
         self.assertTrue(compressed["flags_preserved"])
+        self.assertEqual(compressed["strategy"], "rust-maximum")
         self.assertEqual(compressed["maximum_output_size"], 145408)
         self.assertEqual(compressed["sector_size"], 2048)
         self.assertEqual(compressed["maximum_sectors"], 71)

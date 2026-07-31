@@ -169,7 +169,7 @@ class UiP1CoreTests(unittest.TestCase):
     def test_static_iso_is_bound_without_runtime_overclaim(self):
         self.assertEqual(
             self.runtime["status"],
-            "integrated_iso_boot_smoke_passed_visual_pending",
+            "static_integrated_iso_validated_runtime_pending",
         )
         self.assertEqual(self.runtime["iso_build"]["member_count"], 66)
         self.assertEqual(
@@ -183,11 +183,11 @@ class UiP1CoreTests(unittest.TestCase):
         self.assertTrue(all(self.runtime["static_acceptance"].values()))
         self.assertEqual(
             self.runtime["runtime"]["status"],
-            "boot_smoke_passed_visual_not_tested",
+            "not_tested",
         )
-        self.assertEqual(self.runtime["runtime"]["pine_status"], 0)
-        self.assertEqual(self.runtime["runtime"]["tlb_miss_count"], 0)
-        self.assertTrue(self.runtime["runtime"]["fresh_process"])
+        self.assertNotIn("pine_status", self.runtime["runtime"])
+        self.assertNotIn("tlb_miss_count", self.runtime["runtime"])
+        self.assertNotIn("fresh_process", self.runtime["runtime"])
         self.assertEqual(
             self.runtime["runtime"]["required_iso_sha256"],
             self.runtime["iso_build"]["output"]["sha256"],

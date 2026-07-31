@@ -310,7 +310,8 @@ def build_world_history_component(
     if (
         codec.get("mode")
         != "preserve-unchanged-chunks-and-reencode-changed-suffixes"
-        or codec.get("strategy") not in {"greedy", "literal"}
+        or codec.get("strategy")
+        not in {"greedy", "literal", "rust-maximum"}
         or codec.get("archive_alignment") != 16
     ):
         raise WorldHistoryError("unsupported world-history codec contract")

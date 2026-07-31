@@ -435,7 +435,7 @@ affected components/surfaces
 | E0 | 已完成 | component/ISO/runtime/visual 哈希链和事故 gates | 后续只允许显式更新 golden |
 | E1 | 已完成 | SurfaceSpec、中文记录、codebook、`canary-menu`、reconciliation 和固定 component/ISO lock | 后续统一 CLI 属于 E3 工程化 |
 | E2 | 已完成 | menu、MTV_PROS summary、STAGE growing dialogue 三类 writer/profile/fixture；三条独立 PCSX2 证据和完整组合 smoke | 扩大语料前进入 E3 |
-| E3 | 进行中 | 前五关和世界史布局门、P0/P1/P2/P7/P10 UI 字库、fixed-span writer、1,307 项动态名、十八个整组与两个逐条子集的 P3～P9 embedded slice、402 条 P10 数据库核心、静态组合 UI ISO、五张中文 atlas 独立候选和 43 用例运行矩阵 | P10／atlas 运行归属、余下名称、848 条数据库余项、13 条诊断／格式 embedded 项调用点、离线 render oracle 和逐屏证据 |
+| E3 | 进行中 | 前五关和世界史布局门、P0/P1/P2/P7/P10 UI 字库、fixed-span writer、1,307 项动态名、十八个整组与两个逐条子集的 P3～P9 embedded slice、403 条 P10 数据库核心、Rust 压缩与 P10 boot smoke、五张中文 atlas 独立候选和 46 用例运行矩阵 | P10／atlas 逐屏运行归属、余下名称、847 条数据库余项、13 条诊断／格式 embedded 项调用点、离线 render oracle 和逐屏证据 |
 | E4–E5 | 未开始 | E2 可复用 clean-room 生产基础 | 在 E3 退出条件满足后实施 |
 
 ### E0：冻结首个纵向切片
@@ -604,9 +604,11 @@ allocation、4 个退役 assignment 复用、5 个误分配 ASCII 槽退休保�
 194 条先由 P7 晋级，P8 再晋级四组 59 条，十八组 253 条已全部进入候选。
 P9 再从两个混合组中逐条晋级 9 条玩家标签；13 条损坏／NULL 诊断、控制码、
 独立格式或未证实 `Set` 保持原字节。五图 suite 和前五关 `HB/STAGE`
-合入同一 7 成员静态容器。P10 再晋级 402 条技能、机体能力、精神和小队长
+合入同一 7 成员静态容器。P10 再晋级 403 条技能、机体能力、精神和小队长
 能力数据库决定，最后 12 个候选字槽和 14 个继承汉字重绘已进入统一字体；
-余下 848 条数据库项延期。当前锁定 43 个运行用例。
+Rust COMPDATA 为 145,191 bytes、距硬上限余 217 bytes，精确 P10 DVD 已通过
+fresh-process DVD／ELF／PINE Running／零 TLB 启动门。余下 847 条数据库项
+延期。当前锁定 46 个运行用例。
 余下 1,493 个
 非空名称、13 条需调用点证据的 embedded UI、五张 atlas 的
 运行归属和逐屏运行验收仍未覆盖。

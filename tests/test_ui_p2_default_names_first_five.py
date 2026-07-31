@@ -166,7 +166,7 @@ class UiP2DefaultNamesFirstFiveTests(unittest.TestCase):
         )
         self.assertEqual(
             runtime["iso_build"]["output"]["sha256"],
-            "308c2b308df74952730d4206151c781853c976fbfa9259b66fa3c4166b3f2250",
+            "026f29e3e77b78a19f000c6781317ebc95aeb672b5b2848ad2a30bf8d2f5c473",
         )
         self.assertNotIn(
             "stage_001_pre_story_world_map_location_acceptance",
