@@ -60,13 +60,13 @@ class UiRuntimeMatrixTests(unittest.TestCase):
         self.assertEqual(self.manifest["summary"]["runtime_passed_case_count"], 0)
         self.assertEqual(
             self.manifest["summary"]["runtime_not_tested_case_count"],
-            46,
+            47,
         )
         self.assertEqual(self.manifest["summary"]["artifact_count"], 7)
         self.assertEqual(
             self.manifest["summary"]["capture_counts"],
             {
-                "screenshot": 112,
+                "screenshot": 114,
                 "screenshot_sequence": 6,
                 "texture_delta": 5,
             },
@@ -79,8 +79,8 @@ class UiRuntimeMatrixTests(unittest.TestCase):
         self.assertEqual(
             integrated["iso_sha256"],
             (
-                "218de6c432fd0d076cc464b68a8868349ced4f585e31608b8"
-                "c4b0f49e4dff63b"
+                "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125"
+                "ef4dcba88"
             ),
         )
         non_mapping_cases = [
@@ -167,6 +167,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
                 "database/unit-special-abilities-core",
                 "database/spirit-commands-core",
                 "database/leadership-effects-core",
+                "database/weapons-all",
             },
         )
         self.assertTrue(
@@ -179,8 +180,8 @@ class UiRuntimeMatrixTests(unittest.TestCase):
 
     def test_promoted_scene_extensions_are_hash_locked_and_selected(self):
         self.assertEqual(self.manifest["summary"]["base_scene_count"], 14)
-        self.assertEqual(self.manifest["summary"]["extended_scene_count"], 24)
-        self.assertEqual(self.manifest["summary"]["scene_count"], 38)
+        self.assertEqual(self.manifest["summary"]["extended_scene_count"], 25)
+        self.assertEqual(self.manifest["summary"]["scene_count"], 39)
         self.assertEqual(len(self.manifest["scene_extensions"]), 3)
         (
             extension,
@@ -226,9 +227,9 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             database_extension["selection_id"],
             "srwz-ui-database-fixed-core-v1",
         )
-        self.assertEqual(database_extension["scene_count"], 4)
-        self.assertEqual(database_extension["promoted_entry_count"], 403)
-        self.assertEqual(database_extension["remaining_entry_count"], 847)
+        self.assertEqual(database_extension["scene_count"], 5)
+        self.assertEqual(database_extension["promoted_entry_count"], 1113)
+        self.assertEqual(database_extension["remaining_entry_count"], 137)
         self.assertEqual(
             {
                 scene["scene_id"]: scene["entry_count"]
@@ -236,9 +237,10 @@ class UiRuntimeMatrixTests(unittest.TestCase):
             },
             {
                 "database/pilot-skills-core": 88,
-                "database/unit-special-abilities-core": 155,
+                "database/unit-special-abilities-core": 154,
                 "database/spirit-commands-core": 145,
                 "database/leadership-effects-core": 15,
+                "database/weapons-all": 711,
             },
         )
         self.assertEqual(subset_extension["scene_count"], 2)
@@ -448,7 +450,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
         )
         self.assertEqual(
             self.manifest["summary"]["missing_fixture_case_count"],
-            40,
+            41,
         )
         self.assertEqual(
             self.manifest["summary"][
@@ -461,7 +463,7 @@ class UiRuntimeMatrixTests(unittest.TestCase):
         stream = io.StringIO()
         write_runtime_matrix_tsv(self.report, stream)
         rows = stream.getvalue().splitlines()
-        self.assertEqual(len(rows), 47)
+        self.assertEqual(len(rows), 48)
         self.assertIn("iso_sha256", rows[0])
         self.assertIn("texture_delta_pixels", rows[0])
         self.assertTrue(any("mapping/info-atlas" in row for row in rows[1:]))

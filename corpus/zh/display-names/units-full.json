@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "batch_id": "v1-display-names-units-full",
+  "language": "zh-Hans",
+  "scope": {
+    "domain": "display-names",
+    "table": "unit",
+    "expected_unique_name_count": 348,
+    "index_policy": "Each translation is bound to display-name/unit/{record_index:04d}/name; no pointer bytes may be changed."
+  },
+  "source": {
+    "structure_config": "config/display-names/compdata.json",
+    "structure_manifest": "manifests/display-name-structure.json"
+  },
+  "translation_policy": [
+    "Prefer official Simplified Chinese names and the user-approved Biligame Gundam terminology.",
+    "Use aligned RoboInfo Japanese/Traditional Chinese mecha records as a secondary reference and normalize them to Simplified Chinese.",
+    "Use stable mainland-community transliteration for records without an attributable Chinese title; keep those segments draft for later human review.",
+    "Internal question-mark and reserve records remain semantically equivalent so table order and debug behavior stay intact."
+  ],
+  "segments": [
+    {
+      "range": [0, 4],
+      "work": "魔神Z／大魔神",
+      "editorial_status": "reviewed",
+      "source_refs": ["robinfo:works/29", "robinfo:works/30", "community-mainland"],
+      "translations": ["魔神Z", "戴安娜A", "大魔神", "维纳斯A", "波士机器人"]
+    },
+    {
+      "range": [5, 14],
+      "work": "UFO机器人 古连泰沙",
+      "editorial_status": "draft",
+      "source_refs": ["robinfo:works/31", "community-mainland"],
+      "translations": ["斯佩萨", "古连泰沙", "TFO", "双重斯佩萨", "海洋斯佩萨", "钻头斯佩萨", "迷你飞碟", "圆盘兽格尔格尔", "贝加兽格拉格拉", "贝加之王"]
+    },
+    {
+      "range": [15, 26],
+      "work": "盖塔机器人G",
+      "editorial_status": "reviewed",
+      "source_refs": ["robinfo:works/35", "community-mainland"],
+      "translations": ["盖塔龙", "盖塔莱格", "盖塔波塞冬", "仕女指挥机", "百鬼战斗机", "机械一角鬼", "机械独眼鬼", "机械铁甲鬼", "机械牛剑鬼", "机械要塞鬼", "合体百鬼机器人", "科学要塞岛"]
+    },
+    {
+      "range": [27, 37],
+      "work": "宇宙战士巴尔迪奥斯",
+      "editorial_status": "draft",
+      "source_refs": ["robinfo:works/67", "community-mainland"],
+      "translations": ["巴尔迪奥斯", "菲克萨1号", "透明飞碟", "巨型章鱼", "阿库代坎", "乔拉", "战斗航母", "人工太阳", "精神·加特拉", "新脉冲·伯恩", "巴尔迪·普莱兹"]
+    },
+    {
+      "range": [38, 48],
+      "work": "宇宙大帝神西格玛",
+      "editorial_status": "draft",
+      "source_refs": ["robinfo:works/66", "community-mainland"],
+      "translations": ["卡塔游骑兵", "空雷王", "神西格玛", "哈比", "格拉肯", "杰罗吉拉斯", "巴里拉特", "艾尔达战舰", "加尔戈斯", "海鸣王", "陆震王"]
+    },
+    {
+      "range": [49, 64],
+      "work": "无敌超人桑波特3",
+      "editorial_status": "draft",
+      "source_refs": ["robinfo:works/38", "community-mainland"],
+      "translations": ["桑波特3", "桑巴德", "桑波王牌", "多米拉", "蜘蛛蟹拉", "克拉根", "丹加伦", "死亡凯因", "地狱戴因", "班多克", "桑布尔", "桑贝斯", "比亚尔I世", "比亚尔II世", "比亚尔III世", "比亚尔王"]
+    },
+    {
+      "range": [65, 67],
+      "work": "无敌钢人泰坦3",
+      "editorial_status": "reviewed",
+      "source_refs": ["robinfo:works/37"],
+      "translations": ["泰坦3", "泰战机", "泰坦克"]
+    },
+    {
+      "range": [68, 86],
+      "work": "超时空世纪奥格斯",
+      "editorial_status": "draft",
+      "source_refs": ["robinfo:works/76", "community-mainland"],
+      "translations": ["奥格斯", "奥格斯·飞行型", "奥格斯II", "奥格斯II·飞行型", "奥格斯II·奥尔森", "莫拉巴·玛依", "莫拉巴·莉娅", "野马II", "格罗玛", "伊修福恩", "伊修基克", "伊修基克·指挥官", "伊修基克·指挥官II", "奈基克 阿特娜机", "奈基克 奥尔森机", "奈基克", "奇拉姆攻击航母", "艾曼舰", "迪莫拉"]
+    },
+    {
+      "range": [87, 104],
+      "work": "战斗机甲萨芬格尔",
+      "editorial_status": "draft",
+      "source_refs": ["robinfo:works/74", "community-mainland"],
+      "translations": ["萨芬格尔", "沃克·加里亚", "钢铁基亚（LS）", "钢铁基亚（WM）", "特拉德11", "达格", "卡普利科", "普罗米修斯", "加布门特", "加拉巴哥斯", "多兰", "布拉卡利", "水牛", "大地雷鸣", "双桨", "皇帝改", "基亚·基亚（LS）", "基亚·基亚（WM）"]
+    },
+    {
+      "range": [105, 139],
+      "work": "机动战士Z高达",
+      "editorial_status": "reviewed",
+      "source_refs": ["biligame-gundam", "roster_names.tsv", "robinfo:works/2"],
+      "translations": ["高达Mk-II", "超级高达", "Z高达", "飞行装甲", "百式", "迪杰", "力克·迪亚斯", "尼莫", "梅塔斯", "梅塔斯（MA）", "高扎古", "加里波第β", "玛拉塞", "加撒C", "阿席玛", "加普兰", "梅萨拉", "卡普斯利", "汉布拉比", "猎犬", "拜亚兰", "帕拉斯·雅典娜", "精神感应高达", "波利诺克·莎曼", "卡碧尼", "铁奥", "阿伽玛", "拉迪修", "萨拉米斯改", "迦楼罗级", "亚历山大", "多戈斯·基亚", "恩德拉", "古瓦丹", "飞行装甲"]
+    },
+    {
+      "range": [140, 141],
+      "work": "机动战士高达 逆袭的夏亚",
+      "editorial_status": "reviewed",
+      "source_refs": ["biligame-gundam", "roster_names.tsv", "robinfo:works/12"],
+      "translations": ["灵格斯", "ν高达"]
+    },
+    {
+      "range": [142, 155],
+      "work": "∀高达",
+      "editorial_status": "reviewed",
+      "source_refs": ["biligame-gundam", "roster_names.tsv", "robinfo:works/79"],
+      "translations": ["倒A高达", "卡普尔", "柯连卡普尔", "波尔加农", "苏摩（银色型）", "苏摩（金色型）", "瓦德", "沃多姆", "伊盖尔", "马希罗", "班迪特", "倒X", "太阳号", "阿麦雅级"]
+    },
+    {
+      "range": [156, 175],
+      "work": "机动新世纪高达X",
+      "editorial_status": "reviewed",
+      "source_refs": ["biligame-gundam", "robinfo:works/78", "community-mainland"],
+      "translations": ["高达X", "高达X分频者", "高达X·分频者", "空中霸王高达爆裂型", "斑豹高达毁灭型", "高达DX", "高达DX+G猎鹰", "G猎鹰", "自由号", "杰尼斯改·艾妮尔专用", "埃斯佩兰萨", "维萨戈高达CB", "阿斯塔隆高达HC", "拉斯维特", "加迪尔", "多特列斯·新型", "克劳达", "帕图利亚", "贝尔提戈", "D.O.M.E.G比特"]
+    },
+    {
+      "range": [176, 219],
+      "work": "机动战士高达SEED DESTINY",
+      "editorial_status": "reviewed",
+      "source_refs": ["biligame-gundam", "roster_names.tsv", "robinfo:works/55"],
+      "translations": ["强攻型脉冲高达", "巨剑型脉冲高达", "轰击型脉冲高达", "扎古勇士", "炮击型扎古勇士", "烈焰型扎古幻影", "烈焰型古夫", "盖茨R", "高机动型基恩II", "巴比", "短剑L", "埃格萨斯", "威达", "混沌高达", "深渊高达", "盖亚高达", "救世主高达", "命运高达", "传说高达", "自由高达", "强袭自由高达", "无限正义高达", "强袭嫣红", "翔翼型强袭高达", "拂晓", "村雨", "扎姆扎扎", "格尔兹格", "欧几里得", "毁灭高达", "密涅瓦", "卡迪·露", "大天使号", "永恒号", "纳斯卡级", "贡德瓦纳级", "德雷克级", "阿伽门农级", "核心战机", "胸部飞行器", "腿部飞行器", "巨剑魅影", "强攻魅影", "穿梭机"]
+    },
+    {
+      "range": [220, 238],
+      "work": "返乡战士",
+      "editorial_status": "draft",
+      "source_refs": ["robinfo:works/84", "community-mainland"],
+      "translations": ["王者盖纳", "豹式", "加奇科", "埃姆佩兰扎", "多格佐", "多贝克", "冲刺杆", "地下魔像", "魔像", "普拉涅塔", "梅克斯布鲁特", "金巴", "支配者", "黑色多米", "超限恶魔", "盖纳B（黑色）", "切尔诺伯格", "巴赫克隆", "斯瓦罗基奇"]
+    },
+    {
+      "range": [239, 248],
+      "work": "The Big O",
+      "editorial_status": "draft",
+      "source_refs": ["robinfo:works/11", "community-mainland"],
+      "translations": ["Big O", "木乃伊", "Big Duo", "Big Duo·Inferno", "Big Fau", "贝克·胜利·豪华型", "贝克·大帝RX3", "原型机", "波拿巴", "草原犬"]
+    },
+    {
+      "range": [249, 272],
+      "work": "超重神GRAVION",
+      "editorial_status": "draft",
+      "source_refs": ["robinfo:works/85", "community-mainland"],
+      "translations": ["格兰凯撒", "神重力王", "太阳重力王", "神Σ重力王", "格兰骑兵", "杰拉拜亚士兵", "迪克利尔", "朱埃塔尔", "修德埃尔", "马格加尔德", "扎罗格罗斯", "杰拉维翁", "哥玛", "太阳Σ重力王", "G攻击机", "G打击机", "G钻机", "G幻影机", "Geo幻影", "Geo标枪", "Geo圣剑", "Geo刺针", "格兰Σ", "格兰要塞"]
+    },
+    {
+      "range": [273, 296],
+      "work": "创圣机械天使",
+      "editorial_status": "draft",
+      "source_refs": ["robinfo:works/86", "community-mainland"],
+      "translations": ["太阳机械天使", "火星机械天使", "月亮机械天使", "天使机械天使", "阿尔法机械天使", "欧米伽机械天使", "德尔塔机械天使", "凯鲁宾·火星", "凯鲁宾·维尔鲁泽巴", "凯鲁宾·修鲁鲁克贝拉", "凯鲁宾·伊斯库隆", "凯鲁宾兵", "格拉维·凯鲁宾", "镜像太阳机械天使", "镜像火星机械天使", "镜像月亮机械天使", "希巴尔巴", "收获兽", "太阳战机", "火星战机", "月亮战机", "德尔塔战机", "阿尔法战机", "欧米伽战机"]
+    },
+    {
+      "range": [297, 315],
+      "work": "交响诗篇艾蕾卡7",
+      "editorial_status": "draft",
+      "source_refs": ["robinfo:works/89", "community-mainland"],
+      "translations": ["尼尔瓦修", "尼尔瓦修 spec2", "尼尔瓦修 spec3", "塔米纳斯606", "塔米纳斯808", "塔米纳斯909", "塔米纳斯303", "月光号", "蒙苏诺10", "蒙苏诺20", "尼尔瓦修 the END", "VC-10", "塔州联邦军空中战舰", "银河号", "AFX", "矛头", "白鸟号", "空鱼", "抗体珊瑚岩"]
+    },
+    {
+      "range": [316, 335],
+      "work": "机战Z原创",
+      "editorial_status": "reviewed",
+      "source_refs": ["robinfo:srw/mecha", "akurasu:srwz-originals", "community-mainland"],
+      "translations": ["巴尔戈拉（1号机）", "巴尔戈拉（2号机）", "巴尔戈拉（3号机）", "巴尔戈拉改", "巴尔戈拉·荣耀", "钢狮", "科尔尼克斯", "？？？", "雷克斯·科尔尼克斯", "混沌·雷欧", "雷欧", "混沌·安圭斯", "安圭斯", "混沌·卡佩尔", "埃利法斯", "卡佩尔", "雷姆雷斯", "混沌·雷姆雷斯", "修罗神", "光球"]
+    },
+    {
+      "range": [336, 347],
+      "work": "内部预留槽",
+      "editorial_status": "final",
+      "source_refs": ["structural-preservation"],
+      "translations": ["预留1", "预留2", "预留3", "预留4", "预留5", "预留6", "预留10", "预留11", "预留12", "预留13", "预留14", "预留15"]
+    }
+  ]
+}

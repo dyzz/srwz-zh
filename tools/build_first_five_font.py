@@ -14,6 +14,7 @@ from srwz.font import (
     GLYPH_COUNT,
     GLYPH_SIZE,
     decode_vt1_font_segment,
+    glyph_raster_metrics,
     glyph_index_for_code,
     read_extended_glyph_table,
     replace_glyph,
@@ -131,21 +132,42 @@ def main() -> int:
             raise SystemExit(
                 f"glyph blank-preimage classification drift for {character!r}"
             )
+        assignment_rasterizer = rasterizer
+        optical_override = assignment.get("optical_override")
+        if optical_override is not None:
+            if (
+                not isinstance(optical_override, dict)
+                or optical_override.get("point_size")
+                != assignment["raster"]["point_size"]
+                or not isinstance(optical_override.get("reason"), str)
+                or not optical_override["reason"]
+            ):
+                raise SystemExit(
+                    f"invalid optical override for {character!r}"
+                )
+            assignment_rasterizer = dict(rasterizer)
+            corrections = dict(
+                assignment_rasterizer.get("optical_corrections", {})
+            )
+            corrections[character] = optical_override
+            assignment_rasterizer["optical_corrections"] = corrections
         gray, pixels, packed = rasterize_character(
-            rasterizer["executable"],
+            assignment_rasterizer["executable"],
             font_path,
             character,
-            rasterizer,
+            assignment_rasterizer,
         )
         actual_raster = {
             "point_size": rasterizer_point_size(
                 character,
-                rasterizer,
+                assignment_rasterizer,
             ),
             "raw_gray_sha256": sha256_bytes(gray),
             "pixels_4bpp_sha256": sha256_bytes(pixels),
             "packed_glyph_sha256": sha256_bytes(packed),
         }
+        if "metrics" in assignment["raster"]:
+            actual_raster["metrics"] = glyph_raster_metrics(pixels)
         if actual_raster != assignment["raster"]:
             raise SystemExit(f"raster lock drift for {character!r}")
         if before == packed:
@@ -158,6 +180,11 @@ def main() -> int:
                 "glyph_index": glyph_index,
                 "glyph_preimage_sha256": expected_preimage,
                 **actual_raster,
+                **(
+                    {"optical_override": optical_override}
+                    if optical_override is not None
+                    else {}
+                ),
             }
         )
 

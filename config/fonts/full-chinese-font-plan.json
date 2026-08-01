@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "plan_id": "srwz-full-chinese-font-v1",
+  "scope": "Plan a final Chinese-owned 4,480-glyph atlas. Original Japanese glyph identity is not preserved; one-byte printable ASCII slots stay reserved and every other renderer-addressable slot may be assigned sequentially or left blank.",
+  "corpus": {
+    "root": "corpus/zh",
+    "glob": "**/*.json",
+    "translation_field": "translation"
+  },
+  "slot_policy": {
+    "mode": "contiguous-standard-renderer-slots",
+    "first_glyph_index": 0,
+    "last_glyph_index": 4479,
+    "first_translation_glyph_index": 287,
+    "reserve_printable_ascii_glyphs": true,
+    "preserve_original_japanese_glyphs": false,
+    "unassigned_slots_are_blank": true,
+    "registry_policy": "append-only-after-initial-seed"
+  },
+  "runtime_boundary": {
+    "status": "static_plan_runtime_pending",
+    "requirements": [
+      "Keep the current P10 compatibility font until the target translated surfaces no longer need Japanese fallback glyphs.",
+      "Re-render the 95 one-byte printable ASCII glyphs at their fixed indices with the selected production font.",
+      "Before promoting the full atlas, run a representative code from every standard resolver row and every raw trail class used by the sequential plan.",
+      "Add any proven direct-index non-text glyph to the reserved-slot set before materializing the full font."
+    ]
+  },
+  "outputs": {
+    "report": "work/review/full-chinese-font-plan.json",
+    "manifest": "manifests/full-chinese-font-plan.json"
+  }
+}

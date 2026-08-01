@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Mapping
 
@@ -13,10 +14,16 @@ from .display_name_coverage import (
     DisplayNameCoverageError,
     audit_display_name_coverage,
 )
+from .display_names import (
+    DisplayNameError,
+    load_display_name_source,
+    load_full_unit_name_corpus,
+)
 from .font import (
     GLYPH_SIZE,
     RAW_STANDARD_TRAILS,
     decode_vt1_font_segment,
+    glyph_raster_metrics,
     glyph_index_for_code,
     is_cjk_unified_ideograph,
     raw_standard_allocation_candidates,
@@ -57,6 +64,16 @@ from .ui_inventory import (
 
 class UiFontError(ValueError):
     """The incremental UI font selection or allocation has drifted."""
+
+
+def _median(values: list[int]) -> float:
+    if not values:
+        raise UiFontError("cannot calculate an empty optical metric median")
+    ordered = sorted(values)
+    midpoint = len(ordered) // 2
+    if len(ordered) % 2:
+        return float(ordered[midpoint])
+    return (ordered[midpoint - 1] + ordered[midpoint]) / 2
 
 
 def _json_object(path: Path) -> dict:
@@ -516,6 +533,316 @@ def _selected_database_entries(
     )
 
 
+def _supplement_database_entries(
+    project_root: Path,
+    profile_document: Mapping[str, object],
+    entries: dict[str, dict],
+    entry_scenes: dict[str, set[str]],
+    selection: dict,
+) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
+    reference = profile_document.get("supplemental_translation_selection")
+    if reference is None:
+        return entries, entry_scenes, selection
+    if not isinstance(reference, dict):
+        raise UiFontError("supplemental translation selection is invalid")
+    path = _project_path(project_root, reference.get("path"))
+    if _hash_file(path) != reference.get("sha256"):
+        raise UiFontError("supplemental translation corpus SHA-256 drift")
+    document = _json_object(path)
+    raw_entries = document.get("entries")
+    entry_ids = reference.get("entry_ids")
+    required_status = reference.get("required_editorial_status")
+    scene_id = reference.get("scene_id")
+    expected_count = reference.get("expected_entry_count")
+    if (
+        not isinstance(raw_entries, list)
+        or not isinstance(entry_ids, list)
+        or not entry_ids
+        or len(entry_ids) != len(set(entry_ids))
+        or not all(isinstance(entry_id, str) for entry_id in entry_ids)
+        or not isinstance(required_status, str)
+        or not required_status
+        or not isinstance(scene_id, str)
+        or not scene_id
+        or not isinstance(expected_count, int)
+        or isinstance(expected_count, bool)
+        or expected_count != len(entry_ids)
+    ):
+        raise UiFontError("supplemental translation selection contract is invalid")
+    corpus_entries = {}
+    for raw in raw_entries:
+        if not isinstance(raw, dict):
+            raise UiFontError("supplemental translation entry is malformed")
+        entry_id = raw.get("id")
+        if not isinstance(entry_id, str) or not entry_id or entry_id in corpus_entries:
+            raise UiFontError("supplemental translation entry ID is invalid")
+        corpus_entries[entry_id] = raw
+    supplemental = {}
+    merged_entries = dict(entries)
+    merged_scenes = {entry_id: set(scenes) for entry_id, scenes in entry_scenes.items()}
+    for entry_id in entry_ids:
+        entry = corpus_entries.get(entry_id)
+        if (
+            entry is None
+            or entry.get("editorial_status") != required_status
+            or not isinstance(entry.get("source_text_sha256"), str)
+            or not isinstance(entry.get("translation"), str)
+            or not entry["translation"]
+        ):
+            raise UiFontError(
+                f"supplemental translation entry is not eligible: {entry_id}"
+            )
+        previous = merged_entries.setdefault(entry_id, entry)
+        if previous != entry:
+            raise UiFontError(
+                f"supplemental translation conflicts with base selection: {entry_id}"
+            )
+        merged_scenes.setdefault(entry_id, set()).add(scene_id)
+        supplemental[entry_id] = entry
+    base_unique_entry_count = selection["unique_entry_count"]
+    base_selection_sha256 = selection["selection_sha256"]
+    return (
+        merged_entries,
+        merged_scenes,
+        {
+            **selection,
+            "kind": "database_fixed_subset_with_supplemental_translation",
+            "database_unique_entry_count": base_unique_entry_count,
+            "database_selection_sha256": base_selection_sha256,
+            "supplemental_translation_selection": {
+                "path": str(path.relative_to(project_root.resolve())),
+                "sha256": _hash_file(path),
+                "scene_id": scene_id,
+                "entry_count": len(supplemental),
+                "entry_ids_sha256": sha256_bytes(
+                    json.dumps(
+                        sorted(supplemental),
+                        ensure_ascii=False,
+                        separators=(",", ":"),
+                    ).encode("utf-8")
+                ),
+                "selection_sha256": _selection_digest(supplemental),
+            },
+            "unique_entry_count": len(merged_entries),
+            "selection_sha256": _selection_digest(merged_entries),
+        },
+    )
+
+
+def _supplement_additional_translation_entries(
+    project_root: Path,
+    profile_document: Mapping[str, object],
+    entries: dict[str, dict],
+    entry_scenes: dict[str, set[str]],
+    selection: dict,
+) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
+    references = profile_document.get("additional_translation_selections")
+    if references is None:
+        return entries, entry_scenes, selection
+    if not isinstance(references, list) or not references:
+        raise UiFontError(
+            "additional translation selections must be a non-empty list"
+        )
+
+    merged_entries = dict(entries)
+    merged_scenes = {
+        entry_id: set(scenes) for entry_id, scenes in entry_scenes.items()
+    }
+    reports = []
+    seen_selection_ids = set()
+    seen_entry_ids = set()
+    for reference in references:
+        if not isinstance(reference, dict):
+            raise UiFontError("additional translation selection is invalid")
+        selection_id = reference.get("selection_id")
+        if (
+            not isinstance(selection_id, str)
+            or not selection_id
+            or selection_id in seen_selection_ids
+        ):
+            raise UiFontError(
+                "additional translation selection ID is invalid"
+            )
+        seen_selection_ids.add(selection_id)
+        path = _project_path(project_root, reference.get("path"))
+        if _hash_file(path) != reference.get("sha256"):
+            raise UiFontError(
+                f"additional translation corpus SHA-256 drift: {selection_id}"
+            )
+        document = _json_object(path)
+        raw_entries = document.get("entries")
+        entry_ids = reference.get("entry_ids")
+        required_status = reference.get("required_editorial_status")
+        scene_id = reference.get("scene_id")
+        expected_count = reference.get("expected_entry_count")
+        if (
+            not isinstance(raw_entries, list)
+            or not isinstance(entry_ids, list)
+            or not entry_ids
+            or len(entry_ids) != len(set(entry_ids))
+            or not all(isinstance(entry_id, str) for entry_id in entry_ids)
+            or not isinstance(required_status, str)
+            or not required_status
+            or not isinstance(scene_id, str)
+            or not scene_id
+            or not isinstance(expected_count, int)
+            or isinstance(expected_count, bool)
+            or expected_count != len(entry_ids)
+            or seen_entry_ids.intersection(entry_ids)
+        ):
+            raise UiFontError(
+                f"additional translation selection contract is invalid: "
+                f"{selection_id}"
+            )
+        seen_entry_ids.update(entry_ids)
+        corpus_entries = {}
+        for raw in raw_entries:
+            if not isinstance(raw, dict):
+                raise UiFontError(
+                    f"additional translation entry is malformed: {selection_id}"
+                )
+            entry_id = raw.get("id")
+            if (
+                not isinstance(entry_id, str)
+                or not entry_id
+                or entry_id in corpus_entries
+            ):
+                raise UiFontError(
+                    f"additional translation entry ID is invalid: {selection_id}"
+                )
+            corpus_entries[entry_id] = raw
+
+        selected = {}
+        for entry_id in entry_ids:
+            entry = corpus_entries.get(entry_id)
+            if (
+                entry is None
+                or entry.get("editorial_status") != required_status
+                or not isinstance(entry.get("source_text_sha256"), str)
+                or not isinstance(entry.get("translation"), str)
+                or not entry["translation"]
+            ):
+                raise UiFontError(
+                    f"additional translation entry is not eligible: {entry_id}"
+                )
+            previous = merged_entries.setdefault(entry_id, entry)
+            if previous != entry:
+                raise UiFontError(
+                    f"additional translation conflicts with selection: {entry_id}"
+                )
+            merged_scenes.setdefault(entry_id, set()).add(scene_id)
+            selected[entry_id] = entry
+        reports.append(
+            {
+                "selection_id": selection_id,
+                "path": str(path.relative_to(project_root.resolve())),
+                "sha256": _hash_file(path),
+                "scene_id": scene_id,
+                "entry_count": len(selected),
+                "entry_ids_sha256": sha256_bytes(
+                    json.dumps(
+                        sorted(selected),
+                        ensure_ascii=False,
+                        separators=(",", ":"),
+                    ).encode("utf-8")
+                ),
+                "selection_sha256": _selection_digest(selected),
+            }
+        )
+
+    return (
+        merged_entries,
+        merged_scenes,
+        {
+            **selection,
+            "kind": selection["kind"]
+            + "_with_additional_translation_selections",
+            "additional_translation_selections": reports,
+            "unique_entry_count": len(merged_entries),
+            "selection_sha256": _selection_digest(merged_entries),
+        },
+    )
+
+
+def _supplement_full_unit_names(
+    project_root: Path,
+    profile_document: Mapping[str, object],
+    entries: dict[str, dict],
+    entry_scenes: dict[str, set[str]],
+    selection: dict,
+) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
+    reference = profile_document.get("unit_name_selection")
+    if reference is None:
+        return entries, entry_scenes, selection
+    if not isinstance(reference, dict):
+        raise UiFontError("unit-name translation selection is invalid")
+    structure_path = _project_path(
+        project_root,
+        reference.get("structure_config"),
+    )
+    corpus_path = _project_path(project_root, reference.get("path"))
+    if _hash_file(structure_path) != reference.get("structure_sha256"):
+        raise UiFontError("unit-name structure config SHA-256 drift")
+    if _hash_file(corpus_path) != reference.get("sha256"):
+        raise UiFontError("unit-name corpus SHA-256 drift")
+    scene_id = reference.get("scene_id")
+    expected_count = reference.get("expected_entry_count")
+    if (
+        not isinstance(scene_id, str)
+        or not scene_id
+        or not isinstance(expected_count, int)
+        or isinstance(expected_count, bool)
+        or expected_count <= 0
+    ):
+        raise UiFontError("unit-name selection contract is invalid")
+    try:
+        _config, _decoded, parsed, _context = load_display_name_source(
+            project_root,
+            structure_path,
+        )
+        unit_entries, unit_report = load_full_unit_name_corpus(
+            project_root,
+            corpus_path,
+            parsed.unit_entries,
+        )
+    except DisplayNameError as error:
+        raise UiFontError(str(error)) from error
+    if len(unit_entries) != expected_count:
+        raise UiFontError("unit-name selection entry-count drift")
+
+    merged_entries = dict(entries)
+    merged_scenes = {
+        entry_id: set(scenes) for entry_id, scenes in entry_scenes.items()
+    }
+    for entry_id, entry in unit_entries.items():
+        previous = merged_entries.setdefault(entry_id, entry)
+        if previous != entry:
+            raise UiFontError(
+                f"unit-name translation conflicts with selection: {entry_id}"
+            )
+        merged_scenes.setdefault(entry_id, set()).add(scene_id)
+    return (
+        merged_entries,
+        merged_scenes,
+        {
+            **selection,
+            "kind": selection["kind"] + "_with_full_unit_names",
+            "unit_name_selection": {
+                **unit_report,
+                "structure_config": {
+                    "path": str(
+                        structure_path.relative_to(project_root.resolve())
+                    ),
+                    "sha256": _hash_file(structure_path),
+                },
+                "scene_id": scene_id,
+            },
+            "unique_entry_count": len(merged_entries),
+            "selection_sha256": _selection_digest(merged_entries),
+        },
+    )
+
+
 def _selected_font_entries(
     project_root: Path,
     profile_document: Mapping[str, object],
@@ -531,9 +858,32 @@ def _selected_font_entries(
             profile_document,
         )
     if "database_selection" in profile_document:
-        return _selected_database_entries(
+        entries, entry_scenes, selection = _selected_database_entries(
             project_root,
             profile_document,
+        )
+        entries, entry_scenes, selection = _supplement_database_entries(
+            project_root,
+            profile_document,
+            entries,
+            entry_scenes,
+            selection,
+        )
+        entries, entry_scenes, selection = (
+            _supplement_additional_translation_entries(
+                project_root,
+                profile_document,
+                entries,
+                entry_scenes,
+                selection,
+            )
+        )
+        return _supplement_full_unit_names(
+            project_root,
+            profile_document,
+            entries,
+            entry_scenes,
+            selection,
         )
     return _selected_ui_entries(project_root, profile_document)
 
@@ -690,6 +1040,320 @@ def _new_assignment(
     }
 
 
+def _inherited_optical_reraster_overrides(
+    document: Mapping[str, object],
+) -> tuple[dict[str, object], ...]:
+    raw_overrides = document.get(
+        "inherited_optical_reraster_overrides",
+        [],
+    )
+    if not isinstance(raw_overrides, list):
+        raise UiFontError(
+            "inherited_optical_reraster_overrides must be a list"
+        )
+    overrides = []
+    seen = set()
+    for raw in raw_overrides:
+        if not isinstance(raw, dict):
+            raise UiFontError(
+                "inherited optical reraster override is malformed"
+            )
+        character = raw.get("character")
+        point_size = raw.get("point_size")
+        reason = raw.get("reason")
+        if (
+            not isinstance(character, str)
+            or len(character) != 1
+            or character in seen
+            or not isinstance(point_size, (int, float))
+            or isinstance(point_size, bool)
+            or point_size <= 0
+            or not isinstance(reason, str)
+            or not reason
+        ):
+            raise UiFontError(
+                "inherited optical reraster override is invalid"
+            )
+        seen.add(character)
+        overrides.append(
+            {
+                "character": character,
+                "point_size": point_size,
+                "reason": reason,
+            }
+        )
+    return tuple(overrides)
+
+
+def _apply_cjk_optical_policy(
+    document: Mapping[str, object],
+    rasterizer: Mapping[str, object],
+    font_path: Path,
+    assignments: list[dict],
+) -> tuple[list[dict], dict]:
+    raw_policy = document.get("cjk_optical_policy")
+    if raw_policy is None:
+        return assignments, {
+            "enabled": False,
+            "assignment_count": 0,
+            "point_size_counts": {},
+        }
+    if not isinstance(raw_policy, dict):
+        raise UiFontError("cjk_optical_policy must be an object")
+    point_size = raw_policy.get("point_size")
+    candidate_point_sizes = raw_policy.get(
+        "candidate_point_sizes",
+        [point_size],
+    )
+    target_metrics = raw_policy.get(
+        "target_metrics",
+        {
+            "bbox_width": 21,
+            "bbox_height": 21,
+            "ink_pixel_count": 256,
+        },
+    )
+    score_weights = raw_policy.get(
+        "score_weights",
+        {
+            "bbox_error": 128,
+            "ink_pixel_error": 1,
+            "outer_edge_side": 16,
+            "point_size_half_step_from_default": 4,
+        },
+    )
+    reviewed_exceptions = raw_policy.get("reviewed_exceptions", [])
+    reason = raw_policy.get("reason")
+    max_workers = raw_policy.get("max_workers", 8)
+    if (
+        not isinstance(point_size, (int, float))
+        or isinstance(point_size, bool)
+        or point_size <= 0
+        or not isinstance(candidate_point_sizes, list)
+        or not candidate_point_sizes
+        or any(
+            not isinstance(candidate, (int, float))
+            or isinstance(candidate, bool)
+            or candidate <= 0
+            for candidate in candidate_point_sizes
+        )
+        or len(candidate_point_sizes) != len(set(candidate_point_sizes))
+        or point_size not in candidate_point_sizes
+        or not isinstance(target_metrics, dict)
+        or set(target_metrics)
+        != {"bbox_width", "bbox_height", "ink_pixel_count"}
+        or any(
+            not isinstance(value, int)
+            or isinstance(value, bool)
+            or value <= 0
+            for value in target_metrics.values()
+        )
+        or not isinstance(score_weights, dict)
+        or set(score_weights)
+        != {
+            "bbox_error",
+            "ink_pixel_error",
+            "outer_edge_side",
+            "point_size_half_step_from_default",
+        }
+        or any(
+            not isinstance(value, int)
+            or isinstance(value, bool)
+            or value < 0
+            for value in score_weights.values()
+        )
+        or not isinstance(reviewed_exceptions, list)
+        or not isinstance(reason, str)
+        or not reason
+        or not isinstance(max_workers, int)
+        or isinstance(max_workers, bool)
+        or not 1 <= max_workers <= 16
+    ):
+        raise UiFontError("cjk_optical_policy is invalid")
+
+    reviewed_by_character = {}
+    for item in reviewed_exceptions:
+        if not isinstance(item, dict):
+            raise UiFontError("CJK reviewed optical exception is malformed")
+        character = item.get("character")
+        exception_size = item.get("point_size")
+        exception_reason = item.get("reason")
+        if (
+            not isinstance(character, str)
+            or len(character) != 1
+            or character in reviewed_by_character
+            or not isinstance(exception_size, (int, float))
+            or isinstance(exception_size, bool)
+            or not float("-inf") < exception_size < float("inf")
+            or exception_size <= 0
+            or not isinstance(exception_reason, str)
+            or not exception_reason
+        ):
+            raise UiFontError("CJK reviewed optical exception is invalid")
+        reviewed_by_character[character] = {
+            "point_size": exception_size,
+            "reason": exception_reason,
+        }
+
+    base_corrections = dict(rasterizer.get("optical_corrections", {}))
+
+    def candidate_score(candidate_size: int | float, metrics: dict) -> int:
+        bbox_error = abs(
+            metrics["bbox_width"] - target_metrics["bbox_width"]
+        ) + abs(
+            metrics["bbox_height"] - target_metrics["bbox_height"]
+        )
+        half_steps = round(abs(candidate_size - point_size) * 2)
+        return (
+            bbox_error * score_weights["bbox_error"]
+            + abs(
+                metrics["ink_pixel_count"]
+                - target_metrics["ink_pixel_count"]
+            )
+            * score_weights["ink_pixel_error"]
+            + len(metrics["outer_edge_sides"])
+            * score_weights["outer_edge_side"]
+            + half_steps
+            * score_weights["point_size_half_step_from_default"]
+        )
+
+    def render_at_size(character: str, selected_size: int | float):
+        assignment_rasterizer = dict(rasterizer)
+        assignment_rasterizer["point_size"] = selected_size
+        assignment_rasterizer["optical_corrections"] = {}
+        gray, pixels, packed = rasterize_character(
+            assignment_rasterizer["executable"],
+            font_path,
+            character,
+            assignment_rasterizer,
+        )
+        return gray, pixels, packed, glyph_raster_metrics(pixels)
+
+    def reraster(assignment: dict) -> dict:
+        character = assignment["character"]
+        if not is_cjk_unified_ideograph(character):
+            return assignment
+        corrections = dict(base_corrections)
+        explicit = assignment.get("optical_override")
+        if explicit is not None:
+            corrections[character] = explicit
+        if character in reviewed_by_character:
+            corrections[character] = reviewed_by_character[character]
+        selected_correction = corrections.get(character)
+        if selected_correction is not None:
+            selected_size = selected_correction["point_size"]
+            gray, pixels, packed, metrics = render_at_size(
+                character,
+                selected_size,
+            )
+            selected_score = candidate_score(selected_size, metrics)
+            optical_reason = selected_correction["reason"]
+            optical_policy_tier = "reviewed_exception"
+        else:
+            candidates = []
+            for candidate_size in candidate_point_sizes:
+                gray, pixels, packed, metrics = render_at_size(
+                    character,
+                    candidate_size,
+                )
+                candidates.append(
+                    (
+                        candidate_score(candidate_size, metrics),
+                        abs(candidate_size - point_size),
+                        candidate_size,
+                        gray,
+                        pixels,
+                        packed,
+                        metrics,
+                    )
+                )
+            (
+                selected_score,
+                _default_distance,
+                selected_size,
+                gray,
+                pixels,
+                packed,
+                metrics,
+            ) = min(candidates, key=lambda candidate: candidate[:3])
+            optical_reason = reason
+            optical_policy_tier = "metric_selected"
+        replacement = dict(assignment)
+        replacement["raster"] = {
+            "point_size": selected_size,
+            "raw_gray_sha256": sha256_bytes(gray),
+            "pixels_4bpp_sha256": sha256_bytes(pixels),
+            "packed_glyph_sha256": sha256_bytes(packed),
+            "metrics": metrics,
+        }
+        replacement["optical_override"] = {
+            "point_size": selected_size,
+            "reason": optical_reason,
+        }
+        replacement["optical_policy_tier"] = optical_policy_tier
+        replacement["optical_selection_score"] = selected_score
+        return replacement
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        output = list(executor.map(reraster, assignments))
+    cjk_assignments = [
+        assignment
+        for assignment in output
+        if is_cjk_unified_ideograph(assignment["character"])
+    ]
+    point_size_counts = Counter(
+        str(assignment["raster"]["point_size"])
+        for assignment in cjk_assignments
+    )
+    metrics = [
+        assignment["raster"]["metrics"] for assignment in cjk_assignments
+    ]
+    widths = [metric["bbox_width"] for metric in metrics]
+    heights = [metric["bbox_height"] for metric in metrics]
+    ink_counts = [metric["ink_pixel_count"] for metric in metrics]
+    return output, {
+        "enabled": True,
+        "point_size": point_size,
+        "candidate_point_sizes": candidate_point_sizes,
+        "target_metrics": target_metrics,
+        "score_weights": score_weights,
+        "configured_reviewed_exceptions": reviewed_exceptions,
+        "reason": reason,
+        "assignment_count": len(cjk_assignments),
+        "point_size_counts": dict(sorted(point_size_counts.items())),
+        "selection_tier_counts": dict(
+            sorted(
+                Counter(
+                    assignment["optical_policy_tier"]
+                    for assignment in cjk_assignments
+                ).items()
+            )
+        ),
+        "raster_metrics": {
+            "empty_glyph_count": sum(
+                metric["ink_pixel_count"] == 0 for metric in metrics
+            ),
+            "outer_edge_touch_count": sum(
+                metric["outer_edge_touch"] for metric in metrics
+            ),
+            "bbox_width_min": min(widths),
+            "bbox_width_median": _median(widths),
+            "bbox_width_max": max(widths),
+            "bbox_height_min": min(heights),
+            "bbox_height_median": _median(heights),
+            "bbox_height_max": max(heights),
+            "ink_pixel_count_min": min(ink_counts),
+            "ink_pixel_count_median": _median(ink_counts),
+            "ink_pixel_count_max": max(ink_counts),
+        },
+        "reviewed_exception_characters": "".join(
+            assignment["character"]
+            for assignment in cjk_assignments
+            if assignment["optical_policy_tier"] == "reviewed_exception"
+        ),
+    }
+
+
 def _validation_proposal_reference(
     project_root: Path,
     validation: Mapping[str, object],
@@ -798,7 +1462,10 @@ def _raw_standard_policy_report(
         return None
     if not isinstance(policy, dict):
         raise UiFontError("UI font allocation_policy must be an object")
-    if policy.get("mode") != "valid-sjis-then-raw-standard-trail-gaps":
+    if policy.get("mode") not in {
+        "valid-sjis-then-raw-standard-trail-gaps",
+        "valid-sjis-then-raw-standard-trail-gaps-then-source-glyph-reuse",
+    }:
         raise UiFontError("unsupported UI font allocation policy")
     raw_trails = policy.get("raw_standard_trails")
     try:
@@ -901,6 +1568,55 @@ def _raw_standard_policy_report(
             "P1 component and every additional trail class remain runtime pending."
         ),
     }
+
+
+def _source_glyph_reuse_candidates(
+    table,
+    extended_entries,
+    original_font: bytes,
+    *,
+    reserved_codes: tuple[int, ...],
+    reserved_glyphs: tuple[int, ...],
+    protected_characters: set[str],
+) -> tuple[tuple[int, int, str], ...]:
+    """Return deterministic original-CJK donor slots after safe gaps.
+
+    These slots keep their original code and glyph index, but the Chinese font
+    rerasterizes the glyph and the Chinese codebook maps the target character
+    to that code.  Sorting by glyph index makes the allocation append-only and
+    reproducible even when the pinned table's JSON ordering changes.
+    """
+
+    reserved_code_set = set(reserved_codes)
+    reserved_glyph_set = set(reserved_glyphs)
+    glyph_count = len(original_font) // GLYPH_SIZE
+    candidates = []
+    seen_codes = set()
+    seen_glyphs = set()
+    for source_character, code in table.inverse_characters.items():
+        if (
+            not is_cjk_unified_ideograph(source_character)
+            or source_character in protected_characters
+            or code in reserved_code_set
+            or code in seen_codes
+        ):
+            continue
+        try:
+            glyph_index = glyph_index_for_code(code, extended_entries)
+        except ValueError:
+            continue
+        if (
+            glyph_index < 0
+            or glyph_index >= glyph_count
+            or glyph_index in reserved_glyph_set
+            or glyph_index in seen_glyphs
+        ):
+            continue
+        seen_codes.add(code)
+        seen_glyphs.add(glyph_index)
+        candidates.append((code, glyph_index, source_character))
+    candidates.sort(key=lambda item: (item[1], item[0], item[2]))
+    return tuple(candidates)
 
 
 def build_ui_font_proposal(
@@ -1091,7 +1807,49 @@ def build_ui_font_proposal(
         if allocation_policy is not None
         else ()
     )
-    candidates = (*legacy_candidates, *expanded_candidates, *raw_candidates)
+    source_glyph_reuse_enabled = (
+        allocation_policy is not None
+        and allocation_policy["mode"]
+        == "valid-sjis-then-raw-standard-trail-gaps-then-source-glyph-reuse"
+    )
+    source_glyph_candidates = (
+        _source_glyph_reuse_candidates(
+            table,
+            extended_entries,
+            original_font,
+            reserved_codes=tuple(
+                {
+                    *reserved_codes,
+                    *(
+                        int(assignment["code"], 16)
+                        for assignment in base_assignments
+                    ),
+                }
+            ),
+            reserved_glyphs=tuple(
+                {
+                    *reserved_glyphs,
+                    *(
+                        assignment["glyph_index"]
+                        for assignment in base_assignments
+                    ),
+                }
+            ),
+            protected_characters={*original_han, *semantic_sources},
+        )
+        if source_glyph_reuse_enabled
+        else ()
+    )
+    source_character_by_candidate = {
+        (code, glyph_index): source_character
+        for code, glyph_index, source_character in source_glyph_candidates
+    }
+    candidates = (
+        *legacy_candidates,
+        *expanded_candidates,
+        *raw_candidates,
+        *((code, glyph_index) for code, glyph_index, _ in source_glyph_candidates),
+    )
     if len(candidates) < len(registered):
         raise UiFontError("insufficient safe candidates for UI allocation")
     allocation_by_character = dict(zip(registered, candidates))
@@ -1111,13 +1869,21 @@ def build_ui_font_proposal(
     for character in allocation_demand:
         code, glyph_index = allocation_by_character[character]
         raw_standard = code in raw_codes
+        source_character = source_character_by_candidate.get(
+            (code, glyph_index)
+        )
         is_reactivated = character in reactivated_set
-        new_allocations.append(
-            _new_assignment(
+        assignment = _new_assignment(
                 character=character,
                 code=code,
                 glyph_index=glyph_index,
-                mapping=("standard_raw_trail_gap" if raw_standard else "standard"),
+                mapping=(
+                    "pinned_text_table_source_glyph_reuse"
+                    if source_character is not None
+                    else "standard_raw_trail_gap"
+                    if raw_standard
+                    else "standard"
+                ),
                 status=(
                     "proposed_reactivation"
                     if is_reactivated
@@ -1130,6 +1896,12 @@ def build_ui_font_proposal(
                         "allocation without changing its code or glyph index"
                     )
                     if is_reactivated
+                    else (
+                        "append-only deterministic reuse of an original "
+                        "Japanese CJK code/glyph slot that is not required by "
+                        "the selected Chinese corpus or inherited codebook"
+                    )
+                    if source_character is not None
                     else
                     (
                         "append-only renderer-addressable raw standard-trail "
@@ -1150,11 +1922,75 @@ def build_ui_font_proposal(
                 font_path=locked_paths["font"],
                 assignment_id_prefix=assignment_id_prefix,
             )
-        )
+        if source_character is not None:
+            assignment["source_character"] = source_character
+        new_allocations.append(assignment)
 
     base_by_character = {
         assignment["character"]: assignment for assignment in base_assignments
     }
+    inherited_optical_overrides = _inherited_optical_reraster_overrides(
+        document
+    )
+    effective_base_assignments = list(base_assignments)
+    effective_base_by_character = dict(base_by_character)
+    inherited_optical_reports = []
+    for optical_override in inherited_optical_overrides:
+        character = optical_override["character"]
+        inherited = base_by_character.get(character)
+        if inherited is None:
+            raise UiFontError(
+                "inherited optical reraster character is not in the base "
+                f"proposal: {character!r}"
+            )
+        override_rasterizer = dict(profile["rasterizer"])
+        corrections = dict(
+            override_rasterizer.get("optical_corrections", {})
+        )
+        corrections[character] = {
+            "point_size": optical_override["point_size"],
+            "reason": optical_override["reason"],
+        }
+        override_rasterizer["optical_corrections"] = corrections
+        gray, pixels, packed = rasterize_character(
+            override_rasterizer["executable"],
+            locked_paths["font"],
+            character,
+            override_rasterizer,
+        )
+        replacement = dict(inherited)
+        replacement["status"] = "proposed_inherited_optical_reraster"
+        replacement["raster"] = {
+            "point_size": rasterizer_point_size(
+                character,
+                override_rasterizer,
+            ),
+            "raw_gray_sha256": sha256_bytes(gray),
+            "pixels_4bpp_sha256": sha256_bytes(pixels),
+            "packed_glyph_sha256": sha256_bytes(packed),
+        }
+        replacement["optical_override"] = {
+            "point_size": optical_override["point_size"],
+            "reason": optical_override["reason"],
+        }
+        effective_base_by_character[character] = replacement
+        inherited_optical_reports.append(
+            {
+                "character": character,
+                "code": replacement["code"],
+                "glyph_index": replacement["glyph_index"],
+                "point_size": replacement["raster"]["point_size"],
+                "packed_glyph_sha256": replacement["raster"][
+                    "packed_glyph_sha256"
+                ],
+                "reason": optical_override["reason"],
+            }
+        )
+    if inherited_optical_overrides:
+        effective_base_assignments = [
+            effective_base_by_character[assignment["character"]]
+            for assignment in base_assignments
+        ]
     new_reraster = []
     for character in original_han:
         if not is_cjk_unified_ideograph(character):
@@ -1242,11 +2078,17 @@ def build_ui_font_proposal(
         new_semantic_replacements.append(assignment)
 
     assignments = [
-        *base_assignments,
+        *effective_base_assignments,
         *new_allocations,
         *new_reraster,
         *new_semantic_replacements,
     ]
+    assignments, cjk_optical_policy = _apply_cjk_optical_policy(
+        document,
+        profile["rasterizer"],
+        locked_paths["font"],
+        assignments,
+    )
     assignments.sort(
         key=lambda assignment: (
             assignment["glyph_index"],
@@ -1294,7 +2136,15 @@ def build_ui_font_proposal(
             == ratchet["additional_semantic_code_replacement_count"]
         )
     if not all(checks.values()):
-        raise UiFontError(f"UI font ratchet failed: {checks}")
+        raise UiFontError(
+            "UI font ratchet failed: "
+            f"actual={{'appended_character_count': {len(appended)}, "
+            f"'combined_registered_character_count': {len(registered)}, "
+            f"'remaining_candidate_slot_count': {remaining}, "
+            f"'additional_reraster_existing_han_count': {len(new_reraster)}, "
+            "'additional_semantic_code_replacement_count': "
+            f"{len(new_semantic_replacements)}}} checks={checks}"
+        )
 
     active_count = (
         base_proposal["allocation_registry"]["active_character_count"]
@@ -1383,6 +2233,11 @@ def build_ui_font_proposal(
                 assignment["mapping"] == "standard_raw_trail_gap"
                 for assignment in new_allocations
             ),
+            "source_glyph_reuse_count": sum(
+                assignment["mapping"]
+                == "pinned_text_table_source_glyph_reuse"
+                for assignment in new_allocations
+            ),
         },
         "additional_reraster_existing_han": {
             "count": len(new_reraster),
@@ -1404,6 +2259,11 @@ def build_ui_font_proposal(
                 )
             ],
         },
+        "inherited_optical_reraster_overrides": {
+            "count": len(inherited_optical_reports),
+            "entries": inherited_optical_reports,
+        },
+        "cjk_optical_policy": cjk_optical_policy,
         "capacity": {
             (
                 "combined_renderer_addressable_candidate_slot_count"
@@ -1416,6 +2276,9 @@ def build_ui_font_proposal(
             "legacy_safe_candidate_slot_count": len(legacy_candidates),
             "expanded_standard_candidate_slot_count": len(expanded_candidates),
             "raw_standard_addressable_candidate_slot_count": len(raw_candidates),
+            "source_glyph_reuse_candidate_slot_count": len(
+                source_glyph_candidates
+            ),
             "base_registered_character_count": len(base_registered),
             "combined_registered_character_count": len(registered),
             "remaining_candidate_slot_count": remaining,
@@ -1685,6 +2548,10 @@ def audit_ui_font_candidate(
         "semantic_code_replacements": expected_readiness[
             "semantic_code_replacements"
         ],
+        "inherited_optical_reraster_overrides": expected_readiness[
+            "inherited_optical_reraster_overrides"
+        ],
+        "cjk_optical_policy": expected_readiness["cjk_optical_policy"],
         "combined_assignments": expected_readiness["combined_assignments"],
         "proposal": {
             "path": str(proposal_path.relative_to(project_root.resolve())),

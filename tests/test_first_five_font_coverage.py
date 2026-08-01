@@ -68,13 +68,13 @@ class FirstFiveFontCoverageTests(unittest.TestCase):
         )
         self.assertEqual(
             self.report["reraster_existing_han"]["assignment_count"],
-            806,
+            807,
         )
         self.assertEqual(
             self.report["reraster_existing_han"][
                 "built_raster_hash_exact_count"
             ],
-            806,
+            807,
         )
         self.assertEqual(
             self.report["used_glyph_slot_collision_count"],

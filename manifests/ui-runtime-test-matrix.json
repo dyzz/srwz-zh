@@ -2,12 +2,12 @@
   "schema_version": 1,
   "status": "runtime_matrix_validated_execution_pending",
   "matrix_id": "srwz-ui-runtime-v1",
-  "scope": "Runtime scene selection for the promoted first-five UI candidates. The Rust-compressed P10 COMPDATA candidate now passes the exact-ISO fresh-process boot gate with zero logged TLB misses; route navigation, database-page visuals and isolated atlas mapping remain separate pending evidence.",
+  "scope": "Runtime scene selection for the promoted first-five UI candidate. Earlier candidates supplied partial runtime samples. The current c2ba candidate applies deterministic 22/22.5/23/23.5pt optical selection to 1,750 final CJK assignments, adds both protagonist selection profiles, all 348 pointer-backed unit names and all 711 weapon names, is statically exact with zero LBA shifts, and requires fresh exact-ISO runtime acceptance.",
   "matrix_config": {
     "path": "config/runtime/ui-test-matrix.json",
-    "sha256": "4a2a056e0e96c8f16b376bb372204dee0a6d3c5b1079fead46c4ba264053c68b"
+    "sha256": "cabf04b4e8247163c84f404f2035f1761fddeb4269ed5cbe847675dd69f91fdd"
   },
-  "matrix_plan_sha256": "2609cfd644a272368650d6a8ef8d23dc1910d47e6d42e761ce960575b1adcb16",
+  "matrix_plan_sha256": "1111a85cfd6e6c634ccb2508f9d51688c37fe2e995cbfbaa2c7a9557bf1b72d1",
   "scene_inventory": {
     "path": "config/ui-scenes.json",
     "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
@@ -211,17 +211,17 @@
       "extension_id": "database-fixed-core-p10",
       "extension_kind": "database_selection",
       "manifest": "manifests/ui-database-fixed-core-selection.json",
-      "manifest_sha256": "0af0b7bf25db59cae38c0e376fed1095594fd287b4edba4fc1c9516c64c153e7",
+      "manifest_sha256": "df026f1027f83891841a966d2917f359e6045f7b76224b47230a792fc16b6c68",
       "selection_id": "srwz-ui-database-fixed-core-v1",
       "status": "static_database_fixed_subset_selected_font_extension_required",
       "parent_scene_id": "database/parts-skills-abilities-weapons",
       "parent_priority": "P2",
       "priority": "P1",
-      "priority_override_reason": "The 403-entry core is now renderer-complete and fixed-span validated; the previous 402-entry ISO proved the four routes reachable, while the new same-code 绊 glyph remains runtime pending. The unselected 847-entry remainder stays P2.",
-      "scene_count": 4,
-      "promoted_entry_count": 403,
+      "priority_override_reason": "The 1,113-entry selection is renderer-complete and fixed-span validated, including every one of the 711 weapon records. The current c2ba ISO also writes all 348 pointer-backed unit names and changes the final CJK raster set, so the exact artifact requires renewed list, detail, roster and disabled-state evidence. The unselected 137-entry parts and protected special-ability remainder stays P2.",
+      "scene_count": 5,
+      "promoted_entry_count": 1113,
       "aggregate_entry_count": 1250,
-      "remaining_entry_count": 847,
+      "remaining_entry_count": 137,
       "scenes": [
         {
           "scene_id": "database/pilot-skills-core",
@@ -237,8 +237,8 @@
           "scene_id": "database/unit-special-abilities-core",
           "family_id": "special-abilities",
           "label": "机体特殊能力名称与说明",
-          "entry_count": 155,
-          "entry_ids_sha256": "ac77dd01b755795f2bd24cdffb9d17199856aa80cd8081d21a4d412d9723274a",
+          "entry_count": 154,
+          "entry_ids_sha256": "990804a4362eac85d722174e80041673003fc1084a0e4675723ff3f6ffb3e78d",
           "fixture_id": "first-intermission-card",
           "runtime_status": "not_tested",
           "writeback_readiness": "fixed_span_and_font_extension_resolved_by_component"
@@ -262,16 +262,26 @@
           "fixture_id": "first-intermission-card",
           "runtime_status": "not_tested",
           "writeback_readiness": "fixed_span_and_font_extension_resolved_by_component"
+        },
+        {
+          "scene_id": "database/weapons-all",
+          "family_id": "weapons",
+          "label": "全部武器名称",
+          "entry_count": 711,
+          "entry_ids_sha256": "05572bc5993e6bc75cbad371793aa089c64b59dbdf94b6e3033582bc4fd45191",
+          "fixture_id": "first-intermission-card",
+          "runtime_status": "not_tested",
+          "writeback_readiness": "fixed_span_and_font_extension_resolved_by_component"
         }
       ],
       "promotion_manifest": {
         "path": "manifests/ui-p10-database-fixed-core-validation.json",
-        "sha256": "18a87f42731fa597147d800e52c21b01743e7fb95d51860c25ae6a9937230094",
+        "sha256": "acb4a5938b21f280873878c0977538df5b18e40d121d87bccbce0a9286b7f7bf",
         "profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
         "status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
         "runtime_status": "not_tested",
-        "scene_count": 4,
-        "entry_count": 403
+        "scene_count": 5,
+        "entry_count": 1113
       }
     }
   ],
@@ -302,20 +312,20 @@
     }
   },
   "summary": {
-    "scene_count": 38,
+    "scene_count": 39,
     "base_scene_count": 14,
-    "extended_scene_count": 24,
-    "selected_scene_count": 34,
+    "extended_scene_count": 25,
+    "selected_scene_count": 35,
     "deferred_scene_count": 4,
-    "case_count": 46,
+    "case_count": 47,
     "purpose_case_counts": {
       "asset_mapping": 5,
-      "localization_acceptance": 36,
+      "localization_acceptance": 37,
       "story_sequence_acceptance": 5
     },
     "priority_case_counts": {
       "P0": 15,
-      "P1": 31
+      "P1": 32
     },
     "artifact_count": 7,
     "fixture_count": 8,
@@ -324,30 +334,30 @@
       "ready": 1
     },
     "route_ready_case_count": 6,
-    "missing_fixture_case_count": 40,
+    "missing_fixture_case_count": 41,
     "artifact_runtime_blocked_case_count": 0,
     "capture_counts": {
-      "screenshot": 112,
+      "screenshot": 114,
       "screenshot_sequence": 6,
       "texture_delta": 5
     },
     "runtime_passed_case_count": 0,
-    "runtime_not_tested_case_count": 46
+    "runtime_not_tested_case_count": 47
   },
   "artifacts": [
     {
       "artifact_id": "first-five-full-ui-with-compdata",
       "manifest": "manifests/ui-p10-database-fixed-core-first-five-atlas-test-runtime-validation.json",
-      "manifest_sha256": "46eb0eeefc718e13d177ad623dbe05e62848398acc12af0d6c775530f9634037",
-      "status": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_iso_boot_smoke_passed_visual_pending",
-      "runtime_status": "boot_smoke_passed_visual_not_tested",
+      "manifest_sha256": "b2d71ddf06eb6de3e576a4b7d5c5ffa9d4e7ed5ea3e9b1f5f9c07aa2c47006dd",
+      "status": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_iso_static_validated_runtime_not_tested",
+      "runtime_status": "not_tested",
       "availability": "runnable",
       "iso_path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso",
       "iso_size": 3758358528,
-      "iso_sha256": "218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b",
+      "iso_sha256": "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88",
       "iso_source_manifest": {
         "path": "manifests/ui-p10-database-fixed-core-first-five-atlas-test-runtime-validation.json",
-        "sha256": "46eb0eeefc718e13d177ad623dbe05e62848398acc12af0d6c775530f9634037"
+        "sha256": "b2d71ddf06eb6de3e576a4b7d5c5ffa9d4e7ed5ea3e9b1f5f9c07aa2c47006dd"
       },
       "mapping": null
     },
@@ -1533,6 +1543,27 @@
       "execution_readiness": "blocked_by_missing_fixture",
       "texture_delta": null,
       "runtime_evidence": null
+    },
+    {
+      "case_id": "database/weapons-all",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "database/weapons-all"
+      ],
+      "artifact_id": "first-five-full-ui-with-compdata",
+      "fixture_id": "first-intermission-card",
+      "fixture_status": "not_acquired",
+      "variant": null,
+      "route_step_count": 3,
+      "assertion_count": 3,
+      "capture_counts": {
+        "screenshot": 2
+      },
+      "runtime_status": "not_tested",
+      "execution_readiness": "blocked_by_missing_fixture",
+      "texture_delta": null,
+      "runtime_evidence": null
     }
   ],
   "scene_dispositions": [
@@ -1891,6 +1922,16 @@
       "exit_gate": null
     },
     {
+      "scene_id": "database/weapons-all",
+      "priority": "P1",
+      "disposition": "selected",
+      "case_ids": [
+        "database/weapons-all"
+      ],
+      "reason": null,
+      "exit_gate": null
+    },
+    {
       "scene_id": "menus/extended-embedded-dialogs",
       "priority": "P1",
       "disposition": "deferred",
@@ -1911,8 +1952,8 @@
       "priority": "P2",
       "disposition": "deferred",
       "case_ids": [],
-      "reason": "The 1,250-entry aggregate now has a promoted 403-entry skills, special-abilities, spirit-command and leadership fixed core. The one-character label 绊 reuses and rerasterizes the original 絆 code/glyph. The remaining 847 parts, weapons and disputed proper-name terms stay deferred.",
-      "exit_gate": "Execute the four exact-P10 list/detail/disabled cases against a newly built candidate, including visual acceptance of 绊, then design a new storage and renderer strategy before promoting any of the remaining 847 decisions."
+      "reason": "The 1,250-entry aggregate now has a promoted 1,113-entry skills, special-abilities, spirit-command, leadership and all-weapons fixed core. The remaining 137 parts and four protected special-ability records stay deferred.",
+      "exit_gate": "Execute the five exact-P10 list/detail/disabled cases against the current candidate, including representative full-weapon coverage, then separately review and promote the remaining 137 decisions."
     },
     {
       "scene_id": "battle/retreat-lines",

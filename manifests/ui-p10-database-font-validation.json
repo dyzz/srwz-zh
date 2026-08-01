@@ -2,26 +2,26 @@
   "schema_version": 1,
   "status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
   "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1",
-  "scope": "Incremental P7 plus the 403-entry skills, special-abilities, spirit-command and leadership database core. It proves renderer coverage only; it does not write SLPS/COMPDATA, build an ISO or prove runtime pages.",
+  "scope": "Incremental P7 plus all 711 weapon names, the selected skills, special abilities, spirit commands and leadership effects, all 348 pointer-backed unit names, both protagonist selection profiles and the finalized female-route stage 1-5 titles. It proves renderer coverage only; it does not write SLPS/COMPDATA, build an ISO or prove runtime pages.",
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p10-database-font.json",
-      "sha256": "db93d0581aca97d0440f3e88c8279f22379e777dbe06e02464c4315affa30df9"
+      "sha256": "57cb218c4019b1792aaae8b0af1a146570208f791f3dda7878152856f0ee609a"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p10-database-font-allocations.json",
-      "sha256": "076d924ca025154398035a2d9be8638b8ffa4700c6fae4a4355f3ad3a9c7c85b"
+      "sha256": "ff76eaea8a839dffd615922168d0e807fb463262ffce108f4d69c1df0742b228"
     },
     "database_selection": {
-      "kind": "database_fixed_subset",
+      "kind": "database_fixed_subset_with_supplemental_translation_with_additional_translation_selections_with_full_unit_names",
       "selection_id": "srwz-ui-database-fixed-core-v1",
       "config": {
         "path": "config/ui-database-selection.json",
-        "sha256": "0ae75acd8b03310676eae7ab7fa114a833d45cbc12448f1274a6b7050c290965"
+        "sha256": "18431a9fe1e74585318a48759a0ab1837a95b143e6fb3e7514d1de2057f0de03"
       },
       "manifest": {
         "path": "manifests/ui-database-fixed-core-selection.json",
-        "sha256": "0af0b7bf25db59cae38c0e376fed1095594fd287b4edba4fc1c9516c64c153e7",
+        "sha256": "df026f1027f83891841a966d2917f359e6045f7b76224b47230a792fc16b6c68",
         "status": "static_database_fixed_subset_selected_font_extension_required"
       },
       "parent_scene": {
@@ -55,20 +55,15 @@
           "family_id": "special-abilities",
           "runtime_scene_id": "database/unit-special-abilities-core",
           "label": "机体特殊能力名称与说明",
-          "entry_count": 155,
+          "entry_count": 154,
           "slps_entry_count": 0,
-          "compdata_entry_count": 155,
-          "entry_ids_sha256": "ac77dd01b755795f2bd24cdffb9d17199856aa80cd8081d21a4d412d9723274a",
+          "compdata_entry_count": 154,
+          "entry_ids_sha256": "990804a4362eac85d722174e80041673003fc1084a0e4675723ff3f6ffb3e78d",
           "selectors": [
             {
               "translation_file": "corpus/zh/menu/system-ui-special-abilities.json",
               "entry_count": 154,
               "entry_ids_sha256": "990804a4362eac85d722174e80041673003fc1084a0e4675723ff3f6ffb3e78d"
-            },
-            {
-              "translation_file": "corpus/zh/menu/weapons.json",
-              "entry_count": 1,
-              "entry_ids_sha256": "d7e3d54f405bea1b44c0892bd5c2540062b1953b17aa6872008407db6ea971c2"
             }
           ]
         },
@@ -103,10 +98,88 @@
               "entry_ids_sha256": "03a6d7927a7cf24cd433978b015e7c5b1bc794b6b8cf38fca90a892bbacb522e"
             }
           ]
+        },
+        {
+          "family_id": "weapons",
+          "runtime_scene_id": "database/weapons-all",
+          "label": "全部武器名称",
+          "entry_count": 711,
+          "slps_entry_count": 0,
+          "compdata_entry_count": 711,
+          "entry_ids_sha256": "05572bc5993e6bc75cbad371793aa089c64b59dbdf94b6e3033582bc4fd45191",
+          "selectors": [
+            {
+              "translation_file": "corpus/zh/menu/weapons.json",
+              "entry_count": 711,
+              "entry_ids_sha256": "05572bc5993e6bc75cbad371793aa089c64b59dbdf94b6e3033582bc4fd45191"
+            }
+          ]
         }
       ],
-      "unique_entry_count": 403,
-      "selection_sha256": "fb3e78a26a5d71650ff0bcc73c70c32635fc626a8990ee2b9324ed8b9e30e93b"
+      "unique_entry_count": 1470,
+      "selection_sha256": "5705bbd5f6bab4a8715073521030d237739a72825f2bb70bc08d8d4047e63301",
+      "database_unique_entry_count": 1113,
+      "database_selection_sha256": "2296728761e35737add8314fae244ab20aaf49b3c9fe35199492d1ee949112a1",
+      "supplemental_translation_selection": {
+        "path": "corpus/zh/menu/stage-names.json",
+        "sha256": "4482600997e968f00f0575ac90133b3f34f3f7defa69168ca8798b09c841bb29",
+        "scene_id": "route/stage-title-and-branch",
+        "entry_count": 5,
+        "entry_ids_sha256": "65e8bf7030e22ce29089d485ee3775af894c09e39a8043cd6b4309bc735259c8",
+        "selection_sha256": "78498cd175a7c15251f95380948c0b5cec6869aaa8e81f8e32c08b49280d3597"
+      },
+      "additional_translation_selections": [
+        {
+          "selection_id": "opening-protagonist-profile",
+          "path": "corpus/zh/menu/opening-protagonist-profile.json",
+          "sha256": "054e14d4060896e8b4bd76e388f32a74556a261424a15d17704e51cd57fe3e44",
+          "scene_id": "opening/protagonist-selection",
+          "entry_count": 4,
+          "entry_ids_sha256": "d7603f3e5c5baf069626d794f66ae4703723b7068d965f94b2a6cecd227604c8",
+          "selection_sha256": "3eb98012f287d1c80742571737c15ccc6943389ea71f72e2d0b09e2119b21d92"
+        }
+      ],
+      "unit_name_selection": {
+        "path": "corpus/zh/display-names/units-full.json",
+        "sha256": "d8fca4abd851c3c7274b60dc744a4305520c88ab513759d71e63274bf05c9161",
+        "batch_id": "v1-display-names-units-full",
+        "entry_count": 348,
+        "entry_ids_sha256": "b0231ecac374b65768203d633c9fea0d869adcb1d4ccf843e9ca7711e901d851",
+        "decisions_sha256": "de9dda26e197b2781a1ddaed6778eca79fe55567ae91a3f769882841bc5d1b3d",
+        "editorial_status_counts": {
+          "reviewed": 155,
+          "draft": 181,
+          "final": 12
+        },
+        "work_counts": {
+          "魔神Z／大魔神": 5,
+          "UFO机器人 古连泰沙": 10,
+          "盖塔机器人G": 12,
+          "宇宙战士巴尔迪奥斯": 11,
+          "宇宙大帝神西格玛": 11,
+          "无敌超人桑波特3": 16,
+          "无敌钢人泰坦3": 3,
+          "超时空世纪奥格斯": 19,
+          "战斗机甲萨芬格尔": 18,
+          "机动战士Z高达": 35,
+          "机动战士高达 逆袭的夏亚": 2,
+          "∀高达": 14,
+          "机动新世纪高达X": 20,
+          "机动战士高达SEED DESTINY": 44,
+          "返乡战士": 19,
+          "The Big O": 10,
+          "超重神GRAVION": 24,
+          "创圣机械天使": 24,
+          "交响诗篇艾蕾卡7": 19,
+          "机战Z原创": 20,
+          "内部预留槽": 12
+        },
+        "structure_config": {
+          "path": "config/display-names/compdata.json",
+          "sha256": "cd0b06663d0c25af23b8dda13729c3a97b6bee44d43b7bc1834e7f11b840cb9b"
+        },
+        "scene_id": "database/unit-names-all"
+      }
     },
     "base_proposal": {
       "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
@@ -120,27 +193,29 @@
     }
   },
   "capacity": {
-    "combined_renderer_addressable_candidate_slot_count": 736,
+    "combined_renderer_addressable_candidate_slot_count": 2916,
     "valid_sjis_safe_candidate_slot_count": 650,
     "legacy_safe_candidate_slot_count": 486,
     "expanded_standard_candidate_slot_count": 164,
     "raw_standard_addressable_candidate_slot_count": 86,
+    "source_glyph_reuse_candidate_slot_count": 2180,
     "base_registered_character_count": 724,
-    "combined_registered_character_count": 736,
-    "remaining_candidate_slot_count": 0
+    "combined_registered_character_count": 811,
+    "remaining_candidate_slot_count": 2105
   },
   "additional_allocations": {
-    "count": 12,
-    "characters": "咫垫挡斩框歼药赋赖镜闪－",
+    "count": 87,
+    "characters": "+/乔佩俯农冻凉华吨呐咫喊喙喷圣垫妒嫣宾岑廖弯扩扳拂挡掷撕擒斩晓杆框桨桩歼涡漩灵烧猎疯绞绯绷缺肚脐臂芬荚药蛛蜃蜥蝰蟒贡赋赖踢轨辉辐邀钉钳钻铆铬链锤镜闪霆霰颤飓骑魇鹉鹦鹫鹰齿－",
     "blank_preimage_count": 12,
-    "raw_standard_trail_gap_count": 12
+    "raw_standard_trail_gap_count": 12,
+    "source_glyph_reuse_count": 75
   },
   "additional_reraster_existing_han": {
-    "count": 14,
-    "characters": "予倍冠努寸尺狙疫福衰赫醒魂魄"
+    "count": 99,
+    "characters": "乃予仕佳倍典冠冬凝函刀刃努厘叉啄圭坎妖嫉寸尖尺屠店弦弧怒恒戮扇拐拳摩斑斧旋朱村杵板楼榴欧毒汽洞浮液淋溶灼炎熔燃爪爽犬狙珊瑚疫皇硫碧磁福章筒箭粉翔翼肉腕草薙蛇蜂蜘蝶螺蟹衰裂豪豹赫迦迷逆酸醒野鞭魂魄魅麦"
   },
   "semantic_code_replacements": {
-    "count": 1,
+    "count": 4,
     "entries": [
       {
         "source_character": "絆",
@@ -148,60 +223,149 @@
         "code": "E34A",
         "glyph_index": 910,
         "reason": "The reviewed spirit-command label is a one-character simplified replacement and the final Chinese build does not retain the original Japanese glyph."
+      },
+      {
+        "source_character": "憤",
+        "target_character": "愤",
+        "code": "95AE",
+        "glyph_index": 3950,
+        "reason": "The finalized stage-2 title uses simplified 愤; reuse the reachable traditional 憤 code and rerasterize it because the Chinese build does not retain the traditional glyph."
+      },
+      {
+        "source_character": "瞑",
+        "target_character": "眸",
+        "code": "E1D2",
+        "glyph_index": 1026,
+        "reason": "The finalized stage-2 title requires 眸, whose pinned E1C6 code is not renderer-addressable. Reuse the reachable eye-radical donor 瞑 after a full parsed-data scan found no 瞑 occurrence in the game's extracted text corpus."
+      },
+      {
+        "source_character": "唖",
+        "target_character": "镰",
+        "code": "88A0",
+        "glyph_index": 1440,
+        "reason": "The opening Virgola weapon name 大麦镰刀 needs 镰. Reuse the reachable 唖 code after the parsed game text and display-name corpora confirmed that 唖 is unused."
       }
     ]
   },
+  "inherited_optical_reraster_overrides": {
+    "count": 1,
+    "entries": [
+      {
+        "character": "坠",
+        "code": "83F6",
+        "glyph_index": 566,
+        "point_size": 23.5,
+        "packed_glyph_sha256": "c79aa10c8ee59c609444b87af1b60855e4e33efad38ede8e23308061f9a88342",
+        "reason": "The 2026-07-31 exact-ISO stage-001 victory/failure-condition screenshot shows the inherited 22pt 坠 glyph optically smaller than adjacent CJK. A 23.5pt reraster produces a 21x20 bounding box with 264 ink pixels while preserving code 83F6, glyph 566 and the original advance."
+      }
+    ]
+  },
+  "cjk_optical_policy": {
+    "enabled": true,
+    "point_size": 23,
+    "candidate_point_sizes": [
+      22,
+      22.5,
+      23,
+      23.5
+    ],
+    "target_metrics": {
+      "bbox_width": 21,
+      "bbox_height": 21,
+      "ink_pixel_count": 256
+    },
+    "score_weights": {
+      "bbox_error": 128,
+      "ink_pixel_error": 1,
+      "outer_edge_side": 64,
+      "point_size_half_step_from_default": 4
+    },
+    "configured_reviewed_exceptions": [
+      {
+        "character": "尔",
+        "point_size": 25,
+        "reason": "The 2026-08-01 exact-game screenshot still shows 尔 optically too narrow at 23.5pt. The reviewed 25pt raster expands it from 21x22/206 ink pixels to 22x22/218 while retaining the fixed 24x24 cell and height."
+      }
+    ],
+    "reason": "Select each final CJK glyph deterministically from 22, 22.5, 23 and 23.5pt against the 21x21/256-ink target, penalizing clipping-risk edge touches and distance from the 23pt baseline. Reviewed exceptions remain explicit.",
+    "assignment_count": 1754,
+    "point_size_counts": {
+      "22": 388,
+      "22.5": 445,
+      "23": 700,
+      "23.5": 220,
+      "25": 1
+    },
+    "selection_tier_counts": {
+      "metric_selected": 1750,
+      "reviewed_exception": 4
+    },
+    "raster_metrics": {
+      "empty_glyph_count": 0,
+      "outer_edge_touch_count": 729,
+      "bbox_width_min": 16,
+      "bbox_width_median": 21.0,
+      "bbox_width_max": 22,
+      "bbox_height_min": 3,
+      "bbox_height_median": 21.0,
+      "bbox_height_max": 23,
+      "ink_pixel_count_min": 61,
+      "ink_pixel_count_median": 254.0,
+      "ink_pixel_count_max": 365
+    },
+    "reviewed_exception_characters": "坠尔任班"
+  },
   "combined_assignments": {
-    "allocation_assignment_count": 727,
-    "reraster_existing_assignment_count": 916,
-    "font_assignment_count": 1643
+    "allocation_assignment_count": 802,
+    "reraster_existing_assignment_count": 1004,
+    "font_assignment_count": 1806
   },
   "proposal": {
     "path": "work/writeback/ui-p10-database-codebook-proposal.json",
-    "sha256": "63413d4cae24a56bff995c0d02f7f6f918dbc712d236506e33c2fe2719f7a980"
+    "sha256": "1fdb71325c50b330420d91fbb8b64935b96c27671fb372b4865ce35aefdc61de"
   },
   "readiness": {
     "path": "work/writeback/ui-p10-database-font-readiness.json",
-    "sha256": "7fa521fef10d43ba1ed406b13435297b11824df99052a6754ee1c4f86c2e63d7"
+    "sha256": "1869f3c9e0a93395c22e0f9355023fe42b4a488f048ec0c482ba8c77b688dacf"
   },
   "font_component": {
     "report": "work/build/ui-p10-database-font/components/font-validation.json",
-    "report_sha256": "d9bee18168fa517e4adc13e486f39efb98a825f24d0d92b1fd8d6bd06f2e2899",
-    "assignment_count": 1643,
-    "allocation_assignment_count": 727,
-    "reraster_existing_assignment_count": 916,
-    "changed_glyph_count": 1642,
+    "report_sha256": "7bee0d6ce12766b4aada55855de90cbf7917f532d9c2dc61af34ac3231643833",
+    "assignment_count": 1806,
+    "allocation_assignment_count": 802,
+    "reraster_existing_assignment_count": 1004,
+    "changed_glyph_count": 1805,
     "unchanged_assignment_count": 1,
-    "built_raster_hash_exact_count": 1643,
+    "built_raster_hash_exact_count": 1806,
     "decoded_size": 1290240,
-    "decoded_sha256": "2170658a3608eab33f93c337ae0caabc374778cfcd7ada609280b94934d90599",
-    "encoded_size": 694660,
+    "decoded_sha256": "51895efaac98608af84f9696e77e31c9ede99eba2fbe07cd3f21e4e7fbc7e997",
+    "encoded_size": 702997,
     "encoder_strategy": "rust-maximum",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
-      "padding_size": 12,
-      "borrowed_preceding_zero_slack": 95328,
+      "padding_size": 11,
+      "borrowed_preceding_zero_slack": 103664,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "1f1d51d705b9f8734a333d0a72f64c643610f58fe7f5a8dc114a12db8e7fc867"
+        "sha256": "c74f60fcd5e1a9212e0797ffc588ce922a85f981ccbd73a3b5717b13e6a0447e"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "0971dcbd2724360bc5594aae283d0fa0a6016a7ac8fb6e54426ded51e5288c02"
+        "sha256": "dfa9a052c877cd5324fe7084ce242dc95a3313654a89ca6ab290686cafa2aab3"
       }
     }
   },
   "database_fixed_core_renderer_coverage": {
-    "unique_entry_count": 403,
-    "literal_character_count": 5253,
-    "unique_literal_character_count": 513,
+    "unique_entry_count": 1470,
+    "literal_character_count": 11802,
+    "unique_literal_character_count": 1039,
     "missing_renderer_character_count": 0,
     "missing_renderer_occurrence_count": 0,
-    "selected_font_han_count": 445,
+    "selected_font_han_count": 946,
     "original_font_han_count": 0
   },
   "base_ui_p7_components": {
@@ -230,10 +394,10 @@
   },
   "runtime": {
     "status": "not_tested",
-    "reason": "The component consumes the final twelve renderer-addressable candidates, rerasterizes fourteen inherited Han glyphs, and replaces the original 絆 glyph with simplified 绊 at the same code. The exact combined font and all four database routes remain runtime pending."
+    "reason": "The component consumes the safe gap candidates, then deterministically reuses original Japanese CJK glyph slots for the complete Chinese unit/weapon corpus. The exact combined font, both protagonist profiles, first-five titles and all database routes remain runtime pending."
   },
   "allocation_policy": {
-    "mode": "valid-sjis-then-raw-standard-trail-gaps",
+    "mode": "valid-sjis-then-raw-standard-trail-gaps-then-source-glyph-reuse",
     "raw_standard_trails": [
       "7F",
       "FD",

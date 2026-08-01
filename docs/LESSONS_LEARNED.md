@@ -71,8 +71,8 @@
   大字库在 VT1 总长和后续 LBA 恢复原值后可以进入第一关并显示中文。
 - **事实：** 本游戏至少有读取路径依赖原盘的后续文件物理 LBA，目录记录正确
   不能替代原位置。当前 first-five profile 必须保持所有成员 LBA 不变。
-- **守门：** 字体增长只借用 VT1 前一 chunk 已验证的 175,968-byte 全零尾部，
-  VT1 总长保持 127,500,736；前五关 STAGE 使用 lazy greedy suffix 压缩并落在
+- **守门：** 当前字体增长只借用 VT1 前一 chunk 已验证的 12,320-byte 全零尾部，
+  VT1 总长保持 127,501,728；前五关 STAGE 使用 Rust suffix 压缩并落在
   原扇区间隙内；ISO 清单要求 `shifted_member_count=0`、`shift_sectors=0`，
   最终还要在 PCSX2 中通过无 TLB 的第一关可见文本验证。
 
@@ -168,3 +168,96 @@
 - **守门：** `render_tim2_png8()` 强制传入 `+dither`；单元测试固定命令，
   原三项 profile 必须保持全部输出锁不变，chunk 7 还必须证明 16 个源 index
   各自只有一个展开 RGBA 后才允许写回。
+
+## F. P10 压缩、字体和证据闭包
+
+### F1. 离线支持 `min-match-length=2`，不等于游戏支持
+
+- **曾以为：** Rust 码流能被独立 Python decoder 完整消费、逐字节还原且体积
+  更小，便可以把 COMPDATA 最小匹配长度从 3 降到 2。
+- **为什么看似合理：** `min-match-length=2` 候选为 145,192 bytes，严格
+  round-trip 和 145,408-byte 容量门都通过。
+- **如何被推翻：** 该精确 ISO 在游戏启动路径出现 TLB miss；恢复
+  `min-match-length=3` 的等价内容后，游戏接受压缩 parse。
+- **事实：** clean-room decoder 的可接受集合大于游戏解压器已经证明安全的
+  运行语法；压缩率不能替代运行兼容性。
+- **守门：** production COMPDATA 固定使用仓库内 Rust `rust-maximum`、
+  `min-match-length=3` 和 145,408-byte 硬门；Python 只作为 decoder/oracle。
+  `min-match-length=2` 只保留为负面对照，不得晋级。
+
+### F2. VT1 与 SLPS offset 表必须原子更新
+
+- **曾以为：** 字体数据在 `DATA/VT1.BIN` 中，单独替换 VT1 就能验证新字库。
+- **为什么看似合理：** VT1 的 14 个 chunk 都能由独立解析器列出，新字体 chunk
+  本身也能严格回解。
+- **如何被推翻：** 新 VT1 配旧 `SLPS_258.87` offset 表时，离线切片立即产生
+  无效 back-reference；标题长路径随后出现 12 次 TLB miss。
+- **事实：** VT1 chunk offset 还镜像在 SLPS 固定表中，两者是一个兼容单元。
+- **守门：** ISO 构建器在替换旧镜像之前，必须用所选 SLPS offset 表实际解码
+  所选 VT1 字体 chunk；错误配对 fail-closed，不再物化为当前测试 ISO。
+
+### F3. `missing=0` 只证明被选语料，不证明实际写回闭包
+
+- **曾以为：** P10 字体审计报告零缺字，所有实际写进游戏的中文都会有字形。
+- **为什么看似合理：** 数据库、关卡标题和已有语料都通过同一 renderer 覆盖
+  扫描，manifest 也记录了零缺字。
+- **如何被推翻：** 男主人公开场简介在游戏中缺“凉／缺”，而旧报告仍然是
+  `missing=0`。
+- **事实：** 这四条简介会直接写入 COMPDATA，却未进入字体需求选择；审计只对
+  输入集合成立，实际写回集合与字体需求之间没有闭包。
+- **守门：** 所有直接写回语料必须显式进入字体 provenance。当前开场简介通过
+  `additional_translation_selections` 合并，并锁定 corpus hash、scene、状态、
+  entry count、entry IDs 和候选写回记录；字体与数据库候选互相核对这些绑定，
+  “凉／缺”另有 assignment 单元测试。
+
+### F4. 同一字体和统一 point size 仍会产生视觉不一致
+
+- **曾以为：** 覆盖原字形并统一 point size 后，中文大小和宽窄会自然一致。
+- **为什么看似合理：** 所有字都进入固定 24×24 槽，来源字体、码位、advance
+  和栅格流程相同。
+- **如何被推翻：** 运行截图中“班／任／尔”仍显得偏小或偏窄；“尔”在 23.5pt
+  下仍不够宽。
+- **事实：** point size 不等于墨水 bbox；字形留白、重心和 rounding 需要逐字
+  度量，少数结果仍必须由运行截图裁决。
+- **守门：** 自动策略在 22／22.5／23／23.5pt 中按 bbox、墨水量和边缘碰撞
+  逐字选择；人工例外单独锁进配置。“尔”当前使用 25pt、bbox 22×22，码位、
+  glyph 槽和 advance 不变。每个 assignment 固定 point size、bbox 和 raster
+  hash，视觉结论只绑定到匹配 ISO 的截图。
+
+## G. 运行证据和候选管理
+
+### G1. boot smoke 不等于目标场景运行通过
+
+- **曾以为：** fresh-process 达到 PINE Running、DVD/ELF 正常且零 TLB，就能
+  把该 ISO 标成运行通过。
+- **为什么看似合理：** 启动门能排除错误介质、错误 ELF 和立即发生的解压崩溃。
+- **如何被推翻：** 多个候选在标题阶段正常，却在确认人物、首次剧情转场或更晚
+  加载字体资源时失败。
+- **事实：** boot、人物确认后转场、目标 UI 页面、剧情流程和 atlas texture/
+  截图是互不替代的证据层。
+- **守门：** 每份证据绑定精确 ISO SHA、PCSX2 版本、fresh-process、游戏 ID、
+  save/savestate provenance、目标 surface、PINE、日志和截图哈希。旧 ISO 的
+  证据不得迁移到新 SHA。当前 `310a2c5b…dcba88` 保持 `runtime=pending`。
+
+### G2. 多张“最新 ISO”和 patch-over-patch 会破坏归因
+
+- **曾以为：** 保留每次构建出的 ISO，并在上一候选上继续打小补丁，方便回退和
+  加快验证。
+- **如何被推翻：** PCSX2 测试目标、配置锁和截图 SHA 多次可能指向不同候选；
+  patch-over-patch 还会丢失原版前像和差异所有权。
+- **事实：** 语料、selection、allocation、profile 和原版成员是事实源；
+  component、manifest、review report 和 ISO 都是可重建产物。
+- **守门：** 正式构建始终从原版开始；`build/iso/` 只保留一个当前候选；生成
+  manifest 后立即无刷新复核，运行前再次核对 ISO SHA。当前静态基线为
+  `310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88`。
+
+## H. 下一批剧情的复用顺序
+
+第 6 话及之后的剧情按固定链路推进：提取与稳定 ID → 中文决策与断行 → 实际
+写回集合与字体需求闭包 → Rust 压缩和定长/LBA 门 → 单一精确 ISO → 匹配存档
+的目标场景运行证据。任何一层失败，只回到该层修生产器或事实源，不用后续层的
+成功掩盖前序失败。
+
+clean-room 边界保持不变：不得执行 `SRWZ.exe`、`SRWZ.dll`、
+`CompressTool.exe`、Wine 或 Mono；外部二进制只能静态检查格式事实，不复制
+无许可证上游源码，也不把原版游戏数据提交到仓库。

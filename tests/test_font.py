@@ -15,6 +15,7 @@ from tools.srwz.font import (
     extended_glyph_index,
     extended_glyph_mapping,
     glyph_index_for_code,
+    glyph_raster_metrics,
     inventory_codebook,
     is_cjk_unified_ideograph,
     read_extended_glyph_table,
@@ -22,12 +23,41 @@ from tools.srwz.font import (
     replace_glyph,
     raw_standard_allocation_candidates,
     safe_standard_allocation_candidates,
+    standard_code_for_glyph_index,
     standard_glyph_index,
 )
 from tools.srwz.text import TextTable
 
 
 class FontAnalysisTests(unittest.TestCase):
+    def test_glyph_raster_metrics_capture_bbox_ink_and_edge_contact(self):
+        pixels = bytearray(GLYPH_WIDTH * GLYPH_HEIGHT)
+        pixels[1 * GLYPH_WIDTH + 2] = 4
+        pixels[3 * GLYPH_WIDTH + 5] = 15
+        self.assertEqual(
+            glyph_raster_metrics(bytes(pixels)),
+            {
+                "ink_pixel_count": 2,
+                "ink_value_sum": 19,
+                "bbox_x": 2,
+                "bbox_y": 1,
+                "bbox_width": 4,
+                "bbox_height": 3,
+                "outer_edge_touch": False,
+                "outer_edge_sides": [],
+            },
+        )
+        pixels[0] = 1
+        edge = glyph_raster_metrics(bytes(pixels))
+        self.assertTrue(edge["outer_edge_touch"])
+        self.assertEqual(edge["outer_edge_sides"], ["left", "top"])
+
+    def test_glyph_raster_metrics_reject_invalid_rasters(self):
+        with self.assertRaisesRegex(ValueError, "24x24"):
+            glyph_raster_metrics(b"\x00")
+        with self.assertRaisesRegex(ValueError, "4-bpp"):
+            glyph_raster_metrics(bytes([16]) * (GLYPH_WIDTH * GLYPH_HEIGHT))
+
     def test_classifies_cjk_ideographs_without_absorbing_kana_or_symbols(self):
         self.assertTrue(is_cjk_unified_ideograph("中"))
         self.assertTrue(is_cjk_unified_ideograph("测"))
@@ -97,6 +127,17 @@ class FontAnalysisTests(unittest.TestCase):
             standard_glyph_index(0x9880)
         with self.assertRaisesRegex(ValueError, "standard glyph branch"):
             standard_glyph_index(0x989F)
+
+    def test_standard_renderer_formula_has_a_complete_sequential_inverse(self):
+        self.assertEqual(standard_code_for_glyph_index(0), 0x8140)
+        self.assertEqual(standard_code_for_glyph_index(191), 0x81FF)
+        self.assertEqual(standard_code_for_glyph_index(192), 0x8240)
+        self.assertEqual(standard_code_for_glyph_index(4479), 0x987F)
+        for glyph_index in range(4480):
+            code = standard_code_for_glyph_index(glyph_index)
+            self.assertEqual(standard_glyph_index(code), glyph_index)
+        with self.assertRaisesRegex(ValueError, "outside font"):
+            standard_code_for_glyph_index(4480)
 
     def test_extended_position_matches_original_row_math(self):
         self.assertEqual(extended_glyph_index(4, 0x00), 896)

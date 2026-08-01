@@ -163,6 +163,31 @@ glyph 4478/4479，生成两个简体中文字形并重建 VT1 第 2 段。该路
 运行时代码；详细前像、字体许可证、raster 契约和输出哈希见
 `STATIC_CANARY.md`。
 
+## 最终全量中文字库规划
+
+最终方案不再把原日文字形身份视为必须保留的资源。原标准 resolver 公式对
+4,480 个 glyph 是完备双射：glyph 0 对应 `8140`，每 192 格从 `xxFF`
+跳到下一 lead 的 `xx40`，glyph 4479 对应 `987F`。因此最终 atlas 可直接按
+glyph index 顺序建立中文账本，不依赖原 `tbl_all.json` 是否已经包含某个汉字。
+
+单字节可打印 ASCII 仍通过固定索引 191..286（跳过 253）读取，所以这 95 格
+保留并用同一生产字体重绘。当前 33 个 `corpus/zh` JSON 的 13,233 条
+translation 共需要 1,898 个非 ASCII 字符。中文分配区固定从 glyph 287
+（编码 `0x829F`）开始，之后不再跳槽，严格按
+glyph index 连续 `+1` 到 4479；前面的非 ASCII 空槽无需保留原日文字形。
+这样共有 4,193 个连续中文槽；当前语料其中 1,846 个是汉字，余量 2,295
+格。机器清单由以下
+命令生成：
+
+```bash
+python3 tools/audit_full_chinese_font_plan.py --force
+```
+
+初始全量 registry 一旦建立即只追加、不因语料排序变化而重排。这里的容量证明
+不自动证明所有 raw trail 或 direct-index 读取路径已运行安全；当前 P10 字库
+继续承担过渡测试，全量替换 profile 要在独立 canary 覆盖每个 resolver 行与
+raw trail 类后再进入 ISO。
+
 ## 与图片和遗漏文本的边界
 
 首轮资产扫描在 VT1 其他段发现 9 个 TIM2 记录、16 个 picture；离线渲染显示为
@@ -175,11 +200,10 @@ glyph 4478/4479，生成两个简体中文字形并重建 VT1 第 2 段。该路
 
 ## 下一完成门
 
-1. 为 P1 精确组件构建 ISO，分别覆盖一个新 `0x7F` 和 `0xFD` 分配，并在
-   PCSX2 中绑定完整 decoded-font 哈希与世界史起点／中段／结尾画面。
-2. 继续对其余 glyph 建立“可显示、保留、静态候选、未知”分类，并用
-   PCSX2 决定静态候选能否升级为可覆盖。
-3. 扫描现有 94,189 条语料、新增 195 条 MAPNAME 及硬编码区域的实际 code
-   使用，排除非文本引用。
-4. 继续把“完整字库加载通过”和“具体 glyph 在目标界面正确显示”分开验收；
-   未单独覆盖的槽位仍只能算静态候选。
+1. 从 `full-chinese-font-plan` 冻结首份 append-only 全量 registry，并用当前
+   LXGW 字体物化中文、中文标点和 95 个 ASCII 格。
+2. 为每个标准 resolver 行及实际使用的 `0x7F/0xFD/0xFE/0xFF` raw trail 类
+   建立运行 canary；PINE 同时锁定完整 decoded-font 哈希。
+3. 扫描 195 条 MAPNAME、硬编码 UI 和 direct-index 读取点；发现的非文本
+   glyph 进入显式保留表，而不是恢复整套日文字形。
+4. 继续把“完整字库加载通过”和“具体 glyph 在目标界面正确显示”分开验收。

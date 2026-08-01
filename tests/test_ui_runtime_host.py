@@ -69,7 +69,7 @@ class UiRuntimeHostTests(unittest.TestCase):
         )
         self.assertEqual(
             report["artifact"]["iso_sha256"],
-            "218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b",
+            "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88",
         )
 
     def test_p2_default_name_artifact_can_be_selected_exactly(self):

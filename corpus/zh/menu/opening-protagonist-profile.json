@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "batch_id": "first-five-opening-protagonist-profile",
+  "language": "zh-Hans",
+  "scope": {
+    "domain": "menu",
+    "member": "DATA/COMPDATA.BN",
+    "surface": "opening/protagonist-selection",
+    "entry_count": 4
+  },
+  "entries": [
+    {
+      "id": "menu/Compdata/direct/opening-male-route-title",
+      "source_text_sha256": "c2ed73db88e98081aea6f5ca3ed1ba1879f1d9e7904b709f11a452d0770263cc",
+      "translation": "〜流浪的修理工〜",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "对应男主人公路线；与路线图既定译名保持一致，并保留原界面的波浪线装饰。"
+    },
+    {
+      "id": "menu/Compdata/direct/opening-male-profile",
+      "source_text_sha256": "5f5ce160961ea0b1a021e756c18605d1bb7eede88e3ca1cd798ae3d44493ced5",
+      "translation": "在荒凉大地上与搭档共同经营修理店的男人。\n自称“THE HEAT”的豪爽热血汉，\n但热情过头也是他的缺点。",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "保留 THE HEAT 自称，不凭空汉译专名；按原文三行结构压缩表达。"
+    },
+    {
+      "id": "menu/Compdata/direct/opening-female-route-title",
+      "source_text_sha256": "735c8a3d374824a37cd86fcaf23d164e2df40c2ae72bdaaefb1a53acd0f042c2",
+      "translation": "〜太空先锋〜",
+      "editorial_status": "final",
+      "glossary_refs": [],
+      "notes": "与第1话标题共用译名；保留原界面的波浪线装饰。"
+    },
+    {
+      "id": "menu/Compdata/direct/opening-female-profile",
+      "source_text_sha256": "3dd9a8b80522e8f875c320dc6c096783bf98f2e93bfca4fa85f265256878a3c7",
+      "translation": "地球联邦军士兵，担任新型机测试驾驶员。\n性格胆怯，遇事总是消极，却又十分认真，\n总会拼尽全力完成自己的任务。",
+      "editorial_status": "final",
+      "glossary_refs": [
+        "organization/earth-federation-forces"
+      ],
+      "notes": "按原文三行信息顺序重排，保留性格反差与认真完成任务的核心含义。"
+    }
+  ]
+}

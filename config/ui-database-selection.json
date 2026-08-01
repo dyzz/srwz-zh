@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "selection_id": "srwz-ui-database-fixed-core-v1",
-  "scope": "Select the largest terminology-safe fixed-span subset of the parts, weapons, skills, special-abilities, spirit-command and leadership database scene that fits the P7 renderer-addressable font budget. The one-character spirit label 绊 reuses the original 絆 code/glyph, while disputed proper names and the remaining parts/weapons vocabulary stay excluded.",
+  "scope": "Select every fixed-span weapon name together with the terminology-safe pilot-skill, unit-special-ability, spirit-command and leadership database entries. Parts and the four explicitly protected special-ability terms remain deferred. The one-character spirit label 绊 reuses the original 絆 code/glyph; the production font may reuse original Japanese CJK glyph slots because the final Chinese build does not preserve those glyph identities.",
   "parent_scene": {
     "inventory": {
       "path": "config/ui-scenes.json",
@@ -38,16 +38,9 @@
             "menu/Compdata/04/0029"
           ],
           "expected_entry_count": 154
-        },
-        {
-          "translation_file": "corpus/zh/menu/weapons.json",
-          "entry_ids": [
-            "menu/Compdata/02/0518"
-          ],
-          "expected_entry_count": 1
         }
       ],
-      "expected_entry_count": 155
+      "expected_entry_count": 154
     },
     {
       "family_id": "spirit-commands",
@@ -72,6 +65,18 @@
         }
       ],
       "expected_entry_count": 15
+    },
+    {
+      "family_id": "weapons",
+      "runtime_scene_id": "database/weapons-all",
+      "label": "全部武器名称",
+      "selectors": [
+        {
+          "translation_file": "corpus/zh/menu/weapons.json",
+          "expected_entry_count": 711
+        }
+      ],
+      "expected_entry_count": 711
     }
   ],
   "protected_exclusions": [
@@ -97,6 +102,11 @@
       "source_character": "絆",
       "target_character": "绊",
       "reason": "The fixed one-character spirit label keeps the original encoded bytes and replaces the source glyph with its simplified form."
+    },
+    {
+      "source_character": "唖",
+      "target_character": "镰",
+      "reason": "The reviewed opening Virgola weapon name 大麦镰刀 needs 镰. The reachable source glyph 唖 has no occurrence in the parsed game text or display-name corpus and is replaced in the Chinese-owned font."
     }
   ],
   "font_baseline": {
@@ -104,7 +114,7 @@
     "sha256": "577767062b1df3cb60162a98ecbb9ecd0320893c3d399f3f8cf423f5248d4d76",
     "required_status": "offline_font_and_embedded_ui_renderer_coverage_passed_runtime_pending",
     "writer_baseline_config": "config/ui-writeback/ui-p0-compdata-fixed.json",
-    "expected_missing_characters": "咫垫挡斩框歼绊药赋赖镜闪－"
+    "expected_missing_characters": "/佩俯农冻吨呐咫喊喙喷垫妒宾岑廖弯扩扳挡掷撕擒斩框桨桩歼涡漩灵烧疯绊绞绯绷肚脐臂芬荚药蛛蜃蜥蝰蟒贡赋赖踢轨辉辐邀钉钳钻铆铬链锤镜镰闪霆霰颤飓骑魇鹉鹦鹫鹰齿－"
   },
   "base_ui_core": {
     "manifest": "manifests/ui-p9-mixed-user-facing-subset-validation.json",
@@ -145,17 +155,17 @@
   },
   "ratchet": {
     "parent_entry_count": 1250,
-    "selected_entry_count": 403,
-    "deferred_entry_count": 847,
+    "selected_entry_count": 1113,
+    "deferred_entry_count": 137,
     "selected_slps_entry_count": 233,
-    "selected_compdata_entry_count": 170,
-    "missing_renderer_character_count": 13,
+    "selected_compdata_entry_count": 880,
+    "missing_renderer_character_count": 78,
     "slps_no_op_entry_count": 54,
     "slps_selected_write_entry_count": 179,
     "slps_selected_write_target_count": 183,
-    "compdata_no_op_entry_count": 5,
-    "compdata_selected_write_entry_count": 165,
-    "compdata_selected_write_target_count": 164,
+    "compdata_no_op_entry_count": 13,
+    "compdata_selected_write_entry_count": 867,
+    "compdata_selected_write_target_count": 866,
     "excluded_after_font_entry_count": 0
   },
   "outputs": {

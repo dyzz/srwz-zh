@@ -3,11 +3,8 @@
   "profile_id": "ui-p10-database-fixed-core-first-five-atlas-test",
   "component_validation_manifest": "manifests/ui-p10-database-fixed-core-first-five-atlas-test-validation.json",
   "component_required_status": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_component_validated_runtime_pending",
-  "runtime_manifest_status": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_iso_boot_smoke_passed_visual_pending",
+  "runtime_manifest_status": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_iso_static_validated_runtime_not_tested",
   "runtime_evidence_manifest": "manifests/ui-p10-database-fixed-core-first-five-atlas-test-runtime-validation.json",
-  "runtime_evidence": {
-    "boot_smoke_report": "work/runtime/iso-incremental/17-ui-p10-database-rust-maximum/boot-smoke.json"
-  },
   "source_iso": {
     "path": "rom/srwz.iso",
     "size": 3758358528,
@@ -48,7 +45,7 @@
     "shift_segments": [
       {
         "first_member": "DATA/STAGE.BIN",
-        "shift_sectors": 1
+        "shift_sectors": 0
       }
     ],
     "preserve_original_gaps": true,
@@ -59,13 +56,13 @@
       "member": "SLPS_258.87",
       "source": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "c5ab62a6e530118805a2025d2598872838012ae6d0c7fab023c4722eb6433cc0"
+      "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979"
     },
     {
       "member": "DATA/COMPDATA.BN",
       "source": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/COMPDATA.BN",
-      "size": 145191,
-      "sha256": "d91e38bd0ede4520362ae1e08047887623e5c0586e3224d4ba8d19a39615d8f2"
+      "size": 145293,
+      "sha256": "bcc573758e0b452114c04370f97c5d898aa2879a39a20cc5caed7314fbbd2ee9"
     },
     {
       "member": "DATA/MTV_PROS.BIN",
@@ -76,14 +73,14 @@
     {
       "member": "DATA/VT1.BIN",
       "source": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
-      "size": 127503424,
-      "sha256": "0ea32ad8d2e81d8da826922550ce140255595aff43645baa83b36332c4e04194"
+      "size": 127501728,
+      "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9"
     },
     {
       "member": "DATA/STAGE.BIN",
       "source": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff"
+      "sha256": "210ddea7d326eb5b835a73e5a961b3572f6b37260aa48f7c173471bf4d7ac327"
     },
     {
       "member": "HEDBDY/HB.BIN",
@@ -106,8 +103,8 @@
     "expected_udf_volume_recognition_sequence": "NSR02",
     "byte_reproducible": true,
     "expected_size": 3758358528,
-    "expected_sha256": "218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b",
-    "expected_member_manifest_sha256": "8bb72463996f61b5ed2b2b921298c9c36c9abebc821fa512c1e53e3d165c71ef"
+    "expected_sha256": "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88",
+    "expected_member_manifest_sha256": "a24850cbda1244afce5c4ba67dd3cd10becb9295aed849df99f89795a2ed8e0d"
   },
   "acceptance": {
     "member_paths_exact": true,

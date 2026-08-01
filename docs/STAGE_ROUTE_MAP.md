@@ -5,9 +5,9 @@
 `work/parsed/srwz-data.json` 为准；表内方括号数字是 `Stage Name`
 段落中的 `ordinal`，**不是** `story/NNN` 文件号。
 
-中文标题来自 `corpus/zh/menu/stage-names.json` 的 v1 首轮译稿，每格同时保留
-日文原题，供人工逐项校对。这里展示的是编辑状态为 `draft` 的候选译名，不是
-已经运行写回或最终批准的标题。
+中文标题来自 `corpus/zh/menu/stage-names.json`，每格同时保留日文原题，供人工
+逐项校对。女主人公第 1～5 话已经定稿并纳入整合写回；其余标题仍是尚未写回的
+`draft` 候选。
 
 当前能够确认的是“章节标题与路线顺序”。一个章节可能使用多个 story
 资源文件，因此本表不表示标题已经与 `story/NNN` 建立了一对一映射。

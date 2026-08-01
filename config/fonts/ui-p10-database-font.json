@@ -18,10 +18,61 @@
       "source_character": "絆",
       "target_character": "绊",
       "reason": "The reviewed spirit-command label is a one-character simplified replacement and the final Chinese build does not retain the original Japanese glyph."
+    },
+    {
+      "source_character": "憤",
+      "target_character": "愤",
+      "reason": "The finalized stage-2 title uses simplified 愤; reuse the reachable traditional 憤 code and rerasterize it because the Chinese build does not retain the traditional glyph."
+    },
+    {
+      "source_character": "瞑",
+      "target_character": "眸",
+      "reason": "The finalized stage-2 title requires 眸, whose pinned E1C6 code is not renderer-addressable. Reuse the reachable eye-radical donor 瞑 after a full parsed-data scan found no 瞑 occurrence in the game's extracted text corpus."
+    },
+    {
+      "source_character": "唖",
+      "target_character": "镰",
+      "reason": "The opening Virgola weapon name 大麦镰刀 needs 镰. Reuse the reachable 唖 code after the parsed game text and display-name corpora confirmed that 唖 is unused."
     }
   ],
+  "inherited_optical_reraster_overrides": [
+    {
+      "character": "坠",
+      "point_size": 23.5,
+      "reason": "The 2026-07-31 exact-ISO stage-001 victory/failure-condition screenshot shows the inherited 22pt 坠 glyph optically smaller than adjacent CJK. A 23.5pt reraster produces a 21x20 bounding box with 264 ink pixels while preserving code 83F6, glyph 566 and the original advance."
+    }
+  ],
+  "cjk_optical_policy": {
+    "point_size": 23,
+    "candidate_point_sizes": [
+      22,
+      22.5,
+      23,
+      23.5
+    ],
+    "target_metrics": {
+      "bbox_width": 21,
+      "bbox_height": 21,
+      "ink_pixel_count": 256
+    },
+    "score_weights": {
+      "bbox_error": 128,
+      "ink_pixel_error": 1,
+      "outer_edge_side": 64,
+      "point_size_half_step_from_default": 4
+    },
+    "reviewed_exceptions": [
+      {
+        "character": "尔",
+        "point_size": 25,
+        "reason": "The 2026-08-01 exact-game screenshot still shows 尔 optically too narrow at 23.5pt. The reviewed 25pt raster expands it from 21x22/206 ink pixels to 22x22/218 while retaining the fixed 24x24 cell and height."
+      }
+    ],
+    "max_workers": 8,
+    "reason": "Select each final CJK glyph deterministically from 22, 22.5, 23 and 23.5pt against the 21x21/256-ink target, penalizing clipping-risk edge touches and distance from the 23pt baseline. Reviewed exceptions remain explicit."
+  },
   "allocation_policy": {
-    "mode": "valid-sjis-then-raw-standard-trail-gaps",
+    "mode": "valid-sjis-then-raw-standard-trail-gaps-then-source-glyph-reuse",
     "raw_standard_trails": [
       "7F",
       "FD",
@@ -63,12 +114,50 @@
   },
   "database_selection": {
     "config": "config/ui-database-selection.json",
-    "config_sha256": "0ae75acd8b03310676eae7ab7fa114a833d45cbc12448f1274a6b7050c290965",
+    "config_sha256": "18431a9fe1e74585318a48759a0ab1837a95b143e6fb3e7514d1de2057f0de03",
     "manifest": "manifests/ui-database-fixed-core-selection.json",
-    "manifest_sha256": "0af0b7bf25db59cae38c0e376fed1095594fd287b4edba4fc1c9516c64c153e7",
+    "manifest_sha256": "df026f1027f83891841a966d2917f359e6045f7b76224b47230a792fc16b6c68",
     "selection_id": "srwz-ui-database-fixed-core-v1",
     "required_status": "static_database_fixed_subset_selected_font_extension_required",
-    "expected_entry_count": 403
+    "expected_entry_count": 1113
+  },
+  "supplemental_translation_selection": {
+    "path": "corpus/zh/menu/stage-names.json",
+    "sha256": "4482600997e968f00f0575ac90133b3f34f3f7defa69168ca8798b09c841bb29",
+    "scene_id": "route/stage-title-and-branch",
+    "entry_ids": [
+      "menu/Compdata/03/0000",
+      "menu/Compdata/03/0001",
+      "menu/Compdata/03/0002",
+      "menu/Compdata/03/0003",
+      "menu/Compdata/03/0004"
+    ],
+    "required_editorial_status": "final",
+    "expected_entry_count": 5
+  },
+  "additional_translation_selections": [
+    {
+      "selection_id": "opening-protagonist-profile",
+      "path": "corpus/zh/menu/opening-protagonist-profile.json",
+      "sha256": "054e14d4060896e8b4bd76e388f32a74556a261424a15d17704e51cd57fe3e44",
+      "scene_id": "opening/protagonist-selection",
+      "entry_ids": [
+        "menu/Compdata/direct/opening-male-route-title",
+        "menu/Compdata/direct/opening-male-profile",
+        "menu/Compdata/direct/opening-female-route-title",
+        "menu/Compdata/direct/opening-female-profile"
+      ],
+      "required_editorial_status": "final",
+      "expected_entry_count": 4
+    }
+  ],
+  "unit_name_selection": {
+    "path": "corpus/zh/display-names/units-full.json",
+    "sha256": "d8fca4abd851c3c7274b60dc744a4305520c88ab513759d71e63274bf05c9161",
+    "structure_config": "config/display-names/compdata.json",
+    "structure_sha256": "cd0b06663d0c25af23b8dda13729c3a97b6bee44d43b7bc1834e7f11b840cb9b",
+    "scene_id": "database/unit-names-all",
+    "expected_entry_count": 348
   },
   "scope": {
     "base_stage_indices": [
@@ -80,18 +169,18 @@
     ],
     "ui_inventory": "srwz-ui-scenes-v1",
     "database_selection": "srwz-ui-database-fixed-core-v1",
-    "rerasterize": "Every selected CJK unified ideograph still using an original reachable glyph, every newly allocated character, and the explicit 絆-to-绊 semantic code replacement; inherited P7 assignments remain exact.",
-    "preserve": "Original kana, reachable punctuation, printable ASCII, control symbols, glyphs outside the selected database core except the explicit 絆-to-绊 replacement, and every inherited assignment."
+    "rerasterize": "Every selected CJK unified ideograph still using an original reachable glyph, every newly allocated character, and the explicit 絆-to-绊, 憤-to-愤, 瞑-to-眸 and 唖-to-镰 same-code glyph replacements; inherited P7 assignments remain exact.",
+    "preserve": "Reachable punctuation, printable ASCII, control symbols and every inherited Chinese assignment. Original Japanese CJK glyph identities outside those inherited assignments are available as deterministic donor slots for the full Chinese unit/weapon corpus."
   },
   "manifest_contract": {
     "status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
-    "scope": "Incremental P7 plus the 403-entry skills, special-abilities, spirit-command and leadership database core. It proves renderer coverage only; it does not write SLPS/COMPDATA, build an ISO or prove runtime pages.",
+    "scope": "Incremental P7 plus all 711 weapon names, the selected skills, special abilities, spirit commands and leadership effects, all 348 pointer-backed unit names, both protagonist selection profiles and the finalized female-route stage 1-5 titles. It proves renderer coverage only; it does not write SLPS/COMPDATA, build an ISO or prove runtime pages.",
     "coverage_key": "database_fixed_core_renderer_coverage",
     "base_component_key": "base_ui_p7_components",
     "base_acceptance_key": "base_ui_p7_components_unchanged",
     "missing_acceptance_key": "database_fixed_core_renderer_missing_character_count_zero",
     "han_acceptance_key": "database_fixed_core_original_font_han_count_zero",
-    "runtime_reason": "The component consumes the final twelve renderer-addressable candidates, rerasterizes fourteen inherited Han glyphs, and replaces the original 絆 glyph with simplified 绊 at the same code. The exact combined font and all four database routes remain runtime pending."
+    "runtime_reason": "The component consumes the safe gap candidates, then deterministically reuses original Japanese CJK glyph slots for the complete Chinese unit/weapon corpus. The exact combined font, both protagonist profiles, first-five titles and all database routes remain runtime pending."
   },
   "outputs": {
     "readiness": "work/writeback/ui-p10-database-font-readiness.json",

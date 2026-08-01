@@ -167,7 +167,7 @@ class StoryDialogueTranslationTests(unittest.TestCase):
         expected = {
             "story/001/dialogue/01.01/0000": (
                 "“从紧急出动命令下达到出击，\n"
-                "　用时1分15秒。算是及格吧”"
+                "　用时一分十五秒。算是及格吧”"
             ),
             "story/001/dialogue/01.01/0008": (
                 "“明白。负责适配测试的$n\n"
@@ -180,6 +180,14 @@ class StoryDialogueTranslationTests(unittest.TestCase):
             "story/001/dialogue/02.01/0087": (
                 "“全领域泛用武装系统，\n"
                 "　‘加纳利·卡弗’啊……还真是什么都想包办”"
+            ),
+            "story/001/dialogue/02.01/0008": (
+                "“隶属月面驻军战技研究班：\n"
+                "　荣耀之星。我在十天前到任”"
+            ),
+            "story/001/dialogue/02.01/0146": (
+                "“而且，尽管只有短短十天，\n"
+                "　我对巴尔戈拉也已经产生了感情”"
             ),
             "story/001/dialogue/02.01/0168": (
                 "“明天就进入运行测试C级。\n"

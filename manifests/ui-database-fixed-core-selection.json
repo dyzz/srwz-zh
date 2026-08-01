@@ -2,11 +2,11 @@
   "schema_version": 1,
   "status": "static_database_fixed_subset_selected_font_extension_required",
   "selection_id": "srwz-ui-database-fixed-core-v1",
-  "scope": "Select the largest terminology-safe fixed-span subset of the parts, weapons, skills, special-abilities, spirit-command and leadership database scene that fits the P7 renderer-addressable font budget. The one-character spirit label 绊 reuses the original 絆 code/glyph, while disputed proper names and the remaining parts/weapons vocabulary stay excluded.",
+  "scope": "Select every fixed-span weapon name together with the terminology-safe pilot-skill, unit-special-ability, spirit-command and leadership database entries. Parts and the four explicitly protected special-ability terms remain deferred. The one-character spirit label 绊 reuses the original 絆 code/glyph; the production font may reuse original Japanese CJK glyph slots because the final Chinese build does not preserve those glyph identities.",
   "inputs": {
     "config": {
       "path": "config/ui-database-selection.json",
-      "sha256": "0ae75acd8b03310676eae7ab7fa114a833d45cbc12448f1274a6b7050c290965"
+      "sha256": "18431a9fe1e74585318a48759a0ab1837a95b143e6fb3e7514d1de2057f0de03"
     },
     "parent_scene": {
       "inventory": {
@@ -37,7 +37,7 @@
       },
       {
         "path": "corpus/zh/menu/weapons.json",
-        "sha256": "649e62e7d235de0fb96e336efcef8cbcb0bae66b08f3009342fa6c993ce3b5e7"
+        "sha256": "74d63f36e44f8733b9f5fb1fd2b363dea805c386adbde21aa834d89340f07301"
       }
     ],
     "font_baseline": {
@@ -104,13 +104,13 @@
     }
   },
   "selection": {
-    "selected_entry_count": 403,
+    "selected_entry_count": 1113,
     "selected_slps_entry_count": 233,
-    "selected_compdata_entry_count": 170,
-    "selected_entry_ids_sha256": "fcf97d1201b725aa0ff0e1d99bc6076bfa49bc1e3991014753c9626444d82e09",
-    "selected_decisions_sha256": "fb3e78a26a5d71650ff0bcc73c70c32635fc626a8990ee2b9324ed8b9e30e93b",
-    "deferred_entry_count": 847,
-    "deferred_entry_ids_sha256": "5a0ca947f35157d23ec6833cd82f7c0bed19135f8ed006a353a852c2b10adaf8",
+    "selected_compdata_entry_count": 880,
+    "selected_entry_ids_sha256": "07319853dbb56a25aa54f406b4b43b339ba7c8e806d2381c777d5823fbe5e8b5",
+    "selected_decisions_sha256": "2296728761e35737add8314fae244ab20aaf49b3c9fe35199492d1ee949112a1",
+    "deferred_entry_count": 137,
+    "deferred_entry_ids_sha256": "0eca7139f8585e90f53ffb5629905cea07a3493957a9c07254703771d2b114ab",
     "families": [
       {
         "family_id": "skills",
@@ -132,20 +132,15 @@
         "family_id": "special-abilities",
         "runtime_scene_id": "database/unit-special-abilities-core",
         "label": "机体特殊能力名称与说明",
-        "entry_count": 155,
+        "entry_count": 154,
         "slps_entry_count": 0,
-        "compdata_entry_count": 155,
-        "entry_ids_sha256": "ac77dd01b755795f2bd24cdffb9d17199856aa80cd8081d21a4d412d9723274a",
+        "compdata_entry_count": 154,
+        "entry_ids_sha256": "990804a4362eac85d722174e80041673003fc1084a0e4675723ff3f6ffb3e78d",
         "selectors": [
           {
             "translation_file": "corpus/zh/menu/system-ui-special-abilities.json",
             "entry_count": 154,
             "entry_ids_sha256": "990804a4362eac85d722174e80041673003fc1084a0e4675723ff3f6ffb3e78d"
-          },
-          {
-            "translation_file": "corpus/zh/menu/weapons.json",
-            "entry_count": 1,
-            "entry_ids_sha256": "d7e3d54f405bea1b44c0892bd5c2540062b1953b17aa6872008407db6ea971c2"
           }
         ]
       },
@@ -180,6 +175,22 @@
             "entry_ids_sha256": "03a6d7927a7cf24cd433978b015e7c5b1bc794b6b8cf38fca90a892bbacb522e"
           }
         ]
+      },
+      {
+        "family_id": "weapons",
+        "runtime_scene_id": "database/weapons-all",
+        "label": "全部武器名称",
+        "entry_count": 711,
+        "slps_entry_count": 0,
+        "compdata_entry_count": 711,
+        "entry_ids_sha256": "05572bc5993e6bc75cbad371793aa089c64b59dbdf94b6e3033582bc4fd45191",
+        "selectors": [
+          {
+            "translation_file": "corpus/zh/menu/weapons.json",
+            "entry_count": 711,
+            "entry_ids_sha256": "05572bc5993e6bc75cbad371793aa089c64b59dbdf94b6e3033582bc4fd45191"
+          }
+        ]
       }
     ],
     "protected_exclusions": [
@@ -202,20 +213,26 @@
     ]
   },
   "font_demand": {
-    "literal_character_count": 5253,
-    "unique_literal_character_count": 513,
-    "missing_renderer_character_count": 13,
-    "missing_renderer_characters": "咫垫挡斩框歼绊药赋赖镜闪－",
-    "missing_renderer_occurrence_count": 37,
-    "selected_font_han_count": 419,
-    "original_font_han_count": 14,
-    "original_font_han_characters": "予倍冠努寸尺狙疫福衰赫醒魂魄",
+    "literal_character_count": 10031,
+    "unique_literal_character_count": 882,
+    "missing_renderer_character_count": 78,
+    "missing_renderer_characters": "/佩俯农冻吨呐咫喊喙喷垫妒宾岑廖弯扩扳挡掷撕擒斩框桨桩歼涡漩灵烧疯绊绞绯绷肚脐臂芬荚药蛛蜃蜥蝰蟒贡赋赖踢轨辉辐邀钉钳钻铆铬链锤镜镰闪霆霰颤飓骑魇鹉鹦鹫鹰齿－",
+    "missing_renderer_occurrence_count": 215,
+    "selected_font_han_count": 650,
+    "original_font_han_count": 72,
+    "original_font_han_characters": "予佳倍冠凝函刀刃努厘叉啄妖嫉寸尖尺屠弦弧戮扇拐拳斧旋杵板楼榴欧毒汽洞浮液淋溶灼炎熔燃爪犬狙疫皇硫磁福筒箭粉翼肉腕薙蛇蜂蜘蝶螺衰豪赫逆酸醒鞭魂魄麦",
     "semantic_code_replacements": [
       {
         "source_character": "絆",
         "target_character": "绊",
         "code": "E34A",
         "reason": "The fixed one-character spirit label keeps the original encoded bytes and replaces the source glyph with its simplified form."
+      },
+      {
+        "source_character": "唖",
+        "target_character": "镰",
+        "code": "88A0",
+        "reason": "The reviewed opening Virgola weapon name 大麦镰刀 needs 镰. The reachable source glyph 唖 has no occurrence in the parsed game text or display-name corpus and is replaced in the Chinese-owned font."
       }
     ]
   },
@@ -286,7 +303,7 @@
           "selected_write_entry_count": 179,
           "selected_write_target_count": 183,
           "fixed_covered_entry_count": 233,
-          "selection_sha256": "d401c08670cad63c7ef9f790bf490f53d818d69733b805dd26bcdbca7bf983c5",
+          "selection_sha256": "f28ac43247d8bb9ec542d2ffff52050910dc87a632d36a2183c5f6700f4a766b",
           "excluded_entry_count": 0,
           "excluded_reason_counts": {}
         },
@@ -296,7 +313,7 @@
           "payload_size": 4582,
           "owned_capacity": 5755,
           "target_metadata_sha256": "54217fba118f17eaed791551212d71cf8040f04c2bdd8a6085f7e979e03c920c",
-          "patch_plan_metadata_sha256": "d9cf7f5dd4a8c0fecaa3c20f676a5163135fdbef168f0980acdac969622cdddc",
+          "patch_plan_metadata_sha256": "586db1e55ad71a219a051c422c912ec127bfed0d56a2b3013ef86f412e68ec38",
           "pointer_write_count": 0,
           "pointer_bytes_unchanged": true,
           "non_target_bytes_unchanged": true,
@@ -306,37 +323,45 @@
           "source_size": 3471624,
           "output_size": 3471624,
           "source_sha256": "1087ebc84d5268ad31dcec61673f3ba06b3ee497effb0e4d019bab2866be740c",
-          "output_sha256": "249fbcda51d59ae65a51978af4f569f323280b8dfbc211d6686e2a01dcfd42c8",
-          "changed_byte_count": 5073,
-          "difference_range_count": 333,
-          "changed_offsets_sha256": "160a9c8e9242f83e5e026f92d4bba4410c7decd980a4f3e289c853ebaa6b3db5"
+          "output_sha256": "e89581c4e6b35bca12a65268e8f48e71d4f0d5b7a7c3a62b3e5f1bf4d8993160",
+          "changed_byte_count": 5078,
+          "difference_range_count": 329,
+          "changed_offsets_sha256": "c87dd850ea63f5f40dcc1d23317f4346e0eda256ac2ce5851ab53cf34934424f"
         }
       },
       "compdata": {
         "selection": {
-          "entry_count": 170,
-          "no_op_entry_count": 5,
+          "entry_count": 880,
+          "no_op_entry_count": 13,
           "no_op_entry_ids": [
+            "menu/Compdata/02/0167",
+            "menu/Compdata/02/0272",
+            "menu/Compdata/02/0275",
+            "menu/Compdata/02/0608",
+            "menu/Compdata/02/0611",
+            "menu/Compdata/02/0625",
+            "menu/Compdata/02/0627",
+            "menu/Compdata/02/0630",
             "menu/Compdata/04/0022",
             "menu/Compdata/04/0024",
             "menu/Compdata/04/0034",
             "menu/Compdata/04/0042",
             "menu/Compdata/04/0124"
           ],
-          "selected_write_entry_count": 165,
-          "selected_write_target_count": 164,
-          "fixed_covered_entry_count": 170,
-          "selection_sha256": "dfd1bfe1d1ca41881d32268b7a88bab968071aac95ccc04a9105f88db6370125",
+          "selected_write_entry_count": 867,
+          "selected_write_target_count": 866,
+          "fixed_covered_entry_count": 880,
+          "selection_sha256": "6b5030096c55796ee09966c5a615bb0a0eb7fb54971c0cb603492a0ed4a53a42",
           "excluded_entry_count": 0,
           "excluded_reason_counts": {}
         },
         "write": {
-          "entry_count": 165,
-          "target_count": 164,
-          "payload_size": 6190,
-          "owned_capacity": 7726,
-          "target_metadata_sha256": "d5852359a7732a9dd5876aaa2038f2a842da0a0265581fa3b6c74fb610777a3f",
-          "patch_plan_metadata_sha256": "883e5ff905cfebc33cecb7f687d408e71f37d06b0d58a005101a1311e18b5b52",
+          "entry_count": 867,
+          "target_count": 866,
+          "payload_size": 16356,
+          "owned_capacity": 22962,
+          "target_metadata_sha256": "fa0f7c116b6c9b6bd2f53ccbbc1c6ebfb378d43225c6f50f3c040128a74e28c3",
+          "patch_plan_metadata_sha256": "21e25792dd1eba60a13e977134bd58f3aff25375a75ccf93c0fb3df6e15dd14e",
           "pointer_write_count": 0,
           "pointer_bytes_unchanged": true,
           "non_target_bytes_unchanged": true,
@@ -346,10 +371,10 @@
           "source_size": 524032,
           "output_size": 524032,
           "source_sha256": "ad7894981e59748623141a0d625958f84fdca53d63cbf74e2dc61b02e86d3de2",
-          "output_sha256": "377f3ec06ab3e908dcc4bf1a9ae237a1af6408961bd80f0ef61e1218a1f9a015",
-          "changed_byte_count": 7006,
-          "difference_range_count": 348,
-          "changed_offsets_sha256": "dbcb310267898f1c257dec2ff974f14678bab4bcb83a4fcf73c6f5626dff7b98"
+          "output_sha256": "c08feb329df3dfdbb46e472b5aafdbdbf42bb2a61d03368e85d2534ef046c6a5",
+          "changed_byte_count": 20765,
+          "difference_range_count": 1290,
+          "changed_offsets_sha256": "e72c1e5445b1d5c9c6379261b221d7bd29bb37e957576479d10cab6adfc2bad7"
         }
       }
     },
@@ -359,32 +384,32 @@
   "ratchet": {
     "expected": {
       "parent_entry_count": 1250,
-      "selected_entry_count": 403,
-      "deferred_entry_count": 847,
+      "selected_entry_count": 1113,
+      "deferred_entry_count": 137,
       "selected_slps_entry_count": 233,
-      "selected_compdata_entry_count": 170,
-      "missing_renderer_character_count": 13,
+      "selected_compdata_entry_count": 880,
+      "missing_renderer_character_count": 78,
       "slps_no_op_entry_count": 54,
       "slps_selected_write_entry_count": 179,
       "slps_selected_write_target_count": 183,
-      "compdata_no_op_entry_count": 5,
-      "compdata_selected_write_entry_count": 165,
-      "compdata_selected_write_target_count": 164,
+      "compdata_no_op_entry_count": 13,
+      "compdata_selected_write_entry_count": 867,
+      "compdata_selected_write_target_count": 866,
       "excluded_after_font_entry_count": 0
     },
     "actual": {
       "parent_entry_count": 1250,
-      "selected_entry_count": 403,
-      "deferred_entry_count": 847,
+      "selected_entry_count": 1113,
+      "deferred_entry_count": 137,
       "selected_slps_entry_count": 233,
-      "selected_compdata_entry_count": 170,
-      "missing_renderer_character_count": 13,
+      "selected_compdata_entry_count": 880,
+      "missing_renderer_character_count": 78,
       "slps_no_op_entry_count": 54,
       "slps_selected_write_entry_count": 179,
       "slps_selected_write_target_count": 183,
-      "compdata_no_op_entry_count": 5,
-      "compdata_selected_write_entry_count": 165,
-      "compdata_selected_write_target_count": 164,
+      "compdata_no_op_entry_count": 13,
+      "compdata_selected_write_entry_count": 867,
+      "compdata_selected_write_target_count": 866,
       "excluded_after_font_entry_count": 0
     },
     "checks": {

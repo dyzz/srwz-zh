@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
   "profile_id": "ui-p10-database-fixed-core-first-five-atlas-test",
-  "scope": "A test-only whole-member composition of the validated P10 database fixed-core UI component, first-five story component and five-atlas Chinese suite. The remaining 848 database entries, disputed terminology, diagnostic fragments and unproven late-game surfaces remain excluded.",
+  "scope": "A test-only whole-member composition of the validated P10 UI component with all 348 unit names, all 711 weapon names, per-glyph CJK optical sizing, four reviewed exceptions, both protagonist selection profiles, first-five story component and five-atlas Chinese suite. Parts, four protected special-ability terms, diagnostic fragments and unproven late-game surfaces remain excluded.",
   "manifest_contract": {
     "status": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_component_validated_runtime_pending",
-    "runtime_purpose": "Exercise the 402-entry pilot-skill, unit-special-ability, spirit-command and leadership-effect database core together with all prior P9 UI groups, first-five story data and all five localized atlas candidates in one exact ISO."
+    "runtime_purpose": "Exercise all 348 unit names and 711 weapon names together with the 402 selected skill, special-ability, spirit-command and leadership entries, all prior P9 UI groups, both protagonist selection profiles, the finalized first-five titles, first-five story data and all five localized atlas candidates in one exact ISO."
   },
   "components": {
     "ui_p2_core": {
       "component_id": "ui-p10-database-fixed-core",
       "manifest": {
         "path": "manifests/ui-p10-database-fixed-core-validation.json",
-        "sha256": "18a87f42731fa597147d800e52c21b01743e7fb95d51860c25ae6a9937230094",
+        "sha256": "acb4a5938b21f280873878c0977538df5b18e40d121d87bccbce0a9286b7f7bf",
         "required_profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
         "required_status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
         "runtime_status_field": "runtime.status",
@@ -22,14 +22,14 @@
           "member": "SLPS_258.87",
           "path": "work/build/ui-p10-database-fixed-core/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "c5ab62a6e530118805a2025d2598872838012ae6d0c7fab023c4722eb6433cc0",
+          "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979",
           "manifest_lock_field": "outputs.slps"
         },
         {
           "member": "DATA/COMPDATA.BN",
           "path": "work/build/ui-p10-database-fixed-core/components/DATA/COMPDATA.BN",
-          "size": 145191,
-          "sha256": "d91e38bd0ede4520362ae1e08047887623e5c0586e3224d4ba8d19a39615d8f2",
+          "size": 145293,
+          "sha256": "bcc573758e0b452114c04370f97c5d898aa2879a39a20cc5caed7314fbbd2ee9",
           "manifest_lock_field": "outputs.compdata"
         },
         {
@@ -42,8 +42,8 @@
         {
           "member": "DATA/VT1.BIN",
           "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
-          "size": 127503424,
-          "sha256": "0ea32ad8d2e81d8da826922550ce140255595aff43645baa83b36332c4e04194",
+          "size": 127501728,
+          "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9",
           "manifest_lock_field": "outputs.vt1"
         }
       ]
@@ -70,7 +70,7 @@
     "first_five_story": {
       "manifest": {
         "path": "manifests/first-five-rust-validation.json",
-        "sha256": "c5662c05559dd1cf0f61d4c3b22f11d05d12fe474897c59355d23113b0f1880a",
+        "sha256": "738be65128b5fe5f9bbe72d2d58dcf5e1c3e2a4f07f9bb2c15728e67c665b96a",
         "required_profile_id": "first-five-rust",
         "required_status": "static_first_five_rust_component_validated_runtime_pending",
         "runtime_status_field": "runtime.status",
@@ -88,7 +88,7 @@
           "member": "DATA/STAGE.BIN",
           "path": "work/build/first-five-rust/components/DATA/STAGE.BIN",
           "size": 3910128,
-          "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff",
+          "sha256": "210ddea7d326eb5b835a73e5a961b3572f6b37260aa48f7c173471bf4d7ac327",
           "manifest_lock_field": "outputs.stage"
         }
       ]
@@ -113,8 +113,8 @@
   },
   "expected_outputs": {
     "DATA/COMPDATA.BN": {
-      "size": 145191,
-      "sha256": "d91e38bd0ede4520362ae1e08047887623e5c0586e3224d4ba8d19a39615d8f2"
+      "size": 145293,
+      "sha256": "bcc573758e0b452114c04370f97c5d898aa2879a39a20cc5caed7314fbbd2ee9"
     },
     "DATA/MTV_PROS.BIN": {
       "size": 8368,
@@ -122,11 +122,11 @@
     },
     "DATA/STAGE.BIN": {
       "size": 3910128,
-      "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff"
+      "sha256": "210ddea7d326eb5b835a73e5a961b3572f6b37260aa48f7c173471bf4d7ac327"
     },
     "DATA/VT1.BIN": {
-      "size": 127503424,
-      "sha256": "0ea32ad8d2e81d8da826922550ce140255595aff43645baa83b36332c4e04194"
+      "size": 127501728,
+      "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9"
     },
     "HEDBDY/HB.BIN": {
       "size": 31152,
@@ -138,7 +138,7 @@
     },
     "SLPS_258.87": {
       "size": 3471624,
-      "sha256": "c5ab62a6e530118805a2025d2598872838012ae6d0c7fab023c4722eb6433cc0"
+      "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979"
     }
   },
   "runtime": {
@@ -176,7 +176,9 @@
       "database/pilot-skills-core",
       "database/unit-special-abilities-core",
       "database/spirit-commands-core",
-      "database/leadership-effects-core"
+      "database/leadership-effects-core",
+      "database/weapons-all",
+      "database/unit-names-all"
     ]
   },
   "outputs": {

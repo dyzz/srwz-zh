@@ -600,6 +600,146 @@ def entry_signature_sha256(entries: Sequence[DisplayNameEntry]) -> str:
     return digest.hexdigest()
 
 
+def load_full_unit_name_corpus(
+    project_root: Path,
+    corpus_path: Path,
+    source_entries: Sequence[DisplayNameEntry],
+) -> tuple[dict[str, dict], dict]:
+    """Load the complete index-bound Chinese unit-name corpus.
+
+    The corpus intentionally stores translations by contiguous record ranges.
+    Source hashes and fixed-span metadata come from the independently validated
+    original display-name structure, so a translation cannot silently drift to
+    another pointer-backed slot.
+    """
+
+    root = project_root.resolve()
+    corpus_path = corpus_path.resolve()
+    try:
+        corpus_path.relative_to(root)
+    except ValueError as error:
+        raise DisplayNameError("unit-name corpus path escapes project") from error
+    document = _load_json_object(corpus_path)
+    scope = _require_object(document.get("scope"), context="unit-name scope")
+    segments = document.get("segments")
+    expected_count = scope.get("expected_unique_name_count")
+    if (
+        document.get("schema_version") != 1
+        or scope.get("domain") != "display-names"
+        or scope.get("table") != "unit"
+        or not isinstance(expected_count, int)
+        or isinstance(expected_count, bool)
+        or expected_count <= 0
+        or not isinstance(segments, list)
+        or not segments
+        or len(source_entries) != expected_count
+    ):
+        raise DisplayNameError("full unit-name corpus contract is invalid")
+
+    source_by_index = {entry.record_index: entry for entry in source_entries}
+    if (
+        len(source_by_index) != expected_count
+        or set(source_by_index) != set(range(expected_count))
+        or any(entry.table != "unit" or entry.field != "name" for entry in source_entries)
+    ):
+        raise DisplayNameError("unit-name source structure is not contiguous")
+
+    decisions: dict[str, dict] = {}
+    status_counts: dict[str, int] = {}
+    work_counts: dict[str, int] = {}
+    next_index = 0
+    for segment_index, raw_segment in enumerate(segments):
+        segment = _require_object(
+            raw_segment,
+            context=f"unit-name segment {segment_index}",
+        )
+        raw_range = segment.get("range")
+        translations = segment.get("translations")
+        work = segment.get("work")
+        status = segment.get("editorial_status")
+        source_refs = segment.get("source_refs")
+        if (
+            not isinstance(raw_range, list)
+            or len(raw_range) != 2
+            or not all(
+                isinstance(value, int) and not isinstance(value, bool)
+                for value in raw_range
+            )
+            or raw_range[0] != next_index
+            or raw_range[1] < raw_range[0]
+            or not isinstance(translations, list)
+            or len(translations) != raw_range[1] - raw_range[0] + 1
+            or not isinstance(work, str)
+            or not work
+            or status not in _EDITORIAL_STATUS_RANK
+            or _EDITORIAL_STATUS_RANK[status] < _EDITORIAL_STATUS_RANK["draft"]
+            or not isinstance(source_refs, list)
+            or not source_refs
+            or not all(isinstance(ref, str) and ref for ref in source_refs)
+        ):
+            raise DisplayNameError(
+                f"unit-name segment contract is invalid at {segment_index}"
+            )
+        for offset, translation in enumerate(translations):
+            record_index = raw_range[0] + offset
+            source = source_by_index.get(record_index)
+            if (
+                source is None
+                or not isinstance(translation, str)
+                or not translation
+                or _KANA_PATTERN.search(translation)
+            ):
+                raise DisplayNameError(
+                    f"unit-name translation is invalid at record {record_index}"
+                )
+            entry_id = f"display-name/unit/{record_index:04d}/name"
+            if source.entry_id != entry_id or entry_id in decisions:
+                raise DisplayNameError(
+                    f"unit-name source binding drift at record {record_index}"
+                )
+            decisions[entry_id] = {
+                "id": entry_id,
+                "source_text_sha256": source.source_text_sha256,
+                "translation": translation,
+                "editorial_status": status,
+                "source_refs": list(source_refs),
+                "work": work,
+                "record_index": record_index,
+                "target_offset": source.target_offset,
+                "capacity": source.capacity,
+                "pointer_offsets": list(source.pointer_offsets),
+            }
+        next_index = raw_range[1] + 1
+        status_counts[status] = status_counts.get(status, 0) + len(translations)
+        work_counts[work] = work_counts.get(work, 0) + len(translations)
+
+    if next_index != expected_count or len(decisions) != expected_count:
+        raise DisplayNameError("full unit-name corpus coverage is incomplete")
+    return decisions, {
+        "path": str(corpus_path.relative_to(root)),
+        "sha256": sha256_bytes(corpus_path.read_bytes()),
+        "batch_id": document.get("batch_id"),
+        "entry_count": len(decisions),
+        "entry_ids_sha256": sha256_bytes(
+            json.dumps(
+                sorted(decisions),
+                ensure_ascii=False,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ),
+        "decisions_sha256": sha256_bytes(
+            json.dumps(
+                decisions,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ),
+        "editorial_status_counts": status_counts,
+        "work_counts": work_counts,
+    }
+
+
 def build_display_name_report(
     project_root: Path,
     config_path: Path,
@@ -1600,5 +1740,6 @@ __all__ = [
     "build_p0_display_name_component",
     "entry_signature_sha256",
     "load_display_name_source",
+    "load_full_unit_name_corpus",
     "parse_display_names",
 ]

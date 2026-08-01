@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "matrix_id": "srwz-ui-runtime-v1",
-  "scope": "Runtime scene selection for the promoted first-five UI candidates. The Rust-compressed P10 COMPDATA candidate now passes the exact-ISO fresh-process boot gate with zero logged TLB misses; route navigation, database-page visuals and isolated atlas mapping remain separate pending evidence.",
+  "scope": "Runtime scene selection for the promoted first-five UI candidate. Earlier candidates supplied partial runtime samples. The current c2ba candidate applies deterministic 22/22.5/23/23.5pt optical selection to 1,750 final CJK assignments, adds both protagonist selection profiles, all 348 pointer-backed unit names and all 711 weapon names, is statically exact with zero LBA shifts, and requires fresh exact-ISO runtime acceptance.",
   "scene_inventory": {
     "path": "config/ui-scenes.json",
     "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
@@ -84,7 +84,7 @@
       "extension_id": "database-fixed-core-p10",
       "extension_kind": "database_selection",
       "manifest": "manifests/ui-database-fixed-core-selection.json",
-      "manifest_sha256": "0af0b7bf25db59cae38c0e376fed1095594fd287b4edba4fc1c9516c64c153e7",
+      "manifest_sha256": "df026f1027f83891841a966d2917f359e6045f7b76224b47230a792fc16b6c68",
       "selection_id": "srwz-ui-database-fixed-core-v1",
       "status_lock": {
         "field": "status",
@@ -92,7 +92,7 @@
       },
       "promotion_manifest": {
         "path": "manifests/ui-p10-database-fixed-core-validation.json",
-        "sha256": "18a87f42731fa597147d800e52c21b01743e7fb95d51860c25ae6a9937230094",
+        "sha256": "acb4a5938b21f280873878c0977538df5b18e40d121d87bccbce0a9286b7f7bf",
         "required_profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
         "required_status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
         "required_runtime_status": "not_tested"
@@ -100,13 +100,14 @@
       "parent_scene_id": "database/parts-skills-abilities-weapons",
       "parent_priority": "P2",
       "priority": "P1",
-      "priority_override_reason": "The 403-entry core is now renderer-complete and fixed-span validated; the previous 402-entry ISO proved the four routes reachable, while the new same-code 绊 glyph remains runtime pending. The unselected 847-entry remainder stays P2.",
+      "priority_override_reason": "The 1,113-entry selection is renderer-complete and fixed-span validated, including every one of the 711 weapon records. The current c2ba ISO also writes all 348 pointer-backed unit names and changes the final CJK raster set, so the exact artifact requires renewed list, detail, roster and disabled-state evidence. The unselected 137-entry parts and protected special-ability remainder stays P2.",
       "fixture_id": "first-intermission-card",
       "selected_family_scene_ids": [
         "database/pilot-skills-core",
         "database/unit-special-abilities-core",
         "database/spirit-commands-core",
-        "database/leadership-effects-core"
+        "database/leadership-effects-core",
+        "database/weapons-all"
       ]
     }
   ],
@@ -140,14 +141,14 @@
     {
       "artifact_id": "first-five-full-ui-with-compdata",
       "manifest": "manifests/ui-p10-database-fixed-core-first-five-atlas-test-runtime-validation.json",
-      "manifest_sha256": "46eb0eeefc718e13d177ad623dbe05e62848398acc12af0d6c775530f9634037",
+      "manifest_sha256": "b2d71ddf06eb6de3e576a4b7d5c5ffa9d4e7ed5ea3e9b1f5f9c07aa2c47006dd",
       "status_lock": {
         "field": "status",
-        "equals": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_iso_boot_smoke_passed_visual_pending"
+        "equals": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_iso_static_validated_runtime_not_tested"
       },
       "runtime_lock": {
         "field": "runtime.status",
-        "equals": "boot_smoke_passed_visual_not_tested"
+        "equals": "not_tested"
       },
       "availability": "runnable",
       "iso_lock": {
@@ -156,7 +157,7 @@
         "sha256_field": "iso_build.output.sha256",
         "expected_path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso",
         "expected_size": 3758358528,
-        "expected_sha256": "218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b"
+        "expected_sha256": "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88"
       }
     },
     {
@@ -1682,9 +1683,9 @@
       "fixture_id": "first-intermission-card",
       "variant": "compdata",
       "route": [
-        "Fresh boot the exact full UI ISO only after its COMPDATA boot gate passes.",
-        "Load the first-intermission save and open unit, pilot and weapon information for two records with selected researched display names.",
-        "Cycle focus so both active and inactive name palettes are visible."
+        "Fresh boot the exact current full UI ISO only after its COMPDATA boot gate passes.",
+        "Use first-intermission and later hash-locked saves to enumerate roster, unit-information and weapon-information surfaces across the 348 translated unit-name records.",
+        "Cycle focus so active and inactive palettes, short names and the longest fixed-span names are visible."
       ],
       "capture_points": [
         {
@@ -1704,8 +1705,8 @@
         }
       ],
       "assertions": [
-        "Selected dynamic pilot and unit display names are Chinese and belong to the displayed records.",
-        "Long names remain inside their fields in active and inactive palettes.",
+        "Every reachable dynamic unit display name is Chinese and belongs to the displayed record; pilot names outside the selected unit-name table remain separately attributed.",
+        "The all-348 unit-name corpus rereads exactly, and sampled longest names remain inside their fields in active and inactive palettes.",
         "Static SLPS labels and dynamic COMPDATA names share the same font baseline."
       ],
       "runtime_status": "not_tested"
@@ -2128,6 +2129,40 @@
         "No clipping, overlap, missing glyph or unintended width change appears."
       ],
       "runtime_status": "not_tested"
+    },
+    {
+      "case_id": "database/weapons-all",
+      "purpose": "localization_acceptance",
+      "priority": "P1",
+      "scene_ids": [
+        "database/weapons-all"
+      ],
+      "artifact_id": "first-five-full-ui-with-compdata",
+      "fixture_id": "first-intermission-card",
+      "variant": null,
+      "route": [
+        "Fresh boot the current Rust P10 full-UI ISO and load hash-locked saves spanning early, middle and late rosters.",
+        "Open unit information, weapon selection and attack detail pages for every available unit family.",
+        "Sample every page and explicitly cover the longest names, duplicate Chinese names, punctuation variants and disabled weapons."
+      ],
+      "capture_points": [
+        {
+          "capture_id": "database-weapons-all-list",
+          "kind": "screenshot",
+          "state": "representative weapon lists spanning the complete 711-entry translated database"
+        },
+        {
+          "capture_id": "database-weapons-long-duplicate-disabled",
+          "kind": "screenshot",
+          "state": "long, duplicate-name, punctuation and disabled weapon rows"
+        }
+      ],
+      "assertions": [
+        "All 711 weapon records reread exactly offline and every reachable sampled weapon renders the matching Chinese name on its actual list and detail pages.",
+        "Weapon icons, attack values, ranges and type markers remain aligned and unchanged.",
+        "Long and duplicate Chinese names remain correctly associated with their source-bound records without clipping, substitution or ordinal drift."
+      ],
+      "runtime_status": "not_tested"
     }
   ],
   "scene_dispositions": [
@@ -2384,6 +2419,13 @@
       ]
     },
     {
+      "scene_id": "database/weapons-all",
+      "disposition": "selected",
+      "case_ids": [
+        "database/weapons-all"
+      ]
+    },
+    {
       "scene_id": "menus/extended-embedded-dialogs",
       "disposition": "deferred",
       "reason": "The 275-entry aggregate has a disjoint 22-group static scene map. All eighteen purely player-facing groups covering 253 entries and nine statically identifiable player-facing entries from two mixed groups now have promoted writers and exact runtime routes. The remaining thirteen corrupt, NULL diagnostic, raw control, standalone format and ambiguous Set fragments remain deliberately excluded.",
@@ -2398,8 +2440,8 @@
     {
       "scene_id": "database/parts-skills-abilities-weapons",
       "disposition": "deferred",
-      "reason": "The 1,250-entry aggregate now has a promoted 403-entry skills, special-abilities, spirit-command and leadership fixed core. The one-character label 绊 reuses and rerasterizes the original 絆 code/glyph. The remaining 847 parts, weapons and disputed proper-name terms stay deferred.",
-      "exit_gate": "Execute the four exact-P10 list/detail/disabled cases against a newly built candidate, including visual acceptance of 绊, then design a new storage and renderer strategy before promoting any of the remaining 847 decisions."
+      "reason": "The 1,250-entry aggregate now has a promoted 1,113-entry skills, special-abilities, spirit-command, leadership and all-weapons fixed core. The remaining 137 parts and four protected special-ability records stay deferred.",
+      "exit_gate": "Execute the five exact-P10 list/detail/disabled cases against the current candidate, including representative full-weapon coverage, then separately review and promote the remaining 137 decisions."
     },
     {
       "scene_id": "battle/retreat-lines",

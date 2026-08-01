@@ -36,24 +36,24 @@ class UiDatabaseLayoutTests(unittest.TestCase):
         self.assertNotIn("source_text", serialized)
         self.assertNotIn("target_text", serialized)
 
-    def test_all_403_entries_fit_observed_source_envelopes(self):
+    def test_all_1113_entries_fit_observed_source_envelopes(self):
         self.assertEqual(
             self.report["summary"],
             {
-                "family_count": 4,
-                "entry_count": 403,
-                "source_readback_count": 403,
-                "target_readback_count": 403,
+                "family_count": 5,
+                "entry_count": 1113,
+                "source_readback_count": 1113,
+                "target_readback_count": 1113,
                 "line_width_overflow_count": 0,
                 "line_count_overflow_count": 0,
-                "literal_character_count": 513,
+                "literal_character_count": 882,
                 "missing_glyph_character_count": 0,
                 "empty_glyph_character_count": 0,
-                "target_han_character_count": 445,
+                "target_han_character_count": 798,
                 "original_font_han_character_count": 0,
                 "han_raster_mismatch_count": 0,
-                "preview_page_count": 10,
-                "preview_entry_count": 403,
+                "preview_page_count": 25,
+                "preview_entry_count": 1113,
             },
         )
         self.assertTrue(all(self.report["acceptance"].values()))
@@ -77,14 +77,32 @@ class UiDatabaseLayoutTests(unittest.TestCase):
                 "database/pilot-skills-core": (88, 23, 3, 21, 3, 2),
                 "database/spirit-commands-core": (145, 28, 2, 25, 2, 3),
                 "database/unit-special-abilities-core": (
-                    155,
+                    154,
                     30,
                     3,
                     27,
                     3,
                     4,
                 ),
+                "database/weapons-all": (711, 32, 1, 26, 1, 15),
             },
+        )
+
+    def test_duplicate_translations_keep_their_source_bound_identity(self):
+        rows = {
+            row["entry_id"]: row for row in self.report["entries"]
+        }
+        self.assertEqual(
+            rows["menu/Compdata/02/0083"]["target_text"],
+            "钩爪",
+        )
+        self.assertEqual(
+            rows["menu/Compdata/02/0213"]["target_text"],
+            "钩爪",
+        )
+        self.assertEqual(
+            rows["menu/Compdata/02/0214"]["target_text"],
+            "八连装导弹荚舱",
         )
 
     def test_two_reflowed_entries_stay_within_their_envelopes(self):
@@ -116,7 +134,7 @@ class UiDatabaseLayoutTests(unittest.TestCase):
         self.assertFalse(row["line_width_overflow"])
 
     def test_exact_glyph_preview_pages_match_png_locks(self):
-        self.assertEqual(len(self.previews), 10)
+        self.assertEqual(len(self.previews), 25)
         for preview in self.report["previews"]:
             payload = self.previews[preview["path"]]
             self.assertEqual(payload[:8], b"\x89PNG\r\n\x1a\n")

@@ -37,6 +37,12 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--iso", type=Path, default=DEFAULT_ISO)
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
+    parser.add_argument("--build-config", type=Path, default=BUILD_CONFIG)
+    parser.add_argument(
+        "--component-report",
+        type=Path,
+        default=COMPONENT_REPORT,
+    )
     parser.add_argument("--force", action="store_true")
     return parser.parse_args()
 
@@ -99,8 +105,12 @@ def main() -> int:
     if report_path.exists() and not args.force:
         raise SystemExit(f"output exists; use --force: {report_path}")
 
-    config = json.loads(BUILD_CONFIG.read_text(encoding="utf-8"))
-    component = json.loads(COMPONENT_REPORT.read_text(encoding="utf-8"))
+    config = json.loads(
+        project_path(args.build_config).read_text(encoding="utf-8")
+    )
+    component = json.loads(
+        project_path(args.component_report).read_text(encoding="utf-8")
+    )
     expected_replacements = {
         item["member"]: item for item in config["replacements"]
     }

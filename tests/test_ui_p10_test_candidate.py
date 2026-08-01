@@ -60,13 +60,15 @@ class UiP10TestCandidateTests(unittest.TestCase):
     def test_runtime_boundary_covers_database_and_prior_families(self):
         self.assertEqual(self.manifest["runtime"]["status"], "not_tested")
         families = self.manifest["runtime"]["required_scene_families"]
-        self.assertEqual(len(families), 34)
+        self.assertEqual(len(families), 36)
         self.assertTrue(
             {
                 "database/pilot-skills-core",
                 "database/unit-special-abilities-core",
                 "database/spirit-commands-core",
                 "database/leadership-effects-core",
+                "database/weapons-all",
+                "database/unit-names-all",
             }
             <= set(families)
         )

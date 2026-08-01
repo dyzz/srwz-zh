@@ -46,15 +46,15 @@ class UiP10TestCandidateIsoTests(unittest.TestCase):
         self.assertEqual(
             self.runtime["iso_build"]["output"],
             {
-                "size": 3758456832,
+                "size": 3758358528,
                 "sha256": (
-                    "2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566"
-                    "767d3c5020c37431"
+                    "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125"
+                    "ef4dcba88"
                 ),
             },
         )
 
-    def test_seven_members_and_single_shift_segment_are_bound(self):
+    def test_seven_members_and_zero_lba_shift_are_bound(self):
         replacements = self.runtime["iso_build"]["replacements"]
         self.assertEqual(set(replacements), set(self.component["outputs"]))
         self.assertEqual(len(replacements), 7)
@@ -69,7 +69,7 @@ class UiP10TestCandidateIsoTests(unittest.TestCase):
             [
                 {
                     "first_member": "DATA/STAGE.BIN",
-                    "shift_sectors": 1,
+                    "shift_sectors": 0,
                 },
             ],
         )
@@ -78,10 +78,16 @@ class UiP10TestCandidateIsoTests(unittest.TestCase):
         self.assertTrue(all(self.runtime["static_acceptance"].values()))
         self.assertEqual(
             self.runtime["runtime"]["status"],
-            "boot_smoke_passed_visual_not_tested",
+            "not_tested",
         )
-        self.assertEqual(self.runtime["runtime"]["pine_state"], "Running")
-        self.assertEqual(self.runtime["runtime"]["tlb_miss_count"], 0)
+        self.assertIn(
+            "fresh_process_boot_exact_iso",
+            self.runtime["runtime"]["pending_gates"],
+        )
+        self.assertIn(
+            "no_clipping_overlap_or_missing_glyphs",
+            self.runtime["runtime"]["pending_gates"],
+        )
         self.assertEqual(
             self.runtime["runtime"]["required_iso_sha256"],
             self.runtime["iso_build"]["output"]["sha256"],

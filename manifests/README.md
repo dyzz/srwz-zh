@@ -219,22 +219,34 @@
   `73563075703fa49eb3fcdc4e3edab38f6cc6dfc1a4617ccccd8588097583558b`，
   运行状态仍为 `not_tested`。
 - `ui-database-fixed-core-selection.json`：从 1,250 条大型数据库中选择
-  402 条定长可写、术语已审的驾驶员技能／机体特殊能力／精神指令／小队长
-  能力条目，延期 848 条，并锁定五项受保护排除及四个运行家族。
-- `ui-p10-database-font-validation.json`：继承 P7 组合字库，消耗最后 12 个
-  renderer-addressable 候选槽并统一重绘 14 个继承汉字；402 条选择零缺字，
-  最终 decoded 字库 SHA-256 为
-  `4798a2f62af9d4fb6ad65502ca25a772a5eabbc196633aebacc3ff8728005ad6`。
-- `ui-p10-database-fixed-core-validation.json`：在 P9 前像上写入 232 条 SLPS
-  和 170 条 COMPDATA 决定；402 条全部定长回读，指针／非目标字节不变，
-  COMPDATA 完整回解且压缩前缀保留 113,266 字节，VT1 只替换字体 chunk 2。
+  1,113 条定长可写的驾驶员技能／机体特殊能力／精神指令／小队长能力和
+  全部 711 个武器条目，延期 137 条，并锁定四项受保护排除及五个运行家族。
+- `ui-p10-database-font-validation.json`：继承 P7 组合字库，追加 87 个
+  renderer-addressable 字形、统一重绘 99 个继承汉字；全部 1,754 个最终
+  CJK assignment 通过逐字 22／22.5／23／23.5pt 度量选择，“尔”使用 25pt
+  人工复核例外，并固定“您／尔／班／任／坠”五个审查结果；另完成四项受审
+  同码位替换。开场双主人公简介作为显式附加语料纳入覆盖，数据库、
+  前五话标题和双主人公简介零缺字。
+- `ui-p10-database-fixed-core-validation.json`：在 P9 前像上选择 233 条 SLPS
+  和 880 条 COMPDATA 决定，并写入前五话标题、双主人公标题／简介及全部
+  348 个 pointer-backed 机体名；1,113 条数据库决定全部定长回读，808 个
+  机体名指针及非目标字节不变，COMPDATA 完整回解且保持 71 扇区，VT1 只
+  替换字体 chunk 2。
 - `ui-p10-database-fixed-core-first-five-atlas-test-validation.json` 与同名
   runtime manifest：组合当前 P10 UI、前五关和五图 suite，并绑定到 66 成员
-  DVD；59 个成员不变、7 个 replacement 独立 UDF 回读精确，LBA 位移为
-  `+8/+45`，镜像 SHA-256 为
-  `2bba1c82a0f1fa88eef2d0870c62eddbf36cfe4ceaa8f566767d3c5020c37431`。
-  fresh-process boot smoke 已证明其在加入改写 COMPDATA 后触发 TLB，不能
-  晋级为当前运行候选。
+  DVD；59 个成员不变、7 个 replacement 独立 UDF 回读精确，全部成员保持
+  原 LBA，镜像 SHA-256 为
+  `310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88`。
+  上一份 `b608…` Rust min-match 3 候选已通过 fresh-process DVD／ELF／PINE、
+  确认人物后进入第 1 话及 243 秒零 TLB，并取得四张局部截图；后续 `c2ba…`
+  又通过了 8 秒 fresh-process DVD／ELF／PINE／0 TLB 启动门。当前 `310a…`
+  尚未运行，人物确认后转场和逐屏视觉仍待测。旧 `d945…` 候选在此转场的 TLB 失败
+  作为归因证据保留。
+- `full-chinese-font-plan.json`：证明原标准 renderer 为全部 4,480 个 glyph
+  提供顺序 code；固定保留 95 个单字节 ASCII 槽后，当前 1,899 个非 ASCII
+  中文语料字符占用从 glyph 287 起连续的 4,193 个可分配槽中的一部分，余
+  2,294 格。它是静态容量
+  与 append-only registry 规划，不是已经物化或运行通过的全量字库。
 - `ui-iso-incremental-validation.json`：从 first-five 起依次单独加入 atlas、
   VT1、SLPS、MTV_PROS 和 COMPDATA；实读六张 ISO、静态 build report、
   PCSX2 v2.6.3 PINE receipt 与日志。当前只晋级
@@ -257,8 +269,8 @@
 - `ui-runtime-test-matrix.json`：把 14 类基础 UI 场景完整分成 10 类当前
   测试目标和 4 类显式延期，并通过场景图与 P7 字库 promotion manifest
   选择十八个整组分区，通过 P9 promotion manifest 选择两个逐条子集，再由
-  P10 promotion manifest 加入四个数据库家族；共 38 类／34 类当前目标，
-  锁定 8 个制品 profile、46 个逐屏用例、8 类 fixture、112 个截图点、6 个截图
+  P10 promotion manifest 加入五个数据库家族；共 39 类／35 类当前目标，
+  锁定 7 个制品 profile、47 个逐屏用例、8 类 fixture、114 个截图点、6 个截图
   序列和 5 个 texture delta；
   五张 atlas 用例均绑定
   中文候选及其 421／2,292／3,634／2,083／1,262 像素 delta。当前只有

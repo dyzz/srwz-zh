@@ -132,17 +132,23 @@ P7／前五关／atlas 的 7 成员所有权、59 个未替换 ISO 成员、`+7/
 玩家标签、34 个 target、174 字节／36 段修改和 13 条明确排除项；
 `test_ui_p9_test_candidate.py` 与 `test_ui_p9_test_candidate_iso.py` 固定
 P9 7 成员组合、精确 ISO 哈希及运行未验收边界；
-`test_ui_database_selection.py` 固定 P10 从 1,250 条数据库中选择四家族
-403 条、延期 847 条、四项受保护排除及定长／术语门；
-`test_ui_p10_database_font.py` 固定最后 12 个 allocation、14 个统一重绘字形、
-403 条 renderer 零缺字和零剩余候选槽；
-`test_ui_p10_database_candidate.py` 固定 SLPS 233 条、COMPDATA 170 条写回、
+`test_ui_database_selection.py` 固定 P10 从 1,250 条数据库中选择五家族
+1,113 条（含全部 711 个武器名）、延期 137 条、四项受保护排除及定长／术语门；
+`test_ui_p10_database_font.py` 固定 85 个 allocation、97 个统一重绘字形、
+四项受审同码位替换、数据库／前五话标题／双主人公简介 renderer 零缺字和
+2,109 个剩余候选槽；
+`test_ui_p10_database_candidate.py` 固定 SLPS 233 条、COMPDATA 880 条选择、
+全部 348 个 pointer-backed 机体显示名、
 preserve-prefix 回解、指针／非目标字节与非字体 chunk 不变；
 `test_ui_p10_test_candidate.py` 与 `test_ui_p10_test_candidate_iso.py` 固定
-P10 7 成员组合、59 个未替换成员、`+8/+45` LBA 位移、独立 UDF 回读、精确
-镜像哈希及运行未验收边界；
+P10 7 成员组合、59 个未替换成员、零 LBA 位移、独立 UDF 回读、精确
+镜像哈希、boot smoke 通过及逐屏运行未验收边界；
+`test_full_chinese_font_plan.py` 固定 4,480 格 standard resolver 双射、95 个
+ASCII 保留槽、从 glyph 287 起连续的 4,193 格最终中文容量、当前 1,899 字符
+需求／2,294 格余量及
+全量 profile 仍需运行 canary 的边界；
 `test_ui_runtime_matrix.py` 固定 14 类基础场景、十八个整组扩展场景、两个逐条
-子集和四个数据库家族的完整去向、46 个逐屏用例、
+子集和五个数据库家族的完整去向、47 个逐屏用例、
 001～005 五个独立开场序列、世界史起点／中点／终点、五张中文 atlas 候选的
 截图＋texture-delta 双门，以及七份尚未取得的原生
 memory-card fixture；旧 `.p2s`

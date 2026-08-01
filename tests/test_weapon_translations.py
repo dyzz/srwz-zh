@@ -26,6 +26,20 @@ class WeaponTranslationTests(unittest.TestCase):
     def test_all_weapon_records_have_one_matching_canonical_term(self):
         entries = self.translations["entries"]
         terms = self.glossary["terms"]
+        fixed_span_display_contractions = {
+            167: "爆雷",
+            345: "荷粒子炮",
+            399: "低反动炮",
+            400: "Mk39低反动炮",
+            401: "低反动炮（连射）",
+            402: "Mk39低反动炮（连射）",
+            505: "XM47特里斯坦",
+            519: "超限攻击",
+            544: "超限连击",
+            545: "超限冻结",
+            553: "Big O·最终舞台",
+            565: "格兰骑士攻击",
+        }
 
         self.assertEqual(self.translations["batch_id"], "v1-menu-weapons")
         self.assertEqual(self.translations["scope"]["entry_count"], 711)
@@ -40,7 +54,17 @@ class WeaponTranslationTests(unittest.TestCase):
             self.assertEqual(entry["editorial_status"], "draft")
             self.assertIn(term_id, entry["glossary_refs"])
             self.assertEqual(term["id"], term_id)
-            self.assertEqual(term["translation"], entry["translation"])
+            if ordinal in fixed_span_display_contractions:
+                self.assertEqual(
+                    entry["translation"],
+                    fixed_span_display_contractions[ordinal],
+                )
+                self.assertNotEqual(
+                    term["translation"],
+                    entry["translation"],
+                )
+            else:
+                self.assertEqual(term["translation"], entry["translation"])
             self.assertEqual(term["category"], "weapon")
             self.assertEqual(term["domains"], ["menu"])
             self.assertFalse(term["enforce"])

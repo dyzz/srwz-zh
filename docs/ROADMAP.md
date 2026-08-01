@@ -76,13 +76,23 @@ raw-trail 新类别和滚动实机验证尚未验收。在此基线上，researc
 四个纯玩家可见 fixed-span 组的 59 条决定；P9 从两个混合组中逐条选出
 9 条可静态证明的玩家标签，然后组合
 前五关 `HB/STAGE` 和五图 atlas suite：
-7 个 replacement 所有权互斥、59 个成员原样、单段 `+1 sector` LBA 位移和
-最终 ISO 哈希均已锁定。P10 又从 1,250 条数据库中晋级 403 条驾驶员技能、机体特殊
-能力、精神指令和小队长能力，补入最后 12 个候选字槽并重绘 14 个继承汉字；
-233 条 SLPS 和 170 条 COMPDATA 均定长回读，Rust COMPDATA 为
-145,191 bytes、距硬上限余 217 bytes；精确 P10 DVD 已通过 fresh-process
-DVD／ELF／PINE Running／零 TLB 启动门。余下 847 条明确延期，五张 atlas
-的运行归因与 P10 逐屏运行仍未验收。具体实施见
+7 个 replacement 所有权互斥、59 个成员原样、全部成员原 LBA，最终 ISO
+哈希均已锁定。P10 又从 1,250 条数据库中晋级 1,113 条驾驶员技能、机体特殊
+能力、精神指令、小队长能力和全部 711 个武器名，并写入全部 348 个机体
+显示名，追加 87 个字形分配、重绘 99 个继承汉字；全部 1,754 个最终 CJK
+assignment 通过逐字
+22／22.5／23／23.5pt 度量选择，“尔”使用 25pt 人工例外，并固定
+“您／尔／班／任／坠”五个复核结果，
+同时完成四项受审同码位替换；233 条 SLPS、880 条 COMPDATA 数据库选择及
+348 个机体名均定长回读，Rust COMPDATA 为 145,293 bytes、距硬上限余
+115 bytes；上一份 `b608…` P10 DVD 已通过
+fresh-process DVD／ELF／PINE Running、确认人物后进入第 1 话和 243 秒零
+TLB。旧候选的 VT1 增长曾令 `STAGE.BIN` 后移一个 sector，并在确认人物后
+越界读取；后续 `c2ba…` 固定长度候选已消除 LBA 位移并通过 fresh-process
+启动门。当前 `310a…` 又将开场简介纳入字体需求闭包，补齐“凉／缺”并调整
+“尔”，尚待 fresh-process、人物确认后转场和视觉证据。余下
+137 条明确延期，五张 atlas 的运行
+归因与 P10 逐屏运行仍未验收。具体实施见
 [`UI_COVERAGE_TEST_PLAN.md`](UI_COVERAGE_TEST_PLAN.md)。
 
 P0 之外原来笼统延期的 275 条 SLPS `Unknown` 文本也已完成第一轮静态分屏：
@@ -106,12 +116,12 @@ target，只改变 174 字节／36 段。当前合计 262 条进入候选，运�
 
 运行场景已进一步收敛为独立 `ui-runtime-test-matrix`：14 类基础场景都有
 唯一去向，10 类进入测试、4 类登记延期原因和 exit gate；十八个已晋级 scene
-extension、两个混合组逐条子集和四个数据库核心家族另作为独立选择加入，
-共 38 类场景、46 个
-逐屏用例。1 张 P10 综合候选与五张 atlas 隔离 profile、112 个截图点、6 个截图
+extension、两个混合组逐条子集和五个数据库核心家族另作为独立选择加入，
+共 39 类场景、47 个
+逐屏用例。1 张 P10 综合候选与五张 atlas 隔离 profile、114 个截图点、6 个截图
 序列及五份 texture delta 均有机器锁。当前只有
 fresh-boot fixture 就绪，七份原生 memory card 仍待取得，因此该矩阵仍是
-测试计划而不是运行通过证明。六个用例 route-ready，40 个用例因 fixture
+测试计划而不是运行通过证明。六个用例 route-ready，41 个用例因 fixture
 未取得而等待；当前没有用例被制品启动状态阻塞。核心 UI、二十个 embedded
 场景、路线和前五关绑定精确候选。统一 session
 probe／receipt verifier 会检查精确 ISO、PINE、

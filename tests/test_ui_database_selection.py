@@ -53,12 +53,12 @@ class UiDatabaseSelectionTests(unittest.TestCase):
             "static_database_fixed_subset_selected_font_extension_required",
         )
 
-    def test_four_families_select_403_and_defer_847(self):
+    def test_five_families_select_all_weapons_and_defer_only_137(self):
         selection = self.manifest["selection"]
-        self.assertEqual(selection["selected_entry_count"], 403)
+        self.assertEqual(selection["selected_entry_count"], 1113)
         self.assertEqual(selection["selected_slps_entry_count"], 233)
-        self.assertEqual(selection["selected_compdata_entry_count"], 170)
-        self.assertEqual(selection["deferred_entry_count"], 847)
+        self.assertEqual(selection["selected_compdata_entry_count"], 880)
+        self.assertEqual(selection["deferred_entry_count"], 137)
         self.assertEqual(
             {
                 family["runtime_scene_id"]: family["entry_count"]
@@ -66,9 +66,10 @@ class UiDatabaseSelectionTests(unittest.TestCase):
             },
             {
                 "database/pilot-skills-core": 88,
-                "database/unit-special-abilities-core": 155,
+                "database/unit-special-abilities-core": 154,
                 "database/spirit-commands-core": 145,
                 "database/leadership-effects-core": 15,
+                "database/weapons-all": 711,
             },
         )
 
@@ -76,10 +77,10 @@ class UiDatabaseSelectionTests(unittest.TestCase):
         demand = self.manifest["font_demand"]
         self.assertEqual(
             demand["missing_renderer_characters"],
-            "咫垫挡斩框歼绊药赋赖镜闪－",
+            "/佩俯农冻吨呐咫喊喙喷垫妒宾岑廖弯扩扳挡掷撕擒斩框桨桩歼涡漩灵烧疯绊绞绯绷肚脐臂芬荚药蛛蜃蜥蝰蟒贡赋赖踢轨辉辐邀钉钳钻铆铬链锤镜镰闪霆霰颤飓骑魇鹉鹦鹫鹰齿－",
         )
-        self.assertEqual(demand["missing_renderer_character_count"], 13)
-        self.assertEqual(demand["original_font_han_count"], 14)
+        self.assertEqual(demand["missing_renderer_character_count"], 78)
+        self.assertEqual(demand["original_font_han_count"], 72)
         self.assertEqual(
             self.manifest["font_demand"]["semantic_code_replacements"],
             [
@@ -92,7 +93,18 @@ class UiDatabaseSelectionTests(unittest.TestCase):
                         "original encoded bytes and replaces the source "
                         "glyph with its simplified form."
                     ),
-                }
+                },
+                {
+                    "source_character": "唖",
+                    "target_character": "镰",
+                    "code": "88A0",
+                    "reason": (
+                        "The reviewed opening Virgola weapon name 大麦镰刀 "
+                        "needs 镰. The reachable source glyph 唖 has no "
+                        "occurrence in the parsed game text or display-name "
+                        "corpus and is replaced in the Chinese-owned font."
+                    ),
+                },
             ],
         )
         fixed = self.manifest["fixed_span_readiness"]
@@ -107,7 +119,7 @@ class UiDatabaseSelectionTests(unittest.TestCase):
             fixed["members"]["compdata"]["selection"][
                 "fixed_covered_entry_count"
             ],
-            170,
+            880,
         )
         self.assertEqual(
             sum(

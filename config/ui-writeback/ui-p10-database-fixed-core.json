@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
-  "scope": "Extend the P9 UI core with the final twelve renderer-addressable glyph allocations, fourteen unified rerasterized Han glyphs, the explicit 絆-to-绊 same-code replacement, and 403 terminology-safe fixed-span database decisions across skills, unit abilities, spirit commands and leadership effects. Four disputed proper-name terms and the remaining parts/weapons database stay unchanged.",
+  "scope": "Extend the P9 UI core with all 711 fixed-span weapon names, 348 pointer-backed unit names, the selected skill/special-ability/spirit/leadership database entries, 87 incremental allocations, 99 newly rerasterized reachable Han glyphs, deterministic per-glyph optical selection, four reviewed optical exceptions, four semantic same-code replacements, the finalized female-route titles for stages 1-5, and both protagonist selection titles/profiles. Parts and four protected special-ability terms remain deferred.",
   "database_selection": {
     "config": {
       "path": "config/ui-database-selection.json",
-      "sha256": "0ae75acd8b03310676eae7ab7fa114a833d45cbc12448f1274a6b7050c290965"
+      "sha256": "18431a9fe1e74585318a48759a0ab1837a95b143e6fb3e7514d1de2057f0de03"
     },
     "manifest": {
       "path": "manifests/ui-database-fixed-core-selection.json",
-      "sha256": "0af0b7bf25db59cae38c0e376fed1095594fd287b4edba4fc1c9516c64c153e7",
+      "sha256": "df026f1027f83891841a966d2917f359e6045f7b76224b47230a792fc16b6c68",
       "required_status": "static_database_fixed_subset_selected_font_extension_required",
       "required_selection_id": "srwz-ui-database-fixed-core-v1"
     }
@@ -17,19 +17,19 @@
   "font_extension": {
     "manifest": {
       "path": "manifests/ui-p10-database-font-validation.json",
-      "sha256": "bd8db3593730f4d0622a8d5702cdee60e06f2b092466734af7bb9d12c7c40825",
+      "sha256": "179419803a6b446f60a41a3705b79c386774660f6ecc21d56393586bef21717d",
       "required_status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
       "required_font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1"
     },
     "slps": {
       "path": "work/build/ui-p10-database-font/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "1f1d51d705b9f8734a333d0a72f64c643610f58fe7f5a8dc114a12db8e7fc867"
+      "sha256": "c74f60fcd5e1a9212e0797ffc588ce922a85f981ccbd73a3b5717b13e6a0447e"
     },
     "vt1": {
       "path": "work/build/ui-p10-database-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "0971dcbd2724360bc5594aae283d0fa0a6016a7ac8fb6e54426ded51e5288c02"
+      "sha256": "dfa9a052c877cd5324fe7084ce242dc95a3313654a89ca6ab290686cafa2aab3"
     },
     "mode": "replace-vt1-font-chunk-and-compose-slps-offset-delta",
     "chunk_index": 2,
@@ -79,25 +79,103 @@
     "path": "vendor/upstream-python/project/tbl_all.json",
     "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
   },
+  "first_five_polish": {
+    "stage_titles": {
+      "path": "corpus/zh/menu/stage-names.json",
+      "sha256": "4482600997e968f00f0575ac90133b3f34f3f7defa69168ca8798b09c841bb29",
+      "entry_ids": [
+        "menu/Compdata/03/0000",
+        "menu/Compdata/03/0001",
+        "menu/Compdata/03/0002",
+        "menu/Compdata/03/0003",
+        "menu/Compdata/03/0004"
+      ],
+      "records": [
+        {
+          "entry_id": "menu/Compdata/03/0000",
+          "offset": 470432,
+          "span": 24
+        },
+        {
+          "entry_id": "menu/Compdata/03/0001",
+          "offset": 470456,
+          "span": 16
+        },
+        {
+          "entry_id": "menu/Compdata/03/0002",
+          "offset": 470472,
+          "span": 16
+        },
+        {
+          "entry_id": "menu/Compdata/03/0003",
+          "offset": 470488,
+          "span": 16
+        },
+        {
+          "entry_id": "menu/Compdata/03/0004",
+          "offset": 470504,
+          "span": 16
+        }
+      ],
+      "required_editorial_status": "final"
+    },
+    "opening_profile": {
+      "path": "corpus/zh/menu/opening-protagonist-profile.json",
+      "sha256": "054e14d4060896e8b4bd76e388f32a74556a261424a15d17704e51cd57fe3e44",
+      "required_editorial_status": "final",
+      "records": [
+        {
+          "entry_id": "menu/Compdata/direct/opening-male-route-title",
+          "offset": 523488,
+          "span": 32
+        },
+        {
+          "entry_id": "menu/Compdata/direct/opening-female-route-title",
+          "offset": 523520,
+          "span": 32
+        },
+        {
+          "entry_id": "menu/Compdata/direct/opening-male-profile",
+          "offset": 523552,
+          "span": 128
+        },
+        {
+          "entry_id": "menu/Compdata/direct/opening-female-profile",
+          "offset": 523680,
+          "span": 136
+        }
+      ]
+    }
+  },
+  "unit_names": {
+    "path": "corpus/zh/display-names/units-full.json",
+    "sha256": "d8fca4abd851c3c7274b60dc744a4305520c88ab513759d71e63274bf05c9161",
+    "structure_config": "config/display-names/compdata.json",
+    "structure_sha256": "cd0b06663d0c25af23b8dda13729c3a97b6bee44d43b7bc1834e7f11b840cb9b",
+    "expected_entry_count": 348
+  },
   "codec": {
     "mode": "preserve-prefix-reencode-suffix",
     "strategy": "rust-maximum",
-    "min_match_length": 2,
+    "min_match_length": 3,
     "max_match_chain": 65535,
     "lazy_matching": true,
     "max_output_size": 145408,
     "sector_size": 2048,
     "max_sectors": 71,
-    "minimum_preserved_compressed_prefix": 113200
+    "minimum_preserved_compressed_prefix": 108000
   },
   "composition": {
     "require_selection_manifest_reproducible": true,
     "require_every_selected_entry_fixed_span": true,
     "replace_only_vt1_font_chunk": true,
-    "preserve_every_non_font_vt1_chunk_byte_exact": true,
+    "preserve_non_font_vt1_chunks_except_proven_zero_slack_donation": true,
     "rebase_vt1_offset_table_on_p9_slps": true,
     "require_font_offset_bytes_disjoint_from_slps_text_bytes": true,
     "require_compdata_pointer_bytes_unchanged": true,
+    "require_first_five_stage_titles_fixed_span": true,
+    "require_opening_profile_fixed_span": true,
+    "require_all_unit_names_fixed_span": true,
     "copy_mtv_pros_byte_exact": true
   },
   "manifest_contract": {
@@ -108,33 +186,52 @@
       "first_intermission_pilot_skill_list_detail_and_disabled_state",
       "first_intermission_unit_special_ability_list_and_detail",
       "first_intermission_spirit_command_list_detail_and_unavailable_state",
-      "first_intermission_leadership_effect_list_and_detail"
+      "first_intermission_leadership_effect_list_and_detail",
+      "all_unit_detail_and_roster_name_surfaces",
+      "all_weapon_lists",
+      "male_protagonist_selection_title_and_profile",
+      "female_protagonist_selection_title_and_profile",
+      "female_route_stage_1_to_5_title_surfaces"
     ],
     "pending_gates": [
       "exact_iso_static_binding",
       "native_first_intermission_memory_card",
-      "all_four_database_routes",
+      "all_five_database_routes",
+      "all_unit_detail_and_roster_name_surfaces",
+      "all_weapon_lists",
+      "male_protagonist_selection_title_and_profile",
+      "female_protagonist_selection_title_and_profile",
+      "stage_1_to_5_title_card_objective_and_status_surfaces",
       "list_detail_and_disabled_or_unavailable_states",
-      "twelve_new_fourteen_rerasterized_and_bond_semantic_glyphs_visible",
+      "eighty_seven_new_ninety_nine_rerasterized_all_1754_cjk_metric_normalized_four_reviewed_exceptions_and_four_semantic_glyphs_visible",
       "no_clipping_overlap_or_missing_glyphs",
       "zero_tlb_miss"
     ]
   },
   "ratchet": {
-    "family_count": 4,
-    "selected_entry_count": 403,
+    "family_count": 5,
+    "selected_entry_count": 1113,
     "selected_slps_entry_count": 233,
-    "selected_compdata_entry_count": 170,
-    "font_allocation_count": 12,
-    "font_reraster_count": 14,
-    "font_semantic_replacement_count": 1,
+    "selected_compdata_entry_count": 880,
+    "font_allocation_count": 87,
+    "font_reraster_count": 99,
+    "font_semantic_replacement_count": 4,
+    "font_inherited_optical_reraster_count": 1,
+    "font_cjk_optical_policy_assignment_count": 1754,
+    "font_cjk_optical_policy_default_point_size": 23,
+    "font_cjk_optical_reviewed_exception_count": 4,
+    "first_five_stage_title_count": 5,
+    "opening_profile_entry_count": 4,
+    "unit_name_entry_count": 348,
+    "unit_name_write_entry_count": 305,
+    "unit_name_no_op_entry_count": 43,
     "slps_no_op_entry_count": 54,
     "slps_selected_write_entry_count": 179,
     "slps_selected_write_target_count": 183,
-    "compdata_no_op_entry_count": 5,
-    "compdata_selected_write_entry_count": 165,
-    "compdata_selected_write_target_count": 164,
-    "fixed_covered_entry_count": 403,
+    "compdata_no_op_entry_count": 13,
+    "compdata_selected_write_entry_count": 867,
+    "compdata_selected_write_target_count": 866,
+    "fixed_covered_entry_count": 1113,
     "excluded_entry_count": 0
   },
   "outputs": {

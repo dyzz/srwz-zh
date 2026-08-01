@@ -82,14 +82,13 @@ python3 tools/verify_pcsx2_session.py \
 
 ## 3. 用候选存档探索目标页面
 
-当矩阵要求的 P10 ISO尚未物化时，可以用当前 P2 ISO和 `17999.ps2`
-探索人物／机体信息页面：
+当前 P10 ISO 已物化；可以用它和候选 `17999.ps2` 探索人物／机体信息页面：
 
 ```bash
 python3 tools/prepare_pcsx2_session.py \
   --case-id core/information-pages \
-  --session-id p2-card17999-info-20260731 \
-  --iso build/iso/ui-p2-default-names-first-five/srwz-ui-p2-default-names-first-five.iso \
+  --session-id p10-card17999-info-20260731 \
+  --iso build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso \
   --memory-card work/runtime/ui-fixtures/candidates/gamefaqs-srwz/cards/17999.ps2 \
   --exploratory
 ```
@@ -196,8 +195,8 @@ python3 tools/verify_pcsx2_savestate.py \
 ```bash
 python3 tools/prepare_pcsx2_session.py \
   --case-id core/information-pages \
-  --session-id p2-info-state-recheck \
-  --iso build/iso/ui-p2-default-names-first-five/srwz-ui-p2-default-names-first-five.iso \
+  --session-id p10-info-state-recheck \
+  --iso build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso \
   --savestate-receipt work/runtime/pcsx2-sessions/<source-session-id>/state-bundles/information-main/receipt.json \
   --exploratory
 ```
@@ -258,7 +257,7 @@ savestate 会话的截图可用于快速定位和比较，但最终相同画面�
 仓库后不会自动存在，也不是可分发资产。可提交、可重建的事实源是本页流程、
 工具、测试和运行矩阵，而不是这些本机路径。
 
-当前保留四个会话：
+以下四个 P2 会话是历史证据，不是当前 P10 候选的可转移验收：
 
 ```text
 work/runtime/pcsx2-sessions/p2-default-names-20260731/
@@ -267,7 +266,7 @@ work/runtime/pcsx2-sessions/p2-savestate-source-20260731/
 work/runtime/pcsx2-sessions/p2-savestate-reload-20260731/
 ```
 
-两者都锁定当前 P2 ISO：
+它们锁定历史 P2 ISO：
 
 ```text
 026f29e3e77b78a19f000c6781317ebc95aeb672b5b2848ad2a30bf8d2f5c473

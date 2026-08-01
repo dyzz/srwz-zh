@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "status": "static_full_chinese_font_capacity_validated_runtime_pending",
+  "content_policy": "Counts, hashes, geometry and runtime gates only; translation strings and game font bytes are not embedded.",
+  "plan_id": "srwz-full-chinese-font-v1",
+  "scope": "Plan a final Chinese-owned 4,480-glyph atlas. Original Japanese glyph identity is not preserved; one-byte printable ASCII slots stay reserved and every other renderer-addressable slot may be assigned sequentially or left blank.",
+  "inputs": {
+    "config": {
+      "path": "config/fonts/full-chinese-font-plan.json",
+      "size": 1526,
+      "sha256": "509a8de486a81c548a77a64162a951abff26ee3467a7118bf4f36dabe0133983"
+    },
+    "corpus": {
+      "root": "corpus/zh",
+      "file_count": 33,
+      "translation_entry_count": 13235,
+      "inventory_sha256": "4bc433cb6433f5ff63ccdacaeed065c011efae0e2b36831ef21c13f73166234d"
+    }
+  },
+  "renderer_geometry": {
+    "glyph_count": 4480,
+    "row_stride": 192,
+    "first_code": "8140",
+    "first_row_last_code": "81FF",
+    "second_row_first_code": "8240",
+    "last_code": "987F",
+    "code_to_glyph_round_trip_exact": true,
+    "raw_trail_code_count": 93
+  },
+  "reserved_slots": {
+    "printable_ascii_character_count": 95,
+    "printable_ascii_glyph_count": 95,
+    "printable_ascii_glyph_indices_sha256": "ae923f9125b06156979672e7fdc87f27c2bd93aac456567c05c1d618131ffbb2",
+    "original_japanese_glyph_count": 0,
+    "blank_non_ascii_prefix_glyph_count": 192
+  },
+  "translation_inventory": {
+    "unique_printable_ascii_character_count": 72,
+    "unique_double_byte_character_count": 1899,
+    "unique_cjk_ideograph_count": 1847,
+    "unique_non_cjk_double_byte_character_count": 52,
+    "unique_double_byte_characters_sha256": "c7a8cc81b1e904af49ca8dc4af4d1251fc098c31e38e3ae52adac8f0b9de5f93"
+  },
+  "capacity": {
+    "sequential_translation_slot_count": 4193,
+    "current_required_slot_count": 1899,
+    "current_remaining_slot_count": 2294,
+    "current_corpus_fits": true,
+    "first_translation_glyph_index": 287,
+    "first_translation_code": "829F",
+    "last_seeded_translation_glyph_index": 2185
+  },
+  "allocation_policy": {
+    "mode": "contiguous-standard-renderer-slots",
+    "registry_policy": "append-only-after-initial-seed",
+    "original_japanese_glyphs_preserved": false,
+    "unassigned_slots_are_blank": true,
+    "note": "Start at glyph 287 (code 829F), allocate every later renderer glyph index contiguously, freeze the initial registry, then append without renumbering."
+  },
+  "runtime": {
+    "status": "static_plan_runtime_pending",
+    "requirements": [
+      "Keep the current P10 compatibility font until the target translated surfaces no longer need Japanese fallback glyphs.",
+      "Re-render the 95 one-byte printable ASCII glyphs at their fixed indices with the selected production font.",
+      "Before promoting the full atlas, run a representative code from every standard resolver row and every raw trail class used by the sequential plan.",
+      "Add any proven direct-index non-text glyph to the reserved-slot set before materializing the full font."
+    ]
+  },
+  "acceptance": {
+    "all_4480_glyphs_have_a_standard_renderer_code": true,
+    "printable_ascii_slots_are_reserved": true,
+    "original_japanese_glyph_identity_is_not_a_capacity_gate": true,
+    "current_translation_inventory_fits": true,
+    "runtime_promotion_remains_pending": true
+  }
+}

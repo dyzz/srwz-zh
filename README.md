@@ -2,17 +2,28 @@
 
 本仓库用于从日文原版开始建立《超级机器人大战 Z》的独立中文化工具链、译文、字体、补丁和验证记录。
 
-当前唯一测试镜像为 `ui-p2-default-names-first-five`：它包含 P2 UI core、
-默认主人公中文名和 STAGE 001～005 剧情，共替换 6 个 ISO 成员；其余 60 个
-成员保持原字节，全部 LBA 不变。精确 ISO SHA-256 为
-`026f29e3e77b78a19f000c6781317ebc95aeb672b5b2848ad2a30bf8d2f5c473`；
-PCSX2 v2.6.3 fresh-process 检查已证明 DVD、ELF、PINE Running 和零 TLB。
-P4～P9 与五张隔离 atlas 仍是后续静态分层；P10 另有精确综合 ISO 的启动
-证据，但都不属于当前唯一 P2 镜像的逐屏运行结论。
+当前唯一测试镜像为 `ui-p10-database-fixed-core-first-five-atlas-test`：它包含
+P10 UI core、默认主人公中文名、男女主人公路线标题／简介、第一至第五话标题、
+STAGE 001～005 剧情、全部 348 个机体显示名、全部 711 个武器名和五张 atlas
+suite，共替换 7 个 ISO 成员；其余 59 个
+成员保持原字节。精确 ISO SHA-256 为
+`310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88`。
+上一份采用旧 22pt CJK 基线的 `b608…` ISO 已通过 PCSX2 v2.6.3
+fresh-process、确认人物后进入第 1 话、243 秒零 TLB，并取得四张局部截图；
+上一份 `c2ba…` ISO 的 8 秒 fresh-process boot smoke 已确认
+DVD／ELF／PINE Running／0 TLB。当前 ISO 对最终 1,754 个 CJK assignment
+在 22／22.5／23／23.5pt 间按 24×24 槽位度量自动选型，并将截图复核仍偏窄的
+“尔”单独提升到 25pt；“您／尔／班／任／坠”五个复核结果继续锁定。它还将
+开场双主人公简介纳入字库需求闭包，补入此前遗漏的“凉／缺”。静态和零 LBA
+shift 已验证，但新精确 ISO 尚未运行。现有证据不能等同于人物确认后转场、全部
+机体／武器页面、P10 五个数据库家族、前五关全部流程或 atlas
+场景已经逐屏验收。
 增量构建、运行证据和清理规则见
 [`docs/ISO_INCREMENTAL_VALIDATION.md`](docs/ISO_INCREMENTAL_VALIDATION.md)，
 截图证明的已完成范围和待办见
 [`docs/RUNTIME_LOCALIZATION_AUDIT.md`](docs/RUNTIME_LOCALIZATION_AUDIT.md)。
+已经被失败样本或运行结果推翻的错误理论及其永久门禁见
+[`docs/LESSONS_LEARNED.md`](docs/LESSONS_LEARNED.md)。
 
 当前状态：clean-room 数据、字库、写回、ISO 和运行验证链已经打通；菜单、
 MTV_PROS 摘要和 STAGE 剧情三类中文 canary 已从正式
@@ -67,23 +78,32 @@ P8 最后把地形类型选择、武器选择／使用条件、换乘／选项�
 均已晋级。P9 继续把两个混合组拆到逐条选择：换乘完成、小队、等级、攻击力、
 运动、特殊技能、无可选驾驶员和两项能力标签共 9 条写入 34 个 target，
 SLPS 相对 P8 改变 174 字节／36 段；13 条损坏、NULL 诊断、控制码、独立
-格式片段及未证实的 `Set` 保持原字节。P10 又从 1,250 条大型数据库中筛出
-403 条术语安全且定长可写的核心决定：驾驶员技能 88 条、机体特殊能力
-155 条、精神指令 145 条和小队长能力 15 条。它用最后 12 个
-renderer-addressable 槽补入 `咫垫挡斩框歼药赋赖镜闪－`，统一重绘 14 个
-仍在使用原字形的汉字，并将原“絆”的码位直接重绘为简体“绊”；233 条
-SLPS 与 170 条 COMPDATA 决定全部完成原位
-回读，指针和非目标字节不变，COMPDATA 仅重编码首变点后的压缩后缀。其余
-847 条零件、武器和争议专名保持
-延期。P10 UI 再与前五关 `HB/STAGE` 和五张中文 atlas 组合为 7 个互不
-重叠的 replacement。全部当前生产层均使用 clean-room Rust compressor；
-P10 COMPDATA 为 145,191 字节，保持 71 扇区并在 145,408-byte 硬上限内
-余 217 字节。该 DVD 大小为 3,758,358,528 字节，SHA-256 为
-`218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b`；
-59 个未替换成员保持原字节，7 个 replacement 均由 UDF 独立回读，只有一段
-从 `DATA/STAGE.BIN` 开始的 `+1 sector` 位移。PCSX2 v2.6.3 fresh-process
-已确认 DVD、ELF、PINE Running 和零 TLB；这只解除启动阻塞，四个数据库
-家族的页面视觉验收与五张 atlas 的场景归因／texture delta 双门仍然独立。
+格式片段及未证实的 `Set` 保持原字节。P10 又从 1,250 条大型数据库中晋级
+1,113 条定长可写决定：驾驶员技能 88 条、机体特殊能力 154 条、精神指令
+145 条、小队长能力 15 条，以及全部 711 个武器名；另把全部 348 个
+pointer-backed 机体显示名写回原槽。它追加 87 个 renderer-addressable
+字形分配，统一重绘 99 个仍在使用原字形的汉字，并对
+全部 1,754 个最终 CJK assignment 执行 22／22.5／23／23.5pt 光学选型；
+“班／任／坠”保留 23.5pt 人工复核例外，“尔”按截图反馈提升到 25pt，同时完成
+“絆→绊”“憤→愤”“瞑→眸”“唖→镰”四项有证据的同码位字形替换；
+233 条 SLPS、880 条数据库决定与 348 个机体名全部完成原位
+回读，808 个机体名指针及所有非目标字节不变，COMPDATA 仅重编码首变点后的
+压缩后缀。其余 137 条零件和四项受保护特殊能力保持延期。P10 UI 再与前五关
+`HB/STAGE` 和五张中文 atlas 组合为 7 个互不
+重叠的 replacement。字体需求另显式合并开场双主人公简介，追加“凉／缺”，
+避免直接写回语料绕过覆盖审计。全部当前生产层均使用 clean-room Rust
+compressor；P10 COMPDATA 使用游戏格式的最小匹配长度 3，结果为 145,293
+字节，保持 71 扇区并在 145,408-byte 硬上限内余 115 字节。该 DVD 大小为
+3,758,358,528 字节，SHA-256 为
+`310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88`；
+59 个未替换成员保持原字节，7 个 replacement 均由 UDF 独立回读，全部
+66 个成员保持原 LBA。旧 `d945…` 候选因 VT1 增长令 `STAGE.BIN` 后移一个
+sector，在确认人物后于 `pc=0x19DD94` 越过 EE 32 MiB 主内存读取并黑屏；
+PCSX2 v2.6.3 已确认上一份 `b608…` 镜像进入第 1 话且 243 秒零 TLB，后续
+`c2ba…` 也通过 8 秒 fresh-process DVD／ELF／PINE Running／零 TLB 启动门。
+当前 `310a…` 尚未运行；人物确认后转场、全部 348 个机体名和 711 个武器名的代表性页面、
+五个数据库家族的完整视觉验收与
+五张 atlas 的场景归因／texture delta 双门仍然独立。
 原来作为一个整体延期的 275 条 SLPS `Unknown` UI 文本现已进一步拆成
 22 个零遗漏／零重叠的静态屏幕分区：253 条归入 18 个可见界面候选，
 17 条归入两个可见／诊断混合组，5 条归入两个必须先查代码引用的格式或诊断
@@ -98,21 +118,22 @@ fixed-span ready，其中十三个纯玩家可见界面组合计 160 条；P7 �
 fixed-span 文本已由 P8 晋级，两个混合组中 9 条可证明的玩家标签再由 P9
 逐条晋级；合计 262 条进入候选，13 条继续排除。运行归因仍为
 `not_tested`。
-对应运行范围已整理为 46 个机器可检查用例：
+对应运行范围已整理为 47 个机器可检查用例：
 14 类基础场景完整分成 10 类当前目标和 4 类显式延期，另以哈希锁定的
-scene extension 选择十八个整组分区、两个逐条子集和四个数据库核心家族，
-共 38 类／34 类当前目标；
+scene extension 选择十八个整组分区、两个逐条子集和五个数据库核心家族，
+共 39 类／35 类当前目标；
 矩阵绑定 7 个制品 profile：已通过启动门的完整 P10 COMPDATA 候选、当前 P2
 默认姓名／前五关候选，以及 5 个保持独立 mapping manifest 的
-atlas profile；共计划 112 个截图点、6 个开场／滚动序列与 5 个 texture
-delta。当前 46 个用例都仍为逐屏 `not_tested`：6 个 route-ready，40 个等待
+atlas profile；共计划 114 个截图点、6 个开场／滚动序列与 5 个 texture
+delta。当前 47 个用例都仍为逐屏 `not_tested`：6 个 route-ready，41 个等待
 七类原生 memory-card fixture，已没有被制品启动状态阻塞的用例。统一
 verifier 会把
 ISO、PINE、日志、截图／序列、断言和 atlas RGBA delta 收敛为 hash-only
 receipt。P4 两个用例需要原生 `first-intermission-card`，
 P5 及 P8 的战场用例需要原生 `first-battle-card`，P6～P10 还需要
 `pre-results-card`、`first-five-progress-card` 与新增
-`full-upgrade-card`；四个 P10 数据库用例另依赖 `first-intermission-card`，
+`full-upgrade-card`；前四个 P10 数据库用例依赖 `first-intermission-card`，
+全武器验收还需覆盖早中晚期 roster 的匹配存档，
 因此相关路线暂列 `missing_fixture`。
 尚未生成或发布正式游戏补丁。
 
@@ -148,19 +169,31 @@ PLANT评议会议长、藤泽与骏河湾等独立决定。前五关合计 1,711
 节子路线前五个 STAGE 块现已形成受限生产候选：1,711 条正文、21 条条件和
 101 条实际说话人记录共 1,833 条内容已写回。当前字体候选固定使用
 LXGW Neo XiHei Screen：追加式账本共登记 638 个码位，其中 630 个在用、
-8 个退役且不复用，另有 12 个安全候选；806 个原字库可达汉字也使用同一字体
-重绘，共登记 1,436 个 glyph assignment，其中空格槽为预期 no-op。假名、原有
+8 个退役且不复用，另有 12 个安全候选；807 个原字库可达汉字也使用同一字体
+重绘，共登记 1,437 个 glyph assignment，其中空格槽为预期 no-op。假名、原有
 拉丁字符、既有可达标点以及本切片之外的字形保持原样；前五关实际出现的普通
-ASCII 另走双字节 glyph，`$n/$F` 玩家名占位符保持原始运行语义。字形默认以
-22pt 栅格化；实机截图确认“班”和“任”在 24×24 小字号下视觉偏小，因此对
-这两个字使用配置锁定的 23.5pt 光学校正，分别形成 22×21 的有效字形包围盒；
-码位、glyph 槽位和字符前进宽度都不变。VT1 组件保持原大小；新的光学校正已
-沿 P0～P10 组件链完成回读，但尚未生成 ISO。上一张镜像的 66 个成员保持原
-LBA，并已独立回读 SLPS/HB/STAGE 及逐 ID 复核前五关全部译文；renderer
-覆盖审计的缺字、一字节 ASCII 风险和混合汉字来源均为 0。该镜像仍使用旧字形，
-其运行证据不能转移到新的“班／任”组件。第二至第五关也未完整游玩，不能把
+ASCII 另走双字节 glyph，`$n/$F` 玩家名占位符保持原始运行语义。基础 profile
+仍以 22pt 栅格化；当前 P10 对全部 1,754 个最终 CJK assignment 在
+22／22.5／23／23.5pt 间按 bbox、墨水量和边缘碰撞自动选型；
+“班／任／坠”使用 23.5pt 复核例外，“尔”使用 25pt 复核例外。全部码位、glyph
+槽位和字符前进宽度都不变。VT1 组件保持原大小；新的光学策略已
+沿 P0～P10 组件链完成回读，并已进入当前唯一 ISO。当前镜像已独立回读
+SLPS/HB/STAGE 及逐 ID 复核前五关全部译文；renderer 覆盖审计的缺字、
+一字节 ASCII 风险和混合汉字来源均为 0。“班／任”新字形仍需目标画面复核。
+第二至第五关也未完整游玩，不能把
 静态回读称为五关通关测试。完整边界和哈希见
 `manifests/first-five-validation.json`。
+
+最终字库不再以“保留原日文字形”为容量前提。新的
+`full-chinese-font-plan` 已证明原 renderer 的标准公式可按 glyph index
+完整寻址 4,480 格：`0→8140`、`191→81FF`、`192→8240`、
+`4479→987F`。单字节可打印 ASCII 的 95 格仍按固定索引重绘；中文分配区
+固定从 glyph 287（`829F`）开始连续 `+1`，共 4,193 格，未分配格保持空白。
+当前全部 `corpus/zh` 共有 1,899
+个非 ASCII 显示字符（其中 1,847 个汉字），尚余 2,294 格。初始 registry
+冻结后只追加、不重排。当前 P10 仍保留为过渡运行候选；全量替换 profile
+还需覆盖每个 resolver 行、raw trail 类和可能的 direct-index 非文本字形，
+不能仅凭静态容量直接晋级 ISO。
 
 已完成第一批基础设施迁移：可以从 ISO 只读提取指定成员、按固定 offset
 切分 `STAGE.BIN`，并使用严格的 clean-room 解码器解析菜单、数据库、剧情和摘要。
@@ -205,6 +238,9 @@ suffix 重编码已经进入完整 canary 构建。六张 UDF/ISO9660 镜像均�
 - 上游逆向成果固定到 `config/upstream.lock.json` 中记录的提交。
 - 允许复用固定版本的上游源码；保留来源提交和差异，通用修复计划贡献回上游。
 - 字库、编码表、补丁和构建产物必须可以从已记录的源文件确定性生成。
+- 译文和官方术语优先于“省字槽”；缺字必须通过可追溯的新 allocation、确认
+  不再需要的原日文字形替换，或必要的 renderer 扩展解决，不得仅为躲避加字
+  而降低译文质量。文本定长与字形容量是两个独立门。
 
 ## 目录
 

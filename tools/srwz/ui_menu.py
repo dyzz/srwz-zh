@@ -491,6 +491,11 @@ def build_fixed_menu_slice(
         p0_entries=actionable_entries,
         overrides=overrides,
     )
+    if excluded:
+        raise UiMenuError(
+            "fixed menu slice cannot cover every selected entry: "
+            + json.dumps(excluded, ensure_ascii=False, sort_keys=True)
+        )
     result = replace_menu_texts_in_place(
         source,
         parsed,
@@ -513,16 +518,16 @@ def build_fixed_menu_slice(
         if parsed_entry is None or not parsed_entry.target_offsets:
             raise UiMenuError(f"fixed SLPS slice has no target for {entry_id}")
         for target_offset in set(parsed_entry.target_offsets):
-            if (
-                normalize_ui_font_aliases(
-                    decode_text(output, target_offset, output_table).text,
-                    table,
-                    overrides,
-                )
-                != decision["translation"]
-            ):
+            readback = normalize_ui_font_aliases(
+                decode_text(output, target_offset, output_table).text,
+                table,
+                overrides,
+            )
+            if readback != decision["translation"]:
                 raise UiMenuError(
-                    f"fixed SLPS slice readback differs for {entry_id}"
+                    "fixed menu slice readback differs for "
+                    f"{entry_id} at 0x{target_offset:X}: "
+                    f"expected {decision['translation']!r}, got {readback!r}"
                 )
 
     selection = {

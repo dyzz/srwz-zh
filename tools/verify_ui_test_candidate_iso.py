@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 
 try:
@@ -136,8 +137,196 @@ def build_runtime_projection(
         raise UiTestCandidateIsoError(
             "boot-smoke receipt does not prove the exact integrated ISO"
         )
-    return {
-        "status": "boot_smoke_passed_visual_not_tested",
+    prior_failure = evidence.get("prior_failure")
+    prior_failure_projection = None
+    if prior_failure is not None:
+        if not isinstance(prior_failure, dict):
+            raise UiTestCandidateIsoError("prior_failure must be an object")
+        raw_failure_log = prior_failure.get("log")
+        expected_failure_sha256 = prior_failure.get("log_sha256")
+        first_tlb_miss = prior_failure.get("first_tlb_miss")
+        if (
+            not isinstance(raw_failure_log, str)
+            or not raw_failure_log
+            or not isinstance(expected_failure_sha256, str)
+            or len(expected_failure_sha256) != 64
+            or not isinstance(first_tlb_miss, str)
+            or not first_tlb_miss
+        ):
+            raise UiTestCandidateIsoError(
+                "prior_failure needs a locked log and first TLB miss"
+            )
+        failure_log_path = (PROJECT_ROOT / raw_failure_log).resolve()
+        try:
+            failure_log_path.relative_to(
+                PROJECT_ROOT / "work/runtime/iso-incremental"
+            )
+        except ValueError as error:
+            raise UiTestCandidateIsoError(
+                "prior-failure log leaves work/runtime/iso-incremental"
+            ) from error
+        if (
+            not failure_log_path.is_file()
+            or sha256_file(failure_log_path) != expected_failure_sha256
+            or first_tlb_miss
+            not in failure_log_path.read_text(
+                encoding="utf-8", errors="replace"
+            )
+        ):
+            raise UiTestCandidateIsoError(
+                "prior-failure log does not match its locked TLB evidence"
+            )
+        prior_failure_projection = {
+            "iso_sha256": prior_failure["iso_sha256"],
+            "trigger": prior_failure["trigger"],
+            "log": file_lock(failure_log_path),
+            "first_tlb_miss": first_tlb_miss,
+            "disposition": (
+                "replaced_by_zero_lba_shift_candidate_runtime_retest_pending"
+            ),
+        }
+    post_confirmation = evidence.get("post_confirmation")
+    post_confirmation_projection = None
+    if post_confirmation is not None:
+        if not isinstance(post_confirmation, dict):
+            raise UiTestCandidateIsoError(
+                "post_confirmation must be an object"
+            )
+        raw_log = post_confirmation.get("log")
+        expected_log_sha256 = post_confirmation.get("log_sha256")
+        minimum_play_seconds = post_confirmation.get(
+            "minimum_play_seconds"
+        )
+        trigger = post_confirmation.get("trigger")
+        raw_screenshots = post_confirmation.get("screenshots")
+        if (
+            not isinstance(raw_log, str)
+            or not raw_log
+            or not isinstance(expected_log_sha256, str)
+            or len(expected_log_sha256) != 64
+            or not isinstance(minimum_play_seconds, int)
+            or isinstance(minimum_play_seconds, bool)
+            or minimum_play_seconds <= 0
+            or not isinstance(trigger, str)
+            or not trigger
+            or not isinstance(raw_screenshots, list)
+            or not raw_screenshots
+        ):
+            raise UiTestCandidateIsoError(
+                "post_confirmation evidence contract is invalid"
+            )
+        log_path = (PROJECT_ROOT / raw_log).resolve()
+        try:
+            log_path.relative_to(
+                PROJECT_ROOT / "work/runtime/iso-incremental"
+            )
+        except ValueError as error:
+            raise UiTestCandidateIsoError(
+                "post-confirmation log leaves work/runtime/iso-incremental"
+            ) from error
+        if (
+            not log_path.is_file()
+            or sha256_file(log_path) != expected_log_sha256
+        ):
+            raise UiTestCandidateIsoError(
+                "post-confirmation log does not match its lock"
+            )
+        log_text = log_path.read_text(encoding="utf-8", errors="replace")
+        exact_iso_path = str(
+            (PROJECT_ROOT / config["output"]["path"]).resolve()
+        )
+        play_seconds = [
+            int(value)
+            for value in re.findall(
+                r"Add (\d+) seconds play time to SLPS-25887",
+                log_text,
+            )
+        ]
+        if (
+            exact_iso_path not in log_text
+            or "Image type  = DVD" not in log_text
+            or "ELF cdrom0:\\SLPS_258.87;1 with entry point" not in log_text
+            or " is executing." not in log_text
+            or "TLB Miss" in log_text
+            or not play_seconds
+            or max(play_seconds) < minimum_play_seconds
+        ):
+            raise UiTestCandidateIsoError(
+                "post-confirmation log does not prove the exact ISO runtime"
+            )
+        screenshot_projection = []
+        seen_scene_ids = set()
+        for raw in raw_screenshots:
+            if not isinstance(raw, dict):
+                raise UiTestCandidateIsoError(
+                    "post-confirmation screenshot entry is malformed"
+                )
+            scene_id = raw.get("scene_id")
+            raw_screenshot_path = raw.get("path")
+            expected_screenshot_sha256 = raw.get("sha256")
+            verdict = raw.get("verdict")
+            if (
+                not isinstance(scene_id, str)
+                or not scene_id
+                or scene_id in seen_scene_ids
+                or not isinstance(raw_screenshot_path, str)
+                or not raw_screenshot_path.endswith(".png")
+                or not isinstance(expected_screenshot_sha256, str)
+                or len(expected_screenshot_sha256) != 64
+                or not isinstance(verdict, str)
+                or not verdict
+            ):
+                raise UiTestCandidateIsoError(
+                    "post-confirmation screenshot contract is invalid"
+                )
+            screenshot_path = (
+                PROJECT_ROOT / raw_screenshot_path
+            ).resolve()
+            try:
+                screenshot_path.relative_to(
+                    PROJECT_ROOT / "work/runtime/iso-incremental"
+                )
+            except ValueError as error:
+                raise UiTestCandidateIsoError(
+                    "post-confirmation screenshot leaves runtime evidence"
+                ) from error
+            if (
+                not screenshot_path.is_file()
+                or sha256_file(screenshot_path)
+                != expected_screenshot_sha256
+            ):
+                raise UiTestCandidateIsoError(
+                    "post-confirmation screenshot does not match its lock"
+                )
+            seen_scene_ids.add(scene_id)
+            screenshot_projection.append(
+                {
+                    "scene_id": scene_id,
+                    "file": file_lock(screenshot_path),
+                    "verdict": verdict,
+                }
+            )
+        post_confirmation_projection = {
+            "trigger": trigger,
+            "log": file_lock(log_path),
+            "exact_iso_path_in_log": True,
+            "dvd_recognized": True,
+            "elf_executing": True,
+            "tlb_miss_count": 0,
+            "play_seconds": max(play_seconds),
+            "screenshots": screenshot_projection,
+        }
+        if prior_failure_projection is not None:
+            prior_failure_projection["disposition"] = (
+                "reproduced_then_fixed_by_zero_lba_shift_candidate_"
+                "verified_past_trigger"
+            )
+    runtime = {
+        "status": (
+            "post_confirmation_runtime_passed_visual_partial"
+            if post_confirmation_projection is not None
+            else "boot_smoke_passed_visual_not_tested"
+        ),
         "required_iso_sha256": actual_output["sha256"],
         "required_emulator": "PCSX2 v2.6.3",
         "receipt": file_lock(receipt_path),
@@ -157,10 +346,33 @@ def build_runtime_projection(
             "five_isolated_atlas_scene_mapping_receipts",
         ],
         "boundary": (
-            "Fresh-process boot proves DVD, ELF, PINE and zero logged TLB "
-            "misses only; no route navigation or visual acceptance is claimed."
+            (
+                "The exact ISO was observed past protagonist confirmation "
+                "into stage 001 with zero logged TLB misses. Four hash-locked "
+                "screenshots sample the first-stage conditions, system "
+                "settings, leader-effect search and special-skill search "
+                "surfaces. This is partial visual evidence, not acceptance of "
+                "every required scene family or all remaining Japanese text."
+            )
+            if post_confirmation_projection is not None
+            else (
+                "Fresh-process boot proves DVD, ELF, PINE and zero logged TLB "
+                "misses before protagonist confirmation only; the transition "
+                "from confirmation into stage 001 still requires an exact-ISO "
+                "runtime retest, and no visual acceptance is claimed."
+            )
         ),
     }
+    if post_confirmation_projection is None:
+        runtime["pending_gates"].insert(
+            0,
+            "post_protagonist_confirmation_stage_load_without_tlb",
+        )
+    if prior_failure_projection is not None:
+        runtime["prior_failure"] = prior_failure_projection
+    if post_confirmation_projection is not None:
+        runtime["post_confirmation"] = post_confirmation_projection
+    return runtime
 
 
 def parse_args() -> argparse.Namespace:

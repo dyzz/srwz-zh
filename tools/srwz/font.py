@@ -83,6 +83,57 @@ def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def glyph_raster_metrics(pixels: bytes) -> dict:
+    """Return deterministic optical metrics for one decoded 4-bpp glyph."""
+
+    if len(pixels) != GLYPH_WIDTH * GLYPH_HEIGHT:
+        raise ValueError("glyph raster must contain exactly 24x24 pixels")
+    if any(pixel > 0x0F for pixel in pixels):
+        raise ValueError("glyph raster pixel exceeds 4-bpp range")
+    occupied = [
+        (index % GLYPH_WIDTH, index // GLYPH_WIDTH, value)
+        for index, value in enumerate(pixels)
+        if value
+    ]
+    if not occupied:
+        return {
+            "ink_pixel_count": 0,
+            "ink_value_sum": 0,
+            "bbox_x": None,
+            "bbox_y": None,
+            "bbox_width": 0,
+            "bbox_height": 0,
+            "outer_edge_touch": False,
+            "outer_edge_sides": [],
+        }
+    xs = [x for x, _, _ in occupied]
+    ys = [y for _, y, _ in occupied]
+    left = min(xs)
+    right = max(xs)
+    top = min(ys)
+    bottom = max(ys)
+    sides = [
+        side
+        for side, touched in (
+            ("left", left == 0),
+            ("right", right == GLYPH_WIDTH - 1),
+            ("top", top == 0),
+            ("bottom", bottom == GLYPH_HEIGHT - 1),
+        )
+        if touched
+    ]
+    return {
+        "ink_pixel_count": len(occupied),
+        "ink_value_sum": sum(value for _, _, value in occupied),
+        "bbox_x": left,
+        "bbox_y": top,
+        "bbox_width": right - left + 1,
+        "bbox_height": bottom - top + 1,
+        "outer_edge_touch": bool(sides),
+        "outer_edge_sides": sides,
+    }
+
+
 @dataclass(frozen=True)
 class DecodedFontSegment:
     compressed_size: int
@@ -339,6 +390,30 @@ def standard_glyph_index(
     if not 0 <= index < glyph_count:
         raise ValueError("standard text code resolves outside font data")
     return index
+
+
+def standard_code_for_glyph_index(
+    glyph_index: int,
+    *,
+    glyph_count: int = GLYPH_COUNT,
+) -> int:
+    """Return the original renderer code for one sequential glyph slot.
+
+    The standard branch is a complete 192-column view of the fixed 4,480
+    glyph store.  Its byte code is sequential by glyph slot, except that the
+    low byte wraps from ``0xFF`` to ``0x40`` when the lead byte advances.
+    """
+
+    if not isinstance(glyph_index, int) or isinstance(glyph_index, bool):
+        raise TypeError("glyph index must be an integer")
+    if not 0 <= glyph_index < glyph_count:
+        raise ValueError("glyph index is outside font data")
+    lead = STANDARD_LEAD_START + glyph_index // STANDARD_GLYPH_STRIDE
+    trail = STANDARD_TRAIL_START + glyph_index % STANDARD_GLYPH_STRIDE
+    code = (lead << 8) | trail
+    if standard_glyph_index(code, glyph_count=glyph_count) != glyph_index:
+        raise ValueError("glyph index has no standard renderer code")
+    return code
 
 
 def extended_glyph_index(row: int, packed_position: int) -> int:
@@ -860,4 +935,5 @@ __all__ = [
     "safe_standard_allocation_candidates",
     "sha256_bytes",
     "standard_glyph_index",
+    "standard_code_for_glyph_index",
 ]

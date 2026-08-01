@@ -29,6 +29,7 @@ from .text import (
     CONTROL_NOTATION,
     PRINTABLE_ASCII,
     control_notation_positions,
+    decode_text,
     load_text_table,
 )
 from .ui_database_selection import (
@@ -701,14 +702,6 @@ def audit_ui_database_layout(
                     source_table,
                 ).entries
             },
-            "target": {
-                entry.entry_id: entry
-                for entry in parse_menu_file(
-                    target_data[member_id],
-                    descriptors[member_id],
-                    source_table,
-                ).entries
-            },
         }
 
     envelopes = {
@@ -730,17 +723,33 @@ def audit_ui_database_layout(
             "slps" if entry_id.startswith("menu/SLPS/") else "compdata"
         )
         source_entry = parsed[member_id]["source"].get(entry_id)
-        target_entry = parsed[member_id]["target"].get(entry_id)
-        if source_entry is None or target_entry is None:
+        if source_entry is None:
             raise UiDatabaseLayoutError(
-                f"database entry is absent from parsed members: {entry_id}"
+                f"database entry is absent from parsed source member: {entry_id}"
             )
         decision = decisions[entry_id]
-        target_text = normalize_ui_font_aliases(
-            target_entry.text,
-            table,
-            overrides,
-        )
+        # parse_menu_file intentionally groups equal decoded strings within a
+        # section.  Distinct source strings may legitimately share one Chinese
+        # translation, so reparsing the localized member would collapse those
+        # entries and shift every following ordinal.  Preserve source identity
+        # by rereading the exact source-bound target offsets instead.
+        target_texts = {
+            normalize_ui_font_aliases(
+                decode_text(
+                    target_data[member_id],
+                    target_offset,
+                    source_table,
+                ).text,
+                table,
+                overrides,
+            )
+            for target_offset in source_entry.target_offsets
+        }
+        if len(target_texts) != 1:
+            raise UiDatabaseLayoutError(
+                f"database target aliases disagree: {entry_id}"
+            )
+        target_text = next(iter(target_texts))
         if (
             text_sha256(source_entry.text)
             != decision["source_text_sha256"]

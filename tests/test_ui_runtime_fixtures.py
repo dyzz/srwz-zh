@@ -66,7 +66,7 @@ class UiRuntimeFixtureTests(unittest.TestCase):
                 "memory_card_fixture_count": 7,
                 "ready_memory_card_fixture_count": 0,
                 "not_acquired_memory_card_fixture_count": 7,
-                "blocked_case_count": 40,
+                "blocked_case_count": 41,
                 "candidate_file_count": 0,
                 "unique_candidate_hash_count": 0,
                 "target_save_candidate_count": 0,
@@ -75,7 +75,7 @@ class UiRuntimeFixtureTests(unittest.TestCase):
         priorities = report["fixture_priorities"]
         self.assertEqual(
             [fixture["blocked_case_count"] for fixture in priorities],
-            [22, 7, 5, 3, 1, 1, 1],
+            [23, 7, 5, 3, 1, 1, 1],
         )
         self.assertEqual(
             priorities[0]["fixture_id"],

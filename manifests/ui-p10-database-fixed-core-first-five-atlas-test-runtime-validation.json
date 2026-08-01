@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "status": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_iso_boot_smoke_passed_visual_pending",
+  "status": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_iso_static_validated_runtime_not_tested",
   "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes or localized text are embedded.",
   "profile_id": "ui-p10-database-fixed-core-first-five-atlas-test",
   "component": {
     "manifest": {
       "path": "manifests/ui-p10-database-fixed-core-first-five-atlas-test-validation.json",
-      "size": 9201,
-      "sha256": "464f8bd086426753c3313670f5baadd0b280b58eccbc63023c6dd61b17581d5c"
+      "size": 9460,
+      "sha256": "5f015fd88c0ad9cb3a8adacc8042f3d471d2cb6d9c5e72ce3f677a55acaa66a9"
     },
     "profile_id": "ui-p10-database-fixed-core-first-five-atlas-test",
     "composition": {
@@ -31,24 +31,24 @@
       "SLPS_258.87": {
         "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "036a3ca243feaee435b090ce86484d4d08c4bcdede36a44a9544fbff8b309b7c",
+        "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979",
         "owner": "ui-p10-database-fixed-core",
         "source": {
           "path": "work/build/ui-p10-database-fixed-core/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "036a3ca243feaee435b090ce86484d4d08c4bcdede36a44a9544fbff8b309b7c"
+          "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979"
         },
         "manifest_output_lock_exact": true
       },
       "DATA/COMPDATA.BN": {
         "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/COMPDATA.BN",
-        "size": 145191,
-        "sha256": "d91e38bd0ede4520362ae1e08047887623e5c0586e3224d4ba8d19a39615d8f2",
+        "size": 145293,
+        "sha256": "bcc573758e0b452114c04370f97c5d898aa2879a39a20cc5caed7314fbbd2ee9",
         "owner": "ui-p10-database-fixed-core",
         "source": {
           "path": "work/build/ui-p10-database-fixed-core/components/DATA/COMPDATA.BN",
-          "size": 145191,
-          "sha256": "d91e38bd0ede4520362ae1e08047887623e5c0586e3224d4ba8d19a39615d8f2"
+          "size": 145293,
+          "sha256": "bcc573758e0b452114c04370f97c5d898aa2879a39a20cc5caed7314fbbd2ee9"
         },
         "manifest_output_lock_exact": true
       },
@@ -66,13 +66,13 @@
       },
       "DATA/VT1.BIN": {
         "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
-        "size": 127503472,
-        "sha256": "031c3a930f84f3376a4c4f35695fedc33f350cca236c0e23a086489464fab402",
+        "size": 127501728,
+        "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9",
         "owner": "ui-p10-database-fixed-core",
         "source": {
           "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
-          "size": 127503472,
-          "sha256": "031c3a930f84f3376a4c4f35695fedc33f350cca236c0e23a086489464fab402"
+          "size": 127501728,
+          "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9"
         },
         "manifest_output_lock_exact": true
       },
@@ -103,12 +103,12 @@
       "DATA/STAGE.BIN": {
         "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/STAGE.BIN",
         "size": 3910128,
-        "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff",
+        "sha256": "210ddea7d326eb5b835a73e5a961b3572f6b37260aa48f7c173471bf4d7ac327",
         "owner": "first-five-story",
         "source": {
           "path": "work/build/first-five-rust/components/DATA/STAGE.BIN",
           "size": 3910128,
-          "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff"
+          "sha256": "210ddea7d326eb5b835a73e5a961b3572f6b37260aa48f7c173471bf4d7ac327"
         },
         "manifest_output_lock_exact": true
       }
@@ -127,41 +127,41 @@
   "iso_build": {
     "config": {
       "path": "config/iso/ui-p10-database-fixed-core-first-five-atlas-test-build.json",
-      "size": 5459,
-      "sha256": "06aacca02d6e1b879d5ba0f36c412b5fd2ef71dbac084831795b23b28a7650b2"
+      "size": 5329,
+      "sha256": "895e54389ecfb9f5574006a39abdd16ccb313bda5227052f132f9f4064cc7268"
     },
     "report": {
       "path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/iso-validation.json",
-      "size": 4395,
-      "sha256": "03301ff2f2e44eebfda98fc78ac528585c8e42d96a342fc5af8e3b2d50071e7c"
+      "size": 4394,
+      "sha256": "c9b4c857505774f87661dca1743eb48f470b5c0a5f7dc0f8a98ab1d6d1324f6c"
     },
     "path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso",
     "output": {
       "size": 3758358528,
-      "sha256": "218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b"
+      "sha256": "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88"
     },
     "member_count": 66,
     "unchanged_member_count": 59,
-    "shifted_member_count": 5,
+    "shifted_member_count": 0,
     "shift_segments": [
       {
         "first_member": "DATA/STAGE.BIN",
-        "shift_sectors": 1
+        "shift_sectors": 0
       }
     ],
-    "member_manifest_sha256": "8bb72463996f61b5ed2b2b921298c9c36c9abebc821fa512c1e53e3d165c71ef",
+    "member_manifest_sha256": "a24850cbda1244afce5c4ba67dd3cd10becb9295aed849df99f89795a2ed8e0d",
     "pcsx2_v263_image_type": "DVD",
     "udf_volume_recognition_sequence": "NSR02",
     "replacements": {
       "SLPS_258.87": {
         "size": 3471624,
-        "sha256": "036a3ca243feaee435b090ce86484d4d08c4bcdede36a44a9544fbff8b309b7c",
+        "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979",
         "owner": "ui-p10-database-fixed-core",
         "independent_udf_reread_exact": true
       },
       "DATA/COMPDATA.BN": {
-        "size": 145191,
-        "sha256": "d91e38bd0ede4520362ae1e08047887623e5c0586e3224d4ba8d19a39615d8f2",
+        "size": 145293,
+        "sha256": "bcc573758e0b452114c04370f97c5d898aa2879a39a20cc5caed7314fbbd2ee9",
         "owner": "ui-p10-database-fixed-core",
         "independent_udf_reread_exact": true
       },
@@ -172,14 +172,14 @@
         "independent_udf_reread_exact": true
       },
       "DATA/VT1.BIN": {
-        "size": 127503472,
-        "sha256": "031c3a930f84f3376a4c4f35695fedc33f350cca236c0e23a086489464fab402",
+        "size": 127501728,
+        "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9",
         "owner": "ui-p10-database-fixed-core",
         "independent_udf_reread_exact": true
       },
       "DATA/STAGE.BIN": {
         "size": 3910128,
-        "sha256": "29d3c9e5e80eb1cc553c3a6209b88efdb1ea066976137c8e119c9488ba9d32ff",
+        "sha256": "210ddea7d326eb5b835a73e5a961b3572f6b37260aa48f7c173471bf4d7ac327",
         "owner": "first-five-story",
         "independent_udf_reread_exact": true
       },
@@ -212,21 +212,9 @@
     "isolated_atlas_mapping_profiles_still_required": true
   },
   "runtime": {
-    "status": "boot_smoke_passed_visual_not_tested",
-    "required_iso_sha256": "218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b",
+    "status": "not_tested",
+    "required_iso_sha256": "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88",
     "required_emulator": "PCSX2 v2.6.3",
-    "receipt": {
-      "path": "work/runtime/iso-incremental/17-ui-p10-database-rust-maximum/boot-smoke.json",
-      "size": 2022,
-      "sha256": "6353a717344609e29249906163a42fb060c83655bed02af17bdb1eefca2253c8"
-    },
-    "fresh_process": true,
-    "game_id": "SLPS-25887",
-    "pine_status": 0,
-    "pine_state": "Running",
-    "dvd_recognized": true,
-    "elf_executing": true,
-    "tlb_miss_count": 0,
     "required_scene_families": [
       "title/main-menu",
       "opening/player-setup",
@@ -261,15 +249,18 @@
       "database/pilot-skills-core",
       "database/unit-special-abilities-core",
       "database/spirit-commands-core",
-      "database/leadership-effects-core"
+      "database/leadership-effects-core",
+      "database/weapons-all",
+      "database/unit-names-all"
     ],
     "isolated_atlas_mapping_profiles_remain_required": true,
     "pending_gates": [
-      "pine_decoded_font_exact",
+      "fresh_process_boot_exact_iso",
+      "pine_running_and_decoded_font_exact",
       "all_required_scene_families_visited",
       "no_clipping_overlap_or_missing_glyphs",
+      "zero_tlb_miss",
       "five_isolated_atlas_scene_mapping_receipts"
-    ],
-    "boundary": "Fresh-process boot proves DVD, ELF, PINE and zero logged TLB misses only; no route navigation or visual acceptance is claimed."
+    ]
   }
 }

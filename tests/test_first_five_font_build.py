@@ -26,10 +26,10 @@ class FirstFiveFontBuildTests(unittest.TestCase):
         self.assertEqual(self.report["allocation_assignment_count"], 630)
         self.assertEqual(
             self.report["reraster_existing_assignment_count"],
-            806,
+            807,
         )
-        self.assertEqual(self.report["assignment_count"], 1436)
-        self.assertEqual(self.report["changed_glyph_count"], 1435)
+        self.assertEqual(self.report["assignment_count"], 1437)
+        self.assertEqual(self.report["changed_glyph_count"], 1436)
         self.assertEqual(self.report["unchanged_assignment_count"], 1)
         registry = self.report["allocation_registry"]
         self.assertEqual(registry["id"], "srwz-first-five-v1")
@@ -85,7 +85,7 @@ class FirstFiveFontBuildTests(unittest.TestCase):
         self.assertTrue(font["codec_round_trip_exact"])
         self.assertEqual(archive["source_size"], archive["output_size"])
         self.assertTrue(archive["offset_reread_exact"])
-        self.assertEqual(archive["padding_size"], 0)
+        self.assertEqual(archive["padding_size"], 9)
         self.assertGreater(
             archive["borrowed_preceding_zero_slack"],
             0,

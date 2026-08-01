@@ -103,7 +103,7 @@ class UiRuntimeEvidenceTests(unittest.TestCase):
         self.assertEqual(plan["status"], "prepared_runtime_not_executed")
         self.assertEqual(
             plan["artifact"]["iso_sha256"],
-            "218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b",
+            "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88",
         )
         self.assertEqual(plan["fixture"]["fixture_id"], "fresh-boot")
         self.assertEqual(len(plan["case"]["route"]), 2)

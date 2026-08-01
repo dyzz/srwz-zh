@@ -18,14 +18,17 @@
 | 开场姓名（当前 Rust） | 45 | 143,952 | 余 1,456 | production 中间组件；严格回解 |
 | researched 人物／机体名（当前 Rust，连同开场） | 1,307 | 144,485 | 余 923 | 当前 P2 ISO fresh-process 启动通过、0 TLB |
 | P10 数据库 COMPDATA 核心（旧 greedy） | 170 | 148,705 | 超 3,297 | 历史容量失败对照 |
-| P10 数据库 COMPDATA 核心（当前 Rust） | 170 | 145,191 | 余 217 | production；精确 P10 ISO fresh-process 启动通过、0 TLB |
+| P10＋前五话标题／女主简介（Rust min-match 2） | 177 | 145,192 | 余 216 | 严格离线回解；精确 ISO 启动 TLB，禁止 production |
+| P10＋前五话标题／双主人公简介／前期武器（历史 Rust min-match 3） | 185（176 数据库＋9 direct） | 145,309 | 余 99 | 历史 `4e15…`；静态与零 LBA shift 通过 |
+| P10＋全部武器／全部机体名（上一版 Rust min-match 3） | 1,470（1,113 数据库＋348 机体名＋9 direct） | 145,291 | 余 117 | 严格回解、零 LBA shift、精确 ISO boot smoke 通过 |
+| P10＋开场简介字体闭包修复（当前 Rust min-match 3） | 1,470（1,113 数据库＋348 机体名＋9 direct） | 145,293 | 余 115 | production；严格回解、零 LBA shift；精确 ISO 待运行 |
 | 开场姓名（maximum 离线测量） | 45 | 143,493 | 余 1,915 | 严格回解；下一层运行候选 |
 | researched 人物／机体名（maximum 离线测量） | 1,262（连同开场共 1,307） | 143,973 | 余 1,435 | 严格回解；P1 运行通过后再测 |
 | P10 数据库 COMPDATA 核心（maximum 离线测量） | 170 | 144,700 | 余 708 | 严格回解；前序层运行通过后再测 |
 
-阶段标题 122 条不在上述已写入层中。它们目前仍是
-`corpus/zh/menu/stage-names.json` 中的翻译草稿，COMPDATA 文本池尚未注册，
-不能把它们记为“已经写入但被 TLB 阻塞”。
+阶段标题目前只晋级了前五话：五个标题和双主人公路线标题／人物简介共 9 条
+direct fixed-span 写入已逐条回读。其余 117 个阶段标题仍未进入该 production
+层，不能从前五话的结果外推。
 
 旧 greedy、size-constrained 与 Python `maximum` 行保留既有测量和因果证据；
 标为“当前 Rust”的行才是 production selector。Rust 体积通过硬门后仍分别
@@ -45,9 +48,13 @@
 | 全部 P0 菜单 | 重编码 147,050 bytes／72 sectors | `NisVData.bin` 起 +1 sector | PINE Paused；1 TLB |
 | 全部 P0 菜单优化版 | 重编码 145,237 bytes／71 sectors | 全部成员原 LBA | PINE Running；0 TLB |
 | 当前 Rust P2 | 重编码 144,485 bytes／71 sectors | COMPDATA 后成员原位 | PINE Running；0 TLB |
-| 当前 Rust P10 综合候选 | 重编码 145,191 bytes／71 sectors | COMPDATA 后成员原位；另从 `STAGE.BIN` 起 `+1 sector` | PINE Running；0 TLB |
+| P10 polish，min-match 2 | 重编码 145,192 bytes／71 sectors | COMPDATA 后成员原位；另从 `STAGE.BIN` 起 `+1 sector` | TLB；离线成功不具运行兼容性 |
+| 旧 Rust P10 polish，min-match 3 | 重编码 145,265 bytes／71 sectors | COMPDATA 后成员原位；从 `STAGE.BIN` 起 `+1 sector` | 启动段 0 TLB；确认人物后越界读取并黑屏 |
+| 历史 Rust P10 polish，min-match 3（`4e15…`） | 重编码 145,309 bytes／71 sectors | VT1 固定总长；全部成员原 LBA | fresh-process 8 秒 Running／0 TLB |
+| Rust P10 全机体／全武器，min-match 3（`c2ba…`） | 重编码 145,291 bytes／71 sectors | VT1 固定总长；全部成员原 LBA | fresh-process 8 秒 Running／0 TLB；确认人物后待复测 |
+| 当前 P10 字体闭包修复，min-match 3（`310a…`） | 重编码 145,293 bytes／71 sectors | VT1 固定总长；全部成员原 LBA | 静态通过；fresh-process 与确认人物后均待测 |
 
-两个失败镜像的首个异常均为：
+纯 LBA 控制与 72-sector P0 菜单两个失败镜像的首个异常均为：
 
 ```text
 TLB Miss, pc=0x1c6ea0 addr=0x02000000 [store]
@@ -56,6 +63,13 @@ TLB Miss, pc=0x1c6ea0 addr=0x02000000 [store]
 纯 LBA 控制的原始压缩流、声明输出和解码结果完全不变，因此这次失败不能
 归因于中文文本或 clean-room 压缩 token。相反，重编码的 71-sector 按钮组件
 可以启动，说明编码器不是当前首个故障原因。
+
+旧 Rust P10 min-match 3 候选的失败边界不同：人物选择和确认前启动正常，
+确认后首次加载关卡数据时出现
+`TLB Miss, pc=0x19dd94 addr=0x2000000 [load]`。该候选的 VT1 比 P9 基线
+增长 1,680 字节，恰令 `STAGE.BIN` 后移一个 sector。当前候选改为借用 VT1
+前一 chunk 的 12,320 字节已证明全零尾部，VT1 总长保持 127,501,728 字节，所有成员 LBA
+恢复原值；离线与启动门通过，精确转场仍单独等待运行复测。
 
 优化版另用 P0 fixed SLPS 和保持原大小的 P0 VT1 构建 3-member replacement
 ISO。静态报告确认 66 个成员全部保持原 LBA，`NISVDATA.BIN` 及其后成员无
@@ -70,13 +84,21 @@ shift；PCSX2 v2.6.3 fresh-process 连接 PINE，状态为 Running，日志 0 TL
 PCSX2 v2.6.3 fresh-process 为 PINE Running、0 TLB。该运行证据证明新压缩
 parse 被游戏启动路径接受，仍不替代第一幕间的目标画面验收。
 
-当前 production 已继续迁移到 Rust `rust-maximum`。精确 P10 综合 DVD
-SHA-256 为
-`218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b`；
-其 boot receipt 锁定在
-`manifests/ui-p10-database-fixed-core-first-five-atlas-test-runtime-validation.json`。
-这证明当前最深 COMPDATA 层可由游戏启动路径接受，但驾驶员技能、机体特殊能力、
-精神指令和小队长能力四类仍需第一幕间存档和逐页截图。
+当前 production 已继续迁移到 Rust `rust-maximum`，并锁定游戏格式一致的
+最小匹配长度 3。上一份 P10 综合 DVD `b608…` 已通过人物确认后加载第 1 话、
+243 秒零 TLB，并取得特殊技能和队长效果搜索页截图；证据归档在
+`work/runtime/iso-incremental/19-ui-p10-zero-lba/post-confirm-visual/`。
+上一份采用逐字 22／22.5／23／23.5pt 度量选择、全部 348 个机体名和全部
+711 个武器名的精确 DVD SHA-256 为
+`c2bae4df3975df778706a0d37de6b03aa9330b5c93f5e78d5ac4c4af31788103`；
+它的 8 秒 fresh-process boot smoke 已确认 DVD／ELF／PINE Running／0 TLB，
+收据位于
+`work/runtime/iso-incremental/21-ui-p10-all-units-weapons-c2bae4-boot/boot-smoke.json`。
+当前补齐开场简介“凉／缺”并将“尔”提升到 25pt 的精确 DVD SHA-256 为
+`310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88`；它的静态清单锁定在
+`manifests/ui-p10-database-fixed-core-first-five-atlas-test-runtime-validation.json`，
+尚未绑定 PCSX2 运行证据。人物确认后转场和视觉运行状态仍为待测；机体特殊能力、精神指令、五类完整
+列表、全机体名与全武器名仍需匹配存档和逐页截图。
 
 ## 可重复验证
 
@@ -112,8 +134,8 @@ python3 tools/verify_ui_database_candidate.py --force
 
 ## 下一步顺序
 
-1. 取得第一幕间原生 memory-card fixture，完成 P0 与 P10 四个数据库家族的
-   目标画面验收；
+1. 取得第一幕间和早中晚期 roster 的原生 memory-card fixture，完成 P0 与
+   P10 前四个数据库家族、全机体名和全武器家族的目标画面验收；
 2. 保持 P2／P10 的当前 Rust 输出、硬预算和精确哈希，不再回退旧压缩路径；
 3. 后续每层都必须保持 COMPDATA 后续 LBA，不通过就继续拆分，不得直接晋级；
 4. boot smoke 只证明 DVD／ELF／PINE／TLB。幕间按钮仍需匹配存档、导航和

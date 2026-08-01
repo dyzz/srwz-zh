@@ -11,6 +11,17 @@ ROUTE_MAP = PROJECT_ROOT / "docs" / "STAGE_ROUTE_MAP.md"
 
 
 class StageRouteMapTests(unittest.TestCase):
+    def test_first_five_titles_are_finalized_without_glyph_compromise(self):
+        document = json.loads(STAGE_TRANSLATIONS.read_text(encoding="utf-8"))
+        entries = document["entries"][:5]
+        self.assertEqual(
+            [entry["translation"] for entry in entries],
+            ["太空先锋", "愤怒的眼眸", "两个世界", "异星人来袭", "觉醒之日"],
+        )
+        self.assertTrue(
+            all(entry["editorial_status"] == "final" for entry in entries)
+        )
+
     def test_route_map_contains_every_playable_title_translation(self):
         document = json.loads(STAGE_TRANSLATIONS.read_text(encoding="utf-8"))
         translations = {

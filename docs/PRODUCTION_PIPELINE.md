@@ -213,20 +213,32 @@ Scenario Chart 摘要；修改两者不会改变画面底部的地图标题。�
 重建 STAGE 001～005，保持 STAGE 000 与 HSFC 原字节，不为该画面登记虚假的
 文本验收。该标题暂按独立栅格或未定位渲染资源处理；上游英化项目也没有对应的
 STAGE 000、HSFC 或图片替换。唯一候选镜像为
-`build/iso/ui-p2-default-names-first-five/srwz-ui-p2-default-names-first-five.iso`；
+`build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso`；
 fresh-process PCSX2/PINE boot smoke 与前五关正文验收不代表该地图标题已汉化。
 
 字体源由 `config/fonts/lxgw-neo-xihei-screen.lock.json` 固定到明确版本、提交、
 字体 SHA-256 和 IPA 许可证。`config/encoding/first-five-allocations.json`
 是追加式分配账本：已分配字符不会因译文删改而换码，退役字符保留槽位，新字符
 只能追加。当前 638 个已登记槽位中 630 个在用、8 个退役，安全候选还剩 12 个。
-构建另把前五关译文使用的 806 个原字库可达汉字用同一字体重绘；连同自定义
-码位，共登记 1,436 个 glyph assignment，其中空格槽为预期 no-op。假名、原有
+构建另把前五关译文使用的 807 个原字库可达汉字用同一字体重绘；连同自定义
+码位，共登记 1,437 个 glyph assignment，其中空格槽为预期 no-op。假名、原有
 拉丁字符、既有可达标点、控制符及本切片之外的字形保持原样。
-默认栅格字号为 22pt；`config/fonts/first-five-font.json` 另把截图确认视觉
-偏小的“班”和“任”固定为 23.5pt。两者都形成 22×21 的有效字形包围盒，并
-保留原码位、glyph 槽位和字符前进宽度；每字 point size 与 raster hash 一同
-写进 proposal 和构建报告。
+基础 profile 的默认栅格字号为 22pt；最终 P10 profile 对全部 1,754 个 CJK
+assignment 在 22／22.5／23／23.5pt 候选中按统一字形度量逐字选择，并把
+“您／尔／班／任／坠”五个截图复核结果锁进配置；“尔”另使用 25pt 人工例外。
+所有字符保留原码位、glyph
+槽位和字符前进宽度；每字 point size 与 raster hash 一同写进 proposal 和
+构建报告。
+
+最终全量字库采用独立 `config/fonts/full-chinese-font-plan.json`。它不继承
+“保留原日文字形”的容量假设，而是按原 renderer 的完整 4,480 格公式顺序
+寻址。固定保留 95 个单字节 ASCII glyph，并以 glyph 287（`0x829F`）为
+中文区起点连续 `+1`，一直到
+glyph 4479，共 4,193 格；当前 1,899 个非 ASCII 显示字符占用后余 2,294 格。该静态规划
+由 `tools/audit_full_chinese_font_plan.py` 与
+`manifests/full-chinese-font-plan.json` 锁定；物化全量 atlas 和 raw-trail／
+direct-index 运行 canary 仍是后续独立门，当前 P10 compatibility profile
+不因此被无证据替换。
 
 下面的诊断是正式通过门：
 
@@ -391,9 +403,10 @@ python3 tools/verify_ui_embedded_candidate.py \
 控制码、独立格式或未证实 `Set` 保持原字节。当前 275 条中 262 条已进入
 候选，运行状态仍为 `not_tested`。
 
-P10 从原先整体延期的 1,250 条数据库中选择术语已审且可定长覆盖的四个
-家族：驾驶员技能 88 条、机体特殊能力 155 条、精神指令 145 条、小队长
-能力 15 条，共 403 条：
+P10 从原先整体延期的 1,250 条数据库中选择可定长覆盖的五个家族：驾驶员
+技能 88 条、机体特殊能力 154 条、精神指令 145 条、小队长能力 15 条、
+全部武器 711 条，共 1,113 条；同一组件还写入全部 348 个 pointer-backed
+机体显示名：
 
 ```bash
 python3 tools/audit_ui_database_selection.py --force
@@ -411,12 +424,12 @@ python3 tools/build_ui_database_candidate.py --force
 python3 tools/verify_ui_database_candidate.py --force
 ```
 
-P10 消耗 P7 余下全部 12 个 renderer-addressable 槽，并统一重绘 14 个继承
-汉字，并把原“絆”码位直接重绘为简体“绊”。SLPS 233 条和 COMPDATA
-170 条决定全部 fixed-span 覆盖、零排除；
-COMPDATA 从 P9 成员的第 113,266 个压缩字节前保持完全相同，只重编码后缀，
+P10 追加 87 个 renderer-addressable 字形，并统一重绘 99 个继承汉字；另以
+全游戏解析扫描和 renderer 可达性为证据，完成四项同码位字形替换。SLPS
+233 条 SLPS、880 条 COMPDATA 数据库选择和 348 个机体名全部 fixed-span
+覆盖、零排除；COMPDATA 保留首段压缩前缀，只重编码后缀，
 完整回解和 flags 一致。VT1 只替换 chunk 2，其余 13 块 byte-exact；
-SLPS 字体 offset 与文本写入零重叠。其余 847 条继续延期。
+SLPS 字体 offset 与文本写入零重叠。其余 137 条继续延期。
 
 COMPDATA 第一层由 `config/ui-writeback/ui-p0-compdata-fixed.json` 驱动：
 
@@ -664,14 +677,21 @@ python3 tools/verify_ui_test_candidate_iso.py \
 
 suite 相对原版共改变 5,568 个归档字节，owner overlap 为零，owner 外字节
 完全相同。综合 component 有 7 个互不重叠的 replacement；最终 DVD
-3,758,358,528 字节，SHA-256 为
-`218de6c432fd0d076cc464b68a8868349ced4f585e31608b8c4b0f49e4dff63b`。
+3,758,358,528 字节，当前 SHA-256 为
+`310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88`。
 66 个成员中 59 个未替换成员 byte-exact，7 个 replacement 均独立 UDF
-回读；唯一位移段从 `DATA/STAGE.BIN` 开始，为 `+1 sector`，共 5 个后续
-成员发生位移。P10 COMPDATA 使用 Rust `rust-maximum` 压到 145,191 字节，
-保持 71 sectors 并余 217 字节。精确 DVD 已通过 PCSX2 v2.6.3
-fresh-process、DVD／ELF、PINE Running 和零 TLB 启动门；逐屏视觉与 atlas
-mapping 结论仍未因此升级。
+回读；全部成员保持原 LBA。P10 COMPDATA 使用 Rust `rust-maximum`、最小匹配长度 3，
+压到 145,293 字节，保持 71 sectors 并余 115 字节。最小匹配长度 2 的历史
+decoded payload 虽可离线精确回解且体积为 145,192 字节，但游戏启动时出现
+TLB miss；因此它只保留为兼容性失败证据，不是 production 参数。上一份仅缺
+“坠”光学校正的 `b608…` DVD 已通过 PCSX2 v2.6.3 fresh-process、DVD／ELF、
+PINE Running、确认人物后进入第 1 话，并连续运行 243 秒零 TLB；四张截图还
+确认第一关胜败条件、系统设置主体、队长效果搜索和特殊技能搜索。上一份
+`c2ba…` 加入双主人公资料、全部 348 个机体名与全部 711 个武器名，并通过静态、
+零 LBA shift 和 8 秒 fresh-process DVD／ELF／PINE Running／0 TLB 启动门。
+当前 `310a…` 再补齐开场简介“凉／缺”并把“尔”提升到 25pt；静态和零 LBA
+shift 已通过，但尚无运行证据，人物确认后转场和逐屏视觉证据仍需重新绑定。旧 `d945…` 候选在此转场因 VT1 增长令
+`STAGE.BIN` 后移一个 sector，触发 `pc=0x19DD94` 越界读取。
 
 ### 4.4.2 从 first-five 逐层晋级
 
@@ -716,12 +736,11 @@ ASCII glyph override，也必须原样写出 `%s` 的 ASCII 字节；翻译审�
 自动套回本关。
 
 验收边界必须分开表述：当前唯一
-`ui-p2-default-names-first-five` ISO（SHA-256
-`026f29e3e77b78a19f000c6781317ebc95aeb672b5b2848ad2a30bf8d2f5c473`）
-已在 PCSX2 v2.6.3 通过 fresh-process DVD／ELF／PINE Running／零 TLB
-启动门。此前 STAGE 001 的中文剧情截图仍来自旧候选，不能自动沿用为当前精确
-ISO 的视觉证据；STAGE 001～005 虽均通过静态回读、解压和重解析，也不能
-表述为五场战斗已完整游玩。完整清单见
+`ui-p10-database-fixed-core-first-five-atlas-test` ISO（SHA-256
+`310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88`）
+已通过静态回读和零 LBA shift。`b608…` 的进入第 1 话、零 TLB 与四张截图
+证据已归档，但不能自动沿用到改变完整 CJK 栅格基线的当前 ISO。STAGE 001～005
+虽均通过静态回读、解压和重解析，也不能表述为五场战斗已完整游玩。完整清单见
 `manifests/first-five-rust-validation.json`。
 
 ## 5. 新增一个 surface 的顺序
@@ -730,7 +749,9 @@ ISO 的视觉证据；STAGE 001～005 虽均通过静态回读、解压和重解
    render path。
 2. 新建 SurfaceSpec；只登记已证实的事实，未知语义保持未知。
 3. 在 `corpus/zh/<domain>.json` 增加同 ID 和 source hash 的中文决策。
-4. 对所有新字符先完成 codebook allocation、字形锁和冲突/活性证据。
+4. 对所有新字符先完成 codebook allocation、字形锁和冲突／活性证据。缺字
+   就新增 assignment；只有全游戏扫描证明原字形无需保留时才允许同码位替换。
+   不得为了回避加字而牺牲正式译名或中文表达。文本 span 容量仍单独验证。
 5. 将 surface、语料源和所需 assignment 加入一个小 profile。
 6. 先运行 profile validation，再运行对应 component writer。
 7. 检查 component diff、归档重读和 ISO 布局。
@@ -748,7 +769,7 @@ PCSX2 fixture。`canary-complete` 只组合这三个已登记 surface，不代�
 剧情或全游戏已经可批量写回。
 
 此外，节子路线 STAGE 001～005 已形成一个边界明确的生产候选：全部 1,833 条
-正文、条件和说话人已写回，630 个在用自定义码位与 806 个原有可达汉字已统一
+正文、条件和说话人已写回，630 个在用自定义码位与 807 个原有可达汉字已统一
 使用固定的 LXGW 字体；VT1 与所有 ISO 成员 LBA 保持原值，最终 ISO 回读及
 renderer 覆盖验证通过。当前镜像的 PCSX2 验证、第 2～5 关完整玩法回归、关卡
 标题菜单和后续关卡仍不在完成声明内。
@@ -770,7 +791,7 @@ MIPS HI/LO 写回门禁。P0 的 462 条静态菜单文本当前都能在原 spa
   两个混合组中的 9 条玩家标签已由 P9 逐条晋级；十八个整组和两个逐条子集
   均待实机验收，余下 13 条不得整批写入；
 - 用五张已生成的中文 atlas 隔离候选逐一完成运行归属和精确像素双门；同时
-  用已静态通过的 P10 综合测试候选完成 UI、前五关、四个数据库核心场景和
+  用已静态通过的 P10 综合测试候选完成 UI、前五关、五个数据库核心场景和
   atlas 的逐屏 PCSX2 路线；
 - 全量 STAGE arena policy 和通用 VT1 writer；
 - offline render oracle、coverage ratchet 和 clean-copy deterministic build。
