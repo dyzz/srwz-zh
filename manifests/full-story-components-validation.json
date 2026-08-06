@@ -1,0 +1,424 @@
+{
+  "schema_version": 1,
+  "status": "integrated_p10_ui_full_story_components_validated_runtime_pending",
+  "profile_id": "srwz-p10-ui-full-story-integrated-v1",
+  "scope": "Compose the validated P10 database-fixed UI, the complete 154-stage Chinese story font, all translated STAGE dialogue/speakers/conditions, the existing localized KVMDATA map component, and global default-width code aliases for every localized text surface while preserving the original executable renderer.",
+  "inputs": {
+    "config": {
+      "path": "config/full-story-components.json",
+      "size": 5750,
+      "sha256": "5f9e23477a31178c891edb941b19301774f566470e2708e474a8ff97177c0882"
+    },
+    "base_ui_manifest": {
+      "path": "manifests/ui-p10-database-fixed-core-validation.json",
+      "size": 39468,
+      "sha256": "edb545334aa50e6161c2d2f484f1df80d494d64734b1a057d99e240a6656ba78"
+    },
+    "full_story_font_manifest": {
+      "path": "manifests/full-story-font-validation.json",
+      "size": 35665,
+      "sha256": "58766bf4c7cb9a03e35448ac27d61453c3cba3021413773cea46fa992597c96b"
+    },
+    "full_story_stage_report": {
+      "path": "work/build/full-story-stage/components/component-validation.json",
+      "size": 17855266,
+      "sha256": "9c85a42b4a2939d5b2b087d315679aca30e715e1fecc0cb62c3566affa7aab6d"
+    },
+    "pilot_name_structure": {
+      "path": "config/display-names/compdata.json",
+      "size": 3584,
+      "sha256": "cd0b06663d0c25af23b8dda13729c3a97b6bee44d43b7bc1834e7f11b840cb9b"
+    },
+    "story_speakers": {
+      "path": "corpus/zh/story-speakers.json",
+      "size": 2898717,
+      "sha256": "5dcf29ce3d2692d2060b71853ca797ebe91edfa05c6599f91c98dfe6e1782fce"
+    },
+    "full_story_font_proposal": {
+      "path": "work/writeback/full-story-codebook-proposal.json",
+      "size": 6597981,
+      "sha256": "d4584c501cb561228f23e355c1bb4c0fe5fd2904094108438fe31e995d3105ef"
+    },
+    "stage_names": {
+      "path": "corpus/zh/menu/stage-names.json",
+      "size": 28759,
+      "sha256": "bc0fbbffa8fd03c67d47ff06b8fb36ac1aa5a972340e478d248ff303959cf0df"
+    },
+    "stage_title_format": {
+      "path": "corpus/zh/menu/unclassified.json",
+      "size": 114536,
+      "sha256": "5f5eb156f90d8b6abe9e027e9cf3263a1b8aebc06ece67d11da53f4fc5ebeda9"
+    },
+    "menu_descriptor": {
+      "path": "vendor/upstream-python/project/menu_files.json",
+      "size": 137657,
+      "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+    },
+    "font_slps": {
+      "path": "work/build/full-story-font/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "font_vt1": {
+      "path": "work/build/full-story-font/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "8607d8837b78c140bcc44674a9ae2113a5213d7559e5ddbc6bce40592a9c0186"
+    },
+    "stage": {
+      "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
+      "size": 3910128,
+      "sha256": "b89f294dc13e08ced885a8576cd34ae5a2e5206c671b9d10beb14c5843904dac"
+    },
+    "hb": {
+      "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
+      "size": 31152,
+      "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21"
+    },
+    "kvmdata": {
+      "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "0aaf2564df92fff1f9a6016d8fd5f67d05981022c3c28ac5a5c60b826386544c"
+    }
+  },
+  "composition": {
+    "font_chunk_index": 2,
+    "font_encoded_size": 563084,
+    "font_decoded_sha256": "b7fff439758ae00028c613c2075f451faf42b051ac70e96370ad7836f98770b5",
+    "font_padding_size": 179476,
+    "additional_borrowed_preceding_zero_slack": 0,
+    "preserved_non_font_vt1_chunk_count": 13,
+    "archive_size_preserved": true,
+    "slps_offset_reread_exact": true,
+    "intermission_list_font_geometry": {
+      "enabled": false,
+      "strategy": "surface-safe-code-aliases",
+      "scope": "Preserve the original renderers and encode every localized character whose primary code lies in 0x8140..0x889E through a default-width double-byte alias.",
+      "executable_geometry_patch_applied": false,
+      "original_list_renderer_preserved": true
+    }
+  },
+  "story": {
+    "stage_count": 154,
+    "stage_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153,
+      185,
+      186
+    ],
+    "translated_allocation_count": 83277,
+    "speaker_count": 8469,
+    "minimum_compressed_chunk_headroom": 22,
+    "stage_layout_preserved": true,
+    "translated_reread_exact": true,
+    "codec_round_trip_exact": true
+  },
+  "pilot_names": {
+    "unique_source_count": 424,
+    "included_fields": [
+      "display",
+      "family",
+      "given"
+    ],
+    "selected_entry_count": 1760,
+    "field_entry_counts": {
+      "display": 872,
+      "given": 794,
+      "family": 94
+    },
+    "write_entry_count": 543,
+    "no_op_entry_count": 1217,
+    "minimum_output_headroom": 4,
+    "changed_byte_count": 9401,
+    "changed_entry_ids_sha256": "4ee9e5aa2cbd84cb5103cbf072263ea9f256e3a5d161777be38e7e29dc2de5e7",
+    "source_compressed_size": 145283,
+    "output_compressed_size": 145191,
+    "compressed_sector_budget": 145408,
+    "codec": {
+      "strategy": "maximum",
+      "min_match_length": 2,
+      "max_match_chain": 256,
+      "lazy_matching": false
+    },
+    "codec_round_trip_exact": true,
+    "reread_exact": true,
+    "changed_bytes_confined_to_selected_fields": true,
+    "surface_safe_aliases": {
+      "surface_id": "global/all-localized-text-surfaces",
+      "assignment_count": 701,
+      "menu_applicable_assignment_count": 701,
+      "eligible_entry_count": 1880,
+      "rewritten_entry_count": 1833,
+      "entry_table_counts": {
+        "pilot": 1595,
+        "unit": 285
+      },
+      "character_occurrence_count": 3177,
+      "rewritten_entry_ids_sha256": "a0a92ab0940922c5df006643892c29fcab8b8a8ac1e0d89217a923e6d062466f",
+      "payload_size_changed_entry_count": 14,
+      "fixed_field_capacities_preserved": true,
+      "primary_codes_preserved": true,
+      "alias_codes_outside_conditional_range": true,
+      "pointer_bytes_unchanged": true,
+      "reread_exact": true
+    }
+  },
+  "stage_titles": {
+    "stage_title_entry_count": 122,
+    "title_format_entry_id": "menu/SLPS/00/0342",
+    "title_format_translation": "\"%s\"",
+    "stage_38_title": "被安排的决战",
+    "fixed_spans_preserved": true,
+    "pointer_bytes_unchanged": true,
+    "printable_ascii_passthrough": true,
+    "available_surface_safe_aliases_used": true,
+    "compdata_source_size": 145191,
+    "compdata_output_size": 145154,
+    "compdata_round_trip_exact": true,
+    "slps_size_preserved": true
+  },
+  "global_safe_aliases": {
+    "scope": "all-parsed-localized-menu-surfaces",
+    "conditional_primary_assignment_count": 701,
+    "safe_alias_assignment_count": 701,
+    "menu_applicable_safe_alias_assignment_count": 673,
+    "original_ascii_code_substitution_count": 40,
+    "unaliased_conditional_assignment_count": 0,
+    "alias_codes_default_width_only": true,
+    "slps": {
+      "selected_entry_count": 686,
+      "selected_target_count": 1166,
+      "merged_text_range_count": 1165,
+      "substituted_code_count": 2564,
+      "nested_raw_overlap_mismatch_count": 1,
+      "nested_raw_overlap_entry_ids": [
+        "menu/SLPS/00/0083"
+      ],
+      "size_preserved": true,
+      "pointer_bytes_unchanged": true,
+      "reread_exact": true
+    },
+    "compdata": {
+      "selected_entry_count": 1208,
+      "selected_target_count": 1480,
+      "merged_text_range_count": 1443,
+      "substituted_code_count": 5000,
+      "nested_raw_overlap_mismatch_count": 0,
+      "nested_raw_overlap_entry_ids": [],
+      "size_preserved": true,
+      "pointer_bytes_unchanged": true,
+      "reread_exact": true
+    },
+    "compdata_source_size": 145154,
+    "compdata_output_size": 145249,
+    "compdata_round_trip_exact": true
+  },
+  "outputs": {
+    "SLPS_258.87": {
+      "path": "work/build/ui-p10-full-story/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "5c38d8896cafc9a353975859b79f0c9080fef9294ba1631dddd2f85afa7a49da"
+    },
+    "DATA/VT1.BIN": {
+      "path": "work/build/ui-p10-full-story/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "48cefaa0cc2cb6a7460dff59381f8665c3b6f0a523541f6b2cc079ae742a841f"
+    },
+    "DATA/COMPDATA.BN": {
+      "path": "work/build/ui-p10-full-story/components/DATA/COMPDATA.BN",
+      "size": 145249,
+      "sha256": "88172ae63e6f1e6e83b0076415924ac632322ad90a8f6b6b8150a1c71008cef7"
+    },
+    "DATA/MTV_PROS.BIN": {
+      "path": "work/build/ui-p10-full-story/components/DATA/MTV_PROS.BIN",
+      "size": 8368,
+      "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
+    },
+    "DATA/STAGE.BIN": {
+      "path": "work/build/ui-p10-full-story/components/DATA/STAGE.BIN",
+      "size": 3910128,
+      "sha256": "b89f294dc13e08ced885a8576cd34ae5a2e5206c671b9d10beb14c5843904dac"
+    },
+    "HEDBDY/HB.BIN": {
+      "path": "work/build/ui-p10-full-story/components/HEDBDY/HB.BIN",
+      "size": 31152,
+      "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21"
+    },
+    "KURODATA/KVMDATA.BIN": {
+      "path": "work/build/ui-p10-full-story/components/KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "0aaf2564df92fff1f9a6016d8fd5f67d05981022c3c28ac5a5c60b826386544c"
+    }
+  },
+  "acceptance": {
+    "p10_ui_members_inherited_exact": true,
+    "p10_codebook_assignments_inherited_exact": true,
+    "full_story_font_missing_character_count_zero": true,
+    "full_story_font_original_han_count_zero": true,
+    "full_story_font_original_visible_character_count_zero": true,
+    "font_codec_round_trip_exact": true,
+    "font_archive_size_preserved": true,
+    "stage_layout_preserved": true,
+    "stage_hb_offset_reread_exact": true,
+    "all_story_text_reread_exact": true,
+    "full_story_pilot_names_reread_exact": true,
+    "full_story_pilot_name_codec_round_trip_exact": true,
+    "full_story_pilot_name_changes_confined": true,
+    "full_story_stage_titles_reread_exact": true,
+    "all_localized_text_uses_safe_double_byte_aliases": true,
+    "intermission_list_safe_aliases_scoped": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "The exact ISO and fresh PCSX2 target-flow evidence are still pending."
+  }
+}

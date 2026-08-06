@@ -48,8 +48,8 @@ class UiP10TestCandidateIsoTests(unittest.TestCase):
             {
                 "size": 3758358528,
                 "sha256": (
-                    "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125"
-                    "ef4dcba88"
+                    "40382c6b4ed3e43e66fcce877c6b46d4162b4557381fb05ad5370f"
+                    "a6855a8571"
                 ),
             },
         )

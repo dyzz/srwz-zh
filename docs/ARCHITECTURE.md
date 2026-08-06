@@ -2,62 +2,76 @@
 
 ## 数据边界
 
-工程将数据分为四层：
+工程分为四层：
 
 1. `rom/`：用户本地、不可变的原版 ISO，永不提交。
-2. `corpus/`、`config/`、`patches/`：中文工程的可审查源数据；
-   SurfaceSpec、中文决策、codebook 和 BuildProfile 是生产事实源。
-3. `work/`：提取缓存、按 profile 隔离的组件/ISO 中间态和运行证据。
-4. `font/generated/` 和 `build/`：从源数据生成的最终产物，永不作为唯一来源。
+2. `corpus/`、`config/`、`patches/`：可审查的生产源数据。
+3. `work/`：提取缓存、profile 组件、ISO 中间态和本地运行证据。
+4. `font/generated/`、`build/`：可由源数据重建的最终产物。
 
-ISO 相关目录不得混用：`rom/` 只读，`work/build/<profile>/` 可重建，
-`build/iso/<profile>/` 才是模拟器加载的最终镜像。完整契约见
-`ISO_DIRECTORY_LAYOUT.md`。
+生产事实源是 SurfaceSpec、中文语料、codebook／字体账本和 BuildProfile；
+manifest 用于锁定输入与结果。`work/`、`build/` 和 dashboard 都不能成为唯一
+译文或唯一配置来源。
 
 ## 构建流水线
 
 ```text
-原版校验
-  -> 提取与 round-trip 校验
-  -> SurfaceSpec 与日文语料哈希基准
-  -> BuildProfile reconciliation
-  -> 中文译文、编辑状态与术语检查
-  -> 字符集和字形生成
-  -> 中文断行与空间检查
-  -> 文本、字库和 ASM 回插
-  -> ISO 重建
-  -> PCSX2 运行验证
-  -> 补丁打包
+原版哈希与布局
+  -> 严格解析和稳定 ID
+  -> 来源哈希 reconciliation
+  -> 译文、术语和结构 token
+  -> 字体、编码和布局预算
+  -> 前像受控写回
+  -> Rust 原生格式压缩
+  -> 组件与归档回读
+  -> 单候选 ISO/UDF/LBA
+  -> PCSX2/PINE runtime
+  -> visual/interaction acceptance
 ```
 
-每个阶段都应产生清单或测试结果。任何缺字、无法编码字符、文本池溢出、超过最大行数或来源哈希变化都必须令构建失败。
+每层均产生机器可检查结果。来源变化、缺字、无法编码字符、溢出、未登记指针、
+压缩超预算、非目标字节变化或证据哈希不匹配必须令构建失败。
 
-当前已实现的最小生产路径是
-`config/build-profiles/canary-menu.json`。它连接
-`config/surfaces/menu-slps-opening.json`、`corpus/fixtures/menu-canary.json` 和
-`config/encoding/codebook.json`，并由 `tools/srwz/project.py` fail-closed
-校验。静态 canary 与 PINE 验证器从同一个 profile 读取译文、字形和地址；
-技术 fixture 不进入翻译覆盖率；正式 v1 译文位于 `corpus/zh/`，并由
-`corpus/releases/v1.json` 和独立 glossary 约束。旧 canary 配置只保留
-构建环境与 E0 golden。字段和新增 surface 流程见
-`PRODUCTION_PIPELINE.md`。
+模块归属：
 
-ASM 阶段额外由 `config/toolchain/armips.lock.json` 固定官方 MIT armips 源码、
-构建环境和产物哈希；`config/patches/upstream-asm-audit.json` 固定原版前像、
-最终差异集合、写入所有者、允许区间和显式覆盖。未知输入、文件扩容、越界写入
-或未登记覆盖不会生成可接受产物。
+- `tools/srwz/`：clean-room parser、codec、writer、ISO 和证据核心；
+- `tools/native/srwz-codec-rs/`：生产压缩器；
+- `tools/*.py`：薄 CLI 与 orchestration；
+- `config/`：地址、成员、surface、字体、写回和 profile；
+- `tests/`：格式与流程门禁；
+- `manifests/`：可提交的 hash-only 结果。
 
-## 上游集成
+字段和新增 surface 顺序见 `PRODUCTION_PIPELINE.md`。
 
-上游仓库固定到明确提交，并以源码快照保留逆向参考和可复用 Python 工具。
-当前活动实现位于中文仓库，只读取少量固定数据定义并按需做结果对照，避免依赖
-上游工作树中的未提交状态；若以后直接复用或修复上游代码，通用差异应整理为可
-贡献回上游的改动。
+## 不可替代的证据层
 
-如果以后改用 submodule 或 subtree，应同步更新 `config/upstream.lock.json`，并保持中文语料、ROM 和构建产物不进入上游。
+| 层 | 证明内容 | 不能证明 |
+| --- | --- | --- |
+| source／translation | 原文、译文、术语与状态 | 可编码、可写回 |
+| component | 字体、文本、归档和前像正确 | ISO 可启动 |
+| ISO | UDF、成员、大小、哈希和 LBA | 目标游戏路径正确 |
+| runtime | 精确 ISO 在匹配存档上到达目标 | 所有画面均已验收 |
+| visual | 指定截图、纹理和交互断言 | 未覆盖路线和边界用例 |
 
-当前同时保留两层：`vendor/upstream-python/` 是未修改的上游参考快照；
-`tools/srwz/` 是中文工程的 clean-room 实现。当前核心库不导入快照中的
-Python 模块，只由少数入口读取固定数据表并进行行为对照。Windows 二进制仍不
-迁移。详细复用边界见 `UPSTREAM_REUSE.md`，模块和外部依赖归属见
-`../tools/README.md`。
+旧候选的 runtime 或 screenshot 只属于其原 ISO 哈希。
+
+## 上游与工具链
+
+- 上游固定到 `config/upstream.lock.json` 指定的提交；最小参考快照位于
+  `vendor/upstream-python/`，由 `selection.json` 和 byte comparison 固定。
+- 活动实现全部位于中文仓库；核心库不导入上游 Python 模块，只读取少量固定
+  数据定义并做结果对照。
+- 不执行上游 EXE/DLL、Wine 或 Mono。Windows 二进制、预制汉化成员和未提交
+  上游工作树都不是生产输入。
+- ISO 固定使用 config 锁定的 `mkps2iso` v1.1.1；ASM 固定使用
+  `config/toolchain/armips.lock.json` 声明的官方 MIT armips。
+- 通用修复应保持差异可追溯，便于贡献回上游；中文语料、ROM 和构建产物不得
+  进入上游仓库。
+
+## 写入与发布原则
+
+- 原版只读；候选始终写入 profile 隔离路径。
+- 每处二进制写入必须有前像、边界和唯一 owner。
+- 不静默截断、不复用未证明安全的 glyph、不做 patch-over-patch。
+- `runtime_verified` 必须绑定精确 ISO、存档、路线、日志、截图和断言。
+- 发布包不得包含原版数据、完整 ISO、存档或私有本地证据。

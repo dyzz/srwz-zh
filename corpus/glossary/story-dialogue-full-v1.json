@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "glossary_id": "story-dialogue-full-v1",
+  "language": "zh-Hans",
+  "default_source_match": "substring",
+  "research_basis": "全文术语审核页的用户定稿；只收录需由正式构建器强制检查的全局唯一术语，以及既有草稿已引用的玖尔队条目。",
+  "terms": [
+    {
+      "id": "organization/ageha-team",
+      "source_terms": ["アゲハ隊"],
+      "translation": "凤蝶队",
+      "category": "organization",
+      "status": "approved",
+      "domains": ["story"],
+      "enforce": false,
+      "notes": "用户于 2026-08-04 明确定稿；替换阿盖哈队、扬羽队等机器异译。"
+    },
+    {
+      "id": "people/black-charisma",
+      "source_terms": ["黒のカリスマ"],
+      "translation": "黑之卡里斯玛",
+      "category": "people",
+      "status": "approved",
+      "domains": ["story"],
+      "enforce": false,
+      "notes": "用户在全文术语审核中定稿；统一黑色魅力、黑色魅影、黑之救世主等机器异译。"
+    },
+    {
+      "id": "provisional/story-dialogue/joule-team",
+      "source_terms": ["ジュール隊"],
+      "translation": "玖尔队",
+      "category": "organization",
+      "status": "researched",
+      "domains": ["story"],
+      "enforce": false,
+      "notes": "保留完整模型草稿已经审计引用的稳定 ID；本条不强制全文替换。"
+    },
+    {
+      "id": "user/unit/rush-rod",
+      "source_terms": ["ラッシュロッド"],
+      "translation": "拉什罗德",
+      "category": "unit",
+      "status": "approved",
+      "domains": ["story"],
+      "enforce": false,
+      "notes": "用户全文术语定稿；仅由已晋升剧情行显式引用，不反向改写既有条件文本。"
+    },
+    {
+      "id": "user/unit/buffalo",
+      "source_terms": ["バッファロー"],
+      "translation": "水牛",
+      "category": "unit",
+      "status": "approved",
+      "domains": ["story"],
+      "enforce": false,
+      "notes": "用户采用字幕与项目显示名一致的译法。"
+    },
+    {
+      "id": "user/unit/aquarion",
+      "source_terms": ["アクエリオン"],
+      "translation": "亚库艾里翁",
+      "category": "unit",
+      "status": "approved",
+      "domains": ["story"],
+      "enforce": false,
+      "notes": "用户全文术语定稿；剧情行显式引用。"
+    },
+    {
+      "id": "user/unit/dominator",
+      "source_terms": ["ドミネーター"],
+      "translation": "支配者",
+      "category": "unit",
+      "status": "approved",
+      "domains": ["story"],
+      "enforce": false,
+      "notes": "用户采用项目显示名的中文译法。"
+    },
+    {
+      "id": "user/unit/assault-aquarion",
+      "source_terms": ["強攻型アクエリオン"],
+      "translation": "强攻型亚库艾里翁",
+      "category": "unit",
+      "status": "approved",
+      "domains": ["story"],
+      "enforce": false,
+      "notes": "随亚库艾里翁系列名统一。"
+    }
+  ]
+}

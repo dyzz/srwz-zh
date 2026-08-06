@@ -21,6 +21,7 @@ try:
         validate_directory_contract as _validate_directory_contract,
     )
     from srwz.iso9660 import (
+        SECTOR_SIZE,
         Iso9660Error,
         extent_order,
         member_manifest_sha256,
@@ -37,6 +38,7 @@ except ModuleNotFoundError:
         validate_directory_contract as _validate_directory_contract,
     )
     from tools.srwz.iso9660 import (
+        SECTOR_SIZE,
         Iso9660Error,
         extent_order,
         member_manifest_sha256,
@@ -89,6 +91,71 @@ def verify_file(path: Path, expected_size: int, expected_sha256: str) -> None:
         raise IsoBuildError(
             f"{path} SHA-256 {actual_sha256}, expected {expected_sha256}"
         )
+
+
+def validate_replacement_sector_budget(config: dict, source_image) -> dict:
+    """Fail before rebuilding when a fixed-LBA profile outgrows a member."""
+
+    enforced = config["layout"].get(
+        "preserve_original_member_sector_allocations",
+        False,
+    )
+    if not enforced:
+        return {"enforced": False}
+
+    shift_segments = expected_shift_segments(config)
+    if any(shift_sectors != 0 for _, shift_sectors in shift_segments):
+        raise IsoBuildError(
+            "fixed member-sector allocation requires zero LBA shift segments"
+        )
+    if config["output"].get("expected_size") != config["source_iso"]["size"]:
+        raise IsoBuildError(
+            "fixed member-sector allocation requires output size to equal "
+            "the source ISO size"
+        )
+
+    source_members = member_map(source_image)
+    entries = []
+    for replacement in config["replacements"]:
+        path = replacement["member"]
+        source_member = source_members.get(path)
+        if source_member is None:
+            raise IsoBuildError(
+                f"replacement member is absent from the source ISO: {path}"
+            )
+        candidate_size = replacement.get("size")
+        if (
+            not isinstance(candidate_size, int)
+            or isinstance(candidate_size, bool)
+            or candidate_size < 0
+        ):
+            raise IsoBuildError(f"replacement size is invalid: {path}")
+        source_sectors = (source_member.size + SECTOR_SIZE - 1) // SECTOR_SIZE
+        candidate_sectors = (candidate_size + SECTOR_SIZE - 1) // SECTOR_SIZE
+        if candidate_sectors > source_sectors:
+            raise IsoBuildError(
+                f"replacement exceeds original member sectors: {path} "
+                f"needs {candidate_sectors}, source has {source_sectors}"
+            )
+        entries.append(
+            {
+                "member": path,
+                "source_size": source_member.size,
+                "candidate_size": candidate_size,
+                "source_sectors": source_sectors,
+                "candidate_sectors": candidate_sectors,
+                "within_original_member_sectors": True,
+            }
+        )
+
+    return {
+        "enforced": True,
+        "sector_size": SECTOR_SIZE,
+        "all_shift_segments_zero": True,
+        "output_size_equals_source_iso": True,
+        "all_replacements_within_original_member_sectors": True,
+        "entries": entries,
+    }
 
 
 def resolve_tool(tool_config: dict) -> str:
@@ -610,6 +677,16 @@ def main() -> int:
             f"UDF {source_image.udf_volume_recognition_sequence}"
         )
 
+        sector_budget = validate_replacement_sector_budget(
+            config,
+            source_image,
+        )
+        if sector_budget["enforced"]:
+            print(
+                "[OK] fixed-LBA sector budget: every replacement stays "
+                "within its original member sectors"
+            )
+
         mkps2iso = resolve_tool(config["toolchain"]["mkps2iso"])
         dumps2iso = resolve_tool(config["toolchain"]["dumps2iso"])
         print(
@@ -655,6 +732,7 @@ def main() -> int:
             lba_log,
         )
         report = validate_output(config, source_image, output_path)
+        report["sector_budget"] = sector_budget
         report["builder"] = {
             "name": "mkps2iso",
             "version": config["toolchain"]["version"],

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "profile_id": "ui-p10-database-fixed-core-first-five-atlas-test",
-  "scope": "A test-only whole-member composition of the validated P10 UI component with all 348 unit names, all 711 weapon names, per-glyph CJK optical sizing, four reviewed exceptions, both protagonist selection profiles, first-five story component and five-atlas Chinese suite. Parts, four protected special-ability terms, diagnostic fragments and unproven late-game surfaces remain excluded.",
+  "scope": "A test-only whole-member composition of the validated P10 UI component with all 348 unit names, all 711 weapon names, uniform geometry-derived CJK bounding-box normalization with zero character exceptions, both protagonist selection profiles, first-five story component and five-atlas Chinese suite. Parts, four protected special-ability terms, diagnostic fragments and unproven late-game surfaces remain excluded.",
   "manifest_contract": {
     "status": "integrated_ui_p10_database_fixed_core_first_five_atlas_test_component_validated_runtime_pending",
     "runtime_purpose": "Exercise all 348 unit names and 711 weapon names together with the 402 selected skill, special-ability, spirit-command and leadership entries, all prior P9 UI groups, both protagonist selection profiles, the finalized first-five titles, first-five story data and all five localized atlas candidates in one exact ISO."
@@ -11,7 +11,7 @@
       "component_id": "ui-p10-database-fixed-core",
       "manifest": {
         "path": "manifests/ui-p10-database-fixed-core-validation.json",
-        "sha256": "acb4a5938b21f280873878c0977538df5b18e40d121d87bccbce0a9286b7f7bf",
+        "sha256": "2e20c43c035fa8040ce01f18f04dbd27e79ce7a77544efc5c020958c72f70368",
         "required_profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
         "required_status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
         "runtime_status_field": "runtime.status",
@@ -22,7 +22,7 @@
           "member": "SLPS_258.87",
           "path": "work/build/ui-p10-database-fixed-core/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979",
+          "sha256": "b9fbe75363a8888a2eac1fac3122bd03873f47c90275bc61ce699a36a2be1622",
           "manifest_lock_field": "outputs.slps"
         },
         {
@@ -42,8 +42,8 @@
         {
           "member": "DATA/VT1.BIN",
           "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
-          "size": 127501728,
-          "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9",
+          "size": 127502064,
+          "sha256": "215e9a505f6e54d88cd6fc1c47752f2901978c568df020f8b9034712c9a7c725",
           "manifest_lock_field": "outputs.vt1"
         }
       ]
@@ -125,8 +125,8 @@
       "sha256": "210ddea7d326eb5b835a73e5a961b3572f6b37260aa48f7c173471bf4d7ac327"
     },
     "DATA/VT1.BIN": {
-      "size": 127501728,
-      "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9"
+      "size": 127502064,
+      "sha256": "215e9a505f6e54d88cd6fc1c47752f2901978c568df020f8b9034712c9a7c725"
     },
     "HEDBDY/HB.BIN": {
       "size": 31152,
@@ -138,7 +138,7 @@
     },
     "SLPS_258.87": {
       "size": 3471624,
-      "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979"
+      "sha256": "b9fbe75363a8888a2eac1fac3122bd03873f47c90275bc61ce699a36a2be1622"
     }
   },
   "runtime": {

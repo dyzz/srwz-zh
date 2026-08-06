@@ -6,6 +6,7 @@ from pathlib import Path
 from tools.srwz.canary import (
     CanaryError,
     double_byte_width_class,
+    normalized_cjk_bbox_size,
     quantize_gray_4bpp,
     rasterizer_point_size,
     rebuild_archive_with_replacement,
@@ -29,38 +30,15 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class CanaryTests(unittest.TestCase):
-    def test_rasterizer_point_size_uses_audited_optical_correction(self):
-        rasterizer = {
-            "point_size": 22,
-            "optical_corrections": {
-                "班": {
-                    "point_size": 22.1,
-                    "reason": "Small-size optical correction.",
-                }
-            },
-        }
+    def test_rasterizer_point_size_is_uniform_for_every_character(self):
+        rasterizer = {"point_size": 22}
         self.assertEqual(rasterizer_point_size("研", rasterizer), 22)
-        self.assertEqual(rasterizer_point_size("班", rasterizer), 22.1)
+        self.assertEqual(rasterizer_point_size("班", rasterizer), 22)
 
-    def test_rasterizer_point_size_rejects_unaudited_correction(self):
+    def test_rasterizer_point_size_rejects_every_character_correction(self):
         with self.assertRaisesRegex(
             CanaryError,
-            "must pin point_size and reason",
-        ):
-            rasterizer_point_size(
-                "班",
-                {
-                    "point_size": 22,
-                    "optical_corrections": {
-                        "班": {"point_size": 22.1},
-                    },
-                },
-            )
-
-    def test_rasterizer_point_size_rejects_non_finite_correction(self):
-        with self.assertRaisesRegex(
-            CanaryError,
-            "invalid rasterizer optical correction",
+            "per-character optical corrections are forbidden",
         ):
             rasterizer_point_size(
                 "班",
@@ -68,8 +46,8 @@ class CanaryTests(unittest.TestCase):
                     "point_size": 22,
                     "optical_corrections": {
                         "班": {
-                            "point_size": float("nan"),
-                            "reason": "Invalid non-finite correction.",
+                            "point_size": 22.1,
+                            "reason": "Forbidden special case.",
                         },
                     },
                 },
@@ -81,6 +59,16 @@ class CanaryTests(unittest.TestCase):
             quantize_gray_4bpp(values),
             bytes((0, 0, 1, 7, 8, 14, 15, 15)),
         )
+
+    def test_uniform_cjk_bbox_normalization_uses_geometry_not_characters(self):
+        policy = {
+            "target_bbox_size": 22,
+        }
+        self.assertEqual(normalized_cjk_bbox_size(41, 43, policy), (21, 22))
+        self.assertEqual(normalized_cjk_bbox_size(45, 43, policy), (22, 21))
+        self.assertEqual(normalized_cjk_bbox_size(34, 35, policy), (21, 22))
+        self.assertEqual(normalized_cjk_bbox_size(42, 5, policy), (22, 3))
+        self.assertEqual(normalized_cjk_bbox_size(6, 42, policy), (3, 22))
 
     def test_selected_codes_preserve_default_width_class(self):
         self.assertEqual(

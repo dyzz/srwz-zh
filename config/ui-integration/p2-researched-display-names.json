@@ -27,66 +27,66 @@
     "p0_font_base": {
       "manifest": {
         "path": "manifests/ui-p0-font-validation.json",
-        "sha256": "2e3ef59510b93dbbe65793df81fe7962aa7f5d97f4c991a0ab064f98224474f4",
+        "sha256": "8c52b2cfafbc0ee38bf9430db3c632bbb61d56c1455a91123ba97b97502d664c",
         "required_status": "offline_font_and_p0_renderer_coverage_passed_runtime_pending"
       },
       "slps": {
         "path": "work/build/ui-p0/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "250452f8c4af9d2948ce60fdfc1fc66b99141f2c457d5199c7896e0deb243909"
+        "sha256": "4d5642584ea35180195bd77737a5eda60c34cbb1408758cdb8b0854434902df1"
       }
     },
     "p0_fixed_slps": {
       "config": {
         "path": "config/ui-writeback/ui-p0-slps-fixed.json",
-        "sha256": "df3bcc67505bf10c43c9442a9aa00edc3f31cc1f4845284f694054e1166f9002"
+        "sha256": "905f7e7b1596d8380107bb85582c95c3c18d8e3553ad41722e2abd8d0f7cc6a7"
       },
       "manifest": {
         "path": "manifests/ui-p0-fixed-slps-validation.json",
-        "sha256": "a6540eecc462832817f94be500a08516f690bb1756d318cbde9b557ed2b8f681",
+        "sha256": "ce0ab00c6f91e3db104353fbae22244559f1270bdf1c8721e15d1fb805a3c025",
         "required_status": "fixed_slps_component_validated_iso_runtime_pending"
       },
       "slps": {
         "path": "work/build/ui-p0-fixed-slps/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "3655acb94c65e4e1a82042707c86f63176184a608deaa5e81da64b8b015e2c27"
+        "sha256": "7075bba0c3b8c6f7b3512bf2ea4167850c888e40a4f94a26b441e07183e3702f"
       }
     },
     "p0_display_names": {
       "config": {
         "path": "config/ui-writeback/ui-p2-display-names.json",
-        "sha256": "39e258fe00adde640675cae6b22c2771c10be74efb7622efc3fcabfeb809b5f8"
+        "sha256": "f663ce2c73b3e4bcf7508a5fdb8a06aa55cbd59e2954d8ca594f03ee9eef0e1f"
       },
       "manifest": {
         "path": "manifests/ui-p2-display-names-validation.json",
-        "sha256": "afd40e3e548a005785d05ff0eced16701c7d3cfccc576c6ce06d1586907bd43d",
+        "sha256": "fcc42be013b3df57a1a36eb42e8aa02000f0e0e0ba8bfa47bcf94266dfcd540c",
         "required_status": "p0_compdata_and_researched_display_names_validated_iso_runtime_pending"
       },
       "compdata": {
         "path": "work/build/ui-p2-display-names/components/DATA/COMPDATA.BN",
-        "size": 144485,
-        "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+        "size": 144506,
+        "sha256": "8f1e2ff248988b26e94a541ddb864b608702542190de6cf4c79aeda477154bc3"
       }
     },
     "world_history": {
       "config": {
         "path": "config/summary/world-history-p2-display-names-component.json",
-        "sha256": "27ba08d8b30f55facbafbd98cda2fb96399f23a867c6fe1bdf67d0d2df0c8baa"
+        "sha256": "a6f2fdef6295b2a505c3550f8d57439aecd992fbd17ab64de64493d52a97c530"
       },
       "manifest": {
         "path": "manifests/ui-p2-world-history-validation.json",
-        "sha256": "ad6c92eb0234d9f3c5f13a19cc70543b3eca75174b226670a25d9380107b6c4f",
+        "sha256": "2e1047aef9ef6174da2a54d7f8efabf21b3bbcee6945963ac589fe11f77d2da6",
         "required_status": "offline_component_validated_runtime_not_tested"
       },
       "slps": {
         "path": "work/build/ui-p2-world-history/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "14d756abca5185421c763a1c0dba83506e5c41b94c91030e224fbd0d26e1bfe4"
+        "sha256": "3d20317994de20f200e6bd99bb3ca0a4a19b56c7257de3c566d73db33bf62d5a"
       },
       "vt1": {
         "path": "work/build/ui-p2-world-history/components/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "2d541fc2a20ebac321a48c996c2ed7bba354bf24d857887cd522e2d0627f261b"
+        "sha256": "70c8577f07309d0b370cd3b21e5049ce013936d725b7b866f74ec7b85a4e87b6"
       },
       "mtv_pros": {
         "path": "work/build/ui-p2-world-history/components/DATA/MTV_PROS.BIN",
@@ -122,7 +122,7 @@
     "p0_slps_covered_entry_count": 418,
     "p0_slps_changed_byte_count": 2659,
     "p0_slps_changed_range_count": 496,
-    "p0_display_name_entry_count": 1307,
+    "p0_display_name_entry_count": 1331,
     "world_history_entry_count": 28,
     "vt1_chunk_count": 14,
     "vt1_unchanged_chunk_count": 13,
@@ -132,19 +132,19 @@
   "expected_outputs": {
     "slps": {
       "size": 3471624,
-      "sha256": "8a322f1e20febdf9cd4ac1a9e1803c9fa997246aa448cd0a62d08fb6a453013d"
+      "sha256": "018251210d88aa1c8e7a6d44e64ceef6238cc6128e64ff6290c4baa8d1ddacd0"
     },
     "vt1": {
       "size": 127500736,
-      "sha256": "a024a5ad026074ae37ccd3bbe84ade2ba0160cb1194daa80ad7101ce7d0646ca"
+      "sha256": "22766b123fbb724cd7857b4c4ddfd4434ca4c456169de7e012fc517ae3c3d6c3"
     },
     "mtv_pros": {
       "size": 8368,
       "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
     },
     "compdata": {
-      "size": 144485,
-      "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+      "size": 144506,
+      "sha256": "8f1e2ff248988b26e94a541ddb864b608702542190de6cf4c79aeda477154bc3"
     }
   },
   "outputs": {

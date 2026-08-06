@@ -7,8 +7,8 @@
   "inputs": {
     "config": {
       "path": "config/ui-integration/p1-core.json",
-      "size": 6029,
-      "sha256": "24e7589d01672edb808f5b408ce8302e79c79640ae367cd6597e6ff6d5ccfc7c"
+      "size": 6035,
+      "sha256": "50b7dff9bcc924d464d23fd67f3e273ea37f680edcac51f87dd46427107c12e0"
     },
     "components": {
       "title_menu": {
@@ -36,42 +36,42 @@
       "p0_font_base": {
         "manifest": {
           "path": "manifests/ui-p0-font-validation.json",
-          "size": 5366,
-          "sha256": "2e3ef59510b93dbbe65793df81fe7962aa7f5d97f4c991a0ab064f98224474f4"
+          "size": 5642,
+          "sha256": "8c52b2cfafbc0ee38bf9430db3c632bbb61d56c1455a91123ba97b97502d664c"
         },
         "slps": {
           "path": "work/build/ui-p0/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "250452f8c4af9d2948ce60fdfc1fc66b99141f2c457d5199c7896e0deb243909"
+          "sha256": "4d5642584ea35180195bd77737a5eda60c34cbb1408758cdb8b0854434902df1"
         }
       },
       "p0_fixed_slps": {
         "config": {
           "path": "config/ui-writeback/ui-p0-slps-fixed.json",
           "size": 2175,
-          "sha256": "df3bcc67505bf10c43c9442a9aa00edc3f31cc1f4845284f694054e1166f9002"
+          "sha256": "905f7e7b1596d8380107bb85582c95c3c18d8e3553ad41722e2abd8d0f7cc6a7"
         },
         "manifest": {
           "path": "manifests/ui-p0-fixed-slps-validation.json",
           "size": 7607,
-          "sha256": "a6540eecc462832817f94be500a08516f690bb1756d318cbde9b557ed2b8f681"
+          "sha256": "ce0ab00c6f91e3db104353fbae22244559f1270bdf1c8721e15d1fb805a3c025"
         },
         "slps": {
           "path": "work/build/ui-p0-fixed-slps/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "3655acb94c65e4e1a82042707c86f63176184a608deaa5e81da64b8b015e2c27"
+          "sha256": "7075bba0c3b8c6f7b3512bf2ea4167850c888e40a4f94a26b441e07183e3702f"
         }
       },
       "p0_display_names": {
         "config": {
           "path": "config/ui-writeback/ui-p0-display-names.json",
           "size": 3484,
-          "sha256": "fafc42b895a9804ad3cd7c9f4b8766fc818dc154044544f6a79d57c4cd23a865"
+          "sha256": "2b0e069ab21a6cda919a0008bba89a66982880062fbf9c729e10ca50aa81652e"
         },
         "manifest": {
           "path": "manifests/ui-p0-display-names-validation.json",
           "size": 30000,
-          "sha256": "a530c4a77c6402c8e6af20cf3614035f2fd2d83fa61c4b9b139c9fe9a256ff43"
+          "sha256": "c7f1e4fb0f01d5884b5af1cb3ea4789858a839e0336f92a2b6980647d1369163"
         },
         "compdata": {
           "path": "work/build/ui-p0-display-names/components/DATA/COMPDATA.BN",
@@ -83,22 +83,22 @@
         "config": {
           "path": "config/summary/world-history-component.json",
           "size": 2910,
-          "sha256": "50a2433891d121a6b4aa3494fd1e85f3d7bea2afb874cefd5333a45d52ef8736"
+          "sha256": "7a678a980ce0fa54f73cd14d3c31384774f7331dc00468d3051e8824566cb9a0"
         },
         "manifest": {
           "path": "manifests/ui-p1-world-history-validation.json",
           "size": 18584,
-          "sha256": "98d320216c0ec829dc1220eb21a2ebf1f23f7e7970b79da15e55ae9b17c46857"
+          "sha256": "39eaf3f3832413c30c8959e7fc1c0afdd8789d08e1c4d2050c9a11c30fadd6c2"
         },
         "slps": {
           "path": "work/build/ui-p1-world-history/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "6ce578b5c8e69c842bf87afc830da1f4879c193b5104977c3dead66a80d47e43"
+          "sha256": "e8bf0dba2c4a3d4f107a3765e60eecc49aac65239de2f5cdf5445315be57f500"
         },
         "vt1": {
           "path": "work/build/ui-p1-world-history/components/DATA/VT1.BIN",
           "size": 127500736,
-          "sha256": "89ac088915a3402104b5454acd5c5ed6eeebc89cc5111227c91ec8648e610389"
+          "sha256": "7c591ee0638c96cbfe5e3d2a658eec5037e36a34a48297a7634f8807b724b397"
         },
         "mtv_pros": {
           "path": "work/build/ui-p1-world-history/components/DATA/MTV_PROS.BIN",
@@ -128,8 +128,8 @@
         "last_offset": 3324633,
         "offsets_sha256": "358a38291abc97ce909bb2992a43fe7e11efd031287f6902d2d4fe22fd6e9d75",
         "ranges_sha256": "6aa3af667a31a663ec6d15221dfebbaedb632e661a68d9647ea03b2709c12843",
-        "before_values_sha256": "e2f773d326da08eb561635a970b75bce039277275afcc03febecd1058776e972",
-        "after_values_sha256": "1c375000b080d4b3302d15e8cc80272cef02e3cf7a53c8a109ba9132cb6ea6a2"
+        "before_values_sha256": "142b4b0f9f2693efa3ef417fe6d2be4533c75bfaa49ef7a4ec5c699117c89a76",
+        "after_values_sha256": "41c09473fa55ee626c110176dd83ad65007ae8f7e9d04cb4ac97a8a55b2c5c5f"
       },
       "overlap_count": 0,
       "menu_bytes_exact": true,
@@ -162,7 +162,7 @@
       "offset_patch_plan": {
         "source_name": "SLPS_258.87",
         "source_size": 3471624,
-        "source_sha256": "47181384fc69b936870187474759576b77df1af71598a8744e3142d53e426fa5",
+        "source_sha256": "651ccdf7cb834aa3b56bf647cde0e35609ce0b40c5ab1ad15634dd5a6c7e5936",
         "operation_count": 1,
         "operations": [
           {
@@ -170,8 +170,8 @@
             "offset": 3121408,
             "end": 3121468,
             "size": 60,
-            "before_sha256": "618acf20d470275822bf7ae3e37ecf352e86c41ecf590b92d9eaeb189db0f586",
-            "after_sha256": "618acf20d470275822bf7ae3e37ecf352e86c41ecf590b92d9eaeb189db0f586"
+            "before_sha256": "b0af15eeed23ad3959affa35ba34baa55e850eb8c6a374da7aeb341234b89a1f",
+            "after_sha256": "b0af15eeed23ad3959affa35ba34baa55e850eb8c6a374da7aeb341234b89a1f"
           }
         ]
       },
@@ -194,11 +194,11 @@
   "outputs": {
     "slps": {
       "size": 3471624,
-      "sha256": "47181384fc69b936870187474759576b77df1af71598a8744e3142d53e426fa5"
+      "sha256": "651ccdf7cb834aa3b56bf647cde0e35609ce0b40c5ab1ad15634dd5a6c7e5936"
     },
     "vt1": {
       "size": 127500736,
-      "sha256": "f453330b15026196353088a1362e2865ad671d8e57aa3c8da29500af2327ef15"
+      "sha256": "0c7e3679f47621cce4809f1686ae5eb15c19041de2cf59232aabfb388553d62d"
     },
     "mtv_pros": {
       "size": 8368,

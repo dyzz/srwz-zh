@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "glossary_id": "srwz-zh-story-dialogue-stage-008-v1",
+  "language": "zh-Hans",
+  "default_source_match": "substring",
+  "research_basis": [
+    "Stage 008 source dialogue and existing SRWZ story/display-name terminology",
+    "Chinese community naming for Earthgertz and the Saint-Germain Castle cast",
+    "Existing unit table names for the Gravion machines"
+  ],
+  "terms": [
+    {
+      "id": "unit/one-robot",
+      "source_terms": ["１号ロボ"],
+      "translation": "1号机器人",
+      "category": "unit",
+      "status": "researched",
+      "domains": ["story"],
+      "enforce": true,
+      "notes": "统一采用半角数字，避免日文全角数字造成字体宽度分裂。"
+    },
+    {
+      "id": "place/saint-germain-castle",
+      "source_terms": ["サンジェルマン城"],
+      "translation": "圣日耳曼城",
+      "category": "place",
+      "status": "researched",
+      "domains": ["story"],
+      "enforce": true,
+      "notes": "超重神GRAVION 的 Saint-Germain Castle；沿用中文社区通行译名。"
+    },
+    {
+      "id": "unit/ryujinmaru",
+      "source_terms": ["竜神丸"],
+      "translation": "龙神丸",
+      "category": "unit",
+      "status": "researched",
+      "domains": ["story"],
+      "enforce": true,
+      "notes": "魔神英雄传机体名，日文旧字龙统一为简体龙。"
+    },
+    {
+      "id": "unit/gran-kaiser",
+      "source_terms": ["グランカイザー"],
+      "translation": "格兰凯撒",
+      "category": "unit",
+      "status": "researched",
+      "domains": ["story"],
+      "enforce": true,
+      "notes": "与本项目机体显示名一致。"
+    },
+    {
+      "id": "unit/gran-diva",
+      "source_terms": ["グランディーヴァ"],
+      "translation": "格兰迪瓦",
+      "category": "unit",
+      "status": "researched",
+      "domains": ["story"],
+      "enforce": true,
+      "notes": "与本项目格兰迪瓦系列机体显示名一致。"
+    },
+    {
+      "id": "unit/g-shadow",
+      "source_terms": ["Ｇシャドゥ"],
+      "translation": "G幻影机",
+      "category": "unit",
+      "status": "researched",
+      "domains": ["story"],
+      "enforce": true,
+      "notes": "与本项目机体显示名 G幻影机 一致。"
+    },
+    {
+      "id": "organization/earthgertz",
+      "source_terms": ["アースガルツ"],
+      "translation": "地球战骑队",
+      "category": "organization",
+      "status": "researched",
+      "domains": ["story"],
+      "enforce": true,
+      "notes": "Earthgertz 的中文社区通行译名；与格兰骑士团区分。"
+    },
+    {
+      "id": "organization/gran-knights",
+      "source_terms": ["グランナイツ"],
+      "translation": "格兰骑士团",
+      "category": "organization",
+      "status": "researched",
+      "domains": ["story"],
+      "enforce": true,
+      "notes": "Gran Knights 的中文译名；与地球战骑队区分。"
+    },
+    {
+      "id": "system/trinity-energy",
+      "source_terms": ["トリニティエネルギー"],
+      "translation": "三位一体能量",
+      "category": "system",
+      "status": "researched",
+      "domains": ["story"],
+      "enforce": true,
+      "notes": "宇宙大帝God Sigma 的 Trinity Energy；与 Trinity Charge 指令区分。"
+    },
+    {
+      "id": "people/fishing-master",
+      "source_terms": ["網元"],
+      "translation": "渔业头领",
+      "category": "people",
+      "status": "researched",
+      "domains": ["story"],
+      "enforce": true,
+      "notes": "日语网元指统领渔民和渔业经营的头领，按对白语境译为渔业头领。"
+    }
+  ]
+}

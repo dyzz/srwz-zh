@@ -18,12 +18,12 @@
     },
     "researched_coverage": {
       "config": "config/display-names/researched-coverage.json",
-      "config_sha256": "fbfff852c88436c0fb7a11adad2bb847b1ee9b88a746b4302aa7be99c7256e96",
+      "config_sha256": "76aa0cf4af67aa80d6c95d5f2eb13774a8526ad98955ebe53e4597a95bc62be3",
       "manifest": "manifests/display-name-researched-coverage.json",
-      "manifest_sha256": "c0d82ce8e425e77cc2eec263235e31d57aeadd8e4db066f6779b280454f4af60",
+      "manifest_sha256": "fa465d402e58869e0ab074bccf8a46f6c89e27e7d72a2f72178c1b21ae15c235",
       "selection_id": "srwz-display-names-researched-v1",
       "required_status": "researched_selection_ready",
-      "expected_entry_count": 1262
+      "expected_entry_count": 1286
     }
   },
   "terminology_sources": [
@@ -50,14 +50,14 @@
   ],
   "base_component": {
     "config": "config/ui-writeback/ui-p0-compdata-fixed.json",
-    "config_sha256": "35af6297e4ba2cde318a0466116afc59a003960bc41ce000f3c47992f1619e59",
+    "config_sha256": "62532ad0b37552e92293c3d71d84492223a7681b57741130255cac28a95454d9",
     "manifest": "manifests/ui-p0-fixed-compdata-validation.json",
-    "manifest_sha256": "b23e9daf19be2a5e11d32aa5cce367d027f88fcde45414768a57e49e4763984a",
+    "manifest_sha256": "c9f689212043d378b5070861b868f4d528f1c7c4fa183f23c2dec250eefbc005",
     "output_sha256": "9933127220837966ff5c4cb06f1a10a15e78225a02d846250c7b3b4e8a156eeb"
   },
   "font_candidate": {
     "manifest": "manifests/ui-p2-display-name-font-validation.json",
-    "sha256": "81394e80d9a1ff0dac17d7fd9d69b23a1b1d0ba48960da9fc7079bc45b8c441c",
+    "sha256": "da66e58af75451b1927c0151ef689bfeab4bce0d8df71b5082f67733094111a5",
     "required_status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
   },
   "base_codebook": {
@@ -83,17 +83,17 @@
     "max_sectors": 71
   },
   "ratchet": {
-    "translation_entry_count": 1307,
-    "pilot_translation_entry_count": 1263,
-    "unit_translation_entry_count": 44,
-    "no_op_entry_count": 94,
-    "write_entry_count": 1213,
+    "translation_entry_count": 1331,
+    "pilot_translation_entry_count": 1269,
+    "unit_translation_entry_count": 62,
+    "no_op_entry_count": 95,
+    "write_entry_count": 1236,
     "pointer_write_count": 0,
     "minimum_preserved_base_compressed_prefix": 4000
   },
   "manifest_contract": {
     "status": "p0_compdata_and_researched_display_names_validated_iso_runtime_pending",
-    "remaining_scope": "The remaining 1,493 non-empty fields do not have one researched exact glossary decision and remain outside this component.",
+    "remaining_scope": "The remaining 1,469 non-empty fields do not have one researched exact glossary decision and remain outside this component.",
     "runtime_reason": "This isolated COMPDATA candidate proves deterministic fixed-allocation writeback only. It is not yet bound to an ISO or PCSX2 screenshots of pilot/unit information surfaces."
   },
   "outputs": {

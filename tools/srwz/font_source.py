@@ -35,6 +35,10 @@ ALLOWED_SOURCES = {
     },
 }
 
+LOCAL_NONCOMMERCIAL_SOURCE_KIND = "local-noncommercial-test"
+LOCAL_NONCOMMERCIAL_DISTRIBUTION = "local_noncommercial_test_only"
+LOCAL_NONCOMMERCIAL_LICENSE = "LicenseRef-Noncommercial-Unverified"
+
 
 class FontSourceError(ValueError):
     """A pinned font source is invalid or cannot be reproduced."""
@@ -56,6 +60,43 @@ def load_font_lock(path: Path) -> dict:
 def validate_font_lock(lock: Mapping) -> None:
     if lock.get("schema_version") != 1:
         raise FontSourceError("unsupported font lock schema")
+    if lock.get("source_kind") == LOCAL_NONCOMMERCIAL_SOURCE_KIND:
+        if lock.get("distribution") != LOCAL_NONCOMMERCIAL_DISTRIBUTION:
+            raise FontSourceError(
+                "local noncommercial font distribution policy is invalid"
+            )
+        if lock.get("license", {}).get("spdx") != (
+            LOCAL_NONCOMMERCIAL_LICENSE
+        ):
+            raise FontSourceError(
+                "local noncommercial font license marker is invalid"
+            )
+        for label in ("font", "license"):
+            item = lock.get(label)
+            if not isinstance(item, Mapping):
+                raise FontSourceError(f"font lock has no {label} object")
+            if (
+                not isinstance(item.get("path"), str)
+                or not item["path"].startswith("work/font-source/")
+            ):
+                raise FontSourceError(f"{label} output is outside font-source")
+            if not isinstance(item.get("size"), int) or item["size"] <= 0:
+                raise FontSourceError(f"{label} size is invalid")
+            digest = item.get("sha256")
+            if (
+                not isinstance(digest, str)
+                or len(digest) != 64
+                or any(
+                    character not in "0123456789abcdef"
+                    for character in digest
+                )
+            ):
+                raise FontSourceError(f"{label} SHA-256 is invalid")
+        if lock["license"].get("status") != "provenance_only_not_a_license":
+            raise FontSourceError(
+                "local noncommercial provenance status is invalid"
+            )
+        return
     repository = lock.get("repository")
     policy = ALLOWED_SOURCES.get(repository)
     if policy is None:
@@ -149,6 +190,11 @@ def fetch_font_lock(
     force: bool = False,
 ) -> tuple[Path, ...]:
     lock = load_font_lock(lock_path)
+    if lock.get("source_kind") == LOCAL_NONCOMMERCIAL_SOURCE_KIND:
+        raise FontSourceError(
+            "local noncommercial font locks are verification-only and "
+            "cannot be downloaded"
+        )
     outputs = []
     for label in ("font", "license"):
         expected = lock[label]
@@ -202,12 +248,87 @@ def verify_font_lock_files(
     return outputs
 
 
+def font_source_metadata(lock: Mapping) -> dict:
+    """Return the stable proposal/build identity for one validated lock."""
+
+    validate_font_lock(lock)
+    metadata = {
+        "family": lock["family"],
+        "version": lock["version"],
+        "font_sha256": lock["font"]["sha256"],
+        "license_spdx": lock["license"]["spdx"],
+        "license_sha256": lock["license"]["sha256"],
+    }
+    for key in ("source_kind", "distribution", "commit"):
+        value = lock.get(key)
+        if value is not None:
+            metadata[key] = value
+    return metadata
+
+
+def verify_font_fallbacks(
+    project_root: Path,
+    work_root: Path,
+    references: object,
+) -> tuple[dict[str, Path], tuple[dict, ...]]:
+    """Verify explicit missing-glyph fallbacks using the primary geometry."""
+
+    if references is None:
+        return {}, ()
+    if not isinstance(references, list):
+        raise FontSourceError("font fallbacks must be a list")
+    paths: dict[str, Path] = {}
+    reports = []
+    for reference in references:
+        if not isinstance(reference, Mapping):
+            raise FontSourceError("font fallback is malformed")
+        lock_reference = reference.get("font_lock")
+        characters = reference.get("characters")
+        reason = reference.get("reason")
+        if (
+            not isinstance(lock_reference, str)
+            or not lock_reference
+            or not isinstance(characters, str)
+            or not characters
+            or len(set(characters)) != len(characters)
+            or not isinstance(reason, str)
+            or not reason
+        ):
+            raise FontSourceError("font fallback selection is invalid")
+        lock_path = (project_root / lock_reference).resolve()
+        try:
+            lock_path.relative_to(project_root.resolve())
+        except ValueError as error:
+            raise FontSourceError("font fallback lock escapes project") from error
+        lock = load_font_lock(lock_path)
+        verified = verify_font_lock_files(project_root, work_root, lock)
+        for character in characters:
+            if character in paths:
+                raise FontSourceError(
+                    f"font fallback character is repeated: {character!r}"
+                )
+            paths[character] = verified["font"]
+        reports.append(
+            {
+                "font_lock": lock_reference,
+                "characters": characters,
+                "character_count": len(characters),
+                "reason": reason,
+                "font_source": font_source_metadata(lock),
+                "uses_primary_rasterizer_geometry": True,
+            }
+        )
+    return paths, tuple(reports)
+
+
 __all__ = [
     "ALLOWED_SOURCES",
     "FontSourceError",
+    "font_source_metadata",
     "fetch_font_lock",
     "load_font_lock",
     "sha256_bytes",
     "validate_font_lock",
     "verify_font_lock_files",
+    "verify_font_fallbacks",
 ]

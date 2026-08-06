@@ -14,9 +14,11 @@ from typing import Mapping, Optional
 PRINTABLE_ASCII = frozenset(
     "".join((string.digits, string.ascii_letters, string.punctuation, " "))
 )
+ORIGINAL_FULLWIDTH_ASCII = frozenset(string.digits + string.ascii_letters)
 RUNTIME_FORMAT_TOKEN = re.compile(r"%(?:\d+\$)?[diouxXeEfFgGcrsa]")
+RUNTIME_SUBSTITUTION_TOKEN = re.compile(r"\$[cflnF]")
 CONTROL_NOTATION = re.compile(
-    r"\$[nF]"
+    rf"{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
     rf"|{RUNTIME_FORMAT_TOKEN.pattern}"
     r"|\{[0-9A-Fa-f]{2}\}"
     r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
@@ -123,6 +125,53 @@ def load_text_table(path: Path) -> TextTable:
         tags[value] = name
 
     return TextTable(characters=characters, tags=tags)
+
+
+def original_fullwidth_ascii_overrides(table: TextTable) -> dict[str, int]:
+    """Route visible ASCII through the original game's two-byte glyphs.
+
+    The SRWZ dialogue and intermission renderers consume visible text as
+    two-byte codes.  Raw one-byte ASCII therefore cannot safely be used for
+    labels such as ``ZAFT``, ``PLANT``, ``LS`` or ``WM``: adjacent bytes can
+    be interpreted as one unrelated code.  The stock table already exposes
+    the game's Latin, digit and punctuation glyphs through Shift-JIS-style
+    fullwidth codes.  Return the alphanumeric codes under their ASCII
+    identities so the corpus remains ordinary ASCII while the stored payload
+    stays two-byte.  Punctuation is deliberately left to the localized font
+    codebook because Chinese and ASCII punctuation are not interchangeable.
+
+    Runtime substitution/format tokens are still emitted byte-for-byte by
+    :func:`encode_text` before overrides are consulted.
+    """
+
+    overrides: dict[str, int] = {}
+    for character in sorted(ORIGINAL_FULLWIDTH_ASCII):
+        source_character = chr(ord(character) + 0xFEE0)
+        code = table.inverse_characters.get(source_character)
+        if code is None or code < 0x8000:
+            raise ValueError(
+                "original fullwidth ASCII code is absent for "
+                f"{character!r} via {source_character!r}"
+            )
+        overrides[character] = code
+    return overrides
+
+
+def normalize_original_fullwidth_ascii(text: str) -> str:
+    """Canonicalize stock fullwidth Latin/digits to corpus ASCII identity."""
+
+    if not isinstance(text, str):
+        raise TypeError("text must be a string")
+    return "".join(
+        chr(ord(character) - 0xFEE0)
+        if (
+            "０" <= character <= "９"
+            or "Ａ" <= character <= "Ｚ"
+            or "ａ" <= character <= "ｚ"
+        )
+        else character
+        for character in text
+    )
 
 
 def decode_text(
@@ -270,10 +319,10 @@ def encode_text(
             index += 1
             continue
 
-        runtime_name_match = re.match(r"\$[nF]", text[index:])
-        if runtime_name_match:
-            output.extend(runtime_name_match.group(0).encode("ascii"))
-            index += len(runtime_name_match.group(0))
+        runtime_substitution_match = RUNTIME_SUBSTITUTION_TOKEN.match(text, index)
+        if runtime_substitution_match:
+            output.extend(runtime_substitution_match.group(0).encode("ascii"))
+            index = runtime_substitution_match.end()
             continue
 
         runtime_format_match = RUNTIME_FORMAT_TOKEN.match(text, index)
@@ -309,7 +358,10 @@ def encode_text(
 
         override_code = overrides.get(character) if overrides is not None else None
         if override_code is not None:
-            output.extend(override_code.to_bytes(2, "big"))
+            if character in PRINTABLE_ASCII and override_code == ord(character):
+                output.append(override_code)
+            else:
+                output.extend(override_code.to_bytes(2, "big"))
             index += 1
             continue
 
@@ -376,7 +428,9 @@ def augment_text_table(
 
 __all__ = [
     "DecodedText",
+    "ORIGINAL_FULLWIDTH_ASCII",
     "RUNTIME_FORMAT_TOKEN",
+    "RUNTIME_SUBSTITUTION_TOKEN",
     "SrwzTextError",
     "SrwzTextEncodeError",
     "TextTable",
@@ -385,4 +439,6 @@ __all__ = [
     "decode_text",
     "encode_text",
     "load_text_table",
+    "normalize_original_fullwidth_ascii",
+    "original_fullwidth_ascii_overrides",
 ]

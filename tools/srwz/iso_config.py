@@ -111,6 +111,17 @@ def validate_directory_contract(config: dict) -> None:
     layout = config.get("layout")
     if not isinstance(layout, dict):
         raise IsoBuildError("ISO layout contract is missing")
+    preserve_member_sectors = layout.get(
+        "preserve_original_member_sector_allocations"
+    )
+    if preserve_member_sectors is not None and not isinstance(
+        preserve_member_sectors,
+        bool,
+    ):
+        raise IsoBuildError(
+            "layout preserve_original_member_sector_allocations must be "
+            "boolean"
+        )
     raw_segments = layout.get("shift_segments")
     if raw_segments is not None:
         if not isinstance(raw_segments, list) or not raw_segments:

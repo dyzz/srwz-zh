@@ -263,7 +263,7 @@ class StoryDialogueTranslationTests(unittest.TestCase):
             "GS战斗术",
         )
 
-    def test_v1_release_registers_in_progress_dialogue_batch(self):
+    def test_v1_release_registers_complete_dialogue_draft_batch(self):
         release = json.loads(RELEASE_PATH.read_text(encoding="utf-8"))
         self.assertIn(
             "corpus/zh/story-dialogue/stage-001.json",
@@ -279,7 +279,7 @@ class StoryDialogueTranslationTests(unittest.TestCase):
             if batch["batch_id"] == "v1-story-dialogue"
         )
         self.assertEqual(batch["target_entry_count"], 82719)
-        self.assertEqual(batch["status"], "in_progress")
+        self.assertEqual(batch["status"], "draft_complete")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "font_lock": "config/fonts/lxgw-neo-xihei-screen.lock.json",
+  "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
   "scope": {
     "stage_indices": [
       1,
@@ -26,15 +26,13 @@
     "hinting": false,
     "antialias": true,
     "quantization": "round(gray * 15 / 255)",
-    "optical_corrections": {
-      "班": {
-        "point_size": 23.5,
-        "reason": "The 2026-07-31 runtime screenshot still shows 班 optically smaller at 22.1pt; 23.5pt produces a stable 22x21 raster with 250 ink pixels, matching adjacent CJK density without changing its code or advance."
-      },
-      "任": {
-        "point_size": 23.5,
-        "reason": "The 2026-07-31 runtime screenshot shows 任 optically smaller at 22pt; 23.5pt produces a stable 22x21 raster with 212 ink pixels while preserving the existing code and advance."
-      }
+    "cjk_bbox_normalization": {
+      "source_canvas_size": 64,
+      "source_point_size": 48,
+      "trim_threshold": 8,
+      "target_bbox_size": 22,
+      "resize_filter": "Lanczos",
+      "reason": "Render every CJK ideograph from the same high-resolution Noto em, trim only quantization-invisible outer pixels, proportionally fit the visible raster inside a 22x22 box, and center it in the fixed 24x24 cell. Character-specific resizing, point sizes, and corrections are forbidden."
     }
   }
 }

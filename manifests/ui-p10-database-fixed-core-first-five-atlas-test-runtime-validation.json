@@ -6,8 +6,8 @@
   "component": {
     "manifest": {
       "path": "manifests/ui-p10-database-fixed-core-first-five-atlas-test-validation.json",
-      "size": 9460,
-      "sha256": "5f015fd88c0ad9cb3a8adacc8042f3d471d2cb6d9c5e72ce3f677a55acaa66a9"
+      "size": 9492,
+      "sha256": "25f69a304b554773dedd33140210dfdaf6067a5f39ea6dbb38cb1ee9eb7896fb"
     },
     "profile_id": "ui-p10-database-fixed-core-first-five-atlas-test",
     "composition": {
@@ -31,12 +31,12 @@
       "SLPS_258.87": {
         "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979",
+        "sha256": "b9fbe75363a8888a2eac1fac3122bd03873f47c90275bc61ce699a36a2be1622",
         "owner": "ui-p10-database-fixed-core",
         "source": {
           "path": "work/build/ui-p10-database-fixed-core/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979"
+          "sha256": "b9fbe75363a8888a2eac1fac3122bd03873f47c90275bc61ce699a36a2be1622"
         },
         "manifest_output_lock_exact": true
       },
@@ -66,13 +66,13 @@
       },
       "DATA/VT1.BIN": {
         "path": "work/build/ui-p10-database-fixed-core-first-five-atlas-test/components/DATA/VT1.BIN",
-        "size": 127501728,
-        "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9",
+        "size": 127502064,
+        "sha256": "215e9a505f6e54d88cd6fc1c47752f2901978c568df020f8b9034712c9a7c725",
         "owner": "ui-p10-database-fixed-core",
         "source": {
           "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
-          "size": 127501728,
-          "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9"
+          "size": 127502064,
+          "sha256": "215e9a505f6e54d88cd6fc1c47752f2901978c568df020f8b9034712c9a7c725"
         },
         "manifest_output_lock_exact": true
       },
@@ -128,17 +128,17 @@
     "config": {
       "path": "config/iso/ui-p10-database-fixed-core-first-five-atlas-test-build.json",
       "size": 5329,
-      "sha256": "895e54389ecfb9f5574006a39abdd16ccb313bda5227052f132f9f4064cc7268"
+      "sha256": "694facc6cdf115263a7d0cc457d5916de2a11d6813d9ed7116a8063caee2cae3"
     },
     "report": {
       "path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/iso-validation.json",
       "size": 4394,
-      "sha256": "c9b4c857505774f87661dca1743eb48f470b5c0a5f7dc0f8a98ab1d6d1324f6c"
+      "sha256": "7b1229b161a3b98fb5823b559293cb99073335af04bb2fee8c40e4da0757bdef"
     },
     "path": "build/iso/ui-p10-database-fixed-core-first-five-atlas-test/srwz-ui-p10-database-fixed-core-first-five-atlas-test.iso",
     "output": {
       "size": 3758358528,
-      "sha256": "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88"
+      "sha256": "40382c6b4ed3e43e66fcce877c6b46d4162b4557381fb05ad5370fa6855a8571"
     },
     "member_count": 66,
     "unchanged_member_count": 59,
@@ -149,13 +149,13 @@
         "shift_sectors": 0
       }
     ],
-    "member_manifest_sha256": "a24850cbda1244afce5c4ba67dd3cd10becb9295aed849df99f89795a2ed8e0d",
+    "member_manifest_sha256": "66b7b622653cfa6330e39bb14c3cddc79588507eb956dd0c2f4d318bc5967a40",
     "pcsx2_v263_image_type": "DVD",
     "udf_volume_recognition_sequence": "NSR02",
     "replacements": {
       "SLPS_258.87": {
         "size": 3471624,
-        "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979",
+        "sha256": "b9fbe75363a8888a2eac1fac3122bd03873f47c90275bc61ce699a36a2be1622",
         "owner": "ui-p10-database-fixed-core",
         "independent_udf_reread_exact": true
       },
@@ -172,8 +172,8 @@
         "independent_udf_reread_exact": true
       },
       "DATA/VT1.BIN": {
-        "size": 127501728,
-        "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9",
+        "size": 127502064,
+        "sha256": "215e9a505f6e54d88cd6fc1c47752f2901978c568df020f8b9034712c9a7c725",
         "owner": "ui-p10-database-fixed-core",
         "independent_udf_reread_exact": true
       },
@@ -213,7 +213,7 @@
   },
   "runtime": {
     "status": "not_tested",
-    "required_iso_sha256": "310a2c5bebcc0be343f5865176dec994f6951c6efbb576dee9af125ef4dcba88",
+    "required_iso_sha256": "40382c6b4ed3e43e66fcce877c6b46d4162b4557381fb05ad5370fa6855a8571",
     "required_emulator": "PCSX2 v2.6.3",
     "required_scene_families": [
       "title/main-menu",

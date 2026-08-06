@@ -1,0 +1,766 @@
+{
+  "schema_version": 1,
+  "status": "offline_full_story_font_renderer_coverage_passed_runtime_pending",
+  "font_profile_id": "srwz-full-story-p10-unified-font-v1",
+  "scope": "P10 UI font plus all 91,746 translated story entries across 154 text stages. It proves renderer coverage and deterministic glyph allocation only; it does not write STAGE.BIN, build an ISO or prove runtime scenes.",
+  "visible_ascii_policy": {
+    "mode": "original-fullwidth-two-byte",
+    "characters": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+    "preserve_original_glyphs": true,
+    "forbid_raw_visible_ascii_alphanumerics": true,
+    "allow_raw_space": true,
+    "reason": "Keep the stock Latin and digit glyphs. Corpus ASCII alphanumerics are encoded through the game's original two-byte fullwidth codes; the stock one-byte spacing control and punctuation stay under their existing paths, while runtime substitution and format tokens remain raw bytes."
+  },
+  "inputs": {
+    "config": {
+      "path": "config/fonts/full-story-font.json",
+      "sha256": "eebdabe14126fb659ce976b0816dca26836a063dce976501d18f91581cb93dcc"
+    },
+    "allocation_registry": {
+      "path": "config/encoding/full-story-font-allocations.json",
+      "sha256": "b2443ba55b5b0d62263d1729752fdf0a4d5a972d6a18bd6159b6a831078c1c17"
+    },
+    "story_translation_selection": {
+      "kind": "full_story_release",
+      "release": {
+        "path": "corpus/releases/v1.json",
+        "sha256": "f4260a998048ac8fae03dae7922e4b5b83ab7c1b6c29b5457d42eaf759b52f6d",
+        "release_id": "srwz-zh-corpus-v1",
+        "status": "in_progress"
+      },
+      "stage_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        185,
+        186
+      ],
+      "stage_count": 154,
+      "source_count": 156,
+      "sources_sha256": "84e7a383fcab0d30b1d8e38673ae53c9150b17ad9126c3893cdbba611ddaa681",
+      "batch_entry_counts": {
+        "v1-story-conditions": 558,
+        "v1-story-dialogue": 82719,
+        "v1-story-speakers": 8469
+      },
+      "editorial_status_counts": {
+        "draft": 87748,
+        "reviewed": 3998
+      },
+      "unique_entry_count": 91746,
+      "renderer_coverage_entry_count": 91869,
+      "runtime_visible_string_count": 2,
+      "runtime_visible_strings": [
+        "ランド・トラビス",
+        "セツコ・オハラ"
+      ],
+      "additional_visible_entry_count": 121,
+      "additional_visible_sources": [
+        {
+          "path": "corpus/zh/menu/stage-names.json",
+          "size": 28759,
+          "sha256": "bc0fbbffa8fd03c67d47ff06b8fb36ac1aa5a972340e478d248ff303959cf0df",
+          "entry_count": 121,
+          "source_entry_count": 122
+        }
+      ],
+      "selection_sha256": "4d406bd377339e8ac967e75da697948f90d3201fcebba750e3fe453e6d1cd42d"
+    },
+    "base_proposal": {
+      "path": "work/writeback/ui-p10-database-codebook-proposal.json",
+      "sha256": "22e210c8bf6e5b5409fe17a3fe42a3c451b54133711048aaacaa1620be165631",
+      "proposal_id": "srwz-ui-p10-database-fixed-core-unified-font-v2",
+      "assignment_count": 1803
+    },
+    "base_validation_manifest": {
+      "path": "manifests/ui-p10-database-font-validation.json",
+      "sha256": "f41a6f68f56edb16b6cfdf136b365e33484d24fd0a615a84f63f39008e66ae03"
+    }
+  },
+  "capacity": {
+    "combined_renderer_addressable_candidate_slot_count": 2358,
+    "valid_sjis_safe_candidate_slot_count": 650,
+    "legacy_safe_candidate_slot_count": 486,
+    "expanded_standard_candidate_slot_count": 164,
+    "raw_standard_addressable_candidate_slot_count": 86,
+    "source_glyph_reuse_candidate_slot_count": 1622,
+    "inherited_source_glyph_reuse_candidate_slot_count": 75,
+    "base_registered_character_count": 811,
+    "combined_registered_character_count": 1564,
+    "remaining_candidate_slot_count": 794
+  },
+  "additional_allocations": {
+    "count": 755,
+    "characters": "&',:=~é业丧丰丼乖习亏亢亵亿仆仓仿伞伟伪佣佬侄侈侧俩俱倔倡债倾偕偿傅僭價儆兑兔兢兮冈冕冤冰凑刁刮劈劝勋匆匣卖卧厅厕厢厮叠叨叭叮叹叽吁吕吩吱吵呕呗呛呱咂咄咏咐咒咔咕咖咙咚咣咨咪咯咱咻咿哑哗哟唁唉唠唤唬售啡啥啪啬啸啼喇喏喔喘喳喵喻嗓嗖嗝嗡嗨嘀嘎嘞嘻噗噢噬嚎嚣嚷嚼囊囤园圾址坛坟坡垃垄塌墅墙墩壳奎奠奢奶奸妆妇妞娇娱娶婪婴婶媳嫒嫩孙孽宠宪宫宽寇寐寞尬尴尸屁屎屿岁岂岔岗岚岭峙峦崛崭嵌巢巩巫币师帐帘帜帷广庞弈弑徊徘徙忒怂怡怦恙恫恳恸悍悖悚悬悯惕惘惫慑憋憬懈懊懦戳扁扑扔扛扫扯扼抖抚抛抠抬拆拔拣拧拯拽挂挖挚挠挣捅捎捞捡捣掀掏掖掳掺揍插揭搁搅搏搪摄摇摊撂撇擎擞攀攒敛敞敲晕晨晰晾暄暧朵杞构枉栅栋栏树桌梳棍棘棵椒榆榨槛橙歇歹殃殄殷毋毙毯氓氘污汤汹沐沟沮沾泄泻泼洁洒洼洽浆浇济浑浓涕润涨涩淆淌淤渍渎渗渣渴湃溪溯滓滕滚滥滩潇潦潭澈澎澡灌灿炒炖炙炫炼炽烂烘烙烛烟烤烫烬焉焗焙煞熏熬爹犷犸犹狄狈狡猴猾玫玷珐珥琐琼瑰瓣畅畴疗疙疚疤疮疼痂痊痒痞痣痪痹瘆瘟瘠瘤瘦瘩瘫瘴瘾癞皂盏盐监盔盼睁睛睫睹瞎瞑瞪瞻矣矿码砌砍砸砾硕碾磋禀秃秽稻穹窍窗窜窝窥竖竞筛筹签篡篷簇粮粹糕緻纣纤纲纸绅绉绒绘绚绫绰绳绵绽缄缆缉缘缚缝缰罕罚羁羔羡翘翱耻耿聚聪肤肮胀胖胳胶脏脓脖脾腌腥腻腾膊臀臊舆舒舔艰艳艺芒苍苟茱茵茹荐荫莲莽蔡虾蚀蚁蚂蚪蛀蛆蛹蜓蜴蜻蝇蝌蝴蝼蟆蟑衍袍袒袜袤裔裤觅觊觎觑订讧讪讳诀诅诈诊诋诗诡询诫诲诵诶诹课谊谋谍谎谐谒谙谚谜谬谱谴豁豢豫豸貂貉财贤贩贪贫贬购贯贴贷贺贼贿赂赃赎赏赐赔赘赚赝赠趴趾跌跷踩蹂蹈蹊蹋蹦蹩蹭蹲蹿躏躺软轴辆辈辑辖辜辨辩辽迁迹逊逍递逛逻遐遢遨邋邮郑鄙酝酱酿醉醋鉴钓钞钟钥钧钮钵铜铭铲铺销锃锅锈锏锣锯锻镐镳闷阁阂阅阐阔陨隧雏雕霉韦韧韵顽颂颇颊颐颓颜颠飒飕飘飙饥饭饮饯饰饱饲饼饿馁馅馆馈馒驭驯驰驳驿骋骤髓髦鬃鬣鱿鲍鲜鲤鲶鳅鳏鳞鸡鸦鸫鸽鹤麾",
+    "appended_character_count": 753,
+    "appended_characters": "$&',:=~é业丧丰丼乖习亏亢亵亿仆仓仿伞伟伪佣佬侄侈侧俩俱倔倡债倾偕偿傅僭價儆兑兔兢兮冕冤冰凑刁刮劈劝勋匆匣卖卧厅厕厢厮叠叨叭叮叹叽吁吕吩吱吵呕呗呛呱咂咄咏咐咒咔咕咖咙咚咣咨咪咯咱咻咿哑哗哟唁唉唠唤唬售啡啥啪啬啸啼喇喏喔喘喳喵喻嗓嗖嗝嗡嗨嘀嘎嘞嘻噗噢噬嚎嚣嚷嚼囊囤园圾址坛坟坡垃垄塌墅墙墩壳奎奠奢奶奸妆妇妞娇娱娶婪婴婶媳嫒嫩孙孽宠宪宫宽寇寐寞尬尴尸屁屎屿岁岂岔岗岚岭峙峦崛崭嵌巢巩巫币师帐帘帜帷广庞弈弑徊徘徙忒怂怡怦恙恫恳恸悍悖悚悬悯惕惘惫慑憋憬懈懊懦戳扁扑扔扛扫扯扼抖抚抛抠抬拆拔拣拧拯拽挂挚挠挣捅捎捞捡捣掀掏掖掳掺揍插揭搁搅搏搪摄摇摊撂撇擎擞攀攒敛敞敲晕晨晰晾暄暧朵杞构枉栅栋栏树桌梳棍棘棵椒榆榨槛橙歇歹殃殄殷毋毙毯氓氘污汤汹沐沟沮沾泄泻泼洁洒洼洽浆浇济浑浓涕润涨涩淆淌淤渍渎渗渣渴湃溪溯滓滕滚滥滩潇潦潭澈澎澡灌灿炒炖炙炫炼炽烂烘烙烛烟烤烫烬焉焗焙煞熏熬爹犷犸犹狄狈狡猴猾玫玷珐珥琐琼瑰瓣畅畴疗疙疚疤疮疼痂痊痒痞痣痪痹瘆瘟瘠瘤瘦瘩瘫瘴瘾癞皂盏盐监盔盼睁睛睫睹瞎瞑瞪瞻矣矿码砌砍砸砾硕碾磋禀秃秽稻穹窍窗窜窝窥竖竞筛筹签篡篷簇粮粹糕緻纣纤纲纸绅绉绒绘绚绫绰绳绵绽缄缆缉缘缚缝缰罕罚羁羔羡翘翱耻耿聚聪肤肮胀胖胳胶脏脓脖脾腌腥腻腾膊臀臊舆舒舔艰艳艺芒苍苟茱茵茹荐荫莲莽蔡虾蚀蚁蚂蚪蛀蛆蛹蜓蜴蜻蝇蝌蝴蝼蟆蟑衍袍袒袜袤裔裤觅觊觎觑订讧讪讳诀诅诈诊诋诗诡询诫诲诵诶诹课谊谋谍谎谐谒谙谚谜谬谱谴豁豢豫豸貂貉财贤贩贪贫贬购贴贷贺贼贿赂赃赎赏赐赔赘赚赝赠趴趾跌跷踩蹂蹈蹊蹋蹦蹩蹭蹲蹿躏躺软轴辆辈辑辖辜辨辩辽迁迹逊逍递逛逻遐遢遨邋邮郑鄙酝酱酿醉醋鉴钓钞钟钥钧钮钵铜铭铲铺销锃锅锈锏锣锯锻镐镳闷阁阂阅阐阔陨隧雏雕霉韦韧韵顽颂颇颊颐颓颜颠飒飕飘飙饥饭饮饯饰饱饲饼饿馁馅馆馈馒驭驯驰驳驿骋骤髓髦鬃鬣鱿鲍鲜鲤鲶鳅鳏鳞鸡鸦鸫鸽鹤麾",
+    "retired_appended_character_count": 1,
+    "retired_appended_characters": "$",
+    "reactivated_character_count": 3,
+    "reactivated_characters": "冈挖贯",
+    "blank_preimage_count": 3,
+    "raw_standard_trail_gap_count": 0,
+    "source_glyph_reuse_count": 752
+  },
+  "additional_reraster_existing_han": {
+    "count": 558,
+    "characters": "丁丘串丸乍乏九乞乳云井亦京仁仇仔仙仰仲伍伎伏伸伺侃侍侠侮俊俗倦健偶傀傍僻儡允兄兆党六冥凋凌凛凡凸凹刊刑券刹削剥劣募勤勾勿匙匠匡匪午卑卒卜印卵卸卿厄叶吐君吠吹吻吼呆咆咎咽哀哨哭哮哲唆唇唱唾喉喋喝喧嗅嗜嘱嘲囚坑垂垢堆堡堪堵塑填墓墟墨壮夕奏契奴妻姐委姻娩婆婚媒嫁嫌嬉孝季孤宅宋宏宗宛宜室宵宿寂寄寒寝寡寿封尿届屋屡履岐岬岳岸峡峻崇崖巡巷巾帖帽幼幽庄庇床庭康庸廉廊廷弊弥弩彰彷径律徨復微徽忍忠忽怜怠恋恭恰患悦悼惑惰惹愉慈慌慎慕慰憧戎扉扶抑披抹抽拍拒拗拙拭拷挨挫挽捏捧授掘掠措揄描揶搬摘摸撮擦敏敦敷料斜斡斤斥旅昂昆昌映春昨昭晋晦景晴晶暖曙曝曳曹朋朕朽材枕枢枯枷柄染柔柱柳柴栖栗栽桂桶梁梗梢梯棺植楔榜槽横橘欠欣款歌歪殆残殴殿毅氏気汁汗汝池汰汲沁沸沼泉泊泣泥泳洗津洪洲浅浜浴浸涌涯淑淘淡淹渠渡湖湿溜溢溺滋滞滴漆漠漫潮澄灯炉炭焚煎熊燕燥爵父版牟牢牧犀犯狐狩狸猪献玄玉玖珍珠琢琴瓶甜畜番疏疲疾病症痍癖皆盆盈盛盟眉眠眷眺睡督睦矢砺碁碑碗祟票禁禅禽私租税稚稽稿穫窃窄童端竹竿筋筑箱篇簿籍粘粥糖紫罪羊羽翰耐耽肋肌肥肺胃胎腔腰腹膀膜膨臆臣臭舌舟舵舶艇芋芝芥芭芯芳芽苗苛茂茫茶茸菊萄萌萎著葛葡董葬葱蒸蓄蔓蔚蔽薪藉藻虎虐虞虹蚊蚕蚤蛙蛤蛭蛮蛾蜜街衷裕裸誉谷貌赤赦跨跪躯辞辟辣辰迄迩逅途逗逢逮逸遂遥遮邂邸郁郊酌酪酬酵陀陛院陶雄雇雌霞食餐骨骸魁黄黎鼎鼓鼠"
+  },
+  "additional_reraster_existing_visible": {
+    "count": 600,
+    "characters": "ν—‘’“”…Ⅱ∀═□△○●♪、。《》〜オコスセツトドハビラン・丁丘串丸乍乏九乞乳云井亦京仁仇仔仙仰仲伍伎伏伸伺侃侍侠侮俊俗倦健偶傀傍僻儡允兄兆党六冥凋凌凛凡凸凹刊刑券刹削剥劣募勤勾勿匙匠匡匪午卑卒卜印卵卸卿厄叶吐君吠吹吻吼呆咆咎咽哀哨哭哮哲唆唇唱唾喉喋喝喧嗅嗜嘱嘲囚坑垂垢堆堡堪堵塑填墓墟墨壮夕奏契奴妻姐委姻娩婆婚媒嫁嫌嬉孝季孤宅宋宏宗宛宜室宵宿寂寄寒寝寡寿封尿届屋屡履岐岬岳岸峡峻崇崖巡巷巾帖帽幼幽庄庇床庭康庸廉廊廷弊弥弩彰彷径律徨復微徽忍忠忽怜怠恋恭恰患悦悼惑惰惹愉慈慌慎慕慰憧戎扉扶抑披抹抽拍拒拗拙拭拷挨挫挽捏捧授掘掠措揄描揶搬摘摸撮擦敏敦敷料斜斡斤斥旅昂昆昌映春昨昭晋晦景晴晶暖曙曝曳曹朋朕朽材枕枢枯枷柄染柔柱柳柴栖栗栽桂桶梁梗梢梯棺植楔榜槽横橘欠欣款歌歪殆残殴殿毅氏気汁汗汝池汰汲沁沸沼泉泊泣泥泳洗津洪洲浅浜浴浸涌涯淑淘淡淹渠渡湖湿溜溢溺滋滞滴漆漠漫潮澄灯炉炭焚煎熊燕燥爵父版牟牢牧犀犯狐狩狸猪献玄玉玖珍珠琢琴瓶甜畜番疏疲疾病症痍癖皆盆盈盛盟眉眠眷眺睡督睦矢砺碁碑碗祟票禁禅禽私租税稚稽稿穫窃窄童端竹竿筋筑箱篇簿籍粘粥糖紫罪羊羽翰耐耽肋肌肥肺胃胎腔腰腹膀膜膨臆臣臭舌舟舵舶艇芋芝芥芭芯芳芽苗苛茂茫茶茸菊萄萌萎著葛葡董葬葱蒸蓄蔓蔚蔽薪藉藻虎虐虞虹蚊蚕蚤蛙蛤蛭蛮蛾蜜街衷裕裸誉谷貌赤赦跨跪躯辞辟辣辰迄迩逅途逗逢逮逸遂遥遮邂邸郁郊酌酪酬酵陀陛院陶雄雇雌霞食餐骨骸魁黄黎鼎鼓鼠！＃（），．／：；？"
+  },
+  "inherited_visible_reraster": {
+    "count": 49,
+    "characters": "12345·GHIKLMNOPRSTUWXZcdeikntvx－～ %-+/.0678ABCDEF",
+    "entries": [
+      {
+        "character": "1",
+        "code": "81AE",
+        "glyph_index": 110,
+        "packed_glyph_sha256": "c2e28675b921fdaf910f22e8c495e57b86e607effe250bd93840d8ad76ed38b8"
+      },
+      {
+        "character": "2",
+        "code": "81AF",
+        "glyph_index": 111,
+        "packed_glyph_sha256": "6c8cf54dfa59c26dd73ef0bafaa5d21fc462e86f0a0e9088747ac1070bef2c1b"
+      },
+      {
+        "character": "3",
+        "code": "81B0",
+        "glyph_index": 112,
+        "packed_glyph_sha256": "f6c6e9b646624c5b1c24ca907bc6b23418143378f9e40567391a535e2595a18c"
+      },
+      {
+        "character": "4",
+        "code": "81B1",
+        "glyph_index": 113,
+        "packed_glyph_sha256": "4676d578a86866657a91ec9cbcaaf78402743f54ddb5605feecaedcc51a940d7"
+      },
+      {
+        "character": "5",
+        "code": "81B2",
+        "glyph_index": 114,
+        "packed_glyph_sha256": "5c5dbc965a5ba1998cb687c10dff84502658f848103963789dc8715b70832d33"
+      },
+      {
+        "character": "·",
+        "code": "81B3",
+        "glyph_index": 115,
+        "packed_glyph_sha256": "d778c4ed9f216a2bd4c25f3dd3c90b2e2a8eb4fa33ad86b78023ebb72e5ad23c"
+      },
+      {
+        "character": "G",
+        "code": "8540",
+        "glyph_index": 768,
+        "packed_glyph_sha256": "1c6b3f163ce75ba2ff197e5b5118ad24cbd2bc6824e1ef55990703362d68a1f3"
+      },
+      {
+        "character": "H",
+        "code": "8541",
+        "glyph_index": 769,
+        "packed_glyph_sha256": "efcd59d929cf5fe6addfd3d05e5b684b59bf1441a46b83a8fedb26623105089b"
+      },
+      {
+        "character": "I",
+        "code": "8542",
+        "glyph_index": 770,
+        "packed_glyph_sha256": "a4961e1f0d837b2dc03c1ab444a430a0c0bff6cdee25e0340afa13c667bdb9a8"
+      },
+      {
+        "character": "K",
+        "code": "8543",
+        "glyph_index": 771,
+        "packed_glyph_sha256": "5d52ac6c6354f2fb7871de67c6c9fdd490cf8194e8992bdfdd30b5bc8f74df77"
+      },
+      {
+        "character": "L",
+        "code": "8544",
+        "glyph_index": 772,
+        "packed_glyph_sha256": "9319f5d240efee5465bd011ba2dff53da1ffd78c7c4321ebf7dbd9c3b9f80d87"
+      },
+      {
+        "character": "M",
+        "code": "8545",
+        "glyph_index": 773,
+        "packed_glyph_sha256": "fda48a79f78dd4659d66f998f5dcb82aa9e449e93099fc6494adacdf1a95c04f"
+      },
+      {
+        "character": "N",
+        "code": "8546",
+        "glyph_index": 774,
+        "packed_glyph_sha256": "1158d842501d7efb4d0beebd4aac83fa9dc774330f9b9bc8ba20bdceaf2413ef"
+      },
+      {
+        "character": "O",
+        "code": "8547",
+        "glyph_index": 775,
+        "packed_glyph_sha256": "80c8015cb302c27fa529d9cf374b54d5f4f948e67af835ecb5b0edaff2c98003"
+      },
+      {
+        "character": "P",
+        "code": "8548",
+        "glyph_index": 776,
+        "packed_glyph_sha256": "c52668c8bc7f358089655e5a14a50b2f9c112e61c3f7908f4c7e98e662c51a80"
+      },
+      {
+        "character": "R",
+        "code": "8549",
+        "glyph_index": 777,
+        "packed_glyph_sha256": "1e65d45a4e878dbf10d1ff43e6f395a0ac56db9bd47fcfc576c58b4eea65de15"
+      },
+      {
+        "character": "S",
+        "code": "854A",
+        "glyph_index": 778,
+        "packed_glyph_sha256": "9191b4ac1faaa1356b1107dc055d2dcbb5b36659589f0c2b08a9d1189213f71e"
+      },
+      {
+        "character": "T",
+        "code": "854B",
+        "glyph_index": 779,
+        "packed_glyph_sha256": "32f2d61c75089c7758e0a21ca3ba9365ac138a80945696f5e0135ee6fc0a8dbc"
+      },
+      {
+        "character": "U",
+        "code": "854C",
+        "glyph_index": 780,
+        "packed_glyph_sha256": "1c5e783b0944e760f6b0a6def04025f3eb8ce48e4313c10607df0f13a6561d0f"
+      },
+      {
+        "character": "W",
+        "code": "854D",
+        "glyph_index": 781,
+        "packed_glyph_sha256": "b0b2e49863298fd187ea86e0a505fe966e34e2c5f3f7d3589c47d73c7c52a8c5"
+      },
+      {
+        "character": "X",
+        "code": "854E",
+        "glyph_index": 782,
+        "packed_glyph_sha256": "3059847242bad62f024e5bf45eb3290fbef157f5642cbf3a813c8be81e9161ee"
+      },
+      {
+        "character": "Z",
+        "code": "854F",
+        "glyph_index": 783,
+        "packed_glyph_sha256": "74c91b29b6d70b5fd8ab5079a2f396adb764f3d545c3b3cc5b3c86da85717867"
+      },
+      {
+        "character": "c",
+        "code": "8550",
+        "glyph_index": 784,
+        "packed_glyph_sha256": "ebf71757dd4b2a48e66aa22f185c06c3fdfb81fe4d449ae9ceae0a7ef1089438"
+      },
+      {
+        "character": "d",
+        "code": "8551",
+        "glyph_index": 785,
+        "packed_glyph_sha256": "e7155d425685a64f178aebbfcc0a4537d5d77289f7e75d475fa71e9235439459"
+      },
+      {
+        "character": "e",
+        "code": "8552",
+        "glyph_index": 786,
+        "packed_glyph_sha256": "ba41bad018040e3ecadd86ed4813e6a96e3350308b1b000e64ac4374fefb3037"
+      },
+      {
+        "character": "i",
+        "code": "8554",
+        "glyph_index": 788,
+        "packed_glyph_sha256": "40b43eab0d3f679b610b1242fe24abc5b45313e1090297b7da7d97d6d13e9c8e"
+      },
+      {
+        "character": "k",
+        "code": "8555",
+        "glyph_index": 789,
+        "packed_glyph_sha256": "699f3b4506e05926e8b7c103c0aa6c827ecfed17ed68b67c41e450cd1f925aa0"
+      },
+      {
+        "character": "n",
+        "code": "8556",
+        "glyph_index": 790,
+        "packed_glyph_sha256": "96311564e56c57ccc77b3ba2ce3fb01a066671707067ac75d4c0a555347a2efd"
+      },
+      {
+        "character": "t",
+        "code": "8558",
+        "glyph_index": 792,
+        "packed_glyph_sha256": "974cffa4da519cc62d2d375cd54c821ff951599df64d02db3395592944766323"
+      },
+      {
+        "character": "v",
+        "code": "8559",
+        "glyph_index": 793,
+        "packed_glyph_sha256": "2d0e07e28a5e0b45220a3e3e51dbc3e5648051431127bc085cea34340d8b363e"
+      },
+      {
+        "character": "x",
+        "code": "855A",
+        "glyph_index": 794,
+        "packed_glyph_sha256": "176e2926452cca859f5a765014865d1e3c933d868bb670e0d90cd47e30321504"
+      },
+      {
+        "character": "－",
+        "code": "9A42",
+        "glyph_index": 976,
+        "packed_glyph_sha256": "2d5565fb483d8ea4525a7a9229677d1038ad34b6e22c8d5152e1d7f7b9817597"
+      },
+      {
+        "character": "～",
+        "code": "889A",
+        "glyph_index": 1434,
+        "packed_glyph_sha256": "b007bdba8de5921524b0bd6d17f120e4b7c1b6ed902d0249b68c8f2f5920eec1"
+      },
+      {
+        "character": " ",
+        "code": "889C",
+        "glyph_index": 1436,
+        "packed_glyph_sha256": "2d5565fb483d8ea4525a7a9229677d1038ad34b6e22c8d5152e1d7f7b9817597"
+      },
+      {
+        "character": "%",
+        "code": "889D",
+        "glyph_index": 1437,
+        "packed_glyph_sha256": "c2bd019b27c499d8f7a39170ae8a0a2be5aff36090d825d52284147baa030f11"
+      },
+      {
+        "character": "-",
+        "code": "889E",
+        "glyph_index": 1438,
+        "packed_glyph_sha256": "455218de87da0c18c6dc513a05ebbd9d6687e59501d1a1706f42f409f1b62417"
+      },
+      {
+        "character": "+",
+        "code": "8EFF",
+        "glyph_index": 2687,
+        "packed_glyph_sha256": "1f46160a53daad1061681d0852b1c63a05e2f719e61e2921243d684646d70f98"
+      },
+      {
+        "character": "/",
+        "code": "8FFF",
+        "glyph_index": 2879,
+        "packed_glyph_sha256": "d595a56a0f116948bf2403e04c6cafeb91f835b326e3909bfd2ac437c2f3e2a2"
+      },
+      {
+        "character": ".",
+        "code": "9873",
+        "glyph_index": 4467,
+        "packed_glyph_sha256": "44dd37e4714057ac6c0cedfda263e0bff68bf0fda9fb7a74dba4fe24df421710"
+      },
+      {
+        "character": "0",
+        "code": "9874",
+        "glyph_index": 4468,
+        "packed_glyph_sha256": "2de1a06503ff736021203eef66bddcd64a3963b4ca032dbf0377cd16677d563d"
+      },
+      {
+        "character": "6",
+        "code": "9875",
+        "glyph_index": 4469,
+        "packed_glyph_sha256": "3b9a134007c499bd72094d28b62135a6e30667990a0752ab8db527f3d5e670bf"
+      },
+      {
+        "character": "7",
+        "code": "9876",
+        "glyph_index": 4470,
+        "packed_glyph_sha256": "3551162d795584c2c52aef1e677170b2d8cd548d24f93e3b69744240aba0cd03"
+      },
+      {
+        "character": "8",
+        "code": "9877",
+        "glyph_index": 4471,
+        "packed_glyph_sha256": "fd556b8d70333fd89a6cd240e383ec259a95e6279d8cb50b5713d818b41381a6"
+      },
+      {
+        "character": "A",
+        "code": "9878",
+        "glyph_index": 4472,
+        "packed_glyph_sha256": "ca48ef9e6d5cb958ab2d8f88b25a8648dc0599ca7efa5c59b4bcedb2dd729762"
+      },
+      {
+        "character": "B",
+        "code": "9879",
+        "glyph_index": 4473,
+        "packed_glyph_sha256": "adc800112799eff2ccc6d2cda6a7d9315fb913a32c1f153d504f65c3d5c9bd71"
+      },
+      {
+        "character": "C",
+        "code": "987A",
+        "glyph_index": 4474,
+        "packed_glyph_sha256": "cc64ea87a6c6ce2a77898575f7eebda5d0d9d5f3fd961f2ddf488abf671ce4a2"
+      },
+      {
+        "character": "D",
+        "code": "987B",
+        "glyph_index": 4475,
+        "packed_glyph_sha256": "2e7be35c7f0c0a84fcadbcd61462666ae63622fe112f59bf88283bfa8f7e4890"
+      },
+      {
+        "character": "E",
+        "code": "987C",
+        "glyph_index": 4476,
+        "packed_glyph_sha256": "368cee43df24491a1611de0d980252394cc94d2041d72d2b08507b6a1f10a059"
+      },
+      {
+        "character": "F",
+        "code": "987D",
+        "glyph_index": 4477,
+        "packed_glyph_sha256": "b86c013bab86e81e7fb773041324da2f12ba46b4a596d7620204a58c2200b539"
+      }
+    ]
+  },
+  "semantic_code_replacements": {
+    "count": 0,
+    "entries": []
+  },
+  "inherited_optical_reraster_overrides": {
+    "count": 0,
+    "entries": []
+  },
+  "cjk_optical_policy": {
+    "enabled": true,
+    "point_size": 22,
+    "candidate_point_sizes": [
+      22
+    ],
+    "target_metrics": {
+      "bbox_width": 21,
+      "bbox_height": 22,
+      "ink_pixel_count": 246
+    },
+    "score_weights": {
+      "bbox_error": 128,
+      "ink_pixel_error": 1,
+      "outer_edge_side": 64,
+      "point_size_half_step_from_default": 4
+    },
+    "configured_reviewed_exceptions": [],
+    "bbox_normalization": null,
+    "fixed_canvas": {
+      "x_offset": 0,
+      "y_offset": -1,
+      "reason": "Render every CJK glyph from MF DianHei Light at the same 22px em and shared baseline in its 24x24 cell. Do not trim, resize, recenter, or optically correct individual characters."
+    },
+    "reason": "Use one MF DianHei Light 22px em, one 24x24 canvas, and one global y=-1 baseline offset for every CJK glyph. Character-specific trimming, resizing, point sizes, and reviewed exceptions are forbidden.",
+    "assignment_count": 3060,
+    "point_size_counts": {
+      "22": 3060
+    },
+    "selection_tier_counts": {
+      "uniform_fixed_canvas": 3060
+    },
+    "raster_metrics": {
+      "empty_glyph_count": 1,
+      "outer_edge_touch_count": 2646,
+      "bbox_width_min": 0,
+      "bbox_width_median": 22.0,
+      "bbox_width_max": 23,
+      "bbox_height_min": 0,
+      "bbox_height_median": 21.0,
+      "bbox_height_max": 22,
+      "ink_pixel_count_min": 0,
+      "ink_pixel_count_median": 285.0,
+      "ink_pixel_count_max": 405
+    },
+    "reviewed_exception_characters": ""
+  },
+  "surface_safe_aliases": {
+    "enabled": true,
+    "surface_id": "global/all-localized-text-surfaces",
+    "scope": "all_selected_non_ascii_assignments",
+    "selected_character_count": 3158,
+    "protected_source_character_count": 406,
+    "reclaimed_source_character_count": 16,
+    "reclaimed_source_characters": "務嘆塗夢奪姫択捜歴汎瞳裏踊辺陽霊",
+    "avoid_width_class": "conditional_double_byte",
+    "required_width_class": "default_double_byte",
+    "assignment_count": 701,
+    "characters": "、。，．・：；？！咫—／〜…‘’“”（）《》团＃○●□△12345·专东丝丢两严丫临为丽举么义乌乐乡书买亚产∀亲仅仪们份众优伙传伤你侦俏值偷傻兰关♪兴兹兽冈综伦军净击凿划则刚别剑剧办务罩佛钱オコスセツトドハビ垒ラン动劲劳势协单卡卫历厉压厌发变另吓ν吗吞吧启呃员呜呢咦哎哪哼啊啤啦啧啰喂喽嗦嗯嘿噩嚯围图圆场块坚坞坠垮增处备复够胁侣阳头夹夺奖她妈娅宁实审对寻导尔尘尝壤帅带帮库应开异张弹强归录彻德怀态总恶恼您惊惩惭惯愣懂懒戏战执扬扭扰抢护报拖拟拢拥拦择拼挖挤挥损换揪搞摆摔撑敌时晚暂术杀杂权极枪查标样桥检欢步歧范凤佩GHIKLMNOPRSTUWXZcdeikntvx个乘于从仗价估佯俘假做僵儿册冲决况凭剩剪卷厂吝听吭呀哄哇哈哥哦唔嘛嘴圈孕坏夸姆姨娜孩它屏已并弃很怎怕愧愿戈截扎扣找抓拜拱拿掉搜摧擅收旁无杰柯档梦梭歉毫气氛汪泛泪涅渊游渺炮炸狠猜瑟盖碎稍站竟竭笨聊肆脉舍艘艾莉蒂蕾藏蠢裙趁跟踞躁迪逞陋陷隘隶霍靠黏默埃汉卢养减删效昵编节览陆仍创响荡凯钻毁每毕沉沦泽涂涉渐渔溃满灭烦热焰爱爷爸牵Ⅱ牺狮狱玛现甩电盘盯瞄瞒瞧础确碟碰祸离种积稳穷笔简类糙紧纠红约级纪纯纳纵纷线层练组细织终绍经绑结绕给络绝统继绩绪续维绿═缔缠缩缪缴罗罢耍职联肃胜脑脸膛舰舱茬荣获营萨蓝虏虑虽蛊衅衔补袭见观规视觉计认讨让训议讯记讲讶许论讽设访证评识诉词诚话诞该详语误诱说请诸诺读谁调谅谈谓谢谨贝负责败账货质贯贵贸费贾资赌赢赶趟跑跤躲车转轮轰轻载较裹勒忆辅输辙边达过迈运还这进远违连迟适选遗释钛钝钩铁银锁锐错锚锡锦键镖长门闭问闯闲间闹闻队阱阴阵阶陈险隐难雾靶顶项顺须顾顿预领频颗帕题风飞饵饶马驶驻驾骂骄验骏骗骚骷髅鱼鲁鲸鸟鸣黑齐龄龙～奋 %-",
+    "protected_candidate_count": 86,
+    "protected_candidate_characters": "証場織職塵帥勢製設絶戦詮選閃組創総増蔵続損駄対態隊叩達誰壇弾値張調長沈潰敵適鉄統頭闘動読謎匂認熱捻納脳馬敗売発罰抜費備負風別編報僕毎無滅戻門薬訳遊様葉頼嵐離陸慮両臨隣連話枠",
+    "source_glyph_reuse_characters": "肖菖蒋蕉衝裳訟詔詳賞醤鉦鍾鐘鞘丞乗冗剰壌嬢擾杖浄畳穣譲醸錠埴飾燭蝕尻娠審榛疹秦紳親診進針壬尋腎訊陣靭笥諏須酢図厨炊粋翠酔錐錘髄嵩趨雛杉椙菅頗雀裾摺瀬畝凄棲聖誠請斉隻戚積績脊責跡蹟碩摂節説蝉専撰栓栴線繊羨腺舛薦賎遷銭銑鮮漸繕膳糎噌岨曽疎礎蘇訴遡叢倉喪層匝惣捜掃挿掻巣槍漕痩窓綜聡荘蒼鎗霜騒臓贈側則測賊揃孫遜詑柁楕騨岱帯苔貸鯛醍題鷹滝瀧卓択沢濯託鐸濁諾凧蛸奪巽竪辿棚鱈樽単嘆歎湛箪綻誕鍛団檀談弛恥遅馳築窒嫡昼註酎鋳駐樗瀦苧貯寵帳庁弔彫徴懲暢牒町聴脹腸諜銚頂鳥勅捗賃鎮陳墜椎槌鎚塚栂掴槻佃漬柘辻蔦綴鍔椿坪壷嬬紬釣鶴亭偵剃貞堤悌碇禎締訂諦蹄逓鄭釘擢笛鏑徹轍迭纏貼転顛伝澱電兎塗妬菟賭鍍砥凍塘宕島嶋東桃梼棟湯涛燈痘蕩討謄鐙騰働導瞳胴銅峠鴇匿徳涜禿篤栃橡椴鳶苫寅酉瀞噸屯惇豚遁頓呑曇鈍凪灘捺鍋楢馴縄畷楠軟難弐賑廿韮妊濡禰祢寧撚廼埜嚢悩濃膿農覗覇杷琶罵俳廃拝盃輩楳煤狽買賠這蝿秤矧萩柏箔粕縛駁硲箸肇筈櫨幡畑畠鉢溌醗髪筏閥鳩噺塙帆氾汎畔藩販範釆煩頒飯晩盤磐蕃妃斐泌緋罷誹飛樋簸枇毘琵柊稗疋髭彦菱肘弼畢筆桧姫媛紐謬俵彪標氷瓢評廟錨鋲蒜鰭彬斌瀕貧賓頻埠婦冨膚譜賦阜撫蕪楓葺蕗複淵払仏鮒噴墳奮糞紛雰聞丙併塀幣並閉頁瞥箆変辺舗鋪圃歩甫補輔穂戊暮菩倣俸峰峯庖烹砲縫蓬褒訪豊鋒飽鳳鵬剖坊紡肪謀貿鉾頬撲朴釦勃堀幌哩槙鮪柾鱒桝俣侭繭麿満巳箕湊蓑稔脈粍務夢霧鵡椋婿銘鳴姪牝棉綿緬麺孟網儲黙杢餅籾貰問悶紋匁冶爺約躍靖薮鑓癒諭輸佑優宥憂揖柚湧猶猷祐誘邑郵輿預傭揚揺擁曜楊窯蓉謡踊陽養慾翌淀羅絡欄濫藍蘭覧吏梨璃痢裏裡葎劉竜龍侶虜寮涼猟療瞭稜糧諒遼陵領緑倫燐輪鱗麟瑠塁涙類伶嶺苓鈴隷霊麗齢暦歴憐漣煉簾練聯蓮錬呂魯櫓賂労婁榔篭聾蝋麓禄録論倭賄脇鷲",
+    "available_default_width_candidate_count": 708,
+    "remaining_default_width_candidate_count": 7,
+    "primary_codes_preserved": true,
+    "alias_codes_default_width_only": true,
+    "all_selected_assignments": true,
+    "conditional_primary_assignment_count": 701,
+    "conditional_ascii_alias_assignment_count": 33,
+    "static_ascii_uses_safe_double_byte_aliases": true,
+    "unaliased_conditional_assignment_count": 0
+  },
+  "combined_assignments": {
+    "allocation_assignment_count": 1554,
+    "reraster_existing_assignment_count": 1604,
+    "font_assignment_count": 3158,
+    "surface_alias_assignment_count": 701,
+    "runtime_ascii_assignment_count": 0,
+    "total_font_assignment_count": 3859
+  },
+  "proposal": {
+    "path": "work/writeback/full-story-codebook-proposal.json",
+    "sha256": "d4584c501cb561228f23e355c1bb4c0fe5fd2904094108438fe31e995d3105ef"
+  },
+  "readiness": {
+    "path": "work/writeback/full-story-font-readiness.json",
+    "sha256": "d1701587d714335e5fed38cae6c121486524f332f430d8cf3d1b8dd749ca03b9"
+  },
+  "font_component": {
+    "report": "work/build/full-story-font/components/font-validation.json",
+    "report_sha256": "2d7c91c9313adb99312391408c5d6d689d2732a8b04e8fb2a18d14d6fb8d08ad",
+    "assignment_count": 3859,
+    "allocation_assignment_count": 1554,
+    "reraster_existing_assignment_count": 1604,
+    "changed_glyph_count": 3858,
+    "unchanged_assignment_count": 1,
+    "built_raster_hash_exact_count": 3859,
+    "decoded_size": 1290240,
+    "decoded_sha256": "b7fff439758ae00028c613c2075f451faf42b051ac70e96370ad7836f98770b5",
+    "encoded_size": 563084,
+    "encoder_strategy": "rust-maximum",
+    "archive": {
+      "source_size": 127500736,
+      "output_size": 127500736,
+      "padding_size": 36260,
+      "borrowed_preceding_zero_slack": 0,
+      "offset_reread_exact": true
+    },
+    "outputs": {
+      "slps": {
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "vt1": {
+        "size": 127500736,
+        "sha256": "8607d8837b78c140bcc44674a9ae2113a5213d7559e5ddbc6bce40592a9c0186"
+      }
+    }
+  },
+  "full_story_renderer_coverage": {
+    "unique_entry_count": 91746,
+    "renderer_coverage_entry_count": 91869,
+    "literal_character_count": 1615001,
+    "unique_literal_character_count": 3147,
+    "missing_renderer_character_count": 0,
+    "missing_renderer_occurrence_count": 0,
+    "selected_font_han_count": 3028,
+    "original_font_han_count": 0,
+    "selected_font_visible_character_count": 3146,
+    "original_font_visible_character_count": 0
+  },
+  "base_ui_p10_font_components": {
+    "slps": {
+      "path": "work/build/ui-p10-database-font/components/SLPS_258.87",
+      "sha256": "c11e37229a0c4ee32ee001f946d642b5ed8175c7a46963e4187a8bf772c1391d",
+      "exact": true
+    },
+    "vt1": {
+      "path": "work/build/ui-p10-database-font/components/DATA/VT1.BIN",
+      "sha256": "def1ce8f004047758622c98269b5804ffcb0684ed9c19dc7ddf26ad50ccff28d",
+      "exact": true
+    }
+  },
+  "acceptance": {
+    "proposal_reproduced_exact": true,
+    "readiness_reproduced_exact": true,
+    "base_ui_p10_font_components_unchanged": true,
+    "assignment_counts_exact": true,
+    "glyph_preimages_and_rasters_exact": true,
+    "codec_round_trip_exact": true,
+    "archive_size_preserved": true,
+    "offset_reread_exact": true,
+    "full_story_renderer_missing_character_count_zero": true,
+    "full_story_original_font_han_count_zero": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "The complete story font, STAGE/HB component and final exact ISO still require composition and runtime validation."
+  },
+  "allocation_policy": {
+    "mode": "valid-sjis-then-raw-standard-trail-gaps-then-source-glyph-reuse",
+    "raw_standard_trails": [
+      "7F",
+      "FD",
+      "FE",
+      "FF"
+    ],
+    "instruction_windows": [
+      {
+        "name": "two-byte-measurement-consumes-unchecked-trail",
+        "virtual_address": "0x00139BE8",
+        "file_offset": 243304,
+        "size": 32,
+        "sha256": "225b820d0637e9cf7b15f6d79b61c0497744c20d11f0f7a563c86ae4796b59b2"
+      },
+      {
+        "name": "standard-glyph-resolver-uses-low-byte-directly",
+        "virtual_address": "0x0013A968",
+        "file_offset": 246760,
+        "size": 40,
+        "sha256": "fe8955a7ef6efb818424fdd89b421e95074535d460d8232c00a8244bbdf75bb4"
+      }
+    ],
+    "runtime_precedent": {
+      "character": "试",
+      "code": "987F",
+      "glyph_index": 4479,
+      "static_manifest": "manifests/static-canary-validation.json",
+      "static_sha256": "c264e515d09e8d360628d3b7e3c3d58e2ccea2833e632b24011f5c5550d921cc",
+      "runtime_manifest": "manifests/canary-iso-validation.json",
+      "runtime_sha256": "fd391150af647538576c770c78bee3092dc0d1b3673868cb23714099f5f5146a",
+      "runtime_bytes_exact": true,
+      "characters_visible": true
+    },
+    "classification": "Instruction windows prove formula addressability for all listed trail gaps. Runtime evidence exists for 0x7F only; the combined P1 component and every additional trail class remain runtime pending."
+  }
+}

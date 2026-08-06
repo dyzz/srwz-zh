@@ -9,7 +9,12 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Mapping
 
-from .canary import rasterize_character, rasterizer_point_size
+from .canary import (
+    double_byte_width_class,
+    rasterize_character,
+    rasterizer_point_size,
+)
+from .codec import decode
 from .display_name_coverage import (
     DisplayNameCoverageError,
     audit_display_name_coverage,
@@ -18,10 +23,12 @@ from .display_names import (
     DisplayNameError,
     load_display_name_source,
     load_full_unit_name_corpus,
+    parse_display_names,
 )
 from .font import (
     GLYPH_SIZE,
     RAW_STANDARD_TRAILS,
+    ascii_glyph_index,
     decode_vt1_font_segment,
     glyph_raster_metrics,
     glyph_index_for_code,
@@ -34,10 +41,17 @@ from .font import (
 from .font_profile import FontProfileError, load_font_profile
 from .font_source import (
     FontSourceError,
+    font_source_metadata,
     load_font_lock,
+    verify_font_fallbacks,
     verify_font_lock_files,
 )
-from .text import load_text_table
+from .menu import parse_menu_file
+from .text import (
+    ORIGINAL_FULLWIDTH_ASCII,
+    load_text_table,
+    original_fullwidth_ascii_overrides,
+)
 from .ui_database_selection import (
     UiDatabaseSelectionError,
     audit_ui_database_selection,
@@ -60,10 +74,29 @@ from .ui_inventory import (
     load_scene_config,
     rendered_characters,
 )
+from .ui_menu import project_ui_runtime_text_table
 
 
 class UiFontError(ValueError):
     """The incremental UI font selection or allocation has drifted."""
+
+
+def _baseline_with_original_ascii(baseline: Mapping[str, object]) -> dict:
+    """Teach coverage audits about stock two-byte ASCII glyph reuse."""
+
+    table = baseline["table"]
+    extended_entries = baseline["extended_entries"]
+    assignments = dict(baseline["proposal_assignments"])
+    for character, code in original_fullwidth_ascii_overrides(table).items():
+        source_character = table.characters[code]
+        synthetic = {
+            "code_value": code,
+            "mapping": "original_fullwidth_ascii",
+            "glyph_index": glyph_index_for_code(code, extended_entries),
+        }
+        assignments[character] = synthetic
+        assignments[source_character] = synthetic
+    return {**baseline, "proposal_assignments": assignments}
 
 
 def _median(values: list[int]) -> float:
@@ -130,14 +163,7 @@ def _assignment_index(path: Path) -> dict[str, dict]:
 
 
 def _font_source_metadata(lock: Mapping[str, object]) -> dict:
-    return {
-        "family": lock["family"],
-        "version": lock["version"],
-        "commit": lock["commit"],
-        "font_sha256": lock["font"]["sha256"],
-        "license_spdx": lock["license"]["spdx"],
-        "license_sha256": lock["license"]["sha256"],
-    }
+    return font_source_metadata(lock)
 
 
 def _selection_digest(entries: Mapping[str, Mapping[str, object]]) -> str:
@@ -847,6 +873,11 @@ def _selected_font_entries(
     project_root: Path,
     profile_document: Mapping[str, object],
 ) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
+    if "story_translation_selection" in profile_document:
+        return _selected_story_entries(
+            project_root,
+            profile_document,
+        )
     if "display_name_selection" in profile_document:
         return _selected_display_name_entries(
             project_root,
@@ -886,6 +917,270 @@ def _selected_font_entries(
             selection,
         )
     return _selected_ui_entries(project_root, profile_document)
+
+
+def _selected_story_entries(
+    project_root: Path,
+    profile_document: Mapping[str, object],
+) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
+    """Load the complete release-owned story selection for font coverage."""
+
+    reference = profile_document.get("story_translation_selection")
+    if not isinstance(reference, dict):
+        raise UiFontError("story translation selection is invalid")
+    release_path = _project_path(project_root, reference.get("release"))
+    if _hash_file(release_path) != reference.get("release_sha256"):
+        raise UiFontError("story release SHA-256 drift")
+    release = _json_object(release_path)
+    if (
+        release.get("release_id") != reference.get("release_id")
+        or release.get("status") != reference.get("required_release_status")
+        or release.get("language") != "zh-Hans"
+    ):
+        raise UiFontError("story release identity drift")
+
+    translation_sources = release.get("translation_sources")
+    if not isinstance(translation_sources, list):
+        raise UiFontError("story release has no translation sources")
+    dialogue_prefix = "corpus/zh/story-dialogue/stage-"
+    selected_paths = [
+        raw
+        for raw in translation_sources
+        if raw in {
+            "corpus/zh/story-speakers.json",
+            "corpus/zh/story-conditions.json",
+        }
+        or (
+            isinstance(raw, str)
+            and raw.startswith(dialogue_prefix)
+            and raw.endswith(".json")
+        )
+    ]
+    if len(selected_paths) != len(set(selected_paths)):
+        raise UiFontError("story release repeats a translation source")
+
+    expected_stage_count = reference.get("expected_stage_count")
+    expected_entry_count = reference.get("expected_entry_count")
+    expected_batch_counts = reference.get("expected_batch_entry_counts")
+    allowed_statuses = reference.get("allowed_editorial_statuses")
+    if (
+        not isinstance(expected_stage_count, int)
+        or isinstance(expected_stage_count, bool)
+        or expected_stage_count <= 0
+        or not isinstance(expected_entry_count, int)
+        or isinstance(expected_entry_count, bool)
+        or expected_entry_count <= 0
+        or not isinstance(expected_batch_counts, dict)
+        or not expected_batch_counts
+        or any(
+            not isinstance(batch_id, str)
+            or not batch_id
+            or not isinstance(count, int)
+            or isinstance(count, bool)
+            or count <= 0
+            for batch_id, count in expected_batch_counts.items()
+        )
+        or not isinstance(allowed_statuses, list)
+        or not allowed_statuses
+        or any(
+            not isinstance(status, str) or not status
+            for status in allowed_statuses
+        )
+        or len(allowed_statuses) != len(set(allowed_statuses))
+    ):
+        raise UiFontError("story translation selection contract is invalid")
+
+    entries: dict[str, dict] = {}
+    entry_scenes: dict[str, set[str]] = {}
+    stage_indices = []
+    batch_counts: Counter[str] = Counter()
+    editorial_status_counts: Counter[str] = Counter()
+    source_locks = []
+    for raw_path in selected_paths:
+        if not isinstance(raw_path, str):
+            raise UiFontError("story translation source path is invalid")
+        path = _project_path(project_root, raw_path)
+        document = _json_object(path)
+        batch_id = document.get("batch_id")
+        raw_entries = document.get("entries")
+        if (
+            document.get("schema_version") != 1
+            or document.get("language") != "zh-Hans"
+            or not isinstance(batch_id, str)
+            or batch_id not in expected_batch_counts
+            or not isinstance(raw_entries, list)
+        ):
+            raise UiFontError(f"story translation source is invalid: {raw_path}")
+        if raw_path.startswith(dialogue_prefix):
+            scope = document.get("scope")
+            raw_stages = scope.get("stage_indices") if isinstance(scope, dict) else None
+            if (
+                not isinstance(raw_stages, list)
+                or len(raw_stages) != 1
+                or not isinstance(raw_stages[0], int)
+                or isinstance(raw_stages[0], bool)
+                or raw_stages[0] <= 0
+            ):
+                raise UiFontError(f"story dialogue scope is invalid: {raw_path}")
+            stage_index = raw_stages[0]
+            expected_suffix = f"stage-{stage_index:03d}.json"
+            if not raw_path.endswith(expected_suffix):
+                raise UiFontError(f"story dialogue path/scope drift: {raw_path}")
+            stage_indices.append(stage_index)
+        for raw in raw_entries:
+            if not isinstance(raw, dict):
+                raise UiFontError(f"story entry is malformed: {raw_path}")
+            entry_id = raw.get("id")
+            translation = raw.get("translation")
+            source_hash = raw.get("source_text_sha256")
+            editorial_status = raw.get("editorial_status")
+            if (
+                not isinstance(entry_id, str)
+                or not entry_id.startswith("story/")
+                or entry_id in entries
+                or not isinstance(translation, str)
+                or not isinstance(source_hash, str)
+                or len(source_hash) != 64
+                or editorial_status not in allowed_statuses
+            ):
+                raise UiFontError(f"story entry is invalid: {raw_path}")
+            entries[entry_id] = raw
+            parts = entry_id.split("/")
+            scene_id = (
+                f"story/stage-{int(parts[1]):03d}"
+                if len(parts) > 1 and parts[1].isdigit()
+                else "story/full"
+            )
+            entry_scenes[entry_id] = {scene_id}
+            batch_counts[batch_id] += 1
+            editorial_status_counts[editorial_status] += 1
+        source_locks.append(
+            {
+                "path": raw_path,
+                "sha256": _hash_file(path),
+                "batch_id": batch_id,
+                "entry_count": len(raw_entries),
+            }
+        )
+
+    if (
+        len(stage_indices) != expected_stage_count
+        or len(stage_indices) != len(set(stage_indices))
+        or len(entries) != expected_entry_count
+        or dict(batch_counts) != expected_batch_counts
+    ):
+        raise UiFontError(
+            "story translation selection counts drift: "
+            f"stages={len(stage_indices)} entries={len(entries)} "
+            f"batches={dict(batch_counts)}"
+        )
+    runtime_visible_strings = reference.get("runtime_visible_strings", [])
+    if (
+        not isinstance(runtime_visible_strings, list)
+        or any(
+            not isinstance(value, str) or not value
+            for value in runtime_visible_strings
+        )
+        or len(runtime_visible_strings) != len(set(runtime_visible_strings))
+    ):
+        raise UiFontError("story runtime visible strings are invalid")
+    translation_entry_count = len(entries)
+    for index, value in enumerate(runtime_visible_strings):
+        entry_id = f"font/runtime-visible/{index:04d}"
+        entries[entry_id] = {"translation": value}
+        entry_scenes[entry_id] = {"story/runtime-substitution"}
+
+    additional_visible_sources = reference.get(
+        "additional_visible_sources", []
+    )
+    if not isinstance(additional_visible_sources, list):
+        raise UiFontError("story additional visible sources are invalid")
+    additional_visible_entry_count = 0
+    additional_visible_reports = []
+    for source_index, source in enumerate(additional_visible_sources):
+        if not isinstance(source, dict):
+            raise UiFontError("story additional visible source is malformed")
+        path = _project_path(project_root, source.get("path"))
+        data = path.read_bytes()
+        if (
+            len(data) != source.get("size")
+            or _hash_file(path) != source.get("sha256")
+        ):
+            raise UiFontError("story additional visible source lock drift")
+        source_document = json.loads(data.decode("utf-8"))
+        source_entries = source_document.get("entries")
+        if (
+            not isinstance(source_entries, list)
+            or len(source_entries) != source.get("entry_count")
+        ):
+            raise UiFontError("story additional visible source count drift")
+        selected_translations = [
+            item.get("translation")
+            for item in source_entries
+            if isinstance(item, dict)
+            and isinstance(item.get("translation"), str)
+            and item["translation"]
+        ]
+        if len(selected_translations) != source.get(
+            "non_empty_entry_count", len(source_entries)
+        ):
+            raise UiFontError(
+                "story additional visible translation count drift"
+            )
+        for entry_index, translation in enumerate(selected_translations):
+            entry_id = (
+                f"font/additional-visible/{source_index:02d}/"
+                f"{entry_index:04d}"
+            )
+            entries[entry_id] = {"translation": translation}
+            entry_scenes[entry_id] = {"menu/stage-titles"}
+        additional_visible_entry_count += len(selected_translations)
+        additional_visible_reports.append(
+            {
+                "path": str(path.relative_to(project_root.resolve())),
+                "size": len(data),
+                "sha256": _hash_file(path),
+                "entry_count": len(selected_translations),
+                "source_entry_count": len(source_entries),
+            }
+        )
+
+    root = project_root.resolve()
+    return (
+        entries,
+        entry_scenes,
+        {
+            "kind": "full_story_release",
+            "release": {
+                "path": str(release_path.relative_to(root)),
+                "sha256": _hash_file(release_path),
+                "release_id": release["release_id"],
+                "status": release["status"],
+            },
+            "stage_indices": sorted(stage_indices),
+            "stage_count": len(stage_indices),
+            "source_count": len(selected_paths),
+            "sources_sha256": sha256_bytes(
+                json.dumps(
+                    source_locks,
+                    ensure_ascii=False,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode("utf-8")
+            ),
+            "batch_entry_counts": dict(sorted(batch_counts.items())),
+            "editorial_status_counts": dict(
+                sorted(editorial_status_counts.items())
+            ),
+            "unique_entry_count": translation_entry_count,
+            "renderer_coverage_entry_count": len(entries),
+            "runtime_visible_string_count": len(runtime_visible_strings),
+            "runtime_visible_strings": runtime_visible_strings,
+            "additional_visible_entry_count": additional_visible_entry_count,
+            "additional_visible_sources": additional_visible_reports,
+            "selection_sha256": _selection_digest(entries),
+        },
+    )
 
 
 def _character_provenance(
@@ -1089,6 +1384,7 @@ def _apply_cjk_optical_policy(
     document: Mapping[str, object],
     rasterizer: Mapping[str, object],
     font_path: Path,
+    fallback_font_paths: Mapping[str, Path],
     assignments: list[dict],
 ) -> tuple[list[dict], dict]:
     raw_policy = document.get("cjk_optical_policy")
@@ -1125,6 +1421,8 @@ def _apply_cjk_optical_policy(
     reviewed_exceptions = raw_policy.get("reviewed_exceptions", [])
     reason = raw_policy.get("reason")
     max_workers = raw_policy.get("max_workers", 8)
+    bbox_normalization = rasterizer.get("cjk_bbox_normalization")
+    fixed_canvas = rasterizer.get("cjk_fixed_canvas")
     if (
         not isinstance(point_size, (int, float))
         or isinstance(point_size, bool)
@@ -1171,31 +1469,34 @@ def _apply_cjk_optical_policy(
     ):
         raise UiFontError("cjk_optical_policy is invalid")
 
+    if reviewed_exceptions:
+        raise UiFontError("CJK character-specific exceptions are forbidden")
     reviewed_by_character = {}
-    for item in reviewed_exceptions:
-        if not isinstance(item, dict):
-            raise UiFontError("CJK reviewed optical exception is malformed")
-        character = item.get("character")
-        exception_size = item.get("point_size")
-        exception_reason = item.get("reason")
-        if (
-            not isinstance(character, str)
-            or len(character) != 1
-            or character in reviewed_by_character
-            or not isinstance(exception_size, (int, float))
-            or isinstance(exception_size, bool)
-            or not float("-inf") < exception_size < float("inf")
-            or exception_size <= 0
-            or not isinstance(exception_reason, str)
-            or not exception_reason
-        ):
-            raise UiFontError("CJK reviewed optical exception is invalid")
-        reviewed_by_character[character] = {
-            "point_size": exception_size,
-            "reason": exception_reason,
-        }
 
     base_corrections = dict(rasterizer.get("optical_corrections", {}))
+    if base_corrections:
+        raise UiFontError("CJK character-specific corrections are forbidden")
+    if bbox_normalization is not None and fixed_canvas is not None:
+        raise UiFontError(
+            "CJK fixed canvas and bounding-box normalization are mutually "
+            "exclusive"
+        )
+    uniform_cjk_policy = (
+        "uniform_bbox_normalized"
+        if bbox_normalization is not None
+        else "uniform_fixed_canvas"
+        if fixed_canvas is not None
+        else None
+    )
+    if uniform_cjk_policy is not None and (
+        reviewed_by_character
+        or base_corrections
+        or candidate_point_sizes != [point_size]
+    ):
+        raise UiFontError(
+            "uniform CJK rasterization forbids per-character corrections "
+            "and point-size selection"
+        )
 
     def candidate_score(candidate_size: int | float, metrics: dict) -> int:
         bbox_error = abs(
@@ -1223,7 +1524,7 @@ def _apply_cjk_optical_policy(
         assignment_rasterizer["optical_corrections"] = {}
         gray, pixels, packed = rasterize_character(
             assignment_rasterizer["executable"],
-            font_path,
+            fallback_font_paths.get(character, font_path),
             character,
             assignment_rasterizer,
         )
@@ -1233,51 +1534,69 @@ def _apply_cjk_optical_policy(
         character = assignment["character"]
         if not is_cjk_unified_ideograph(character):
             return assignment
-        corrections = dict(base_corrections)
-        explicit = assignment.get("optical_override")
-        if explicit is not None:
-            corrections[character] = explicit
-        if character in reviewed_by_character:
-            corrections[character] = reviewed_by_character[character]
-        selected_correction = corrections.get(character)
-        if selected_correction is not None:
-            selected_size = selected_correction["point_size"]
-            gray, pixels, packed, metrics = render_at_size(
+        if uniform_cjk_policy is not None:
+            gray, pixels, packed = rasterize_character(
+                rasterizer["executable"],
+                fallback_font_paths.get(character, font_path),
                 character,
-                selected_size,
+                rasterizer,
             )
+            metrics = glyph_raster_metrics(pixels)
+            selected_size = point_size
             selected_score = candidate_score(selected_size, metrics)
-            optical_reason = selected_correction["reason"]
-            optical_policy_tier = "reviewed_exception"
+            policy = (
+                bbox_normalization
+                if bbox_normalization is not None
+                else fixed_canvas
+            )
+            optical_reason = policy["reason"]
+            optical_policy_tier = uniform_cjk_policy
         else:
-            candidates = []
-            for candidate_size in candidate_point_sizes:
+            corrections = dict(base_corrections)
+            explicit = assignment.get("optical_override")
+            if explicit is not None:
+                corrections[character] = explicit
+            if character in reviewed_by_character:
+                corrections[character] = reviewed_by_character[character]
+            selected_correction = corrections.get(character)
+            if selected_correction is not None:
+                selected_size = selected_correction["point_size"]
                 gray, pixels, packed, metrics = render_at_size(
                     character,
-                    candidate_size,
+                    selected_size,
                 )
-                candidates.append(
-                    (
-                        candidate_score(candidate_size, metrics),
-                        abs(candidate_size - point_size),
+                selected_score = candidate_score(selected_size, metrics)
+                optical_reason = selected_correction["reason"]
+                optical_policy_tier = "reviewed_exception"
+            else:
+                candidates = []
+                for candidate_size in candidate_point_sizes:
+                    gray, pixels, packed, metrics = render_at_size(
+                        character,
                         candidate_size,
-                        gray,
-                        pixels,
-                        packed,
-                        metrics,
                     )
-                )
-            (
-                selected_score,
-                _default_distance,
-                selected_size,
-                gray,
-                pixels,
-                packed,
-                metrics,
-            ) = min(candidates, key=lambda candidate: candidate[:3])
-            optical_reason = reason
-            optical_policy_tier = "metric_selected"
+                    candidates.append(
+                        (
+                            candidate_score(candidate_size, metrics),
+                            abs(candidate_size - point_size),
+                            candidate_size,
+                            gray,
+                            pixels,
+                            packed,
+                            metrics,
+                        )
+                    )
+                (
+                    selected_score,
+                    _default_distance,
+                    selected_size,
+                    gray,
+                    pixels,
+                    packed,
+                    metrics,
+                ) = min(candidates, key=lambda candidate: candidate[:3])
+                optical_reason = reason
+                optical_policy_tier = "metric_selected"
         replacement = dict(assignment)
         replacement["raster"] = {
             "point_size": selected_size,
@@ -1286,10 +1605,17 @@ def _apply_cjk_optical_policy(
             "packed_glyph_sha256": sha256_bytes(packed),
             "metrics": metrics,
         }
-        replacement["optical_override"] = {
-            "point_size": selected_size,
-            "reason": optical_reason,
-        }
+        if uniform_cjk_policy is not None:
+            replacement.pop("optical_override", None)
+            replacement["raster_normalization"] = {
+                "mode": uniform_cjk_policy,
+                "reason": optical_reason,
+            }
+        else:
+            replacement["optical_override"] = {
+                "point_size": selected_size,
+                "reason": optical_reason,
+            }
         replacement["optical_policy_tier"] = optical_policy_tier
         replacement["optical_selection_score"] = selected_score
         return replacement
@@ -1318,6 +1644,8 @@ def _apply_cjk_optical_policy(
         "target_metrics": target_metrics,
         "score_weights": score_weights,
         "configured_reviewed_exceptions": reviewed_exceptions,
+        "bbox_normalization": bbox_normalization,
+        "fixed_canvas": fixed_canvas,
         "reason": reason,
         "assignment_count": len(cjk_assignments),
         "point_size_counts": dict(sorted(point_size_counts.items())),
@@ -1619,6 +1947,335 @@ def _source_glyph_reuse_candidates(
     return tuple(candidates)
 
 
+def _load_surface_safe_alias_selection(
+    project_root: Path,
+    document: Mapping[str, object],
+    base_assignments: list[dict],
+) -> tuple[Counter[str], set[str], dict] | None:
+    """Load one locked display-name surface that must avoid narrow codes.
+
+    The surface text is decoded from the already translated P10 COMPDATA
+    component.  Its ordinary proposal mappings remain untouched; the caller
+    may add list-only aliases in unused default-width glyph slots.
+    """
+
+    reference = document.get("surface_safe_aliases")
+    if reference is None:
+        return None
+    if not isinstance(reference, dict):
+        raise UiFontError("surface_safe_aliases must be an object")
+    component = reference.get("source_component")
+    structure_reference = reference.get("structure")
+    expected = reference.get("expected")
+    if not all(isinstance(value, dict) for value in (
+        component,
+        structure_reference,
+        expected,
+    )):
+        raise UiFontError("surface-safe alias locks are malformed")
+    component_path = _project_path(project_root, component.get("path"))
+    structure_path = _project_path(
+        project_root,
+        structure_reference.get("path"),
+    )
+    component_bytes = component_path.read_bytes()
+    structure_bytes = structure_path.read_bytes()
+    if (
+        len(component_bytes) != component.get("size")
+        or _hash_file(component_path) != component.get("sha256")
+        or len(structure_bytes) != structure_reference.get("size")
+        or _hash_file(structure_path) != structure_reference.get("sha256")
+    ):
+        raise UiFontError("surface-safe alias input lock drift")
+    structure = json.loads(structure_bytes.decode("utf-8"))
+    table = load_text_table(
+        _project_path(project_root, structure["text_table"]["path"])
+    )
+    overrides = {
+        assignment["character"]: int(assignment["code"], 16)
+        for assignment in base_assignments
+    }
+    output_table = project_ui_runtime_text_table(table, overrides)
+    decoded = decode(component_bytes)
+    if decoded.consumed != len(component_bytes):
+        raise UiFontError("surface-safe alias COMPDATA has trailing bytes")
+    try:
+        parsed = parse_display_names(
+            decoded.output,
+            output_table,
+            structure,
+            verify_text_preimages=False,
+        )
+    except DisplayNameError as error:
+        raise UiFontError(str(error)) from error
+    counts: Counter[str] = Counter(
+        character
+        for entry in parsed.entries
+        for character in entry.text
+    )
+    display_unique_character_count = len(counts)
+    additional_characters = reference.get("additional_characters", "")
+    if (
+        not isinstance(additional_characters, str)
+        or len(set(additional_characters)) != len(additional_characters)
+        or any(character not in overrides for character in additional_characters)
+    ):
+        raise UiFontError("surface-safe additional characters are invalid")
+    for character in additional_characters:
+        counts[character] += 1
+    supplemental = reference.get("supplemental_translations")
+    supplemental_report = None
+    if supplemental is not None:
+        if not isinstance(supplemental, dict):
+            raise UiFontError(
+                "surface-safe supplemental translation lock is malformed"
+            )
+        supplemental_path = _project_path(
+            project_root,
+            supplemental.get("path"),
+        )
+        supplemental_bytes = supplemental_path.read_bytes()
+        if (
+            len(supplemental_bytes) != supplemental.get("size")
+            or _hash_file(supplemental_path) != supplemental.get("sha256")
+        ):
+            raise UiFontError(
+                "surface-safe supplemental translation lock drift"
+            )
+        supplemental_document = json.loads(
+            supplemental_bytes.decode("utf-8")
+        )
+        supplemental_entries = supplemental_document.get("entries")
+        if not isinstance(supplemental_entries, list):
+            raise UiFontError(
+                "surface-safe supplemental translations have no entries"
+            )
+        translations = [
+            entry.get("translation")
+            for entry in supplemental_entries
+            if isinstance(entry, dict) and entry.get("translation")
+        ]
+        supplemental_counts = Counter("".join(translations))
+        if (
+            len(supplemental_entries) != supplemental.get("entry_count")
+            or len(translations) != supplemental.get("non_empty_entry_count")
+            or len(supplemental_counts)
+            != supplemental.get("unique_character_count")
+        ):
+            raise UiFontError(
+                "surface-safe supplemental translation selection drift"
+            )
+        counts.update(supplemental_counts)
+        supplemental_report = {
+            "path": str(
+                supplemental_path.relative_to(project_root.resolve())
+            ),
+            "size": len(supplemental_bytes),
+            "sha256": _hash_file(supplemental_path),
+            "entry_count": len(supplemental_entries),
+            "non_empty_entry_count": len(translations),
+            "unique_character_count": len(supplemental_counts),
+        }
+    if (
+        len(parsed.entries) != expected.get("entry_count")
+        or sum(bool(entry.text) for entry in parsed.entries)
+        != expected.get("non_empty_entry_count")
+        or len(counts) != expected.get("unique_character_count")
+    ):
+        raise UiFontError("surface-safe alias display-name selection drift")
+    protected_menu_report = None
+    protected_menu_entries = []
+    protected_menu = reference.get("protected_menu_text")
+    if protected_menu is not None:
+        if not isinstance(protected_menu, dict):
+            raise UiFontError("surface-safe protected menu lock is malformed")
+        descriptor_reference = protected_menu.get("descriptor")
+        sources = protected_menu.get("sources")
+        if not isinstance(descriptor_reference, dict) or not isinstance(
+            sources, list
+        ):
+            raise UiFontError("surface-safe protected menu inputs are invalid")
+        descriptor_path = _project_path(
+            project_root, descriptor_reference.get("path")
+        )
+        descriptor_bytes = descriptor_path.read_bytes()
+        if (
+            len(descriptor_bytes) != descriptor_reference.get("size")
+            or _hash_file(descriptor_path)
+            != descriptor_reference.get("sha256")
+        ):
+            raise UiFontError("surface-safe menu descriptor lock drift")
+        descriptors = json.loads(descriptor_bytes.decode("utf-8"))
+        if not isinstance(descriptors, list):
+            raise UiFontError("surface-safe menu descriptor root is invalid")
+        descriptor_by_name = {
+            item.get("friendly_name"): item
+            for item in descriptors
+            if isinstance(item, dict)
+        }
+        menu_counts: Counter[str] = Counter()
+        source_reports = []
+        for source in sources:
+            if not isinstance(source, dict):
+                raise UiFontError("surface-safe protected menu source is invalid")
+            name = source.get("friendly_name")
+            path = _project_path(project_root, source.get("path"))
+            payload = path.read_bytes()
+            if (
+                name not in descriptor_by_name
+                or len(payload) != source.get("size")
+                or _hash_file(path) != source.get("sha256")
+                or not isinstance(source.get("compressed"), bool)
+            ):
+                raise UiFontError("surface-safe protected menu source lock drift")
+            if source["compressed"]:
+                decoded_source = decode(payload)
+                if decoded_source.consumed != len(payload):
+                    raise UiFontError(
+                        "surface-safe protected menu source has trailing bytes"
+                    )
+                payload = decoded_source.output
+            parsed_menu = parse_menu_file(
+                payload,
+                descriptor_by_name[name],
+                output_table,
+            )
+            protected_menu_entries.extend(parsed_menu.entries)
+            menu_counts.update(
+                character
+                for entry in parsed_menu.entries
+                for character in entry.text
+            )
+            source_reports.append(
+                {
+                    "friendly_name": name,
+                    "path": str(path.relative_to(project_root.resolve())),
+                    "entry_count": len(parsed_menu.entries),
+                }
+            )
+        expected_menu_unique = protected_menu.get(
+            "expected_unique_character_count"
+        )
+        if expected_menu_unique is not None and (
+            len(menu_counts) != expected_menu_unique
+        ):
+            raise UiFontError("surface-safe protected menu selection drift")
+        counts.update(menu_counts)
+        protected_menu_report = {
+            "descriptor": str(
+                descriptor_path.relative_to(project_root.resolve())
+            ),
+            "source_count": len(source_reports),
+            "sources": source_reports,
+            "unique_character_count": len(menu_counts),
+        }
+    reclaimed_source_characters = ""
+    reclaim = reference.get("reclaim_finally_replaced_menu_characters")
+    if reclaim is not None:
+        if not isinstance(reclaim, dict) or not protected_menu_entries:
+            raise UiFontError("surface-safe reclaimed menu contract is invalid")
+        reclaim_characters = reclaim.get("characters")
+        translation_reference = reclaim.get("translation_source")
+        if (
+            not isinstance(reclaim_characters, str)
+            or not reclaim_characters
+            or len(set(reclaim_characters)) != len(reclaim_characters)
+            or not isinstance(translation_reference, dict)
+        ):
+            raise UiFontError("surface-safe reclaimed characters are invalid")
+        translation_path = _project_path(
+            project_root, translation_reference.get("path")
+        )
+        translation_bytes = translation_path.read_bytes()
+        if (
+            len(translation_bytes) != translation_reference.get("size")
+            or _hash_file(translation_path)
+            != translation_reference.get("sha256")
+        ):
+            raise UiFontError("surface-safe reclaim translation lock drift")
+        translation_document = json.loads(translation_bytes.decode("utf-8"))
+        translation_entries = translation_document.get("entries")
+        if not isinstance(translation_entries, list):
+            raise UiFontError("surface-safe reclaim translations are invalid")
+        translations = {
+            entry.get("id"): entry.get("translation")
+            for entry in translation_entries
+            if isinstance(entry, dict)
+            and isinstance(entry.get("id"), str)
+            and isinstance(entry.get("translation"), str)
+        }
+        occurrence_ids = set()
+        for character in reclaim_characters:
+            character_ids = {
+                entry.entry_id
+                for entry in protected_menu_entries
+                if character in entry.text
+            }
+            if (
+                not character_ids
+                or not character_ids <= set(translations)
+                or any(
+                    character in translations[entry_id]
+                    for entry_id in character_ids
+                )
+                or any(
+                    character in entry.text
+                    for entry in parsed.entries
+                )
+            ):
+                raise UiFontError(
+                    "surface-safe reclaimed character is not fully replaced: "
+                    f"{character!r}"
+                )
+            occurrence_ids.update(character_ids)
+        reclaimed_source_characters = reclaim_characters
+        protected_menu_report["reclaimed_final_replacement"] = {
+            "characters": reclaim_characters,
+            "character_count": len(reclaim_characters),
+            "entry_count": len(occurrence_ids),
+            "translation_source": str(
+                translation_path.relative_to(project_root.resolve())
+            ),
+            "all_occurrences_selected_for_replacement": True,
+            "replacement_texts_exclude_reclaimed_characters": True,
+            "display_names_exclude_reclaimed_characters": True,
+        }
+    surface_id = reference.get("surface_id")
+    if not isinstance(surface_id, str) or not surface_id:
+        raise UiFontError("surface-safe alias surface ID is invalid")
+    return counts, set(counts), {
+        "surface_id": surface_id,
+        "source_component": {
+            "path": str(component_path.relative_to(project_root.resolve())),
+            "size": len(component_bytes),
+            "sha256": _hash_file(component_path),
+        },
+        "structure": {
+            "path": str(structure_path.relative_to(project_root.resolve())),
+            "size": len(structure_bytes),
+            "sha256": _hash_file(structure_path),
+        },
+        "entry_count": len(parsed.entries),
+        "non_empty_entry_count": sum(bool(entry.text) for entry in parsed.entries),
+        "unique_character_count": len(counts),
+        "display_name_unique_character_count": display_unique_character_count,
+        "additional_characters": additional_characters,
+        **(
+            {"supplemental_translations": supplemental_report}
+            if supplemental_report is not None
+            else {}
+        ),
+        **(
+            {"protected_menu_text": protected_menu_report}
+            if protected_menu_report is not None
+            else {}
+        ),
+        "avoid_width_class": "conditional_double_byte",
+        "required_width_class": "default_double_byte",
+        "reclaimed_source_characters": reclaimed_source_characters,
+    }
+
+
 def build_ui_font_proposal(
     project_root: Path,
     work_root: Path,
@@ -1676,6 +2333,11 @@ def build_ui_font_proposal(
     base_assignments = list(base_proposal.get("assignments", []))
     if not base_assignments:
         raise UiFontError("base proposal has no assignments")
+    surface_alias_selection = _load_surface_safe_alias_selection(
+        project_root,
+        document,
+        base_assignments,
+    )
     font_baseline, base_components = _load_base_font_baseline(
         project_root,
         document,
@@ -1683,6 +2345,41 @@ def build_ui_font_proposal(
         validation,
         base_proposal_path,
     )
+    reraster_all_visible = document.get(
+        "reraster_all_selected_visible_characters",
+        False,
+    )
+    if not isinstance(reraster_all_visible, bool):
+        raise UiFontError(
+            "reraster_all_selected_visible_characters must be boolean"
+        )
+    visible_ascii_policy = document.get("visible_ascii_policy")
+    preserve_original_ascii = visible_ascii_policy is not None
+    preserved_ascii_characters = set(ORIGINAL_FULLWIDTH_ASCII)
+    if visible_ascii_policy is not None:
+        if (
+            not isinstance(visible_ascii_policy, dict)
+            or visible_ascii_policy.get("mode")
+            != "original-fullwidth-two-byte"
+            or visible_ascii_policy.get("preserve_original_glyphs") is not True
+            or visible_ascii_policy.get(
+                "forbid_raw_visible_ascii_alphanumerics"
+            )
+            is not True
+            or visible_ascii_policy.get("allow_raw_space") is not True
+            or set(visible_ascii_policy.get("characters", ""))
+            != set(ORIGINAL_FULLWIDTH_ASCII)
+            or not reraster_all_visible
+        ):
+            raise UiFontError("visible ASCII preservation policy is invalid")
+        ascii_codes = original_fullwidth_ascii_overrides(
+            font_baseline["table"]
+        )
+        preserved_ascii_characters.update(
+            font_baseline["table"].characters[code]
+            for code in ascii_codes.values()
+        )
+        font_baseline = _baseline_with_original_ascii(font_baseline)
     demand = audit_entry_font(entries.values(), font_baseline)
     raw_semantic_replacements = document.get(
         "semantic_code_replacements",
@@ -1727,7 +2424,56 @@ def build_ui_font_proposal(
         for character in appended
         if character not in retired_appended
     )
-    missing_characters = tuple(demand["missing_characters"])
+    inherited_assignment_owners = {
+        (assignment["code_value"], assignment["glyph_index"]): character
+        for character, assignment in font_baseline[
+            "proposal_assignments"
+        ].items()
+    }
+    demanded_original_characters = tuple(
+        character
+        for character in (
+            demand["original_font_visible_characters"]
+            if reraster_all_visible
+            else demand["original_font_han_characters"]
+        )
+        if not (
+            preserve_original_ascii
+            and character in preserved_ascii_characters
+        )
+    )
+    displaced_original = []
+    for character in demanded_original_characters:
+        if character in font_baseline["base_assignments"]:
+            code = font_baseline["base_assignments"][character]["code_value"]
+        else:
+            code = font_baseline["table"].inverse_characters.get(character)
+        if code is None:
+            continue
+        try:
+            glyph_index = glyph_index_for_code(
+                code,
+                font_baseline["extended_entries"],
+            )
+        except ValueError:
+            continue
+        owner = inherited_assignment_owners.get((code, glyph_index))
+        if owner is not None and owner != character:
+            displaced_original.append(character)
+    displaced_original = tuple(sorted(displaced_original))
+    missing_characters = tuple(
+        sorted(
+            character
+            for character in {
+                *demand["missing_characters"],
+                *displaced_original,
+            }
+            if not (
+                preserve_original_ascii
+                and character in preserved_ascii_characters
+            )
+        )
+    )
     if not semantic_targets <= set(missing_characters):
         raise UiFontError(
             "UI semantic replacement target must be renderer-missing"
@@ -1743,9 +2489,19 @@ def build_ui_font_proposal(
     ):
         raise UiFontError(
             "UI allocation registry must append or reactivate every missing "
-            f"characters: {demand['missing_characters']}"
+            f"characters: expected={''.join(allocation_demand)} "
+            f"active={''.join(sorted((*active_appended, *reactivated)))}"
         )
-    original_han = tuple(demand["original_font_han_characters"])
+    original_han = tuple(
+        character
+        for character in demand["original_font_han_characters"]
+        if character not in set(displaced_original)
+    )
+    original_reraster = tuple(
+        character
+        for character in demanded_original_characters
+        if character not in set(displaced_original)
+    )
     ratchet = registry.get("ratchet")
     if not isinstance(ratchet, dict):
         raise UiFontError("UI allocation registry has no ratchet")
@@ -1757,12 +2513,23 @@ def build_ui_font_proposal(
             work_root,
             font_lock,
         )
+        fallback_font_paths, fallback_font_reports = verify_font_fallbacks(
+            project_root,
+            work_root,
+            document.get("unsupported_character_fallbacks"),
+        )
     except FontSourceError as error:
         raise UiFontError(str(error)) from error
     font_source = _font_source_metadata(font_lock)
-    if base_proposal.get("font_source") != font_source:
+    if (
+        base_proposal.get("font_source") != font_source
+        and not profile["font_lock_overrides_base"]
+    ):
         raise UiFontError("base proposal font source drift")
-    if base_proposal.get("rasterizer") != profile["rasterizer"]:
+    if (
+        base_proposal.get("rasterizer") != profile["rasterizer"]
+        and not profile["rasterizer_overrides_base"]
+    ):
         raise UiFontError("base proposal rasterizer drift")
 
     source_slps = (work_root / "disc/SLPS_258.87").read_bytes()
@@ -1775,6 +2542,8 @@ def build_ui_font_proposal(
             scene_config["baseline"]["text_table"],
         )
     )
+    if visible_ascii_policy is not None:
+        original_fullwidth_ascii_overrides(table)
     base_codebook_path = _project_path(
         project_root,
         scene_config["baseline"]["base_codebook"],
@@ -1812,6 +2581,21 @@ def build_ui_font_proposal(
         and allocation_policy["mode"]
         == "valid-sjis-then-raw-standard-trail-gaps-then-source-glyph-reuse"
     )
+    inherited_source_glyph_candidates = (
+        tuple(
+            (
+                int(assignment["code"], 16),
+                assignment["glyph_index"],
+                assignment["source_character"],
+            )
+            for assignment in base_assignments
+            if assignment.get("mapping")
+            == "pinned_text_table_source_glyph_reuse"
+            and assignment.get("character") in set(base_registered)
+        )
+        if source_glyph_reuse_enabled
+        else ()
+    )
     source_glyph_candidates = (
         _source_glyph_reuse_candidates(
             table,
@@ -1830,24 +2614,35 @@ def build_ui_font_proposal(
                 {
                     *reserved_glyphs,
                     *(
+                        ascii_glyph_index(code)
+                        for code in range(0x20, 0x7F)
+                    ),
+                    *(
                         assignment["glyph_index"]
                         for assignment in base_assignments
                     ),
                 }
             ),
-            protected_characters={*original_han, *semantic_sources},
+            protected_characters={*original_reraster, *semantic_sources},
         )
         if source_glyph_reuse_enabled
         else ()
     )
     source_character_by_candidate = {
         (code, glyph_index): source_character
-        for code, glyph_index, source_character in source_glyph_candidates
+        for code, glyph_index, source_character in (
+            *inherited_source_glyph_candidates,
+            *source_glyph_candidates,
+        )
     }
     candidates = (
         *legacy_candidates,
         *expanded_candidates,
         *raw_candidates,
+        *(
+            (code, glyph_index)
+            for code, glyph_index, _ in inherited_source_glyph_candidates
+        ),
         *((code, glyph_index) for code, glyph_index, _ in source_glyph_candidates),
     )
     if len(candidates) < len(registered):
@@ -1919,7 +2714,9 @@ def build_ui_font_proposal(
                 scene_ids=character_scenes[character],
                 original_font=original_font,
                 rasterizer=profile["rasterizer"],
-                font_path=locked_paths["font"],
+                font_path=fallback_font_paths.get(
+                    character, locked_paths["font"]
+                ),
                 assignment_id_prefix=assignment_id_prefix,
             )
         if source_character is not None:
@@ -1932,6 +2729,8 @@ def build_ui_font_proposal(
     inherited_optical_overrides = _inherited_optical_reraster_overrides(
         document
     )
+    if inherited_optical_overrides:
+        raise UiFontError("inherited character-specific overrides are forbidden")
     effective_base_assignments = list(base_assignments)
     effective_base_by_character = dict(base_by_character)
     inherited_optical_reports = []
@@ -1954,7 +2753,7 @@ def build_ui_font_proposal(
         override_rasterizer["optical_corrections"] = corrections
         gray, pixels, packed = rasterize_character(
             override_rasterizer["executable"],
-            locked_paths["font"],
+            fallback_font_paths.get(character, locked_paths["font"]),
             character,
             override_rasterizer,
         )
@@ -1991,22 +2790,67 @@ def build_ui_font_proposal(
             effective_base_by_character[assignment["character"]]
             for assignment in base_assignments
         ]
+    inherited_visible_reraster_reports = []
+    if reraster_all_visible:
+        rerastered_base = []
+        for inherited in effective_base_assignments:
+            character = inherited["character"]
+            if is_cjk_unified_ideograph(character):
+                rerastered_base.append(inherited)
+                continue
+            gray, pixels, packed = rasterize_character(
+                profile["rasterizer"]["executable"],
+                fallback_font_paths.get(character, locked_paths["font"]),
+                character,
+                profile["rasterizer"],
+            )
+            replacement = dict(inherited)
+            replacement["status"] = "proposed_inherited_visible_reraster"
+            replacement["raster"] = {
+                "point_size": rasterizer_point_size(
+                    character,
+                    profile["rasterizer"],
+                ),
+                "raw_gray_sha256": sha256_bytes(gray),
+                "pixels_4bpp_sha256": sha256_bytes(pixels),
+                "packed_glyph_sha256": sha256_bytes(packed),
+            }
+            replacement.pop("optical_override", None)
+            rerastered_base.append(replacement)
+            inherited_visible_reraster_reports.append(
+                {
+                    "character": character,
+                    "code": replacement["code"],
+                    "glyph_index": replacement["glyph_index"],
+                    "packed_glyph_sha256": replacement["raster"][
+                        "packed_glyph_sha256"
+                    ],
+                }
+            )
+        effective_base_assignments = rerastered_base
     new_reraster = []
-    for character in original_han:
-        if not is_cjk_unified_ideograph(character):
+    for character in original_reraster:
+        if not reraster_all_visible and not is_cjk_unified_ideograph(character):
             raise UiFontError("UI reraster selection contains a non-Han character")
         if character in base_by_character:
             raise UiFontError("UI reraster character already exists in base proposal")
         if character in base_codebook:
             code = base_codebook[character]["code_value"]
             mapping = "existing_codebook"
+        elif 0x20 <= ord(character) <= 0x7E:
+            code = ord(character)
+            mapping = "printable_ascii"
         else:
             code = table.inverse_characters.get(character)
             mapping = "pinned_text_table"
         if code is None:
             raise UiFontError(f"UI reraster code is absent for {character!r}")
         try:
-            glyph_index = glyph_index_for_code(code, extended_entries)
+            glyph_index = (
+                ascii_glyph_index(code)
+                if mapping == "printable_ascii"
+                else glyph_index_for_code(code, extended_entries)
+            )
         except ValueError as error:
             raise UiFontError(
                 f"UI reraster glyph is unreachable for {character!r}"
@@ -2020,14 +2864,16 @@ def build_ui_font_proposal(
                 status="proposed_reraster",
                 owner=allocation_owner,
                 basis=(
-                    "existing reachable Han used by the selected UI "
+                    "existing reachable visible character used by the selected "
                     "translations; rerasterized to keep one font source"
                 ),
                 occurrence_count=counts[character],
                 scene_ids=character_scenes[character],
                 original_font=original_font,
                 rasterizer=profile["rasterizer"],
-                font_path=locked_paths["font"],
+                font_path=fallback_font_paths.get(
+                    character, locked_paths["font"]
+                ),
                 assignment_id_prefix=assignment_id_prefix,
             )
         )
@@ -2070,8 +2916,10 @@ def build_ui_font_proposal(
             occurrence_count=counts[target_character],
             scene_ids=character_scenes[target_character],
             original_font=original_font,
-            rasterizer=profile["rasterizer"],
-            font_path=locked_paths["font"],
+                rasterizer=profile["rasterizer"],
+                font_path=fallback_font_paths.get(
+                    target_character, locked_paths["font"]
+                ),
             assignment_id_prefix=assignment_id_prefix,
         )
         assignment["source_character"] = source_character
@@ -2087,6 +2935,7 @@ def build_ui_font_proposal(
         document,
         profile["rasterizer"],
         locked_paths["font"],
+        fallback_font_paths,
         assignments,
     )
     assignments.sort(
@@ -2104,9 +2953,355 @@ def build_ui_font_proposal(
         or len(codes) != len(set(codes))
         or len(glyphs) != len(set(glyphs))
     ):
-        raise UiFontError("combined UI font proposal has an assignment collision")
+        duplicate_characters = sorted(
+            character
+            for character, count in Counter(characters).items()
+            if count > 1
+        )
+        duplicate_codes = sorted(
+            code for code, count in Counter(codes).items() if count > 1
+        )
+        duplicate_glyphs = sorted(
+            glyph for glyph, count in Counter(glyphs).items() if count > 1
+        )
+        collision_assignments = [
+            {
+                "character": assignment["character"],
+                "code": assignment["code"],
+                "glyph_index": assignment["glyph_index"],
+                "mapping": assignment.get("mapping"),
+                "status": assignment.get("status"),
+            }
+            for assignment in assignments
+            if assignment["code"] in set(duplicate_codes)
+            or assignment["glyph_index"] in set(duplicate_glyphs)
+        ]
+        raise UiFontError(
+            "combined UI font proposal has an assignment collision: "
+            f"characters={duplicate_characters!r} "
+            f"codes={duplicate_codes!r} glyphs={duplicate_glyphs!r} "
+            f"assignments={collision_assignments!r}"
+        )
+
+    surface_alias_assignments: list[dict] = []
+    surface_alias_report = {"enabled": False, "assignment_count": 0}
+    if surface_alias_selection is not None:
+        surface_counts, surface_characters, selection_report = (
+            surface_alias_selection
+        )
+        all_selected_assignments = (
+            document["surface_safe_aliases"].get(
+                "all_selected_assignments"
+            )
+            is True
+        )
+        if all_selected_assignments:
+            protected_source_characters = set(surface_characters)
+            reclaimed_source_characters = set(
+                selection_report.get("reclaimed_source_characters", "")
+            )
+            surface_counts = counts
+            selected_assignment_characters = {
+                assignment["character"]
+                for assignment in assignments
+                if int(assignment["code"], 16) > 0x7F
+            }
+            surface_characters = (
+                protected_source_characters
+                - selected_assignment_characters
+                - reclaimed_source_characters
+            )
+            selection_report = {
+                "surface_id": "global/all-localized-text-surfaces",
+                "scope": "all_selected_non_ascii_assignments",
+                "selected_character_count": len(
+                    selected_assignment_characters
+                ),
+                "protected_source_character_count": len(
+                    surface_characters
+                ),
+                "reclaimed_source_character_count": len(
+                    reclaimed_source_characters
+                ),
+                "reclaimed_source_characters": "".join(
+                    sorted(reclaimed_source_characters)
+                ),
+                "avoid_width_class": "conditional_double_byte",
+                "required_width_class": "default_double_byte",
+            }
+        alias_targets = sorted(
+            (
+                assignment
+                for assignment in assignments
+                if (
+                    all_selected_assignments
+                    or assignment["character"] in surface_characters
+                )
+                and int(assignment["code"], 16) > 0x7F
+                and double_byte_width_class(int(assignment["code"], 16))
+                == "conditional_double_byte"
+            ),
+            key=lambda assignment: (
+                assignment["glyph_index"],
+                assignment["code"],
+                assignment["character"],
+            ),
+        )
+        used_codes = {int(code, 16) for code in codes}
+        used_glyphs = set(glyphs)
+        protected_candidate_count = 0
+        protected_candidate_characters = []
+        alias_candidates = []
+        for code, glyph_index in candidates[len(registered) :]:
+            if (
+                code in used_codes
+                or glyph_index in used_glyphs
+                or double_byte_width_class(code) != "default_double_byte"
+            ):
+                continue
+            source_character = source_character_by_candidate.get(
+                (code, glyph_index)
+            )
+            if source_character in surface_characters:
+                protected_candidate_count += 1
+                protected_candidate_characters.append(source_character)
+                continue
+            alias_candidates.append((code, glyph_index, source_character))
+        expected_aliases = document["surface_safe_aliases"].get("expected", {})
+        expected_protected = expected_aliases.get(
+            "protected_candidate_count"
+        )
+        if (
+            len(alias_targets) != expected_aliases.get("alias_assignment_count")
+            or (
+                expected_protected is not None
+                and protected_candidate_count != expected_protected
+            )
+            or len(alias_candidates) < len(alias_targets)
+        ):
+            raise UiFontError(
+                "surface-safe alias capacity drift: "
+                f"targets={len(alias_targets)} "
+                f"protected={protected_candidate_count} "
+                f"available={len(alias_candidates)}"
+            )
+        for primary, (code, glyph_index, source_character) in zip(
+            alias_targets,
+            alias_candidates,
+        ):
+            character = primary["character"]
+            start = glyph_index * GLYPH_SIZE
+            preimage = original_font[start : start + GLYPH_SIZE]
+            alias = {
+                "id": (
+                    f"{assignment_id_prefix}-surface-safe-alias-"
+                    f"u{ord(character):04x}"
+                ),
+                "character": character,
+                "primary_code": primary["code"],
+                "code": f"{code:04X}",
+                "glyph_index": glyph_index,
+                "mapping": "surface_safe_default_double_byte_alias",
+                "status": "proposed_surface_safe_alias",
+                "allocation": {
+                    "owner": selection_report["surface_id"],
+                    "basis": (
+                        "list-only alias outside the game's conditional-width "
+                        "double-byte range; the primary code and glyph remain "
+                        "unchanged for every other surface"
+                    ),
+                    "source_occurrences": surface_counts[character],
+                    "scene_ids": [selection_report["surface_id"]],
+                    "glyph_preimage_sha256": sha256_bytes(preimage),
+                    "glyph_preimage_all_zero": not any(preimage),
+                },
+                "raster": dict(primary["raster"]),
+            }
+            if source_character is not None:
+                alias["source_character"] = source_character
+            surface_alias_assignments.append(alias)
+        surface_alias_report = {
+            "enabled": True,
+            **selection_report,
+            "assignment_count": len(surface_alias_assignments),
+            "characters": "".join(
+                assignment["character"]
+                for assignment in surface_alias_assignments
+            ),
+            "protected_candidate_count": protected_candidate_count,
+            "protected_candidate_characters": "".join(
+                character
+                for character in protected_candidate_characters
+                if character is not None
+            ),
+            "source_glyph_reuse_characters": "".join(
+                assignment.get("source_character", "")
+                for assignment in surface_alias_assignments
+            ),
+            "available_default_width_candidate_count": len(alias_candidates),
+            "remaining_default_width_candidate_count": (
+                len(alias_candidates) - len(surface_alias_assignments)
+            ),
+            "primary_codes_preserved": True,
+            "alias_codes_default_width_only": True,
+            "all_selected_assignments": all_selected_assignments,
+            "conditional_primary_assignment_count": len(alias_targets),
+            "conditional_ascii_alias_assignment_count": sum(
+                0x20 <= ord(assignment["character"]) <= 0x7E
+                and double_byte_width_class(int(assignment["code"], 16))
+                == "conditional_double_byte"
+                for assignment in assignments
+            ),
+            "static_ascii_uses_safe_double_byte_aliases": True,
+            "unaliased_conditional_assignment_count": 0,
+        }
+
+    runtime_ascii_assignments: list[dict] = []
+    runtime_ascii_report = {"enabled": False, "assignment_count": 0}
+    runtime_ascii_reference = document.get("runtime_ascii_reraster")
+    if runtime_ascii_reference is not None:
+        if not isinstance(runtime_ascii_reference, dict):
+            raise UiFontError("runtime ASCII reraster configuration is invalid")
+        runtime_characters = runtime_ascii_reference.get("characters")
+        expected_runtime_count = runtime_ascii_reference.get(
+            "expected_additional_assignment_count"
+        )
+        if (
+            not isinstance(runtime_characters, str)
+            or not runtime_characters
+            or len(set(runtime_characters)) != len(runtime_characters)
+            or any(not 0x20 <= ord(character) <= 0x7E for character in runtime_characters)
+            or not isinstance(expected_runtime_count, int)
+            or isinstance(expected_runtime_count, bool)
+            or expected_runtime_count < 0
+        ):
+            raise UiFontError("runtime ASCII reraster selection is malformed")
+        require_all_selected_ascii = runtime_ascii_reference.get(
+            "require_all_selected_printable_ascii",
+            False,
+        )
+        if not isinstance(require_all_selected_ascii, bool):
+            raise UiFontError(
+                "runtime ASCII coverage requirement must be boolean"
+            )
+        primary_by_character = {
+            assignment["character"]: assignment for assignment in assignments
+        }
+        selected_printable_ascii = {
+            character
+            for character in primary_by_character
+            if 0x20 <= ord(character) <= 0x7E
+        }
+        if (
+            require_all_selected_ascii
+            and set(runtime_characters) != selected_printable_ascii
+        ):
+            missing = "".join(
+                sorted(selected_printable_ascii - set(runtime_characters))
+            )
+            extra = "".join(
+                sorted(set(runtime_characters) - selected_printable_ascii)
+            )
+            raise UiFontError(
+                "runtime ASCII coverage is incomplete: "
+                f"missing={missing!r} extra={extra!r}"
+            )
+        primary_by_glyph = {
+            assignment["glyph_index"]: assignment for assignment in assignments
+        }
+        occupied_codes = {
+            int(assignment["code"], 16)
+            for assignment in [*assignments, *surface_alias_assignments]
+        }
+        occupied_glyphs = {
+            assignment["glyph_index"]
+            for assignment in [*assignments, *surface_alias_assignments]
+        }
+        already_ascii = []
+        for character in runtime_characters:
+            primary = primary_by_character.get(character)
+            if primary is None:
+                raise UiFontError(
+                    f"runtime ASCII character has no primary raster: {character!r}"
+                )
+            code = ord(character)
+            glyph_index = ascii_glyph_index(code)
+            if int(primary["code"], 16) == code:
+                if primary["glyph_index"] != glyph_index:
+                    raise UiFontError("runtime ASCII primary glyph index drift")
+                already_ascii.append(character)
+                continue
+            if code in occupied_codes:
+                raise UiFontError(
+                    f"runtime ASCII slot collides for {character!r}"
+                )
+            overwritten_primary = primary_by_glyph.get(glyph_index)
+            expected_fullwidth = chr(ord(character) + 0xFEE0)
+            if (
+                overwritten_primary is not None
+                and overwritten_primary["character"] != expected_fullwidth
+            ):
+                raise UiFontError(
+                    f"runtime ASCII glyph slot collides for {character!r}"
+                )
+            start = glyph_index * GLYPH_SIZE
+            preimage = original_font[start : start + GLYPH_SIZE]
+            runtime_assignment = {
+                    "id": (
+                        f"{assignment_id_prefix}-runtime-ascii-"
+                        f"u{ord(character):04x}"
+                    ),
+                    "character": character,
+                    "primary_code": primary["code"],
+                    "code": f"{code:04X}",
+                    "glyph_index": glyph_index,
+                    "mapping": "runtime_ascii_reraster",
+                    "status": "proposed_runtime_ascii_reraster",
+                    "allocation": {
+                        "owner": runtime_ascii_reference.get("owner"),
+                        "basis": runtime_ascii_reference.get("reason"),
+                        "source_occurrences": 0,
+                        "scene_ids": [runtime_ascii_reference.get("owner")],
+                        "glyph_preimage_sha256": sha256_bytes(preimage),
+                        "glyph_preimage_all_zero": not any(preimage),
+                    },
+                    "raster": dict(primary["raster"]),
+                }
+            if overwritten_primary is not None:
+                runtime_assignment["overwrites_primary_character"] = (
+                    overwritten_primary["character"]
+                )
+            runtime_ascii_assignments.append(runtime_assignment)
+            occupied_codes.add(code)
+            occupied_glyphs.add(glyph_index)
+        if len(runtime_ascii_assignments) != expected_runtime_count:
+            raise UiFontError(
+                "runtime ASCII reraster assignment-count drift: "
+                f"{len(runtime_ascii_assignments)} != {expected_runtime_count}"
+            )
+        if not all(
+            isinstance(runtime_ascii_reference.get(key), str)
+            and runtime_ascii_reference[key]
+            for key in ("owner", "reason")
+        ):
+            raise UiFontError("runtime ASCII reraster ownership is invalid")
+        runtime_ascii_report = {
+            "enabled": True,
+            "characters": runtime_characters,
+            "all_selected_printable_ascii": require_all_selected_ascii,
+            "already_primary_ascii_characters": "".join(already_ascii),
+            "additional_assignment_count": len(runtime_ascii_assignments),
+            "assignment_count": len(runtime_ascii_assignments) + len(already_ascii),
+            "ascii_slots_only": True,
+            "uniform_primary_rasters_reused": True,
+        }
 
     remaining = len(candidates) - len(registered)
+    new_reraster_han = tuple(
+        assignment
+        for assignment in new_reraster
+        if is_cjk_unified_ideograph(assignment["character"])
+    )
     checks = {
         "appended_character_count": (
             len(appended) == ratchet["appended_character_count"]
@@ -2118,9 +3313,20 @@ def build_ui_font_proposal(
             remaining == ratchet["remaining_candidate_slot_count"]
         ),
         "additional_reraster_existing_han_count": (
-            len(new_reraster) == ratchet["additional_reraster_existing_han_count"]
+            len(new_reraster_han)
+            == ratchet["additional_reraster_existing_han_count"]
         ),
     }
+    if "additional_reraster_existing_visible_count" in ratchet:
+        checks["additional_reraster_existing_visible_count"] = (
+            len(new_reraster)
+            == ratchet["additional_reraster_existing_visible_count"]
+        )
+    if "inherited_visible_reraster_count" in ratchet:
+        checks["inherited_visible_reraster_count"] = (
+            len(inherited_visible_reraster_reports)
+            == ratchet["inherited_visible_reraster_count"]
+        )
     if "reactivated_character_count" in ratchet:
         checks["reactivated_character_count"] = (
             len(reactivated) == ratchet["reactivated_character_count"]
@@ -2141,7 +3347,12 @@ def build_ui_font_proposal(
             f"actual={{'appended_character_count': {len(appended)}, "
             f"'combined_registered_character_count': {len(registered)}, "
             f"'remaining_candidate_slot_count': {remaining}, "
-            f"'additional_reraster_existing_han_count': {len(new_reraster)}, "
+            "'additional_reraster_existing_han_count': "
+            f"{len(new_reraster_han)}, "
+            "'additional_reraster_existing_visible_count': "
+            f"{len(new_reraster)}, "
+            "'inherited_visible_reraster_count': "
+            f"{len(inherited_visible_reraster_reports)}, "
             "'additional_semantic_code_replacement_count': "
             f"{len(new_semantic_replacements)}}} checks={checks}"
         )
@@ -2166,7 +3377,13 @@ def build_ui_font_proposal(
         },
         "base_font_components": base_components,
         "font_source": font_source,
+        "unsupported_character_fallbacks": list(fallback_font_reports),
         "selection_policy": profile["scope"],
+        **(
+            {"visible_ascii_policy": dict(visible_ascii_policy)}
+            if visible_ascii_policy is not None
+            else {}
+        ),
         "rasterizer": profile["rasterizer"],
         "allocation_registry": {
             "id": registry["registry_id"],
@@ -2186,6 +3403,22 @@ def build_ui_font_proposal(
             + len(new_semantic_replacements)
         ),
         "assignments": assignments,
+        **(
+            {
+                "surface_safe_aliases": surface_alias_report,
+                "surface_alias_assignments": surface_alias_assignments,
+            }
+            if surface_alias_assignments
+            else {}
+        ),
+        **(
+            {
+                "runtime_ascii_reraster": runtime_ascii_report,
+                "runtime_ascii_assignments": runtime_ascii_assignments,
+            }
+            if runtime_ascii_assignments
+            else {}
+        ),
     }
     report = {
         "schema_version": 1,
@@ -2196,10 +3429,39 @@ def build_ui_font_proposal(
         "base_font_components": base_components,
         "ui_selection": selection,
         "font_demand_before": {
-            "missing_renderer_character_count": demand["missing_character_count"],
-            "missing_renderer_characters": demand["missing_characters"],
-            "original_font_han_count": demand["original_font_han_count"],
-            "original_font_han_characters": demand["original_font_han_characters"],
+            "missing_renderer_character_count": len(missing_characters),
+            "missing_renderer_characters": "".join(missing_characters),
+            "original_font_han_count": len(original_han),
+            "original_font_han_characters": "".join(original_han),
+            **(
+                {
+                    "original_font_visible_character_count": len(
+                        original_reraster
+                    ),
+                    "original_font_visible_characters": "".join(
+                        original_reraster
+                    ),
+                    "inherited_donor_displaced_visible_count": len(
+                        displaced_original
+                    ),
+                    "inherited_donor_displaced_visible_characters": (
+                        "".join(displaced_original)
+                    ),
+                }
+                if reraster_all_visible
+                else (
+                    {
+                        "inherited_donor_displaced_han_count": len(
+                            displaced_original
+                        ),
+                        "inherited_donor_displaced_han_characters": "".join(
+                            displaced_original
+                        ),
+                    }
+                    if displaced_original
+                    else {}
+                )
+            ),
         },
         "additional_allocations": {
             "count": len(new_allocations),
@@ -2240,9 +3502,27 @@ def build_ui_font_proposal(
             ),
         },
         "additional_reraster_existing_han": {
-            "count": len(new_reraster),
+            "count": len(new_reraster_han),
             "characters": "".join(original_han),
         },
+        **(
+            {
+                "additional_reraster_existing_visible": {
+                    "count": len(new_reraster),
+                    "characters": "".join(original_reraster),
+                },
+                "inherited_visible_reraster": {
+                    "count": len(inherited_visible_reraster_reports),
+                    "characters": "".join(
+                        item["character"]
+                        for item in inherited_visible_reraster_reports
+                    ),
+                    "entries": inherited_visible_reraster_reports,
+                },
+            }
+            if reraster_all_visible
+            else {}
+        ),
         "semantic_code_replacements": {
             "count": len(new_semantic_replacements),
             "entries": [
@@ -2277,7 +3557,17 @@ def build_ui_font_proposal(
             "expanded_standard_candidate_slot_count": len(expanded_candidates),
             "raw_standard_addressable_candidate_slot_count": len(raw_candidates),
             "source_glyph_reuse_candidate_slot_count": len(
-                source_glyph_candidates
+                inherited_source_glyph_candidates
+            )
+            + len(source_glyph_candidates),
+            **(
+                {
+                    "inherited_source_glyph_reuse_candidate_slot_count": len(
+                        inherited_source_glyph_candidates
+                    )
+                }
+                if inherited_source_glyph_candidates
+                else {}
             ),
             "base_registered_character_count": len(base_registered),
             "combined_registered_character_count": len(registered),
@@ -2289,7 +3579,34 @@ def build_ui_font_proposal(
                 "reraster_existing_assignment_count"
             ],
             "font_assignment_count": len(assignments),
+            **(
+                {
+                    "surface_alias_assignment_count": len(
+                        surface_alias_assignments
+                    ),
+                    "runtime_ascii_assignment_count": len(
+                        runtime_ascii_assignments
+                    ),
+                    "total_font_assignment_count": (
+                        len(assignments)
+                        + len(surface_alias_assignments)
+                        + len(runtime_ascii_assignments)
+                    ),
+                }
+                if surface_alias_assignments
+                else {}
+            ),
         },
+        **(
+            {"surface_safe_aliases": surface_alias_report}
+            if surface_alias_assignments
+            else {}
+        ),
+        **(
+            {"runtime_ascii_reraster": runtime_ascii_report}
+            if runtime_ascii_assignments
+            else {}
+        ),
         "allocation_registry": proposal["allocation_registry"],
         "font_source": font_source,
         "selection_policy": profile["scope"],
@@ -2339,13 +3656,36 @@ def audit_ui_font_candidate(
     component_report = _json_object(component_report_path)
     if component_report.get("status") != ("offline_font_validated_runtime_not_tested"):
         raise UiFontError("UI font component status is invalid")
+    expected_aliases = expected_proposal.get("surface_alias_assignments", [])
+    expected_runtime_ascii = expected_proposal.get(
+        "runtime_ascii_assignments", []
+    )
+    expected_font_assignments = [
+        *expected_proposal["assignments"],
+        *expected_aliases,
+        *expected_runtime_ascii,
+    ]
     if (
         component_report.get("allocation_assignment_count")
         != expected_proposal["allocation_assignment_count"]
         or component_report.get("reraster_existing_assignment_count")
         != expected_proposal["reraster_existing_assignment_count"]
         or component_report.get("assignment_count")
-        != len(expected_proposal["assignments"])
+        != len(expected_font_assignments)
+        or (
+            bool(expected_aliases)
+            and (
+                component_report.get("primary_assignment_count")
+                != len(expected_proposal["assignments"])
+                or component_report.get("surface_alias_assignment_count")
+                != len(expected_aliases)
+            )
+        )
+        or (
+            bool(expected_runtime_ascii)
+            and component_report.get("runtime_ascii_assignment_count")
+            != len(expected_runtime_ascii)
+        )
     ):
         raise UiFontError("UI font component assignment counts drift")
 
@@ -2374,7 +3714,11 @@ def audit_ui_font_candidate(
     source_vt1 = (work_root / "disc/DATA/VT1.BIN").read_bytes()
     source_font = decode_vt1_font_segment(source_slps, source_vt1).decoded
     expected_changed_glyphs = []
-    for assignment in expected_proposal["assignments"]:
+    final_assignment_by_glyph = {
+        assignment["glyph_index"]: assignment
+        for assignment in expected_font_assignments
+    }
+    for assignment in expected_font_assignments:
         glyph_index = assignment["glyph_index"]
         start = glyph_index * GLYPH_SIZE
         source_glyph = source_font[start : start + GLYPH_SIZE]
@@ -2386,9 +3730,15 @@ def audit_ui_font_candidate(
             raise UiFontError(
                 f"UI glyph preimage drift for {assignment['character']!r}"
             )
-        if sha256_bytes(candidate_glyph) != assignment["raster"]["packed_glyph_sha256"]:
+        if final_assignment_by_glyph[glyph_index] is assignment and (
+            sha256_bytes(candidate_glyph)
+            != assignment["raster"]["packed_glyph_sha256"]
+        ):
             raise UiFontError(f"UI built raster drift for {assignment['character']!r}")
-        if source_glyph != candidate_glyph:
+        if (
+            final_assignment_by_glyph[glyph_index] is assignment
+            and source_glyph != candidate_glyph
+        ):
             expected_changed_glyphs.append(glyph_index)
     actual_changed_glyphs = [
         glyph_index
@@ -2418,20 +3768,29 @@ def audit_ui_font_candidate(
         )
     )
     proposal_assignments = _assignment_index(proposal_path)
-    coverage = audit_entry_font(
-        entries.values(),
-        {
-            "table": table,
-            "extended_entries": read_extended_glyph_table(candidate_slps),
-            "font": candidate_font,
-            "base_assignments": base_assignments,
-            "proposal_assignments": proposal_assignments,
-        },
-    )
+    coverage_baseline = {
+        "table": table,
+        "extended_entries": read_extended_glyph_table(candidate_slps),
+        "font": candidate_font,
+        "base_assignments": base_assignments,
+        "proposal_assignments": proposal_assignments,
+    }
+    if expected_proposal.get("visible_ascii_policy") is not None:
+        coverage_baseline = _baseline_with_original_ascii(
+            coverage_baseline
+        )
+    coverage = audit_entry_font(entries.values(), coverage_baseline)
     if coverage["missing_character_count"] != 0:
         raise UiFontError("UI font candidate still has renderer-missing characters")
     if coverage["original_font_han_count"] != 0:
         raise UiFontError("UI font candidate still mixes original reachable Han glyphs")
+    if (
+        document.get("reraster_all_selected_visible_characters", False)
+        and coverage["original_font_visible_character_count"] != 0
+    ):
+        raise UiFontError(
+            "UI font candidate still mixes original reachable visible glyphs"
+        )
 
     base_validation_path = _project_path(
         project_root,
@@ -2471,6 +3830,7 @@ def audit_ui_font_candidate(
         "han_acceptance_key",
         "p0_original_font_han_count_zero",
     )
+    visible_acceptance_key = contract.get("visible_acceptance_key")
     runtime_reason = contract.get(
         "runtime_reason",
         (
@@ -2492,6 +3852,10 @@ def audit_ui_font_candidate(
         )
     ):
         raise UiFontError("UI font manifest contract is invalid")
+    if visible_acceptance_key is not None and (
+        not isinstance(visible_acceptance_key, str) or not visible_acceptance_key
+    ):
+        raise UiFontError("UI font visible acceptance key is invalid")
 
     acceptance = {
         "proposal_reproduced_exact": True,
@@ -2508,6 +3872,8 @@ def audit_ui_font_candidate(
         missing_acceptance_key: True,
         han_acceptance_key: True,
     }
+    if visible_acceptance_key is not None:
+        acceptance[visible_acceptance_key] = True
     if not all(acceptance.values()):
         raise UiFontError(f"UI font candidate acceptance failed: {acceptance}")
 
@@ -2516,6 +3882,15 @@ def audit_ui_font_candidate(
         "status": manifest_status,
         "font_profile_id": profile["profile_id"],
         "scope": manifest_scope,
+        **(
+            {
+                "visible_ascii_policy": expected_proposal[
+                    "visible_ascii_policy"
+                ]
+            }
+            if "visible_ascii_policy" in expected_proposal
+            else {}
+        ),
         "inputs": {
             "config": {
                 "path": str(config_path.relative_to(project_root.resolve())),
@@ -2532,6 +3907,8 @@ def audit_ui_font_candidate(
                 if "embedded_scene_selection" in document
                 else "database_selection"
                 if "database_selection" in document
+                else "story_translation_selection"
+                if "story_translation_selection" in document
                 else "scene_selection"
             ): selection,
             "base_proposal": expected_proposal["base_proposal"],
@@ -2545,6 +3922,18 @@ def audit_ui_font_candidate(
         "additional_reraster_existing_han": expected_readiness[
             "additional_reraster_existing_han"
         ],
+        **(
+            {
+                "additional_reraster_existing_visible": expected_readiness[
+                    "additional_reraster_existing_visible"
+                ],
+                "inherited_visible_reraster": expected_readiness[
+                    "inherited_visible_reraster"
+                ],
+            }
+            if document.get("reraster_all_selected_visible_characters", False)
+            else {}
+        ),
         "semantic_code_replacements": expected_readiness[
             "semantic_code_replacements"
         ],
@@ -2552,6 +3941,24 @@ def audit_ui_font_candidate(
             "inherited_optical_reraster_overrides"
         ],
         "cjk_optical_policy": expected_readiness["cjk_optical_policy"],
+        **(
+            {
+                "surface_safe_aliases": expected_readiness[
+                    "surface_safe_aliases"
+                ]
+            }
+            if "surface_safe_aliases" in expected_readiness
+            else {}
+        ),
+        **(
+            {
+                "runtime_ascii_reraster": expected_readiness[
+                    "runtime_ascii_reraster"
+                ]
+            }
+            if "runtime_ascii_reraster" in expected_readiness
+            else {}
+        ),
         "combined_assignments": expected_readiness["combined_assignments"],
         "proposal": {
             "path": str(proposal_path.relative_to(project_root.resolve())),
@@ -2575,7 +3982,7 @@ def audit_ui_font_candidate(
             "unchanged_assignment_count": component_report[
                 "unchanged_assignment_count"
             ],
-            "built_raster_hash_exact_count": len(expected_proposal["assignments"]),
+            "built_raster_hash_exact_count": len(expected_font_assignments),
             "decoded_size": component_report["font"]["decoded_size"],
             "decoded_sha256": component_report["font"]["output_decoded_sha256"],
             "encoded_size": component_report["font"]["output_encoded_size"],
@@ -2584,7 +3991,15 @@ def audit_ui_font_candidate(
             "outputs": component_report["outputs"],
         },
         coverage_key: {
-            "unique_entry_count": len(entries),
+            "unique_entry_count": selection.get("unique_entry_count", len(entries)),
+            **(
+                {"renderer_coverage_entry_count": len(entries)}
+                if document.get(
+                    "reraster_all_selected_visible_characters",
+                    False,
+                )
+                else {}
+            ),
             "literal_character_count": coverage["literal_character_count"],
             "unique_literal_character_count": coverage[
                 "unique_literal_character_count"
@@ -2595,6 +4010,21 @@ def audit_ui_font_candidate(
             ],
             "selected_font_han_count": coverage["selected_font_han_count"],
             "original_font_han_count": coverage["original_font_han_count"],
+            **(
+                {
+                    "selected_font_visible_character_count": coverage[
+                        "selected_font_visible_character_count"
+                    ],
+                    "original_font_visible_character_count": coverage[
+                        "original_font_visible_character_count"
+                    ],
+                }
+                if document.get(
+                    "reraster_all_selected_visible_characters",
+                    False,
+                )
+                else {}
+            ),
         },
         base_component_key: base_components,
         "acceptance": acceptance,

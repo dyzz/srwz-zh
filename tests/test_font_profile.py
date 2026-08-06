@@ -42,6 +42,48 @@ class FontProfileTests(unittest.TestCase):
             with self.assertRaisesRegex(FontProfileError, "SHA-256 drift"):
                 load_font_profile(PROJECT_ROOT, path)
 
+    def test_full_story_uses_dianhei_for_cjk_and_stock_ascii_glyphs(self):
+        profile = load_font_profile(
+            PROJECT_ROOT,
+            PROJECT_ROOT / "config/fonts/full-story-font.json",
+        )
+        self.assertTrue(profile["rasterizer_overrides_base"])
+        self.assertTrue(profile["font_lock_overrides_base"])
+        self.assertEqual(
+            profile["font_lock"],
+            "config/fonts/mf-dianhei-light-local-test.lock.json",
+        )
+        self.assertEqual(
+            profile["rasterizer"]["cjk_fixed_canvas"],
+            {
+                "x_offset": 0,
+                "y_offset": -1,
+                "reason": (
+                    "Render every CJK glyph from MF DianHei Light at the "
+                    "same 22px em and shared baseline in its 24x24 cell. Do not "
+                    "trim, resize, recenter, or optically correct individual "
+                    "characters."
+                ),
+            },
+        )
+        self.assertTrue(
+            profile["document"][
+                "reraster_all_selected_visible_characters"
+            ]
+        )
+        visible_ascii = profile["document"]["visible_ascii_policy"]
+        self.assertEqual(
+            visible_ascii["mode"], "original-fullwidth-two-byte"
+        )
+        self.assertTrue(visible_ascii["preserve_original_glyphs"])
+        self.assertTrue(
+            visible_ascii["forbid_raw_visible_ascii_alphanumerics"]
+        )
+        self.assertTrue(visible_ascii["allow_raw_space"])
+        self.assertTrue(
+            set("ZAFTPLANTLSWM") <= set(visible_ascii["characters"])
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,7 +9,7 @@
     },
     "manifest": {
       "path": "manifests/ui-embedded-scene-map.json",
-      "sha256": "17bd76bad91988993bf2b51415b6335578686f37a7bedd2a9388014aa142b2f4",
+      "sha256": "7f3bc741c138c46b42f719df1e6811c548197fe7958fc59379ea8524a87caae2",
       "required_status": "static_scene_partition_validated_runtime_attribution_pending"
     },
     "required_writeback_status": "font_extension_required",
@@ -32,13 +32,15 @@
   "font_extension": {
     "mode": "replace-vt1-and-compose-slps-offset-delta",
     "chunk_index": 2,
-    "archive_alignment": 16
+    "archive_alignment": 16,
+    "allow_base_font_raster_migration": true,
+    "preserve_vt1_archive_size": true
   },
   "base_ui_core": {
     "component_id": "ui-p6-deployment-core",
     "manifest": {
       "path": "manifests/ui-p6-deployment-validation.json",
-      "sha256": "5f163d90275a81a8e9f12894f2c4b47a1e3b433abec2f7113e892ae789a4dd7b",
+      "sha256": "a639a8b42d94a6a8723d86c7157fe2c26635f1182ab98cc111c7fcdbaff34a3c",
       "required_profile_id": "srwz-ui-p6-deployment-integrated-v1",
       "required_status": "integrated_ui_p6_deployment_component_validated_iso_runtime_pending",
       "required_runtime_status": "not_tested"
@@ -47,17 +49,17 @@
       "slps": {
         "path": "work/build/ui-p6-deployment/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "d9dd35b2209d05bb96d65316b601f17ea49ae1bdb4bbccefe0ecc73f76e4ff37"
+        "sha256": "a30139e33c96e3367da147cba281052f5b7113c2b4df0e97b48a4ebc526c6af7"
       },
       "vt1": {
         "path": "work/build/ui-p6-deployment/components/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "a024a5ad026074ae37ccd3bbe84ade2ba0160cb1194daa80ad7101ce7d0646ca"
+        "sha256": "22766b123fbb724cd7857b4c4ddfd4434ca4c456169de7e012fc517ae3c3d6c3"
       },
       "compdata": {
         "path": "work/build/ui-p6-deployment/components/DATA/COMPDATA.BN",
-        "size": 144485,
-        "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+        "size": 144506,
+        "sha256": "8f1e2ff248988b26e94a541ddb864b608702542190de6cf4c79aeda477154bc3"
       },
       "mtv_pros": {
         "path": "work/build/ui-p6-deployment/components/DATA/MTV_PROS.BIN",
@@ -70,7 +72,7 @@
     "require_selected_groups_match_scene_map_font_extension_status": true,
     "require_all_selected_entries_fixed_span_after_p7_font": true,
     "replace_only_vt1_font_chunk": true,
-    "preserve_every_non_font_vt1_chunk_byte_exact": true,
+    "preserve_every_non_font_vt1_chunk_except_proven_zero_slack_donation": true,
     "rebase_vt1_offset_table_on_p6_slps": true,
     "require_font_offset_bytes_disjoint_from_text_bytes": true,
     "require_text_bytes_disjoint_from_prior_ui_core_changes": true,

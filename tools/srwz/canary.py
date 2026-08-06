@@ -17,6 +17,7 @@ from .font import (
     GLYPH_WIDTH,
     decode_vt1_font_segment,
     encode_glyph,
+    is_cjk_unified_ideograph,
     render_glyph_grid,
     replace_glyph,
     sha256_bytes,
@@ -100,7 +101,7 @@ def rasterizer_point_size(
     character: str,
     rasterizer: Mapping,
 ) -> Union[int, float]:
-    """Resolve a deterministic per-character optical point size."""
+    """Resolve the one uniform point size used by the rasterizer."""
 
     if not isinstance(character, str) or len(character) != 1:
         raise CanaryError("glyph point-size lookup needs one character")
@@ -117,30 +118,323 @@ def rasterizer_point_size(
     corrections = rasterizer.get("optical_corrections", {})
     if not isinstance(corrections, Mapping):
         raise CanaryError("rasterizer optical corrections must be a mapping")
-    for corrected_character, correction in corrections.items():
-        if (
-            not isinstance(corrected_character, str)
-            or len(corrected_character) != 1
-            or not isinstance(correction, Mapping)
-        ):
-            raise CanaryError("invalid rasterizer optical correction")
-        if set(correction) != {"point_size", "reason"}:
-            raise CanaryError(
-                "rasterizer optical correction must pin point_size and reason"
-            )
-        corrected_size = correction["point_size"]
-        reason = correction["reason"]
-        if (
-            not isinstance(corrected_size, (int, float))
-            or isinstance(corrected_size, bool)
-            or not float("-inf") < corrected_size < float("inf")
-            or corrected_size <= 0
-            or not isinstance(reason, str)
-            or not reason.strip()
-        ):
-            raise CanaryError("invalid rasterizer optical correction")
-    correction = corrections.get(character)
-    return point_size if correction is None else correction["point_size"]
+    if corrections:
+        raise CanaryError(
+            "per-character optical corrections are forbidden; use the "
+            "uniform CJK bounding-box normalization"
+        )
+    return point_size
+
+
+def _cjk_bbox_normalization(rasterizer: Mapping) -> dict | None:
+    """Validate and return the uniform CJK bounding-box normalization rule."""
+
+    raw = rasterizer.get("cjk_bbox_normalization")
+    if raw is None:
+        return None
+    if not isinstance(raw, Mapping) or set(raw) != {
+        "source_canvas_size",
+        "source_point_size",
+        "trim_threshold",
+        "target_bbox_size",
+        "resize_filter",
+        "reason",
+    }:
+        raise CanaryError("CJK bounding-box normalization is malformed")
+    source_canvas_size = raw["source_canvas_size"]
+    source_point_size = raw["source_point_size"]
+    trim_threshold = raw["trim_threshold"]
+    target_bbox_size = raw["target_bbox_size"]
+    resize_filter = raw["resize_filter"]
+    reason = raw["reason"]
+    if (
+        not isinstance(source_canvas_size, int)
+        or isinstance(source_canvas_size, bool)
+        or source_canvas_size < GLYPH_WIDTH
+        or not isinstance(source_point_size, (int, float))
+        or isinstance(source_point_size, bool)
+        or not float("-inf") < source_point_size < float("inf")
+        or source_point_size <= 0
+        or not isinstance(trim_threshold, int)
+        or isinstance(trim_threshold, bool)
+        or not 0 <= trim_threshold < 255
+        or not isinstance(target_bbox_size, int)
+        or isinstance(target_bbox_size, bool)
+        or not 1 <= target_bbox_size <= min(GLYPH_WIDTH, GLYPH_HEIGHT) - 2
+        or not isinstance(resize_filter, str)
+        or not resize_filter.strip()
+        or not isinstance(reason, str)
+        or not reason.strip()
+    ):
+        raise CanaryError("CJK bounding-box normalization is invalid")
+    corrections = rasterizer.get("optical_corrections", {})
+    if corrections:
+        raise CanaryError(
+            "CJK bounding-box normalization forbids optical corrections"
+        )
+    return dict(raw)
+
+
+def _cjk_fixed_canvas(rasterizer: Mapping) -> dict | None:
+    """Validate the shared CJK em canvas used by the production font."""
+
+    raw = rasterizer.get("cjk_fixed_canvas")
+    if raw is None:
+        return None
+    if not isinstance(raw, Mapping) or set(raw) != {
+        "x_offset",
+        "y_offset",
+        "reason",
+    }:
+        raise CanaryError("CJK fixed-canvas policy is malformed")
+    x_offset = raw["x_offset"]
+    y_offset = raw["y_offset"]
+    reason = raw["reason"]
+    if (
+        not isinstance(x_offset, int)
+        or isinstance(x_offset, bool)
+        or not -GLYPH_WIDTH < x_offset < GLYPH_WIDTH
+        or not isinstance(y_offset, int)
+        or isinstance(y_offset, bool)
+        or not -GLYPH_HEIGHT < y_offset < GLYPH_HEIGHT
+        or not isinstance(reason, str)
+        or not reason.strip()
+    ):
+        raise CanaryError("CJK fixed-canvas policy is invalid")
+    if rasterizer.get("cjk_bbox_normalization") is not None:
+        raise CanaryError(
+            "CJK fixed canvas and bounding-box normalization are mutually "
+            "exclusive"
+        )
+    corrections = rasterizer.get("optical_corrections", {})
+    if corrections:
+        raise CanaryError("CJK fixed canvas forbids optical corrections")
+    return dict(raw)
+
+
+def _rasterize_fixed_canvas_cjk(
+    executable: str,
+    font_path: Path,
+    character: str,
+    rasterizer: Mapping,
+    fixed_canvas: Mapping,
+) -> bytes:
+    """Render one CJK glyph without character-specific trim or scaling."""
+
+    geometry = (
+        f"{fixed_canvas['x_offset']:+d}{fixed_canvas['y_offset']:+d}"
+    )
+    command = [
+        executable,
+        "-size",
+        f"{GLYPH_WIDTH}x{GLYPH_HEIGHT}",
+        "xc:black",
+        "-fill",
+        "white",
+        "-density",
+        str(rasterizer["density"]),
+        "-units",
+        "PixelsPerInch",
+        "-font",
+        str(font_path),
+        "-pointsize",
+        str(rasterizer["point_size"]),
+        "-define",
+        f"type:hinting={'true' if rasterizer['hinting'] else 'false'}",
+        "-antialias" if rasterizer["antialias"] else "+antialias",
+        "-gravity",
+        rasterizer["gravity"],
+        "-annotate",
+        geometry,
+        character,
+        "-colorspace",
+        "Gray",
+        "-depth",
+        "8",
+        "gray:-",
+    ]
+    try:
+        return subprocess.run(
+            command,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError) as error:
+        detail = getattr(error, "stderr", b"").decode(
+            "utf-8",
+            errors="replace",
+        )
+        raise CanaryError(
+            f"CJK fixed-canvas rasterizer failed for {character!r}: "
+            f"{detail}"
+        ) from error
+
+
+def _occupied_bbox(
+    gray: bytes,
+    *,
+    width: int,
+    height: int,
+    threshold: int,
+) -> tuple[int, int, int, int]:
+    occupied = [
+        (index % width, index // width)
+        for index, value in enumerate(gray)
+        if value > threshold
+    ]
+    if not occupied:
+        raise CanaryError("CJK raster is empty after trim threshold")
+    xs = [x for x, _ in occupied]
+    ys = [y for _, y in occupied]
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def _crop_gray(
+    gray: bytes,
+    *,
+    canvas_size: int,
+    bbox: tuple[int, int, int, int],
+) -> tuple[bytes, int, int]:
+    left, top, right, bottom = bbox
+    width = right - left + 1
+    height = bottom - top + 1
+    cropped = bytearray(width * height)
+    for row in range(height):
+        source_start = (top + row) * canvas_size + left
+        target_start = row * width
+        cropped[target_start : target_start + width] = gray[
+            source_start : source_start + width
+        ]
+    return bytes(cropped), width, height
+
+
+def normalized_cjk_bbox_size(
+    source_width: int,
+    source_height: int,
+    normalization: Mapping,
+) -> tuple[int, int]:
+    target = normalization["target_bbox_size"]
+    scale = min(target / source_width, target / source_height)
+
+    def round_half_up(value: float) -> int:
+        return max(1, int(value + 0.5))
+
+    width = round_half_up(source_width * scale)
+    height = round_half_up(source_height * scale)
+    return width, height
+
+
+def _rasterize_normalized_cjk(
+    executable: str,
+    font_path: Path,
+    character: str,
+    rasterizer: Mapping,
+    normalization: Mapping,
+) -> bytes:
+    canvas_size = normalization["source_canvas_size"]
+    source_command = [
+        executable,
+        "-background",
+        "black",
+        "-fill",
+        "white",
+        "-density",
+        str(rasterizer["density"]),
+        "-units",
+        "PixelsPerInch",
+        "-font",
+        str(font_path),
+        "-pointsize",
+        str(normalization["source_point_size"]),
+        "-define",
+        f"type:hinting={'true' if rasterizer['hinting'] else 'false'}",
+        "-antialias" if rasterizer["antialias"] else "+antialias",
+        "-gravity",
+        rasterizer["gravity"],
+        "-size",
+        f"{canvas_size}x{canvas_size}",
+        f"label:{character}",
+        "-colorspace",
+        "Gray",
+        "-depth",
+        "8",
+        "gray:-",
+    ]
+    try:
+        source = subprocess.run(
+            source_command,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError) as error:
+        detail = getattr(error, "stderr", b"").decode(
+            "utf-8",
+            errors="replace",
+        )
+        raise CanaryError(
+            f"CJK source rasterizer failed for {character!r}: {detail}"
+        ) from error
+    if len(source) != canvas_size * canvas_size:
+        raise CanaryError(
+            f"CJK source rasterizer returned {len(source)} bytes for "
+            f"{character!r}"
+        )
+    cropped, source_width, source_height = _crop_gray(
+        source,
+        canvas_size=canvas_size,
+        bbox=_occupied_bbox(
+            source,
+            width=canvas_size,
+            height=canvas_size,
+            threshold=normalization["trim_threshold"],
+        ),
+    )
+    target_width, target_height = normalized_cjk_bbox_size(
+        source_width,
+        source_height,
+        normalization,
+    )
+    resize_command = [
+        executable,
+        "-size",
+        f"{source_width}x{source_height}",
+        "-depth",
+        "8",
+        "gray:-",
+        "-filter",
+        normalization["resize_filter"],
+        "-resize",
+        f"{target_width}x{target_height}!",
+        "-gravity",
+        "center",
+        "-background",
+        "black",
+        "-extent",
+        f"{GLYPH_WIDTH}x{GLYPH_HEIGHT}",
+        "-colorspace",
+        "Gray",
+        "-depth",
+        "8",
+        "gray:-",
+    ]
+    try:
+        return subprocess.run(
+            resize_command,
+            input=cropped,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError) as error:
+        detail = getattr(error, "stderr", b"").decode(
+            "utf-8",
+            errors="replace",
+        )
+        raise CanaryError(
+            f"CJK resize failed for {character!r}: {detail}"
+        ) from error
 
 
 def rasterize_character(
@@ -158,6 +452,37 @@ def rasterize_character(
     point_size = rasterizer_point_size(character, rasterizer)
     if character == " ":
         gray = bytes(GLYPH_WIDTH * GLYPH_HEIGHT)
+        pixels = quantize_gray_4bpp(gray)
+        return gray, pixels, encode_glyph(pixels)
+    fixed_canvas = _cjk_fixed_canvas(rasterizer)
+    normalization = _cjk_bbox_normalization(rasterizer)
+    if fixed_canvas is not None:
+        gray = _rasterize_fixed_canvas_cjk(
+            executable,
+            font_path,
+            character,
+            rasterizer,
+            fixed_canvas,
+        )
+        if len(gray) != GLYPH_WIDTH * GLYPH_HEIGHT:
+            raise CanaryError(
+                f"fixed-canvas rasterizer returned {len(gray)} bytes "
+                f"for {character!r}"
+            )
+        pixels = quantize_gray_4bpp(gray)
+        return gray, pixels, encode_glyph(pixels)
+    if normalization is not None and is_cjk_unified_ideograph(character):
+        gray = _rasterize_normalized_cjk(
+            executable,
+            font_path,
+            character,
+            rasterizer,
+            normalization,
+        )
+        if len(gray) != GLYPH_WIDTH * GLYPH_HEIGHT:
+            raise CanaryError(
+                f"CJK normalizer returned {len(gray)} bytes for {character!r}"
+            )
         pixels = quantize_gray_4bpp(gray)
         return gray, pixels, encode_glyph(pixels)
     command = [
@@ -927,6 +1252,7 @@ __all__ = [
     "CanaryError",
     "build_static_canary",
     "double_byte_width_class",
+    "normalized_cjk_bbox_size",
     "quantize_gray_4bpp",
     "rasterize_character",
     "rasterizer_point_size",

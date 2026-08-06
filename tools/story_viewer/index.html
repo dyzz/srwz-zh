@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SRWZ 剧情文本阅读器</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">SUPER ROBOT WARS Z · CLEAN-ROOM TEXT VIEWER</p>
+      <h1>剧情文本阅读器</h1>
+      <p class="subtitle">按路线查看章节目录，按资源顺序阅读实际导出的对白。</p>
+    </div>
+    <div class="top-stats" id="top-stats"></div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar route-sidebar">
+      <div class="panel-heading">
+        <h2>路线导览</h2>
+        <span class="muted">标题序号</span>
+      </div>
+      <p class="route-note">路线标题来自 <code>Stage Name</code>。它与 <code>story/NNN</code> 资源号不一一对应；正文请从下方资源列表进入。</p>
+      <div id="route-list" class="route-list"></div>
+    </aside>
+
+    <section class="reader-column">
+      <div class="reader-toolbar panel">
+        <div class="toolbar-row">
+          <label class="search-box" for="search-input">
+            <span aria-hidden="true">⌕</span>
+            <input id="search-input" type="search" placeholder="搜索日文、译文、说话人或资源号">
+          </label>
+          <div class="filter-group" role="group" aria-label="翻译状态">
+            <button class="filter active" data-filter="all">全部</button>
+            <button class="filter" data-filter="translated">已有译文</button>
+            <button class="filter" data-filter="machine">机器草稿</button>
+            <button class="filter" data-filter="missing">待翻译</button>
+          </div>
+        </div>
+        <div id="search-summary" class="search-summary"></div>
+      </div>
+      <div class="resource-layout">
+        <aside class="panel resource-sidebar">
+          <div class="panel-heading">
+            <h2>剧情资源</h2>
+            <span class="muted" id="resource-count"></span>
+          </div>
+          <div id="resource-list" class="resource-list"></div>
+        </aside>
+        <article id="reader" class="panel reader" aria-live="polite"></article>
+      </div>
+    </section>
+
+    <aside class="sidebar details-sidebar">
+      <div class="panel-heading">
+        <h2>当前条目</h2>
+      </div>
+      <div id="details" class="details empty-state">点击正文条目查看来源 ID、出现次数和结构标记。</div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <span>本页为本地静态构建产物，不请求网络。</span>
+    <span id="source-note"></span>
+  </footer>
+  <!-- The source template can also be opened directly after a build.  The
+       generated copy keeps using its sibling data.js; the template resolves
+       the ignored generated payload under work/. -->
+  <script>
+    (function () {
+      var isTemplate = /\/tools\/story_viewer\//.test(window.location.pathname);
+      var source = isTemplate
+        ? "../../work/review/local-model/story-viewer/data.js"
+        : "data.js";
+      var dataScript = document.createElement("script");
+      dataScript.src = source;
+      dataScript.onload = function () {
+        var appScript = document.createElement("script");
+        appScript.src = "app.js";
+        document.body.appendChild(appScript);
+      };
+      dataScript.onerror = function () {
+        var message = document.createElement("main");
+        message.className = "no-results";
+        message.textContent = "缺少剧情数据。请先在仓库根目录运行 python3 tools/build_story_viewer.py。";
+        document.body.appendChild(message);
+      };
+      document.head.appendChild(dataScript);
+    }());
+  </script>
+</body>
+</html>

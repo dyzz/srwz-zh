@@ -267,6 +267,7 @@ def replace_menu_texts_in_place(
     *,
     replacements: Mapping[str, str],
     overrides: Mapping[str, int] | None = None,
+    source_table: TextTable | None = None,
     source_name: str | None = None,
 ) -> FixedMenuWrite:
     """Replace menu strings only inside their original terminated spans.
@@ -321,13 +322,18 @@ def replace_menu_texts_in_place(
                 f"menu target 0x{target_offset:X} has conflicting replacement payloads"
             )
         payload = owner_payloads.pop()
-        decoded = decode_text(data, target_offset, table)
+        decoded = decode_text(
+            data,
+            target_offset,
+            source_table or table,
+        )
         for entry_id in owners:
             if decoded.text != entries[entry_id].text:
                 raise WritebackError(f"{entry_id} source text preimage mismatch")
         if len(payload) > decoded.consumed:
             raise WritebackError(
-                f"menu target 0x{target_offset:X} overflow: need "
+                f"menu target 0x{target_offset:X} "
+                f"({', '.join(sorted(owners))}) overflow: need "
                 f"{len(payload)}, capacity {decoded.consumed}"
             )
         before = data[target_offset : target_offset + decoded.consumed]
@@ -366,7 +372,9 @@ def replace_menu_texts_in_place(
         expected = replacements[target.entry_ids[0]]
         if decoded.text != expected:
             raise WritebackError(
-                f"menu target 0x{target.target_offset:X} reparse mismatch"
+                f"menu target 0x{target.target_offset:X} "
+                f"({', '.join(target.entry_ids)}) reparse mismatch: "
+                f"expected={expected!r} actual={decoded.text!r}"
             )
 
     return FixedMenuWrite(

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
+  "scope": {
+    "stage_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "rerasterize": "All CJK unified ideographs used by the selected Chinese translations, plus every newly allocated character.",
+    "preserve": "Original kana, Latin glyphs, punctuation with an existing reachable glyph, control symbols, and glyphs outside the selected Chinese translations."
+  },
+  "codec": {
+    "strategy": "rust-maximum",
+    "min_match_length": 2,
+    "max_match_chain": 65535,
+    "lazy_matching": true
+  },
+  "rasterizer": {
+    "executable": "magick",
+    "density": 72,
+    "point_size": 22,
+    "gravity": "center",
+    "hinting": false,
+    "antialias": true,
+    "quantization": "round(gray * 15 / 255)",
+    "cjk_bbox_normalization": {
+      "source_canvas_size": 64,
+      "source_point_size": 48,
+      "trim_threshold": 8,
+      "target_bbox_size": 22,
+      "resize_filter": "Lanczos",
+      "reason": "Render every CJK ideograph from the same high-resolution Noto em, trim only quantization-invisible outer pixels, proportionally fit the visible raster inside a 22x22 box, and center it in the fixed 24x24 cell. Character-specific resizing, point sizes, and corrections are forbidden."
+    }
+  }
+}

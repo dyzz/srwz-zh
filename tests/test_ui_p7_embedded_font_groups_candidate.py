@@ -68,6 +68,15 @@ class UiP7EmbeddedFontGroupsCandidateTests(unittest.TestCase):
         self.assertEqual(font["font_chunk_index"], 2)
         self.assertEqual(font["vt1_chunk_count"], 14)
         self.assertEqual(font["unchanged_vt1_chunk_count"], 13)
+        self.assertTrue(font["vt1_archive_size_preserved"])
+        self.assertGreater(font["font_borrowed_preceding_zero_slack"], 0)
+        self.assertEqual(font["zero_slack_donor_chunk_index"], 1)
+        self.assertEqual(
+            self.manifest["outputs"]["vt1"]["size"],
+            self.manifest["inputs"]["base_ui_core"]["outputs"]["vt1"][
+                "size"
+            ],
+        )
         self.assertEqual(font["font_and_slice_overlap_byte_count"], 0)
         self.assertEqual(
             self.manifest["composition"]["overlap_byte_count"],

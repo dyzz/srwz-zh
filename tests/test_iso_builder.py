@@ -3,6 +3,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 
 from tools.build_canary_iso import (
     IsoBuildError,
@@ -11,8 +12,10 @@ from tools.build_canary_iso import (
     load_config,
     tree_file_map,
     validate_directory_contract,
+    validate_replacement_sector_budget,
     write_build_xml,
 )
+from tools.srwz.iso9660 import IsoMember
 
 
 class Mkps2isoBuildTests(unittest.TestCase):
@@ -108,6 +111,59 @@ class Mkps2isoBuildTests(unittest.TestCase):
         ]
         with self.assertRaisesRegex(IsoBuildError, "shift is invalid"):
             validate_directory_contract(config)
+
+    def test_fixed_lba_sector_budget_rejects_member_growth(self):
+        config = {
+            "layout": {
+                "preserve_original_member_sector_allocations": True,
+                "shift_segments": [
+                    {"first_member": "NEXT.BIN", "shift_sectors": 0}
+                ],
+            },
+            "source_iso": {"size": 4096},
+            "output": {"expected_size": 4096},
+            "replacements": [
+                {"member": "DATA/VT1.BIN", "size": 2049}
+            ],
+        }
+        image = SimpleNamespace(
+            members=(
+                IsoMember("DATA/VT1.BIN", 10, 2048, 0),
+                IsoMember("NEXT.BIN", 11, 1, 0),
+            )
+        )
+        with self.assertRaisesRegex(
+            IsoBuildError,
+            "exceeds original member sectors",
+        ):
+            validate_replacement_sector_budget(config, image)
+
+    def test_fixed_lba_sector_budget_accepts_same_sector_count(self):
+        config = {
+            "layout": {
+                "preserve_original_member_sector_allocations": True,
+                "shift_segments": [
+                    {"first_member": "NEXT.BIN", "shift_sectors": 0}
+                ],
+            },
+            "source_iso": {"size": 4096},
+            "output": {"expected_size": 4096},
+            "replacements": [
+                {"member": "DATA/VT1.BIN", "size": 2048}
+            ],
+        }
+        image = SimpleNamespace(
+            members=(
+                IsoMember("DATA/VT1.BIN", 10, 2047, 0),
+                IsoMember("NEXT.BIN", 11, 1, 0),
+            )
+        )
+        report = validate_replacement_sector_budget(config, image)
+        self.assertTrue(report["enforced"])
+        self.assertTrue(
+            report["all_replacements_within_original_member_sectors"]
+        )
+        self.assertEqual(report["entries"][0]["candidate_sectors"], 1)
 
     def test_iso_output_cannot_fall_back_into_work(self):
         root = Path(__file__).resolve().parents[1]

@@ -419,6 +419,8 @@ def audit_entry_font(
     missing = []
     original_han = []
     selected_han = []
+    original_visible = []
+    selected_visible = []
 
     for character in sorted(counts):
         assignment = proposal_assignments.get(character)
@@ -437,7 +439,11 @@ def audit_entry_font(
                 mapping = "pinned_text_table"
         else:
             code = assignment["code_value"]
-            glyph_index = None
+            glyph_index = (
+                ascii_glyph_index(code)
+                if assignment.get("mapping") == "printable_ascii"
+                else None
+            )
 
         if code is None:
             missing.append(
@@ -471,13 +477,18 @@ def audit_entry_font(
             )
             continue
 
+        row = {
+            "character": character,
+            "occurrence_count": counts[character],
+            "glyph_index": glyph_index,
+            "mapping": mapping,
+        }
+        if character in proposal_assignments or character in base_assignments:
+            selected_visible.append(row)
+        elif character not in {" ", "\u3000"}:
+            original_visible.append(row)
+
         if is_cjk_unified_ideograph(character):
-            row = {
-                "character": character,
-                "occurrence_count": counts[character],
-                "glyph_index": glyph_index,
-                "mapping": mapping,
-            }
             if character in proposal_assignments:
                 selected_han.append(row)
             else:
@@ -496,6 +507,11 @@ def audit_entry_font(
         "original_font_han_count": len(original_han),
         "original_font_han_characters": "".join(
             item["character"] for item in original_han
+        ),
+        "selected_font_visible_character_count": len(selected_visible),
+        "original_font_visible_character_count": len(original_visible),
+        "original_font_visible_characters": "".join(
+            item["character"] for item in original_visible
         ),
     }
 

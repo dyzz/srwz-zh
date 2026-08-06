@@ -27,39 +27,39 @@
     "p0_font_base": {
       "manifest": {
         "path": "manifests/ui-p0-font-validation.json",
-        "sha256": "2e3ef59510b93dbbe65793df81fe7962aa7f5d97f4c991a0ab064f98224474f4",
+        "sha256": "8c52b2cfafbc0ee38bf9430db3c632bbb61d56c1455a91123ba97b97502d664c",
         "required_status": "offline_font_and_p0_renderer_coverage_passed_runtime_pending"
       },
       "slps": {
         "path": "work/build/ui-p0/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "250452f8c4af9d2948ce60fdfc1fc66b99141f2c457d5199c7896e0deb243909"
+        "sha256": "4d5642584ea35180195bd77737a5eda60c34cbb1408758cdb8b0854434902df1"
       }
     },
     "p0_fixed_slps": {
       "config": {
         "path": "config/ui-writeback/ui-p0-slps-fixed.json",
-        "sha256": "df3bcc67505bf10c43c9442a9aa00edc3f31cc1f4845284f694054e1166f9002"
+        "sha256": "905f7e7b1596d8380107bb85582c95c3c18d8e3553ad41722e2abd8d0f7cc6a7"
       },
       "manifest": {
         "path": "manifests/ui-p0-fixed-slps-validation.json",
-        "sha256": "a6540eecc462832817f94be500a08516f690bb1756d318cbde9b557ed2b8f681",
+        "sha256": "ce0ab00c6f91e3db104353fbae22244559f1270bdf1c8721e15d1fb805a3c025",
         "required_status": "fixed_slps_component_validated_iso_runtime_pending"
       },
       "slps": {
         "path": "work/build/ui-p0-fixed-slps/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "3655acb94c65e4e1a82042707c86f63176184a608deaa5e81da64b8b015e2c27"
+        "sha256": "7075bba0c3b8c6f7b3512bf2ea4167850c888e40a4f94a26b441e07183e3702f"
       }
     },
     "p0_display_names": {
       "config": {
         "path": "config/ui-writeback/ui-p0-display-names.json",
-        "sha256": "fafc42b895a9804ad3cd7c9f4b8766fc818dc154044544f6a79d57c4cd23a865"
+        "sha256": "2b0e069ab21a6cda919a0008bba89a66982880062fbf9c729e10ca50aa81652e"
       },
       "manifest": {
         "path": "manifests/ui-p0-display-names-validation.json",
-        "sha256": "a530c4a77c6402c8e6af20cf3614035f2fd2d83fa61c4b9b139c9fe9a256ff43",
+        "sha256": "c7f1e4fb0f01d5884b5af1cb3ea4789858a839e0336f92a2b6980647d1369163",
         "required_status": "p0_compdata_and_opening_display_names_validated_iso_runtime_pending"
       },
       "compdata": {
@@ -71,22 +71,22 @@
     "world_history": {
       "config": {
         "path": "config/summary/world-history-component.json",
-        "sha256": "50a2433891d121a6b4aa3494fd1e85f3d7bea2afb874cefd5333a45d52ef8736"
+        "sha256": "7a678a980ce0fa54f73cd14d3c31384774f7331dc00468d3051e8824566cb9a0"
       },
       "manifest": {
         "path": "manifests/ui-p1-world-history-validation.json",
-        "sha256": "98d320216c0ec829dc1220eb21a2ebf1f23f7e7970b79da15e55ae9b17c46857",
+        "sha256": "39eaf3f3832413c30c8959e7fc1c0afdd8789d08e1c4d2050c9a11c30fadd6c2",
         "required_status": "offline_component_validated_runtime_not_tested"
       },
       "slps": {
         "path": "work/build/ui-p1-world-history/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "6ce578b5c8e69c842bf87afc830da1f4879c193b5104977c3dead66a80d47e43"
+        "sha256": "e8bf0dba2c4a3d4f107a3765e60eecc49aac65239de2f5cdf5445315be57f500"
       },
       "vt1": {
         "path": "work/build/ui-p1-world-history/components/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "89ac088915a3402104b5454acd5c5ed6eeebc89cc5111227c91ec8648e610389"
+        "sha256": "7c591ee0638c96cbfe5e3d2a658eec5037e36a34a48297a7634f8807b724b397"
       },
       "mtv_pros": {
         "path": "work/build/ui-p1-world-history/components/DATA/MTV_PROS.BIN",
@@ -98,9 +98,9 @@
   "composition": {
     "slps_menu_patch": {
       "mode": "three-way-byte-patch",
-      "expected_changed_byte_count": 2659,
-      "expected_changed_range_count": 496,
-      "expected_base_overlap_count": 0
+        "expected_changed_byte_count": 2659,
+        "expected_changed_range_count": 496,
+        "expected_base_overlap_count": 0
     },
     "title_menu": {
       "archive": "VT1.BIN",
@@ -132,11 +132,11 @@
   "expected_outputs": {
     "slps": {
       "size": 3471624,
-      "sha256": "47181384fc69b936870187474759576b77df1af71598a8744e3142d53e426fa5"
+      "sha256": "651ccdf7cb834aa3b56bf647cde0e35609ce0b40c5ab1ad15634dd5a6c7e5936"
     },
     "vt1": {
       "size": 127500736,
-      "sha256": "f453330b15026196353088a1362e2865ad671d8e57aa3c8da29500af2327ef15"
+      "sha256": "0c7e3679f47621cce4809f1686ae5eb15c19041de2cf59232aabfb388553d62d"
     },
     "mtv_pros": {
       "size": 8368,

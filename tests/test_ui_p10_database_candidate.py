@@ -75,8 +75,8 @@ class UiP10DatabaseCandidateTests(unittest.TestCase):
         )
         unit_names = self.manifest["fixed_span"]["unit_names"]
         self.assertEqual(unit_names["entry_count"], 348)
-        self.assertEqual(unit_names["write_entry_count"], 305)
-        self.assertEqual(unit_names["no_op_entry_count"], 43)
+        self.assertEqual(unit_names["write_entry_count"], 288)
+        self.assertEqual(unit_names["no_op_entry_count"], 60)
         self.assertEqual(unit_names["pointer_count"], 808)
         self.assertEqual(unit_names["minimum_output_headroom"], 1)
         self.assertTrue(unit_names["pointer_bytes_unchanged"])
@@ -99,7 +99,7 @@ class UiP10DatabaseCandidateTests(unittest.TestCase):
             composition["preserved_non_font_vt1_chunk_count"], 13
         )
         self.assertEqual(
-            composition["font_borrowed_preceding_zero_slack"], 10032
+            composition["font_borrowed_preceding_zero_slack"], 4752
         )
         self.assertTrue(composition["vt1_archive_size_preserved"])
         self.assertEqual(composition["zero_slack_donor_chunk_index"], 1)
@@ -109,13 +109,13 @@ class UiP10DatabaseCandidateTests(unittest.TestCase):
         )
         self.assertEqual(
             composition["compdata_compressed_common_prefix"],
-            108324,
+            108319,
         )
         codec = composition["compdata_codec"]
         self.assertEqual(codec["strategy"], "rust-maximum")
         self.assertEqual(codec["min_match_length"], 3)
         self.assertEqual(codec["maximum_output_size"], 145408)
-        self.assertEqual(codec["budget_headroom"], 115)
+        self.assertEqual(codec["budget_headroom"], 125)
         self.assertTrue(codec["within_sector_budget"])
         self.assertGreaterEqual(codec["budget_headroom"], 0)
         self.assertTrue(all(self.manifest["acceptance"].values()))
@@ -156,19 +156,19 @@ class UiP10DatabaseCandidateTests(unittest.TestCase):
     def test_output_locks_and_runtime_boundary_are_explicit(self):
         self.assertEqual(
             self.manifest["outputs"]["slps"]["sha256"],
-            "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979",
+            "1bdee29292af90135b054354241141cb43bf80a217059336455e7c39f8facfa2",
         )
         self.assertEqual(
             self.manifest["outputs"]["vt1"],
             {
                 "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
-                "size": 127501728,
-                "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9",
+                "size": 127500736,
+                "sha256": "c3da3b0518d0b87a282c0da254a89893d8a3635b14664059db37696f213fab17",
             },
         )
         self.assertEqual(
             self.manifest["outputs"]["compdata"]["sha256"],
-            "bcc573758e0b452114c04370f97c5d898aa2879a39a20cc5caed7314fbbd2ee9",
+            "3c40f1bff09039d4f4874e4dbd1840903536a09035fb1841d5c0e8925f3bc49b",
         )
         self.assertEqual(self.manifest["runtime"]["status"], "not_tested")
         self.assertEqual(

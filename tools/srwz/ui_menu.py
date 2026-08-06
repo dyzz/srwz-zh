@@ -18,7 +18,13 @@ from .codec import (
 from .corpus import text_sha256
 from .font import decode_vt1_font_segment, sha256_bytes
 from .menu import MenuParseResult, parse_menu_file
-from .text import augment_text_table, decode_text, encode_text, load_text_table
+from .text import (
+    TextTable,
+    augment_text_table,
+    decode_text,
+    encode_text,
+    load_text_table,
+)
 from .ui_inventory import expand_scene_entries, load_scene_config
 from .writers import replace_menu_texts_in_place
 
@@ -194,6 +200,33 @@ def augment_ui_source_text_table(table, overrides: Mapping[str, int]):
 
     additive, _aliases = split_ui_font_overrides(table, overrides)
     return augment_text_table(table, additive)
+
+
+def project_ui_runtime_text_table(table, overrides: Mapping[str, int]):
+    """Decode codes according to the glyphs installed by a UI font build.
+
+    Source-oriented parsing preserves the original Japanese identity of donor
+    codes.  Runtime surfaces instead display the replacement glyph written to
+    that code, so this projection deliberately replaces those source
+    identities while still rejecting collisions inside the supplied codebook.
+    """
+
+    characters = dict(table.characters)
+    seen_codes = {}
+    for character, code in overrides.items():
+        if (
+            not isinstance(character, str)
+            or len(character) != 1
+            or not isinstance(code, int)
+            or isinstance(code, bool)
+            or not 0 <= code <= 0xFFFF
+        ):
+            raise UiMenuError("UI runtime text-table override is invalid")
+        previous = seen_codes.setdefault(code, character)
+        if previous != character:
+            raise UiMenuError("UI runtime text-table override collision")
+        characters[code] = character
+    return TextTable(characters=characters, tags=table.tags)
 
 
 def normalize_ui_font_aliases(
@@ -1379,6 +1412,7 @@ __all__ = [
     "build_fixed_compdata_component",
     "build_fixed_slps_component",
     "load_ui_font_overrides",
+    "project_ui_runtime_text_table",
     "select_fixed_menu_replacements",
     "select_fixed_slps_replacements",
 ]

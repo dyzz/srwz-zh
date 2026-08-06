@@ -1,33 +1,33 @@
 {
   "schema_version": 1,
   "status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
-  "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1",
+  "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v2",
   "scope": "Incremental P7 plus all 711 weapon names, the selected skills, special abilities, spirit commands and leadership effects, all 348 pointer-backed unit names, both protagonist selection profiles and the finalized female-route stage 1-5 titles. It proves renderer coverage only; it does not write SLPS/COMPDATA, build an ISO or prove runtime pages.",
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p10-database-font.json",
-      "sha256": "57cb218c4019b1792aaae8b0af1a146570208f791f3dda7878152856f0ee609a"
+      "sha256": "054564b235a253115f7a9393baf5054dd38fa31ae24bc25cf96f32bbaf4d8cf6"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p10-database-font-allocations.json",
-      "sha256": "ff76eaea8a839dffd615922168d0e807fb463262ffce108f4d69c1df0742b228"
+      "sha256": "04b43440075e49f5f591ec06414a9c0a8275caa59deb200033051a0ba5aa35c5"
     },
     "database_selection": {
       "kind": "database_fixed_subset_with_supplemental_translation_with_additional_translation_selections_with_full_unit_names",
       "selection_id": "srwz-ui-database-fixed-core-v1",
       "config": {
         "path": "config/ui-database-selection.json",
-        "sha256": "18431a9fe1e74585318a48759a0ab1837a95b143e6fb3e7514d1de2057f0de03"
+        "sha256": "5ef4978212cb11d4794ecc95f813c8e5da8735a4ccfc335f95e62aee1adcc973"
       },
       "manifest": {
         "path": "manifests/ui-database-fixed-core-selection.json",
-        "sha256": "df026f1027f83891841a966d2917f359e6045f7b76224b47230a792fc16b6c68",
+        "sha256": "85624f085c924d8c1d0babbfdc41d1ac7400112fab950e8cb561ded5c1cb98af",
         "status": "static_database_fixed_subset_selected_font_extension_required"
       },
       "parent_scene": {
         "inventory": {
           "path": "config/ui-scenes.json",
-          "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55"
+          "sha256": "8ea118830586d7b50c2a734a12d1969a4165642fc07c5987914008f3bb3099d2"
         },
         "inventory_id": "srwz-ui-scenes-v1",
         "scene_id": "database/parts-skills-abilities-weapons",
@@ -183,13 +183,13 @@
     },
     "base_proposal": {
       "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
-      "sha256": "f2af222a7a71c2ce4442fdfe8a6519b75cae57932721c4eb5736fc8b8fc64563",
+      "sha256": "e4529de67d6d1d7f6cdf9d338c9cd83bbf0687757caac43dfc16056679175fb0",
       "proposal_id": "srwz-ui-p7-embedded-menu-unified-font-v1",
-      "assignment_count": 1616
+      "assignment_count": 1615
     },
     "base_validation_manifest": {
       "path": "manifests/ui-p7-embedded-font-validation.json",
-      "sha256": "577767062b1df3cb60162a98ecbb9ecd0320893c3d399f3f8cf423f5248d4d76"
+      "sha256": "b357c38a8f75b189625f36543a6073bf93af11ea21b68135c0a7f8853eb522fc"
     }
   },
   "capacity": {
@@ -199,15 +199,15 @@
     "expanded_standard_candidate_slot_count": 164,
     "raw_standard_addressable_candidate_slot_count": 86,
     "source_glyph_reuse_candidate_slot_count": 2180,
-    "base_registered_character_count": 724,
+    "base_registered_character_count": 726,
     "combined_registered_character_count": 811,
     "remaining_candidate_slot_count": 2105
   },
   "additional_allocations": {
-    "count": 87,
-    "characters": "+/乔佩俯农冻凉华吨呐咫喊喙喷圣垫妒嫣宾岑廖弯扩扳拂挡掷撕擒斩晓杆框桨桩歼涡漩灵烧猎疯绞绯绷缺肚脐臂芬荚药蛛蜃蜥蝰蟒贡赋赖踢轨辉辐邀钉钳钻铆铬链锤镜闪霆霰颤飓骑魇鹉鹦鹫鹰齿－",
-    "blank_preimage_count": 12,
-    "raw_standard_trail_gap_count": 12,
+    "count": 85,
+    "characters": "+/乔俯农冻凉华吨呐咫喊喙喷圣垫妒嫣宾岑廖弯扩扳拂挡掷撕擒斩晓杆框桨桩歼涡漩灵烧猎疯绞绯绷缺肚脐臂芬荚药蛛蜃蜥蝰蟒贡赋赖踢轨辉辐邀钉钳铆铬链锤镜闪霆霰颤飓骑魇鹉鹦鹫鹰齿－",
+    "blank_preimage_count": 10,
+    "raw_standard_trail_gap_count": 10,
     "source_glyph_reuse_count": 75
   },
   "additional_reraster_existing_han": {
@@ -248,31 +248,19 @@
     ]
   },
   "inherited_optical_reraster_overrides": {
-    "count": 1,
-    "entries": [
-      {
-        "character": "坠",
-        "code": "83F6",
-        "glyph_index": 566,
-        "point_size": 23.5,
-        "packed_glyph_sha256": "c79aa10c8ee59c609444b87af1b60855e4e33efad38ede8e23308061f9a88342",
-        "reason": "The 2026-07-31 exact-ISO stage-001 victory/failure-condition screenshot shows the inherited 22pt 坠 glyph optically smaller than adjacent CJK. A 23.5pt reraster produces a 21x20 bounding box with 264 ink pixels while preserving code 83F6, glyph 566 and the original advance."
-      }
-    ]
+    "count": 0,
+    "entries": []
   },
   "cjk_optical_policy": {
     "enabled": true,
-    "point_size": 23,
+    "point_size": 22,
     "candidate_point_sizes": [
-      22,
-      22.5,
-      23,
-      23.5
+      22
     ],
     "target_metrics": {
       "bbox_width": 21,
-      "bbox_height": 21,
-      "ink_pixel_count": 256
+      "bbox_height": 22,
+      "ink_pixel_count": 246
     },
     "score_weights": {
       "bbox_error": 128,
@@ -280,82 +268,80 @@
       "outer_edge_side": 64,
       "point_size_half_step_from_default": 4
     },
-    "configured_reviewed_exceptions": [
-      {
-        "character": "尔",
-        "point_size": 25,
-        "reason": "The 2026-08-01 exact-game screenshot still shows 尔 optically too narrow at 23.5pt. The reviewed 25pt raster expands it from 21x22/206 ink pixels to 22x22/218 while retaining the fixed 24x24 cell and height."
-      }
-    ],
-    "reason": "Select each final CJK glyph deterministically from 22, 22.5, 23 and 23.5pt against the 21x21/256-ink target, penalizing clipping-risk edge touches and distance from the 23pt baseline. Reviewed exceptions remain explicit.",
+    "configured_reviewed_exceptions": [],
+    "bbox_normalization": {
+      "source_canvas_size": 64,
+      "source_point_size": 48,
+      "trim_threshold": 8,
+      "target_bbox_size": 22,
+      "resize_filter": "Lanczos",
+      "reason": "Render every CJK ideograph from the same high-resolution Noto em, trim only quantization-invisible outer pixels, proportionally fit the visible raster inside a 22x22 box, and center it in the fixed 24x24 cell. Character-specific resizing, point sizes, and corrections are forbidden."
+    },
+    "fixed_canvas": null,
+    "reason": "Inherit the shared Noto Sans CJK SC high-resolution render, proportionally fit each visible CJK raster inside one 22x22 box, and center it in the fixed 24x24 cell. Character-specific resizing, point sizes, and reviewed exceptions are forbidden.",
     "assignment_count": 1754,
     "point_size_counts": {
-      "22": 388,
-      "22.5": 445,
-      "23": 700,
-      "23.5": 220,
-      "25": 1
+      "22": 1754
     },
     "selection_tier_counts": {
-      "metric_selected": 1750,
-      "reviewed_exception": 4
+      "uniform_bbox_normalized": 1754
     },
     "raster_metrics": {
       "empty_glyph_count": 0,
-      "outer_edge_touch_count": 729,
+      "outer_edge_touch_count": 0,
       "bbox_width_min": 16,
-      "bbox_width_median": 21.0,
+      "bbox_width_median": 22.0,
       "bbox_width_max": 22,
-      "bbox_height_min": 3,
-      "bbox_height_median": 21.0,
-      "bbox_height_max": 23,
-      "ink_pixel_count_min": 61,
-      "ink_pixel_count_median": 254.0,
-      "ink_pixel_count_max": 365
+      "bbox_height_min": 2,
+      "bbox_height_median": 22.0,
+      "bbox_height_max": 22,
+      "ink_pixel_count_min": 44,
+      "ink_pixel_count_median": 276.0,
+      "ink_pixel_count_max": 399
     },
-    "reviewed_exception_characters": "坠尔任班"
+    "reviewed_exception_characters": ""
   },
   "combined_assignments": {
-    "allocation_assignment_count": 802,
+    "allocation_assignment_count": 799,
     "reraster_existing_assignment_count": 1004,
-    "font_assignment_count": 1806
+    "font_assignment_count": 1803
   },
   "proposal": {
     "path": "work/writeback/ui-p10-database-codebook-proposal.json",
-    "sha256": "1fdb71325c50b330420d91fbb8b64935b96c27671fb372b4865ce35aefdc61de"
+    "sha256": "22e210c8bf6e5b5409fe17a3fe42a3c451b54133711048aaacaa1620be165631"
   },
   "readiness": {
     "path": "work/writeback/ui-p10-database-font-readiness.json",
-    "sha256": "1869f3c9e0a93395c22e0f9355023fe42b4a488f048ec0c482ba8c77b688dacf"
+    "sha256": "381481b4c9e77ae21f13f7c24058cd59e3d8e05f7eea8afa150827689c1170f1"
   },
   "font_component": {
     "report": "work/build/ui-p10-database-font/components/font-validation.json",
-    "report_sha256": "7bee0d6ce12766b4aada55855de90cbf7917f532d9c2dc61af34ac3231643833",
-    "assignment_count": 1806,
-    "allocation_assignment_count": 802,
+    "report_sha256": "c119417792205b3a6e244544512a4e7a3901c600cea3c5dbd0266457d015450c",
+    "assignment_count": 1803,
+    "allocation_assignment_count": 799,
     "reraster_existing_assignment_count": 1004,
-    "changed_glyph_count": 1805,
+    "changed_glyph_count": 1802,
     "unchanged_assignment_count": 1,
-    "built_raster_hash_exact_count": 1806,
+    "built_raster_hash_exact_count": 1803,
     "decoded_size": 1290240,
-    "decoded_sha256": "51895efaac98608af84f9696e77e31c9ede99eba2fbe07cd3f21e4e7fbc7e997",
-    "encoded_size": 702997,
+    "decoded_sha256": "c2536438daffe60e9f935aa0e5cec3d9d725e7be9163832abeb939e59b995379",
+    "encoded_size": 742558,
     "encoder_strategy": "rust-maximum",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
-      "padding_size": 11,
-      "borrowed_preceding_zero_slack": 103664,
+      "padding_size": 2,
+      "borrowed_preceding_zero_slack": 143216,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "c74f60fcd5e1a9212e0797ffc588ce922a85f981ccbd73a3b5717b13e6a0447e"
+        "sha256": "c11e37229a0c4ee32ee001f946d642b5ed8175c7a46963e4187a8bf772c1391d"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "dfa9a052c877cd5324fe7084ce242dc95a3313654a89ca6ab290686cafa2aab3"
+        "sha256": "def1ce8f004047758622c98269b5804ffcb0684ed9c19dc7ddf26ad50ccff28d"
       }
     }
   },
@@ -371,12 +357,12 @@
   "base_ui_p7_components": {
     "slps": {
       "path": "work/build/ui-p7-embedded-font/components/SLPS_258.87",
-      "sha256": "9cbc6d9c62a23ad6d031367fae8a973542fc0e3ad7d2b3b115dd130281a3fd44",
+      "sha256": "214b1e6d3d2b4a8743440d1c0b1dcf06e037d27a35f52a0a476a13b289a4bed8",
       "exact": true
     },
     "vt1": {
       "path": "work/build/ui-p7-embedded-font/components/DATA/VT1.BIN",
-      "sha256": "1bb60b50c052531afffd3c347b9addd375053f43ab55c817f9026a84b004a679",
+      "sha256": "940b02f7dd95b88279c829fe13ec8c5e149e38192d7cf0a13989e1148c3051ed",
       "exact": true
     }
   },

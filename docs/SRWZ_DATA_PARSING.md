@@ -16,7 +16,7 @@ clean-room 编码器、部分 writer、ISO 回包和首个 PCSX2 canary；这些
 | ISO 成员 | 汉化用途 | 中文仓库解析 |
 | --- | --- | --- |
 | `SLPS_258.87` | 系统菜单、嵌入式 MIPS 文本指针、归档 offset 表、stage 函数表 | 13 个菜单 section、934 条 |
-| `DATA/COMPDATA.BN` | 战斗台词、零件、武器、关卡名、能力和按钮等数据库文本 | 解码为 524,032 字节；8 个 section、1,481 条 |
+| `DATA/COMPDATA.BN` | 297 条战斗退场台词、零件、武器、关卡名、能力和按钮等数据库文本 | 解码为 524,032 字节；8 个 section、1,481 条 |
 | `DATA/STAGE.BIN` | 剧情说话人、胜负/SR 条件和对话 | 205 块全部解码；154 个文本 stage、91,746 条 |
 | `DATA/MTV_PROS.BIN` | 过场摘要 | 14 块全部解码；12 个文本块、28 条 |
 | `DATA/VT1.BIN` | 字库归档 | 14 段 offset 清单；第 2 段严格解码为 1,290,240 字节 |
@@ -25,6 +25,27 @@ ISO 共有 66 个普通文件。其余大部分为音频、影片、战斗资源
 替换的图像归档；固定上游没有从这些文件提取额外可翻译 XML。后续独立扫描已经
 证明该范围之外至少还有 195 条 MAPNAME 文本和多处 TIM2 图像内文字。因此
 “未见上游 parser”明确不能解释成“文件没有任何文字”。
+
+2026-08-06 的实机截图进一步确认，战斗动画中随语音显示的短句不在上述
+COMPDATA 297 条“战斗退场台词”中。样例 `「一気に間合いをっ！」` 原始字节在
+`BTL/SRVC.BIN` 出现两次，均属于配对 `BTL/SRVC.SEG` 的第 71 个块：
+
+| 项目 | 值 |
+| --- | --- |
+| SEG 块范围 | `0xAAC30..0xB0E80` |
+| BIN 文本偏移 | `0xACE32`、`0xAE527` |
+| 块内偏移 | `0x2202`、`0x38F7` |
+| 原版文本码 | `間 = 0x8AD4` |
+
+当前中文字库把部分原日文字槽用于中文，未汉化 SRVC 文本出现混字属于预期。
+下一阶段应为 SRVC 建立完整文本提取、稳定 ID、指针／长度边界和写回门；无需为了
+保留未汉化日文而撤销现有码表。
+
+当前样例可用以下只读命令复验；命令只向标准输出打印 JSON，不修改 BIN：
+
+```bash
+python3 tools/probe_srwz_battle_text.py
+```
 
 一个上游遗漏已在中文流程中补齐：`extract_all_archives()` 的白名单只有
 `COMPDATA.BN` 和 `VT1.BIN`，但后续 `extract_all_summary()` 实际依赖
@@ -35,7 +56,7 @@ ISO 共有 66 个普通文件。其余大部分为音频、影片、战斗资源
 
 ```text
 日版 ISO
-  -> 7z 只读提取五个明确成员到 work/disc/
+  -> 7z 只读提取已确认成员到 work/disc/
   -> SLPS/SEG 固定 offset 或 config/stage-offsets.json 切片
   -> tools/srwz/codec.py 严格解码
   -> text.py 解析 SRWZ 字符、控制码和换行

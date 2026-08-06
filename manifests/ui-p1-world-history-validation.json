@@ -7,7 +7,7 @@
     "config": {
       "path": "config/summary/world-history-component.json",
       "size": 2910,
-      "sha256": "50a2433891d121a6b4aa3494fd1e85f3d7bea2afb874cefd5333a45d52ef8736"
+      "sha256": "7a678a980ce0fa54f73cd14d3c31384774f7331dc00468d3051e8824566cb9a0"
     },
     "source_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -46,24 +46,24 @@
     "font_component": {
       "manifest": {
         "path": "manifests/ui-p1-summary-font-validation.json",
-        "size": 7368,
-        "sha256": "327b3cd34a8fc243bd6bc9282da0afcad14ca491d9075fe1ccf7e96d64d08de6",
+        "size": 7641,
+        "sha256": "3e3130a1722f4f2c2708bb5ccc8796ef7a3a7b85f1259c3d75ea450105b8ac0f",
         "status": "offline_font_and_selected_ui_renderer_coverage_passed_runtime_pending"
       },
       "report": {
         "path": "work/build/ui-p1-summary/components/font-validation.json",
-        "size": 770990,
-        "sha256": "736ef21d5584aca179fcf2a2ea16d7778f1933f3a1e0c0848f502b05f1e903eb"
+        "size": 769285,
+        "sha256": "10d1a770977bcde3916243eba12b14ac2948079ab02d416c570771a2d4fc69e9"
       },
       "slps": {
         "path": "work/build/ui-p1-summary/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "647edc03793d6d6f0b1a00871dd08088a0737845c9b7a817963f27e0da7ff4f7"
+        "sha256": "8fd6e865f170c500c447d9bd158f246c30bef55a558a508fafdf4f55fa345bdd"
       },
       "vt1": {
         "path": "work/build/ui-p1-summary/components/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "89ac088915a3402104b5454acd5c5ed6eeebc89cc5111227c91ec8648e610389"
+        "sha256": "7c591ee0638c96cbfe5e3d2a658eec5037e36a34a48297a7634f8807b724b397"
       },
       "selected_renderer_missing_character_count": 0,
       "codebook": {
@@ -73,9 +73,9 @@
         },
         "proposal": {
           "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-          "sha256": "26732c416b2e116b273fe3f1c5e3bd5d97dd39a7036f9ab3b552ffd0479788bc"
+          "sha256": "fb553122e3acbaa4116e6e7df81f74a3d1ae49af50ed6b848e68203e264e07f3"
         },
-        "override_count": 1548,
+        "override_count": 1545,
         "semantic_code_replacements": []
       }
     }
@@ -303,11 +303,11 @@
   "slps_component": {
     "font_base": {
       "size": 3471624,
-      "sha256": "647edc03793d6d6f0b1a00871dd08088a0737845c9b7a817963f27e0da7ff4f7"
+      "sha256": "8fd6e865f170c500c447d9bd158f246c30bef55a558a508fafdf4f55fa345bdd"
     },
     "output": {
       "size": 3471624,
-      "sha256": "6ce578b5c8e69c842bf87afc830da1f4879c193b5104977c3dead66a80d47e43"
+      "sha256": "e8bf0dba2c4a3d4f107a3765e60eecc49aac65239de2f5cdf5445315be57f500"
     },
     "offset_table_start": 3324576,
     "offset_table_end_inclusive": 3324635,
@@ -317,7 +317,7 @@
     "patch_plan": {
       "source_name": "SLPS_258.87",
       "source_size": 3471624,
-      "source_sha256": "647edc03793d6d6f0b1a00871dd08088a0737845c9b7a817963f27e0da7ff4f7",
+      "source_sha256": "8fd6e865f170c500c447d9bd158f246c30bef55a558a508fafdf4f55fa345bdd",
       "operation_count": 1,
       "operations": [
         {
@@ -334,18 +334,18 @@
   "vt1_component": {
     "output": {
       "size": 127500736,
-      "sha256": "89ac088915a3402104b5454acd5c5ed6eeebc89cc5111227c91ec8648e610389"
+      "sha256": "7c591ee0638c96cbfe5e3d2a658eec5037e36a34a48297a7634f8807b724b397"
     },
     "p1_font_component_exact": true
   },
   "outputs": {
     "slps": {
       "size": 3471624,
-      "sha256": "6ce578b5c8e69c842bf87afc830da1f4879c193b5104977c3dead66a80d47e43"
+      "sha256": "e8bf0dba2c4a3d4f107a3765e60eecc49aac65239de2f5cdf5445315be57f500"
     },
     "vt1": {
       "size": 127500736,
-      "sha256": "89ac088915a3402104b5454acd5c5ed6eeebc89cc5111227c91ec8648e610389"
+      "sha256": "7c591ee0638c96cbfe5e3d2a658eec5037e36a34a48297a7634f8807b724b397"
     },
     "mtv_pros": {
       "size": 8368,
@@ -407,7 +407,7 @@
     "all_texts_exact": true,
     "unknown_code_count": 0,
     "p1_vt1_exact": true,
-    "font_manifest_sha256": "327b3cd34a8fc243bd6bc9282da0afcad14ca491d9075fe1ccf7e96d64d08de6",
+    "font_manifest_sha256": "3e3130a1722f4f2c2708bb5ccc8796ef7a3a7b85f1259c3d75ea450105b8ac0f",
     "chunks": [
       {
         "chunk_index": 0,

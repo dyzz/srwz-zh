@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p0-font.json",
-      "sha256": "b8fc767abfc50a982c8e21435ada4bb42281118675c23ac263e7d0a58b29e319"
+      "sha256": "7070053262aa35dcacc93b558518b4bd50e4aec86dc1a5e2569ab114a7bc6f6d"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p0-allocations.json",
@@ -14,7 +14,7 @@
     },
     "scene_selection": {
       "path": "config/ui-scenes.json",
-      "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
+      "sha256": "8ea118830586d7b50c2a734a12d1969a4165642fc07c5987914008f3bb3099d2",
       "inventory_id": "srwz-ui-scenes-v1",
       "priorities": [
         "P0"
@@ -33,13 +33,13 @@
     },
     "base_proposal": {
       "path": "work/writeback/first-five-codebook-proposal.json",
-      "sha256": "b07b80bf1ef4b9fa57c7c73923b5b550d963eef9444cb0cb68259d797818913b",
+      "sha256": "9e3efad5e9b6f11b268f15fc2cc55e4a07e7322d5b4c9e26e642c929025ee74c",
       "proposal_id": "srwz-first-five-unified-font-v3",
-      "assignment_count": 1436
+      "assignment_count": 1434
     },
     "base_validation_manifest": {
       "path": "manifests/first-five-validation.json",
-      "sha256": "c1cc884919ecd997c789cd3ace379cefd49a098a4c7cffa2ef6831b015a1ccce"
+      "sha256": "790e05b65dcdb41907c4a732d90ff76295f982af27e9b102c84fe8bf09c36b52"
     }
   },
   "capacity": {
@@ -48,6 +48,7 @@
     "legacy_safe_candidate_slot_count": 486,
     "expanded_standard_candidate_slot_count": 164,
     "raw_standard_addressable_candidate_slot_count": 0,
+    "source_glyph_reuse_candidate_slot_count": 0,
     "base_registered_character_count": 638,
     "combined_registered_character_count": 647,
     "remaining_candidate_slot_count": 3
@@ -56,7 +57,8 @@
     "count": 9,
     "characters": "养减删效昵编节览陆",
     "blank_preimage_count": 9,
-    "raw_standard_trail_gap_count": 0
+    "raw_standard_trail_gap_count": 0,
+    "source_glyph_reuse_count": 0
   },
   "additional_reraster_existing_han": {
     "count": 9,
@@ -66,47 +68,56 @@
     "count": 0,
     "entries": []
   },
+  "inherited_optical_reraster_overrides": {
+    "count": 0,
+    "entries": []
+  },
+  "cjk_optical_policy": {
+    "enabled": false,
+    "assignment_count": 0,
+    "point_size_counts": {}
+  },
   "combined_assignments": {
-    "allocation_assignment_count": 639,
-    "reraster_existing_assignment_count": 815,
-    "font_assignment_count": 1454
+    "allocation_assignment_count": 636,
+    "reraster_existing_assignment_count": 816,
+    "font_assignment_count": 1452
   },
   "proposal": {
     "path": "work/writeback/ui-p0-codebook-proposal.json",
-    "sha256": "cce51f7feb737082ca3d6f115ce43ad30de308ce6094536fce6569a7109949c8"
+    "sha256": "efe5f7e7ec970179af42f395358cf840b4ab4d95715b76acc3fa6ca2dbf08693"
   },
   "readiness": {
     "path": "work/writeback/ui-p0-font-readiness.json",
-    "sha256": "b1f8364ad96577994c1be65da3002259739a65c6223ff573b89412de1e14de2c"
+    "sha256": "09f83aab380db77e05c6313dc739aa3abbccbbf0cbd1c356a6c8ba09b0a8d64b"
   },
   "font_component": {
     "report": "work/build/ui-p0/components/font-validation.json",
-    "report_sha256": "ad4d4adf18a92a003a99da0c01bcb757aae9756ff83f274d7e00fcf8604946b2",
-    "assignment_count": 1454,
-    "allocation_assignment_count": 639,
-    "reraster_existing_assignment_count": 815,
-    "changed_glyph_count": 1453,
+    "report_sha256": "ddc26492e1ce54267cac16605b9e4062b620789bfaf013cf97f94c711e48f6c0",
+    "assignment_count": 1452,
+    "allocation_assignment_count": 636,
+    "reraster_existing_assignment_count": 816,
+    "changed_glyph_count": 1451,
     "unchanged_assignment_count": 1,
-    "built_raster_hash_exact_count": 1454,
+    "built_raster_hash_exact_count": 1452,
     "decoded_size": 1290240,
-    "decoded_sha256": "a9670139432bb8a3def2f8afc10cdfb0527c640950da2afa7042b2db3ede7efb",
-    "encoded_size": 681433,
+    "decoded_sha256": "fad965c85deb164615246837b1e8376cf5514a504a76879b22444ee8bfb4bb4a",
+    "encoded_size": 721151,
     "encoder_strategy": "rust-maximum",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
-      "padding_size": 7,
-      "borrowed_preceding_zero_slack": 82096,
+      "padding_size": 1,
+      "borrowed_preceding_zero_slack": 121808,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "250452f8c4af9d2948ce60fdfc1fc66b99141f2c457d5199c7896e0deb243909"
+        "sha256": "c11f4defc5e7da74df255fd257933f79664dd3b14885e28947472f4a0056561a"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "1dbb97857f819b43c1d1315c9c76732547d491c3289f13bb09015a82377d939c"
+        "sha256": "f784c3d525e13ef99b22652b9fb25080f965319695408996d686a8a4a99137f2"
       }
     }
   },
@@ -122,12 +133,12 @@
   "base_first_five_components": {
     "slps": {
       "path": "work/build/first-five/components/SLPS_258.87",
-      "sha256": "fd1c7cf6c5cdbb603bc3ef2e2a6c84beb1253ec1b835cfff3c13bbd8fae3401c",
+      "sha256": "817b7a889431b218443842fc051e117e833e64262fba679966879220ada5e715",
       "exact": true
     },
     "vt1": {
       "path": "work/build/first-five/components/DATA/VT1.BIN",
-      "sha256": "36f987866f128debe9540e06fb0c9143e563f8a4b3945522c3be96c3380e57b4",
+      "sha256": "83db7276a6dc21b69c085f04ba92b2e37bd2f311a33f98bc68c0f3731ecd52bf",
       "exact": true
     }
   },

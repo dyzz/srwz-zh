@@ -11,7 +11,7 @@
     },
     "scene_inventory": {
       "path": "config/ui-scenes.json",
-      "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
+      "sha256": "8ea118830586d7b50c2a734a12d1969a4165642fc07c5987914008f3bb3099d2",
       "inventory_id": "srwz-ui-scenes-v1",
       "aggregate_scene_id": "menus/extended-embedded-dialogs"
     },
@@ -26,22 +26,22 @@
     "writeback_readiness": {
       "writer_baseline_config": {
         "path": "config/ui-writeback/ui-p0-slps-fixed.json",
-        "sha256": "df3bcc67505bf10c43c9442a9aa00edc3f31cc1f4845284f694054e1166f9002"
+        "sha256": "905f7e7b1596d8380107bb85582c95c3c18d8e3553ad41722e2abd8d0f7cc6a7"
       },
       "font_manifest": {
         "path": "manifests/ui-p2-display-name-font-validation.json",
-        "sha256": "81394e80d9a1ff0dac17d7fd9d69b23a1b1d0ba48960da9fc7079bc45b8c441c",
+        "sha256": "f7d59a2bd9a8699595a5eb46dc995383951bb5935ac44af00bd3dc33242a9a41",
         "status": "offline_font_and_researched_display_name_renderer_coverage_passed_runtime_pending"
       },
       "source_slps": {
         "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "4334607c5c00c12062599064b4a6ace2f572e36087ea5d0a055fbab6797078a4"
+        "sha256": "038a45e0073e56ab695672f7478ee6464e56f9c711ba6694def8a5622e0d13ba"
       },
       "source_vt1": {
         "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "2d541fc2a20ebac321a48c996c2ed7bba354bf24d857887cd522e2d0627f261b"
+        "sha256": "33e8fb517cd5f72acf779e0177534535c7bfd766ae8ead1b263949cb69e13401"
       },
       "menu_descriptor": {
         "path": "vendor/upstream-python/project/menu_files.json",
@@ -57,9 +57,9 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
-        "sha256": "96acae46806a228d132c3a3518d3d96f28ac9484c6f221184a518dd18428f9f6"
+        "sha256": "d9e3e08012e26d56cb0be8b783df71c68e3dd2b7b8f73520f568bf28ac1508d4"
       },
-      "override_count": 1605,
+      "override_count": 1604,
       "policy": "A group is fixed-span ready only when every decision encodes with the exact P2 font proposal, fits every original NUL-terminated target, and closes over all shared target owners with identical payloads."
     }
   },

@@ -75,7 +75,13 @@ def main() -> int:
         f"profile={report['font_profile_id']}",
         f"entries={report['ui_selection']['unique_entry_count']}",
         allocation_summary,
-        f"reraster={report['additional_reraster_existing_han']['count']}",
+        "reraster="
+        + str(
+            report.get(
+                "additional_reraster_existing_visible",
+                report["additional_reraster_existing_han"],
+            )["count"]
+        ),
         f"remaining={report['capacity']['remaining_candidate_slot_count']}",
     )
     print(f"proposal: {proposal_path}")

@@ -13,7 +13,12 @@ from srwz.font import sha256_bytes
 from srwz.iso9660 import SECTOR_SIZE, member_map, scan_iso9660
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
 from srwz.stage import parse_stage, read_stage_function_addresses
-from srwz.text import TextTable, load_text_table
+from srwz.text import (
+    TextTable,
+    load_text_table,
+    normalize_original_fullwidth_ascii,
+    original_fullwidth_ascii_overrides,
+)
 from srwz.writeback import rebuild_aligned_archive
 from srwz.writers import (
     build_executable_offset_patch_plan,
@@ -33,6 +38,12 @@ OUTPUT_ROOT = WORK_ROOT / "build/first-five/components"
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--proposal", type=Path, default=PROPOSAL)
+    parser.add_argument(
+        "--allocation-registry",
+        type=Path,
+        default=ALLOCATION_REGISTRY,
+    )
     parser.add_argument("--force", action="store_true")
     parser.add_argument(
         "--stages",
@@ -81,6 +92,22 @@ def parse_args() -> argparse.Namespace:
             "offsets and the ISO member size."
         ),
     )
+    parser.add_argument(
+        "--surface-safe-alias-characters",
+        default="",
+        help=(
+            "Characters whose proposal surface aliases should replace their "
+            "primary codes in translated STAGE text."
+        ),
+    )
+    parser.add_argument(
+        "--all-safe-aliases",
+        action="store_true",
+        help=(
+            "Use every global safe alias from the proposal and reject any "
+            "conditional-width localized assignment without one."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -107,7 +134,9 @@ def _stage_indices(value: str) -> set[int]:
 def _translations(path: Path, stages: set[int]) -> dict[str, str]:
     document = json.loads(path.read_text(encoding="utf-8"))
     return {
-        entry["id"]: entry["translation"]
+        entry["id"]: normalize_original_fullwidth_ascii(
+            entry["translation"]
+        )
         for entry in document["entries"]
         if int(entry["id"].split("/")[1]) in stages
     }
@@ -124,26 +153,74 @@ def _speaker_translations(stages: set[int]) -> dict[int, dict[int, str]]:
         parts = entry["id"].split("/")
         stage = int(parts[1])
         if stage in stages:
-            result[stage][int(parts[-1])] = entry["translation"]
+            result[stage][int(parts[-1])] = (
+                normalize_original_fullwidth_ascii(entry["translation"])
+            )
     return result
 
 
-def _load_overrides() -> dict[str, int]:
+def _load_overrides(
+    proposal_path: Path,
+    allocation_registry_path: Path,
+    surface_safe_alias_characters: str = "",
+    all_safe_aliases: bool = False,
+) -> dict[str, int]:
     base = json.loads(
         (PROJECT_ROOT / "config/encoding/codebook.json").read_text(
             encoding="utf-8"
         )
     )
-    proposal = json.loads(PROPOSAL.read_text(encoding="utf-8"))
+    proposal = json.loads(proposal_path.read_text(encoding="utf-8"))
     if proposal.get("allocation_registry", {}).get("sha256") != (
-        sha256_bytes(ALLOCATION_REGISTRY.read_bytes())
+        sha256_bytes(allocation_registry_path.read_bytes())
     ):
         raise SystemExit("codebook proposal allocation registry drift")
     assignments = [*base["assignments"], *proposal["assignments"]]
-    return {
+    overrides = {
         assignment["character"]: int(assignment["code"], 16)
         for assignment in assignments
+        if (
+            not 0x20 <= ord(assignment["character"]) <= 0x7E
+            or assignment["character"] in "12345"
+        )
     }
+    if all_safe_aliases and surface_safe_alias_characters:
+        raise SystemExit(
+            "--all-safe-aliases and --surface-safe-alias-characters are "
+            "mutually exclusive"
+        )
+    selected = set(surface_safe_alias_characters)
+    if len(selected) != len(surface_safe_alias_characters):
+        raise SystemExit("surface-safe alias characters must be unique")
+    available_aliases = {
+        assignment["character"]: int(assignment["code"], 16)
+        for assignment in proposal.get("surface_alias_assignments", [])
+    }
+    if all_safe_aliases:
+        alias_report = proposal.get("surface_safe_aliases", {})
+        conditional_characters = {
+            assignment["character"]
+            for assignment in proposal["assignments"]
+            if 0x8140 <= int(assignment["code"], 16) < 0x889F
+        }
+        if (
+            alias_report.get("all_selected_assignments") is not True
+            or alias_report.get("unaliased_conditional_assignment_count") != 0
+            or set(available_aliases) != conditional_characters
+            or any(0x8140 <= code < 0x889F for code in available_aliases.values())
+        ):
+            raise SystemExit("global safe-alias proposal contract failed")
+        selected = conditional_characters
+    aliases = {
+        character: code
+        for character, code in available_aliases.items()
+        if character in selected
+    }
+    if set(aliases) != selected:
+        missing = "".join(sorted(selected - set(aliases)))
+        raise SystemExit(f"surface-safe aliases are missing: {missing!r}")
+    overrides.update(aliases)
+    return overrides
 
 
 def _augmented_table(table: TextTable, overrides: dict[str, int]) -> TextTable:
@@ -178,7 +255,13 @@ def main() -> int:
     report_path = output_root / "component-validation.json"
     if report_path.exists() and not args.force:
         raise SystemExit(f"output exists; use --force: {report_path}")
-    if not PROPOSAL.is_file():
+    proposal_path = args.proposal
+    if not proposal_path.is_absolute():
+        proposal_path = PROJECT_ROOT / proposal_path
+    allocation_registry_path = args.allocation_registry
+    if not allocation_registry_path.is_absolute():
+        allocation_registry_path = PROJECT_ROOT / allocation_registry_path
+    if not proposal_path.is_file():
         raise SystemExit(
             "missing codebook proposal; run audit_first_five_writeback.py"
         )
@@ -190,7 +273,13 @@ def main() -> int:
     )
     inputs = config["inputs"]
     table = load_text_table(TEXT_TABLE)
-    overrides = _load_overrides()
+    overrides = _load_overrides(
+        proposal_path,
+        allocation_registry_path,
+        args.surface_safe_alias_characters,
+        args.all_safe_aliases,
+    )
+    overrides.update(original_fullwidth_ascii_overrides(table))
     output_table = _augmented_table(table, overrides)
     source_stage = (PROJECT_ROOT / inputs["stage"]["path"]).read_bytes()
     layout = load_offset_layout(
@@ -344,8 +433,22 @@ def main() -> int:
         "schema_version": 1,
         "status": "offline_components_validated_runtime_not_tested",
         "stage_indices": sorted(stages),
-        "codebook_proposal": str(PROPOSAL),
+        "codebook_proposal": str(proposal_path),
         "codebook_assignment_count": len(overrides),
+        "surface_safe_alias_characters": args.surface_safe_alias_characters,
+        "all_safe_aliases": args.all_safe_aliases,
+        "safe_alias_assignment_count": (
+            len(
+                json.loads(proposal_path.read_text(encoding="utf-8")).get(
+                    "surface_alias_assignments", []
+                )
+            )
+            if args.all_safe_aliases
+            else len(args.surface_safe_alias_characters)
+        ),
+        "unaliased_conditional_localized_assignment_count": (
+            0 if args.all_safe_aliases else None
+        ),
         "stages": stage_reports,
         "outputs": {
             "stage": {

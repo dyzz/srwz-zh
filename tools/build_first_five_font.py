@@ -13,6 +13,7 @@ from srwz.diagnostics import require_work_output
 from srwz.font import (
     GLYPH_COUNT,
     GLYPH_SIZE,
+    ascii_glyph_index,
     decode_vt1_font_segment,
     glyph_raster_metrics,
     glyph_index_for_code,
@@ -23,7 +24,9 @@ from srwz.font import (
 from srwz.font_profile import FontProfileError, load_font_profile
 from srwz.font_source import (
     FontSourceError,
+    font_source_metadata,
     load_font_lock,
+    verify_font_fallbacks,
     verify_font_lock_files,
 )
 from srwz.iso_layout import (
@@ -76,17 +79,19 @@ def main() -> int:
             WORK_ROOT,
             font_lock,
         )
+        fallback_font_paths, fallback_font_reports = verify_font_fallbacks(
+            PROJECT_ROOT,
+            WORK_ROOT,
+            profile["document"].get("unsupported_character_fallbacks"),
+        )
     except (FontProfileError, FontSourceError) as error:
         raise SystemExit(str(error)) from error
-    if proposal.get("font_source") != {
-        "family": font_lock["family"],
-        "version": font_lock["version"],
-        "commit": font_lock["commit"],
-        "font_sha256": font_lock["font"]["sha256"],
-        "license_spdx": font_lock["license"]["spdx"],
-        "license_sha256": font_lock["license"]["sha256"],
-    }:
+    if proposal.get("font_source") != font_source_metadata(font_lock):
         raise SystemExit("font proposal source does not match font lock")
+    if proposal.get("unsupported_character_fallbacks", []) != list(
+        fallback_font_reports
+    ):
+        raise SystemExit("font proposal fallback sources do not match config")
     if proposal.get("selection_policy") != profile["scope"]:
         raise SystemExit("font proposal selection policy drift")
     if proposal.get("allocation_registry", {}).get("sha256") != (
@@ -109,14 +114,40 @@ def main() -> int:
     unchanged_assignment_glyphs = set()
     glyph_reports = []
 
-    for assignment in proposal["assignments"]:
+    primary_assignments = proposal["assignments"]
+    surface_alias_assignments = proposal.get("surface_alias_assignments", [])
+    if not isinstance(surface_alias_assignments, list):
+        raise SystemExit("surface alias assignments are malformed")
+    runtime_ascii_assignments = proposal.get("runtime_ascii_assignments", [])
+    if not isinstance(runtime_ascii_assignments, list):
+        raise SystemExit("runtime ASCII assignments are malformed")
+    all_assignments = [
+        *primary_assignments,
+        *surface_alias_assignments,
+        *runtime_ascii_assignments,
+    ]
+
+    for assignment in all_assignments:
         character = assignment["character"]
         code = int(assignment["code"], 16)
         glyph_index = assignment["glyph_index"]
+        resolved_glyph_index = (
+            ascii_glyph_index(code)
+            if assignment.get("mapping")
+            in {"printable_ascii", "runtime_ascii_reraster"}
+            else glyph_index_for_code(code, extended_entries)
+        )
+        repeated_runtime_digit_slot = (
+            glyph_index in seen_glyphs
+            and assignment.get("mapping") == "runtime_ascii_reraster"
+            and isinstance(
+                assignment.get("overwrites_primary_character"), str
+            )
+        )
         if (
             code in seen_codes
-            or glyph_index in seen_glyphs
-            or glyph_index_for_code(code, extended_entries) != glyph_index
+            or (glyph_index in seen_glyphs and not repeated_runtime_digit_slot)
+            or resolved_glyph_index != glyph_index
             or not 0 <= glyph_index < GLYPH_COUNT
         ):
             raise SystemExit(f"invalid assignment for {character!r}")
@@ -135,25 +166,13 @@ def main() -> int:
         assignment_rasterizer = rasterizer
         optical_override = assignment.get("optical_override")
         if optical_override is not None:
-            if (
-                not isinstance(optical_override, dict)
-                or optical_override.get("point_size")
-                != assignment["raster"]["point_size"]
-                or not isinstance(optical_override.get("reason"), str)
-                or not optical_override["reason"]
-            ):
-                raise SystemExit(
-                    f"invalid optical override for {character!r}"
-                )
-            assignment_rasterizer = dict(rasterizer)
-            corrections = dict(
-                assignment_rasterizer.get("optical_corrections", {})
+            raise SystemExit(
+                f"character-specific optical override is forbidden for "
+                f"{character!r}"
             )
-            corrections[character] = optical_override
-            assignment_rasterizer["optical_corrections"] = corrections
         gray, pixels, packed = rasterize_character(
             assignment_rasterizer["executable"],
-            font_path,
+            fallback_font_paths.get(character, font_path),
             character,
             assignment_rasterizer,
         )
@@ -248,6 +267,9 @@ def main() -> int:
         "schema_version": 1,
         "status": "offline_font_validated_runtime_not_tested",
         "assignment_count": len(glyph_reports),
+        "primary_assignment_count": len(primary_assignments),
+        "surface_alias_assignment_count": len(surface_alias_assignments),
+        "runtime_ascii_assignment_count": len(runtime_ascii_assignments),
         "allocation_assignment_count": proposal["allocation_assignment_count"],
         "reraster_existing_assignment_count": proposal[
             "reraster_existing_assignment_count"
@@ -258,6 +280,16 @@ def main() -> int:
         "font_source": proposal["font_source"],
         "selection_policy": proposal["selection_policy"],
         "rasterizer": rasterizer,
+        **(
+            {"surface_safe_aliases": proposal["surface_safe_aliases"]}
+            if surface_alias_assignments
+            else {}
+        ),
+        **(
+            {"runtime_ascii_reraster": proposal["runtime_ascii_reraster"]}
+            if runtime_ascii_assignments
+            else {}
+        ),
         "glyphs": glyph_reports,
         "font": {
             "decoded_size": len(modified_font),

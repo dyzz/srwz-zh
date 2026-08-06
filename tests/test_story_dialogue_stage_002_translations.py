@@ -269,8 +269,9 @@ class StoryDialogueStage002TranslationTests(unittest.TestCase):
             if item["batch_id"] == "v1-story-dialogue"
         )
         self.assertEqual(batch["target_entry_count"], 82719)
-        self.assertEqual(batch["status"], "in_progress")
-        self.assertIn("stages 001-005", release["notes"])
+        self.assertEqual(batch["status"], "draft_complete")
+        self.assertIn("All 82,719 story-dialogue records", release["notes"])
+        self.assertIn("154 text stages", release["notes"])
 
 
 if __name__ == "__main__":

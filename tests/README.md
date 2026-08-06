@@ -3,7 +3,7 @@
 当前单元测试统一位于 `tests/test_*.py`，按被测模块命名。编码、布局、
 round-trip 和 PINE 协议均已落到可自动运行的测试文件，不再保留空的分类
 占位目录。PCSX2 正常流程和截图属于独立运行证据，记录在 manifest 和
-`docs/ISO_BUILD_AND_PCSX2.md`。
+`docs/BUILD_AND_RUNTIME.md`。
 
 静态测试通过不能替代运行验证；涉及渲染和流程的结论必须有对应运行记录。
 `test_pcsx2_boot_smoke.py` 固定 DVD／ELF／TLB 日志解析和证据边界；

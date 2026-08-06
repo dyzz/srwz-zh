@@ -7,9 +7,8 @@ import json
 from pathlib import Path
 from typing import Mapping
 
-from .canary import CanaryError, rebuild_archive_with_replacement
 from .codec import decode
-from .font import decode_vt1_font_segment
+from .font import decode_vt1_font_segment, read_extended_glyph_table
 from .iso_layout import CORE_ARCHIVE_SPECS, read_executable_archive_offsets
 from .text import augment_text_table, decode_text
 from .ui_embedded_scenes import (
@@ -20,6 +19,10 @@ from .ui_embedded_scenes import (
 from .ui_inventory import UiInventoryError, expand_selector
 from .ui_menu import UiMenuError, build_fixed_slps_slice
 from .writers import build_executable_offset_patch_plan
+from .writeback import (
+    WritebackError,
+    replace_archive_chunk_with_preceding_zero_slack,
+)
 
 
 class UiEmbeddedCandidateError(ValueError):
@@ -505,6 +508,7 @@ def build_ui_embedded_candidate(
             not isinstance(font_extension, dict)
             or font_extension.get("mode")
             != "replace-vt1-and-compose-slps-offset-delta"
+            or font_extension.get("preserve_vt1_archive_size") is not True
         ):
             raise UiEmbeddedCandidateError(
                 "embedded UI font-extension mode is invalid"
@@ -543,7 +547,22 @@ def build_ui_embedded_candidate(
                 base_payloads["vt1"],
             ).decoded
         )
-        if base_core_font_hash != font_base_hash:
+        base_font_matches = base_core_font_hash == font_base_hash
+        allow_raster_migration = font_extension.get(
+            "allow_base_font_raster_migration",
+            False,
+        )
+        if not isinstance(allow_raster_migration, bool):
+            raise UiEmbeddedCandidateError(
+                "embedded UI font raster-migration flag is invalid"
+            )
+        extended_table_matches = (
+            read_extended_glyph_table(base_slps)
+            == read_extended_glyph_table(font_base_slps)
+        )
+        if not base_font_matches and not (
+            allow_raster_migration and extended_table_matches
+        ):
             raise UiEmbeddedCandidateError(
                 "base core decoded font differs from the scene-map baseline"
             )
@@ -581,14 +600,15 @@ def build_ui_embedded_candidate(
                 final_vt1,
                 final_vt1_offsets,
                 font_padding_size,
-            ) = rebuild_archive_with_replacement(
+                font_borrowed_zero_slack,
+            ) = replace_archive_chunk_with_preceding_zero_slack(
                 base_payloads["vt1"],
                 base_vt1_offsets,
                 chunk_index=chunk_index,
-                encoded_replacement=stored_font[:decoded_font.consumed],
+                replacement=stored_font[:decoded_font.consumed],
                 alignment=alignment,
             )
-        except CanaryError as error:
+        except WritebackError as error:
             raise UiEmbeddedCandidateError(str(error)) from error
         font_offset_plan = build_executable_offset_patch_plan(
             base_slps,
@@ -608,6 +628,7 @@ def build_ui_embedded_candidate(
                 "rebased VT1 offsets fail SLPS reread"
             )
         unchanged_vt1_chunk_count = 0
+        zero_slack_donor_chunk_index = chunk_index - 1
         for index, (
             base_start,
             base_end,
@@ -623,12 +644,26 @@ def build_ui_embedded_candidate(
         ):
             if index == chunk_index:
                 continue
-            if (
-                base_payloads["vt1"][base_start:base_end]
-                != final_vt1[final_start:final_end]
-            ):
+            base_chunk = base_payloads["vt1"][base_start:base_end]
+            final_chunk = final_vt1[final_start:final_end]
+            if index == zero_slack_donor_chunk_index:
+                expected_chunk = (
+                    base_chunk[:-font_borrowed_zero_slack]
+                    if font_borrowed_zero_slack
+                    else base_chunk
+                )
+                donated = (
+                    base_chunk[-font_borrowed_zero_slack:]
+                    if font_borrowed_zero_slack
+                    else b""
+                )
+                preserved = final_chunk == expected_chunk and not any(donated)
+            else:
+                preserved = final_chunk == base_chunk
+            if not preserved:
                 raise UiEmbeddedCandidateError(
-                    f"non-font VT1 chunk {index} changed"
+                    f"non-font VT1 chunk {index} changed outside proven "
+                    "zero padding donation"
                 )
             unchanged_vt1_chunk_count += 1
         font_changed_offsets = _changed_offsets(
@@ -687,9 +722,26 @@ def build_ui_embedded_candidate(
             ),
             "font_chunk_index": chunk_index,
             "font_padding_size": font_padding_size,
+            "font_borrowed_preceding_zero_slack": (
+                font_borrowed_zero_slack
+            ),
+            "zero_slack_donor_chunk_index": (
+                zero_slack_donor_chunk_index
+            ),
+            "vt1_archive_size_preserved": (
+                len(final_vt1) == len(base_payloads["vt1"])
+            ),
             "vt1_chunk_count": len(base_vt1_offsets) - 1,
             "unchanged_vt1_chunk_count": unchanged_vt1_chunk_count,
-            "base_core_decoded_font_matches_scene_baseline": True,
+            "base_core_decoded_font_matches_scene_baseline": (
+                base_font_matches
+            ),
+            "base_core_extended_glyph_table_matches_scene_baseline": (
+                extended_table_matches
+            ),
+            "base_core_font_raster_migration_allowed": (
+                allow_raster_migration
+            ),
         }
 
     parsed_entries = {
@@ -845,13 +897,26 @@ def build_ui_embedded_candidate(
         acceptance["font_and_slice_offsets_disjoint"] = (
             font_composition["font_and_slice_overlap_byte_count"] == 0
         )
-        acceptance["base_core_decoded_font_matches_scene_baseline"] = (
+        acceptance["base_core_font_baseline_compatible"] = (
             base_core_font_hash == font_base_hash
+            or (
+                font_composition[
+                    "base_core_font_raster_migration_allowed"
+                ]
+                and font_composition[
+                    "base_core_extended_glyph_table_matches_scene_baseline"
+                ]
+            )
         )
-        acceptance["non_font_vt1_chunks_byte_exact_from_base"] = (
+        acceptance[
+            "non_font_vt1_chunks_preserved_except_proven_zero_slack_donation"
+        ] = (
             font_composition["unchanged_vt1_chunk_count"]
             == font_composition["vt1_chunk_count"] - 1
         )
+        acceptance["vt1_archive_size_preserved"] = font_composition[
+            "vt1_archive_size_preserved"
+        ]
         acceptance["decoded_font_matches_extension"] = (
             final_font_hash == readiness_font_hash
         )

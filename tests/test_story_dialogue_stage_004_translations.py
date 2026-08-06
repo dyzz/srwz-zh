@@ -190,7 +190,7 @@ class StoryDialogueStage004TranslationTests(unittest.TestCase):
             "story/004/dialogue/01.29/0037": "“是、是的”",
             "story/004/dialogue/02.01/0050": (
                 "“投降者先放一边，现在追击逃跑的\n"
-                "　Bogey One。密涅瓦初次出战，\n"
+                "　不明舰1号。密涅瓦初次出战，\n"
                 "　要把整艘舰运作起来，舰桥上一个人都不能少”"
             ),
             "story/004/dialogue/02.01/0070": (
@@ -313,8 +313,9 @@ class StoryDialogueStage004TranslationTests(unittest.TestCase):
             if item["batch_id"] == "v1-story-dialogue"
         )
         self.assertEqual(batch["target_entry_count"], 82719)
-        self.assertEqual(batch["status"], "in_progress")
-        self.assertIn("81,008", release["notes"])
+        self.assertEqual(batch["status"], "draft_complete")
+        self.assertIn("All 82,719 story-dialogue records", release["notes"])
+        self.assertIn("154 text stages", release["notes"])
 
 
 if __name__ == "__main__":

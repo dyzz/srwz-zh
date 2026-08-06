@@ -94,6 +94,24 @@ class ChineseLayoutTests(unittest.TestCase):
         with self.assertRaisesRegex(ChineseLayoutError, "more than 3 lines"):
             reflow_chinese_dialogue("“" + "甲" * 80 + "”")
 
+    def test_repeated_interjection_can_start_after_sentence_break(self):
+        original = "“啊……啊啊……啊啊啊！啊啊啊——！啊啊啊啊啊——！”"
+        result = reflow_chinese_dialogue(original)
+        self.assertEqual(logical_dialogue_text(result.text), original)
+        self.assertLessEqual(len(result.line_widths), 3)
+        self.assertLessEqual(max(result.line_widths), 24)
+
+    def test_long_unregistered_latin_phrase_wraps_at_spaces(self):
+        result = reflow_chinese_dialogue(
+            "“称为‘Z Emergency Union of Terrestrial Human’。”"
+        )
+        self.assertEqual(
+            logical_dialogue_text(result.text),
+            "“称为‘Z Emergency Union of Terrestrial Human’。”",
+        )
+        self.assertLessEqual(len(result.line_widths), 3)
+        self.assertLessEqual(max(result.line_widths), 24)
+
     def test_partition_without_dialogue_indentation_preserves_logical_text(self):
         lines = partition_chinese_text(
             "民众积压的焦虑彻底爆发，最终演变为暴动。",

@@ -46,11 +46,11 @@ class UiP10DatabaseFontTests(unittest.TestCase):
     def test_safe_gaps_then_source_glyph_reuse_are_bounded(self):
         self.assertEqual(
             self.registry["base_registry"]["registered_character_count"],
-            724,
+            726,
         )
         self.assertEqual(
             self.registry["appended_characters"],
-            "+/乔佩俯农冻凉华吨呐咫喊喙喷圣垫妒嫣宾岑廖弯扩扳拂挡掷撕擒斩晓杆框桨桩歼涡漩灵烧猎疯绞绯绷缺肚脐臂芬荚药蛛蜃蜥蝰蟒贡赋赖踢轨辉辐邀钉钳钻铆铬链锤镜闪霆霰颤飓骑魇鹉鹦鹫鹰齿－",
+            "+/乔俯农冻凉华吨呐咫喊喙喷圣垫妒嫣宾岑廖弯扩扳拂挡掷撕擒斩晓杆框桨桩歼涡漩灵烧猎疯绞绯绷缺肚脐臂芬荚药蛛蜃蜥蝰蟒贡赋赖踢轨辉辐邀钉钳铆铬链锤镜闪霆霰颤飓骑魇鹉鹦鹫鹰齿－",
         )
         capacity = self.manifest["capacity"]
         self.assertEqual(capacity["combined_registered_character_count"], 811)
@@ -70,7 +70,7 @@ class UiP10DatabaseFontTests(unittest.TestCase):
             Counter(assignment["status"] for assignment in added),
             Counter(
                 {
-                    "proposed_allocation": 87,
+                    "proposed_allocation": 85,
                     "proposed_reraster": 99,
                     "proposed_semantic_reraster": 4,
                 }
@@ -147,17 +147,15 @@ class UiP10DatabaseFontTests(unittest.TestCase):
                 not in inherited_by_character[character]
             },
         )
-        optical = inherited_by_character["坠"]
-        self.assertEqual(optical["code"], "83F6")
-        self.assertEqual(optical["glyph_index"], 566)
+        normalized = inherited_by_character["坠"]
+        self.assertEqual(normalized["code"], "83F6")
+        self.assertEqual(normalized["glyph_index"], 566)
+        self.assertEqual(normalized["status"], "proposed_allocation")
+        self.assertEqual(normalized["raster"]["point_size"], 22)
+        self.assertNotIn("optical_override", normalized)
         self.assertEqual(
-            optical["status"],
-            "proposed_inherited_optical_reraster",
-        )
-        self.assertEqual(optical["raster"]["point_size"], 23.5)
-        self.assertEqual(
-            optical["optical_override"]["point_size"],
-            23.5,
+            normalized["raster_normalization"]["mode"],
+            "uniform_bbox_normalized",
         )
         cjk_assignments = [
             assignment
@@ -170,23 +168,31 @@ class UiP10DatabaseFontTests(unittest.TestCase):
                 assignment["raster"]["point_size"]
                 for assignment in cjk_assignments
             ),
-            Counter({23: 700, 22.5: 445, 22: 388, 23.5: 220, 25: 1}),
+            Counter({22: 1754}),
         )
         self.assertEqual(
             {
-                assignment["character"]
+                assignment["optical_policy_tier"]
                 for assignment in cjk_assignments
-                if assignment["optical_policy_tier"]
-                == "reviewed_exception"
             },
-            {"班", "任", "坠", "尔"},
+            {"uniform_bbox_normalized"},
+        )
+        self.assertFalse(
+            any("optical_override" in assignment for assignment in cjk_assignments)
+        )
+        self.assertTrue(
+            all(
+                assignment["raster_normalization"]["mode"]
+                == "uniform_bbox_normalized"
+                for assignment in cjk_assignments
+            )
         )
         by_character = {
             assignment["character"]: assignment
             for assignment in cjk_assignments
         }
         self.assertEqual(by_character["您"]["raster"]["point_size"], 22)
-        self.assertEqual(by_character["尔"]["raster"]["point_size"], 25)
+        self.assertEqual(by_character["尔"]["raster"]["point_size"], 22)
         self.assertEqual(
             by_character["尔"]["raster"]["metrics"]["bbox_width"],
             22,
@@ -236,29 +242,35 @@ class UiP10DatabaseFontTests(unittest.TestCase):
             4,
         )
         self.assertEqual(
-            self.manifest["inherited_optical_reraster_overrides"][
-                "entries"
-            ][0]["character"],
-            "坠",
+            self.manifest["inherited_optical_reraster_overrides"],
+            {"count": 0, "entries": []},
         )
         self.assertEqual(
             self.manifest["cjk_optical_policy"]["point_size_counts"],
-            {"22": 388, "22.5": 445, "23": 700, "23.5": 220, "25": 1},
+            {"22": 1754},
+        )
+        self.assertEqual(
+            self.manifest["cjk_optical_policy"]["selection_tier_counts"],
+            {"uniform_bbox_normalized": 1754},
+        )
+        self.assertEqual(
+            self.manifest["cjk_optical_policy"]["reviewed_exception_characters"],
+            "",
         )
         self.assertEqual(
             self.manifest["cjk_optical_policy"]["raster_metrics"],
             {
                 "empty_glyph_count": 0,
-                "outer_edge_touch_count": 729,
+                "outer_edge_touch_count": 0,
                 "bbox_width_min": 16,
-                "bbox_width_median": 21.0,
+                "bbox_width_median": 22.0,
                 "bbox_width_max": 22,
-                "bbox_height_min": 3,
-                "bbox_height_median": 21.0,
-                "bbox_height_max": 23,
-                "ink_pixel_count_min": 61,
-                "ink_pixel_count_median": 254.0,
-                "ink_pixel_count_max": 365,
+                "bbox_height_min": 2,
+                "bbox_height_median": 22.0,
+                "bbox_height_max": 22,
+                "ink_pixel_count_min": 44,
+                "ink_pixel_count_median": 276.0,
+                "ink_pixel_count_max": 399,
             },
         )
 

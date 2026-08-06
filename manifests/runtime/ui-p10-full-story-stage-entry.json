@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "scope": "two fresh-process stage-entry routes for the fixed-LBA full-story ISO",
+  "iso": {
+    "path": "build/iso/ui-p10-full-story/srwz-ui-p10-full-story.iso",
+    "size": 3758358528,
+    "sha256": "383e51ecc337904d894663db5926659f86686bf1b2ad2ebd3c666239b01269e7",
+    "all_member_lbas_preserved": true,
+    "shifted_member_count": 0
+  },
+  "emulator": {
+    "version": "PCSX2 v2.6.3",
+    "path": "work/runtime/pcsx2-sessions/full-story-zero-lba-load-20260805/PCSX2.app/Contents/MacOS/PCSX2",
+    "size": 17250752,
+    "sha256": "1972341a1bf079e3b5180eeba9c2c233574a9fe38cadd4e5e85ea179e334f13d",
+    "game_id": "SLPS-25887"
+  },
+  "memory_card": {
+    "source": {
+      "path": "work/saves/17997/17997.ps2",
+      "size": 8650752,
+      "sha256": "1973561f8fc8dbdb79c03389866321612d4c7b58bab8dfb4d74af512b51884d0"
+    },
+    "source_never_mounted": true,
+    "isolated_copies_match_source_after_exit": true
+  },
+  "routes": [
+    {
+      "route_id": "load-page-1-last-save-to-stage-37",
+      "fresh_process": true,
+      "selection": {
+        "page": 1,
+        "slot": 8,
+        "protagonist": "Rand",
+        "level": 43,
+        "stage": 37,
+        "turns": 236
+      },
+      "isolated_memory_card": {
+        "path": "work/runtime/pcsx2-sessions/full-story-zero-lba-load-20260805/memcards/Mcd001.ps2",
+        "size": 8650752,
+        "sha256_after_exit": "1973561f8fc8dbdb79c03389866321612d4c7b58bab8dfb4d74af512b51884d0"
+      },
+      "selected_save_screenshot": {
+        "path": "work/runtime/pcsx2-sessions/full-story-zero-lba-load-20260805/snaps/Super Robot Taisen Z_SLPS-25887_20260805141136.png",
+        "size": 586286,
+        "sha256": "c437a311de865384de0d788b4c47654eca1ce9aae70efe6487bf3bf8b00f7898"
+      },
+      "stage_title_screenshot": {
+        "path": "work/runtime/pcsx2-sessions/full-story-zero-lba-load-20260805/snaps/Super Robot Taisen Z_SLPS-25887_20260805141329.png",
+        "size": 184251,
+        "sha256": "947172d9dc5bcee849997f127d524757b67e337d135419b71b69bfd163a0569e"
+      },
+      "stage_dialogue_screenshot": {
+        "path": "work/runtime/pcsx2-sessions/full-story-zero-lba-load-20260805/snaps/Super Robot Taisen Z_SLPS-25887_20260805141353.png",
+        "size": 730743,
+        "sha256": "4a10b7ac573e3905029b46e729bc93fcf3202fdd78e0a426945e550d6aa08ea4"
+      },
+      "observed_stage_title": "仕組まれた決戦",
+      "stage_map_dialogue_reached": true,
+      "log": {
+        "path": "work/runtime/pcsx2-sessions/full-story-zero-lba-load-20260805/logs/emulog.txt",
+        "size": 28181,
+        "sha256": "9f37d03c687084f4415a1c3dfe54f1af4c10ee3be82effa318355d4c653d0c46",
+        "trap_exception_count": 0,
+        "unknown_r5900_count": 0,
+        "unrecognized_op_count": 0,
+        "tlb_miss_count": 0
+      }
+    },
+    {
+      "route_id": "new-game-default-male-to-first-stage",
+      "fresh_process": true,
+      "isolated_memory_card": {
+        "path": "work/runtime/pcsx2-sessions/full-story-zero-lba-newgame-20260805/memcards/Mcd001.ps2",
+        "size": 8650752,
+        "sha256_after_exit": "1973561f8fc8dbdb79c03389866321612d4c7b58bab8dfb4d74af512b51884d0"
+      },
+      "stage_dialogue_screenshot": {
+        "path": "work/runtime/pcsx2-sessions/full-story-zero-lba-newgame-20260805/snaps/Super Robot Taisen Z_SLPS-25887_20260805142656.png",
+        "size": 664210,
+        "sha256": "bd0784cafdbaf27b8fa83263754f24ea491a8766eb8159c3739a0acb62d1ae35"
+      },
+      "stage_map_dialogue_reached": true,
+      "log": {
+        "path": "work/runtime/pcsx2-sessions/full-story-zero-lba-newgame-20260805/logs/emulog.txt",
+        "size": 29041,
+        "sha256": "d600633e6239c8dd8c9326f1e02c9af13eaf03654bbbdd34b99f4472a000115b",
+        "trap_exception_count": 0,
+        "unknown_r5900_count": 0,
+        "unrecognized_op_count": 0,
+        "tlb_miss_count": 0
+      }
+    }
+  ],
+  "checks": {
+    "exact_iso": true,
+    "fresh_process_both_routes": true,
+    "load_page_1_last_save_selected": true,
+    "load_route_reached_stage_map_dialogue": true,
+    "new_game_reached_first_stage_map_dialogue": true,
+    "no_logged_cpu_or_tlb_faults": true,
+    "source_memory_card_unchanged": true,
+    "isolated_memory_cards_unchanged": true
+  },
+  "boundary": "This receipt proves only the two named stage-entry routes. It is not a 154-stage playthrough or complete visual acceptance."
+}

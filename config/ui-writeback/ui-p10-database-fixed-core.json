@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
-  "scope": "Extend the P9 UI core with all 711 fixed-span weapon names, 348 pointer-backed unit names, the selected skill/special-ability/spirit/leadership database entries, 87 incremental allocations, 99 newly rerasterized reachable Han glyphs, deterministic per-glyph optical selection, four reviewed optical exceptions, four semantic same-code replacements, the finalized female-route titles for stages 1-5, and both protagonist selection titles/profiles. Parts and four protected special-ability terms remain deferred.",
+  "scope": "Extend the P9 UI core with all 711 fixed-span weapon names, 348 pointer-backed unit names, the selected skill/special-ability/spirit/leadership database entries, 85 incremental allocations, 99 newly rerasterized reachable Han glyphs, one uniform geometry-derived CJK bounding-box normalization policy with zero character exceptions, four semantic same-code replacements, the finalized female-route titles for stages 1-5, and both protagonist selection titles/profiles. Parts and four protected special-ability terms remain deferred.",
   "database_selection": {
     "config": {
       "path": "config/ui-database-selection.json",
-      "sha256": "18431a9fe1e74585318a48759a0ab1837a95b143e6fb3e7514d1de2057f0de03"
+      "sha256": "5ef4978212cb11d4794ecc95f813c8e5da8735a4ccfc335f95e62aee1adcc973"
     },
     "manifest": {
       "path": "manifests/ui-database-fixed-core-selection.json",
-      "sha256": "df026f1027f83891841a966d2917f359e6045f7b76224b47230a792fc16b6c68",
+      "sha256": "85624f085c924d8c1d0babbfdc41d1ac7400112fab950e8cb561ded5c1cb98af",
       "required_status": "static_database_fixed_subset_selected_font_extension_required",
       "required_selection_id": "srwz-ui-database-fixed-core-v1"
     }
@@ -17,19 +17,19 @@
   "font_extension": {
     "manifest": {
       "path": "manifests/ui-p10-database-font-validation.json",
-      "sha256": "179419803a6b446f60a41a3705b79c386774660f6ecc21d56393586bef21717d",
+      "sha256": "f41a6f68f56edb16b6cfdf136b365e33484d24fd0a615a84f63f39008e66ae03",
       "required_status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
-      "required_font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1"
+      "required_font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v2"
     },
     "slps": {
       "path": "work/build/ui-p10-database-font/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "c74f60fcd5e1a9212e0797ffc588ce922a85f981ccbd73a3b5717b13e6a0447e"
+      "sha256": "c11e37229a0c4ee32ee001f946d642b5ed8175c7a46963e4187a8bf772c1391d"
     },
     "vt1": {
       "path": "work/build/ui-p10-database-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "dfa9a052c877cd5324fe7084ce242dc95a3313654a89ca6ab290686cafa2aab3"
+      "sha256": "def1ce8f004047758622c98269b5804ffcb0684ed9c19dc7ddf26ad50ccff28d"
     },
     "mode": "replace-vt1-font-chunk-and-compose-slps-offset-delta",
     "chunk_index": 2,
@@ -39,7 +39,7 @@
     "component_id": "ui-p9-mixed-user-facing-subset-core",
     "manifest": {
       "path": "manifests/ui-p9-mixed-user-facing-subset-validation.json",
-      "sha256": "50268596393adc77ab11207050cd85db5ad2f24ab94e92e9bb35a5e586995204",
+      "sha256": "6bda6058fa6e3694969951e2c6be6b68e5378c1796d1364f06d74ed0c778fbcb",
       "required_profile_id": "srwz-ui-p9-mixed-user-facing-subset-integrated-v1",
       "required_status": "integrated_ui_p9_mixed_user_facing_subset_component_validated_iso_runtime_pending",
       "required_runtime_status": "not_tested"
@@ -48,17 +48,17 @@
       "slps": {
         "path": "work/build/ui-p9-mixed-user-facing-subset/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "1087ebc84d5268ad31dcec61673f3ba06b3ee497effb0e4d019bab2866be740c"
+        "sha256": "e0580e6427d1a25dbece0405eca1f27ddaeb3e663077372d9af50d177a36ee92"
       },
       "vt1": {
         "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/VT1.BIN",
-        "size": 127501728,
-        "sha256": "3e3d3ad784feacd8e8729c44578ccbdba14dc95311c2fee276c5c6eaf6bb4873"
+        "size": 127500736,
+        "sha256": "470d25205e120d2dd637dc3bb1b262938a61023edddf5009e76772827f906637"
       },
       "compdata": {
         "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/COMPDATA.BN",
-        "size": 144485,
-        "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+        "size": 144506,
+        "sha256": "8f1e2ff248988b26e94a541ddb864b608702542190de6cf4c79aeda477154bc3"
       },
       "mtv_pros": {
         "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/MTV_PROS.BIN",
@@ -69,7 +69,7 @@
   },
   "writer_baseline_config": {
     "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
-    "sha256": "35af6297e4ba2cde318a0466116afc59a003960bc41ce000f3c47992f1619e59"
+    "sha256": "62532ad0b37552e92293c3d71d84492223a7681b57741130255cac28a95454d9"
   },
   "menu_descriptor": {
     "path": "vendor/upstream-python/project/menu_files.json",
@@ -203,7 +203,7 @@
       "female_protagonist_selection_title_and_profile",
       "stage_1_to_5_title_card_objective_and_status_surfaces",
       "list_detail_and_disabled_or_unavailable_states",
-      "eighty_seven_new_ninety_nine_rerasterized_all_1754_cjk_metric_normalized_four_reviewed_exceptions_and_four_semantic_glyphs_visible",
+      "eighty_five_new_ninety_nine_rerasterized_all_1754_cjk_uniform_bbox_normalized_zero_character_exceptions_and_four_semantic_glyphs_visible",
       "no_clipping_overlap_or_missing_glyphs",
       "zero_tlb_miss"
     ]
@@ -213,18 +213,18 @@
     "selected_entry_count": 1113,
     "selected_slps_entry_count": 233,
     "selected_compdata_entry_count": 880,
-    "font_allocation_count": 87,
+    "font_allocation_count": 85,
     "font_reraster_count": 99,
     "font_semantic_replacement_count": 4,
-    "font_inherited_optical_reraster_count": 1,
+    "font_inherited_optical_reraster_count": 0,
     "font_cjk_optical_policy_assignment_count": 1754,
-    "font_cjk_optical_policy_default_point_size": 23,
-    "font_cjk_optical_reviewed_exception_count": 4,
+    "font_cjk_optical_policy_default_point_size": 22,
+    "font_cjk_optical_reviewed_exception_count": 0,
     "first_five_stage_title_count": 5,
     "opening_profile_entry_count": 4,
     "unit_name_entry_count": 348,
-    "unit_name_write_entry_count": 305,
-    "unit_name_no_op_entry_count": 43,
+    "unit_name_write_entry_count": 288,
+    "unit_name_no_op_entry_count": 60,
     "slps_no_op_entry_count": 54,
     "slps_selected_write_entry_count": 179,
     "slps_selected_write_target_count": 183,

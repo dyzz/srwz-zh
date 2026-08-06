@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reflow stages 001-005 for the Chinese SRWZ dialogue window."""
+"""Reflow every translated stage for the Chinese SRWZ dialogue window."""
 
 from __future__ import annotations
 
@@ -35,8 +35,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORK_ROOT = PROJECT_ROOT / "work"
 TRANSLATION_ROOT = PROJECT_ROOT / "corpus/zh/story-dialogue"
 DEFAULT_RELEASE = PROJECT_ROOT / "corpus/releases/v1.json"
-DEFAULT_REPORT = WORK_ROOT / "review/first-five-chinese-layout.json"
-STAGE_INDICES = (1, 2, 3, 4, 5)
+DEFAULT_REPORT = WORK_ROOT / "review/full-story-chinese-layout.json"
 
 
 def parse_args() -> argparse.Namespace:
@@ -79,6 +78,21 @@ def _distribution(entries: list[dict]) -> dict[str, int]:
     }
 
 
+def _translation_paths() -> tuple[tuple[int, Path], ...]:
+    paths = []
+    for path in TRANSLATION_ROOT.glob("stage-*.json"):
+        try:
+            stage_index = int(path.stem.removeprefix("stage-"))
+        except ValueError as error:
+            raise ChineseLayoutError(
+                f"invalid stage translation filename: {path.name}"
+            ) from error
+        paths.append((stage_index, path))
+    if not paths:
+        raise ChineseLayoutError("no stage dialogue translations found")
+    return tuple(sorted(paths))
+
+
 def main() -> int:
     args = parse_args()
     if args.line_width <= 0 or args.max_lines <= 0:
@@ -96,8 +110,8 @@ def main() -> int:
     widest_width = 0
     total_entries = 0
 
-    for stage_index in STAGE_INDICES:
-        path = TRANSLATION_ROOT / f"stage-{stage_index:03d}.json"
+    translation_paths = _translation_paths()
+    for stage_index, path in translation_paths:
         document = json.loads(path.read_text(encoding="utf-8"))
         entries = document["entries"]
         before_distribution = _distribution(entries)
@@ -168,6 +182,7 @@ def main() -> int:
         "maximum_lines": args.max_lines,
         "player_name_render_width": 6,
         "entry_count": total_entries,
+        "stage_count": len(translation_paths),
         "protected_glossary_term_count": len(protected_terms),
         "changed_entry_count": len(changed),
         "preserved_entry_counts": dict(sorted(preserved.items())),

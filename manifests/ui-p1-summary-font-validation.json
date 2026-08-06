@@ -6,15 +6,15 @@
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p1-summary-font.json",
-      "sha256": "9abe64711410f4f645b94c8a07c0801a08ec7c03b46fa3cf3b8bf189c1580b7f"
+      "sha256": "897daa5376c29d123b4dc19ff89f3e46117732c336d289e1cc58d876c7f5a15a"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p1-summary-allocations.json",
-      "sha256": "7cc6147a7c85bb4e5bc2e54682ffb504f821fc468e37f4f4b504edd3a4038f03"
+      "sha256": "114a91c2f85708e025c8bf82a1932041480cd6852789529fcfd2a8d4a65e95c9"
     },
     "scene_selection": {
       "path": "config/ui-scenes.json",
-      "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
+      "sha256": "8ea118830586d7b50c2a734a12d1969a4165642fc07c5987914008f3bb3099d2",
       "inventory_id": "srwz-ui-scenes-v1",
       "priorities": [
         "P0",
@@ -35,13 +35,13 @@
     },
     "base_proposal": {
       "path": "work/writeback/ui-p0-codebook-proposal.json",
-      "sha256": "cce51f7feb737082ca3d6f115ce43ad30de308ce6094536fce6569a7109949c8",
+      "sha256": "efe5f7e7ec970179af42f395358cf840b4ab4d95715b76acc3fa6ca2dbf08693",
       "proposal_id": "srwz-ui-p0-unified-font-v1",
-      "assignment_count": 1454
+      "assignment_count": 1452
     },
     "base_validation_manifest": {
       "path": "manifests/ui-p0-font-validation.json",
-      "sha256": "2e3ef59510b93dbbe65793df81fe7962aa7f5d97f4c991a0ab064f98224474f4"
+      "sha256": "74bdbc3cf84bd7f13e668b9a76cf1ce0e0d234ed0ef0b5722b456b9886e9b355"
     }
   },
   "capacity": {
@@ -50,6 +50,7 @@
     "legacy_safe_candidate_slot_count": 486,
     "expanded_standard_candidate_slot_count": 164,
     "raw_standard_addressable_candidate_slot_count": 86,
+    "source_glyph_reuse_candidate_slot_count": 0,
     "base_registered_character_count": 647,
     "combined_registered_character_count": 688,
     "remaining_candidate_slot_count": 48
@@ -58,57 +59,67 @@
     "count": 41,
     "characters": "仍创响团垒壤孕层帕废忧悄惮惶曼汇濒灾熄爬獠环秉笼综罩胁范荡裹诩谣趋跃邻针镇际陌霸驱",
     "blank_preimage_count": 41,
-    "raw_standard_trail_gap_count": 38
+    "raw_standard_trail_gap_count": 38,
+    "source_glyph_reuse_count": 0
   },
   "additional_reraster_existing_han": {
-    "count": 53,
-    "characters": "七五佐依促元北南呈商四土均堕壁夙夜奔宣富崩州席延弱征惨愈慧拓挟昔暗朗枚沫泡洋煽痕益瞬矛磨翅育薄虫融迫逝隔革"
+    "count": 52,
+    "characters": "七佐依促元北南呈商四土均堕壁夙夜奔宣富崩州席延弱征惨愈慧拓挟昔暗朗枚沫泡洋煽痕益瞬矛磨翅育薄虫融迫逝隔革"
   },
   "semantic_code_replacements": {
     "count": 0,
     "entries": []
   },
+  "inherited_optical_reraster_overrides": {
+    "count": 0,
+    "entries": []
+  },
+  "cjk_optical_policy": {
+    "enabled": false,
+    "assignment_count": 0,
+    "point_size_counts": {}
+  },
   "combined_assignments": {
-    "allocation_assignment_count": 680,
+    "allocation_assignment_count": 677,
     "reraster_existing_assignment_count": 868,
-    "font_assignment_count": 1548
+    "font_assignment_count": 1545
   },
   "proposal": {
     "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-    "sha256": "26732c416b2e116b273fe3f1c5e3bd5d97dd39a7036f9ab3b552ffd0479788bc"
+    "sha256": "156a152b9cb8c9f70bfa9a96614bc8a7d25bfaf33c6fcec208ca738fbeb48057"
   },
   "readiness": {
     "path": "work/writeback/ui-p1-summary-font-readiness.json",
-    "sha256": "3583351edaed2d3c4cd17a4b819cbd70318cdbe2c1587555d2277ec198419335"
+    "sha256": "8ab4a021c0d3cee704ff18822a65bcd20c289c0b4a230461697e8b69e0963a01"
   },
   "font_component": {
     "report": "work/build/ui-p1-summary/components/font-validation.json",
-    "report_sha256": "736ef21d5584aca179fcf2a2ea16d7778f1933f3a1e0c0848f502b05f1e903eb",
-    "assignment_count": 1548,
-    "allocation_assignment_count": 680,
+    "report_sha256": "9301a867cc8c9b59da709fb67457d8b51ca788c34600edab40ea58aa15cc3d6a",
+    "assignment_count": 1545,
+    "allocation_assignment_count": 677,
     "reraster_existing_assignment_count": 868,
-    "changed_glyph_count": 1547,
+    "changed_glyph_count": 1544,
     "unchanged_assignment_count": 1,
-    "built_raster_hash_exact_count": 1548,
+    "built_raster_hash_exact_count": 1545,
     "decoded_size": 1290240,
-    "decoded_sha256": "e791f6e36dab5a6964cbe7cb9dc10fa60edc90d614283e8c3bd6a947e6df7a35",
-    "encoded_size": 687754,
+    "decoded_sha256": "0f2d40580be4aba0c9c6bfdfc787b353d1d70105bb7067cd6d4d288ec6dadc74",
+    "encoded_size": 730143,
     "encoder_strategy": "rust-maximum",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
-      "padding_size": 6,
-      "borrowed_preceding_zero_slack": 88416,
+      "padding_size": 1,
+      "borrowed_preceding_zero_slack": 130800,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "647edc03793d6d6f0b1a00871dd08088a0737845c9b7a817963f27e0da7ff4f7"
+        "sha256": "d9f7aef3780e04ceff71166056ded7992b39bdb5738b9ecacf8229749519bbc9"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "89ac088915a3402104b5454acd5c5ed6eeebc89cc5111227c91ec8648e610389"
+        "sha256": "368a7790ffa7f907fd218249b5b2be885bb998702c960418d1a0e97ce346f5e4"
       }
     }
   },
@@ -124,12 +135,12 @@
   "base_ui_p0_components": {
     "slps": {
       "path": "work/build/ui-p0/components/SLPS_258.87",
-      "sha256": "250452f8c4af9d2948ce60fdfc1fc66b99141f2c457d5199c7896e0deb243909",
+      "sha256": "c11f4defc5e7da74df255fd257933f79664dd3b14885e28947472f4a0056561a",
       "exact": true
     },
     "vt1": {
       "path": "work/build/ui-p0/components/DATA/VT1.BIN",
-      "sha256": "1dbb97857f819b43c1d1315c9c76732547d491c3289f13bb09015a82377d939c",
+      "sha256": "f784c3d525e13ef99b22652b9fb25080f965319695408996d686a8a4a99137f2",
       "exact": true
     }
   },

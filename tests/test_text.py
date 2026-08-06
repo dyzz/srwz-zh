@@ -10,6 +10,8 @@ from tools.srwz.text import (
     decode_text,
     encode_text,
     load_text_table,
+    normalize_original_fullwidth_ascii,
+    original_fullwidth_ascii_overrides,
 )
 
 
@@ -109,19 +111,67 @@ class TextDecodeTests(unittest.TestCase):
             b"\x81\x40\x81\x41\x81\x42\x81\x43\x81\x44",
         )
 
-    def test_runtime_name_tokens_bypass_ascii_glyph_overrides(self):
+    def test_same_code_ascii_raster_override_stays_one_byte(self):
         encoded = encode_text(
-            "$n与$F",
+            "9Jab",
+            self.table,
+            overrides={"9": 0x39, "J": 0x4A, "a": 0x61, "b": 0x62},
+        )
+        self.assertEqual(encoded, b"9Jab")
+
+    def test_visible_ascii_uses_original_two_byte_glyph_codes(self):
+        overrides = original_fullwidth_ascii_overrides(self.table)
+        encoded = encode_text(
+            "ZAFTPLANTLSWM29", self.table, overrides=overrides
+        )
+        self.assertEqual(
+            encoded,
+            bytes.fromhex(
+                "8279826082658273"
+                "826f826b8260826d8273"
+                "826b82728276826c"
+                "82518258"
+            ),
+        )
+        self.assertEqual(len(overrides), 62)
+        self.assertTrue(all(code >= 0x8000 for code in overrides.values()))
+
+    def test_fullwidth_alphanumerics_normalize_to_ascii_identity(self):
+        self.assertEqual(
+            normalize_original_fullwidth_ascii("第１２话・ＺＡＦＴ"),
+            "第12话・ZAFT",
+        )
+
+    def test_runtime_tokens_bypass_original_ascii_overrides(self):
+        overrides = original_fullwidth_ascii_overrides(self.table)
+        encoded = encode_text("%s与$F", self.table, overrides=overrides)
+        self.assertEqual(encoded[:2], b"%s")
+        self.assertEqual(encoded[-2:], b"$F")
+
+    def test_runtime_substitution_tokens_bypass_ascii_glyph_overrides(self):
+        encoded = encode_text(
+            "$c与$f与$l与$n与$F",
             self.table,
             overrides={
                 "$": 0x8140,
+                "c": 0x8141,
+                "f": 0x8142,
+                "l": 0x8143,
                 "n": 0x8141,
                 "F": 0x8142,
             },
         )
         self.assertEqual(
             encoded,
-            b"$n" + self.table.inverse_characters["与"].to_bytes(2, "big") + b"$F",
+            b"$c"
+            + self.table.inverse_characters["与"].to_bytes(2, "big")
+            + b"$f"
+            + self.table.inverse_characters["与"].to_bytes(2, "big")
+            + b"$l"
+            + self.table.inverse_characters["与"].to_bytes(2, "big")
+            + b"$n"
+            + self.table.inverse_characters["与"].to_bytes(2, "big")
+            + b"$F",
         )
 
     def test_runtime_format_tokens_bypass_ascii_glyph_overrides(self):

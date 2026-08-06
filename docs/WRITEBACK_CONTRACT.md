@@ -1,124 +1,114 @@
-# 语料与写回契约
+# 语料与二进制写回契约
 
-状态：已建立生产 profile reconciliation、语料导出、严格文本序列化和通用
-写回原语；MTV_PROS 定长 writer、STAGE allocation/pointer writer、
-STAGE/MTV_PROS 原生 suffix 重编码与归档重建，以及 SLPS/HB offset 写回都已
-通过 E2 真实 canary。VT1 第 2 段的两 glyph 替换、归档重建和 SLPS offset
-写回也已完成运行验证。通用 SLPS/COMPDATA 文本池 writer 已实现普通指针、
-MIPS HI/LO、零池前像、对齐、边界和重读门禁；真实批量池区登记、全量 STAGE
-arena policy 和通用全量 VT1 writer 仍需在 E3 完成。
-P0 的 fixed-span 层现已分别对真实 SLPS 和压缩 COMPDATA 生成确定性组件；
-只处理原 allocation 可容纳的文本，不修改任何指针。
+## 语料记录
 
-## 语料边界
+稳定语料由解析结果导出：
 
 ```bash
 python3 tools/export_srwz_corpus.py --force
 ```
 
-该命令从 `work/parsed/srwz-data.json` 导出 94,189 条稳定记录到
-`work/corpus/srwz-corpus.jsonl`。JSONL 包含日文原文，因此保持在被忽略的
-`work/`；可提交的 `manifests/corpus-export.json` 只保存计数和聚合哈希。
+每条记录至少包含稳定 ID、domain、kind、来源成员、来源文本哈希、结构位置、
+中文、状态和备注。完整日文 JSONL 只位于 `work/`；可提交 manifest 只保存计数、
+聚合哈希和边界。
 
-每条记录包含：
-
-- 稳定 ID、domain、kind、section 和 ordinal；
-- 来源成员及其 SHA-256；
-- source text SHA-256；
-- stage/chunk scope；
-- 指针、目标 offset、embedded HI/LO 或定长 allocation；
-- 中文、状态和备注字段。
-
-状态只能按以下方向推进：
+状态单向推进：
 
 ```text
 todo -> draft -> reviewed -> final -> runtime_verified
 ```
 
-非 `todo` 状态必须有中文；只有经过实际游戏流程验证后才能使用
-`runtime_verified`。`validate_status_transition()` 拒绝状态倒退，并要求进入
-`runtime_verified` 时显式提供运行证据标记。
+非 `todo` 必须有中文；状态不得倒退。`runtime_verified` 必须提供精确 ISO、路线、
+存档和证据 receipt，不能由静态构建自动授予。
 
 ## 文本序列化
 
-`tools/srwz/text.py::encode_text()` 是严格的文本层序列化器，不是压缩器：
+`tools/srwz/text.py::encode_text()` 必须：
 
-- 反向使用固定双字节码表，重复映射固定选择最低 code；
-- 支持换行、四类控制码和 lossless `{XX}` 原始字节表示；
-- `$n/$F` 与 printf 风格 `%s` 运行时 token 始终保留原始 ASCII 字节，不受
-  可见 ASCII glyph override 影响；
-- 可传入明确的中文字符→码位 override；
-- 未映射字符和未知控制码立即失败；
-- 当前 94,189 条解析文本全部满足
-  `decode_text(encode_text(text)) == text`。
+- 反向使用固定双字节码表；重复映射确定性选择最低 code；
+- 支持换行、已登记控制码和 lossless `{XX}` 原始字节；
+- 保持 `$n/$F`、printf token 和其他运行时结构；
+- 只接受 profile 显式提供的中文字符→码位 override；
+- 对未映射字符、未知控制码和非法结构 fail closed；
+- 满足 `decode_text(encode_text(text)) == text`。
 
-## 写回 dry-run
+## 通用写回原语
 
 `tools/srwz/writeback.py` 提供：
 
-- `PatchPlan`：校验源大小、SHA-256、每处原始字节和唯一写入所有者；
-- `PatchOperation`：只允许等长、有前像的修改；
+- `PatchPlan`：源大小、SHA-256、前像、边界和唯一 owner；
+- `PatchOperation`：只允许授权区间内的确定性修改；
 - `AllocationPool`：带 alignment 的文本池分配，溢出立即失败；
-- `fit_fixed_allocation()`：定长文本不能截断；
-- `rebuild_aligned_archive()`：确定性生成归档数据和包含终点的 offset 表。
+- `fit_fixed_allocation()`：固定 span 不截断；
+- `rebuild_aligned_archive()`：确定性归档和包含 terminal size 的 offset 表。
 
-`tools/srwz/writers.py` 在这些原语上实现：
+所有 writer 必须从 BuildProfile reconciliation 结果读取译文、地址和 assignment，
+不得由临时 CLI 参数或 canary 文件重新定义生产内容。
 
-- `relocate_menu_texts_to_pool()`：把 SLPS/COMPDATA 语义记录写入已验证的
-  零填充池，并按原始前像回写所有普通 32-bit pointer 和 MIPS HI/LO；
-  inline `T` 记录、非零池、溢出、未配对 HI/LO 和重读不一致立即失败；
-- `replace_menu_texts_in_place()`：只在每个原 NUL span 内覆盖菜单文本；
-  共享目标要求所有写入 owner 和 payload 一致，overflow 必须转入显式池区；
-- `build_summary_patch_plan()`：按 MTV_PROS 记录原有 `nul` 或 `end`
-  终止方式生成定长覆盖，未知 ID 和溢出立即失败；
-- `rebuild_codec_archive()`：原生编码每个 decoded chunk、16 字节对齐，
-  再逐块解码并检查 consumed、零 padding 和完整 decoded SHA-256；
-- `build_executable_offset_patch_plan()`：保持原 SLPS 表形态，兼容
-  “只含 chunk start”和“包含 terminal archive size”两种真实布局；
-- 所有计划仍校验源 SHA-256、写入前像、边界和唯一 owner。
+## 领域 writer
 
-`tools/srwz/project.py` 位于 writer 之前，负责把 BuildProfile 引用的
-SurfaceSpec、中文决策和 codebook reconciliation 成一个只读选择集。writer
-不得从 CLI 私有参数或 canary JSON 重新定义译文、offset 或字形分配。当前
-字段契约见 `PRODUCTION_PIPELINE.md`。
+### Fixed-span
 
-这些 writer 不直接写原版文件。`validate_srwz_archive_rebuild.py` 全程在内存
-构建候选归档和 patched SLPS，只把哈希、计数和聚合大小保存到 `work/`。
+- 只在原 NUL span 或明确固定 allocation 内覆盖；
+- payload 超过容量立即失败；
+- 共享目标要求所有 owner 和 payload 一致；
+- 非目标字节保持原样。
 
-## 真实归档验证
+### 文本池与指针
 
-```bash
-python3 tools/validate_srwz_archive_rebuild.py --force
-```
+- 池区必须由来源哈希绑定且前像满足预期；
+- 普通 32-bit pointer 和 MIPS HI/LO 必须成对登记；
+- 未配对 HI/LO、非零未授权池、重叠 owner 或池溢出立即失败；
+- 写回后重新解析每个指针和目标文本。
 
-greedy 编码器的真实结果：
+### MTV_PROS
 
-- STAGE：205/205 decoded 内容重建后完全一致；新归档 4,358,368 字节，
-  206 个 offset 全部 16 字节对齐；
-- STAGE offset 表为 824 字节，目标已确认是 `HEDBDY/HB.BIN + 0x7670`；
-  原表与固定布局一致，内存写回后 206 个 offset 重读完全一致；
-- MTV_PROS：14/14 decoded 内容一致；28 条 summary 记录全部经过定长
-  identity plan，14/14 decoded chunk 保持字节相同；
-- 新 MTV_PROS 为 9,648 字节；15-entry SLPS 表包含 terminal size，
-  内存写回后重新读取的 offset 与重建结果完全一致。
+- 保留每条记录原有 `nul` 或 `end` 终止方式；
+- 按固定 allocation 写入并逐条全文回读；
+- 归档重建后复核 15-entry SLPS offset 表及 terminal size。
 
-可提交聚合结果见 `manifests/archive-rebuild-validation.json`。
+### STAGE
 
-## E3 仍需完成
+- 每个剧情块使用已登记 allocation／arena；
+- 对白、说话人、条件和指针分别拥有明确 owner；
+- 重建 205-chunk archive 时保持 16-byte alignment；
+- 写回 `HEDBDY/HB.BIN` offset 表后逐项重读；
+- 每个变更块必须严格解码并逐 ID 回读目标译文。
 
-1. P0 的 462 条 SLPS/COMPDATA 文本已由 fixed-span profile 全部覆盖；
-   后续 P1/P2 只有出现真实增长项时，才登记来源哈希绑定的池区并接入普通
-   指针/MIPS HI/LO writer。
-2. 把已验证的单条 STAGE allocation/slack 策略扩展为所有剧情块的安全
-   arena、speaker 合并和指针重建。
-3. 把当前真实 `HEDBDY/HB.BIN` 的 STAGE offset 前像和重读门禁扩展到批量
-   profile。
-4. 将当前 VT1 第 2 段的 profile 驱动实现抽象为通用全量字库 writer。
+### SLPS／COMPDATA
 
-第 4 项已有最小生产输入和运行证据：`build_static_canary.py` 保留其他 13 个
-VT1 chunk 的原始压缩字节，只对第 2 段执行 header-preserving suffix 重编码并
-重读候选 SLPS offset。当前实现固定为两个 glyph 的验证入口；译文、surface
-和 assignment 已迁出 canary 配置，但尚未抽象成正式全量字库 writer。
+- 区分 inline、普通 pointer、embedded HI/LO 和 fixed-span；
+- COMPDATA 修改后使用生产 Rust codec，并执行 145,408-byte 硬门；
+- 解压 payload、指针集合、压缩 consumed 和非目标记录全部复核。
 
-任何 writer 都不得复现上游的静默截断、未截断旧尾部或计算 offset 后不写回的
-行为。
+### VT1 字库
+
+- 字形 assignment 来自 append-only registry；
+- 字库内容与 SLPS VT1 offset 表原子更新；
+- 保留未修改 chunk 的原压缩字节或明确外层尾部；
+- 重新解压完整目标段并验证 SHA-256；
+- 字体加载和具体 glyph 画面分开验收。
+
+## 归档与组件验收
+
+每个候选组件至少验证：
+
+1. 输入成员大小与 SHA-256；
+2. 每个写入区间的原始前像和 owner；
+3. 输出大小、哈希和允许变化区间；
+4. 独立 parser／decoder 回读；
+5. archive alignment、offset、pointer 和 terminal size；
+6. 非目标成员或非目标字节 byte-exact；
+7. manifest 与实际输出一致。
+
+writer 永远不修改 `rom/` 或 `work/disc/` 原版缓存，只写
+`work/build/<profile>/components/`。
+
+## 禁止行为
+
+- 静默截断或保留旧尾部；
+- 先计算 offset／pointer 但不写回；
+- patch-over-patch；
+- 用“能编码”“有空白 glyph”替代 renderer 证明；
+- 用 round-trip 替代游戏运行；
+- 手工修改 manifest 让候选表面通过。

@@ -147,7 +147,7 @@ class FirstFiveTerminologyReviewTests(unittest.TestCase):
                     "stage_indices": [1, 2, 3, 4, 5],
                     "term_count": 112,
                     "proposed_term_count": 3,
-                    "researched_term_count": 109,
+                    "researched_term_count": 108,
                     "translation_conflict_term_count": 1,
                     "priority_counts": {
                         "high": 4,

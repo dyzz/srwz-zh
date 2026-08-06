@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "profile_id": "ui-p10-database-fixed-core-stage-008-018",
+  "runtime_evidence_manifest": "manifests/ui-p10-database-fixed-core-stage-006-runtime-validation.json",
+  "source_iso": {
+    "path": "rom/srwz.iso",
+    "size": 3758358528,
+    "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014",
+    "member_count": 66,
+    "iso9660_system_id": "PLAYSTATION",
+    "udf_volume_recognition_sequence": "NSR02"
+  },
+  "toolchain": {
+    "repository": "https://github.com/N4gtan/mkps2iso.git",
+    "tag": "v1.1.1",
+    "commit": "f9a3dea18b67dc5f10093e72114a16283d277af0",
+    "version": "1.1.1",
+    "license_spdx": "GPL-2.0-only",
+    "source_dir": "work/toolchain/mkps2iso-v1.1.1/source",
+    "mkps2iso": {
+      "executable": "mkps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/mkps2iso",
+      "version": "1.1.1",
+      "version_line": "MKPS2ISO 1.1.1 - PlayStation 2 Image Maker"
+    },
+    "dumps2iso": {
+      "executable": "dumps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/dumps2iso",
+      "version": "1.1.1",
+      "version_line": "DUMPS2ISO 1.1.1 - PlayStation 2 Image Dumper"
+    }
+  },
+  "workspace": {
+    "original_tree": "work/build/ui-p10-database-fixed-core-stage-008-018/iso/original",
+    "staging_tree": "work/build/ui-p10-database-fixed-core-stage-008-018/iso/staging",
+    "base_xml": "work/build/ui-p10-database-fixed-core-stage-008-018/iso/layout/original.xml",
+    "build_xml": "work/build/ui-p10-database-fixed-core-stage-008-018/iso/layout/build.xml",
+    "lba_log": "work/build/ui-p10-database-fixed-core-stage-008-018/iso/layout/lba.txt"
+  },
+  "layout": {
+    "volume_id": "SRWZ_UI_P10_S00818",
+    "shift_segments": [
+      {
+        "first_member": "DATA/STAGE.BIN",
+        "shift_sectors": 0
+      }
+    ],
+    "preserve_original_gaps": true,
+    "trailing_dummy_sectors": 10240
+  },
+  "replacements": [
+    {
+      "member": "SLPS_258.87",
+      "source": "work/build/ui-p10-database-fixed-core-stage-008-018/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "85262cfef8c0c7ae2b5b79039377485749ef26c0ee210814f1400f5347f820bb"
+    },
+    {
+      "member": "DATA/COMPDATA.BN",
+      "source": "work/build/ui-p10-database-fixed-core-stage-008-018/components/DATA/COMPDATA.BN",
+      "size": 145293,
+      "sha256": "bcc573758e0b452114c04370f97c5d898aa2879a39a20cc5caed7314fbbd2ee9"
+    },
+    {
+      "member": "DATA/MTV_PROS.BIN",
+      "source": "work/build/ui-p10-database-fixed-core-stage-008-018/components/DATA/MTV_PROS.BIN",
+      "size": 8368,
+      "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
+    },
+    {
+      "member": "DATA/VT1.BIN",
+      "source": "work/build/ui-p10-database-fixed-core-stage-008-018/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "6bd23e9fc8ac7cc85b3825cfe6c58a9c301acdf76c25aa6a5779246b938f5d69"
+    },
+    {
+      "member": "DATA/STAGE.BIN",
+      "source": "work/build/ui-p10-database-fixed-core-stage-008-018/components/DATA/STAGE.BIN",
+      "size": 3910128,
+      "sha256": "c7a6cf8e6bcc007f513d91fe0783adb4c5c00ea89f14f41242ef43c464f426b1"
+    },
+    {
+      "member": "HEDBDY/HB.BIN",
+      "source": "work/build/ui-p10-database-fixed-core-stage-008-018/components/HEDBDY/HB.BIN",
+      "size": 31152,
+      "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21"
+    },
+    {
+      "member": "KURODATA/KVMDATA.BIN",
+      "source": "work/build/ui-p10-database-fixed-core-stage-008-018/components/KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "a78898867ccbfc617a20603bcaed3419e93dfac45c060b6ee149cfc8cdd9b921"
+    }
+  ],
+  "output": {
+    "path": "build/iso/ui-p10-database-fixed-core-stage-008-018/srwz-ui-p10-database-fixed-core-stage-008-018.iso",
+    "report": "build/iso/ui-p10-database-fixed-core-stage-008-018/iso-validation.json",
+    "expected_root_directory_size": 960,
+    "expected_pcsx2_v263_image_type": "DVD",
+    "expected_udf_volume_recognition_sequence": "NSR02",
+    "byte_reproducible": true
+  },
+  "acceptance": {
+    "udf_verify_members": [
+      "SYSTEM.CNF",
+      "SLPS_258.87",
+      "DATA/COMPDATA.BN",
+      "DATA/MTV_PROS.BIN",
+      "DATA/VT1.BIN",
+      "DATA/STAGE.BIN",
+      "HEDBDY/HB.BIN",
+      "KURODATA/KVMDATA.BIN"
+    ]
+  }
+}

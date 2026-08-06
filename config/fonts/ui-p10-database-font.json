@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1",
+  "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v2",
   "base_font_config": {
     "path": "config/fonts/first-five-font.json",
-    "sha256": "28ac817d4fa9ae146889fe7886e13b5f38db88aa3c4786ed8f5838c1040f093a"
+    "sha256": "01b7b9b2f4dffe6f12b7e991caceb2cb32846bdb0c1081876ae06a0d2f7e3b8a"
   },
   "base_validation_manifest": "manifests/ui-p7-embedded-font-validation.json",
   "base_font_component": {
@@ -35,25 +35,15 @@
       "reason": "The opening Virgola weapon name 大麦镰刀 needs 镰. Reuse the reachable 唖 code after the parsed game text and display-name corpora confirmed that 唖 is unused."
     }
   ],
-  "inherited_optical_reraster_overrides": [
-    {
-      "character": "坠",
-      "point_size": 23.5,
-      "reason": "The 2026-07-31 exact-ISO stage-001 victory/failure-condition screenshot shows the inherited 22pt 坠 glyph optically smaller than adjacent CJK. A 23.5pt reraster produces a 21x20 bounding box with 264 ink pixels while preserving code 83F6, glyph 566 and the original advance."
-    }
-  ],
   "cjk_optical_policy": {
-    "point_size": 23,
+    "point_size": 22,
     "candidate_point_sizes": [
-      22,
-      22.5,
-      23,
-      23.5
+      22
     ],
     "target_metrics": {
       "bbox_width": 21,
-      "bbox_height": 21,
-      "ink_pixel_count": 256
+      "bbox_height": 22,
+      "ink_pixel_count": 246
     },
     "score_weights": {
       "bbox_error": 128,
@@ -61,15 +51,9 @@
       "outer_edge_side": 64,
       "point_size_half_step_from_default": 4
     },
-    "reviewed_exceptions": [
-      {
-        "character": "尔",
-        "point_size": 25,
-        "reason": "The 2026-08-01 exact-game screenshot still shows 尔 optically too narrow at 23.5pt. The reviewed 25pt raster expands it from 21x22/206 ink pixels to 22x22/218 while retaining the fixed 24x24 cell and height."
-      }
-    ],
+    "reviewed_exceptions": [],
     "max_workers": 8,
-    "reason": "Select each final CJK glyph deterministically from 22, 22.5, 23 and 23.5pt against the 21x21/256-ink target, penalizing clipping-risk edge touches and distance from the 23pt baseline. Reviewed exceptions remain explicit."
+    "reason": "Inherit the shared Noto Sans CJK SC high-resolution render, proportionally fit each visible CJK raster inside one 22x22 box, and center it in the fixed 24x24 cell. Character-specific resizing, point sizes, and reviewed exceptions are forbidden."
   },
   "allocation_policy": {
     "mode": "valid-sjis-then-raw-standard-trail-gaps-then-source-glyph-reuse",
@@ -109,14 +93,14 @@
   },
   "scene_inventory": {
     "path": "config/ui-scenes.json",
-    "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
+    "sha256": "8ea118830586d7b50c2a734a12d1969a4165642fc07c5987914008f3bb3099d2",
     "inventory_id": "srwz-ui-scenes-v1"
   },
   "database_selection": {
     "config": "config/ui-database-selection.json",
-    "config_sha256": "18431a9fe1e74585318a48759a0ab1837a95b143e6fb3e7514d1de2057f0de03",
+    "config_sha256": "5ef4978212cb11d4794ecc95f813c8e5da8735a4ccfc335f95e62aee1adcc973",
     "manifest": "manifests/ui-database-fixed-core-selection.json",
-    "manifest_sha256": "df026f1027f83891841a966d2917f359e6045f7b76224b47230a792fc16b6c68",
+    "manifest_sha256": "85624f085c924d8c1d0babbfdc41d1ac7400112fab950e8cb561ded5c1cb98af",
     "selection_id": "srwz-ui-database-fixed-core-v1",
     "required_status": "static_database_fixed_subset_selected_font_extension_required",
     "expected_entry_count": 1113

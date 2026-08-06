@@ -17,24 +17,24 @@ class FirstFiveFontBuildTests(unittest.TestCase):
     def test_selected_font_and_scope_are_bound_to_the_build(self):
         self.assertEqual(
             self.report["font_source"]["family"],
-            "LXGW Neo XiHei Screen",
+            "Noto Sans CJK SC",
         )
         self.assertEqual(
             self.report["font_source"]["license_spdx"],
-            "IPA",
+            "OFL-1.1",
         )
-        self.assertEqual(self.report["allocation_assignment_count"], 630)
+        self.assertEqual(self.report["allocation_assignment_count"], 627)
         self.assertEqual(
             self.report["reraster_existing_assignment_count"],
             807,
         )
-        self.assertEqual(self.report["assignment_count"], 1437)
-        self.assertEqual(self.report["changed_glyph_count"], 1436)
+        self.assertEqual(self.report["assignment_count"], 1434)
+        self.assertEqual(self.report["changed_glyph_count"], 1433)
         self.assertEqual(self.report["unchanged_assignment_count"], 1)
         registry = self.report["allocation_registry"]
         self.assertEqual(registry["id"], "srwz-first-five-v1")
         self.assertEqual(registry["registered_character_count"], 638)
-        self.assertEqual(registry["active_character_count"], 630)
+        self.assertEqual(registry["active_character_count"], 627)
         self.assertEqual(
             registry["retired_characters"],
             ["冈", "娅", "挖", "杰", "艾", "贯", "贾", "镥"],
@@ -51,25 +51,29 @@ class FirstFiveFontBuildTests(unittest.TestCase):
         self.assertEqual(glyphs["儿"]["code"], "8568")
         self.assertEqual(glyphs["隶"]["code"], "86E9")
 
-    def test_runtime_small_glyphs_use_the_audited_optical_point_size(self):
-        corrections = self.report["rasterizer"]["optical_corrections"]
-        self.assertEqual(corrections["班"]["point_size"], 23.5)
-        self.assertEqual(corrections["任"]["point_size"], 23.5)
+    def test_cjk_glyphs_use_one_bbox_normalization_without_exceptions(self):
+        rasterizer = self.report["rasterizer"]
+        self.assertNotIn("optical_corrections", rasterizer)
+        self.assertNotIn("cjk_fixed_canvas", rasterizer)
+        normalization = rasterizer["cjk_bbox_normalization"]
+        self.assertEqual(normalization["source_canvas_size"], 64)
+        self.assertEqual(normalization["source_point_size"], 48)
+        self.assertEqual(normalization["target_bbox_size"], 22)
+        self.assertEqual(normalization["resize_filter"], "Lanczos")
+        self.assertEqual(rasterizer["point_size"], 22)
         glyphs = {
             glyph["character"]: glyph
             for glyph in self.report["glyphs"]
         }
-        self.assertEqual(glyphs["研"]["point_size"], 22)
-        self.assertEqual(glyphs["究"]["point_size"], 22)
-        self.assertEqual(glyphs["班"]["point_size"], 23.5)
-        self.assertEqual(glyphs["任"]["point_size"], 23.5)
+        for character in "一口研究班任坠您尔":
+            self.assertEqual(glyphs[character]["point_size"], 22)
         self.assertEqual(
             glyphs["班"]["packed_glyph_sha256"],
-            "d8050db8133cc5ebd615469557c34ec9866e45dbcc02b75ddbe081b0d2b11330",
+            "2a2577c3c6bc00206d5639530ef81a52479feaeced7e4c2191335219de174ed3",
         )
         self.assertEqual(
             glyphs["任"]["packed_glyph_sha256"],
-            "990dc72dd95742f85ca82a4926615c61e05fbf63f808c6e083dd04fef9ee3d2d",
+            "9f132c8ff00a148c6bfe4363c2b5ab03b966f68793dce9b02971a6706766f446",
         )
 
     def test_rust_maximum_font_fits_without_growing_vt1(self):
@@ -85,7 +89,7 @@ class FirstFiveFontBuildTests(unittest.TestCase):
         self.assertTrue(font["codec_round_trip_exact"])
         self.assertEqual(archive["source_size"], archive["output_size"])
         self.assertTrue(archive["offset_reread_exact"])
-        self.assertEqual(archive["padding_size"], 9)
+        self.assertEqual(archive["padding_size"], 0)
         self.assertGreater(
             archive["borrowed_preceding_zero_slack"],
             0,

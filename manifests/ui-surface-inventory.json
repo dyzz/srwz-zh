@@ -11,10 +11,10 @@
     "exact": true
   },
   "font_baseline": {
-    "slps_sha256": "e7bfffb79b27cfcedf771130417dd07e0f78ac924a8c786824532da8d8e3a72b",
-    "vt1_sha256": "f086070121812c04f9b5cfc7f00fef60505db60891e1963f4244c577c9b34df1",
-    "decoded_font_sha256": "8573cc25d5228aa7318d6edea3a285b58774cd65e6918d44d787d30bde16826c",
-    "remaining_candidate_slot_count": 12,
+    "slps_sha256": "817b7a889431b218443842fc051e117e833e64262fba679966879220ada5e715",
+    "vt1_sha256": "83db7276a6dc21b69c085f04ba92b2e37bd2f311a33f98bc68c0f3731ecd52bf",
+    "decoded_font_sha256": "919261fae4166ea7f32b4dbd8416c0919b420fb3a7d423aabab4742a9779a96b",
+    "remaining_candidate_slot_count": 98,
     "interpretation": "Planning baseline only; a future UI candidate must rebuild and revalidate the exact font and ISO."
   },
   "summary": {
@@ -28,8 +28,8 @@
     "p0_missing_renderer_character_count": 9,
     "p0_missing_renderer_characters": "养减删效昵编节览陆",
     "p0_original_font_han_count": 9,
-    "p0_remaining_candidate_slot_count": 12,
-    "p0_candidate_slot_margin": 3,
+    "p0_remaining_candidate_slot_count": 98,
+    "p0_candidate_slot_margin": 89,
     "dynamic_probe_count": 3
   },
   "ratchet": {
@@ -64,8 +64,8 @@
       "writer_manifest": {
         "path": "manifests/ui-p2-display-names-validation.json",
         "status": "p0_compdata_and_researched_display_names_validated_iso_runtime_pending",
-        "selected_translation_entry_count": 1307,
-        "unselected_non_empty_entry_count": 1493,
+        "selected_translation_entry_count": 1331,
+        "unselected_non_empty_entry_count": 1469,
         "runtime_status": "not_tested"
       },
       "probe_count": 3,
@@ -151,7 +151,7 @@
       "assets": [
         {
           "manifest": "manifests/ui-bazaar-atlas-zh-validation.json",
-          "sha256": "c771e19dbddb8cd706d201659890cbed50214fbaceca7d5e489dd60c7cc24eb8",
+          "sha256": "bf0589d1327d2292270efd1712f6eda43ac58a17234feda7e6d5f18e79a954a3",
           "translation_count": 1,
           "status": "static_localized_component_validated_runtime_mapping_pending",
           "exact": true,
@@ -159,7 +159,7 @@
         },
         {
           "manifest": "manifests/ui-intermission-atlas-zh-validation.json",
-          "sha256": "6731fe09b7fe856f9a30ec77d9729a842d7026d2147941f76869816b6f566851",
+          "sha256": "4a089101a53f1ce07f5df86d7bddab7c207a08542274b3b61ea2293c48ed893f",
           "translation_count": 1,
           "status": "static_localized_component_validated_runtime_mapping_pending",
           "exact": true,
@@ -167,7 +167,7 @@
         },
         {
           "manifest": "manifests/ui-formation-atlas-zh-validation.json",
-          "sha256": "f83d4d70a16e641228993efd0e7c9ea1c4120ed5a2ced521b5f62d5321cf2998",
+          "sha256": "9f93874fd72a22e5f8048739f340c5568ce22dfc79315f733b980da98aafc05e",
           "translation_count": 1,
           "status": "static_localized_component_validated_runtime_mapping_pending",
           "exact": true,
@@ -194,7 +194,7 @@
       "assets": [
         {
           "manifest": "manifests/ui-info-atlas-zh-validation.json",
-          "sha256": "b9acdac6d172cc2aaa274385cb20e2ce1ba148fe65262d9270ed59bf39d7459f",
+          "sha256": "fcc57a8d30541458ddba6c3448a5b65eb28ffb57c354a1311fb3848ed930507a",
           "translation_count": 1,
           "status": "static_localized_component_validated_runtime_mapping_pending",
           "exact": true,
@@ -221,7 +221,7 @@
       "assets": [
         {
           "manifest": "manifests/ui-battle-command-atlas-zh-validation.json",
-          "sha256": "557d8240aebb4f73634f3b32197c455840b9684f228a5d637990782fa5c6b64d",
+          "sha256": "1c879137e7d8ed0a9f9b721c235240a4e6d1b30de1fd843f4bda639408cd4723",
           "translation_count": 1,
           "status": "static_localized_component_validated_runtime_mapping_pending",
           "exact": true,
@@ -229,7 +229,7 @@
         },
         {
           "manifest": "manifests/ui-info-atlas-zh-validation.json",
-          "sha256": "b9acdac6d172cc2aaa274385cb20e2ce1ba148fe65262d9270ed59bf39d7459f",
+          "sha256": "fcc57a8d30541458ddba6c3448a5b65eb28ffb57c354a1311fb3848ed930507a",
           "translation_count": 1,
           "status": "static_localized_component_validated_runtime_mapping_pending",
           "exact": true,
@@ -256,7 +256,7 @@
       "assets": [
         {
           "manifest": "manifests/ui-formation-atlas-zh-validation.json",
-          "sha256": "f83d4d70a16e641228993efd0e7c9ea1c4120ed5a2ced521b5f62d5321cf2998",
+          "sha256": "9f93874fd72a22e5f8048739f340c5568ce22dfc79315f733b980da98aafc05e",
           "translation_count": 1,
           "status": "static_localized_component_validated_runtime_mapping_pending",
           "exact": true,
@@ -283,7 +283,7 @@
       "assets": [
         {
           "manifest": "manifests/ui-info-atlas-zh-validation.json",
-          "sha256": "b9acdac6d172cc2aaa274385cb20e2ce1ba148fe65262d9270ed59bf39d7459f",
+          "sha256": "fcc57a8d30541458ddba6c3448a5b65eb28ffb57c354a1311fb3848ed930507a",
           "translation_count": 1,
           "status": "static_localized_component_validated_runtime_mapping_pending",
           "exact": true,

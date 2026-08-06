@@ -40,7 +40,7 @@ def _json_object(path: Path) -> dict:
 
 
 def load_font_profile(project_root: Path, path: Path) -> dict:
-    """Resolve one profile while keeping rasterizer ownership in its base."""
+    """Resolve one profile and its explicitly owned rasterizer policy."""
 
     document = _json_object(path)
     base_reference = document.get("base_font_config")
@@ -63,14 +63,30 @@ def load_font_profile(project_root: Path, path: Path) -> dict:
             "sha256": actual_hash,
         }
 
-    font_lock = base.get("font_lock")
+    font_lock = document.get("font_lock", base.get("font_lock"))
+    font_lock_overrides_base = (
+        base_reference is not None and "font_lock" in document
+    )
     codec = base.get("codec")
-    rasterizer = base.get("rasterizer")
+    base_rasterizer = base.get("rasterizer")
+    rasterizer = document.get("rasterizer", base_rasterizer)
+    rasterizer_overrides_base = (
+        base_reference is not None and "rasterizer" in document
+    )
     scope = document.get("scope")
     if not isinstance(font_lock, str) or not font_lock:
         raise FontProfileError("font profile has no font_lock")
     if not isinstance(rasterizer, dict):
         raise FontProfileError("font profile has no rasterizer")
+    if (
+        (rasterizer_overrides_base or font_lock_overrides_base)
+        and document.get("reraster_all_selected_visible_characters") is not True
+    ):
+        raise FontProfileError(
+            "an inherited profile may override the font or rasterizer only "
+            "when it "
+            "rerasterizes every selected visible character"
+        )
     if (
         not isinstance(codec, dict)
         or codec.get("strategy") != "rust-maximum"
@@ -99,6 +115,8 @@ def load_font_profile(project_root: Path, path: Path) -> dict:
         "font_lock": font_lock,
         "codec": codec,
         "rasterizer": rasterizer,
+        "rasterizer_overrides_base": rasterizer_overrides_base,
+        "font_lock_overrides_base": font_lock_overrides_base,
         "scope": scope,
         "base_font_config": base_metadata,
     }

@@ -15,15 +15,15 @@ DEFAULT_LOCK = (
     PROJECT_ROOT
     / "config"
     / "fonts"
-    / "lxgw-neo-xihei-screen.lock.json"
+    / "noto-sans-cjk-sc.lock.json"
 )
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Download the pinned LXGW Neo XiHei Screen font and IPA "
-            "license into ignored work/."
+            "Download the pinned Noto Sans CJK SC font and OFL license "
+            "into ignored work/."
         )
     )
     parser.add_argument("--lock", type=Path, default=DEFAULT_LOCK)

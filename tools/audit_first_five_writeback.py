@@ -20,6 +20,7 @@ from srwz.font import (
     glyph_index_for_code,
     is_cjk_unified_ideograph,
     read_extended_glyph_table,
+    raw_standard_allocation_candidates,
     safe_standard_allocation_candidates,
     sha256_bytes,
 )
@@ -57,6 +58,23 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=WORK_ROOT / "writeback/first-five-codebook-proposal.json",
     )
+    parser.add_argument(
+        "--stages",
+        default="1-5",
+        help="Comma-separated stage indices or inclusive ranges (default: 1-5).",
+    )
+    parser.add_argument(
+        "--allocation-registry",
+        type=Path,
+        default=ALLOCATION_REGISTRY,
+        help="Append-only allocation ledger (default: first-five ledger).",
+    )
+    parser.add_argument(
+        "--font-config",
+        type=Path,
+        default=FONT_CONFIG,
+        help="Font profile used for the raster lock (default: first-five profile).",
+    )
     parser.add_argument("--force", action="store_true")
     return parser.parse_args()
 
@@ -70,9 +88,30 @@ def _bounded_work_path(path: Path) -> Path:
     return resolved
 
 
-def _translation_documents() -> tuple[tuple[str, dict], ...]:
+def _stage_indices(value: str) -> tuple[int, ...]:
+    stages: set[int] = set()
+    for item in value.split(","):
+        item = item.strip()
+        if not item:
+            raise SystemExit("empty item in --stages")
+        if "-" in item:
+            first_text, last_text = item.split("-", 1)
+            first = int(first_text)
+            last = int(last_text)
+            if first > last:
+                raise SystemExit(f"descending stage range: {item}")
+            stages.update(range(first, last + 1))
+        else:
+            stages.add(int(item))
+    if not stages or min(stages) < 1 or max(stages) > 204:
+        raise SystemExit("--stages must select indices from 1 through 204")
+    return tuple(sorted(stages))
+
+
+def _translation_documents(stages: tuple[int, ...]) -> tuple[tuple[str, dict], ...]:
     documents = []
-    for stage in range(1, 6):
+    selected = set(stages)
+    for stage in stages:
         documents.append(
             (
                 f"dialogue-{stage:03d}",
@@ -93,7 +132,7 @@ def _translation_documents() -> tuple[tuple[str, dict], ...]:
             "entries": [
                 entry
                 for entry in document["entries"]
-                if int(entry["id"].split("/")[1]) <= 5
+                if int(entry["id"].split("/")[1]) in selected
             ],
         }
         documents.append((name, document))
@@ -115,6 +154,16 @@ def _existing_overrides() -> tuple[dict[str, int], set[int], set[int]]:
 
 def main() -> int:
     args = parse_args()
+    stages = _stage_indices(args.stages)
+    allocation_registry_path = args.allocation_registry.resolve()
+    font_config_path = args.font_config.resolve()
+    legacy_first_five = stages == (1, 2, 3, 4, 5)
+    allocation_id_prefix = "first-five" if legacy_first_five else "story-stages"
+    allocation_owner = (
+        "story/stages-001-005"
+        if legacy_first_five
+        else f"story/stages-{stages[0]:03d}-{stages[-1]:03d}"
+    )
     report_path = _bounded_work_path(args.report)
     proposal_path = _bounded_work_path(args.proposal)
     for output in (report_path, proposal_path):
@@ -126,7 +175,7 @@ def main() -> int:
     character_counts: Counter[str] = Counter()
     character_stages: defaultdict[str, set[int]] = defaultdict(set)
     entry_count = 0
-    for _, document in _translation_documents():
+    for _, document in _translation_documents(stages):
         for entry in document["entries"]:
             stage = int(entry["id"].split("/")[1])
             entry_count += 1
@@ -159,7 +208,7 @@ def main() -> int:
         except SrwzTextEncodeError:
             missing.append(character)
 
-    font_config = json.loads(FONT_CONFIG.read_text(encoding="utf-8"))
+    font_config = json.loads(font_config_path.read_text(encoding="utf-8"))
     if font_config.get("schema_version") != 1:
         raise SystemExit("unsupported first-five font config")
     rasterizer = font_config["rasterizer"]
@@ -182,8 +231,16 @@ def main() -> int:
         reserved_codes=existing_codes,
         reserved_glyphs=existing_glyphs,
     )
-    candidates = (*legacy_candidates, *expansion_candidates)
-    allocation_registry = json.loads(ALLOCATION_REGISTRY.read_text(encoding="utf-8"))
+    raw_candidates = raw_standard_allocation_candidates(
+        table,
+        extended_entries,
+        reserved_codes=existing_codes,
+        reserved_glyphs=existing_glyphs,
+    )
+    candidates = (*legacy_candidates, *expansion_candidates, *raw_candidates)
+    allocation_registry = json.loads(
+        allocation_registry_path.read_text(encoding="utf-8")
+    )
     if allocation_registry.get("schema_version") != 1:
         raise SystemExit("unsupported first-five allocation registry")
     allocation_characters = tuple(allocation_registry["allocated_characters"])
@@ -195,8 +252,8 @@ def main() -> int:
     unregistered = sorted(set(missing) - set(allocation_characters))
     if unregistered:
         raise SystemExit(
-            "new first-five characters must be appended to the allocation "
-            f"registry: {''.join(unregistered)}"
+            "new story characters must be appended to the allocation registry: "
+            f"{''.join(unregistered)}"
         )
     if len(candidates) < len(allocation_characters):
         raise SystemExit(
@@ -218,14 +275,14 @@ def main() -> int:
         preimage = original_font[start : start + GLYPH_SIZE]
         assignments.append(
             {
-                "id": f"first-five-u{ord(character):04x}",
+                "id": f"{allocation_id_prefix}-u{ord(character):04x}",
                 "character": character,
                 "code": f"{code:04X}",
                 "glyph_index": glyph_index,
                 "mapping": "standard",
                 "status": "proposed_allocation",
                 "allocation": {
-                    "owner": "story/stages-001-005",
+                    "owner": allocation_owner,
                     "basis": (
                         "not referenced by pinned text table, ASCII renderer "
                         "mapping, executable extended table, or existing "
@@ -274,14 +331,14 @@ def main() -> int:
         preimage = original_font[start : start + GLYPH_SIZE]
         reraster_existing.append(
             {
-                "id": f"first-five-reraster-u{ord(character):04x}",
+                "id": f"{allocation_id_prefix}-reraster-u{ord(character):04x}",
                 "character": character,
                 "code": f"{code:04X}",
                 "glyph_index": glyph_index,
                 "mapping": mapping,
                 "status": "proposed_reraster",
                 "allocation": {
-                    "owner": "story/stages-001-005",
+                    "owner": allocation_owner,
                     "basis": (
                         "existing reachable glyph used by selected Chinese "
                         "translations; rerasterized to avoid mixed font "
@@ -316,9 +373,13 @@ def main() -> int:
 
     proposal = {
         "schema_version": 1,
-        "proposal_id": "srwz-first-five-unified-font-v3",
+        "proposal_id": (
+            "srwz-first-five-unified-font-v3"
+            if legacy_first_five
+            else f"srwz-story-stages-{stages[0]:03d}-{stages[-1]:03d}-unified-font-v1"
+        ),
         "status": "static_proposal_not_runtime_verified",
-        "stage_indices": [1, 2, 3, 4, 5],
+        "stage_indices": list(stages),
         "font_source": {
             "family": font_lock["family"],
             "version": font_lock["version"],
@@ -331,7 +392,7 @@ def main() -> int:
         "rasterizer": rasterizer,
         "allocation_registry": {
             "id": allocation_registry["registry_id"],
-            "sha256": sha256_bytes(ALLOCATION_REGISTRY.read_bytes()),
+            "sha256": sha256_bytes(allocation_registry_path.read_bytes()),
             "registered_character_count": len(allocation_characters),
             "active_character_count": len(missing),
             "retired_characters": sorted(retired_characters),
@@ -343,7 +404,7 @@ def main() -> int:
     report = {
         "schema_version": 1,
         "status": "capacity_passed_allocation_proposed",
-        "stage_indices": [1, 2, 3, 4, 5],
+        "stage_indices": list(stages),
         "translation_entry_count": entry_count,
         "unique_character_count": len(character_counts),
         "base_encodable_character_count": (len(character_counts) - len(missing)),
@@ -354,6 +415,7 @@ def main() -> int:
         "safe_candidate_slot_count": len(candidates),
         "legacy_safe_candidate_slot_count": len(legacy_candidates),
         "expanded_standard_candidate_slot_count": len(expansion_candidates),
+        "raw_standard_candidate_slot_count": len(raw_candidates),
         "assigned_candidate_slot_count": len(missing),
         "registered_candidate_slot_count": len(allocation_characters),
         "retired_candidate_slot_count": len(retired_characters),

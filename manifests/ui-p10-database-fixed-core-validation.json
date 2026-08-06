@@ -3,23 +3,23 @@
   "status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
   "content_policy": "Hashes, offsets, stable IDs and counts only; no game bytes, Japanese source text or localized database strings are embedded.",
   "profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
-  "scope": "Extend the P9 UI core with all 711 fixed-span weapon names, 348 pointer-backed unit names, the selected skill/special-ability/spirit/leadership database entries, 87 incremental allocations, 99 newly rerasterized reachable Han glyphs, deterministic per-glyph optical selection, four reviewed optical exceptions, four semantic same-code replacements, the finalized female-route titles for stages 1-5, and both protagonist selection titles/profiles. Parts and four protected special-ability terms remain deferred.",
+  "scope": "Extend the P9 UI core with all 711 fixed-span weapon names, 348 pointer-backed unit names, the selected skill/special-ability/spirit/leadership database entries, 85 incremental allocations, 99 newly rerasterized reachable Han glyphs, one uniform geometry-derived CJK bounding-box normalization policy with zero character exceptions, four semantic same-code replacements, the finalized female-route titles for stages 1-5, and both protagonist selection titles/profiles. Parts and four protected special-ability terms remain deferred.",
   "inputs": {
     "config": {
       "path": "config/ui-writeback/ui-p10-database-fixed-core.json",
-      "size": 9658,
-      "sha256": "2c8c611c414b1263e896acaa40976554c2d85cdf9e2cf26971cf0292dce07c3a"
+      "size": 9686,
+      "sha256": "65c1babd90a8c712fa145b356dd4eb5dc58e5b06ba5ca3566170c4164ffdaef4"
     },
     "database_selection": {
       "config": {
         "path": "config/ui-database-selection.json",
-        "size": 6907,
-        "sha256": "18431a9fe1e74585318a48759a0ab1837a95b143e6fb3e7514d1de2057f0de03"
+        "size": 6901,
+        "sha256": "5ef4978212cb11d4794ecc95f813c8e5da8735a4ccfc335f95e62aee1adcc973"
       },
       "manifest": {
         "path": "manifests/ui-database-fixed-core-selection.json",
-        "size": 18161,
-        "sha256": "df026f1027f83891841a966d2917f359e6045f7b76224b47230a792fc16b6c68"
+        "size": 18155,
+        "sha256": "85624f085c924d8c1d0babbfdc41d1ac7400112fab950e8cb561ded5c1cb98af"
       },
       "selection_id": "srwz-ui-database-fixed-core-v1",
       "status": "static_database_fixed_subset_selected_font_extension_required",
@@ -28,27 +28,27 @@
     "font_extension": {
       "manifest": {
         "path": "manifests/ui-p10-database-font-validation.json",
-        "size": 18312,
-        "sha256": "179419803a6b446f60a41a3705b79c386774660f6ecc21d56393586bef21717d"
+        "size": 17877,
+        "sha256": "f41a6f68f56edb16b6cfdf136b365e33484d24fd0a615a84f63f39008e66ae03"
       },
-      "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v1",
+      "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v2",
       "status": "offline_font_and_database_fixed_core_renderer_coverage_passed_runtime_pending",
       "slps": {
         "path": "work/build/ui-p10-database-font/components/SLPS_258.87",
         "size": 3471624,
-        "sha256": "c74f60fcd5e1a9212e0797ffc588ce922a85f981ccbd73a3b5717b13e6a0447e"
+        "sha256": "c11e37229a0c4ee32ee001f946d642b5ed8175c7a46963e4187a8bf772c1391d"
       },
       "vt1": {
         "path": "work/build/ui-p10-database-font/components/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "dfa9a052c877cd5324fe7084ce242dc95a3313654a89ca6ab290686cafa2aab3"
+        "sha256": "def1ce8f004047758622c98269b5804ffcb0684ed9c19dc7ddf26ad50ccff28d"
       }
     },
     "base_ui_core": {
       "manifest": {
         "path": "manifests/ui-p9-mixed-user-facing-subset-validation.json",
         "size": 11488,
-        "sha256": "50268596393adc77ab11207050cd85db5ad2f24ab94e92e9bb35a5e586995204"
+        "sha256": "6bda6058fa6e3694969951e2c6be6b68e5378c1796d1364f06d74ed0c778fbcb"
       },
       "component_id": "ui-p9-mixed-user-facing-subset-core",
       "profile_id": "srwz-ui-p9-mixed-user-facing-subset-integrated-v1",
@@ -58,17 +58,17 @@
         "slps": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "1087ebc84d5268ad31dcec61673f3ba06b3ee497effb0e4d019bab2866be740c"
+          "sha256": "e0580e6427d1a25dbece0405eca1f27ddaeb3e663077372d9af50d177a36ee92"
         },
         "vt1": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/VT1.BIN",
-          "size": 127501728,
-          "sha256": "3e3d3ad784feacd8e8729c44578ccbdba14dc95311c2fee276c5c6eaf6bb4873"
+          "size": 127500736,
+          "sha256": "470d25205e120d2dd637dc3bb1b262938a61023edddf5009e76772827f906637"
         },
         "compdata": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/COMPDATA.BN",
-          "size": 144485,
-          "sha256": "bc63373dec31015a3628a8a963bc3e82258a48608042d02b1838bb5d39eec405"
+          "size": 144506,
+          "sha256": "8f1e2ff248988b26e94a541ddb864b608702542190de6cf4c79aeda477154bc3"
         },
         "mtv_pros": {
           "path": "work/build/ui-p9-mixed-user-facing-subset/components/DATA/MTV_PROS.BIN",
@@ -80,7 +80,7 @@
     "writer_baseline_config": {
       "path": "config/ui-writeback/ui-p0-compdata-fixed.json",
       "size": 2640,
-      "sha256": "35af6297e4ba2cde318a0466116afc59a003960bc41ce000f3c47992f1619e59"
+      "sha256": "62532ad0b37552e92293c3d71d84492223a7681b57741130255cac28a95454d9"
     },
     "menu_descriptor": {
       "path": "vendor/upstream-python/project/menu_files.json",
@@ -159,83 +159,83 @@
       },
       "proposal": {
         "path": "work/writeback/ui-p10-database-codebook-proposal.json",
-        "sha256": "1fdb71325c50b330420d91fbb8b64935b96c27671fb372b4865ce35aefdc61de"
+        "sha256": "22e210c8bf6e5b5409fe17a3fe42a3c451b54133711048aaacaa1620be165631"
       },
-      "override_count": 1806,
+      "override_count": 1803,
       "semantic_code_replacements": [
         {
           "source_character": "仝",
-          "target_character": "喊",
+          "target_character": "咫",
           "code": "8157"
         },
         {
           "source_character": "頌",
-          "target_character": "喙",
+          "target_character": "喊",
           "code": "E8F1"
         },
         {
           "source_character": "會",
-          "target_character": "喷",
+          "target_character": "喙",
           "code": "98F0"
         },
         {
           "source_character": "浚",
-          "target_character": "圣",
+          "target_character": "喷",
           "code": "9FB2"
         },
         {
           "source_character": "貶",
-          "target_character": "垫",
+          "target_character": "圣",
           "code": "E6C8"
         },
         {
           "source_character": "璧",
-          "target_character": "妒",
+          "target_character": "垫",
           "code": "E0F8"
         },
         {
           "source_character": "曰",
-          "target_character": "嫣",
+          "target_character": "妒",
           "code": "9E48"
         },
         {
           "source_character": "騙",
-          "target_character": "宾",
+          "target_character": "嫣",
           "code": "E978"
         },
         {
           "source_character": "睨",
-          "target_character": "岑",
+          "target_character": "宾",
           "code": "E1C9"
         },
         {
           "source_character": "罠",
-          "target_character": "廖",
+          "target_character": "岑",
           "code": "E3A9"
         },
         {
           "source_character": "殲",
-          "target_character": "弯",
+          "target_character": "廖",
           "code": "9F72"
         },
         {
           "source_character": "烙",
-          "target_character": "扩",
+          "target_character": "弯",
           "code": "E080"
         },
         {
           "source_character": "訃",
-          "target_character": "扳",
+          "target_character": "扩",
           "code": "E65D"
         },
         {
           "source_character": "峙",
-          "target_character": "拂",
+          "target_character": "扳",
           "code": "9BB3"
         },
         {
           "source_character": "瑪",
-          "target_character": "挡",
+          "target_character": "拂",
           "code": "E0F3"
         },
         {
@@ -245,212 +245,212 @@
         },
         {
           "source_character": "繚",
-          "target_character": "掷",
+          "target_character": "挡",
           "code": "E387"
         },
         {
           "source_character": "燿",
-          "target_character": "撕",
+          "target_character": "掷",
           "code": "E0A0"
         },
         {
           "source_character": "刮",
-          "target_character": "擒",
+          "target_character": "撕",
           "code": "9989"
         },
         {
           "source_character": "濤",
-          "target_character": "斩",
+          "target_character": "擒",
           "code": "9FB7"
         },
         {
           "source_character": "縷",
-          "target_character": "晓",
+          "target_character": "斩",
           "code": "E37E"
         },
         {
           "source_character": "狡",
-          "target_character": "杆",
+          "target_character": "晓",
           "code": "E0C2"
         },
         {
           "source_character": "棍",
-          "target_character": "框",
+          "target_character": "杆",
           "code": "9E9E"
         },
         {
           "source_character": "丼",
-          "target_character": "桨",
+          "target_character": "框",
           "code": "98A5"
         },
         {
           "source_character": "隕",
-          "target_character": "桩",
+          "target_character": "桨",
           "code": "E8A6"
         },
         {
           "source_character": "癇",
-          "target_character": "歼",
+          "target_character": "桩",
           "code": "E192"
         },
         {
           "source_character": "巫",
-          "target_character": "涡",
+          "target_character": "歼",
           "code": "9BDE"
         },
         {
           "source_character": "琲",
-          "target_character": "漩",
+          "target_character": "涡",
           "code": "E0E8"
         },
         {
           "source_character": "箍",
-          "target_character": "灵",
+          "target_character": "漩",
           "code": "E2B0"
         },
         {
           "source_character": "憑",
-          "target_character": "烧",
+          "target_character": "灵",
           "code": "9CDF"
         },
         {
           "source_character": "蹂",
-          "target_character": "猎",
+          "target_character": "烧",
           "code": "E6F8"
         },
         {
           "source_character": "躙",
-          "target_character": "疯",
+          "target_character": "猎",
           "code": "E757"
         },
         {
           "source_character": "擲",
-          "target_character": "绞",
+          "target_character": "疯",
           "code": "9DB1"
         },
         {
           "source_character": "蜉",
-          "target_character": "绯",
+          "target_character": "绞",
           "code": "E58A"
         },
         {
           "source_character": "蝣",
-          "target_character": "绷",
+          "target_character": "绯",
           "code": "E5A0"
         },
         {
           "source_character": "奢",
-          "target_character": "缺",
+          "target_character": "绷",
           "code": "9AF8"
         },
         {
           "source_character": "贅",
-          "target_character": "肚",
+          "target_character": "缺",
           "code": "E6D2"
         },
         {
           "source_character": "掟",
-          "target_character": "脐",
+          "target_character": "肚",
           "code": "9D7C"
         },
         {
           "source_character": "贄",
-          "target_character": "臂",
+          "target_character": "脐",
           "code": "E6D1"
         },
         {
           "source_character": "屁",
-          "target_character": "芬",
+          "target_character": "臂",
           "code": "9B9B"
         },
         {
           "source_character": "癪",
-          "target_character": "荚",
+          "target_character": "芬",
           "code": "E19B"
         },
         {
           "source_character": "甦",
-          "target_character": "药",
+          "target_character": "荚",
           "code": "E153"
         },
         {
           "source_character": "茉",
-          "target_character": "蛛",
+          "target_character": "药",
           "code": "E49D"
         },
         {
           "source_character": "囮",
-          "target_character": "蜃",
+          "target_character": "蛛",
           "code": "9A99"
         },
         {
           "source_character": "檄",
-          "target_character": "蜥",
+          "target_character": "蜃",
           "code": "9EFA"
         },
         {
           "source_character": "嗟",
-          "target_character": "蝰",
+          "target_character": "蜥",
           "code": "9A6C"
         },
         {
           "source_character": "奸",
-          "target_character": "蟒",
+          "target_character": "蝰",
           "code": "9B40"
         },
         {
           "source_character": "杞",
-          "target_character": "贡",
+          "target_character": "蟒",
           "code": "9E58"
         },
         {
           "source_character": "餞",
-          "target_character": "赋",
+          "target_character": "贡",
           "code": "E953"
         },
         {
           "source_character": "僭",
-          "target_character": "赖",
+          "target_character": "赋",
           "code": "9947"
         },
         {
           "source_character": "舐",
-          "target_character": "踢",
+          "target_character": "赖",
           "code": "E472"
         },
         {
           "source_character": "愴",
-          "target_character": "轨",
+          "target_character": "踢",
           "code": "9CC6"
         },
         {
           "source_character": "腑",
-          "target_character": "辉",
+          "target_character": "轨",
           "code": "E444"
         },
         {
           "source_character": "儚",
-          "target_character": "辐",
+          "target_character": "辉",
           "code": "9952"
         },
         {
           "source_character": "焉",
-          "target_character": "邀",
+          "target_character": "辐",
           "code": "E081"
         },
         {
           "source_character": "膠",
-          "target_character": "钉",
+          "target_character": "邀",
           "code": "E450"
         },
         {
           "source_character": "贖",
-          "target_character": "钳",
+          "target_character": "钉",
           "code": "E6DC"
         },
         {
           "source_character": "恫",
-          "target_character": "钻",
+          "target_character": "钳",
           "code": "9C98"
         },
         {
@@ -733,7 +733,7 @@
         "selected_write_entry_count": 179,
         "selected_write_target_count": 183,
         "fixed_covered_entry_count": 233,
-        "selection_sha256": "25e29b468b48072e145fe299799245ff6a20028ef10ee7b4322bfcb9ebaedc8b",
+        "selection_sha256": "bc01d068c8f3501ebaf27b48468d9e7182bf265c7c6c1f6095ecb85f9d2d3d1a",
         "excluded_entry_count": 0,
         "excluded_reason_counts": {}
       },
@@ -744,7 +744,7 @@
         "payload_size": 4582,
         "owned_capacity": 5755,
         "target_metadata_sha256": "54217fba118f17eaed791551212d71cf8040f04c2bdd8a6085f7e979e03c920c",
-        "patch_plan_metadata_sha256": "efe4674a9c7e91d4eef66cbfd1c46022964f4f83843687b4fde1517e42a6cb32",
+        "patch_plan_metadata_sha256": "cfd614bab5ae74754c945ae62df5cbd1ad569318d7063606c6a5e334f6094d84",
         "pointer_write_count": 0,
         "pointer_bytes_unchanged": true,
         "non_target_bytes_unchanged": true,
@@ -753,8 +753,8 @@
       "component": {
         "source_size": 3471624,
         "output_size": 3471624,
-        "source_sha256": "1087ebc84d5268ad31dcec61673f3ba06b3ee497effb0e4d019bab2866be740c",
-        "output_sha256": "c16c72681c26d6e06939b405b105a0446e7d86aaa78e49181536e7202ebb15be",
+        "source_sha256": "e0580e6427d1a25dbece0405eca1f27ddaeb3e663077372d9af50d177a36ee92",
+        "output_sha256": "539ae00673bfc8a2a2ab6199ff2207adacdc8499d239fa89a826bd35d39c3206",
         "changed_byte_count": 5078,
         "difference_range_count": 329,
         "changed_offsets_sha256": "c87dd850ea63f5f40dcc1d23317f4346e0eda256ac2ce5851ab53cf34934424f"
@@ -782,7 +782,7 @@
         "selected_write_entry_count": 867,
         "selected_write_target_count": 866,
         "fixed_covered_entry_count": 880,
-        "selection_sha256": "0843a33bcb6b5d856779d102fb9bb3d771bdb61f24df79c2a8467a2004936113",
+        "selection_sha256": "547dbde660b6e5f139d95bb625eb5405a64be59b76ddd85c76a7751267d62181",
         "excluded_entry_count": 0,
         "excluded_reason_counts": {}
       },
@@ -790,10 +790,10 @@
       "write": {
         "entry_count": 867,
         "target_count": 866,
-        "payload_size": 16356,
+        "payload_size": 16341,
         "owned_capacity": 22962,
-        "target_metadata_sha256": "fa0f7c116b6c9b6bd2f53ccbbc1c6ebfb378d43225c6f50f3c040128a74e28c3",
-        "patch_plan_metadata_sha256": "8579e759197188cd38a17066429b2caa8d6a9eed15d3b4640984f411dc41e3c2",
+        "target_metadata_sha256": "f4d22359484d862bfd1fcfd5d4680fe840a67491689e2d03be7d88b5269c44eb",
+        "patch_plan_metadata_sha256": "e0393223b7e155024c70101825bbf154e2ae4d72ee0dda94c0b8fff45d5e78b3",
         "pointer_write_count": 0,
         "pointer_bytes_unchanged": true,
         "non_target_bytes_unchanged": true,
@@ -802,11 +802,11 @@
       "component": {
         "source_size": 524032,
         "output_size": 524032,
-        "source_sha256": "ad7894981e59748623141a0d625958f84fdca53d63cbf74e2dc61b02e86d3de2",
-        "output_sha256": "df05e5e26a09a602c7c353c7b7a341afb26815ebb9ea68443896edfba0e66dc9",
-        "changed_byte_count": 20767,
-        "difference_range_count": 1289,
-        "changed_offsets_sha256": "000787470809adf923d8bdcf385b02a53c996723cab639cfe02d7680aea40e76"
+        "source_sha256": "550b1f69d4042fd9a662b7ee4c1b7d16da731795d3f96620bac5156e4cd1730e",
+        "output_sha256": "0b83f98c9279c0811e9b81a19e5c0eb3a8b3c5306afcfea6dcae098cc8e960a3",
+        "changed_byte_count": 20771,
+        "difference_range_count": 1286,
+        "changed_offsets_sha256": "b7913d29a180c02b12db3d100c407bb6cd17349b9cbe9b82342fc137f867d7e2"
       }
     },
     "first_five_stage_titles": {
@@ -931,8 +931,8 @@
     },
     "unit_names": {
       "entry_count": 348,
-      "write_entry_count": 305,
-      "no_op_entry_count": 43,
+      "write_entry_count": 288,
+      "no_op_entry_count": 60,
       "minimum_capacity": 8,
       "maximum_capacity": 32,
       "minimum_output_headroom": 1,
@@ -940,8 +940,8 @@
       "pointer_bytes_unchanged": true,
       "non_target_bytes_unchanged": true,
       "readback_exact": true,
-      "changed_byte_count": 4013,
-      "changed_offsets_sha256": "5ae1f24542336a0d00c8e24ab342116b889004a54ecf4ff7503a9eb0ba5dd178"
+      "changed_byte_count": 3793,
+      "changed_offsets_sha256": "2e024dfc45b427d9b58011f9c3361734271c8cd275c1e6ddab5de3b084ae4d7b"
     }
   },
   "composition": {
@@ -955,36 +955,36 @@
     "final_slps_difference_range_count": 330,
     "final_slps_changed_offsets_sha256": "038eeb1019a14e9f028bb8519ae6fb70a802cd5f026c0a9d8f88636ef0c8ced1",
     "font_chunk_index": 2,
-    "font_padding_size": 11,
-    "font_borrowed_preceding_zero_slack": 10032,
+    "font_padding_size": 2,
+    "font_borrowed_preceding_zero_slack": 4752,
     "vt1_archive_size_preserved": true,
     "vt1_chunk_count": 14,
     "preserved_non_font_vt1_chunk_count": 13,
     "zero_slack_donor_chunk_index": 1,
-    "decoded_font_sha256": "51895efaac98608af84f9696e77e31c9ede99eba2fbe07cd3f21e4e7fbc7e997",
-    "compdata_decoded_changed_byte_count": 25122,
-    "compdata_database_changed_byte_count": 20767,
+    "decoded_font_sha256": "c2536438daffe60e9f935aa0e5cec3d9d725e7be9163832abeb939e59b995379",
+    "compdata_decoded_changed_byte_count": 24906,
+    "compdata_database_changed_byte_count": 20771,
     "compdata_stage_title_changed_byte_count": 54,
     "compdata_opening_profile_changed_byte_count": 288,
-    "compdata_unit_name_changed_byte_count": 4013,
-    "compdata_decoded_difference_range_count": 1657,
-    "compdata_decoded_changed_offsets_sha256": "1063f4138a7d15bdf1b96b0703e387d1a2a904653b2523dc931bdb5898bf2c91",
-    "compdata_source_compressed_size": 144485,
-    "compdata_output_compressed_size": 145293,
-    "compdata_compressed_common_prefix": 108324,
+    "compdata_unit_name_changed_byte_count": 3793,
+    "compdata_decoded_difference_range_count": 1637,
+    "compdata_decoded_changed_offsets_sha256": "38dfa2f96a91ca1732eadbb2d22b754ab6393451c834ab1311bad7a7177aad87",
+    "compdata_source_compressed_size": 144506,
+    "compdata_output_compressed_size": 145283,
+    "compdata_compressed_common_prefix": 108319,
     "compdata_flags": 23,
     "compdata_codec": {
       "strategy": "rust-maximum",
       "min_match_length": 3,
       "max_match_chain": 65535,
       "lazy_matching": true,
-      "output_size": 145293,
+      "output_size": 145283,
       "maximum_output_size": 145408,
       "sector_size": 2048,
       "maximum_sectors": 71,
       "sector_count": 71,
       "within_sector_budget": true,
-      "budget_headroom": 115,
+      "budget_headroom": 125,
       "decoded_round_trip_exact": true,
       "flags_preserved": true,
       "fully_consumed": true
@@ -994,17 +994,17 @@
     "slps": {
       "path": "work/build/ui-p10-database-fixed-core/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "7806a15b088c7c7cbf4a5859c43ecee5165d91d212cfcaacaa33224c7cf4d979"
+      "sha256": "1bdee29292af90135b054354241141cb43bf80a217059336455e7c39f8facfa2"
     },
     "vt1": {
       "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
-      "size": 127501728,
-      "sha256": "f7640d2b0093ef37002265445f309a62d959e6797bc9bb51b01c288070bc5ee9"
+      "size": 127500736,
+      "sha256": "c3da3b0518d0b87a282c0da254a89893d8a3635b14664059db37696f213fab17"
     },
     "compdata": {
       "path": "work/build/ui-p10-database-fixed-core/components/DATA/COMPDATA.BN",
-      "size": 145293,
-      "sha256": "bcc573758e0b452114c04370f97c5d898aa2879a39a20cc5caed7314fbbd2ee9"
+      "size": 145283,
+      "sha256": "3c40f1bff09039d4f4874e4dbd1840903536a09035fb1841d5c0e8925f3bc49b"
     },
     "mtv_pros": {
       "path": "work/build/ui-p10-database-fixed-core/components/DATA/MTV_PROS.BIN",
@@ -1018,18 +1018,18 @@
       "selected_entry_count": 1113,
       "selected_slps_entry_count": 233,
       "selected_compdata_entry_count": 880,
-      "font_allocation_count": 87,
+      "font_allocation_count": 85,
       "font_reraster_count": 99,
       "font_semantic_replacement_count": 4,
-      "font_inherited_optical_reraster_count": 1,
+      "font_inherited_optical_reraster_count": 0,
       "font_cjk_optical_policy_assignment_count": 1754,
-      "font_cjk_optical_policy_default_point_size": 23,
-      "font_cjk_optical_reviewed_exception_count": 4,
+      "font_cjk_optical_policy_default_point_size": 22,
+      "font_cjk_optical_reviewed_exception_count": 0,
       "first_five_stage_title_count": 5,
       "opening_profile_entry_count": 4,
       "unit_name_entry_count": 348,
-      "unit_name_write_entry_count": 305,
-      "unit_name_no_op_entry_count": 43,
+      "unit_name_write_entry_count": 288,
+      "unit_name_no_op_entry_count": 60,
       "slps_no_op_entry_count": 54,
       "slps_selected_write_entry_count": 179,
       "slps_selected_write_target_count": 183,
@@ -1044,18 +1044,18 @@
       "selected_entry_count": 1113,
       "selected_slps_entry_count": 233,
       "selected_compdata_entry_count": 880,
-      "font_allocation_count": 87,
+      "font_allocation_count": 85,
       "font_reraster_count": 99,
       "font_semantic_replacement_count": 4,
-      "font_inherited_optical_reraster_count": 1,
+      "font_inherited_optical_reraster_count": 0,
       "font_cjk_optical_policy_assignment_count": 1754,
-      "font_cjk_optical_policy_default_point_size": 23,
-      "font_cjk_optical_reviewed_exception_count": 4,
+      "font_cjk_optical_policy_default_point_size": 22,
+      "font_cjk_optical_reviewed_exception_count": 0,
       "first_five_stage_title_count": 5,
       "opening_profile_entry_count": 4,
       "unit_name_entry_count": 348,
-      "unit_name_write_entry_count": 305,
-      "unit_name_no_op_entry_count": 43,
+      "unit_name_write_entry_count": 288,
+      "unit_name_no_op_entry_count": 60,
       "slps_no_op_entry_count": 54,
       "slps_selected_write_entry_count": 179,
       "slps_selected_write_target_count": 183,
@@ -1138,7 +1138,7 @@
       "female_protagonist_selection_title_and_profile",
       "stage_1_to_5_title_card_objective_and_status_surfaces",
       "list_detail_and_disabled_or_unavailable_states",
-      "eighty_seven_new_ninety_nine_rerasterized_all_1754_cjk_metric_normalized_four_reviewed_exceptions_and_four_semantic_glyphs_visible",
+      "eighty_five_new_ninety_nine_rerasterized_all_1754_cjk_uniform_bbox_normalized_zero_character_exceptions_and_four_semantic_glyphs_visible",
       "no_clipping_overlap_or_missing_glyphs",
       "zero_tlb_miss"
     ]

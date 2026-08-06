@@ -193,7 +193,7 @@ ISO 只减少逐屏测试时的候选切换。
 `assets/archive-inventory.json` 由 `tools/srwz/assets.py` 独立执行严格 schema
 检查：未知字段、重复 member、路径穿越、archive/direct 重叠、未知 storage
 模式和非法上游提交都会失败。TIM2 外部工具选择尚未形成 lock；准入条件见
-`docs/TIM2_TOOLCHAIN_ACCEPTANCE.md`。`canary/tim2-vt1-title-index.json`
+`docs/ASSET_ANALYSIS.md`。`canary/tim2-vt1-title-index.json`
 固定已通过运行验证的 VT1 标题 index canary，`iso/image-canary-build.json`
 固定其独立组件、ISO 路径和 golden hash；两者都不拥有正式图片译文。
 `canary/tim2-vt1-title-zh.json` 登记标题四项中文、OFL 字体、ImageMagick

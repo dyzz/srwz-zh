@@ -33,7 +33,7 @@ _STRUCTURAL_TOKEN = re.compile(
     r"|\{[0-9A-Fa-f]{2}\}"
     r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
 )
-_LATIN_TERM = re.compile(r"[A-Za-z0-9]+(?:[ .·_-][A-Za-z0-9]+)*")
+_LATIN_TERM = re.compile(r"[A-Za-z0-9]+(?:[.·_-][A-Za-z0-9]+)* ?")
 _TITLE = re.compile(r"《[^》\n]{1,22}》|‘[^’\n]{1,22}’")
 _SEPARATE_QUOTED_LINES = re.compile(r"”\n[　 ]*“")
 
@@ -197,7 +197,10 @@ def _valid_break(tokens: Sequence[LayoutToken], index: int) -> bool:
         return False
     if following[0] in _CLOSING_PUNCTUATION:
         return False
-    if following[0] in _MODAL_PARTICLES:
+    if (
+        following[0] in _MODAL_PARTICLES
+        and previous[-1] not in _STRONG_BREAK_END
+    ):
         return False
     return True
 

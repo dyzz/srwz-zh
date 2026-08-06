@@ -4,13 +4,13 @@
   "policy": "Extend the locked P7 UI registry without changing any existing Chinese allocation. Allocate safe gaps first, then deterministically reuse original Japanese CJK code/glyph slots for the complete Chinese unit and weapon corpus. The localized characters 绊、愤、眸、镰 keep their explicit semantic donor mappings; every appended character remains reserved even if later terminology changes.",
   "base_registry": {
     "path": "config/encoding/ui-p7-embedded-font-allocations.json",
-    "sha256": "9e5802e962693426bf3cfe0ca880d817deebb52862fcb6c14d44fc93f84c2d78",
-    "registered_character_count": 724
+    "sha256": "2804b730706bbfa946d26cc7c550bded61e93f9385604b8f94641e8607053065",
+    "registered_character_count": 726
   },
-  "appended_characters": "+/乔佩俯农冻凉华吨呐咫喊喙喷圣垫妒嫣宾岑廖弯扩扳拂挡掷撕擒斩晓杆框桨桩歼涡漩灵烧猎疯绞绯绷缺肚脐臂芬荚药蛛蜃蜥蝰蟒贡赋赖踢轨辉辐邀钉钳钻铆铬链锤镜闪霆霰颤飓骑魇鹉鹦鹫鹰齿－",
+  "appended_characters": "+/乔俯农冻凉华吨呐咫喊喙喷圣垫妒嫣宾岑廖弯扩扳拂挡掷撕擒斩晓杆框桨桩歼涡漩灵烧猎疯绞绯绷缺肚脐臂芬荚药蛛蜃蜥蝰蟒贡赋赖踢轨辉辐邀钉钳铆铬链锤镜闪霆霰颤飓骑魇鹉鹦鹫鹰齿－",
   "retired_appended_characters": [],
   "ratchet": {
-    "appended_character_count": 87,
+    "appended_character_count": 85,
     "combined_registered_character_count": 811,
     "remaining_candidate_slot_count": 2105,
     "additional_reraster_existing_han_count": 99,

@@ -6,11 +6,11 @@
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p7-embedded-font.json",
-      "sha256": "e0503f02f527690c2620a416ea442b4c7a581beccd5716bc10c1d46ae5281c77"
+      "sha256": "ab8bcf234dc1eb8c96d3f3d1d7df29d9be164b58278db5e3dda4df23b60d0a2f"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p7-embedded-font-allocations.json",
-      "sha256": "9e5802e962693426bf3cfe0ca880d817deebb52862fcb6c14d44fc93f84c2d78"
+      "sha256": "2804b730706bbfa946d26cc7c550bded61e93f9385604b8f94641e8607053065"
     },
     "embedded_scene_selection": {
       "kind": "embedded_scene_groups",
@@ -21,7 +21,7 @@
       },
       "manifest": {
         "path": "manifests/ui-embedded-scene-map.json",
-        "sha256": "17bd76bad91988993bf2b51415b6335578686f37a7bedd2a9388014aa142b2f4",
+        "sha256": "7f3bc741c138c46b42f719df1e6811c548197fe7958fc59379ea8524a87caae2",
         "status": "static_scene_partition_validated_runtime_attribution_pending"
       },
       "required_writeback_status": "font_extension_required",
@@ -36,19 +36,19 @@
       "selection_sha256": "06222d246ad53fb630151121693e22e0187ea604a903c2ddd3d459ea49c55863",
       "baseline_scene_inventory": {
         "path": "config/ui-scenes.json",
-        "sha256": "b77f935ae92622c746204ef315203e7758a2ee8e04765618c52a957878f11f55",
+        "sha256": "8ea118830586d7b50c2a734a12d1969a4165642fc07c5987914008f3bb3099d2",
         "inventory_id": "srwz-ui-scenes-v1"
       }
     },
     "base_proposal": {
       "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
-      "sha256": "96acae46806a228d132c3a3518d3d96f28ac9484c6f221184a518dd18428f9f6",
+      "sha256": "d9e3e08012e26d56cb0be8b783df71c68e3dd2b7b8f73520f568bf28ac1508d4",
       "proposal_id": "srwz-ui-p2-researched-display-names-unified-font-v1",
-      "assignment_count": 1605
+      "assignment_count": 1604
     },
     "base_validation_manifest": {
       "path": "manifests/ui-p2-display-name-font-validation.json",
-      "sha256": "81394e80d9a1ff0dac17d7fd9d69b23a1b1d0ba48960da9fc7079bc45b8c441c"
+      "sha256": "f7d59a2bd9a8699595a5eb46dc995383951bb5935ac44af00bd3dc33242a9a41"
     }
   },
   "capacity": {
@@ -57,15 +57,17 @@
     "legacy_safe_candidate_slot_count": 486,
     "expanded_standard_candidate_slot_count": 164,
     "raw_standard_addressable_candidate_slot_count": 86,
-    "base_registered_character_count": 717,
-    "combined_registered_character_count": 724,
-    "remaining_candidate_slot_count": 12
+    "source_glyph_reuse_candidate_slot_count": 0,
+    "base_registered_character_count": 719,
+    "combined_registered_character_count": 726,
+    "remaining_candidate_slot_count": 10
   },
   "additional_allocations": {
     "count": 7,
     "characters": "忆显缓网锋页额",
     "blank_preimage_count": 7,
-    "raw_standard_trail_gap_count": 7
+    "raw_standard_trail_gap_count": 7,
+    "source_glyph_reuse_count": 0
   },
   "additional_reraster_existing_han": {
     "count": 4,
@@ -75,47 +77,56 @@
     "count": 0,
     "entries": []
   },
+  "inherited_optical_reraster_overrides": {
+    "count": 0,
+    "entries": []
+  },
+  "cjk_optical_policy": {
+    "enabled": false,
+    "assignment_count": 0,
+    "point_size_counts": {}
+  },
   "combined_assignments": {
-    "allocation_assignment_count": 715,
+    "allocation_assignment_count": 714,
     "reraster_existing_assignment_count": 901,
-    "font_assignment_count": 1616
+    "font_assignment_count": 1615
   },
   "proposal": {
     "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
-    "sha256": "f2af222a7a71c2ce4442fdfe8a6519b75cae57932721c4eb5736fc8b8fc64563"
+    "sha256": "e4529de67d6d1d7f6cdf9d338c9cd83bbf0687757caac43dfc16056679175fb0"
   },
   "readiness": {
     "path": "work/writeback/ui-p7-embedded-font-readiness.json",
-    "sha256": "f58697300e7b311b391010e0e5c50f1b9a80170c2de5876537fbfe3cadfa4479"
+    "sha256": "b245004c087b87f7cc75a11897931a0640d0cb9b60faa3cd42cb40c8d4e38366"
   },
   "font_component": {
     "report": "work/build/ui-p7-embedded-font/components/font-validation.json",
-    "report_sha256": "4018e5c3a000d4d178b6c4033352050b8c2fe28a9ef724a929ed76f72bbc6235",
-    "assignment_count": 1616,
-    "allocation_assignment_count": 715,
+    "report_sha256": "0a7a08ba50ae481f00bbe78c917a95a779f17896f2e55cd4c11d3303b1843e2c",
+    "assignment_count": 1615,
+    "allocation_assignment_count": 714,
     "reraster_existing_assignment_count": 901,
-    "changed_glyph_count": 1615,
+    "changed_glyph_count": 1614,
     "unchanged_assignment_count": 1,
-    "built_raster_hash_exact_count": 1616,
+    "built_raster_hash_exact_count": 1615,
     "decoded_size": 1290240,
-    "decoded_sha256": "6a20c8362f88c8ff4ac8512761d8508780597afca39168fb8e827b24bef9785a",
-    "encoded_size": 692969,
+    "decoded_sha256": "2b37744db97c08d5e63bdf1d503ef025bbca477e61f03fce91e16c7d43d58ea5",
+    "encoded_size": 737799,
     "encoder_strategy": "rust-maximum",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
-      "padding_size": 7,
-      "borrowed_preceding_zero_slack": 93632,
+      "padding_size": 9,
+      "borrowed_preceding_zero_slack": 138464,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "9cbc6d9c62a23ad6d031367fae8a973542fc0e3ad7d2b3b115dd130281a3fd44"
+        "sha256": "214b1e6d3d2b4a8743440d1c0b1dcf06e037d27a35f52a0a476a13b289a4bed8"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "1bb60b50c052531afffd3c347b9addd375053f43ab55c817f9026a84b004a679"
+        "sha256": "940b02f7dd95b88279c829fe13ec8c5e149e38192d7cf0a13989e1148c3051ed"
       }
     }
   },
@@ -131,12 +142,12 @@
   "base_ui_p2_components": {
     "slps": {
       "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
-      "sha256": "4334607c5c00c12062599064b4a6ace2f572e36087ea5d0a055fbab6797078a4",
+      "sha256": "038a45e0073e56ab695672f7478ee6464e56f9c711ba6694def8a5622e0d13ba",
       "exact": true
     },
     "vt1": {
       "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
-      "sha256": "2d541fc2a20ebac321a48c996c2ed7bba354bf24d857887cd522e2d0627f261b",
+      "sha256": "33e8fb517cd5f72acf779e0177534535c7bfd766ae8ead1b263949cb69e13401",
       "exact": true
     }
   },

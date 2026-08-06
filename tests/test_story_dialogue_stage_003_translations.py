@@ -127,7 +127,7 @@ class StoryDialogueStage003TranslationTests(unittest.TestCase):
             ),
             "story/003/dialogue/01.05/0012": (
                 "“通知全员。本舰即刻追击敌舰。\n"
-                "　从现在起，目标代号为Bogey One！”"
+                "　从现在起，目标代号为不明舰1号！”"
             ),
             "story/003/dialogue/01.05/0013": (
                 "“发布红色警戒！全员就位！”"
@@ -158,7 +158,7 @@ class StoryDialogueStage003TranslationTests(unittest.TestCase):
         self.assertEqual(len({term["id"] for term in terms}), 5)
         self.assertEqual(
             Counter(term["status"] for term in terms),
-            {"researched": 5},
+            {"researched": 4, "approved": 1},
         )
         self.assertEqual(
             Counter(term["category"] for term in terms),
@@ -202,8 +202,9 @@ class StoryDialogueStage003TranslationTests(unittest.TestCase):
             if item["batch_id"] == "v1-story-dialogue"
         )
         self.assertEqual(batch["target_entry_count"], 82719)
-        self.assertEqual(batch["status"], "in_progress")
-        self.assertIn("stages 001-005", release["notes"])
+        self.assertEqual(batch["status"], "draft_complete")
+        self.assertIn("All 82,719 story-dialogue records", release["notes"])
+        self.assertIn("154 text stages", release["notes"])
 
 
 if __name__ == "__main__":

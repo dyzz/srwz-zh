@@ -35,7 +35,6 @@ work/
       pine/
       screenshots/
   toolchain/
-  research/
 
 build/
   iso/
@@ -80,8 +79,7 @@ build/
 ### `build/iso/<profile>/`：最终产物
 
 - 只保存用户实际拿来运行的候选 ISO 和同次构建报告。
-- 当前正式路径是
-  `build/iso/canary-menu/srwz-canary.iso`。
+- 当前只保留一个实际运行候选；精确路径由选中的 ISO build config 声明。
 - ISO 必须从对应 `work/build/<profile>/components` 和 authoring workspace
   一次生成，不允许 patch-over-patch。
 - 输出路径由 config 固定，禁止回退到 `work/iso/` 或仓库根目录。
@@ -114,14 +112,19 @@ build/
 
 ## 4. 当前门禁
 
-`config/iso/canary-build.json` 声明 `profile_id=canary-menu`。加载时强制：
+当前 ISO build config 加载时强制：
 
 - source ISO 位于 `rom/`；
-- authoring workspace 位于 `work/build/canary-menu/iso/`；
-- replacement source 位于 `work/build/canary-menu/components/`；
-- ISO 与报告位于 `build/iso/canary-menu/`；
+- authoring workspace 位于 `work/build/<profile>/iso/`；
+- replacement source 位于 `work/build/<profile>/components/`；
+- ISO 与报告位于 `build/iso/<profile>/`；
 - ISO 输出扩展名为 `.iso`；
 - 所有路径均为项目内相对路径。
 
 目录校验只证明所有权边界。成员 byte-exact、ISO9660/UDF、DVD 识别、LBA、
 整镜像哈希和 PCSX2 运行结论仍由各自独立 gate 验证。
+
+当前单一候选 profile 为 `ui-p10-full-story`；其静态报告已通过，现有
+fresh-process 收据绑定前一张 ISO，当前精确哈希的启动和目标路线 runtime 仍待
+完成。构建与运行命令见
+`BUILD_AND_RUNTIME.md`。

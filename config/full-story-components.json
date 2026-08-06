@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-p10-ui-full-story-integrated-v1",
+  "scope": "Compose the validated P10 database-fixed UI, the complete 154-stage Chinese story font, all translated STAGE dialogue/speakers/conditions, the existing localized KVMDATA map component, and global default-width code aliases for every localized text surface while preserving the original executable renderer.",
+  "base_ui": {
+    "manifest": {
+      "path": "manifests/ui-p10-database-fixed-core-validation.json",
+      "size": 39468,
+      "sha256": "edb545334aa50e6161c2d2f484f1df80d494d64734b1a057d99e240a6656ba78"
+    },
+    "required_status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
+    "required_profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
+    "members": {
+      "slps": {
+        "path": "work/build/ui-p10-database-fixed-core/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "1bdee29292af90135b054354241141cb43bf80a217059336455e7c39f8facfa2"
+      },
+      "vt1": {
+        "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "c3da3b0518d0b87a282c0da254a89893d8a3635b14664059db37696f213fab17"
+      },
+      "compdata": {
+        "path": "work/build/ui-p10-database-fixed-core/components/DATA/COMPDATA.BN",
+        "size": 145283,
+        "sha256": "3c40f1bff09039d4f4874e4dbd1840903536a09035fb1841d5c0e8925f3bc49b"
+      },
+      "mtv_pros": {
+        "path": "work/build/ui-p10-database-fixed-core/components/DATA/MTV_PROS.BIN",
+        "size": 8368,
+        "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
+      }
+    }
+  },
+  "full_story_font": {
+    "manifest": {
+      "path": "manifests/full-story-font-validation.json",
+      "size": 35665,
+      "sha256": "58766bf4c7cb9a03e35448ac27d61453c3cba3021413773cea46fa992597c96b"
+    },
+    "required_status": "offline_full_story_font_renderer_coverage_passed_runtime_pending",
+    "required_profile_id": "srwz-full-story-p10-unified-font-v1",
+    "slps": {
+      "path": "work/build/full-story-font/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "vt1": {
+      "path": "work/build/full-story-font/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "8607d8837b78c140bcc44674a9ae2113a5213d7559e5ddbc6bce40592a9c0186"
+    }
+  },
+  "full_story_stage": {
+    "report": {
+      "path": "work/build/full-story-stage/components/component-validation.json",
+      "size": 17855266,
+      "sha256": "9c85a42b4a2939d5b2b087d315679aca30e715e1fecc0cb62c3566affa7aab6d"
+    },
+    "required_status": "offline_components_validated_runtime_not_tested",
+    "expected_stage_count": 154,
+    "stage": {
+      "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
+      "size": 3910128,
+      "sha256": "b89f294dc13e08ced885a8576cd34ae5a2e5206c671b9d10beb14c5843904dac"
+    },
+    "hb": {
+      "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
+      "size": 31152,
+      "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21"
+    }
+  },
+  "full_pilot_names": {
+    "include_fields": [
+      "display",
+      "family",
+      "given"
+    ],
+    "structure": {
+      "path": "config/display-names/compdata.json",
+      "size": 3584,
+      "sha256": "cd0b06663d0c25af23b8dda13729c3a97b6bee44d43b7bc1834e7f11b840cb9b"
+    },
+    "story_speakers": {
+      "path": "corpus/zh/story-speakers.json",
+      "size": 2898717,
+      "sha256": "5dcf29ce3d2692d2060b71853ca797ebe91edfa05c6599f91c98dfe6e1782fce"
+    },
+    "expected": {
+      "unique_source_count": 424,
+      "selected_entry_count": 1760,
+      "field_entry_counts": {
+        "display": 872,
+        "family": 94,
+        "given": 794
+      }
+    },
+    "codec": {
+      "strategy": "maximum",
+      "min_match_length": 2,
+      "max_match_chain": 256,
+      "lazy_matching": false,
+      "max_output_size": 145408
+    }
+  },
+  "full_stage_titles": {
+    "stage_names": {
+      "path": "corpus/zh/menu/stage-names.json",
+      "size": 28759,
+      "sha256": "bc0fbbffa8fd03c67d47ff06b8fb36ac1aa5a972340e478d248ff303959cf0df",
+      "expected_entry_count": 122
+    },
+    "title_format": {
+      "path": "corpus/zh/menu/unclassified.json",
+      "size": 114536,
+      "sha256": "5f5eb156f90d8b6abe9e027e9cf3263a1b8aebc06ece67d11da53f4fc5ebeda9",
+      "entry_id": "menu/SLPS/00/0342",
+      "translation": "\"%s\""
+    },
+    "menu_descriptor": {
+      "path": "vendor/upstream-python/project/menu_files.json",
+      "size": 137657,
+      "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+    },
+    "encoding": {
+      "printable_ascii_passthrough": true,
+      "use_available_surface_safe_aliases": true
+    }
+  },
+  "kvmdata": {
+    "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
+    "size": 3335408,
+    "sha256": "0aaf2564df92fff1f9a6016d8fd5f67d05981022c3c28ac5a5c60b826386544c"
+  },
+  "composition": {
+    "font_chunk_index": 2,
+    "archive_alignment": 16,
+    "require_p10_codebook_inheritance": true,
+    "preserve_non_font_vt1_chunks": true,
+    "preserve_vt1_archive_size": true,
+    "preserve_stage_archive_size_and_offsets": true
+  },
+  "intermission_list_font_geometry": {
+    "enabled": false,
+    "strategy": "surface-safe-code-aliases",
+    "scope": "Preserve the original renderers and encode every localized character whose primary code lies in 0x8140..0x889E through a default-width double-byte alias."
+  },
+  "outputs": {
+    "component_root": "work/build/ui-p10-full-story/components",
+    "manifest": "manifests/full-story-components-validation.json"
+  }
+}

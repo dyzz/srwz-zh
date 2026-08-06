@@ -7,7 +7,7 @@
   "inputs": {
     "config": {
       "path": "config/display-names/researched-coverage.json",
-      "sha256": "fbfff852c88436c0fb7a11adad2bb847b1ee9b88a746b4302aa7be99c7256e96"
+      "sha256": "4845b5454c1b53d67214da7d7af1100b38aa269fa511c2966f70941cbb1a6a7c"
     },
     "structure": {
       "config": {
@@ -24,7 +24,7 @@
     "glossary": {
       "release": {
         "path": "corpus/releases/v1.json",
-        "sha256": "1db560ab01af0665be4626560e7aed368b109cd80571cd14783ae30e0f5dbdf5",
+        "sha256": "f4260a998048ac8fae03dae7922e4b5b83ab7c1b6c29b5457d42eaf759b52f6d",
         "release_id": "srwz-zh-corpus-v1"
       },
       "accepted_statuses": [
@@ -111,9 +111,9 @@
         },
         {
           "path": "corpus/glossary/story-dialogue-stage-003-v1.json",
-          "sha256": "6b3c6bc150633f12076ee68c23a0a7deb23f8ac8fcc2410e26ddb87819c60b7e",
+          "sha256": "9d4daf496db42c9e03f3f2914ef1c447c880e92961944daee28cb2fe2a4d2ff9",
           "term_count": 5,
-          "accepted_term_count": 5
+          "accepted_term_count": 4
         },
         {
           "path": "corpus/glossary/story-dialogue-stage-004-v1.json",
@@ -126,13 +126,43 @@
           "sha256": "f98b60caf3837f6dad358d1a6333bc456c02adc62718450f3ca222f7ad429b14",
           "term_count": 18,
           "accepted_term_count": 17
+        },
+        {
+          "path": "corpus/glossary/story-dialogue-stage-006-v1.json",
+          "sha256": "085a52c490807a2f6c9d268bd2c5e6986ee08b8922e0fbfcf322243e8d8ed2f0",
+          "term_count": 19,
+          "accepted_term_count": 11
+        },
+        {
+          "path": "corpus/glossary/story-dialogue-stage-007-v1.json",
+          "sha256": "100b13b7ec97ef1967b10a0913836ff00c01afc7e1546a335e084371565cc286",
+          "term_count": 7,
+          "accepted_term_count": 5
+        },
+        {
+          "path": "corpus/glossary/story-dialogue-stage-008-v1.json",
+          "sha256": "665b033e38e3e0cc1c50349b7099f2beb8d7e414d672ff0a86102ba8c5b1c97e",
+          "term_count": 10,
+          "accepted_term_count": 10
+        },
+        {
+          "path": "corpus/glossary/story-dialogue-stage-009-v1.json",
+          "sha256": "1561c1e4988903658d1bf3103da9e50c4cbaf52475fd6a5c54f2f0776d6af66b",
+          "term_count": 16,
+          "accepted_term_count": 14
+        },
+        {
+          "path": "corpus/glossary/story-dialogue-full-v1.json",
+          "sha256": "a09fd770c71c5d350e1a495977e361762e7171fddc8a244c532334adc0e85a20",
+          "term_count": 8,
+          "accepted_term_count": 1
         }
       ],
-      "accepted_term_count": 469,
-      "exact_source_count": 464,
-      "eligible_exact_source_count": 464,
+      "accepted_term_count": 509,
+      "exact_source_count": 508,
+      "eligible_exact_source_count": 508,
       "conflict_source_count": 0,
-      "same_translation_multi_ref_count": 8
+      "same_translation_multi_ref_count": 12
     },
     "prior_translations": [
       {
@@ -144,7 +174,7 @@
     ],
     "font_candidate": {
       "manifest": "manifests/ui-p1-summary-font-validation.json",
-      "sha256": "327b3cd34a8fc243bd6bc9282da0afcad14ca491d9075fe1ccf7e96d64d08de6",
+      "sha256": "b7355f7269c1a00c37c74671662748299bd4a21a8ba5ecf0597c213e3c0c0d44",
       "status": "offline_font_and_selected_ui_renderer_coverage_passed_runtime_pending",
       "codebook": {
         "base_codebook": {
@@ -153,27 +183,27 @@
         },
         "proposal": {
           "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-          "sha256": "26732c416b2e116b273fe3f1c5e3bd5d97dd39a7036f9ab3b552ffd0479788bc"
+          "sha256": "156a152b9cb8c9f70bfa9a96614bc8a7d25bfaf33c6fcec208ca738fbeb48057"
         },
-        "override_count": 1548,
+        "override_count": 1545,
         "semantic_code_replacements": []
       },
       "renderer_baseline": {
         "report": "work/build/ui-p1-summary/components/font-validation.json",
-        "report_sha256": "736ef21d5584aca179fcf2a2ea16d7778f1933f3a1e0c0848f502b05f1e903eb",
+        "report_sha256": "9301a867cc8c9b59da709fb67457d8b51ca788c34600edab40ea58aa15cc3d6a",
         "slps": {
           "path": "work/build/ui-p1-summary/components/SLPS_258.87",
           "size": 3471624,
-          "sha256": "647edc03793d6d6f0b1a00871dd08088a0737845c9b7a817963f27e0da7ff4f7"
+          "sha256": "d9f7aef3780e04ceff71166056ded7992b39bdb5738b9ecacf8229749519bbc9"
         },
         "vt1": {
           "path": "work/build/ui-p1-summary/components/DATA/VT1.BIN",
           "size": 127500736,
-          "sha256": "89ac088915a3402104b5454acd5c5ed6eeebc89cc5111227c91ec8648e610389"
+          "sha256": "368a7790ffa7f907fd218249b5b2be885bb998702c960418d1a0e97ce346f5e4"
         },
         "proposal": {
           "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-          "sha256": "26732c416b2e116b273fe3f1c5e3bd5d97dd39a7036f9ab3b552ffd0479788bc"
+          "sha256": "156a152b9cb8c9f70bfa9a96614bc8a7d25bfaf33c6fcec208ca738fbeb48057"
         },
         "component_status": "offline_font_validated_runtime_not_tested"
       }
@@ -183,36 +213,36 @@
     "structure_entry_count": 3147,
     "non_empty_entry_count": 2800,
     "prior_translation_entry_count": 45,
-    "selected_entry_count": 1262,
-    "selected_pilot_entry_count": 1221,
-    "selected_unit_entry_count": 41,
-    "selected_unique_source_count": 307,
-    "current_font_ready_entry_count": 1166,
-    "current_font_missing_entry_count": 96,
-    "current_font_missing_character_count": 21,
-    "current_renderer_ready_entry_count": 1134,
-    "current_renderer_missing_entry_count": 128,
-    "current_renderer_missing_character_count": 28,
+    "selected_entry_count": 1286,
+    "selected_pilot_entry_count": 1227,
+    "selected_unit_entry_count": 59,
+    "selected_unique_source_count": 327,
+    "current_font_ready_entry_count": 1187,
+    "current_font_missing_entry_count": 99,
+    "current_font_missing_character_count": 22,
+    "current_renderer_ready_entry_count": 1152,
+    "current_renderer_missing_entry_count": 134,
+    "current_renderer_missing_character_count": 30,
     "current_renderer_reactivatable_character_count": 4,
-    "current_renderer_new_allocation_character_count": 24,
+    "current_renderer_new_allocation_character_count": 26,
     "current_renderer_original_han_character_count": 29,
-    "current_renderer_original_han_entry_count": 124,
-    "projected_remaining_candidate_slot_count": 24,
+    "current_renderer_original_han_entry_count": 129,
+    "projected_remaining_candidate_slot_count": 22,
     "projected_overflow_entry_count": 0,
-    "unresolved_entry_count": 1493
+    "unresolved_entry_count": 1469
   },
   "selection": {
-    "entry_count": 1262,
-    "selection_sha256": "73a4105b62fdd69986c605228d538bf6a722f38d64881164f0d4e0f345d450f2",
-    "font_ready_entry_count": 1166,
-    "font_missing_entry_count": 96,
-    "missing_character_count": 21,
-    "missing_characters": "伦侣凤凯妮姬娅岛庆户滨琪苏萝谦贾赛赞钢钱阳",
+    "entry_count": 1286,
+    "selection_sha256": "c8b56c26e8f8538ca63e49ee6cbef1fa811bafc3780018e2ab4d00fc94fcc04b",
+    "font_ready_entry_count": 1187,
+    "font_missing_entry_count": 99,
+    "missing_character_count": 22,
+    "missing_characters": "伦侣凤凯妮姬娅岛庆户滨琪苏萝谦贾赛赞钢钱钻阳",
     "missing_character_occurrence_counts": {
       "伦": 4,
       "侣": 2,
       "凤": 8,
-      "凯": 2,
+      "凯": 3,
       "妮": 10,
       "姬": 4,
       "娅": 20,
@@ -229,18 +259,19 @@
       "赞": 4,
       "钢": 1,
       "钱": 2,
+      "钻": 2,
       "阳": 1
     },
     "projected_overflow_entry_count": 0,
     "projected_overflow_ids": []
   },
   "renderer_readiness": {
-    "entry_count": 1262,
-    "ready_entry_count": 1134,
-    "missing_entry_count": 128,
-    "missing_character_count": 28,
-    "missing_characters": "伦佛侣凤凯勒妮姬娅岛庆惠户杰滨琪艾苏莎菲萝谦贾赛赞钢钱阳",
-    "missing_character_occurrence_count": 146,
+    "entry_count": 1286,
+    "ready_entry_count": 1152,
+    "missing_entry_count": 134,
+    "missing_character_count": 30,
+    "missing_characters": "伦佛佩侣凤凯勒妮姬娅岛庆惠户杰滨琪艾苏莎菲萝谦贾赛赞钢钱钻阳",
+    "missing_character_occurrence_count": 153,
     "missing": [
       {
         "character": "伦",
@@ -251,6 +282,11 @@
         "character": "佛",
         "reason": "resolver_unreachable",
         "occurrence_count": 2
+      },
+      {
+        "character": "佩",
+        "reason": "resolver_unreachable",
+        "occurrence_count": 4
       },
       {
         "character": "侣",
@@ -265,7 +301,7 @@
       {
         "character": "凯",
         "reason": "unmapped",
-        "occurrence_count": 2
+        "occurrence_count": 3
       },
       {
         "character": "勒",
@@ -378,6 +414,11 @@
         "occurrence_count": 2
       },
       {
+        "character": "钻",
+        "reason": "unmapped",
+        "occurrence_count": 2
+      },
+      {
         "character": "阳",
         "reason": "unmapped",
         "occurrence_count": 1
@@ -385,19 +426,19 @@
     ],
     "reactivatable_registered_character_count": 4,
     "reactivatable_registered_characters": "娅杰艾贾",
-    "new_allocation_character_count": 24,
+    "new_allocation_character_count": 26,
     "original_font_han_character_count": 29,
     "original_font_han_characters": "丈乙亨僧医吾咲塞奈媚弁彩志枝桑洛温琉琳穆耶芙茜茨荷薇裁隆隼",
-    "original_font_han_entry_count": 124,
+    "original_font_han_entry_count": 129,
     "available_candidate_slot_count": 48,
-    "projected_remaining_candidate_slot_count": 24
+    "projected_remaining_candidate_slot_count": 22
   },
   "review_queue": {
     "row_count": 2800,
     "disposition_counts": {
       "prior_translation": 45,
-      "selected_researched_exact": 1262,
-      "unresolved": 1493
+      "selected_researched_exact": 1286,
+      "unresolved": 1469
     }
   },
   "acceptance": {

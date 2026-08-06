@@ -1,7 +1,8 @@
 # 运行用例收据
 
 本目录只保存经过审阅的 hash-only 运行收据，不保存截图、纹理、日志、存档、
-ISO 或游戏字节。逐用例收据放在 `ui-cases/*.json`，并必须由
+ISO 或游戏字节。逐用例收据放在 `ui-cases/*.json`，release 级启动／关卡入口
+收据可放在本目录根部。UI 用例必须由
 `config/runtime/ui-test-matrix.json` 的对应 case 以路径和 SHA-256 锁定。
 
 生产流程：
@@ -18,4 +19,5 @@ receipt 绑定 `matrix_plan_sha256`。该哈希覆盖矩阵中的路线、采集
 制品、fixture 与模拟器约束，只排除每个 case 的 `runtime_status` 和
 `runtime_evidence`；这样矩阵可以反向锁定 receipt，而不会形成循环哈希。
 
-当前没有通过的 UI runtime receipt；矩阵中的 19 个用例均为 `not_tested`。
+当前矩阵中的 UI surface 用例仍须独立验收；release 级关卡入口收据不能替代
+这些视觉／交互用例。

@@ -73,7 +73,7 @@ class UiEmbeddedCandidateTests(unittest.TestCase):
         self.assertNotEqual(outputs["slps"]["sha256"], base["slps"]["sha256"])
         self.assertEqual(
             outputs["slps"]["sha256"],
-            "84c19cba14cc9583bfd49b8105149684b445231691a4ec736ffb4d788b0568f0",
+            "4578ce0658b84606dbe92ada8e6d941795b299264e2ee2b6f919b38d15230da0",
         )
         for name in ("vt1", "compdata", "mtv_pros"):
             self.assertEqual(outputs[name]["sha256"], base[name]["sha256"])

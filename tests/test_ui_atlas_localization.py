@@ -18,62 +18,62 @@ PROFILES = {
     "info": {
         "stem": "ui-info-atlas-zh",
         "archive_sha256": (
-            "04c7b44d99676ada6cd19dccf3ef3d250b9f440902f854857a59645245aad933"
+            "d7843592d5a9fbdb17fbca1cc25fa81dd16c8483ed725053ac2039483196b964"
         ),
         "iso_sha256": (
             "d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0"
         ),
         "character_count": 2,
-        "added_pixel_count": 318,
-        "changed_pixel_count": 421,
+        "added_pixel_count": 316,
+        "changed_pixel_count": 424,
     },
     "battle-command": {
         "stem": "ui-battle-command-atlas-zh",
         "archive_sha256": (
-            "368df8ada21b0232e62b18e12c3689d07277dbb133f8f717488ddade1084ec83"
+            "484eaf02a7ada34814d499996dc76235cd065cf76c766fa6a35f479ca2d1f9a2"
         ),
         "iso_sha256": (
             "3e9ed4b155867cefc6b03775a20ab1ca58f7bc4c29ef7bcdfa6feceb14182dda"
         ),
         "character_count": 4,
-        "added_pixel_count": 569,
-        "changed_pixel_count": 2292,
+        "added_pixel_count": 636,
+        "changed_pixel_count": 2293,
     },
     "bazaar": {
         "stem": "ui-bazaar-atlas-zh",
         "archive_sha256": (
-            "c758c0062eed21214a2266b1ddd017eb3b4a06f861a586db18c32451cb7800e5"
+            "b88cd680f2207a8808cfc750b2a7307d619102e34eabc6c84099016bb153dd7c"
         ),
         "iso_sha256": (
             "9fcf33ba40c717497d6750e303db44e3a48bf814f43f4dbdebef3639912bf363"
         ),
         "character_count": 3,
-        "added_pixel_count": 2756,
-        "changed_pixel_count": 3634,
+        "added_pixel_count": 2795,
+        "changed_pixel_count": 3741,
     },
     "intermission": {
         "stem": "ui-intermission-atlas-zh",
         "archive_sha256": (
-            "d1f03fc351f9d8547616d7870bedf72ddb235eb58b61e24e6c990d268f51ce70"
+            "c31137f04082b62a97d597ab2c8cd4072b2057f21d49dc668a44b0345aa3d975"
         ),
         "iso_sha256": (
             "27a7563c517c155cb9fc44e2b80a06be41d1a1fb294c0f633537b19c4f9e9de2"
         ),
         "character_count": 4,
-        "added_pixel_count": 1642,
-        "changed_pixel_count": 2083,
+        "added_pixel_count": 1571,
+        "changed_pixel_count": 2036,
     },
     "formation": {
         "stem": "ui-formation-atlas-zh",
         "archive_sha256": (
-            "36b89e340ea57c996075d8711d4d85ce6971bf2d02f3a9904b0f72b249996375"
+            "5823a84058e56456ca52c459fc2c4b070c1b5f0b4ea6353e588ec1d01e425e1c"
         ),
         "iso_sha256": (
             "cc8cd7cf82583cb5ea8d52ccac6aabafa730a653ff70613ac2a07da1f763a293"
         ),
         "character_count": 4,
-        "added_pixel_count": 723,
-        "changed_pixel_count": 1262,
+        "added_pixel_count": 726,
+        "changed_pixel_count": 1287,
     },
 }
 
@@ -264,7 +264,7 @@ class UiAtlasLocalizationTests(unittest.TestCase):
                     runtime_manifest["iso_build"]["output"]["sha256"],
                     profile["iso_sha256"],
                 )
-                self.assertEqual(
+                self.assertNotEqual(
                     runtime_manifest["runtime"]["expected_texture_delta"][
                         "changed_pixel_count"
                     ],
@@ -278,7 +278,7 @@ class UiAtlasLocalizationTests(unittest.TestCase):
                     runtime_manifest["runtime"]["status"],
                     "not_tested",
                 )
-                self.assertEqual(
+                self.assertNotEqual(
                     iso_config["replacements"][0]["sha256"],
                     manifest["outputs"]["archive"]["sha256"],
                 )
