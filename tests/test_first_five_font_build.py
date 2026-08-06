@@ -17,11 +17,15 @@ class FirstFiveFontBuildTests(unittest.TestCase):
     def test_selected_font_and_scope_are_bound_to_the_build(self):
         self.assertEqual(
             self.report["font_source"]["family"],
-            "Noto Sans CJK SC",
+            "HarmonyOS Sans SC",
         )
         self.assertEqual(
             self.report["font_source"]["license_spdx"],
-            "OFL-1.1",
+            "LicenseRef-HarmonyOS-Sans-Fonts-License",
+        )
+        self.assertEqual(
+            self.report["font_flavor"]["font_flavor_id"],
+            "srwz-zh-harmonyos-sans-sc-regular-v1",
         )
         self.assertEqual(self.report["allocation_assignment_count"], 627)
         self.assertEqual(
@@ -51,15 +55,13 @@ class FirstFiveFontBuildTests(unittest.TestCase):
         self.assertEqual(glyphs["儿"]["code"], "8568")
         self.assertEqual(glyphs["隶"]["code"], "86E9")
 
-    def test_cjk_glyphs_use_one_bbox_normalization_without_exceptions(self):
+    def test_cjk_glyphs_use_one_fixed_canvas_without_exceptions(self):
         rasterizer = self.report["rasterizer"]
         self.assertNotIn("optical_corrections", rasterizer)
-        self.assertNotIn("cjk_fixed_canvas", rasterizer)
-        normalization = rasterizer["cjk_bbox_normalization"]
-        self.assertEqual(normalization["source_canvas_size"], 64)
-        self.assertEqual(normalization["source_point_size"], 48)
-        self.assertEqual(normalization["target_bbox_size"], 22)
-        self.assertEqual(normalization["resize_filter"], "Lanczos")
+        self.assertNotIn("cjk_bbox_normalization", rasterizer)
+        fixed_canvas = rasterizer["cjk_fixed_canvas"]
+        self.assertEqual(fixed_canvas["x_offset"], 0)
+        self.assertEqual(fixed_canvas["y_offset"], 1)
         self.assertEqual(rasterizer["point_size"], 22)
         glyphs = {
             glyph["character"]: glyph
@@ -69,11 +71,11 @@ class FirstFiveFontBuildTests(unittest.TestCase):
             self.assertEqual(glyphs[character]["point_size"], 22)
         self.assertEqual(
             glyphs["班"]["packed_glyph_sha256"],
-            "2a2577c3c6bc00206d5639530ef81a52479feaeced7e4c2191335219de174ed3",
+            "06742f8fda770e42c06d9a8df25b80c3891ff7ff9df2a3a4625934e1d789c56a",
         )
         self.assertEqual(
             glyphs["任"]["packed_glyph_sha256"],
-            "9f132c8ff00a148c6bfe4363c2b5ab03b966f68793dce9b02971a6706766f446",
+            "3c22f17abfccf5d32b333b92fc72bfe34b541333a3aa8147a30e5ccf3e299691",
         )
 
     def test_rust_maximum_font_fits_without_growing_vt1(self):
@@ -89,7 +91,7 @@ class FirstFiveFontBuildTests(unittest.TestCase):
         self.assertTrue(font["codec_round_trip_exact"])
         self.assertEqual(archive["source_size"], archive["output_size"])
         self.assertTrue(archive["offset_reread_exact"])
-        self.assertEqual(archive["padding_size"], 0)
+        self.assertEqual(archive["padding_size"], 3)
         self.assertGreater(
             archive["borrowed_preceding_zero_slack"],
             0,

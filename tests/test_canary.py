@@ -259,7 +259,7 @@ class CanaryTests(unittest.TestCase):
         )
         self.assertEqual(len(source), len(replacement))
 
-    def test_canary_manifest_matches_output_lock(self):
+    def test_current_canary_matches_output_lock_and_runtime_manifest_is_historical(self):
         config = json.loads(
             (
                 PROJECT_ROOT
@@ -273,6 +273,12 @@ class CanaryTests(unittest.TestCase):
                 PROJECT_ROOT
                 / "manifests"
                 / "static-canary-validation.json"
+            ).read_text(encoding="utf-8")
+        )
+        current = json.loads(
+            (
+                PROJECT_ROOT
+                / "work/build/canary-menu/components/component-validation.json"
             ).read_text(encoding="utf-8")
         )
         expected = config["expected_outputs"]
@@ -296,28 +302,36 @@ class CanaryTests(unittest.TestCase):
             validate_profile_encoding(selection, table),
         )
         self.assertEqual(
-            manifest["decoded_font"]["output_sha256"],
+            current["decoded_font"]["output_sha256"],
             expected["decoded_font_sha256"],
         )
         self.assertEqual(
-            manifest["slps_output"]["sha256"],
+            current["slps_output"]["sha256"],
             expected["slps"]["sha256"],
         )
         self.assertEqual(
-            manifest["slps_output"]["diff_count"],
+            current["slps_output"]["diff"]["diff_count"],
             expected["slps"]["diff_count"],
         )
         self.assertEqual(
-            manifest["vt1_output"]["sha256"],
+            current["vt1_output"]["sha256"],
             expected["vt1"]["sha256"],
         )
         self.assertEqual(
-            manifest["vt1_output"]["replaced_encoded_sha256"],
+            current["vt1_output"]["replaced_encoded_sha256"],
             expected["encoded_font"]["sha256"],
         )
         self.assertEqual(
-            manifest["preview_sha256"],
+            current["preview_sha256"],
             expected["preview"]["sha256"],
+        )
+        self.assertEqual(current["runtime_acceptance"], "not tested")
+        self.assertEqual(
+            manifest["status"], "static_candidate_runtime_verified_separately"
+        )
+        self.assertNotEqual(
+            manifest["decoded_font"]["output_sha256"],
+            expected["decoded_font_sha256"],
         )
         self.assertEqual(
             manifest["slot_safety"]["static_blank_candidate_count"],
@@ -326,23 +340,24 @@ class CanaryTests(unittest.TestCase):
             ],
         )
 
-    def test_font_lock_is_official_and_ofl(self):
+    def test_global_font_flavor_uses_the_pinned_official_archive(self):
         lock = json.loads(
             (
                 PROJECT_ROOT
                 / "config"
                 / "fonts"
-                / "noto-sans-cjk-sc.lock.json"
+                / "harmonyos-sans-sc.lock.json"
             ).read_text(encoding="utf-8")
         )
         self.assertEqual(
-            lock["repository"],
-            "https://github.com/notofonts/noto-cjk.git",
+            lock["source_kind"],
+            "pinned-official-archive",
         )
-        self.assertEqual(lock["license"]["spdx"], "OFL-1.1")
+        self.assertEqual(lock["source_id"], "huawei-harmonyos-sans")
+        self.assertTrue(lock["license"]["notice_required"])
         self.assertTrue(
-            lock["font"]["url"].startswith(
-                "https://raw.githubusercontent.com/notofonts/noto-cjk/"
+            lock["archive"]["url"].startswith(
+                "https://communityfile-drcn.op.dbankcloud.cn/"
             )
         )
 

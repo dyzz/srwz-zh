@@ -78,27 +78,46 @@ builder 必须同时验证：
 当前单一候选为：
 
 ```text
-build/iso/ui-p10-full-story/
-  srwz-ui-p10-full-story.iso
+build/iso/zh-release-full-story/
+  srwz-zh-release-full-story.iso
 ```
 
 其 SHA-256 为
-`21b00c2de1d25ca668f21b1c9d95486c223aa7f55d610d684495ca463eead4cc`，大小为
+`edcadb0ff4bd1c0bbdd24514ae1aada7ba43e091935c5c09a8314c855e0ea091`，大小为
 `3758358528` 字节，与原版镜像大小完全一致。`DATA/VT1.BIN` 保持原始
 `127500736` 字节，`DATA/STAGE.BIN` 及其后所有成员的 LBA 均不移动。
-`build/iso/ui-p10-full-story/iso-validation.json` 已锁定两次
+`build/iso/zh-release-full-story/iso-validation.json` 已锁定两次
 字节级一致构建、66 个成员的 ISO9660/UDF 读取、59 个未替换成员 byte-exact 和
-7 个替换成员 byte-exact。
+7 个替换成员 byte-exact。构建配置还要求 7 个 replacement 与
+`manifests/full-story-components-validation.json` 的输出路径、大小和 SHA-256
+逐项一致，不能复制旧锁后直接出盘。单候选重建命令为：
 
-`manifests/full-story-iso-content-validation.json` 进一步从最终 ISO 独立解码并逐条
+```bash
+python3 tools/build_ui_iso_step.py \
+  --chain config/iso/zh-release-chain.json \
+  --step-id zh-release-full-story \
+  --replace-existing
+```
+
+`manifests/zh-release-full-story-iso-content-validation.json` 进一步从最终 ISO
+独立解码并逐条
 核对 154 个剧情块：82719 条对白、558 条条件文本和 8469 个说话人，共 91746
 条；同时核对 1760 个机师姓名字段、`确定／返回`、全部对白的 24×3 上限和
 1925 个原始 ASCII 运行时占位符。字体块也按最终 SLPS/VT1 重新解码并与全文
-字体清单一致：当前本地测试主字体为造字工房典黑细体，34 个明确缺字回退到
-Noto Sans CJK SC 2.004；所有动态 CJK 均使用 22px、`24x24` 字槽和全局
-`y=-1`，不做逐字裁切、缩放、重心修正或例外。最终清单包含 3859 个 assignment，
-候选槽仍余 794；原版 ASCII／数字继续使用游戏自带字形。该检查是
-静态内容回读，不是 154 关逐关实机游玩。
+字体清单一致。当前 ISO 明确不含尚未完成的 `BTL/SRVC.BIN`／`BTL/SRVC.SEG`
+写回；战斗台词必须在形成独立验证组件后再加入同一 chain。历史
+`21b00c...` ISO 是切换前的典黑测试快照，只保留配置和静态收据，不再作为当前
+候选或 HarmonyOS 字体的运行时证据。当前字体组件链已切换为 HarmonyOS Sans SC
+Regular 1.0，只有 `〜∀♪` 三个字符显式回退 Noto Sans CJK SC 2.004；动态 CJK
+统一使用 22px、`24x24` 字槽和全局 `y=+1`，不做逐字裁切、缩放、重心修正或
+例外。当前唯一活动的 `zh-release-font` 扫描 `corpus/zh` 全部非空翻译字段，
+共有 3178 个主映射和 701 个 surface-safe 别名，保留 85 个已避开别名占用的
+默认宽度追加候选槽；`%s/%2$s`、`$c/$f/$l/$n/$F`、`{XX}` 和文本 tag
+均走既有控制编码路径并从字形覆盖中排除，新增字符不得进入
+`0x8140..0x889E` 单字符模式区；VT1 仍为 `127500736` 字节。
+first-five/P0…P10/full-story 字体
+profile 只保留为历史迁移证据，不再逐层重建。在重建精确 ISO 并完成新游戏、
+读档两条 STAGE 入口前，不能把该静态结果晋级为运行时通过。
 
 `manifests/runtime/ui-p10-full-story-stage-entry.json` 绑定的是前一张 SHA-256 为
 `383e51ecc337904d894663db5926659f86686bf1b2ad2ebd3c666239b01269e7` 的精确

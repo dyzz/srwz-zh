@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "status": "offline_first_five_font_validated_runtime_pending",
+  "scope": "First-five font proposal and fixed-size SLPS/VT1 component only. This manifest does not build an ISO or claim runtime rendering.",
+  "inputs": {
+    "config": {
+      "path": "config/fonts/first-five-font.json",
+      "size": 1122,
+      "sha256": "c69c50f4bd3bbc81c8947ea4ba5b4bfa737ec33cf0ea5a79df59c45932edf608"
+    },
+    "font_flavor": {
+      "font_flavor_id": "srwz-zh-harmonyos-sans-sc-regular-v1",
+      "path": "config/fonts/zh-localization-font.json",
+      "sha256": "4ad2778478daa46529b80eb036b96f0a15d18b03d4f6c50968616ab2106da43e",
+      "font_lock": "config/fonts/harmonyos-sans-sc.lock.json",
+      "font_lock_sha256": "1f009920c771a90c8937e73633aa97ef05410b53ffaa9ba6a114be20568becd2"
+    }
+  },
+  "proposal": {
+    "path": "work/writeback/first-five-codebook-proposal.json",
+    "size": 1374761,
+    "sha256": "2544036627f976534e3d38896c5e0f5563a02e63235ca4a04e8159209328c39d",
+    "proposal_id": "srwz-first-five-unified-font-v3",
+    "assignment_count": 1434
+  },
+  "font_component": {
+    "report": {
+      "path": "work/build/first-five/components/font-validation.json",
+      "size": 715122,
+      "sha256": "98dccb8d3070c56f44e78ad326359d9bfe928250c6d3f1044a4ff790b6251892"
+    },
+    "font_source": {
+      "family": "HarmonyOS Sans SC",
+      "version": "1.0",
+      "font_sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1",
+      "license_spdx": "LicenseRef-HarmonyOS-Sans-Fonts-License",
+      "license_sha256": "b2ffec0e6269ee41c3b5fc0345ab37600b46d66ebea6c9c58ff37f517bdfa164",
+      "source_kind": "pinned-official-archive",
+      "source_id": "huawei-harmonyos-sans",
+      "distribution": "commercial_use_with_notice"
+    },
+    "font_flavor": {
+      "font_flavor_id": "srwz-zh-harmonyos-sans-sc-regular-v1",
+      "path": "config/fonts/zh-localization-font.json",
+      "sha256": "4ad2778478daa46529b80eb036b96f0a15d18b03d4f6c50968616ab2106da43e",
+      "font_lock": "config/fonts/harmonyos-sans-sc.lock.json",
+      "font_lock_sha256": "1f009920c771a90c8937e73633aa97ef05410b53ffaa9ba6a114be20568becd2"
+    },
+    "assignment_count": 1434,
+    "changed_glyph_count": 1433,
+    "font": {
+      "decoded_size": 1290240,
+      "source_decoded_sha256": "e68a24df2daaf16f472e55e0ba9b2282752bb70225aedc0bbb8aeef7713662bd",
+      "output_decoded_sha256": "3d5e110a2bf9b11b424fa2f9c0e1db964437a175f0e6b4a167074aaf27ef76ea",
+      "source_encoded_size": 599329,
+      "output_encoded_size": 683773,
+      "selected_encoder_strategy": "rust-maximum",
+      "min_match_length": 2,
+      "max_match_chain": 65535,
+      "lazy_matching": true,
+      "codec_round_trip_exact": true
+    },
+    "archive": {
+      "source_size": 127500736,
+      "output_size": 127500736,
+      "padding_size": 3,
+      "borrowed_preceding_zero_slack": 84432,
+      "offset_reread_exact": true
+    },
+    "outputs": {
+      "slps": {
+        "path": "work/build/first-five/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "41d11f1c6375f8ca789f60616e625fe63585273d3f1f7de991d2338d7abf35d3"
+      },
+      "vt1": {
+        "path": "work/build/first-five/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "2fcc3b1519e7df86e921428a378e657990e978c8146c20b2d48524d908b22954"
+      }
+    }
+  },
+  "acceptance": {
+    "font_source_and_flavor_exact": true,
+    "visible_glyph_rasters_nonempty": true,
+    "codec_round_trip_exact": true,
+    "vt1_size_unchanged": true,
+    "offset_reread_exact": true,
+    "runtime": "pending"
+  }
+}

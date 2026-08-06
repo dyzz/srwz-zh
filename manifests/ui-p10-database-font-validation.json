@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p10-database-font.json",
-      "sha256": "054564b235a253115f7a9393baf5054dd38fa31ae24bc25cf96f32bbaf4d8cf6"
+      "sha256": "a9b918ce84c758f511fb7f2780ba14d0db84dd7fd1d6614347086233cb2200c6"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p10-database-font-allocations.json",
@@ -118,11 +118,13 @@
       ],
       "unique_entry_count": 1470,
       "selection_sha256": "5705bbd5f6bab4a8715073521030d237739a72825f2bb70bc08d8d4047e63301",
+      "font_only_snapshot": true,
+      "font_only_snapshot_reason": "The selected 1,113 decisions are hash-locked independently of raster shape. A global font switch reuses that exact selection snapshot without requiring the absent P9 writeback component; full fixed-span re-audit remains a separate gate.",
       "database_unique_entry_count": 1113,
       "database_selection_sha256": "2296728761e35737add8314fae244ab20aaf49b3c9fe35199492d1ee949112a1",
       "supplemental_translation_selection": {
         "path": "corpus/zh/menu/stage-names.json",
-        "sha256": "4482600997e968f00f0575ac90133b3f34f3f7defa69168ca8798b09c841bb29",
+        "sha256": "bc0fbbffa8fd03c67d47ff06b8fb36ac1aa5a972340e478d248ff303959cf0df",
         "scene_id": "route/stage-title-and-branch",
         "entry_count": 5,
         "entry_ids_sha256": "65e8bf7030e22ce29089d485ee3775af894c09e39a8043cd6b4309bc735259c8",
@@ -183,13 +185,13 @@
     },
     "base_proposal": {
       "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
-      "sha256": "e4529de67d6d1d7f6cdf9d338c9cd83bbf0687757caac43dfc16056679175fb0",
+      "sha256": "0074bcc2a97b738c88d67d17cab3bae3a1c2a67addd5c30d93844c8d45a335bd",
       "proposal_id": "srwz-ui-p7-embedded-menu-unified-font-v1",
       "assignment_count": 1615
     },
     "base_validation_manifest": {
       "path": "manifests/ui-p7-embedded-font-validation.json",
-      "sha256": "b357c38a8f75b189625f36543a6073bf93af11ea21b68135c0a7f8853eb522fc"
+      "sha256": "1c9f812a19ae14333cde74449cabe5cda67eacde3b9c66f00dc317252162b7ec"
     }
   },
   "capacity": {
@@ -269,35 +271,32 @@
       "point_size_half_step_from_default": 4
     },
     "configured_reviewed_exceptions": [],
-    "bbox_normalization": {
-      "source_canvas_size": 64,
-      "source_point_size": 48,
-      "trim_threshold": 8,
-      "target_bbox_size": 22,
-      "resize_filter": "Lanczos",
-      "reason": "Render every CJK ideograph from the same high-resolution Noto em, trim only quantization-invisible outer pixels, proportionally fit the visible raster inside a 22x22 box, and center it in the fixed 24x24 cell. Character-specific resizing, point sizes, and corrections are forbidden."
+    "bbox_normalization": null,
+    "fixed_canvas": {
+      "x_offset": 0,
+      "y_offset": 1,
+      "reason": "Render every CJK glyph from the global HarmonyOS Sans SC Regular source at one 22px em and one shared baseline in the fixed 24x24 cell. Character-specific trimming, resizing, point sizes and corrections are forbidden."
     },
-    "fixed_canvas": null,
-    "reason": "Inherit the shared Noto Sans CJK SC high-resolution render, proportionally fit each visible CJK raster inside one 22x22 box, and center it in the fixed 24x24 cell. Character-specific resizing, point sizes, and reviewed exceptions are forbidden.",
+    "reason": "Inherit the project-wide HarmonyOS Sans SC Regular 22px fixed-canvas render and shared y=+1 baseline in the 24x24 cell. Character-specific resizing, point sizes and reviewed exceptions are forbidden.",
     "assignment_count": 1754,
     "point_size_counts": {
       "22": 1754
     },
     "selection_tier_counts": {
-      "uniform_bbox_normalized": 1754
+      "uniform_fixed_canvas": 1754
     },
     "raster_metrics": {
       "empty_glyph_count": 0,
-      "outer_edge_touch_count": 0,
+      "outer_edge_touch_count": 3,
       "bbox_width_min": 16,
-      "bbox_width_median": 22.0,
+      "bbox_width_median": 21.0,
       "bbox_width_max": 22,
       "bbox_height_min": 2,
-      "bbox_height_median": 22.0,
+      "bbox_height_median": 21.0,
       "bbox_height_max": 22,
-      "ink_pixel_count_min": 44,
-      "ink_pixel_count_median": 276.0,
-      "ink_pixel_count_max": 399
+      "ink_pixel_count_min": 40,
+      "ink_pixel_count_median": 250.0,
+      "ink_pixel_count_max": 337
     },
     "reviewed_exception_characters": ""
   },
@@ -308,15 +307,15 @@
   },
   "proposal": {
     "path": "work/writeback/ui-p10-database-codebook-proposal.json",
-    "sha256": "22e210c8bf6e5b5409fe17a3fe42a3c451b54133711048aaacaa1620be165631"
+    "sha256": "da86db3c0d17f26cab66207fcd51ec413cd8c3cc93a4f6c8448d7d14e7280fcf"
   },
   "readiness": {
     "path": "work/writeback/ui-p10-database-font-readiness.json",
-    "sha256": "381481b4c9e77ae21f13f7c24058cd59e3d8e05f7eea8afa150827689c1170f1"
+    "sha256": "4d637d9a77d1b486c98a81a00d1257d2eb2a81ac47ccd01c181491f7cb7d21bb"
   },
   "font_component": {
     "report": "work/build/ui-p10-database-font/components/font-validation.json",
-    "report_sha256": "c119417792205b3a6e244544512a4e7a3901c600cea3c5dbd0266457d015450c",
+    "report_sha256": "8c51c5ca3ddae52855aaa93e6fe6aaba904dd24c304966af68de2952c28f18df",
     "assignment_count": 1803,
     "allocation_assignment_count": 799,
     "reraster_existing_assignment_count": 1004,
@@ -324,24 +323,24 @@
     "unchanged_assignment_count": 1,
     "built_raster_hash_exact_count": 1803,
     "decoded_size": 1290240,
-    "decoded_sha256": "c2536438daffe60e9f935aa0e5cec3d9d725e7be9163832abeb939e59b995379",
-    "encoded_size": 742558,
+    "decoded_sha256": "9f77c514aa5509a0286feb78ed96fd4320d4e2d43231a723193c8e602c789a9b",
+    "encoded_size": 697815,
     "encoder_strategy": "rust-maximum",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
-      "padding_size": 2,
-      "borrowed_preceding_zero_slack": 143216,
+      "padding_size": 9,
+      "borrowed_preceding_zero_slack": 98480,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "c11e37229a0c4ee32ee001f946d642b5ed8175c7a46963e4187a8bf772c1391d"
+        "sha256": "2bb3a0dc7bde793135f471dfecdf90bb06029c3a90ea558f02ad60d67853b871"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "def1ce8f004047758622c98269b5804ffcb0684ed9c19dc7ddf26ad50ccff28d"
+        "sha256": "855202f385c451fad27b72a4064f3a60f224463d4ae6c56d1ad12e77f65d7196"
       }
     }
   },
@@ -357,12 +356,12 @@
   "base_ui_p7_components": {
     "slps": {
       "path": "work/build/ui-p7-embedded-font/components/SLPS_258.87",
-      "sha256": "214b1e6d3d2b4a8743440d1c0b1dcf06e037d27a35f52a0a476a13b289a4bed8",
+      "sha256": "83d12fd1545e17f94c1972fc7fbde3583fe0d9fd6f9f37dd28d405eab7f4434e",
       "exact": true
     },
     "vt1": {
       "path": "work/build/ui-p7-embedded-font/components/DATA/VT1.BIN",
-      "sha256": "940b02f7dd95b88279c829fe13ec8c5e149e38192d7cf0a13989e1148c3051ed",
+      "sha256": "9d0d3815b2ec95dfc15974ed47621ab69be7e2e5cce786565a38eda5e965f129",
       "exact": true
     }
   },

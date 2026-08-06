@@ -34,6 +34,8 @@ ASCII_GLYPH_BASE = 0xBF
 ASCII_GLYPH_SKIP_FROM = 0x5E
 
 STANDARD_CODE_START = 0x8140
+CONDITIONAL_WIDTH_CODE_START = 0x8140
+CONDITIONAL_WIDTH_CODE_END_EXCLUSIVE = 0x889F
 EXTENDED_CODE_START = 0x989F
 STANDARD_LEAD_START = 0x81
 STANDARD_LEAD_END = 0x98
@@ -63,6 +65,23 @@ SHIFT_JIS_TRAILS = tuple(list(range(0x40, 0x7F)) + list(range(0x80, 0xFD)))
 # codes.  They are kept separate from the conservative candidate pool and
 # require an explicit profile opt-in.
 RAW_STANDARD_TRAILS = (0x7F, 0xFD, 0xFE, 0xFF)
+
+
+def is_conditional_width_code(code: int) -> bool:
+    """Return whether a code enters the renderer's single-character mode.
+
+    The original measurement path treats ``0x8140..0x889E`` specially.  Old
+    mappings in that range remain valid through the existing surface-safe
+    alias layer, but a newly allocated global character must not use it.
+    """
+
+    if not isinstance(code, int):
+        raise TypeError("text code must be an integer")
+    if not 0 <= code <= 0xFFFF:
+        raise ValueError("text code is outside two bytes")
+    return CONDITIONAL_WIDTH_CODE_START <= code < (
+        CONDITIONAL_WIDTH_CODE_END_EXCLUSIVE
+    )
 
 
 def is_cjk_unified_ideograph(character: str) -> bool:
@@ -888,6 +907,8 @@ __all__ = [
     "ASCII_GLYPH_SKIP_FROM",
     "ASCII_LAST",
     "CodebookInventory",
+    "CONDITIONAL_WIDTH_CODE_END_EXCLUSIVE",
+    "CONDITIONAL_WIDTH_CODE_START",
     "DecodedFontSegment",
     "EXTENDED_CODE_START",
     "EXTENDED_GLYPH_ENTRY_SIZE",
@@ -927,6 +948,7 @@ __all__ = [
     "glyph_offset",
     "grayscale_png",
     "inventory_codebook",
+    "is_conditional_width_code",
     "is_cjk_unified_ideograph",
     "render_glyph_grid",
     "read_extended_glyph_table",

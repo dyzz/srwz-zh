@@ -9,9 +9,12 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 from srwz.canary import rasterize_character, rasterizer_point_size
+from srwz.font_profile import FontProfileError, load_font_profile
 from srwz.font_source import (
     FontSourceError,
+    font_source_metadata,
     load_font_lock,
+    verify_font_fallbacks,
     verify_font_lock_files,
 )
 from srwz.font import (
@@ -208,18 +211,21 @@ def main() -> int:
         except SrwzTextEncodeError:
             missing.append(character)
 
-    font_config = json.loads(font_config_path.read_text(encoding="utf-8"))
-    if font_config.get("schema_version") != 1:
-        raise SystemExit("unsupported first-five font config")
-    rasterizer = font_config["rasterizer"]
     try:
-        font_lock = load_font_lock(PROJECT_ROOT / font_config["font_lock"])
+        profile = load_font_profile(PROJECT_ROOT, font_config_path)
+        rasterizer = profile["rasterizer"]
+        font_lock = load_font_lock(PROJECT_ROOT / profile["font_lock"])
         locked_paths = verify_font_lock_files(
             PROJECT_ROOT,
             WORK_ROOT,
             font_lock,
         )
-    except FontSourceError as error:
+        fallback_font_paths, fallback_font_reports = verify_font_fallbacks(
+            PROJECT_ROOT,
+            WORK_ROOT,
+            profile["unsupported_character_fallbacks"],
+        )
+    except (FontProfileError, FontSourceError) as error:
         raise SystemExit(str(error)) from error
     font_path = locked_paths["font"]
     vt1 = (WORK_ROOT / "disc/DATA/VT1.BIN").read_bytes()
@@ -267,10 +273,15 @@ def main() -> int:
         code, glyph_index = allocation_by_character[character]
         gray, pixels, packed = rasterize_character(
             rasterizer["executable"],
-            font_path,
+            fallback_font_paths.get(character, font_path),
             character,
             rasterizer,
         )
+        if not character.isspace() and not any(packed):
+            raise SystemExit(
+                "visible glyph raster is empty; add an explicit global "
+                f"fallback for {character!r}"
+            )
         start = glyph_index * GLYPH_SIZE
         preimage = original_font[start : start + GLYPH_SIZE]
         assignments.append(
@@ -323,10 +334,15 @@ def main() -> int:
             continue
         gray, pixels, packed = rasterize_character(
             rasterizer["executable"],
-            font_path,
+            fallback_font_paths.get(character, font_path),
             character,
             rasterizer,
         )
+        if not character.isspace() and not any(packed):
+            raise SystemExit(
+                "visible glyph raster is empty; add an explicit global "
+                f"fallback for {character!r}"
+            )
         start = glyph_index * GLYPH_SIZE
         preimage = original_font[start : start + GLYPH_SIZE]
         reraster_existing.append(
@@ -380,15 +396,14 @@ def main() -> int:
         ),
         "status": "static_proposal_not_runtime_verified",
         "stage_indices": list(stages),
-        "font_source": {
-            "family": font_lock["family"],
-            "version": font_lock["version"],
-            "commit": font_lock["commit"],
-            "font_sha256": font_lock["font"]["sha256"],
-            "license_spdx": font_lock["license"]["spdx"],
-            "license_sha256": font_lock["license"]["sha256"],
-        },
-        "selection_policy": font_config["scope"],
+        "font_source": font_source_metadata(font_lock),
+        **(
+            {"font_flavor": profile["font_flavor"]}
+            if profile["font_flavor"] is not None
+            else {}
+        ),
+        "unsupported_character_fallbacks": list(fallback_font_reports),
+        "selection_policy": profile["scope"],
         "rasterizer": rasterizer,
         "allocation_registry": {
             "id": allocation_registry["registry_id"],
@@ -426,7 +441,15 @@ def main() -> int:
         "reraster_existing_han_count": len(reraster_existing),
         "font_assignment_count": len(assignments),
         "font_source": proposal["font_source"],
-        "selection_policy": font_config["scope"],
+        **(
+            {"font_flavor": proposal["font_flavor"]}
+            if proposal.get("font_flavor") is not None
+            else {}
+        ),
+        "unsupported_character_fallbacks": proposal[
+            "unsupported_character_fallbacks"
+        ],
+        "selection_policy": profile["scope"],
         "rasterizer": rasterizer,
         "font_decoded_sha256": sha256_bytes(original_font),
         "proposal": str(proposal_path),

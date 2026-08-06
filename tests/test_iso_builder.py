@@ -4,6 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
+from unittest.mock import patch
 
 from tools.build_canary_iso import (
     IsoBuildError,
@@ -11,6 +12,7 @@ from tools.build_canary_iso import (
     expected_shift_segments,
     load_config,
     tree_file_map,
+    validate_component_output_binding,
     validate_directory_contract,
     validate_replacement_sector_budget,
     write_build_xml,
@@ -19,6 +21,74 @@ from tools.srwz.iso9660 import IsoMember
 
 
 class Mkps2isoBuildTests(unittest.TestCase):
+    def test_component_binding_rejects_copied_lock_drift(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = root / "manifest.json"
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "status": "validated",
+                        "outputs": {
+                            "DATA/VT1.BIN": {
+                                "path": "work/build/profile/components/DATA/VT1.BIN",
+                                "size": 10,
+                                "sha256": "a" * 64,
+                            }
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            config = {
+                "require_component_output_binding": True,
+                "component_validation_manifest": "manifest.json",
+                "component_required_status": "validated",
+                "replacements": [
+                    {
+                        "member": "DATA/VT1.BIN",
+                        "source": "work/build/profile/components/DATA/VT1.BIN",
+                        "size": 11,
+                        "sha256": "a" * 64,
+                    }
+                ],
+            }
+            with patch("tools.build_canary_iso.PROJECT_ROOT", root.resolve()):
+                with self.assertRaisesRegex(
+                    IsoBuildError,
+                    "differs from component manifest",
+                ):
+                    validate_component_output_binding(config)
+
+    def test_component_binding_rejects_an_incomplete_member_set(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = root / "manifest.json"
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "status": "validated",
+                        "outputs": {
+                            "DATA/STAGE.BIN": {},
+                            "HEDBDY/HB.BIN": {},
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            config = {
+                "require_component_output_binding": True,
+                "component_validation_manifest": "manifest.json",
+                "component_required_status": "validated",
+                "replacements": [{"member": "DATA/STAGE.BIN"}],
+            }
+            with patch("tools.build_canary_iso.PROJECT_ROOT", root.resolve()):
+                with self.assertRaisesRegex(
+                    IsoBuildError,
+                    "member set differs",
+                ):
+                    validate_component_output_binding(config)
+
     def test_sanitizes_non_utf8_volume_identifier(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "layout.xml"

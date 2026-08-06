@@ -112,7 +112,9 @@ class UiInventoryTests(unittest.TestCase):
 
     def test_rendered_characters_exclude_runtime_notation(self):
         self.assertEqual(
-            rendered_characters("第%s话$n@<color:31>陆<width:00>"),
+            rendered_characters(
+                "第%s%2$s话$c$f$l$n$F{7F}@<color:31>陆<width:00>"
+            ),
             ("第", "话", "陆"),
         )
 

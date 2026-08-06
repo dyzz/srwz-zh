@@ -155,7 +155,7 @@ class UiP10DatabaseFontTests(unittest.TestCase):
         self.assertNotIn("optical_override", normalized)
         self.assertEqual(
             normalized["raster_normalization"]["mode"],
-            "uniform_bbox_normalized",
+            "uniform_fixed_canvas",
         )
         cjk_assignments = [
             assignment
@@ -175,7 +175,7 @@ class UiP10DatabaseFontTests(unittest.TestCase):
                 assignment["optical_policy_tier"]
                 for assignment in cjk_assignments
             },
-            {"uniform_bbox_normalized"},
+            {"uniform_fixed_canvas"},
         )
         self.assertFalse(
             any("optical_override" in assignment for assignment in cjk_assignments)
@@ -183,7 +183,7 @@ class UiP10DatabaseFontTests(unittest.TestCase):
         self.assertTrue(
             all(
                 assignment["raster_normalization"]["mode"]
-                == "uniform_bbox_normalized"
+                == "uniform_fixed_canvas"
                 for assignment in cjk_assignments
             )
         )
@@ -195,11 +195,11 @@ class UiP10DatabaseFontTests(unittest.TestCase):
         self.assertEqual(by_character["尔"]["raster"]["point_size"], 22)
         self.assertEqual(
             by_character["尔"]["raster"]["metrics"]["bbox_width"],
-            22,
+            20,
         )
         self.assertEqual(
             by_character["尔"]["raster"]["metrics"]["bbox_height"],
-            22,
+            20,
         )
         self.assertEqual(
             {by_character[character]["status"] for character in "凉缺"},
@@ -251,7 +251,7 @@ class UiP10DatabaseFontTests(unittest.TestCase):
         )
         self.assertEqual(
             self.manifest["cjk_optical_policy"]["selection_tier_counts"],
-            {"uniform_bbox_normalized": 1754},
+            {"uniform_fixed_canvas": 1754},
         )
         self.assertEqual(
             self.manifest["cjk_optical_policy"]["reviewed_exception_characters"],
@@ -261,16 +261,16 @@ class UiP10DatabaseFontTests(unittest.TestCase):
             self.manifest["cjk_optical_policy"]["raster_metrics"],
             {
                 "empty_glyph_count": 0,
-                "outer_edge_touch_count": 0,
+                "outer_edge_touch_count": 3,
                 "bbox_width_min": 16,
-                "bbox_width_median": 22.0,
+                "bbox_width_median": 21.0,
                 "bbox_width_max": 22,
                 "bbox_height_min": 2,
-                "bbox_height_median": 22.0,
+                "bbox_height_median": 21.0,
                 "bbox_height_max": 22,
-                "ink_pixel_count_min": 44,
-                "ink_pixel_count_median": 276.0,
-                "ink_pixel_count_max": 399,
+                "ink_pixel_count_min": 40,
+                "ink_pixel_count_median": 250.0,
+                "ink_pixel_count_max": 337,
             },
         )
 

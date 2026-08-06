@@ -24,8 +24,7 @@
       "entry_id": "ui-atlas/kvm4/command-menu",
       "minimum_editorial_status": "reviewed"
     },
-    "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
-    "font_lock_sha256": "3589e84d617c417299ca4f8c59680c825dedbad22d35482dbe429ab4f2933cba",
+    "font_flavor": "config/fonts/zh-localization-font.json",
     "render": {
       "point_size": 14,
       "stroke_gray": "#303030",
@@ -63,30 +62,30 @@
   "expected": {
     "text_mask": {
       "size": 2788,
-      "sha256": "ca5576937cad8a9e039ce6659861565f2d55ba4a6a8a646e34232a8d848c435f",
-      "nonzero_pixel_count": 636
+      "sha256": "124ff2ec5439bd008bee633437885538e7ff0482427d64b4f43cb0c1a8185e01",
+      "nonzero_pixel_count": 610
     },
     "reference_png": {
       "size": 27121,
       "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
     },
     "localized_png": {
-      "size": 26533,
-      "sha256": "2528d0635fd27d010efc6ef37c136af026a539e167f714d611933b9e1fb19206"
+      "size": 26409,
+      "sha256": "e68709dc24678a5d3c33c884a44d8258a48c1e4cd78eaa5e282891ae90c9f422"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "484eaf02a7ada34814d499996dc76235cd065cf76c766fa6a35f479ca2d1f9a2"
+      "sha256": "f6db010cb6c7f6adc27c7f48d8eaa1c6ebbbe499ca0a43dbcac68a4d25fe62b9"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "7ad38be1baf6317dfa7b9f8f6f86edddafac8a12c666e493faaabdccf4cbe5bc"
+      "sha256": "22d18d5b96e275e2f29732d092fedc9f39a619725921697090692161e1cd95b9"
     },
-    "added_pixel_count": 636,
-    "original_changed_pixel_count": 2293,
-    "original_changed_pixel_indexes_sha256": "03534550ca7d43e550db864f8fd7e65c1a54c39f886c1038b5c4ebc59be061a4",
-    "changed_archive_byte_count": 347,
-    "changed_archive_range_count": 54
+    "added_pixel_count": 610,
+    "original_changed_pixel_count": 2284,
+    "original_changed_pixel_indexes_sha256": "5624098c75080a274197a37421267a01558e4ac7c285d2d2326281a7b31f0e98",
+    "changed_archive_byte_count": 334,
+    "changed_archive_range_count": 47
   },
   "outputs": {
     "component_root": "work/build/ui-battle-command-atlas-zh/components",

@@ -203,14 +203,25 @@ def _load_overrides(
             for assignment in proposal["assignments"]
             if 0x8140 <= int(assignment["code"], 16) < 0x889F
         }
+        unaliased_characters = conditional_characters - set(
+            available_aliases
+        )
         if (
-            alias_report.get("all_selected_assignments") is not True
-            or alias_report.get("unaliased_conditional_assignment_count") != 0
-            or set(available_aliases) != conditional_characters
+            not set(available_aliases) <= conditional_characters
+            or alias_report.get("assignment_count")
+            != len(available_aliases)
+            or alias_report.get("conditional_primary_assignment_count")
+            != len(conditional_characters)
+            or alias_report.get(
+                "unaliased_conditional_assignment_count"
+            )
+            != len(unaliased_characters)
+            or alias_report.get("all_selected_assignments")
+            is not (not unaliased_characters)
             or any(0x8140 <= code < 0x889F for code in available_aliases.values())
         ):
             raise SystemExit("global safe-alias proposal contract failed")
-        selected = conditional_characters
+        selected = set(available_aliases)
     aliases = {
         character: code
         for character, code in available_aliases.items()
@@ -447,7 +458,11 @@ def main() -> int:
             else len(args.surface_safe_alias_characters)
         ),
         "unaliased_conditional_localized_assignment_count": (
-            0 if args.all_safe_aliases else None
+            json.loads(proposal_path.read_text(encoding="utf-8"))
+            .get("surface_safe_aliases", {})
+            .get("unaliased_conditional_assignment_count")
+            if args.all_safe_aliases
+            else None
         ),
         "stages": stage_reports,
         "outputs": {

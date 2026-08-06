@@ -15,6 +15,12 @@ try:
     from srwz.codec import decode, encode
     from srwz.codec_contract import SrwzCodecError
     from srwz.diagnostics import require_work_output
+    from srwz.font_flavor import (
+        FontFlavorError,
+        font_flavor_metadata,
+        load_font_flavor_reference,
+        verify_font_flavor_files,
+    )
     from srwz.imagemagick import (
         ImageMagickError,
         imagemagick_version,
@@ -57,6 +63,12 @@ except ModuleNotFoundError:
     from tools.srwz.codec import decode, encode
     from tools.srwz.codec_contract import SrwzCodecError
     from tools.srwz.diagnostics import require_work_output
+    from tools.srwz.font_flavor import (
+        FontFlavorError,
+        font_flavor_metadata,
+        load_font_flavor_reference,
+        verify_font_flavor_files,
+    )
     from tools.srwz.imagemagick import (
         ImageMagickError,
         imagemagick_version,
@@ -153,6 +165,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--print-output-locks", action="store_true")
     return parser.parse_args()
 
 
@@ -171,14 +184,21 @@ def _expected_output(config: dict, name: str) -> dict | None:
 def _localized_title_edit(
     stored_record: bytes,
     config: dict,
+    *,
+    enforce_expected: bool = True,
 ) -> tuple[object, dict, bytes]:
     localized = config["localized_labels"]
-    font_lock_path = resolve_path(localized["font_lock"])
-    font_lock = json.loads(font_lock_path.read_text(encoding="utf-8"))
-    if font_lock.get("schema_version") != 1:
-        raise Tim2CanaryBuildError("unsupported font lock schema")
-    font_path = resolve_path(font_lock["font"]["path"])
-    verify_path(font_path, font_lock["font"], "localized title font")
+    try:
+        font_flavor = load_font_flavor_reference(
+            PROJECT_ROOT,
+            localized["font_flavor"],
+        )
+        font_lock, font_files, fallback_paths, _fallback_reports = (
+            verify_font_flavor_files(PROJECT_ROOT, WORK_ROOT, font_flavor)
+        )
+    except FontFlavorError as error:
+        raise Tim2CanaryBuildError(str(error)) from error
+    font_path = font_files["font"]
 
     labels = localized["labels"]
     if not isinstance(labels, list) or len(labels) != TITLE_LABEL_COUNT:
@@ -194,6 +214,14 @@ def _localized_title_edit(
             raise Tim2CanaryBuildError("localized source label must be text")
         if not isinstance(label.get("text"), str):
             raise Tim2CanaryBuildError("localized target label must be text")
+    unsupported = sorted(
+        set("".join(label["text"] for label in labels)) & set(fallback_paths)
+    )
+    if unsupported:
+        raise Tim2CanaryBuildError(
+            "localized title requires per-character fallback rendering: "
+            + "".join(unsupported)
+        )
 
     render = localized["render"]
     magick = require_imagemagick()
@@ -221,6 +249,8 @@ def _localized_title_edit(
     expected_mask_hashes = render.get("mask_sha256")
     actual_mask_hashes = [sha256_bytes(mask) for mask in masks]
     if (
+        enforce_expected
+        and
         expected_mask_hashes is not None
         and actual_mask_hashes != expected_mask_hashes
     ):
@@ -242,6 +272,7 @@ def _localized_title_edit(
     metadata = {
         "mode": "localized_labels",
         "font": {
+            "flavor": font_flavor_metadata(font_flavor),
             "family": font_lock["family"],
             "version": font_lock["version"],
             "size": font_path.stat().st_size,
@@ -255,6 +286,7 @@ def _localized_title_edit(
             "stroke_gray": render["stroke_gray"],
             "stroke_width": render["stroke_width"],
             "fill_stroke_width": render["fill_stroke_width"],
+            "mask_sha256": actual_mask_hashes,
         },
         "labels": labels,
         "composition": menu_edit.to_metadata(),
@@ -268,7 +300,11 @@ def _localized_title_edit(
     return replacement, metadata, preview_rgba
 
 
-def build(config_path: Path) -> tuple[bytes, bytes, dict, bytes | None]:
+def build(
+    config_path: Path,
+    *,
+    enforce_expected_outputs: bool = True,
+) -> tuple[bytes, bytes, dict, bytes | None]:
     config = json.loads(config_path.read_text(encoding="utf-8"))
     if config.get("schema_version") != 1:
         raise Tim2CanaryBuildError("unsupported canary config schema")
@@ -383,6 +419,7 @@ def build(config_path: Path) -> tuple[bytes, bytes, dict, bytes | None]:
         replacement, edit_metadata, preview_rgba = _localized_title_edit(
             stored_record,
             config,
+            enforce_expected=enforce_expected_outputs,
         )
     else:
         replacement = replace_vt1_title_index(
@@ -511,13 +548,13 @@ def build(config_path: Path) -> tuple[bytes, bytes, dict, bytes | None]:
 
     expected_executable = _expected_output(config, "executable")
     expected_archive = _expected_output(config, "archive")
-    if expected_executable is not None:
+    if enforce_expected_outputs and expected_executable is not None:
         verify_bytes(
             rebuilt_executable,
             expected_executable,
             "rebuilt executable",
         )
-    if expected_archive is not None:
+    if enforce_expected_outputs and expected_archive is not None:
         verify_bytes(rebuilt_archive, expected_archive, "rebuilt archive")
 
     report = {
@@ -624,7 +661,27 @@ def main() -> int:
             raise FileExistsError(
                 f"refusing to replace existing file: {existing[0]}"
             )
-        executable, archive, report, preview_rgba = build(config_path)
+        executable, archive, report, preview_rgba = build(
+            config_path,
+            enforce_expected_outputs=not args.print_output_locks,
+        )
+        if args.print_output_locks:
+            print(
+                json.dumps(
+                    {
+                        "mask_sha256": report["edit"]["render"][
+                            "mask_sha256"
+                        ],
+                        "expected_outputs": {
+                            name: report["outputs"][name]
+                            for name in ("executable", "archive")
+                        },
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                )
+            )
+            return 0
         payloads = {
             "executable": executable,
             "archive": archive,

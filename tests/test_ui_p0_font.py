@@ -61,9 +61,9 @@ class UiP0FontTests(unittest.TestCase):
         self.assertEqual(
             self.manifest["combined_assignments"],
             {
-                "allocation_assignment_count": 639,
-                "reraster_existing_assignment_count": 815,
-                "font_assignment_count": 1454,
+                "allocation_assignment_count": 636,
+                "reraster_existing_assignment_count": 816,
+                "font_assignment_count": 1452,
             },
         )
 

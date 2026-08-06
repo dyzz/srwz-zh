@@ -7,6 +7,11 @@ from pathlib import Path
 from typing import Mapping
 
 from .font import sha256_bytes
+from .font_flavor import (
+    FontFlavorError,
+    font_flavor_metadata,
+    load_font_flavor_reference,
+)
 
 
 class FontProfileError(ValueError):
@@ -63,9 +68,41 @@ def load_font_profile(project_root: Path, path: Path) -> dict:
             "sha256": actual_hash,
         }
 
-    font_lock = document.get("font_lock", base.get("font_lock"))
-    font_lock_overrides_base = (
+    flavor_reference = document.get("font_flavor", base.get("font_flavor"))
+    flavor_overrides_base = (
+        base_reference is not None and "font_flavor" in document
+    )
+    direct_font_lock = document.get("font_lock", base.get("font_lock"))
+    direct_font_lock_overrides_base = (
         base_reference is not None and "font_lock" in document
+    )
+    if flavor_reference is not None and direct_font_lock is not None:
+        raise FontProfileError(
+            "font profile cannot combine font_flavor with direct font_lock"
+        )
+    if flavor_reference is not None:
+        try:
+            flavor = load_font_flavor_reference(
+                project_root,
+                flavor_reference,
+            )
+        except FontFlavorError as error:
+            raise FontProfileError(str(error)) from error
+        font_lock = flavor["font_lock"]
+        unsupported_character_fallbacks = flavor[
+            "unsupported_character_fallbacks"
+        ]
+        flavor_metadata = font_flavor_metadata(flavor)
+    else:
+        flavor = None
+        font_lock = direct_font_lock
+        unsupported_character_fallbacks = document.get(
+            "unsupported_character_fallbacks",
+            base.get("unsupported_character_fallbacks", []),
+        )
+        flavor_metadata = None
+    font_lock_overrides_base = (
+        flavor_overrides_base or direct_font_lock_overrides_base
     )
     codec = base.get("codec")
     base_rasterizer = base.get("rasterizer")
@@ -113,6 +150,10 @@ def load_font_profile(project_root: Path, path: Path) -> dict:
         "document": document,
         "profile_id": profile_id,
         "font_lock": font_lock,
+        "font_flavor": flavor_metadata,
+        "unsupported_character_fallbacks": (
+            unsupported_character_fallbacks
+        ),
         "codec": codec,
         "rasterizer": rasterizer,
         "rasterizer_overrides_base": rasterizer_overrides_base,

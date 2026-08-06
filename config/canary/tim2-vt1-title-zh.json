@@ -37,7 +37,7 @@
     "runtime_texture_rgba_sha256": "0853211318e7f4479357d1dafd190374b779cca800286273d1924f8ba33a56c6"
   },
   "localized_labels": {
-    "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
+    "font_flavor": "config/fonts/zh-localization-font.json",
     "labels": [
       {
         "label_index": 0,
@@ -67,10 +67,10 @@
       "stroke_width": 1.5,
       "fill_stroke_width": 0.45,
       "mask_sha256": [
-        "e00b536da571f2052bec7730b05ed8d8b65464ce91cd1aae21b16115551a6b20",
-        "0e4cec6da1ee2ab4d99df6e078e7a70b77d87d393f49dc14bae2c481d1b77763",
-        "2629308a81c41287a63106cd4a3afca30377021b08b7d55c68b3d14e0c1f0898",
-        "5f4601b1674cc3049bd20b821d8c87e1bd4bed98b4c653d04cab297b402a8c91"
+        "5e1f9130043c0c46cfc04e856d378699af807c7fbbce6fbb5b827e9b3f2a3f21",
+        "d8489b6e59bddc942855d7ef7fde3d64e86c564d7dc381459d71f6b74e9c131e",
+        "76f6dd60b6d2f86906d552233f8b3b6cc76a7a57f1d757e15dc9600808699ef6",
+        "f4e5d86476328b49a4be781bf23f44099e34ea5ebac844ffad73eeaa011b6cbf"
       ]
     }
   },
@@ -89,11 +89,43 @@
   "expected_outputs": {
     "executable": {
       "size": 3471624,
-      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+      "diff": {
+        "diff_count": 0,
+        "range_count": 0,
+        "first_offset": null,
+        "last_offset": null,
+        "offsets_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "ranges_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "before_values_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_values_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "offset_patch_plan": {
+        "source_name": "SLPS_258.87",
+        "source_size": 3471624,
+        "source_sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+        "operation_count": 1,
+        "operations": [
+          {
+            "owner": "VT1.BIN offset table",
+            "offset": 3121408,
+            "end": 3121468,
+            "size": 60,
+            "before_sha256": "53a888d42c56122a62d40fc5a0313ec986c8509759dbec815569e9fcc6553b22",
+            "after_sha256": "53a888d42c56122a62d40fc5a0313ec986c8509759dbec815569e9fcc6553b22"
+          }
+        ]
+      },
+      "offset_reread_exact": true
     },
     "archive": {
       "size": 127500736,
-      "sha256": "f1fac123539dcb709a283d7f3ebec1c6b9419e1bcfe8d45c8da4ab5ce903086b"
+      "sha256": "cc2a88c66dd456de99f1920312978129fdd247ad6b1d05c3364fe17c5b31922d",
+      "old_offset_count": 15,
+      "new_offset_count": 15,
+      "offsets_aligned": true,
+      "unchanged_chunk_count": 13,
+      "target_decoded_round_trip_exact": true
     }
   }
 }

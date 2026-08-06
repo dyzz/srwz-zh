@@ -7,7 +7,7 @@ import json
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import Mapping
+from typing import Iterable, Mapping
 
 from .canary import (
     double_byte_width_class,
@@ -49,8 +49,10 @@ from .font_source import (
 from .menu import parse_menu_file
 from .text import (
     ORIGINAL_FULLWIDTH_ASCII,
+    control_notation_tokens,
     load_text_table,
     original_fullwidth_ascii_overrides,
+    unrecognized_control_notation_offsets,
 )
 from .ui_database_selection import (
     UiDatabaseSelectionError,
@@ -81,7 +83,11 @@ class UiFontError(ValueError):
     """The incremental UI font selection or allocation has drifted."""
 
 
-def _baseline_with_original_ascii(baseline: Mapping[str, object]) -> dict:
+def _baseline_with_original_ascii(
+    baseline: Mapping[str, object],
+    *,
+    preserve_raw_ascii_punctuation: bool = False,
+) -> dict:
     """Teach coverage audits about stock two-byte ASCII glyph reuse."""
 
     table = baseline["table"]
@@ -96,6 +102,16 @@ def _baseline_with_original_ascii(baseline: Mapping[str, object]) -> dict:
         }
         assignments[character] = synthetic
         assignments[source_character] = synthetic
+    if preserve_raw_ascii_punctuation:
+        for code in range(0x21, 0x7F):
+            character = chr(code)
+            if character.isalnum():
+                continue
+            assignments[character] = {
+                "code_value": code,
+                "mapping": "original_raw_ascii_punctuation",
+                "glyph_index": ascii_glyph_index(code),
+            }
     return {**baseline, "proposal_assignments": assignments}
 
 
@@ -516,15 +532,42 @@ def _selected_database_entries(
         or committed.get("selection_id") != reference.get("selection_id")
     ):
         raise UiFontError("database selection manifest identity drift")
+    font_only_snapshot = reference.get("font_only_snapshot", False)
+    if not isinstance(font_only_snapshot, bool):
+        raise UiFontError("database font-only snapshot flag is invalid")
+    snapshot_reason = reference.get("font_only_snapshot_reason")
+    if font_only_snapshot and (
+        not isinstance(snapshot_reason, str) or not snapshot_reason
+    ):
+        raise UiFontError("database font-only snapshot reason is missing")
     try:
-        report = audit_ui_database_selection(project_root, config_path)
-        entries, entry_scenes, _metadata = select_database_entries(
+        entries, entry_scenes, selection = select_database_entries(
             project_root,
             config_path,
         )
+        report = (
+            None
+            if font_only_snapshot
+            else audit_ui_database_selection(project_root, config_path)
+        )
     except UiDatabaseSelectionError as error:
         raise UiFontError(str(error)) from error
-    if committed != build_database_selection_manifest(report):
+    if font_only_snapshot:
+        committed_selection = committed.get("selection", {})
+        for key in (
+            "selected_entry_count",
+            "selected_slps_entry_count",
+            "selected_compdata_entry_count",
+            "selected_entry_ids_sha256",
+            "selected_decisions_sha256",
+            "deferred_entry_count",
+            "deferred_entry_ids_sha256",
+        ):
+            if committed_selection.get(key) != selection.get(key):
+                raise UiFontError(
+                    f"database selection snapshot drift: {key}"
+                )
+    elif committed != build_database_selection_manifest(report):
         raise UiFontError("database selection manifest is not reproducible")
     expected_count = reference.get("expected_entry_count")
     if (
@@ -539,7 +582,7 @@ def _selected_database_entries(
         entry_scenes,
         {
             "kind": "database_fixed_subset",
-            "selection_id": report["selection_id"],
+            "selection_id": selection["selection_id"],
             "config": {
                 "path": str(config_path.relative_to(root)),
                 "sha256": _hash_file(config_path),
@@ -549,12 +592,16 @@ def _selected_database_entries(
                 "sha256": _hash_file(manifest_path),
                 "status": committed["status"],
             },
-            "parent_scene": report["inputs"]["parent_scene"],
-            "families": report["selection"]["families"],
+            "parent_scene": selection["parent_scene"],
+            "families": selection["families"],
             "unique_entry_count": len(entries),
-            "selection_sha256": report["selection"][
-                "selected_decisions_sha256"
-            ],
+            "selection_sha256": selection["selected_decisions_sha256"],
+            "font_only_snapshot": font_only_snapshot,
+            **(
+                {"font_only_snapshot_reason": snapshot_reason}
+                if font_only_snapshot
+                else {}
+            ),
         },
     )
 
@@ -873,6 +920,11 @@ def _selected_font_entries(
     project_root: Path,
     profile_document: Mapping[str, object],
 ) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
+    if "translation_tree_selection" in profile_document:
+        return _selected_translation_tree_entries(
+            project_root,
+            profile_document,
+        )
     if "story_translation_selection" in profile_document:
         return _selected_story_entries(
             project_root,
@@ -917,6 +969,170 @@ def _selected_font_entries(
             selection,
         )
     return _selected_ui_entries(project_root, profile_document)
+
+
+def _selected_translation_tree_entries(
+    project_root: Path,
+    profile_document: Mapping[str, object],
+) -> tuple[dict[str, dict], dict[str, set[str]], dict]:
+    """Load every localized translation field under one registered tree.
+
+    This is the release-font boundary.  Scene-specific selectors remain useful
+    for text writeback and review, but they must not fragment the global glyph
+    inventory or require another inherited VT1 layer.
+    """
+
+    reference = profile_document.get("translation_tree_selection")
+    if not isinstance(reference, dict):
+        raise UiFontError("translation-tree selection is invalid")
+    root_reference = reference.get("root")
+    pattern = reference.get("glob", "**/*.json")
+    field = reference.get("field", "translation")
+    selection_id = reference.get("selection_id")
+    if (
+        not isinstance(root_reference, str)
+        or not root_reference
+        or not isinstance(pattern, str)
+        or not pattern
+        or not isinstance(field, str)
+        or not field
+        or not isinstance(selection_id, str)
+        or not selection_id
+    ):
+        raise UiFontError("translation-tree selection contract is invalid")
+    root = _project_path(project_root, root_reference)
+    if not root.is_dir():
+        raise UiFontError("translation-tree selection root is not a directory")
+    paths = sorted(path for path in root.glob(pattern) if path.is_file())
+    if not paths:
+        raise UiFontError("translation-tree selection is empty")
+
+    entries: dict[str, dict] = {}
+    entry_scenes: dict[str, set[str]] = {}
+    sources = []
+    control_token_forms: defaultdict[str, Counter[str]] = defaultdict(Counter)
+    control_token_entry_count = 0
+    literal_percent_occurrence_count = 0
+    literal_percent_entry_count = 0
+
+    def visit(value: object, source: str, pointer: str) -> int:
+        nonlocal control_token_entry_count
+        nonlocal literal_percent_occurrence_count
+        nonlocal literal_percent_entry_count
+        selected = 0
+        if isinstance(value, dict):
+            translation = value.get(field)
+            if isinstance(translation, str) and translation:
+                entry_id = f"{source}#{pointer or '/'}"
+                unknown_control_offsets = (
+                    unrecognized_control_notation_offsets(translation)
+                )
+                if unknown_control_offsets:
+                    offsets = ", ".join(
+                        str(offset) for offset in unknown_control_offsets
+                    )
+                    raise UiFontError(
+                        "unrecognized placeholder/control syntax in "
+                        f"{entry_id} at character offset(s) {offsets}"
+                    )
+                if entry_id in entries:
+                    raise UiFontError(
+                        f"duplicate translation-tree entry: {entry_id}"
+                    )
+                entries[entry_id] = {
+                    "id": entry_id,
+                    "source_text_sha256": value.get("source_text_sha256"),
+                    "translation": translation,
+                    "editorial_status": value.get("editorial_status"),
+                }
+                entry_scenes[entry_id] = {f"translation-tree/{source}"}
+                control_tokens = control_notation_tokens(translation)
+                if control_tokens:
+                    control_token_entry_count += 1
+                    for token in control_tokens:
+                        control_token_forms[token.kind][token.text] += 1
+                token_positions = {
+                    index
+                    for token in control_tokens
+                    for index in range(token.start, token.end)
+                }
+                literal_percents = sum(
+                    character == "%" and index not in token_positions
+                    for index, character in enumerate(translation)
+                )
+                if literal_percents:
+                    literal_percent_entry_count += 1
+                    literal_percent_occurrence_count += literal_percents
+                selected += 1
+            for key, child in value.items():
+                selected += visit(
+                    child,
+                    source,
+                    f"{pointer}/{key}" if pointer else f"/{key}",
+                )
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                selected += visit(
+                    child,
+                    source,
+                    f"{pointer}/{index}" if pointer else f"/{index}",
+                )
+        return selected
+
+    for path in paths:
+        relative = str(path.relative_to(project_root.resolve()))
+        try:
+            document = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as error:
+            raise UiFontError(
+                f"cannot load translation-tree source: {relative}"
+            ) from error
+        selected_count = visit(document, relative, "")
+        if selected_count:
+            sources.append(
+                {
+                    "path": relative,
+                    "sha256": _hash_file(path),
+                    "entry_count": selected_count,
+                }
+            )
+    if not entries:
+        raise UiFontError("translation-tree selection has no non-empty text")
+    return (
+        entries,
+        entry_scenes,
+        {
+            "kind": "global_translation_tree",
+            "selection_id": selection_id,
+            "root": root_reference,
+            "glob": pattern,
+            "field": field,
+            "source_count": len(sources),
+            "sources": sources,
+            "unique_entry_count": len(entries),
+            "control_tokens": {
+                "preservation": "lossless_encoder_control_path",
+                "excluded_from_font_glyph_demand": True,
+                "entry_count": control_token_entry_count,
+                "occurrence_count": sum(
+                    sum(forms.values())
+                    for forms in control_token_forms.values()
+                ),
+                "kinds": {
+                    kind: {
+                        "occurrence_count": sum(forms.values()),
+                        "forms": dict(sorted(forms.items())),
+                    }
+                    for kind, forms in sorted(control_token_forms.items())
+                },
+            },
+            "literal_percent_signs": {
+                "entry_count": literal_percent_entry_count,
+                "occurrence_count": literal_percent_occurrence_count,
+            },
+            "selection_sha256": _selection_digest(entries),
+        },
+    )
 
 
 def _selected_story_entries(
@@ -1682,6 +1898,31 @@ def _apply_cjk_optical_policy(
     }
 
 
+def _require_nonempty_visible_rasters(
+    assignments: Iterable[Mapping[str, object]],
+) -> None:
+    empty_packed_sha256 = sha256_bytes(bytes(GLYPH_SIZE))
+    for assignment in assignments:
+        character = assignment.get("character")
+        raster = assignment.get("raster")
+        if (
+            not isinstance(character, str)
+            or not character
+            or character.isspace()
+            or not isinstance(raster, Mapping)
+        ):
+            continue
+        metrics = raster.get("metrics")
+        if raster.get("packed_glyph_sha256") == empty_packed_sha256 or (
+            isinstance(metrics, Mapping)
+            and metrics.get("ink_pixel_count") == 0
+        ):
+            raise UiFontError(
+                "visible glyph raster is empty; add an explicit global "
+                f"fallback for {character!r}"
+            )
+
+
 def _validation_proposal_reference(
     project_root: Path,
     validation: Mapping[str, object],
@@ -2333,6 +2574,35 @@ def build_ui_font_proposal(
     base_assignments = list(base_proposal.get("assignments", []))
     if not base_assignments:
         raise UiFontError("base proposal has no assignments")
+    reserved_assignments: list[dict] = []
+    reserved_reference = document.get("reserved_assignment_snapshot")
+    if reserved_reference is not None:
+        if not isinstance(reserved_reference, dict):
+            raise UiFontError("reserved assignment snapshot is invalid")
+        reserved_path = _project_path(
+            project_root,
+            reserved_reference.get("path"),
+        )
+        if _hash_file(reserved_path) != reserved_reference.get("sha256"):
+            raise UiFontError("reserved assignment snapshot SHA-256 drift")
+        reserved_document = _json_object(reserved_path)
+        field = reserved_reference.get("field")
+        raw_reserved = reserved_document.get(field)
+        if (
+            not isinstance(field, str)
+            or not field
+            or not isinstance(raw_reserved, list)
+            or any(
+                not isinstance(item, dict)
+                or not isinstance(item.get("character"), str)
+                or len(item["character"]) != 1
+                or not isinstance(item.get("code"), str)
+                or not isinstance(item.get("glyph_index"), int)
+                for item in raw_reserved
+            )
+        ):
+            raise UiFontError("reserved assignment snapshot field is invalid")
+        reserved_assignments = list(raw_reserved)
     surface_alias_selection = _load_surface_safe_alias_selection(
         project_root,
         document,
@@ -2356,6 +2626,7 @@ def build_ui_font_proposal(
     visible_ascii_policy = document.get("visible_ascii_policy")
     preserve_original_ascii = visible_ascii_policy is not None
     preserved_ascii_characters = set(ORIGINAL_FULLWIDTH_ASCII)
+    preserve_raw_ascii_punctuation = False
     if visible_ascii_policy is not None:
         if (
             not isinstance(visible_ascii_policy, dict)
@@ -2375,11 +2646,28 @@ def build_ui_font_proposal(
         ascii_codes = original_fullwidth_ascii_overrides(
             font_baseline["table"]
         )
+        preserve_raw_ascii_punctuation = visible_ascii_policy.get(
+            "preserve_raw_ascii_punctuation",
+            False,
+        )
+        if not isinstance(preserve_raw_ascii_punctuation, bool):
+            raise UiFontError(
+                "visible ASCII punctuation preservation policy is invalid"
+            )
         preserved_ascii_characters.update(
             font_baseline["table"].characters[code]
             for code in ascii_codes.values()
         )
-        font_baseline = _baseline_with_original_ascii(font_baseline)
+        if preserve_raw_ascii_punctuation:
+            preserved_ascii_characters.update(
+                chr(code)
+                for code in range(0x21, 0x7F)
+                if not chr(code).isalnum()
+            )
+        font_baseline = _baseline_with_original_ascii(
+            font_baseline,
+            preserve_raw_ascii_punctuation=preserve_raw_ascii_punctuation,
+        )
     demand = audit_entry_font(entries.values(), font_baseline)
     raw_semantic_replacements = document.get(
         "semantic_code_replacements",
@@ -2430,6 +2718,14 @@ def build_ui_font_proposal(
             "proposal_assignments"
         ].items()
     }
+    inherited_assignment_owners.update(
+        {
+            (int(assignment["code"], 16), assignment["glyph_index"]): assignment[
+                "character"
+            ]
+            for assignment in reserved_assignments
+        }
+    )
     demanded_original_characters = tuple(
         character
         for character in (
@@ -2516,7 +2812,7 @@ def build_ui_font_proposal(
         fallback_font_paths, fallback_font_reports = verify_font_fallbacks(
             project_root,
             work_root,
-            document.get("unsupported_character_fallbacks"),
+            profile["unsupported_character_fallbacks"],
         )
     except FontSourceError as error:
         raise UiFontError(str(error)) from error
@@ -2555,6 +2851,15 @@ def build_ui_font_proposal(
     reserved_glyphs = tuple(
         assignment["glyph_index"] for assignment in base_codebook.values()
     )
+    if reserved_assignments:
+        reserved_codes = (
+            *reserved_codes,
+            *(int(item["code"], 16) for item in reserved_assignments),
+        )
+        reserved_glyphs = (
+            *reserved_glyphs,
+            *(item["glyph_index"] for item in reserved_assignments),
+        )
     legacy_candidates, expanded_candidates = safe_standard_allocation_candidates(
         table,
         extended_entries,
@@ -3296,6 +3601,14 @@ def build_ui_font_proposal(
             "uniform_primary_rasters_reused": True,
         }
 
+    _require_nonempty_visible_rasters(
+        [
+            *assignments,
+            *surface_alias_assignments,
+            *runtime_ascii_assignments,
+        ]
+    )
+
     remaining = len(candidates) - len(registered)
     new_reraster_han = tuple(
         assignment
@@ -3377,6 +3690,11 @@ def build_ui_font_proposal(
         },
         "base_font_components": base_components,
         "font_source": font_source,
+        **(
+            {"font_flavor": profile["font_flavor"]}
+            if profile["font_flavor"] is not None
+            else {}
+        ),
         "unsupported_character_fallbacks": list(fallback_font_reports),
         "selection_policy": profile["scope"],
         **(
@@ -3405,6 +3723,39 @@ def build_ui_font_proposal(
         "assignments": assignments,
         **(
             {
+                "remaining_allocation_candidates": [
+                    {
+                        "code": f"{code:04X}",
+                        "glyph_index": glyph_index,
+                        "mapping": (
+                            "pinned_text_table_source_glyph_reuse"
+                            if (code, glyph_index)
+                            in source_character_by_candidate
+                            else "standard_raw_trail_gap"
+                            if code in raw_codes
+                            else "standard"
+                        ),
+                        **(
+                            {
+                                "source_character": (
+                                    source_character_by_candidate[
+                                        (code, glyph_index)
+                                    ]
+                                )
+                            }
+                            if (code, glyph_index)
+                            in source_character_by_candidate
+                            else {}
+                        ),
+                    }
+                    for code, glyph_index in candidates[len(registered) :]
+                ]
+            }
+            if document.get("emit_remaining_allocation_candidates") is True
+            else {}
+        ),
+        **(
+            {
                 "surface_safe_aliases": surface_alias_report,
                 "surface_alias_assignments": surface_alias_assignments,
             }
@@ -3427,6 +3778,11 @@ def build_ui_font_proposal(
         "base_font_config": profile["base_font_config"],
         "base_proposal": proposal["base_proposal"],
         "base_font_components": base_components,
+        **(
+            {"font_flavor": profile["font_flavor"]}
+            if profile["font_flavor"] is not None
+            else {}
+        ),
         "ui_selection": selection,
         "font_demand_before": {
             "missing_renderer_character_count": len(missing_characters),
@@ -3777,7 +4133,10 @@ def audit_ui_font_candidate(
     }
     if expected_proposal.get("visible_ascii_policy") is not None:
         coverage_baseline = _baseline_with_original_ascii(
-            coverage_baseline
+            coverage_baseline,
+            preserve_raw_ascii_punctuation=expected_proposal[
+                "visible_ascii_policy"
+            ].get("preserve_raw_ascii_punctuation", False),
         )
     coverage = audit_entry_font(entries.values(), coverage_baseline)
     if coverage["missing_character_count"] != 0:

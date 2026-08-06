@@ -3,7 +3,7 @@
   "font_profile_id": "srwz-ui-p10-database-fixed-core-unified-font-v2",
   "base_font_config": {
     "path": "config/fonts/first-five-font.json",
-    "sha256": "01b7b9b2f4dffe6f12b7e991caceb2cb32846bdb0c1081876ae06a0d2f7e3b8a"
+    "sha256": "c69c50f4bd3bbc81c8947ea4ba5b4bfa737ec33cf0ea5a79df59c45932edf608"
   },
   "base_validation_manifest": "manifests/ui-p7-embedded-font-validation.json",
   "base_font_component": {
@@ -53,7 +53,7 @@
     },
     "reviewed_exceptions": [],
     "max_workers": 8,
-    "reason": "Inherit the shared Noto Sans CJK SC high-resolution render, proportionally fit each visible CJK raster inside one 22x22 box, and center it in the fixed 24x24 cell. Character-specific resizing, point sizes, and reviewed exceptions are forbidden."
+    "reason": "Inherit the project-wide HarmonyOS Sans SC Regular 22px fixed-canvas render and shared y=+1 baseline in the 24x24 cell. Character-specific resizing, point sizes and reviewed exceptions are forbidden."
   },
   "allocation_policy": {
     "mode": "valid-sjis-then-raw-standard-trail-gaps-then-source-glyph-reuse",
@@ -101,13 +101,15 @@
     "config_sha256": "5ef4978212cb11d4794ecc95f813c8e5da8735a4ccfc335f95e62aee1adcc973",
     "manifest": "manifests/ui-database-fixed-core-selection.json",
     "manifest_sha256": "85624f085c924d8c1d0babbfdc41d1ac7400112fab950e8cb561ded5c1cb98af",
+    "font_only_snapshot": true,
+    "font_only_snapshot_reason": "The selected 1,113 decisions are hash-locked independently of raster shape. A global font switch reuses that exact selection snapshot without requiring the absent P9 writeback component; full fixed-span re-audit remains a separate gate.",
     "selection_id": "srwz-ui-database-fixed-core-v1",
     "required_status": "static_database_fixed_subset_selected_font_extension_required",
     "expected_entry_count": 1113
   },
   "supplemental_translation_selection": {
     "path": "corpus/zh/menu/stage-names.json",
-    "sha256": "4482600997e968f00f0575ac90133b3f34f3f7defa69168ca8798b09c841bb29",
+    "sha256": "bc0fbbffa8fd03c67d47ff06b8fb36ac1aa5a972340e478d248ff303959cf0df",
     "scene_id": "route/stage-title-and-branch",
     "entry_ids": [
       "menu/Compdata/03/0000",

@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p7-embedded-font.json",
-      "sha256": "ab8bcf234dc1eb8c96d3f3d1d7df29d9be164b58278db5e3dda4df23b60d0a2f"
+      "sha256": "1a114fdc401f85380ab819674b1f57f36e407a6ddda08803e36852369689c159"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p7-embedded-font-allocations.json",
@@ -21,7 +21,7 @@
       },
       "manifest": {
         "path": "manifests/ui-embedded-scene-map.json",
-        "sha256": "7f3bc741c138c46b42f719df1e6811c548197fe7958fc59379ea8524a87caae2",
+        "sha256": "5467d44fe01b2146a30f02ca69b4733918d70d5011b32868d8ac0072c1501141",
         "status": "static_scene_partition_validated_runtime_attribution_pending"
       },
       "required_writeback_status": "font_extension_required",
@@ -42,13 +42,13 @@
     },
     "base_proposal": {
       "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
-      "sha256": "d9e3e08012e26d56cb0be8b783df71c68e3dd2b7b8f73520f568bf28ac1508d4",
+      "sha256": "f7002ddec8255332e7b3ad1f26d31c57fe9cd8ccf5f0ff45022948eb1e3e28a6",
       "proposal_id": "srwz-ui-p2-researched-display-names-unified-font-v1",
       "assignment_count": 1604
     },
     "base_validation_manifest": {
       "path": "manifests/ui-p2-display-name-font-validation.json",
-      "sha256": "f7d59a2bd9a8699595a5eb46dc995383951bb5935ac44af00bd3dc33242a9a41"
+      "sha256": "c4e1044f361c250052c7d49108332dcb0210035adf88b8160d1d94744275fca5"
     }
   },
   "capacity": {
@@ -93,15 +93,15 @@
   },
   "proposal": {
     "path": "work/writeback/ui-p7-embedded-codebook-proposal.json",
-    "sha256": "e4529de67d6d1d7f6cdf9d338c9cd83bbf0687757caac43dfc16056679175fb0"
+    "sha256": "0074bcc2a97b738c88d67d17cab3bae3a1c2a67addd5c30d93844c8d45a335bd"
   },
   "readiness": {
     "path": "work/writeback/ui-p7-embedded-font-readiness.json",
-    "sha256": "b245004c087b87f7cc75a11897931a0640d0cb9b60faa3cd42cb40c8d4e38366"
+    "sha256": "dc01d4464c7286c1cd8a94fd4e097853777e4f7c58d1f602174e49e4daa7a9b0"
   },
   "font_component": {
     "report": "work/build/ui-p7-embedded-font/components/font-validation.json",
-    "report_sha256": "0a7a08ba50ae481f00bbe78c917a95a779f17896f2e55cd4c11d3303b1843e2c",
+    "report_sha256": "e32d8e6d8379d50fe3bf03eeab9cb1397a4c4f1d966a3bf2ce7521e3df9414d1",
     "assignment_count": 1615,
     "allocation_assignment_count": 714,
     "reraster_existing_assignment_count": 901,
@@ -109,24 +109,24 @@
     "unchanged_assignment_count": 1,
     "built_raster_hash_exact_count": 1615,
     "decoded_size": 1290240,
-    "decoded_sha256": "2b37744db97c08d5e63bdf1d503ef025bbca477e61f03fce91e16c7d43d58ea5",
-    "encoded_size": 737799,
+    "decoded_sha256": "44b6e249c2e73af7819abd6f40b68e701013ce45a3d468b98070b76e75823958",
+    "encoded_size": 697665,
     "encoder_strategy": "rust-maximum",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
-      "padding_size": 9,
-      "borrowed_preceding_zero_slack": 138464,
+      "padding_size": 15,
+      "borrowed_preceding_zero_slack": 98336,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "214b1e6d3d2b4a8743440d1c0b1dcf06e037d27a35f52a0a476a13b289a4bed8"
+        "sha256": "83d12fd1545e17f94c1972fc7fbde3583fe0d9fd6f9f37dd28d405eab7f4434e"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "940b02f7dd95b88279c829fe13ec8c5e149e38192d7cf0a13989e1148c3051ed"
+        "sha256": "9d0d3815b2ec95dfc15974ed47621ab69be7e2e5cce786565a38eda5e965f129"
       }
     }
   },
@@ -142,12 +142,12 @@
   "base_ui_p2_components": {
     "slps": {
       "path": "work/build/ui-p2-display-name-font/components/SLPS_258.87",
-      "sha256": "038a45e0073e56ab695672f7478ee6464e56f9c711ba6694def8a5622e0d13ba",
+      "sha256": "435b8c21fbc325417dee4bac8cc0150cd2ff8f8dead1e99d058491fa4236714c",
       "exact": true
     },
     "vt1": {
       "path": "work/build/ui-p2-display-name-font/components/DATA/VT1.BIN",
-      "sha256": "33e8fb517cd5f72acf779e0177534535c7bfd766ae8ead1b263949cb69e13401",
+      "sha256": "1d4e28c0a9377b1817e1f756c23f46a5bc39cf68242a0b145cdc91c6b33d3110",
       "exact": true
     }
   },

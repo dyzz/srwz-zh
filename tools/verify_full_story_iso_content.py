@@ -12,6 +12,7 @@ from srwz.chinese_layout import dialogue_line_widths
 from srwz.codec import decode
 from srwz.display_names import load_display_name_source, parse_display_names
 from srwz.font import (
+    GLYPH_COUNT,
     GLYPH_SIZE,
     ascii_glyph_index,
     decode_vt1_font_segment,
@@ -83,6 +84,11 @@ def parse_args() -> argparse.Namespace:
         default=COMPONENT_REPORT,
     )
     parser.add_argument("--font-manifest", type=Path, default=FONT_MANIFEST)
+    parser.add_argument(
+        "--codebook-proposal",
+        type=Path,
+        default=CODEBOOK_PROPOSAL,
+    )
     parser.add_argument("--refresh-manifest", action="store_true")
     parser.add_argument("--force", action="store_true")
     return parser.parse_args()
@@ -102,9 +108,11 @@ def load_translations(path: Path) -> dict[str, str]:
     }
 
 
-def load_overrides() -> tuple[dict[str, int], dict[str, int]]:
+def load_overrides(
+    proposal_path: Path,
+) -> tuple[dict[str, int], dict[str, int], dict]:
     base = json.loads(BASE_CODEBOOK.read_text(encoding="utf-8"))
-    proposal = json.loads(CODEBOOK_PROPOSAL.read_text(encoding="utf-8"))
+    proposal = json.loads(proposal_path.read_text(encoding="utf-8"))
     assignments = [*base["assignments"], *proposal["assignments"]]
     overrides = {
         assignment["character"]: int(assignment["code"], 16)
@@ -136,14 +144,78 @@ def load_overrides() -> tuple[dict[str, int], dict[str, int]]:
         if 0x8140 <= int(assignment["code"], 16) < 0x889F
     }
     alias_report = proposal.get("surface_safe_aliases", {})
+    unaliased_characters = conditional_characters - set(aliases)
     if (
-        alias_report.get("all_selected_assignments") is not True
-        or alias_report.get("unaliased_conditional_assignment_count") != 0
-        or set(aliases) != conditional_characters
+        not set(aliases) <= conditional_characters
+        or alias_report.get("assignment_count") != len(aliases)
+        or alias_report.get("conditional_primary_assignment_count")
+        != len(conditional_characters)
+        or alias_report.get("unaliased_conditional_assignment_count")
+        != len(unaliased_characters)
+        or alias_report.get("all_selected_assignments")
+        is not (not unaliased_characters)
         or any(0x8140 <= code < 0x889F for code in aliases.values())
     ):
         raise SystemExit("global safe-alias proposal contract failed")
-    return overrides, aliases
+    return overrides, aliases, proposal
+
+
+def expected_font_component(
+    config: dict,
+    component_manifest: dict | None,
+    font_manifest: dict,
+) -> dict:
+    if not config.get("require_component_output_binding"):
+        return font_manifest["font_component"]
+    if component_manifest is None:
+        raise SystemExit("bound component manifest is missing")
+    composition = component_manifest["composition"]
+    return {
+        "encoded_size": composition["font_encoded_size"],
+        "decoded_size": GLYPH_COUNT * GLYPH_SIZE,
+        "decoded_sha256": composition["font_decoded_sha256"],
+    }
+
+
+def expected_story_entry_count(
+    config: dict,
+    component_manifest: dict | None,
+    font_manifest: dict,
+) -> int:
+    if config.get("require_component_output_binding"):
+        if component_manifest is None:
+            raise SystemExit("bound component manifest is missing")
+        story = component_manifest["story"]
+        return (
+            story["translated_allocation_count"] + story["speaker_count"]
+        )
+    return font_manifest["full_story_renderer_coverage"][
+        "unique_entry_count"
+    ]
+
+
+def renderer_coverage(font_manifest: dict) -> dict:
+    if "full_story_renderer_coverage" in font_manifest:
+        coverage = font_manifest["full_story_renderer_coverage"]
+        return {
+            "missing_character_count": coverage[
+                "missing_renderer_character_count"
+            ],
+            "original_font_han_count": coverage[
+                "original_font_han_count"
+            ],
+            "original_font_visible_character_count": coverage[
+                "original_font_visible_character_count"
+            ],
+        }
+    coverage = font_manifest["coverage"]
+    return {
+        "missing_character_count": coverage["missing_character_count"],
+        "original_font_han_count": coverage["original_font_han_count"],
+        "original_font_visible_character_count": coverage[
+            "original_font_visible_character_count"
+        ],
+    }
 
 
 def read_members(iso_path: Path, paths: tuple[str, ...]) -> dict[str, bytes]:
@@ -408,6 +480,20 @@ def main() -> int:
     config = json.loads(
         project_path(args.build_config).read_text(encoding="utf-8")
     )
+    component_manifest = None
+    component_manifest_path = config.get("component_validation_manifest")
+    if config.get("require_component_output_binding"):
+        if not component_manifest_path:
+            raise SystemExit("bound component manifest path is missing")
+        component_manifest = json.loads(
+            project_path(Path(component_manifest_path)).read_text(
+                encoding="utf-8"
+            )
+        )
+        if component_manifest.get("status") != config.get(
+            "component_required_status"
+        ):
+            raise SystemExit("bound component manifest status mismatch")
     component = json.loads(
         project_path(args.component_report).read_text(encoding="utf-8")
     )
@@ -424,6 +510,20 @@ def main() -> int:
     expected_replacements = {
         item["member"]: item for item in config["replacements"]
     }
+    if component_manifest is not None:
+        manifest_outputs = component_manifest.get("outputs", {})
+        if set(expected_replacements) != set(manifest_outputs):
+            raise SystemExit("bound component output member set mismatch")
+        for member, replacement in expected_replacements.items():
+            output = manifest_outputs[member]
+            if (
+                replacement["source"] != output["path"]
+                or replacement["size"] != output["size"]
+                or replacement["sha256"] != output["sha256"]
+            ):
+                raise SystemExit(
+                    f"bound component output mismatch: {member}"
+                )
     required_members = tuple(expected_replacements)
     members = read_members(iso_path, required_members)
     for member_path, data in members.items():
@@ -463,7 +563,11 @@ def main() -> int:
     font_chunk = vt1[font_offsets[font_index]:font_offsets[font_index + 1]]
     decoded_font = decode(font_chunk)
     font_padding = font_chunk[decoded_font.consumed:]
-    expected_font = font_manifest["font_component"]
+    expected_font = expected_font_component(
+        config,
+        component_manifest,
+        font_manifest,
+    )
     if (
         decoded_font.consumed != expected_font["encoded_size"]
         or len(decoded_font.output) != expected_font["decoded_size"]
@@ -473,7 +577,9 @@ def main() -> int:
         raise SystemExit("final ISO font chunk mismatch")
 
     source_table = load_text_table(TEXT_TABLE)
-    overrides, surface_aliases = load_overrides()
+    overrides, surface_aliases, proposal = load_overrides(
+        project_path(args.codebook_proposal)
+    )
     table = project_ui_runtime_text_table(source_table, overrides)
     compdata_table = project_ui_runtime_text_table(table, surface_aliases)
     ascii_overrides = original_fullwidth_ascii_overrides(source_table)
@@ -594,10 +700,17 @@ def main() -> int:
                 for entry_id in set(expected_texts) & set(actual_texts)
                 if expected_texts[entry_id] != actual_texts[entry_id]
             )
+            wrong_examples = {
+                entry_id: {
+                    "expected": expected_texts[entry_id],
+                    "actual": actual_texts[entry_id],
+                }
+                for entry_id in wrong[:3]
+            }
             raise SystemExit(
                 f"stage {stage:03d} translated text mismatch: "
                 f"missing={missing[:3]!r}, extra={extra[:3]!r}, "
-                f"wrong={wrong[:3]!r}"
+                f"wrong={wrong_examples!r}"
             )
         if parsed.unknown_code_count:
             raise SystemExit(
@@ -816,9 +929,11 @@ def main() -> int:
             }
         )
 
-    expected_entry_count = font_manifest["full_story_renderer_coverage"][
-        "unique_entry_count"
-    ]
+    expected_entry_count = expected_story_entry_count(
+        config,
+        component_manifest,
+        font_manifest,
+    )
     if total_entries != expected_entry_count:
         raise SystemExit(
             f"full-story entry count {total_entries}, expected "
@@ -837,6 +952,13 @@ def main() -> int:
     )
 
     output = config["output"]
+    coverage = renderer_coverage(font_manifest)
+    cjk_optical_policy = font_manifest.get(
+        "cjk_optical_policy",
+        proposal.get("rasterizer"),
+    )
+    if not isinstance(cjk_optical_policy, dict):
+        raise SystemExit("font rasterization policy is missing")
     iso_size = iso_path.stat().st_size
     iso_sha256 = sha256_file(iso_path)
     report = {
@@ -897,7 +1019,7 @@ def main() -> int:
             "renderer_missing_character_count": 0,
             "renderer_original_font_han_count": 0,
             "renderer_original_font_visible_character_count": 0,
-            "cjk_optical_policy": font_manifest["cjk_optical_policy"],
+            "cjk_optical_policy": cjk_optical_policy,
         },
         "hb_offset_count": len(offsets),
         "hb_offset_reread_exact": True,
@@ -908,16 +1030,9 @@ def main() -> int:
             "replacement_members_exact": True,
             "font_chunk_exact": True,
             "font_renderer_coverage_complete": (
-                font_manifest["full_story_renderer_coverage"][
-                    "missing_renderer_character_count"
-                ]
-                == 0
-                and font_manifest["full_story_renderer_coverage"]
-                ["original_font_han_count"]
-                == 0
-                and font_manifest["full_story_renderer_coverage"]
-                ["original_font_visible_character_count"]
-                == 0
+                coverage["missing_character_count"] == 0
+                and coverage["original_font_han_count"] == 0
+                and coverage["original_font_visible_character_count"] == 0
             ),
             "hb_stage_offsets_valid": True,
             "encoded_streams_exact": True,

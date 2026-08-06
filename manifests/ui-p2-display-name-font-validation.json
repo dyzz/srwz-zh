@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p2-display-names-font.json",
-      "sha256": "5d027925f7fe3459a28faf4fb485ac364b9e065c222bc4c3a5894eb802c95bf1"
+      "sha256": "cefa35f7b8c3e744cb074230fc9dc36c52d1b99611502d9ba4bd65bf80c2adac"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p2-display-name-allocations.json",
@@ -17,11 +17,11 @@
       "selection_id": "srwz-display-names-researched-v1",
       "config": {
         "path": "config/display-names/researched-coverage.json",
-        "sha256": "4845b5454c1b53d67214da7d7af1100b38aa269fa511c2966f70941cbb1a6a7c"
+        "sha256": "b761d109ea0ff20732bf4beb5ca8d191c4a834e539725f3f47558bf3bb08edd5"
       },
       "manifest": {
         "path": "manifests/display-name-researched-coverage.json",
-        "sha256": "3130b81642e5a0767aff72847eb6d3b5fcffc5b01fbd1f955a6a64c5d0586875",
+        "sha256": "6e7de206558a8cb57ba1a8643600912caf7fd21216fd0273020d8434464c648c",
         "status": "researched_selection_ready"
       },
       "surface_ids": [
@@ -37,13 +37,13 @@
     },
     "base_proposal": {
       "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-      "sha256": "156a152b9cb8c9f70bfa9a96614bc8a7d25bfaf33c6fcec208ca738fbeb48057",
+      "sha256": "f811387ae508362ddcd214e0692fe855b53b967cffe0e3ccb3d71e78417016a7",
       "proposal_id": "srwz-ui-p1-world-history-unified-font-v1",
       "assignment_count": 1545
     },
     "base_validation_manifest": {
       "path": "manifests/ui-p1-summary-font-validation.json",
-      "sha256": "b7355f7269c1a00c37c74671662748299bd4a21a8ba5ecf0597c213e3c0c0d44"
+      "sha256": "56f6f9615d53e8fb310a60e207078e71499165bbf419c4d0dc1253b1555f3af2"
     }
   },
   "capacity": {
@@ -94,15 +94,15 @@
   },
   "proposal": {
     "path": "work/writeback/ui-p2-display-name-codebook-proposal.json",
-    "sha256": "d9e3e08012e26d56cb0be8b783df71c68e3dd2b7b8f73520f568bf28ac1508d4"
+    "sha256": "f7002ddec8255332e7b3ad1f26d31c57fe9cd8ccf5f0ff45022948eb1e3e28a6"
   },
   "readiness": {
     "path": "work/writeback/ui-p2-display-name-font-readiness.json",
-    "sha256": "e453f0ec50ae00948c183cd9eb17c756f158e6941ef2feb5c41f5001107c34cd"
+    "sha256": "a6e5f3d4f39496199c966176880f0fb8e3d9a7bcc3a5dcf395aea866864ff8f7"
   },
   "font_component": {
     "report": "work/build/ui-p2-display-name-font/components/font-validation.json",
-    "report_sha256": "22ed913e2aae3a524fbb1024ad59d9022d7980dc65382a1a06e44f8055b886c5",
+    "report_sha256": "fe53b69041ec7068e910e6b274a696b0ada87ad4cce0be4ae6f9561410c6db77",
     "assignment_count": 1604,
     "allocation_assignment_count": 707,
     "reraster_existing_assignment_count": 897,
@@ -110,24 +110,24 @@
     "unchanged_assignment_count": 1,
     "built_raster_hash_exact_count": 1604,
     "decoded_size": 1290240,
-    "decoded_sha256": "6deec7d84c2488cce797d2277f3b3f26fe64b153d01f3c14125c6d80b8e918b3",
-    "encoded_size": 736446,
+    "decoded_sha256": "f310f14f959ff6e1cb5fb3a0493739c983e66dbb5e5287a2b351cf7a7e798069",
+    "encoded_size": 696581,
     "encoder_strategy": "rust-maximum",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
-      "padding_size": 2,
-      "borrowed_preceding_zero_slack": 137104,
+      "padding_size": 11,
+      "borrowed_preceding_zero_slack": 97248,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "038a45e0073e56ab695672f7478ee6464e56f9c711ba6694def8a5622e0d13ba"
+        "sha256": "435b8c21fbc325417dee4bac8cc0150cd2ff8f8dead1e99d058491fa4236714c"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "33e8fb517cd5f72acf779e0177534535c7bfd766ae8ead1b263949cb69e13401"
+        "sha256": "1d4e28c0a9377b1817e1f756c23f46a5bc39cf68242a0b145cdc91c6b33d3110"
       }
     }
   },
@@ -143,12 +143,12 @@
   "base_ui_p1_components": {
     "slps": {
       "path": "work/build/ui-p1-summary/components/SLPS_258.87",
-      "sha256": "d9f7aef3780e04ceff71166056ded7992b39bdb5738b9ecacf8229749519bbc9",
+      "sha256": "82a9185cee73da3f082b4cd877198107e73573fac010ca2a33db6a106cdcdb4c",
       "exact": true
     },
     "vt1": {
       "path": "work/build/ui-p1-summary/components/DATA/VT1.BIN",
-      "sha256": "368a7790ffa7f907fd218249b5b2be885bb998702c960418d1a0e97ce346f5e4",
+      "sha256": "59dc3cd6d243db934d8c2c0ccc3b855624abc1da693d0d45e3defe8324cc7b29",
       "exact": true
     }
   },

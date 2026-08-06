@@ -6,7 +6,7 @@
   "inputs": {
     "config": {
       "path": "config/fonts/ui-p1-summary-font.json",
-      "sha256": "897daa5376c29d123b4dc19ff89f3e46117732c336d289e1cc58d876c7f5a15a"
+      "sha256": "3b33a614d9ef551e7a021a6752041244426fec4fa9402176a5e661bc8485fe1d"
     },
     "allocation_registry": {
       "path": "config/encoding/ui-p1-summary-allocations.json",
@@ -35,13 +35,13 @@
     },
     "base_proposal": {
       "path": "work/writeback/ui-p0-codebook-proposal.json",
-      "sha256": "efe5f7e7ec970179af42f395358cf840b4ab4d95715b76acc3fa6ca2dbf08693",
+      "sha256": "74e1e2b28932e18e424df2bc6d445b4cde3a47829e8bef153652bc1bef282ec4",
       "proposal_id": "srwz-ui-p0-unified-font-v1",
       "assignment_count": 1452
     },
     "base_validation_manifest": {
       "path": "manifests/ui-p0-font-validation.json",
-      "sha256": "74bdbc3cf84bd7f13e668b9a76cf1ce0e0d234ed0ef0b5722b456b9886e9b355"
+      "sha256": "e426a1a9880730065c7cdf81f9138c062707712b0eb77ee90e16d4b0f495b35f"
     }
   },
   "capacity": {
@@ -86,15 +86,15 @@
   },
   "proposal": {
     "path": "work/writeback/ui-p1-summary-codebook-proposal.json",
-    "sha256": "156a152b9cb8c9f70bfa9a96614bc8a7d25bfaf33c6fcec208ca738fbeb48057"
+    "sha256": "f811387ae508362ddcd214e0692fe855b53b967cffe0e3ccb3d71e78417016a7"
   },
   "readiness": {
     "path": "work/writeback/ui-p1-summary-font-readiness.json",
-    "sha256": "8ab4a021c0d3cee704ff18822a65bcd20c289c0b4a230461697e8b69e0963a01"
+    "sha256": "5757123c6a51c0ee084d1f264848c4d3ac842f47cce889f5552f90c2bc2f24f5"
   },
   "font_component": {
     "report": "work/build/ui-p1-summary/components/font-validation.json",
-    "report_sha256": "9301a867cc8c9b59da709fb67457d8b51ca788c34600edab40ea58aa15cc3d6a",
+    "report_sha256": "720d48f972d7ab24158936bc027956fd3d7368e5e104d8f26b4b8d27121a54ee",
     "assignment_count": 1545,
     "allocation_assignment_count": 677,
     "reraster_existing_assignment_count": 868,
@@ -102,24 +102,24 @@
     "unchanged_assignment_count": 1,
     "built_raster_hash_exact_count": 1545,
     "decoded_size": 1290240,
-    "decoded_sha256": "0f2d40580be4aba0c9c6bfdfc787b353d1d70105bb7067cd6d4d288ec6dadc74",
-    "encoded_size": 730143,
+    "decoded_sha256": "c5258f8b9216792e90887a425c872befb1f3e078a2cdc18fc0191a69773ddaf4",
+    "encoded_size": 691704,
     "encoder_strategy": "rust-maximum",
     "archive": {
       "source_size": 127500736,
       "output_size": 127500736,
-      "padding_size": 1,
-      "borrowed_preceding_zero_slack": 130800,
+      "padding_size": 8,
+      "borrowed_preceding_zero_slack": 92368,
       "offset_reread_exact": true
     },
     "outputs": {
       "slps": {
         "size": 3471624,
-        "sha256": "d9f7aef3780e04ceff71166056ded7992b39bdb5738b9ecacf8229749519bbc9"
+        "sha256": "82a9185cee73da3f082b4cd877198107e73573fac010ca2a33db6a106cdcdb4c"
       },
       "vt1": {
         "size": 127500736,
-        "sha256": "368a7790ffa7f907fd218249b5b2be885bb998702c960418d1a0e97ce346f5e4"
+        "sha256": "59dc3cd6d243db934d8c2c0ccc3b855624abc1da693d0d45e3defe8324cc7b29"
       }
     }
   },
@@ -135,12 +135,12 @@
   "base_ui_p0_components": {
     "slps": {
       "path": "work/build/ui-p0/components/SLPS_258.87",
-      "sha256": "c11f4defc5e7da74df255fd257933f79664dd3b14885e28947472f4a0056561a",
+      "sha256": "43624c6d658d331d3de3f25fc174ed251d561486632ddd88ed3594a504385a8c",
       "exact": true
     },
     "vt1": {
       "path": "work/build/ui-p0/components/DATA/VT1.BIN",
-      "sha256": "f784c3d525e13ef99b22652b9fb25080f965319695408996d686a8a4a99137f2",
+      "sha256": "3e272c6cab646e0e8fa9800eedb9ff88b4a347de31180b1c2585f17c1161bb8b",
       "exact": true
     }
   },

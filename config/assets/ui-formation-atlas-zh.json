@@ -24,8 +24,7 @@
       "entry_id": "ui-atlas/kvm7/new-formation",
       "minimum_editorial_status": "reviewed"
     },
-    "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
-    "font_lock_sha256": "3589e84d617c417299ca4f8c59680c825dedbad22d35482dbe429ab4f2933cba",
+    "font_flavor": "config/fonts/zh-localization-font.json",
     "render": {
       "point_size": 16,
       "stroke_gray": "#303030",
@@ -63,30 +62,30 @@
   "expected": {
     "text_mask": {
       "size": 1480,
-      "sha256": "0225c1321569c7c3c368c8ee319c28fa0fe450e7d7dde3594b763b99bd29f100",
-      "nonzero_pixel_count": 726
+      "sha256": "63faa9b7a5c839128ead0706c1094ec6824f5af4353dfbdc715e33fa67ab66e0",
+      "nonzero_pixel_count": 769
     },
     "reference_png": {
       "size": 23240,
       "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
     },
     "localized_png": {
-      "size": 22524,
-      "sha256": "236b4af05031b3a16d1e1d2b9c5df24d09a0b825a72a462dbae8388970d5d27f"
+      "size": 22634,
+      "sha256": "f3a905afac91f66c1fbaea4447ffc8038880fe01bc4460f4d3dc6af6035915ab"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "5823a84058e56456ca52c459fc2c4b070c1b5f0b4ea6353e588ec1d01e425e1c"
+      "sha256": "78f6963495d5a73f5cd23ba1557e79428aa0e04444b42de097ee51fcd8130a31"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "403374d7373fa26a312fe907cdb134d2455874f7344d96f8d07f7738273c1c53"
+      "sha256": "0fb55c762dfd66970e09ee649f5b5c99d7f9aaa218c6c8b0fa7da5c096f462f4"
     },
-    "added_pixel_count": 726,
-    "original_changed_pixel_count": 1287,
-    "original_changed_pixel_indexes_sha256": "d2374f2f409bc6059e79bc2a64c5ce2f5916902521e436e6db6f3b4bd2a8e990",
-    "changed_archive_byte_count": 414,
-    "changed_archive_range_count": 74
+    "added_pixel_count": 769,
+    "original_changed_pixel_count": 1257,
+    "original_changed_pixel_indexes_sha256": "3b8aad501f202746b94252db2371107a331ab15c09240e3d965b05230f7dbe9c",
+    "changed_archive_byte_count": 432,
+    "changed_archive_range_count": 68
   },
   "outputs": {
     "component_root": "work/build/ui-formation-atlas-zh/components",

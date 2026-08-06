@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "profile_id": "srwz-p10-ui-full-story-integrated-v1",
-  "scope": "Compose the validated P10 database-fixed UI, the complete 154-stage Chinese story font, all translated STAGE dialogue/speakers/conditions, the existing localized KVMDATA map component, and global default-width code aliases for every localized text surface while preserving the original executable renderer.",
+  "profile_id": "srwz-global-zh-release-integrated-v1",
+  "scope": "Compose the validated encoded UI component, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
   "base_ui": {
     "manifest": {
       "path": "manifests/ui-p10-database-fixed-core-validation.json",
@@ -35,35 +35,35 @@
   },
   "full_story_font": {
     "manifest": {
-      "path": "manifests/full-story-font-validation.json",
-      "size": 35665,
-      "sha256": "58766bf4c7cb9a03e35448ac27d61453c3cba3021413773cea46fa992597c96b"
+      "path": "manifests/zh-release-font-validation.json",
+      "size": 44129,
+      "sha256": "3629ab778a1b614b96e136cbf9b423a9cabbd80c0cb14c206bc4823c792c2b64"
     },
-    "required_status": "offline_full_story_font_renderer_coverage_passed_runtime_pending",
-    "required_profile_id": "srwz-full-story-p10-unified-font-v1",
+    "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
+    "required_profile_id": "srwz-zh-release-font-v1",
     "slps": {
-      "path": "work/build/full-story-font/components/SLPS_258.87",
+      "path": "work/build/zh-release-font/components/SLPS_258.87",
       "size": 3471624,
       "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
     },
     "vt1": {
-      "path": "work/build/full-story-font/components/DATA/VT1.BIN",
+      "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "8607d8837b78c140bcc44674a9ae2113a5213d7559e5ddbc6bce40592a9c0186"
+      "sha256": "5144065a77d5ea97c0b259a6882279519364ee6ae2ce3d240bc9208f10a5fb75"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 17855266,
-      "sha256": "9c85a42b4a2939d5b2b087d315679aca30e715e1fecc0cb62c3566affa7aab6d"
+      "sha256": "bf3cb0b604badc4f23c77fbb13758f9de7bcf571507e7311c34166a8154c5023"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 154,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "b89f294dc13e08ced885a8576cd34ae5a2e5206c671b9d10beb14c5843904dac"
+      "sha256": "575d146141a286dc2371a99a0c3877e442ea5dc210ea33e5fb5f289caae4d334"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -85,7 +85,7 @@
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
       "size": 2898717,
-      "sha256": "5dcf29ce3d2692d2060b71853ca797ebe91edfa05c6599f91c98dfe6e1782fce"
+      "sha256": "5cb6ec38ea75c1ad00ef8746f0654ac57ae29a9b82ecb49453dbca3f8f75f5db"
     },
     "expected": {
       "unique_source_count": 424,
@@ -131,12 +131,25 @@
   "kvmdata": {
     "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
     "size": 3335408,
-    "sha256": "0aaf2564df92fff1f9a6016d8fd5f67d05981022c3c28ac5a5c60b826386544c"
+    "sha256": "8e6503dcf459c45c436cad7e83f59fa414c43ab881563ecba8ed028c6c12cb51"
   },
   "composition": {
     "font_chunk_index": 2,
     "archive_alignment": 16,
-    "require_p10_codebook_inheritance": true,
+    "encoded_text_codebook_compatibility": {
+      "mode": "flattened-release-superset-of-encoded-ui",
+      "encoded_assignment_count": 1803,
+      "encoded_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
+      "release_assignment_count": 3178,
+      "release_assignment_mapping_sha256": "fbbe4d1c0c10084b0f79e50526eb273ad2132c2bd9d95cccdfb3664da6cc919f",
+      "release_snapshot_primary_mapping_sha256": "54d28471fcc41740be9ab830c166e952d173bbfeb858c247a9cd314c276996c9",
+      "release_snapshot": {
+        "path": "config/encoding/zh-release-font-assignments.json",
+        "sha256": "45b55604cb1b589634302193a59c2d676126d9b67a4d16d35c72cb37c71ece28",
+        "snapshot_id": "srwz-zh-release-font-assignments-v1"
+      },
+      "reason": "The already encoded UI bytes remain valid because all 1,803 mappings they use are an exact character/code/glyph subset of the flattened global release snapshot. The P-labelled font chain is not rebuilt."
+    },
     "preserve_non_font_vt1_chunks": true,
     "preserve_vt1_archive_size": true,
     "preserve_stage_archive_size_and_offsets": true
@@ -147,7 +160,7 @@
     "scope": "Preserve the original renderers and encode every localized character whose primary code lies in 0x8140..0x889E through a default-width double-byte alias."
   },
   "outputs": {
-    "component_root": "work/build/ui-p10-full-story/components",
+    "component_root": "work/build/zh-release-full-story/components",
     "manifest": "manifests/full-story-components-validation.json"
   }
 }

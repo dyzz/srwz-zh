@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "font_profile_id": "srwz-zh-release-font-v1",
+  "base_font_config": {
+    "path": "config/fonts/zh-font-base.json",
+    "sha256": "662ee915cc0df9b2aca94932e5d317f442e6fcb1836c4181483737772a210745"
+  },
+  "allocation_snapshot": {
+    "path": "config/encoding/zh-release-font-assignments.json",
+    "sha256": "45b55604cb1b589634302193a59c2d676126d9b67a4d16d35c72cb37c71ece28",
+    "snapshot_id": "srwz-zh-release-font-assignments-v1"
+  },
+  "translation_tree_selection": {
+    "selection_id": "srwz-zh-all-translations-v1",
+    "root": "corpus/zh",
+    "glob": "**/*.json",
+    "field": "translation"
+  },
+  "visible_ascii_policy": {
+    "mode": "original-fullwidth-two-byte",
+    "characters": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+    "preserve_original_glyphs": true,
+    "forbid_raw_visible_ascii_alphanumerics": true,
+    "preserve_raw_ascii_punctuation": true,
+    "allow_raw_space": true,
+    "reason": "Keep the stock Latin and digit glyphs. All Chinese localization surfaces share the flattened two-byte release mapping and one global Chinese font flavor."
+  },
+  "new_character_allocation_policy": {
+    "required_width_class": "default_double_byte",
+    "forbidden_renderer_mode": "single_character_conditional_width",
+    "forbidden_code_start": "8140",
+    "forbidden_code_end_inclusive": "889E",
+    "applies_to": "Every primary assignment appended by update_zh_release_font_snapshot.py, including a character already present in the original text table.",
+    "historical_exception": "Existing primary mappings are immutable and remain protected by the surface-safe alias layer; this exception never authorizes a new assignment in the forbidden range."
+  },
+  "reraster_all_selected_visible_characters": true,
+  "scope": {
+    "base_stage_indices": [],
+    "selection": "Every non-empty translation field under corpus/zh, including menu, database, story and future battle-dialogue corpora.",
+    "rerasterize": "Every selected visible glyph through the single global HarmonyOS Sans SC flavor, except the explicit stock fullwidth ASCII preservation policy.",
+    "preserve": "Unselected source glyphs; all runtime placeholders and lossless control notation (%s/%2$s, $c/$f/$l/$n/$F, {XX}, and @?<tag:XX>) through their dedicated encoder paths; archive size; and executable font layout. New character assignments never enter the renderer's 0x8140..0x889E single-character mode range."
+  },
+  "expected": {
+    "primary_assignment_count": 3178,
+    "surface_alias_assignment_count": 701,
+    "allocation_assignment_count": 1562,
+    "reraster_existing_assignment_count": 1616,
+    "historical_primary_assignment_count": 3158,
+    "added_global_assignment_count": 19,
+    "remaining_candidate_slot_count": 85
+  },
+  "outputs": {
+    "readiness": "work/writeback/zh-release-font-readiness.json",
+    "proposal": "work/writeback/zh-release-codebook-proposal.json",
+    "component_root": "work/build/zh-release-font/components",
+    "validation": "work/review/zh-release-font-validation.json",
+    "manifest": "manifests/zh-release-font-validation.json"
+  },
+  "manifest_contract": {
+    "status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
+    "scope": "One flattened HarmonyOS Sans SC font/codebook component for every registered Chinese localization corpus. It does not build an ISO or prove runtime rendering.",
+    "runtime_reason": "Static component proof only; new-game and load-game runtime entry remain separate release gates."
+  }
+}

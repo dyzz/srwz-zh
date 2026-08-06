@@ -18,62 +18,62 @@ PROFILES = {
     "info": {
         "stem": "ui-info-atlas-zh",
         "archive_sha256": (
-            "d7843592d5a9fbdb17fbca1cc25fa81dd16c8483ed725053ac2039483196b964"
+            "c2e17e91730ec39e2d2deee6b29fb1607b1f6c13f75cbf0b314dd0f1a8494201"
         ),
         "iso_sha256": (
             "d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0"
         ),
         "character_count": 2,
-        "added_pixel_count": 316,
-        "changed_pixel_count": 424,
+        "added_pixel_count": 330,
+        "changed_pixel_count": 425,
     },
     "battle-command": {
         "stem": "ui-battle-command-atlas-zh",
         "archive_sha256": (
-            "484eaf02a7ada34814d499996dc76235cd065cf76c766fa6a35f479ca2d1f9a2"
+            "f6db010cb6c7f6adc27c7f48d8eaa1c6ebbbe499ca0a43dbcac68a4d25fe62b9"
         ),
         "iso_sha256": (
             "3e9ed4b155867cefc6b03775a20ab1ca58f7bc4c29ef7bcdfa6feceb14182dda"
         ),
         "character_count": 4,
-        "added_pixel_count": 636,
-        "changed_pixel_count": 2293,
+        "added_pixel_count": 610,
+        "changed_pixel_count": 2284,
     },
     "bazaar": {
         "stem": "ui-bazaar-atlas-zh",
         "archive_sha256": (
-            "b88cd680f2207a8808cfc750b2a7307d619102e34eabc6c84099016bb153dd7c"
+            "977f434fa01781e244cb0726875fe4823d72c24b126da5808956d1ad4a2f90af"
         ),
         "iso_sha256": (
             "9fcf33ba40c717497d6750e303db44e3a48bf814f43f4dbdebef3639912bf363"
         ),
         "character_count": 3,
-        "added_pixel_count": 2795,
-        "changed_pixel_count": 3741,
+        "added_pixel_count": 2844,
+        "changed_pixel_count": 3713,
     },
     "intermission": {
         "stem": "ui-intermission-atlas-zh",
         "archive_sha256": (
-            "c31137f04082b62a97d597ab2c8cd4072b2057f21d49dc668a44b0345aa3d975"
+            "880dacedd976c689d01a8b6f50e6f494c105c2f44d24d4d9fac8ff751762a77a"
         ),
         "iso_sha256": (
             "27a7563c517c155cb9fc44e2b80a06be41d1a1fb294c0f633537b19c4f9e9de2"
         ),
         "character_count": 4,
-        "added_pixel_count": 1571,
-        "changed_pixel_count": 2036,
+        "added_pixel_count": 1683,
+        "changed_pixel_count": 2111,
     },
     "formation": {
         "stem": "ui-formation-atlas-zh",
         "archive_sha256": (
-            "5823a84058e56456ca52c459fc2c4b070c1b5f0b4ea6353e588ec1d01e425e1c"
+            "78f6963495d5a73f5cd23ba1557e79428aa0e04444b42de097ee51fcd8130a31"
         ),
         "iso_sha256": (
             "cc8cd7cf82583cb5ea8d52ccac6aabafa730a653ff70613ac2a07da1f763a293"
         ),
         "character_count": 4,
-        "added_pixel_count": 726,
-        "changed_pixel_count": 1287,
+        "added_pixel_count": 769,
+        "changed_pixel_count": 1257,
     },
 }
 

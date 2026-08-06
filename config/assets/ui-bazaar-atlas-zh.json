@@ -24,8 +24,7 @@
       "entry_id": "ui-atlas/kvm5/bazaar",
       "minimum_editorial_status": "reviewed"
     },
-    "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
-    "font_lock_sha256": "3589e84d617c417299ca4f8c59680c825dedbad22d35482dbe429ab4f2933cba",
+    "font_flavor": "config/fonts/zh-localization-font.json",
     "render": {
       "point_size": 42,
       "stroke_gray": "#303030",
@@ -61,30 +60,30 @@
   "expected": {
     "text_mask": {
       "size": 8357,
-      "sha256": "f8f2096f4550c71be20f5585dbf9bda381b395c0538ba375912782b19eb497ee",
-      "nonzero_pixel_count": 2795
+      "sha256": "d3622be5ebe34db9d45e5aa6bb8484fc58a0fd7924e12d81eb664607a3367295",
+      "nonzero_pixel_count": 2844
     },
     "reference_png": {
       "size": 16117,
       "sha256": "4c2da38c2ba01b513ea06f12a06dac930948860ca0adb27853c9590031d17673"
     },
     "localized_png": {
-      "size": 16087,
-      "sha256": "fb4ad384184d81e92410bccdd08e4e451dd892458aa3f5e2092abf79e27d1282"
+      "size": 16090,
+      "sha256": "bc5532308461ad6e3b7294bb6deef8fb4792fb34c3e35f7c956c1278954f54ff"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "b88cd680f2207a8808cfc750b2a7307d619102e34eabc6c84099016bb153dd7c"
+      "sha256": "977f434fa01781e244cb0726875fe4823d72c24b126da5808956d1ad4a2f90af"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "c94866190872edcc138b595c38e741c50315550f13ae13de533c2fac9545460e"
+      "sha256": "2b11564a686028be8e85d578d19341283e31b04170ef5220cd1c0c40ab353f72"
     },
-    "added_pixel_count": 2795,
-    "original_changed_pixel_count": 3741,
-    "original_changed_pixel_indexes_sha256": "26c8b5bcb012be12defeb8dfc9c978abb07e4594612b530bb3785a0fbfee0b47",
-    "changed_archive_byte_count": 1536,
-    "changed_archive_range_count": 241
+    "added_pixel_count": 2844,
+    "original_changed_pixel_count": 3713,
+    "original_changed_pixel_indexes_sha256": "5b2a3d162c4f0ce5df14504d34db5fcd6045551c8df9812e50c936087fee4785",
+    "changed_archive_byte_count": 1546,
+    "changed_archive_range_count": 216
   },
   "outputs": {
     "component_root": "work/build/ui-bazaar-atlas-zh/components",

@@ -35,6 +35,16 @@ COMPDATA profile 还必须声明 145,408-byte／71-sector 硬门并由 verifier
 `canary/tim2-vt1-title-index.json` 是旧实验／运行证据，故意保留原策略，
 不属于当前 production selector。
 
+当前活动字体事实源只有三层：`fonts/zh-localization-font.json` 固定
+HarmonyOS Sans SC flavor，`fonts/zh-font-base.json` 固定 VT1/codec/rasterizer
+技术基线，`fonts/zh-release-font.json` 配合
+`encoding/zh-release-font-assignments.json` 生成唯一 release 字体。release
+扫描 `corpus/zh/**/*.json` 的全部非空 `translation` 字段；后续战斗对话新增
+字符必须追加同一快照且避开 `0x8140..0x889E` 单字符模式区；`%...`、`$...`、
+`{XX}` 和文本 tag 等控制 token 走既有编码路径，不参与字形分配。下文
+first-five、P0…P10 与
+full-story 字体配置均为历史选区、文本组件和 ISO 证据说明，不是活动字体链。
+
 `ui-scenes.json` 可以实时读取下游动态名称 writer 的状态和覆盖计数，但提交的
 `ui-surface-inventory` 只投影这些语义 ratchet，不回写下游 manifest 的整文件
 哈希。否则会形成“场景清单 → 字库 → COMPDATA writer → 场景清单”的哈希环，

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "font_flavor_id": "srwz-zh-harmonyos-sans-sc-regular-v1",
+  "purpose": "Single project-wide font identity for every Chinese story, UI, atlas, canary and future battle-dialogue asset. Scene profiles continue to own their raster geometry and byte budget.",
+  "primary": {
+    "font_lock": "config/fonts/harmonyos-sans-sc.lock.json",
+    "font_lock_sha256": "1f009920c771a90c8937e73633aa97ef05410b53ffaa9ba6a114be20568becd2"
+  },
+  "unsupported_character_fallbacks": [
+    {
+      "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
+      "characters": "〜∀♪",
+      "reason": "HarmonyOS Sans SC 1.0 has no visible glyph for these project-required characters. Use the locked Noto source only for this explicit set and retain the consuming scene's raster geometry."
+    }
+  ],
+  "distribution_notice": "This project uses HarmonyOS Sans Fonts. Copyright 2021 Huawei Device Co., Ltd."
+}

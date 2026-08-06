@@ -264,17 +264,12 @@ def expand_scene_entries(
     return tuple(selected)
 
 
-_TAG_PREFIX = re.compile(r"@(?=<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>)")
-
-
 def rendered_characters(text: str) -> tuple[str, ...]:
     """Return literal glyphs, excluding lossless and runtime format notation."""
 
     if not isinstance(text, str):
         raise TypeError("rendered text must be a string")
-    skipped = set(control_notation_positions(text))
-    for match in _TAG_PREFIX.finditer(text):
-        skipped.add(match.start())
+    skipped = control_notation_positions(text)
     return tuple(
         character
         for index, character in enumerate(text)

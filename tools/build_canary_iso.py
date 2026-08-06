@@ -93,6 +93,62 @@ def verify_file(path: Path, expected_size: int, expected_sha256: str) -> None:
         )
 
 
+def validate_component_output_binding(config: dict) -> dict:
+    """Bind every ISO replacement to one validated component manifest."""
+
+    if config.get("require_component_output_binding") is not True:
+        return {"enforced": False}
+    manifest_reference = config.get("component_validation_manifest")
+    required_status = config.get("component_required_status")
+    if (
+        not isinstance(manifest_reference, str)
+        or not manifest_reference
+        or not isinstance(required_status, str)
+        or not required_status
+    ):
+        raise IsoBuildError("component output binding contract is incomplete")
+    manifest_path = resolve_project_path(manifest_reference)
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise IsoBuildError(
+            f"cannot load component validation manifest: {manifest_reference}"
+        ) from error
+    outputs = manifest.get("outputs")
+    if manifest.get("status") != required_status or not isinstance(
+        outputs, dict
+    ):
+        raise IsoBuildError("component validation manifest identity drift")
+    replacement_members = {
+        replacement["member"] for replacement in config["replacements"]
+    }
+    if replacement_members != set(outputs):
+        raise IsoBuildError(
+            "replacement member set differs from component manifest"
+        )
+    for replacement in config["replacements"]:
+        member = replacement["member"]
+        lock = outputs.get(member)
+        if not isinstance(lock, dict) or any(
+            replacement.get(field) != lock.get(field)
+            for field in ("size", "sha256")
+        ):
+            raise IsoBuildError(
+                f"replacement differs from component manifest: {member}"
+            )
+        if replacement.get("source") != lock.get("path"):
+            raise IsoBuildError(
+                f"replacement path differs from component manifest: {member}"
+            )
+    return {
+        "enforced": True,
+        "manifest": manifest_reference,
+        "status": required_status,
+        "replacement_count": len(config["replacements"]),
+        "all_replacements_match_component_outputs": True,
+    }
+
+
 def validate_replacement_sector_budget(config: dict, source_image) -> dict:
     """Fail before rebuilding when a fixed-LBA profile outgrows a member."""
 
@@ -651,6 +707,12 @@ def main() -> int:
     args = parse_args()
     try:
         config = load_config(args.config.resolve())
+        component_binding = validate_component_output_binding(config)
+        if component_binding["enforced"]:
+            print(
+                "[OK] component manifest binding: "
+                f"{component_binding['replacement_count']} replacements"
+            )
         source_iso = resolve_project_path(config["source_iso"]["path"])
         verify_file(
             source_iso,
@@ -732,6 +794,7 @@ def main() -> int:
             lba_log,
         )
         report = validate_output(config, source_image, output_path)
+        report["component_binding"] = component_binding
         report["sector_budget"] = sector_budget
         report["builder"] = {
             "name": "mkps2iso",

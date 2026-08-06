@@ -24,8 +24,7 @@
       "entry_id": "ui-atlas/kvm6/intermission",
       "minimum_editorial_status": "reviewed"
     },
-    "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
-    "font_lock_sha256": "3589e84d617c417299ca4f8c59680c825dedbad22d35482dbe429ab4f2933cba",
+    "font_flavor": "config/fonts/zh-localization-font.json",
     "render": {
       "point_size": 26,
       "stroke_gray": "#303030",
@@ -60,30 +59,30 @@
   "expected": {
     "text_mask": {
       "size": 5735,
-      "sha256": "e9f98274dba55a97d8a198bca99267a3b995c81c2876457201818168f04c4f7c",
-      "nonzero_pixel_count": 1571
+      "sha256": "ec1b9747899ac54dcf5a4313915f79971b50a9aa2a18f0f8e2953564a410359c",
+      "nonzero_pixel_count": 1683
     },
     "reference_png": {
       "size": 21968,
       "sha256": "e438d4668d9dee7bc664ed841dcfc65efcad49d396a2966cacb572b99dbec583"
     },
     "localized_png": {
-      "size": 21879,
-      "sha256": "f2a9aabc6d12a303f6a9455e9373e44310038c972f09b9463488198c69f53cbb"
+      "size": 21847,
+      "sha256": "aab928cf543f4720ca61e64d6d723bd820dbf6af12689660c931fc1857201e5c"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "c31137f04082b62a97d597ab2c8cd4072b2057f21d49dc668a44b0345aa3d975"
+      "sha256": "880dacedd976c689d01a8b6f50e6f494c105c2f44d24d4d9fac8ff751762a77a"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "b418f557782f586f77db3dc9deede1314e5188ae23e332ee74ab1a393040bee8"
+      "sha256": "6116278871300ecc6e6dbdaa2f805c545e9274aed2f988cafc120d5daba33eb0"
     },
-    "added_pixel_count": 1571,
-    "original_changed_pixel_count": 2036,
-    "original_changed_pixel_indexes_sha256": "1d8fed5ad51de30d79d817dae0812379dc33805bba744f52ccba0ddc9043ba96",
-    "changed_archive_byte_count": 894,
-    "changed_archive_range_count": 152
+    "added_pixel_count": 1683,
+    "original_changed_pixel_count": 2111,
+    "original_changed_pixel_indexes_sha256": "d8da2d8c624bee3aed876e54a55c21c03dade5c0e76f9127c77f9993ebdf9b2e",
+    "changed_archive_byte_count": 916,
+    "changed_archive_range_count": 128
   },
   "outputs": {
     "component_root": "work/build/ui-intermission-atlas-zh/components",

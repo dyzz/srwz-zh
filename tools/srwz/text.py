@@ -21,7 +21,13 @@ CONTROL_NOTATION = re.compile(
     rf"{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
     rf"|{RUNTIME_FORMAT_TOKEN.pattern}"
     r"|\{[0-9A-Fa-f]{2}\}"
-    r"|<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
+    r"|@?<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
+)
+POTENTIAL_CONTROL_NOTATION_START = re.compile(
+    r"%(?=[-+#0.*$0-9A-Za-z])"
+    r"|\$(?=[A-Za-z])"
+    r"|@?<(?=[A-Za-z0-9_])"
+    r"|\{(?=[0-9A-Za-z]{2}\})"
 )
 
 
@@ -39,6 +45,16 @@ class SrwzTextEncodeError(ValueError):
     def __init__(self, message: str, *, character_index: int):
         self.character_index = character_index
         super().__init__(f"{message} at character index {character_index}")
+
+
+@dataclass(frozen=True)
+class ControlNotationToken:
+    """One non-glyph token in the lossless decoded-text notation."""
+
+    kind: str
+    text: str
+    start: int
+    end: int
 
 
 @dataclass(frozen=True)
@@ -286,13 +302,56 @@ def _inverse_characters(
     return inverse
 
 
+def control_notation_tokens(text: str) -> tuple[ControlNotationToken, ...]:
+    """Classify placeholders and control notation without splitting them."""
+
+    if not isinstance(text, str):
+        raise TypeError("control notation source must be a string")
+    tokens = []
+    for match in CONTROL_NOTATION.finditer(text):
+        token = match.group(0)
+        if RUNTIME_FORMAT_TOKEN.fullmatch(token):
+            kind = "runtime_format"
+        elif RUNTIME_SUBSTITUTION_TOKEN.fullmatch(token):
+            kind = "runtime_substitution"
+        elif token.startswith("{"):
+            kind = "raw_byte"
+        else:
+            kind = "text_tag"
+        tokens.append(
+            ControlNotationToken(
+                kind=kind,
+                text=token,
+                start=match.start(),
+                end=match.end(),
+            )
+        )
+    return tuple(tokens)
+
+
 def control_notation_positions(text: str) -> frozenset[int]:
     """Return character positions occupied by lossless runtime notation."""
 
     positions = set()
-    for match in CONTROL_NOTATION.finditer(text):
-        positions.update(range(*match.span()))
+    for token in control_notation_tokens(text):
+        positions.update(range(token.start, token.end))
     return frozenset(positions)
+
+
+def unrecognized_control_notation_offsets(text: str) -> tuple[int, ...]:
+    """Locate placeholder-like syntax not accepted by the strict encoder.
+
+    A literal percentage such as ``30%`` is not suspicious.  A sequence such
+    as ``%02d`` or ``$q`` is: silently treating it as visible ASCII would let
+    a future runtime placeholder leak into font allocation.
+    """
+
+    protected = control_notation_positions(text)
+    return tuple(
+        match.start()
+        for match in POTENTIAL_CONTROL_NOTATION_START.finditer(text)
+        if match.start() not in protected
+    )
 
 
 def encode_text(
@@ -428,6 +487,7 @@ def augment_text_table(
 
 __all__ = [
     "DecodedText",
+    "ControlNotationToken",
     "ORIGINAL_FULLWIDTH_ASCII",
     "RUNTIME_FORMAT_TOKEN",
     "RUNTIME_SUBSTITUTION_TOKEN",
@@ -436,9 +496,11 @@ __all__ = [
     "TextTable",
     "augment_text_table",
     "control_notation_positions",
+    "control_notation_tokens",
     "decode_text",
     "encode_text",
     "load_text_table",
     "normalize_original_fullwidth_ascii",
     "original_fullwidth_ascii_overrides",
+    "unrecognized_control_notation_offsets",
 ]

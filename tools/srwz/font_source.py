@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import hashlib
+import io
 import json
 import urllib.error
 import urllib.request
+import zipfile
 from pathlib import Path
 from typing import Mapping
 
@@ -38,6 +40,13 @@ ALLOWED_SOURCES = {
 LOCAL_NONCOMMERCIAL_SOURCE_KIND = "local-noncommercial-test"
 LOCAL_NONCOMMERCIAL_DISTRIBUTION = "local_noncommercial_test_only"
 LOCAL_NONCOMMERCIAL_LICENSE = "LicenseRef-Noncommercial-Unverified"
+PINNED_OFFICIAL_ARCHIVE_SOURCE_KIND = "pinned-official-archive"
+HARMONYOS_SOURCE_ID = "huawei-harmonyos-sans"
+HARMONYOS_ARCHIVE_URL_PREFIX = (
+    "https://communityfile-drcn.op.dbankcloud.cn/FileServer/getFile/"
+)
+HARMONYOS_LICENSE = "LicenseRef-HarmonyOS-Sans-Fonts-License"
+HARMONYOS_DISTRIBUTION = "commercial_use_with_notice"
 
 
 class FontSourceError(ValueError):
@@ -57,6 +66,25 @@ def load_font_lock(path: Path) -> dict:
     return lock
 
 
+def _validate_file_record(item: object, label: str) -> None:
+    if not isinstance(item, Mapping):
+        raise FontSourceError(f"font lock has no {label} object")
+    if (
+        not isinstance(item.get("path"), str)
+        or not item["path"].startswith("work/font-source/")
+    ):
+        raise FontSourceError(f"{label} output is outside font-source")
+    if not isinstance(item.get("size"), int) or item["size"] <= 0:
+        raise FontSourceError(f"{label} size is invalid")
+    digest = item.get("sha256")
+    if (
+        not isinstance(digest, str)
+        or len(digest) != 64
+        or any(character not in "0123456789abcdef" for character in digest)
+    ):
+        raise FontSourceError(f"{label} SHA-256 is invalid")
+
+
 def validate_font_lock(lock: Mapping) -> None:
     if lock.get("schema_version") != 1:
         raise FontSourceError("unsupported font lock schema")
@@ -72,30 +100,55 @@ def validate_font_lock(lock: Mapping) -> None:
                 "local noncommercial font license marker is invalid"
             )
         for label in ("font", "license"):
-            item = lock.get(label)
-            if not isinstance(item, Mapping):
-                raise FontSourceError(f"font lock has no {label} object")
-            if (
-                not isinstance(item.get("path"), str)
-                or not item["path"].startswith("work/font-source/")
-            ):
-                raise FontSourceError(f"{label} output is outside font-source")
-            if not isinstance(item.get("size"), int) or item["size"] <= 0:
-                raise FontSourceError(f"{label} size is invalid")
-            digest = item.get("sha256")
-            if (
-                not isinstance(digest, str)
-                or len(digest) != 64
-                or any(
-                    character not in "0123456789abcdef"
-                    for character in digest
-                )
-            ):
-                raise FontSourceError(f"{label} SHA-256 is invalid")
+            _validate_file_record(lock.get(label), label)
         if lock["license"].get("status") != "provenance_only_not_a_license":
             raise FontSourceError(
                 "local noncommercial provenance status is invalid"
             )
+        return
+    if lock.get("source_kind") == PINNED_OFFICIAL_ARCHIVE_SOURCE_KIND:
+        if lock.get("source_id") != HARMONYOS_SOURCE_ID:
+            raise FontSourceError("official archive source is not allowed")
+        if lock.get("distribution") != HARMONYOS_DISTRIBUTION:
+            raise FontSourceError("HarmonyOS font distribution policy is invalid")
+        if lock.get("license", {}).get("spdx") != HARMONYOS_LICENSE:
+            raise FontSourceError("HarmonyOS font license marker is invalid")
+        archive = lock.get("archive")
+        if not isinstance(archive, Mapping):
+            raise FontSourceError("font lock has no archive object")
+        url = archive.get("url")
+        if not isinstance(url, str) or not url.startswith(
+            HARMONYOS_ARCHIVE_URL_PREFIX
+        ):
+            raise FontSourceError("archive URL is not an allowed source")
+        if not isinstance(archive.get("size"), int) or archive["size"] <= 0:
+            raise FontSourceError("archive size is invalid")
+        archive_digest = archive.get("sha256")
+        if (
+            not isinstance(archive_digest, str)
+            or len(archive_digest) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in archive_digest
+            )
+        ):
+            raise FontSourceError("archive SHA-256 is invalid")
+        members = set()
+        for label in ("font", "license"):
+            item = lock.get(label)
+            _validate_file_record(item, label)
+            member = item.get("archive_member")
+            if (
+                not isinstance(member, str)
+                or not member
+                or member.startswith("/")
+                or ".." in Path(member).parts
+                or member in members
+            ):
+                raise FontSourceError(f"{label} archive member is invalid")
+            members.add(member)
+        if lock["license"].get("notice_required") is not True:
+            raise FontSourceError("HarmonyOS font notice requirement is missing")
         return
     repository = lock.get("repository")
     policy = ALLOWED_SOURCES.get(repository)
@@ -122,23 +175,7 @@ def validate_font_lock(lock: Mapping) -> None:
             or not url.startswith(policy[f"{label}_prefix"])
         ):
             raise FontSourceError(f"{label} URL is not an allowed source")
-        if (
-            not isinstance(item.get("path"), str)
-            or not item["path"].startswith("work/font-source/")
-        ):
-            raise FontSourceError(f"{label} output is outside font-source")
-        if not isinstance(item.get("size"), int) or item["size"] <= 0:
-            raise FontSourceError(f"{label} size is invalid")
-        digest = item.get("sha256")
-        if (
-            not isinstance(digest, str)
-            or len(digest) != 64
-            or any(
-                character not in "0123456789abcdef"
-                for character in digest
-            )
-        ):
-            raise FontSourceError(f"{label} SHA-256 is invalid")
+        _validate_file_record(item, label)
 
     if repository.endswith("/noto-cjk.git"):
         pinned_prefix = policy["font_prefix"] + commit + "/"
@@ -195,6 +232,69 @@ def fetch_font_lock(
             "local noncommercial font locks are verification-only and "
             "cannot be downloaded"
         )
+    if lock.get("source_kind") == PINNED_OFFICIAL_ARCHIVE_SOURCE_KIND:
+        existing_outputs = tuple(
+            require_work_output(
+                project_root / lock[label]["path"],
+                work_root,
+            )
+            for label in ("font", "license")
+        )
+        if not force:
+            existing_matches = []
+            for label, output in zip(("font", "license"), existing_outputs):
+                if not output.exists():
+                    existing_matches.append(False)
+                    continue
+                data = output.read_bytes()
+                if (
+                    len(data) != lock[label]["size"]
+                    or sha256_bytes(data) != lock[label]["sha256"]
+                ):
+                    raise FontSourceError(
+                        f"existing {label} does not match lock; use --force"
+                    )
+                existing_matches.append(True)
+            if all(existing_matches):
+                return existing_outputs
+        archive_data = _download(lock["archive"]["url"], lock["archive"])
+        try:
+            archive = zipfile.ZipFile(io.BytesIO(archive_data))
+            member_data = {
+                label: archive.read(lock[label]["archive_member"])
+                for label in ("font", "license")
+            }
+        except (KeyError, OSError, zipfile.BadZipFile) as error:
+            raise FontSourceError("font archive cannot be read") from error
+        outputs = []
+        for label in ("font", "license"):
+            expected = lock[label]
+            data = member_data[label]
+            if (
+                len(data) != expected["size"]
+                or sha256_bytes(data) != expected["sha256"]
+            ):
+                raise FontSourceError(
+                    f"archive {label} does not match its lock"
+                )
+            output = require_work_output(
+                project_root / expected["path"],
+                work_root,
+            )
+            if output.exists() and not force:
+                existing = output.read_bytes()
+                if existing != data:
+                    raise FontSourceError(
+                        f"existing {label} does not match lock; use --force"
+                    )
+            else:
+                output.parent.mkdir(parents=True, exist_ok=True)
+                temporary = output.with_suffix(output.suffix + ".tmp")
+                temporary.write_bytes(data)
+                temporary.replace(output)
+            outputs.append(output)
+        return tuple(outputs)
+
     outputs = []
     for label in ("font", "license"):
         expected = lock[label]
@@ -259,7 +359,7 @@ def font_source_metadata(lock: Mapping) -> dict:
         "license_spdx": lock["license"]["spdx"],
         "license_sha256": lock["license"]["sha256"],
     }
-    for key in ("source_kind", "distribution", "commit"):
+    for key in ("source_kind", "source_id", "distribution", "commit"):
         value = lock.get(key)
         if value is not None:
             metadata[key] = value

@@ -82,12 +82,14 @@ def main() -> int:
         fallback_font_paths, fallback_font_reports = verify_font_fallbacks(
             PROJECT_ROOT,
             WORK_ROOT,
-            profile["document"].get("unsupported_character_fallbacks"),
+            profile["unsupported_character_fallbacks"],
         )
     except (FontProfileError, FontSourceError) as error:
         raise SystemExit(str(error)) from error
     if proposal.get("font_source") != font_source_metadata(font_lock):
         raise SystemExit("font proposal source does not match font lock")
+    if proposal.get("font_flavor") != profile["font_flavor"]:
+        raise SystemExit("font proposal flavor does not match global config")
     if proposal.get("unsupported_character_fallbacks", []) != list(
         fallback_font_reports
     ):
@@ -176,6 +178,11 @@ def main() -> int:
             character,
             assignment_rasterizer,
         )
+        if not character.isspace() and not any(packed):
+            raise SystemExit(
+                "visible glyph raster is empty; add an explicit global "
+                f"fallback for {character!r}"
+            )
         actual_raster = {
             "point_size": rasterizer_point_size(
                 character,
@@ -278,6 +285,15 @@ def main() -> int:
         "unchanged_assignment_count": len(unchanged_assignment_glyphs),
         "allocation_registry": proposal["allocation_registry"],
         "font_source": proposal["font_source"],
+        **(
+            {"font_flavor": proposal["font_flavor"]}
+            if proposal.get("font_flavor") is not None
+            else {}
+        ),
+        "unsupported_character_fallbacks": proposal.get(
+            "unsupported_character_fallbacks",
+            [],
+        ),
         "selection_policy": proposal["selection_policy"],
         "rasterizer": rasterizer,
         **(

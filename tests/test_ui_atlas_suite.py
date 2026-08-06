@@ -46,7 +46,7 @@ class UiAtlasSuiteTests(unittest.TestCase):
         self.assertEqual(archive, ARCHIVE_PATH.read_bytes())
         self.assertEqual(
             report["outputs"]["archive"]["sha256"],
-            "0aaf2564df92fff1f9a6016d8fd5f67d05981022c3c28ac5a5c60b826386544c",
+            self.config["expected_output"]["sha256"],
         )
 
     def test_five_component_byte_owners_are_disjoint_and_exact(self):
@@ -66,7 +66,9 @@ class UiAtlasSuiteTests(unittest.TestCase):
             self.assertFalse(owned & offsets)
             self.assertTrue(all(suite[offset] == payload[offset] for offset in offsets))
             owned.update(offsets)
-        self.assertEqual(len(owned), 5623)
+        self.assertEqual(
+            len(owned), self.config["composition"]["changed_byte_count"]
+        )
         self.assertTrue(
             all(
                 suite[offset] == base[offset]

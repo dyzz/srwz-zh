@@ -1,10 +1,9 @@
 {
   "schema_version": 1,
   "font_profile_id": "srwz-full-story-p10-unified-font-v1",
-  "font_lock": "config/fonts/mf-dianhei-light-local-test.lock.json",
   "base_font_config": {
     "path": "config/fonts/first-five-font.json",
-    "sha256": "01b7b9b2f4dffe6f12b7e991caceb2cb32846bdb0c1081876ae06a0d2f7e3b8a"
+    "sha256": "c69c50f4bd3bbc81c8947ea4ba5b4bfa737ec33cf0ea5a79df59c45932edf608"
   },
   "base_validation_manifest": "manifests/ui-p10-database-font-validation.json",
   "base_font_component": {
@@ -20,27 +19,6 @@
     "forbid_raw_visible_ascii_alphanumerics": true,
     "allow_raw_space": true,
     "reason": "Keep the stock Latin and digit glyphs. Corpus ASCII alphanumerics are encoded through the game's original two-byte fullwidth codes; the stock one-byte spacing control and punctuation stay under their existing paths, while runtime substitution and format tokens remain raw bytes."
-  },
-  "unsupported_character_fallbacks": [
-    {
-      "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
-      "characters": "éνⅡ∀═□△○●♪〜オコスセツトドハビラン丼價咲気瘆瘤穫緻＃．～／",
-      "reason": "MF DianHei Light has no visible glyph for these 34 required characters. Use locked Noto Sans CJK SC only for this explicit missing-glyph set while retaining the same 22px, 24x24 and y=-1 geometry."
-    }
-  ],
-  "rasterizer": {
-    "executable": "magick",
-    "density": 72,
-    "point_size": 22,
-    "gravity": "center",
-    "hinting": false,
-    "antialias": true,
-    "quantization": "round(gray * 15 / 255)",
-    "cjk_fixed_canvas": {
-      "x_offset": 0,
-      "y_offset": -1,
-      "reason": "Render every CJK glyph from MF DianHei Light at the same 22px em and shared baseline in its 24x24 cell. Do not trim, resize, recenter, or optically correct individual characters."
-    }
   },
   "assignment_id_prefix": "full-story",
   "allocation_owner": "story/full-release",
@@ -92,7 +70,7 @@
     },
     "reviewed_exceptions": [],
     "max_workers": 8,
-    "reason": "Use one MF DianHei Light 22px em, one 24x24 canvas, and one global y=-1 baseline offset for every CJK glyph. Character-specific trimming, resizing, point sizes, and reviewed exceptions are forbidden."
+    "reason": "Use the project-wide HarmonyOS Sans SC Regular flavor at one 22px em, one 24x24 canvas and one global y=+1 baseline offset for every CJK glyph. Character-specific trimming, resizing, point sizes and reviewed exceptions are forbidden."
   },
   "allocation_policy": {
     "mode": "valid-sjis-then-raw-standard-trail-gaps-then-source-glyph-reuse",
@@ -217,8 +195,8 @@
       152, 153, 185, 186
     ],
     "story_selection": "srwz-zh-corpus-v1/all-154-text-stages",
-    "rerasterize": "Every visible character used by all translated story dialogue, speaker and condition entries, plus the Japanese legacy-save protagonist expansions and every newly allocated character, is rasterized from the locked local MF DianHei Light source.",
-    "preserve": "Control notation, runtime substitution tokens and non-text icons remain byte-stable. Every inherited P10 assignment is retained. CJK uses MF DianHei Light while visible ASCII is stored with the game's original two-byte codes and keeps the stock glyphs."
+    "rerasterize": "Every visible character used by all translated story dialogue, speaker and condition entries, plus the Japanese legacy-save protagonist expansions and every newly allocated character, is rasterized from the project-wide Chinese font flavor.",
+    "preserve": "Control notation, runtime substitution tokens and non-text icons remain byte-stable. Every inherited P10 assignment is retained. CJK uses the global font flavor while visible ASCII is stored with the game's original two-byte codes and keeps the stock glyphs."
   },
   "manifest_contract": {
     "status": "offline_full_story_font_renderer_coverage_passed_runtime_pending",

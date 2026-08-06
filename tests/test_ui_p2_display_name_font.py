@@ -49,15 +49,15 @@ class UiP2DisplayNameFontTests(unittest.TestCase):
             self.registry["base_registry"]["registered_character_count"],
             688,
         )
-        self.assertEqual(len(self.registry["appended_characters"]), 29)
+        self.assertEqual(len(self.registry["appended_characters"]), 31)
         self.assertEqual(self.registry["reactivated_characters"], "娅杰艾贾")
         self.assertEqual(
             self.registry["retired_appended_characters"],
             ["a", "f", "h", "r", "u"],
         )
         capacity = self.manifest["capacity"]
-        self.assertEqual(capacity["combined_registered_character_count"], 717)
-        self.assertEqual(capacity["remaining_candidate_slot_count"], 19)
+        self.assertEqual(capacity["combined_registered_character_count"], 719)
+        self.assertEqual(capacity["remaining_candidate_slot_count"], 17)
 
     def test_inherited_assignments_are_not_reassigned(self):
         inherited = [
@@ -77,7 +77,7 @@ class UiP2DisplayNameFontTests(unittest.TestCase):
             Counter(assignment["status"] for assignment in added),
             Counter(
                 {
-                    "proposed_allocation": 24,
+                    "proposed_allocation": 26,
                     "proposed_reactivation": 4,
                     "proposed_reraster": 29,
                 }
@@ -106,12 +106,12 @@ class UiP2DisplayNameFontTests(unittest.TestCase):
             },
         )
         allocations = self.manifest["additional_allocations"]
-        self.assertEqual(allocations["count"], 28)
-        self.assertEqual(allocations["appended_character_count"], 29)
+        self.assertEqual(allocations["count"], 30)
+        self.assertEqual(allocations["appended_character_count"], 31)
         self.assertEqual(allocations["retired_appended_character_count"], 5)
         self.assertEqual(allocations["retired_appended_characters"], "afhru")
         self.assertEqual(allocations["reactivated_character_count"], 4)
-        self.assertEqual(allocations["raw_standard_trail_gap_count"], 24)
+        self.assertEqual(allocations["raw_standard_trail_gap_count"], 26)
         self.assertEqual(
             self.manifest["additional_reraster_existing_han"]["count"],
             29,
@@ -121,7 +121,7 @@ class UiP2DisplayNameFontTests(unittest.TestCase):
         coverage = self.manifest[
             "researched_display_name_renderer_coverage"
         ]
-        self.assertEqual(coverage["unique_entry_count"], 1262)
+        self.assertEqual(coverage["unique_entry_count"], 1286)
         self.assertEqual(coverage["missing_renderer_character_count"], 0)
         self.assertEqual(coverage["missing_renderer_occurrence_count"], 0)
         self.assertEqual(coverage["original_font_han_count"], 0)

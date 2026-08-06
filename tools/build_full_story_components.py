@@ -834,11 +834,22 @@ def _apply_global_safe_aliases(
         for character, code in primary.items()
         if 0x8140 <= code < 0x889F
     }
+    flattened_release = alias_report.get("mode") == "flattened_global_snapshot"
     if (
-        alias_report.get("all_selected_assignments") is not True
-        or alias_report.get("unaliased_conditional_assignment_count") != 0
-        or set(aliases) != conditional_characters
+        (
+            set(aliases) > conditional_characters
+            if flattened_release
+            else set(aliases) != conditional_characters
+        )
         or any(0x8140 <= code < 0x889F for code in aliases.values())
+        or (
+            not flattened_release
+            and (
+                alias_report.get("all_selected_assignments") is not True
+                or alias_report.get("unaliased_conditional_assignment_count")
+                != 0
+            )
+        )
     ):
         raise FullStoryComponentError("global safe-alias contract failed")
 
@@ -1088,7 +1099,13 @@ def _apply_global_safe_aliases(
         )
     return rewritten_slps, rebuilt_compdata, {
         "scope": "all-parsed-localized-menu-surfaces",
-        "conditional_primary_assignment_count": len(conditional_characters),
+        "conditional_primary_assignment_count": len(aliases),
+        "release_conditional_primary_assignment_count": len(
+            conditional_characters
+        ),
+        "release_only_unaliased_conditional_assignment_count": len(
+            conditional_characters - set(aliases)
+        ),
         "safe_alias_assignment_count": len(aliases),
         "menu_applicable_safe_alias_assignment_count": len(menu_aliases),
         "original_ascii_code_substitution_count": len(
@@ -1143,22 +1160,86 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         or font_manifest.get("font_profile_id") != font.get("required_profile_id")
     ):
         raise FullStoryComponentError("full-story font manifest identity drift")
-    base_proposal = font_manifest.get("inputs", {}).get("base_proposal", {})
-    expected_base_proposal = base_manifest.get("inputs", {}).get("codebook", {}).get(
+    encoded_text_proposal = base_manifest.get("inputs", {}).get("codebook", {}).get(
         "proposal", {}
     )
-    if (
-        base_proposal.get("path") != expected_base_proposal.get("path")
-        or base_proposal.get("sha256") != expected_base_proposal.get("sha256")
+    composition = config.get("composition", {})
+    compatibility = composition.get("encoded_text_codebook_compatibility")
+    if not isinstance(compatibility, dict) or compatibility.get("mode") != (
+        "flattened-release-superset-of-encoded-ui"
     ):
-        raise FullStoryComponentError("full-story font does not inherit P10 exactly")
+        raise FullStoryComponentError(
+            "encoded-text/release codebook compatibility is missing"
+        )
+    encoded_proposal_path = _project_path(encoded_text_proposal.get("path"))
+    encoded_proposal = _json(encoded_proposal_path)
+    release_proposal_path, release_proposal = _sha_locked_json(
+        font_manifest.get("proposal"),
+        label="global release font proposal",
+    )
+    snapshot_path, snapshot = _sha_locked_json(
+        compatibility.get("release_snapshot"),
+        label="global release assignment snapshot",
+    )
+    encoded_assignments = encoded_proposal.get("assignments")
+    release_assignments = release_proposal.get("assignments")
+    if not isinstance(encoded_assignments, list) or not isinstance(
+        release_assignments, list
+    ):
+        raise FullStoryComponentError("font proposal assignments are malformed")
+    release_by_character = {
+        item.get("character"): (item.get("code"), item.get("glyph_index"))
+        for item in release_assignments
+        if isinstance(item, dict)
+    }
+    encoded_mapping_sha256 = sha256_bytes(
+        json.dumps(
+            sorted(
+                (item["character"], item["code"], item["glyph_index"])
+                for item in encoded_assignments
+            ),
+            ensure_ascii=False,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+    release_mapping_sha256 = sha256_bytes(
+        json.dumps(
+            sorted(
+                (item["character"], item["code"], item["glyph_index"])
+                for item in release_assignments
+            ),
+            ensure_ascii=False,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+    if (
+        len(encoded_assignments) != compatibility.get("encoded_assignment_count")
+        or encoded_mapping_sha256
+        != compatibility.get("encoded_assignment_mapping_sha256")
+        or len(release_assignments)
+        != compatibility.get("release_assignment_count")
+        or release_mapping_sha256
+        != compatibility.get("release_assignment_mapping_sha256")
+        or snapshot.get("primary_mapping_sha256")
+        != compatibility.get("release_snapshot_primary_mapping_sha256")
+        or release_proposal.get("allocation_registry", {}).get("sha256")
+        != compatibility.get("release_snapshot", {}).get("sha256")
+        or any(
+            release_by_character.get(item.get("character"))
+            != (item.get("code"), item.get("glyph_index"))
+            for item in encoded_assignments
+        )
+    ):
+        raise FullStoryComponentError(
+            "encoded UI text mapping is not an exact subset of the release font"
+        )
     font_slps_path, font_slps = _locked_file(
         font["slps"], label="full-story font SLPS"
     )
     font_vt1_path, font_vt1 = _locked_file(
         font["vt1"], label="full-story font VT1"
     )
-    font_outputs = font_manifest.get("font_component", {}).get("outputs", {})
+    font_outputs = font_manifest.get("font_component", {})
     for name, payload in (("slps", font_slps), ("vt1", font_vt1)):
         expected = font_outputs.get(name, {})
         if (
@@ -1170,6 +1251,9 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
     stage_report_path, stage_report = _manifest(
         stage["report"], label="full-story STAGE report"
     )
+    expected_unaliased_conditional = release_proposal.get(
+        "surface_safe_aliases", {}
+    ).get("unaliased_conditional_assignment_count")
     if (
         stage_report.get("status") != stage.get("required_status")
         or len(stage_report.get("stage_indices", []))
@@ -1180,7 +1264,7 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         or stage_report.get(
             "unaliased_conditional_localized_assignment_count"
         )
-        != 0
+        != expected_unaliased_conditional
     ):
         raise FullStoryComponentError("full-story STAGE report contract failed")
     stage_path, stage_payload = _locked_file(
@@ -1198,7 +1282,6 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         config["kvmdata"], label="localized KVMDATA.BIN"
     )
 
-    composition = config.get("composition", {})
     chunk_index = composition.get("font_chunk_index")
     alignment = composition.get("archive_alignment")
     if chunk_index != 2 or alignment != 16:
@@ -1209,7 +1292,9 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
     font_decoded = decode(font_stored)
     if any(font_stored[font_decoded.consumed :]):
         raise FullStoryComponentError("full-story font archive padding is nonzero")
-    expected_decoded_hash = font_manifest["font_component"]["decoded_sha256"]
+    expected_decoded_hash = font_manifest["font_component"][
+        "decoded_font_sha256"
+    ]
     if sha256_bytes(font_decoded.output) != expected_decoded_hash:
         raise FullStoryComponentError("full-story decoded font hash drift")
 
@@ -1338,7 +1423,7 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
     ]
     report = {
         "schema_version": 1,
-        "status": "integrated_p10_ui_full_story_components_validated_runtime_pending",
+        "status": "integrated_global_zh_release_components_validated_runtime_pending",
         "profile_id": config["profile_id"],
         "scope": config["scope"],
         "inputs": {
@@ -1386,6 +1471,25 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
             "archive_size_preserved": len(output_vt1) == len(base_payloads["vt1"]),
             "slps_offset_reread_exact": True,
             "intermission_list_font_geometry": geometry_report,
+            "encoded_text_codebook_compatibility": {
+                "encoded_ui_mapping_is_release_subset": True,
+                "encoded_proposal": _file_lock(
+                    encoded_proposal_path,
+                    encoded_proposal_path.read_bytes(),
+                ),
+                "release_proposal": _file_lock(
+                    release_proposal_path,
+                    release_proposal_path.read_bytes(),
+                ),
+                "release_snapshot": _file_lock(
+                    snapshot_path,
+                    snapshot_path.read_bytes(),
+                ),
+                "encoded_assignment_count": len(encoded_assignments),
+                "encoded_assignment_mapping_sha256": encoded_mapping_sha256,
+                "release_assignment_count": len(release_assignments),
+                "release_assignment_mapping_sha256": release_mapping_sha256,
+            },
         },
         "story": {
             "stage_count": len(stage_report["stage_indices"]),
@@ -1414,28 +1518,24 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         },
         "acceptance": {
             "p10_ui_members_inherited_exact": True,
-            "p10_codebook_assignments_inherited_exact": True,
-            "full_story_font_missing_character_count_zero": (
-                font_manifest["full_story_renderer_coverage"][
-                    "missing_renderer_character_count"
-                ]
+            "encoded_ui_codebook_is_release_subset": True,
+            "global_release_font_missing_character_count_zero": (
+                font_manifest["coverage"]["missing_character_count"]
                 == 0
             ),
-            "full_story_font_original_han_count_zero": (
-                font_manifest["full_story_renderer_coverage"][
-                    "original_font_han_count"
-                ]
+            "global_release_font_original_han_count_zero": (
+                font_manifest["coverage"]["original_font_han_count"]
                 == 0
             ),
-            "full_story_font_original_visible_character_count_zero": (
-                font_manifest["full_story_renderer_coverage"][
+            "global_release_font_original_visible_character_count_zero": (
+                font_manifest["coverage"][
                     "original_font_visible_character_count"
                 ]
                 == 0
             ),
-            "font_codec_round_trip_exact": font_manifest["font_component"][
-                "archive"
-            ]["offset_reread_exact"],
+            "font_codec_round_trip_exact": font_manifest["acceptance"][
+                "codec_round_trip_exact"
+            ],
             "font_archive_size_preserved": len(output_vt1)
             == len(base_payloads["vt1"]),
             "stage_layout_preserved": stage_report["stage_layout_preserved"],
@@ -1484,7 +1584,9 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 and pilot_name_report["surface_safe_aliases"][
                     "assignment_count"
                 ]
-                == font_manifest["surface_safe_aliases"]["assignment_count"]
+                == font_manifest["mapping"][
+                    "surface_alias_assignment_count"
+                ]
                 and pilot_name_report["surface_safe_aliases"][
                     "alias_codes_outside_conditional_range"
                 ]

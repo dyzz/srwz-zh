@@ -127,6 +127,8 @@ def _verified_component(
     project_root: Path,
     base_archive: bytes,
     raw: Mapping[str, object],
+    *,
+    enforce_expected: bool = True,
 ) -> tuple[bytes, tuple[int, ...], dict]:
     profile_id = raw.get("profile_id")
     chunk_index = raw.get("chunk_index")
@@ -209,7 +211,7 @@ def _verified_component(
         "diff_count": diff.diff_count,
         "range_count": diff.range_count,
     }
-    if actual_diff != expected_diff:
+    if enforce_expected and actual_diff != expected_diff:
         raise UiAtlasSuiteError(f"{profile_id} byte-diff ratchet drift")
 
     return archive, offsets, {
@@ -271,7 +273,12 @@ def build_ui_atlas_suite(
     for raw in raw_components:
         if not isinstance(raw, dict):
             raise UiAtlasSuiteError("UI atlas suite component is not an object")
-        component, offsets, report = _verified_component(root, base_archive, raw)
+        component, offsets, report = _verified_component(
+            root,
+            base_archive,
+            raw,
+            enforce_expected=enforce_expected_output,
+        )
         profile = report["profile_id"]
         chunk_index = report["chunk_index"]
         if profile in seen_profiles or chunk_index in seen_chunks:
@@ -302,7 +309,7 @@ def build_ui_atlas_suite(
         "changed_byte_count": combined_diff.diff_count,
         "changed_range_count": combined_diff.range_count,
     }
-    if actual_composition != composition:
+    if enforce_expected_output and actual_composition != composition:
         raise UiAtlasSuiteError(
             f"UI atlas suite composition ratchet drift: {actual_composition}"
         )

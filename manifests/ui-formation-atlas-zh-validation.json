@@ -7,8 +7,8 @@
   "inputs": {
     "config": {
       "path": "config/assets/ui-formation-atlas-zh.json",
-      "size": 4049,
-      "sha256": "34244e85037c7000dc9a917f00a19cbe10bccb3e9830579072b1dcc3f97031e2"
+      "size": 3958,
+      "sha256": "21d6cdad7e5e3b869ca6ad727b20007a72ebc1ba76292e7a51ac8202979d1694"
     },
     "base_mapping": {
       "config": {
@@ -29,17 +29,23 @@
       }
     },
     "font": {
-      "lock": {
-        "path": "config/fonts/noto-sans-cjk-sc.lock.json",
-        "size": 885,
-        "sha256": "3589e84d617c417299ca4f8c59680c825dedbad22d35482dbe429ab4f2933cba"
+      "flavor": {
+        "font_flavor_id": "srwz-zh-harmonyos-sans-sc-regular-v1",
+        "path": "config/fonts/zh-localization-font.json",
+        "sha256": "4ad2778478daa46529b80eb036b96f0a15d18b03d4f6c50968616ab2106da43e",
+        "font_lock": "config/fonts/harmonyos-sans-sc.lock.json",
+        "font_lock_sha256": "1f009920c771a90c8937e73633aa97ef05410b53ffaa9ba6a114be20568becd2"
       },
-      "family": "Noto Sans CJK SC",
-      "version": "2.004",
-      "commit": "f8d157532fbfaeda587e826d4cd5b21a49186f7c",
-      "font_sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
-      "license_spdx": "OFL-1.1",
-      "license_sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+      "source": {
+        "family": "HarmonyOS Sans SC",
+        "version": "1.0",
+        "font_sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1",
+        "license_spdx": "LicenseRef-HarmonyOS-Sans-Fonts-License",
+        "license_sha256": "b2ffec0e6269ee41c3b5fc0345ab37600b46d66ebea6c9c58ff37f517bdfa164",
+        "source_kind": "pinned-official-archive",
+        "source_id": "huawei-harmonyos-sans",
+        "distribution": "commercial_use_with_notice"
+      }
     },
     "translation_source": {
       "file": {
@@ -77,8 +83,8 @@
       ]
     },
     "mask_audit": {
-      "changed_pixel_count": 1287,
-      "changed_pixel_indexes_sha256": "d2374f2f409bc6059e79bc2a64c5ce2f5916902521e436e6db6f3b4bd2a8e990",
+      "changed_pixel_count": 1257,
+      "changed_pixel_indexes_sha256": "3b8aad501f202746b94252db2371107a331ab15c09240e3d965b05230f7dbe9c",
       "outside_mask_rgba_exact": true
     }
   },
@@ -104,8 +110,8 @@
       ],
       "text_mask": {
         "size": 1480,
-        "sha256": "0225c1321569c7c3c368c8ee319c28fa0fe450e7d7dde3594b763b99bd29f100",
-        "nonzero_pixel_count": 726
+        "sha256": "63faa9b7a5c839128ead0706c1094ec6824f5af4353dfbdc715e33fa67ab66e0",
+        "nonzero_pixel_count": 769
       }
     }
   },
@@ -113,53 +119,81 @@
     "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
   },
   "text_audit": {
-    "added_pixel_count": 726,
-    "added_pixel_indexes_sha256": "980cce1df6720715096d4aa0358ffc60b53a5e2baa28e6ee3c13668808fa7ddd",
+    "added_pixel_count": 769,
+    "added_pixel_indexes_sha256": "46f5408c48f02d105416e6a057bab6e42bff7265188e2afce0e9ee2550d0e34f",
     "ramp_rgba_counts": {
-      "101010ff": 49,
+      "101010ff": 54,
       "171717ff": 37,
-      "1a1a1aff": 30,
-      "202020ff": 32,
-      "262626ff": 40,
-      "303030ff": 39,
-      "404040ff": 30,
-      "505050ff": 24,
-      "808080ff": 445
+      "1a1a1aff": 32,
+      "202020ff": 53,
+      "262626ff": 27,
+      "303030ff": 47,
+      "404040ff": 19,
+      "505050ff": 18,
+      "808080ff": 482
     },
     "outside_mask_rgba_exact": true,
     "erased_background_preimage_exact": true,
     "delta_from_erased": {
-      "changed_pixel_count": 726,
-      "changed_pixel_indexes_sha256": "980cce1df6720715096d4aa0358ffc60b53a5e2baa28e6ee3c13668808fa7ddd",
+      "changed_pixel_count": 769,
+      "changed_pixel_indexes_sha256": "46f5408c48f02d105416e6a057bab6e42bff7265188e2afce0e9ee2550d0e34f",
       "outside_mask_rgba_exact": true
     },
     "delta_from_original": {
-      "changed_pixel_count": 1287,
-      "changed_pixel_indexes_sha256": "d2374f2f409bc6059e79bc2a64c5ce2f5916902521e436e6db6f3b4bd2a8e990",
+      "changed_pixel_count": 1257,
+      "changed_pixel_indexes_sha256": "3b8aad501f202746b94252db2371107a331ab15c09240e3d965b05230f7dbe9c",
       "outside_mask_rgba_exact": true
     }
   },
   "injection": {
     "image_offset": 64,
     "image_size": 32768,
-    "changed_pixel_count": 726,
-    "changed_image_byte_count": 414,
+    "changed_pixel_count": 769,
+    "changed_image_byte_count": 432,
     "changed_image_byte_ranges": [
       {
-        "start": 3765,
-        "end": 3767
+        "start": 3509,
+        "end": 3511
       },
       {
-        "start": 3769,
-        "end": 3771
+        "start": 3514,
+        "end": 3515
       },
       {
-        "start": 3773,
-        "end": 3774
+        "start": 3520,
+        "end": 3521
       },
       {
-        "start": 3776,
-        "end": 3778
+        "start": 3527,
+        "end": 3528
+      },
+      {
+        "start": 3536,
+        "end": 3537
+      },
+      {
+        "start": 3637,
+        "end": 3639
+      },
+      {
+        "start": 3640,
+        "end": 3651
+      },
+      {
+        "start": 3655,
+        "end": 3657
+      },
+      {
+        "start": 3660,
+        "end": 3663
+      },
+      {
+        "start": 3664,
+        "end": 3666
+      },
+      {
+        "start": 3764,
+        "end": 3779
       },
       {
         "start": 3783,
@@ -167,66 +201,54 @@
       },
       {
         "start": 3788,
-        "end": 3791
-      },
-      {
-        "start": 3792,
         "end": 3794
       },
       {
-        "start": 3893,
-        "end": 3903
+        "start": 3892,
+        "end": 3908
       },
       {
-        "start": 3904,
-        "end": 3906
+        "start": 3909,
+        "end": 3910
       },
       {
         "start": 3911,
-        "end": 3913
+        "end": 3914
       },
       {
         "start": 3916,
         "end": 3922
       },
       {
-        "start": 4019,
-        "end": 4035
+        "start": 4020,
+        "end": 4026
       },
       {
-        "start": 4039,
-        "end": 4041
+        "start": 4028,
+        "end": 4036
+      },
+      {
+        "start": 4037,
+        "end": 4043
       },
       {
         "start": 4044,
         "end": 4050
       },
       {
-        "start": 4148,
-        "end": 4154
+        "start": 4147,
+        "end": 4164
       },
       {
-        "start": 4157,
-        "end": 4163
-      },
-      {
-        "start": 4167,
-        "end": 4169
+        "start": 4165,
+        "end": 4171
       },
       {
         "start": 4172,
         "end": 4178
       },
       {
-        "start": 4276,
-        "end": 4281
-      },
-      {
-        "start": 4284,
-        "end": 4292
-      },
-      {
-        "start": 4293,
+        "start": 4275,
         "end": 4299
       },
       {
@@ -238,11 +260,11 @@
         "end": 4306
       },
       {
-        "start": 4403,
-        "end": 4409
+        "start": 4404,
+        "end": 4419
       },
       {
-        "start": 4412,
+        "start": 4420,
         "end": 4427
       },
       {
@@ -263,39 +285,31 @@
       },
       {
         "start": 4556,
-        "end": 4559
-      },
-      {
-        "start": 4560,
         "end": 4562
       },
       {
-        "start": 4660,
+        "start": 4659,
+        "end": 4667
+      },
+      {
+        "start": 4668,
         "end": 4675
       },
       {
         "start": 4676,
-        "end": 4683
+        "end": 4678
       },
       {
-        "start": 4684,
-        "end": 4687
-      },
-      {
-        "start": 4688,
+        "start": 4679,
         "end": 4690
       },
       {
-        "start": 4787,
+        "start": 4788,
         "end": 4795
       },
       {
         "start": 4796,
-        "end": 4799
-      },
-      {
-        "start": 4800,
-        "end": 4802
+        "end": 4803
       },
       {
         "start": 4804,
@@ -303,10 +317,14 @@
       },
       {
         "start": 4807,
-        "end": 4818
+        "end": 4809
       },
       {
-        "start": 4915,
+        "start": 4810,
+        "end": 4819
+      },
+      {
+        "start": 4916,
         "end": 4923
       },
       {
@@ -319,7 +337,7 @@
       },
       {
         "start": 4938,
-        "end": 4946
+        "end": 4947
       },
       {
         "start": 5044,
@@ -338,120 +356,84 @@
         "end": 5075
       },
       {
-        "start": 5172,
+        "start": 5171,
         "end": 5179
       },
       {
         "start": 5180,
-        "end": 5190
-      },
-      {
-        "start": 5191,
         "end": 5193
       },
       {
         "start": 5194,
-        "end": 5203
+        "end": 5204
       },
       {
         "start": 5299,
-        "end": 5307
+        "end": 5316
       },
       {
-        "start": 5308,
-        "end": 5317
-      },
-      {
-        "start": 5319,
+        "start": 5317,
         "end": 5321
       },
       {
-        "start": 5322,
-        "end": 5331
+        "start": 5324,
+        "end": 5328
+      },
+      {
+        "start": 5329,
+        "end": 5332
       },
       {
         "start": 5427,
-        "end": 5435
+        "end": 5444
       },
       {
-        "start": 5436,
-        "end": 5442
-      },
-      {
-        "start": 5444,
-        "end": 5445
-      },
-      {
-        "start": 5447,
+        "start": 5445,
         "end": 5449
       },
       {
-        "start": 5450,
-        "end": 5459
+        "start": 5452,
+        "end": 5456
+      },
+      {
+        "start": 5458,
+        "end": 5460
       },
       {
         "start": 5556,
+        "end": 5563
+      },
+      {
+        "start": 5564,
+        "end": 5565
+      },
+      {
+        "start": 5567,
         "end": 5572
       },
       {
-        "start": 5573,
-        "end": 5577
+        "start": 5574,
+        "end": 5576
       },
       {
         "start": 5580,
+        "end": 5583
+      },
+      {
+        "start": 5586,
         "end": 5588
-      },
-      {
-        "start": 5685,
-        "end": 5700
-      },
-      {
-        "start": 5701,
-        "end": 5705
-      },
-      {
-        "start": 5708,
-        "end": 5712
-      },
-      {
-        "start": 5714,
-        "end": 5716
-      },
-      {
-        "start": 5815,
-        "end": 5816
-      },
-      {
-        "start": 5817,
-        "end": 5819
-      },
-      {
-        "start": 5820,
-        "end": 5821
-      },
-      {
-        "start": 5829,
-        "end": 5833
-      },
-      {
-        "start": 5836,
-        "end": 5840
-      },
-      {
-        "start": 5842,
-        "end": 5844
       }
     ],
     "available_color_count": 14,
     "archive_diff_from_erased_base": {
-      "diff_count": 414,
-      "range_count": 74,
-      "first_offset": 237237,
-      "last_offset": 239315,
-      "offsets_sha256": "9e1a03d19b621902981ee92d86784e7b85708b44c2db77d651f59a8715d7747a",
-      "ranges_sha256": "e836bc889cb641086fabbbec5cbd00c530a7fd38c8543065ed7ccec7fe55d10c",
-      "before_values_sha256": "49c84636b9a461d03bb08745ff58ed55e47837afa026f9fdcfd79323d58159aa",
-      "after_values_sha256": "3ea89924be26cf8020e00bf48b7f400e9ac66e2af140e947e5281bde7b0f009b"
+      "diff_count": 432,
+      "range_count": 68,
+      "first_offset": 236981,
+      "last_offset": 239059,
+      "offsets_sha256": "3eb6bb0ca3abc50464cfc51073025cc1039a8206321e722f2242a2e587237f86",
+      "ranges_sha256": "60f6fad761f82036d7b7c092265aa7d96e0f44e7c36a8525b3f2bb35d4df0b78",
+      "before_values_sha256": "2ec649d37d00d2a68ba0226d9ac75a325ca9f0e71ff76bb529bf0b26d283499a",
+      "after_values_sha256": "a91c0a57b1b0004622c3ceff0e986828e6849ff54304367abcece5e5d6233c64"
     },
     "chunk_size_unchanged": true,
     "archive_size_unchanged": true,
@@ -461,48 +443,48 @@
   "outputs": {
     "archive": {
       "size": 3335408,
-      "sha256": "5823a84058e56456ca52c459fc2c4b070c1b5f0b4ea6353e588ec1d01e425e1c"
+      "sha256": "78f6963495d5a73f5cd23ba1557e79428aa0e04444b42de097ee51fcd8130a31"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "403374d7373fa26a312fe907cdb134d2455874f7344d96f8d07f7738273c1c53"
+      "sha256": "0fb55c762dfd66970e09ee649f5b5c99d7f9aaa218c6c8b0fa7da5c096f462f4"
     },
     "reference_png": {
       "size": 23240,
       "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
     },
     "localized_png": {
-      "size": 22524,
-      "sha256": "236b4af05031b3a16d1e1d2b9c5df24d09a0b825a72a462dbae8388970d5d27f"
+      "size": 22634,
+      "sha256": "f3a905afac91f66c1fbaea4447ffc8038880fe01bc4460f4d3dc6af6035915ab"
     }
   },
   "expected_lock": {
     "text_mask": {
       "size": 1480,
-      "sha256": "0225c1321569c7c3c368c8ee319c28fa0fe450e7d7dde3594b763b99bd29f100",
-      "nonzero_pixel_count": 726
+      "sha256": "63faa9b7a5c839128ead0706c1094ec6824f5af4353dfbdc715e33fa67ab66e0",
+      "nonzero_pixel_count": 769
     },
     "reference_png": {
       "size": 23240,
       "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
     },
     "localized_png": {
-      "size": 22524,
-      "sha256": "236b4af05031b3a16d1e1d2b9c5df24d09a0b825a72a462dbae8388970d5d27f"
+      "size": 22634,
+      "sha256": "f3a905afac91f66c1fbaea4447ffc8038880fe01bc4460f4d3dc6af6035915ab"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "5823a84058e56456ca52c459fc2c4b070c1b5f0b4ea6353e588ec1d01e425e1c"
+      "sha256": "78f6963495d5a73f5cd23ba1557e79428aa0e04444b42de097ee51fcd8130a31"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "403374d7373fa26a312fe907cdb134d2455874f7344d96f8d07f7738273c1c53"
+      "sha256": "0fb55c762dfd66970e09ee649f5b5c99d7f9aaa218c6c8b0fa7da5c096f462f4"
     },
-    "added_pixel_count": 726,
-    "original_changed_pixel_count": 1287,
-    "original_changed_pixel_indexes_sha256": "d2374f2f409bc6059e79bc2a64c5ce2f5916902521e436e6db6f3b4bd2a8e990",
-    "changed_archive_byte_count": 414,
-    "changed_archive_range_count": 74
+    "added_pixel_count": 769,
+    "original_changed_pixel_count": 1257,
+    "original_changed_pixel_indexes_sha256": "3b8aad501f202746b94252db2371107a331ab15c09240e3d965b05230f7dbe9c",
+    "changed_archive_byte_count": 432,
+    "changed_archive_range_count": 68
   },
   "acceptance": {
     "base_mapping_reproduced_exact": true,

@@ -18,11 +18,19 @@ from .font import (
     decode_vt1_font_segment,
     encode_glyph,
     is_cjk_unified_ideograph,
+    is_conditional_width_code,
     render_glyph_grid,
     replace_glyph,
     sha256_bytes,
     standard_glyph_index,
 )
+from .font_flavor import (
+    FontFlavorError,
+    font_flavor_metadata,
+    load_font_flavor_reference,
+    verify_font_flavor_files,
+)
+from .font_source import font_source_metadata
 from .iso_layout import CORE_ARCHIVE_SPECS, read_executable_archive_offsets
 from .patch_audit import summarize_diff
 from .project import (
@@ -76,9 +84,7 @@ def double_byte_width_class(code: int) -> str:
     codes are above that range and therefore use the same default width.
     """
 
-    if not 0 <= code <= 0xFFFF:
-        raise ValueError("text code is outside two bytes")
-    if 0x8140 <= code < 0x889F:
+    if is_conditional_width_code(code):
         return "conditional_double_byte"
     return "default_double_byte"
 
@@ -689,27 +695,21 @@ def build_static_canary(
     verify_file(slps_path, inputs["slps"], context="SLPS input")
     verify_file(vt1_path, inputs["vt1"], context="VT1 input")
 
-    font_lock_path = resolve_project_path(
-        project_root,
-        inputs["font_lock"],
-    )
-    font_lock = _load_json(font_lock_path)
-    if font_lock.get("repository") != (
-        "https://github.com/notofonts/noto-cjk.git"
-    ):
-        raise CanaryError("canary font is not from official Noto CJK")
-    if font_lock.get("license", {}).get("spdx") != "OFL-1.1":
-        raise CanaryError("canary font license is not OFL-1.1")
-    font_path = resolve_project_path(
-        project_root,
-        font_lock["font"]["path"],
-    )
-    license_path = resolve_project_path(
-        project_root,
-        font_lock["license"]["path"],
-    )
-    verify_file(font_path, font_lock["font"], context="font source")
-    verify_file(license_path, font_lock["license"], context="font license")
+    try:
+        font_flavor = load_font_flavor_reference(
+            project_root,
+            inputs["font_flavor"],
+        )
+        font_lock, font_files, fallback_paths, _fallback_reports = (
+            verify_font_flavor_files(
+                project_root,
+                project_root / "work",
+                font_flavor,
+            )
+        )
+    except FontFlavorError as error:
+        raise CanaryError(str(error)) from error
+    font_path = font_files["font"]
 
     rasterizer = config["rasterizer"]
     executable = rasterizer["executable"]
@@ -907,17 +907,23 @@ def build_static_canary(
             )
         gray, pixels, packed = rasterize_character(
             executable,
-            font_path,
+            fallback_paths.get(character, font_path),
             character,
             rasterizer,
         )
-        _verify_raster_hashes(
-            gray,
-            pixels,
-            packed,
-            glyph_lock,
-            character=character,
-        )
+        if not character.isspace() and not any(packed):
+            raise CanaryError(
+                "visible glyph raster is empty; add an explicit global "
+                f"fallback for {character!r}"
+            )
+        if enforce_expected_outputs and inputs.get("font_flavor") is None:
+            _verify_raster_hashes(
+                gray,
+                pixels,
+                packed,
+                glyph_lock,
+                character=character,
+            )
         modified_font = replace_glyph(modified_font, index, pixels)
         glyph_indices.append(index)
         character_overrides[character] = code
@@ -1179,14 +1185,8 @@ def build_static_canary(
             "parsed_unknown_text_code_count": unknown_count,
             "static_candidate_code_scan_count": len(candidate_codes),
         },
-        "font_source": {
-            "family": font_lock["family"],
-            "version": font_lock["version"],
-            "commit": font_lock["commit"],
-            "font_sha256": font_lock["font"]["sha256"],
-            "license_spdx": font_lock["license"]["spdx"],
-            "license_sha256": font_lock["license"]["sha256"],
-        },
+        "font_flavor": font_flavor_metadata(font_flavor),
+        "font_source": font_source_metadata(font_lock),
         "rasterizer": {
             **rasterizer,
             "actual_version_line": actual_version,

@@ -10,7 +10,7 @@ COMPONENT_CONFIG = PROJECT_ROOT / "config/full-story-components.json"
 COMPONENT_MANIFEST = (
     PROJECT_ROOT / "manifests/full-story-components-validation.json"
 )
-FONT_MANIFEST = PROJECT_ROOT / "manifests/full-story-font-validation.json"
+FONT_MANIFEST = PROJECT_ROOT / "manifests/zh-release-font-validation.json"
 ISO_CONFIG = PROJECT_ROOT / "config/iso/ui-p10-full-story-build.json"
 ISO_CONTENT_MANIFEST = (
     PROJECT_ROOT / "manifests/full-story-iso-content-validation.json"
@@ -54,21 +54,30 @@ class FullStoryIsoTests(unittest.TestCase):
             )
 
     def test_full_story_font_and_stage_ratchets_are_explicit(self):
-        coverage = self.font["full_story_renderer_coverage"]
-        self.assertEqual(coverage["unique_entry_count"], 91746)
-        self.assertEqual(coverage["missing_renderer_character_count"], 0)
+        coverage = self.font["coverage"]
+        self.assertEqual(
+            self.font["inputs"]["translation_selection"][
+                "unique_entry_count"
+            ],
+            94090,
+        )
+        self.assertEqual(coverage["missing_character_count"], 0)
         self.assertEqual(coverage["original_font_han_count"], 0)
         self.assertEqual(
             coverage["original_font_visible_character_count"],
             0,
         )
         self.assertEqual(
-            self.font["additional_reraster_existing_visible"]["count"],
-            600,
+            self.font["mapping"]["primary_assignment_count"],
+            3178,
         )
         self.assertEqual(
-            self.font["inherited_visible_reraster"]["count"],
-            49,
+            self.font["mapping"]["surface_alias_assignment_count"],
+            701,
+        )
+        self.assertEqual(
+            coverage["preserved_raw_ascii_punctuation_characters"],
+            '"%&\',-./:=~',
         )
         self.assertEqual(self.component["story"]["stage_count"], 154)
         self.assertEqual(
@@ -82,7 +91,7 @@ class FullStoryIsoTests(unittest.TestCase):
         )
         self.assertTrue(all(self.component["acceptance"].values()))
 
-    def test_iso_config_uses_only_locked_full_story_components(self):
+    def test_iso_config_remains_bound_to_the_historical_runtime_snapshot(self):
         replacements = {
             item["member"]: {
                 "path": item["source"],
@@ -91,10 +100,35 @@ class FullStoryIsoTests(unittest.TestCase):
             }
             for item in self.iso_config["replacements"]
         }
-        self.assertEqual(replacements, self.component["outputs"])
+        historical = {
+            member: {
+                "size": lock["size"],
+                "sha256": lock["sha256"],
+            }
+            for member, lock in self.iso_content["members"].items()
+        }
         self.assertEqual(
+            {
+                member: {"size": lock["size"], "sha256": lock["sha256"]}
+                for member, lock in replacements.items()
+            },
+            historical,
+        )
+        self.assertNotEqual(
+            replacements["DATA/VT1.BIN"]["sha256"],
+            self.component["outputs"]["DATA/VT1.BIN"]["sha256"],
+        )
+        self.assertNotEqual(
+            replacements["KURODATA/KVMDATA.BIN"]["sha256"],
+            self.component["outputs"]["KURODATA/KVMDATA.BIN"]["sha256"],
+        )
+        self.assertNotEqual(
             self.iso_config["component_required_status"],
             self.component["status"],
+        )
+        self.assertEqual(
+            self.iso_config["component_required_status"],
+            "integrated_p10_ui_full_story_components_validated_runtime_pending",
         )
         self.assertEqual(
             self.iso_config["output"]["expected_sha256"],

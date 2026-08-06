@@ -39,6 +39,21 @@ def validate_directory_contract(config: dict) -> None:
         raise IsoBuildError(
             "ISO build profile_id must be one path segment"
         )
+    require_component_binding = config.get(
+        "require_component_output_binding",
+        False,
+    )
+    if not isinstance(require_component_binding, bool):
+        raise IsoBuildError(
+            "require_component_output_binding must be boolean"
+        )
+    if require_component_binding and (
+        not isinstance(config.get("component_required_status"), str)
+        or not config["component_required_status"]
+    ):
+        raise IsoBuildError(
+            "component output binding requires component_required_status"
+        )
     for field in (
         "component_validation_manifest",
         "runtime_evidence_manifest",

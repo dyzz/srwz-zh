@@ -45,15 +45,15 @@ class UiP7EmbeddedFontTests(unittest.TestCase):
     def test_registry_appends_seven_and_leaves_twelve_slots(self):
         self.assertEqual(
             self.registry["base_registry"]["registered_character_count"],
-            717,
+            719,
         )
         self.assertEqual(
             self.registry["appended_characters"],
             "忆显缓网锋页额",
         )
         capacity = self.manifest["capacity"]
-        self.assertEqual(capacity["combined_registered_character_count"], 724)
-        self.assertEqual(capacity["remaining_candidate_slot_count"], 12)
+        self.assertEqual(capacity["combined_registered_character_count"], 726)
+        self.assertEqual(capacity["remaining_candidate_slot_count"], 10)
 
     def test_inherited_p2_assignments_are_not_reassigned(self):
         inherited = [

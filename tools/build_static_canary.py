@@ -62,6 +62,7 @@ def main() -> int:
 
     if args.print_output_locks:
         locks = {
+            "glyphs": report["glyphs"],
             "decoded_font_sha256": report["decoded_font"]["output_sha256"],
             "encoded_font": {
                 "size": report["vt1_output"]["replaced_encoded_size"],

@@ -8,11 +8,13 @@ import tempfile
 from pathlib import Path
 from typing import Mapping, Sequence
 
-from .font_source import (
-    FontSourceError,
-    load_font_lock,
-    verify_font_lock_files,
+from .font_flavor import (
+    FontFlavorError,
+    font_flavor_metadata,
+    load_font_flavor_reference,
+    verify_font_flavor_files,
 )
+from .font_source import font_source_metadata
 from .imagemagick import (
     imagemagick_version,
     read_rgba8,
@@ -371,14 +373,22 @@ def build_ui_atlas_localization(
         )
     ramp = _decode_ramp(render.get("ramp_rgba"))
 
-    font_lock_path = _project_path(root, label.get("font_lock"))
-    if _sha256_path(font_lock_path) != label.get("font_lock_sha256"):
-        raise UiAtlasLocalizationError("localized atlas font lock drift")
     try:
-        font_lock = load_font_lock(font_lock_path)
-        font_files = verify_font_lock_files(root, work, font_lock)
-    except FontSourceError as error:
+        font_flavor = load_font_flavor_reference(
+            root,
+            label.get("font_flavor"),
+        )
+        font_lock, font_files, fallback_paths, _fallback_reports = (
+            verify_font_flavor_files(root, work, font_flavor)
+        )
+    except FontFlavorError as error:
         raise UiAtlasLocalizationError(str(error)) from error
+    unsupported = sorted(set(text) & set(fallback_paths))
+    if unsupported:
+        raise UiAtlasLocalizationError(
+            "localized atlas text requires per-character fallback rendering: "
+            + "".join(unsupported)
+        )
 
     magick = require_imagemagick()
     version = imagemagick_version(magick)
@@ -571,13 +581,8 @@ def build_ui_atlas_localization(
                 "archive": base_report["outputs"]["archive"],
             },
             "font": {
-                "lock": _file_lock(root, font_lock_path),
-                "family": font_lock["family"],
-                "version": font_lock["version"],
-                "commit": font_lock["commit"],
-                "font_sha256": font_lock["font"]["sha256"],
-                "license_spdx": font_lock["license"]["spdx"],
-                "license_sha256": font_lock["license"]["sha256"],
+                "flavor": font_flavor_metadata(font_flavor),
+                "source": font_source_metadata(font_lock),
             },
             "translation_source": {
                 "file": _file_lock(root, translation_path),

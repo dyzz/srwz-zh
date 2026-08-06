@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
+  "font_flavor": "config/fonts/zh-localization-font.json",
   "scope": {
     "stage_indices": [
       1,
@@ -27,13 +27,10 @@
     "hinting": false,
     "antialias": true,
     "quantization": "round(gray * 15 / 255)",
-    "cjk_bbox_normalization": {
-      "source_canvas_size": 64,
-      "source_point_size": 48,
-      "trim_threshold": 8,
-      "target_bbox_size": 22,
-      "resize_filter": "Lanczos",
-      "reason": "Render every CJK ideograph from the same high-resolution Noto em, trim only quantization-invisible outer pixels, proportionally fit the visible raster inside a 22x22 box, and center it in the fixed 24x24 cell. Character-specific resizing, point sizes, and corrections are forbidden."
+    "cjk_fixed_canvas": {
+      "x_offset": 0,
+      "y_offset": 1,
+      "reason": "Render every CJK glyph from the global HarmonyOS Sans SC Regular source at one 22px em and one shared baseline in the fixed 24x24 cell. Character-specific trimming, resizing, point sizes and corrections are forbidden."
     }
   }
 }

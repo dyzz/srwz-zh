@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "font_profile_id": "srwz-zh-font-base-v1",
+  "font_flavor": "config/fonts/zh-localization-font.json",
+  "encoding_baseline": {
+    "text_table": {
+      "path": "vendor/upstream-python/project/tbl_all.json",
+      "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+    },
+    "base_codebook": {
+      "path": "config/encoding/codebook.json",
+      "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+    }
+  },
+  "scope": {
+    "selection": "Global technical baseline for every Chinese localization surface.",
+    "rerasterize": "The release snapshot owns all selected visible glyphs.",
+    "preserve": "Unselected source glyphs, control bytes, archive size and executable font layout."
+  },
+  "codec": {
+    "strategy": "rust-maximum",
+    "min_match_length": 2,
+    "max_match_chain": 65535,
+    "lazy_matching": true
+  },
+  "rasterizer": {
+    "executable": "magick",
+    "density": 72,
+    "point_size": 22,
+    "gravity": "center",
+    "hinting": false,
+    "antialias": true,
+    "quantization": "round(gray * 15 / 255)",
+    "cjk_fixed_canvas": {
+      "x_offset": 0,
+      "y_offset": 1,
+      "reason": "Render every CJK glyph from the global HarmonyOS Sans SC Regular source at one 22px em and one shared baseline in the fixed 24x24 cell. Character-specific trimming, resizing, point sizes and corrections are forbidden."
+    }
+  }
+}

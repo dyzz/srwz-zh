@@ -18,6 +18,7 @@ from tools.srwz.font import (
     glyph_raster_metrics,
     inventory_codebook,
     is_cjk_unified_ideograph,
+    is_conditional_width_code,
     read_extended_glyph_table,
     render_glyph_grid,
     replace_glyph,
@@ -30,6 +31,12 @@ from tools.srwz.text import TextTable
 
 
 class FontAnalysisTests(unittest.TestCase):
+    def test_conditional_width_code_range_is_exact(self):
+        self.assertFalse(is_conditional_width_code(0x813F))
+        self.assertTrue(is_conditional_width_code(0x8140))
+        self.assertTrue(is_conditional_width_code(0x889E))
+        self.assertFalse(is_conditional_width_code(0x889F))
+
     def test_glyph_raster_metrics_capture_bbox_ink_and_edge_contact(self):
         pixels = bytearray(GLYPH_WIDTH * GLYPH_HEIGHT)
         pixels[1 * GLYPH_WIDTH + 2] = 4
