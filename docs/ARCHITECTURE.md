@@ -5,11 +5,11 @@
 工程分为四层：
 
 1. `rom/`：用户本地、不可变的原版 ISO，永不提交。
-2. `corpus/`、`config/`、`patches/`：可审查的生产源数据。
+2. `corpus/`、`config/`：可审查的生产源数据。
 3. `work/`：提取缓存、profile 组件、ISO 中间态和本地运行证据。
-4. `font/generated/`、`build/`：可由源数据重建的最终产物。
+4. `work/build/`、`build/`：可由源数据重建的组件与最终产物。
 
-生产事实源是 SurfaceSpec、中文语料、codebook／字体账本和 BuildProfile；
+生产事实源是领域配置、中文语料、codebook／字体账本、最终组件配置和 ISO profile；
 manifest 用于锁定输入与结果。`work/`、`build/` 和 dashboard 都不能成为唯一
 译文或唯一配置来源。
 
@@ -57,14 +57,15 @@ manifest 用于锁定输入与结果。`work/`、`build/` 和 dashboard 都不�
 
 ## 上游与工具链
 
-- 上游固定到 `config/upstream.lock.json` 指定的提交；最小参考快照位于
-  `vendor/upstream-python/`，由 `selection.json` 和 byte comparison 固定。
+- 上游固定到 `config/upstream.lock.json` 指定的提交；`vendor/upstream-python/`
+  只保留当前链直接读取的两份静态 JSON，并由
+  `selection.json` 声明用途。
 - 活动实现全部位于中文仓库；核心库不导入上游 Python 模块，只读取少量固定
-  数据定义并做结果对照。
+  数据定义。
 - 不执行上游 EXE/DLL、Wine 或 Mono。Windows 二进制、预制汉化成员和未提交
   上游工作树都不是生产输入。
-- ISO 固定使用 config 锁定的 `mkps2iso` v1.1.1；ASM 固定使用
-  `config/toolchain/armips.lock.json` 声明的官方 MIT armips。
+- ISO 固定使用 config 锁定的 `mkps2iso` v1.1.1；当前生产闭包不包含 ASM
+  patch 或外部 Windows 工具链。
 - 通用修复应保持差异可追溯，便于贡献回上游；中文语料、ROM 和构建产物不得
   进入上游仓库。
 

@@ -138,11 +138,11 @@ class StorySpeakerTranslationTests(unittest.TestCase):
             "srwz-zh-story-speakers-v1",
         )
         self.assertEqual(glossary["default_source_match"], "token")
-        self.assertEqual(len(terms), 340)
-        self.assertEqual(len({term["id"] for term in terms}), 340)
+        self.assertEqual(len(terms), 341)
+        self.assertEqual(len({term["id"] for term in terms}), 341)
         self.assertEqual(
             Counter(term["status"] for term in terms),
-            {"researched": 223, "proposed": 117},
+            {"researched": 224, "proposed": 115, "approved": 2},
         )
         self.assertTrue(all(term["category"] == "people" for term in terms))
         self.assertTrue(all(term["enforce"] for term in terms))
@@ -155,7 +155,7 @@ class StorySpeakerTranslationTests(unittest.TestCase):
                     for source_term in term["source_terms"]
                 }
             ),
-            340,
+            341,
         )
 
         referenced = {
@@ -163,7 +163,18 @@ class StorySpeakerTranslationTests(unittest.TestCase):
             for entry in self.translations["entries"]
             for term_id in entry["glossary_refs"]
         }
-        self.assertTrue({term["id"] for term in terms}.issubset(referenced))
+        unreferenced = {
+            term["id"]: term
+            for term in terms
+            if term["id"] not in referenced
+        }
+        self.assertTrue(
+            all(term["status"] == "approved" for term in unreferenced.values())
+        )
+        self.assertEqual(
+            set(unreferenced),
+            {"people/user-ji-edel-full"},
+        )
 
         by_source = {
             term["source_terms"][0]: term

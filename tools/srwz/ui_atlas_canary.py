@@ -506,6 +506,41 @@ def build_ui_atlas_map_canary(
         raise UiAtlasCanaryError("atlas TIM2 record geometry drift")
 
     mask = AtlasMask.from_mapping(target["mask"])
+    force_reindex_entire_mask = target.get(
+        "force_reindex_entire_mask",
+        False,
+    )
+    if not isinstance(force_reindex_entire_mask, bool):
+        raise UiAtlasCanaryError(
+            "force_reindex_entire_mask must be boolean"
+        )
+    expected_background_palette_index = target.get(
+        "expected_background_palette_index"
+    )
+    if force_reindex_entire_mask:
+        if (
+            not isinstance(expected_background_palette_index, int)
+            or isinstance(expected_background_palette_index, bool)
+            or not 0 <= expected_background_palette_index <= 0x0F
+        ):
+            raise UiAtlasCanaryError(
+                "expected background palette index must fit one nibble"
+            )
+        forced_pixel_indexes = {
+            y * CANARY_WIDTH + x
+            for y in range(mask.y, mask.y + mask.height)
+            for x in range(mask.x, mask.x + mask.width)
+        }
+        forced_color_indexes = {
+            mask.replacement_rgba: expected_background_palette_index
+        }
+    else:
+        if expected_background_palette_index is not None:
+            raise UiAtlasCanaryError(
+                "background palette index requires forced mask reindexing"
+            )
+        forced_pixel_indexes = set()
+        forced_color_indexes = {}
     magick = require_imagemagick()
     version = imagemagick_version(magick)
     if version != config.get("toolchain", {}).get("imagemagick"):
@@ -536,6 +571,8 @@ def build_ui_atlas_map_canary(
             chunk,
             original_rgba,
             edited_rgba,
+            force_reindex_pixel_indexes=forced_pixel_indexes,
+            forced_color_indexes=forced_color_indexes,
         )
         output_tm2.write_bytes(injection.data)
         render_tim2_png8(magick, output_tm2, output_png)
@@ -647,6 +684,16 @@ def build_ui_atlas_map_canary(
             },
             "semantic_locator": target["semantic_locator"],
             "operation": target["operation"],
+            **(
+                {
+                    "force_reindex_entire_mask": True,
+                    "expected_background_palette_index": (
+                        expected_background_palette_index
+                    ),
+                }
+                if force_reindex_entire_mask
+                else {}
+            ),
             "candidate_evidence_status": candidate["evidence_status"],
             "candidate_scene_ids": candidate["candidate_scene_ids"],
             "mask": mask.to_mapping(),
@@ -674,6 +721,11 @@ def build_ui_atlas_map_canary(
             "single_picture_4bpp_geometry_exact": True,
             "mask_contains_every_rgba_change": True,
             "replacement_uses_existing_source_color": True,
+            **(
+                {"forced_mask_background_index_exact": True}
+                if force_reindex_entire_mask
+                else {}
+            ),
             "preserved_background_rgba_exact": True,
             "tim2_header_clut_and_padding_exact": True,
             "archive_geometry_and_other_chunks_exact": True,

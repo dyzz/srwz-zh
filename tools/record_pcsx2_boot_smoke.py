@@ -13,7 +13,7 @@ from pathlib import Path
 
 from srwz.diagnostics import require_work_output
 from srwz.pcsx2_boot_smoke import build_boot_smoke_report
-from verify_pcsx2_font_runtime import (
+from srwz.pine import (
     PINE_ID,
     PINE_TITLE,
     PINE_VERSION,
@@ -25,8 +25,7 @@ from verify_pcsx2_font_runtime import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORK_ROOT = PROJECT_ROOT / "work"
 DEFAULT_PCSX2 = (
-    WORK_ROOT
-    / "runtime/first-five/PCSX2.app/Contents/MacOS/PCSX2"
+    Path("/Applications/PCSX2.app/Contents/MacOS/PCSX2")
 )
 
 
@@ -87,7 +86,7 @@ def main() -> int:
     if not pcsx2_path.is_file() or not os.access(pcsx2_path, os.X_OK):
         raise SystemExit(f"PCSX2 is not executable: {pcsx2_path}")
 
-    run_root = WORK_ROOT / "runtime/iso-incremental" / args.run_id
+    run_root = WORK_ROOT / "runtime/release-boot-smoke" / args.run_id
     report_path = require_work_output(
         (run_root / "boot-smoke.json").resolve(),
         WORK_ROOT,

@@ -137,19 +137,22 @@ class Iso9660Tests(unittest.TestCase):
     def test_repository_iso_manifest_matches_build_config(self):
         root = Path(__file__).resolve().parents[1]
         config = json.loads(
-            (root / "config" / "iso" / "canary-build.json").read_text()
+            (
+                root
+                / "config"
+                / "iso"
+                / "zh-release-full-story-build.json"
+            ).read_text()
         )
         manifest = json.loads(
-            (
-                root / "manifests" / "canary-iso-validation.json"
-            ).read_text()
+            (root / config["output"]["report"]).read_text()
         )
         self.assertEqual(
             manifest["source_iso"]["sha256"],
             config["source_iso"]["sha256"],
         )
         self.assertEqual(
-            manifest["observed_output_iso"]["size"],
+            manifest["output_iso"]["size"],
             config["output"]["expected_size"],
         )
         self.assertEqual(
@@ -157,11 +160,11 @@ class Iso9660Tests(unittest.TestCase):
             config["output"]["expected_member_manifest_sha256"],
         )
         self.assertEqual(
-            manifest["observed_output_iso"]["sha256"],
+            manifest["output_iso"]["sha256"],
             config["output"]["expected_sha256"],
         )
         self.assertEqual(
-            manifest["observed_output_iso"]["path"],
+            manifest["output_iso"]["path"],
             config["output"]["path"],
         )
         self.assertEqual(
@@ -170,12 +173,12 @@ class Iso9660Tests(unittest.TestCase):
         )
         self.assertEqual(
             manifest["runtime_acceptance"],
-            "passed_full_game_decoder_output_hash_and_opening_visual_canary",
+            "not tested by ISO builder",
         )
-        self.assertTrue(manifest["emulator_executed"])
+        self.assertFalse(manifest["emulator_executed_by_builder"])
         self.assertEqual(
-            manifest["visual_menu_acceptance"],
-            "passed_select_scenario_screenshot",
+            manifest["status"],
+            "static_iso_validated_runtime_evidence_separate",
         )
 
 

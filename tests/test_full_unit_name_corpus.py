@@ -81,6 +81,29 @@ class FullUnitNameCorpusTests(unittest.TestCase):
                     self.source_entries,
                 )
 
+    def test_king_gainer_and_gravion_names_follow_reviewed_families(self):
+        expected = {
+            226: "拉什罗德",
+            249: "超重皇",
+            250: "神机超重神",
+            251: "烈阳超重神",
+            252: "神机Σ超重神",
+            253: "超重骑警",
+            265: "G重钻机",
+            266: "G战影",
+            271: "超重Σ",
+            272: "超重要塞",
+        }
+        self.assertEqual(
+            {
+                index: self.decisions[
+                    f"display-name/unit/{index:04d}/name"
+                ]["translation"]
+                for index in expected
+            },
+            expected,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

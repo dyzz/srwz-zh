@@ -20,7 +20,7 @@ from tools.srwz.text import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 UPSTREAM_ROOT = PROJECT_ROOT / "vendor" / "upstream-python"
 TEXT_TABLE = UPSTREAM_ROOT / "project" / "tbl_all.json"
-TAG_FIXTURES = UPSTREAM_ROOT / "tools" / "python" / "tests" / "test_tags.json"
+TAG_FIXTURES = PROJECT_ROOT / "tests" / "fixtures" / "control-tags.json"
 
 
 class TextDecodeTests(unittest.TestCase):

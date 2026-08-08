@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-zh-story-component-v1",
+  "source": {
+    "iso": "rom/srwz.iso",
+    "slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "stage": {
+      "path": "work/disc/DATA/STAGE.BIN",
+      "size": 3910128,
+      "sha256": "9c56d42f96df7b409ccf468b24412322ed627b9cbbd656864818a404d89240dc"
+    },
+    "hb": {
+      "member": "HEDBDY/HB.BIN",
+      "size": 31152,
+      "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21"
+    },
+    "text_table": {
+      "path": "vendor/upstream-python/project/tbl_all.json",
+      "size": 164751,
+      "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c"
+    },
+    "base_codebook": {
+      "path": "config/encoding/codebook.json",
+      "size": 1909,
+      "sha256": "e8770e7e588be74ba63c72cfab47aeee12809512e63710ab62ea91b3aad75ddb"
+    }
+  },
+  "translations": {
+    "dialogue_root": "corpus/zh/story-dialogue",
+    "conditions": "corpus/zh/story-conditions.json",
+    "speakers": "corpus/zh/story-speakers.json",
+    "expected_stage_count": 154,
+    "expected_stage_indices_sha256": "7e0e1d600701c376a18156d892e41bf336f849eaf370531503e19db443cb623c"
+  },
+  "font": {
+    "proposal": "work/writeback/zh-release-codebook-proposal.json",
+    "allocation_registry": "config/encoding/zh-release-font-assignments.json",
+    "all_safe_aliases": true
+  },
+  "codec": {
+    "strategy": "rust-fit",
+    "min_match_length": 2,
+    "max_match_chain": 1024,
+    "lazy_matching": false,
+    "preserve_stage_layout": true
+  },
+  "outputs": {
+    "component_root": "work/build/full-story-stage/components"
+  }
+}

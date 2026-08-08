@@ -2,15 +2,9 @@
 
 ## 语料记录
 
-稳定语料由解析结果导出：
-
-```bash
-python3 tools/export_srwz_corpus.py --force
-```
-
-每条记录至少包含稳定 ID、domain、kind、来源成员、来源文本哈希、结构位置、
-中文、状态和备注。完整日文 JSONL 只位于 `work/`；可提交 manifest 只保存计数、
-聚合哈希和边界。
+稳定语料按领域保存在 `corpus/ja` 与 `corpus/zh`。每条记录至少包含稳定 ID、
+domain、kind、来源成员、来源文本哈希、结构位置、中文、状态和备注。生产 builder
+直接从锁定原版成员重建结构并对账，不依赖一次性的总解析／导出结果。
 
 状态单向推进：
 
@@ -42,7 +36,7 @@ todo -> draft -> reviewed -> final -> runtime_verified
 - `fit_fixed_allocation()`：固定 span 不截断；
 - `rebuild_aligned_archive()`：确定性归档和包含 terminal size 的 offset 表。
 
-所有 writer 必须从 BuildProfile reconciliation 结果读取译文、地址和 assignment，
+所有 writer 必须从锁定领域配置与语料 reconciliation 结果读取译文、地址和 assignment，
 不得由临时 CLI 参数或 canary 文件重新定义生产内容。
 
 ## 领域 writer

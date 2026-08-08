@@ -6,9 +6,6 @@ from pathlib import Path
 from tools.srwz.assets import (
     AssetInventoryConfig,
     AssetInventoryError,
-    changed_ranges,
-    classify_stream_tail,
-    compact_asset_manifest,
 )
 
 
@@ -66,68 +63,6 @@ class AssetInventoryTests(unittest.TestCase):
 
         with self.assertRaisesRegex(AssetInventoryError, "unsupported storage"):
             AssetInventoryConfig.from_mapping(raw)
-
-    def test_classifies_stream_tail_without_guessing_padding(self):
-        self.assertEqual(classify_stream_tail(b"abc", 3), "complete")
-        self.assertEqual(classify_stream_tail(b"abc\0\0", 3), "zero_padding")
-        self.assertEqual(classify_stream_tail(b"abc\0x", 3), "nonzero_tail")
-
-    def test_reports_half_open_changed_ranges(self):
-        self.assertEqual(
-            changed_ranges(b"abcdefghi", b"abXdeYZhi"),
-            [(2, 3), (5, 7)],
-        )
-
-    def test_rejects_reference_size_mismatch(self):
-        with self.assertRaisesRegex(AssetInventoryError, "reference size"):
-            changed_ranges(b"abc", b"ab")
-
-    def test_compact_manifest_drops_per_picture_and_chunk_details(self):
-        report = {
-            "schema_version": 1,
-            "scope": "test",
-            "source": {},
-            "config_sha256": "0" * 64,
-            "archive_count": 1,
-            "direct_member_count": 1,
-            "totals": {"tim2_record_count": 2, "picture_count": 2},
-            "archives": [
-                {
-                    "name": "A",
-                    "member": "A.BIN",
-                    "storage": "raw",
-                    "size": 1,
-                    "sha256": "1" * 64,
-                    "chunk_count": 1,
-                    "decode_status_counts": {"not_compressed": 1},
-                    "decoded_size": None,
-                    "raw_tim2_magic_count": 1,
-                    "tim2_record_count": 1,
-                    "picture_count": 1,
-                    "formats": [],
-                    "chunks": [{"tim2_pictures": [{"width": 1}]}],
-                }
-            ],
-            "direct_members": [
-                {
-                    "member": "B.BIN",
-                    "size": 1,
-                    "sha256": "2" * 64,
-                    "raw_tim2_magic_count": 1,
-                    "tim2_record_count": 1,
-                    "picture_count": 1,
-                    "formats": [],
-                    "pictures": [{"width": 1}],
-                }
-            ],
-            "reference_kvm_comparison": None,
-        }
-
-        compact = compact_asset_manifest(report, "2026-07-25")
-
-        self.assertNotIn("chunks", compact["archives"][0])
-        self.assertNotIn("pictures", compact["direct_members"][0])
-
 
 if __name__ == "__main__":
     unittest.main()

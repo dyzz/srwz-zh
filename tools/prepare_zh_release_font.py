@@ -9,7 +9,7 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from srwz.canary import rasterize_character, rasterizer_point_size
+from srwz.font_rasterizer import rasterize_character, rasterizer_point_size
 from srwz.diagnostics import require_work_output
 from srwz.font import (
     GLYPH_SIZE,
@@ -30,8 +30,11 @@ from srwz.release_font_policy import (
     ReleaseFontPolicyError,
     validate_new_character_allocations,
 )
-from srwz.ui_font import UiFontError, _selected_translation_tree_entries
-from srwz.ui_inventory import rendered_characters
+from srwz.release_font import (
+    ReleaseFontError,
+    rendered_characters,
+    selected_translation_tree_entries,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -107,10 +110,14 @@ def main() -> int:
         raise SystemExit("release font allocation snapshot identity drift")
     primary_rows = snapshot.get("primary_assignments")
     alias_rows = snapshot.get("surface_alias_assignments")
+    compatibility_rows = snapshot.get(
+        "source_compatibility_assignments", []
+    )
     remaining_candidates = snapshot.get("remaining_allocation_candidates")
     if (
         not isinstance(primary_rows, list)
         or not isinstance(alias_rows, list)
+        or not isinstance(compatibility_rows, list)
         or not isinstance(remaining_candidates, list)
     ):
         raise SystemExit("release font allocation snapshot is malformed")
@@ -124,6 +131,10 @@ def main() -> int:
         "remaining_allocation_candidates_sha256"
     ):
         raise SystemExit("release font remaining-candidate digest drift")
+    if _mapping_sha256(compatibility_rows) != snapshot.get(
+        "source_compatibility_mapping_sha256"
+    ):
+        raise SystemExit("release font source-compatibility digest drift")
     try:
         validate_new_character_allocations(
             config,
@@ -138,6 +149,8 @@ def main() -> int:
     if not isinstance(expected, dict) or (
         len(primary_rows) != expected.get("primary_assignment_count")
         or len(alias_rows) != expected.get("surface_alias_assignment_count")
+        or len(compatibility_rows)
+        != expected.get("source_compatibility_assignment_count")
         or snapshot.get("allocation_assignment_count")
         != expected.get("allocation_assignment_count")
         or snapshot.get("reraster_existing_assignment_count")
@@ -165,9 +178,9 @@ def main() -> int:
             profile["unsupported_character_fallbacks"],
         )
         entries, _entry_scenes, selection = (
-            _selected_translation_tree_entries(PROJECT_ROOT, config)
+            selected_translation_tree_entries(PROJECT_ROOT, config)
         )
-    except (FontProfileError, FontSourceError, UiFontError) as error:
+    except (FontProfileError, FontSourceError, ReleaseFontError) as error:
         raise SystemExit(str(error)) from error
 
     source_slps = (WORK_ROOT / "disc/SLPS_258.87").read_bytes()
@@ -180,7 +193,7 @@ def main() -> int:
     characters = sorted(
         {
             row.get("character")
-            for row in (*primary_rows, *alias_rows)
+            for row in (*primary_rows, *alias_rows, *compatibility_rows)
             if isinstance(row, dict)
         }
     )
@@ -209,7 +222,12 @@ def main() -> int:
     with ThreadPoolExecutor(max_workers=8) as executor:
         rasters = dict(executor.map(rasterize, characters))
 
-    def expand(row: dict, *, alias: bool) -> dict:
+    def expand(
+        row: dict,
+        *,
+        alias: bool = False,
+        source_compatibility: bool = False,
+    ) -> dict:
         character = row.get("character")
         code_text = row.get("code")
         glyph_index = row.get("glyph_index")
@@ -234,12 +252,16 @@ def main() -> int:
             "id": (
                 f"zh-release-alias-u{ord(character):04x}"
                 if alias
+                else f"zh-release-source-compat-u{ord(character):04x}"
+                if source_compatibility
                 else f"zh-release-u{ord(character):04x}"
             ),
             **row,
             "status": (
                 "canonical_surface_safe_alias"
                 if alias
+                else "canonical_raw_source_compatibility"
+                if source_compatibility
                 else "canonical_global_release_assignment"
             ),
             "allocation": {
@@ -247,6 +269,11 @@ def main() -> int:
                 "basis": (
                     "flattened canonical surface-safe alias"
                     if alias
+                    else (
+                        "raw source glyph compatibility for untranslated "
+                        "structural text"
+                    )
+                    if source_compatibility
                     else "flattened canonical mapping shared by every Chinese localization surface"
                 ),
                 "glyph_preimage_sha256": sha256_bytes(preimage),
@@ -258,8 +285,17 @@ def main() -> int:
 
     assignments = [expand(row, alias=False) for row in primary_rows]
     aliases = [expand(row, alias=True) for row in alias_rows]
-    all_codes = [item["code"] for item in (*assignments, *aliases)]
-    all_glyphs = [item["glyph_index"] for item in (*assignments, *aliases)]
+    compatibility = [
+        expand(row, source_compatibility=True)
+        for row in compatibility_rows
+    ]
+    all_codes = [
+        item["code"] for item in (*assignments, *aliases, *compatibility)
+    ]
+    all_glyphs = [
+        item["glyph_index"]
+        for item in (*assignments, *aliases, *compatibility)
+    ]
     if len(all_codes) != len(set(all_codes)) or len(all_glyphs) != len(
         set(all_glyphs)
     ):
@@ -323,6 +359,7 @@ def main() -> int:
             ),
         },
         "surface_alias_assignments": aliases,
+        "source_compatibility_assignments": compatibility,
     }
     readiness = {
         "schema_version": 1,
@@ -333,6 +370,7 @@ def main() -> int:
         "unique_rendered_character_count": len(demand),
         "primary_assignment_count": len(assignments),
         "surface_alias_assignment_count": len(aliases),
+        "source_compatibility_assignment_count": len(compatibility),
         "allocation_assignment_count": proposal[
             "allocation_assignment_count"
         ],
@@ -353,6 +391,9 @@ def main() -> int:
             ],
             "surface_alias_mapping_sha256": snapshot[
                 "surface_alias_mapping_sha256"
+            ],
+            "source_compatibility_mapping_sha256": snapshot[
+                "source_compatibility_mapping_sha256"
             ],
             "remaining_allocation_candidates_sha256": snapshot[
                 "remaining_allocation_candidates_sha256"

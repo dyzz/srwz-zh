@@ -6,13 +6,13 @@
   "inputs": {
     "config": {
       "path": "config/fonts/zh-release-font.json",
-      "size": 3526,
-      "sha256": "c479ab757c62a637360caa82dcd55b418b291d8e39cefa7cc988139ab7a0d67a"
+      "size": 3763,
+      "sha256": "06bf50e56b08971e74575272627dbafbe77828dabc3de4f08d285d9b741fb7ae"
     },
     "base_config": {
       "path": "config/fonts/zh-font-base.json",
-      "size": 1422,
-      "sha256": "662ee915cc0df9b2aca94932e5d317f442e6fcb1836c4181483737772a210745"
+      "size": 1418,
+      "sha256": "fb48a8d1f62d865bcc9fb336fcb6486fc6603ab385d19480832b31ac47e82745"
     },
     "text_table": {
       "path": "vendor/upstream-python/project/tbl_all.json",
@@ -21,13 +21,13 @@
     },
     "base_codebook": {
       "path": "config/encoding/codebook.json",
-      "size": 1941,
-      "sha256": "ad6a54daf69b88ebca67ca86ad7f19fc394e3994a1a3b75002a4d88ced8093ed"
+      "size": 1909,
+      "sha256": "e8770e7e588be74ba63c72cfab47aeee12809512e63710ab62ea91b3aad75ddb"
     },
     "allocation_snapshot": {
       "path": "config/encoding/zh-release-font-assignments.json",
-      "size": 596415,
-      "sha256": "45b55604cb1b589634302193a59c2d676126d9b67a4d16d35c72cb37c71ece28"
+      "size": 615907,
+      "sha256": "cd2530aaf0209576f9a32804ff11540f162b63c353973713daddcbd1bd5ec0fa"
     },
     "translation_selection": {
       "kind": "global_translation_tree",
@@ -35,8 +35,20 @@
       "root": "corpus/zh",
       "glob": "**/*.json",
       "field": "translation",
-      "source_count": 182,
+      "map_fields": [
+        "compdata_direct_by_offset",
+        "slps_by_offset",
+        "leadership_effect_by_offset",
+        "atlas_by_source_text",
+        "display_names_by_source_text"
+      ],
+      "source_count": 186,
       "sources": [
+        {
+          "path": "corpus/zh/battle/srvc-lines.json",
+          "sha256": "33231481e784adc6afce1dfa9ddc084f1394225ac9152f3ad413fbd4f0560a3f",
+          "entry_count": 25708
+        },
         {
           "path": "corpus/zh/display-names/p0-opening.json",
           "sha256": "f8b1aa60c9261e66137578aa921b11a933f0fa406cbc791ee2e0945e12c1d910",
@@ -48,14 +60,29 @@
           "entry_count": 297
         },
         {
+          "path": "corpus/zh/menu/hsfc-overviews.json",
+          "sha256": "677f932561a4068463624f9b56510035afe364894143989d2ebe052f085bc151",
+          "entry_count": 105
+        },
+        {
           "path": "corpus/zh/menu/opening-protagonist-profile.json",
-          "sha256": "054e14d4060896e8b4bd76e388f32a74556a261424a15d17704e51cd57fe3e44",
+          "sha256": "8c199a385c781c7fcddc2ff8fe0819d21127abc36839236e18adc050df6bbe5b",
           "entry_count": 4
+        },
+        {
+          "path": "corpus/zh/menu/remaining-ui.json",
+          "sha256": "5ca8179b49b74eea99a5d025aaa279ca5390605341c4bfad1347a8d12cba51aa",
+          "entry_count": 640
         },
         {
           "path": "corpus/zh/menu/stage-names.json",
           "sha256": "bc0fbbffa8fd03c67d47ff06b8fb36ac1aa5a972340e478d248ff303959cf0df",
           "entry_count": 121
+        },
+        {
+          "path": "corpus/zh/menu/stage-overviews.json",
+          "sha256": "7be77ae7a2db917b6f3e4d6a4cce0b9c8b2e002204b6e3326064034fa7c14afe",
+          "entry_count": 110
         },
         {
           "path": "corpus/zh/menu/system-ui-battle-conditions.json",
@@ -64,7 +91,7 @@
         },
         {
           "path": "corpus/zh/menu/system-ui-buttons.json",
-          "sha256": "ae56dbdcc1a3d034c6fb7701015b6720d1b44d16254ea456431514ac9c56a472",
+          "sha256": "1db71af16b329c364ce04300f40fd03208638edb398fbbe2d4f915282f56f7c9",
           "entry_count": 25
         },
         {
@@ -94,7 +121,7 @@
         },
         {
           "path": "corpus/zh/menu/system-ui-parts.json",
-          "sha256": "91b24edc7171840b73a50c41c8eebdbd121a67f2e2d09d68b980e69a6f491089",
+          "sha256": "5533989c9789493882dde8d96fe1b7d994a90cd340c12001f2006ba09ee4bfec",
           "entry_count": 132
         },
         {
@@ -119,7 +146,7 @@
         },
         {
           "path": "corpus/zh/menu/system-ui-special-abilities.json",
-          "sha256": "467b7fcca48ce5d69768599f6fb0111f0f00aadf7883dc5709667192b767806a",
+          "sha256": "655a5cca0d1b34aa0e67f2c2a1302b37193f82b8494bac0d87df5ca1c5bf0190",
           "entry_count": 157
         },
         {
@@ -149,12 +176,12 @@
         },
         {
           "path": "corpus/zh/menu/weapons.json",
-          "sha256": "9394eb225cd43069359ec166bfc33ff796d72c666950515e96ad95637d205a2f",
+          "sha256": "2199992d36e817d115553bb5e8304fc5899368b7f3ef647a7c2aae95bde2b96b",
           "entry_count": 711
         },
         {
           "path": "corpus/zh/story-conditions.json",
-          "sha256": "abf77ad5a5c6da6fa5a3f826be35294f1dae00306f1d2500f080744df41d8381",
+          "sha256": "98823ad378e49de4c23bf8384dd97110f05b14c7fae96b916f5a7c8a10295442",
           "entry_count": 558
         },
         {
@@ -189,17 +216,17 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-007.json",
-          "sha256": "7ab3976a410500aafd71c5171b5cd797462d651ddfde9dbbf2ef359db840ebd0",
+          "sha256": "cb0acedf14d36670fab81271c9c24669759169929a371af43dcc8863070c406f",
           "entry_count": 633
         },
         {
           "path": "corpus/zh/story-dialogue/stage-008.json",
-          "sha256": "a4cb0b0d91f2792865037c7f7e2ef266ac9433d4c1821209a43c0ca6f92f491f",
+          "sha256": "bf21899f27e8df46a221709f263397fc3af0cec8f513c4719e438fef0222c13f",
           "entry_count": 188
         },
         {
           "path": "corpus/zh/story-dialogue/stage-009.json",
-          "sha256": "da8f47b2110d9ad844f02b5cec3e28ba9943ba0ca48ef5d69b13426d2a92e371",
+          "sha256": "38d9e2fa0da95a394d078e5628b93eae4d8c1e7ed2bdd0235859ac9f8331a424",
           "entry_count": 361
         },
         {
@@ -224,17 +251,17 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-014.json",
-          "sha256": "022d90d089c6b828c0a5edef85c29913f68693ce70903d742e15516fb244ec55",
+          "sha256": "9645071cfa9577254562984bc36efbdfc8cd05910c28f8ae9f271e0b644dfdae",
           "entry_count": 376
         },
         {
           "path": "corpus/zh/story-dialogue/stage-015.json",
-          "sha256": "e4680fedb86dcef2616a40070bb9da01105f9704b6519107f4c9b5061dcbd3d4",
+          "sha256": "b7e21f843af44c0d9dd77c6160edeeaf4a82d599f582cfc28a8ea0b0a579d0bc",
           "entry_count": 480
         },
         {
           "path": "corpus/zh/story-dialogue/stage-016.json",
-          "sha256": "8b0610dbd3cff0815f27b170b1ab4d8c4cdb08cdaa0fd0cf2f768cf9d8dc59d7",
+          "sha256": "342e1653f605577761114b6683687e470c7112dbd5d1b782b33bf75c69114d23",
           "entry_count": 590
         },
         {
@@ -284,7 +311,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-026.json",
-          "sha256": "c8ed51f8794cfbb85a631e7c010a8a371230acb889e23bc407ca715140b68c5e",
+          "sha256": "e0321219c0e31cc8e229d7c1c81fe4c0385d371dead538adc928423ff3239e05",
           "entry_count": 656
         },
         {
@@ -294,7 +321,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-028.json",
-          "sha256": "894ff1a46814281e2b62cb5e6cc88dd0a2781cb3905dc40aba8673983d72a650",
+          "sha256": "1fa85e56c2a4a7d1c6449a4ce0499b29aab47ed7e976cd5634a43915b679658a",
           "entry_count": 801
         },
         {
@@ -329,12 +356,12 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-035.json",
-          "sha256": "c8017aad370c21866e6c28eefe0ef976bc28a05abbc2c9266269cffd81cb7fd0",
+          "sha256": "4090ca985f7efc422790ef79555e08b1220474429c7ea020b5318fd668f8052e",
           "entry_count": 383
         },
         {
           "path": "corpus/zh/story-dialogue/stage-036.json",
-          "sha256": "3507347be633874b7061be70e931c9b0b1627be8de94de2a5545343ba00c7d0d",
+          "sha256": "e749d96748f69170795101b88041218bb53c2bd1b426ac3e5d96016fa2ef322e",
           "entry_count": 329
         },
         {
@@ -354,7 +381,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-040.json",
-          "sha256": "9cc7ae0d2ce5aa1d50ca27562274906465a67f3f1553356af8fbe59199a6bcb3",
+          "sha256": "1040c1ee524cd9cf33be94a4c966bb2fb37cb3ea67fdb2c9b1197672a9640a4d",
           "entry_count": 742
         },
         {
@@ -369,7 +396,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-043.json",
-          "sha256": "d3337ca5ca0c0c8ff43ef272d2591b2b63dbba173067debc8735cef2f554fd1c",
+          "sha256": "72de9f876b06f218d467ce4a8d551deb9c790cab9813531a64a9779e5277a84a",
           "entry_count": 597
         },
         {
@@ -384,7 +411,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-047.json",
-          "sha256": "1000b9b3bdf9447bf983db12a9f5e399327233171124a6e17cf613a2fe2d6754",
+          "sha256": "0fbf6883e0080cb2f422cb8dc3c058dd1892298d530376bad7d8e3fb19b34e75",
           "entry_count": 554
         },
         {
@@ -399,7 +426,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-050.json",
-          "sha256": "51cd6da7744a624770d12d27437bc7d650ba1244112fb26a0a79e8623f785f8b",
+          "sha256": "609c017a8a2e4800c1b4cf4c0647b019d564c6f724958d064950ddb35fce39a5",
           "entry_count": 730
         },
         {
@@ -409,12 +436,12 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-052.json",
-          "sha256": "f592393ebe43170a1cd0b65f98dc15e77cab049bf1a100addde96ab648d1581e",
+          "sha256": "d688ef29e4b7a2b89f90d83f436730643b79c07a9f4e0c16625b7902c26025a8",
           "entry_count": 525
         },
         {
           "path": "corpus/zh/story-dialogue/stage-053.json",
-          "sha256": "602a6046688ff6650433c6d852a7f62dd4149d6a61f9abf77605ef06ae685c6d",
+          "sha256": "48ec224f84f8e48ff59625798a87e1382d45aa5e8f46f3361f7aaad86d98eb7c",
           "entry_count": 601
         },
         {
@@ -439,7 +466,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-058.json",
-          "sha256": "0839584892f9923695c102e3830226d618a663400efe5c6401e74c7149bf415c",
+          "sha256": "388e4addd742304bbb23b4df5ec274170e6b7aeab2ac326b17ec455824613bf4",
           "entry_count": 512
         },
         {
@@ -449,7 +476,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-060.json",
-          "sha256": "9d44cd10ca743f0f9eb85cb4070e48b0eb90a6d2e6b689fdbd838ab0da0d3aa6",
+          "sha256": "7e93511e5c6786e7447374b1e9f94ce7a422f32418d9261676d9e5ec7b53e300",
           "entry_count": 666
         },
         {
@@ -469,17 +496,17 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-064.json",
-          "sha256": "4e080bb97b37d1a52e93481003350c52a3ba6ab5c7ba735b0ea8f0b01c83ed1f",
+          "sha256": "073436093c2bf627df3ed0a8f2391cdf95ddd65c252aceb06eafe020e1ef2f44",
           "entry_count": 335
         },
         {
           "path": "corpus/zh/story-dialogue/stage-065.json",
-          "sha256": "5fce22a657961cc35a3ea101ccf13350992c2191a2b69f93df4da102fdd1800c",
+          "sha256": "62d66c147517103532bb930b67636d5684a96fd426ea45e1fc9ea63a98e08ed7",
           "entry_count": 336
         },
         {
           "path": "corpus/zh/story-dialogue/stage-066.json",
-          "sha256": "815def58aac1e907314a37e660e494a77e8e1a07150ff2858bf8a77fefe87152",
+          "sha256": "204ed2eba628bc42664ca73cd5de3ee2ea1e962409f48d1ced22b9f73bf27e36",
           "entry_count": 805
         },
         {
@@ -489,12 +516,12 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-068.json",
-          "sha256": "d59646a722ebbc418d8cbd36c06bbd5db89753af65f7952bcfbf60f731a3e092",
+          "sha256": "fc5098cf1bdd0f5d77b50f06b969c318959286b588ab0720ff69598bec382531",
           "entry_count": 365
         },
         {
           "path": "corpus/zh/story-dialogue/stage-069.json",
-          "sha256": "6e30800d6b51c487a00637aab474dd83cd6f9e9d92ab993ff4d7b323a6b48d2b",
+          "sha256": "69662f2569c1a2654666e4a9a166569d4a059fb061214c6836f2bf0b6b2871d8",
           "entry_count": 1091
         },
         {
@@ -509,7 +536,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-072.json",
-          "sha256": "a338b0a4a584f65f525d4cc632c18b0989b4e93ed0d91bfa52ee4f78f6a3c855",
+          "sha256": "368bc7ae7922c1c1505cca22d35f5f315f190116ccff9b89c5b607ab84d57338",
           "entry_count": 418
         },
         {
@@ -609,7 +636,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-092.json",
-          "sha256": "01a3c64f07010edb5a9855941145496c4bb5e8a27f0f86e64dfd9e40ad196350",
+          "sha256": "75db8814c21f14196b25099d1c04dc46967ca53b0e37240eb29b01b520b9be5a",
           "entry_count": 301
         },
         {
@@ -639,7 +666,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-098.json",
-          "sha256": "3c1b5eed6ed8a70af249a6d0b7cd8c14b7db4081fcf6ec4796d74d5217312288",
+          "sha256": "0b9d1abcebdf800807062201dad6d042f2c5710882ab5e28d2e937fa764dc1af",
           "entry_count": 926
         },
         {
@@ -659,7 +686,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-102.json",
-          "sha256": "fc3c4a0e17fa4fc1339a940f214d2e3fc34cf241511393444a0bee9b4e790a65",
+          "sha256": "57d508bb83291d23dd45dc0812ff28d0d2af705f106b7d7e58f07a6d007387a0",
           "entry_count": 519
         },
         {
@@ -669,12 +696,12 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-104.json",
-          "sha256": "1cc4da94abc56c72264078d07a19a87fa9364f098e1f78376a5c39aabeed85ba",
+          "sha256": "0fa09e10a39448d73fbb2defae5cd9bf126d7d591909f9cd5f3af03ba08209b0",
           "entry_count": 923
         },
         {
           "path": "corpus/zh/story-dialogue/stage-105.json",
-          "sha256": "412b3ca7e472a68b89ebe746bd43f1eb6619e345931a64808e26380a9419004b",
+          "sha256": "f653fc6ad95c953fac4a270d6c2773bd9b5837eafbca626ab03f184dc8a621fe",
           "entry_count": 436
         },
         {
@@ -684,12 +711,12 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-107.json",
-          "sha256": "8beecd4eaeb418ac23c93a1e62286b8ab447f76340219eb59b80e4073daebc98",
+          "sha256": "54e06b4cabe417e322fbb73352cc7dd27bede8ceceb01ad1334ba6053ffa7750",
           "entry_count": 1148
         },
         {
           "path": "corpus/zh/story-dialogue/stage-108.json",
-          "sha256": "81a6b169ab38b26aa442c40e4a333a4e00c63a408c322581f7c128502dd05c40",
+          "sha256": "a467de86c85f0a131924042f5950d080f1ecbed164a0fd1fec2f2a6941e7a50f",
           "entry_count": 826
         },
         {
@@ -699,12 +726,12 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-110.json",
-          "sha256": "f9804023fd3687b6704b90ef0f1fddd08e49a0a49c27e9b6b53ea5102006f990",
+          "sha256": "6d167e8502b9345829e3f11b885bd17eaeecb9d37bee85cab67ee93b9e2dcc0d",
           "entry_count": 1085
         },
         {
           "path": "corpus/zh/story-dialogue/stage-111.json",
-          "sha256": "744926b32654046d7b9d810db0f6208db0c422ae6a818c5fc2460ebfbd0af104",
+          "sha256": "84d69c8ed002e671b9fabe7993e94c5c9070ecdd22f365edbe9a9e868afbd526",
           "entry_count": 1127
         },
         {
@@ -734,7 +761,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-117.json",
-          "sha256": "f2f6dbc585383d519f6eb297b6e41a81572ed5b7717179751802930127619394",
+          "sha256": "449b03f1d27b2bd4cff3915588fc8bbbd09b33081b7bb85cdfee3d82d36a93a5",
           "entry_count": 834
         },
         {
@@ -744,12 +771,12 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-119.json",
-          "sha256": "4f943e1d49975bd24dd3f9059f130a0af41f6c29c5de7b73952d0ba5437fee99",
+          "sha256": "9c20667720ae9aaaf93d83eb1fa1363e38e0046d0b31cc241e7389894f9d5adf",
           "entry_count": 1110
         },
         {
           "path": "corpus/zh/story-dialogue/stage-120.json",
-          "sha256": "54126a20b6db910516be689d404b846776dcb34f40c9d17b9282f70974de630a",
+          "sha256": "5b209909786ef30c22072503157feaeccdf8336f2431fcc81c101b1ced114a0c",
           "entry_count": 709
         },
         {
@@ -799,22 +826,22 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-130.json",
-          "sha256": "9b3ccaa24c214213d8db5ced19fc1dc1a624c433b941e0182b3bf6332b595bbe",
+          "sha256": "d4a41788558e135487c0b0fed0413df495e5e42fe36baade9e3e5ba29a5da6fb",
           "entry_count": 622
         },
         {
           "path": "corpus/zh/story-dialogue/stage-131.json",
-          "sha256": "e550dcdcb080bac7302446dc9a82c09470b61f2be3d2ad63ce394be3f4e70ef0",
+          "sha256": "1dc27c78cf399e342027a5930b3df3ec0a8e2b27eab74aa9b786a57cf081d518",
           "entry_count": 1112
         },
         {
           "path": "corpus/zh/story-dialogue/stage-132.json",
-          "sha256": "cc615a4edfa280a48b4806d5dde96cfb9eb611ff313f719d33dc26d84f5ddf2b",
+          "sha256": "2c1cc93a941c22f7a57ee694695a5e4a52e3ee67db2a8853e855f29083a5540f",
           "entry_count": 667
         },
         {
           "path": "corpus/zh/story-dialogue/stage-133.json",
-          "sha256": "b78003c71bb14d88a4ff36c7b17c972947313ce6feb86d290dae072bcd73a5d8",
+          "sha256": "1ef468aea512e2ff011e5604319316d253aef9c5c1bab6093a37670516d61ab1",
           "entry_count": 353
         },
         {
@@ -829,7 +856,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-136.json",
-          "sha256": "e83e1ff14494062dcf75bf9579db4eb6abb08612dae8f8ad255d87a64f69f15e",
+          "sha256": "dd40b22a812f43bb76ce4ac43b63c3da161241403e7411a218845438e1ebdc10",
           "entry_count": 812
         },
         {
@@ -844,7 +871,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-139.json",
-          "sha256": "78f1d1da1bae3852bf97719b23cb56103837441a5fa7f804229cbcabfed56a61",
+          "sha256": "796deceabfa7a72a8fb39daa9c618f99d839788548165461182b9227779e9223",
           "entry_count": 1109
         },
         {
@@ -869,7 +896,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-144.json",
-          "sha256": "54b76abbafa18a9d5655e28d974b41920092689c22e13f2c0d46f0111ea238c1",
+          "sha256": "5da5cf18284ab2e089a73799a9ca23cf39f65cac9f8935222987bf9fbaef89df",
           "entry_count": 882
         },
         {
@@ -894,7 +921,7 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-149.json",
-          "sha256": "ba2e66a11b6cf65047a09680eba10657a0d98e7cd431bfd257146e298b0a2439",
+          "sha256": "bc28d5f8d0a39fcd386f7cf0f715e369727daf7ae1e57a1b1e0553ff52851deb",
           "entry_count": 1677
         },
         {
@@ -939,8 +966,8 @@
         },
         {
           "path": "corpus/zh/ui-atlas/core-menus-v1.json",
-          "sha256": "2ab59190c3792cbce85756186b13253d403224b6bf9031e07d46a2baad37573f",
-          "entry_count": 4
+          "sha256": "a3f3e51fe5ba803cfc1721793051a86dcc502dcd83497ff4ab40c009b94a3796",
+          "entry_count": 11
         },
         {
           "path": "corpus/zh/ui-atlas/info-v1.json",
@@ -948,12 +975,12 @@
           "entry_count": 1
         }
       ],
-      "unique_entry_count": 94090,
+      "unique_entry_count": 120660,
       "control_tokens": {
         "preservation": "lossless_encoder_control_path",
         "excluded_from_font_glyph_demand": true,
-        "entry_count": 2080,
-        "occurrence_count": 2111,
+        "entry_count": 2085,
+        "occurrence_count": 2130,
         "kinds": {
           "runtime_format": {
             "occurrence_count": 51,
@@ -972,8 +999,23 @@
             }
           },
           "text_tag": {
-            "occurrence_count": 6,
+            "occurrence_count": 25,
             "forms": {
+              "<35:08>": 1,
+              "<35:09>": 2,
+              "<35:3E>": 1,
+              "<color:00>": 1,
+              "<color:0C>": 1,
+              "<color:0E>": 1,
+              "<color:3E>": 1,
+              "<height:08>": 1,
+              "<height:09>": 2,
+              "<space:10>": 1,
+              "<space:12>": 2,
+              "<space:3E>": 1,
+              "<width:10>": 1,
+              "<width:12>": 2,
+              "<width:3E>": 1,
               "@<35:00>": 1,
               "@<color:31>": 2,
               "@<height:00>": 1,
@@ -984,21 +1026,23 @@
         }
       },
       "literal_percent_signs": {
-        "entry_count": 70,
-        "occurrence_count": 81
+        "entry_count": 137,
+        "occurrence_count": 150
       },
-      "selection_sha256": "a33ec47f18c1bcc17a55d07944e4d5dffd9cc6ed519657bb00badc2fdeb46a4f"
+      "selection_sha256": "fbf927d566e4d7278d6bb98d3cd22c0b0bb63eb9dd36973f638555d76be83686"
     }
   },
   "mapping": {
-    "primary_assignment_count": 3178,
+    "primary_assignment_count": 3261,
     "surface_alias_assignment_count": 701,
-    "allocation_assignment_count": 1562,
-    "reraster_existing_assignment_count": 1616,
-    "primary_mapping_sha256": "54d28471fcc41740be9ab830c166e952d173bbfeb858c247a9cd314c276996c9",
+    "source_compatibility_assignment_count": 1,
+    "allocation_assignment_count": 1644,
+    "reraster_existing_assignment_count": 1617,
+    "primary_mapping_sha256": "597a4cb7ffbd89de4c28f9d8fb3f3e2c42173a716e98e4e2a963b390037759c9",
     "surface_alias_mapping_sha256": "5dd897b63dcf62fb3eafebb1727d5a55e4ffa318ad7d858a039b1918049fdd4c",
-    "remaining_allocation_candidates_sha256": "ba0730ac5ed460d79095bf683c2a828767327049d4eb483560f8a28f194b0e7e",
-    "remaining_candidate_slot_count": 85,
+    "source_compatibility_mapping_sha256": "cab90357536d3cc5a7a3e0f301f1fe35ba609c51feedc192753344ddc77fb95f",
+    "remaining_allocation_candidates_sha256": "10d895f6f27024891e3dc86103120c96e31b061d7c804dcfca2619753bf5b351",
+    "remaining_candidate_slot_count": 1,
     "new_character_allocation_policy": {
       "required_width_class": "default_double_byte",
       "forbidden_renderer_mode": "single_character_conditional_width",
@@ -1007,35 +1051,35 @@
       "applies_to": "Every primary assignment appended by update_zh_release_font_snapshot.py, including a character already present in the original text table.",
       "historical_exception": "Existing primary mappings are immutable and remain protected by the surface-safe alias layer; this exception never authorizes a new assignment in the forbidden range."
     },
-    "guarded_post_migration_assignment_count": 20,
-    "guarded_extension_assignment_count": 1,
+    "guarded_post_migration_assignment_count": 103,
+    "guarded_extension_assignment_count": 84,
     "forbidden_range_assignment_count": 0
   },
   "migration": {
-    "mode": "flatten-historical-p-chain-once",
+    "mode": "flattened_release_baseline",
     "historical_primary_assignment_count": 3158,
     "historical_primary_mapping_sha256": "23c4cfd6347eabece4f3743f86e37f680c5e2c65702594a0b9d766419a7ff7f4",
     "added_global_assignment_count": 19,
     "historical_profiles_are_active_build_dependencies": false
   },
   "coverage": {
-    "literal_character_count": 1637616,
-    "unique_literal_character_count": 3197,
+    "literal_character_count": 2024823,
+    "unique_literal_character_count": 3285,
     "missing_character_count": 0,
     "missing_character_occurrence_count": 0,
     "missing_characters": "",
     "missing": [],
-    "selected_font_han_count": 3065,
+    "selected_font_han_count": 3147,
     "original_font_han_count": 0,
     "original_font_han_characters": "",
-    "selected_font_visible_character_count": 3185,
+    "selected_font_visible_character_count": 3268,
     "original_font_visible_character_count": 0,
     "original_font_visible_characters": "",
-    "vt1_missing_character_count_before_raw_ascii_policy": 11,
-    "preserved_raw_ascii_punctuation_count": 11,
-    "preserved_raw_ascii_punctuation_characters": "\"%&',-./:=~",
-    "control_token_entry_count": 2080,
-    "control_token_occurrence_count": 2111,
+    "vt1_missing_character_count_before_raw_ascii_policy": 16,
+    "preserved_raw_ascii_punctuation_count": 16,
+    "preserved_raw_ascii_punctuation_characters": "\"%&',-./:<=\\]{}~",
+    "control_token_entry_count": 2085,
+    "control_token_occurrence_count": 2130,
     "control_token_kinds": {
       "runtime_format": {
         "occurrence_count": 51,
@@ -1054,8 +1098,23 @@
         }
       },
       "text_tag": {
-        "occurrence_count": 6,
+        "occurrence_count": 25,
         "forms": {
+          "<35:08>": 1,
+          "<35:09>": 2,
+          "<35:3E>": 1,
+          "<color:00>": 1,
+          "<color:0C>": 1,
+          "<color:0E>": 1,
+          "<color:3E>": 1,
+          "<height:08>": 1,
+          "<height:09>": 2,
+          "<space:10>": 1,
+          "<space:12>": 2,
+          "<space:3E>": 1,
+          "<width:10>": 1,
+          "<width:12>": 2,
+          "<width:3E>": 1,
           "@<35:00>": 1,
           "@<color:31>": 2,
           "@<height:00>": 1,
@@ -1067,24 +1126,24 @@
     "control_tokens_excluded_from_glyph_demand": true,
     "runtime_placeholder_occurrence_count": 2105,
     "runtime_placeholder_bytes_preserved_exactly": true,
-    "literal_percent_entry_count": 70,
-    "literal_percent_occurrence_count": 81
+    "literal_percent_entry_count": 137,
+    "literal_percent_occurrence_count": 150
   },
   "proposal": {
     "path": "work/writeback/zh-release-codebook-proposal.json",
-    "size": 3449792,
-    "sha256": "f294a2633a4d528ea2ca87c5f0b430d675046feeed52836545c8eb2a62cd962c"
+    "size": 3527917,
+    "sha256": "4618b51211b59fef6552d11179f4850fe620341644222e2eb7e1109403fcc50a"
   },
   "readiness": {
     "path": "work/writeback/zh-release-font-readiness.json",
-    "size": 38924,
-    "sha256": "308e7122f4ae7c0190ba3fa2ca079d7e70df02b361de4ad9c2ad1de929010d88"
+    "size": 39972,
+    "sha256": "6693a302cdb290c2b532c5a9fea4ab9885df0a24d172c4a28f19b65909775e74"
   },
   "font_component": {
     "report": {
       "path": "work/build/zh-release-font/components/font-validation.json",
-      "size": 1930266,
-      "sha256": "352c377ad51c580a2cfefa2ff67914a1a28951e9187cc74d9a93c5d274568f19"
+      "size": 1971971,
+      "sha256": "15a80f062f4cb6fa6c47df11d2ca0258fe703380bcb79bff17550286abcb6638"
     },
     "slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
@@ -1094,15 +1153,16 @@
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "5144065a77d5ea97c0b259a6882279519364ee6ae2ce3d240bc9208f10a5fb75"
+      "sha256": "ef0464225fe96b445ef7daf05a62339ed35b3725ea466723b35cc90649154b6f"
     },
-    "assignment_count": 3879,
-    "changed_glyph_count": 3878,
-    "decoded_font_sha256": "c7742ddd5e79938539dc07c15876830802ccc2c62aecc431323821486f0ec504"
+    "assignment_count": 3963,
+    "changed_glyph_count": 3962,
+    "decoded_font_sha256": "c24bb8c8240ca3d1f6f4defd48bbf29aa13911da7758ffb1c0ddf67c18c1f08a"
   },
   "acceptance": {
     "flattened_snapshot_is_self_contained": true,
     "historical_primary_mappings_preserved": true,
+    "raw_source_structural_glyph_compatibility_preserved": true,
     "proposal_and_component_assignment_counts_exact": true,
     "glyph_preimages_and_rasters_exact": true,
     "all_translation_fields_missing_character_count_zero": true,

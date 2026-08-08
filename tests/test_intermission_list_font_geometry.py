@@ -2,7 +2,7 @@ import struct
 import unittest
 from pathlib import Path
 
-from tools.srwz.canary import double_byte_width_class
+from tools.srwz.font import is_conditional_width_code
 from tools.srwz.intermission_font_geometry import (
     CAVE_CAPACITY,
     CAVE_VA,
@@ -158,11 +158,8 @@ class IntermissionListFontGeometryTests(unittest.TestCase):
             self.assertEqual(self.output[offset : offset + len(expected)], expected)
 
     def test_reported_meier_case_crosses_the_games_code_class_boundary(self):
-        self.assertEqual(double_byte_width_class(0x947E), "default_double_byte")
-        self.assertEqual(
-            double_byte_width_class(0x846D),
-            "conditional_double_byte",
-        )
+        self.assertFalse(is_conditional_width_code(0x947E))
+        self.assertTrue(is_conditional_width_code(0x846D))
 
     def test_drifted_cave_fails_before_writing(self):
         drifted = bytearray(self.source)

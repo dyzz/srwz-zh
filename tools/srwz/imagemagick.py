@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 import shutil
 import subprocess
 from pathlib import Path
@@ -214,8 +215,13 @@ def render_grayscale_text_mask(
     stroke_gray: str,
     stroke_width: float,
     fill_stroke_width: float = 0,
+    italic_shear_degrees: float = 0,
 ) -> bytes:
-    """Render centered antialiased text as one byte of coverage per pixel."""
+    """Render text inside one fixed-size atlas-element canvas.
+
+    The optional horizontal shear is cropped back to the requested canvas, so
+    an italic treatment cannot change the source element geometry.
+    """
 
     if not font.is_file():
         raise ImageMagickError(f"font was not found: {font}")
@@ -225,36 +231,60 @@ def render_grayscale_text_mask(
         raise ImageMagickError("text mask geometry must be positive")
     if stroke_width < 0 or fill_stroke_width < 0:
         raise ImageMagickError("text mask stroke widths cannot be negative")
-    pixels = _run(
+    if (
+        not isinstance(italic_shear_degrees, (int, float))
+        or isinstance(italic_shear_degrees, bool)
+        or not math.isfinite(float(italic_shear_degrees))
+        or not -30 <= float(italic_shear_degrees) <= 30
+    ):
+        raise ImageMagickError(
+            "text mask italic shear must be between -30 and 30 degrees"
+        )
+    command = [
+        executable,
+        "-size",
+        f"{width}x{height}",
+        "xc:black",
+        "-font",
+        str(font),
+        "-pointsize",
+        str(point_size),
+        "-gravity",
+        "center",
+        "-fill",
+        stroke_gray,
+        "-stroke",
+        stroke_gray,
+        "-strokewidth",
+        str(stroke_width),
+        "-annotate",
+        "+0+0",
+        text,
+        "-fill",
+        "white",
+        "-stroke",
+        "white",
+        "-strokewidth",
+        str(fill_stroke_width),
+        "-annotate",
+        "+0+0",
+        text,
+    ]
+    if italic_shear_degrees:
+        command.extend(
+            [
+                "-background",
+                "black",
+                "-shear",
+                f"{float(italic_shear_degrees):g}x0",
+                "-gravity",
+                "center",
+                "-extent",
+                f"{width}x{height}",
+            ]
+        )
+    command.extend(
         [
-            executable,
-            "-size",
-            f"{width}x{height}",
-            "xc:black",
-            "-font",
-            str(font),
-            "-pointsize",
-            str(point_size),
-            "-gravity",
-            "center",
-            "-fill",
-            stroke_gray,
-            "-stroke",
-            stroke_gray,
-            "-strokewidth",
-            str(stroke_width),
-            "-annotate",
-            "+0+0",
-            text,
-            "-fill",
-            "white",
-            "-stroke",
-            "white",
-            "-strokewidth",
-            str(fill_stroke_width),
-            "-annotate",
-            "+0+0",
-            text,
             "-alpha",
             "off",
             "-colorspace",
@@ -262,7 +292,10 @@ def render_grayscale_text_mask(
             "-depth",
             "8",
             "gray:-",
-        ],
+        ]
+    )
+    pixels = _run(
+        command,
         f"ImageMagick text mask for {text!r}",
     )
     expected_size = width * height

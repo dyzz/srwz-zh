@@ -16,7 +16,7 @@ from srwz.pcsx2_session import (
     sha256_file,
     validate_pcsx2_session,
 )
-from verify_pcsx2_font_runtime import (
+from srwz.pine import (
     PINE_ID,
     PINE_VERSION,
     PineClient,

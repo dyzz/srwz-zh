@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "font_flavor_id": "srwz-zh-harmonyos-sans-sc-light-v1",
+  "purpose": "HarmonyOS Sans SC Light variant for small static Chinese atlas text. Scene profiles continue to own raster geometry, color, italic shear and byte budget.",
+  "primary": {
+    "font_lock": "config/fonts/harmonyos-sans-sc-light.lock.json",
+    "font_lock_sha256": "d051c396cf5380f7a6a6e78bed7de0d33020ae5a3576bad36500f340764d4526"
+  },
+  "unsupported_character_fallbacks": [
+    {
+      "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
+      "characters": "〜∀♪",
+      "reason": "HarmonyOS Sans SC 1.0 has no visible glyph for these project-required characters. Use the locked Noto source only for this explicit set and retain the consuming scene's raster geometry."
+    }
+  ],
+  "distribution_notice": "This project uses HarmonyOS Sans Fonts. Copyright 2021 Huawei Device Co., Ltd."
+}

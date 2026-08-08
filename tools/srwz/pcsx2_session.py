@@ -14,10 +14,6 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Callable, Mapping
 
-from .ui_runtime_fixtures import inspect_memory_card
-from .ui_runtime_host import pcsx2_architectures
-
-
 class Pcsx2SessionError(ValueError):
     """A PCSX2 session or savestate lineage is unsafe or inconsistent."""
 
@@ -27,6 +23,111 @@ _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 _STATE_SUFFIX = ".p2s"
 _MINIMUM_STATE_SIZE = 1024
 _TARGET_GAME_ID = "SLPS-25887"
+_PAGE_DATA_SIZE = 512
+_PAGE_SPARE_SIZE = 16
+_RAW_PAGE_SIZE = _PAGE_DATA_SIZE + _PAGE_SPARE_SIZE
+_FORMAT_SIGNATURE = b"Sony PS2 Memory Card Format"
+_TARGET_SAVE_MARKERS = (
+    b"SLPS-25887",
+    b"BISLPS-25887",
+    b"SLPS_258.87",
+    b"SLPS25887",
+)
+
+
+def pcsx2_architectures(path: Path) -> tuple[str, ...]:
+    """Read Mach-O architectures without executing PCSX2."""
+
+    if not path.is_file():
+        return ()
+    try:
+        result = subprocess.run(
+            ["/usr/bin/lipo", "-archs", str(path)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError) as error:
+        raise Pcsx2SessionError(
+            f"cannot inspect PCSX2 architectures: {path}"
+        ) from error
+    architectures = tuple(result.stdout.strip().split())
+    if not architectures:
+        raise Pcsx2SessionError(
+            f"PCSX2 architecture inspection returned no values: {path}"
+        )
+    return architectures
+
+
+def inspect_memory_card(path: Path) -> dict:
+    """Classify a PCSX2 memory-card image without modifying it."""
+
+    path = path.resolve()
+    raw = path.read_bytes()
+    if raw and len(raw) % _RAW_PAGE_SIZE == 0:
+        layout_name = "528-byte-pages"
+        logical = b"".join(
+            raw[offset : offset + _PAGE_DATA_SIZE]
+            for offset in range(0, len(raw), _RAW_PAGE_SIZE)
+        )
+    elif raw and len(raw) % _PAGE_DATA_SIZE == 0:
+        layout_name = "512-byte-pages"
+        logical = raw
+    else:
+        layout_name = None
+        logical = None
+
+    all_ff = bool(raw) and all(value == 0xFF for value in raw)
+    formatted = bool(logical) and logical.startswith(_FORMAT_SIGNATURE)
+    marker_hits = (
+        [
+            marker.decode("ascii")
+            for marker in _TARGET_SAVE_MARKERS
+            if marker in logical
+        ]
+        if logical is not None
+        else []
+    )
+    if all_ff:
+        classification = "erased_unformatted"
+    elif logical is None:
+        classification = "unsupported_layout"
+    elif formatted and marker_hits:
+        classification = "formatted_target_save_candidate"
+    elif formatted:
+        classification = "formatted_no_target_marker"
+    else:
+        classification = "unrecognized_memory_card"
+    return {
+        "path": str(path),
+        "size": len(raw),
+        "sha256": hashlib.sha256(raw).hexdigest(),
+        "layout": layout_name,
+        "logical_size": len(logical) if logical is not None else None,
+        "all_ff": all_ff,
+        "formatted": formatted,
+        "target_marker_hits": marker_hits,
+        "classification": classification,
+        "target_save_candidate": (
+            classification == "formatted_target_save_candidate"
+        ),
+    }
+
+
+def _case_workspace(project_root: Path, case_id: object) -> Path:
+    if not isinstance(case_id, str) or not case_id:
+        raise Pcsx2SessionError("runtime case_id is missing")
+    relative = Path(case_id)
+    if (
+        relative.is_absolute()
+        or ".." in relative.parts
+        or any(
+            _SAFE_SEGMENT.fullmatch(part) is None
+            for part in relative.parts
+        )
+    ):
+        raise Pcsx2SessionError("runtime case_id is not a safe relative path")
+    return project_root / "work/runtime/ui-cases" / relative
 
 
 def sha256_file(path: Path) -> str:
@@ -679,10 +780,8 @@ def prepare_pcsx2_session(
         ):
             raise Pcsx2SessionError("portable PCSX2 bundle copy drift")
 
-        from .ui_runtime_evidence import case_workspace
-
         evidence_session_root = (
-            case_workspace(project_root, case["case_id"])
+            _case_workspace(project_root, case["case_id"])
             / "sessions"
             / session_id
         )
@@ -1048,8 +1147,6 @@ def collect_pcsx2_session(
 ) -> Path:
     """Copy stable logs and screenshots into the case-owned evidence workspace."""
 
-    from .ui_runtime_evidence import case_workspace
-
     project_root = project_root.resolve()
     lock_path = lock_path.resolve()
     lock = validate_pcsx2_session(
@@ -1081,7 +1178,7 @@ def collect_pcsx2_session(
                 )
 
     target_root = (
-        case_workspace(project_root, lock["case"]["case_id"])
+        _case_workspace(project_root, lock["case"]["case_id"])
         / "collected"
         / lock["session_id"]
     )

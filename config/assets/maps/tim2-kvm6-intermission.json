@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "profile_id": "ui-intermission-atlas-map-canary",
+  "scope": "A reversible mapping canary that erases the complete top intermission title inside the offline KVMDATA chunk 6 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "source": {
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "asset_config": {
+      "path": "config/assets/archive-inventory.json",
+      "sha256": "6afc3beb1f67c82d355f572f0de92e2a5185790e17a1670a5a479a7e5b6e57ab"
+    },
+    "candidate_registry": {
+      "path": "config/assets/ui-atlas-candidates.json",
+      "sha256": "b3c2fd0032314f55566bb99d1c2bd77fc9cdc4469eab8cf6647371d397c05e12"
+    },
+    "members": {
+      "executable": {
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "archive": {
+        "size": 3335408,
+        "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+      }
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 6,
+    "record_index": 0,
+    "picture_index": 0,
+    "source_chunk_size": 33344,
+    "source_chunk_sha256": "f934afc15cb2cd12b6dd1319fdb06b142c6fa4520cdd8f9ddf85d3cde39c9f52",
+    "semantic_locator": "インターミッション",
+    "operation": "erase_non_background_pixels",
+    "force_reindex_entire_mask": true,
+    "expected_background_palette_index": 0,
+    "mask": {
+      "x": 0,
+      "y": 0,
+      "width": 215,
+      "height": 31,
+      "replacement_rgba": "000000ff",
+      "preserve_rgba": [
+        "000000ff"
+      ]
+    }
+  },
+  "runtime": {
+    "purpose": "Prove whether KVMDATA chunk 6 is consumed by the first intermission main menu before authoring translation.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_hash_locked_first_intermission_save",
+      "open_intermission_main_menu_and_options",
+      "capture_visible_missing_intermission_title_if_loaded",
+      "capture_texture_dump_delta_for_the_same_mask"
+    ],
+    "expected_visual_effect": "The top-left intermission title is absent while the arrow icons and number rows remain intact.",
+    "promotion_rule": "Only a matching first-intermission screenshot and texture-dump delta may promote the candidate to a runtime scene mapping."
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "expected": {
+    "reference_png": {
+      "size": 21968,
+      "sha256": "e438d4668d9dee7bc664ed841dcfc65efcad49d396a2966cacb572b99dbec583"
+    },
+    "edited_png": {
+      "size": 20466,
+      "sha256": "d927376953a0b5a9387c0fb575b0fa2bc92acd6065de93a3f349909ee5d38ff2"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "d7110058486bd84ae1adc3b703b1675cfc1c3293368b0bc3f42e4b47ec16313f"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "3a05782cfea1a562efd5a9dc4230e3ac70661c34c004ba9d0d32c2fdb5bbaba9"
+    },
+    "changed_pixel_count": 982,
+    "changed_archive_byte_count": 593,
+    "changed_archive_range_count": 178
+  },
+  "outputs": {
+    "component_root": "work/build/ui-intermission-atlas-map-canary/components",
+    "reference_png": "work/build/ui-intermission-atlas-map-canary/reference.png",
+    "edited_png": "work/build/ui-intermission-atlas-map-canary/edited.png",
+    "validation": "work/review/ui-intermission-atlas-map-canary/component-validation.json",
+    "manifest": "manifests/ui-intermission-atlas-map-canary-validation.json"
+  }
+}

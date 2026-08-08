@@ -1,12 +1,78 @@
 {
   "schema_version": 1,
   "profile_id": "ui-intermission-atlas-zh",
-  "scope": "A deterministic Chinese replacement of the intermission locator inside the locked KVMDATA chunk 6 mapping mask. Static construction does not prove which runtime intermission pages consume this atlas.",
+  "scope": "A deterministic fixed-element Chinese replacement of both intermission titles and every visible main-menu label inside their exact original KVMDATA chunk 6 rectangles.",
+  "replacement_mode": "fixed_source_elements",
+  "expected_background_palette_index": 0,
+  "indexed_text_layer_profiles": {
+    "menu": {
+      "outline": [
+        {
+          "rgba": "101010ff",
+          "palette_index": 1
+        },
+        {
+          "rgba": "202020ff",
+          "palette_index": 2
+        },
+        {
+          "rgba": "303030ff",
+          "palette_index": 3
+        },
+        {
+          "rgba": "404040ff",
+          "palette_index": 4
+        },
+        {
+          "rgba": "505050ff",
+          "palette_index": 5
+        },
+        {
+          "rgba": "707070ff",
+          "palette_index": 6
+        },
+        {
+          "rgba": "787878ff",
+          "palette_index": 7
+        }
+      ],
+      "fill": [
+        {
+          "rgba": "00000000",
+          "palette_index": 8
+        },
+        {
+          "rgba": "000000ff",
+          "palette_index": 9
+        },
+        {
+          "rgba": "101010ff",
+          "palette_index": 10
+        },
+        {
+          "rgba": "202020ff",
+          "palette_index": 11
+        },
+        {
+          "rgba": "303030ff",
+          "palette_index": 12
+        },
+        {
+          "rgba": "404040ff",
+          "palette_index": 13
+        },
+        {
+          "rgba": "585858ff",
+          "palette_index": 14
+        }
+      ]
+    }
+  },
   "base_mapping": {
-    "config": "config/canary/tim2-kvm6-intermission-map.json",
-    "config_sha256": "81b51ea8fa73e05dacc71ac067b0d0e83cac03b383b23aab9650a5cb6df8bfa8",
+    "config": "config/assets/maps/tim2-kvm6-intermission.json",
+    "config_sha256": "ce95b15352e19ecd0e780f7b0105b45ed79f842b30f7fcdf86e408b58bea05fe",
     "manifest": "manifests/ui-intermission-atlas-map-canary-validation.json",
-    "manifest_sha256": "30037b9dea518ac5bd6a3df9016234de1e84a21e2c350def7dc777146e0a3a8a",
+    "manifest_sha256": "ac98d302fef89ec4f17ee7bed08f5256d2fe4bc4e3c6d172a8c43809e82dae50",
     "required_status": "static_component_validated_runtime_mapping_pending"
   },
   "target": {
@@ -18,17 +84,19 @@
     "operation": "replace_erased_locator_with_text"
   },
   "localized_label": {
+    "source_element_id": "intermission-title-normal-215x31",
+    "source_element_rgba_sha256": "b5ba3dba4bdba24a4e3a619d80132a5b41396d8960315878cb633de0c2844ac2",
     "translation_source": {
       "path": "corpus/zh/ui-atlas/core-menus-v1.json",
-      "sha256": "2ab59190c3792cbce85756186b13253d403224b6bf9031e07d46a2baad37573f",
+      "sha256": "a3f3e51fe5ba803cfc1721793051a86dcc502dcd83497ff4ab40c009b94a3796",
       "entry_id": "ui-atlas/kvm6/intermission",
       "minimum_editorial_status": "reviewed"
     },
-    "font_flavor": "config/fonts/zh-localization-font.json",
+    "font_flavor": "config/fonts/zh-localization-font-light.json",
     "render": {
       "point_size": 26,
       "stroke_gray": "#303030",
-      "stroke_width": 0.75,
+      "stroke_width": 2.0,
       "fill_stroke_width": 0,
       "ramp_rgba": [
         "101010ff",
@@ -38,9 +106,413 @@
         "505050ff",
         "707070ff",
         "787878ff"
-      ]
+      ],
+      "indexed_layers": {
+        "outline": [
+          {
+            "rgba": "101010ff",
+            "palette_index": 1
+          },
+          {
+            "rgba": "202020ff",
+            "palette_index": 2
+          },
+          {
+            "rgba": "303030ff",
+            "palette_index": 3
+          },
+          {
+            "rgba": "404040ff",
+            "palette_index": 4
+          },
+          {
+            "rgba": "505050ff",
+            "palette_index": 5
+          },
+          {
+            "rgba": "707070ff",
+            "palette_index": 6
+          },
+          {
+            "rgba": "787878ff",
+            "palette_index": 7
+          }
+        ],
+        "fill": [
+          {
+            "rgba": "00000000",
+            "palette_index": 8
+          },
+          {
+            "rgba": "000000ff",
+            "palette_index": 9
+          },
+          {
+            "rgba": "101010ff",
+            "palette_index": 10
+          },
+          {
+            "rgba": "202020ff",
+            "palette_index": 11
+          },
+          {
+            "rgba": "303030ff",
+            "palette_index": 12
+          },
+          {
+            "rgba": "404040ff",
+            "palette_index": 13
+          },
+          {
+            "rgba": "585858ff",
+            "palette_index": 14
+          },
+          {
+            "rgba": "707070ff",
+            "palette_index": 15
+          }
+        ]
+      }
     }
   },
+  "additional_localized_labels": [
+    {
+      "semantic_locator": "インターミッション",
+      "entry_id": "ui-atlas/kvm6/intermission",
+      "minimum_editorial_status": "reviewed",
+      "source_element_id": "intermission-title-bold-218x29",
+      "source_element_rgba_sha256": "2246fe4864dddc1276e1822d1a8bb23f32f15ad868b96f58e3da6f5f3e680a02",
+      "mask": {
+        "x": 0,
+        "y": 106,
+        "width": 218,
+        "height": 29,
+        "replacement_rgba": "000000ff",
+        "preserve_rgba": [
+          "000000ff"
+        ]
+      },
+      "render": {
+        "point_size": 26,
+        "stroke_gray": "#303030",
+        "stroke_width": 2.0,
+        "fill_stroke_width": 0.75,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layers": {
+          "outline": [
+            {
+              "rgba": "101010ff",
+              "palette_index": 1
+            },
+            {
+              "rgba": "202020ff",
+              "palette_index": 2
+            },
+            {
+              "rgba": "303030ff",
+              "palette_index": 3
+            },
+            {
+              "rgba": "404040ff",
+              "palette_index": 4
+            },
+            {
+              "rgba": "505050ff",
+              "palette_index": 5
+            },
+            {
+              "rgba": "707070ff",
+              "palette_index": 6
+            },
+            {
+              "rgba": "787878ff",
+              "palette_index": 7
+            }
+          ],
+          "fill": [
+            {
+              "rgba": "00000000",
+              "palette_index": 8
+            },
+            {
+              "rgba": "000000ff",
+              "palette_index": 9
+            },
+            {
+              "rgba": "101010ff",
+              "palette_index": 10
+            },
+            {
+              "rgba": "202020ff",
+              "palette_index": 11
+            },
+            {
+              "rgba": "303030ff",
+              "palette_index": 12
+            },
+            {
+              "rgba": "404040ff",
+              "palette_index": 13
+            },
+            {
+              "rgba": "585858ff",
+              "palette_index": 14
+            },
+            {
+              "rgba": "707070ff",
+              "palette_index": 15
+            }
+          ]
+        }
+      }
+    },
+    {
+      "semantic_locator": "機体系",
+      "entry_id": "ui-atlas/kvm6/unit-category",
+      "minimum_editorial_status": "reviewed",
+      "source_element_id": "unit-category-69x27",
+      "source_element_rgba_sha256": "e85b48f22569a948465672be5abf0b377cbb6e6ba95362ecca6a58802130b599",
+      "mask": {
+        "x": 0,
+        "y": 135,
+        "width": 69,
+        "height": 27,
+        "replacement_rgba": "000000ff",
+        "preserve_rgba": [
+          "000000ff"
+        ]
+      },
+      "render": {
+        "point_size": 18,
+        "italic_shear_degrees": 12,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.5,
+        "fill_stroke_width": 0,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layer_profile": "menu"
+      }
+    },
+    {
+      "semantic_locator": "パイロット系",
+      "entry_id": "ui-atlas/kvm6/pilot-category",
+      "minimum_editorial_status": "reviewed",
+      "source_element_id": "pilot-category-99x27",
+      "source_element_rgba_sha256": "106a6eebe055ab98e85652bdc4a9257f2fd4141043101d07e03b89fcd28456f6",
+      "mask": {
+        "x": 139,
+        "y": 135,
+        "width": 99,
+        "height": 27,
+        "replacement_rgba": "000000ff",
+        "preserve_rgba": [
+          "000000ff"
+        ]
+      },
+      "render": {
+        "point_size": 18,
+        "italic_shear_degrees": 12,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.5,
+        "fill_stroke_width": 0,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layer_profile": "menu"
+      }
+    },
+    {
+      "semantic_locator": "バザー",
+      "entry_id": "ui-atlas/kvm6/bazaar",
+      "minimum_editorial_status": "reviewed",
+      "source_element_id": "bazaar-63x22",
+      "source_element_rgba_sha256": "229f4c5534a7fd947bf3cf92906f02f5c787e57cbd96647d22501d52e92509ac",
+      "mask": {
+        "x": 0,
+        "y": 162,
+        "width": 63,
+        "height": 22,
+        "replacement_rgba": "000000ff",
+        "preserve_rgba": [
+          "000000ff"
+        ]
+      },
+      "render": {
+        "point_size": 18,
+        "italic_shear_degrees": 12,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.5,
+        "fill_stroke_width": 0,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layer_profile": "menu"
+      }
+    },
+    {
+      "semantic_locator": "次のマップへ",
+      "entry_id": "ui-atlas/kvm6/next-map",
+      "minimum_editorial_status": "reviewed",
+      "source_element_id": "next-map-100x22",
+      "source_element_rgba_sha256": "858b0316983241461d426a2899ca40485167be39c14618e59bf1bf9bde51d76b",
+      "mask": {
+        "x": 63,
+        "y": 162,
+        "width": 100,
+        "height": 22,
+        "replacement_rgba": "000000ff",
+        "preserve_rgba": [
+          "000000ff"
+        ]
+      },
+      "render": {
+        "point_size": 18,
+        "italic_shear_degrees": 12,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.5,
+        "fill_stroke_width": 0,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layer_profile": "menu"
+      }
+    },
+    {
+      "semantic_locator": "オプション",
+      "entry_id": "ui-atlas/kvm6/options",
+      "minimum_editorial_status": "reviewed",
+      "source_element_id": "options-101x25",
+      "source_element_rgba_sha256": "452b103db1fa821f9463e42c898cd9e7cbcd35c781336ffd145cae6eeb5b0a05",
+      "mask": {
+        "x": 0,
+        "y": 184,
+        "width": 101,
+        "height": 25,
+        "replacement_rgba": "000000ff",
+        "preserve_rgba": [
+          "000000ff"
+        ]
+      },
+      "render": {
+        "point_size": 18,
+        "italic_shear_degrees": 12,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.5,
+        "fill_stroke_width": 0,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layer_profile": "menu"
+      }
+    },
+    {
+      "semantic_locator": "小隊編成",
+      "entry_id": "ui-atlas/kvm6/squad-formation",
+      "minimum_editorial_status": "reviewed",
+      "source_element_id": "squad-formation-88x22",
+      "source_element_rgba_sha256": "ed1bb786e8c320fdbb8db92086299ffd4784d849ffb3bbbc7bfaa77bdc6d8d7c",
+      "mask": {
+        "x": 0,
+        "y": 209,
+        "width": 88,
+        "height": 22,
+        "replacement_rgba": "000000ff",
+        "preserve_rgba": [
+          "000000ff"
+        ]
+      },
+      "render": {
+        "point_size": 18,
+        "italic_shear_degrees": 12,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.5,
+        "fill_stroke_width": 0,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layer_profile": "menu"
+      }
+    },
+    {
+      "semantic_locator": "データ管理",
+      "entry_id": "ui-atlas/kvm6/data-management",
+      "minimum_editorial_status": "reviewed",
+      "source_element_id": "data-management-111x25",
+      "source_element_rgba_sha256": "64474643d0ffbfe86b803b3bf653cee4a7eedb8a82fde84e12270e9bbdd7a474",
+      "mask": {
+        "x": 0,
+        "y": 231,
+        "width": 111,
+        "height": 25,
+        "replacement_rgba": "000000ff",
+        "preserve_rgba": [
+          "000000ff"
+        ]
+      },
+      "render": {
+        "point_size": 18,
+        "italic_shear_degrees": 12,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.5,
+        "fill_stroke_width": 0,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layer_profile": "menu"
+      }
+    }
+  ],
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 6 supplies the first-intermission locator and that the localized label renders at the intended position.",
     "required_routes": [
@@ -58,31 +530,81 @@
   },
   "expected": {
     "text_mask": {
-      "size": 5735,
-      "sha256": "ec1b9747899ac54dcf5a4313915f79971b50a9aa2a18f0f8e2953564a410359c",
-      "nonzero_pixel_count": 1683
+      "size": 6665,
+      "sha256": "be789bbfa39b81e4be30de33a830d0c28d6826874810194513de330ded4a50c1",
+      "nonzero_pixel_count": 1720
     },
     "reference_png": {
       "size": 21968,
       "sha256": "e438d4668d9dee7bc664ed841dcfc65efcad49d396a2966cacb572b99dbec583"
     },
     "localized_png": {
-      "size": 21847,
-      "sha256": "aab928cf543f4720ca61e64d6d723bd820dbf6af12689660c931fc1857201e5c"
+      "size": 18505,
+      "sha256": "f4167937e2815e73a8b1bf135ac2504033730ae6638d54851a4984fd769ea3f5"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "880dacedd976c689d01a8b6f50e6f494c105c2f44d24d4d9fac8ff751762a77a"
+      "sha256": "d5b0e6559f15bcd644309015c540183ff6fb4dbcaf0dea5ea6d57f19e26e67c2"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "6116278871300ecc6e6dbdaa2f805c545e9274aed2f988cafc120d5daba33eb0"
+      "sha256": "8315f8528c7a74c3cb6d8e47f2961607054c2c2977f65df865235d07a508ee13"
     },
-    "added_pixel_count": 1683,
-    "original_changed_pixel_count": 2111,
-    "original_changed_pixel_indexes_sha256": "d8da2d8c624bee3aed876e54a55c21c03dade5c0e76f9127c77f9993ebdf9b2e",
-    "changed_archive_byte_count": 916,
-    "changed_archive_range_count": 128
+    "added_pixel_count": 7695,
+    "original_changed_pixel_count": 11483,
+    "original_changed_pixel_indexes_sha256": "c58676fd79c3dbe170e19e1dc1f83df9ec676b6c675d307b41029bc6d0aa08f3",
+    "changed_archive_byte_count": 6472,
+    "changed_archive_range_count": 902,
+    "additional_text_masks": [
+      {
+        "semantic_locator_sha256": "462d71946f8fdba900954c0c72e78b4e1223aea6740b4774e91facaab84d821e",
+        "size": 6322,
+        "sha256": "5e74ecffb94eca2dfc79d70c08a69674154f926a567131fedf5aaa1278f0cd8f",
+        "nonzero_pixel_count": 1705
+      },
+      {
+        "semantic_locator_sha256": "46af972aefa01ae84c1b1655b56d94e59af9d3c5ee3288ab6d558912755fac8f",
+        "size": 1863,
+        "sha256": "f592e35fbff06da1e09679eb9d6db30bf561e10a1db07a92b42ed9504b779328",
+        "nonzero_pixel_count": 519
+      },
+      {
+        "semantic_locator_sha256": "bee17f7ab55c0610ebf381e4c0a84fe962269abbb09a9ae29cdd63e299e53dc1",
+        "size": 2673,
+        "sha256": "e586a3714fe2e04ffb63d429247463085181e048dd9430469bbcf280ea7ee6b5",
+        "nonzero_pixel_count": 537
+      },
+      {
+        "semantic_locator_sha256": "1ebdff31cbd3fe9cb7ee3994375360cc3b09b286ec181372ccb9121cf627f3f3",
+        "size": 1386,
+        "sha256": "c1e89bd7d8cdbcdbae61b4e968647775337c6238ddffbccd5655b819f04c8986",
+        "nonzero_pixel_count": 441
+      },
+      {
+        "semantic_locator_sha256": "b8f6773b7e2ffc90c144c172951e8253d492d5137894d4d6922c65faa1af3f20",
+        "size": 2200,
+        "sha256": "c249898bb40db82bf52e19ea3822bec36be60e3115f993b17c991080956ff2e8",
+        "nonzero_pixel_count": 712
+      },
+      {
+        "semantic_locator_sha256": "5b717728bbead38118553940600d0a6e78f6bab6a330874a69809e291682e3f5",
+        "size": 2525,
+        "sha256": "e26ac98f71fffd2fb0b376328ba48ec8b0a3f1b7b5f351f99f7e68602d518031",
+        "nonzero_pixel_count": 551
+      },
+      {
+        "semantic_locator_sha256": "b13e3f1aed7030b70024bd908ab60cc8cf750ba517643f127117b1e60bbecb93",
+        "size": 1936,
+        "sha256": "f24a26b94c4be8ddc662dd86eee4f7226cf7cd8c7f05eeb00548f21a9a91258e",
+        "nonzero_pixel_count": 372
+      },
+      {
+        "semantic_locator_sha256": "0e37baf67bd6a79eacbe5de3ce00b18d2e9ecf2d186b5e44654e5b428d32eb58",
+        "size": 2775,
+        "sha256": "d681e325c07bc47baed17b1cea9a69728f73b2edfc12796227eff680124af5d7",
+        "nonzero_pixel_count": 1138
+      }
+    ]
   },
   "outputs": {
     "component_root": "work/build/ui-intermission-atlas-zh/components",

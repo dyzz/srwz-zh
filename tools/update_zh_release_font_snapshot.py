@@ -22,12 +22,12 @@ from srwz.text import (
     load_text_table,
     original_fullwidth_ascii_overrides,
 )
-from srwz.ui_font import (
-    UiFontError,
-    _assignment_index,
-    _selected_translation_tree_entries,
+from srwz.release_font import (
+    ReleaseFontError,
+    assignment_index,
+    rendered_characters,
+    selected_translation_tree_entries,
 )
-from srwz.ui_inventory import rendered_characters
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -87,8 +87,17 @@ def main() -> int:
     snapshot = json.loads(snapshot_bytes.decode("utf-8"))
     primary = snapshot.get("primary_assignments")
     aliases = snapshot.get("surface_alias_assignments")
-    if not isinstance(primary, list) or not isinstance(aliases, list):
+    compatibility = snapshot.get("source_compatibility_assignments", [])
+    if (
+        not isinstance(primary, list)
+        or not isinstance(aliases, list)
+        or not isinstance(compatibility, list)
+    ):
         raise SystemExit("release allocation snapshot is malformed")
+    if _mapping_sha256(compatibility) != snapshot.get(
+        "source_compatibility_mapping_sha256"
+    ):
+        raise SystemExit("release source-compatibility mapping drift")
     before_primary = json.dumps(
         primary,
         ensure_ascii=False,
@@ -111,13 +120,13 @@ def main() -> int:
     ):
         raise SystemExit("global font encoding baseline SHA-256 drift")
     table = load_text_table(table_path)
-    base_codebook = _assignment_index(codebook_path)
+    base_codebook = assignment_index(codebook_path)
 
     try:
         entries, _entry_scenes, selection = (
-            _selected_translation_tree_entries(PROJECT_ROOT, config)
+            selected_translation_tree_entries(PROJECT_ROOT, config)
         )
-    except UiFontError as error:
+    except ReleaseFontError as error:
         raise SystemExit(str(error)) from error
     demanded = {
         character
@@ -140,10 +149,11 @@ def main() -> int:
     primary_by_character = {row["character"]: row for row in primary}
     missing = sorted(demanded - set(primary_by_character) - preserved)
     occupied_codes = {
-        int(row["code"], 16) for row in (*primary, *aliases)
+        int(row["code"], 16)
+        for row in (*primary, *aliases, *compatibility)
     }
     occupied_glyphs = {
-        row["glyph_index"] for row in (*primary, *aliases)
+        row["glyph_index"] for row in (*primary, *aliases, *compatibility)
     }
     occupied_codes.update(
         assignment["code_value"] for assignment in base_codebook.values()

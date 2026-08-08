@@ -2,13 +2,13 @@
   "schema_version": 1,
   "status": "static_component_validated_runtime_mapping_pending",
   "profile_id": "ui-intermission-atlas-map-canary",
-  "scope": "A reversible mapping canary that erases only the intermission title inside the offline KVMDATA chunk 6 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
+  "scope": "A reversible mapping canary that erases the complete top intermission title inside the offline KVMDATA chunk 6 candidate. It does not claim a runtime scene mapping or provide a Chinese atlas.",
   "content_policy": "Hashes, coordinates, counts and diff summaries only; game bytes and preview PNGs remain under ignored work/.",
   "inputs": {
     "config": {
-      "path": "config/canary/tim2-kvm6-intermission-map.json",
-      "size": 3566,
-      "sha256": "81b51ea8fa73e05dacc71ac067b0d0e83cac03b383b23aab9650a5cb6df8bfa8"
+      "path": "config/assets/maps/tim2-kvm6-intermission.json",
+      "size": 3637,
+      "sha256": "ce95b15352e19ecd0e780f7b0105b45ed79f842b30f7fcdf86e408b58bea05fe"
     },
     "iso": {
       "path": "rom/srwz.iso",
@@ -51,6 +51,8 @@
     },
     "semantic_locator": "インターミッション",
     "operation": "erase_non_background_pixels",
+    "force_reindex_entire_mask": true,
+    "expected_background_palette_index": 0,
     "candidate_evidence_status": "upstream_changed_offline_visual_candidate_not_runtime_mapped",
     "candidate_scene_ids": [
       "intermission/main-and-options",
@@ -59,22 +61,20 @@
     "mask": {
       "x": 0,
       "y": 0,
-      "width": 185,
+      "width": 215,
       "height": 31,
       "replacement_rgba": "000000ff",
       "preserve_rgba": [
-        "000000ff",
-        "00000000"
+        "000000ff"
       ]
     },
     "mask_audit": {
-      "changed_pixel_count": 803,
-      "preserved_pixel_count": 4932,
+      "changed_pixel_count": 957,
+      "preserved_pixel_count": 5708,
       "preserved_rgba_counts": {
-        "000000ff": 4877,
-        "00000000": 55
+        "000000ff": 5708
       },
-      "changed_pixel_indexes_sha256": "d989382d13c86b3dae0fb8bbfdba9c8abe5a9e1efb382182cb88c61bc09f3632",
+      "changed_pixel_indexes_sha256": "b1287bcfb91d24c43097a9432ca39bcad5e29f9e92a6b66d0cbac79f6ce389e2",
       "outside_mask_rgba_exact": true,
       "replacement_rgba_exact": true,
       "preserved_rgba_exact": true
@@ -86,11 +86,11 @@
   "injection": {
     "image_offset": 64,
     "image_size": 32768,
-    "changed_pixel_count": 803,
-    "changed_image_byte_count": 509,
+    "changed_pixel_count": 982,
+    "changed_image_byte_count": 593,
     "changed_image_byte_ranges": [
       {
-        "start": 669,
+        "start": 668,
         "end": 670
       },
       {
@@ -102,7 +102,7 @@
         "end": 798
       },
       {
-        "start": 818,
+        "start": 817,
         "end": 821
       },
       {
@@ -130,11 +130,15 @@
         "end": 970
       },
       {
-        "start": 1031,
-        "end": 1033
+        "start": 990,
+        "end": 992
       },
       {
-        "start": 1038,
+        "start": 1031,
+        "end": 1034
+      },
+      {
+        "start": 1037,
         "end": 1040
       },
       {
@@ -150,6 +154,10 @@
         "end": 1099
       },
       {
+        "start": 1118,
+        "end": 1121
+      },
+      {
         "start": 1159,
         "end": 1162
       },
@@ -158,7 +166,7 @@
         "end": 1169
       },
       {
-        "start": 1180,
+        "start": 1179,
         "end": 1186
       },
       {
@@ -167,7 +175,11 @@
       },
       {
         "start": 1225,
-        "end": 1227
+        "end": 1228
+      },
+      {
+        "start": 1246,
+        "end": 1249
       },
       {
         "start": 1287,
@@ -183,10 +195,6 @@
       },
       {
         "start": 1334,
-        "end": 1335
-      },
-      {
-        "start": 1336,
         "end": 1337
       },
       {
@@ -194,7 +202,11 @@
         "end": 1356
       },
       {
-        "start": 1415,
+        "start": 1375,
+        "end": 1378
+      },
+      {
+        "start": 1414,
         "end": 1417
       },
       {
@@ -207,7 +219,7 @@
       },
       {
         "start": 1434,
-        "end": 1436
+        "end": 1437
       },
       {
         "start": 1440,
@@ -216,6 +228,10 @@
       {
         "start": 1471,
         "end": 1473
+      },
+      {
+        "start": 1475,
+        "end": 1476
       },
       {
         "start": 1482,
@@ -228,6 +244,14 @@
       {
         "start": 1492,
         "end": 1499
+      },
+      {
+        "start": 1503,
+        "end": 1506
+      },
+      {
+        "start": 1510,
+        "end": 1512
       },
       {
         "start": 1542,
@@ -250,7 +274,7 @@
         "end": 1570
       },
       {
-        "start": 1586,
+        "start": 1585,
         "end": 1588
       },
       {
@@ -276,6 +300,14 @@
       {
         "start": 1620,
         "end": 1627
+      },
+      {
+        "start": 1632,
+        "end": 1634
+      },
+      {
+        "start": 1638,
+        "end": 1640
       },
       {
         "start": 1669,
@@ -322,6 +354,10 @@
         "end": 1755
       },
       {
+        "start": 1766,
+        "end": 1768
+      },
+      {
         "start": 1796,
         "end": 1800
       },
@@ -334,7 +370,7 @@
         "end": 1822
       },
       {
-        "start": 1824,
+        "start": 1823,
         "end": 1825
       },
       {
@@ -354,7 +390,7 @@
         "end": 1857
       },
       {
-        "start": 1859,
+        "start": 1858,
         "end": 1860
       },
       {
@@ -368,6 +404,10 @@
       {
         "start": 1881,
         "end": 1883
+      },
+      {
+        "start": 1893,
+        "end": 1896
       },
       {
         "start": 1923,
@@ -410,6 +450,10 @@
         "end": 2011
       },
       {
+        "start": 2021,
+        "end": 2023
+      },
+      {
         "start": 2051,
         "end": 2056
       },
@@ -435,10 +479,6 @@
       },
       {
         "start": 2109,
-        "end": 2110
-      },
-      {
-        "start": 2112,
         "end": 2113
       },
       {
@@ -447,7 +487,7 @@
       },
       {
         "start": 2121,
-        "end": 2122
+        "end": 2123
       },
       {
         "start": 2126,
@@ -456,6 +496,10 @@
       {
         "start": 2137,
         "end": 2139
+      },
+      {
+        "start": 2148,
+        "end": 2151
       },
       {
         "start": 2178,
@@ -479,15 +523,19 @@
       },
       {
         "start": 2242,
-        "end": 2243
+        "end": 2244
       },
       {
-        "start": 2254,
+        "start": 2253,
         "end": 2256
       },
       {
         "start": 2260,
         "end": 2267
+      },
+      {
+        "start": 2276,
+        "end": 2279
       },
       {
         "start": 2306,
@@ -522,6 +570,10 @@
         "end": 2395
       },
       {
+        "start": 2403,
+        "end": 2406
+      },
+      {
         "start": 2434,
         "end": 2436
       },
@@ -538,7 +590,7 @@
         "end": 2464
       },
       {
-        "start": 2481,
+        "start": 2480,
         "end": 2484
       },
       {
@@ -554,6 +606,10 @@
         "end": 2523
       },
       {
+        "start": 2530,
+        "end": 2533
+      },
+      {
         "start": 2566,
         "end": 2568
       },
@@ -566,7 +622,7 @@
         "end": 2592
       },
       {
-        "start": 2609,
+        "start": 2608,
         "end": 2613
       },
       {
@@ -580,6 +636,10 @@
       {
         "start": 2649,
         "end": 2651
+      },
+      {
+        "start": 2657,
+        "end": 2661
       },
       {
         "start": 2694,
@@ -610,6 +670,10 @@
         "end": 2779
       },
       {
+        "start": 2784,
+        "end": 2788
+      },
+      {
         "start": 2822,
         "end": 2824
       },
@@ -636,6 +700,10 @@
       {
         "start": 2905,
         "end": 2907
+      },
+      {
+        "start": 2911,
+        "end": 2915
       },
       {
         "start": 2950,
@@ -666,6 +734,10 @@
         "end": 3035
       },
       {
+        "start": 3038,
+        "end": 3042
+      },
+      {
         "start": 3078,
         "end": 3080
       },
@@ -682,7 +754,7 @@
         "end": 3129
       },
       {
-        "start": 3135,
+        "start": 3134,
         "end": 3137
       },
       {
@@ -691,11 +763,15 @@
       },
       {
         "start": 3155,
-        "end": 3162
+        "end": 3163
+      },
+      {
+        "start": 3166,
+        "end": 3169
       },
       {
         "start": 3206,
-        "end": 3207
+        "end": 3208
       },
       {
         "start": 3214,
@@ -710,12 +786,16 @@
         "end": 3257
       },
       {
-        "start": 3263,
+        "start": 3262,
         "end": 3265
       },
       {
         "start": 3271,
         "end": 3274
+      },
+      {
+        "start": 3294,
+        "end": 3296
       },
       {
         "start": 3334,
@@ -724,14 +804,14 @@
     ],
     "available_color_count": 10,
     "archive_diff": {
-      "diff_count": 509,
-      "range_count": 158,
-      "first_offset": 200797,
+      "diff_count": 593,
+      "range_count": 178,
+      "first_offset": 200796,
       "last_offset": 203463,
-      "offsets_sha256": "9c040699b4a09b55de0099f3976a8ba4411a4f544524be2c99fb49e3d4dff231",
-      "ranges_sha256": "58efb359341c0d1cb2ac170890267b4e6ce0d1322eabfc1574de933e32fa17e7",
-      "before_values_sha256": "1b6a46c8894a1394ce0f047517ec928214eb5818c7e8f48113907c4116df6140",
-      "after_values_sha256": "1a298a6363c91266a155fd10c1f1ee1dc0882d07955ce8c47170569658050c85"
+      "offsets_sha256": "4ea31c7249893d374223b53edbb01be3acd3739d15a08f752b8860a5ce0ffae7",
+      "ranges_sha256": "06c6058464e178086947333b66ebdb8094c2b013f1b309382d5fee1075eec600",
+      "before_values_sha256": "0617d7ca9c983ff821bd019e951039dccd2eb813d0fc1d4ccda9c2e68f50f339",
+      "after_values_sha256": "b83f488146553d6df162dba2d8557b62a9301031a3f6ca9f992b7eeaad9e1101"
     },
     "chunk_size_unchanged": true,
     "archive_size_unchanged": true,
@@ -741,19 +821,19 @@
   "outputs": {
     "archive": {
       "size": 3335408,
-      "sha256": "077334e8cd6b1cd57c497fc5dcc41b2be37c4dc64ce2b9abb7cab1fcc7fb7391"
+      "sha256": "d7110058486bd84ae1adc3b703b1675cfc1c3293368b0bc3f42e4b47ec16313f"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "28ed7b9c53cdbe049abc7402de8ba4adfbf2de7e5d49670343ce083e1b9a35f5"
+      "sha256": "3a05782cfea1a562efd5a9dc4230e3ac70661c34c004ba9d0d32c2fdb5bbaba9"
     },
     "reference_png": {
       "size": 21968,
       "sha256": "e438d4668d9dee7bc664ed841dcfc65efcad49d396a2966cacb572b99dbec583"
     },
     "edited_png": {
-      "size": 20920,
-      "sha256": "ed8bd618cbbdbdcf3e449dc421ad33fc72305bcba1b55e83385e1a9e350314a9"
+      "size": 20466,
+      "sha256": "d927376953a0b5a9387c0fb575b0fa2bc92acd6065de93a3f349909ee5d38ff2"
     }
   },
   "acceptance": {
@@ -761,6 +841,7 @@
     "single_picture_4bpp_geometry_exact": true,
     "mask_contains_every_rgba_change": true,
     "replacement_uses_existing_source_color": true,
+    "forced_mask_background_index_exact": true,
     "preserved_background_rgba_exact": true,
     "tim2_header_clut_and_padding_exact": true,
     "archive_geometry_and_other_chunks_exact": true,

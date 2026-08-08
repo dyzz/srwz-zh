@@ -11,7 +11,7 @@ ROUTE_MAP = PROJECT_ROOT / "docs" / "STAGE_ROUTE_MAP.md"
 
 
 class StageRouteMapTests(unittest.TestCase):
-    def test_first_five_titles_are_finalized_without_glyph_compromise(self):
+    def test_opening_titles_are_finalized_without_glyph_compromise(self):
         document = json.loads(STAGE_TRANSLATIONS.read_text(encoding="utf-8"))
         entries = document["entries"][:5]
         self.assertEqual(

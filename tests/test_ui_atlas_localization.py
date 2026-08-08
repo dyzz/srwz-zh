@@ -10,6 +10,7 @@ from tools.srwz.ui_atlas_localization import (
     build_ui_atlas_localization,
     rgba_delta,
 )
+from tools.srwz.tim2 import parse_tim2
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -20,9 +21,6 @@ PROFILES = {
         "archive_sha256": (
             "c2e17e91730ec39e2d2deee6b29fb1607b1f6c13f75cbf0b314dd0f1a8494201"
         ),
-        "iso_sha256": (
-            "d31f3d3dbffc59da595b2d27bb516efec34af12426bda2b3d6f2a67ffdb9ddd0"
-        ),
         "character_count": 2,
         "added_pixel_count": 330,
         "changed_pixel_count": 425,
@@ -31,9 +29,6 @@ PROFILES = {
         "stem": "ui-battle-command-atlas-zh",
         "archive_sha256": (
             "f6db010cb6c7f6adc27c7f48d8eaa1c6ebbbe499ca0a43dbcac68a4d25fe62b9"
-        ),
-        "iso_sha256": (
-            "3e9ed4b155867cefc6b03775a20ab1ca58f7bc4c29ef7bcdfa6feceb14182dda"
         ),
         "character_count": 4,
         "added_pixel_count": 610,
@@ -44,9 +39,6 @@ PROFILES = {
         "archive_sha256": (
             "977f434fa01781e244cb0726875fe4823d72c24b126da5808956d1ad4a2f90af"
         ),
-        "iso_sha256": (
-            "9fcf33ba40c717497d6750e303db44e3a48bf814f43f4dbdebef3639912bf363"
-        ),
         "character_count": 3,
         "added_pixel_count": 2844,
         "changed_pixel_count": 3713,
@@ -54,22 +46,16 @@ PROFILES = {
     "intermission": {
         "stem": "ui-intermission-atlas-zh",
         "archive_sha256": (
-            "880dacedd976c689d01a8b6f50e6f494c105c2f44d24d4d9fac8ff751762a77a"
-        ),
-        "iso_sha256": (
-            "27a7563c517c155cb9fc44e2b80a06be41d1a1fb294c0f633537b19c4f9e9de2"
+            "d5b0e6559f15bcd644309015c540183ff6fb4dbcaf0dea5ea6d57f19e26e67c2"
         ),
         "character_count": 4,
-        "added_pixel_count": 1683,
-        "changed_pixel_count": 2111,
+        "added_pixel_count": 7695,
+        "changed_pixel_count": 11483,
     },
     "formation": {
         "stem": "ui-formation-atlas-zh",
         "archive_sha256": (
             "78f6963495d5a73f5cd23ba1557e79428aa0e04444b42de097ee51fcd8130a31"
-        ),
-        "iso_sha256": (
-            "cc8cd7cf82583cb5ea8d52ccac6aabafa730a653ff70613ac2a07da1f763a293"
         ),
         "character_count": 4,
         "added_pixel_count": 769,
@@ -86,22 +72,12 @@ class UiAtlasLocalizationTests(unittest.TestCase):
             stem = expected["stem"]
             config_path = PROJECT_ROOT / f"config/assets/{stem}.json"
             manifest_path = PROJECT_ROOT / f"manifests/{stem}-validation.json"
-            runtime_manifest_path = (
-                PROJECT_ROOT / f"manifests/{stem}-runtime-validation.json"
-            )
-            iso_config_path = PROJECT_ROOT / f"config/iso/{stem}-build.json"
             cls.profiles[name] = {
                 **expected,
                 "config_path": config_path,
                 "config": json.loads(config_path.read_text(encoding="utf-8")),
                 "manifest": json.loads(
                     manifest_path.read_text(encoding="utf-8")
-                ),
-                "runtime_manifest": json.loads(
-                    runtime_manifest_path.read_text(encoding="utf-8")
-                ),
-                "iso_config": json.loads(
-                    iso_config_path.read_text(encoding="utf-8")
                 ),
             }
 
@@ -235,6 +211,167 @@ class UiAtlasLocalizationTests(unittest.TestCase):
                 self.assertEqual(manifest["runtime"]["status"], "not_tested")
                 self.assertTrue(all(manifest["acceptance"].values()))
 
+    def test_intermission_uses_exact_source_element_cuts_and_italic_text(self):
+        manifest = self.profiles["intermission"]["manifest"]
+        config = self.profiles["intermission"]["config"]
+        self.assertEqual(config["replacement_mode"], "fixed_source_elements")
+        self.assertEqual(config["expected_background_palette_index"], 0)
+        labels = [config["localized_label"], *config["additional_localized_labels"]]
+        self.assertEqual(len(labels), 9)
+        self.assertEqual(
+            len({label["source_element_id"] for label in labels}),
+            len(labels),
+        )
+        self.assertNotIn("italic_shear_degrees", labels[0]["render"])
+        self.assertNotIn("italic_shear_degrees", labels[1]["render"])
+        self.assertEqual(
+            labels[0]["render"]["indexed_layers"],
+            labels[1]["render"]["indexed_layers"],
+        )
+        self.assertEqual(
+            [
+                entry["palette_index"]
+                for entry in labels[1]["render"]["indexed_layers"][
+                    "outline"
+                ]
+            ],
+            list(range(1, 8)),
+        )
+        self.assertEqual(
+            [
+                entry["palette_index"]
+                for entry in labels[1]["render"]["indexed_layers"]["fill"]
+            ],
+            list(range(8, 16)),
+        )
+        self.assertTrue(
+            all(
+                label["render"]["indexed_layer_profile"] == "menu"
+                for label in labels[2:]
+            )
+        )
+        self.assertEqual(
+            [
+                entry["palette_index"]
+                for entry in config["indexed_text_layer_profiles"]["menu"][
+                    "fill"
+                ]
+            ],
+            list(range(8, 15)),
+        )
+        self.assertTrue(
+            all(
+                label["render"]["italic_shear_degrees"] == 12
+                for label in labels[2:]
+            )
+        )
+        base_mapping = json.loads(
+            (
+                PROJECT_ROOT
+                / config["base_mapping"]["config"]
+            ).read_text(encoding="utf-8")
+        )
+        masks = [
+            base_mapping["target"]["mask"],
+            *(label["mask"] for label in labels[1:]),
+        ]
+        self.assertTrue(
+            all(
+                mask["replacement_rgba"] == "000000ff"
+                and mask["preserve_rgba"] == ["000000ff"]
+                for mask in masks
+            )
+        )
+        translations = {
+            entry["id"]: entry["translation"]
+            for entry in json.loads(
+                (
+                    PROJECT_ROOT
+                    / config["localized_label"]["translation_source"][
+                        "path"
+                    ]
+                ).read_text(encoding="utf-8")
+            )["entries"]
+        }
+        self.assertEqual(translations["ui-atlas/kvm6/unit-category"], "机体")
+        self.assertEqual(translations["ui-atlas/kvm6/pilot-category"], "机师")
+        self.assertEqual(translations["ui-atlas/kvm6/bazaar"], "集市")
+        self.assertEqual(
+            translations["ui-atlas/kvm6/squad-formation"],
+            "小队",
+        )
+        self.assertTrue(
+            manifest["acceptance"][
+                "source_element_rectangles_and_rgba_locked"
+            ]
+        )
+        self.assertTrue(
+            manifest["acceptance"][
+                "fixed_element_palette_indexes_rebuilt"
+            ]
+        )
+        self.assertTrue(
+            manifest["acceptance"][
+                "indexed_outline_and_fill_layers_rebuilt"
+            ]
+        )
+        self.assertEqual(
+            manifest["target"]["expected_background_palette_index"],
+            0,
+        )
+        source_elements = manifest["text_audit"]["source_elements"]
+        self.assertEqual(len(source_elements), len(labels))
+        self.assertEqual(
+            [(item["width"], item["height"]) for item in source_elements],
+            [
+                (215, 31),
+                (218, 29),
+                (69, 27),
+                (99, 27),
+                (63, 22),
+                (100, 22),
+                (101, 25),
+                (88, 22),
+                (111, 25),
+            ],
+        )
+        archive = (
+            PROJECT_ROOT
+            / config["outputs"]["component_root"]
+            / config["target"]["member"]
+        ).read_bytes()
+        chunk = archive[
+            manifest["target"]["chunk_start"] :
+            manifest["target"]["chunk_end"]
+        ]
+        picture = parse_tim2(chunk).pictures[0]
+        image_start = picture.offset + picture.header_size
+        packed = chunk[image_start : image_start + picture.image_size]
+        indexes = bytes(
+            value
+            for packed_byte in packed
+            for value in (packed_byte & 0x0F, packed_byte >> 4)
+        )
+        for mask_index, current_mask in enumerate(masks):
+            source_indexes = {
+                indexes[y * 256 + x]
+                for y in range(
+                    current_mask["y"],
+                    current_mask["y"] + current_mask["height"],
+                )
+                for x in range(
+                    current_mask["x"],
+                    current_mask["x"] + current_mask["width"],
+                )
+            }
+            self.assertTrue(source_indexes & set(range(1, 8)))
+            self.assertTrue(source_indexes & set(range(8, 15)))
+            if mask_index in {0, 1}:
+                self.assertIn(15, source_indexes)
+            else:
+                self.assertNotIn(15, source_indexes)
+            self.assertIn(0, source_indexes)
+
     def test_committed_manifest_contains_no_translation_payload(self):
         def visit(value):
             if isinstance(value, dict):
@@ -249,40 +386,6 @@ class UiAtlasLocalizationTests(unittest.TestCase):
         for name, profile in self.profiles.items():
             with self.subTest(profile=name):
                 visit(profile["manifest"])
-
-    def test_iso_is_exact_and_runtime_mapping_remains_pending(self):
-        for name, profile in self.profiles.items():
-            runtime_manifest = profile["runtime_manifest"]
-            manifest = profile["manifest"]
-            iso_config = profile["iso_config"]
-            with self.subTest(profile=name):
-                self.assertEqual(
-                    runtime_manifest["status"],
-                    "static_localization_iso_validated_runtime_mapping_pending",
-                )
-                self.assertEqual(
-                    runtime_manifest["iso_build"]["output"]["sha256"],
-                    profile["iso_sha256"],
-                )
-                self.assertNotEqual(
-                    runtime_manifest["runtime"]["expected_texture_delta"][
-                        "changed_pixel_count"
-                    ],
-                    profile["changed_pixel_count"],
-                )
-                self.assertEqual(
-                    runtime_manifest["iso_build"]["unchanged_member_count"],
-                    65,
-                )
-                self.assertEqual(
-                    runtime_manifest["runtime"]["status"],
-                    "not_tested",
-                )
-                self.assertNotEqual(
-                    iso_config["replacements"][0]["sha256"],
-                    manifest["outputs"]["archive"]["sha256"],
-                )
-
 
 if __name__ == "__main__":
     unittest.main()

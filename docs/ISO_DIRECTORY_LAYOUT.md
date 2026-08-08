@@ -1,7 +1,7 @@
 # ISO 目录契约
 
 状态：已实施。ISO 相关路径按“不可变输入、可重建中间态、最终产物、运行证据”
-分层，并以 BuildProfile ID 隔离。`tools/build_canary_iso.py` 会在读取配置时
+分层，并以 ISO profile ID 隔离。`tools/build_iso.py` 会在读取配置时
 校验这些边界，错误路径不会开始构建。
 
 ## 1. 目录结构
@@ -15,11 +15,12 @@ work/
     SLPS_258.87
     DATA/...
   build/
-    canary-menu/
+    zh-release-full-story/
       components/
         SLPS_258.87
-        DATA/VT1.BIN
-        canary-glyphs.png
+        DATA/...
+        BTL/...
+        KURODATA/...
         component-validation.json
       iso/
         original/
@@ -29,18 +30,15 @@ work/
           build.xml
           lba.txt
   runtime/
-    pcsx2-home/
-    canary-menu/
-      logs/
-      pine/
-      screenshots/
+    pcsx2-sessions/
+      <session-id>/
   toolchain/
 
 build/
   iso/
-    canary-menu/
-      srwz-canary.iso
-      iso-validation.json
+    zh-release-full-story/
+      srwz-zh-release-full-story-r8.iso
+      iso-validation-r8.json
 ```
 
 ## 2. 各层所有权
@@ -64,8 +62,8 @@ build/
 
 - domain writer 的输出，例如候选 SLPS、VT1 和 component validation。
 - 只从原版成员和已提交的 profile/corpus/codebook 生成。
-- 不同 profile 不共享可变候选文件，避免 menu、summary、story canary
-  互相覆盖。
+- 不同 profile 不共享可变候选文件；当前生产只登记
+  `zh-release-full-story`。
 
 ### `work/build/<profile>/iso/`：ISO authoring 中间态
 
@@ -124,7 +122,7 @@ build/
 目录校验只证明所有权边界。成员 byte-exact、ISO9660/UDF、DVD 识别、LBA、
 整镜像哈希和 PCSX2 运行结论仍由各自独立 gate 验证。
 
-当前单一候选 profile 为 `ui-p10-full-story`；其静态报告已通过，现有
-fresh-process 收据绑定前一张 ISO，当前精确哈希的启动和目标路线 runtime 仍待
-完成。构建与运行命令见
+当前单一候选 profile 为 `zh-release-full-story`，ISO 为
+`build/iso/zh-release-full-story/srwz-zh-release-full-story-r8.iso`；其静态报告
+已通过；当前精确哈希的 fresh-process 启动和目标路线 runtime 仍待完成。构建与运行命令见
 `BUILD_AND_RUNTIME.md`。

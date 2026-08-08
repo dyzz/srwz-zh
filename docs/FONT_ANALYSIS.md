@@ -13,15 +13,9 @@
 `decode_glyph()`、`encode_glyph()` 和 `replace_glyph()` 已有 byte-exact round-trip
 测试。VT1 内其他 TIM2 是背景／纹理，不是第二套主文字字库。
 
-```bash
-python3 tools/analyze_srwz_font.py --force
-python3 tools/render_srwz_font.py --force
-python3 tools/audit_full_chinese_font_plan.py --force
-```
-
-可提交摘要见 `manifests/font-analysis.json` 和
-`manifests/full-chinese-font-plan.json`；原版 decoded 字库与渲染图只位于
-被忽略的 `work/`。
+这些结构结论由 `tools/srwz/font.py` 的 byte-exact 单测和当前
+`manifests/zh-release-font-validation.json` 固定；原版 decoded 字库与临时渲染图
+只位于被忽略的 `work/`。
 
 ## Renderer 映射
 
@@ -42,9 +36,9 @@ UI、raw trail 或 direct-index 路径使用。
 renderer 身份。`$n/$F` 和 printf token 保持原始 ASCII 运行语义，不走中文
 override。
 
-## 过渡字库
+## 全局发布字库
 
-当前 P0–P10 候选使用 append-only 分配账本和同一生产字体／几何规则：
+当前唯一活动字库使用 append-only 分配账本和同一生产字体／几何规则：
 
 - 新 assignment 只追加，不重排已有字符；
 - 退役槽不静默复用；
@@ -52,10 +46,9 @@ override。
 - VT1 offset 表与字库内容原子更新；
 - 字体需求必须从实际写回闭包计算，不能只扫描被选语料文件。
 
-过渡字库已支持当前 P10 与剧情切片，但它不是最终全量 atlas。历史 canary 的
-完整解压和部分目标字形运行证据不能自动晋级当前综合 ISO。
+基础 UI 以 `release-base-ui` 四成员基线输入，不拥有独立发布字库。
 
-## 全量中文字库方案
+## 字槽方案
 
 标准 resolver 对 4,480 个 glyph 可建立完整顺序映射：
 
@@ -71,8 +64,9 @@ glyph 4479 -> code 987F
 - glyph 191–286：保留 95 个可打印 ASCII 固定索引；
 - glyph 287 起：按 glyph index 连续建立中文 registry；
 - 可用连续中文槽：4,193；
-- 当前语料需要：1,899；
-- 当前静态余量：2,294；
+- 当前主映射：3,261；
+- surface-safe 别名：701；
+- 默认宽度追加候选余量：1。
 - 当前语料静态可容纳。
 
 初始 registry 一旦冻结便只追加，不因语料集合或排序变化而重排。原日文字形身份

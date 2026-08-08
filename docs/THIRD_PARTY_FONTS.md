@@ -12,4 +12,7 @@ uses the font to generate project assets. The official license text is retained
 beside the fetched font at `work/font-source/harmonyos-sans-sc-1.0/LICENSE.txt`.
 
 The exact official archive URL, archive member names, sizes and hashes are
-recorded in `config/fonts/harmonyos-sans-sc.lock.json`.
+recorded in `config/fonts/harmonyos-sans-sc.lock.json` for Regular and
+`config/fonts/harmonyos-sans-sc-light.lock.json` for the Light weight used by
+the static intermission atlas. Both locks reference the same unmodified
+official archive and license text.

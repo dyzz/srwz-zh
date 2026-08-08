@@ -8,13 +8,11 @@ meaning.
 
 from __future__ import annotations
 
-import ctypes
 import subprocess
 import sys
 import tempfile
 from array import array
 from collections import defaultdict, deque
-from functools import lru_cache
 from pathlib import Path
 from typing import Callable, Deque, Dict, Mapping, Optional, Union
 
@@ -510,90 +508,6 @@ def _maximum_gain_upper_bound(maximum_length: int) -> int:
     return max(short_gain, long_gain)
 
 
-@lru_cache(maxsize=1)
-def _maximum_match_library():
-    if sys.platform == "darwin":
-        filename = "libsrwz_maximum_match.dylib"
-    elif sys.platform.startswith("linux"):
-        filename = "libsrwz_maximum_match.so"
-    else:
-        return None
-    project_root = Path(__file__).resolve().parents[2]
-    path = (
-        project_root
-        / "work/toolchain/srwz-maximum-match"
-        / filename
-    )
-    if not path.is_file():
-        return None
-    try:
-        library = ctypes.CDLL(str(path))
-    except OSError:
-        return None
-    function = library.srwz_maximum_match_table
-    function.argtypes = [
-        ctypes.POINTER(ctypes.c_uint8),
-        ctypes.c_uint32,
-        ctypes.c_uint32,
-        ctypes.c_uint32,
-        ctypes.c_uint32,
-        ctypes.c_uint32,
-        ctypes.POINTER(ctypes.c_uint32),
-        ctypes.POINTER(ctypes.c_uint32),
-        ctypes.POINTER(ctypes.c_int32),
-    ]
-    function.restype = ctypes.c_int
-    return library
-
-
-def _accelerate_maximum_match_table(
-    data: bytes,
-    *,
-    window_size: int,
-    min_match_length: int,
-    max_match_chain: int,
-    prefix_size: int,
-    distances: array,
-    lengths: array,
-    gains: array,
-) -> bool:
-    """Fill tables with the optional independently authored C helper."""
-
-    library = _maximum_match_library()
-    if library is None:
-        return False
-    if (
-        distances.itemsize != ctypes.sizeof(ctypes.c_uint32)
-        or lengths.itemsize != ctypes.sizeof(ctypes.c_uint32)
-        or gains.itemsize != ctypes.sizeof(ctypes.c_int32)
-    ):
-        return False
-    data_buffer = (ctypes.c_uint8 * len(data)).from_buffer_copy(data)
-    distance_buffer = (
-        ctypes.c_uint32 * len(distances)
-    ).from_buffer(distances)
-    length_buffer = (
-        ctypes.c_uint32 * len(lengths)
-    ).from_buffer(lengths)
-    gain_buffer = (ctypes.c_int32 * len(gains)).from_buffer(gains)
-    status = library.srwz_maximum_match_table(
-        data_buffer,
-        len(data),
-        window_size,
-        min_match_length,
-        max_match_chain,
-        prefix_size,
-        distance_buffer,
-        length_buffer,
-        gain_buffer,
-    )
-    if status != 0:
-        raise RuntimeError(
-            f"maximum match accelerator failed with status {status}"
-        )
-    return True
-
-
 def _maximum_match_table(
     data: bytes,
     *,
@@ -625,18 +539,6 @@ def _maximum_match_table(
     gains = array("i", [0]) * size
     if size < 2 or prefix_size == size:
         return distances, lengths, gains
-    if _accelerate_maximum_match_table(
-        data,
-        window_size=window_size,
-        min_match_length=min_match_length,
-        max_match_chain=max_match_chain,
-        prefix_size=prefix_size,
-        distances=distances,
-        lengths=lengths,
-        gains=gains,
-    ):
-        return distances, lengths, gains
-
     padded = data + b"\0"
     heads = array("i", [-1]) * 65536
     previous = array("i", [-1]) * size
@@ -803,9 +705,9 @@ def _maximum_payload(
     runs one full level-9-style match search ranked by serialized gain, then
     compares nine one-byte-lookahead biases by their final byte strings.
     Small payloads also retain the older bounded-greedy portfolio as a
-    regression candidate. Large production payloads omit that redundant
-    pure-Python pass so the independently verified native match-table helper
-    controls the build cost.
+    regression candidate. Production profiles do not use this Python encoder;
+    they call the repository's Rust compressor and use this module only as a
+    strict decoder and small-sample oracle.
     """
 
     if not data or prefix_size == len(data):
@@ -851,15 +753,16 @@ def _rust_compressor_path() -> Path:
     )
 
 
-def _rust_maximum_payload(
+def _rust_payload(
     data: bytes,
     *,
     window_size: int,
     min_match_length: int,
-    max_match_chain: int,
+    search_chain: int,
     prefix_size: int = 0,
+    lazy_bias: int | None = None,
 ) -> bytes:
-    """Run the repository-owned Rust payload encoder.
+    """Run one repository-owned Rust payload encoder profile.
 
     The process boundary keeps the Rust implementation independent from the
     Python decoder used as the round-trip oracle. Generated inputs and outputs
@@ -875,7 +778,6 @@ def _rust_maximum_payload(
     project_root = Path(__file__).resolve().parents[2]
     work_root = project_root / "work"
     work_root.mkdir(parents=True, exist_ok=True)
-    search_chain = max(max_match_chain, MAXIMUM_MATCH_CHAIN)
     with tempfile.TemporaryDirectory(
         prefix="srwz-rust-compressor-",
         dir=work_root,
@@ -884,23 +786,26 @@ def _rust_maximum_payload(
         input_path = temporary_root / "decoded.bin"
         output_path = temporary_root / "payload.bin"
         input_path.write_bytes(data)
+        command = [
+            str(binary),
+            "payload",
+            "--input",
+            str(input_path),
+            "--output",
+            str(output_path),
+            "--window-size",
+            str(window_size),
+            "--prefix-size",
+            str(prefix_size),
+            "--min-match-length",
+            str(min_match_length),
+            "--max-match-chain",
+            str(search_chain),
+        ]
+        if lazy_bias is not None:
+            command.extend(("--lazy-bias", str(lazy_bias)))
         completed = subprocess.run(
-            [
-                str(binary),
-                "payload",
-                "--input",
-                str(input_path),
-                "--output",
-                str(output_path),
-                "--window-size",
-                str(window_size),
-                "--prefix-size",
-                str(prefix_size),
-                "--min-match-length",
-                str(min_match_length),
-                "--max-match-chain",
-                str(search_chain),
-            ],
+            command,
             check=False,
             cwd=project_root,
             capture_output=True,
@@ -917,6 +822,45 @@ def _rust_maximum_payload(
         return output_path.read_bytes()
 
 
+def _rust_maximum_payload(
+    data: bytes,
+    *,
+    window_size: int,
+    min_match_length: int,
+    max_match_chain: int,
+    prefix_size: int = 0,
+) -> bytes:
+    """Run the exhaustive Rust profile used for compression research."""
+
+    return _rust_payload(
+        data,
+        window_size=window_size,
+        min_match_length=min_match_length,
+        search_chain=max(max_match_chain, MAXIMUM_MATCH_CHAIN),
+        prefix_size=prefix_size,
+    )
+
+
+def _rust_fit_payload(
+    data: bytes,
+    *,
+    window_size: int,
+    min_match_length: int,
+    max_match_chain: int,
+    prefix_size: int = 0,
+) -> bytes:
+    """Run the fast production Rust profile sized for fixed allocations."""
+
+    return _rust_payload(
+        data,
+        window_size=window_size,
+        min_match_length=min_match_length,
+        search_chain=max_match_chain,
+        prefix_size=prefix_size,
+        lazy_bias=1,
+    )
+
+
 def reencode_changed_suffix(
     original_stream: BytesLike,
     modified_output: BytesLike,
@@ -927,18 +871,24 @@ def reencode_changed_suffix(
     lazy_matching: bool = False,
     max_output_size: Optional[int] = None,
 ) -> bytes:
-    """Preserve complete original blocks before a changed decoded suffix."""
+    """Re-encode a modified stream and verify its decoded round trip.
+
+    Production Rust strategies always re-compress the complete payload.  This
+    deliberately avoids carrying forward blocks emitted by an older Python
+    compressor through the historical suffix-preservation path.
+    """
 
     if strategy not in {
         "greedy",
         "literal",
         "maximum",
+        "rust-fit",
         "rust-maximum",
         "size-constrained",
     }:
         raise ValueError(
             "suffix strategy must be 'greedy', 'literal', 'maximum', "
-            "'rust-maximum' or 'size-constrained'"
+            "'rust-fit', 'rust-maximum' or 'size-constrained'"
         )
     if max_output_size is not None and max_output_size < 0:
         raise ValueError("max_output_size must be non-negative")
@@ -998,6 +948,42 @@ def reencode_changed_suffix(
             "suffix size change would alter the original header shape"
         )
 
+    if strategy in {"rust-fit", "rust-maximum"}:
+        first_block = min(
+            blocks,
+            key=lambda event: int(event["output_offset"]),
+        )
+        if int(first_block["output_offset"]) != 0:
+            raise ValueError("stream trace has no zero-output block boundary")
+        rust_encoder = (
+            _rust_fit_payload
+            if strategy == "rust-fit"
+            else _rust_maximum_payload
+        )
+        payload = rust_encoder(
+            replacement,
+            window_size=int(original.metadata["window_size"]),
+            min_match_length=min_match_length,
+            max_match_chain=max_match_chain,
+            prefix_size=0,
+        )
+        encoded = (
+            new_declared
+            + source[
+                old_declared.end : int(first_block["input_offset"])
+            ]
+            + payload
+        )
+        reread = decode(encoded)
+        if reread.output != replacement or reread.consumed != len(encoded):
+            raise ValueError("full Rust re-encode failed its decoded round-trip")
+        if max_output_size is not None and len(encoded) > max_output_size:
+            raise SrwzEncodeError(
+                f"encoded output size {len(encoded)} exceeds "
+                f"limit {max_output_size}"
+            )
+        return encoded
+
     block = max(
         (
             event
@@ -1018,14 +1004,6 @@ def reencode_changed_suffix(
         payload = _literal_payload(replacement[output_prefix_size:])
     elif strategy == "maximum":
         payload = _maximum_payload(
-            replacement,
-            window_size=int(original.metadata["window_size"]),
-            min_match_length=min_match_length,
-            max_match_chain=max_match_chain,
-            prefix_size=output_prefix_size,
-        )
-    elif strategy == "rust-maximum":
-        payload = _rust_maximum_payload(
             replacement,
             window_size=int(original.metadata["window_size"]),
             min_match_length=min_match_length,
@@ -1089,9 +1067,12 @@ def encode(
     small payloads also compare the legacy bounded-greedy portfolio. It is not
     a mathematical optimality claim. Large production payloads deliberately
     skip the redundant legacy pass to keep offline build time bounded.
-    ``rust-maximum`` uses the repository-owned Rust implementation and keeps
-    this decoder as an independent round-trip oracle. ``max_output_size`` is a
-    hard failure gate, never truncation.
+    ``rust-fit`` uses the repository-owned Rust implementation with one fixed
+    lazy bias and the configured bounded search chain; it is the production
+    profile for fitting fixed allocations, not for finding the smallest
+    possible stream. ``rust-maximum`` retains the exhaustive Rust portfolio
+    for comparison. Both keep this decoder as an independent round-trip
+    oracle. ``max_output_size`` is a hard failure gate, never truncation.
     """
 
     source = memoryview(data).cast("B").tobytes()
@@ -1130,6 +1111,13 @@ def encode(
         )
     elif strategy == "rust-maximum":
         payload = _rust_maximum_payload(
+            source,
+            window_size=window_size,
+            min_match_length=min_match_length,
+            max_match_chain=max_match_chain,
+        )
+    elif strategy == "rust-fit":
+        payload = _rust_fit_payload(
             source,
             window_size=window_size,
             min_match_length=min_match_length,

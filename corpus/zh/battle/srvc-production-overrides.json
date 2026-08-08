@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "scope": "Production-only SRVC wording normalization required by the finite global release font allocation; reviewed draft files remain immutable.",
+  "policy": {
+    "source": "complete human-reviewed SRVC translation set",
+    "allowed_changes": "Simplified-Chinese normalization and semantically equivalent battle shouts only",
+    "preserve_control_tokens": true
+  },
+  "entries": [
+    {
+      "id": "battle:00556",
+      "review_translation_sha256": "2fcd9407d82f358a03cfb64651253c972ced5f02d9270d22f79e783a6277c7ed",
+      "production_text": "“真惨啊，盖因。\\n　啊啊哈哈哈，呀哈哈哈哈！”",
+      "reason": "Remove the redundant rare-form adjective from 凄惨 without changing meaning."
+    },
+    {
+      "id": "battle:01603",
+      "review_translation_sha256": "46c1e12717e9a30d1c9dc2fe35e82db6a08d8d11e699c671a9c28d1e00246981",
+      "production_text": "“呀啊啊啊啊啊！！”",
+      "reason": "Normalize a rare transliterated battle shout to the established 呀 shout."
+    },
+    {
+      "id": "battle:02090",
+      "review_translation_sha256": "4fb363ee16f154e8121c90cdb7b48c9e86a9dce9780f83263fa6db1ce70f60b7",
+      "production_text": "“嘻嘻嘻嘻！\\n　状态不好吗，罗杰·史密斯！？”",
+      "reason": "Normalize the rare 呋-prefixed laugh to the established 嘻 laugh."
+    },
+    {
+      "id": "battle:12470",
+      "review_translation_sha256": "6b322b565bc7cb2786d604c7c04ebc346547057976588967b852d0b9b98807f9",
+      "production_text": "“呀啊啊啊啊！！”",
+      "reason": "Normalize a rare transliterated battle shout to the established 呀 shout."
+    },
+    {
+      "id": "battle:13780",
+      "review_translation_sha256": "07b5dc3c69bd12a2bd5e628038010117c4b588ab63a383bb1916a9662b7ec1d0",
+      "production_text": "“呀啊啊啊啊！”",
+      "reason": "Normalize a rare transliterated battle shout to the established 呀 shout."
+    },
+    {
+      "id": "battle:15554",
+      "review_translation_sha256": "43105b56a141a70a7e961e039ea8754e8b8bad13899d72bdc1c4cc9d569b5dcd",
+      "production_text": "“嘻嘻嘻嘻！白费力气！”",
+      "reason": "Normalize the rare 呋-prefixed laugh to the established 嘻 laugh."
+    },
+    {
+      "id": "battle:22722",
+      "review_translation_sha256": "00ed3f70243a6c3614b8d2de0acb3778179cd95467c71ffb5252dd13f3c603b7",
+      "production_text": "“本是好意给你们的机会……\\n　好了，轮到我了！”",
+      "reason": "Normalize traditional 機會 to Simplified Chinese 机会."
+    }
+  ]
+}

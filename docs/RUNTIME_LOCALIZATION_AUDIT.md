@@ -6,9 +6,9 @@
 ## 当前证据基线
 
 ```text
-profile: ui-p10-full-story
+profile: zh-release-full-story
 size:    3,758,358,528 bytes
-sha256:  21b00c2de1d25ca668f21b1c9d95486c223aa7f55d610d684495ca463eead4cc
+sha256:  dea0d931699f84ac134b30eb144ec204955a0517cbec90541b79a06240571497
 static:  passed
 boot smoke: pending for exact hash
 target routes: pending
@@ -17,39 +17,39 @@ target routes: pending
 静态已确认：
 
 - 66 个 ISO 成员路径和顺序保持；
-- 59 个未替换成员 byte-exact；
-- 7 个 replacement 独立 UDF 回读一致；
+- 55 个未替换成员 byte-exact；
+- 11 个 replacement 独立 UDF 回读一致；
 - 零成员 LBA 位移；
 - 205 个 STAGE 压缩块可严格解码；
 - 154 个选择剧情块的 82719 条对白、558 条条件文本和 8469 个说话人可以从最终
   ISO 逐条回读；
-- 1760 个机师姓名字段、`确定／返回`、24×3 对话布局和 1925 个运行时占位符
+- 2452 个机师长名／短名字段、`确定／返回`、24×3 对话布局和 1925 个运行时占位符
   可以从最终 ISO 独立回读；
-- 最终 ISO 的字库解码哈希一致，但该收据属于切换前的典黑测试快照。当前静态
-  唯一活动字体为 `zh-release-font`（HarmonyOS Sans SC Regular 1.0），`〜∀♪`
-  三字显式回退 Noto，统一 22px、24×24、y=+1；它扫描全部中文翻译语料，当前
-  94,090 条 translation 的静态缺字和原日文可见字形混用均为 0。
-  新字体尚未取得绑定精确 ISO 的新游戏／读档 STAGE 运行时收据。
+- 25708 条唯一 SRVC 译文、58740 个索引记录和 353 个块可从最终 ISO 回读；
+- 最终 ISO 的 VT1 字库为 HarmonyOS Sans SC Regular 1.0，`〜∀♪` 三字显式
+  回退 Noto，统一 22px、24×24、y=+1；中场休息固定图集使用同家族 Light，
+  不改变 VT1。当前字体尚未取得绑定精确 ISO 的新游戏／读档 STAGE 运行时收据。
 
 这些结论不证明 PCSX2 已到达人物确认后转场、数据库页面、各剧情关卡或 atlas
 目标场景。
 
-## 已证明的运行能力
+## 当前运行结论
 
-当前 `21b00c...` 精确候选尚无匹配哈希的正式 fresh-process 收据。现有
-`manifests/runtime/ui-p10-full-story-stage-entry.json` 绑定前一张
-`383e51...` ISO，不能晋级为当前候选证据。
+当前 `dea0d931...` 精确候选尚无匹配哈希的正式 fresh-process 收据。旧候选记录
+只存在于 Git 历史，不能晋级为当前证据；以下所有目标路线都必须重新执行。
 
-历史精确候选还分别证明过以下能力：
+## 当前剩余汉化范围
 
-- PS2 DVD、ELF 和 PINE 可进入 Running，日志可做到零 TLB miss；
-- 游戏 R5900 解压器可以接受 clean-room 重编码的 VT1 字库流；
-- 两字菜单 canary、世界史和剧情中文能在目标 surface 显示；
-- 标题 `开始／读取／继续／资料库` atlas 的运行纹理与离线 RGBA 结果一致；
-- 前驱候选能够进入第一话并显示中文对白。
+按当前实机观察，剩余文本先按玩家影响分层，不再为它们建立新的字体 profile：
 
-历史目标画面只是实现能力证明，不是当前 `21b00c...` ISO 的验收。当前候选仍需
-重新执行目标路线并绑定新哈希。
+1. 高优先级是正常流程、战斗和菜单中零散出现的残留日文。每次发现后定位所属
+   BIN／记录、补稳定 ID 与译文，再经过现有全局字体、写回和最终 ISO 回读链。
+2. 较低优先级但文本量大的独立范围是人物／机体图鉴正文、用语列表和游戏内
+   教程。它们应先按领域建立完整清单，再批量翻译和审校，避免用截图逐条散改。
+
+已经静态回读通过的机师名称、机体显示名、武器名、菜单标签、STAGE／HSFC 概要
+和 SRVC 战斗字幕不因上述分类退回未完成；这里指的是尚未进入当前语料闭包的正文
+或实机新发现文本。
 
 ## 当前待验收范围
 
@@ -74,23 +74,22 @@ target routes: pending
 
 ### 战斗语音字幕
 
-- `BTL/SRVC.BIN` 与配对 SEG 的完整文本、指针和长度边界；
-- 样例 `「一気に間合いをっ！」` 已定位到第 71 块的 `0xACE32`、`0xAE527`；
-- 中文码表复用原日文字槽后，未汉化 SRVC 出现中文混字属于预期，验收目标是将该
-  文本域完整汉化，而不是维持原日文可读；
-- 写回后仍需成员扇区预算、零 LBA 位移和实机战斗字幕验证。
+- `BTL/SRVC.BIN` 与配对 SEG 的完整文本、指针、长度、块边界和最终 ISO 静态回读
+  已闭合；
+- 样例 `「一気に間合いをっ！」` 所在第 71 块已纳入完整汉化域；
+- 仍需在精确候选的实机战斗中确认随语音出现的中文字幕、换行、消失时机和字形。
 
 ### 图片 atlas
 
-- 五张 KVMDATA 中文候选的真实场景归属；
+- 五张 KVMDATA 中文候选的正式 runtime receipt；
 - PCSX2 texture dump 与锁定 reference PNG 的完整 RGBA 比较；
 - 变化像素只位于授权 mask；
-- 选中／未选中、透明度和相邻 UI 无回归。
+- 中场休息九个切片的 Light 字重、右斜菜单、选中／未选中亮度和相邻 UI 无回归。
 
 ### 全量字库
 
-当前全局 release 字库已经通过全部汉化语料的静态覆盖；P10 只表示历史已编码
-UI 组件，不再是字体层。运行晋级前仍必须覆盖：
+当前全局 release 字库已经通过全部汉化语料的静态覆盖；已有编码文本
+组件不再是独立字体层。运行晋级前仍必须覆盖：
 
 - 每个 standard resolver 行；
 - 实际使用的 `0x7F/0xFD/0xFE/0xFF` raw trail 类；
@@ -99,16 +98,10 @@ UI 组件，不再是字体层。运行晋级前仍必须覆盖：
 
 ## 运行 fixture
 
-运行矩阵和 fixture 事实源分别是：
-
-```text
-config/runtime/ui-test-matrix.json
-manifests/ui-runtime-test-matrix.json
-```
-
-优先补齐幕间、战场、前五关进度、结算前、全改造、商店和路线分支 memory card。
-原始存档只读复制到隔离 session；savestate 只用于定位，最终证据仍从 fresh-process
-primary route 采集。
+运行会话直接绑定当前 `zh-release-full-story` ISO config，不维护历史候选矩阵。
+优先补齐新游戏 STAGE、读档 STAGE、战斗字幕、幕间、战场、结算前、全改造、
+商店和路线分支 memory card。原始存档只读复制到隔离 session；savestate 只用于
+定位，最终证据仍从 fresh-process primary route 采集。
 
 ## 通过标准
 
@@ -118,8 +111,7 @@ primary route 采集。
 2. 从声明路线实际到达目标画面；
 3. PINE 状态、DVD、ELF 和零 TLB 检查通过；
 4. 所有文本、布局、交互和纹理断言明确通过；
-5. hash-only receipt 已进入 `manifests/runtime/ui-cases/`；
-6. runtime matrix 重新审计通过。
+5. hash-only receipt 明确绑定当前 ISO SHA-256 和目标路线。
 
 boot smoke、静态回读、旧截图或单独的 session probe 均不能替代上述闭环。执行
 命令见 `BUILD_AND_RUNTIME.md`。

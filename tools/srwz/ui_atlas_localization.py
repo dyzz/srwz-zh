@@ -28,6 +28,7 @@ from .tim2_writeback import CANARY_HEIGHT, CANARY_WIDTH, inject_indexed4_rgba
 from .ui_atlas_canary import (
     AtlasMask,
     UiAtlasCanaryError,
+    apply_masked_rgba,
     build_ui_atlas_map_canary,
 )
 
@@ -77,6 +78,21 @@ def _file_lock(root: Path, path: Path) -> dict:
     }
 
 
+def _crop_rgba(rgba: bytes, mask: AtlasMask) -> bytes:
+    """Return one exact row-major RGBA atlas-element rectangle."""
+
+    expected_size = CANARY_WIDTH * CANARY_HEIGHT * 4
+    if len(rgba) != expected_size:
+        raise UiAtlasLocalizationError("localized atlas RGBA size is invalid")
+    return b"".join(
+        rgba[
+            (y * CANARY_WIDTH + mask.x) * 4 :
+            (y * CANARY_WIDTH + mask.x + mask.width) * 4
+        ]
+        for y in range(mask.y, mask.y + mask.height)
+    )
+
+
 def _decode_ramp(raw: object) -> tuple[bytes, ...]:
     if (
         not isinstance(raw, list)
@@ -97,6 +113,92 @@ def _decode_ramp(raw: object) -> tuple[bytes, ...]:
             "localized atlas ramp must be unique and fully opaque"
         )
     return ramp
+
+
+def _decode_indexed_layers(
+    raw: object,
+) -> dict[str, tuple[tuple[bytes, int], ...]] | None:
+    if raw is None:
+        return None
+    if not isinstance(raw, Mapping) or set(raw) != {"outline", "fill"}:
+        raise UiAtlasLocalizationError(
+            "indexed text layers must define outline and fill"
+        )
+    decoded = {}
+    for layer_name in ("outline", "fill"):
+        entries = raw[layer_name]
+        if not isinstance(entries, list) or len(entries) < 2:
+            raise UiAtlasLocalizationError(
+                f"indexed {layer_name} layer must contain at least two entries"
+            )
+        layer = []
+        for entry in entries:
+            if not isinstance(entry, Mapping):
+                raise UiAtlasLocalizationError(
+                    f"indexed {layer_name} layer entry is malformed"
+                )
+            rgba = entry.get("rgba")
+            palette_index = entry.get("palette_index")
+            if (
+                not isinstance(rgba, str)
+                or len(rgba) != 8
+                or not isinstance(palette_index, int)
+                or isinstance(palette_index, bool)
+                or not 0 <= palette_index <= 0x0F
+            ):
+                raise UiAtlasLocalizationError(
+                    f"indexed {layer_name} layer entry is invalid"
+                )
+            try:
+                color = bytes.fromhex(rgba)
+            except ValueError as error:
+                raise UiAtlasLocalizationError(
+                    f"indexed {layer_name} layer contains invalid RGBA"
+                ) from error
+            layer.append((color, palette_index))
+        if len({index for _color, index in layer}) != len(layer):
+            raise UiAtlasLocalizationError(
+                f"indexed {layer_name} palette indexes must be unique"
+            )
+        decoded[layer_name] = tuple(layer)
+    if 0 in {
+        index for layer in decoded.values() for _color, index in layer
+    }:
+        raise UiAtlasLocalizationError(
+            "indexed text layers cannot use the background index"
+        )
+    return decoded
+
+
+def _indexed_layers_metadata(
+    layers: Mapping[str, Sequence[tuple[bytes, int]]],
+) -> dict:
+    return {
+        layer_name: [
+            {"rgba": color.hex(), "palette_index": palette_index}
+            for color, palette_index in entries
+        ]
+        for layer_name, entries in layers.items()
+    }
+
+
+def _resolve_indexed_layers(
+    render: Mapping,
+    profiles: Mapping[str, Mapping[str, Sequence[tuple[bytes, int]]]],
+) -> Mapping[str, Sequence[tuple[bytes, int]]] | None:
+    inline = render.get("indexed_layers")
+    profile_name = render.get("indexed_layer_profile")
+    if inline is not None and profile_name is not None:
+        raise UiAtlasLocalizationError(
+            "indexed text render cannot use both a profile and inline layers"
+        )
+    if profile_name is None:
+        return _decode_indexed_layers(inline)
+    if not isinstance(profile_name, str) or profile_name not in profiles:
+        raise UiAtlasLocalizationError(
+            "indexed text layer profile is missing or invalid"
+        )
+    return profiles[profile_name]
 
 
 def apply_text_mask(
@@ -190,6 +292,104 @@ def apply_text_mask(
     }
 
 
+def apply_indexed_text_layers(
+    erased_rgba: bytes,
+    outline_mask: bytes,
+    fill_mask: bytes,
+    mask: AtlasMask,
+    layers: Mapping[str, Sequence[tuple[bytes, int]]],
+) -> tuple[bytes, dict, dict[int, int]]:
+    """Render a dark indexed outline plus a separately indexed light fill."""
+
+    expected_rgba_size = CANARY_WIDTH * CANARY_HEIGHT * 4
+    expected_mask_size = mask.width * mask.height
+    if len(erased_rgba) != expected_rgba_size:
+        raise UiAtlasLocalizationError("localized atlas RGBA size is invalid")
+    if len(outline_mask) != expected_mask_size or len(fill_mask) != expected_mask_size:
+        raise UiAtlasLocalizationError(
+            "indexed localized atlas text mask size is invalid"
+        )
+    outline = tuple(layers["outline"])
+    fill = tuple(layers["fill"])
+    allowed_backgrounds = {mask.replacement_rgba, *mask.preserve_rgba}
+    outline_only = [
+        outline_mask[index]
+        for index in range(expected_mask_size)
+        if outline_mask[index] and not fill_mask[index]
+    ]
+    visible_fill = [value for value in fill_mask if value]
+    if not outline_only or not visible_fill:
+        raise UiAtlasLocalizationError(
+            "indexed text layers require visible outline and fill pixels"
+        )
+    layer_maximum = {
+        "outline": max(outline_only),
+        "fill": max(visible_fill),
+    }
+    edited = bytearray(erased_rgba)
+    exact_indexes = {}
+    counts = {
+        "outline": {index: 0 for _color, index in outline},
+        "fill": {index: 0 for _color, index in fill},
+    }
+    added_indexes = []
+    for local_y in range(mask.height):
+        for local_x in range(mask.width):
+            local_index = local_y * mask.width + local_x
+            fill_coverage = fill_mask[local_index]
+            outline_coverage = outline_mask[local_index]
+            if fill_coverage:
+                layer_name = "fill"
+                coverage = fill_coverage
+                layer = fill
+            elif outline_coverage:
+                layer_name = "outline"
+                coverage = outline_coverage
+                layer = outline
+            else:
+                continue
+            maximum = layer_maximum[layer_name]
+            ramp_index = (
+                coverage * (len(layer) - 1) + maximum // 2
+            ) // maximum
+            color, palette_index = layer[min(ramp_index, len(layer) - 1)]
+            x = mask.x + local_x
+            y = mask.y + local_y
+            pixel_index = y * CANARY_WIDTH + x
+            start = pixel_index * 4
+            if erased_rgba[start : start + 4] not in allowed_backgrounds:
+                raise UiAtlasLocalizationError(
+                    "indexed localized atlas base is not erased at "
+                    f"({x},{y})"
+                )
+            edited[start : start + 4] = color
+            exact_indexes[pixel_index] = palette_index
+            counts[layer_name][palette_index] += 1
+            added_indexes.append(pixel_index)
+    if not added_indexes:
+        raise UiAtlasLocalizationError(
+            "indexed localized atlas text has no visible pixels"
+        )
+    return bytes(edited), {
+        "added_pixel_count": len(added_indexes),
+        "added_pixel_indexes_sha256": sha256_bytes(
+            b"".join(index.to_bytes(4, "little") for index in added_indexes)
+        ),
+        "indexed_layer_counts": {
+            layer_name: {
+                str(index): count
+                for index, count in layer_counts.items()
+                if count
+            }
+            for layer_name, layer_counts in counts.items()
+        },
+        "fill_mask_sha256": sha256_bytes(fill_mask),
+        "fill_mask_nonzero_pixel_count": len(visible_fill),
+        "outside_mask_rgba_exact": True,
+        "erased_background_preimage_exact": True,
+    }, exact_indexes
+
+
 def rgba_delta(before: bytes, after: bytes, mask: AtlasMask) -> dict:
     """Describe an exact RGBA delta and require it to stay inside the mask."""
 
@@ -222,6 +422,60 @@ def rgba_delta(before: bytes, after: bytes, mask: AtlasMask) -> dict:
     }
 
 
+def _mask_pixels(
+    masks: Sequence[AtlasMask],
+) -> set[tuple[int, int]]:
+    normalized = tuple(masks)
+    if not normalized:
+        raise UiAtlasLocalizationError("localized atlas mask set is empty")
+    occupied: set[tuple[int, int]] = set()
+    for mask in normalized:
+        for y in range(mask.y, mask.y + mask.height):
+            for x in range(mask.x, mask.x + mask.width):
+                if (x, y) in occupied:
+                    raise UiAtlasLocalizationError(
+                        f"localized atlas masks overlap at ({x},{y})"
+                    )
+                occupied.add((x, y))
+    return occupied
+
+
+def rgba_delta_in_masks(
+    before: bytes,
+    after: bytes,
+    masks: Sequence[AtlasMask],
+) -> dict:
+    """Describe an RGBA delta confined to a non-overlapping mask set."""
+
+    normalized = tuple(masks)
+    occupied = _mask_pixels(normalized)
+    expected_size = CANARY_WIDTH * CANARY_HEIGHT * 4
+    if len(before) != expected_size or len(after) != expected_size:
+        raise UiAtlasLocalizationError("localized atlas delta size is invalid")
+    changed = []
+    for pixel_index in range(CANARY_WIDTH * CANARY_HEIGHT):
+        start = pixel_index * 4
+        if before[start : start + 4] == after[start : start + 4]:
+            continue
+        x = pixel_index % CANARY_WIDTH
+        y = pixel_index // CANARY_WIDTH
+        if (x, y) not in occupied:
+            raise UiAtlasLocalizationError(
+                f"localized atlas delta escaped its masks at ({x},{y})"
+            )
+        changed.append(pixel_index)
+    if not changed:
+        raise UiAtlasLocalizationError("localized atlas has no RGBA delta")
+    return {
+        "changed_pixel_count": len(changed),
+        "changed_pixel_indexes_sha256": sha256_bytes(
+            b"".join(index.to_bytes(4, "little") for index in changed)
+        ),
+        "mask_count": len(normalized),
+        "outside_masks_rgba_exact": True,
+    }
+
+
 def build_ui_atlas_localization(
     project_root: Path,
     work_root: Path,
@@ -239,6 +493,31 @@ def build_ui_atlas_localization(
         raise UiAtlasLocalizationError(
             "unsupported localized UI-atlas schema"
         )
+    replacement_mode = config.get("replacement_mode", "masked_text")
+    if replacement_mode not in {"masked_text", "fixed_source_elements"}:
+        raise UiAtlasLocalizationError(
+            "unsupported localized UI-atlas replacement mode"
+        )
+    fixed_source_elements = replacement_mode == "fixed_source_elements"
+    raw_indexed_layer_profiles = config.get(
+        "indexed_text_layer_profiles", {}
+    )
+    if not isinstance(raw_indexed_layer_profiles, Mapping):
+        raise UiAtlasLocalizationError(
+            "indexed text layer profiles must be an object"
+        )
+    indexed_layer_profiles = {}
+    for profile_name, raw_profile in raw_indexed_layer_profiles.items():
+        if not isinstance(profile_name, str) or not profile_name:
+            raise UiAtlasLocalizationError(
+                "indexed text layer profile name is invalid"
+            )
+        decoded_profile = _decode_indexed_layers(raw_profile)
+        if decoded_profile is None:
+            raise UiAtlasLocalizationError(
+                "indexed text layer profile cannot be empty"
+            )
+        indexed_layer_profiles[profile_name] = decoded_profile
 
     base_reference = config.get("base_mapping")
     target = config.get("target")
@@ -358,6 +637,7 @@ def build_ui_atlas_localization(
     stroke_gray = render.get("stroke_gray")
     stroke_width = render.get("stroke_width")
     fill_stroke_width = render.get("fill_stroke_width", 0)
+    italic_shear_degrees = render.get("italic_shear_degrees", 0)
     if (
         not isinstance(point_size, int)
         or isinstance(point_size, bool)
@@ -367,11 +647,147 @@ def build_ui_atlas_localization(
         or isinstance(stroke_width, bool)
         or not isinstance(fill_stroke_width, (int, float))
         or isinstance(fill_stroke_width, bool)
+        or not isinstance(italic_shear_degrees, (int, float))
+        or isinstance(italic_shear_degrees, bool)
     ):
         raise UiAtlasLocalizationError(
             "localized atlas render contract is invalid"
         )
     ramp = _decode_ramp(render.get("ramp_rgba"))
+
+    label_specs = [
+        {
+            "semantic_locator": source_locator,
+            "entry_id": entry_id,
+            "decision": decision,
+            "text": text,
+            "mask": mask,
+            "render": render,
+            "point_size": point_size,
+            "stroke_gray": stroke_gray,
+            "stroke_width": stroke_width,
+            "fill_stroke_width": fill_stroke_width,
+            "italic_shear_degrees": italic_shear_degrees,
+            "ramp": ramp,
+            "indexed_layers": _resolve_indexed_layers(
+                render,
+                indexed_layer_profiles,
+            ),
+            "source_element_id": label.get("source_element_id"),
+            "source_element_rgba_sha256": label.get(
+                "source_element_rgba_sha256"
+            ),
+        }
+    ]
+    additional_labels = config.get("additional_localized_labels", [])
+    if not isinstance(additional_labels, list):
+        raise UiAtlasLocalizationError(
+            "additional localized atlas labels must be a list"
+        )
+    for raw in additional_labels:
+        if not isinstance(raw, Mapping):
+            raise UiAtlasLocalizationError(
+                "additional localized atlas label is malformed"
+            )
+        additional_entry_id = raw.get("entry_id")
+        additional_locator = raw.get("semantic_locator")
+        matches = [
+            entry
+            for entry in raw_entries
+            if isinstance(entry, Mapping)
+            and entry.get("id") == additional_entry_id
+        ]
+        if len(matches) != 1:
+            raise UiAtlasLocalizationError(
+                "additional localized atlas translation entry is not unique"
+            )
+        additional_decision = matches[0]
+        additional_text = additional_decision.get("translation")
+        additional_source = additional_decision.get("source_text")
+        additional_refs = additional_decision.get("source_refs")
+        if (
+            additional_decision.get("editorial_status")
+            != raw.get("minimum_editorial_status")
+            or additional_source != additional_locator
+            or additional_decision.get("source_text_sha256")
+            != sha256_bytes(str(additional_source).encode("utf-8"))
+            or not isinstance(additional_refs, list)
+            or not additional_refs
+            or not isinstance(additional_text, str)
+            or not additional_text
+            or "\n" in additional_text
+            or "\r" in additional_text
+        ):
+            raise UiAtlasLocalizationError(
+                "additional localized atlas translation decision is invalid"
+            )
+        additional_render = raw.get("render")
+        if not isinstance(additional_render, Mapping):
+            raise UiAtlasLocalizationError(
+                "additional localized atlas render contract is missing"
+            )
+        additional_point_size = additional_render.get("point_size")
+        additional_stroke_gray = additional_render.get("stroke_gray")
+        additional_stroke_width = additional_render.get("stroke_width")
+        additional_fill_stroke_width = additional_render.get(
+            "fill_stroke_width", 0
+        )
+        additional_italic_shear_degrees = additional_render.get(
+            "italic_shear_degrees", 0
+        )
+        if (
+            not isinstance(additional_point_size, int)
+            or isinstance(additional_point_size, bool)
+            or additional_point_size <= 0
+            or not isinstance(additional_stroke_gray, str)
+            or not isinstance(additional_stroke_width, (int, float))
+            or isinstance(additional_stroke_width, bool)
+            or not isinstance(
+                additional_fill_stroke_width, (int, float)
+            )
+            or isinstance(additional_fill_stroke_width, bool)
+            or not isinstance(
+                additional_italic_shear_degrees, (int, float)
+            )
+            or isinstance(additional_italic_shear_degrees, bool)
+        ):
+            raise UiAtlasLocalizationError(
+                "additional localized atlas render contract is invalid"
+            )
+        label_specs.append(
+            {
+                "semantic_locator": additional_locator,
+                "entry_id": additional_entry_id,
+                "decision": additional_decision,
+                "text": additional_text,
+                "mask": AtlasMask.from_mapping(raw.get("mask")),
+                "render": additional_render,
+                "point_size": additional_point_size,
+                "stroke_gray": additional_stroke_gray,
+                "stroke_width": additional_stroke_width,
+                "fill_stroke_width": additional_fill_stroke_width,
+                "italic_shear_degrees": (
+                    additional_italic_shear_degrees
+                ),
+                "ramp": _decode_ramp(additional_render.get("ramp_rgba")),
+                "indexed_layers": _resolve_indexed_layers(
+                    additional_render,
+                    indexed_layer_profiles,
+                ),
+                "source_element_id": raw.get("source_element_id"),
+                "source_element_rgba_sha256": raw.get(
+                    "source_element_rgba_sha256"
+                ),
+            }
+        )
+
+    _mask_pixels([spec["mask"] for spec in label_specs])
+    if not fixed_source_elements and any(
+        spec["indexed_layers"] is not None for spec in label_specs
+    ):
+        raise UiAtlasLocalizationError(
+            "indexed text layers require fixed source elements"
+        )
 
     try:
         font_flavor = load_font_flavor_reference(
@@ -383,7 +799,10 @@ def build_ui_atlas_localization(
         )
     except FontFlavorError as error:
         raise UiAtlasLocalizationError(str(error)) from error
-    unsupported = sorted(set(text) & set(fallback_paths))
+    unsupported = sorted(
+        set().union(*(set(spec["text"]) for spec in label_specs))
+        & set(fallback_paths)
+    )
     if unsupported:
         raise UiAtlasLocalizationError(
             "localized atlas text requires per-character fallback rendering: "
@@ -414,46 +833,218 @@ def build_ui_atlas_localization(
             expected_width=CANARY_WIDTH,
             expected_height=CANARY_HEIGHT,
         )
-        erased_rgba = read_rgba8(
+        base_erased_rgba = read_rgba8(
             magick,
             erased_path,
             expected_width=CANARY_WIDTH,
             expected_height=CANARY_HEIGHT,
         )
+        source_element_ids = []
+        source_element_audits = []
+        for spec in label_specs:
+            source_element_id = spec["source_element_id"]
+            source_element_hash = spec["source_element_rgba_sha256"]
+            if (
+                not fixed_source_elements
+                and source_element_id is None
+                and source_element_hash is None
+            ):
+                continue
+            if (
+                not isinstance(source_element_id, str)
+                or not source_element_id
+                or not isinstance(source_element_hash, str)
+                or len(source_element_hash) != 64
+            ):
+                raise UiAtlasLocalizationError(
+                    "localized atlas source element lock is invalid"
+                )
+            source_element_ids.append(source_element_id)
+            crop = _crop_rgba(original_rgba, spec["mask"])
+            actual_source_element_hash = sha256_bytes(crop)
+            if actual_source_element_hash != source_element_hash:
+                raise UiAtlasLocalizationError(
+                    "localized atlas source element RGBA drift for "
+                    f"{source_element_id}"
+                )
+            source_element_audits.append(
+                {
+                    "source_element_id": source_element_id,
+                    "width": spec["mask"].width,
+                    "height": spec["mask"].height,
+                    "rgba_size": len(crop),
+                    "rgba_sha256": actual_source_element_hash,
+                }
+            )
+        if fixed_source_elements and len(source_element_ids) != len(
+            label_specs
+        ):
+            raise UiAtlasLocalizationError(
+                "fixed source element mode requires one lock per label"
+            )
+        if len(source_element_ids) != len(set(source_element_ids)):
+            raise UiAtlasLocalizationError(
+                "localized atlas source element ids are not unique"
+            )
         source_palette = {
             original_rgba[index : index + 4]
             for index in range(0, len(original_rgba), 4)
         }
-        missing_ramp = [
-            color.hex() for color in ramp if color not in source_palette
-        ]
+        missing_ramp = sorted(
+            {
+                color.hex()
+                for spec in label_specs
+                for color in (
+                    *spec["ramp"],
+                    *(
+                        color
+                        for layer in (spec["indexed_layers"] or {}).values()
+                        for color, _palette_index in layer
+                    ),
+                )
+                if color not in source_palette
+            }
+        )
         if missing_ramp:
             raise UiAtlasLocalizationError(
                 "localized atlas ramp is absent from source palette: "
                 + ", ".join(missing_ramp)
             )
-        grayscale_mask = render_grayscale_text_mask(
-            magick,
-            font_files["font"],
-            text,
-            width=mask.width,
-            height=mask.height,
-            point_size=point_size,
-            stroke_gray=stroke_gray,
-            stroke_width=float(stroke_width),
-            fill_stroke_width=float(fill_stroke_width),
+        erased_rgba = base_erased_rgba
+        for spec in label_specs[1:]:
+            erased_rgba = apply_masked_rgba(erased_rgba, spec["mask"])
+        localized_rgba = erased_rgba
+        text_audits = []
+        grayscale_masks = []
+        fill_masks = []
+        forced_palette_indexes_by_pixel = {}
+        for spec in label_specs:
+            current_mask = render_grayscale_text_mask(
+                magick,
+                font_files["font"],
+                spec["text"],
+                width=spec["mask"].width,
+                height=spec["mask"].height,
+                point_size=spec["point_size"],
+                stroke_gray=spec["stroke_gray"],
+                stroke_width=float(spec["stroke_width"]),
+                fill_stroke_width=float(spec["fill_stroke_width"]),
+                italic_shear_degrees=float(
+                    spec["italic_shear_degrees"]
+                ),
+            )
+            indexed_layers = spec["indexed_layers"]
+            if indexed_layers is None:
+                localized_rgba, current_audit = apply_text_mask(
+                    localized_rgba,
+                    current_mask,
+                    spec["mask"],
+                    spec["ramp"],
+                )
+                fill_masks.append(None)
+            else:
+                fill_mask = render_grayscale_text_mask(
+                    magick,
+                    font_files["font"],
+                    spec["text"],
+                    width=spec["mask"].width,
+                    height=spec["mask"].height,
+                    point_size=spec["point_size"],
+                    stroke_gray="black",
+                    stroke_width=0,
+                    fill_stroke_width=float(spec["fill_stroke_width"]),
+                    italic_shear_degrees=float(
+                        spec["italic_shear_degrees"]
+                    ),
+                )
+                (
+                    localized_rgba,
+                    current_audit,
+                    current_exact_indexes,
+                ) = apply_indexed_text_layers(
+                    localized_rgba,
+                    current_mask,
+                    fill_mask,
+                    spec["mask"],
+                    indexed_layers,
+                )
+                forced_palette_indexes_by_pixel.update(
+                    current_exact_indexes
+                )
+                fill_masks.append(fill_mask)
+            grayscale_masks.append(current_mask)
+            text_audits.append(current_audit)
+        masks = [spec["mask"] for spec in label_specs]
+        expected_background_palette_index = config.get(
+            "expected_background_palette_index"
         )
-        localized_rgba, text_audit = apply_text_mask(
-            erased_rgba,
-            grayscale_mask,
-            mask,
-            ramp,
+        if fixed_source_elements:
+            if (
+                not isinstance(expected_background_palette_index, int)
+                or isinstance(expected_background_palette_index, bool)
+                or not 0 <= expected_background_palette_index <= 0x0F
+            ):
+                raise UiAtlasLocalizationError(
+                    "fixed source elements require a background palette "
+                    "index that fits one nibble"
+                )
+            replacement_colors = {
+                current_mask.replacement_rgba for current_mask in masks
+            }
+            if len(replacement_colors) != 1:
+                raise UiAtlasLocalizationError(
+                    "fixed source element backgrounds must use one RGBA"
+                )
+            forced_pixel_indexes = {
+                y * CANARY_WIDTH + x
+                for current_mask in masks
+                for y in range(
+                    current_mask.y,
+                    current_mask.y + current_mask.height,
+                )
+                for x in range(
+                    current_mask.x,
+                    current_mask.x + current_mask.width,
+                )
+            }
+            forced_color_indexes = {
+                next(iter(replacement_colors)): (
+                    expected_background_palette_index
+                )
+            }
+        else:
+            if expected_background_palette_index is not None:
+                raise UiAtlasLocalizationError(
+                    "background palette index requires fixed source elements"
+                )
+            forced_pixel_indexes = set()
+            forced_color_indexes = {}
+        if len(masks) == 1:
+            original_delta = rgba_delta(
+                original_rgba, localized_rgba, masks[0]
+            )
+            erased_delta = rgba_delta(
+                erased_rgba, localized_rgba, masks[0]
+            )
+        else:
+            original_delta = rgba_delta_in_masks(
+                original_rgba, localized_rgba, masks
+            )
+            erased_delta = rgba_delta_in_masks(
+                erased_rgba, localized_rgba, masks
+            )
+        added_pixel_count = sum(
+            audit["added_pixel_count"] for audit in text_audits
         )
-        original_delta = rgba_delta(original_rgba, localized_rgba, mask)
-        erased_delta = rgba_delta(erased_rgba, localized_rgba, mask)
+        indexed_rgba_unchanged_pixel_count = sum(
+            localized_rgba[pixel_index * 4 : pixel_index * 4 + 4]
+            == erased_rgba[pixel_index * 4 : pixel_index * 4 + 4]
+            for pixel_index in forced_palette_indexes_by_pixel
+        )
         if (
             erased_delta["changed_pixel_count"]
-            != text_audit["added_pixel_count"]
+            + indexed_rgba_unchanged_pixel_count
+            != added_pixel_count
         ):
             raise UiAtlasLocalizationError(
                 "localized atlas text delta count drift"
@@ -465,8 +1056,13 @@ def build_ui_atlas_localization(
         erased_chunk = base_archive[chunk_start:chunk_end]
         injection = inject_indexed4_rgba(
             erased_chunk,
-            erased_rgba,
+            base_erased_rgba,
             localized_rgba,
+            force_reindex_pixel_indexes=forced_pixel_indexes,
+            forced_color_indexes=forced_color_indexes,
+            forced_palette_indexes_by_pixel=(
+                forced_palette_indexes_by_pixel
+            ),
         )
         output_tm2_path.write_bytes(injection.data)
         render_tim2_png8(magick, output_tm2_path, reread_path)
@@ -504,9 +1100,11 @@ def build_ui_atlas_localization(
     ).to_mapping()
     expected = {
         "text_mask": {
-            "size": len(grayscale_mask),
-            "sha256": sha256_bytes(grayscale_mask),
-            "nonzero_pixel_count": sum(value != 0 for value in grayscale_mask),
+            "size": len(grayscale_masks[0]),
+            "sha256": sha256_bytes(grayscale_masks[0]),
+            "nonzero_pixel_count": sum(
+                value != 0 for value in grayscale_masks[0]
+            ),
         },
         "reference_png": {
             "size": len(base_payloads["reference_png"]),
@@ -524,7 +1122,7 @@ def build_ui_atlas_localization(
             "size": len(injection.data),
             "sha256": sha256_bytes(injection.data),
         },
-        "added_pixel_count": text_audit["added_pixel_count"],
+        "added_pixel_count": added_pixel_count,
         "original_changed_pixel_count": original_delta[
             "changed_pixel_count"
         ],
@@ -534,6 +1132,22 @@ def build_ui_atlas_localization(
         "changed_archive_byte_count": archive_diff["diff_count"],
         "changed_archive_range_count": archive_diff["range_count"],
     }
+    if len(label_specs) > 1:
+        expected["additional_text_masks"] = [
+            {
+                "semantic_locator_sha256": sha256_bytes(
+                    spec["semantic_locator"].encode("utf-8")
+                ),
+                "size": len(current_mask),
+                "sha256": sha256_bytes(current_mask),
+                "nonzero_pixel_count": sum(
+                    value != 0 for value in current_mask
+                ),
+            }
+            for spec, current_mask in zip(
+                label_specs[1:], grayscale_masks[1:]
+            )
+        ]
     configured_expected = config.get("expected")
     if enforce_expected and configured_expected != expected:
         raise UiAtlasLocalizationError(
@@ -603,7 +1217,32 @@ def build_ui_atlas_localization(
             "operation": target["operation"],
             "candidate_scene_ids": base_target["candidate_scene_ids"],
             "mask": mask.to_mapping(),
+            **(
+                {
+                    "masks": [
+                        spec["mask"].to_mapping() for spec in label_specs
+                    ]
+                }
+                if len(label_specs) > 1
+                else {}
+            ),
             "mask_audit": original_delta,
+            **(
+                {
+                    "force_reindex_entire_masks": True,
+                    "expected_background_palette_index": (
+                        expected_background_palette_index
+                    ),
+                    "forced_indexed_text_pixel_count": len(
+                        forced_palette_indexes_by_pixel
+                    ),
+                    "indexed_rgba_unchanged_pixel_count": (
+                        indexed_rgba_unchanged_pixel_count
+                    ),
+                }
+                if fixed_source_elements
+                else {}
+            ),
         },
         "localized_label": {
             "source_locator_sha256": sha256_bytes(
@@ -616,18 +1255,102 @@ def build_ui_atlas_localization(
                 "stroke_gray": stroke_gray,
                 "stroke_width": stroke_width,
                 "fill_stroke_width": fill_stroke_width,
+                **(
+                    {"italic_shear_degrees": italic_shear_degrees}
+                    if italic_shear_degrees
+                    else {}
+                ),
                 "ramp_rgba": [color.hex() for color in ramp],
+                **(
+                    {
+                        "indexed_layers": _indexed_layers_metadata(
+                            label_specs[0]["indexed_layers"]
+                        )
+                    }
+                    if label_specs[0]["indexed_layers"] is not None
+                    else {}
+                ),
                 "text_mask": expected["text_mask"],
             },
         },
+        **(
+            {
+                "additional_localized_labels": [
+                    {
+                        "source_locator_sha256": sha256_bytes(
+                            spec["semantic_locator"].encode("utf-8")
+                        ),
+                        "text_sha256": sha256_bytes(
+                            spec["text"].encode("utf-8")
+                        ),
+                        "character_count": len(spec["text"]),
+                        "mask": spec["mask"].to_mapping(),
+                        "render": {
+                            "point_size": spec["point_size"],
+                            "stroke_gray": spec["stroke_gray"],
+                            "stroke_width": spec["stroke_width"],
+                            "fill_stroke_width": spec[
+                                "fill_stroke_width"
+                            ],
+                            **(
+                                {
+                                    "italic_shear_degrees": spec[
+                                        "italic_shear_degrees"
+                                    ]
+                                }
+                                if spec["italic_shear_degrees"]
+                                else {}
+                            ),
+                            "ramp_rgba": [
+                                color.hex() for color in spec["ramp"]
+                            ],
+                            **(
+                                {
+                                    "indexed_layers": (
+                                        _indexed_layers_metadata(
+                                            spec["indexed_layers"]
+                                        )
+                                    )
+                                }
+                                if spec["indexed_layers"] is not None
+                                else {}
+                            ),
+                            "text_mask": expected[
+                                "additional_text_masks"
+                            ][index],
+                        },
+                    }
+                    for index, spec in enumerate(label_specs[1:])
+                ]
+            }
+            if len(label_specs) > 1
+            else {}
+        ),
         "toolchain": {
             "imagemagick": version,
         },
-        "text_audit": {
-            **text_audit,
-            "delta_from_erased": erased_delta,
-            "delta_from_original": original_delta,
-        },
+        "text_audit": (
+            {
+                **text_audits[0],
+                "delta_from_erased": erased_delta,
+                "delta_from_original": original_delta,
+            }
+            if len(label_specs) == 1
+            else {
+                "added_pixel_count": added_pixel_count,
+                "label_count": len(label_specs),
+                "labels": text_audits,
+                **(
+                    {"source_elements": source_element_audits}
+                    if source_element_audits
+                    else {}
+                ),
+                "outside_masks_rgba_exact": True,
+                "erased_background_preimage_exact": True,
+                "delta_from_erased": erased_delta,
+                "delta_from_original": original_delta,
+            }
+        ),
         "injection": {
             **injection.to_metadata(),
             "archive_diff_from_erased_base": archive_diff,
@@ -651,6 +1374,21 @@ def build_ui_atlas_localization(
             "text_mask_hash_locked": True,
             "ramp_uses_only_source_palette_rgba": True,
             "localized_pixels_within_mapping_mask": True,
+            **(
+                {"source_element_rectangles_and_rgba_locked": True}
+                if fixed_source_elements
+                else {}
+            ),
+            **(
+                {"fixed_element_palette_indexes_rebuilt": True}
+                if fixed_source_elements
+                else {}
+            ),
+            **(
+                {"indexed_outline_and_fill_layers_rebuilt": True}
+                if forced_palette_indexes_by_pixel
+                else {}
+            ),
             "erased_locator_preimage_exact": True,
             "tim2_header_clut_and_padding_exact": True,
             "archive_geometry_and_other_chunks_exact": True,
@@ -677,4 +1415,5 @@ __all__ = [
     "apply_text_mask",
     "build_ui_atlas_localization",
     "rgba_delta",
+    "rgba_delta_in_masks",
 ]

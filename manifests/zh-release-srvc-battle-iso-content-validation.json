@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "srvc_battle_text_final_iso_static_readback_passed",
+  "scope": "Independent final-ISO readback of every indexed BTL/SRVC battle subtitle; gameplay runtime is separate.",
+  "iso": {
+    "path": "build/iso/zh-release-full-story/srwz-zh-release-full-story-r8.iso",
+    "size": 3758358528,
+    "sha256": "dea0d931699f84ac134b30eb144ec204955a0517cbec90541b79a06240571497"
+  },
+  "component_manifest": "manifests/full-story-components-validation.json",
+  "srvc": {
+    "bin_size": 3313040,
+    "bin_sha256": "b653ee4b1d26069a14695c6272b4901827837ba0527fd74a8ad5149ad1ee8e91",
+    "seg_size": 1416,
+    "seg_sha256": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987",
+    "chunk_count": 353,
+    "indexed_chunk_count": 288,
+    "zero_record_chunk_count": 65,
+    "record_count": 58740,
+    "unique_text_count": 25708,
+    "unindexed_tail_bytes_at_original_offsets": 88582
+  },
+  "checks": {
+    "iso_hash_exact": true,
+    "all_component_members_exact": true,
+    "srvc_bin_size_preserved": true,
+    "srvc_seg_byte_exact": true,
+    "chunk_count_exact": true,
+    "indexed_record_count_exact": true,
+    "unique_text_count_exact": true,
+    "translated_reread_exact": true,
+    "metadata_byte_exact": true,
+    "original_unindexed_tails_byte_exact": true,
+    "zero_record_chunks_byte_exact": true,
+    "control_tokens_preserved": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "Fresh new-game and load-game STAGE entry plus a voiced battle subtitle have not been captured for this exact ISO."
+  }
+}

@@ -9,8 +9,8 @@
   严格 decoder、round-trip 和回归 oracle。
 - 不执行上游 DLL/EXE，也不把其视为生产依赖；不改用 Deflate、LZMA 等游戏不
   支持的格式。
-- COMPDATA 生产硬门为 145,408 bytes／71 sectors，当前 P10 组件为 145,293
-  bytes，余量 115 bytes。
+- COMPDATA 生产硬门为 145,408 bytes／71 sectors；最终组件必须压入该预算，
+  不要求为了更小而固定使用最慢的最大化策略。
 - 格式正确、静态回解和 PCSX2 目标流程是独立门；不能用其中一层代替另一层。
 
 ## 流格式
@@ -96,24 +96,24 @@ VT1 中存在“压缩流前缀 + 非零外层尾部”和非当前格式段；w
 
 ## Encoder 门禁
 
-生产 Rust codec 使用原生 block／token 语法、compact distance seed、真实序列化
-成本和 lazy matching。生产参数：
+生产 Rust codec 使用原生 block／token 语法、compact distance seed 和真实序列化
+成本。生产 profile 统一使用 `rust-fit`，一旦满足目标预算即可停止；
+`rust-maximum` 仅保留为研究和小样本比较，不进入生产链：
 
 ```text
-strategy:          rust-maximum
-min match length:  3
-max match chain:   65535
-lazy matching:     enabled
+backend:           rust-only
+strategy:          rust-fit
+budget:            profile max_output_size / member sectors
 ```
 
-`min-match-length=2` 只保留为离线负面对照，不能进入生产；旧 greedy 和 Python
-maximum 只作回归参考。
+具体 match 参数由 profile 锁定。`rust-maximum`、旧 greedy 和 Python maximum
+只作小样本回归参考，不能进入生产组件。
 
 encoder 或 suffix writer 超过 `max_output_size` 时必须抛出 `SrwzEncodeError`，
 不得截断、修改 declared size、丢弃 decoded tail 或依靠移动 LBA 规避预算。
 
-`reencode_changed_suffix()` 可以逐字节保留首个修改点之前的原 header 和完整
-block，只重新编码受影响 suffix。使用该优化后仍必须执行：
+生产 Rust 策略会重压完整 decoded payload，避免把旧 Python encoder 的 block
+带入生产结果；非生产回归策略仍可保留未变的原 block。无论采用哪条路径都必须执行：
 
 1. 独立 Python 完整 decode；
 2. decoded payload 精确一致；
@@ -123,13 +123,7 @@ block，只重新编码受影响 suffix。使用该优化后仍必须执行：
 
 ## 已验证范围
 
-```bash
-python3 tools/verify_codec_samples.py
-python3 tools/scan_stage_streams.py --force
-python3 tools/validate_srwz_encoder.py --strategy greedy --force
-```
-
-当前聚合结果：
+固定原版样本和当前回归测试的聚合结果：
 
 | 域 | 可解码流 | Round-trip |
 | --- | ---: | ---: |
@@ -142,9 +136,9 @@ python3 tools/validate_srwz_encoder.py --strategy greedy --force
 原版 `STAGE.BIN` 大小为 3,910,128 bytes，205 个 slice 的尾部为 0–15 bytes
 零 padding。该结论只适用于固定样本，不能外推所有归档。
 
-PCSX2/PINE 已证明若干历史 canary 的游戏内完整字库解压和菜单／摘要／剧情路径。
-任何新 STAGE、COMPDATA 或 VT1 候选仍需绑定自己的组件、ISO 哈希和目标运行流程；
-历史 canary 证据不可转移。
+当前 STAGE、COMPDATA 和 VT1 都已通过 Rust 重编码、独立 Python 完整回解和成员
+预算门。运行结论仍必须绑定当前组件、精确 ISO 哈希和目标 PCSX2 流程，不能从
+旧候选继承。
 
 ## 未覆盖边界
 

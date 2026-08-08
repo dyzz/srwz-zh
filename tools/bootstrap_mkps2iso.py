@@ -12,7 +12,9 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = PROJECT_ROOT / "config" / "iso" / "canary-build.json"
+DEFAULT_CONFIG = (
+    PROJECT_ROOT / "config" / "iso" / "zh-release-full-story-build.json"
+)
 
 
 class BootstrapError(RuntimeError):

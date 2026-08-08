@@ -2,27 +2,27 @@
   "schema_version": 1,
   "status": "integrated_global_zh_release_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-integrated-v1",
-  "scope": "Compose the validated encoded UI component, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
+  "scope": "Compose the validated encoded UI component, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 6659,
-      "sha256": "70b55aa46c4ffd15e83a9d0752abfaf9dc6fae85be58917024f40a75dedd6e38"
+      "size": 17872,
+      "sha256": "f36f429efc6cdaac880fc1ab2afcf5abb84f73c81f479870d5ddbb65f32d9c0e"
     },
     "base_ui_manifest": {
-      "path": "manifests/ui-p10-database-fixed-core-validation.json",
-      "size": 39468,
-      "sha256": "edb545334aa50e6161c2d2f484f1df80d494d64734b1a057d99e240a6656ba78"
+      "path": "manifests/release-base-ui-validation.json",
+      "size": 1352,
+      "sha256": "a47b1a0387e706385c96cede5ea7445f23d51c04c3d8e1e333c969d1bfd15404"
     },
     "full_story_font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 44129,
-      "sha256": "3629ab778a1b614b96e136cbf9b423a9cabbd80c0cb14c206bc4823c792c2b64"
+      "size": 46198,
+      "sha256": "1af651a034eca66f53466a8627f836629f326554a40ef37e46553f0348aa8bdd"
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 17855266,
-      "sha256": "bf3cb0b604badc4f23c77fbb13758f9de7bcf571507e7311c34166a8154c5023"
+      "size": 17852763,
+      "sha256": "ebb75063652d31c2251952b93f859c2865889fb6da59b46f989cdf964ed4e8c9"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -34,10 +34,15 @@
       "size": 2898717,
       "sha256": "5cb6ec38ea75c1ad00ef8746f0654ac57ae29a9b82ecb49453dbca3f8f75f5db"
     },
+    "remaining_display_names": {
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "size": 28551,
+      "sha256": "5ca8179b49b74eea99a5d025aaa279ca5390605341c4bfad1347a8d12cba51aa"
+    },
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
-      "size": 3449792,
-      "sha256": "f294a2633a4d528ea2ca87c5f0b430d675046feeed52836545c8eb2a62cd962c"
+      "size": 3527917,
+      "sha256": "4618b51211b59fef6552d11179f4850fe620341644222e2eb7e1109403fcc50a"
     },
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
@@ -49,10 +54,60 @@
       "size": 114536,
       "sha256": "5f5eb156f90d8b6abe9e027e9cf3263a1b8aebc06ece67d11da53f4fc5ebeda9"
     },
+    "stage_overviews": {
+      "path": "corpus/zh/menu/stage-overviews.json",
+      "size": 89345,
+      "sha256": "7be77ae7a2db917b6f3e4d6a4cce0b9c8b2e002204b6e3326064034fa7c14afe"
+    },
+    "hsfc_overviews": {
+      "path": "corpus/zh/menu/hsfc-overviews.json",
+      "size": 22145,
+      "sha256": "677f932561a4068463624f9b56510035afe364894143989d2ebe052f085bc151"
+    },
+    "original_hsfc": {
+      "path": "work/disc/DATA/HSFC.BIN",
+      "size": 250112,
+      "sha256": "8af309977df9b2991557c5788410a9ed74c62f09f7c850c7f9a02cf56dfab23c"
+    },
     "menu_descriptor": {
       "path": "vendor/upstream-python/project/menu_files.json",
       "size": 137657,
       "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
+    },
+    "remaining_ui_translations": {
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "size": 28551,
+      "sha256": "5ca8179b49b74eea99a5d025aaa279ca5390605341c4bfad1347a8d12cba51aa"
+    },
+    "remaining_ui_parts": {
+      "path": "corpus/zh/menu/system-ui-parts.json",
+      "size": 34307,
+      "sha256": "5533989c9789493882dde8d96fe1b7d994a90cd340c12001f2006ba09ee4bfec"
+    },
+    "original_compdata": {
+      "path": "work/disc/DATA/COMPDATA.BN",
+      "size": 144990,
+      "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34"
+    },
+    "original_slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "srvc_battle_text_corpus": {
+      "path": "corpus/zh/battle/srvc-lines.json",
+      "size": 6921057,
+      "sha256": "33231481e784adc6afce1dfa9ddc084f1394225ac9152f3ad413fbd4f0560a3f"
+    },
+    "original_srvc_bin": {
+      "path": "work/disc/BTL/SRVC.BIN",
+      "size": 3313040,
+      "sha256": "35a30d1e1c52cb9f7186ccb52a17b9f35e715e0af789eec4a5b366091743297e"
+    },
+    "original_srvc_seg": {
+      "path": "work/disc/BTL/SRVC.SEG",
+      "size": 1416,
+      "sha256": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987"
     },
     "font_slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
@@ -62,12 +117,17 @@
     "font_vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "5144065a77d5ea97c0b259a6882279519364ee6ae2ce3d240bc9208f10a5fb75"
+      "sha256": "ef0464225fe96b445ef7daf05a62339ed35b3725ea466723b35cc90649154b6f"
+    },
+    "font_component_report": {
+      "path": "work/build/zh-release-font/components/font-validation.json",
+      "size": 1971971,
+      "sha256": "15a80f062f4cb6fa6c47df11d2ca0258fe703380bcb79bff17550286abcb6638"
     },
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "575d146141a286dc2371a99a0c3877e442ea5dc210ea33e5fb5f289caae4d334"
+      "sha256": "d175140a520c3f5ae7ca364f211eec7c0247a0cde6633f3b65c935afc4d9b66a"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -77,14 +137,29 @@
     "kvmdata": {
       "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "8e6503dcf459c45c436cad7e83f59fa414c43ab881563ecba8ed028c6c12cb51"
+      "sha256": "e2f57fef0703d3b7af81b88e97df74fea5ecefa0494fe7e86e9ec8d395c5fc2e"
+    },
+    "original_veff2dx": {
+      "path": "work/disc/EFF/VEFF2DX.BIN",
+      "size": 36890512,
+      "sha256": "afa7ba9d06d933eefcd82f5c9a9094b7f11aaa0e31ee721d6112849988c46abe"
     }
+  },
+  "compression": {
+    "backend_policy": "rust-only",
+    "python_encoder_used": false,
+    "font_strategy": "rust-fit",
+    "stage_strategies": [
+      "rust-fit"
+    ],
+    "component_strategy": "rust-fit",
+    "scenario_select_strategy": "rust-fit"
   },
   "composition": {
     "font_chunk_index": 2,
-    "font_encoded_size": 559350,
-    "font_decoded_sha256": "c7742ddd5e79938539dc07c15876830802ccc2c62aecc431323821486f0ec504",
-    "font_padding_size": 183210,
+    "font_encoded_size": 561812,
+    "font_decoded_sha256": "c24bb8c8240ca3d1f6f4defd48bbf29aa13911da7758ffb1c0ddf67c18c1f08a",
+    "font_padding_size": 180748,
     "additional_borrowed_preceding_zero_slack": 0,
     "preserved_non_font_vt1_chunk_count": 13,
     "archive_size_preserved": true,
@@ -99,24 +174,24 @@
     "encoded_text_codebook_compatibility": {
       "encoded_ui_mapping_is_release_subset": true,
       "encoded_proposal": {
-        "path": "work/writeback/ui-p10-database-codebook-proposal.json",
+        "path": "work/writeback/release-base-ui-codebook-proposal.json",
         "size": 2963476,
         "sha256": "da86db3c0d17f26cab66207fcd51ec413cd8c3cc93a4f6c8448d7d14e7280fcf"
       },
       "release_proposal": {
         "path": "work/writeback/zh-release-codebook-proposal.json",
-        "size": 3449792,
-        "sha256": "f294a2633a4d528ea2ca87c5f0b430d675046feeed52836545c8eb2a62cd962c"
+        "size": 3527917,
+        "sha256": "4618b51211b59fef6552d11179f4850fe620341644222e2eb7e1109403fcc50a"
       },
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "size": 596415,
-        "sha256": "45b55604cb1b589634302193a59c2d676126d9b67a4d16d35c72cb37c71ece28"
+        "size": 615907,
+        "sha256": "cd2530aaf0209576f9a32804ff11540f162b63c353973713daddcbd1bd5ec0fa"
       },
       "encoded_assignment_count": 1803,
       "encoded_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
-      "release_assignment_count": 3178,
-      "release_assignment_mapping_sha256": "fbbe4d1c0c10084b0f79e50526eb273ad2132c2bd9d95cccdfb3664da6cc919f"
+      "release_assignment_count": 3261,
+      "release_assignment_mapping_sha256": "a69ed531959006d519dca37ae15e3c191b7d4330050e28ae5843dbdc2bae54a5"
     }
   },
   "story": {
@@ -285,30 +360,32 @@
     "codec_round_trip_exact": true
   },
   "pilot_names": {
-    "unique_source_count": 424,
+    "story_unique_source_count": 424,
+    "residual_unique_source_count": 283,
+    "unique_source_count": 707,
     "included_fields": [
       "display",
       "family",
       "given"
     ],
-    "selected_entry_count": 1760,
+    "selected_entry_count": 2452,
     "field_entry_counts": {
-      "display": 872,
-      "given": 794,
-      "family": 94
+      "display": 933,
+      "given": 918,
+      "family": 601
     },
-    "write_entry_count": 543,
-    "no_op_entry_count": 1217,
+    "write_entry_count": 1123,
+    "no_op_entry_count": 1329,
     "minimum_output_headroom": 4,
-    "changed_byte_count": 9401,
-    "changed_entry_ids_sha256": "4ee9e5aa2cbd84cb5103cbf072263ea9f256e3a5d161777be38e7e29dc2de5e7",
+    "changed_byte_count": 12591,
+    "changed_entry_ids_sha256": "cf961e29d08a7d23ca585c1e08ec5014db601756d0e6b1214fb970d201df9339",
     "source_compressed_size": 145283,
-    "output_compressed_size": 145195,
+    "output_compressed_size": 144999,
     "compressed_sector_budget": 145408,
     "codec": {
-      "strategy": "maximum",
+      "strategy": "rust-fit",
       "min_match_length": 2,
-      "max_match_chain": 256,
+      "max_match_chain": 1024,
       "lazy_matching": false
     },
     "codec_round_trip_exact": true,
@@ -318,14 +395,14 @@
       "surface_id": "global/all-localized-text-surfaces",
       "assignment_count": 701,
       "menu_applicable_assignment_count": 701,
-      "eligible_entry_count": 1880,
-      "rewritten_entry_count": 1833,
+      "eligible_entry_count": 1891,
+      "rewritten_entry_count": 1862,
       "entry_table_counts": {
-        "pilot": 1595,
+        "pilot": 1606,
         "unit": 285
       },
-      "character_occurrence_count": 3183,
-      "rewritten_entry_ids_sha256": "a0a92ab0940922c5df006643892c29fcab8b8a8ac1e0d89217a923e6d062466f",
+      "character_occurrence_count": 3258,
+      "rewritten_entry_ids_sha256": "bd495865a5ea13295872ea4ffdd8c750a42b8f95dcfad9d88f404cdcdbbf801e",
       "payload_size_changed_entry_count": 14,
       "fixed_field_capacities_preserved": true,
       "primary_codes_preserved": true,
@@ -343,10 +420,2692 @@
     "pointer_bytes_unchanged": true,
     "printable_ascii_passthrough": true,
     "available_surface_safe_aliases_used": true,
-    "compdata_source_size": 145195,
-    "compdata_output_size": 145158,
+    "compdata_source_size": 144999,
+    "compdata_output_size": 144989,
     "compdata_round_trip_exact": true,
     "slps_size_preserved": true
+  },
+  "stage_overviews": {
+    "inventory_entry_count": 110,
+    "translated_entry_count": 110,
+    "translated_entry_ids": [
+      "overview:000",
+      "overview:001",
+      "overview:002",
+      "overview:003",
+      "overview:004",
+      "overview:005",
+      "overview:006",
+      "overview:007",
+      "overview:008",
+      "overview:009",
+      "overview:010",
+      "overview:011",
+      "overview:012",
+      "overview:013",
+      "overview:014",
+      "overview:015",
+      "overview:016",
+      "overview:017",
+      "overview:018",
+      "overview:019",
+      "overview:020",
+      "overview:021",
+      "overview:022",
+      "overview:023",
+      "overview:024",
+      "overview:025",
+      "overview:026",
+      "overview:027",
+      "overview:028",
+      "overview:029",
+      "overview:030",
+      "overview:031",
+      "overview:032",
+      "overview:033",
+      "overview:034",
+      "overview:035",
+      "overview:036",
+      "overview:037",
+      "overview:038",
+      "overview:039",
+      "overview:040",
+      "overview:041",
+      "overview:042",
+      "overview:043",
+      "overview:044",
+      "overview:045",
+      "overview:046",
+      "overview:047",
+      "overview:048",
+      "overview:049",
+      "overview:050",
+      "overview:051",
+      "overview:052",
+      "overview:053",
+      "overview:054",
+      "overview:055",
+      "overview:056",
+      "overview:057",
+      "overview:058",
+      "overview:059",
+      "overview:060",
+      "overview:061",
+      "overview:062",
+      "overview:063",
+      "overview:064",
+      "overview:065",
+      "overview:066",
+      "overview:067",
+      "overview:068",
+      "overview:069",
+      "overview:070",
+      "overview:071",
+      "overview:072",
+      "overview:073",
+      "overview:074",
+      "overview:075",
+      "overview:076",
+      "overview:077",
+      "overview:078",
+      "overview:079",
+      "overview:080",
+      "overview:081",
+      "overview:082",
+      "overview:083",
+      "overview:084",
+      "overview:085",
+      "overview:086",
+      "overview:087",
+      "overview:088",
+      "overview:089",
+      "overview:090",
+      "overview:091",
+      "overview:092",
+      "overview:093",
+      "overview:094",
+      "overview:095",
+      "overview:096",
+      "overview:097",
+      "overview:098",
+      "overview:099",
+      "overview:100",
+      "overview:101",
+      "overview:102",
+      "overview:103",
+      "overview:104",
+      "overview:105",
+      "overview:106",
+      "overview:107",
+      "overview:108",
+      "overview:109"
+    ],
+    "unique_source_text_count": 107,
+    "minimum_output_headroom": 64,
+    "pointer_table_start": "0x10DD4",
+    "pointer_table_end_inclusive": "0x10F88",
+    "pointer_table_preserved_byte_exact": true,
+    "fixed_allocations_preserved": true,
+    "untranslated_allocations_preserved": true,
+    "newline_counts_preserved": true,
+    "translated_readback_exact": true,
+    "chunk_index": 0,
+    "source_stored_size": 55392,
+    "source_encoded_size": 55392,
+    "output_encoded_size": 54305,
+    "output_padding_size": 1087,
+    "codec_round_trip_exact": true,
+    "archive_size_preserved": true,
+    "hb_offsets_preserved": true,
+    "non_target_chunks_preserved_byte_exact": true
+  },
+  "hsfc_overviews": {
+    "inventory_record_count": 180,
+    "unique_source_text_count": 105,
+    "translated_unique_entry_count": 105,
+    "translated_occurrence_count": 180,
+    "minimum_cell_headroom": 5,
+    "changed_byte_count": 22697,
+    "table_start": "0xB6",
+    "table_end_exclusive": "0x6A2E",
+    "record_size": 150,
+    "cell_size": 50,
+    "fixed_cells_preserved": true,
+    "non_target_bytes_preserved": true,
+    "translated_readback_exact": true,
+    "chunk_index": 0,
+    "source_stored_size": 9584,
+    "source_encoded_size": 9581,
+    "output_encoded_size": 7465,
+    "output_padding_size": 2119,
+    "codec_round_trip_exact": true,
+    "archive_size_preserved": true,
+    "slps_offsets_preserved": true,
+    "non_target_chunks_preserved_byte_exact": true,
+    "translation_method": "direct_manual",
+    "external_model_used": false
+  },
+  "remaining_ui": {
+    "compdata_direct": {
+      "entry_count": 242,
+      "write_entry_count": 242,
+      "no_op_entry_count": 0,
+      "minimum_output_headroom": 0,
+      "changed_byte_count": 7679,
+      "fixed_spans_preserved": true,
+      "pointer_bytes_unchanged": true,
+      "placeholder_control_tokens_preserved": true,
+      "reread_exact": true
+    },
+    "leadership_effects": {
+      "entry_count": 59,
+      "write_entry_count": 59,
+      "no_op_entry_count": 0,
+      "minimum_output_headroom": 0,
+      "changed_byte_count": 1176,
+      "fixed_spans_preserved": true,
+      "pointer_bytes_unchanged": true,
+      "placeholder_control_tokens_preserved": true,
+      "reread_exact": true
+    },
+    "slps": {
+      "entry_count": 39,
+      "write_entry_count": 39,
+      "no_op_entry_count": 0,
+      "minimum_output_headroom": 0,
+      "changed_byte_count": 588,
+      "fixed_spans_preserved": true,
+      "pointer_bytes_unchanged": true,
+      "placeholder_control_tokens_preserved": true,
+      "reread_exact": true
+    },
+    "parts": {
+      "source_size": 524032,
+      "output_size": 524032,
+      "source_sha256": "97a459da74a1ecff479d2878612438826504c07a112c2f4e5e1f5adfdfa87bd3",
+      "output_sha256": "b201ea6de4d1fb387cd4aba91b4ad2e5e1f6e37f75414b01227971a673f9dbca",
+      "entry_count": 132,
+      "target_count": 132,
+      "payload_size": 3079,
+      "owned_capacity": 3950,
+      "targets": [
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0000"
+          ],
+          "target_offset": 413960,
+          "capacity": 5,
+          "payload_size": 3
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0001"
+          ],
+          "target_offset": 413968,
+          "capacity": 21,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0002"
+          ],
+          "target_offset": 413992,
+          "capacity": 11,
+          "payload_size": 7
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0003"
+          ],
+          "target_offset": 414008,
+          "capacity": 11,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0004"
+          ],
+          "target_offset": 414024,
+          "capacity": 15,
+          "payload_size": 15
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0005"
+          ],
+          "target_offset": 414040,
+          "capacity": 11,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0006"
+          ],
+          "target_offset": 414056,
+          "capacity": 15,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0007"
+          ],
+          "target_offset": 414080,
+          "capacity": 22,
+          "payload_size": 22
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0008"
+          ],
+          "target_offset": 414112,
+          "capacity": 23,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0009"
+          ],
+          "target_offset": 414136,
+          "capacity": 13,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0010"
+          ],
+          "target_offset": 414160,
+          "capacity": 17,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0011"
+          ],
+          "target_offset": 414184,
+          "capacity": 13,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0012"
+          ],
+          "target_offset": 414200,
+          "capacity": 11,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0013"
+          ],
+          "target_offset": 414216,
+          "capacity": 13,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0014"
+          ],
+          "target_offset": 414232,
+          "capacity": 15,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0015"
+          ],
+          "target_offset": 414248,
+          "capacity": 13,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0016"
+          ],
+          "target_offset": 414264,
+          "capacity": 15,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0017"
+          ],
+          "target_offset": 414288,
+          "capacity": 42,
+          "payload_size": 38
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0018"
+          ],
+          "target_offset": 414336,
+          "capacity": 13,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0019"
+          ],
+          "target_offset": 414352,
+          "capacity": 55,
+          "payload_size": 51
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0020"
+          ],
+          "target_offset": 414408,
+          "capacity": 5,
+          "payload_size": 5
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0021"
+          ],
+          "target_offset": 414416,
+          "capacity": 75,
+          "payload_size": 71
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0022"
+          ],
+          "target_offset": 414496,
+          "capacity": 17,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0023"
+          ],
+          "target_offset": 414528,
+          "capacity": 30,
+          "payload_size": 30
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0024"
+          ],
+          "target_offset": 414560,
+          "capacity": 21,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0025"
+          ],
+          "target_offset": 414592,
+          "capacity": 32,
+          "payload_size": 32
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0026"
+          ],
+          "target_offset": 414624,
+          "capacity": 19,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0027"
+          ],
+          "target_offset": 414656,
+          "capacity": 32,
+          "payload_size": 32
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0028"
+          ],
+          "target_offset": 414688,
+          "capacity": 15,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0029"
+          ],
+          "target_offset": 414704,
+          "capacity": 42,
+          "payload_size": 40
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0030"
+          ],
+          "target_offset": 414752,
+          "capacity": 19,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0031"
+          ],
+          "target_offset": 414784,
+          "capacity": 42,
+          "payload_size": 40
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0032"
+          ],
+          "target_offset": 414832,
+          "capacity": 19,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0033"
+          ],
+          "target_offset": 414864,
+          "capacity": 77,
+          "payload_size": 62
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0034"
+          ],
+          "target_offset": 414944,
+          "capacity": 17,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0035"
+          ],
+          "target_offset": 414976,
+          "capacity": 52,
+          "payload_size": 48
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0036"
+          ],
+          "target_offset": 415032,
+          "capacity": 9,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0037"
+          ],
+          "target_offset": 415056,
+          "capacity": 62,
+          "payload_size": 54
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0038"
+          ],
+          "target_offset": 415120,
+          "capacity": 7,
+          "payload_size": 7
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0039"
+          ],
+          "target_offset": 415136,
+          "capacity": 62,
+          "payload_size": 54
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0040"
+          ],
+          "target_offset": 415200,
+          "capacity": 21,
+          "payload_size": 17
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0041"
+          ],
+          "target_offset": 415232,
+          "capacity": 77,
+          "payload_size": 65
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0042"
+          ],
+          "target_offset": 415312,
+          "capacity": 21,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0043"
+          ],
+          "target_offset": 415344,
+          "capacity": 36,
+          "payload_size": 32
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0044"
+          ],
+          "target_offset": 415384,
+          "capacity": 9,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0045"
+          ],
+          "target_offset": 415408,
+          "capacity": 77,
+          "payload_size": 65
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0046"
+          ],
+          "target_offset": 415488,
+          "capacity": 21,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0047"
+          ],
+          "target_offset": 415520,
+          "capacity": 77,
+          "payload_size": 65
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0048"
+          ],
+          "target_offset": 415600,
+          "capacity": 15,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0049"
+          ],
+          "target_offset": 415616,
+          "capacity": 38,
+          "payload_size": 32
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0050"
+          ],
+          "target_offset": 415656,
+          "capacity": 15,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0051"
+          ],
+          "target_offset": 415680,
+          "capacity": 38,
+          "payload_size": 32
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0052"
+          ],
+          "target_offset": 415728,
+          "capacity": 19,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0053"
+          ],
+          "target_offset": 415760,
+          "capacity": 59,
+          "payload_size": 47
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0054"
+          ],
+          "target_offset": 415824,
+          "capacity": 13,
+          "payload_size": 7
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0055"
+          ],
+          "target_offset": 415840,
+          "capacity": 59,
+          "payload_size": 47
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0056"
+          ],
+          "target_offset": 415904,
+          "capacity": 13,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0057"
+          ],
+          "target_offset": 415920,
+          "capacity": 59,
+          "payload_size": 47
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0058"
+          ],
+          "target_offset": 415984,
+          "capacity": 21,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0059"
+          ],
+          "target_offset": 416016,
+          "capacity": 71,
+          "payload_size": 59
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0060"
+          ],
+          "target_offset": 416088,
+          "capacity": 15,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0061"
+          ],
+          "target_offset": 416112,
+          "capacity": 73,
+          "payload_size": 53
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0062"
+          ],
+          "target_offset": 416192,
+          "capacity": 13,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0063"
+          ],
+          "target_offset": 416208,
+          "capacity": 71,
+          "payload_size": 51
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0064"
+          ],
+          "target_offset": 416280,
+          "capacity": 13,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0065"
+          ],
+          "target_offset": 416304,
+          "capacity": 17,
+          "payload_size": 15
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0066"
+          ],
+          "target_offset": 416328,
+          "capacity": 15,
+          "payload_size": 15
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0067"
+          ],
+          "target_offset": 416352,
+          "capacity": 19,
+          "payload_size": 17
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0068"
+          ],
+          "target_offset": 416376,
+          "capacity": 11,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0069"
+          ],
+          "target_offset": 416400,
+          "capacity": 54,
+          "payload_size": 32
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0070"
+          ],
+          "target_offset": 416456,
+          "capacity": 13,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0071"
+          ],
+          "target_offset": 416480,
+          "capacity": 63,
+          "payload_size": 43
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0072"
+          ],
+          "target_offset": 416544,
+          "capacity": 15,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0073"
+          ],
+          "target_offset": 416560,
+          "capacity": 75,
+          "payload_size": 75
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0074"
+          ],
+          "target_offset": 416640,
+          "capacity": 19,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0075"
+          ],
+          "target_offset": 416672,
+          "capacity": 21,
+          "payload_size": 17
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0076"
+          ],
+          "target_offset": 416704,
+          "capacity": 19,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0077"
+          ],
+          "target_offset": 416736,
+          "capacity": 56,
+          "payload_size": 55
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0078"
+          ],
+          "target_offset": 416800,
+          "capacity": 23,
+          "payload_size": 17
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0079"
+          ],
+          "target_offset": 416832,
+          "capacity": 39,
+          "payload_size": 31
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0080"
+          ],
+          "target_offset": 416880,
+          "capacity": 19,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0081"
+          ],
+          "target_offset": 416912,
+          "capacity": 38,
+          "payload_size": 30
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0082"
+          ],
+          "target_offset": 416952,
+          "capacity": 15,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0083"
+          ],
+          "target_offset": 416976,
+          "capacity": 32,
+          "payload_size": 28
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0084"
+          ],
+          "target_offset": 417008,
+          "capacity": 19,
+          "payload_size": 7
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0085"
+          ],
+          "target_offset": 417040,
+          "capacity": 32,
+          "payload_size": 22
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0086"
+          ],
+          "target_offset": 417072,
+          "capacity": 9,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0087"
+          ],
+          "target_offset": 417088,
+          "capacity": 42,
+          "payload_size": 24
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0088"
+          ],
+          "target_offset": 417136,
+          "capacity": 23,
+          "payload_size": 17
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0089"
+          ],
+          "target_offset": 417168,
+          "capacity": 35,
+          "payload_size": 23
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0090"
+          ],
+          "target_offset": 417208,
+          "capacity": 15,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0091"
+          ],
+          "target_offset": 417232,
+          "capacity": 27,
+          "payload_size": 19
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0092"
+          ],
+          "target_offset": 417264,
+          "capacity": 15,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0093"
+          ],
+          "target_offset": 417280,
+          "capacity": 46,
+          "payload_size": 34
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0094"
+          ],
+          "target_offset": 417328,
+          "capacity": 13,
+          "payload_size": 11
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0095"
+          ],
+          "target_offset": 417344,
+          "capacity": 36,
+          "payload_size": 32
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0096"
+          ],
+          "target_offset": 417392,
+          "capacity": 19,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0097"
+          ],
+          "target_offset": 417424,
+          "capacity": 42,
+          "payload_size": 25
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0098"
+          ],
+          "target_offset": 417472,
+          "capacity": 23,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0099"
+          ],
+          "target_offset": 417504,
+          "capacity": 33,
+          "payload_size": 21
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0100"
+          ],
+          "target_offset": 417552,
+          "capacity": 17,
+          "payload_size": 15
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0101"
+          ],
+          "target_offset": 417584,
+          "capacity": 36,
+          "payload_size": 26
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0102"
+          ],
+          "target_offset": 417632,
+          "capacity": 19,
+          "payload_size": 15
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0103"
+          ],
+          "target_offset": 417664,
+          "capacity": 29,
+          "payload_size": 25
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0104"
+          ],
+          "target_offset": 417696,
+          "capacity": 17,
+          "payload_size": 7
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0105"
+          ],
+          "target_offset": 417728,
+          "capacity": 42,
+          "payload_size": 36
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0106"
+          ],
+          "target_offset": 417776,
+          "capacity": 5,
+          "payload_size": 5
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0107"
+          ],
+          "target_offset": 417792,
+          "capacity": 62,
+          "payload_size": 48
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0108"
+          ],
+          "target_offset": 417856,
+          "capacity": 19,
+          "payload_size": 7
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0109"
+          ],
+          "target_offset": 417888,
+          "capacity": 64,
+          "payload_size": 44
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0110"
+          ],
+          "target_offset": 417952,
+          "capacity": 21,
+          "payload_size": 21
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0111"
+          ],
+          "target_offset": 417984,
+          "capacity": 52,
+          "payload_size": 38
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0112"
+          ],
+          "target_offset": 418048,
+          "capacity": 19,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0113"
+          ],
+          "target_offset": 418080,
+          "capacity": 64,
+          "payload_size": 42
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0114"
+          ],
+          "target_offset": 418144,
+          "capacity": 15,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0115"
+          ],
+          "target_offset": 418160,
+          "capacity": 54,
+          "payload_size": 42
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0116"
+          ],
+          "target_offset": 418216,
+          "capacity": 15,
+          "payload_size": 5
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0117"
+          ],
+          "target_offset": 418240,
+          "capacity": 42,
+          "payload_size": 26
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0118"
+          ],
+          "target_offset": 418288,
+          "capacity": 9,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0119"
+          ],
+          "target_offset": 418304,
+          "capacity": 65,
+          "payload_size": 59
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0120"
+          ],
+          "target_offset": 418376,
+          "capacity": 5,
+          "payload_size": 5
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0121"
+          ],
+          "target_offset": 418384,
+          "capacity": 34,
+          "payload_size": 30
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0122"
+          ],
+          "target_offset": 418432,
+          "capacity": 21,
+          "payload_size": 13
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0123"
+          ],
+          "target_offset": 418464,
+          "capacity": 46,
+          "payload_size": 32
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0124"
+          ],
+          "target_offset": 418512,
+          "capacity": 23,
+          "payload_size": 15
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0125"
+          ],
+          "target_offset": 418544,
+          "capacity": 58,
+          "payload_size": 56
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0126"
+          ],
+          "target_offset": 418608,
+          "capacity": 17,
+          "payload_size": 15
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0127"
+          ],
+          "target_offset": 418640,
+          "capacity": 60,
+          "payload_size": 50
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0128"
+          ],
+          "target_offset": 418704,
+          "capacity": 19,
+          "payload_size": 15
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0129"
+          ],
+          "target_offset": 418736,
+          "capacity": 31,
+          "payload_size": 23
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0130"
+          ],
+          "target_offset": 418768,
+          "capacity": 13,
+          "payload_size": 9
+        },
+        {
+          "entry_ids": [
+            "menu/Compdata/01/0132"
+          ],
+          "target_offset": 418792,
+          "capacity": 13,
+          "payload_size": 9
+        }
+      ],
+      "patch_plan": {
+        "source_name": "remaining UI strengthening parts",
+        "source_size": 524032,
+        "source_sha256": "97a459da74a1ecff479d2878612438826504c07a112c2f4e5e1f5adfdfa87bd3",
+        "operation_count": 132,
+        "operations": [
+          {
+            "owner": "menu/Compdata/01/0000",
+            "offset": 413960,
+            "end": 413965,
+            "size": 5,
+            "before_sha256": "f68e59c82fc751e628cbeca8c104ca352bb1efcd2976722870a1c11fa7e94158",
+            "after_sha256": "f7726fb9df28a2e6966221ad7e54d1fe9437c643beaa2271265d58dfa9dc5f3a"
+          },
+          {
+            "owner": "menu/Compdata/01/0001",
+            "offset": 413968,
+            "end": 413989,
+            "size": 21,
+            "before_sha256": "e075fa460430c22f7a910aa91614d0135b335346d3b2e07423fe7316a7212194",
+            "after_sha256": "97f2d011f4c780731e7cd29969665b509b75373dbed22e0292cb1550cd8ad955"
+          },
+          {
+            "owner": "menu/Compdata/01/0002",
+            "offset": 413992,
+            "end": 414003,
+            "size": 11,
+            "before_sha256": "2e716d96413b91b3198943e3f2d929165b54e168d1a24d488a152e121a4e09f3",
+            "after_sha256": "372a4d67718718954a6594023f9949e7ff4552de1cd28f13c0e700246601de18"
+          },
+          {
+            "owner": "menu/Compdata/01/0003",
+            "offset": 414008,
+            "end": 414019,
+            "size": 11,
+            "before_sha256": "48d1f85bcffdd6d5ca4a5016301bae61c23e5dc83318bc3aa13bcb7be32b69c3",
+            "after_sha256": "fadadc40c089b6c0ceda5f35657516a7c7f2433574206bbb4a013e96b0fd007c"
+          },
+          {
+            "owner": "menu/Compdata/01/0004",
+            "offset": 414024,
+            "end": 414039,
+            "size": 15,
+            "before_sha256": "6fb9dd8ead5c1a366a9f23627e11402eb0d494109b057cad5ef164e38b82be9d",
+            "after_sha256": "0a1305957d0101358c84b32f16ee4ea2bee6fbbe3d1a16a240f4f7712d9bbc8b"
+          },
+          {
+            "owner": "menu/Compdata/01/0005",
+            "offset": 414040,
+            "end": 414051,
+            "size": 11,
+            "before_sha256": "4703dd0fa029e17b67301ee820c0e21e47409d76844b7c8d4389fc2ebf1e4fbb",
+            "after_sha256": "478173e00b966d63d78e38b910f693144303ecde7003e57afa80f4b6fbf32cad"
+          },
+          {
+            "owner": "menu/Compdata/01/0006",
+            "offset": 414056,
+            "end": 414071,
+            "size": 15,
+            "before_sha256": "741d69c6b2f647e1171e70ade09138cd52677644bd719d9d2073aeb250452c67",
+            "after_sha256": "e05ac10bdb25b9285c1b4009ae0d0d3f8bce54c1db38d2a5782c6afd45e72a0b"
+          },
+          {
+            "owner": "menu/Compdata/01/0007",
+            "offset": 414080,
+            "end": 414102,
+            "size": 22,
+            "before_sha256": "f400d0e46347d2c4b09cea0124cf7490bdfc370ca80f119c5793044a6eb81702",
+            "after_sha256": "209280da2513040cbba1cdaf77d60395dde824771e08e85bd1d2e684c2c90c0f"
+          },
+          {
+            "owner": "menu/Compdata/01/0008",
+            "offset": 414112,
+            "end": 414135,
+            "size": 23,
+            "before_sha256": "87c2a7bb030f03b8d38a286996c8b433aff1aec2757bd5bb8f27d003c6b6e55f",
+            "after_sha256": "21b4fb453de44ceebc6c5eb356e835e82cacb282af5de30a5b215ccac81027b4"
+          },
+          {
+            "owner": "menu/Compdata/01/0009",
+            "offset": 414136,
+            "end": 414149,
+            "size": 13,
+            "before_sha256": "c682403408a2276b132c73e105fd7bf72965437615fcfe412ccace74744e8dbd",
+            "after_sha256": "6a844d31378d05634ceb312c3f8c2394eb83e08dd2c1c866e30c7c9fa1a96be5"
+          },
+          {
+            "owner": "menu/Compdata/01/0010",
+            "offset": 414160,
+            "end": 414177,
+            "size": 17,
+            "before_sha256": "de6efd79e68b5a494e6424ca1896600cd086d02e28e3b20cd29c60aeb5453d8e",
+            "after_sha256": "33dbe46e352c4702d0f8644326326e8ade0584c75995ff817f10dc20266c97d6"
+          },
+          {
+            "owner": "menu/Compdata/01/0011",
+            "offset": 414184,
+            "end": 414197,
+            "size": 13,
+            "before_sha256": "4e97c0004c56b53024f18ea91ddcb5a751fd065d3b3b15493a71b9bcec015c59",
+            "after_sha256": "ede8ff1e218a47efed638162f139a93cee0093ba9e362b8481e52d53da0aca89"
+          },
+          {
+            "owner": "menu/Compdata/01/0012",
+            "offset": 414200,
+            "end": 414211,
+            "size": 11,
+            "before_sha256": "624a5ef05c2899228e1f04e5a4a21ff4322c711d80b7224c6fffcfa5e8fde0c7",
+            "after_sha256": "410280728111315af2e7a3996438c5d8da6a9b95e7966c6ac872845503e395d2"
+          },
+          {
+            "owner": "menu/Compdata/01/0013",
+            "offset": 414216,
+            "end": 414229,
+            "size": 13,
+            "before_sha256": "378dada051e92a395cc829845cbcbe7861731eb88e846af906bd37a1d90541a9",
+            "after_sha256": "005c1da7b4db8bf2fce259956ad99461654cde94b2c96b2e28815e07350985ed"
+          },
+          {
+            "owner": "menu/Compdata/01/0014",
+            "offset": 414232,
+            "end": 414247,
+            "size": 15,
+            "before_sha256": "f13a4e01f51092d7487c9a5afb169632ce903927fdef3a4f19baae30f5ed398d",
+            "after_sha256": "a8a3d94b60e6f0ed244871934e68f57ebe11191b96db6ec27de209d0eed0c157"
+          },
+          {
+            "owner": "menu/Compdata/01/0015",
+            "offset": 414248,
+            "end": 414261,
+            "size": 13,
+            "before_sha256": "bc60bc0baa6c64c78d59eb7800fa102a78cbee74048ef2f34779f573ef809d28",
+            "after_sha256": "f1035e3f30dcfc0b33868855b72dfba9f74fb969537fcd6ef0fd8038004757ea"
+          },
+          {
+            "owner": "menu/Compdata/01/0016",
+            "offset": 414264,
+            "end": 414279,
+            "size": 15,
+            "before_sha256": "cea5ad0c4c87f5d750a731873a71365804c500311f02c0cc27af91decac12ac9",
+            "after_sha256": "09e75a95c55f40559e16cc1a1b52208fc7a7e89e8f8e6558bee794deed66f0db"
+          },
+          {
+            "owner": "menu/Compdata/01/0017",
+            "offset": 414288,
+            "end": 414330,
+            "size": 42,
+            "before_sha256": "e29e92e443fef7a5b366bc50b3ec25dc8b5f7dff7d58bc977e374790cfb183a4",
+            "after_sha256": "6cfe18a85af6eda577b4760af8cb597e400a9251845623e9f39cb94aa915b0e9"
+          },
+          {
+            "owner": "menu/Compdata/01/0018",
+            "offset": 414336,
+            "end": 414349,
+            "size": 13,
+            "before_sha256": "9fe4533b1ef8d3a23c2a4821e2dc1cd4711579d584a0dde82901279701f49cc2",
+            "after_sha256": "2093bdc88c22c9a09e60f26a1f3accd6c523dc5e7f658f0b26bccd2edf865035"
+          },
+          {
+            "owner": "menu/Compdata/01/0019",
+            "offset": 414352,
+            "end": 414407,
+            "size": 55,
+            "before_sha256": "3340080646d1a12795e6a23ffaa1cd00e798292b71cddbf03b3886d19f0c52bf",
+            "after_sha256": "63230ef8309cfa7bb419c0557bc34d375e6a4c2489dc1070389669e18d4e10ef"
+          },
+          {
+            "owner": "menu/Compdata/01/0020",
+            "offset": 414408,
+            "end": 414413,
+            "size": 5,
+            "before_sha256": "fb5a1b473945a0021a7401ba1ff15380cd9cb1fea7be2d5a5f5c3f77f1b678a3",
+            "after_sha256": "516dd9984b13732944d67f004d42f917c7a1ad57c80604a3e8585c576896508f"
+          },
+          {
+            "owner": "menu/Compdata/01/0021",
+            "offset": 414416,
+            "end": 414491,
+            "size": 75,
+            "before_sha256": "3d9a70d34360e90a9f5b7178032d3b0c4a736a3af3c01de40a5d692c45257b8b",
+            "after_sha256": "3e6e0f8abe1969a692e267b98f2989a1b222a79095bf867517c9246fb36405b9"
+          },
+          {
+            "owner": "menu/Compdata/01/0022",
+            "offset": 414496,
+            "end": 414513,
+            "size": 17,
+            "before_sha256": "538423a1ae16fe46836d5442ddd48390d24acd05f3ec5b1dee3adb8dc6852f5c",
+            "after_sha256": "f56449595f2771dc8ab76c0e77fc60c03175cca18aef55411cacf94147920df1"
+          },
+          {
+            "owner": "menu/Compdata/01/0023",
+            "offset": 414528,
+            "end": 414558,
+            "size": 30,
+            "before_sha256": "b6ab90f2aadda79ca9a6767ff912d3de7a7aa82f066169d14a8cd50cfd2c519e",
+            "after_sha256": "b6ab90f2aadda79ca9a6767ff912d3de7a7aa82f066169d14a8cd50cfd2c519e"
+          },
+          {
+            "owner": "menu/Compdata/01/0024",
+            "offset": 414560,
+            "end": 414581,
+            "size": 21,
+            "before_sha256": "4aae89788807223f1c6ee6bbaa37f26ed7a735ce570c4a71e80d85d479f48518",
+            "after_sha256": "07b0a0422a1a540aeb8e11b8375db91a801f426dca0e2bf0fb2fa8c0db8d2a55"
+          },
+          {
+            "owner": "menu/Compdata/01/0025",
+            "offset": 414592,
+            "end": 414624,
+            "size": 32,
+            "before_sha256": "5ce5afe74782e03b2711d0174e3cf62ccc40e3d6f177acb6bfa20da05949915b",
+            "after_sha256": "5ce5afe74782e03b2711d0174e3cf62ccc40e3d6f177acb6bfa20da05949915b"
+          },
+          {
+            "owner": "menu/Compdata/01/0026",
+            "offset": 414624,
+            "end": 414643,
+            "size": 19,
+            "before_sha256": "e5eee4aec9ca16d399f460e657fbf266f8fdaffd0e7520f62ded7029fa407aca",
+            "after_sha256": "0c27900fe651588240f3f90c46c57836ebe98df8bc9082b969e04d8463e9861b"
+          },
+          {
+            "owner": "menu/Compdata/01/0027",
+            "offset": 414656,
+            "end": 414688,
+            "size": 32,
+            "before_sha256": "273a3631fc07164f4c3981c307741ee342b9e700d0d0624fd6c1ce3d6d25f896",
+            "after_sha256": "273a3631fc07164f4c3981c307741ee342b9e700d0d0624fd6c1ce3d6d25f896"
+          },
+          {
+            "owner": "menu/Compdata/01/0028",
+            "offset": 414688,
+            "end": 414703,
+            "size": 15,
+            "before_sha256": "461cf96250eb44237a3db917b2b47a181c530839d5c66a6dc3b7586bf4dfae62",
+            "after_sha256": "ca590eaebe308ef8891ae99fe6cd15c268a37f0db78b46890fa2353e25ddcbe6"
+          },
+          {
+            "owner": "menu/Compdata/01/0029",
+            "offset": 414704,
+            "end": 414746,
+            "size": 42,
+            "before_sha256": "e83568c69001f099b361cd21b828ef8523a51e44f09013fe4a01adb4cb5b4c93",
+            "after_sha256": "96dac5f04e6695927ee05eb41c272dfde5618b3b610deda9428a9b5a394ff126"
+          },
+          {
+            "owner": "menu/Compdata/01/0030",
+            "offset": 414752,
+            "end": 414771,
+            "size": 19,
+            "before_sha256": "167c58b75306c59c49780e1afcf0969f8e7131491edaa3c83f5aa1ca33e2b2f4",
+            "after_sha256": "5d42bb991f1436893f9e13e9ac9e52c820f05218ab67935380aecbab4c1ea69d"
+          },
+          {
+            "owner": "menu/Compdata/01/0031",
+            "offset": 414784,
+            "end": 414826,
+            "size": 42,
+            "before_sha256": "2b705de5920a267e40b1ba5d5504bcffcc91c7abab378bec617b3fd7ba9ce948",
+            "after_sha256": "26e14ca6ed4dd65c54965bd8062905b871170b74f86e7a74e48fd1685bc7f54b"
+          },
+          {
+            "owner": "menu/Compdata/01/0032",
+            "offset": 414832,
+            "end": 414851,
+            "size": 19,
+            "before_sha256": "f5fab0314599539d2a0a43236c1f5971b851b72a64701013a4acf482797a326c",
+            "after_sha256": "54fd9739c7dab3f3042dbb430268e5c238409ea458185b835f3135626c2d6ff9"
+          },
+          {
+            "owner": "menu/Compdata/01/0033",
+            "offset": 414864,
+            "end": 414941,
+            "size": 77,
+            "before_sha256": "d34ec1ae326d0be7f647b0c4a7009e6030cfedc1b8fa8a92640deaf4015723bf",
+            "after_sha256": "f674457f7e3e47cbb73ddbdac8f1391726b7786572f65e6119add2381ac6cbc1"
+          },
+          {
+            "owner": "menu/Compdata/01/0034",
+            "offset": 414944,
+            "end": 414961,
+            "size": 17,
+            "before_sha256": "0ed5d672e44fcfc19dcc82aff19fb4e91d4110d2b3ecaaf335db82f2f06d6f1d",
+            "after_sha256": "2f00b309ab08dc60459691d2e38d1aa9a5aa7c4b56aba5bddfcd8c5a240c20b6"
+          },
+          {
+            "owner": "menu/Compdata/01/0035",
+            "offset": 414976,
+            "end": 415028,
+            "size": 52,
+            "before_sha256": "0338c20c1bd2e7a5f4cf6718c061a6c513ca2badbf98ee682156276a808b55ff",
+            "after_sha256": "4c538ad90a037ec28c405b43c8eb71239d7debc950e71ec629979971b0419ce5"
+          },
+          {
+            "owner": "menu/Compdata/01/0036",
+            "offset": 415032,
+            "end": 415041,
+            "size": 9,
+            "before_sha256": "a7b4c115dbfb4864832ba2c9c781839e24290501ce881c893e657aab185fef70",
+            "after_sha256": "5cf9d3f096b7405950e764de362a231433dac4c83a857a32e2f027e27fcb4271"
+          },
+          {
+            "owner": "menu/Compdata/01/0037",
+            "offset": 415056,
+            "end": 415118,
+            "size": 62,
+            "before_sha256": "2a97892938bffc5e69be24a4e12146c26e27f8cf54e32b9f9ddc4c87ebfcb1b2",
+            "after_sha256": "976af1d07f07152b86c81773657ce1e87e8b9038328f9df6941bc60c93019dd2"
+          },
+          {
+            "owner": "menu/Compdata/01/0038",
+            "offset": 415120,
+            "end": 415127,
+            "size": 7,
+            "before_sha256": "0756593d459c0dad17ab43a1e16b17a695a5821ab1805086f61c36dd228ba21a",
+            "after_sha256": "dc350f2df58a680531f102a770ff3ba7d9a9e30eca3d9da0ca891238537aae8d"
+          },
+          {
+            "owner": "menu/Compdata/01/0039",
+            "offset": 415136,
+            "end": 415198,
+            "size": 62,
+            "before_sha256": "f22d5b13dca1bf12271417097b48adfd31d245e3afccc5ae749a71c6ba2be03f",
+            "after_sha256": "37b67a411da7786dd2ebafc497f0c9f6bbe7796bc60d69871bb2cf2e2fbc2ab0"
+          },
+          {
+            "owner": "menu/Compdata/01/0040",
+            "offset": 415200,
+            "end": 415221,
+            "size": 21,
+            "before_sha256": "5680634123a98e77069d9794098f671fd535579bb36d2aad972511a3f80d1e05",
+            "after_sha256": "6a3e47f2aa66b37bffba0b09aa6f1eddd3a0d7af461a452b0bfc8efd0743f5a3"
+          },
+          {
+            "owner": "menu/Compdata/01/0041",
+            "offset": 415232,
+            "end": 415309,
+            "size": 77,
+            "before_sha256": "99162247d89de5e41ef5601ff7fd9ad4666993e14e89c5813c4053cacc0dc1fc",
+            "after_sha256": "8c2cfb3b3244858a671649dc4fe9401e45e2618b4029574beae83f3342421e69"
+          },
+          {
+            "owner": "menu/Compdata/01/0042",
+            "offset": 415312,
+            "end": 415333,
+            "size": 21,
+            "before_sha256": "c7812f7fde5ea7a3802e3b05820c94f82372a0a0d6af05e6042f76ffc5518dc2",
+            "after_sha256": "def897b502460e777e243fcbe6db5023f97d9d109ef7274f184736ad132ca6aa"
+          },
+          {
+            "owner": "menu/Compdata/01/0043",
+            "offset": 415344,
+            "end": 415380,
+            "size": 36,
+            "before_sha256": "84284db09a21a73c049c7ec9bb57a1783696f25d69edeb7831f8a269ac58cced",
+            "after_sha256": "4794d7660dfaf8d48b54e005fed2792050f1a5a4cf90610e8ef19ff6d5003495"
+          },
+          {
+            "owner": "menu/Compdata/01/0044",
+            "offset": 415384,
+            "end": 415393,
+            "size": 9,
+            "before_sha256": "866b6e0497554c1afe8eb62d0594045ef94c8629e1e67b44f06e450d52f1bb72",
+            "after_sha256": "e79ecbcbe16dc086cd83f97b57464c44a4e1655f917118182f40c65440827be2"
+          },
+          {
+            "owner": "menu/Compdata/01/0045",
+            "offset": 415408,
+            "end": 415485,
+            "size": 77,
+            "before_sha256": "d480893a568517647300a91f2448efaccd003d72e52a09fd3b31d1d6f2fff06f",
+            "after_sha256": "cac5bf58ea779de7e972ac9a3741789b3735f5144188feaac6f356e16c687a2f"
+          },
+          {
+            "owner": "menu/Compdata/01/0046",
+            "offset": 415488,
+            "end": 415509,
+            "size": 21,
+            "before_sha256": "0ea88fd3a05dbdb1c474ca7ecfe3defc4f80db1ba77a7b5ac3a11302d1df6264",
+            "after_sha256": "a7a27493b9c50b720409cfc3274c93c8d72d34c5b9ffbda51201753702001d4d"
+          },
+          {
+            "owner": "menu/Compdata/01/0047",
+            "offset": 415520,
+            "end": 415597,
+            "size": 77,
+            "before_sha256": "7e5d03b3dd279dec6c59b1eeb964e38a6dc6c3f828d096f54647392952b1c3f1",
+            "after_sha256": "1e8aa1785ac39eaff999b0c819e89bebedf6417657fd9ed2105f62eaf2298611"
+          },
+          {
+            "owner": "menu/Compdata/01/0048",
+            "offset": 415600,
+            "end": 415615,
+            "size": 15,
+            "before_sha256": "0705c3f4491eb3bc1a1036c39a0273841e26043dfba2db4854a62343d387cc2e",
+            "after_sha256": "dcc60ad32581efa26668ea41d7fd173a1e46d566de1e795e1191a06e59c9881b"
+          },
+          {
+            "owner": "menu/Compdata/01/0049",
+            "offset": 415616,
+            "end": 415654,
+            "size": 38,
+            "before_sha256": "21efe3577db331d49f4eaebc0fb9fc5abde261ff1a9c31d5e357aa2298cbd142",
+            "after_sha256": "18beb295cd54aa312934b091c0a5e37a2582bafe512a6729e97ef3b3e35dcc95"
+          },
+          {
+            "owner": "menu/Compdata/01/0050",
+            "offset": 415656,
+            "end": 415671,
+            "size": 15,
+            "before_sha256": "8c46c958582c4c75bd000f93b1dfd6f71ad76660032b66efd8a74d255fd236af",
+            "after_sha256": "0c4121b4dbb78aa744f46a95335c5670269f80d0ad15b579c66b1fe2ae210d67"
+          },
+          {
+            "owner": "menu/Compdata/01/0051",
+            "offset": 415680,
+            "end": 415718,
+            "size": 38,
+            "before_sha256": "3ebcf98b76269dc95014d1450b9b4c49f9d97d5cf781fc5d585c7fef8ee0a5f8",
+            "after_sha256": "fe18cc9f988acd34ce972ae7c3da881acde5ba1706a19d48109bafe524626505"
+          },
+          {
+            "owner": "menu/Compdata/01/0052",
+            "offset": 415728,
+            "end": 415747,
+            "size": 19,
+            "before_sha256": "9dc7f711b2ee8e9ef6f582eb605eee54baa88bb838365a12fbb38362980a3a01",
+            "after_sha256": "a0db4972157f493cb9ae100375058768b243534036aa17591514a917f610f6e4"
+          },
+          {
+            "owner": "menu/Compdata/01/0053",
+            "offset": 415760,
+            "end": 415819,
+            "size": 59,
+            "before_sha256": "e99e8681948766a0705421a455ea27085138e8695871a0b6ea09dae619683fbe",
+            "after_sha256": "4082d721d1f58af58783665f6073f0d8e7da66cd8cbe17fa1ec9f6ce99fd9848"
+          },
+          {
+            "owner": "menu/Compdata/01/0054",
+            "offset": 415824,
+            "end": 415837,
+            "size": 13,
+            "before_sha256": "e31c89b63d3391b2490eab3345079824a1000a4d928bcb4ae34b063fd7550e27",
+            "after_sha256": "9008bd2f87454cdb944c8b46965c0a360ad9363e41950fe7cbd29330ebee2a69"
+          },
+          {
+            "owner": "menu/Compdata/01/0055",
+            "offset": 415840,
+            "end": 415899,
+            "size": 59,
+            "before_sha256": "e1e42433c538fac551943625690155de90261eead9c891768151968cf5a72e20",
+            "after_sha256": "80e915bb3aa079de6c91c8ef949cf99efe158fb290eac8ecabdf649af0d83830"
+          },
+          {
+            "owner": "menu/Compdata/01/0056",
+            "offset": 415904,
+            "end": 415917,
+            "size": 13,
+            "before_sha256": "60204ba8826cfc1039bdffb3bd2fa9045d28c738847c0636582ba93340b67767",
+            "after_sha256": "76fa7feaa6b3d091633dd77610b460cc56082c7141199041d84b2e3ef7690c8e"
+          },
+          {
+            "owner": "menu/Compdata/01/0057",
+            "offset": 415920,
+            "end": 415979,
+            "size": 59,
+            "before_sha256": "6f26ec4a0935f1c2a026101023c0e4c3f5a77164bf4c06862e62aadb6a331b0e",
+            "after_sha256": "320b29eda69a85826435bd90306900f414d907dbbb5bdeba1ab8be1c1228b5f1"
+          },
+          {
+            "owner": "menu/Compdata/01/0058",
+            "offset": 415984,
+            "end": 416005,
+            "size": 21,
+            "before_sha256": "26e3e63dc5a0aa619a6458fe7fcba75d8ed3660b76d59b3556ba274a66117944",
+            "after_sha256": "a2512617b4db3301ce34f203a1b35846e5b739cf124b2ad497ac97f8525b5b19"
+          },
+          {
+            "owner": "menu/Compdata/01/0059",
+            "offset": 416016,
+            "end": 416087,
+            "size": 71,
+            "before_sha256": "aa6e96a8e74700c1c829c786f78cf0a2820197717da1f6dbe5297ad5eeac35c9",
+            "after_sha256": "b28aed8087a4b736efb5882e15246c7fbff0ffa72aa712d68d8556ad3a6eb564"
+          },
+          {
+            "owner": "menu/Compdata/01/0060",
+            "offset": 416088,
+            "end": 416103,
+            "size": 15,
+            "before_sha256": "877bc97a5545f43640493c0e7f27fc8c3ad98c1c743cb73370339a0a1e4ea71e",
+            "after_sha256": "3f2f931b2668bdfe270cd9e9485ee6cc0de8d9a3cced3eafbe0f552d7158e199"
+          },
+          {
+            "owner": "menu/Compdata/01/0061",
+            "offset": 416112,
+            "end": 416185,
+            "size": 73,
+            "before_sha256": "6e0231a4706a1356a2afacec2207c9646237e103b88be4cb0fcdfbbb4174fdef",
+            "after_sha256": "b39d6d772473d19126b4e77f99860173dcf671ffc24ef1355bbfe4cf35b55653"
+          },
+          {
+            "owner": "menu/Compdata/01/0062",
+            "offset": 416192,
+            "end": 416205,
+            "size": 13,
+            "before_sha256": "0035dbce765362a8fb3aab202ec19cfa2844b5972244e9d5a9155e660457d08e",
+            "after_sha256": "b9a1225d639201139c29e632965ace43caa2575fcd9722fd849191bbc5602ee4"
+          },
+          {
+            "owner": "menu/Compdata/01/0063",
+            "offset": 416208,
+            "end": 416279,
+            "size": 71,
+            "before_sha256": "33bc74fc05b92222bb0ec65cab71f2db28a524d2ecd99fa7314f4f48993cb400",
+            "after_sha256": "f9a92c3b0c63a22a0ca5bdad836eb9af85fa4de780a9731029cd2cc315a8df09"
+          },
+          {
+            "owner": "menu/Compdata/01/0064",
+            "offset": 416280,
+            "end": 416293,
+            "size": 13,
+            "before_sha256": "2aee635883fd9ca49371000beaed971d25d5896b1298330c14d59747c5b1fe6a",
+            "after_sha256": "fd4c877615d0ca669d9f2ecfa648571585f9d2cb4ec280027d240b9980d57669"
+          },
+          {
+            "owner": "menu/Compdata/01/0065",
+            "offset": 416304,
+            "end": 416321,
+            "size": 17,
+            "before_sha256": "ce0141aa241337e8ac3c7c593066fad8d0ab34601026b2b6a38be807d389608d",
+            "after_sha256": "dc606ad0962408fb180525df4ced66215ae5392f2b21d4b0b78bfe09251227ee"
+          },
+          {
+            "owner": "menu/Compdata/01/0066",
+            "offset": 416328,
+            "end": 416343,
+            "size": 15,
+            "before_sha256": "a27f70853111e35a60770d0304aaefda5a621983e83db51206b74c15f134352e",
+            "after_sha256": "313c66e38669035e1decb0b9967fc6b80f12df7349ef0f0703bfe9a4937b719b"
+          },
+          {
+            "owner": "menu/Compdata/01/0067",
+            "offset": 416352,
+            "end": 416371,
+            "size": 19,
+            "before_sha256": "0b905e0669a1938a6739592f400a2dc7e80a47911610ad4f798e694d899f4a5f",
+            "after_sha256": "b989680ba9a3e718dabfb00c74d4435e91a278ca7370b6641dd9b38dadb1e23f"
+          },
+          {
+            "owner": "menu/Compdata/01/0068",
+            "offset": 416376,
+            "end": 416387,
+            "size": 11,
+            "before_sha256": "d270047cbe54a591f485009a6c10c799c3f70b8e58f962e8144d19f3f3d52ccc",
+            "after_sha256": "a9aaed92d38c25f5b30e0bec4c6123a322bb5c6ccc6b2ee88c87748259b58c86"
+          },
+          {
+            "owner": "menu/Compdata/01/0069",
+            "offset": 416400,
+            "end": 416454,
+            "size": 54,
+            "before_sha256": "b2af99c51adb29caa6c99f7cba90ddbc0b4922481f7fd47450e627b6aecfa745",
+            "after_sha256": "ca8878c0d114538626a263fa5688c5feabda6d3de1fdb08f135918e2f7d033ac"
+          },
+          {
+            "owner": "menu/Compdata/01/0070",
+            "offset": 416456,
+            "end": 416469,
+            "size": 13,
+            "before_sha256": "954fb2b99fffc35b885bdc9e4ffcc660892b80815add7d8b284e4c9c7289cf60",
+            "after_sha256": "188e73f734962344d05bd1fcdaa0c5cb12817cf4432301f99487ac7f2fb2f097"
+          },
+          {
+            "owner": "menu/Compdata/01/0071",
+            "offset": 416480,
+            "end": 416543,
+            "size": 63,
+            "before_sha256": "b9aebcc228b229a8110280ca676fb8955730ea282e49bcd6c470bcb09a635f33",
+            "after_sha256": "47d653478b157a9bedcf484041f48600db2bd764b8e9b1092963a24281735d45"
+          },
+          {
+            "owner": "menu/Compdata/01/0072",
+            "offset": 416544,
+            "end": 416559,
+            "size": 15,
+            "before_sha256": "8c18c01dc58af2c0e8bd677520b27df778a2b2a03b2bf9098e44f758da671d6e",
+            "after_sha256": "8e08b47086a1dacb0764fa4fe4a9d039b9f59ebd5bbbaaebb388e30855317df5"
+          },
+          {
+            "owner": "menu/Compdata/01/0073",
+            "offset": 416560,
+            "end": 416635,
+            "size": 75,
+            "before_sha256": "cbe0644e55d930a2a0942f73ef6eebc5ddad6c799b56bb02aa73f00d1502edad",
+            "after_sha256": "f4ce96d33c782185cdba4dcaa17cdffb799f131714901b1fe2a7a18f0a52c504"
+          },
+          {
+            "owner": "menu/Compdata/01/0074",
+            "offset": 416640,
+            "end": 416659,
+            "size": 19,
+            "before_sha256": "b3026f31da9f5c950d734e490688545dff838acc46a42e5bcb1f9c74092e902f",
+            "after_sha256": "be7bddeb8f3ebccca1b5a8cad5e76584b30fcaa1400e3a3a6f6f6b32c660284e"
+          },
+          {
+            "owner": "menu/Compdata/01/0075",
+            "offset": 416672,
+            "end": 416693,
+            "size": 21,
+            "before_sha256": "d4cf5187e451914d9a332d87b30774d48074ca2cde0d9f5d2fd11704987ddefb",
+            "after_sha256": "c1dffd3a7c7f90b525e940663c097cae24cfc8e2bffe4b762ed61b2903fd2d2c"
+          },
+          {
+            "owner": "menu/Compdata/01/0076",
+            "offset": 416704,
+            "end": 416723,
+            "size": 19,
+            "before_sha256": "6763df669977e37bf5260223201a9728f07d9ea007beda08ef35273da310aa62",
+            "after_sha256": "9bec219fd78584a5ed0bf1d3f05d2954915c1254495225367e3ca9c5382c1943"
+          },
+          {
+            "owner": "menu/Compdata/01/0077",
+            "offset": 416736,
+            "end": 416792,
+            "size": 56,
+            "before_sha256": "ba24a1f3c2e512c74c552aa35f76776d3f07ada0e0c145101f61d761c09c8a71",
+            "after_sha256": "472bcddeef215b022b50515e7b2847049a7d83e443810854b4b20f1fbc61e58e"
+          },
+          {
+            "owner": "menu/Compdata/01/0078",
+            "offset": 416800,
+            "end": 416823,
+            "size": 23,
+            "before_sha256": "9ab56a2de5e28b0d371719eaa71cd61df625277e70384628f5a30f0a19e494b2",
+            "after_sha256": "2a31a4d3e2dd69385111d896f689816f675a2f9012a143bbcdf1e7038000fd56"
+          },
+          {
+            "owner": "menu/Compdata/01/0079",
+            "offset": 416832,
+            "end": 416871,
+            "size": 39,
+            "before_sha256": "e726d260516dd50fab9da8176663982dc37b98a9d726be72fac93c3393c672d5",
+            "after_sha256": "5ae11d7627162f3e0fef565295096445266c01d2aff73d2d974a57844cab4f90"
+          },
+          {
+            "owner": "menu/Compdata/01/0080",
+            "offset": 416880,
+            "end": 416899,
+            "size": 19,
+            "before_sha256": "8fe1487b524ada36eb1f554ba7a6b82b6a63572d877005b945b10782d64ab18a",
+            "after_sha256": "34a54451a1d3ff44a742f6092997460a1f97bba321a77bbea3bbfe21d8c968f7"
+          },
+          {
+            "owner": "menu/Compdata/01/0081",
+            "offset": 416912,
+            "end": 416950,
+            "size": 38,
+            "before_sha256": "06710bc270574ce184bd018d8e080d7942bac4e5f3e629e053929626f574362d",
+            "after_sha256": "648c02d71482c3f295e505a85b3bcd4a31613ed189095ab7e53115d53757f413"
+          },
+          {
+            "owner": "menu/Compdata/01/0082",
+            "offset": 416952,
+            "end": 416967,
+            "size": 15,
+            "before_sha256": "2f1b6717a3d7b50ec3001da459514fc1e76b99193c18a0431fc41ce6fc3bbba2",
+            "after_sha256": "db9addd49baf653c8b0399ab9d7f93c09d2e2e866e26c7fee8f246ee6d169850"
+          },
+          {
+            "owner": "menu/Compdata/01/0083",
+            "offset": 416976,
+            "end": 417008,
+            "size": 32,
+            "before_sha256": "430f207d2559fb1aa149b03dcf8f49ed9f8386b071d14ff17e2e1c69e781127e",
+            "after_sha256": "9d0d3ef18febb8797fe1106b28020a218d8764d866facbd5084c6f427843840c"
+          },
+          {
+            "owner": "menu/Compdata/01/0084",
+            "offset": 417008,
+            "end": 417027,
+            "size": 19,
+            "before_sha256": "270f51bceda6ba21b91540248fb4bde390118df0e593cdf909e5a1129732a3a2",
+            "after_sha256": "0bed38d0a7fecb7a5e0c5c169b7bad39715075021a9ff66f8c8f727dcaa6a0d8"
+          },
+          {
+            "owner": "menu/Compdata/01/0085",
+            "offset": 417040,
+            "end": 417072,
+            "size": 32,
+            "before_sha256": "fbcdb77e2d05dedf730faf7219376d33ecd14508a14503edbf6f1f791ba4040c",
+            "after_sha256": "6762ed57e5322f8cfde08cbf2eb8efcdf63257680c4f3bfc1206275e72ba1642"
+          },
+          {
+            "owner": "menu/Compdata/01/0086",
+            "offset": 417072,
+            "end": 417081,
+            "size": 9,
+            "before_sha256": "ae79911c1640614b082037fb332af39940f7b186ed75f47a8d465402b23f206e",
+            "after_sha256": "1785ca827bffd34e5d6376f92dbfe4fa8496dfae4e0e52b5dc75e33236589f1d"
+          },
+          {
+            "owner": "menu/Compdata/01/0087",
+            "offset": 417088,
+            "end": 417130,
+            "size": 42,
+            "before_sha256": "425565104abc137572874903423e0e628f690a93a4307ef0281a69df53543bbf",
+            "after_sha256": "4723ca197f240613cc553fdac152a7b82155789cd6815d15c6808b2246c91f9e"
+          },
+          {
+            "owner": "menu/Compdata/01/0088",
+            "offset": 417136,
+            "end": 417159,
+            "size": 23,
+            "before_sha256": "35a3c3f9cd7bc570d4bc422ffce0536919761ac7781a771bb44ee14bc15afe5b",
+            "after_sha256": "c2002e899db583107925e562ee7ac1f3d930cfebe56218f7e453a557251f41ec"
+          },
+          {
+            "owner": "menu/Compdata/01/0089",
+            "offset": 417168,
+            "end": 417203,
+            "size": 35,
+            "before_sha256": "403e767f443372f282bf7f5bf3c695051f6c3edc8b2c426aa93de603296964fe",
+            "after_sha256": "3ed6af77e1e3070258f6ff3efa5b91db5c2233002da300b4209723094954fac9"
+          },
+          {
+            "owner": "menu/Compdata/01/0090",
+            "offset": 417208,
+            "end": 417223,
+            "size": 15,
+            "before_sha256": "b8d443fb75ebb37029410c6c5f3dfb62574163b0cafd3364351c75b57c490b23",
+            "after_sha256": "2bc89d4acdbe4f5f9ec43aef836829a6f4da1a1289b4608b9ecf303cf1948966"
+          },
+          {
+            "owner": "menu/Compdata/01/0091",
+            "offset": 417232,
+            "end": 417259,
+            "size": 27,
+            "before_sha256": "6f89188730eecfa278e2ca035a57a170aedc71495ae2518f5ccff9a87434ad82",
+            "after_sha256": "dfb511579792e9d61eca4476f3a605bc33be8ce3ed6434c9dd6130ba0f00dc14"
+          },
+          {
+            "owner": "menu/Compdata/01/0092",
+            "offset": 417264,
+            "end": 417279,
+            "size": 15,
+            "before_sha256": "ffe4f702b9beb31213ace063dccebcc84b2ee95d5bec1dfc76fd19f13cfbd51c",
+            "after_sha256": "59359c8321a7199bc2036c43e15bfbd8440b2c8fe0bd6ad30c56e0318fc9f882"
+          },
+          {
+            "owner": "menu/Compdata/01/0093",
+            "offset": 417280,
+            "end": 417326,
+            "size": 46,
+            "before_sha256": "36ecf419b4c7171ea366f0708a4d7bbd07530f2a7b207ef4c55d075752ff84a5",
+            "after_sha256": "8d250afcb5813e461ad9168e442617cb97d4398eccca94bedc569fb4d05e79f2"
+          },
+          {
+            "owner": "menu/Compdata/01/0094",
+            "offset": 417328,
+            "end": 417341,
+            "size": 13,
+            "before_sha256": "9f49454b1ef53ca9238be44cdcaccd519d3af9c9d66a02355a8ee1218d19714a",
+            "after_sha256": "fb2c84c0b5d72978907ba4fbed03b0e823d1dcb0df676bf66a884d66dabe9896"
+          },
+          {
+            "owner": "menu/Compdata/01/0095",
+            "offset": 417344,
+            "end": 417380,
+            "size": 36,
+            "before_sha256": "5975829523e620c86687f4b35411a6b4ac97405a43d00328e5ec266da0068086",
+            "after_sha256": "c181e2faf112f062ad141959ef6edbb89fd37f3a73ca8f0c6e117d1c3d22b33a"
+          },
+          {
+            "owner": "menu/Compdata/01/0096",
+            "offset": 417392,
+            "end": 417411,
+            "size": 19,
+            "before_sha256": "3f590a35e2afe9cbd3262b05322d7b8c2034fa72898829d2d34d6207c47d1690",
+            "after_sha256": "55233d87fbc3f9a82ac249cf64e48c523a33a0a8bfa4c59fd3f0f58dd8c17313"
+          },
+          {
+            "owner": "menu/Compdata/01/0097",
+            "offset": 417424,
+            "end": 417466,
+            "size": 42,
+            "before_sha256": "a5271641be8dfbbbb099f3da93f1b0d6024651405900aaf8bda5b1a2c945fbd1",
+            "after_sha256": "686c1dd7a8990721b8a1b6647fb9e84eddb05157d707a3c71ff25f15f11a6722"
+          },
+          {
+            "owner": "menu/Compdata/01/0098",
+            "offset": 417472,
+            "end": 417495,
+            "size": 23,
+            "before_sha256": "73982cf0edab43ae130d31fba77ccf0f86c92cf92f5123f3c67e163ceba96048",
+            "after_sha256": "e4656d38bbc547448ae83c17f13ff9f5e72bf2e1533271e5536403fedb028e9b"
+          },
+          {
+            "owner": "menu/Compdata/01/0099",
+            "offset": 417504,
+            "end": 417537,
+            "size": 33,
+            "before_sha256": "d69f6b6a5cce23e14c7c6967f2594bf36cf4dd49288c04fa7d76e5a3514810a3",
+            "after_sha256": "57be09463ee68c91d049766e9cf5c3e633a2665305236fbd83e01eef6c28f62e"
+          },
+          {
+            "owner": "menu/Compdata/01/0100",
+            "offset": 417552,
+            "end": 417569,
+            "size": 17,
+            "before_sha256": "dd8e70720bb4fec2d9daf960032e3fabbe57ef60a31be8ce1c8b0d9501a98145",
+            "after_sha256": "99ac2c231b3f22245d90cf5b81a7d6350edd7a75a625d559b942651eee5fcb36"
+          },
+          {
+            "owner": "menu/Compdata/01/0101",
+            "offset": 417584,
+            "end": 417620,
+            "size": 36,
+            "before_sha256": "ab40749f3452522c3765e9280ec36375b4cb8bc591a9a9a8b9d1989179d943c0",
+            "after_sha256": "a563acaf25c0d9c2612f319ec16f2ec3b49ea2e0ecdb70c2ec1c10bb0d2fd859"
+          },
+          {
+            "owner": "menu/Compdata/01/0102",
+            "offset": 417632,
+            "end": 417651,
+            "size": 19,
+            "before_sha256": "28951a6c9d339eff295eb806f4c1b1ca46fea8712452b3391554ef348ca90968",
+            "after_sha256": "7a2b3c49abf194c31ea13cfdd65b0a4e84dc9dcca788c20b6df4549581389edd"
+          },
+          {
+            "owner": "menu/Compdata/01/0103",
+            "offset": 417664,
+            "end": 417693,
+            "size": 29,
+            "before_sha256": "b77acd1182f9c0af16c8f55a4f387524cdd136718e5487551830df0490477480",
+            "after_sha256": "19e9976370c485a6856adaae2943c4d11e9f25826978c756bc3ccd68aaf78983"
+          },
+          {
+            "owner": "menu/Compdata/01/0104",
+            "offset": 417696,
+            "end": 417713,
+            "size": 17,
+            "before_sha256": "3db2b99200e819b96f64f770f403b010ef750bc0725f226f5b21a55c9531bd71",
+            "after_sha256": "285f7aa335b2421112afcdb58a200c7951442e27052ab50bc582cb6a336d019a"
+          },
+          {
+            "owner": "menu/Compdata/01/0105",
+            "offset": 417728,
+            "end": 417770,
+            "size": 42,
+            "before_sha256": "a32bc4995ffed84a1b01632a669c4fa739d349c154a7d48dda791e9821fdf272",
+            "after_sha256": "f0295b47bc7510aa77ec231e729d0ea6f914d823473e9477617dbb5a8a67d796"
+          },
+          {
+            "owner": "menu/Compdata/01/0106",
+            "offset": 417776,
+            "end": 417781,
+            "size": 5,
+            "before_sha256": "9f072a0b8011357f775369218984913d681606a9daa9843250faf87c39ef05c7",
+            "after_sha256": "8d204bbc19c34da9b3d5e568762bb58591bf55ebc341b3bc8dd44c0d3f635b6c"
+          },
+          {
+            "owner": "menu/Compdata/01/0107",
+            "offset": 417792,
+            "end": 417854,
+            "size": 62,
+            "before_sha256": "490422c35520d7b62eb133ff028f74dc795c63015b3d6b677c24060b4afd1aed",
+            "after_sha256": "ad9d6da40f93ded2530d7b70363659b3797a0c96a201ae09de751532b545f5f8"
+          },
+          {
+            "owner": "menu/Compdata/01/0108",
+            "offset": 417856,
+            "end": 417875,
+            "size": 19,
+            "before_sha256": "3133d31e7f6f19d8c23e6a14abb461ce3beffd630df759499b53cac47645f733",
+            "after_sha256": "136e5a8550d62b78af79bc68580a761b2d688f12209d7501c26308f9282586dd"
+          },
+          {
+            "owner": "menu/Compdata/01/0109",
+            "offset": 417888,
+            "end": 417952,
+            "size": 64,
+            "before_sha256": "c554db7cb14bf5baacb7a5642a089331a8564e8e9c4b4a86378ffa84ab41dbff",
+            "after_sha256": "36cd5de2556926f26d2a7a67022a639a5608c1a23556fb954ecb7d39df990a50"
+          },
+          {
+            "owner": "menu/Compdata/01/0110",
+            "offset": 417952,
+            "end": 417973,
+            "size": 21,
+            "before_sha256": "7cae98718700c41573255bed9040b32ea6737decd780544144e5ab54607172d2",
+            "after_sha256": "d99a4f4cf7a17454fc871daebd37e38c3b208a331b864d30bbb0c149d5ce5708"
+          },
+          {
+            "owner": "menu/Compdata/01/0111",
+            "offset": 417984,
+            "end": 418036,
+            "size": 52,
+            "before_sha256": "5c089cfbf6ac5e814f74186f17054f8d4a32d880ca1d31ef0e7461228a584624",
+            "after_sha256": "665ff20e8ea018f2f695c53a26e18ae8dfbe3b7cf38eedc21e95f9878f00e1be"
+          },
+          {
+            "owner": "menu/Compdata/01/0112",
+            "offset": 418048,
+            "end": 418067,
+            "size": 19,
+            "before_sha256": "43584709265191a6f2ca99036803e0a6d73526cc041ba569adbb31571662045c",
+            "after_sha256": "cea446403a80752ee3ac8aa57305355aaa085049a38e89d3f38eaa73b9803323"
+          },
+          {
+            "owner": "menu/Compdata/01/0113",
+            "offset": 418080,
+            "end": 418144,
+            "size": 64,
+            "before_sha256": "9b019a5f348e16528f034b0f8f83c0af5bc426efa880c2bae2b283c12762814a",
+            "after_sha256": "46feb628ca4fa2620547ca7c807a038aa8e828efbf24545f19e482876ef1447b"
+          },
+          {
+            "owner": "menu/Compdata/01/0114",
+            "offset": 418144,
+            "end": 418159,
+            "size": 15,
+            "before_sha256": "56f1526d8ad86547cfceefaf41ba0f779df22352b246fbcb4e70f2c7d1201819",
+            "after_sha256": "ec025fd89774742f2051eea7f4449cc31c6386f77fee4d6c37719abfa9255b9e"
+          },
+          {
+            "owner": "menu/Compdata/01/0115",
+            "offset": 418160,
+            "end": 418214,
+            "size": 54,
+            "before_sha256": "ddb4897e29b3592623d292a1df95fe9603d371fe5017bb32bae0ba5d4a9dfa61",
+            "after_sha256": "487d0ea5711f912d62875235b4d2bbf71b721ab1dab904c330f47ac57d91bcfd"
+          },
+          {
+            "owner": "menu/Compdata/01/0116",
+            "offset": 418216,
+            "end": 418231,
+            "size": 15,
+            "before_sha256": "eca5b4b6f1ed8bec032961c4a2add4a02bddf9905f0655afc46f1d7f9d03b277",
+            "after_sha256": "b15bc04fb824dcbc558fe02639b4882a6e9fd665effa91f378cb6bd641ff562d"
+          },
+          {
+            "owner": "menu/Compdata/01/0117",
+            "offset": 418240,
+            "end": 418282,
+            "size": 42,
+            "before_sha256": "2b3436d90370fd9837736fcd1ed64a74282a4e59c4d9c80560170c776a1983f9",
+            "after_sha256": "bd23a261bd8ca5193d6cba2920a552ff77040a9dbe3fc2f1f29326edbd4d0648"
+          },
+          {
+            "owner": "menu/Compdata/01/0118",
+            "offset": 418288,
+            "end": 418297,
+            "size": 9,
+            "before_sha256": "c104d647c65848d5ae53695279a86a637a5a3df88b0ae38e94806c7d16eb231d",
+            "after_sha256": "5a722c3a9b1aa4eabc9a22d15dec87c17de520183045c91dd0bcfabec8b43e84"
+          },
+          {
+            "owner": "menu/Compdata/01/0119",
+            "offset": 418304,
+            "end": 418369,
+            "size": 65,
+            "before_sha256": "a2a7d342e4b3fb75087c97e94c5362ef05631d7990b9d9f886e1961073455ac6",
+            "after_sha256": "810c4c22bfe38363a7e5404f4cfd1269424f7f1c3f06ecfc2830afc823590d4c"
+          },
+          {
+            "owner": "menu/Compdata/01/0120",
+            "offset": 418376,
+            "end": 418381,
+            "size": 5,
+            "before_sha256": "ac0489ce27d0473acd00ed1dc857a499407489748c6c26d429ccfaacd673c86f",
+            "after_sha256": "ac0489ce27d0473acd00ed1dc857a499407489748c6c26d429ccfaacd673c86f"
+          },
+          {
+            "owner": "menu/Compdata/01/0121",
+            "offset": 418384,
+            "end": 418418,
+            "size": 34,
+            "before_sha256": "56bc44b96b7fc5c3d677c6d7db38d37b730a301f65d12a8d17f187ddb2c18f35",
+            "after_sha256": "872bc1f3eb379ac74476a587b50259309936a2f03c2ef3bb39cd0eada84ecf5b"
+          },
+          {
+            "owner": "menu/Compdata/01/0122",
+            "offset": 418432,
+            "end": 418453,
+            "size": 21,
+            "before_sha256": "de2e5b891df49a0aa3e219d9e8dfa24f12c523d46d1694f34ee7fd8e30a65d15",
+            "after_sha256": "559f099ec238787b1f469e9064c489528833a1e359d84ce8b968afd70586e26a"
+          },
+          {
+            "owner": "menu/Compdata/01/0123",
+            "offset": 418464,
+            "end": 418510,
+            "size": 46,
+            "before_sha256": "453683939d99d2d70924d034eb930fb105a88c8e6a7bcbb2261b136e72b34452",
+            "after_sha256": "09bd97f15f846138eddb540d1e7380a4471c5547879402e09ce5443aa6d3e415"
+          },
+          {
+            "owner": "menu/Compdata/01/0124",
+            "offset": 418512,
+            "end": 418535,
+            "size": 23,
+            "before_sha256": "057300d9e779d0586d736b6ba91284c6f24f7cf80eebdb83d060fba8756c7928",
+            "after_sha256": "434ec5dcb24996d41b414b7b78f6aceaef30f1e0556aa8ad469dd6e6370a4c1c"
+          },
+          {
+            "owner": "menu/Compdata/01/0125",
+            "offset": 418544,
+            "end": 418602,
+            "size": 58,
+            "before_sha256": "86927611b736f44acc1cffa2527d103299a617acb13be27fef69b6b8423f7d58",
+            "after_sha256": "035fd2ee454fda3b9d79c5f1a247f6c12f95e3c04962edff4594067ee2a7aaeb"
+          },
+          {
+            "owner": "menu/Compdata/01/0126",
+            "offset": 418608,
+            "end": 418625,
+            "size": 17,
+            "before_sha256": "6b8f89900d6667236839f1774b751c1934460de029bd94da9671bd591c11c1f1",
+            "after_sha256": "7ea005e2f1580c6c5d047abfd4782fd8051dc1812ad212fd28a91c8b28716c12"
+          },
+          {
+            "owner": "menu/Compdata/01/0127",
+            "offset": 418640,
+            "end": 418700,
+            "size": 60,
+            "before_sha256": "ed24a6d1843bbefebdd099788c877c0a1ff618de2e0757b2f1ad8ad9fdd83ac7",
+            "after_sha256": "21f3895f9f6b417c76791c82666cd8b6ea10013da7cfb7f72b78a6070cb2dfc4"
+          },
+          {
+            "owner": "menu/Compdata/01/0128",
+            "offset": 418704,
+            "end": 418723,
+            "size": 19,
+            "before_sha256": "772e3e68c0e4734214c7d998e77dd4edfa58df2534b3918313ef22bdb0d5b1b4",
+            "after_sha256": "ff83261b9e3072313aa0af3dd08c1357e8b2e5493ef6ac4ab14129563c231d66"
+          },
+          {
+            "owner": "menu/Compdata/01/0129",
+            "offset": 418736,
+            "end": 418767,
+            "size": 31,
+            "before_sha256": "227a49ebec2f8d2e0d8f84db427178c08fbe76cc638a646568eaeaabfd7be2d1",
+            "after_sha256": "1333d1ea86789f0d11a3a87476fbea06c0719276411bfd34abfc6dbc89d5dc33"
+          },
+          {
+            "owner": "menu/Compdata/01/0130",
+            "offset": 418768,
+            "end": 418781,
+            "size": 13,
+            "before_sha256": "5e386d872dc0eca948bcd2e293a2cb1f5f06caecf85c10773d21bc1a3d057b41",
+            "after_sha256": "efb350c46d5ef0c6415a48d2d30b309fc9d258468932abd408029e42b0a51077"
+          },
+          {
+            "owner": "menu/Compdata/01/0132",
+            "offset": 418792,
+            "end": 418805,
+            "size": 13,
+            "before_sha256": "a0f8f78b8c060752f806e65e9d44272635e571b0d836b43cf30172d5164ef677",
+            "after_sha256": "e3a86db483ad21b946ea88014457b58c0fcdd830c36dd79a9833dd16b1aa664c"
+          }
+        ]
+      },
+      "corpus_entry_count": 133,
+      "preserved_empty_entry_count": 1,
+      "source_target_occurrence_count": 134,
+      "source_target_unique_count": 133,
+      "source_preimages_sha256_exact": true,
+      "placeholder_control_tokens_preserved": true,
+      "fixed_spans_preserved": true,
+      "pointer_bytes_unchanged": true,
+      "reread_exact": true
+    },
+    "residual_display_names": {
+      "unique_source_count": 283,
+      "written_by_full_pilot_name_stage": true
+    },
+    "atlas": {
+      "entry_count": 17,
+      "inherited_dedicated_mask_sources": [
+        "バザー",
+        "インターミッション",
+        "オプション",
+        "データ管理",
+        "パイロット系",
+        "小隊編成",
+        "機体系",
+        "次のマップへ",
+        "新規編成"
+      ],
+      "inherited_dedicated_mask_count": 9,
+      "pending_dedicated_mask_sources": [
+        "アイテム",
+        "売却",
+        "強化パーツ",
+        "購入",
+        "リザーブへ",
+        "小隊群へ"
+      ],
+      "pending_dedicated_mask_count": 6,
+      "protected_single_character_sources": [
+        "攻",
+        "反"
+      ],
+      "protected_single_character_count": 2,
+      "single_character_regions_untouched": true
+    },
+    "compdata_source_size": 144989,
+    "compdata_output_size": 145321,
+    "compdata_sector_budget": 145408,
+    "compdata_round_trip_exact": true,
+    "slps_size_preserved": true
+  },
+  "srvc_battle_text": {
+    "corpus_id": "srwz-srvc-battle-lines-zh-v1",
+    "unique_text_count": 25708,
+    "record_count": 58740,
+    "production_override_count": 7,
+    "chunk_count": 353,
+    "indexed_chunk_count": 288,
+    "zero_record_chunk_count": 65,
+    "unindexed_tail_bytes": 88582,
+    "pool": {
+      "translated_record_count": 58740,
+      "original_indexed_pool_bytes": 2165802,
+      "output_indexed_pool_bytes": 1644195,
+      "released_indexed_pool_bytes": 521607,
+      "minimum_record_headroom": 0,
+      "minimum_chunk_headroom": 0
+    },
+    "translated_reread_count": 58740,
+    "translated_reread_exact": true,
+    "control_tokens_preserved": true,
+    "record_budgets_preserved": true,
+    "chunk_boundaries_preserved": true,
+    "index_structure_preserved": true,
+    "metadata_preserved_byte_exact": true,
+    "unindexed_tails_preserved_byte_exact": true,
+    "zero_record_chunks_preserved_byte_exact": true,
+    "seg_preserved_byte_exact": true
+  },
+  "scenario_select_effect": {
+    "member": "EFF/VEFF2DX.BIN",
+    "effect_id": 295,
+    "chunk_index": 296,
+    "record_index": 0,
+    "picture_index": 0,
+    "labels": [
+      "正篇",
+      "教学",
+      "剧情"
+    ],
+    "composed_labels": [
+      "正篇剧情",
+      "教学剧情"
+    ],
+    "glyph_sampling": "native_24px_center_crop_preserve_4bpp",
+    "segments": [
+      {
+        "text": "正篇",
+        "x": 2,
+        "y": 48,
+        "glyph_width": 20,
+        "advance": 21,
+        "glyphs": [
+          {
+            "character": "正",
+            "glyph_index": 2995,
+            "ink_pixel_count": 170,
+            "intermediate_pixel_count": 116,
+            "native_height_preserved": true
+          },
+          {
+            "character": "篇",
+            "glyph_index": 3985,
+            "ink_pixel_count": 274,
+            "intermediate_pixel_count": 226,
+            "native_height_preserved": true
+          }
+        ]
+      },
+      {
+        "text": "教学",
+        "x": 108,
+        "y": 48,
+        "glyph_width": 22,
+        "advance": 24,
+        "glyphs": [
+          {
+            "character": "教",
+            "glyph_index": 2035,
+            "ink_pixel_count": 275,
+            "intermediate_pixel_count": 197,
+            "native_height_preserved": true
+          },
+          {
+            "character": "学",
+            "glyph_index": 1783,
+            "ink_pixel_count": 207,
+            "intermediate_pixel_count": 146,
+            "native_height_preserved": true
+          }
+        ]
+      },
+      {
+        "text": "剧情",
+        "x": 161,
+        "y": 48,
+        "glyph_width": 22,
+        "advance": 24,
+        "glyphs": [
+          {
+            "character": "剧",
+            "glyph_index": 378,
+            "ink_pixel_count": 262,
+            "intermediate_pixel_count": 192,
+            "native_height_preserved": true
+          },
+          {
+            "character": "情",
+            "glyph_index": 2862,
+            "ink_pixel_count": 283,
+            "intermediate_pixel_count": 203,
+            "native_height_preserved": true
+          }
+        ]
+      }
+    ],
+    "source_logical_image_sha256": "cd9ce72747dbed31524cbe477edb24a205b540ac430ec4820d11ee719965767e",
+    "output_logical_image_sha256": "64e1845736af2f95fb0846ed6adcf9deadab8a7767c7df23cca48912250a872c",
+    "changed_logical_pixel_count": 2537,
+    "source_stored_size": 30656,
+    "encoded_size": 30245,
+    "codec": {
+      "strategy": "rust-fit",
+      "max_match_chain": 1024
+    },
+    "padding_size": 411,
+    "archive_size_preserved": true,
+    "archive_offsets_preserved": true,
+    "non_target_archive_bytes_exact": true,
+    "psmt4_round_trip_exact": true,
+    "codec_round_trip_exact": true,
+    "translated_reread_exact": true,
+    "all_glyphs_native_height_and_antialiased": true,
+    "geometry": {
+      "frame_count": 60,
+      "frame_base": 208,
+      "frame_stride": 1680,
+      "quad_size": 24,
+      "target_visible_center_twice": -10,
+      "groups": [
+        {
+          "label": "正篇剧情",
+          "x_shift": 20,
+          "visible_x_bounds": [
+            -48,
+            38
+          ],
+          "visible_center_twice": -10,
+          "quads": [
+            {
+              "relative_offset": 1032,
+              "source_x_bounds": [
+                -70,
+                -22
+              ],
+              "target_x_bounds": [
+                -50,
+                -2
+              ],
+              "y_bounds": [
+                -51,
+                -39
+              ],
+              "texture_x_bounds": [
+                0,
+                48
+              ],
+              "ink_x_bounds": [
+                2,
+                42
+              ],
+              "visible_x_bounds": [
+                -48,
+                -8
+              ]
+            },
+            {
+              "relative_offset": 1056,
+              "source_x_bounds": [
+                -28,
+                60
+              ],
+              "target_x_bounds": [
+                -8,
+                80
+              ],
+              "y_bounds": [
+                -51,
+                -39
+              ],
+              "texture_x_bounds": [
+                160,
+                248
+              ],
+              "ink_x_bounds": [
+                161,
+                206
+              ],
+              "visible_x_bounds": [
+                -7,
+                38
+              ]
+            }
+          ]
+        },
+        {
+          "label": "教学剧情",
+          "x_shift": -8,
+          "visible_x_bounds": [
+            -50,
+            40
+          ],
+          "visible_center_twice": -10,
+          "quads": [
+            {
+              "relative_offset": 1080,
+              "source_x_bounds": [
+                -102,
+                10
+              ],
+              "target_x_bounds": [
+                -110,
+                2
+              ],
+              "y_bounds": [
+                -11,
+                1
+              ],
+              "texture_x_bounds": [
+                48,
+                160
+              ],
+              "ink_x_bounds": [
+                108,
+                152
+              ],
+              "visible_x_bounds": [
+                -50,
+                -6
+              ]
+            },
+            {
+              "relative_offset": 1104,
+              "source_x_bounds": [
+                2,
+                90
+              ],
+              "target_x_bounds": [
+                -6,
+                82
+              ],
+              "y_bounds": [
+                -11,
+                1
+              ],
+              "texture_x_bounds": [
+                160,
+                248
+              ],
+              "ink_x_bounds": [
+                161,
+                206
+              ],
+              "visible_x_bounds": [
+                -5,
+                40
+              ]
+            }
+          ]
+        }
+      ],
+      "patched_quad_count": 240,
+      "centers_aligned": true,
+      "changed_bytes_confined_to_x_coordinates": true
+    },
+    "description_layout": {
+      "glyph_advance": 18,
+      "target_center_twice": 14,
+      "entries": [
+        {
+          "label": "正篇剧情说明",
+          "record_offset": 3249952,
+          "text_pointer": 4432608,
+          "source_x": -110,
+          "target_x": -56,
+          "y": -36,
+          "source_character_count": 13,
+          "target_character_count": 7,
+          "visual_center_twice": 14
+        },
+        {
+          "label": "教学剧情说明",
+          "record_offset": 3249968,
+          "text_pointer": 4432656,
+          "source_x": -155,
+          "target_x": -110,
+          "y": 4,
+          "source_character_count": 18,
+          "target_character_count": 13,
+          "visual_center_twice": 14
+        }
+      ],
+      "centers_aligned": true,
+      "slps_size_preserved": true,
+      "changed_bytes_confined_to_x_coordinates": true,
+      "reread_exact": true
+    }
   },
   "global_safe_aliases": {
     "scope": "all-parsed-localized-menu-surfaces",
@@ -359,10 +3118,10 @@
     "unaliased_conditional_assignment_count": 0,
     "alias_codes_default_width_only": true,
     "slps": {
-      "selected_entry_count": 686,
+      "selected_entry_count": 684,
       "selected_target_count": 1166,
       "merged_text_range_count": 1165,
-      "substituted_code_count": 2564,
+      "substituted_code_count": 2554,
       "nested_raw_overlap_mismatch_count": 1,
       "nested_raw_overlap_entry_ids": [
         "menu/SLPS/00/0083"
@@ -372,35 +3131,35 @@
       "reread_exact": true
     },
     "compdata": {
-      "selected_entry_count": 1208,
+      "selected_entry_count": 1121,
       "selected_target_count": 1480,
-      "merged_text_range_count": 1443,
-      "substituted_code_count": 5000,
+      "merged_text_range_count": 1447,
+      "substituted_code_count": 4781,
       "nested_raw_overlap_mismatch_count": 0,
       "nested_raw_overlap_entry_ids": [],
       "size_preserved": true,
       "pointer_bytes_unchanged": true,
       "reread_exact": true
     },
-    "compdata_source_size": 145158,
-    "compdata_output_size": 145253,
+    "compdata_source_size": 145321,
+    "compdata_output_size": 144945,
     "compdata_round_trip_exact": true
   },
   "outputs": {
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "5c38d8896cafc9a353975859b79f0c9080fef9294ba1631dddd2f85afa7a49da"
+      "sha256": "e67ad25513bf1297db2207e5262d8c977b9a671b3130ed8d35892c2e3652d7ba"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "3f91de968eb295ef0a92729a9038d4f275ef24fa02ec275a3687bf3f273a53fc"
+      "sha256": "58c239a6ac2ceb3fba5f38e8fa070879cd5c7312c073a80e675dceba0319eae3"
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 145253,
-      "sha256": "bd6c8d842ae30b77da2b4af62dc6bfa017518426b6544112077862f7ec358997"
+      "size": 144945,
+      "sha256": "a414ed62b1a18827739da2e0c7fcd9746e1f8069d6a441a2353cadb5fdeb9179"
     },
     "DATA/MTV_PROS.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
@@ -410,7 +3169,12 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "575d146141a286dc2371a99a0c3877e442ea5dc210ea33e5fb5f289caae4d334"
+      "sha256": "b018e0e3ee76f6deb5cb0c90660ef5eb8890b698f0a0c5151a7be7ab54688ef5"
+    },
+    "DATA/HSFC.BIN": {
+      "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
+      "size": 250112,
+      "sha256": "e3285713fc1186788d305b3519b1965875ac1912b44711ad5e2d496de632d6c1"
     },
     "HEDBDY/HB.BIN": {
       "path": "work/build/zh-release-full-story/components/HEDBDY/HB.BIN",
@@ -420,10 +3184,26 @@
     "KURODATA/KVMDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "8e6503dcf459c45c436cad7e83f59fa414c43ab881563ecba8ed028c6c12cb51"
+      "sha256": "e2f57fef0703d3b7af81b88e97df74fea5ecefa0494fe7e86e9ec8d395c5fc2e"
+    },
+    "BTL/SRVC.BIN": {
+      "path": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
+      "size": 3313040,
+      "sha256": "b653ee4b1d26069a14695c6272b4901827837ba0527fd74a8ad5149ad1ee8e91"
+    },
+    "BTL/SRVC.SEG": {
+      "path": "work/build/zh-release-full-story/components/BTL/SRVC.SEG",
+      "size": 1416,
+      "sha256": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987"
+    },
+    "EFF/VEFF2DX.BIN": {
+      "path": "work/build/zh-release-full-story/components/EFF/VEFF2DX.BIN",
+      "size": 36890512,
+      "sha256": "48e7372ff72db2f52df9cd78b86228eb0117140105ac07b9507d668f296abc5f"
     }
   },
   "acceptance": {
+    "production_compression_backend_rust_only": true,
     "p10_ui_members_inherited_exact": true,
     "encoded_ui_codebook_is_release_subset": true,
     "global_release_font_missing_character_count_zero": true,
@@ -438,7 +3218,14 @@
     "full_story_pilot_name_codec_round_trip_exact": true,
     "full_story_pilot_name_changes_confined": true,
     "full_story_stage_titles_reread_exact": true,
+    "stage_overviews_reread_exact": true,
+    "hsfc_overviews_reread_exact": true,
+    "remaining_ui_binary_text_reread_exact": true,
+    "remaining_ui_placeholders_preserved": true,
+    "single_character_atlas_regions_untouched": true,
+    "srvc_battle_text_reread_exact": true,
     "all_localized_text_uses_safe_double_byte_aliases": true,
+    "scenario_select_labels_aligned": true,
     "intermission_list_safe_aliases_scoped": true
   },
   "runtime": {

@@ -3,10 +3,10 @@
   "profile_id": "ui-battle-command-atlas-zh",
   "scope": "A deterministic Chinese replacement of the COMMAND MENU locator inside the locked KVMDATA chunk 4 mapping mask. Static construction does not prove which runtime battle pages consume this atlas.",
   "base_mapping": {
-    "config": "config/canary/tim2-kvm4-battle-command-map.json",
+    "config": "config/assets/maps/tim2-kvm4-battle-command.json",
     "config_sha256": "e6af9ddee3bb1c7d58f542b18c10c0f6cb537dec81c92d17777551b2b42eea1d",
     "manifest": "manifests/ui-battle-command-atlas-map-canary-validation.json",
-    "manifest_sha256": "0b98310510473319e79b4da8b8320933bd41a3b357f37fdb84c74a83858e4e55",
+    "manifest_sha256": "fddeb995e6c239197d921ff7486d0160c19d244bc2309e8e9d246cbae020d22a",
     "required_status": "static_component_validated_runtime_mapping_pending"
   },
   "target": {
@@ -20,7 +20,7 @@
   "localized_label": {
     "translation_source": {
       "path": "corpus/zh/ui-atlas/core-menus-v1.json",
-      "sha256": "2ab59190c3792cbce85756186b13253d403224b6bf9031e07d46a2baad37573f",
+      "sha256": "a3f3e51fe5ba803cfc1721793051a86dcc502dcd83497ff4ab40c009b94a3796",
       "entry_id": "ui-atlas/kvm4/command-menu",
       "minimum_editorial_status": "reviewed"
     },

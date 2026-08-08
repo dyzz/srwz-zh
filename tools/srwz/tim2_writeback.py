@@ -8,6 +8,7 @@ container metadata byte-identical and replace only indexed image bytes.
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 
 from .tim2 import (
@@ -496,6 +497,10 @@ def inject_indexed4_rgba(
     data: bytes,
     original_rgba: bytes,
     edited_rgba: bytes,
+    *,
+    force_reindex_pixel_indexes: Iterable[int] = (),
+    forced_color_indexes: Mapping[bytes, int] | None = None,
+    forced_palette_indexes_by_pixel: Mapping[int, int] | None = None,
 ) -> Tim2InjectionResult:
     """Inject edited pixels while preserving the original TIM2 container.
 
@@ -506,6 +511,48 @@ def inject_indexed4_rgba(
     """
 
     source = bytes(data)
+    forced_pixels = frozenset(force_reindex_pixel_indexes)
+    if any(
+        not isinstance(pixel_index, int)
+        or isinstance(pixel_index, bool)
+        or not 0 <= pixel_index < CANARY_WIDTH * CANARY_HEIGHT
+        for pixel_index in forced_pixels
+    ):
+        raise Tim2WritebackError(
+            "forced 4-bpp pixel index is outside the image"
+        )
+    exact_indexes = dict(forced_color_indexes or {})
+    for color, palette_index in exact_indexes.items():
+        if not isinstance(color, bytes) or len(color) != RGBA_PIXEL_SIZE:
+            raise Tim2WritebackError(
+                "forced 4-bpp color must be four RGBA bytes"
+            )
+        if (
+            not isinstance(palette_index, int)
+            or isinstance(palette_index, bool)
+            or not 0 <= palette_index <= 0x0F
+        ):
+            raise Tim2WritebackError(
+                "forced 4-bpp palette index must fit one nibble"
+            )
+    exact_pixel_indexes = dict(forced_palette_indexes_by_pixel or {})
+    for pixel_index, palette_index in exact_pixel_indexes.items():
+        if (
+            not isinstance(pixel_index, int)
+            or isinstance(pixel_index, bool)
+            or not 0 <= pixel_index < CANARY_WIDTH * CANARY_HEIGHT
+        ):
+            raise Tim2WritebackError(
+                "forced 4-bpp pixel index is outside the image"
+            )
+        if (
+            not isinstance(palette_index, int)
+            or isinstance(palette_index, bool)
+            or not 0 <= palette_index <= 0x0F
+        ):
+            raise Tim2WritebackError(
+                "forced per-pixel palette index must fit one nibble"
+            )
     picture = _validate_canary_layout(source)
     expected_rgba_size = CANARY_WIDTH * CANARY_HEIGHT * RGBA_PIXEL_SIZE
     for label, pixels in (
@@ -537,23 +584,44 @@ def inject_indexed4_rgba(
             )
         indexes_by_color.setdefault(color, set()).add(palette_index)
 
+    for color, palette_index in exact_indexes.items():
+        if color_by_index.get(palette_index) != color:
+            raise Tim2WritebackError(
+                f"forced palette index {palette_index} does not render as "
+                f"{color.hex()}"
+            )
+    for pixel_index, palette_index in exact_pixel_indexes.items():
+        edited_color = _rgba_at(edited_rgba, pixel_index)
+        if color_by_index.get(palette_index) != edited_color:
+            raise Tim2WritebackError(
+                f"forced palette index {palette_index} at pixel "
+                f"{pixel_index} does not render as {edited_color.hex()}"
+            )
+
     packed_after = bytearray(packed_before)
     changed_pixel_count = 0
     for pixel_index, original_index in enumerate(indexes):
         original_color = _rgba_at(original_rgba, pixel_index)
         edited_color = _rgba_at(edited_rgba, pixel_index)
-        if edited_color == original_color:
+        force_reindex = pixel_index in forced_pixels
+        if pixel_index in exact_pixel_indexes:
+            replacement_index = exact_pixel_indexes[pixel_index]
+        elif not force_reindex and edited_color == original_color:
             replacement_index = original_index
         else:
-            candidates = indexes_by_color.get(edited_color)
-            if not candidates:
-                x = pixel_index % CANARY_WIDTH
-                y = pixel_index // CANARY_WIDTH
-                raise Tim2WritebackError(
-                    f"edited color {edited_color.hex()} at ({x},{y}) "
-                    "is not present in the source picture"
-                )
-            replacement_index = min(candidates)
+            if force_reindex and edited_color in exact_indexes:
+                replacement_index = exact_indexes[edited_color]
+            else:
+                candidates = indexes_by_color.get(edited_color)
+                if not candidates:
+                    x = pixel_index % CANARY_WIDTH
+                    y = pixel_index // CANARY_WIDTH
+                    raise Tim2WritebackError(
+                        f"edited color {edited_color.hex()} at ({x},{y}) "
+                        "is not present in the source picture"
+                    )
+                replacement_index = min(candidates)
+        if replacement_index != original_index:
             changed_pixel_count += 1
 
         byte_index = pixel_index // 2

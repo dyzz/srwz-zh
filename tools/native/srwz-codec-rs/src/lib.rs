@@ -80,6 +80,7 @@ struct Match {
 }
 
 struct MatchIndex {
+    previous2: Vec<u32>,
     previous4: Vec<u32>,
     previous16: Vec<u32>,
     heads2: Vec<u32>,
@@ -184,6 +185,7 @@ impl MatchIndex {
             .next_power_of_two()
             .clamp(MIN_HASH_HEADS, MAX_HASH_HEADS);
         Self {
+            previous2: vec![NONE; size],
             previous4: vec![NONE; size],
             previous16: vec![NONE; size],
             heads2: vec![NONE; 1 << 16],
@@ -196,6 +198,7 @@ impl MatchIndex {
     fn add_position(&mut self, data: &[u8], position: usize) {
         if position + 2 <= data.len() {
             let key = ((data[position] as usize) << 8) | data[position + 1] as usize;
+            self.previous2[position] = self.heads2[key];
             self.heads2[key] = position as u32;
         }
         if position + 4 <= data.len() {
@@ -390,18 +393,19 @@ fn search_position(
         return best;
     }
     if maximum_length >= 2 {
-        let candidate = index.head2(data, position);
-        if candidate != NONE && candidate as usize >= lower_bound {
-            consider_candidate(
-                data,
-                position,
-                candidate as usize,
-                2,
-                maximum_length,
-                options.min_match_length,
-                &mut best,
-            );
-        }
+        search_chain(
+            data,
+            &index.previous2,
+            index.head2(data, position),
+            position,
+            lower_bound,
+            2,
+            maximum_length,
+            options.min_match_length,
+            options.max_match_chain,
+            maximum_gain,
+            &mut best,
+        );
     }
     best
 }

@@ -17,13 +17,14 @@ from srwz.release_font_policy import (
     ReleaseFontPolicyError,
     validate_new_character_allocations,
 )
-from srwz.ui_font import (
-    UiFontError,
-    _assignment_index,
-    _baseline_with_original_ascii,
-    _selected_translation_tree_entries,
+from srwz.release_font import (
+    ReleaseFontError,
+    assignment_index,
+    audit_entry_font,
+    baseline_with_original_ascii,
+    rendered_characters,
+    selected_translation_tree_entries,
 )
-from srwz.ui_inventory import audit_entry_font, rendered_characters
 from srwz.text import encode_text, load_text_table
 
 
@@ -81,20 +82,26 @@ def main() -> int:
     snapshot = _load(snapshot_path)
     primary = proposal.get("assignments")
     aliases = proposal.get("surface_alias_assignments")
+    compatibility = proposal.get("source_compatibility_assignments", [])
     if (
         proposal.get("proposal_id") != config.get("font_profile_id")
         or proposal.get("status") != "static_proposal_not_runtime_verified"
         or not isinstance(primary, list)
         or not isinstance(aliases, list)
+        or not isinstance(compatibility, list)
         or len(primary) != config["expected"]["primary_assignment_count"]
         or len(aliases)
         != config["expected"]["surface_alias_assignment_count"]
+        or len(compatibility)
+        != config["expected"]["source_compatibility_assignment_count"]
         or readiness.get("font_profile_id") != config.get("font_profile_id")
         or component_report.get("status")
         != "offline_font_validated_runtime_not_tested"
         or component_report.get("primary_assignment_count") != len(primary)
         or component_report.get("surface_alias_assignment_count")
         != len(aliases)
+        or component_report.get("source_compatibility_assignment_count")
+        != len(compatibility)
     ):
         raise SystemExit("release font proposal/component identity drift")
     remaining_candidates = snapshot.get("remaining_allocation_candidates")
@@ -134,7 +141,7 @@ def main() -> int:
     source_slps = (WORK_ROOT / "disc/SLPS_258.87").read_bytes()
     source_vt1 = (WORK_ROOT / "disc/DATA/VT1.BIN").read_bytes()
     source_font = decode_vt1_font_segment(source_slps, source_vt1).decoded
-    assignments = [*primary, *aliases]
+    assignments = [*primary, *aliases, *compatibility]
     for assignment in assignments:
         glyph_index = assignment["glyph_index"]
         start = glyph_index * GLYPH_SIZE
@@ -155,9 +162,9 @@ def main() -> int:
 
     try:
         entries, _entry_scenes, selection = (
-            _selected_translation_tree_entries(PROJECT_ROOT, config)
+            selected_translation_tree_entries(PROJECT_ROOT, config)
         )
-    except UiFontError as error:
+    except ReleaseFontError as error:
         raise SystemExit(str(error)) from error
     base_config_path = PROJECT_ROOT / config["base_font_config"]["path"]
     base_config = _load(base_config_path)
@@ -179,11 +186,11 @@ def main() -> int:
         "table": load_text_table(text_table_path),
         "extended_entries": read_extended_glyph_table(candidate_slps),
         "font": candidate_font,
-        "base_assignments": _assignment_index(base_codebook_path),
-        "proposal_assignments": _assignment_index(proposal_path),
+        "base_assignments": assignment_index(base_codebook_path),
+        "proposal_assignments": assignment_index(proposal_path),
     }
     if proposal.get("visible_ascii_policy") is not None:
-        baseline = _baseline_with_original_ascii(
+        baseline = baseline_with_original_ascii(
             baseline,
             preserve_raw_ascii_punctuation=proposal[
                 "visible_ascii_policy"
@@ -345,6 +352,10 @@ def main() -> int:
     acceptance = {
         "flattened_snapshot_is_self_contained": True,
         "historical_primary_mappings_preserved": True,
+        "raw_source_structural_glyph_compatibility_preserved": (
+            len(compatibility)
+            == config["expected"]["source_compatibility_assignment_count"]
+        ),
         "proposal_and_component_assignment_counts_exact": True,
         "glyph_preimages_and_rasters_exact": True,
         "all_translation_fields_missing_character_count_zero": True,
@@ -391,6 +402,7 @@ def main() -> int:
         "mapping": {
             "primary_assignment_count": len(primary),
             "surface_alias_assignment_count": len(aliases),
+            "source_compatibility_assignment_count": len(compatibility),
             "allocation_assignment_count": proposal[
                 "allocation_assignment_count"
             ],
@@ -402,6 +414,9 @@ def main() -> int:
             ],
             "surface_alias_mapping_sha256": snapshot[
                 "surface_alias_mapping_sha256"
+            ],
+            "source_compatibility_mapping_sha256": snapshot[
+                "source_compatibility_mapping_sha256"
             ],
             "remaining_allocation_candidates_sha256": snapshot[
                 "remaining_allocation_candidates_sha256"

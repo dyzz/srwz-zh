@@ -162,6 +162,47 @@ class Tim2WritebackTests(unittest.TestCase):
         self.assertEqual(result.changed_image_byte_count, 1)
         self.assertEqual(result.changed_image_byte_ranges, ((0, 1),))
 
+    def test_forced_reindex_replaces_same_rgba_with_exact_index(self):
+        source = make_canary_tim2()
+        indexes = alternating_indexes()
+        shared = bytes.fromhex("000000ff")
+        original = rgba_for_indexes(
+            indexes,
+            overrides={1: shared, 2: shared},
+        )
+
+        result = inject_indexed4_rgba(
+            source,
+            original,
+            original,
+            force_reindex_pixel_indexes={0},
+            forced_color_indexes={shared: 2},
+        )
+
+        self.assertEqual(result.data[64], 0x22)
+        self.assertEqual(result.data[65:], source[65:])
+        self.assertEqual(result.changed_pixel_count, 1)
+
+    def test_forced_per_pixel_index_disambiguates_shared_rgba(self):
+        source = make_canary_tim2()
+        indexes = alternating_indexes()
+        shared = bytes.fromhex("000000ff")
+        original = rgba_for_indexes(
+            indexes,
+            overrides={1: shared, 2: shared},
+        )
+
+        result = inject_indexed4_rgba(
+            source,
+            original,
+            original,
+            forced_palette_indexes_by_pixel={0: 2, 1: 1},
+        )
+
+        self.assertEqual(result.data[64], 0x12)
+        self.assertEqual(result.data[65:], source[65:])
+        self.assertEqual(result.changed_pixel_count, 2)
+
     def test_rejects_color_not_present_in_source_picture(self):
         source = make_canary_tim2()
         indexes = alternating_indexes()

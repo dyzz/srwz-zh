@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "status": "remaining_ui_final_iso_static_readback_passed",
+  "scope": "Independent final-ISO readback of remaining UI fixed spans, leadership effects, SLPS text, strengthening parts, and pilot display/family/given names; gameplay runtime is separate.",
+  "iso": {
+    "path": "build/iso/zh-release-full-story/srwz-zh-release-full-story-r8.iso",
+    "size": 3758358528,
+    "sha256": "dea0d931699f84ac134b30eb144ec204955a0517cbec90541b79a06240571497"
+  },
+  "component_manifest": "manifests/full-story-components-validation.json",
+  "component_members": {
+    "SLPS_258.87": {
+      "size": 3471624,
+      "sha256": "e67ad25513bf1297db2207e5262d8c977b9a671b3130ed8d35892c2e3652d7ba",
+      "replacement_exact": true
+    },
+    "DATA/VT1.BIN": {
+      "size": 127500736,
+      "sha256": "58c239a6ac2ceb3fba5f38e8fa070879cd5c7312c073a80e675dceba0319eae3",
+      "replacement_exact": true
+    },
+    "DATA/COMPDATA.BN": {
+      "size": 144945,
+      "sha256": "a414ed62b1a18827739da2e0c7fcd9746e1f8069d6a441a2353cadb5fdeb9179",
+      "replacement_exact": true
+    },
+    "DATA/MTV_PROS.BIN": {
+      "size": 8368,
+      "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617",
+      "replacement_exact": true
+    },
+    "DATA/STAGE.BIN": {
+      "size": 3910128,
+      "sha256": "b018e0e3ee76f6deb5cb0c90660ef5eb8890b698f0a0c5151a7be7ab54688ef5",
+      "replacement_exact": true
+    },
+    "DATA/HSFC.BIN": {
+      "size": 250112,
+      "sha256": "e3285713fc1186788d305b3519b1965875ac1912b44711ad5e2d496de632d6c1",
+      "replacement_exact": true
+    },
+    "HEDBDY/HB.BIN": {
+      "size": 31152,
+      "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21",
+      "replacement_exact": true
+    },
+    "KURODATA/KVMDATA.BIN": {
+      "size": 3335408,
+      "sha256": "e2f57fef0703d3b7af81b88e97df74fea5ecefa0494fe7e86e9ec8d395c5fc2e",
+      "replacement_exact": true
+    },
+    "BTL/SRVC.BIN": {
+      "size": 3313040,
+      "sha256": "b653ee4b1d26069a14695c6272b4901827837ba0527fd74a8ad5149ad1ee8e91",
+      "replacement_exact": true
+    },
+    "BTL/SRVC.SEG": {
+      "size": 1416,
+      "sha256": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987",
+      "replacement_exact": true
+    },
+    "EFF/VEFF2DX.BIN": {
+      "size": 36890512,
+      "sha256": "48e7372ff72db2f52df9cd78b86228eb0117140105ac07b9507d668f296abc5f",
+      "replacement_exact": true
+    }
+  },
+  "pilot_names": {
+    "story_unique_source_count": 424,
+    "residual_unique_source_count": 283,
+    "unique_source_count": 707,
+    "selected_entry_count": 2452,
+    "field_entry_counts": {
+      "display": 933,
+      "given": 918,
+      "family": 601
+    },
+    "readback_exact": true
+  },
+  "remaining_ui": {
+    "compdata_direct": {
+      "entry_count": 242,
+      "minimum_output_headroom": 0,
+      "placeholder_control_tokens_preserved": true,
+      "readback_exact": true
+    },
+    "leadership_effects": {
+      "entry_count": 59,
+      "minimum_output_headroom": 0,
+      "placeholder_control_tokens_preserved": true,
+      "readback_exact": true
+    },
+    "slps": {
+      "entry_count": 39,
+      "minimum_output_headroom": 0,
+      "placeholder_control_tokens_preserved": true,
+      "readback_exact": true
+    },
+    "parts": {
+      "corpus_entry_count": 133,
+      "written_entry_count": 132,
+      "preserved_empty_entry_count": 1,
+      "readback_exact": true
+    },
+    "readback_exact": true
+  },
+  "new_game_regressions": {
+    "male_default_name_offsets": {
+      "0x33B440": "兰德",
+      "0x33B448": "特拉维斯",
+      "0x33E300": "兰德·特拉维斯",
+      "0x3479C8": "兰德",
+      "0x3479D0": "特拉维斯"
+    },
+    "male_default_name_readback_exact": true,
+    "scenario_button_offsets": {
+      "0x33BD4A": "：确定",
+      "0x33BD58": "：取消"
+    },
+    "scenario_button_readback_exact": true,
+    "male_profile_offset": "0x7FD20",
+    "male_profile_text": "与搭档在荒野经营修理店的男人。\n自称“烈焰”，豪爽而热血。\n但有时会热情过头。",
+    "male_profile_line_lengths": [
+      15,
+      13,
+      9
+    ],
+    "male_profile_within_24x3": true,
+    "male_profile_readback_exact": true,
+    "male_profile_default_width_codes_only": true,
+    "male_profile_conditional_width_code_count": 0
+  },
+  "atlas": {
+    "entry_count": 17,
+    "inherited_dedicated_mask_sources": [
+      "バザー",
+      "インターミッション",
+      "オプション",
+      "データ管理",
+      "パイロット系",
+      "小隊編成",
+      "機体系",
+      "次のマップへ",
+      "新規編成"
+    ],
+    "inherited_dedicated_mask_count": 9,
+    "pending_dedicated_mask_sources": [
+      "アイテム",
+      "売却",
+      "強化パーツ",
+      "購入",
+      "リザーブへ",
+      "小隊群へ"
+    ],
+    "pending_dedicated_mask_count": 6,
+    "protected_single_character_sources": [
+      "攻",
+      "反"
+    ],
+    "protected_single_character_count": 2,
+    "single_character_regions_untouched": true
+  },
+  "compdata_sector_budget": {
+    "sector_size": 2048,
+    "maximum_size": 145408,
+    "output_size": 144945,
+    "headroom": 463,
+    "maximum_sector_count": 71,
+    "output_sector_count": 71,
+    "within_budget": true
+  },
+  "checks": {
+    "iso_hash_exact": true,
+    "all_component_members_exact": true,
+    "pilot_names_exact": true,
+    "remaining_ui_binary_text_exact": true,
+    "placeholder_control_tokens_preserved": true,
+    "compdata_within_fixed_sector_budget": true,
+    "single_character_atlas_regions_untouched": true,
+    "male_default_name_offsets_exact": true,
+    "scenario_button_labels_exact": true,
+    "male_profile_24x3_exact": true,
+    "male_profile_default_width_codes_only": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "Fresh new-game and load-game STAGE entry evidence has not been captured for this exact ISO."
+  }
+}

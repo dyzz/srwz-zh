@@ -120,7 +120,7 @@ class StoryDialogueStage009TranslationTests(unittest.TestCase):
         )
         self.assertEqual(
             self.entries["story/009/dialogue/01.36/0005"]["translation"],
-            "“重力子龙卷飞拳和重力新月吗？”",
+            "“超重龙卷拳和超重新月镖吗？”",
         )
         self.assertEqual(
             self.entries["story/009/dialogue/02.01/0010"]["translation"],

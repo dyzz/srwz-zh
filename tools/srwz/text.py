@@ -485,6 +485,36 @@ def augment_text_table(
     return TextTable(characters=characters, tags=table.tags)
 
 
+def project_runtime_text_table(
+    table: TextTable,
+    overrides: Mapping[str, int],
+) -> TextTable:
+    """Project replacement glyph identities onto a runtime decoding table."""
+
+    characters = dict(table.characters)
+    seen_codes = {}
+    for character, code in overrides.items():
+        if (
+            not isinstance(character, str)
+            or len(character) != 1
+            or not isinstance(code, int)
+            or isinstance(code, bool)
+            or not 0 <= code <= 0xFFFF
+        ):
+            raise SrwzTextEncodeError(
+                "runtime text-table override is invalid",
+                character_index=0,
+            )
+        previous = seen_codes.setdefault(code, character)
+        if previous != character:
+            raise SrwzTextEncodeError(
+                f"runtime text-table override collision at code 0x{code:04X}",
+                character_index=0,
+            )
+        characters[code] = character
+    return TextTable(characters=characters, tags=table.tags)
+
+
 __all__ = [
     "DecodedText",
     "ControlNotationToken",
@@ -502,5 +532,6 @@ __all__ = [
     "load_text_table",
     "normalize_original_fullwidth_ascii",
     "original_fullwidth_ascii_overrides",
+    "project_runtime_text_table",
     "unrecognized_control_notation_offsets",
 ]

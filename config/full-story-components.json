@@ -1,33 +1,33 @@
 {
   "schema_version": 1,
   "profile_id": "srwz-global-zh-release-integrated-v1",
-  "scope": "Compose the validated encoded UI component, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
+  "scope": "Compose the validated encoded UI component, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
   "base_ui": {
     "manifest": {
-      "path": "manifests/ui-p10-database-fixed-core-validation.json",
-      "size": 39468,
-      "sha256": "edb545334aa50e6161c2d2f484f1df80d494d64734b1a057d99e240a6656ba78"
+      "path": "manifests/release-base-ui-validation.json",
+      "size": 1352,
+      "sha256": "a47b1a0387e706385c96cede5ea7445f23d51c04c3d8e1e333c969d1bfd15404"
     },
-    "required_status": "integrated_ui_p10_database_fixed_core_component_validated_iso_runtime_pending",
-    "required_profile_id": "srwz-ui-p10-database-fixed-core-integrated-v1",
+    "required_status": "release_base_ui_component_validated",
+    "required_profile_id": "srwz-release-base-ui-v1",
     "members": {
       "slps": {
-        "path": "work/build/ui-p10-database-fixed-core/components/SLPS_258.87",
+        "path": "work/build/release-base-ui/components/SLPS_258.87",
         "size": 3471624,
         "sha256": "1bdee29292af90135b054354241141cb43bf80a217059336455e7c39f8facfa2"
       },
       "vt1": {
-        "path": "work/build/ui-p10-database-fixed-core/components/DATA/VT1.BIN",
+        "path": "work/build/release-base-ui/components/DATA/VT1.BIN",
         "size": 127500736,
         "sha256": "c3da3b0518d0b87a282c0da254a89893d8a3635b14664059db37696f213fab17"
       },
       "compdata": {
-        "path": "work/build/ui-p10-database-fixed-core/components/DATA/COMPDATA.BN",
+        "path": "work/build/release-base-ui/components/DATA/COMPDATA.BN",
         "size": 145283,
         "sha256": "3c40f1bff09039d4f4874e4dbd1840903536a09035fb1841d5c0e8925f3bc49b"
       },
       "mtv_pros": {
-        "path": "work/build/ui-p10-database-fixed-core/components/DATA/MTV_PROS.BIN",
+        "path": "work/build/release-base-ui/components/DATA/MTV_PROS.BIN",
         "size": 8368,
         "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
       }
@@ -36,8 +36,8 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 44129,
-      "sha256": "3629ab778a1b614b96e136cbf9b423a9cabbd80c0cb14c206bc4823c792c2b64"
+      "size": 46198,
+      "sha256": "1af651a034eca66f53466a8627f836629f326554a40ef37e46553f0348aa8bdd"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -49,21 +49,21 @@
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "5144065a77d5ea97c0b259a6882279519364ee6ae2ce3d240bc9208f10a5fb75"
+      "sha256": "ef0464225fe96b445ef7daf05a62339ed35b3725ea466723b35cc90649154b6f"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 17855266,
-      "sha256": "bf3cb0b604badc4f23c77fbb13758f9de7bcf571507e7311c34166a8154c5023"
+      "size": 17852763,
+      "sha256": "ebb75063652d31c2251952b93f859c2865889fb6da59b46f989cdf964ed4e8c9"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 154,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "575d146141a286dc2371a99a0c3877e442ea5dc210ea33e5fb5f289caae4d334"
+      "sha256": "d175140a520c3f5ae7ca364f211eec7c0247a0cde6633f3b65c935afc4d9b66a"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -87,19 +87,26 @@
       "size": 2898717,
       "sha256": "5cb6ec38ea75c1ad00ef8746f0654ac57ae29a9b82ecb49453dbca3f8f75f5db"
     },
+    "residual_names": {
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "size": 28551,
+      "sha256": "5ca8179b49b74eea99a5d025aaa279ca5390605341c4bfad1347a8d12cba51aa"
+    },
     "expected": {
-      "unique_source_count": 424,
-      "selected_entry_count": 1760,
+      "story_unique_source_count": 424,
+      "residual_unique_source_count": 283,
+      "unique_source_count": 707,
+      "selected_entry_count": 2452,
       "field_entry_counts": {
-        "display": 872,
-        "family": 94,
-        "given": 794
+        "display": 933,
+        "family": 601,
+        "given": 918
       }
     },
     "codec": {
-      "strategy": "maximum",
+      "strategy": "rust-fit",
       "min_match_length": 2,
-      "max_match_chain": 256,
+      "max_match_chain": 1024,
       "lazy_matching": false,
       "max_output_size": 145408
     }
@@ -128,10 +135,425 @@
       "use_available_surface_safe_aliases": true
     }
   },
+  "stage_overviews": {
+    "corpus": {
+      "path": "corpus/zh/menu/stage-overviews.json",
+      "size": 89345,
+      "sha256": "7be77ae7a2db917b6f3e4d6a4cce0b9c8b2e002204b6e3326064034fa7c14afe"
+    },
+    "expected": {
+      "inventory_entry_count": 110,
+      "translated_entry_count": 110,
+      "translated_entry_ids": [
+        "overview:000",
+        "overview:001",
+        "overview:002",
+        "overview:003",
+        "overview:004",
+        "overview:005",
+        "overview:006",
+        "overview:007",
+        "overview:008",
+        "overview:009",
+        "overview:010",
+        "overview:011",
+        "overview:012",
+        "overview:013",
+        "overview:014",
+        "overview:015",
+        "overview:016",
+        "overview:017",
+        "overview:018",
+        "overview:019",
+        "overview:020",
+        "overview:021",
+        "overview:022",
+        "overview:023",
+        "overview:024",
+        "overview:025",
+        "overview:026",
+        "overview:027",
+        "overview:028",
+        "overview:029",
+        "overview:030",
+        "overview:031",
+        "overview:032",
+        "overview:033",
+        "overview:034",
+        "overview:035",
+        "overview:036",
+        "overview:037",
+        "overview:038",
+        "overview:039",
+        "overview:040",
+        "overview:041",
+        "overview:042",
+        "overview:043",
+        "overview:044",
+        "overview:045",
+        "overview:046",
+        "overview:047",
+        "overview:048",
+        "overview:049",
+        "overview:050",
+        "overview:051",
+        "overview:052",
+        "overview:053",
+        "overview:054",
+        "overview:055",
+        "overview:056",
+        "overview:057",
+        "overview:058",
+        "overview:059",
+        "overview:060",
+        "overview:061",
+        "overview:062",
+        "overview:063",
+        "overview:064",
+        "overview:065",
+        "overview:066",
+        "overview:067",
+        "overview:068",
+        "overview:069",
+        "overview:070",
+        "overview:071",
+        "overview:072",
+        "overview:073",
+        "overview:074",
+        "overview:075",
+        "overview:076",
+        "overview:077",
+        "overview:078",
+        "overview:079",
+        "overview:080",
+        "overview:081",
+        "overview:082",
+        "overview:083",
+        "overview:084",
+        "overview:085",
+        "overview:086",
+        "overview:087",
+        "overview:088",
+        "overview:089",
+        "overview:090",
+        "overview:091",
+        "overview:092",
+        "overview:093",
+        "overview:094",
+        "overview:095",
+        "overview:096",
+        "overview:097",
+        "overview:098",
+        "overview:099",
+        "overview:100",
+        "overview:101",
+        "overview:102",
+        "overview:103",
+        "overview:104",
+        "overview:105",
+        "overview:106",
+        "overview:107",
+        "overview:108",
+        "overview:109"
+      ],
+      "chunk_index": 0,
+      "stored_chunk_size": 55392,
+      "offset_count": 206
+    }
+  },
+  "hsfc_overviews": {
+    "original": {
+      "path": "work/disc/DATA/HSFC.BIN",
+      "size": 250112,
+      "sha256": "8af309977df9b2991557c5788410a9ed74c62f09f7c850c7f9a02cf56dfab23c"
+    },
+    "corpus": {
+      "path": "corpus/zh/menu/hsfc-overviews.json",
+      "size": 22145,
+      "sha256": "677f932561a4068463624f9b56510035afe364894143989d2ebe052f085bc151"
+    },
+    "expected": {
+      "record_count": 180,
+      "unique_source_text_count": 105,
+      "translated_unique_entry_count": 105,
+      "translated_occurrence_count": 180,
+      "stored_chunk_size": 9584,
+      "source_encoded_size": 9581,
+      "decoded_chunk_size": 31392,
+      "offset_count": 5,
+      "offsets": [
+        0,
+        9584,
+        236288,
+        249904,
+        250112
+      ]
+    }
+  },
+  "remaining_ui": {
+    "translations": {
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "size": 28551,
+      "sha256": "5ca8179b49b74eea99a5d025aaa279ca5390605341c4bfad1347a8d12cba51aa"
+    },
+    "parts": {
+      "path": "corpus/zh/menu/system-ui-parts.json",
+      "size": 34307,
+      "sha256": "5533989c9789493882dde8d96fe1b7d994a90cd340c12001f2006ba09ee4bfec"
+    },
+    "original_compdata": {
+      "path": "work/disc/DATA/COMPDATA.BN",
+      "size": 144990,
+      "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34"
+    },
+    "original_slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "expected": {
+      "compdata_direct_entry_count": 242,
+      "leadership_effect_entry_count": 59,
+      "slps_entry_count": 39,
+      "accepted_current_preimage_count": 1,
+      "parts_entry_count": 133,
+      "parts_source_target_occurrence_count": 134,
+      "parts_source_target_unique_count": 133,
+      "parts_write_target_count": 132,
+      "residual_display_name_unique_count": 283,
+      "atlas_entry_count": 17,
+      "atlas_pending_dedicated_mask_count": 6
+    },
+    "atlas_writeback": {
+      "inherited_dedicated_mask_sources": [
+        "バザー",
+        "インターミッション",
+        "オプション",
+        "データ管理",
+        "パイロット系",
+        "小隊編成",
+        "機体系",
+        "次のマップへ",
+        "新規編成"
+      ],
+      "pending_dedicated_mask_sources": [
+        "アイテム",
+        "売却",
+        "強化パーツ",
+        "購入",
+        "リザーブへ",
+        "小隊群へ"
+      ],
+      "protected_single_character_sources": [
+        "攻",
+        "反"
+      ]
+    }
+  },
+  "srvc_battle_text": {
+    "corpus": {
+      "path": "corpus/zh/battle/srvc-lines.json",
+      "size": 6921057,
+      "sha256": "33231481e784adc6afce1dfa9ddc084f1394225ac9152f3ad413fbd4f0560a3f"
+    },
+    "original_bin": {
+      "path": "work/disc/BTL/SRVC.BIN",
+      "size": 3313040,
+      "sha256": "35a30d1e1c52cb9f7186ccb52a17b9f35e715e0af789eec4a5b366091743297e"
+    },
+    "original_seg": {
+      "path": "work/disc/BTL/SRVC.SEG",
+      "size": 1416,
+      "sha256": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987"
+    },
+    "expected": {
+      "chunk_count": 353,
+      "indexed_chunk_count": 288,
+      "zero_record_chunk_count": 65,
+      "record_count": 58740,
+      "unique_text_count": 25708,
+      "unindexed_tail_bytes": 88582
+    }
+  },
+  "scenario_select_effect": {
+    "composed_labels": [
+      "正篇剧情",
+      "教学剧情"
+    ],
+    "description_layout": {
+      "glyph_advance": 18,
+      "target_center_twice": 14,
+      "entries": [
+        {
+          "label": "正篇剧情说明",
+          "record_offset": "0x319720",
+          "text_pointer": "0x43A2E0",
+          "expected_x": -110,
+          "target_x": -56,
+          "expected_y": -36,
+          "source_character_count": 13,
+          "target_character_count": 7
+        },
+        {
+          "label": "教学剧情说明",
+          "record_offset": "0x319730",
+          "text_pointer": "0x43A310",
+          "expected_x": -155,
+          "target_x": -110,
+          "expected_y": 4,
+          "source_character_count": 18,
+          "target_character_count": 13
+        }
+      ]
+    },
+    "original_archive": {
+      "path": "work/disc/EFF/VEFF2DX.BIN",
+      "size": 36890512,
+      "sha256": "afa7ba9d06d933eefcd82f5c9a9094b7f11aaa0e31ee721d6112849988c46abe"
+    },
+    "archive": {
+      "name": "VEFF2DX.BIN",
+      "member": "EFF/VEFF2DX.BIN",
+      "table_start": "0x31ABB0",
+      "table_end": "0x31B067",
+      "storage": "srwz_stream",
+      "alignment": 16
+    },
+    "target": {
+      "effect_id": 295,
+      "chunk_index": 296,
+      "stored_start": 35658128,
+      "stored_end": 35688784,
+      "stored_size": 30656,
+      "stored_consumed": 30655,
+      "stored_sha256": "23b22010f4ee5f0c1aad9f27cda60e17e709562e65300f29673d1c6acfd824f5",
+      "decoded_size": 302672,
+      "decoded_sha256": "bb88197aeed12b5aef4a06950a610fa9cb1f3038188f2eec8bab90a91ddb1a53",
+      "record_index": 0,
+      "record_offset": 102384,
+      "record_size": 66032,
+      "record_sha256": "9b49508b7a0ede76381f018a06d53738022157e36a8f917a6375b9da28f2c8d5",
+      "picture_index": 0,
+      "logical_image_sha256": "cd9ce72747dbed31524cbe477edb24a205b540ac430ec4820d11ee719965767e"
+    },
+    "raster": {
+      "clear_x": 0,
+      "clear_y": 48,
+      "clear_width": 248,
+      "clear_height": 26,
+      "glyph_sampling": "native_24px_center_crop_preserve_4bpp",
+      "segments": [
+        {
+          "text": "正篇",
+          "x": 2,
+          "y": 48,
+          "glyph_width": 20,
+          "advance": 21
+        },
+        {
+          "text": "教学",
+          "x": 108,
+          "y": 48,
+          "glyph_width": 22,
+          "advance": 24
+        },
+        {
+          "text": "剧情",
+          "x": 161,
+          "y": 48,
+          "glyph_width": 22,
+          "advance": 24
+        }
+      ]
+    },
+    "geometry": {
+      "frame_base": "0xD0",
+      "frame_count": 60,
+      "frame_stride": "0x690",
+      "quad_size": "0x18",
+      "target_visible_center_twice": -10,
+      "groups": [
+        {
+          "label": "正篇剧情",
+          "x_shift": 20,
+          "quads": [
+            {
+              "relative_offset": "0x408",
+              "expected_x_bounds": [
+                -70,
+                -22
+              ],
+              "expected_y_bounds": [
+                -51,
+                -39
+              ],
+              "texture_x_bounds": [
+                0,
+                48
+              ]
+            },
+            {
+              "relative_offset": "0x420",
+              "expected_x_bounds": [
+                -28,
+                60
+              ],
+              "expected_y_bounds": [
+                -51,
+                -39
+              ],
+              "texture_x_bounds": [
+                160,
+                248
+              ]
+            }
+          ]
+        },
+        {
+          "label": "教学剧情",
+          "x_shift": -8,
+          "quads": [
+            {
+              "relative_offset": "0x438",
+              "expected_x_bounds": [
+                -102,
+                10
+              ],
+              "expected_y_bounds": [
+                -11,
+                1
+              ],
+              "texture_x_bounds": [
+                48,
+                160
+              ]
+            },
+            {
+              "relative_offset": "0x450",
+              "expected_x_bounds": [
+                2,
+                90
+              ],
+              "expected_y_bounds": [
+                -11,
+                1
+              ],
+              "texture_x_bounds": [
+                160,
+                248
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "codec_strategy": "rust-fit",
+    "codec_max_match_chain": 1024
+  },
   "kvmdata": {
     "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
     "size": 3335408,
-    "sha256": "8e6503dcf459c45c436cad7e83f59fa414c43ab881563ecba8ed028c6c12cb51"
+    "sha256": "e2f57fef0703d3b7af81b88e97df74fea5ecefa0494fe7e86e9ec8d395c5fc2e"
   },
   "composition": {
     "font_chunk_index": 2,
@@ -140,15 +562,15 @@
       "mode": "flattened-release-superset-of-encoded-ui",
       "encoded_assignment_count": 1803,
       "encoded_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
-      "release_assignment_count": 3178,
-      "release_assignment_mapping_sha256": "fbbe4d1c0c10084b0f79e50526eb273ad2132c2bd9d95cccdfb3664da6cc919f",
-      "release_snapshot_primary_mapping_sha256": "54d28471fcc41740be9ab830c166e952d173bbfeb858c247a9cd314c276996c9",
+      "release_assignment_count": 3261,
+      "release_assignment_mapping_sha256": "a69ed531959006d519dca37ae15e3c191b7d4330050e28ae5843dbdc2bae54a5",
+      "release_snapshot_primary_mapping_sha256": "597a4cb7ffbd89de4c28f9d8fb3f3e2c42173a716e98e4e2a963b390037759c9",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "45b55604cb1b589634302193a59c2d676126d9b67a4d16d35c72cb37c71ece28",
+        "sha256": "cd2530aaf0209576f9a32804ff11540f162b63c353973713daddcbd1bd5ec0fa",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
-      "reason": "The already encoded UI bytes remain valid because all 1,803 mappings they use are an exact character/code/glyph subset of the flattened global release snapshot. The P-labelled font chain is not rebuilt."
+      "reason": "The already encoded UI bytes remain valid because all 1,803 mappings they use are an exact character/code/glyph subset of the flattened global release snapshot. The inherited encoded UI component is not rebuilt."
     },
     "preserve_non_font_vt1_chunks": true,
     "preserve_vt1_archive_size": true,

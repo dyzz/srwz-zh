@@ -111,6 +111,45 @@ class WeaponTranslationTests(unittest.TestCase):
         self.assertEqual(batch["target_entry_count"], 711)
         self.assertEqual(batch["status"], "draft_complete")
 
+    def test_king_gainer_and_gravion_subtitle_decisions_stay_aligned(self):
+        entries = {
+            int(entry["id"].rsplit("/", 1)[1]): entry["translation"]
+            for entry in self.translations["entries"]
+        }
+        terms = {
+            int(term["id"].rsplit("/", 1)[1]): term["translation"]
+            for term in self.glossary["terms"]
+        }
+        menu_expected = {
+            516: "电锯枪（射击）",
+            517: "电锯枪（斩击）",
+            519: "超限攻击",
+            527: "黑色南十字星",
+            544: "超限连击",
+            566: "超重压力拳",
+            567: "超重飞弹",
+            568: "超重来福枪",
+            570: "超重龙卷拳",
+            571: "超重弧光",
+            572: "超重新月镖",
+            574: "烈阳超重旋腕击",
+            575: "烈阳超重翔腕碎",
+            576: "烈阳超重飞弹",
+            577: "烈阳超重加农",
+            579: "烈阳超重翔灭钻炎爆",
+            580: "烈阳超重翔灭钻炎爆",
+            581: "烈阳超重爆炎霸",
+            584: "超重骑枪",
+            585: "重力放射镖",
+        }
+        self.assertEqual(
+            {ordinal: entries[ordinal] for ordinal in menu_expected},
+            menu_expected,
+        )
+        self.assertEqual(terms[519], "超限战术攻击")
+        self.assertEqual(terms[544], "超限战术连击")
+
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,10 +9,10 @@
 
 | 输入 | 位置 | 责任 |
 | --- | --- | --- |
-| SurfaceSpec | `config/surfaces/` 及领域配置 | 来源成员、记录、地址、容量和 renderer |
+| 领域配置 | `config/story-component.json`、`config/assets/` 及各 writer 配置 | 来源成员、记录、地址、容量和 renderer |
 | 中文语料 | `corpus/zh/` | 译文、状态、来源哈希和术语引用 |
 | Codebook／字体账本 | `config/encoding/`、`config/fonts/` | 字符、码位、glyph、字体和追加式分配 |
-| BuildProfile | `config/build-profiles/`、`config/ui-*`、`config/iso/` | 本次构建允许组合的 surface 和成员 |
+| 组合配置 | `config/full-story-components.json`、`config/iso/` | 本次构建允许组合的领域和成员 |
 
 机器生成的 `manifests/` 是输入与结果摘要，不是手工修改后反向驱动构建的来源。
 `work/` 与 `build/` 都可重建，不能存放唯一译文或唯一决策。
@@ -47,41 +47,42 @@ todo -> draft -> reviewed -> final -> runtime_verified
 - 英文、攻略和官方中文资料只能作为参考或术语证据。
 - `$n/$F`、控制码、printf token、换行和遮蔽结构必须保持运行语义。
 - `runtime_verified` 只授予在精确候选上实际到达并验收的记录。
-- 技术 canary 位于 `corpus/fixtures/`，不计入正式翻译覆盖率。
 
 正式 release 范围由 `corpus/releases/v1.json` 决定。术语必须引用
 `corpus/glossary/` 中的独立决定，禁止对派生 TSV 或 dashboard 做孤立字符串
 替换。
 
-## 4. 解析、导出与审校
+## 4. 原版成员与审校
 
 ```bash
-python3 tools/parse_srwz_iso_data.py --force
-python3 tools/export_srwz_corpus.py --force
-python3 tools/review_srwz_translations.py --check-only
+python3 tools/verify_original_disc.py
+python3 tools/extract_iso_member.py \
+  SLPS_258.87 DATA/VT1.BIN DATA/STAGE.BIN DATA/COMPDATA.BN \
+  DATA/HSFC.BIN BTL/SRVC.BIN BTL/SRVC.SEG EFF/VEFF2DX.BIN
+python3 tools/prepare_zh_release_font.py --force
 ```
 
-解析输出包含 94,189 条稳定记录；含原文的完整 JSONL 只写入 `work/`，可提交
-manifest 只保存计数、哈希和边界。
+原版成员只从锁定 ISO 明确提取到忽略的 `work/disc/`。正式日文基准和中文决定
+已经按领域保存在 `corpus/ja`、`corpus/zh` 和 `corpus/glossary`；生产 builder
+直接解析锁定成员并按稳定 ID、原文哈希和结构 token 对账，不消费预生成的总解析
+报告。
 
-剧情审校至少执行：
-
-```bash
-python3 tools/audit_first_five_language_quality.py --force
-python3 tools/report_story_translation_queue.py
-```
-
-当前剧情首译批处理、导入和人工二校规则见
-`LOCAL_MODEL_TRANSLATION_WORKFLOW.md`。
+审校结果直接落入 `corpus/zh` 和 `corpus/glossary`；模型输出、TSV、网页队列和
+阶段性 review JSON 均为可删除中间物，不属于生产闭包。
 
 ## 5. 字体
 
 VT1 主字库固定为 4,480 个 `24×24/4-bpp` glyph。生产规则是：
 
-- `config/fonts/zh-localization-font.json` 是剧情、UI、图集、canary 和后续战斗
-  对话的唯一中文字体身份；场景配置只保留字号、画布、基线和字节预算；
-- 当前全局 flavor 为 HarmonyOS Sans SC Regular 1.0；原始字体和许可证只下载到
-  忽略的 `work/font-source/`，提交物保留官方压缩包、成员大小和 SHA-256 锁；
+- HarmonyOS Sans SC 1.0 是剧情、UI、图集和战斗对话的统一字体家族；
+  VT1 动态字库的默认 flavor 为 `config/fonts/zh-localization-font.json`
+  （Regular），场景配置只保留字号、画布、基线和字节预算；
+- 固定静态图集可以在同一官方字体家族内登记受锁字重。当前仅
+  `ui-intermission-atlas-zh` 使用
+  `config/fonts/zh-localization-font-light.json`，并对标题和七个菜单统一使用
+  Light；这不改变 VT1 的 Regular 字形；
+- 原始字体和许可证只下载到忽略的 `work/font-source/`，提交物保留官方压缩包、
+  archive member、大小和 SHA-256 锁；
 - HarmonyOS Sans 缺少的 `〜∀♪` 只允许通过全局 flavor 中的明确 Noto fallback；
   任何非空白可见字符产生全零 raster 都直接失败；
 - `config/fonts/zh-font-base.json` 只定义 VT1 布局、codec 和全局 rasterizer；
@@ -100,29 +101,29 @@ VT1 主字库固定为 4,480 个 `24×24/4-bpp` glyph。生产规则是：
 
 ```bash
 python3 tools/fetch_zh_font.py
+python3 tools/fetch_zh_font.py \
+  --flavor config/fonts/zh-localization-font-light.json
 python3 tools/update_zh_release_font_snapshot.py --apply
 python3 tools/rebuild_zh_font.py --refresh-manifests --refresh-asset-ratchets
-python3 tools/analyze_srwz_font.py --force
-python3 tools/audit_full_chinese_font_plan.py --force
 ```
 
 `rebuild_zh_font.py` 只生成一次 `zh-release-font`：它扫描 `corpus/zh`
 下所有非空 `translation` 字段，因此菜单、数据库、全文剧情和后续战斗对话共用
-同一份字符→码位→glyph 映射。随后独立回读固定大小 VT1，并重建五组 UI 图集、
-组合图集、开场静态 canary、标题菜单和最终整合组件。
+同一份字符→码位→glyph 映射。随后独立回读固定大小 VT1，并依次重建 154 个
+STAGE 块、五组 UI 图集、组合图集和最终整合组件。KVMDATA 与 VEFF2DX 的
+不同排版边界分别见 `KVMDATA_ATLAS_LOCALIZATION.md` 和
+`VEFF2DX_TEXTURE_LOCALIZATION.md`。
 
-`first-five`、P0、P1、P2、P7、P10、`full-story` 是历史选区／集成里程碑，仍保留
-配置和 manifest 用于追溯旧 ISO、文本写回和一次性映射迁移，但不再是活动字体层，
-日常构建不会逐层生成 VT1。最终组合仍可消费历史 P10 已编码 UI 字节，但必须证明
-其 1,803 个字符映射是全局 release 快照的严格子集；这不构成字体层继承。
+最终组合消费 `release-base-ui` 的四个固定成员，并证明其映射是全局 release
+快照的严格子集；历史分期不再进入活动配置和工具目录。
 
 `--refresh-asset-ratchets` 只用于确认过的全局字体变更，并要求同时刷新 manifest；
 日常复验省略该选项。后续战斗对话只需把翻译 JSON 放入 `corpus/zh`，新增字符会
-由 `update_zh_release_font_snapshot.py` 从锁定的 86 个剩余候选中只追加、不重排
+由 `update_zh_release_font_snapshot.py` 从锁定的剩余候选中只追加、不重排
 旧映射；updater、prepare、verifier 都会拒绝单字符模式区的新映射。随后重建
 release，不再创建新的 VT1 profile。
 
-当前静态 release 有 3,177 个主映射、701 个 surface-safe 别名，并保留 86 个
+当前静态 release 有 3,261 个主映射、701 个 surface-safe 别名，并保留 1 个
 已避开别名占用的追加候选槽。该结果只证明当前语料覆盖、容量和组件回读，不证明
 所有 raw trail、direct-index 或目标画面的运行安全。底层容量分析见
 `FONT_ANALYSIS.md`。
@@ -146,8 +147,8 @@ offset 的详细契约见 `WRITEBACK_CONTRACT.md`。
 Python codec 保留为严格 decoder、round-trip 和结构 oracle。当前生产规则：
 
 - 保持游戏原生格式，不引入 Deflate/LZMA 或运行时解压补丁；
-- `min-match-length=3`；
-- 受影响 suffix 允许保留未改变的原压缩前缀；
+- 生产链统一使用 `rust-fit`，match 参数由当前 profile 锁定；
+- `rust-fit` 重压完整 decoded payload，不继承旧 Python encoder 的 block；
 - COMPDATA 执行 145,408-byte／71-sector 硬门；
 - 任何候选均需由独立 Python decoder 完整回解；
 - archive alignment、offset、成员 LBA 和最终 ISO 分别复核。
@@ -158,23 +159,20 @@ Python codec 保留为严格 decoder、round-trip 和结构 oracle。当前生�
 
 当前候选组合包括：
 
-- 历史 P10 已编码菜单、人物／机体／武器数据库和 researched display names
-  （作为文本组件输入，不作为字体层）；
+- 基础 UI 组件中的菜单、人物／机体／武器数据库和 display names；
 - 标题、玩家设置、幕间、战场、结算、搜索等 fixed-span UI；
 - 世界史与双主人公开场资料；
 - 五张中文 KVMDATA atlas；
-- STAGE 001–009、018 剧情切片；
-- 全局 `zh-release-font` 对应的 VT1／SLPS，以及 COMPDATA、MTV_PROS、HB 和
-  STAGE 组件。
+- 154 个 STAGE 剧情块、STAGE/HSFC 概要和完整 SRVC 战斗字幕；
+- 全局 `zh-release-font`、KVMDATA 五图和 VEFF2DX 场景标题。
 
-历史 P10 ISO 的静态结构、成员与译文回读已经通过，但不绑定当前全局字体产物。
-当前 `zh-release-font` 只完成组件级静态回读；新的精确 ISO 和匹配它的 PCSX2
-目标场景验收仍待完成。
+当前 r8 ISO 已完成静态结构与译文回读；匹配精确哈希的新游戏、读档和目标战斗
+字幕运行验收仍待完成。
 
 ## 9. 新增一个 surface
 
 1. 在 parser 中产生稳定 ID，并固定日文来源哈希。
-2. 登记 SurfaceSpec、renderer、容量和指针／offset owner。
+2. 在对应领域配置中登记 renderer、容量和指针／offset owner。
 3. 写入中文语料并引用 glossary 决定。
 4. 审计 token、行宽、行数、编码和 glyph 闭包。
 5. 生成或追加字体账本；禁止重排已有 assignment。

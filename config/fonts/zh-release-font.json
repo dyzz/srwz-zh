@@ -3,18 +3,25 @@
   "font_profile_id": "srwz-zh-release-font-v1",
   "base_font_config": {
     "path": "config/fonts/zh-font-base.json",
-    "sha256": "662ee915cc0df9b2aca94932e5d317f442e6fcb1836c4181483737772a210745"
+    "sha256": "fb48a8d1f62d865bcc9fb336fcb6486fc6603ab385d19480832b31ac47e82745"
   },
   "allocation_snapshot": {
     "path": "config/encoding/zh-release-font-assignments.json",
-    "sha256": "45b55604cb1b589634302193a59c2d676126d9b67a4d16d35c72cb37c71ece28",
+    "sha256": "cd2530aaf0209576f9a32804ff11540f162b63c353973713daddcbd1bd5ec0fa",
     "snapshot_id": "srwz-zh-release-font-assignments-v1"
   },
   "translation_tree_selection": {
     "selection_id": "srwz-zh-all-translations-v1",
     "root": "corpus/zh",
     "glob": "**/*.json",
-    "field": "translation"
+    "field": "translation",
+    "map_fields": [
+      "compdata_direct_by_offset",
+      "slps_by_offset",
+      "leadership_effect_by_offset",
+      "atlas_by_source_text",
+      "display_names_by_source_text"
+    ]
   },
   "visible_ascii_policy": {
     "mode": "original-fullwidth-two-byte",
@@ -41,13 +48,14 @@
     "preserve": "Unselected source glyphs; all runtime placeholders and lossless control notation (%s/%2$s, $c/$f/$l/$n/$F, {XX}, and @?<tag:XX>) through their dedicated encoder paths; archive size; and executable font layout. New character assignments never enter the renderer's 0x8140..0x889E single-character mode range."
   },
   "expected": {
-    "primary_assignment_count": 3178,
+    "primary_assignment_count": 3261,
     "surface_alias_assignment_count": 701,
-    "allocation_assignment_count": 1562,
-    "reraster_existing_assignment_count": 1616,
+    "source_compatibility_assignment_count": 1,
+    "allocation_assignment_count": 1644,
+    "reraster_existing_assignment_count": 1617,
     "historical_primary_assignment_count": 3158,
     "added_global_assignment_count": 19,
-    "remaining_candidate_slot_count": 85
+    "remaining_candidate_slot_count": 1
   },
   "outputs": {
     "readiness": "work/writeback/zh-release-font-readiness.json",

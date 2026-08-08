@@ -6,6 +6,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from tools.srwz.release_font import selected_translation_tree_entries
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -93,23 +95,40 @@ class ZhReleaseFontTests(unittest.TestCase):
             "config/fonts/zh-release-font.json",
         )
         self.assertNotIn("profile_chain", self.chain)
-        self.assertIn(
-            "config/fonts/first-five-font.json",
-            self.chain["historical_profiles"],
-        )
-        self.assertIn(
-            "config/fonts/ui-p10-database-font.json",
-            self.chain["historical_profiles"],
-        )
+        self.assertNotIn("historical_profiles", self.chain)
 
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
-        self.assertEqual(self.snapshot["primary_assignment_count"], 3178)
+        self.assertEqual(self.snapshot["primary_assignment_count"], 3261)
         self.assertEqual(
             self.snapshot["surface_alias_assignment_count"], 701
         )
         self.assertEqual(
-            self.snapshot["remaining_allocation_candidate_count"], 85
+            self.snapshot["remaining_allocation_candidate_count"], 1
         )
+        compatibility = self.snapshot["source_compatibility_assignments"]
+        self.assertEqual(
+            compatibility,
+            [
+                {
+                    "character": "陆",
+                    "code": "97A4",
+                    "glyph_index": 4324,
+                    "mapping": "raw_source_character_simplification",
+                    "source_character": "陸",
+                    "reason": (
+                        "Preserve original structural runtime fields that "
+                        "still encode the stock Japanese character 陸 while "
+                        "rendering the localized simplified form 陆."
+                    ),
+                }
+            ],
+        )
+        by_character = {
+            item["character"]: item
+            for item in self.snapshot["primary_assignments"]
+        }
+        self.assertEqual(by_character["锵"]["code"], "986E")
+        self.assertEqual(by_character["锵"]["glyph_index"], 4462)
         migration = self.snapshot["migration"]
         self.assertFalse(migration["active_build_dependency"])
         self.assertEqual(
@@ -121,7 +140,7 @@ class ZhReleaseFontTests(unittest.TestCase):
             item["character"]
             for item in self.snapshot["primary_assignments"]
         }
-        self.assertTrue(set("储剂椅潘罐贱蹄") <= assigned)
+        self.assertTrue(set("储剂椅潘罐贱蹄Σ妲浏珀") <= assigned)
         assigned_codes = {
             item["code"]
             for item in (
@@ -156,10 +175,12 @@ class ZhReleaseFontTests(unittest.TestCase):
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]
-        self.assertEqual(selection["unique_entry_count"], 94090)
+        self.assertEqual(selection["unique_entry_count"], 120660)
         source_paths = {item["path"] for item in selection["sources"]}
+        self.assertIn("corpus/zh/battle/srvc-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/battle-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/system-ui-parts.json", source_paths)
+        self.assertIn("corpus/zh/menu/stage-overviews.json", source_paths)
         coverage = self.manifest["coverage"]
         self.assertEqual(coverage["missing_character_count"], 0)
         self.assertEqual(coverage["original_font_han_count"], 0)
@@ -168,11 +189,11 @@ class ZhReleaseFontTests(unittest.TestCase):
         )
         self.assertEqual(
             coverage["preserved_raw_ascii_punctuation_characters"],
-            '"%&\',-./:=~',
+            '"%&\',-./:<=\\]{}~',
         )
         control_tokens = selection["control_tokens"]
-        self.assertEqual(control_tokens["entry_count"], 2080)
-        self.assertEqual(control_tokens["occurrence_count"], 2111)
+        self.assertEqual(control_tokens["entry_count"], 2085)
+        self.assertEqual(control_tokens["occurrence_count"], 2130)
         self.assertEqual(
             control_tokens["kinds"]["runtime_format"]["forms"],
             {"%s": 51},
@@ -184,20 +205,20 @@ class ZhReleaseFontTests(unittest.TestCase):
             2054,
         )
         self.assertEqual(
-            control_tokens["kinds"]["text_tag"]["occurrence_count"], 6
+            control_tokens["kinds"]["text_tag"]["occurrence_count"], 25
         )
         self.assertTrue(control_tokens["excluded_from_font_glyph_demand"])
         self.assertEqual(
-            selection["literal_percent_signs"]["occurrence_count"], 81
+            selection["literal_percent_signs"]["occurrence_count"], 150
         )
         self.assertEqual(
-            coverage["control_token_occurrence_count"], 2111
+            coverage["control_token_occurrence_count"], 2130
         )
         self.assertEqual(
             coverage["runtime_placeholder_occurrence_count"], 2105
         )
         self.assertTrue(coverage["runtime_placeholder_bytes_preserved_exactly"])
-        self.assertEqual(coverage["literal_percent_occurrence_count"], 81)
+        self.assertEqual(coverage["literal_percent_occurrence_count"], 150)
 
     def test_snapshot_updater_appends_without_reordering_existing_rows(self):
         updated = self._run_snapshot_updater("龘")
@@ -214,7 +235,7 @@ class ZhReleaseFontTests(unittest.TestCase):
             < 0x889F
         )
         self.assertEqual(
-            updated["remaining_allocation_candidate_count"], 84
+            updated["remaining_allocation_candidate_count"], 0
         )
 
     def test_snapshot_updater_reroutes_original_single_mode_character(self):
@@ -224,8 +245,41 @@ class ZhReleaseFontTests(unittest.TestCase):
         self.assertNotEqual(assignment["code"], "8199")
         self.assertFalse(0x8140 <= int(assignment["code"], 16) < 0x889F)
         self.assertEqual(
-            updated["remaining_allocation_candidate_count"], 84
+            updated["remaining_allocation_candidate_count"], 0
         )
+
+    def test_translation_tree_includes_registered_translation_maps(self):
+        with tempfile.TemporaryDirectory(dir=PROJECT_ROOT) as temporary:
+            root = Path(temporary)
+            (root / "mapped.json").write_text(
+                json.dumps(
+                    {
+                        "editorial_status": "reviewed",
+                        "compdata_direct_by_offset": {
+                            "0x10": "映射译文",
+                        },
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            profile = json.loads(json.dumps(self.profile))
+            profile["translation_tree_selection"]["root"] = str(
+                root.relative_to(PROJECT_ROOT)
+            )
+
+            entries, _scenes, selection = (
+                selected_translation_tree_entries(PROJECT_ROOT, profile)
+            )
+
+            self.assertEqual(len(entries), 1)
+            self.assertEqual(
+                next(iter(entries.values()))["translation"], "映射译文"
+            )
+            self.assertEqual(
+                selection["map_fields"],
+                profile["translation_tree_selection"]["map_fields"],
+            )
 
 
 if __name__ == "__main__":

@@ -134,7 +134,7 @@ class ChineseLayoutTests(unittest.TestCase):
 
 
 class FirstFiveChineseLayoutIntegrationTests(unittest.TestCase):
-    def test_committed_first_five_dialogue_is_canonical(self):
+    def test_committed_opening_dialogue_is_canonical(self):
         project_root = Path(__file__).resolve().parents[1]
         release = json.loads(
             (project_root / "corpus/releases/v1.json").read_text(encoding="utf-8")

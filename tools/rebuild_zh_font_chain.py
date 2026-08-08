@@ -21,7 +21,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Fetch the global font, build one flattened release VT1, then "
-            "rebuild every registered atlas, canary and integrated consumer."
+            "rebuild every registered atlas and integrated consumer."
         )
     )
     parser.add_argument("--config", type=Path, default=CHAIN_CONFIG)
@@ -32,7 +32,7 @@ def parse_args() -> argparse.Namespace:
         "--refresh-asset-ratchets",
         action="store_true",
         help=(
-            "Recompute deterministic atlas/canary output locks after an "
+            "Recompute deterministic atlas output locks after an "
             "intentional global font change. Requires --refresh-manifests."
         ),
     )
@@ -212,14 +212,22 @@ def _refresh_suite_ratchets(
 def _build_assets(chain: dict, args: argparse.Namespace) -> None:
     atlas_references = list(chain.get("localized_atlases", []))
     suite_reference = chain.get("atlas_suite")
-    canaries = chain.get("localized_canaries")
+    story_reference = chain.get("story_component")
     if (
         not atlas_references
         or any(not isinstance(item, str) for item in atlas_references)
         or not isinstance(suite_reference, str)
-        or not isinstance(canaries, dict)
+        or not isinstance(story_reference, str)
     ):
         raise SystemExit("Chinese font asset registry is empty or malformed")
+
+    print(f"[font-assets] {story_reference}", flush=True)
+    _run(
+        "tools/build_story_component.py",
+        "--config",
+        story_reference,
+        "--force",
+    )
 
     for reference in atlas_references:
         print(f"[font-assets] {reference}", flush=True)
@@ -245,54 +253,6 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
         suite_verify.append("--refresh-manifest")
     _run(*suite_verify)
 
-    opening_reference = canaries.get("opening_screen")
-    title_reference = canaries.get("title_menu")
-    if not isinstance(opening_reference, str) or not isinstance(
-        title_reference, str
-    ):
-        raise SystemExit("Chinese font canary registry is malformed")
-    if args.refresh_asset_ratchets:
-        opening = _load(PROJECT_ROOT / opening_reference)
-        opening_locks = _run_json(
-            "tools/build_static_canary.py",
-            "--config",
-            opening_reference,
-            "--print-output-locks",
-        )
-        opening["expected_outputs"] = {
-            key: value for key, value in opening_locks.items() if key != "glyphs"
-        }
-        _write(PROJECT_ROOT / opening_reference, opening)
-
-        title = _load(PROJECT_ROOT / title_reference)
-        title_locks = _run_json(
-            "tools/build_tim2_runtime_canary.py",
-            "--config",
-            title_reference,
-            "--print-output-locks",
-            "--force",
-        )
-        title["localized_labels"]["render"]["mask_sha256"] = title_locks[
-            "mask_sha256"
-        ]
-        title["expected_outputs"] = title_locks["expected_outputs"]
-        _write(PROJECT_ROOT / title_reference, title)
-
-    print(f"[font-assets] {opening_reference}", flush=True)
-    _run(
-        "tools/build_static_canary.py",
-        "--config",
-        opening_reference,
-        "--force",
-    )
-    print(f"[font-assets] {title_reference}", flush=True)
-    _run(
-        "tools/build_tim2_runtime_canary.py",
-        "--config",
-        title_reference,
-        "--force",
-    )
-
     integrated_reference = chain.get("integrated_component")
     if not isinstance(integrated_reference, str):
         raise SystemExit("Chinese font integrated component is not registered")
@@ -303,6 +263,18 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
         (font_reference["manifest"], font_reference["manifest"]["path"]),
         (font_reference["slps"], font_reference["slps"]["path"]),
         (font_reference["vt1"], font_reference["vt1"]["path"]),
+        (
+            integrated["full_story_stage"]["report"],
+            integrated["full_story_stage"]["report"]["path"],
+        ),
+        (
+            integrated["full_story_stage"]["stage"],
+            integrated["full_story_stage"]["stage"]["path"],
+        ),
+        (
+            integrated["full_story_stage"]["hb"],
+            integrated["full_story_stage"]["hb"]["path"],
+        ),
         (integrated["kvmdata"], integrated["kvmdata"]["path"]),
     )
     dependency_drift = False

@@ -1,7 +1,7 @@
 import struct
 import unittest
 
-from tools.verify_pcsx2_font_runtime import (
+from tools.srwz.pine import (
     PINE_READ32,
     PINE_READ64,
     PineError,

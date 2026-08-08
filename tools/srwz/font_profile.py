@@ -126,24 +126,21 @@ def load_font_profile(project_root: Path, path: Path) -> dict:
         )
     if (
         not isinstance(codec, dict)
-        or codec.get("strategy") != "rust-maximum"
+        or codec.get("strategy") != "rust-fit"
         or not isinstance(codec.get("min_match_length"), int)
         or codec["min_match_length"] < 2
         or not isinstance(codec.get("max_match_chain"), int)
         or codec["max_match_chain"] <= 0
-        or codec.get("lazy_matching") is not True
+        or codec.get("lazy_matching") is not False
     ):
         raise FontProfileError(
-            "font profile must use the Rust maximum codec contract"
+            "font profile must use the Rust fit-to-budget codec contract"
         )
     if not isinstance(scope, dict):
         raise FontProfileError("font profile has no scope")
     _project_path(project_root, font_lock)
 
-    profile_id = document.get(
-        "font_profile_id",
-        "srwz-first-five-unified-font-v3",
-    )
+    profile_id = document.get("font_profile_id")
     if not isinstance(profile_id, str) or not profile_id:
         raise FontProfileError("font profile has no stable ID")
     return {

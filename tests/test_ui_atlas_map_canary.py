@@ -3,11 +3,11 @@ import json
 import unittest
 from pathlib import Path
 
-from tools.srwz.iso_config import load_config
 from tools.srwz.ui_atlas_canary import (
     AtlasMask,
     UiAtlasCanaryError,
     apply_masked_rgba,
+    build_ui_atlas_map_canary,
     verify_masked_rgba,
 )
 
@@ -16,15 +16,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PROFILE_CASES = (
     {
         "name": "information",
-        "config": "config/canary/tim2-kvm2-info-map.json",
+        "config": "config/assets/maps/tim2-kvm2-info.json",
         "manifest": (
             "manifests/ui-info-atlas-map-canary-validation.json"
-        ),
-        "iso_config": (
-            "config/iso/ui-info-atlas-map-canary-build.json"
-        ),
-        "runtime_manifest": (
-            "manifests/ui-info-atlas-map-canary-runtime-validation.json"
         ),
         "chunk_index": 2,
         "semantic_locator": "SHIP",
@@ -39,27 +33,15 @@ PROFILE_CASES = (
         "changed_pixel_count": 299,
         "preserved_rgba_counts": {"00000000": 485},
         "changed_archive_byte_count": 185,
-        "iso_sha256": (
-            "9343889dc72c6d3fc2287f0ac279912f"
-            "b1ae7e1e1123ee15150f667e50bc78f6"
-        ),
     },
     {
         "name": "battle-command",
         "config": (
-            "config/canary/tim2-kvm4-battle-command-map.json"
+            "config/assets/maps/tim2-kvm4-battle-command.json"
         ),
         "manifest": (
             "manifests/"
             "ui-battle-command-atlas-map-canary-validation.json"
-        ),
-        "iso_config": (
-            "config/iso/"
-            "ui-battle-command-atlas-map-canary-build.json"
-        ),
-        "runtime_manifest": (
-            "manifests/"
-            "ui-battle-command-atlas-map-canary-runtime-validation.json"
         ),
         "chunk_index": 4,
         "semantic_locator": "COMMAND MENU",
@@ -73,23 +55,12 @@ PROFILE_CASES = (
         "changed_pixel_count": 2297,
         "preserved_rgba_counts": {"00000000": 491},
         "changed_archive_byte_count": 1221,
-        "iso_sha256": (
-            "067626adbaac4ab0189df3b653c1da04"
-            "0d1ea18783667dc2b3ba7b598cae65c1"
-        ),
     },
     {
         "name": "bazaar",
-        "config": "config/canary/tim2-kvm5-bazaar-map.json",
+        "config": "config/assets/maps/tim2-kvm5-bazaar.json",
         "manifest": (
             "manifests/ui-bazaar-atlas-map-canary-validation.json"
-        ),
-        "iso_config": (
-            "config/iso/ui-bazaar-atlas-map-canary-build.json"
-        ),
-        "runtime_manifest": (
-            "manifests/"
-            "ui-bazaar-atlas-map-canary-runtime-validation.json"
         ),
         "chunk_index": 5,
         "semantic_locator": "バザー",
@@ -103,27 +74,15 @@ PROFILE_CASES = (
         "changed_pixel_count": 2197,
         "preserved_rgba_counts": {"00000000": 6160},
         "changed_archive_byte_count": 1210,
-        "iso_sha256": (
-            "6805fbd0bbfe98ef613ab7a4f4eddf18"
-            "4517b681a800b06a3fa1ba5af2ec2d04"
-        ),
     },
     {
         "name": "intermission",
         "config": (
-            "config/canary/tim2-kvm6-intermission-map.json"
+            "config/assets/maps/tim2-kvm6-intermission.json"
         ),
         "manifest": (
             "manifests/"
             "ui-intermission-atlas-map-canary-validation.json"
-        ),
-        "iso_config": (
-            "config/iso/"
-            "ui-intermission-atlas-map-canary-build.json"
-        ),
-        "runtime_manifest": (
-            "manifests/"
-            "ui-intermission-atlas-map-canary-runtime-validation.json"
         ),
         "chunk_index": 6,
         "semantic_locator": "インターミッション",
@@ -135,29 +94,15 @@ PROFILE_CASES = (
             "intermission/main-and-options",
             "information/unit-pilot-mech-core",
         ],
-        "changed_pixel_count": 803,
-        "preserved_rgba_counts": {
-            "000000ff": 4877,
-            "00000000": 55,
-        },
-        "changed_archive_byte_count": 509,
-        "iso_sha256": (
-            "dafe4737f797b611e02a0dcf68096a40"
-            "e9b3c61ae4fa98d979b19a00ce0ca0df"
-        ),
+        "changed_pixel_count": 982,
+        "preserved_rgba_counts": {"000000ff": 5708},
+        "changed_archive_byte_count": 593,
     },
     {
         "name": "formation",
-        "config": "config/canary/tim2-kvm7-formation-map.json",
+        "config": "config/assets/maps/tim2-kvm7-formation.json",
         "manifest": (
             "manifests/ui-formation-atlas-map-canary-validation.json"
-        ),
-        "iso_config": (
-            "config/iso/ui-formation-atlas-map-canary-build.json"
-        ),
-        "runtime_manifest": (
-            "manifests/"
-            "ui-formation-atlas-map-canary-runtime-validation.json"
         ),
         "chunk_index": 7,
         "semantic_locator": "新規編成",
@@ -171,10 +116,6 @@ PROFILE_CASES = (
         "changed_pixel_count": 1325,
         "preserved_rgba_counts": {"00000000": 155},
         "changed_archive_byte_count": 691,
-        "iso_sha256": (
-            "5f05e41f9ba2e410d36a985ca9a87f17"
-            "7d6622ee4e5340d5c0f0ad1ba4fe844c"
-        ),
     },
 )
 
@@ -195,24 +136,15 @@ class UiAtlasMapCanaryTests(unittest.TestCase):
             case = dict(raw_case)
             config_path = PROJECT_ROOT / case["config"]
             manifest_path = PROJECT_ROOT / case["manifest"]
-            iso_config_path = PROJECT_ROOT / case["iso_config"]
-            runtime_manifest_path = (
-                PROJECT_ROOT / case["runtime_manifest"]
-            )
             config = json.loads(
                 config_path.read_text(encoding="utf-8")
             )
             case.update(
                 {
+                    "config_path": config_path,
                     "config_data": config,
                     "manifest_data": json.loads(
                         manifest_path.read_text(encoding="utf-8")
-                    ),
-                    "iso_config_data": load_config(iso_config_path),
-                    "runtime_manifest_data": json.loads(
-                        runtime_manifest_path.read_text(
-                            encoding="utf-8"
-                        )
                     ),
                     "component_root": (
                         PROJECT_ROOT
@@ -399,101 +331,20 @@ class UiAtlasMapCanaryTests(unittest.TestCase):
         for case in self.profiles:
             with self.subTest(profile=case["name"]):
                 config = case["config_data"]
-                component_root = case["component_root"]
-                paths = {
-                    "archive": (
-                        component_root / "KURODATA/KVMDATA.BIN"
-                    ),
-                    "reference_png": (
-                        PROJECT_ROOT
-                        / config["outputs"]["reference_png"]
-                    ),
-                    "edited_png": (
-                        PROJECT_ROOT
-                        / config["outputs"]["edited_png"]
-                    ),
-                }
-                for name, path in paths.items():
+                payloads, _report = build_ui_atlas_map_canary(
+                    PROJECT_ROOT,
+                    case["config_path"],
+                )
+                for name, payload in payloads.items():
                     expected = config["expected"][name]
                     self.assertEqual(
-                        path.stat().st_size,
+                        len(payload),
                         expected["size"],
                     )
                     self.assertEqual(
-                        sha256_path(path),
+                        hashlib.sha256(payload).hexdigest(),
                         expected["sha256"],
                     )
-
-    def test_iso_contracts_use_only_the_component_archive(self):
-        for case in self.profiles:
-            with self.subTest(profile=case["name"]):
-                iso_config = case["iso_config_data"]
-                component = case["manifest_data"]
-                replacements = iso_config["replacements"]
-                self.assertEqual(len(replacements), 1)
-                replacement = replacements[0]
-                self.assertEqual(
-                    replacement["member"],
-                    component["target"]["member"],
-                )
-                self.assertEqual(
-                    {
-                        "size": replacement["size"],
-                        "sha256": replacement["sha256"],
-                    },
-                    component["outputs"]["archive"],
-                )
-                self.assertEqual(
-                    iso_config["layout"]["expected_shift_sectors"],
-                    0,
-                )
-
-    def test_static_iso_manifests_preserve_runtime_boundary(self):
-        for case in self.profiles:
-            with self.subTest(profile=case["name"]):
-                config = case["config_data"]
-                manifest = case["runtime_manifest_data"]
-                self.assertEqual(
-                    manifest["status"],
-                    (
-                        "static_mapping_iso_validated_"
-                        "runtime_not_tested"
-                    ),
-                )
-                self.assertEqual(
-                    manifest["runtime"]["status"],
-                    "not_tested",
-                )
-                self.assertEqual(
-                    manifest["iso_build"]["output"],
-                    {
-                        "size": 3758358528,
-                        "sha256": case["iso_sha256"],
-                    },
-                )
-                self.assertEqual(
-                    manifest["iso_build"]["unchanged_member_count"],
-                    65,
-                )
-                self.assertEqual(
-                    manifest["iso_build"]["shifted_member_count"],
-                    0,
-                )
-                self.assertTrue(
-                    all(manifest["static_acceptance"].values())
-                )
-                texture_delta = manifest["runtime"][
-                    "expected_texture_delta"
-                ]
-                self.assertEqual(
-                    texture_delta["changed_pixel_count"],
-                    case["changed_pixel_count"],
-                )
-                self.assertEqual(
-                    texture_delta["mask"],
-                    config["target"]["mask"],
-                )
-
 
 if __name__ == "__main__":
     unittest.main()

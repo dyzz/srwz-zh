@@ -3,17 +3,6 @@
   "font_flavor": "config/fonts/zh-localization-font.json",
   "base_profile": "config/fonts/zh-font-base.json",
   "release_profile": "config/fonts/zh-release-font.json",
-  "historical_profiles": [
-    "config/fonts/first-five-font.json",
-    "config/fonts/ui-p0-font.json",
-    "config/fonts/ui-p1-summary-font.json",
-    "config/fonts/ui-p2-display-names-font.json",
-    "config/fonts/ui-p7-embedded-font.json",
-    "config/fonts/ui-p10-database-font.json",
-    "config/fonts/full-story-font.json",
-    "config/fonts/story-stage-006-font.json",
-    "config/fonts/story-stage-009-font.json"
-  ],
   "localized_atlases": [
     "config/assets/ui-info-atlas-zh.json",
     "config/assets/ui-battle-command-atlas-zh.json",
@@ -22,10 +11,7 @@
     "config/assets/ui-formation-atlas-zh.json"
   ],
   "atlas_suite": "config/assets/ui-atlas-suite-zh.json",
-  "localized_canaries": {
-    "opening_screen": "config/canary/minimal-slps-font.json",
-    "title_menu": "config/canary/tim2-vt1-title-zh.json"
-  },
+  "story_component": "config/story-component.json",
   "integrated_component": "config/full-story-components.json",
-  "policy": "The active build has one technical base and one flattened release font. Every non-empty translation field under corpus/zh, including future battle dialogue, is audited against the same release mapping. P-labelled profiles are frozen migration history and are not active build dependencies."
+  "policy": "The active build has one technical base and one flattened release font. Every non-empty translation field under corpus/zh, including battle dialogue, is audited against the same release mapping."
 }

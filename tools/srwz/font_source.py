@@ -24,22 +24,8 @@ ALLOWED_SOURCES = {
             "https://raw.githubusercontent.com/notofonts/noto-cjk/"
         ),
     },
-    "https://github.com/lxgw/LxgwNeoXiZhi-Screen.git": {
-        "license": "IPA",
-        "font_prefix": (
-            "https://github.com/lxgw/LxgwNeoXiZhi-Screen/"
-            "releases/download/"
-        ),
-        "license_prefix": (
-            "https://raw.githubusercontent.com/lxgw/"
-            "LxgwNeoXiZhi-Screen/"
-        ),
-    },
 }
 
-LOCAL_NONCOMMERCIAL_SOURCE_KIND = "local-noncommercial-test"
-LOCAL_NONCOMMERCIAL_DISTRIBUTION = "local_noncommercial_test_only"
-LOCAL_NONCOMMERCIAL_LICENSE = "LicenseRef-Noncommercial-Unverified"
 PINNED_OFFICIAL_ARCHIVE_SOURCE_KIND = "pinned-official-archive"
 HARMONYOS_SOURCE_ID = "huawei-harmonyos-sans"
 HARMONYOS_ARCHIVE_URL_PREFIX = (
@@ -88,24 +74,6 @@ def _validate_file_record(item: object, label: str) -> None:
 def validate_font_lock(lock: Mapping) -> None:
     if lock.get("schema_version") != 1:
         raise FontSourceError("unsupported font lock schema")
-    if lock.get("source_kind") == LOCAL_NONCOMMERCIAL_SOURCE_KIND:
-        if lock.get("distribution") != LOCAL_NONCOMMERCIAL_DISTRIBUTION:
-            raise FontSourceError(
-                "local noncommercial font distribution policy is invalid"
-            )
-        if lock.get("license", {}).get("spdx") != (
-            LOCAL_NONCOMMERCIAL_LICENSE
-        ):
-            raise FontSourceError(
-                "local noncommercial font license marker is invalid"
-            )
-        for label in ("font", "license"):
-            _validate_file_record(lock.get(label), label)
-        if lock["license"].get("status") != "provenance_only_not_a_license":
-            raise FontSourceError(
-                "local noncommercial provenance status is invalid"
-            )
-        return
     if lock.get("source_kind") == PINNED_OFFICIAL_ARCHIVE_SOURCE_KIND:
         if lock.get("source_id") != HARMONYOS_SOURCE_ID:
             raise FontSourceError("official archive source is not allowed")
@@ -177,22 +145,11 @@ def validate_font_lock(lock: Mapping) -> None:
             raise FontSourceError(f"{label} URL is not an allowed source")
         _validate_file_record(item, label)
 
-    if repository.endswith("/noto-cjk.git"):
-        pinned_prefix = policy["font_prefix"] + commit + "/"
-        if not lock["font"]["url"].startswith(pinned_prefix):
-            raise FontSourceError("Noto font URL is not commit pinned")
-        if not lock["license"]["url"].startswith(pinned_prefix):
-            raise FontSourceError("Noto license URL is not commit pinned")
-    else:
-        tag = lock.get("tag")
-        if not isinstance(tag, str) or not tag:
-            raise FontSourceError("release font lock has no tag")
-        expected_font_prefix = policy["font_prefix"] + tag + "/"
-        expected_license_prefix = policy["license_prefix"] + commit + "/"
-        if not lock["font"]["url"].startswith(expected_font_prefix):
-            raise FontSourceError("font URL is not release-tag pinned")
-        if not lock["license"]["url"].startswith(expected_license_prefix):
-            raise FontSourceError("license URL is not commit pinned")
+    pinned_prefix = policy["font_prefix"] + commit + "/"
+    if not lock["font"]["url"].startswith(pinned_prefix):
+        raise FontSourceError("Noto font URL is not commit pinned")
+    if not lock["license"]["url"].startswith(pinned_prefix):
+        raise FontSourceError("Noto license URL is not commit pinned")
 
 
 def _download(url: str, expected: Mapping) -> bytes:
@@ -227,11 +184,6 @@ def fetch_font_lock(
     force: bool = False,
 ) -> tuple[Path, ...]:
     lock = load_font_lock(lock_path)
-    if lock.get("source_kind") == LOCAL_NONCOMMERCIAL_SOURCE_KIND:
-        raise FontSourceError(
-            "local noncommercial font locks are verification-only and "
-            "cannot be downloaded"
-        )
     if lock.get("source_kind") == PINNED_OFFICIAL_ARCHIVE_SOURCE_KIND:
         existing_outputs = tuple(
             require_work_output(
