@@ -1,7 +1,9 @@
 {
   "schema_version": 1,
   "profile_id": "ui-formation-atlas-zh",
-  "scope": "A deterministic Chinese replacement of the new-formation locator inside the locked KVMDATA chunk 7 mapping mask. Static construction does not prove which runtime squad-formation pages consume this atlas.",
+  "scope": "Deterministic Chinese replacements of the new-formation, reserve and squad-group locators inside their original locked KVMDATA chunk 7 rectangles. Static construction does not prove which runtime squad-formation pages consume this atlas.",
+  "force_reindex_entire_masks": true,
+  "expected_background_palette_index": 0,
   "base_mapping": {
     "config": "config/assets/maps/tim2-kvm7-formation.json",
     "config_sha256": "eeb613705b24bbb8a4b12db3d957c92b237e4cb588ef6c1ccdf73e4d9dfff5e2",
@@ -20,7 +22,7 @@
   "localized_label": {
     "translation_source": {
       "path": "corpus/zh/ui-atlas/core-menus-v1.json",
-      "sha256": "a3f3e51fe5ba803cfc1721793051a86dcc502dcd83497ff4ab40c009b94a3796",
+      "sha256": "6ac311a4239fe2d57d46c69954158c67bf27ef69eef0393ec7e0401a6e6748ab",
       "entry_id": "ui-atlas/kvm7/new-formation",
       "minimum_editorial_status": "reviewed"
     },
@@ -43,6 +45,72 @@
       ]
     }
   },
+  "additional_localized_labels": [
+    {
+      "entry_id": "ui-atlas/kvm7/reserve",
+      "semantic_locator": "リザーブへ",
+      "minimum_editorial_status": "reviewed",
+      "mask": {
+        "x": 172,
+        "y": 26,
+        "width": 84,
+        "height": 20,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "render": {
+        "point_size": 14,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.4,
+        "fill_stroke_width": 0,
+        "ramp_rgba": [
+          "101010ff",
+          "171717ff",
+          "1a1a1aff",
+          "202020ff",
+          "262626ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "808080ff"
+        ]
+      }
+    },
+    {
+      "entry_id": "ui-atlas/kvm7/squad-group",
+      "semantic_locator": "小隊群へ",
+      "minimum_editorial_status": "reviewed",
+      "mask": {
+        "x": 44,
+        "y": 178,
+        "width": 67,
+        "height": 22,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "render": {
+        "point_size": 12,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.4,
+        "fill_stroke_width": 0,
+        "ramp_rgba": [
+          "101010ff",
+          "171717ff",
+          "1a1a1aff",
+          "202020ff",
+          "262626ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "808080ff"
+        ]
+      }
+    }
+  ],
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 7 supplies the new-squad locator and that the localized label renders at the intended position.",
     "required_routes": [
@@ -53,8 +121,8 @@
       "capture_visible_chinese_new_squad_locator_if_loaded",
       "capture_texture_dump_delta_for_the_same_mask"
     ],
-    "expected_visual_effect": "The original new-formation locator is replaced by the locked Chinese new-squad label while the adjacent hexagon, reserve label and number rows remain intact.",
-    "promotion_rule": "Only a matching formation screenshot and exact original-to-localized texture delta may promote both the scene mapping and localized atlas."
+    "expected_visual_effect": "The three original locators are replaced inside their own rectangles while adjacent hexagons, counters and number rows remain intact.",
+    "promotion_rule": "Only matching formation screenshots and exact original-to-localized texture deltas may promote both the scene mapping and localized atlas."
   },
   "toolchain": {
     "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
@@ -70,22 +138,36 @@
       "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
     },
     "localized_png": {
-      "size": 22634,
-      "sha256": "f3a905afac91f66c1fbaea4447ffc8038880fe01bc4460f4d3dc6af6035915ab"
+      "size": 22567,
+      "sha256": "75246346139cfca800b35cc66d37363f3258546e5d7d9e0394aab2b94a1741d6"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "78f6963495d5a73f5cd23ba1557e79428aa0e04444b42de097ee51fcd8130a31"
+      "sha256": "ab49d229e4bb8582d81d602aaa69f98d8cbf67a35eb6a8e521d3e0ee1bfbcc59"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "0fb55c762dfd66970e09ee649f5b5c99d7f9aaa218c6c8b0fa7da5c096f462f4"
+      "sha256": "15207e56227fafa0359b27d2a8e039b4caaee10495558a10aa3831857dfc771c"
     },
-    "added_pixel_count": 769,
-    "original_changed_pixel_count": 1257,
-    "original_changed_pixel_indexes_sha256": "3b8aad501f202746b94252db2371107a331ab15c09240e3d965b05230f7dbe9c",
-    "changed_archive_byte_count": 432,
-    "changed_archive_range_count": 68
+    "added_pixel_count": 2268,
+    "original_changed_pixel_count": 3214,
+    "original_changed_pixel_indexes_sha256": "da6e617e27194834a2ee1036ae06112ff9277c14fb83d6583e51cc78d117b614",
+    "changed_archive_byte_count": 1521,
+    "changed_archive_range_count": 160,
+    "additional_text_masks": [
+      {
+        "semantic_locator_sha256": "f522c7ac3284a6ad2bacf6fd1819cd399a693256b562024f3e00efb50d4250fe",
+        "size": 1680,
+        "sha256": "1502d28c4dc5b46c6d6fc100b459a494ac4f7c077a1a3b79d8e418aa1e9e976d",
+        "nonzero_pixel_count": 840
+      },
+      {
+        "semantic_locator_sha256": "3aa1afec7941bc733161ab77e56295c4e551f93a6453d1ab9d3a08b760dfb548",
+        "size": 1474,
+        "sha256": "78bdbd34ef8d4843a8c30a82c56d5bf8cde929b762168b9cfc3127346680f054",
+        "nonzero_pixel_count": 659
+      }
+    ]
   },
   "outputs": {
     "component_root": "work/build/ui-formation-atlas-zh/components",

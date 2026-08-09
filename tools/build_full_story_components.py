@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import struct
 from pathlib import Path
 
 try:
@@ -16,7 +17,12 @@ try:
         load_display_name_source,
         parse_display_names,
     )
-    from srwz.font import decode_glyph, decode_vt1_font_segment, sha256_bytes
+    from srwz.font import (
+        ascii_glyph_index,
+        decode_glyph,
+        decode_vt1_font_segment,
+        sha256_bytes,
+    )
     from srwz.menu import parse_menu_file
     from srwz.intermission_font_geometry import (
         IntermissionFontGeometryError,
@@ -37,6 +43,15 @@ try:
         rebuild_srvc_archive,
     )
     from srwz.stage_overview import replace_stage_overviews_in_place
+    from srwz.stage_title_graphics import (
+        GLYPH_SIZE as STAGE_TITLE_GLYPH_SIZE,
+        TITLE_HEIGHT as STAGE_TITLE_HEIGHT,
+        TITLE_IMAGE_SIZE as STAGE_TITLE_IMAGE_SIZE,
+        TITLE_WIDTH as STAGE_TITLE_WIDTH,
+        pack_linear_4bpp,
+        render_stage_title,
+        unpack_linear_4bpp,
+    )
     from srwz.tim2 import scan_tim2
     from srwz.text import (
         SrwzTextEncodeError,
@@ -63,6 +78,7 @@ except ModuleNotFoundError:
         parse_display_names,
     )
     from tools.srwz.font import (
+        ascii_glyph_index,
         decode_glyph,
         decode_vt1_font_segment,
         sha256_bytes,
@@ -87,6 +103,15 @@ except ModuleNotFoundError:
         rebuild_srvc_archive,
     )
     from tools.srwz.stage_overview import replace_stage_overviews_in_place
+    from tools.srwz.stage_title_graphics import (
+        GLYPH_SIZE as STAGE_TITLE_GLYPH_SIZE,
+        TITLE_HEIGHT as STAGE_TITLE_HEIGHT,
+        TITLE_IMAGE_SIZE as STAGE_TITLE_IMAGE_SIZE,
+        TITLE_WIDTH as STAGE_TITLE_WIDTH,
+        pack_linear_4bpp,
+        render_stage_title,
+        unpack_linear_4bpp,
+    )
     from tools.srwz.tim2 import scan_tim2
     from tools.srwz.text import (
         SrwzTextEncodeError,
@@ -701,13 +726,536 @@ def _apply_full_pilot_names(
     }, structure_path, speaker_path, residual_path, proposal_path
 
 
+def _apply_full_stage_title_graphics(
+    slps: bytes,
+    vt1: bytes,
+    stage_entries: list[dict],
+    decoded_compdata: bytes,
+    parsed_compdata,
+    final_font: bytes,
+    release_by_character: dict,
+    raw_config: object,
+) -> tuple[bytes, dict]:
+    """Replace the 107 playable stage-title textures inside VT1 chunk 8."""
+
+    if not isinstance(raw_config, dict):
+        raise FullStoryComponentError(
+            "full stage-title graphic configuration is invalid"
+        )
+    archive = raw_config.get("archive")
+    mapping = raw_config.get("mapping")
+    tim2 = raw_config.get("tim2")
+    raster_config = raw_config.get("raster")
+    codec = raw_config.get("codec")
+    expected = raw_config.get("expected")
+    if not all(
+        isinstance(value, dict)
+        for value in (archive, mapping, tim2, raster_config, codec, expected)
+    ):
+        raise FullStoryComponentError(
+            "full stage-title graphic contract is incomplete"
+        )
+    try:
+        group_index = archive["vt1_group_index"]
+        group_start_lock = archive["group_start"]
+        group_end_lock = archive["group_end"]
+        group_sha256_lock = archive["group_sha256"]
+        table_start = int(archive["offset_table_start"], 0)
+        table_count = archive["offset_count"]
+        table_sha256_lock = archive["offset_table_sha256"]
+        texture_entry_count = mapping["texture_entry_count"]
+        selector_bias = mapping["selector_bias"]
+        loader_table_bias = mapping["loader_table_bias"]
+        scenario_records = mapping["scenario_records"]
+        text_only_entry_ordinals = mapping["text_only_entry_ordinals"]
+        route_choice_entry_ordinals = mapping[
+            "route_choice_entry_ordinals"
+        ]
+        internal_entry_ordinals = mapping["internal_entry_ordinals"]
+        decoded_size = tim2["decoded_size"]
+        record_offset = tim2["record_offset"]
+        record_size = tim2["record_size"]
+        doubled_glyph_width = raster_config["doubled_glyph_width"]
+        advance = raster_config["advance"]
+        raster_y = raster_config["y"]
+        quantization_levels = raster_config["quantization_levels"]
+        codec_strategy = codec["strategy"]
+        codec_min_match_length = codec["min_match_length"]
+        codec_max_match_chain = codec["max_match_chain"]
+    except (KeyError, TypeError, ValueError) as error:
+        raise FullStoryComponentError(
+            "full stage-title graphic values are malformed"
+        ) from error
+    if (
+        archive.get("member") != "DATA/VT1.BIN"
+        or not isinstance(group_index, int)
+        or not isinstance(group_start_lock, int)
+        or not isinstance(group_end_lock, int)
+        or not isinstance(group_sha256_lock, str)
+        or not isinstance(table_count, int)
+        or not isinstance(table_sha256_lock, str)
+        or texture_entry_count != 107
+        or selector_bias != 1
+        or loader_table_bias != 8
+        or table_count != texture_entry_count + loader_table_bias + 2
+        or not isinstance(scenario_records, dict)
+        or text_only_entry_ordinals != list(range(107, 122))
+        or route_choice_entry_ordinals != list(range(107, 116))
+        or internal_entry_ordinals != list(range(116, 122))
+        or expected.get("stage_name_entry_count") != 122
+        or expected.get("text_only_entry_count") != 15
+        or decoded_size != 0x40E0
+        or record_offset != 0x20
+        or record_size != 0x40C0
+        or tim2.get("width") != STAGE_TITLE_WIDTH
+        or tim2.get("height") != STAGE_TITLE_HEIGHT
+        or tim2.get("image_size") != STAGE_TITLE_IMAGE_SIZE
+        or tim2.get("image_type") != 4
+        or tim2.get("clut_color_count") != 32
+        or tim2.get("storage") != "linear_low_nibble_first_4bpp"
+        or doubled_glyph_width != 48
+        or advance != 50
+        or raster_y != 4
+        or not isinstance(quantization_levels, list)
+        or quantization_levels != [16, 8]
+        or codec_strategy != "rust-fit"
+        or codec_min_match_length != 2
+        or not isinstance(codec_max_match_chain, int)
+        or codec_max_match_chain <= 0
+    ):
+        raise FullStoryComponentError(
+            "full stage-title graphic policy drift"
+        )
+
+    try:
+        record_base_address = int(scenario_records["base_address"], 0)
+        record_start_address = int(scenario_records["start_address"], 0)
+        record_count = scenario_records["record_count"]
+        record_stride = scenario_records["record_stride"]
+        title_pointer_offset = scenario_records["title_pointer_offset"]
+        graphic_selector_offset = scenario_records[
+            "graphic_selector_offset"
+        ]
+    except (KeyError, TypeError, ValueError) as error:
+        raise FullStoryComponentError(
+            "stage-title scenario record contract is malformed"
+        ) from error
+    record_start = record_start_address - record_base_address
+    record_end = record_start + record_count * record_stride
+    if (
+        record_base_address != 0x6D6800
+        or record_start_address != 0x734950
+        or record_count != 204
+        or record_stride != 48
+        or title_pointer_offset != 0
+        or graphic_selector_offset != 0x1C
+        or not 0 <= record_start < record_end <= len(decoded_compdata)
+    ):
+        raise FullStoryComponentError(
+            "stage-title scenario record policy drift"
+        )
+
+    stage_menu_entries = sorted(
+        (
+            item
+            for item in parsed_compdata.entries
+            if item.section == "Stage Name"
+        ),
+        key=lambda item: item.ordinal,
+    )
+    if (
+        len(stage_menu_entries) != len(stage_entries)
+        or any(
+            item.entry_id != entry["id"]
+            for item, entry in zip(stage_menu_entries, stage_entries)
+        )
+    ):
+        raise FullStoryComponentError(
+            "stage-title menu entry mapping drift"
+        )
+    selectors_by_target: dict[int, set[int]] = {}
+    record_target_offsets = []
+    for record_index in range(record_count):
+        scenario_record_offset = record_start + record_index * record_stride
+        pointer = struct.unpack_from(
+            "<I",
+            decoded_compdata,
+            scenario_record_offset + title_pointer_offset,
+        )[0]
+        selector = struct.unpack_from(
+            "<h",
+            decoded_compdata,
+            scenario_record_offset + graphic_selector_offset,
+        )[0]
+        target_offset = pointer - record_base_address
+        if not 0 <= target_offset < len(decoded_compdata):
+            raise FullStoryComponentError(
+                f"stage-title record pointer is outside COMPDATA: {record_index}"
+            )
+        selectors_by_target.setdefault(target_offset, set()).add(selector)
+        record_target_offsets.append(target_offset)
+
+    selector_sets = []
+    for ordinal, item in enumerate(stage_menu_entries):
+        selectors = sorted(
+            {
+                selector
+                for target_offset in item.target_offsets
+                for selector in selectors_by_target.get(target_offset, set())
+            }
+        )
+        if not selectors:
+            raise FullStoryComponentError(
+                f"stage-title scenario record is missing: {ordinal}"
+            )
+        selector_sets.append(selectors)
+
+    graphic_mappings = []
+    for ordinal in range(texture_entry_count):
+        expected_selector = ordinal + selector_bias
+        if selector_sets[ordinal] != [expected_selector]:
+            raise FullStoryComponentError(
+                f"stage-title selector mapping drift: {ordinal} -> "
+                f"{selector_sets[ordinal]}"
+            )
+        graphic_mappings.append(
+            (ordinal, stage_entries[ordinal], expected_selector)
+        )
+    if [item[2] for item in graphic_mappings] != list(range(1, 108)):
+        raise FullStoryComponentError(
+            "stage-title graphic selectors are not complete"
+        )
+    text_only_reports = []
+    for ordinal in text_only_entry_ordinals:
+        classification = (
+            "route_choice_dynamic_text"
+            if ordinal in route_choice_entry_ordinals
+            else "internal_or_debug_dynamic_text"
+        )
+        text_only_reports.append(
+            {
+                "ordinal": ordinal,
+                "entry_id": stage_entries[ordinal]["id"],
+                "text": stage_entries[ordinal]["translation"],
+                "selectors": selector_sets[ordinal],
+                "classification": classification,
+                "owns_stage_entry_texture": False,
+            }
+        )
+
+    vt1_offsets = read_executable_archive_offsets(
+        slps,
+        CORE_ARCHIVE_SPECS["VT1.BIN"],
+        len(vt1),
+    )
+    if not 0 <= group_index < len(vt1_offsets) - 1:
+        raise FullStoryComponentError("stage-title VT1 group is missing")
+    group_start = vt1_offsets[group_index]
+    group_end = vt1_offsets[group_index + 1]
+    source_group = vt1[group_start:group_end]
+    if (
+        group_start != group_start_lock
+        or group_end != group_end_lock
+        or sha256_bytes(source_group) != group_sha256_lock
+    ):
+        raise FullStoryComponentError("stage-title VT1 group lock drift")
+
+    table_end = table_start + table_count * 4
+    if not 0 <= table_start < table_end <= len(slps):
+        raise FullStoryComponentError(
+            "stage-title internal offset table is outside SLPS"
+        )
+    table_bytes = slps[table_start:table_end]
+    if sha256_bytes(table_bytes) != table_sha256_lock:
+        raise FullStoryComponentError("stage-title offset-table lock drift")
+    offsets = tuple(
+        int.from_bytes(table_bytes[position : position + 4], "little")
+        for position in range(0, len(table_bytes), 4)
+    )
+    if (
+        offsets[0] != 0
+        or offsets[-1] != len(source_group)
+        or any(
+            current >= following
+            for current, following in zip(offsets, offsets[1:])
+        )
+    ):
+        raise FullStoryComponentError(
+            "stage-title internal offsets are invalid"
+        )
+
+    selected_entries = stage_entries[:texture_entry_count]
+    if len(selected_entries) != texture_entry_count:
+        raise FullStoryComponentError("stage-title texture corpus is incomplete")
+    for ordinal, entry in enumerate(selected_entries):
+        if entry["id"] != f"menu/Compdata/03/{ordinal:04d}":
+            raise FullStoryComponentError(
+                "stage-title texture ordinal mapping drift"
+            )
+
+    needed_characters = sorted(
+        set("".join(entry["translation"] for entry in selected_entries))
+    )
+    glyphs = {}
+    for character in needed_characters:
+        if character == " ":
+            glyph = bytes(STAGE_TITLE_GLYPH_SIZE)
+            glyph_index = None
+        elif " " <= character <= "~":
+            glyph_index = ascii_glyph_index(ord(character))
+            glyph = decode_glyph(final_font, glyph_index)
+        else:
+            release_mapping = release_by_character.get(character)
+            if (
+                not isinstance(release_mapping, tuple)
+                or len(release_mapping) != 2
+                or not isinstance(release_mapping[1], int)
+            ):
+                raise FullStoryComponentError(
+                    f"stage-title release glyph is missing: {character!r}"
+                )
+            glyph_index = release_mapping[1]
+            glyph = decode_glyph(final_font, glyph_index)
+        if len(glyph) != STAGE_TITLE_GLYPH_SIZE:
+            raise FullStoryComponentError(
+                f"stage-title glyph geometry drift: {character!r}"
+            )
+        glyphs[character] = glyph
+
+    output = bytearray(vt1)
+    title_reports = []
+    for ordinal, entry, selector in graphic_mappings:
+        table_index = selector + loader_table_bias
+        relative_start = offsets[table_index]
+        relative_end = offsets[table_index + 1]
+        stored_start = group_start + relative_start
+        stored_end = group_start + relative_end
+        stored = vt1[stored_start:stored_end]
+        source_decoded = decode(stored)
+        if (
+            len(source_decoded.output) != decoded_size
+            or any(stored[source_decoded.consumed :])
+        ):
+            raise FullStoryComponentError(
+                f"stage-title source stream drift: {ordinal}"
+            )
+        records = scan_tim2(source_decoded.output)
+        if len(records) != 1:
+            raise FullStoryComponentError(
+                f"stage-title TIM2 count drift: {ordinal}"
+            )
+        record = records[0]
+        if (
+            record.offset != record_offset
+            or record.size != record_size
+            or len(record.pictures) != 1
+        ):
+            raise FullStoryComponentError(
+                f"stage-title TIM2 record drift: {ordinal}"
+            )
+        picture = record.pictures[0]
+        if (
+            picture.width != STAGE_TITLE_WIDTH
+            or picture.height != STAGE_TITLE_HEIGHT
+            or picture.image_size != STAGE_TITLE_IMAGE_SIZE
+            or picture.image_type != tim2["image_type"]
+            or picture.clut_color_count != tim2["clut_color_count"]
+            or picture.uses_shared_clut
+        ):
+            raise FullStoryComponentError(
+                f"stage-title picture layout drift: {ordinal}"
+            )
+        image_start = picture.offset + picture.header_size
+        image_end = image_start + picture.image_size
+        source_indexes = unpack_linear_4bpp(
+            source_decoded.output[image_start:image_end]
+        )
+        if not any(source_indexes):
+            raise FullStoryComponentError(
+                f"stage-title source picture is blank: {ordinal}"
+            )
+
+        selected = None
+        attempted_sizes = []
+        for levels in quantization_levels:
+            raster = render_stage_title(
+                entry["translation"],
+                glyphs,
+                doubled_glyph_width=doubled_glyph_width,
+                advance=advance,
+                y=raster_y,
+                quantization_levels=levels,
+            )
+            packed = pack_linear_4bpp(raster.indexes)
+            modified_decoded = (
+                source_decoded.output[:image_start]
+                + packed
+                + source_decoded.output[image_end:]
+            )
+            encoded = encode(
+                modified_decoded,
+                strategy=codec_strategy,
+                flags=source_decoded.flags,
+                header_unknown_0=source_decoded.metadata.get(
+                    "header_unknown_0"
+                ),
+                header_unknown_1=source_decoded.metadata["header_unknown_1"],
+                min_match_length=codec_min_match_length,
+                max_match_chain=codec_max_match_chain,
+            )
+            attempted_sizes.append(
+                {"quantization_levels": levels, "encoded_size": len(encoded)}
+            )
+            if len(encoded) <= len(stored):
+                selected = (levels, raster, modified_decoded, encoded)
+                break
+        if selected is None:
+            raise FullStoryComponentError(
+                f"stage-title stream does not fit slot {ordinal}: "
+                f"{attempted_sizes} > {len(stored)}"
+            )
+        levels, raster, modified_decoded, encoded = selected
+        if (
+            modified_decoded[:image_start]
+            != source_decoded.output[:image_start]
+            or modified_decoded[image_end:]
+            != source_decoded.output[image_end:]
+        ):
+            raise FullStoryComponentError(
+                f"stage-title non-image bytes changed: {ordinal}"
+            )
+        padded = encoded + bytes(len(stored) - len(encoded))
+        output[stored_start:stored_end] = padded
+        reread = decode(output[stored_start:stored_end])
+        reread_records = scan_tim2(reread.output)
+        reread_picture = reread_records[0].pictures[0]
+        reread_image_start = reread_picture.offset + reread_picture.header_size
+        reread_image_end = reread_image_start + reread_picture.image_size
+        reread_indexes = unpack_linear_4bpp(
+            reread.output[reread_image_start:reread_image_end]
+        )
+        if (
+            reread.output != modified_decoded
+            or reread_indexes != raster.indexes
+            or any(output[stored_start + reread.consumed : stored_end])
+        ):
+            raise FullStoryComponentError(
+                f"stage-title VT1 reread failed: {ordinal}"
+            )
+        title_reports.append(
+            {
+                "ordinal": ordinal,
+                "entry_id": entry["id"],
+                "text": entry["translation"],
+                "selector": selector,
+                "loader_table_index": table_index,
+                "stored_start": stored_start,
+                "stored_end": stored_end,
+                "stored_size": len(stored),
+                "source_consumed": source_decoded.consumed,
+                "output_encoded_size": len(encoded),
+                "padding_size": len(stored) - len(encoded),
+                "quantization_levels": levels,
+                "attempted_sizes": attempted_sizes,
+                "raster_x": raster.x,
+                "raster_y": raster.y,
+                "raster_width": raster.width,
+                "raster_height": raster.height,
+                "natural_width": raster.natural_width,
+                "source_indexes_sha256": sha256_bytes(source_indexes),
+                "output_indexes_sha256": sha256_bytes(raster.indexes),
+            }
+        )
+
+    output_bytes = bytes(output)
+    first_title_start = group_start + offsets[loader_table_bias + selector_bias]
+    if (
+        len(output_bytes) != len(vt1)
+        or output_bytes[:first_title_start] != vt1[:first_title_start]
+        or output_bytes[group_end:] != vt1[group_end:]
+        or read_executable_archive_offsets(
+            slps,
+            CORE_ARCHIVE_SPECS["VT1.BIN"],
+            len(output_bytes),
+        )
+        != vt1_offsets
+    ):
+        raise FullStoryComponentError(
+            "stage-title VT1 archive boundary preservation failed"
+        )
+
+    reduced_ordinals = [
+        item["ordinal"]
+        for item in title_reports
+        if item["quantization_levels"] < 16
+    ]
+    if (
+        len(title_reports) != expected.get("texture_entry_count")
+        or sum(item["quantization_levels"] == 16 for item in title_reports)
+        != expected.get("full_precision_count")
+        or reduced_ordinals != expected.get("reduced_precision_ordinals")
+    ):
+        raise FullStoryComponentError(
+            "stage-title graphic output expectation drift"
+        )
+    stage_37 = title_reports[71]
+    stage_38 = title_reports[72]
+    if (
+        stage_37["text"] != "肃清风暴"
+        or stage_37["selector"] != 72
+        or stage_37["loader_table_index"] != 80
+        or stage_38["text"] != "被安排的决战"
+        or stage_38["selector"] != 73
+        or stage_38["loader_table_index"] != 81
+    ):
+        raise FullStoryComponentError(
+            "stage 37/38 title graphic mapping drift"
+        )
+    return output_bytes, {
+        "member": archive["member"],
+        "vt1_group_index": group_index,
+        "group_start": group_start,
+        "group_end": group_end,
+        "group_size": group_end - group_start,
+        "offset_table_start": table_start,
+        "offset_count": len(offsets),
+        "texture_entry_count": len(title_reports),
+        "stage_name_entry_count": len(stage_entries),
+        "scenario_record_count": record_count,
+        "scenario_record_target_count": len(record_target_offsets),
+        "text_only_entry_count": len(text_only_reports),
+        "text_only_entries": text_only_reports,
+        "all_stage_name_entries_accounted_for": (
+            len(title_reports) + len(text_only_reports) == len(stage_entries)
+        ),
+        "full_precision_count": sum(
+            item["quantization_levels"] == 16 for item in title_reports
+        ),
+        "reduced_precision_ordinals": reduced_ordinals,
+        "raster_storage": tim2["storage"],
+        "codec": dict(codec),
+        "stage_37": stage_37,
+        "stage_38": stage_38,
+        "titles": title_reports,
+        "archive_size_preserved": True,
+        "top_level_offsets_preserved": True,
+        "internal_offsets_preserved": True,
+        "non_title_prefix_preserved_byte_exact": True,
+        "tim2_metadata_and_clut_preserved": True,
+        "translated_reread_exact": True,
+    }
+
+
 def _apply_full_stage_titles(
     slps: bytes,
+    vt1: bytes,
     stored_compdata: bytes,
     reference: dict,
     font_manifest: dict,
     codec: dict,
-) -> tuple[bytes, bytes, dict, tuple[Path, Path, Path]]:
+    final_font: bytes,
+    release_by_character: dict,
+) -> tuple[bytes, bytes, bytes, dict, tuple[Path, Path, Path]]:
     """Write every fixed-span stage title and the visible title quotes."""
 
     if not isinstance(reference, dict):
@@ -866,7 +1414,17 @@ def _apply_full_stage_titles(
     example_id = "menu/Compdata/03/0072"
     if stage_replacements.get(example_id) != "被安排的决战":
         raise FullStoryComponentError("stage 38 title decision drift")
-    return slps_write.data, rebuilt_compdata, {
+    output_vt1, graphic_report = _apply_full_stage_title_graphics(
+        slps_write.data,
+        vt1,
+        stage_entries,
+        decoded.output,
+        parsed_compdata,
+        final_font,
+        release_by_character,
+        reference.get("graphics"),
+    )
+    return slps_write.data, output_vt1, rebuilt_compdata, {
         "stage_title_entry_count": len(stage_replacements),
         "title_format_entry_id": format_id,
         "title_format_translation": format_translation,
@@ -879,6 +1437,7 @@ def _apply_full_stage_titles(
         "compdata_output_size": len(rebuilt_compdata),
         "compdata_round_trip_exact": True,
         "slps_size_preserved": len(slps_write.data) == len(slps),
+        "graphics": graphic_report,
     }, (stage_path, format_path, descriptor_path)
 
 
@@ -1001,6 +1560,7 @@ def _apply_stage_overviews(
             "source_stored_size": len(stored),
             "source_encoded_size": decoded.consumed,
             "output_encoded_size": len(rebuilt),
+            "output_encoded_sha256": sha256_bytes(rebuilt),
             "output_padding_size": len(rebuilt_stored) - len(rebuilt),
             "codec_round_trip_exact": True,
             "archive_size_preserved": True,
@@ -1009,6 +1569,148 @@ def _apply_stage_overviews(
         }
     )
     return output, overview_report, corpus_path
+
+
+def _apply_stage_fixed_formation_names(
+    stage: bytes,
+    hb: bytes,
+    reference: dict,
+    translation_path: Path,
+    font_manifest: dict,
+    codec: dict,
+) -> tuple[bytes, dict, Path]:
+    """Rewrite the nine fixed default-squad names in STAGE chunk 101."""
+
+    if not isinstance(reference, dict):
+        raise FullStoryComponentError("remaining UI configuration is invalid")
+    original_stage_path, original_stage = _locked_file(
+        reference.get("original_stage"), label="original STAGE"
+    )
+    translations = json.loads(translation_path.read_text(encoding="utf-8"))
+    replacements = translations.get("stage_fixed_formation_by_offset")
+    expected = reference.get("expected")
+    if (
+        not isinstance(expected, dict)
+        or not isinstance(replacements, dict)
+        or len(replacements)
+        != expected.get("stage_fixed_formation_entry_count")
+    ):
+        raise FullStoryComponentError(
+            "fixed formation-name selection drift"
+        )
+    chunk_index = expected.get("stage_fixed_formation_chunk_index")
+    if not isinstance(chunk_index, int) or chunk_index < 0:
+        raise FullStoryComponentError(
+            "fixed formation-name chunk index is invalid"
+        )
+    if len(original_stage) != len(stage):
+        raise FullStoryComponentError(
+            "fixed formation-name STAGE size drift"
+        )
+
+    offset_spec = ExecutableOffsetSpec(
+        name="HEDBDY/HB.BIN STAGE offsets",
+        member="HEDBDY/HB.BIN",
+        table_start=30320,
+        table_end=31144,
+    )
+    offsets = read_executable_archive_offsets(hb, offset_spec, len(stage))
+    if chunk_index + 1 >= len(offsets):
+        raise FullStoryComponentError(
+            "fixed formation-name STAGE chunk is missing"
+        )
+    start, end = offsets[chunk_index : chunk_index + 2]
+    stored = stage[start:end]
+    original_stored = original_stage[start:end]
+    current_decoded = decode(stored)
+    original_decoded = decode(original_stored)
+    if (
+        any(stored[current_decoded.consumed :])
+        or any(original_stored[original_decoded.consumed :])
+        or len(current_decoded.output) != len(original_decoded.output)
+    ):
+        raise FullStoryComponentError(
+            "fixed formation-name STAGE chunk decode drift"
+        )
+
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    output_table = project_runtime_text_table(table, primary)
+    output_table = project_runtime_text_table(output_table, aliases)
+    output_table = project_runtime_text_table(
+        output_table, original_fullwidth_ascii_overrides(table)
+    )
+    rewritten, fixed_report = _apply_fixed_span_translations(
+        current_decoded.output,
+        original_decoded.output,
+        replacements,
+        table=table,
+        output_table=output_table,
+        encoding_overrides=encoding_overrides,
+        label="STAGE fixed formation names",
+    )
+    if not isinstance(codec, dict) or codec.get("strategy") != "rust-fit":
+        raise FullStoryComponentError(
+            "fixed formation-name codec policy is invalid"
+        )
+    try:
+        rebuilt = reencode_changed_suffix(
+            stored[: current_decoded.consumed],
+            rewritten,
+            strategy=codec["strategy"],
+            min_match_length=codec["min_match_length"],
+            max_match_chain=codec["max_match_chain"],
+            lazy_matching=codec["lazy_matching"],
+            max_output_size=len(stored),
+        )
+    except (RuntimeError, ValueError) as error:
+        raise FullStoryComponentError(
+            f"fixed formation-name compression failed: {error}"
+        ) from error
+    round_trip = decode(rebuilt)
+    if (
+        round_trip.consumed != len(rebuilt)
+        or round_trip.output != rewritten
+        or round_trip.flags != current_decoded.flags
+    ):
+        raise FullStoryComponentError(
+            "fixed formation-name codec round-trip failed"
+        )
+    rebuilt_stored = rebuilt + bytes(len(stored) - len(rebuilt))
+    output = stage[:start] + rebuilt_stored + stage[end:]
+    if (
+        len(output) != len(stage)
+        or read_executable_archive_offsets(hb, offset_spec, len(output))
+        != offsets
+        or output[:start] != stage[:start]
+        or output[end:] != stage[end:]
+    ):
+        raise FullStoryComponentError(
+            "fixed formation-name STAGE archive layout changed"
+        )
+    fixed_report.update(
+        {
+            "chunk_index": chunk_index,
+            "source_text": "別働隊",
+            "translation": "别动队",
+            "source_stored_size": len(stored),
+            "source_encoded_size": current_decoded.consumed,
+            "output_encoded_size": len(rebuilt),
+            "output_encoded_sha256": sha256_bytes(rebuilt),
+            "output_padding_size": len(rebuilt_stored) - len(rebuilt),
+            "codec_strategy": codec["strategy"],
+            "codec_round_trip_exact": True,
+            "archive_size_preserved": True,
+            "hb_offsets_preserved": True,
+            "non_target_chunks_preserved_byte_exact": True,
+        }
+    )
+    return output, fixed_report, original_stage_path
 
 
 def _apply_hsfc_overviews(
@@ -1289,6 +1991,137 @@ def _apply_fixed_span_translations(
     }
 
 
+def _apply_fixed_inline_translations(
+    current: bytes,
+    original: bytes,
+    replacements: dict,
+    *,
+    table,
+    encoding_overrides: dict[str, int],
+    label: str,
+) -> tuple[bytes, dict]:
+    """Replace non-terminated substrings without moving later entry points."""
+
+    if not isinstance(replacements, dict) or not replacements:
+        raise FullStoryComponentError(f"{label} translation map is invalid")
+    try:
+        padding = encode_text("　", table, terminate=False)
+    except (SrwzTextEncodeError, ValueError) as error:
+        raise FullStoryComponentError(
+            f"{label} fullwidth-space encoding failed: {error}"
+        ) from error
+    if len(padding) != 2:
+        raise FullStoryComponentError(
+            f"{label} fullwidth-space encoding is not one double-byte glyph"
+        )
+
+    output = bytearray(current)
+    ranges = []
+    write_count = 0
+    no_op_count = 0
+    minimum_headroom = None
+    changed_offsets = set()
+    for raw_offset, raw_entry in sorted(
+        replacements.items(), key=lambda item: int(item[0], 16)
+    ):
+        try:
+            offset = int(raw_offset, 16)
+        except (TypeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"{label} offset is invalid: {raw_offset!r}"
+            ) from error
+        if (
+            not isinstance(raw_offset, str)
+            or raw_offset != f"0x{offset:X}"
+            or not isinstance(raw_entry, dict)
+            or set(raw_entry) != {"source", "translation"}
+            or not isinstance(raw_entry.get("source"), str)
+            or not raw_entry["source"]
+            or not isinstance(raw_entry.get("translation"), str)
+            or not raw_entry["translation"]
+        ):
+            raise FullStoryComponentError(
+                f"{label} entry is invalid at {raw_offset!r}"
+            )
+        source = raw_entry["source"]
+        translation = normalize_original_fullwidth_ascii(
+            raw_entry["translation"]
+        )
+        if _control_signature(source) != _control_signature(translation):
+            raise FullStoryComponentError(
+                f"{label} placeholder/control drift at {raw_offset}"
+            )
+        try:
+            source_encoded = encode_text(source, table, terminate=False)
+            encoded = encode_text(
+                translation,
+                table,
+                overrides=encoding_overrides,
+                terminate=False,
+            )
+        except (SrwzTextEncodeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"{label} encoding failed at {raw_offset}: {error}"
+            ) from error
+        end = offset + len(source_encoded)
+        if end > len(current) or original[offset:end] != source_encoded:
+            raise FullStoryComponentError(
+                f"{label} source preimage drift at {raw_offset}"
+            )
+        if ranges and offset < ranges[-1][1]:
+            raise FullStoryComponentError(
+                f"{label} spans overlap at {raw_offset}"
+            )
+        ranges.append((offset, end))
+        headroom = len(source_encoded) - len(encoded)
+        if headroom < 0 or headroom % len(padding):
+            raise FullStoryComponentError(
+                f"{label} overflow or odd headroom at {raw_offset}: "
+                f"need {len(encoded)}, capacity {len(source_encoded)}"
+            )
+        replacement = encoded + padding * (headroom // len(padding))
+        current_span = current[offset:end]
+        original_span = original[offset:end]
+        if current_span not in {original_span, replacement}:
+            raise FullStoryComponentError(
+                f"{label} current preimage drift at {raw_offset}"
+            )
+        minimum_headroom = (
+            headroom
+            if minimum_headroom is None
+            else min(minimum_headroom, headroom)
+        )
+        if current_span == replacement:
+            no_op_count += 1
+        else:
+            output[offset:end] = replacement
+            write_count += 1
+            changed_offsets.update(
+                index
+                for index, (before, after) in enumerate(
+                    zip(current_span, replacement), start=offset
+                )
+                if before != after
+            )
+        if bytes(output[offset:end]) != replacement:
+            raise FullStoryComponentError(
+                f"{label} byte readback mismatch at {raw_offset}"
+            )
+    return bytes(output), {
+        "entry_count": len(replacements),
+        "write_entry_count": write_count,
+        "no_op_entry_count": no_op_count,
+        "minimum_output_headroom": minimum_headroom,
+        "changed_byte_count": len(changed_offsets),
+        "fixed_spans_preserved": True,
+        "internal_entry_offsets_preserved": True,
+        "pointer_bytes_unchanged": True,
+        "placeholder_control_tokens_preserved": True,
+        "fullwidth_space_padding_only": True,
+        "reread_exact": True,
+    }
+
+
 def _apply_remaining_ui(
     slps: bytes,
     stored_compdata: bytes,
@@ -1330,7 +2163,10 @@ def _apply_remaining_ui(
 
     expected = reference.get("expected")
     direct = translations.get("compdata_direct_by_offset")
+    context_help = translations.get("compdata_context_help_by_offset")
+    inline = translations.get("compdata_inline_by_offset")
     leadership = translations.get("leadership_effect_by_offset")
+    slps_context = translations.get("slps_context_ui_by_offset")
     slps_map = translations.get("slps_by_offset")
     accepted_current = translations.get("accepted_current_preimages_by_offset")
     atlas = translations.get("atlas_by_source_text")
@@ -1340,8 +2176,15 @@ def _apply_remaining_ui(
     if not isinstance(expected, dict) or (
         not isinstance(direct, dict)
         or len(direct) != expected.get("compdata_direct_entry_count")
+        or not isinstance(context_help, dict)
+        or len(context_help)
+        != expected.get("compdata_context_help_entry_count")
+        or not isinstance(inline, dict)
+        or len(inline) != expected.get("compdata_inline_entry_count")
         or not isinstance(leadership, dict)
         or len(leadership) != expected.get("leadership_effect_entry_count")
+        or not isinstance(slps_context, dict)
+        or len(slps_context) != expected.get("slps_context_ui_entry_count")
         or not isinstance(slps_map, dict)
         or len(slps_map) != expected.get("slps_entry_count")
         or not isinstance(accepted_current, dict)
@@ -1389,6 +2232,23 @@ def _apply_remaining_ui(
         label="remaining COMPDATA UI",
         accepted_current_texts=accepted_current,
     )
+    compdata_output, context_help_report = _apply_fixed_span_translations(
+        compdata_output,
+        original_decoded.output,
+        context_help,
+        table=table,
+        output_table=output_table,
+        encoding_overrides=encoding_overrides,
+        label="remaining COMPDATA context help",
+    )
+    compdata_output, inline_report = _apply_fixed_inline_translations(
+        compdata_output,
+        original_decoded.output,
+        inline,
+        table=table,
+        encoding_overrides=encoding_overrides,
+        label="remaining COMPDATA inline UI",
+    )
     compdata_output, leadership_report = _apply_fixed_span_translations(
         compdata_output,
         original_decoded.output,
@@ -1398,8 +2258,17 @@ def _apply_remaining_ui(
         encoding_overrides=encoding_overrides,
         label="leadership effects",
     )
-    output_slps, slps_report = _apply_fixed_span_translations(
+    output_slps, slps_context_report = _apply_fixed_span_translations(
         slps,
+        original_slps,
+        slps_context,
+        table=table,
+        output_table=output_table,
+        encoding_overrides=encoding_overrides,
+        label="remaining SLPS context UI",
+    )
+    output_slps, slps_report = _apply_fixed_span_translations(
+        output_slps,
         original_slps,
         slps_map,
         table=table,
@@ -1553,6 +2422,8 @@ def _apply_remaining_ui(
             "機体系",
             "次のマップへ",
             "新規編成",
+            "リザーブへ",
+            "小隊群へ",
         ]
         or protected.get("protected_single_character_sources") != ["攻", "反"]
         or len(protected.get("pending_dedicated_mask_sources", []))
@@ -1565,7 +2436,10 @@ def _apply_remaining_ui(
         raise FullStoryComponentError("remaining UI atlas writeback policy drift")
     return output_slps, rebuilt_compdata, {
         "compdata_direct": direct_report,
+        "compdata_context_help": context_help_report,
+        "compdata_inline": inline_report,
         "leadership_effects": leadership_report,
+        "slps_context_ui": slps_context_report,
         "slps": slps_report,
         "parts": parts_report,
         "residual_display_names": {
@@ -1919,6 +2793,200 @@ def _apply_global_safe_aliases(
         "compdata_output_size": len(rebuilt_compdata),
         "compdata_round_trip_exact": True,
     }
+
+
+def _apply_reviewed_weapon_names(
+    stored_compdata: bytes,
+    reference: dict,
+    descriptor_path: Path,
+    original_compdata_path: Path,
+    font_manifest: dict,
+    codec: dict,
+) -> tuple[bytes, dict, Path]:
+    """Write the complete reviewed weapon corpus into original fixed spans."""
+
+    if not isinstance(reference, dict):
+        raise FullStoryComponentError("reviewed weapon configuration is invalid")
+    corpus_path, corpus_data = _locked_file(
+        reference.get("corpus"), label="reviewed weapon corpus"
+    )
+    document = json.loads(corpus_data.decode("utf-8"))
+    entries = document.get("entries")
+    expected = reference.get("expected")
+    if (
+        document.get("batch_id") != "v1-menu-weapons"
+        or document.get("language") != "zh-Hans"
+        or not isinstance(entries, list)
+        or not isinstance(expected, dict)
+        or len(entries) != expected.get("entry_count")
+        or document.get("scope", {}).get("entry_count") != len(entries)
+        or any(
+            not isinstance(item, dict)
+            or item.get("editorial_status") != "reviewed"
+            or not isinstance(item.get("translation"), str)
+            or not item["translation"]
+            for item in entries
+        )
+    ):
+        raise FullStoryComponentError("reviewed weapon corpus contract drift")
+
+    descriptors = json.loads(descriptor_path.read_text(encoding="utf-8"))
+    descriptor = next(
+        (
+            row
+            for row in descriptors
+            if isinstance(row, dict) and row.get("friendly_name") == "Compdata"
+        ),
+        None,
+    )
+    if not isinstance(descriptor, dict):
+        raise FullStoryComponentError("reviewed weapon menu descriptor missing")
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    output_table = project_runtime_text_table(table, primary)
+    output_table = project_runtime_text_table(output_table, aliases)
+    output_table = project_runtime_text_table(
+        output_table, original_fullwidth_ascii_overrides(table)
+    )
+    original_compdata = original_compdata_path.read_bytes()
+    original_decoded = decode(original_compdata)
+    current_decoded = decode(stored_compdata)
+    if (
+        original_decoded.consumed != len(original_compdata)
+        or current_decoded.consumed != len(stored_compdata)
+        or len(original_decoded.output) != len(current_decoded.output)
+    ):
+        raise FullStoryComponentError("reviewed weapon COMPDATA decode drift")
+    original_menu = parse_menu_file(original_decoded.output, descriptor, table)
+    original_by_id = {item.entry_id: item for item in original_menu.entries}
+    replacements: dict[str, str] = {}
+    accepted_current: dict[str, str] = {}
+    selected_ids = []
+    selected_offsets = []
+    for ordinal, item in enumerate(entries):
+        entry_id = f"menu/Compdata/02/{ordinal:04d}"
+        source = original_by_id.get(entry_id)
+        translation = normalize_original_fullwidth_ascii(item["translation"])
+        if (
+            item.get("id") != entry_id
+            or source is None
+            or item.get("source_text_sha256")
+            != sha256_bytes(source.text.encode("utf-8"))
+            or item.get("glossary_refs") is None
+            or f"weapon/{ordinal:04d}" not in item["glossary_refs"]
+            or not source.target_offsets
+            or _control_signature(source.text) != _control_signature(translation)
+        ):
+            raise FullStoryComponentError(
+                f"reviewed weapon source/corpus drift: {entry_id}"
+            )
+        selected_ids.append(entry_id)
+        for offset in source.target_offsets:
+            raw_offset = f"0x{offset:X}"
+            previous = replacements.get(raw_offset)
+            if previous is not None and previous != translation:
+                raise FullStoryComponentError(
+                    f"reviewed weapon shared target conflict: {raw_offset}"
+                )
+            replacements[raw_offset] = translation
+            accepted_current[raw_offset] = normalize_original_fullwidth_ascii(
+                decode_text(current_decoded.output, offset, output_table).text
+            )
+            selected_offsets.append(offset)
+    unique_offsets = set(selected_offsets)
+    if (
+        len(selected_ids) != expected.get("entry_count")
+        or len(selected_offsets) != expected.get("target_occurrence_count")
+        or len(unique_offsets) != expected.get("unique_target_count")
+    ):
+        raise FullStoryComponentError("reviewed weapon target inventory drift")
+
+    target_owners: dict[int, set[str]] = {}
+    for menu_entry in original_menu.entries:
+        for offset in set(menu_entry.target_offsets):
+            target_owners.setdefault(offset, set()).add(menu_entry.entry_id)
+    shared_owners = {
+        owner
+        for offset in unique_offsets
+        for owner in target_owners.get(offset, set())
+        if owner not in set(selected_ids)
+    }
+    if len(shared_owners) != expected.get("shared_nonweapon_owner_count"):
+        raise FullStoryComponentError("reviewed weapon shared-owner drift")
+
+    rewritten, write_report = _apply_fixed_span_translations(
+        current_decoded.output,
+        original_decoded.output,
+        replacements,
+        table=table,
+        output_table=output_table,
+        encoding_overrides=encoding_overrides,
+        label="reviewed weapon names",
+        accepted_current_texts=accepted_current,
+    )
+    # Output parser ordinals are not stable when two reviewed names become
+    # identical (records 10 and 11 intentionally both use 终极豪烈特攻), because
+    # the upstream menu format groups equal decoded text. Verify the source-
+    # bound target offsets instead of pretending output ordinals are identity.
+    mismatches = []
+    for raw_offset, expected_translation in replacements.items():
+        offset = int(raw_offset, 16)
+        actual = normalize_original_fullwidth_ascii(
+            decode_text(rewritten, offset, output_table).text
+        )
+        if actual != expected_translation:
+            mismatches.append((raw_offset, expected_translation, actual))
+    if mismatches:
+        raise FullStoryComponentError(
+            f"reviewed weapon target-offset reread mismatch: {mismatches[:10]!r}"
+        )
+    if not isinstance(codec, dict) or codec.get("strategy") != "rust-fit":
+        raise FullStoryComponentError("reviewed weapon codec policy is invalid")
+    try:
+        rebuilt = reencode_changed_suffix(
+            stored_compdata,
+            rewritten,
+            strategy=codec["strategy"],
+            min_match_length=codec["min_match_length"],
+            max_match_chain=codec["max_match_chain"],
+            lazy_matching=codec["lazy_matching"],
+            max_output_size=codec["max_output_size"],
+        )
+    except (RuntimeError, ValueError) as error:
+        raise FullStoryComponentError(
+            f"reviewed weapon COMPDATA compression failed: {error}"
+        ) from error
+    round_trip = decode(rebuilt)
+    if (
+        round_trip.consumed != len(rebuilt)
+        or round_trip.output != rewritten
+        or round_trip.flags != current_decoded.flags
+    ):
+        raise FullStoryComponentError(
+            "reviewed weapon COMPDATA round-trip failed"
+        )
+    write_report.update(
+        {
+            "corpus_entry_count": len(entries),
+            "target_occurrence_count": len(selected_offsets),
+            "unique_target_count": len(unique_offsets),
+            "shared_nonweapon_owner_count": len(shared_owners),
+            "shared_nonweapon_owner_ids": sorted(shared_owners),
+            "source_preimages_sha256_exact": True,
+            "all_editorial_statuses_reviewed": True,
+            "target_offset_reread_exact": True,
+            "compdata_source_size": len(stored_compdata),
+            "compdata_output_size": len(rebuilt),
+            "compdata_sector_budget": codec["max_output_size"],
+            "codec_round_trip_exact": True,
+        }
+    )
+    return rebuilt, write_report, corpus_path
 
 
 def _apply_srvc_battle_text(
@@ -2472,18 +3540,248 @@ def _apply_scenario_title_geometry(
     }
 
 
+def _apply_nisv_effect_names(
+    slps: bytes,
+    font_manifest: dict,
+    raw_config: object,
+) -> tuple[bytes, dict, tuple[Path, Path]]:
+    """Replace the duplicated weapon-effect labels in NisVData chunk 6."""
+
+    if not isinstance(raw_config, dict):
+        raise FullStoryComponentError("NisVData effect-name config is invalid")
+    translations_path, translations_data = _locked_file(
+        raw_config.get("translations"),
+        label="NisVData effect-name translations",
+    )
+    archive_path, archive = _locked_file(
+        raw_config.get("original_archive"),
+        label="original NisVData.bin",
+    )
+    archive_spec = raw_config.get("archive")
+    target = raw_config.get("target")
+    expected = raw_config.get("expected")
+    codec = raw_config.get("codec")
+    if not all(
+        isinstance(value, dict)
+        for value in (archive_spec, target, expected, codec)
+    ):
+        raise FullStoryComponentError("NisVData effect-name contract is incomplete")
+    document = json.loads(translations_data.decode("utf-8"))
+    terms = document.get("nisv_effect_names")
+    if (
+        not isinstance(terms, list)
+        or len(terms) != expected.get("term_count")
+        or sum(
+            len(item.get("decoded_offsets", []))
+            for item in terms
+            if isinstance(item, dict)
+        )
+        != expected.get("occurrence_count")
+        or codec.get("strategy") != "rust-fit"
+    ):
+        raise FullStoryComponentError("NisVData effect-name selection drift")
+    try:
+        spec = ExecutableOffsetSpec(
+            name=archive_spec["name"],
+            member=archive_spec["member"],
+            table_start=int(archive_spec["table_start"], 0),
+            table_end=int(archive_spec["table_end"], 0),
+        )
+        chunk_index = target["chunk_index"]
+    except (KeyError, TypeError, ValueError) as error:
+        raise FullStoryComponentError(
+            "NisVData effect-name values are malformed"
+        ) from error
+    if (
+        archive_spec.get("storage") != "srwz_stream"
+        or archive_spec.get("alignment") != 16
+        or not isinstance(chunk_index, int)
+    ):
+        raise FullStoryComponentError("NisVData archive policy drift")
+    offsets = read_executable_archive_offsets(slps, spec, len(archive))
+    if not 0 <= chunk_index < len(offsets) - 1:
+        raise FullStoryComponentError("NisVData target chunk is missing")
+    chunk_start, chunk_end = offsets[chunk_index : chunk_index + 2]
+    stored = archive[chunk_start:chunk_end]
+    if (
+        chunk_start != target.get("stored_start")
+        or chunk_end != target.get("stored_end")
+        or len(stored) != target.get("stored_size")
+        or sha256_bytes(stored) != target.get("stored_sha256")
+    ):
+        raise FullStoryComponentError("NisVData stored chunk lock drift")
+    decoded = decode(stored)
+    if (
+        decoded.consumed != target.get("stored_consumed")
+        or any(stored[decoded.consumed :])
+        or len(decoded.output) != target.get("decoded_size")
+        or sha256_bytes(decoded.output) != target.get("decoded_sha256")
+    ):
+        raise FullStoryComponentError("NisVData decoded chunk lock drift")
+
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    fullwidth_space = encode_text(
+        "\u3000",
+        table,
+        overrides=encoding_overrides,
+        terminate=False,
+    )
+    if len(fullwidth_space) != 2:
+        raise FullStoryComponentError("NisVData padding glyph drift")
+    output_decoded = bytearray(decoded.output)
+    changed_ranges = []
+    term_reports = []
+    for item in terms:
+        if not isinstance(item, dict):
+            raise FullStoryComponentError("NisVData effect-name entry is invalid")
+        source = item.get("source")
+        translation = item.get("translation")
+        raw_offsets = item.get("decoded_offsets")
+        if (
+            not isinstance(source, str)
+            or not source
+            or not isinstance(translation, str)
+            or not translation
+            or not isinstance(raw_offsets, list)
+            or not raw_offsets
+        ):
+            raise FullStoryComponentError("NisVData effect-name entry drift")
+        translation = normalize_original_fullwidth_ascii(translation)
+        source_encoded = encode_text(source, table, terminate=False)
+        translated_encoded = encode_text(
+            translation,
+            table,
+            overrides=encoding_overrides,
+            terminate=False,
+        )
+        headroom = len(source_encoded) - len(translated_encoded)
+        if headroom < 0 or headroom % len(fullwidth_space):
+            raise FullStoryComponentError(
+                f"NisVData effect-name overflow: {source!r}"
+            )
+        replacement = translated_encoded + fullwidth_space * (
+            headroom // len(fullwidth_space)
+        )
+        expected_offsets = [int(value, 0) for value in raw_offsets]
+        actual_offsets = []
+        cursor = 0
+        while True:
+            cursor = decoded.output.find(source_encoded, cursor)
+            if cursor < 0:
+                break
+            actual_offsets.append(cursor)
+            cursor += 1
+        if actual_offsets != expected_offsets:
+            raise FullStoryComponentError(
+                f"NisVData effect-name occurrence drift: {source!r}"
+            )
+        for offset in expected_offsets:
+            end = offset + len(source_encoded)
+            if bytes(output_decoded[offset:end]) != source_encoded:
+                raise FullStoryComponentError(
+                    f"NisVData effect-name preimage drift at 0x{offset:X}"
+                )
+            output_decoded[offset:end] = replacement
+            changed_ranges.append((offset, end))
+        term_reports.append(
+            {
+                "source": source,
+                "translation": translation,
+                "decoded_offsets": expected_offsets,
+                "source_encoded_size": len(source_encoded),
+                "translation_encoded_size": len(translated_encoded),
+                "fullwidth_padding_count": headroom // len(fullwidth_space),
+            }
+        )
+    for offset, (before, after) in enumerate(
+        zip(decoded.output, output_decoded)
+    ):
+        if before != after and not any(
+            start <= offset < end for start, end in changed_ranges
+        ):
+            raise FullStoryComponentError(
+                "NisVData changed bytes outside effect-name spans"
+            )
+    try:
+        rebuilt = reencode_changed_suffix(
+            stored[: decoded.consumed],
+            bytes(output_decoded),
+            strategy=codec["strategy"],
+            min_match_length=codec["min_match_length"],
+            max_match_chain=codec["max_match_chain"],
+            lazy_matching=codec["lazy_matching"],
+            max_output_size=len(stored),
+        )
+    except (RuntimeError, ValueError) as error:
+        raise FullStoryComponentError(
+            f"NisVData Rust compression failed: {error}"
+        ) from error
+    round_trip = decode(rebuilt)
+    if (
+        round_trip.consumed != len(rebuilt)
+        or round_trip.output != bytes(output_decoded)
+        or round_trip.flags != decoded.flags
+    ):
+        raise FullStoryComponentError("NisVData codec round trip failed")
+    padded = rebuilt + bytes(len(stored) - len(rebuilt))
+    output_archive = archive[:chunk_start] + padded + archive[chunk_end:]
+    if (
+        len(output_archive) != len(archive)
+        or output_archive[:chunk_start] != archive[:chunk_start]
+        or output_archive[chunk_end:] != archive[chunk_end:]
+        or read_executable_archive_offsets(slps, spec, len(output_archive))
+        != offsets
+    ):
+        raise FullStoryComponentError("NisVData archive layout changed")
+    reread = decode(output_archive[chunk_start:chunk_end])
+    if (
+        reread.output != bytes(output_decoded)
+        or any(output_archive[chunk_start + reread.consumed : chunk_end])
+    ):
+        raise FullStoryComponentError("NisVData archive reread failed")
+    return output_archive, {
+        "member": archive_spec["member"],
+        "chunk_index": chunk_index,
+        "terms": term_reports,
+        "term_count": len(term_reports),
+        "occurrence_count": sum(
+            len(item["decoded_offsets"]) for item in term_reports
+        ),
+        "source_stored_size": len(stored),
+        "output_encoded_size": len(rebuilt),
+        "output_padding_size": len(stored) - len(rebuilt),
+        "codec": dict(codec),
+        "archive_size_preserved": True,
+        "archive_offsets_preserved": True,
+        "non_target_chunks_preserved_byte_exact": True,
+        "fullwidth_space_padding_only": True,
+        "translated_reread_exact": True,
+    }, (translations_path, archive_path)
+
+
 def _apply_scenario_select_effect(
     slps: bytes,
     final_font: bytes,
     release_by_character: dict,
     raw_config: object,
+    *,
+    archive_payload: bytes | None = None,
 ) -> tuple[bytes, dict, Path]:
     if not isinstance(raw_config, dict):
         raise FullStoryComponentError("scenario-select effect config is invalid")
-    archive_path, archive = _locked_file(
+    archive_path, original_archive = _locked_file(
         raw_config.get("original_archive"),
         label="original VEFF2DX.BIN",
     )
+    archive = original_archive if archive_payload is None else archive_payload
+    if len(archive) != len(original_archive):
+        raise FullStoryComponentError("VEFF2DX archive size drift")
     archive_spec = raw_config.get("archive")
     target = raw_config.get("target")
     raster = raw_config.get("raster")
@@ -2658,13 +3956,21 @@ def _apply_scenario_select_effect(
             }
         )
 
-    geometry_decoded, geometry_report = _apply_scenario_title_geometry(
-        decoded,
-        logical,
-        geometry,
-        tim2_offset=record.offset,
-        texture_y_bounds=(clear_y, clear_y + clear_height),
-    )
+    if geometry.get("enabled") is False:
+        geometry_decoded = decoded
+        geometry_report = {
+            "enabled": False,
+            "layout_bytes_preserved": True,
+            "reason": geometry.get("reason"),
+        }
+    else:
+        geometry_decoded, geometry_report = _apply_scenario_title_geometry(
+            decoded,
+            logical,
+            geometry,
+            tim2_offset=record.offset,
+            texture_y_bounds=(clear_y, clear_y + clear_height),
+        )
     packed = swizzle_psmt4(logical)
     if unswizzle_psmt4(packed) != logical:
         raise FullStoryComponentError("scenario-select PSMT4 round trip failed")
@@ -2715,7 +4021,7 @@ def _apply_scenario_select_effect(
     composed_labels = raw_config.get("composed_labels")
     if (
         not isinstance(composed_labels, list)
-        or len(composed_labels) != 2
+        or not composed_labels
         or not all(isinstance(label, str) and label for label in composed_labels)
     ):
         raise FullStoryComponentError("scenario composed labels are invalid")
@@ -3055,15 +4361,19 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
     )
     (
         output_slps,
+        output_vt1,
         output_compdata,
         stage_title_report,
         stage_title_input_paths,
     ) = _apply_full_stage_titles(
         output_slps,
+        output_vt1,
         output_compdata,
         config.get("full_stage_titles"),
         font_manifest,
         config["full_pilot_names"]["codec"],
+        final_font,
+        release_by_character,
     )
     (
         output_slps,
@@ -3075,6 +4385,27 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         output_compdata,
         config.get("remaining_ui"),
         stage_title_input_paths[2],
+        font_manifest,
+        config["full_pilot_names"]["codec"],
+    )
+    (
+        output_nisvdata,
+        nisv_effect_names_report,
+        nisv_effect_names_input_paths,
+    ) = _apply_nisv_effect_names(
+        output_slps,
+        font_manifest,
+        config.get("nisv_effect_names"),
+    )
+    (
+        output_compdata,
+        reviewed_weapon_report,
+        reviewed_weapon_corpus_path,
+    ) = _apply_reviewed_weapon_names(
+        output_compdata,
+        config.get("reviewed_weapons"),
+        stage_title_input_paths[2],
+        remaining_ui_input_paths[2],
         font_manifest,
         config["full_pilot_names"]["codec"],
     )
@@ -3117,6 +4448,21 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         config["full_pilot_names"]["codec"],
     )
     (
+        output_stage,
+        stage_fixed_formation_report,
+        original_stage_path,
+    ) = _apply_stage_fixed_formation_names(
+        output_stage,
+        hb_payload,
+        config.get("remaining_ui"),
+        remaining_ui_input_paths[0],
+        font_manifest,
+        config["full_pilot_names"]["codec"],
+    )
+    remaining_ui_report["stage_fixed_formation"] = (
+        stage_fixed_formation_report
+    )
+    (
         output_hsfc,
         hsfc_overview_report,
         hsfc_overview_input_paths,
@@ -3139,11 +4485,25 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
     scenario_select_report["description_layout"] = (
         scenario_description_layout_report
     )
+    (
+        output_veff,
+        mode_select_report,
+        mode_select_source_path,
+    ) = _apply_scenario_select_effect(
+        output_slps,
+        final_font,
+        release_by_character,
+        config.get("mode_select_effect"),
+        archive_payload=output_veff,
+    )
+    if mode_select_source_path != scenario_select_source_path:
+        raise FullStoryComponentError("VEFF2DX source path drift between targets")
 
     payloads = {
         "SLPS_258.87": output_slps,
         "DATA/VT1.BIN": output_vt1,
         "DATA/COMPDATA.BN": output_compdata,
+        "DATA/NISVDATA.BIN": output_nisvdata,
         "DATA/MTV_PROS.BIN": base_payloads["mtv_pros"],
         "DATA/STAGE.BIN": output_stage,
         "DATA/HSFC.BIN": output_hsfc,
@@ -3215,13 +4575,25 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 remaining_ui_input_paths[1],
                 remaining_ui_input_paths[1].read_bytes(),
             ),
+            "reviewed_weapons": _file_lock(
+                reviewed_weapon_corpus_path,
+                reviewed_weapon_corpus_path.read_bytes(),
+            ),
             "original_compdata": _file_lock(
                 remaining_ui_input_paths[2],
                 remaining_ui_input_paths[2].read_bytes(),
             ),
+            "original_nisvdata": _file_lock(
+                nisv_effect_names_input_paths[1],
+                nisv_effect_names_input_paths[1].read_bytes(),
+            ),
             "original_slps": _file_lock(
                 remaining_ui_input_paths[3],
                 remaining_ui_input_paths[3].read_bytes(),
+            ),
+            "original_stage": _file_lock(
+                original_stage_path,
+                original_stage_path.read_bytes(),
             ),
             "srvc_battle_text_corpus": _file_lock(
                 srvc_input_paths[0], srvc_input_paths[0].read_bytes()
@@ -3255,6 +4627,10 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 "strategy"
             ],
             "scenario_select_strategy": scenario_select_report["codec"][
+                "strategy"
+            ],
+            "mode_select_strategy": mode_select_report["codec"]["strategy"],
+            "nisv_effect_names_strategy": nisv_effect_names_report["codec"][
                 "strategy"
             ],
         },
@@ -3311,8 +4687,11 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         "stage_overviews": stage_overview_report,
         "hsfc_overviews": hsfc_overview_report,
         "remaining_ui": remaining_ui_report,
+        "nisv_effect_names": nisv_effect_names_report,
+        "reviewed_weapons": reviewed_weapon_report,
         "srvc_battle_text": srvc_report,
         "scenario_select_effect": scenario_select_report,
+        "mode_select_effect": mode_select_report,
         "global_safe_aliases": global_safe_alias_report,
         "outputs": {
             name: _output_lock(output_paths[name], payload)
@@ -3328,6 +4707,11 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 and config["full_pilot_names"]["codec"]["strategy"]
                 == "rust-fit"
                 and scenario_select_report["codec"]["strategy"]
+                == "rust-fit"
+                and mode_select_report["codec"]["strategy"] == "rust-fit"
+                and nisv_effect_names_report["codec"]["strategy"]
+                == "rust-fit"
+                and stage_fixed_formation_report["codec_strategy"]
                 == "rust-fit"
             ),
             "p10_ui_members_inherited_exact": True,
@@ -3372,6 +4756,31 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 and stage_title_report["fixed_spans_preserved"]
                 and stage_title_report["pointer_bytes_unchanged"]
                 and stage_title_report["slps_size_preserved"]
+                and stage_title_report["graphics"]["texture_entry_count"] == 107
+                and stage_title_report["graphics"]["stage_name_entry_count"]
+                == 122
+                and stage_title_report["graphics"]["text_only_entry_count"]
+                == 15
+                and stage_title_report["graphics"][
+                    "all_stage_name_entries_accounted_for"
+                ]
+                and stage_title_report["graphics"][
+                    "archive_size_preserved"
+                ]
+                and stage_title_report["graphics"][
+                    "top_level_offsets_preserved"
+                ]
+                and stage_title_report["graphics"][
+                    "internal_offsets_preserved"
+                ]
+                and stage_title_report["graphics"][
+                    "tim2_metadata_and_clut_preserved"
+                ]
+                and stage_title_report["graphics"][
+                    "translated_reread_exact"
+                ]
+                and stage_title_report["graphics"]["stage_38"]["text"]
+                == "被安排的决战"
             ),
             "stage_overviews_reread_exact": (
                 stage_overview_report["translated_readback_exact"]
@@ -3402,9 +4811,29 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
             ),
             "remaining_ui_binary_text_reread_exact": (
                 remaining_ui_report["compdata_direct"]["reread_exact"]
+                and remaining_ui_report["compdata_context_help"][
+                    "reread_exact"
+                ]
+                and remaining_ui_report["compdata_inline"]["reread_exact"]
+                and remaining_ui_report["compdata_inline"][
+                    "internal_entry_offsets_preserved"
+                ]
                 and remaining_ui_report["leadership_effects"]["reread_exact"]
+                and remaining_ui_report["slps_context_ui"]["reread_exact"]
                 and remaining_ui_report["slps"]["reread_exact"]
                 and remaining_ui_report["parts"]["reread_exact"]
+                and remaining_ui_report["stage_fixed_formation"][
+                    "reread_exact"
+                ]
+                and remaining_ui_report["stage_fixed_formation"][
+                    "codec_round_trip_exact"
+                ]
+                and remaining_ui_report["stage_fixed_formation"][
+                    "archive_size_preserved"
+                ]
+                and remaining_ui_report["stage_fixed_formation"][
+                    "hb_offsets_preserved"
+                ]
                 and remaining_ui_report["compdata_round_trip_exact"]
                 and remaining_ui_report["slps_size_preserved"]
             ),
@@ -3412,7 +4841,16 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 remaining_ui_report["compdata_direct"][
                     "placeholder_control_tokens_preserved"
                 ]
+                and remaining_ui_report["compdata_context_help"][
+                    "placeholder_control_tokens_preserved"
+                ]
+                and remaining_ui_report["compdata_inline"][
+                    "placeholder_control_tokens_preserved"
+                ]
                 and remaining_ui_report["leadership_effects"][
+                    "placeholder_control_tokens_preserved"
+                ]
+                and remaining_ui_report["slps_context_ui"][
                     "placeholder_control_tokens_preserved"
                 ]
                 and remaining_ui_report["slps"][
@@ -3421,6 +4859,18 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 and remaining_ui_report["parts"][
                     "placeholder_control_tokens_preserved"
                 ]
+                and remaining_ui_report["stage_fixed_formation"][
+                    "placeholder_control_tokens_preserved"
+                ]
+            ),
+            "reviewed_weapon_names_reread_exact": (
+                reviewed_weapon_report["corpus_entry_count"] == 711
+                and reviewed_weapon_report["all_editorial_statuses_reviewed"]
+                and reviewed_weapon_report["source_preimages_sha256_exact"]
+                and reviewed_weapon_report["fixed_spans_preserved"]
+                and reviewed_weapon_report["pointer_bytes_unchanged"]
+                and reviewed_weapon_report["target_offset_reread_exact"]
+                and reviewed_weapon_report["codec_round_trip_exact"]
             ),
             "single_character_atlas_regions_untouched": (
                 remaining_ui_report["atlas"][

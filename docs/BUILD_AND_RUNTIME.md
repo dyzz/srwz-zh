@@ -17,6 +17,8 @@
 - 最终候选采用 fixed-LBA 门：每个 replacement 的扇区数不得超过原成员，所有
   shift segment 必须为 0，输出镜像大小必须与原版一致。任一条件不满足时在
   重建整镜像前直接失败。
+- build XML 给每个逻辑成员写入原盘 LBA。replacement 即使压缩后少占扇区，也只
+  在成员之间留下不可见空白，不得给压缩流追加填充字节或让后续成员前移。
 
 ## 目录与单候选规则
 
@@ -50,8 +52,8 @@ work/runtime/pcsx2-sessions/        本地运行会话与 hash-only 证据
 python3 tools/bootstrap_mkps2iso.py
 ```
 
-先构建 Rust codec，再由全局主链一次生成字体、154 个 STAGE 块、五张图集和最终
-11 成员组件：
+先构建 Rust codec，再由全局主链一次生成字体、154 个 STAGE 块、六张图集和最终
+12 成员组件：
 
 ```bash
 python3 tools/build_rust_compressor.py
@@ -88,16 +90,16 @@ builder 必须同时验证：
 
 ```text
 build/iso/zh-release-full-story/
-  srwz-zh-release-full-story-r8.iso
+  srwz-zh-release-full-story-r13.iso
 ```
 
 其 SHA-256 为
-`dea0d931699f84ac134b30eb144ec204955a0517cbec90541b79a06240571497`，大小为
+`7b2b9b0f628846cf3ef9685107685af3879df612c26d414cef1cca5d030e7d80`，大小为
 `3758358528` 字节，与原版镜像大小完全一致。`DATA/VT1.BIN` 保持原始
 `127500736` 字节，`DATA/STAGE.BIN` 及其后所有成员的 LBA 均不移动。
-`build/iso/zh-release-full-story/iso-validation-r8.json` 已锁定两次
-字节级一致构建、66 个成员的 ISO9660/UDF 读取、55 个未替换成员 byte-exact 和
-11 个 replacement byte-exact。构建配置还要求 11 个 replacement 与
+`build/iso/zh-release-full-story/iso-validation-r13.json` 已锁定两次
+字节级一致构建、66 个成员的 ISO9660/UDF 读取、54 个未替换成员 byte-exact 和
+12 个 replacement byte-exact。构建配置还要求 12 个 replacement 与
 `manifests/full-story-components-validation.json` 的输出路径、大小和 SHA-256
 逐项一致，不能复制旧锁后直接出盘。单候选重建命令为：
 
@@ -106,22 +108,36 @@ python3 tools/build_iso.py \
   --config config/iso/zh-release-full-story-build.json
 ```
 
-三份当前静态回读摘要分别覆盖整合剧情、剩余 UI 和 SRVC 战斗字幕：154 个剧情
-块的 91746 条文本、2452 个机师长名／短名字段、242 条 COMPDATA 固定偏移 UI、
-59 条队长效果、39 条 SLPS UI、132 条强化部件文本，以及 25708 条唯一 SRVC
-译文／58740 个索引记录／353 个块。所有结果都绑定当前 `dea0d931...` ISO。
+三份详细内容回读摘要分别覆盖整合剧情、剩余 UI 和 SRVC 战斗字幕：154 个剧情
+块的 91746 条文本、2452 个机师长名／短名字段、307 条 COMPDATA 固定偏移 UI、
+357 条 COMPDATA 帮助文本、6 条 COMPDATA 定长内联 UI、59 条队长效果、
+379 条 SLPS 上下文 UI、156 条 SLPS UI、9 条 STAGE 固定小队名、132 条实际写回的
+强化部件文本，以及 25708 条唯一 SRVC 译文／58740 个索引记录／353 个块。所有
+这三份摘要仍保留其原 r11 哈希作为历史快照；r13 由当前组件 manifest 的 12 项
+输出锁和 ISO builder 的 12 项独立 UDF 成员回读绑定。由于并行润色仍在改动
+NISVDATA、COMPDATA 与 SRVC 语料，内容回读器会按预期拒绝用新语料覆盖旧快照；
+待语料稳定并重建组件后再统一刷新三份摘要。
 
 字体组件链使用 HarmonyOS Sans SC
 Regular 1.0，只有 `〜∀♪` 三个字符显式回退 Noto Sans CJK SC 2.004；动态 CJK
 统一使用 22px、`24x24` 字槽和全局 `y=+1`，不做逐字裁切、缩放、重心修正或
 例外。当前唯一活动的 `zh-release-font` 扫描 `corpus/zh` 全部非空翻译字段，
-共有 120660 条选择输入、3261 个主映射和 701 个 surface-safe 别名，保留 1 个
-已避开别名占用的默认宽度追加候选槽；`%s/%2$s`、`$c/$f/$l/$n/$F`、`{XX}` 和文本 tag
+共有 121384 条选择输入、3265 个主映射和 701 个 surface-safe 别名，当前没有剩余
+候选槽；`%s/%2$s`、`$c/$f/$l/$n/$F`、`{XX}` 和文本 tag
 均走既有控制编码路径并从字形覆盖中排除，新增字符不得进入
 `0x8140..0x889E` 单字符模式区；VT1 仍为 `127500736` 字节。
 KVMDATA chunk 6 的两处“中场休息”和七个菜单按九个原日文切片整块替换，使用
-HarmonyOS Sans SC Light；动态 CJK 继续使用 Regular。当前 ISO 尚未完成绑定
-精确哈希的新游戏、读档 STAGE 入口和战斗字幕运行验收，不能晋级为 runtime passed。
+HarmonyOS Sans SC Light；chunk 7 的“移至后备区／移至小队区”在原切片内先把
+背景调色板索引强制重建为 0，再居中绘制中文，避免透明别名索引留下日文残影。
+动态 CJK 继续使用 Regular。chunk 11 仅在 `x=60..153, y=0..23` 的固定贴图范围
+把 `までクリア！` 重画为“已通关！”，`第／話`、闭引号、数字精灵和
+`NEXT:出撃 小隊` 保持原样。构建器从 204 条关卡节点记录还原全部 122 条 Stage
+Name 的显示归属：107 个可玩标题由 VT1 group 8 中独立的 512×64、4bpp TIM2
+提供并逐槽生成中文；另外 15 条路线选择／内部记录由 COMPDATA 动态文字覆盖。
+每个压缩 slot、内部偏移表、VT1 总大小和成员 LBA 均保持不变。当前
+`7b2b9b0f...` ISO 尚未取得绑定精确哈希的
+fresh-process 启动收据；上一候选的启动结果不能外推。新游戏、读档 STAGE 入口和
+战斗字幕画面均由用户继续测试；静态回读不能晋级为 runtime passed。
 
 ## 当前文本覆盖边界
 

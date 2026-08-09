@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "batch_id": "v1-ui-atlas-stage-clear",
+  "language": "zh-Hans",
+  "scope": "Reviewed Chinese fixed suffix for the stage-clear ticker. The chapter number and stage title remain runtime-composed elements.",
+  "entries": [
+    {
+      "id": "ui-atlas/kvm11/stage-clear-suffix",
+      "source_text": "までクリア！",
+      "source_text_sha256": "fd2d6f0d3db9b7c3216777991f8b94b650523d5aa5dd2774a1f536e33a7d39fe",
+      "translation": "已通关！",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "KURODATA/KVMDATA.BIN:chunk-11:picture-0:x60-y0-w94-h24"
+      ],
+      "notes": "Replace the complete fixed Japanese suffix so the composed ticker reads 第N話「标题」已通关！; do not modify 第, 話, the quotes, the numeric sprite, or the runtime stage-title text."
+    }
+  ]
+}

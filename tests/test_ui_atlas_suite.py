@@ -49,7 +49,7 @@ class UiAtlasSuiteTests(unittest.TestCase):
             self.config["expected_output"]["sha256"],
         )
 
-    def test_five_component_byte_owners_are_disjoint_and_exact(self):
+    def test_six_component_byte_owners_are_disjoint_and_exact(self):
         iso_path = PROJECT_ROOT / self.config["source"]["iso"]["path"]
         image = scan_iso9660(iso_path)
         member = member_map(image)[self.config["source"]["member"]["member"]]
@@ -88,7 +88,7 @@ class UiAtlasSuiteTests(unittest.TestCase):
         )
         self.assertEqual(
             self.manifest["composition"]["chunk_indices"],
-            [2, 4, 5, 6, 7],
+            [2, 4, 5, 6, 7, 11],
         )
         self.assertEqual(
             self.manifest["composition"]["ownership_overlap_count"],

@@ -6,12 +6,12 @@
 | --- | --- |
 | `iso/zh-release-chain.json` | 当前唯一 ISO、哈希和运行状态 |
 | `iso/zh-release-full-story-build.json` | 固定原盘、成员、LBA 和 ISO 工具链 |
-| `full-story-components.json` | 11 个最终成员的组合契约 |
+| `full-story-components.json` | 12 个最终成员的组合契约 |
 | `story-component.json` | 154 个 STAGE 剧情块的固定布局与 Rust 写回契约 |
 | `fonts/zh-font-build-chain.json` | 全局字体及静态图集消费者 |
 | `fonts/zh-release-font.json` | 唯一活动 VT1 字体 profile |
 | `encoding/zh-release-font-assignments.json` | 追加式字符、码位和 glyph 快照 |
-| `assets/ui-atlas-suite-zh.json` | 五张 KVMDATA 中文图集组合 |
+| `assets/ui-atlas-suite-zh.json` | 六张 KVMDATA 中文图集组合 |
 
 目录职责：
 

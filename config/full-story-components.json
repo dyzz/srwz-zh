@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "profile_id": "srwz-global-zh-release-integrated-v1",
-  "scope": "Compose the validated encoded UI component, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
+  "scope": "Compose the validated encoded UI component, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
   "base_ui": {
     "manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -36,8 +36,8 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 46198,
-      "sha256": "1af651a034eca66f53466a8627f836629f326554a40ef37e46553f0348aa8bdd"
+      "size": 48513,
+      "sha256": "0a5d3fdbfc3cef1543a7efe5a711075ad921288e41eafc0240de2f24350a9c54"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -49,21 +49,21 @@
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "ef0464225fe96b445ef7daf05a62339ed35b3725ea466723b35cc90649154b6f"
+      "sha256": "9da9e0353e4b78a8ebd1edae506a320a8c5116b5c13dc47c52b37ac7ed315b83"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 17852763,
-      "sha256": "ebb75063652d31c2251952b93f859c2865889fb6da59b46f989cdf964ed4e8c9"
+      "sha256": "4f7f63bd21103d2c226ebf5a4b2a14e7bd4c7234acfe6a8ba83f75b81ad0155e"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 154,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "d175140a520c3f5ae7ca364f211eec7c0247a0cde6633f3b65c935afc4d9b66a"
+      "sha256": "e190b1625b2b6d67318d863895bda29c07b1557d4b9139164b267a8f85ecfc3a"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -84,13 +84,13 @@
     },
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
-      "size": 2898717,
-      "sha256": "5cb6ec38ea75c1ad00ef8746f0654ac57ae29a9b82ecb49453dbca3f8f75f5db"
+      "size": 2898406,
+      "sha256": "023821574df5100d7b615d4c0dddeac702fd688ba56a02652c7ea4bd53f7ad88"
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 28551,
-      "sha256": "5ca8179b49b74eea99a5d025aaa279ca5390605341c4bfad1347a8d12cba51aa"
+      "size": 88318,
+      "sha256": "a6cb5865eca5316d5f38d1910f9269a7b331660987b7e10bdf4d5e9736d13aec"
     },
     "expected": {
       "story_unique_source_count": 424,
@@ -106,9 +106,22 @@
     "codec": {
       "strategy": "rust-fit",
       "min_match_length": 2,
-      "max_match_chain": 1024,
+      "max_match_chain": 16384,
       "lazy_matching": false,
       "max_output_size": 145408
+    }
+  },
+  "reviewed_weapons": {
+    "corpus": {
+      "path": "corpus/zh/menu/weapons.json",
+      "size": 214937,
+      "sha256": "613234eb6d8ea09c51c37c980056958ec04951e683e4918cd9661e5dd9bf3ccc"
+    },
+    "expected": {
+      "entry_count": 711,
+      "target_occurrence_count": 5920,
+      "unique_target_count": 711,
+      "shared_nonweapon_owner_count": 1
     }
   },
   "full_stage_titles": {
@@ -133,13 +146,109 @@
     "encoding": {
       "printable_ascii_passthrough": true,
       "use_available_surface_safe_aliases": true
+    },
+    "graphics": {
+      "archive": {
+        "member": "DATA/VT1.BIN",
+        "vt1_group_index": 8,
+        "group_start": 11440272,
+        "group_end": 12413520,
+        "group_sha256": "1be38c9e84791b2c2556f83b3b4c6c884dbc5a4ba3b82bee86ba4dd7f8473bf6",
+        "offset_table_start": "0x31BD30",
+        "offset_count": 117,
+        "offset_table_sha256": "9fb719b51b3189a5ab4912903619b42806e702da7a5b17f3dfd960582e4d829e"
+      },
+      "mapping": {
+        "texture_entry_count": 107,
+        "selector_bias": 1,
+        "loader_table_bias": 8,
+        "scenario_records": {
+          "base_address": "0x6D6800",
+          "start_address": "0x734950",
+          "record_count": 204,
+          "record_stride": 48,
+          "title_pointer_offset": 0,
+          "graphic_selector_offset": 28
+        },
+        "text_only_entry_ordinals": [
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121
+        ],
+        "route_choice_entry_ordinals": [
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115
+        ],
+        "internal_entry_ordinals": [
+          116,
+          117,
+          118,
+          119,
+          120,
+          121
+        ]
+      },
+      "tim2": {
+        "decoded_size": 16608,
+        "record_offset": 32,
+        "record_size": 16576,
+        "width": 512,
+        "height": 64,
+        "image_size": 16384,
+        "image_type": 4,
+        "clut_color_count": 32,
+        "storage": "linear_low_nibble_first_4bpp"
+      },
+      "raster": {
+        "doubled_glyph_width": 48,
+        "advance": 50,
+        "y": 4,
+        "quantization_levels": [
+          16,
+          8
+        ]
+      },
+      "codec": {
+        "strategy": "rust-fit",
+        "min_match_length": 2,
+        "max_match_chain": 16384
+      },
+      "expected": {
+        "stage_name_entry_count": 122,
+        "texture_entry_count": 107,
+        "text_only_entry_count": 15,
+        "full_precision_count": 105,
+        "reduced_precision_ordinals": [
+          70,
+          97
+        ]
+      }
     }
   },
   "stage_overviews": {
     "corpus": {
       "path": "corpus/zh/menu/stage-overviews.json",
-      "size": 89345,
-      "sha256": "7be77ae7a2db917b6f3e4d6a4cce0b9c8b2e002204b6e3326064034fa7c14afe"
+      "size": 89386,
+      "sha256": "b4f35f7f91d430ad24f449b0dd7c26e39a9d9a655f39c34230b0500e4f0c3353"
     },
     "expected": {
       "inventory_entry_count": 110,
@@ -269,8 +378,8 @@
     },
     "corpus": {
       "path": "corpus/zh/menu/hsfc-overviews.json",
-      "size": 22145,
-      "sha256": "677f932561a4068463624f9b56510035afe364894143989d2ebe052f085bc151"
+      "size": 22143,
+      "sha256": "4e03c70fe3bc233385a15a0fc9a41dd5ed72d754d2692c7f82d597a62faf8f2b"
     },
     "expected": {
       "record_count": 180,
@@ -293,13 +402,13 @@
   "remaining_ui": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 28551,
-      "sha256": "5ca8179b49b74eea99a5d025aaa279ca5390605341c4bfad1347a8d12cba51aa"
+      "size": 88318,
+      "sha256": "a6cb5865eca5316d5f38d1910f9269a7b331660987b7e10bdf4d5e9736d13aec"
     },
     "parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
-      "size": 34307,
-      "sha256": "5533989c9789493882dde8d96fe1b7d994a90cd340c12001f2006ba09ee4bfec"
+      "size": 34414,
+      "sha256": "8f09d07567dd992ac41cf3d05f9b05fc2cc1597c07cd14aed6f06ed0b1264d73"
     },
     "original_compdata": {
       "path": "work/disc/DATA/COMPDATA.BN",
@@ -311,18 +420,28 @@
       "size": 3471624,
       "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
     },
+    "original_stage": {
+      "path": "work/disc/DATA/STAGE.BIN",
+      "size": 3910128,
+      "sha256": "9c56d42f96df7b409ccf468b24412322ed627b9cbbd656864818a404d89240dc"
+    },
     "expected": {
-      "compdata_direct_entry_count": 242,
+      "compdata_direct_entry_count": 307,
+      "compdata_context_help_entry_count": 357,
+      "compdata_inline_entry_count": 6,
       "leadership_effect_entry_count": 59,
-      "slps_entry_count": 39,
-      "accepted_current_preimage_count": 1,
+      "slps_context_ui_entry_count": 379,
+      "stage_fixed_formation_entry_count": 9,
+      "stage_fixed_formation_chunk_index": 101,
+      "slps_entry_count": 156,
+      "accepted_current_preimage_count": 4,
       "parts_entry_count": 133,
       "parts_source_target_occurrence_count": 134,
       "parts_source_target_unique_count": 133,
       "parts_write_target_count": 132,
       "residual_display_name_unique_count": 283,
       "atlas_entry_count": 17,
-      "atlas_pending_dedicated_mask_count": 6
+      "atlas_pending_dedicated_mask_count": 4
     },
     "atlas_writeback": {
       "inherited_dedicated_mask_sources": [
@@ -334,15 +453,15 @@
         "小隊編成",
         "機体系",
         "次のマップへ",
-        "新規編成"
+        "新規編成",
+        "リザーブへ",
+        "小隊群へ"
       ],
       "pending_dedicated_mask_sources": [
         "アイテム",
         "売却",
         "強化パーツ",
-        "購入",
-        "リザーブへ",
-        "小隊群へ"
+        "購入"
       ],
       "protected_single_character_sources": [
         "攻",
@@ -350,11 +469,51 @@
       ]
     }
   },
+  "nisv_effect_names": {
+    "translations": {
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "size": 88318,
+      "sha256": "a6cb5865eca5316d5f38d1910f9269a7b331660987b7e10bdf4d5e9736d13aec"
+    },
+    "original_archive": {
+      "path": "work/build/zh-release-full-story/iso/original/DATA/NisVData.bin",
+      "size": 555056,
+      "sha256": "63afc46aeb19b41cf7332c7c298ab8bb1c7089f306d4eb4e77bce72e8dbece9c"
+    },
+    "archive": {
+      "name": "NisVData.bin",
+      "member": "DATA/NISVDATA.BIN",
+      "table_start": "0x328E90",
+      "table_end": "0x328EAB",
+      "storage": "srwz_stream",
+      "alignment": 16
+    },
+    "target": {
+      "chunk_index": 6,
+      "stored_start": 513744,
+      "stored_end": 555056,
+      "stored_size": 41312,
+      "stored_consumed": 41312,
+      "stored_sha256": "ef82e8247f039b71e6ff3cd890044e94762f21a38e2a52af482caad5050cec55",
+      "decoded_size": 102288,
+      "decoded_sha256": "4e2d29867d424fb7deabedc8b92c7d2665269597d8ac1f195306c80664e586ce"
+    },
+    "expected": {
+      "term_count": 2,
+      "occurrence_count": 6
+    },
+    "codec": {
+      "strategy": "rust-fit",
+      "min_match_length": 2,
+      "max_match_chain": 16384,
+      "lazy_matching": false
+    }
+  },
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6921057,
-      "sha256": "33231481e784adc6afce1dfa9ddc084f1394225ac9152f3ad413fbd4f0560a3f"
+      "size": 6920493,
+      "sha256": "bf4bac2fec95712fc1fa8c6f9f036a1d684444ec1d76e17b7e17a36c5545e576"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -550,10 +709,90 @@
     "codec_strategy": "rust-fit",
     "codec_max_match_chain": 1024
   },
+  "mode_select_effect": {
+    "composed_labels": [
+      "普通模式",
+      "EX困难模式",
+      "特殊模式"
+    ],
+    "original_archive": {
+      "path": "work/disc/EFF/VEFF2DX.BIN",
+      "size": 36890512,
+      "sha256": "afa7ba9d06d933eefcd82f5c9a9094b7f11aaa0e31ee721d6112849988c46abe"
+    },
+    "archive": {
+      "name": "VEFF2DX.BIN",
+      "member": "EFF/VEFF2DX.BIN",
+      "table_start": "0x31ABB0",
+      "table_end": "0x31B067",
+      "storage": "srwz_stream",
+      "alignment": 16
+    },
+    "target": {
+      "effect_id": 296,
+      "chunk_index": 297,
+      "stored_start": 35688784,
+      "stored_end": 35721392,
+      "stored_size": 32608,
+      "stored_consumed": 32605,
+      "stored_sha256": "5e76d25217d909c0f8f49b2a36d386b97d7da78c7e6b2d8e26fcd3d4f8b32c30",
+      "decoded_size": 530560,
+      "decoded_sha256": "cd576b7bd4061bf7892fee6ca26f4c6d28b8966754c5eeda660d5c27eca4f21c",
+      "record_index": 0,
+      "record_offset": 330272,
+      "record_size": 66032,
+      "record_sha256": "9b49508b7a0ede76381f018a06d53738022157e36a8f917a6375b9da28f2c8d5",
+      "picture_index": 0,
+      "logical_image_sha256": "cd9ce72747dbed31524cbe477edb24a205b540ac430ec4820d11ee719965767e"
+    },
+    "raster": {
+      "clear_x": 0,
+      "clear_y": 74,
+      "clear_width": 204,
+      "clear_height": 50,
+      "glyph_sampling": "native_24px_center_crop_preserve_4bpp",
+      "segments": [
+        {
+          "text": "普通",
+          "x": 22,
+          "y": 74,
+          "glyph_width": 22,
+          "advance": 24
+        },
+        {
+          "text": "EX困难",
+          "x": 104,
+          "y": 74,
+          "glyph_width": 20,
+          "advance": 21
+        },
+        {
+          "text": "特殊",
+          "x": 33,
+          "y": 98,
+          "glyph_width": 22,
+          "advance": 24
+        },
+        {
+          "text": "模式",
+          "x": 125,
+          "y": 98,
+          "glyph_width": 22,
+          "advance": 24
+        }
+      ]
+    },
+    "geometry": {
+      "enabled": false,
+      "reason": "Each Chinese prefix and the shared mode suffix remain inside the original texture slices; runtime quad layout stays byte-exact."
+    },
+    "codec_strategy": "rust-fit",
+    "codec_max_match_chain": 1024
+  },
   "kvmdata": {
     "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
     "size": 3335408,
-    "sha256": "e2f57fef0703d3b7af81b88e97df74fea5ecefa0494fe7e86e9ec8d395c5fc2e"
+    "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b"
   },
   "composition": {
     "font_chunk_index": 2,
@@ -562,12 +801,12 @@
       "mode": "flattened-release-superset-of-encoded-ui",
       "encoded_assignment_count": 1803,
       "encoded_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
-      "release_assignment_count": 3261,
-      "release_assignment_mapping_sha256": "a69ed531959006d519dca37ae15e3c191b7d4330050e28ae5843dbdc2bae54a5",
-      "release_snapshot_primary_mapping_sha256": "597a4cb7ffbd89de4c28f9d8fb3f3e2c42173a716e98e4e2a963b390037759c9",
+      "release_assignment_count": 3265,
+      "release_assignment_mapping_sha256": "54d5bca372621c812f334c43ff245f132a42391620853e3f750321a451e10951",
+      "release_snapshot_primary_mapping_sha256": "4d145fa1a46bbcb60094b64505f1ee139ae4d448ede6b589355abca06e77a602",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "cd2530aaf0209576f9a32804ff11540f162b63c353973713daddcbd1bd5ec0fa",
+        "sha256": "720d849d8645030f00a67fb86aa01239279b6bf2900c0e15b27c98fbf9ac843f",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
       "reason": "The already encoded UI bytes remain valid because all 1,803 mappings they use are an exact character/code/glyph subset of the flattened global release snapshot. The inherited encoded UI component is not rebuilt."

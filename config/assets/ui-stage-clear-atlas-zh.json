@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "profile_id": "ui-stage-clear-atlas-zh",
+  "scope": "A deterministic Chinese replacement of the fixed までクリア！ suffix in KVMDATA chunk 11. It preserves 第, 話, the quotes, the numeric sprite, and the runtime-composed stage title.",
+  "replacement_mode": "fixed_source_elements",
+  "expected_background_palette_index": 0,
+  "base_mapping": {
+    "config": "config/assets/maps/tim2-kvm11-stage-clear.json",
+    "config_sha256": "f8f2e82459b86b4be96eb997a5c9074b92555008e1f3a830dcb6c8f76dc86af6",
+    "manifest": "manifests/ui-stage-clear-atlas-map-canary-validation.json",
+    "manifest_sha256": "9dd86fd4d4ec9f93eb03fafc947ce74b0d1c5ba759ad26425ea20b3351222ad2",
+    "required_status": "static_component_validated_runtime_mapping_pending"
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 11,
+    "record_index": 0,
+    "picture_index": 0,
+    "semantic_locator": "までクリア！",
+    "operation": "replace_erased_locator_with_text"
+  },
+  "localized_label": {
+    "source_element_id": "stage-clear-suffix-94x24",
+    "source_element_rgba_sha256": "a8c376fc7c7d596a2e58b1b34acb943b3fd6b59ceeca5122dbe20da6c128cc9c",
+    "translation_source": {
+      "path": "corpus/zh/ui-atlas/stage-clear-v1.json",
+      "sha256": "2464cebf741044014384ac2b3901f16c6b3351d959ea81b6e48051aec9b91e19",
+      "entry_id": "ui-atlas/kvm11/stage-clear-suffix",
+      "minimum_editorial_status": "reviewed"
+    },
+    "font_flavor": "config/fonts/zh-localization-font-light.json",
+    "render": {
+      "point_size": 16,
+      "horizontal_offset": -16,
+      "stroke_gray": "#303030",
+      "stroke_width": 0.5,
+      "fill_stroke_width": 0,
+      "ramp_rgba": [
+        "101010ff",
+        "202020ff",
+        "303030ff",
+        "404040ff",
+        "505050ff",
+        "606060ff",
+        "707070ff"
+      ],
+      "indexed_layers": {
+        "outline": [
+          {"rgba": "101010ff", "palette_index": 1},
+          {"rgba": "202020ff", "palette_index": 2},
+          {"rgba": "303030ff", "palette_index": 3},
+          {"rgba": "404040ff", "palette_index": 4},
+          {"rgba": "505050ff", "palette_index": 5},
+          {"rgba": "606060ff", "palette_index": 6},
+          {"rgba": "707070ff", "palette_index": 7}
+        ],
+        "fill": [
+          {"rgba": "000000ff", "palette_index": 8},
+          {"rgba": "1b1b1bff", "palette_index": 9},
+          {"rgba": "1b1b1bff", "palette_index": 10},
+          {"rgba": "1b1b1bff", "palette_index": 11},
+          {"rgba": "1b1b1bff", "palette_index": 12},
+          {"rgba": "1b1b1bff", "palette_index": 13},
+          {"rgba": "1b1b1bff", "palette_index": 14},
+          {"rgba": "1b1b1bff", "palette_index": 15}
+        ]
+      }
+    }
+  },
+  "runtime": {
+    "purpose": "Confirm that the localized fixed suffix composes with the unchanged chapter markers, numeric sprite, closing quote, and translated runtime stage title.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_a_hash_locked_post-stage_save",
+      "enter_intermission_and_capture_the_scrolling_stage-clear_ticker",
+      "confirm_the_composed_text_reads_第N話_标题_已通关",
+      "capture_the_matching_texture_dump_delta"
+    ],
+    "expected_visual_effect": "The ticker reads 第N話「translated stage title」已通关！ with no residual までクリア！ pixels; 第 and 話 remain unchanged.",
+    "promotion_rule": "Only a matching screenshot and exact original-to-localized chunk 11 texture delta may promote the runtime result."
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "expected": {
+    "text_mask": {
+      "size": 2256,
+      "sha256": "87d9165b14bafbe52123a41d34fe82dc6b8a4c26972a5351518056110c2c50dc",
+      "nonzero_pixel_count": 563
+    },
+    "reference_png": {
+      "size": 3414,
+      "sha256": "3857343a6d5262a0a4667c4821775ee0266f1bd27753ea2e673bcac5d94ede1a"
+    },
+    "localized_png": {
+      "size": 3012,
+      "sha256": "9dfd6b801aa06c1fa148b59f14c8cf9c54ce896d348d0d1939f525711d18433b"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "b1b22cade3b9a3494783e03beed48bdb75cd23a3091c14a6f4b83d9cc2ced90b"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "8d44e0253760cc268c768ef5a18ad819788e6f11d239cb2f4ba6581649264582"
+    },
+    "added_pixel_count": 563,
+    "original_changed_pixel_count": 729,
+    "original_changed_pixel_indexes_sha256": "7c40938f9823157c2bad4a1fca8f9f6d992d07b7e08b89188b3691e62929ae8f",
+    "changed_archive_byte_count": 317,
+    "changed_archive_range_count": 69
+  },
+  "outputs": {
+    "component_root": "work/build/ui-stage-clear-atlas-zh/components",
+    "reference_png": "work/build/ui-stage-clear-atlas-zh/reference.png",
+    "localized_png": "work/build/ui-stage-clear-atlas-zh/localized.png",
+    "validation": "work/review/ui-stage-clear-atlas-zh/component-validation.json",
+    "manifest": "manifests/ui-stage-clear-atlas-zh-validation.json"
+  }
+}

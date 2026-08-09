@@ -58,7 +58,7 @@ todo -> draft -> reviewed -> final -> runtime_verified
 python3 tools/verify_original_disc.py
 python3 tools/extract_iso_member.py \
   SLPS_258.87 DATA/VT1.BIN DATA/STAGE.BIN DATA/COMPDATA.BN \
-  DATA/HSFC.BIN BTL/SRVC.BIN BTL/SRVC.SEG EFF/VEFF2DX.BIN
+  DATA/NISVDATA.BIN DATA/HSFC.BIN BTL/SRVC.BIN BTL/SRVC.SEG EFF/VEFF2DX.BIN
 python3 tools/prepare_zh_release_font.py --force
 ```
 
@@ -110,7 +110,7 @@ python3 tools/rebuild_zh_font.py --refresh-manifests --refresh-asset-ratchets
 `rebuild_zh_font.py` 只生成一次 `zh-release-font`：它扫描 `corpus/zh`
 下所有非空 `translation` 字段，因此菜单、数据库、全文剧情和后续战斗对话共用
 同一份字符→码位→glyph 映射。随后独立回读固定大小 VT1，并依次重建 154 个
-STAGE 块、五组 UI 图集、组合图集和最终整合组件。KVMDATA 与 VEFF2DX 的
+STAGE 块、六组 UI 图集、组合图集和最终整合组件。KVMDATA 与 VEFF2DX 的
 不同排版边界分别见 `KVMDATA_ATLAS_LOCALIZATION.md` 和
 `VEFF2DX_TEXTURE_LOCALIZATION.md`。
 
@@ -123,8 +123,8 @@ STAGE 块、五组 UI 图集、组合图集和最终整合组件。KVMDATA 与 V
 旧映射；updater、prepare、verifier 都会拒绝单字符模式区的新映射。随后重建
 release，不再创建新的 VT1 profile。
 
-当前静态 release 有 3,261 个主映射、701 个 surface-safe 别名，并保留 1 个
-已避开别名占用的追加候选槽。该结果只证明当前语料覆盖、容量和组件回读，不证明
+当前静态 release 有 3,265 个主映射、701 个 surface-safe 别名，剩余追加候选槽为
+0。该结果只证明当前语料覆盖、容量和组件回读，不证明
 所有 raw trail、direct-index 或目标画面的运行安全。底层容量分析见
 `FONT_ANALYSIS.md`。
 
@@ -162,12 +162,13 @@ Python codec 保留为严格 decoder、round-trip 和结构 oracle。当前生�
 - 基础 UI 组件中的菜单、人物／机体／武器数据库和 display names；
 - 标题、玩家设置、幕间、战场、结算、搜索等 fixed-span UI；
 - 世界史与双主人公开场资料；
-- 五张中文 KVMDATA atlas；
+- 六张中文 KVMDATA atlas；
 - 154 个 STAGE 剧情块、STAGE/HSFC 概要和完整 SRVC 战斗字幕；
-- 全局 `zh-release-font`、KVMDATA 五图和 VEFF2DX 场景标题。
+- 全局 `zh-release-font`、KVMDATA 六图和 VEFF2DX 场景标题。
 
-当前 r8 ISO 已完成静态结构与译文回读；匹配精确哈希的新游戏、读档和目标战斗
-字幕运行验收仍待完成。
+当前 r13 ISO 已完成静态结构与组件回读；三份详细内容摘要仍绑定 r11，待并行文本
+润色稳定并重建组件后统一刷新。匹配 r13 精确哈希的新游戏、读档和目标战斗字幕
+运行验收仍待完成。
 
 ## 9. 新增一个 surface
 

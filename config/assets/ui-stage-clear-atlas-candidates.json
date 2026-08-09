@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "inventory_id": "srwz-ui-stage-clear-atlas-candidate-v1",
+  "scope": "Offline visual and executable-reference classification of the KVMDATA chunk 11 chapter-clear ticker atlas. Runtime rendering remains a separate evidence gate.",
+  "source": {
+    "slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "member": {
+      "path": "KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+    }
+  },
+  "classification_policy": {
+    "observed_tokens_are_locator_hints_not_translation_authority": true,
+    "writeback_requires_a_bounded_source-element_mask": true,
+    "runtime_acceptance_requires_the_exact_stage-clear_ticker": true
+  },
+  "candidates": [
+    {
+      "chunk_index": 11,
+      "payload_size": 33344,
+      "payload_sha256": "4edce2dea5d59574ce46ab32283937f48a1d8c6582a2c1760c7556b8c45c98f2",
+      "picture": {
+        "record_index": 0,
+        "picture_index": 0,
+        "width": 256,
+        "height": 256,
+        "bits_per_pixel": 4
+      },
+      "observed_tokens": [
+        "までクリア！",
+        "NEXT:出撃",
+        "小隊"
+      ],
+      "candidate_scene_ids": [
+        "intermission/stage-clear-ticker"
+      ],
+      "evidence_status": "offline_visual_candidate_not_runtime_mapped"
+    }
+  ]
+}

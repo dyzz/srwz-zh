@@ -132,6 +132,66 @@ class Mkps2isoBuildTests(unittest.TestCase):
             self.assertIn(f'file="{staging / "boot_logo.raw"}"', text)
             self.assertIn(f'source="{staging}"', text)
 
+    def test_pins_member_lbas_without_padding_logical_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            base = root / "base.xml"
+            output = root / "build.xml"
+            staging = root / "staging"
+            base.write_text(
+                '<iso_project><identifiers volume="OLD"/>'
+                '<logo file="old.raw"/><layer>'
+                '<directory_tree source="old">'
+                '<file name="ROOT.BIN"/>'
+                '<dir name="DATA"><file name="compdata.bn"/>'
+                '<file name="NEXT.BIN" offs="1"/></dir>'
+                '</directory_tree></layer></iso_project>',
+                encoding="utf-8",
+            )
+            write_build_xml(
+                base,
+                output,
+                staging,
+                "SRWZ_ZH_RELEASE",
+                {
+                    "ROOT.BIN": 100,
+                    "DATA/COMPDATA.BN": 200,
+                    "DATA/NEXT.BIN": 271,
+                },
+            )
+            text = output.read_text(encoding="utf-8")
+            self.assertIn('<file name="ROOT.BIN" offs="100"/>', text)
+            self.assertIn(
+                '<file name="compdata.bn" offs="200"/>', text
+            )
+            self.assertIn('<file name="NEXT.BIN" offs="271"/>', text)
+
+    def test_lba_pinning_rejects_xml_member_drift(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            base = root / "base.xml"
+            output = root / "build.xml"
+            staging = root / "staging"
+            base.write_text(
+                '<iso_project><identifiers volume="OLD"/>'
+                '<logo file="old.raw"/><layer>'
+                '<directory_tree source="old">'
+                '<file name="ROOT.BIN"/>'
+                '</directory_tree></layer></iso_project>',
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                IsoBuildError,
+                "member set differs while pinning LBAs",
+            ):
+                write_build_xml(
+                    base,
+                    output,
+                    staging,
+                    "SRWZ_ZH_RELEASE",
+                    {"OTHER.BIN": 100},
+                )
+
     def test_tree_member_map_is_case_insensitive_and_ignores_logo(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

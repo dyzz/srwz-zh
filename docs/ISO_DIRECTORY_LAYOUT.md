@@ -37,8 +37,8 @@ work/
 build/
   iso/
     zh-release-full-story/
-      srwz-zh-release-full-story-r8.iso
-      iso-validation-r8.json
+      srwz-zh-release-full-story-r13.iso
+      iso-validation-r13.json
 ```
 
 ## 2. 各层所有权
@@ -123,6 +123,6 @@ build/
 整镜像哈希和 PCSX2 运行结论仍由各自独立 gate 验证。
 
 当前单一候选 profile 为 `zh-release-full-story`，ISO 为
-`build/iso/zh-release-full-story/srwz-zh-release-full-story-r8.iso`；其静态报告
+`build/iso/zh-release-full-story/srwz-zh-release-full-story-r13.iso`；其静态报告
 已通过；当前精确哈希的 fresh-process 启动和目标路线 runtime 仍待完成。构建与运行命令见
 `BUILD_AND_RUNTIME.md`。

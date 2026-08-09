@@ -18,6 +18,7 @@
 | --- | --- |
 | `SRWZ_COMPRESSION.md` | 压缩格式、生产 Rust codec 和预算约束 |
 | `FONT_ANALYSIS.md` | VT1 字库格式、code→glyph 映射和容量边界 |
+| `TEXTURE_LOCALIZATION_INVENTORY.md` | 当前全部贴图改动总表：成员、chunk、TIM2、矩形、偏移、构建文件和最终 ISO 落点 |
 | `KVMDATA_ATLAS_LOCALIZATION.md` | KVMDATA 固定 UI 切片、字体字重、强制索引层和中场休息实例 |
 | `VEFF2DX_TEXTURE_LOCALIZATION.md` | VEFF2DX 场景选择标题的 PSMT4、quad 和定长回写方法 |
 | `WRITEBACK_CONTRACT.md` | 语料状态、前像、分配、指针和归档写回契约 |

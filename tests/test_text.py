@@ -37,7 +37,7 @@ class TextDecodeTests(unittest.TestCase):
 
     def test_control_notation_is_classified_without_splitting_tokens(self):
         tokens = control_notation_tokens(
-            "第%2$s话$c$n{7F}@<color:31>"
+            "第%2$s话$c$n<0><9>{7F}@<color:31>"
         )
         self.assertEqual(
             [(token.kind, token.text) for token in tokens],
@@ -45,6 +45,8 @@ class TextDecodeTests(unittest.TestCase):
                 ("runtime_format", "%2$s"),
                 ("runtime_substitution", "$c"),
                 ("runtime_substitution", "$n"),
+                ("runtime_substitution", "<0>"),
+                ("runtime_substitution", "<9>"),
                 ("raw_byte", "{7F}"),
                 ("text_tag", "@<color:31>"),
             ],

@@ -54,7 +54,7 @@ from srwz.text import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ISO = (
     PROJECT_ROOT
-    / "build/iso/zh-release-full-story/srwz-zh-release-full-story-r8.iso"
+    / "build/iso/zh-release-full-story/srwz-zh-release-full-story-r13.iso"
 )
 DEFAULT_REPORT = (
     PROJECT_ROOT / "work/verification/zh-release-full-story-content.json"
@@ -356,11 +356,13 @@ def verify_scenario_select_effect(
     slps: bytes,
     archive: bytes,
     component_manifest: dict | None,
+    *,
+    config_key: str = "scenario_select_effect",
 ) -> dict:
-    """Reread the localized scenario labels from VEFF effect 295."""
+    """Reread one localized VEFF2DX label texture."""
 
     config = json.loads(FULL_COMPONENT_CONFIG.read_text(encoding="utf-8"))
-    effect = config.get("scenario_select_effect")
+    effect = config.get(config_key)
     if not isinstance(effect, dict):
         raise SystemExit("scenario-select effect config is missing")
     archive_spec = effect["archive"]
@@ -391,7 +393,7 @@ def verify_scenario_select_effect(
     logical = unswizzle_psmt4(decoded.output[image_start:image_end])
     logical_sha256 = sha256_bytes(logical)
     expected = (
-        component_manifest.get("scenario_select_effect", {})
+        component_manifest.get(config_key, {})
         if component_manifest is not None
         else {}
     )
@@ -458,6 +460,215 @@ def verify_scenario_select_effect(
         "all_label_segments_native_4bpp_antialiased": True,
         "codec_padding_zero": True,
         "archive_offsets_preserved": True,
+    }
+
+
+def verify_nisv_effect_names(
+    slps: bytes,
+    archive: bytes,
+    source_table: TextTable,
+    output_table: TextTable,
+    component_manifest: dict | None,
+) -> dict:
+    """Reread the duplicated weapon-effect labels from NisVData chunk 6."""
+
+    config = json.loads(FULL_COMPONENT_CONFIG.read_text(encoding="utf-8"))
+    reference = config.get("nisv_effect_names")
+    if not isinstance(reference, dict):
+        raise SystemExit("NisVData effect-name config is missing")
+    archive_spec = reference["archive"]
+    target = reference["target"]
+    expected = reference["expected"]
+    translations_reference = reference["translations"]
+    translations_path = PROJECT_ROOT / translations_reference["path"]
+    translations_data = translations_path.read_bytes()
+    if (
+        len(translations_data) != translations_reference["size"]
+        or sha256_bytes(translations_data) != translations_reference["sha256"]
+    ):
+        raise SystemExit("NisVData effect-name corpus lock drift")
+    document = json.loads(translations_data.decode("utf-8"))
+    terms = document.get("nisv_effect_names")
+    if (
+        not isinstance(terms, list)
+        or len(terms) != expected["term_count"]
+        or sum(len(item["decoded_offsets"]) for item in terms)
+        != expected["occurrence_count"]
+    ):
+        raise SystemExit("NisVData effect-name corpus selection drift")
+    spec = ExecutableOffsetSpec(
+        name=archive_spec["name"],
+        member=archive_spec["member"],
+        table_start=int(archive_spec["table_start"], 0),
+        table_end=int(archive_spec["table_end"], 0),
+    )
+    offsets = read_executable_archive_offsets(slps, spec, len(archive))
+    chunk_index = target["chunk_index"]
+    if (
+        offsets[chunk_index] != target["stored_start"]
+        or offsets[chunk_index + 1] != target["stored_end"]
+        or len(archive) != reference["original_archive"]["size"]
+    ):
+        raise SystemExit("final ISO NisVData layout drifted")
+    stored = archive[offsets[chunk_index] : offsets[chunk_index + 1]]
+    decoded = decode(stored)
+    if (
+        len(decoded.output) != target["decoded_size"]
+        or any(stored[decoded.consumed :])
+    ):
+        raise SystemExit("final ISO NisVData chunk decode drift")
+    term_reports = []
+    for item in terms:
+        source_encoded = encode_text(
+            item["source"], source_table, terminate=False
+        )
+        translation = normalize_original_fullwidth_ascii(item["translation"])
+        decoded_offsets = [int(value, 0) for value in item["decoded_offsets"]]
+        for offset in decoded_offsets:
+            actual = decode_text(decoded.output, offset, output_table)
+            if not actual.text.startswith(translation + "\u3000") or (
+                decoded.output[offset : offset + len(source_encoded)]
+                == source_encoded
+            ):
+                raise SystemExit(
+                    "final ISO NisVData effect-name mismatch at "
+                    f"0x{offset:X}"
+                )
+        term_reports.append(
+            {
+                "source": item["source"],
+                "translation": translation,
+                "decoded_offsets": decoded_offsets,
+                "reread_exact": True,
+            }
+        )
+    manifest_report = (
+        component_manifest.get("nisv_effect_names", {})
+        if component_manifest is not None
+        else {}
+    )
+    if (
+        manifest_report.get("term_count") != len(term_reports)
+        or manifest_report.get("occurrence_count")
+        != sum(len(item["decoded_offsets"]) for item in term_reports)
+    ):
+        raise SystemExit("final ISO NisVData component report drift")
+    return {
+        "member": archive_spec["member"],
+        "chunk_index": chunk_index,
+        "term_count": len(term_reports),
+        "occurrence_count": sum(
+            len(item["decoded_offsets"]) for item in term_reports
+        ),
+        "terms": term_reports,
+        "codec_padding_zero": True,
+        "archive_offsets_preserved": True,
+        "translated_reread_exact": True,
+    }
+
+
+def verify_stage_fixed_formation(
+    stage: bytes,
+    hb: bytes,
+    source_table: TextTable,
+    output_table: TextTable,
+) -> dict:
+    """Reread the nine fixed default-squad names from STAGE chunk 101."""
+
+    component_config = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )
+    remaining_config = component_config["remaining_ui"]
+    expected = remaining_config["expected"]
+    document = json.loads(
+        (
+            PROJECT_ROOT / remaining_config["translations"]["path"]
+        ).read_text(encoding="utf-8")
+    )
+    translations = document.get("stage_fixed_formation_by_offset")
+    chunk_index = expected.get("stage_fixed_formation_chunk_index")
+    if (
+        not isinstance(translations, dict)
+        or len(translations)
+        != expected.get("stage_fixed_formation_entry_count")
+        or not isinstance(chunk_index, int)
+    ):
+        raise SystemExit("fixed formation-name selection drift")
+    original_stage_path = (
+        PROJECT_ROOT / remaining_config["original_stage"]["path"]
+    )
+    original_stage = original_stage_path.read_bytes()
+    if (
+        len(original_stage) != remaining_config["original_stage"]["size"]
+        or sha256_bytes(original_stage)
+        != remaining_config["original_stage"]["sha256"]
+        or len(original_stage) != len(stage)
+    ):
+        raise SystemExit("original STAGE baseline drift")
+
+    offset_spec = ExecutableOffsetSpec(
+        name="HEDBDY/HB.BIN STAGE offsets",
+        member="HEDBDY/HB.BIN",
+        table_start=30320,
+        table_end=31144,
+    )
+    offsets = read_executable_archive_offsets(hb, offset_spec, len(stage))
+    if chunk_index + 1 >= len(offsets):
+        raise SystemExit("fixed formation-name STAGE chunk is missing")
+    start, end = offsets[chunk_index : chunk_index + 2]
+    current_stored = stage[start:end]
+    original_stored = original_stage[start:end]
+    current = decode(current_stored)
+    original = decode(original_stored)
+    if (
+        any(current_stored[current.consumed :])
+        or any(original_stored[original.consumed :])
+        or len(current.output) != len(original.output)
+    ):
+        raise SystemExit("fixed formation-name STAGE chunk decode drift")
+
+    minimum_headroom = None
+    for raw_offset, raw_translation in translations.items():
+        offset = int(raw_offset, 16)
+        source = decode_text(original.output, offset, source_table)
+        actual = decode_text(current.output, offset, output_table)
+        translation = normalize_original_fullwidth_ascii(raw_translation)
+        if source.text != "別働隊":
+            raise SystemExit(
+                f"fixed formation-name source drift at {raw_offset}"
+            )
+        source_tokens = tuple(
+            (token.kind, token.text)
+            for token in control_notation_tokens(source.text)
+        )
+        target_tokens = tuple(
+            (token.kind, token.text)
+            for token in control_notation_tokens(translation)
+        )
+        if source_tokens != target_tokens:
+            raise SystemExit(
+                f"fixed formation-name control-token drift at {raw_offset}"
+            )
+        if actual.text != translation or actual.consumed > source.consumed:
+            raise SystemExit(
+                f"fixed formation-name mismatch at {raw_offset}: "
+                f"expected={translation!r} actual={actual.text!r}"
+            )
+        headroom = source.consumed - actual.consumed
+        minimum_headroom = (
+            headroom
+            if minimum_headroom is None
+            else min(minimum_headroom, headroom)
+        )
+    return {
+        "entry_count": len(translations),
+        "chunk_index": chunk_index,
+        "source_text": "別働隊",
+        "translation": "别动队",
+        "minimum_output_headroom": minimum_headroom,
+        "placeholder_control_tokens_preserved": True,
+        "archive_padding_zero": True,
+        "readback_exact": True,
     }
 
 
@@ -656,17 +867,99 @@ def verify_final_compdata(
             "readback_exact": True,
         }
 
+    def verify_inline_offset_map(
+        data: bytes,
+        original: bytes,
+        translations: dict[str, dict[str, str]],
+        label: str,
+    ) -> dict:
+        minimum_headroom = None
+        ranges = []
+        for raw_offset, entry in sorted(
+            translations.items(), key=lambda item: int(item[0], 16)
+        ):
+            offset = int(raw_offset, 16)
+            source = entry["source"]
+            translation = normalize_original_fullwidth_ascii(
+                entry["translation"]
+            )
+            source_encoded = encode_text(
+                source, source_table, terminate=False
+            )
+            end = offset + len(source_encoded)
+            if original[offset:end] != source_encoded:
+                raise SystemExit(
+                    f"{label} source preimage drift at {raw_offset}"
+                )
+            if ranges and offset < ranges[-1][1]:
+                raise SystemExit(f"{label} overlap at {raw_offset}")
+            ranges.append((offset, end))
+            actual = decode_text(data[offset:end] + b"\0", 0, output_table)
+            source_tokens = tuple(
+                (token.kind, token.text)
+                for token in control_notation_tokens(source)
+            )
+            target_tokens = tuple(
+                (token.kind, token.text)
+                for token in control_notation_tokens(translation)
+            )
+            if source_tokens != target_tokens:
+                raise SystemExit(
+                    f"{label} control-token drift at {raw_offset}"
+                )
+            if (
+                actual.consumed != len(source_encoded) + 1
+                or actual.text.rstrip("　") != translation
+                or not set(actual.text[len(translation):]) <= {"　"}
+            ):
+                raise SystemExit(
+                    f"{label} mismatch at {raw_offset}: "
+                    f"expected={translation!r} actual={actual.text!r}"
+                )
+            headroom = len(actual.text) - len(translation)
+            minimum_headroom = (
+                headroom
+                if minimum_headroom is None
+                else min(minimum_headroom, headroom)
+            )
+        return {
+            "entry_count": len(translations),
+            "minimum_output_headroom_glyphs": minimum_headroom,
+            "internal_entry_offsets_preserved": True,
+            "fullwidth_space_padding_only": True,
+            "placeholder_control_tokens_preserved": True,
+            "readback_exact": True,
+        }
+
     direct_report = verify_offset_map(
         decoded_compdata.output,
         original_compdata.output,
         remaining_document["compdata_direct_by_offset"],
         "remaining COMPDATA UI",
     )
+    context_help_report = verify_offset_map(
+        decoded_compdata.output,
+        original_compdata.output,
+        remaining_document["compdata_context_help_by_offset"],
+        "remaining COMPDATA context help",
+    )
+    inline_report = verify_inline_offset_map(
+        decoded_compdata.output,
+        original_compdata.output,
+        remaining_document["compdata_inline_by_offset"],
+        "remaining COMPDATA inline UI",
+    )
     leadership_report = verify_offset_map(
         decoded_compdata.output,
         original_compdata.output,
         remaining_document["leadership_effect_by_offset"],
         "leadership effects",
+    )
+    slps_context_report = verify_offset_map(
+        slps,
+        original_slps,
+        remaining_document["slps_context_ui_by_offset"],
+        "remaining SLPS context UI",
     )
     slps_report = verify_offset_map(
         slps,
@@ -847,7 +1140,10 @@ def verify_final_compdata(
         "surface_safe_aliases_readback_exact": True,
         "remaining_ui": {
             "compdata_direct": direct_report,
+            "compdata_context_help": context_help_report,
+            "compdata_inline": inline_report,
             "leadership_effects": leadership_report,
+            "slps_context_ui": slps_context_report,
             "slps": slps_report,
             "parts": parts_report,
             "readback_exact": True,
@@ -998,6 +1294,19 @@ def main() -> int:
     scenario_select_effect = verify_scenario_select_effect(
         slps,
         members["EFF/VEFF2DX.BIN"],
+        component_manifest,
+    )
+    mode_select_effect = verify_scenario_select_effect(
+        slps,
+        members["EFF/VEFF2DX.BIN"],
+        component_manifest,
+        config_key="mode_select_effect",
+    )
+    nisv_effect_names = verify_nisv_effect_names(
+        slps,
+        members["DATA/NISVDATA.BIN"],
+        source_table,
+        compdata_table,
         component_manifest,
     )
     stage_overrides = {
@@ -1233,6 +1542,9 @@ def main() -> int:
     }
     if set(component_stages) != set(stages):
         raise SystemExit("component stage details do not match stage selection")
+    fixed_formation_metadata = component.get("remaining_ui", {}).get(
+        "stage_fixed_formation", {}
+    )
 
     stage_reports = []
     total_entries = 0
@@ -1269,14 +1581,23 @@ def main() -> int:
         chunk = stage_archive[offsets[stage]:offsets[stage + 1]]
         decoded = decode(chunk)
         expected_stage = component_stages[stage]
+        expected_encoded_size = expected_stage["output_encoded_size"]
+        expected_encoded_sha256 = expected_stage["output_encoded_sha256"]
+        if stage == fixed_formation_metadata.get("chunk_index"):
+            expected_encoded_size = fixed_formation_metadata.get(
+                "output_encoded_size"
+            )
+            expected_encoded_sha256 = fixed_formation_metadata.get(
+                "output_encoded_sha256"
+            )
         encoded = chunk[:decoded.consumed]
         padding = chunk[decoded.consumed:]
         if any(padding):
             raise SystemExit(f"stage {stage:03d} has non-zero archive padding")
         if (
-            decoded.consumed != expected_stage["output_encoded_size"]
+            decoded.consumed != expected_encoded_size
             or sha256_bytes(encoded)
-            != expected_stage["output_encoded_sha256"]
+            != expected_encoded_sha256
             or len(decoded.output) != expected_stage["output_size"]
         ):
             raise SystemExit(f"stage {stage:03d} codec metadata mismatch")
@@ -1552,6 +1873,19 @@ def main() -> int:
         compdata_table,
         surface_aliases,
     )
+    fixed_formation_report = verify_stage_fixed_formation(
+        stage_archive,
+        hb,
+        source_table,
+        overview_table,
+    )
+    compdata_report["remaining_ui"]["stage_fixed_formation"] = (
+        fixed_formation_report
+    )
+    compdata_report["remaining_ui"]["readback_exact"] = (
+        compdata_report["remaining_ui"]["readback_exact"]
+        and fixed_formation_report["readback_exact"]
+    )
 
     output = config["output"]
     coverage = renderer_coverage(font_manifest)
@@ -1603,6 +1937,8 @@ def main() -> int:
         },
         "compdata": compdata_report,
         "scenario_select_effect": scenario_select_effect,
+        "mode_select_effect": mode_select_effect,
+        "nisv_effect_names": nisv_effect_names,
         "stage_overviews": overview_report,
         "hsfc_overviews": hsfc_report,
         "members": {
@@ -1651,6 +1987,18 @@ def main() -> int:
                     "all_label_segments_native_4bpp_antialiased"
                 ]
                 and scenario_select_effect["archive_offsets_preserved"]
+            ),
+            "mode_select_title_texture_exact": (
+                mode_select_effect["source_title_texture_replaced"]
+                and mode_select_effect["all_label_segments_nonblank"]
+                and mode_select_effect[
+                    "all_label_segments_native_4bpp_antialiased"
+                ]
+                and mode_select_effect["archive_offsets_preserved"]
+            ),
+            "nisv_effect_names_exact": (
+                nisv_effect_names["translated_reread_exact"]
+                and nisv_effect_names["archive_offsets_preserved"]
             ),
             "hb_stage_offsets_valid": True,
             "encoded_streams_exact": True,

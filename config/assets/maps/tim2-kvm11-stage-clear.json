@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "profile_id": "ui-stage-clear-atlas-map-canary",
+  "scope": "A reversible mapping canary that erases only the fixed までクリア！ suffix in KVMDATA chunk 11 while preserving the closing quote and every runtime-composed field.",
+  "source": {
+    "iso": {
+      "path": "rom/srwz.iso",
+      "size": 3758358528,
+      "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    },
+    "asset_config": {
+      "path": "config/assets/archive-inventory.json",
+      "sha256": "6afc3beb1f67c82d355f572f0de92e2a5185790e17a1670a5a479a7e5b6e57ab"
+    },
+    "candidate_registry": {
+      "path": "config/assets/ui-stage-clear-atlas-candidates.json",
+      "sha256": "0f46907be1051c461688b3bcac32f60741871f38cb3f68665d32cb601802ee3b"
+    },
+    "members": {
+      "executable": {
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "archive": {
+        "size": 3335408,
+        "sha256": "cd469075dd56c5fe1ba0c03ad4b5878b1684e7b0d22a7129c1b71cb14087f9a8"
+      }
+    }
+  },
+  "target": {
+    "member": "KURODATA/KVMDATA.BIN",
+    "chunk_index": 11,
+    "record_index": 0,
+    "picture_index": 0,
+    "source_chunk_size": 33344,
+    "source_chunk_sha256": "4edce2dea5d59574ce46ab32283937f48a1d8c6582a2c1760c7556b8c45c98f2",
+    "semantic_locator": "までクリア！",
+    "operation": "erase_non_background_pixels",
+    "force_reindex_entire_mask": true,
+    "expected_background_palette_index": 0,
+    "mask": {
+      "x": 60,
+      "y": 0,
+      "width": 94,
+      "height": 24,
+      "replacement_rgba": "00000000",
+      "preserve_rgba": [
+        "00000000"
+      ]
+    }
+  },
+  "runtime": {
+    "purpose": "Verify that KVMDATA chunk 11 supplies the fixed suffix shown after the runtime stage title in the intermission ticker.",
+    "required_routes": [
+      "fresh_process_boot_exact_iso",
+      "load_a_hash_locked_post-stage_save",
+      "enter_intermission_and_capture_the_stage-clear_ticker",
+      "confirm_the_suffix_is_absent_in_the_canary_build",
+      "capture_the_matching_texture_dump_delta"
+    ],
+    "expected_visual_effect": "The closing quote and dynamic stage title remain visible, but the fixed までクリア！ suffix is absent.",
+    "promotion_rule": "Only a matching stage-clear ticker screenshot and exact original-to-canary texture delta may promote the runtime mapping."
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org"
+  },
+  "expected": {
+    "reference_png": {
+      "size": 3414,
+      "sha256": "3857343a6d5262a0a4667c4821775ee0266f1bd27753ea2e673bcac5d94ede1a"
+    },
+    "edited_png": {
+      "size": 2587,
+      "sha256": "debc6b366e0c24c066b09bbbb3417a9e08a98073ceb137ce990004233242be4d"
+    },
+    "archive": {
+      "size": 3335408,
+      "sha256": "ead2dbd0bc3a6402bd754ee118a4c966670a3bcd8b137f3ad840c149bfe3c458"
+    },
+    "chunk": {
+      "size": 33344,
+      "sha256": "be8b53afe31e2c3de2b7c1950178786a239308e74a7d2d0760d4d40069154a26"
+    },
+    "changed_pixel_count": 555,
+    "changed_archive_byte_count": 325,
+    "changed_archive_range_count": 101
+  },
+  "outputs": {
+    "component_root": "work/build/ui-stage-clear-atlas-map-canary/components",
+    "reference_png": "work/build/ui-stage-clear-atlas-map-canary/reference.png",
+    "edited_png": "work/build/ui-stage-clear-atlas-map-canary/edited.png",
+    "validation": "work/review/ui-stage-clear-atlas-map-canary/component-validation.json",
+    "manifest": "manifests/ui-stage-clear-atlas-map-canary-validation.json"
+  }
+}

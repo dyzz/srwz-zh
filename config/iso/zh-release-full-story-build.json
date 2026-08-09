@@ -58,13 +58,19 @@
       "member": "SLPS_258.87",
       "source": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "e67ad25513bf1297db2207e5262d8c977b9a671b3130ed8d35892c2e3652d7ba"
+      "sha256": "4c90010670802493c858d62fc1ff66dfa9b7a9f15f221ce851b5535874159425"
     },
     {
       "member": "DATA/COMPDATA.BN",
       "source": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 144945,
-      "sha256": "a414ed62b1a18827739da2e0c7fcd9746e1f8069d6a441a2353cadb5fdeb9179"
+      "size": 142554,
+      "sha256": "7db282bb243c4a84e1a16f9b36477a75b03199f915d3ce61748589264bc3780b"
+    },
+    {
+      "member": "DATA/NISVDATA.BIN",
+      "source": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
+      "size": 555056,
+      "sha256": "fc6cb8730a1852e4cf7e72f7b46fea0e178b5e39eafcefd5ba63ff232e957789"
     },
     {
       "member": "DATA/MTV_PROS.BIN",
@@ -76,19 +82,19 @@
       "member": "DATA/VT1.BIN",
       "source": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "58c239a6ac2ceb3fba5f38e8fa070879cd5c7312c073a80e675dceba0319eae3"
+      "sha256": "90e7f0e0a1d41e6460850adb6c72b5114c8c0cfd4c2bfe28e9cc7fe9a49f4fb5"
     },
     {
       "member": "DATA/STAGE.BIN",
       "source": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "b018e0e3ee76f6deb5cb0c90660ef5eb8890b698f0a0c5151a7be7ab54688ef5"
+      "sha256": "de6f36f1d6c49fd274cb957ebb04a1b0b1dbb6e01e10bce9b40524f5b07e88ed"
     },
     {
       "member": "DATA/HSFC.BIN",
       "source": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
       "size": 250112,
-      "sha256": "e3285713fc1186788d305b3519b1965875ac1912b44711ad5e2d496de632d6c1"
+      "sha256": "dbdf568fa074e27954f74aea3924b26f1e19f8bd9734b38ad5036fc92d1e9c56"
     },
     {
       "member": "HEDBDY/HB.BIN",
@@ -100,13 +106,13 @@
       "member": "KURODATA/KVMDATA.BIN",
       "source": "work/build/zh-release-full-story/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "e2f57fef0703d3b7af81b88e97df74fea5ecefa0494fe7e86e9ec8d395c5fc2e"
+      "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b"
     },
     {
       "member": "BTL/SRVC.BIN",
       "source": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
       "size": 3313040,
-      "sha256": "b653ee4b1d26069a14695c6272b4901827837ba0527fd74a8ad5149ad1ee8e91"
+      "sha256": "ec961ef5595d89318c1129852d73ba9e94f16d30130637b98883d069b39498ab"
     },
     {
       "member": "BTL/SRVC.SEG",
@@ -118,15 +124,15 @@
       "member": "EFF/VEFF2DX.BIN",
       "source": "work/build/zh-release-full-story/components/EFF/VEFF2DX.BIN",
       "size": 36890512,
-      "sha256": "48e7372ff72db2f52df9cd78b86228eb0117140105ac07b9507d668f296abc5f"
+      "sha256": "4445b2a8669861a87eb79cb4862f0c8a17841785ee5a990d70554e59f464ae10"
     }
   ],
   "output": {
-    "path": "build/iso/zh-release-full-story/srwz-zh-release-full-story-r8.iso",
-    "report": "build/iso/zh-release-full-story/iso-validation-r8.json",
+    "path": "build/iso/zh-release-full-story/srwz-zh-release-full-story-r13.iso",
+    "report": "build/iso/zh-release-full-story/iso-validation-r13.json",
     "expected_size": 3758358528,
-    "expected_sha256": "dea0d931699f84ac134b30eb144ec204955a0517cbec90541b79a06240571497",
-    "expected_member_manifest_sha256": "27bed7b44e75415096654b9683bccddd636ac3cdb9cd9aa00392ec0e65af2129",
+    "expected_sha256": "7b2b9b0f628846cf3ef9685107685af3879df612c26d414cef1cca5d030e7d80",
+    "expected_member_manifest_sha256": "b7d2e51b085ae5c87c7a4d7e5e553d028de7ef8ca9d0b634e60e755b7578f07b",
     "expected_root_directory_size": 960,
     "expected_pcsx2_v263_image_type": "DVD",
     "expected_udf_volume_recognition_sequence": "NSR02",
@@ -137,6 +143,7 @@
       "SYSTEM.CNF",
       "SLPS_258.87",
       "DATA/COMPDATA.BN",
+      "DATA/NISVDATA.BIN",
       "DATA/MTV_PROS.BIN",
       "DATA/VT1.BIN",
       "DATA/STAGE.BIN",

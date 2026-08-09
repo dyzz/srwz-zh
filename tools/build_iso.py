@@ -11,6 +11,7 @@ import re
 import shutil
 import subprocess
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 try:
@@ -405,6 +406,7 @@ def write_build_xml(
     build_xml: Path,
     staging_tree: Path,
     volume_id: str,
+    member_lbas: dict[str, int] | None = None,
 ) -> None:
     text = base_xml.read_text(encoding="utf-8")
     text, source_count = re.subn(
@@ -435,8 +437,89 @@ def write_build_xml(
         raise IsoBuildError(
             "mkps2iso XML source/logo/volume rewrite was not unique"
         )
+    if member_lbas is not None:
+        text = _pin_xml_file_lbas(text, member_lbas)
     build_xml.parent.mkdir(parents=True, exist_ok=True)
     build_xml.write_text(text, encoding="utf-8")
+
+
+def _xml_file_member_paths(text: str) -> list[str]:
+    try:
+        root = ET.fromstring(text)
+    except ET.ParseError as exc:
+        raise IsoBuildError("mkps2iso XML is malformed") from exc
+    directory_tree = root.find(".//directory_tree")
+    if directory_tree is None:
+        raise IsoBuildError("mkps2iso XML has no directory_tree element")
+
+    paths: list[str] = []
+
+    def walk(element: ET.Element, prefix: tuple[str, ...]) -> None:
+        for child in element:
+            tag = child.tag.casefold()
+            if tag == "file":
+                name = child.get("name")
+                if not name:
+                    raise IsoBuildError("mkps2iso XML file has no name")
+                paths.append("/".join((*prefix, name)).upper())
+            elif tag == "dir":
+                name = child.get("name")
+                if not name:
+                    raise IsoBuildError("mkps2iso XML dir has no name")
+                walk(child, (*prefix, name))
+
+    walk(directory_tree, ())
+    if len(paths) != len(set(paths)):
+        raise IsoBuildError("mkps2iso XML contains duplicate file paths")
+    return paths
+
+
+def _pin_xml_file_lbas(text: str, member_lbas: dict[str, int]) -> str:
+    """Force logical members to their intended LBAs without padding them."""
+
+    normalized_lbas = {
+        path.upper(): int(lba) for path, lba in member_lbas.items()
+    }
+    paths = _xml_file_member_paths(text)
+    if set(paths) != set(normalized_lbas):
+        missing = sorted(set(normalized_lbas) - set(paths))
+        extra = sorted(set(paths) - set(normalized_lbas))
+        raise IsoBuildError(
+            "mkps2iso XML member set differs while pinning LBAs; "
+            f"missing={missing}, extra={extra}"
+        )
+    if any(lba <= 0 for lba in normalized_lbas.values()):
+        raise IsoBuildError("mkps2iso member LBAs must be positive")
+
+    path_index = 0
+
+    def pin(match: re.Match[str]) -> str:
+        nonlocal path_index
+        path = paths[path_index]
+        path_index += 1
+        tag = match.group(0)
+        lba = normalized_lbas[path]
+        if re.search(r'\soffs="[^"]*"', tag):
+            tag, count = re.subn(
+                r'(\soffs=")[^"]*(")',
+                lambda offset_match: (
+                    offset_match.group(1)
+                    + str(lba)
+                    + offset_match.group(2)
+                ),
+                tag,
+                count=1,
+            )
+            if count != 1:
+                raise IsoBuildError(f"could not replace XML LBA for {path}")
+            return tag
+        suffix = "/>" if tag.endswith("/>") else ">"
+        return tag[: -len(suffix)] + f' offs="{lba}"' + suffix
+
+    text, count = re.subn(r"<file\b[^>]*?/?>", pin, text)
+    if count != len(paths) or path_index != len(paths):
+        raise IsoBuildError("mkps2iso XML file/LBA rewrite count differs")
+    return text
 
 
 def run_mkps2iso(
@@ -781,11 +864,22 @@ def main() -> int:
 
         hardlink_tree(original_tree, staging_tree)
         install_replacements(config, staging_tree)
+        shift_by_member = dict(expected_shift_segments(config))
+        current_shift = 0
+        pinned_lbas = {}
+        for member_path in extent_order(source_image):
+            if member_path in shift_by_member:
+                current_shift = shift_by_member[member_path]
+            pinned_lbas[member_path] = (
+                member_map(source_image)[member_path].extent_lba
+                + current_shift
+            )
         write_build_xml(
             base_xml,
             build_xml,
             staging_tree,
             config["layout"]["volume_id"],
+            pinned_lbas,
         )
 
         output_path = resolve_project_path(config["output"]["path"])

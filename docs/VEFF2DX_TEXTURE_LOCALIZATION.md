@@ -165,7 +165,7 @@ python3 tools/build_iso.py \
   --config config/iso/zh-release-full-story-build.json
 ```
 
-## 7. 重复纹理不能直接同步复制
+## 7. 第二份重复纹理已按独立目标写回
 
 当前导出中，下面两张逻辑索引图像素相同：
 
@@ -174,15 +174,22 @@ chunk-0296/decoded/record-000_o00018ff0/picture-000.indices.png
 chunk-0297/decoded/record-000_o00050a20/picture-000.indices.png
 ```
 
-这只能证明 TIM2 图片内容重复，不能证明两个 effect 的运行用途、动画数据、压缩预算
-和材质状态相同。当前生产 writer 只修改已绑定到 `effect_id 295` 的 `chunk-0296`。
+运行截图已经确认 `chunk-0297` 是普通／EX 困难／特殊模式选择页。因此它现在以
+`mode_select_effect` 独立登记为 `effect_id 296`，不复制 `chunk-0296` 的压缩流：
 
-如果运行验证表明 `chunk-0297` 也会显示同一组文字，必须把它登记为第二个独立目标：
+```text
+chunk:       297
+record:      0 at decoded offset 0x50A20
+stored slot: 32,608 bytes
+clear:       x=0, y=74, width=204, height=50
+segments:    普通 / EX困难 / 特殊 / 模式
+output:      32,354 bytes + 254 bytes zero padding
+```
 
-- 锁定自己的 stored/decoded/record 前像；
-- 使用自己的 mask、geometry 和压缩预算；
-- 独立完成回读与运行截图；
-- 禁止把 `chunk-0296` 的整个压缩流复制到 `chunk-0297`。
+四段中文分别留在原来的 `ノーマル`、`EXハード`、`スペシャル`、`モード`
+切片范围内，所以动画 quad 和布局字节保持原样。最终组合为“普通模式”、
+“EX困难模式”和“特殊模式”。两块纹理分别锁定 stored/decoded/record 前像、
+独立 Rust 压缩预算和最终 ISO 回读，仍禁止互相复制压缩流。
 
 ## 8. 新材质准入清单
 

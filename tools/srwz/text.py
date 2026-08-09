@@ -17,9 +17,11 @@ PRINTABLE_ASCII = frozenset(
 ORIGINAL_FULLWIDTH_ASCII = frozenset(string.digits + string.ascii_letters)
 RUNTIME_FORMAT_TOKEN = re.compile(r"%(?:\d+\$)?[diouxXeEfFgGcrsa]")
 RUNTIME_SUBSTITUTION_TOKEN = re.compile(r"\$[cflnF]")
+RUNTIME_ICON_SLOT_TOKEN = re.compile(r"<[0-9]>")
 CONTROL_NOTATION = re.compile(
     rf"{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
     rf"|{RUNTIME_FORMAT_TOKEN.pattern}"
+    rf"|{RUNTIME_ICON_SLOT_TOKEN.pattern}"
     r"|\{[0-9A-Fa-f]{2}\}"
     r"|@?<[A-Za-z0-9_]+:[0-9A-Fa-f]{2}>"
 )
@@ -312,7 +314,7 @@ def control_notation_tokens(text: str) -> tuple[ControlNotationToken, ...]:
         token = match.group(0)
         if RUNTIME_FORMAT_TOKEN.fullmatch(token):
             kind = "runtime_format"
-        elif RUNTIME_SUBSTITUTION_TOKEN.fullmatch(token):
+        elif RUNTIME_SUBSTITUTION_TOKEN.fullmatch(token) or RUNTIME_ICON_SLOT_TOKEN.fullmatch(token):
             kind = "runtime_substitution"
         elif token.startswith("{"):
             kind = "raw_byte"
@@ -520,6 +522,7 @@ __all__ = [
     "ControlNotationToken",
     "ORIGINAL_FULLWIDTH_ASCII",
     "RUNTIME_FORMAT_TOKEN",
+    "RUNTIME_ICON_SLOT_TOKEN",
     "RUNTIME_SUBSTITUTION_TOKEN",
     "SrwzTextError",
     "SrwzTextEncodeError",

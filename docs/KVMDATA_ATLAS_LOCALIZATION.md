@@ -1,7 +1,8 @@
 # KVMDATA UI 图集文字汉化
 
 本文记录 `KURODATA/KVMDATA.BIN` 中固定 UI 图集的生产写回规则。当前重点实例是
-chunk 6 的“中场休息”标题和七个主菜单标签。它与
+chunk 6 的“中场休息”标题和七个主菜单标签，以及 chunk 11 的关卡通关滚动条
+固定后缀。它与
 `VEFF2DX_TEXTURE_LOCALIZATION.md` 共享索引图、原调色板、定长压缩和 ISO LBA
 不变等底层约束，但两者不是同一个资源，也不能共用排版或几何策略。
 
@@ -10,7 +11,7 @@ chunk 6 的“中场休息”标题和七个主菜单标签。它与
 | 项目 | KVMDATA UI 图集 | VEFF2DX 场景选择标题 |
 | --- | --- | --- |
 | 成员 | `KURODATA/KVMDATA.BIN` | `EFF/VEFF2DX.BIN` |
-| 当前目标 | chunk 6 幕间菜单 | effect 295 / chunk 296 |
+| 当前目标 | chunk 6 幕间菜单、chunk 11 通关提示 | effect 295 / chunk 296 |
 | 文字生成 | 按原日文切片直接渲染 HarmonyOS Sans | 读取全局 VT1 的 24×24/4-bpp glyph |
 | 排版 | 保持原切片大小与位置，不调整贴图布局 | 必要时修改动画 frame 的 quad 坐标 |
 | 背景处理 | 整个登记切片强制回填背景索引 `0` | 只清除登记 mask 内原文字 |
@@ -28,7 +29,7 @@ VEFF2DX 文档中的“从全局 glyph 裁切”和“修改 quad”只适用于
 - `config/assets/ui-intermission-atlas-zh.json`：九个源切片、字体 flavor、字号、斜体、
   索引层和输出哈希。
 - `manifests/ui-intermission-atlas-zh-validation.json`：确定性组件回读结果。
-- `config/assets/ui-atlas-suite-zh.json`：五张 KVMDATA 图集的互斥字节所有权合成。
+- `config/assets/ui-atlas-suite-zh.json`：六张 KVMDATA 图集的互斥字节所有权合成。
 
 提交的 PNG 不是写回输入。生产组件始终从锁定原始前像、受审译文和配置化渲染参数
 重新生成。
@@ -69,7 +70,26 @@ HarmonyOS Sans SC Light 1.0。它只是同一 HarmonyOS Sans 家族的静态图�
 绿色矩形或选中框，也不通过改 RGB 猜测运行效果。索引 `8` 只能出现在实际字形边缘，
 不能成为覆盖切片的实心矩形。
 
-## 5. 构建与验证
+## 5. 关卡通关滚动条
+
+chunk 11 的第三个精灵段覆盖 `x=50..153, y=0..23`，内容为固定闭引号和
+`までクリア！`。中文组件只擦除 `x=60..153, y=0..23` 的固定后缀并重绘
+“已通关！”，因此 `第`、`話`、引号和数字精灵均保持原样。
+
+关卡标题正文不属于 KVMDATA，也不是 COMPDATA 文本或运行时逐字排版。SLPS 的
+标题加载器按关卡 selector 从 `DATA/VT1.BIN` 顶层 group 8 取出一张独立压缩资源；
+解压后是 512×64、4bpp 的 TIM2。`build_full_story_components.py` 从 204 条原始关卡
+节点记录读取真实 selector，为 107 个可玩关卡标题逐槽生成中文 TIM2，并把每张
+压缩流硬适配回原 slot，保持 group 8 内部偏移表、顶层归档边界、VT1 成员大小和
+ISO LBA 不变。Stage Name 的另外 15 项没有独立进关贴图：9 条路线选择文案和
+6 条内部／测试记录由 COMPDATA 文本链覆盖。KVMDATA 的“已通关！”与 VT1 的
+关卡标题是两条独立写回链。
+
+译文事实源为 `corpus/zh/ui-atlas/stage-clear-v1.json`，生产配置为
+`config/assets/ui-stage-clear-atlas-zh.json`。中文在 94×24 擦除区内显式左移
+16px，使“已”接在保留的闭引号之后；不修改运行时 quad 宽度或 SLPS 绘制代码。
+
+## 6. 构建与验证
 
 先取得同一官方字体包中的 Light 字重：
 
@@ -88,7 +108,7 @@ python3 tools/verify_ui_atlas_localization.py \
   --force --refresh-manifest
 ```
 
-再合入五图套件和当前发布组件：
+再合入六图套件和当前发布组件：
 
 ```bash
 python3 tools/build_ui_atlas_suite.py \

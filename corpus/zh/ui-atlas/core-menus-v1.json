@@ -128,6 +128,28 @@
         "config/assets/ui-formation-atlas-zh.json"
       ],
       "notes": "Use the natural action label and the project's established 小队 term for the platoon-formation system."
+    },
+    {
+      "id": "ui-atlas/kvm7/reserve",
+      "source_text": "リザーブへ",
+      "source_text_sha256": "f522c7ac3284a6ad2bacf6fd1819cd399a693256b562024f3e00efb50d4250fe",
+      "translation": "移至后备区",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "config/assets/ui-formation-atlas-zh.json"
+      ],
+      "notes": "Replace only the original reserve-label rectangle without moving adjacent counters or icons."
+    },
+    {
+      "id": "ui-atlas/kvm7/squad-group",
+      "source_text": "小隊群へ",
+      "source_text_sha256": "3aa1afec7941bc733161ab77e56295c4e551f93a6453d1ab9d3a08b760dfb548",
+      "translation": "移至小队区",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "config/assets/ui-formation-atlas-zh.json"
+      ],
+      "notes": "Replace only the original squad-group label rectangle and preserve the large number immediately to its right."
     }
   ]
 }

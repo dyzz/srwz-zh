@@ -20,6 +20,10 @@ class Pcsx2BootSmokeTests(unittest.TestCase):
         self.assertTrue(report["no_tlb_miss"])
         self.assertEqual(report["tlb_miss_count"], 0)
         self.assertIsNone(report["first_tlb_miss"])
+        self.assertTrue(report["no_illegal_instruction"])
+        self.assertEqual(report["illegal_instruction_count"], 0)
+        self.assertTrue(report["no_trap"])
+        self.assertEqual(report["trap_count"], 0)
 
     def test_tlb_log_is_fail_closed(self):
         report = analyze_boot_log(
@@ -30,6 +34,18 @@ class Pcsx2BootSmokeTests(unittest.TestCase):
         self.assertFalse(report["no_tlb_miss"])
         self.assertEqual(report["tlb_miss_count"], 1)
         self.assertIn("0x1c6ea0", report["first_tlb_miss"])
+
+    def test_illegal_instruction_and_trap_are_fail_closed(self):
+        report = analyze_boot_log(
+            "Image type  = DVD\n"
+            "ELF (cdrom0:\\\\SLPS_258.87;1) is executing.\n"
+            "Illegal Instruction at pc=0x00756e50\n"
+            "Execution trapped: pc=0x00789d0c\n"
+        )
+        self.assertFalse(report["no_illegal_instruction"])
+        self.assertEqual(report["illegal_instruction_count"], 1)
+        self.assertFalse(report["no_trap"])
+        self.assertEqual(report["trap_count"], 1)
 
     def test_report_keeps_static_and_runtime_boundaries(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -68,6 +84,8 @@ class Pcsx2BootSmokeTests(unittest.TestCase):
             )
         self.assertEqual(report["status"], "passed")
         self.assertTrue(all(report["checks"].values()))
+        self.assertIn("no_illegal_instruction", report["checks"])
+        self.assertIn("no_trap", report["checks"])
         self.assertIn("does not prove navigation", report["boundary"])
 
 

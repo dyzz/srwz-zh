@@ -49,9 +49,26 @@ class ZhReleaseFontTests(unittest.TestCase):
                 ),
                 encoding="utf-8",
             )
+            snapshot = json.loads(json.dumps(self.snapshot))
+            snapshot["remaining_allocation_candidates"] = [
+                {
+                    "code": "96FD",
+                    "glyph_index": 4221,
+                    "mapping": "standard_raw_trail_gap",
+                }
+            ]
+            snapshot["remaining_allocation_candidate_count"] = 1
+            snapshot["remaining_allocation_candidates_sha256"] = hashlib.sha256(
+                json.dumps(
+                    snapshot["remaining_allocation_candidates"],
+                    ensure_ascii=False,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode("utf-8")
+            ).hexdigest()
             snapshot_path = root / "snapshot.json"
             snapshot_path.write_text(
-                json.dumps(self.snapshot, ensure_ascii=False, indent=2)
+                json.dumps(snapshot, ensure_ascii=False, indent=2)
                 + "\n",
                 encoding="utf-8",
             )
@@ -65,6 +82,7 @@ class ZhReleaseFontTests(unittest.TestCase):
             profile["allocation_snapshot"]["sha256"] = hashlib.sha256(
                 snapshot_path.read_bytes()
             ).hexdigest()
+            profile["expected"]["remaining_candidate_slot_count"] = 1
             profile_path = root / "profile.json"
             profile_path.write_text(
                 json.dumps(profile, ensure_ascii=False, indent=2) + "\n",
@@ -98,12 +116,12 @@ class ZhReleaseFontTests(unittest.TestCase):
         self.assertNotIn("historical_profiles", self.chain)
 
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
-        self.assertEqual(self.snapshot["primary_assignment_count"], 3261)
+        self.assertEqual(self.snapshot["primary_assignment_count"], 3265)
         self.assertEqual(
             self.snapshot["surface_alias_assignment_count"], 701
         )
         self.assertEqual(
-            self.snapshot["remaining_allocation_candidate_count"], 1
+            self.snapshot["remaining_allocation_candidate_count"], 0
         )
         compatibility = self.snapshot["source_compatibility_assignments"]
         self.assertEqual(
@@ -140,7 +158,7 @@ class ZhReleaseFontTests(unittest.TestCase):
             item["character"]
             for item in self.snapshot["primary_assignments"]
         }
-        self.assertTrue(set("储剂椅潘罐贱蹄Σ妲浏珀") <= assigned)
+        self.assertTrue(set("储剂椅潘罐贱蹄Σ妲浏珀碌裘蔷蹴") <= assigned)
         assigned_codes = {
             item["code"]
             for item in (
@@ -175,7 +193,7 @@ class ZhReleaseFontTests(unittest.TestCase):
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]
-        self.assertEqual(selection["unique_entry_count"], 120660)
+        self.assertEqual(selection["unique_entry_count"], 121598)
         source_paths = {item["path"] for item in selection["sources"]}
         self.assertIn("corpus/zh/battle/srvc-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/battle-lines.json", source_paths)
@@ -189,36 +207,46 @@ class ZhReleaseFontTests(unittest.TestCase):
         )
         self.assertEqual(
             coverage["preserved_raw_ascii_punctuation_characters"],
-            '"%&\',-./:<=\\]{}~',
+            '"%&\',-./:<=>@[\\]{}~',
         )
         control_tokens = selection["control_tokens"]
-        self.assertEqual(control_tokens["entry_count"], 2085)
-        self.assertEqual(control_tokens["occurrence_count"], 2130)
+        self.assertEqual(control_tokens["entry_count"], 2124)
+        self.assertEqual(control_tokens["occurrence_count"], 2237)
         self.assertEqual(
             control_tokens["kinds"]["runtime_format"]["forms"],
-            {"%s": 51},
+            {"%s": 59},
         )
         self.assertEqual(
             control_tokens["kinds"]["runtime_substitution"][
                 "occurrence_count"
             ],
-            2054,
+            2060,
         )
         self.assertEqual(
-            control_tokens["kinds"]["text_tag"]["occurrence_count"], 25
+            {
+                key: value
+                for key, value in control_tokens["kinds"][
+                    "runtime_substitution"
+                ]["forms"].items()
+                if key.startswith("<")
+            },
+            {"<0>": 3, "<6>": 1, "<8>": 1, "<9>": 1},
+        )
+        self.assertEqual(
+            control_tokens["kinds"]["text_tag"]["occurrence_count"], 118
         )
         self.assertTrue(control_tokens["excluded_from_font_glyph_demand"])
         self.assertEqual(
-            selection["literal_percent_signs"]["occurrence_count"], 150
+            selection["literal_percent_signs"]["occurrence_count"], 177
         )
         self.assertEqual(
-            coverage["control_token_occurrence_count"], 2130
+            coverage["control_token_occurrence_count"], 2237
         )
         self.assertEqual(
-            coverage["runtime_placeholder_occurrence_count"], 2105
+            coverage["runtime_placeholder_occurrence_count"], 2119
         )
         self.assertTrue(coverage["runtime_placeholder_bytes_preserved_exactly"])
-        self.assertEqual(coverage["literal_percent_occurrence_count"], 150)
+        self.assertEqual(coverage["literal_percent_occurrence_count"], 177)
 
     def test_snapshot_updater_appends_without_reordering_existing_rows(self):
         updated = self._run_snapshot_updater("龘")

@@ -638,6 +638,7 @@ def build_ui_atlas_localization(
     stroke_width = render.get("stroke_width")
     fill_stroke_width = render.get("fill_stroke_width", 0)
     italic_shear_degrees = render.get("italic_shear_degrees", 0)
+    horizontal_offset = render.get("horizontal_offset", 0)
     if (
         not isinstance(point_size, int)
         or isinstance(point_size, bool)
@@ -649,6 +650,8 @@ def build_ui_atlas_localization(
         or isinstance(fill_stroke_width, bool)
         or not isinstance(italic_shear_degrees, (int, float))
         or isinstance(italic_shear_degrees, bool)
+        or not isinstance(horizontal_offset, int)
+        or isinstance(horizontal_offset, bool)
     ):
         raise UiAtlasLocalizationError(
             "localized atlas render contract is invalid"
@@ -668,6 +671,7 @@ def build_ui_atlas_localization(
             "stroke_width": stroke_width,
             "fill_stroke_width": fill_stroke_width,
             "italic_shear_degrees": italic_shear_degrees,
+            "horizontal_offset": horizontal_offset,
             "ramp": ramp,
             "indexed_layers": _resolve_indexed_layers(
                 render,
@@ -735,6 +739,9 @@ def build_ui_atlas_localization(
         additional_italic_shear_degrees = additional_render.get(
             "italic_shear_degrees", 0
         )
+        additional_horizontal_offset = additional_render.get(
+            "horizontal_offset", 0
+        )
         if (
             not isinstance(additional_point_size, int)
             or isinstance(additional_point_size, bool)
@@ -750,6 +757,8 @@ def build_ui_atlas_localization(
                 additional_italic_shear_degrees, (int, float)
             )
             or isinstance(additional_italic_shear_degrees, bool)
+            or not isinstance(additional_horizontal_offset, int)
+            or isinstance(additional_horizontal_offset, bool)
         ):
             raise UiAtlasLocalizationError(
                 "additional localized atlas render contract is invalid"
@@ -769,6 +778,7 @@ def build_ui_atlas_localization(
                 "italic_shear_degrees": (
                     additional_italic_shear_degrees
                 ),
+                "horizontal_offset": additional_horizontal_offset,
                 "ramp": _decode_ramp(additional_render.get("ramp_rgba")),
                 "indexed_layers": _resolve_indexed_layers(
                     additional_render,
@@ -932,6 +942,7 @@ def build_ui_atlas_localization(
                 italic_shear_degrees=float(
                     spec["italic_shear_degrees"]
                 ),
+                horizontal_offset=spec["horizontal_offset"],
             )
             indexed_layers = spec["indexed_layers"]
             if indexed_layers is None:
@@ -956,6 +967,7 @@ def build_ui_atlas_localization(
                     italic_shear_degrees=float(
                         spec["italic_shear_degrees"]
                     ),
+                    horizontal_offset=spec["horizontal_offset"],
                 )
                 (
                     localized_rgba,
@@ -978,7 +990,19 @@ def build_ui_atlas_localization(
         expected_background_palette_index = config.get(
             "expected_background_palette_index"
         )
-        if fixed_source_elements:
+        force_reindex_entire_masks = config.get(
+            "force_reindex_entire_masks",
+            fixed_source_elements,
+        )
+        if not isinstance(force_reindex_entire_masks, bool):
+            raise UiAtlasLocalizationError(
+                "force_reindex_entire_masks must be boolean"
+            )
+        if fixed_source_elements and not force_reindex_entire_masks:
+            raise UiAtlasLocalizationError(
+                "fixed source elements require full mask reindexing"
+            )
+        if force_reindex_entire_masks:
             if (
                 not isinstance(expected_background_palette_index, int)
                 or isinstance(expected_background_palette_index, bool)
@@ -1240,7 +1264,7 @@ def build_ui_atlas_localization(
                         indexed_rgba_unchanged_pixel_count
                     ),
                 }
-                if fixed_source_elements
+                if force_reindex_entire_masks
                 else {}
             ),
         },
@@ -1258,6 +1282,11 @@ def build_ui_atlas_localization(
                 **(
                     {"italic_shear_degrees": italic_shear_degrees}
                     if italic_shear_degrees
+                    else {}
+                ),
+                **(
+                    {"horizontal_offset": horizontal_offset}
+                    if horizontal_offset
                     else {}
                 ),
                 "ramp_rgba": [color.hex() for color in ramp],
@@ -1299,6 +1328,15 @@ def build_ui_atlas_localization(
                                     ]
                                 }
                                 if spec["italic_shear_degrees"]
+                                else {}
+                            ),
+                            **(
+                                {
+                                    "horizontal_offset": spec[
+                                        "horizontal_offset"
+                                    ]
+                                }
+                                if spec["horizontal_offset"]
                                 else {}
                             ),
                             "ramp_rgba": [
@@ -1382,6 +1420,11 @@ def build_ui_atlas_localization(
             **(
                 {"fixed_element_palette_indexes_rebuilt": True}
                 if fixed_source_elements
+                else {}
+            ),
+            **(
+                {"mask_background_palette_index_rebuilt": True}
+                if force_reindex_entire_masks and not fixed_source_elements
                 else {}
             ),
             **(

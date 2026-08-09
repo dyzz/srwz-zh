@@ -55,11 +55,20 @@ PROFILES = {
     "formation": {
         "stem": "ui-formation-atlas-zh",
         "archive_sha256": (
-            "78f6963495d5a73f5cd23ba1557e79428aa0e04444b42de097ee51fcd8130a31"
+            "ab49d229e4bb8582d81d602aaa69f98d8cbf67a35eb6a8e521d3e0ee1bfbcc59"
         ),
         "character_count": 4,
-        "added_pixel_count": 769,
-        "changed_pixel_count": 1257,
+        "added_pixel_count": 2268,
+        "changed_pixel_count": 3214,
+    },
+    "stage-clear": {
+        "stem": "ui-stage-clear-atlas-zh",
+        "archive_sha256": (
+            "b1b22cade3b9a3494783e03beed48bdb75cd23a3091c14a6f4b83d9cc2ced90b"
+        ),
+        "character_count": 4,
+        "added_pixel_count": 563,
+        "changed_pixel_count": 729,
     },
 }
 
@@ -371,6 +380,86 @@ class UiAtlasLocalizationTests(unittest.TestCase):
             else:
                 self.assertNotIn(15, source_indexes)
             self.assertIn(0, source_indexes)
+
+    def test_stage_clear_replaces_only_the_fixed_suffix(self):
+        profile = self.profiles["stage-clear"]
+        config = profile["config"]
+        manifest = profile["manifest"]
+        base_mapping = json.loads(
+            (
+                PROJECT_ROOT / config["base_mapping"]["config"]
+            ).read_text(encoding="utf-8")
+        )
+        translation_source = json.loads(
+            (
+                PROJECT_ROOT
+                / config["localized_label"]["translation_source"]["path"]
+            ).read_text(encoding="utf-8")
+        )
+
+        self.assertEqual(config["target"]["chunk_index"], 11)
+        self.assertEqual(
+            base_mapping["target"]["mask"],
+            {
+                "x": 60,
+                "y": 0,
+                "width": 94,
+                "height": 24,
+                "replacement_rgba": "00000000",
+                "preserve_rgba": ["00000000"],
+            },
+        )
+        self.assertEqual(
+            translation_source["entries"][0]["translation"],
+            "已通关！",
+        )
+        self.assertEqual(
+            config["localized_label"]["render"]["horizontal_offset"],
+            -16,
+        )
+        self.assertEqual(
+            manifest["localized_label"]["render"]["horizontal_offset"],
+            -16,
+        )
+        self.assertTrue(
+            manifest["acceptance"][
+                "source_element_rectangles_and_rgba_locked"
+            ]
+        )
+        self.assertTrue(
+            manifest["target"]["mask_audit"]["outside_mask_rgba_exact"]
+        )
+
+    def test_formation_labels_rebuild_the_full_background_index(self):
+        profile = self.profiles["formation"]
+        config = profile["config"]
+        manifest = profile["manifest"]
+        squad_group = next(
+            label
+            for label in config["additional_localized_labels"]
+            if label["semantic_locator"] == "小隊群へ"
+        )
+
+        self.assertEqual(squad_group["mask"], {
+            "x": 44,
+            "y": 178,
+            "width": 67,
+            "height": 22,
+            "replacement_rgba": "00000000",
+            "preserve_rgba": ["00000000"],
+        })
+        self.assertTrue(config["force_reindex_entire_masks"])
+        self.assertEqual(config["expected_background_palette_index"], 0)
+        self.assertTrue(manifest["target"]["force_reindex_entire_masks"])
+        self.assertEqual(
+            manifest["target"]["expected_background_palette_index"],
+            0,
+        )
+        self.assertTrue(
+            manifest["acceptance"][
+                "mask_background_palette_index_rebuilt"
+            ]
+        )
 
     def test_committed_manifest_contains_no_translation_payload(self):
         def visit(value):

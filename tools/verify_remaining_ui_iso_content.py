@@ -19,13 +19,14 @@ from verify_full_story_iso_content import (
     load_overrides,
     read_members,
     verify_final_compdata,
+    verify_stage_fixed_formation,
 )
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ISO = (
     PROJECT_ROOT
-    / "build/iso/zh-release-full-story/srwz-zh-release-full-story-r8.iso"
+    / "build/iso/zh-release-full-story/srwz-zh-release-full-story-r13.iso"
 )
 DEFAULT_COMPONENT_MANIFEST = (
     PROJECT_ROOT / "manifests/full-story-components-validation.json"
@@ -111,6 +112,17 @@ def main() -> int:
         output_table,
         aliases,
     )
+    fixed_formation = verify_stage_fixed_formation(
+        members["DATA/STAGE.BIN"],
+        members["HEDBDY/HB.BIN"],
+        source_table,
+        output_table,
+    )
+    content["remaining_ui"]["stage_fixed_formation"] = fixed_formation
+    content["remaining_ui"]["readback_exact"] = (
+        content["remaining_ui"]["readback_exact"]
+        and fixed_formation["readback_exact"]
+    )
 
     remaining = component["remaining_ui"]
     atlas = remaining["atlas"]
@@ -131,7 +143,11 @@ def main() -> int:
             )
             for group in (
                 "compdata_direct",
+                "compdata_context_help",
+                "compdata_inline",
                 "leadership_effects",
+                "slps_context_ui",
+                "stage_fixed_formation",
                 "slps",
                 "parts",
             )
@@ -239,8 +255,14 @@ def main() -> int:
         "remaining UI final ISO readback:",
         f"pilot_names={content['selected_entry_count']}",
         f"direct={content['remaining_ui']['compdata_direct']['entry_count']}",
+        "context_help="
+        f"{content['remaining_ui']['compdata_context_help']['entry_count']}",
         f"leadership={content['remaining_ui']['leadership_effects']['entry_count']}",
+        "slps_context="
+        f"{content['remaining_ui']['slps_context_ui']['entry_count']}",
         f"slps={content['remaining_ui']['slps']['entry_count']}",
+        "stage-fixed="
+        f"{content['remaining_ui']['stage_fixed_formation']['entry_count']}",
         f"parts={content['remaining_ui']['parts']['written_entry_count']}",
         "status=passed",
     )

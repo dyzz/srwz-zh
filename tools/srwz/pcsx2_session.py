@@ -275,7 +275,10 @@ def _write_portable_settings(
     *,
     memory_card_enabled: bool,
 ) -> None:
-    parser = configparser.ConfigParser(interpolation=None)
+    # PCSX2 writes list-style settings such as GameList/RecursivePaths more
+    # than once.  Keep the last value while cloning a portable session rather
+    # than rejecting the application's own valid settings file.
+    parser = configparser.ConfigParser(interpolation=None, strict=False)
     parser.optionxform = str
     try:
         with template_path.open(encoding="utf-8") as stream:

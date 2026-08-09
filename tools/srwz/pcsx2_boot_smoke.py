@@ -10,6 +10,8 @@ from pathlib import Path
 _DVD = re.compile(r"Image type\s*=\s*DVD")
 _ELF = re.compile(r"ELF .*SLPS_258\.87.* is executing\.")
 _TLB = re.compile(r"TLB Miss", re.IGNORECASE)
+_ILLEGAL_INSTRUCTION = re.compile(r"illegal instruction", re.IGNORECASE)
+_TRAP = re.compile(r"\btrap(?:ped)?\b", re.IGNORECASE)
 
 
 def sha256_file(path: Path) -> str:
@@ -27,12 +29,24 @@ def analyze_boot_log(text: str) -> dict:
 
     lines = text.splitlines()
     tlb_lines = [line for line in lines if _TLB.search(line)]
+    illegal_lines = [
+        line for line in lines if _ILLEGAL_INSTRUCTION.search(line)
+    ]
+    trap_lines = [line for line in lines if _TRAP.search(line)]
     return {
         "dvd_recognized": _DVD.search(text) is not None,
         "elf_executing": _ELF.search(text) is not None,
         "tlb_miss_count": len(tlb_lines),
         "no_tlb_miss": not tlb_lines,
         "first_tlb_miss": tlb_lines[0] if tlb_lines else None,
+        "illegal_instruction_count": len(illegal_lines),
+        "no_illegal_instruction": not illegal_lines,
+        "first_illegal_instruction": (
+            illegal_lines[0] if illegal_lines else None
+        ),
+        "trap_count": len(trap_lines),
+        "no_trap": not trap_lines,
+        "first_trap": trap_lines[0] if trap_lines else None,
     }
 
 
@@ -67,6 +81,8 @@ def build_boot_smoke_report(
         "dvd_recognized": log_checks["dvd_recognized"],
         "elf_executing": log_checks["elf_executing"],
         "no_tlb_miss": log_checks["no_tlb_miss"],
+        "no_illegal_instruction": log_checks["no_illegal_instruction"],
+        "no_trap": log_checks["no_trap"],
     }
     failed = sorted(name for name, passed in checks.items() if not passed)
     return {

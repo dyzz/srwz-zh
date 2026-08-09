@@ -22,7 +22,7 @@ from verify_full_story_iso_content import TEXT_TABLE, load_overrides, read_membe
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ISO = PROJECT_ROOT / "build/iso/zh-release-full-story/srwz-zh-release-full-story-r8.iso"
+DEFAULT_ISO = PROJECT_ROOT / "build/iso/zh-release-full-story/srwz-zh-release-full-story-r13.iso"
 DEFAULT_COMPONENT_MANIFEST = PROJECT_ROOT / "manifests/full-story-components-validation.json"
 DEFAULT_COMPONENT_CONFIG = PROJECT_ROOT / "config/full-story-components.json"
 DEFAULT_ISO_CONFIG = PROJECT_ROOT / "config/iso/zh-release-full-story-build.json"

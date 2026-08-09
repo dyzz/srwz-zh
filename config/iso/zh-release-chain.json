@@ -1,20 +1,21 @@
 {
   "schema_version": 1,
   "chain_id": "zh-release-full-story-v1",
-  "principle": "Materialize exactly one ISO from the validated global HarmonyOS Sans release component, including the complete indexed SRVC battle-text domain and localized scenario-selection titles without changing member sector allocations.",
+  "principle": "Materialize exactly one ISO from the validated global HarmonyOS Sans release component, including the complete indexed SRVC battle-text domain, localized scenario/mode-selection titles, and NisVData weapon-effect labels without changing member sector allocations.",
   "steps": [
     {
       "index": 0,
       "step_id": "zh-release-full-story",
       "purpose": "Build the current global Chinese font, UI, exact-source-element italic atlas, complete STAGE story, all reviewed save/load overviews and complete indexed SRVC battle-text component.",
       "build_config": "config/iso/zh-release-full-story-build.json",
-      "iso_path": "build/iso/zh-release-full-story/srwz-zh-release-full-story-r8.iso",
+      "iso_path": "build/iso/zh-release-full-story/srwz-zh-release-full-story-r13.iso",
       "iso_size": 3758358528,
-      "iso_sha256": "dea0d931699f84ac134b30eb144ec204955a0517cbec90541b79a06240571497",
+      "iso_sha256": "7b2b9b0f628846cf3ef9685107685af3879df612c26d414cef1cca5d030e7d80",
       "materialization": "existing_profile",
       "component_sources": {
         "SLPS_258.87": "work/build/zh-release-full-story/components/SLPS_258.87",
         "DATA/COMPDATA.BN": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
+        "DATA/NISVDATA.BIN": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
         "DATA/MTV_PROS.BIN": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
         "DATA/VT1.BIN": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
         "DATA/STAGE.BIN": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
@@ -28,6 +29,7 @@
       "changed_members": [
         "SLPS_258.87",
         "DATA/COMPDATA.BN",
+        "DATA/NISVDATA.BIN",
         "DATA/MTV_PROS.BIN",
         "DATA/VT1.BIN",
         "DATA/STAGE.BIN",

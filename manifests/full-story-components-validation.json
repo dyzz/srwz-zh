@@ -2,12 +2,12 @@
   "schema_version": 1,
   "status": "integrated_global_zh_release_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-integrated-v1",
-  "scope": "Compose the validated encoded UI component, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
+  "scope": "Compose the validated encoded UI component, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 17872,
-      "sha256": "f36f429efc6cdaac880fc1ab2afcf5abb84f73c81f479870d5ddbb65f32d9c0e"
+      "size": 24427,
+      "sha256": "2d31b3b3cc387bdde8542af57fd25c74b2ab12d17d8a807d34716fd088019c01"
     },
     "base_ui_manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -16,13 +16,13 @@
     },
     "full_story_font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 46198,
-      "sha256": "1af651a034eca66f53466a8627f836629f326554a40ef37e46553f0348aa8bdd"
+      "size": 48513,
+      "sha256": "0a5d3fdbfc3cef1543a7efe5a711075ad921288e41eafc0240de2f24350a9c54"
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 17852763,
-      "sha256": "ebb75063652d31c2251952b93f859c2865889fb6da59b46f989cdf964ed4e8c9"
+      "sha256": "4f7f63bd21103d2c226ebf5a4b2a14e7bd4c7234acfe6a8ba83f75b81ad0155e"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -31,18 +31,18 @@
     },
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
-      "size": 2898717,
-      "sha256": "5cb6ec38ea75c1ad00ef8746f0654ac57ae29a9b82ecb49453dbca3f8f75f5db"
+      "size": 2898406,
+      "sha256": "023821574df5100d7b615d4c0dddeac702fd688ba56a02652c7ea4bd53f7ad88"
     },
     "remaining_display_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 28551,
-      "sha256": "5ca8179b49b74eea99a5d025aaa279ca5390605341c4bfad1347a8d12cba51aa"
+      "size": 88318,
+      "sha256": "a6cb5865eca5316d5f38d1910f9269a7b331660987b7e10bdf4d5e9736d13aec"
     },
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
-      "size": 3527917,
-      "sha256": "4618b51211b59fef6552d11179f4850fe620341644222e2eb7e1109403fcc50a"
+      "size": 3531774,
+      "sha256": "5a645e52a306e3b974acf768161e2a5c77c2ccab3b5dfc1558dffe628aa891d6"
     },
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
@@ -56,13 +56,13 @@
     },
     "stage_overviews": {
       "path": "corpus/zh/menu/stage-overviews.json",
-      "size": 89345,
-      "sha256": "7be77ae7a2db917b6f3e4d6a4cce0b9c8b2e002204b6e3326064034fa7c14afe"
+      "size": 89386,
+      "sha256": "b4f35f7f91d430ad24f449b0dd7c26e39a9d9a655f39c34230b0500e4f0c3353"
     },
     "hsfc_overviews": {
       "path": "corpus/zh/menu/hsfc-overviews.json",
-      "size": 22145,
-      "sha256": "677f932561a4068463624f9b56510035afe364894143989d2ebe052f085bc151"
+      "size": 22143,
+      "sha256": "4e03c70fe3bc233385a15a0fc9a41dd5ed72d754d2692c7f82d597a62faf8f2b"
     },
     "original_hsfc": {
       "path": "work/disc/DATA/HSFC.BIN",
@@ -76,28 +76,43 @@
     },
     "remaining_ui_translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 28551,
-      "sha256": "5ca8179b49b74eea99a5d025aaa279ca5390605341c4bfad1347a8d12cba51aa"
+      "size": 88318,
+      "sha256": "a6cb5865eca5316d5f38d1910f9269a7b331660987b7e10bdf4d5e9736d13aec"
     },
     "remaining_ui_parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
-      "size": 34307,
-      "sha256": "5533989c9789493882dde8d96fe1b7d994a90cd340c12001f2006ba09ee4bfec"
+      "size": 34414,
+      "sha256": "8f09d07567dd992ac41cf3d05f9b05fc2cc1597c07cd14aed6f06ed0b1264d73"
+    },
+    "reviewed_weapons": {
+      "path": "corpus/zh/menu/weapons.json",
+      "size": 214937,
+      "sha256": "613234eb6d8ea09c51c37c980056958ec04951e683e4918cd9661e5dd9bf3ccc"
     },
     "original_compdata": {
       "path": "work/disc/DATA/COMPDATA.BN",
       "size": 144990,
       "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34"
     },
+    "original_nisvdata": {
+      "path": "work/build/zh-release-full-story/iso/original/DATA/NisVData.bin",
+      "size": 555056,
+      "sha256": "63afc46aeb19b41cf7332c7c298ab8bb1c7089f306d4eb4e77bce72e8dbece9c"
+    },
     "original_slps": {
       "path": "work/disc/SLPS_258.87",
       "size": 3471624,
       "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
     },
+    "original_stage": {
+      "path": "work/disc/DATA/STAGE.BIN",
+      "size": 3910128,
+      "sha256": "9c56d42f96df7b409ccf468b24412322ed627b9cbbd656864818a404d89240dc"
+    },
     "srvc_battle_text_corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6921057,
-      "sha256": "33231481e784adc6afce1dfa9ddc084f1394225ac9152f3ad413fbd4f0560a3f"
+      "size": 6920493,
+      "sha256": "bf4bac2fec95712fc1fa8c6f9f036a1d684444ec1d76e17b7e17a36c5545e576"
     },
     "original_srvc_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -117,17 +132,17 @@
     "font_vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "ef0464225fe96b445ef7daf05a62339ed35b3725ea466723b35cc90649154b6f"
+      "sha256": "9da9e0353e4b78a8ebd1edae506a320a8c5116b5c13dc47c52b37ac7ed315b83"
     },
     "font_component_report": {
       "path": "work/build/zh-release-font/components/font-validation.json",
-      "size": 1971971,
-      "sha256": "15a80f062f4cb6fa6c47df11d2ca0258fe703380bcb79bff17550286abcb6638"
+      "size": 1973955,
+      "sha256": "8871381433b9c78655093aaeb270dae57619b4f44011f14c8a266e501edb7a87"
     },
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "d175140a520c3f5ae7ca364f211eec7c0247a0cde6633f3b65c935afc4d9b66a"
+      "sha256": "e190b1625b2b6d67318d863895bda29c07b1557d4b9139164b267a8f85ecfc3a"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -137,7 +152,7 @@
     "kvmdata": {
       "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "e2f57fef0703d3b7af81b88e97df74fea5ecefa0494fe7e86e9ec8d395c5fc2e"
+      "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b"
     },
     "original_veff2dx": {
       "path": "work/disc/EFF/VEFF2DX.BIN",
@@ -153,13 +168,15 @@
       "rust-fit"
     ],
     "component_strategy": "rust-fit",
-    "scenario_select_strategy": "rust-fit"
+    "scenario_select_strategy": "rust-fit",
+    "mode_select_strategy": "rust-fit",
+    "nisv_effect_names_strategy": "rust-fit"
   },
   "composition": {
     "font_chunk_index": 2,
-    "font_encoded_size": 561812,
-    "font_decoded_sha256": "c24bb8c8240ca3d1f6f4defd48bbf29aa13911da7758ffb1c0ddf67c18c1f08a",
-    "font_padding_size": 180748,
+    "font_encoded_size": 562291,
+    "font_decoded_sha256": "4ec686b54b32e5b3b2ea84ee1e19454c82a7f5dfb73bca3c67ba3a7a72a8e333",
+    "font_padding_size": 180269,
     "additional_borrowed_preceding_zero_slack": 0,
     "preserved_non_font_vt1_chunk_count": 13,
     "archive_size_preserved": true,
@@ -180,18 +197,18 @@
       },
       "release_proposal": {
         "path": "work/writeback/zh-release-codebook-proposal.json",
-        "size": 3527917,
-        "sha256": "4618b51211b59fef6552d11179f4850fe620341644222e2eb7e1109403fcc50a"
+        "size": 3531774,
+        "sha256": "5a645e52a306e3b974acf768161e2a5c77c2ccab3b5dfc1558dffe628aa891d6"
       },
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "size": 615907,
-        "sha256": "cd2530aaf0209576f9a32804ff11540f162b63c353973713daddcbd1bd5ec0fa"
+        "size": 617494,
+        "sha256": "720d849d8645030f00a67fb86aa01239279b6bf2900c0e15b27c98fbf9ac843f"
       },
       "encoded_assignment_count": 1803,
       "encoded_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
-      "release_assignment_count": 3261,
-      "release_assignment_mapping_sha256": "a69ed531959006d519dca37ae15e3c191b7d4330050e28ae5843dbdc2bae54a5"
+      "release_assignment_count": 3265,
+      "release_assignment_mapping_sha256": "54d5bca372621c812f334c43ff245f132a42391620853e3f750321a451e10951"
     }
   },
   "story": {
@@ -374,18 +391,18 @@
       "given": 918,
       "family": 601
     },
-    "write_entry_count": 1123,
-    "no_op_entry_count": 1329,
+    "write_entry_count": 1153,
+    "no_op_entry_count": 1299,
     "minimum_output_headroom": 4,
-    "changed_byte_count": 12591,
-    "changed_entry_ids_sha256": "cf961e29d08a7d23ca585c1e08ec5014db601756d0e6b1214fb970d201df9339",
+    "changed_byte_count": 12649,
+    "changed_entry_ids_sha256": "0e64fad9cb381c5cc3ba70a4b81a07e561f4b16b2eb7ccb7d0d39bd90fc4283e",
     "source_compressed_size": 145283,
-    "output_compressed_size": 144999,
+    "output_compressed_size": 144826,
     "compressed_sector_budget": 145408,
     "codec": {
       "strategy": "rust-fit",
       "min_match_length": 2,
-      "max_match_chain": 1024,
+      "max_match_chain": 16384,
       "lazy_matching": false
     },
     "codec_round_trip_exact": true,
@@ -395,14 +412,14 @@
       "surface_id": "global/all-localized-text-surfaces",
       "assignment_count": 701,
       "menu_applicable_assignment_count": 701,
-      "eligible_entry_count": 1891,
-      "rewritten_entry_count": 1862,
+      "eligible_entry_count": 1907,
+      "rewritten_entry_count": 1874,
       "entry_table_counts": {
-        "pilot": 1606,
+        "pilot": 1622,
         "unit": 285
       },
-      "character_occurrence_count": 3258,
-      "rewritten_entry_ids_sha256": "bd495865a5ea13295872ea4ffdd8c750a42b8f95dcfad9d88f404cdcdbbf801e",
+      "character_occurrence_count": 3289,
+      "rewritten_entry_ids_sha256": "f9ccb312b629dfe59f5434eb7f14e8776b17389ace169340d161cf866e2f293e",
       "payload_size_changed_entry_count": 14,
       "fixed_field_capacities_preserved": true,
       "primary_codes_preserved": true,
@@ -420,10 +437,3158 @@
     "pointer_bytes_unchanged": true,
     "printable_ascii_passthrough": true,
     "available_surface_safe_aliases_used": true,
-    "compdata_source_size": 144999,
-    "compdata_output_size": 144989,
+    "compdata_source_size": 144826,
+    "compdata_output_size": 144813,
     "compdata_round_trip_exact": true,
-    "slps_size_preserved": true
+    "slps_size_preserved": true,
+    "graphics": {
+      "member": "DATA/VT1.BIN",
+      "vt1_group_index": 8,
+      "group_start": 11440272,
+      "group_end": 12413520,
+      "group_size": 973248,
+      "offset_table_start": 3259696,
+      "offset_count": 117,
+      "texture_entry_count": 107,
+      "stage_name_entry_count": 122,
+      "scenario_record_count": 204,
+      "scenario_record_target_count": 204,
+      "text_only_entry_count": 15,
+      "text_only_entries": [
+        {
+          "ordinal": 107,
+          "entry_id": "menu/Compdata/03/0107",
+          "text": "太平洋／加利亚大陆",
+          "selectors": [
+            24
+          ],
+          "classification": "route_choice_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 108,
+          "entry_id": "menu/Compdata/03/0108",
+          "text": "选择太平洋路线",
+          "selectors": [
+            24
+          ],
+          "classification": "route_choice_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 109,
+          "entry_id": "menu/Compdata/03/0109",
+          "text": "选择加利亚大陆路线",
+          "selectors": [
+            24
+          ],
+          "classification": "route_choice_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 110,
+          "entry_id": "menu/Compdata/03/0110",
+          "text": "直布罗陀／周边警戒",
+          "selectors": [
+            46
+          ],
+          "classification": "route_choice_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 111,
+          "entry_id": "menu/Compdata/03/0111",
+          "text": "选择直布罗陀基地路线",
+          "selectors": [
+            46
+          ],
+          "classification": "route_choice_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 112,
+          "entry_id": "menu/Compdata/03/0112",
+          "text": "选择周边警戒任务路线",
+          "selectors": [
+            46
+          ],
+          "classification": "route_choice_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 113,
+          "entry_id": "menu/Compdata/03/0113",
+          "text": "搜寻兰顿／留守",
+          "selectors": [
+            64
+          ],
+          "classification": "route_choice_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 114,
+          "entry_id": "menu/Compdata/03/0114",
+          "text": "选择搜寻兰顿路线",
+          "selectors": [
+            64
+          ],
+          "classification": "route_choice_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 115,
+          "entry_id": "menu/Compdata/03/0115",
+          "text": "选择留守路线",
+          "selectors": [
+            64
+          ],
+          "classification": "route_choice_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 116,
+          "entry_id": "menu/Compdata/03/0116",
+          "text": "？？？",
+          "selectors": [
+            102
+          ],
+          "classification": "internal_or_debug_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 117,
+          "entry_id": "menu/Compdata/03/0117",
+          "text": "教学关卡",
+          "selectors": [
+            600
+          ],
+          "classification": "internal_or_debug_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 118,
+          "entry_id": "menu/Compdata/03/0118",
+          "text": "",
+          "selectors": [
+            600,
+            601,
+            602,
+            603,
+            604,
+            605,
+            606,
+            607,
+            608,
+            609,
+            610,
+            611
+          ],
+          "classification": "internal_or_debug_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 119,
+          "entry_id": "menu/Compdata/03/0119",
+          "text": "测试用",
+          "selectors": [
+            600
+          ],
+          "classification": "internal_or_debug_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 120,
+          "entry_id": "menu/Compdata/03/0120",
+          "text": "通用测试",
+          "selectors": [
+            901
+          ],
+          "classification": "internal_or_debug_dynamic_text",
+          "owns_stage_entry_texture": false
+        },
+        {
+          "ordinal": 121,
+          "entry_id": "menu/Compdata/03/0121",
+          "text": "调试关卡901",
+          "selectors": [
+            611
+          ],
+          "classification": "internal_or_debug_dynamic_text",
+          "owns_stage_entry_texture": false
+        }
+      ],
+      "all_stage_name_entries_accounted_for": true,
+      "full_precision_count": 105,
+      "reduced_precision_ordinals": [
+        70,
+        97
+      ],
+      "raster_storage": "linear_low_nibble_first_4bpp",
+      "codec": {
+        "strategy": "rust-fit",
+        "min_match_length": 2,
+        "max_match_chain": 16384
+      },
+      "stage_37": {
+        "ordinal": 71,
+        "entry_id": "menu/Compdata/03/0071",
+        "text": "肃清风暴",
+        "selector": 72,
+        "loader_table_index": 80,
+        "stored_start": 12351008,
+        "stored_end": 12352480,
+        "stored_size": 1472,
+        "source_consumed": 1458,
+        "output_encoded_size": 1299,
+        "padding_size": 173,
+        "quantization_levels": 16,
+        "attempted_sizes": [
+          {
+            "quantization_levels": 16,
+            "encoded_size": 1299
+          }
+        ],
+        "raster_x": 157,
+        "raster_y": 4,
+        "raster_width": 198,
+        "raster_height": 24,
+        "natural_width": 198,
+        "source_indexes_sha256": "139247f31f21a174cc71cc8d4fba328b1aa0d458cdf268692fae005b73d5de44",
+        "output_indexes_sha256": "f87baac5636da8cf4b31650710ab1a849590265c070c31a1b615465ce05892ba"
+      },
+      "stage_38": {
+        "ordinal": 72,
+        "entry_id": "menu/Compdata/03/0072",
+        "text": "被安排的决战",
+        "selector": 73,
+        "loader_table_index": 81,
+        "stored_start": 12352480,
+        "stored_end": 12354624,
+        "stored_size": 2144,
+        "source_consumed": 2140,
+        "output_encoded_size": 1753,
+        "padding_size": 391,
+        "quantization_levels": 16,
+        "attempted_sizes": [
+          {
+            "quantization_levels": 16,
+            "encoded_size": 1753
+          }
+        ],
+        "raster_x": 107,
+        "raster_y": 4,
+        "raster_width": 298,
+        "raster_height": 24,
+        "natural_width": 298,
+        "source_indexes_sha256": "a896b3888025d69dc0e04de3b68a4a0f520a3a8756a90c40d2b17e7a4bf99d52",
+        "output_indexes_sha256": "a64909fd6950b50e9eaa7b3398f25c6435093cc658b351f5f807e714c9fc4ea5"
+      },
+      "titles": [
+        {
+          "ordinal": 0,
+          "entry_id": "menu/Compdata/03/0000",
+          "text": "太空先锋",
+          "selector": 1,
+          "loader_table_index": 9,
+          "stored_start": 12223744,
+          "stored_end": 12225520,
+          "stored_size": 1776,
+          "source_consumed": 1766,
+          "output_encoded_size": 1149,
+          "padding_size": 627,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1149
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "ca835870d8032e1aa6a95d01c76110aaf380da426f2b691b47a0b7b3dbaa376b",
+          "output_indexes_sha256": "cdd5e813b42cf5773b9d36722f49ba29fa3b45619de4f4e74ee03cb33c2fc98f"
+        },
+        {
+          "ordinal": 1,
+          "entry_id": "menu/Compdata/03/0001",
+          "text": "愤怒的眼眸",
+          "selector": 2,
+          "loader_table_index": 10,
+          "stored_start": 12225520,
+          "stored_end": 12226992,
+          "stored_size": 1472,
+          "source_consumed": 1461,
+          "output_encoded_size": 1373,
+          "padding_size": 99,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1373
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "22e76585782dae78d7db64e4882721195bdf2b33e71d67c6e1ae959345b0b32a",
+          "output_indexes_sha256": "098c8e6d2b8c36470ca27a6244deab73a8e674f5dcdae62a22f35a81f8efbc2a"
+        },
+        {
+          "ordinal": 2,
+          "entry_id": "menu/Compdata/03/0002",
+          "text": "两个世界",
+          "selector": 3,
+          "loader_table_index": 11,
+          "stored_start": 12226992,
+          "stored_end": 12228144,
+          "stored_size": 1152,
+          "source_consumed": 1148,
+          "output_encoded_size": 955,
+          "padding_size": 197,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 955
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "dd8cce4352b0d7b125f43e4fd275ca65c76e94e4e9256116ea4485d84093964c",
+          "output_indexes_sha256": "cedd4eff6c4c1b72754bbadeadf0ffcb20cb134ff923dcaca784e3122320548c"
+        },
+        {
+          "ordinal": 3,
+          "entry_id": "menu/Compdata/03/0003",
+          "text": "异星人来袭",
+          "selector": 4,
+          "loader_table_index": 12,
+          "stored_start": 12228144,
+          "stored_end": 12229728,
+          "stored_size": 1584,
+          "source_consumed": 1574,
+          "output_encoded_size": 1164,
+          "padding_size": 420,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1164
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "e020cc7f2e25325c7acca5b227a00fec07e973e477b99f9f3fab05c0cfce17bf",
+          "output_indexes_sha256": "09a84c7cf86feac67dd7de9539e6cd9b6bfe33657732cd4fdcf99ae7e833a4ff"
+        },
+        {
+          "ordinal": 4,
+          "entry_id": "menu/Compdata/03/0004",
+          "text": "觉醒之日",
+          "selector": 5,
+          "loader_table_index": 13,
+          "stored_start": 12229728,
+          "stored_end": 12231008,
+          "stored_size": 1280,
+          "source_consumed": 1275,
+          "output_encoded_size": 1064,
+          "padding_size": 216,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1064
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "53d5cab6f5c09dcb1d7da8ad2bf4242fe16834dff1d571d3b57427d5636f44ad",
+          "output_indexes_sha256": "480966e1c692ca3277c9f3de6ada745e8344edcac80031d11ad281e73f3f7efb"
+        },
+        {
+          "ordinal": 5,
+          "entry_id": "menu/Compdata/03/0005",
+          "text": "超重神降临",
+          "selector": 6,
+          "loader_table_index": 14,
+          "stored_start": 12231008,
+          "stored_end": 12232656,
+          "stored_size": 1648,
+          "source_consumed": 1647,
+          "output_encoded_size": 1221,
+          "padding_size": 427,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1221
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "962c90da23ea41d420e1618295f5352b75b2042b1ee5d5b49a047bfd3490c180",
+          "output_indexes_sha256": "cf6dd6f29ab504390e615ba58d3dee6c8372cfcc7e2e21cfffff9d7ac80ee4d7"
+        },
+        {
+          "ordinal": 6,
+          "entry_id": "menu/Compdata/03/0006",
+          "text": "月光，染上怒火",
+          "selector": 7,
+          "loader_table_index": 15,
+          "stored_start": 12232656,
+          "stored_end": 12235040,
+          "stored_size": 2384,
+          "source_consumed": 2376,
+          "output_encoded_size": 1388,
+          "padding_size": 996,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1388
+            }
+          ],
+          "raster_x": 82,
+          "raster_y": 4,
+          "raster_width": 348,
+          "raster_height": 24,
+          "natural_width": 348,
+          "source_indexes_sha256": "808b7e77f2c084ef17d43f147f4f3f79d1432a4fdec740ee829712514593efc1",
+          "output_indexes_sha256": "ba2b87839f0ba2e03bc877024f19a5b1a5132b0589e961c7b70d7f88d931f5c0"
+        },
+        {
+          "ordinal": 7,
+          "entry_id": "menu/Compdata/03/0007",
+          "text": "世界终结之时",
+          "selector": 8,
+          "loader_table_index": 16,
+          "stored_start": 12235040,
+          "stored_end": 12237120,
+          "stored_size": 2080,
+          "source_consumed": 2066,
+          "output_encoded_size": 1482,
+          "padding_size": 598,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1482
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "d30f2e419bc2035b28c6c801171dafd0185776cdf07ace568fa9b7ca81686c31",
+          "output_indexes_sha256": "c6ed33f9cb7f652b3b51f5dd2fb64e6dffe3b8c0c41276359918c3b21ccfc65d"
+        },
+        {
+          "ordinal": 8,
+          "entry_id": "menu/Compdata/03/0008",
+          "text": "时空破坏",
+          "selector": 9,
+          "loader_table_index": 17,
+          "stored_start": 12237120,
+          "stored_end": 12238560,
+          "stored_size": 1440,
+          "source_consumed": 1438,
+          "output_encoded_size": 1114,
+          "padding_size": 326,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1114
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "7c407618c53efa77578fe8b0de69e32c1e715cc1119ffd3f75471af69ce8c2ee",
+          "output_indexes_sha256": "f269148292742669accbc2c065b8ebfbbc72d2ca508b2d28021bcc4c9a6dd5b0"
+        },
+        {
+          "ordinal": 9,
+          "entry_id": "menu/Compdata/03/0009",
+          "text": "流浪的修理工",
+          "selector": 10,
+          "loader_table_index": 18,
+          "stored_start": 12238560,
+          "stored_end": 12240832,
+          "stored_size": 2272,
+          "source_consumed": 2264,
+          "output_encoded_size": 1640,
+          "padding_size": 632,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1640
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "49ac67c13ffcab15666530abbc3dd6e9f97d68f3d8c1afcf24d60711b89950c4",
+          "output_indexes_sha256": "22bb445d461e1b18a12248d15f1ff187139ab53987c85e79fb8d282a7bf40a8a"
+        },
+        {
+          "ordinal": 10,
+          "entry_id": "menu/Compdata/03/0010",
+          "text": "启程之日",
+          "selector": 11,
+          "loader_table_index": 19,
+          "stored_start": 12240832,
+          "stored_end": 12242272,
+          "stored_size": 1440,
+          "source_consumed": 1428,
+          "output_encoded_size": 926,
+          "padding_size": 514,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 926
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "b2f233e8f8247ec52b2ad1fce8126b77b6290f49b4cb4c94c9cb93163dae4ec8",
+          "output_indexes_sha256": "f81b823af6e5188044ce6b4bcef4e54e745127432d6a5cdffeddec5e0afe32cf"
+        },
+        {
+          "ordinal": 11,
+          "entry_id": "menu/Compdata/03/0011",
+          "text": "打破规矩的帮手们",
+          "selector": 12,
+          "loader_table_index": 20,
+          "stored_start": 12242272,
+          "stored_end": 12244560,
+          "stored_size": 2288,
+          "source_consumed": 2287,
+          "output_encoded_size": 2010,
+          "padding_size": 278,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 2010
+            }
+          ],
+          "raster_x": 57,
+          "raster_y": 4,
+          "raster_width": 398,
+          "raster_height": 24,
+          "natural_width": 398,
+          "source_indexes_sha256": "6e72a165dcb325069f35ff107e68d175c0db93af12efe216ca5f8a7961671d48",
+          "output_indexes_sha256": "1167fd447682fbf86339b3bb13423a8707a12f71a0190a694fc1ff3770277fd3"
+        },
+        {
+          "ordinal": 12,
+          "entry_id": "menu/Compdata/03/0012",
+          "text": "各自的旅途，各自的缘由",
+          "selector": 13,
+          "loader_table_index": 21,
+          "stored_start": 12244560,
+          "stored_end": 12247744,
+          "stored_size": 3184,
+          "source_consumed": 3182,
+          "output_encoded_size": 2203,
+          "padding_size": 981,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 2203
+            }
+          ],
+          "raster_x": 0,
+          "raster_y": 4,
+          "raster_width": 512,
+          "raster_height": 24,
+          "natural_width": 548,
+          "source_indexes_sha256": "e1389211983848f1399ed285932f16334bb4d49f1a118848216119dbf5c93eb0",
+          "output_indexes_sha256": "156f53d578de425191353120840cd1be25085570a453fd52085470cf88113066"
+        },
+        {
+          "ordinal": 13,
+          "entry_id": "menu/Compdata/03/0013",
+          "text": "月之骑手",
+          "selector": 14,
+          "loader_table_index": 22,
+          "stored_start": 12247744,
+          "stored_end": 12249344,
+          "stored_size": 1600,
+          "source_consumed": 1592,
+          "output_encoded_size": 1017,
+          "padding_size": 583,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1017
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "0f233be75566b4358ef6711dc3e1e2fd99cff8616baf32bbfb1b97bd9ef39658",
+          "output_indexes_sha256": "f238a672cb9a4e3f6abc609be8de688e45f745e2b3c1e71296dd1159571b77bf"
+        },
+        {
+          "ordinal": 14,
+          "entry_id": "menu/Compdata/03/0014",
+          "text": "祭典之夜",
+          "selector": 15,
+          "loader_table_index": 23,
+          "stored_start": 12249344,
+          "stored_end": 12251008,
+          "stored_size": 1664,
+          "source_consumed": 1653,
+          "output_encoded_size": 1216,
+          "padding_size": 448,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1216
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "4fa952738d38fa0e12121bbfd5205739e1f5138745991fb2380a78940ddb1b51",
+          "output_indexes_sha256": "82230f5be9e4d6225b2d93e4b25bfa79eb601f50682a0cef6a3e2e0e76c042e4"
+        },
+        {
+          "ordinal": 15,
+          "entry_id": "menu/Compdata/03/0015",
+          "text": "月之女神",
+          "selector": 16,
+          "loader_table_index": 24,
+          "stored_start": 12251008,
+          "stored_end": 12252144,
+          "stored_size": 1136,
+          "source_consumed": 1130,
+          "output_encoded_size": 1000,
+          "padding_size": 136,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1000
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "1cac77a96a38467ab3182b4a05efed1d16e2af46309934f33881a0625af39f57",
+          "output_indexes_sha256": "846d8cf83aee4fc6970624ffe995171e722fb60ea252b2355fb020bec8556dd3"
+        },
+        {
+          "ordinal": 16,
+          "entry_id": "menu/Compdata/03/0016",
+          "text": "天翅的记忆",
+          "selector": 17,
+          "loader_table_index": 25,
+          "stored_start": 12252144,
+          "stored_end": 12253840,
+          "stored_size": 1696,
+          "source_consumed": 1695,
+          "output_encoded_size": 1218,
+          "padding_size": 478,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1218
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "66b42953acd367ec4983f6108fdc98158380c9062d69f8715b4180f0f17788bf",
+          "output_indexes_sha256": "f694049b81c3c5c29c52d5e50b08f4c7290a48e5b3dadd21901c372f754186df"
+        },
+        {
+          "ordinal": 17,
+          "entry_id": "menu/Compdata/03/0017",
+          "text": "世界终结之日",
+          "selector": 18,
+          "loader_table_index": 26,
+          "stored_start": 12253840,
+          "stored_end": 12255792,
+          "stored_size": 1952,
+          "source_consumed": 1952,
+          "output_encoded_size": 1390,
+          "padding_size": 562,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1390
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "d297df82b243674ad43683cd61290915076b7d09cf49e08641003486185e9d70",
+          "output_indexes_sha256": "a4793592e41b4f9b1dfd04521683f85f1a2a4b375463dd5b5dcce7b74f5e820d"
+        },
+        {
+          "ordinal": 18,
+          "entry_id": "menu/Compdata/03/0018",
+          "text": "世界崩坏",
+          "selector": 19,
+          "loader_table_index": 27,
+          "stored_start": 12255792,
+          "stored_end": 12257728,
+          "stored_size": 1936,
+          "source_consumed": 1921,
+          "output_encoded_size": 1023,
+          "padding_size": 913,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1023
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "af552b933dde8b100c3b5ae1a94ab94335e205eee3bdb928125215e548c8cf26",
+          "output_indexes_sha256": "4ebc8fb0ffb5ee35f6c894f4b9920ed564b50d89492eda96dc58d9c6c17013de"
+        },
+        {
+          "ordinal": 19,
+          "entry_id": "menu/Compdata/03/0019",
+          "text": "范式转移",
+          "selector": 20,
+          "loader_table_index": 28,
+          "stored_start": 12257728,
+          "stored_end": 12259504,
+          "stored_size": 1776,
+          "source_consumed": 1767,
+          "output_encoded_size": 1348,
+          "padding_size": 428,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1348
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "24afcb72ccf65693883e10db0af99a3e0919ba1f1923b3274c5dafd70872c872",
+          "output_indexes_sha256": "49ebefe921fe7ab083dc7e2a6c825290dd46190d3f2568c553fdcbb9edb3c888"
+        },
+        {
+          "ordinal": 20,
+          "entry_id": "menu/Compdata/03/0020",
+          "text": "蓝天之鱼",
+          "selector": 21,
+          "loader_table_index": 29,
+          "stored_start": 12259504,
+          "stored_end": 12261520,
+          "stored_size": 2016,
+          "source_consumed": 2005,
+          "output_encoded_size": 962,
+          "padding_size": 1054,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 962
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "b5e8a1509439ab94615b5413adacbc98befeada6ea054aef03680b00381258b4",
+          "output_indexes_sha256": "d72e961fe173a77bba103ddedc576d8012b17764b8ce2abf4dbf582a7da95d07"
+        },
+        {
+          "ordinal": 21,
+          "entry_id": "menu/Compdata/03/0021",
+          "text": "站起来吧，宇宙战士！",
+          "selector": 22,
+          "loader_table_index": 30,
+          "stored_start": 12261520,
+          "stored_end": 12263968,
+          "stored_size": 2448,
+          "source_consumed": 2440,
+          "output_encoded_size": 1908,
+          "padding_size": 540,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1908
+            }
+          ],
+          "raster_x": 7,
+          "raster_y": 4,
+          "raster_width": 498,
+          "raster_height": 24,
+          "natural_width": 498,
+          "source_indexes_sha256": "5094c262b4e35011d12e81476e6b4a96e40e5c4ebe582b476dbe36f8d340ea6f",
+          "output_indexes_sha256": "4ce195060b98dfc1e8592070c1a759d38894b13f03ba92e4709c1d35b6523dac"
+        },
+        {
+          "ordinal": 22,
+          "entry_id": "menu/Compdata/03/0022",
+          "text": "聚集的异乡人",
+          "selector": 23,
+          "loader_table_index": 31,
+          "stored_start": 12263968,
+          "stored_end": 12265936,
+          "stored_size": 1968,
+          "source_consumed": 1957,
+          "output_encoded_size": 1669,
+          "padding_size": 299,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1669
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "728c017e4e2715df9c69a04f64b408958e5cbfe28564eac6b5fb752dbdf58bb3",
+          "output_indexes_sha256": "0acf8f6ef442315136a2effbfee9cd27018ad3be7972bb6cb9d97baf33ac3202"
+        },
+        {
+          "ordinal": 23,
+          "entry_id": "menu/Compdata/03/0023",
+          "text": "奔向未知明天",
+          "selector": 24,
+          "loader_table_index": 32,
+          "stored_start": 12265936,
+          "stored_end": 12267552,
+          "stored_size": 1616,
+          "source_consumed": 1613,
+          "output_encoded_size": 1404,
+          "padding_size": 212,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1404
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "f0381c8fb2d39a5fff173ac5da8dae9871ede522dd9c414cb5f256a8b8c23548",
+          "output_indexes_sha256": "0752ca7d8fde2869ed9b38c29435174139e2bc8e5133a8532b75df7b3030e5eb"
+        },
+        {
+          "ordinal": 24,
+          "entry_id": "menu/Compdata/03/0024",
+          "text": "交汇的决意",
+          "selector": 25,
+          "loader_table_index": 33,
+          "stored_start": 12267552,
+          "stored_end": 12269408,
+          "stored_size": 1856,
+          "source_consumed": 1855,
+          "output_encoded_size": 1204,
+          "padding_size": 652,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1204
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "c983b01dd0fefa5e03b0e432aad401786363e1796650ad5d99d602fd8a8bb76b",
+          "output_indexes_sha256": "1d64e1d2ace9e458a09426e1e9e5b286fed0b391a1abdba6bc9933ae8ad3c01f"
+        },
+        {
+          "ordinal": 25,
+          "entry_id": "menu/Compdata/03/0025",
+          "text": "蓝色流浪者",
+          "selector": 26,
+          "loader_table_index": 34,
+          "stored_start": 12269408,
+          "stored_end": 12270976,
+          "stored_size": 1568,
+          "source_consumed": 1562,
+          "output_encoded_size": 1219,
+          "padding_size": 349,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1219
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "9d6a20a9de90862325bb02e308a8ae7b7f8d07b9eb26196ba13c0b2b59299c37",
+          "output_indexes_sha256": "aa22679b3f0a2d30988ae065e04a4bd4e50ee33b4eeaf64bd7eaaf554d164d8f"
+        },
+        {
+          "ordinal": 26,
+          "entry_id": "menu/Compdata/03/0026",
+          "text": "染血的眼眸",
+          "selector": 27,
+          "loader_table_index": 35,
+          "stored_start": 12270976,
+          "stored_end": 12272736,
+          "stored_size": 1760,
+          "source_consumed": 1756,
+          "output_encoded_size": 1193,
+          "padding_size": 567,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1193
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "839f2ce36ee5d0d276afb367b9299ffc148952362a21269e7a7d720e68f41399",
+          "output_indexes_sha256": "81c103ef74c973b17756ed59a6affb487ad5600e02f376715f39f8433c8ace3e"
+        },
+        {
+          "ordinal": 27,
+          "entry_id": "menu/Compdata/03/0027",
+          "text": "复苏之翼",
+          "selector": 28,
+          "loader_table_index": 36,
+          "stored_start": 12272736,
+          "stored_end": 12274624,
+          "stored_size": 1888,
+          "source_consumed": 1882,
+          "output_encoded_size": 1244,
+          "padding_size": 644,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1244
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "4511d2f1b575676766d6ad4ed7cdecc54e1c9cb457312d9707d7d3cf0ff41008",
+          "output_indexes_sha256": "418d38b7cad26d916b260f90f809ab7a22287ee0d46de8ca58f06651e89679a4"
+        },
+        {
+          "ordinal": 28,
+          "entry_id": "menu/Compdata/03/0028",
+          "text": "奇点",
+          "selector": 29,
+          "loader_table_index": 37,
+          "stored_start": 12274624,
+          "stored_end": 12275664,
+          "stored_size": 1040,
+          "source_consumed": 1032,
+          "output_encoded_size": 600,
+          "padding_size": 440,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 600
+            }
+          ],
+          "raster_x": 207,
+          "raster_y": 4,
+          "raster_width": 98,
+          "raster_height": 24,
+          "natural_width": 98,
+          "source_indexes_sha256": "38de223b9d29caf925f50f5466efe7603db3ed137185fc3657cbbde72e513e41",
+          "output_indexes_sha256": "5805b51203e921e200aeca99f7a8ef351942c4a8fb811ce9f0916d1775b6b984"
+        },
+        {
+          "ordinal": 29,
+          "entry_id": "menu/Compdata/03/0029",
+          "text": "地狱接力赛",
+          "selector": 30,
+          "loader_table_index": 38,
+          "stored_start": 12275664,
+          "stored_end": 12277584,
+          "stored_size": 1920,
+          "source_consumed": 1908,
+          "output_encoded_size": 1390,
+          "padding_size": 530,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1390
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "91db363374f9dfc8f556b1b4dbd13ab48bfed0ea63f5b43eea8d68e9748fb3f7",
+          "output_indexes_sha256": "d8091cf0679bfe83be21bf51b8739106181b1e2370a8288f163e0faf898ffe64"
+        },
+        {
+          "ordinal": 30,
+          "entry_id": "menu/Compdata/03/0030",
+          "text": "永别了，我的朋友",
+          "selector": 31,
+          "loader_table_index": 39,
+          "stored_start": 12277584,
+          "stored_end": 12279776,
+          "stored_size": 2192,
+          "source_consumed": 2188,
+          "output_encoded_size": 1849,
+          "padding_size": 343,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1849
+            }
+          ],
+          "raster_x": 57,
+          "raster_y": 4,
+          "raster_width": 398,
+          "raster_height": 24,
+          "natural_width": 398,
+          "source_indexes_sha256": "d25fde012d1464b6c22c7857a7ecf8b161eb080e325325b669112c667f2bc2ac",
+          "output_indexes_sha256": "fe1e55526466d5fbda7457462be2bdb576d6ac2658e788aa942fa8af2f8226ba"
+        },
+        {
+          "ordinal": 31,
+          "entry_id": "menu/Compdata/03/0031",
+          "text": "建国的暴风雪",
+          "selector": 32,
+          "loader_table_index": 40,
+          "stored_start": 12279776,
+          "stored_end": 12281664,
+          "stored_size": 1888,
+          "source_consumed": 1881,
+          "output_encoded_size": 1646,
+          "padding_size": 242,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1646
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "3de56d76fa7bc90456d92324e3d1e97c652eb085f51105ac1b3efa751419e55b",
+          "output_indexes_sha256": "2b8b66747abc055088bbd77a9ace48c6117720f34c37c3059a8926cfccdfd643"
+        },
+        {
+          "ordinal": 32,
+          "entry_id": "menu/Compdata/03/0032",
+          "text": "没有谎言的世界",
+          "selector": 33,
+          "loader_table_index": 41,
+          "stored_start": 12281664,
+          "stored_end": 12283440,
+          "stored_size": 1776,
+          "source_consumed": 1772,
+          "output_encoded_size": 1439,
+          "padding_size": 337,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1439
+            }
+          ],
+          "raster_x": 82,
+          "raster_y": 4,
+          "raster_width": 348,
+          "raster_height": 24,
+          "natural_width": 348,
+          "source_indexes_sha256": "f953162f8a058dc12fac1b9cdfa1f3d55b50cecc9ae1c5669be2aecb94658ca4",
+          "output_indexes_sha256": "659cd212de725071c572effb91ea85574f522dfff5b1c379c22990fe88aeeeac"
+        },
+        {
+          "ordinal": 33,
+          "entry_id": "menu/Compdata/03/0033",
+          "text": "被留下的人",
+          "selector": 34,
+          "loader_table_index": 42,
+          "stored_start": 12283440,
+          "stored_end": 12285328,
+          "stored_size": 1888,
+          "source_consumed": 1878,
+          "output_encoded_size": 1142,
+          "padding_size": 746,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1142
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "9572733aad5c4c2e93c82e458322eed0673edd2215b13df796adc0d585385853",
+          "output_indexes_sha256": "af6bd99de3ceb12e3e9fafea8c66820eaf2f05a12f9a3aac0c18dc5fd2ea7cf9"
+        },
+        {
+          "ordinal": 34,
+          "entry_id": "menu/Compdata/03/0034",
+          "text": "父亲的回忆",
+          "selector": 35,
+          "loader_table_index": 43,
+          "stored_start": 12285328,
+          "stored_end": 12286752,
+          "stored_size": 1424,
+          "source_consumed": 1414,
+          "output_encoded_size": 1087,
+          "padding_size": 337,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1087
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "9a2fda25fabac2c39ecd7ff86955f03b0e632639125c9e929b49644af03ac563",
+          "output_indexes_sha256": "36881e3074c49e2d66011aa70fecd8daa4bbdcc057a157797592f0381757204b"
+        },
+        {
+          "ordinal": 35,
+          "entry_id": "menu/Compdata/03/0035",
+          "text": "只属于自己的大逃亡",
+          "selector": 36,
+          "loader_table_index": 44,
+          "stored_start": 12286752,
+          "stored_end": 12289120,
+          "stored_size": 2368,
+          "source_consumed": 2359,
+          "output_encoded_size": 1510,
+          "padding_size": 858,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1510
+            }
+          ],
+          "raster_x": 32,
+          "raster_y": 4,
+          "raster_width": 448,
+          "raster_height": 24,
+          "natural_width": 448,
+          "source_indexes_sha256": "5b2e5cd5c85533d89d7c473eaac76925710134609167151ef464280ccf7ccecb",
+          "output_indexes_sha256": "c61a2d4d5541e560f0243d4170d0a01d4741461182c92b8c7618288c62d2cb52"
+        },
+        {
+          "ordinal": 36,
+          "entry_id": "menu/Compdata/03/0036",
+          "text": "百鬼的挑战书",
+          "selector": 37,
+          "loader_table_index": 45,
+          "stored_start": 12289120,
+          "stored_end": 12291040,
+          "stored_size": 1920,
+          "source_consumed": 1909,
+          "output_encoded_size": 1591,
+          "padding_size": 329,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1591
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "ac30d44103ebeeffca3ec9c5ce1aea3c89f635fec6f83e9ab0fef917c9780378",
+          "output_indexes_sha256": "c474a98ff838ee3ed0fe45c11aa2815520edd66029c395b8c5cd9e8ccecface2"
+        },
+        {
+          "ordinal": 37,
+          "entry_id": "menu/Compdata/03/0037",
+          "text": "光子力研究所夺回作战",
+          "selector": 38,
+          "loader_table_index": 46,
+          "stored_start": 12291040,
+          "stored_end": 12293920,
+          "stored_size": 2880,
+          "source_consumed": 2877,
+          "output_encoded_size": 2248,
+          "padding_size": 632,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 2248
+            }
+          ],
+          "raster_x": 7,
+          "raster_y": 4,
+          "raster_width": 498,
+          "raster_height": 24,
+          "natural_width": 498,
+          "source_indexes_sha256": "04e6c4ec59a438e4b89cebe61b7b61b80ccb3d021d07a487bf335de93ad019fc",
+          "output_indexes_sha256": "6af11637c8e97c571e8812f260e0f3b153a9bdf25a475c7b17f205f38f262d3d"
+        },
+        {
+          "ordinal": 38,
+          "entry_id": "menu/Compdata/03/0038",
+          "text": "黑暗居所",
+          "selector": 39,
+          "loader_table_index": 47,
+          "stored_start": 12293920,
+          "stored_end": 12295264,
+          "stored_size": 1344,
+          "source_consumed": 1341,
+          "output_encoded_size": 1116,
+          "padding_size": 228,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1116
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "a63f10249a4a70350340f6d6073e58ddb5051432786519aa6afe25cf58b79002",
+          "output_indexes_sha256": "5fc2b43a6969a7325fc2977675184d1fb7b7ef3b84600053a350060e375fbf79"
+        },
+        {
+          "ordinal": 39,
+          "entry_id": "menu/Compdata/03/0039",
+          "text": "香港城",
+          "selector": 40,
+          "loader_table_index": 48,
+          "stored_start": 12295264,
+          "stored_end": 12296640,
+          "stored_size": 1376,
+          "source_consumed": 1374,
+          "output_encoded_size": 935,
+          "padding_size": 441,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 935
+            }
+          ],
+          "raster_x": 182,
+          "raster_y": 4,
+          "raster_width": 148,
+          "raster_height": 24,
+          "natural_width": 148,
+          "source_indexes_sha256": "74acac01870ed22477235b9d5654d5dfe0ab184765f141dc8b4c7b38c2500539",
+          "output_indexes_sha256": "8b4dc5bfa0726391fff5ed3f79165f5c3fdef07e20e30421c5e3520959c64466"
+        },
+        {
+          "ordinal": 40,
+          "entry_id": "menu/Compdata/03/0040",
+          "text": "初生的裂痕",
+          "selector": 41,
+          "loader_table_index": 49,
+          "stored_start": 12296640,
+          "stored_end": 12298160,
+          "stored_size": 1520,
+          "source_consumed": 1520,
+          "output_encoded_size": 1278,
+          "padding_size": 242,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1278
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "bc369fda899e7d6922e58c126a8c634dd09c61f0376f7a44dee7212280fae24d",
+          "output_indexes_sha256": "2cafe2d2505c2466c6cd90cdbc00d08f11161e61b8e926ca6503e2d993ef20f5"
+        },
+        {
+          "ordinal": 41,
+          "entry_id": "menu/Compdata/03/0041",
+          "text": "白银之牙",
+          "selector": 42,
+          "loader_table_index": 50,
+          "stored_start": 12298160,
+          "stored_end": 12299856,
+          "stored_size": 1696,
+          "source_consumed": 1685,
+          "output_encoded_size": 970,
+          "padding_size": 726,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 970
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "17353996e13c327ff133a4bd097b6e9dcc4a0f3687874027f1f2d992edde3282",
+          "output_indexes_sha256": "7c1cfdc8f3e5036b7297614b39c62f1465b2e1673fad26ba1f5efd284cf78fa9"
+        },
+        {
+          "ordinal": 42,
+          "entry_id": "menu/Compdata/03/0042",
+          "text": "灼热海原",
+          "selector": 43,
+          "loader_table_index": 51,
+          "stored_start": 12299856,
+          "stored_end": 12301808,
+          "stored_size": 1952,
+          "source_consumed": 1941,
+          "output_encoded_size": 1419,
+          "padding_size": 533,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1419
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "2464c0ffc16e5143be36e3bee52351fdb37b923197a8d51286de5d063f0f3bdd",
+          "output_indexes_sha256": "f0d552c7e568770ef50d18e91ba20fd92ba02673eb9705c067ccfd0390e01a8d"
+        },
+        {
+          "ordinal": 43,
+          "entry_id": "menu/Compdata/03/0043",
+          "text": "罪之所在",
+          "selector": 44,
+          "loader_table_index": 52,
+          "stored_start": 12301808,
+          "stored_end": 12303120,
+          "stored_size": 1312,
+          "source_consumed": 1306,
+          "output_encoded_size": 1012,
+          "padding_size": 300,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1012
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "43f02a39d09d59d3538d084282b7bef426eb7c55cef731015b57472349fb17ad",
+          "output_indexes_sha256": "b1dff13cb3023a7ec902079aaf2973e5f26f48e4754308fbb7940b258879ec8e"
+        },
+        {
+          "ordinal": 44,
+          "entry_id": "menu/Compdata/03/0044",
+          "text": "羁绊孕育之物",
+          "selector": 45,
+          "loader_table_index": 53,
+          "stored_start": 12303120,
+          "stored_end": 12305056,
+          "stored_size": 1936,
+          "source_consumed": 1927,
+          "output_encoded_size": 1728,
+          "padding_size": 208,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1728
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "02ae056afc1f9b398b9feb3a014ff1b97d5336f1d4f29a78b0a5c52beb70a69a",
+          "output_indexes_sha256": "4e3eed147f9d2df70af06e134e0c69e7c4305109b93cd4a64abaefd5b2538b0d"
+        },
+        {
+          "ordinal": 45,
+          "entry_id": "menu/Compdata/03/0045",
+          "text": "名为悲伤的力量",
+          "selector": 46,
+          "loader_table_index": 54,
+          "stored_start": 12305056,
+          "stored_end": 12306880,
+          "stored_size": 1824,
+          "source_consumed": 1820,
+          "output_encoded_size": 1502,
+          "padding_size": 322,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1502
+            }
+          ],
+          "raster_x": 82,
+          "raster_y": 4,
+          "raster_width": 348,
+          "raster_height": 24,
+          "natural_width": 348,
+          "source_indexes_sha256": "800dbca1950251ae6514a742066ddcab42fcd631238da67922cfd718db690282",
+          "output_indexes_sha256": "8311542eb814903029592411710553b6e6c652fde39a77192f3a5dabf6790858"
+        },
+        {
+          "ordinal": 46,
+          "entry_id": "menu/Compdata/03/0046",
+          "text": "Z的脉动",
+          "selector": 47,
+          "loader_table_index": 55,
+          "stored_start": 12306880,
+          "stored_end": 12308224,
+          "stored_size": 1344,
+          "source_consumed": 1334,
+          "output_encoded_size": 1176,
+          "padding_size": 168,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1176
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "c621000fe7ef774228f1a6170e506123b8a182682954662ec6b59fd7ce810189",
+          "output_indexes_sha256": "a08692d92a051c9843e6d6b3ec51fb1fb68211454f18e5786d754379886c8397"
+        },
+        {
+          "ordinal": 47,
+          "entry_id": "menu/Compdata/03/0047",
+          "text": "虚假的女王，假面公主",
+          "selector": 48,
+          "loader_table_index": 56,
+          "stored_start": 12308224,
+          "stored_end": 12310560,
+          "stored_size": 2336,
+          "source_consumed": 2322,
+          "output_encoded_size": 1970,
+          "padding_size": 366,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1970
+            }
+          ],
+          "raster_x": 7,
+          "raster_y": 4,
+          "raster_width": 498,
+          "raster_height": 24,
+          "natural_width": 498,
+          "source_indexes_sha256": "5fd6b3244d6106302d60a58e36b732ce61a953b653832f27009271c57bd485a3",
+          "output_indexes_sha256": "84cdc4a10bd08a91643dfc7f97474527b51d212cab071bc3fef07d6e4b77a6bd"
+        },
+        {
+          "ordinal": 48,
+          "entry_id": "menu/Compdata/03/0048",
+          "text": "战斗神之影",
+          "selector": 49,
+          "loader_table_index": 57,
+          "stored_start": 12310560,
+          "stored_end": 12312432,
+          "stored_size": 1872,
+          "source_consumed": 1860,
+          "output_encoded_size": 1211,
+          "padding_size": 661,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1211
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "e8647b80a3022a9d4b7ce28b1bdffc8c3c3c2f99480ef8daa3d9b8246fcd3dc6",
+          "output_indexes_sha256": "ba464687427c8d5d338115c35ea141404996a262adbc1c2f23f0f224408e100f"
+        },
+        {
+          "ordinal": 49,
+          "entry_id": "menu/Compdata/03/0049",
+          "text": "星光闪耀时",
+          "selector": 50,
+          "loader_table_index": 58,
+          "stored_start": 12312432,
+          "stored_end": 12313984,
+          "stored_size": 1552,
+          "source_consumed": 1540,
+          "output_encoded_size": 1215,
+          "padding_size": 337,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1215
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "366cd9e732a1796261d8ac27b27d8366e7e63222268d983012926c2331c55b0d",
+          "output_indexes_sha256": "aa38802a7973fe29bbc238a69826b3776772f46f92f185cdeec257a71aae820d"
+        },
+        {
+          "ordinal": 50,
+          "entry_id": "menu/Compdata/03/0050",
+          "text": "这颗星球属于谁",
+          "selector": 51,
+          "loader_table_index": 59,
+          "stored_start": 12313984,
+          "stored_end": 12315808,
+          "stored_size": 1824,
+          "source_consumed": 1819,
+          "output_encoded_size": 1616,
+          "padding_size": 208,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1616
+            }
+          ],
+          "raster_x": 82,
+          "raster_y": 4,
+          "raster_width": 348,
+          "raster_height": 24,
+          "natural_width": 348,
+          "source_indexes_sha256": "e3f9c9bce671cf1d9cb210c829440ddc588e57c042d649765cfa509d18c1e46f",
+          "output_indexes_sha256": "ab6b96cb55563d9b3ddebd1f1611d147c7897b0e844a7df2273c5ba3847c68eb"
+        },
+        {
+          "ordinal": 51,
+          "entry_id": "menu/Compdata/03/0051",
+          "text": "悲叹的玫瑰念珠",
+          "selector": 52,
+          "loader_table_index": 60,
+          "stored_start": 12315808,
+          "stored_end": 12317712,
+          "stored_size": 1904,
+          "source_consumed": 1903,
+          "output_encoded_size": 1799,
+          "padding_size": 105,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1799
+            }
+          ],
+          "raster_x": 82,
+          "raster_y": 4,
+          "raster_width": 348,
+          "raster_height": 24,
+          "natural_width": 348,
+          "source_indexes_sha256": "63f2740ad194c307a5a7b8903bb7946647d58b77bf7d08b07d31abd0168a18d2",
+          "output_indexes_sha256": "c1a4fec4302f741edce8a41f58a3ceb72967e58454076311a94576039cecdb8c"
+        },
+        {
+          "ordinal": 52,
+          "entry_id": "menu/Compdata/03/0052",
+          "text": "恸哭的星空",
+          "selector": 53,
+          "loader_table_index": 61,
+          "stored_start": 12317712,
+          "stored_end": 12319376,
+          "stored_size": 1664,
+          "source_consumed": 1654,
+          "output_encoded_size": 1188,
+          "padding_size": 476,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1188
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "078f47e4ed864fcdd3edd704dc49b44e797b6e5ed581a07fa03c5983f893108b",
+          "output_indexes_sha256": "0f6c39628afe1db3c935a33b21066e793398b242ea90294e1de4d53c2bc62436"
+        },
+        {
+          "ordinal": 53,
+          "entry_id": "menu/Compdata/03/0053",
+          "text": "新地球联邦重组",
+          "selector": 54,
+          "loader_table_index": 62,
+          "stored_start": 12319376,
+          "stored_end": 12321632,
+          "stored_size": 2256,
+          "source_consumed": 2245,
+          "output_encoded_size": 1774,
+          "padding_size": 482,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1774
+            }
+          ],
+          "raster_x": 82,
+          "raster_y": 4,
+          "raster_width": 348,
+          "raster_height": 24,
+          "natural_width": 348,
+          "source_indexes_sha256": "5264d1f3214f1d50ee7334feeece5af1b62efac53707978627c7cdd7e4342484",
+          "output_indexes_sha256": "6c775a8f6ecaf3a7badb15a67c2ce69bfa883465f8b7c5a9e3227b1494eb1110"
+        },
+        {
+          "ordinal": 54,
+          "entry_id": "menu/Compdata/03/0054",
+          "text": "舞动噩梦",
+          "selector": 55,
+          "loader_table_index": 63,
+          "stored_start": 12321632,
+          "stored_end": 12323024,
+          "stored_size": 1392,
+          "source_consumed": 1385,
+          "output_encoded_size": 1339,
+          "padding_size": 53,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1339
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "cdb01639171790b07d8b05ad340d962d39fd28c3c6251c607c525405d8037f87",
+          "output_indexes_sha256": "bcd107f8f40129e81154f0114c17078aaa1f29de1c7b4943d81ec5f806243871"
+        },
+        {
+          "ordinal": 55,
+          "entry_id": "menu/Compdata/03/0055",
+          "text": "举起旗帜",
+          "selector": 56,
+          "loader_table_index": 64,
+          "stored_start": 12323024,
+          "stored_end": 12324928,
+          "stored_size": 1904,
+          "source_consumed": 1896,
+          "output_encoded_size": 1263,
+          "padding_size": 641,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1263
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "40ccfd32e5b7d1ce3ad3dfca4fa20a0ea108c31774d4a78d537e67e4ddc94e94",
+          "output_indexes_sha256": "75ab275b46a872d7269000545e1d0000f69ba23e3b4a7be35454fe15b8e7641e"
+        },
+        {
+          "ordinal": 56,
+          "entry_id": "menu/Compdata/03/0056",
+          "text": "冲击再临",
+          "selector": 57,
+          "loader_table_index": 65,
+          "stored_start": 12324928,
+          "stored_end": 12326512,
+          "stored_size": 1584,
+          "source_consumed": 1578,
+          "output_encoded_size": 871,
+          "padding_size": 713,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 871
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "0d9f41b16526893df4e28b7b96db0d05dd33fd65db55cd0c071ecdff9457d44c",
+          "output_indexes_sha256": "84f1dbdbc29faff7ff73d4bb3791e2a2ca98719526ebea860ff9faf9b5032934"
+        },
+        {
+          "ordinal": 57,
+          "entry_id": "menu/Compdata/03/0057",
+          "text": "投身自然",
+          "selector": 58,
+          "loader_table_index": 66,
+          "stored_start": 12326512,
+          "stored_end": 12328464,
+          "stored_size": 1952,
+          "source_consumed": 1944,
+          "output_encoded_size": 1205,
+          "padding_size": 747,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1205
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "8ce926458fb2c94291523f266591a1f880e2a94ed7747701328d67137fc2cdba",
+          "output_indexes_sha256": "2ea7402f58459f0f6d55824c2536b0cfbb5e998c32a618ef41e606b8bfd577e0"
+        },
+        {
+          "ordinal": 58,
+          "entry_id": "menu/Compdata/03/0058",
+          "text": "第15年的亡灵",
+          "selector": 59,
+          "loader_table_index": 67,
+          "stored_start": 12328464,
+          "stored_end": 12329888,
+          "stored_size": 1424,
+          "source_consumed": 1417,
+          "output_encoded_size": 1255,
+          "padding_size": 169,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1255
+            }
+          ],
+          "raster_x": 82,
+          "raster_y": 4,
+          "raster_width": 348,
+          "raster_height": 24,
+          "natural_width": 348,
+          "source_indexes_sha256": "da9cb4d954720fb58093afe21c93dee5fcde6ee423bb188e739e3be597b55d36",
+          "output_indexes_sha256": "d1af098e7fc228f97cbb7a0da62774109b768766cad9b86d49935cddc1dda752"
+        },
+        {
+          "ordinal": 59,
+          "entry_id": "menu/Compdata/03/0059",
+          "text": "灵魂的Cosplayer",
+          "selector": 60,
+          "loader_table_index": 68,
+          "stored_start": 12329888,
+          "stored_end": 12331920,
+          "stored_size": 2032,
+          "source_consumed": 2027,
+          "output_encoded_size": 1843,
+          "padding_size": 189,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1843
+            }
+          ],
+          "raster_x": 0,
+          "raster_y": 4,
+          "raster_width": 512,
+          "raster_height": 24,
+          "natural_width": 598,
+          "source_indexes_sha256": "705e011acc00a18587dcff13d68a137b0eeb62f650de89944da908bd8a7059e3",
+          "output_indexes_sha256": "d4885be6127efbd8830017c0e76965c3b9348310136221f57dd107fc317b8eef"
+        },
+        {
+          "ordinal": 60,
+          "entry_id": "menu/Compdata/03/0060",
+          "text": "局外人",
+          "selector": 61,
+          "loader_table_index": 69,
+          "stored_start": 12331920,
+          "stored_end": 12333424,
+          "stored_size": 1504,
+          "source_consumed": 1493,
+          "output_encoded_size": 709,
+          "padding_size": 795,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 709
+            }
+          ],
+          "raster_x": 182,
+          "raster_y": 4,
+          "raster_width": 148,
+          "raster_height": 24,
+          "natural_width": 148,
+          "source_indexes_sha256": "f65b71f61c5a6d48ef2d29dd12bf6979fa912d7eca282ba5bfcf472c20d9eb46",
+          "output_indexes_sha256": "d526d1a76d66fcb9775ffaf8a135a86940c17c12b522430044658f53db9fecfb"
+        },
+        {
+          "ordinal": 61,
+          "entry_id": "menu/Compdata/03/0061",
+          "text": "Acperience",
+          "selector": 62,
+          "loader_table_index": 70,
+          "stored_start": 12333424,
+          "stored_end": 12334880,
+          "stored_size": 1456,
+          "source_consumed": 1455,
+          "output_encoded_size": 1003,
+          "padding_size": 453,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1003
+            }
+          ],
+          "raster_x": 7,
+          "raster_y": 4,
+          "raster_width": 498,
+          "raster_height": 24,
+          "natural_width": 498,
+          "source_indexes_sha256": "5511415d489df4e0f924ad654636094c58254910b7874ecd7e8d14879f791aec",
+          "output_indexes_sha256": "03d8caa08f2c3ff40bed2aa4640d833cdc70b63727260494ff3ca0a16bb59967"
+        },
+        {
+          "ordinal": 62,
+          "entry_id": "menu/Compdata/03/0062",
+          "text": "被撕裂的过去",
+          "selector": 63,
+          "loader_table_index": 71,
+          "stored_start": 12334880,
+          "stored_end": 12337264,
+          "stored_size": 2384,
+          "source_consumed": 2378,
+          "output_encoded_size": 1816,
+          "padding_size": 568,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1816
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "971a7eefec42cc29a76ced7d7529388e97809241deacd9e19cf6488684b07751",
+          "output_indexes_sha256": "ad7d5ea26c7662ea53cbd43b01a85b025a7b1aa055b8aabf304eddf721ae55c8"
+        },
+        {
+          "ordinal": 63,
+          "entry_id": "menu/Compdata/03/0063",
+          "text": "为了成为我自己",
+          "selector": 64,
+          "loader_table_index": 72,
+          "stored_start": 12337264,
+          "stored_end": 12339744,
+          "stored_size": 2480,
+          "source_consumed": 2473,
+          "output_encoded_size": 1256,
+          "padding_size": 1224,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1256
+            }
+          ],
+          "raster_x": 82,
+          "raster_y": 4,
+          "raster_width": 348,
+          "raster_height": 24,
+          "natural_width": 348,
+          "source_indexes_sha256": "b5ca6764a673455811bebbb39d3eae95a4da3d8c34073c061b5f34bb5ccdb488",
+          "output_indexes_sha256": "b8f08e1bcf7c86ba3cadd9386401e09814d0e229e2d0d20e66eb242eedebf045"
+        },
+        {
+          "ordinal": 64,
+          "entry_id": "menu/Compdata/03/0064",
+          "text": "孤独逃亡者",
+          "selector": 65,
+          "loader_table_index": 73,
+          "stored_start": 12339744,
+          "stored_end": 12341520,
+          "stored_size": 1776,
+          "source_consumed": 1769,
+          "output_encoded_size": 1265,
+          "padding_size": 511,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1265
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "116d3aa56c6223f6b8288a85bcdaee3e63de52faac74a90983ab100ea716bf45",
+          "output_indexes_sha256": "e83c92e079ab66ba455f0567c8b1eac55c9dcee10aebabfb847a9fb571a587a8"
+        },
+        {
+          "ordinal": 65,
+          "entry_id": "menu/Compdata/03/0065",
+          "text": "奇异接触",
+          "selector": 66,
+          "loader_table_index": 74,
+          "stored_start": 12341520,
+          "stored_end": 12343392,
+          "stored_size": 1872,
+          "source_consumed": 1864,
+          "output_encoded_size": 1223,
+          "padding_size": 649,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1223
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "6e3e492f006a097e9b3e2a66624b6c9fede6e50608f7497760c22b7e63ed40da",
+          "output_indexes_sha256": "c550bc8195970bac946b464fae784d36e712a6b6d9eef9e096c96407e783d688"
+        },
+        {
+          "ordinal": 66,
+          "entry_id": "menu/Compdata/03/0066",
+          "text": "晨光",
+          "selector": 67,
+          "loader_table_index": 75,
+          "stored_start": 12343392,
+          "stored_end": 12345088,
+          "stored_size": 1696,
+          "source_consumed": 1693,
+          "output_encoded_size": 677,
+          "padding_size": 1019,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 677
+            }
+          ],
+          "raster_x": 207,
+          "raster_y": 4,
+          "raster_width": 98,
+          "raster_height": 24,
+          "natural_width": 98,
+          "source_indexes_sha256": "b9a40ff7f5cad4f824ef484e31bc5b6940602cbd521206fbdefaba52a2b25469",
+          "output_indexes_sha256": "2ff85f22184a9728e5c35deb03f40a4f92ac68af57b8c5306ac43960394c2d02"
+        },
+        {
+          "ordinal": 67,
+          "entry_id": "menu/Compdata/03/0067",
+          "text": "远方挚友",
+          "selector": 68,
+          "loader_table_index": 76,
+          "stored_start": 12345088,
+          "stored_end": 12346352,
+          "stored_size": 1264,
+          "source_consumed": 1260,
+          "output_encoded_size": 1218,
+          "padding_size": 46,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1218
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "54d19a4ff3e9802bc275fb06d2ad5b6c951e082836794cf7ece498d819008286",
+          "output_indexes_sha256": "3efaa973e840610c747674b0e1eb4025f54635a47bf25161e179ea9ffd82d41a"
+        },
+        {
+          "ordinal": 68,
+          "entry_id": "menu/Compdata/03/0068",
+          "text": "愤怒的铁路王",
+          "selector": 69,
+          "loader_table_index": 77,
+          "stored_start": 12346352,
+          "stored_end": 12348256,
+          "stored_size": 1904,
+          "source_consumed": 1897,
+          "output_encoded_size": 1773,
+          "padding_size": 131,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1773
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "393cd46303f3626eceb3ea23d0875d8611d0936cb792cc68217a8aaad7b7d3b3",
+          "output_indexes_sha256": "c3fe026a4354ae54314f8dd2903375c6c056e4583966c344954340282189e238"
+        },
+        {
+          "ordinal": 69,
+          "entry_id": "menu/Compdata/03/0069",
+          "text": "Over Battle",
+          "selector": 70,
+          "loader_table_index": 78,
+          "stored_start": 12348256,
+          "stored_end": 12349504,
+          "stored_size": 1248,
+          "source_consumed": 1241,
+          "output_encoded_size": 1201,
+          "padding_size": 47,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1201
+            }
+          ],
+          "raster_x": 0,
+          "raster_y": 4,
+          "raster_width": 512,
+          "raster_height": 24,
+          "natural_width": 548,
+          "source_indexes_sha256": "37f1d713f93b9a7471a962a85e298b3f758a6fc8db2f96923a4ddaa34366141c",
+          "output_indexes_sha256": "0e9f692bada90fcd4680ccbb93ecdeaf0102e0ef905cffa0dd4670aac9da7248"
+        },
+        {
+          "ordinal": 70,
+          "entry_id": "menu/Compdata/03/0070",
+          "text": "被昭示的明天",
+          "selector": 71,
+          "loader_table_index": 79,
+          "stored_start": 12349504,
+          "stored_end": 12351008,
+          "stored_size": 1504,
+          "source_consumed": 1496,
+          "output_encoded_size": 1244,
+          "padding_size": 260,
+          "quantization_levels": 8,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1524
+            },
+            {
+              "quantization_levels": 8,
+              "encoded_size": 1244
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "078cb80d90034fbeb4db96822952b78be718b45f3ac0da110f28100773b64efa",
+          "output_indexes_sha256": "c1d73461d818f600770ad93c2a70a44ffca2e5bc4d53c4ff5f85898ddd7dd763"
+        },
+        {
+          "ordinal": 71,
+          "entry_id": "menu/Compdata/03/0071",
+          "text": "肃清风暴",
+          "selector": 72,
+          "loader_table_index": 80,
+          "stored_start": 12351008,
+          "stored_end": 12352480,
+          "stored_size": 1472,
+          "source_consumed": 1458,
+          "output_encoded_size": 1299,
+          "padding_size": 173,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1299
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "139247f31f21a174cc71cc8d4fba328b1aa0d458cdf268692fae005b73d5de44",
+          "output_indexes_sha256": "f87baac5636da8cf4b31650710ab1a849590265c070c31a1b615465ce05892ba"
+        },
+        {
+          "ordinal": 72,
+          "entry_id": "menu/Compdata/03/0072",
+          "text": "被安排的决战",
+          "selector": 73,
+          "loader_table_index": 81,
+          "stored_start": 12352480,
+          "stored_end": 12354624,
+          "stored_size": 2144,
+          "source_consumed": 2140,
+          "output_encoded_size": 1753,
+          "padding_size": 391,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1753
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "a896b3888025d69dc0e04de3b68a4a0f520a3a8756a90c40d2b17e7a4bf99d52",
+          "output_indexes_sha256": "a64909fd6950b50e9eaa7b3398f25c6435093cc658b351f5f807e714c9fc4ea5"
+        },
+        {
+          "ordinal": 73,
+          "entry_id": "menu/Compdata/03/0073",
+          "text": "启动一切",
+          "selector": 74,
+          "loader_table_index": 82,
+          "stored_start": 12354624,
+          "stored_end": 12356496,
+          "stored_size": 1872,
+          "source_consumed": 1864,
+          "output_encoded_size": 947,
+          "padding_size": 925,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 947
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "f8228a36a51b0a29b0c9637ce82f5205bfb3d738d4ccb866bcb14c041af5c8bb",
+          "output_indexes_sha256": "d70287fdd960421b970311eb17cc08d28a7d407dac4aba6c1303dfdc87a513c8"
+        },
+        {
+          "ordinal": 74,
+          "entry_id": "menu/Compdata/03/0074",
+          "text": "崩坏序曲",
+          "selector": 75,
+          "loader_table_index": 83,
+          "stored_start": 12356496,
+          "stored_end": 12357760,
+          "stored_size": 1264,
+          "source_consumed": 1249,
+          "output_encoded_size": 1019,
+          "padding_size": 245,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1019
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "c73cb5c8baa286431c74642e5320985aba99c18ab7e1d3396d866e0adc0e66aa",
+          "output_indexes_sha256": "3039619b9668d38482f932a8c212af1dfdb281d45741e6270af7580dd7f34a86"
+        },
+        {
+          "ordinal": 75,
+          "entry_id": "menu/Compdata/03/0075",
+          "text": "交叉点",
+          "selector": 76,
+          "loader_table_index": 84,
+          "stored_start": 12357760,
+          "stored_end": 12359344,
+          "stored_size": 1584,
+          "source_consumed": 1578,
+          "output_encoded_size": 804,
+          "padding_size": 780,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 804
+            }
+          ],
+          "raster_x": 182,
+          "raster_y": 4,
+          "raster_width": 148,
+          "raster_height": 24,
+          "natural_width": 148,
+          "source_indexes_sha256": "5ecbdc8abde2a724e55ab22809cb776ae1deca92c4d473937465a8e3376267a4",
+          "output_indexes_sha256": "91b4ee17320433e4cf8a17068a588038f54a1b1d4e07051e7b36f94658599a49"
+        },
+        {
+          "ordinal": 76,
+          "entry_id": "menu/Compdata/03/0076",
+          "text": "终章开幕",
+          "selector": 77,
+          "loader_table_index": 85,
+          "stored_start": 12359344,
+          "stored_end": 12360768,
+          "stored_size": 1424,
+          "source_consumed": 1411,
+          "output_encoded_size": 1149,
+          "padding_size": 275,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1149
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "8072232e846c4d4a7f79ac884904e12676d269e512a082806797a819f1ecb962",
+          "output_indexes_sha256": "d1f87498f91801489c9da66b2cd630ccc96e4fde059ca72e33f23ad38711522f"
+        },
+        {
+          "ordinal": 77,
+          "entry_id": "menu/Compdata/03/0077",
+          "text": "命运与自由",
+          "selector": 78,
+          "loader_table_index": 86,
+          "stored_start": 12360768,
+          "stored_end": 12362064,
+          "stored_size": 1296,
+          "source_consumed": 1293,
+          "output_encoded_size": 920,
+          "padding_size": 376,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 920
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "596c854a59d81c4aaa63911e350e7a4b642abb595aeceb49ed9e75a95a88017b",
+          "output_indexes_sha256": "c9e0f97c3350617862192cd61f99d460d7718b4d02dfcc70d6c76ae9e623cca6"
+        },
+        {
+          "ordinal": 78,
+          "entry_id": "menu/Compdata/03/0078",
+          "text": "降临的太阳",
+          "selector": 79,
+          "loader_table_index": 87,
+          "stored_start": 12362064,
+          "stored_end": 12364272,
+          "stored_size": 2208,
+          "source_consumed": 2193,
+          "output_encoded_size": 1154,
+          "padding_size": 1054,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1154
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "58ac14ba175616398541dfb49d661959646215e915049297de118f0d6a0b0155",
+          "output_indexes_sha256": "b06076e5196af56bf1585604cafa4848c0eeac82b53f2664fe387c3dffd374af"
+        },
+        {
+          "ordinal": 79,
+          "entry_id": "menu/Compdata/03/0079",
+          "text": "遗产继承者",
+          "selector": 80,
+          "loader_table_index": 88,
+          "stored_start": 12364272,
+          "stored_end": 12366352,
+          "stored_size": 2080,
+          "source_consumed": 2065,
+          "output_encoded_size": 1288,
+          "padding_size": 792,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1288
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "03776829a49d32543fa35c31aab67412baabf0becd17a4c56fd710c9db221d0e",
+          "output_indexes_sha256": "78d1d82cad242e6ba65c705e5056616ff121db2aab960948be74ea492b512cfa"
+        },
+        {
+          "ordinal": 80,
+          "entry_id": "menu/Compdata/03/0080",
+          "text": "混乱中的正义",
+          "selector": 81,
+          "loader_table_index": 89,
+          "stored_start": 12366352,
+          "stored_end": 12368176,
+          "stored_size": 1824,
+          "source_consumed": 1817,
+          "output_encoded_size": 1365,
+          "padding_size": 459,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1365
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "4ba5baf8b45a6d5e73f84ed9ba268b871de9d0279eb229fe989d2544feb421a7",
+          "output_indexes_sha256": "f89eee4cf7381ea7e9fe1ef7110ec4b0587dfe5d137259172fd2e502d3020fe1"
+        },
+        {
+          "ordinal": 81,
+          "entry_id": "menu/Compdata/03/0081",
+          "text": "倒计时",
+          "selector": 82,
+          "loader_table_index": 90,
+          "stored_start": 12368176,
+          "stored_end": 12369584,
+          "stored_size": 1408,
+          "source_consumed": 1393,
+          "output_encoded_size": 734,
+          "padding_size": 674,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 734
+            }
+          ],
+          "raster_x": 182,
+          "raster_y": 4,
+          "raster_width": 148,
+          "raster_height": 24,
+          "natural_width": 148,
+          "source_indexes_sha256": "9b13fd9493aaf7ca26aded3a3aa0b06dd050977f75affbae6122d0a5ae189835",
+          "output_indexes_sha256": "7e6980c90e5f119844378466fe11d0862e6e65bdc075a4804ebccda9f28d8c1a"
+        },
+        {
+          "ordinal": 82,
+          "entry_id": "menu/Compdata/03/0082",
+          "text": "我们的去向",
+          "selector": 83,
+          "loader_table_index": 91,
+          "stored_start": 12369584,
+          "stored_end": 12371408,
+          "stored_size": 1824,
+          "source_consumed": 1817,
+          "output_encoded_size": 1093,
+          "padding_size": 731,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1093
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "522157660d1b2bfa860a345c350b82129e3846024693344d09c88b588f4f7678",
+          "output_indexes_sha256": "50bc843eed712ab81140fcbd8748e27b57a18f82b7a3a12e61582e04ec7091e8"
+        },
+        {
+          "ordinal": 83,
+          "entry_id": "menu/Compdata/03/0083",
+          "text": "乐园的放逐者",
+          "selector": 84,
+          "loader_table_index": 92,
+          "stored_start": 12371408,
+          "stored_end": 12373424,
+          "stored_size": 2016,
+          "source_consumed": 2006,
+          "output_encoded_size": 1711,
+          "padding_size": 305,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1711
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "9372f2f559d29e14b58b4201bfd6c4b58b6ef2aba0d69c0466e14f8f75e76def",
+          "output_indexes_sha256": "af317276494b6defedaa7d2e7164c170b5ace9b11ce0d2afcef3bba266945116"
+        },
+        {
+          "ordinal": 84,
+          "entry_id": "menu/Compdata/03/0084",
+          "text": "幻想都市",
+          "selector": 85,
+          "loader_table_index": 93,
+          "stored_start": 12373424,
+          "stored_end": 12375728,
+          "stored_size": 2304,
+          "source_consumed": 2294,
+          "output_encoded_size": 1185,
+          "padding_size": 1119,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1185
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "ca643be7059dac8be867ed9108c418085cbc49bf63334f419f8fb8b85af75a6d",
+          "output_indexes_sha256": "c1a26a5e5ef49778a8ef82a719be076755140bbbc674ab4089377aa6e104cdc0"
+        },
+        {
+          "ordinal": 85,
+          "entry_id": "menu/Compdata/03/0085",
+          "text": "人类之心，天翅之梦",
+          "selector": 86,
+          "loader_table_index": 94,
+          "stored_start": 12375728,
+          "stored_end": 12377760,
+          "stored_size": 2032,
+          "source_consumed": 2017,
+          "output_encoded_size": 1716,
+          "padding_size": 316,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1716
+            }
+          ],
+          "raster_x": 32,
+          "raster_y": 4,
+          "raster_width": 448,
+          "raster_height": 24,
+          "natural_width": 448,
+          "source_indexes_sha256": "f7b8aaae5afc08d26128af8c99fa3455ea683c66de9c96e7ca488632e8d1deef",
+          "output_indexes_sha256": "86a6ff3e2d1379450e10ae601bb409c97277197e74b07e2627ccae5d25a96ea2"
+        },
+        {
+          "ordinal": 86,
+          "entry_id": "menu/Compdata/03/0086",
+          "text": "决别",
+          "selector": 87,
+          "loader_table_index": 95,
+          "stored_start": 12377760,
+          "stored_end": 12378592,
+          "stored_size": 832,
+          "source_consumed": 825,
+          "output_encoded_size": 684,
+          "padding_size": 148,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 684
+            }
+          ],
+          "raster_x": 207,
+          "raster_y": 4,
+          "raster_width": 98,
+          "raster_height": 24,
+          "natural_width": 98,
+          "source_indexes_sha256": "8cd21ab70f36c1da2663548e5100f954b76de863c723c05afc2e9ff061a6df8c",
+          "output_indexes_sha256": "70b6704fa30ebbbd7cb4617f89468fe51275f7b1bbaaaf244a82c2a2d0132071"
+        },
+        {
+          "ordinal": 87,
+          "entry_id": "menu/Compdata/03/0087",
+          "text": "黑历史的真相",
+          "selector": 88,
+          "loader_table_index": 96,
+          "stored_start": 12378592,
+          "stored_end": 12380384,
+          "stored_size": 1792,
+          "source_consumed": 1784,
+          "output_encoded_size": 1516,
+          "padding_size": 276,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1516
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "72986dc6502f94dc3319b5135b39d6fd910ee7428f24162341502cf2f8b51b04",
+          "output_indexes_sha256": "be7bbbfa564f0832c55c25f897c515c0c06a7bf79dae5245416fdad1085c0ecd"
+        },
+        {
+          "ordinal": 88,
+          "entry_id": "menu/Compdata/03/0088",
+          "text": "月面决战",
+          "selector": 89,
+          "loader_table_index": 97,
+          "stored_start": 12380384,
+          "stored_end": 12381616,
+          "stored_size": 1232,
+          "source_consumed": 1227,
+          "output_encoded_size": 1035,
+          "padding_size": 197,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1035
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "2560fcf414c5daeb38a7148d4de1ca9cbf09d2964e873d7e3435714ed751ca2a",
+          "output_indexes_sha256": "c8257c6e1d72d851cc5b72e07a4ba7ff3c8ab9cfdba2ac6d8c5b5c457a9a5bbe"
+        },
+        {
+          "ordinal": 89,
+          "entry_id": "menu/Compdata/03/0089",
+          "text": "背叛的月光",
+          "selector": 90,
+          "loader_table_index": 98,
+          "stored_start": 12381616,
+          "stored_end": 12383376,
+          "stored_size": 1760,
+          "source_consumed": 1756,
+          "output_encoded_size": 1209,
+          "padding_size": 551,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1209
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "65dbeed1b2bc2cb76594db0bfaa2dfe1ddc4fb5b5e3a0f4245f78995159e9475",
+          "output_indexes_sha256": "89096042089ecc3e1d9d23709e0f7a241b074fed4de5005a1a320f2d9f3750f2"
+        },
+        {
+          "ordinal": 90,
+          "entry_id": "menu/Compdata/03/0090",
+          "text": "绝望之光，希望之灯",
+          "selector": 91,
+          "loader_table_index": 99,
+          "stored_start": 12383376,
+          "stored_end": 12385472,
+          "stored_size": 2096,
+          "source_consumed": 2085,
+          "output_encoded_size": 1513,
+          "padding_size": 583,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1513
+            }
+          ],
+          "raster_x": 32,
+          "raster_y": 4,
+          "raster_width": 448,
+          "raster_height": 24,
+          "natural_width": 448,
+          "source_indexes_sha256": "8a0d89edac5a4df67de4952fa02f56bf0f42ab2f6d1585912dc2673b31da1f5b",
+          "output_indexes_sha256": "68c24d8a50838109d0ec93c0b2d5352684fee1900a92b351aafc1e30ef327881"
+        },
+        {
+          "ordinal": 91,
+          "entry_id": "menu/Compdata/03/0091",
+          "text": "我是D.O.M.E.……",
+          "selector": 92,
+          "loader_table_index": 100,
+          "stored_start": 12385472,
+          "stored_end": 12387264,
+          "stored_size": 1792,
+          "source_consumed": 1786,
+          "output_encoded_size": 1311,
+          "padding_size": 481,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1311
+            }
+          ],
+          "raster_x": 0,
+          "raster_y": 4,
+          "raster_width": 512,
+          "raster_height": 24,
+          "natural_width": 598,
+          "source_indexes_sha256": "a1cce345ab3e99094c0a8d185f56239df33f04909701352103c53923d6b53fd7",
+          "output_indexes_sha256": "c78bba3055720998fc43bb1529d0eea742fd4374c0c00d42f6952ad86fbfcd41"
+        },
+        {
+          "ordinal": 92,
+          "entry_id": "menu/Compdata/03/0092",
+          "text": "绯红路",
+          "selector": 93,
+          "loader_table_index": 101,
+          "stored_start": 12387264,
+          "stored_end": 12388304,
+          "stored_size": 1040,
+          "source_consumed": 1025,
+          "output_encoded_size": 854,
+          "padding_size": 186,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 854
+            }
+          ],
+          "raster_x": 182,
+          "raster_y": 4,
+          "raster_width": 148,
+          "raster_height": 24,
+          "natural_width": 148,
+          "source_indexes_sha256": "d044f58341c3ee9b823c3ac9c494c811e605832208910e000fc04c94ec5c90a6",
+          "output_indexes_sha256": "e82d5828f1f29e2cf22ade5ce3fd3b0e2908cd76b539329ae58404a972d42f59"
+        },
+        {
+          "ordinal": 93,
+          "entry_id": "menu/Compdata/03/0093",
+          "text": "Gain Over",
+          "selector": 94,
+          "loader_table_index": 102,
+          "stored_start": 12388304,
+          "stored_end": 12389632,
+          "stored_size": 1328,
+          "source_consumed": 1324,
+          "output_encoded_size": 972,
+          "padding_size": 356,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 972
+            }
+          ],
+          "raster_x": 32,
+          "raster_y": 4,
+          "raster_width": 448,
+          "raster_height": 24,
+          "natural_width": 448,
+          "source_indexes_sha256": "b180b908c1bc656568acf4e519f75cfd87a90779e993cd94edc69c35666989ae",
+          "output_indexes_sha256": "da1f4e66e6a9fb3620a145d77933c3bb6327e5c3646d1a59cfdb1083ccc2c48d"
+        },
+        {
+          "ordinal": 94,
+          "entry_id": "menu/Compdata/03/0094",
+          "text": "扭曲的裁决",
+          "selector": 95,
+          "loader_table_index": 103,
+          "stored_start": 12389632,
+          "stored_end": 12391296,
+          "stored_size": 1664,
+          "source_consumed": 1662,
+          "output_encoded_size": 1205,
+          "padding_size": 459,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1205
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "5a4b2f1fa5e93e6cc083cb5dc93c7262c3a7c35645fd0fc6fd8d300089eda5f2",
+          "output_indexes_sha256": "864dbff4db2ce3b2ffbc04c84d702859501b8329d9fb412ed33ca0332d8384f8"
+        },
+        {
+          "ordinal": 95,
+          "entry_id": "menu/Compdata/03/0095",
+          "text": "灵魂凯歌",
+          "selector": 96,
+          "loader_table_index": 104,
+          "stored_start": 12391296,
+          "stored_end": 12392848,
+          "stored_size": 1552,
+          "source_consumed": 1549,
+          "output_encoded_size": 1305,
+          "padding_size": 247,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1305
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "87dea19d80010a84642bc45842e1e6c38922a31ba9958cf7f7f61941ee62dc1e",
+          "output_indexes_sha256": "db1bb218540d6b62ad2727d2fb833a723008df2626dd32c73c8a7898439ff4a2"
+        },
+        {
+          "ordinal": 96,
+          "entry_id": "menu/Compdata/03/0096",
+          "text": "永远闪耀吧，我们的星球",
+          "selector": 97,
+          "loader_table_index": 105,
+          "stored_start": 12392848,
+          "stored_end": 12395664,
+          "stored_size": 2816,
+          "source_consumed": 2811,
+          "output_encoded_size": 2508,
+          "padding_size": 308,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 2508
+            }
+          ],
+          "raster_x": 0,
+          "raster_y": 4,
+          "raster_width": 512,
+          "raster_height": 24,
+          "natural_width": 548,
+          "source_indexes_sha256": "2614bbbf98b95d38703a4cd5321390844464145b50f51a9d686dbd9c01feefbe",
+          "output_indexes_sha256": "5d006aaf1c0fa0793ac15f428b8e2cf73dbf4fb0600367c9c253929263916676"
+        },
+        {
+          "ordinal": 97,
+          "entry_id": "menu/Compdata/03/0097",
+          "text": "你与我的身影",
+          "selector": 98,
+          "loader_table_index": 106,
+          "stored_start": 12395664,
+          "stored_end": 12397280,
+          "stored_size": 1616,
+          "source_consumed": 1606,
+          "output_encoded_size": 1379,
+          "padding_size": 237,
+          "quantization_levels": 8,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1740
+            },
+            {
+              "quantization_levels": 8,
+              "encoded_size": 1379
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "363539f446870ffe7a02ddc143e95e8869a8edfffc10e55f6778fd4de2de1a77",
+          "output_indexes_sha256": "49967c471d31de62ccaceba479d96533e8a3661465a50c6dc004409866561583"
+        },
+        {
+          "ordinal": 98,
+          "entry_id": "menu/Compdata/03/0098",
+          "text": "终末之光",
+          "selector": 99,
+          "loader_table_index": 107,
+          "stored_start": 12397280,
+          "stored_end": 12398720,
+          "stored_size": 1440,
+          "source_consumed": 1425,
+          "output_encoded_size": 1186,
+          "padding_size": 254,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1186
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "871a9090cd33713ab3e75a1b9b3e2ed731f25195c09ea14f09511dd5899442d8",
+          "output_indexes_sha256": "c53950d2c60174962bac9205c60710243dc5cbddf78940dec119c190691ed668"
+        },
+        {
+          "ordinal": 99,
+          "entry_id": "menu/Compdata/03/0099",
+          "text": "最后之力",
+          "selector": 100,
+          "loader_table_index": 108,
+          "stored_start": 12398720,
+          "stored_end": 12400112,
+          "stored_size": 1392,
+          "source_consumed": 1389,
+          "output_encoded_size": 1059,
+          "padding_size": 333,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1059
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "cf9d0f07e3ba86bcbd3fe0605836538c6e63d57a00a79ea47106d3090c3c0b1d",
+          "output_indexes_sha256": "e268cb912a9d87de3512b5e36dec4cad78ba8fec361c72731b382a4d5616a5b8"
+        },
+        {
+          "ordinal": 100,
+          "entry_id": "menu/Compdata/03/0100",
+          "text": "向星辰许愿",
+          "selector": 101,
+          "loader_table_index": 109,
+          "stored_start": 12400112,
+          "stored_end": 12401664,
+          "stored_size": 1552,
+          "source_consumed": 1549,
+          "output_encoded_size": 1073,
+          "padding_size": 479,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1073
+            }
+          ],
+          "raster_x": 132,
+          "raster_y": 4,
+          "raster_width": 248,
+          "raster_height": 24,
+          "natural_width": 248,
+          "source_indexes_sha256": "14271cb6c1bc6eaf2324eb61f5c07bbb8adf2b6aa7dc84087a1a9336beedb646",
+          "output_indexes_sha256": "11d7a89c1c0e564681a5f85bd255e3110f586d36b26d334876af6e47029e08d2"
+        },
+        {
+          "ordinal": 101,
+          "entry_id": "menu/Compdata/03/0101",
+          "text": "回忆",
+          "selector": 102,
+          "loader_table_index": 110,
+          "stored_start": 12401664,
+          "stored_end": 12402800,
+          "stored_size": 1136,
+          "source_consumed": 1126,
+          "output_encoded_size": 553,
+          "padding_size": 583,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 553
+            }
+          ],
+          "raster_x": 207,
+          "raster_y": 4,
+          "raster_width": 98,
+          "raster_height": 24,
+          "natural_width": 98,
+          "source_indexes_sha256": "773c472a12d327debb18cc540b7c9fcb6bededabc7ef1bf00f87fffe077d2db5",
+          "output_indexes_sha256": "ed495721672e32a32690ffe58982ba294f861158b547e914b938aa58cec18c6f"
+        },
+        {
+          "ordinal": 102,
+          "entry_id": "menu/Compdata/03/0102",
+          "text": "黑色世界",
+          "selector": 103,
+          "loader_table_index": 111,
+          "stored_start": 12402800,
+          "stored_end": 12403984,
+          "stored_size": 1184,
+          "source_consumed": 1175,
+          "output_encoded_size": 1043,
+          "padding_size": 141,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1043
+            }
+          ],
+          "raster_x": 157,
+          "raster_y": 4,
+          "raster_width": 198,
+          "raster_height": 24,
+          "natural_width": 198,
+          "source_indexes_sha256": "2c6be080f34fff3b45d924a879a8ea60862036cea712b340172cc5a13af73b2d",
+          "output_indexes_sha256": "7d1b33fd50a21869fb430cfeb54bc3d04578ca5dc1c335f392fc830cfe78abcb"
+        },
+        {
+          "ordinal": 103,
+          "entry_id": "menu/Compdata/03/0103",
+          "text": "我的未来，大家的未来",
+          "selector": 104,
+          "loader_table_index": 112,
+          "stored_start": 12403984,
+          "stored_end": 12406768,
+          "stored_size": 2784,
+          "source_consumed": 2774,
+          "output_encoded_size": 1770,
+          "padding_size": 1014,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1770
+            }
+          ],
+          "raster_x": 7,
+          "raster_y": 4,
+          "raster_width": 498,
+          "raster_height": 24,
+          "natural_width": 498,
+          "source_indexes_sha256": "205a95e60cf82905750a0356ca76b89deba4c339f88d1ff2f92f26f12a3815d0",
+          "output_indexes_sha256": "921a68d2af8d9e2251cc6da0d0fbe1e9a2a9c4a79f957105d162bdfc8a4bc82b"
+        },
+        {
+          "ordinal": 104,
+          "entry_id": "menu/Compdata/03/0104",
+          "text": "被涂抹的明天",
+          "selector": 105,
+          "loader_table_index": 113,
+          "stored_start": 12406768,
+          "stored_end": 12408960,
+          "stored_size": 2192,
+          "source_consumed": 2179,
+          "output_encoded_size": 1689,
+          "padding_size": 503,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1689
+            }
+          ],
+          "raster_x": 107,
+          "raster_y": 4,
+          "raster_width": 298,
+          "raster_height": 24,
+          "natural_width": 298,
+          "source_indexes_sha256": "6f2fccf5e92ffc184b4ff97b5e3d2e3a39cbbea85928d04907ae7646007ee59e",
+          "output_indexes_sha256": "c3dfe3450aec4836be376f8d4bf0bab5741db4cba3ba43b87a180174e5c6ab03"
+        },
+        {
+          "ordinal": 105,
+          "entry_id": "menu/Compdata/03/0105",
+          "text": "我的未来，你的未来",
+          "selector": 106,
+          "loader_table_index": 114,
+          "stored_start": 12408960,
+          "stored_end": 12410992,
+          "stored_size": 2032,
+          "source_consumed": 2027,
+          "output_encoded_size": 1390,
+          "padding_size": 642,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1390
+            }
+          ],
+          "raster_x": 32,
+          "raster_y": 4,
+          "raster_width": 448,
+          "raster_height": 24,
+          "natural_width": 448,
+          "source_indexes_sha256": "757dfdeb76cb204cd1cc74c127993c02e2f3bf6936861d15c6c73e84803e875a",
+          "output_indexes_sha256": "a41ff81423736470096d3360c60f8a34a5ea989baa979edc4194c53477b0ab9c"
+        },
+        {
+          "ordinal": 106,
+          "entry_id": "menu/Compdata/03/0106",
+          "text": "迈向无尽战争之环",
+          "selector": 107,
+          "loader_table_index": 115,
+          "stored_start": 12410992,
+          "stored_end": 12413520,
+          "stored_size": 2528,
+          "source_consumed": 2513,
+          "output_encoded_size": 1888,
+          "padding_size": 640,
+          "quantization_levels": 16,
+          "attempted_sizes": [
+            {
+              "quantization_levels": 16,
+              "encoded_size": 1888
+            }
+          ],
+          "raster_x": 57,
+          "raster_y": 4,
+          "raster_width": 398,
+          "raster_height": 24,
+          "natural_width": 398,
+          "source_indexes_sha256": "8050ab3ab042f989167bb720aac63a307d2590fbd8d32548a475b55324f1a2fd",
+          "output_indexes_sha256": "287df58f05be03ab12ec6252f58d65ac73beb5968e9c711b8661b99de672ee4f"
+        }
+      ],
+      "archive_size_preserved": true,
+      "top_level_offsets_preserved": true,
+      "internal_offsets_preserved": true,
+      "non_title_prefix_preserved_byte_exact": true,
+      "tim2_metadata_and_clut_preserved": true,
+      "translated_reread_exact": true
+    }
   },
   "stage_overviews": {
     "inventory_entry_count": 110,
@@ -552,8 +3717,9 @@
     "chunk_index": 0,
     "source_stored_size": 55392,
     "source_encoded_size": 55392,
-    "output_encoded_size": 54305,
-    "output_padding_size": 1087,
+    "output_encoded_size": 54276,
+    "output_encoded_sha256": "d551e70b6c23cdce0c50fb094e4b3dd9fc84d4357210832ca8c060e66e1b8639",
+    "output_padding_size": 1116,
     "codec_round_trip_exact": true,
     "archive_size_preserved": true,
     "hb_offsets_preserved": true,
@@ -565,7 +3731,7 @@
     "translated_unique_entry_count": 105,
     "translated_occurrence_count": 180,
     "minimum_cell_headroom": 5,
-    "changed_byte_count": 22697,
+    "changed_byte_count": 22701,
     "table_start": "0xB6",
     "table_end_exclusive": "0x6A2E",
     "record_size": 150,
@@ -576,8 +3742,8 @@
     "chunk_index": 0,
     "source_stored_size": 9584,
     "source_encoded_size": 9581,
-    "output_encoded_size": 7465,
-    "output_padding_size": 2119,
+    "output_encoded_size": 7458,
+    "output_padding_size": 2126,
     "codec_round_trip_exact": true,
     "archive_size_preserved": true,
     "slps_offsets_preserved": true,
@@ -587,14 +3753,38 @@
   },
   "remaining_ui": {
     "compdata_direct": {
-      "entry_count": 242,
-      "write_entry_count": 242,
-      "no_op_entry_count": 0,
+      "entry_count": 307,
+      "write_entry_count": 301,
+      "no_op_entry_count": 6,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 7679,
+      "changed_byte_count": 8779,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
+      "reread_exact": true
+    },
+    "compdata_context_help": {
+      "entry_count": 357,
+      "write_entry_count": 356,
+      "no_op_entry_count": 1,
+      "minimum_output_headroom": 0,
+      "changed_byte_count": 31581,
+      "fixed_spans_preserved": true,
+      "pointer_bytes_unchanged": true,
+      "placeholder_control_tokens_preserved": true,
+      "reread_exact": true
+    },
+    "compdata_inline": {
+      "entry_count": 6,
+      "write_entry_count": 6,
+      "no_op_entry_count": 0,
+      "minimum_output_headroom": 0,
+      "changed_byte_count": 228,
+      "fixed_spans_preserved": true,
+      "internal_entry_offsets_preserved": true,
+      "pointer_bytes_unchanged": true,
+      "placeholder_control_tokens_preserved": true,
+      "fullwidth_space_padding_only": true,
       "reread_exact": true
     },
     "leadership_effects": {
@@ -608,12 +3798,23 @@
       "placeholder_control_tokens_preserved": true,
       "reread_exact": true
     },
-    "slps": {
-      "entry_count": 39,
-      "write_entry_count": 39,
-      "no_op_entry_count": 0,
+    "slps_context_ui": {
+      "entry_count": 379,
+      "write_entry_count": 333,
+      "no_op_entry_count": 46,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 588,
+      "changed_byte_count": 4110,
+      "fixed_spans_preserved": true,
+      "pointer_bytes_unchanged": true,
+      "placeholder_control_tokens_preserved": true,
+      "reread_exact": true
+    },
+    "slps": {
+      "entry_count": 156,
+      "write_entry_count": 124,
+      "no_op_entry_count": 32,
+      "minimum_output_headroom": 0,
+      "changed_byte_count": 1379,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -622,11 +3823,11 @@
     "parts": {
       "source_size": 524032,
       "output_size": 524032,
-      "source_sha256": "97a459da74a1ecff479d2878612438826504c07a112c2f4e5e1f5adfdfa87bd3",
-      "output_sha256": "b201ea6de4d1fb387cd4aba91b4ad2e5e1f6e37f75414b01227971a673f9dbca",
+      "source_sha256": "3b14b5ca4eb8c5794d5fd777dcd15cb3e75ab5da62d5f032f322af9f78853268",
+      "output_sha256": "03f0d8cc51bdf33efffc5ae4e46a403fdf1f03b33e5a6d8f7f5a70e9d3f16c22",
       "entry_count": 132,
       "target_count": 132,
-      "payload_size": 3079,
+      "payload_size": 3077,
       "owned_capacity": 3950,
       "targets": [
         {
@@ -667,7 +3868,7 @@
           ],
           "target_offset": 414024,
           "capacity": 15,
-          "payload_size": 15
+          "payload_size": 11
         },
         {
           "entry_ids": [
@@ -683,7 +3884,7 @@
           ],
           "target_offset": 414056,
           "capacity": 15,
-          "payload_size": 11
+          "payload_size": 13
         },
         {
           "entry_ids": [
@@ -827,7 +4028,7 @@
           ],
           "target_offset": 414560,
           "capacity": 21,
-          "payload_size": 9
+          "payload_size": 11
         },
         {
           "entry_ids": [
@@ -971,7 +4172,7 @@
           ],
           "target_offset": 415312,
           "capacity": 21,
-          "payload_size": 11
+          "payload_size": 9
         },
         {
           "entry_ids": [
@@ -1689,7 +4890,7 @@
       "patch_plan": {
         "source_name": "remaining UI strengthening parts",
         "source_size": 524032,
-        "source_sha256": "97a459da74a1ecff479d2878612438826504c07a112c2f4e5e1f5adfdfa87bd3",
+        "source_sha256": "3b14b5ca4eb8c5794d5fd777dcd15cb3e75ab5da62d5f032f322af9f78853268",
         "operation_count": 132,
         "operations": [
           {
@@ -1730,7 +4931,7 @@
             "end": 414039,
             "size": 15,
             "before_sha256": "6fb9dd8ead5c1a366a9f23627e11402eb0d494109b057cad5ef164e38b82be9d",
-            "after_sha256": "0a1305957d0101358c84b32f16ee4ea2bee6fbbe3d1a16a240f4f7712d9bbc8b"
+            "after_sha256": "add0305ceae9cecf962346e988251a808b6f1d56d64e1ad2f38d5ec8781e7799"
           },
           {
             "owner": "menu/Compdata/01/0005",
@@ -1746,7 +4947,7 @@
             "end": 414071,
             "size": 15,
             "before_sha256": "741d69c6b2f647e1171e70ade09138cd52677644bd719d9d2073aeb250452c67",
-            "after_sha256": "e05ac10bdb25b9285c1b4009ae0d0d3f8bce54c1db38d2a5782c6afd45e72a0b"
+            "after_sha256": "ba648b3204c6e63da781c80f3b657d32bb237c113f08fa2662883853739394b0"
           },
           {
             "owner": "menu/Compdata/01/0007",
@@ -1858,7 +5059,7 @@
             "end": 414413,
             "size": 5,
             "before_sha256": "fb5a1b473945a0021a7401ba1ff15380cd9cb1fea7be2d5a5f5c3f77f1b678a3",
-            "after_sha256": "516dd9984b13732944d67f004d42f917c7a1ad57c80604a3e8585c576896508f"
+            "after_sha256": "a4f726cabbc07a2d37921894e49d0c7f06fad3977e55c34c9abfe863f05fb139"
           },
           {
             "owner": "menu/Compdata/01/0021",
@@ -1890,7 +5091,7 @@
             "end": 414581,
             "size": 21,
             "before_sha256": "4aae89788807223f1c6ee6bbaa37f26ed7a735ce570c4a71e80d85d479f48518",
-            "after_sha256": "07b0a0422a1a540aeb8e11b8375db91a801f426dca0e2bf0fb2fa8c0db8d2a55"
+            "after_sha256": "6714a53d9d9ed20159a7e0389087fb86c1cdcd903c817a837b27bd7fa1e033dc"
           },
           {
             "owner": "menu/Compdata/01/0025",
@@ -1906,7 +5107,7 @@
             "end": 414643,
             "size": 19,
             "before_sha256": "e5eee4aec9ca16d399f460e657fbf266f8fdaffd0e7520f62ded7029fa407aca",
-            "after_sha256": "0c27900fe651588240f3f90c46c57836ebe98df8bc9082b969e04d8463e9861b"
+            "after_sha256": "01a81421d0ee22481273ae0219f856f72611c74316af7a0f9d40871feb87666a"
           },
           {
             "owner": "menu/Compdata/01/0027",
@@ -1954,7 +5155,7 @@
             "end": 414851,
             "size": 19,
             "before_sha256": "f5fab0314599539d2a0a43236c1f5971b851b72a64701013a4acf482797a326c",
-            "after_sha256": "54fd9739c7dab3f3042dbb430268e5c238409ea458185b835f3135626c2d6ff9"
+            "after_sha256": "5e46b2374fc381ce953889417b757863aee7968583b083da310d260fc1bffc34"
           },
           {
             "owner": "menu/Compdata/01/0033",
@@ -1986,7 +5187,7 @@
             "end": 415041,
             "size": 9,
             "before_sha256": "a7b4c115dbfb4864832ba2c9c781839e24290501ce881c893e657aab185fef70",
-            "after_sha256": "5cf9d3f096b7405950e764de362a231433dac4c83a857a32e2f027e27fcb4271"
+            "after_sha256": "e46f6909b1b2446010d33a5da89c4f3881f36c797e77b1bc0230fad397f2e3aa"
           },
           {
             "owner": "menu/Compdata/01/0037",
@@ -2034,7 +5235,7 @@
             "end": 415333,
             "size": 21,
             "before_sha256": "c7812f7fde5ea7a3802e3b05820c94f82372a0a0d6af05e6042f76ffc5518dc2",
-            "after_sha256": "def897b502460e777e243fcbe6db5023f97d9d109ef7274f184736ad132ca6aa"
+            "after_sha256": "4eebd76bdc94a6329b1beadca057b75a1386f9e46212d77e5a86fe0d9b555132"
           },
           {
             "owner": "menu/Compdata/01/0043",
@@ -2114,7 +5315,7 @@
             "end": 415747,
             "size": 19,
             "before_sha256": "9dc7f711b2ee8e9ef6f582eb605eee54baa88bb838365a12fbb38362980a3a01",
-            "after_sha256": "a0db4972157f493cb9ae100375058768b243534036aa17591514a917f610f6e4"
+            "after_sha256": "884ea2e4c3c7fe4c32234f3431ce5a5c70b393f9d9f978a90d1b0d0cd93d9044"
           },
           {
             "owner": "menu/Compdata/01/0053",
@@ -2146,7 +5347,7 @@
             "end": 415917,
             "size": 13,
             "before_sha256": "60204ba8826cfc1039bdffb3bd2fa9045d28c738847c0636582ba93340b67767",
-            "after_sha256": "76fa7feaa6b3d091633dd77610b460cc56082c7141199041d84b2e3ef7690c8e"
+            "after_sha256": "9d44f897f0913d94611f12b7f0c3607929b6c8000d031207bc0dcc23fe51bf95"
           },
           {
             "owner": "menu/Compdata/01/0057",
@@ -2162,7 +5363,7 @@
             "end": 416005,
             "size": 21,
             "before_sha256": "26e3e63dc5a0aa619a6458fe7fcba75d8ed3660b76d59b3556ba274a66117944",
-            "after_sha256": "a2512617b4db3301ce34f203a1b35846e5b739cf124b2ad497ac97f8525b5b19"
+            "after_sha256": "24b673ae3735e034e37dde0589c6abf73c95a300958b4f6094331807d4a743eb"
           },
           {
             "owner": "menu/Compdata/01/0059",
@@ -2194,7 +5395,7 @@
             "end": 416205,
             "size": 13,
             "before_sha256": "0035dbce765362a8fb3aab202ec19cfa2844b5972244e9d5a9155e660457d08e",
-            "after_sha256": "b9a1225d639201139c29e632965ace43caa2575fcd9722fd849191bbc5602ee4"
+            "after_sha256": "841aa82887cb291771ba67412bca2fe1e4c1563035e668e1a260af2dd2a7efdc"
           },
           {
             "owner": "menu/Compdata/01/0063",
@@ -2775,18 +5976,18 @@
         "小隊編成",
         "機体系",
         "次のマップへ",
-        "新規編成"
+        "新規編成",
+        "リザーブへ",
+        "小隊群へ"
       ],
-      "inherited_dedicated_mask_count": 9,
+      "inherited_dedicated_mask_count": 11,
       "pending_dedicated_mask_sources": [
         "アイテム",
         "売却",
         "強化パーツ",
-        "購入",
-        "リザーブへ",
-        "小隊群へ"
+        "購入"
       ],
-      "pending_dedicated_mask_count": 6,
+      "pending_dedicated_mask_count": 4,
       "protected_single_character_sources": [
         "攻",
         "反"
@@ -2794,11 +5995,106 @@
       "protected_single_character_count": 2,
       "single_character_regions_untouched": true
     },
-    "compdata_source_size": 144989,
-    "compdata_output_size": 145321,
+    "compdata_source_size": 144813,
+    "compdata_output_size": 143315,
     "compdata_sector_budget": 145408,
     "compdata_round_trip_exact": true,
-    "slps_size_preserved": true
+    "slps_size_preserved": true,
+    "stage_fixed_formation": {
+      "entry_count": 9,
+      "write_entry_count": 9,
+      "no_op_entry_count": 0,
+      "minimum_output_headroom": 0,
+      "changed_byte_count": 54,
+      "fixed_spans_preserved": true,
+      "pointer_bytes_unchanged": true,
+      "placeholder_control_tokens_preserved": true,
+      "reread_exact": true,
+      "chunk_index": 101,
+      "source_text": "別働隊",
+      "translation": "别动队",
+      "source_stored_size": 31808,
+      "source_encoded_size": 29070,
+      "output_encoded_size": 29048,
+      "output_encoded_sha256": "5788854915deb63b7efe220c0203a89e7e96289865381c1f150565af5761155b",
+      "output_padding_size": 2760,
+      "codec_strategy": "rust-fit",
+      "codec_round_trip_exact": true,
+      "archive_size_preserved": true,
+      "hb_offsets_preserved": true,
+      "non_target_chunks_preserved_byte_exact": true
+    }
+  },
+  "nisv_effect_names": {
+    "member": "DATA/NISVDATA.BIN",
+    "chunk_index": 6,
+    "terms": [
+      {
+        "source": "バリア貫通",
+        "translation": "屏障贯通",
+        "decoded_offsets": [
+          7223,
+          23122,
+          34343
+        ],
+        "source_encoded_size": 10,
+        "translation_encoded_size": 8,
+        "fullwidth_padding_count": 1
+      },
+      {
+        "source": "サイズ補正無視",
+        "translation": "无视体型修正",
+        "decoded_offsets": [
+          7248,
+          23186,
+          34594
+        ],
+        "source_encoded_size": 14,
+        "translation_encoded_size": 12,
+        "fullwidth_padding_count": 1
+      }
+    ],
+    "term_count": 2,
+    "occurrence_count": 6,
+    "source_stored_size": 41312,
+    "output_encoded_size": 41058,
+    "output_padding_size": 254,
+    "codec": {
+      "strategy": "rust-fit",
+      "min_match_length": 2,
+      "max_match_chain": 16384,
+      "lazy_matching": false
+    },
+    "archive_size_preserved": true,
+    "archive_offsets_preserved": true,
+    "non_target_chunks_preserved_byte_exact": true,
+    "fullwidth_space_padding_only": true,
+    "translated_reread_exact": true
+  },
+  "reviewed_weapons": {
+    "entry_count": 711,
+    "write_entry_count": 650,
+    "no_op_entry_count": 61,
+    "minimum_output_headroom": 0,
+    "changed_byte_count": 5590,
+    "fixed_spans_preserved": true,
+    "pointer_bytes_unchanged": true,
+    "placeholder_control_tokens_preserved": true,
+    "reread_exact": true,
+    "corpus_entry_count": 711,
+    "target_occurrence_count": 5920,
+    "unique_target_count": 711,
+    "shared_nonweapon_owner_count": 1,
+    "shared_nonweapon_owner_ids": [
+      "menu/Compdata/04/0031"
+    ],
+    "source_preimages_sha256_exact": true,
+    "all_editorial_statuses_reviewed": true,
+    "target_offset_reread_exact": true,
+    "compdata_source_size": 143315,
+    "compdata_output_size": 143164,
+    "compdata_sector_budget": 145408,
+    "codec_round_trip_exact": true
   },
   "srvc_battle_text": {
     "corpus_id": "srwz-srvc-battle-lines-zh-v1",
@@ -2812,8 +6108,8 @@
     "pool": {
       "translated_record_count": 58740,
       "original_indexed_pool_bytes": 2165802,
-      "output_indexed_pool_bytes": 1644195,
-      "released_indexed_pool_bytes": 521607,
+      "output_indexed_pool_bytes": 1643410,
+      "released_indexed_pool_bytes": 522392,
       "minimum_record_headroom": 0,
       "minimum_chunk_headroom": 0
     },
@@ -3107,6 +6403,155 @@
       "reread_exact": true
     }
   },
+  "mode_select_effect": {
+    "member": "EFF/VEFF2DX.BIN",
+    "effect_id": 296,
+    "chunk_index": 297,
+    "record_index": 0,
+    "picture_index": 0,
+    "labels": [
+      "普通",
+      "EX困难",
+      "特殊",
+      "模式"
+    ],
+    "composed_labels": [
+      "普通模式",
+      "EX困难模式",
+      "特殊模式"
+    ],
+    "glyph_sampling": "native_24px_center_crop_preserve_4bpp",
+    "segments": [
+      {
+        "text": "普通",
+        "x": 22,
+        "y": 74,
+        "glyph_width": 22,
+        "advance": 24,
+        "glyphs": [
+          {
+            "character": "普",
+            "glyph_index": 3905,
+            "ink_pixel_count": 281,
+            "intermediate_pixel_count": 197,
+            "native_height_preserved": true
+          },
+          {
+            "character": "通",
+            "glyph_index": 3402,
+            "ink_pixel_count": 257,
+            "intermediate_pixel_count": 202,
+            "native_height_preserved": true
+          }
+        ]
+      },
+      {
+        "text": "EX困难",
+        "x": 104,
+        "y": 74,
+        "glyph_width": 20,
+        "advance": 21,
+        "glyphs": [
+          {
+            "character": "E",
+            "glyph_index": 4476,
+            "ink_pixel_count": 97,
+            "intermediate_pixel_count": 53,
+            "native_height_preserved": true
+          },
+          {
+            "character": "X",
+            "glyph_index": 782,
+            "ink_pixel_count": 107,
+            "intermediate_pixel_count": 68,
+            "native_height_preserved": true
+          },
+          {
+            "character": "困",
+            "glyph_index": 2402,
+            "ink_pixel_count": 266,
+            "intermediate_pixel_count": 170,
+            "native_height_preserved": true
+          },
+          {
+            "character": "难",
+            "glyph_index": 1394,
+            "ink_pixel_count": 255,
+            "intermediate_pixel_count": 170,
+            "native_height_preserved": true
+          }
+        ]
+      },
+      {
+        "text": "特殊",
+        "x": 33,
+        "y": 98,
+        "glyph_width": 22,
+        "advance": 24,
+        "glyphs": [
+          {
+            "character": "特",
+            "glyph_index": 3585,
+            "ink_pixel_count": 244,
+            "intermediate_pixel_count": 163,
+            "native_height_preserved": true
+          },
+          {
+            "character": "殊",
+            "glyph_index": 2666,
+            "ink_pixel_count": 263,
+            "intermediate_pixel_count": 188,
+            "native_height_preserved": true
+          }
+        ]
+      },
+      {
+        "text": "模式",
+        "x": 125,
+        "y": 98,
+        "glyph_width": 22,
+        "advance": 24,
+        "glyphs": [
+          {
+            "character": "模",
+            "glyph_index": 4173,
+            "ink_pixel_count": 279,
+            "intermediate_pixel_count": 196,
+            "native_height_preserved": true
+          },
+          {
+            "character": "式",
+            "glyph_index": 2606,
+            "ink_pixel_count": 189,
+            "intermediate_pixel_count": 129,
+            "native_height_preserved": true
+          }
+        ]
+      }
+    ],
+    "source_logical_image_sha256": "cd9ce72747dbed31524cbe477edb24a205b540ac430ec4820d11ee719965767e",
+    "output_logical_image_sha256": "348e61117f633672c847bf1b63351409ad0b526a92c89bc60716b6450b29c788",
+    "changed_logical_pixel_count": 3590,
+    "source_stored_size": 32608,
+    "encoded_size": 32354,
+    "codec": {
+      "strategy": "rust-fit",
+      "max_match_chain": 1024
+    },
+    "padding_size": 254,
+    "archive_size_preserved": true,
+    "archive_offsets_preserved": true,
+    "non_target_archive_bytes_exact": true,
+    "psmt4_round_trip_exact": true,
+    "codec_round_trip_exact": true,
+    "translated_reread_exact": true,
+    "all_glyphs_native_height_and_antialiased": true,
+    "geometry": {
+      "enabled": false,
+      "layout_bytes_preserved": true,
+      "reason": "Each Chinese prefix and the shared mode suffix remain inside the original texture slices; runtime quad layout stays byte-exact."
+    }
+  },
   "global_safe_aliases": {
     "scope": "all-parsed-localized-menu-surfaces",
     "conditional_primary_assignment_count": 701,
@@ -3131,35 +6576,40 @@
       "reread_exact": true
     },
     "compdata": {
-      "selected_entry_count": 1121,
+      "selected_entry_count": 494,
       "selected_target_count": 1480,
       "merged_text_range_count": 1447,
-      "substituted_code_count": 4781,
+      "substituted_code_count": 2550,
       "nested_raw_overlap_mismatch_count": 0,
       "nested_raw_overlap_entry_ids": [],
       "size_preserved": true,
       "pointer_bytes_unchanged": true,
       "reread_exact": true
     },
-    "compdata_source_size": 145321,
-    "compdata_output_size": 144945,
+    "compdata_source_size": 143164,
+    "compdata_output_size": 142554,
     "compdata_round_trip_exact": true
   },
   "outputs": {
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "e67ad25513bf1297db2207e5262d8c977b9a671b3130ed8d35892c2e3652d7ba"
+      "sha256": "4c90010670802493c858d62fc1ff66dfa9b7a9f15f221ce851b5535874159425"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "58c239a6ac2ceb3fba5f38e8fa070879cd5c7312c073a80e675dceba0319eae3"
+      "sha256": "90e7f0e0a1d41e6460850adb6c72b5114c8c0cfd4c2bfe28e9cc7fe9a49f4fb5"
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 144945,
-      "sha256": "a414ed62b1a18827739da2e0c7fcd9746e1f8069d6a441a2353cadb5fdeb9179"
+      "size": 142554,
+      "sha256": "7db282bb243c4a84e1a16f9b36477a75b03199f915d3ce61748589264bc3780b"
+    },
+    "DATA/NISVDATA.BIN": {
+      "path": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
+      "size": 555056,
+      "sha256": "fc6cb8730a1852e4cf7e72f7b46fea0e178b5e39eafcefd5ba63ff232e957789"
     },
     "DATA/MTV_PROS.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
@@ -3169,12 +6619,12 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "b018e0e3ee76f6deb5cb0c90660ef5eb8890b698f0a0c5151a7be7ab54688ef5"
+      "sha256": "de6f36f1d6c49fd274cb957ebb04a1b0b1dbb6e01e10bce9b40524f5b07e88ed"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
       "size": 250112,
-      "sha256": "e3285713fc1186788d305b3519b1965875ac1912b44711ad5e2d496de632d6c1"
+      "sha256": "dbdf568fa074e27954f74aea3924b26f1e19f8bd9734b38ad5036fc92d1e9c56"
     },
     "HEDBDY/HB.BIN": {
       "path": "work/build/zh-release-full-story/components/HEDBDY/HB.BIN",
@@ -3184,12 +6634,12 @@
     "KURODATA/KVMDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "e2f57fef0703d3b7af81b88e97df74fea5ecefa0494fe7e86e9ec8d395c5fc2e"
+      "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b"
     },
     "BTL/SRVC.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
       "size": 3313040,
-      "sha256": "b653ee4b1d26069a14695c6272b4901827837ba0527fd74a8ad5149ad1ee8e91"
+      "sha256": "ec961ef5595d89318c1129852d73ba9e94f16d30130637b98883d069b39498ab"
     },
     "BTL/SRVC.SEG": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.SEG",
@@ -3199,7 +6649,7 @@
     "EFF/VEFF2DX.BIN": {
       "path": "work/build/zh-release-full-story/components/EFF/VEFF2DX.BIN",
       "size": 36890512,
-      "sha256": "48e7372ff72db2f52df9cd78b86228eb0117140105ac07b9507d668f296abc5f"
+      "sha256": "4445b2a8669861a87eb79cb4862f0c8a17841785ee5a990d70554e59f464ae10"
     }
   },
   "acceptance": {
@@ -3222,6 +6672,7 @@
     "hsfc_overviews_reread_exact": true,
     "remaining_ui_binary_text_reread_exact": true,
     "remaining_ui_placeholders_preserved": true,
+    "reviewed_weapon_names_reread_exact": true,
     "single_character_atlas_regions_untouched": true,
     "srvc_battle_text_reread_exact": true,
     "all_localized_text_uses_safe_double_byte_aliases": true,

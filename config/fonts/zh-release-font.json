@@ -7,7 +7,7 @@
   },
   "allocation_snapshot": {
     "path": "config/encoding/zh-release-font-assignments.json",
-    "sha256": "cd2530aaf0209576f9a32804ff11540f162b63c353973713daddcbd1bd5ec0fa",
+    "sha256": "720d849d8645030f00a67fb86aa01239279b6bf2900c0e15b27c98fbf9ac843f",
     "snapshot_id": "srwz-zh-release-font-assignments-v1"
   },
   "translation_tree_selection": {
@@ -17,7 +17,10 @@
     "field": "translation",
     "map_fields": [
       "compdata_direct_by_offset",
+      "compdata_context_help_by_offset",
       "slps_by_offset",
+      "slps_context_ui_by_offset",
+      "stage_fixed_formation_by_offset",
       "leadership_effect_by_offset",
       "atlas_by_source_text",
       "display_names_by_source_text"
@@ -48,14 +51,14 @@
     "preserve": "Unselected source glyphs; all runtime placeholders and lossless control notation (%s/%2$s, $c/$f/$l/$n/$F, {XX}, and @?<tag:XX>) through their dedicated encoder paths; archive size; and executable font layout. New character assignments never enter the renderer's 0x8140..0x889E single-character mode range."
   },
   "expected": {
-    "primary_assignment_count": 3261,
+    "primary_assignment_count": 3265,
     "surface_alias_assignment_count": 701,
     "source_compatibility_assignment_count": 1,
-    "allocation_assignment_count": 1644,
+    "allocation_assignment_count": 1648,
     "reraster_existing_assignment_count": 1617,
     "historical_primary_assignment_count": 3158,
     "added_global_assignment_count": 19,
-    "remaining_candidate_slot_count": 1
+    "remaining_candidate_slot_count": 0
   },
   "outputs": {
     "readiness": "work/writeback/zh-release-font-readiness.json",

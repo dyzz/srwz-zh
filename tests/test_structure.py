@@ -45,8 +45,6 @@ ALLOWED_IMPORT_ROOTS = {
     "typing",
     "urllib",
     "unicodedata",
-    "font_component_builder",
-    "rebuild_zh_font_chain",
     "verify_full_story_iso_content",
     "xml",
     "zipfile",

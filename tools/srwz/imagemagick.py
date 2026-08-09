@@ -216,6 +216,7 @@ def render_grayscale_text_mask(
     stroke_width: float,
     fill_stroke_width: float = 0,
     italic_shear_degrees: float = 0,
+    horizontal_offset: int = 0,
 ) -> bytes:
     """Render text inside one fixed-size atlas-element canvas.
 
@@ -231,6 +232,14 @@ def render_grayscale_text_mask(
         raise ImageMagickError("text mask geometry must be positive")
     if stroke_width < 0 or fill_stroke_width < 0:
         raise ImageMagickError("text mask stroke widths cannot be negative")
+    if (
+        not isinstance(horizontal_offset, int)
+        or isinstance(horizontal_offset, bool)
+        or not -width < horizontal_offset < width
+    ):
+        raise ImageMagickError(
+            "text mask horizontal offset must stay inside the canvas"
+        )
     if (
         not isinstance(italic_shear_degrees, (int, float))
         or isinstance(italic_shear_degrees, bool)
@@ -258,7 +267,7 @@ def render_grayscale_text_mask(
         "-strokewidth",
         str(stroke_width),
         "-annotate",
-        "+0+0",
+        f"{horizontal_offset:+d}+0",
         text,
         "-fill",
         "white",
@@ -267,7 +276,7 @@ def render_grayscale_text_mask(
         "-strokewidth",
         str(fill_stroke_width),
         "-annotate",
-        "+0+0",
+        f"{horizontal_offset:+d}+0",
         text,
     ]
     if italic_shear_degrees:

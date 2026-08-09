@@ -3,12 +3,12 @@
   "status": "static_combined_atlas_component_validated_runtime_mapping_pending",
   "content_policy": "Hashes, counts, paths and runtime gates only; no game bytes or localized text are embedded.",
   "profile_id": "ui-atlas-suite-zh",
-  "scope": "A deterministic test-only composition of the five independently validated Chinese KVMDATA atlas candidates. Isolated profiles remain the authority for runtime scene mapping.",
+  "scope": "A deterministic test-only composition of the six independently validated Chinese KVMDATA atlas candidates. Isolated profiles remain the authority for runtime scene mapping.",
   "inputs": {
     "config": {
       "path": "config/assets/ui-atlas-suite-zh.json",
-      "size": 5836,
-      "sha256": "fa65827e72665e9cc18cd89c2ae50554d2fcc017e6d0ddc81c1207221373b408"
+      "size": 6777,
+      "sha256": "9659fae53af8325b30520e5a5d353f89dad84e76ec600aafa23dea6032936164"
     },
     "source_iso": {
       "path": "rom/srwz.iso",
@@ -64,12 +64,12 @@
         "config": {
           "path": "config/assets/ui-battle-command-atlas-zh.json",
           "size": 4001,
-          "sha256": "7b2a00f2f1be0aa1caf90f20d184330c3b22d1d7514cadfe557a17e1066fc870"
+          "sha256": "0962d85b2f8067a5b64f394d3f0ce8ba02fbf2ca77498bdac3f0dc7ffa94211e"
         },
         "manifest": {
           "path": "manifests/ui-battle-command-atlas-zh-validation.json",
           "size": 11951,
-          "sha256": "2e5c1cd16a6fd35da32ac83426eef4b97a35fdcfa9bb95587c32d4be26caf27d"
+          "sha256": "69016d11902beb7940ba842e582cc4140a1157d89ea1cae7b3010b6eae7e1830"
         },
         "archive": {
           "path": "work/build/ui-battle-command-atlas-zh/components/KURODATA/KVMDATA.BIN",
@@ -100,12 +100,12 @@
         "config": {
           "path": "config/assets/ui-bazaar-atlas-zh.json",
           "size": 3877,
-          "sha256": "799e3b9d2e8011806bc1584e854d5d246753a06ded71d4d900b2f6dd7a55c29b"
+          "sha256": "b2fb21c1c368fdbee624df6388ec8f16d84b47aab223f52635ca26787bce0042"
         },
         "manifest": {
           "path": "manifests/ui-bazaar-atlas-zh-validation.json",
           "size": 21829,
-          "sha256": "55f0fa302fb8ebce0f21a963a45219ae23aeb43811dfe66514c48908f5500a67"
+          "sha256": "67b2a9943599638e8f7b45013f2a22225f70175b34af32bc44be7aeb2890cf86"
         },
         "archive": {
           "path": "work/build/ui-bazaar-atlas-zh/components/KURODATA/KVMDATA.BIN",
@@ -136,12 +136,12 @@
         "config": {
           "path": "config/assets/ui-intermission-atlas-zh.json",
           "size": 17767,
-          "sha256": "7cb6f6785ec1cac2c00a8fcb947f5bbb2e8583b12a70b4776025f89d50cba217"
+          "sha256": "52ba190a1e42c4febb755e30b1f15d2e159db62ef6b525cbc856ec4a3e8d17c6"
         },
         "manifest": {
           "path": "manifests/ui-intermission-atlas-zh-validation.json",
           "size": 99484,
-          "sha256": "f5256ffc91f0b17646c85c964d4918f9d6b7b35beeaee788d839613923415e59"
+          "sha256": "5920c323dea7b8713f7b3f11385a735b0f7c6ca333e636148ffa989c7b3d8566"
         },
         "archive": {
           "path": "work/build/ui-intermission-atlas-zh/components/KURODATA/KVMDATA.BIN",
@@ -171,18 +171,18 @@
         "chunk_index": 7,
         "config": {
           "path": "config/assets/ui-formation-atlas-zh.json",
-          "size": 3959,
-          "sha256": "34ea28355e93dc8be6fc25f7473f91e18322a2617855a30416d84e9a0e945360"
+          "size": 6105,
+          "sha256": "1887e216be9c0807de642a00a564a740aaa004653c7cd5dde8dfc6f5f892b77c"
         },
         "manifest": {
           "path": "manifests/ui-formation-atlas-zh-validation.json",
-          "size": 13094,
-          "sha256": "df44ae6818bb9099980777ccc9833afd6be5bfa2afd9cb7b5f09a294fd86158c"
+          "size": 23678,
+          "sha256": "159f4017d6c535f78a1fb2a04622c7ba5bc267e6c5b7dc796a1339a417ac6cc7"
         },
         "archive": {
           "path": "work/build/ui-formation-atlas-zh/components/KURODATA/KVMDATA.BIN",
           "size": 3335408,
-          "sha256": "78f6963495d5a73f5cd23ba1557e79428aa0e04444b42de097ee51fcd8130a31"
+          "sha256": "ab49d229e4bb8582d81d602aaa69f98d8cbf67a35eb6a8e521d3e0ee1bfbcc59"
         },
         "target": {
           "member": "KURODATA/KVMDATA.BIN",
@@ -190,14 +190,50 @@
           "chunk_end": 266752
         },
         "diff": {
-          "diff_count": 686,
-          "range_count": 38,
+          "diff_count": 1769,
+          "range_count": 128,
           "first_offset": 236851,
-          "last_offset": 239316,
-          "offsets_sha256": "836ba22a809fa6d59bec3cc00a9d1e4ccdcbddbbdec25f80c81bd7ce3b6106d4",
-          "ranges_sha256": "470de6483daf3de3ae747a4311d824d286132b9e76dd7829fb1569beab9171e5",
-          "before_values_sha256": "f27008fb6bcc75358cc1e426b3fc9e3800cb9694367e4faab5fe2c77dd4732f7",
-          "after_values_sha256": "332cde0290086c6fea007a9573ae98c0dfcfd7e3c9b9f6571ef639d94a122e35"
+          "last_offset": 258732,
+          "offsets_sha256": "07685660690ed3b703b193cf103cbe8f53469bccb737b9bfff0312792d5b64b5",
+          "ranges_sha256": "b597c1902bb7186bb90a6ad3ea8d271edaaf854a4892af3257aeadd48834fb89",
+          "before_values_sha256": "187f7f43f73a736b0a154a707d67309bbdd6c9ddfb125240c8bfb3fab0825a48",
+          "after_values_sha256": "bbaa8390f288b00710b45b3ad8660297ade9739c432ca740ff7b67cc7cef3faa"
+        },
+        "runtime_status": "not_tested",
+        "exact": true
+      },
+      {
+        "profile_id": "ui-stage-clear-atlas-zh",
+        "chunk_index": 11,
+        "config": {
+          "path": "config/assets/ui-stage-clear-atlas-zh.json",
+          "size": 5036,
+          "sha256": "0c0bde84f7a6a1e28c338df9168aa0da941c869a2625a2085128e5ef7389c886"
+        },
+        "manifest": {
+          "path": "manifests/ui-stage-clear-atlas-zh-validation.json",
+          "size": 15017,
+          "sha256": "7a054c5b48f5a6343dffd0a0e62cfab65d27829486c234db7b9ed5c5227ce2b7"
+        },
+        "archive": {
+          "path": "work/build/ui-stage-clear-atlas-zh/components/KURODATA/KVMDATA.BIN",
+          "size": 3335408,
+          "sha256": "b1b22cade3b9a3494783e03beed48bdb75cd23a3091c14a6f4b83d9cc2ced90b"
+        },
+        "target": {
+          "member": "KURODATA/KVMDATA.BIN",
+          "chunk_start": 335984,
+          "chunk_end": 369328
+        },
+        "diff": {
+          "diff_count": 474,
+          "range_count": 107,
+          "first_offset": 336479,
+          "last_offset": 338543,
+          "offsets_sha256": "de674857b0c6c1c0e87f042e50532a51498c36e44c5cac716ec03f8e725c4391",
+          "ranges_sha256": "39d62a02ebbf76451e4803268283c7618fea7afabe5ea4827b40d4cebf4b8fec",
+          "before_values_sha256": "abf91220c3f515bfa2b20a08aeb6a22ded8bb39b57397985eaed9dba2eba585f",
+          "after_values_sha256": "b7ce22fb7eb2a08def138944c28fab01b3e564dda300c41cc83b57f47409c948"
         },
         "runtime_status": "not_tested",
         "exact": true
@@ -206,32 +242,33 @@
   },
   "composition": {
     "mode": "disjoint-byte-patch",
-    "component_count": 5,
+    "component_count": 6,
     "chunk_indices": [
       2,
       4,
       5,
       6,
-      7
+      7,
+      11
     ],
     "ownership_overlap_count": 0,
-    "changed_byte_count": 11255,
-    "changed_range_count": 1375,
+    "changed_byte_count": 12812,
+    "changed_range_count": 1572,
     "combined_diff": {
-      "diff_count": 11255,
-      "range_count": 1375,
+      "diff_count": 12812,
+      "range_count": 1572,
       "first_offset": 66798,
-      "last_offset": 239316,
-      "offsets_sha256": "4b9bb8c0ebeb19e8ccc1ca1aa5a3352a0d9fbcf749fc14d5ac00751fd571e639",
-      "ranges_sha256": "b3a240789df0fac1417b490dfbbf906150fefd43e0126a120f5bed1087164465",
-      "before_values_sha256": "80721476dd7aa7600ca25bb10cde474f6322e8b1609ee4ad804dcca757177705",
-      "after_values_sha256": "7263f563edf739c6225083d55206a919555fad68485988887ff33c7284c38b2b"
+      "last_offset": 338543,
+      "offsets_sha256": "474c4d0ff33b1db21c1af8fc7c54c4b7e8b276b5362610dc73cc4801af441503",
+      "ranges_sha256": "1fa84dd61d433b7e551e3b305dbdeb956622fffba10630f531ac354a013b85bb",
+      "before_values_sha256": "8e3ec4120e743677a819b7fe7fa7bf518c379bf7c8bb2dc61e64f966a14dfea3",
+      "after_values_sha256": "fd4ebe873571b78c9aa689eda50d7d13283689ad4c054d1d4605243a2d71f699"
     }
   },
   "outputs": {
     "archive": {
       "size": 3335408,
-      "sha256": "e2f57fef0703d3b7af81b88e97df74fea5ecefa0494fe7e86e9ec8d395c5fc2e"
+      "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b"
     }
   },
   "acceptance": {
@@ -254,7 +291,8 @@
       4,
       5,
       6,
-      7
+      7,
+      11
     ],
     "promotion_rule": "The suite may be integrated into the P2 UI candidate only as a test layer; each atlas still needs its own screenshot and exact texture-delta receipt before runtime promotion."
   }

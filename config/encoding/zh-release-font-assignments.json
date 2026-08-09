@@ -2,16 +2,16 @@
   "schema_version": 1,
   "snapshot_id": "srwz-zh-release-font-assignments-v1",
   "policy": "Canonical character-to-code-to-glyph mapping for every Chinese localization surface. Add future menu, story and battle-dialogue coverage here without creating another font profile layer.",
-  "allocation_assignment_count": 1644,
+  "allocation_assignment_count": 1648,
   "reraster_existing_assignment_count": 1617,
-  "primary_assignment_count": 3261,
+  "primary_assignment_count": 3265,
   "surface_alias_assignment_count": 701,
-  "primary_mapping_sha256": "597a4cb7ffbd89de4c28f9d8fb3f3e2c42173a716e98e4e2a963b390037759c9",
+  "primary_mapping_sha256": "4d145fa1a46bbcb60094b64505f1ee139ae4d448ede6b589355abca06e77a602",
   "surface_alias_mapping_sha256": "5dd897b63dcf62fb3eafebb1727d5a55e4ffa318ad7d858a039b1918049fdd4c",
   "source_compatibility_assignment_count": 1,
   "source_compatibility_mapping_sha256": "cab90357536d3cc5a7a3e0f301f1fe35ba609c51feedc192753344ddc77fb95f",
-  "remaining_allocation_candidate_count": 1,
-  "remaining_allocation_candidates_sha256": "10d895f6f27024891e3dc86103120c96e31b061d7c804dcfca2619753bf5b351",
+  "remaining_allocation_candidate_count": 0,
+  "remaining_allocation_candidates_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
   "primary_assignments": [
     {
       "character": "、",
@@ -20499,6 +20499,31 @@
       "glyph_index": 4461,
       "mapping": "pinned_text_table_source_glyph_reuse",
       "source_character": "藁"
+    },
+    {
+      "character": "碌",
+      "code": "986F",
+      "glyph_index": 4463,
+      "mapping": "pinned_text_table_source_glyph_reuse",
+      "source_character": "椀"
+    },
+    {
+      "character": "裘",
+      "code": "93FD",
+      "glyph_index": 3645,
+      "mapping": "standard_raw_trail_gap"
+    },
+    {
+      "character": "蔷",
+      "code": "94FD",
+      "glyph_index": 3837,
+      "mapping": "standard_raw_trail_gap"
+    },
+    {
+      "character": "蹴",
+      "code": "95FD",
+      "glyph_index": 4029,
+      "mapping": "standard_raw_trail_gap"
     }
   ],
   "surface_alias_assignments": [
@@ -26121,14 +26146,7 @@
       "reason": "Preserve original structural runtime fields that still encode the stock Japanese character 陸 while rendering the localized simplified form 陆."
     }
   ],
-  "remaining_allocation_candidates": [
-    {
-      "code": "986F",
-      "glyph_index": 4463,
-      "mapping": "pinned_text_table_source_glyph_reuse",
-      "source_character": "椀"
-    }
-  ],
+  "remaining_allocation_candidates": [],
   "migration": {
     "mode": "flattened_release_baseline",
     "preserved_historical_primary_assignment_count": 3158,
@@ -26746,6 +26764,47 @@
           "glyph_index": 4461,
           "mapping": "pinned_text_table_source_glyph_reuse",
           "source_character": "藁"
+        }
+      ]
+    },
+    {
+      "selection_sha256": "cc430c7b45dc301aca756314f96a86851eb03da28427e35b6264ebb072e131cd",
+      "assignment_count": 2,
+      "allocation_assignment_count": 2,
+      "reraster_existing_assignment_count": 0,
+      "assignments": [
+        {
+          "character": "碌",
+          "code": "986F",
+          "glyph_index": 4463,
+          "mapping": "pinned_text_table_source_glyph_reuse",
+          "source_character": "椀"
+        },
+        {
+          "character": "裘",
+          "code": "93FD",
+          "glyph_index": 3645,
+          "mapping": "standard_raw_trail_gap"
+        }
+      ]
+    },
+    {
+      "selection_sha256": "49452d548894ebf4a376d883647fa86f60aa95ac6310f96e3359c46c2a710662",
+      "assignment_count": 2,
+      "allocation_assignment_count": 2,
+      "reraster_existing_assignment_count": 0,
+      "assignments": [
+        {
+          "character": "蔷",
+          "code": "94FD",
+          "glyph_index": 3837,
+          "mapping": "standard_raw_trail_gap"
+        },
+        {
+          "character": "蹴",
+          "code": "95FD",
+          "glyph_index": 4029,
+          "mapping": "standard_raw_trail_gap"
         }
       ]
     }

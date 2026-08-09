@@ -11,7 +11,7 @@ COMPONENT_MANIFEST = (
     PROJECT_ROOT / "manifests/full-story-components-validation.json"
 )
 ISO_REPORT = (
-    PROJECT_ROOT / "build/iso/zh-release-full-story/iso-validation-r8.json"
+    PROJECT_ROOT / "build/iso/zh-release-full-story/iso-validation-r13.json"
 )
 CONTENT_MANIFEST = (
     PROJECT_ROOT
@@ -31,6 +31,10 @@ FONT_PROPOSAL = (
 STAGE_REPORT = (
     PROJECT_ROOT
     / "work/build/full-story-stage/components/component-validation.json"
+)
+DETAIL_CONTENT_ISO_NAME = "srwz-zh-release-full-story-r11.iso"
+DETAIL_CONTENT_ISO_SHA256 = (
+    "57b3ec89c53057b8ee9513811144edb2cfdf3f14d47430da20e63a6121573223"
 )
 
 
@@ -130,12 +134,61 @@ class ZhReleaseIsoTests(unittest.TestCase):
             ]
         )
 
+    def test_stage_title_textures_are_bound_to_vt1(self):
+        graphics = self.component["stage_titles"]["graphics"]
+        self.assertEqual(graphics["member"], "DATA/VT1.BIN")
+        self.assertEqual(graphics["stage_name_entry_count"], 122)
+        self.assertEqual(graphics["scenario_record_count"], 204)
+        self.assertEqual(graphics["texture_entry_count"], 107)
+        self.assertEqual(graphics["text_only_entry_count"], 15)
+        self.assertTrue(graphics["all_stage_name_entries_accounted_for"])
+        self.assertEqual(
+            [item["ordinal"] for item in graphics["text_only_entries"]],
+            list(range(107, 122)),
+        )
+        self.assertTrue(
+            all(
+                item["owns_stage_entry_texture"] is False
+                for item in graphics["text_only_entries"]
+            )
+        )
+        self.assertTrue(graphics["archive_size_preserved"])
+        self.assertTrue(graphics["top_level_offsets_preserved"])
+        self.assertTrue(graphics["internal_offsets_preserved"])
+        self.assertTrue(graphics["tim2_metadata_and_clut_preserved"])
+        self.assertTrue(graphics["translated_reread_exact"])
+        self.assertEqual(
+            graphics["stage_38"],
+            next(
+                item
+                for item in graphics["titles"]
+                if item["ordinal"] == 72
+            ),
+        )
+        self.assertEqual(graphics["stage_38"]["text"], "被安排的决战")
+        self.assertEqual(graphics["stage_38"]["selector"], 73)
+        self.assertEqual(graphics["stage_38"]["loader_table_index"], 81)
+        replacement = next(
+            item
+            for item in self.config["replacements"]
+            if item["member"] == "DATA/VT1.BIN"
+        )
+        self.assertEqual(
+            replacement["sha256"],
+            self.component["outputs"]["DATA/VT1.BIN"]["sha256"],
+        )
+
     def test_final_iso_hash_layout_and_current_candidate_are_locked(self):
         output = self.config["output"]
         iso_path = PROJECT_ROOT / output["path"]
         generated = sorted((PROJECT_ROOT / "build/iso").rglob("*.iso"))
         self.assertIn(iso_path, generated)
-        self.assertEqual(iso_path.name, "srwz-zh-release-full-story-r8.iso")
+        self.assertEqual(iso_path.name, "srwz-zh-release-full-story-r13.iso")
+        self.assertEqual(len(self.config["replacements"]), 12)
+        self.assertIn(
+            "DATA/NISVDATA.BIN",
+            {item["member"] for item in self.config["replacements"]},
+        )
         self.assertEqual(iso_path.stat().st_size, output["expected_size"])
         self.assertEqual(sha256_file(iso_path), output["expected_sha256"])
         self.assertEqual(
@@ -147,14 +200,26 @@ class ZhReleaseIsoTests(unittest.TestCase):
             output["expected_member_manifest_sha256"],
         )
         self.assertEqual(self.iso_report["layout"]["shifted_member_count"], 0)
-        self.assertEqual(self.iso_report["layout"]["unchanged_member_count"], 55)
+        self.assertEqual(self.iso_report["layout"]["unchanged_member_count"], 54)
         self.assertTrue(
             self.iso_report["component_binding"][
                 "all_replacements_match_component_outputs"
             ]
         )
 
-    def test_final_iso_content_readback_is_complete(self):
+    def test_historical_detail_content_readback_is_complete(self):
+        self.assertEqual(
+            Path(self.content["iso"]["path"]).name,
+            DETAIL_CONTENT_ISO_NAME,
+        )
+        self.assertEqual(
+            self.content["iso"]["sha256"],
+            DETAIL_CONTENT_ISO_SHA256,
+        )
+        self.assertNotEqual(
+            self.content["iso"]["sha256"],
+            self.config["output"]["expected_sha256"],
+        )
         self.assertEqual(self.content["stage_count"], 154)
         self.assertEqual(self.content["translation_entry_count"], 91746)
         self.assertEqual(self.content["dialogue_count"], 82719)
@@ -188,16 +253,32 @@ class ZhReleaseIsoTests(unittest.TestCase):
             "众人随即落入敌人的陷阱，\n"
             "迎来了前所未有的巨大危机。",
         )
-        for member in ("DATA/STAGE.BIN", "HEDBDY/HB.BIN"):
-            self.assertEqual(
-                self.content["members"][member]["sha256"],
-                self.component["outputs"][member]["sha256"],
-            )
         self.assertTrue(all(self.content["checks"].values()))
 
-    def test_remaining_ui_is_reread_from_the_current_final_iso(self):
+        mode = self.content["mode_select_effect"]
+        self.assertEqual(mode["effect_id"], 296)
+        self.assertEqual(
+            mode["composed_labels"],
+            ["普通模式", "EX困难模式", "特殊模式"],
+        )
+        self.assertTrue(mode["archive_offsets_preserved"])
+
+        nisv = self.content["nisv_effect_names"]
+        self.assertEqual(nisv["member"], "DATA/NISVDATA.BIN")
+        self.assertEqual(nisv["occurrence_count"], 6)
+        self.assertEqual(
+            {item["translation"] for item in nisv["terms"]},
+            {"屏障贯通", "无视体型修正"},
+        )
+        self.assertTrue(nisv["translated_reread_exact"])
+
+    def test_historical_remaining_ui_detail_readback_is_preserved(self):
         report = self.remaining_ui_content
         self.assertEqual(
+            report["iso"]["sha256"],
+            DETAIL_CONTENT_ISO_SHA256,
+        )
+        self.assertNotEqual(
             report["iso"]["sha256"],
             self.config["output"]["expected_sha256"],
         )
@@ -207,15 +288,23 @@ class ZhReleaseIsoTests(unittest.TestCase):
             {"display": 933, "given": 918, "family": 601},
         )
         remaining = report["remaining_ui"]
-        self.assertEqual(remaining["compdata_direct"]["entry_count"], 242)
+        self.assertEqual(remaining["compdata_direct"]["entry_count"], 307)
+        self.assertEqual(
+            remaining["compdata_context_help"]["entry_count"], 357
+        )
+        self.assertEqual(remaining["compdata_inline"]["entry_count"], 6)
         self.assertEqual(remaining["leadership_effects"]["entry_count"], 59)
-        self.assertEqual(remaining["slps"]["entry_count"], 39)
+        self.assertEqual(remaining["slps_context_ui"]["entry_count"], 379)
+        self.assertEqual(
+            remaining["stage_fixed_formation"]["entry_count"], 9
+        )
+        self.assertEqual(remaining["slps"]["entry_count"], 156)
         self.assertEqual(remaining["parts"]["written_entry_count"], 132)
         self.assertEqual(
             report["atlas"]["protected_single_character_sources"],
             ["攻", "反"],
         )
-        self.assertEqual(report["atlas"]["pending_dedicated_mask_count"], 6)
+        self.assertEqual(report["atlas"]["pending_dedicated_mask_count"], 4)
         self.assertTrue(
             report["new_game_regressions"][
                 "male_default_name_readback_exact"
@@ -326,6 +415,10 @@ class ZhReleaseIsoTests(unittest.TestCase):
             self.component["acceptance"]["srvc_battle_text_reread_exact"]
         )
         self.assertEqual(
+            self.srvc_content["iso"]["sha256"],
+            DETAIL_CONTENT_ISO_SHA256,
+        )
+        self.assertNotEqual(
             self.srvc_content["iso"]["sha256"],
             self.config["output"]["expected_sha256"],
         )

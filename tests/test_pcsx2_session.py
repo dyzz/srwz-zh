@@ -138,6 +138,32 @@ class Pcsx2SessionTests(unittest.TestCase):
         self.assertIn("Slot1_Enable = false", settings)
         self.assertIn("Slot2_Enable = false", settings)
 
+    def test_portable_settings_accept_pcsx2_repeated_list_keys(self):
+        self.settings.write_text(
+            self.settings.read_text(encoding="utf-8")
+            + "[GameList]\n"
+            + "RecursivePaths = /first\n"
+            + "RecursivePaths = /second\n",
+            encoding="utf-8",
+        )
+        plan = self._plan(
+            {
+                "fixture_id": "fresh-boot",
+                "kind": "fresh_boot",
+                "status": "ready",
+                "workspace_path": None,
+                "sha256": None,
+            }
+        )
+
+        lock_path, _ = self._prepare(plan, "duplicate-list-session")
+
+        settings = (
+            lock_path.parent / "session-inputs/PCSX2.ini"
+        ).read_text(encoding="utf-8")
+        self.assertIn("RecursivePaths = /second", settings)
+        self.assertNotIn("RecursivePaths = /first", settings)
+
     def test_unpromoted_card_requires_explicit_exploration_scope(self):
         card = self._card()
         plan = self._plan(
