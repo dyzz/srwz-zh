@@ -1,105 +1,132 @@
-# Super Robot Wars Z 中文化工程
+# 《超级机器人大战 Z》简体中文版
 
-本仓库从日文原版构建《超级机器人大战 Z》的简体中文译文、字库、写回组件、
-ISO 和验证记录。工程采用 clean-room、配置驱动和 fail-closed 的生产方式；
-原版游戏数据、完整 ISO、存档和本地运行证据均不进入 Git。
+这是《超级机器人大战 Z》PS2 日文版的非官方简体中文化项目。
 
-## 当前结论
+当前版本为 **v0.1.0 测试版**。游戏的主要剧情、常用菜单、人物与机体名称以及
+大部分战斗相关文本已经完成中文化。我们仍在进行实际游玩测试，并会继续修正
+残留日文、错别字、术语不统一和显示问题。
 
-- 中文语料覆盖菜单、世界史、人物／机体／武器数据库中已经登记的名称和字段，
-  以及 154 个已选择 STAGE 剧情块的 82719 条对白、558 条条件文本和 8469 个
-  说话人；发布状态仍是 `in_progress`。
-- 当前单一测试镜像为 `zh-release-full-story`，包含全局字库、菜单／数据库、
-  六张中文 KVMDATA atlas、154 个 STAGE 剧情块、STAGE/HSFC 概要、完整 SRVC
-  战斗字幕、VEFF2DX 场景／模式选择标题和 NISVDATA 武器效果名，共替换 12 个
-  ISO 成员；其余 54 个成员保持原字节，所有成员保持原 LBA。
-- 当前 ISO 大小为 3,758,358,528 字节，SHA-256 为
-  `7b2b9b0f628846cf3ef9685107685af3879df612c26d414cef1cca5d030e7d80`。
-  它已通过两次确定性构建、静态成员回读、UDF/ISO9660、154 个 STAGE 解码和
-  91746 条译文回读，以及 58,740 个 SRVC 记录回读。当前精确哈希的正式
-  fresh-process 新游戏／读档 STAGE 入口收据仍未完成。
-- 生产压缩统一使用仓内 Rust codec；Python 实现只作为严格解码、round-trip
-  和回归 oracle。
-- 当前动态中文字库统一使用 HarmonyOS Sans SC Regular 1.0；`〜∀♪` 显式回退
-  Noto Sans CJK SC 2.004。动态 CJK 以 22px 写入 24×24 字槽并全局 `y=+1`，
-  当前有 3265 个主映射和 701 个 surface-safe 别名，默认宽度追加候选槽剩余 0 个。
-  固定的中场休息图集仍属同一 HarmonyOS Sans 家族，但标题和七个菜单使用 Light
-  字重；chunk 11 另在 `x=60..153, y=0..23` 内把固定的 `までクリア！` 替换为
-  “已通关！”，不触碰动态章节正文、`第／話`、引号和数字精灵。两者都不改变
-  VT1 动态字库。
-- 战斗动画语音字幕属于独立的 `BTL/SRVC.BIN` 域。当前已写入并从最终 ISO 回读
-  25,708 条唯一译文、58,740 个索引记录和 353 个块；SEG、块边界、元数据、
-  空块和未索引尾部保持原样。该静态结果仍需目标战斗画面的运行验收。
-- 尚未生成或发布正式游戏补丁。
-- 按当前实机观察，后续汉化分成两类：优先处理正常流程中零散出现的残留日文；
-  较低优先级的高文本量范围是人物／机体图鉴正文、用语列表和游戏内教程。
+## v0.1.0 汉化内容
 
-当前事实以 `config/`、`corpus/` 和 `manifests/` 为准；README 只提供入口，
-不复制逐轮研究记录。
+- 154 个剧情关卡的对白、说话人、关卡条件和关卡概要；
+- 人物名、机体名和武器名；
+- 强化零件、换装部件、机体特殊能力和驾驶员特殊技能；
+- 精神指令、战斗指令、队长能力、搜索菜单和胜败条件；
+- 战斗动画中的语音字幕；
+- 世界地图地名、场景选择标题和中场休息菜单；
+- 统一整理并润色了高频人名、机体名、武器名及相关术语；
+- 统一中文字形、标点和全角空格，修复了一批乱码及文本污染问题。
 
-## 事实源
+## 当前状态
 
-| 路径 | 作用 |
-| --- | --- |
-| `config/` | Surface、codebook、字体、写回、ISO 和运行矩阵配置 |
-| `corpus/ja/` | 不可修改的日文语料基准 |
-| `corpus/zh/` | 中文译文 |
-| `corpus/glossary/` | 术语和来源决定 |
-| `corpus/releases/` | 发布范围和审校策略 |
-| `manifests/` | 输入、组件、ISO 与验证结果的可提交摘要 |
-| `tools/` | clean-room 核心实现与命令入口 |
-| `tests/` | 格式、写回、布局、构建和证据门禁 |
+v0.1.0 已完成自动检查和镜像内容回读，但尚未完成覆盖所有路线的完整通关测试。
+正常游玩中仍可能遇到以下情况：
 
-本地目录的所有权如下：
+- 少量界面或特殊流程中残留日文；
+- 个别文本的换行、长度或显示位置不理想；
+- 人物／机体图鉴正文、用语列表和游戏内教程尚未全部中文化；
+- 某些战斗字幕或较少触发的分支事件仍需实际画面确认。
 
-| 路径 | 规则 |
-| --- | --- |
-| `rom/` | 用户合法持有的只读原版输入；不提交、不自动修改 |
-| `work/` | 可重建缓存、组件和本地运行证据；不作为唯一事实源 |
-| `build/` | 当前最终候选；`build/iso/` 只保留一张 ISO |
+如果你更看重稳定体验，建议等待后续版本；如果愿意协助测试，欢迎记录发生问题的
+关卡、操作步骤和画面截图并通过
+[GitHub Issues](https://github.com/dyzz/srwz-zh/issues) 反馈。
 
-## 常用验证
+## 下载与使用
+
+本项目不会提供或分发游戏 ISO、存档及其他原版游戏数据。你需要自行合法持有
+《超级机器人大战 Z》PS2 日文原版。
+
+目前 v0.1.0 仍在准备可分发补丁包。补丁通过最终运行检查后，将在
+[GitHub Releases](https://github.com/dyzz/srwz-zh/releases) 提供下载、校验值和
+具体使用说明。使用补丁前请备份原版镜像和存档，并以对应发布页面的说明为准。
+
+## 从源码构建
+
+普通玩家不需要自行构建，发布版补丁会附带单独的使用说明。以下流程面向希望参与
+开发或复验结果的贡献者。
+
+构建需要 Python 3、Git、CMake、Rust／Cargo、7-Zip 和 ImageMagick 7，并需要
+联网下载锁定版本的开源构建工具与字体。将自己合法持有的日文原版镜像放到：
+
+```text
+rom/srwz.iso
+```
+
+原版镜像应为 `3,758,358,528` 字节，SHA-256 为：
+
+```text
+acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014
+```
+
+在已经完成本地原版成员和 `release-base-ui` 基线准备的项目工作区中执行：
 
 ```bash
 python3 tools/verify_original_disc.py
-python3 -m compileall -q tools tests
-python3 -m unittest discover -s tests -v
-git diff --check
+python3 tools/bootstrap_mkps2iso.py
+python3 tools/build_rust_compressor.py
+
+python3 tools/fetch_zh_font.py
+python3 tools/fetch_zh_font.py \
+  --flavor config/fonts/zh-localization-font-light.json
+python3 tools/rebuild_zh_font.py --skip-fetch
+
+python3 tools/build_iso.py \
+  --config config/iso/zh-release-full-story-build.json
+python3 tools/verify_full_story_iso_content.py --force
+python3 tools/build_release.py \
+  --config config/release/v0.1.0.json
 ```
 
-首次准备本地原版成员：
-
-```bash
-python3 tools/extract_iso_member.py \
-  SLPS_258.87 DATA/VT1.BIN DATA/STAGE.BIN DATA/COMPDATA.BN \
-  DATA/HSFC.BIN BTL/SRVC.BIN BTL/SRVC.SEG EFF/VEFF2DX.BIN
-```
-
-构建、单候选管理和 PCSX2 证据流程见
-[`docs/BUILD_AND_RUNTIME.md`](docs/BUILD_AND_RUNTIME.md)。
-
-## 不可替代的验收层
+构建成功后，镜像位于：
 
 ```text
-语料/术语决定
-  -> 编码、字库、布局和写回
-  -> 组件与归档 round-trip
-  -> ISO/UDF/成员/LBA
-  -> 匹配 ISO 和存档的 PCSX2 目标流程
-  -> 画面与交互验收
+build/iso/v0.1.0/srwz-zh-v0.1.0.iso
 ```
 
-静态检查、可启动 ISO 和旧候选截图不能互相替代。任何“已完成”声明必须绑定
-当前源码、当前组件、精确 ISO 哈希、匹配存档和目标运行路径。
+本地完整 ISO 只用于开发和运行验证，不进入发布包。可分发文件位于：
 
-## 工程边界
+```text
+build/release/v0.1.0/srwz-zh-v0.1.0.zip
+```
 
-- 日文原版是唯一翻译源；英文和外部中文资料只作为参考或术语证据。
-- 不执行上游 EXE/DLL、Wine 或 Mono；生产实现全部位于本仓库。
-- 不静默截断文本、不移动未授权成员 LBA；字槽复用必须由可重建码表记录，但不对
-  已被中文覆盖的原日文文本保持可读兼容。
-- 不做 patch-over-patch；每张 ISO 从固定原版和当前组件一次构建。
-- `runtime_verified` 只授予在精确候选上实际到达并验收的 surface。
+其中只包含 xdelta 补丁、使用说明、发布清单和 SHA-256 校验值，不包含游戏 ISO。
 
-文档入口见 [`docs/README.md`](docs/README.md)，贡献与发布检查见
-[`CONTRIBUTING.md`](CONTRIBUTING.md)。
+当前构建采用固定原版和一次性组件组合，不应在旧汉化镜像上重复打补丁。首次环境
+准备、原版成员提取、构建缓存和详细验证规则见
+[构建与运行验收](docs/BUILD_AND_RUNTIME.md)。
+
+## 致谢
+
+特别感谢 [fortiersteven/Super-Robot-Wars-Z](https://github.com/fortiersteven/Super-Robot-Wars-Z)
+提供的早期研究与工具基础。本项目参考并固定引用了该项目提交
+[`a6cefe8b51dfd949e16000442084d24594841e8f`](https://github.com/fortiersteven/Super-Robot-Wars-Z/commit/a6cefe8b51dfd949e16000442084d24594841e8f)
+中的部分归档成员定义和文本表结构。
+
+ISO 构建使用 [mkps2iso](https://github.com/N4gtan/mkps2iso)。中文字体使用
+HarmonyOS Sans，并对少数字符使用 Noto Sans CJK；第三方字体及许可信息见
+[第三方字体说明](docs/THIRD_PARTY_FONTS.md)。
+
+也感谢所有参与翻译、术语考证、测试和问题反馈的贡献者与玩家。
+
+## 项目说明
+
+本项目是非官方、非商业的爱好者项目，与原作权利方不存在隶属或授权关系。
+《超级机器人大战 Z》及相关作品、角色和名称的权利归各自权利方所有。
+
+<details>
+<summary>v0.1.0 当前候选的技术信息</summary>
+
+- 汉化版本：`v0.1.0`
+- 原版 ISO 大小：`3,758,358,528` 字节
+- 原版 ISO SHA-256：`acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014`
+- 当前候选 ISO SHA-256：`40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c`
+- 当前候选已通过确定性构建、ISO 结构检查和最终文本回读；精确镜像的完整运行
+  验收仍在进行中。
+
+这里的校验值用于锁定开发中的当前候选，不代表已经发布的补丁文件。正式下载请以
+对应 Releases 页面的文件名和校验值为准。
+
+</details>
+
+开发、构建与验证资料见 [项目文档](docs/README.md)，参与贡献前请阅读
+[贡献与发布约定](CONTRIBUTING.md)。

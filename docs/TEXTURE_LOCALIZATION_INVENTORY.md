@@ -7,17 +7,18 @@
 - `KVMDATA_ATLAS_LOCALIZATION.md`：KVMDATA 固定 UI 图集；
 - `VEFF2DX_TEXTURE_LOCALIZATION.md`：VEFF2DX 场景材质与动画 quad。
 
-当前真正发生栅格变化的 ISO 成员只有三个：
+当前真正发生栅格变化的 ISO 成员共有四个：
 
-| ISO 成员 | 当前修改 | 最终组件 SHA-256 | r13 原 LBA |
+| ISO 成员 | 当前修改 | 最终组件 SHA-256 | v0.1.0 原 LBA |
 | --- | --- | --- | ---: |
 | `DATA/VT1.BIN` | 标题主菜单、全局动态字库、107 张进关标题 | `90e7f0e0a1d41e6460850adb6c72b5114c8c0cfd4c2bfe28e9cc7fe9a49f4fb5` | 1,588,772 |
 | `KURODATA/KVMDATA.BIN` | 6 张固定 UI 图集 | `4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b` | 1,289,810 |
+| `MAP/MAPMODEL.BIN` | 78 个唯一 WORLD MAP 地名标题，覆盖成员 81..195 | `234710f2d39ae70b854d6f46a5f24e94c4085713b46bf4653b30371b52349518` | 1,652,964 |
 | `EFF/VEFF2DX.BIN` | 剧情选择、模式选择两块 PSMT4 材质 | `4445b2a8669861a87eb79cb4862f0c8a17841785ee5a990d70554e59f464ae10` | 1,291,582 |
 
 `SLPS_258.87` 也必须与上述成员一起构建，但它承担的是 VT1 offset 表、关卡
 selector、动画 quad 和文本位置等伴随数据，不是贴图本体。当前组件 SHA-256 为
-`4c90010670802493c858d62fc1ff66dfa9b7a9f15f221ce851b5535874159425`，r13 LBA 为
+`88ae1ca89506e17338a1a9634f5e48ca08b2546fc104948a0e6e3e21ccc89b70`，v0.1.0 LBA 为
 455。
 
 以下位置均为**成员内偏移**，不是 ISO 文件绝对偏移。区间统一采用半开区间
@@ -108,7 +109,7 @@ git show 1d1a739^:tools/srwz/title_menu.py
 ```
 
 历史候选曾完成标题菜单画面验证，但当前继承的是后来定长 Rust 重压的流；旧截图
-不能自动充当 r13 精确流的运行收据。
+不能自动充当 v0.1.0 精确流的运行收据。
 
 ### 1.3 107 张进关标题 TIM2
 
@@ -338,7 +339,36 @@ VEFF2DX chunk offset 表位于 `SLPS_258.87 [0x31ABB0, 0x31B067)`，归档对齐
 两块材质必须独立从各自原压缩流构建。即使原始逻辑索引图相同，也不能把 chunk
 296 的压缩结果复制到 chunk 297。
 
-## 4. 不属于贴图像素修改的伴随项
+## 4. MAP/MAPMODEL.BIN 世界地图地名
+
+第一关开场滚动字幕后的“月面 地球联邦军卢特提姆基地”，以及同一 WORLD MAP
+系统的其他地名，都是 MAPMODEL 压缩成员中的原始 4-bpp 像素，不是运行时字体。
+SLPS 在文件偏移 `0x2FAAD0` 保存 197 个 little-endian `u32` 顶层 offset；标题使用
+成员 `81..195`，共 115 个成员、78 个唯一日文前像。
+
+| 项目 | 当前值 |
+| --- | --- |
+| 日文地名 raw 区间 | decoded `[0x1DE0, 0x3DE0)` |
+| 英文副标题 raw 区间 | decoded `[0x3E40, 0x5E40)` |
+| 单块几何 | `512×32`、4-bpp |
+| 像素顺序 | linear、low-nibble-first、行方向上下翻转 |
+| 唯一标题 | 78；其中 70 个重绘、8 个同文 no-op |
+| 成员写回 | 101 个重压、14 个 byte-exact 保留 |
+| 字体 | HarmonyOS Sans SC Light 1.0 |
+| 最小重压余量 | 14,191 bytes |
+
+writer 逐成员验证原始日文 raw SHA-256，只清除原文字的非零包围框，再把中文紧
+包围框居中写回同一范围。英文 `WORLD MAP` 副标题、日文块以外的 decoded 内容、
+成员 allocation、顶层 offset 和整个 archive 大小均保持不变。事实源和实现位置：
+
+- 译名表：`corpus/zh/ui-atlas/world-map-titles-v1.json`
+- 完整代码调用链与格式：`docs/MAPMODEL_WORLD_MAP_TITLES.md`
+- 布局与输入锁：`config/full-story-components.json` 的 `world_map_titles`
+- writer：`tools/srwz/world_map_titles.py`
+- 回归测试：`tests/test_world_map_titles.py`
+- 结果：`manifests/full-story-components-validation.json` 的 `world_map_titles`
+
+## 5. 不属于贴图像素修改的伴随项
 
 以下内容与画面有关，但不应计入“贴图修改数量”：
 
@@ -350,13 +380,14 @@ VEFF2DX chunk offset 表位于 `SLPS_258.87 [0x31ABB0, 0x31B067)`，归档对齐
 - `第`、`話`、数字精灵和通关滚动条引号；
 - 导出的 PNG。PNG 是预览／审校产物，不是生产写回事实源。
 
-## 5. 最终组合、ISO 与验证边界
+## 6. 最终组合、ISO 与验证边界
 
-三类贴图最终汇入：
+四类贴图最终汇入：
 
 ```text
 work/build/zh-release-full-story/components/DATA/VT1.BIN
 work/build/zh-release-full-story/components/KURODATA/KVMDATA.BIN
+work/build/zh-release-full-story/components/MAP/MAPMODEL.BIN
 work/build/zh-release-full-story/components/EFF/VEFF2DX.BIN
 work/build/zh-release-full-story/components/SLPS_258.87
 ```
@@ -368,18 +399,18 @@ config/full-story-components.json
 manifests/full-story-components-validation.json
 ```
 
-当前 r13 ISO：
+当前 v0.1.0 ISO：
 
 ```text
-build/iso/zh-release-full-story/srwz-zh-release-full-story-r13.iso
+build/iso/v0.1.0/srwz-zh-v0.1.0.iso
 size:   3,758,358,528 bytes
-sha256: 7b2b9b0f628846cf3ef9685107685af3879df612c26d414cef1cca5d030e7d80
-report: build/iso/zh-release-full-story/iso-validation-r13.json
+sha256: 40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c
+report: build/iso/v0.1.0/iso-validation-v0.1.0.json
 ```
 
-静态 ISO report 已确认三个成员按上述 SHA-256 写入，并保持原 LBA。它只证明结构、
-成员读回和扇区布局，不自动证明每个运行画面正确。任何后续 VT1、KVMDATA 或
-VEFF2DX 改动都必须继续满足：
+静态 ISO report 已确认四个成员按上述 SHA-256 写入，并保持原 LBA。它只证明结构、
+成员读回和扇区布局，不自动证明每个运行画面正确。任何后续 VT1、KVMDATA、
+MAPMODEL 或 VEFF2DX 改动都必须继续满足：
 
 1. 压缩结果不得超过原 stored slot；
 2. 成员大小不得增长；
@@ -387,7 +418,7 @@ VEFF2DX 改动都必须继续满足：
 4. 非目标 TIM2 header、CLUT、picture、chunk 和像素必须保持 byte-exact；
 5. 静态读回与目标运行画面分别登记，不得互相替代。
 
-## 6. 重建命令
+## 7. 重建命令
 
 全局字体或字体需求改变时：
 

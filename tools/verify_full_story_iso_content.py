@@ -11,7 +11,11 @@ from pathlib import Path
 from srwz.archive import sha256_file
 from srwz.chinese_layout import dialogue_line_widths
 from srwz.codec import decode
-from srwz.display_names import load_display_name_source, parse_display_names
+from srwz.display_names import (
+    load_display_name_source,
+    load_full_unit_name_corpus,
+    parse_display_names,
+)
 from srwz.font import (
     GLYPH_COUNT,
     GLYPH_SIZE,
@@ -29,11 +33,14 @@ from srwz.iso_layout import (
     read_executable_archive_offsets,
 )
 from srwz.hsfc_overview import (
+    HSFC_OVERVIEW_CELL_SIZE,
     group_hsfc_overviews,
     parse_hsfc_overviews,
 )
+from srwz.image_export import parse_seg_offsets
 from srwz.menu import parse_menu_file
 from srwz.psmt4 import unswizzle_psmt4
+from srwz.srvc import parse_srvc_archive
 from srwz.stage import parse_stage, read_stage_function_addresses
 from srwz.stage_overview import parse_stage_overviews
 from srwz.tim2 import scan_tim2
@@ -54,7 +61,7 @@ from srwz.text import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ISO = (
     PROJECT_ROOT
-    / "build/iso/zh-release-full-story/srwz-zh-release-full-story-r13.iso"
+    / "build/iso/v0.1.0/srwz-zh-v0.1.0.iso"
 )
 DEFAULT_REPORT = (
     PROJECT_ROOT / "work/verification/zh-release-full-story-content.json"
@@ -319,6 +326,10 @@ def verify_targeted_ui_glyphs(
             "与搭档在荒野经营修理店的男人"
             "自称烈焰豪爽而热血但有时会热情过头"
         ),
+        "female_default_unit_name": "巴尔戈拉",
+        "formation_action_labels": "攻击反击参与攻击",
+        "formation_names": "三角中央广域",
+        "spirit_acronyms": "热魂闪不铁集必加迅觉手狙直幸努乱分",
     }
     extended = read_extended_glyph_table(slps)
     by_character = {}
@@ -689,6 +700,12 @@ def verify_final_compdata(
     structure, _source_data, source_names, _context = (
         load_display_name_source(PROJECT_ROOT, structure_path)
     )
+    unit_corpus_path = PROJECT_ROOT / pilot_config["unit_names"]["path"]
+    unit_decisions, unit_corpus_report = load_full_unit_name_corpus(
+        PROJECT_ROOT,
+        unit_corpus_path,
+        source_names.unit_entries,
+    )
     speaker_document = json.loads(
         (PROJECT_ROOT / pilot_config["story_speakers"]["path"]).read_text(
             encoding="utf-8"
@@ -756,8 +773,9 @@ def verify_final_compdata(
         or len(by_source) != expected["unique_source_count"]
         or len(selected) != expected["selected_entry_count"]
         or field_counts != expected["field_entry_counts"]
+        or len(unit_decisions) != expected["unit_name_entry_count"]
     ):
-        raise SystemExit("pilot-name source selection drift")
+        raise SystemExit("display-name source selection drift")
 
     decoded_compdata = decode(stored_compdata)
     if decoded_compdata.consumed != len(stored_compdata):
@@ -794,6 +812,116 @@ def verify_final_compdata(
         if source_entry.text in example_sources:
             examples[source_entry.text] = actual
 
+    unit_by_id = {
+        entry.entry_id: entry for entry in reread.unit_entries
+    }
+    unit_examples = {}
+    raw_unit_relocations = pilot_config.get("unit_name_relocations", [])
+    if not isinstance(raw_unit_relocations, list):
+        raise SystemExit("final ISO unit-name relocations are malformed")
+    unit_relocations = {}
+    for item in raw_unit_relocations:
+        if not isinstance(item, dict) or not isinstance(
+            item.get("entry_id"), str
+        ):
+            raise SystemExit("final ISO unit-name relocation is malformed")
+        entry_id = item["entry_id"]
+        if entry_id in unit_relocations:
+            raise SystemExit("final ISO unit-name relocation ID is duplicated")
+        try:
+            unit_relocations[entry_id] = {
+                "source_target_offset": int(
+                    str(item.get("source_target_offset")), 0
+                ),
+                "target_offset": int(str(item.get("target_offset")), 0),
+            }
+        except (TypeError, ValueError) as error:
+            raise SystemExit(
+                f"final ISO unit-name relocation offsets are invalid: {entry_id}"
+            ) from error
+    unit_pointer_base = int(
+        str(structure["unit_table"]["pointer_base_address"]), 0
+    )
+    relocated_pointer_count = 0
+    unit_space_code = output_table.inverse_characters.get("\u3000")
+    if unit_space_code is None or unit_space_code < 0x8000:
+        raise SystemExit("final ISO unit-name two-byte space code is absent")
+    unit_space_payload = unit_space_code.to_bytes(2, "big")
+    unit_two_byte_space_ids = []
+    unit_example_ids = {
+        "display-name/unit/0157/name",
+        "display-name/unit/0158/name",
+    }
+    for source_entry in source_names.unit_entries:
+        actual_entry = unit_by_id.get(source_entry.entry_id)
+        relocation = unit_relocations.get(source_entry.entry_id)
+        expected_target = (
+            source_entry.target_offset
+            if relocation is None
+            else relocation["target_offset"]
+        )
+        if (
+            actual_entry is None
+            or actual_entry.target_offset != expected_target
+            or actual_entry.pointer_offsets != source_entry.pointer_offsets
+            or (
+                relocation is not None
+                and relocation["source_target_offset"]
+                != source_entry.target_offset
+            )
+        ):
+            raise SystemExit(
+                "final ISO unit-name target or pointer-site mismatch: "
+                f"{source_entry.entry_id}"
+            )
+        if relocation is not None:
+            pointer_payload = struct.pack(
+                "<I", unit_pointer_base + expected_target
+            )
+            for pointer_offset in actual_entry.pointer_offsets:
+                if (
+                    decoded_compdata.output[
+                        pointer_offset : pointer_offset + 4
+                    ]
+                    != pointer_payload
+                ):
+                    raise SystemExit(
+                        "final ISO relocated unit pointer mismatch: "
+                        f"{source_entry.entry_id}"
+                    )
+                relocated_pointer_count += 1
+        expected_unit = normalize_original_fullwidth_ascii(
+            unit_decisions[source_entry.entry_id]["translation"]
+        )
+        actual_unit = (
+            None
+            if actual_entry is None
+            else actual_entry.text.replace("\u3000", " ")
+        )
+        if actual_unit != expected_unit:
+            raise SystemExit(
+                f"final ISO unit-name mismatch: {source_entry.entry_id}: "
+                f"expected {expected_unit!r}, got "
+                f"{actual_unit!r}"
+            )
+        if " " in expected_unit:
+            field_payload = decoded_compdata.output[
+                actual_entry.target_offset :
+                actual_entry.target_offset + actual_entry.encoded_size
+            ]
+            if (
+                b"\x20" in field_payload
+                or field_payload.count(unit_space_payload)
+                != expected_unit.count(" ")
+            ):
+                raise SystemExit(
+                    "final ISO unit-name space storage mismatch: "
+                    f"{source_entry.entry_id}"
+                )
+            unit_two_byte_space_ids.append(source_entry.entry_id)
+        if source_entry.entry_id in unit_example_ids:
+            unit_examples[source_entry.entry_id] = actual_unit
+
     descriptors = json.loads(MENU_DESCRIPTOR.read_text(encoding="utf-8"))
     descriptor = next(
         item for item in descriptors if item.get("friendly_name") == "Compdata"
@@ -803,6 +931,47 @@ def verify_final_compdata(
         descriptor,
         output_table,
     )
+    slps_descriptor = next(
+        item for item in descriptors if item.get("friendly_name") == "SLPS"
+    )
+    parsed_slps_menu = parse_menu_file(slps, slps_descriptor, output_table)
+
+    display_name_raw_space_count = sum(
+        b"\x20"
+        in decoded_compdata.output[
+            entry.target_offset : entry.target_offset + entry.encoded_size
+        ]
+        for entry in reread.entries
+    )
+
+    def raw_menu_space_count(data: bytes, entries) -> int:
+        count = 0
+        seen_offsets = set()
+        for entry in entries:
+            for offset in entry.target_offsets:
+                if offset in seen_offsets:
+                    continue
+                seen_offsets.add(offset)
+                decoded_entry = decode_text(data, offset, output_table)
+                count += b"\x20" in data[
+                    offset : offset + decoded_entry.consumed
+                ]
+        return count
+
+    compdata_menu_raw_space_count = raw_menu_space_count(
+        decoded_compdata.output, parsed_menu.entries
+    )
+    slps_menu_raw_space_count = raw_menu_space_count(
+        slps, parsed_slps_menu.entries
+    )
+    if any(
+        (
+            display_name_raw_space_count,
+            compdata_menu_raw_space_count,
+            slps_menu_raw_space_count,
+        )
+    ):
+        raise SystemExit("final ISO display/menu text contains raw spaces")
     menu_by_id = {entry.entry_id: entry.text for entry in parsed_menu.entries}
     button_prompts = {
         "menu/Compdata/07/0000": "：确定",
@@ -980,6 +1149,60 @@ def verify_final_compdata(
         for offset in new_game_name_expectations
     } != new_game_name_expectations:
         raise SystemExit("male new-game default-name offset contract drift")
+    female_default_unit_name_expectations = {
+        "0x347A00": "巴尔戈拉",
+    }
+    if {
+        offset: remaining_document["slps_by_offset"].get(offset)
+        for offset in female_default_unit_name_expectations
+    } != female_default_unit_name_expectations:
+        raise SystemExit("female default-unit-name offset contract drift")
+    formation_action_label_expectations = {
+        "0x342580": "攻击",
+        "0x3425B0": "反击",
+        "0x3425C4": "参与攻击",
+    }
+    if {
+        offset: remaining_document["slps_by_offset"].get(offset)
+        for offset in formation_action_label_expectations
+    } != formation_action_label_expectations:
+        raise SystemExit("formation action-label offset contract drift")
+    map_formation_name_expectations = {
+        "0x345DC8": "三角",
+        "0x345DD0": "中央",
+        "0x345DE0": "广域",
+    }
+    if {
+        offset: remaining_document["slps_by_offset"].get(offset)
+        for offset in map_formation_name_expectations
+    } != map_formation_name_expectations:
+        raise SystemExit("map formation-name offset contract drift")
+    squad_formation_name_expectations = {
+        "0x7F580": "三角队形",
+        "0x7F5A0": "中央队形",
+        "0x7F5C0": "广域队形",
+        "0x7F5E0": "三角",
+        "0x7F5E8": "中央",
+        "0x7F5F8": "广域",
+    }
+    if {
+        offset: remaining_document["compdata_direct_by_offset"].get(offset)
+        for offset in squad_formation_name_expectations
+    } != squad_formation_name_expectations:
+        raise SystemExit("squad formation-name offset contract drift")
+    spirit_acronym_expectations = {
+        "0x343FB0": "热魂闪不铁集必加迅觉手狙直努乱分",
+        "0x343FE0": "热魂闪不铁集必加迅觉手狙直幸努乱",
+        "0x344010": "热魂闪不铁集必加迅觉手狙直努／乱分",
+        "0x344040": "热魂闪不铁集必加迅觉手狙直幸努／乱",
+        "0x344070": "热魂闪不铁集必加\n迅觉手狙直努乱分",
+        "0x3440A0": "热魂闪不铁集必加\n迅觉手狙直幸努乱",
+    }
+    if {
+        offset: remaining_document["slps_by_offset"].get(offset)
+        for offset in spirit_acronym_expectations
+    } != spirit_acronym_expectations:
+        raise SystemExit("spirit-acronym offset contract drift")
     scenario_button_expectations = {
         "0x33BD4A": "：确定",
         "0x33BD58": "：取消",
@@ -1066,7 +1289,9 @@ def verify_final_compdata(
                 item["translation"]
             )
             written_part_count += 1
-        if actual_entry.text != expected_part:
+        if actual_entry.text.replace("\u3000", " ") != expected_part.replace(
+            "\u3000", " "
+        ):
             raise SystemExit(
                 f"strengthening-part mismatch: {entry_id}: "
                 f"expected={expected_part!r} actual={actual_entry.text!r}"
@@ -1078,9 +1303,6 @@ def verify_final_compdata(
         "readback_exact": True,
     }
 
-    unit_by_id = {
-        entry.entry_id: entry for entry in reread.unit_entries
-    }
     unit_ascii_expectations = {
         "display-name/unit/0089/name": {
             "text": "钢铁基亚（LS）",
@@ -1132,10 +1354,35 @@ def verify_final_compdata(
         "residual_unique_source_count": len(residual_by_text),
         "readback_exact": True,
         "examples": examples,
+        "unit_names": {
+            "corpus_batch_id": unit_corpus_report["batch_id"],
+            "entry_count": len(unit_decisions),
+            "two_byte_space_code": f"{unit_space_code:04x}",
+            "two_byte_space_entry_count": len(unit_two_byte_space_ids),
+            "two_byte_space_entry_ids": unit_two_byte_space_ids,
+            "raw_single_byte_space_count": 0,
+            "two_byte_spaces_exact": True,
+            "relocated_entry_count": len(unit_relocations),
+            "relocated_entry_ids": list(unit_relocations),
+            "relocated_pointer_count": relocated_pointer_count,
+            "pointer_relocations_exact": True,
+            "readback_exact": True,
+            "examples": unit_examples,
+        },
         "button_prompts": button_prompts,
         "button_prompts_exact": True,
         "unit_ascii_storage_examples": unit_ascii_storage_examples,
         "unit_ascii_storage_examples_exact": True,
+        "visible_space_storage": {
+            "display_name_raw_space_entry_count": (
+                display_name_raw_space_count
+            ),
+            "compdata_menu_raw_space_target_count": (
+                compdata_menu_raw_space_count
+            ),
+            "slps_menu_raw_space_target_count": slps_menu_raw_space_count,
+            "raw_space_count_zero": True,
+        },
         "surface_safe_alias_count": len(surface_aliases),
         "surface_safe_aliases_readback_exact": True,
         "remaining_ui": {
@@ -1148,9 +1395,25 @@ def verify_final_compdata(
             "parts": parts_report,
             "readback_exact": True,
         },
+        "formation_regressions": {
+            "map_name_offsets": map_formation_name_expectations,
+            "map_names_readback_exact": True,
+            "squad_name_offsets": squad_formation_name_expectations,
+            "squad_names_readback_exact": True,
+        },
         "new_game_regressions": {
             "male_default_name_offsets": new_game_name_expectations,
             "male_default_name_readback_exact": True,
+            "female_default_unit_name_offsets": (
+                female_default_unit_name_expectations
+            ),
+            "female_default_unit_name_readback_exact": True,
+            "formation_action_label_offsets": (
+                formation_action_label_expectations
+            ),
+            "formation_action_labels_readback_exact": True,
+            "spirit_acronym_offsets": spirit_acronym_expectations,
+            "spirit_acronyms_readback_exact": True,
             "scenario_button_offsets": scenario_button_expectations,
             "scenario_button_readback_exact": True,
             "male_profile_offset": "0x7FD20",
@@ -1324,7 +1587,6 @@ def main() -> int:
     overview_overrides = dict(overrides)
     overview_overrides.update(surface_aliases)
     overview_overrides.update(ascii_overrides)
-    overview_overrides[" "] = ord(" ")
     overview_table = project_runtime_text_table(
         source_table,
         overview_overrides,
@@ -1355,6 +1617,15 @@ def main() -> int:
     overview_by_id = {
         entry.entry_id: entry for entry in overview_entries
     }
+    overview_raw_space_entry_count = sum(
+        b"\x20"
+        in decoded_overview.output[
+            entry.text_offset : entry.text_offset + entry.encoded_size
+        ]
+        for entry in overview_entries
+    )
+    if overview_raw_space_entry_count:
+        raise SystemExit("final ISO stage overview contains raw spaces")
     overview_examples = {}
     for row in overview_corpus.get("entries", []):
         entry = overview_by_id.get(row.get("id"))
@@ -1366,7 +1637,8 @@ def main() -> int:
             or entry.ordinal != row.get("ordinal")
             or f"0x{entry.pointer_offset:X}" != row.get("pointer_offset")
             or f"0x{entry.text_offset:X}" != row.get("text_offset")
-            or entry.source_text != expected_text
+            or entry.source_text
+            != expected_text.replace(" ", "\u3000")
         ):
             raise SystemExit(
                 f"final ISO stage-overview mismatch: {row.get('id')}"
@@ -1392,6 +1664,8 @@ def main() -> int:
         "padding_size": len(overview_chunk) - decoded_overview.consumed,
         "fixed_pointer_entries_exact": True,
         "translated_readback_exact": True,
+        "raw_space_entry_count": overview_raw_space_entry_count,
+        "raw_space_count_zero": True,
     }
     hsfc_reference = full_component_config.get("hsfc_overviews", {})
     hsfc_corpus_reference = hsfc_reference.get("corpus", {})
@@ -1437,6 +1711,23 @@ def main() -> int:
     final_hsfc_records = parse_hsfc_overviews(
         final_hsfc_decoded.output, overview_table
     )
+    hsfc_raw_space_cell_count = 0
+    for record in final_hsfc_records:
+        for cell_index in range(3):
+            cell_offset = (
+                record.record_offset
+                + cell_index * HSFC_OVERVIEW_CELL_SIZE
+            )
+            cell = decode_text(
+                final_hsfc_decoded.output,
+                cell_offset,
+                overview_table,
+            )
+            hsfc_raw_space_cell_count += b"\x20" in final_hsfc_decoded.output[
+                cell_offset : cell_offset + cell.consumed
+            ]
+    if hsfc_raw_space_cell_count:
+        raise SystemExit("final ISO HSFC overview contains raw spaces")
     hsfc_rows = {
         row.get("id"): row for row in hsfc_corpus.get("entries", [])
     }
@@ -1497,6 +1788,8 @@ def main() -> int:
         ),
         "fixed_record_cells_exact": True,
         "translated_readback_exact": True,
+        "raw_space_cell_count": hsfc_raw_space_cell_count,
+        "raw_space_count_zero": True,
     }
     functions = read_stage_function_addresses(slps)
     source_stage_spec = source_config["source"]["stage"]
@@ -1555,6 +1848,7 @@ def main() -> int:
     maximum_dialogue_line_count = 0
     runtime_token_entry_count = 0
     runtime_token_occurrence_count = 0
+    story_raw_space_target_count = 0
     story_ascii_storage_examples = {}
     for stage in stages:
         dialogue = load_translations(
@@ -1638,6 +1932,28 @@ def main() -> int:
                 f"stage {stage:03d} has "
                 f"{parsed.unknown_code_count} unknown codes"
             )
+        stage_raw_space_target_count = 0
+        seen_text_offsets = set()
+        for entry in parsed.entries:
+            if (
+                entry.text_offset is None
+                or entry.text_offset in seen_text_offsets
+            ):
+                continue
+            seen_text_offsets.add(entry.text_offset)
+            stored_text = decode_text(
+                decoded.output,
+                entry.text_offset,
+                stage_table,
+            )
+            stage_raw_space_target_count += b"\x20" in decoded.output[
+                entry.text_offset : entry.text_offset + stored_text.consumed
+            ]
+        if stage_raw_space_target_count:
+            raise SystemExit(
+                f"stage {stage:03d} contains raw visible spaces"
+            )
+        story_raw_space_target_count += stage_raw_space_target_count
 
         source_chunk = source_stage_archive[
             offsets[stage]:offsets[stage + 1]
@@ -1847,6 +2163,8 @@ def main() -> int:
                     stage_runtime_token_occurrence_count
                 ),
                 "runtime_substitution_tokens_raw_ascii": True,
+                "raw_space_target_count": stage_raw_space_target_count,
+                "raw_space_count_zero": True,
             }
         )
 
@@ -1886,6 +2204,39 @@ def main() -> int:
         compdata_report["remaining_ui"]["readback_exact"]
         and fixed_formation_report["readback_exact"]
     )
+
+    srvc_data = members["BTL/SRVC.BIN"]
+    srvc_offsets = parse_seg_offsets(
+        members["BTL/SRVC.SEG"], len(srvc_data)
+    )
+    srvc_chunks = parse_srvc_archive(
+        srvc_data, srvc_offsets, compdata_table
+    )
+    srvc_raw_space_record_count = 0
+    srvc_pollution_record_count = 0
+    for chunk in srvc_chunks:
+        for record in chunk.records:
+            payload = srvc_data[
+                record.archive_text_start : record.archive_text_end
+            ]
+            srvc_raw_space_record_count += b"\x20" in payload
+            srvc_pollution_record_count += "}]}  {" in record.text
+    if srvc_raw_space_record_count or srvc_pollution_record_count:
+        raise SystemExit(
+            "final ISO SRVC contains raw spaces or JSON-fragment pollution"
+        )
+    visible_space_storage = {
+        **compdata_report["visible_space_storage"],
+        "story_raw_space_target_count": story_raw_space_target_count,
+        "stage_overview_raw_space_entry_count": (
+            overview_raw_space_entry_count
+        ),
+        "hsfc_raw_space_cell_count": hsfc_raw_space_cell_count,
+        "srvc_raw_space_record_count": srvc_raw_space_record_count,
+        "srvc_pollution_record_count": srvc_pollution_record_count,
+        "raw_space_count_zero": True,
+        "srvc_pollution_absent": True,
+    }
 
     output = config["output"]
     coverage = renderer_coverage(font_manifest)
@@ -1935,6 +2286,7 @@ def main() -> int:
             "story_storage_examples": story_ascii_storage_examples,
             "story_storage_examples_exact": True,
         },
+        "visible_space_storage": visible_space_storage,
         "compdata": compdata_report,
         "scenario_select_effect": scenario_select_effect,
         "mode_select_effect": mode_select_effect,
@@ -2024,8 +2376,23 @@ def main() -> int:
                     "raw_and_fullwidth_codes_share_glyph_slots"
                 ]
             ),
+            "raw_visible_space_count_zero": visible_space_storage[
+                "raw_space_count_zero"
+            ],
+            "srvc_json_fragment_pollution_absent": visible_space_storage[
+                "srvc_pollution_absent"
+            ],
             "story_ascii_storage_examples_exact": True,
             "pilot_names_exact": compdata_report["readback_exact"],
+            "unit_names_exact": compdata_report["unit_names"][
+                "readback_exact"
+            ],
+            "unit_name_spaces_two_byte_exact": compdata_report[
+                "unit_names"
+            ]["two_byte_spaces_exact"],
+            "unit_name_pointer_relocations_exact": compdata_report[
+                "unit_names"
+            ]["pointer_relocations_exact"],
             "unit_ascii_storage_examples_exact": compdata_report[
                 "unit_ascii_storage_examples_exact"
             ],

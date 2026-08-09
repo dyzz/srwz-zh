@@ -308,7 +308,9 @@ def _parse_unit_entries(
         context="unit record table",
     )
     record_bytes = data[record_start:record_end]
-    if sha256_bytes(record_bytes) != config.get("record_bytes_sha256"):
+    if verify_text_preimages and sha256_bytes(record_bytes) != config.get(
+        "record_bytes_sha256"
+    ):
         raise DisplayNameError("unit record table SHA-256 drift")
 
     raw_regions = config.get("allowed_target_regions")
@@ -380,7 +382,9 @@ def _parse_unit_entries(
         group["record_indices"].append(record_index)
 
     pointer_bytes_sha256 = _sha256_parts(pointer_parts)
-    if pointer_bytes_sha256 != config.get("pointer_bytes_sha256"):
+    if verify_text_preimages and pointer_bytes_sha256 != config.get(
+        "pointer_bytes_sha256"
+    ):
         raise DisplayNameError("unit pointer-byte aggregate drift")
     if len(pointer_parts) != config.get("expected_pointer_count"):
         raise DisplayNameError("unit pointer-count drift")

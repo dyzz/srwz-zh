@@ -15,6 +15,7 @@ try:
     from srwz.display_names import (
         DisplayNameError,
         load_display_name_source,
+        load_full_unit_name_corpus,
         parse_display_names,
     )
     from srwz.font import (
@@ -64,6 +65,10 @@ try:
         project_runtime_text_table,
     )
     from srwz.writeback import replace_archive_chunk_with_preceding_zero_slack
+    from srwz.world_map_titles import (
+        WorldMapTitleError,
+        build_world_map_titles,
+    )
     from srwz.writers import (
         WritebackError,
         build_executable_offset_patch_plan,
@@ -75,6 +80,7 @@ except ModuleNotFoundError:
     from tools.srwz.display_names import (
         DisplayNameError,
         load_display_name_source,
+        load_full_unit_name_corpus,
         parse_display_names,
     )
     from tools.srwz.font import (
@@ -125,6 +131,10 @@ except ModuleNotFoundError:
     )
     from tools.srwz.writeback import (
         replace_archive_chunk_with_preceding_zero_slack,
+    )
+    from tools.srwz.world_map_titles import (
+        WorldMapTitleError,
+        build_world_map_titles,
     )
     from tools.srwz.writers import (
         WritebackError,
@@ -320,11 +330,19 @@ def _stored_text_overrides(
     return overrides
 
 
+def _two_byte_visible_spaces(text: str) -> str:
+    """Store visible word separators through the stock 0x8140 glyph."""
+
+    if not isinstance(text, str):
+        raise TypeError("visible text must be a string")
+    return text.replace(" ", "\u3000")
+
+
 def _apply_full_pilot_names(
     stored_compdata: bytes,
     reference: dict,
     font_manifest: dict,
-) -> tuple[bytes, dict, Path, Path, Path, Path]:
+) -> tuple[bytes, dict, Path, Path, Path, Path, Path]:
     if not isinstance(reference, dict):
         raise FullStoryComponentError("full pilot-name configuration is invalid")
     structure_path, structure_data = _locked_file(
@@ -339,6 +357,10 @@ def _apply_full_pilot_names(
         reference.get("residual_names"),
         label="remaining display-name translations",
     )
+    unit_path, _unit_data = _locked_file(
+        reference.get("unit_names"),
+        label="full unit-name corpus",
+    )
     (
         proposal_path,
         overrides,
@@ -352,6 +374,11 @@ def _apply_full_pilot_names(
     try:
         structure, _original_data, original_names, _context = (
             load_display_name_source(PROJECT_ROOT, structure_path)
+        )
+        unit_decisions, unit_corpus_report = load_full_unit_name_corpus(
+            PROJECT_ROOT,
+            unit_path,
+            original_names.unit_entries,
         )
     except DisplayNameError as error:
         raise FullStoryComponentError(str(error)) from error
@@ -449,8 +476,9 @@ def _apply_full_pilot_names(
         or len(by_source) != expected.get("unique_source_count")
         or len(selected) != expected.get("selected_entry_count")
         or field_counts != expected.get("field_entry_counts")
+        or len(unit_decisions) != expected.get("unit_name_entry_count")
     ):
-        raise FullStoryComponentError("full pilot-name selection drift")
+        raise FullStoryComponentError("full display-name selection drift")
 
     decoded = decode(stored_compdata)
     if decoded.consumed != len(stored_compdata):
@@ -459,6 +487,17 @@ def _apply_full_pilot_names(
     table = load_text_table(table_path)
     source_table = project_runtime_text_table(table, overrides)
     encoding_overrides = _stored_text_overrides(table, overrides)
+    unit_space_code = table.inverse_characters.get("\u3000")
+    if unit_space_code is None or unit_space_code < 0x8000:
+        raise FullStoryComponentError(
+            "unit-name two-byte space code is absent from the stock text table"
+        )
+    unit_space_payload = unit_space_code.to_bytes(2, "big")
+    unit_encoding_overrides = dict(encoding_overrides)
+    # The intermission unit-name renderer advances in two-byte glyph cells.
+    # A raw 0x20 shifts every following Latin glyph by one byte, so retain an
+    # ordinary space in the review corpus but store the stock two-byte space.
+    unit_encoding_overrides[" "] = unit_space_code
     output_table = project_runtime_text_table(
         source_table, original_fullwidth_ascii_overrides(table)
     )
@@ -471,7 +510,7 @@ def _apply_full_pilot_names(
         )
     except DisplayNameError as error:
         raise FullStoryComponentError(str(error)) from error
-    current_by_id = {entry.entry_id: entry for entry in current_names.pilot_entries}
+    current_by_id = {entry.entry_id: entry for entry in current_names.entries}
     output = bytearray(decoded.output)
     write_entry_count = 0
     no_op_entry_count = 0
@@ -518,6 +557,214 @@ def _apply_full_pilot_names(
             output[start:end] = replacement
             write_entry_count += 1
             changed_ids.append(original.entry_id)
+
+    # Unit names share the same pointer-backed COMPDATA string pool.  Their
+    # original allocation metadata records only the minimum aligned span of
+    # the Japanese preimage, while some explicitly approved Latin names need
+    # one additional zero-padded alignment block.  Permit that expansion only
+    # inside an already-zero gap before the next validated unit-name target.
+    # One explicitly configured in-slot relocation also frees the extra cell
+    # needed by ``Drill Spazer`` without changing any unrelated target.
+    unit_alignment = structure["unit_table"].get("target_alignment")
+    if not isinstance(unit_alignment, int) or unit_alignment <= 0:
+        raise FullStoryComponentError("unit-name target alignment is invalid")
+    unit_regions = [
+        (
+            int(str(region["start"]), 0),
+            int(str(region["end"]), 0),
+        )
+        for region in structure["unit_table"].get("allowed_target_regions", [])
+    ]
+    raw_unit_relocations = reference.get("unit_name_relocations", [])
+    if not isinstance(raw_unit_relocations, list):
+        raise FullStoryComponentError("unit-name relocations must be an array")
+    unit_relocations = {}
+    for item in raw_unit_relocations:
+        if not isinstance(item, dict):
+            raise FullStoryComponentError("unit-name relocation is malformed")
+        entry_id = item.get("entry_id")
+        if not isinstance(entry_id, str) or entry_id in unit_relocations:
+            raise FullStoryComponentError(
+                "unit-name relocation ID is missing or duplicated"
+            )
+        try:
+            source_target = int(str(item.get("source_target_offset")), 0)
+            target = int(str(item.get("target_offset")), 0)
+        except (TypeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"unit-name relocation offsets are invalid: {entry_id}"
+            ) from error
+        unit_relocations[entry_id] = {
+            "source_target_offset": source_target,
+            "target_offset": target,
+            "reason": item.get("reason"),
+        }
+    original_unit_by_id = {
+        entry.entry_id: entry for entry in original_names.unit_entries
+    }
+    effective_unit_targets = {
+        entry.entry_id: entry.target_offset
+        for entry in original_names.unit_entries
+    }
+    for entry_id, relocation in unit_relocations.items():
+        original = original_unit_by_id.get(entry_id)
+        if (
+            original is None
+            or original.target_offset != relocation["source_target_offset"]
+            or relocation["target_offset"] % unit_alignment
+        ):
+            raise FullStoryComponentError(
+                f"unit-name relocation source or alignment drift: {entry_id}"
+            )
+        effective_unit_targets[entry_id] = relocation["target_offset"]
+    if len(set(effective_unit_targets.values())) != len(effective_unit_targets):
+        raise FullStoryComponentError("unit-name relocations overlap a target")
+    ordered_units = sorted(
+        original_names.unit_entries,
+        key=lambda entry: effective_unit_targets[entry.entry_id],
+    )
+    unit_max_spans = {}
+    for index, entry in enumerate(ordered_units):
+        effective_target = effective_unit_targets[entry.entry_id]
+        region_end = next(
+            (
+                end
+                for start, end in unit_regions
+                if start <= effective_target < end
+            ),
+            None,
+        )
+        if region_end is None:
+            raise FullStoryComponentError(
+                f"unit-name target leaves configured regions: {entry.entry_id}"
+            )
+        next_target = (
+            effective_unit_targets[ordered_units[index + 1].entry_id]
+            if index + 1 < len(ordered_units)
+            and effective_unit_targets[ordered_units[index + 1].entry_id]
+            < region_end
+            else region_end
+        )
+        unit_max_spans[entry.entry_id] = next_target - effective_target
+        if unit_max_spans[entry.entry_id] <= 0:
+            raise FullStoryComponentError(
+                f"unit-name relocation order overlaps: {entry.entry_id}"
+            )
+
+    # Clear only the original allocations of the explicitly relocated names.
+    # The configured target then reuses the aligned tail of the same slot,
+    # while the preceding name may consume the released aligned cell.
+    for entry_id, relocation in unit_relocations.items():
+        original = original_unit_by_id[entry_id]
+        current = current_by_id[entry_id]
+        old_start = relocation["source_target_offset"]
+        old_end = old_start + original.capacity
+        target = relocation["target_offset"]
+        if (
+            current.target_offset != old_start
+            or not old_start < target < old_end
+        ):
+            raise FullStoryComponentError(
+                f"unit-name relocation does not stay inside its source slot: {entry_id}"
+            )
+        output[old_start:old_end] = bytes(old_end - old_start)
+
+    unit_write_entry_count = 0
+    unit_no_op_entry_count = 0
+    unit_minimum_headroom = None
+    unit_changed_ids = []
+    unit_expanded_ids = []
+    unit_write_spans = {}
+    unit_two_byte_space_ids = []
+    for original in original_names.unit_entries:
+        current = current_by_id.get(original.entry_id)
+        decision = unit_decisions.get(original.entry_id)
+        if (
+            current is None
+            or decision is None
+            or current.target_offset != original.target_offset
+            or current.pointer_offsets != original.pointer_offsets
+        ):
+            raise FullStoryComponentError(
+                f"unit-name structure drift: {original.entry_id}"
+            )
+        translation = normalize_original_fullwidth_ascii(
+            decision["translation"]
+        )
+        try:
+            encoded = encode_text(
+                translation,
+                table,
+                overrides=unit_encoding_overrides,
+                terminate=True,
+            )
+        except (SrwzTextEncodeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"unit-name encoding failed: {original.entry_id}: {error}"
+            ) from error
+        if " " in translation:
+            payload = encoded[:-1]
+            if (
+                b"\x20" in payload
+                or payload.count(unit_space_payload) != translation.count(" ")
+            ):
+                raise FullStoryComponentError(
+                    "unit-name space is not stored as one two-byte glyph per "
+                    f"separator: {original.entry_id}"
+                )
+            unit_two_byte_space_ids.append(original.entry_id)
+        required_span = (
+            (len(encoded) + unit_alignment - 1) // unit_alignment
+        ) * unit_alignment
+        maximum_span = unit_max_spans[original.entry_id]
+        relocated = original.entry_id in unit_relocations
+        owned_span = (
+            required_span
+            if relocated
+            else max(current.capacity, required_span)
+        )
+        if required_span > maximum_span or owned_span > maximum_span:
+            raise FullStoryComponentError(
+                f"unit-name translation exceeds allocation: {original.entry_id}"
+            )
+        start = effective_unit_targets[original.entry_id]
+        end = start + owned_span
+        zero_extension_start = start + current.capacity
+        if (
+            owned_span > current.capacity
+            and any(output[zero_extension_start:end])
+        ):
+            raise FullStoryComponentError(
+                f"unit-name expansion consumes nonzero bytes: {original.entry_id}"
+            )
+        replacement = encoded + bytes(owned_span - len(encoded))
+        if output[start:end] == replacement:
+            unit_no_op_entry_count += 1
+        else:
+            output[start:end] = replacement
+            unit_write_entry_count += 1
+            unit_changed_ids.append(original.entry_id)
+        if required_span > original.capacity:
+            unit_expanded_ids.append(original.entry_id)
+        unit_write_spans[original.entry_id] = owned_span
+        headroom = maximum_span - len(encoded)
+        unit_minimum_headroom = (
+            headroom
+            if unit_minimum_headroom is None
+            else min(unit_minimum_headroom, headroom)
+        )
+
+    pointer_base_address = int(
+        str(structure["unit_table"]["pointer_base_address"]), 0
+    )
+    relocated_pointer_count = 0
+    for entry_id, relocation in unit_relocations.items():
+        current = current_by_id[entry_id]
+        target = relocation["target_offset"]
+        pointer_payload = struct.pack("<I", pointer_base_address + target)
+        for pointer_offset in current.pointer_offsets:
+            output[pointer_offset : pointer_offset + 4] = pointer_payload
+            relocated_pointer_count += 1
 
     try:
         pre_alias_names = parse_display_names(
@@ -618,7 +865,7 @@ def _apply_full_pilot_names(
                 f"{entry.entry_id}: expected={pre_alias_by_id[entry.entry_id].text!r} "
                 f"actual={None if reread_entry is None else reread_entry.text!r}"
             )
-    reread_by_id = {entry.entry_id: entry for entry in reread.pilot_entries}
+    reread_by_id = {entry.entry_id: entry for entry in reread.entries}
     for original in selected:
         if (
             reread_by_id[original.entry_id].text
@@ -626,6 +873,16 @@ def _apply_full_pilot_names(
         ):
             raise FullStoryComponentError(
                 f"pilot-name readback mismatch: {original.entry_id}"
+            )
+    for original in original_names.unit_entries:
+        if (
+            reread_by_id[original.entry_id].text.replace("\u3000", " ")
+            != normalize_original_fullwidth_ascii(
+                unit_decisions[original.entry_id]["translation"]
+            )
+        ):
+            raise FullStoryComponentError(
+                f"unit-name readback mismatch: {original.entry_id}"
             )
 
     codec = reference.get("codec")
@@ -673,8 +930,23 @@ def _apply_full_pilot_names(
             entry.target_offset + entry.capacity,
         )
     )
+    allowed_offsets.update(
+        offset
+        for entry in original_names.unit_entries
+        for offset in range(
+            effective_unit_targets[entry.entry_id],
+            effective_unit_targets[entry.entry_id]
+            + unit_write_spans[entry.entry_id],
+        )
+    )
+    allowed_offsets.update(
+        offset
+        for entry_id in unit_relocations
+        for pointer_offset in current_by_id[entry_id].pointer_offsets
+        for offset in range(pointer_offset, pointer_offset + 4)
+    )
     if any(offset not in allowed_offsets for offset in changed_offsets):
-        raise FullStoryComponentError("pilot-name write escaped selected fields")
+        raise FullStoryComponentError("display-name write escaped selected fields")
     return rebuilt, {
         "story_unique_source_count": len(story_by_source),
         "residual_unique_source_count": len(residual_by_text),
@@ -689,6 +961,33 @@ def _apply_full_pilot_names(
         "changed_entry_ids_sha256": sha256_bytes(
             json.dumps(changed_ids, separators=(",", ":")).encode("utf-8")
         ),
+        "unit_names": {
+            "corpus_batch_id": unit_corpus_report["batch_id"],
+            "entry_count": len(unit_decisions),
+            "write_entry_count": unit_write_entry_count,
+            "no_op_entry_count": unit_no_op_entry_count,
+            "minimum_writable_headroom": unit_minimum_headroom,
+            "expanded_zero_padding_entry_count": len(unit_expanded_ids),
+            "expanded_zero_padding_entry_ids": unit_expanded_ids,
+            "changed_entry_ids_sha256": sha256_bytes(
+                json.dumps(
+                    unit_changed_ids,
+                    separators=(",", ":"),
+                ).encode("utf-8")
+            ),
+            "relocated_entry_count": len(unit_relocations),
+            "relocated_entry_ids": list(unit_relocations),
+            "relocated_pointer_count": relocated_pointer_count,
+            "pointer_bytes_unchanged": not unit_relocations,
+            "pointer_relocations_exact": True,
+            "following_targets_unchanged": True,
+            "two_byte_space_code": f"{unit_space_code:04x}",
+            "two_byte_space_entry_count": len(unit_two_byte_space_ids),
+            "two_byte_space_entry_ids": unit_two_byte_space_ids,
+            "raw_single_byte_space_count": 0,
+            "two_byte_spaces_exact": True,
+            "reread_exact": True,
+        },
         "source_compressed_size": len(stored_compdata),
         "output_compressed_size": len(rebuilt),
         "compressed_sector_budget": codec["max_output_size"],
@@ -723,7 +1022,7 @@ def _apply_full_pilot_names(
             "pointer_bytes_unchanged": True,
             "reread_exact": True,
         },
-    }, structure_path, speaker_path, residual_path, proposal_path
+    }, structure_path, speaker_path, residual_path, unit_path, proposal_path
 
 
 def _apply_full_stage_title_graphics(
@@ -1291,6 +1590,10 @@ def _apply_full_stage_titles(
     }
     if len(stage_replacements) != len(stage_entries):
         raise FullStoryComponentError("full stage-title IDs are not unique")
+    stored_stage_replacements = {
+        entry_id: _two_byte_visible_spaces(translation)
+        for entry_id, translation in stage_replacements.items()
+    }
 
     format_document = json.loads(format_bytes.decode("utf-8"))
     format_id = reference["title_format"].get("entry_id")
@@ -1369,7 +1672,7 @@ def _apply_full_stage_titles(
             decoded.output,
             parsed_compdata,
             table,
-            replacements=stage_replacements,
+            replacements=stored_stage_replacements,
             overrides=title_overrides,
             source_table=current_table,
             source_name="full-story stage titles",
@@ -2316,7 +2619,9 @@ def _apply_remaining_ui(
             raise FullStoryComponentError(
                 f"remaining UI part translation is empty: {entry_id}"
             )
-        normalized = normalize_original_fullwidth_ascii(translation)
+        normalized = _two_byte_visible_spaces(
+            normalize_original_fullwidth_ascii(translation)
+        )
         if _control_signature(original_entry.text) != _control_signature(normalized):
             raise FullStoryComponentError(
                 f"remaining UI part control-token drift: {entry_id}"
@@ -2871,7 +3176,9 @@ def _apply_reviewed_weapon_names(
     for ordinal, item in enumerate(entries):
         entry_id = f"menu/Compdata/02/{ordinal:04d}"
         source = original_by_id.get(entry_id)
-        translation = normalize_original_fullwidth_ascii(item["translation"])
+        translation = _two_byte_visible_spaces(
+            normalize_original_fullwidth_ascii(item["translation"])
+        )
         if (
             item.get("id") != entry_id
             or source is None
@@ -3079,7 +3386,7 @@ def _apply_srvc_battle_text(
             raise FullStoryComponentError(
                 f"SRVC corpus entry or control-token drift: {entry_id}"
             )
-        translations[source_text] = translation
+        translations[source_text] = _two_byte_visible_spaces(translation)
         source_id_by_text[source_text] = entry_id
         override_count += int("production_override" in entry)
 
@@ -4353,6 +4660,7 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         pilot_structure_path,
         story_speaker_path,
         residual_name_path,
+        unit_name_path,
         font_proposal_path,
     ) = _apply_full_pilot_names(
         base_payloads["compdata"],
@@ -4498,6 +4806,16 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
     )
     if mode_select_source_path != scenario_select_source_path:
         raise FullStoryComponentError("VEFF2DX source path drift between targets")
+    (
+        output_mapmodel,
+        world_map_title_report,
+        world_map_title_input_paths,
+    ) = build_world_map_titles(
+        PROJECT_ROOT,
+        WORK_ROOT,
+        config.get("world_map_titles"),
+        preview_root=output_root / "previews/world-map-titles",
+    )
 
     payloads = {
         "SLPS_258.87": output_slps,
@@ -4512,6 +4830,7 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         "BTL/SRVC.BIN": output_srvc_bin,
         "BTL/SRVC.SEG": output_srvc_seg,
         "EFF/VEFF2DX.BIN": output_veff,
+        "MAP/MAPMODEL.BIN": output_mapmodel,
     }
     output_paths = {name: output_root / name for name in payloads}
     stage_headrooms = [
@@ -4542,6 +4861,9 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
             ),
             "remaining_display_names": _file_lock(
                 residual_name_path, residual_name_path.read_bytes()
+            ),
+            "full_unit_names": _file_lock(
+                unit_name_path, unit_name_path.read_bytes()
             ),
             "full_story_font_proposal": _file_lock(
                 font_proposal_path, font_proposal_path.read_bytes()
@@ -4617,6 +4939,18 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 scenario_select_source_path,
                 scenario_select_source_path.read_bytes(),
             ),
+            "world_map_title_corpus": _file_lock(
+                world_map_title_input_paths["corpus"],
+                world_map_title_input_paths["corpus"].read_bytes(),
+            ),
+            "world_map_original_slps": _file_lock(
+                world_map_title_input_paths["original_slps"],
+                world_map_title_input_paths["original_slps"].read_bytes(),
+            ),
+            "world_map_original_archive": _file_lock(
+                world_map_title_input_paths["original_archive"],
+                world_map_title_input_paths["original_archive"].read_bytes(),
+            ),
         },
         "compression": {
             "backend_policy": "rust-only",
@@ -4631,6 +4965,9 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
             ],
             "mode_select_strategy": mode_select_report["codec"]["strategy"],
             "nisv_effect_names_strategy": nisv_effect_names_report["codec"][
+                "strategy"
+            ],
+            "world_map_title_strategy": world_map_title_report["codec"][
                 "strategy"
             ],
         },
@@ -4692,6 +5029,7 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         "srvc_battle_text": srvc_report,
         "scenario_select_effect": scenario_select_report,
         "mode_select_effect": mode_select_report,
+        "world_map_titles": world_map_title_report,
         "global_safe_aliases": global_safe_alias_report,
         "outputs": {
             name: _output_lock(output_paths[name], payload)
@@ -4713,6 +5051,33 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 == "rust-fit"
                 and stage_fixed_formation_report["codec_strategy"]
                 == "rust-fit"
+                and world_map_title_report["codec"]["strategy"]
+                == "rust-fit"
+            ),
+            "world_map_titles_reread_exact": (
+                world_map_title_report["unique_title_count"] == 78
+                and world_map_title_report["translated_unique_title_count"]
+                == 70
+                and world_map_title_report["member_count"] == 115
+                and world_map_title_report["translated_member_count"] == 101
+                and world_map_title_report["archive_size_preserved"]
+                and world_map_title_report["top_level_offsets_preserved"]
+                and world_map_title_report[
+                    "non_title_members_preserved_byte_exact"
+                ]
+                and world_map_title_report[
+                    "non_title_decoded_bytes_preserved"
+                ]
+                and world_map_title_report[
+                    "english_subtitle_preserved_byte_exact"
+                ]
+                and world_map_title_report[
+                    "same_text_members_preserved_byte_exact"
+                ]
+                and world_map_title_report[
+                    "compressed_chunks_fit_allocations"
+                ]
+                and world_map_title_report["codec_round_trip_exact"]
             ),
             "p10_ui_members_inherited_exact": True,
             "encoded_ui_codebook_is_release_subset": True,
@@ -4743,6 +5108,15 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
             "full_story_pilot_names_reread_exact": pilot_name_report[
                 "reread_exact"
             ],
+            "full_story_unit_names_reread_exact": pilot_name_report[
+                "unit_names"
+            ]["reread_exact"],
+            "full_story_unit_name_pointer_relocations_exact": pilot_name_report[
+                "unit_names"
+            ]["pointer_relocations_exact"],
+            "full_story_unit_name_spaces_two_byte": pilot_name_report[
+                "unit_names"
+            ]["two_byte_spaces_exact"],
             "full_story_pilot_name_codec_round_trip_exact": pilot_name_report[
                 "codec_round_trip_exact"
             ],
@@ -4969,7 +5343,12 @@ def main() -> int:
         raise SystemExit(f"output exists; use --force: {report_path}")
     try:
         payloads, report = build(config_path, output_root)
-    except (KeyError, OSError, FullStoryComponentError) as error:
+    except (
+        KeyError,
+        OSError,
+        FullStoryComponentError,
+        WorldMapTitleError,
+    ) as error:
         raise SystemExit(f"full-story component build failed: {error}") from error
     for name, payload in payloads.items():
         path = output_root / name

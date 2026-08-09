@@ -8,7 +8,7 @@
 ```text
 profile: zh-release-full-story
 size:    3,758,358,528 bytes
-sha256:  7b2b9b0f628846cf3ef9685107685af3879df612c26d414cef1cca5d030e7d80
+sha256:  40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c
 static:  passed
 boot smoke: not tested for current exact hash
 target routes: user testing
@@ -17,8 +17,8 @@ target routes: user testing
 静态已确认：
 
 - 66 个 ISO 成员路径和顺序保持；
-- 54 个未替换成员 byte-exact；
-- 12 个 replacement 独立 UDF 回读一致；
+- 53 个未替换成员 byte-exact；
+- 13 个 replacement 独立 UDF 回读一致；
 - 零成员 LBA 位移；
 - 205 个 STAGE 压缩块可严格解码；
 - 154 个选择剧情块的 82719 条对白、558 条条件文本和 8469 个说话人可以从最终
@@ -26,6 +26,8 @@ target routes: user testing
 - 2452 个机师长名／短名字段、`确定／返回`、24×3 对话布局和 1925 个运行时占位符
   可以从最终 ISO 独立回读；
 - 25708 条唯一 SRVC 译文、58740 个索引记录和 353 个块可从最终 ISO 回读；
+- MAPMODEL member 81..195 的 78 个唯一 WORLD MAP 地名全部登记，其中 70 个
+  已重绘；英文副标题、非地名 decoded bytes、member allocation 和 LBA 保持不变；
 - 最终 ISO 的 VT1 字库为 HarmonyOS Sans SC Regular 1.0，`〜∀♪` 三字显式
   回退 Noto，统一 22px、24×24、y=+1；中场休息固定图集使用同家族 Light，
   不改变 VT1。当前字体尚未取得绑定精确 ISO 的新游戏／读档 STAGE 运行时收据。
@@ -33,7 +35,7 @@ target routes: user testing
 这些结论不证明 PCSX2 已到达人物确认后转场、数据库页面、各剧情关卡或 atlas
 目标场景。
 
-当前 r13 的 KVMDATA chunk 11 在 `x=60..153, y=0..23` 将整段
+当前 v0.1.0 的 KVMDATA chunk 11 在 `x=60..153, y=0..23` 将整段
 `までクリア！` 替换为“已通关！”。关卡标题正文另由 `DATA/VT1.BIN` group 8
 中的 107 张独立 512×64、4bpp TIM2 提供，现已逐槽替换为中文。Stage Name 的
 另外 15 项不拥有独立进关贴图，9 条路线选择文案及 6 条内部／测试记录均由
@@ -44,7 +46,7 @@ COMPDATA 文本链覆盖；`第／話`、闭引号、章节数字精灵和 `NEXT
 
 ## 当前运行结论
 
-当前 `7b2b9b0f...` 精确候选不登记运行验收结论。旧候选的 boot smoke、截图和存档
+当前 `40ddc19e...` 精确候选不登记运行验收结论。旧候选的 boot smoke、截图和存档
 只能作为定位线索，不能证明当前哈希能够启动、进入 STAGE 或正确显示文字。后续
 画面和流程由用户在当前精确 ISO 上继续测试。
 
@@ -96,9 +98,9 @@ COMPDATA 仍只用 Rust `rust-fit`。为容纳完整帮助块，生产搜索链�
 保留原 71 扇区分配到下一成员起点之间的不可见空白。Python encoder 未参与，
 没有给压缩流追加填充字节，也没有移动指针、成员边界或 LBA。
 
-这 745 个固定条目已经进入 r13 的组件闭包并完成静态回读。三份细粒度内容摘要仍
-保留其 r11 快照；并行文本润色稳定、组件重建后再统一刷新，不能把工作树中尚未
-重建的译文宣称为已经入盘。
+这 745 个固定条目已经进入 v0.1.0 的组件闭包并完成静态回读；统一内容摘要
+`manifests/zh-release-full-story-iso-content-validation.json` 已绑定当前 v0.1.0 精确哈希。
+后续工作树译文仍必须重建组件和 ISO 并重新刷新该摘要，才能宣称已经入盘。
 
 同资源中仍明确留在后续低优先级批次的内容为：SLPS
 `0x33C280..0x33D6E0` 的 43 条集市物品效果／说明、
@@ -119,7 +121,7 @@ COMPDATA 仍只用 Rust `rust-fit`。为容纳完整帮助块，生产搜索链�
 小队 21 曾显示为“箔哄噪”的问题也已闭合：反向字模映射后的原文是 `別働隊`，
 来源为 `DATA/STAGE.BIN` 第 101 块内的固定编成记录，而不是小队菜单标签。记录 ID
 `0x14..0x1C` 共九项现已全部按原 7 字节槽位写为“别动队”；截图中的 ID `0x15`
-对应解压偏移 `0x9E79`。该组已进入当前 `7b2b9b0f...` ISO 并完成静态回读，运行
+对应解压偏移 `0x9E79`。该组已进入当前 `40ddc19e...` ISO 并完成静态回读，运行
 显示仍由用户测试。
 
 已经静态回读通过的机师名称、机体显示名、武器名、菜单标签、STAGE／HSFC 概要

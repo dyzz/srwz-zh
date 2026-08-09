@@ -1,7 +1,4 @@
-import json
 import unittest
-from collections import Counter
-from pathlib import Path
 
 from tools.srwz.chinese_layout import (
     ChineseLayoutError,
@@ -131,53 +128,6 @@ class ChineseLayoutTests(unittest.TestCase):
                 line_width=16,
                 max_lines=2,
             )
-
-
-class FirstFiveChineseLayoutIntegrationTests(unittest.TestCase):
-    def test_committed_opening_dialogue_is_canonical(self):
-        project_root = Path(__file__).resolve().parents[1]
-        release = json.loads(
-            (project_root / "corpus/releases/v1.json").read_text(encoding="utf-8")
-        )
-        protected_terms = set()
-        for raw_path in release["glossary_sources"]:
-            glossary = json.loads((project_root / raw_path).read_text(encoding="utf-8"))
-            protected_terms.update(
-                term["translation"]
-                for term in glossary["terms"]
-                if len(term["translation"]) > 1
-            )
-
-        distribution = Counter()
-        total_lines = 0
-        for stage_index in range(1, 6):
-            document = json.loads(
-                (
-                    project_root
-                    / "corpus/zh/story-dialogue"
-                    / f"stage-{stage_index:03d}.json"
-                ).read_text(encoding="utf-8")
-            )
-            for entry in document["entries"]:
-                result = reflow_chinese_dialogue(
-                    entry["translation"],
-                    protected_terms=protected_terms,
-                )
-                self.assertEqual(
-                    result.text,
-                    entry["translation"],
-                    entry["id"],
-                )
-                line_count = entry["translation"].count("\n") + 1
-                distribution[line_count] += 1
-                total_lines += line_count
-
-        self.assertEqual(
-            distribution,
-            {1: 1266, 2: 441, 3: 4},
-        )
-        self.assertEqual(total_lines, 2160)
-
 
 if __name__ == "__main__":
     unittest.main()

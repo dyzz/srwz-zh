@@ -1,6 +1,7 @@
 {
   "schema_version": 2,
   "profile_id": "zh-release-full-story",
+  "release_tag": "v0.1.0",
   "component_validation_manifest": "manifests/full-story-components-validation.json",
   "component_required_status": "integrated_global_zh_release_components_validated_runtime_pending",
   "require_component_output_binding": true,
@@ -58,13 +59,13 @@
       "member": "SLPS_258.87",
       "source": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "4c90010670802493c858d62fc1ff66dfa9b7a9f15f221ce851b5535874159425"
+      "sha256": "88ae1ca89506e17338a1a9634f5e48ca08b2546fc104948a0e6e3e21ccc89b70"
     },
     {
       "member": "DATA/COMPDATA.BN",
       "source": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 142554,
-      "sha256": "7db282bb243c4a84e1a16f9b36477a75b03199f915d3ce61748589264bc3780b"
+      "size": 142562,
+      "sha256": "c42e9c696e39e87ede4d52317007937146715ef835fcd4316d6642d607aee1a3"
     },
     {
       "member": "DATA/NISVDATA.BIN",
@@ -88,7 +89,7 @@
       "member": "DATA/STAGE.BIN",
       "source": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "de6f36f1d6c49fd274cb957ebb04a1b0b1dbb6e01e10bce9b40524f5b07e88ed"
+      "sha256": "af6955540998c0f996e5f1c6f95dea71c9d221ba430b157c5f2a7a30a0ce9ca1"
     },
     {
       "member": "DATA/HSFC.BIN",
@@ -109,10 +110,16 @@
       "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b"
     },
     {
+      "member": "MAP/MAPMODEL.BIN",
+      "source": "work/build/zh-release-full-story/components/MAP/MAPMODEL.BIN",
+      "size": 55136688,
+      "sha256": "234710f2d39ae70b854d6f46a5f24e94c4085713b46bf4653b30371b52349518"
+    },
+    {
       "member": "BTL/SRVC.BIN",
       "source": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
       "size": 3313040,
-      "sha256": "ec961ef5595d89318c1129852d73ba9e94f16d30130637b98883d069b39498ab"
+      "sha256": "83cd1010c0a60819711d2447b9a4d9362ad9b7d2bc6f72539cd53f0329b66087"
     },
     {
       "member": "BTL/SRVC.SEG",
@@ -128,11 +135,11 @@
     }
   ],
   "output": {
-    "path": "build/iso/zh-release-full-story/srwz-zh-release-full-story-r13.iso",
-    "report": "build/iso/zh-release-full-story/iso-validation-r13.json",
+    "path": "build/iso/v0.1.0/srwz-zh-v0.1.0.iso",
+    "report": "build/iso/v0.1.0/iso-validation-v0.1.0.json",
     "expected_size": 3758358528,
-    "expected_sha256": "7b2b9b0f628846cf3ef9685107685af3879df612c26d414cef1cca5d030e7d80",
-    "expected_member_manifest_sha256": "b7d2e51b085ae5c87c7a4d7e5e553d028de7ef8ca9d0b634e60e755b7578f07b",
+    "expected_sha256": "40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c",
+    "expected_member_manifest_sha256": "fb6305426f629b5deecad0546b09b85c5af49a413319a7e8dca1573de0ce02fb",
     "expected_root_directory_size": 960,
     "expected_pcsx2_v263_image_type": "DVD",
     "expected_udf_volume_recognition_sequence": "NSR02",
@@ -150,6 +157,7 @@
       "DATA/HSFC.BIN",
       "HEDBDY/HB.BIN",
       "KURODATA/KVMDATA.BIN",
+      "MAP/MAPMODEL.BIN",
       "BTL/SRVC.BIN",
       "BTL/SRVC.SEG",
       "EFF/VEFF2DX.BIN"

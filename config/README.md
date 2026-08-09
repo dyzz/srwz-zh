@@ -6,7 +6,8 @@
 | --- | --- |
 | `iso/zh-release-chain.json` | 当前唯一 ISO、哈希和运行状态 |
 | `iso/zh-release-full-story-build.json` | 固定原盘、成员、LBA 和 ISO 工具链 |
-| `full-story-components.json` | 12 个最终成员的组合契约 |
+| `release/v0.1.0.json` | v0.1.0 原版／目标 ISO 哈希、xdelta3 参数和发布包布局 |
+| `full-story-components.json` | 13 个最终成员的组合契约 |
 | `story-component.json` | 154 个 STAGE 剧情块的固定布局与 Rust 写回契约 |
 | `fonts/zh-font-build-chain.json` | 全局字体及静态图集消费者 |
 | `fonts/zh-release-font.json` | 唯一活动 VT1 字体 profile |
@@ -20,6 +21,7 @@
 - `assets/`：当前 TIM2/PSMT4 图集、组合配置及 `maps/` 像素擦除边界。
 - `display-names/`：人物长名／短名与机体名的原版结构。
 - `iso/`：只保存当前发布构建与单候选状态。
+- `release/`：只保存补丁发布契约；完整 ISO 仍留在本地 `build/iso/`。
 
 历史 UI 分期已折叠为 `manifests/release-base-ui-validation.json`。新文本进入
 `corpus/zh` 和全局字体快照；新图片进入独立 atlas profile；最终只由

@@ -11,6 +11,9 @@ GLOSSARY_PATH = (
     PROJECT_ROOT / "corpus" / "glossary" / "weapons-v1.json"
 )
 RELEASE_PATH = PROJECT_ROOT / "corpus" / "releases" / "v1.json"
+COMPONENT_MANIFEST_PATH = (
+    PROJECT_ROOT / "manifests" / "full-story-components-validation.json"
+)
 
 
 class WeaponTranslationTests(unittest.TestCase):
@@ -51,7 +54,7 @@ class WeaponTranslationTests(unittest.TestCase):
             term_id = f"weapon/{ordinal:04d}"
             self.assertEqual(entry["id"], entry_id)
             self.assertRegex(entry["source_text_sha256"], r"^[0-9a-f]{64}$")
-            self.assertEqual(entry["editorial_status"], "draft")
+            self.assertEqual(entry["editorial_status"], "reviewed")
             self.assertIn(term_id, entry["glossary_refs"])
             self.assertEqual(term["id"], term_id)
             if ordinal in fixed_span_display_contractions:
@@ -66,6 +69,7 @@ class WeaponTranslationTests(unittest.TestCase):
             else:
                 self.assertEqual(term["translation"], entry["translation"])
             self.assertEqual(term["category"], "weapon")
+            self.assertEqual(term["status"], "approved")
             self.assertEqual(term["domains"], ["menu"])
             self.assertFalse(term["enforce"])
 
@@ -75,14 +79,14 @@ class WeaponTranslationTests(unittest.TestCase):
             for entry in self.translations["entries"]
         }
         expected = {
-            1: "硫酸飓风",
+            1: "腐蚀飓风",
             64: "双战斧",
             270: "ν超级火箭筒",
-            352: "MA-M941“金刚杵”光束军刀",
+            352: "MA-M941“金刚杵式”光束军刀",
             372: "光束突击枪（连射）",
             448: "分离式统合控制高速机动兵装群网络系统（连射）",
             518: "光子垫",
-            638: "第七波动",
+            638: "七波",
             650: "队形·加贡多拉",
             709: "灵脉爆破",
         }
@@ -109,7 +113,7 @@ class WeaponTranslationTests(unittest.TestCase):
             if batch["batch_id"] == "v1-menu-weapons"
         )
         self.assertEqual(batch["target_entry_count"], 711)
-        self.assertEqual(batch["status"], "draft_complete")
+        self.assertEqual(batch["status"], "reviewed_complete")
 
     def test_king_gainer_and_gravion_subtitle_decisions_stay_aligned(self):
         entries = {
@@ -148,6 +152,25 @@ class WeaponTranslationTests(unittest.TestCase):
         )
         self.assertEqual(terms[519], "超限战术攻击")
         self.assertEqual(terms[544], "超限战术连击")
+
+    def test_reviewed_weapon_batch_is_written_into_the_integrated_compdata(self):
+        component = json.loads(
+            COMPONENT_MANIFEST_PATH.read_text(encoding="utf-8")
+        )
+        report = component["reviewed_weapons"]
+        self.assertEqual(report["corpus_entry_count"], 711)
+        self.assertEqual(report["unique_target_count"], 711)
+        self.assertEqual(report["shared_nonweapon_owner_count"], 1)
+        self.assertEqual(
+            report["shared_nonweapon_owner_ids"],
+            ["menu/Compdata/04/0031"],
+        )
+        self.assertTrue(report["source_preimages_sha256_exact"])
+        self.assertTrue(report["target_offset_reread_exact"])
+        self.assertTrue(report["codec_round_trip_exact"])
+        self.assertTrue(
+            component["acceptance"]["reviewed_weapon_names_reread_exact"]
+        )
 
 
 

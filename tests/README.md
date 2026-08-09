@@ -3,6 +3,9 @@
 测试按被测模块命名，覆盖解析、控制码、字体、布局、归档、Rust 压缩、TIM2、
 组件组合、ISO/LBA 和运行证据 schema。
 
+剧情语料使用覆盖全部 154 个资源的领域级门禁；具体译句只保存在 `corpus/`，
+不再为早期关卡复制一套逐句期望值。
+
 ```bash
 python3 -m compileall -q tools tests
 python3 -m unittest discover -s tests -p 'test_*.py'

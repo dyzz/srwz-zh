@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 
@@ -108,7 +109,16 @@ def validate_directory_contract(config: dict) -> None:
             work_prefix / "components",
             context=f"replacement {index} source",
         )
-    output_prefix = Path("build") / "iso" / profile_id
+    release_tag = config.get("release_tag")
+    if release_tag is not None and (
+        not isinstance(release_tag, str)
+        or re.fullmatch(r"v\d+\.\d+\.\d+", release_tag) is None
+    ):
+        raise IsoBuildError(
+            "ISO release_tag must use semantic form vMAJOR.MINOR.PATCH"
+        )
+    output_namespace = release_tag or profile_id
+    output_prefix = Path("build") / "iso" / output_namespace
     if not isinstance(config.get("output"), dict):
         raise IsoBuildError("ISO output contract is missing")
     _require_config_path_under(

@@ -52,8 +52,8 @@ work/runtime/pcsx2-sessions/        本地运行会话与 hash-only 证据
 python3 tools/bootstrap_mkps2iso.py
 ```
 
-先构建 Rust codec，再由全局主链一次生成字体、154 个 STAGE 块、六张图集和最终
-12 成员组件：
+先构建 Rust codec，再由全局主链一次生成字体、154 个 STAGE 块、六张图集、
+MAPMODEL 世界地图地名和最终 13 成员组件：
 
 ```bash
 python3 tools/build_rust_compressor.py
@@ -89,17 +89,17 @@ builder 必须同时验证：
 当前单一候选为：
 
 ```text
-build/iso/zh-release-full-story/
-  srwz-zh-release-full-story-r13.iso
+build/iso/v0.1.0/
+  srwz-zh-v0.1.0.iso
 ```
 
 其 SHA-256 为
-`7b2b9b0f628846cf3ef9685107685af3879df612c26d414cef1cca5d030e7d80`，大小为
+`40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c`，大小为
 `3758358528` 字节，与原版镜像大小完全一致。`DATA/VT1.BIN` 保持原始
 `127500736` 字节，`DATA/STAGE.BIN` 及其后所有成员的 LBA 均不移动。
-`build/iso/zh-release-full-story/iso-validation-r13.json` 已锁定两次
-字节级一致构建、66 个成员的 ISO9660/UDF 读取、54 个未替换成员 byte-exact 和
-12 个 replacement byte-exact。构建配置还要求 12 个 replacement 与
+`build/iso/v0.1.0/iso-validation-v0.1.0.json` 已锁定两次
+字节级一致构建、66 个成员的 ISO9660/UDF 读取、53 个未替换成员 byte-exact 和
+13 个 replacement byte-exact。构建配置还要求 13 个 replacement 与
 `manifests/full-story-components-validation.json` 的输出路径、大小和 SHA-256
 逐项一致，不能复制旧锁后直接出盘。单候选重建命令为：
 
@@ -108,15 +108,25 @@ python3 tools/build_iso.py \
   --config config/iso/zh-release-full-story-build.json
 ```
 
-三份详细内容回读摘要分别覆盖整合剧情、剩余 UI 和 SRVC 战斗字幕：154 个剧情
-块的 91746 条文本、2452 个机师长名／短名字段、307 条 COMPDATA 固定偏移 UI、
-357 条 COMPDATA 帮助文本、6 条 COMPDATA 定长内联 UI、59 条队长效果、
-379 条 SLPS 上下文 UI、156 条 SLPS UI、9 条 STAGE 固定小队名、132 条实际写回的
-强化部件文本，以及 25708 条唯一 SRVC 译文／58740 个索引记录／353 个块。所有
-这三份摘要仍保留其原 r11 哈希作为历史快照；r13 由当前组件 manifest 的 12 项
-输出锁和 ISO builder 的 12 项独立 UDF 成员回读绑定。由于并行润色仍在改动
-NISVDATA、COMPDATA 与 SRVC 语料，内容回读器会按预期拒绝用新语料覆盖旧快照；
-待语料稳定并重建组件后再统一刷新三份摘要。
+完整 ISO 是本地开发和运行验收制品，不对外分发。生成 v0.1.0 可分发补丁包时运行：
+
+```bash
+python3 tools/build_release.py --config config/release/v0.1.0.json
+```
+
+发布工具固定核对原版与目标 ISO 的大小和 SHA-256，使用 xdelta3 3.2.0 生成补丁，
+再从原版实际还原目标镜像并复核哈希。输出目录
+`build/release/v0.1.0/` 只允许包含 `.xdelta`、说明、清单、校验文件和 ZIP；ISO
+不得进入发布目录或 ZIP。
+
+`manifests/zh-release-full-story-iso-content-validation.json` 是唯一的整盘内容回读
+摘要，并绑定当前 v0.1.0 的大小与 SHA-256。它覆盖 154 个剧情块的 91746 条文本、
+2452 个机师长名／短名字段、307 条 COMPDATA 固定偏移 UI、357 条 COMPDATA
+帮助文本、6 条 COMPDATA 定长内联 UI、59 条队长效果、379 条 SLPS 上下文 UI、
+169 条 SLPS UI、9 条 STAGE 固定小队名和 132 条实际写回的强化部件文本。
+`manifests/full-story-components-validation.json` 另锁定 25708 条唯一 SRVC 译文、
+58740 个索引记录和 353 个块，并证明控制 token、记录预算、索引结构、SEG 和未索引
+尾部保持不变。历史 R11 的分领域快照不再作为当前仓库结论。
 
 字体组件链使用 HarmonyOS Sans SC
 Regular 1.0，只有 `〜∀♪` 三个字符显式回退 Noto Sans CJK SC 2.004；动态 CJK
@@ -135,7 +145,7 @@ HarmonyOS Sans SC Light；chunk 7 的“移至后备区／移至小队区”在�
 Name 的显示归属：107 个可玩标题由 VT1 group 8 中独立的 512×64、4bpp TIM2
 提供并逐槽生成中文；另外 15 条路线选择／内部记录由 COMPDATA 动态文字覆盖。
 每个压缩 slot、内部偏移表、VT1 总大小和成员 LBA 均保持不变。当前
-`7b2b9b0f...` ISO 尚未取得绑定精确哈希的
+`40ddc19e...` ISO 尚未取得绑定精确哈希的
 fresh-process 启动收据；上一候选的启动结果不能外推。新游戏、读档 STAGE 入口和
 战斗字幕画面均由用户继续测试；静态回读不能晋级为 runtime passed。
 

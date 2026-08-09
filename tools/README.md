@@ -20,6 +20,7 @@ vendor/upstream-python/       两份固定只读数据定义
 | 剧情组件 | `build_story_component.py`（通常由全局字体主链自动调用） |
 | 最终组件 | `build_full_story_components.py`（通常由全局字体主链自动调用） |
 | ISO | `build_iso.py --config config/iso/zh-release-full-story-build.json` |
+| 发布补丁 | `build_release.py --config config/release/v0.1.0.json` |
 | 静态回读 | `verify_zh_release_font.py`、`ui_atlas.py verify-suite`、`verify_full_story_iso_content.py` |
 | 运行证据 | `pcsx2.py prepare/verify/launch/stop/collect/savestate-register/savestate-verify` |
 
@@ -40,8 +41,11 @@ vendor/upstream-python/       两份固定只读数据定义
 ```bash
 python3 tools/rebuild_zh_font.py --skip-fetch
 python3 tools/build_iso.py --config config/iso/zh-release-full-story-build.json
+python3 tools/build_release.py --config config/release/v0.1.0.json
 ```
 
-前者按顺序重建全局字体、154 个 STAGE 块、六张图集和 12 成员最终组件；确认输入
-或 ratchet 发生预期变化时才附加 `--refresh-manifests`，字体视觉规则变化时再附加
-`--refresh-asset-ratchets`。
+前者按顺序重建全局字体、154 个 STAGE 块、六张图集、MAPMODEL 世界地图地名和
+13 成员最终组件；确认输入或 ratchet 发生预期变化时才附加
+`--refresh-manifests`，字体视觉规则变化时再附加 `--refresh-asset-ratchets`。
+发布入口先验证原版和目标 ISO 的固定大小与 SHA-256，再用锁定的 xdelta3 版本生成
+补丁并实际还原一次；`build/release/v0.1.0/` 中不得出现 ISO。

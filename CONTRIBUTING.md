@@ -25,5 +25,14 @@ git diff --check
 涉及最终组件或 ISO 时，还要运行对应 verifier，并把结论绑定到精确制品哈希。
 静态回读、模拟器启动、目标流程和画面验收是不同证据层，不能互相替代。
 
+准备补丁包时运行：
+
+```bash
+python3 tools/build_release.py --config config/release/v0.1.0.json
+```
+
+完整 ISO 只保留在本地 `build/iso/`。`build/release/` 只能包含 xdelta 补丁、说明、
+清单、校验文件和它们的归档，不能包含 ISO；发布工具必须实际还原并核对目标哈希。
+
 提交前用 `git status --short` 和 `git diff --stat` 确认范围；只有用户明确授权后
 才提交、推送或发布补丁。

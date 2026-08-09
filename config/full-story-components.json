@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "profile_id": "srwz-global-zh-release-integrated-v1",
-  "scope": "Compose the validated encoded UI component, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
+  "scope": "Compose the validated encoded UI component, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
   "base_ui": {
     "manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -55,15 +55,15 @@
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 17852763,
-      "sha256": "4f7f63bd21103d2c226ebf5a4b2a14e7bd4c7234acfe6a8ba83f75b81ad0155e"
+      "size": 17852765,
+      "sha256": "52e1364fc3ed65a5e57f4b877c894c000cb979569b4b19bfa308d0baf3f66bb8"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 154,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "e190b1625b2b6d67318d863895bda29c07b1557d4b9139164b267a8f85ecfc3a"
+      "sha256": "c878700fff8588cfffc483d20fdba930ccc9cfc7b6a72710a1c8e2a27ea40e99"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -89,14 +89,28 @@
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 88318,
-      "sha256": "a6cb5865eca5316d5f38d1910f9269a7b331660987b7e10bdf4d5e9736d13aec"
+      "size": 88943,
+      "sha256": "172a501e23ebd854d17958f33e6077f8b1f5751e78a3d5e81a191ae3fb26fb20"
     },
+    "unit_names": {
+      "path": "corpus/zh/display-names/units-full.json",
+      "size": 15690,
+      "sha256": "3371113cea4c23914cbe9e4ae15dc9c758d757401ca3dde9284b553ff89254aa"
+    },
+    "unit_name_relocations": [
+      {
+        "entry_id": "display-name/unit/0011/name",
+        "source_target_offset": "0x6D198",
+        "target_offset": "0x6D1A0",
+        "reason": "free one aligned cell so Drill Spazer can use a two-byte space"
+      }
+    ],
     "expected": {
       "story_unique_source_count": 424,
       "residual_unique_source_count": 283,
       "unique_source_count": 707,
       "selected_entry_count": 2452,
+      "unit_name_entry_count": 348,
       "field_entry_counts": {
         "display": 933,
         "family": 601,
@@ -133,8 +147,8 @@
     },
     "title_format": {
       "path": "corpus/zh/menu/unclassified.json",
-      "size": 114536,
-      "sha256": "5f5eb156f90d8b6abe9e027e9cf3263a1b8aebc06ece67d11da53f4fc5ebeda9",
+      "size": 114544,
+      "sha256": "4f54e051df14479783ff1564e116e023a797785f9e501f00fd43206158ae4a86",
       "entry_id": "menu/SLPS/00/0342",
       "translation": "\"%s\""
     },
@@ -402,8 +416,8 @@
   "remaining_ui": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 88318,
-      "sha256": "a6cb5865eca5316d5f38d1910f9269a7b331660987b7e10bdf4d5e9736d13aec"
+      "size": 88943,
+      "sha256": "172a501e23ebd854d17958f33e6077f8b1f5751e78a3d5e81a191ae3fb26fb20"
     },
     "parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
@@ -433,7 +447,7 @@
       "slps_context_ui_entry_count": 379,
       "stage_fixed_formation_entry_count": 9,
       "stage_fixed_formation_chunk_index": 101,
-      "slps_entry_count": 156,
+      "slps_entry_count": 169,
       "accepted_current_preimage_count": 4,
       "parts_entry_count": 133,
       "parts_source_target_occurrence_count": 134,
@@ -472,8 +486,8 @@
   "nisv_effect_names": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 88318,
-      "sha256": "a6cb5865eca5316d5f38d1910f9269a7b331660987b7e10bdf4d5e9736d13aec"
+      "size": 88943,
+      "sha256": "172a501e23ebd854d17958f33e6077f8b1f5751e78a3d5e81a191ae3fb26fb20"
     },
     "original_archive": {
       "path": "work/build/zh-release-full-story/iso/original/DATA/NisVData.bin",
@@ -512,8 +526,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6920493,
-      "sha256": "bf4bac2fec95712fc1fa8c6f9f036a1d684444ec1d76e17b7e17a36c5545e576"
+      "size": 6920485,
+      "sha256": "828d11a68109acf8368f640c93bd2c66643b80adef0dffe1c99ba7894244ae20"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -793,6 +807,72 @@
     "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
     "size": 3335408,
     "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b"
+  },
+  "world_map_titles": {
+    "original_slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "original_archive": {
+      "path": "work/disc/MAP/MAPMODEL.BIN",
+      "size": 55136688,
+      "sha256": "e33a7c33346de4be04fce50401dd62d294eb521e588188821c1b5a99267700e2"
+    },
+    "corpus": {
+      "path": "corpus/zh/ui-atlas/world-map-titles-v1.json",
+      "size": 19849,
+      "sha256": "f68b3c08e4126073c7b244bff1afc6c7644826b7aabe83d5144cb6bdaa2f2b67"
+    },
+    "archive": {
+      "member": "MAP/MAPMODEL.BIN",
+      "offset_table_start": "0x2FAAD0",
+      "offset_count": 197,
+      "offset_table_sha256": "17a89f2432d916bd9f2bafa960f06eb6aa1bc4d8b54a31f5645daf6daff4d599",
+      "first_title_member": 81,
+      "last_title_member": 195,
+      "storage": "srwz_stream_fixed_allocation",
+      "alignment": 16
+    },
+    "texture": {
+      "width": 512,
+      "height": 32,
+      "bpp": 4,
+      "storage": "linear_low_nibble_first_vertical_flip",
+      "japanese_raw_start": "0x1DE0",
+      "japanese_raw_end": "0x3DE0",
+      "english_raw_start": "0x3E40",
+      "english_raw_end": "0x5E40",
+      "english_raw_sha256": "b43fb034de38ce22b1c8c5b26715a323bef5ba6abe56a0442af53755a6f9f61d"
+    },
+    "font_flavor": "config/fonts/zh-localization-font-light.json",
+    "render": {
+      "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+      "max_point_size": 26,
+      "min_point_size": 18,
+      "kerning_candidates": [
+        2,
+        1.5,
+        1,
+        0.5,
+        0
+      ],
+      "hinting": false,
+      "antialias": true,
+      "canvas_width": 1024,
+      "canvas_height": 64
+    },
+    "codec": {
+      "strategy": "rust-fit",
+      "min_match_length": 2,
+      "max_match_chain": 1024
+    },
+    "expected": {
+      "unique_title_count": 78,
+      "member_count": 115,
+      "translated_unique_title_count": 70,
+      "translated_member_count": 101
+    }
   },
   "composition": {
     "font_chunk_index": 2,

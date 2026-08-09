@@ -165,7 +165,9 @@ def replace_stage_overviews_in_place(
                 f"{source.entry_id}"
             )
         seen_translations[source_hash] = translation
-        normalized = normalize_original_fullwidth_ascii(translation)
+        normalized = normalize_original_fullwidth_ascii(translation).replace(
+            " ", "\u3000"
+        )
         encoded = encode_text(
             normalized,
             table,

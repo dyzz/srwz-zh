@@ -138,7 +138,7 @@ class BattleLineTranslationTests(unittest.TestCase):
             {"proposed", "researched"},
         )
         by_id = {term["id"]: term for term in terms}
-        self.assertEqual(by_id["unit/turn-x"]["translation"], "倒X")
+        self.assertEqual(by_id["unit/turn-x"]["translation"], "逆X")
         self.assertEqual(
             by_id["unit/overdevil"]["translation"],
             "超限恶魔",

@@ -11,30 +11,19 @@ COMPONENT_MANIFEST = (
     PROJECT_ROOT / "manifests/full-story-components-validation.json"
 )
 ISO_REPORT = (
-    PROJECT_ROOT / "build/iso/zh-release-full-story/iso-validation-r13.json"
+    PROJECT_ROOT / "build/iso/v0.1.0/iso-validation-v0.1.0.json"
 )
 CONTENT_MANIFEST = (
     PROJECT_ROOT
     / "manifests/zh-release-full-story-iso-content-validation.json"
 )
-REMAINING_UI_CONTENT_MANIFEST = (
-    PROJECT_ROOT
-    / "manifests/zh-release-remaining-ui-iso-content-validation.json"
-)
-SRVC_CONTENT_MANIFEST = (
-    PROJECT_ROOT
-    / "manifests/zh-release-srvc-battle-iso-content-validation.json"
-)
 FONT_PROPOSAL = (
     PROJECT_ROOT / "work/writeback/zh-release-codebook-proposal.json"
 )
+REMAINING_UI_CORPUS = PROJECT_ROOT / "corpus/zh/menu/remaining-ui.json"
 STAGE_REPORT = (
     PROJECT_ROOT
     / "work/build/full-story-stage/components/component-validation.json"
-)
-DETAIL_CONTENT_ISO_NAME = "srwz-zh-release-full-story-r11.iso"
-DETAIL_CONTENT_ISO_SHA256 = (
-    "57b3ec89c53057b8ee9513811144edb2cfdf3f14d47430da20e63a6121573223"
 )
 
 
@@ -58,13 +47,10 @@ class ZhReleaseIsoTests(unittest.TestCase):
         cls.content = json.loads(
             CONTENT_MANIFEST.read_text(encoding="utf-8")
         )
-        cls.remaining_ui_content = json.loads(
-            REMAINING_UI_CONTENT_MANIFEST.read_text(encoding="utf-8")
-        )
-        cls.srvc_content = json.loads(
-            SRVC_CONTENT_MANIFEST.read_text(encoding="utf-8")
-        )
         cls.proposal = json.loads(FONT_PROPOSAL.read_text(encoding="utf-8"))
+        cls.remaining_ui_corpus = json.loads(
+            REMAINING_UI_CORPUS.read_text(encoding="utf-8")
+        )
         cls.stage = json.loads(STAGE_REPORT.read_text(encoding="utf-8"))
 
     def test_iso_replacements_are_bound_to_current_component_outputs(self):
@@ -124,6 +110,7 @@ class ZhReleaseIsoTests(unittest.TestCase):
             )
         )
         self.assertEqual(compression["component_strategy"], "rust-fit")
+        self.assertEqual(compression["world_map_title_strategy"], "rust-fit")
         self.assertEqual(
             compression["scenario_select_strategy"],
             "rust-fit",
@@ -142,6 +129,7 @@ class ZhReleaseIsoTests(unittest.TestCase):
         self.assertEqual(graphics["texture_entry_count"], 107)
         self.assertEqual(graphics["text_only_entry_count"], 15)
         self.assertTrue(graphics["all_stage_name_entries_accounted_for"])
+
         self.assertEqual(
             [item["ordinal"] for item in graphics["text_only_entries"]],
             list(range(107, 122)),
@@ -178,15 +166,43 @@ class ZhReleaseIsoTests(unittest.TestCase):
             self.component["outputs"]["DATA/VT1.BIN"]["sha256"],
         )
 
+    def test_world_map_location_titles_are_bound_to_mapmodel(self):
+        report = self.component["world_map_titles"]
+        self.assertEqual(report["unique_title_count"], 78)
+        self.assertEqual(report["translated_unique_title_count"], 70)
+        self.assertEqual(report["member_count"], 115)
+        self.assertEqual(report["translated_member_count"], 101)
+        self.assertEqual(report["member_range"], [81, 195])
+        self.assertGreaterEqual(
+            report["codec"]["minimum_translated_member_headroom"],
+            0,
+        )
+        self.assertTrue(report["archive_size_preserved"])
+        self.assertTrue(report["top_level_offsets_preserved"])
+        self.assertTrue(report["non_title_decoded_bytes_preserved"])
+        self.assertTrue(report["english_subtitle_preserved_byte_exact"])
+        self.assertTrue(report["same_text_members_preserved_byte_exact"])
+        self.assertTrue(
+            self.component["acceptance"]["world_map_titles_reread_exact"]
+        )
+        self.assertEqual(
+            self.component["outputs"]["MAP/MAPMODEL.BIN"]["sha256"],
+            "234710f2d39ae70b854d6f46a5f24e94c4085713b46bf4653b30371b52349518",
+        )
+
     def test_final_iso_hash_layout_and_current_candidate_are_locked(self):
         output = self.config["output"]
         iso_path = PROJECT_ROOT / output["path"]
         generated = sorted((PROJECT_ROOT / "build/iso").rglob("*.iso"))
-        self.assertIn(iso_path, generated)
-        self.assertEqual(iso_path.name, "srwz-zh-release-full-story-r13.iso")
-        self.assertEqual(len(self.config["replacements"]), 12)
+        self.assertEqual(generated, [iso_path])
+        self.assertEqual(iso_path.name, "srwz-zh-v0.1.0.iso")
+        self.assertEqual(len(self.config["replacements"]), 13)
         self.assertIn(
             "DATA/NISVDATA.BIN",
+            {item["member"] for item in self.config["replacements"]},
+        )
+        self.assertIn(
+            "MAP/MAPMODEL.BIN",
             {item["member"] for item in self.config["replacements"]},
         )
         self.assertEqual(iso_path.stat().st_size, output["expected_size"])
@@ -200,23 +216,19 @@ class ZhReleaseIsoTests(unittest.TestCase):
             output["expected_member_manifest_sha256"],
         )
         self.assertEqual(self.iso_report["layout"]["shifted_member_count"], 0)
-        self.assertEqual(self.iso_report["layout"]["unchanged_member_count"], 54)
+        self.assertEqual(self.iso_report["layout"]["unchanged_member_count"], 53)
         self.assertTrue(
             self.iso_report["component_binding"][
                 "all_replacements_match_component_outputs"
             ]
         )
 
-    def test_historical_detail_content_readback_is_complete(self):
+    def test_current_v0_1_0_content_readback_is_complete(self):
         self.assertEqual(
             Path(self.content["iso"]["path"]).name,
-            DETAIL_CONTENT_ISO_NAME,
+            "srwz-zh-v0.1.0.iso",
         )
         self.assertEqual(
-            self.content["iso"]["sha256"],
-            DETAIL_CONTENT_ISO_SHA256,
-        )
-        self.assertNotEqual(
             self.content["iso"]["sha256"],
             self.config["output"]["expected_sha256"],
         )
@@ -272,19 +284,11 @@ class ZhReleaseIsoTests(unittest.TestCase):
         )
         self.assertTrue(nisv["translated_reread_exact"])
 
-    def test_historical_remaining_ui_detail_readback_is_preserved(self):
-        report = self.remaining_ui_content
+    def test_current_v0_1_0_remaining_ui_readback_is_complete(self):
+        report = self.content["compdata"]
+        self.assertEqual(report["selected_entry_count"], 2452)
         self.assertEqual(
-            report["iso"]["sha256"],
-            DETAIL_CONTENT_ISO_SHA256,
-        )
-        self.assertNotEqual(
-            report["iso"]["sha256"],
-            self.config["output"]["expected_sha256"],
-        )
-        self.assertEqual(report["pilot_names"]["selected_entry_count"], 2452)
-        self.assertEqual(
-            report["pilot_names"]["field_entry_counts"],
+            report["field_entry_counts"],
             {"display": 933, "given": 918, "family": 601},
         )
         remaining = report["remaining_ui"]
@@ -298,13 +302,14 @@ class ZhReleaseIsoTests(unittest.TestCase):
         self.assertEqual(
             remaining["stage_fixed_formation"]["entry_count"], 9
         )
-        self.assertEqual(remaining["slps"]["entry_count"], 156)
+        self.assertEqual(remaining["slps"]["entry_count"], 169)
         self.assertEqual(remaining["parts"]["written_entry_count"], 132)
+        atlas = self.component["remaining_ui"]["atlas"]
         self.assertEqual(
-            report["atlas"]["protected_single_character_sources"],
+            atlas["protected_single_character_sources"],
             ["攻", "反"],
         )
-        self.assertEqual(report["atlas"]["pending_dedicated_mask_count"], 4)
+        self.assertEqual(atlas["pending_dedicated_mask_count"], 4)
         self.assertTrue(
             report["new_game_regressions"][
                 "male_default_name_readback_exact"
@@ -313,7 +318,8 @@ class ZhReleaseIsoTests(unittest.TestCase):
         self.assertTrue(
             report["new_game_regressions"]["male_profile_within_24x3"]
         )
-        self.assertTrue(all(report["checks"].values()))
+        self.assertTrue(remaining["readback_exact"])
+        self.assertTrue(self.content["checks"]["remaining_ui_binary_text_exact"])
 
     def test_new_game_title_name_and_profile_regressions_are_locked(self):
         title = self.content["scenario_select_effect"]
@@ -388,6 +394,75 @@ class ZhReleaseIsoTests(unittest.TestCase):
             },
         )
         self.assertTrue(regressions["male_default_name_readback_exact"])
+        fixed_slps = self.remaining_ui_corpus["slps_by_offset"]
+        self.assertEqual(fixed_slps["0x347A00"], "巴尔戈拉")
+        self.assertEqual(
+            {
+                offset: fixed_slps[offset]
+                for offset in ("0x345DC8", "0x345DD0", "0x345DE0")
+            },
+            {
+                "0x345DC8": "三角",
+                "0x345DD0": "中央",
+                "0x345DE0": "广域",
+            },
+        )
+        fixed_compdata = self.remaining_ui_corpus[
+            "compdata_direct_by_offset"
+        ]
+        self.assertEqual(
+            {
+                offset: fixed_compdata[offset]
+                for offset in (
+                    "0x7F580",
+                    "0x7F5A0",
+                    "0x7F5C0",
+                    "0x7F5E0",
+                    "0x7F5E8",
+                    "0x7F5F8",
+                )
+            },
+            {
+                "0x7F580": "三角队形",
+                "0x7F5A0": "中央队形",
+                "0x7F5C0": "广域队形",
+                "0x7F5E0": "三角",
+                "0x7F5E8": "中央",
+                "0x7F5F8": "广域",
+            },
+        )
+        self.assertEqual(
+            {
+                offset: fixed_slps[offset]
+                for offset in ("0x342580", "0x3425B0", "0x3425C4")
+            },
+            {
+                "0x342580": "攻击",
+                "0x3425B0": "反击",
+                "0x3425C4": "参与攻击",
+            },
+        )
+        self.assertEqual(
+            {
+                offset: fixed_slps[offset]
+                for offset in (
+                    "0x343FB0",
+                    "0x343FE0",
+                    "0x344010",
+                    "0x344040",
+                    "0x344070",
+                    "0x3440A0",
+                )
+            },
+            {
+                "0x343FB0": "热魂闪不铁集必加迅觉手狙直努乱分",
+                "0x343FE0": "热魂闪不铁集必加迅觉手狙直幸努乱",
+                "0x344010": "热魂闪不铁集必加迅觉手狙直努／乱分",
+                "0x344040": "热魂闪不铁集必加迅觉手狙直幸努／乱",
+                "0x344070": "热魂闪不铁集必加\n迅觉手狙直努乱分",
+                "0x3440A0": "热魂闪不铁集必加\n迅觉手狙直幸努乱",
+            },
+        )
         self.assertEqual(
             regressions["scenario_button_offsets"],
             {"0x33BD4A": "：确定", "0x33BD58": "：取消"},
@@ -414,17 +489,26 @@ class ZhReleaseIsoTests(unittest.TestCase):
         self.assertTrue(
             self.component["acceptance"]["srvc_battle_text_reread_exact"]
         )
-        self.assertEqual(
-            self.srvc_content["iso"]["sha256"],
-            DETAIL_CONTENT_ISO_SHA256,
+        srvc = self.component["srvc_battle_text"]
+        self.assertEqual(srvc["unique_text_count"], 25708)
+        self.assertEqual(srvc["record_count"], 58740)
+        self.assertEqual(srvc["chunk_count"], 353)
+        self.assertEqual(srvc["translated_reread_count"], 58740)
+        for key in (
+            "translated_reread_exact",
+            "control_tokens_preserved",
+            "record_budgets_preserved",
+            "chunk_boundaries_preserved",
+            "index_structure_preserved",
+            "metadata_preserved_byte_exact",
+            "unindexed_tails_preserved_byte_exact",
+            "zero_record_chunks_preserved_byte_exact",
+            "seg_preserved_byte_exact",
+        ):
+            self.assertTrue(srvc[key], key)
+        self.assertTrue(
+            self.content["visible_space_storage"]["srvc_pollution_absent"]
         )
-        self.assertNotEqual(
-            self.srvc_content["iso"]["sha256"],
-            self.config["output"]["expected_sha256"],
-        )
-        self.assertEqual(self.srvc_content["srvc"]["unique_text_count"], 25708)
-        self.assertEqual(self.srvc_content["srvc"]["record_count"], 58740)
-        self.assertTrue(all(self.srvc_content["checks"].values()))
         self.assertEqual(step["runtime_status"], "not_tested")
         self.assertFalse(step["promotion_eligible"])
         self.assertEqual(

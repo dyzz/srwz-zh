@@ -48,6 +48,8 @@ class StoryConditionTranslationTests(unittest.TestCase):
         self.assertEqual(entries[0]["id"], "story/001/condition/00/00")
         self.assertEqual(entries[-1]["id"], "story/186/condition/02/01")
 
+        status_counts = Counter(entry["editorial_status"] for entry in entries)
+        self.assertEqual(status_counts, Counter({"draft": 526, "reviewed": 32}))
         for entry in entries:
             self.assertRegex(
                 entry["id"],
@@ -55,7 +57,7 @@ class StoryConditionTranslationTests(unittest.TestCase):
             )
             self.assertRegex(entry["source_text_sha256"], r"^[0-9a-f]{64}$")
             self.assertNotIn("source_text", entry)
-            self.assertEqual(entry["editorial_status"], "draft")
+            self.assertIn(entry["editorial_status"], {"draft", "reviewed"})
             self.assertIn(
                 entry["translation_action"],
                 {"translate", "preserve"},
@@ -184,7 +186,7 @@ class StoryConditionTranslationTests(unittest.TestCase):
         )
         by_id = {term["id"]: term for term in terms}
         self.assertEqual(by_id["system/annihilation"]["translation"], "全灭")
-        self.assertEqual(by_id["unit/shurouga"]["translation"], "修罗神")
+        self.assertEqual(by_id["unit/shurouga"]["translation"], "狩狼牙")
         self.assertFalse(by_id["people/ian"]["enforce"])
         self.assertFalse(by_id["people/sara"]["enforce"])
 

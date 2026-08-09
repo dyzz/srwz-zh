@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "version": "0.1.0",
+  "tag": "v0.1.0",
+  "channel": "beta",
+  "source_iso": {
+    "path": "rom/srwz.iso",
+    "size": 3758358528,
+    "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+  },
+  "target_iso": {
+    "path": "build/iso/v0.1.0/srwz-zh-v0.1.0.iso",
+    "size": 3758358528,
+    "sha256": "40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c"
+  },
+  "xdelta": {
+    "executable": "xdelta3",
+    "version_line": "Xdelta version 3.2.0, Copyright (C) Joshua MacDonald",
+    "encode_args": [
+      "-e",
+      "-9",
+      "-S",
+      "djw"
+    ],
+    "patch_filename": "srwz-zh-v0.1.0.xdelta"
+  },
+  "output": {
+    "directory": "build/release/v0.1.0",
+    "archive_filename": "srwz-zh-v0.1.0.zip"
+  },
+  "evidence": [
+    "config/release/v0.1.0.json",
+    "tools/build_release.py",
+    "config/iso/zh-release-full-story-build.json",
+    "build/iso/v0.1.0/iso-validation-v0.1.0.json",
+    "manifests/full-story-components-validation.json",
+    "manifests/zh-release-full-story-iso-content-validation.json"
+  ]
+}

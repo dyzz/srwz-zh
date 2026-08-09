@@ -2,12 +2,12 @@
   "schema_version": 1,
   "status": "integrated_global_zh_release_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-integrated-v1",
-  "scope": "Compose the validated encoded UI component, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
+  "scope": "Compose the validated encoded UI component, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 24427,
-      "sha256": "2d31b3b3cc387bdde8542af57fd25c74b2ab12d17d8a807d34716fd088019c01"
+      "size": 27103,
+      "sha256": "78a5eeddf9181d1330fff87f336a7eda173d45683c85d8ae01864df31e0d69d0"
     },
     "base_ui_manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -21,8 +21,8 @@
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 17852763,
-      "sha256": "4f7f63bd21103d2c226ebf5a4b2a14e7bd4c7234acfe6a8ba83f75b81ad0155e"
+      "size": 17852765,
+      "sha256": "52e1364fc3ed65a5e57f4b877c894c000cb979569b4b19bfa308d0baf3f66bb8"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -36,8 +36,13 @@
     },
     "remaining_display_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 88318,
-      "sha256": "a6cb5865eca5316d5f38d1910f9269a7b331660987b7e10bdf4d5e9736d13aec"
+      "size": 88943,
+      "sha256": "172a501e23ebd854d17958f33e6077f8b1f5751e78a3d5e81a191ae3fb26fb20"
+    },
+    "full_unit_names": {
+      "path": "corpus/zh/display-names/units-full.json",
+      "size": 15690,
+      "sha256": "3371113cea4c23914cbe9e4ae15dc9c758d757401ca3dde9284b553ff89254aa"
     },
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
@@ -51,8 +56,8 @@
     },
     "stage_title_format": {
       "path": "corpus/zh/menu/unclassified.json",
-      "size": 114536,
-      "sha256": "5f5eb156f90d8b6abe9e027e9cf3263a1b8aebc06ece67d11da53f4fc5ebeda9"
+      "size": 114544,
+      "sha256": "4f54e051df14479783ff1564e116e023a797785f9e501f00fd43206158ae4a86"
     },
     "stage_overviews": {
       "path": "corpus/zh/menu/stage-overviews.json",
@@ -76,8 +81,8 @@
     },
     "remaining_ui_translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 88318,
-      "sha256": "a6cb5865eca5316d5f38d1910f9269a7b331660987b7e10bdf4d5e9736d13aec"
+      "size": 88943,
+      "sha256": "172a501e23ebd854d17958f33e6077f8b1f5751e78a3d5e81a191ae3fb26fb20"
     },
     "remaining_ui_parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
@@ -111,8 +116,8 @@
     },
     "srvc_battle_text_corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6920493,
-      "sha256": "bf4bac2fec95712fc1fa8c6f9f036a1d684444ec1d76e17b7e17a36c5545e576"
+      "size": 6920485,
+      "sha256": "828d11a68109acf8368f640c93bd2c66643b80adef0dffe1c99ba7894244ae20"
     },
     "original_srvc_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -142,7 +147,7 @@
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "e190b1625b2b6d67318d863895bda29c07b1557d4b9139164b267a8f85ecfc3a"
+      "sha256": "c878700fff8588cfffc483d20fdba930ccc9cfc7b6a72710a1c8e2a27ea40e99"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -158,6 +163,21 @@
       "path": "work/disc/EFF/VEFF2DX.BIN",
       "size": 36890512,
       "sha256": "afa7ba9d06d933eefcd82f5c9a9094b7f11aaa0e31ee721d6112849988c46abe"
+    },
+    "world_map_title_corpus": {
+      "path": "corpus/zh/ui-atlas/world-map-titles-v1.json",
+      "size": 19849,
+      "sha256": "f68b3c08e4126073c7b244bff1afc6c7644826b7aabe83d5144cb6bdaa2f2b67"
+    },
+    "world_map_original_slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "world_map_original_archive": {
+      "path": "work/disc/MAP/MAPMODEL.BIN",
+      "size": 55136688,
+      "sha256": "e33a7c33346de4be04fce50401dd62d294eb521e588188821c1b5a99267700e2"
     }
   },
   "compression": {
@@ -170,7 +190,8 @@
     "component_strategy": "rust-fit",
     "scenario_select_strategy": "rust-fit",
     "mode_select_strategy": "rust-fit",
-    "nisv_effect_names_strategy": "rust-fit"
+    "nisv_effect_names_strategy": "rust-fit",
+    "world_map_title_strategy": "rust-fit"
   },
   "composition": {
     "font_chunk_index": 2,
@@ -394,10 +415,46 @@
     "write_entry_count": 1153,
     "no_op_entry_count": 1299,
     "minimum_output_headroom": 4,
-    "changed_byte_count": 12649,
+    "changed_byte_count": 12958,
     "changed_entry_ids_sha256": "0e64fad9cb381c5cc3ba70a4b81a07e561f4b16b2eb7ccb7d0d39bd90fc4283e",
+    "unit_names": {
+      "corpus_batch_id": "v1-display-names-units-full",
+      "entry_count": 348,
+      "write_entry_count": 139,
+      "no_op_entry_count": 209,
+      "minimum_writable_headroom": 1,
+      "expanded_zero_padding_entry_count": 4,
+      "expanded_zero_padding_entry_ids": [
+        "display-name/unit/0008/name",
+        "display-name/unit/0009/name",
+        "display-name/unit/0010/name",
+        "display-name/unit/0088/name"
+      ],
+      "changed_entry_ids_sha256": "11e699f4e9f810af7dc227bde911feeb37f295c9066e8c09d79427c4f19d1160",
+      "relocated_entry_count": 1,
+      "relocated_entry_ids": [
+        "display-name/unit/0011/name"
+      ],
+      "relocated_pointer_count": 3,
+      "pointer_bytes_unchanged": false,
+      "pointer_relocations_exact": true,
+      "following_targets_unchanged": true,
+      "two_byte_space_code": "8140",
+      "two_byte_space_entry_count": 6,
+      "two_byte_space_entry_ids": [
+        "display-name/unit/0008/name",
+        "display-name/unit/0009/name",
+        "display-name/unit/0010/name",
+        "display-name/unit/0088/name",
+        "display-name/unit/0298/name",
+        "display-name/unit/0299/name"
+      ],
+      "raw_single_byte_space_count": 0,
+      "two_byte_spaces_exact": true,
+      "reread_exact": true
+    },
     "source_compressed_size": 145283,
-    "output_compressed_size": 144826,
+    "output_compressed_size": 144859,
     "compressed_sector_budget": 145408,
     "codec": {
       "strategy": "rust-fit",
@@ -412,15 +469,15 @@
       "surface_id": "global/all-localized-text-surfaces",
       "assignment_count": 701,
       "menu_applicable_assignment_count": 701,
-      "eligible_entry_count": 1907,
-      "rewritten_entry_count": 1874,
+      "eligible_entry_count": 1905,
+      "rewritten_entry_count": 1856,
       "entry_table_counts": {
         "pilot": 1622,
-        "unit": 285
+        "unit": 283
       },
-      "character_occurrence_count": 3289,
-      "rewritten_entry_ids_sha256": "f9ccb312b629dfe59f5434eb7f14e8776b17389ace169340d161cf866e2f293e",
-      "payload_size_changed_entry_count": 14,
+      "character_occurrence_count": 3288,
+      "rewritten_entry_ids_sha256": "352321ac9e18c60c5420913503cff28fa5f1d72067773c4bd6c9e2bcd3d3dfee",
+      "payload_size_changed_entry_count": 0,
       "fixed_field_capacities_preserved": true,
       "primary_codes_preserved": true,
       "alias_codes_outside_conditional_range": true,
@@ -437,8 +494,8 @@
     "pointer_bytes_unchanged": true,
     "printable_ascii_passthrough": true,
     "available_surface_safe_aliases_used": true,
-    "compdata_source_size": 144826,
-    "compdata_output_size": 144813,
+    "compdata_source_size": 144859,
+    "compdata_output_size": 144847,
     "compdata_round_trip_exact": true,
     "slps_size_preserved": true,
     "graphics": {
@@ -3717,9 +3774,9 @@
     "chunk_index": 0,
     "source_stored_size": 55392,
     "source_encoded_size": 55392,
-    "output_encoded_size": 54276,
-    "output_encoded_sha256": "d551e70b6c23cdce0c50fb094e4b3dd9fc84d4357210832ca8c060e66e1b8639",
-    "output_padding_size": 1116,
+    "output_encoded_size": 54277,
+    "output_encoded_sha256": "94b49ef80f8265971468e7b36751d3d7f6a9c79f013ba8c9919e667ee4d94e61",
+    "output_padding_size": 1115,
     "codec_round_trip_exact": true,
     "archive_size_preserved": true,
     "hb_offsets_preserved": true,
@@ -3757,7 +3814,7 @@
       "write_entry_count": 301,
       "no_op_entry_count": 6,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 8779,
+      "changed_byte_count": 8781,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -3768,7 +3825,7 @@
       "write_entry_count": 356,
       "no_op_entry_count": 1,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 31581,
+      "changed_byte_count": 31583,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -3810,11 +3867,11 @@
       "reread_exact": true
     },
     "slps": {
-      "entry_count": 156,
-      "write_entry_count": 124,
+      "entry_count": 169,
+      "write_entry_count": 137,
       "no_op_entry_count": 32,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 1379,
+      "changed_byte_count": 1471,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -3823,11 +3880,11 @@
     "parts": {
       "source_size": 524032,
       "output_size": 524032,
-      "source_sha256": "3b14b5ca4eb8c5794d5fd777dcd15cb3e75ab5da62d5f032f322af9f78853268",
-      "output_sha256": "03f0d8cc51bdf33efffc5ae4e46a403fdf1f03b33e5a6d8f7f5a70e9d3f16c22",
+      "source_sha256": "200d169a19f3b9d8049fa47dff42f68a4543773f2c236887457631ba53aef805",
+      "output_sha256": "6e23b420db435efd6f00ed9dabd5a8112fbee0abe085bcb46444f455be1fd0b2",
       "entry_count": 132,
       "target_count": 132,
-      "payload_size": 3077,
+      "payload_size": 3079,
       "owned_capacity": 3950,
       "targets": [
         {
@@ -4100,7 +4157,7 @@
           ],
           "target_offset": 414864,
           "capacity": 77,
-          "payload_size": 62
+          "payload_size": 63
         },
         {
           "entry_ids": [
@@ -4452,7 +4509,7 @@
           ],
           "target_offset": 416736,
           "capacity": 56,
-          "payload_size": 55
+          "payload_size": 56
         },
         {
           "entry_ids": [
@@ -4890,7 +4947,7 @@
       "patch_plan": {
         "source_name": "remaining UI strengthening parts",
         "source_size": 524032,
-        "source_sha256": "3b14b5ca4eb8c5794d5fd777dcd15cb3e75ab5da62d5f032f322af9f78853268",
+        "source_sha256": "200d169a19f3b9d8049fa47dff42f68a4543773f2c236887457631ba53aef805",
         "operation_count": 132,
         "operations": [
           {
@@ -5163,7 +5220,7 @@
             "end": 414941,
             "size": 77,
             "before_sha256": "d34ec1ae326d0be7f647b0c4a7009e6030cfedc1b8fa8a92640deaf4015723bf",
-            "after_sha256": "f674457f7e3e47cbb73ddbdac8f1391726b7786572f65e6119add2381ac6cbc1"
+            "after_sha256": "e413a86425da92c555a1f87ad4dcee00140872f62100ee1e4ad0e21fbd2ad734"
           },
           {
             "owner": "menu/Compdata/01/0034",
@@ -5515,7 +5572,7 @@
             "end": 416792,
             "size": 56,
             "before_sha256": "ba24a1f3c2e512c74c552aa35f76776d3f07ada0e0c145101f61d761c09c8a71",
-            "after_sha256": "472bcddeef215b022b50515e7b2847049a7d83e443810854b4b20f1fbc61e58e"
+            "after_sha256": "ab1a673a96d41e82b52163993cb6507cca0e3f7a7e501dc80a1129e229758812"
           },
           {
             "owner": "menu/Compdata/01/0078",
@@ -5995,8 +6052,8 @@
       "protected_single_character_count": 2,
       "single_character_regions_untouched": true
     },
-    "compdata_source_size": 144813,
-    "compdata_output_size": 143315,
+    "compdata_source_size": 144847,
+    "compdata_output_size": 143307,
     "compdata_sector_budget": 145408,
     "compdata_round_trip_exact": true,
     "slps_size_preserved": true,
@@ -6076,7 +6133,7 @@
     "write_entry_count": 650,
     "no_op_entry_count": 61,
     "minimum_output_headroom": 0,
-    "changed_byte_count": 5590,
+    "changed_byte_count": 5394,
     "fixed_spans_preserved": true,
     "pointer_bytes_unchanged": true,
     "placeholder_control_tokens_preserved": true,
@@ -6091,8 +6148,8 @@
     "source_preimages_sha256_exact": true,
     "all_editorial_statuses_reviewed": true,
     "target_offset_reread_exact": true,
-    "compdata_source_size": 143315,
-    "compdata_output_size": 143164,
+    "compdata_source_size": 143307,
+    "compdata_output_size": 143171,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true
   },
@@ -6108,8 +6165,8 @@
     "pool": {
       "translated_record_count": 58740,
       "original_indexed_pool_bytes": 2165802,
-      "output_indexed_pool_bytes": 1643410,
-      "released_indexed_pool_bytes": 522392,
+      "output_indexed_pool_bytes": 1643612,
+      "released_indexed_pool_bytes": 522190,
       "minimum_record_headroom": 0,
       "minimum_chunk_headroom": 0
     },
@@ -6552,6 +6609,4206 @@
       "reason": "Each Chinese prefix and the shared mode suffix remain inside the original texture slices; runtime quad layout stays byte-exact."
     }
   },
+  "world_map_titles": {
+    "unique_title_count": 78,
+    "translated_unique_title_count": 70,
+    "same_text_unique_title_count": 8,
+    "member_count": 115,
+    "translated_member_count": 101,
+    "same_text_member_count": 14,
+    "member_range": [
+      81,
+      195
+    ],
+    "texture": {
+      "width": 512,
+      "height": 32,
+      "bits_per_pixel": 4,
+      "storage": "linear_low_nibble_first_vertical_flip",
+      "japanese_raw_range": [
+        7648,
+        15840
+      ],
+      "english_raw_range": [
+        15936,
+        24128
+      ],
+      "english_raw_sha256": "b43fb034de38ce22b1c8c5b26715a323bef5ba6abe56a0442af53755a6f9f61d"
+    },
+    "font": {
+      "flavor": {
+        "font_flavor_id": "srwz-zh-harmonyos-sans-sc-light-v1",
+        "path": "config/fonts/zh-localization-font-light.json",
+        "sha256": "9c6d630aff578653628598f751401a7440d721ddced6d19c3cd7aa0cef077010",
+        "font_lock": "config/fonts/harmonyos-sans-sc-light.lock.json",
+        "font_lock_sha256": "d051c396cf5380f7a6a6e78bed7de0d33020ae5a3576bad36500f340764d4526"
+      },
+      "primary_path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Light.ttf",
+      "primary_sha256": "dd366290b40861bc6ced85801e850ab66d6fe4c5b33bc43095a9747fa29288d8",
+      "fallbacks": [
+        {
+          "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
+          "characters": "〜∀♪",
+          "character_count": 3,
+          "reason": "HarmonyOS Sans SC 1.0 has no visible glyph for these project-required characters. Use the locked Noto source only for this explicit set and retain the consuming scene's raster geometry.",
+          "font_source": {
+            "family": "Noto Sans CJK SC",
+            "version": "2.004",
+            "font_sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+            "license_spdx": "OFL-1.1",
+            "license_sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+            "commit": "f8d157532fbfaeda587e826d4cd5b21a49186f7c"
+          },
+          "uses_primary_rasterizer_geometry": true
+        }
+      ]
+    },
+    "render": {
+      "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+      "max_point_size": 26,
+      "min_point_size": 18,
+      "kerning_candidates": [
+        2.0,
+        1.5,
+        1.0,
+        0.5,
+        0.0
+      ],
+      "hinting": false,
+      "antialias": true,
+      "clear_policy": "source_nonzero_bbox_only",
+      "placement_policy": "center_tight_target_bbox_inside_source_bbox"
+    },
+    "codec": {
+      "strategy": "rust-fit",
+      "min_match_length": 2,
+      "max_match_chain": 1024,
+      "minimum_translated_member_headroom": 14191,
+      "minimum_all_member_headroom": 0
+    },
+    "titles": [
+      {
+        "id": "world-map/title/081",
+        "source": "月面 地球連邦軍ルテチウム基地",
+        "translation": "月面 地球联邦军卢特提姆基地",
+        "members": [
+          81
+        ],
+        "source_raw_sha256": "0d6ed03699af05d1dbccbfe640683dd13889971497f04e44e8b0e3a151a803f9",
+        "output_raw_sha256": "56c0c99c7d89f563a05b8d1ee4eca4ba4d2ff8812909d5e451739df8e114a1b4",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            60,
+            4,
+            451,
+            29
+          ],
+          "rendered_bbox": [
+            72,
+            4,
+            439,
+            29
+          ],
+          "rendered_width": 368,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/082",
+        "source": "L4宙域 アーモリーワン",
+        "translation": "L4宙域 军械库一号",
+        "members": [
+          82
+        ],
+        "source_raw_sha256": "486849e8eb973f6c5e3c729f1cf609be43fc70c082a648a33be47b82fffd4c63",
+        "output_raw_sha256": "98ce73101e7aa9c3eb5d41f6ef3b810d53d2d053d703d3c42b1c45fe5df8ac61",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            118,
+            4,
+            393,
+            29
+          ],
+          "rendered_bbox": [
+            140,
+            4,
+            371,
+            28
+          ],
+          "rendered_width": 232,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/083",
+        "source": "L4宙域",
+        "translation": "L4宙域",
+        "members": [
+          83
+        ],
+        "source_raw_sha256": "e05200685ab63525b9b283389753c47fa3437b67d15fbb0bbfaa86136d309105",
+        "output_raw_sha256": "e05200685ab63525b9b283389753c47fa3437b67d15fbb0bbfaa86136d309105",
+        "same_text_no_op": true,
+        "geometry": {
+          "point_size": null,
+          "kerning": null,
+          "source_bbox": [
+            211,
+            4,
+            300,
+            29
+          ],
+          "rendered_bbox": [
+            211,
+            4,
+            300,
+            29
+          ],
+          "rendered_width": 90,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/084",
+        "source": "日本 藤沢地区",
+        "translation": "日本 藤泽地区",
+        "members": [
+          84
+        ],
+        "source_raw_sha256": "df670d6d1bbf6e6a4a01f22cf3e4a31b688b5b58c2270633efc865e4475f1383",
+        "output_raw_sha256": "9a85c9d9d1b7bc3a2f0e82f3c7c8cf392fad3421e4ca19c759de3509cfedb5a4",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            171,
+            4,
+            342,
+            29
+          ],
+          "rendered_bbox": [
+            172,
+            4,
+            341,
+            28
+          ],
+          "rendered_width": 170,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/085",
+        "source": "日本 駿河湾沿岸",
+        "translation": "日本 骏河湾沿岸",
+        "members": [
+          85
+        ],
+        "source_raw_sha256": "dbcf2be1cc3d58620a61e9d132de1edb5d9cc53d7d45ce2047e533d44590e07b",
+        "output_raw_sha256": "737ec738828c4da0aeef9534a2729328ce5f18eba93b004be8a948ab0607894f",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            157,
+            4,
+            356,
+            29
+          ],
+          "rendered_bbox": [
+            158,
+            4,
+            355,
+            29
+          ],
+          "rendered_width": 198,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/086",
+        "source": "宇宙",
+        "translation": "宇宙",
+        "members": [
+          86
+        ],
+        "source_raw_sha256": "8824fefad587159793b066af5c3ee7f181712e8c585974b7d27f055f92f1710d",
+        "output_raw_sha256": "8824fefad587159793b066af5c3ee7f181712e8c585974b7d27f055f92f1710d",
+        "same_text_no_op": true,
+        "geometry": {
+          "point_size": null,
+          "kerning": null,
+          "source_bbox": [
+            228,
+            4,
+            280,
+            29
+          ],
+          "rendered_bbox": [
+            228,
+            4,
+            280,
+            29
+          ],
+          "rendered_width": 53,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/087",
+        "source": "日本 入間",
+        "translation": "日本 入间",
+        "members": [
+          87
+        ],
+        "source_raw_sha256": "366b377bb5798e8c4806c6fc5c04184cb521e45b43238cd328a70e14d98d4ba6",
+        "output_raw_sha256": "d4e7175ba5e609ce7b84ef3bb484287366b31df063941176596e8daa45a707f9",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            199,
+            4,
+            313,
+            29
+          ],
+          "rendered_bbox": [
+            200,
+            5,
+            312,
+            28
+          ],
+          "rendered_width": 113,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/088",
+        "source": "太平洋沖",
+        "translation": "太平洋近海",
+        "members": [
+          88
+        ],
+        "source_raw_sha256": "b38511bcda706be7725d9ed71ece8b2d3832aaf7568fa8c04d88e475dedcafb5",
+        "output_raw_sha256": "806957b6d0c145a9df34d99b48087e53a33db00f3ffc1a0bb4a5bb11cb490f57",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 21,
+          "kerning": 1.0,
+          "source_bbox": [
+            200,
+            4,
+            308,
+            29
+          ],
+          "rendered_bbox": [
+            200,
+            7,
+            308,
+            26
+          ],
+          "rendered_width": 109,
+          "rendered_height": 20
+        }
+      },
+      {
+        "id": "world-map/title/089",
+        "source": "日本 東京",
+        "translation": "日本 东京",
+        "members": [
+          89,
+          126
+        ],
+        "source_raw_sha256": "ce45a4799cbea223986aaee1983116ace1d7687d94a6ef618c7041a4c98ec530",
+        "output_raw_sha256": "c32b8f2da5f32b80a01171616fd0480630060e54241fe88d273a92967500bb1b",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            199,
+            4,
+            314,
+            29
+          ],
+          "rendered_bbox": [
+            200,
+            5,
+            313,
+            28
+          ],
+          "rendered_width": 114,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/090",
+        "source": "日本 サンジェルマン城",
+        "translation": "日本 圣日耳曼城",
+        "members": [
+          90,
+          140,
+          170
+        ],
+        "source_raw_sha256": "cabfa0087e127742f07850515b06f517cdbaee15bb374b29679308e39b93d1d4",
+        "output_raw_sha256": "0adfe66971f734c7b9aefb31a80b0db330c20f40a3811cbe41d653d0607bd0c1",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            125,
+            3,
+            389,
+            29
+          ],
+          "rendered_bbox": [
+            158,
+            4,
+            355,
+            27
+          ],
+          "rendered_width": 198,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/091",
+        "source": "デブリ帯",
+        "translation": "碎片带",
+        "members": [
+          91
+        ],
+        "source_raw_sha256": "229c7f163549db419187c39ebc9f900d41908af9900286cf2d7bd9f789d10acd",
+        "output_raw_sha256": "30f5511e9e3d886a464ba20bce835a51022bf560b6edfcfeac80328ee66d4457",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            206,
+            3,
+            303,
+            29
+          ],
+          "rendered_bbox": [
+            215,
+            4,
+            294,
+            27
+          ],
+          "rendered_width": 80,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/092",
+        "source": "？？？",
+        "translation": "？？？",
+        "members": [
+          92,
+          137
+        ],
+        "source_raw_sha256": "87c74beef16fa019f0ea6949a22f3b9bc567040ce7d4d3bed7656d9bd2d91125",
+        "output_raw_sha256": "87c74beef16fa019f0ea6949a22f3b9bc567040ce7d4d3bed7656d9bd2d91125",
+        "same_text_no_op": true,
+        "geometry": {
+          "point_size": null,
+          "kerning": null,
+          "source_bbox": [
+            218,
+            7,
+            290,
+            26
+          ],
+          "rendered_bbox": [
+            218,
+            7,
+            290,
+            26
+          ],
+          "rendered_width": 73,
+          "rendered_height": 20
+        }
+      },
+      {
+        "id": "world-map/title/093",
+        "source": "大気圏外層",
+        "translation": "大气圈外层",
+        "members": [
+          93
+        ],
+        "source_raw_sha256": "497c3e40763334c28b7acc11f48b40e0971f4f600fbf2bd26ecc82116eefe3c8",
+        "output_raw_sha256": "e2d2755ab94e902b51b29a1ef67383961daab24314ed2cfabac019d5dca13126",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            186,
+            4,
+            322,
+            29
+          ],
+          "rendered_bbox": [
+            186,
+            5,
+            321,
+            28
+          ],
+          "rendered_width": 136,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/094",
+        "source": "ゾラの大地",
+        "translation": "佐拉大地",
+        "members": [
+          94
+        ],
+        "source_raw_sha256": "c453f7791e1fc38e8056912ce13a73a83fff2bd59277860abce94a553e6b51c1",
+        "output_raw_sha256": "9f05fc9ac1cb2be2888448cf615a808979bb08f419558845173add7d74b03522",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            190,
+            3,
+            319,
+            29
+          ],
+          "rendered_bbox": [
+            201,
+            4,
+            308,
+            27
+          ],
+          "rendered_width": 108,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/095",
+        "source": "シベリア ドームポリス・ウルグスク",
+        "translation": "西伯利亚 穹顶都市乌鲁古斯克",
+        "members": [
+          95
+        ],
+        "source_raw_sha256": "fcb58794d42db6f52d6096d2923192833fcf7f0b23079577d4d8f2e83eaddd52",
+        "output_raw_sha256": "8c20d826b629ee6db05adbec9a96202f711027616a5d8bdefc0560e318557526",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            57,
+            3,
+            451,
+            29
+          ],
+          "rendered_bbox": [
+            70,
+            3,
+            438,
+            28
+          ],
+          "rendered_width": 369,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/096",
+        "source": "シベリア",
+        "translation": "西伯利亚",
+        "members": [
+          96,
+          97,
+          98,
+          99,
+          114,
+          115,
+          116,
+          117,
+          119,
+          120,
+          121
+        ],
+        "source_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 24,
+          "kerning": 0.5,
+          "source_bbox": [
+            207,
+            4,
+            302,
+            29
+          ],
+          "rendered_bbox": [
+            207,
+            5,
+            301,
+            28
+          ],
+          "rendered_width": 95,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/100",
+        "source": "北アメリア大陸 イングレッサ",
+        "translation": "北阿美利亚大陆 英格莱萨",
+        "members": [
+          100,
+          146
+        ],
+        "source_raw_sha256": "576d904a876710aac74fdcce76c3ee9e1f842ae7a72a12561ca4c65875c5bf9e",
+        "output_raw_sha256": "2a88a455935baad2126ffc4617ab01180ef3c01ae42c6793f4ec201744d5e24d",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            90,
+            3,
+            419,
+            29
+          ],
+          "rendered_bbox": [
+            98,
+            3,
+            410,
+            28
+          ],
+          "rendered_width": 313,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/101",
+        "source": "ガリア大陸 南部",
+        "translation": "加利亚大陆 南部",
+        "members": [
+          101,
+          103
+        ],
+        "source_raw_sha256": "b278e3503d630a2695b4b34b9907f53be7063e2bbb54c3dfbf6860cbe1bcd586",
+        "output_raw_sha256": "be790379101eebddd6421fe3c421096b156f33b452dd6c82c6b293270fc558be",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 0.5,
+          "source_bbox": [
+            159,
+            3,
+            350,
+            29
+          ],
+          "rendered_bbox": [
+            160,
+            3,
+            349,
+            28
+          ],
+          "rendered_width": 190,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/102",
+        "source": "ガリア大陸 ベルフォレスト",
+        "translation": "加利亚大陆 贝尔福雷斯特",
+        "members": [
+          102
+        ],
+        "source_raw_sha256": "14b4b80a3be0b730b04434d0cba55e75f25207c41b060f0e906a7b4ede741bd7",
+        "output_raw_sha256": "b469b5185ae833767c4288f45f47ced426ebc74a40ccf0b597b03d070cf9b8ea",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 1.0,
+          "source_bbox": [
+            103,
+            3,
+            406,
+            29
+          ],
+          "rendered_bbox": [
+            104,
+            3,
+            405,
+            28
+          ],
+          "rendered_width": 302,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/104",
+        "source": "太平洋 トリニティシティ",
+        "translation": "太平洋 三位一体城",
+        "members": [
+          104,
+          171
+        ],
+        "source_raw_sha256": "913425535f8dbc90203227b81e9bc4d4d9c5651613f1023cdf6f4e16251d07d3",
+        "output_raw_sha256": "c8f1e54c3e1bee6b20d2f30a1ebec53811df91fc67523149fe20b4e237888849",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            121,
+            4,
+            388,
+            29
+          ],
+          "rendered_bbox": [
+            140,
+            5,
+            368,
+            28
+          ],
+          "rendered_width": 229,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/105",
+        "source": "北アメリア大陸 自治都市フォートセバーン",
+        "translation": "北阿美利亚大陆 自治都市塞文堡",
+        "members": [
+          105
+        ],
+        "source_raw_sha256": "81b39868f30bec9b8a447e4722d561e20011a424c8c2ceae54c580ea8d1bcfab",
+        "output_raw_sha256": "047f60cd2750ebce9aefdea8c1a0057ad82aff3639e698a09baca39c33320252",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            10,
+            3,
+            500,
+            29
+          ],
+          "rendered_bbox": [
+            57,
+            3,
+            453,
+            28
+          ],
+          "rendered_width": 397,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/106",
+        "source": "北アメリア大陸北部",
+        "translation": "北阿美利亚大陆北部",
+        "members": [
+          106
+        ],
+        "source_raw_sha256": "6273f36bb0046de19cf7a860e421c6fe15969ccbfdb24d6a1a5cfffcf35587ac",
+        "output_raw_sha256": "7e07d00b9c9f187ba8ac3a3e88113c702e1a5cf062939516e85c5075eae902a9",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 0.5,
+          "source_bbox": [
+            140,
+            4,
+            368,
+            29
+          ],
+          "rendered_bbox": [
+            141,
+            4,
+            367,
+            28
+          ],
+          "rendered_width": 227,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/107",
+        "source": "交易ポイント",
+        "translation": "交易点",
+        "members": [
+          107
+        ],
+        "source_raw_sha256": "6c08d3e8c040762416c77c653c21b3eeabe23f8e5d2b1b477b13d0c10afa9bf3",
+        "output_raw_sha256": "dfb29ce43b9c6ee833dbd3d1e00c180c7dde9b66ae0abc3c72f0b04a6d94bc34",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            182,
+            3,
+            327,
+            29
+          ],
+          "rendered_bbox": [
+            215,
+            4,
+            294,
+            27
+          ],
+          "rendered_width": 80,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/108",
+        "source": "太平洋",
+        "translation": "太平洋",
+        "members": [
+          108,
+          109,
+          110,
+          155,
+          176
+        ],
+        "source_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510",
+        "output_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510",
+        "same_text_no_op": true,
+        "geometry": {
+          "point_size": null,
+          "kerning": null,
+          "source_bbox": [
+            214,
+            4,
+            295,
+            29
+          ],
+          "rendered_bbox": [
+            214,
+            4,
+            295,
+            29
+          ],
+          "rendered_width": 82,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/111",
+        "source": "月面 スカルムーン基地",
+        "translation": "月面 骷髅月基地",
+        "members": [
+          111,
+          165
+        ],
+        "source_raw_sha256": "4acaf8f87d30e4fdb852403a302243cb52e1b4a6e2aff785750b5a5078099d31",
+        "output_raw_sha256": "07dc5669a176ecb18e0b0cf2a105ffc0480298795e23c981773db568bb5f6a07",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            118,
+            4,
+            392,
+            29
+          ],
+          "rendered_bbox": [
+            155,
+            5,
+            354,
+            28
+          ],
+          "rendered_width": 200,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/112",
+        "source": "オーブ連合首長国",
+        "translation": "奥布联合酋长国",
+        "members": [
+          112
+        ],
+        "source_raw_sha256": "3b0d50ab31f4d37b7e7c74d02f854d42c7eed2f8f3b9b2f72e3619c8b2d2a7fa",
+        "output_raw_sha256": "6f23fcb391b16d8b3be220bf432ad90d91c1ded6fbd7cd0f2546bda4e618616d",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            152,
+            3,
+            366,
+            29
+          ],
+          "rendered_bbox": [
+            164,
+            4,
+            354,
+            28
+          ],
+          "rendered_width": 191,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/113",
+        "source": "L5宙域 プラント首都アプリリウス市",
+        "translation": "L5宙域 PLANT首都阿普里琉斯市",
+        "members": [
+          113,
+          184
+        ],
+        "source_raw_sha256": "832adbbeb845caf13406b0719c0dd6d405450ae063274c1c11f7e7c440218ebb",
+        "output_raw_sha256": "abeef2a978a3508696194941b21214d9b56336e87e4c8028748dfca68527b913",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            47,
+            3,
+            463,
+            29
+          ],
+          "rendered_bbox": [
+            53,
+            3,
+            457,
+            28
+          ],
+          "rendered_width": 405,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/118",
+        "source": "シベリア ドームポリス・カテズ",
+        "translation": "西伯利亚 穹顶都市卡特兹",
+        "members": [
+          118
+        ],
+        "source_raw_sha256": "37918048c48eb61b84bdc9f35e5b4a56ec57cf495a42af9b0f5aadf1a2c6092a",
+        "output_raw_sha256": "2b3e0f391212f549bbdaaf755d7f73c60b4c8f7df2c7a4549de7970a32fdd1af",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            84,
+            3,
+            426,
+            29
+          ],
+          "rendered_bbox": [
+            99,
+            3,
+            411,
+            28
+          ],
+          "rendered_width": 313,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/122",
+        "source": "日本海",
+        "translation": "日本海",
+        "members": [
+          122
+        ],
+        "source_raw_sha256": "3e42099938d7e5a5065a58e85ed8951377e9becc5a2ead490b5ffb9d5bab9559",
+        "output_raw_sha256": "3e42099938d7e5a5065a58e85ed8951377e9becc5a2ead490b5ffb9d5bab9559",
+        "same_text_no_op": true,
+        "geometry": {
+          "point_size": null,
+          "kerning": null,
+          "source_bbox": [
+            218,
+            4,
+            295,
+            29
+          ],
+          "rendered_bbox": [
+            218,
+            4,
+            295,
+            29
+          ],
+          "rendered_width": 78,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/123",
+        "source": "浅間山 新早乙女研究所",
+        "translation": "浅间山 新早乙女研究所",
+        "members": [
+          123
+        ],
+        "source_raw_sha256": "3d149711216ac5d11f5e731afaaa352bf0ebccb8c5a31b22a1abec5b96524ed1",
+        "output_raw_sha256": "2c0650e4f3d0c7068561fd8c61151961926bea43908e75916f7221596006e5bb",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            111,
+            4,
+            399,
+            29
+          ],
+          "rendered_bbox": [
+            113,
+            4,
+            397,
+            29
+          ],
+          "rendered_width": 285,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/124",
+        "source": "百鬼帝国 科学要塞島",
+        "translation": "百鬼帝国 科学要塞岛",
+        "members": [
+          124,
+          180
+        ],
+        "source_raw_sha256": "6ce91e0ba62b059e27695a260c3120fbb3694c4ce18ed6b7105c81ea0762e060",
+        "output_raw_sha256": "d62523294359522ca0d3a344be980483041d73c557c23879813f2ab4dca5f294",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            125,
+            4,
+            384,
+            29
+          ],
+          "rendered_bbox": [
+            127,
+            4,
+            382,
+            29
+          ],
+          "rendered_width": 256,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/125",
+        "source": "アトランディア",
+        "translation": "亚特兰蒂亚",
+        "members": [
+          125
+        ],
+        "source_raw_sha256": "106f411f7b3b1e28a90efcae0dc6c22a28d7d3a7a93a5af8348d0b0081f9c268",
+        "output_raw_sha256": "4b7d109a3a107ac10cd5b59d6fc4c9a19dd6f29faba8e97b904639a49dd21327",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            176,
+            3,
+            333,
+            29
+          ],
+          "rendered_bbox": [
+            187,
+            4,
+            322,
+            27
+          ],
+          "rendered_width": 136,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/127",
+        "source": "東シナ海",
+        "translation": "东海",
+        "members": [
+          127
+        ],
+        "source_raw_sha256": "a35957abfe3e77697a6296943a51eafb1dc61ee8f01c05b285c76b8fb66572bf",
+        "output_raw_sha256": "2abf9ff7f293cb97cc8f1f619968c70ff2c8d1caf43e70bcb5757174348a3fcd",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            202,
+            4,
+            306,
+            29
+          ],
+          "rendered_bbox": [
+            228,
+            5,
+            279,
+            28
+          ],
+          "rendered_width": 52,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/128",
+        "source": "ホンコン",
+        "translation": "香港",
+        "members": [
+          128
+        ],
+        "source_raw_sha256": "74cdd54d77f7634fd14860f7c94e252985fbf0d89c5b79bf558843e435623089",
+        "output_raw_sha256": "1a87e9afeb8603a47585af1ae1aa6025cacfe91f3ff670db34fbd6be62236ef4",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            208,
+            5,
+            302,
+            28
+          ],
+          "rendered_bbox": [
+            229,
+            5,
+            280,
+            28
+          ],
+          "rendered_width": 52,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/129",
+        "source": "ガリア大陸中央部 ガルナハン",
+        "translation": "加利亚大陆中部 加尔纳汉",
+        "members": [
+          129
+        ],
+        "source_raw_sha256": "6aeb14ea8fb0b552a16bc5538285fc39746ea56614658094ad4c8ddd100d740a",
+        "output_raw_sha256": "34a86e6daeea249bc97cf233f8c10765a56ceb96ac5c05f63a0b84904336a738",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            79,
+            3,
+            431,
+            29
+          ],
+          "rendered_bbox": [
+            99,
+            3,
+            411,
+            28
+          ],
+          "rendered_width": 313,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/130",
+        "source": "ガリア大陸中央部 バグダッド",
+        "translation": "加利亚大陆中部 巴格达",
+        "members": [
+          130
+        ],
+        "source_raw_sha256": "3d6f46852281cfe1c8241ccc16abf5420ff3979e2ea38655b48c7027fa17dc1a",
+        "output_raw_sha256": "f32e184d7029db0caeb829e14fa50d5d27a2deb556e29b0dbc545b2a32fc27e7",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            84,
+            3,
+            425,
+            29
+          ],
+          "rendered_bbox": [
+            112,
+            3,
+            396,
+            28
+          ],
+          "rendered_width": 285,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/131",
+        "source": "ガリア大陸中央部",
+        "translation": "加利亚大陆中部",
+        "members": [
+          131
+        ],
+        "source_raw_sha256": "f281ac4126684304e0d6d305c02cbf7a5230685e1810913add90f88da538ab53",
+        "output_raw_sha256": "b5440ed6fc5c4fd9e1758999868c299539bc03eb905481e4d13f5d261302ea06",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            150,
+            3,
+            359,
+            29
+          ],
+          "rendered_bbox": [
+            159,
+            3,
+            350,
+            28
+          ],
+          "rendered_width": 192,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/132",
+        "source": "月面都市ゲンガナム",
+        "translation": "月面都市根加纳姆",
+        "members": [
+          132,
+          188
+        ],
+        "source_raw_sha256": "b5d12555611e612b72b321ee371bacc851671e5e545ca4d48e92dde6345aac8c",
+        "output_raw_sha256": "59888d72fe332194a71db3fa2b6f1305647071d2b7673f0413283af6e2ca1e3d",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            136,
+            3,
+            375,
+            29
+          ],
+          "rendered_bbox": [
+            146,
+            4,
+            364,
+            28
+          ],
+          "rendered_width": 219,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/133",
+        "source": "ガリア大陸西部",
+        "translation": "加利亚大陆西部",
+        "members": [
+          133,
+          138,
+          142
+        ],
+        "source_raw_sha256": "4221c53b6eb63aee43276c37c63b57359c166a9c213279c5b22a8cf2b179c149",
+        "output_raw_sha256": "0ddc7d3d9338d5977f84125e3bc29cfb5bea11f641520166e7db6580617a6d17",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 0.0,
+          "source_bbox": [
+            164,
+            3,
+            345,
+            29
+          ],
+          "rendered_bbox": [
+            165,
+            3,
+            344,
+            28
+          ],
+          "rendered_width": 180,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/134",
+        "source": "ガリア大陸西部 ロドニア",
+        "translation": "加利亚大陆西部 罗德尼亚",
+        "members": [
+          134
+        ],
+        "source_raw_sha256": "db033a76f55332f9f3eedf2365f4823e2a9a34646f4b1f8bd2891473b0eec59d",
+        "output_raw_sha256": "20695f1628a8fc10046e0e4c47eeef79141bbc0f33fe3ce71ffe6c2bec56d808",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 0.5,
+          "source_bbox": [
+            111,
+            3,
+            397,
+            29
+          ],
+          "rendered_bbox": [
+            112,
+            4,
+            396,
+            28
+          ],
+          "rendered_width": 285,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/135",
+        "source": "ガリア大陸西部 ポート・タルキウス",
+        "translation": "加利亚大陆西部 塔尔基乌斯港",
+        "members": [
+          135
+        ],
+        "source_raw_sha256": "39b1bfd223d8669e73e3d500cc3b104e6004115a977d1c4c3571fb5a0ce24690",
+        "output_raw_sha256": "4377756f0982be6c08f7b6e6e64b8bb57c19e61da687f9a181357d575e2cec8f",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            52,
+            3,
+            457,
+            29
+          ],
+          "rendered_bbox": [
+            70,
+            3,
+            438,
+            28
+          ],
+          "rendered_width": 369,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/136",
+        "source": "ガリア大陸 新地球連邦軍タンパクダ基地",
+        "translation": "加利亚大陆 新地球联邦军坦帕古达基地",
+        "members": [
+          136
+        ],
+        "source_raw_sha256": "647bf72da16c7710052f283e70ab27dc87be79ed518a1268b59c08fa5732acac",
+        "output_raw_sha256": "b7016ace912b068aaf63dda247a7d3d785a648cd19d3ccbd161e2803cadde6cb",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            9,
+            4,
+            500,
+            29
+          ],
+          "rendered_bbox": [
+            14,
+            4,
+            494,
+            29
+          ],
+          "rendered_width": 481,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/139",
+        "source": "北アメリア大陸 新地球連邦本部",
+        "translation": "北阿美利亚大陆 新地球联邦总部",
+        "members": [
+          139,
+          166
+        ],
+        "source_raw_sha256": "e7e0db79d4b0289680674fcac313113dd52ef62c5deb5c9175256c4026f0f122",
+        "output_raw_sha256": "4b4c5364da8328b18c5613898aa57105f696388e093440cc28500a974abe9ab5",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 0.5,
+          "source_bbox": [
+            65,
+            4,
+            444,
+            29
+          ],
+          "rendered_bbox": [
+            67,
+            4,
+            442,
+            29
+          ],
+          "rendered_width": 376,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/141",
+        "source": "ガリア大陸 ザフト・ジブラルタル基地",
+        "translation": "加利亚大陆 ZAFT直布罗陀基地",
+        "members": [
+          141
+        ],
+        "source_raw_sha256": "c90403f561873063e9264c10edeebe8040ff715158e6eadc631940b4d9dc5d03",
+        "output_raw_sha256": "f420f9bf48ed190e65a9e330f4ce69287bbc64605b2454c19058709191cbc115",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            42,
+            3,
+            466,
+            29
+          ],
+          "rendered_bbox": [
+            64,
+            3,
+            444,
+            28
+          ],
+          "rendered_width": 381,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/143",
+        "source": "ガリア大陸南部 キンシャサ",
+        "translation": "加利亚大陆南部 金沙萨",
+        "members": [
+          143
+        ],
+        "source_raw_sha256": "e9f060acd1017449c3ad8dd11d37c7befa00391ebd45d3105aeda98315251277",
+        "output_raw_sha256": "0a0afd67d6db2069d3850810eb584957be090289eb55adb7e5118338f51ad96e",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            95,
+            3,
+            413,
+            29
+          ],
+          "rendered_bbox": [
+            112,
+            3,
+            396,
+            28
+          ],
+          "rendered_width": 285,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/144",
+        "source": "モナコ サンドマン別荘",
+        "translation": "摩纳哥 桑德曼别墅",
+        "members": [
+          144
+        ],
+        "source_raw_sha256": "e16bec5c9be3cd67be3ed0f732922a88f45e535855dcf5d90cabdaf390757603",
+        "output_raw_sha256": "6a9a29bbb3494488da29f257d52abc183fc24e3fb15a166eab1eb17d647419f6",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            125,
+            4,
+            383,
+            29
+          ],
+          "rendered_bbox": [
+            140,
+            4,
+            368,
+            28
+          ],
+          "rendered_width": 229,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/145",
+        "source": "大西洋上",
+        "translation": "大西洋上",
+        "members": [
+          145
+        ],
+        "source_raw_sha256": "4e8ee846c4fe008eba3cad9b024d24b8697a1381d36802a2a9b9f2d6db8aed1e",
+        "output_raw_sha256": "4e8ee846c4fe008eba3cad9b024d24b8697a1381d36802a2a9b9f2d6db8aed1e",
+        "same_text_no_op": true,
+        "geometry": {
+          "point_size": null,
+          "kerning": null,
+          "source_bbox": [
+            200,
+            4,
+            308,
+            29
+          ],
+          "rendered_bbox": [
+            200,
+            4,
+            308,
+            29
+          ],
+          "rendered_width": 109,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/147",
+        "source": "北アメリア大陸南部",
+        "translation": "北阿美利亚大陆南部",
+        "members": [
+          147,
+          164
+        ],
+        "source_raw_sha256": "bd7898b98af46f4cbc0411cd3b1170b509f7d6a8ae80351d5e45cc54166e7ece",
+        "output_raw_sha256": "ce949e379194c3875a59d292c180e89c17328cb77f5d4093cbb09858227573cb",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 0.5,
+          "source_bbox": [
+            140,
+            4,
+            368,
+            29
+          ],
+          "rendered_bbox": [
+            141,
+            4,
+            367,
+            28
+          ],
+          "rendered_width": 227,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/148",
+        "source": "北アメリア大陸北西部",
+        "translation": "北阿美利亚大陆西北部",
+        "members": [
+          148,
+          185
+        ],
+        "source_raw_sha256": "ffad85ccb70ac57cf6e35d20933b80560529de3537ef3edf0c06ac5ec5c2786b",
+        "output_raw_sha256": "d98430be5a8ec28213581d84b7ef36a03c9b749ebd5fc18e2c70944eaef4fc3d",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 1.0,
+          "source_bbox": [
+            126,
+            4,
+            382,
+            29
+          ],
+          "rendered_bbox": [
+            126,
+            4,
+            382,
+            28
+          ],
+          "rendered_width": 257,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/149",
+        "source": "ガリア大陸東部",
+        "translation": "加利亚大陆东部",
+        "members": [
+          149,
+          150,
+          151,
+          153
+        ],
+        "source_raw_sha256": "5b35baafadaf35871f5f36c71bce6a69e2ee350cba8e6fe2f0596b229d4b5d2d",
+        "output_raw_sha256": "20215e8607f4588a5d4e97ef1f6a4a999546f251a3d162ca3c87ee34116f7b3f",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 0.0,
+          "source_bbox": [
+            164,
+            3,
+            345,
+            29
+          ],
+          "rendered_bbox": [
+            165,
+            3,
+            344,
+            28
+          ],
+          "rendered_width": 180,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/152",
+        "source": "ゾンダーエプタ付近",
+        "translation": "佐恩达埃普塔附近",
+        "members": [
+          152
+        ],
+        "source_raw_sha256": "062301cac0dcce1add7df11ab5b903fc46640e87aa3d8e5f81fab0509f610e9b",
+        "output_raw_sha256": "6c22cf4430bfbc478a194133442c20e04547fd1dc6bcb5dfa2fb34c576a2d054",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            142,
+            3,
+            368,
+            29
+          ],
+          "rendered_bbox": [
+            145,
+            3,
+            364,
+            28
+          ],
+          "rendered_width": 220,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/154",
+        "source": "ガリア大陸中央部 エマーン",
+        "translation": "加利亚大陆中部 埃曼",
+        "members": [
+          154
+        ],
+        "source_raw_sha256": "4dca082710ceaa6a579fa2a82b5ddb63c7499cfbb87b114b84104fffc458114b",
+        "output_raw_sha256": "ccde142943a70e0fa5b06e4b43e20e07f3272ef08b4dfa29b02002eb08640a71",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            94,
+            3,
+            415,
+            29
+          ],
+          "rendered_bbox": [
+            126,
+            3,
+            382,
+            28
+          ],
+          "rendered_width": 257,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/156",
+        "source": "南アメリア大陸東部 ハッシェンダ",
+        "translation": "南阿美利亚大陆东部 哈辛达",
+        "members": [
+          156
+        ],
+        "source_raw_sha256": "e1f04936ab41f7dde1f2c325cdc9c6b9022bb541c2f807c600007b2baf57eb4e",
+        "output_raw_sha256": "06622a6a2253e1296764d4e84328e11290738f35a33a06a052a34a1062f2ebe8",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            63,
+            3,
+            447,
+            29
+          ],
+          "rendered_bbox": [
+            85,
+            3,
+            425,
+            28
+          ],
+          "rendered_width": 341,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/157",
+        "source": "南アメリア大陸東部",
+        "translation": "南阿美利亚大陆东部",
+        "members": [
+          157
+        ],
+        "source_raw_sha256": "e6dba74448acd28d99bb91bcc0e01769ee81f9e866de83f18ee0bf29ed844705",
+        "output_raw_sha256": "c314c16886879691c642c7ef9f4f01e3dfe02bd7a6236306b1229c1488a86508",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 0.5,
+          "source_bbox": [
+            140,
+            4,
+            368,
+            29
+          ],
+          "rendered_bbox": [
+            141,
+            4,
+            367,
+            28
+          ],
+          "rendered_width": 227,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/158",
+        "source": "南アメリア大陸 新地球連邦軍サルタ基地",
+        "translation": "南阿美利亚大陆 新地球联邦军萨尔塔基地",
+        "members": [
+          158
+        ],
+        "source_raw_sha256": "94e1b794ff309c0229c8a9ae47bbb73d3eea1929cdfe13e3989130d2cfd6f10e",
+        "output_raw_sha256": "f30b793e73856d29e56860d3bf50edc34e6483c7589f97a0626b87de7980ed77",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 0.5,
+          "source_bbox": [
+            12,
+            4,
+            497,
+            29
+          ],
+          "rendered_bbox": [
+            14,
+            4,
+            495,
+            29
+          ],
+          "rendered_width": 482,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/159",
+        "source": "南アメリア大陸中部",
+        "translation": "南阿美利亚大陆中部",
+        "members": [
+          159,
+          160,
+          181
+        ],
+        "source_raw_sha256": "f644f297cf35f36ecaf7301980d1000fbb52a45abb89618008a9a1b767d18df8",
+        "output_raw_sha256": "e538805c3d6aee1919b4cf9d534a1daf58a7c609de7f2482e2dc73d135d598a0",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 0.5,
+          "source_bbox": [
+            140,
+            4,
+            368,
+            29
+          ],
+          "rendered_bbox": [
+            141,
+            4,
+            367,
+            28
+          ],
+          "rendered_width": 227,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/161",
+        "source": "南アメリア大陸北部",
+        "translation": "南阿美利亚大陆北部",
+        "members": [
+          161
+        ],
+        "source_raw_sha256": "eed37b366c3ae94adc447419c7435fb51bd0df9ed98cbb8101e84c2fbb3f2a87",
+        "output_raw_sha256": "3f1c99f2d3080db22f3b4f44827fec2bf64690bf2b346a105f558f9cabab9aa9",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 0.5,
+          "source_bbox": [
+            140,
+            4,
+            368,
+            29
+          ],
+          "rendered_bbox": [
+            141,
+            4,
+            367,
+            28
+          ],
+          "rendered_width": 227,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/162",
+        "source": "南アメリア大陸 チラム首都",
+        "translation": "南阿美利亚大陆 奇拉姆首都",
+        "members": [
+          162
+        ],
+        "source_raw_sha256": "45c10339d1480b45143bb9334b51d1ef82936251a1ea11f282baa6f7b8972f25",
+        "output_raw_sha256": "f712353e799c2abf6fe9245a0d91ad73392af3a51d3e16c4a8ae617b50ff1195",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 0.5,
+          "source_bbox": [
+            97,
+            4,
+            412,
+            29
+          ],
+          "rendered_bbox": [
+            99,
+            4,
+            409,
+            28
+          ],
+          "rendered_width": 311,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/163",
+        "source": "南アメリア大陸南部 トレゾア技研",
+        "translation": "南阿美利亚大陆南部 特雷佐亚技研",
+        "members": [
+          163
+        ],
+        "source_raw_sha256": "205027663e65919839fcb6f738d047d0f4f62ea195f53b85fd862dd2f03aea3f",
+        "output_raw_sha256": "4659f1c3bd6ad4d9d3bc444ab2878c638b08fdb827775d662d03dbd139813a5b",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 0.5,
+          "source_bbox": [
+            61,
+            3,
+            448,
+            29
+          ],
+          "rendered_bbox": [
+            61,
+            4,
+            448,
+            28
+          ],
+          "rendered_width": 388,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/167",
+        "source": "L5宙域 アクシズ",
+        "translation": "L5宙域 阿克西斯",
+        "members": [
+          167
+        ],
+        "source_raw_sha256": "80d99b94950744590236b741386e663ac64412aa6e4f38d35ddc7be148962c0e",
+        "output_raw_sha256": "628846c326fcb84cba05032bde48e4abdc285c8b7dc7a6685ff24e2a0146e4a6",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 1.5,
+          "source_bbox": [
+            155,
+            3,
+            355,
+            29
+          ],
+          "rendered_bbox": [
+            155,
+            3,
+            354,
+            28
+          ],
+          "rendered_width": 200,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/168",
+        "source": "暗礁宙域",
+        "translation": "暗礁宙域",
+        "members": [
+          168,
+          186
+        ],
+        "source_raw_sha256": "1a462b1245b5a9f92fe085150dccabf6ebfa141992391f4937fdc3f975398c13",
+        "output_raw_sha256": "1a462b1245b5a9f92fe085150dccabf6ebfa141992391f4937fdc3f975398c13",
+        "same_text_no_op": true,
+        "geometry": {
+          "point_size": null,
+          "kerning": null,
+          "source_bbox": [
+            201,
+            4,
+            309,
+            29
+          ],
+          "rendered_bbox": [
+            201,
+            4,
+            309,
+            29
+          ],
+          "rendered_width": 109,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/169",
+        "source": "北アメリア大陸東部",
+        "translation": "北阿美利亚大陆东部",
+        "members": [
+          169,
+          182
+        ],
+        "source_raw_sha256": "85a5f127bade299cd392c54850ca38785e1bdcc55dd5241d71baa5f7bf9fed72",
+        "output_raw_sha256": "5115ac65e05e1708d7c2e97f1e3466fc8af99bd406ac1e3479a2643b784d0590",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 0.5,
+          "source_bbox": [
+            140,
+            4,
+            368,
+            29
+          ],
+          "rendered_bbox": [
+            141,
+            4,
+            367,
+            28
+          ],
+          "rendered_width": 227,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/172",
+        "source": "ガリア大陸 ジブラルタル基地",
+        "translation": "加利亚大陆 直布罗陀基地",
+        "members": [
+          172
+        ],
+        "source_raw_sha256": "34525934be9894e485d7a37869c84faca178403c8388e0ccf9e13a3d3d364cbe",
+        "output_raw_sha256": "7cae6a74c10681baa2e5623c399f7b4d79301f4d5d772848b8a457a8561e1e18",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            84,
+            3,
+            426,
+            29
+          ],
+          "rendered_bbox": [
+            99,
+            3,
+            411,
+            28
+          ],
+          "rendered_width": 313,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/173",
+        "source": "北大西洋 ヘブンズベース",
+        "translation": "北大西洋 天堂基地",
+        "members": [
+          173
+        ],
+        "source_raw_sha256": "6846ca3bd936f10a024e62b8ab1ade113d3173f2aa1ff4eb00ff268402ba7f9e",
+        "output_raw_sha256": "2c506194e385c739fa0ba7954b3c6901a43a86b73ef59e2fcca6b19b2acf00e9",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            104,
+            3,
+            405,
+            29
+          ],
+          "rendered_bbox": [
+            140,
+            4,
+            368,
+            27
+          ],
+          "rendered_width": 229,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/174",
+        "source": "パラダイムシティ",
+        "translation": "范式城",
+        "members": [
+          174
+        ],
+        "source_raw_sha256": "f4a0f06dc394f3fab42c3eecb5df303c0b53551a1fcb2ff8b2af7d6c6701b2d9",
+        "output_raw_sha256": "dbaa75036ecdcd454b735d45d8ca3010abd3c29e5fcb6020c78aa00dda7fb2d9",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            158,
+            3,
+            350,
+            29
+          ],
+          "rendered_bbox": [
+            214,
+            4,
+            293,
+            27
+          ],
+          "rendered_width": 80,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/175",
+        "source": "オーブ連合首長国",
+        "translation": "奥布联合酋长国",
+        "members": [
+          175
+        ],
+        "source_raw_sha256": "76f352e8a95c1cbbb68e60c121cb098d01040fb1998af368e4633f9151b74a73",
+        "output_raw_sha256": "f12c943a8148b84ca2e6997575abed2a9702ef7b3871d3c29a26025d2aa0ba32",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            146,
+            3,
+            361,
+            29
+          ],
+          "rendered_bbox": [
+            158,
+            4,
+            348,
+            28
+          ],
+          "rendered_width": 191,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/177",
+        "source": "南アメリア大陸西部",
+        "translation": "南阿美利亚大陆西部",
+        "members": [
+          177
+        ],
+        "source_raw_sha256": "c7e30fc14289169b3cbcda5602f4520dbc7bca0ee3887980883f8c55ddcb8eff",
+        "output_raw_sha256": "e755a01da5c1452eaf8782dbac57b36104b527d314347eeba61f87813c401618",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 0.5,
+          "source_bbox": [
+            140,
+            4,
+            368,
+            29
+          ],
+          "rendered_bbox": [
+            141,
+            4,
+            367,
+            28
+          ],
+          "rendered_width": 227,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/178",
+        "source": "ガリア大陸西部 ディーバ司令部",
+        "translation": "加利亚大陆西部 迪瓦司令部",
+        "members": [
+          178
+        ],
+        "source_raw_sha256": "093eb422cd61be523c23a3b7e8f23230d0484d9291dcafbb574a0d257874f78c",
+        "output_raw_sha256": "27b179652bb3d66062483637fd216af437021b880f724b4063653c06b807fb0a",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            67,
+            3,
+            442,
+            29
+          ],
+          "rendered_bbox": [
+            84,
+            3,
+            424,
+            28
+          ],
+          "rendered_width": 341,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/179",
+        "source": "南アメリア大陸南部",
+        "translation": "南阿美利亚大陆南部",
+        "members": [
+          179
+        ],
+        "source_raw_sha256": "36235fdba2654f707ad061e54929d0a0d0216efaf7766c7972af05bafe46e2b9",
+        "output_raw_sha256": "10418b74d7a79e021697c60159d21fff2e5653092313409f052719fd4bc71a6b",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 25,
+          "kerning": 0.5,
+          "source_bbox": [
+            140,
+            4,
+            368,
+            29
+          ],
+          "rendered_bbox": [
+            141,
+            4,
+            367,
+            28
+          ],
+          "rendered_width": 227,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/183",
+        "source": "月面 レクイエム",
+        "translation": "月面 镇魂曲",
+        "members": [
+          183
+        ],
+        "source_raw_sha256": "00a18198affe1a9b88c26701aed513330cd7a2b4a41d8c130547534d080a01c1",
+        "output_raw_sha256": "ea30f1184fb9eb08c45a10e05b29bc97a9a09b965589a0c3f6ab470ec82d2f1a",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            163,
+            5,
+            347,
+            29
+          ],
+          "rendered_bbox": [
+            184,
+            5,
+            325,
+            28
+          ],
+          "rendered_width": 142,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/187",
+        "source": "L2宙域",
+        "translation": "L2宙域",
+        "members": [
+          187
+        ],
+        "source_raw_sha256": "789e01276ff36732d253b8c2c197bcf0dfa617f761168bdc261d6a4677b2d016",
+        "output_raw_sha256": "789e01276ff36732d253b8c2c197bcf0dfa617f761168bdc261d6a4677b2d016",
+        "same_text_no_op": true,
+        "geometry": {
+          "point_size": null,
+          "kerning": null,
+          "source_bbox": [
+            211,
+            4,
+            300,
+            29
+          ],
+          "rendered_bbox": [
+            211,
+            4,
+            300,
+            29
+          ],
+          "rendered_width": 90,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/189",
+        "source": "月周辺宙域",
+        "translation": "月球周边宙域",
+        "members": [
+          189
+        ],
+        "source_raw_sha256": "124bd2558d7d90b66d566758f95607e169ea5d71c8d48574f19018171dc2a3b1",
+        "output_raw_sha256": "639043ef1926490acf3cde22090944a53aa0bb0e61df5fad31b31e1b448f0af5",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 23,
+          "kerning": 0.0,
+          "source_bbox": [
+            187,
+            4,
+            323,
+            29
+          ],
+          "rendered_bbox": [
+            187,
+            5,
+            322,
+            27
+          ],
+          "rendered_width": 136,
+          "rendered_height": 23
+        }
+      },
+      {
+        "id": "world-map/title/190",
+        "source": "コロニーレーザー周辺宙域",
+        "translation": "殖民卫星激光周边宙域",
+        "members": [
+          190
+        ],
+        "source_raw_sha256": "f21969b5c0dfcbbd52c815a4b3ee9cbba9a29076c0960f6010e9ed22d5eb39f0",
+        "output_raw_sha256": "060f63c1cdae04bd1cf4ef7a2e35f7b4281d3c835286a20bcbc0b8f4f932b0c2",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            98,
+            3,
+            411,
+            29
+          ],
+          "rendered_bbox": [
+            116,
+            3,
+            393,
+            28
+          ],
+          "rendered_width": 278,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/191",
+        "source": "オホーツク海",
+        "translation": "鄂霍次克海",
+        "members": [
+          191
+        ],
+        "source_raw_sha256": "50bececaeb0643331653340b9280b6954045f77873d3064ffa15f6365341ea11",
+        "output_raw_sha256": "25f4823d105826d2eb0d8ca53199b284a719bc8bc3b51b723436252d4b3e100c",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            178,
+            4,
+            330,
+            29
+          ],
+          "rendered_bbox": [
+            186,
+            5,
+            321,
+            28
+          ],
+          "rendered_width": 136,
+          "rendered_height": 24
+        }
+      },
+      {
+        "id": "world-map/title/192",
+        "source": "月面 自由都市コペルニクス市",
+        "translation": "月面 自由都市哥白尼市",
+        "members": [
+          192
+        ],
+        "source_raw_sha256": "daabc0ab41797edd8df273ab00135d0e28da08ae988c8086ff51be0cf3dde13b",
+        "output_raw_sha256": "a1133a4376457e79db77c70441878bd714ebfc53f75e59395e8c70125f13584f",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            79,
+            4,
+            431,
+            29
+          ],
+          "rendered_bbox": [
+            113,
+            4,
+            396,
+            28
+          ],
+          "rendered_width": 284,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/193",
+        "source": "南アメリア大陸 軌道エレベーター",
+        "translation": "南阿美利亚大陆 轨道电梯",
+        "members": [
+          193
+        ],
+        "source_raw_sha256": "28b641b03f4251d879345244f714111d5f8af1cd1c8a6ef0ed8a13792992674c",
+        "output_raw_sha256": "8a262a8101f7eebed9f6e556e3303b46657175a1d72f726238cbd0dfde9a1c90",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            60,
+            4,
+            450,
+            29
+          ],
+          "rendered_bbox": [
+            99,
+            4,
+            410,
+            29
+          ],
+          "rendered_width": 312,
+          "rendered_height": 26
+        }
+      },
+      {
+        "id": "world-map/title/194",
+        "source": "軌道エレベーター上空",
+        "translation": "轨道电梯上空",
+        "members": [
+          194
+        ],
+        "source_raw_sha256": "2f7a1038543c29c23796ec2fd7f06c7c1a2b7047dce80260915f42c8fccf9e7e",
+        "output_raw_sha256": "f03e4e572b34962b1987c995be90d36c79e24bad2b7314e6f42194f113b12615",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            125,
+            4,
+            384,
+            29
+          ],
+          "rendered_bbox": [
+            173,
+            4,
+            335,
+            28
+          ],
+          "rendered_width": 163,
+          "rendered_height": 25
+        }
+      },
+      {
+        "id": "world-map/title/195",
+        "source": "シベリア ドームポリス・ウルグスク",
+        "translation": "西伯利亚 穹顶都市乌鲁古斯克",
+        "members": [
+          195
+        ],
+        "source_raw_sha256": "ce5092914c0201d15aa29dd7ec356dae40d9142b774be18b60ba1dc87ca8ebd0",
+        "output_raw_sha256": "8c20d826b629ee6db05adbec9a96202f711027616a5d8bdefc0560e318557526",
+        "same_text_no_op": false,
+        "geometry": {
+          "point_size": 26,
+          "kerning": 2.0,
+          "source_bbox": [
+            57,
+            3,
+            451,
+            29
+          ],
+          "rendered_bbox": [
+            70,
+            3,
+            438,
+            28
+          ],
+          "rendered_width": 369,
+          "rendered_height": 26
+        }
+      }
+    ],
+    "members": [
+      {
+        "member": 81,
+        "entry_id": "world-map/title/081",
+        "same_text_no_op": false,
+        "stored_size": 221504,
+        "source_encoded_size": 221499,
+        "output_encoded_size": 204690,
+        "compressed_headroom": 16814,
+        "source_stored_sha256": "f148c580898746cd2de72b1cd34ba1af123886c79039f6759af15e65707d53b4",
+        "output_stored_sha256": "19924060b5fff47f7dcda529f766859e4d9b4405278224e2eddf4be919730de9",
+        "source_decoded_sha256": "3f5bec9503567abd94e882d97b2f3546a0799223bd479589df6ac09991f4e871",
+        "output_decoded_sha256": "650b5fb18ccd7de77cf15820d0ce7175537fe76d2bf5525baf006b0a7fe4c7b8",
+        "source_title_raw_sha256": "0d6ed03699af05d1dbccbfe640683dd13889971497f04e44e8b0e3a151a803f9",
+        "output_title_raw_sha256": "56c0c99c7d89f563a05b8d1ee4eca4ba4d2ff8812909d5e451739df8e114a1b4"
+      },
+      {
+        "member": 82,
+        "entry_id": "world-map/title/082",
+        "same_text_no_op": false,
+        "stored_size": 219712,
+        "source_encoded_size": 219700,
+        "output_encoded_size": 202910,
+        "compressed_headroom": 16802,
+        "source_stored_sha256": "c692cd1f50a4e0bb120038c12536b2058524ffd1d7225ec0b0bb46a513095673",
+        "output_stored_sha256": "85612e1173f99eb72622b6dc7f356c0e2a345317c33300702d9a2aad0dd123de",
+        "source_decoded_sha256": "151204fb853b08819cbd25e028f19b02f4e498a7cafee30ece010d3a092685b5",
+        "output_decoded_sha256": "a2e6b3e11c85531d0e8ffd4aa26226806124da87f10319f7e6cbbd2fe7390e83",
+        "source_title_raw_sha256": "486849e8eb973f6c5e3c729f1cf609be43fc70c082a648a33be47b82fffd4c63",
+        "output_title_raw_sha256": "98ce73101e7aa9c3eb5d41f6ef3b810d53d2d053d703d3c42b1c45fe5df8ac61"
+      },
+      {
+        "member": 83,
+        "entry_id": "world-map/title/083",
+        "same_text_no_op": true,
+        "stored_size": 219136,
+        "source_encoded_size": 219125,
+        "output_encoded_size": 219125,
+        "compressed_headroom": 11,
+        "source_stored_sha256": "0d66ba9925fb9e751f32b4ab355d516187f9a1e24020fb72f8aedecd3a688b2b",
+        "output_stored_sha256": "0d66ba9925fb9e751f32b4ab355d516187f9a1e24020fb72f8aedecd3a688b2b",
+        "source_decoded_sha256": "63b7bc74e45acad8c9fbffd1a15ecd65b95d117bbd2b0773ed7cfdd887b23919",
+        "output_decoded_sha256": "63b7bc74e45acad8c9fbffd1a15ecd65b95d117bbd2b0773ed7cfdd887b23919",
+        "source_title_raw_sha256": "e05200685ab63525b9b283389753c47fa3437b67d15fbb0bbfaa86136d309105",
+        "output_title_raw_sha256": "e05200685ab63525b9b283389753c47fa3437b67d15fbb0bbfaa86136d309105"
+      },
+      {
+        "member": 84,
+        "entry_id": "world-map/title/084",
+        "same_text_no_op": false,
+        "stored_size": 219744,
+        "source_encoded_size": 219734,
+        "output_encoded_size": 202828,
+        "compressed_headroom": 16916,
+        "source_stored_sha256": "8006f27bd7a0ab4138df37fa424aa23f579403424af459c585bc65a02565f564",
+        "output_stored_sha256": "1ef6c7fd59aac6788552177d497e9ebc263d46afdac828cab05d86dfcd9fdf9e",
+        "source_decoded_sha256": "df45bca9ce83830126121c68e9b959434239c383a01334cb0a8ba089271ce380",
+        "output_decoded_sha256": "ab329e8a83de25a192e9392f39217d3d798600a34f2ff3dbb80351e4b37ed395",
+        "source_title_raw_sha256": "df670d6d1bbf6e6a4a01f22cf3e4a31b688b5b58c2270633efc865e4475f1383",
+        "output_title_raw_sha256": "9a85c9d9d1b7bc3a2f0e82f3c7c8cf392fad3421e4ca19c759de3509cfedb5a4"
+      },
+      {
+        "member": 85,
+        "entry_id": "world-map/title/085",
+        "same_text_no_op": false,
+        "stored_size": 219936,
+        "source_encoded_size": 219922,
+        "output_encoded_size": 202992,
+        "compressed_headroom": 16944,
+        "source_stored_sha256": "8976d67c5d36d535f9a1e727d43e5bf332e17dc00365a2980c6a6d23ab5cdf9b",
+        "output_stored_sha256": "95471705c2f8ae0ca3f61dff6f38b6d38e14f2fbc721ad2a60dadcce17ffa375",
+        "source_decoded_sha256": "cedd73ba70ccdb2240628180f73d3a6fd6b00026820e8140cf7dc0d71149cf71",
+        "output_decoded_sha256": "0b87caab6cab28847e0ca7094cc6208fb2e4e5f76011fcb75e83f4e3c1032862",
+        "source_title_raw_sha256": "dbcf2be1cc3d58620a61e9d132de1edb5d9cc53d7d45ce2047e533d44590e07b",
+        "output_title_raw_sha256": "737ec738828c4da0aeef9534a2729328ce5f18eba93b004be8a948ab0607894f"
+      },
+      {
+        "member": 86,
+        "entry_id": "world-map/title/086",
+        "same_text_no_op": true,
+        "stored_size": 218672,
+        "source_encoded_size": 218663,
+        "output_encoded_size": 218663,
+        "compressed_headroom": 9,
+        "source_stored_sha256": "ddbcf0dbc81c3a8abbdeff337bb77db74e2e10a6ad96bcb11cc907231ddc3579",
+        "output_stored_sha256": "ddbcf0dbc81c3a8abbdeff337bb77db74e2e10a6ad96bcb11cc907231ddc3579",
+        "source_decoded_sha256": "ae018fb9e60cb5f6db20191c5959fffde1d7a6481fdb4890f52e8856362383ec",
+        "output_decoded_sha256": "ae018fb9e60cb5f6db20191c5959fffde1d7a6481fdb4890f52e8856362383ec",
+        "source_title_raw_sha256": "8824fefad587159793b066af5c3ee7f181712e8c585974b7d27f055f92f1710d",
+        "output_title_raw_sha256": "8824fefad587159793b066af5c3ee7f181712e8c585974b7d27f055f92f1710d"
+      },
+      {
+        "member": 87,
+        "entry_id": "world-map/title/087",
+        "same_text_no_op": false,
+        "stored_size": 219152,
+        "source_encoded_size": 219139,
+        "output_encoded_size": 202273,
+        "compressed_headroom": 16879,
+        "source_stored_sha256": "bf53b0be910ca8a95c93c1e9d5cdd8a3fc5d4a22ee7faefe0b5dfca7f3e0c232",
+        "output_stored_sha256": "a74424c9ceb422b5fb4f0115f90662e225af4bfc4c48dd5bb4b9e66233908b03",
+        "source_decoded_sha256": "c957ef92baecfc934bc79fe2d2f8db5f2cf3d71680732884328564628939cdb5",
+        "output_decoded_sha256": "0240bbcb2aff97a76eacd7c8c25603133e6f007bff5018fdcf8f105454f412a0",
+        "source_title_raw_sha256": "366b377bb5798e8c4806c6fc5c04184cb521e45b43238cd328a70e14d98d4ba6",
+        "output_title_raw_sha256": "d4e7175ba5e609ce7b84ef3bb484287366b31df063941176596e8daa45a707f9"
+      },
+      {
+        "member": 88,
+        "entry_id": "world-map/title/088",
+        "same_text_no_op": false,
+        "stored_size": 219264,
+        "source_encoded_size": 219256,
+        "output_encoded_size": 202452,
+        "compressed_headroom": 16812,
+        "source_stored_sha256": "bd9ea74204c19799467e37900b211f9a439a10299f5552d6986b8217d8c9f73f",
+        "output_stored_sha256": "b557b1bfc36973fc4dcff947023e75734ad941c127f084a572517d0cc1dfe9e2",
+        "source_decoded_sha256": "fba858f6443b7928aef4bf0079a4966840c8af2c2c91d5aa6552764f38cfbcf0",
+        "output_decoded_sha256": "7f24ec592eacfc4647ae9d50c8ebd26e9fed1c8a4f55034c6b38d4ea0acf82bb",
+        "source_title_raw_sha256": "b38511bcda706be7725d9ed71ece8b2d3832aaf7568fa8c04d88e475dedcafb5",
+        "output_title_raw_sha256": "806957b6d0c145a9df34d99b48087e53a33db00f3ffc1a0bb4a5bb11cb490f57"
+      },
+      {
+        "member": 89,
+        "entry_id": "world-map/title/089",
+        "same_text_no_op": false,
+        "stored_size": 219184,
+        "source_encoded_size": 219184,
+        "output_encoded_size": 202323,
+        "compressed_headroom": 16861,
+        "source_stored_sha256": "31025bb22b443017aac45ab0285f37b6d40361a719c4c0bd257377fde46e7089",
+        "output_stored_sha256": "4f24fb90a75bfcd7ae6950003de85cb01035c28ce214e001298056bb7de82bc4",
+        "source_decoded_sha256": "67d92636fbff2bcbb3779b9be299b25db1e49043461fde915c03241df839e790",
+        "output_decoded_sha256": "e9e58322ff79b3e1acbebf1f555ad33e66ac369b07b28800fba37ef700fcb40d",
+        "source_title_raw_sha256": "ce45a4799cbea223986aaee1983116ace1d7687d94a6ef618c7041a4c98ec530",
+        "output_title_raw_sha256": "c32b8f2da5f32b80a01171616fd0480630060e54241fe88d273a92967500bb1b"
+      },
+      {
+        "member": 90,
+        "entry_id": "world-map/title/090",
+        "same_text_no_op": false,
+        "stored_size": 220000,
+        "source_encoded_size": 219985,
+        "output_encoded_size": 202745,
+        "compressed_headroom": 17255,
+        "source_stored_sha256": "be1e42d3779ab3733f735fd231b703ecde80c96ad23f0796b5fce715a6d65320",
+        "output_stored_sha256": "ec223df52f1eaeebb3560729bd0e3e6182fc2d76d136857b40ca98a1e094cc68",
+        "source_decoded_sha256": "b2421f1c6104afc96d48f462c4b90a77aa41b943e1d641fc0461309898057d02",
+        "output_decoded_sha256": "15bbc9f2031cf4c0757f803478bb20b44271deae6e19178af60a0dfce086303f",
+        "source_title_raw_sha256": "cabfa0087e127742f07850515b06f517cdbaee15bb374b29679308e39b93d1d4",
+        "output_title_raw_sha256": "0adfe66971f734c7b9aefb31a80b0db330c20f40a3811cbe41d653d0607bd0c1"
+      },
+      {
+        "member": 91,
+        "entry_id": "world-map/title/091",
+        "same_text_no_op": false,
+        "stored_size": 219936,
+        "source_encoded_size": 219921,
+        "output_encoded_size": 202967,
+        "compressed_headroom": 16969,
+        "source_stored_sha256": "d671f7ceb87540e4432c1fab2a61cda3ab4096253fa2203e742b070e5a46a941",
+        "output_stored_sha256": "3ce7278b63915d0e1d8a3d8899e0da1f740f7799b4ab3ce38852fe3166fb951b",
+        "source_decoded_sha256": "5a6108fa297b147691f495cfcc64a6da7272a58dd4a2f097fcc4670cd04639d6",
+        "output_decoded_sha256": "d98850fa335ad562cbb1ad1cca6568514e7218b15912061673b958d148c2f077",
+        "source_title_raw_sha256": "229c7f163549db419187c39ebc9f900d41908af9900286cf2d7bd9f789d10acd",
+        "output_title_raw_sha256": "30f5511e9e3d886a464ba20bce835a51022bf560b6edfcfeac80328ee66d4457"
+      },
+      {
+        "member": 92,
+        "entry_id": "world-map/title/092",
+        "same_text_no_op": true,
+        "stored_size": 218608,
+        "source_encoded_size": 218608,
+        "output_encoded_size": 218608,
+        "compressed_headroom": 0,
+        "source_stored_sha256": "20a8e08870a0b14bd56c0de2b191b5c2aa002dbdc040e123617f26d5781ef65b",
+        "output_stored_sha256": "20a8e08870a0b14bd56c0de2b191b5c2aa002dbdc040e123617f26d5781ef65b",
+        "source_decoded_sha256": "a837c9d6b3fc865ebb46b1f1e3359310966d6a1b17988fd221555c6b3fde2917",
+        "output_decoded_sha256": "a837c9d6b3fc865ebb46b1f1e3359310966d6a1b17988fd221555c6b3fde2917",
+        "source_title_raw_sha256": "87c74beef16fa019f0ea6949a22f3b9bc567040ce7d4d3bed7656d9bd2d91125",
+        "output_title_raw_sha256": "87c74beef16fa019f0ea6949a22f3b9bc567040ce7d4d3bed7656d9bd2d91125"
+      },
+      {
+        "member": 93,
+        "entry_id": "world-map/title/093",
+        "same_text_no_op": false,
+        "stored_size": 220400,
+        "source_encoded_size": 220395,
+        "output_encoded_size": 203430,
+        "compressed_headroom": 16970,
+        "source_stored_sha256": "f7df6a25803b82c8e9e338dba1718b4247d0c47ed2016e35d0938abb0597f619",
+        "output_stored_sha256": "528d52d2edda8d4e503c6aa8bbdcb050223a758171c58c4f86a2aa827c1483d6",
+        "source_decoded_sha256": "dd3c7a30277bd28037a90bf1a430e06c415565421b2344bd499ab5bc58baf036",
+        "output_decoded_sha256": "17274f893ec7dca65d443e5b7485a723e05d70b264ef5b5b89c78ef1868f043c",
+        "source_title_raw_sha256": "497c3e40763334c28b7acc11f48b40e0971f4f600fbf2bd26ecc82116eefe3c8",
+        "output_title_raw_sha256": "e2d2755ab94e902b51b29a1ef67383961daab24314ed2cfabac019d5dca13126"
+      },
+      {
+        "member": 94,
+        "entry_id": "world-map/title/094",
+        "same_text_no_op": false,
+        "stored_size": 171232,
+        "source_encoded_size": 171231,
+        "output_encoded_size": 154137,
+        "compressed_headroom": 17095,
+        "source_stored_sha256": "34bb04b2bea79d926e602c1ce80bb57157d72776b4bdb29b8c0b1972fa19b2d0",
+        "output_stored_sha256": "fa14e48579b189b21f1745d836ea45374eb66c997087ec14ba9a02004d8c8e27",
+        "source_decoded_sha256": "c0d4a5e50569342e697831205badf509f3fac4a92f3435e53785ace08444f021",
+        "output_decoded_sha256": "eac8f52c0780ee6ef46c1cbd712003b4fb1a46d3be2b58a3d621984252ee5659",
+        "source_title_raw_sha256": "c453f7791e1fc38e8056912ce13a73a83fff2bd59277860abce94a553e6b51c1",
+        "output_title_raw_sha256": "9f05fc9ac1cb2be2888448cf615a808979bb08f419558845173add7d74b03522"
+      },
+      {
+        "member": 95,
+        "entry_id": "world-map/title/095",
+        "same_text_no_op": false,
+        "stored_size": 172272,
+        "source_encoded_size": 172262,
+        "output_encoded_size": 155406,
+        "compressed_headroom": 16866,
+        "source_stored_sha256": "069185746b0552646564117bf18f6bb91dd307774a83d566e34513fc79516d7c",
+        "output_stored_sha256": "1c427a49c8aab653a44e94f1ad7160e1967867664a2565950e968e3e272c427a",
+        "source_decoded_sha256": "d12c45d6c9ec5166d91602b7c81931165c954b1c781bf134d0060c582e510d51",
+        "output_decoded_sha256": "518c364855ed22d1a502f247ed051a36543693f61a8492a80e3e6c85291aca2a",
+        "source_title_raw_sha256": "fcb58794d42db6f52d6096d2923192833fcf7f0b23079577d4d8f2e83eaddd52",
+        "output_title_raw_sha256": "8c20d826b629ee6db05adbec9a96202f711027616a5d8bdefc0560e318557526"
+      },
+      {
+        "member": 96,
+        "entry_id": "world-map/title/096",
+        "same_text_no_op": false,
+        "stored_size": 176912,
+        "source_encoded_size": 176910,
+        "output_encoded_size": 159369,
+        "compressed_headroom": 17543,
+        "source_stored_sha256": "5fa7d249e616694407eeccc77446f7f58d51c54734a0e14169afe9300f82935c",
+        "output_stored_sha256": "33ff0a4415ece3d9c0daf7721101a1737888c0e12c905a5f84e428d8e53ede8a",
+        "source_decoded_sha256": "8e28f882e20399e7658df083ed6a4f88fa3228db7047e9f44b6bd66845b58f0a",
+        "output_decoded_sha256": "2e37029836cb32676c7a7e244a9fbe4bfc7dd20ddaf788757cfad3949eabf512",
+        "source_title_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_title_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa"
+      },
+      {
+        "member": 97,
+        "entry_id": "world-map/title/096",
+        "same_text_no_op": false,
+        "stored_size": 177248,
+        "source_encoded_size": 177240,
+        "output_encoded_size": 159338,
+        "compressed_headroom": 17910,
+        "source_stored_sha256": "fe6e376f6a83615db60fed8839a8865dbe34635440298d00e38329c521e018f3",
+        "output_stored_sha256": "e0bea5f7fee30634fa58432a92b0bec0d6e967c8c59e1a6d0c00ed6f2f5719ba",
+        "source_decoded_sha256": "955ebe5ac996356ae43f6e63543f660d5d24759ec557a269244803c34df43ac6",
+        "output_decoded_sha256": "d4f3ef37b0f393330ea2fed54862632dc49f55b7f2e8d77400443f02bbcb76f3",
+        "source_title_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_title_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa"
+      },
+      {
+        "member": 98,
+        "entry_id": "world-map/title/096",
+        "same_text_no_op": false,
+        "stored_size": 170704,
+        "source_encoded_size": 170698,
+        "output_encoded_size": 153810,
+        "compressed_headroom": 16894,
+        "source_stored_sha256": "a9c18b76173ee5fce1e72fdd599449fc1940fbadd909d9c1b421bd07c17f1c80",
+        "output_stored_sha256": "6bdb3c28f95a6a5b0ffd146ab2469d15ed472c5134a711ce30d2f55a06111611",
+        "source_decoded_sha256": "79a3d83fa14c0646ef0c557afdc07305783f6c29c063a83de6953dc0acf2b0ea",
+        "output_decoded_sha256": "f45851ef97c4594eed8f9ca99c550f9c45671c16baa427f96802882fcbe3ef9b",
+        "source_title_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_title_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa"
+      },
+      {
+        "member": 99,
+        "entry_id": "world-map/title/096",
+        "same_text_no_op": false,
+        "stored_size": 179344,
+        "source_encoded_size": 179341,
+        "output_encoded_size": 160945,
+        "compressed_headroom": 18399,
+        "source_stored_sha256": "1b1b8b71008403a47cf65ca562abf706bd77dfa011a1cfc7d5a5b0c3a41817d8",
+        "output_stored_sha256": "f502e6901e3eeaac3781a368820b41886b4e9d77c0d42ab5be6ea395154e2735",
+        "source_decoded_sha256": "0b99e2b9c4fbe2c0bee4f0af92df8dcc4071dccfa81812cac0288ff234f64bbe",
+        "output_decoded_sha256": "b1d442538f58d69ccea10a60abf07d7bc0058d02a29ec1b8050f229f21ad4ddf",
+        "source_title_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_title_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa"
+      },
+      {
+        "member": 100,
+        "entry_id": "world-map/title/100",
+        "same_text_no_op": false,
+        "stored_size": 171936,
+        "source_encoded_size": 171935,
+        "output_encoded_size": 155177,
+        "compressed_headroom": 16759,
+        "source_stored_sha256": "66bb08bdca191012fbcd3a68f27478248fa54245025d3c570951df625cb624e6",
+        "output_stored_sha256": "a703b17f195ff2162980ae6e40df313b093585ffd27e6066b40cf523bc128ffe",
+        "source_decoded_sha256": "9ed69d538d98e4aed7dbb97037349dee72826087ede8536adf669ef41947dbff",
+        "output_decoded_sha256": "168e23d79b123d3852453387b9edff3bb37212447bfd42e2818cd02373895804",
+        "source_title_raw_sha256": "576d904a876710aac74fdcce76c3ee9e1f842ae7a72a12561ca4c65875c5bf9e",
+        "output_title_raw_sha256": "2a88a455935baad2126ffc4617ab01180ef3c01ae42c6793f4ec201744d5e24d"
+      },
+      {
+        "member": 101,
+        "entry_id": "world-map/title/101",
+        "same_text_no_op": false,
+        "stored_size": 173024,
+        "source_encoded_size": 173010,
+        "output_encoded_size": 158322,
+        "compressed_headroom": 14702,
+        "source_stored_sha256": "4f872451ed097627e4c7b2e36f8c4645e0f158d382a17e77f27f7c59f9d94f11",
+        "output_stored_sha256": "1b87edbf0698a72357c22dab7b18a5f2c26e71c41e227cae1d042940d5dc795d",
+        "source_decoded_sha256": "f592a09293438fbe8c6e3700513b162e682a99cf5458b65790d62528e3c629f6",
+        "output_decoded_sha256": "7d40c3edabdbe37e9517f614cb71d45a85d9560f5050ec475be38a1a9467bede",
+        "source_title_raw_sha256": "b278e3503d630a2695b4b34b9907f53be7063e2bbb54c3dfbf6860cbe1bcd586",
+        "output_title_raw_sha256": "be790379101eebddd6421fe3c421096b156f33b452dd6c82c6b293270fc558be"
+      },
+      {
+        "member": 102,
+        "entry_id": "world-map/title/102",
+        "same_text_no_op": false,
+        "stored_size": 173424,
+        "source_encoded_size": 173416,
+        "output_encoded_size": 158989,
+        "compressed_headroom": 14435,
+        "source_stored_sha256": "aaa08917f296bd640787344749e284d37f376ba7b17b5c1b4da8d9fef857278a",
+        "output_stored_sha256": "28c61fd06d528368ce46b9fd842ec9a212d611ccf64d8be229a1f258e45a65e0",
+        "source_decoded_sha256": "a20af0ffc1a554fbdf8fe892b13323ff089ca68d2256141423a5e8f2f12f784a",
+        "output_decoded_sha256": "efc6bb4480e1608ca867082b75fa5c608e117e775ea17baf67230b0d1bc08a95",
+        "source_title_raw_sha256": "14b4b80a3be0b730b04434d0cba55e75f25207c41b060f0e906a7b4ede741bd7",
+        "output_title_raw_sha256": "b469b5185ae833767c4288f45f47ced426ebc74a40ccf0b597b03d070cf9b8ea"
+      },
+      {
+        "member": 103,
+        "entry_id": "world-map/title/101",
+        "same_text_no_op": false,
+        "stored_size": 173024,
+        "source_encoded_size": 173011,
+        "output_encoded_size": 158319,
+        "compressed_headroom": 14705,
+        "source_stored_sha256": "802f4f0b7edcdf27c96255b55b1b5e86115880b78aabf187858209e0bfe2e4f8",
+        "output_stored_sha256": "a76960c6624cc8accefa1c730f139d521809fa53a191b21b7e329c6270827c6b",
+        "source_decoded_sha256": "a87ce48f9424cd499fa1709e99a44812d37f173abc61e5dc65edec4c7bedba4f",
+        "output_decoded_sha256": "d23e7219008d21fdc38567536a308f7b86fe336dcb92b7f6ac45599227da5fa8",
+        "source_title_raw_sha256": "b278e3503d630a2695b4b34b9907f53be7063e2bbb54c3dfbf6860cbe1bcd586",
+        "output_title_raw_sha256": "be790379101eebddd6421fe3c421096b156f33b452dd6c82c6b293270fc558be"
+      },
+      {
+        "member": 104,
+        "entry_id": "world-map/title/104",
+        "same_text_no_op": false,
+        "stored_size": 173008,
+        "source_encoded_size": 173004,
+        "output_encoded_size": 158356,
+        "compressed_headroom": 14652,
+        "source_stored_sha256": "efe4e23cb2261779a34bd8910bad1cf517e524716b576e8b6b7671e77efff1c3",
+        "output_stored_sha256": "d5dde4cb1577135bf35f3bee3a4a3b0a4b1a0dd826558040200b59c23ebe6eaf",
+        "source_decoded_sha256": "a85fa59018c1954163d84ef7755b75499ee5152acc33e209f00818a7a44a7f5d",
+        "output_decoded_sha256": "74a7a6c01029d7944420c8a7ecdcec14c82a73361f2c4e8d4799281a08613867",
+        "source_title_raw_sha256": "913425535f8dbc90203227b81e9bc4d4d9c5651613f1023cdf6f4e16251d07d3",
+        "output_title_raw_sha256": "c8f1e54c3e1bee6b20d2f30a1ebec53811df91fc67523149fe20b4e237888849"
+      },
+      {
+        "member": 105,
+        "entry_id": "world-map/title/105",
+        "same_text_no_op": false,
+        "stored_size": 174256,
+        "source_encoded_size": 174250,
+        "output_encoded_size": 159463,
+        "compressed_headroom": 14793,
+        "source_stored_sha256": "26fc4832c8e02e50ed573756d109d7e37ba479a759eed64aae4f7b330307b4e1",
+        "output_stored_sha256": "75367434444d8805c4f1a2a21b869719668ae14e9bdce8345627186a4d72fbc3",
+        "source_decoded_sha256": "50a71052e29d696ca7406939d2077ee97c5d63f36228fa8ce3e6dd7e75722ba8",
+        "output_decoded_sha256": "c5b9545fb689e1b102b4ab87bc7d1a2f4a6e20ae51ad752a5676fa607addcff7",
+        "source_title_raw_sha256": "81b39868f30bec9b8a447e4722d561e20011a424c8c2ceae54c580ea8d1bcfab",
+        "output_title_raw_sha256": "047f60cd2750ebce9aefdea8c1a0057ad82aff3639e698a09baca39c33320252"
+      },
+      {
+        "member": 106,
+        "entry_id": "world-map/title/106",
+        "same_text_no_op": false,
+        "stored_size": 173248,
+        "source_encoded_size": 173248,
+        "output_encoded_size": 158548,
+        "compressed_headroom": 14700,
+        "source_stored_sha256": "425e7e309b8f0619a3f8db138f15573ab8c0c8e743830be678d6d2dc665f2db2",
+        "output_stored_sha256": "ecbe5710c73279c3f3b4c5935b790227015b6bca308a57b7e4ffb7c48b489f8c",
+        "source_decoded_sha256": "775608a8f96a9aa0a99f3a516c835aacb67ec08e632b4d56b928686a90ff3af0",
+        "output_decoded_sha256": "2827c2ade97423f1b814ca7f9a092f3ab3b335bed9a3253b0699374c44f7df49",
+        "source_title_raw_sha256": "6273f36bb0046de19cf7a860e421c6fe15969ccbfdb24d6a1a5cfffcf35587ac",
+        "output_title_raw_sha256": "7e07d00b9c9f187ba8ac3a3e88113c702e1a5cf062939516e85c5075eae902a9"
+      },
+      {
+        "member": 107,
+        "entry_id": "world-map/title/107",
+        "same_text_no_op": false,
+        "stored_size": 172704,
+        "source_encoded_size": 172704,
+        "output_encoded_size": 157692,
+        "compressed_headroom": 15012,
+        "source_stored_sha256": "5b5c2b9e99946b34d7c073e690d20949f0d466912853491f0ed259da24cf3f0d",
+        "output_stored_sha256": "e1da3181b9fa5f7392d41e51374d56445eed91ba4d51ef6b9c1a6a88f4050ae5",
+        "source_decoded_sha256": "c04cb47bea67bcb7e23dfff51dca5bda5cf079ab5ae66a702c2486af22b957d9",
+        "output_decoded_sha256": "28ea90ca828f51f5dd4391bcd8551106d84217efbfe9abb989a6463dcab7cba4",
+        "source_title_raw_sha256": "6c08d3e8c040762416c77c653c21b3eeabe23f8e5d2b1b477b13d0c10afa9bf3",
+        "output_title_raw_sha256": "dfb29ce43b9c6ee833dbd3d1e00c180c7dde9b66ae0abc3c72f0b04a6d94bc34"
+      },
+      {
+        "member": 108,
+        "entry_id": "world-map/title/108",
+        "same_text_no_op": true,
+        "stored_size": 178848,
+        "source_encoded_size": 178835,
+        "output_encoded_size": 178835,
+        "compressed_headroom": 13,
+        "source_stored_sha256": "4a13df51f46beff6654ba596779caca8c7af2be29fef6d7a044ebdd85349487d",
+        "output_stored_sha256": "4a13df51f46beff6654ba596779caca8c7af2be29fef6d7a044ebdd85349487d",
+        "source_decoded_sha256": "aef72e6014866b3b2abd0cf7ed75b3ae6707e38bc7e4d3562277f189ed9e2050",
+        "output_decoded_sha256": "aef72e6014866b3b2abd0cf7ed75b3ae6707e38bc7e4d3562277f189ed9e2050",
+        "source_title_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510",
+        "output_title_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510"
+      },
+      {
+        "member": 109,
+        "entry_id": "world-map/title/108",
+        "same_text_no_op": true,
+        "stored_size": 172304,
+        "source_encoded_size": 172290,
+        "output_encoded_size": 172290,
+        "compressed_headroom": 14,
+        "source_stored_sha256": "75d5d3a55521e88a9ef199275a1396068c13f8ee32758ffb528c3f9d59498ce9",
+        "output_stored_sha256": "75d5d3a55521e88a9ef199275a1396068c13f8ee32758ffb528c3f9d59498ce9",
+        "source_decoded_sha256": "050557aa0581846c37e9078c25d100e7c54bb86038fa8c30fd98527de0165da5",
+        "output_decoded_sha256": "050557aa0581846c37e9078c25d100e7c54bb86038fa8c30fd98527de0165da5",
+        "source_title_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510",
+        "output_title_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510"
+      },
+      {
+        "member": 110,
+        "entry_id": "world-map/title/108",
+        "same_text_no_op": true,
+        "stored_size": 172304,
+        "source_encoded_size": 172289,
+        "output_encoded_size": 172289,
+        "compressed_headroom": 15,
+        "source_stored_sha256": "80d5863105f14391a3341f30b4159a3e4f5eb77742c0dfd4ff955c191a671d26",
+        "output_stored_sha256": "80d5863105f14391a3341f30b4159a3e4f5eb77742c0dfd4ff955c191a671d26",
+        "source_decoded_sha256": "402044ab0ea55664169fc9ecf436c914ee0575e5ccef632348c5ee7fa18796a0",
+        "output_decoded_sha256": "402044ab0ea55664169fc9ecf436c914ee0575e5ccef632348c5ee7fa18796a0",
+        "source_title_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510",
+        "output_title_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510"
+      },
+      {
+        "member": 111,
+        "entry_id": "world-map/title/111",
+        "same_text_no_op": false,
+        "stored_size": 173184,
+        "source_encoded_size": 173183,
+        "output_encoded_size": 158279,
+        "compressed_headroom": 14905,
+        "source_stored_sha256": "44adfa5bb2f76447b82e112a16a372828ea191459b233cb1b0bb0e2551a49ed9",
+        "output_stored_sha256": "cd799956c1a22dfcea5ae8f65c163de4673d35ba58ecb947513ab85c84b03f67",
+        "source_decoded_sha256": "7dd81cc368839234b04a4fccf1d9f90fe6d43be9798dadee805fa0e451279a6a",
+        "output_decoded_sha256": "196aabc029dc9cd067a241e5619e7c7a02b3bd37f2fa50f1a45f0d9857f21f82",
+        "source_title_raw_sha256": "4acaf8f87d30e4fdb852403a302243cb52e1b4a6e2aff785750b5a5078099d31",
+        "output_title_raw_sha256": "07dc5669a176ecb18e0b0cf2a105ffc0480298795e23c981773db568bb5f6a07"
+      },
+      {
+        "member": 112,
+        "entry_id": "world-map/title/112",
+        "same_text_no_op": false,
+        "stored_size": 172896,
+        "source_encoded_size": 172891,
+        "output_encoded_size": 158349,
+        "compressed_headroom": 14547,
+        "source_stored_sha256": "79cf4a4845b9b66653293a9086691e3bd16b964981d889669be99b57d0512b74",
+        "output_stored_sha256": "d9c0fb10b7e772b2f1e6e08c32d962630e35a460f8cbf7599b3c672b00a53441",
+        "source_decoded_sha256": "166fd47ea321aebec3df073f6e6da7f2bc5d36dcf934a79b0f7894fb706be3b4",
+        "output_decoded_sha256": "441365f1e19a29fdc1323f9fb5dbf247dd92212404a4082a14df0b4a06eee4b2",
+        "source_title_raw_sha256": "3b0d50ab31f4d37b7e7c74d02f854d42c7eed2f8f3b9b2f72e3619c8b2d2a7fa",
+        "output_title_raw_sha256": "6f23fcb391b16d8b3be220bf432ad90d91c1ded6fbd7cd0f2546bda4e618616d"
+      },
+      {
+        "member": 113,
+        "entry_id": "world-map/title/113",
+        "same_text_no_op": false,
+        "stored_size": 174016,
+        "source_encoded_size": 174012,
+        "output_encoded_size": 159277,
+        "compressed_headroom": 14739,
+        "source_stored_sha256": "4c91ada55332765e196c8dc811a13900ba96361e40774b07902a451960475a1a",
+        "output_stored_sha256": "e9234556373709e05fab546700c66a7924b0b6b605b855a646a2d214780c7d4b",
+        "source_decoded_sha256": "94557f769f00eb2d5fbf3a39963666e40dc70da62f8ebfea07704a1ac1dce51f",
+        "output_decoded_sha256": "5cc12495a9e76dad8e2d55486beebc42a7f51877453a320a138cdd95635d728f",
+        "source_title_raw_sha256": "832adbbeb845caf13406b0719c0dd6d405450ae063274c1c11f7e7c440218ebb",
+        "output_title_raw_sha256": "abeef2a978a3508696194941b21214d9b56336e87e4c8028748dfca68527b913"
+      },
+      {
+        "member": 114,
+        "entry_id": "world-map/title/096",
+        "same_text_no_op": false,
+        "stored_size": 172336,
+        "source_encoded_size": 172321,
+        "output_encoded_size": 157674,
+        "compressed_headroom": 14662,
+        "source_stored_sha256": "cca84f61c26afbfb53c2bcaee25e04f9f6ab7bef01435060a3383fd6b83f5746",
+        "output_stored_sha256": "2addd95ae9507b9cec26fe890cfa737f10c42139d15fc6d84e71fe34727802e7",
+        "source_decoded_sha256": "1d3d4eb4564ac9dc7666c22edf296629f206a0d293d08be39f4498ce3bf79447",
+        "output_decoded_sha256": "00534b5465fbfeeff9a1e11eb6170e9986a4d9e78a558a841251f98ee39a4764",
+        "source_title_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_title_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa"
+      },
+      {
+        "member": 115,
+        "entry_id": "world-map/title/096",
+        "same_text_no_op": false,
+        "stored_size": 172320,
+        "source_encoded_size": 172319,
+        "output_encoded_size": 157666,
+        "compressed_headroom": 14654,
+        "source_stored_sha256": "a7e8bd82ca3267dbc6aceeaf7c0cf38acdf11d510a9eae78c5bb1c8de2d9ca1f",
+        "output_stored_sha256": "830f13cc63027862e060ff83c6a6e6ede6c18ac047ce4451147d48e3c3eb15ee",
+        "source_decoded_sha256": "8320ae4474a60c36bf385df11261d0fa3d24764591afd82ea5879a09c8958fbf",
+        "output_decoded_sha256": "00f1639a639152237cd7b907ca529caeb5085a9962e53cec2c661c8d1fb97c8b",
+        "source_title_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_title_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa"
+      },
+      {
+        "member": 116,
+        "entry_id": "world-map/title/096",
+        "same_text_no_op": false,
+        "stored_size": 172336,
+        "source_encoded_size": 172321,
+        "output_encoded_size": 157673,
+        "compressed_headroom": 14663,
+        "source_stored_sha256": "daa37cfb2406805f111f61844250bb149a17c3873dbac54267af56ad9824c718",
+        "output_stored_sha256": "e82fe5e1ce94039c539183e716a86ed47038e008e8fe065565eac3fce8a8ac91",
+        "source_decoded_sha256": "dc585755dd705b13c7273a888af1acf35c6e7ef3c5c533362627f0fce5a92736",
+        "output_decoded_sha256": "9d3fcf41630f2e38089f5e3085396f0b478be80945bb05920882a285b6bc2741",
+        "source_title_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_title_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa"
+      },
+      {
+        "member": 117,
+        "entry_id": "world-map/title/096",
+        "same_text_no_op": false,
+        "stored_size": 178880,
+        "source_encoded_size": 178874,
+        "output_encoded_size": 163230,
+        "compressed_headroom": 15650,
+        "source_stored_sha256": "de8d1ed1910da054434d7b46ed033c4962124d107bef2cfa4aed1f9344b36a41",
+        "output_stored_sha256": "6debb4313f620a7e7572900fd73c0775f27e1513d62fbb8acaf8c2bf6f329fab",
+        "source_decoded_sha256": "fb9824d24410bdbf6f445505ba4f78354ddcb782c0ea4cbc3c5be9b4b33ce45a",
+        "output_decoded_sha256": "929829e75e4f0611ace40f3efad3cd6655e68d622cd6b05fec5acc2315b2a9b0",
+        "source_title_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_title_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa"
+      },
+      {
+        "member": 118,
+        "entry_id": "world-map/title/118",
+        "same_text_no_op": false,
+        "stored_size": 180016,
+        "source_encoded_size": 180003,
+        "output_encoded_size": 164487,
+        "compressed_headroom": 15529,
+        "source_stored_sha256": "17a885d7ee1b4eba3dd42fdacd5ac570b1d48c2bb8f793b496b25bcc9759e8c0",
+        "output_stored_sha256": "e8df45d5b3508aa9919f2c4a979ff7a2941749a2ee25b72784efe171a7970696",
+        "source_decoded_sha256": "2ea495026906b25671613df7bc5d6b0aec95aeadcfb5def76ef0587ae2c84010",
+        "output_decoded_sha256": "6d8406ead91d448e52f42d0553934674bea3d78eda72a3dfb80b8cc63034abca",
+        "source_title_raw_sha256": "37918048c48eb61b84bdc9f35e5b4a56ec57cf495a42af9b0f5aadf1a2c6092a",
+        "output_title_raw_sha256": "2b3e0f391212f549bbdaaf755d7f73c60b4c8f7df2c7a4549de7970a32fdd1af"
+      },
+      {
+        "member": 119,
+        "entry_id": "world-map/title/096",
+        "same_text_no_op": false,
+        "stored_size": 178880,
+        "source_encoded_size": 178879,
+        "output_encoded_size": 163235,
+        "compressed_headroom": 15645,
+        "source_stored_sha256": "f3e095f0cf59a8983a8504261573fcaad5d70850109673871870f79f41ac3b02",
+        "output_stored_sha256": "cc52ec8c2f0e3401d33eb5d3736a61fe228a9c54ae9c39cd4f583db56ea8da54",
+        "source_decoded_sha256": "d988b6b6cd5a6e6bc1b4896869ec574ca04a4dec14bd5d2bb33f8aa1e835ce93",
+        "output_decoded_sha256": "f349eadd30933c2606637c853e596c0875c8db293f3711b8fd929cb85498c4b8",
+        "source_title_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_title_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa"
+      },
+      {
+        "member": 120,
+        "entry_id": "world-map/title/096",
+        "same_text_no_op": false,
+        "stored_size": 178880,
+        "source_encoded_size": 178873,
+        "output_encoded_size": 163230,
+        "compressed_headroom": 15650,
+        "source_stored_sha256": "b1b28ae490a8b0ca6a30ed9fe3e4bea3573edcd3848d08d63860f62a0545586e",
+        "output_stored_sha256": "81bb73f0ceac095cd22e9b7dda6d2b2aea6cae279660af6443f345ecc98a2dfb",
+        "source_decoded_sha256": "ff663b93c2b9e3357ed6e5f6bbda67e4f7296b484fb725be46bca5131a0934c6",
+        "output_decoded_sha256": "515602325c162c2678515bd418f6a5082bd17d4fa73027af2b9442376551a311",
+        "source_title_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_title_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa"
+      },
+      {
+        "member": 121,
+        "entry_id": "world-map/title/096",
+        "same_text_no_op": false,
+        "stored_size": 178880,
+        "source_encoded_size": 178876,
+        "output_encoded_size": 163235,
+        "compressed_headroom": 15645,
+        "source_stored_sha256": "9b477a1043a168a140de92b1fd14654b2c355b5afe5c6ec9aac5f6cf2d048e00",
+        "output_stored_sha256": "c1672c03d935e79533701b209bbb0a66ad409185853784b24c2e6a4fc5b1613b",
+        "source_decoded_sha256": "43f717833862cb3edf0bb66dcc80b177007c8190d8fdd28fb03119964bb53ab2",
+        "output_decoded_sha256": "e135304b490a6ed6a459b9f8a59bcd3a5bbdc5f42617c0a650d8c62a134e80d2",
+        "source_title_raw_sha256": "a87663e876bbfd1e825a153e89d94f54bb95f99092fb0023c0a8fd322a3946d2",
+        "output_title_raw_sha256": "6e6afd2232407a5aeafa187d6ee48ac23b2971936e10c19064eb27b73a0d30fa"
+      },
+      {
+        "member": 122,
+        "entry_id": "world-map/title/122",
+        "same_text_no_op": true,
+        "stored_size": 172288,
+        "source_encoded_size": 172273,
+        "output_encoded_size": 172273,
+        "compressed_headroom": 15,
+        "source_stored_sha256": "98a243e5894c554affa4f4a5f95e8b4ae165c264a173c3412fece4559b78a772",
+        "output_stored_sha256": "98a243e5894c554affa4f4a5f95e8b4ae165c264a173c3412fece4559b78a772",
+        "source_decoded_sha256": "d73368cfeeba35b8f2fab52b597b87298b26f3228bb07ef2344d46af35389a2c",
+        "output_decoded_sha256": "d73368cfeeba35b8f2fab52b597b87298b26f3228bb07ef2344d46af35389a2c",
+        "source_title_raw_sha256": "3e42099938d7e5a5065a58e85ed8951377e9becc5a2ead490b5ffb9d5bab9559",
+        "output_title_raw_sha256": "3e42099938d7e5a5065a58e85ed8951377e9becc5a2ead490b5ffb9d5bab9559"
+      },
+      {
+        "member": 123,
+        "entry_id": "world-map/title/123",
+        "same_text_no_op": false,
+        "stored_size": 173552,
+        "source_encoded_size": 173542,
+        "output_encoded_size": 158794,
+        "compressed_headroom": 14758,
+        "source_stored_sha256": "93c3b0614b023d2d1bf2cf65907d038fc7f08f6ddeb2083dbb6827aea4753945",
+        "output_stored_sha256": "64aa89088d3bcbf1318eba87eafbd1102b2550e9165953dc18bc62920396cf58",
+        "source_decoded_sha256": "3fbf51a79e94c83c60941cebe45355da8ed64d79577d11c7884018c729fffbd0",
+        "output_decoded_sha256": "e5b0802c5ffdc2920465b3494f5f2e62a88b2e8469beb995fabca71ceda5b8f3",
+        "source_title_raw_sha256": "3d149711216ac5d11f5e731afaaa352bf0ebccb8c5a31b22a1abec5b96524ed1",
+        "output_title_raw_sha256": "2c0650e4f3d0c7068561fd8c61151961926bea43908e75916f7221596006e5bb"
+      },
+      {
+        "member": 124,
+        "entry_id": "world-map/title/124",
+        "same_text_no_op": false,
+        "stored_size": 173408,
+        "source_encoded_size": 173393,
+        "output_encoded_size": 158715,
+        "compressed_headroom": 14693,
+        "source_stored_sha256": "5e507b6dd1677f0eab6ec1d297ab0541959621554e548f42d86c351a85fad821",
+        "output_stored_sha256": "97d3cd13e464b22811ca6ee6292bf0d328a63f2a140b8d0bd396047d53885f67",
+        "source_decoded_sha256": "42e018b3d62ed175b12ce9ddfd77106f3b264341079f90f3f8786647385fb708",
+        "output_decoded_sha256": "912084646c01df9971cfd0cce944b50d6fe34de13fe90ba83e495927fe63a2bc",
+        "source_title_raw_sha256": "6ce91e0ba62b059e27695a260c3120fbb3694c4ce18ed6b7105c81ea0762e060",
+        "output_title_raw_sha256": "d62523294359522ca0d3a344be980483041d73c557c23879813f2ab4dca5f294"
+      },
+      {
+        "member": 125,
+        "entry_id": "world-map/title/125",
+        "same_text_no_op": false,
+        "stored_size": 172688,
+        "source_encoded_size": 172684,
+        "output_encoded_size": 157921,
+        "compressed_headroom": 14767,
+        "source_stored_sha256": "3bb1c778730934f93553a860b6a0bc5d958c3f5330f57c3d7d4cfed9a9b1979f",
+        "output_stored_sha256": "f34b7698c7af56c51d7612a08ade699caf3f8c1b37df7e9fb8267545472de434",
+        "source_decoded_sha256": "e1862ae6d356fa57dc3b52b0ba7b154ff203446e54c54cda4e3110a05dc46a3d",
+        "output_decoded_sha256": "a5affa50e89c2feea7721d88d03d159c50d855901113fa65451d527f7c9670e5",
+        "source_title_raw_sha256": "106f411f7b3b1e28a90efcae0dc6c22a28d7d3a7a93a5af8348d0b0081f9c268",
+        "output_title_raw_sha256": "4b7d109a3a107ac10cd5b59d6fc4c9a19dd6f29faba8e97b904639a49dd21327"
+      },
+      {
+        "member": 126,
+        "entry_id": "world-map/title/089",
+        "same_text_no_op": false,
+        "stored_size": 172496,
+        "source_encoded_size": 172483,
+        "output_encoded_size": 157790,
+        "compressed_headroom": 14706,
+        "source_stored_sha256": "a4b1f4eca9c8e68b0e75bb70a0d8759c65807fb183799f0913c6c983d40c2786",
+        "output_stored_sha256": "95b3126ed41e82dbaaea237a240c161f4b5a1a5dd05dc013e8a7d97915223231",
+        "source_decoded_sha256": "0091a1b821201e2371eee0a628ba6e0dfcafeaccea001dc56b42a82a139e435d",
+        "output_decoded_sha256": "b3f25b0ce480e7d8131caf87e61e2cdf0dbd8a736d9adc19de6eddda1123b0dc",
+        "source_title_raw_sha256": "ce45a4799cbea223986aaee1983116ace1d7687d94a6ef618c7041a4c98ec530",
+        "output_title_raw_sha256": "c32b8f2da5f32b80a01171616fd0480630060e54241fe88d273a92967500bb1b"
+      },
+      {
+        "member": 127,
+        "entry_id": "world-map/title/127",
+        "same_text_no_op": false,
+        "stored_size": 179040,
+        "source_encoded_size": 179032,
+        "output_encoded_size": 163154,
+        "compressed_headroom": 15886,
+        "source_stored_sha256": "19ab6f4cee543fb31739a1bf3b2e15e44a582ea21095a09153dd9bca5c3a6885",
+        "output_stored_sha256": "d3636939356dcb9f3fdba95fca901e96cf3de61610b8bd6b1e4b74831a2e680b",
+        "source_decoded_sha256": "6a761500f7afa0e6c181bcca16cae741323135ad52ea3a9c505ca6d10dee954f",
+        "output_decoded_sha256": "a1163fbf5000dd385e56501b8bd61c20ffbdc6444d1b1b8130a5cdc0b12ce562",
+        "source_title_raw_sha256": "a35957abfe3e77697a6296943a51eafb1dc61ee8f01c05b285c76b8fb66572bf",
+        "output_title_raw_sha256": "2abf9ff7f293cb97cc8f1f619968c70ff2c8d1caf43e70bcb5757174348a3fcd"
+      },
+      {
+        "member": 128,
+        "entry_id": "world-map/title/128",
+        "same_text_no_op": false,
+        "stored_size": 172256,
+        "source_encoded_size": 172245,
+        "output_encoded_size": 157554,
+        "compressed_headroom": 14702,
+        "source_stored_sha256": "496d141d8fe597ae6f6326a43b3699dbbc0bbd93109ef1c02109a9020834a056",
+        "output_stored_sha256": "ded6b98baf7d0e84243f951a871a097589e9021da73b700dc6be421c241243e9",
+        "source_decoded_sha256": "8361cf59d4bc59db1173754bcd9eab071aca2dc97ccd34e24abaa3670a007ac5",
+        "output_decoded_sha256": "6a59307bf6ed03b86cc024fded0a1dd153985e44e3896cd6f9406da1585743f4",
+        "source_title_raw_sha256": "74cdd54d77f7634fd14860f7c94e252985fbf0d89c5b79bf558843e435623089",
+        "output_title_raw_sha256": "1a87e9afeb8603a47585af1ae1aa6025cacfe91f3ff670db34fbd6be62236ef4"
+      },
+      {
+        "member": 129,
+        "entry_id": "world-map/title/129",
+        "same_text_no_op": false,
+        "stored_size": 173760,
+        "source_encoded_size": 173749,
+        "output_encoded_size": 159057,
+        "compressed_headroom": 14703,
+        "source_stored_sha256": "d8aef0b281b8889fd01937aa33022f89b5aef4aa2e9bce1e5763807a2df1574c",
+        "output_stored_sha256": "04f46224501bfd56cd71f20a3de5eef62ea52b546a3a1481f55fc8a2deca352f",
+        "source_decoded_sha256": "425e5afb0f6e03a49c7586f6f1fd520645d3b6b9aace223e0c4c3d2f36953965",
+        "output_decoded_sha256": "6f53601e2baa13f4c7a9034426d5610b294d117de3750634432e8cf84a5d97be",
+        "source_title_raw_sha256": "6aeb14ea8fb0b552a16bc5538285fc39746ea56614658094ad4c8ddd100d740a",
+        "output_title_raw_sha256": "34a86e6daeea249bc97cf233f8c10765a56ceb96ac5c05f63a0b84904336a738"
+      },
+      {
+        "member": 130,
+        "entry_id": "world-map/title/130",
+        "same_text_no_op": false,
+        "stored_size": 173904,
+        "source_encoded_size": 173893,
+        "output_encoded_size": 158815,
+        "compressed_headroom": 15089,
+        "source_stored_sha256": "a6d9cf335492f4342005a295d88db78c6b733ecb026cce9ec6f2912b913d4698",
+        "output_stored_sha256": "a267494d12c34ea2ba095abd2b6b7b647890c1c837ccac5ebb9bb2d84c8a61b2",
+        "source_decoded_sha256": "d8e08705e3eb8889fbc3387f1b5dc8263bf5b74d977e3cb3ed163eefdb8548e1",
+        "output_decoded_sha256": "f1c36b912c142d0acb21b96aa1935f02ef4a3133677ef516f3159ad187a06804",
+        "source_title_raw_sha256": "3d6f46852281cfe1c8241ccc16abf5420ff3979e2ea38655b48c7027fa17dc1a",
+        "output_title_raw_sha256": "f32e184d7029db0caeb829e14fa50d5d27a2deb556e29b0dbc545b2a32fc27e7"
+      },
+      {
+        "member": 131,
+        "entry_id": "world-map/title/131",
+        "same_text_no_op": false,
+        "stored_size": 173120,
+        "source_encoded_size": 173114,
+        "output_encoded_size": 158254,
+        "compressed_headroom": 14866,
+        "source_stored_sha256": "1a528483abd46f2ead78b88937250eb224f85673d20026a166623ca4fc5887cb",
+        "output_stored_sha256": "34c9e934496487dc9028c622edd147c856488fe42e108f68cb952aea34ce4f69",
+        "source_decoded_sha256": "d2e95904157fd38f4e5161961882acbab75b61626db5664c3ded8e42e1dcf36b",
+        "output_decoded_sha256": "96a298840af7787fd07cc4970913b538cf37250258ae3fd08b05eb9bd2b7815a",
+        "source_title_raw_sha256": "f281ac4126684304e0d6d305c02cbf7a5230685e1810913add90f88da538ab53",
+        "output_title_raw_sha256": "b5440ed6fc5c4fd9e1758999868c299539bc03eb905481e4d13f5d261302ea06"
+      },
+      {
+        "member": 132,
+        "entry_id": "world-map/title/132",
+        "same_text_no_op": false,
+        "stored_size": 173584,
+        "source_encoded_size": 173578,
+        "output_encoded_size": 159019,
+        "compressed_headroom": 14565,
+        "source_stored_sha256": "0eb243419bd09496f5a72478d6152338d3947eb7e211f07e8bc3d69c23e403c2",
+        "output_stored_sha256": "0ceb5ae89319cceb759fbf27a734ce83308a4814d739e4beb0f4498616697ee4",
+        "source_decoded_sha256": "ea271f574ef3a1bece315e357780618838f7d271ebfd16bfac549bb82bcf99b6",
+        "output_decoded_sha256": "1eb534dab10d73d360d339e190b78d1c30fd547098217c224874d02114083b3c",
+        "source_title_raw_sha256": "b5d12555611e612b72b321ee371bacc851671e5e545ca4d48e92dde6345aac8c",
+        "output_title_raw_sha256": "59888d72fe332194a71db3fa2b6f1305647071d2b7673f0413283af6e2ca1e3d"
+      },
+      {
+        "member": 133,
+        "entry_id": "world-map/title/133",
+        "same_text_no_op": false,
+        "stored_size": 173040,
+        "source_encoded_size": 173036,
+        "output_encoded_size": 158311,
+        "compressed_headroom": 14729,
+        "source_stored_sha256": "c42e1567ae36b56bb0c615e5c81ed4ff600e51b79942d091363951609708db92",
+        "output_stored_sha256": "ca6a58c2494e13036d88932892c034668bbe77ddd851fe29a8b77a6a715a2a93",
+        "source_decoded_sha256": "1294fbeeffe0cb3d66791993c89826094c5d45fb5e1922b82633863ee5d0799d",
+        "output_decoded_sha256": "5f392f666ee0f4c175415b8871003d367225c262d68757222cc27be9f71560ea",
+        "source_title_raw_sha256": "4221c53b6eb63aee43276c37c63b57359c166a9c213279c5b22a8cf2b179c149",
+        "output_title_raw_sha256": "0ddc7d3d9338d5977f84125e3bc29cfb5bea11f641520166e7db6580617a6d17"
+      },
+      {
+        "member": 134,
+        "entry_id": "world-map/title/134",
+        "same_text_no_op": false,
+        "stored_size": 173328,
+        "source_encoded_size": 173327,
+        "output_encoded_size": 158944,
+        "compressed_headroom": 14384,
+        "source_stored_sha256": "9c025a288f74e924fc46c8d9d74dfbc96f8637276cffe6dc962b2bfbf47fa5ff",
+        "output_stored_sha256": "10df58dec181b01598c052ccae773c8313f1fcecb49a7c281b7958ac166a2d84",
+        "source_decoded_sha256": "30a7e6b612f4a578354a5532b3f71cf5710a6c6dd4ab28b3876e66b054a08962",
+        "output_decoded_sha256": "5aa7f90cdd75335631232f8e0a36fa0b78058f583145677f7f7d7fe787ea3ca9",
+        "source_title_raw_sha256": "db033a76f55332f9f3eedf2365f4823e2a9a34646f4b1f8bd2891473b0eec59d",
+        "output_title_raw_sha256": "20695f1628a8fc10046e0e4c47eeef79141bbc0f33fe3ce71ffe6c2bec56d808"
+      },
+      {
+        "member": 135,
+        "entry_id": "world-map/title/135",
+        "same_text_no_op": false,
+        "stored_size": 174048,
+        "source_encoded_size": 174044,
+        "output_encoded_size": 159415,
+        "compressed_headroom": 14633,
+        "source_stored_sha256": "035902265cbc9b5b33ac9b124be1f90cd11797ecba9d183c578d954e4295c2b4",
+        "output_stored_sha256": "1d7aa973c1d1b08b6ce299d79358160ed273e66ce06c01f0a27c7911d6836dd6",
+        "source_decoded_sha256": "5e2d7ee60c1fceabc07fa527ebf62b1f8ee5bfd5a800bbf45e46f148890583d2",
+        "output_decoded_sha256": "ee2354f7eb2f4d7be14e3970681eb56532f36d5ad461f7c153021b6eb189066a",
+        "source_title_raw_sha256": "39b1bfd223d8669e73e3d500cc3b104e6004115a977d1c4c3571fb5a0ce24690",
+        "output_title_raw_sha256": "4377756f0982be6c08f7b6e6e64b8bb57c19e61da687f9a181357d575e2cec8f"
+      },
+      {
+        "member": 136,
+        "entry_id": "world-map/title/136",
+        "same_text_no_op": false,
+        "stored_size": 174992,
+        "source_encoded_size": 174991,
+        "output_encoded_size": 159861,
+        "compressed_headroom": 15131,
+        "source_stored_sha256": "bebcd5f5fc43cd0128b2ce8ae7c3f064b89fbc7df788b39907da2ebe1e8c7da8",
+        "output_stored_sha256": "6c80cd592d25f404cfdaed782642eaf66269910ecb04070ef5870a869323efb4",
+        "source_decoded_sha256": "e47c261b12569d40422cbe4aebb561e0e7c7afbb2302fe3b2d3ca07484b43373",
+        "output_decoded_sha256": "94bf8bc7e291986a407c3dcabbe5f3b1a4b9b973fbc9bd08e7b3dae34307c9a1",
+        "source_title_raw_sha256": "647bf72da16c7710052f283e70ab27dc87be79ed518a1268b59c08fa5732acac",
+        "output_title_raw_sha256": "b7016ace912b068aaf63dda247a7d3d785a648cd19d3ccbd161e2803cadde6cb"
+      },
+      {
+        "member": 137,
+        "entry_id": "world-map/title/092",
+        "same_text_no_op": true,
+        "stored_size": 171968,
+        "source_encoded_size": 171961,
+        "output_encoded_size": 171961,
+        "compressed_headroom": 7,
+        "source_stored_sha256": "3f441ab284233d6cda841c6f64adc7d4b30477107a69748c499dd91c8b409162",
+        "output_stored_sha256": "3f441ab284233d6cda841c6f64adc7d4b30477107a69748c499dd91c8b409162",
+        "source_decoded_sha256": "ce61211d5ba671ad287e802c883be857305fb100f586e79a0072435fb1b2788a",
+        "output_decoded_sha256": "ce61211d5ba671ad287e802c883be857305fb100f586e79a0072435fb1b2788a",
+        "source_title_raw_sha256": "87c74beef16fa019f0ea6949a22f3b9bc567040ce7d4d3bed7656d9bd2d91125",
+        "output_title_raw_sha256": "87c74beef16fa019f0ea6949a22f3b9bc567040ce7d4d3bed7656d9bd2d91125"
+      },
+      {
+        "member": 138,
+        "entry_id": "world-map/title/133",
+        "same_text_no_op": false,
+        "stored_size": 173040,
+        "source_encoded_size": 173036,
+        "output_encoded_size": 158311,
+        "compressed_headroom": 14729,
+        "source_stored_sha256": "c68a15273a9946e9a93b456184c26b5975690dd441e1fc1cf1378c3e492b7ae8",
+        "output_stored_sha256": "f0c175445c5765199ba1b8b85a4e143c60422ef7a71bc03c5586bfbd7ab544e6",
+        "source_decoded_sha256": "3e7a219d955be58ee95b9cf2e808119fe60b26ab22a9850512b134ea8ab19fad",
+        "output_decoded_sha256": "aa0c0ac01719baf1fe279b06f56bfb8ab037bf58759578a82bf9ae3c1a320f1a",
+        "source_title_raw_sha256": "4221c53b6eb63aee43276c37c63b57359c166a9c213279c5b22a8cf2b179c149",
+        "output_title_raw_sha256": "0ddc7d3d9338d5977f84125e3bc29cfb5bea11f641520166e7db6580617a6d17"
+      },
+      {
+        "member": 139,
+        "entry_id": "world-map/title/139",
+        "same_text_no_op": false,
+        "stored_size": 174256,
+        "source_encoded_size": 174254,
+        "output_encoded_size": 159705,
+        "compressed_headroom": 14551,
+        "source_stored_sha256": "5b2b2ac0f471d62afaa98e74689de53a5a7ac638497923465f15bc9c8e4057ad",
+        "output_stored_sha256": "d84ee9206478a37aa7acca98af38ad9119f67c5b8b1e58c62c748290a15b12d3",
+        "source_decoded_sha256": "c8cd3eed57f62bd964599651dd25785bc7838eebc71e2be38895075545e0e135",
+        "output_decoded_sha256": "8ce1892863619551daa377f2afa6d947c23cb23f17808ab23895ed5bcd7c9d61",
+        "source_title_raw_sha256": "e7e0db79d4b0289680674fcac313113dd52ef62c5deb5c9175256c4026f0f122",
+        "output_title_raw_sha256": "4b4c5364da8328b18c5613898aa57105f696388e093440cc28500a974abe9ab5"
+      },
+      {
+        "member": 140,
+        "entry_id": "world-map/title/090",
+        "same_text_no_op": false,
+        "stored_size": 173200,
+        "source_encoded_size": 173190,
+        "output_encoded_size": 158125,
+        "compressed_headroom": 15075,
+        "source_stored_sha256": "38d698f1114001c7278666a688ed57fd544bde636f54a173585235fb0ead1929",
+        "output_stored_sha256": "a980a1ee4c6ed6be6c5891acbad3c45e000bad4674c96e70188978a8310fb63f",
+        "source_decoded_sha256": "bdf27835b1476cb022173939be96fd6b60c548ea9b2a527451a1b8641de4b494",
+        "output_decoded_sha256": "2c70cc631f5881bc9bb63d24ee0bdb40ffdc1c510407719a5c621cdf23064580",
+        "source_title_raw_sha256": "cabfa0087e127742f07850515b06f517cdbaee15bb374b29679308e39b93d1d4",
+        "output_title_raw_sha256": "0adfe66971f734c7b9aefb31a80b0db330c20f40a3811cbe41d653d0607bd0c1"
+      },
+      {
+        "member": 141,
+        "entry_id": "world-map/title/141",
+        "same_text_no_op": false,
+        "stored_size": 174256,
+        "source_encoded_size": 174245,
+        "output_encoded_size": 159259,
+        "compressed_headroom": 14997,
+        "source_stored_sha256": "5238d9dbb73f5e589db33d5bc6e3b08d2efadfabe607bcba968a06b3f678a813",
+        "output_stored_sha256": "b5256927e66e0fce40130521cb19ab4ac868041d0a80ab6f56ebeec16dad6307",
+        "source_decoded_sha256": "d228a727cffabda526567220cc3c33f65d83454db46390de61166155a1a9e976",
+        "output_decoded_sha256": "e1b0811ad99647dcd07d58e25a68913b0c696ade4953d826dae1e5f4fdcdc421",
+        "source_title_raw_sha256": "c90403f561873063e9264c10edeebe8040ff715158e6eadc631940b4d9dc5d03",
+        "output_title_raw_sha256": "f420f9bf48ed190e65a9e330f4ce69287bbc64605b2454c19058709191cbc115"
+      },
+      {
+        "member": 142,
+        "entry_id": "world-map/title/133",
+        "same_text_no_op": false,
+        "stored_size": 173040,
+        "source_encoded_size": 173036,
+        "output_encoded_size": 158311,
+        "compressed_headroom": 14729,
+        "source_stored_sha256": "f8217af338021d7016bf0f3fa664069da57b015a4bd816bf8bd070c7d8dcc783",
+        "output_stored_sha256": "3e7bb89928a4ac65568ea6e2696731c45d8dd8b56b65e938c60be54b95aea5be",
+        "source_decoded_sha256": "487a9c26a35d8c81c3cc4376cbfd277876756e589bcdde7058fefd863f49ae34",
+        "output_decoded_sha256": "7320231a2039488303f851d29febdae1e792ca5c275d6053f8f515e10236bacf",
+        "source_title_raw_sha256": "4221c53b6eb63aee43276c37c63b57359c166a9c213279c5b22a8cf2b179c149",
+        "output_title_raw_sha256": "0ddc7d3d9338d5977f84125e3bc29cfb5bea11f641520166e7db6580617a6d17"
+      },
+      {
+        "member": 143,
+        "entry_id": "world-map/title/143",
+        "same_text_no_op": false,
+        "stored_size": 173680,
+        "source_encoded_size": 173671,
+        "output_encoded_size": 158937,
+        "compressed_headroom": 14743,
+        "source_stored_sha256": "3880e9447d6f42323731c72e614a0a4a8757dc73ad00deee78fca10a31ae69d1",
+        "output_stored_sha256": "6dd7dc3eb4c20439cbed2d0264ffec197dcf527f3a99cbddce3ef2a923902b0d",
+        "source_decoded_sha256": "203b32d136537fec5b73561642d9afda961a676e500c294d9be28a219d68ca06",
+        "output_decoded_sha256": "313488d117898b18786f802c6252b3761a82315c9164e0a0a878e69b7c07b55b",
+        "source_title_raw_sha256": "e9f060acd1017449c3ad8dd11d37c7befa00391ebd45d3105aeda98315251277",
+        "output_title_raw_sha256": "0a0afd67d6db2069d3850810eb584957be090289eb55adb7e5118338f51ad96e"
+      },
+      {
+        "member": 144,
+        "entry_id": "world-map/title/144",
+        "same_text_no_op": false,
+        "stored_size": 172976,
+        "source_encoded_size": 172972,
+        "output_encoded_size": 158785,
+        "compressed_headroom": 14191,
+        "source_stored_sha256": "10cd84c7f1eeb4025b642a99b782c1675a45446520d14091b8c2e64c311e2f64",
+        "output_stored_sha256": "2b453c911320da5f82f29c0fc7ae9addd8d32cf492ad0ca2253393662b14d3d8",
+        "source_decoded_sha256": "178b660c793b9de8d6796d4e5da5e608ab6931892adf4dfe1bc8a0703b24ecab",
+        "output_decoded_sha256": "eec89e2654b6027e5f7a3c20f35b78184dd249ab8ab4cc2dabffcc2e907b93dd",
+        "source_title_raw_sha256": "e16bec5c9be3cd67be3ed0f732922a88f45e535855dcf5d90cabdaf390757603",
+        "output_title_raw_sha256": "6a9a29bbb3494488da29f257d52abc183fc24e3fb15a166eab1eb17d647419f6"
+      },
+      {
+        "member": 145,
+        "entry_id": "world-map/title/145",
+        "same_text_no_op": true,
+        "stored_size": 178816,
+        "source_encoded_size": 178807,
+        "output_encoded_size": 178807,
+        "compressed_headroom": 9,
+        "source_stored_sha256": "2fe0b87e245f0f4749c6cf6601bc9fe3473f358f42ab90d0aa98f26d9a5abf37",
+        "output_stored_sha256": "2fe0b87e245f0f4749c6cf6601bc9fe3473f358f42ab90d0aa98f26d9a5abf37",
+        "source_decoded_sha256": "6bd24dd772a8cda8fc590fb55e8b6aa2c09b95d154db905bce6536fef33016e0",
+        "output_decoded_sha256": "6bd24dd772a8cda8fc590fb55e8b6aa2c09b95d154db905bce6536fef33016e0",
+        "source_title_raw_sha256": "4e8ee846c4fe008eba3cad9b024d24b8697a1381d36802a2a9b9f2d6db8aed1e",
+        "output_title_raw_sha256": "4e8ee846c4fe008eba3cad9b024d24b8697a1381d36802a2a9b9f2d6db8aed1e"
+      },
+      {
+        "member": 146,
+        "entry_id": "world-map/title/100",
+        "same_text_no_op": false,
+        "stored_size": 173584,
+        "source_encoded_size": 173570,
+        "output_encoded_size": 159072,
+        "compressed_headroom": 14512,
+        "source_stored_sha256": "7d8a125aa5d83ac5f4783a30dd0bbc7c2f6b94683da0b08d1dde358733e461bb",
+        "output_stored_sha256": "adfa462950cc9976930a5d29f4747b72a69300e3f0cd3e2865205020c8680462",
+        "source_decoded_sha256": "eedffbe2f8309b29b39f09bdba027574d23c9218bf8f4228f740b3bac31a005a",
+        "output_decoded_sha256": "af776fecbe5c1c239899fb66fec6f4ec1ac123def6eaa59bf6f7e0f4698a26db",
+        "source_title_raw_sha256": "576d904a876710aac74fdcce76c3ee9e1f842ae7a72a12561ca4c65875c5bf9e",
+        "output_title_raw_sha256": "2a88a455935baad2126ffc4617ab01180ef3c01ae42c6793f4ec201744d5e24d"
+      },
+      {
+        "member": 147,
+        "entry_id": "world-map/title/147",
+        "same_text_no_op": false,
+        "stored_size": 173264,
+        "source_encoded_size": 173250,
+        "output_encoded_size": 158579,
+        "compressed_headroom": 14685,
+        "source_stored_sha256": "32d514722d1181c1b10696c041c31b4a8fabeb0e45ec3bc6aaf72a1f450dcaa4",
+        "output_stored_sha256": "f4837c3bac7adbd53c3103f2e322a03121c8397c2d38b3d5a69519518100a88d",
+        "source_decoded_sha256": "e9429e1609f7d1f3c7898ed74f1df8e9a76cc7b98efc7d580d14f51ac142cc79",
+        "output_decoded_sha256": "f30fba217b6e83d7968fe17a8568fd1e4c2a66325a707abba4fdda493c108210",
+        "source_title_raw_sha256": "bd7898b98af46f4cbc0411cd3b1170b509f7d6a8ae80351d5e45cc54166e7ece",
+        "output_title_raw_sha256": "ce949e379194c3875a59d292c180e89c17328cb77f5d4093cbb09858227573cb"
+      },
+      {
+        "member": 148,
+        "entry_id": "world-map/title/148",
+        "same_text_no_op": false,
+        "stored_size": 173408,
+        "source_encoded_size": 173398,
+        "output_encoded_size": 158620,
+        "compressed_headroom": 14788,
+        "source_stored_sha256": "4dd4bcb17ed8961882026a4a0f7a4e0571a28d49dcfc7f5f86998ff9f51e93d9",
+        "output_stored_sha256": "416388bbd2be042480f6dadd03e5093275447bb373c5dbca4317637a76b3ed38",
+        "source_decoded_sha256": "c7e112d04c2c6be14880ea8cee23227cf072727c0e1c6dcbdf695ef28d520442",
+        "output_decoded_sha256": "acb9f1be8ef7a6a052ce266d4d3826549df6c7b215e87c9c98bbc16c0fc4fe69",
+        "source_title_raw_sha256": "ffad85ccb70ac57cf6e35d20933b80560529de3537ef3edf0c06ac5ec5c2786b",
+        "output_title_raw_sha256": "d98430be5a8ec28213581d84b7ef36a03c9b749ebd5fc18e2c70944eaef4fc3d"
+      },
+      {
+        "member": 149,
+        "entry_id": "world-map/title/149",
+        "same_text_no_op": false,
+        "stored_size": 173056,
+        "source_encoded_size": 173051,
+        "output_encoded_size": 158366,
+        "compressed_headroom": 14690,
+        "source_stored_sha256": "1c28245b45f5ed8d408fe79332caaf099ccb5a3b12378f2590fa7eb16f3e12b1",
+        "output_stored_sha256": "5273ab2dcc4b45f2c222c929f7c3fcac7b43ff2d16e68c8bfe89798414cf9dd3",
+        "source_decoded_sha256": "c9bcb8369e884fa94c2e31f971ca30775419364c45af33cfd3bd329c800fd8a6",
+        "output_decoded_sha256": "75d227c34c4ffe3ecd1bf0356dc8b5e754b235498335e2c8ad99defc875e06f0",
+        "source_title_raw_sha256": "5b35baafadaf35871f5f36c71bce6a69e2ee350cba8e6fe2f0596b229d4b5d2d",
+        "output_title_raw_sha256": "20215e8607f4588a5d4e97ef1f6a4a999546f251a3d162ca3c87ee34116f7b3f"
+      },
+      {
+        "member": 150,
+        "entry_id": "world-map/title/149",
+        "same_text_no_op": false,
+        "stored_size": 173056,
+        "source_encoded_size": 173053,
+        "output_encoded_size": 158370,
+        "compressed_headroom": 14686,
+        "source_stored_sha256": "ac13fa399db5d94ce533d2a498d34af116ce211c2cd744547cd71d9700b24389",
+        "output_stored_sha256": "ee5b7a88402e898088489c50d5560a7422e4b19a57b69ccbe9b8991e1ba77c8d",
+        "source_decoded_sha256": "8ed1b81c746891308b5673c3300d8e2d30a7ea013bc31c4a3683a27e81759bce",
+        "output_decoded_sha256": "50d9797366ac1acd22960f47c80865d9ba3084b9b43a6300f618a3f78f6341b0",
+        "source_title_raw_sha256": "5b35baafadaf35871f5f36c71bce6a69e2ee350cba8e6fe2f0596b229d4b5d2d",
+        "output_title_raw_sha256": "20215e8607f4588a5d4e97ef1f6a4a999546f251a3d162ca3c87ee34116f7b3f"
+      },
+      {
+        "member": 151,
+        "entry_id": "world-map/title/149",
+        "same_text_no_op": false,
+        "stored_size": 179616,
+        "source_encoded_size": 179614,
+        "output_encoded_size": 163934,
+        "compressed_headroom": 15682,
+        "source_stored_sha256": "6ad5c0fac25ef52bd629cb037f04789c300534ef92502497586362ddf669e42b",
+        "output_stored_sha256": "95120ac0e931f608fb6a24ff5b2f03e8fcabf152600cdb13d213f3de93e6922e",
+        "source_decoded_sha256": "c647d6b1f1d0743ad8810d730f56f6fa7b023a581bcce2c6b9f827cf6281974d",
+        "output_decoded_sha256": "ed8805cf569ba0535bbb8f973c0e6df7b30015926fb1a04ab02929ea704e61f8",
+        "source_title_raw_sha256": "5b35baafadaf35871f5f36c71bce6a69e2ee350cba8e6fe2f0596b229d4b5d2d",
+        "output_title_raw_sha256": "20215e8607f4588a5d4e97ef1f6a4a999546f251a3d162ca3c87ee34116f7b3f"
+      },
+      {
+        "member": 152,
+        "entry_id": "world-map/title/152",
+        "same_text_no_op": false,
+        "stored_size": 173072,
+        "source_encoded_size": 173060,
+        "output_encoded_size": 158745,
+        "compressed_headroom": 14327,
+        "source_stored_sha256": "7cbbfef81209da4da7c404b512309def3ea57dafbbcf60ae5efe8a8ecae70d85",
+        "output_stored_sha256": "21da6757553f395e5910277b1febf98c69020fbc7ac1a2259955b17e96fdd84a",
+        "source_decoded_sha256": "6b0a1f1d297677cc0aac017c92e38b15dbfead6d5f1855ef244a9ac3588fffa0",
+        "output_decoded_sha256": "78dce68a39b731dd53db1f6753d385901cceebd038fc8dcfa55694809fc5f49c",
+        "source_title_raw_sha256": "062301cac0dcce1add7df11ab5b903fc46640e87aa3d8e5f81fab0509f610e9b",
+        "output_title_raw_sha256": "6c22cf4430bfbc478a194133442c20e04547fd1dc6bcb5dfa2fb34c576a2d054"
+      },
+      {
+        "member": 153,
+        "entry_id": "world-map/title/149",
+        "same_text_no_op": false,
+        "stored_size": 173056,
+        "source_encoded_size": 173053,
+        "output_encoded_size": 158370,
+        "compressed_headroom": 14686,
+        "source_stored_sha256": "2430644da87b89412fb02625b2de8f495796f009d1a9765a77effcc478f3a825",
+        "output_stored_sha256": "25f1693d431b0985a2ccc85947dc40bf5133c69b0b52a38c94de9aeb9860fa37",
+        "source_decoded_sha256": "e64376d95a48c6312779fdfd1290b54d65f7e7661acb42b0456b5ea8e647d39b",
+        "output_decoded_sha256": "f5f745756c53d2d5059aae65d2f456fab6ee332976f38740a4bfd3e7b1178b1b",
+        "source_title_raw_sha256": "5b35baafadaf35871f5f36c71bce6a69e2ee350cba8e6fe2f0596b229d4b5d2d",
+        "output_title_raw_sha256": "20215e8607f4588a5d4e97ef1f6a4a999546f251a3d162ca3c87ee34116f7b3f"
+      },
+      {
+        "member": 154,
+        "entry_id": "world-map/title/154",
+        "same_text_no_op": false,
+        "stored_size": 173424,
+        "source_encoded_size": 173410,
+        "output_encoded_size": 158657,
+        "compressed_headroom": 14767,
+        "source_stored_sha256": "0351d390ac529f432e0105200829c0c7d14c6b657e25ec6b66c862058dcf72a1",
+        "output_stored_sha256": "13577a278f59330ab35a1189edb4cefa6b423cfc15d0239f534e1567f307b3a5",
+        "source_decoded_sha256": "c332de4224de15c49712ce392b92696c692b33e8e8a8db3eafc34319ca16c0e1",
+        "output_decoded_sha256": "e1dfd9ff974605b9ed2620a5f17ef1d7827eff3ac69a574971dd366d95ab72f6",
+        "source_title_raw_sha256": "4dca082710ceaa6a579fa2a82b5ddb63c7499cfbb87b114b84104fffc458114b",
+        "output_title_raw_sha256": "ccde142943a70e0fa5b06e4b43e20e07f3272ef08b4dfa29b02002eb08640a71"
+      },
+      {
+        "member": 155,
+        "entry_id": "world-map/title/108",
+        "same_text_no_op": true,
+        "stored_size": 178848,
+        "source_encoded_size": 178840,
+        "output_encoded_size": 178840,
+        "compressed_headroom": 8,
+        "source_stored_sha256": "fe1f8c2d14945361070a88a256888fdac47a417934b3bd4840188e6034b27e87",
+        "output_stored_sha256": "fe1f8c2d14945361070a88a256888fdac47a417934b3bd4840188e6034b27e87",
+        "source_decoded_sha256": "1ab1eecb2d2de3a2b36c4139274fe654de8c896bc999e82c7aead27875e599b0",
+        "output_decoded_sha256": "1ab1eecb2d2de3a2b36c4139274fe654de8c896bc999e82c7aead27875e599b0",
+        "source_title_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510",
+        "output_title_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510"
+      },
+      {
+        "member": 156,
+        "entry_id": "world-map/title/156",
+        "same_text_no_op": false,
+        "stored_size": 174032,
+        "source_encoded_size": 174026,
+        "output_encoded_size": 159132,
+        "compressed_headroom": 14900,
+        "source_stored_sha256": "100db195969c97b7ab285dcf56f64aad1b8a79345c2bffdb859d9c87e896c328",
+        "output_stored_sha256": "6fef9e1044d16fdc049e607a6e22193d332d26cf2326186e8217b089188dad43",
+        "source_decoded_sha256": "d789f3bbf3c3c0fc82ff1bac3992d6c2e8a5ef5dc0dc3dc1571e91410832564b",
+        "output_decoded_sha256": "6b3b9b71f5e7f2cd1c640f6ab2486411220481bcaaa8e9115b064749f1dd6073",
+        "source_title_raw_sha256": "e1f04936ab41f7dde1f2c325cdc9c6b9022bb541c2f807c600007b2baf57eb4e",
+        "output_title_raw_sha256": "06622a6a2253e1296764d4e84328e11290738f35a33a06a052a34a1062f2ebe8"
+      },
+      {
+        "member": 157,
+        "entry_id": "world-map/title/157",
+        "same_text_no_op": false,
+        "stored_size": 173280,
+        "source_encoded_size": 173269,
+        "output_encoded_size": 158599,
+        "compressed_headroom": 14681,
+        "source_stored_sha256": "91d1551a7595a92a9e14edcd6038335841c5eecc2b300ffdc0f7a723c450fc4b",
+        "output_stored_sha256": "e51f5f08ee99baaee8e68dc9977cc72aceef6be40c8bb31ea703a4ccead0ab0b",
+        "source_decoded_sha256": "3546e532f3ea26f7a83a694532b31055b00c3f2c7268e7abf9aba88b7379692b",
+        "output_decoded_sha256": "d62faebf22ee00c15bd5e1011c9d245b9764bbec2979601e4add1f567974266e",
+        "source_title_raw_sha256": "e6dba74448acd28d99bb91bcc0e01769ee81f9e866de83f18ee0bf29ed844705",
+        "output_title_raw_sha256": "c314c16886879691c642c7ef9f4f01e3dfe02bd7a6236306b1229c1488a86508"
+      },
+      {
+        "member": 158,
+        "entry_id": "world-map/title/158",
+        "same_text_no_op": false,
+        "stored_size": 174816,
+        "source_encoded_size": 174805,
+        "output_encoded_size": 160339,
+        "compressed_headroom": 14477,
+        "source_stored_sha256": "eea17e89929aafb43bbf37deb1788c55bfffea9dde9bc87a68ad16cd55edca31",
+        "output_stored_sha256": "802d8dff53d8e11ca0cb5858d173a48b92c5544fa84ab4df4b867a78024e36c9",
+        "source_decoded_sha256": "0421bcd6e5a75e66f88f828c14cb31c6e42e1173449de6efa443d1d2929515f3",
+        "output_decoded_sha256": "3589227d1ecb32f37a1747a58d41a4fbf2ccc38607bac5d76aca90aa462165ae",
+        "source_title_raw_sha256": "94e1b794ff309c0229c8a9ae47bbb73d3eea1929cdfe13e3989130d2cfd6f10e",
+        "output_title_raw_sha256": "f30b793e73856d29e56860d3bf50edc34e6483c7589f97a0626b87de7980ed77"
+      },
+      {
+        "member": 159,
+        "entry_id": "world-map/title/159",
+        "same_text_no_op": false,
+        "stored_size": 173168,
+        "source_encoded_size": 173168,
+        "output_encoded_size": 158494,
+        "compressed_headroom": 14674,
+        "source_stored_sha256": "78852860923d2b87274c30fdfc41603f025577d618f1e95754de6db245817b62",
+        "output_stored_sha256": "7bd7f071664f4ae8c2046a43b73ab589ee9da498d1d2da193d4fb9c060f9e423",
+        "source_decoded_sha256": "4866222cbb85cea220226b638e1cc114e4d6d28a27cc45acc606f4583084290f",
+        "output_decoded_sha256": "5e0539e3e24446c8d70bb64a59756002caf38c2a65dec93c2e93875c426a2d82",
+        "source_title_raw_sha256": "f644f297cf35f36ecaf7301980d1000fbb52a45abb89618008a9a1b767d18df8",
+        "output_title_raw_sha256": "e538805c3d6aee1919b4cf9d534a1daf58a7c609de7f2482e2dc73d135d598a0"
+      },
+      {
+        "member": 160,
+        "entry_id": "world-map/title/159",
+        "same_text_no_op": false,
+        "stored_size": 173184,
+        "source_encoded_size": 173170,
+        "output_encoded_size": 158498,
+        "compressed_headroom": 14686,
+        "source_stored_sha256": "8f3af2b4fbcd98a272885fe1d9809ed1e96bef39a097f201bfec23134403819b",
+        "output_stored_sha256": "4bcba159de93a8d187a85bde640caf1965b9573462c8bfa76c22968d19cf5a57",
+        "source_decoded_sha256": "5d6977ed8b0abbb1c6f60c3222026774d8fcc05fd6e7186c914c28035616df69",
+        "output_decoded_sha256": "5d60ffa56b90623134a3dec23bdfd275eb85b2363f2add6cdbad6a60f5e9d5d6",
+        "source_title_raw_sha256": "f644f297cf35f36ecaf7301980d1000fbb52a45abb89618008a9a1b767d18df8",
+        "output_title_raw_sha256": "e538805c3d6aee1919b4cf9d534a1daf58a7c609de7f2482e2dc73d135d598a0"
+      },
+      {
+        "member": 161,
+        "entry_id": "world-map/title/161",
+        "same_text_no_op": false,
+        "stored_size": 173264,
+        "source_encoded_size": 173259,
+        "output_encoded_size": 158569,
+        "compressed_headroom": 14695,
+        "source_stored_sha256": "557a5fd614f1f5660bdc2e91e15c1f478cf98f37c1653b6aa5058a4bd3357631",
+        "output_stored_sha256": "d758a97ca9f7f76559442e2dc06c79c1c230f2f298d9bd45825f33d0fbfee8b9",
+        "source_decoded_sha256": "d31e75456cff7e09bddc25275a2518696b36849fee27b0e19b361b0c21544ebf",
+        "output_decoded_sha256": "c9e8f26b02245e9432485445759cb133ba6231b8625c227f672d00d6a57bf3bd",
+        "source_title_raw_sha256": "eed37b366c3ae94adc447419c7435fb51bd0df9ed98cbb8101e84c2fbb3f2a87",
+        "output_title_raw_sha256": "3f1c99f2d3080db22f3b4f44827fec2bf64690bf2b346a105f558f9cabab9aa9"
+      },
+      {
+        "member": 162,
+        "entry_id": "world-map/title/162",
+        "same_text_no_op": false,
+        "stored_size": 173616,
+        "source_encoded_size": 173607,
+        "output_encoded_size": 159130,
+        "compressed_headroom": 14486,
+        "source_stored_sha256": "3e8b32014f34a5235317470ba55984ab721aa1fe7781e9fbd40758d1c4506ee0",
+        "output_stored_sha256": "5760f30cbc8e05f20d5d821ea94b835254fe81ea25767fab2e536caede3bdd65",
+        "source_decoded_sha256": "3ab276cb211f1a648a8a9e48972719a4a75bbd06865d769ca7dd3fb9aba1b552",
+        "output_decoded_sha256": "db713696953ccf3a714a9ce2bbf3a05c4065cb099d74a6a819c476c71fdd3e68",
+        "source_title_raw_sha256": "45c10339d1480b45143bb9334b51d1ef82936251a1ea11f282baa6f7b8972f25",
+        "output_title_raw_sha256": "f712353e799c2abf6fe9245a0d91ad73392af3a51d3e16c4a8ae617b50ff1195"
+      },
+      {
+        "member": 163,
+        "entry_id": "world-map/title/163",
+        "same_text_no_op": false,
+        "stored_size": 174080,
+        "source_encoded_size": 174068,
+        "output_encoded_size": 159523,
+        "compressed_headroom": 14557,
+        "source_stored_sha256": "2d1fc09d7808eb747aa2b15971bccd742266917574f35992de35bf2bc51721f9",
+        "output_stored_sha256": "72930f67735c3504650c9d781430a7380412e04f6b6a003434acaf11a1d46dda",
+        "source_decoded_sha256": "be8f2e9adcd76febdb7ff865d3bf942158ff1505e8df2062e57d0e5ce2762c5e",
+        "output_decoded_sha256": "843f2a78055ccebcb6f7a30673b66644d2acbf1552fe08d8ca77e56c287600d1",
+        "source_title_raw_sha256": "205027663e65919839fcb6f738d047d0f4f62ea195f53b85fd862dd2f03aea3f",
+        "output_title_raw_sha256": "4659f1c3bd6ad4d9d3bc444ab2878c638b08fdb827775d662d03dbd139813a5b"
+      },
+      {
+        "member": 164,
+        "entry_id": "world-map/title/147",
+        "same_text_no_op": false,
+        "stored_size": 171344,
+        "source_encoded_size": 171329,
+        "output_encoded_size": 154492,
+        "compressed_headroom": 16852,
+        "source_stored_sha256": "e0835e58fff6655f74bf86b5f0a2ce7265db95cea8ebf9bd5e97395e6e63a98c",
+        "output_stored_sha256": "b172aec29a6a9484518ab957b64a0d1025eccfb471424a0190f593670497f52b",
+        "source_decoded_sha256": "a25c09f0613731cc68beff6f08a6eea5d4dd80dc95b60de87afdc609c40568e9",
+        "output_decoded_sha256": "c769ce5332c0ebf6c6ab29c06e96ae14403628fe1e6719e5d27cb7d17928f886",
+        "source_title_raw_sha256": "bd7898b98af46f4cbc0411cd3b1170b509f7d6a8ae80351d5e45cc54166e7ece",
+        "output_title_raw_sha256": "ce949e379194c3875a59d292c180e89c17328cb77f5d4093cbb09858227573cb"
+      },
+      {
+        "member": 165,
+        "entry_id": "world-map/title/111",
+        "same_text_no_op": false,
+        "stored_size": 171984,
+        "source_encoded_size": 171983,
+        "output_encoded_size": 154838,
+        "compressed_headroom": 17146,
+        "source_stored_sha256": "e6a6ba51c1bc83a1317e628744c1cb3c4a500cf3ae717ffb2d7fde9c18059784",
+        "output_stored_sha256": "1ef20960d86b7db506f9609399b5fea3ae1eb0461d9b36f04ef7aad47588677f",
+        "source_decoded_sha256": "a143db94d5f0be0b67fa52b1b27efb82f087389e360a0fc6ae3271cc37a0f109",
+        "output_decoded_sha256": "5782b884c7c5285daff15ca2bf5319fefabcc47531f8c4d8f6598506a8e1ebce",
+        "source_title_raw_sha256": "4acaf8f87d30e4fdb852403a302243cb52e1b4a6e2aff785750b5a5078099d31",
+        "output_title_raw_sha256": "07dc5669a176ecb18e0b0cf2a105ffc0480298795e23c981773db568bb5f6a07"
+      },
+      {
+        "member": 166,
+        "entry_id": "world-map/title/139",
+        "same_text_no_op": false,
+        "stored_size": 172608,
+        "source_encoded_size": 172598,
+        "output_encoded_size": 155806,
+        "compressed_headroom": 16802,
+        "source_stored_sha256": "2d2aa4562d8cfae552901981724e77c17e0d3978d0e83b7b98673d8c1f7dba5a",
+        "output_stored_sha256": "ef80b6cd29b44cb532b8da5c47911ce044cb22d64be31ae7a7412166af6b36b1",
+        "source_decoded_sha256": "b49638b5e62739e563065b937a0f690e1c2c5daa64c65dbcaa60649d957f2f9d",
+        "output_decoded_sha256": "a2ca4a94a769dbd10346b702b6c2cc63327cd8d18d928df0f43008067c1a5447",
+        "source_title_raw_sha256": "e7e0db79d4b0289680674fcac313113dd52ef62c5deb5c9175256c4026f0f122",
+        "output_title_raw_sha256": "4b4c5364da8328b18c5613898aa57105f696388e093440cc28500a974abe9ab5"
+      },
+      {
+        "member": 167,
+        "entry_id": "world-map/title/167",
+        "same_text_no_op": false,
+        "stored_size": 172176,
+        "source_encoded_size": 172165,
+        "output_encoded_size": 155220,
+        "compressed_headroom": 16956,
+        "source_stored_sha256": "0fbfdad6fba48d9f85dbfaf4eb0a06a033fff2810fa546c71d91bb43e03bdb0b",
+        "output_stored_sha256": "9bf66a194327262f61cb211853f8fddf4baa35f7ac87e49067d28df8bc07e975",
+        "source_decoded_sha256": "e1252fbc7dcafbb4c8ceb2289bf8cb4028f1e7887380223f4ce6e9a47c2078a0",
+        "output_decoded_sha256": "76089e4b3078cab6baaa787c8d5583b09efb2941f15cd6ca180f99c96143e42e",
+        "source_title_raw_sha256": "80d99b94950744590236b741386e663ac64412aa6e4f38d35ddc7be148962c0e",
+        "output_title_raw_sha256": "628846c326fcb84cba05032bde48e4abdc285c8b7dc7a6685ff24e2a0146e4a6"
+      },
+      {
+        "member": 168,
+        "entry_id": "world-map/title/168",
+        "same_text_no_op": true,
+        "stored_size": 171792,
+        "source_encoded_size": 171780,
+        "output_encoded_size": 171780,
+        "compressed_headroom": 12,
+        "source_stored_sha256": "9e3570b3f33b0774bd1c628244ef2bf18a968be19c0f508c2135275d303cedca",
+        "output_stored_sha256": "9e3570b3f33b0774bd1c628244ef2bf18a968be19c0f508c2135275d303cedca",
+        "source_decoded_sha256": "011fee7dc620ccf71b53d7e3f0457ced311409bd1e18086130520980c74b5ea7",
+        "output_decoded_sha256": "011fee7dc620ccf71b53d7e3f0457ced311409bd1e18086130520980c74b5ea7",
+        "source_title_raw_sha256": "1a462b1245b5a9f92fe085150dccabf6ebfa141992391f4937fdc3f975398c13",
+        "output_title_raw_sha256": "1a462b1245b5a9f92fe085150dccabf6ebfa141992391f4937fdc3f975398c13"
+      },
+      {
+        "member": 169,
+        "entry_id": "world-map/title/169",
+        "same_text_no_op": false,
+        "stored_size": 171632,
+        "source_encoded_size": 171631,
+        "output_encoded_size": 154721,
+        "compressed_headroom": 16911,
+        "source_stored_sha256": "ac7da76cf0ae542008d5809fab8e2fcdf26dc803936ac7f843022f36a34a2c06",
+        "output_stored_sha256": "f5123c498adc3e430f609c38bbe40e724841815135e15cb8fea83cf51e5ecdfc",
+        "source_decoded_sha256": "d0462175d83c07f398fa2c805ca7bcc14b87270dfe1ab37c0f9c049434dff237",
+        "output_decoded_sha256": "ae1bc73630215d8944e7087b323d981a41aa3de9a9b6c0e43ac6440ce710d7e1",
+        "source_title_raw_sha256": "85a5f127bade299cd392c54850ca38785e1bdcc55dd5241d71baa5f7bf9fed72",
+        "output_title_raw_sha256": "5115ac65e05e1708d7c2e97f1e3466fc8af99bd406ac1e3479a2643b784d0590"
+      },
+      {
+        "member": 170,
+        "entry_id": "world-map/title/090",
+        "same_text_no_op": false,
+        "stored_size": 171552,
+        "source_encoded_size": 171546,
+        "output_encoded_size": 154246,
+        "compressed_headroom": 17306,
+        "source_stored_sha256": "210ecc18a728af7454e3b9a0af0072043b1a4b409755e9d485c9089aa9561918",
+        "output_stored_sha256": "012baa7e71fe996e28382d99ae5f9fee4d1d782cd8d7496e526cb567777c9f38",
+        "source_decoded_sha256": "eb8948a97c0726d7bbfd006eea80defc485107fd6f50508798ae80a17b9c8107",
+        "output_decoded_sha256": "2fcfa464a9ec6e328a0908cfeeb7d91fc39944f7f3768d2ca616b075bc095ceb",
+        "source_title_raw_sha256": "cabfa0087e127742f07850515b06f517cdbaee15bb374b29679308e39b93d1d4",
+        "output_title_raw_sha256": "0adfe66971f734c7b9aefb31a80b0db330c20f40a3811cbe41d653d0607bd0c1"
+      },
+      {
+        "member": 171,
+        "entry_id": "world-map/title/104",
+        "same_text_no_op": false,
+        "stored_size": 171376,
+        "source_encoded_size": 171366,
+        "output_encoded_size": 154497,
+        "compressed_headroom": 16879,
+        "source_stored_sha256": "8f85d702eb3219d2c06bde40c2d31634d804ee92145e924953e5fb65d9ea1703",
+        "output_stored_sha256": "3d0bc8bec009f8f4b6cf1d3368395941baf53eb3c9db24d395cbbd14e2565187",
+        "source_decoded_sha256": "a1a46290390ed3d43f359810a0c16a82f2c84dbd204bb7ff8c1bfa5f738a9aa3",
+        "output_decoded_sha256": "7a47413c714505f535684e1dedb099c30e4fd094a6b0df65b6f1d904a853fe33",
+        "source_title_raw_sha256": "913425535f8dbc90203227b81e9bc4d4d9c5651613f1023cdf6f4e16251d07d3",
+        "output_title_raw_sha256": "c8f1e54c3e1bee6b20d2f30a1ebec53811df91fc67523149fe20b4e237888849"
+      },
+      {
+        "member": 172,
+        "entry_id": "world-map/title/172",
+        "same_text_no_op": false,
+        "stored_size": 172256,
+        "source_encoded_size": 172246,
+        "output_encoded_size": 155091,
+        "compressed_headroom": 17165,
+        "source_stored_sha256": "648ea684318c689ef148972dfd1b771c9a7d10321bc5b6d5d45356f674ae8c62",
+        "output_stored_sha256": "df577575d8e3fb6c696abaaddb1f82c65fb269007678df8022c9ac91b1eee9ce",
+        "source_decoded_sha256": "1d2a944ed8fda4572f736ca85201e9f49c70cd6d8ce58e68273664c7328deacb",
+        "output_decoded_sha256": "4ac7ea631509f14b0fbda81e1ec52f9b341dc782a9d3b598f51530d9573e21c7",
+        "source_title_raw_sha256": "34525934be9894e485d7a37869c84faca178403c8388e0ccf9e13a3d3d364cbe",
+        "output_title_raw_sha256": "7cae6a74c10681baa2e5623c399f7b4d79301f4d5d772848b8a457a8561e1e18"
+      },
+      {
+        "member": 173,
+        "entry_id": "world-map/title/173",
+        "same_text_no_op": false,
+        "stored_size": 171728,
+        "source_encoded_size": 171718,
+        "output_encoded_size": 154540,
+        "compressed_headroom": 17188,
+        "source_stored_sha256": "806ae4df3807cc92d8e0b0868a204952cb114d5ee5c1742c94f7bca1bdbe384f",
+        "output_stored_sha256": "c4263a5dae2a0647238cc8a0ad40134ca05131774677662f652141ce495fe727",
+        "source_decoded_sha256": "6ca68d75f6d7a518d6343be10cd4da4a5126632eadfe7b74fde084ef587c1989",
+        "output_decoded_sha256": "8f4c75e35c4390dee852a13f89d6c98de1292d8f1a5d2aa5ddd7d1cf91d41d14",
+        "source_title_raw_sha256": "6846ca3bd936f10a024e62b8ab1ade113d3173f2aa1ff4eb00ff268402ba7f9e",
+        "output_title_raw_sha256": "2c506194e385c739fa0ba7954b3c6901a43a86b73ef59e2fcca6b19b2acf00e9"
+      },
+      {
+        "member": 174,
+        "entry_id": "world-map/title/174",
+        "same_text_no_op": false,
+        "stored_size": 171312,
+        "source_encoded_size": 171307,
+        "output_encoded_size": 154018,
+        "compressed_headroom": 17294,
+        "source_stored_sha256": "6c17a2867e4e19a3ee1c826f40a9145e6c778bc32099c0cb384fbd8f2ff3de11",
+        "output_stored_sha256": "a9c804c5608d3d89434a849c91630bac209feaa92024e98c809e0d4be428c03e",
+        "source_decoded_sha256": "f9db1953ab5fc53078527655deeb82debf94c393a45f64ea5700b2836fca2c91",
+        "output_decoded_sha256": "82bbbed4a3586f943ca7cd67b6c8224791e9b4bacc37948bf191726c1319ff4a",
+        "source_title_raw_sha256": "f4a0f06dc394f3fab42c3eecb5df303c0b53551a1fcb2ff8b2af7d6c6701b2d9",
+        "output_title_raw_sha256": "dbaa75036ecdcd454b735d45d8ca3010abd3c29e5fcb6020c78aa00dda7fb2d9"
+      },
+      {
+        "member": 175,
+        "entry_id": "world-map/title/175",
+        "same_text_no_op": false,
+        "stored_size": 171248,
+        "source_encoded_size": 171235,
+        "output_encoded_size": 154485,
+        "compressed_headroom": 16763,
+        "source_stored_sha256": "f2765d9094d72e21138fa187bcff4892179e1c5576cf5f7d8a9bcb186b6b5f0a",
+        "output_stored_sha256": "1f1c66b184276ab4b55a0eb64b567d7aa637968fadd842cfaeff6f9a1a3b7eb5",
+        "source_decoded_sha256": "d5e409ebf731cbb194c2d0db6c1a99c967cc42a05fe70f4751233f6ab514a5a6",
+        "output_decoded_sha256": "ed9c377f4463c25214b5ee3315c4a4f7c9e500497871f981d2e649863eb9876e",
+        "source_title_raw_sha256": "76f352e8a95c1cbbb68e60c121cb098d01040fb1998af368e4633f9151b74a73",
+        "output_title_raw_sha256": "f12c943a8148b84ca2e6997575abed2a9702ef7b3871d3c29a26025d2aa0ba32"
+      },
+      {
+        "member": 176,
+        "entry_id": "world-map/title/108",
+        "same_text_no_op": true,
+        "stored_size": 170656,
+        "source_encoded_size": 170648,
+        "output_encoded_size": 170648,
+        "compressed_headroom": 8,
+        "source_stored_sha256": "e972fb9201ab8100e3af6aeb6b4be30c84adaa7932a05449f19ab1326c749bbc",
+        "output_stored_sha256": "e972fb9201ab8100e3af6aeb6b4be30c84adaa7932a05449f19ab1326c749bbc",
+        "source_decoded_sha256": "098f85297985a1517a9cce4576ee480345bedcea1b3b63aab5cbf51024f87f3e",
+        "output_decoded_sha256": "098f85297985a1517a9cce4576ee480345bedcea1b3b63aab5cbf51024f87f3e",
+        "source_title_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510",
+        "output_title_raw_sha256": "df86477564bdc05eb5684d32fb3b0edeccdb071b39754ebdab5448706b9b7510"
+      },
+      {
+        "member": 177,
+        "entry_id": "world-map/title/177",
+        "same_text_no_op": false,
+        "stored_size": 171600,
+        "source_encoded_size": 171597,
+        "output_encoded_size": 154695,
+        "compressed_headroom": 16905,
+        "source_stored_sha256": "2eeb8b385fa4834c3c0276300759d568387d72457ead53cbf7353ea6b9578f79",
+        "output_stored_sha256": "2a05724b05f15fbe54d81c31cf1881892d43b813719f8b9a4269f0a4a81f6dcd",
+        "source_decoded_sha256": "3d7ccd7027deab20d1b4bd771868523cea2e7cb14d661c5b1e90cef6c90a9b19",
+        "output_decoded_sha256": "7d1805c0c0f8a969d799f2dd0909dc6d547ad49a187d00c7bd61e44bc1ba9518",
+        "source_title_raw_sha256": "c7e30fc14289169b3cbcda5602f4520dbc7bca0ee3887980883f8c55ddcb8eff",
+        "output_title_raw_sha256": "e755a01da5c1452eaf8782dbac57b36104b527d314347eeba61f87813c401618"
+      },
+      {
+        "member": 178,
+        "entry_id": "world-map/title/178",
+        "same_text_no_op": false,
+        "stored_size": 172256,
+        "source_encoded_size": 172248,
+        "output_encoded_size": 155284,
+        "compressed_headroom": 16972,
+        "source_stored_sha256": "170c0cd31c17e770687bad6d51b7ab043ccf83c6368ee18de475932718e86a14",
+        "output_stored_sha256": "49b9e9f78fec2c3683e1a43a434b835c81f2c936771f571b5cc168ead1baac98",
+        "source_decoded_sha256": "d436311a45b9b5f793aa75799ddb860e4111b73e7897e7000ef3adc93c614539",
+        "output_decoded_sha256": "2ce44b533229707e06846a89b81b43ad18969157bc48e6f961ccc579ddd5c672",
+        "source_title_raw_sha256": "093eb422cd61be523c23a3b7e8f23230d0484d9291dcafbb574a0d257874f78c",
+        "output_title_raw_sha256": "27b179652bb3d66062483637fd216af437021b880f724b4063653c06b807fb0a"
+      },
+      {
+        "member": 179,
+        "entry_id": "world-map/title/179",
+        "same_text_no_op": false,
+        "stored_size": 171616,
+        "source_encoded_size": 171615,
+        "output_encoded_size": 154695,
+        "compressed_headroom": 16921,
+        "source_stored_sha256": "21a17be0f55e9cc24e635f5e8ebdae35afe2bd622866407f9cfe4b0c0b30c53b",
+        "output_stored_sha256": "5487348b7d1236911f29bf1a35a629a906e4bdd3635ee213b9e84bed9ec8a663",
+        "source_decoded_sha256": "91fb20cf0ec093fa016142bea762d73ce3b52f527852f8a3c6b503f664fcd09f",
+        "output_decoded_sha256": "d695db6a7a1b6b6c89183fe6990cd89ec4afc6d747f673f129b5a26cf5b8fa68",
+        "source_title_raw_sha256": "36235fdba2654f707ad061e54929d0a0d0216efaf7766c7972af05bafe46e2b9",
+        "output_title_raw_sha256": "10418b74d7a79e021697c60159d21fff2e5653092313409f052719fd4bc71a6b"
+      },
+      {
+        "member": 180,
+        "entry_id": "world-map/title/124",
+        "same_text_no_op": false,
+        "stored_size": 171760,
+        "source_encoded_size": 171745,
+        "output_encoded_size": 154854,
+        "compressed_headroom": 16906,
+        "source_stored_sha256": "6dca5ae516cc021db97a93ba8a164202d1927a5fc1276a0fc274fc0053c4c34c",
+        "output_stored_sha256": "9e06ac12d6f78c4afa893da267ab14b8d17b7a3c0fc681ae6e45133e9dd03bca",
+        "source_decoded_sha256": "bf3b374f1b97bd91e31b631409d83a87d1fb789ea1d667d2b2183109b060f713",
+        "output_decoded_sha256": "eb92811a4c8b618347a4055ed73c2831d9eb75155a920bb7907db22c048e6158",
+        "source_title_raw_sha256": "6ce91e0ba62b059e27695a260c3120fbb3694c4ce18ed6b7105c81ea0762e060",
+        "output_title_raw_sha256": "d62523294359522ca0d3a344be980483041d73c557c23879813f2ab4dca5f294"
+      },
+      {
+        "member": 181,
+        "entry_id": "world-map/title/159",
+        "same_text_no_op": false,
+        "stored_size": 171536,
+        "source_encoded_size": 171527,
+        "output_encoded_size": 154616,
+        "compressed_headroom": 16920,
+        "source_stored_sha256": "d58641e03127d581b21ad6f0403f68b160dfa853404a7a0bed907f3f60ae58f0",
+        "output_stored_sha256": "8707de2f72e37ae567c1ff1f80cde67b7fbd1ad06a2fbfe36f0df63c447de109",
+        "source_decoded_sha256": "b952d237bce9c2d4ec2cd3a32b766aa81c0c37c4eae8568229cf2abd0b2087c6",
+        "output_decoded_sha256": "ea57e003f5abdf6bea4d8bf681322e0b5e38edea71e1bb83319c96f3fa854f2c",
+        "source_title_raw_sha256": "f644f297cf35f36ecaf7301980d1000fbb52a45abb89618008a9a1b767d18df8",
+        "output_title_raw_sha256": "e538805c3d6aee1919b4cf9d534a1daf58a7c609de7f2482e2dc73d135d598a0"
+      },
+      {
+        "member": 182,
+        "entry_id": "world-map/title/169",
+        "same_text_no_op": false,
+        "stored_size": 178224,
+        "source_encoded_size": 178215,
+        "output_encoded_size": 160280,
+        "compressed_headroom": 17944,
+        "source_stored_sha256": "e4c32f7ef1775a2adcf377adee058a3357f8129f5080ecd2618fb03d9dd9c0b8",
+        "output_stored_sha256": "4f9b95aa7f582dd2f49cd439d09a157f7d2821cdb4e6025ea3e6c09122098a14",
+        "source_decoded_sha256": "93fb64fb3bb960b8c8212479814ab3340e93a656cc7ede9a12fb8b00c4abf951",
+        "output_decoded_sha256": "48261d989232acb93c724ca1d6dd6d5f9bcad6027ceb8428540293ed429e7fab",
+        "source_title_raw_sha256": "85a5f127bade299cd392c54850ca38785e1bdcc55dd5241d71baa5f7bf9fed72",
+        "output_title_raw_sha256": "5115ac65e05e1708d7c2e97f1e3466fc8af99bd406ac1e3479a2643b784d0590"
+      },
+      {
+        "member": 183,
+        "entry_id": "world-map/title/183",
+        "same_text_no_op": false,
+        "stored_size": 171888,
+        "source_encoded_size": 171876,
+        "output_encoded_size": 154901,
+        "compressed_headroom": 16987,
+        "source_stored_sha256": "6435d271a344ccce3935142d31fbca1fed5ce08a4dcb1277ffbc8edd90743bcb",
+        "output_stored_sha256": "b76ad5aa74f96e0cb933fa7a7ebd5c9ba830d7253de8417621bb1581589442d2",
+        "source_decoded_sha256": "cf03a6b58d1cb7de29d82c629ebe188e78ab8783ac8079402b00454df9f1b81a",
+        "output_decoded_sha256": "0872dd214b70750f5c26d220520a39f5b5740fb68a3110f647f1fa9ad906ad7b",
+        "source_title_raw_sha256": "00a18198affe1a9b88c26701aed513330cd7a2b4a41d8c130547534d080a01c1",
+        "output_title_raw_sha256": "ea30f1184fb9eb08c45a10e05b29bc97a9a09b965589a0c3f6ab470ec82d2f1a"
+      },
+      {
+        "member": 184,
+        "entry_id": "world-map/title/113",
+        "same_text_no_op": false,
+        "stored_size": 173136,
+        "source_encoded_size": 173135,
+        "output_encoded_size": 156169,
+        "compressed_headroom": 16967,
+        "source_stored_sha256": "b0405d0d8686fcdf9f5eb1688bb9e48837f6baae8489ae9a017cbf4f13aa4c88",
+        "output_stored_sha256": "1e4d9dca7ab71eb50b07d7028e54fd8b436e86d1a7aac7e4eb844fda53f79baa",
+        "source_decoded_sha256": "1e800ad0353e75eb94f123c88feac9a1da995b60443b0512f2925334fd522492",
+        "output_decoded_sha256": "1bee8057553248b8ce909f00672d1b5cd32cf457a1fd8851577a28923f9d110c",
+        "source_title_raw_sha256": "832adbbeb845caf13406b0719c0dd6d405450ae063274c1c11f7e7c440218ebb",
+        "output_title_raw_sha256": "abeef2a978a3508696194941b21214d9b56336e87e4c8028748dfca68527b913"
+      },
+      {
+        "member": 185,
+        "entry_id": "world-map/title/148",
+        "same_text_no_op": false,
+        "stored_size": 171760,
+        "source_encoded_size": 171754,
+        "output_encoded_size": 154741,
+        "compressed_headroom": 17019,
+        "source_stored_sha256": "78d08c60baa60604e65ad8e6e5b301fa261d5f567448f5408a239e1cc816d0f4",
+        "output_stored_sha256": "8f68cea6803b0cbc2df6aa1ba58f35cab0ebc1b4fae0e997f9823921b37ce47c",
+        "source_decoded_sha256": "d2ec8e555fbbc3cecf726c7511b98c44ae06f2e402a051411619953372f122e0",
+        "output_decoded_sha256": "b59778566570643dfafe2daeb240b1a3ee5dc2cc5c328cf663949310daa8c3ac",
+        "source_title_raw_sha256": "ffad85ccb70ac57cf6e35d20933b80560529de3537ef3edf0c06ac5ec5c2786b",
+        "output_title_raw_sha256": "d98430be5a8ec28213581d84b7ef36a03c9b749ebd5fc18e2c70944eaef4fc3d"
+      },
+      {
+        "member": 186,
+        "entry_id": "world-map/title/168",
+        "same_text_no_op": true,
+        "stored_size": 177696,
+        "source_encoded_size": 177681,
+        "output_encoded_size": 177681,
+        "compressed_headroom": 15,
+        "source_stored_sha256": "023fc8db967c4ae10a729d5fc5c3277914908fef0a89f7ca8a6883bb787e7ed6",
+        "output_stored_sha256": "023fc8db967c4ae10a729d5fc5c3277914908fef0a89f7ca8a6883bb787e7ed6",
+        "source_decoded_sha256": "ea9386eced6a17ab3fe54409b6699db0c7adae70fcf0647fa9b5531a0817017d",
+        "output_decoded_sha256": "ea9386eced6a17ab3fe54409b6699db0c7adae70fcf0647fa9b5531a0817017d",
+        "source_title_raw_sha256": "1a462b1245b5a9f92fe085150dccabf6ebfa141992391f4937fdc3f975398c13",
+        "output_title_raw_sha256": "1a462b1245b5a9f92fe085150dccabf6ebfa141992391f4937fdc3f975398c13"
+      },
+      {
+        "member": 187,
+        "entry_id": "world-map/title/187",
+        "same_text_no_op": true,
+        "stored_size": 171488,
+        "source_encoded_size": 171474,
+        "output_encoded_size": 171474,
+        "compressed_headroom": 14,
+        "source_stored_sha256": "c0b49e9c91391dfbeb23de9cc233e0423c4a84e440783b032b17f7ced4907002",
+        "output_stored_sha256": "c0b49e9c91391dfbeb23de9cc233e0423c4a84e440783b032b17f7ced4907002",
+        "source_decoded_sha256": "9de6955451170b80f4f85419c0114fcca686a9079c6619e555d2beaec1c6dccc",
+        "output_decoded_sha256": "9de6955451170b80f4f85419c0114fcca686a9079c6619e555d2beaec1c6dccc",
+        "source_title_raw_sha256": "789e01276ff36732d253b8c2c197bcf0dfa617f761168bdc261d6a4677b2d016",
+        "output_title_raw_sha256": "789e01276ff36732d253b8c2c197bcf0dfa617f761168bdc261d6a4677b2d016"
+      },
+      {
+        "member": 188,
+        "entry_id": "world-map/title/132",
+        "same_text_no_op": false,
+        "stored_size": 172320,
+        "source_encoded_size": 172307,
+        "output_encoded_size": 155500,
+        "compressed_headroom": 16820,
+        "source_stored_sha256": "aeade31dd85e2f49ba50e39f063c3539abe3bb3e93a9191046c6cc87283497c9",
+        "output_stored_sha256": "e80b67a4a160e98b9fdc685bb1020a31ccf1a3fb98bf93b8acd2570a5e4a6df6",
+        "source_decoded_sha256": "83531ac6f6e923e61383369c656f3763aae89cc2e6f84c9ce91d70bc584c29b0",
+        "output_decoded_sha256": "4ce0c288a0ddbf0994c825d39266a2ffd22d13dc1830cb645660501af3711b96",
+        "source_title_raw_sha256": "b5d12555611e612b72b321ee371bacc851671e5e545ca4d48e92dde6345aac8c",
+        "output_title_raw_sha256": "59888d72fe332194a71db3fa2b6f1305647071d2b7673f0413283af6e2ca1e3d"
+      },
+      {
+        "member": 189,
+        "entry_id": "world-map/title/189",
+        "same_text_no_op": false,
+        "stored_size": 171824,
+        "source_encoded_size": 171823,
+        "output_encoded_size": 155025,
+        "compressed_headroom": 16799,
+        "source_stored_sha256": "55397210d2d21bf6c2ad7b4176d600b6a55db761fe272f8f01231fc2835ad95f",
+        "output_stored_sha256": "09c8c974324464b037f43bd3d9bfd64c1210a1153fbd83e33ee64096a38a8c97",
+        "source_decoded_sha256": "f33c52972bc83a6b656be4601c4e93f82c6e488fc2863b22e75188622adf8570",
+        "output_decoded_sha256": "a293e7bdfd6bf53917d1978bee9a91c75fcde277a10e719c51824a71bf2cb788",
+        "source_title_raw_sha256": "124bd2558d7d90b66d566758f95607e169ea5d71c8d48574f19018171dc2a3b1",
+        "output_title_raw_sha256": "639043ef1926490acf3cde22090944a53aa0bb0e61df5fad31b31e1b448f0af5"
+      },
+      {
+        "member": 190,
+        "entry_id": "world-map/title/190",
+        "same_text_no_op": false,
+        "stored_size": 172192,
+        "source_encoded_size": 172190,
+        "output_encoded_size": 155838,
+        "compressed_headroom": 16354,
+        "source_stored_sha256": "90174adeeee062eb5fa2e599a6fe846f47115c08e1f807564795ae7d83a9cbec",
+        "output_stored_sha256": "06cdc85a189a5f6512fefaf47fd515ac71b3764c1b6c007765f3c7b378c0bf85",
+        "source_decoded_sha256": "3d5621e4a5a7ce85318a999e725715db2e685a424ff2ac263af9bc98c08b8a94",
+        "output_decoded_sha256": "c3bc5820fa2e13e4bb82ebb19d2d93cdf214c72372d0745a32bbe7a1f27fa94a",
+        "source_title_raw_sha256": "f21969b5c0dfcbbd52c815a4b3ee9cbba9a29076c0960f6010e9ed22d5eb39f0",
+        "output_title_raw_sha256": "060f63c1cdae04bd1cf4ef7a2e35f7b4281d3c835286a20bcbc0b8f4f932b0c2"
+      },
+      {
+        "member": 191,
+        "entry_id": "world-map/title/191",
+        "same_text_no_op": false,
+        "stored_size": 180528,
+        "source_encoded_size": 180526,
+        "output_encoded_size": 160991,
+        "compressed_headroom": 19537,
+        "source_stored_sha256": "7b06facad67e5355775f24142991f4a923859e250e738b83b4aae62ae96077a0",
+        "output_stored_sha256": "765c159d0fa9da7cf9ff0f6308a314aa7ed842c9cba82e8148bc30dade32edee",
+        "source_decoded_sha256": "2075fb1bf3173d829de22df70642c6bcaf4ac86448f5dc2c39baee6a6a8f546b",
+        "output_decoded_sha256": "33e26a9109a4cf1fff2a8b69f7eecccd8aa5c8e796179166ab3c2c743370c132",
+        "source_title_raw_sha256": "50bececaeb0643331653340b9280b6954045f77873d3064ffa15f6365341ea11",
+        "output_title_raw_sha256": "25f4823d105826d2eb0d8ca53199b284a719bc8bc3b51b723436252d4b3e100c"
+      },
+      {
+        "member": 192,
+        "entry_id": "world-map/title/192",
+        "same_text_no_op": false,
+        "stored_size": 172592,
+        "source_encoded_size": 172578,
+        "output_encoded_size": 155351,
+        "compressed_headroom": 17241,
+        "source_stored_sha256": "ceba31d05eea0159524b4231b39d650b46f2d3bf531e64241110c3e3d171df25",
+        "output_stored_sha256": "a03856104cd6450b3167874b938a95f805ad2ee341a66160f1ad4f7ee068d26f",
+        "source_decoded_sha256": "ca01c99d5e55e2216aaddff7563f0413ecdfe4b35661dd48f150b9d7c72d47ad",
+        "output_decoded_sha256": "a2ef68ebe0ab41a7a323587676e5d6d4d4cd3816f1830be7239bd08dccd54247",
+        "source_title_raw_sha256": "daabc0ab41797edd8df273ab00135d0e28da08ae988c8086ff51be0cf3dde13b",
+        "output_title_raw_sha256": "a1133a4376457e79db77c70441878bd714ebfc53f75e59395e8c70125f13584f"
+      },
+      {
+        "member": 193,
+        "entry_id": "world-map/title/193",
+        "same_text_no_op": false,
+        "stored_size": 172224,
+        "source_encoded_size": 172220,
+        "output_encoded_size": 155250,
+        "compressed_headroom": 16974,
+        "source_stored_sha256": "3da55a6be5d4edcfb068b2fdb5daf11fa49fb12921433de1f719cd1f49d6783b",
+        "output_stored_sha256": "70f31f1dabdada2d40bf9c6c622f5908ddec9397dfa7143c22d2ba9e0e168018",
+        "source_decoded_sha256": "aa59c8f86fccf49e02f4cd1ef745ab3e7d22e4e5822ce087bdb94fc3a5aae8f5",
+        "output_decoded_sha256": "aa244c7e06131f2aa90e6163823b3fbfb861e2012b05ade6629664288c3008aa",
+        "source_title_raw_sha256": "28b641b03f4251d879345244f714111d5f8af1cd1c8a6ef0ed8a13792992674c",
+        "output_title_raw_sha256": "8a262a8101f7eebed9f6e556e3303b46657175a1d72f726238cbd0dfde9a1c90"
+      },
+      {
+        "member": 194,
+        "entry_id": "world-map/title/194",
+        "same_text_no_op": false,
+        "stored_size": 230096,
+        "source_encoded_size": 230093,
+        "output_encoded_size": 193813,
+        "compressed_headroom": 36283,
+        "source_stored_sha256": "4d2030df196f1e93650fd16f2a33d968b5583499abd9ef19a3a705c439607734",
+        "output_stored_sha256": "5246a3cc15785b761243b5aebc0a0f25d9990b0339cc64d7c1aee9dd654110ba",
+        "source_decoded_sha256": "9c7785f553fd1eea7769400a7ea497b64e669332462ebc7f9fa2b7567f8fdca2",
+        "output_decoded_sha256": "a714a58c3b302de721ba619bc74a3791c9a5ed7478c94ec59ef67f7211b81135",
+        "source_title_raw_sha256": "2f7a1038543c29c23796ec2fd7f06c7c1a2b7047dce80260915f42c8fccf9e7e",
+        "output_title_raw_sha256": "f03e4e572b34962b1987c995be90d36c79e24bad2b7314e6f42194f113b12615"
+      },
+      {
+        "member": 195,
+        "entry_id": "world-map/title/195",
+        "same_text_no_op": false,
+        "stored_size": 172176,
+        "source_encoded_size": 172175,
+        "output_encoded_size": 155323,
+        "compressed_headroom": 16853,
+        "source_stored_sha256": "ae088504ce9fa4502b172084c887565d411979871963b825a3f73be7e7db5815",
+        "output_stored_sha256": "c77468e7365c16a780b9d728bfb4203304d4eff9be0be3e6fafc0994a22b8e73",
+        "source_decoded_sha256": "e1dfa33fa00a5a7e3bc59650c3c47fd0d8d4de884b47bebaefa4f8cce19d4037",
+        "output_decoded_sha256": "e32ea34551fd40821c6a5cda352434f79f28896e61423a6cd3fac94e66f6b028",
+        "source_title_raw_sha256": "ce5092914c0201d15aa29dd7ec356dae40d9142b774be18b60ba1dc87ca8ebd0",
+        "output_title_raw_sha256": "8c20d826b629ee6db05adbec9a96202f711027616a5d8bdefc0560e318557526"
+      }
+    ],
+    "preview": {
+      "path": "work/build/zh-release-full-story/components/previews/world-map-titles/world-map-titles-contact-sheet.png",
+      "size": 198011,
+      "sha256": "bbb42583bf0c595713d756f829e1d314b990fe2fbbc0f951a4f954a5e1b4bbb7",
+      "row_order": [
+        "world-map/title/081",
+        "world-map/title/082",
+        "world-map/title/083",
+        "world-map/title/084",
+        "world-map/title/085",
+        "world-map/title/086",
+        "world-map/title/087",
+        "world-map/title/088",
+        "world-map/title/089",
+        "world-map/title/090",
+        "world-map/title/091",
+        "world-map/title/092",
+        "world-map/title/093",
+        "world-map/title/094",
+        "world-map/title/095",
+        "world-map/title/096",
+        "world-map/title/100",
+        "world-map/title/101",
+        "world-map/title/102",
+        "world-map/title/104",
+        "world-map/title/105",
+        "world-map/title/106",
+        "world-map/title/107",
+        "world-map/title/108",
+        "world-map/title/111",
+        "world-map/title/112",
+        "world-map/title/113",
+        "world-map/title/118",
+        "world-map/title/122",
+        "world-map/title/123",
+        "world-map/title/124",
+        "world-map/title/125",
+        "world-map/title/127",
+        "world-map/title/128",
+        "world-map/title/129",
+        "world-map/title/130",
+        "world-map/title/131",
+        "world-map/title/132",
+        "world-map/title/133",
+        "world-map/title/134",
+        "world-map/title/135",
+        "world-map/title/136",
+        "world-map/title/139",
+        "world-map/title/141",
+        "world-map/title/143",
+        "world-map/title/144",
+        "world-map/title/145",
+        "world-map/title/147",
+        "world-map/title/148",
+        "world-map/title/149",
+        "world-map/title/152",
+        "world-map/title/154",
+        "world-map/title/156",
+        "world-map/title/157",
+        "world-map/title/158",
+        "world-map/title/159",
+        "world-map/title/161",
+        "world-map/title/162",
+        "world-map/title/163",
+        "world-map/title/167",
+        "world-map/title/168",
+        "world-map/title/169",
+        "world-map/title/172",
+        "world-map/title/173",
+        "world-map/title/174",
+        "world-map/title/175",
+        "world-map/title/177",
+        "world-map/title/178",
+        "world-map/title/179",
+        "world-map/title/183",
+        "world-map/title/187",
+        "world-map/title/189",
+        "world-map/title/190",
+        "world-map/title/191",
+        "world-map/title/192",
+        "world-map/title/193",
+        "world-map/title/194",
+        "world-map/title/195"
+      ]
+    },
+    "archive_size_preserved": true,
+    "top_level_offsets_preserved": true,
+    "non_title_members_preserved_byte_exact": true,
+    "non_title_decoded_bytes_preserved": true,
+    "english_subtitle_preserved_byte_exact": true,
+    "same_text_members_preserved_byte_exact": true,
+    "compressed_chunks_fit_allocations": true,
+    "codec_round_trip_exact": true,
+    "output_archive_sha256": "234710f2d39ae70b854d6f46a5f24e94c4085713b46bf4653b30371b52349518"
+  },
   "global_safe_aliases": {
     "scope": "all-parsed-localized-menu-surfaces",
     "conditional_primary_assignment_count": 701,
@@ -6563,10 +10820,10 @@
     "unaliased_conditional_assignment_count": 0,
     "alias_codes_default_width_only": true,
     "slps": {
-      "selected_entry_count": 684,
+      "selected_entry_count": 682,
       "selected_target_count": 1166,
       "merged_text_range_count": 1165,
-      "substituted_code_count": 2554,
+      "substituted_code_count": 2552,
       "nested_raw_overlap_mismatch_count": 1,
       "nested_raw_overlap_entry_ids": [
         "menu/SLPS/00/0083"
@@ -6586,15 +10843,15 @@
       "pointer_bytes_unchanged": true,
       "reread_exact": true
     },
-    "compdata_source_size": 143164,
-    "compdata_output_size": 142554,
+    "compdata_source_size": 143171,
+    "compdata_output_size": 142562,
     "compdata_round_trip_exact": true
   },
   "outputs": {
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "4c90010670802493c858d62fc1ff66dfa9b7a9f15f221ce851b5535874159425"
+      "sha256": "88ae1ca89506e17338a1a9634f5e48ca08b2546fc104948a0e6e3e21ccc89b70"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -6603,8 +10860,8 @@
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 142554,
-      "sha256": "7db282bb243c4a84e1a16f9b36477a75b03199f915d3ce61748589264bc3780b"
+      "size": 142562,
+      "sha256": "c42e9c696e39e87ede4d52317007937146715ef835fcd4316d6642d607aee1a3"
     },
     "DATA/NISVDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
@@ -6619,7 +10876,7 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "de6f36f1d6c49fd274cb957ebb04a1b0b1dbb6e01e10bce9b40524f5b07e88ed"
+      "sha256": "af6955540998c0f996e5f1c6f95dea71c9d221ba430b157c5f2a7a30a0ce9ca1"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
@@ -6639,7 +10896,7 @@
     "BTL/SRVC.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
       "size": 3313040,
-      "sha256": "ec961ef5595d89318c1129852d73ba9e94f16d30130637b98883d069b39498ab"
+      "sha256": "83cd1010c0a60819711d2447b9a4d9362ad9b7d2bc6f72539cd53f0329b66087"
     },
     "BTL/SRVC.SEG": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.SEG",
@@ -6650,10 +10907,16 @@
       "path": "work/build/zh-release-full-story/components/EFF/VEFF2DX.BIN",
       "size": 36890512,
       "sha256": "4445b2a8669861a87eb79cb4862f0c8a17841785ee5a990d70554e59f464ae10"
+    },
+    "MAP/MAPMODEL.BIN": {
+      "path": "work/build/zh-release-full-story/components/MAP/MAPMODEL.BIN",
+      "size": 55136688,
+      "sha256": "234710f2d39ae70b854d6f46a5f24e94c4085713b46bf4653b30371b52349518"
     }
   },
   "acceptance": {
     "production_compression_backend_rust_only": true,
+    "world_map_titles_reread_exact": true,
     "p10_ui_members_inherited_exact": true,
     "encoded_ui_codebook_is_release_subset": true,
     "global_release_font_missing_character_count_zero": true,
@@ -6665,6 +10928,9 @@
     "stage_hb_offset_reread_exact": true,
     "all_story_text_reread_exact": true,
     "full_story_pilot_names_reread_exact": true,
+    "full_story_unit_names_reread_exact": true,
+    "full_story_unit_name_pointer_relocations_exact": true,
+    "full_story_unit_name_spaces_two_byte": true,
     "full_story_pilot_name_codec_round_trip_exact": true,
     "full_story_pilot_name_changes_confined": true,
     "full_story_stage_titles_reread_exact": true,

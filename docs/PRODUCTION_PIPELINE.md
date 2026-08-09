@@ -59,6 +59,7 @@ python3 tools/verify_original_disc.py
 python3 tools/extract_iso_member.py \
   SLPS_258.87 DATA/VT1.BIN DATA/STAGE.BIN DATA/COMPDATA.BN \
   DATA/NISVDATA.BIN DATA/HSFC.BIN BTL/SRVC.BIN BTL/SRVC.SEG EFF/VEFF2DX.BIN
+python3 tools/extract_iso_member.py MAP/MAPMODEL.BIN
 python3 tools/prepare_zh_release_font.py --force
 ```
 
@@ -163,12 +164,13 @@ Python codec 保留为严格 decoder、round-trip 和结构 oracle。当前生�
 - 标题、玩家设置、幕间、战场、结算、搜索等 fixed-span UI；
 - 世界史与双主人公开场资料；
 - 六张中文 KVMDATA atlas；
+- MAPMODEL 成员 81..195 的全部已审校 WORLD MAP 地名标题；
 - 154 个 STAGE 剧情块、STAGE/HSFC 概要和完整 SRVC 战斗字幕；
 - 全局 `zh-release-font`、KVMDATA 六图和 VEFF2DX 场景标题。
 
-当前 r13 ISO 已完成静态结构与组件回读；三份详细内容摘要仍绑定 r11，待并行文本
-润色稳定并重建组件后统一刷新。匹配 r13 精确哈希的新游戏、读档和目标战斗字幕
-运行验收仍待完成。
+当前 v0.1.0 ISO 已完成静态结构、13 个组件和统一整盘内容回读；
+`manifests/zh-release-full-story-iso-content-validation.json` 与当前精确哈希一致。
+匹配 v0.1.0 精确哈希的新游戏、读档和目标战斗字幕运行验收仍待完成。
 
 ## 9. 新增一个 surface
 

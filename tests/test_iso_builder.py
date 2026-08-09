@@ -306,7 +306,7 @@ class Mkps2isoBuildTests(unittest.TestCase):
         invalid["output"]["path"] = "work/iso/srwz-release.iso"
         with self.assertRaisesRegex(
             IsoBuildError,
-            "must be under build/iso/zh-release-full-story",
+            "must be under build/iso/v0.1.0",
         ):
             validate_directory_contract(invalid)
 

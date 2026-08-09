@@ -56,8 +56,6 @@ class HsfcOverviewTests(unittest.TestCase):
 
     def test_reviewed_corpus_rewrites_every_fixed_cell(self):
         corpus_path = PROJECT_ROOT / "corpus/zh/menu/hsfc-overviews.json"
-        if not corpus_path.is_file():
-            self.skipTest("reviewed HSFC corpus not created yet")
         corpus = json.loads(corpus_path.read_text(encoding="utf-8"))
         rewritten, report = replace_hsfc_overviews_in_place(
             self.decoded,
