@@ -116,7 +116,8 @@ def _refresh_atlas_ratchet(reference: str) -> None:
     config_path = PROJECT_ROOT / reference
     config = _load(config_path)
     config["expected"] = _run_json(
-        "tools/build_ui_atlas_localization.py",
+        "tools/ui_atlas.py",
+        "build",
         "--config",
         reference,
         "--print-output-locks",
@@ -126,13 +127,15 @@ def _refresh_atlas_ratchet(reference: str) -> None:
 
 def _build_atlas(reference: str, *, refresh_manifest: bool) -> None:
     _run(
-        "tools/build_ui_atlas_localization.py",
+        "tools/ui_atlas.py",
+        "build",
         "--config",
         reference,
         "--force",
     )
     arguments = [
-        "tools/verify_ui_atlas_localization.py",
+        "tools/ui_atlas.py",
+        "verify",
         "--config",
         reference,
         "--force",
@@ -238,13 +241,15 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
     if args.refresh_asset_ratchets:
         _refresh_suite_ratchets(suite_reference, atlas_references)
     _run(
-        "tools/build_ui_atlas_suite.py",
+        "tools/ui_atlas.py",
+        "build-suite",
         "--config",
         suite_reference,
         "--force",
     )
     suite_verify = [
-        "tools/verify_ui_atlas_suite.py",
+        "tools/ui_atlas.py",
+        "verify-suite",
         "--config",
         suite_reference,
         "--force",

@@ -16,16 +16,17 @@ vendor/upstream-python/       两份固定只读数据定义
 | --- | --- |
 | 原版准备 | `verify_original_disc.py`、`extract_iso_member.py` |
 | 字体 | `fetch_zh_font.py`、`update_zh_release_font_snapshot.py`、`rebuild_zh_font.py` |
-| 图片 | `build_ui_atlas_localization.py`、`build_ui_atlas_suite.py` |
+| 图片 | `ui_atlas.py build/verify/build-suite/verify-suite` |
 | 剧情组件 | `build_story_component.py`（通常由全局字体主链自动调用） |
 | 最终组件 | `build_full_story_components.py`（通常由全局字体主链自动调用） |
 | ISO | `build_iso.py --config config/iso/zh-release-full-story-build.json` |
-| 静态回读 | `verify_zh_release_font.py`、`verify_ui_atlas_suite.py`、`verify_full_story_iso_content.py`；按领域复核时另用 `verify_remaining_ui_iso_content.py`、`verify_srvc_battle_iso_content.py` |
-| 运行证据 | `prepare_pcsx2_session.py`、`launch_pcsx2_session.py`、`collect_pcsx2_session.py`、`verify_pcsx2_session.py`；boot smoke、进程停止和 savestate 登记／复核是同目录的独立手工命令 |
+| 静态回读 | `verify_zh_release_font.py`、`ui_atlas.py verify-suite`、`verify_full_story_iso_content.py` |
+| 运行证据 | `pcsx2.py prepare/verify/launch/stop/collect/savestate-register/savestate-verify` |
 
-`tools/*.py` 是可直接执行的命令，因此手工验收工具不一定会被其他 Python 文件
-导入；是否保留以当前运行流程和证据职责为准。旧的单行兼容转发层已经移除，
-`rebuild_zh_font.py` 与 `build_zh_font_component.py` 现在各自直接包含规范实现。
+`tools/*.py` 只保留可直接执行的领域入口。PCSX2 和 UI atlas 的同类操作分别由
+`pcsx2.py`、`ui_atlas.py` 子命令统一承载；旧 boot-smoke、单点字体探针和重复的
+分域 ISO 回读入口已移除。`rebuild_zh_font.py` 与
+`build_zh_font_component.py` 各自直接包含规范实现，不再经过兼容转发层。
 
 `tools/srwz/codec.py` 保留严格 decoder 和小样本 oracle；生产写回必须选择 Rust
 策略，满足原槽或成员扇区预算即可，不要求无意义地追求全局最大压缩率。

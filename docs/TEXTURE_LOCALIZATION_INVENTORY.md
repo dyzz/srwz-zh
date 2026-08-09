@@ -248,10 +248,7 @@ writer 只清除 `x=60..153` 的固定 `までクリア！` 后缀，再把“�
 通用 writer 与入口：
 
 - `tools/srwz/ui_atlas_localization.py::build_ui_atlas_localization`
-- `tools/build_ui_atlas_localization.py`
-- `tools/verify_ui_atlas_localization.py`
-- `tools/build_ui_atlas_suite.py`
-- `tools/verify_ui_atlas_suite.py`
+- `tools/ui_atlas.py`（`build`、`verify`、`build-suite`、`verify-suite`）
 
 单图预览和组件均在各自 profile 下：
 
@@ -407,18 +404,18 @@ python3 tools/rebuild_zh_font.py \
 `config/assets/ui-*-atlas-zh.json`：
 
 ```bash
-python3 tools/build_ui_atlas_localization.py \
+python3 tools/ui_atlas.py build \
   --config <config> --force
-python3 tools/verify_ui_atlas_localization.py \
+python3 tools/ui_atlas.py verify \
   --config <config> --force --refresh-manifest
 ```
 
 重建六图组合、最终组件和 ISO：
 
 ```bash
-python3 tools/build_ui_atlas_suite.py \
+python3 tools/ui_atlas.py build-suite \
   --config config/assets/ui-atlas-suite-zh.json --force
-python3 tools/verify_ui_atlas_suite.py \
+python3 tools/ui_atlas.py verify-suite \
   --config config/assets/ui-atlas-suite-zh.json \
   --force --refresh-manifest
 python3 tools/build_full_story_components.py \

@@ -101,9 +101,9 @@ python3 tools/fetch_zh_font.py \
 重建并验证独立图集：
 
 ```bash
-python3 tools/build_ui_atlas_localization.py \
+python3 tools/ui_atlas.py build \
   --config config/assets/ui-intermission-atlas-zh.json --force
-python3 tools/verify_ui_atlas_localization.py \
+python3 tools/ui_atlas.py verify \
   --config config/assets/ui-intermission-atlas-zh.json \
   --force --refresh-manifest
 ```
@@ -111,9 +111,9 @@ python3 tools/verify_ui_atlas_localization.py \
 再合入六图套件和当前发布组件：
 
 ```bash
-python3 tools/build_ui_atlas_suite.py \
+python3 tools/ui_atlas.py build-suite \
   --config config/assets/ui-atlas-suite-zh.json --force
-python3 tools/verify_ui_atlas_suite.py \
+python3 tools/ui_atlas.py verify-suite \
   --config config/assets/ui-atlas-suite-zh.json \
   --force --refresh-manifest
 python3 tools/build_full_story_components.py \

@@ -157,21 +157,22 @@ STAGE 全文、`COMPDATA.BN` 的 297 条战斗退场台词，以及战斗动画�
 矩阵。准备命令只复制 PCSX2、设置、BIOS 引用和可选存档，不启动模拟器：
 
 ```bash
-python3 tools/prepare_pcsx2_session.py \
+python3 tools/pcsx2.py prepare \
   --case-id release/stage-entry \
   --session-id release-stage-entry
 
-python3 tools/verify_pcsx2_session.py \
+python3 tools/pcsx2.py verify \
   --lock work/runtime/pcsx2-sessions/release-stage-entry/session-lock.json
 
-python3 tools/launch_pcsx2_session.py \
+python3 tools/pcsx2.py launch \
   --lock work/runtime/pcsx2-sessions/release-stage-entry/session-lock.json \
   --execute
 ```
 
 若使用外部 memory card 或 savestate，必须显式传入 `--exploratory`；原始卡不原位
 修改，savestate 只用于加速定位，不能替代同一 ISO 的 fresh-process primary
-run。停止后用 `collect_pcsx2_session.py` 回收日志和卡快照。
+run。停止后用 `python3 tools/pcsx2.py collect --lock <session-lock>` 回收日志和
+卡快照；需要按会话记录安全发送 SIGINT 时使用 `pcsx2.py stop --session-id <id>`。
 
 最终 runtime 结论必须同时绑定当前 ISO 哈希、`SLPS-25887`、PCSX2 2.6.3、PINE
 Running、fresh process、目标画面截图以及零 TLB miss／illegal instruction。
