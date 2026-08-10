@@ -28,6 +28,7 @@ ALLOWED_IMPORT_ROOTS = {
     "platform",
     "plistlib",
     "re",
+    "run_aliyun_library_v02_batch",
     "signal",
     "shutil",
     "socket",

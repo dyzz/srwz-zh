@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "release_id": "srwz-zh-corpus-v2",
+  "version": "0.2.0",
+  "status": "in_progress",
+  "language": "zh-Hans",
+  "inherits": "corpus/releases/v1.json",
+  "scope_config": "config/library/v0.2.0.json",
+  "translation_sources": [
+    {
+      "id": "library-zkan-aliyun-deepseek-v4-flash-0731-machine-draft",
+      "provider": "Alibaba Cloud DashScope",
+      "model": "deepseek-v4-flash-0731",
+      "model_policy": "fixed_snapshot",
+      "status": "machine_draft_pending_review",
+      "source_queue": "work/review/aliyun/library-v0.2/source-queue.jsonl",
+      "source_queue_count": 2709,
+      "source_queue_sha256": "63b0a9a9bfa2862060169a32cb3a61cefb549f9a06d6568f334543ae53d56acc",
+      "validated_draft": "work/review/aliyun/library-v0.2/deepseek-v4-flash-0731/aggregate/validated.jsonl",
+      "validated_draft_count": 2709,
+      "validated_draft_sha256": "fca7262d099ae1b64410bc4dc834952dedda0925609ba03489990c23982f8fbc",
+      "editorial_audit": "work/review/aliyun/library-v0.2/deepseek-v4-flash-0731/editorial-audit/manifest.json",
+      "promoted_to_corpus": false
+    }
+  ],
+  "protected_source_ranges": [
+    {
+      "id": "sound-select-track-titles",
+      "member": "DATA/COMPDATA.BN",
+      "decoded_start": "0x6EDC0",
+      "decoded_end": "0x6F630",
+      "policy": "preserve_original_japanese_byte_exact",
+      "expected_entry_count": 85,
+      "expected_sha256": "d4167f7ddcf53bcbc0c9f6bffd93f7c327134f273b118ea05d1033731fec222f"
+    }
+  ],
+  "coverage_plan": [
+    {
+      "batch_id": "v2-library-menu",
+      "domain": "library",
+      "target_entry_count": 6,
+      "status": "source_locked"
+    },
+    {
+      "batch_id": "v2-robot-encyclopedia",
+      "domain": "library",
+      "target_entry_count": 321,
+      "status": "machine_draft_pending_review"
+    },
+    {
+      "batch_id": "v2-character-encyclopedia",
+      "domain": "library",
+      "target_entry_count": 411,
+      "status": "machine_draft_pending_review"
+    },
+    {
+      "batch_id": "v2-glossary",
+      "domain": "library",
+      "target_entry_count": 52,
+      "status": "machine_draft_pending_review"
+    },
+    {
+      "batch_id": "v2-sound-select-ui",
+      "domain": "library",
+      "status": "source_locked"
+    },
+    {
+      "batch_id": "v2-scenario-chart",
+      "domain": "library",
+      "status": "inventory_in_progress"
+    },
+    {
+      "batch_id": "v2-strategy-qa",
+      "domain": "library",
+      "status": "inventory_in_progress"
+    }
+  ],
+  "review_policy": {
+    "source_text_in_git": false,
+    "minimum_final_editorial_status": "reviewed",
+    "kana_residue_allowed": false,
+    "enforced_glossary_refs": true,
+    "sound_track_titles_are_not_translation_entries": true
+  }
+}

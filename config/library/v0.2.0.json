@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "release": "0.2.0",
+  "status": "in_progress",
+  "decision": "include_complete_library",
+  "surfaces": [
+    {
+      "id": "library-menu",
+      "label": "LIBRARY主菜单",
+      "policy": "translate_zh_Hans",
+      "source_member": "DATA/JTIM.BIN"
+    },
+    {
+      "id": "robot-encyclopedia",
+      "label": "机体图鉴",
+      "policy": "translate_zh_Hans",
+      "source_member": "DATA/MTVZKNRT.BIN",
+      "expected_entry_count": 321
+    },
+    {
+      "id": "character-encyclopedia",
+      "label": "角色事典",
+      "policy": "translate_zh_Hans",
+      "source_member": "DATA/MTVZKNPT.BIN",
+      "expected_entry_count": 411
+    },
+    {
+      "id": "glossary",
+      "label": "术语事典及关键词弹窗",
+      "policy": "translate_zh_Hans",
+      "source_member": "DATA/MTVZKNKW.BIN",
+      "expected_entry_count": 52
+    },
+    {
+      "id": "sound-select",
+      "label": "音乐选择",
+      "policy": "translate_ui_preserve_track_titles",
+      "source_member": "DATA/COMPDATA.BN"
+    },
+    {
+      "id": "scenario-chart",
+      "label": "剧情流程",
+      "policy": "translate_zh_Hans"
+    },
+    {
+      "id": "strategy-qa",
+      "label": "攻略Q&A",
+      "policy": "translate_zh_Hans"
+    }
+  ],
+  "source_member_locks": {
+    "SLPS_258.87": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "DATA/COMPDATA.BN": {
+      "path": "work/disc/DATA/COMPDATA.BN",
+      "size": 144990,
+      "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+      "decoded_size": 524032,
+      "decoded_sha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb"
+    },
+    "DATA/JTIM.BIN": {
+      "path": "work/disc/DATA/JTIM.BIN",
+      "size": 7539728,
+      "sha256": "c02f0b01a20024243c6fce96ffaa423feba7239dacf19309583ee97ac2c24b56"
+    },
+    "DATA/MTVZKNRT.BIN": {
+      "path": "work/disc/DATA/MTVZKNRT.BIN",
+      "size": 185600,
+      "sha256": "e78306a1c1a5591bc0869d30f656578307c33543e146fb35a0fa16b177d0dd75",
+      "expected_chunk_count": 321,
+      "slps_table_start": "0x32B390",
+      "slps_table_end": "0x32B897"
+    },
+    "DATA/MTVZKNPT.BIN": {
+      "path": "work/disc/DATA/MTVZKNPT.BIN",
+      "size": 293696,
+      "sha256": "5dc3e8277d39a0f7a57e78b5e95a0ba74a24c2c9d9db93ad75a77a1775ad78b7",
+      "expected_chunk_count": 411,
+      "slps_table_start": "0x32A810",
+      "slps_table_end": "0x32AE7B"
+    },
+    "DATA/MTVZKNKW.BIN": {
+      "path": "work/disc/DATA/MTVZKNKW.BIN",
+      "size": 29936,
+      "sha256": "d5eb84d5ff962a80363a6949d9560347b4ffac510e83abe87127557fa4faf226",
+      "expected_chunk_count": 52,
+      "slps_table_start": "0x32B980",
+      "slps_table_end": "0x32BA4F"
+    }
+  },
+  "library_menu_tim2": {
+    "member": "DATA/JTIM.BIN",
+    "record_index": 5,
+    "offset": "0x394150",
+    "size": 132160,
+    "sha256": "b7c5008406d8b8ff2e3ca4d0875eb8ec8e1d780bc57ac9e0624261470ca886e6",
+    "width": 512,
+    "height": 256,
+    "image_type": 5,
+    "clut_color_count": 256,
+    "labels": {
+      "ロボット大図鑑": "机体图鉴",
+      "キャラクター事典": "角色事典",
+      "用語事典": "术语事典",
+      "サウンドセレクト": "音乐选择",
+      "シナリオチャート": "剧情流程",
+      "攻略Ｑ＆Ａ": "攻略Q&A"
+    }
+  },
+  "sound_select": {
+    "ui_policy": "translate_zh_Hans",
+    "track_title_policy": "preserve_original_japanese_byte_exact",
+    "track_titles_in_translation_corpus": false,
+    "decoded_compdata": {
+      "start": "0x6EDC0",
+      "end": "0x6F630",
+      "alignment": 8,
+      "expected_title_count": 85,
+      "expected_span_sha256": "d4167f7ddcf53bcbc0c9f6bffd93f7c327134f273b118ea05d1033731fec222f"
+    }
+  },
+  "translation_model_lock": {
+    "provider": "Alibaba Cloud DashScope",
+    "model": "deepseek-v4-flash-0731",
+    "policy": "fixed_snapshot_required",
+    "rolling_alias_allowed": false
+  },
+  "release_gates": [
+    "all_in_scope_translation_entries_reviewed",
+    "sound_track_title_span_byte_exact",
+    "all_changed_members_rebuilt_deterministically",
+    "iso_member_size_and_lba_boundaries_preserved",
+    "static_final_iso_readback_passed",
+    "runtime_all_six_entries_and_representative_detail_pages_passed"
+  ]
+}

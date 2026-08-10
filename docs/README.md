@@ -11,6 +11,7 @@
 | `ARCHITECTURE.md` | 数据边界、构建分层、上游与工具链归属 |
 | `PRODUCTION_PIPELINE.md` | 当前生产输入、命令、写回顺序和失败门禁 |
 | `RUNTIME_LOCALIZATION_AUDIT.md` | 已有运行结论、当前缺口和验收范围 |
+| `LIBRARY_V02_SCOPE.md` | v0.2 完整 LIBRARY 范围、曲名保留规则和发布门 |
 
 ## 最终技术结论
 

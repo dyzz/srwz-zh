@@ -1,0 +1,546 @@
+"""Fail-closed source locks for the v0.2 LIBRARY localization scope.
+
+The sound-select title table is intentionally not a translation surface.
+Chinese UI work may rebuild COMPDATA, but the decoded title-table span must
+remain byte-for-byte identical to the Japanese source.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import struct
+from dataclasses import dataclass
+from typing import Mapping, Sequence
+
+from .text import TextTable, decode_text
+from .tim2 import scan_tim2
+
+
+class LibraryScopeError(ValueError):
+    """A v0.2 LIBRARY source or preservation lock does not match."""
+
+
+ZKAN_TEXT_TAGS = frozenset(
+    {
+        "ACTR",
+        "CHFN",
+        "CHNN",
+        "DSC2",
+        "DSCR",
+        "HEIT",
+        "KANA",
+        "PLTN",
+        "PRDC",
+        "RBTN",
+        "SRCE",
+        "WEIT",
+        "WORD",
+    }
+)
+ZKAN_BINARY_TAGS = frozenset({"LOOK", "LorR", "VOIC"})
+ZKAN_KINDS = frozenset({"CHAR", "KYWD", "ROBO"})
+ZKAN_ESCAPE_BYTE = 0x5E
+ZKN_WRAPPER_SIZE = 0x20
+
+
+REQUIRED_SURFACE_IDS = frozenset(
+    {
+        "library-menu",
+        "robot-encyclopedia",
+        "character-encyclopedia",
+        "glossary",
+        "sound-select",
+        "scenario-chart",
+        "strategy-qa",
+    }
+)
+
+
+def _number(value: object, label: str) -> int:
+    if isinstance(value, int) and not isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        try:
+            return int(value, 0)
+        except ValueError as exc:
+            raise LibraryScopeError(f"{label} is not an integer") from exc
+    raise LibraryScopeError(f"{label} must be an integer")
+
+
+def _sha256(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def zkan_escape_transform(data: bytes) -> bytes:
+    """Apply the involutory ZKAN byte transform used by the retail game.
+
+    NUL and ``0x5e`` are escape values and remain unchanged.  Every other
+    byte is XORed with ``0x5e``.  The same operation decodes retail data and
+    re-encodes a rebuilt ZKAN payload.
+    """
+
+    return bytes(
+        value
+        if value in (0, ZKAN_ESCAPE_BYTE)
+        else value ^ ZKAN_ESCAPE_BYTE
+        for value in bytes(data)
+    )
+
+
+@dataclass(frozen=True)
+class ZkanField:
+    tag: str
+    data: bytes
+    text: str | None
+
+
+@dataclass(frozen=True)
+class ZkanDocument:
+    kind: str
+    version: int
+    fields: tuple[ZkanField, ...]
+    decoded_payload_size: int
+    decoded_payload_sha256: str
+
+    def field(self, tag: str) -> ZkanField:
+        matches = [field for field in self.fields if field.tag == tag]
+        if len(matches) != 1:
+            raise LibraryScopeError(
+                f"ZKAN field {tag!r} occurs {len(matches)} times"
+            )
+        return matches[0]
+
+
+def _unpack_u32(data: bytes, offset: int, label: str) -> int:
+    if offset < 0 or offset + 4 > len(data):
+        raise LibraryScopeError(f"{label} exceeds its buffer")
+    return struct.unpack_from("<I", data, offset)[0]
+
+
+def _ascii_tag(data: bytes, offset: int, label: str) -> str:
+    if offset < 0 or offset + 4 > len(data):
+        raise LibraryScopeError(f"{label} exceeds its buffer")
+    try:
+        return data[offset : offset + 4].decode("ascii")
+    except UnicodeDecodeError as exc:
+        raise LibraryScopeError(f"{label} is not ASCII") from exc
+
+
+def parse_zkn_decoded_chunk(decoded_chunk: bytes) -> ZkanDocument:
+    """Parse one native-decoded MTVZKN chunk into its ZKAN fields.
+
+    ``srwz.codec.decode`` returns a 0x20-byte wrapper followed by an escaped
+    ZKAN document.  This parser validates every declared boundary before it
+    decodes Shift-JIS text; malformed or unknown tags fail closed.
+    """
+
+    source = bytes(decoded_chunk)
+    if len(source) < ZKN_WRAPPER_SIZE:
+        raise LibraryScopeError("decoded ZKN chunk is shorter than its wrapper")
+    wrapper_values = struct.unpack_from("<8I", source, 0)
+    item_count, payload_offset, reserved, payload_size, payload_size_copy = (
+        wrapper_values[:5]
+    )
+    if item_count != 1:
+        raise LibraryScopeError(
+            f"decoded ZKN wrapper item count is {item_count}, expected 1"
+        )
+    if payload_offset != ZKN_WRAPPER_SIZE:
+        raise LibraryScopeError(
+            "decoded ZKN wrapper payload offset is "
+            f"0x{payload_offset:X}, expected 0x{ZKN_WRAPPER_SIZE:X}"
+        )
+    if reserved != 0:
+        raise LibraryScopeError("decoded ZKN wrapper reserved word is nonzero")
+    if payload_size != payload_size_copy:
+        raise LibraryScopeError("decoded ZKN wrapper payload sizes disagree")
+    if payload_offset + payload_size != len(source):
+        raise LibraryScopeError(
+            "decoded ZKN wrapper does not cover the complete decoded chunk"
+        )
+    if any(wrapper_values[5:]):
+        raise LibraryScopeError("decoded ZKN wrapper padding is nonzero")
+
+    escaped_payload = source[payload_offset : payload_offset + payload_size]
+    payload = zkan_escape_transform(escaped_payload)
+    if len(payload) < 0x20:
+        raise LibraryScopeError("ZKAN payload is shorter than its header")
+    if payload[:4] != b"ZKAN":
+        raise LibraryScopeError("ZKAN payload magic is missing")
+    kind = _ascii_tag(payload, 4, "ZKAN kind")
+    if kind not in ZKAN_KINDS:
+        raise LibraryScopeError(f"unsupported ZKAN kind: {kind!r}")
+    version = _unpack_u32(payload, 8, "ZKAN version")
+    if version != 0x100:
+        raise LibraryScopeError(
+            f"unsupported ZKAN version: 0x{version:X}"
+        )
+    header_size = _unpack_u32(payload, 12, "ZKAN header size")
+    if header_size != 0x0C:
+        raise LibraryScopeError(
+            f"unsupported ZKAN header size: 0x{header_size:X}"
+        )
+    if payload[16:20] != b"DSIZ" or payload[24:28] != b"DATA":
+        raise LibraryScopeError("ZKAN DSIZ/DATA header is malformed")
+    document_size = _unpack_u32(payload, 20, "ZKAN DSIZ")
+    data_size = _unpack_u32(payload, 28, "ZKAN DATA size")
+    if document_size != data_size + 8:
+        raise LibraryScopeError("ZKAN DSIZ does not cover its DATA record")
+    document_end = data_size + 0x20
+    if document_end > len(payload):
+        raise LibraryScopeError("ZKAN DATA size exceeds the payload")
+    if any(payload[document_end:]):
+        raise LibraryScopeError("ZKAN payload has nonzero alignment padding")
+    payload = payload[:document_end]
+
+    fields: list[ZkanField] = []
+    seen_tags: set[str] = set()
+    cursor = 0x20
+    while cursor < len(payload):
+        tag = _ascii_tag(payload, cursor, "ZKAN field tag")
+        size = _unpack_u32(payload, cursor + 4, f"ZKAN {tag} size")
+        field_start = cursor + 8
+        field_end = field_start + size
+        if field_end > len(payload):
+            raise LibraryScopeError(f"ZKAN {tag} field exceeds DATA")
+        if tag in seen_tags:
+            raise LibraryScopeError(f"duplicate ZKAN field tag: {tag}")
+        seen_tags.add(tag)
+        raw = payload[field_start:field_end]
+        if tag in ZKAN_TEXT_TAGS:
+            try:
+                text = raw.decode("cp932")
+            except UnicodeDecodeError as exc:
+                raise LibraryScopeError(
+                    f"ZKAN {tag} field is not valid Shift-JIS"
+                ) from exc
+        elif tag in ZKAN_BINARY_TAGS:
+            text = None
+        else:
+            raise LibraryScopeError(f"unsupported ZKAN field tag: {tag!r}")
+        fields.append(ZkanField(tag=tag, data=raw, text=text))
+        cursor = field_end
+    if cursor != len(payload):
+        raise LibraryScopeError("ZKAN DATA fields do not end at its boundary")
+
+    expected_by_kind: Mapping[str, Sequence[str]] = {
+        "ROBO": (
+            "PRDC",
+            "LorR",
+            "RBTN",
+            "PLTN",
+            "HEIT",
+            "WEIT",
+            "DSCR",
+            "DSC2",
+        ),
+        "CHAR": (
+            "CHFN",
+            "CHNN",
+            "PRDC",
+            "ACTR",
+            "LOOK",
+            "DSCR",
+            "DSC2",
+        ),
+        "KYWD": ("WORD", "SRCE", "DSCR", "DSC2"),
+    }
+    tags = tuple(field.tag for field in fields)
+    required = expected_by_kind[kind]
+    if any(tag not in tags for tag in required):
+        missing = [tag for tag in required if tag not in tags]
+        raise LibraryScopeError(
+            f"ZKAN {kind} document is missing required fields: {missing}"
+        )
+    allowed = set(required)
+    if kind == "ROBO":
+        allowed.add("KANA")
+    if kind == "CHAR":
+        allowed.add("VOIC")
+    if any(tag not in allowed for tag in tags):
+        extras = [tag for tag in tags if tag not in allowed]
+        raise LibraryScopeError(
+            f"ZKAN {kind} document has unexpected fields: {extras}"
+        )
+    return ZkanDocument(
+        kind=kind,
+        version=version,
+        fields=tuple(fields),
+        decoded_payload_size=len(payload),
+        decoded_payload_sha256=_sha256(payload),
+    )
+
+
+def _require_sha256(value: object, label: str) -> str:
+    if (
+        not isinstance(value, str)
+        or len(value) != 64
+        or any(character not in "0123456789abcdef" for character in value)
+    ):
+        raise LibraryScopeError(
+            f"{label} must be 64 lowercase hexadecimal digits"
+        )
+    return value
+
+
+def validate_library_scope_mapping(raw: Mapping[str, object]) -> None:
+    """Validate the decisions that must not drift during v0.2 development."""
+
+    if not isinstance(raw, Mapping):
+        raise LibraryScopeError("LIBRARY config root must be an object")
+    if raw.get("schema_version") != 1:
+        raise LibraryScopeError("unsupported LIBRARY config schema")
+    if raw.get("release") != "0.2.0":
+        raise LibraryScopeError("LIBRARY scope must target release 0.2.0")
+    if raw.get("decision") != "include_complete_library":
+        raise LibraryScopeError("v0.2 must include the complete LIBRARY scope")
+
+    surfaces = raw.get("surfaces")
+    if not isinstance(surfaces, list):
+        raise LibraryScopeError("LIBRARY surfaces must be a list")
+    surface_ids = []
+    for surface in surfaces:
+        if not isinstance(surface, Mapping):
+            raise LibraryScopeError("LIBRARY surface must be an object")
+        surface_id = surface.get("id")
+        if not isinstance(surface_id, str) or not surface_id:
+            raise LibraryScopeError("LIBRARY surface id must be non-empty")
+        surface_ids.append(surface_id)
+    if len(surface_ids) != len(set(surface_ids)):
+        raise LibraryScopeError("LIBRARY surface ids contain duplicates")
+    if set(surface_ids) != REQUIRED_SURFACE_IDS:
+        missing = sorted(REQUIRED_SURFACE_IDS - set(surface_ids))
+        extra = sorted(set(surface_ids) - REQUIRED_SURFACE_IDS)
+        raise LibraryScopeError(
+            f"LIBRARY surfaces are incomplete: missing={missing}, extra={extra}"
+        )
+
+    sound = raw.get("sound_select")
+    if not isinstance(sound, Mapping):
+        raise LibraryScopeError("sound_select config must be an object")
+    if sound.get("track_title_policy") != (
+        "preserve_original_japanese_byte_exact"
+    ):
+        raise LibraryScopeError("sound track titles must remain byte-exact")
+    if sound.get("track_titles_in_translation_corpus") is not False:
+        raise LibraryScopeError("sound track titles cannot enter translation corpus")
+
+
+@dataclass(frozen=True)
+class SoundTitleSpanLock:
+    start: int
+    end: int
+    alignment: int
+    expected_title_count: int
+    expected_span_sha256: str
+
+    @classmethod
+    def from_mapping(
+        cls, raw: Mapping[str, object]
+    ) -> "SoundTitleSpanLock":
+        if not isinstance(raw, Mapping):
+            raise LibraryScopeError("sound title span lock must be an object")
+        lock = cls(
+            start=_number(raw.get("start"), "sound title span start"),
+            end=_number(raw.get("end"), "sound title span end"),
+            alignment=_number(
+                raw.get("alignment"), "sound title span alignment"
+            ),
+            expected_title_count=_number(
+                raw.get("expected_title_count"),
+                "sound title expected count",
+            ),
+            expected_span_sha256=_require_sha256(
+                raw.get("expected_span_sha256"),
+                "sound title span SHA-256",
+            ),
+        )
+        if not 0 <= lock.start < lock.end:
+            raise LibraryScopeError("sound title span is empty or reversed")
+        if lock.alignment <= 0 or lock.start % lock.alignment:
+            raise LibraryScopeError("sound title span alignment is invalid")
+        if lock.expected_title_count <= 0:
+            raise LibraryScopeError("sound title count must be positive")
+        return lock
+
+
+@dataclass(frozen=True)
+class SoundTrackTitle:
+    ordinal: int
+    start: int
+    end: int
+    text: str
+
+
+def parse_sound_track_titles(
+    decoded_compdata: bytes,
+    table: TextTable,
+    lock: SoundTitleSpanLock,
+) -> tuple[SoundTrackTitle, ...]:
+    """Parse the aligned, NUL-terminated stock title strings in one span."""
+
+    source = bytes(decoded_compdata)
+    if lock.end > len(source):
+        raise LibraryScopeError(
+            "sound title span exceeds decoded COMPDATA"
+        )
+
+    entries: list[SoundTrackTitle] = []
+    for offset in range(lock.start, lock.end, lock.alignment):
+        if source[offset] == 0:
+            continue
+        if offset != lock.start and source[offset - 2 : offset] != b"\0\0":
+            continue
+        try:
+            decoded = decode_text(source, offset, table, end=lock.end)
+        except ValueError:
+            continue
+        if decoded.unknown_code_count or not decoded.text:
+            continue
+        if decoded.end > lock.end:
+            raise LibraryScopeError(
+                f"sound title at 0x{offset:X} exceeds its locked span"
+            )
+        entries.append(
+            SoundTrackTitle(
+                ordinal=len(entries),
+                start=offset,
+                end=decoded.end,
+                text=decoded.text,
+            )
+        )
+
+    if len(entries) != lock.expected_title_count:
+        raise LibraryScopeError(
+            "sound title count mismatch: "
+            f"expected {lock.expected_title_count}, got {len(entries)}"
+        )
+    return tuple(entries)
+
+
+def verify_sound_title_source(
+    decoded_compdata: bytes,
+    table: TextTable,
+    lock: SoundTitleSpanLock,
+) -> tuple[SoundTrackTitle, ...]:
+    """Verify the stock decoded span hash and its 85 parseable titles."""
+
+    source = bytes(decoded_compdata)
+    if lock.end > len(source):
+        raise LibraryScopeError(
+            "sound title span exceeds decoded COMPDATA"
+        )
+    actual_hash = _sha256(source[lock.start : lock.end])
+    if actual_hash != lock.expected_span_sha256:
+        raise LibraryScopeError(
+            "sound title source span SHA-256 mismatch: "
+            f"expected {lock.expected_span_sha256}, got {actual_hash}"
+        )
+    return parse_sound_track_titles(source, table, lock)
+
+
+def verify_sound_titles_preserved(
+    source_decoded_compdata: bytes,
+    candidate_decoded_compdata: bytes,
+    lock: SoundTitleSpanLock,
+) -> None:
+    """Require exact decoded title bytes in a rebuilt COMPDATA candidate."""
+
+    source = bytes(source_decoded_compdata)
+    candidate = bytes(candidate_decoded_compdata)
+    if lock.end > len(source) or lock.end > len(candidate):
+        raise LibraryScopeError(
+            "sound title span exceeds source or candidate COMPDATA"
+        )
+    source_span = source[lock.start : lock.end]
+    candidate_span = candidate[lock.start : lock.end]
+    if candidate_span != source_span:
+        first_difference = next(
+            index
+            for index, (before, after) in enumerate(
+                zip(source_span, candidate_span)
+            )
+            if before != after
+        )
+        raise LibraryScopeError(
+            "sound titles changed in candidate at decoded COMPDATA offset "
+            f"0x{lock.start + first_difference:X}"
+        )
+
+
+def verify_jtim_library_menu_record(
+    jtim_data: bytes,
+    raw_lock: Mapping[str, object],
+) -> dict[str, int | str]:
+    """Verify the fixed JTIM TIM2 record that owns the six LIBRARY labels."""
+
+    if not isinstance(raw_lock, Mapping):
+        raise LibraryScopeError("JTIM LIBRARY menu lock must be an object")
+    record_index = _number(raw_lock.get("record_index"), "JTIM record index")
+    expected_offset = _number(raw_lock.get("offset"), "JTIM record offset")
+    expected_size = _number(raw_lock.get("size"), "JTIM record size")
+    expected_hash = _require_sha256(
+        raw_lock.get("sha256"), "JTIM record SHA-256"
+    )
+    expected_width = _number(raw_lock.get("width"), "JTIM record width")
+    expected_height = _number(raw_lock.get("height"), "JTIM record height")
+    expected_image_type = _number(
+        raw_lock.get("image_type"), "JTIM record image type"
+    )
+    expected_clut_colors = _number(
+        raw_lock.get("clut_color_count"), "JTIM record CLUT color count"
+    )
+
+    records = scan_tim2(jtim_data)
+    if not 0 <= record_index < len(records):
+        raise LibraryScopeError(
+            f"JTIM record index {record_index} is outside the TIM2 scan"
+        )
+    record = records[record_index]
+    if len(record.pictures) != 1:
+        raise LibraryScopeError("JTIM LIBRARY menu must have one TIM2 picture")
+    picture = record.pictures[0]
+    actual = {
+        "offset": record.offset,
+        "size": record.size,
+        "width": picture.width,
+        "height": picture.height,
+        "image_type": picture.image_type,
+        "clut_color_count": picture.clut_color_count,
+    }
+    expected = {
+        "offset": expected_offset,
+        "size": expected_size,
+        "width": expected_width,
+        "height": expected_height,
+        "image_type": expected_image_type,
+        "clut_color_count": expected_clut_colors,
+    }
+    if actual != expected:
+        raise LibraryScopeError(
+            f"JTIM LIBRARY menu metadata mismatch: {actual}, expected {expected}"
+        )
+    stored = bytes(jtim_data[record.offset : record.offset + record.size])
+    actual_hash = _sha256(stored)
+    if actual_hash != expected_hash:
+        raise LibraryScopeError(
+            "JTIM LIBRARY menu record SHA-256 mismatch: "
+            f"expected {expected_hash}, got {actual_hash}"
+        )
+    return {**actual, "sha256": actual_hash}
+
+
+__all__ = [
+    "LibraryScopeError",
+    "SoundTitleSpanLock",
+    "SoundTrackTitle",
+    "ZkanDocument",
+    "ZkanField",
+    "parse_zkn_decoded_chunk",
+    "parse_sound_track_titles",
+    "verify_jtim_library_menu_record",
+    "verify_sound_title_source",
+    "verify_sound_titles_preserved",
+    "validate_library_scope_mapping",
+    "zkan_escape_transform",
+]
