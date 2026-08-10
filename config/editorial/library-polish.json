@@ -1,0 +1,67 @@
+{
+  "schema_version": 3,
+  "kind": "library_codex_editorial_rules",
+  "source_model": "aliyun:deepseek-v4-flash-0731",
+  "promotion_allowed": false,
+  "literal_replacements": [
+    {"from": "歷史", "to": "历史", "reason": "zh_hans_normalization"}
+  ],
+  "style_rules": {
+    "normalize_ascii_quote_pairs": true,
+    "normalize_curly_single_quote_pairs": true,
+    "normalize_plant_token": true
+  },
+  "contextual_glossary_ids": [
+    "organization/orb",
+    "organization/aeug",
+    "organization/hyakki",
+    "faction/gaizok",
+    "faction/aldébaran",
+    "organization/siberian-railway"
+  ],
+  "body_contextual_glossary_prefixes": [
+    "part/",
+    "skill/",
+    "spirit/",
+    "system/",
+    "weapon/"
+  ],
+  "accepted_collision_groups": [
+    {
+      "translation": "杜克·弗里德",
+      "ids": ["library-text/03a4ea9898c8352f", "library-text/060bc3b8ff99d152"],
+      "reason": "同一人物的无间隔和带间隔日文全名。"
+    },
+    {
+      "translation": "390.0t",
+      "ids": ["library-text/0a99a28602851c8a", "library-text/bea2dc529546d39a"],
+      "reason": "同一数值的原始小数点写法差异。"
+    },
+    {
+      "translation": "《机动战士高达SEED DESTINY》",
+      "ids": ["library-text/178633401aeb3bab", "library-text/5533cfbef0f29a60", "library-text/c68a9b957f6ec2f2"],
+      "reason": "同一作品标题的空格和截断字段差异。"
+    },
+    {
+      "translation": "金卡拉姆",
+      "ids": ["library-text/46a4fd42f7148160", "library-text/83027ce246a4079e"],
+      "reason": "同一人物的全名和简称。"
+    },
+    {
+      "translation": "米娅",
+      "ids": ["library-text/4ada46020f2ec095", "library-text/8b5ef919d43d2c6e"],
+      "reason": "不同作品人物的通行中文短名相同。"
+    },
+    {
+      "translation": "隼人",
+      "ids": ["library-text/ce2a3c67ca706a7e", "library-text/f1fe0d56aca83db3"],
+      "reason": "神隼人与小林隼人的中文短名均为隼人。"
+    }
+  ],
+  "notes": [
+    "Only fixed deepseek-v4-flash-0731 output is accepted as the input draft.",
+    "Canonical names and deprecated Chinese variants come exclusively from corpus/glossary.",
+    "Generic combat and UI terms found inside encyclopedia prose are contextual rather than mandatory substring matches.",
+    "All output remains a candidate until explicitly approved and promoted."
+  ]
+}
