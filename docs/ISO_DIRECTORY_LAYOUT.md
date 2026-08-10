@@ -8,7 +8,7 @@
 
 ```text
 rom/
-  srwz.iso
+  Super Robot Taisen Z (Japan, Korea).iso
 
 work/
   disc/
@@ -46,7 +46,7 @@ build/
 ### `rom/`：用户输入
 
 - 只保存用户合法持有的原版镜像。
-- 当前唯一默认输入是 `rom/srwz.iso`。
+- 当前唯一默认输入是 `rom/Super Robot Taisen Z (Japan, Korea).iso`。
 - 工具可以读取和校验，绝不修改、重命名、自动搜索或写回。
 - 原盘大小和 SHA-256 由 `manifests/original-disc.json` 与 ISO build config
   固定。
@@ -98,7 +98,7 @@ build/
 
 | 路径 | 是否可直接清理 | 恢复方式 |
 | --- | --- | --- |
-| `rom/srwz.iso` | 否 | 用户重新提供合法原盘 |
+| `rom/Super Robot Taisen Z (Japan, Korea).iso` | 否 | 用户重新提供合法原盘 |
 | `work/disc/` | 是 | 重新选择性提取 |
 | `work/build/<profile>/components/` | 是 | 重跑 component build |
 | `work/build/<profile>/iso/` | 是 | 重跑 ISO build；必要时 refresh extraction |

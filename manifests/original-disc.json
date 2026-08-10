@@ -1,15 +1,25 @@
 {
   "schema_version": 1,
-  "recorded_on": "2026-07-23",
-  "verification_scope": "Local structural and cryptographic baseline; not independently matched against an external disc database.",
+  "recorded_on": "2026-08-10",
+  "verification_scope": "Local structural baseline and exact size/CRC32/MD5/SHA1 match to Redump disc 4932.",
   "disc": {
-    "local_file_name": "srwz.iso",
+    "local_file_name": "Super Robot Taisen Z (Japan, Korea).iso",
     "file_size": 3758358528,
-    "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014",
+    "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
     "filesystem": "UDF 1.5",
     "boot_path": "cdrom0:\\SLPS_258.87;1",
     "system_version": "1.04",
-    "video_mode": "NTSC"
+    "video_mode": "NTSC",
+    "redump": {
+      "disc_id": 4932,
+      "url": "https://redump.info/disc/4932/",
+      "canonical_filename": "Super Robot Taisen Z (Japan, Korea).iso",
+      "edition": "Original",
+      "version": "1.04",
+      "crc32": "0d9deb37",
+      "md5": "b8ea8ff82ce2d6e09aa550635a5f61b4",
+      "sha1": "e8dbe37e88afe8f82d48889b0775274ccde3cf99"
+    }
   },
   "key_files": [
     {

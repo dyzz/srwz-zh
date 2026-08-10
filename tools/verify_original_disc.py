@@ -1,28 +1,44 @@
 #!/usr/bin/env python3
 
+from __future__ import annotations
+
 import argparse
 import hashlib
 import json
 import shutil
 import subprocess
 import sys
+import zlib
 from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ISO = PROJECT_ROOT / "rom" / "srwz.iso"
+DEFAULT_ISO = (
+    PROJECT_ROOT / "rom" / "Super Robot Taisen Z (Japan, Korea).iso"
+)
 DEFAULT_MANIFEST = PROJECT_ROOT / "manifests" / "original-disc.json"
 CHUNK_SIZE = 4 * 1024 * 1024
 
 
-def sha256_file(path: Path) -> tuple[int, str]:
-    digest = hashlib.sha256()
+def hash_disc(path: Path) -> dict[str, int | str]:
+    digests = {
+        "md5": hashlib.md5(),
+        "sha1": hashlib.sha1(),
+        "sha256": hashlib.sha256(),
+    }
+    crc32 = 0
     size = 0
     with path.open("rb") as source:
         while chunk := source.read(CHUNK_SIZE):
             size += len(chunk)
-            digest.update(chunk)
-    return size, digest.hexdigest()
+            crc32 = zlib.crc32(chunk, crc32)
+            for digest in digests.values():
+                digest.update(chunk)
+    return {
+        "file_size": size,
+        "crc32": f"{crc32 & 0xffffffff:08x}",
+        **{name: digest.hexdigest() for name, digest in digests.items()},
+    }
 
 
 def sha256_iso_member(iso_path: Path, member: str) -> tuple[int, str]:
@@ -72,6 +88,24 @@ def check_item(label: str, actual: tuple[int, str], expected: dict) -> bool:
     return matches
 
 
+def check_disc(label: str, actual: dict[str, int | str], expected: dict) -> bool:
+    redump = expected["redump"]
+    locks = {
+        "file_size": expected["file_size"],
+        "crc32": redump["crc32"],
+        "md5": redump["md5"],
+        "sha1": redump["sha1"],
+        "sha256": expected["sha256"],
+    }
+    matches = actual == locks
+    print(f"[{'OK' if matches else 'FAIL'}] {label} / Redump {redump['disc_id']}")
+    if not matches:
+        for key, expected_value in locks.items():
+            if actual[key] != expected_value:
+                print(f"  {key}: {actual[key]} (expected {expected_value})")
+    return matches
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Verify the local original SRWZ ISO without extracting it."
@@ -106,11 +140,21 @@ def main() -> int:
 
     success = True
     disc = manifest["disc"]
+    expected_names = {
+        disc["local_file_name"],
+        disc["redump"]["canonical_filename"],
+    }
+    if iso_path.name not in expected_names or len(expected_names) != 1:
+        print(
+            f"[FAIL] ISO filename: {iso_path.name} "
+            f"(expected {disc['redump']['canonical_filename']})"
+        )
+        success = False
     if not args.skip_full_iso:
-        success &= check_item(
+        success &= check_disc(
             iso_path.name,
-            sha256_file(iso_path),
-            {"size": disc["file_size"], "sha256": disc["sha256"]},
+            hash_disc(iso_path),
+            disc,
         )
 
     for item in manifest["key_files"]:

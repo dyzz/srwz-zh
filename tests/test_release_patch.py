@@ -1,3 +1,4 @@
+import copy
 import importlib.util
 import json
 import tempfile
@@ -42,6 +43,41 @@ class ReleasePatchTests(unittest.TestCase):
             Path(self.config["target_iso"]["path"]).name,
             "srwz-zh-v0.1.0.iso",
         )
+
+    def test_release_is_bound_to_redump_canonical_filename(self):
+        source = self.config["source_iso"]
+        redump = source["redump"]
+        self.assertEqual(redump["disc_id"], 4932)
+        self.assertEqual(
+            redump["filename"],
+            "Super Robot Taisen Z (Japan, Korea).iso",
+        )
+        self.assertEqual(Path(source["path"]).name, redump["filename"])
+        BUILD_RELEASE.verify_config_bindings(self.config)
+
+        mismatched = copy.deepcopy(self.config)
+        mismatched["source_iso"]["redump"]["filename"] = "原版.iso"
+        with self.assertRaisesRegex(
+            BUILD_RELEASE.ReleaseBuildError,
+            "Redump canonical filename",
+        ):
+            BUILD_RELEASE.verify_config_bindings(mismatched)
+
+    def test_release_readme_uses_redump_canonical_filename(self):
+        text = BUILD_RELEASE.release_readme(self.config).decode("utf-8")
+        filename = self.config["source_iso"]["redump"]["filename"]
+        self.assertIn(f"Redump 规范文件名：{filename}", text)
+        self.assertIn(f'xdelta3 -d -s "{filename}"', text)
+        self.assertNotIn('xdelta3 -d -s "原版.iso"', text)
+
+    def test_release_redump_hashes_are_bound_to_original_disc_manifest(self):
+        mismatched = copy.deepcopy(self.config)
+        mismatched["source_iso"]["redump"]["sha1"] = "0" * 40
+        with self.assertRaisesRegex(
+            BUILD_RELEASE.ReleaseBuildError,
+            "Redump sha1 is not bound",
+        ):
+            BUILD_RELEASE.verify_config_bindings(mismatched)
 
     def test_release_output_is_patch_only(self):
         output_dir = PROJECT_ROOT / self.config["output"]["directory"]

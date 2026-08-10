@@ -5,8 +5,9 @@
 
 ## 当前工具链结论
 
-- 原版输入固定为 `rom/srwz.iso`，大小和 SHA-256 由 build config 与
-  `manifests/original-disc.json` 锁定。
+- 原版输入固定为 Redump Disc 4932 的
+  `rom/Super Robot Taisen Z (Japan, Korea).iso`，规范文件名、大小和校验值由
+  release/build config 与 `manifests/original-disc.json` 锁定。
 - ISO 构建固定使用 `mkps2iso` v1.1.1，仓库、tag、commit、许可证和本地可执行
   文件路径均由 config 声明。
 - PCSX2 当前验收基线为 v2.6.3；PINE 用于确认游戏 ID、运行状态和 EE 内存。
@@ -23,7 +24,7 @@
 ## 目录与单候选规则
 
 ```text
-rom/srwz.iso                         不可变原版
+rom/Super Robot Taisen Z (Japan, Korea).iso                         不可变原版
 work/build/<profile>/components/    可重建组件
 work/build/<profile>/iso/layout/    构建 XML 与 LBA 日志
 build/iso/<profile>/                当前 ISO 与静态报告
@@ -40,7 +41,7 @@ work/runtime/pcsx2-sessions/        本地运行会话与 hash-only 证据
 
 - patch-over-patch；
 - 从仓库根目录或未解析变量递归清理；
-- 修改 `rom/srwz.iso`；
+- 修改 `rom/Super Robot Taisen Z (Japan, Korea).iso`；
 - 为满足体积而截断文本、吞掉 decoded tail 或移动未授权成员 LBA；
 - 用旧 ISO 的截图或存档状态晋级新 ISO。
 
@@ -114,7 +115,9 @@ python3 tools/build_iso.py \
 python3 tools/build_release.py --config config/release/v0.1.0.json
 ```
 
-发布工具固定核对原版与目标 ISO 的大小和 SHA-256，使用 xdelta3 3.2.0 生成补丁，
+发布工具固定核对 Redump 规范文件名以及原版与目标 ISO 的大小和 SHA-256，使用
+xdelta3 3.2.0 生成补丁；附带说明中的 `-s` 输入也固定写为
+`Super Robot Taisen Z (Japan, Korea).iso`，
 再从原版实际还原目标镜像并复核哈希。输出目录
 `build/release/v0.1.0/` 只允许包含 `.xdelta`、说明、清单、校验文件和 ZIP；ISO
 不得进入发布目录或 ZIP。

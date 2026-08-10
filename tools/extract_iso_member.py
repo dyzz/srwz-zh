@@ -16,7 +16,9 @@ from pathlib import Path, PurePosixPath
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ISO = PROJECT_ROOT / "rom" / "srwz.iso"
+DEFAULT_ISO = (
+    PROJECT_ROOT / "rom" / "Super Robot Taisen Z (Japan, Korea).iso"
+)
 DEFAULT_OUTPUT = PROJECT_ROOT / "work" / "disc"
 
 

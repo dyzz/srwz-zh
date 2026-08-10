@@ -35,7 +35,8 @@ v0.1.0 已完成自动检查和镜像内容回读，但尚未完成覆盖所有�
 ## 下载与使用
 
 本项目不会提供或分发游戏 ISO、存档及其他原版游戏数据。你需要自行合法持有
-《超级机器人大战 Z》PS2 日文原版。
+《超级机器人大战 Z》PS2 日文原版。补丁和源码构建统一以
+[Redump Disc 4932](https://redump.info/disc/4932/) 的原始版镜像为基准。
 
 目前 v0.1.0 仍在准备可分发补丁包。补丁通过最终运行检查后，将在
 [GitHub Releases](https://github.com/dyzz/srwz-zh/releases) 提供下载、校验值和
@@ -50,14 +51,20 @@ v0.1.0 已完成自动检查和镜像内容回读，但尚未完成覆盖所有�
 联网下载锁定版本的开源构建工具与字体。将自己合法持有的日文原版镜像放到：
 
 ```text
-rom/srwz.iso
+rom/Super Robot Taisen Z (Japan, Korea).iso
 ```
 
 原版镜像应为 `3,758,358,528` 字节，SHA-256 为：
 
 ```text
-acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014
+ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2
 ```
+
+文件名必须保持为 Redump 规范名称
+`Super Robot Taisen Z (Japan, Korea).iso`；发布补丁附带的 xdelta 命令也固定使用
+这个文件名。Redump 校验值为 CRC-32 `0d9deb37`、MD5
+`b8ea8ff82ce2d6e09aa550635a5f61b4`、SHA-1
+`e8dbe37e88afe8f82d48889b0775274ccde3cf99`。
 
 在已经完成本地原版成员和 `release-base-ui` 基线准备的项目工作区中执行：
 
@@ -119,7 +126,8 @@ HarmonyOS Sans，并对少数字符使用 Noto Sans CJK；第三方字体及许�
 
 - 汉化版本：`v0.1.0`
 - 原版 ISO 大小：`3,758,358,528` 字节
-- 原版 ISO SHA-256：`acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014`
+- Redump：Disc `4932`，文件名 `Super Robot Taisen Z (Japan, Korea).iso`
+- 原版 ISO SHA-256：`ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2`
 - 当前候选 ISO SHA-256：`40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c`
 - 当前候选已通过确定性构建、ISO 结构检查和最终文本回读；精确镜像的完整运行
   验收仍在进行中。

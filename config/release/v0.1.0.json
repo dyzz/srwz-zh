@@ -4,9 +4,19 @@
   "tag": "v0.1.0",
   "channel": "beta",
   "source_iso": {
-    "path": "rom/srwz.iso",
+    "path": "rom/Super Robot Taisen Z (Japan, Korea).iso",
     "size": 3758358528,
-    "sha256": "acf90dcdc2aa4dd408919b6b20078aef3f177fb907b58068cc6b7d267c4f7014"
+    "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+    "redump": {
+      "disc_id": 4932,
+      "url": "https://redump.info/disc/4932/",
+      "filename": "Super Robot Taisen Z (Japan, Korea).iso",
+      "edition": "Original",
+      "version": "1.04",
+      "crc32": "0d9deb37",
+      "md5": "b8ea8ff82ce2d6e09aa550635a5f61b4",
+      "sha1": "e8dbe37e88afe8f82d48889b0775274ccde3cf99"
+    }
   },
   "target_iso": {
     "path": "build/iso/v0.1.0/srwz-zh-v0.1.0.iso",
@@ -31,6 +41,7 @@
   "evidence": [
     "config/release/v0.1.0.json",
     "tools/build_release.py",
+    "manifests/original-disc.json",
     "config/iso/zh-release-full-story-build.json",
     "build/iso/v0.1.0/iso-validation-v0.1.0.json",
     "manifests/full-story-components-validation.json",

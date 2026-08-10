@@ -80,10 +80,20 @@ def verify_config_bindings(config: dict[str, Any]) -> None:
     if tag != f"v{version}" or not version:
         raise ReleaseBuildError("release tag must equal 'v' plus version")
 
+    source = config["source_iso"]
     target = config["target_iso"]
     iso_config_path = project_path("config/iso/zh-release-full-story-build.json")
     iso_config = load_json(iso_config_path)
+    original_disc = load_json(
+        project_path("manifests/original-disc.json")
+    )["disc"]
+    iso_source = iso_config["source_iso"]
     iso_output = iso_config["output"]
+    for key in ("path", "size", "sha256"):
+        if source[key] != iso_source[key]:
+            raise ReleaseBuildError(
+                f"source_iso.{key} is not bound to ISO build input"
+            )
     for release_key, iso_key in (
         ("path", "path"),
         ("size", "expected_size"),
@@ -93,6 +103,65 @@ def verify_config_bindings(config: dict[str, Any]) -> None:
             raise ReleaseBuildError(
                 f"target_iso.{release_key} is not bound to ISO build output"
             )
+
+    redump = source.get("redump")
+    if not isinstance(redump, dict):
+        raise ReleaseBuildError("source_iso.redump metadata is required")
+    redump_filename = str(redump.get("filename", ""))
+    if (
+        not redump_filename
+        or Path(redump_filename).name != redump_filename
+        or not redump_filename.lower().endswith(".iso")
+        or any(character in redump_filename for character in ('"', "\r", "\n"))
+    ):
+        raise ReleaseBuildError("invalid Redump ISO filename")
+    if Path(source["path"]).name != redump_filename:
+        raise ReleaseBuildError(
+            "source ISO path must use the Redump canonical filename"
+        )
+
+    if source["size"] != original_disc["file_size"]:
+        raise ReleaseBuildError(
+            "source_iso.size is not bound to the original-disc manifest"
+        )
+    if source["sha256"] != original_disc["sha256"]:
+        raise ReleaseBuildError(
+            "source_iso.sha256 is not bound to the original-disc manifest"
+        )
+    if redump_filename != original_disc["local_file_name"]:
+        raise ReleaseBuildError(
+            "Redump filename is not bound to the original-disc manifest"
+        )
+    original_redump = original_disc["redump"]
+    for release_key, manifest_key in (
+        ("disc_id", "disc_id"),
+        ("url", "url"),
+        ("filename", "canonical_filename"),
+        ("edition", "edition"),
+        ("version", "version"),
+        ("crc32", "crc32"),
+        ("md5", "md5"),
+        ("sha1", "sha1"),
+    ):
+        if redump.get(release_key) != original_redump.get(manifest_key):
+            raise ReleaseBuildError(
+                f"Redump {release_key} is not bound to the original-disc manifest"
+            )
+
+    digest_lengths = {"crc32": 8, "md5": 32, "sha1": 40}
+    for key, length in digest_lengths.items():
+        value = str(redump.get(key, "")).lower()
+        if len(value) != length or any(
+            character not in "0123456789abcdef" for character in value
+        ):
+            raise ReleaseBuildError(f"invalid Redump {key} lock")
+    disc_id = redump.get("disc_id")
+    if (
+        not isinstance(disc_id, int)
+        or isinstance(disc_id, bool)
+        or disc_id <= 0
+    ):
+        raise ReleaseBuildError("invalid Redump disc ID")
 
     expected_release_dir = f"build/release/{tag}"
     if config["output"]["directory"] != expected_release_dir:
@@ -143,6 +212,8 @@ def json_bytes(value: dict[str, Any]) -> bytes:
 def release_readme(config: dict[str, Any]) -> bytes:
     tag = config["tag"]
     source = config["source_iso"]
+    redump = source["redump"]
+    source_filename = redump["filename"]
     target = config["target_iso"]
     patch_name = config["xdelta"]["patch_filename"]
     text = f"""《超级机器人大战 Z》简体中文补丁 {tag}
@@ -150,12 +221,18 @@ def release_readme(config: dict[str, Any]) -> bytes:
 这是非官方测试版补丁，不包含游戏 ISO 或其他原版游戏数据。
 使用者必须自行合法持有与下列校验值完全一致的 PS2 日文原版镜像。
 
+Redump 记录：Disc {redump['disc_id']}（{redump['url']}）
+Redump 规范文件名：{source_filename}
+版本：{redump['version']}（{redump['edition']}）
 原版镜像大小：{source['size']} 字节
+原版镜像 CRC-32：{redump['crc32']}
+原版镜像 MD5：{redump['md5']}
+原版镜像 SHA-1：{redump['sha1']}
 原版镜像 SHA-256：{source['sha256']}
 
 安装 xdelta3 后执行：
 
-xdelta3 -d -s "原版.iso" "{patch_name}" "srwz-zh-{tag}.iso"
+xdelta3 -d -s "{source_filename}" "{patch_name}" "srwz-zh-{tag}.iso"
 
 生成镜像大小：{target['size']} 字节
 生成镜像 SHA-256：{target['sha256']}
