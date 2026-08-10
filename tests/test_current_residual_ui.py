@@ -22,27 +22,29 @@ class CurrentResidualUiTests(unittest.TestCase):
         self.assertEqual(remaining["slps"]["entry_count"], 172)
 
         formation = remaining["stage_default_formation"]
-        self.assertEqual(formation["entry_count"], 17)
-        self.assertEqual(formation["stage_indices"], [1, 203])
+        self.assertEqual(formation["group_count"], 85)
+        self.assertEqual(formation["stage_count"], 83)
+        self.assertEqual(formation["entry_count"], 2382)
+        self.assertEqual(formation["unique_source_count"], 103)
         self.assertEqual(
-            formation["translations"],
-            [
-                {"source": "エゥーゴ", "translation": "奥古"},
-                {
-                    "source": "グローリー・スター１",
-                    "translation": "荣耀之星1",
-                },
-                {
-                    "source": "グローリー・スター２",
-                    "translation": "荣耀之星2",
-                },
-                {
-                    "source": "グローリー・スター３",
-                    "translation": "荣耀之星3",
-                },
-            ],
+            formation["layout_group_counts"],
+            {"record23+6": 79, "slot32": 6},
         )
+        self.assertEqual(formation["record_metadata_count"], 2364)
+        self.assertEqual(
+            formation["inventory_sha256"],
+            "1ede725d2a21c3124da144551f9914a9ddc8375ba235e1b19ea3f37a0a93d4b6",
+        )
+        translations = {
+            item["source"]: item["translation"]
+            for item in formation["translations"]
+        }
+        self.assertEqual(translations["エゥーゴ"], "奥古")
+        self.assertEqual(translations["グローリー・スター１"], "荣耀之星1")
+        self.assertEqual(translations["ザフト"], "ZAFT")
+        self.assertEqual(translations["ザンベース"], "桑贝斯")
         self.assertTrue(formation["fixed_allocations_preserved"])
+        self.assertTrue(formation["record_metadata_preserved_byte_exact"])
         self.assertTrue(formation["slot_padding_zero"])
         self.assertTrue(formation["reread_exact"])
 

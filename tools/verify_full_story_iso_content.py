@@ -47,6 +47,11 @@ from srwz.psmt4 import unswizzle_psmt4
 from srwz.srvc import parse_srvc_archive
 from srwz.stage import parse_stage, read_stage_function_addresses
 from srwz.stage_overview import parse_stage_overviews
+from srwz.stage_formations import (
+    STAGE_OFFSET_SPEC,
+    discover_stage_default_formations,
+    formation_inventory_sha256,
+)
 from srwz.tim2 import scan_tim2
 from srwz.text import (
     ORIGINAL_FULLWIDTH_ASCII,
@@ -812,39 +817,38 @@ def verify_stage_default_formation(
     source_table: TextTable,
     output_table: TextTable,
 ) -> dict:
-    """Reread configured fixed-slot formation names from the final STAGE."""
+    """Reread every discovered default formation name from the final STAGE."""
 
     component_config = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )
     remaining_config = component_config["remaining_ui"]
     expected = remaining_config["expected"]
-    document = json.loads(
-        (
-            PROJECT_ROOT / remaining_config["translations"]["path"]
-        ).read_text(encoding="utf-8")
-    )
-    groups = document.get("stage_default_formation_groups")
-    if not isinstance(groups, list):
-        raise SystemExit("default formation-name selection drift")
-    entry_count = sum(
-        len(group.get("entries", {}))
-        for group in groups
-        if isinstance(group, dict)
-    )
-    stage_indices = {
-        group.get("stage_index")
-        for group in groups
-        if isinstance(group, dict)
-    }
+    corpus_reference = remaining_config.get("stage_default_formations")
+    if not isinstance(corpus_reference, dict):
+        raise SystemExit("default formation-name corpus contract drift")
+    corpus_path = PROJECT_ROOT / corpus_reference["path"]
+    corpus_data = corpus_path.read_bytes()
     if (
-        len(groups) != expected.get("stage_default_formation_group_count")
-        or entry_count
-        != expected.get("stage_default_formation_entry_count")
-        or len(stage_indices)
-        != expected.get("stage_default_formation_stage_count")
+        len(corpus_data) != corpus_reference.get("size")
+        or sha256_bytes(corpus_data) != corpus_reference.get("sha256")
     ):
-        raise SystemExit("default formation-name selection drift")
+        raise SystemExit("default formation-name corpus lock drift")
+    document = json.loads(corpus_data.decode("utf-8"))
+    translations_by_source = document.get("translations_by_source_text")
+    if (
+        document.get("schema_version") != 1
+        or document.get("language") != "zh-Hans"
+        or document.get("editorial_status") != "reviewed"
+        or document.get("policy", {}).get("source_text_authority")
+        != "original_disc_only"
+        or not document.get("policy", {}).get(
+            "discover_all_locked_structural_occurrences"
+        )
+        or not document.get("policy", {}).get("preserve_record_metadata")
+        or not isinstance(translations_by_source, dict)
+    ):
+        raise SystemExit("default formation-name corpus drift")
     original_stage = (
         PROJECT_ROOT / remaining_config["original_stage"]["path"]
     ).read_bytes()
@@ -856,33 +860,50 @@ def verify_stage_default_formation(
     ):
         raise SystemExit("original STAGE baseline drift")
 
-    offset_spec = ExecutableOffsetSpec(
-        name="HEDBDY/HB.BIN STAGE offsets",
-        member="HEDBDY/HB.BIN",
-        table_start=30320,
-        table_end=31144,
+    groups = discover_stage_default_formations(
+        original_stage, hb, source_table
     )
-    offsets = read_executable_archive_offsets(hb, offset_spec, len(stage))
+    entry_count = sum(len(group.cells) for group in groups)
+    stage_indices = {group.stage_index for group in groups}
+    source_texts = {
+        cell.source_text for group in groups for cell in group.cells
+    }
+    layout_counts = {
+        layout: sum(group.layout == layout for group in groups)
+        for layout in ("record23+6", "slot32")
+    }
+    record_metadata_count = sum(
+        len(group.cells) for group in groups if group.layout == "record23+6"
+    )
+    inventory_sha256 = formation_inventory_sha256(groups)
+    if (
+        len(groups) != expected.get("stage_default_formation_group_count")
+        or entry_count
+        != expected.get("stage_default_formation_entry_count")
+        or len(stage_indices)
+        != expected.get("stage_default_formation_stage_count")
+        or len(source_texts)
+        != expected.get("stage_default_formation_unique_source_count")
+        or record_metadata_count
+        != expected.get("stage_default_formation_record_metadata_count")
+        or inventory_sha256
+        != expected.get("stage_default_formation_inventory_sha256")
+        or set(translations_by_source) != source_texts
+    ):
+        raise SystemExit("default formation-name inventory drift")
+
+    offsets = read_executable_archive_offsets(
+        hb, STAGE_OFFSET_SPEC, len(stage)
+    )
     decoded_by_stage = {}
     original_by_stage = {}
     minimum_headroom = None
     translations = set()
     ranges_by_stage: dict[int, list[tuple[int, int]]] = {}
-    for group in groups:
-        if not isinstance(group, dict):
-            raise SystemExit("default formation-name group is malformed")
-        stage_index = group.get("stage_index")
-        slot_size = group.get("slot_size")
-        entries = group.get("entries")
-        if (
-            not isinstance(stage_index, int)
-            or stage_index < 0
-            or stage_index + 1 >= len(offsets)
-            or not isinstance(slot_size, int)
-            or slot_size <= 0
-            or not isinstance(entries, dict)
-            or not entries
-        ):
+    for group in sorted(groups, key=lambda item: (item.stage_index, item.cells[0].offset)):
+        stage_index = group.stage_index
+        slot_size = group.slot_size
+        if stage_index < 0 or stage_index + 1 >= len(offsets):
             raise SystemExit("default formation-name group contract drift")
         if stage_index not in decoded_by_stage:
             start, end = offsets[stage_index : stage_index + 2]
@@ -903,16 +924,12 @@ def verify_stage_default_formation(
             ranges_by_stage[stage_index] = []
         decoded = decoded_by_stage[stage_index]
         original = original_by_stage[stage_index]
-        for raw_offset, entry in sorted(
-            entries.items(), key=lambda item: int(item[0], 16)
-        ):
-            decoded_offset = int(raw_offset, 16)
+        for cell in group.cells:
+            decoded_offset = cell.offset
+            raw_offset = f"0x{decoded_offset:X}"
             slot_end = decoded_offset + slot_size
             if (
-                raw_offset != f"0x{decoded_offset:X}"
-                or not isinstance(entry, dict)
-                or set(entry) != {"source", "translation"}
-                or slot_end > len(decoded)
+                slot_end > len(decoded)
             ):
                 raise SystemExit(
                     f"default formation-name entry drift: {raw_offset!r}"
@@ -923,14 +940,16 @@ def verify_stage_default_formation(
                     f"default formation-name overlap: {raw_offset}"
                 )
             ranges.append((decoded_offset, slot_end))
-            source = decode_text(original, decoded_offset, source_table)
+            source = decode_text(
+                original, decoded_offset, source_table, end=slot_end
+            )
             actual = decode_text(decoded, decoded_offset, output_table)
             translation = normalize_original_fullwidth_ascii(
-                entry["translation"]
+                translations_by_source[cell.source_text]
             )
             if (
-                source.text != entry["source"]
-                or source.consumed > slot_size
+                source.text != cell.source_text
+                or source.consumed != cell.source_consumed
                 or any(original[decoded_offset + source.consumed : slot_end])
                 or actual.text != translation
                 or actual.consumed > slot_size
@@ -940,6 +959,18 @@ def verify_stage_default_formation(
                     f"default formation-name mismatch at stage "
                     f"{stage_index} {raw_offset}"
                 )
+            if group.layout == "record23+6":
+                trailer_end = decoded_offset + group.stride
+                expected_trailer = bytes.fromhex(cell.trailer_hex)
+                if (
+                    len(expected_trailer) != 6
+                    or original[slot_end:trailer_end] != expected_trailer
+                    or decoded[slot_end:trailer_end] != expected_trailer
+                ):
+                    raise SystemExit(
+                        "default formation-name metadata mismatch at stage "
+                        f"{stage_index} {raw_offset}"
+                    )
             source_tokens = tuple(
                 (token.kind, token.text)
                 for token in control_notation_tokens(source.text)
@@ -964,6 +995,10 @@ def verify_stage_default_formation(
         "stage_count": len(decoded_by_stage),
         "stage_indices": sorted(decoded_by_stage),
         "entry_count": entry_count,
+        "unique_source_count": len(source_texts),
+        "layout_group_counts": layout_counts,
+        "record_metadata_count": record_metadata_count,
+        "inventory_sha256": inventory_sha256,
         "translations": [
             {"source": source, "translation": translation}
             for source, translation in sorted(translations)
@@ -971,6 +1006,7 @@ def verify_stage_default_formation(
         "minimum_slot_headroom": minimum_headroom,
         "source_preimages_exact": True,
         "fixed_allocations_preserved": True,
+        "record_metadata_preserved_byte_exact": True,
         "slot_padding_zero": True,
         "archive_padding_zero": True,
         "placeholder_control_tokens_preserved": True,
@@ -2701,6 +2737,19 @@ def main() -> int:
                 == "卡缪"
             ),
             "hb_stage_offsets_valid": True,
+            "default_formation_names_exact": (
+                default_formation_report["group_count"] == 85
+                and default_formation_report["stage_count"] == 83
+                and default_formation_report["entry_count"] == 2382
+                and default_formation_report["unique_source_count"] == 103
+                and default_formation_report["record_metadata_count"] == 2364
+                and default_formation_report["inventory_sha256"]
+                == "1ede725d2a21c3124da144551f9914a9ddc8375ba235e1b19ea3f37a0a93d4b6"
+                and default_formation_report[
+                    "record_metadata_preserved_byte_exact"
+                ]
+                and default_formation_report["readback_exact"]
+            ),
             "encoded_streams_exact": True,
             "decoded_sizes_exact": True,
             "archive_padding_zero": True,

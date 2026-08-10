@@ -49,6 +49,11 @@ try:
         rebuild_srvc_archive,
     )
     from srwz.stage_overview import replace_stage_overviews_in_place
+    from srwz.stage_formations import (
+        STAGE_OFFSET_SPEC,
+        discover_stage_default_formations,
+        formation_inventory_sha256,
+    )
     from srwz.stage import parse_stage_system_dialogues
     from srwz.stage_title_graphics import (
         GLYPH_SIZE as STAGE_TITLE_GLYPH_SIZE,
@@ -122,6 +127,11 @@ except ModuleNotFoundError:
         rebuild_srvc_archive,
     )
     from tools.srwz.stage_overview import replace_stage_overviews_in_place
+    from tools.srwz.stage_formations import (
+        STAGE_OFFSET_SPEC,
+        discover_stage_default_formations,
+        formation_inventory_sha256,
+    )
     from tools.srwz.stage import parse_stage_system_dialogues
     from tools.srwz.stage_title_graphics import (
         GLYPH_SIZE as STAGE_TITLE_GLYPH_SIZE,
@@ -2036,52 +2046,84 @@ def _apply_stage_default_formation_names(
     stage: bytes,
     hb: bytes,
     reference: dict,
-    translation_path: Path,
     font_manifest: dict,
     codec: dict,
-) -> tuple[bytes, dict]:
-    """Rewrite configured fixed-slot formation names in selected STAGE chunks."""
+) -> tuple[bytes, dict, Path]:
+    """Rewrite every structurally discovered default formation name in STAGE."""
 
     if not isinstance(reference, dict):
         raise FullStoryComponentError("remaining UI configuration is invalid")
     _original_stage_path, original_stage = _locked_file(
         reference.get("original_stage"), label="original STAGE"
     )
-    document = json.loads(translation_path.read_text(encoding="utf-8"))
-    groups = document.get("stage_default_formation_groups")
-    expected = reference.get("expected")
-    if not isinstance(groups, list) or not isinstance(expected, dict):
-        raise FullStoryComponentError("default formation-name selection drift")
-    entry_count = sum(
-        len(group.get("entries", {}))
-        for group in groups
-        if isinstance(group, dict)
+    corpus_path, corpus_data = _locked_file(
+        reference.get("stage_default_formations"),
+        label="default formation-name corpus",
     )
-    stage_indices = {
-        group.get("stage_index")
-        for group in groups
-        if isinstance(group, dict)
+    document = json.loads(corpus_data.decode("utf-8"))
+    translations_by_source = document.get("translations_by_source_text")
+    expected = reference.get("expected")
+    if (
+        document.get("schema_version") != 1
+        or document.get("language") != "zh-Hans"
+        or document.get("editorial_status") != "reviewed"
+        or document.get("policy", {}).get("source_text_authority")
+        != "original_disc_only"
+        or not document.get("policy", {}).get(
+            "discover_all_locked_structural_occurrences"
+        )
+        or not document.get("policy", {}).get("preserve_record_metadata")
+        or not isinstance(translations_by_source, dict)
+        or not translations_by_source
+        or not isinstance(expected, dict)
+        or len(original_stage) != len(stage)
+    ):
+        raise FullStoryComponentError("default formation-name corpus drift")
+
+    offsets = read_executable_archive_offsets(
+        hb, STAGE_OFFSET_SPEC, len(stage)
+    )
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    groups = discover_stage_default_formations(original_stage, hb, table)
+    entry_count = sum(len(group.cells) for group in groups)
+    stage_indices = {group.stage_index for group in groups}
+    source_texts = {
+        cell.source_text for group in groups for cell in group.cells
     }
+    layout_counts = {
+        layout: sum(group.layout == layout for group in groups)
+        for layout in ("record23+6", "slot32")
+    }
+    record_metadata_count = sum(
+        len(group.cells) for group in groups if group.layout == "record23+6"
+    )
+    inventory_sha256 = formation_inventory_sha256(groups)
     if (
         len(groups) != expected.get("stage_default_formation_group_count")
         or entry_count
         != expected.get("stage_default_formation_entry_count")
         or len(stage_indices)
         != expected.get("stage_default_formation_stage_count")
-        or len(original_stage) != len(stage)
+        or len(source_texts)
+        != expected.get("stage_default_formation_unique_source_count")
+        or record_metadata_count
+        != expected.get("stage_default_formation_record_metadata_count")
+        or inventory_sha256
+        != expected.get("stage_default_formation_inventory_sha256")
+        or set(translations_by_source) != source_texts
+        or len(translations_by_source) != len(source_texts)
+        or any(
+            not isinstance(source, str)
+            or not source
+            or not isinstance(translation, str)
+            or not translation
+            for source, translation in translations_by_source.items()
+        )
     ):
-        raise FullStoryComponentError("default formation-name selection drift")
+        raise FullStoryComponentError("default formation-name inventory drift")
 
-    offset_spec = ExecutableOffsetSpec(
-        name="HEDBDY/HB.BIN STAGE offsets",
-        member="HEDBDY/HB.BIN",
-        table_start=30320,
-        table_end=31144,
-    )
-    offsets = read_executable_archive_offsets(hb, offset_spec, len(stage))
-    table = load_text_table(
-        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
-    )
     _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
         font_manifest
     )
@@ -2096,27 +2138,9 @@ def _apply_stage_default_formation_names(
             "default formation-name codec policy is invalid"
         )
 
-    groups_by_stage: dict[int, list[dict]] = {}
+    groups_by_stage = {}
     for group in groups:
-        if not isinstance(group, dict):
-            raise FullStoryComponentError(
-                "default formation-name group is malformed"
-            )
-        stage_index = group.get("stage_index")
-        slot_size = group.get("slot_size")
-        entries = group.get("entries")
-        if (
-            not isinstance(stage_index, int)
-            or stage_index < 0
-            or not isinstance(slot_size, int)
-            or slot_size <= 0
-            or not isinstance(entries, dict)
-            or not entries
-        ):
-            raise FullStoryComponentError(
-                "default formation-name group contract drift"
-            )
-        groups_by_stage.setdefault(stage_index, []).append(group)
+        groups_by_stage.setdefault(group.stage_index, []).append(group)
 
     output = bytearray(stage)
     chunk_reports = []
@@ -2144,44 +2168,29 @@ def _apply_stage_default_formation_names(
         rewritten = bytearray(current_decoded.output)
         ranges = []
         chunk_entry_count = 0
-        for group in stage_groups:
-            slot_size = group["slot_size"]
-            for raw_offset, entry in sorted(
-                group["entries"].items(),
-                key=lambda item: int(item[0], 16),
-            ):
-                try:
-                    decoded_offset = int(raw_offset, 16)
-                except (TypeError, ValueError) as error:
-                    raise FullStoryComponentError(
-                        f"default formation-name offset is invalid: {raw_offset!r}"
-                    ) from error
-                if (
-                    not isinstance(raw_offset, str)
-                    or raw_offset != f"0x{decoded_offset:X}"
-                    or not isinstance(entry, dict)
-                    or set(entry) != {"source", "translation"}
-                    or not isinstance(entry.get("source"), str)
-                    or not entry["source"]
-                    or not isinstance(entry.get("translation"), str)
-                    or not entry["translation"]
-                    or decoded_offset + slot_size > len(rewritten)
-                ):
-                    raise FullStoryComponentError(
-                        f"default formation-name entry is invalid: {raw_offset!r}"
-                    )
+        chunk_metadata = []
+        for group in sorted(stage_groups, key=lambda item: item.cells[0].offset):
+            slot_size = group.slot_size
+            for cell in group.cells:
+                decoded_offset = cell.offset
+                raw_offset = f"0x{decoded_offset:X}"
                 slot_end = decoded_offset + slot_size
-                if ranges and decoded_offset < ranges[-1][1]:
+                if slot_end > len(rewritten) or (
+                    ranges and decoded_offset < ranges[-1][1]
+                ):
                     raise FullStoryComponentError(
                         f"default formation-name slots overlap at {raw_offset}"
                     )
                 ranges.append((decoded_offset, slot_end))
                 source = decode_text(
-                    original_decoded.output, decoded_offset, table
+                    original_decoded.output,
+                    decoded_offset,
+                    table,
+                    end=slot_end,
                 )
                 if (
-                    source.text != entry["source"]
-                    or source.consumed > slot_size
+                    source.text != cell.source_text
+                    or source.consumed != cell.source_consumed
                     or any(
                         original_decoded.output[
                             decoded_offset + source.consumed : slot_end
@@ -2193,7 +2202,7 @@ def _apply_stage_default_formation_names(
                         f"stage {stage_index} {raw_offset}"
                     )
                 translation = normalize_original_fullwidth_ascii(
-                    entry["translation"]
+                    translations_by_source[source.text]
                 )
                 if _control_signature(source.text) != _control_signature(
                     translation
@@ -2231,6 +2240,28 @@ def _apply_stage_default_formation_names(
                     for before, after in zip(current_slot, replacement)
                 )
                 rewritten[decoded_offset:slot_end] = replacement
+                if group.layout == "record23+6":
+                    trailer_start = slot_end
+                    trailer_end = decoded_offset + group.stride
+                    expected_trailer = bytes.fromhex(cell.trailer_hex)
+                    original_trailer = original_decoded.output[
+                        trailer_start:trailer_end
+                    ]
+                    current_trailer = current_decoded.output[
+                        trailer_start:trailer_end
+                    ]
+                    if (
+                        len(expected_trailer) != 6
+                        or original_trailer != expected_trailer
+                        or current_trailer != expected_trailer
+                    ):
+                        raise FullStoryComponentError(
+                            "default formation-name metadata drift at "
+                            f"stage {stage_index} {raw_offset}"
+                        )
+                    chunk_metadata.append(
+                        (trailer_start, trailer_end, expected_trailer)
+                    )
                 reread = decode_text(bytes(rewritten), decoded_offset, output_table)
                 if (
                     reread.text != translation
@@ -2248,6 +2279,13 @@ def _apply_stage_default_formation_names(
                 )
                 translations.add((source.text, translation))
                 chunk_entry_count += 1
+        if any(
+            bytes(rewritten[start_offset:end_offset]) != expected_trailer
+            for start_offset, end_offset, expected_trailer in chunk_metadata
+        ):
+            raise FullStoryComponentError(
+                f"default formation-name metadata changed: {stage_index}"
+            )
         try:
             rebuilt = reencode_changed_suffix(
                 stored[: current_decoded.consumed],
@@ -2290,7 +2328,7 @@ def _apply_stage_default_formation_names(
     result = bytes(output)
     if (
         len(result) != len(stage)
-        or read_executable_archive_offsets(hb, offset_spec, len(result))
+        or read_executable_archive_offsets(hb, STAGE_OFFSET_SPEC, len(result))
         != offsets
     ):
         raise FullStoryComponentError(
@@ -2306,6 +2344,10 @@ def _apply_stage_default_formation_names(
         "stage_count": len(groups_by_stage),
         "stage_indices": sorted(groups_by_stage),
         "entry_count": entry_count,
+        "unique_source_count": len(source_texts),
+        "layout_group_counts": layout_counts,
+        "record_metadata_count": record_metadata_count,
+        "inventory_sha256": inventory_sha256,
         "translations": [
             {"source": source, "translation": translation}
             for source, translation in sorted(translations)
@@ -2315,6 +2357,7 @@ def _apply_stage_default_formation_names(
         "chunks": chunk_reports,
         "source_preimages_exact": True,
         "fixed_allocations_preserved": True,
+        "record_metadata_preserved_byte_exact": True,
         "slot_padding_zero": True,
         "reread_exact": True,
         "codec_strategy": codec["strategy"],
@@ -2323,7 +2366,7 @@ def _apply_stage_default_formation_names(
         "hb_offsets_preserved": True,
         "non_target_chunks_preserved_byte_exact": True,
         "placeholder_control_tokens_preserved": True,
-    }
+    }, corpus_path
 
 
 def _apply_stage_system_dialogues(
@@ -5594,11 +5637,11 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
     (
         output_stage,
         stage_default_formation_report,
+        stage_default_formation_corpus_path,
     ) = _apply_stage_default_formation_names(
         output_stage,
         hb_payload,
         config.get("remaining_ui"),
-        remaining_ui_input_paths[0],
         font_manifest,
         config["full_pilot_names"]["codec"],
     )
@@ -5770,6 +5813,10 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
             "remaining_ui_translations": _file_lock(
                 remaining_ui_input_paths[0],
                 remaining_ui_input_paths[0].read_bytes(),
+            ),
+            "stage_default_formation_corpus": _file_lock(
+                stage_default_formation_corpus_path,
+                stage_default_formation_corpus_path.read_bytes(),
             ),
             "remaining_ui_parts": _file_lock(
                 remaining_ui_input_paths[1],
@@ -6115,6 +6162,33 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 ]
                 and remaining_ui_report["stage_default_formation"][
                     "hb_offsets_preserved"
+                ]
+                and remaining_ui_report["stage_default_formation"][
+                    "group_count"
+                ]
+                == 85
+                and remaining_ui_report["stage_default_formation"][
+                    "stage_count"
+                ]
+                == 83
+                and remaining_ui_report["stage_default_formation"][
+                    "entry_count"
+                ]
+                == 2382
+                and remaining_ui_report["stage_default_formation"][
+                    "unique_source_count"
+                ]
+                == 103
+                and remaining_ui_report["stage_default_formation"][
+                    "record_metadata_count"
+                ]
+                == 2364
+                and remaining_ui_report["stage_default_formation"][
+                    "inventory_sha256"
+                ]
+                == "1ede725d2a21c3124da144551f9914a9ddc8375ba235e1b19ea3f37a0a93d4b6"
+                and remaining_ui_report["stage_default_formation"][
+                    "record_metadata_preserved_byte_exact"
                 ]
                 and remaining_ui_report["stage_system_dialogue"][
                     "reread_exact"

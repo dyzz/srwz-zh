@@ -6,8 +6,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 31454,
-      "sha256": "da853f5eb68fe5c7cf7d4c96746a02e8be773d75afe5794cf7fe81eb6ebbeda1"
+      "size": 31901,
+      "sha256": "f6c05063584dae12af39bf2ac441f3454f3ccdec61319203a92ee558fb4e0eb0"
     },
     "base_ui_manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -36,8 +36,8 @@
     },
     "remaining_display_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 92859,
-      "sha256": "f994733c9e04edbf8f45f809c61d386134dc71adefe5a55112792302411344a2"
+      "size": 91282,
+      "sha256": "c7e2687e333a68146bedcd8ac94674e4bcb196096229eaf0ef6f0b3d5ba9e02b"
     },
     "full_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -86,8 +86,13 @@
     },
     "remaining_ui_translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 92859,
-      "sha256": "f994733c9e04edbf8f45f809c61d386134dc71adefe5a55112792302411344a2"
+      "size": 91282,
+      "sha256": "c7e2687e333a68146bedcd8ac94674e4bcb196096229eaf0ef6f0b3d5ba9e02b"
+    },
+    "stage_default_formation_corpus": {
+      "path": "corpus/zh/menu/stage-default-formations.json",
+      "size": 4341,
+      "sha256": "61a99bae77d40d9209650189e37dd08d6c0030ff8ef208b2e30fc5f29aa2fa04"
     },
     "remaining_ui_parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
@@ -206,8 +211,8 @@
     },
     "auto_demo_residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 92859,
-      "sha256": "f994733c9e04edbf8f45f809c61d386134dc71adefe5a55112792302411344a2"
+      "size": 91282,
+      "sha256": "c7e2687e333a68146bedcd8ac94674e4bcb196096229eaf0ef6f0b3d5ba9e02b"
     },
     "auto_demo_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -6147,17 +6152,233 @@
       "non_target_chunks_preserved_byte_exact": true
     },
     "stage_default_formation": {
-      "group_count": 3,
-      "stage_count": 2,
+      "group_count": 85,
+      "stage_count": 83,
       "stage_indices": [
         1,
+        2,
+        4,
+        5,
+        10,
+        13,
+        15,
+        16,
+        17,
+        19,
+        20,
+        27,
+        30,
+        31,
+        32,
+        34,
+        38,
+        39,
+        42,
+        43,
+        47,
+        52,
+        58,
+        62,
+        63,
+        64,
+        68,
+        69,
+        70,
+        71,
+        73,
+        75,
+        76,
+        77,
+        78,
+        82,
+        85,
+        88,
+        89,
+        90,
+        91,
+        92,
+        94,
+        97,
+        98,
+        99,
+        101,
+        103,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        114,
+        116,
+        117,
+        118,
+        119,
+        120,
+        122,
+        123,
+        125,
+        126,
+        128,
+        129,
+        130,
+        134,
+        140,
+        141,
+        142,
+        144,
+        145,
+        146,
+        147,
+        149,
+        150,
+        151,
+        152,
+        153,
+        185,
+        186,
         203
       ],
-      "entry_count": 17,
+      "entry_count": 2382,
+      "unique_source_count": 103,
+      "layout_group_counts": {
+        "record23+6": 79,
+        "slot32": 6
+      },
+      "record_metadata_count": 2364,
+      "inventory_sha256": "1ede725d2a21c3124da144551f9914a9ddc8375ba235e1b19ea3f37a0a93d4b6",
       "translations": [
+        {
+          "source": "アイアン・ギアー",
+          "translation": "钢铁齿轮"
+        },
+        {
+          "source": "アカツキ",
+          "translation": "拂晓"
+        },
+        {
+          "source": "アクエリオン",
+          "translation": "亚库艾里翁"
+        },
+        {
+          "source": "アクシズ",
+          "translation": "阿克西斯"
+        },
+        {
+          "source": "アグリッパ",
+          "translation": "阿格里帕"
+        },
+        {
+          "source": "アゲハ隊",
+          "translation": "凤蝶队"
+        },
+        {
+          "source": "アサキム",
+          "translation": "阿萨基姆"
+        },
+        {
+          "source": "アルデバロン",
+          "translation": "阿尔德巴朗"
+        },
+        {
+          "source": "アレックス",
+          "translation": "亚历士"
+        },
+        {
+          "source": "アーガマ",
+          "translation": "阿伽玛"
+        },
+        {
+          "source": "アークエンジェル",
+          "translation": "大天使号"
+        },
+        {
+          "source": "アークエンジェル隊",
+          "translation": "大天使号队"
+        },
+        {
+          "source": "イベント",
+          "translation": "剧情"
+        },
         {
           "source": "エゥーゴ",
           "translation": "奥古"
+        },
+        {
+          "source": "エニル",
+          "translation": "艾妮尔"
+        },
+        {
+          "source": "エマーン艦",
+          "translation": "埃曼舰"
+        },
+        {
+          "source": "エルダー",
+          "translation": "艾尔达"
+        },
+        {
+          "source": "エーデル",
+          "translation": "艾岱尔"
+        },
+        {
+          "source": "オルソン",
+          "translation": "奥尔森"
+        },
+        {
+          "source": "オーバーデビル",
+          "translation": "超限恶魔"
+        },
+        {
+          "source": "オーブ軍",
+          "translation": "奥布军"
+        },
+        {
+          "source": "オール用",
+          "translation": "通用队形"
+        },
+        {
+          "source": "カイメラ",
+          "translation": "奇美拉"
+        },
+        {
+          "source": "カオス・レムレース",
+          "translation": "混沌·雷姆雷斯"
+        },
+        {
+          "source": "カシマル",
+          "translation": "卡西马尔"
+        },
+        {
+          "source": "ガイゾック",
+          "translation": "盖佐克"
+        },
+        {
+          "source": "ガイダンス２",
+          "translation": "教学2"
+        },
+        {
+          "source": "ガルダ級",
+          "translation": "迦楼罗级"
+        },
+        {
+          "source": "ガンレオン",
+          "translation": "钢狮"
+        },
+        {
+          "source": "キング・ビアル",
+          "translation": "帝皇比亚路"
+        },
+        {
+          "source": "グランフォートレス",
+          "translation": "超重要塞"
+        },
+        {
+          "source": "グローマ",
+          "translation": "格罗玛"
+        },
+        {
+          "source": "グローリー・スター",
+          "translation": "荣耀之星"
         },
         {
           "source": "グローリー・スター１",
@@ -6170,10 +6391,278 @@
         {
           "source": "グローリー・スター３",
           "translation": "荣耀之星3"
+        },
+        {
+          "source": "ゲッコーステイト",
+          "translation": "月光州"
+        },
+        {
+          "source": "ゲラバ",
+          "translation": "杰拉巴"
+        },
+        {
+          "source": "コーラリアン",
+          "translation": "柯拉利安"
+        },
+        {
+          "source": "ザフト",
+          "translation": "ZAFT"
+        },
+        {
+          "source": "ザンベース",
+          "translation": "桑贝斯"
+        },
+        {
+          "source": "ザ・ビッグ",
+          "translation": "The Big"
+        },
+        {
+          "source": "シベリア鉄道",
+          "translation": "西伯利亚铁路"
+        },
+        {
+          "source": "シベ鉄",
+          "translation": "西伯铁"
+        },
+        {
+          "source": "シベ鉄総裁",
+          "translation": "西伯铁总裁"
+        },
+        {
+          "source": "シベ鉄警備隊",
+          "translation": "西伯铁警备队"
+        },
+        {
+          "source": "シュロウガ",
+          "translation": "狩狼牙"
+        },
+        {
+          "source": "シルエット",
+          "translation": "剪影"
+        },
+        {
+          "source": "シン",
+          "translation": "真"
+        },
+        {
+          "source": "シンシア",
+          "translation": "辛西娅"
+        },
+        {
+          "source": "ジブリール",
+          "translation": "吉布利尔"
+        },
+        {
+          "source": "ジ・エンド",
+          "translation": "尼尔瓦修终式"
+        },
+        {
+          "source": "ジーク",
+          "translation": "齐格"
+        },
+        {
+          "source": "ストライク",
+          "translation": "强袭"
+        },
+        {
+          "source": "センター用",
+          "translation": "中央队形"
+        },
+        {
+          "source": "ゼラバイア",
+          "translation": "泽拉拜亚"
+        },
+        {
+          "source": "ターンＸ",
+          "translation": "逆X"
+        },
+        {
+          "source": "ダイターン３",
+          "translation": "泰坦3"
+        },
+        {
+          "source": "チェルノボーグ",
+          "translation": "切尔诺伯格"
+        },
+        {
+          "source": "チラム",
+          "translation": "奇拉姆"
+        },
+        {
+          "source": "ティターンズ",
+          "translation": "提坦斯"
+        },
+        {
+          "source": "ティンプ",
+          "translation": "廷普"
+        },
+        {
+          "source": "テロリスト",
+          "translation": "恐怖分子"
+        },
+        {
+          "source": "ディアナ・カウンター",
+          "translation": "迪安娜反击"
+        },
+        {
+          "source": "トライ用",
+          "translation": "三角队形"
+        },
+        {
+          "source": "ニルヴァーシュ",
+          "translation": "尼尔瓦修"
+        },
+        {
+          "source": "バルゴラ",
+          "translation": "巴尔戈拉"
+        },
+        {
+          "source": "ビーター・サービス",
+          "translation": "比特服务"
+        },
+        {
+          "source": "ビームス夫妻",
+          "translation": "比姆斯夫妇"
+        },
+        {
+          "source": "ファントムペイン",
+          "translation": "幻痛部队"
+        },
+        {
+          "source": "フリーダム",
+          "translation": "自由高达"
+        },
+        {
+          "source": "フリーデン",
+          "translation": "自由号"
+        },
+        {
+          "source": "フロスト兄弟",
+          "translation": "弗罗斯特兄弟"
+        },
+        {
+          "source": "ブルーフィクサー",
+          "translation": "蓝色修复者"
+        },
+        {
+          "source": "ブレーカー",
+          "translation": "破坏者"
+        },
+        {
+          "source": "ベガ",
+          "translation": "贝加"
+        },
+        {
+          "source": "ベック一味",
+          "translation": "贝克一伙"
+        },
+        {
+          "source": "ミドガルド",
+          "translation": "米德加尔德"
+        },
+        {
+          "source": "ミネルバ",
+          "translation": "密涅瓦"
+        },
+        {
+          "source": "メカ鉄甲鬼",
+          "translation": "机械铁甲鬼"
+        },
+        {
+          "source": "ユウナ",
+          "translation": "尤纳"
+        },
+        {
+          "source": "ルナ",
+          "translation": "露娜"
+        },
+        {
+          "source": "ロゴス",
+          "translation": "LOGOS"
+        },
+        {
+          "source": "ワイド用",
+          "translation": "广域队形"
+        },
+        {
+          "source": "傭兵",
+          "translation": "佣兵"
+        },
+        {
+          "source": "別働隊",
+          "translation": "别动队"
+        },
+        {
+          "source": "双翅",
+          "translation": "双翅"
+        },
+        {
+          "source": "堕天翅",
+          "translation": "堕天翅"
+        },
+        {
+          "source": "塔州連邦軍",
+          "translation": "塔州联邦军"
+        },
+        {
+          "source": "宇宙革命軍",
+          "translation": "宇宙革命军"
+        },
+        {
+          "source": "敵部隊１",
+          "translation": "敌部队1"
+        },
+        {
+          "source": "敵部隊２",
+          "translation": "敌部队2"
+        },
+        {
+          "source": "敵部隊３",
+          "translation": "敌部队3"
+        },
+        {
+          "source": "新連邦",
+          "translation": "新联邦"
+        },
+        {
+          "source": "新連邦軍",
+          "translation": "新联邦军"
+        },
+        {
+          "source": "月光号",
+          "translation": "月光号"
+        },
+        {
+          "source": "白鳥号",
+          "translation": "白鸟号"
+        },
+        {
+          "source": "百鬼帝国",
+          "translation": "百鬼帝国"
+        },
+        {
+          "source": "賢人会議派",
+          "translation": "贤人会议派"
+        },
+        {
+          "source": "連邦軍",
+          "translation": "联邦军"
+        },
+        {
+          "source": "黒のカリスマ",
+          "translation": "黑之卡里斯马"
+        },
+        {
+          "source": "Ｇビット",
+          "translation": "G比特"
+        },
+        {
+          "source": "ＮＰＣ",
+          "translation": "NPC"
         }
       ],
-      "minimum_slot_headroom": 19,
-      "changed_byte_count": 172,
+      "minimum_slot_headroom": 8,
+      "changed_byte_count": 19125,
       "chunks": [
         {
           "stage_index": 1,
@@ -6183,6 +6672,816 @@
           "output_encoded_size": 16150,
           "output_encoded_sha256": "df1f7b63d22f926e02c4e73d8a8a23624b8439c55678a2bcb1c08528b556c156",
           "output_padding_size": 874,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 2,
+          "entry_count": 16,
+          "source_stored_size": 22608,
+          "source_encoded_size": 21505,
+          "output_encoded_size": 21500,
+          "output_encoded_sha256": "9c35ec934f04156f190de4143d6fbd8e8e3f04d4ec8fcabfe7b180ad645b99b0",
+          "output_padding_size": 1108,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 4,
+          "entry_count": 3,
+          "source_stored_size": 26752,
+          "source_encoded_size": 24907,
+          "output_encoded_size": 24913,
+          "output_encoded_sha256": "49b1d9077c696b8e66321908efd5c1eb53006ae934285e28081c28bcbc48d9bf",
+          "output_padding_size": 1839,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 5,
+          "entry_count": 3,
+          "source_stored_size": 17216,
+          "source_encoded_size": 16167,
+          "output_encoded_size": 16152,
+          "output_encoded_sha256": "502b10903aa9a24e9b00e2f86343cbbe5c62deeaad8fa49d4b75674eb8835cb3",
+          "output_padding_size": 1064,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 10,
+          "entry_count": 35,
+          "source_stored_size": 30752,
+          "source_encoded_size": 28816,
+          "output_encoded_size": 28774,
+          "output_encoded_sha256": "e5856ac3233c4cb5763ed4c952a76f2d75bb6c45fe65cfa4e34aeb028459800f",
+          "output_padding_size": 1978,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 13,
+          "entry_count": 7,
+          "source_stored_size": 14560,
+          "source_encoded_size": 13156,
+          "output_encoded_size": 13138,
+          "output_encoded_sha256": "b4f6dfb3558d380db905c646570b14caf331bd9475c32589c66f945004127a64",
+          "output_padding_size": 1422,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 15,
+          "entry_count": 19,
+          "source_stored_size": 22320,
+          "source_encoded_size": 20683,
+          "output_encoded_size": 20661,
+          "output_encoded_sha256": "56a2bb6b167e795b7c6f747560d9125a528444291de0a0f08a395c8d0bf0bda9",
+          "output_padding_size": 1659,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 16,
+          "entry_count": 18,
+          "source_stored_size": 26448,
+          "source_encoded_size": 23623,
+          "output_encoded_size": 23620,
+          "output_encoded_sha256": "293fe73cd2eee6354a1d089185d45f0f32df9fcde910a3e592d02fa683aa979d",
+          "output_padding_size": 2828,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 17,
+          "entry_count": 13,
+          "source_stored_size": 13392,
+          "source_encoded_size": 11915,
+          "output_encoded_size": 11907,
+          "output_encoded_sha256": "4d1eaea196f4c0d8ca064af477b1dcd9ee010223a9cab60ecfffa027d200d42d",
+          "output_padding_size": 1485,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 19,
+          "entry_count": 13,
+          "source_stored_size": 16368,
+          "source_encoded_size": 14736,
+          "output_encoded_size": 14718,
+          "output_encoded_sha256": "5bbda29ea831f871c9e12abcdda81c0bafda14e3bd5991e10145055d15c16d26",
+          "output_padding_size": 1650,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 20,
+          "entry_count": 9,
+          "source_stored_size": 28080,
+          "source_encoded_size": 25492,
+          "output_encoded_size": 25483,
+          "output_encoded_sha256": "0b347115380d6324241145e8c0f51884b3630ed5e484d81813c4a496d4eaf06d",
+          "output_padding_size": 2597,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 27,
+          "entry_count": 32,
+          "source_stored_size": 31856,
+          "source_encoded_size": 28333,
+          "output_encoded_size": 28295,
+          "output_encoded_sha256": "1cbd01a27963a3764d688c61ea1aa8ed4ddf747a1615ee026a0c5daf36bd9b5c",
+          "output_padding_size": 3561,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 30,
+          "entry_count": 29,
+          "source_stored_size": 31456,
+          "source_encoded_size": 28916,
+          "output_encoded_size": 28889,
+          "output_encoded_sha256": "4dd23fe0dc419126cc0cf052c80f58402d527a19b030887f6b58ea3d065afbd7",
+          "output_padding_size": 2567,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 31,
+          "entry_count": 35,
+          "source_stored_size": 32336,
+          "source_encoded_size": 29793,
+          "output_encoded_size": 29741,
+          "output_encoded_sha256": "1498756379995977d58c85bf1469a4a67349584320c773e01c40dc9e415ec58f",
+          "output_padding_size": 2595,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 32,
+          "entry_count": 51,
+          "source_stored_size": 22944,
+          "source_encoded_size": 20916,
+          "output_encoded_size": 20900,
+          "output_encoded_sha256": "46ff5f7ed0d7da1642b229011b4173f491263efcc1886c3f32722a64a594f06b",
+          "output_padding_size": 2044,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 34,
+          "entry_count": 52,
+          "source_stored_size": 25472,
+          "source_encoded_size": 22981,
+          "output_encoded_size": 22942,
+          "output_encoded_sha256": "1d42c1e1b42a854a747882edf9705286e7e76492401e9b24611b9ce128c352ac",
+          "output_padding_size": 2530,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 38,
+          "entry_count": 4,
+          "source_stored_size": 35520,
+          "source_encoded_size": 32555,
+          "output_encoded_size": 32541,
+          "output_encoded_sha256": "86bdd7f5970cff2c3d226f735eddae439450bf70e7dd15256467ff090b684a53",
+          "output_padding_size": 2979,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 39,
+          "entry_count": 3,
+          "source_stored_size": 14480,
+          "source_encoded_size": 13247,
+          "output_encoded_size": 13241,
+          "output_encoded_sha256": "6c197b0f4a0308af40853b587ccc227e387562efdf317f5fd947fd9dfde94a09",
+          "output_padding_size": 1239,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 42,
+          "entry_count": 39,
+          "source_stored_size": 22496,
+          "source_encoded_size": 20263,
+          "output_encoded_size": 20234,
+          "output_encoded_sha256": "25534960c29ee02910ecbc10c6f7508a26878149ade3798037c4e4f9a9021ae8",
+          "output_padding_size": 2262,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 43,
+          "entry_count": 29,
+          "source_stored_size": 28128,
+          "source_encoded_size": 26227,
+          "output_encoded_size": 26183,
+          "output_encoded_sha256": "897bce844b8ea1b8833fe33511574de2492498d2a83d4093e311c36f46e5d24b",
+          "output_padding_size": 1945,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 47,
+          "entry_count": 53,
+          "source_stored_size": 25200,
+          "source_encoded_size": 22359,
+          "output_encoded_size": 22353,
+          "output_encoded_sha256": "563754d4f497eb5ea93ecbce7e8693870174b1d46a680e1ce88838cf0508e8d1",
+          "output_padding_size": 2847,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 52,
+          "entry_count": 20,
+          "source_stored_size": 27264,
+          "source_encoded_size": 25011,
+          "output_encoded_size": 24986,
+          "output_encoded_sha256": "80be6fd855478850953340101401643c85fa9f1a92ed41a315a6f5c0911837b1",
+          "output_padding_size": 2278,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 58,
+          "entry_count": 22,
+          "source_stored_size": 22400,
+          "source_encoded_size": 20531,
+          "output_encoded_size": 20526,
+          "output_encoded_sha256": "ae0e6674d7bb93a2895cdaa3a926534df2dbf8581c99f6c1a79fcd1f45a173ed",
+          "output_padding_size": 1874,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 62,
+          "entry_count": 40,
+          "source_stored_size": 20480,
+          "source_encoded_size": 18426,
+          "output_encoded_size": 18403,
+          "output_encoded_sha256": "8261ccf2cc7a4a8fc6fe7eccab12313a9bc8b58c679d695674b58725457f7191",
+          "output_padding_size": 2077,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 63,
+          "entry_count": 32,
+          "source_stored_size": 22896,
+          "source_encoded_size": 20707,
+          "output_encoded_size": 20683,
+          "output_encoded_sha256": "698ca6ac531aff4d0c48d60241c0317219e9f11242ac04baf08bacc4e6af567f",
+          "output_padding_size": 2213,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 64,
+          "entry_count": 11,
+          "source_stored_size": 15856,
+          "source_encoded_size": 14168,
+          "output_encoded_size": 14166,
+          "output_encoded_sha256": "7b5afdd05757be0f9400d4aba5285d8a88387550380f84fe9047d3f2e059b2d9",
+          "output_padding_size": 1690,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 68,
+          "entry_count": 45,
+          "source_stored_size": 20016,
+          "source_encoded_size": 18447,
+          "output_encoded_size": 18403,
+          "output_encoded_sha256": "b5989dd6b066352984bb3f09019782f5edae7e1f19efd4840df51db9cc6e152a",
+          "output_padding_size": 1613,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 69,
+          "entry_count": 59,
+          "source_stored_size": 53072,
+          "source_encoded_size": 48780,
+          "output_encoded_size": 48711,
+          "output_encoded_sha256": "c55da75c8ad41f4fd38725ba0e8ec7f8016af5cfcf25158dcc589999be5accf9",
+          "output_padding_size": 4361,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 70,
+          "entry_count": 61,
+          "source_stored_size": 7872,
+          "source_encoded_size": 7156,
+          "output_encoded_size": 7133,
+          "output_encoded_sha256": "fc403f340ca8afb212e09afb96eebbaacc53d5b982e7856dd62802506ede601d",
+          "output_padding_size": 739,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 71,
+          "entry_count": 66,
+          "source_stored_size": 14752,
+          "source_encoded_size": 13417,
+          "output_encoded_size": 13402,
+          "output_encoded_sha256": "1e6da798a7b8144b33f207651b6ae321b84d0e571c06e96c1e9576958df962d8",
+          "output_padding_size": 1350,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 73,
+          "entry_count": 36,
+          "source_stored_size": 25216,
+          "source_encoded_size": 22439,
+          "output_encoded_size": 22415,
+          "output_encoded_sha256": "ee1bee72bc40ae46f8952156d0b861e0f33639f72374bd4294290acc6ca080c3",
+          "output_padding_size": 2801,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 75,
+          "entry_count": 14,
+          "source_stored_size": 21328,
+          "source_encoded_size": 18362,
+          "output_encoded_size": 18348,
+          "output_encoded_sha256": "236408058c23d3658a71229d7604cf7626a94c9c1593dfac4b08f9aacfc8fccf",
+          "output_padding_size": 2980,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 76,
+          "entry_count": 10,
+          "source_stored_size": 23856,
+          "source_encoded_size": 21730,
+          "output_encoded_size": 21713,
+          "output_encoded_sha256": "b3c5ce8e457c49918844f630058f267a65608b2b27eb9552f674fa5a22bc1228",
+          "output_padding_size": 2143,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 77,
+          "entry_count": 11,
+          "source_stored_size": 13984,
+          "source_encoded_size": 12033,
+          "output_encoded_size": 12037,
+          "output_encoded_sha256": "953507c89464444d64ea768274144994eb88cfb32f9f95014e836524940151fa",
+          "output_padding_size": 1947,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 78,
+          "entry_count": 26,
+          "source_stored_size": 21168,
+          "source_encoded_size": 19454,
+          "output_encoded_size": 19454,
+          "output_encoded_sha256": "ada02dd98ac81577a932106cac8e2cc2e0c4e9023486bf7e1a7318eb46a85ebc",
+          "output_padding_size": 1714,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 82,
+          "entry_count": 3,
+          "source_stored_size": 23648,
+          "source_encoded_size": 22025,
+          "output_encoded_size": 21998,
+          "output_encoded_sha256": "004e4b4fed647cac497488d0203330e38c793a93abfd1c0fee34f8a73e4da123",
+          "output_padding_size": 1650,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 85,
+          "entry_count": 45,
+          "source_stored_size": 22864,
+          "source_encoded_size": 20154,
+          "output_encoded_size": 20136,
+          "output_encoded_sha256": "4140e2019ce5a35d2564b3f764222d15d84b578dd1cff7af1b994cb7912e5eff",
+          "output_padding_size": 2728,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 88,
+          "entry_count": 35,
+          "source_stored_size": 26352,
+          "source_encoded_size": 24048,
+          "output_encoded_size": 24050,
+          "output_encoded_sha256": "47c972eb67b44c637a73903ec35e7707fcb5fac4cdf5f4e5b159185b0e6352d2",
+          "output_padding_size": 2302,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 89,
+          "entry_count": 4,
+          "source_stored_size": 5904,
+          "source_encoded_size": 5431,
+          "output_encoded_size": 5410,
+          "output_encoded_sha256": "8de5afffe6feb84f99831e5791aa3fff7aec6e3a862ad22dfa5f31a998200ea4",
+          "output_padding_size": 494,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 90,
+          "entry_count": 43,
+          "source_stored_size": 28160,
+          "source_encoded_size": 25624,
+          "output_encoded_size": 25599,
+          "output_encoded_sha256": "d9abf088f0dddd8ece12606d38fea2eb30d0628e7e198be55f2797e7dab98651",
+          "output_padding_size": 2561,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 91,
+          "entry_count": 60,
+          "source_stored_size": 25504,
+          "source_encoded_size": 23051,
+          "output_encoded_size": 23040,
+          "output_encoded_sha256": "25ab87ec11cf16ee913a931308b982ccba5d03cb6048e3066fa0d2f18ed4f817",
+          "output_padding_size": 2464,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 92,
+          "entry_count": 57,
+          "source_stored_size": 18160,
+          "source_encoded_size": 16439,
+          "output_encoded_size": 16412,
+          "output_encoded_sha256": "c849fd29791e966b0d2b6b802e5faaa6ab9ce2116c3e46d492f3ef91e397c3a5",
+          "output_padding_size": 1748,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 94,
+          "entry_count": 4,
+          "source_stored_size": 4608,
+          "source_encoded_size": 4319,
+          "output_encoded_size": 4299,
+          "output_encoded_sha256": "aab2a2cb51d153be938ef08faa49ffcce09f809599f3ea7e8c9ed1da5874ce44",
+          "output_padding_size": 309,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 97,
+          "entry_count": 39,
+          "source_stored_size": 20720,
+          "source_encoded_size": 18186,
+          "output_encoded_size": 18149,
+          "output_encoded_sha256": "8c434ab918ff695cb3a1bb8abf82e79dfe417943e98bed2183be6c552fe0c7ef",
+          "output_padding_size": 2571,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 98,
+          "entry_count": 13,
+          "source_stored_size": 47808,
+          "source_encoded_size": 44447,
+          "output_encoded_size": 44416,
+          "output_encoded_sha256": "3f7c6f3a29171c4b0b18198fae2330468f99c82e7281e4d8281b52edfe74533b",
+          "output_padding_size": 3392,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 99,
+          "entry_count": 61,
+          "source_stored_size": 15776,
+          "source_encoded_size": 14084,
+          "output_encoded_size": 14057,
+          "output_encoded_sha256": "2091e9f269a7d9a092c7a612c979396d09362cc27b77cd3ad8a7c51446499e39",
+          "output_padding_size": 1719,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 101,
+          "entry_count": 4,
+          "source_stored_size": 31808,
+          "source_encoded_size": 29108,
+          "output_encoded_size": 29110,
+          "output_encoded_sha256": "1c556660e99f76ff4d5ce046d70c451d3c65322db1027db5d3da8e142b5c810e",
+          "output_padding_size": 2698,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 103,
+          "entry_count": 6,
+          "source_stored_size": 25504,
+          "source_encoded_size": 22896,
+          "output_encoded_size": 22897,
+          "output_encoded_sha256": "0181b794ce4c5ec25c76f55372d5dee9d220cd84091ee553eac92acd94ce55df",
+          "output_padding_size": 2607,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 106,
+          "entry_count": 2,
+          "source_stored_size": 19232,
+          "source_encoded_size": 17930,
+          "output_encoded_size": 17923,
+          "output_encoded_sha256": "d2ce8e2f5768a1333f29fab84a74148c8a90b8cb1ad8f18abdbf0a1c3003ca11",
+          "output_padding_size": 1309,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 107,
+          "entry_count": 36,
+          "source_stored_size": 47280,
+          "source_encoded_size": 43726,
+          "output_encoded_size": 43699,
+          "output_encoded_sha256": "f047e55ccd4393b3c079eda0255e02fce4928ab5a82ee71fc64c839938e380df",
+          "output_padding_size": 3581,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 108,
+          "entry_count": 18,
+          "source_stored_size": 39712,
+          "source_encoded_size": 36310,
+          "output_encoded_size": 36301,
+          "output_encoded_sha256": "696a3c1263a8bae417396ab44d76b85af2305e9f4d4d3e732dcf6c81c6088ba8",
+          "output_padding_size": 3411,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 109,
+          "entry_count": 45,
+          "source_stored_size": 44144,
+          "source_encoded_size": 41274,
+          "output_encoded_size": 41220,
+          "output_encoded_sha256": "64f372d728ad913c6d9172d3fda91d5b1223ab806305bec7f67786cc0ceb0568",
+          "output_padding_size": 2924,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 110,
+          "entry_count": 60,
+          "source_stored_size": 41888,
+          "source_encoded_size": 37512,
+          "output_encoded_size": 37490,
+          "output_encoded_sha256": "9f42f8aec1937f6860262533693903a89c495199cc2b6761a315a6f4ba8b1bc8",
+          "output_padding_size": 4398,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 111,
+          "entry_count": 65,
+          "source_stored_size": 45424,
+          "source_encoded_size": 40835,
+          "output_encoded_size": 40798,
+          "output_encoded_sha256": "004556f1f593200c9ea298b52c3746b5199f4ba60c43edc07bb7fe387263c087",
+          "output_padding_size": 4626,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 114,
+          "entry_count": 17,
+          "source_stored_size": 3920,
+          "source_encoded_size": 3609,
+          "output_encoded_size": 3604,
+          "output_encoded_sha256": "88704f24b721033af99e84ad08d0013b03e24cb24b5872bc627ddc6ea898397b",
+          "output_padding_size": 316,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 116,
+          "entry_count": 2,
+          "source_stored_size": 10064,
+          "source_encoded_size": 9049,
+          "output_encoded_size": 9038,
+          "output_encoded_sha256": "065c36da1eed323f5cfc84a3aa26224a7ebdb24c21d75042ca4ffecd5fa534db",
+          "output_padding_size": 1026,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 117,
+          "entry_count": 38,
+          "source_stored_size": 39920,
+          "source_encoded_size": 37142,
+          "output_encoded_size": 37122,
+          "output_encoded_sha256": "672ce8eee09e461a32e1e6f47463aa681af36355141fdfc9a34194bce930d3c3",
+          "output_padding_size": 2798,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 118,
+          "entry_count": 29,
+          "source_stored_size": 43328,
+          "source_encoded_size": 40481,
+          "output_encoded_size": 40447,
+          "output_encoded_sha256": "6ddffc687fa83a03b225098ecb677d28aee03642e62d978c4497a126cdfd210a",
+          "output_padding_size": 2881,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 119,
+          "entry_count": 7,
+          "source_stored_size": 49408,
+          "source_encoded_size": 45935,
+          "output_encoded_size": 45890,
+          "output_encoded_sha256": "90f298d4ee8c6360bac0c34cbd34b0320119a7c7df45613e3d2c1d1b4357995d",
+          "output_padding_size": 3518,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 120,
+          "entry_count": 4,
+          "source_stored_size": 34992,
+          "source_encoded_size": 32403,
+          "output_encoded_size": 32387,
+          "output_encoded_sha256": "dc93a58453f2041fb8b324bf58b820057a9ee8864da08bbb76e32e5177adc3b3",
+          "output_padding_size": 2605,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 122,
+          "entry_count": 123,
+          "source_stored_size": 30688,
+          "source_encoded_size": 28480,
+          "output_encoded_size": 28444,
+          "output_encoded_sha256": "00d781fcac8db53080b49643c951c4f16eb705947e80ae9b1e08f940a7e99725",
+          "output_padding_size": 2244,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 123,
+          "entry_count": 17,
+          "source_stored_size": 1968,
+          "source_encoded_size": 1824,
+          "output_encoded_size": 1820,
+          "output_encoded_sha256": "d3ece1d7a8b2f4a77f31d3e7b088b1417d596dffeea10d7a1c1cf983e525dcf9",
+          "output_padding_size": 148,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 125,
+          "entry_count": 21,
+          "source_stored_size": 16320,
+          "source_encoded_size": 14876,
+          "output_encoded_size": 14868,
+          "output_encoded_sha256": "cb437ff88799c258f15c210c78c17079e10dd2292ca72d1e532dd0dccc89c78f",
+          "output_padding_size": 1452,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 126,
+          "entry_count": 84,
+          "source_stored_size": 27456,
+          "source_encoded_size": 24932,
+          "output_encoded_size": 24907,
+          "output_encoded_sha256": "72ddca163d4e95d57430bd30184dde362ac2a75fddfce235c98fdcd83c97e3ad",
+          "output_padding_size": 2549,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 128,
+          "entry_count": 3,
+          "source_stored_size": 40432,
+          "source_encoded_size": 37914,
+          "output_encoded_size": 37895,
+          "output_encoded_sha256": "1403205aac51577f7cf2011c920e0db6078816e8c1229b25bcdbf949b6be66ee",
+          "output_padding_size": 2537,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 129,
+          "entry_count": 2,
+          "source_stored_size": 12928,
+          "source_encoded_size": 11393,
+          "output_encoded_size": 11388,
+          "output_encoded_sha256": "02cfce19a91974a83b0d395cc938ebf040604429d2531fd2b63fbb9f92403d2e",
+          "output_padding_size": 1540,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 130,
+          "entry_count": 22,
+          "source_stored_size": 32624,
+          "source_encoded_size": 30737,
+          "output_encoded_size": 30725,
+          "output_encoded_sha256": "2f8e8bce08ccc8a059335a558dcdda4fa74e0007dfea19f139d30a294f84796d",
+          "output_padding_size": 1899,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 134,
+          "entry_count": 11,
+          "source_stored_size": 7408,
+          "source_encoded_size": 6982,
+          "output_encoded_size": 6977,
+          "output_encoded_sha256": "6d90286b90ecfbbc3effac4f6d07e470b230154a6720a1908ae4417246d1f35e",
+          "output_padding_size": 431,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 140,
+          "entry_count": 63,
+          "source_stored_size": 36960,
+          "source_encoded_size": 33960,
+          "output_encoded_size": 33938,
+          "output_encoded_sha256": "009bfff8324bfdcec439f290138a5c7abf8b81f8893dd00c1a317ee0b2f10236",
+          "output_padding_size": 3022,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 141,
+          "entry_count": 2,
+          "source_stored_size": 16384,
+          "source_encoded_size": 14612,
+          "output_encoded_size": 14606,
+          "output_encoded_sha256": "48a65f2258b9552f39761bf82cea81cbd441894f38c167c95fe8c11a7af27b9d",
+          "output_padding_size": 1778,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 142,
+          "entry_count": 106,
+          "source_stored_size": 31440,
+          "source_encoded_size": 29357,
+          "output_encoded_size": 29343,
+          "output_encoded_sha256": "5da4a5a5aa9733c163c244782ed46dd94e657dd94b195bc7ed5faab1c1b4f8d0",
+          "output_padding_size": 2097,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 144,
+          "entry_count": 46,
+          "source_stored_size": 47264,
+          "source_encoded_size": 43951,
+          "output_encoded_size": 43941,
+          "output_encoded_sha256": "b6fb9588e1fd59000c7ab14da12110f31be8c335a36a320e4dadc5228f674b21",
+          "output_padding_size": 3323,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 145,
+          "entry_count": 2,
+          "source_stored_size": 22928,
+          "source_encoded_size": 21151,
+          "output_encoded_size": 21131,
+          "output_encoded_sha256": "fc683e3f542df14bb33f012e687bbc78fbda2c69eadcf1458b7ee4532dafe10f",
+          "output_padding_size": 1797,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 146,
+          "entry_count": 2,
+          "source_stored_size": 15728,
+          "source_encoded_size": 13942,
+          "output_encoded_size": 13939,
+          "output_encoded_sha256": "34389f9a4fd2ed9de57cf18b55f0d2cac98cd86fc0c4a9435152a7902388577d",
+          "output_padding_size": 1789,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 147,
+          "entry_count": 106,
+          "source_stored_size": 32160,
+          "source_encoded_size": 29841,
+          "output_encoded_size": 29828,
+          "output_encoded_sha256": "34b5ceefaa9529428026ee30bdb9fe7d92dabdd19c4a4932d9ac4a23189dde21",
+          "output_padding_size": 2332,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 149,
+          "entry_count": 10,
+          "source_stored_size": 51680,
+          "source_encoded_size": 48046,
+          "output_encoded_size": 48023,
+          "output_encoded_sha256": "7611edfc5db0c20d953573e4fda395d159a3dabb5041fe51c4415d7bb5c3d572",
+          "output_padding_size": 3657,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 150,
+          "entry_count": 2,
+          "source_stored_size": 23936,
+          "source_encoded_size": 22511,
+          "output_encoded_size": 22478,
+          "output_encoded_sha256": "0921497a4a052f6e9b03cf9946b321acbb63f6e44e5589397ff1240a5aaf6ace",
+          "output_padding_size": 1458,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 151,
+          "entry_count": 85,
+          "source_stored_size": 16896,
+          "source_encoded_size": 15434,
+          "output_encoded_size": 15416,
+          "output_encoded_sha256": "e67a66a80e307f545e552e0c3bb62e50634c2c37ff5f969f180f4db54b22ba31",
+          "output_padding_size": 1480,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 152,
+          "entry_count": 2,
+          "source_stored_size": 4464,
+          "source_encoded_size": 4229,
+          "output_encoded_size": 4227,
+          "output_encoded_sha256": "0dd9a399641ba91dee6df52aa0733e66267745bcd23437ac4bb2ec7b996605db",
+          "output_padding_size": 237,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 153,
+          "entry_count": 28,
+          "source_stored_size": 4368,
+          "source_encoded_size": 4174,
+          "output_encoded_size": 4177,
+          "output_encoded_sha256": "c503176cde627a35554b2c098a153784e022d1a2b506087bf7a83f1b48db4616",
+          "output_padding_size": 191,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 185,
+          "entry_count": 7,
+          "source_stored_size": 16816,
+          "source_encoded_size": 14747,
+          "output_encoded_size": 14731,
+          "output_encoded_sha256": "f0bceb063dd17bb8b1d1f1d59705961a6285fb245851761235bca0c4077d6caf",
+          "output_padding_size": 2085,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 186,
+          "entry_count": 8,
+          "source_stored_size": 19296,
+          "source_encoded_size": 16824,
+          "output_encoded_size": 16810,
+          "output_encoded_sha256": "2c5d83bbea9e2f8ef7afc43237b7557bfda4fc6e98167570a3d47397b807a416",
+          "output_padding_size": 2486,
           "codec_round_trip_exact": true
         },
         {
@@ -6198,6 +7497,7 @@
       ],
       "source_preimages_exact": true,
       "fixed_allocations_preserved": true,
+      "record_metadata_preserved_byte_exact": true,
       "slot_padding_zero": true,
       "reread_exact": true,
       "codec_strategy": "rust-fit",
@@ -16470,7 +17770,7 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "3eec94ff73140bf1fd8608a5408e838e7fe473bae2909fb371683e600dcc5d13"
+      "sha256": "971d0fb2f5c7c39cd66422ea421d1d45a9f59757cd515a836ca76fa0d17b0835"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
