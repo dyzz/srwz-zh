@@ -90,7 +90,7 @@ class FullUnitNameCorpusTests(unittest.TestCase):
             252: "太阳Σ重力王",
             253: "超重骑警",
             265: "G钻机",
-            266: "G幻影机",
+            266: "G战影",
             271: "超重",
             272: "超重要塞",
         }

@@ -2,8 +2,13 @@ import struct
 import unittest
 from pathlib import Path
 
-from tools.srwz.stage import parse_stage, read_stage_function_addresses
+from tools.srwz.stage import (
+    parse_stage,
+    parse_stage_system_dialogues,
+    read_stage_function_addresses,
+)
 from tools.srwz.text import load_text_table
+from tools.srwz.writers import replace_stage_system_dialogues_in_place
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -76,6 +81,56 @@ class StageParserTests(unittest.TestCase):
             read_stage_function_addresses(bytes(executable), start=4, end=15),
             (10, 20, 30),
         )
+
+    def test_parses_chunk_zero_system_dialogue_signature(self):
+        data = bytearray(0x280)
+        struct.pack_into("<I", data, 0x100, 0x200)
+        struct.pack_into("<I", data, 0x110, 0x3A)
+        data[0x200:0x20C] = b"Alice\nHello\x00"
+
+        entries = parse_stage_system_dialogues(
+            bytes(data),
+            self.table,
+            base_address=0,
+        )
+
+        self.assertEqual(len(entries), 1)
+        self.assertEqual(
+            entries[0].to_mapping(),
+            {
+                "id": "story/000/system-dialogue/000100",
+                "ordinal": 0,
+                "pointer_offset": 0x100,
+                "text_offset": 0x200,
+                "speaker": "Alice",
+                "text": "Hello",
+            },
+        )
+
+    def test_replaces_chunk_zero_system_dialogue_in_source_slot(self):
+        data = bytearray(0x280)
+        struct.pack_into("<I", data, 0x100, 0x200)
+        struct.pack_into("<I", data, 0x110, 0x3A)
+        data[0x200:0x220] = b"Alice\nHello\x00" + bytes(20)
+
+        write = replace_stage_system_dialogues_in_place(
+            bytes(data),
+            self.table,
+            replacements={
+                "story/000/system-dialogue/000100": ("Bob", "Bye"),
+            },
+            base_address=0,
+        )
+
+        self.assertEqual(len(write.data), len(data))
+        self.assertEqual(struct.unpack_from("<I", write.data, 0x100)[0], 0x200)
+        self.assertEqual(write.mode, "fixed_source_allocations")
+        reread = parse_stage_system_dialogues(
+            write.data,
+            self.table,
+            base_address=0,
+        )
+        self.assertEqual((reread[0].speaker, reread[0].text), ("Bob", "Bye"))
 
 
 if __name__ == "__main__":

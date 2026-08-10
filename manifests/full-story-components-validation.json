@@ -6,8 +6,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 27103,
-      "sha256": "78a5eeddf9181d1330fff87f336a7eda173d45683c85d8ae01864df31e0d69d0"
+      "size": 28743,
+      "sha256": "7d368a3fce7ddda45e5ddf3509dbc62590971f8c94e22dcb616368063f1c57c9"
     },
     "base_ui_manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -21,8 +21,8 @@
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 17852765,
-      "sha256": "52e1364fc3ed65a5e57f4b877c894c000cb979569b4b19bfa308d0baf3f66bb8"
+      "size": 17852916,
+      "sha256": "db30896dd2251e5456d2d26c6da0761a3d3c9cf300604eca5a02067eb730e143"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -36,13 +36,13 @@
     },
     "remaining_display_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 88943,
-      "sha256": "172a501e23ebd854d17958f33e6077f8b1f5751e78a3d5e81a191ae3fb26fb20"
+      "size": 90552,
+      "sha256": "110fa6d5a58ce75c7fc1c6714171a007bb3d4354c1fc3619b0da9dd8e71c1d5a"
     },
     "full_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
-      "size": 15690,
-      "sha256": "3371113cea4c23914cbe9e4ae15dc9c758d757401ca3dde9284b553ff89254aa"
+      "size": 15687,
+      "sha256": "c1819c0bf3ea5a12c870415efedbf3663246514cf3f290ad4e04aa4956c987e8"
     },
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
@@ -64,6 +64,11 @@
       "size": 89386,
       "sha256": "b4f35f7f91d430ad24f449b0dd7c26e39a9d9a655f39c34230b0500e4f0c3353"
     },
+    "stage_system_dialogue": {
+      "path": "corpus/zh/story-system-dialogue.json",
+      "size": 137637,
+      "sha256": "6b8bac56d10ddae0bc4d33ed1084f3abf5ff2a149b39a6058e092446d767ccfc"
+    },
     "hsfc_overviews": {
       "path": "corpus/zh/menu/hsfc-overviews.json",
       "size": 22143,
@@ -81,8 +86,8 @@
     },
     "remaining_ui_translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 88943,
-      "sha256": "172a501e23ebd854d17958f33e6077f8b1f5751e78a3d5e81a191ae3fb26fb20"
+      "size": 90552,
+      "sha256": "110fa6d5a58ce75c7fc1c6714171a007bb3d4354c1fc3619b0da9dd8e71c1d5a"
     },
     "remaining_ui_parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
@@ -100,7 +105,7 @@
       "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34"
     },
     "original_nisvdata": {
-      "path": "work/build/zh-release-full-story/iso/original/DATA/NisVData.bin",
+      "path": "work/disc/DATA/NISVDATA.BIN",
       "size": 555056,
       "sha256": "63afc46aeb19b41cf7332c7c298ab8bb1c7089f306d4eb4e77bce72e8dbece9c"
     },
@@ -147,7 +152,7 @@
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "c878700fff8588cfffc483d20fdba930ccc9cfc7b6a72710a1c8e2a27ea40e99"
+      "sha256": "9e0ba38fae034fb9f8bdbcce78ed6886f17ac51999b05f6390f9995b3d569eb2"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -178,6 +183,11 @@
       "path": "work/disc/MAP/MAPMODEL.BIN",
       "size": 55136688,
       "sha256": "e33a7c33346de4be04fce50401dd62d294eb521e588188821c1b5a99267700e2"
+    },
+    "terrain_name_corpus": {
+      "path": "corpus/zh/menu/mapmodel-terrain-names.json",
+      "size": 1767,
+      "sha256": "c3de129825bf0961649a5e025896290f0b990262f300816a7e3de7b5241641d8"
     }
   },
   "compression": {
@@ -415,7 +425,7 @@
     "write_entry_count": 1153,
     "no_op_entry_count": 1299,
     "minimum_output_headroom": 4,
-    "changed_byte_count": 12958,
+    "changed_byte_count": 12962,
     "changed_entry_ids_sha256": "0e64fad9cb381c5cc3ba70a4b81a07e561f4b16b2eb7ccb7d0d39bd90fc4283e",
     "unit_names": {
       "corpus_batch_id": "v1-display-names-units-full",
@@ -454,7 +464,7 @@
       "reread_exact": true
     },
     "source_compressed_size": 145283,
-    "output_compressed_size": 144859,
+    "output_compressed_size": 144858,
     "compressed_sector_budget": 145408,
     "codec": {
       "strategy": "rust-fit",
@@ -470,13 +480,13 @@
       "assignment_count": 701,
       "menu_applicable_assignment_count": 701,
       "eligible_entry_count": 1905,
-      "rewritten_entry_count": 1856,
+      "rewritten_entry_count": 1857,
       "entry_table_counts": {
         "pilot": 1622,
         "unit": 283
       },
-      "character_occurrence_count": 3288,
-      "rewritten_entry_ids_sha256": "352321ac9e18c60c5420913503cff28fa5f1d72067773c4bd6c9e2bcd3d3dfee",
+      "character_occurrence_count": 3289,
+      "rewritten_entry_ids_sha256": "8981259865dcd83e28320dc3c2cd9f9190b8f1e356e220d699d4e35bc363ea74",
       "payload_size_changed_entry_count": 0,
       "fixed_field_capacities_preserved": true,
       "primary_codes_preserved": true,
@@ -494,8 +504,8 @@
     "pointer_bytes_unchanged": true,
     "printable_ascii_passthrough": true,
     "available_surface_safe_aliases_used": true,
-    "compdata_source_size": 144859,
-    "compdata_output_size": 144847,
+    "compdata_source_size": 144858,
+    "compdata_output_size": 144846,
     "compdata_round_trip_exact": true,
     "slps_size_preserved": true,
     "graphics": {
@@ -3856,11 +3866,11 @@
       "reread_exact": true
     },
     "slps_context_ui": {
-      "entry_count": 379,
-      "write_entry_count": 333,
+      "entry_count": 407,
+      "write_entry_count": 361,
       "no_op_entry_count": 46,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 4110,
+      "changed_byte_count": 5481,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -3880,8 +3890,8 @@
     "parts": {
       "source_size": 524032,
       "output_size": 524032,
-      "source_sha256": "200d169a19f3b9d8049fa47dff42f68a4543773f2c236887457631ba53aef805",
-      "output_sha256": "6e23b420db435efd6f00ed9dabd5a8112fbee0abe085bcb46444f455be1fd0b2",
+      "source_sha256": "c876f936cdb1416b6a13e7510f9a436877f3c901ebc1e4af5dcea59c3822558b",
+      "output_sha256": "dca399a8837a97b5d71599c0f3a68993d237576a81fd19196925bb851bcdc8fd",
       "entry_count": 132,
       "target_count": 132,
       "payload_size": 3079,
@@ -4947,7 +4957,7 @@
       "patch_plan": {
         "source_name": "remaining UI strengthening parts",
         "source_size": 524032,
-        "source_sha256": "200d169a19f3b9d8049fa47dff42f68a4543773f2c236887457631ba53aef805",
+        "source_sha256": "c876f936cdb1416b6a13e7510f9a436877f3c901ebc1e4af5dcea59c3822558b",
         "operation_count": 132,
         "operations": [
           {
@@ -6052,8 +6062,8 @@
       "protected_single_character_count": 2,
       "single_character_regions_untouched": true
     },
-    "compdata_source_size": 144847,
-    "compdata_output_size": 143307,
+    "compdata_source_size": 144846,
+    "compdata_output_size": 143306,
     "compdata_sector_budget": 145408,
     "compdata_round_trip_exact": true,
     "slps_size_preserved": true,
@@ -6071,11 +6081,4553 @@
       "source_text": "別働隊",
       "translation": "别动队",
       "source_stored_size": 31808,
-      "source_encoded_size": 29070,
-      "output_encoded_size": 29048,
-      "output_encoded_sha256": "5788854915deb63b7efe220c0203a89e7e96289865381c1f150565af5761155b",
-      "output_padding_size": 2760,
+      "source_encoded_size": 29132,
+      "output_encoded_size": 29108,
+      "output_encoded_sha256": "03d5b896984dba606010bbb9cbb5d352b96ae29c42ae259bf31334245604cc57",
+      "output_padding_size": 2700,
       "codec_strategy": "rust-fit",
+      "codec_round_trip_exact": true,
+      "archive_size_preserved": true,
+      "hb_offsets_preserved": true,
+      "non_target_chunks_preserved_byte_exact": true
+    },
+    "stage_system_dialogue": {
+      "stage_index": 0,
+      "source_size": 152336,
+      "output_size": 152336,
+      "decoded_growth": 0,
+      "alignment": 1,
+      "mode": "fixed_source_allocations",
+      "owned_regions": [
+        {
+          "start": 128960,
+          "end": 129008,
+          "size": 48
+        },
+        {
+          "start": 129008,
+          "end": 129120,
+          "size": 112
+        },
+        {
+          "start": 129120,
+          "end": 129184,
+          "size": 64
+        },
+        {
+          "start": 129184,
+          "end": 129296,
+          "size": 112
+        },
+        {
+          "start": 129296,
+          "end": 129392,
+          "size": 96
+        },
+        {
+          "start": 129392,
+          "end": 129440,
+          "size": 48
+        },
+        {
+          "start": 129440,
+          "end": 129504,
+          "size": 64
+        },
+        {
+          "start": 129504,
+          "end": 129600,
+          "size": 96
+        },
+        {
+          "start": 129600,
+          "end": 129664,
+          "size": 64
+        },
+        {
+          "start": 129664,
+          "end": 129760,
+          "size": 96
+        },
+        {
+          "start": 129760,
+          "end": 129856,
+          "size": 96
+        },
+        {
+          "start": 129856,
+          "end": 129968,
+          "size": 112
+        },
+        {
+          "start": 129968,
+          "end": 130064,
+          "size": 96
+        },
+        {
+          "start": 130064,
+          "end": 130144,
+          "size": 80
+        },
+        {
+          "start": 130144,
+          "end": 130224,
+          "size": 80
+        },
+        {
+          "start": 130224,
+          "end": 130304,
+          "size": 80
+        },
+        {
+          "start": 130304,
+          "end": 130352,
+          "size": 48
+        },
+        {
+          "start": 130352,
+          "end": 130448,
+          "size": 96
+        },
+        {
+          "start": 130448,
+          "end": 130480,
+          "size": 32
+        },
+        {
+          "start": 130480,
+          "end": 130560,
+          "size": 80
+        },
+        {
+          "start": 130560,
+          "end": 130608,
+          "size": 48
+        },
+        {
+          "start": 130608,
+          "end": 130704,
+          "size": 96
+        },
+        {
+          "start": 130704,
+          "end": 130752,
+          "size": 48
+        },
+        {
+          "start": 130752,
+          "end": 130864,
+          "size": 112
+        },
+        {
+          "start": 130864,
+          "end": 130976,
+          "size": 112
+        },
+        {
+          "start": 130976,
+          "end": 131040,
+          "size": 64
+        },
+        {
+          "start": 131040,
+          "end": 131072,
+          "size": 32
+        },
+        {
+          "start": 131072,
+          "end": 131088,
+          "size": 16
+        },
+        {
+          "start": 131088,
+          "end": 131136,
+          "size": 48
+        },
+        {
+          "start": 131136,
+          "end": 131216,
+          "size": 80
+        },
+        {
+          "start": 131216,
+          "end": 131328,
+          "size": 112
+        },
+        {
+          "start": 131328,
+          "end": 131440,
+          "size": 112
+        },
+        {
+          "start": 131440,
+          "end": 131504,
+          "size": 64
+        },
+        {
+          "start": 131504,
+          "end": 131536,
+          "size": 32
+        },
+        {
+          "start": 131536,
+          "end": 131600,
+          "size": 64
+        },
+        {
+          "start": 131600,
+          "end": 131664,
+          "size": 64
+        },
+        {
+          "start": 131664,
+          "end": 131712,
+          "size": 48
+        },
+        {
+          "start": 131712,
+          "end": 131808,
+          "size": 96
+        },
+        {
+          "start": 131808,
+          "end": 131856,
+          "size": 48
+        },
+        {
+          "start": 131856,
+          "end": 131888,
+          "size": 32
+        },
+        {
+          "start": 131888,
+          "end": 131984,
+          "size": 96
+        },
+        {
+          "start": 131984,
+          "end": 132080,
+          "size": 96
+        },
+        {
+          "start": 132080,
+          "end": 132128,
+          "size": 48
+        },
+        {
+          "start": 132128,
+          "end": 132256,
+          "size": 128
+        },
+        {
+          "start": 132256,
+          "end": 132336,
+          "size": 80
+        },
+        {
+          "start": 132336,
+          "end": 132464,
+          "size": 128
+        },
+        {
+          "start": 132464,
+          "end": 132576,
+          "size": 112
+        },
+        {
+          "start": 132576,
+          "end": 132688,
+          "size": 112
+        },
+        {
+          "start": 132688,
+          "end": 132784,
+          "size": 96
+        },
+        {
+          "start": 132784,
+          "end": 132864,
+          "size": 80
+        },
+        {
+          "start": 132864,
+          "end": 132960,
+          "size": 96
+        },
+        {
+          "start": 132960,
+          "end": 133072,
+          "size": 112
+        },
+        {
+          "start": 133072,
+          "end": 133152,
+          "size": 80
+        },
+        {
+          "start": 133152,
+          "end": 133216,
+          "size": 64
+        },
+        {
+          "start": 133216,
+          "end": 133296,
+          "size": 80
+        },
+        {
+          "start": 133296,
+          "end": 133344,
+          "size": 48
+        },
+        {
+          "start": 133344,
+          "end": 133392,
+          "size": 48
+        },
+        {
+          "start": 133392,
+          "end": 133472,
+          "size": 80
+        },
+        {
+          "start": 133472,
+          "end": 133568,
+          "size": 96
+        },
+        {
+          "start": 133568,
+          "end": 133664,
+          "size": 96
+        },
+        {
+          "start": 133664,
+          "end": 133792,
+          "size": 128
+        },
+        {
+          "start": 133792,
+          "end": 133904,
+          "size": 112
+        },
+        {
+          "start": 133904,
+          "end": 134016,
+          "size": 112
+        },
+        {
+          "start": 134016,
+          "end": 134112,
+          "size": 96
+        },
+        {
+          "start": 134112,
+          "end": 134144,
+          "size": 32
+        },
+        {
+          "start": 134144,
+          "end": 134256,
+          "size": 112
+        },
+        {
+          "start": 134256,
+          "end": 134320,
+          "size": 64
+        },
+        {
+          "start": 134320,
+          "end": 134384,
+          "size": 64
+        },
+        {
+          "start": 134384,
+          "end": 134432,
+          "size": 48
+        },
+        {
+          "start": 134432,
+          "end": 134464,
+          "size": 32
+        },
+        {
+          "start": 134464,
+          "end": 134544,
+          "size": 80
+        },
+        {
+          "start": 134544,
+          "end": 134640,
+          "size": 96
+        },
+        {
+          "start": 134640,
+          "end": 134736,
+          "size": 96
+        },
+        {
+          "start": 134736,
+          "end": 134864,
+          "size": 128
+        },
+        {
+          "start": 134864,
+          "end": 134928,
+          "size": 64
+        },
+        {
+          "start": 134928,
+          "end": 135024,
+          "size": 96
+        },
+        {
+          "start": 135024,
+          "end": 135120,
+          "size": 96
+        },
+        {
+          "start": 135120,
+          "end": 135184,
+          "size": 64
+        },
+        {
+          "start": 135184,
+          "end": 135232,
+          "size": 48
+        },
+        {
+          "start": 135232,
+          "end": 135344,
+          "size": 112
+        },
+        {
+          "start": 135344,
+          "end": 135392,
+          "size": 48
+        },
+        {
+          "start": 135392,
+          "end": 135488,
+          "size": 96
+        },
+        {
+          "start": 135488,
+          "end": 135584,
+          "size": 96
+        },
+        {
+          "start": 135584,
+          "end": 135680,
+          "size": 96
+        },
+        {
+          "start": 135680,
+          "end": 135744,
+          "size": 64
+        },
+        {
+          "start": 135744,
+          "end": 135888,
+          "size": 144
+        },
+        {
+          "start": 135888,
+          "end": 135936,
+          "size": 48
+        },
+        {
+          "start": 135936,
+          "end": 136064,
+          "size": 128
+        },
+        {
+          "start": 136064,
+          "end": 136160,
+          "size": 96
+        },
+        {
+          "start": 136160,
+          "end": 136240,
+          "size": 80
+        },
+        {
+          "start": 136240,
+          "end": 136336,
+          "size": 96
+        },
+        {
+          "start": 136336,
+          "end": 136416,
+          "size": 80
+        },
+        {
+          "start": 136416,
+          "end": 136512,
+          "size": 96
+        },
+        {
+          "start": 136512,
+          "end": 136592,
+          "size": 80
+        },
+        {
+          "start": 136592,
+          "end": 136672,
+          "size": 80
+        },
+        {
+          "start": 136672,
+          "end": 136752,
+          "size": 80
+        },
+        {
+          "start": 136752,
+          "end": 136848,
+          "size": 96
+        },
+        {
+          "start": 136848,
+          "end": 136960,
+          "size": 112
+        },
+        {
+          "start": 136960,
+          "end": 137008,
+          "size": 48
+        },
+        {
+          "start": 137008,
+          "end": 137040,
+          "size": 32
+        },
+        {
+          "start": 137040,
+          "end": 137120,
+          "size": 80
+        },
+        {
+          "start": 137120,
+          "end": 137168,
+          "size": 48
+        },
+        {
+          "start": 137168,
+          "end": 137232,
+          "size": 64
+        },
+        {
+          "start": 137232,
+          "end": 137328,
+          "size": 96
+        },
+        {
+          "start": 137328,
+          "end": 137440,
+          "size": 112
+        },
+        {
+          "start": 137440,
+          "end": 137536,
+          "size": 96
+        },
+        {
+          "start": 137536,
+          "end": 137616,
+          "size": 80
+        },
+        {
+          "start": 137616,
+          "end": 137744,
+          "size": 128
+        },
+        {
+          "start": 137744,
+          "end": 137840,
+          "size": 96
+        },
+        {
+          "start": 137840,
+          "end": 137888,
+          "size": 48
+        },
+        {
+          "start": 137888,
+          "end": 137952,
+          "size": 64
+        },
+        {
+          "start": 137952,
+          "end": 138064,
+          "size": 112
+        },
+        {
+          "start": 138064,
+          "end": 138144,
+          "size": 80
+        },
+        {
+          "start": 138144,
+          "end": 138208,
+          "size": 64
+        },
+        {
+          "start": 138208,
+          "end": 138304,
+          "size": 96
+        },
+        {
+          "start": 138304,
+          "end": 138368,
+          "size": 64
+        },
+        {
+          "start": 138368,
+          "end": 138448,
+          "size": 80
+        },
+        {
+          "start": 138448,
+          "end": 138560,
+          "size": 112
+        },
+        {
+          "start": 138560,
+          "end": 138592,
+          "size": 32
+        },
+        {
+          "start": 138592,
+          "end": 138688,
+          "size": 96
+        },
+        {
+          "start": 138688,
+          "end": 138800,
+          "size": 112
+        },
+        {
+          "start": 138800,
+          "end": 138864,
+          "size": 64
+        },
+        {
+          "start": 138864,
+          "end": 138928,
+          "size": 64
+        },
+        {
+          "start": 138928,
+          "end": 138992,
+          "size": 64
+        },
+        {
+          "start": 138992,
+          "end": 139072,
+          "size": 80
+        },
+        {
+          "start": 139072,
+          "end": 139136,
+          "size": 64
+        },
+        {
+          "start": 139136,
+          "end": 139216,
+          "size": 80
+        },
+        {
+          "start": 139216,
+          "end": 139280,
+          "size": 64
+        },
+        {
+          "start": 139280,
+          "end": 139392,
+          "size": 112
+        },
+        {
+          "start": 139392,
+          "end": 139472,
+          "size": 80
+        },
+        {
+          "start": 139472,
+          "end": 139536,
+          "size": 64
+        },
+        {
+          "start": 139536,
+          "end": 139584,
+          "size": 48
+        },
+        {
+          "start": 139584,
+          "end": 139664,
+          "size": 80
+        },
+        {
+          "start": 139664,
+          "end": 139712,
+          "size": 48
+        },
+        {
+          "start": 139712,
+          "end": 139840,
+          "size": 128
+        },
+        {
+          "start": 139840,
+          "end": 139952,
+          "size": 112
+        },
+        {
+          "start": 139952,
+          "end": 140080,
+          "size": 128
+        },
+        {
+          "start": 140080,
+          "end": 140144,
+          "size": 64
+        },
+        {
+          "start": 140144,
+          "end": 140192,
+          "size": 48
+        },
+        {
+          "start": 140192,
+          "end": 140304,
+          "size": 112
+        },
+        {
+          "start": 140304,
+          "end": 140400,
+          "size": 96
+        },
+        {
+          "start": 140400,
+          "end": 140496,
+          "size": 96
+        },
+        {
+          "start": 140496,
+          "end": 140560,
+          "size": 64
+        },
+        {
+          "start": 140560,
+          "end": 140656,
+          "size": 96
+        },
+        {
+          "start": 140656,
+          "end": 140704,
+          "size": 48
+        },
+        {
+          "start": 140704,
+          "end": 140784,
+          "size": 80
+        },
+        {
+          "start": 140784,
+          "end": 140880,
+          "size": 96
+        },
+        {
+          "start": 140880,
+          "end": 140912,
+          "size": 32
+        },
+        {
+          "start": 140912,
+          "end": 141024,
+          "size": 112
+        },
+        {
+          "start": 141024,
+          "end": 141056,
+          "size": 32
+        },
+        {
+          "start": 141056,
+          "end": 141120,
+          "size": 64
+        },
+        {
+          "start": 141120,
+          "end": 141200,
+          "size": 80
+        },
+        {
+          "start": 141200,
+          "end": 141264,
+          "size": 64
+        },
+        {
+          "start": 141264,
+          "end": 141344,
+          "size": 80
+        },
+        {
+          "start": 141344,
+          "end": 141392,
+          "size": 48
+        },
+        {
+          "start": 141392,
+          "end": 141488,
+          "size": 96
+        },
+        {
+          "start": 141488,
+          "end": 141568,
+          "size": 80
+        },
+        {
+          "start": 141568,
+          "end": 141664,
+          "size": 96
+        },
+        {
+          "start": 141664,
+          "end": 141776,
+          "size": 112
+        },
+        {
+          "start": 141776,
+          "end": 141856,
+          "size": 80
+        },
+        {
+          "start": 141856,
+          "end": 141936,
+          "size": 80
+        },
+        {
+          "start": 141936,
+          "end": 141960,
+          "size": 24
+        },
+        {
+          "start": 141960,
+          "end": 141984,
+          "size": 24
+        },
+        {
+          "start": 141984,
+          "end": 142080,
+          "size": 96
+        },
+        {
+          "start": 142080,
+          "end": 142192,
+          "size": 112
+        },
+        {
+          "start": 142192,
+          "end": 142256,
+          "size": 64
+        },
+        {
+          "start": 142256,
+          "end": 142304,
+          "size": 48
+        },
+        {
+          "start": 142304,
+          "end": 142384,
+          "size": 80
+        },
+        {
+          "start": 142384,
+          "end": 142432,
+          "size": 48
+        },
+        {
+          "start": 142432,
+          "end": 142512,
+          "size": 80
+        },
+        {
+          "start": 142512,
+          "end": 142624,
+          "size": 112
+        },
+        {
+          "start": 142624,
+          "end": 142720,
+          "size": 96
+        },
+        {
+          "start": 142720,
+          "end": 142768,
+          "size": 48
+        },
+        {
+          "start": 142768,
+          "end": 142848,
+          "size": 80
+        },
+        {
+          "start": 142848,
+          "end": 142960,
+          "size": 112
+        },
+        {
+          "start": 142960,
+          "end": 143040,
+          "size": 80
+        },
+        {
+          "start": 143040,
+          "end": 143120,
+          "size": 80
+        },
+        {
+          "start": 143120,
+          "end": 143184,
+          "size": 64
+        },
+        {
+          "start": 143184,
+          "end": 143296,
+          "size": 112
+        },
+        {
+          "start": 143296,
+          "end": 143376,
+          "size": 80
+        },
+        {
+          "start": 143376,
+          "end": 143440,
+          "size": 64
+        },
+        {
+          "start": 143440,
+          "end": 143568,
+          "size": 128
+        },
+        {
+          "start": 143568,
+          "end": 143648,
+          "size": 80
+        },
+        {
+          "start": 143648,
+          "end": 143712,
+          "size": 64
+        },
+        {
+          "start": 143712,
+          "end": 143776,
+          "size": 64
+        },
+        {
+          "start": 143776,
+          "end": 143856,
+          "size": 80
+        },
+        {
+          "start": 143856,
+          "end": 143952,
+          "size": 96
+        },
+        {
+          "start": 143952,
+          "end": 144016,
+          "size": 64
+        },
+        {
+          "start": 144016,
+          "end": 144112,
+          "size": 96
+        },
+        {
+          "start": 144112,
+          "end": 144224,
+          "size": 112
+        },
+        {
+          "start": 144224,
+          "end": 144288,
+          "size": 64
+        },
+        {
+          "start": 144288,
+          "end": 144352,
+          "size": 64
+        },
+        {
+          "start": 144352,
+          "end": 144400,
+          "size": 48
+        },
+        {
+          "start": 144400,
+          "end": 144496,
+          "size": 96
+        },
+        {
+          "start": 144496,
+          "end": 144608,
+          "size": 112
+        },
+        {
+          "start": 144608,
+          "end": 144656,
+          "size": 48
+        },
+        {
+          "start": 144656,
+          "end": 144720,
+          "size": 64
+        },
+        {
+          "start": 144720,
+          "end": 144784,
+          "size": 64
+        },
+        {
+          "start": 144784,
+          "end": 144848,
+          "size": 64
+        },
+        {
+          "start": 144848,
+          "end": 144896,
+          "size": 48
+        },
+        {
+          "start": 144896,
+          "end": 144944,
+          "size": 48
+        },
+        {
+          "start": 144944,
+          "end": 145056,
+          "size": 112
+        },
+        {
+          "start": 145056,
+          "end": 145152,
+          "size": 96
+        },
+        {
+          "start": 145152,
+          "end": 145248,
+          "size": 96
+        },
+        {
+          "start": 145248,
+          "end": 145360,
+          "size": 112
+        },
+        {
+          "start": 145360,
+          "end": 145440,
+          "size": 80
+        },
+        {
+          "start": 145440,
+          "end": 145504,
+          "size": 64
+        },
+        {
+          "start": 145504,
+          "end": 145600,
+          "size": 96
+        },
+        {
+          "start": 145600,
+          "end": 145712,
+          "size": 112
+        },
+        {
+          "start": 145712,
+          "end": 145744,
+          "size": 32
+        },
+        {
+          "start": 145744,
+          "end": 145840,
+          "size": 96
+        },
+        {
+          "start": 145840,
+          "end": 145872,
+          "size": 32
+        },
+        {
+          "start": 145872,
+          "end": 145904,
+          "size": 32
+        },
+        {
+          "start": 145904,
+          "end": 146000,
+          "size": 96
+        },
+        {
+          "start": 146000,
+          "end": 146128,
+          "size": 128
+        },
+        {
+          "start": 146128,
+          "end": 146160,
+          "size": 32
+        },
+        {
+          "start": 146160,
+          "end": 146240,
+          "size": 80
+        },
+        {
+          "start": 146240,
+          "end": 146320,
+          "size": 80
+        },
+        {
+          "start": 146320,
+          "end": 146400,
+          "size": 80
+        },
+        {
+          "start": 146400,
+          "end": 146448,
+          "size": 48
+        },
+        {
+          "start": 146448,
+          "end": 146480,
+          "size": 32
+        },
+        {
+          "start": 146480,
+          "end": 146512,
+          "size": 32
+        },
+        {
+          "start": 146512,
+          "end": 146608,
+          "size": 96
+        },
+        {
+          "start": 146608,
+          "end": 146720,
+          "size": 112
+        },
+        {
+          "start": 146720,
+          "end": 146768,
+          "size": 48
+        },
+        {
+          "start": 146768,
+          "end": 146800,
+          "size": 32
+        },
+        {
+          "start": 146800,
+          "end": 146928,
+          "size": 128
+        },
+        {
+          "start": 146928,
+          "end": 146992,
+          "size": 64
+        },
+        {
+          "start": 146992,
+          "end": 147056,
+          "size": 64
+        },
+        {
+          "start": 147056,
+          "end": 147152,
+          "size": 96
+        },
+        {
+          "start": 147152,
+          "end": 147216,
+          "size": 64
+        },
+        {
+          "start": 147216,
+          "end": 147232,
+          "size": 16
+        },
+        {
+          "start": 147232,
+          "end": 147296,
+          "size": 64
+        },
+        {
+          "start": 147296,
+          "end": 147360,
+          "size": 64
+        },
+        {
+          "start": 147360,
+          "end": 147424,
+          "size": 64
+        },
+        {
+          "start": 147424,
+          "end": 147504,
+          "size": 80
+        },
+        {
+          "start": 147504,
+          "end": 147616,
+          "size": 112
+        },
+        {
+          "start": 147616,
+          "end": 147664,
+          "size": 48
+        },
+        {
+          "start": 147664,
+          "end": 147744,
+          "size": 80
+        },
+        {
+          "start": 147744,
+          "end": 147792,
+          "size": 48
+        },
+        {
+          "start": 147792,
+          "end": 147856,
+          "size": 64
+        },
+        {
+          "start": 147856,
+          "end": 147920,
+          "size": 64
+        },
+        {
+          "start": 147920,
+          "end": 148000,
+          "size": 80
+        },
+        {
+          "start": 148000,
+          "end": 148064,
+          "size": 64
+        },
+        {
+          "start": 148064,
+          "end": 148096,
+          "size": 32
+        },
+        {
+          "start": 148096,
+          "end": 148192,
+          "size": 96
+        },
+        {
+          "start": 148192,
+          "end": 148256,
+          "size": 64
+        },
+        {
+          "start": 148256,
+          "end": 148288,
+          "size": 32
+        },
+        {
+          "start": 148288,
+          "end": 148352,
+          "size": 64
+        },
+        {
+          "start": 148352,
+          "end": 148464,
+          "size": 112
+        },
+        {
+          "start": 148464,
+          "end": 148560,
+          "size": 96
+        },
+        {
+          "start": 148560,
+          "end": 148608,
+          "size": 48
+        },
+        {
+          "start": 148608,
+          "end": 148720,
+          "size": 112
+        },
+        {
+          "start": 148720,
+          "end": 148816,
+          "size": 96
+        },
+        {
+          "start": 148816,
+          "end": 148896,
+          "size": 80
+        },
+        {
+          "start": 148896,
+          "end": 148992,
+          "size": 96
+        },
+        {
+          "start": 148992,
+          "end": 149088,
+          "size": 96
+        },
+        {
+          "start": 149088,
+          "end": 149200,
+          "size": 112
+        },
+        {
+          "start": 149200,
+          "end": 149296,
+          "size": 96
+        },
+        {
+          "start": 149296,
+          "end": 149344,
+          "size": 48
+        },
+        {
+          "start": 149344,
+          "end": 149440,
+          "size": 96
+        },
+        {
+          "start": 149440,
+          "end": 149552,
+          "size": 112
+        },
+        {
+          "start": 149552,
+          "end": 149632,
+          "size": 80
+        },
+        {
+          "start": 149632,
+          "end": 149712,
+          "size": 80
+        },
+        {
+          "start": 149712,
+          "end": 149808,
+          "size": 96
+        },
+        {
+          "start": 149808,
+          "end": 149904,
+          "size": 96
+        },
+        {
+          "start": 149904,
+          "end": 149984,
+          "size": 80
+        },
+        {
+          "start": 149984,
+          "end": 150080,
+          "size": 96
+        },
+        {
+          "start": 150080,
+          "end": 150192,
+          "size": 112
+        },
+        {
+          "start": 150192,
+          "end": 150256,
+          "size": 64
+        },
+        {
+          "start": 150256,
+          "end": 150336,
+          "size": 80
+        },
+        {
+          "start": 150336,
+          "end": 150448,
+          "size": 112
+        },
+        {
+          "start": 150448,
+          "end": 150528,
+          "size": 80
+        },
+        {
+          "start": 150528,
+          "end": 150640,
+          "size": 112
+        },
+        {
+          "start": 150640,
+          "end": 150768,
+          "size": 128
+        },
+        {
+          "start": 150768,
+          "end": 150848,
+          "size": 80
+        },
+        {
+          "start": 150848,
+          "end": 150928,
+          "size": 80
+        },
+        {
+          "start": 150928,
+          "end": 151008,
+          "size": 80
+        },
+        {
+          "start": 151008,
+          "end": 151056,
+          "size": 48
+        },
+        {
+          "start": 151056,
+          "end": 151088,
+          "size": 32
+        },
+        {
+          "start": 151088,
+          "end": 151152,
+          "size": 64
+        },
+        {
+          "start": 151152,
+          "end": 151184,
+          "size": 32
+        },
+        {
+          "start": 151184,
+          "end": 151232,
+          "size": 48
+        },
+        {
+          "start": 151232,
+          "end": 151280,
+          "size": 48
+        },
+        {
+          "start": 151280,
+          "end": 151360,
+          "size": 80
+        },
+        {
+          "start": 151360,
+          "end": 151440,
+          "size": 80
+        },
+        {
+          "start": 151440,
+          "end": 151536,
+          "size": 96
+        },
+        {
+          "start": 151536,
+          "end": 151616,
+          "size": 80
+        },
+        {
+          "start": 151616,
+          "end": 151744,
+          "size": 128
+        },
+        {
+          "start": 151744,
+          "end": 151856,
+          "size": 112
+        },
+        {
+          "start": 151856,
+          "end": 151888,
+          "size": 32
+        },
+        {
+          "start": 151888,
+          "end": 151968,
+          "size": 80
+        },
+        {
+          "start": 151968,
+          "end": 152032,
+          "size": 64
+        },
+        {
+          "start": 152032,
+          "end": 152112,
+          "size": 80
+        },
+        {
+          "start": 152112,
+          "end": 152208,
+          "size": 96
+        },
+        {
+          "start": 152208,
+          "end": 152240,
+          "size": 32
+        }
+      ],
+      "owned_capacity": 23280,
+      "unique_payload_count": 296,
+      "allocation_count": 379,
+      "allocations": [
+        {
+          "entry_id": "story/000/system-dialogue/011FE0",
+          "pointer_offset": 73696,
+          "source_text_offset": 128960,
+          "arena_offset": 128960,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012060",
+          "pointer_offset": 73824,
+          "source_text_offset": 129008,
+          "arena_offset": 129008,
+          "payload_size": 77
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0120E0",
+          "pointer_offset": 73952,
+          "source_text_offset": 129120,
+          "arena_offset": 129120,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012160",
+          "pointer_offset": 74080,
+          "source_text_offset": 129184,
+          "arena_offset": 129184,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0121E0",
+          "pointer_offset": 74208,
+          "source_text_offset": 129296,
+          "arena_offset": 129296,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012260",
+          "pointer_offset": 74336,
+          "source_text_offset": 129392,
+          "arena_offset": 129392,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0122E0",
+          "pointer_offset": 74464,
+          "source_text_offset": 129440,
+          "arena_offset": 129440,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012360",
+          "pointer_offset": 74592,
+          "source_text_offset": 129504,
+          "arena_offset": 129504,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0123E0",
+          "pointer_offset": 74720,
+          "source_text_offset": 129600,
+          "arena_offset": 129600,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0124C0",
+          "pointer_offset": 74944,
+          "source_text_offset": 129664,
+          "arena_offset": 129664,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012540",
+          "pointer_offset": 75072,
+          "source_text_offset": 129760,
+          "arena_offset": 129760,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0125C0",
+          "pointer_offset": 75200,
+          "source_text_offset": 129856,
+          "arena_offset": 129856,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012640",
+          "pointer_offset": 75328,
+          "source_text_offset": 129968,
+          "arena_offset": 129968,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0126C0",
+          "pointer_offset": 75456,
+          "source_text_offset": 130064,
+          "arena_offset": 130064,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012740",
+          "pointer_offset": 75584,
+          "source_text_offset": 130144,
+          "arena_offset": 130144,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0127C0",
+          "pointer_offset": 75712,
+          "source_text_offset": 130224,
+          "arena_offset": 130224,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012840",
+          "pointer_offset": 75840,
+          "source_text_offset": 130304,
+          "arena_offset": 130304,
+          "payload_size": 30
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012920",
+          "pointer_offset": 76064,
+          "source_text_offset": 130352,
+          "arena_offset": 130352,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0129A0",
+          "pointer_offset": 76192,
+          "source_text_offset": 130448,
+          "arena_offset": 130448,
+          "payload_size": 20
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012A20",
+          "pointer_offset": 76320,
+          "source_text_offset": 130480,
+          "arena_offset": 130480,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012AA0",
+          "pointer_offset": 76448,
+          "source_text_offset": 130560,
+          "arena_offset": 130560,
+          "payload_size": 32
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012B80",
+          "pointer_offset": 76672,
+          "source_text_offset": 130608,
+          "arena_offset": 130608,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012C00",
+          "pointer_offset": 76800,
+          "source_text_offset": 130704,
+          "arena_offset": 130704,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012C80",
+          "pointer_offset": 76928,
+          "source_text_offset": 130752,
+          "arena_offset": 130752,
+          "payload_size": 77
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012D00",
+          "pointer_offset": 77056,
+          "source_text_offset": 130864,
+          "arena_offset": 130864,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012D80",
+          "pointer_offset": 77184,
+          "source_text_offset": 130976,
+          "arena_offset": 130976,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012E60",
+          "pointer_offset": 77408,
+          "source_text_offset": 131040,
+          "arena_offset": 131040,
+          "payload_size": 26
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012EE0",
+          "pointer_offset": 77536,
+          "source_text_offset": 131072,
+          "arena_offset": 131072,
+          "payload_size": 14
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012F60",
+          "pointer_offset": 77664,
+          "source_text_offset": 131088,
+          "arena_offset": 131088,
+          "payload_size": 32
+        },
+        {
+          "entry_id": "story/000/system-dialogue/012FE0",
+          "pointer_offset": 77792,
+          "source_text_offset": 131136,
+          "arena_offset": 131136,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013060",
+          "pointer_offset": 77920,
+          "source_text_offset": 131216,
+          "arena_offset": 131216,
+          "payload_size": 87
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0130E0",
+          "pointer_offset": 78048,
+          "source_text_offset": 131328,
+          "arena_offset": 131328,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0131C0",
+          "pointer_offset": 78272,
+          "source_text_offset": 131440,
+          "arena_offset": 131440,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013240",
+          "pointer_offset": 78400,
+          "source_text_offset": 131504,
+          "arena_offset": 131504,
+          "payload_size": 18
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0132C0",
+          "pointer_offset": 78528,
+          "source_text_offset": 131536,
+          "arena_offset": 131536,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013340",
+          "pointer_offset": 78656,
+          "source_text_offset": 131600,
+          "arena_offset": 131600,
+          "payload_size": 40
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0133C0",
+          "pointer_offset": 78784,
+          "source_text_offset": 131664,
+          "arena_offset": 131664,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013440",
+          "pointer_offset": 78912,
+          "source_text_offset": 131712,
+          "arena_offset": 131712,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0134C0",
+          "pointer_offset": 79040,
+          "source_text_offset": 131808,
+          "arena_offset": 131808,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013540",
+          "pointer_offset": 79168,
+          "source_text_offset": 131856,
+          "arena_offset": 131856,
+          "payload_size": 24
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013620",
+          "pointer_offset": 79392,
+          "source_text_offset": 131888,
+          "arena_offset": 131888,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0136A0",
+          "pointer_offset": 79520,
+          "source_text_offset": 131984,
+          "arena_offset": 131984,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013720",
+          "pointer_offset": 79648,
+          "source_text_offset": 132080,
+          "arena_offset": 132080,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0137A0",
+          "pointer_offset": 79776,
+          "source_text_offset": 132128,
+          "arena_offset": 132128,
+          "payload_size": 93
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013840",
+          "pointer_offset": 79936,
+          "source_text_offset": 132256,
+          "arena_offset": 132256,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0138E0",
+          "pointer_offset": 80096,
+          "source_text_offset": 132336,
+          "arena_offset": 132336,
+          "payload_size": 79
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013960",
+          "pointer_offset": 80224,
+          "source_text_offset": 132464,
+          "arena_offset": 132464,
+          "payload_size": 89
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013A40",
+          "pointer_offset": 80448,
+          "source_text_offset": 131888,
+          "arena_offset": 131888,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013AC0",
+          "pointer_offset": 80576,
+          "source_text_offset": 131984,
+          "arena_offset": 131984,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013B40",
+          "pointer_offset": 80704,
+          "source_text_offset": 132080,
+          "arena_offset": 132080,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013BC0",
+          "pointer_offset": 80832,
+          "source_text_offset": 132128,
+          "arena_offset": 132128,
+          "payload_size": 93
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013C60",
+          "pointer_offset": 80992,
+          "source_text_offset": 132256,
+          "arena_offset": 132256,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013D00",
+          "pointer_offset": 81152,
+          "source_text_offset": 132336,
+          "arena_offset": 132336,
+          "payload_size": 79
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013D80",
+          "pointer_offset": 81280,
+          "source_text_offset": 132576,
+          "arena_offset": 132576,
+          "payload_size": 83
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013E60",
+          "pointer_offset": 81504,
+          "source_text_offset": 131888,
+          "arena_offset": 131888,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013EE0",
+          "pointer_offset": 81632,
+          "source_text_offset": 131984,
+          "arena_offset": 131984,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013F60",
+          "pointer_offset": 81760,
+          "source_text_offset": 132080,
+          "arena_offset": 132080,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/013FE0",
+          "pointer_offset": 81888,
+          "source_text_offset": 132128,
+          "arena_offset": 132128,
+          "payload_size": 93
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014080",
+          "pointer_offset": 82048,
+          "source_text_offset": 132256,
+          "arena_offset": 132256,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014120",
+          "pointer_offset": 82208,
+          "source_text_offset": 132336,
+          "arena_offset": 132336,
+          "payload_size": 79
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0141A0",
+          "pointer_offset": 82336,
+          "source_text_offset": 132688,
+          "arena_offset": 132688,
+          "payload_size": 73
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014280",
+          "pointer_offset": 82560,
+          "source_text_offset": 131888,
+          "arena_offset": 131888,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014300",
+          "pointer_offset": 82688,
+          "source_text_offset": 131984,
+          "arena_offset": 131984,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014380",
+          "pointer_offset": 82816,
+          "source_text_offset": 132080,
+          "arena_offset": 132080,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014400",
+          "pointer_offset": 82944,
+          "source_text_offset": 132128,
+          "arena_offset": 132128,
+          "payload_size": 93
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0144A0",
+          "pointer_offset": 83104,
+          "source_text_offset": 132256,
+          "arena_offset": 132256,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014540",
+          "pointer_offset": 83264,
+          "source_text_offset": 132336,
+          "arena_offset": 132336,
+          "payload_size": 79
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0145C0",
+          "pointer_offset": 83392,
+          "source_text_offset": 132784,
+          "arena_offset": 132784,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0146A0",
+          "pointer_offset": 83616,
+          "source_text_offset": 131888,
+          "arena_offset": 131888,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014720",
+          "pointer_offset": 83744,
+          "source_text_offset": 131984,
+          "arena_offset": 131984,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0147A0",
+          "pointer_offset": 83872,
+          "source_text_offset": 132080,
+          "arena_offset": 132080,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014820",
+          "pointer_offset": 84000,
+          "source_text_offset": 132128,
+          "arena_offset": 132128,
+          "payload_size": 93
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0148C0",
+          "pointer_offset": 84160,
+          "source_text_offset": 132256,
+          "arena_offset": 132256,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014960",
+          "pointer_offset": 84320,
+          "source_text_offset": 132336,
+          "arena_offset": 132336,
+          "payload_size": 79
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0149E0",
+          "pointer_offset": 84448,
+          "source_text_offset": 132864,
+          "arena_offset": 132864,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014AC0",
+          "pointer_offset": 84672,
+          "source_text_offset": 132960,
+          "arena_offset": 132960,
+          "payload_size": 85
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014B40",
+          "pointer_offset": 84800,
+          "source_text_offset": 133072,
+          "arena_offset": 133072,
+          "payload_size": 59
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014BC0",
+          "pointer_offset": 84928,
+          "source_text_offset": 133152,
+          "arena_offset": 133152,
+          "payload_size": 40
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014C40",
+          "pointer_offset": 85056,
+          "source_text_offset": 133216,
+          "arena_offset": 133216,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014D20",
+          "pointer_offset": 85280,
+          "source_text_offset": 133296,
+          "arena_offset": 133296,
+          "payload_size": 32
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014DA0",
+          "pointer_offset": 85408,
+          "source_text_offset": 133344,
+          "arena_offset": 133344,
+          "payload_size": 34
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014E20",
+          "pointer_offset": 85536,
+          "source_text_offset": 133392,
+          "arena_offset": 133392,
+          "payload_size": 40
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014EA0",
+          "pointer_offset": 85664,
+          "source_text_offset": 133472,
+          "arena_offset": 133472,
+          "payload_size": 85
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014F20",
+          "pointer_offset": 85792,
+          "source_text_offset": 133568,
+          "arena_offset": 133568,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/014FA0",
+          "pointer_offset": 85920,
+          "source_text_offset": 133664,
+          "arena_offset": 133664,
+          "payload_size": 77
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015020",
+          "pointer_offset": 86048,
+          "source_text_offset": 133792,
+          "arena_offset": 133792,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015100",
+          "pointer_offset": 86272,
+          "source_text_offset": 133904,
+          "arena_offset": 133904,
+          "payload_size": 93
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015180",
+          "pointer_offset": 86400,
+          "source_text_offset": 134016,
+          "arena_offset": 134016,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015200",
+          "pointer_offset": 86528,
+          "source_text_offset": 134112,
+          "arena_offset": 134112,
+          "payload_size": 22
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015280",
+          "pointer_offset": 86656,
+          "source_text_offset": 134144,
+          "arena_offset": 134144,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015300",
+          "pointer_offset": 86784,
+          "source_text_offset": 134256,
+          "arena_offset": 134256,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015380",
+          "pointer_offset": 86912,
+          "source_text_offset": 134320,
+          "arena_offset": 134320,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015400",
+          "pointer_offset": 87040,
+          "source_text_offset": 134384,
+          "arena_offset": 134384,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015480",
+          "pointer_offset": 87168,
+          "source_text_offset": 134432,
+          "arena_offset": 134432,
+          "payload_size": 18
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015560",
+          "pointer_offset": 87392,
+          "source_text_offset": 134464,
+          "arena_offset": 134464,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0155E0",
+          "pointer_offset": 87520,
+          "source_text_offset": 134544,
+          "arena_offset": 134544,
+          "payload_size": 79
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015660",
+          "pointer_offset": 87648,
+          "source_text_offset": 134640,
+          "arena_offset": 134640,
+          "payload_size": 77
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0156E0",
+          "pointer_offset": 87776,
+          "source_text_offset": 134736,
+          "arena_offset": 134736,
+          "payload_size": 93
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015760",
+          "pointer_offset": 87904,
+          "source_text_offset": 134864,
+          "arena_offset": 134864,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015840",
+          "pointer_offset": 88128,
+          "source_text_offset": 134928,
+          "arena_offset": 134928,
+          "payload_size": 77
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0158C0",
+          "pointer_offset": 88256,
+          "source_text_offset": 135024,
+          "arena_offset": 135024,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015940",
+          "pointer_offset": 88384,
+          "source_text_offset": 135120,
+          "arena_offset": 135120,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0159C0",
+          "pointer_offset": 88512,
+          "source_text_offset": 135184,
+          "arena_offset": 135184,
+          "payload_size": 40
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015A40",
+          "pointer_offset": 88640,
+          "source_text_offset": 135232,
+          "arena_offset": 135232,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015AC0",
+          "pointer_offset": 88768,
+          "source_text_offset": 135344,
+          "arena_offset": 135344,
+          "payload_size": 34
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015B40",
+          "pointer_offset": 88896,
+          "source_text_offset": 135392,
+          "arena_offset": 135392,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015BC0",
+          "pointer_offset": 89024,
+          "source_text_offset": 135488,
+          "arena_offset": 135488,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015CA0",
+          "pointer_offset": 89248,
+          "source_text_offset": 135584,
+          "arena_offset": 135584,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015D20",
+          "pointer_offset": 89376,
+          "source_text_offset": 135680,
+          "arena_offset": 135680,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015DA0",
+          "pointer_offset": 89504,
+          "source_text_offset": 135744,
+          "arena_offset": 135744,
+          "payload_size": 91
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015E20",
+          "pointer_offset": 89632,
+          "source_text_offset": 135888,
+          "arena_offset": 135888,
+          "payload_size": 34
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015EA0",
+          "pointer_offset": 89760,
+          "source_text_offset": 135936,
+          "arena_offset": 135936,
+          "payload_size": 83
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015F20",
+          "pointer_offset": 89888,
+          "source_text_offset": 136064,
+          "arena_offset": 136064,
+          "payload_size": 56
+        },
+        {
+          "entry_id": "story/000/system-dialogue/015FA0",
+          "pointer_offset": 90016,
+          "source_text_offset": 136160,
+          "arena_offset": 136160,
+          "payload_size": 59
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016020",
+          "pointer_offset": 90144,
+          "source_text_offset": 136240,
+          "arena_offset": 136240,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0160A0",
+          "pointer_offset": 90272,
+          "source_text_offset": 136336,
+          "arena_offset": 136336,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016180",
+          "pointer_offset": 90496,
+          "source_text_offset": 136416,
+          "arena_offset": 136416,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016200",
+          "pointer_offset": 90624,
+          "source_text_offset": 136512,
+          "arena_offset": 136512,
+          "payload_size": 56
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016280",
+          "pointer_offset": 90752,
+          "source_text_offset": 136592,
+          "arena_offset": 136592,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016300",
+          "pointer_offset": 90880,
+          "source_text_offset": 136672,
+          "arena_offset": 136672,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0163E0",
+          "pointer_offset": 91104,
+          "source_text_offset": 136752,
+          "arena_offset": 136752,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016460",
+          "pointer_offset": 91232,
+          "source_text_offset": 136848,
+          "arena_offset": 136848,
+          "payload_size": 69
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0164E0",
+          "pointer_offset": 91360,
+          "source_text_offset": 136960,
+          "arena_offset": 136960,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0165C0",
+          "pointer_offset": 91584,
+          "source_text_offset": 136752,
+          "arena_offset": 136752,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016640",
+          "pointer_offset": 91712,
+          "source_text_offset": 136848,
+          "arena_offset": 136848,
+          "payload_size": 69
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0166C0",
+          "pointer_offset": 91840,
+          "source_text_offset": 136960,
+          "arena_offset": 136960,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016740",
+          "pointer_offset": 91968,
+          "source_text_offset": 137008,
+          "arena_offset": 137008,
+          "payload_size": 20
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0167C0",
+          "pointer_offset": 92096,
+          "source_text_offset": 137040,
+          "arena_offset": 137040,
+          "payload_size": 73
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016840",
+          "pointer_offset": 92224,
+          "source_text_offset": 137120,
+          "arena_offset": 137120,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016920",
+          "pointer_offset": 92448,
+          "source_text_offset": 137168,
+          "arena_offset": 137168,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0169A0",
+          "pointer_offset": 92576,
+          "source_text_offset": 137232,
+          "arena_offset": 137232,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016A20",
+          "pointer_offset": 92704,
+          "source_text_offset": 137328,
+          "arena_offset": 137328,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016AA0",
+          "pointer_offset": 92832,
+          "source_text_offset": 137440,
+          "arena_offset": 137440,
+          "payload_size": 77
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016B20",
+          "pointer_offset": 92960,
+          "source_text_offset": 137536,
+          "arena_offset": 137536,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016BA0",
+          "pointer_offset": 93088,
+          "source_text_offset": 137616,
+          "arena_offset": 137616,
+          "payload_size": 77
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016C20",
+          "pointer_offset": 93216,
+          "source_text_offset": 137744,
+          "arena_offset": 137744,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016CA0",
+          "pointer_offset": 93344,
+          "source_text_offset": 137840,
+          "arena_offset": 137840,
+          "payload_size": 40
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016D80",
+          "pointer_offset": 93568,
+          "source_text_offset": 137888,
+          "arena_offset": 137888,
+          "payload_size": 32
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016E00",
+          "pointer_offset": 93696,
+          "source_text_offset": 137952,
+          "arena_offset": 137952,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016E80",
+          "pointer_offset": 93824,
+          "source_text_offset": 138064,
+          "arena_offset": 138064,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016F00",
+          "pointer_offset": 93952,
+          "source_text_offset": 138144,
+          "arena_offset": 138144,
+          "payload_size": 40
+        },
+        {
+          "entry_id": "story/000/system-dialogue/016F80",
+          "pointer_offset": 94080,
+          "source_text_offset": 138208,
+          "arena_offset": 138208,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017000",
+          "pointer_offset": 94208,
+          "source_text_offset": 138304,
+          "arena_offset": 138304,
+          "payload_size": 40
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0170E0",
+          "pointer_offset": 94432,
+          "source_text_offset": 138368,
+          "arena_offset": 138368,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017160",
+          "pointer_offset": 94560,
+          "source_text_offset": 138448,
+          "arena_offset": 138448,
+          "payload_size": 73
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0171E0",
+          "pointer_offset": 94688,
+          "source_text_offset": 138560,
+          "arena_offset": 138560,
+          "payload_size": 20
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017260",
+          "pointer_offset": 94816,
+          "source_text_offset": 138592,
+          "arena_offset": 138592,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0172E0",
+          "pointer_offset": 94944,
+          "source_text_offset": 138688,
+          "arena_offset": 138688,
+          "payload_size": 69
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017360",
+          "pointer_offset": 95072,
+          "source_text_offset": 138800,
+          "arena_offset": 138800,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0173E0",
+          "pointer_offset": 95200,
+          "source_text_offset": 138864,
+          "arena_offset": 138864,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017460",
+          "pointer_offset": 95328,
+          "source_text_offset": 138928,
+          "arena_offset": 138928,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0174E0",
+          "pointer_offset": 95456,
+          "source_text_offset": 138992,
+          "arena_offset": 138992,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0175C0",
+          "pointer_offset": 95680,
+          "source_text_offset": 138368,
+          "arena_offset": 138368,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017640",
+          "pointer_offset": 95808,
+          "source_text_offset": 138448,
+          "arena_offset": 138448,
+          "payload_size": 73
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0176C0",
+          "pointer_offset": 95936,
+          "source_text_offset": 138560,
+          "arena_offset": 138560,
+          "payload_size": 20
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017740",
+          "pointer_offset": 96064,
+          "source_text_offset": 138592,
+          "arena_offset": 138592,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0177C0",
+          "pointer_offset": 96192,
+          "source_text_offset": 138688,
+          "arena_offset": 138688,
+          "payload_size": 69
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017840",
+          "pointer_offset": 96320,
+          "source_text_offset": 138800,
+          "arena_offset": 138800,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0178C0",
+          "pointer_offset": 96448,
+          "source_text_offset": 138864,
+          "arena_offset": 138864,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017940",
+          "pointer_offset": 96576,
+          "source_text_offset": 138928,
+          "arena_offset": 138928,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0179C0",
+          "pointer_offset": 96704,
+          "source_text_offset": 138992,
+          "arena_offset": 138992,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017AA0",
+          "pointer_offset": 96928,
+          "source_text_offset": 139072,
+          "arena_offset": 139072,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017B20",
+          "pointer_offset": 97056,
+          "source_text_offset": 139136,
+          "arena_offset": 139136,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017BA0",
+          "pointer_offset": 97184,
+          "source_text_offset": 139216,
+          "arena_offset": 139216,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017C20",
+          "pointer_offset": 97312,
+          "source_text_offset": 139280,
+          "arena_offset": 139280,
+          "payload_size": 59
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017CA0",
+          "pointer_offset": 97440,
+          "source_text_offset": 139392,
+          "arena_offset": 139392,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017D20",
+          "pointer_offset": 97568,
+          "source_text_offset": 139472,
+          "arena_offset": 139472,
+          "payload_size": 32
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017DA0",
+          "pointer_offset": 97696,
+          "source_text_offset": 139536,
+          "arena_offset": 139536,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017E20",
+          "pointer_offset": 97824,
+          "source_text_offset": 139584,
+          "arena_offset": 139584,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017EA0",
+          "pointer_offset": 97952,
+          "source_text_offset": 139664,
+          "arena_offset": 139664,
+          "payload_size": 34
+        },
+        {
+          "entry_id": "story/000/system-dialogue/017F80",
+          "pointer_offset": 98176,
+          "source_text_offset": 139712,
+          "arena_offset": 139712,
+          "payload_size": 83
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018000",
+          "pointer_offset": 98304,
+          "source_text_offset": 139840,
+          "arena_offset": 139840,
+          "payload_size": 79
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018080",
+          "pointer_offset": 98432,
+          "source_text_offset": 139952,
+          "arena_offset": 139952,
+          "payload_size": 85
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018100",
+          "pointer_offset": 98560,
+          "source_text_offset": 140080,
+          "arena_offset": 140080,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018180",
+          "pointer_offset": 98688,
+          "source_text_offset": 140144,
+          "arena_offset": 140144,
+          "payload_size": 30
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018200",
+          "pointer_offset": 98816,
+          "source_text_offset": 140192,
+          "arena_offset": 140192,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0182E0",
+          "pointer_offset": 99040,
+          "source_text_offset": 139712,
+          "arena_offset": 139712,
+          "payload_size": 83
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018360",
+          "pointer_offset": 99168,
+          "source_text_offset": 139840,
+          "arena_offset": 139840,
+          "payload_size": 79
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0183E0",
+          "pointer_offset": 99296,
+          "source_text_offset": 139952,
+          "arena_offset": 139952,
+          "payload_size": 85
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018460",
+          "pointer_offset": 99424,
+          "source_text_offset": 140080,
+          "arena_offset": 140080,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0184E0",
+          "pointer_offset": 99552,
+          "source_text_offset": 140144,
+          "arena_offset": 140144,
+          "payload_size": 30
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018560",
+          "pointer_offset": 99680,
+          "source_text_offset": 140192,
+          "arena_offset": 140192,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018640",
+          "pointer_offset": 99904,
+          "source_text_offset": 139712,
+          "arena_offset": 139712,
+          "payload_size": 83
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0186C0",
+          "pointer_offset": 100032,
+          "source_text_offset": 139840,
+          "arena_offset": 139840,
+          "payload_size": 79
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018740",
+          "pointer_offset": 100160,
+          "source_text_offset": 139952,
+          "arena_offset": 139952,
+          "payload_size": 85
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0187C0",
+          "pointer_offset": 100288,
+          "source_text_offset": 140080,
+          "arena_offset": 140080,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018840",
+          "pointer_offset": 100416,
+          "source_text_offset": 140144,
+          "arena_offset": 140144,
+          "payload_size": 30
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0188C0",
+          "pointer_offset": 100544,
+          "source_text_offset": 140192,
+          "arena_offset": 140192,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0189A0",
+          "pointer_offset": 100768,
+          "source_text_offset": 140304,
+          "arena_offset": 140304,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018A20",
+          "pointer_offset": 100896,
+          "source_text_offset": 140400,
+          "arena_offset": 140400,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018AA0",
+          "pointer_offset": 101024,
+          "source_text_offset": 140496,
+          "arena_offset": 140496,
+          "payload_size": 48
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018B20",
+          "pointer_offset": 101152,
+          "source_text_offset": 140560,
+          "arena_offset": 140560,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018BA0",
+          "pointer_offset": 101280,
+          "source_text_offset": 140656,
+          "arena_offset": 140656,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018C20",
+          "pointer_offset": 101408,
+          "source_text_offset": 140704,
+          "arena_offset": 140704,
+          "payload_size": 69
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018CA0",
+          "pointer_offset": 101536,
+          "source_text_offset": 140784,
+          "arena_offset": 140784,
+          "payload_size": 56
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018D20",
+          "pointer_offset": 101664,
+          "source_text_offset": 140880,
+          "arena_offset": 140880,
+          "payload_size": 20
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018DA0",
+          "pointer_offset": 101792,
+          "source_text_offset": 140912,
+          "arena_offset": 140912,
+          "payload_size": 83
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018E80",
+          "pointer_offset": 102016,
+          "source_text_offset": 141024,
+          "arena_offset": 141024,
+          "payload_size": 24
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018F00",
+          "pointer_offset": 102144,
+          "source_text_offset": 141056,
+          "arena_offset": 141056,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/018F80",
+          "pointer_offset": 102272,
+          "source_text_offset": 141120,
+          "arena_offset": 141120,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019000",
+          "pointer_offset": 102400,
+          "source_text_offset": 141200,
+          "arena_offset": 141200,
+          "payload_size": 48
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019080",
+          "pointer_offset": 102528,
+          "source_text_offset": 141264,
+          "arena_offset": 141264,
+          "payload_size": 40
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019100",
+          "pointer_offset": 102656,
+          "source_text_offset": 141344,
+          "arena_offset": 141344,
+          "payload_size": 26
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019180",
+          "pointer_offset": 102784,
+          "source_text_offset": 141392,
+          "arena_offset": 141392,
+          "payload_size": 69
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019260",
+          "pointer_offset": 103008,
+          "source_text_offset": 141488,
+          "arena_offset": 141488,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0192E0",
+          "pointer_offset": 103136,
+          "source_text_offset": 141568,
+          "arena_offset": 141568,
+          "payload_size": 69
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019360",
+          "pointer_offset": 103264,
+          "source_text_offset": 141664,
+          "arena_offset": 141664,
+          "payload_size": 93
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0193E0",
+          "pointer_offset": 103392,
+          "source_text_offset": 141776,
+          "arena_offset": 141776,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0194C0",
+          "pointer_offset": 103616,
+          "source_text_offset": 141856,
+          "arena_offset": 141856,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019540",
+          "pointer_offset": 103744,
+          "source_text_offset": 141936,
+          "arena_offset": 141936,
+          "payload_size": 18
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0195C0",
+          "pointer_offset": 103872,
+          "source_text_offset": 141960,
+          "arena_offset": 141960,
+          "payload_size": 14
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019640",
+          "pointer_offset": 104000,
+          "source_text_offset": 141984,
+          "arena_offset": 141984,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0196C0",
+          "pointer_offset": 104128,
+          "source_text_offset": 142080,
+          "arena_offset": 142080,
+          "payload_size": 77
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019740",
+          "pointer_offset": 104256,
+          "source_text_offset": 142192,
+          "arena_offset": 142192,
+          "payload_size": 59
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0197C0",
+          "pointer_offset": 104384,
+          "source_text_offset": 142256,
+          "arena_offset": 142256,
+          "payload_size": 30
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019840",
+          "pointer_offset": 104512,
+          "source_text_offset": 142304,
+          "arena_offset": 142304,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019920",
+          "pointer_offset": 104736,
+          "source_text_offset": 142384,
+          "arena_offset": 142384,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/0199A0",
+          "pointer_offset": 104864,
+          "source_text_offset": 142432,
+          "arena_offset": 142432,
+          "payload_size": 59
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019A20",
+          "pointer_offset": 104992,
+          "source_text_offset": 142512,
+          "arena_offset": 142512,
+          "payload_size": 73
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019AA0",
+          "pointer_offset": 105120,
+          "source_text_offset": 142624,
+          "arena_offset": 142624,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019B20",
+          "pointer_offset": 105248,
+          "source_text_offset": 142720,
+          "arena_offset": 142720,
+          "payload_size": 40
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019C00",
+          "pointer_offset": 105472,
+          "source_text_offset": 142768,
+          "arena_offset": 142768,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019C80",
+          "pointer_offset": 105600,
+          "source_text_offset": 142848,
+          "arena_offset": 142848,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019D00",
+          "pointer_offset": 105728,
+          "source_text_offset": 142960,
+          "arena_offset": 142960,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019D80",
+          "pointer_offset": 105856,
+          "source_text_offset": 143040,
+          "arena_offset": 143040,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019E00",
+          "pointer_offset": 105984,
+          "source_text_offset": 143120,
+          "arena_offset": 143120,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019EE0",
+          "pointer_offset": 106208,
+          "source_text_offset": 143184,
+          "arena_offset": 143184,
+          "payload_size": 83
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019F60",
+          "pointer_offset": 106336,
+          "source_text_offset": 143296,
+          "arena_offset": 143296,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/019FE0",
+          "pointer_offset": 106464,
+          "source_text_offset": 143376,
+          "arena_offset": 143376,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A060",
+          "pointer_offset": 106592,
+          "source_text_offset": 143440,
+          "arena_offset": 143440,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A0E0",
+          "pointer_offset": 106720,
+          "source_text_offset": 143568,
+          "arena_offset": 143568,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A160",
+          "pointer_offset": 106848,
+          "source_text_offset": 143648,
+          "arena_offset": 143648,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A1E0",
+          "pointer_offset": 106976,
+          "source_text_offset": 143712,
+          "arena_offset": 143712,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A260",
+          "pointer_offset": 107104,
+          "source_text_offset": 143776,
+          "arena_offset": 143776,
+          "payload_size": 59
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A340",
+          "pointer_offset": 107328,
+          "source_text_offset": 143856,
+          "arena_offset": 143856,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A3C0",
+          "pointer_offset": 107456,
+          "source_text_offset": 143952,
+          "arena_offset": 143952,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A440",
+          "pointer_offset": 107584,
+          "source_text_offset": 144016,
+          "arena_offset": 144016,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A4C0",
+          "pointer_offset": 107712,
+          "source_text_offset": 144112,
+          "arena_offset": 144112,
+          "payload_size": 93
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A540",
+          "pointer_offset": 107840,
+          "source_text_offset": 144224,
+          "arena_offset": 144224,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A5C0",
+          "pointer_offset": 107968,
+          "source_text_offset": 144288,
+          "arena_offset": 144288,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A6A0",
+          "pointer_offset": 108192,
+          "source_text_offset": 144352,
+          "arena_offset": 144352,
+          "payload_size": 34
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A720",
+          "pointer_offset": 108320,
+          "source_text_offset": 144400,
+          "arena_offset": 144400,
+          "payload_size": 73
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A7A0",
+          "pointer_offset": 108448,
+          "source_text_offset": 144496,
+          "arena_offset": 144496,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A820",
+          "pointer_offset": 108576,
+          "source_text_offset": 144608,
+          "arena_offset": 144608,
+          "payload_size": 30
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A8A0",
+          "pointer_offset": 108704,
+          "source_text_offset": 144656,
+          "arena_offset": 144656,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A920",
+          "pointer_offset": 108832,
+          "source_text_offset": 144720,
+          "arena_offset": 144720,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01A9A0",
+          "pointer_offset": 108960,
+          "source_text_offset": 144784,
+          "arena_offset": 144784,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01AA20",
+          "pointer_offset": 109088,
+          "source_text_offset": 144848,
+          "arena_offset": 144848,
+          "payload_size": 24
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01AB00",
+          "pointer_offset": 109312,
+          "source_text_offset": 144896,
+          "arena_offset": 144896,
+          "payload_size": 34
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01AB80",
+          "pointer_offset": 109440,
+          "source_text_offset": 144944,
+          "arena_offset": 144944,
+          "payload_size": 69
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01AC00",
+          "pointer_offset": 109568,
+          "source_text_offset": 145056,
+          "arena_offset": 145056,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01AC80",
+          "pointer_offset": 109696,
+          "source_text_offset": 145152,
+          "arena_offset": 145152,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01AD00",
+          "pointer_offset": 109824,
+          "source_text_offset": 145248,
+          "arena_offset": 145248,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01AD80",
+          "pointer_offset": 109952,
+          "source_text_offset": 145360,
+          "arena_offset": 145360,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01AE60",
+          "pointer_offset": 110176,
+          "source_text_offset": 145440,
+          "arena_offset": 145440,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01AEE0",
+          "pointer_offset": 110304,
+          "source_text_offset": 145504,
+          "arena_offset": 145504,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01AF60",
+          "pointer_offset": 110432,
+          "source_text_offset": 145600,
+          "arena_offset": 145600,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01AFE0",
+          "pointer_offset": 110560,
+          "source_text_offset": 145712,
+          "arena_offset": 145712,
+          "payload_size": 32
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B060",
+          "pointer_offset": 110688,
+          "source_text_offset": 145744,
+          "arena_offset": 145744,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B0E0",
+          "pointer_offset": 110816,
+          "source_text_offset": 145840,
+          "arena_offset": 145840,
+          "payload_size": 24
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B160",
+          "pointer_offset": 110944,
+          "source_text_offset": 145872,
+          "arena_offset": 145872,
+          "payload_size": 18
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B240",
+          "pointer_offset": 111168,
+          "source_text_offset": 145904,
+          "arena_offset": 145904,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B2C0",
+          "pointer_offset": 111296,
+          "source_text_offset": 146000,
+          "arena_offset": 146000,
+          "payload_size": 83
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B340",
+          "pointer_offset": 111424,
+          "source_text_offset": 146128,
+          "arena_offset": 146128,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B3C0",
+          "pointer_offset": 111552,
+          "source_text_offset": 146160,
+          "arena_offset": 146160,
+          "payload_size": 48
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B440",
+          "pointer_offset": 111680,
+          "source_text_offset": 146240,
+          "arena_offset": 146240,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B4C0",
+          "pointer_offset": 111808,
+          "source_text_offset": 146320,
+          "arena_offset": 146320,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B540",
+          "pointer_offset": 111936,
+          "source_text_offset": 146400,
+          "arena_offset": 146400,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B5C0",
+          "pointer_offset": 112064,
+          "source_text_offset": 146448,
+          "arena_offset": 146448,
+          "payload_size": 32
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B640",
+          "pointer_offset": 112192,
+          "source_text_offset": 146480,
+          "arena_offset": 146480,
+          "payload_size": 22
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B720",
+          "pointer_offset": 112416,
+          "source_text_offset": 145904,
+          "arena_offset": 145904,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B7A0",
+          "pointer_offset": 112544,
+          "source_text_offset": 146000,
+          "arena_offset": 146000,
+          "payload_size": 83
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B820",
+          "pointer_offset": 112672,
+          "source_text_offset": 146128,
+          "arena_offset": 146128,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B8A0",
+          "pointer_offset": 112800,
+          "source_text_offset": 146160,
+          "arena_offset": 146160,
+          "payload_size": 48
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B920",
+          "pointer_offset": 112928,
+          "source_text_offset": 146240,
+          "arena_offset": 146240,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01B9A0",
+          "pointer_offset": 113056,
+          "source_text_offset": 146320,
+          "arena_offset": 146320,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01BA20",
+          "pointer_offset": 113184,
+          "source_text_offset": 146400,
+          "arena_offset": 146400,
+          "payload_size": 28
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01BAA0",
+          "pointer_offset": 113312,
+          "source_text_offset": 146448,
+          "arena_offset": 146448,
+          "payload_size": 32
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01BB20",
+          "pointer_offset": 113440,
+          "source_text_offset": 146480,
+          "arena_offset": 146480,
+          "payload_size": 22
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01BC00",
+          "pointer_offset": 113664,
+          "source_text_offset": 146512,
+          "arena_offset": 146512,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01BC80",
+          "pointer_offset": 113792,
+          "source_text_offset": 146608,
+          "arena_offset": 146608,
+          "payload_size": 87
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01BD00",
+          "pointer_offset": 113920,
+          "source_text_offset": 146720,
+          "arena_offset": 146720,
+          "payload_size": 34
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01BD80",
+          "pointer_offset": 114048,
+          "source_text_offset": 146768,
+          "arena_offset": 146768,
+          "payload_size": 16
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01BE00",
+          "pointer_offset": 114176,
+          "source_text_offset": 146800,
+          "arena_offset": 146800,
+          "payload_size": 83
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01BE80",
+          "pointer_offset": 114304,
+          "source_text_offset": 146928,
+          "arena_offset": 146928,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01BF60",
+          "pointer_offset": 114528,
+          "source_text_offset": 146512,
+          "arena_offset": 146512,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01BFE0",
+          "pointer_offset": 114656,
+          "source_text_offset": 146608,
+          "arena_offset": 146608,
+          "payload_size": 87
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C060",
+          "pointer_offset": 114784,
+          "source_text_offset": 146720,
+          "arena_offset": 146720,
+          "payload_size": 34
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C0E0",
+          "pointer_offset": 114912,
+          "source_text_offset": 146768,
+          "arena_offset": 146768,
+          "payload_size": 16
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C160",
+          "pointer_offset": 115040,
+          "source_text_offset": 146800,
+          "arena_offset": 146800,
+          "payload_size": 83
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C1E0",
+          "pointer_offset": 115168,
+          "source_text_offset": 146928,
+          "arena_offset": 146928,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C2C0",
+          "pointer_offset": 115392,
+          "source_text_offset": 146992,
+          "arena_offset": 146992,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C340",
+          "pointer_offset": 115520,
+          "source_text_offset": 147056,
+          "arena_offset": 147056,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C3C0",
+          "pointer_offset": 115648,
+          "source_text_offset": 147152,
+          "arena_offset": 147152,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C440",
+          "pointer_offset": 115776,
+          "source_text_offset": 147216,
+          "arena_offset": 147216,
+          "payload_size": 14
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C4C0",
+          "pointer_offset": 115904,
+          "source_text_offset": 147232,
+          "arena_offset": 147232,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C540",
+          "pointer_offset": 116032,
+          "source_text_offset": 147296,
+          "arena_offset": 147296,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C5C0",
+          "pointer_offset": 116160,
+          "source_text_offset": 147360,
+          "arena_offset": 147360,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C640",
+          "pointer_offset": 116288,
+          "source_text_offset": 147424,
+          "arena_offset": 147424,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C6C0",
+          "pointer_offset": 116416,
+          "source_text_offset": 147504,
+          "arena_offset": 147504,
+          "payload_size": 91
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C740",
+          "pointer_offset": 116544,
+          "source_text_offset": 147616,
+          "arena_offset": 147616,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C7C0",
+          "pointer_offset": 116672,
+          "source_text_offset": 147664,
+          "arena_offset": 147664,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C840",
+          "pointer_offset": 116800,
+          "source_text_offset": 147744,
+          "arena_offset": 147744,
+          "payload_size": 40
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C8C0",
+          "pointer_offset": 116928,
+          "source_text_offset": 147792,
+          "arena_offset": 147792,
+          "payload_size": 32
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01C9A0",
+          "pointer_offset": 117152,
+          "source_text_offset": 146992,
+          "arena_offset": 146992,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CA20",
+          "pointer_offset": 117280,
+          "source_text_offset": 147056,
+          "arena_offset": 147056,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CAA0",
+          "pointer_offset": 117408,
+          "source_text_offset": 147152,
+          "arena_offset": 147152,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CB20",
+          "pointer_offset": 117536,
+          "source_text_offset": 147216,
+          "arena_offset": 147216,
+          "payload_size": 14
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CBA0",
+          "pointer_offset": 117664,
+          "source_text_offset": 147232,
+          "arena_offset": 147232,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CC20",
+          "pointer_offset": 117792,
+          "source_text_offset": 147296,
+          "arena_offset": 147296,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CCA0",
+          "pointer_offset": 117920,
+          "source_text_offset": 147360,
+          "arena_offset": 147360,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CD20",
+          "pointer_offset": 118048,
+          "source_text_offset": 147424,
+          "arena_offset": 147424,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CDA0",
+          "pointer_offset": 118176,
+          "source_text_offset": 147504,
+          "arena_offset": 147504,
+          "payload_size": 91
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CE20",
+          "pointer_offset": 118304,
+          "source_text_offset": 147616,
+          "arena_offset": 147616,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CEA0",
+          "pointer_offset": 118432,
+          "source_text_offset": 147664,
+          "arena_offset": 147664,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CF20",
+          "pointer_offset": 118560,
+          "source_text_offset": 147744,
+          "arena_offset": 147744,
+          "payload_size": 40
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01CFA0",
+          "pointer_offset": 118688,
+          "source_text_offset": 147792,
+          "arena_offset": 147792,
+          "payload_size": 32
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D080",
+          "pointer_offset": 118912,
+          "source_text_offset": 147856,
+          "arena_offset": 147856,
+          "payload_size": 59
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D100",
+          "pointer_offset": 119040,
+          "source_text_offset": 147920,
+          "arena_offset": 147920,
+          "payload_size": 59
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D180",
+          "pointer_offset": 119168,
+          "source_text_offset": 148000,
+          "arena_offset": 148000,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D200",
+          "pointer_offset": 119296,
+          "source_text_offset": 148064,
+          "arena_offset": 148064,
+          "payload_size": 22
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D280",
+          "pointer_offset": 119424,
+          "source_text_offset": 148096,
+          "arena_offset": 148096,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D300",
+          "pointer_offset": 119552,
+          "source_text_offset": 148192,
+          "arena_offset": 148192,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D380",
+          "pointer_offset": 119680,
+          "source_text_offset": 148256,
+          "arena_offset": 148256,
+          "payload_size": 26
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D460",
+          "pointer_offset": 119904,
+          "source_text_offset": 148288,
+          "arena_offset": 148288,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D4E0",
+          "pointer_offset": 120032,
+          "source_text_offset": 148352,
+          "arena_offset": 148352,
+          "payload_size": 81
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D560",
+          "pointer_offset": 120160,
+          "source_text_offset": 148464,
+          "arena_offset": 148464,
+          "payload_size": 81
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D640",
+          "pointer_offset": 120384,
+          "source_text_offset": 148560,
+          "arena_offset": 148560,
+          "payload_size": 22
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D6C0",
+          "pointer_offset": 120512,
+          "source_text_offset": 148608,
+          "arena_offset": 148608,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D740",
+          "pointer_offset": 120640,
+          "source_text_offset": 148720,
+          "arena_offset": 148720,
+          "payload_size": 73
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D820",
+          "pointer_offset": 120864,
+          "source_text_offset": 148816,
+          "arena_offset": 148816,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D8A0",
+          "pointer_offset": 120992,
+          "source_text_offset": 148064,
+          "arena_offset": 148064,
+          "payload_size": 22
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D920",
+          "pointer_offset": 121120,
+          "source_text_offset": 148896,
+          "arena_offset": 148896,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01D9A0",
+          "pointer_offset": 121248,
+          "source_text_offset": 148256,
+          "arena_offset": 148256,
+          "payload_size": 26
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01DA80",
+          "pointer_offset": 121472,
+          "source_text_offset": 148992,
+          "arena_offset": 148992,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01DB00",
+          "pointer_offset": 121600,
+          "source_text_offset": 149088,
+          "arena_offset": 149088,
+          "payload_size": 81
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01DB80",
+          "pointer_offset": 121728,
+          "source_text_offset": 149200,
+          "arena_offset": 149200,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01DC00",
+          "pointer_offset": 121856,
+          "source_text_offset": 149296,
+          "arena_offset": 149296,
+          "payload_size": 38
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01DCE0",
+          "pointer_offset": 122080,
+          "source_text_offset": 149344,
+          "arena_offset": 149344,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01DD60",
+          "pointer_offset": 122208,
+          "source_text_offset": 149440,
+          "arena_offset": 149440,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01DDE0",
+          "pointer_offset": 122336,
+          "source_text_offset": 149552,
+          "arena_offset": 149552,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01DE60",
+          "pointer_offset": 122464,
+          "source_text_offset": 149632,
+          "arena_offset": 149632,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01DEE0",
+          "pointer_offset": 122592,
+          "source_text_offset": 149712,
+          "arena_offset": 149712,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01DFC0",
+          "pointer_offset": 122816,
+          "source_text_offset": 149344,
+          "arena_offset": 149344,
+          "payload_size": 67
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E040",
+          "pointer_offset": 122944,
+          "source_text_offset": 149440,
+          "arena_offset": 149440,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E0C0",
+          "pointer_offset": 123072,
+          "source_text_offset": 149552,
+          "arena_offset": 149552,
+          "payload_size": 50
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E140",
+          "pointer_offset": 123200,
+          "source_text_offset": 149632,
+          "arena_offset": 149632,
+          "payload_size": 44
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E1C0",
+          "pointer_offset": 123328,
+          "source_text_offset": 149808,
+          "arena_offset": 149808,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E2A0",
+          "pointer_offset": 123552,
+          "source_text_offset": 149904,
+          "arena_offset": 149904,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E320",
+          "pointer_offset": 123680,
+          "source_text_offset": 149984,
+          "arena_offset": 149984,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E3A0",
+          "pointer_offset": 123808,
+          "source_text_offset": 150080,
+          "arena_offset": 150080,
+          "payload_size": 73
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E420",
+          "pointer_offset": 123936,
+          "source_text_offset": 150192,
+          "arena_offset": 150192,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E500",
+          "pointer_offset": 124160,
+          "source_text_offset": 150256,
+          "arena_offset": 150256,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E580",
+          "pointer_offset": 124288,
+          "source_text_offset": 150336,
+          "arena_offset": 150336,
+          "payload_size": 63
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E600",
+          "pointer_offset": 124416,
+          "source_text_offset": 150448,
+          "arena_offset": 150448,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E680",
+          "pointer_offset": 124544,
+          "source_text_offset": 150528,
+          "arena_offset": 150528,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E700",
+          "pointer_offset": 124672,
+          "source_text_offset": 150640,
+          "arena_offset": 150640,
+          "payload_size": 69
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E7E0",
+          "pointer_offset": 124896,
+          "source_text_offset": 150768,
+          "arena_offset": 150768,
+          "payload_size": 71
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E860",
+          "pointer_offset": 125024,
+          "source_text_offset": 150848,
+          "arena_offset": 150848,
+          "payload_size": 59
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E8E0",
+          "pointer_offset": 125152,
+          "source_text_offset": 150928,
+          "arena_offset": 150928,
+          "payload_size": 59
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01E9C0",
+          "pointer_offset": 125376,
+          "source_text_offset": 151008,
+          "arena_offset": 151008,
+          "payload_size": 42
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01EA40",
+          "pointer_offset": 125504,
+          "source_text_offset": 151056,
+          "arena_offset": 151056,
+          "payload_size": 20
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01EAC0",
+          "pointer_offset": 125632,
+          "source_text_offset": 151088,
+          "arena_offset": 151088,
+          "payload_size": 52
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01EB40",
+          "pointer_offset": 125760,
+          "source_text_offset": 151152,
+          "arena_offset": 151152,
+          "payload_size": 18
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01EBC0",
+          "pointer_offset": 125888,
+          "source_text_offset": 151184,
+          "arena_offset": 151184,
+          "payload_size": 37
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01EC40",
+          "pointer_offset": 126016,
+          "source_text_offset": 151232,
+          "arena_offset": 151232,
+          "payload_size": 36
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01ECC0",
+          "pointer_offset": 126144,
+          "source_text_offset": 151280,
+          "arena_offset": 151280,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01ED40",
+          "pointer_offset": 126272,
+          "source_text_offset": 151360,
+          "arena_offset": 151360,
+          "payload_size": 54
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01EDC0",
+          "pointer_offset": 126400,
+          "source_text_offset": 151440,
+          "arena_offset": 151440,
+          "payload_size": 65
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01EE40",
+          "pointer_offset": 126528,
+          "source_text_offset": 151536,
+          "arena_offset": 151536,
+          "payload_size": 75
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01EEC0",
+          "pointer_offset": 126656,
+          "source_text_offset": 151152,
+          "arena_offset": 151152,
+          "payload_size": 18
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01EFA0",
+          "pointer_offset": 126880,
+          "source_text_offset": 151616,
+          "arena_offset": 151616,
+          "payload_size": 77
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01F020",
+          "pointer_offset": 127008,
+          "source_text_offset": 151744,
+          "arena_offset": 151744,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01F0A0",
+          "pointer_offset": 127136,
+          "source_text_offset": 151856,
+          "arena_offset": 151856,
+          "payload_size": 20
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01F120",
+          "pointer_offset": 127264,
+          "source_text_offset": 151888,
+          "arena_offset": 151888,
+          "payload_size": 57
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01F1C0",
+          "pointer_offset": 127424,
+          "source_text_offset": 151968,
+          "arena_offset": 151968,
+          "payload_size": 46
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01F240",
+          "pointer_offset": 127552,
+          "source_text_offset": 152032,
+          "arena_offset": 152032,
+          "payload_size": 61
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01F2C0",
+          "pointer_offset": 127680,
+          "source_text_offset": 152112,
+          "arena_offset": 152112,
+          "payload_size": 59
+        },
+        {
+          "entry_id": "story/000/system-dialogue/01F340",
+          "pointer_offset": 127808,
+          "source_text_offset": 152208,
+          "arena_offset": 152208,
+          "payload_size": 26
+        }
+      ],
+      "inventory_entry_count": 379,
+      "selected_entry_count": 379,
+      "selected_pointer_offsets": [
+        73696,
+        73824,
+        73952,
+        74080,
+        74208,
+        74336,
+        74464,
+        74592,
+        74720,
+        74944,
+        75072,
+        75200,
+        75328,
+        75456,
+        75584,
+        75712,
+        75840,
+        76064,
+        76192,
+        76320,
+        76448,
+        76672,
+        76800,
+        76928,
+        77056,
+        77184,
+        77408,
+        77536,
+        77664,
+        77792,
+        77920,
+        78048,
+        78272,
+        78400,
+        78528,
+        78656,
+        78784,
+        78912,
+        79040,
+        79168,
+        79392,
+        79520,
+        79648,
+        79776,
+        79936,
+        80096,
+        80224,
+        80448,
+        80576,
+        80704,
+        80832,
+        80992,
+        81152,
+        81280,
+        81504,
+        81632,
+        81760,
+        81888,
+        82048,
+        82208,
+        82336,
+        82560,
+        82688,
+        82816,
+        82944,
+        83104,
+        83264,
+        83392,
+        83616,
+        83744,
+        83872,
+        84000,
+        84160,
+        84320,
+        84448,
+        84672,
+        84800,
+        84928,
+        85056,
+        85280,
+        85408,
+        85536,
+        85664,
+        85792,
+        85920,
+        86048,
+        86272,
+        86400,
+        86528,
+        86656,
+        86784,
+        86912,
+        87040,
+        87168,
+        87392,
+        87520,
+        87648,
+        87776,
+        87904,
+        88128,
+        88256,
+        88384,
+        88512,
+        88640,
+        88768,
+        88896,
+        89024,
+        89248,
+        89376,
+        89504,
+        89632,
+        89760,
+        89888,
+        90016,
+        90144,
+        90272,
+        90496,
+        90624,
+        90752,
+        90880,
+        91104,
+        91232,
+        91360,
+        91584,
+        91712,
+        91840,
+        91968,
+        92096,
+        92224,
+        92448,
+        92576,
+        92704,
+        92832,
+        92960,
+        93088,
+        93216,
+        93344,
+        93568,
+        93696,
+        93824,
+        93952,
+        94080,
+        94208,
+        94432,
+        94560,
+        94688,
+        94816,
+        94944,
+        95072,
+        95200,
+        95328,
+        95456,
+        95680,
+        95808,
+        95936,
+        96064,
+        96192,
+        96320,
+        96448,
+        96576,
+        96704,
+        96928,
+        97056,
+        97184,
+        97312,
+        97440,
+        97568,
+        97696,
+        97824,
+        97952,
+        98176,
+        98304,
+        98432,
+        98560,
+        98688,
+        98816,
+        99040,
+        99168,
+        99296,
+        99424,
+        99552,
+        99680,
+        99904,
+        100032,
+        100160,
+        100288,
+        100416,
+        100544,
+        100768,
+        100896,
+        101024,
+        101152,
+        101280,
+        101408,
+        101536,
+        101664,
+        101792,
+        102016,
+        102144,
+        102272,
+        102400,
+        102528,
+        102656,
+        102784,
+        103008,
+        103136,
+        103264,
+        103392,
+        103616,
+        103744,
+        103872,
+        104000,
+        104128,
+        104256,
+        104384,
+        104512,
+        104736,
+        104864,
+        104992,
+        105120,
+        105248,
+        105472,
+        105600,
+        105728,
+        105856,
+        105984,
+        106208,
+        106336,
+        106464,
+        106592,
+        106720,
+        106848,
+        106976,
+        107104,
+        107328,
+        107456,
+        107584,
+        107712,
+        107840,
+        107968,
+        108192,
+        108320,
+        108448,
+        108576,
+        108704,
+        108832,
+        108960,
+        109088,
+        109312,
+        109440,
+        109568,
+        109696,
+        109824,
+        109952,
+        110176,
+        110304,
+        110432,
+        110560,
+        110688,
+        110816,
+        110944,
+        111168,
+        111296,
+        111424,
+        111552,
+        111680,
+        111808,
+        111936,
+        112064,
+        112192,
+        112416,
+        112544,
+        112672,
+        112800,
+        112928,
+        113056,
+        113184,
+        113312,
+        113440,
+        113664,
+        113792,
+        113920,
+        114048,
+        114176,
+        114304,
+        114528,
+        114656,
+        114784,
+        114912,
+        115040,
+        115168,
+        115392,
+        115520,
+        115648,
+        115776,
+        115904,
+        116032,
+        116160,
+        116288,
+        116416,
+        116544,
+        116672,
+        116800,
+        116928,
+        117152,
+        117280,
+        117408,
+        117536,
+        117664,
+        117792,
+        117920,
+        118048,
+        118176,
+        118304,
+        118432,
+        118560,
+        118688,
+        118912,
+        119040,
+        119168,
+        119296,
+        119424,
+        119552,
+        119680,
+        119904,
+        120032,
+        120160,
+        120384,
+        120512,
+        120640,
+        120864,
+        120992,
+        121120,
+        121248,
+        121472,
+        121600,
+        121728,
+        121856,
+        122080,
+        122208,
+        122336,
+        122464,
+        122592,
+        122816,
+        122944,
+        123072,
+        123200,
+        123328,
+        123552,
+        123680,
+        123808,
+        123936,
+        124160,
+        124288,
+        124416,
+        124544,
+        124672,
+        124896,
+        125024,
+        125152,
+        125376,
+        125504,
+        125632,
+        125760,
+        125888,
+        126016,
+        126144,
+        126272,
+        126400,
+        126528,
+        126656,
+        126880,
+        127008,
+        127136,
+        127264,
+        127424,
+        127552,
+        127680,
+        127808
+      ],
+      "selected_pointer_offsets_sha256": "296c64123f0587124a1583935d522f189ba0e9e992feb774ec3e4173b793a058",
+      "source_preimages_sha256_exact": true,
+      "pointer_bytes_unchanged": true,
+      "reread_exact": true,
+      "codec_strategy": "rust-fit",
+      "source_encoded_size": 54277,
+      "output_encoded_size": 52181,
       "codec_round_trip_exact": true,
       "archive_size_preserved": true,
       "hb_offsets_preserved": true,
@@ -6148,8 +10700,8 @@
     "source_preimages_sha256_exact": true,
     "all_editorial_statuses_reviewed": true,
     "target_offset_reread_exact": true,
-    "compdata_source_size": 143307,
-    "compdata_output_size": 143171,
+    "compdata_source_size": 143306,
+    "compdata_output_size": 143170,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true
   },
@@ -10807,7 +15359,136 @@
     "same_text_members_preserved_byte_exact": true,
     "compressed_chunks_fit_allocations": true,
     "codec_round_trip_exact": true,
-    "output_archive_sha256": "234710f2d39ae70b854d6f46a5f24e94c4085713b46bf4653b30371b52349518"
+    "output_archive_sha256": "234710f2d39ae70b854d6f46a5f24e94c4085713b46bf4653b30371b52349518",
+    "terrain_names": {
+      "unique_source_count": 15,
+      "occurrence_count": 66,
+      "inventory_sha256": "2a97b73ab77ed0f6e93d126516ebae9d7a4c56d4b181ab941279c3c470e453ef",
+      "member_range": [
+        0,
+        80
+      ],
+      "changed_member_count": 10,
+      "changed_members": [
+        4,
+        19,
+        31,
+        34,
+        36,
+        38,
+        39,
+        43,
+        58,
+        72
+      ],
+      "member_reports": [
+        {
+          "member": 4,
+          "occurrence_count": 3,
+          "stored_size": 417856,
+          "source_encoded_size": 417852,
+          "output_encoded_size": 366841,
+          "compressed_headroom": 51015,
+          "output_stored_sha256": "cd18abff090eb86f0a0d4aa775947f96e24ef05b327a6a6afd37f24bcf188a2d",
+          "reread_exact": true
+        },
+        {
+          "member": 19,
+          "occurrence_count": 3,
+          "stored_size": 533664,
+          "source_encoded_size": 533658,
+          "output_encoded_size": 533658,
+          "compressed_headroom": 6,
+          "output_stored_sha256": "1ce640f525f4e65c1d41fa4547fc20193933ff8c6a5efcc1792db04bba9183e7",
+          "reread_exact": true
+        },
+        {
+          "member": 31,
+          "occurrence_count": 19,
+          "stored_size": 365344,
+          "source_encoded_size": 365334,
+          "output_encoded_size": 284159,
+          "compressed_headroom": 81185,
+          "output_stored_sha256": "dc97242e156ccb266e420daafff49a765487fb7ce11de5c8410ba015714b617b",
+          "reread_exact": true
+        },
+        {
+          "member": 34,
+          "occurrence_count": 3,
+          "stored_size": 633184,
+          "source_encoded_size": 633178,
+          "output_encoded_size": 633178,
+          "compressed_headroom": 6,
+          "output_stored_sha256": "14026de418e50c26878e757cc61c799584808976152a71513643c4d475d2ceec",
+          "reread_exact": true
+        },
+        {
+          "member": 36,
+          "occurrence_count": 11,
+          "stored_size": 264544,
+          "source_encoded_size": 264538,
+          "output_encoded_size": 174952,
+          "compressed_headroom": 89592,
+          "output_stored_sha256": "089741d68d54d0ffbb4616983dca6ad3d4138cc3bff7fe7efb471e086f749d76",
+          "reread_exact": true
+        },
+        {
+          "member": 38,
+          "occurrence_count": 7,
+          "stored_size": 303056,
+          "source_encoded_size": 303046,
+          "output_encoded_size": 236112,
+          "compressed_headroom": 66944,
+          "output_stored_sha256": "07c3298baa875c19bad26005c060a73140763406956922d5c98b8c6c1f887b31",
+          "reread_exact": true
+        },
+        {
+          "member": 39,
+          "occurrence_count": 11,
+          "stored_size": 246864,
+          "source_encoded_size": 246856,
+          "output_encoded_size": 175256,
+          "compressed_headroom": 71608,
+          "output_stored_sha256": "ef7983ab869b08a842ce9c5e20077b0a4f830cb0dd335ab6c44def7461a03675",
+          "reread_exact": true
+        },
+        {
+          "member": 43,
+          "occurrence_count": 3,
+          "stored_size": 691968,
+          "source_encoded_size": 691958,
+          "output_encoded_size": 503553,
+          "compressed_headroom": 188415,
+          "output_stored_sha256": "7fc86054c11eb64d616dc1659ac320b9afb4d0ec09f88bef59ea6132e719e539",
+          "reread_exact": true
+        },
+        {
+          "member": 58,
+          "occurrence_count": 3,
+          "stored_size": 773632,
+          "source_encoded_size": 773618,
+          "output_encoded_size": 646702,
+          "compressed_headroom": 126930,
+          "output_stored_sha256": "696434460e9b98ffdd081c7d36fa3d8ffed81af0285b0dffc0c033291767678a",
+          "reread_exact": true
+        },
+        {
+          "member": 72,
+          "occurrence_count": 3,
+          "stored_size": 525936,
+          "source_encoded_size": 525935,
+          "output_encoded_size": 385710,
+          "compressed_headroom": 140226,
+          "output_stored_sha256": "1649cda1fb6fd6be89588d034bab754c4c8d4d0a5b8d347be148dc8a98f15055",
+          "reread_exact": true
+        }
+      ],
+      "fixed_decoded_spans_preserved": true,
+      "archive_size_preserved": true,
+      "offset_table_preserved": true,
+      "codec_round_trip_exact": true,
+      "reread_exact": true
+    }
   },
   "global_safe_aliases": {
     "scope": "all-parsed-localized-menu-surfaces",
@@ -10843,15 +15524,15 @@
       "pointer_bytes_unchanged": true,
       "reread_exact": true
     },
-    "compdata_source_size": 143171,
-    "compdata_output_size": 142562,
+    "compdata_source_size": 143170,
+    "compdata_output_size": 142561,
     "compdata_round_trip_exact": true
   },
   "outputs": {
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "88ae1ca89506e17338a1a9634f5e48ca08b2546fc104948a0e6e3e21ccc89b70"
+      "sha256": "b2c0987f7f2282989d2ff0d0016eb0f988450cbc9f2b432376c7f123bd733f6e"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -10860,8 +15541,8 @@
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 142562,
-      "sha256": "c42e9c696e39e87ede4d52317007937146715ef835fcd4316d6642d607aee1a3"
+      "size": 142561,
+      "sha256": "961c84e278bc6f36a422a6ce0fe7ec6c08803cb6d77f7522e1123e29dbf0f7be"
     },
     "DATA/NISVDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
@@ -10876,7 +15557,7 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "af6955540998c0f996e5f1c6f95dea71c9d221ba430b157c5f2a7a30a0ce9ca1"
+      "sha256": "e00a625a0d9d70e3941207e5304342bd75437da444d9ffb0452722e8bbe47d32"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
@@ -10911,7 +15592,7 @@
     "MAP/MAPMODEL.BIN": {
       "path": "work/build/zh-release-full-story/components/MAP/MAPMODEL.BIN",
       "size": 55136688,
-      "sha256": "234710f2d39ae70b854d6f46a5f24e94c4085713b46bf4653b30371b52349518"
+      "sha256": "6ed61375892ba4169ccd4f369a2673494cf96fc3dfe1d4ef71e4b0d8c9c63063"
     }
   },
   "acceptance": {

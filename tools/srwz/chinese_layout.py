@@ -10,7 +10,10 @@ from typing import Iterable, Sequence
 from .text import RUNTIME_FORMAT_TOKEN
 
 
-DEFAULT_LINE_WIDTH = 24
+# Continuation lines gain one full-width ideographic-space indent at writeback.
+# Keep their content at 21 cells so the rendered line occupies at most 22 cells
+# and retains a safe right margin in the 640 px story message window.
+DEFAULT_LINE_WIDTH = 21
 DEFAULT_MAX_LINES = 3
 PLAYER_NAME_RENDER_WIDTH = 6
 CONTINUATION_INDENT = "　"

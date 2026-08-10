@@ -48,6 +48,28 @@ class StageTextEntry:
 
 
 @dataclass(frozen=True)
+class StageSystemDialogueEntry:
+    """One direct-pointer dialogue record from STAGE chunk zero."""
+
+    entry_id: str
+    ordinal: int
+    pointer_offset: int
+    text_offset: int
+    speaker: str
+    text: str
+
+    def to_mapping(self) -> dict:
+        return {
+            "id": self.entry_id,
+            "ordinal": self.ordinal,
+            "pointer_offset": self.pointer_offset,
+            "text_offset": self.text_offset,
+            "speaker": self.speaker,
+            "text": self.text,
+        }
+
+
+@dataclass(frozen=True)
 class StageParseResult:
     stage_index: int
     decoded_size: int
@@ -404,6 +426,63 @@ def parse_stage(
     )
 
 
+def parse_stage_system_dialogues(
+    data: bytes,
+    table: TextTable,
+    *,
+    base_address: int = STAGE_BASE_ADDRESS,
+) -> tuple[StageSystemDialogueEntry, ...]:
+    """Parse the structurally distinct quit-dialogue table in chunk zero.
+
+    These records are not reachable from the ordinary stage block references.
+    Each observed row is 0x20-aligned, begins with a direct text pointer, has
+    three zero words, the fixed command value 0x3A, and two trailing zero
+    words.  Rows belonging to one scene are normally 0x80 bytes apart, with
+    larger gaps between scenes.  Matching the complete row signature keeps
+    the scan fail-closed instead of treating arbitrary stage pointers as text.
+    """
+
+    entries = []
+    for pointer_offset in range(0, len(data) - 31, 0x20):
+        text_address = _u32(data, pointer_offset, "system dialogue pointer")
+        text_offset = text_address - base_address
+        if not 0 < text_offset < len(data):
+            continue
+        if (
+            data[pointer_offset + 4 : pointer_offset + 16] != bytes(12)
+            or _u32(data, pointer_offset + 16, "system dialogue command")
+            != 0x3A
+            or data[pointer_offset + 24 : pointer_offset + 32] != bytes(8)
+        ):
+            continue
+        speaker = decode_text(
+            data,
+            text_offset,
+            table,
+            stop_at_newline=True,
+        )
+        if speaker.terminator != "newline" or not speaker.text:
+            continue
+        message = decode_text(data, speaker.end, table)
+        if message.terminator != "nul" or not message.text:
+            continue
+        ordinal = len(entries)
+        entries.append(
+            StageSystemDialogueEntry(
+                entry_id=(
+                    "story/000/system-dialogue/"
+                    f"{pointer_offset:06X}"
+                ),
+                ordinal=ordinal,
+                pointer_offset=pointer_offset,
+                text_offset=text_offset,
+                speaker=speaker.text,
+                text=message.text,
+            )
+        )
+    return tuple(entries)
+
+
 def stage_reference_signature(entries: Sequence[StageTextEntry]) -> tuple:
     """Normalize parser entries to the fields present in upstream XML."""
 
@@ -425,8 +504,10 @@ __all__ = [
     "STAGE_FUNCTION_TABLE_START",
     "StageParseError",
     "StageParseResult",
+    "StageSystemDialogueEntry",
     "StageTextEntry",
     "parse_stage",
+    "parse_stage_system_dialogues",
     "read_stage_function_addresses",
     "stage_reference_signature",
 ]

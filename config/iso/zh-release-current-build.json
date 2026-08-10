@@ -1,0 +1,165 @@
+{
+  "schema_version": 2,
+  "profile_id": "zh-release-full-story",
+  "component_validation_manifest": "manifests/full-story-components-validation.json",
+  "component_required_status": "integrated_global_zh_release_components_validated_runtime_pending",
+  "require_component_output_binding": true,
+  "runtime_manifest_status": "zh_release_full_story_iso_static_validated_runtime_not_tested",
+  "runtime_evidence_manifest": null,
+  "source_iso": {
+    "path": "rom/Super Robot Taisen Z (Japan, Korea).iso",
+    "size": 3758358528,
+    "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+    "member_count": 66,
+    "iso9660_system_id": "PLAYSTATION",
+    "udf_volume_recognition_sequence": "NSR02"
+  },
+  "toolchain": {
+    "repository": "https://github.com/N4gtan/mkps2iso.git",
+    "tag": "v1.1.1",
+    "commit": "f9a3dea18b67dc5f10093e72114a16283d277af0",
+    "version": "1.1.1",
+    "license_spdx": "GPL-2.0-only",
+    "source_dir": "work/toolchain/mkps2iso-v1.1.1/source",
+    "mkps2iso": {
+      "executable": "mkps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/mkps2iso",
+      "version": "1.1.1",
+      "version_line": "MKPS2ISO 1.1.1 - PlayStation 2 Image Maker"
+    },
+    "dumps2iso": {
+      "executable": "dumps2iso",
+      "default_path": "work/toolchain/mkps2iso-v1.1.1/source/build/Release/dumps2iso",
+      "version": "1.1.1",
+      "version_line": "DUMPS2ISO 1.1.1 - PlayStation 2 Image Dumper"
+    }
+  },
+  "workspace": {
+    "original_tree": "work/build/zh-release-full-story/iso/original",
+    "staging_tree": "work/build/zh-release-full-story/iso/staging",
+    "base_xml": "work/build/zh-release-full-story/iso/layout/original.xml",
+    "build_xml": "work/build/zh-release-full-story/iso/layout/build.xml",
+    "lba_log": "work/build/zh-release-full-story/iso/layout/lba.txt"
+  },
+  "layout": {
+    "volume_id": "SRWZ_ZH_RELEASE",
+    "preserve_original_member_sector_allocations": true,
+    "shift_segments": [
+      {
+        "first_member": "DATA/STAGE.BIN",
+        "shift_sectors": 0
+      }
+    ],
+    "preserve_original_gaps": true,
+    "trailing_dummy_sectors": 10240
+  },
+  "replacements": [
+    {
+      "member": "SLPS_258.87",
+      "source": "work/build/zh-release-full-story/components/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "b2c0987f7f2282989d2ff0d0016eb0f988450cbc9f2b432376c7f123bd733f6e"
+    },
+    {
+      "member": "DATA/COMPDATA.BN",
+      "source": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
+      "size": 142562,
+      "sha256": "c42e9c696e39e87ede4d52317007937146715ef835fcd4316d6642d607aee1a3"
+    },
+    {
+      "member": "DATA/NISVDATA.BIN",
+      "source": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
+      "size": 555056,
+      "sha256": "fc6cb8730a1852e4cf7e72f7b46fea0e178b5e39eafcefd5ba63ff232e957789"
+    },
+    {
+      "member": "DATA/MTV_PROS.BIN",
+      "source": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
+      "size": 8368,
+      "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
+    },
+    {
+      "member": "DATA/VT1.BIN",
+      "source": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "90e7f0e0a1d41e6460850adb6c72b5114c8c0cfd4c2bfe28e9cc7fe9a49f4fb5"
+    },
+    {
+      "member": "DATA/STAGE.BIN",
+      "source": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
+      "size": 3910128,
+      "sha256": "e00a625a0d9d70e3941207e5304342bd75437da444d9ffb0452722e8bbe47d32"
+    },
+    {
+      "member": "DATA/HSFC.BIN",
+      "source": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
+      "size": 250112,
+      "sha256": "dbdf568fa074e27954f74aea3924b26f1e19f8bd9734b38ad5036fc92d1e9c56"
+    },
+    {
+      "member": "HEDBDY/HB.BIN",
+      "source": "work/build/zh-release-full-story/components/HEDBDY/HB.BIN",
+      "size": 31152,
+      "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21"
+    },
+    {
+      "member": "KURODATA/KVMDATA.BIN",
+      "source": "work/build/zh-release-full-story/components/KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b"
+    },
+    {
+      "member": "MAP/MAPMODEL.BIN",
+      "source": "work/build/zh-release-full-story/components/MAP/MAPMODEL.BIN",
+      "size": 55136688,
+      "sha256": "6ed61375892ba4169ccd4f369a2673494cf96fc3dfe1d4ef71e4b0d8c9c63063"
+    },
+    {
+      "member": "BTL/SRVC.BIN",
+      "source": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
+      "size": 3313040,
+      "sha256": "83cd1010c0a60819711d2447b9a4d9362ad9b7d2bc6f72539cd53f0329b66087"
+    },
+    {
+      "member": "BTL/SRVC.SEG",
+      "source": "work/build/zh-release-full-story/components/BTL/SRVC.SEG",
+      "size": 1416,
+      "sha256": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987"
+    },
+    {
+      "member": "EFF/VEFF2DX.BIN",
+      "source": "work/build/zh-release-full-story/components/EFF/VEFF2DX.BIN",
+      "size": 36890512,
+      "sha256": "4445b2a8669861a87eb79cb4862f0c8a17841785ee5a990d70554e59f464ae10"
+    }
+  ],
+  "output": {
+    "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
+    "report": "build/iso/zh-release-full-story/iso-validation-current.json",
+    "expected_size": 3758358528,
+    "expected_sha256": "b869188845a871ac797e8aa7440dc367c2670e8ac586daaff8463e2168c49c31",
+    "expected_member_manifest_sha256": "293453b55021df28fbc7860935a40edfe00af67596c4ba98c5af1ccc8e73134c",
+    "expected_root_directory_size": 960,
+    "expected_pcsx2_v263_image_type": "DVD",
+    "expected_udf_volume_recognition_sequence": "NSR02",
+    "byte_reproducible": true
+  },
+  "acceptance": {
+    "udf_verify_members": [
+      "SYSTEM.CNF",
+      "SLPS_258.87",
+      "DATA/COMPDATA.BN",
+      "DATA/NISVDATA.BIN",
+      "DATA/MTV_PROS.BIN",
+      "DATA/VT1.BIN",
+      "DATA/STAGE.BIN",
+      "DATA/HSFC.BIN",
+      "HEDBDY/HB.BIN",
+      "KURODATA/KVMDATA.BIN",
+      "MAP/MAPMODEL.BIN",
+      "BTL/SRVC.BIN",
+      "BTL/SRVC.SEG",
+      "EFF/VEFF2DX.BIN"
+    ]
+  }
+}

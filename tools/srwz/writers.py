@@ -9,7 +9,11 @@ from typing import Iterable, Mapping
 from .codec import decode, encode
 from .iso_layout import ExecutableOffsetSpec
 from .menu import MenuParseResult
-from .stage import STAGE_BASE_ADDRESS, parse_stage
+from .stage import (
+    STAGE_BASE_ADDRESS,
+    parse_stage,
+    parse_stage_system_dialogues,
+)
 from .summary import parse_summary
 from .text import TextTable, decode_text, encode_text
 from .writeback import (
@@ -1247,6 +1251,152 @@ def repack_stage_texts_in_place(
     )
 
 
+def replace_stage_system_dialogues_in_place(
+    data: bytes,
+    table: TextTable,
+    *,
+    replacements: Mapping[str, tuple[str, str]],
+    overrides: Mapping[str, int] | None = None,
+    base_address: int = STAGE_BASE_ADDRESS,
+) -> StageBatchWrite:
+    """Replace selected chunk-zero quit dialogue inside owned source slots.
+
+    Unlike ordinary stage dialogue, the chunk-zero system scenes have direct
+    pointer rows and no stage block-reference graph.  Keep every pointer and
+    the decoded chunk size unchanged; a translated speaker/message pair must
+    fit in the source string plus its immediately following zero alignment.
+    """
+
+    if not replacements:
+        raise WritebackError("stage system dialogue replacements are empty")
+    parsed = parse_stage_system_dialogues(
+        data,
+        table,
+        base_address=base_address,
+    )
+    entries = {entry.entry_id: entry for entry in parsed}
+    unknown = sorted(set(replacements) - set(entries))
+    if unknown:
+        raise WritebackError(
+            f"unknown stage system dialogue ids: {unknown!r}"
+        )
+
+    regions: dict[int, tuple[int, bytes]] = {}
+    selected = []
+    for entry_id in sorted(replacements):
+        entry = entries[entry_id]
+        replacement = replacements[entry_id]
+        if (
+            not isinstance(replacement, tuple)
+            or len(replacement) != 2
+            or not all(isinstance(value, str) and value for value in replacement)
+        ):
+            raise WritebackError(
+                f"invalid stage system dialogue replacement: {entry_id}"
+            )
+        speaker_text, message_text = replacement
+        speaker = decode_text(
+            data,
+            entry.text_offset,
+            table,
+            stop_at_newline=True,
+        )
+        message = decode_text(data, speaker.end, table)
+        if (
+            speaker.terminator != "newline"
+            or speaker.text != entry.speaker
+            or message.terminator != "nul"
+            or message.text != entry.text
+        ):
+            raise WritebackError(
+                f"stage system dialogue source drift: {entry_id}"
+            )
+        payload = (
+            encode_text(speaker_text, table, overrides=overrides)
+            + b"\n"
+            + encode_text(
+                message_text,
+                table,
+                overrides=overrides,
+                terminate=True,
+            )
+        )
+        region_end = message.end
+        while region_end < len(data) and data[region_end] == 0:
+            region_end += 1
+        existing = regions.get(entry.text_offset)
+        region = (region_end, payload)
+        if existing is not None and existing != region:
+            raise WritebackError(
+                f"conflicting shared stage system dialogue: {entry_id}"
+            )
+        if len(payload) > region_end - entry.text_offset:
+            raise WritebackError(
+                f"stage system dialogue overflow: {entry_id}; "
+                f"need {len(payload)}, capacity {region_end - entry.text_offset}"
+            )
+        regions[entry.text_offset] = region
+        selected.append(entry)
+
+    ordered_regions = sorted(
+        (start, end, payload)
+        for start, (end, payload) in regions.items()
+    )
+    for left, right in zip(ordered_regions, ordered_regions[1:]):
+        if left[1] > right[0]:
+            raise WritebackError("stage system dialogue source regions overlap")
+
+    output = bytearray(data)
+    for start, end, payload in ordered_regions:
+        output[start:end] = payload + bytes(end - start - len(payload))
+    rebuilt = bytes(output)
+    if len(rebuilt) != len(data):
+        raise WritebackError("stage system dialogue changed decoded size")
+
+    reparsed = {
+        entry.entry_id: entry
+        for entry in parse_stage_system_dialogues(
+            rebuilt,
+            _table_with_overrides(table, overrides),
+            base_address=base_address,
+        )
+    }
+    for entry in selected:
+        actual = reparsed.get(entry.entry_id)
+        expected_speaker, expected_text = replacements[entry.entry_id]
+        if (
+            actual is None
+            or actual.pointer_offset != entry.pointer_offset
+            or actual.text_offset != entry.text_offset
+            or actual.speaker != expected_speaker
+            or actual.text != expected_text
+        ):
+            raise WritebackError(
+                f"stage system dialogue reread mismatch: {entry.entry_id}"
+            )
+
+    allocations = tuple(
+        StageBatchAllocation(
+            entry_id=entry.entry_id,
+            pointer_offset=entry.pointer_offset,
+            source_text_offset=entry.text_offset,
+            arena_offset=entry.text_offset,
+            payload_size=len(regions[entry.text_offset][1]),
+        )
+        for entry in selected
+    )
+    return StageBatchWrite(
+        data=rebuilt,
+        stage_index=0,
+        source_size=len(data),
+        alignment=1,
+        allocations=allocations,
+        mode="fixed_source_allocations",
+        owned_regions=tuple((start, end) for start, end, _ in ordered_regions),
+        unique_payload_count=len(ordered_regions),
+    )
+
+
 def rebuild_codec_archive(
     decoded_chunks: Iterable[bytes],
     *,
@@ -1356,6 +1506,7 @@ __all__ = [
     "build_summary_patch_plan",
     "rebuild_codec_archive",
     "replace_menu_texts_in_place",
+    "replace_stage_system_dialogues_in_place",
     "relocate_menu_texts_to_pool",
     "relocate_stage_text_to_arena",
 ]

@@ -44,6 +44,7 @@ try:
         rebuild_srvc_archive,
     )
     from srwz.stage_overview import replace_stage_overviews_in_place
+    from srwz.stage import parse_stage_system_dialogues
     from srwz.stage_title_graphics import (
         GLYPH_SIZE as STAGE_TITLE_GLYPH_SIZE,
         TITLE_HEIGHT as STAGE_TITLE_HEIGHT,
@@ -54,6 +55,7 @@ try:
         unpack_linear_4bpp,
     )
     from srwz.tim2 import scan_tim2
+    from srwz.terrain_names import TerrainNameError, build_terrain_names
     from srwz.text import (
         SrwzTextEncodeError,
         control_notation_tokens,
@@ -73,6 +75,7 @@ try:
         WritebackError,
         build_executable_offset_patch_plan,
         replace_menu_texts_in_place,
+        replace_stage_system_dialogues_in_place,
     )
 except ModuleNotFoundError:
     from tools.srwz.codec import decode, encode, reencode_changed_suffix
@@ -109,6 +112,7 @@ except ModuleNotFoundError:
         rebuild_srvc_archive,
     )
     from tools.srwz.stage_overview import replace_stage_overviews_in_place
+    from tools.srwz.stage import parse_stage_system_dialogues
     from tools.srwz.stage_title_graphics import (
         GLYPH_SIZE as STAGE_TITLE_GLYPH_SIZE,
         TITLE_HEIGHT as STAGE_TITLE_HEIGHT,
@@ -119,6 +123,7 @@ except ModuleNotFoundError:
         unpack_linear_4bpp,
     )
     from tools.srwz.tim2 import scan_tim2
+    from tools.srwz.terrain_names import TerrainNameError, build_terrain_names
     from tools.srwz.text import (
         SrwzTextEncodeError,
         control_notation_tokens,
@@ -140,6 +145,7 @@ except ModuleNotFoundError:
         WritebackError,
         build_executable_offset_patch_plan,
         replace_menu_texts_in_place,
+        replace_stage_system_dialogues_in_place,
     )
 
 
@@ -2014,6 +2020,192 @@ def _apply_stage_fixed_formation_names(
         }
     )
     return output, fixed_report, original_stage_path
+
+
+def _apply_stage_system_dialogues(
+    stage: bytes,
+    hb: bytes,
+    reference: dict,
+    font_manifest: dict,
+    codec: dict,
+) -> tuple[bytes, dict, Path]:
+    """Write the reviewed chunk-zero quit scene without moving its pointers."""
+
+    if not isinstance(reference, dict):
+        raise FullStoryComponentError("remaining UI configuration is invalid")
+    original_stage_path, original_stage = _locked_file(
+        reference.get("original_stage"), label="original STAGE"
+    )
+    corpus_path, corpus_data = _locked_file(
+        reference.get("stage_system_dialogue"),
+        label="stage system dialogue corpus",
+    )
+    corpus = json.loads(corpus_data.decode("utf-8"))
+    expected = reference.get("expected")
+    entries = corpus.get("entries")
+    if (
+        corpus.get("editorial_status") != "reviewed"
+        or not isinstance(expected, dict)
+        or not isinstance(entries, list)
+        or len(entries) != expected.get("stage_system_dialogue_entry_count")
+        or len(original_stage) != len(stage)
+    ):
+        raise FullStoryComponentError("stage system dialogue selection drift")
+
+    offset_spec = ExecutableOffsetSpec(
+        name="HEDBDY/HB.BIN STAGE offsets",
+        member="HEDBDY/HB.BIN",
+        table_start=30320,
+        table_end=31144,
+    )
+    offsets = read_executable_archive_offsets(hb, offset_spec, len(stage))
+    chunk_index = 0
+    start, end = offsets[chunk_index : chunk_index + 2]
+    stored = stage[start:end]
+    original_stored = original_stage[start:end]
+    current_decoded = decode(stored)
+    original_decoded = decode(original_stored)
+    if (
+        any(stored[current_decoded.consumed :])
+        or any(original_stored[original_decoded.consumed :])
+        or len(current_decoded.output) != len(original_decoded.output)
+    ):
+        raise FullStoryComponentError("stage system dialogue decode drift")
+
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    source_inventory = parse_stage_system_dialogues(
+        original_decoded.output,
+        table,
+    )
+    source_entries = {entry.entry_id: entry for entry in source_inventory}
+    if len(source_inventory) != expected.get(
+        "stage_system_dialogue_inventory_count"
+    ):
+        raise FullStoryComponentError("stage system dialogue inventory drift")
+    replacements = {}
+    selected_pointer_offsets = []
+    for item in entries:
+        if not isinstance(item, dict):
+            raise FullStoryComponentError(
+                "stage system dialogue corpus entry is malformed"
+            )
+        entry_id = item.get("id")
+        source = source_entries.get(entry_id)
+        speaker = item.get("speaker")
+        translation = item.get("translation")
+        if (
+            source is None
+            or item.get("editorial_status") != "reviewed"
+            or item.get("source_text_sha256")
+            != sha256_bytes(source.text.encode("utf-8"))
+            or not isinstance(speaker, str)
+            or not speaker
+            or not isinstance(translation, str)
+            or not translation
+        ):
+            raise FullStoryComponentError(
+                f"stage system dialogue source drift: {entry_id!r}"
+            )
+        replacements[entry_id] = (
+            normalize_original_fullwidth_ascii(speaker),
+            normalize_original_fullwidth_ascii(translation),
+        )
+        selected_pointer_offsets.append(source.pointer_offset)
+    inventory_pointer_offsets = [
+        entry.pointer_offset for entry in source_inventory
+    ]
+    if selected_pointer_offsets != inventory_pointer_offsets:
+        raise FullStoryComponentError(
+            "stage system dialogue pointer selection drift"
+        )
+    pointer_offsets_sha256 = sha256_bytes(
+        json.dumps(
+            selected_pointer_offsets,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+    if pointer_offsets_sha256 != expected.get(
+        "stage_system_dialogue_pointer_offsets_sha256"
+    ):
+        raise FullStoryComponentError(
+            "stage system dialogue pointer selection SHA-256 drift"
+        )
+
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    try:
+        write = replace_stage_system_dialogues_in_place(
+            current_decoded.output,
+            table,
+            replacements=replacements,
+            overrides=encoding_overrides,
+        )
+    except (WritebackError, ValueError) as error:
+        raise FullStoryComponentError(
+            f"stage system dialogue write failed: {error}"
+        ) from error
+    if not isinstance(codec, dict) or codec.get("strategy") != "rust-fit":
+        raise FullStoryComponentError(
+            "stage system dialogue codec policy is invalid"
+        )
+    try:
+        encoded = reencode_changed_suffix(
+            stored[: current_decoded.consumed],
+            write.data,
+            strategy=codec["strategy"],
+            min_match_length=codec["min_match_length"],
+            max_match_chain=codec["max_match_chain"],
+            lazy_matching=codec["lazy_matching"],
+            max_output_size=len(stored),
+        )
+    except (RuntimeError, ValueError) as error:
+        raise FullStoryComponentError(
+            f"stage system dialogue compression failed: {error}"
+        ) from error
+    round_trip = decode(encoded)
+    if (
+        round_trip.output != write.data
+        or round_trip.consumed != len(encoded)
+        or round_trip.flags != current_decoded.flags
+    ):
+        raise FullStoryComponentError(
+            "stage system dialogue codec round-trip failed"
+        )
+    rebuilt_stored = encoded + bytes(len(stored) - len(encoded))
+    output = stage[:start] + rebuilt_stored + stage[end:]
+    if (
+        len(output) != len(stage)
+        or read_executable_archive_offsets(hb, offset_spec, len(output)) != offsets
+        or output[:start] != stage[:start]
+        or output[end:] != stage[end:]
+    ):
+        raise FullStoryComponentError(
+            "stage system dialogue archive layout changed"
+        )
+    report = write.to_metadata()
+    report.update(
+        {
+            "inventory_entry_count": len(source_entries),
+            "selected_entry_count": len(replacements),
+            "selected_pointer_offsets": selected_pointer_offsets,
+            "selected_pointer_offsets_sha256": pointer_offsets_sha256,
+            "source_preimages_sha256_exact": True,
+            "pointer_bytes_unchanged": True,
+            "reread_exact": True,
+            "codec_strategy": codec["strategy"],
+            "source_encoded_size": current_decoded.consumed,
+            "output_encoded_size": len(encoded),
+            "codec_round_trip_exact": True,
+            "archive_size_preserved": True,
+            "hb_offsets_preserved": True,
+            "non_target_chunks_preserved_byte_exact": True,
+        }
+    )
+    return output, report, corpus_path
 
 
 def _apply_hsfc_overviews(
@@ -4771,6 +4963,20 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         stage_fixed_formation_report
     )
     (
+        output_stage,
+        stage_system_dialogue_report,
+        stage_system_dialogue_corpus_path,
+    ) = _apply_stage_system_dialogues(
+        output_stage,
+        hb_payload,
+        config.get("remaining_ui"),
+        font_manifest,
+        config["full_pilot_names"]["codec"],
+    )
+    remaining_ui_report["stage_system_dialogue"] = (
+        stage_system_dialogue_report
+    )
+    (
         output_hsfc,
         hsfc_overview_report,
         hsfc_overview_input_paths,
@@ -4816,6 +5022,30 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         config.get("world_map_titles"),
         preview_root=output_root / "previews/world-map-titles",
     )
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    try:
+        (
+            output_mapmodel,
+            terrain_name_report,
+            terrain_name_input_paths,
+        ) = build_terrain_names(
+            PROJECT_ROOT,
+            config.get("world_map_titles", {}).get("terrain_names"),
+            archive_payload=output_mapmodel,
+            table=table,
+            encoding_overrides=encoding_overrides,
+        )
+    except TerrainNameError as error:
+        raise FullStoryComponentError(
+            f"MAPMODEL terrain-name write failed: {error}"
+        ) from error
+    world_map_title_report["terrain_names"] = terrain_name_report
 
     payloads = {
         "SLPS_258.87": output_slps,
@@ -4877,6 +5107,10 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
             "stage_overviews": _file_lock(
                 stage_overview_corpus_path,
                 stage_overview_corpus_path.read_bytes(),
+            ),
+            "stage_system_dialogue": _file_lock(
+                stage_system_dialogue_corpus_path,
+                stage_system_dialogue_corpus_path.read_bytes(),
             ),
             "hsfc_overviews": _file_lock(
                 hsfc_overview_input_paths[0],
@@ -4950,6 +5184,10 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
             "world_map_original_archive": _file_lock(
                 world_map_title_input_paths["original_archive"],
                 world_map_title_input_paths["original_archive"].read_bytes(),
+            ),
+            "terrain_name_corpus": _file_lock(
+                terrain_name_input_paths[0],
+                terrain_name_input_paths[0].read_bytes(),
             ),
         },
         "compression": {
@@ -5053,6 +5291,7 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 == "rust-fit"
                 and world_map_title_report["codec"]["strategy"]
                 == "rust-fit"
+                and terrain_name_report["codec_round_trip_exact"]
             ),
             "world_map_titles_reread_exact": (
                 world_map_title_report["unique_title_count"] == 78
@@ -5078,6 +5317,14 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                     "compressed_chunks_fit_allocations"
                 ]
                 and world_map_title_report["codec_round_trip_exact"]
+                and terrain_name_report["unique_source_count"] == 15
+                and terrain_name_report["occurrence_count"] == 66
+                and terrain_name_report["changed_member_count"] == 10
+                and terrain_name_report["fixed_decoded_spans_preserved"]
+                and terrain_name_report["archive_size_preserved"]
+                and terrain_name_report["offset_table_preserved"]
+                and terrain_name_report["codec_round_trip_exact"]
+                and terrain_name_report["reread_exact"]
             ),
             "p10_ui_members_inherited_exact": True,
             "encoded_ui_codebook_is_release_subset": True,
@@ -5208,6 +5455,21 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 and remaining_ui_report["stage_fixed_formation"][
                     "hb_offsets_preserved"
                 ]
+                and remaining_ui_report["stage_system_dialogue"][
+                    "reread_exact"
+                ]
+                and remaining_ui_report["stage_system_dialogue"][
+                    "pointer_bytes_unchanged"
+                ]
+                and remaining_ui_report["stage_system_dialogue"][
+                    "codec_round_trip_exact"
+                ]
+                and remaining_ui_report["stage_system_dialogue"][
+                    "archive_size_preserved"
+                ]
+                and remaining_ui_report["stage_system_dialogue"][
+                    "hb_offsets_preserved"
+                ]
                 and remaining_ui_report["compdata_round_trip_exact"]
                 and remaining_ui_report["slps_size_preserved"]
             ),
@@ -5235,6 +5497,9 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 ]
                 and remaining_ui_report["stage_fixed_formation"][
                     "placeholder_control_tokens_preserved"
+                ]
+                and remaining_ui_report["stage_system_dialogue"][
+                    "source_preimages_sha256_exact"
                 ]
             ),
             "reviewed_weapon_names_reread_exact": (

@@ -9,7 +9,11 @@ import struct
 from pathlib import Path
 
 from srwz.archive import sha256_file
-from srwz.chinese_layout import dialogue_line_widths
+from srwz.chinese_layout import (
+    DEFAULT_LINE_WIDTH,
+    DEFAULT_MAX_LINES,
+    dialogue_line_widths,
+)
 from srwz.codec import decode
 from srwz.display_names import (
     load_display_name_source,
@@ -61,7 +65,7 @@ from srwz.text import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ISO = (
     PROJECT_ROOT
-    / "build/iso/v0.1.0/srwz-zh-v0.1.0.iso"
+    / "build/iso/zh-release-full-story/srwz-zh-current.iso"
 )
 DEFAULT_REPORT = (
     PROJECT_ROOT / "work/verification/zh-release-full-story-content.json"
@@ -69,7 +73,7 @@ DEFAULT_REPORT = (
 DEFAULT_MANIFEST = (
     PROJECT_ROOT / "manifests/zh-release-full-story-iso-content-validation.json"
 )
-BUILD_CONFIG = PROJECT_ROOT / "config/iso/zh-release-full-story-build.json"
+BUILD_CONFIG = PROJECT_ROOT / "config/iso/zh-release-current-build.json"
 COMPONENT_REPORT = (
     PROJECT_ROOT
     / "manifests/full-story-components-validation.json"
@@ -97,7 +101,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--component-report",
         type=Path,
-        default=COMPONENT_REPORT,
     )
     parser.add_argument("--font-manifest", type=Path, default=FONT_MANIFEST)
     parser.add_argument(
@@ -1452,8 +1455,15 @@ def main() -> int:
             "component_required_status"
         ):
             raise SystemExit("bound component manifest status mismatch")
+    component_report_path = args.component_report
+    if component_report_path is None:
+        component_report_path = (
+            Path(component_manifest_path)
+            if component_manifest_path
+            else COMPONENT_REPORT
+        )
     component = json.loads(
-        project_path(args.component_report).read_text(encoding="utf-8")
+        project_path(component_report_path).read_text(encoding="utf-8")
     )
     font_manifest = json.loads(
         project_path(args.font_manifest).read_text(encoding="utf-8")
@@ -2083,9 +2093,13 @@ def main() -> int:
                 }
 
             widths = dialogue_line_widths(expected_translation)
-            if len(widths) > 3 or max(widths, default=0) > 24:
+            if (
+                len(widths) > DEFAULT_MAX_LINES
+                or max(widths, default=0) > DEFAULT_LINE_WIDTH
+            ):
                 raise SystemExit(
-                    f"{entry_id} exceeds 24x3 dialogue layout: {widths!r}"
+                    f"{entry_id} exceeds {DEFAULT_LINE_WIDTH}x"
+                    f"{DEFAULT_MAX_LINES} dialogue layout: {widths!r}"
                 )
             stage_maximum_line_count = max(
                 stage_maximum_line_count,
@@ -2255,7 +2269,7 @@ def main() -> int:
             "Independent final-ISO readback of all 154 selected story "
             "chunks and 91,746 dialogue, condition, and speaker entries, "
             "plus reviewed save/load overviews, pilot-name, button-prompt, "
-            "24x3 layout, runtime-token, "
+            f"{DEFAULT_LINE_WIDTH}x{DEFAULT_MAX_LINES} layout, runtime-token, "
             "and font checks; this is not a full gameplay playthrough."
         ),
         "iso": {
@@ -2270,8 +2284,8 @@ def main() -> int:
         "condition_count": total_conditions,
         "speaker_count": total_speakers,
         "dialogue_layout": {
-            "line_width_limit": 24,
-            "line_count_limit": 3,
+            "line_width_limit": DEFAULT_LINE_WIDTH,
+            "line_count_limit": DEFAULT_MAX_LINES,
             "maximum_line_width": maximum_dialogue_line_width,
             "maximum_line_count": maximum_dialogue_line_count,
             "all_dialogue_within_limit": True,
@@ -2361,9 +2375,9 @@ def main() -> int:
             "unknown_code_count_zero": True,
             "translation_entry_count_exact": total_entries
             == expected_entry_count,
-            "dialogue_layout_24x3_exact": (
-                maximum_dialogue_line_width <= 24
-                and maximum_dialogue_line_count <= 3
+            "dialogue_layout_21x3_exact": (
+                maximum_dialogue_line_width <= DEFAULT_LINE_WIDTH
+                and maximum_dialogue_line_count <= DEFAULT_MAX_LINES
             ),
             "runtime_substitution_tokens_raw_ascii": True,
             "stock_alphanumeric_glyphs_byte_exact": (

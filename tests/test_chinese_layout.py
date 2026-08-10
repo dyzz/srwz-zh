@@ -1,6 +1,7 @@
 import unittest
 
 from tools.srwz.chinese_layout import (
+    DEFAULT_LINE_WIDTH,
     ChineseLayoutError,
     dialogue_line_widths,
     logical_dialogue_text,
@@ -10,12 +11,12 @@ from tools.srwz.chinese_layout import (
 
 
 class ChineseLayoutTests(unittest.TestCase):
-    def test_short_source_shaped_dialogue_collapses_to_one_line(self):
+    def test_source_shaped_dialogue_reflows_to_the_runtime_limit(self):
         original = "“所谓新兵器评估\n　测试，和实战相比不过是\n　儿戏”"
         result = reflow_chinese_dialogue(original)
         self.assertEqual(
             result.text,
-            "“所谓新兵器评估测试，和实战相比不过是儿戏”",
+            "“所谓新兵器评估测试，\n　和实战相比不过是儿戏”",
         )
         self.assertEqual(
             logical_dialogue_text(result.text), logical_dialogue_text(original)
@@ -40,7 +41,7 @@ class ChineseLayoutTests(unittest.TestCase):
             protected_terms=("荣耀之星",),
         )
         self.assertEqual(len(result.line_widths), 2)
-        self.assertLessEqual(max(result.line_widths), 24)
+        self.assertLessEqual(max(result.line_widths), DEFAULT_LINE_WIDTH)
         self.assertEqual(dialogue_line_widths("“$n！”"), (9,))
 
     def test_does_not_split_protected_name_or_lead_with_punctuation(self):
@@ -96,7 +97,7 @@ class ChineseLayoutTests(unittest.TestCase):
         result = reflow_chinese_dialogue(original)
         self.assertEqual(logical_dialogue_text(result.text), original)
         self.assertLessEqual(len(result.line_widths), 3)
-        self.assertLessEqual(max(result.line_widths), 24)
+        self.assertLessEqual(max(result.line_widths), DEFAULT_LINE_WIDTH)
 
     def test_long_unregistered_latin_phrase_wraps_at_spaces(self):
         result = reflow_chinese_dialogue(
@@ -107,7 +108,20 @@ class ChineseLayoutTests(unittest.TestCase):
             "“称为‘Z Emergency Union of Terrestrial Human’。”",
         )
         self.assertLessEqual(len(result.line_widths), 3)
-        self.assertLessEqual(max(result.line_widths), 24)
+        self.assertLessEqual(max(result.line_widths), DEFAULT_LINE_WIDTH)
+
+    def test_runtime_overflow_sample_reflows_with_continuation_margin(self):
+        original = (
+            "“别为这种无聊事高兴，托比！\n"
+            "　他们应该就是为了引开提坦斯而行动的那支部队”"
+        )
+        result = reflow_chinese_dialogue(original)
+        self.assertEqual(result.line_widths, (18, 18))
+        self.assertEqual(
+            result.text,
+            "“别为这种无聊事高兴，托比！他们应该\n"
+            "　就是为了引开提坦斯而行动的那支部队”",
+        )
 
     def test_partition_without_dialogue_indentation_preserves_logical_text(self):
         lines = partition_chinese_text(
