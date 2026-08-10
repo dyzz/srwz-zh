@@ -8,14 +8,15 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 BUILD_CONFIG = PROJECT_ROOT / "config/iso/zh-release-full-story-build.json"
 CHAIN_CONFIG = PROJECT_ROOT / "config/iso/zh-release-chain.json"
 COMPONENT_MANIFEST = (
-    PROJECT_ROOT / "manifests/full-story-components-validation.json"
+    PROJECT_ROOT
+    / "manifests/releases/v0.1.0/full-story-components-validation.json"
 )
 ISO_REPORT = (
     PROJECT_ROOT / "build/iso/v0.1.0/iso-validation-v0.1.0.json"
 )
 CONTENT_MANIFEST = (
     PROJECT_ROOT
-    / "manifests/zh-release-full-story-iso-content-validation.json"
+    / "manifests/releases/v0.1.0/zh-release-full-story-iso-content-validation.json"
 )
 FONT_PROPOSAL = (
     PROJECT_ROOT / "work/writeback/zh-release-codebook-proposal.json"
@@ -193,7 +194,9 @@ class ZhReleaseIsoTests(unittest.TestCase):
     def test_final_iso_hash_layout_and_current_candidate_are_locked(self):
         output = self.config["output"]
         iso_path = PROJECT_ROOT / output["path"]
-        generated = sorted((PROJECT_ROOT / "build/iso").rglob("*.iso"))
+        generated = sorted(
+            (PROJECT_ROOT / "build/iso/v0.1.0").glob("*.iso")
+        )
         self.assertEqual(generated, [iso_path])
         self.assertEqual(iso_path.name, "srwz-zh-v0.1.0.iso")
         self.assertEqual(len(self.config["replacements"]), 13)
