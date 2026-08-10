@@ -10,6 +10,11 @@ import struct
 from pathlib import Path
 
 try:
+    from srwz.auto_demo import (
+        AutoDemoError,
+        discover_auto_demo_name_slots,
+        rewrite_auto_demo_names,
+    )
     from srwz.codec import decode, encode, reencode_changed_suffix
     from srwz.diagnostics import require_work_output
     from srwz.display_names import (
@@ -78,6 +83,11 @@ try:
         replace_stage_system_dialogues_in_place,
     )
 except ModuleNotFoundError:
+    from tools.srwz.auto_demo import (
+        AutoDemoError,
+        discover_auto_demo_name_slots,
+        rewrite_auto_demo_names,
+    )
     from tools.srwz.codec import decode, encode, reencode_changed_suffix
     from tools.srwz.diagnostics import require_work_output
     from tools.srwz.display_names import (
@@ -4862,6 +4872,320 @@ def _apply_scenario_select_effect(
     return output_archive, report, archive_path
 
 
+def _apply_auto_demo_overlays(
+    slps: bytes,
+    raw_config: object,
+    font_manifest: dict,
+) -> tuple[bytes, dict[str, bytes], dict, dict[str, Path]]:
+    """Localize the title-idle work title and speaker-name overlays."""
+
+    if not isinstance(raw_config, dict):
+        raise FullStoryComponentError("auto-demo overlay config is invalid")
+    title_corpus_path, title_corpus_data = _locked_file(
+        raw_config.get("title_corpus"),
+        label="auto-demo work-title corpus",
+    )
+    original_slps_path, original_slps = _locked_file(
+        raw_config.get("original_slps"),
+        label="auto-demo original SLPS",
+    )
+    story_speaker_path, story_speaker_data = _locked_file(
+        raw_config.get("story_speakers"),
+        label="auto-demo canonical story speakers",
+    )
+    residual_name_path, residual_name_data = _locked_file(
+        raw_config.get("residual_names"),
+        label="auto-demo residual display names",
+    )
+    unit_name_path, unit_name_data = _locked_file(
+        raw_config.get("unit_names"),
+        label="auto-demo canonical work titles",
+    )
+    expected = raw_config.get("expected")
+    archives = raw_config.get("battle_archives")
+    if not isinstance(expected, dict) or not isinstance(archives, list):
+        raise FullStoryComponentError("auto-demo overlay contract is incomplete")
+    if expected.get("name_field_capacity") != 20:
+        raise FullStoryComponentError("auto-demo name-field capacity drift")
+
+    title_corpus = json.loads(title_corpus_data.decode("utf-8"))
+    title_entries = title_corpus.get("entries")
+    unit_names = json.loads(unit_name_data.decode("utf-8"))
+    unit_segments = unit_names.get("segments")
+    if (
+        title_corpus.get("language") != "zh-Hans"
+        or title_corpus.get("scope", {}).get("surface")
+        != "title-idle-auto-demo"
+        or not isinstance(title_entries, list)
+        or len(title_entries) != expected.get("title_entry_count")
+        or not isinstance(unit_segments, list)
+    ):
+        raise FullStoryComponentError("auto-demo work-title corpus drift")
+
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    output_table = project_runtime_text_table(table, primary)
+    output_table = project_runtime_text_table(output_table, aliases)
+    output_table = project_runtime_text_table(
+        output_table, original_fullwidth_ascii_overrides(table)
+    )
+
+    output_slps = bytearray(slps)
+    title_reports = []
+    title_ranges = []
+    for ordinal, entry in enumerate(title_entries):
+        if not isinstance(entry, dict):
+            raise FullStoryComponentError("auto-demo work-title entry is invalid")
+        entry_id = f"auto-demo/title/{ordinal:02d}"
+        try:
+            offset = int(entry["offset"], 0)
+            capacity = entry["capacity"]
+        except (KeyError, TypeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"auto-demo work-title location is malformed: {entry_id}"
+            ) from error
+        source_text = entry.get("source_text")
+        translation = entry.get("translation")
+        translation_source = entry.get("translation_source")
+        if (
+            entry.get("id") != entry_id
+            or entry.get("editorial_status") != "reviewed"
+            or not isinstance(capacity, int)
+            or capacity <= 0
+            or not isinstance(source_text, str)
+            or not source_text
+            or not isinstance(translation, str)
+            or not translation
+            or entry.get("source_text_sha256")
+            != sha256_bytes(source_text.encode("utf-8"))
+            or offset < 0
+            or offset + capacity > len(original_slps)
+        ):
+            raise FullStoryComponentError(
+                f"auto-demo work-title entry drift: {entry_id}"
+            )
+        if isinstance(translation_source, str) and translation_source.startswith(
+            "units-full:segment/"
+        ):
+            try:
+                segment_index = int(translation_source.rsplit("/", 1)[1])
+                canonical_title = unit_segments[segment_index]["work"]
+            except (IndexError, KeyError, TypeError, ValueError) as error:
+                raise FullStoryComponentError(
+                    f"auto-demo work-title source is invalid: {entry_id}"
+                ) from error
+            if translation != canonical_title:
+                raise FullStoryComponentError(
+                    f"auto-demo work title differs from unit corpus: {entry_id}"
+                )
+        elif translation_source != "project-work-title":
+            raise FullStoryComponentError(
+                f"auto-demo work-title provenance drift: {entry_id}"
+            )
+        source_span = original_slps[offset : offset + capacity]
+        terminator = source_span.find(b"\0")
+        try:
+            reread_source = source_span[:terminator].decode("cp932")
+        except UnicodeDecodeError as error:
+            raise FullStoryComponentError(
+                f"auto-demo work-title source cannot decode: {entry_id}"
+            ) from error
+        if (
+            terminator <= 0
+            or any(source_span[terminator:])
+            or reread_source != source_text
+            or sha256_bytes(source_span) != entry.get("source_span_sha256")
+            or slps[offset : offset + capacity] != source_span
+        ):
+            raise FullStoryComponentError(
+                f"auto-demo work-title preimage drift: {entry_id}"
+            )
+        stored_translation = _two_byte_visible_spaces(translation)
+        encoded = encode_text(
+            stored_translation,
+            table,
+            overrides=encoding_overrides,
+            terminate=True,
+        )
+        if len(encoded) > capacity:
+            raise FullStoryComponentError(
+                f"auto-demo work-title overflow: {entry_id} "
+                f"({len(encoded)} > {capacity})"
+            )
+        output_slps[offset : offset + capacity] = encoded + bytes(
+            capacity - len(encoded)
+        )
+        reread = decode_text(bytes(output_slps), offset, output_table).text
+        if reread != stored_translation:
+            raise FullStoryComponentError(
+                f"auto-demo work-title reread mismatch: {entry_id}"
+            )
+        title_ranges.append((offset, offset + capacity))
+        title_reports.append(
+            {
+                "id": entry_id,
+                "offset": offset,
+                "capacity": capacity,
+                "source_text": source_text,
+                "translation": translation,
+                "stored_translation": stored_translation,
+                "translation_source": translation_source,
+                "encoded_size": len(encoded),
+                "headroom": capacity - len(encoded),
+            }
+        )
+    for offset, (before, after) in enumerate(zip(slps, output_slps)):
+        if before != after and not any(
+            start <= offset < end for start, end in title_ranges
+        ):
+            raise FullStoryComponentError(
+                "auto-demo work titles changed bytes outside fixed spans"
+            )
+
+    story_speakers = json.loads(story_speaker_data.decode("utf-8"))
+    speaker_entries = story_speakers.get("entries")
+    residual_names = json.loads(residual_name_data.decode("utf-8")).get(
+        "display_names_by_source_text"
+    )
+    if not isinstance(speaker_entries, list) or not isinstance(
+        residual_names, dict
+    ):
+        raise FullStoryComponentError("auto-demo canonical name sources drift")
+    translation_by_hash: dict[str, str] = {}
+    for entry in speaker_entries:
+        if not isinstance(entry, dict):
+            raise FullStoryComponentError("story-speaker entry is invalid")
+        source_hash = entry.get("source_text_sha256")
+        translation = entry.get("translation")
+        if not isinstance(source_hash, str) or not isinstance(translation, str):
+            raise FullStoryComponentError("story-speaker entry drift")
+        previous = translation_by_hash.setdefault(source_hash, translation)
+        if previous != translation:
+            raise FullStoryComponentError(
+                f"story-speaker canonical translation conflicts: {source_hash}"
+            )
+
+    output_archives = {}
+    archive_reports = []
+    input_paths: dict[str, Path] = {
+        "title_corpus": title_corpus_path,
+        "original_slps": original_slps_path,
+        "story_speakers": story_speaker_path,
+        "residual_names": residual_name_path,
+        "unit_names": unit_name_path,
+    }
+    all_name_sources = set()
+    total_name_slots = 0
+    for archive in archives:
+        if not isinstance(archive, dict):
+            raise FullStoryComponentError("auto-demo archive entry is invalid")
+        member = archive.get("member")
+        expected_slot_count = archive.get("expected_name_slot_count")
+        if (
+            not isinstance(member, str)
+            or not member.startswith("BTL/OP")
+            or not member.endswith(".BIN")
+            or not isinstance(expected_slot_count, int)
+        ):
+            raise FullStoryComponentError("auto-demo archive contract drift")
+        source_path, source_payload = _locked_file(
+            archive.get("source"), label=f"auto-demo {member}"
+        )
+        seg_path, source_seg = _locked_file(
+            archive.get("seg"), label=f"auto-demo {member[:-4]}.SEG"
+        )
+
+        # Resolve only the names actually present in this locked archive.  The
+        # preferred source is the story-speaker corpus; generic enemy/unit
+        # labels fall back to the existing residual display-name mapping.
+        from_hash = {}
+        from_residual = {}
+        for source_text in residual_names:
+            if not isinstance(source_text, str):
+                raise FullStoryComponentError("residual display-name key drift")
+        translations = {}
+        try:
+            discovered = discover_auto_demo_name_slots(source_payload, source_seg)
+        except AutoDemoError as error:
+            raise FullStoryComponentError(
+                f"auto-demo discovery failed for {member}: {error}"
+            ) from error
+        for slot in discovered:
+            source_hash = sha256_bytes(slot.source_text.encode("utf-8"))
+            translation = translation_by_hash.get(source_hash)
+            if translation is not None:
+                from_hash[slot.source_text] = translation
+            else:
+                translation = residual_names.get(slot.source_text)
+                if translation is not None:
+                    from_residual[slot.source_text] = translation
+            if not isinstance(translation, str) or not translation:
+                raise FullStoryComponentError(
+                    f"auto-demo canonical name is missing: {slot.source_text!r}"
+                )
+            translations[slot.source_text] = _two_byte_visible_spaces(
+                normalize_original_fullwidth_ascii(translation)
+            )
+        try:
+            output_payload, name_reports = rewrite_auto_demo_names(
+                source_payload,
+                source_seg,
+                translations,
+                table,
+                encoding_overrides=encoding_overrides,
+                output_table=output_table,
+                expected_slot_count=expected_slot_count,
+            )
+        except (AutoDemoError, SrwzTextEncodeError) as error:
+            raise FullStoryComponentError(
+                f"auto-demo name writeback failed for {member}: {error}"
+            ) from error
+        output_archives[member] = output_payload
+        input_paths[f"original_{Path(member).stem.lower()}_bin"] = source_path
+        input_paths[f"original_{Path(member).stem.lower()}_seg"] = seg_path
+        sources = {item["source_text"] for item in name_reports}
+        all_name_sources.update(sources)
+        total_name_slots += len(name_reports)
+        archive_reports.append(
+            {
+                "member": member,
+                "name_slot_count": len(name_reports),
+                "unique_name_source_count": len(sources),
+                "story_speaker_source_count": len(from_hash),
+                "residual_display_name_source_count": len(from_residual),
+                "names": name_reports,
+                "archive_size_preserved": len(output_payload)
+                == len(source_payload),
+                "seg_preserved_byte_exact": True,
+                "translated_reread_exact": True,
+            }
+        )
+    if (
+        total_name_slots != expected.get("name_slot_count")
+        or len(all_name_sources) != expected.get("unique_name_source_count")
+    ):
+        raise FullStoryComponentError("auto-demo name inventory drift")
+    report = {
+        "title_entry_count": len(title_reports),
+        "titles": title_reports,
+        "name_slot_count": total_name_slots,
+        "unique_name_source_count": len(all_name_sources),
+        "archives": archive_reports,
+        "work_titles_reused_from_existing_corpus": True,
+        "names_reused_from_existing_corpora": True,
+        "fixed_spans_preserved": True,
+        "archive_sizes_preserved": True,
+        "seg_files_preserved_byte_exact": True,
+        "translated_reread_exact": True,
+    }
+    return bytes(output_slps), output_archives, report, input_paths
+
+
 def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]:
     config = _json(config_path)
     base = config.get("base_ui")
@@ -5217,6 +5541,16 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
     )
     (
         output_slps,
+        output_auto_demo_archives,
+        auto_demo_report,
+        auto_demo_input_paths,
+    ) = _apply_auto_demo_overlays(
+        output_slps,
+        config.get("auto_demo_overlays"),
+        font_manifest,
+    )
+    (
+        output_slps,
         scenario_description_layout_report,
     ) = _apply_scenario_description_layout(
         output_slps,
@@ -5370,6 +5704,7 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         "BTL/SRVC.SEG": output_srvc_seg,
         "EFF/VEFF2DX.BIN": output_veff,
         "MAP/MAPMODEL.BIN": output_mapmodel,
+        **output_auto_demo_archives,
     }
     output_paths = {name: output_root / name for name in payloads}
     stage_headrooms = [
@@ -5498,6 +5833,10 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 terrain_name_input_paths[0],
                 terrain_name_input_paths[0].read_bytes(),
             ),
+            **{
+                f"auto_demo_{label}": _file_lock(path, path.read_bytes())
+                for label, path in auto_demo_input_paths.items()
+            },
         },
         "compression": {
             "backend_policy": "rust-only",
@@ -5574,6 +5913,7 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         "nisv_effect_names": nisv_effect_names_report,
         "reviewed_weapons": reviewed_weapon_report,
         "srvc_battle_text": srvc_report,
+        "auto_demo_overlays": auto_demo_report,
         "scenario_select_effect": scenario_select_report,
         "mode_select_effect": mode_select_report,
         "world_map_titles": world_map_title_report,
@@ -5854,6 +6194,19 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 and srvc_report["unindexed_tails_preserved_byte_exact"]
                 and srvc_report["zero_record_chunks_preserved_byte_exact"]
                 and srvc_report["seg_preserved_byte_exact"]
+            ),
+            "auto_demo_overlays_reread_exact": (
+                auto_demo_report["title_entry_count"] == 22
+                and auto_demo_report["name_slot_count"] == 63
+                and auto_demo_report["unique_name_source_count"] == 59
+                and auto_demo_report[
+                    "work_titles_reused_from_existing_corpus"
+                ]
+                and auto_demo_report["names_reused_from_existing_corpora"]
+                and auto_demo_report["fixed_spans_preserved"]
+                and auto_demo_report["archive_sizes_preserved"]
+                and auto_demo_report["seg_files_preserved_byte_exact"]
+                and auto_demo_report["translated_reread_exact"]
             ),
             "all_localized_text_uses_safe_double_byte_aliases": (
                 global_safe_alias_report[

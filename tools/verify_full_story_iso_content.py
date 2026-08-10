@@ -259,6 +259,126 @@ def stage_index(entry_id: str) -> int:
     return int(entry_id.split("/")[1])
 
 
+def verify_auto_demo_overlays(
+    slps: bytes,
+    members: dict[str, bytes],
+    table: TextTable,
+    component_manifest: dict | None,
+) -> dict:
+    """Reread every title-idle work title and speaker name from the ISO."""
+
+    if component_manifest is None:
+        raise SystemExit("auto-demo readback requires a bound component manifest")
+    metadata = component_manifest.get("auto_demo_overlays")
+    if not isinstance(metadata, dict):
+        raise SystemExit("component auto-demo metadata is missing")
+    title_entries = metadata.get("titles")
+    archive_entries = metadata.get("archives")
+    if (
+        not isinstance(title_entries, list)
+        or len(title_entries) != 22
+        or not isinstance(archive_entries, list)
+        or len(archive_entries) != 3
+    ):
+        raise SystemExit("component auto-demo inventory drift")
+
+    title_reports = []
+    for entry in title_entries:
+        offset = entry["offset"]
+        capacity = entry["capacity"]
+        end = offset + capacity
+        decoded = decode_text(slps, offset, table, end=end)
+        if (
+            decoded.text != entry["stored_translation"]
+            or decoded.unknown_code_count
+            or any(slps[decoded.end:end])
+        ):
+            raise SystemExit(
+                f"final ISO auto-demo work-title mismatch: {entry['id']}"
+            )
+        title_reports.append(
+            {
+                "id": entry["id"],
+                "offset": offset,
+                "capacity": capacity,
+                "translation": entry["translation"],
+                "stored_translation": decoded.text,
+                "padding_all_zero": True,
+                "unknown_code_count": 0,
+            }
+        )
+
+    name_reports = []
+    archive_reports = []
+    for archive in archive_entries:
+        member = archive["member"]
+        payload = members.get(member)
+        if payload is None:
+            raise SystemExit(f"final ISO auto-demo member is missing: {member}")
+        names = archive.get("names")
+        if not isinstance(names, list):
+            raise SystemExit(f"component auto-demo name list is missing: {member}")
+        for entry in names:
+            offset = entry["offset"]
+            capacity = entry["capacity"]
+            end = offset + capacity
+            decoded = decode_text(payload, offset, table, end=end)
+            if (
+                decoded.text != entry["translation"]
+                or decoded.unknown_code_count
+                or any(payload[decoded.end:end])
+            ):
+                raise SystemExit(
+                    "final ISO auto-demo speaker-name mismatch: "
+                    f"{member}@0x{offset:X}"
+                )
+            name_reports.append(
+                {
+                    "member": member,
+                    "offset": offset,
+                    "capacity": capacity,
+                    "source_text": entry["source_text"],
+                    "translation": decoded.text,
+                    "padding_all_zero": True,
+                    "unknown_code_count": 0,
+                }
+            )
+        archive_reports.append(
+            {
+                "member": member,
+                "name_slot_count": len(names),
+                "archive_size_preserved": archive["archive_size_preserved"],
+                "translated_reread_exact": True,
+            }
+        )
+    if (
+        len(name_reports) != 63
+        or len({item["source_text"] for item in name_reports}) != 59
+    ):
+        raise SystemExit("final ISO auto-demo name inventory mismatch")
+    kamille = [
+        item
+        for item in name_reports
+        if item["member"] == "BTL/OP0.BIN"
+        and item["offset"] == 0x40B0C
+    ]
+    if len(kamille) != 1 or kamille[0]["translation"] != "卡缪":
+        raise SystemExit("final ISO auto-demo Kamille name mismatch")
+    return {
+        "title_entry_count": len(title_reports),
+        "name_slot_count": len(name_reports),
+        "unique_name_source_count": len(
+            {item["source_text"] for item in name_reports}
+        ),
+        "titles": title_reports,
+        "archives": archive_reports,
+        "kamille_name": kamille[0],
+        "fixed_field_padding_all_zero": True,
+        "unknown_code_count": 0,
+        "translated_reread_exact": True,
+    }
+
+
 def verify_stock_ascii_glyphs(
     source_table: TextTable,
     ascii_overrides: dict[str, int],
@@ -1731,6 +1851,12 @@ def main() -> int:
     compdata_table = project_runtime_text_table(
         compdata_table, ascii_overrides
     )
+    auto_demo_overlays = verify_auto_demo_overlays(
+        slps,
+        members,
+        compdata_table,
+        component_manifest,
+    )
     targeted_ui_glyphs = verify_targeted_ui_glyphs(
         slps,
         compdata_table,
@@ -2465,6 +2591,7 @@ def main() -> int:
             "Independent final-ISO readback of all 154 selected story "
             "chunks and 91,746 dialogue, condition, and speaker entries, "
             "plus reviewed save/load overviews, pilot-name, button-prompt, "
+            "title-idle work-title and speaker-name overlays, "
             f"{DEFAULT_LINE_WIDTH}x{DEFAULT_MAX_LINES} layout, runtime-token, "
             "and font checks; this is not a full gameplay playthrough."
         ),
@@ -2501,6 +2628,7 @@ def main() -> int:
         "scenario_select_effect": scenario_select_effect,
         "mode_select_effect": mode_select_effect,
         "nisv_effect_names": nisv_effect_names,
+        "auto_demo_overlays": auto_demo_overlays,
         "stage_overviews": overview_report,
         "hsfc_overviews": hsfc_report,
         "members": {
@@ -2561,6 +2689,16 @@ def main() -> int:
             "nisv_effect_names_exact": (
                 nisv_effect_names["translated_reread_exact"]
                 and nisv_effect_names["archive_offsets_preserved"]
+            ),
+            "auto_demo_overlays_exact": (
+                auto_demo_overlays["title_entry_count"] == 22
+                and auto_demo_overlays["name_slot_count"] == 63
+                and auto_demo_overlays["unique_name_source_count"] == 59
+                and auto_demo_overlays["fixed_field_padding_all_zero"]
+                and auto_demo_overlays["unknown_code_count"] == 0
+                and auto_demo_overlays["translated_reread_exact"]
+                and auto_demo_overlays["kamille_name"]["translation"]
+                == "卡缪"
             ),
             "hb_stage_offsets_valid": True,
             "encoded_streams_exact": True,

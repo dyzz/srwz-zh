@@ -58,7 +58,7 @@
       "member": "SLPS_258.87",
       "source": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "249314108c5d55b2ec3c05026244e584c3b9128b5f825c9c8a7ed049f168bf47"
+      "sha256": "a4cd628c9b35d5f30cc24f0490a42c149c2e7c113d94f0044b59c57c42748e9b"
     },
     {
       "member": "DATA/COMPDATA.BN",
@@ -127,6 +127,24 @@
       "sha256": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987"
     },
     {
+      "member": "BTL/OP0.BIN",
+      "source": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
+      "size": 266224,
+      "sha256": "3c766268d5a5f5c5f0c7ab07aca1ec4fd6173da55604bde79f2e04b0224b3bcb"
+    },
+    {
+      "member": "BTL/OP1.BIN",
+      "source": "work/build/zh-release-full-story/components/BTL/OP1.BIN",
+      "size": 265872,
+      "sha256": "e5198d1a85ec19572a9d0d7c8c603d27ae884737754ff71076e46e525177009c"
+    },
+    {
+      "member": "BTL/OP2.BIN",
+      "source": "work/build/zh-release-full-story/components/BTL/OP2.BIN",
+      "size": 266352,
+      "sha256": "73a28d29c9c0d5c0ed6f49ff63a92f5a459537ca67d4590e9caf9864c82b1724"
+    },
+    {
       "member": "EFF/VEFF2DX.BIN",
       "source": "work/build/zh-release-full-story/components/EFF/VEFF2DX.BIN",
       "size": 36890512,
@@ -137,8 +155,8 @@
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "report": "build/iso/zh-release-full-story/iso-validation-current.json",
     "expected_size": 3758358528,
-    "expected_sha256": "e7980940aea35ea8574c6e04e264e56479371aa34c92630b6ca6c1f5f47b1cda",
-    "expected_member_manifest_sha256": "47531b2c6fb7d0111267469ac7ddaf7a6ac1979ef6e0bc22be6aeb8726dce1fa",
+    "expected_sha256": "f0f2a274e6d5ca72925a37eaca9ef5367fed272c499dfb28f2bb6392ad71473b",
+    "expected_member_manifest_sha256": "c71c4742494b69c2c01631186596e684d45d309e45d96d0bda4c5335936f4b9d",
     "expected_root_directory_size": 960,
     "expected_pcsx2_v263_image_type": "DVD",
     "expected_udf_volume_recognition_sequence": "NSR02",
@@ -159,6 +177,9 @@
       "MAP/MAPMODEL.BIN",
       "BTL/SRVC.BIN",
       "BTL/SRVC.SEG",
+      "BTL/OP0.BIN",
+      "BTL/OP1.BIN",
+      "BTL/OP2.BIN",
       "EFF/VEFF2DX.BIN"
     ]
   }

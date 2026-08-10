@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "profile_id": "srwz-global-zh-release-integrated-v1",
-  "scope": "Compose the validated encoded UI component, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
+  "scope": "Compose the validated encoded UI component, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, all title-idle auto-demo work-title and speaker-name overlays, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
   "base_ui": {
     "manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -123,6 +123,83 @@
       "max_match_chain": 16384,
       "lazy_matching": false,
       "max_output_size": 145408
+    }
+  },
+  "auto_demo_overlays": {
+    "title_corpus": {
+      "path": "corpus/zh/auto-demo-work-titles.json",
+      "size": 10856,
+      "sha256": "97bd862b485eb1a231897c550c0021ce0262b95ec5f1b2455d796df2b9a30700"
+    },
+    "original_slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "story_speakers": {
+      "path": "corpus/zh/story-speakers.json",
+      "size": 2898406,
+      "sha256": "023821574df5100d7b615d4c0dddeac702fd688ba56a02652c7ea4bd53f7ad88"
+    },
+    "residual_names": {
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "size": 92859,
+      "sha256": "f994733c9e04edbf8f45f809c61d386134dc71adefe5a55112792302411344a2"
+    },
+    "unit_names": {
+      "path": "corpus/zh/display-names/units-full.json",
+      "size": 15687,
+      "sha256": "c1819c0bf3ea5a12c870415efedbf3663246514cf3f290ad4e04aa4956c987e8"
+    },
+    "battle_archives": [
+      {
+        "member": "BTL/OP0.BIN",
+        "source": {
+          "path": "work/disc/BTL/OP0.BIN",
+          "size": 266224,
+          "sha256": "27f5a051ef406385f826764455b9bbedcdd999b87233c2ee21843898b29fc970"
+        },
+        "seg": {
+          "path": "work/disc/BTL/OP0.SEG",
+          "size": 48,
+          "sha256": "72a09cc526b359c0af7a1027b17e1f23a56e3af02c6121fea8567e7bd3a9b1d9"
+        },
+        "expected_name_slot_count": 20
+      },
+      {
+        "member": "BTL/OP1.BIN",
+        "source": {
+          "path": "work/disc/BTL/OP1.BIN",
+          "size": 265872,
+          "sha256": "af38a29683bfd2db0d1d293a6bcf1ab5860aef9befe04355f1ac4ecd49c96fcd"
+        },
+        "seg": {
+          "path": "work/disc/BTL/OP1.SEG",
+          "size": 48,
+          "sha256": "ed7c5ca4bf74307f03651459f4c89f7c8714c12b7e5a843ce1ef55ae44b0e483"
+        },
+        "expected_name_slot_count": 19
+      },
+      {
+        "member": "BTL/OP2.BIN",
+        "source": {
+          "path": "work/disc/BTL/OP2.BIN",
+          "size": 266352,
+          "sha256": "d1ec4aac3dfeb24d96b98f60eae8b712648452ad57fde94271f29df9708b13d0"
+        },
+        "seg": {
+          "path": "work/disc/BTL/OP2.SEG",
+          "size": 48,
+          "sha256": "168f76048a128494d5fc8966fd2236788e275452b1f83471db8c4431232e7d4d"
+        },
+        "expected_name_slot_count": 24
+      }
+    ],
+    "expected": {
+      "title_entry_count": 22,
+      "name_slot_count": 63,
+      "unique_name_source_count": 59,
+      "name_field_capacity": 20
     }
   },
   "reviewed_weapons": {

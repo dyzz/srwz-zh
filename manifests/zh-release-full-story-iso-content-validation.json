@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "status": "full_story_final_iso_static_content_readback_passed",
-  "scope": "Independent final-ISO readback of all 154 selected story chunks and 91,746 dialogue, condition, and speaker entries, plus reviewed save/load overviews, pilot-name, button-prompt, 21x3 layout, runtime-token, and font checks; this is not a full gameplay playthrough.",
+  "scope": "Independent final-ISO readback of all 154 selected story chunks and 91,746 dialogue, condition, and speaker entries, plus reviewed save/load overviews, pilot-name, button-prompt, title-idle work-title and speaker-name overlays, 21x3 layout, runtime-token, and font checks; this is not a full gameplay playthrough.",
   "iso": {
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "size": 3758358528,
-    "sha256": "e7980940aea35ea8574c6e04e264e56479371aa34c92630b6ca6c1f5f47b1cda"
+    "sha256": "f0f2a274e6d5ca72925a37eaca9ef5367fed272c499dfb28f2bb6392ad71473b"
   },
   "stage_indices": [
     1,
@@ -581,6 +581,243 @@
     "archive_offsets_preserved": true,
     "translated_reread_exact": true
   },
+  "auto_demo_overlays": {
+    "title_entry_count": 22,
+    "name_slot_count": 63,
+    "unique_name_source_count": 59,
+    "titles": [
+      {
+        "id": "auto-demo/title/00",
+        "offset": 3383544,
+        "capacity": 24,
+        "translation": "魔神Z",
+        "stored_translation": "魔神Z",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/01",
+        "offset": 3383568,
+        "capacity": 32,
+        "translation": "大魔神",
+        "stored_translation": "大魔神",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/02",
+        "offset": 3383600,
+        "capacity": 32,
+        "translation": "UFO机器人 古连泰沙",
+        "stored_translation": "UFO机器人　古连泰沙",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/03",
+        "offset": 3383632,
+        "capacity": 16,
+        "translation": "盖塔机器人G",
+        "stored_translation": "盖塔机器人G",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/04",
+        "offset": 3383648,
+        "capacity": 32,
+        "translation": "宇宙战士巴尔迪奥斯",
+        "stored_translation": "宇宙战士巴尔迪奥斯",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/05",
+        "offset": 3383680,
+        "capacity": 32,
+        "translation": "宇宙大帝神西格玛",
+        "stored_translation": "宇宙大帝神西格玛",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/06",
+        "offset": 3383712,
+        "capacity": 32,
+        "translation": "无敌超人桑波特3",
+        "stored_translation": "无敌超人桑波特3",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/07",
+        "offset": 3383744,
+        "capacity": 32,
+        "translation": "无敌钢人泰坦3",
+        "stored_translation": "无敌钢人泰坦3",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/08",
+        "offset": 3383776,
+        "capacity": 32,
+        "translation": "超时空世纪奥格斯",
+        "stored_translation": "超时空世纪奥格斯",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/09",
+        "offset": 3383808,
+        "capacity": 32,
+        "translation": "战斗机甲萨芬格尔",
+        "stored_translation": "战斗机甲萨芬格尔",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/10",
+        "offset": 3383840,
+        "capacity": 32,
+        "translation": "机动战士Z高达",
+        "stored_translation": "机动战士Z高达",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/11",
+        "offset": 3383872,
+        "capacity": 32,
+        "translation": "机动战士高达 逆袭的夏亚",
+        "stored_translation": "机动战士高达　逆袭的夏亚",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/12",
+        "offset": 3383904,
+        "capacity": 16,
+        "translation": "∀高达",
+        "stored_translation": "∀高达",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/13",
+        "offset": 3383920,
+        "capacity": 32,
+        "translation": "机动新世纪高达X",
+        "stored_translation": "机动新世纪高达X",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/14",
+        "offset": 3383952,
+        "capacity": 48,
+        "translation": "机动战士高达SEED DESTINY",
+        "stored_translation": "机动战士高达SEED　DESTINY",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/15",
+        "offset": 3384000,
+        "capacity": 32,
+        "translation": "返乡战士",
+        "stored_translation": "返乡战士",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/16",
+        "offset": 3384032,
+        "capacity": 32,
+        "translation": "The Big O",
+        "stored_translation": "The　Big　O",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/17",
+        "offset": 3384064,
+        "capacity": 32,
+        "translation": "超重神GRAVION",
+        "stored_translation": "超重神GRAVION",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/18",
+        "offset": 3384096,
+        "capacity": 32,
+        "translation": "超重神GRAVION Zwei",
+        "stored_translation": "超重神GRAVION　Zwei",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/19",
+        "offset": 3384128,
+        "capacity": 32,
+        "translation": "创圣机械天使",
+        "stored_translation": "创圣机械天使",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/20",
+        "offset": 3384160,
+        "capacity": 24,
+        "translation": "交响诗篇艾蕾卡7",
+        "stored_translation": "交响诗篇艾蕾卡7",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      },
+      {
+        "id": "auto-demo/title/21",
+        "offset": 3384184,
+        "capacity": 24,
+        "translation": "机战Z原创",
+        "stored_translation": "机战Z原创",
+        "padding_all_zero": true,
+        "unknown_code_count": 0
+      }
+    ],
+    "archives": [
+      {
+        "member": "BTL/OP0.BIN",
+        "name_slot_count": 20,
+        "archive_size_preserved": true,
+        "translated_reread_exact": true
+      },
+      {
+        "member": "BTL/OP1.BIN",
+        "name_slot_count": 19,
+        "archive_size_preserved": true,
+        "translated_reread_exact": true
+      },
+      {
+        "member": "BTL/OP2.BIN",
+        "name_slot_count": 24,
+        "archive_size_preserved": true,
+        "translated_reread_exact": true
+      }
+    ],
+    "kamille_name": {
+      "member": "BTL/OP0.BIN",
+      "offset": 264972,
+      "capacity": 20,
+      "source_text": "カミーユ",
+      "translation": "卡缪",
+      "padding_all_zero": true,
+      "unknown_code_count": 0
+    },
+    "fixed_field_padding_all_zero": true,
+    "unknown_code_count": 0,
+    "translated_reread_exact": true
+  },
   "stage_overviews": {
     "inventory_entry_count": 110,
     "translated_entry_count": 110,
@@ -734,7 +971,7 @@
   "members": {
     "SLPS_258.87": {
       "size": 3471624,
-      "sha256": "249314108c5d55b2ec3c05026244e584c3b9128b5f825c9c8a7ed049f168bf47",
+      "sha256": "a4cd628c9b35d5f30cc24f0490a42c149c2e7c113d94f0044b59c57c42748e9b",
       "replacement_exact": true
     },
     "DATA/COMPDATA.BN": {
@@ -790,6 +1027,21 @@
     "BTL/SRVC.SEG": {
       "size": 1416,
       "sha256": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987",
+      "replacement_exact": true
+    },
+    "BTL/OP0.BIN": {
+      "size": 266224,
+      "sha256": "3c766268d5a5f5c5f0c7ab07aca1ec4fd6173da55604bde79f2e04b0224b3bcb",
+      "replacement_exact": true
+    },
+    "BTL/OP1.BIN": {
+      "size": 265872,
+      "sha256": "e5198d1a85ec19572a9d0d7c8c603d27ae884737754ff71076e46e525177009c",
+      "replacement_exact": true
+    },
+    "BTL/OP2.BIN": {
+      "size": 266352,
+      "sha256": "73a28d29c9c0d5c0ed6f49ff63a92f5a459537ca67d4590e9caf9864c82b1724",
       "replacement_exact": true
     },
     "EFF/VEFF2DX.BIN": {
@@ -5407,6 +5659,7 @@
     "scenario_select_title_texture_exact": true,
     "mode_select_title_texture_exact": true,
     "nisv_effect_names_exact": true,
+    "auto_demo_overlays_exact": true,
     "hb_stage_offsets_valid": true,
     "encoded_streams_exact": true,
     "decoded_sizes_exact": true,

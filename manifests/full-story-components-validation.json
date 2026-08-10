@@ -2,12 +2,12 @@
   "schema_version": 1,
   "status": "integrated_global_zh_release_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-integrated-v1",
-  "scope": "Compose the validated encoded UI component, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
+  "scope": "Compose the validated encoded UI component, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, all title-idle auto-demo work-title and speaker-name overlays, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 28888,
-      "sha256": "e31e273d698b00dc88bc44eec7a2efe05c9a8171dd1338602ffde723ba654c76"
+      "size": 31454,
+      "sha256": "da853f5eb68fe5c7cf7d4c96746a02e8be773d75afe5794cf7fe81eb6ebbeda1"
     },
     "base_ui_manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -188,6 +188,61 @@
       "path": "corpus/zh/menu/mapmodel-terrain-names.json",
       "size": 1767,
       "sha256": "c3de129825bf0961649a5e025896290f0b990262f300816a7e3de7b5241641d8"
+    },
+    "auto_demo_title_corpus": {
+      "path": "corpus/zh/auto-demo-work-titles.json",
+      "size": 10856,
+      "sha256": "97bd862b485eb1a231897c550c0021ce0262b95ec5f1b2455d796df2b9a30700"
+    },
+    "auto_demo_original_slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "auto_demo_story_speakers": {
+      "path": "corpus/zh/story-speakers.json",
+      "size": 2898406,
+      "sha256": "023821574df5100d7b615d4c0dddeac702fd688ba56a02652c7ea4bd53f7ad88"
+    },
+    "auto_demo_residual_names": {
+      "path": "corpus/zh/menu/remaining-ui.json",
+      "size": 92859,
+      "sha256": "f994733c9e04edbf8f45f809c61d386134dc71adefe5a55112792302411344a2"
+    },
+    "auto_demo_unit_names": {
+      "path": "corpus/zh/display-names/units-full.json",
+      "size": 15687,
+      "sha256": "c1819c0bf3ea5a12c870415efedbf3663246514cf3f290ad4e04aa4956c987e8"
+    },
+    "auto_demo_original_op0_bin": {
+      "path": "work/disc/BTL/OP0.BIN",
+      "size": 266224,
+      "sha256": "27f5a051ef406385f826764455b9bbedcdd999b87233c2ee21843898b29fc970"
+    },
+    "auto_demo_original_op0_seg": {
+      "path": "work/disc/BTL/OP0.SEG",
+      "size": 48,
+      "sha256": "72a09cc526b359c0af7a1027b17e1f23a56e3af02c6121fea8567e7bd3a9b1d9"
+    },
+    "auto_demo_original_op1_bin": {
+      "path": "work/disc/BTL/OP1.BIN",
+      "size": 265872,
+      "sha256": "af38a29683bfd2db0d1d293a6bcf1ab5860aef9befe04355f1ac4ecd49c96fcd"
+    },
+    "auto_demo_original_op1_seg": {
+      "path": "work/disc/BTL/OP1.SEG",
+      "size": 48,
+      "sha256": "ed7c5ca4bf74307f03651459f4c89f7c8714c12b7e5a843ce1ef55ae44b0e483"
+    },
+    "auto_demo_original_op2_bin": {
+      "path": "work/disc/BTL/OP2.BIN",
+      "size": 266352,
+      "sha256": "d1ec4aac3dfeb24d96b98f60eae8b712648452ad57fde94271f29df9708b13d0"
+    },
+    "auto_demo_original_op2_seg": {
+      "path": "work/disc/BTL/OP2.SEG",
+      "size": 48,
+      "sha256": "168f76048a128494d5fc8966fd2236788e275452b1f83471db8c4431232e7d4d"
     }
   },
   "compression": {
@@ -10794,6 +10849,803 @@
     "zero_record_chunks_preserved_byte_exact": true,
     "seg_preserved_byte_exact": true
   },
+  "auto_demo_overlays": {
+    "title_entry_count": 22,
+    "titles": [
+      {
+        "id": "auto-demo/title/00",
+        "offset": 3383544,
+        "capacity": 24,
+        "source_text": "マジンガ－Ｚ",
+        "translation": "魔神Z",
+        "stored_translation": "魔神Z",
+        "translation_source": "units-full:segment/0",
+        "encoded_size": 7,
+        "headroom": 17
+      },
+      {
+        "id": "auto-demo/title/01",
+        "offset": 3383568,
+        "capacity": 32,
+        "source_text": "グレートマジンガー",
+        "translation": "大魔神",
+        "stored_translation": "大魔神",
+        "translation_source": "units-full:segment/1",
+        "encoded_size": 7,
+        "headroom": 25
+      },
+      {
+        "id": "auto-demo/title/02",
+        "offset": 3383600,
+        "capacity": 32,
+        "source_text": "ＵＦＯロボ　グレンダイザー",
+        "translation": "UFO机器人 古连泰沙",
+        "stored_translation": "UFO机器人　古连泰沙",
+        "translation_source": "units-full:segment/3",
+        "encoded_size": 23,
+        "headroom": 9
+      },
+      {
+        "id": "auto-demo/title/03",
+        "offset": 3383632,
+        "capacity": 16,
+        "source_text": "ゲッターロボＧ",
+        "translation": "盖塔机器人G",
+        "stored_translation": "盖塔机器人G",
+        "translation_source": "units-full:segment/4",
+        "encoded_size": 13,
+        "headroom": 3
+      },
+      {
+        "id": "auto-demo/title/04",
+        "offset": 3383648,
+        "capacity": 32,
+        "source_text": "宇宙戦士バルディオス",
+        "translation": "宇宙战士巴尔迪奥斯",
+        "stored_translation": "宇宙战士巴尔迪奥斯",
+        "translation_source": "units-full:segment/5",
+        "encoded_size": 19,
+        "headroom": 13
+      },
+      {
+        "id": "auto-demo/title/05",
+        "offset": 3383680,
+        "capacity": 32,
+        "source_text": "宇宙大帝ゴッドシグマ",
+        "translation": "宇宙大帝神西格玛",
+        "stored_translation": "宇宙大帝神西格玛",
+        "translation_source": "units-full:segment/6",
+        "encoded_size": 17,
+        "headroom": 15
+      },
+      {
+        "id": "auto-demo/title/06",
+        "offset": 3383712,
+        "capacity": 32,
+        "source_text": "無敵超人ザンボット３",
+        "translation": "无敌超人桑波特3",
+        "stored_translation": "无敌超人桑波特3",
+        "translation_source": "units-full:segment/7",
+        "encoded_size": 17,
+        "headroom": 15
+      },
+      {
+        "id": "auto-demo/title/07",
+        "offset": 3383744,
+        "capacity": 32,
+        "source_text": "無敵鋼人ダイターン３",
+        "translation": "无敌钢人泰坦3",
+        "stored_translation": "无敌钢人泰坦3",
+        "translation_source": "units-full:segment/8",
+        "encoded_size": 15,
+        "headroom": 17
+      },
+      {
+        "id": "auto-demo/title/08",
+        "offset": 3383776,
+        "capacity": 32,
+        "source_text": "超時空世紀オーガス",
+        "translation": "超时空世纪奥格斯",
+        "stored_translation": "超时空世纪奥格斯",
+        "translation_source": "units-full:segment/9",
+        "encoded_size": 17,
+        "headroom": 15
+      },
+      {
+        "id": "auto-demo/title/09",
+        "offset": 3383808,
+        "capacity": 32,
+        "source_text": "戦闘メカ　ザブングル",
+        "translation": "战斗机甲萨芬格尔",
+        "stored_translation": "战斗机甲萨芬格尔",
+        "translation_source": "units-full:segment/10",
+        "encoded_size": 17,
+        "headroom": 15
+      },
+      {
+        "id": "auto-demo/title/10",
+        "offset": 3383840,
+        "capacity": 32,
+        "source_text": "機動戦士Ｚガンダム",
+        "translation": "机动战士Z高达",
+        "stored_translation": "机动战士Z高达",
+        "translation_source": "units-full:segment/11",
+        "encoded_size": 15,
+        "headroom": 17
+      },
+      {
+        "id": "auto-demo/title/11",
+        "offset": 3383872,
+        "capacity": 32,
+        "source_text": "機動戦士ガンダム　逆襲のシャア",
+        "translation": "机动战士高达 逆袭的夏亚",
+        "stored_translation": "机动战士高达　逆袭的夏亚",
+        "translation_source": "units-full:segment/12",
+        "encoded_size": 25,
+        "headroom": 7
+      },
+      {
+        "id": "auto-demo/title/12",
+        "offset": 3383904,
+        "capacity": 16,
+        "source_text": "∀ガンダム",
+        "translation": "∀高达",
+        "stored_translation": "∀高达",
+        "translation_source": "units-full:segment/13",
+        "encoded_size": 7,
+        "headroom": 9
+      },
+      {
+        "id": "auto-demo/title/13",
+        "offset": 3383920,
+        "capacity": 32,
+        "source_text": "機動新世紀ガンダムＸ",
+        "translation": "机动新世纪高达X",
+        "stored_translation": "机动新世纪高达X",
+        "translation_source": "units-full:segment/14",
+        "encoded_size": 17,
+        "headroom": 15
+      },
+      {
+        "id": "auto-demo/title/14",
+        "offset": 3383952,
+        "capacity": 48,
+        "source_text": "機動戦士ガンダムＳＥＥＤ　ＤＥＳＴＩＮＹ",
+        "translation": "机动战士高达SEED DESTINY",
+        "stored_translation": "机动战士高达SEED　DESTINY",
+        "translation_source": "units-full:segment/15",
+        "encoded_size": 37,
+        "headroom": 11
+      },
+      {
+        "id": "auto-demo/title/15",
+        "offset": 3384000,
+        "capacity": 32,
+        "source_text": "オーバーマン　キングゲイナー",
+        "translation": "返乡战士",
+        "stored_translation": "返乡战士",
+        "translation_source": "units-full:segment/16",
+        "encoded_size": 9,
+        "headroom": 23
+      },
+      {
+        "id": "auto-demo/title/16",
+        "offset": 3384032,
+        "capacity": 32,
+        "source_text": "ＴＨＥビッグオー",
+        "translation": "The Big O",
+        "stored_translation": "The　Big　O",
+        "translation_source": "units-full:segment/17",
+        "encoded_size": 19,
+        "headroom": 13
+      },
+      {
+        "id": "auto-demo/title/17",
+        "offset": 3384064,
+        "capacity": 32,
+        "source_text": "超重神グラヴィオン",
+        "translation": "超重神GRAVION",
+        "stored_translation": "超重神GRAVION",
+        "translation_source": "units-full:segment/18",
+        "encoded_size": 21,
+        "headroom": 11
+      },
+      {
+        "id": "auto-demo/title/18",
+        "offset": 3384096,
+        "capacity": 32,
+        "source_text": "超重神グラヴィオンツヴァイ",
+        "translation": "超重神GRAVION Zwei",
+        "stored_translation": "超重神GRAVION　Zwei",
+        "translation_source": "project-work-title",
+        "encoded_size": 31,
+        "headroom": 1
+      },
+      {
+        "id": "auto-demo/title/19",
+        "offset": 3384128,
+        "capacity": 32,
+        "source_text": "創聖のアクエリオン",
+        "translation": "创圣机械天使",
+        "stored_translation": "创圣机械天使",
+        "translation_source": "units-full:segment/19",
+        "encoded_size": 13,
+        "headroom": 19
+      },
+      {
+        "id": "auto-demo/title/20",
+        "offset": 3384160,
+        "capacity": 24,
+        "source_text": "交響詩篇エウレカセブン",
+        "translation": "交响诗篇艾蕾卡7",
+        "stored_translation": "交响诗篇艾蕾卡7",
+        "translation_source": "units-full:segment/20",
+        "encoded_size": 17,
+        "headroom": 7
+      },
+      {
+        "id": "auto-demo/title/21",
+        "offset": 3384184,
+        "capacity": 24,
+        "source_text": "オリジナル",
+        "translation": "机战Z原创",
+        "stored_translation": "机战Z原创",
+        "translation_source": "units-full:segment/21",
+        "encoded_size": 11,
+        "headroom": 13
+      }
+    ],
+    "name_slot_count": 63,
+    "unique_name_source_count": 59,
+    "archives": [
+      {
+        "member": "BTL/OP0.BIN",
+        "name_slot_count": 20,
+        "unique_name_source_count": 19,
+        "story_speaker_source_count": 17,
+        "residual_display_name_source_count": 2,
+        "names": [
+          {
+            "offset": 263308,
+            "capacity": 20,
+            "source_text": "シン",
+            "translation": "真",
+            "encoded_size": 3,
+            "headroom": 17
+          },
+          {
+            "offset": 263484,
+            "capacity": 20,
+            "source_text": "スティング",
+            "translation": "斯汀",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 263708,
+            "capacity": 20,
+            "source_text": "甲児",
+            "translation": "甲儿",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 263884,
+            "capacity": 20,
+            "source_text": "百人衆",
+            "translation": "百人众",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 264108,
+            "capacity": 20,
+            "source_text": "桂",
+            "translation": "桂",
+            "encoded_size": 3,
+            "headroom": 17
+          },
+          {
+            "offset": 264284,
+            "capacity": 20,
+            "source_text": "チラム兵",
+            "translation": "奇拉姆士兵",
+            "encoded_size": 11,
+            "headroom": 9
+          },
+          {
+            "offset": 264508,
+            "capacity": 20,
+            "source_text": "マリン",
+            "translation": "马林",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 264540,
+            "capacity": 20,
+            "source_text": "オリバー",
+            "translation": "欧利玛",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 264572,
+            "capacity": 20,
+            "source_text": "雷太",
+            "translation": "雷太",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 264748,
+            "capacity": 20,
+            "source_text": "アルデバロンメカ",
+            "translation": "阿尔德巴隆机",
+            "encoded_size": 13,
+            "headroom": 7
+          },
+          {
+            "offset": 264972,
+            "capacity": 20,
+            "source_text": "カミーユ",
+            "translation": "卡缪",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 265148,
+            "capacity": 20,
+            "source_text": "ジェリド",
+            "translation": "捷利特",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 265196,
+            "capacity": 20,
+            "source_text": "ティターンズ",
+            "translation": "提坦斯",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 265244,
+            "capacity": 20,
+            "source_text": "ティターンズ",
+            "translation": "提坦斯",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 265436,
+            "capacity": 20,
+            "source_text": "万丈",
+            "translation": "万丈",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 265612,
+            "capacity": 20,
+            "source_text": "メカブースト",
+            "translation": "机械兽",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 265836,
+            "capacity": 20,
+            "source_text": "アポロ",
+            "translation": "阿波罗",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 265868,
+            "capacity": 20,
+            "source_text": "シルヴィア",
+            "translation": "西尔维娅",
+            "encoded_size": 9,
+            "headroom": 11
+          },
+          {
+            "offset": 265900,
+            "capacity": 20,
+            "source_text": "シリウス",
+            "translation": "西里乌斯",
+            "encoded_size": 9,
+            "headroom": 11
+          },
+          {
+            "offset": 266076,
+            "capacity": 20,
+            "source_text": "ケルビム兵",
+            "translation": "凯鲁宾兵",
+            "encoded_size": 9,
+            "headroom": 11
+          }
+        ],
+        "archive_size_preserved": true,
+        "seg_preserved_byte_exact": true,
+        "translated_reread_exact": true
+      },
+      {
+        "member": "BTL/OP1.BIN",
+        "name_slot_count": 19,
+        "unique_name_source_count": 18,
+        "story_speaker_source_count": 17,
+        "residual_display_name_source_count": 1,
+        "names": [
+          {
+            "offset": 263308,
+            "capacity": 20,
+            "source_text": "ロジャー",
+            "translation": "罗杰",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 263484,
+            "capacity": 20,
+            "source_text": "ベック",
+            "translation": "贝克",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 263516,
+            "capacity": 20,
+            "source_text": "Ｔボーン",
+            "translation": "T-Bone",
+            "encoded_size": 13,
+            "headroom": 7
+          },
+          {
+            "offset": 263548,
+            "capacity": 20,
+            "source_text": "ダヴ",
+            "translation": "Dove",
+            "encoded_size": 9,
+            "headroom": 11
+          },
+          {
+            "offset": 263772,
+            "capacity": 20,
+            "source_text": "鉄也",
+            "translation": "铁也",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 263948,
+            "capacity": 20,
+            "source_text": "百人衆",
+            "translation": "百人众",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 264172,
+            "capacity": 20,
+            "source_text": "勝平",
+            "translation": "胜平",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 264204,
+            "capacity": 20,
+            "source_text": "宇宙太",
+            "translation": "宇宙太",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 264236,
+            "capacity": 20,
+            "source_text": "恵子",
+            "translation": "惠子",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 264268,
+            "capacity": 20,
+            "source_text": "千代錦",
+            "translation": "千代锦",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 264444,
+            "capacity": 20,
+            "source_text": "メカブースト",
+            "translation": "机械兽",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 264668,
+            "capacity": 20,
+            "source_text": "ジロン",
+            "translation": "吉隆",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 264844,
+            "capacity": 20,
+            "source_text": "ティンプ",
+            "translation": "廷普",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 264892,
+            "capacity": 20,
+            "source_text": "ブレーカー",
+            "translation": "破坏者",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 264940,
+            "capacity": 20,
+            "source_text": "ブレーカー",
+            "translation": "破坏者",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 265132,
+            "capacity": 20,
+            "source_text": "アムロ",
+            "translation": "阿姆罗",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 265308,
+            "capacity": 20,
+            "source_text": "バスク",
+            "translation": "巴斯克",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 265532,
+            "capacity": 20,
+            "source_text": "ゲイナー",
+            "translation": "盖纳",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 265708,
+            "capacity": 20,
+            "source_text": "ヤッサバ",
+            "translation": "亚萨巴",
+            "encoded_size": 7,
+            "headroom": 13
+          }
+        ],
+        "archive_size_preserved": true,
+        "seg_preserved_byte_exact": true,
+        "translated_reread_exact": true
+      },
+      {
+        "member": "BTL/OP2.BIN",
+        "name_slot_count": 24,
+        "unique_name_source_count": 24,
+        "story_speaker_source_count": 22,
+        "residual_display_name_source_count": 2,
+        "names": [
+          {
+            "offset": 263308,
+            "capacity": 20,
+            "source_text": "斗牙",
+            "translation": "斗牙",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 263340,
+            "capacity": 20,
+            "source_text": "エイジ",
+            "translation": "英司",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 263372,
+            "capacity": 20,
+            "source_text": "琉菜",
+            "translation": "琉菜",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 263404,
+            "capacity": 20,
+            "source_text": "ミヅキ",
+            "translation": "媚月",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 263436,
+            "capacity": 20,
+            "source_text": "エィナ",
+            "translation": "爱娜",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 263468,
+            "capacity": 20,
+            "source_text": "リィル",
+            "translation": "莉露",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 263644,
+            "capacity": 20,
+            "source_text": "ゼラバイア",
+            "translation": "泽拉拜亚",
+            "encoded_size": 9,
+            "headroom": 11
+          },
+          {
+            "offset": 263868,
+            "capacity": 20,
+            "source_text": "デューク",
+            "translation": "杜克",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 264044,
+            "capacity": 20,
+            "source_text": "ガンダル",
+            "translation": "卡达尔",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 264268,
+            "capacity": 20,
+            "source_text": "ガロード",
+            "translation": "卡洛德",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 264444,
+            "capacity": 20,
+            "source_text": "シャギア",
+            "translation": "夏基亚",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 264668,
+            "capacity": 20,
+            "source_text": "竜馬",
+            "translation": "龙马",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 264700,
+            "capacity": 20,
+            "source_text": "隼人",
+            "translation": "隼人",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 264732,
+            "capacity": 20,
+            "source_text": "弁慶",
+            "translation": "弁庆",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 264908,
+            "capacity": 20,
+            "source_text": "ヒドラー",
+            "translation": "希德拉",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 265132,
+            "capacity": 20,
+            "source_text": "闘志也",
+            "translation": "斗志也",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 265164,
+            "capacity": 20,
+            "source_text": "ジュリィ",
+            "translation": "杰利",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 265196,
+            "capacity": 20,
+            "source_text": "キラケン",
+            "translation": "吉良谦",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 265372,
+            "capacity": 20,
+            "source_text": "コスモザウルス",
+            "translation": "宇宙恐龙",
+            "encoded_size": 9,
+            "headroom": 11
+          },
+          {
+            "offset": 265596,
+            "capacity": 20,
+            "source_text": "ロラン",
+            "translation": "罗兰",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 265772,
+            "capacity": 20,
+            "source_text": "ポゥ",
+            "translation": "波",
+            "encoded_size": 3,
+            "headroom": 17
+          },
+          {
+            "offset": 265996,
+            "capacity": 20,
+            "source_text": "エウレカ",
+            "translation": "优莱卡",
+            "encoded_size": 7,
+            "headroom": 13
+          },
+          {
+            "offset": 266028,
+            "capacity": 20,
+            "source_text": "レントン",
+            "translation": "兰顿",
+            "encoded_size": 5,
+            "headroom": 15
+          },
+          {
+            "offset": 266204,
+            "capacity": 20,
+            "source_text": "連邦軍兵",
+            "translation": "联邦军士兵",
+            "encoded_size": 11,
+            "headroom": 9
+          }
+        ],
+        "archive_size_preserved": true,
+        "seg_preserved_byte_exact": true,
+        "translated_reread_exact": true
+      }
+    ],
+    "work_titles_reused_from_existing_corpus": true,
+    "names_reused_from_existing_corpora": true,
+    "fixed_spans_preserved": true,
+    "archive_sizes_preserved": true,
+    "seg_files_preserved_byte_exact": true,
+    "translated_reread_exact": true
+  },
   "scenario_select_effect": {
     "member": "EFF/VEFF2DX.BIN",
     "effect_id": 295,
@@ -15593,7 +16445,7 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "249314108c5d55b2ec3c05026244e584c3b9128b5f825c9c8a7ed049f168bf47"
+      "sha256": "a4cd628c9b35d5f30cc24f0490a42c149c2e7c113d94f0044b59c57c42748e9b"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -15654,6 +16506,21 @@
       "path": "work/build/zh-release-full-story/components/MAP/MAPMODEL.BIN",
       "size": 55136688,
       "sha256": "6ed61375892ba4169ccd4f369a2673494cf96fc3dfe1d4ef71e4b0d8c9c63063"
+    },
+    "BTL/OP0.BIN": {
+      "path": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
+      "size": 266224,
+      "sha256": "3c766268d5a5f5c5f0c7ab07aca1ec4fd6173da55604bde79f2e04b0224b3bcb"
+    },
+    "BTL/OP1.BIN": {
+      "path": "work/build/zh-release-full-story/components/BTL/OP1.BIN",
+      "size": 265872,
+      "sha256": "e5198d1a85ec19572a9d0d7c8c603d27ae884737754ff71076e46e525177009c"
+    },
+    "BTL/OP2.BIN": {
+      "path": "work/build/zh-release-full-story/components/BTL/OP2.BIN",
+      "size": 266352,
+      "sha256": "73a28d29c9c0d5c0ed6f49ff63a92f5a459537ca67d4590e9caf9864c82b1724"
     }
   },
   "acceptance": {
@@ -15683,6 +16550,7 @@
     "reviewed_weapon_names_reread_exact": true,
     "single_character_atlas_regions_untouched": true,
     "srvc_battle_text_reread_exact": true,
+    "auto_demo_overlays_reread_exact": true,
     "all_localized_text_uses_safe_double_byte_aliases": true,
     "scenario_select_labels_aligned": true,
     "intermission_list_safe_aliases_scoped": true
