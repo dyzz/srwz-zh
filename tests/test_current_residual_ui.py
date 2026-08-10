@@ -19,6 +19,32 @@ class CurrentResidualUiTests(unittest.TestCase):
     def test_fixed_slps_and_suspend_return_dialogue_are_locked(self):
         remaining = self.component["remaining_ui"]
         self.assertEqual(remaining["slps_context_ui"]["entry_count"], 407)
+        self.assertEqual(remaining["slps"]["entry_count"], 172)
+
+        formation = remaining["stage_default_formation"]
+        self.assertEqual(formation["entry_count"], 17)
+        self.assertEqual(formation["stage_indices"], [1, 203])
+        self.assertEqual(
+            formation["translations"],
+            [
+                {"source": "エゥーゴ", "translation": "奥古"},
+                {
+                    "source": "グローリー・スター１",
+                    "translation": "荣耀之星1",
+                },
+                {
+                    "source": "グローリー・スター２",
+                    "translation": "荣耀之星2",
+                },
+                {
+                    "source": "グローリー・スター３",
+                    "translation": "荣耀之星3",
+                },
+            ],
+        )
+        self.assertTrue(formation["fixed_allocations_preserved"])
+        self.assertTrue(formation["slot_padding_zero"])
+        self.assertTrue(formation["reread_exact"])
 
         dialogue = remaining["stage_system_dialogue"]
         self.assertEqual(dialogue["selected_entry_count"], 379)

@@ -6,8 +6,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 28743,
-      "sha256": "3d20d69bb6693a152f4886e7510afc9dd6a8e336fda758b6152e7a20376e81c6"
+      "size": 28888,
+      "sha256": "e31e273d698b00dc88bc44eec7a2efe05c9a8171dd1338602ffde723ba654c76"
     },
     "base_ui_manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -36,8 +36,8 @@
     },
     "remaining_display_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 90552,
-      "sha256": "110fa6d5a58ce75c7fc1c6714171a007bb3d4354c1fc3619b0da9dd8e71c1d5a"
+      "size": 92859,
+      "sha256": "f994733c9e04edbf8f45f809c61d386134dc71adefe5a55112792302411344a2"
     },
     "full_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -86,8 +86,8 @@
     },
     "remaining_ui_translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 90552,
-      "sha256": "110fa6d5a58ce75c7fc1c6714171a007bb3d4354c1fc3619b0da9dd8e71c1d5a"
+      "size": 92859,
+      "sha256": "f994733c9e04edbf8f45f809c61d386134dc71adefe5a55112792302411344a2"
     },
     "remaining_ui_parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
@@ -122,7 +122,7 @@
     "srvc_battle_text_corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
       "size": 6920260,
-      "sha256": "7149ad8d358cc0fd5894436814ecef67ca731d1188e8f090253628233db58f8b"
+      "sha256": "cb8fa3f0a76b1fa9bed03667adc8837bd1e544e7d440810b08899418ffb8dc1b"
     },
     "original_srvc_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -3820,11 +3820,11 @@
   },
   "remaining_ui": {
     "compdata_direct": {
-      "entry_count": 307,
-      "write_entry_count": 301,
+      "entry_count": 308,
+      "write_entry_count": 302,
       "no_op_entry_count": 6,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 8781,
+      "changed_byte_count": 8845,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -3877,11 +3877,11 @@
       "reread_exact": true
     },
     "slps": {
-      "entry_count": 169,
-      "write_entry_count": 137,
+      "entry_count": 172,
+      "write_entry_count": 140,
       "no_op_entry_count": 32,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 1471,
+      "changed_byte_count": 1533,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -3890,8 +3890,8 @@
     "parts": {
       "source_size": 524032,
       "output_size": 524032,
-      "source_sha256": "c876f936cdb1416b6a13e7510f9a436877f3c901ebc1e4af5dcea59c3822558b",
-      "output_sha256": "dca399a8837a97b5d71599c0f3a68993d237576a81fd19196925bb851bcdc8fd",
+      "source_sha256": "4925770458724415f9373522eaa1a209b751fb9d8622a6e4810b23d43d842f3f",
+      "output_sha256": "a2761917b75ec749aa4971255f39ca98fae626bcde77f7b7bbfa4fcc5f2d2241",
       "entry_count": 132,
       "target_count": 132,
       "payload_size": 3079,
@@ -4957,7 +4957,7 @@
       "patch_plan": {
         "source_name": "remaining UI strengthening parts",
         "source_size": 524032,
-        "source_sha256": "c876f936cdb1416b6a13e7510f9a436877f3c901ebc1e4af5dcea59c3822558b",
+        "source_sha256": "4925770458724415f9373522eaa1a209b751fb9d8622a6e4810b23d43d842f3f",
         "operation_count": 132,
         "operations": [
           {
@@ -6063,7 +6063,7 @@
       "single_character_regions_untouched": true
     },
     "compdata_source_size": 144846,
-    "compdata_output_size": 143306,
+    "compdata_output_size": 143330,
     "compdata_sector_budget": 145408,
     "compdata_round_trip_exact": true,
     "slps_size_preserved": true,
@@ -6090,6 +6090,67 @@
       "archive_size_preserved": true,
       "hb_offsets_preserved": true,
       "non_target_chunks_preserved_byte_exact": true
+    },
+    "stage_default_formation": {
+      "group_count": 3,
+      "stage_count": 2,
+      "stage_indices": [
+        1,
+        203
+      ],
+      "entry_count": 17,
+      "translations": [
+        {
+          "source": "エゥーゴ",
+          "translation": "奥古"
+        },
+        {
+          "source": "グローリー・スター１",
+          "translation": "荣耀之星1"
+        },
+        {
+          "source": "グローリー・スター２",
+          "translation": "荣耀之星2"
+        },
+        {
+          "source": "グローリー・スター３",
+          "translation": "荣耀之星3"
+        }
+      ],
+      "minimum_slot_headroom": 19,
+      "changed_byte_count": 172,
+      "chunks": [
+        {
+          "stage_index": 1,
+          "entry_count": 10,
+          "source_stored_size": 17024,
+          "source_encoded_size": 16147,
+          "output_encoded_size": 16150,
+          "output_encoded_sha256": "df1f7b63d22f926e02c4e73d8a8a23624b8439c55678a2bcb1c08528b556c156",
+          "output_padding_size": 874,
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 203,
+          "entry_count": 7,
+          "source_stored_size": 6000,
+          "source_encoded_size": 6000,
+          "output_encoded_size": 5976,
+          "output_encoded_sha256": "276bbecc953e4ab04d0783bff9dcb7b59a1a472f468a2247fc70b1e1c734798d",
+          "output_padding_size": 24,
+          "codec_round_trip_exact": true
+        }
+      ],
+      "source_preimages_exact": true,
+      "fixed_allocations_preserved": true,
+      "slot_padding_zero": true,
+      "reread_exact": true,
+      "codec_strategy": "rust-fit",
+      "codec_round_trip_exact": true,
+      "archive_size_preserved": true,
+      "hb_offsets_preserved": true,
+      "non_target_chunks_preserved_byte_exact": true,
+      "placeholder_control_tokens_preserved": true
     },
     "stage_system_dialogue": {
       "stage_index": 0,
@@ -10700,8 +10761,8 @@
     "source_preimages_sha256_exact": true,
     "all_editorial_statuses_reviewed": true,
     "target_offset_reread_exact": true,
-    "compdata_source_size": 143306,
-    "compdata_output_size": 143170,
+    "compdata_source_size": 143330,
+    "compdata_output_size": 143194,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true
   },
@@ -15501,10 +15562,10 @@
     "unaliased_conditional_assignment_count": 0,
     "alias_codes_default_width_only": true,
     "slps": {
-      "selected_entry_count": 682,
+      "selected_entry_count": 680,
       "selected_target_count": 1166,
       "merged_text_range_count": 1165,
-      "substituted_code_count": 2552,
+      "substituted_code_count": 2527,
       "nested_raw_overlap_mismatch_count": 1,
       "nested_raw_overlap_entry_ids": [
         "menu/SLPS/00/0083"
@@ -15514,25 +15575,25 @@
       "reread_exact": true
     },
     "compdata": {
-      "selected_entry_count": 494,
+      "selected_entry_count": 493,
       "selected_target_count": 1480,
       "merged_text_range_count": 1447,
-      "substituted_code_count": 2550,
+      "substituted_code_count": 2522,
       "nested_raw_overlap_mismatch_count": 0,
       "nested_raw_overlap_entry_ids": [],
       "size_preserved": true,
       "pointer_bytes_unchanged": true,
       "reread_exact": true
     },
-    "compdata_source_size": 143170,
-    "compdata_output_size": 142561,
+    "compdata_source_size": 143194,
+    "compdata_output_size": 142555,
     "compdata_round_trip_exact": true
   },
   "outputs": {
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "b2c0987f7f2282989d2ff0d0016eb0f988450cbc9f2b432376c7f123bd733f6e"
+      "sha256": "249314108c5d55b2ec3c05026244e584c3b9128b5f825c9c8a7ed049f168bf47"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -15541,8 +15602,8 @@
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 142561,
-      "sha256": "961c84e278bc6f36a422a6ce0fe7ec6c08803cb6d77f7522e1123e29dbf0f7be"
+      "size": 142555,
+      "sha256": "ba8b09146a6fedf0afae7a45bb505694a93f674f90ebc7662a2def0efdfc77bf"
     },
     "DATA/NISVDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
@@ -15557,7 +15618,7 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "a228f648852ba8f809e3e8315a4b24515985ae1a7069f7baa0cab15cbee1bf3f"
+      "sha256": "3eec94ff73140bf1fd8608a5408e838e7fe473bae2909fb371683e600dcc5d13"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
@@ -15577,7 +15638,7 @@
     "BTL/SRVC.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
       "size": 3313040,
-      "sha256": "b54bc06c06375cabd69d21d30f367fe99de3055b3078819c36258d5f66e46f07"
+      "sha256": "ad32a7fb3deb3c8cee52c36daf2bba27926efc41a4e881bdf5776d769ad43330"
     },
     "BTL/SRVC.SEG": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.SEG",

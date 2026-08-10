@@ -686,6 +686,178 @@ def verify_stage_fixed_formation(
     }
 
 
+def verify_stage_default_formation(
+    stage: bytes,
+    hb: bytes,
+    source_table: TextTable,
+    output_table: TextTable,
+) -> dict:
+    """Reread configured fixed-slot formation names from the final STAGE."""
+
+    component_config = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )
+    remaining_config = component_config["remaining_ui"]
+    expected = remaining_config["expected"]
+    document = json.loads(
+        (
+            PROJECT_ROOT / remaining_config["translations"]["path"]
+        ).read_text(encoding="utf-8")
+    )
+    groups = document.get("stage_default_formation_groups")
+    if not isinstance(groups, list):
+        raise SystemExit("default formation-name selection drift")
+    entry_count = sum(
+        len(group.get("entries", {}))
+        for group in groups
+        if isinstance(group, dict)
+    )
+    stage_indices = {
+        group.get("stage_index")
+        for group in groups
+        if isinstance(group, dict)
+    }
+    if (
+        len(groups) != expected.get("stage_default_formation_group_count")
+        or entry_count
+        != expected.get("stage_default_formation_entry_count")
+        or len(stage_indices)
+        != expected.get("stage_default_formation_stage_count")
+    ):
+        raise SystemExit("default formation-name selection drift")
+    original_stage = (
+        PROJECT_ROOT / remaining_config["original_stage"]["path"]
+    ).read_bytes()
+    if (
+        len(original_stage) != remaining_config["original_stage"]["size"]
+        or sha256_bytes(original_stage)
+        != remaining_config["original_stage"]["sha256"]
+        or len(original_stage) != len(stage)
+    ):
+        raise SystemExit("original STAGE baseline drift")
+
+    offset_spec = ExecutableOffsetSpec(
+        name="HEDBDY/HB.BIN STAGE offsets",
+        member="HEDBDY/HB.BIN",
+        table_start=30320,
+        table_end=31144,
+    )
+    offsets = read_executable_archive_offsets(hb, offset_spec, len(stage))
+    decoded_by_stage = {}
+    original_by_stage = {}
+    minimum_headroom = None
+    translations = set()
+    ranges_by_stage: dict[int, list[tuple[int, int]]] = {}
+    for group in groups:
+        if not isinstance(group, dict):
+            raise SystemExit("default formation-name group is malformed")
+        stage_index = group.get("stage_index")
+        slot_size = group.get("slot_size")
+        entries = group.get("entries")
+        if (
+            not isinstance(stage_index, int)
+            or stage_index < 0
+            or stage_index + 1 >= len(offsets)
+            or not isinstance(slot_size, int)
+            or slot_size <= 0
+            or not isinstance(entries, dict)
+            or not entries
+        ):
+            raise SystemExit("default formation-name group contract drift")
+        if stage_index not in decoded_by_stage:
+            start, end = offsets[stage_index : stage_index + 2]
+            stored = stage[start:end]
+            original_stored = original_stage[start:end]
+            decoded = decode(stored)
+            original = decode(original_stored)
+            if (
+                any(stored[decoded.consumed :])
+                or any(original_stored[original.consumed :])
+                or len(decoded.output) != len(original.output)
+            ):
+                raise SystemExit(
+                    f"default formation-name decode drift: {stage_index}"
+                )
+            decoded_by_stage[stage_index] = decoded.output
+            original_by_stage[stage_index] = original.output
+            ranges_by_stage[stage_index] = []
+        decoded = decoded_by_stage[stage_index]
+        original = original_by_stage[stage_index]
+        for raw_offset, entry in sorted(
+            entries.items(), key=lambda item: int(item[0], 16)
+        ):
+            decoded_offset = int(raw_offset, 16)
+            slot_end = decoded_offset + slot_size
+            if (
+                raw_offset != f"0x{decoded_offset:X}"
+                or not isinstance(entry, dict)
+                or set(entry) != {"source", "translation"}
+                or slot_end > len(decoded)
+            ):
+                raise SystemExit(
+                    f"default formation-name entry drift: {raw_offset!r}"
+                )
+            ranges = ranges_by_stage[stage_index]
+            if ranges and decoded_offset < ranges[-1][1]:
+                raise SystemExit(
+                    f"default formation-name overlap: {raw_offset}"
+                )
+            ranges.append((decoded_offset, slot_end))
+            source = decode_text(original, decoded_offset, source_table)
+            actual = decode_text(decoded, decoded_offset, output_table)
+            translation = normalize_original_fullwidth_ascii(
+                entry["translation"]
+            )
+            if (
+                source.text != entry["source"]
+                or source.consumed > slot_size
+                or any(original[decoded_offset + source.consumed : slot_end])
+                or actual.text != translation
+                or actual.consumed > slot_size
+                or any(decoded[decoded_offset + actual.consumed : slot_end])
+            ):
+                raise SystemExit(
+                    f"default formation-name mismatch at stage "
+                    f"{stage_index} {raw_offset}"
+                )
+            source_tokens = tuple(
+                (token.kind, token.text)
+                for token in control_notation_tokens(source.text)
+            )
+            target_tokens = tuple(
+                (token.kind, token.text)
+                for token in control_notation_tokens(translation)
+            )
+            if source_tokens != target_tokens:
+                raise SystemExit(
+                    f"default formation-name control drift at {raw_offset}"
+                )
+            headroom = slot_size - actual.consumed
+            minimum_headroom = (
+                headroom
+                if minimum_headroom is None
+                else min(minimum_headroom, headroom)
+            )
+            translations.add((source.text, translation))
+    return {
+        "group_count": len(groups),
+        "stage_count": len(decoded_by_stage),
+        "stage_indices": sorted(decoded_by_stage),
+        "entry_count": entry_count,
+        "translations": [
+            {"source": source, "translation": translation}
+            for source, translation in sorted(translations)
+        ],
+        "minimum_slot_headroom": minimum_headroom,
+        "source_preimages_exact": True,
+        "fixed_allocations_preserved": True,
+        "slot_padding_zero": True,
+        "archive_padding_zero": True,
+        "placeholder_control_tokens_preserved": True,
+        "readback_exact": True,
+    }
+
+
 def verify_final_compdata(
     stored_compdata: bytes,
     slps: bytes,
@@ -1848,6 +2020,13 @@ def main() -> int:
     fixed_formation_metadata = component.get("remaining_ui", {}).get(
         "stage_fixed_formation", {}
     )
+    default_formation_metadata = {
+        item.get("stage_index"): item
+        for item in component.get("remaining_ui", {})
+        .get("stage_default_formation", {})
+        .get("chunks", [])
+        if isinstance(item, dict)
+    }
 
     stage_reports = []
     total_entries = 0
@@ -1892,6 +2071,13 @@ def main() -> int:
                 "output_encoded_size"
             )
             expected_encoded_sha256 = fixed_formation_metadata.get(
+                "output_encoded_sha256"
+            )
+        if stage in default_formation_metadata:
+            expected_encoded_size = default_formation_metadata[stage].get(
+                "output_encoded_size"
+            )
+            expected_encoded_sha256 = default_formation_metadata[stage].get(
                 "output_encoded_sha256"
             )
         encoded = chunk[:decoded.consumed]
@@ -2211,12 +2397,22 @@ def main() -> int:
         source_table,
         overview_table,
     )
+    default_formation_report = verify_stage_default_formation(
+        stage_archive,
+        hb,
+        source_table,
+        overview_table,
+    )
     compdata_report["remaining_ui"]["stage_fixed_formation"] = (
         fixed_formation_report
+    )
+    compdata_report["remaining_ui"]["stage_default_formation"] = (
+        default_formation_report
     )
     compdata_report["remaining_ui"]["readback_exact"] = (
         compdata_report["remaining_ui"]["readback_exact"]
         and fixed_formation_report["readback_exact"]
+        and default_formation_report["readback_exact"]
     )
 
     srvc_data = members["BTL/SRVC.BIN"]

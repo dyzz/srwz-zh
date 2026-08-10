@@ -5,7 +5,7 @@
   "iso": {
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "size": 3758358528,
-    "sha256": "8390b7c8eecf2bcf13346fa861637b7959b6e1aed399a27c7ed5a55de1603f12"
+    "sha256": "e7980940aea35ea8574c6e04e264e56479371aa34c92630b6ca6c1f5f47b1cda"
   },
   "stage_indices": [
     1,
@@ -292,7 +292,7 @@
     "surface_safe_aliases_readback_exact": true,
     "remaining_ui": {
       "compdata_direct": {
-        "entry_count": 307,
+        "entry_count": 308,
         "minimum_output_headroom": 0,
         "placeholder_control_tokens_preserved": true,
         "readback_exact": true
@@ -324,7 +324,7 @@
         "readback_exact": true
       },
       "slps": {
-        "entry_count": 169,
+        "entry_count": 172,
         "minimum_output_headroom": 0,
         "placeholder_control_tokens_preserved": true,
         "readback_exact": true
@@ -344,6 +344,40 @@
         "minimum_output_headroom": 0,
         "placeholder_control_tokens_preserved": true,
         "archive_padding_zero": true,
+        "readback_exact": true
+      },
+      "stage_default_formation": {
+        "group_count": 3,
+        "stage_count": 2,
+        "stage_indices": [
+          1,
+          203
+        ],
+        "entry_count": 17,
+        "translations": [
+          {
+            "source": "エゥーゴ",
+            "translation": "奥古"
+          },
+          {
+            "source": "グローリー・スター１",
+            "translation": "荣耀之星1"
+          },
+          {
+            "source": "グローリー・スター２",
+            "translation": "荣耀之星2"
+          },
+          {
+            "source": "グローリー・スター３",
+            "translation": "荣耀之星3"
+          }
+        ],
+        "minimum_slot_headroom": 19,
+        "source_preimages_exact": true,
+        "fixed_allocations_preserved": true,
+        "slot_padding_zero": true,
+        "archive_padding_zero": true,
+        "placeholder_control_tokens_preserved": true,
         "readback_exact": true
       }
     },
@@ -700,12 +734,12 @@
   "members": {
     "SLPS_258.87": {
       "size": 3471624,
-      "sha256": "b2c0987f7f2282989d2ff0d0016eb0f988450cbc9f2b432376c7f123bd733f6e",
+      "sha256": "249314108c5d55b2ec3c05026244e584c3b9128b5f825c9c8a7ed049f168bf47",
       "replacement_exact": true
     },
     "DATA/COMPDATA.BN": {
-      "size": 142561,
-      "sha256": "961c84e278bc6f36a422a6ce0fe7ec6c08803cb6d77f7522e1123e29dbf0f7be",
+      "size": 142555,
+      "sha256": "ba8b09146a6fedf0afae7a45bb505694a93f674f90ebc7662a2def0efdfc77bf",
       "replacement_exact": true
     },
     "DATA/NISVDATA.BIN": {
@@ -725,7 +759,7 @@
     },
     "DATA/STAGE.BIN": {
       "size": 3910128,
-      "sha256": "a228f648852ba8f809e3e8315a4b24515985ae1a7069f7baa0cab15cbee1bf3f",
+      "sha256": "3eec94ff73140bf1fd8608a5408e838e7fe473bae2909fb371683e600dcc5d13",
       "replacement_exact": true
     },
     "DATA/HSFC.BIN": {
@@ -750,7 +784,7 @@
     },
     "BTL/SRVC.BIN": {
       "size": 3313040,
-      "sha256": "b54bc06c06375cabd69d21d30f367fe99de3055b3078819c36258d5f66e46f07",
+      "sha256": "ad32a7fb3deb3c8cee52c36daf2bba27926efc41a4e881bdf5776d769ad43330",
       "replacement_exact": true
     },
     "BTL/SRVC.SEG": {
@@ -1208,12 +1242,12 @@
       "stage_index": 1,
       "archive_offset": 55392,
       "archive_next_offset": 72416,
-      "encoded_size": 16147,
-      "encoded_sha256": "4c895274a0668d1fdec9edc5cfbcf2cde6127538e8ffa217ffe2e60ab0724564",
-      "padding_size": 877,
+      "encoded_size": 16150,
+      "encoded_sha256": "df1f7b63d22f926e02c4e73d8a8a23624b8439c55678a2bcb1c08528b556c156",
+      "padding_size": 874,
       "padding_all_zero": true,
       "decoded_size": 45968,
-      "decoded_sha256": "dba4a4145a1261f093bc5660354b956c731dc5acda2018bbe71ff74c12e4fc0b",
+      "decoded_sha256": "368184721d14ce2bb627e1624f32f44c8ed7bdfc45337b03c95f115c32629794",
       "dialogue_count": 312,
       "condition_count": 5,
       "speaker_count": 13,

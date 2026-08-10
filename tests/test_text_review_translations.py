@@ -28,6 +28,7 @@ class CombinedTextReviewTranslationTests(unittest.TestCase):
             "skill/category-f": "伪新人类",
             "skill/extended": "强化人SEED",
             "spirit/cheer": "应援",
+            "spirit/flash": "必闪",
             "system/enhancement-part": "强化零件",
         }
         found = {}
@@ -74,6 +75,12 @@ class CombinedTextReviewTranslationTests(unittest.TestCase):
         self.assertEqual(
             spirits["menu/SLPS/08/0054"]["translation"],
             "本小队可行动次数增加1次。\n不可叠加使用。",
+        )
+        self.assertEqual(
+            spirits["menu/SLPS/08/0013"]["translation"], "必闪"
+        )
+        self.assertIn(
+            "必闪", spirits["menu/SLPS/08/0012"]["translation"]
         )
         self.assertEqual(leadership["menu/Compdata/05/0011"]["translation"], "回复量提升")
 
