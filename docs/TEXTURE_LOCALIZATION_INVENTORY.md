@@ -11,14 +11,14 @@
 
 | ISO 成员 | 当前修改 | 最终组件 SHA-256 | v0.1.0 原 LBA |
 | --- | --- | --- | ---: |
-| `DATA/VT1.BIN` | 标题主菜单、全局动态字库、107 张进关标题 | `90e7f0e0a1d41e6460850adb6c72b5114c8c0cfd4c2bfe28e9cc7fe9a49f4fb5` | 1,588,772 |
+| `DATA/VT1.BIN` | 标题主菜单、全局动态字库、107 张进关标题 | `78751267de04bfb2781587ac532547c84e7c23c84f5befadaa7d525301a1862a` | 1,588,772 |
 | `KURODATA/KVMDATA.BIN` | 6 张固定 UI 图集 | `4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b` | 1,289,810 |
-| `MAP/MAPMODEL.BIN` | 78 个唯一 WORLD MAP 地名标题，覆盖成员 81..195 | `234710f2d39ae70b854d6f46a5f24e94c4085713b46bf4653b30371b52349518` | 1,652,964 |
+| `MAP/MAPMODEL.BIN` | 78 个唯一 WORLD MAP 地名标题，覆盖成员 81..195 | `6d766567b4e36082fbe8532baf59c4cfc4994718b30e349602f9da95a37d7957` | 1,652,964 |
 | `EFF/VEFF2DX.BIN` | 剧情选择、模式选择两块 PSMT4 材质 | `4445b2a8669861a87eb79cb4862f0c8a17841785ee5a990d70554e59f464ae10` | 1,291,582 |
 
 `SLPS_258.87` 也必须与上述成员一起构建，但它承担的是 VT1 offset 表、关卡
 selector、动画 quad 和文本位置等伴随数据，不是贴图本体。当前组件 SHA-256 为
-`88ae1ca89506e17338a1a9634f5e48ca08b2546fc104948a0e6e3e21ccc89b70`，v0.1.0 LBA 为
+`d0215445d7dd0f729e1ce728772237d67dc724c05e7fe675068b4c5b031d7852`，v0.1.0 LBA 为
 455。
 
 以下位置均为**成员内偏移**，不是 ISO 文件绝对偏移。区间统一采用半开区间
@@ -404,7 +404,7 @@ manifests/full-story-components-validation.json
 ```text
 build/iso/v0.1.0/srwz-zh-v0.1.0.iso
 size:   3,758,358,528 bytes
-sha256: 40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c
+sha256: d65bfca8469582105357b2f71d8627490513c9e4aef346672bbcb4dcfd518146
 report: build/iso/v0.1.0/iso-validation-v0.1.0.json
 ```
 

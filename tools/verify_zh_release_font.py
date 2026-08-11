@@ -370,8 +370,11 @@ def main() -> int:
             runtime_placeholder_occurrence_count > 0
             and runtime_placeholder_bytes_exact
         ),
-        "new_character_assignments_avoid_single_character_mode_range": (
-            allocation_policy["forbidden_range_assignment_count"] == 0
+        "new_character_assignments_use_renderer_double_byte_codes": (
+            allocation_policy[
+                "remaining_renderer_double_byte_candidate_count"
+            ]
+            == config["expected"]["remaining_candidate_slot_count"]
         ),
         "all_translation_fields_original_han_count_zero": True,
         "all_translation_fields_original_visible_character_count_zero": True,
@@ -435,8 +438,16 @@ def main() -> int:
             "guarded_extension_assignment_count": allocation_policy[
                 "guarded_extension_assignment_count"
             ],
-            "forbidden_range_assignment_count": allocation_policy[
-                "forbidden_range_assignment_count"
+            "remaining_renderer_double_byte_candidate_count": (
+                allocation_policy[
+                    "remaining_renderer_double_byte_candidate_count"
+                ]
+            ),
+            "conditional_width_assignment_count": allocation_policy[
+                "conditional_width_assignment_count"
+            ],
+            "conditional_width_candidate_count": allocation_policy[
+                "conditional_width_candidate_count"
             ],
         },
         "migration": {

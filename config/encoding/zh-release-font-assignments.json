@@ -2,16 +2,16 @@
   "schema_version": 1,
   "snapshot_id": "srwz-zh-release-font-assignments-v1",
   "policy": "Canonical character-to-code-to-glyph mapping for every Chinese localization surface. Add future menu, story and battle-dialogue coverage here without creating another font profile layer.",
-  "allocation_assignment_count": 1648,
+  "allocation_assignment_count": 1649,
   "reraster_existing_assignment_count": 1617,
-  "primary_assignment_count": 3265,
-  "surface_alias_assignment_count": 701,
-  "primary_mapping_sha256": "4d145fa1a46bbcb60094b64505f1ee139ae4d448ede6b589355abca06e77a602",
-  "surface_alias_mapping_sha256": "5dd897b63dcf62fb3eafebb1727d5a55e4ffa318ad7d858a039b1918049fdd4c",
+  "primary_assignment_count": 3266,
+  "surface_alias_assignment_count": 700,
+  "primary_mapping_sha256": "6286d29f9f282777adc8a6c26ae6a1ea1deeaa80a939f84a5691d1baa795c7ac",
+  "surface_alias_mapping_sha256": "6e3d56512fc8f821a7f1d8451ac24f1709c05717f92f59602fe6fde44b1db91f",
   "source_compatibility_assignment_count": 1,
   "source_compatibility_mapping_sha256": "cab90357536d3cc5a7a3e0f301f1fe35ba609c51feedc192753344ddc77fb95f",
-  "remaining_allocation_candidate_count": 0,
-  "remaining_allocation_candidates_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "remaining_allocation_candidate_count": 418,
+  "remaining_allocation_candidates_sha256": "3181517e6f3d758a8e247d4c1b8ee97254b26ea101596bb0aeb3a4efc33d0579",
   "primary_assignments": [
     {
       "character": "、",
@@ -20524,6 +20524,13 @@
       "code": "95FD",
       "glyph_index": 4029,
       "mapping": "standard_raw_trail_gap"
+    },
+    {
+      "character": "邓",
+      "code": "90EF",
+      "glyph_index": 3055,
+      "mapping": "reclaimed_unused_surface_alias",
+      "source_character": "撰"
     }
   ],
   "surface_alias_assignments": [
@@ -21286,14 +21293,6 @@
       "mapping": "surface_safe_default_double_byte_alias",
       "primary_code": "82FF",
       "source_character": "専"
-    },
-    {
-      "character": "オ",
-      "code": "90EF",
-      "glyph_index": 3055,
-      "mapping": "surface_safe_default_double_byte_alias",
-      "primary_code": "8349",
-      "source_character": "撰"
     },
     {
       "character": "コ",
@@ -26146,7 +26145,2504 @@
       "reason": "Preserve original structural runtime fields that still encode the stock Japanese character 陸 while rendering the localized simplified form 陆."
     }
   ],
-  "remaining_allocation_candidates": [],
+  "remaining_allocation_candidates": [
+    {
+      "code": "8140",
+      "glyph_index": 0,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "　"
+    },
+    {
+      "code": "814A",
+      "glyph_index": 10,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "゛"
+    },
+    {
+      "code": "814B",
+      "glyph_index": 11,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "゜"
+    },
+    {
+      "code": "814C",
+      "glyph_index": 12,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "´"
+    },
+    {
+      "code": "814D",
+      "glyph_index": 13,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "｀"
+    },
+    {
+      "code": "814E",
+      "glyph_index": 14,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "¨"
+    },
+    {
+      "code": "814F",
+      "glyph_index": 15,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "＾"
+    },
+    {
+      "code": "8150",
+      "glyph_index": 16,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "￣"
+    },
+    {
+      "code": "8151",
+      "glyph_index": 17,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "＿"
+    },
+    {
+      "code": "8152",
+      "glyph_index": 18,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヽ"
+    },
+    {
+      "code": "8153",
+      "glyph_index": 19,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヾ"
+    },
+    {
+      "code": "8154",
+      "glyph_index": 20,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゝ"
+    },
+    {
+      "code": "8155",
+      "glyph_index": 21,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゞ"
+    },
+    {
+      "code": "8156",
+      "glyph_index": 22,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "〃"
+    },
+    {
+      "code": "8158",
+      "glyph_index": 24,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "々"
+    },
+    {
+      "code": "8159",
+      "glyph_index": 25,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "〆"
+    },
+    {
+      "code": "815A",
+      "glyph_index": 26,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "〇"
+    },
+    {
+      "code": "815D",
+      "glyph_index": 29,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "‐"
+    },
+    {
+      "code": "815F",
+      "glyph_index": 31,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "\\"
+    },
+    {
+      "code": "8161",
+      "glyph_index": 33,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "‖"
+    },
+    {
+      "code": "8162",
+      "glyph_index": 34,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "｜"
+    },
+    {
+      "code": "8164",
+      "glyph_index": 36,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "‥"
+    },
+    {
+      "code": "816B",
+      "glyph_index": 43,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "〔"
+    },
+    {
+      "code": "816C",
+      "glyph_index": 44,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "〕"
+    },
+    {
+      "code": "816D",
+      "glyph_index": 45,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "［"
+    },
+    {
+      "code": "816E",
+      "glyph_index": 46,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "］"
+    },
+    {
+      "code": "816F",
+      "glyph_index": 47,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "｛"
+    },
+    {
+      "code": "8170",
+      "glyph_index": 48,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "｝"
+    },
+    {
+      "code": "8171",
+      "glyph_index": 49,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "〈"
+    },
+    {
+      "code": "8172",
+      "glyph_index": 50,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "〉"
+    },
+    {
+      "code": "8175",
+      "glyph_index": 53,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "「"
+    },
+    {
+      "code": "8176",
+      "glyph_index": 54,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "」"
+    },
+    {
+      "code": "817D",
+      "glyph_index": 61,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "±"
+    },
+    {
+      "code": "8180",
+      "glyph_index": 64,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "÷"
+    },
+    {
+      "code": "8181",
+      "glyph_index": 65,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "＝"
+    },
+    {
+      "code": "8182",
+      "glyph_index": 66,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "≠"
+    },
+    {
+      "code": "8185",
+      "glyph_index": 69,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "≦"
+    },
+    {
+      "code": "8186",
+      "glyph_index": 70,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "≧"
+    },
+    {
+      "code": "8187",
+      "glyph_index": 71,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∞"
+    },
+    {
+      "code": "8188",
+      "glyph_index": 72,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∴"
+    },
+    {
+      "code": "8189",
+      "glyph_index": 73,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "♂"
+    },
+    {
+      "code": "818A",
+      "glyph_index": 74,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "♀"
+    },
+    {
+      "code": "818B",
+      "glyph_index": 75,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "°"
+    },
+    {
+      "code": "818C",
+      "glyph_index": 76,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "′"
+    },
+    {
+      "code": "818D",
+      "glyph_index": 77,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "″"
+    },
+    {
+      "code": "818E",
+      "glyph_index": 78,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "℃"
+    },
+    {
+      "code": "818F",
+      "glyph_index": 79,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "￥"
+    },
+    {
+      "code": "8190",
+      "glyph_index": 80,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "＄"
+    },
+    {
+      "code": "8191",
+      "glyph_index": 81,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "¢"
+    },
+    {
+      "code": "8192",
+      "glyph_index": 82,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "£"
+    },
+    {
+      "code": "8195",
+      "glyph_index": 85,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "＆"
+    },
+    {
+      "code": "8196",
+      "glyph_index": 86,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "＊"
+    },
+    {
+      "code": "8197",
+      "glyph_index": 87,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "＠"
+    },
+    {
+      "code": "8198",
+      "glyph_index": 88,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "§"
+    },
+    {
+      "code": "8199",
+      "glyph_index": 89,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "☆"
+    },
+    {
+      "code": "819A",
+      "glyph_index": 90,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "★"
+    },
+    {
+      "code": "819D",
+      "glyph_index": 93,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "◎"
+    },
+    {
+      "code": "819E",
+      "glyph_index": 94,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "◇"
+    },
+    {
+      "code": "819F",
+      "glyph_index": 95,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "◆"
+    },
+    {
+      "code": "81A1",
+      "glyph_index": 97,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "■"
+    },
+    {
+      "code": "81A3",
+      "glyph_index": 99,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "▲"
+    },
+    {
+      "code": "81A4",
+      "glyph_index": 100,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "▽"
+    },
+    {
+      "code": "81A6",
+      "glyph_index": 102,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "※"
+    },
+    {
+      "code": "81A7",
+      "glyph_index": 103,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "〒"
+    },
+    {
+      "code": "81A8",
+      "glyph_index": 104,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "→"
+    },
+    {
+      "code": "81A9",
+      "glyph_index": 105,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "←"
+    },
+    {
+      "code": "81AA",
+      "glyph_index": 106,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "↑"
+    },
+    {
+      "code": "81AB",
+      "glyph_index": 107,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "↓"
+    },
+    {
+      "code": "81AC",
+      "glyph_index": 108,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "〓"
+    },
+    {
+      "code": "81AD",
+      "glyph_index": 109,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "＇"
+    },
+    {
+      "code": "81C8",
+      "glyph_index": 136,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∧"
+    },
+    {
+      "code": "81C9",
+      "glyph_index": 137,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∨"
+    },
+    {
+      "code": "81CA",
+      "glyph_index": 138,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "¬"
+    },
+    {
+      "code": "81CB",
+      "glyph_index": 139,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "⇒"
+    },
+    {
+      "code": "81CC",
+      "glyph_index": 140,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "⇔"
+    },
+    {
+      "code": "81CE",
+      "glyph_index": 142,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∃"
+    },
+    {
+      "code": "81DA",
+      "glyph_index": 154,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∠"
+    },
+    {
+      "code": "81DB",
+      "glyph_index": 155,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "⊥"
+    },
+    {
+      "code": "81DC",
+      "glyph_index": 156,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "⌒"
+    },
+    {
+      "code": "81DD",
+      "glyph_index": 157,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∂"
+    },
+    {
+      "code": "81DE",
+      "glyph_index": 158,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∇"
+    },
+    {
+      "code": "81DF",
+      "glyph_index": 159,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "≡"
+    },
+    {
+      "code": "81E0",
+      "glyph_index": 160,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "≒"
+    },
+    {
+      "code": "81E1",
+      "glyph_index": 161,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "≪"
+    },
+    {
+      "code": "81E2",
+      "glyph_index": 162,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "≫"
+    },
+    {
+      "code": "81E3",
+      "glyph_index": 163,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "√"
+    },
+    {
+      "code": "81E4",
+      "glyph_index": 164,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∽"
+    },
+    {
+      "code": "81E5",
+      "glyph_index": 165,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∝"
+    },
+    {
+      "code": "81E6",
+      "glyph_index": 166,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∵"
+    },
+    {
+      "code": "81E7",
+      "glyph_index": 167,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∫"
+    },
+    {
+      "code": "81E8",
+      "glyph_index": 168,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "∬"
+    },
+    {
+      "code": "81F0",
+      "glyph_index": 176,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Å"
+    },
+    {
+      "code": "81F1",
+      "glyph_index": 177,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "‰"
+    },
+    {
+      "code": "81F2",
+      "glyph_index": 178,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "♯"
+    },
+    {
+      "code": "81F3",
+      "glyph_index": 179,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "♭"
+    },
+    {
+      "code": "81F5",
+      "glyph_index": 181,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "†"
+    },
+    {
+      "code": "81F6",
+      "glyph_index": 182,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "‡"
+    },
+    {
+      "code": "81F7",
+      "glyph_index": 183,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "¶"
+    },
+    {
+      "code": "81FC",
+      "glyph_index": 188,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "◯"
+    },
+    {
+      "code": "829F",
+      "glyph_index": 287,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぁ"
+    },
+    {
+      "code": "82A0",
+      "glyph_index": 288,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "あ"
+    },
+    {
+      "code": "82A1",
+      "glyph_index": 289,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぃ"
+    },
+    {
+      "code": "82A2",
+      "glyph_index": 290,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "い"
+    },
+    {
+      "code": "82A3",
+      "glyph_index": 291,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぅ"
+    },
+    {
+      "code": "82A4",
+      "glyph_index": 292,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "う"
+    },
+    {
+      "code": "82A5",
+      "glyph_index": 293,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぇ"
+    },
+    {
+      "code": "82A6",
+      "glyph_index": 294,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "え"
+    },
+    {
+      "code": "82A7",
+      "glyph_index": 295,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぉ"
+    },
+    {
+      "code": "82A8",
+      "glyph_index": 296,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "お"
+    },
+    {
+      "code": "82A9",
+      "glyph_index": 297,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "か"
+    },
+    {
+      "code": "82AA",
+      "glyph_index": 298,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "が"
+    },
+    {
+      "code": "82AB",
+      "glyph_index": 299,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "き"
+    },
+    {
+      "code": "82AC",
+      "glyph_index": 300,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぎ"
+    },
+    {
+      "code": "82AD",
+      "glyph_index": 301,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "く"
+    },
+    {
+      "code": "82AE",
+      "glyph_index": 302,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぐ"
+    },
+    {
+      "code": "82AF",
+      "glyph_index": 303,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "け"
+    },
+    {
+      "code": "82B0",
+      "glyph_index": 304,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "げ"
+    },
+    {
+      "code": "82B1",
+      "glyph_index": 305,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "こ"
+    },
+    {
+      "code": "82B2",
+      "glyph_index": 306,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ご"
+    },
+    {
+      "code": "82B3",
+      "glyph_index": 307,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "さ"
+    },
+    {
+      "code": "82B4",
+      "glyph_index": 308,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ざ"
+    },
+    {
+      "code": "82B5",
+      "glyph_index": 309,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "し"
+    },
+    {
+      "code": "82B6",
+      "glyph_index": 310,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "じ"
+    },
+    {
+      "code": "82B7",
+      "glyph_index": 311,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "す"
+    },
+    {
+      "code": "82B8",
+      "glyph_index": 312,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ず"
+    },
+    {
+      "code": "82B9",
+      "glyph_index": 313,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "せ"
+    },
+    {
+      "code": "82BA",
+      "glyph_index": 314,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぜ"
+    },
+    {
+      "code": "82BB",
+      "glyph_index": 315,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "そ"
+    },
+    {
+      "code": "82BC",
+      "glyph_index": 316,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぞ"
+    },
+    {
+      "code": "82BD",
+      "glyph_index": 317,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "た"
+    },
+    {
+      "code": "82BE",
+      "glyph_index": 318,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "だ"
+    },
+    {
+      "code": "82BF",
+      "glyph_index": 319,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ち"
+    },
+    {
+      "code": "82C0",
+      "glyph_index": 320,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぢ"
+    },
+    {
+      "code": "82C1",
+      "glyph_index": 321,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "っ"
+    },
+    {
+      "code": "82C2",
+      "glyph_index": 322,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "つ"
+    },
+    {
+      "code": "82C3",
+      "glyph_index": 323,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "づ"
+    },
+    {
+      "code": "82C4",
+      "glyph_index": 324,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "て"
+    },
+    {
+      "code": "82C5",
+      "glyph_index": 325,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "で"
+    },
+    {
+      "code": "82C6",
+      "glyph_index": 326,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "と"
+    },
+    {
+      "code": "82C7",
+      "glyph_index": 327,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ど"
+    },
+    {
+      "code": "82C8",
+      "glyph_index": 328,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "な"
+    },
+    {
+      "code": "82C9",
+      "glyph_index": 329,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "に"
+    },
+    {
+      "code": "82CA",
+      "glyph_index": 330,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぬ"
+    },
+    {
+      "code": "82CB",
+      "glyph_index": 331,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ね"
+    },
+    {
+      "code": "82CC",
+      "glyph_index": 332,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "の"
+    },
+    {
+      "code": "82CD",
+      "glyph_index": 333,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "は"
+    },
+    {
+      "code": "82CE",
+      "glyph_index": 334,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ば"
+    },
+    {
+      "code": "82CF",
+      "glyph_index": 335,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぱ"
+    },
+    {
+      "code": "82D0",
+      "glyph_index": 336,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ひ"
+    },
+    {
+      "code": "82D1",
+      "glyph_index": 337,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "び"
+    },
+    {
+      "code": "82D2",
+      "glyph_index": 338,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぴ"
+    },
+    {
+      "code": "82D3",
+      "glyph_index": 339,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ふ"
+    },
+    {
+      "code": "82D4",
+      "glyph_index": 340,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぶ"
+    },
+    {
+      "code": "82D5",
+      "glyph_index": 341,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぷ"
+    },
+    {
+      "code": "82D6",
+      "glyph_index": 342,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "へ"
+    },
+    {
+      "code": "82D7",
+      "glyph_index": 343,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "べ"
+    },
+    {
+      "code": "82D8",
+      "glyph_index": 344,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぺ"
+    },
+    {
+      "code": "82D9",
+      "glyph_index": 345,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ほ"
+    },
+    {
+      "code": "82DA",
+      "glyph_index": 346,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぼ"
+    },
+    {
+      "code": "82DB",
+      "glyph_index": 347,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぽ"
+    },
+    {
+      "code": "82DC",
+      "glyph_index": 348,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ま"
+    },
+    {
+      "code": "82DD",
+      "glyph_index": 349,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "み"
+    },
+    {
+      "code": "82DE",
+      "glyph_index": 350,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "む"
+    },
+    {
+      "code": "82DF",
+      "glyph_index": 351,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "め"
+    },
+    {
+      "code": "82E0",
+      "glyph_index": 352,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "も"
+    },
+    {
+      "code": "82E1",
+      "glyph_index": 353,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゃ"
+    },
+    {
+      "code": "82E2",
+      "glyph_index": 354,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "や"
+    },
+    {
+      "code": "82E3",
+      "glyph_index": 355,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゅ"
+    },
+    {
+      "code": "82E4",
+      "glyph_index": 356,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゆ"
+    },
+    {
+      "code": "82E5",
+      "glyph_index": 357,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ょ"
+    },
+    {
+      "code": "82E6",
+      "glyph_index": 358,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "よ"
+    },
+    {
+      "code": "82E7",
+      "glyph_index": 359,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ら"
+    },
+    {
+      "code": "82E8",
+      "glyph_index": 360,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "り"
+    },
+    {
+      "code": "82E9",
+      "glyph_index": 361,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "る"
+    },
+    {
+      "code": "82EA",
+      "glyph_index": 362,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "れ"
+    },
+    {
+      "code": "82EB",
+      "glyph_index": 363,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ろ"
+    },
+    {
+      "code": "82EC",
+      "glyph_index": 364,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゎ"
+    },
+    {
+      "code": "82ED",
+      "glyph_index": 365,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "わ"
+    },
+    {
+      "code": "82EE",
+      "glyph_index": 366,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゐ"
+    },
+    {
+      "code": "82EF",
+      "glyph_index": 367,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゑ"
+    },
+    {
+      "code": "82F0",
+      "glyph_index": 368,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "を"
+    },
+    {
+      "code": "82F1",
+      "glyph_index": 369,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ん"
+    },
+    {
+      "code": "8340",
+      "glyph_index": 384,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ァ"
+    },
+    {
+      "code": "8341",
+      "glyph_index": 385,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ア"
+    },
+    {
+      "code": "8342",
+      "glyph_index": 386,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ィ"
+    },
+    {
+      "code": "8343",
+      "glyph_index": 387,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "イ"
+    },
+    {
+      "code": "8344",
+      "glyph_index": 388,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゥ"
+    },
+    {
+      "code": "8345",
+      "glyph_index": 389,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ウ"
+    },
+    {
+      "code": "8346",
+      "glyph_index": 390,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ェ"
+    },
+    {
+      "code": "8347",
+      "glyph_index": 391,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "エ"
+    },
+    {
+      "code": "8348",
+      "glyph_index": 392,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ォ"
+    },
+    {
+      "code": "834A",
+      "glyph_index": 394,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "カ"
+    },
+    {
+      "code": "834B",
+      "glyph_index": 395,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ガ"
+    },
+    {
+      "code": "834C",
+      "glyph_index": 396,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "キ"
+    },
+    {
+      "code": "834D",
+      "glyph_index": 397,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ギ"
+    },
+    {
+      "code": "834E",
+      "glyph_index": 398,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ク"
+    },
+    {
+      "code": "834F",
+      "glyph_index": 399,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "グ"
+    },
+    {
+      "code": "8350",
+      "glyph_index": 400,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ケ"
+    },
+    {
+      "code": "8351",
+      "glyph_index": 401,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゲ"
+    },
+    {
+      "code": "8353",
+      "glyph_index": 403,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゴ"
+    },
+    {
+      "code": "8354",
+      "glyph_index": 404,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "サ"
+    },
+    {
+      "code": "8355",
+      "glyph_index": 405,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ザ"
+    },
+    {
+      "code": "8356",
+      "glyph_index": 406,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "シ"
+    },
+    {
+      "code": "8357",
+      "glyph_index": 407,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ジ"
+    },
+    {
+      "code": "8359",
+      "glyph_index": 409,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ズ"
+    },
+    {
+      "code": "835B",
+      "glyph_index": 411,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゼ"
+    },
+    {
+      "code": "835C",
+      "glyph_index": 412,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ソ"
+    },
+    {
+      "code": "835D",
+      "glyph_index": 413,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ゾ"
+    },
+    {
+      "code": "835E",
+      "glyph_index": 414,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "タ"
+    },
+    {
+      "code": "835F",
+      "glyph_index": 415,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ダ"
+    },
+    {
+      "code": "8360",
+      "glyph_index": 416,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "チ"
+    },
+    {
+      "code": "8361",
+      "glyph_index": 417,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヂ"
+    },
+    {
+      "code": "8362",
+      "glyph_index": 418,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ッ"
+    },
+    {
+      "code": "8364",
+      "glyph_index": 420,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヅ"
+    },
+    {
+      "code": "8365",
+      "glyph_index": 421,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "テ"
+    },
+    {
+      "code": "8366",
+      "glyph_index": 422,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "デ"
+    },
+    {
+      "code": "8369",
+      "glyph_index": 425,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ナ"
+    },
+    {
+      "code": "836A",
+      "glyph_index": 426,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ニ"
+    },
+    {
+      "code": "836B",
+      "glyph_index": 427,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヌ"
+    },
+    {
+      "code": "836C",
+      "glyph_index": 428,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ネ"
+    },
+    {
+      "code": "836D",
+      "glyph_index": 429,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ノ"
+    },
+    {
+      "code": "836F",
+      "glyph_index": 431,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "バ"
+    },
+    {
+      "code": "8370",
+      "glyph_index": 432,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "パ"
+    },
+    {
+      "code": "8371",
+      "glyph_index": 433,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヒ"
+    },
+    {
+      "code": "8373",
+      "glyph_index": 435,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ピ"
+    },
+    {
+      "code": "8374",
+      "glyph_index": 436,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "フ"
+    },
+    {
+      "code": "8375",
+      "glyph_index": 437,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ブ"
+    },
+    {
+      "code": "8376",
+      "glyph_index": 438,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "プ"
+    },
+    {
+      "code": "8377",
+      "glyph_index": 439,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヘ"
+    },
+    {
+      "code": "8378",
+      "glyph_index": 440,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ベ"
+    },
+    {
+      "code": "8379",
+      "glyph_index": 441,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ペ"
+    },
+    {
+      "code": "837A",
+      "glyph_index": 442,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ホ"
+    },
+    {
+      "code": "837B",
+      "glyph_index": 443,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ボ"
+    },
+    {
+      "code": "837C",
+      "glyph_index": 444,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ポ"
+    },
+    {
+      "code": "837D",
+      "glyph_index": 445,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "マ"
+    },
+    {
+      "code": "837E",
+      "glyph_index": 446,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ミ"
+    },
+    {
+      "code": "8380",
+      "glyph_index": 448,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ム"
+    },
+    {
+      "code": "8381",
+      "glyph_index": 449,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "メ"
+    },
+    {
+      "code": "8382",
+      "glyph_index": 450,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "モ"
+    },
+    {
+      "code": "8383",
+      "glyph_index": 451,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ャ"
+    },
+    {
+      "code": "8384",
+      "glyph_index": 452,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヤ"
+    },
+    {
+      "code": "8385",
+      "glyph_index": 453,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ュ"
+    },
+    {
+      "code": "8386",
+      "glyph_index": 454,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ユ"
+    },
+    {
+      "code": "8387",
+      "glyph_index": 455,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ョ"
+    },
+    {
+      "code": "8388",
+      "glyph_index": 456,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヨ"
+    },
+    {
+      "code": "838A",
+      "glyph_index": 458,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "リ"
+    },
+    {
+      "code": "838B",
+      "glyph_index": 459,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ル"
+    },
+    {
+      "code": "838C",
+      "glyph_index": 460,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "レ"
+    },
+    {
+      "code": "838D",
+      "glyph_index": 461,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ロ"
+    },
+    {
+      "code": "838E",
+      "glyph_index": 462,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヮ"
+    },
+    {
+      "code": "838F",
+      "glyph_index": 463,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ワ"
+    },
+    {
+      "code": "8390",
+      "glyph_index": 464,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヰ"
+    },
+    {
+      "code": "8391",
+      "glyph_index": 465,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヱ"
+    },
+    {
+      "code": "8392",
+      "glyph_index": 466,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヲ"
+    },
+    {
+      "code": "8394",
+      "glyph_index": 468,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヴ"
+    },
+    {
+      "code": "8395",
+      "glyph_index": 469,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヵ"
+    },
+    {
+      "code": "8396",
+      "glyph_index": 470,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ヶ"
+    },
+    {
+      "code": "839F",
+      "glyph_index": 479,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Α"
+    },
+    {
+      "code": "83A0",
+      "glyph_index": 480,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Β"
+    },
+    {
+      "code": "83A1",
+      "glyph_index": 481,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Γ"
+    },
+    {
+      "code": "83A2",
+      "glyph_index": 482,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Δ"
+    },
+    {
+      "code": "83A3",
+      "glyph_index": 483,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ε"
+    },
+    {
+      "code": "83A4",
+      "glyph_index": 484,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ζ"
+    },
+    {
+      "code": "83A5",
+      "glyph_index": 485,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Η"
+    },
+    {
+      "code": "83A6",
+      "glyph_index": 486,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Θ"
+    },
+    {
+      "code": "83A7",
+      "glyph_index": 487,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ι"
+    },
+    {
+      "code": "83A8",
+      "glyph_index": 488,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Κ"
+    },
+    {
+      "code": "83A9",
+      "glyph_index": 489,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Λ"
+    },
+    {
+      "code": "83AA",
+      "glyph_index": 490,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Μ"
+    },
+    {
+      "code": "83AB",
+      "glyph_index": 491,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ν"
+    },
+    {
+      "code": "83AC",
+      "glyph_index": 492,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ξ"
+    },
+    {
+      "code": "83AD",
+      "glyph_index": 493,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ο"
+    },
+    {
+      "code": "83AE",
+      "glyph_index": 494,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Π"
+    },
+    {
+      "code": "83AF",
+      "glyph_index": 495,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ρ"
+    },
+    {
+      "code": "83B0",
+      "glyph_index": 496,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Σ"
+    },
+    {
+      "code": "83B1",
+      "glyph_index": 497,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Τ"
+    },
+    {
+      "code": "83B2",
+      "glyph_index": 498,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Υ"
+    },
+    {
+      "code": "83B3",
+      "glyph_index": 499,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Φ"
+    },
+    {
+      "code": "83B4",
+      "glyph_index": 500,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Χ"
+    },
+    {
+      "code": "83B5",
+      "glyph_index": 501,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ψ"
+    },
+    {
+      "code": "83B6",
+      "glyph_index": 502,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ω"
+    },
+    {
+      "code": "83BF",
+      "glyph_index": 511,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "α"
+    },
+    {
+      "code": "83C0",
+      "glyph_index": 512,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "β"
+    },
+    {
+      "code": "83C1",
+      "glyph_index": 513,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "γ"
+    },
+    {
+      "code": "83C2",
+      "glyph_index": 514,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "δ"
+    },
+    {
+      "code": "83C3",
+      "glyph_index": 515,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ε"
+    },
+    {
+      "code": "83C4",
+      "glyph_index": 516,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ζ"
+    },
+    {
+      "code": "83C5",
+      "glyph_index": 517,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "η"
+    },
+    {
+      "code": "83C6",
+      "glyph_index": 518,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "θ"
+    },
+    {
+      "code": "83C7",
+      "glyph_index": 519,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ι"
+    },
+    {
+      "code": "83C8",
+      "glyph_index": 520,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "κ"
+    },
+    {
+      "code": "83C9",
+      "glyph_index": 521,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "λ"
+    },
+    {
+      "code": "83CA",
+      "glyph_index": 522,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "μ"
+    },
+    {
+      "code": "83CC",
+      "glyph_index": 524,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ξ"
+    },
+    {
+      "code": "83CD",
+      "glyph_index": 525,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ο"
+    },
+    {
+      "code": "83CE",
+      "glyph_index": 526,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "π"
+    },
+    {
+      "code": "83CF",
+      "glyph_index": 527,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ρ"
+    },
+    {
+      "code": "83D0",
+      "glyph_index": 528,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "σ"
+    },
+    {
+      "code": "83D1",
+      "glyph_index": 529,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "τ"
+    },
+    {
+      "code": "83D2",
+      "glyph_index": 530,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "υ"
+    },
+    {
+      "code": "83D3",
+      "glyph_index": 531,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "φ"
+    },
+    {
+      "code": "83D4",
+      "glyph_index": 532,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "χ"
+    },
+    {
+      "code": "83D5",
+      "glyph_index": 533,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ψ"
+    },
+    {
+      "code": "83D6",
+      "glyph_index": 534,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ω"
+    },
+    {
+      "code": "8440",
+      "glyph_index": 576,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "А"
+    },
+    {
+      "code": "8441",
+      "glyph_index": 577,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Б"
+    },
+    {
+      "code": "8442",
+      "glyph_index": 578,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "В"
+    },
+    {
+      "code": "8443",
+      "glyph_index": 579,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Г"
+    },
+    {
+      "code": "8444",
+      "glyph_index": 580,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Д"
+    },
+    {
+      "code": "8445",
+      "glyph_index": 581,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Е"
+    },
+    {
+      "code": "8446",
+      "glyph_index": 582,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ё"
+    },
+    {
+      "code": "8447",
+      "glyph_index": 583,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ж"
+    },
+    {
+      "code": "8448",
+      "glyph_index": 584,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "З"
+    },
+    {
+      "code": "8449",
+      "glyph_index": 585,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "И"
+    },
+    {
+      "code": "844A",
+      "glyph_index": 586,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Й"
+    },
+    {
+      "code": "844B",
+      "glyph_index": 587,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "К"
+    },
+    {
+      "code": "844C",
+      "glyph_index": 588,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Л"
+    },
+    {
+      "code": "844D",
+      "glyph_index": 589,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "М"
+    },
+    {
+      "code": "844E",
+      "glyph_index": 590,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Н"
+    },
+    {
+      "code": "844F",
+      "glyph_index": 591,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "О"
+    },
+    {
+      "code": "8450",
+      "glyph_index": 592,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "П"
+    },
+    {
+      "code": "8451",
+      "glyph_index": 593,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Р"
+    },
+    {
+      "code": "8452",
+      "glyph_index": 594,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "С"
+    },
+    {
+      "code": "8453",
+      "glyph_index": 595,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Т"
+    },
+    {
+      "code": "8454",
+      "glyph_index": 596,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "У"
+    },
+    {
+      "code": "8455",
+      "glyph_index": 597,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ф"
+    },
+    {
+      "code": "8456",
+      "glyph_index": 598,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Х"
+    },
+    {
+      "code": "8457",
+      "glyph_index": 599,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ц"
+    },
+    {
+      "code": "8458",
+      "glyph_index": 600,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ч"
+    },
+    {
+      "code": "8459",
+      "glyph_index": 601,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ш"
+    },
+    {
+      "code": "845A",
+      "glyph_index": 602,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Щ"
+    },
+    {
+      "code": "845C",
+      "glyph_index": 604,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ы"
+    },
+    {
+      "code": "845D",
+      "glyph_index": 605,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ь"
+    },
+    {
+      "code": "845E",
+      "glyph_index": 606,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Э"
+    },
+    {
+      "code": "845F",
+      "glyph_index": 607,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ю"
+    },
+    {
+      "code": "8460",
+      "glyph_index": 608,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Я"
+    },
+    {
+      "code": "8470",
+      "glyph_index": 624,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "а"
+    },
+    {
+      "code": "8471",
+      "glyph_index": 625,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "б"
+    },
+    {
+      "code": "8472",
+      "glyph_index": 626,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "в"
+    },
+    {
+      "code": "8473",
+      "glyph_index": 627,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "г"
+    },
+    {
+      "code": "8474",
+      "glyph_index": 628,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "д"
+    },
+    {
+      "code": "8475",
+      "glyph_index": 629,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "е"
+    },
+    {
+      "code": "8476",
+      "glyph_index": 630,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ё"
+    },
+    {
+      "code": "8477",
+      "glyph_index": 631,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ж"
+    },
+    {
+      "code": "8478",
+      "glyph_index": 632,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "з"
+    },
+    {
+      "code": "8479",
+      "glyph_index": 633,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "и"
+    },
+    {
+      "code": "847A",
+      "glyph_index": 634,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "й"
+    },
+    {
+      "code": "847B",
+      "glyph_index": 635,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "к"
+    },
+    {
+      "code": "847C",
+      "glyph_index": 636,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "л"
+    },
+    {
+      "code": "847D",
+      "glyph_index": 637,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "м"
+    },
+    {
+      "code": "847E",
+      "glyph_index": 638,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "н"
+    },
+    {
+      "code": "8480",
+      "glyph_index": 640,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "о"
+    },
+    {
+      "code": "8481",
+      "glyph_index": 641,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "п"
+    },
+    {
+      "code": "8482",
+      "glyph_index": 642,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "р"
+    },
+    {
+      "code": "8483",
+      "glyph_index": 643,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "с"
+    },
+    {
+      "code": "8484",
+      "glyph_index": 644,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "т"
+    },
+    {
+      "code": "8485",
+      "glyph_index": 645,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "у"
+    },
+    {
+      "code": "8486",
+      "glyph_index": 646,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ф"
+    },
+    {
+      "code": "8487",
+      "glyph_index": 647,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "х"
+    },
+    {
+      "code": "8488",
+      "glyph_index": 648,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ц"
+    },
+    {
+      "code": "8489",
+      "glyph_index": 649,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ч"
+    },
+    {
+      "code": "848A",
+      "glyph_index": 650,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ш"
+    },
+    {
+      "code": "848B",
+      "glyph_index": 651,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "щ"
+    },
+    {
+      "code": "848C",
+      "glyph_index": 652,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ъ"
+    },
+    {
+      "code": "848D",
+      "glyph_index": 653,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ы"
+    },
+    {
+      "code": "848E",
+      "glyph_index": 654,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ь"
+    },
+    {
+      "code": "848F",
+      "glyph_index": 655,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "э"
+    },
+    {
+      "code": "8490",
+      "glyph_index": 656,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ю"
+    },
+    {
+      "code": "8491",
+      "glyph_index": 657,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "я"
+    },
+    {
+      "code": "849F",
+      "glyph_index": 671,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "─"
+    },
+    {
+      "code": "84A0",
+      "glyph_index": 672,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "│"
+    },
+    {
+      "code": "84A1",
+      "glyph_index": 673,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┌"
+    },
+    {
+      "code": "84A2",
+      "glyph_index": 674,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┐"
+    },
+    {
+      "code": "84A3",
+      "glyph_index": 675,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┘"
+    },
+    {
+      "code": "84A4",
+      "glyph_index": 676,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "└"
+    },
+    {
+      "code": "84A5",
+      "glyph_index": 677,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "├"
+    },
+    {
+      "code": "84A6",
+      "glyph_index": 678,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┬"
+    },
+    {
+      "code": "84A7",
+      "glyph_index": 679,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┤"
+    },
+    {
+      "code": "84A8",
+      "glyph_index": 680,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┴"
+    },
+    {
+      "code": "84A9",
+      "glyph_index": 681,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┼"
+    },
+    {
+      "code": "84AA",
+      "glyph_index": 682,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "━"
+    },
+    {
+      "code": "84AB",
+      "glyph_index": 683,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┃"
+    },
+    {
+      "code": "84AC",
+      "glyph_index": 684,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┏"
+    },
+    {
+      "code": "84AD",
+      "glyph_index": 685,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┓"
+    },
+    {
+      "code": "84AE",
+      "glyph_index": 686,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┛"
+    },
+    {
+      "code": "84AF",
+      "glyph_index": 687,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┗"
+    },
+    {
+      "code": "84B0",
+      "glyph_index": 688,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┣"
+    },
+    {
+      "code": "84B1",
+      "glyph_index": 689,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┳"
+    },
+    {
+      "code": "84B2",
+      "glyph_index": 690,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┫"
+    },
+    {
+      "code": "84B3",
+      "glyph_index": 691,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┻"
+    },
+    {
+      "code": "84B4",
+      "glyph_index": 692,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "╋"
+    },
+    {
+      "code": "84B5",
+      "glyph_index": 693,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┠"
+    },
+    {
+      "code": "84B6",
+      "glyph_index": 694,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┯"
+    },
+    {
+      "code": "84B7",
+      "glyph_index": 695,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┨"
+    },
+    {
+      "code": "84B8",
+      "glyph_index": 696,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┷"
+    },
+    {
+      "code": "84B9",
+      "glyph_index": 697,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┿"
+    },
+    {
+      "code": "84BA",
+      "glyph_index": 698,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┝"
+    },
+    {
+      "code": "84BB",
+      "glyph_index": 699,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┰"
+    },
+    {
+      "code": "84BC",
+      "glyph_index": 700,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┥"
+    },
+    {
+      "code": "84BD",
+      "glyph_index": 701,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "┸"
+    },
+    {
+      "code": "84BE",
+      "glyph_index": 702,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "╂"
+    },
+    {
+      "code": "84C0",
+      "glyph_index": 704,
+      "mapping": "reclaimed_unused_original_double_byte"
+    },
+    {
+      "code": "8553",
+      "glyph_index": 787,
+      "mapping": "reclaimed_unused_original_double_byte"
+    },
+    {
+      "code": "8557",
+      "glyph_index": 791,
+      "mapping": "reclaimed_unused_original_double_byte"
+    },
+    {
+      "code": "855B",
+      "glyph_index": 795,
+      "mapping": "reclaimed_unused_original_double_byte"
+    },
+    {
+      "code": "85DC",
+      "glyph_index": 924,
+      "mapping": "reclaimed_unused_original_double_byte"
+    },
+    {
+      "code": "8651",
+      "glyph_index": 977,
+      "mapping": "reclaimed_unused_original_double_byte"
+    },
+    {
+      "code": "865D",
+      "glyph_index": 989,
+      "mapping": "reclaimed_unused_original_double_byte"
+    },
+    {
+      "code": "868E",
+      "glyph_index": 1038,
+      "mapping": "reclaimed_unused_original_double_byte"
+    },
+    {
+      "code": "86DF",
+      "glyph_index": 1119,
+      "mapping": "reclaimed_unused_original_double_byte"
+    },
+    {
+      "code": "8754",
+      "glyph_index": 1172,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ⅰ"
+    },
+    {
+      "code": "8756",
+      "glyph_index": 1174,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ⅲ"
+    },
+    {
+      "code": "8757",
+      "glyph_index": 1175,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ⅳ"
+    },
+    {
+      "code": "875C",
+      "glyph_index": 1180,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "─"
+    },
+    {
+      "code": "875D",
+      "glyph_index": 1181,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "Ⅹ"
+    },
+    {
+      "code": "8860",
+      "glyph_index": 1376,
+      "mapping": "reclaimed_unused_original_double_byte"
+    },
+    {
+      "code": "96FD",
+      "glyph_index": 4221,
+      "mapping": "reclaimed_unused_original_double_byte"
+    },
+    {
+      "code": "97FD",
+      "glyph_index": 4413,
+      "mapping": "reclaimed_unused_original_double_byte"
+    }
+  ],
   "migration": {
     "mode": "flattened_release_baseline",
     "preserved_historical_primary_assignment_count": 3158,
@@ -26807,6 +29303,35 @@
           "mapping": "standard_raw_trail_gap"
         }
       ]
+    },
+    {
+      "selection_sha256": "94319726a60b27236fbcdac04c6fad00c023100319a06c9cf69e09b1ed5400c6",
+      "assignment_count": 1,
+      "allocation_assignment_count": 1,
+      "reraster_existing_assignment_count": 0,
+      "reclamation": {
+        "retired_alias_character": "オ",
+        "retired_alias_primary_code": "8349",
+        "retired_alias_demand_count": 0,
+        "reclaimed_code": "90EF",
+        "reclaimed_glyph_index": 3055,
+        "reason": "The complete active translation selection no longer uses this surface-safe alias; the original primary code and glyph identity remain unchanged."
+      },
+      "assignments": [
+        {
+          "character": "邓",
+          "code": "90EF",
+          "glyph_index": 3055,
+          "mapping": "reclaimed_unused_surface_alias",
+          "source_character": "撰"
+        }
+      ]
     }
-  ]
+  ],
+  "candidate_pool": {
+    "mode": "all_unoccupied_renderer_standard_double_byte_slots",
+    "includes_retired_japanese_positions": true,
+    "includes_conditional_width_positions": true,
+    "candidate_count": 418
+  }
 }

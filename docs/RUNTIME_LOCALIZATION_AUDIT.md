@@ -8,7 +8,7 @@
 ```text
 profile: zh-release-full-story
 size:    3,758,358,528 bytes
-sha256:  40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c
+sha256:  d65bfca8469582105357b2f71d8627490513c9e4aef346672bbcb4dcfd518146
 static:  passed
 boot smoke: not tested for current exact hash
 target routes: user testing
@@ -18,7 +18,7 @@ target routes: user testing
 
 - 66 个 ISO 成员路径和顺序保持；
 - 53 个未替换成员 byte-exact；
-- 13 个 replacement 独立 UDF 回读一致；
+- 16 个 replacement 独立 UDF 回读一致；
 - 零成员 LBA 位移；
 - 205 个 STAGE 压缩块可严格解码；
 - 154 个选择剧情块的 82719 条对白、558 条条件文本和 8469 个说话人可以从最终
@@ -46,7 +46,7 @@ COMPDATA 文本链覆盖；`第／話`、闭引号、章节数字精灵和 `NEXT
 
 ## 当前运行结论
 
-当前 `40ddc19e...` 精确候选不登记运行验收结论。旧候选的 boot smoke、截图和存档
+当前 `d65bfca8...` 精确候选不登记运行验收结论。旧候选的 boot smoke、截图和存档
 只能作为定位线索，不能证明当前哈希能够启动、进入 STAGE 或正确显示文字。后续
 画面和流程由用户在当前精确 ISO 上继续测试。
 
@@ -122,7 +122,7 @@ COMPDATA 仍只用 Rust `rust-fit`。为容纳完整帮助块，生产搜索链�
 小队 21 曾显示为“箔哄噪”的问题也已闭合：反向字模映射后的原文是 `別働隊`，
 来源为 `DATA/STAGE.BIN` 第 101 块内的固定编成记录，而不是小队菜单标签。记录 ID
 `0x14..0x1C` 共九项现已全部按原 7 字节槽位写为“别动队”；截图中的 ID `0x15`
-对应解压偏移 `0x9E79`。该组已进入当前 `40ddc19e...` ISO 并完成静态回读，运行
+对应解压偏移 `0x9E79`。该组已进入当前 `d65bfca8...` ISO 并完成静态回读，运行
 显示仍由用户测试。
 
 已经静态回读通过的机师名称、机体显示名、武器名、菜单标签、STAGE／HSFC 概要

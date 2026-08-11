@@ -8,10 +8,14 @@ import json
 from pathlib import Path
 
 from srwz.font import (
+    ASCII_FIRST,
+    ASCII_LAST,
+    GLYPH_COUNT,
+    ascii_glyph_index,
     glyph_index_for_code,
-    is_conditional_width_code,
     read_extended_glyph_table,
     sha256_bytes,
+    standard_code_for_glyph_index,
 )
 from srwz.release_font_policy import (
     ReleaseFontPolicyError,
@@ -48,6 +52,14 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Write the extended snapshot and refresh its profile ratchets.",
     )
+    parser.add_argument(
+        "--refresh-candidate-pool",
+        action="store_true",
+        help=(
+            "Rebuild the remaining pool from every unoccupied standard "
+            "double-byte renderer position, including retired Japanese slots."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -74,6 +86,37 @@ def _mapping_sha256(rows: list[dict]) -> str:
             separators=(",", ":"),
         ).encode("utf-8")
     )
+
+
+def _reclaimable_double_byte_candidates(
+    table,
+    occupied_codes: set[int],
+    occupied_glyphs: set[int],
+) -> list[dict]:
+    """Return every unoccupied renderer-addressable standard two-byte slot."""
+
+    ascii_glyphs = {
+        ascii_glyph_index(code) for code in range(ASCII_FIRST, ASCII_LAST + 1)
+    }
+    rows = []
+    for glyph_index in range(GLYPH_COUNT):
+        code = standard_code_for_glyph_index(glyph_index)
+        if (
+            code in occupied_codes
+            or glyph_index in occupied_glyphs
+            or glyph_index in ascii_glyphs
+        ):
+            continue
+        source_character = table.characters.get(code)
+        row = {
+            "code": f"{code:04X}",
+            "glyph_index": glyph_index,
+            "mapping": "reclaimed_unused_original_double_byte",
+        }
+        if source_character is not None:
+            row["source_character"] = source_character
+        rows.append(row)
+    return rows
 
 
 def main() -> int:
@@ -171,6 +214,15 @@ def main() -> int:
         != snapshot.get("remaining_allocation_candidates_sha256")
     ):
         raise SystemExit("trusted release candidate pool drift")
+    candidate_pool_changed = False
+    if args.refresh_candidate_pool:
+        refreshed_candidates = _reclaimable_double_byte_candidates(
+            table,
+            occupied_codes,
+            occupied_glyphs,
+        )
+        candidate_pool_changed = refreshed_candidates != trusted_candidates
+        trusted_candidates = refreshed_candidates
     try:
         validate_new_character_allocations(
             config,
@@ -197,7 +249,6 @@ def main() -> int:
         glyph_index = None
         if (
             code is not None
-            and not is_conditional_width_code(code)
             and code not in occupied_codes
         ):
             try:
@@ -238,11 +289,6 @@ def main() -> int:
             if source_character is not None:
                 row["source_character"] = source_character
             allocation_additions += 1
-        if is_conditional_width_code(code):
-            raise SystemExit(
-                "new global character assignment entered the renderer's "
-                f"single-character mode range: {character!r}=0x{code:04X}"
-            )
         occupied_codes.add(code)
         occupied_glyphs.add(glyph_index)
         primary.append(row)
@@ -287,13 +333,15 @@ def main() -> int:
             ),
         )
     if not args.apply:
-        if added:
-            raise SystemExit("new characters found; review and rerun with --apply")
+        if added or candidate_pool_changed:
+            raise SystemExit(
+                "release font snapshot changes found; review and rerun with --apply"
+            )
         if remaining != config["expected"]["remaining_candidate_slot_count"]:
             raise SystemExit("remaining release candidate-count ratchet drift")
         return 0
 
-    if not added:
+    if not added and not candidate_pool_changed:
         print("snapshot unchanged")
         return 0
     snapshot["primary_assignment_count"] = len(primary)
@@ -305,16 +353,24 @@ def main() -> int:
     snapshot["remaining_allocation_candidates_sha256"] = _mapping_sha256(
         remaining_rows
     )
-    extensions = snapshot.setdefault("extensions", [])
-    extensions.append(
-        {
-            "selection_sha256": selection["selection_sha256"],
-            "assignment_count": len(added),
-            "allocation_assignment_count": allocation_additions,
-            "reraster_existing_assignment_count": reraster_additions,
-            "assignments": added,
+    if args.refresh_candidate_pool:
+        snapshot["candidate_pool"] = {
+            "mode": "all_unoccupied_renderer_standard_double_byte_slots",
+            "includes_retired_japanese_positions": True,
+            "includes_conditional_width_positions": True,
+            "candidate_count": len(remaining_rows),
         }
-    )
+    if added:
+        extensions = snapshot.setdefault("extensions", [])
+        extensions.append(
+            {
+                "selection_sha256": selection["selection_sha256"],
+                "assignment_count": len(added),
+                "allocation_assignment_count": allocation_additions,
+                "reraster_existing_assignment_count": reraster_additions,
+                "assignments": added,
+            }
+        )
     _write(snapshot_path, snapshot)
     snapshot_sha256 = sha256_bytes(snapshot_path.read_bytes())
     config["allocation_snapshot"]["sha256"] = snapshot_sha256

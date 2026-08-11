@@ -4,18 +4,14 @@ from __future__ import annotations
 
 from typing import Mapping, Sequence
 
-from .font import (
-    CONDITIONAL_WIDTH_CODE_END_EXCLUSIVE,
-    CONDITIONAL_WIDTH_CODE_START,
-    is_conditional_width_code,
-)
+from .font import is_conditional_width_code
 
 
 class ReleaseFontPolicyError(ValueError):
     """The global release-font allocation policy or snapshot has drifted."""
 
 
-def _require_default_width_rows(
+def _require_renderer_double_byte_rows(
     rows: Sequence[Mapping[str, object]],
     *,
     context: str,
@@ -27,10 +23,10 @@ def _require_default_width_rows(
             raise ReleaseFontPolicyError(
                 f"{context} has a malformed code"
             ) from error
-        if is_conditional_width_code(code):
+        if not 0x100 <= code <= 0xFFFF:
             raise ReleaseFontPolicyError(
-                f"{context} enters the single-character mode range: "
-                f"{row.get('character')!r}=0x{code:04X}"
+                f"{context} is not a renderer-addressable "
+                f"double-byte code: 0x{code:04X}"
             )
 
 
@@ -42,22 +38,18 @@ def validate_new_character_allocations(
 ) -> dict[str, int]:
     """Validate every post-migration assignment and future candidate.
 
-    Historical primary rows are immutable and may still use the renderer's
-    conditional-width range.  Everything added by the flattened global
-    workflow, including a direct original-table reuse, must use default-width
-    codes outside ``0x8140..0x889E``.
+    Historical primary rows remain immutable. New rows may reclaim any
+    unoccupied standard two-byte renderer position, including Japanese source
+    codes and positions in the conditional-width range.
     """
 
     policy = config.get("new_character_allocation_policy")
     if (
         not isinstance(policy, Mapping)
-        or policy.get("required_width_class") != "default_double_byte"
-        or policy.get("forbidden_renderer_mode")
-        != "single_character_conditional_width"
-        or policy.get("forbidden_code_start")
-        != f"{CONDITIONAL_WIDTH_CODE_START:04X}"
-        or policy.get("forbidden_code_end_inclusive")
-        != f"{CONDITIONAL_WIDTH_CODE_END_EXCLUSIVE - 1:04X}"
+        or policy.get("required_width_class")
+        != "renderer_addressable_double_byte"
+        or policy.get("reclaim_unused_japanese_positions") is not True
+        or policy.get("conditional_width_positions_allowed") is not True
     ):
         raise ReleaseFontPolicyError(
             "global new-character allocation policy drift"
@@ -106,15 +98,27 @@ def validate_new_character_allocations(
     for context, rows in guarded_groups:
         if any(not isinstance(row, Mapping) for row in rows):
             raise ReleaseFontPolicyError(f"{context} is malformed")
-        _require_default_width_rows(rows, context=context)
+        _require_renderer_double_byte_rows(rows, context=context)
+
+    conditional_assignment_count = sum(
+        is_conditional_width_code(int(row["code"], 16))
+        for row in primary_rows[historical_count:]
+    )
+    conditional_candidate_count = sum(
+        is_conditional_width_code(int(row["code"], 16))
+        for row in remaining_candidates
+    )
 
     return {
         "guarded_post_migration_assignment_count": (
             len(primary_rows) - historical_count
         ),
         "guarded_extension_assignment_count": extension_assignment_count,
-        "remaining_default_width_candidate_count": len(remaining_candidates),
-        "forbidden_range_assignment_count": 0,
+        "remaining_renderer_double_byte_candidate_count": len(
+            remaining_candidates
+        ),
+        "conditional_width_assignment_count": conditional_assignment_count,
+        "conditional_width_candidate_count": conditional_candidate_count,
     }
 
 

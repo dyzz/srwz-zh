@@ -114,7 +114,7 @@ member 仍独立解压、验证、重压和回读。
 
 | 制品 | 大小 | SHA-256 |
 | --- | ---: | --- |
-| `work/build/zh-release-full-story/components/MAP/MAPMODEL.BIN` | 55,136,688 | `234710f2d39ae70b854d6f46a5f24e94c4085713b46bf4653b30371b52349518` |
+| `work/build/zh-release-full-story/components/MAP/MAPMODEL.BIN` | 55,136,688 | `6d766567b4e36082fbe8532baf59c4cfc4994718b30e349602f9da95a37d7957` |
 
 `manifests/full-story-components-validation.json` 的 `world_map_titles` 已证明：
 
@@ -140,13 +140,13 @@ work/build/zh-release-full-story/components/previews/world-map-titles/
 ```text
 build/iso/v0.1.0/srwz-zh-v0.1.0.iso
 size:   3,758,358,528 bytes
-sha256: 40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c
+sha256: d65bfca8469582105357b2f71d8627490513c9e4aef346672bbcb4dcfd518146
 ```
 
 ISO 已连续构建两次得到相同哈希。静态报告
 `build/iso/v0.1.0/iso-validation-v0.1.0.json` 独立回读
 `MAP/MAPMODEL.BIN`，并确认 66 个成员路径和顺序不变、53 个未替换成员
-byte-exact、13 个 replacement byte-exact、shifted member count 为 0。
+byte-exact、16 个 replacement byte-exact、shifted member count 为 0。
 
 ## 7. 验证命令与运行边界
 

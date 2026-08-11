@@ -118,12 +118,12 @@ class ZhReleaseFontTests(unittest.TestCase):
         self.assertNotIn("historical_profiles", self.chain)
 
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
-        self.assertEqual(self.snapshot["primary_assignment_count"], 3265)
+        self.assertEqual(self.snapshot["primary_assignment_count"], 3266)
         self.assertEqual(
-            self.snapshot["surface_alias_assignment_count"], 701
+            self.snapshot["surface_alias_assignment_count"], 700
         )
         self.assertEqual(
-            self.snapshot["remaining_allocation_candidate_count"], 0
+            self.snapshot["remaining_allocation_candidate_count"], 418
         )
         compatibility = self.snapshot["source_compatibility_assignments"]
         self.assertEqual(
@@ -160,7 +160,19 @@ class ZhReleaseFontTests(unittest.TestCase):
             item["character"]
             for item in self.snapshot["primary_assignments"]
         }
-        self.assertTrue(set("储剂椅潘罐贱蹄Σ妲浏珀碌裘蔷蹴") <= assigned)
+        self.assertTrue(set("储剂椅潘罐贱蹄Σ妲浏珀碌裘蔷蹴邓") <= assigned)
+        self.assertEqual(by_character["邓"]["code"], "90EF")
+        self.assertEqual(by_character["邓"]["glyph_index"], 3055)
+        self.assertNotIn(
+            "オ",
+            {
+                item["character"]
+                for item in self.snapshot["surface_alias_assignments"]
+            },
+        )
+        reclamation = self.snapshot["extensions"][-1]["reclamation"]
+        self.assertEqual(reclamation["retired_alias_character"], "オ")
+        self.assertEqual(reclamation["retired_alias_demand_count"], 0)
         assigned_codes = {
             item["code"]
             for item in (
@@ -185,12 +197,21 @@ class ZhReleaseFontTests(unittest.TestCase):
             )
         )
         self.assertTrue(
-            all(
-                not 0x8140 <= int(item["code"], 16) < 0x889F
+            any(
+                0x8140 <= int(item["code"], 16) < 0x889F
                 for item in self.snapshot[
                     "remaining_allocation_candidates"
                 ]
             )
+        )
+        self.assertEqual(
+            self.snapshot["candidate_pool"],
+            {
+                "mode": "all_unoccupied_renderer_standard_double_byte_slots",
+                "includes_retired_japanese_positions": True,
+                "includes_conditional_width_positions": True,
+                "candidate_count": 418,
+            },
         )
 
     def test_every_translation_tree_entry_is_covered(self):
@@ -281,14 +302,13 @@ class ZhReleaseFontTests(unittest.TestCase):
             updated["remaining_allocation_candidate_count"], 0
         )
 
-    def test_snapshot_updater_reroutes_original_single_mode_character(self):
+    def test_snapshot_updater_can_reuse_original_double_byte_character(self):
         updated = self._run_snapshot_updater("☆")
         assignment = updated["primary_assignments"][-1]
         self.assertEqual(assignment["character"], "☆")
-        self.assertNotEqual(assignment["code"], "8199")
-        self.assertFalse(0x8140 <= int(assignment["code"], 16) < 0x889F)
+        self.assertEqual(assignment["code"], "8199")
         self.assertEqual(
-            updated["remaining_allocation_candidate_count"], 0
+            updated["remaining_allocation_candidate_count"], 1
         )
 
     def test_translation_tree_includes_registered_translation_maps(self):

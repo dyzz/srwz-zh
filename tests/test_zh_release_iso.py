@@ -188,7 +188,7 @@ class ZhReleaseIsoTests(unittest.TestCase):
         )
         self.assertEqual(
             self.component["outputs"]["MAP/MAPMODEL.BIN"]["sha256"],
-            "234710f2d39ae70b854d6f46a5f24e94c4085713b46bf4653b30371b52349518",
+            "6d766567b4e36082fbe8532baf59c4cfc4994718b30e349602f9da95a37d7957",
         )
 
     def test_final_iso_hash_layout_and_current_candidate_are_locked(self):
@@ -199,7 +199,7 @@ class ZhReleaseIsoTests(unittest.TestCase):
         )
         self.assertEqual(generated, [iso_path])
         self.assertEqual(iso_path.name, "srwz-zh-v0.1.0.iso")
-        self.assertEqual(len(self.config["replacements"]), 13)
+        self.assertEqual(len(self.config["replacements"]), 16)
         self.assertIn(
             "DATA/NISVDATA.BIN",
             {item["member"] for item in self.config["replacements"]},
@@ -219,7 +219,7 @@ class ZhReleaseIsoTests(unittest.TestCase):
             output["expected_member_manifest_sha256"],
         )
         self.assertEqual(self.iso_report["layout"]["shifted_member_count"], 0)
-        self.assertEqual(self.iso_report["layout"]["unchanged_member_count"], 53)
+        self.assertEqual(self.iso_report["layout"]["unchanged_member_count"], 50)
         self.assertTrue(
             self.iso_report["component_binding"][
                 "all_replacements_match_component_outputs"
@@ -295,17 +295,17 @@ class ZhReleaseIsoTests(unittest.TestCase):
             {"display": 933, "given": 918, "family": 601},
         )
         remaining = report["remaining_ui"]
-        self.assertEqual(remaining["compdata_direct"]["entry_count"], 307)
+        self.assertEqual(remaining["compdata_direct"]["entry_count"], 308)
         self.assertEqual(
             remaining["compdata_context_help"]["entry_count"], 357
         )
         self.assertEqual(remaining["compdata_inline"]["entry_count"], 6)
         self.assertEqual(remaining["leadership_effects"]["entry_count"], 59)
-        self.assertEqual(remaining["slps_context_ui"]["entry_count"], 379)
+        self.assertEqual(remaining["slps_context_ui"]["entry_count"], 407)
         self.assertEqual(
             remaining["stage_fixed_formation"]["entry_count"], 9
         )
-        self.assertEqual(remaining["slps"]["entry_count"], 169)
+        self.assertEqual(remaining["slps"]["entry_count"], 177)
         self.assertEqual(remaining["parts"]["written_entry_count"], 132)
         atlas = self.component["remaining_ui"]["atlas"]
         self.assertEqual(

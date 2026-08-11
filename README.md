@@ -136,7 +136,7 @@ HarmonyOS Sans，并对少数字符使用 Noto Sans CJK；第三方字体及许�
 - 原版 ISO 大小：`3,758,358,528` 字节
 - Redump：Disc `4932`，文件名 `Super Robot Taisen Z (Japan, Korea).iso`
 - 原版 ISO SHA-256：`ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2`
-- 当前候选 ISO SHA-256：`40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c`
+- 当前候选 ISO SHA-256：`d65bfca8469582105357b2f71d8627490513c9e4aef346672bbcb4dcfd518146`
 - 当前候选已通过确定性构建、ISO 结构检查和最终文本回读；精确镜像的完整运行
   验收仍在进行中。
 

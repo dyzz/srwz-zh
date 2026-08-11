@@ -95,12 +95,12 @@ build/iso/v0.1.0/
 ```
 
 其 SHA-256 为
-`40ddc19e752cde0eaa1e9c3baaa98ca52a15c9e169f1676ab315297f33a61c2c`，大小为
+`d65bfca8469582105357b2f71d8627490513c9e4aef346672bbcb4dcfd518146`，大小为
 `3758358528` 字节，与原版镜像大小完全一致。`DATA/VT1.BIN` 保持原始
 `127500736` 字节，`DATA/STAGE.BIN` 及其后所有成员的 LBA 均不移动。
 `build/iso/v0.1.0/iso-validation-v0.1.0.json` 已锁定两次
 字节级一致构建、66 个成员的 ISO9660/UDF 读取、53 个未替换成员 byte-exact 和
-13 个 replacement byte-exact。构建配置还要求 13 个 replacement 与
+16 个 replacement byte-exact。构建配置还要求 16 个 replacement 与
 `manifests/full-story-components-validation.json` 的输出路径、大小和 SHA-256
 逐项一致，不能复制旧锁后直接出盘。单候选重建命令为：
 
@@ -124,9 +124,9 @@ xdelta3 3.2.0 生成补丁；附带说明中的 `-s` 输入也固定写为
 
 `manifests/zh-release-full-story-iso-content-validation.json` 是唯一的整盘内容回读
 摘要，并绑定当前 v0.1.0 的大小与 SHA-256。它覆盖 154 个剧情块的 91746 条文本、
-2452 个机师长名／短名字段、307 条 COMPDATA 固定偏移 UI、357 条 COMPDATA
-帮助文本、6 条 COMPDATA 定长内联 UI、59 条队长效果、379 条 SLPS 上下文 UI、
-169 条 SLPS UI、9 条 STAGE 固定小队名和 132 条实际写回的强化部件文本。
+2452 个机师长名／短名字段、308 条 COMPDATA 固定偏移 UI、357 条 COMPDATA
+帮助文本、6 条 COMPDATA 定长内联 UI、59 条队长效果、407 条 SLPS 上下文 UI、
+177 条 SLPS UI、9 条 STAGE 固定小队名和 132 条实际写回的强化部件文本。
 `manifests/full-story-components-validation.json` 另锁定 25708 条唯一 SRVC 译文、
 58740 个索引记录和 353 个块，并证明控制 token、记录预算、索引结构、SEG 和未索引
 尾部保持不变。历史 R11 的分领域快照不再作为当前仓库结论。
@@ -135,10 +135,10 @@ xdelta3 3.2.0 生成补丁；附带说明中的 `-s` 输入也固定写为
 Regular 1.0，只有 `〜∀♪` 三个字符显式回退 Noto Sans CJK SC 2.004；动态 CJK
 统一使用 22px、`24x24` 字槽和全局 `y=+1`，不做逐字裁切、缩放、重心修正或
 例外。当前唯一活动的 `zh-release-font` 扫描 `corpus/zh` 全部非空翻译字段，
-共有 121384 条选择输入、3265 个主映射和 701 个 surface-safe 别名，当前没有剩余
-候选槽；`%s/%2$s`、`$c/$f/$l/$n/$F`、`{XX}` 和文本 tag
-均走既有控制编码路径并从字形覆盖中排除，新增字符不得进入
-`0x8140..0x889E` 单字符模式区；VT1 仍为 `127500736` 字节。
+共有 122049 条选择输入、3266 个主映射和 700 个 surface-safe 别名，另有 418 个
+未占用的 renderer 双字节位置可按需替换原日文字形；`%s/%2$s`、
+`$c/$f/$l/$n/$F`、`{XX}` 和文本 tag 均走既有控制编码路径并从字形覆盖中排除；
+ASCII、控制码和已占用映射保持不变，VT1 仍为 `127500736` 字节。
 KVMDATA chunk 6 的两处“中场休息”和七个菜单按九个原日文切片整块替换，使用
 HarmonyOS Sans SC Light；chunk 7 的“移至后备区／移至小队区”在原切片内先把
 背景调色板索引强制重建为 0，再居中绘制中文，避免透明别名索引留下日文残影。
@@ -148,7 +148,7 @@ HarmonyOS Sans SC Light；chunk 7 的“移至后备区／移至小队区”在�
 Name 的显示归属：107 个可玩标题由 VT1 group 8 中独立的 512×64、4bpp TIM2
 提供并逐槽生成中文；另外 15 条路线选择／内部记录由 COMPDATA 动态文字覆盖。
 每个压缩 slot、内部偏移表、VT1 总大小和成员 LBA 均保持不变。当前
-`40ddc19e...` ISO 尚未取得绑定精确哈希的
+`d65bfca8...` ISO 尚未取得绑定精确哈希的
 fresh-process 启动收据；上一候选的启动结果不能外推。新游戏、读档 STAGE 入口和
 战斗字幕画面均由用户继续测试；静态回读不能晋级为 runtime passed。
 
