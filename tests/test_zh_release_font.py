@@ -76,6 +76,8 @@ class ZhReleaseFontTests(unittest.TestCase):
             profile["translation_tree_selection"]["root"] = str(
                 corpus.relative_to(PROJECT_ROOT)
             )
+            profile["translation_tree_selection"].pop("exclude_globs", None)
+            profile["translation_tree_selection"].pop("exclude_reason", None)
             profile["allocation_snapshot"]["path"] = str(
                 snapshot_path.relative_to(PROJECT_ROOT)
             )
@@ -193,12 +195,25 @@ class ZhReleaseFontTests(unittest.TestCase):
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]
-        self.assertEqual(selection["unique_entry_count"], 121598)
+        self.assertEqual(selection["unique_entry_count"], 122049)
         source_paths = {item["path"] for item in selection["sources"]}
         self.assertIn("corpus/zh/battle/srvc-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/battle-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/system-ui-parts.json", source_paths)
         self.assertIn("corpus/zh/menu/stage-overviews.json", source_paths)
+        excluded = {item["path"] for item in selection["excluded_sources"]}
+        self.assertEqual(
+            excluded,
+            {
+                "corpus/zh/ui-atlas/core-menus-v1.json",
+                "corpus/zh/ui-atlas/info-v1.json",
+                "corpus/zh/ui-atlas/stage-clear-v1.json",
+                "corpus/zh/ui-atlas/world-map-titles-v1.json",
+            },
+        )
+        self.assertTrue(excluded.isdisjoint(source_paths))
+        self.assertEqual(selection["exclude_globs"], ["ui-atlas/*.json"])
+        self.assertIn("pre-rendered", selection["exclude_reason"])
         coverage = self.manifest["coverage"]
         self.assertEqual(coverage["missing_character_count"], 0)
         self.assertEqual(coverage["original_font_han_count"], 0)
@@ -207,7 +222,7 @@ class ZhReleaseFontTests(unittest.TestCase):
         )
         self.assertEqual(
             coverage["preserved_raw_ascii_punctuation_characters"],
-            '"%&\',-./:<=>@[\\]{}~',
+            '"%&\',-./:<=>@[\\]~',
         )
         control_tokens = selection["control_tokens"]
         self.assertEqual(control_tokens["entry_count"], 2124)
@@ -237,7 +252,7 @@ class ZhReleaseFontTests(unittest.TestCase):
         )
         self.assertTrue(control_tokens["excluded_from_font_glyph_demand"])
         self.assertEqual(
-            selection["literal_percent_signs"]["occurrence_count"], 177
+            selection["literal_percent_signs"]["occurrence_count"], 178
         )
         self.assertEqual(
             coverage["control_token_occurrence_count"], 2237
@@ -246,7 +261,7 @@ class ZhReleaseFontTests(unittest.TestCase):
             coverage["runtime_placeholder_occurrence_count"], 2119
         )
         self.assertTrue(coverage["runtime_placeholder_bytes_preserved_exactly"])
-        self.assertEqual(coverage["literal_percent_occurrence_count"], 177)
+        self.assertEqual(coverage["literal_percent_occurrence_count"], 178)
 
     def test_snapshot_updater_appends_without_reordering_existing_rows(self):
         updated = self._run_snapshot_updater("龘")
@@ -295,6 +310,8 @@ class ZhReleaseFontTests(unittest.TestCase):
             profile["translation_tree_selection"]["root"] = str(
                 root.relative_to(PROJECT_ROOT)
             )
+            profile["translation_tree_selection"].pop("exclude_globs", None)
+            profile["translation_tree_selection"].pop("exclude_reason", None)
 
             entries, _scenes, selection = (
                 selected_translation_tree_entries(PROJECT_ROOT, profile)

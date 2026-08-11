@@ -163,13 +163,16 @@ def _load_overrides(
     ):
         raise SystemExit("codebook proposal allocation registry drift")
     assignments = [*base["assignments"], *proposal["assignments"]]
+    # STAGE dialogue consumes ordinary visible glyphs through the two-byte
+    # renderer path. Keep every canonical punctuation assignment here too:
+    # a raw one-byte character such as ``~`` shifts the following double-byte
+    # Chinese stream until the next newline and produces mixed/noisy glyphs.
+    # Runtime substitutions are still emitted byte-exact by ``encode_text``
+    # before these overrides are consulted. Stock Latin and digit codes are
+    # restored below through ``original_fullwidth_ascii_overrides``.
     overrides = {
         assignment["character"]: int(assignment["code"], 16)
         for assignment in assignments
-        if (
-            not 0x20 <= ord(assignment["character"]) <= 0x7E
-            or assignment["character"] in "12345"
-        )
     }
     aliases = {
         assignment["character"]: int(assignment["code"], 16)

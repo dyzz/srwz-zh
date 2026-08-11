@@ -45,7 +45,11 @@ from srwz.image_export import parse_seg_offsets
 from srwz.menu import parse_menu_file
 from srwz.psmt4 import unswizzle_psmt4
 from srwz.srvc import parse_srvc_archive
-from srwz.stage import parse_stage, read_stage_function_addresses
+from srwz.stage import (
+    parse_stage,
+    parse_stage_system_dialogues,
+    read_stage_function_addresses,
+)
 from srwz.stage_overview import parse_stage_overviews
 from srwz.stage_formations import (
     STAGE_OFFSET_SPEC,
@@ -264,6 +268,37 @@ def stage_index(entry_id: str) -> int:
     return int(entry_id.split("/")[1])
 
 
+def raw_visible_ascii_glyphs(payload: bytes) -> tuple[tuple[int, str], ...]:
+    """Locate unsafe raw visible ASCII while preserving runtime tokens."""
+
+    found = []
+    cursor = 0
+    while cursor < len(payload):
+        value = payload[cursor]
+        if value == 0:
+            break
+        if value == 0x0A:
+            cursor += 1
+            continue
+        if (
+            value == ord("$")
+            and cursor + 1 < len(payload)
+            and payload[cursor + 1] in b"cflnF"
+        ):
+            cursor += 2
+            continue
+        if payload.startswith((b"\\n", b"%s"), cursor):
+            cursor += 2
+            continue
+        if value >= 0x80:
+            cursor += 2
+            continue
+        if 0x21 <= value <= 0x7E:
+            found.append((cursor, chr(value)))
+        cursor += 1
+    return tuple(found)
+
+
 def verify_auto_demo_overlays(
     slps: bytes,
     members: dict[str, bytes],
@@ -450,6 +485,7 @@ def verify_targeted_ui_glyphs(
 
     target_texts = {
         "male_default_name": "兰德·特拉维斯",
+        "female_default_name": "节子·小原",
         "male_profile": (
             "与搭档在荒野经营修理店的男人"
             "自称烈焰豪爽而热血但有时会热情过头"
@@ -458,6 +494,8 @@ def verify_targeted_ui_glyphs(
         "formation_action_labels": "攻击反击参与攻击",
         "formation_names": "三角中央广域",
         "spirit_acronyms": "热魂闪不铁集必加迅觉手狙直幸努乱分",
+        "reported_land_dialogue": "哦把自己机器弄坏的那家伙罚你帮忙修理",
+        "reported_kejinan_retreat": "今今天只是身体不舒服你们给我记住",
     }
     extended = read_extended_glyph_table(slps)
     by_character = {}
@@ -488,6 +526,121 @@ def verify_targeted_ui_glyphs(
         "unique_character_count": len(by_character),
         "characters": by_character,
         "all_target_glyphs_present_and_nonblank": True,
+    }
+
+
+def verify_stage_system_dialogues(
+    stage_archive: bytes,
+    offsets: tuple,
+    source_table: TextTable,
+    output_table: TextTable,
+    component_config: dict,
+) -> dict:
+    """Reject original chunk-zero dialogue rendered through the release font."""
+
+    remaining = component_config["remaining_ui"]
+    original_stage = (
+        PROJECT_ROOT / remaining["original_stage"]["path"]
+    ).read_bytes()
+    corpus = json.loads(
+        (
+            PROJECT_ROOT / remaining["stage_system_dialogue"]["path"]
+        ).read_text(encoding="utf-8")
+    )
+    entries = corpus.get("entries")
+    expected = remaining.get("expected")
+    if (
+        corpus.get("editorial_status") != "reviewed"
+        or not isinstance(entries, list)
+        or not isinstance(expected, dict)
+        or len(entries)
+        != expected.get("stage_system_dialogue_entry_count")
+    ):
+        raise SystemExit("stage system-dialogue corpus contract drift")
+    start, end = offsets[0:2]
+    original_decoded = decode(original_stage[start:end])
+    final_decoded = decode(stage_archive[start:end])
+    if (
+        any(original_stage[start + original_decoded.consumed : end])
+        or any(stage_archive[start + final_decoded.consumed : end])
+        or len(original_decoded.output) != len(final_decoded.output)
+    ):
+        raise SystemExit("stage system-dialogue archive decode drift")
+    source_by_id = {
+        entry.entry_id: entry
+        for entry in parse_stage_system_dialogues(
+            original_decoded.output,
+            source_table,
+        )
+    }
+    stale_by_id = {
+        entry.entry_id: entry
+        for entry in parse_stage_system_dialogues(
+            original_decoded.output,
+            output_table,
+        )
+    }
+    final_by_id = {
+        entry.entry_id: entry
+        for entry in parse_stage_system_dialogues(
+            final_decoded.output,
+            output_table,
+        )
+    }
+    corpus_ids = {item.get("id") for item in entries}
+    if (
+        len(source_by_id)
+        != expected.get("stage_system_dialogue_inventory_count")
+        or set(source_by_id) != corpus_ids
+        or set(stale_by_id) != corpus_ids
+        or set(final_by_id) != corpus_ids
+    ):
+        raise SystemExit("stage system-dialogue inventory drift")
+    stale_fingerprint_field_count = 0
+    stale_fingerprint_match_count = 0
+    for item in entries:
+        entry_id = item["id"]
+        source = source_by_id[entry_id]
+        stale = stale_by_id[entry_id]
+        actual = final_by_id[entry_id]
+        expected_speaker = normalize_original_fullwidth_ascii(item["speaker"])
+        expected_text = normalize_original_fullwidth_ascii(item["translation"])
+        if (
+            sha256_bytes(source.text.encode("utf-8"))
+            != item.get("source_text_sha256")
+            or actual.pointer_offset != source.pointer_offset
+            or actual.text_offset != source.text_offset
+            or actual.speaker != expected_speaker
+            or actual.text != expected_text
+        ):
+            raise SystemExit(
+                f"stage system-dialogue final readback mismatch: {entry_id}"
+            )
+        for stale_value, actual_value, expected_value in (
+            (stale.speaker, actual.speaker, expected_speaker),
+            (stale.text, actual.text, expected_text),
+        ):
+            if stale_value == expected_value:
+                continue
+            stale_fingerprint_field_count += 1
+            stale_fingerprint_match_count += actual_value == stale_value
+    if stale_fingerprint_match_count:
+        raise SystemExit(
+            "final ISO contains stale STAGE system-dialogue renderings: "
+            f"{stale_fingerprint_match_count}"
+        )
+    return {
+        "stage_index": 0,
+        "record_count": len(entries),
+        "checked_text_field_count": len(entries) * 2,
+        "distinct_stale_fingerprint_field_count": (
+            stale_fingerprint_field_count
+        ),
+        "stale_fingerprint_match_count": stale_fingerprint_match_count,
+        "pointer_offsets_preserved": True,
+        "text_offsets_preserved": True,
+        "source_preimages_sha256_exact": True,
+        "translated_readback_exact": True,
     }
 
 
@@ -1480,6 +1633,18 @@ def verify_final_compdata(
         for offset in new_game_name_expectations
     } != new_game_name_expectations:
         raise SystemExit("male new-game default-name offset contract drift")
+    female_default_name_expectations = {
+        "0x337728": "节子",
+        "0x337730": "小原",
+        "0x33B458": "节子",
+        "0x33B460": "小原",
+        "0x33E318": "节子·小原",
+    }
+    if {
+        offset: remaining_document["slps_by_offset"].get(offset)
+        for offset in female_default_name_expectations
+    } != female_default_name_expectations:
+        raise SystemExit("female new-game default-name offset contract drift")
     female_default_unit_name_expectations = {
         "0x347A00": "巴尔戈拉",
     }
@@ -1599,6 +1764,78 @@ def verify_final_compdata(
         entry.entry_id: entry for entry in original_parsed_menu.entries
     }
     final_menu_by_id = {entry.entry_id: entry for entry in parsed_menu.entries}
+
+    battle_config = component_config["compdata_battle_lines"]
+    battle_document = json.loads(
+        (PROJECT_ROOT / battle_config["corpus"]["path"]).read_text(
+            encoding="utf-8"
+        )
+    )
+    battle_entries = battle_document.get("entries")
+    battle_expected = battle_config.get("expected")
+    if (
+        battle_document.get("batch_id") != "v1-menu-battle-lines"
+        or not isinstance(battle_entries, list)
+        or not isinstance(battle_expected, dict)
+        or len(battle_entries) != battle_expected.get("entry_count")
+    ):
+        raise SystemExit("COMPDATA battle-line corpus contract drift")
+    battle_target_occurrence_count = 0
+    battle_unique_targets = set()
+    battle_examples = {}
+    for ordinal, item in enumerate(battle_entries):
+        entry_id = f"menu/Compdata/00/{ordinal:04d}"
+        source_entry = original_menu_by_id.get(entry_id)
+        if (
+            item.get("id") != entry_id
+            or source_entry is None
+            or source_entry.section != "Battle Lines"
+            or sha256_bytes(source_entry.text.encode("utf-8"))
+            != item.get("source_text_sha256")
+        ):
+            raise SystemExit(f"COMPDATA battle-line source drift: {entry_id}")
+        expected_text = normalize_original_fullwidth_ascii(
+            item["translation"]
+        ).replace(" ", "　")
+        battle_target_occurrence_count += len(source_entry.target_offsets)
+        for target_offset in source_entry.target_offsets:
+            battle_unique_targets.add(target_offset)
+            actual = normalize_original_fullwidth_ascii(
+                decode_text(
+                    decoded_compdata.output,
+                    target_offset,
+                    output_table,
+                ).text
+            )
+            if actual != expected_text:
+                raise SystemExit(
+                    f"COMPDATA battle-line mismatch: {entry_id} at "
+                    f"0x{target_offset:X}: expected={expected_text!r} "
+                    f"actual={actual!r}"
+                )
+        if ordinal in {216, 217}:
+            battle_examples[entry_id] = {
+                "target_offsets": [
+                    f"0x{offset:X}" for offset in source_entry.target_offsets
+                ],
+                "translation": expected_text,
+            }
+    if (
+        battle_target_occurrence_count
+        != battle_expected.get("target_occurrence_count")
+        or len(battle_unique_targets)
+        != battle_expected.get("unique_target_count")
+    ):
+        raise SystemExit("COMPDATA battle-line target inventory drift")
+    battle_line_report = {
+        "corpus_entry_count": len(battle_entries),
+        "target_occurrence_count": battle_target_occurrence_count,
+        "unique_target_count": len(battle_unique_targets),
+        "source_preimages_sha256_exact": True,
+        "target_offset_readback_exact": True,
+        "examples": battle_examples,
+    }
+
     written_part_count = 0
     preserved_part_count = 0
     for item in parts_document["entries"]:
@@ -1726,6 +1963,7 @@ def verify_final_compdata(
             "parts": parts_report,
             "readback_exact": True,
         },
+        "battle_lines": battle_line_report,
         "formation_regressions": {
             "map_name_offsets": map_formation_name_expectations,
             "map_names_readback_exact": True,
@@ -1735,6 +1973,8 @@ def verify_final_compdata(
         "new_game_regressions": {
             "male_default_name_offsets": new_game_name_expectations,
             "male_default_name_readback_exact": True,
+            "female_default_name_offsets": female_default_name_expectations,
+            "female_default_name_readback_exact": True,
             "female_default_unit_name_offsets": (
                 female_default_unit_name_expectations
             ),
@@ -1916,12 +2156,7 @@ def main() -> int:
         compdata_table,
         component_manifest,
     )
-    stage_overrides = {
-        character: code
-        for character, code in overrides.items()
-        if not 0x20 <= ord(character) <= 0x7E
-        or character in "12345"
-    }
+    stage_overrides = dict(overrides)
     stage_overrides.update(surface_aliases)
     stage_overrides.update(ascii_overrides)
     stage_table = project_runtime_text_table(
@@ -1937,6 +2172,13 @@ def main() -> int:
     )
     full_component_config = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )
+    stage_system_dialogue_report = verify_stage_system_dialogues(
+        stage_archive,
+        offsets,
+        source_table,
+        stage_table,
+        full_component_config,
     )
     overview_reference = full_component_config.get("stage_overviews", {})
     overview_corpus_reference = overview_reference.get("corpus", {})
@@ -2200,7 +2442,30 @@ def main() -> int:
     runtime_token_entry_count = 0
     runtime_token_occurrence_count = 0
     story_raw_space_target_count = 0
+    story_raw_visible_ascii_glyph_count = 0
+    story_raw_visible_ascii_target_count = 0
     story_ascii_storage_examples = {}
+    stale_stage_runtime_rendering_checked_count = 0
+    stale_stage_runtime_rendering_distinct_fingerprint_count = 0
+    stale_stage_runtime_rendering_match_count = 0
+    player_choice_entry_ids = {
+        "story/002/dialogue/01.18/0008",
+        "story/007/dialogue/01.05/0013",
+        "story/016/dialogue/01.03/0005",
+        "story/035/dialogue/02.02/0035",
+        "story/035/dialogue/02.02/0155",
+        "story/110/dialogue/02.02/0087",
+        "story/111/dialogue/02.02/0104",
+        "story/140/dialogue/01.30/0095",
+        "story/140/dialogue/01.39/0043",
+        "story/142/dialogue/01.10/0008",
+        "story/142/dialogue/01.14/0008",
+        "story/147/dialogue/01.10/0010",
+        "story/147/dialogue/01.14/0010",
+    }
+    player_choice_readbacks = {}
+    reported_land_entry_id = "story/016/dialogue/02.03/0027"
+    reported_land_translation = None
     for stage in stages:
         dialogue = load_translations(
             PROJECT_ROOT
@@ -2291,6 +2556,8 @@ def main() -> int:
                 f"{parsed.unknown_code_count} unknown codes"
             )
         stage_raw_space_target_count = 0
+        stage_raw_visible_ascii_glyph_count = 0
+        stage_raw_visible_ascii_target_count = 0
         seen_text_offsets = set()
         for entry in parsed.entries:
             if (
@@ -2304,14 +2571,30 @@ def main() -> int:
                 entry.text_offset,
                 stage_table,
             )
-            stage_raw_space_target_count += b"\x20" in decoded.output[
+            stored_payload = decoded.output[
                 entry.text_offset : entry.text_offset + stored_text.consumed
             ]
+            stage_raw_space_target_count += b"\x20" in stored_payload
+            raw_ascii = raw_visible_ascii_glyphs(stored_payload)
+            stage_raw_visible_ascii_glyph_count += len(raw_ascii)
+            stage_raw_visible_ascii_target_count += bool(raw_ascii)
         if stage_raw_space_target_count:
             raise SystemExit(
                 f"stage {stage:03d} contains raw visible spaces"
             )
+        if stage_raw_visible_ascii_glyph_count:
+            raise SystemExit(
+                f"stage {stage:03d} contains "
+                f"{stage_raw_visible_ascii_glyph_count} unsafe raw visible "
+                "ASCII glyphs"
+            )
         story_raw_space_target_count += stage_raw_space_target_count
+        story_raw_visible_ascii_glyph_count += (
+            stage_raw_visible_ascii_glyph_count
+        )
+        story_raw_visible_ascii_target_count += (
+            stage_raw_visible_ascii_target_count
+        )
 
         source_chunk = source_stage_archive[
             offsets[stage]:offsets[stage + 1]
@@ -2346,6 +2629,130 @@ def main() -> int:
             raise SystemExit(
                 f"stage {stage:03d} dialogue structure changed"
             )
+        stale_source_texts = {}
+        stale_source_speakers = {}
+        for source_entry in source_parsed.entries:
+            if source_entry.kind == "condition":
+                assert source_entry.text_offset is not None
+                stale_source_texts[source_entry.entry_id] = decode_text(
+                    source_decoded.output,
+                    source_entry.text_offset,
+                    stage_table,
+                ).text
+            elif source_entry.kind == "dialogue":
+                assert source_entry.text_offset is not None
+                source_prefix = decode_text(
+                    source_decoded.output,
+                    source_entry.text_offset,
+                    source_table,
+                    stop_at_newline=True,
+                )
+                translation_start = (
+                    source_prefix.end
+                    if source_prefix.terminator == "newline"
+                    else source_entry.text_offset
+                )
+                stale_source_texts[source_entry.entry_id] = decode_text(
+                    source_decoded.output,
+                    translation_start,
+                    stage_table,
+                ).text
+                if source_prefix.terminator == "newline":
+                    stale_speaker = decode_text(
+                        source_decoded.output,
+                        source_entry.text_offset,
+                        stage_table,
+                        stop_at_newline=True,
+                    ).text
+                    previous = stale_source_speakers.setdefault(
+                        source_entry.speaker_id,
+                        stale_speaker,
+                    )
+                    if previous != stale_speaker:
+                        raise SystemExit(
+                            f"stage {stage:03d} stale-source speaker "
+                            f"fingerprint conflict: {source_entry.speaker_id}"
+                        )
+        for source_speaker_entry in source_parsed.entries:
+            if (
+                source_speaker_entry.kind != "speaker"
+                or source_speaker_entry.speaker_id in stale_source_speakers
+            ):
+                continue
+            canonical_source_payload = encode_text(
+                source_speaker_entry.text,
+                source_table,
+                terminate=True,
+            )
+            stale_source_speakers[source_speaker_entry.speaker_id] = (
+                decode_text(
+                    canonical_source_payload,
+                    0,
+                    stage_table,
+                ).text
+            )
+        if set(stale_source_texts) != set(expected_texts):
+            raise SystemExit(
+                f"stage {stage:03d} stale-source text inventory drift"
+            )
+        output_speakers = {}
+        for source_dialogue in source_entries.values():
+            assert source_dialogue.text_offset is not None
+            source_prefix = decode_text(
+                source_decoded.output,
+                source_dialogue.text_offset,
+                source_table,
+                stop_at_newline=True,
+            )
+            if source_prefix.terminator != "newline":
+                continue
+            output_dialogue = output_entries[source_dialogue.entry_id]
+            assert output_dialogue.text_offset is not None
+            output_speaker = decode_text(
+                decoded.output,
+                output_dialogue.text_offset,
+                stage_table,
+                stop_at_newline=True,
+            ).text
+            previous = output_speakers.setdefault(
+                source_dialogue.speaker_id,
+                output_speaker,
+            )
+            if previous != output_speaker:
+                raise SystemExit(
+                    f"stage {stage:03d} output speaker fingerprint "
+                    f"conflict: {source_dialogue.speaker_id}"
+                )
+        for speaker_id, expected_speaker in stage_speakers.items():
+            output_speakers.setdefault(speaker_id, expected_speaker)
+        if (
+            set(output_speakers) != set(stage_speakers)
+            or set(stale_source_speakers) != set(stage_speakers)
+        ):
+            raise SystemExit(
+                f"stage {stage:03d} stale-source speaker inventory drift"
+            )
+        for entry_id, expected_translation in expected_texts.items():
+            stale_rendering = stale_source_texts[entry_id]
+            actual_translation = actual_texts[entry_id]
+            stale_stage_runtime_rendering_checked_count += 1
+            if stale_rendering != expected_translation:
+                stale_stage_runtime_rendering_distinct_fingerprint_count += 1
+                if actual_translation == stale_rendering:
+                    stale_stage_runtime_rendering_match_count += 1
+        for speaker_id, expected_speaker in stage_speakers.items():
+            stale_rendering = stale_source_speakers[speaker_id]
+            actual_speaker = output_speakers[speaker_id]
+            if actual_speaker != expected_speaker:
+                raise SystemExit(
+                    f"stage {stage:03d} speaker-table mismatch: "
+                    f"{speaker_id}"
+                )
+            stale_stage_runtime_rendering_checked_count += 1
+            if stale_rendering != expected_speaker:
+                stale_stage_runtime_rendering_distinct_fingerprint_count += 1
+                if actual_speaker == stale_rendering:
+                    stale_stage_runtime_rendering_match_count += 1
         speaker_occurrence_count = 0
         stage_maximum_line_width = 0
         stage_maximum_line_count = 0
@@ -2401,6 +2808,24 @@ def main() -> int:
                 raise SystemExit(
                     f"{entry_id} encoded dialogue payload mismatch"
                 )
+
+            if entry_id in player_choice_entry_ids:
+                rows = expected_translation.splitlines()
+                if (
+                    len(rows) != 3
+                    or any(
+                        not row.startswith("“") or not row.endswith("”")
+                        for row in rows
+                    )
+                    or not rows[1].startswith("“1．")
+                    or not rows[2].startswith("“2．")
+                ):
+                    raise SystemExit(
+                        f"{entry_id} player-choice row structure drift"
+                    )
+                player_choice_readbacks[entry_id] = expected_translation
+            if entry_id == reported_land_entry_id:
+                reported_land_translation = expected_translation
 
             for token, stored_hex in {
                 "ZAFT": "8279826082658273",
@@ -2527,6 +2952,13 @@ def main() -> int:
                 "runtime_substitution_tokens_raw_ascii": True,
                 "raw_space_target_count": stage_raw_space_target_count,
                 "raw_space_count_zero": True,
+                "raw_visible_ascii_glyph_count": (
+                    stage_raw_visible_ascii_glyph_count
+                ),
+                "raw_visible_ascii_target_count": (
+                    stage_raw_visible_ascii_target_count
+                ),
+                "raw_visible_ascii_count_zero": True,
             }
         )
 
@@ -2544,6 +2976,30 @@ def main() -> int:
         raise SystemExit(
             "final ISO story ASCII examples are incomplete: "
             f"{sorted(story_ascii_storage_examples)!r}"
+        )
+    if (
+        stale_stage_runtime_rendering_checked_count != total_entries
+        or stale_stage_runtime_rendering_match_count
+    ):
+        raise SystemExit(
+            "final ISO stale STAGE/runtime-font audit failed: "
+            f"checked={stale_stage_runtime_rendering_checked_count} "
+            f"expected={total_entries} "
+            f"matches={stale_stage_runtime_rendering_match_count}"
+        )
+    if set(player_choice_readbacks) != player_choice_entry_ids:
+        raise SystemExit(
+            "final ISO player-choice inventory mismatch: "
+            f"{sorted(set(player_choice_readbacks) ^ player_choice_entry_ids)!r}"
+        )
+    expected_land_translation = (
+        "“哦！把自己机器弄坏的那家伙，\n　罚你帮忙修理。”"
+    )
+    if reported_land_translation != expected_land_translation:
+        raise SystemExit(
+            "reported Land dialogue mismatch: "
+            f"expected={expected_land_translation!r} "
+            f"actual={reported_land_translation!r}"
         )
 
     compdata_report = verify_final_compdata(
@@ -2585,6 +3041,8 @@ def main() -> int:
         srvc_data, srvc_offsets, compdata_table
     )
     srvc_raw_space_record_count = 0
+    srvc_raw_visible_ascii_glyph_count = 0
+    srvc_raw_visible_ascii_record_count = 0
     srvc_pollution_record_count = 0
     for chunk in srvc_chunks:
         for record in chunk.records:
@@ -2592,10 +3050,18 @@ def main() -> int:
                 record.archive_text_start : record.archive_text_end
             ]
             srvc_raw_space_record_count += b"\x20" in payload
+            raw_ascii = raw_visible_ascii_glyphs(payload)
+            srvc_raw_visible_ascii_glyph_count += len(raw_ascii)
+            srvc_raw_visible_ascii_record_count += bool(raw_ascii)
             srvc_pollution_record_count += "}]}  {" in record.text
-    if srvc_raw_space_record_count or srvc_pollution_record_count:
+    if (
+        srvc_raw_space_record_count
+        or srvc_raw_visible_ascii_glyph_count
+        or srvc_pollution_record_count
+    ):
         raise SystemExit(
-            "final ISO SRVC contains raw spaces or JSON-fragment pollution"
+            "final ISO SRVC contains unsafe raw visible ASCII, raw spaces, "
+            "or JSON-fragment pollution"
         )
     visible_space_storage = {
         **compdata_report["visible_space_storage"],
@@ -2608,6 +3074,14 @@ def main() -> int:
         "srvc_pollution_record_count": srvc_pollution_record_count,
         "raw_space_count_zero": True,
         "srvc_pollution_absent": True,
+    }
+    raw_visible_ascii_storage = {
+        "story_glyph_count": story_raw_visible_ascii_glyph_count,
+        "story_target_count": story_raw_visible_ascii_target_count,
+        "srvc_glyph_count": srvc_raw_visible_ascii_glyph_count,
+        "srvc_record_count": srvc_raw_visible_ascii_record_count,
+        "runtime_substitution_tokens_excluded": True,
+        "all_stored_visible_ascii_uses_two_byte_glyphs": True,
     }
 
     output = config["output"]
@@ -2654,12 +3128,42 @@ def main() -> int:
             "occurrence_count": runtime_token_occurrence_count,
             "raw_ascii_exact": True,
         },
+        "stale_stage_runtime_rendering_audit": {
+            "method": (
+                "decode original STAGE text through the final release table "
+                "and reject any matching final-ISO rendering"
+            ),
+            "checked_entry_count": (
+                stale_stage_runtime_rendering_checked_count
+            ),
+            "distinct_stale_fingerprint_count": (
+                stale_stage_runtime_rendering_distinct_fingerprint_count
+            ),
+            "stale_fingerprint_match_count": (
+                stale_stage_runtime_rendering_match_count
+            ),
+            "all_distinct_stale_source_renderings_absent": True,
+        },
         "visible_ascii_policy": {
             **visible_ascii_policy,
             "story_storage_examples": story_ascii_storage_examples,
             "story_storage_examples_exact": True,
         },
         "visible_space_storage": visible_space_storage,
+        "raw_visible_ascii_storage": raw_visible_ascii_storage,
+        "player_choice_records": {
+            "entry_count": len(player_choice_readbacks),
+            "entry_ids": sorted(player_choice_readbacks),
+            "three_runtime_rows_exact": True,
+            "title_option_1_option_2_structure_exact": True,
+            "readback_exact": True,
+        },
+        "reported_land_dialogue": {
+            "entry_id": reported_land_entry_id,
+            "translation": reported_land_translation,
+            "encoded_payload_readback_exact": True,
+        },
+        "stage_system_dialogue": stage_system_dialogue_report,
         "compdata": compdata_report,
         "scenario_select_effect": scenario_select_effect,
         "mode_select_effect": mode_select_effect,
@@ -2755,6 +3259,26 @@ def main() -> int:
             "archive_padding_zero": True,
             "entry_id_sets_exact": True,
             "dialogue_conditions_speakers_exact": True,
+            "stale_stage_runtime_rendering_count_zero": (
+                stale_stage_runtime_rendering_checked_count == total_entries
+                and stale_stage_runtime_rendering_match_count == 0
+            ),
+            "stage_system_dialogue_stale_rendering_count_zero": (
+                stage_system_dialogue_report["record_count"] == 379
+                and stage_system_dialogue_report[
+                    "stale_fingerprint_match_count"
+                ]
+                == 0
+                and stage_system_dialogue_report[
+                    "translated_readback_exact"
+                ]
+            ),
+            "player_choice_records_exact": (
+                len(player_choice_readbacks) == 13
+            ),
+            "reported_land_dialogue_exact": (
+                reported_land_translation == expected_land_translation
+            ),
             "unknown_code_count_zero": True,
             "translation_entry_count_exact": total_entries
             == expected_entry_count,
@@ -2776,6 +3300,12 @@ def main() -> int:
             "raw_visible_space_count_zero": visible_space_storage[
                 "raw_space_count_zero"
             ],
+            "raw_visible_ascii_glyph_count_zero": (
+                raw_visible_ascii_storage["story_glyph_count"] == 0
+                and raw_visible_ascii_storage["story_target_count"] == 0
+                and raw_visible_ascii_storage["srvc_glyph_count"] == 0
+                and raw_visible_ascii_storage["srvc_record_count"] == 0
+            ),
             "srvc_json_fragment_pollution_absent": visible_space_storage[
                 "srvc_pollution_absent"
             ],
@@ -2800,6 +3330,18 @@ def main() -> int:
             "remaining_ui_binary_text_exact": compdata_report[
                 "remaining_ui"
             ]["readback_exact"],
+            "compdata_battle_lines_exact": (
+                compdata_report["battle_lines"]["corpus_entry_count"] == 297
+                and compdata_report["battle_lines"][
+                    "target_occurrence_count"
+                ]
+                == 511
+                and compdata_report["battle_lines"]["unique_target_count"]
+                == 297
+                and compdata_report["battle_lines"][
+                    "target_offset_readback_exact"
+                ]
+            ),
             "stage_overviews_exact": overview_report[
                 "translated_readback_exact"
             ]

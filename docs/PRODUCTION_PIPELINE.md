@@ -109,8 +109,10 @@ python3 tools/rebuild_zh_font.py --refresh-manifests --refresh-asset-ratchets
 ```
 
 `rebuild_zh_font.py` 只生成一次 `zh-release-font`：它扫描 `corpus/zh`
-下所有非空 `translation` 字段，因此菜单、数据库、全文剧情和后续战斗对话共用
-同一份字符→码位→glyph 映射。随后独立回读固定大小 VT1，并依次重建 154 个
+下所有使用运行时字体的非空 `translation` 字段，因此菜单、数据库、全文剧情和
+后续战斗对话共用同一份字符→码位→glyph 映射。已经离线渲染进纹理的
+`corpus/zh/ui-atlas/*.json` 由配置显式排除并逐文件锁定 SHA-256，不占用 VT1
+码位；其像素与几何仍由各图集构建器验证。随后独立回读固定大小 VT1，并依次重建 154 个
 STAGE 块、六组 UI 图集、组合图集和最终整合组件。KVMDATA 与 VEFF2DX 的
 不同排版边界分别见 `KVMDATA_ATLAS_LOCALIZATION.md` 和
 `VEFF2DX_TEXTURE_LOCALIZATION.md`。

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "profile_id": "srwz-global-zh-release-integrated-v1",
-  "scope": "Compose the validated encoded UI component, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, all title-idle auto-demo work-title and speaker-name overlays, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
+  "scope": "Compose the validated encoded UI component, all 297 COMPDATA map battle/retreat lines, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, all title-idle auto-demo work-title and speaker-name overlays, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
   "base_ui": {
     "manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -36,8 +36,8 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 48513,
-      "sha256": "0a5d3fdbfc3cef1543a7efe5a711075ad921288e41eafc0240de2f24350a9c54"
+      "size": 49421,
+      "sha256": "e969369138cd64db37bf0ebded0a7f2773c79c0445e717a6e04c93695127498c"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -55,15 +55,15 @@
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 17852913,
-      "sha256": "36cd30b6205623a25bb114293b8b85dce9cd2d2bb658a6667d3328eaecb91f44"
+      "size": 17852919,
+      "sha256": "d547db771725f0197fb7c3ea3370403239313e13261e073e687eddd15dcdb69b"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 154,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "aae692d0393d378cd66a5045b56ae3a19c28a44ec04fbe25ba7f7295bee03c71"
+      "sha256": "aa515e599223e36dfab4e05ef514cf40a3c89d5de0675ab336dbe211d709053b"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -89,13 +89,13 @@
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 91282,
-      "sha256": "c7e2687e333a68146bedcd8ac94674e4bcb196096229eaf0ef6f0b3d5ba9e02b"
+      "size": 91423,
+      "sha256": "32ab1211e191d3291feef1379dfff26348e36e2200a51a123f84fd3836b85d07"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
-      "size": 15687,
-      "sha256": "c1819c0bf3ea5a12c870415efedbf3663246514cf3f290ad4e04aa4956c987e8"
+      "size": 15696,
+      "sha256": "18921827fcc88f72ff6dc4b4a887241c02601200b3acf1fab286597f90c09d72"
     },
     "unit_name_relocations": [
       {
@@ -143,13 +143,13 @@
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 91282,
-      "sha256": "c7e2687e333a68146bedcd8ac94674e4bcb196096229eaf0ef6f0b3d5ba9e02b"
+      "size": 91423,
+      "sha256": "32ab1211e191d3291feef1379dfff26348e36e2200a51a123f84fd3836b85d07"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
-      "size": 15687,
-      "sha256": "c1819c0bf3ea5a12c870415efedbf3663246514cf3f290ad4e04aa4956c987e8"
+      "size": 15696,
+      "sha256": "18921827fcc88f72ff6dc4b4a887241c02601200b3acf1fab286597f90c09d72"
     },
     "battle_archives": [
       {
@@ -202,6 +202,19 @@
       "name_field_capacity": 20
     }
   },
+  "compdata_battle_lines": {
+    "corpus": {
+      "path": "corpus/zh/menu/battle-lines.json",
+      "size": 105220,
+      "sha256": "d49913eef701083306522e1b82fa68332ec2d484c14bdf0ac287fe53c15a4be6"
+    },
+    "expected": {
+      "entry_count": 297,
+      "target_occurrence_count": 511,
+      "unique_target_count": 297,
+      "shared_non_battle_owner_count": 0
+    }
+  },
   "reviewed_weapons": {
     "corpus": {
       "path": "corpus/zh/menu/weapons.json",
@@ -224,8 +237,8 @@
     },
     "title_format": {
       "path": "corpus/zh/menu/unclassified.json",
-      "size": 114544,
-      "sha256": "4f54e051df14479783ff1564e116e023a797785f9e501f00fd43206158ae4a86",
+      "size": 114547,
+      "sha256": "a1f04817cd6dc0ad903af55cc8bc7b7f9f79b88afbab44bb38b04d26c3be01cc",
       "entry_id": "menu/SLPS/00/0342",
       "translation": "\"%s\""
     },
@@ -338,8 +351,8 @@
   "stage_overviews": {
     "corpus": {
       "path": "corpus/zh/menu/stage-overviews.json",
-      "size": 89386,
-      "sha256": "b4f35f7f91d430ad24f449b0dd7c26e39a9d9a655f39c34230b0500e4f0c3353"
+      "size": 89375,
+      "sha256": "ed7c7f2efb348d08887d7e61e961e6003d41b347789490b61fc7bdad91a51e7e"
     },
     "expected": {
       "inventory_entry_count": 110,
@@ -469,8 +482,8 @@
     },
     "corpus": {
       "path": "corpus/zh/menu/hsfc-overviews.json",
-      "size": 22143,
-      "sha256": "4e03c70fe3bc233385a15a0fc9a41dd5ed72d754d2692c7f82d597a62faf8f2b"
+      "size": 22149,
+      "sha256": "329f8d424c2f6b86a14dfaffad79a5111047d492667e8fb21127b3698815b43f"
     },
     "expected": {
       "record_count": 180,
@@ -493,13 +506,13 @@
   "remaining_ui": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 91282,
-      "sha256": "c7e2687e333a68146bedcd8ac94674e4bcb196096229eaf0ef6f0b3d5ba9e02b"
+      "size": 91423,
+      "sha256": "32ab1211e191d3291feef1379dfff26348e36e2200a51a123f84fd3836b85d07"
     },
     "parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
-      "size": 34414,
-      "sha256": "8f09d07567dd992ac41cf3d05f9b05fc2cc1597c07cd14aed6f06ed0b1264d73"
+      "size": 34430,
+      "sha256": "fa33dce8df69c64e843395772985072f0b1ed242da9df545a1dec795fbce96ba"
     },
     "original_compdata": {
       "path": "work/disc/DATA/COMPDATA.BN",
@@ -518,13 +531,13 @@
     },
     "stage_system_dialogue": {
       "path": "corpus/zh/story-system-dialogue.json",
-      "size": 137637,
-      "sha256": "6b8bac56d10ddae0bc4d33ed1084f3abf5ff2a149b39a6058e092446d767ccfc"
+      "size": 137640,
+      "sha256": "343e7922f165550d3d8cf41fcad52a90c4b7373d4228ac44f361c52e8a39b1bc"
     },
     "stage_default_formations": {
       "path": "corpus/zh/menu/stage-default-formations.json",
-      "size": 4341,
-      "sha256": "61a99bae77d40d9209650189e37dd08d6c0030ff8ef208b2e30fc5f29aa2fa04"
+      "size": 4344,
+      "sha256": "d057af1bd35cdfc792b184ab25e1a16c8c287b13e80a9eb51d40798f9c11a181"
     },
     "expected": {
       "compdata_direct_entry_count": 308,
@@ -543,7 +556,7 @@
       "stage_system_dialogue_inventory_count": 379,
       "stage_system_dialogue_entry_count": 379,
       "stage_system_dialogue_pointer_offsets_sha256": "296c64123f0587124a1583935d522f189ba0e9e992feb774ec3e4173b793a058",
-      "slps_entry_count": 172,
+      "slps_entry_count": 177,
       "accepted_current_preimage_count": 8,
       "parts_entry_count": 133,
       "parts_source_target_occurrence_count": 134,
@@ -582,8 +595,8 @@
   "nisv_effect_names": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 91282,
-      "sha256": "c7e2687e333a68146bedcd8ac94674e4bcb196096229eaf0ef6f0b3d5ba9e02b"
+      "size": 91423,
+      "sha256": "32ab1211e191d3291feef1379dfff26348e36e2200a51a123f84fd3836b85d07"
     },
     "original_archive": {
       "path": "work/disc/DATA/NISVDATA.BIN",
@@ -622,8 +635,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6920260,
-      "sha256": "cb8fa3f0a76b1fa9bed03667adc8837bd1e544e7d440810b08899418ffb8dc1b"
+      "size": 6920497,
+      "sha256": "757cad801d9c830742ada7b60052ef9c1b354dfb04e5c9e0cbabe84f3cc12eab"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -918,7 +931,7 @@
     "corpus": {
       "path": "corpus/zh/ui-atlas/world-map-titles-v1.json",
       "size": 19849,
-      "sha256": "f68b3c08e4126073c7b244bff1afc6c7644826b7aabe83d5144cb6bdaa2f2b67"
+      "sha256": "6a18df0541e90ad6ed633c294866821be0f4b312b4d55ff2722401a797a42a59"
     },
     "archive": {
       "member": "MAP/MAPMODEL.BIN",

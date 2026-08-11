@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -27,6 +28,21 @@ def objects(value: Any) -> Iterator[dict[str, Any]]:
     elif isinstance(value, list):
         for child in value:
             yield from objects(child)
+
+
+def release_strings(value: Any, path: str = "") -> Iterator[tuple[str, str]]:
+    """Yield player-facing corpus strings, excluding editorial-only notes."""
+
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if key in {"note", "notes"}:
+                continue
+            yield from release_strings(child, f"{path}/{key}")
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            yield from release_strings(child, f"{path}/{index}")
+    elif isinstance(value, str):
+        yield path, value
 
 
 class GlobalGlossaryTests(unittest.TestCase):
@@ -100,6 +116,83 @@ class GlobalGlossaryTests(unittest.TestCase):
             ):
                 load_global_glossary(directory)
 
+    def test_malformed_variant_lists_fail_closed(self) -> None:
+        cases = (
+            ({"source_terms": ["甲", "甲"]}, "duplicate source_terms"),
+            (
+                {"deprecated_translations": ["旧例", "旧例"]},
+                "duplicate deprecated_translations",
+            ),
+            (
+                {"deprecated_translations": ["示例"]},
+                "canonical translation is also deprecated",
+            ),
+        )
+        for patch, message in cases:
+            with self.subTest(message=message), tempfile.TemporaryDirectory() as temporary:
+                directory = Path(temporary)
+                term = {
+                    "id": "people/example",
+                    "source_terms": ["甲"],
+                    "translation": "示例",
+                    "deprecated_translations": ["旧例"],
+                }
+                term.update(patch)
+                (directory / "terms.json").write_text(
+                    json.dumps({"terms": [term]}, ensure_ascii=False),
+                    encoding="utf-8",
+                )
+                with self.assertRaisesRegex(GlossaryError, message):
+                    load_global_glossary(directory)
+
+    def test_one_source_form_cannot_have_conflicting_canonical_terms(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            (directory / "terms.json").write_text(
+                json.dumps(
+                    {
+                        "terms": [
+                            {
+                                "id": "people/example-a",
+                                "source_terms": ["甲"],
+                                "translation": "示例甲",
+                            },
+                            {
+                                "id": "people/example-b",
+                                "source_terms": ["甲"],
+                                "translation": "示例乙",
+                            },
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(GlossaryError, "conflicting glossary source"):
+                load_global_glossary(directory)
+
+    def test_global_deprecated_forms_do_not_leak_into_release_corpus(self) -> None:
+        global_terms = [
+            term for term in self.terms if term["variant_scope"] == "global"
+        ]
+        leaks: list[str] = []
+        checked = 0
+        for path in sorted(ZH_CORPUS.rglob("*.json")):
+            document = json.loads(path.read_text(encoding="utf-8"))
+            for field_path, value in release_strings(document):
+                checked += 1
+                compact_value = re.sub(r"[\s　]+", "", value)
+                for term in global_terms:
+                    for deprecated in term["deprecated_translations"]:
+                        compact_deprecated = re.sub(r"[\s　]+", "", deprecated)
+                        if compact_deprecated in compact_value:
+                            leaks.append(
+                                f"{path.relative_to(ROOT)}{field_path}:"
+                                f"{term['id']}:{deprecated}"
+                            )
+        self.assertGreater(checked, 120_000)
+        self.assertEqual(leaks, [])
+
     def test_every_formal_glossary_reference_resolves(self) -> None:
         missing: list[str] = []
         for path in sorted(ZH_CORPUS.rglob("*.json")):
@@ -141,14 +234,18 @@ class GlobalGlossaryTests(unittest.TestCase):
     def test_selected_release_terms_have_one_canonical_form(self) -> None:
         expected = {
             "organization/emaan": "埃曼",
+            "organization/gekkostate": "月光洲",
+            "activity/lifting": "滑空",
             "faction/aldébaran": "阿尔德巴朗",
             "unit/g-shadow": "G战影",
             "unit/god-gravion": "神机重力王",
             "people/speaker-58574ffbd89b": "威兹",
             "organization/earth-federation-forces": "地球联邦军",
+            "place/unious-seven": "尤尼乌斯7",
             "species/scub-coral": "斯卡布珊瑚",
+            "unit/naikick": "奈基克",
             "unit/xabungle": "萨芬格尔",
-            "unit/walker-gallia": "Walker Gallia",
+            "unit/walker-gallia": "沃卡加利亚",
             "concept/contolism": "康提主义",
             "concept/ereism": "地球圣地主义",
             "concept/sideism": "Side国家主义",

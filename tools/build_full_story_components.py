@@ -3640,6 +3640,224 @@ def _apply_global_safe_aliases(
     }
 
 
+def _apply_compdata_battle_lines(
+    stored_compdata: bytes,
+    reference: dict,
+    descriptor_path: Path,
+    original_compdata_path: Path,
+    font_manifest: dict,
+    codec: dict,
+) -> tuple[bytes, dict, Path]:
+    """Write the complete map battle/retreat-line corpus into COMPDATA."""
+
+    if not isinstance(reference, dict):
+        raise FullStoryComponentError(
+            "COMPDATA battle-line configuration is invalid"
+        )
+    corpus_path, corpus_data = _locked_file(
+        reference.get("corpus"), label="COMPDATA battle-line corpus"
+    )
+    document = json.loads(corpus_data.decode("utf-8"))
+    entries = document.get("entries")
+    scope = document.get("scope")
+    expected = reference.get("expected")
+    if (
+        document.get("batch_id") != "v1-menu-battle-lines"
+        or document.get("language") != "zh-Hans"
+        or not isinstance(scope, dict)
+        or scope.get("domain") != "menu"
+        or scope.get("section") != "Battle Lines"
+        or not isinstance(entries, list)
+        or not isinstance(expected, dict)
+        or len(entries) != expected.get("entry_count")
+        or scope.get("entry_count") != len(entries)
+        or any(
+            not isinstance(item, dict)
+            or item.get("editorial_status") != "draft"
+            or item.get("translation_action") != "translate"
+            or not isinstance(item.get("translation"), str)
+            or not item["translation"]
+            for item in entries
+        )
+    ):
+        raise FullStoryComponentError(
+            "COMPDATA battle-line corpus contract drift"
+        )
+
+    descriptors = json.loads(descriptor_path.read_text(encoding="utf-8"))
+    descriptor = next(
+        (
+            row
+            for row in descriptors
+            if isinstance(row, dict) and row.get("friendly_name") == "Compdata"
+        ),
+        None,
+    )
+    if not isinstance(descriptor, dict):
+        raise FullStoryComponentError(
+            "COMPDATA battle-line menu descriptor missing"
+        )
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    output_table = project_runtime_text_table(table, primary)
+    output_table = project_runtime_text_table(output_table, aliases)
+    output_table = project_runtime_text_table(
+        output_table, original_fullwidth_ascii_overrides(table)
+    )
+    original_compdata = original_compdata_path.read_bytes()
+    original_decoded = decode(original_compdata)
+    current_decoded = decode(stored_compdata)
+    if (
+        original_decoded.consumed != len(original_compdata)
+        or current_decoded.consumed != len(stored_compdata)
+        or len(original_decoded.output) != len(current_decoded.output)
+    ):
+        raise FullStoryComponentError(
+            "COMPDATA battle-line archive decode drift"
+        )
+    original_menu = parse_menu_file(original_decoded.output, descriptor, table)
+    original_by_id = {item.entry_id: item for item in original_menu.entries}
+    replacements: dict[str, str] = {}
+    accepted_current: dict[str, str] = {}
+    selected_ids = []
+    selected_offsets = []
+    for ordinal, item in enumerate(entries):
+        entry_id = f"menu/Compdata/00/{ordinal:04d}"
+        source = original_by_id.get(entry_id)
+        translation = _two_byte_visible_spaces(
+            normalize_original_fullwidth_ascii(item["translation"])
+        )
+        if (
+            item.get("id") != entry_id
+            or source is None
+            or source.section != "Battle Lines"
+            or item.get("source_text_sha256")
+            != sha256_bytes(source.text.encode("utf-8"))
+            or not isinstance(item.get("glossary_refs"), list)
+            or not source.target_offsets
+            or _control_signature(source.text) != _control_signature(translation)
+        ):
+            raise FullStoryComponentError(
+                f"COMPDATA battle-line source/corpus drift: {entry_id}"
+            )
+        selected_ids.append(entry_id)
+        for offset in source.target_offsets:
+            raw_offset = f"0x{offset:X}"
+            previous = replacements.get(raw_offset)
+            if previous is not None and previous != translation:
+                raise FullStoryComponentError(
+                    f"COMPDATA battle-line shared target conflict: {raw_offset}"
+                )
+            replacements[raw_offset] = translation
+            accepted_current[raw_offset] = normalize_original_fullwidth_ascii(
+                decode_text(current_decoded.output, offset, output_table).text
+            )
+            selected_offsets.append(offset)
+    unique_offsets = set(selected_offsets)
+    if (
+        len(selected_ids) != expected.get("entry_count")
+        or len(selected_offsets) != expected.get("target_occurrence_count")
+        or len(unique_offsets) != expected.get("unique_target_count")
+    ):
+        raise FullStoryComponentError(
+            "COMPDATA battle-line target inventory drift"
+        )
+
+    selected_id_set = set(selected_ids)
+    target_owners: dict[int, set[str]] = {}
+    for menu_entry in original_menu.entries:
+        for offset in set(menu_entry.target_offsets):
+            target_owners.setdefault(offset, set()).add(menu_entry.entry_id)
+    shared_owners = {
+        owner
+        for offset in unique_offsets
+        for owner in target_owners.get(offset, set())
+        if owner not in selected_id_set
+    }
+    if len(shared_owners) != expected.get("shared_non_battle_owner_count"):
+        raise FullStoryComponentError(
+            "COMPDATA battle-line shared-owner drift"
+        )
+
+    rewritten, write_report = _apply_fixed_span_translations(
+        current_decoded.output,
+        original_decoded.output,
+        replacements,
+        table=table,
+        output_table=output_table,
+        encoding_overrides=encoding_overrides,
+        label="COMPDATA battle lines",
+        accepted_current_texts=accepted_current,
+    )
+    mismatches = []
+    for raw_offset, expected_translation in replacements.items():
+        offset = int(raw_offset, 16)
+        actual = normalize_original_fullwidth_ascii(
+            decode_text(rewritten, offset, output_table).text
+        )
+        if actual != expected_translation:
+            mismatches.append((raw_offset, expected_translation, actual))
+    if mismatches:
+        raise FullStoryComponentError(
+            "COMPDATA battle-line target-offset reread mismatch: "
+            f"{mismatches[:10]!r}"
+        )
+    if not isinstance(codec, dict) or codec.get("strategy") != "rust-fit":
+        raise FullStoryComponentError(
+            "COMPDATA battle-line codec policy is invalid"
+        )
+    try:
+        rebuilt = reencode_changed_suffix(
+            stored_compdata,
+            rewritten,
+            strategy=codec["strategy"],
+            min_match_length=codec["min_match_length"],
+            max_match_chain=codec["max_match_chain"],
+            lazy_matching=codec["lazy_matching"],
+            max_output_size=codec["max_output_size"],
+        )
+    except (RuntimeError, ValueError) as error:
+        raise FullStoryComponentError(
+            f"COMPDATA battle-line compression failed: {error}"
+        ) from error
+    round_trip = decode(rebuilt)
+    if (
+        round_trip.consumed != len(rebuilt)
+        or round_trip.output != rewritten
+        or round_trip.flags != current_decoded.flags
+    ):
+        raise FullStoryComponentError(
+            "COMPDATA battle-line round-trip failed"
+        )
+    write_report.update(
+        {
+            "corpus_entry_count": len(entries),
+            "target_occurrence_count": len(selected_offsets),
+            "unique_target_count": len(unique_offsets),
+            "shared_non_battle_owner_count": len(shared_owners),
+            "shared_non_battle_owner_ids": sorted(shared_owners),
+            "source_preimages_sha256_exact": True,
+            "all_editorial_statuses_draft": True,
+            "target_offset_reread_exact": True,
+            "compdata_source_size": len(stored_compdata),
+            "compdata_output_size": len(rebuilt),
+            "compdata_sector_budget": codec["max_output_size"],
+            "codec_round_trip_exact": True,
+            "reported_kejinan_retreat": {
+                "id": "menu/Compdata/00/0216",
+                "offset": "0x64100",
+                "translation": replacements["0x64100"],
+            },
+        }
+    )
+    return rebuilt, write_report, corpus_path
+
+
 def _apply_reviewed_weapon_names(
     stored_compdata: bytes,
     reference: dict,
@@ -3919,6 +4137,10 @@ def _apply_srvc_battle_text(
             or entry.get("editorial_status") != "reviewed"
             or not isinstance(translation, str)
             or not translation
+            or not translation.startswith("“")
+            or not translation.endswith("”")
+            or "{" in translation
+            or "}" in translation
             or "\n" in translation
             or translation.count("\\n") != source_text.count("\\n")
             or _control_signature(translation) != _control_signature(source_text)
@@ -5561,6 +5783,18 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
     )
     (
         output_compdata,
+        compdata_battle_line_report,
+        compdata_battle_line_corpus_path,
+    ) = _apply_compdata_battle_lines(
+        output_compdata,
+        config.get("compdata_battle_lines"),
+        stage_title_input_paths[2],
+        remaining_ui_input_paths[2],
+        font_manifest,
+        config["full_pilot_names"]["codec"],
+    )
+    (
+        output_compdata,
         reviewed_weapon_report,
         reviewed_weapon_corpus_path,
     ) = _apply_reviewed_weapon_names(
@@ -5826,6 +6060,10 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 reviewed_weapon_corpus_path,
                 reviewed_weapon_corpus_path.read_bytes(),
             ),
+            "compdata_battle_lines": _file_lock(
+                compdata_battle_line_corpus_path,
+                compdata_battle_line_corpus_path.read_bytes(),
+            ),
             "original_compdata": _file_lock(
                 remaining_ui_input_paths[2],
                 remaining_ui_input_paths[2].read_bytes(),
@@ -5958,6 +6196,7 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         "hsfc_overviews": hsfc_overview_report,
         "remaining_ui": remaining_ui_report,
         "nisv_effect_names": nisv_effect_names_report,
+        "compdata_battle_lines": compdata_battle_line_report,
         "reviewed_weapons": reviewed_weapon_report,
         "srvc_battle_text": srvc_report,
         "auto_demo_overlays": auto_demo_report,
@@ -6248,6 +6487,25 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 and reviewed_weapon_report["pointer_bytes_unchanged"]
                 and reviewed_weapon_report["target_offset_reread_exact"]
                 and reviewed_weapon_report["codec_round_trip_exact"]
+            ),
+            "compdata_battle_lines_reread_exact": (
+                compdata_battle_line_report["corpus_entry_count"] == 297
+                and compdata_battle_line_report["target_occurrence_count"]
+                == 511
+                and compdata_battle_line_report["unique_target_count"] == 297
+                and compdata_battle_line_report[
+                    "shared_non_battle_owner_count"
+                ]
+                == 0
+                and compdata_battle_line_report[
+                    "source_preimages_sha256_exact"
+                ]
+                and compdata_battle_line_report["fixed_spans_preserved"]
+                and compdata_battle_line_report["pointer_bytes_unchanged"]
+                and compdata_battle_line_report[
+                    "target_offset_reread_exact"
+                ]
+                and compdata_battle_line_report["codec_round_trip_exact"]
             ),
             "single_character_atlas_regions_untouched": (
                 remaining_ui_report["atlas"][

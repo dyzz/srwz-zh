@@ -17,6 +17,7 @@ GENERAL_GLOSSARY_PATH = (
     PROJECT_ROOT / "corpus" / "glossary" / "terms-v1.json"
 )
 RELEASE_PATH = PROJECT_ROOT / "corpus" / "releases" / "v1.json"
+FULL_COMPONENT_CONFIG_PATH = PROJECT_ROOT / "config" / "full-story-components.json"
 
 
 class BattleLineTranslationTests(unittest.TestCase):
@@ -80,7 +81,7 @@ class BattleLineTranslationTests(unittest.TestCase):
             for entry in self.translations["entries"]
         }
         expected = {
-            24: "“不行……！\n　Lady Command根本撑不住！”",
+            24: "“糟！\n　Lady Command办不到！”",
             25: "“怎、怎么会……！\n　我布莱竟然会败北！”",
             40: "“加冈总司令，请原谅！”",
             69: "“哎呀呀……\n　又给加里森添工作了。”",
@@ -97,7 +98,7 @@ class BattleLineTranslationTests(unittest.TestCase):
             162: "“可恶！　奥古\n　已经完全听命于ZAFT了吗！”",
             176: "“报告受损情况！\n　密涅瓦号开始后撤！”",
             179: "“为什么……！\n　他们为什么会和大天使号一起……！”",
-            195: "“尼奥……真……？”",
+            195: "“尼奥……真？”",
             205: "“莎拉·柯达玛，现在逃生！\n　接下来拜托各位了！”",
             210: "“不妙……！\n　使出雅邦忍法，隐身术！”",
             219: "“我、我要是倒下了，\n　谁来管理西伯铁的运行时刻表！”",
@@ -105,7 +106,7 @@ class BattleLineTranslationTests(unittest.TestCase):
             237: "“对不起，桑德曼……\n　我……”",
             256: "“区区无翼者……呜！”",
             261: "“尼尔瓦修！\n　快……得赶快脱离！”",
-            273: "“竟敢……！\n　竟敢把我们的月光号打成这样！！”",
+            273: "“竟敢……！\n　竟敢把月光号打成这样！！”",
             278: "“好，今天就到这里！\n　回去吧，兰顿！”",
             287: "“我是艾黛尔·贝尔纳尔……！\n　新世界的统治者！”",
             290: "“对不起！\n　雷本·盖涅拉尔，现在逃生！”",
@@ -135,10 +136,10 @@ class BattleLineTranslationTests(unittest.TestCase):
         self.assertTrue(all(term["notes"] for term in terms))
         self.assertEqual(
             {term["status"] for term in terms},
-            {"proposed", "researched"},
+            {"approved", "proposed", "researched"},
         )
         by_id = {term["id"]: term for term in terms}
-        self.assertEqual(by_id["unit/turn-x"]["translation"], "逆X")
+        self.assertEqual(by_id["unit/turn-x"]["translation"], "倒X")
         self.assertEqual(
             by_id["unit/overdevil"]["translation"],
             "超限恶魔",
@@ -177,6 +178,33 @@ class BattleLineTranslationTests(unittest.TestCase):
         )
         self.assertEqual(batch["target_entry_count"], 297)
         self.assertEqual(batch["status"], "draft_complete")
+
+    def test_full_story_build_registers_every_compdata_battle_line_target(self):
+        config = json.loads(
+            FULL_COMPONENT_CONFIG_PATH.read_text(encoding="utf-8")
+        )
+        contract = config["compdata_battle_lines"]
+        self.assertEqual(
+            contract["corpus"]["path"],
+            "corpus/zh/menu/battle-lines.json",
+        )
+        self.assertEqual(
+            contract["expected"],
+            {
+                "entry_count": 297,
+                "target_occurrence_count": 511,
+                "unique_target_count": 297,
+                "shared_non_battle_owner_count": 0,
+            },
+        )
+
+    def test_reported_kejinan_retreat_line_is_localized(self):
+        entry = self.translations["entries"][216]
+        self.assertEqual(entry["id"], "menu/Compdata/00/0216")
+        self.assertEqual(
+            entry["translation"],
+            "“今、今天只是身体不舒服！\n　你们给我记住！”",
+        )
 
 
 if __name__ == "__main__":

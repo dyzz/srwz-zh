@@ -137,6 +137,8 @@ def selected_translation_tree_entries(
     pattern = reference.get("glob", "**/*.json")
     field = reference.get("field", "translation")
     map_fields = reference.get("map_fields", [])
+    exclude_globs = reference.get("exclude_globs", [])
+    exclude_reason = reference.get("exclude_reason", "")
     selection_id = reference.get("selection_id")
     if (
         not all(
@@ -146,13 +148,24 @@ def selected_translation_tree_entries(
         or not isinstance(map_fields, list)
         or any(not isinstance(item, str) or not item for item in map_fields)
         or len(set(map_fields)) != len(map_fields)
+        or not isinstance(exclude_globs, list)
+        or any(not isinstance(item, str) or not item for item in exclude_globs)
+        or len(set(exclude_globs)) != len(exclude_globs)
+        or bool(exclude_globs) != bool(exclude_reason)
+        or not isinstance(exclude_reason, str)
     ):
         raise ReleaseFontError("translation-tree selection contract is invalid")
     root = _project_path(project_root, root_reference)
     if not root.is_dir():
         raise ReleaseFontError("translation-tree selection root is not a directory")
-    paths = sorted(path for path in root.glob(pattern) if path.is_file())
-    if not paths:
+    discovered_paths = sorted(path for path in root.glob(pattern) if path.is_file())
+    excluded_paths = [
+        path
+        for path in discovered_paths
+        if any(path.relative_to(root).match(glob) for glob in exclude_globs)
+    ]
+    paths = [path for path in discovered_paths if path not in excluded_paths]
+    if not paths or (exclude_globs and not excluded_paths):
         raise ReleaseFontError("translation-tree selection is empty")
 
     entries: dict[str, dict] = {}
@@ -285,6 +298,15 @@ def selected_translation_tree_entries(
         "glob": pattern,
         "field": field,
         "map_fields": list(map_fields),
+        "exclude_globs": list(exclude_globs),
+        "exclude_reason": exclude_reason,
+        "excluded_sources": [
+            {
+                "path": str(path.relative_to(project_root.resolve())),
+                "sha256": _hash_file(path),
+            }
+            for path in excluded_paths
+        ],
         "source_count": len(sources),
         "sources": sources,
         "unique_entry_count": len(entries),

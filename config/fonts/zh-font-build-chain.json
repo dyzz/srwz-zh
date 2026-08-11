@@ -8,10 +8,11 @@
     "config/assets/ui-battle-command-atlas-zh.json",
     "config/assets/ui-bazaar-atlas-zh.json",
     "config/assets/ui-intermission-atlas-zh.json",
-    "config/assets/ui-formation-atlas-zh.json"
+    "config/assets/ui-formation-atlas-zh.json",
+    "config/assets/ui-stage-clear-atlas-zh.json"
   ],
   "atlas_suite": "config/assets/ui-atlas-suite-zh.json",
   "story_component": "config/story-component.json",
   "integrated_component": "config/full-story-components.json",
-  "policy": "The active build has one technical base and one flattened release font. Every non-empty translation field under corpus/zh, including battle dialogue, is audited against the same release mapping."
+  "policy": "The active build has one technical base and one flattened release font. Every non-empty runtime-font translation field under corpus/zh, including battle dialogue, is audited against the same release mapping; pre-rendered texture corpora remain in their registered atlas build chain."
 }

@@ -72,6 +72,14 @@ def load_global_glossary(glossary_dir: Path) -> list[dict[str, object]]:
                 raw.get("deprecated_translations"),
                 label=f"{label} deprecated_translations",
             )
+            if len(source_terms) != len(set(source_terms)):
+                raise GlossaryError(f"duplicate source_terms: {label}")
+            if len(deprecated) != len(set(deprecated)):
+                raise GlossaryError(f"duplicate deprecated_translations: {label}")
+            if translation in deprecated:
+                raise GlossaryError(
+                    f"canonical translation is also deprecated: {label}"
+                )
             domains = _string_list(raw.get("domains"), label=f"{label} domains")
             status = str(raw.get("status", ""))
             if status not in STATUS_PRIORITY:
@@ -138,13 +146,19 @@ def load_global_glossary(glossary_dir: Path) -> list[dict[str, object]]:
                 prior["status"] = status
 
     result = [terms[term_id] for term_id in sorted(terms)]
+    source_owners: dict[str, tuple[str, str]] = {}
     for term in result:
         canonical = str(term["translation"])
-        term["deprecated_translations"] = [
-            value
-            for value in term["deprecated_translations"]
-            if value != canonical
-        ]
+        for source in term["source_terms"]:
+            source = str(source)
+            prior = source_owners.get(source)
+            if prior is not None and prior[0] != canonical:
+                raise GlossaryError(
+                    f"conflicting glossary source {source!r}: "
+                    f"{prior[1]} -> {prior[0]!r}, "
+                    f"{term['id']} -> {canonical!r}"
+                )
+            source_owners[source] = (canonical, str(term["id"]))
         # A hint becomes a hard corpus contract only after explicit approval.
         term["enforce"] = bool(
             term["declared_enforce"] and term["status"] == "approved"

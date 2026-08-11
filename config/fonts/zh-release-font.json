@@ -15,6 +15,10 @@
     "root": "corpus/zh",
     "glob": "**/*.json",
     "field": "translation",
+    "exclude_globs": [
+      "ui-atlas/*.json"
+    ],
+    "exclude_reason": "These corpora are pre-rendered into validated texture assets and never use the runtime VT1 glyph renderer.",
     "map_fields": [
       "compdata_direct_by_offset",
       "compdata_context_help_by_offset",
@@ -46,7 +50,7 @@
   "reraster_all_selected_visible_characters": true,
   "scope": {
     "base_stage_indices": [],
-    "selection": "Every non-empty translation field under corpus/zh, including menu, database, story and future battle-dialogue corpora.",
+    "selection": "Every non-empty runtime-font translation field under corpus/zh, including menu, database, story and future battle-dialogue corpora; pre-rendered texture corpora are explicitly hash-locked and excluded.",
     "rerasterize": "Every selected visible glyph through the single global HarmonyOS Sans SC flavor, except the explicit stock fullwidth ASCII preservation policy.",
     "preserve": "Unselected source glyphs; all runtime placeholders and lossless control notation (%s/%2$s, $c/$f/$l/$n/$F, {XX}, and @?<tag:XX>) through their dedicated encoder paths; archive size; and executable font layout. New character assignments never enter the renderer's 0x8140..0x889E single-character mode range."
   },
