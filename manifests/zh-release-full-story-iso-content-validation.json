@@ -5,7 +5,7 @@
   "iso": {
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "size": 3758358528,
-    "sha256": "ab3071f9a196516c7f492427dc5dacbbdc1c78e4cea6ddf35b09841f16553bc6"
+    "sha256": "c0b14bb498d20857330c32bce34a720caab05288e0d4a01f32ae66b0ad28458a"
   },
   "stage_indices": [
     1,
@@ -180,6 +180,13 @@
     "occurrence_count": 1925,
     "raw_ascii_exact": true
   },
+  "stale_stage_runtime_rendering_audit": {
+    "method": "decode original STAGE text through the final release table and reject any matching final-ISO rendering",
+    "checked_entry_count": 91746,
+    "distinct_stale_fingerprint_count": 90165,
+    "stale_fingerprint_match_count": 0,
+    "all_distinct_stale_source_renderings_absent": true
+  },
   "visible_ascii_policy": {
     "mode": "surface-aware-original-game-glyphs",
     "stock_alphanumeric_glyph_count": 62,
@@ -215,6 +222,51 @@
     "srvc_pollution_record_count": 0,
     "srvc_pollution_absent": true
   },
+  "raw_visible_ascii_storage": {
+    "story_glyph_count": 0,
+    "story_target_count": 0,
+    "srvc_glyph_count": 0,
+    "srvc_record_count": 0,
+    "runtime_substitution_tokens_excluded": true,
+    "all_stored_visible_ascii_uses_two_byte_glyphs": true
+  },
+  "player_choice_records": {
+    "entry_count": 13,
+    "entry_ids": [
+      "story/002/dialogue/01.18/0008",
+      "story/007/dialogue/01.05/0013",
+      "story/016/dialogue/01.03/0005",
+      "story/035/dialogue/02.02/0035",
+      "story/035/dialogue/02.02/0155",
+      "story/110/dialogue/02.02/0087",
+      "story/111/dialogue/02.02/0104",
+      "story/140/dialogue/01.30/0095",
+      "story/140/dialogue/01.39/0043",
+      "story/142/dialogue/01.10/0008",
+      "story/142/dialogue/01.14/0008",
+      "story/147/dialogue/01.10/0010",
+      "story/147/dialogue/01.14/0010"
+    ],
+    "three_runtime_rows_exact": true,
+    "title_option_1_option_2_structure_exact": true,
+    "readback_exact": true
+  },
+  "reported_land_dialogue": {
+    "entry_id": "story/016/dialogue/02.03/0027",
+    "translation": "“哦！把自己机器弄坏的那家伙，\n　罚你帮忙修理。”",
+    "encoded_payload_readback_exact": true
+  },
+  "stage_system_dialogue": {
+    "stage_index": 0,
+    "record_count": 379,
+    "checked_text_field_count": 758,
+    "distinct_stale_fingerprint_field_count": 690,
+    "stale_fingerprint_match_count": 0,
+    "pointer_offsets_preserved": true,
+    "text_offsets_preserved": true,
+    "source_preimages_sha256_exact": true,
+    "translated_readback_exact": true
+  },
   "compdata": {
     "decoded_size": 524032,
     "selected_entry_count": 2452,
@@ -239,12 +291,11 @@
       "corpus_batch_id": "v1-display-names-units-full",
       "entry_count": 348,
       "two_byte_space_code": "8140",
-      "two_byte_space_entry_count": 6,
+      "two_byte_space_entry_count": 5,
       "two_byte_space_entry_ids": [
         "display-name/unit/0008/name",
         "display-name/unit/0009/name",
         "display-name/unit/0010/name",
-        "display-name/unit/0088/name",
         "display-name/unit/0298/name",
         "display-name/unit/0299/name"
       ],
@@ -324,7 +375,7 @@
         "readback_exact": true
       },
       "slps": {
-        "entry_count": 172,
+        "entry_count": 177,
         "minimum_output_headroom": 0,
         "placeholder_control_tokens_preserved": true,
         "readback_exact": true
@@ -557,7 +608,7 @@
           },
           {
             "source": "ガンレオン",
-            "translation": "钢狮"
+            "translation": "钢狮子"
           },
           {
             "source": "キング・ビアル",
@@ -589,7 +640,7 @@
           },
           {
             "source": "ゲッコーステイト",
-            "translation": "月光州"
+            "translation": "月光洲"
           },
           {
             "source": "ゲラバ",
@@ -669,7 +720,7 @@
           },
           {
             "source": "ターンＸ",
-            "translation": "逆X"
+            "translation": "倒X"
           },
           {
             "source": "ダイターン３",
@@ -866,6 +917,29 @@
         "readback_exact": true
       }
     },
+    "battle_lines": {
+      "corpus_entry_count": 297,
+      "target_occurrence_count": 511,
+      "unique_target_count": 297,
+      "source_preimages_sha256_exact": true,
+      "target_offset_readback_exact": true,
+      "examples": {
+        "menu/Compdata/00/0216": {
+          "target_offsets": [
+            "0x64100",
+            "0x64100"
+          ],
+          "translation": "“今、今天只是身体不舒服！\n　你们给我记住！”"
+        },
+        "menu/Compdata/00/0217": {
+          "target_offsets": [
+            "0x64140",
+            "0x64140"
+          ],
+          "translation": "“糟、糟了！\n　再弄坏机体，我又要被扣薪水了！”"
+        }
+      }
+    },
     "formation_regressions": {
       "map_name_offsets": {
         "0x345DC8": "三角",
@@ -892,6 +966,14 @@
         "0x3479D0": "特拉维斯"
       },
       "male_default_name_readback_exact": true,
+      "female_default_name_offsets": {
+        "0x337728": "节子",
+        "0x337730": "小原",
+        "0x33B458": "节子",
+        "0x33B460": "小原",
+        "0x33E318": "节子·小原"
+      },
+      "female_default_name_readback_exact": true,
       "female_default_unit_name_offsets": {
         "0x347A00": "巴尔戈拉"
       },
@@ -1420,8 +1502,8 @@
     ],
     "chunk_index": 0,
     "stored_chunk_size": 55392,
-    "encoded_size": 52181,
-    "padding_size": 3211,
+    "encoded_size": 52173,
+    "padding_size": 3219,
     "fixed_pointer_entries_exact": true,
     "translated_readback_exact": true,
     "raw_space_entry_count": 0,
@@ -1441,8 +1523,8 @@
     ],
     "chunk_index": 0,
     "stored_chunk_size": 9584,
-    "encoded_size": 7458,
-    "padding_size": 2126,
+    "encoded_size": 7459,
+    "padding_size": 2125,
     "examples": {
       "record_066": "　迪兰达尔演说引发新地球联邦政变。\n众人随即落入敌人的陷阱，\n迎来了前所未有的巨大危机。"
     },
@@ -1456,12 +1538,12 @@
   "members": {
     "SLPS_258.87": {
       "size": 3471624,
-      "sha256": "a4cd628c9b35d5f30cc24f0490a42c149c2e7c113d94f0044b59c57c42748e9b",
+      "sha256": "d0215445d7dd0f729e1ce728772237d67dc724c05e7fe675068b4c5b031d7852",
       "replacement_exact": true
     },
     "DATA/COMPDATA.BN": {
-      "size": 142555,
-      "sha256": "ba8b09146a6fedf0afae7a45bb505694a93f674f90ebc7662a2def0efdfc77bf",
+      "size": 141529,
+      "sha256": "72c0845496f5c18db0bb983af940592dd8919856c7c5146399d71dedc1b875df",
       "replacement_exact": true
     },
     "DATA/NISVDATA.BIN": {
@@ -1481,12 +1563,12 @@
     },
     "DATA/STAGE.BIN": {
       "size": 3910128,
-      "sha256": "971d0fb2f5c7c39cd66422ea421d1d45a9f59757cd515a836ca76fa0d17b0835",
+      "sha256": "0e97abff9a41a90e1aece1f9505234c4adef5cb52a9014a7b673012f2636b7f4",
       "replacement_exact": true
     },
     "DATA/HSFC.BIN": {
       "size": 250112,
-      "sha256": "dbdf568fa074e27954f74aea3924b26f1e19f8bd9734b38ad5036fc92d1e9c56",
+      "sha256": "317cbda02c441afab606c22c67c58037e271d781e8c5e9015868e2c7b0792764",
       "replacement_exact": true
     },
     "HEDBDY/HB.BIN": {
@@ -1501,12 +1583,12 @@
     },
     "MAP/MAPMODEL.BIN": {
       "size": 55136688,
-      "sha256": "6ed61375892ba4169ccd4f369a2673494cf96fc3dfe1d4ef71e4b0d8c9c63063",
+      "sha256": "6d766567b4e36082fbe8532baf59c4cfc4994718b30e349602f9da95a37d7957",
       "replacement_exact": true
     },
     "BTL/SRVC.BIN": {
       "size": 3313040,
-      "sha256": "ad32a7fb3deb3c8cee52c36daf2bba27926efc41a4e881bdf5776d769ad43330",
+      "sha256": "d413d425357a218f2036896d570e9c199e849b23aabc0d486285d147cb94391d",
       "replacement_exact": true
     },
     "BTL/SRVC.SEG": {
@@ -1516,7 +1598,7 @@
     },
     "BTL/OP0.BIN": {
       "size": 266224,
-      "sha256": "3c766268d5a5f5c5f0c7ab07aca1ec4fd6173da55604bde79f2e04b0224b3bcb",
+      "sha256": "9e0aa8261b24d9d20995375e8f819dda4515416d2e2424bfe1d5882194f7beba",
       "replacement_exact": true
     },
     "BTL/OP1.BIN": {
@@ -1564,13 +1646,16 @@
     "targeted_new_game_glyphs": {
       "texts": {
         "male_default_name": "兰德·特拉维斯",
+        "female_default_name": "节子·小原",
         "male_profile": "与搭档在荒野经营修理店的男人自称烈焰豪爽而热血但有时会热情过头",
         "female_default_unit_name": "巴尔戈拉",
         "formation_action_labels": "攻击反击参与攻击",
         "formation_names": "三角中央广域",
-        "spirit_acronyms": "热魂闪不铁集必加迅觉手狙直幸努乱分"
+        "spirit_acronyms": "热魂闪不铁集必加迅觉手狙直幸努乱分",
+        "reported_land_dialogue": "哦把自己机器弄坏的那家伙罚你帮忙修理",
+        "reported_kejinan_retreat": "今今天只是身体不舒服你们给我记住"
       },
-      "unique_character_count": 66,
+      "unique_character_count": 97,
       "characters": {
         "·": {
           "code": "81B3",
@@ -1614,6 +1699,24 @@
           "ink_pixel_count": 111,
           "packed_sha256": "2b820ffb5ed733816c6f674bc7866f1ee93a2e2a9d8dd2b1901361c3d94a2d4d"
         },
+        "今": {
+          "code": "8DA1",
+          "glyph_index": 2401,
+          "ink_pixel_count": 163,
+          "packed_sha256": "5f7d980cf6ca60b348430a516cbe6dc0e7b96ead97a25cb37ea73788694ea511"
+        },
+        "们": {
+          "code": "81D2",
+          "glyph_index": 146,
+          "ink_pixel_count": 199,
+          "packed_sha256": "0a62b1fba2f9d4644896ebe94078c75b4c0168ebbfe2611cffa26c96f69cd8a5"
+        },
+        "伙": {
+          "code": "81D6",
+          "glyph_index": 150,
+          "ink_pixel_count": 213,
+          "packed_sha256": "90740d39d37a43dcb68e80b392d3efe4a162801925cfb98f08d3c8d462ec40cc"
+        },
         "会": {
           "code": "89EF",
           "glyph_index": 1711,
@@ -1625,6 +1728,24 @@
           "glyph_index": 3265,
           "ink_pixel_count": 232,
           "packed_sha256": "2aa549a383111fbfddd7f450f6b36991e76082deacb754bfc6bb1ca40093149f"
+        },
+        "住": {
+          "code": "8F5A",
+          "glyph_index": 2714,
+          "ink_pixel_count": 209,
+          "packed_sha256": "0118b21e9f2b22142a24f9166255d170b76160aaedc88e1116aaea251d2d7c3d"
+        },
+        "体": {
+          "code": "91CC",
+          "glyph_index": 3212,
+          "ink_pixel_count": 219,
+          "packed_sha256": "ac60e1665692624b740a07e65aa42be4dfebc63935ec1cdabab2b85ef7cc458d"
+        },
+        "你": {
+          "code": "81D9",
+          "glyph_index": 153,
+          "ink_pixel_count": 240,
+          "packed_sha256": "dc7e9cdea7e17e6d4873c8a163a8b0392bc38887408eb6bb42e48c9249de91c5"
         },
         "修": {
           "code": "8F43",
@@ -1662,6 +1783,12 @@
           "ink_pixel_count": 257,
           "packed_sha256": "71e2d0533e6f6451a8c22bf026b4d49fee814103e49a257fe42e83b5b5ef3a67"
         },
+        "原": {
+          "code": "8CB4",
+          "glyph_index": 2228,
+          "ink_pixel_count": 265,
+          "packed_sha256": "5051240d9a80d5f531fb10a12e0b3a018fd5d41ae36b41e19d5577871d0f287c"
+        },
         "参": {
           "code": "8E51",
           "glyph_index": 2513,
@@ -1674,17 +1801,47 @@
           "ink_pixel_count": 210,
           "packed_sha256": "ca50a3e40b39f151b50337495cf988a458a67391127d78746aa6ce9aaf72c3bc"
         },
+        "只": {
+          "code": "91FC",
+          "glyph_index": 3260,
+          "ink_pixel_count": 190,
+          "packed_sha256": "d205dd87cf6cae1a67292a73e75425b5f408e578e78d29f729d3d6ddc56802cf"
+        },
+        "哦": {
+          "code": "857A",
+          "glyph_index": 826,
+          "ink_pixel_count": 289,
+          "packed_sha256": "80bc5893fe397740b028b50fccce847bf536cf13983b3085b829482927d848e0"
+        },
+        "器": {
+          "code": "8AED",
+          "glyph_index": 1901,
+          "ink_pixel_count": 292,
+          "packed_sha256": "516dc4f963d9def5fa0d4558516437a150d9ab3966b457ebefcdc4f653124135"
+        },
         "在": {
           "code": "8DDD",
           "glyph_index": 2461,
           "ink_pixel_count": 186,
           "packed_sha256": "61eac436e0ca73e0e3fbd56f5f698112e63160e6f437a3efc344367b123b908f"
         },
+        "坏": {
+          "code": "8580",
+          "glyph_index": 832,
+          "ink_pixel_count": 192,
+          "packed_sha256": "b7a67cdded41c94c763647fe1404b03fb53afb4e2bd7a0ea11733ea744cca445"
+        },
         "域": {
           "code": "88E6",
           "glyph_index": 1510,
           "ink_pixel_count": 261,
           "packed_sha256": "93cd281c66c9ef5032e56ae86a8716cf497928616058530721461e8207ac5854"
+        },
+        "天": {
+          "code": "9356",
+          "glyph_index": 3478,
+          "ink_pixel_count": 163,
+          "packed_sha256": "610e02bd0453b18ac53719e16bb82263b2b43ca6c8c55e7e0793222af79dc121"
         },
         "央": {
           "code": "899B",
@@ -1698,17 +1855,47 @@
           "ink_pixel_count": 194,
           "packed_sha256": "c52fc709adcf3a7db52374a921425f2c51cb0993cca66794d722d120e0251729"
         },
+        "子": {
+          "code": "8E71",
+          "glyph_index": 2545,
+          "ink_pixel_count": 163,
+          "packed_sha256": "66ecb7c18a44a74758f4f073adfe09c58eea94ecaf30dea699e6dd841fc7709a"
+        },
+        "家": {
+          "code": "89C6",
+          "glyph_index": 1670,
+          "ink_pixel_count": 273,
+          "packed_sha256": "d1146651b577a24d4ad2396e977e8d82ae15567500e4e6a7593f2d9c6441321c"
+        },
+        "小": {
+          "code": "8FAC",
+          "glyph_index": 2796,
+          "ink_pixel_count": 144,
+          "packed_sha256": "da05dce982252bab02d0fd287c593156c375deb934771ed648cae76dc103e1dc"
+        },
         "尔": {
           "code": "846D",
           "glyph_index": 621,
           "ink_pixel_count": 189,
           "packed_sha256": "fdd0052712639ca2ae955471040458aecf754766c22f8757838dd77fff177526"
         },
+        "己": {
+          "code": "8CC8",
+          "glyph_index": 2248,
+          "ink_pixel_count": 173,
+          "packed_sha256": "2ac47984df54f406ce11bb2f265a00d9b47a719d421c457f5e40cd540548ed23"
+        },
         "巴": {
           "code": "9462",
           "glyph_index": 3682,
           "ink_pixel_count": 217,
           "packed_sha256": "d0a208ff0f6f1b664b405338b15b504a75c3ce710964e948eade16e5c91be72b"
+        },
+        "帮": {
+          "code": "8494",
+          "glyph_index": 660,
+          "ink_pixel_count": 261,
+          "packed_sha256": "546d605857b0e2e1dcbf3e0347f40f12c20d25a960038c059c6992ca43b71115"
         },
         "幸": {
           "code": "8D4B",
@@ -1728,6 +1915,12 @@
           "ink_pixel_count": 235,
           "packed_sha256": "222045e49948ea25c1ab4ef852525e004c8473555b1f00f7893f7ba5de3a9fb6"
         },
+        "弄": {
+          "code": "984D",
+          "glyph_index": 4429,
+          "ink_pixel_count": 228,
+          "packed_sha256": "fc69e59fc1690c96914d3866932a7e3a24ef7e1224f3af48a237fb3d5398fbdf"
+        },
         "德": {
           "code": "84BF",
           "glyph_index": 703,
@@ -1739,6 +1932,12 @@
           "glyph_index": 3851,
           "ink_pixel_count": 203,
           "packed_sha256": "785c736f31dd8fa0764c983f67462c3fb9296859e85fd85d049e4f15b1b98c7c"
+        },
+        "忙": {
+          "code": "965A",
+          "glyph_index": 4058,
+          "ink_pixel_count": 164,
+          "packed_sha256": "45cdc9c2975b336716c8f5d0947a3d0894272a7e198dfc24fd52d1a817ab7835"
         },
         "情": {
           "code": "8FEE",
@@ -1752,11 +1951,23 @@
           "ink_pixel_count": 186,
           "packed_sha256": "241506b27ed20afdd54ca4e71398d17d257099c2ef5856f12fddb01cd2f366b2"
         },
+        "我": {
+          "code": "89E4",
+          "glyph_index": 1700,
+          "ink_pixel_count": 271,
+          "packed_sha256": "69fdff50a83c6680e52b8fa466c9693bd9a38572a5fd1658c011c461f53b4beb"
+        },
         "手": {
           "code": "8EE8",
           "glyph_index": 2664,
           "ink_pixel_count": 198,
           "packed_sha256": "d9045cb7540ac0cd129be7de9c4ff574730659b1954418db8e8dfa44215a3c4f"
+        },
+        "把": {
+          "code": "9463",
+          "glyph_index": 3683,
+          "ink_pixel_count": 251,
+          "packed_sha256": "82524908baecbe9a9e61a4c906ea6c4e6845a9bb170bbdb7082dd94d21dd10c3"
         },
         "拉": {
           "code": "9D66",
@@ -1788,11 +1999,29 @@
           "ink_pixel_count": 218,
           "packed_sha256": "9532ddde65d32f41826f8af4b2458b66ceff067e974ff80b285825da48e719a8"
         },
+        "是": {
+          "code": "90A5",
+          "glyph_index": 2981,
+          "ink_pixel_count": 276,
+          "packed_sha256": "c9fb7a8902423f3ad25663dea46c8166f9a641f3ed784a5e18f483eb5a8a426a"
+        },
         "有": {
           "code": "974C",
           "glyph_index": 4236,
           "ink_pixel_count": 233,
           "packed_sha256": "7d67cee3b024835e52f7563f8db3bb110fed86661b8da8adf49fb2b3a1c9fe08"
+        },
+        "服": {
+          "code": "959E",
+          "glyph_index": 3934,
+          "ink_pixel_count": 288,
+          "packed_sha256": "d38b8c5cc7f989feb0dfdf0e2aff31a9cf1da30244853576c7427ab357974421"
+        },
+        "机": {
+          "code": "8AF7",
+          "glyph_index": 1911,
+          "ink_pixel_count": 210,
+          "packed_sha256": "f35ac6e5e5ec075a36b1d57f6371c3d766d1a4aecf30d5ec79c3e18a412165d9"
         },
         "档": {
           "code": "85A2",
@@ -1872,11 +2101,23 @@
           "ink_pixel_count": 227,
           "packed_sha256": "ee6337c481688267f6b5dd1242d8f8dbdf8b50d14f3edff492dc609b0bc3a947"
         },
+        "给": {
+          "code": "878A",
+          "glyph_index": 1226,
+          "ink_pixel_count": 253,
+          "packed_sha256": "3342dc84b298ceaa2d6bda3a50e7c109b264c224c252f613644c49208fa2e3eb"
+        },
         "维": {
           "code": "8792",
           "glyph_index": 1234,
           "ink_pixel_count": 279,
           "packed_sha256": "33d433c49fe3b0a837de38ac397fb058f8a6e673a7e840f63cc7095f201f606c"
+        },
+        "罚": {
+          "code": "8CB1",
+          "glyph_index": 2225,
+          "ink_pixel_count": 228,
+          "packed_sha256": "bf87aa640c723234cdffc23769fc828ff704594c7346f6740550701cadb95e96"
         },
         "而": {
           "code": "8EA7",
@@ -1889,6 +2130,18 @@
           "glyph_index": 2601,
           "ink_pixel_count": 220,
           "packed_sha256": "51021668ad579359a6db479a7c68e53af7090dd9a8f3c4301951b490c1555010"
+        },
+        "舒": {
+          "code": "8CF8",
+          "glyph_index": 2296,
+          "ink_pixel_count": 255,
+          "packed_sha256": "1a4bf11988dc36c52e465f56ce97283274aa4444ddef7986fd946d372c69b1ab"
+        },
+        "节": {
+          "code": "86F7",
+          "glyph_index": 1143,
+          "ink_pixel_count": 175,
+          "packed_sha256": "d830ffa3e113893a472aca561ffd04fb37e2896d2bed3bd1e127b8bc9eae264a"
         },
         "荒": {
           "code": "8D72",
@@ -1920,11 +2173,23 @@
           "ink_pixel_count": 220,
           "packed_sha256": "9dd886bbd8a61e72cd844affd36a11da78028c31bc9d1358357b3dd6a49459c3"
         },
+        "记": {
+          "code": "87C1",
+          "glyph_index": 1281,
+          "ink_pixel_count": 197,
+          "packed_sha256": "65a67ad473abfaa063659c1f765863e9d115838744908a61562c003590cd9487"
+        },
         "豪": {
           "code": "8D8B",
           "glyph_index": 2379,
           "ink_pixel_count": 304,
           "packed_sha256": "bcdbe9559833415cf88b04c13665d95e0b422b9f617e75d78604b650fdd18b6d"
+        },
+        "身": {
+          "code": "9067",
+          "glyph_index": 2919,
+          "ink_pixel_count": 243,
+          "packed_sha256": "98b85a0e5d4743baaf589fa1d4ff88762f39ce29439e05815dc5f9edc3c51215"
         },
         "迅": {
           "code": "9076",
@@ -1937,6 +2202,12 @@
           "glyph_index": 1349,
           "ink_pixel_count": 198,
           "packed_sha256": "58924efad5237644d22d87a6ae3c4f0093ab1d08d67457f915584db9f2a66234"
+        },
+        "那": {
+          "code": "93DF",
+          "glyph_index": 3615,
+          "ink_pixel_count": 252,
+          "packed_sha256": "eec2f0c8b4bee0f6e179b08454b5445f159fe7610965845adf8644c254f33771"
         },
         "野": {
           "code": "96EC",
@@ -2000,18 +2271,21 @@
       "runtime_substitution_token_occurrence_count": 9,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 2,
       "archive_offset": 72416,
       "archive_next_offset": 95024,
-      "encoded_size": 21500,
-      "encoded_sha256": "9c35ec934f04156f190de4143d6fbd8e8e3f04d4ec8fcabfe7b180ad645b99b0",
-      "padding_size": 1108,
+      "encoded_size": 21501,
+      "encoded_sha256": "67567e9466563e266c5ef0cba5a91f87884f599d242675abb314abc1742fc915",
+      "padding_size": 1107,
       "padding_all_zero": true,
       "decoded_size": 75152,
-      "decoded_sha256": "bf1a0ae35327e0b39238c783451c8a9a26a3d48d137bc42a7ff03c4235b693ed",
+      "decoded_sha256": "6e1b38214e78a5cf5497b18f0eef8062f3325cc108e5f3393ba7ecf1fbeff5fd",
       "dialogue_count": 542,
       "condition_count": 5,
       "speaker_count": 20,
@@ -2027,7 +2301,10 @@
       "runtime_substitution_token_occurrence_count": 10,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 3,
@@ -2054,7 +2331,10 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 4,
@@ -2081,18 +2361,21 @@
       "runtime_substitution_token_occurrence_count": 2,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 5,
       "archive_offset": 124720,
       "archive_next_offset": 141936,
-      "encoded_size": 16152,
-      "encoded_sha256": "502b10903aa9a24e9b00e2f86343cbbe5c62deeaad8fa49d4b75674eb8835cb3",
-      "padding_size": 1064,
+      "encoded_size": 16141,
+      "encoded_sha256": "c53736be59ab2e5824aea66a7305b21c79a7ba00379fb1b55a42675d08a610d9",
+      "padding_size": 1075,
       "padding_all_zero": true,
       "decoded_size": 44304,
-      "decoded_sha256": "1ea93b6415a874d1f9ca11b2f07c45f7b0941fa75832fa113e348b64c34f0208",
+      "decoded_sha256": "9db432c00a3a283656d4b80e341764e9774097535c924db12a1fd2ab4c31c38a",
       "dialogue_count": 298,
       "condition_count": 5,
       "speaker_count": 23,
@@ -2108,7 +2391,10 @@
       "runtime_substitution_token_occurrence_count": 1,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 6,
@@ -2135,18 +2421,21 @@
       "runtime_substitution_token_occurrence_count": 3,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 7,
       "archive_offset": 163520,
       "archive_next_offset": 191168,
-      "encoded_size": 24509,
-      "encoded_sha256": "e2251c4d2c3d1eaa871bd3d66bb77fe1919bd9e4b3f72382673244ff44590bd0",
-      "padding_size": 3139,
+      "encoded_size": 24508,
+      "encoded_sha256": "bb7e7dd2bc1b120b9e4aabd55e0e5201143878e23ba307ddc972265327543e65",
+      "padding_size": 3140,
       "padding_all_zero": true,
       "decoded_size": 79248,
-      "decoded_sha256": "12115fbebd30aaaa9db744321f55b7fe5c5b2f2fd401cd351c287608a3e2fe40",
+      "decoded_sha256": "0d197e0ac5884b9d44b1d4abeb42963feab0d5591c8cc42d98d1cfbcf471518f",
       "dialogue_count": 633,
       "condition_count": 6,
       "speaker_count": 39,
@@ -2162,7 +2451,10 @@
       "runtime_substitution_token_occurrence_count": 3,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 8,
@@ -2189,18 +2481,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 9,
       "archive_offset": 199232,
       "archive_next_offset": 217856,
-      "encoded_size": 17007,
-      "encoded_sha256": "f274826c489569292d22263cbe0651e45347f10b9f7e4ace385076e8bf37e043",
-      "padding_size": 1617,
+      "encoded_size": 17002,
+      "encoded_sha256": "2b738be6e5295b70442418132f078cfa3e3f54ee6d3ef3abc67eb7bf3706fb17",
+      "padding_size": 1622,
       "padding_all_zero": true,
       "decoded_size": 53264,
-      "decoded_sha256": "20b3fc1d15dbe527272c1b62f2413ab68f3fd0a93ec35cccba09204cd38ca478",
+      "decoded_sha256": "aff8e0d9ba9fa8567d537d390e16e6fe3d2f18f06760e50e83e2be0175c4901c",
       "dialogue_count": 361,
       "condition_count": 4,
       "speaker_count": 39,
@@ -2216,18 +2511,21 @@
       "runtime_substitution_token_occurrence_count": 1,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 10,
       "archive_offset": 217856,
       "archive_next_offset": 248608,
-      "encoded_size": 28774,
-      "encoded_sha256": "e5856ac3233c4cb5763ed4c952a76f2d75bb6c45fe65cfa4e34aeb028459800f",
-      "padding_size": 1978,
+      "encoded_size": 28789,
+      "encoded_sha256": "792eb9a523ab420c13dcd241bf997b696bdab77cfe97f3faa46d0af897130694",
+      "padding_size": 1963,
       "padding_all_zero": true,
       "decoded_size": 89104,
-      "decoded_sha256": "5e5c332e7db3c49b7a6a8a2fa9af932cb059fc34709ece11018ba26af9f82041",
+      "decoded_sha256": "9498fd3ba306c43a402f08e7d68e27463e6a3775ad32a10a9d5ea3f206f7acaa",
       "dialogue_count": 631,
       "condition_count": 5,
       "speaker_count": 57,
@@ -2243,18 +2541,21 @@
       "runtime_substitution_token_occurrence_count": 1,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 11,
       "archive_offset": 248608,
       "archive_next_offset": 251984,
-      "encoded_size": 3120,
-      "encoded_sha256": "6bae43b698f50317ba4e9dab9b2fb16c98fc057f3b62bb4662b1a1e8734fd353",
-      "padding_size": 256,
+      "encoded_size": 3119,
+      "encoded_sha256": "c0db97cbf28182856fe5ccdd404c68e93d1e87ac4fe436adbaeb169cac3404b0",
+      "padding_size": 257,
       "padding_all_zero": true,
       "decoded_size": 8080,
-      "decoded_sha256": "ea9a9c953b7a2d663d65a0744bcfb17131f5198c2a28e2762b6ee97c043b4172",
+      "decoded_sha256": "c5df981782ac280881b9ee2a40cf86e9660bfbb7c56f068476f31f656ad22cac",
       "dialogue_count": 45,
       "condition_count": 0,
       "speaker_count": 14,
@@ -2270,18 +2571,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 12,
       "archive_offset": 251984,
       "archive_next_offset": 264912,
-      "encoded_size": 11511,
-      "encoded_sha256": "30d7f5d2ed7a320293697f8b2ef8f0b4aaf4b0f179852c7791302f8c298132a9",
-      "padding_size": 1417,
+      "encoded_size": 11513,
+      "encoded_sha256": "9d4ffed490262e36b290245a36ccb5d9f85d816133982292a9d8517c34f51f6e",
+      "padding_size": 1415,
       "padding_all_zero": true,
       "decoded_size": 34192,
-      "decoded_sha256": "9e8d60a7635268d418754d3db5a9f9d0f72bc641f998494a09d3a3d4a4af9497",
+      "decoded_sha256": "ed091540d79a8ead7c11e64c4ad65935cdc46cec497ec73273349890ae26f675",
       "dialogue_count": 225,
       "condition_count": 3,
       "speaker_count": 8,
@@ -2297,18 +2601,21 @@
       "runtime_substitution_token_occurrence_count": 8,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 13,
       "archive_offset": 264912,
       "archive_next_offset": 279472,
-      "encoded_size": 13138,
-      "encoded_sha256": "b4f6dfb3558d380db905c646570b14caf331bd9475c32589c66f945004127a64",
-      "padding_size": 1422,
+      "encoded_size": 13141,
+      "encoded_sha256": "7f4ad9990c2783fe11a18c7f5b9f7a18707c9628445f0154af53cf340f71a4b6",
+      "padding_size": 1419,
       "padding_all_zero": true,
       "decoded_size": 37264,
-      "decoded_sha256": "43ef3e8d09e36b3084cdf5bbdec15d64aff890e2a18c7370b0994e1743d0e9ab",
+      "decoded_sha256": "ad2167f7cc63f26fe739bf4ed88bb00e0127d6db129e2bc83b0c8432c0aef233",
       "dialogue_count": 251,
       "condition_count": 3,
       "speaker_count": 9,
@@ -2324,18 +2631,21 @@
       "runtime_substitution_token_occurrence_count": 6,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 14,
       "archive_offset": 279472,
       "archive_next_offset": 298704,
-      "encoded_size": 17121,
-      "encoded_sha256": "3b6edfd84334ed44a06850a107b2ea88997cfe3cb45498bd0e70784bd867d442",
-      "padding_size": 2111,
+      "encoded_size": 17126,
+      "encoded_sha256": "89957455d638c0f4cd7fe1b3c03a30e8097cea3d47485f5ee5006226e1f21e42",
+      "padding_size": 2106,
       "padding_all_zero": true,
       "decoded_size": 50832,
-      "decoded_sha256": "92e2d2eb823052e7986dcd8c237977defe314b00b2592dc1884285884525cdaa",
+      "decoded_sha256": "a45ca60d41980ce87212eb07655416bf606d0e6fa6b57ee3cb94aac6e1d9e97f",
       "dialogue_count": 376,
       "condition_count": 5,
       "speaker_count": 25,
@@ -2351,18 +2661,21 @@
       "runtime_substitution_token_occurrence_count": 6,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 15,
       "archive_offset": 298704,
       "archive_next_offset": 321024,
-      "encoded_size": 20661,
-      "encoded_sha256": "56a2bb6b167e795b7c6f747560d9125a528444291de0a0f08a395c8d0bf0bda9",
-      "padding_size": 1659,
+      "encoded_size": 20659,
+      "encoded_sha256": "10f5fb48531a65ddf3326cd92ee4e5330b6f8913cf969692f898ad198dca44ac",
+      "padding_size": 1661,
       "padding_all_zero": true,
       "decoded_size": 63632,
-      "decoded_sha256": "6c4b7108fc1ba336e8a2debefaaf2b58a5c65091667e7a512ddff0c444a3b4f2",
+      "decoded_sha256": "9dad90bf7b1c714818c9ed8a39befdca225d931d111e60620e8d3ec176f2eb8e",
       "dialogue_count": 480,
       "condition_count": 6,
       "speaker_count": 30,
@@ -2378,18 +2691,21 @@
       "runtime_substitution_token_occurrence_count": 16,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 16,
       "archive_offset": 321024,
       "archive_next_offset": 347472,
-      "encoded_size": 23620,
-      "encoded_sha256": "293fe73cd2eee6354a1d089185d45f0f32df9fcde910a3e592d02fa683aa979d",
-      "padding_size": 2828,
+      "encoded_size": 23623,
+      "encoded_sha256": "ca91079a61bbd137ae53d8f268c6c46affc1db33b5635971f032f9e3aed2bc9e",
+      "padding_size": 2825,
       "padding_all_zero": true,
       "decoded_size": 73616,
-      "decoded_sha256": "8c533b5bc14906aa2938bc17ecfa82b0beda0e48ddbce7fea7c27b25a47f743c",
+      "decoded_sha256": "d9e96becc61c85d9840609168464b252d6071a4f9ad4b373b05fd29576840210",
       "dialogue_count": 590,
       "condition_count": 6,
       "speaker_count": 33,
@@ -2400,23 +2716,26 @@
       "speaker_translation_by_source_id_exact": true,
       "unknown_code_count": 0,
       "maximum_dialogue_line_width": 21,
-      "maximum_dialogue_line_count": 2,
+      "maximum_dialogue_line_count": 3,
       "runtime_substitution_token_entry_count": 7,
       "runtime_substitution_token_occurrence_count": 7,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 17,
       "archive_offset": 347472,
       "archive_next_offset": 360864,
-      "encoded_size": 11907,
-      "encoded_sha256": "4d1eaea196f4c0d8ca064af477b1dcd9ee010223a9cab60ecfffa027d200d42d",
-      "padding_size": 1485,
+      "encoded_size": 11909,
+      "encoded_sha256": "e9d6b8c71b61611233874c2a3beba65857211d94415a10ed1e5ad12c11226d9d",
+      "padding_size": 1483,
       "padding_all_zero": true,
       "decoded_size": 35856,
-      "decoded_sha256": "c570380d06dcb6997e562f5b96046ba1bfdbfe4a1a6e7a537de9242fa3c080d5",
+      "decoded_sha256": "de7b0979b73b12efea76fa2dd1455edbbe8a67aaf0d0396b56022ca2e77c67f2",
       "dialogue_count": 247,
       "condition_count": 4,
       "speaker_count": 28,
@@ -2432,7 +2751,10 @@
       "runtime_substitution_token_occurrence_count": 9,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 18,
@@ -2459,7 +2781,10 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 19,
@@ -2486,18 +2811,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 20,
       "archive_offset": 378672,
       "archive_next_offset": 406752,
-      "encoded_size": 25483,
-      "encoded_sha256": "0b347115380d6324241145e8c0f51884b3630ed5e484d81813c4a496d4eaf06d",
-      "padding_size": 2597,
+      "encoded_size": 25481,
+      "encoded_sha256": "5b138cfa099eab32c2a9c223e4d7b180fb1697a30750270571e0e26adafbefe6",
+      "padding_size": 2599,
       "padding_all_zero": true,
       "decoded_size": 80656,
-      "decoded_sha256": "4ff6e3d54c82f087161dd028d95047aef358636a73d65b56cb5a0a6da03d25c1",
+      "decoded_sha256": "8234123757fd0a731a9b3aca69634382eacb1d9255f23821478a4f28ed084ece",
       "dialogue_count": 610,
       "condition_count": 6,
       "speaker_count": 39,
@@ -2513,7 +2841,10 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 21,
@@ -2540,18 +2871,21 @@
       "runtime_substitution_token_occurrence_count": 1,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 22,
       "archive_offset": 430624,
       "archive_next_offset": 450592,
-      "encoded_size": 18114,
-      "encoded_sha256": "9f03ca09e3665217d5ad1e498fdc1ea20107dff6a2ebce9593605405697ce240",
-      "padding_size": 1854,
+      "encoded_size": 18110,
+      "encoded_sha256": "95bf2f2bae57c911e5f4173a0e2f0c96ab711f0680bca33fbad385bca4af9b7a",
+      "padding_size": 1858,
       "padding_all_zero": true,
       "decoded_size": 56720,
-      "decoded_sha256": "ffb5daa972bf0fdee20869a8e8f984f0943117ebf886be2336b5c81bb9fc20b9",
+      "decoded_sha256": "07723375f6151764a22d2c873e29c524372063eb8321ebffa27b471c702ea9cb",
       "dialogue_count": 375,
       "condition_count": 4,
       "speaker_count": 36,
@@ -2567,18 +2901,21 @@
       "runtime_substitution_token_occurrence_count": 2,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 23,
       "archive_offset": 450592,
       "archive_next_offset": 462368,
-      "encoded_size": 10345,
-      "encoded_sha256": "e5b9251d3c993c00bf3a8e8021a7e9e358f440dada623d668c23ddea6fd1a120",
-      "padding_size": 1431,
+      "encoded_size": 10348,
+      "encoded_sha256": "27bba709a166bdb7deced5e14d8f25791104ecad5fbb24e6dad4e39d8f1e10ad",
+      "padding_size": 1428,
       "padding_all_zero": true,
       "decoded_size": 32400,
-      "decoded_sha256": "d3f77e3bc56d666c58cb2459284f28e2efa1c6c8674b9c686040713455de79c0",
+      "decoded_sha256": "8de84d6cc782b3a99e9a0de9c54cf64422099c0543d2742b78404ea19c1fe63a",
       "dialogue_count": 220,
       "condition_count": 5,
       "speaker_count": 20,
@@ -2594,18 +2931,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 24,
       "archive_offset": 462368,
       "archive_next_offset": 488896,
-      "encoded_size": 24126,
-      "encoded_sha256": "467d3ada17ab9f6d173f130a3aac460060637540d396a3f09d020ee75e635936",
-      "padding_size": 2402,
+      "encoded_size": 24130,
+      "encoded_sha256": "1e53884b6a26abde2c0b6f27da38a87a8332dffc85abdaeb7a29f7876b1bfeb2",
+      "padding_size": 2398,
       "padding_all_zero": true,
       "decoded_size": 89872,
-      "decoded_sha256": "f284f9edd3bec5cfd08a1417f8acced3ba69c93085828f8cf9a9de633ee85840",
+      "decoded_sha256": "11152e824a327e62667688bd18374208e5aa85121147d63afe4d03ddd622f268",
       "dialogue_count": 883,
       "condition_count": 6,
       "speaker_count": 21,
@@ -2621,18 +2961,21 @@
       "runtime_substitution_token_occurrence_count": 18,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 25,
       "archive_offset": 488896,
       "archive_next_offset": 528752,
-      "encoded_size": 36943,
-      "encoded_sha256": "d4d437a7c57b5e0b7339bb2f65317492a3bc9e8e10992dc7f96eba205a542aad",
-      "padding_size": 2913,
+      "encoded_size": 36947,
+      "encoded_sha256": "e3e3b7f25f1491711541ae37ecf720db56d7903f613e068c1a8ea48b21da36c5",
+      "padding_size": 2909,
       "padding_all_zero": true,
       "decoded_size": 122640,
-      "decoded_sha256": "f5c9a459777ad327c55e537860e2b03936796bc185bf67d8d09b3fcc5f432cf2",
+      "decoded_sha256": "10f9ec2f22186f0b8298c4a3f562536e2e31f91199cb572d53ca3e3d662e3a8b",
       "dialogue_count": 979,
       "condition_count": 5,
       "speaker_count": 43,
@@ -2648,18 +2991,21 @@
       "runtime_substitution_token_occurrence_count": 35,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 26,
       "archive_offset": 528752,
       "archive_next_offset": 559520,
-      "encoded_size": 27480,
-      "encoded_sha256": "ea987b165394663f908425ae81bb019a182a33edd85470fc056f22d52f387226",
-      "padding_size": 3288,
+      "encoded_size": 27468,
+      "encoded_sha256": "82dd840124291946e18d9593b4abba7c05b49478cc846a1932100e7fd82f96e3",
+      "padding_size": 3300,
       "padding_all_zero": true,
       "decoded_size": 87440,
-      "decoded_sha256": "2b85f0f614c0db8ed586862b10f67e6c97190ee49beabb603dc62e517dfe7fda",
+      "decoded_sha256": "115372cfed403b5c7c96f069c91db186ad126c8db29a0fb537e39e54d698b826",
       "dialogue_count": 656,
       "condition_count": 4,
       "speaker_count": 43,
@@ -2675,18 +3021,21 @@
       "runtime_substitution_token_occurrence_count": 26,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 27,
       "archive_offset": 559520,
       "archive_next_offset": 591376,
-      "encoded_size": 28295,
-      "encoded_sha256": "1cbd01a27963a3764d688c61ea1aa8ed4ddf747a1615ee026a0c5daf36bd9b5c",
-      "padding_size": 3561,
+      "encoded_size": 28307,
+      "encoded_sha256": "56d515385a2b3e21f12871176eef2cf343c8950e404e9bb2dedd5f4fd468dd70",
+      "padding_size": 3549,
       "padding_all_zero": true,
       "decoded_size": 93072,
-      "decoded_sha256": "ac0f9e9d0c7e62806d609cc51e23100c96ff36cfbfbca7df86deb49ed5442243",
+      "decoded_sha256": "634daf3f1b3371ec486c93c31f03377a449f306a3bf7c08ec1ffe6f31ebf363a",
       "dialogue_count": 695,
       "condition_count": 5,
       "speaker_count": 41,
@@ -2702,18 +3051,21 @@
       "runtime_substitution_token_occurrence_count": 17,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 28,
       "archive_offset": 591376,
       "archive_next_offset": 631984,
-      "encoded_size": 36983,
-      "encoded_sha256": "77c4a3fa3dc99d78e6a7c7e92fad623da5dca5062f0297f0befbe4128e7efb08",
-      "padding_size": 3625,
+      "encoded_size": 36993,
+      "encoded_sha256": "843892eb2b54a33aa1d7f46763283db60e82a9cb1dccba5330db49ec46c5e84c",
+      "padding_size": 3615,
       "padding_all_zero": true,
       "decoded_size": 117392,
-      "decoded_sha256": "b6731f460c87060b855e400534a2383543878f49f980af89121a07523898ba2a",
+      "decoded_sha256": "7d5757975ea02ccc8707a5a3785514dc7e1eb9ac4d5179876ee84b71e22ef1f8",
       "dialogue_count": 801,
       "condition_count": 5,
       "speaker_count": 94,
@@ -2729,18 +3081,21 @@
       "runtime_substitution_token_occurrence_count": 24,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 29,
       "archive_offset": 631984,
       "archive_next_offset": 660272,
-      "encoded_size": 25424,
-      "encoded_sha256": "108009da32d9c17834695fc45b25403416c4eefdfe8747986c28464c097d7650",
-      "padding_size": 2864,
+      "encoded_size": 25426,
+      "encoded_sha256": "fcce958681fe0d14a75a0c3c1d600cd2ad09c3bfcce83936eea3aee828684ab4",
+      "padding_size": 2862,
       "padding_all_zero": true,
       "decoded_size": 80912,
-      "decoded_sha256": "933b5c34c7813ffc33a384086064619ba3a989028c3a42dbf600178f7aba8c7d",
+      "decoded_sha256": "7b731483767d6531b83b615d2580f7e835b659b5470fc06e01797a87517d260c",
       "dialogue_count": 632,
       "condition_count": 6,
       "speaker_count": 54,
@@ -2756,18 +3111,21 @@
       "runtime_substitution_token_occurrence_count": 9,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 30,
       "archive_offset": 660272,
       "archive_next_offset": 691728,
-      "encoded_size": 28889,
-      "encoded_sha256": "4dd23fe0dc419126cc0cf052c80f58402d527a19b030887f6b58ea3d065afbd7",
-      "padding_size": 2567,
+      "encoded_size": 28900,
+      "encoded_sha256": "6b8ed260332e37b5dd94e827a410f0dac9daa5f7ccec84b8bd41da636ae3f1af",
+      "padding_size": 2556,
       "padding_all_zero": true,
       "decoded_size": 92176,
-      "decoded_sha256": "d43771e75d1871f80414b5af98981f555b8e69115ace44709b0a050b2b0ddeda",
+      "decoded_sha256": "724af2b1e2776bdd9b9b2eef1903edcbeb5792426dc1282f093f680cce9db871",
       "dialogue_count": 649,
       "condition_count": 4,
       "speaker_count": 50,
@@ -2783,18 +3141,21 @@
       "runtime_substitution_token_occurrence_count": 4,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 31,
       "archive_offset": 691728,
       "archive_next_offset": 724064,
-      "encoded_size": 29741,
-      "encoded_sha256": "1498756379995977d58c85bf1469a4a67349584320c773e01c40dc9e415ec58f",
-      "padding_size": 2595,
+      "encoded_size": 29729,
+      "encoded_sha256": "8ef6a7ffc3d7f03762db70d269e8e3f164ad4676652be69cdc4551ab7e49aa88",
+      "padding_size": 2607,
       "padding_all_zero": true,
       "decoded_size": 94096,
-      "decoded_sha256": "0ae14f7ae7dd875793581467371fa1b303ae99b8992223a20f9d36b045d0ceee",
+      "decoded_sha256": "8ef579dcb935cff4a5a832f02aeec73c1daadc1eaa4243d66ac9fbd34f5257bd",
       "dialogue_count": 669,
       "condition_count": 5,
       "speaker_count": 56,
@@ -2810,7 +3171,10 @@
       "runtime_substitution_token_occurrence_count": 2,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 32,
@@ -2837,18 +3201,21 @@
       "runtime_substitution_token_occurrence_count": 8,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 33,
       "archive_offset": 747008,
       "archive_next_offset": 757296,
       "encoded_size": 9405,
-      "encoded_sha256": "7e5e16d997febc5b3b68b3ed07c32d1d431a558b54629184940f999344530c73",
+      "encoded_sha256": "1f76f14845f498d2b98ad1399047e5e3ce0c3d4806406a34eb2ae3bd59fa7f3c",
       "padding_size": 883,
       "padding_all_zero": true,
       "decoded_size": 23568,
-      "decoded_sha256": "82b5e17867ac2d5b346db3cde3a944539ba1bdeac3c0348f59bcfd88ec7472e0",
+      "decoded_sha256": "96239660213c174ff6274f5212000caeca4b394594ff7dd0b9d3a0124f79bce4",
       "dialogue_count": 143,
       "condition_count": 0,
       "speaker_count": 52,
@@ -2864,18 +3231,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 34,
       "archive_offset": 757296,
       "archive_next_offset": 782768,
-      "encoded_size": 22942,
-      "encoded_sha256": "1d42c1e1b42a854a747882edf9705286e7e76492401e9b24611b9ce128c352ac",
-      "padding_size": 2530,
+      "encoded_size": 22943,
+      "encoded_sha256": "d199fe565b9d3b7f69bf575edfee8d14a910789f9689c513e9c7fba5f85a6aa3",
+      "padding_size": 2529,
       "padding_all_zero": true,
       "decoded_size": 71952,
-      "decoded_sha256": "d48e37747f885c8213f3795c8771afb092c7b827f01dc4566412e672e1ad3c05",
+      "decoded_sha256": "4c2e51b76b10f5b42e015b07754fc83259d15074a28b309dbedef488734e5347",
       "dialogue_count": 532,
       "condition_count": 5,
       "speaker_count": 54,
@@ -2891,18 +3261,21 @@
       "runtime_substitution_token_occurrence_count": 8,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 35,
       "archive_offset": 782768,
       "archive_next_offset": 797520,
-      "encoded_size": 12871,
-      "encoded_sha256": "7824078d589ed9f7fee92df68a26432ceb09a47cb71ecf658690e1739458ab4f",
-      "padding_size": 1881,
+      "encoded_size": 12866,
+      "encoded_sha256": "705e647ea05262b571dbf80cdd976a6b791a7dc47c160e074c2bab51d15e95f3",
+      "padding_size": 1886,
       "padding_all_zero": true,
       "decoded_size": 40848,
-      "decoded_sha256": "0b1630d57796725d58f234c3b6c34925b6a04315ee49b244c88f7ee77fffb3aa",
+      "decoded_sha256": "eed08892d7e01cda0a8fde8669acd3b0b3668c985dee04f074e1f053cd9d5725",
       "dialogue_count": 383,
       "condition_count": 0,
       "speaker_count": 44,
@@ -2918,7 +3291,10 @@
       "runtime_substitution_token_occurrence_count": 16,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 36,
@@ -2945,18 +3321,21 @@
       "runtime_substitution_token_occurrence_count": 4,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 37,
       "archive_offset": 817344,
       "archive_next_offset": 843008,
       "encoded_size": 23192,
-      "encoded_sha256": "9b90b32a30f2f6d1177a9b8d5fd081a1f0fc9787a8ddca33bb307464cf5f138c",
+      "encoded_sha256": "ba5a24d5e0f5ee0459d8572948a0110130c1316afb35702a4f7b337636182bfd",
       "padding_size": 2472,
       "padding_all_zero": true,
       "decoded_size": 75536,
-      "decoded_sha256": "a5adcd6460469efd5dc7aa7057bf45233b5358085f99ee2f9383ea0ff2c3c46a",
+      "decoded_sha256": "cdc0088845ed9a1a6927b48491517f3abcb9a32bf5d06208ddebd0836dd141b2",
       "dialogue_count": 500,
       "condition_count": 4,
       "speaker_count": 54,
@@ -2972,18 +3351,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 38,
       "archive_offset": 843008,
       "archive_next_offset": 878528,
       "encoded_size": 32541,
-      "encoded_sha256": "86bdd7f5970cff2c3d226f735eddae439450bf70e7dd15256467ff090b684a53",
+      "encoded_sha256": "e869f665be05ae1932a3356a8df79bacee6df322e5371ab4a096a16963e60e36",
       "padding_size": 2979,
       "padding_all_zero": true,
       "decoded_size": 103440,
-      "decoded_sha256": "ac6245a77a03887f00c2aa0b914d1461a0f577c359f742c3bd3433a918cf298f",
+      "decoded_sha256": "77f88403c613f0b8fe19f40063b95c63ca9e1a32b6d7a480790b0691b179d383",
       "dialogue_count": 818,
       "condition_count": 6,
       "speaker_count": 69,
@@ -2999,18 +3381,21 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 39,
       "archive_offset": 878528,
       "archive_next_offset": 893008,
       "encoded_size": 13241,
-      "encoded_sha256": "6c197b0f4a0308af40853b587ccc227e387562efdf317f5fd947fd9dfde94a09",
+      "encoded_sha256": "5e8db1b33c57ec11fe8f896658db6c38f92eb8c0faf66743dbbe81ef99413bd1",
       "padding_size": 1239,
       "padding_all_zero": true,
       "decoded_size": 33808,
-      "decoded_sha256": "91a92e50c59b3c1f958cd29f3358c51aa714df173825c5c820cc0ee11b382bb9",
+      "decoded_sha256": "ed679354206f3e2ac0478348fd0e215a69199d1f21f95b3fb33262b083cadaaf",
       "dialogue_count": 221,
       "condition_count": 0,
       "speaker_count": 52,
@@ -3026,18 +3411,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 40,
       "archive_offset": 893008,
       "archive_next_offset": 926656,
-      "encoded_size": 30398,
-      "encoded_sha256": "8c2dde21d837cd91039414ad250609dc4bddbe93d34476e2baac4901a4b130ba",
-      "padding_size": 3250,
+      "encoded_size": 30400,
+      "encoded_sha256": "76f6c317327fc53773230390d14d23d02448bab337b3c6594563524fbacb84be",
+      "padding_size": 3248,
       "padding_all_zero": true,
       "decoded_size": 100880,
-      "decoded_sha256": "3828a05ad6acf92848ef5208a8afca6790a4d868f3f3382210c1b3ac0894796e",
+      "decoded_sha256": "6f131ef6e4354ad906ccf61e6ed12011118f99ecf0120761360d1cd2738e3176",
       "dialogue_count": 742,
       "condition_count": 6,
       "speaker_count": 93,
@@ -3053,18 +3441,21 @@
       "runtime_substitution_token_occurrence_count": 10,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 41,
       "archive_offset": 926656,
       "archive_next_offset": 949504,
-      "encoded_size": 20831,
-      "encoded_sha256": "aa87d0c51e4c7037279314821345886c91f8039b9b8c07f7aabbe190b94a5533",
-      "padding_size": 2017,
+      "encoded_size": 20832,
+      "encoded_sha256": "0aa847ff3d94b2c38023134bf465273632c05e8e251802e6040bc2b2a4189c98",
+      "padding_size": 2016,
       "padding_all_zero": true,
       "decoded_size": 66192,
-      "decoded_sha256": "848f6321494f88c53b59b120847d26e1002dcd62caa41bda32d3e7d742079ded",
+      "decoded_sha256": "d6cfd9f5cafaf31e6084db4e2b0b5732a09dd2d4997baa0c4cfd9ae844b95129",
       "dialogue_count": 470,
       "condition_count": 6,
       "speaker_count": 45,
@@ -3080,18 +3471,21 @@
       "runtime_substitution_token_occurrence_count": 38,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 42,
       "archive_offset": 949504,
       "archive_next_offset": 972000,
-      "encoded_size": 20234,
-      "encoded_sha256": "25534960c29ee02910ecbc10c6f7508a26878149ade3798037c4e4f9a9021ae8",
-      "padding_size": 2262,
+      "encoded_size": 20248,
+      "encoded_sha256": "beb9576e2e8ca18be189e4a193e9b97a8188f795416bff6e6fa50c2ec2a98615",
+      "padding_size": 2248,
       "padding_all_zero": true,
       "decoded_size": 61072,
-      "decoded_sha256": "f233390f7aa4c415f8f15b7f976cdc96c860ffe5a80bc008d8406df920167e92",
+      "decoded_sha256": "dcd5dfc071a77fdd54d0c19847069913818e486fe56a5330ac2eda8edf84b10e",
       "dialogue_count": 430,
       "condition_count": 5,
       "speaker_count": 41,
@@ -3107,7 +3501,10 @@
       "runtime_substitution_token_occurrence_count": 20,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 43,
@@ -3134,18 +3531,21 @@
       "runtime_substitution_token_occurrence_count": 8,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 44,
       "archive_offset": 1000128,
       "archive_next_offset": 1004784,
-      "encoded_size": 4322,
-      "encoded_sha256": "4c67c219c18b9073e6c3d9ad328f34bcb3c6f303ccc193bd5f1a0ae12613f9ae",
-      "padding_size": 334,
+      "encoded_size": 4324,
+      "encoded_sha256": "3b6a92c70c0cd6763ee0acf3fb097dfb39d29a3c1e198c070ebeea324ab975e4",
+      "padding_size": 332,
       "padding_all_zero": true,
       "decoded_size": 9872,
-      "decoded_sha256": "405394da0ac9e1a6e3eff81249edf8bde53cb5f62199c8683e4a79740734ad8b",
+      "decoded_sha256": "6e96a4dd18e187cfe3b25c3e0b8523f5a3c58f28593bb542c4be1073a7b49543",
       "dialogue_count": 65,
       "condition_count": 0,
       "speaker_count": 31,
@@ -3161,7 +3561,10 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 45,
@@ -3188,18 +3591,21 @@
       "runtime_substitution_token_occurrence_count": 7,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 47,
       "archive_offset": 1042096,
       "archive_next_offset": 1067296,
-      "encoded_size": 22353,
-      "encoded_sha256": "563754d4f497eb5ea93ecbce7e8693870174b1d46a680e1ce88838cf0508e8d1",
-      "padding_size": 2847,
+      "encoded_size": 22352,
+      "encoded_sha256": "1cd0fc38c8395b6c87a5ba76f5a6d8e871f32e54f65a747cf3e02a3e40d4c547",
+      "padding_size": 2848,
       "padding_all_zero": true,
       "decoded_size": 76560,
-      "decoded_sha256": "1195943fae6b69045b97556eac438806bca2dc96a3044e02de95b4258dff8333",
+      "decoded_sha256": "4714313e59cc2669b25e2b5acdbed1e7df57e5a81b9bed091c138c3d9d89c0ec",
       "dialogue_count": 554,
       "condition_count": 5,
       "speaker_count": 60,
@@ -3215,7 +3621,10 @@
       "runtime_substitution_token_occurrence_count": 16,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 48,
@@ -3242,7 +3651,10 @@
       "runtime_substitution_token_occurrence_count": 18,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 49,
@@ -3269,18 +3681,21 @@
       "runtime_substitution_token_occurrence_count": 3,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 50,
       "archive_offset": 1111856,
       "archive_next_offset": 1143904,
-      "encoded_size": 28888,
-      "encoded_sha256": "4585c3112a18007fbf1a16040ea406b34b62cc1c4abb81e9c54786c8cf72933f",
-      "padding_size": 3160,
+      "encoded_size": 28889,
+      "encoded_sha256": "40b0c4c151d938bea23ef9aa5cb7d543e52f10541358ba28eef11558f4cf0cdb",
+      "padding_size": 3159,
       "padding_all_zero": true,
       "decoded_size": 92432,
-      "decoded_sha256": "af934aa6bb898e61f7763792d6e7d7c5c60febdbb72495d50c511e717481aff8",
+      "decoded_sha256": "8dc6642cd32b712d7afb4e8dfad7600eed1b19a2133bbf1f545d85b33416fcb2",
       "dialogue_count": 730,
       "condition_count": 6,
       "speaker_count": 61,
@@ -3296,7 +3711,10 @@
       "runtime_substitution_token_occurrence_count": 18,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 51,
@@ -3323,18 +3741,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 52,
       "archive_offset": 1145536,
       "archive_next_offset": 1172800,
-      "encoded_size": 24986,
-      "encoded_sha256": "80be6fd855478850953340101401643c85fa9f1a92ed41a315a6f5c0911837b1",
-      "padding_size": 2278,
+      "encoded_size": 25000,
+      "encoded_sha256": "70e8fc78df5150f707768ae4a1d301695603826c86a82cc6bdc21064607e938f",
+      "padding_size": 2264,
       "padding_all_zero": true,
       "decoded_size": 77712,
-      "decoded_sha256": "5600f1b7c78b9c07bd2b73d11070f19ce1d6d8f10247a9d17f5343bb1ae02db4",
+      "decoded_sha256": "8e1e870f248a59961afff59772aff2ffc4f92f54fba9990f27cc5d9c14baf9a0",
       "dialogue_count": 525,
       "condition_count": 5,
       "speaker_count": 76,
@@ -3350,18 +3771,21 @@
       "runtime_substitution_token_occurrence_count": 8,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 53,
       "archive_offset": 1172800,
       "archive_next_offset": 1201248,
-      "encoded_size": 26198,
-      "encoded_sha256": "c2abf7564c01fda042765f89091c6dde9172d5ee3b45ec90025634c722e27f3d",
-      "padding_size": 2250,
+      "encoded_size": 26203,
+      "encoded_sha256": "e1a259c5bc93c2ac926e16a00022e0b63b671b5b865177ca0ae5c4c043fe8e2d",
+      "padding_size": 2245,
       "padding_all_zero": true,
       "decoded_size": 83856,
-      "decoded_sha256": "4ffd5b893bf8512f96c8c8c2aa8d719c4612f60d2762cd74639172c01b973970",
+      "decoded_sha256": "1be8fa1d7ef18e449830a17253a3914dc747d3acdb14f973c0156d3fef3e92d1",
       "dialogue_count": 601,
       "condition_count": 6,
       "speaker_count": 66,
@@ -3377,7 +3801,10 @@
       "runtime_substitution_token_occurrence_count": 8,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 54,
@@ -3404,7 +3831,10 @@
       "runtime_substitution_token_occurrence_count": 36,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 55,
@@ -3431,18 +3861,21 @@
       "runtime_substitution_token_occurrence_count": 18,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 56,
       "archive_offset": 1262528,
       "archive_next_offset": 1286816,
-      "encoded_size": 22314,
-      "encoded_sha256": "7152741d89011bf14468c33e5d754dcd67ac822cdf10aeb3b8109aab2dc3394b",
-      "padding_size": 1974,
+      "encoded_size": 22317,
+      "encoded_sha256": "6671b3e34c7430cec761b8965ef6c3c59949630c8e92cb918fc353c911c6dfd1",
+      "padding_size": 1971,
       "padding_all_zero": true,
       "decoded_size": 67856,
-      "decoded_sha256": "0e2fd3667ff0be4efc9358cd882ef5b787e4be62cb7aac5184d74a41fd7e76bd",
+      "decoded_sha256": "b87b629af3bf72e6bdead6f1fc20f2c4a3a436e5ae1629a9c63bb667b0f8321b",
       "dialogue_count": 490,
       "condition_count": 6,
       "speaker_count": 46,
@@ -3458,18 +3891,21 @@
       "runtime_substitution_token_occurrence_count": 58,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 57,
       "archive_offset": 1286816,
       "archive_next_offset": 1306048,
-      "encoded_size": 17436,
-      "encoded_sha256": "0b445d3ebb64b39dc923521a547b590ce6302bd43d968bddcd5d559076e7a131",
-      "padding_size": 1796,
+      "encoded_size": 17432,
+      "encoded_sha256": "231c08c15d7182b149df093321306a6d4f647faefc5b2b5c74bd54eea8eb967c",
+      "padding_size": 1800,
       "padding_all_zero": true,
       "decoded_size": 55952,
-      "decoded_sha256": "263671110f1baccb8c8cc35d4b5548db9b60034ede8cb56e327f13e40ac37414",
+      "decoded_sha256": "c944102e6406c4a082c56b2c0324f1240f266583195fa966ed9a14d32980440f",
       "dialogue_count": 359,
       "condition_count": 6,
       "speaker_count": 33,
@@ -3485,7 +3921,10 @@
       "runtime_substitution_token_occurrence_count": 35,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 58,
@@ -3512,7 +3951,10 @@
       "runtime_substitution_token_occurrence_count": 12,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 59,
@@ -3539,7 +3981,10 @@
       "runtime_substitution_token_occurrence_count": 4,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 60,
@@ -3566,7 +4011,10 @@
       "runtime_substitution_token_occurrence_count": 11,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 61,
@@ -3593,18 +4041,21 @@
       "runtime_substitution_token_occurrence_count": 8,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 62,
       "archive_offset": 1391008,
       "archive_next_offset": 1411488,
-      "encoded_size": 18403,
-      "encoded_sha256": "8261ccf2cc7a4a8fc6fe7eccab12313a9bc8b58c679d695674b58725457f7191",
-      "padding_size": 2077,
+      "encoded_size": 18405,
+      "encoded_sha256": "420f43fe8634e3ff30b1a82d7d4bfc436b57c1863f869d034dd2aff3a430ffc9",
+      "padding_size": 2075,
       "padding_all_zero": true,
       "decoded_size": 55312,
-      "decoded_sha256": "157529ac973b66c5d7f2b345cfe9f5ab402df6b994f4549df08f11db4b6a66b0",
+      "decoded_sha256": "30d5a396800e229adbbde34f2a190bc53a7fa7fe5cdc6e48ff731413dbef0dcb",
       "dialogue_count": 409,
       "condition_count": 5,
       "speaker_count": 45,
@@ -3620,18 +4071,21 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 63,
       "archive_offset": 1411488,
       "archive_next_offset": 1434384,
-      "encoded_size": 20683,
-      "encoded_sha256": "698ca6ac531aff4d0c48d60241c0317219e9f11242ac04baf08bacc4e6af567f",
-      "padding_size": 2213,
+      "encoded_size": 20677,
+      "encoded_sha256": "4cb70c161e29c1f21cab3d134ddf477ae07f045a33216fdb42060fe674a857c3",
+      "padding_size": 2219,
       "padding_all_zero": true,
       "decoded_size": 64272,
-      "decoded_sha256": "d98b75cae4d226e4a4b1d8d76f798cad438650e7c08b37cbde5c4e12b6db6aaf",
+      "decoded_sha256": "90e780328c228a3b449cbb9e56ac616bfebc83f57343d979227654298c30e051",
       "dialogue_count": 466,
       "condition_count": 6,
       "speaker_count": 43,
@@ -3647,7 +4101,10 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 64,
@@ -3674,7 +4131,10 @@
       "runtime_substitution_token_occurrence_count": 2,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 65,
@@ -3701,18 +4161,21 @@
       "runtime_substitution_token_occurrence_count": 4,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 66,
       "archive_offset": 1468720,
       "archive_next_offset": 1505568,
-      "encoded_size": 34224,
-      "encoded_sha256": "6a65d599f194a5e5e9e45ad6bbfe864b885e38598483bb80e27a4c22c3fa264f",
-      "padding_size": 2624,
+      "encoded_size": 34230,
+      "encoded_sha256": "4de8380fc6e5b22d06a7f20fd8be4d3dc1f82bac87237fdf0f8a84f37e03bb01",
+      "padding_size": 2618,
       "padding_all_zero": true,
       "decoded_size": 114704,
-      "decoded_sha256": "e1a6b26b0bc0524156dc0405ec2a927bee8cb16c92d2781fdf1eba04a78b33bf",
+      "decoded_sha256": "526debd411950f4a74c68f47a817b2aa9fbb4d348e3bf1a272cd0254d692a05c",
       "dialogue_count": 805,
       "condition_count": 4,
       "speaker_count": 72,
@@ -3728,7 +4191,10 @@
       "runtime_substitution_token_occurrence_count": 7,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 67,
@@ -3755,7 +4221,10 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 68,
@@ -3782,18 +4251,21 @@
       "runtime_substitution_token_occurrence_count": 4,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 69,
       "archive_offset": 1531424,
       "archive_next_offset": 1584496,
-      "encoded_size": 48711,
-      "encoded_sha256": "c55da75c8ad41f4fd38725ba0e8ec7f8016af5cfcf25158dcc589999be5accf9",
-      "padding_size": 4361,
+      "encoded_size": 48713,
+      "encoded_sha256": "297128251280ed98be41237554169f2ef40d9385c05cfa145e3a310921d3d181",
+      "padding_size": 4359,
       "padding_all_zero": true,
       "decoded_size": 164496,
-      "decoded_sha256": "9d2d6464403f2d6258ebfbdf014fa52501515eb2382807b3042cad4b0e51c10b",
+      "decoded_sha256": "dddd68c3b1b59a13138b489ee0f27a90a609dbe626b98a60f4be66320fdc3b3e",
       "dialogue_count": 1091,
       "condition_count": 5,
       "speaker_count": 72,
@@ -3809,18 +4281,21 @@
       "runtime_substitution_token_occurrence_count": 35,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 70,
       "archive_offset": 1584496,
       "archive_next_offset": 1592368,
       "encoded_size": 7133,
-      "encoded_sha256": "fc403f340ca8afb212e09afb96eebbaacc53d5b982e7856dd62802506ede601d",
+      "encoded_sha256": "85d2db782082e21ea685a1369c9641a918f5a5d304fe99e0da803f796f85e1f5",
       "padding_size": 739,
       "padding_all_zero": true,
       "decoded_size": 20240,
-      "decoded_sha256": "6670d98f458cb72c1bd337321b5c31f21e0146e4ddc06358f9abf0192dbdc683",
+      "decoded_sha256": "9cc53918c781c775394da1135a228ede74101f64c22d4338a3292e4a54352b27",
       "dialogue_count": 125,
       "condition_count": 0,
       "speaker_count": 22,
@@ -3836,18 +4311,21 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 71,
       "archive_offset": 1592368,
       "archive_next_offset": 1607120,
-      "encoded_size": 13402,
-      "encoded_sha256": "1e6da798a7b8144b33f207651b6ae321b84d0e571c06e96c1e9576958df962d8",
-      "padding_size": 1350,
+      "encoded_size": 13403,
+      "encoded_sha256": "67a63f8c4d5c78173ab690ced895c560016b643963a2b08a35ed0464f731cf39",
+      "padding_size": 1349,
       "padding_all_zero": true,
       "decoded_size": 43152,
-      "decoded_sha256": "25c53300f6603b4a75ab58a3c2343f5023bce83e9374f2e2d62e69f1db3284be",
+      "decoded_sha256": "83e55a0967e9547e5d96dea4c8ab97bd4e8be65eeabfb4153372f8afcfeff14f",
       "dialogue_count": 216,
       "condition_count": 4,
       "speaker_count": 51,
@@ -3863,18 +4341,21 @@
       "runtime_substitution_token_occurrence_count": 7,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 72,
       "archive_offset": 1607120,
       "archive_next_offset": 1632720,
-      "encoded_size": 23200,
-      "encoded_sha256": "1946ce26ce77073955bdf8a2aa5b61e123b757bf94719cced8b77fc9b6a92dc8",
-      "padding_size": 2400,
+      "encoded_size": 23201,
+      "encoded_sha256": "ea492a75a9ae0caaf5d0b9b9d0eca6f8cc242b445db1b28fd85365e34199797a",
+      "padding_size": 2399,
       "padding_all_zero": true,
       "decoded_size": 71312,
-      "decoded_sha256": "7023c60a87408a181c8288b2bcab61bf9ca18399a1db8c3508e7fc19d9a43657",
+      "decoded_sha256": "03ddbb2ecb2259cff9e415b01a02ceaf9312def1d1f42f7f23e2aa0be87d94bf",
       "dialogue_count": 418,
       "condition_count": 4,
       "speaker_count": 64,
@@ -3890,18 +4371,21 @@
       "runtime_substitution_token_occurrence_count": 19,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 73,
       "archive_offset": 1632720,
       "archive_next_offset": 1657936,
-      "encoded_size": 22415,
-      "encoded_sha256": "ee1bee72bc40ae46f8952156d0b861e0f33639f72374bd4294290acc6ca080c3",
-      "padding_size": 2801,
+      "encoded_size": 22420,
+      "encoded_sha256": "1a29ffbebdaa4e3c0f9b03225249d0da0eb28435f939fd252809543c6f68cee0",
+      "padding_size": 2796,
       "padding_all_zero": true,
       "decoded_size": 72976,
-      "decoded_sha256": "cf553665328e22640d2264e21cb23f73433091d8405e284d6cd032e37017aa37",
+      "decoded_sha256": "1436b2ece6f3c25d97a2da555e6b287c0b4880ab4e4fbe468333c1d5ef6eb46e",
       "dialogue_count": 643,
       "condition_count": 6,
       "speaker_count": 77,
@@ -3917,7 +4401,10 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 74,
@@ -3944,18 +4431,21 @@
       "runtime_substitution_token_occurrence_count": 1,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 75,
       "archive_offset": 1664240,
       "archive_next_offset": 1685568,
-      "encoded_size": 18348,
-      "encoded_sha256": "236408058c23d3658a71229d7604cf7626a94c9c1593dfac4b08f9aacfc8fccf",
-      "padding_size": 2980,
+      "encoded_size": 18350,
+      "encoded_sha256": "86eeb36add1ff55551fccc4d2598fa51f7e0b5d19f2c4930b592028bc4b33704",
+      "padding_size": 2978,
       "padding_all_zero": true,
       "decoded_size": 58256,
-      "decoded_sha256": "2090f689f5d90902eef1ac686d800f4f6e6048c2ffb27336aa77d53766f58e9d",
+      "decoded_sha256": "fc8b0a0a3ce2ef6e547eb0dccdad490d5acf2de85713d4d8451d2b0996ed2a4b",
       "dialogue_count": 486,
       "condition_count": 3,
       "speaker_count": 32,
@@ -3971,7 +4461,10 @@
       "runtime_substitution_token_occurrence_count": 2,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 76,
@@ -3998,7 +4491,10 @@
       "runtime_substitution_token_occurrence_count": 3,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 77,
@@ -4025,18 +4521,21 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 78,
       "archive_offset": 1723408,
       "archive_next_offset": 1744576,
       "encoded_size": 19454,
-      "encoded_sha256": "ada02dd98ac81577a932106cac8e2cc2e0c4e9023486bf7e1a7318eb46a85ebc",
+      "encoded_sha256": "5bdbbc402fae3d7cd39b8fb8649d1537fccd15b7960e16461a2bb65690f1e25d",
       "padding_size": 1714,
       "padding_all_zero": true,
       "decoded_size": 61840,
-      "decoded_sha256": "6fa324699b51f2afb0e4aa513fd77f2e7285f5fddadc218c5c923a5f77ce086d",
+      "decoded_sha256": "b5699263ed394f04a4ad076918c612388dfcafdfd72b2c693db526e9d8db0ce1",
       "dialogue_count": 450,
       "condition_count": 4,
       "speaker_count": 49,
@@ -4052,7 +4551,10 @@
       "runtime_substitution_token_occurrence_count": 4,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 79,
@@ -4079,18 +4581,21 @@
       "runtime_substitution_token_occurrence_count": 6,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 80,
       "archive_offset": 1756160,
       "archive_next_offset": 1780784,
-      "encoded_size": 22532,
-      "encoded_sha256": "961793779dab3e42abae56616b03bffcfb350bf489f9efe68c960546bccab469",
-      "padding_size": 2092,
+      "encoded_size": 22530,
+      "encoded_sha256": "72bbc5cdd65da5e2a432cb346753dfda03cd4106ff7d801a3e482f78cc48a839",
+      "padding_size": 2094,
       "padding_all_zero": true,
       "decoded_size": 72720,
-      "decoded_sha256": "5fd0844a51eaaa432173851645e670a0e437632bd2901971fa36711f40df0231",
+      "decoded_sha256": "549a14c761e3bb0f8b334043df3cc390fa41b2047fd737fced48347478dc19b1",
       "dialogue_count": 484,
       "condition_count": 6,
       "speaker_count": 66,
@@ -4106,7 +4611,10 @@
       "runtime_substitution_token_occurrence_count": 10,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 81,
@@ -4133,18 +4641,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 82,
       "archive_offset": 1785600,
       "archive_next_offset": 1809248,
-      "encoded_size": 21998,
-      "encoded_sha256": "004e4b4fed647cac497488d0203330e38c793a93abfd1c0fee34f8a73e4da123",
-      "padding_size": 1650,
+      "encoded_size": 22000,
+      "encoded_sha256": "2099d5011b02c1640b0a0e2dfec4b0841da6c86b0adbdf56ee8b770f9443f1ce",
+      "padding_size": 1648,
       "padding_all_zero": true,
       "decoded_size": 71312,
-      "decoded_sha256": "f5d38acd3e10b2a6be50491836d58af974b65fca18e24ccbb79ac2721f19f89e",
+      "decoded_sha256": "e19ce066a1042bb54cac90021378d572e4027b993f9c478b5a68c196ce8bb913",
       "dialogue_count": 442,
       "condition_count": 4,
       "speaker_count": 64,
@@ -4160,18 +4671,21 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 83,
       "archive_offset": 1809248,
       "archive_next_offset": 1841648,
-      "encoded_size": 29357,
-      "encoded_sha256": "d0147bc67f65670322699d146876c4c90c271c35e60e51f9ef6b8c12ac08ea94",
-      "padding_size": 3043,
+      "encoded_size": 29362,
+      "encoded_sha256": "ec484ebfbd5a277d28ff380c68ac2184a94a6ee88db0e56011807becd9492aa6",
+      "padding_size": 3038,
       "padding_all_zero": true,
       "decoded_size": 95248,
-      "decoded_sha256": "24c495c5a201e0ecd80ecc74dd0d2c8ca9a5a5c50310373e01dcad49e1443acc",
+      "decoded_sha256": "9cc362826a61cb8c4f21a14d96d5d4f3d83e8a195c48a0785fcf6e7cd33db47c",
       "dialogue_count": 771,
       "condition_count": 6,
       "speaker_count": 73,
@@ -4187,18 +4701,21 @@
       "runtime_substitution_token_occurrence_count": 42,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 84,
       "archive_offset": 1841648,
       "archive_next_offset": 1871184,
-      "encoded_size": 26461,
-      "encoded_sha256": "a00e64bd79265b5d6c1ede9f049f6021a8bd93eeadc4676247598e35ce89591d",
-      "padding_size": 3075,
+      "encoded_size": 26469,
+      "encoded_sha256": "7383466b27cc46e02fbf3e81da71b2da6fcd53dc6f096d5373b955916001fcc2",
+      "padding_size": 3067,
       "padding_all_zero": true,
       "decoded_size": 84368,
-      "decoded_sha256": "1de6426b7f138edd8b8f3a20f1b6886afb58033209d403970908dfb99d7c318e",
+      "decoded_sha256": "04a4dedd99c3ef66d8317b51d29405d94d2efd772969acc11d8276dd85ed6c5d",
       "dialogue_count": 640,
       "condition_count": 3,
       "speaker_count": 54,
@@ -4214,7 +4731,10 @@
       "runtime_substitution_token_occurrence_count": 34,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 85,
@@ -4241,18 +4761,21 @@
       "runtime_substitution_token_occurrence_count": 6,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 86,
       "archive_offset": 1894048,
       "archive_next_offset": 1904544,
-      "encoded_size": 9299,
-      "encoded_sha256": "8db8ae8194969b57a05061f9b05d6604e7a4103d7f08c1cc4c26dd4af99d5de0",
-      "padding_size": 1197,
+      "encoded_size": 9307,
+      "encoded_sha256": "81f459818081fb0abeaf81d60bee56de6b434a46db3ebd8e28cd019641b9f16f",
+      "padding_size": 1189,
       "padding_all_zero": true,
       "decoded_size": 24848,
-      "decoded_sha256": "cf0d3891d8f1715337772f4898f8a07a802203ead477ed5d473546c1a52dd97b",
+      "decoded_sha256": "d3f6d1a1c14c60432d8f09167c2c6a5526a36962936849be329505cc76bcf0d4",
       "dialogue_count": 219,
       "condition_count": 0,
       "speaker_count": 22,
@@ -4268,18 +4791,21 @@
       "runtime_substitution_token_occurrence_count": 2,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 87,
       "archive_offset": 1904544,
       "archive_next_offset": 1923808,
-      "encoded_size": 17494,
-      "encoded_sha256": "cb95aab7b4c300a23254e61a8b5cd28c255bfc85609dffe29f30a6ff071c415d",
-      "padding_size": 1770,
+      "encoded_size": 17495,
+      "encoded_sha256": "2c46696b4b99384ebe1e63e8386fc2007c2bf5cc919e35e9a0c56609c2a08830",
+      "padding_size": 1769,
       "padding_all_zero": true,
       "decoded_size": 52880,
-      "decoded_sha256": "cdfdc4e60f2b298ec80c0d9fd46698a77d50e7a539136c8cce4fe01347e9be0c",
+      "decoded_sha256": "f23817e135d414de5abb2081362744cb0a5a77ac014bb3371951d370ff48b75a",
       "dialogue_count": 287,
       "condition_count": 5,
       "speaker_count": 32,
@@ -4295,18 +4821,21 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 88,
       "archive_offset": 1923808,
       "archive_next_offset": 1950160,
-      "encoded_size": 24050,
-      "encoded_sha256": "47c972eb67b44c637a73903ec35e7707fcb5fac4cdf5f4e5b159185b0e6352d2",
-      "padding_size": 2302,
+      "encoded_size": 24051,
+      "encoded_sha256": "6504a6799e0195038428a02dddd5452238e83e1a59f8e679389fd44f732e68ff",
+      "padding_size": 2301,
       "padding_all_zero": true,
       "decoded_size": 79248,
-      "decoded_sha256": "69f3ad62b5d93d09ca3727ed655ee8411114605ad68cc40884fe1a9e3e3f03b6",
+      "decoded_sha256": "8801f9c6c2159e7f63870fdb1f6bdef71e0eca00aaf3a518bd6684e722ed213d",
       "dialogue_count": 615,
       "condition_count": 6,
       "speaker_count": 34,
@@ -4322,7 +4851,10 @@
       "runtime_substitution_token_occurrence_count": 8,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 89,
@@ -4349,7 +4881,10 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 90,
@@ -4376,18 +4911,21 @@
       "runtime_substitution_token_occurrence_count": 7,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 91,
       "archive_offset": 1984224,
       "archive_next_offset": 2009728,
-      "encoded_size": 23040,
-      "encoded_sha256": "25ab87ec11cf16ee913a931308b982ccba5d03cb6048e3066fa0d2f18ed4f817",
-      "padding_size": 2464,
+      "encoded_size": 23041,
+      "encoded_sha256": "f1671c862e337be1d6ca0ea8679301a4b3a3c63266a8521b6db2b0a345474ce7",
+      "padding_size": 2463,
       "padding_all_zero": true,
       "decoded_size": 72720,
-      "decoded_sha256": "9a81f22c897d7092e0e5fa2c9e9fbf5f3d211f736b1156579d53655c742f0e7a",
+      "decoded_sha256": "c8f1e95cf02631710ff3fbfc1323c26e3b8a0f74b731e72315e34445dcc88e64",
       "dialogue_count": 460,
       "condition_count": 4,
       "speaker_count": 61,
@@ -4403,18 +4941,21 @@
       "runtime_substitution_token_occurrence_count": 8,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 92,
       "archive_offset": 2009728,
       "archive_next_offset": 2027888,
-      "encoded_size": 16412,
-      "encoded_sha256": "c849fd29791e966b0d2b6b802e5faaa6ab9ce2116c3e46d492f3ef91e397c3a5",
-      "padding_size": 1748,
+      "encoded_size": 16413,
+      "encoded_sha256": "e2d27d1d758c8a39b017fdcf3ca6735a4014ad45a9467423e85094a25d86f8fe",
+      "padding_size": 1747,
       "padding_all_zero": true,
       "decoded_size": 51344,
-      "decoded_sha256": "69094e288af4c64514616a4bae965a21316fc67a3706a94ddba997ece3bc30ee",
+      "decoded_sha256": "e6a08f74592a103b3b26aa495049f9f4d6791b7b591d923500f7f5456d857f33",
       "dialogue_count": 301,
       "condition_count": 4,
       "speaker_count": 56,
@@ -4430,7 +4971,10 @@
       "runtime_substitution_token_occurrence_count": 4,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 93,
@@ -4457,7 +5001,10 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 94,
@@ -4484,7 +5031,10 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 95,
@@ -4511,7 +5061,10 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 96,
@@ -4538,7 +5091,10 @@
       "runtime_substitution_token_occurrence_count": 3,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 97,
@@ -4565,18 +5121,21 @@
       "runtime_substitution_token_occurrence_count": 4,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 98,
       "archive_offset": 2096256,
       "archive_next_offset": 2144064,
-      "encoded_size": 44416,
-      "encoded_sha256": "3f7c6f3a29171c4b0b18198fae2330468f99c82e7281e4d8281b52edfe74533b",
-      "padding_size": 3392,
+      "encoded_size": 44418,
+      "encoded_sha256": "2c91b9f2f13ccfa695556881b9191ece500dec3fe57d6619184391b716e1d87b",
+      "padding_size": 3390,
       "padding_all_zero": true,
       "decoded_size": 148240,
-      "decoded_sha256": "02611deca29eae3b5f9b4d9d29e7b477c86c390dc675b9f64ebfc0e103f62709",
+      "decoded_sha256": "6e1edc37ada6dfb740faa6efee761c13b969ba4aee8fba4efeead1d66d81af31",
       "dialogue_count": 926,
       "condition_count": 4,
       "speaker_count": 66,
@@ -4592,18 +5151,21 @@
       "runtime_substitution_token_occurrence_count": 23,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 99,
       "archive_offset": 2144064,
       "archive_next_offset": 2159840,
       "encoded_size": 14057,
-      "encoded_sha256": "2091e9f269a7d9a092c7a612c979396d09362cc27b77cd3ad8a7c51446499e39",
+      "encoded_sha256": "6f32adf0a09d96e3e1132709a1b81e7fa26158861c574177de0bb7ff60767744",
       "padding_size": 1719,
       "padding_all_zero": true,
       "decoded_size": 42768,
-      "decoded_sha256": "080bb6ac2985062de42de7fcdace3218a3f3588af069ded98a0864142f775b5e",
+      "decoded_sha256": "43aa8c8e6fdd7e51cdf44d69e29383f9853f183958230730afd8e132005ca910",
       "dialogue_count": 345,
       "condition_count": 0,
       "speaker_count": 56,
@@ -4619,18 +5181,21 @@
       "runtime_substitution_token_occurrence_count": 2,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 100,
       "archive_offset": 2159840,
       "archive_next_offset": 2184656,
       "encoded_size": 22500,
-      "encoded_sha256": "4affb70d51e43fd0b0465ddfe5739aab3389bb8c0b2b24babb16576bad3b8aae",
+      "encoded_sha256": "d6fed55eedd84522b3399d8e79c75ede5f5448cc93ec790f4fab122e4e909b67",
       "padding_size": 2316,
       "padding_all_zero": true,
       "decoded_size": 73360,
-      "decoded_sha256": "0ee297cd6b4298f88d80109014e6eb986887b2a06a36415136dc17bc01fe8d38",
+      "decoded_sha256": "6839534d610b2db0362a198139b44c341e9a02df7ab0758d57a5bfac08d9c34e",
       "dialogue_count": 476,
       "condition_count": 4,
       "speaker_count": 71,
@@ -4646,18 +5211,21 @@
       "runtime_substitution_token_occurrence_count": 9,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 101,
       "archive_offset": 2184656,
       "archive_next_offset": 2216464,
       "encoded_size": 29110,
-      "encoded_sha256": "1c556660e99f76ff4d5ce046d70c451d3c65322db1027db5d3da8e142b5c810e",
+      "encoded_sha256": "b147720165ab00604535a826716ef3a176e380146aa883961f8e15736940bc2e",
       "padding_size": 2698,
       "padding_all_zero": true,
       "decoded_size": 90256,
-      "decoded_sha256": "5be66db6dcccb23bdba043e558f57e8842728e6132cca5a402e897a0ed5bd0c1",
+      "decoded_sha256": "d98afdef375be38de9c898de4ca66e3b33a7c50655a6ca51be1788e24c084bfd",
       "dialogue_count": 631,
       "condition_count": 5,
       "speaker_count": 88,
@@ -4673,18 +5241,21 @@
       "runtime_substitution_token_occurrence_count": 18,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 102,
       "archive_offset": 2216464,
       "archive_next_offset": 2240624,
       "encoded_size": 21904,
-      "encoded_sha256": "b75e1694d27647c4e7be1472dddfa149cd3cbe2d3e9fa445d9839bec3df0fa2b",
+      "encoded_sha256": "fde2d01328afec40c141063d1367a88fa20f77237e713fc7f2e9f34867d00d36",
       "padding_size": 2256,
       "padding_all_zero": true,
       "decoded_size": 60432,
-      "decoded_sha256": "850998ee250a44a3906963fe68526239fe2f69f6d2bf26184aee0cd333ed311b",
+      "decoded_sha256": "ea3812a44f1a48334c288d6454c29061cf06e731336e67c4d831f50e5974b183",
       "dialogue_count": 519,
       "condition_count": 0,
       "speaker_count": 67,
@@ -4700,7 +5271,10 @@
       "runtime_substitution_token_occurrence_count": 14,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 103,
@@ -4727,18 +5301,21 @@
       "runtime_substitution_token_occurrence_count": 22,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 104,
       "archive_offset": 2266128,
       "archive_next_offset": 2305008,
-      "encoded_size": 35432,
-      "encoded_sha256": "ca245cd88d14c13a8e5d5326c28437ae9ca95190ceac4da273bbd37e42212280",
-      "padding_size": 3448,
+      "encoded_size": 35424,
+      "encoded_sha256": "c84819eb4ce6cc970c5e5f22a977b4fd47b034ea1e6542d24d071e37fe946e1f",
+      "padding_size": 3456,
       "padding_all_zero": true,
       "decoded_size": 115984,
-      "decoded_sha256": "7c47ce6f271ac735cd09c497502cf6c13f2b1e1c09ce7c7e0c3075dfe0001a2e",
+      "decoded_sha256": "3aa27205c53c4e5f1afa5dc4af207e8607283089415965c5e7f4a1293eaa8083",
       "dialogue_count": 923,
       "condition_count": 4,
       "speaker_count": 98,
@@ -4754,7 +5331,10 @@
       "runtime_substitution_token_occurrence_count": 20,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 105,
@@ -4781,18 +5361,21 @@
       "runtime_substitution_token_occurrence_count": 10,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 106,
       "archive_offset": 2321872,
       "archive_next_offset": 2341104,
-      "encoded_size": 17923,
-      "encoded_sha256": "d2ce8e2f5768a1333f29fab84a74148c8a90b8cb1ad8f18abdbf0a1c3003ca11",
-      "padding_size": 1309,
+      "encoded_size": 17926,
+      "encoded_sha256": "578a6258bbc5fdeae768765d0cc49f188c67053c4d958acd36c1e1df7a76d972",
+      "padding_size": 1306,
       "padding_all_zero": true,
       "decoded_size": 53904,
-      "decoded_sha256": "2c251c6498a3ab3c005f30b3b81f8922fb7a4e3d09cf4ef3ba9ef85b6a104c29",
+      "decoded_sha256": "0bf9ba295be9dcc7d96035a6c54b2832e35c09feb89ad66a32c3a7598cf930a4",
       "dialogue_count": 354,
       "condition_count": 4,
       "speaker_count": 29,
@@ -4808,18 +5391,21 @@
       "runtime_substitution_token_occurrence_count": 1,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 107,
       "archive_offset": 2341104,
       "archive_next_offset": 2388384,
-      "encoded_size": 43699,
-      "encoded_sha256": "f047e55ccd4393b3c079eda0255e02fce4928ab5a82ee71fc64c839938e380df",
-      "padding_size": 3581,
+      "encoded_size": 43706,
+      "encoded_sha256": "681c6e7c2e712f8434bf16184c7420761775a7cbf4a96df3f3f8c36822b91273",
+      "padding_size": 3574,
       "padding_all_zero": true,
       "decoded_size": 155664,
-      "decoded_sha256": "11e649a5015f51ff2fa3f2f58354f963e427d3acd5329a597d3ce273f383d659",
+      "decoded_sha256": "2c2cbff91f05869963b02ef012b19da52ab7a9bf3fc036c5b6b7d4158f0c99b5",
       "dialogue_count": 1148,
       "condition_count": 5,
       "speaker_count": 104,
@@ -4835,18 +5421,21 @@
       "runtime_substitution_token_occurrence_count": 26,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 108,
       "archive_offset": 2388384,
       "archive_next_offset": 2428096,
-      "encoded_size": 36301,
-      "encoded_sha256": "696a3c1263a8bae417396ab44d76b85af2305e9f4d4d3e732dcf6c81c6088ba8",
-      "padding_size": 3411,
+      "encoded_size": 36302,
+      "encoded_sha256": "6350c1642b2b44fabe1fac907e48f22ec013075827d3cfbdbe7c81e4418b720d",
+      "padding_size": 3410,
       "padding_all_zero": true,
       "decoded_size": 114448,
-      "decoded_sha256": "094fdd401bf082d231b152d1cca053b89a1e05714a3c9b9bf1ea9a00076e65fd",
+      "decoded_sha256": "55df7f6323c001b149e3769b7b3fae381226689e1915bd890019e892d3df7b3c",
       "dialogue_count": 826,
       "condition_count": 6,
       "speaker_count": 102,
@@ -4862,18 +5451,21 @@
       "runtime_substitution_token_occurrence_count": 10,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 109,
       "archive_offset": 2428096,
       "archive_next_offset": 2472240,
-      "encoded_size": 41220,
-      "encoded_sha256": "64f372d728ad913c6d9172d3fda91d5b1223ab806305bec7f67786cc0ceb0568",
-      "padding_size": 2924,
+      "encoded_size": 41221,
+      "encoded_sha256": "fd9e4189834c7c7da2314e62492d397ea29a8ef3004fc2017888ace0ba83ea77",
+      "padding_size": 2923,
       "padding_all_zero": true,
       "decoded_size": 140560,
-      "decoded_sha256": "ac5f44959224840c21b5d28325a9ed0649524e36db2c472939612334705eb792",
+      "decoded_sha256": "2520824ac76817f9902eb7019efe2cf05d9eadb7e586ac433a4f928f95a6ca94",
       "dialogue_count": 1110,
       "condition_count": 5,
       "speaker_count": 111,
@@ -4889,18 +5481,21 @@
       "runtime_substitution_token_occurrence_count": 27,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 110,
       "archive_offset": 2472240,
       "archive_next_offset": 2514128,
-      "encoded_size": 37490,
-      "encoded_sha256": "9f42f8aec1937f6860262533693903a89c495199cc2b6761a315a6f4ba8b1bc8",
-      "padding_size": 4398,
+      "encoded_size": 37494,
+      "encoded_sha256": "cc49cd57449aa72be971ea458a677eca098d664cbba41aa297000224c27b9b41",
+      "padding_size": 4394,
       "padding_all_zero": true,
       "decoded_size": 127376,
-      "decoded_sha256": "bdf09ff9cc07ee053c48fc5d5d031a6dc8c120ca4aa935375063378422e1dab1",
+      "decoded_sha256": "17e34af345f42ae5274c889864504bde1d741976de85d248ef42891edfc9cb39",
       "dialogue_count": 1085,
       "condition_count": 6,
       "speaker_count": 96,
@@ -4916,18 +5511,21 @@
       "runtime_substitution_token_occurrence_count": 69,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 111,
       "archive_offset": 2514128,
       "archive_next_offset": 2559552,
-      "encoded_size": 40798,
-      "encoded_sha256": "004556f1f593200c9ea298b52c3746b5199f4ba60c43edc07bb7fe387263c087",
-      "padding_size": 4626,
+      "encoded_size": 40805,
+      "encoded_sha256": "2c35c7b559e4d182a065e25482eb4c8560b4be76c2b74b7568b73b4666472fe2",
+      "padding_size": 4619,
       "padding_all_zero": true,
       "decoded_size": 135568,
-      "decoded_sha256": "7eee0ebe85a6681b4338ce697da8d90a122afadda9b9b6860098f2e641935a79",
+      "decoded_sha256": "0b8b873bd6900d462bbaefc4f78662b1adf97bee8dff5995986d3fe1f5cb823b",
       "dialogue_count": 1127,
       "condition_count": 6,
       "speaker_count": 97,
@@ -4943,18 +5541,21 @@
       "runtime_substitution_token_occurrence_count": 34,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 112,
       "archive_offset": 2559552,
       "archive_next_offset": 2596688,
       "encoded_size": 34528,
-      "encoded_sha256": "65f046121a80ae57baeca9694aa597ae38bf7b3726cb7bf74a41d23e4ed0ff38",
+      "encoded_sha256": "e0837cb0ae1415d6e4e3dd175349306d824634d65d37a16c8ab7f00197212b41",
       "padding_size": 2608,
       "padding_all_zero": true,
       "decoded_size": 117392,
-      "decoded_sha256": "f054e4d1d5773218918ba93dd0b872802c6c1b8020cfd2a212edb0da908e3eb4",
+      "decoded_sha256": "48a9ca7f16a75f54ba4e92dc91197cf84d54404606ac8a327f2e4b2ef6cf948b",
       "dialogue_count": 825,
       "condition_count": 6,
       "speaker_count": 99,
@@ -4970,18 +5571,21 @@
       "runtime_substitution_token_occurrence_count": 13,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 113,
       "archive_offset": 2596688,
       "archive_next_offset": 2632048,
-      "encoded_size": 32667,
-      "encoded_sha256": "9825680174bd0e151baa85ed2782e6bafd3a94acbbaec8002cc4796d270d2c8a",
-      "padding_size": 2693,
+      "encoded_size": 32674,
+      "encoded_sha256": "cc55c768098ae4346bc8038397609cebf175abb910c6cc949e369a461507cb3d",
+      "padding_size": 2686,
       "padding_all_zero": true,
       "decoded_size": 113552,
-      "decoded_sha256": "e311608392e97122876c50d745d059377dcef9120cdcc5dedb4d1cc793877e48",
+      "decoded_sha256": "351edb69e9858f9bb93f473cf8083264ebdf6bcc39acb40d49c60952434f0b0e",
       "dialogue_count": 805,
       "condition_count": 6,
       "speaker_count": 85,
@@ -4997,7 +5601,10 @@
       "runtime_substitution_token_occurrence_count": 12,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 114,
@@ -5024,18 +5631,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 115,
       "archive_offset": 2635968,
       "archive_next_offset": 2641984,
       "encoded_size": 5323,
-      "encoded_sha256": "d1c8d1883e6777dda30c6111da23965991a30ed4a47e1de69aaf9b0c6bfa134c",
+      "encoded_sha256": "6ee430042c725045ee793b9cb41f853cb1495e29389a933250a9d1f17eb5df50",
       "padding_size": 693,
       "padding_all_zero": true,
       "decoded_size": 14736,
-      "decoded_sha256": "3bedd970d34a8588b4a739b19dee6730c2cf9ff61070c4d88dcf0ec309517833",
+      "decoded_sha256": "9606d72cd50f2aae84520e9f5f168506b95a6ae2eb7492d11b4a3d39a354a41b",
       "dialogue_count": 107,
       "condition_count": 0,
       "speaker_count": 17,
@@ -5051,7 +5661,10 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 116,
@@ -5078,18 +5691,21 @@
       "runtime_substitution_token_occurrence_count": 6,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 117,
       "archive_offset": 2652048,
       "archive_next_offset": 2691968,
-      "encoded_size": 37122,
-      "encoded_sha256": "672ce8eee09e461a32e1e6f47463aa681af36355141fdfc9a34194bce930d3c3",
-      "padding_size": 2798,
+      "encoded_size": 37127,
+      "encoded_sha256": "f2f59c2f52ebe958eab904e8f8f0f0d727fd31c5101554ccdbfc879ecbe212d6",
+      "padding_size": 2793,
       "padding_all_zero": true,
       "decoded_size": 128784,
-      "decoded_sha256": "05ab1b17afbefb76ffaf61bbd05c89f363b6f4ad5a7018b5f20c6e67d6bdeb92",
+      "decoded_sha256": "f7daa810a935cd135aa535c8a02a27b0766be750af8c113a4e2b60516e00c1ce",
       "dialogue_count": 834,
       "condition_count": 6,
       "speaker_count": 90,
@@ -5105,18 +5721,21 @@
       "runtime_substitution_token_occurrence_count": 20,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 118,
       "archive_offset": 2691968,
       "archive_next_offset": 2735296,
-      "encoded_size": 40447,
-      "encoded_sha256": "6ddffc687fa83a03b225098ecb677d28aee03642e62d978c4497a126cdfd210a",
-      "padding_size": 2881,
+      "encoded_size": 40442,
+      "encoded_sha256": "432fecb3098b4c7e562cb7b5cef4a5dc9c14495b4267f623bbaba685a4afdf7d",
+      "padding_size": 2886,
       "padding_all_zero": true,
       "decoded_size": 132496,
-      "decoded_sha256": "32731e315fc5fdc1bec4b6f0554f51f933f0efcc952fe9d34e255654f07df08f",
+      "decoded_sha256": "caf6885c158800ae9d9fb4163d59b8296dc82d3a05b824cc9c50b8949786d3dc",
       "dialogue_count": 999,
       "condition_count": 4,
       "speaker_count": 106,
@@ -5132,18 +5751,21 @@
       "runtime_substitution_token_occurrence_count": 44,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 119,
       "archive_offset": 2735296,
       "archive_next_offset": 2784704,
-      "encoded_size": 45890,
-      "encoded_sha256": "90f298d4ee8c6360bac0c34cbd34b0320119a7c7df45613e3d2c1d1b4357995d",
-      "padding_size": 3518,
+      "encoded_size": 45952,
+      "encoded_sha256": "47b5320fa32df12f334a80ff7fd0a405306acff124e05399f2454d43aa097001",
+      "padding_size": 3456,
       "padding_all_zero": true,
       "decoded_size": 154384,
-      "decoded_sha256": "37a887f7d158b21ee7afa06f579a9451edf6be2981422fc5a8663a864abb50e3",
+      "decoded_sha256": "491eb857184cb1f43fa17a51f0168957b5beffebbc29f671dbd1090e84639736",
       "dialogue_count": 1110,
       "condition_count": 6,
       "speaker_count": 102,
@@ -5159,18 +5781,21 @@
       "runtime_substitution_token_occurrence_count": 23,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 120,
       "archive_offset": 2784704,
       "archive_next_offset": 2819696,
-      "encoded_size": 32387,
-      "encoded_sha256": "dc93a58453f2041fb8b324bf58b820057a9ee8864da08bbb76e32e5177adc3b3",
-      "padding_size": 2605,
+      "encoded_size": 32388,
+      "encoded_sha256": "8a42152eb0a9aa330bbb540a1862388ae982fa575fc0463d53c9c6f24aeb197c",
+      "padding_size": 2604,
       "padding_all_zero": true,
       "decoded_size": 106384,
-      "decoded_sha256": "f9d5bb409843508c962b8e9dfa7e351ca2dd136f66defbb056548c21b6bb7b66",
+      "decoded_sha256": "95c9c0355a74401412ce4e81d05912e1daa573097343e2ca50f2a333d5864409",
       "dialogue_count": 709,
       "condition_count": 4,
       "speaker_count": 89,
@@ -5186,7 +5811,10 @@
       "runtime_substitution_token_occurrence_count": 26,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 121,
@@ -5213,18 +5841,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 122,
       "archive_offset": 2821248,
       "archive_next_offset": 2851936,
-      "encoded_size": 28444,
-      "encoded_sha256": "00d781fcac8db53080b49643c951c4f16eb705947e80ae9b1e08f940a7e99725",
-      "padding_size": 2244,
+      "encoded_size": 28445,
+      "encoded_sha256": "d04fff2007a1841d1d45cadb07697316073964b02ad7725d5ebd5cd1cafea322",
+      "padding_size": 2243,
       "padding_all_zero": true,
       "decoded_size": 91792,
-      "decoded_sha256": "8ba9cd7c47bed6074a9ffba5e9166828e8da0557e036524ae5195928ab12675b",
+      "decoded_sha256": "cfad13423170d727a3aeead76f9d8a2d0bbdf9d65ed7bd437c650ce16e8c973f",
       "dialogue_count": 657,
       "condition_count": 5,
       "speaker_count": 82,
@@ -5240,7 +5871,10 @@
       "runtime_substitution_token_occurrence_count": 24,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 123,
@@ -5267,7 +5901,10 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 124,
@@ -5294,18 +5931,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 125,
       "archive_offset": 2856464,
       "archive_next_offset": 2872784,
-      "encoded_size": 14868,
-      "encoded_sha256": "cb437ff88799c258f15c210c78c17079e10dd2292ca72d1e532dd0dccc89c78f",
-      "padding_size": 1452,
+      "encoded_size": 14866,
+      "encoded_sha256": "a7b9e4fc34e4b9bb9330bcf61e60d8cf148f198074bb302ea7aafb84bd49093a",
+      "padding_size": 1454,
       "padding_all_zero": true,
       "decoded_size": 41872,
-      "decoded_sha256": "eda9e77ef8c28b17e563c8b066283de888a69b1effff96431fc6071f40b17dd9",
+      "decoded_sha256": "489dee85bffdf27e7cbc06e68163ae29665140c34adf48f898114cb98e9e35af",
       "dialogue_count": 297,
       "condition_count": 3,
       "speaker_count": 57,
@@ -5321,18 +5961,21 @@
       "runtime_substitution_token_occurrence_count": 10,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 126,
       "archive_offset": 2872784,
       "archive_next_offset": 2900240,
-      "encoded_size": 24907,
-      "encoded_sha256": "72ddca163d4e95d57430bd30184dde362ac2a75fddfce235c98fdcd83c97e3ad",
-      "padding_size": 2549,
+      "encoded_size": 24910,
+      "encoded_sha256": "2281b01d5b85c4da8b80a601282e137220efe64f7e6ae53cb8d5d38160689f77",
+      "padding_size": 2546,
       "padding_all_zero": true,
       "decoded_size": 85520,
-      "decoded_sha256": "94da2c6b177e795f3d13c56bef407e7aa76b8762850ae2e3cca136bb459375dc",
+      "decoded_sha256": "a8f94b285d2e825165ff5840925fd69fe485d499f0c92ae24184263605fc4f93",
       "dialogue_count": 550,
       "condition_count": 4,
       "speaker_count": 62,
@@ -5348,18 +5991,21 @@
       "runtime_substitution_token_occurrence_count": 24,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 127,
       "archive_offset": 2900240,
       "archive_next_offset": 2956528,
-      "encoded_size": 52371,
-      "encoded_sha256": "014207735dd884b561d49f8d115c1c683244b7daddebc10cd41d30ebfd84fa0a",
-      "padding_size": 3917,
+      "encoded_size": 52420,
+      "encoded_sha256": "95c024523d3253c5136b14183527d2899037340a8dc9825953b2810e7fddbb4a",
+      "padding_size": 3868,
       "padding_all_zero": true,
       "decoded_size": 176784,
-      "decoded_sha256": "9f0d7b4b06d91d897a16aab2e792f3b155001ceb9afb282f6679b5ff8705839e",
+      "decoded_sha256": "f12eca303ed3226b728e1e089a20b946848543af9af64bcce51e392dc787c7c4",
       "dialogue_count": 1276,
       "condition_count": 6,
       "speaker_count": 100,
@@ -5375,18 +6021,21 @@
       "runtime_substitution_token_occurrence_count": 32,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 128,
       "archive_offset": 2956528,
       "archive_next_offset": 2996960,
-      "encoded_size": 37895,
-      "encoded_sha256": "1403205aac51577f7cf2011c920e0db6078816e8c1229b25bcdbf949b6be66ee",
-      "padding_size": 2537,
+      "encoded_size": 37912,
+      "encoded_sha256": "ecea1b3697fb79aad6e8881627dd1bda1d59b7f671dd632081b50aa3630859a9",
+      "padding_size": 2520,
       "padding_all_zero": true,
       "decoded_size": 124944,
-      "decoded_sha256": "bad1d193e67f9cab5f142e62ab37dbfe820e893cec710eb64f5201b7a9aa3d37",
+      "decoded_sha256": "4fe3531aec1b3893fc2c737f7814066818b365006884cbb55052b25e7b77be64",
       "dialogue_count": 929,
       "condition_count": 5,
       "speaker_count": 99,
@@ -5402,7 +6051,10 @@
       "runtime_substitution_token_occurrence_count": 24,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 129,
@@ -5429,18 +6081,21 @@
       "runtime_substitution_token_occurrence_count": 6,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 130,
       "archive_offset": 3009888,
       "archive_next_offset": 3042512,
-      "encoded_size": 30725,
-      "encoded_sha256": "2f8e8bce08ccc8a059335a558dcdda4fa74e0007dfea19f139d30a294f84796d",
-      "padding_size": 1899,
+      "encoded_size": 30728,
+      "encoded_sha256": "c30e948ff659c434fc554ea995df52f1b668dc7bd57b694d8036aa061f2cf94c",
+      "padding_size": 1896,
       "padding_all_zero": true,
       "decoded_size": 108048,
-      "decoded_sha256": "bf58aa38c60b5f7ccd92955cb002cf5431d38c3472900b00aa4cdad71a194cbc",
+      "decoded_sha256": "6a20343d404944ba3a4ea219de7c023db4284e051008e3f40655d04a370c6772",
       "dialogue_count": 622,
       "condition_count": 6,
       "speaker_count": 74,
@@ -5456,18 +6111,21 @@
       "runtime_substitution_token_occurrence_count": 11,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 131,
       "archive_offset": 3042512,
       "archive_next_offset": 3091104,
-      "encoded_size": 45161,
-      "encoded_sha256": "276b0864906bce3fe6b3ee6c060221e1109232d5946e246a9069baba818a0c82",
-      "padding_size": 3431,
+      "encoded_size": 45197,
+      "encoded_sha256": "851c81e456e37a6a62ffc142cec1664d94c722fcf73a4171ec36ead53685fdf2",
+      "padding_size": 3395,
       "padding_all_zero": true,
       "decoded_size": 158608,
-      "decoded_sha256": "0f815c077a9eeed26a670b1942d4545a1399a327dabb8e0fdaddfdab644c281f",
+      "decoded_sha256": "7bba3ba9a87c13dbc28ec93775f63d2a1b30275b60bc8046ae83a9b78e351f92",
       "dialogue_count": 1112,
       "condition_count": 5,
       "speaker_count": 109,
@@ -5483,18 +6141,21 @@
       "runtime_substitution_token_occurrence_count": 24,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 132,
       "archive_offset": 3091104,
       "archive_next_offset": 3125440,
-      "encoded_size": 32048,
-      "encoded_sha256": "74d9a9f93721a61055901257a1492346c9f69166c9e5aed43283c77a0272cfdb",
-      "padding_size": 2288,
+      "encoded_size": 32055,
+      "encoded_sha256": "4a5e447889db65d148d20a0c4c03842f698647f316c7d79547805b40d31b386e",
+      "padding_size": 2281,
       "padding_all_zero": true,
       "decoded_size": 117520,
-      "decoded_sha256": "8299387370c2aa12c19154295623c62422346667b6f291d755c6d6d36b77b4cb",
+      "decoded_sha256": "d8b42107c8a8f030c55309fc098a75e62e35f2676e03a990aab42f8c71a0d01d",
       "dialogue_count": 667,
       "condition_count": 3,
       "speaker_count": 84,
@@ -5505,23 +6166,26 @@
       "speaker_translation_by_source_id_exact": true,
       "unknown_code_count": 0,
       "maximum_dialogue_line_width": 21,
-      "maximum_dialogue_line_count": 2,
+      "maximum_dialogue_line_count": 3,
       "runtime_substitution_token_entry_count": 19,
       "runtime_substitution_token_occurrence_count": 19,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 133,
       "archive_offset": 3125440,
       "archive_next_offset": 3148752,
-      "encoded_size": 21871,
-      "encoded_sha256": "d07ae6cdd3ad9976e7acc558bc07dc15552a84ad9e9fd7fb9252f533b1695806",
-      "padding_size": 1441,
+      "encoded_size": 21870,
+      "encoded_sha256": "880d123c9f1a09f9f2ef58f032909a3f6463f2f378f379d1e497251f84b09518",
+      "padding_size": 1442,
       "padding_all_zero": true,
       "decoded_size": 73744,
-      "decoded_sha256": "1d96eeafe8626ac4fed1c927acf3408d60f0c1b8aa969399a68b66a6df8c1a8b",
+      "decoded_sha256": "7e6016a2b500c37ae837879020a5f64e62a464fa9f81e7abf36790a783993a27",
       "dialogue_count": 353,
       "condition_count": 4,
       "speaker_count": 86,
@@ -5537,7 +6201,10 @@
       "runtime_substitution_token_occurrence_count": 8,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 134,
@@ -5564,7 +6231,10 @@
       "runtime_substitution_token_occurrence_count": 1,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 135,
@@ -5591,18 +6261,21 @@
       "runtime_substitution_token_occurrence_count": 21,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 136,
       "archive_offset": 3212592,
       "archive_next_offset": 3250416,
       "encoded_size": 35729,
-      "encoded_sha256": "9a2fb819aa1f03e2ab41bb84e0e62d69c621cecce3f8ffb6562db01e88b7c9e2",
+      "encoded_sha256": "1beb319f8726979146749a346b62c9f6b6e0fb9d60c241649b6cf06412ce0ae6",
       "padding_size": 2095,
       "padding_all_zero": true,
       "decoded_size": 131344,
-      "decoded_sha256": "377762947c058443c89809e6d76458ca096238366009f4cdb1527bb231a29e4e",
+      "decoded_sha256": "3a950420d717859907e71bfaeb868d34580a2e211fce5f5b5d5156dd940316a2",
       "dialogue_count": 812,
       "condition_count": 6,
       "speaker_count": 91,
@@ -5618,18 +6291,21 @@
       "runtime_substitution_token_occurrence_count": 17,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 137,
       "archive_offset": 3250416,
       "archive_next_offset": 3260416,
-      "encoded_size": 9512,
-      "encoded_sha256": "d78793197be33253aa66dcc8ba5a4a66fa996cbfcb7474077490967b006ded7c",
-      "padding_size": 488,
+      "encoded_size": 9510,
+      "encoded_sha256": "293cc060cbcd20903089adcfc2b443ef52757dc9651f33be4e653a51eb1fcca9",
+      "padding_size": 490,
       "padding_all_zero": true,
       "decoded_size": 28560,
-      "decoded_sha256": "55a6e5d75b24258e4451ca3f058aa54b3e7c7406a478875107065162ac261e30",
+      "decoded_sha256": "f0a4a1ed4890596c31b7be1708f04c9c03d0961f85efe028b0659a520547666b",
       "dialogue_count": 160,
       "condition_count": 0,
       "speaker_count": 29,
@@ -5645,18 +6321,21 @@
       "runtime_substitution_token_occurrence_count": 1,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 138,
       "archive_offset": 3260416,
       "archive_next_offset": 3323120,
       "encoded_size": 59151,
-      "encoded_sha256": "1794ed1e46bbf397c1e7d4723b8dea87c7cdfa1fc5814f261d528f7d2ada77ee",
+      "encoded_sha256": "a18ac4fda1a10142fda5476aab0cb1f33f152aadf6051015c0039b6962dbf83a",
       "padding_size": 3553,
       "padding_all_zero": true,
       "decoded_size": 210448,
-      "decoded_sha256": "47136050058a1b3eb333e7cda723133224156e3f534398f3ae62c6d21edd07c0",
+      "decoded_sha256": "184acd48760f3b95d81e0e8b8b2bb8e6e36321a0836b98894f1c26f3ae8687c6",
       "dialogue_count": 1383,
       "condition_count": 3,
       "speaker_count": 95,
@@ -5672,18 +6351,21 @@
       "runtime_substitution_token_occurrence_count": 22,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 139,
       "archive_offset": 3323120,
       "archive_next_offset": 3371872,
-      "encoded_size": 46139,
-      "encoded_sha256": "2f1646f5ba304bfc6ad5a17767cbe2f010a7fea07962cc1bafc797deef64817b",
-      "padding_size": 2613,
+      "encoded_size": 46137,
+      "encoded_sha256": "7c0970570d51e889d09f6f1eef93451ba1899982118401122319e7f31b0e419e",
+      "padding_size": 2615,
       "padding_all_zero": true,
       "decoded_size": 163088,
-      "decoded_sha256": "db69f971402be0175e950f4a9fc7ce4850482ba38b717088908481d2546f2dcb",
+      "decoded_sha256": "c03162427211a57a5fcb14ceb28ee3dc13e269edb4e1f99b2c383081759d6a38",
       "dialogue_count": 1109,
       "condition_count": 5,
       "speaker_count": 111,
@@ -5699,18 +6381,21 @@
       "runtime_substitution_token_occurrence_count": 14,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 140,
       "archive_offset": 3371872,
       "archive_next_offset": 3408832,
-      "encoded_size": 33938,
-      "encoded_sha256": "009bfff8324bfdcec439f290138a5c7abf8b81f8893dd00c1a317ee0b2f10236",
-      "padding_size": 3022,
+      "encoded_size": 33948,
+      "encoded_sha256": "89913375ae7d1ed70e37323b58cfc48ead4959d1db608ecfb1d387f9895080fd",
+      "padding_size": 3012,
       "padding_all_zero": true,
       "decoded_size": 127888,
-      "decoded_sha256": "3b011146a6cff8e540c2d769235770d488b2c3715a6922ba04d547f0ee3a74c9",
+      "decoded_sha256": "23a1adf2eddda3fb95f26e354d385f143821baabb37591026f0bf9659d10c914",
       "dialogue_count": 1126,
       "condition_count": 6,
       "speaker_count": 74,
@@ -5726,18 +6411,21 @@
       "runtime_substitution_token_occurrence_count": 26,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 141,
       "archive_offset": 3408832,
       "archive_next_offset": 3425216,
-      "encoded_size": 14606,
-      "encoded_sha256": "48a65f2258b9552f39761bf82cea81cbd441894f38c167c95fe8c11a7af27b9d",
-      "padding_size": 1778,
+      "encoded_size": 14609,
+      "encoded_sha256": "847820e36a699a568210b3b5ca39e13f7d6ed86de3e28844e296ec894417c660",
+      "padding_size": 1775,
       "padding_all_zero": true,
       "decoded_size": 40976,
-      "decoded_sha256": "29d429cc282d57fd7d0c26e3d312d2ea876adb514b2b7ddfe80383394aa8525c",
+      "decoded_sha256": "1bd16cbfa9a6559ff6f327fd15ebd7a46a7cfa16988e46aa91bb26a788bdd664",
       "dialogue_count": 330,
       "condition_count": 0,
       "speaker_count": 76,
@@ -5753,18 +6441,21 @@
       "runtime_substitution_token_occurrence_count": 9,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 142,
       "archive_offset": 3425216,
       "archive_next_offset": 3456656,
-      "encoded_size": 29343,
-      "encoded_sha256": "5da4a5a5aa9733c163c244782ed46dd94e657dd94b195bc7ed5faab1c1b4f8d0",
-      "padding_size": 2097,
+      "encoded_size": 29348,
+      "encoded_sha256": "7d5d5979d9c2ece5c9004dcfff8ef6fcaa18cf2911ee557ad093193c1474a3c7",
+      "padding_size": 2092,
       "padding_all_zero": true,
       "decoded_size": 102288,
-      "decoded_sha256": "4774a8a7a613f23585c5d40a5ed1be4df020c2ba4c976185ac545c9601a8282b",
+      "decoded_sha256": "09aab0a8badd01285ea325691fa7236a2c89ebb0ecfaaecf4c1d37e62ae234e6",
       "dialogue_count": 775,
       "condition_count": 3,
       "speaker_count": 99,
@@ -5780,18 +6471,21 @@
       "runtime_substitution_token_occurrence_count": 38,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 143,
       "archive_offset": 3456656,
       "archive_next_offset": 3513584,
       "encoded_size": 53119,
-      "encoded_sha256": "1ff2a073290908ace26f266faea83e3eae3538d9dfdfe6be1b4a20d9d265baaf",
+      "encoded_sha256": "537e227962a9360f23affd4dafaff7280ad5f946f7fabc5c6bb796c51c07ed8f",
       "padding_size": 3809,
       "padding_all_zero": true,
       "decoded_size": 176144,
-      "decoded_sha256": "7a2f2068661cb1500204462a914c384ee0f9bdb348144559fcccb322b2fc70d8",
+      "decoded_sha256": "82697ddd2975b8c7f91da4b2da1bcb021489a86aa42ab7326017fd8f2dae461d",
       "dialogue_count": 1502,
       "condition_count": 4,
       "speaker_count": 155,
@@ -5807,18 +6501,21 @@
       "runtime_substitution_token_occurrence_count": 54,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 144,
       "archive_offset": 3513584,
       "archive_next_offset": 3560848,
-      "encoded_size": 43941,
-      "encoded_sha256": "b6fb9588e1fd59000c7ab14da12110f31be8c335a36a320e4dadc5228f674b21",
-      "padding_size": 3323,
+      "encoded_size": 43947,
+      "encoded_sha256": "4c922059e2beb49580f7cb7178c672c8e2975d814d5d69db853ffd5d7700490a",
+      "padding_size": 3317,
       "padding_all_zero": true,
       "decoded_size": 153744,
-      "decoded_sha256": "bc9e603e91cf5fa5eb5d7f50e2ab5659b8b75c3cf45a4579698a6487e177533b",
+      "decoded_sha256": "8d135e29bf3ac8e7e5060b1a0767505e46d185662cfd9166589e7065e57cd760",
       "dialogue_count": 882,
       "condition_count": 5,
       "speaker_count": 115,
@@ -5834,18 +6531,21 @@
       "runtime_substitution_token_occurrence_count": 11,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 145,
       "archive_offset": 3560848,
       "archive_next_offset": 3583776,
-      "encoded_size": 21131,
-      "encoded_sha256": "fc683e3f542df14bb33f012e687bbc78fbda2c69eadcf1458b7ee4532dafe10f",
-      "padding_size": 1797,
+      "encoded_size": 21134,
+      "encoded_sha256": "8133f2514febff64513699771e9a5c7d78067f9ec4817730a319ab4ae821694c",
+      "padding_size": 1794,
       "padding_all_zero": true,
       "decoded_size": 101648,
-      "decoded_sha256": "1fb792a8d648895e4530d5d90d15a68fbbcc0161fee9c27e760463c37ca08c18",
+      "decoded_sha256": "b728b7ff8d39c7ea56c15d84b5b1ad1d99e65a8f93a2d58c8344c033c63f91e5",
       "dialogue_count": 1465,
       "condition_count": 0,
       "speaker_count": 108,
@@ -5861,18 +6561,21 @@
       "runtime_substitution_token_occurrence_count": 66,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 146,
       "archive_offset": 3583776,
       "archive_next_offset": 3599504,
-      "encoded_size": 13939,
-      "encoded_sha256": "34389f9a4fd2ed9de57cf18b55f0d2cac98cd86fc0c4a9435152a7902388577d",
-      "padding_size": 1789,
+      "encoded_size": 13944,
+      "encoded_sha256": "32e7fd65bc44b907f540a1acd7eee2df3ee96737946803fa57a315cde82fca40",
+      "padding_size": 1784,
       "padding_all_zero": true,
       "decoded_size": 39312,
-      "decoded_sha256": "390c942e2843926796d6eb5c9b6e663054cf7d965ad3ba7f951acf9a77108a25",
+      "decoded_sha256": "5006f68c7f2b7758499fc8d0978622d36afdee346b7b2560b206da38b6c84c06",
       "dialogue_count": 330,
       "condition_count": 0,
       "speaker_count": 77,
@@ -5888,18 +6591,21 @@
       "runtime_substitution_token_occurrence_count": 8,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 147,
       "archive_offset": 3599504,
       "archive_next_offset": 3631664,
-      "encoded_size": 29828,
-      "encoded_sha256": "34b5ceefaa9529428026ee30bdb9fe7d92dabdd19c4a4932d9ac4a23189dde21",
-      "padding_size": 2332,
+      "encoded_size": 29818,
+      "encoded_sha256": "c42aee3f848f0d338cd2f0651e0ad81a04b6c14fd2f4c6234e263a33adf8cb54",
+      "padding_size": 2342,
       "padding_all_zero": true,
       "decoded_size": 104976,
-      "decoded_sha256": "4b93faf1e4bd5509513f97057fd2eab55ee0bb22a66706b4323d9c5e6f12377d",
+      "decoded_sha256": "f70b28111342102b6c9728a4ae0329919694453d6a4e9b8f5f3ec1a7486e650e",
       "dialogue_count": 792,
       "condition_count": 3,
       "speaker_count": 98,
@@ -5915,18 +6621,21 @@
       "runtime_substitution_token_occurrence_count": 34,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 148,
       "archive_offset": 3631664,
       "archive_next_offset": 3691968,
-      "encoded_size": 55185,
-      "encoded_sha256": "06601bae243590b8a23f280fce581fe255d2a2b4da1f11ff225301272a75e022",
-      "padding_size": 5119,
+      "encoded_size": 55196,
+      "encoded_sha256": "5c3e8542bb1c0af859beb92dda69fac4fc2eb99220aa5ceeaee44251171715c9",
+      "padding_size": 5108,
       "padding_all_zero": true,
       "decoded_size": 187024,
-      "decoded_sha256": "fcc7c68d0945e82176f30becb3291ba2d5c8cccd194ff9362e403c7e785e0509",
+      "decoded_sha256": "c66a065f5c0f6793de91f86f110a9240c7d278d86165f8d3d87b448ed6df97b5",
       "dialogue_count": 1615,
       "condition_count": 4,
       "speaker_count": 157,
@@ -5942,18 +6651,21 @@
       "runtime_substitution_token_occurrence_count": 39,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 149,
       "archive_offset": 3691968,
       "archive_next_offset": 3743648,
-      "encoded_size": 48023,
-      "encoded_sha256": "7611edfc5db0c20d953573e4fda395d159a3dabb5041fe51c4415d7bb5c3d572",
-      "padding_size": 3657,
+      "encoded_size": 48035,
+      "encoded_sha256": "8f5cd1faabdf5a782af5082e4cbb75f345534a0a5fccf2fe2cf85a2ce26c0420",
+      "padding_size": 3645,
       "padding_all_zero": true,
       "decoded_size": 192656,
-      "decoded_sha256": "8dcccee19584f36f2354c784c5a2013f76e2f649d05d08c3819344fca42d7c60",
+      "decoded_sha256": "c995c35d9a7ebe2a1cbe744986ecbe361a6b9a566cca370dc21d30333ec04c26",
       "dialogue_count": 1677,
       "condition_count": 5,
       "speaker_count": 119,
@@ -5969,18 +6681,21 @@
       "runtime_substitution_token_occurrence_count": 5,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 150,
       "archive_offset": 3743648,
       "archive_next_offset": 3767584,
-      "encoded_size": 22478,
-      "encoded_sha256": "0921497a4a052f6e9b03cf9946b321acbb63f6e44e5589397ff1240a5aaf6ace",
-      "padding_size": 1458,
+      "encoded_size": 22477,
+      "encoded_sha256": "a497eaabb6e11ad6ca836d495e40fcaf95828f368544df56d38ebe40912fce67",
+      "padding_size": 1459,
       "padding_all_zero": true,
       "decoded_size": 105872,
-      "decoded_sha256": "06717d131c3f51d9d801b1b8b794b1db8ae88e129c76e7daa46e94ebc05e677d",
+      "decoded_sha256": "faa80120cb52ecebd5bcacfb4f15a2e656448a44ddedf19d2409f198e1e742ec",
       "dialogue_count": 1530,
       "condition_count": 0,
       "speaker_count": 111,
@@ -5996,18 +6711,21 @@
       "runtime_substitution_token_occurrence_count": 55,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 151,
       "archive_offset": 3767584,
       "archive_next_offset": 3784480,
-      "encoded_size": 15416,
-      "encoded_sha256": "e67a66a80e307f545e552e0c3bb62e50634c2c37ff5f969f180f4db54b22ba31",
-      "padding_size": 1480,
+      "encoded_size": 15418,
+      "encoded_sha256": "8b81065e7e9df65109d9805aead1b53b0b930ddf8af4e84a9245a776b3344a98",
+      "padding_size": 1478,
       "padding_all_zero": true,
       "decoded_size": 54672,
-      "decoded_sha256": "2c964f0c366ccc1650247811dab19b046afdf0f31867744411a8a93b41e91a13",
+      "decoded_sha256": "6500e12ece1b134413f365c682a3657cfca4fe4420b70c11abca5a4494b3a6c6",
       "dialogue_count": 300,
       "condition_count": 3,
       "speaker_count": 61,
@@ -6023,18 +6741,21 @@
       "runtime_substitution_token_occurrence_count": 12,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 152,
       "archive_offset": 3784480,
       "archive_next_offset": 3788944,
-      "encoded_size": 4227,
-      "encoded_sha256": "0dd9a399641ba91dee6df52aa0733e66267745bcd23437ac4bb2ec7b996605db",
-      "padding_size": 237,
+      "encoded_size": 4229,
+      "encoded_sha256": "1db85b074f5be7c417d8efbd437f7d370278b384123b1b6440f7f90ee9621e0c",
+      "padding_size": 235,
       "padding_all_zero": true,
       "decoded_size": 12176,
-      "decoded_sha256": "3eecd9cb17b1f432a6fc17b78ebacded698f56ece76878ee42f7ca4ed8a7d9a6",
+      "decoded_sha256": "65a018a423111eccc51e6df4fc2aadc726d8083f150263ffe212de046d5074a4",
       "dialogue_count": 57,
       "condition_count": 0,
       "speaker_count": 19,
@@ -6050,18 +6771,21 @@
       "runtime_substitution_token_occurrence_count": 7,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 153,
       "archive_offset": 3788944,
       "archive_next_offset": 3793312,
-      "encoded_size": 4177,
-      "encoded_sha256": "c503176cde627a35554b2c098a153784e022d1a2b506087bf7a83f1b48db4616",
-      "padding_size": 191,
+      "encoded_size": 4179,
+      "encoded_sha256": "fec55b07bfe68493c8ec95cd5bb40c4a1b9fd43ccc3a8203e8b2ef738dfa7f1c",
+      "padding_size": 189,
       "padding_all_zero": true,
       "decoded_size": 13328,
-      "decoded_sha256": "d7db341292cbc30f4e98c438ad962132283cba27a6a8b4abfb531b20f30a5893",
+      "decoded_sha256": "5b31623dfd55efe590ad66c91d812bdd2138e5df0947cd8a51abc1d3ec7eb6b5",
       "dialogue_count": 29,
       "condition_count": 0,
       "speaker_count": 18,
@@ -6077,18 +6801,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 185,
       "archive_offset": 3864976,
       "archive_next_offset": 3881792,
-      "encoded_size": 14731,
-      "encoded_sha256": "f0bceb063dd17bb8b1d1f1d59705961a6285fb245851761235bca0c4077d6caf",
-      "padding_size": 2085,
+      "encoded_size": 14733,
+      "encoded_sha256": "9effeff08932d96cb392c1642c4b13baa033903bcaf99141c365b86988fb416b",
+      "padding_size": 2083,
       "padding_all_zero": true,
       "decoded_size": 53392,
-      "decoded_sha256": "623c85a37c066ecfafdf28ed8fde796df23edaf6b3ed218c0c37188dd49dff18",
+      "decoded_sha256": "104aa511478a2a8f6c77b2dfde4f03a2da81e22842b464d2e75adb6d7e5759d4",
       "dialogue_count": 407,
       "condition_count": 6,
       "speaker_count": 6,
@@ -6104,18 +6831,21 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     },
     {
       "stage_index": 186,
       "archive_offset": 3881792,
       "archive_next_offset": 3901088,
-      "encoded_size": 16810,
-      "encoded_sha256": "2c5d83bbea9e2f8ef7afc43237b7557bfda4fc6e98167570a3d47397b807a416",
-      "padding_size": 2486,
+      "encoded_size": 16812,
+      "encoded_sha256": "8191adbc74c0ee1a418ac135044a9dab0100bd19ac0683ccabe221bbc70e2263",
+      "padding_size": 2484,
       "padding_all_zero": true,
       "decoded_size": 63888,
-      "decoded_sha256": "8352db0567652c391fe0a6a550e67d8ba39955af48e34c62e9adda0da8ced7b6",
+      "decoded_sha256": "9a9d76ccb1933d3f7ecf22c79781ce170fdf63d589184c173cf4a267caa4ca5a",
       "dialogue_count": 431,
       "condition_count": 6,
       "speaker_count": 6,
@@ -6131,7 +6861,10 @@
       "runtime_substitution_token_occurrence_count": 0,
       "runtime_substitution_tokens_raw_ascii": true,
       "raw_space_target_count": 0,
-      "raw_space_count_zero": true
+      "raw_space_count_zero": true,
+      "raw_visible_ascii_glyph_count": 0,
+      "raw_visible_ascii_target_count": 0,
+      "raw_visible_ascii_count_zero": true
     }
   ],
   "checks": {
@@ -6152,6 +6885,10 @@
     "archive_padding_zero": true,
     "entry_id_sets_exact": true,
     "dialogue_conditions_speakers_exact": true,
+    "stale_stage_runtime_rendering_count_zero": true,
+    "stage_system_dialogue_stale_rendering_count_zero": true,
+    "player_choice_records_exact": true,
+    "reported_land_dialogue_exact": true,
     "unknown_code_count_zero": true,
     "translation_entry_count_exact": true,
     "dialogue_layout_21x3_exact": true,
@@ -6159,6 +6896,7 @@
     "stock_alphanumeric_glyphs_byte_exact": true,
     "raw_and_fullwidth_ascii_share_glyph_slots": true,
     "raw_visible_space_count_zero": true,
+    "raw_visible_ascii_glyph_count_zero": true,
     "srvc_json_fragment_pollution_absent": true,
     "story_ascii_storage_examples_exact": true,
     "pilot_names_exact": true,
@@ -6169,6 +6907,7 @@
     "surface_safe_aliases_exact": true,
     "button_prompts_exact": true,
     "remaining_ui_binary_text_exact": true,
+    "compdata_battle_lines_exact": true,
     "stage_overviews_exact": true,
     "hsfc_overviews_exact": true
   },
