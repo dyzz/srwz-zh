@@ -138,6 +138,38 @@ class CurrentResidualUiTests(unittest.TestCase):
         self.assertEqual(system["stale_fingerprint_match_count"], 0)
         self.assertTrue(system["translated_readback_exact"])
 
+    def test_dynamic_condition_updates_have_no_original_payload_fallback(self):
+        audit = self.content["dynamic_condition_update_audit"]
+        self.assertEqual(audit["translated_condition_count"], 534)
+        self.assertEqual(audit["dynamic_variant_count"], 210)
+        self.assertEqual(audit["dynamic_variant_stage_count"], 100)
+        self.assertEqual(audit["exact_source_payload_match_count"], 0)
+        self.assertEqual(
+            audit["original_offset_source_payload_match_count"],
+            0,
+        )
+        reported = audit["reported_impulse_entry_update"]
+        self.assertEqual(
+            reported["entry_id"],
+            "story/002/condition/00/01",
+        )
+        self.assertEqual(reported["stage_index"], 2)
+        self.assertEqual(reported["condition_table_pointer_offset"], 31460)
+        self.assertEqual(reported["original_text_offset"], 74720)
+        self.assertEqual(reported["final_text_offset"], 45936)
+        self.assertEqual(reported["translation"], "击坠真或亚历克斯。")
+        self.assertTrue(reported["final_table_readback_exact"])
+        self.assertTrue(
+            reported["exact_source_payload_absent_from_final_stage"]
+        )
+        self.assertTrue(reported["original_offset_source_payload_absent"])
+        self.assertTrue(
+            audit["all_translated_condition_source_payloads_absent"]
+        )
+        self.assertTrue(
+            self.content["checks"]["dynamic_condition_updates_exact"]
+        )
+
     def test_story_and_battle_text_have_no_raw_visible_ascii_glyphs(self):
         storage = self.content["raw_visible_ascii_storage"]
         self.assertEqual(storage["story_glyph_count"], 0)

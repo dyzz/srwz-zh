@@ -84,14 +84,14 @@ class FullUnitNameCorpusTests(unittest.TestCase):
     def test_king_gainer_and_gravion_names_follow_reviewed_families(self):
         expected = {
             226: "拉什罗德",
-            249: "重力凯撒",
-            250: "神机重力王",
+            249: "超重皇",
+            250: "神机超重神",
             251: "太阳超重王",
             252: "超重神西格玛",
             253: "超重骑警",
             265: "G钻机",
             266: "G战影",
-            271: "超重",
+            271: "Gran Σ",
             272: "超重要塞",
         }
         self.assertEqual(

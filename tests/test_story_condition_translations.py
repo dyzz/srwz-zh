@@ -125,6 +125,7 @@ class StoryConditionTranslationTests(unittest.TestCase):
                 "击坠克瓦特罗或卡缪。\n"
                 "（两者都会在HP降至4000以下时撤退）"
             ),
+            "story/002/condition/00/01": "击坠真或亚历克斯。",
             "story/004/condition/02/00": (
                 "在4回合内击坠伊安；或在4回合内击坠斯汀、\n"
                 "奥尔和史黛拉后，最后击坠尼奥。"

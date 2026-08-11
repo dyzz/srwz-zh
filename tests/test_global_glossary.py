@@ -238,7 +238,7 @@ class GlobalGlossaryTests(unittest.TestCase):
             "activity/lifting": "滑空",
             "faction/aldébaran": "阿尔德巴朗",
             "unit/g-shadow": "G战影",
-            "unit/god-gravion": "神机重力王",
+            "unit/god-gravion": "神机超重神",
             "people/speaker-58574ffbd89b": "威兹",
             "organization/earth-federation-forces": "地球联邦军",
             "place/unious-seven": "尤尼乌斯7",

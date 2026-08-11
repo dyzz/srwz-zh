@@ -2396,9 +2396,20 @@ def main() -> int:
     ):
         raise SystemExit("source SLPS baseline mismatch")
     source_functions = read_stage_function_addresses(source_slps)
-    conditions = load_translations(
-        PROJECT_ROOT / "corpus/zh/story-conditions.json"
+    condition_corpus_path = PROJECT_ROOT / "corpus/zh/story-conditions.json"
+    condition_corpus = json.loads(
+        condition_corpus_path.read_text(encoding="utf-8")
     )
+    conditions = {
+        entry["id"]: normalize_original_fullwidth_ascii(
+            entry["translation"]
+        )
+        for entry in condition_corpus["entries"]
+    }
+    condition_actions = {
+        entry["id"]: entry["translation_action"]
+        for entry in condition_corpus["entries"]
+    }
     speakers = load_translations(
         PROJECT_ROOT / "corpus/zh/story-speakers.json"
     )
@@ -2448,6 +2459,13 @@ def main() -> int:
     stale_stage_runtime_rendering_checked_count = 0
     stale_stage_runtime_rendering_distinct_fingerprint_count = 0
     stale_stage_runtime_rendering_match_count = 0
+    translated_condition_source_payload_checked_count = 0
+    dynamic_condition_variant_count = 0
+    dynamic_condition_variant_stages = set()
+    condition_source_payload_match_count = 0
+    condition_original_offset_source_payload_match_count = 0
+    reported_dynamic_condition_entry_id = "story/002/condition/00/01"
+    reported_dynamic_condition_readback = None
     player_choice_entry_ids = {
         "story/002/dialogue/01.18/0008",
         "story/007/dialogue/01.05/0013",
@@ -2606,6 +2624,76 @@ def main() -> int:
             stage_index=stage,
             function_address=source_functions[stage],
         )
+        source_condition_entries = {
+            entry.entry_id: entry
+            for entry in source_parsed.entries
+            if entry.kind == "condition"
+        }
+        output_condition_entries = {
+            entry.entry_id: entry
+            for entry in parsed.entries
+            if entry.kind == "condition"
+        }
+        if (
+            set(source_condition_entries) != set(stage_conditions)
+            or set(output_condition_entries) != set(stage_conditions)
+        ):
+            raise SystemExit(
+                f"stage {stage:03d} condition structure changed"
+            )
+        for entry_id, source_condition in source_condition_entries.items():
+            if condition_actions[entry_id] != "translate":
+                continue
+            output_condition = output_condition_entries[entry_id]
+            assert source_condition.pointer_offset is not None
+            assert source_condition.text_offset is not None
+            assert output_condition.pointer_offset is not None
+            assert output_condition.text_offset is not None
+            if output_condition.pointer_offset != source_condition.pointer_offset:
+                raise SystemExit(
+                    f"{entry_id} condition table pointer offset changed"
+                )
+            source_payload = encode_text(
+                source_condition.text,
+                source_table,
+                terminate=True,
+            )
+            source_payload_match = source_payload in decoded.output
+            original_offset_match = (
+                decoded.output[
+                    source_condition.text_offset :
+                    source_condition.text_offset + len(source_payload)
+                ]
+                == source_payload
+            )
+            translated_condition_source_payload_checked_count += 1
+            condition_source_payload_match_count += source_payload_match
+            condition_original_offset_source_payload_match_count += (
+                original_offset_match
+            )
+            if source_condition.ordinal > 0:
+                dynamic_condition_variant_count += 1
+                dynamic_condition_variant_stages.add(stage)
+            if source_payload_match or original_offset_match:
+                raise SystemExit(
+                    f"{entry_id} retains its original condition payload"
+                )
+            if entry_id == reported_dynamic_condition_entry_id:
+                reported_dynamic_condition_readback = {
+                    "entry_id": entry_id,
+                    "stage_index": stage,
+                    "condition_table_pointer_offset": (
+                        source_condition.pointer_offset
+                    ),
+                    "original_text_offset": source_condition.text_offset,
+                    "final_text_offset": output_condition.text_offset,
+                    "translation": stage_conditions[entry_id],
+                    "final_table_readback_exact": (
+                        output_condition.text == stage_conditions[entry_id]
+                    ),
+                    "exact_source_payload_absent_from_final_stage": True,
+                    "original_offset_source_payload_absent": True,
+                }
         source_speaker_ids = {
             entry.speaker_id
             for entry in source_parsed.entries
@@ -2987,6 +3075,20 @@ def main() -> int:
             f"expected={total_entries} "
             f"matches={stale_stage_runtime_rendering_match_count}"
         )
+    translated_condition_count = sum(
+        action == "translate" for action in condition_actions.values()
+    )
+    if (
+        translated_condition_source_payload_checked_count
+        != translated_condition_count
+        or condition_source_payload_match_count
+        or condition_original_offset_source_payload_match_count
+        or reported_dynamic_condition_readback is None
+        or not reported_dynamic_condition_readback["final_table_readback_exact"]
+    ):
+        raise SystemExit(
+            "final ISO dynamic-condition source-payload audit failed"
+        )
     if set(player_choice_readbacks) != player_choice_entry_ids:
         raise SystemExit(
             "final ISO player-choice inventory mismatch: "
@@ -3144,6 +3246,29 @@ def main() -> int:
             ),
             "all_distinct_stale_source_renderings_absent": True,
         },
+        "dynamic_condition_update_audit": {
+            "method": (
+                "check every translated condition variant against the final "
+                "decoded STAGE, including its original direct text offset"
+            ),
+            "translated_condition_count": (
+                translated_condition_source_payload_checked_count
+            ),
+            "dynamic_variant_count": dynamic_condition_variant_count,
+            "dynamic_variant_stage_count": len(
+                dynamic_condition_variant_stages
+            ),
+            "exact_source_payload_match_count": (
+                condition_source_payload_match_count
+            ),
+            "original_offset_source_payload_match_count": (
+                condition_original_offset_source_payload_match_count
+            ),
+            "reported_impulse_entry_update": (
+                reported_dynamic_condition_readback
+            ),
+            "all_translated_condition_source_payloads_absent": True,
+        },
         "visible_ascii_policy": {
             **visible_ascii_policy,
             "story_storage_examples": story_ascii_storage_examples,
@@ -3262,6 +3387,16 @@ def main() -> int:
             "stale_stage_runtime_rendering_count_zero": (
                 stale_stage_runtime_rendering_checked_count == total_entries
                 and stale_stage_runtime_rendering_match_count == 0
+            ),
+            "dynamic_condition_updates_exact": (
+                translated_condition_source_payload_checked_count
+                == translated_condition_count
+                and condition_source_payload_match_count == 0
+                and condition_original_offset_source_payload_match_count == 0
+                and reported_dynamic_condition_readback is not None
+                and reported_dynamic_condition_readback[
+                    "final_table_readback_exact"
+                ]
             ),
             "stage_system_dialogue_stale_rendering_count_zero": (
                 stage_system_dialogue_report["record_count"] == 379
