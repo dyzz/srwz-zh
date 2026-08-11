@@ -57,7 +57,7 @@ class UnclassifiedMenuTranslationTests(unittest.TestCase):
             for entry in self.translations["entries"]
         }
         expected = {
-            71: "钢狮",
+            71: "钢狮子",
             72: "节子",
             73: "小原",
             83: "刀z%s〜",

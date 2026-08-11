@@ -117,6 +117,68 @@ class StoryDialogueTranslationTests(unittest.TestCase):
                     f"{path.name}:{source_hash}",
                 )
 
+    def test_player_choice_records_preserve_three_runtime_rows(self):
+        entries = {
+            entry["id"]: entry["translation"]
+            for _path, document in self.documents
+            for entry in document["entries"]
+        }
+        expected = {
+            "story/002/dialogue/01.18/0008": (
+                "“丹泽尔的选择”\n“1．撤出殖民卫星”\n"
+                "“2．拦截被夺走的高达”"
+            ),
+            "story/007/dialogue/01.05/0013": (
+                "“$n的选择”\n“1．听取队形说明”\n“2．跳过队形说明”"
+            ),
+            "story/016/dialogue/01.03/0005": (
+                "“贝洛的选择”\n“1．听取队形说明”\n“2．跳过队形说明”"
+            ),
+            "story/035/dialogue/02.02/0035": (
+                "“$n的选择”\n“1．加入莎拉队”\n“2．加入亚蒂特队”"
+            ),
+            "story/035/dialogue/02.02/0155": (
+                "“$n的选择”\n“1．加入莎拉队”\n“2．加入亚蒂特队”"
+            ),
+            "story/110/dialogue/02.02/0087": (
+                "“塔丽亚的选择”\n“1．作为$c战斗”\n“2．返回ZAFT”"
+            ),
+            "story/111/dialogue/02.02/0104": (
+                "“塔丽亚的选择”\n“1．作为$c战斗”\n“2．返回ZAFT”"
+            ),
+            "story/140/dialogue/01.30/0095": (
+                "“罗杰的选择”\n“1．舍弃记忆留在城里”\n"
+                "“2．履行自己的职责”"
+            ),
+            "story/140/dialogue/01.39/0043": (
+                "“罗杰的选择”\n“1．舍弃记忆留在城里”\n"
+                "“2．履行自己的职责”"
+            ),
+            "story/142/dialogue/01.10/0008": (
+                "“$n的选择”\n“1．希望一切恢复原样”\n“2．希望世界稳定”"
+            ),
+            "story/142/dialogue/01.14/0008": (
+                "“$n的选择”\n“1．希望世界稳定”\n“2．无法自行决定”"
+            ),
+            "story/147/dialogue/01.10/0010": (
+                "“$n的选择”\n“1．希望一切恢复原样”\n“2．希望世界稳定”"
+            ),
+            "story/147/dialogue/01.14/0010": (
+                "“$n的选择”\n“1．希望世界稳定”\n“2．无法自行决定”"
+            ),
+        }
+        self.assertEqual(
+            {entry_id: entries[entry_id] for entry_id in expected},
+            expected,
+        )
+        for entry_id, translation in expected.items():
+            rows = translation.splitlines()
+            self.assertEqual(len(rows), 3, entry_id)
+            self.assertTrue(all(row.startswith("“") for row in rows), entry_id)
+            self.assertTrue(all(row.endswith("”") for row in rows), entry_id)
+            self.assertTrue(rows[1].startswith("“1．"), entry_id)
+            self.assertTrue(rows[2].startswith("“2．"), entry_id)
+
     def test_every_glossary_reference_resolves(self):
         glossary_ids = {
             term["id"]

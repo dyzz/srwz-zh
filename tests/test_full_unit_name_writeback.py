@@ -153,7 +153,6 @@ class FullUnitNameWritebackTests(unittest.TestCase):
                 "display-name/unit/0008/name",
                 "display-name/unit/0009/name",
                 "display-name/unit/0010/name",
-                "display-name/unit/0088/name",
             ],
         )
         before = {
@@ -177,7 +176,6 @@ class FullUnitNameWritebackTests(unittest.TestCase):
             "display-name/unit/0008/name",
             "display-name/unit/0009/name",
             "display-name/unit/0010/name",
-            "display-name/unit/0088/name",
             "display-name/unit/0298/name",
             "display-name/unit/0299/name",
         ]

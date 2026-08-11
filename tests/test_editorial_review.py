@@ -41,7 +41,7 @@ class EditorialReviewTest(unittest.TestCase):
         rows, stats = MODULE.build_library_rows()
         self.assertEqual(
             stats,
-            {"total": 2709, "changed": 437, "risk": 41, "human_reviewed": 22},
+            {"total": 2709, "changed": 468, "risk": 49, "human_reviewed": 22},
         )
         self.assertEqual(len({row["id"] for row in rows}), 2709)
         self.assertTrue(all("machine_draft" in row["source_status"] for row in rows))
