@@ -120,28 +120,38 @@ class ZhReleaseFontTests(unittest.TestCase):
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
         self.assertEqual(self.snapshot["primary_assignment_count"], 3266)
         self.assertEqual(
-            self.snapshot["surface_alias_assignment_count"], 700
+            self.snapshot["surface_alias_assignment_count"], 693
         )
         self.assertEqual(
             self.snapshot["remaining_allocation_candidate_count"], 418
         )
         compatibility = self.snapshot["source_compatibility_assignments"]
+        compatibility_by_character = {
+            item["character"]: item for item in compatibility
+        }
         self.assertEqual(
-            compatibility,
-            [
-                {
-                    "character": "陆",
-                    "code": "97A4",
-                    "glyph_index": 4324,
-                    "mapping": "raw_source_character_simplification",
-                    "source_character": "陸",
-                    "reason": (
-                        "Preserve original structural runtime fields that "
-                        "still encode the stock Japanese character 陸 while "
-                        "rendering the localized simplified form 陆."
-                    ),
-                }
-            ],
+            set(compatibility_by_character),
+            set("黒乗組隊働飛別陆"),
+        )
+        legacy_codes = {
+            "黒": "8D95",
+            "乗": "8FE6",
+            "組": "9167",
+            "隊": "91E0",
+            "働": "93AD",
+            "飛": "94F2",
+            "別": "95CA",
+        }
+        for character, code in legacy_codes.items():
+            row = compatibility_by_character[character]
+            self.assertEqual(row["code"], code)
+            self.assertEqual(row["source_character"], character)
+            self.assertEqual(
+                row["mapping"],
+                "legacy_save_formation_source_compatibility",
+            )
+        self.assertEqual(
+            compatibility_by_character["陆"]["source_character"], "陸"
         )
         by_character = {
             item["character"]: item
@@ -170,9 +180,45 @@ class ZhReleaseFontTests(unittest.TestCase):
                 for item in self.snapshot["surface_alias_assignments"]
             },
         )
-        reclamation = self.snapshot["extensions"][-1]["reclamation"]
+        reclamation = next(
+            item["reclamation"]
+            for item in self.snapshot["extensions"]
+            if "reclamation" in item
+        )
         self.assertEqual(reclamation["retired_alias_character"], "オ")
         self.assertEqual(reclamation["retired_alias_demand_count"], 0)
+        active_rows = {
+            item["character"]: item
+            for item in (
+                *self.snapshot["primary_assignments"],
+                *self.snapshot["surface_alias_assignments"],
+            )
+        }
+        self.assertEqual(
+            {
+                character: active_rows[character]["code"]
+                for character in "蟑呣噪箔“哄涂"
+            },
+            {
+                "蟑": "90F0",
+                "呣": "90F1",
+                "噪": "90FC",
+                "箔": "9140",
+                "“": "9141",
+                "哄": "9142",
+                "涂": "9143",
+            },
+        )
+        self.assertTrue(
+            set("コスセツトドハ").isdisjoint(
+                {
+                    item["character"]
+                    for item in self.snapshot[
+                        "surface_alias_assignments"
+                    ]
+                }
+            )
+        )
         assigned_codes = {
             item["code"]
             for item in (

@@ -7,7 +7,7 @@
     "config": {
       "path": "config/fonts/zh-release-font.json",
       "size": 4073,
-      "sha256": "68b03bb916f4508432522af2ef2dedef946a2144c4e020fb4648e2013b37ffd7"
+      "sha256": "b7ce554e5dc47e7de6a6afa465fbcc388ed51071b7a74122a0c33a9ebbf3f67d"
     },
     "base_config": {
       "path": "config/fonts/zh-font-base.json",
@@ -26,8 +26,8 @@
     },
     "allocation_snapshot": {
       "path": "config/encoding/zh-release-font-assignments.json",
-      "size": 681077,
-      "sha256": "4c89510fa1c3d578f80ee6b054f6424a48aca5b2aaeffae563ca5f35faa96a30"
+      "size": 683515,
+      "sha256": "7ce8c5fbc999e3aaee211d6ece88afb7149466e0def67da72e92006f1a6500ae"
     },
     "translation_selection": {
       "kind": "global_translation_tree",
@@ -1179,13 +1179,13 @@
   },
   "mapping": {
     "primary_assignment_count": 3266,
-    "surface_alias_assignment_count": 700,
-    "source_compatibility_assignment_count": 1,
+    "surface_alias_assignment_count": 693,
+    "source_compatibility_assignment_count": 8,
     "allocation_assignment_count": 1649,
     "reraster_existing_assignment_count": 1617,
-    "primary_mapping_sha256": "6286d29f9f282777adc8a6c26ae6a1ea1deeaa80a939f84a5691d1baa795c7ac",
-    "surface_alias_mapping_sha256": "6e3d56512fc8f821a7f1d8451ac24f1709c05717f92f59602fe6fde44b1db91f",
-    "source_compatibility_mapping_sha256": "cab90357536d3cc5a7a3e0f301f1fe35ba609c51feedc192753344ddc77fb95f",
+    "primary_mapping_sha256": "4764338e7bb40ad029a588301ad96c7bed34d2a6382e03a8c6af4e8c970ce3c5",
+    "surface_alias_mapping_sha256": "4352de12b42ac3851d568b37cc1902241d1de696afe850d1863f47d596bd3cd4",
+    "source_compatibility_mapping_sha256": "5062c4b1ac2287af90f9eed9c514d2a2a800c209afe1b9febd1a847f011ad0b6",
     "remaining_allocation_candidates_sha256": "3181517e6f3d758a8e247d4c1b8ee97254b26ea101596bb0aeb3a4efc33d0579",
     "remaining_candidate_slot_count": 418,
     "new_character_allocation_policy": {
@@ -1202,9 +1202,9 @@
     "conditional_width_candidate_count": 416
   },
   "migration": {
-    "mode": "flattened_release_baseline",
+    "mode": "flattened_release_baseline_with_legacy_save_compatibility",
     "historical_primary_assignment_count": 3158,
-    "historical_primary_mapping_sha256": "23c4cfd6347eabece4f3743f86e37f680c5e2c65702594a0b9d766419a7ff7f4",
+    "historical_primary_mapping_sha256": "0258fe2cc1d208c1030afb699d6e248cb3a3eb9cf72e382a95c2cb48200e5b76",
     "added_global_assignment_count": 19,
     "historical_profiles_are_active_build_dependencies": false
   },
@@ -1312,19 +1312,19 @@
   },
   "proposal": {
     "path": "work/writeback/zh-release-codebook-proposal.json",
-    "size": 3536592,
-    "sha256": "6bc3000e0012f35ab14a068a00f173280a105cbf973c65f0dcbcbeafc4852482"
+    "size": 3537502,
+    "sha256": "8b5c56126a970b66034128eadf87fb53a4e2960485b0c654b7c62345e6c17236"
   },
   "readiness": {
     "path": "work/writeback/zh-release-font-readiness.json",
-    "size": 45068,
-    "sha256": "1aacded90ff2a0ce466ceddfbb61720457a13ee1803530f6ffb55e5bd2f5420d"
+    "size": 45239,
+    "sha256": "2355d31910eaed997505b6949d3fc98440984071d5e21ee955fd7645b55e2d9b"
   },
   "font_component": {
     "report": {
       "path": "work/build/zh-release-font/components/font-validation.json",
-      "size": 1974035,
-      "sha256": "0db8344fe325feb0efd28c891954f2d6b3ee79873919a640625417b30e48749e"
+      "size": 1974014,
+      "sha256": "c86ff0c4759ddeadc905d37da5dc9d9d029f1ddf6226701f20b39017ba63e1e2"
     },
     "slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
@@ -1334,11 +1334,11 @@
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "4098a2945fb6b5a8e2589d804552dfef943675b89e2d9613be1a714afc2163e1"
+      "sha256": "72ad8f0d1df6766ce9cb46900e73537d80f92475b23e2dc0236a3eb7ab398516"
     },
     "assignment_count": 3967,
     "changed_glyph_count": 3966,
-    "decoded_font_sha256": "9ea3c2091ac24c91d31637ab7524e237460e1144d40dbfcae53da83ef9d8df74"
+    "decoded_font_sha256": "4e22c69e184b7e900aae87e0df15a954432b87461d1a5a2d5f9a373003dae0b8"
   },
   "acceptance": {
     "flattened_snapshot_is_self_contained": true,
