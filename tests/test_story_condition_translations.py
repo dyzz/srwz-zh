@@ -163,15 +163,15 @@ class StoryConditionTranslationTests(unittest.TestCase):
             self.glossary["glossary_id"],
             "srwz-zh-story-conditions-v1",
         )
-        self.assertEqual(len(terms), 146)
-        self.assertEqual(len({term["id"] for term in terms}), 146)
+        self.assertEqual(len(terms), 147)
+        self.assertEqual(len({term["id"] for term in terms}), 147)
         self.assertTrue(all(term["notes"] for term in terms))
         self.assertEqual(
             Counter(term["category"] for term in terms),
             {
                 "system": 12,
                 "people": 56,
-                "unit": 73,
+                "unit": 74,
                 "organization": 3,
                 "species": 1,
                 "technology": 1,
@@ -182,8 +182,17 @@ class StoryConditionTranslationTests(unittest.TestCase):
             for entry in self.translations["entries"]
             for term_id in entry["glossary_refs"]
         }
+        unreferenced = {
+            term["id"]: term
+            for term in terms
+            if term["id"] not in referenced
+        }
         self.assertTrue(
-            {term["id"] for term in terms}.issubset(referenced)
+            all(term["status"] == "approved" for term in unreferenced.values())
+        )
+        self.assertEqual(
+            set(unreferenced),
+            {"unit/strike-freedom-gundam"},
         )
         by_id = {term["id"]: term for term in terms}
         self.assertEqual(by_id["system/annihilation"]["translation"], "全灭")

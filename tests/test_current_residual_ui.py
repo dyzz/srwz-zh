@@ -28,8 +28,8 @@ class CurrentResidualUiTests(unittest.TestCase):
 
     def test_fixed_slps_and_suspend_return_dialogue_are_locked(self):
         remaining = self.component["remaining_ui"]
-        self.assertEqual(remaining["slps_context_ui"]["entry_count"], 407)
-        self.assertEqual(remaining["slps"]["entry_count"], 178)
+        self.assertEqual(remaining["slps_context_ui"]["entry_count"], 412)
+        self.assertEqual(remaining["slps"]["entry_count"], 189)
 
         formation = remaining["stage_default_formation"]
         self.assertEqual(formation["group_count"], 401)
@@ -119,7 +119,7 @@ class CurrentResidualUiTests(unittest.TestCase):
             "slps_context_ui"
         ]
         self.assertTrue(fixed_slps["readback_exact"])
-        self.assertEqual(fixed_slps["entry_count"], 407)
+        self.assertEqual(fixed_slps["entry_count"], 412)
         context = self.remaining_ui["slps_context_ui_by_offset"]
         self.assertEqual(
             {offset: context[offset] for offset in (

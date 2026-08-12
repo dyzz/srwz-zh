@@ -1580,16 +1580,42 @@
     {
       "id": "unit/freedom-gundam",
       "source_terms": [
-        "フリーダムガンダム"
+        "フリーダムガンダム",
+        "フリーダム"
       ],
       "translation": "自由高达",
+      "deprecated_translations": [
+        "自由号"
+      ],
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
-        "story"
+        "menu",
+        "story",
+        "battle"
       ],
       "enforce": true,
-      "notes": "《高达SEED》机体自由高达。"
+      "notes": "《高达SEED》机体 Freedom Gundam，简称フリーダム时也统一为“自由高达”；与《高达X》的フリーデン“和平号”按日文源词区分。贴吧用户 selkie诗依路反馈两者曾混用。"
+    },
+    {
+      "id": "unit/strike-freedom-gundam",
+      "source_terms": [
+        "ストライクフリーダム",
+        "Ｓフリーダムガンダム"
+      ],
+      "translation": "强袭自由高达",
+      "deprecated_translations": [
+        "强袭自由"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》机体 Strike Freedom Gundam；与前代自由高达分开绑定。"
     },
     {
       "id": "species/coralian",

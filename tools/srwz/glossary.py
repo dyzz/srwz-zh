@@ -283,7 +283,14 @@ def apply_glossary_variants(
         canonical, term_id = replacements[variant]
         if variant not in candidate:
             continue
-        candidate = candidate.replace(variant, canonical)
+        if variant in canonical:
+            parts = candidate.split(canonical)
+            replaced = canonical.join(part.replace(variant, canonical) for part in parts)
+        else:
+            replaced = candidate.replace(variant, canonical)
+        if replaced == candidate:
+            continue
+        candidate = replaced
         applied.append(f"{variant}→{canonical}[{term_id}]")
     return candidate, applied
 
@@ -294,10 +301,15 @@ def deprecated_translation_conflicts(
 ) -> list[dict[str, object]]:
     conflicts: list[dict[str, object]] = []
     for term in terms:
+        canonical = str(term["translation"])
         matched = [
             str(variant)
             for variant in term.get("deprecated_translations", [])
-            if str(variant) in text
+            if str(variant) in (
+                canonical.join(text.split(canonical))
+                if str(variant) not in canonical
+                else "".join(text.split(canonical))
+            )
         ]
         if matched:
             conflicts.append(

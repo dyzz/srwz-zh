@@ -41,7 +41,7 @@ class EditorialReviewTest(unittest.TestCase):
         rows, stats = MODULE.build_library_rows()
         self.assertEqual(
             stats,
-            {"total": 2709, "changed": 574, "risk": 51, "human_reviewed": 22},
+            {"total": 2709, "changed": 956, "risk": 0, "human_reviewed": 106},
         )
         self.assertEqual(len({row["id"] for row in rows}), 2709)
         self.assertTrue(all("machine_draft" in row["source_status"] for row in rows))
@@ -66,7 +66,7 @@ class EditorialReviewTest(unittest.TestCase):
         self.assertIn("休兰", by_id["library-text/1328aeae2cc71d3d"]["candidate_translation"])
         self.assertEqual(
             by_id["library-text/0004617f45ab7a01"]["candidate_translation"],
-            "奈基克 雅典娜机",
+            "耐基古-雅典娜机",
         )
         self.assertNotIn(
             "glossary_hint_mismatch",
@@ -116,7 +116,7 @@ class EditorialReviewTest(unittest.TestCase):
         )
         self.assertEqual(
             by_id["library-text/09ea11c376478075"]["candidate_translation"],
-            "太阳亚库艾里翁",
+            "太阳机械天使",
         )
         self.assertEqual(
             by_id["library-text/9a1294c66f8ba95e"]["candidate_translation"],
@@ -128,7 +128,7 @@ class EditorialReviewTest(unittest.TestCase):
         )
         self.assertEqual(
             by_id["library-text/7109cec402fcc027"]["candidate_translation"],
-            "贝加之王",
+            "贝加大王",
         )
         self.assertFalse(
             any("translation_collision" in row["risks"] for row in rows)
@@ -328,11 +328,11 @@ class EditorialReviewTest(unittest.TestCase):
         self.assertEqual(leben, "雷本大尉出击。")
 
     def test_term_conflicts_only_match_deprecated_variants(self) -> None:
-        term = self.glossary_by_id["unit/naikick"]
-        self.assertEqual(MODULE.find_term_conflicts("奈基克", [term]), [])
-        conflicts = MODULE.find_term_conflicts("纳伊基克", [term])
+        term = self.glossary_by_id["concept/contolism"]
+        self.assertEqual(MODULE.find_term_conflicts("康提主义", [term]), [])
+        conflicts = MODULE.find_term_conflicts("Contolism", [term])
         self.assertEqual(len(conflicts), 1)
-        self.assertEqual(conflicts[0]["canonical"], "奈基克")
+        self.assertEqual(conflicts[0]["canonical"], "康提主义")
 
     def test_build_is_self_contained_and_deterministic(self) -> None:
         with tempfile.TemporaryDirectory() as first, tempfile.TemporaryDirectory() as second:

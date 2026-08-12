@@ -1,0 +1,499 @@
+{
+  "schema_version": 1,
+  "source_policy": {
+    "primary": "Original-disc STAGE.BIN + SLPS_258.87 static parse",
+    "terminology": "corpus/glossary/*.json and corpus/zh/display-names/units-full.json",
+    "comparison_only": "https://akurasu.net/wiki/Super_Robot_Wars/Z/Flow_Chart and /Secrets",
+    "boundary": "STAGE anchors prove scenario/resource ownership; cross-stage counters and Bazaar chains remain explicitly labelled until their non-STAGE owners are decoded."
+  },
+  "entries": [
+    {
+      "id": "character-tekkoki",
+      "category": "character",
+      "title": "{{people/speaker-d34010c02035}}／{{unit/mecha-tekkoki}}",
+      "summary": "两关连续事件；第25话的三回合决斗是最终判定。",
+      "term_refs": ["people/speaker-d34010c02035", "unit/mecha-tekkoki", "people/speaker-9f0da37da623"],
+      "steps": [
+        {"stage": 24, "text": "让{{people/speaker-9f0da37da623}}与{{people/speaker-d34010c02035}}交战至少一次。", "evidence_level": "stage-static"},
+        {"stage": 25, "text": "清光其他敌人后进入单挑，并在单挑开始后的3回合内击坠{{people/speaker-d34010c02035}}；过关后加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-athena",
+      "category": "character",
+      "title": "{{people/athena}}（提前加入）",
+      "summary": "不做条件也会在第41话后加入；条件只决定能否在关内提前转为我方。",
+      "term_refs": ["people/athena", "people/kei", "people/olson"],
+      "steps": [
+        {"stage": 41, "text": "让{{people/kei}}、{{people/olson}}同时出击，依次由{{people/kei}}和{{people/olson}}说得{{people/athena}}。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "character-rubina",
+      "category": "character",
+      "title": "{{people/speaker-b85bd152a7ad}}",
+      "summary": "第44话的撤离存活判定。",
+      "term_refs": ["people/speaker-b85bd152a7ad", "people/speaker-c12dfb53f28b", "people/speaker-ce7a64f1e283"],
+      "steps": [
+        {"stage": 44, "text": "不要击坠{{people/speaker-b85bd152a7ad}}，让她成功撤离；击坠{{people/speaker-c12dfb53f28b}}或{{people/speaker-ce7a64f1e283}}的战舰也会触发她撤离。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "character-yzak",
+      "category": "character",
+      "title": "{{people/yzak}}／{{unit/gouf-ignited}}",
+      "summary": "第43话先做击坠；漏掉时仅ZAFT路线第48话需要补说得。第56话仍需最终说得。",
+      "term_refs": ["people/yzak", "unit/gouf-ignited", "people/kira", "people/athrun"],
+      "steps": [
+        {"stage": 43, "text": "后半战让{{people/kira}}击坠{{people/yzak}}的{{unit/gouf-ignited}}。", "evidence_level": "stage-static"},
+        {"stage": 48, "ordinals": [89], "text": "若走ZAFT路线且第43话漏掉条件，用{{people/athrun}}说得{{people/yzak}}；ZEUTH路线不需要这一步。", "evidence_level": "cross-stage"},
+        {"stage": 56, "ordinals": [97, 99], "text": "两条路线都让{{people/athrun}}出击并说得{{people/yzak}}，过关后正式加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-haman",
+      "category": "character",
+      "title": "{{people/speaker-c799af3b0540}}",
+      "summary": "路线限定，没有额外击坠或说得要求。",
+      "term_refs": ["people/speaker-c799af3b0540"],
+      "steps": [
+        {"stage": 47, "ordinals": [81, 82], "text": "第47话结束时进入ZEUTH路线。", "evidence_level": "cross-stage"},
+        {"stage": 51, "ordinals": [86], "text": "ZEUTH路线第51话结束后自动加入。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "character-tiffa",
+      "category": "character",
+      "title": "{{people/speaker-68642f8dc73f}}",
+      "summary": "五项前置取四项；不足四项时可用“至少两项＋40以上SR点数”补足。",
+      "term_refs": ["people/speaker-68642f8dc73f", "people/enil", "people/shagia", "people/olba", "people/garrod", "people/speaker-73fc8638fc0c", "unit/patulia", "part/black-box-f", "system/sr-point"],
+      "steps": [
+        {"stage": 7, "ordinals": [15], "text": "兰德路线：击坠{{people/enil}}，并击坠{{people/shagia}}或{{people/olba}}，共两项。", "evidence_level": "stage-static"},
+        {"stage": 14, "text": "用{{people/garrod}}说得{{people/enil}}，且不要击坠她的机体，共两项。", "evidence_level": "stage-static"},
+        {"stage": 27, "ordinals": [58], "text": "兰德路线：由{{people/garrod}}或{{people/speaker-73fc8638fc0c}}击坠{{unit/patulia}}；五项中达成四项会开放{{part/black-box-f}}。", "evidence_level": "cross-stage"},
+        {"stage": 50, "ordinals": [91], "text": "ZAFT路线第50话后半，五项达成四项即可加入；若仅达成至少两项，则还需超过40 {{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 52, "ordinals": [87], "text": "ZEUTH路线第52话后半采用同一判定：四项，或至少两项且超过40 {{system/sr-point}}。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-rey-talia",
+      "category": "character",
+      "title": "{{people/rey-za-burrel-short}}／{{people/speaker-aa16fea188ec}}",
+      "summary": "必须先进入ZEUTH路线；第56话按交战、说得、击坠的固定顺序完成。",
+      "term_refs": ["people/rey-za-burrel-short", "people/speaker-aa16fea188ec", "people/kira", "people/shinn", "display-name/unit/0194/name"],
+      "steps": [
+        {"stage": 47, "ordinals": [81, 82], "text": "第47话结束时进入ZEUTH路线。", "evidence_level": "cross-stage"},
+        {"stage": 56, "ordinals": [97], "text": "让{{people/kira}}和{{people/shinn}}都与{{people/rey-za-burrel-short}}交战，再由{{people/shinn}}说得{{people/rey-za-burrel-short}}，最后由{{people/shinn}}击坠{{display-name/unit/0194/name}}；过关后{{people/rey-za-burrel-short}}与{{people/speaker-aa16fea188ec}}加入。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "character-tsine",
+      "category": "character",
+      "title": "{{people/tsine}}／{{unit/chaos-capel}}",
+      "summary": "先过结局点数门槛，再在第59话完成两次交战、说得和击坠。",
+      "term_refs": ["people/tsine", "unit/chaos-capel", "people/setsuko", "people/rand", "system/sr-point"],
+      "steps": [
+        {"stage": 58, "text": "过关时结局点数至少15；或至少7点并持有46以上{{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 59, "ordinals": [102, 104], "text": "让任意角色先与{{people/tsine}}交战，再让主人公交战并说得她，最后任意角色击坠{{unit/chaos-capel}}；过关后加入。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "character-stella",
+      "category": "character",
+      "title": "{{people/stella}}／{{display-name/unit/0191/name}}",
+      "summary": "节子限定。第36话击坠时需8点；或7点并有28以上SR点数。",
+      "term_refs": ["people/stella", "display-name/unit/0191/name", "people/shinn", "people/sting", "people/auel", "people/speaker-242048308cbb", "system/sr-point"],
+      "steps": [
+        {"stage": 3, "ordinals": [2], "text": "击坠{{people/stella}}：史黛拉点数＋1。", "evidence_level": "stage-static"},
+        {"stage": 15, "text": "{{people/shinn}}与{{people/stella}}交战：＋1；再击坠{{people/sting}}、{{people/auel}}和{{people/stella}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 26, "ordinals": [39], "text": "{{people/shinn}}与{{people/stella}}交战：＋1。", "evidence_level": "stage-static"},
+        {"stage": 29, "ordinals": [42], "text": "由{{people/shinn}}击坠{{people/stella}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 30, "ordinals": [43], "text": "{{people/speaker-242048308cbb}}在{{people/stella}}仍存活时被击坠：＋1；由{{people/shinn}}击坠{{people/stella}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 36, "ordinals": [52], "text": "{{people/shinn}}击坠{{people/stella}}：＋1；{{people/stella}}在{{people/speaker-242048308cbb}}存活时被击坠：＋3；若先击坠{{people/speaker-242048308cbb}}且未够她的加入线：＋2。最终门槛为8点，或7点＋28以上{{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 51, "ordinals": [86], "text": "ZEUTH路线在第51话加入。", "evidence_level": "cross-stage"},
+        {"stage": 56, "ordinals": [99], "text": "ZAFT路线在第56话加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-four",
+      "category": "character",
+      "title": "{{people/speaker-242048308cbb}}／{{display-name/unit/0120/name}}",
+      "summary": "节子限定。第36话判定需5点；或4点并有28以上SR点数。",
+      "term_refs": ["people/speaker-242048308cbb", "display-name/unit/0120/name", "people/kamille", "people/stella", "system/sr-point"],
+      "steps": [
+        {"stage": 26, "ordinals": [39], "text": "{{people/kamille}}与{{people/speaker-242048308cbb}}交战：＋1；由{{people/kamille}}击坠她：＋1。", "evidence_level": "stage-static"},
+        {"stage": 29, "ordinals": [42], "text": "由{{people/kamille}}击坠{{people/speaker-242048308cbb}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 30, "ordinals": [43], "text": "让{{people/kamille}}出击并击坠{{people/speaker-242048308cbb}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 36, "ordinals": [52], "text": "{{people/kamille}}击坠{{people/speaker-242048308cbb}}：＋1；她在{{people/stella}}存活时被击坠：＋3；若先击坠{{people/stella}}且未够史黛拉加入线：＋2。最终门槛为5点，或4点＋28以上{{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 38, "ordinals": [54], "text": "满足门槛后在第38话加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-sarah-reccoa",
+      "category": "character",
+      "title": "{{people/sara}}／{{people/speaker-2f643283052c}}",
+      "summary": "节子、直布罗陀分支限定；多关连续交战／说得链。",
+      "term_refs": ["people/sara", "people/speaker-2f643283052c", "people/speaker-4db10c7578e6", "people/kamille", "people/quattro", "people/speaker-a23753fe36e8", "people/emma"],
+      "steps": [
+        {"stage": 32, "ordinals": [45], "text": "选择让节子前往直布罗陀基地。", "evidence_level": "cross-stage"},
+        {"stage": 34, "ordinals": [47], "text": "让{{people/speaker-4db10c7578e6}}与{{people/sara}}交战。", "evidence_level": "stage-static"},
+        {"stage": 35, "ordinals": [48], "text": "由{{people/kamille}}或{{people/speaker-4db10c7578e6}}击坠{{people/sara}}。", "evidence_level": "stage-static"},
+        {"stage": 37, "ordinals": [53], "text": "让{{people/kamille}}或{{people/speaker-4db10c7578e6}}与{{people/sara}}交战；漏掉时可在第56话用{{people/kamille}}补说得。", "evidence_level": "cross-stage"},
+        {"stage": 49, "ordinals": [90], "text": "ZAFT路线：由{{people/quattro}}、{{people/kamille}}、{{people/speaker-a23753fe36e8}}或{{people/emma}}与{{people/speaker-2f643283052c}}交战且双方存活，再由{{people/kamille}}或{{people/speaker-a23753fe36e8}}说得。", "evidence_level": "stage-static"},
+        {"stage": 51, "ordinals": [86], "text": "ZEUTH路线执行同一蕾柯亚交战／说得条件。", "evidence_level": "stage-static"},
+        {"stage": 56, "ordinals": [97, 99], "text": "击坠{{people/sara}}后，由{{people/kamille}}说得{{people/speaker-2f643283052c}}并让她存活到过关；满足全链后两人加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-yassaba",
+      "category": "character",
+      "title": "{{people/speaker-d3320f02b47d}}",
+      "summary": "兰德限定，与拉什罗德交易链共用前置。",
+      "term_refs": ["people/speaker-d3320f02b47d", "unit/rush-rod", "part/om-scrap", "part/overcoat"],
+      "steps": [
+        {"stage": 15, "text": "选择加利亚大陆路线。", "evidence_level": "cross-stage"},
+        {"stage": 18, "ordinals": [30], "text": "盖纳、该隐、高利、莎拉、贝洛和亚蒂特的总击坠数超过100。", "evidence_level": "cross-stage"},
+        {"stage": 18, "ordinals": [30], "text": "过关后在交易所购买{{part/om-scrap}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品组合不属于战斗STAGE文本。"},
+        {"stage": 22, "text": "过关后购买{{part/overcoat}}，与{{part/om-scrap}}合成{{unit/rush-rod}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品组合不属于战斗STAGE文本。"},
+        {"stage": 47, "ordinals": [82], "text": "持有{{unit/rush-rod}}时，{{people/speaker-d3320f02b47d}}过关后正式加入。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-charles-ray",
+      "category": "character",
+      "title": "{{people/charles}}／蕾",
+      "summary": "兰德限定；两人只在最终话作为援军出现，不会编入队伍。",
+      "term_refs": ["people/charles", "people/holland", "people/renton"],
+      "steps": [
+        {"stage": 32, "ordinals": [63], "text": "选择搜寻{{people/renton}}路线。", "evidence_level": "cross-stage"},
+        {"stage": 35, "ordinals": [66], "text": "让{{people/holland}}分别与查尔斯、蕾交战，再由{{people/renton}}分别说得两人，最后由{{people/renton}}击坠两人。", "evidence_level": "stage-static"},
+        {"stage": 60, "ordinals": [105, 106], "text": "满足条件后，两人在最终话前半作为援军出现。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "character-asakim",
+      "category": "character",
+      "title": "{{people/speaker-c2810db52aa2}}／{{unit/shurouga}}援军",
+      "summary": "兰德限定；先招募兹妮，再由兰德击坠狩狼牙。仅作为最终战援军。",
+      "term_refs": ["people/speaker-c2810db52aa2", "unit/shurouga", "people/tsine", "people/rand", "system/sr-point"],
+      "steps": [
+        {"stage": 58, "text": "结局点数至少15；或至少7点并持有46以上{{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 59, "ordinals": [104], "text": "按兹妮条件招募{{people/tsine}}。", "evidence_level": "cross-stage"},
+        {"stage": 60, "ordinals": [105, 106], "text": "前半战由{{people/rand}}击坠{{people/speaker-c2810db52aa2}}的{{unit/shurouga}}；后半战他会作为援军出现。", "evidence_level": "stage-static"}
+      ]
+    },
+
+    {
+      "id": "unit-black-mk2",
+      "category": "unit",
+      "title": "黑色{{display-name/unit/0105/name}}",
+      "summary": "节子限定；第3话保留爱玛机。",
+      "term_refs": ["display-name/unit/0105/name", "people/emma", "people/speaker-0809e902288f"],
+      "steps": [
+        {"stage": 3, "ordinals": [2], "text": "不要击坠{{people/emma}}的机体。", "evidence_level": "stage-static"},
+        {"stage": 18, "ordinals": [26], "text": "太平洋路线第18话由{{people/speaker-0809e902288f}}驾驶加入；走加利亚路线则在两队汇合时取得。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "unit-tfo",
+      "category": "unit",
+      "title": "{{display-name/unit/0007/name}}",
+      "summary": "两件交易所素材合成；漏掉时第24话自动取得。",
+      "term_refs": ["display-name/unit/0007/name", "part/super-alloy-nz-fragment", "part/inertial-control-engineering-manual"],
+      "steps": [
+        {"stage": 13, "text": "让Double Spazer至少受击一次；过关后购买{{part/super-alloy-nz-fragment}}。", "evidence_level": "cross-file", "evidence_note": "受击事件在STAGE；商品开放与合成在交易所系统。"},
+        {"stage": 15, "text": "过关后购买{{part/inertial-control-engineering-manual}}，两件素材合成{{display-name/unit/0007/name}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品组合不属于战斗STAGE文本。"},
+        {"stage": 24, "text": "未达成前置时在本话自动取得。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "unit-rush-rod",
+      "category": "unit",
+      "title": "{{unit/rush-rod}}",
+      "summary": "兰德、加利亚路线的交易所组合。",
+      "term_refs": ["unit/rush-rod", "part/om-scrap", "part/overcoat"],
+      "steps": [
+        {"stage": 15, "text": "选择加利亚大陆路线。", "evidence_level": "cross-stage"},
+        {"stage": 18, "ordinals": [30], "text": "指定六人的总击坠数超过100，过关后购买{{part/om-scrap}}。", "evidence_level": "cross-file", "evidence_note": "击坠计数跨关保存；商品组合在交易所系统。"},
+        {"stage": 22, "text": "过关后购买{{part/overcoat}}，与{{part/om-scrap}}合成{{unit/rush-rod}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品组合不属于战斗STAGE文本。"}
+      ]
+    },
+    {
+      "id": "unit-dijeh",
+      "category": "unit",
+      "title": "{{display-name/unit/0110/name}}",
+      "summary": "节子限定；第25话同时检查九人平均等级和阿姆罗／卡兹击坠数。",
+      "term_refs": ["display-name/unit/0110/name", "people/kamille", "people/quattro", "people/speaker-0809e902288f", "people/speaker-312cbf08471d", "people/emma", "people/speaker-2f643283052c", "people/apolly", "people/roberto", "people/speaker-4db10c7578e6"],
+      "steps": [
+        {"stage": 25, "text": "{{people/kamille}}、{{people/quattro}}、{{people/speaker-0809e902288f}}、{{people/speaker-312cbf08471d}}、{{people/emma}}、{{people/speaker-2f643283052c}}、{{people/apolly}}、{{people/roberto}}、{{people/speaker-4db10c7578e6}}九人的平均等级至少25。", "evidence_level": "cross-stage"},
+        {"stage": 25, "text": "{{people/speaker-0809e902288f}}与{{people/speaker-4db10c7578e6}}的平均击坠数至少25（等价于两人合计至少50）。", "evidence_level": "cross-stage"},
+        {"stage": 26, "ordinals": [39], "text": "满足条件后在节子第26话开场取得{{display-name/unit/0110/name}}。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "unit-xabungle-2",
+      "category": "unit",
+      "title": "{{unit/xabungle}}2号机",
+      "summary": "兰德留守分支限定，黑箱与高性能汽油引擎组合。",
+      "term_refs": ["unit/xabungle"],
+      "steps": [
+        {"stage": 32, "ordinals": [63], "text": "选择留在舰上。", "evidence_level": "cross-stage"},
+        {"stage": 35, "ordinals": [69], "text": "击坠廷普的布拉卡利，过关后购买电脑核心。", "evidence_level": "cross-file", "evidence_note": "战斗触发在STAGE；商品开放在交易所系统。"},
+        {"stage": 45, "text": "过关后购买高性能汽油引擎，与电脑核心合成{{unit/xabungle}}2号机。", "evidence_level": "cross-file", "evidence_note": "交易所商品组合不属于战斗STAGE文本。"}
+      ]
+    },
+    {
+      "id": "unit-aquarion-alpha",
+      "category": "unit",
+      "title": "{{unit/aquarion-alpha}}",
+      "summary": "先击坠Omega与Delta，再处理双翅／Alpha；漏掉时第53话自动取得。",
+      "term_refs": ["unit/aquarion-alpha", "people/moroha", "part/vector-machine"],
+      "steps": [
+        {"stage": 48, "ordinals": [83], "text": "ZEUTH路线：先击坠机械天使Omega与Delta，再击坠{{people/moroha}}的敌机或{{unit/aquarion-alpha}}。", "evidence_level": "stage-static"},
+        {"stage": 51, "ordinals": [92], "text": "ZAFT路线执行同一击坠顺序。", "evidence_level": "stage-static"},
+        {"when": "过关后", "text": "在交易所购买{{part/vector-machine}}后取得{{unit/aquarion-alpha}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品组合不属于战斗STAGE文本。"},
+        {"stage": 53, "ordinals": [88, 94], "text": "未达成条件时在第53话自动取得。", "evidence_level": "stage-static"}
+      ]
+    },
+
+    {
+      "id": "weapon-flying-armour",
+      "category": "weapon",
+      "title": "{{weapon/0231}}",
+      "summary": "节子第8话可提前取得；否则过关后自动追加。",
+      "term_refs": ["weapon/0231", "people/speaker-9b760cb1dad1", "display-name/unit/0105/name"],
+      "steps": [
+        {"stage": 8, "ordinals": [7], "text": "击坠{{people/speaker-9b760cb1dad1}}的加里波第β，{{display-name/unit/0105/name}}会在关内追加{{weapon/0231}}；漏掉则过关后追加。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-mega-bazooka",
+      "category": "weapon",
+      "title": "{{weapon/0239}}",
+      "summary": "克瓦特罗击坠数＋太平洋路线＋两件交易所素材。",
+      "term_refs": ["weapon/0239", "people/quattro", "part/large-energy-pack", "part/mega-condenser"],
+      "steps": [
+        {"stage": 15, "text": "{{people/quattro}}在本话击坠至少3机，并选择太平洋路线；分队后购买{{part/large-energy-pack}}。", "evidence_level": "cross-file", "evidence_note": "击坠与路线在STAGE／进程；商品组合在交易所系统。"},
+        {"stage": 19, "ordinals": [27], "text": "过关后购买{{part/mega-condenser}}，合成{{weapon/0239}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品组合不属于战斗STAGE文本。"},
+        {"stage": 33, "ordinals": [46, 49], "text": "漏掉前置时，百式归队后自动追加武器。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "weapon-great-booster",
+      "category": "weapon",
+      "title": "{{weapon/0022}}",
+      "summary": "节子可提前；兰德或漏条件时第41话自动取得。",
+      "term_refs": ["weapon/0022", "people/speaker-ad9d3832188b", "part/photon-power-research-report"],
+      "steps": [
+        {"stage": 24, "text": "让波士机器人移动到光子力研究所西侧南端、大魔神撞过屏障的位置，触发碎片事件。", "evidence_level": "stage-static"},
+        {"stage": 36, "ordinals": [52], "text": "节子路线过关后购买{{part/photon-power-research-report}}，合成{{weapon/0022}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品组合不属于战斗STAGE文本。"},
+        {"stage": 41, "text": "兰德路线或漏掉条件时自动取得。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-big-o-early",
+      "category": "weapon",
+      "title": "{{weapon/0552}}／{{weapon/0551}}",
+      "summary": "兰德搜寻兰顿分支可在第34话提前取得；否则第35话自动追加。",
+      "term_refs": ["weapon/0552", "weapon/0551", "unit/big-o", "people/beck", "people/renton"],
+      "steps": [
+        {"stage": 32, "ordinals": [63], "text": "选择搜寻{{people/renton}}路线。", "evidence_level": "cross-stage"},
+        {"stage": 34, "ordinals": [65], "text": "让{{unit/big-o}}与{{people/beck}}的贝克大帝RX3交战且双方存活，当场取得两件武器。", "evidence_level": "stage-static"},
+        {"stage": 35, "ordinals": [66, 69], "text": "未达成提前条件时在本话自动取得。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-baldirosier",
+      "category": "weapon",
+      "title": "{{weapon/0099}}",
+      "summary": "第44话限时击破人工太阳；漏掉可在第54话补取。",
+      "term_refs": ["weapon/0099"],
+      "steps": [
+        {"stage": 44, "text": "在时限内击坠人工太阳，事件中追加{{weapon/0099}}。", "evidence_level": "stage-static"},
+        {"stage": 54, "text": "漏掉时让巴尔迪奥斯出击并存活，在击坠灵魂加特勒时补取。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-biosensor",
+      "category": "weapon",
+      "title": "{{ability/bio-sensor}}强化",
+      "summary": "Z高达追加能力与两招；对应路线关卡可提前，漏掉第56话补取。",
+      "term_refs": ["ability/bio-sensor", "people/kamille"],
+      "steps": [
+        {"stage": 49, "ordinals": [90], "text": "ZAFT路线：让{{people/kamille}}驾驶Z高达击坠亚赞。", "evidence_level": "stage-static"},
+        {"stage": 51, "ordinals": [86], "text": "ZEUTH路线执行同一条件。", "evidence_level": "stage-static"},
+        {"stage": 56, "ordinals": [97, 99], "text": "漏掉时让卡缪驾驶Z高达出击并存活，在击坠亚赞时补取。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-big-o-final",
+      "category": "weapon",
+      "title": "{{weapon/0553}}",
+      "summary": "击坠BIG-DUO地狱时提前取得；漏掉可在第58话击坠BIG-FAU补取。",
+      "term_refs": ["weapon/0553", "unit/big-o"],
+      "steps": [
+        {"stage": 49, "ordinals": [84], "text": "ZEUTH路线：让{{unit/big-o}}出击并存活，在击坠BIG-DUO地狱时取得。", "evidence_level": "stage-static"},
+        {"stage": 53, "ordinals": [94], "text": "ZAFT路线执行同一条件。", "evidence_level": "stage-static"},
+        {"stage": 58, "text": "漏掉时在击坠BIG-FAU时补取。", "evidence_level": "stage-static"}
+      ]
+    },
+    {
+      "id": "weapon-g-bits",
+      "category": "weapon",
+      "title": "{{weapon/0310}}",
+      "summary": "与蒂珐共用五项前置；黑箱F可免去高SR点数补救线。",
+      "term_refs": ["weapon/0310", "part/black-box-f", "people/enil", "people/shagia", "people/olba", "people/garrod", "people/speaker-73fc8638fc0c", "unit/patulia", "system/sr-point"],
+      "steps": [
+        {"stage": 7, "ordinals": [15], "text": "兰德路线：击坠{{people/enil}}，并击坠{{people/shagia}}或{{people/olba}}。", "evidence_level": "stage-static"},
+        {"stage": 14, "text": "用{{people/garrod}}说得{{people/enil}}，且不要击坠她。", "evidence_level": "stage-static"},
+        {"stage": 27, "ordinals": [58], "text": "兰德路线由{{people/garrod}}或{{people/speaker-73fc8638fc0c}}击坠{{unit/patulia}}；五项中达成四项后购买{{part/black-box-f}}。", "evidence_level": "cross-file", "evidence_note": "战斗前置在STAGE；黑箱F购买在交易所系统。"},
+        {"stage": 50, "ordinals": [91], "text": "ZAFT路线：持有{{part/black-box-f}}即可开放{{weapon/0310}}；否则至少完成两项且结算时超过50 {{system/sr-point}}。", "evidence_level": "cross-stage"},
+        {"stage": 52, "ordinals": [87], "text": "ZEUTH路线采用同一最终判定。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "weapon-final-dynamic-special",
+      "category": "weapon",
+      "title": "{{weapon/0010}}",
+      "summary": "四机同时出击且存活，击坠布莱大帝触发合体攻击。",
+      "term_refs": ["weapon/0010"],
+      "steps": [
+        {"stage": 49, "ordinals": [84], "text": "ZEUTH路线：魔神Z、大魔神、古连泰沙、盖塔龙同时出击，魔神Z与大魔神由甲儿、铁也驾驶；保持存活并击坠布莱大帝。", "evidence_level": "stage-static"},
+        {"stage": 53, "ordinals": [94], "text": "ZAFT路线执行同一条件；击坠贝加大王也可触发，但本关仍必须处理布莱大帝。", "evidence_level": "stage-static"}
+      ]
+    },
+
+    {
+      "id": "item-hero-mark",
+      "category": "item",
+      "title": "{{part/hero-mark}}",
+      "summary": "兰德限定的四段交易所链。",
+      "term_refs": ["part/hero-mark", "part/smoked-lizard", "part/natto", "part/smoked-giant-lizard", "people/jiron", "people/apollo"],
+      "steps": [
+        {"stage": 8, "ordinals": [16], "text": "{{people/jiron}}与{{people/apollo}}各击坠至少1机；过关后购买{{part/smoked-lizard}}。", "evidence_level": "cross-file", "evidence_note": "战斗计数在STAGE；商品开放在交易所系统。"},
+        {"stage": 23, "text": "过关后购买{{part/natto}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"},
+        {"stage": 28, "ordinals": [59], "text": "过关后购买{{part/smoked-giant-lizard}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"},
+        {"stage": 39, "ordinals": [73], "text": "过关后从交易所取得{{part/hero-mark}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"}
+      ]
+    },
+    {
+      "id": "item-steel-soul",
+      "category": "item",
+      "title": "{{part/steel-soul}}",
+      "summary": "兰德限定；第7话击坠、加利亚路线与三件交易所物品串联。",
+      "term_refs": ["part/steel-soul", "part/silver-accessory", "part/makeup-kit", "part/bouquet", "people/shagia", "people/olba"],
+      "steps": [
+        {"stage": 7, "ordinals": [15], "text": "击坠{{people/shagia}}或{{people/olba}}，过关后购买{{part/silver-accessory}}。", "evidence_level": "cross-file", "evidence_note": "战斗触发在STAGE；商品开放在交易所系统。"},
+        {"stage": 15, "text": "选择加利亚大陆路线。", "evidence_level": "cross-stage"},
+        {"stage": 19, "ordinals": [31], "text": "过关后购买{{part/makeup-kit}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"},
+        {"stage": 47, "ordinals": [82], "text": "过关后购买{{part/bouquet}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"},
+        {"stage": 49, "ordinals": [90], "text": "ZAFT路线第49话后从交易所取得{{part/steel-soul}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"},
+        {"stage": 53, "ordinals": [88], "text": "ZEUTH路线第53话后从交易所取得{{part/steel-soul}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"}
+      ]
+    },
+    {
+      "id": "item-haro",
+      "category": "item",
+      "title": "{{part/haro}}",
+      "summary": "兰德限定；加利亚＋搜寻兰顿路线的交易所链。",
+      "term_refs": ["part/haro", "part/ray-out-first-issue", "part/signed-disc", "part/rare-wheel", "people/renton"],
+      "steps": [
+        {"stage": 15, "text": "选择加利亚大陆路线。", "evidence_level": "cross-stage"},
+        {"stage": 16, "ordinals": [28], "text": "过关后购买{{part/ray-out-first-issue}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"},
+        {"stage": 20, "text": "过关后购买{{part/signed-disc}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"},
+        {"stage": 32, "ordinals": [63], "text": "选择搜寻{{people/renton}}路线。", "evidence_level": "cross-stage"},
+        {"stage": 35, "ordinals": [66], "text": "过关后购买{{part/rare-wheel}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"},
+        {"stage": 50, "ordinals": [91], "text": "ZAFT路线第50话后从交易所取得{{part/haro}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"},
+        {"stage": 52, "ordinals": [87], "text": "ZEUTH路线第52话后从交易所取得{{part/haro}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"}
+      ]
+    },
+    {
+      "id": "item-fallen-angel-wing",
+      "category": "item",
+      "title": "{{part/fallen-angel-wing}}",
+      "summary": "兰德限定；桂与夏伊亚击坠数触发三件纪念品链。",
+      "term_refs": ["part/fallen-angel-wing", "part/hong-kong-video", "part/emaan-pennant", "part/chiram-motorcycle", "people/kei", "people/speaker-7e722f885dfc"],
+      "steps": [
+        {"stage": 26, "ordinals": [57], "text": "{{people/kei}}与{{people/speaker-7e722f885dfc}}合计击坠至少8机；过关后购买{{part/hong-kong-video}}。", "evidence_level": "cross-file", "evidence_note": "战斗计数在STAGE；商品开放在交易所系统。"},
+        {"stage": 29, "ordinals": [60], "text": "过关后购买{{part/emaan-pennant}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"},
+        {"stage": 36, "ordinals": [70], "text": "过关后购买{{part/chiram-motorcycle}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"},
+        {"stage": 41, "text": "过关后从交易所取得{{part/fallen-angel-wing}}。", "evidence_level": "cross-file", "evidence_note": "交易所步骤。"}
+      ]
+    },
+
+    {
+      "id": "system-aki-points",
+      "category": "system",
+      "title": "亚纪生存点数",
+      "summary": "节子开局需7点；兰德开局需4点并有32以上SR点数。成功时第42话胜平以200气力出击，并增加1结局点数。",
+      "term_refs": ["people/aki", "people/kappei", "people/speaker-a52075c737b1", "people/setsuko", "people/rand", "faction/zeravire", "system/sr-point"],
+      "steps": [
+        {"stage": 7, "ordinals": [6], "text": "节子：赞波特3登场时，{{people/kappei}}击坠数至少5，＋1。", "evidence_level": "stage-static"},
+        {"stage": 8, "ordinals": [7], "text": "节子：击坠{{people/speaker-a52075c737b1}}，＋5。", "evidence_level": "stage-static"},
+        {"stage": 15, "text": "{{people/kappei}}与{{people/speaker-a52075c737b1}}交战，＋1；击坠{{people/speaker-a52075c737b1}}，再＋1。", "evidence_level": "stage-static"},
+        {"stage": 18, "ordinals": [30], "text": "加利亚路线：敌方增援到达前击坠至少2机，＋1。", "evidence_level": "stage-static"},
+        {"stage": 28, "ordinals": [41], "text": "节子：{{faction/zeravire}}出现前清光所有机械兽，＋1。", "evidence_level": "stage-static"},
+        {"stage": 33, "ordinals": [49], "text": "节子周边警戒路线：完成关卡，＋3。", "evidence_level": "stage-static"},
+        {"stage": 40, "ordinals": [56], "text": "节子：击坠{{people/speaker-a52075c737b1}}，＋1。", "evidence_level": "stage-static"},
+        {"stage": 40, "ordinals": [74], "text": "兰德：击坠{{people/speaker-a52075c737b1}}，＋2。", "evidence_level": "stage-static"},
+        {"stage": 42, "text": "开场判定：节子至少7点；兰德至少4点并有32以上{{system/sr-point}}。满足时亚纪生存、胜平200气力出击、结局点数＋1。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "system-zeuth-points",
+      "category": "system",
+      "title": "ZEUTH路线点数",
+      "summary": "一周目第47话后的路线判定；二周目起可直接选择。负分事件也必须计入。",
+      "term_refs": ["people/setsuko", "people/rand", "people/alex", "people/athrun", "people/sato", "people/kira", "people/yzak", "people/stella", "people/shinn", "system/sr-point"],
+      "steps": [
+        {"stage": 2, "ordinals": [1], "text": "节子：选择“控制被夺走的高达”，＋1。", "evidence_level": "stage-static"},
+        {"stage": 8, "ordinals": [7], "text": "节子：由{{people/alex}}（{{people/athrun}}）击坠{{people/sato}}，＋1。", "evidence_level": "stage-static"},
+        {"stage": 16, "ordinals": [24], "text": "太平洋路线：击坠中立的{{people/kira}}，＋1。", "evidence_level": "stage-static"},
+        {"stage": 29, "ordinals": [42], "text": "节子：击坠{{people/kira}}，＋1；击坠玛琉，＋1。", "evidence_level": "stage-static"},
+        {"stage": 29, "ordinals": [60], "text": "兰德：伊扎克出现后不击坠任何ZAFT兵再击坠{{people/yzak}}，＋2；若击坠伊扎克时仍有至少3个ZAFT兵小队存活，＋1（与＋2条件不能同时取）。", "evidence_level": "stage-static"},
+        {"stage": 30, "ordinals": [43], "text": "节子：击坠{{people/kira}}，＋1；击坠玛琉，＋1。", "evidence_level": "stage-static"},
+        {"stage": 30, "ordinals": [61], "text": "兰德：不让玛琉、{{people/kira}}、巴尔特菲尔德或艾妮尔击坠任何敌人，＋1。", "evidence_level": "stage-static"},
+        {"stage": 35, "ordinals": [48], "text": "节子直布罗陀路线：完成关卡，＋1。", "evidence_level": "stage-static"},
+        {"stage": 36, "ordinals": [52], "text": "节子：满足史黛拉加入条件，＋1。", "evidence_level": "cross-stage"},
+        {"stage": 36, "ordinals": [70], "text": "兰德：{{people/shinn}}与{{people/stella}}交战，＋1；NPC真击坠史黛拉，＋2；基拉击坠史黛拉，－1。", "evidence_level": "stage-static"},
+        {"stage": 38, "ordinals": [54], "text": "节子：基拉仍在场时真被击坠，＋2；真从未与基拉交战就击坠基拉，＋1。", "evidence_level": "stage-static"},
+        {"stage": 38, "ordinals": [72], "text": "兰德：以击坠真完成关卡，＋1；基拉被击坠，－1。", "evidence_level": "stage-static"},
+        {"stage": 43, "text": "拖到第4回合完成关卡，＋1；真击坠阿斯兰，－1。", "evidence_level": "stage-static"},
+        {"stage": 47, "ordinals": [81], "text": "节子：9点以上，或7–8点且至少36 {{system/sr-point}}，自动进入ZEUTH；10点以上且至少36 SR点数时给出选择。", "evidence_level": "cross-stage"},
+        {"stage": 47, "ordinals": [82], "text": "兰德：9点以上，或7点且至少36 {{system/sr-point}}，自动进入ZEUTH；8点以上且至少36 SR点数时给出选择。", "evidence_level": "cross-stage"}
+      ]
+    },
+    {
+      "id": "system-ending-points",
+      "category": "system",
+      "title": "结局点数与最终结局",
+      "summary": "第41话后累计。7点以下受第59话选择影响；8–17点为较稳定结局；18点以上可选两种最佳结局。",
+      "term_refs": ["people/olson", "people/athena", "people/speaker-b85bd152a7ad", "people/holland", "people/jiron", "people/rand", "people/speaker-c2810db52aa2", "people/ghingham", "people/shagia", "people/olba", "people/beck", "people/moroha", "people/quattro", "people/kamille", "people/emma", "people/speaker-a23753fe36e8", "people/speaker-58ffc6397f82", "people/lunamaria", "unit/sol-gravion", "people/speaker-98397dd93972"],
+      "steps": [
+        {"stage": 41, "text": "奇拉姆增援前，除埃曼舰外不击坠其他埃曼单位：＋1；全灭其他埃曼单位：－1；{{people/olson}}说得{{people/athena}}：＋1。", "evidence_level": "stage-static"},
+        {"stage": 42, "text": "亚纪生存：＋1。", "evidence_level": "cross-stage"},
+        {"stage": 43, "text": "拖到第4回合完成关卡：＋1；雷击坠阿斯兰：－1。", "evidence_level": "stage-static"},
+        {"stage": 44, "text": "露比娜成功撤离：＋1；{{unit/sol-gravion}}登场后2回合内击坠人工太阳：＋1；用机械天使击坠双翅：＋1。", "evidence_level": "stage-static"},
+        {"stage": 45, "text": "{{people/holland}}或{{people/jiron}}到达标记点：＋1；中立增援无人被击坠：＋1。", "evidence_level": "stage-static"},
+        {"stage": 46, "text": "4回合内击坠至少12个敌方小队：＋1。", "evidence_level": "stage-static"},
+        {"stage": 47, "ordinals": [81], "text": "节子：4回合内击坠丹泽尔和托比，＋1。", "evidence_level": "stage-static"},
+        {"stage": 47, "ordinals": [82], "text": "兰德与{{people/speaker-c2810db52aa2}}交战，＋1。", "evidence_level": "stage-static"},
+        {"stage": 48, "ordinals": [83], "text": "ZEUTH路线击坠{{people/speaker-98397dd93972}}，＋1。", "evidence_level": "stage-static"},
+        {"stage": 48, "ordinals": [89], "text": "ZAFT路线过关时场上没有敌人，－1。", "evidence_level": "stage-static"},
+        {"stage": 49, "ordinals": [84], "text": "ZEUTH路线击坠BIG-DUO地狱时{{people/beck}}仍存活，＋1。", "evidence_level": "stage-static"},
+        {"stage": 49, "ordinals": [90], "text": "ZAFT路线由克瓦特罗、卡缪、花或爱玛与蕾柯亚交战且双方存活，＋1。", "evidence_level": "stage-static"},
+        {"stage": 50, "ordinals": [85], "text": "ZEUTH路线击坠{{people/moroha}}：＋1；格伦被击坠：－1；西里乌斯存活到过关：－1。", "evidence_level": "stage-static"},
+        {"stage": 50, "ordinals": [91], "text": "ZAFT路线同时击坠{{people/shagia}}和{{people/olba}}，＋1。", "evidence_level": "stage-static"},
+        {"stage": 51, "ordinals": [86], "text": "ZEUTH路线蕾柯亚交战且双方存活：＋1。", "evidence_level": "stage-static"},
+        {"stage": 51, "ordinals": [92], "text": "ZAFT路线击坠双翅：＋1；格伦被击坠：－1。", "evidence_level": "stage-static"},
+        {"stage": 52, "ordinals": [87], "text": "ZEUTH路线同时击坠夏基亚与奥尔巴：＋1；把金卡拉姆HP降到50%以下：＋1。", "evidence_level": "stage-static"},
+        {"stage": 53, "ordinals": [94], "text": "ZAFT路线把风见博士的舰打到2000 HP以下触发救援：＋1。", "evidence_level": "stage-static"},
+        {"stage": 55, "text": "分别击坠{{people/ghingham}}、{{people/shagia}}、{{people/olba}}，各＋1。", "evidence_level": "stage-static"},
+        {"stage": 56, "ordinals": [99], "text": "ZAFT路线：真仍在场时由拉克丝说得露娜玛丽亚，＋1；击坠哈曼，＋1；露娜玛丽亚被击坠，－1。", "evidence_level": "stage-static"},
+        {"stage": 57, "ordinals": [98, 100], "text": "两条路线同时击坠音翅与头翅，＋1。", "evidence_level": "stage-static"},
+        {"stage": 58, "text": "选择“留在范式城生活”，结局点数－15。", "evidence_level": "stage-static"},
+        {"stage": 59, "ordinals": [102, 104], "text": "7点以下：选“无法独自决定”进入黑历史结局，选“希望世界稳定”进入不稳定世界结局；8–17点固定为较稳定结局；18点以上可在世界完全稳定与恢复原状两种最佳结局间选择。", "evidence_level": "cross-stage"}
+      ]
+    }
+  ]
+}

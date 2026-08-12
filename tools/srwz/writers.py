@@ -27,6 +27,88 @@ from .writeback import (
 )
 
 
+STAGE_KEYWORD_CODES = {"《": 0x8173, "》": 0x8174}
+
+
+def _stage_keyword_span_count(text: str, *, label: str) -> int:
+    """Count balanced STAGE glossary-link spans in decoded source notation."""
+
+    opened_at = None
+    count = 0
+    for index, character in enumerate(text):
+        if character == "《":
+            if opened_at is not None:
+                raise WritebackError(
+                    f"{label} has nested STAGE keyword markers at character {index}"
+                )
+            opened_at = index
+        elif character == "》":
+            if opened_at is None:
+                raise WritebackError(
+                    f"{label} has an unmatched STAGE keyword end at character {index}"
+                )
+            if index == opened_at + 1:
+                raise WritebackError(f"{label} has an empty STAGE keyword span")
+            opened_at = None
+            count += 1
+    if opened_at is not None:
+        raise WritebackError(
+            f"{label} has an unmatched STAGE keyword start at character {opened_at}"
+        )
+    return count
+
+
+def encode_stage_message(
+    table: TextTable,
+    overrides: Mapping[str, int] | None,
+    *,
+    entry_id: str,
+    source_text: str,
+    replacement: str,
+    terminate: bool = False,
+) -> bytes:
+    """Encode one STAGE message while preserving source glossary links.
+
+    In STAGE dialogue, source codes 0x8173/0x8174 are semantic keyword-link
+    delimiters.  They decode as ``《``/``》`` but are not ordinary visible book
+    title brackets.  Localized font overrides may assign those Unicode
+    characters to unrelated drawable slots, so keyword-bearing source records
+    must force the original codes back into the translated message.
+    """
+
+    source_count = _stage_keyword_span_count(
+        source_text,
+        label=f"{entry_id} source text",
+    )
+    if source_count == 0:
+        return PreparedTextEncoder(table, overrides).encode(
+            replacement,
+            terminate=terminate,
+        )
+
+    replacement_count = _stage_keyword_span_count(
+        replacement,
+        label=f"{entry_id} replacement",
+    )
+    if replacement_count != source_count:
+        raise WritebackError(
+            f"{entry_id} STAGE keyword marker count mismatch: "
+            f"source={source_count}, replacement={replacement_count}"
+        )
+    for character, code in STAGE_KEYWORD_CODES.items():
+        if table.characters.get(code) != character:
+            raise WritebackError(
+                f"{entry_id} source table does not map STAGE keyword code "
+                f"0x{code:04X} to {character!r}"
+            )
+    keyword_overrides = dict(overrides or {})
+    keyword_overrides.update(STAGE_KEYWORD_CODES)
+    return PreparedTextEncoder(table, keyword_overrides).encode(
+        replacement,
+        terminate=terminate,
+    )
+
+
 def _table_with_overrides(
     table: TextTable,
     overrides: Mapping[str, int] | None,
@@ -733,10 +815,12 @@ def relocate_stage_text_to_arena(
     if message.text != entry.text:
         raise WritebackError(f"stage entry {entry_id!r} parser/source text mismatch")
 
-    encoded_message = encode_text(
-        replacement,
+    encoded_message = encode_stage_message(
         table,
-        overrides=overrides,
+        overrides,
+        entry_id=entry.entry_id,
+        source_text=message.text,
+        replacement=replacement,
         terminate=True,
     )
     payload = prefix + encoded_message
@@ -931,10 +1015,13 @@ def relocate_stage_texts_to_arena(
             message = decode_text(data, entry.text_offset, table)
         if message.text != entry.text:
             raise WritebackError(f"{entry.entry_id} parser/source text mismatch")
-        payload = prefix + encode_text(
-            replacements[entry.entry_id],
+        replacement = replacements[entry.entry_id]
+        payload = prefix + encode_stage_message(
             table,
-            overrides=overrides,
+            overrides,
+            entry_id=entry.entry_id,
+            source_text=message.text,
+            replacement=replacement,
             terminate=True,
         )
         arena_offset = (len(output) + alignment - 1) & -alignment
@@ -1112,8 +1199,13 @@ def repack_stage_texts_in_place(
             source_end = message.end
         if message.text != entry.text:
             raise WritebackError(f"{entry.entry_id} parser/source text mismatch")
-        payload = prefix + encoder.encode(
-            replacements[entry.entry_id],
+        replacement = replacements[entry.entry_id]
+        payload = prefix + encode_stage_message(
+            table,
+            overrides,
+            entry_id=entry.entry_id,
+            source_text=message.text,
+            replacement=replacement,
             terminate=True,
         )
         slack_end = source_end
@@ -1313,10 +1405,12 @@ def replace_stage_system_dialogues_in_place(
         payload = (
             encode_text(speaker_text, table, overrides=overrides)
             + b"\n"
-            + encode_text(
-                message_text,
+            + encode_stage_message(
                 table,
-                overrides=overrides,
+                overrides,
+                entry_id=entry.entry_id,
+                source_text=message.text,
+                replacement=message_text,
                 terminate=True,
             )
         )

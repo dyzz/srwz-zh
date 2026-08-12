@@ -6,13 +6,15 @@ from pathlib import Path
 from tools.srwz.library import (
     LibraryScopeError,
     SoundTitleSpanLock,
+    build_runtime_zkn_decoded_chunk,
+    parse_runtime_zkn_decoded_chunk,
     parse_zkn_decoded_chunk,
     parse_sound_track_titles,
     verify_sound_titles_preserved,
     validate_library_scope_mapping,
     zkan_escape_transform,
 )
-from tools.srwz.text import load_text_table
+from tools.srwz.text import TextTable, load_text_table
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -55,9 +57,13 @@ class LibraryV02Tests(unittest.TestCase):
         self.assertTrue(self.release["translation_sources"])
         self.assertTrue(
             all(
-                source.get("promoted_to_corpus") is False
+                source.get("promoted_to_corpus") is True
                 for source in self.release["translation_sources"]
             )
+        )
+        self.assertEqual(
+            self.release["translation_sources"][0]["reviewed_corpus"],
+            "corpus/zh/library/v0.2-reviewed.json",
         )
         self.assertIs(
             self.release["review_policy"][
@@ -190,6 +196,53 @@ class LibraryV02Tests(unittest.TestCase):
         )
         with self.assertRaisesRegex(LibraryScopeError, "unsupported ZKAN field"):
             parse_zkn_decoded_chunk(wrapper + escaped)
+
+    def test_localized_zkan_build_and_runtime_reread(self):
+        fields = [
+            ("WORD", "原語"),
+            ("SRCE", "作品"),
+            ("DSCR", "説明"),
+            ("DSC2", "説明"),
+        ]
+        data = bytearray()
+        for tag, text in fields:
+            encoded = text.encode("cp932")
+            data.extend(tag.encode("ascii"))
+            data.extend(struct.pack("<I", len(encoded)))
+            data.extend(encoded)
+        payload = (
+            b"ZKANKYWD"
+            + struct.pack("<II", 0x100, 0x0C)
+            + b"DSIZ"
+            + struct.pack("<I", len(data) + 8)
+            + b"DATA"
+            + struct.pack("<I", len(data))
+            + bytes(data)
+        )
+        escaped = zkan_escape_transform(payload)
+        wrapper = struct.pack(
+            "<8I", 1, 0x20, 0, len(escaped), len(escaped), 0, 0, 0
+        )
+        source = parse_zkn_decoded_chunk(wrapper + escaped)
+        table = TextTable(
+            characters={
+                0x889F: "中",
+                0x88A0: "文",
+                0x88A1: "机",
+                0x88A2: "体",
+            },
+            tags={},
+        )
+        localized = build_runtime_zkn_decoded_chunk(
+            source,
+            table,
+            {"WORD": "中", "SRCE": "文", "DSCR": "机", "DSC2": "体"},
+        )
+        self.assertEqual(len(localized) % 16, 0)
+        reread = parse_runtime_zkn_decoded_chunk(localized, table)
+        self.assertEqual(reread.kind, "KYWD")
+        self.assertEqual(reread.field("WORD").text, "中")
+        self.assertEqual(reread.field("DSC2").text, "体")
 
 
 if __name__ == "__main__":

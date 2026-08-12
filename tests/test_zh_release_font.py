@@ -118,12 +118,12 @@ class ZhReleaseFontTests(unittest.TestCase):
         self.assertNotIn("historical_profiles", self.chain)
 
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
-        self.assertEqual(self.snapshot["primary_assignment_count"], 3266)
+        self.assertEqual(self.snapshot["primary_assignment_count"], 3419)
         self.assertEqual(
             self.snapshot["surface_alias_assignment_count"], 693
         )
         self.assertEqual(
-            self.snapshot["remaining_allocation_candidate_count"], 418
+            self.snapshot["remaining_allocation_candidate_count"], 264
         )
         compatibility = self.snapshot["source_compatibility_assignments"]
         compatibility_by_character = {
@@ -262,12 +262,13 @@ class ZhReleaseFontTests(unittest.TestCase):
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]
-        self.assertEqual(selection["unique_entry_count"], 123012)
+        self.assertEqual(selection["unique_entry_count"], 125728)
         source_paths = {item["path"] for item in selection["sources"]}
         self.assertIn("corpus/zh/battle/srvc-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/battle-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/system-ui-parts.json", source_paths)
         self.assertIn("corpus/zh/menu/stage-overviews.json", source_paths)
+        self.assertIn("corpus/zh/library/v0.2-reviewed.json", source_paths)
         excluded = {item["path"] for item in selection["excluded_sources"]}
         self.assertEqual(
             excluded,
@@ -289,7 +290,7 @@ class ZhReleaseFontTests(unittest.TestCase):
         )
         self.assertEqual(
             coverage["preserved_raw_ascii_punctuation_characters"],
-            '"%&\',-./:<=>@[\\]~',
+            '"%&\'+,-./:<=>@[\\]~',
         )
         control_tokens = selection["control_tokens"]
         self.assertEqual(control_tokens["entry_count"], 2149)
@@ -319,7 +320,7 @@ class ZhReleaseFontTests(unittest.TestCase):
         )
         self.assertTrue(control_tokens["excluded_from_font_glyph_demand"])
         self.assertEqual(
-            selection["literal_percent_signs"]["occurrence_count"], 178
+            selection["literal_percent_signs"]["occurrence_count"], 185
         )
         self.assertEqual(
             coverage["control_token_occurrence_count"], 2263
@@ -328,7 +329,7 @@ class ZhReleaseFontTests(unittest.TestCase):
             coverage["runtime_placeholder_occurrence_count"], 2145
         )
         self.assertTrue(coverage["runtime_placeholder_bytes_preserved_exactly"])
-        self.assertEqual(coverage["literal_percent_occurrence_count"], 178)
+        self.assertEqual(coverage["literal_percent_occurrence_count"], 185)
 
     def test_snapshot_updater_appends_without_reordering_existing_rows(self):
         updated = self._run_snapshot_updater("龘")
@@ -348,13 +349,13 @@ class ZhReleaseFontTests(unittest.TestCase):
             updated["remaining_allocation_candidate_count"], 0
         )
 
-    def test_snapshot_updater_can_reuse_original_double_byte_character(self):
+    def test_snapshot_updater_allocates_when_original_slot_is_already_reclaimed(self):
         updated = self._run_snapshot_updater("☆")
         assignment = updated["primary_assignments"][-1]
         self.assertEqual(assignment["character"], "☆")
-        self.assertEqual(assignment["code"], "8199")
+        self.assertEqual(assignment["code"], "96FD")
         self.assertEqual(
-            updated["remaining_allocation_candidate_count"], 1
+            updated["remaining_allocation_candidate_count"], 0
         )
 
     def test_translation_tree_includes_registered_translation_maps(self):

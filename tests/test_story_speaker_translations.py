@@ -138,11 +138,11 @@ class StorySpeakerTranslationTests(unittest.TestCase):
             "srwz-zh-story-speakers-v1",
         )
         self.assertEqual(glossary["default_source_match"], "token")
-        self.assertEqual(len(terms), 341)
-        self.assertEqual(len({term["id"] for term in terms}), 341)
+        self.assertEqual(len(terms), 342)
+        self.assertEqual(len({term["id"] for term in terms}), 342)
         self.assertEqual(
             Counter(term["status"] for term in terms),
-            {"researched": 224, "proposed": 115, "approved": 2},
+            {"researched": 222, "proposed": 114, "approved": 6},
         )
         self.assertTrue(all(term["category"] == "people" for term in terms))
         self.assertTrue(all(term["enforce"] for term in terms))
@@ -155,7 +155,7 @@ class StorySpeakerTranslationTests(unittest.TestCase):
                     for source_term in term["source_terms"]
                 }
             ),
-            341,
+            343,
         )
 
         referenced = {
@@ -173,7 +173,7 @@ class StorySpeakerTranslationTests(unittest.TestCase):
         )
         self.assertEqual(
             set(unreferenced),
-            {"people/user-ji-edel-full"},
+            {"people/moondoggie-short", "people/user-ji-edel-full"},
         )
 
         by_source = {

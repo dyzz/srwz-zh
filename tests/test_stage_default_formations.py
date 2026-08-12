@@ -133,7 +133,7 @@ class StageDefaultFormationTests(unittest.TestCase):
         self.assertEqual(terms["マジンガーチーム"], "魔神小队")
         self.assertEqual(terms["サンドラット"], "沙鼠团")
         self.assertEqual(terms["ダイナミックチーム"], "豪烈小队")
-        self.assertEqual(terms["フリーデン隊"], "自由号队")
+        self.assertEqual(terms["フリーデン隊"], "和平号队")
         self.assertEqual(terms["黒いサザンクロス"], "黑色南十字星")
 
     def test_reviewed_sources_cover_every_locked_position(self):

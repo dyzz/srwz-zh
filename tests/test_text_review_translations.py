@@ -40,10 +40,10 @@ class CombinedTextReviewTranslationTests(unittest.TestCase):
 
     def test_glossary_bound_surfaces_use_reviewed_terms(self):
         rules = {
-            "skill/category-f": ("F类型", "伪新人类", 15),
-            "skill/extended": ("Extended", "强化人SEED", 20),
+            "skill/category-f": ("F类型", "伪新人类", 19),
+            "skill/extended": ("Extended", "强化人SEED", 30),
             "spirit/cheer": ("声援", "应援", 2),
-            "system/enhancement-part": ("强化部件", "强化零件", 11),
+            "system/enhancement-part": ("强化部件", "强化零件", 12),
         }
         records = []
         for path in (PROJECT_ROOT / "corpus/zh").rglob("*.json"):
@@ -62,7 +62,7 @@ class CombinedTextReviewTranslationTests(unittest.TestCase):
         for stale in ("F类型", "Extended", "强化部件"):
             self.assertNotIn(stale, text)
         # Generic cheering in dialogue/summary/battle is not the spirit-command name.
-        self.assertEqual(text.count("声援"), 5)
+        self.assertEqual(text.count("声援"), 7)
 
     def test_selected_copy_edits_are_present(self):
         skills = {row["id"]: row for row in read_json(PROJECT_ROOT / "corpus/zh/menu/system-ui-skills.json")["entries"]}

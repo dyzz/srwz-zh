@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "profile_id": "library-v0.2-reviewed-release",
+  "status": "reviewed",
+  "release_eligible": true,
+  "scope_config": "config/library/v0.2.0.json",
+  "corpus": {
+    "path": "corpus/zh/library/v0.2-reviewed.json",
+    "expected_entry_count": 2709,
+    "expected_field_reference_count": 4921,
+    "expected_human_reviewed_count": 2709,
+    "expected_deterministic_reviewed_count": 0
+  },
+  "font_manifest": "manifests/zh-release-font-validation.json",
+  "codec": {
+    "strategy": "rust-maximum",
+    "min_match_length": 2,
+    "max_match_chain": 16384,
+    "lazy_matching": false,
+    "preserve_original_chunk_spans": true
+  },
+  "layout": {
+    "decoded_alignment": 16,
+    "body_line_widths": {
+      "ROBO": 26,
+      "CHAR": 16,
+      "KYWD": 24
+    }
+  },
+  "outputs": {
+    "component_root": "work/build/library-v0.2-reviewed/components",
+    "manifest": "manifests/library-v0.2-reviewed-validation.json"
+  }
+}

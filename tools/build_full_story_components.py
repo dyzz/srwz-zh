@@ -385,7 +385,7 @@ CONFIG_SECTION_IMPACTS = {
     - {MTV_PROS_MEMBER, HB_MEMBER, KVMDATA_MEMBER},
     "full_story_stage": {STAGE_MEMBER, HB_MEMBER},
     "full_pilot_names": {COMPDATA_MEMBER, STAGE_MEMBER, HSFC_MEMBER},
-    "auto_demo_overlays": {SLPS_MEMBER, *AUTO_DEMO_MEMBERS},
+    "auto_demo_overlays": {SLPS_MEMBER, COMPDATA_MEMBER, *AUTO_DEMO_MEMBERS},
     "compdata_battle_lines": {COMPDATA_MEMBER},
     "reviewed_weapons": {COMPDATA_MEMBER},
     "full_stage_titles": {SLPS_MEMBER, VT1_MEMBER, COMPDATA_MEMBER},
@@ -450,7 +450,7 @@ INPUT_IMPACTS = {
     "world_map_original_archive": {MAPMODEL_MEMBER},
     "terrain_name_corpus": {MAPMODEL_MEMBER},
     "terrain_name_inventory": {MAPMODEL_MEMBER},
-    "auto_demo_title_corpus": {SLPS_MEMBER},
+    "auto_demo_title_corpus": {SLPS_MEMBER, COMPDATA_MEMBER},
     "auto_demo_original_slps": {SLPS_MEMBER},
     "auto_demo_story_speakers": set(AUTO_DEMO_MEMBERS),
     "auto_demo_unit_names": {SLPS_MEMBER, *AUTO_DEMO_MEMBERS},
@@ -459,6 +459,7 @@ INPUT_IMPACTS = {
 
 REMAINING_UI_IMPACTS = {
     "compdata_direct_by_offset": {COMPDATA_MEMBER},
+    "compdata_library_work_titles_by_offset": {COMPDATA_MEMBER},
     "compdata_context_help_by_offset": {COMPDATA_MEMBER},
     "compdata_inline_by_offset": {COMPDATA_MEMBER},
     "leadership_effect_by_offset": {COMPDATA_MEMBER},
@@ -3701,10 +3702,216 @@ def _apply_fixed_inline_translations(
     }
 
 
+def _apply_library_work_title_slots(
+    current: bytes,
+    original: bytes,
+    references: object,
+    canonical_document: object,
+    *,
+    table,
+    output_table,
+    encoding_overrides: dict[str, int],
+) -> tuple[bytes, dict]:
+    """Write the LIBRARY detail-page work-title table into locked slots."""
+
+    if not isinstance(references, dict) or not references:
+        raise FullStoryComponentError(
+            "LIBRARY work-title slot map is invalid"
+        )
+    if not isinstance(canonical_document, dict):
+        raise FullStoryComponentError(
+            "canonical LIBRARY work-title corpus is invalid"
+        )
+    canonical_entries = canonical_document.get("entries")
+    if (
+        canonical_document.get("language") != "zh-Hans"
+        or canonical_document.get("scope", {}).get("surface")
+        != "title-idle-auto-demo"
+        or not isinstance(canonical_entries, list)
+        or not canonical_entries
+    ):
+        raise FullStoryComponentError(
+            "canonical LIBRARY work-title corpus drift"
+        )
+
+    canonical_by_id = {}
+    for ordinal, entry in enumerate(canonical_entries):
+        expected_id = f"auto-demo/title/{ordinal:02d}"
+        if (
+            not isinstance(entry, dict)
+            or entry.get("id") != expected_id
+            or entry.get("editorial_status") != "reviewed"
+            or not isinstance(entry.get("source_text"), str)
+            or not entry["source_text"]
+            or entry.get("source_text_sha256")
+            != sha256_bytes(entry["source_text"].encode("utf-8"))
+            or not isinstance(entry.get("translation"), str)
+            or not entry["translation"]
+        ):
+            raise FullStoryComponentError(
+                f"canonical LIBRARY work-title entry drift: {expected_id}"
+            )
+        canonical_by_id[expected_id] = entry
+
+    output = bytearray(current)
+    ranges = []
+    title_reports = []
+    referenced_ids = set()
+    changed_offsets = set()
+    minimum_headroom = None
+    write_count = 0
+    no_op_count = 0
+    for raw_offset, reference in sorted(
+        references.items(), key=lambda item: int(item[0], 16)
+    ):
+        try:
+            offset = int(raw_offset, 16)
+        except (TypeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"LIBRARY work-title offset is invalid: {raw_offset!r}"
+            ) from error
+        if (
+            not isinstance(raw_offset, str)
+            or raw_offset != f"0x{offset:X}"
+            or not isinstance(reference, dict)
+            or set(reference)
+            != {"title_id", "capacity", "source_span_sha256"}
+            or not isinstance(reference.get("title_id"), str)
+            or not isinstance(reference.get("capacity"), int)
+            or isinstance(reference.get("capacity"), bool)
+            or reference["capacity"] <= 0
+            or not isinstance(reference.get("source_span_sha256"), str)
+            or len(reference["source_span_sha256"]) != 64
+        ):
+            raise FullStoryComponentError(
+                f"LIBRARY work-title slot is invalid at {raw_offset!r}"
+            )
+        title_id = reference["title_id"]
+        if title_id in referenced_ids or title_id not in canonical_by_id:
+            raise FullStoryComponentError(
+                f"LIBRARY work-title reference drift: {title_id!r}"
+            )
+        referenced_ids.add(title_id)
+        capacity = reference["capacity"]
+        end = offset + capacity
+        if end > len(original) or end > len(current):
+            raise FullStoryComponentError(
+                f"LIBRARY work-title slot is outside COMPDATA: {raw_offset}"
+            )
+        if ranges and offset < ranges[-1][1]:
+            raise FullStoryComponentError(
+                f"LIBRARY work-title slots overlap at {raw_offset}"
+            )
+        ranges.append((offset, end))
+
+        canonical = canonical_by_id[title_id]
+        source_span = original[offset:end]
+        terminator = source_span.find(b"\0")
+        try:
+            source_text = source_span[:terminator].decode("cp932")
+        except UnicodeDecodeError as error:
+            raise FullStoryComponentError(
+                f"LIBRARY work-title source cannot decode: {title_id}"
+            ) from error
+        if (
+            terminator <= 0
+            or source_text != canonical["source_text"]
+            or any(source_span[terminator + 1 :])
+            or sha256_bytes(source_span)
+            != reference["source_span_sha256"]
+        ):
+            raise FullStoryComponentError(
+                f"LIBRARY work-title source preimage drift: {title_id}"
+            )
+        stored_translation = _two_byte_visible_spaces(
+            normalize_original_fullwidth_ascii(canonical["translation"])
+        )
+        try:
+            encoded = encode_text(
+                stored_translation,
+                table,
+                overrides=encoding_overrides,
+                terminate=True,
+            )
+        except (SrwzTextEncodeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"LIBRARY work-title encoding failed: {title_id}: {error}"
+            ) from error
+        if len(encoded) > capacity:
+            raise FullStoryComponentError(
+                f"LIBRARY work-title overflow: {title_id} "
+                f"({len(encoded)} > {capacity})"
+            )
+        replacement = encoded + bytes(capacity - len(encoded))
+        current_span = current[offset:end]
+        if current_span not in {source_span, replacement}:
+            raise FullStoryComponentError(
+                f"LIBRARY work-title current preimage drift: {title_id}"
+            )
+        if current_span != replacement:
+            output[offset:end] = replacement
+            write_count += 1
+            changed_offsets.update(
+                index
+                for index, (before, after) in enumerate(
+                    zip(current_span, replacement), start=offset
+                )
+                if before != after
+            )
+        else:
+            no_op_count += 1
+        reread = decode_text(bytes(output), offset, output_table, end=end)
+        if (
+            reread.text != stored_translation
+            or any(output[offset + reread.consumed : end])
+        ):
+            raise FullStoryComponentError(
+                f"LIBRARY work-title reread mismatch: {title_id}"
+            )
+        headroom = capacity - len(encoded)
+        minimum_headroom = (
+            headroom
+            if minimum_headroom is None
+            else min(minimum_headroom, headroom)
+        )
+        title_reports.append(
+            {
+                "id": title_id,
+                "offset": offset,
+                "capacity": capacity,
+                "source_text": source_text,
+                "translation": canonical["translation"],
+                "stored_translation": stored_translation,
+                "encoded_size": len(encoded),
+                "headroom": headroom,
+            }
+        )
+
+    if referenced_ids != set(canonical_by_id):
+        raise FullStoryComponentError(
+            "LIBRARY work-title slot coverage drift"
+        )
+    return bytes(output), {
+        "entry_count": len(title_reports),
+        "write_entry_count": write_count,
+        "no_op_entry_count": no_op_count,
+        "minimum_output_headroom": minimum_headroom,
+        "changed_byte_count": len(changed_offsets),
+        "titles": title_reports,
+        "canonical_title_corpus_reused": True,
+        "source_preimages_sha256_exact": True,
+        "fixed_spans_preserved": True,
+        "pointer_bytes_unchanged": True,
+        "zero_padding_preserved": True,
+        "reread_exact": True,
+    }
+
+
 def _apply_remaining_ui(
     slps: bytes,
     stored_compdata: bytes,
     reference: dict,
+    work_title_reference: object,
     descriptor_path: Path,
     font_manifest: dict,
     codec: dict,
@@ -3728,6 +3935,9 @@ def _apply_remaining_ui(
     original_slps_path, original_slps = _locked_file(
         reference.get("original_slps"), label="original SLPS"
     )
+    _work_title_path, work_title_data = _locked_file(
+        work_title_reference, label="canonical LIBRARY work titles"
+    )
     translations = json.loads(translation_data.decode("utf-8"))
     if (
         translations.get("editorial_status") != "reviewed"
@@ -3745,6 +3955,9 @@ def _apply_remaining_ui(
 
     expected = reference.get("expected")
     direct = translations.get("compdata_direct_by_offset")
+    library_work_titles = translations.get(
+        "compdata_library_work_titles_by_offset"
+    )
     context_help = translations.get("compdata_context_help_by_offset")
     inline = translations.get("compdata_inline_by_offset")
     leadership = translations.get("leadership_effect_by_offset")
@@ -3758,6 +3971,9 @@ def _apply_remaining_ui(
     if not isinstance(expected, dict) or (
         not isinstance(direct, dict)
         or len(direct) != expected.get("compdata_direct_entry_count")
+        or not isinstance(library_work_titles, dict)
+        or len(library_work_titles)
+        != expected.get("compdata_library_work_title_entry_count")
         or not isinstance(context_help, dict)
         or len(context_help)
         != expected.get("compdata_context_help_entry_count")
@@ -3816,6 +4032,17 @@ def _apply_remaining_ui(
         encoding_overrides=encoding_overrides,
         label="remaining COMPDATA UI",
         accepted_current_texts=accepted_current,
+    )
+    compdata_output, library_work_title_report = (
+        _apply_library_work_title_slots(
+            compdata_output,
+            original_decoded.output,
+            library_work_titles,
+            json.loads(work_title_data.decode("utf-8")),
+            table=table,
+            output_table=output_table,
+            encoding_overrides=encoding_overrides,
+        )
     )
     compdata_output, context_help_report = _apply_fixed_span_translations(
         compdata_output,
@@ -4009,6 +4236,7 @@ def _apply_remaining_ui(
         raise FullStoryComponentError("remaining UI atlas writeback policy drift")
     return output_slps, rebuilt_compdata, {
         "compdata_direct": direct_report,
+        "compdata_library_work_titles": library_work_title_report,
         "compdata_context_help": context_help_report,
         "compdata_inline": inline_report,
         "leadership_effects": leadership_report,
@@ -6538,6 +6766,9 @@ def build(
         != stage.get("expected_stage_count")
         or stage_report.get("stage_layout_preserved") is not True
         or stage_report.get("hb_offset_reread_exact") is not True
+        or stage_report.get("runtime_keyword_link_count") != 122
+        or stage_report.get("runtime_keyword_source_count") != 52
+        or stage_report.get("runtime_keyword_links_exact") is not True
         or stage_report.get("all_safe_aliases") is not True
         or stage_report.get(
             "unaliased_conditional_localized_assignment_count"
@@ -6708,6 +6939,7 @@ def build(
         output_slps,
         compdata_workspace.stored,
         config.get("remaining_ui"),
+        config.get("auto_demo_overlays", {}).get("title_corpus"),
         stage_title_input_paths[2],
         font_manifest,
         config["full_pilot_names"]["codec"],
@@ -7536,6 +7768,21 @@ def build(
             ),
             "remaining_ui_binary_text_reread_exact": (
                 remaining_ui_report["compdata_direct"]["reread_exact"]
+                and remaining_ui_report["compdata_library_work_titles"][
+                    "reread_exact"
+                ]
+                and remaining_ui_report["compdata_library_work_titles"][
+                    "entry_count"
+                ]
+                == config["remaining_ui"]["expected"][
+                    "compdata_library_work_title_entry_count"
+                ]
+                and remaining_ui_report["compdata_library_work_titles"][
+                    "canonical_title_corpus_reused"
+                ]
+                and remaining_ui_report["compdata_library_work_titles"][
+                    "zero_padding_preserved"
+                ]
                 and remaining_ui_report["compdata_context_help"][
                     "reread_exact"
                 ]
@@ -7631,6 +7878,12 @@ def build(
             "remaining_ui_placeholders_preserved": (
                 remaining_ui_report["compdata_direct"][
                     "placeholder_control_tokens_preserved"
+                ]
+                and remaining_ui_report["compdata_library_work_titles"][
+                    "source_preimages_sha256_exact"
+                ]
+                and remaining_ui_report["compdata_library_work_titles"][
+                    "pointer_bytes_unchanged"
                 ]
                 and remaining_ui_report["compdata_context_help"][
                     "placeholder_control_tokens_preserved"

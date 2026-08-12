@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
   "profile_id": "zh-release-full-story",
-  "component_validation_manifest": "manifests/full-story-components-validation.json",
-  "component_required_status": "integrated_global_zh_release_components_validated_runtime_pending",
+  "component_validation_manifest": "manifests/full-story-library-components-validation.json",
+  "component_required_status": "integrated_global_zh_release_library_components_validated_runtime_pending",
   "require_component_output_binding": true,
   "runtime_manifest_status": "zh_release_full_story_iso_static_validated_runtime_not_tested",
   "runtime_evidence_manifest": null,
@@ -58,13 +58,13 @@
       "member": "SLPS_258.87",
       "source": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "3c835d9073e0de982e2ae18e327461a1916e3d17415590579e4b160757635f13"
+      "sha256": "105476fa23c9fe48485f3548e389ae5b6660a5775633bef7917aa8a44d92f42a"
     },
     {
       "member": "DATA/COMPDATA.BN",
       "source": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 141516,
-      "sha256": "c8756f8ebcbda78bf4b497987f6d4c830e980bc4866dc3184cfef89d144253a5"
+      "size": 141534,
+      "sha256": "15361f5300f2d139c3e20aea209952b73376c9dae3e2501d1e46be995da10e75"
     },
     {
       "member": "DATA/NISVDATA.BIN",
@@ -82,19 +82,19 @@
       "member": "DATA/VT1.BIN",
       "source": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "5983c6d6d280fc57920160dc1eed56ddc865d880e89df191a37f02bc1a102e06"
+      "sha256": "afac7324019d493fc9c2e804997d4e60b000eda7d07da493bce793cfede005d6"
     },
     {
       "member": "DATA/STAGE.BIN",
       "source": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "1583e5d5ce7165dcc204c0279b495ef7081ebab5c6de790ff2678c60612c2cd0"
+      "sha256": "94b4df0a6678e2d9ebcfa2de0810ff29435496a99987b6f37c583aded2e0daa8"
     },
     {
       "member": "DATA/HSFC.BIN",
       "source": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
       "size": 250112,
-      "sha256": "184e8268bca7291ea4544247e8a25bdd1f7bd3d921f88768a7cd002b9535df23"
+      "sha256": "3be728b70affaead80f33ced259e1c84f0413bc101340a262b75d40502027902"
     },
     {
       "member": "HEDBDY/HB.BIN",
@@ -118,7 +118,7 @@
       "member": "BTL/SRVC.BIN",
       "source": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
       "size": 3313040,
-      "sha256": "d36698e772f7c23378348fead4dd188e1f4dd6d84999f588e19bef14caf60031"
+      "sha256": "889ae2e814e89f2cddbd687f5b96bee410a7c19748f4d6ddb80e1ac6d3c23286"
     },
     {
       "member": "BTL/SRVC.SEG",
@@ -149,6 +149,30 @@
       "source": "work/build/zh-release-full-story/components/BTL/OP2.BIN",
       "size": 266352,
       "sha256": "73a28d29c9c0d5c0ed6f49ff63a92f5a459537ca67d4590e9caf9864c82b1724"
+    },
+    {
+      "member": "DATA/JTIM.BIN",
+      "source": "work/build/zh-release-full-story/components/DATA/JTIM.BIN",
+      "size": 7539728,
+      "sha256": "a8ad25badec08a064d3162f896e585425976321e81e5d9e5f99f90ee44008aa1"
+    },
+    {
+      "member": "DATA/MTVZKNRT.BIN",
+      "source": "work/build/zh-release-full-story/components/DATA/MTVZKNRT.BIN",
+      "size": 185600,
+      "sha256": "d358b4faa5d483cf2a3b99c44be810595a99d719ce85f4b6e8dcde85b9394165"
+    },
+    {
+      "member": "DATA/MTVZKNPT.BIN",
+      "source": "work/build/zh-release-full-story/components/DATA/MTVZKNPT.BIN",
+      "size": 293696,
+      "sha256": "7cf8b16f181610fa3aac214d7ded69cf816c85ab735c194284bcbd212492b559"
+    },
+    {
+      "member": "DATA/MTVZKNKW.BIN",
+      "source": "work/build/zh-release-full-story/components/DATA/MTVZKNKW.BIN",
+      "size": 29936,
+      "sha256": "c8378e298e699c95e5b40a16e3a99088594d3f99810ec77caaef4ab219facd2d"
     }
   ],
   "output": {
@@ -159,8 +183,8 @@
     "expected_pcsx2_v263_image_type": "DVD",
     "expected_udf_volume_recognition_sequence": "NSR02",
     "byte_reproducible": true,
-    "expected_sha256": "c8be0817b5acae6468de680cb349c1015b5704d1283f7909c6a1c81644946cc8",
-    "expected_member_manifest_sha256": "2d1fa3bcdb550c715703f4987891aaa3f4d2343c9be5e194baeffc45f075eb73"
+    "expected_sha256": "b3796034e22e23d706319af0981dd460f240cf34185827024b98633f6e641faa",
+    "expected_member_manifest_sha256": "60faa7a6804d3c071f33114ad095f1af93f4698d9bcb307061ecdd5ecfd515ef"
   },
   "acceptance": {
     "udf_verify_members": [
@@ -180,7 +204,10 @@
       "EFF/VEFF2DX.BIN",
       "BTL/OP0.BIN",
       "BTL/OP1.BIN",
-      "BTL/OP2.BIN"
+      "BTL/OP2.BIN",
+      "DATA/MTVZKNRT.BIN",
+      "DATA/MTVZKNPT.BIN",
+      "DATA/MTVZKNKW.BIN"
     ]
   }
 }

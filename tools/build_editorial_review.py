@@ -16,6 +16,10 @@ from pathlib import Path
 from typing import Any, Iterable
 
 try:
+    from srwz.display_names import (
+        load_display_name_source,
+        load_full_unit_name_corpus,
+    )
     from srwz.glossary import (
         apply_glossary_variants,
         deprecated_translation_conflicts,
@@ -24,6 +28,10 @@ try:
         relevant_glossary_terms,
     )
 except ModuleNotFoundError:  # pragma: no cover - package import in tests
+    from tools.srwz.display_names import (
+        load_display_name_source,
+        load_full_unit_name_corpus,
+    )
     from tools.srwz.glossary import (
         apply_glossary_variants,
         deprecated_translation_conflicts,
@@ -50,6 +58,11 @@ LIBRARY_AUDIT = ROOT / (
 LIBRARY_POLISH = ROOT / "config/editorial/library-polish.json"
 LIBRARY_REVIEWED = ROOT / "config/editorial/library-reviewed.json"
 GLOSSARY_DIR = ROOT / "corpus/glossary"
+DISPLAY_NAME_CONFIG = ROOT / "config/display-names/compdata.json"
+UNIT_NAME_CORPUS = ROOT / "corpus/zh/display-names/units-full.json"
+STORY_SPEAKERS = ROOT / "corpus/zh/story-speakers.json"
+REMAINING_UI = ROOT / "corpus/zh/menu/remaining-ui.json"
+AUTO_DEMO_TITLES = ROOT / "corpus/zh/auto-demo-work-titles.json"
 TEMPLATE = ROOT / "tools/editorial_review/index.template.html"
 DATA_MARKER = "__SRWZ_REVIEW_DATA__"
 CONTEXT_SENSITIVE_HARD_TERM_PREFIXES = ("spirit/",)
@@ -217,6 +230,102 @@ def apply_library_rules(
     return candidate, applied
 
 
+def apply_source_bound_review_replacements(
+    text: str,
+    config: dict[str, Any],
+    relevant_term_ids: set[str],
+) -> tuple[str, list[str]]:
+    """Apply reviewed machine-variant fixes only when Japanese binds the term."""
+
+    candidate = text
+    applied: list[str] = []
+    replacements: list[tuple[str, str, str]] = []
+    for rule in config.get("source_bound_replacements", []):
+        term_id = rule.get("glossary_id")
+        target = rule.get("to")
+        variants = rule.get("from", [])
+        if (
+            term_id not in relevant_term_ids
+            or not isinstance(target, str)
+            or not target
+            or not isinstance(variants, list)
+        ):
+            continue
+        replacements.extend(
+            (str(variant), target, str(term_id))
+            for variant in variants
+            if isinstance(variant, str) and variant
+        )
+    for variant, target, term_id in sorted(
+        set(replacements),
+        key=lambda item: (-len(item[0]), item[0], item[2]),
+    ):
+        parts = candidate.split(target) if variant in target else [candidate]
+        replaced = target.join(part.replace(variant, target) for part in parts)
+        if replaced == candidate:
+            continue
+        candidate = replaced
+        applied.append(f"{variant}→{target}[{term_id}:library-review]")
+    return candidate, applied
+
+
+def apply_source_surface_replacements(
+    text: str,
+    source_text: str,
+    config: dict[str, Any],
+) -> tuple[str, list[str]]:
+    """Apply reviewed variants only when a Japanese source surface is present.
+
+    These contracts cover names whose authoritative display-name corpus is
+    stronger than the machine draft, but which are not yet approved global
+    glossary entries (for example Megadeus and Baldios).  Source binding keeps
+    a spelling such as ``奥加斯`` from touching unrelated words such as
+    ``奥加斯塔研究所``.
+    """
+
+    compact_source = compact_source_surface(source_text)
+    candidate = text
+    applied: list[str] = []
+    replacements: list[tuple[str, str, str]] = []
+    for rule in config.get("source_surface_replacements", []):
+        source_terms = rule.get("source_terms", [])
+        variants = rule.get("from", [])
+        target = rule.get("to")
+        rule_id = rule.get("id")
+        if (
+            not isinstance(source_terms, list)
+            or not isinstance(variants, list)
+            or not isinstance(target, str)
+            or not target
+            or not isinstance(rule_id, str)
+            or not rule_id
+        ):
+            raise ValueError("invalid LIBRARY source-surface replacement")
+        if not any(
+            isinstance(term, str)
+            and term
+            and compact_source_surface(term) in compact_source
+            for term in source_terms
+        ):
+            continue
+        replacements.extend(
+            (str(variant), target, rule_id)
+            for variant in variants
+            if isinstance(variant, str) and variant
+        )
+    for variant, target, rule_id in sorted(
+        set(replacements),
+        key=lambda item: (-len(item[0]), item[0], item[2]),
+    ):
+        parts = candidate.split(target) if variant in target else [candidate]
+        replaced = target.join(part.replace(variant, target) for part in parts)
+        if replaced == candidate:
+            continue
+        candidate = replaced
+        applied.append(f"{variant}→{target}[{rule_id}:source-surface]")
+    return candidate, applied
+
+
 BODY_TAGS = {"DSC2", "DSCR", "CHFN", "CHNN"}
 JAPANESE_KANA_RE = re.compile(r"[ぁ-ゖァ-ヺー]")
 
@@ -227,6 +336,127 @@ def library_row_kind(tags: Iterable[str]) -> str:
 
 def normalized_text(text: str) -> str:
     return unicodedata.normalize("NFKC", text)
+
+
+def compact_source_surface(text: str) -> str:
+    """Normalize source display surfaces without changing semantic letters."""
+
+    return re.sub(r"[\s・\-−－]", "", normalized_text(text)).lower()
+
+
+def load_library_authoritative_surfaces(
+    source_rows: list[dict[str, Any]],
+    draft_by_id: dict[str, dict[str, Any]],
+    reviewed_by_id: dict[str, dict[str, Any]],
+) -> tuple[dict[str, dict[str, str]], list[dict[str, str]]]:
+    """Bind LIBRARY names to the same reviewed surfaces used by the game UI.
+
+    The encyclopedia repeats unit names, pilot names, and work titles already
+    localized elsewhere.  Reusing those decisions is both stronger and safer
+    than accepting an independent machine transliteration in ZKAN.
+    """
+
+    _config, _decoded, parsed, _context = load_display_name_source(
+        ROOT,
+        DISPLAY_NAME_CONFIG,
+    )
+    unit_decisions, _unit_report = load_full_unit_name_corpus(
+        ROOT,
+        UNIT_NAME_CORPUS,
+        parsed.unit_entries,
+    )
+    unit_by_source = {
+        normalized_text(entry.text): unit_decisions[entry.entry_id]["translation"].replace(
+            "・", "·"
+        ).replace("Ⅱ", "II")
+        for entry in parsed.unit_entries
+    }
+
+    speaker_by_hash: dict[str, str] = {}
+    for entry in load_json(STORY_SPEAKERS).get("entries", []):
+        source_hash = entry.get("source_text_sha256")
+        translation = entry.get("translation")
+        if not isinstance(source_hash, str) or not isinstance(translation, str) or not translation:
+            continue
+        previous = speaker_by_hash.setdefault(source_hash, translation)
+        if previous != translation:
+            raise ValueError(f"conflicting story speaker surface: {source_hash}")
+
+    remaining_by_source = load_json(REMAINING_UI).get(
+        "display_names_by_source_text", {}
+    )
+    if not isinstance(remaining_by_source, dict):
+        raise ValueError("remaining display-name surface map is malformed")
+
+    work_by_source = {
+        compact_source_surface(entry["source_text"]): entry["translation"]
+        for entry in load_json(AUTO_DEMO_TITLES).get("entries", [])
+    }
+    # The ZKAN spellings differ slightly from the executable title cards.
+    work_by_source.update(
+        {
+            compact_source_surface("OVERMANキングゲイナー"): "返乡战士",
+            compact_source_surface("THE ビッグオー"): "The Big O",
+            compact_source_surface("THE ビッグオー Second Season"): "The Big O 第二季",
+        }
+    )
+
+    exact_by_id: dict[str, dict[str, str]] = {}
+    propagation_rules: list[dict[str, str]] = []
+    for source in source_rows:
+        row_id = str(source["id"])
+        references = source.get("references", [])
+        tags = {str(reference.get("tag", "")) for reference in references}
+        source_text = str(source["source_text"])
+        source_hash = str(source["source_text_sha256"])
+        canonical = ""
+        authority = ""
+        normalized_source = normalized_text(source_text)
+        if "RBTN" in tags and normalized_source in unit_by_source:
+            canonical = unit_by_source[normalized_source]
+            authority = "reviewed unit display-name corpus"
+        elif tags & {"CHFN", "CHNN", "PLTN"} and source_hash in speaker_by_hash:
+            canonical = speaker_by_hash[source_hash]
+            authority = "reviewed story speaker corpus"
+        elif tags & {"CHFN", "CHNN", "PLTN"} and source_text in remaining_by_source:
+            value = remaining_by_source[source_text]
+            if isinstance(value, str) and value:
+                canonical = value
+                authority = "reviewed residual display-name corpus"
+        elif "PRDC" in tags:
+            value = work_by_source.get(compact_source_surface(source_text))
+            if isinstance(value, str) and value:
+                canonical = value
+                authority = "reviewed work-title corpus"
+
+        # A source-hash-pinned human override is allowed to resolve genuine
+        # context collisions such as a personal name versus a generic role.
+        if not canonical or row_id in reviewed_by_id:
+            continue
+        exact_by_id[row_id] = {
+            "translation": canonical,
+            "authority": authority,
+        }
+        draft = draft_by_id.get(row_id, {})
+        draft_translation = draft.get("translation")
+        compact_source = re.sub(r"\s+", "", normalized_source)
+        if (
+            isinstance(draft_translation, str)
+            and draft_translation
+            and draft_translation != canonical
+            and len(compact_source) >= 3
+            and len(draft_translation) >= 2
+        ):
+            propagation_rules.append(
+                {
+                    "source": compact_source,
+                    "from": draft_translation,
+                    "to": canonical,
+                    "authority": authority,
+                }
+            )
+    propagation_rules.sort(key=lambda item: len(item["source"]), reverse=True)
+    return exact_by_id, propagation_rules
 
 
 def ascii_key(text: str) -> str:
@@ -367,9 +597,36 @@ def filter_library_risk_details(
 
 
 def find_term_conflicts(
-    candidate: str, glossary_terms: Iterable[dict[str, Any]]
+    candidate: str,
+    glossary_terms: Iterable[dict[str, Any]],
+    *,
+    ambiguous_term_ids: Iterable[str] = (),
 ) -> list[dict[str, Any]]:
-    return [dict(item) for item in deprecated_translation_conflicts(candidate, glossary_terms)]
+    ambiguous = set(ambiguous_term_ids)
+    enforced = [
+        term
+        for term in glossary_terms
+        if term.get("status") == "approved" and term.get("enforce") is True
+        and not (
+            str(term.get("id", "")) in ambiguous
+            and str(term.get("translation", "")) in candidate
+        )
+    ]
+    protected = candidate
+    canonicals = sorted(
+        {
+            str(term.get("translation", ""))
+            for term in enforced
+            if term.get("translation")
+        },
+        key=lambda value: (-len(value), value),
+    )
+    for canonical in canonicals:
+        protected = protected.replace(canonical, "")
+    return [
+        dict(item)
+        for item in deprecated_translation_conflicts(protected, enforced)
+    ]
 
 
 def add_library_collision_risks(
@@ -431,6 +688,63 @@ def add_library_collision_risks(
         raise ValueError(f"stale accepted LIBRARY collision groups: {labels}")
 
 
+def apply_reviewed_replacements(
+    text: str,
+    replacements: Iterable[dict[str, Any]],
+    *,
+    row_id: str,
+) -> tuple[str, list[str]]:
+    """Apply source-hash-pinned, occurrence-aware human review edits.
+
+    A plain global replacement is unsafe for entries where the machine draft
+    renders both the organization ``Gekkostate`` and the ship ``Gekko-go`` as
+    ``月光号``.  Review records can therefore select exact 1-based
+    occurrences while retaining a compact, independently checkable patch.
+    """
+
+    result = text
+    applied: list[str] = []
+    for index, item in enumerate(replacements):
+        old = item.get("from")
+        new = item.get("to")
+        occurrences = item.get("occurrences", "all")
+        if not isinstance(old, str) or not old:
+            raise ValueError(f"LIBRARY reviewed replacement {row_id}[{index}] has empty from")
+        if not isinstance(new, str) or old == new:
+            raise ValueError(f"LIBRARY reviewed replacement {row_id}[{index}] has invalid to")
+        parts = result.split(old)
+        match_count = len(parts) - 1
+        if match_count == 0:
+            raise ValueError(
+                f"LIBRARY reviewed replacement {row_id}[{index}] no longer matches {old!r}"
+            )
+        if occurrences == "all":
+            selected = set(range(1, match_count + 1))
+        elif (
+            isinstance(occurrences, list)
+            and occurrences
+            and all(isinstance(value, int) and value > 0 for value in occurrences)
+            and len(set(occurrences)) == len(occurrences)
+        ):
+            selected = set(occurrences)
+            if max(selected) > match_count:
+                raise ValueError(
+                    f"LIBRARY reviewed replacement {row_id}[{index}] selects occurrence "
+                    f"{max(selected)} but only {match_count} exist"
+                )
+        else:
+            raise ValueError(
+                f"LIBRARY reviewed replacement {row_id}[{index}] has invalid occurrences"
+            )
+        rebuilt = [parts[0]]
+        for occurrence, suffix in enumerate(parts[1:], 1):
+            rebuilt.extend([new if occurrence in selected else old, suffix])
+        result = "".join(rebuilt)
+        label = "all" if occurrences == "all" else ",".join(map(str, occurrences))
+        applied.append(f"{old}→{new}（第{label}处）")
+    return result, applied
+
+
 def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
     source_rows = load_jsonl(LIBRARY_SOURCE)
     draft_rows = load_jsonl(LIBRARY_DRAFT)
@@ -455,6 +769,23 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
     audit_by_id = require_unique(audit_rows, "id", "LIBRARY audit")
     reviewed_by_id = require_unique(
         reviewed.get("entries", []), "id", "LIBRARY reviewed entries"
+    )
+    replacement_by_id = require_unique(
+        reviewed.get("replacement_entries", []),
+        "id",
+        "LIBRARY reviewed replacement entries",
+    )
+    overlap = set(reviewed_by_id) & set(replacement_by_id)
+    if overlap:
+        raise ValueError(
+            f"LIBRARY full and replacement reviews overlap: {sorted(overlap)}"
+        )
+    authoritative_by_id, authoritative_propagation = (
+        load_library_authoritative_surfaces(
+            source_rows,
+            draft_by_id,
+            reviewed_by_id,
+        )
     )
     seen_reviewed: set[str] = set()
     rows: list[dict[str, Any]] = []
@@ -487,8 +818,20 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
         rule_terms_by_id.update(
             {str(term["id"]): term for term in glossary_terms}
         )
-        rule_terms = list(rule_terms_by_id.values())
+        contextual_variant_ids = set(
+            config.get("contextual_variant_glossary_ids", [])
+        )
+        rule_terms = [
+            term
+            for term in rule_terms_by_id.values()
+            if str(term.get("id", "")) not in contextual_variant_ids
+        ]
+        references = source.get("references", [])
+        domains = sorted({reference.get("domain", "unknown") for reference in references})
+        tags = sorted({reference.get("tag", "") for reference in references if reference.get("tag")})
+        kind = library_row_kind(tags)
         human_review = reviewed_by_id.get(row_id)
+        replacement_review = replacement_by_id.get(row_id)
         if human_review is not None:
             seen_reviewed.add(row_id)
             if human_review.get("source_text_sha256") != source["source_text_sha256"]:
@@ -500,10 +843,62 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
         else:
             candidate_input = current
         candidate, applied = apply_library_rules(candidate_input, config, rule_terms)
-        references = source.get("references", [])
-        domains = sorted({reference.get("domain", "unknown") for reference in references})
-        tags = sorted({reference.get("tag", "") for reference in references if reference.get("tag")})
-        kind = library_row_kind(tags)
+        candidate, reviewed_applied = apply_source_bound_review_replacements(
+            candidate,
+            config,
+            {str(term["id"]) for term in glossary_terms},
+        )
+        applied.extend(reviewed_applied)
+        candidate, surface_applied = apply_source_surface_replacements(
+            candidate,
+            glossary_match_text,
+            config,
+        )
+        applied.extend(surface_applied)
+        if human_review is None and row_id in authoritative_by_id:
+            authoritative = authoritative_by_id[row_id]
+            if candidate != authoritative["translation"]:
+                candidate = authoritative["translation"]
+                applied.append(
+                    f"同步{authoritative['authority']}"
+                )
+        if kind == "body":
+            compact_match_text = re.sub(
+                r"\s+", "", normalized_text(glossary_match_text)
+            )
+            for rule in authoritative_propagation:
+                if (
+                    rule["source"] not in compact_match_text
+                    or rule["from"] not in candidate
+                    or rule["to"] in candidate
+                ):
+                    continue
+                # Do not perform a global Chinese replacement when the row
+                # contains more occurrences of that surface than the bound
+                # Japanese name.  This happens in mixed Grendizer/Spazer
+                # prose where the machine draft used one Chinese name for
+                # two different source entities.  Such rows require a
+                # source-hash-pinned, occurrence-aware review entry below.
+                if compact_match_text.count(rule["source"]) != candidate.count(
+                    rule["from"]
+                ):
+                    continue
+                candidate = candidate.replace(rule["from"], rule["to"])
+                applied.append(
+                    f"{rule['from']}→{rule['to']}（{rule['authority']}）"
+                )
+        if replacement_review is not None:
+            seen_reviewed.add(row_id)
+            if replacement_review.get("source_text_sha256") != source["source_text_sha256"]:
+                raise ValueError(
+                    f"LIBRARY reviewed replacement source hash mismatch for {row_id}"
+                )
+            candidate, replacement_applied = apply_reviewed_replacements(
+                candidate,
+                replacement_review.get("replacements", []),
+                row_id=row_id,
+            )
+            applied.extend(replacement_applied)
         audit = audit_by_id.get(row_id)
         risk_details = filter_library_risk_details(
             audit.get("risk_reasons", []) if audit else [],
@@ -515,9 +910,44 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
             glossary_by_id=glossary_by_id,
             relevant_term_ids={str(term["id"]) for term in glossary_terms},
         )
+        contextual_ids = set(config.get("contextual_glossary_ids", []))
+        contextual_prefixes = tuple(
+            config.get("body_contextual_glossary_prefixes", [])
+        )
+        existing_missing_ids = {
+            str(term.get("id", ""))
+            for detail in risk_details
+            if detail.get("code") == "glossary_hint_mismatch"
+            for term in detail.get("terms", [])
+        }
+        for term in glossary_terms:
+            term_id = str(term.get("id", ""))
+            canonical = str(term.get("translation", ""))
+            if (
+                term.get("status") != "approved"
+                or term.get("enforce") is not True
+                or not canonical
+                or canonical in candidate
+                or term_id in contextual_ids
+                or (kind == "body" and term_id.startswith(contextual_prefixes))
+                or term_id in existing_missing_ids
+                or (row_id in authoritative_by_id and "PRDC" in tags)
+            ):
+                continue
+            risk_details.append(
+                {
+                    "code": "canonical_term_missing",
+                    "id": term_id,
+                    "canonical": canonical,
+                    "matched_source_terms": list(
+                        term.get("matched_source_terms", [])
+                    ),
+                }
+            )
         accepted_audit_risks: list[str] = []
-        if human_review is not None:
-            raw_accepted = human_review.get("accepted_audit_risks", [])
+        review_record = human_review or replacement_review
+        if review_record is not None:
+            raw_accepted = review_record.get("accepted_audit_risks", [])
             if not isinstance(raw_accepted, list) or not all(
                 isinstance(code, str) and code for code in raw_accepted
             ):
@@ -526,7 +956,11 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
                 )
             accepted_audit_risks = sorted(set(raw_accepted))
         risks = [risk.get("code", "unknown") for risk in risk_details]
-        conflicts = find_term_conflicts(candidate, rule_terms)
+        conflicts = find_term_conflicts(
+            candidate,
+            rule_terms,
+            ambiguous_term_ids=config.get("ambiguous_deprecated_glossary_ids", []),
+        )
         if conflicts:
             risks.append("term_conflict")
             risk_details.extend(conflicts)
@@ -546,21 +980,25 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
                 "changed": candidate != current,
                 "review_origin": (
                     "codex_human_review"
-                    if human_review is not None
-                    else "codex_consistency_pass"
+                    if review_record is not None
+                    else (
+                        "authoritative_surface_sync"
+                        if row_id in authoritative_by_id or applied
+                        else "codex_consistency_pass"
+                    )
                 ),
                 "editorial_note": (
                     "；".join(
                         [
                             *(
-                                [str(human_review.get("note", "Codex 人工复核。"))]
-                                if human_review is not None
+                                [str(review_record.get("note", "Codex 人工复核。"))]
+                                if review_record is not None
                                 else []
                             ),
                             *applied,
                         ]
                     )
-                    if human_review is not None or applied
+                    if review_record is not None or applied
                     else "已按当前剧情术语层复核；仍需人工确认内容和语气。"
                 ),
                 "risks": sorted(set(risks)),
@@ -578,7 +1016,7 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
         raise ValueError("LIBRARY source/draft row count mismatch")
     if set(draft_by_id) != {row["id"] for row in source_rows}:
         raise ValueError("LIBRARY source/draft ID set mismatch")
-    missing_reviewed = set(reviewed_by_id) - seen_reviewed
+    missing_reviewed = (set(reviewed_by_id) | set(replacement_by_id)) - seen_reviewed
     if missing_reviewed:
         raise ValueError(
             f"LIBRARY reviewed IDs not found in source queue: {sorted(missing_reviewed)}"
@@ -668,6 +1106,11 @@ def build(output_dir: Path) -> dict[str, Any]:
         LIBRARY_AUDIT,
         LIBRARY_POLISH,
         LIBRARY_REVIEWED,
+        DISPLAY_NAME_CONFIG,
+        UNIT_NAME_CORPUS,
+        STORY_SPEAKERS,
+        REMAINING_UI,
+        AUTO_DEMO_TITLES,
         *sorted(GLOSSARY_DIR.glob("*.json")),
         TEMPLATE,
     ]

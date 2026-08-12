@@ -87,6 +87,92 @@ def _locked_file(reference: Mapping[str, object], *, label: str) -> tuple[Path, 
     return path, payload
 
 
+def _keyword_spans(text: str, *, label: str) -> tuple[str, ...]:
+    spans = []
+    opened_at = None
+    for index, character in enumerate(text):
+        if character == "《":
+            if opened_at is not None:
+                raise SystemExit(f"{label} has nested runtime-keyword marker")
+            opened_at = index
+        elif character == "》":
+            if opened_at is None or index == opened_at + 1:
+                raise SystemExit(f"{label} has malformed runtime-keyword marker")
+            spans.append(text[opened_at + 1 : index])
+            opened_at = None
+    if opened_at is not None:
+        raise SystemExit(f"{label} has an unterminated runtime-keyword marker")
+    return tuple(spans)
+
+
+def _runtime_keyword_catalog(reference: Mapping[str, object]) -> dict[str, str]:
+    path, payload = _locked_file(reference, label="runtime-keyword catalog")
+    document = json.loads(payload.decode("utf-8"))
+    if (
+        document.get("schema_version") != 1
+        or document.get("profile_id") != "srwz-stage-runtime-keywords-v1"
+        or document.get("status") != "approved"
+        or not isinstance(document.get("entries"), list)
+        or len(document["entries"]) != 52
+    ):
+        raise SystemExit("runtime-keyword catalog identity drift")
+    by_source = {}
+    indices = set()
+    for row in document["entries"]:
+        source = row.get("source_term")
+        translation = row.get("translation")
+        source_hash = row.get("source_text_sha256")
+        index = row.get("entry_index")
+        if (
+            not isinstance(source, str)
+            or not source
+            or not isinstance(translation, str)
+            or not translation
+            or source_hash != hashlib.sha256(source.encode("utf-8")).hexdigest()
+            or not isinstance(index, int)
+            or index in indices
+            or source in by_source
+        ):
+            raise SystemExit("runtime-keyword catalog row drift")
+        indices.add(index)
+        by_source[source] = translation
+    if indices != set(range(52)):
+        raise SystemExit("runtime-keyword catalog slots must be exactly 0..51")
+    return by_source
+
+
+def _validate_runtime_keywords(
+    source_text: str,
+    translated_text: str,
+    catalog: Mapping[str, str],
+    *,
+    label: str,
+) -> int:
+    source_spans = _keyword_spans(source_text, label=f"{label} source")
+    translated_spans = _keyword_spans(
+        translated_text, label=f"{label} translation"
+    )
+    if len(source_spans) != len(translated_spans):
+        raise SystemExit(
+            f"{label} runtime-keyword span-count drift: "
+            f"source={len(source_spans)} translation={len(translated_spans)}"
+        )
+    for span_index, (source, translated) in enumerate(
+        zip(source_spans, translated_spans)
+    ):
+        expected = catalog.get(source)
+        if expected is None:
+            raise SystemExit(
+                f"{label} runtime-keyword source is not cataloged: {source!r}"
+            )
+        if translated != expected:
+            raise SystemExit(
+                f"{label} runtime-keyword mismatch at span {span_index}: "
+                f"source={source!r} expected={expected!r} actual={translated!r}"
+            )
+    return len(source_spans)
+
+
 def _read_iso_member(iso_path: Path, reference: Mapping[str, object]) -> bytes:
     member_name = reference.get("member")
     if not isinstance(member_name, str) or not member_name:
@@ -242,6 +328,7 @@ def build(
         stage: _entry_translations(path, {stage})
         for stage, path in stage_files.items()
     }
+    keyword_catalog = _runtime_keyword_catalog(translations["runtime_keywords"])
 
     font = config["font"]
     proposal_path = _project_path(font["proposal"])
@@ -299,6 +386,34 @@ def build(
 
     def build_stage(stage: int) -> tuple[int, bytes, dict]:
         decoded = decode(source_chunks[stage])
+        parsed_source = parse_stage(
+            decoded.output,
+            table,
+            stage_index=stage,
+            function_address=functions[stage],
+        )
+        runtime_keyword_link_count = 0
+        runtime_keyword_source_hashes = set()
+        for entry in parsed_source.entries:
+            if entry.kind != "dialogue" or "《" not in entry.text:
+                continue
+            translated = dialogue[stage].get(entry.entry_id)
+            if translated is None:
+                raise SystemExit(
+                    f"missing translated runtime-keyword entry: {entry.entry_id}"
+                )
+            runtime_keyword_link_count += _validate_runtime_keywords(
+                entry.text,
+                translated,
+                keyword_catalog,
+                label=entry.entry_id,
+            )
+            runtime_keyword_source_hashes.update(
+                hashlib.sha256(term.encode("utf-8")).hexdigest()
+                for term in _keyword_spans(
+                    entry.text, label=f"{entry.entry_id} source"
+                )
+            )
         stage_conditions = {
             entry_id: translation
             for entry_id, translation in conditions.items()
@@ -335,6 +450,11 @@ def build(
             "dialogue_count": len(dialogue[stage]),
             "condition_count": len(stage_conditions),
             "speaker_count": len(speakers[stage]),
+            "runtime_keyword_link_count": runtime_keyword_link_count,
+            "runtime_keyword_source_hashes": sorted(
+                runtime_keyword_source_hashes
+            ),
+            "runtime_keyword_links_exact": True,
             "source_encoded_size": decoded.consumed,
             "output_encoded_size": len(encoded),
             "source_chunk_size": len(source_chunks[stage]),
@@ -370,6 +490,28 @@ def build(
     finally:
         if executor is not None:
             executor.shutdown(wait=True, cancel_futures=True)
+
+    runtime_keyword_link_count = sum(
+        item["runtime_keyword_link_count"] for item in stage_reports
+    )
+    runtime_keyword_source_hashes = sorted(
+        {
+            source_hash
+            for item in stage_reports
+            for source_hash in item["runtime_keyword_source_hashes"]
+        }
+    )
+    if (
+        runtime_keyword_link_count
+        != translations.get("expected_runtime_keyword_link_count")
+        or len(runtime_keyword_source_hashes)
+        != translations.get("expected_runtime_keyword_source_count")
+    ):
+        raise SystemExit(
+            "runtime-keyword coverage drift: "
+            f"links={runtime_keyword_link_count} "
+            f"sources={len(runtime_keyword_source_hashes)}"
+        )
 
     rebuilt_stage, rebuilt_offsets = rebuild_aligned_archive(output_chunks, alignment=16)
     if tuple(rebuilt_offsets) != tuple(offsets):
@@ -408,6 +550,10 @@ def build(
             "allocation_registry": {"path": str(allocation_path.relative_to(PROJECT_ROOT)), "sha256": _sha256(allocation_path)},
             "conditions": {"path": str(conditions_path.relative_to(PROJECT_ROOT)), "sha256": _sha256(conditions_path)},
             "speakers": {"path": str(speakers_path.relative_to(PROJECT_ROOT)), "sha256": _sha256(speakers_path)},
+            "runtime_keywords": {
+                "path": translations["runtime_keywords"]["path"],
+                "sha256": translations["runtime_keywords"]["sha256"],
+            },
         },
         "stage_indices": sorted(stages),
         "codebook_proposal": str(proposal_path.relative_to(PROJECT_ROOT)),
@@ -429,6 +575,12 @@ def build(
         "stage_layout_preserved": True,
         "source_dialogue_stage_coverage_exact": True,
         "hb_offset_reread_exact": True,
+        "runtime_keyword_link_count": runtime_keyword_link_count,
+        "runtime_keyword_source_count": len(runtime_keyword_source_hashes),
+        "runtime_keyword_source_hashes": runtime_keyword_source_hashes,
+        "runtime_keyword_links_exact": all(
+            item["runtime_keyword_links_exact"] for item in stage_reports
+        ),
         "runtime_acceptance": "not tested",
     }
     return outputs, report

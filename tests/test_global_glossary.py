@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import json
+import os
 import re
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -10,6 +13,7 @@ from typing import Any, Iterator
 from tools.srwz.glossary import (
     GlossaryError,
     apply_glossary_variants,
+    deprecated_translation_conflicts,
     global_glossary_by_id,
     load_global_glossary,
 )
@@ -61,6 +65,25 @@ class GlobalGlossaryTests(unittest.TestCase):
         # Building the replacement map detects one deprecated form being
         # assigned to two different canonical terms.
         self.assertEqual(apply_glossary_variants("", global_variants), ("", []))
+
+    def test_deprecated_substring_does_not_rewrite_canonical_surface(self) -> None:
+        terms = [
+            {
+                "id": "unit/example",
+                "translation": "钢狮子",
+                "deprecated_translations": ["钢狮"],
+            }
+        ]
+        self.assertEqual(apply_glossary_variants("钢狮子", terms), ("钢狮子", []))
+        self.assertEqual(
+            apply_glossary_variants("钢狮与钢狮子", terms),
+            ("钢狮子与钢狮子", ["钢狮→钢狮子[unit/example]"]),
+        )
+        self.assertEqual(deprecated_translation_conflicts("钢狮子", terms), [])
+        self.assertEqual(
+            deprecated_translation_conflicts("钢狮与钢狮子", terms)[0]["matched"],
+            ["钢狮"],
+        )
 
     def test_duplicate_ids_merge_but_conflicting_translations_fail(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -253,6 +276,55 @@ class GlobalGlossaryTests(unittest.TestCase):
         self.assertEqual(
             {term_id: self.by_id[term_id]["translation"] for term_id in expected},
             expected,
+        )
+
+    def test_reported_names_match_every_japanese_source_occurrence(self) -> None:
+        term_ids = [
+            "organization/gekkostate",
+            "unit/freedom-gundam",
+            "unit/freeden",
+            "unit/strike-freedom-gundam",
+            "people/speaker-9f0da37da623",
+            "people/speaker-b3a6e71cada9",
+            "people/moondoggie-short",
+            "people/speaker-e00210e47303",
+        ]
+        with tempfile.TemporaryDirectory() as temporary:
+            report_path = Path(temporary) / "source-bound-audit.json"
+            command = [
+                sys.executable,
+                str(ROOT / "tools/audit_source_bound_glossary.py"),
+                "--report",
+                str(report_path),
+                "--fail-on-mismatch",
+            ]
+            for term_id in term_ids:
+                command.extend(("--term-id", term_id))
+            environment = os.environ.copy()
+            environment["PYTHONPATH"] = str(ROOT / "tools")
+            result = subprocess.run(
+                command,
+                cwd=ROOT,
+                env=environment,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+        self.assertEqual(report["mismatch_count"], 0)
+        self.assertEqual(
+            report["source_occurrences"],
+            {
+                "organization/gekkostate": 221,
+                "unit/freedom-gundam": 153,
+                "unit/freeden": 204,
+                "unit/strike-freedom-gundam": 2,
+                "people/speaker-9f0da37da623": 154,
+                "people/speaker-b3a6e71cada9": 3,
+                "people/moondoggie-short": 47,
+                "people/speaker-e00210e47303": 197,
+            },
         )
 
 

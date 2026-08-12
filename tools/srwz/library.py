@@ -12,7 +12,7 @@ import struct
 from dataclasses import dataclass
 from typing import Mapping, Sequence
 
-from .text import TextTable, decode_text
+from .text import TextTable, decode_text, encode_text
 from .tim2 import scan_tim2
 
 
@@ -269,6 +269,184 @@ def parse_zkn_decoded_chunk(decoded_chunk: bytes) -> ZkanDocument:
         decoded_payload_size=len(payload),
         decoded_payload_sha256=_sha256(payload),
     )
+
+
+def parse_runtime_zkn_decoded_chunk(
+    decoded_chunk: bytes,
+    table: TextTable,
+) -> ZkanDocument:
+    """Parse a localized ZKAN chunk through the active runtime codebook.
+
+    Retail ZKAN strings are ordinary CP932, while localized strings reuse the
+    game's two-byte text codes and the flattened Chinese font.  Structural
+    validation remains identical to :func:`parse_zkn_decoded_chunk`; only the
+    text-field decoding step differs.
+    """
+
+    source = bytes(decoded_chunk)
+    if len(source) < ZKN_WRAPPER_SIZE:
+        raise LibraryScopeError("decoded ZKN chunk is shorter than its wrapper")
+    wrapper_values = struct.unpack_from("<8I", source, 0)
+    item_count, payload_offset, reserved, payload_size, payload_size_copy = (
+        wrapper_values[:5]
+    )
+    if item_count != 1 or payload_offset != ZKN_WRAPPER_SIZE or reserved != 0:
+        raise LibraryScopeError("localized ZKN wrapper header is malformed")
+    if payload_size != payload_size_copy:
+        raise LibraryScopeError("localized ZKN wrapper payload sizes disagree")
+    if payload_offset + payload_size != len(source) or any(wrapper_values[5:]):
+        raise LibraryScopeError("localized ZKN wrapper boundary is malformed")
+
+    escaped_payload = source[payload_offset : payload_offset + payload_size]
+    payload = zkan_escape_transform(escaped_payload)
+    if len(payload) < 0x20 or payload[:4] != b"ZKAN":
+        raise LibraryScopeError("localized ZKAN payload header is missing")
+    kind = _ascii_tag(payload, 4, "localized ZKAN kind")
+    version = _unpack_u32(payload, 8, "localized ZKAN version")
+    header_size = _unpack_u32(payload, 12, "localized ZKAN header size")
+    if kind not in ZKAN_KINDS or version != 0x100 or header_size != 0x0C:
+        raise LibraryScopeError("localized ZKAN identity is unsupported")
+    if payload[16:20] != b"DSIZ" or payload[24:28] != b"DATA":
+        raise LibraryScopeError("localized ZKAN DSIZ/DATA header is malformed")
+    document_size = _unpack_u32(payload, 20, "localized ZKAN DSIZ")
+    data_size = _unpack_u32(payload, 28, "localized ZKAN DATA size")
+    if document_size != data_size + 8:
+        raise LibraryScopeError("localized ZKAN DSIZ does not cover DATA")
+    document_end = data_size + 0x20
+    if document_end > len(payload) or any(payload[document_end:]):
+        raise LibraryScopeError("localized ZKAN payload padding is malformed")
+    payload = payload[:document_end]
+
+    fields: list[ZkanField] = []
+    seen_tags: set[str] = set()
+    cursor = 0x20
+    while cursor < len(payload):
+        tag = _ascii_tag(payload, cursor, "localized ZKAN field tag")
+        size = _unpack_u32(payload, cursor + 4, f"localized ZKAN {tag} size")
+        field_start = cursor + 8
+        field_end = field_start + size
+        if field_end > len(payload) or tag in seen_tags:
+            raise LibraryScopeError(f"localized ZKAN {tag} field is malformed")
+        seen_tags.add(tag)
+        raw = payload[field_start:field_end]
+        if tag in ZKAN_TEXT_TAGS:
+            try:
+                decoded = decode_text(
+                    raw,
+                    0,
+                    table,
+                    end=len(raw),
+                    allow_end=True,
+                )
+            except ValueError as exc:
+                raise LibraryScopeError(
+                    f"localized ZKAN {tag} field cannot be decoded"
+                ) from exc
+            if decoded.unknown_code_count or decoded.end != len(raw):
+                raise LibraryScopeError(
+                    f"localized ZKAN {tag} field has unknown or trailing codes"
+                )
+            text = decoded.text
+        elif tag in ZKAN_BINARY_TAGS:
+            text = None
+        else:
+            raise LibraryScopeError(f"unsupported localized ZKAN tag: {tag!r}")
+        fields.append(ZkanField(tag=tag, data=raw, text=text))
+        cursor = field_end
+
+    # Reuse the retail parser's exact per-kind field contract without asking
+    # it to interpret localized text bytes as CP932.
+    expected_by_kind: Mapping[str, Sequence[str]] = {
+        "ROBO": ("PRDC", "LorR", "RBTN", "PLTN", "HEIT", "WEIT", "DSCR", "DSC2"),
+        "CHAR": ("CHFN", "CHNN", "PRDC", "ACTR", "LOOK", "DSCR", "DSC2"),
+        "KYWD": ("WORD", "SRCE", "DSCR", "DSC2"),
+    }
+    required = expected_by_kind[kind]
+    tags = tuple(field.tag for field in fields)
+    allowed = set(required)
+    if kind == "ROBO":
+        allowed.add("KANA")
+    if kind == "CHAR":
+        allowed.add("VOIC")
+    if any(tag not in tags for tag in required) or any(
+        tag not in allowed for tag in tags
+    ):
+        raise LibraryScopeError("localized ZKAN field contract drifted")
+    return ZkanDocument(
+        kind=kind,
+        version=version,
+        fields=tuple(fields),
+        decoded_payload_size=len(payload),
+        decoded_payload_sha256=_sha256(payload),
+    )
+
+
+def build_runtime_zkn_decoded_chunk(
+    document: ZkanDocument,
+    table: TextTable,
+    replacements: Mapping[str, str],
+    *,
+    overrides: Mapping[str, int] | None = None,
+    alignment: int = 16,
+) -> bytes:
+    """Serialize one localized ZKAN document with preserved binary fields."""
+
+    if alignment <= 0 or alignment & (alignment - 1):
+        raise LibraryScopeError("ZKAN decoded alignment must be a power of two")
+    known_tags = {field.tag for field in document.fields if field.text is not None}
+    if set(replacements) != known_tags:
+        missing = sorted(known_tags - set(replacements))
+        extra = sorted(set(replacements) - known_tags)
+        raise LibraryScopeError(
+            f"localized ZKAN replacement coverage drift: missing={missing}, extra={extra}"
+        )
+
+    records = bytearray()
+    for field in document.fields:
+        try:
+            tag = field.tag.encode("ascii")
+        except UnicodeEncodeError as exc:  # pragma: no cover - parsed tags are ASCII
+            raise LibraryScopeError("ZKAN field tag is not ASCII") from exc
+        if len(tag) != 4:
+            raise LibraryScopeError("ZKAN field tag must be four bytes")
+        if field.text is None:
+            data = field.data
+        else:
+            data = encode_text(
+                replacements[field.tag],
+                table,
+                overrides=overrides,
+                terminate=False,
+            )
+        records.extend(tag)
+        records.extend(struct.pack("<I", len(data)))
+        records.extend(data)
+
+    data_size = len(records)
+    payload = bytearray()
+    payload.extend(b"ZKAN")
+    payload.extend(document.kind.encode("ascii"))
+    payload.extend(struct.pack("<II", document.version, 0x0C))
+    payload.extend(b"DSIZ")
+    payload.extend(struct.pack("<I", data_size + 8))
+    payload.extend(b"DATA")
+    payload.extend(struct.pack("<I", data_size))
+    payload.extend(records)
+    padded_payload_size = (len(payload) + alignment - 1) & -alignment
+    payload.extend(bytes(padded_payload_size - len(payload)))
+
+    wrapper = struct.pack(
+        "<8I",
+        1,
+        ZKN_WRAPPER_SIZE,
+        0,
+        len(payload),
+        len(payload),
+        0,
+        0,
+        0,
+    )
+    return wrapper + zkan_escape_transform(payload)
 
 
 def _require_sha256(value: object, label: str) -> str:
@@ -536,7 +714,9 @@ __all__ = [
     "SoundTrackTitle",
     "ZkanDocument",
     "ZkanField",
+    "build_runtime_zkn_decoded_chunk",
     "parse_zkn_decoded_chunk",
+    "parse_runtime_zkn_decoded_chunk",
     "parse_sound_track_titles",
     "verify_jtim_library_menu_record",
     "verify_sound_title_source",

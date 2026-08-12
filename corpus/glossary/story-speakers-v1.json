@@ -57,13 +57,18 @@
         "エイジ"
       ],
       "translation": "英司",
+      "deprecated_translations": [
+        "艾吉",
+        "英二"
+      ],
+      "variant_scope": "source_bound",
       "category": "people",
-      "status": "researched",
+      "status": "approved",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《超重神GRAVION》红英司；采用作品通行汉字名。"
+      "notes": "《超重神GRAVION》红英司；统一使用作品通行汉字名，并与《∀高达》的完整人名ポゥ・エイジ区分。"
     },
     {
       "id": "people/speaker-03754cfe760d",
@@ -166,16 +171,23 @@
     {
       "id": "people/speaker-9f0da37da623",
       "source_terms": [
-        "竜馬"
+        "竜馬",
+        "リョウ"
       ],
       "translation": "龙马",
+      "deprecated_translations": [
+        "凉",
+        "谅",
+        "龙"
+      ],
       "category": "people",
-      "status": "researched",
+      "status": "approved",
       "domains": [
-        "story"
+        "story",
+        "battle"
       ],
       "enforce": true,
-      "notes": "《盖塔机器人G》流龙马；日文旧字竜转为简体龙。"
+      "notes": "《盖塔机器人G》流龙马；日文旧字竜转为简体龙，片假名简称リョウ也统一称“龙马”。贴吧用户 selkie诗依路反馈曾误译为“谅”。"
     },
     {
       "id": "people/speaker-ec24b8d9e164",
@@ -663,12 +675,16 @@
         "さやか"
       ],
       "translation": "沙也加",
+      "deprecated_translations": [
+        "沙耶加"
+      ],
       "category": "people",
       "status": "researched",
       "domains": [
         "story"
       ],
       "enforce": true,
+      "variant_scope": "source_bound",
       "notes": "《魔神Z》弓沙也加。"
     },
     {
@@ -888,7 +904,9 @@
       ],
       "translation": "嘉班",
       "deprecated_translations": [
-        "杰邦"
+        "杰邦",
+        "加班",
+        "加巴"
       ],
       "category": "people",
       "status": "proposed",
@@ -896,6 +914,7 @@
         "story"
       ],
       "enforce": true,
+      "variant_scope": "source_bound",
       "notes": "《∀高达》Gavan Gooney；本轮人工审核已确认该音译。"
     },
     {
@@ -988,13 +1007,37 @@
         "ムーンドギー"
       ],
       "translation": "蒙·多吉",
+      "deprecated_translations": [
+        "月犬"
+      ],
       "category": "people",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
       "enforce": true,
       "notes": "《交响诗篇》Moon Doggie；本轮人工审核已确认该音译。"
+    },
+    {
+      "id": "people/moondoggie-short",
+      "source_terms": [
+        "ドギー"
+      ],
+      "translation": "多吉",
+      "deprecated_translations": [
+        "道奇",
+        "多基",
+        "道基",
+        "道吉"
+      ],
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》Moon Doggie 的简称；完整人名仍使用“蒙·多吉”。"
     },
     {
       "id": "people/speaker-58ffc6397f82",
@@ -1563,7 +1606,9 @@
       ],
       "translation": "西罗克",
       "deprecated_translations": [
-        "西洛克"
+        "西洛克",
+        "希洛克",
+        "希罗克"
       ],
       "category": "people",
       "status": "researched",
@@ -1571,6 +1616,7 @@
         "story"
       ],
       "enforce": true,
+      "variant_scope": "source_bound",
       "notes": "《机动战士Z高达》帕普提马斯·西罗克。"
     },
     {
@@ -2424,12 +2470,16 @@
         "チュイル"
       ],
       "translation": "裘露",
+      "deprecated_translations": [
+        "图伊尔"
+      ],
       "category": "people",
       "status": "proposed",
       "domains": [
         "story"
       ],
       "enforce": true,
+      "variant_scope": "source_bound",
       "notes": "《超重神GRAVION》Tuil；本轮人工审核已确认该音译。"
     },
     {
@@ -2439,7 +2489,8 @@
       ],
       "translation": "迪安卡",
       "deprecated_translations": [
-        "迪亚卡"
+        "迪亚卡",
+        "迪亚哥"
       ],
       "category": "people",
       "status": "researched",
@@ -2447,6 +2498,7 @@
         "story"
       ],
       "enforce": true,
+      "variant_scope": "source_bound",
       "notes": "《机动战士高达SEED》迪安卡·艾尔斯曼。"
     },
     {
@@ -3372,7 +3424,9 @@
       ],
       "translation": "新吾",
       "deprecated_translations": [
-        "信吾"
+        "信吾",
+        "真悟",
+        "辛戈"
       ],
       "category": "people",
       "status": "researched",
@@ -3380,6 +3434,7 @@
         "story"
       ],
       "enforce": true,
+      "variant_scope": "source_bound",
       "notes": "《机动新世纪高达X》新吾·森。"
     },
     {
@@ -3754,12 +3809,17 @@
         "テテス"
       ],
       "translation": "特泰丝",
+      "deprecated_translations": [
+        "特特斯",
+        "特提斯"
+      ],
       "category": "people",
       "status": "proposed",
       "domains": [
         "story"
       ],
       "enforce": true,
+      "variant_scope": "source_bound",
       "notes": "《∀高达》Teteth Halleh；本轮人工审核已确认该音译。"
     },
     {
@@ -4220,7 +4280,8 @@
       ],
       "translation": "希德",
       "deprecated_translations": [
-        "西德"
+        "西德",
+        "西多"
       ],
       "category": "people",
       "status": "researched",
@@ -4228,6 +4289,7 @@
         "story"
       ],
       "enforce": true,
+      "variant_scope": "source_bound",
       "notes": "《∀高达》希德·蒙扎。"
     },
     {
@@ -4621,7 +4683,8 @@
       ],
       "translation": "邓克尔",
       "deprecated_translations": [
-        "丹格尔"
+        "丹格尔",
+        "丹克尔"
       ],
       "category": "people",
       "status": "researched",
@@ -4629,6 +4692,7 @@
         "story"
       ],
       "enforce": true,
+      "variant_scope": "source_bound",
       "notes": "《机动战士Z高达》邓克尔·库珀。"
     },
     {
@@ -4708,7 +4772,8 @@
       ],
       "translation": "玛尤",
       "deprecated_translations": [
-        "真由"
+        "真由",
+        "麻由"
       ],
       "category": "people",
       "status": "researched",
@@ -4716,6 +4781,7 @@
         "story"
       ],
       "enforce": true,
+      "variant_scope": "source_bound",
       "notes": "《机动战士高达SEED DESTINY》玛尤·飞鸟。"
     },
     {

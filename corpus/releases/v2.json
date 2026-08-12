@@ -12,15 +12,18 @@
       "provider": "Alibaba Cloud DashScope",
       "model": "deepseek-v4-flash-0731",
       "model_policy": "fixed_snapshot",
-      "status": "machine_draft_pending_review",
+      "status": "reviewed_promoted",
       "source_queue": "work/review/aliyun/library-v0.2/source-queue.jsonl",
       "source_queue_count": 2709,
       "source_queue_sha256": "63b0a9a9bfa2862060169a32cb3a61cefb549f9a06d6568f334543ae53d56acc",
       "validated_draft": "work/review/aliyun/library-v0.2/deepseek-v4-flash-0731/aggregate/validated.jsonl",
       "validated_draft_count": 2709,
       "validated_draft_sha256": "fca7262d099ae1b64410bc4dc834952dedda0925609ba03489990c23982f8fbc",
-      "editorial_audit": "work/review/aliyun/library-v0.2/deepseek-v4-flash-0731/editorial-audit/manifest.json",
-      "promoted_to_corpus": false
+      "editorial_audit": "work/review/editorial/stage0-library/manifest.json",
+      "reviewed_corpus": "corpus/zh/library/v0.2-reviewed.json",
+      "reviewed_entry_count": 2709,
+      "field_reference_count": 4921,
+      "promoted_to_corpus": true
     }
   ],
   "protected_source_ranges": [
@@ -45,19 +48,19 @@
       "batch_id": "v2-robot-encyclopedia",
       "domain": "library",
       "target_entry_count": 321,
-      "status": "machine_draft_pending_review"
+      "status": "reviewed_written_to_current_iso"
     },
     {
       "batch_id": "v2-character-encyclopedia",
       "domain": "library",
       "target_entry_count": 411,
-      "status": "machine_draft_pending_review"
+      "status": "reviewed_written_to_current_iso"
     },
     {
       "batch_id": "v2-glossary",
       "domain": "library",
       "target_entry_count": 52,
-      "status": "machine_draft_pending_review"
+      "status": "reviewed_written_to_current_iso"
     },
     {
       "batch_id": "v2-sound-select-ui",
@@ -81,5 +84,18 @@
     "kana_residue_allowed": false,
     "enforced_glossary_refs": true,
     "sound_track_titles_are_not_translation_entries": true
+  },
+  "current_iso_writeback": {
+    "status": "static_validated_runtime_pending",
+    "iso": "build/iso/zh-release-full-story/srwz-zh-current.iso",
+    "size": 3758358528,
+    "sha256": "599f4e5f957f7f8e62794813123dfaf29fe5d673b69ae60dea7cc8dc70f86693",
+    "component_manifest": "manifests/full-story-library-components-validation.json",
+    "content_readback_manifest": "manifests/zh-release-full-story-iso-content-validation.json",
+    "members": [
+      "DATA/MTVZKNRT.BIN",
+      "DATA/MTVZKNPT.BIN",
+      "DATA/MTVZKNKW.BIN"
+    ]
   }
 }

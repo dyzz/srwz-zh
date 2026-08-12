@@ -177,11 +177,16 @@ def main() -> int:
         for character in rendered_characters(entry["translation"])
     }
     preserved = {" ", "\u3000"}
+    preserved_table_characters = {"\u3000"}
     visible_ascii = config.get("visible_ascii_policy", {})
     if visible_ascii.get("preserve_original_glyphs") is True:
         preserved.update(ORIGINAL_FULLWIDTH_ASCII)
         ascii_codes = original_fullwidth_ascii_overrides(table)
-        preserved.update(table.characters[code] for code in ascii_codes.values())
+        fullwidth_ascii_characters = {
+            table.characters[code] for code in ascii_codes.values()
+        }
+        preserved.update(fullwidth_ascii_characters)
+        preserved_table_characters.update(fullwidth_ascii_characters)
     if visible_ascii.get("preserve_raw_ascii_punctuation") is True:
         preserved.update(
             chr(code)
@@ -204,9 +209,23 @@ def main() -> int:
     occupied_glyphs.update(
         assignment["glyph_index"] for assignment in base_codebook.values()
     )
-
+    # Preserved table glyphs are intentionally absent from the localized
+    # primary registry.  They are still live runtime assets and therefore
+    # cannot be reclaimed from an older trusted candidate pool.  In
+    # particular, 0x8140 is the ideographic space used by stored UI text.
     source_slps = (WORK_ROOT / "disc/SLPS_258.87").read_bytes()
     extended = read_extended_glyph_table(source_slps)
+    preserved_codes = {
+        table.inverse_characters[character]
+        for character in preserved_table_characters
+        if character in table.inverse_characters
+    }
+    occupied_codes.update(preserved_codes)
+    for code in preserved_codes:
+        try:
+            occupied_glyphs.add(glyph_index_for_code(code, extended))
+        except ValueError:
+            pass
     trusted_candidates = snapshot.get("remaining_allocation_candidates")
     if (
         not isinstance(trusted_candidates, list)
