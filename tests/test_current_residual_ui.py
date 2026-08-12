@@ -84,8 +84,8 @@ class CurrentResidualUiTests(unittest.TestCase):
 
     def test_current_story_content_scope_is_locked(self):
         self.assertEqual(self.content["stage_count"], 170)
-        self.assertEqual(self.content["translation_entry_count"], 92723)
-        self.assertEqual(self.content["dialogue_count"], 83500)
+        self.assertEqual(self.content["translation_entry_count"], 92730)
+        self.assertEqual(self.content["dialogue_count"], 83507)
         self.assertEqual(self.content["condition_count"], 558)
         self.assertEqual(self.content["speaker_count"], 8665)
         self.assertTrue(all(self.content["checks"].values()))
@@ -153,8 +153,8 @@ class CurrentResidualUiTests(unittest.TestCase):
 
     def test_final_iso_contains_no_stale_stage_text_rendered_by_new_font(self):
         story = self.content["stale_stage_runtime_rendering_audit"]
-        self.assertEqual(story["checked_entry_count"], 92723)
-        self.assertEqual(story["distinct_stale_fingerprint_count"], 91110)
+        self.assertEqual(story["checked_entry_count"], 92730)
+        self.assertEqual(story["distinct_stale_fingerprint_count"], 91117)
         self.assertEqual(story["stale_fingerprint_match_count"], 0)
         self.assertTrue(
             story["all_distinct_stale_source_renderings_absent"]

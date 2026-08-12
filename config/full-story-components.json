@@ -36,8 +36,8 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 52613,
-      "sha256": "2ce489b8da54dcc4b6cb20c1b00ca8189b88063e450773c83a56d673330e87d0"
+      "size": 52644,
+      "sha256": "f689e3bf9ac7b36c267b47fbcd4ff78a0a7ef8a39a72cdf6f5da5103a7dd27a9"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -49,21 +49,21 @@
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "4098a2945fb6b5a8e2589d804552dfef943675b89e2d9613be1a714afc2163e1"
+      "sha256": "72ad8f0d1df6766ce9cb46900e73537d80f92475b23e2dc0236a3eb7ab398516"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18033507,
-      "sha256": "c90d58a9a2b7d76a9605c8393b0fbca7733d43dfc1f4c7d5e29c2f1c8996436c"
+      "size": 18034896,
+      "sha256": "0b4774ff97296183053918be1086db7af1901a805601be41ea00344057c6a1c5"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "c7b8f72790d4fca89ba3271bbcb593a9fe60d8374d78bd7314cbbc8a7c386011"
+      "sha256": "31c745a00b3518bd0b731821b67417171b2cbf7b94da60a659e0d8afe0b73c4d"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -1045,11 +1045,11 @@
       "encoded_assignment_count": 1803,
       "encoded_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
       "release_assignment_count": 3266,
-      "release_assignment_mapping_sha256": "7d08ca495e0375a4c0cff9da5a2ce0229d1d0a95b36cab986447c4d76ecb5f3a",
-      "release_snapshot_primary_mapping_sha256": "6286d29f9f282777adc8a6c26ae6a1ea1deeaa80a939f84a5691d1baa795c7ac",
+      "release_assignment_mapping_sha256": "205f018f801f17dac7f42236f32d5122ba29874f1dd79569b5dd5dbaa968f0ed",
+      "release_snapshot_primary_mapping_sha256": "4764338e7bb40ad029a588301ad96c7bed34d2a6382e03a8c6af4e8c970ce3c5",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "4c89510fa1c3d578f80ee6b054f6424a48aca5b2aaeffae563ca5f35faa96a30",
+        "sha256": "7ce8c5fbc999e3aaee211d6ece88afb7149466e0def67da72e92006f1a6500ae",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
       "reason": "The already encoded UI bytes remain valid because all 1,803 mappings they use are an exact character/code/glyph subset of the flattened global release snapshot. The inherited encoded UI component is not rebuilt."
