@@ -353,8 +353,21 @@ def parse_stage(
                     record_offset,
                     "dialogue record type",
                 )
-                if structure_value >= 0x60:
+                # 0x60 and 0x61 are in-section control records.  STAGE 040
+                # uses 0x60 immediately before the seven reactions to
+                # Gainer's confession, so treating every value >= 0x60 as a
+                # terminator silently drops live dialogue.  The observed
+                # section terminator is the dedicated 0x7E record.
+                if structure_value == 0x7E:
                     break
+                if structure_value >= 0x60 and structure_value not in {
+                    0x60,
+                    0x61,
+                }:
+                    raise StageParseError(
+                        "unknown dialogue control or terminator",
+                        offset=record_offset,
+                    )
                 _require_span(data, record_offset, 32, "dialogue record")
                 text_pointer_offset = record_offset + 16
                 text_address = _u32(

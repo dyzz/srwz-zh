@@ -176,7 +176,7 @@ class WriterTests(unittest.TestCase):
         # One dialogue record followed by a terminating record type.
         struct.pack_into("<I", source, 0x1A0, 1)
         struct.pack_into("<I", source, 0x1B0, base + 0x200)
-        struct.pack_into("<I", source, 0x1C0, 0x60)
+        struct.pack_into("<I", source, 0x1C0, 0x7E)
         source[0x200:0x209] = b"Pilot\nHi\x00"
 
         result = relocate_stage_text_to_arena(
@@ -228,7 +228,7 @@ class WriterTests(unittest.TestCase):
         struct.pack_into("<II", source, 0x160, base + 0x180, 0)
         struct.pack_into("<I", source, 0x1A0, 1)
         struct.pack_into("<I", source, 0x1B0, base + 0x200)
-        struct.pack_into("<I", source, 0x1C0, 0x60)
+        struct.pack_into("<I", source, 0x1C0, 0x7E)
         source[0x200:0x209] = b"Pilot\nHi\x00"
 
         result = relocate_stage_texts_to_arena(
@@ -265,7 +265,7 @@ class WriterTests(unittest.TestCase):
         struct.pack_into("<II", source, 0x160, base + 0x180, 0)
         struct.pack_into("<I", source, 0x1A0, 1)
         struct.pack_into("<I", source, 0x1B0, base + 0x200)
-        struct.pack_into("<I", source, 0x1C0, 0x60)
+        struct.pack_into("<I", source, 0x1C0, 0x7E)
         source[0x200:0x209] = b"Pilot\nHi\x00"
 
         result = repack_stage_texts_in_place(

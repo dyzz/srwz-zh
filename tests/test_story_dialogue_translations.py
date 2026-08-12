@@ -40,7 +40,7 @@ class StoryDialogueTranslationTests(unittest.TestCase):
             for item in self.release["coverage_plan"]
             if item["batch_id"] == "v1-story-dialogue"
         )
-        self.assertEqual(batch["target_entry_count"], 83500)
+        self.assertEqual(batch["target_entry_count"], 83507)
         self.assertEqual(batch["status"], "draft_complete")
 
     def test_every_stage_document_has_stable_ids_and_complete_scope_counts(self):
@@ -84,7 +84,7 @@ class StoryDialogueTranslationTests(unittest.TestCase):
                 all_ids.add(entry["id"])
             total_entries += len(entries)
 
-        self.assertEqual(total_entries, 83500)
+        self.assertEqual(total_entries, 83507)
         self.assertEqual(len(all_ids), total_entries)
 
     def test_compact_transition_route_and_bazaar_stages_are_registered(self):
@@ -110,6 +110,30 @@ class StoryDialogueTranslationTests(unittest.TestCase):
                 179,
                 180,
             }.issubset(actual_stages)
+        )
+
+    def test_stage_040_feedback_dialogue_is_registered(self):
+        stage_040 = next(
+            document
+            for path, document in self.documents
+            if path.name == "stage-040.json"
+        )
+        translations = {
+            entry["id"]: entry["translation"]
+            for entry in stage_040["entries"]
+        }
+        hidden_branch_ids = {
+            f"story/040/dialogue/01.21/{ordinal:04d}"
+            for ordinal in range(7)
+        }
+        self.assertTrue(hidden_branch_ids.issubset(translations))
+        self.assertEqual(
+            translations["story/040/dialogue/01.21/0003"],
+            "“哦哦！\n　这份真心非常强烈！”",
+        )
+        self.assertEqual(
+            translations["story/040/dialogue/02.01/0078"],
+            "“看~招！趁你们退缩，继续上！”",
         )
 
     def test_translations_use_chinese_punctuation_and_contain_no_kana(self):
