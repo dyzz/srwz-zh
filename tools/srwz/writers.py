@@ -6,7 +6,7 @@ import struct
 from dataclasses import dataclass
 from typing import Iterable, Mapping
 
-from .codec import decode, encode
+from .codec import decode_production as decode, encode
 from .iso_layout import ExecutableOffsetSpec
 from .menu import MenuParseResult
 from .stage import (
@@ -15,7 +15,7 @@ from .stage import (
     parse_stage_system_dialogues,
 )
 from .summary import parse_summary
-from .text import TextTable, decode_text, encode_text
+from .text import PreparedTextEncoder, TextTable, decode_text, encode_text
 from .writeback import (
     AllocationPool,
     PatchOperation,
@@ -135,6 +135,7 @@ class StageBatchWrite:
     mode: str = "appended_arena"
     owned_regions: tuple[tuple[int, int], ...] = ()
     unique_payload_count: int = 0
+    source_dialogue_count: int = 0
 
     @property
     def decoded_growth(self) -> int:
@@ -1071,6 +1072,7 @@ def repack_stage_texts_in_place(
     if unknown_speakers:
         raise WritebackError(f"unknown stage speaker ids: {unknown_speakers!r}")
 
+    encoder = PreparedTextEncoder(table, overrides)
     records = []
     source_regions = []
     for entry in selected:
@@ -1096,10 +1098,8 @@ def repack_stage_texts_in_place(
                     speaker.text,
                 )
                 prefix = (
-                    encode_text(
+                    encoder.encode(
                         expected_speaker,
-                        table,
-                        overrides=overrides,
                     )
                     + b"\n"
                 )
@@ -1112,10 +1112,8 @@ def repack_stage_texts_in_place(
             source_end = message.end
         if message.text != entry.text:
             raise WritebackError(f"{entry.entry_id} parser/source text mismatch")
-        payload = prefix + encode_text(
+        payload = prefix + encoder.encode(
             replacements[entry.entry_id],
-            table,
-            overrides=overrides,
             terminate=True,
         )
         slack_end = source_end
@@ -1248,6 +1246,7 @@ def repack_stage_texts_in_place(
         mode="in_place_owned_regions",
         owned_regions=tuple((start, end) for start, end in owned_regions),
         unique_payload_count=len(placements),
+        source_dialogue_count=parsed.dialogue_count,
     )
 
 

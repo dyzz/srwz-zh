@@ -8,7 +8,10 @@
 | `iso/zh-release-full-story-build.json` | 固定原盘、成员、LBA 和 ISO 工具链 |
 | `release/v0.1.0.json` | v0.1.0 原版／目标 ISO 哈希、xdelta3 参数和发布包布局 |
 | `full-story-components.json` | 16 个最终成员的组合契约 |
-| `story-component.json` | 154 个 STAGE 剧情块的固定布局与 Rust 写回契约 |
+| `stage-default-formation-inventory.json` | 已审核 STAGE 编队／阵营名的固定关卡、布局与槽位偏移；普通构建只校验，不扫描 |
+| `terrain-name-inventory.json` | 已审核 MAPMODEL 地形名固定成员与偏移；普通构建只校验，不扫描 |
+| `world-map-title-render-snapshot.json` | 已审核地图标题的冻结 4bpp 渲染结果与预览；普通构建不启动 ImageMagick |
+| `story-component.json` | 170 个含对白 STAGE 剧情块的固定布局与 Rust 写回契约 |
 | `fonts/zh-font-build-chain.json` | 全局字体及静态图集消费者 |
 | `fonts/zh-release-font.json` | 唯一活动 VT1 字体 profile |
 | `encoding/zh-release-font-assignments.json` | 追加式字符、码位和 glyph 快照 |

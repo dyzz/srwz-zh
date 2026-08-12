@@ -9,6 +9,7 @@ ALLOWED_IMPORT_ROOTS = {
     "__future__",
     "argparse",
     "array",
+    "base64",
     "bisect",
     "binascii",
     "collections",

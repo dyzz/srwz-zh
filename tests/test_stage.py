@@ -74,6 +74,34 @@ class StageParserTests(unittest.TestCase):
             ("dialogue", "Section 1.1", "Hello", 0x230, 0x280, 1),
         )
 
+    def test_parses_sole_first_reference_as_dialogue_block(self):
+        data = bytearray(0x300)
+
+        # Compact route/bazaar chunks have no leading non-dialogue reference.
+        struct.pack_into("<h", data, 0x90, 0)
+        struct.pack_into("<h", data, 0x98, 0x120)
+        struct.pack_into("<II", data, 0x120, 0x180, 1)
+        struct.pack_into("<I", data, 0x180, 0x200)
+        struct.pack_into("<I", data, 0x220, 0)
+        struct.pack_into("<I", data, 0x230, 0x280)
+        struct.pack_into("<I", data, 0x240, 0x60)
+        data[0x280:0x28C] = b"Alice\nHello\x00"
+
+        result = parse_stage(
+            bytes(data),
+            self.table,
+            stage_index=154,
+            base_address=0,
+        )
+
+        self.assertEqual(result.block_references, (0x120,))
+        self.assertEqual(result.dialogue_count, 1)
+        self.assertEqual(
+            result.entries[1].entry_id,
+            "story/154/dialogue/00.01/0000",
+        )
+        self.assertEqual(result.entries[1].text, "Hello")
+
     def test_reads_observed_non_aligned_function_table_end(self):
         executable = bytearray(32)
         struct.pack_into("<III", executable, 4, 10, 20, 30)

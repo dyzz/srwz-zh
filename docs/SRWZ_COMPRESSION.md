@@ -113,9 +113,10 @@ encoder 或 suffix writer 超过 `max_output_size` 时必须抛出 `SrwzEncodeEr
 不得截断、修改 declared size、丢弃 decoded tail 或依靠移动 LBA 规避预算。
 
 生产 Rust 策略会重压完整 decoded payload，避免把旧 Python encoder 的 block
-带入生产结果；非生产回归策略仍可保留未变的原 block。无论采用哪条路径都必须执行：
+带入生产结果；非生产回归策略仍可保留未变的原 block。Python decoder 只保留源码
+用于隔离格式研究，生产和静态验收均使用 Rust decoder。任何生产路径都必须执行：
 
-1. 独立 Python 完整 decode；
+1. Rust 完整 decode；
 2. decoded payload 精确一致；
 3. consumed 与外层 padding 检查；
 4. archive alignment 和 offset 重读；
@@ -136,9 +137,9 @@ encoder 或 suffix writer 超过 `max_output_size` 时必须抛出 `SrwzEncodeEr
 原版 `STAGE.BIN` 大小为 3,910,128 bytes，205 个 slice 的尾部为 0–15 bytes
 零 padding。该结论只适用于固定样本，不能外推所有归档。
 
-当前 STAGE、COMPDATA 和 VT1 都已通过 Rust 重编码、独立 Python 完整回解和成员
-预算门。运行结论仍必须绑定当前组件、精确 ISO 哈希和目标 PCSX2 流程，不能从
-旧候选继承。
+当前 STAGE、COMPDATA 和 VT1 都已通过 Rust 重编码、Rust 完整回解和成员预算门。
+对同一物理流的多组写入先共用 decoded workspace，完成写入与检查后只重编码一次。
+运行结论仍必须绑定当前组件、精确 ISO 哈希和目标 PCSX2 流程，不能从旧候选继承。
 
 ## 未覆盖边界
 

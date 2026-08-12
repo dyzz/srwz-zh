@@ -7,6 +7,8 @@ import argparse
 import json
 import re
 import struct
+from bisect import bisect_left
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 try:
@@ -15,7 +17,8 @@ try:
         discover_auto_demo_name_slots,
         rewrite_auto_demo_names,
     )
-    from srwz.codec import decode, encode, reencode_changed_suffix
+    from srwz.codec import decode_production as decode, encode, reencode_changed_suffix
+    from srwz.compressed_workspace import CompressedStreamWorkspace
     from srwz.diagnostics import require_work_output
     from srwz.display_names import (
         DisplayNameError,
@@ -51,8 +54,8 @@ try:
     from srwz.stage_overview import replace_stage_overviews_in_place
     from srwz.stage_formations import (
         STAGE_OFFSET_SPEC,
-        discover_stage_default_formations,
         formation_inventory_sha256,
+        load_locked_stage_default_formations,
     )
     from srwz.stage import parse_stage_system_dialogues
     from srwz.stage_title_graphics import (
@@ -67,6 +70,7 @@ try:
     from srwz.tim2 import scan_tim2
     from srwz.terrain_names import TerrainNameError, build_terrain_names
     from srwz.text import (
+        PreparedTextEncoder,
         SrwzTextEncodeError,
         control_notation_tokens,
         decode_text,
@@ -93,7 +97,12 @@ except ModuleNotFoundError:
         discover_auto_demo_name_slots,
         rewrite_auto_demo_names,
     )
-    from tools.srwz.codec import decode, encode, reencode_changed_suffix
+    from tools.srwz.codec import (
+        decode_production as decode,
+        encode,
+        reencode_changed_suffix,
+    )
+    from tools.srwz.compressed_workspace import CompressedStreamWorkspace
     from tools.srwz.diagnostics import require_work_output
     from tools.srwz.display_names import (
         DisplayNameError,
@@ -129,8 +138,8 @@ except ModuleNotFoundError:
     from tools.srwz.stage_overview import replace_stage_overviews_in_place
     from tools.srwz.stage_formations import (
         STAGE_OFFSET_SPEC,
-        discover_stage_default_formations,
         formation_inventory_sha256,
+        load_locked_stage_default_formations,
     )
     from tools.srwz.stage import parse_stage_system_dialogues
     from tools.srwz.stage_title_graphics import (
@@ -145,6 +154,7 @@ except ModuleNotFoundError:
     from tools.srwz.tim2 import scan_tim2
     from tools.srwz.terrain_names import TerrainNameError, build_terrain_names
     from tools.srwz.text import (
+        PreparedTextEncoder,
         SrwzTextEncodeError,
         control_notation_tokens,
         decode_text,
@@ -178,12 +188,88 @@ class FullStoryComponentError(ValueError):
     """A locked input or composition invariant failed."""
 
 
+def _commit_compdata_stage(
+    stored_compdata: bytes,
+    decoded_output: bytes,
+    decoded_input,
+    codec: dict,
+    *,
+    label: str,
+    workspace: CompressedStreamWorkspace | None,
+) -> bytes:
+    """Commit one decoded write stage or perform the legacy standalone rebuild."""
+
+    if not isinstance(codec, dict) or codec.get("strategy") != "rust-fit":
+        raise FullStoryComponentError(f"{label} codec policy is invalid")
+    if workspace is not None:
+        if stored_compdata != workspace.stored:
+            raise FullStoryComponentError(f"{label} workspace source drift")
+        if decoded_input.output != workspace.current:
+            raise FullStoryComponentError(f"{label} workspace ordering drift")
+        try:
+            workspace.replace(decoded_output, stage=label)
+        except ValueError as error:
+            raise FullStoryComponentError(str(error)) from error
+        return decoded_output
+    try:
+        rebuilt = reencode_changed_suffix(
+            stored_compdata,
+            decoded_output,
+            strategy=codec["strategy"],
+            min_match_length=codec["min_match_length"],
+            max_match_chain=codec["max_match_chain"],
+            lazy_matching=codec["lazy_matching"],
+            max_output_size=codec["max_output_size"],
+            original_result=decoded_input,
+        )
+    except (RuntimeError, ValueError) as error:
+        raise FullStoryComponentError(f"{label} compression failed: {error}") from error
+    round_trip = decode(rebuilt)
+    if (
+        round_trip.consumed != len(rebuilt)
+        or round_trip.output != decoded_output
+        or round_trip.flags != decoded_input.flags
+    ):
+        raise FullStoryComponentError(f"{label} round-trip failed")
+    return rebuilt
+
+
+def _count_span_groups_containing_offsets(
+    span_groups: list[list[tuple[int, int]]],
+    changed_offsets: set[int],
+) -> int:
+    """Count span groups touched by at least one changed byte offset."""
+
+    sorted_changed_offsets = sorted(changed_offsets)
+
+    def span_contains_change(start: int, end: int) -> bool:
+        index = bisect_left(sorted_changed_offsets, start)
+        return (
+            index < len(sorted_changed_offsets)
+            and sorted_changed_offsets[index] < end
+        )
+
+    return sum(
+        any(span_contains_change(start, end) for start, end in spans)
+        for spans in span_groups
+    )
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--output-root", type=Path)
     parser.add_argument("--refresh-manifest", action="store_true")
     parser.add_argument("--force", action="store_true")
+    parser.add_argument(
+        "--incremental",
+        action="store_true",
+        help=(
+            "Compare the current inputs with the last fully validated state, "
+            "rebuild only affected component members, and reject unknown "
+            "dependency changes."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -245,6 +331,436 @@ def _output_lock(path: Path, data: bytes) -> dict:
         "size": len(data),
         "sha256": sha256_bytes(data),
     }
+
+
+def _incremental_state_path(output_root: Path) -> Path:
+    return output_root / "incremental-state.json"
+
+
+SLPS_MEMBER = "SLPS_258.87"
+VT1_MEMBER = "DATA/VT1.BIN"
+COMPDATA_MEMBER = "DATA/COMPDATA.BN"
+NISVDATA_MEMBER = "DATA/NISVDATA.BIN"
+MTV_PROS_MEMBER = "DATA/MTV_PROS.BIN"
+STAGE_MEMBER = "DATA/STAGE.BIN"
+HSFC_MEMBER = "DATA/HSFC.BIN"
+HB_MEMBER = "HEDBDY/HB.BIN"
+KVMDATA_MEMBER = "KURODATA/KVMDATA.BIN"
+SRVC_MEMBERS = frozenset({"BTL/SRVC.BIN", "BTL/SRVC.SEG"})
+VEFF_MEMBER = "EFF/VEFF2DX.BIN"
+MAPMODEL_MEMBER = "MAP/MAPMODEL.BIN"
+AUTO_DEMO_MEMBERS = frozenset(
+    {"BTL/OP0.BIN", "BTL/OP1.BIN", "BTL/OP2.BIN"}
+)
+ALL_COMPONENT_MEMBERS = frozenset(
+    {
+        SLPS_MEMBER,
+        VT1_MEMBER,
+        COMPDATA_MEMBER,
+        NISVDATA_MEMBER,
+        MTV_PROS_MEMBER,
+        STAGE_MEMBER,
+        HSFC_MEMBER,
+        HB_MEMBER,
+        KVMDATA_MEMBER,
+        *SRVC_MEMBERS,
+        VEFF_MEMBER,
+        MAPMODEL_MEMBER,
+        *AUTO_DEMO_MEMBERS,
+    }
+)
+
+
+CONFIG_SECTION_IMPACTS = {
+    "base_ui": {
+        SLPS_MEMBER,
+        VT1_MEMBER,
+        COMPDATA_MEMBER,
+        MTV_PROS_MEMBER,
+        NISVDATA_MEMBER,
+        HSFC_MEMBER,
+        VEFF_MEMBER,
+    },
+    "full_story_font": ALL_COMPONENT_MEMBERS
+    - {MTV_PROS_MEMBER, HB_MEMBER, KVMDATA_MEMBER},
+    "full_story_stage": {STAGE_MEMBER, HB_MEMBER},
+    "full_pilot_names": {COMPDATA_MEMBER, STAGE_MEMBER, HSFC_MEMBER},
+    "auto_demo_overlays": {SLPS_MEMBER, *AUTO_DEMO_MEMBERS},
+    "compdata_battle_lines": {COMPDATA_MEMBER},
+    "reviewed_weapons": {COMPDATA_MEMBER},
+    "full_stage_titles": {SLPS_MEMBER, VT1_MEMBER, COMPDATA_MEMBER},
+    "stage_overviews": {STAGE_MEMBER},
+    "hsfc_overviews": {HSFC_MEMBER},
+    "remaining_ui": {SLPS_MEMBER, COMPDATA_MEMBER, STAGE_MEMBER},
+    "nisv_effect_names": {NISVDATA_MEMBER},
+    "srvc_battle_text": set(SRVC_MEMBERS),
+    "scenario_select_effect": {SLPS_MEMBER, VEFF_MEMBER},
+    "mode_select_effect": {VEFF_MEMBER},
+    "kvmdata": {KVMDATA_MEMBER},
+    "world_map_titles": {MAPMODEL_MEMBER},
+    "composition": {SLPS_MEMBER, VT1_MEMBER},
+    "intermission_list_font_geometry": {SLPS_MEMBER},
+}
+
+
+INPUT_IMPACTS = {
+    "base_ui_manifest": CONFIG_SECTION_IMPACTS["base_ui"],
+    "full_story_font_manifest": CONFIG_SECTION_IMPACTS["full_story_font"],
+    "full_story_stage_report": {STAGE_MEMBER, HB_MEMBER},
+    "pilot_name_structure": {COMPDATA_MEMBER},
+    "story_speakers": {COMPDATA_MEMBER, *AUTO_DEMO_MEMBERS},
+    "full_unit_names": {COMPDATA_MEMBER, SLPS_MEMBER, *AUTO_DEMO_MEMBERS},
+    "full_story_font_proposal": CONFIG_SECTION_IMPACTS["full_story_font"],
+    "stage_names": {SLPS_MEMBER, VT1_MEMBER, COMPDATA_MEMBER},
+    "stage_title_format": {COMPDATA_MEMBER},
+    "stage_overviews": {STAGE_MEMBER},
+    "stage_system_dialogue": {STAGE_MEMBER},
+    "hsfc_overviews": {HSFC_MEMBER},
+    "original_hsfc": {HSFC_MEMBER},
+    "menu_descriptor": {SLPS_MEMBER, COMPDATA_MEMBER},
+    "stage_default_formation_corpus": {STAGE_MEMBER},
+    "stage_default_formation_inventory": {STAGE_MEMBER},
+    "remaining_ui_parts": {COMPDATA_MEMBER},
+    "reviewed_weapons": {COMPDATA_MEMBER},
+    "compdata_battle_lines": {COMPDATA_MEMBER},
+    "original_compdata": {COMPDATA_MEMBER},
+    "original_nisvdata": {NISVDATA_MEMBER},
+    "original_slps": {
+        SLPS_MEMBER,
+        NISVDATA_MEMBER,
+        HSFC_MEMBER,
+        VEFF_MEMBER,
+        MAPMODEL_MEMBER,
+        *AUTO_DEMO_MEMBERS,
+    },
+    "original_stage": {STAGE_MEMBER},
+    "srvc_battle_text_corpus": set(SRVC_MEMBERS),
+    "original_srvc_bin": set(SRVC_MEMBERS),
+    "original_srvc_seg": set(SRVC_MEMBERS),
+    "font_slps": CONFIG_SECTION_IMPACTS["full_story_font"],
+    "font_vt1": CONFIG_SECTION_IMPACTS["full_story_font"],
+    "font_component_report": CONFIG_SECTION_IMPACTS["full_story_font"],
+    "stage": {STAGE_MEMBER},
+    "hb": {STAGE_MEMBER, HB_MEMBER},
+    "kvmdata": {KVMDATA_MEMBER},
+    "original_veff2dx": {VEFF_MEMBER},
+    "world_map_title_corpus": {MAPMODEL_MEMBER},
+    "world_map_title_render_snapshot": {MAPMODEL_MEMBER},
+    "world_map_original_slps": {MAPMODEL_MEMBER},
+    "world_map_original_archive": {MAPMODEL_MEMBER},
+    "terrain_name_corpus": {MAPMODEL_MEMBER},
+    "terrain_name_inventory": {MAPMODEL_MEMBER},
+    "auto_demo_title_corpus": {SLPS_MEMBER},
+    "auto_demo_original_slps": {SLPS_MEMBER},
+    "auto_demo_story_speakers": set(AUTO_DEMO_MEMBERS),
+    "auto_demo_unit_names": {SLPS_MEMBER, *AUTO_DEMO_MEMBERS},
+}
+
+
+REMAINING_UI_IMPACTS = {
+    "compdata_direct_by_offset": {COMPDATA_MEMBER},
+    "compdata_context_help_by_offset": {COMPDATA_MEMBER},
+    "compdata_inline_by_offset": {COMPDATA_MEMBER},
+    "leadership_effect_by_offset": {COMPDATA_MEMBER},
+    "slps_context_ui_by_offset": {SLPS_MEMBER},
+    "slps_by_offset": {SLPS_MEMBER},
+    "nisv_effect_names": {NISVDATA_MEMBER},
+    "stage_fixed_formation_by_offset": {STAGE_MEMBER},
+    "display_names_by_source_text": {COMPDATA_MEMBER, *AUTO_DEMO_MEMBERS},
+    # This inventory is currently validation-only, but recomputing COMPDATA
+    # keeps policy changes fail-closed instead of silently accepting them.
+    "atlas_by_source_text": {COMPDATA_MEMBER},
+    "policy": {SLPS_MEMBER, COMPDATA_MEMBER},
+    "editorial_status": {SLPS_MEMBER, COMPDATA_MEMBER},
+}
+
+
+def _normalized_binary_config(value: object) -> object:
+    """Drop locks and ratchets that validate a build but do not create bytes."""
+
+    if isinstance(value, dict):
+        result = {}
+        for key, child in value.items():
+            if key in {"size", "sha256", "expected"}:
+                continue
+            result[key] = _normalized_binary_config(child)
+        return result
+    if isinstance(value, list):
+        return [_normalized_binary_config(child) for child in value]
+    return value
+
+
+def _changed_remaining_ui_impacts(
+    baseline: dict,
+    current: dict,
+) -> tuple[set[str], list[str]]:
+    affected = set()
+    reasons = []
+    changed_keys = {
+        key
+        for key in set(baseline) | set(current)
+        if baseline.get(key) != current.get(key)
+    }
+    metadata_keys = {"schema_version", "translation_id", "language"}
+    unknown = changed_keys - set(REMAINING_UI_IMPACTS) - metadata_keys - {
+        "accepted_current_preimages_by_offset"
+    }
+    if unknown:
+        raise FullStoryComponentError(
+            "incremental build has no remaining-UI dependency rule for: "
+            + ", ".join(sorted(unknown))
+        )
+    for key in sorted(changed_keys & set(REMAINING_UI_IMPACTS)):
+        affected.update(REMAINING_UI_IMPACTS[key])
+        reasons.append(f"remaining-ui:{key}")
+    if "accepted_current_preimages_by_offset" in changed_keys:
+        paired = set()
+        if changed_keys & {
+            "compdata_direct_by_offset",
+            "compdata_context_help_by_offset",
+            "compdata_inline_by_offset",
+            "leadership_effect_by_offset",
+        }:
+            paired.add(COMPDATA_MEMBER)
+        if changed_keys & {"slps_context_ui_by_offset", "slps_by_offset"}:
+            paired.add(SLPS_MEMBER)
+        if not paired:
+            raise FullStoryComponentError(
+                "accepted-current preimage changed without a matching text map"
+            )
+        affected.update(paired)
+        reasons.append("remaining-ui:accepted_current_preimages_by_offset")
+    return affected, reasons
+
+
+def _load_or_seed_incremental_state(
+    *,
+    config_path: Path,
+    config: dict,
+    output_root: Path,
+    manifest_path: Path,
+    manifest: dict,
+    remaining_ui_path: Path,
+    remaining_ui: dict,
+) -> dict:
+    state_path = _incremental_state_path(output_root)
+    manifest_data = manifest_path.read_bytes()
+    if state_path.is_file():
+        state = _json(state_path)
+        if (
+            state.get("schema_version") in {1, 2}
+            and state.get("component_manifest")
+            == _file_lock(manifest_path, manifest_data)
+            and isinstance(state.get("config"), dict)
+            and isinstance(state.get("remaining_ui"), dict)
+        ):
+            return state
+
+    current_config_lock = _file_lock(config_path, config_path.read_bytes())
+    current_remaining_lock = _file_lock(
+        remaining_ui_path,
+        remaining_ui_path.read_bytes(),
+    )
+    prior_inputs = manifest.get("inputs", {})
+    matching_remaining_locks = [
+        lock
+        for lock in prior_inputs.values()
+        if isinstance(lock, dict) and lock.get("path") == current_remaining_lock["path"]
+    ]
+    if (
+        prior_inputs.get("config") != current_config_lock
+        or not matching_remaining_locks
+        or any(lock != current_remaining_lock for lock in matching_remaining_locks)
+    ):
+        raise FullStoryComponentError(
+            "incremental state is missing or stale; run one full component build"
+        )
+    return {
+        "schema_version": 2,
+        "component_manifest": _file_lock(manifest_path, manifest_data),
+        "config": config,
+        "remaining_ui": remaining_ui,
+    }
+
+
+def _write_incremental_state(
+    *,
+    config_path: Path,
+    config: dict,
+    output_root: Path,
+    manifest_path: Path,
+) -> None:
+    remaining_reference = config.get("remaining_ui", {}).get("translations")
+    remaining_ui_path, remaining_data = _locked_file(
+        remaining_reference,
+        label="remaining UI translations",
+    )
+    state = {
+        "schema_version": 2,
+        "component_manifest": _file_lock(
+            manifest_path,
+            manifest_path.read_bytes(),
+        ),
+        "config_path": str(config_path.relative_to(PROJECT_ROOT.resolve())),
+        "config": config,
+        "remaining_ui_path": str(
+            remaining_ui_path.relative_to(PROJECT_ROOT.resolve())
+        ),
+        "remaining_ui": json.loads(remaining_data.decode("utf-8")),
+    }
+    state_path = _incremental_state_path(output_root)
+    state_path.write_text(
+        json.dumps(state, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def _validate_prior_component_outputs(
+    output_root: Path,
+    manifest: dict,
+) -> None:
+    outputs = manifest.get("outputs")
+    if not isinstance(outputs, dict) or set(outputs) != ALL_COMPONENT_MEMBERS:
+        raise FullStoryComponentError(
+            "prior component manifest has an incomplete output member set"
+        )
+    for member, lock in outputs.items():
+        if not isinstance(lock, dict):
+            raise FullStoryComponentError(
+                f"prior component output lock is invalid: {member}"
+            )
+        path = output_root / member
+        try:
+            payload = path.read_bytes()
+        except OSError as error:
+            raise FullStoryComponentError(
+                f"prior component output is missing: {member}"
+            ) from error
+        if _output_lock(path, payload) != lock:
+            raise FullStoryComponentError(
+                f"incremental build refused because component drifted: {member}"
+            )
+
+
+def _prior_input_path(prior_report: dict, label: str) -> Path:
+    lock = prior_report.get("inputs", {}).get(label)
+    if not isinstance(lock, dict):
+        raise FullStoryComponentError(
+            f"prior component input lock is missing: {label}"
+        )
+    return _project_path(lock.get("path"))
+
+
+def _prior_output_payload(
+    output_root: Path,
+    member: str,
+) -> bytes:
+    try:
+        return (output_root / member).read_bytes()
+    except OSError as error:
+        raise FullStoryComponentError(
+            f"prior component output is missing: {member}"
+        ) from error
+
+
+def _plan_incremental_members(
+    *,
+    baseline_config: dict,
+    current_config: dict,
+    baseline_remaining_ui: dict,
+    current_remaining_ui: dict,
+    prior_report: dict,
+) -> tuple[set[str], list[str]]:
+    """Resolve input drift to binary members; reject every unknown edge."""
+
+    affected = set()
+    reasons = []
+    baseline_binary = _normalized_binary_config(baseline_config)
+    current_binary = _normalized_binary_config(current_config)
+    metadata_sections = {
+        "schema_version",
+        "profile_id",
+        "scope",
+        "outputs",
+    }
+    changed_sections = {
+        key
+        for key in set(baseline_binary) | set(current_binary)
+        if baseline_binary.get(key) != current_binary.get(key)
+    }
+    unknown_sections = changed_sections - set(CONFIG_SECTION_IMPACTS) - metadata_sections
+    if unknown_sections:
+        raise FullStoryComponentError(
+            "incremental build has no config dependency rule for: "
+            + ", ".join(sorted(unknown_sections))
+        )
+    for section in sorted(changed_sections & set(CONFIG_SECTION_IMPACTS)):
+        affected.update(CONFIG_SECTION_IMPACTS[section])
+        reasons.append(f"config:{section}")
+
+    prior_inputs = prior_report.get("inputs")
+    if not isinstance(prior_inputs, dict):
+        raise FullStoryComponentError("prior component input locks are missing")
+    remaining_path = current_config.get("remaining_ui", {}).get(
+        "translations", {}
+    ).get("path")
+    remaining_labels = {
+        "remaining_display_names",
+        "remaining_ui_translations",
+        "auto_demo_residual_names",
+    }
+    changed_input_labels = []
+    for label, lock in prior_inputs.items():
+        if label == "config":
+            continue
+        if not isinstance(lock, dict) or not isinstance(lock.get("path"), str):
+            raise FullStoryComponentError(
+                f"prior component input lock is invalid: {label}"
+            )
+        path = _project_path(lock["path"])
+        try:
+            payload = path.read_bytes()
+        except OSError as error:
+            raise FullStoryComponentError(
+                f"incremental input is missing: {label}"
+            ) from error
+        if _file_lock(path, payload) != lock:
+            changed_input_labels.append(label)
+
+    remaining_changed = any(
+        label in remaining_labels
+        and prior_inputs[label].get("path") == remaining_path
+        for label in changed_input_labels
+    )
+    if remaining_changed:
+        remaining_affected, remaining_reasons = _changed_remaining_ui_impacts(
+            baseline_remaining_ui,
+            current_remaining_ui,
+        )
+        affected.update(remaining_affected)
+        reasons.extend(remaining_reasons)
+
+    for label in sorted(changed_input_labels):
+        if label in remaining_labels and prior_inputs[label].get("path") == remaining_path:
+            continue
+        impact = INPUT_IMPACTS.get(label)
+        if impact is None and label.startswith("auto_demo_original_op") and (
+            label.endswith("_bin") or label.endswith("_seg")
+        ):
+            stem = label.removeprefix("auto_demo_original_").removesuffix(
+                "_bin" if label.endswith("_bin") else "_seg"
+            )
+            impact = {f"BTL/{stem.upper()}.BIN"}
+        if impact is None:
+            raise FullStoryComponentError(
+                f"incremental build has no input dependency rule for: {label}"
+            )
+        affected.update(impact)
+        reasons.append(f"input:{label}")
+
+    if not affected <= ALL_COMPONENT_MEMBERS:
+        raise FullStoryComponentError("incremental dependency graph emitted an unknown member")
+    return affected, reasons
 
 
 def _sha_locked_json(reference: dict, *, label: str) -> tuple[Path, dict]:
@@ -368,6 +884,8 @@ def _apply_full_pilot_names(
     stored_compdata: bytes,
     reference: dict,
     font_manifest: dict,
+    *,
+    workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, dict, Path, Path, Path, Path, Path]:
     if not isinstance(reference, dict):
         raise FullStoryComponentError("full pilot-name configuration is invalid")
@@ -399,7 +917,11 @@ def _apply_full_pilot_names(
         )
     try:
         structure, _original_data, original_names, _context = (
-            load_display_name_source(PROJECT_ROOT, structure_path)
+            load_display_name_source(
+                PROJECT_ROOT,
+                structure_path,
+                decoder=decode,
+            )
         )
         unit_decisions, unit_corpus_report = load_full_unit_name_corpus(
             PROJECT_ROOT,
@@ -506,7 +1028,7 @@ def _apply_full_pilot_names(
     ):
         raise FullStoryComponentError("full display-name selection drift")
 
-    decoded = decode(stored_compdata)
+    decoded = workspace.view() if workspace is not None else decode(stored_compdata)
     if decoded.consumed != len(stored_compdata):
         raise FullStoryComponentError("base COMPDATA has trailing compressed bytes")
     table_path = _project_path(structure["text_table"]["path"])
@@ -912,29 +1434,14 @@ def _apply_full_pilot_names(
             )
 
     codec = reference.get("codec")
-    if not isinstance(codec, dict) or codec.get("strategy") != "rust-fit":
-        raise FullStoryComponentError("full pilot-name codec policy is invalid")
-    try:
-        rebuilt = reencode_changed_suffix(
-            stored_compdata,
-            bytes(output),
-            strategy=codec["strategy"],
-            min_match_length=codec["min_match_length"],
-            max_match_chain=codec["max_match_chain"],
-            lazy_matching=codec["lazy_matching"],
-            max_output_size=codec["max_output_size"],
-        )
-    except (RuntimeError, ValueError) as error:
-        raise FullStoryComponentError(
-            f"full pilot-name COMPDATA compression failed: {error}"
-        ) from error
-    round_trip = decode(rebuilt)
-    if (
-        round_trip.consumed != len(rebuilt)
-        or round_trip.output != bytes(output)
-        or round_trip.flags != decoded.flags
-    ):
-        raise FullStoryComponentError("full pilot-name COMPDATA round-trip failed")
+    rebuilt = _commit_compdata_stage(
+        stored_compdata,
+        bytes(output),
+        decoded,
+        codec,
+        label="full pilot-name COMPDATA",
+        workspace=workspace,
+    )
     changed_offsets = [
         offset
         for offset, (before, after) in enumerate(zip(decoded.output, output))
@@ -1015,7 +1522,9 @@ def _apply_full_pilot_names(
             "reread_exact": True,
         },
         "source_compressed_size": len(stored_compdata),
-        "output_compressed_size": len(rebuilt),
+        "output_compressed_size": (
+            None if workspace is not None else len(rebuilt)
+        ),
         "compressed_sector_budget": codec["max_output_size"],
         "codec": {
             "strategy": codec["strategy"],
@@ -1023,7 +1532,8 @@ def _apply_full_pilot_names(
             "max_match_chain": codec["max_match_chain"],
             "lazy_matching": codec["lazy_matching"],
         },
-        "codec_round_trip_exact": True,
+        "codec_round_trip_exact": workspace is None,
+        "compression_deferred_to_workspace": workspace is not None,
         "reread_exact": True,
         "changed_bytes_confined_to_selected_fields": True,
         "surface_safe_aliases": {
@@ -1580,6 +2090,8 @@ def _apply_full_stage_titles(
     codec: dict,
     final_font: bytes,
     release_by_character: dict,
+    *,
+    workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, bytes, bytes, dict, tuple[Path, Path, Path]]:
     """Write every fixed-span stage title and the visible title quotes."""
 
@@ -1678,7 +2190,7 @@ def _apply_full_stage_titles(
     current_table = project_runtime_text_table(
         current_table, surface_aliases
     )
-    decoded = decode(stored_compdata)
+    decoded = workspace.view() if workspace is not None else decode(stored_compdata)
     if decoded.consumed != len(stored_compdata):
         raise FullStoryComponentError(
             "stage-title COMPDATA has trailing compressed bytes"
@@ -1717,29 +2229,14 @@ def _apply_full_stage_titles(
             f"full stage-title write failed: {error}"
         ) from error
 
-    if not isinstance(codec, dict) or codec.get("strategy") != "rust-fit":
-        raise FullStoryComponentError("stage-title codec policy is invalid")
-    try:
-        rebuilt_compdata = reencode_changed_suffix(
-            stored_compdata,
-            compdata_write.data,
-            strategy=codec["strategy"],
-            min_match_length=codec["min_match_length"],
-            max_match_chain=codec["max_match_chain"],
-            lazy_matching=codec["lazy_matching"],
-            max_output_size=codec["max_output_size"],
-        )
-    except (RuntimeError, ValueError) as error:
-        raise FullStoryComponentError(
-            f"stage-title COMPDATA compression failed: {error}"
-        ) from error
-    round_trip = decode(rebuilt_compdata)
-    if (
-        round_trip.consumed != len(rebuilt_compdata)
-        or round_trip.output != compdata_write.data
-        or round_trip.flags != decoded.flags
-    ):
-        raise FullStoryComponentError("stage-title COMPDATA round-trip failed")
+    rebuilt_compdata = _commit_compdata_stage(
+        stored_compdata,
+        compdata_write.data,
+        decoded,
+        codec,
+        label="stage-title COMPDATA",
+        workspace=workspace,
+    )
     example_id = "menu/Compdata/03/0072"
     if stage_replacements.get(example_id) != "被安排的决战":
         raise FullStoryComponentError("stage 38 title decision drift")
@@ -1763,8 +2260,11 @@ def _apply_full_stage_titles(
         "printable_ascii_passthrough": True,
         "available_surface_safe_aliases_used": True,
         "compdata_source_size": len(stored_compdata),
-        "compdata_output_size": len(rebuilt_compdata),
-        "compdata_round_trip_exact": True,
+        "compdata_output_size": (
+            None if workspace is not None else len(rebuilt_compdata)
+        ),
+        "compdata_round_trip_exact": workspace is None,
+        "compression_deferred_to_workspace": workspace is not None,
         "slps_size_preserved": len(slps_write.data) == len(slps),
         "graphics": graphic_report,
     }, (stage_path, format_path, descriptor_path)
@@ -1776,6 +2276,8 @@ def _apply_stage_overviews(
     reference: dict,
     font_manifest: dict,
     codec: dict,
+    *,
+    chunk_workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, dict, Path]:
     """Rewrite reviewed save/load overview strings in fixed STAGE chunk 0."""
 
@@ -1821,7 +2323,16 @@ def _apply_stage_overviews(
     stored = stage[:chunk_end]
     if len(stored) != expected.get("stored_chunk_size"):
         raise FullStoryComponentError("stage-overview chunk size drift")
-    decoded = decode(stored)
+    decoded = (
+        chunk_workspace.view()
+        if chunk_workspace is not None
+        else decode(stored)
+    )
+    if (
+        chunk_workspace is not None
+        and stored[: decoded.consumed] != chunk_workspace.stored
+    ):
+        raise FullStoryComponentError("stage-overview workspace source drift")
     if any(stored[decoded.consumed:]):
         raise FullStoryComponentError("stage-overview chunk has nonzero padding")
 
@@ -1854,29 +2365,39 @@ def _apply_stage_overviews(
         raise FullStoryComponentError("stage-overview selection drift")
     if not isinstance(codec, dict) or codec.get("strategy") != "rust-fit":
         raise FullStoryComponentError("stage-overview codec policy is invalid")
-    try:
-        rebuilt = reencode_changed_suffix(
-            stored[: decoded.consumed],
-            rewritten,
-            strategy=codec["strategy"],
-            min_match_length=codec["min_match_length"],
-            max_match_chain=codec["max_match_chain"],
-            lazy_matching=codec["lazy_matching"],
-            max_output_size=len(stored),
-        )
-    except (RuntimeError, ValueError) as error:
-        raise FullStoryComponentError(
-            f"stage-overview compression failed: {error}"
-        ) from error
-    round_trip = decode(rebuilt)
-    if (
-        round_trip.consumed != len(rebuilt)
-        or round_trip.output != rewritten
-        or round_trip.flags != decoded.flags
-    ):
-        raise FullStoryComponentError("stage-overview codec round-trip failed")
-    rebuilt_stored = rebuilt + bytes(len(stored) - len(rebuilt))
-    output = rebuilt_stored + stage[chunk_end:]
+    if chunk_workspace is not None:
+        try:
+            chunk_workspace.replace(rewritten, stage="stage overviews")
+        except ValueError as error:
+            raise FullStoryComponentError(str(error)) from error
+        rebuilt = None
+        rebuilt_stored = stored
+        output = stage
+    else:
+        try:
+            rebuilt = reencode_changed_suffix(
+                stored[: decoded.consumed],
+                rewritten,
+                strategy=codec["strategy"],
+                min_match_length=codec["min_match_length"],
+                max_match_chain=codec["max_match_chain"],
+                lazy_matching=codec["lazy_matching"],
+                max_output_size=len(stored),
+                original_result=decoded,
+            )
+        except (RuntimeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"stage-overview compression failed: {error}"
+            ) from error
+        round_trip = decode(rebuilt)
+        if (
+            round_trip.consumed != len(rebuilt)
+            or round_trip.output != rewritten
+            or round_trip.flags != decoded.flags
+        ):
+            raise FullStoryComponentError("stage-overview codec round-trip failed")
+        rebuilt_stored = rebuilt + bytes(len(stored) - len(rebuilt))
+        output = rebuilt_stored + stage[chunk_end:]
     if (
         len(output) != len(stage)
         or read_executable_archive_offsets(hb, offset_spec, len(output)) != offsets
@@ -1888,10 +2409,17 @@ def _apply_stage_overviews(
             "chunk_index": 0,
             "source_stored_size": len(stored),
             "source_encoded_size": decoded.consumed,
-            "output_encoded_size": len(rebuilt),
-            "output_encoded_sha256": sha256_bytes(rebuilt),
-            "output_padding_size": len(rebuilt_stored) - len(rebuilt),
-            "codec_round_trip_exact": True,
+            "output_encoded_size": (
+                None if rebuilt is None else len(rebuilt)
+            ),
+            "output_encoded_sha256": (
+                None if rebuilt is None else sha256_bytes(rebuilt)
+            ),
+            "output_padding_size": (
+                None if rebuilt is None else len(rebuilt_stored) - len(rebuilt)
+            ),
+            "codec_round_trip_exact": chunk_workspace is None,
+            "compression_deferred_to_workspace": chunk_workspace is not None,
             "archive_size_preserved": True,
             "hb_offsets_preserved": True,
             "non_target_chunks_preserved_byte_exact": True,
@@ -2048,19 +2576,29 @@ def _apply_stage_default_formation_names(
     reference: dict,
     font_manifest: dict,
     codec: dict,
-) -> tuple[bytes, dict, Path]:
-    """Rewrite every structurally discovered default formation name in STAGE."""
+) -> tuple[bytes, dict, dict, Path, Path, Path]:
+    """Rewrite only reviewed, fixed-position default formation names."""
 
     if not isinstance(reference, dict):
         raise FullStoryComponentError("remaining UI configuration is invalid")
-    _original_stage_path, original_stage = _locked_file(
+    original_stage_path, original_stage = _locked_file(
         reference.get("original_stage"), label="original STAGE"
+    )
+    _fixed_path, fixed_data = _locked_file(
+        reference.get("translations"),
+        label="remaining UI translations",
     )
     corpus_path, corpus_data = _locked_file(
         reference.get("stage_default_formations"),
         label="default formation-name corpus",
     )
+    inventory_path, inventory_data = _locked_file(
+        reference.get("stage_default_formation_inventory"),
+        label="default formation-name position inventory",
+    )
     document = json.loads(corpus_data.decode("utf-8"))
+    inventory_document = json.loads(inventory_data.decode("utf-8"))
+    fixed_document = json.loads(fixed_data.decode("utf-8"))
     translations_by_source = document.get("translations_by_source_text")
     expected = reference.get("expected")
     if (
@@ -2069,9 +2607,12 @@ def _apply_stage_default_formation_names(
         or document.get("editorial_status") != "reviewed"
         or document.get("policy", {}).get("source_text_authority")
         != "original_disc_only"
+        or document.get("policy", {}).get("build_selection_authority")
+        != "locked_occurrence_inventory"
         or not document.get("policy", {}).get(
-            "discover_all_locked_structural_occurrences"
+            "scan_only_when_explicitly_refreezing"
         )
+        or not document.get("policy", {}).get("require_locked_source_coverage")
         or not document.get("policy", {}).get("preserve_record_metadata")
         or not isinstance(translations_by_source, dict)
         or not translations_by_source
@@ -2086,7 +2627,27 @@ def _apply_stage_default_formation_names(
     table = load_text_table(
         PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
     )
-    groups = discover_stage_default_formations(original_stage, hb, table)
+    original_decoded_cache = {}
+    try:
+        groups = load_locked_stage_default_formations(
+            original_stage,
+            hb,
+            table,
+            inventory_document,
+            decoded_cache=original_decoded_cache,
+        )
+    except ValueError as error:
+        raise FullStoryComponentError(str(error)) from error
+    locked_source_texts = {
+        cell.source_text for group in groups for cell in group.cells
+    }
+    if set(translations_by_source) != locked_source_texts:
+        missing = sorted(locked_source_texts - set(translations_by_source))
+        extra = sorted(set(translations_by_source) - locked_source_texts)
+        raise FullStoryComponentError(
+            "default formation-name locked source coverage drift: "
+            f"missing={missing!r} extra={extra!r}"
+        )
     entry_count = sum(len(group.cells) for group in groups)
     stage_indices = {group.stage_index for group in groups}
     source_texts = {
@@ -2094,10 +2655,10 @@ def _apply_stage_default_formation_names(
     }
     layout_counts = {
         layout: sum(group.layout == layout for group in groups)
-        for layout in ("record23+6", "slot32")
+        for layout in ("formation18+33+1", "record6+23", "slot32")
     }
     record_metadata_count = sum(
-        len(group.cells) for group in groups if group.layout == "record23+6"
+        len(group.cells) for group in groups if group.layout == "record6+23"
     )
     inventory_sha256 = formation_inventory_sha256(groups)
     if (
@@ -2124,10 +2685,53 @@ def _apply_stage_default_formation_names(
     ):
         raise FullStoryComponentError("default formation-name inventory drift")
 
+    fixed_stage_index = expected.get("stage_fixed_formation_chunk_index")
+    raw_fixed_replacements = fixed_document.get(
+        "stage_fixed_formation_by_offset"
+    )
+    if (
+        not isinstance(fixed_stage_index, int)
+        or fixed_stage_index < 0
+        or not isinstance(raw_fixed_replacements, dict)
+        or len(raw_fixed_replacements)
+        != expected.get("stage_fixed_formation_entry_count")
+    ):
+        raise FullStoryComponentError("fixed formation-name fusion drift")
+    try:
+        fixed_replacements = {
+            int(raw_offset, 16): normalize_original_fullwidth_ascii(translation)
+            for raw_offset, translation in raw_fixed_replacements.items()
+        }
+    except (TypeError, ValueError) as error:
+        raise FullStoryComponentError(
+            "fixed formation-name fusion offsets are invalid"
+        ) from error
+    fixed_cells = {
+        cell.offset: cell
+        for group in groups
+        if group.stage_index == fixed_stage_index
+        for cell in group.cells
+        if cell.offset in fixed_replacements
+    }
+    if (
+        set(fixed_cells) != set(fixed_replacements)
+        or any(cell.source_text != "別働隊" for cell in fixed_cells.values())
+        or any(
+            translation != normalize_original_fullwidth_ascii(
+                translations_by_source["別働隊"]
+            )
+            for translation in fixed_replacements.values()
+        )
+    ):
+        raise FullStoryComponentError(
+            "fixed formation names are not covered by the locked default inventory"
+        )
+
     _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
         font_manifest
     )
     encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    text_encoder = PreparedTextEncoder(table, encoding_overrides)
     output_table = project_runtime_text_table(table, primary)
     output_table = project_runtime_text_table(output_table, aliases)
     output_table = project_runtime_text_table(
@@ -2147,6 +2751,16 @@ def _apply_stage_default_formation_names(
     minimum_headroom = None
     changed_byte_count = 0
     translations = set()
+    fixed_changed_byte_count = 0
+    fixed_write_entry_count = 0
+    fixed_no_op_entry_count = 0
+    fixed_minimum_headroom = None
+    fixed_chunk_report = None
+    compression_executor = ThreadPoolExecutor(
+        max_workers=min(4, len(groups_by_stage)),
+        thread_name_prefix="srwz-formation",
+    )
+    pending_chunks = []
     for stage_index, stage_groups in sorted(groups_by_stage.items()):
         if stage_index + 1 >= len(offsets):
             raise FullStoryComponentError(
@@ -2156,7 +2770,7 @@ def _apply_stage_default_formation_names(
         stored = bytes(output[start:end])
         original_stored = original_stage[start:end]
         current_decoded = decode(stored)
-        original_decoded = decode(original_stored)
+        original_decoded = original_decoded_cache[stage_index]
         if (
             any(stored[current_decoded.consumed :])
             or any(original_stored[original_decoded.consumed :])
@@ -2169,116 +2783,161 @@ def _apply_stage_default_formation_names(
         ranges = []
         chunk_entry_count = 0
         chunk_metadata = []
-        for group in sorted(stage_groups, key=lambda item: item.cells[0].offset):
+        stage_cells = sorted(
+            (
+                (group, cell)
+                for group in stage_groups
+                for cell in group.cells
+            ),
+            key=lambda item: item[1].offset,
+        )
+        for group, cell in stage_cells:
             slot_size = group.slot_size
-            for cell in group.cells:
-                decoded_offset = cell.offset
-                raw_offset = f"0x{decoded_offset:X}"
-                slot_end = decoded_offset + slot_size
-                if slot_end > len(rewritten) or (
-                    ranges and decoded_offset < ranges[-1][1]
-                ):
-                    raise FullStoryComponentError(
-                        f"default formation-name slots overlap at {raw_offset}"
-                    )
-                ranges.append((decoded_offset, slot_end))
-                source = decode_text(
-                    original_decoded.output,
-                    decoded_offset,
-                    table,
-                    end=slot_end,
+            decoded_offset = cell.offset
+            raw_offset = f"0x{decoded_offset:X}"
+            slot_end = decoded_offset + slot_size
+            if slot_end > len(rewritten) or (
+                ranges and decoded_offset < ranges[-1][1]
+            ):
+                raise FullStoryComponentError(
+                    f"default formation-name slots overlap at {raw_offset}"
                 )
-                if (
-                    source.text != cell.source_text
-                    or source.consumed != cell.source_consumed
-                    or any(
-                        original_decoded.output[
-                            decoded_offset + source.consumed : slot_end
-                        ]
-                    )
-                ):
-                    raise FullStoryComponentError(
-                        f"default formation-name source or slot drift at "
-                        f"stage {stage_index} {raw_offset}"
-                    )
-                translation = normalize_original_fullwidth_ascii(
-                    translations_by_source[source.text]
+            ranges.append((decoded_offset, slot_end))
+            source = decode_text(
+                original_decoded.output,
+                decoded_offset,
+                table,
+                end=slot_end,
+            )
+            if (
+                source.text != cell.source_text
+                or source.consumed != cell.source_consumed
+                or any(
+                    original_decoded.output[
+                        decoded_offset + source.consumed : slot_end
+                    ]
                 )
-                if _control_signature(source.text) != _control_signature(
-                    translation
-                ):
-                    raise FullStoryComponentError(
-                        f"default formation-name control drift at {raw_offset}"
-                    )
-                try:
-                    encoded = encode_text(
-                        translation,
-                        table,
-                        overrides=encoding_overrides,
-                        terminate=True,
-                    )
-                except (SrwzTextEncodeError, ValueError) as error:
-                    raise FullStoryComponentError(
-                        f"default formation-name encoding failed at "
-                        f"{raw_offset}: {error}"
-                    ) from error
-                if len(encoded) > slot_size:
-                    raise FullStoryComponentError(
-                        f"default formation-name overflow at {raw_offset}: "
-                        f"need {len(encoded)}, capacity {slot_size}"
-                    )
-                replacement = encoded + bytes(slot_size - len(encoded))
-                source_slot = original_decoded.output[decoded_offset:slot_end]
-                current_slot = bytes(rewritten[decoded_offset:slot_end])
-                if current_slot not in {source_slot, replacement}:
-                    raise FullStoryComponentError(
-                        f"default formation-name current preimage drift at "
-                        f"stage {stage_index} {raw_offset}"
-                    )
-                changed_byte_count += sum(
+            ):
+                raise FullStoryComponentError(
+                    f"default formation-name source or slot drift at "
+                    f"stage {stage_index} {raw_offset}"
+                )
+            translation = normalize_original_fullwidth_ascii(
+                translations_by_source[source.text]
+            )
+            if _control_signature(source.text) != _control_signature(
+                translation
+            ):
+                raise FullStoryComponentError(
+                    f"default formation-name control drift at {raw_offset}"
+                )
+            try:
+                encoded = text_encoder.encode(
+                    translation,
+                    terminate=True,
+                )
+            except (SrwzTextEncodeError, ValueError) as error:
+                raise FullStoryComponentError(
+                    f"default formation-name encoding failed at "
+                    f"{raw_offset}: {error}"
+                ) from error
+            if len(encoded) > slot_size:
+                raise FullStoryComponentError(
+                    f"default formation-name overflow at {raw_offset}: "
+                    f"need {len(encoded)}, capacity {slot_size}"
+                )
+            replacement = encoded + bytes(slot_size - len(encoded))
+            source_slot = original_decoded.output[decoded_offset:slot_end]
+            current_slot = bytes(rewritten[decoded_offset:slot_end])
+            if current_slot not in {source_slot, replacement}:
+                raise FullStoryComponentError(
+                    f"default formation-name current preimage drift at "
+                    f"stage {stage_index} {raw_offset}"
+                )
+            changed_byte_count += sum(
+                before != after
+                for before, after in zip(current_slot, replacement)
+            )
+            if (
+                stage_index == fixed_stage_index
+                and decoded_offset in fixed_replacements
+            ):
+                fixed_changed_byte_count += sum(
                     before != after
                     for before, after in zip(current_slot, replacement)
                 )
-                rewritten[decoded_offset:slot_end] = replacement
-                if group.layout == "record23+6":
+                fixed_write_entry_count += current_slot != replacement
+                fixed_no_op_entry_count += current_slot == replacement
+                fixed_headroom = slot_size - len(encoded)
+                fixed_minimum_headroom = (
+                    fixed_headroom
+                    if fixed_minimum_headroom is None
+                    else min(fixed_minimum_headroom, fixed_headroom)
+                )
+            rewritten[decoded_offset:slot_end] = replacement
+            if group.layout in {"record6+23", "formation18+33+1"}:
+                prefix_size = 6 if group.layout == "record6+23" else 18
+                metadata_start = decoded_offset - prefix_size
+                metadata_end = decoded_offset
+                expected_metadata = bytes.fromhex(cell.prefix_hex)
+                original_metadata = original_decoded.output[
+                    metadata_start:metadata_end
+                ]
+                current_metadata = current_decoded.output[
+                    metadata_start:metadata_end
+                ]
+                if (
+                    metadata_start < 0
+                    or len(expected_metadata) != prefix_size
+                    or original_metadata != expected_metadata
+                    or current_metadata != expected_metadata
+                ):
+                    raise FullStoryComponentError(
+                        "default formation-name metadata drift at "
+                        f"stage {stage_index} {raw_offset}"
+                    )
+                chunk_metadata.append(
+                    (metadata_start, metadata_end, expected_metadata)
+                )
+                if group.layout == "formation18+33+1":
                     trailer_start = slot_end
-                    trailer_end = decoded_offset + group.stride
+                    trailer_end = trailer_start + 1
                     expected_trailer = bytes.fromhex(cell.trailer_hex)
-                    original_trailer = original_decoded.output[
-                        trailer_start:trailer_end
-                    ]
-                    current_trailer = current_decoded.output[
-                        trailer_start:trailer_end
-                    ]
                     if (
-                        len(expected_trailer) != 6
-                        or original_trailer != expected_trailer
-                        or current_trailer != expected_trailer
+                        len(expected_trailer) != 1
+                        or original_decoded.output[
+                            trailer_start:trailer_end
+                        ]
+                        != expected_trailer
+                        or current_decoded.output[
+                            trailer_start:trailer_end
+                        ]
+                        != expected_trailer
                     ):
                         raise FullStoryComponentError(
-                            "default formation-name metadata drift at "
+                            "default formation-name trailer drift at "
                             f"stage {stage_index} {raw_offset}"
                         )
                     chunk_metadata.append(
                         (trailer_start, trailer_end, expected_trailer)
                     )
-                reread = decode_text(bytes(rewritten), decoded_offset, output_table)
-                if (
-                    reread.text != translation
-                    or reread.consumed > slot_size
-                    or any(rewritten[decoded_offset + reread.consumed : slot_end])
-                ):
-                    raise FullStoryComponentError(
-                        f"default formation-name readback drift at {raw_offset}"
-                    )
-                headroom = slot_size - len(encoded)
-                minimum_headroom = (
-                    headroom
-                    if minimum_headroom is None
-                    else min(minimum_headroom, headroom)
+            reread = decode_text(bytes(rewritten), decoded_offset, output_table)
+            if (
+                reread.text != translation
+                or reread.consumed > slot_size
+                or any(rewritten[decoded_offset + reread.consumed : slot_end])
+            ):
+                raise FullStoryComponentError(
+                    f"default formation-name readback drift at {raw_offset}"
                 )
-                translations.add((source.text, translation))
-                chunk_entry_count += 1
+            headroom = slot_size - len(encoded)
+            minimum_headroom = (
+                headroom
+                if minimum_headroom is None
+                else min(minimum_headroom, headroom)
+            )
+            translations.add((source.text, translation))
+            chunk_entry_count += 1
         if any(
             bytes(rewritten[start_offset:end_offset]) != expected_trailer
             for start_offset, end_offset, expected_trailer in chunk_metadata
@@ -2286,44 +2945,64 @@ def _apply_stage_default_formation_names(
             raise FullStoryComponentError(
                 f"default formation-name metadata changed: {stage_index}"
             )
-        try:
-            rebuilt = reencode_changed_suffix(
-                stored[: current_decoded.consumed],
-                bytes(rewritten),
-                strategy=codec["strategy"],
-                min_match_length=codec["min_match_length"],
-                max_match_chain=codec["max_match_chain"],
-                lazy_matching=codec["lazy_matching"],
-                max_output_size=len(stored),
+        rewritten_bytes = bytes(rewritten)
+        compression_future = compression_executor.submit(
+            reencode_changed_suffix,
+            stored[: current_decoded.consumed],
+            rewritten_bytes,
+            strategy=codec["strategy"],
+            min_match_length=codec["min_match_length"],
+            max_match_chain=codec["max_match_chain"],
+            lazy_matching=codec["lazy_matching"],
+            max_output_size=len(stored),
+            original_result=current_decoded,
+        )
+        pending_chunks.append(
+            (
+                stage_index,
+                start,
+                end,
+                stored,
+                current_decoded,
+                rewritten_bytes,
+                chunk_entry_count,
+                compression_future,
             )
+        )
+
+    for (
+        stage_index,
+        start,
+        end,
+        stored,
+        current_decoded,
+        rewritten_bytes,
+        chunk_entry_count,
+        compression_future,
+    ) in pending_chunks:
+        try:
+            rebuilt = compression_future.result()
         except (RuntimeError, ValueError) as error:
             raise FullStoryComponentError(
                 f"default formation-name compression failed for stage "
                 f"{stage_index}: {error}"
             ) from error
-        round_trip = decode(rebuilt)
-        if (
-            round_trip.consumed != len(rebuilt)
-            or round_trip.output != bytes(rewritten)
-            or round_trip.flags != current_decoded.flags
-        ):
-            raise FullStoryComponentError(
-                f"default formation-name codec round-trip failed: {stage_index}"
-            )
         rebuilt_stored = rebuilt + bytes(len(stored) - len(rebuilt))
         output[start:end] = rebuilt_stored
-        chunk_reports.append(
-            {
-                "stage_index": stage_index,
-                "entry_count": chunk_entry_count,
-                "source_stored_size": len(stored),
-                "source_encoded_size": current_decoded.consumed,
-                "output_encoded_size": len(rebuilt),
-                "output_encoded_sha256": sha256_bytes(rebuilt),
-                "output_padding_size": len(rebuilt_stored) - len(rebuilt),
-                "codec_round_trip_exact": True,
-            }
-        )
+        chunk_report = {
+            "stage_index": stage_index,
+            "entry_count": chunk_entry_count,
+            "source_stored_size": len(stored),
+            "source_encoded_size": current_decoded.consumed,
+            "output_encoded_size": len(rebuilt),
+            "output_encoded_sha256": sha256_bytes(rebuilt),
+            "output_padding_size": len(rebuilt_stored) - len(rebuilt),
+            "codec_round_trip_exact": True,
+        }
+        chunk_reports.append(chunk_report)
+        if stage_index == fixed_stage_index:
+            fixed_chunk_report = chunk_report
+    compression_executor.shutdown(wait=True, cancel_futures=True)
 
     result = bytes(output)
     if (
@@ -2339,7 +3018,34 @@ def _apply_stage_default_formation_names(
             raise FullStoryComponentError(
                 f"default formation-name changed non-target chunk: {index}"
             )
-    return result, {
+    if fixed_chunk_report is None:
+        raise FullStoryComponentError("fixed formation-name fused chunk is missing")
+    fixed_report = {
+        "entry_count": len(fixed_replacements),
+        "write_entry_count": fixed_write_entry_count,
+        "no_op_entry_count": fixed_no_op_entry_count,
+        "minimum_output_headroom": fixed_minimum_headroom,
+        "changed_byte_count": fixed_changed_byte_count,
+        "fixed_spans_preserved": True,
+        "pointer_bytes_unchanged": True,
+        "placeholder_control_tokens_preserved": True,
+        "reread_exact": True,
+        "chunk_index": fixed_stage_index,
+        "source_text": "別働隊",
+        "translation": translations_by_source["別働隊"],
+        "source_stored_size": fixed_chunk_report["source_stored_size"],
+        "source_encoded_size": fixed_chunk_report["source_encoded_size"],
+        "output_encoded_size": fixed_chunk_report["output_encoded_size"],
+        "output_encoded_sha256": fixed_chunk_report["output_encoded_sha256"],
+        "output_padding_size": fixed_chunk_report["output_padding_size"],
+        "codec_strategy": codec["strategy"],
+        "codec_round_trip_exact": True,
+        "archive_size_preserved": True,
+        "hb_offsets_preserved": True,
+        "non_target_chunks_preserved_byte_exact": True,
+        "fused_into_default_formation_pass": True,
+    }
+    default_report = {
         "group_count": len(groups),
         "stage_count": len(groups_by_stage),
         "stage_indices": sorted(groups_by_stage),
@@ -2366,7 +3072,15 @@ def _apply_stage_default_formation_names(
         "hb_offsets_preserved": True,
         "non_target_chunks_preserved_byte_exact": True,
         "placeholder_control_tokens_preserved": True,
-    }, corpus_path
+    }
+    return (
+        result,
+        default_report,
+        fixed_report,
+        original_stage_path,
+        corpus_path,
+        inventory_path,
+    )
 
 
 def _apply_stage_system_dialogues(
@@ -2375,6 +3089,8 @@ def _apply_stage_system_dialogues(
     reference: dict,
     font_manifest: dict,
     codec: dict,
+    *,
+    chunk_workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, dict, Path]:
     """Write the reviewed chunk-zero quit scene without moving its pointers."""
 
@@ -2410,12 +3126,20 @@ def _apply_stage_system_dialogues(
     start, end = offsets[chunk_index : chunk_index + 2]
     stored = stage[start:end]
     original_stored = original_stage[start:end]
-    current_decoded = decode(stored)
+    current_decoded = (
+        chunk_workspace.view()
+        if chunk_workspace is not None
+        else decode(stored)
+    )
     original_decoded = decode(original_stored)
     if (
         any(stored[current_decoded.consumed :])
         or any(original_stored[original_decoded.consumed :])
         or len(current_decoded.output) != len(original_decoded.output)
+        or (
+            chunk_workspace is not None
+            and stored[: current_decoded.consumed] != chunk_workspace.stored
+        )
     ):
         raise FullStoryComponentError("stage system dialogue decode drift")
 
@@ -2499,31 +3223,41 @@ def _apply_stage_system_dialogues(
         raise FullStoryComponentError(
             "stage system dialogue codec policy is invalid"
         )
-    try:
-        encoded = reencode_changed_suffix(
-            stored[: current_decoded.consumed],
-            write.data,
-            strategy=codec["strategy"],
-            min_match_length=codec["min_match_length"],
-            max_match_chain=codec["max_match_chain"],
-            lazy_matching=codec["lazy_matching"],
-            max_output_size=len(stored),
-        )
-    except (RuntimeError, ValueError) as error:
-        raise FullStoryComponentError(
-            f"stage system dialogue compression failed: {error}"
-        ) from error
-    round_trip = decode(encoded)
-    if (
-        round_trip.output != write.data
-        or round_trip.consumed != len(encoded)
-        or round_trip.flags != current_decoded.flags
-    ):
-        raise FullStoryComponentError(
-            "stage system dialogue codec round-trip failed"
-        )
-    rebuilt_stored = encoded + bytes(len(stored) - len(encoded))
-    output = stage[:start] + rebuilt_stored + stage[end:]
+    if chunk_workspace is not None:
+        try:
+            chunk_workspace.replace(write.data, stage="stage system dialogues")
+        except ValueError as error:
+            raise FullStoryComponentError(str(error)) from error
+        encoded = None
+        rebuilt_stored = stored
+        output = stage
+    else:
+        try:
+            encoded = reencode_changed_suffix(
+                stored[: current_decoded.consumed],
+                write.data,
+                strategy=codec["strategy"],
+                min_match_length=codec["min_match_length"],
+                max_match_chain=codec["max_match_chain"],
+                lazy_matching=codec["lazy_matching"],
+                max_output_size=len(stored),
+                original_result=current_decoded,
+            )
+        except (RuntimeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"stage system dialogue compression failed: {error}"
+            ) from error
+        round_trip = decode(encoded)
+        if (
+            round_trip.output != write.data
+            or round_trip.consumed != len(encoded)
+            or round_trip.flags != current_decoded.flags
+        ):
+            raise FullStoryComponentError(
+                "stage system dialogue codec round-trip failed"
+            )
+        rebuilt_stored = encoded + bytes(len(stored) - len(encoded))
+        output = stage[:start] + rebuilt_stored + stage[end:]
     if (
         len(output) != len(stage)
         or read_executable_archive_offsets(hb, offset_spec, len(output)) != offsets
@@ -2545,8 +3279,11 @@ def _apply_stage_system_dialogues(
             "reread_exact": True,
             "codec_strategy": codec["strategy"],
             "source_encoded_size": current_decoded.consumed,
-            "output_encoded_size": len(encoded),
-            "codec_round_trip_exact": True,
+            "output_encoded_size": (
+                None if encoded is None else len(encoded)
+            ),
+            "codec_round_trip_exact": chunk_workspace is None,
+            "compression_deferred_to_workspace": chunk_workspace is not None,
             "archive_size_preserved": True,
             "hb_offsets_preserved": True,
             "non_target_chunks_preserved_byte_exact": True,
@@ -2971,6 +3708,9 @@ def _apply_remaining_ui(
     descriptor_path: Path,
     font_manifest: dict,
     codec: dict,
+    *,
+    workspace: CompressedStreamWorkspace | None = None,
+    original_decoded=None,
 ) -> tuple[bytes, bytes, dict, tuple[Path, Path, Path, Path]]:
     """Write the reviewed remaining UI text without touching atlas pixels."""
 
@@ -3056,8 +3796,11 @@ def _apply_remaining_ui(
         output_table, original_fullwidth_ascii_overrides(table)
     )
 
-    original_decoded = decode(original_compdata)
-    current_decoded = decode(stored_compdata)
+    if original_decoded is None:
+        original_decoded = decode(original_compdata)
+    current_decoded = (
+        workspace.view() if workspace is not None else decode(stored_compdata)
+    )
     if (
         original_decoded.consumed != len(original_compdata)
         or current_decoded.consumed != len(stored_compdata)
@@ -3230,29 +3973,14 @@ def _apply_remaining_ui(
         }
     )
 
-    if not isinstance(codec, dict) or codec.get("strategy") != "rust-fit":
-        raise FullStoryComponentError("remaining UI codec policy is invalid")
-    try:
-        rebuilt_compdata = reencode_changed_suffix(
-            stored_compdata,
-            parts_write.data,
-            strategy=codec["strategy"],
-            min_match_length=codec["min_match_length"],
-            max_match_chain=codec["max_match_chain"],
-            lazy_matching=codec["lazy_matching"],
-            max_output_size=codec["max_output_size"],
-        )
-    except (RuntimeError, ValueError) as error:
-        raise FullStoryComponentError(
-            f"remaining UI COMPDATA compression failed: {error}"
-        ) from error
-    round_trip = decode(rebuilt_compdata)
-    if (
-        round_trip.consumed != len(rebuilt_compdata)
-        or round_trip.output != parts_write.data
-        or round_trip.flags != current_decoded.flags
-    ):
-        raise FullStoryComponentError("remaining UI COMPDATA round-trip failed")
+    rebuilt_compdata = _commit_compdata_stage(
+        stored_compdata,
+        parts_write.data,
+        current_decoded,
+        codec,
+        label="remaining UI COMPDATA",
+        workspace=workspace,
+    )
 
     protected = reference.get("atlas_writeback")
     if not isinstance(protected, dict) or (
@@ -3314,9 +4042,12 @@ def _apply_remaining_ui(
             "single_character_regions_untouched": True,
         },
         "compdata_source_size": len(stored_compdata),
-        "compdata_output_size": len(rebuilt_compdata),
+        "compdata_output_size": (
+            None if workspace is not None else len(rebuilt_compdata)
+        ),
         "compdata_sector_budget": codec["max_output_size"],
-        "compdata_round_trip_exact": True,
+        "compdata_round_trip_exact": workspace is None,
+        "compression_deferred_to_workspace": workspace is not None,
         "slps_size_preserved": len(output_slps) == len(slps),
     }, (
         translation_path,
@@ -3332,6 +4063,8 @@ def _apply_global_safe_aliases(
     descriptor_path: Path,
     font_manifest: dict,
     codec: dict,
+    *,
+    workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, bytes, dict]:
     """Re-encode every parsed localized menu surface with safe aliases."""
 
@@ -3405,7 +4138,7 @@ def _apply_global_safe_aliases(
     ):
         raise FullStoryComponentError("global safe-alias substitution is invalid")
 
-    decoded = decode(stored_compdata)
+    decoded = workspace.view() if workspace is not None else decode(stored_compdata)
     if decoded.consumed != len(stored_compdata):
         raise FullStoryComponentError(
             "global alias COMPDATA has trailing compressed bytes"
@@ -3422,12 +4155,15 @@ def _apply_global_safe_aliases(
             for entry in parsed.entries
             for offset in entry.target_offsets
         }
-        ranges = []
+        target_spans = {}
         for offset in sorted(target_offsets):
             decoded_target = decode_text(data, offset, source_table)
-            ranges.append((offset, offset + decoded_target.consumed))
+            target_spans[offset] = (
+                offset,
+                offset + decoded_target.consumed,
+            )
         merged_ranges = []
-        for start, end in ranges:
+        for start, end in target_spans.values():
             if not merged_ranges or start > merged_ranges[-1][1]:
                 merged_ranges.append([start, end])
             else:
@@ -3490,10 +4226,7 @@ def _apply_global_safe_aliases(
         }
         entry_spans = {
             entry.entry_id: [
-                (
-                    offset,
-                    offset + decode_text(data, offset, source_table).consumed,
-                )
+                target_spans[offset]
                 for offset in entry.target_offsets
             ]
             for entry in parsed.entries
@@ -3554,20 +4287,9 @@ def _apply_global_safe_aliases(
                 f"global safe-alias reread failed for {label}: "
                 f"{invalid_mismatches[:10]!r} details={mismatch_details!r}"
             )
-        selected_entries = sum(
-            any(
-                start <= changed < end
-                for changed in changed_offsets
-                for start, end in (
-                    (
-                        offset,
-                        offset
-                        + decode_text(data, offset, source_table).consumed,
-                    )
-                    for offset in entry.target_offsets
-                )
-            )
-            for entry in parsed.entries
+        selected_entries = _count_span_groups_containing_offsets(
+            [entry_spans[entry.entry_id] for entry in parsed.entries],
+            changed_offsets,
         )
         return rewritten, {
             "selected_entry_count": selected_entries,
@@ -3593,29 +4315,14 @@ def _apply_global_safe_aliases(
         descriptor_by_name["Compdata"],
         "global safe aliases COMPDATA",
     )
-    try:
-        rebuilt_compdata = reencode_changed_suffix(
-            stored_compdata,
-            rewritten_compdata,
-            strategy=codec["strategy"],
-            min_match_length=codec["min_match_length"],
-            max_match_chain=codec["max_match_chain"],
-            lazy_matching=codec["lazy_matching"],
-            max_output_size=codec["max_output_size"],
-        )
-    except (RuntimeError, ValueError) as error:
-        raise FullStoryComponentError(
-            f"global safe-alias COMPDATA compression failed: {error}"
-        ) from error
-    round_trip = decode(rebuilt_compdata)
-    if (
-        round_trip.consumed != len(rebuilt_compdata)
-        or round_trip.output != rewritten_compdata
-        or round_trip.flags != decoded.flags
-    ):
-        raise FullStoryComponentError(
-            "global safe-alias COMPDATA round-trip failed"
-        )
+    rebuilt_compdata = _commit_compdata_stage(
+        stored_compdata,
+        rewritten_compdata,
+        decoded,
+        codec,
+        label="global safe-alias COMPDATA",
+        workspace=workspace,
+    )
     return rewritten_slps, rebuilt_compdata, {
         "scope": "all-parsed-localized-menu-surfaces",
         "conditional_primary_assignment_count": len(aliases),
@@ -3635,8 +4342,11 @@ def _apply_global_safe_aliases(
         "slps": slps_report,
         "compdata": compdata_report,
         "compdata_source_size": len(stored_compdata),
-        "compdata_output_size": len(rebuilt_compdata),
-        "compdata_round_trip_exact": True,
+        "compdata_output_size": (
+            None if workspace is not None else len(rebuilt_compdata)
+        ),
+        "compdata_round_trip_exact": workspace is None,
+        "compression_deferred_to_workspace": workspace is not None,
     }
 
 
@@ -3647,6 +4357,9 @@ def _apply_compdata_battle_lines(
     original_compdata_path: Path,
     font_manifest: dict,
     codec: dict,
+    *,
+    workspace: CompressedStreamWorkspace | None = None,
+    original_decoded=None,
 ) -> tuple[bytes, dict, Path]:
     """Write the complete map battle/retreat-line corpus into COMPDATA."""
 
@@ -3710,8 +4423,11 @@ def _apply_compdata_battle_lines(
         output_table, original_fullwidth_ascii_overrides(table)
     )
     original_compdata = original_compdata_path.read_bytes()
-    original_decoded = decode(original_compdata)
-    current_decoded = decode(stored_compdata)
+    if original_decoded is None:
+        original_decoded = decode(original_compdata)
+    current_decoded = (
+        workspace.view() if workspace is not None else decode(stored_compdata)
+    )
     if (
         original_decoded.consumed != len(original_compdata)
         or current_decoded.consumed != len(stored_compdata)
@@ -3807,33 +4523,14 @@ def _apply_compdata_battle_lines(
             "COMPDATA battle-line target-offset reread mismatch: "
             f"{mismatches[:10]!r}"
         )
-    if not isinstance(codec, dict) or codec.get("strategy") != "rust-fit":
-        raise FullStoryComponentError(
-            "COMPDATA battle-line codec policy is invalid"
-        )
-    try:
-        rebuilt = reencode_changed_suffix(
-            stored_compdata,
-            rewritten,
-            strategy=codec["strategy"],
-            min_match_length=codec["min_match_length"],
-            max_match_chain=codec["max_match_chain"],
-            lazy_matching=codec["lazy_matching"],
-            max_output_size=codec["max_output_size"],
-        )
-    except (RuntimeError, ValueError) as error:
-        raise FullStoryComponentError(
-            f"COMPDATA battle-line compression failed: {error}"
-        ) from error
-    round_trip = decode(rebuilt)
-    if (
-        round_trip.consumed != len(rebuilt)
-        or round_trip.output != rewritten
-        or round_trip.flags != current_decoded.flags
-    ):
-        raise FullStoryComponentError(
-            "COMPDATA battle-line round-trip failed"
-        )
+    rebuilt = _commit_compdata_stage(
+        stored_compdata,
+        rewritten,
+        current_decoded,
+        codec,
+        label="COMPDATA battle-line",
+        workspace=workspace,
+    )
     write_report.update(
         {
             "corpus_entry_count": len(entries),
@@ -3845,9 +4542,12 @@ def _apply_compdata_battle_lines(
             "all_editorial_statuses_draft": True,
             "target_offset_reread_exact": True,
             "compdata_source_size": len(stored_compdata),
-            "compdata_output_size": len(rebuilt),
+            "compdata_output_size": (
+                None if workspace is not None else len(rebuilt)
+            ),
             "compdata_sector_budget": codec["max_output_size"],
-            "codec_round_trip_exact": True,
+            "codec_round_trip_exact": workspace is None,
+            "compression_deferred_to_workspace": workspace is not None,
             "reported_kejinan_retreat": {
                 "id": "menu/Compdata/00/0216",
                 "offset": "0x64100",
@@ -3865,6 +4565,9 @@ def _apply_reviewed_weapon_names(
     original_compdata_path: Path,
     font_manifest: dict,
     codec: dict,
+    *,
+    workspace: CompressedStreamWorkspace | None = None,
+    original_decoded=None,
 ) -> tuple[bytes, dict, Path]:
     """Write the complete reviewed weapon corpus into original fixed spans."""
 
@@ -3917,8 +4620,11 @@ def _apply_reviewed_weapon_names(
         output_table, original_fullwidth_ascii_overrides(table)
     )
     original_compdata = original_compdata_path.read_bytes()
-    original_decoded = decode(original_compdata)
-    current_decoded = decode(stored_compdata)
+    if original_decoded is None:
+        original_decoded = decode(original_compdata)
+    current_decoded = (
+        workspace.view() if workspace is not None else decode(stored_compdata)
+    )
     if (
         original_decoded.consumed != len(original_compdata)
         or current_decoded.consumed != len(stored_compdata)
@@ -4010,31 +4716,14 @@ def _apply_reviewed_weapon_names(
         raise FullStoryComponentError(
             f"reviewed weapon target-offset reread mismatch: {mismatches[:10]!r}"
         )
-    if not isinstance(codec, dict) or codec.get("strategy") != "rust-fit":
-        raise FullStoryComponentError("reviewed weapon codec policy is invalid")
-    try:
-        rebuilt = reencode_changed_suffix(
-            stored_compdata,
-            rewritten,
-            strategy=codec["strategy"],
-            min_match_length=codec["min_match_length"],
-            max_match_chain=codec["max_match_chain"],
-            lazy_matching=codec["lazy_matching"],
-            max_output_size=codec["max_output_size"],
-        )
-    except (RuntimeError, ValueError) as error:
-        raise FullStoryComponentError(
-            f"reviewed weapon COMPDATA compression failed: {error}"
-        ) from error
-    round_trip = decode(rebuilt)
-    if (
-        round_trip.consumed != len(rebuilt)
-        or round_trip.output != rewritten
-        or round_trip.flags != current_decoded.flags
-    ):
-        raise FullStoryComponentError(
-            "reviewed weapon COMPDATA round-trip failed"
-        )
+    rebuilt = _commit_compdata_stage(
+        stored_compdata,
+        rewritten,
+        current_decoded,
+        codec,
+        label="reviewed weapon COMPDATA",
+        workspace=workspace,
+    )
     write_report.update(
         {
             "corpus_entry_count": len(entries),
@@ -4046,9 +4735,12 @@ def _apply_reviewed_weapon_names(
             "all_editorial_statuses_reviewed": True,
             "target_offset_reread_exact": True,
             "compdata_source_size": len(stored_compdata),
-            "compdata_output_size": len(rebuilt),
+            "compdata_output_size": (
+                None if workspace is not None else len(rebuilt)
+            ),
             "compdata_sector_budget": codec["max_output_size"],
-            "codec_round_trip_exact": True,
+            "codec_round_trip_exact": workspace is None,
+            "compression_deferred_to_workspace": workspace is not None,
         }
     )
     return rebuilt, write_report, corpus_path
@@ -4168,6 +4860,7 @@ def _apply_srvc_battle_text(
             table,
             translations,
             encoding_overrides=encoding_overrides,
+            parsed_chunks=source_chunks,
         )
         output_chunks = parse_srvc_archive_with_layout(
             output_bin, offsets, original_chunks, output_table
@@ -5451,8 +6144,235 @@ def _apply_auto_demo_overlays(
     return bytes(output_slps), output_archives, report, input_paths
 
 
-def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]:
+def _build_incremental_fixed_slps(
+    *,
+    config_path: Path,
+    config: dict,
+    output_root: Path,
+    prior_report: dict,
+    baseline_remaining_ui: dict,
+    current_remaining_ui: dict,
+) -> tuple[dict[str, bytes], dict]:
+    """Patch reviewed fixed SLPS fields after the dependency planner selects them."""
+
+    baseline_map = baseline_remaining_ui.get("slps_by_offset")
+    current_map = current_remaining_ui.get("slps_by_offset")
+    if not isinstance(baseline_map, dict) or not isinstance(current_map, dict):
+        raise FullStoryComponentError("incremental SLPS maps are invalid")
+    changed_offsets = {
+        offset
+        for offset in set(baseline_map) | set(current_map)
+        if baseline_map.get(offset) != current_map.get(offset)
+    }
+    removed_offsets = set(baseline_map) - set(current_map)
+    if removed_offsets:
+        raise FullStoryComponentError(
+            "incremental fixed-SLPS patch does not support removing offsets: "
+            + ", ".join(sorted(removed_offsets))
+        )
+    if not changed_offsets:
+        raise FullStoryComponentError(
+            "incremental fixed-SLPS handler selected without changed fields"
+        )
+
+    remaining_reference = config.get("remaining_ui")
+    if not isinstance(remaining_reference, dict):
+        raise FullStoryComponentError("remaining UI configuration is invalid")
+    remaining_ui_path, remaining_data = _locked_file(
+        remaining_reference.get("translations"),
+        label="remaining UI translations",
+    )
+    font_manifest_path, font_manifest = _manifest(
+        config["full_story_font"]["manifest"],
+        label="full-story font manifest",
+    )
+    if prior_report.get("inputs", {}).get("full_story_font_manifest") != _file_lock(
+        font_manifest_path,
+        font_manifest_path.read_bytes(),
+    ):
+        raise FullStoryComponentError(
+            "incremental fixed-SLPS patch refused because the font changed"
+        )
+    original_slps_path, original_slps = _locked_file(
+        remaining_reference.get("original_slps"),
+        label="original SLPS",
+    )
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    output_table = project_runtime_text_table(table, primary)
+    output_table = project_runtime_text_table(output_table, aliases)
+    output_table = project_runtime_text_table(
+        output_table,
+        original_fullwidth_ascii_overrides(table),
+    )
+    current_slps_path = output_root / SLPS_MEMBER
+    current_slps = current_slps_path.read_bytes()
+    output_slps, _incremental_slps_report = _apply_fixed_span_translations(
+        current_slps,
+        original_slps,
+        current_map,
+        table=table,
+        output_table=output_table,
+        encoding_overrides=encoding_overrides,
+        label="remaining SLPS UI",
+        accepted_current_texts=current_remaining_ui.get(
+            "accepted_current_preimages_by_offset"
+        ),
+    )
+    changed_byte_offsets = {
+        index
+        for index, (before, after) in enumerate(zip(current_slps, output_slps))
+        if before != after
+    }
+    allowed_byte_offsets = set()
+    for raw_offset in changed_offsets:
+        offset = int(raw_offset, 16)
+        source = decode_text(original_slps, offset, table)
+        allowed_byte_offsets.update(range(offset, offset + source.consumed))
+    if changed_byte_offsets - allowed_byte_offsets:
+        raise FullStoryComponentError(
+            "incremental SLPS write changed bytes outside affected fixed fields"
+        )
+
+    report = json.loads(json.dumps(prior_report))
+    report["inputs"]["config"] = _file_lock(
+        config_path, config_path.read_bytes()
+    )
+    current_remaining_lock = _file_lock(remaining_ui_path, remaining_data)
+    for label, lock in report["inputs"].items():
+        if isinstance(lock, dict) and lock.get("path") == current_remaining_lock["path"]:
+            report["inputs"][label] = current_remaining_lock
+    report["inputs"]["original_slps"] = _file_lock(
+        original_slps_path,
+        original_slps,
+    )
+    # Keep the clean-build aggregate counters. They describe the complete
+    # composition chain, whereas this handler starts from the validated final
+    # SLPS and would otherwise turn every unchanged entry into a misleading
+    # incremental no-op. New fixed fields and existing fields with a locked
+    # preimage can still update those counters exactly from their byte spans.
+    aggregate = report["remaining_ui"]["slps"]
+    baseline_accepted = baseline_remaining_ui.get(
+        "accepted_current_preimages_by_offset", {}
+    )
+    current_accepted = current_remaining_ui.get(
+        "accepted_current_preimages_by_offset", {}
+    )
+
+    def fixed_span_metrics(raw_offset: str, translation: str, accepted: dict) -> tuple[bool, int, int]:
+        offset = int(raw_offset, 16)
+        source = decode_text(original_slps, offset, table)
+        preimage = original_slps[offset : offset + source.consumed]
+        if raw_offset in accepted:
+            encoded_preimage = encode_text(
+                normalize_original_fullwidth_ascii(accepted[raw_offset]),
+                table,
+                overrides=encoding_overrides,
+                terminate=True,
+            )
+            if len(encoded_preimage) > source.consumed:
+                raise FullStoryComponentError(
+                    f"incremental SLPS preimage overflow at {raw_offset}"
+                )
+            preimage = encoded_preimage + bytes(
+                source.consumed - len(encoded_preimage)
+            )
+        encoded_translation = encode_text(
+            normalize_original_fullwidth_ascii(translation),
+            table,
+            overrides=encoding_overrides,
+            terminate=True,
+        )
+        replacement = encoded_translation + bytes(
+            source.consumed - len(encoded_translation)
+        )
+        return (
+            replacement != preimage,
+            sum(before != after for before, after in zip(preimage, replacement)),
+            source.consumed - len(encoded_translation),
+        )
+
+    for raw_offset in sorted(changed_offsets):
+        current_metrics = fixed_span_metrics(
+            raw_offset,
+            current_map[raw_offset],
+            current_accepted,
+        )
+        if raw_offset not in baseline_map:
+            aggregate["entry_count"] += 1
+            aggregate[
+                "write_entry_count" if current_metrics[0] else "no_op_entry_count"
+            ] += 1
+            aggregate["changed_byte_count"] += current_metrics[1]
+            aggregate["minimum_output_headroom"] = min(
+                aggregate["minimum_output_headroom"],
+                current_metrics[2],
+            )
+            continue
+        reliable_preimage = (
+            raw_offset in baseline_accepted
+            or raw_offset in current_accepted
+            or baseline_map[raw_offset]
+            == decode_text(original_slps, int(raw_offset, 16), table).text
+        )
+        if reliable_preimage:
+            baseline_metrics = fixed_span_metrics(
+                raw_offset,
+                baseline_map[raw_offset],
+                baseline_accepted,
+            )
+            if baseline_metrics[0] != current_metrics[0]:
+                aggregate[
+                    "write_entry_count" if baseline_metrics[0] else "no_op_entry_count"
+                ] -= 1
+                aggregate[
+                    "write_entry_count" if current_metrics[0] else "no_op_entry_count"
+                ] += 1
+            aggregate["changed_byte_count"] += (
+                current_metrics[1] - baseline_metrics[1]
+            )
+            aggregate["minimum_output_headroom"] = min(
+                aggregate["minimum_output_headroom"],
+                current_metrics[2],
+            )
+    report["outputs"][SLPS_MEMBER] = _output_lock(
+        current_slps_path,
+        output_slps,
+    )
+    if not all(report.get("acceptance", {}).values()):
+        raise FullStoryComponentError("prior component acceptance is not reusable")
+    print(
+        "[incremental] fixed SLPS fields:",
+        f"changed_fields={len(changed_offsets)}",
+        f"changed_bytes={len(changed_byte_offsets)}",
+        flush=True,
+    )
+    return {SLPS_MEMBER: output_slps}, report
+
+
+def build(
+    config_path: Path,
+    output_root: Path,
+    *,
+    affected_members: set[str] | None = None,
+    prior_report: dict | None = None,
+) -> tuple[dict[str, bytes], dict]:
     config = _json(config_path)
+    incremental = affected_members is not None
+    if incremental and (
+        not isinstance(prior_report, dict)
+        or not affected_members <= ALL_COMPONENT_MEMBERS
+    ):
+        raise FullStoryComponentError("incremental component context is invalid")
+
+    def reuse_group(members: set[str] | frozenset[str]) -> bool:
+        return incremental and affected_members.isdisjoint(members)
+
     base = config.get("base_ui")
     font = config.get("full_story_font")
     stage = config.get("full_story_stage")
@@ -5674,7 +6594,11 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
     output_slps = offset_plan.apply(base_payloads["slps"])
     if read_executable_archive_offsets(output_slps, spec, len(output_vt1)) != output_offsets:
         raise FullStoryComponentError("composed VT1 offsets fail SLPS reread")
-    final_font = decode_vt1_font_segment(output_slps, output_vt1).decoded
+    final_font = decode_vt1_font_segment(
+        output_slps,
+        output_vt1,
+        decoder=decode,
+    ).decoded
     if sha256_bytes(final_font) != expected_decoded_hash:
         raise FullStoryComponentError("composed decoded font differs from full-story font")
 
@@ -5730,6 +6654,20 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
             raise FullStoryComponentError(f"non-font VT1 chunk changed: {index}")
         preserved_chunks += 1
 
+    compdata_workspace = CompressedStreamWorkspace.open(
+        "DATA/COMPDATA.BN",
+        base_payloads["compdata"],
+    )
+    _original_compdata_path, original_compdata_payload = _locked_file(
+        config.get("remaining_ui", {}).get("original_compdata"),
+        label="original COMPDATA workspace source",
+    )
+    original_compdata_decoded = decode(original_compdata_payload)
+    if original_compdata_decoded.consumed != len(original_compdata_payload):
+        raise FullStoryComponentError(
+            "original COMPDATA workspace source has trailing compressed bytes"
+        )
+
     (
         output_compdata,
         pilot_name_report,
@@ -5739,9 +6677,10 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         unit_name_path,
         font_proposal_path,
     ) = _apply_full_pilot_names(
-        base_payloads["compdata"],
+        compdata_workspace.stored,
         config.get("full_pilot_names"),
         font_manifest,
+        workspace=compdata_workspace,
     )
     (
         output_slps,
@@ -5752,12 +6691,13 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
     ) = _apply_full_stage_titles(
         output_slps,
         output_vt1,
-        output_compdata,
+        compdata_workspace.stored,
         config.get("full_stage_titles"),
         font_manifest,
         config["full_pilot_names"]["codec"],
         final_font,
         release_by_character,
+        workspace=compdata_workspace,
     )
     (
         output_slps,
@@ -5766,44 +6706,60 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         remaining_ui_input_paths,
     ) = _apply_remaining_ui(
         output_slps,
-        output_compdata,
+        compdata_workspace.stored,
         config.get("remaining_ui"),
         stage_title_input_paths[2],
         font_manifest,
         config["full_pilot_names"]["codec"],
+        workspace=compdata_workspace,
+        original_decoded=original_compdata_decoded,
     )
-    (
-        output_nisvdata,
-        nisv_effect_names_report,
-        nisv_effect_names_input_paths,
-    ) = _apply_nisv_effect_names(
-        output_slps,
-        font_manifest,
-        config.get("nisv_effect_names"),
-    )
+    if reuse_group({NISVDATA_MEMBER}):
+        output_nisvdata = _prior_output_payload(output_root, NISVDATA_MEMBER)
+        nisv_effect_names_report = json.loads(
+            json.dumps(prior_report["nisv_effect_names"])
+        )
+        nisv_effect_names_input_paths = (
+            _prior_input_path(prior_report, "remaining_ui_translations"),
+            _prior_input_path(prior_report, "original_nisvdata"),
+        )
+    else:
+        (
+            output_nisvdata,
+            nisv_effect_names_report,
+            nisv_effect_names_input_paths,
+        ) = _apply_nisv_effect_names(
+            output_slps,
+            font_manifest,
+            config.get("nisv_effect_names"),
+        )
     (
         output_compdata,
         compdata_battle_line_report,
         compdata_battle_line_corpus_path,
     ) = _apply_compdata_battle_lines(
-        output_compdata,
+        compdata_workspace.stored,
         config.get("compdata_battle_lines"),
         stage_title_input_paths[2],
         remaining_ui_input_paths[2],
         font_manifest,
         config["full_pilot_names"]["codec"],
+        workspace=compdata_workspace,
+        original_decoded=original_compdata_decoded,
     )
     (
         output_compdata,
         reviewed_weapon_report,
         reviewed_weapon_corpus_path,
     ) = _apply_reviewed_weapon_names(
-        output_compdata,
+        compdata_workspace.stored,
         config.get("reviewed_weapons"),
         stage_title_input_paths[2],
         remaining_ui_input_paths[2],
         font_manifest,
         config["full_pilot_names"]["codec"],
+        workspace=compdata_workspace,
+        original_decoded=original_compdata_decoded,
     )
     (
         output_slps,
@@ -5811,21 +6767,66 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         global_safe_alias_report,
     ) = _apply_global_safe_aliases(
         output_slps,
-        output_compdata,
+        compdata_workspace.stored,
         stage_title_input_paths[2],
         font_manifest,
         config["full_pilot_names"]["codec"],
+        workspace=compdata_workspace,
     )
-    (
-        output_slps,
-        output_auto_demo_archives,
-        auto_demo_report,
-        auto_demo_input_paths,
-    ) = _apply_auto_demo_overlays(
-        output_slps,
-        config.get("auto_demo_overlays"),
-        font_manifest,
+    try:
+        output_compdata, compdata_workspace_report = compdata_workspace.finalize(
+            **config["full_pilot_names"]["codec"]
+        )
+    except (RuntimeError, ValueError) as error:
+        raise FullStoryComponentError(
+            f"final COMPDATA workspace compression failed: {error}"
+        ) from error
+    final_compdata_size = len(output_compdata)
+    pilot_name_report.update(
+        {
+            "output_compressed_size": final_compdata_size,
+            "codec_round_trip_exact": True,
+        }
     )
+    for compdata_report in (
+        stage_title_report,
+        remaining_ui_report,
+        compdata_battle_line_report,
+        reviewed_weapon_report,
+        global_safe_alias_report,
+    ):
+        compdata_report["compdata_output_size"] = final_compdata_size
+    stage_title_report["compdata_round_trip_exact"] = True
+    remaining_ui_report["compdata_round_trip_exact"] = True
+    compdata_battle_line_report["codec_round_trip_exact"] = True
+    reviewed_weapon_report["codec_round_trip_exact"] = True
+    global_safe_alias_report["compdata_round_trip_exact"] = True
+    if reuse_group({SLPS_MEMBER, *AUTO_DEMO_MEMBERS}):
+        output_auto_demo_archives = {
+            member: _prior_output_payload(output_root, member)
+            for member in AUTO_DEMO_MEMBERS
+        }
+        auto_demo_report = json.loads(
+            json.dumps(prior_report["auto_demo_overlays"])
+        )
+        auto_demo_input_paths = {
+            label.removeprefix("auto_demo_"): _prior_input_path(
+                prior_report, label
+            )
+            for label in prior_report["inputs"]
+            if label.startswith("auto_demo_")
+        }
+    else:
+        (
+            output_slps,
+            output_auto_demo_archives,
+            auto_demo_report,
+            auto_demo_input_paths,
+        ) = _apply_auto_demo_overlays(
+            output_slps,
+            config.get("auto_demo_overlays"),
+            font_manifest,
+        )
     (
         output_slps,
         scenario_description_layout_report,
@@ -5833,139 +6834,289 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         output_slps,
         config["scenario_select_effect"].get("description_layout"),
     )
-    (
-        output_srvc_bin,
-        output_srvc_seg,
-        srvc_report,
-        srvc_input_paths,
-    ) = _apply_srvc_battle_text(
-        config.get("srvc_battle_text"),
-        font_manifest,
-    )
-    (
-        output_stage,
-        stage_overview_report,
-        stage_overview_corpus_path,
-    ) = _apply_stage_overviews(
-        stage_payload,
-        hb_payload,
-        config.get("stage_overviews"),
-        font_manifest,
-        config["full_pilot_names"]["codec"],
-    )
-    (
-        output_stage,
-        stage_fixed_formation_report,
-        original_stage_path,
-    ) = _apply_stage_fixed_formation_names(
-        output_stage,
-        hb_payload,
-        config.get("remaining_ui"),
-        remaining_ui_input_paths[0],
-        font_manifest,
-        config["full_pilot_names"]["codec"],
-    )
-    remaining_ui_report["stage_fixed_formation"] = (
-        stage_fixed_formation_report
-    )
-    (
-        output_stage,
-        stage_default_formation_report,
-        stage_default_formation_corpus_path,
-    ) = _apply_stage_default_formation_names(
-        output_stage,
-        hb_payload,
-        config.get("remaining_ui"),
-        font_manifest,
-        config["full_pilot_names"]["codec"],
-    )
-    remaining_ui_report["stage_default_formation"] = (
-        stage_default_formation_report
-    )
-    (
-        output_stage,
-        stage_system_dialogue_report,
-        stage_system_dialogue_corpus_path,
-    ) = _apply_stage_system_dialogues(
-        output_stage,
-        hb_payload,
-        config.get("remaining_ui"),
-        font_manifest,
-        config["full_pilot_names"]["codec"],
-    )
-    remaining_ui_report["stage_system_dialogue"] = (
-        stage_system_dialogue_report
-    )
-    (
-        output_hsfc,
-        hsfc_overview_report,
-        hsfc_overview_input_paths,
-    ) = _apply_hsfc_overviews(
-        output_slps,
-        config.get("hsfc_overviews"),
-        font_manifest,
-        config["full_pilot_names"]["codec"],
-    )
-    (
-        output_veff,
-        scenario_select_report,
-        scenario_select_source_path,
-    ) = _apply_scenario_select_effect(
-        output_slps,
-        final_font,
-        release_by_character,
-        config.get("scenario_select_effect"),
-    )
-    scenario_select_report["description_layout"] = (
-        scenario_description_layout_report
-    )
-    (
-        output_veff,
-        mode_select_report,
-        mode_select_source_path,
-    ) = _apply_scenario_select_effect(
-        output_slps,
-        final_font,
-        release_by_character,
-        config.get("mode_select_effect"),
-        archive_payload=output_veff,
-    )
-    if mode_select_source_path != scenario_select_source_path:
-        raise FullStoryComponentError("VEFF2DX source path drift between targets")
-    (
-        output_mapmodel,
-        world_map_title_report,
-        world_map_title_input_paths,
-    ) = build_world_map_titles(
-        PROJECT_ROOT,
-        WORK_ROOT,
-        config.get("world_map_titles"),
-        preview_root=output_root / "previews/world-map-titles",
-    )
-    table = load_text_table(
-        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
-    )
-    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
-        font_manifest
-    )
-    encoding_overrides = _stored_text_overrides(table, primary, aliases)
-    try:
+    if reuse_group(SRVC_MEMBERS):
+        output_srvc_bin = _prior_output_payload(output_root, "BTL/SRVC.BIN")
+        output_srvc_seg = _prior_output_payload(output_root, "BTL/SRVC.SEG")
+        srvc_report = json.loads(json.dumps(prior_report["srvc_battle_text"]))
+        srvc_input_paths = tuple(
+            _prior_input_path(prior_report, label)
+            for label in (
+                "srvc_battle_text_corpus",
+                "original_srvc_bin",
+                "original_srvc_seg",
+            )
+        )
+    else:
+        (
+            output_srvc_bin,
+            output_srvc_seg,
+            srvc_report,
+            srvc_input_paths,
+        ) = _apply_srvc_battle_text(
+            config.get("srvc_battle_text"),
+            font_manifest,
+        )
+
+    if reuse_group({STAGE_MEMBER}):
+        output_stage = _prior_output_payload(output_root, STAGE_MEMBER)
+        stage_chunk0_workspace_report = json.loads(
+            json.dumps(
+                prior_report.get("compression", {}).get(
+                    "stage_chunk_0_workspace",
+                    {
+                        "physical_stream": "DATA/STAGE.BIN chunk 0",
+                        "workflow": "legacy_prior_manifest",
+                    },
+                )
+            )
+        )
+        stage_overview_report = json.loads(json.dumps(prior_report["stage_overviews"]))
+        stage_overview_corpus_path = _prior_input_path(prior_report, "stage_overviews")
+        stage_fixed_formation_report = json.loads(
+            json.dumps(prior_report["remaining_ui"]["stage_fixed_formation"])
+        )
+        stage_default_formation_report = json.loads(
+            json.dumps(prior_report["remaining_ui"]["stage_default_formation"])
+        )
+        stage_system_dialogue_report = json.loads(
+            json.dumps(prior_report["remaining_ui"]["stage_system_dialogue"])
+        )
+        original_stage_path = _prior_input_path(prior_report, "original_stage")
+        stage_default_formation_corpus_path = _prior_input_path(
+            prior_report, "stage_default_formation_corpus"
+        )
+        stage_default_formation_inventory_path = _prior_input_path(
+            prior_report, "stage_default_formation_inventory"
+        )
+        stage_system_dialogue_corpus_path = _prior_input_path(
+            prior_report, "stage_system_dialogue"
+        )
+    else:
+        stage_offset_spec = ExecutableOffsetSpec(
+            name="HEDBDY/HB.BIN STAGE offsets",
+            member="HEDBDY/HB.BIN",
+            table_start=30320,
+            table_end=31144,
+        )
+        stage_offsets = read_executable_archive_offsets(
+            hb_payload,
+            stage_offset_spec,
+            len(stage_payload),
+        )
+        stage_chunk0_end = stage_offsets[1]
+        stage_chunk0_workspace = (
+            CompressedStreamWorkspace.open_zero_padded_allocation(
+                "DATA/STAGE.BIN chunk 0",
+                stage_payload[:stage_chunk0_end],
+            )
+        )
+        (
+            output_stage,
+            stage_overview_report,
+            stage_overview_corpus_path,
+        ) = _apply_stage_overviews(
+            stage_payload,
+            hb_payload,
+            config.get("stage_overviews"),
+            font_manifest,
+            config["full_pilot_names"]["codec"],
+            chunk_workspace=stage_chunk0_workspace,
+        )
+        (
+            output_stage,
+            stage_default_formation_report,
+            stage_fixed_formation_report,
+            original_stage_path,
+            stage_default_formation_corpus_path,
+            stage_default_formation_inventory_path,
+        ) = _apply_stage_default_formation_names(
+            output_stage,
+            hb_payload,
+            config.get("remaining_ui"),
+            font_manifest,
+            config["full_pilot_names"]["codec"],
+        )
+        (
+            output_stage,
+            stage_system_dialogue_report,
+            stage_system_dialogue_corpus_path,
+        ) = _apply_stage_system_dialogues(
+            output_stage,
+            hb_payload,
+            config.get("remaining_ui"),
+            font_manifest,
+            config["full_pilot_names"]["codec"],
+            chunk_workspace=stage_chunk0_workspace,
+        )
+        try:
+            stage_chunk0_encoded, stage_chunk0_workspace_report = (
+                stage_chunk0_workspace.finalize(
+                    strategy=config["full_pilot_names"]["codec"]["strategy"],
+                    min_match_length=config["full_pilot_names"]["codec"][
+                        "min_match_length"
+                    ],
+                    max_match_chain=config["full_pilot_names"]["codec"][
+                        "max_match_chain"
+                    ],
+                    lazy_matching=config["full_pilot_names"]["codec"][
+                        "lazy_matching"
+                    ],
+                    max_output_size=stage_chunk0_end,
+                )
+            )
+        except (RuntimeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"final STAGE chunk 0 workspace compression failed: {error}"
+            ) from error
+        stage_chunk0_stored = stage_chunk0_encoded + bytes(
+            stage_chunk0_end - len(stage_chunk0_encoded)
+        )
+        output_stage = stage_chunk0_stored + output_stage[stage_chunk0_end:]
+        if (
+            len(output_stage) != len(stage_payload)
+            or read_executable_archive_offsets(
+                hb_payload,
+                stage_offset_spec,
+                len(output_stage),
+            )
+            != stage_offsets
+        ):
+            raise FullStoryComponentError(
+                "final STAGE chunk 0 workspace layout changed"
+            )
+        for chunk0_report in (
+            stage_overview_report,
+            stage_system_dialogue_report,
+        ):
+            chunk0_report.update(
+                {
+                    "output_encoded_size": len(stage_chunk0_encoded),
+                    "codec_round_trip_exact": True,
+                }
+            )
+        stage_overview_report.update(
+            {
+                "output_encoded_sha256": sha256_bytes(stage_chunk0_encoded),
+                "output_padding_size": (
+                    stage_chunk0_end - len(stage_chunk0_encoded)
+                ),
+            }
+        )
+    remaining_ui_report["stage_fixed_formation"] = stage_fixed_formation_report
+    remaining_ui_report["stage_default_formation"] = stage_default_formation_report
+    remaining_ui_report["stage_system_dialogue"] = stage_system_dialogue_report
+
+    if reuse_group({HSFC_MEMBER}):
+        output_hsfc = _prior_output_payload(output_root, HSFC_MEMBER)
+        hsfc_overview_report = json.loads(json.dumps(prior_report["hsfc_overviews"]))
+        hsfc_overview_input_paths = (
+            _prior_input_path(prior_report, "hsfc_overviews"),
+            _prior_input_path(prior_report, "original_hsfc"),
+        )
+    else:
+        (
+            output_hsfc,
+            hsfc_overview_report,
+            hsfc_overview_input_paths,
+        ) = _apply_hsfc_overviews(
+            output_slps,
+            config.get("hsfc_overviews"),
+            font_manifest,
+            config["full_pilot_names"]["codec"],
+        )
+
+    if reuse_group({VEFF_MEMBER}):
+        output_veff = _prior_output_payload(output_root, VEFF_MEMBER)
+        scenario_select_report = json.loads(
+            json.dumps(prior_report["scenario_select_effect"])
+        )
+        mode_select_report = json.loads(json.dumps(prior_report["mode_select_effect"]))
+        scenario_select_source_path = _prior_input_path(prior_report, "original_veff2dx")
+        mode_select_source_path = scenario_select_source_path
+    else:
+        (
+            output_veff,
+            scenario_select_report,
+            scenario_select_source_path,
+        ) = _apply_scenario_select_effect(
+            output_slps,
+            final_font,
+            release_by_character,
+            config.get("scenario_select_effect"),
+        )
+        scenario_select_report["description_layout"] = (
+            scenario_description_layout_report
+        )
+        (
+            output_veff,
+            mode_select_report,
+            mode_select_source_path,
+        ) = _apply_scenario_select_effect(
+            output_slps,
+            final_font,
+            release_by_character,
+            config.get("mode_select_effect"),
+            archive_payload=output_veff,
+        )
+        if mode_select_source_path != scenario_select_source_path:
+            raise FullStoryComponentError("VEFF2DX source path drift between targets")
+
+    if reuse_group({MAPMODEL_MEMBER}):
+        output_mapmodel = _prior_output_payload(output_root, MAPMODEL_MEMBER)
+        world_map_title_report = json.loads(json.dumps(prior_report["world_map_titles"]))
+        terrain_name_report = world_map_title_report["terrain_names"]
+        world_map_title_input_paths = {
+            "corpus": _prior_input_path(prior_report, "world_map_title_corpus"),
+            "render_snapshot": _prior_input_path(
+                prior_report, "world_map_title_render_snapshot"
+            ),
+            "original_slps": _prior_input_path(prior_report, "world_map_original_slps"),
+            "original_archive": _prior_input_path(
+                prior_report, "world_map_original_archive"
+            ),
+        }
+        terrain_name_input_paths = (
+            _prior_input_path(prior_report, "terrain_name_corpus"),
+            _prior_input_path(prior_report, "terrain_name_inventory"),
+        )
+    else:
+        mapmodel_decoded_cache = {}
         (
             output_mapmodel,
-            terrain_name_report,
-            terrain_name_input_paths,
-        ) = build_terrain_names(
+            world_map_title_report,
+            world_map_title_input_paths,
+        ) = build_world_map_titles(
             PROJECT_ROOT,
-            config.get("world_map_titles", {}).get("terrain_names"),
-            archive_payload=output_mapmodel,
-            table=table,
-            encoding_overrides=encoding_overrides,
+            WORK_ROOT,
+            config.get("world_map_titles"),
+            preview_root=output_root / "previews/world-map-titles",
+            decoded_cache=mapmodel_decoded_cache,
         )
-    except TerrainNameError as error:
-        raise FullStoryComponentError(
-            f"MAPMODEL terrain-name write failed: {error}"
-        ) from error
-    world_map_title_report["terrain_names"] = terrain_name_report
+        table = load_text_table(
+            PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+        )
+        _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+            font_manifest
+        )
+        encoding_overrides = _stored_text_overrides(table, primary, aliases)
+        try:
+            (
+                output_mapmodel,
+                terrain_name_report,
+                terrain_name_input_paths,
+            ) = build_terrain_names(
+                PROJECT_ROOT,
+                config.get("world_map_titles", {}).get("terrain_names"),
+                archive_payload=output_mapmodel,
+                table=table,
+                encoding_overrides=encoding_overrides,
+                decoded_cache=mapmodel_decoded_cache,
+            )
+        except TerrainNameError as error:
+            raise FullStoryComponentError(
+                f"MAPMODEL terrain-name write failed: {error}"
+            ) from error
+        world_map_title_report["terrain_names"] = terrain_name_report
 
     payloads = {
         "SLPS_258.87": output_slps,
@@ -5983,6 +7134,9 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         "MAP/MAPMODEL.BIN": output_mapmodel,
         **output_auto_demo_archives,
     }
+    if incremental:
+        for member in ALL_COMPONENT_MEMBERS - affected_members:
+            payloads[member] = _prior_output_payload(output_root, member)
     output_paths = {name: output_root / name for name in payloads}
     stage_headrooms = [
         item["source_chunk_size"] - item["output_encoded_size"]
@@ -6052,6 +7206,10 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 stage_default_formation_corpus_path,
                 stage_default_formation_corpus_path.read_bytes(),
             ),
+            "stage_default_formation_inventory": _file_lock(
+                stage_default_formation_inventory_path,
+                stage_default_formation_inventory_path.read_bytes(),
+            ),
             "remaining_ui_parts": _file_lock(
                 remaining_ui_input_paths[1],
                 remaining_ui_input_paths[1].read_bytes(),
@@ -6106,6 +7264,10 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 world_map_title_input_paths["corpus"],
                 world_map_title_input_paths["corpus"].read_bytes(),
             ),
+            "world_map_title_render_snapshot": _file_lock(
+                world_map_title_input_paths["render_snapshot"],
+                world_map_title_input_paths["render_snapshot"].read_bytes(),
+            ),
             "world_map_original_slps": _file_lock(
                 world_map_title_input_paths["original_slps"],
                 world_map_title_input_paths["original_slps"].read_bytes(),
@@ -6118,6 +7280,10 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 terrain_name_input_paths[0],
                 terrain_name_input_paths[0].read_bytes(),
             ),
+            "terrain_name_inventory": _file_lock(
+                terrain_name_input_paths[1],
+                terrain_name_input_paths[1].read_bytes(),
+            ),
             **{
                 f"auto_demo_{label}": _file_lock(path, path.read_bytes())
                 for label, path in auto_demo_input_paths.items()
@@ -6126,6 +7292,9 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         "compression": {
             "backend_policy": "rust-only",
             "python_encoder_used": False,
+            "python_decoder_used": False,
+            "compdata_workspace": compdata_workspace_report,
+            "stage_chunk_0_workspace": stage_chunk0_workspace_report,
             "font_strategy": font_codec_strategy,
             "stage_strategies": sorted(stage_codec_strategies),
             "component_strategy": config["full_pilot_names"]["codec"][
@@ -6405,27 +7574,39 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
                 and remaining_ui_report["stage_default_formation"][
                     "group_count"
                 ]
-                == 85
+                == config["remaining_ui"]["expected"][
+                    "stage_default_formation_group_count"
+                ]
                 and remaining_ui_report["stage_default_formation"][
                     "stage_count"
                 ]
-                == 83
+                == config["remaining_ui"]["expected"][
+                    "stage_default_formation_stage_count"
+                ]
                 and remaining_ui_report["stage_default_formation"][
                     "entry_count"
                 ]
-                == 2382
+                == config["remaining_ui"]["expected"][
+                    "stage_default_formation_entry_count"
+                ]
                 and remaining_ui_report["stage_default_formation"][
                     "unique_source_count"
                 ]
-                == 103
+                == config["remaining_ui"]["expected"][
+                    "stage_default_formation_unique_source_count"
+                ]
                 and remaining_ui_report["stage_default_formation"][
                     "record_metadata_count"
                 ]
-                == 2364
+                == config["remaining_ui"]["expected"][
+                    "stage_default_formation_record_metadata_count"
+                ]
                 and remaining_ui_report["stage_default_formation"][
                     "inventory_sha256"
                 ]
-                == "1ede725d2a21c3124da144551f9914a9ddc8375ba235e1b19ea3f37a0a93d4b6"
+                == config["remaining_ui"]["expected"][
+                    "stage_default_formation_inventory_sha256"
+                ]
                 and remaining_ui_report["stage_default_formation"][
                     "record_metadata_preserved_byte_exact"
                 ]
@@ -6601,6 +7782,12 @@ def build(config_path: Path, output_root: Path) -> tuple[dict[str, bytes], dict]
         raise FullStoryComponentError(
             f"full-story component acceptance failed: {report['acceptance']}"
         )
+    if incremental:
+        payloads = {
+            member: payload
+            for member, payload in payloads.items()
+            if member in affected_members
+        }
     return payloads, report
 
 
@@ -6616,7 +7803,76 @@ def main() -> int:
     if report_path.exists() and not args.force:
         raise SystemExit(f"output exists; use --force: {report_path}")
     try:
-        payloads, report = build(config_path, output_root)
+        if args.incremental:
+            manifest_path = _project_path(config["outputs"]["manifest"])
+            if not manifest_path.is_file():
+                raise FullStoryComponentError(
+                    "incremental build requires a prior full component manifest"
+                )
+            prior_report = _json(manifest_path)
+            _validate_prior_component_outputs(output_root, prior_report)
+            remaining_reference = config.get("remaining_ui", {}).get(
+                "translations"
+            )
+            remaining_ui_path, remaining_ui_data = _locked_file(
+                remaining_reference,
+                label="remaining UI translations",
+            )
+            remaining_ui = json.loads(remaining_ui_data.decode("utf-8"))
+            state = _load_or_seed_incremental_state(
+                config_path=config_path,
+                config=config,
+                output_root=output_root,
+                manifest_path=manifest_path,
+                manifest=prior_report,
+                remaining_ui_path=remaining_ui_path,
+                remaining_ui=remaining_ui,
+            )
+            affected_members, reasons = _plan_incremental_members(
+                baseline_config=state["config"],
+                current_config=config,
+                baseline_remaining_ui=state["remaining_ui"],
+                current_remaining_ui=remaining_ui,
+                prior_report=prior_report,
+            )
+            print(
+                "[incremental] affected members:",
+                ", ".join(sorted(affected_members)) or "none",
+                flush=True,
+            )
+            if reasons:
+                print(
+                    "[incremental] reasons:",
+                    ", ".join(reasons),
+                    flush=True,
+                )
+            if affected_members:
+                fixed_slps_reasons = {
+                    "remaining-ui:slps_by_offset",
+                    "remaining-ui:accepted_current_preimages_by_offset",
+                }
+                if affected_members == {SLPS_MEMBER} and set(reasons) <= (
+                    fixed_slps_reasons
+                ):
+                    payloads, report = _build_incremental_fixed_slps(
+                        config_path=config_path,
+                        config=config,
+                        output_root=output_root,
+                        prior_report=prior_report,
+                        baseline_remaining_ui=state["remaining_ui"],
+                        current_remaining_ui=remaining_ui,
+                    )
+                else:
+                    payloads, report = build(
+                        config_path,
+                        output_root,
+                        affected_members=affected_members,
+                        prior_report=prior_report,
+                    )
+            else:
+                payloads, report = {}, prior_report
+        else:
+            payloads, report = build(config_path, output_root)
     except (
         KeyError,
         OSError,
@@ -6649,10 +7905,16 @@ def main() -> int:
                 "then rerun with --refresh-manifest"
             )
         manifest_status = "verified"
+    _write_incremental_state(
+        config_path=config_path,
+        config=config,
+        output_root=output_root,
+        manifest_path=manifest_path,
+    )
     print(
         "full-story components:",
         f"stages={report['story']['stage_count']}",
-        f"members={len(payloads)}",
+        f"updated_members={len(payloads)}",
         f"font={report['composition']['font_encoded_size']}",
         "runtime=pending",
     )

@@ -271,8 +271,16 @@ def parse_stage(
     section_count = 0
     unknown_code_count = 0
 
-    # The first observed block reference is not a dialogue block.
-    for block_index, block_reference in enumerate(block_references[1:], start=1):
+    # Ordinary stages reserve the first observed block reference for a
+    # non-dialogue structure.  The route-selection and bazaar-only chunks use
+    # a compact layout with exactly one reference, and that sole reference is
+    # the dialogue block itself.  Selecting by structure cardinality keeps the
+    # ordinary layout stable while exposing those otherwise skipped chunks.
+    dialogue_block_start = 0 if len(block_references) == 1 else 1
+    for block_index, block_reference in enumerate(
+        block_references[dialogue_block_start:],
+        start=dialogue_block_start,
+    ):
         pointer_table_address = _u32(
             data,
             block_reference,

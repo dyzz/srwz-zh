@@ -27,7 +27,7 @@ class StoryDialogueLayoutTests(unittest.TestCase):
                     or (widths and max(widths) > DEFAULT_LINE_WIDTH)
                 ):
                     violations.append((entry["id"], widths))
-        self.assertEqual(entry_count, 82719)
+        self.assertEqual(entry_count, 83500)
         self.assertEqual(violations, [])
 
 

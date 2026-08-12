@@ -4,6 +4,7 @@ from collections import Counter
 from pathlib import Path
 
 from tools.srwz.text import (
+    PreparedTextEncoder,
     SrwzTextEncodeError,
     SrwzTextError,
     augment_text_table,
@@ -119,6 +120,25 @@ class TextDecodeTests(unittest.TestCase):
     def test_encode_accepts_explicit_chinese_code_override(self):
         encoded = encode_text("中", self.table, overrides={"中": 0x8140})
         self.assertEqual(encoded, b"\x81\x40")
+
+    def test_prepared_encoder_matches_one_shot_encoder(self):
+        overrides = {"中": 0x8140, "文": 0x8141}
+        encoder = PreparedTextEncoder(self.table, overrides)
+        self.assertEqual(
+            encoder.encode("中文", terminate=True),
+            encode_text(
+                "中文",
+                self.table,
+                overrides=overrides,
+                terminate=True,
+            ),
+        )
+
+    def test_prepared_encoder_validates_overrides_once(self):
+        with self.assertRaisesRegex(ValueError, "one character"):
+            PreparedTextEncoder(self.table, {"中文": 0x8140})
+        with self.assertRaisesRegex(ValueError, "outside two bytes"):
+            PreparedTextEncoder(self.table, {"中": 0x10000})
 
     def test_encode_override_takes_priority_over_ascii_control_tag_bytes(self):
         encoded = encode_text(

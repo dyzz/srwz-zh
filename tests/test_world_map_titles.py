@@ -2,7 +2,7 @@ import json
 import unittest
 from pathlib import Path
 
-from tools.srwz.codec import decode
+from tools.srwz.codec import decode_production as decode
 from tools.srwz.font import sha256_bytes
 from tools.srwz.world_map_titles import (
     index_bbox,
@@ -79,6 +79,35 @@ class WorldMapTitleTests(unittest.TestCase):
             sum(entry["source"] != entry["translation"] for entry in entries),
             70,
         )
+
+    def test_rendered_results_are_frozen_and_locked(self):
+        config = json.loads(
+            (PROJECT_ROOT / "config/full-story-components.json").read_text(
+                encoding="utf-8"
+            )
+        )["world_map_titles"]
+        lock = config["render_snapshot"]
+        path = PROJECT_ROOT / lock["path"]
+        payload = path.read_bytes()
+        snapshot = json.loads(payload.decode("utf-8"))
+        corpus = json.loads(
+            (PROJECT_ROOT / config["corpus"]["path"]).read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(len(payload), lock["size"])
+        self.assertEqual(sha256_bytes(payload), lock["sha256"])
+        self.assertEqual(snapshot["status"], "reviewed_locked")
+        self.assertEqual(
+            snapshot["selection_authority"],
+            "frozen_rendered_title_raw",
+        )
+        self.assertEqual(
+            [entry["id"] for entry in snapshot["entries"]],
+            [entry["id"] for entry in corpus["entries"]],
+        )
+        self.assertEqual(len(snapshot["entries"]), 78)
+        self.assertTrue(snapshot["preview"]["png_base64"])
 
     def test_first_female_route_title_preimage_is_locked(self):
         config = json.loads(

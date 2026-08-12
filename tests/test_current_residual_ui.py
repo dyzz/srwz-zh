@@ -29,21 +29,25 @@ class CurrentResidualUiTests(unittest.TestCase):
     def test_fixed_slps_and_suspend_return_dialogue_are_locked(self):
         remaining = self.component["remaining_ui"]
         self.assertEqual(remaining["slps_context_ui"]["entry_count"], 407)
-        self.assertEqual(remaining["slps"]["entry_count"], 177)
+        self.assertEqual(remaining["slps"]["entry_count"], 178)
 
         formation = remaining["stage_default_formation"]
-        self.assertEqual(formation["group_count"], 85)
-        self.assertEqual(formation["stage_count"], 83)
-        self.assertEqual(formation["entry_count"], 2382)
-        self.assertEqual(formation["unique_source_count"], 103)
+        self.assertEqual(formation["group_count"], 401)
+        self.assertEqual(formation["stage_count"], 167)
+        self.assertEqual(formation["entry_count"], 10293)
+        self.assertEqual(formation["unique_source_count"], 248)
         self.assertEqual(
             formation["layout_group_counts"],
-            {"record23+6": 79, "slot32": 6},
+            {
+                "formation18+33+1": 255,
+                "record6+23": 140,
+                "slot32": 6,
+            },
         )
-        self.assertEqual(formation["record_metadata_count"], 2364)
+        self.assertEqual(formation["record_metadata_count"], 8238)
         self.assertEqual(
             formation["inventory_sha256"],
-            "1ede725d2a21c3124da144551f9914a9ddc8375ba235e1b19ea3f37a0a93d4b6",
+            "1215468274a60ab131d9a6758ddbdb39f42fb39f2fae60d92292581e496a2f2c",
         )
         translations = {
             item["source"]: item["translation"]
@@ -53,6 +57,12 @@ class CurrentResidualUiTests(unittest.TestCase):
         self.assertEqual(translations["グローリー・スター１"], "荣耀之星1")
         self.assertEqual(translations["ザフト"], "ZAFT")
         self.assertEqual(translations["ザンベース"], "桑贝斯")
+        self.assertEqual(translations["シベ鉄警備隊"], "西伯铁警备队")
+        self.assertEqual(translations["アデット隊"], "亚蒂特队")
+        self.assertEqual(translations["ギンガナム艦隊"], "金卡拉姆舰队")
+        self.assertEqual(translations["ガウリ隊"], "高利队")
+        self.assertEqual(translations["マジンガーチーム"], "魔神小队")
+        self.assertEqual(translations["黒いサザンクロス"], "黑色南十字星")
         self.assertTrue(formation["fixed_allocations_preserved"])
         self.assertTrue(formation["record_metadata_preserved_byte_exact"])
         self.assertTrue(formation["slot_padding_zero"])
@@ -72,8 +82,27 @@ class CurrentResidualUiTests(unittest.TestCase):
         self.assertTrue(dialogue["archive_size_preserved"])
         self.assertTrue(dialogue["hb_offsets_preserved"])
 
+    def test_current_story_content_scope_is_locked(self):
+        self.assertEqual(self.content["stage_count"], 170)
+        self.assertEqual(self.content["translation_entry_count"], 92723)
+        self.assertEqual(self.content["dialogue_count"], 83500)
+        self.assertEqual(self.content["condition_count"], 558)
+        self.assertEqual(self.content["speaker_count"], 8665)
+        self.assertTrue(all(self.content["checks"].values()))
+
     def test_female_default_name_and_back_log_labels_are_locked(self):
         regressions = self.content["compdata"]["new_game_regressions"]
+        self.assertEqual(
+            regressions["male_default_unit_name_offsets"],
+            {"0x3479E0": "钢狮子"},
+        )
+        self.assertTrue(
+            regressions["male_default_unit_name_readback_exact"]
+        )
+        self.assertEqual(
+            self.remaining_ui["slps_by_offset"]["0x3479E0"],
+            "钢狮子",
+        )
         self.assertEqual(
             regressions["female_default_name_offsets"],
             {
@@ -124,8 +153,8 @@ class CurrentResidualUiTests(unittest.TestCase):
 
     def test_final_iso_contains_no_stale_stage_text_rendered_by_new_font(self):
         story = self.content["stale_stage_runtime_rendering_audit"]
-        self.assertEqual(story["checked_entry_count"], 91746)
-        self.assertEqual(story["distinct_stale_fingerprint_count"], 90165)
+        self.assertEqual(story["checked_entry_count"], 92723)
+        self.assertEqual(story["distinct_stale_fingerprint_count"], 91110)
         self.assertEqual(story["stale_fingerprint_match_count"], 0)
         self.assertTrue(
             story["all_distinct_stale_source_renderings_absent"]

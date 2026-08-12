@@ -9,6 +9,7 @@ meaning.
 from __future__ import annotations
 
 import subprocess
+import struct
 import sys
 import tempfile
 from array import array
@@ -753,6 +754,76 @@ def _rust_compressor_path() -> Path:
     )
 
 
+def decode_production(
+    data: BytesLike,
+    *,
+    max_output_size: int = DEFAULT_MAX_OUTPUT_SIZE,
+    max_coded_integer_bytes: int = DEFAULT_MAX_CODED_INTEGER_BYTES,
+    max_tokens: int = DEFAULT_MAX_TOKENS,
+) -> DecodeResult:
+    """Decode one production stream with the repository-owned Rust codec.
+
+    The Python decoder implementation is retained only for isolated format
+    research and comparison tests. All build and verification transforms use
+    this Rust path.
+    """
+
+    if (
+        max_output_size != DEFAULT_MAX_OUTPUT_SIZE
+        or max_coded_integer_bytes != DEFAULT_MAX_CODED_INTEGER_BYTES
+        or max_tokens != DEFAULT_MAX_TOKENS
+    ):
+        raise ValueError("Rust production decoder currently uses the locked limits")
+    source = memoryview(data).cast("B").tobytes()
+    binary = _rust_compressor_path()
+    if not binary.is_file():
+        raise RuntimeError(
+            "Rust codec is not built; run "
+            "`python3 tools/build_rust_compressor.py --force`"
+        )
+    completed = subprocess.run(
+        [str(binary), "decode-stdio"],
+        input=source,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if completed.returncode != 0:
+        detail = completed.stderr.decode("utf-8", errors="replace").strip()
+        raise SrwzCodecError(detail or "Rust production decoder failed")
+    header_struct = struct.Struct("<8s8Q")
+    if len(completed.stdout) < header_struct.size:
+        raise SrwzCodecError("Rust production decoder returned a truncated header")
+    (
+        magic,
+        consumed,
+        declared_size,
+        flags,
+        header_size,
+        window_size,
+        header_unknown_0,
+        header_unknown_1,
+        output_size,
+    ) = header_struct.unpack_from(completed.stdout)
+    output = completed.stdout[header_struct.size :]
+    if magic != b"SRWZD001" or len(output) != output_size:
+        raise SrwzCodecError("Rust production decoder response contract drift")
+    metadata = {
+        "window_size": window_size,
+        "header_unknown_1": header_unknown_1,
+    }
+    if header_unknown_0 != 0xFFFFFFFFFFFFFFFF:
+        metadata["header_unknown_0"] = header_unknown_0
+    return DecodeResult(
+        output=output,
+        consumed=consumed,
+        declared_size=declared_size,
+        flags=flags,
+        header_size=header_size,
+        metadata=metadata,
+    )
+
+
 def _rust_payload(
     data: bytes,
     *,
@@ -764,9 +835,9 @@ def _rust_payload(
 ) -> bytes:
     """Run one repository-owned Rust payload encoder profile.
 
-    The process boundary keeps the Rust implementation independent from the
-    Python decoder used as the round-trip oracle. Generated inputs and outputs
-    stay inside the ignored work tree.
+    Generated inputs and outputs stay inside the ignored work tree. Production
+    round trips use the Rust decoder; the retained Python implementation is not
+    entered by this path.
     """
 
     binary = _rust_compressor_path()
@@ -870,6 +941,7 @@ def reencode_changed_suffix(
     max_match_chain: int = DEFAULT_MAX_MATCH_CHAIN,
     lazy_matching: bool = False,
     max_output_size: Optional[int] = None,
+    original_result: Optional[DecodeResult] = None,
 ) -> bytes:
     """Re-encode a modified stream and verify its decoded round trip.
 
@@ -892,6 +964,11 @@ def reencode_changed_suffix(
         )
     if max_output_size is not None and max_output_size < 0:
         raise ValueError("max_output_size must be non-negative")
+    rust_strategy = strategy in {"rust-fit", "rust-maximum"}
+    if original_result is not None and not rust_strategy:
+        raise ValueError(
+            "a reused original decode is supported only for full Rust re-encoding"
+        )
     source = memoryview(original_stream).cast("B").tobytes()
     replacement = memoryview(modified_output).cast("B").tobytes()
     blocks = []
@@ -900,7 +977,13 @@ def reencode_changed_suffix(
         if event["kind"] == "block":
             blocks.append(event)
 
-    original = decode(source, trace_sink=collect_blocks)
+    original = original_result
+    if original is None and rust_strategy:
+        original = decode_production(source)
+    elif original is None:
+        original = decode(source, trace_sink=collect_blocks)
+    elif original.consumed > len(source):
+        raise ValueError("reused original decode exceeds the source stream")
     if not replacement:
         raise ValueError("suffix re-encode requires non-empty output")
     first_changed = next(
@@ -915,6 +998,10 @@ def reencode_changed_suffix(
     )
     if first_changed is None:
         if len(replacement) == len(original.output):
+            if original_result is not None:
+                confirmed = decode_production(source) if rust_strategy else decode(source)
+                if confirmed != original:
+                    raise ValueError("reused original decode does not match source stream")
             encoded = source[:original.consumed]
             if (
                 max_output_size is not None
@@ -948,13 +1035,8 @@ def reencode_changed_suffix(
             "suffix size change would alter the original header shape"
         )
 
-    if strategy in {"rust-fit", "rust-maximum"}:
-        first_block = min(
-            blocks,
-            key=lambda event: int(event["output_offset"]),
-        )
-        if int(first_block["output_offset"]) != 0:
-            raise ValueError("stream trace has no zero-output block boundary")
+    if rust_strategy:
+        payload_start = original.header_size
         rust_encoder = (
             _rust_fit_payload
             if strategy == "rust-fit"
@@ -969,12 +1051,10 @@ def reencode_changed_suffix(
         )
         encoded = (
             new_declared
-            + source[
-                old_declared.end : int(first_block["input_offset"])
-            ]
+            + source[old_declared.end:payload_start]
             + payload
         )
-        reread = decode(encoded)
+        reread = decode_production(encoded)
         if reread.output != replacement or reread.consumed != len(encoded):
             raise ValueError("full Rust re-encode failed its decoded round-trip")
         if max_output_size is not None and len(encoded) > max_output_size:
@@ -1033,7 +1113,7 @@ def reencode_changed_suffix(
         + source[old_declared.end:input_prefix_size]
         + payload
     )
-    reread = decode(encoded)
+    reread = decode_production(encoded) if rust_strategy else decode(encoded)
     if reread.output != replacement or reread.consumed != len(encoded):
         raise ValueError("suffix re-encode failed its decoded round-trip")
     if max_output_size is not None and len(encoded) > max_output_size:
@@ -1071,8 +1151,10 @@ def encode(
     lazy bias and the configured bounded search chain; it is the production
     profile for fitting fixed allocations, not for finding the smallest
     possible stream. ``rust-maximum`` retains the exhaustive Rust portfolio
-    for comparison. Both keep this decoder as an independent round-trip
-    oracle. ``max_output_size`` is a hard failure gate, never truncation.
+    for comparison. Production Rust streams are round-tripped by the Rust
+    decoder. The strict Python decoder source remains only for isolated format
+    research and comparison tests. ``max_output_size`` is a hard failure gate,
+    never truncation.
     """
 
     source = memoryview(data).cast("B").tobytes()
@@ -1376,6 +1458,7 @@ __all__ = [
     "DEFAULT_MAX_OUTPUT_SIZE",
     "DEFAULT_MAX_TOKENS",
     "decode",
+    "decode_production",
     "encode",
     "encode_coded_integer",
     "flags_for_size",

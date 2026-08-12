@@ -91,7 +91,10 @@ member:      81
 `tools/build_full_story_components.py` 调用。配置入口是
 `config/full-story-components.json` 的 `world_map_titles`。
 
-每个需要翻译的唯一标题按以下规则生成：
+地图标题的渲染结果已冻结在
+`config/world-map-title-render-snapshot.json`。普通 build 只验证快照与语料、字体和
+渲染配置的锁，并读取其中的 4bpp raw；不会启动 ImageMagick。只有显式运行
+`python3 tools/freeze_world_map_title_renders.py --force` 时才按以下规则重新生成：
 
 1. 验证该 member 的日文 raw SHA-256 和共享英文 raw SHA-256；
 2. 解包日文 4-bpp raw，计算原文字全部非零像素的紧包围框；
@@ -103,10 +106,11 @@ member:      81
 7. 重新翻转行并按 low-nibble-first 打包，只替换 decoded 日文 raw 区间；
 8. 使用 `rust-fit`、`min_match_length=2`、`max_match_chain=1024` 重压完整
    decoded payload；超过原 allocation 时失败，绝不截断；
-9. 在原 allocation 尾部补零，并由独立 Python decoder 完整回读。
+9. 在原 allocation 尾部补零，并由 Rust decoder 完整回读。
 
-同文 no-op 标题不经过渲染或重压。重复 raw 共用同一个确定性重绘结果，但每个
-member 仍独立解压、验证、重压和回读。
+同文 no-op 标题不经过渲染或重压。重复 raw 共用同一个冻结重绘结果，但每个 member
+仍独立解压、验证、重压和回读；标题成员与地形名成员不重叠，同一成员不会在两个
+阶段重复解压或压缩。
 
 ## 6. 当前静态结果
 

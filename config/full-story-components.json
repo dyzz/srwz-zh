@@ -36,8 +36,8 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 49447,
-      "sha256": "f2e4cb228d61178e3cfd30ddead0c461c278b7c685c39b3c7785910392ac966c"
+      "size": 52613,
+      "sha256": "2ce489b8da54dcc4b6cb20c1b00ca8189b88063e450773c83a56d673330e87d0"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -55,15 +55,15 @@
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 17852925,
-      "sha256": "6ca1903f979057a0e360d54a98b7bfedfca3e8fe17f92cf8e64eb3b314692a3b"
+      "size": 18033507,
+      "sha256": "c90d58a9a2b7d76a9605c8393b0fbca7733d43dfc1f4c7d5e29c2f1c8996436c"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
-    "expected_stage_count": 154,
+    "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "22c1ad1e2f19902e6cd7cbd373e39276f7d1320a2f2bd2d4cd2625a5da949998"
+      "sha256": "c7b8f72790d4fca89ba3271bbcb593a9fe60d8374d78bd7314cbbc8a7c386011"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -84,13 +84,13 @@
     },
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
-      "size": 2898601,
-      "sha256": "64d2ccd44046890cafcdb46819640ae72a33a92c2cd31165827a99577e8f0335"
+      "size": 2965199,
+      "sha256": "1313b1e1884bc40faab9ff9e21de92f0875e666a8f1a931e46575f06064cf056"
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 91423,
-      "sha256": "32ab1211e191d3291feef1379dfff26348e36e2200a51a123f84fd3836b85d07"
+      "size": 91478,
+      "sha256": "46af3c68029dd8f38c2415ef953dea0324a71ec77c12933c15970890af3d315f"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -138,13 +138,13 @@
     },
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
-      "size": 2898601,
-      "sha256": "64d2ccd44046890cafcdb46819640ae72a33a92c2cd31165827a99577e8f0335"
+      "size": 2965199,
+      "sha256": "1313b1e1884bc40faab9ff9e21de92f0875e666a8f1a931e46575f06064cf056"
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 91423,
-      "sha256": "32ab1211e191d3291feef1379dfff26348e36e2200a51a123f84fd3836b85d07"
+      "size": 91478,
+      "sha256": "46af3c68029dd8f38c2415ef953dea0324a71ec77c12933c15970890af3d315f"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -506,8 +506,8 @@
   "remaining_ui": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 91423,
-      "sha256": "32ab1211e191d3291feef1379dfff26348e36e2200a51a123f84fd3836b85d07"
+      "size": 91478,
+      "sha256": "46af3c68029dd8f38c2415ef953dea0324a71ec77c12933c15970890af3d315f"
     },
     "parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
@@ -536,8 +536,13 @@
     },
     "stage_default_formations": {
       "path": "corpus/zh/menu/stage-default-formations.json",
-      "size": 4347,
-      "sha256": "21f84fd8fb96dc4347fd85d46254eb5cca5ed6cd08c3671c576805e724b3317b"
+      "size": 10176,
+      "sha256": "10f4e63e756cfc9411442ec6a7781f5c7047f6fffc9e6b43a096ee93b4235e18"
+    },
+    "stage_default_formation_inventory": {
+      "path": "config/stage-default-formation-inventory.json",
+      "size": 146084,
+      "sha256": "902c9db1812508f6f35eff8d3136daa4231876dec8271f4a8534e1b30563a550"
     },
     "expected": {
       "compdata_direct_entry_count": 308,
@@ -547,17 +552,17 @@
       "slps_context_ui_entry_count": 407,
       "stage_fixed_formation_entry_count": 9,
       "stage_fixed_formation_chunk_index": 101,
-      "stage_default_formation_group_count": 85,
-      "stage_default_formation_stage_count": 83,
-      "stage_default_formation_entry_count": 2382,
-      "stage_default_formation_unique_source_count": 103,
-      "stage_default_formation_record_metadata_count": 2364,
-      "stage_default_formation_inventory_sha256": "1ede725d2a21c3124da144551f9914a9ddc8375ba235e1b19ea3f37a0a93d4b6",
+      "stage_default_formation_group_count": 401,
+      "stage_default_formation_stage_count": 167,
+      "stage_default_formation_entry_count": 10293,
+      "stage_default_formation_unique_source_count": 248,
+      "stage_default_formation_record_metadata_count": 8238,
+      "stage_default_formation_inventory_sha256": "1215468274a60ab131d9a6758ddbdb39f42fb39f2fae60d92292581e496a2f2c",
       "stage_system_dialogue_inventory_count": 379,
       "stage_system_dialogue_entry_count": 379,
       "stage_system_dialogue_pointer_offsets_sha256": "296c64123f0587124a1583935d522f189ba0e9e992feb774ec3e4173b793a058",
-      "slps_entry_count": 177,
-      "accepted_current_preimage_count": 8,
+      "slps_entry_count": 178,
+      "accepted_current_preimage_count": 9,
       "parts_entry_count": 133,
       "parts_source_target_occurrence_count": 134,
       "parts_source_target_unique_count": 133,
@@ -595,8 +600,8 @@
   "nisv_effect_names": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 91423,
-      "sha256": "32ab1211e191d3291feef1379dfff26348e36e2200a51a123f84fd3836b85d07"
+      "size": 91478,
+      "sha256": "46af3c68029dd8f38c2415ef953dea0324a71ec77c12933c15970890af3d315f"
     },
     "original_archive": {
       "path": "work/disc/DATA/NISVDATA.BIN",
@@ -933,6 +938,11 @@
       "size": 19849,
       "sha256": "6a18df0541e90ad6ed633c294866821be0f4b312b4d55ff2722401a797a42a59"
     },
+    "render_snapshot": {
+      "path": "config/world-map-title-render-snapshot.json",
+      "size": 421376,
+      "sha256": "10129741d1f27a947a23dcde0270327cb30743e1e918eece5cf48dc10ddda40e"
+    },
     "archive": {
       "member": "MAP/MAPMODEL.BIN",
       "offset_table_start": "0x2FAAD0",
@@ -959,6 +969,11 @@
         "size": 1767,
         "sha256": "c3de129825bf0961649a5e025896290f0b990262f300816a7e3de7b5241641d8"
       },
+      "inventory": {
+        "path": "config/terrain-name-inventory.json",
+        "size": 5543,
+        "sha256": "4391436675600e9098b30d070131211638aa6165d217a23172c94c94e13e7f4b"
+      },
       "archive": {
         "member": "MAP/MAPMODEL.BIN",
         "offset_table_start": "0x2FAAD0",
@@ -971,6 +986,7 @@
       "expected": {
         "unique_source_count": 15,
         "occurrence_count": 66,
+        "changed_member_count": 10,
         "inventory_sha256": "2a97b73ab77ed0f6e93d126516ebae9d7a4c56d4b181ab941279c3c470e453ef"
       },
       "codec": {

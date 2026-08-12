@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from srwz.codec import decode
+from srwz.codec import decode_production as decode
 from srwz.iso_layout import (
     ExecutableOffsetSpec,
     read_executable_archive_offsets,

@@ -12,6 +12,278 @@ const MEDIUM_CHAIN_LIMIT: usize = 4096;
 const MIN_HASH_HEADS: usize = 1 << 16;
 const MAX_HASH_HEADS: usize = 1 << 18;
 
+#[derive(Debug, Clone)]
+pub struct DecodeError {
+    message: String,
+    offset: usize,
+}
+
+impl DecodeError {
+    fn new(message: impl Into<String>, offset: usize) -> Self {
+        Self {
+            message: message.into(),
+            offset,
+        }
+    }
+}
+
+impl fmt::Display for DecodeError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            formatter,
+            "{} at input offset 0x{:X}",
+            self.message, self.offset
+        )
+    }
+}
+
+impl std::error::Error for DecodeError {}
+
+#[derive(Debug, Clone, Eq, PartialEq)]
+pub struct DecodeResult {
+    pub output: Vec<u8>,
+    pub consumed: usize,
+    pub declared_size: usize,
+    pub flags: usize,
+    pub header_size: usize,
+    pub window_size: usize,
+    pub header_unknown_0: Option<usize>,
+    pub header_unknown_1: usize,
+}
+
+struct ByteReader<'a> {
+    data: &'a [u8],
+    offset: usize,
+}
+
+impl<'a> ByteReader<'a> {
+    fn new(data: &'a [u8]) -> Self {
+        Self { data, offset: 0 }
+    }
+
+    fn read_byte(&mut self, context: &str) -> Result<u8, DecodeError> {
+        let value = self
+            .data
+            .get(self.offset)
+            .copied()
+            .ok_or_else(|| DecodeError::new(format!("truncated {context}"), self.offset))?;
+        self.offset += 1;
+        Ok(value)
+    }
+
+    fn read_bytes(&mut self, count: usize, context: &str) -> Result<&'a [u8], DecodeError> {
+        let end = self
+            .offset
+            .checked_add(count)
+            .ok_or_else(|| DecodeError::new(format!("truncated {context}"), self.offset))?;
+        if end > self.data.len() {
+            return Err(DecodeError::new(
+                format!("truncated {context}"),
+                self.offset,
+            ));
+        }
+        let value = &self.data[self.offset..end];
+        self.offset = end;
+        Ok(value)
+    }
+}
+
+fn decode_coded_integer(
+    reader: &mut ByteReader<'_>,
+    initial_value: usize,
+    max_bytes: usize,
+    context: &str,
+) -> Result<usize, DecodeError> {
+    let mut value = initial_value;
+    for _ in 0..max_bytes {
+        let current = reader.read_byte(context)?;
+        value = value
+            .checked_mul(1 << 7)
+            .and_then(|shifted| shifted.checked_add((current >> 1) as usize))
+            .ok_or_else(|| DecodeError::new(format!("{context} overflow"), reader.offset - 1))?;
+        if current & 1 != 0 {
+            return Ok(value);
+        }
+    }
+    Err(DecodeError::new(
+        format!("{context} exceeds {max_bytes}-byte limit"),
+        reader.offset,
+    ))
+}
+
+pub fn decode_stream(
+    data: &[u8],
+    max_output_size: usize,
+    max_coded_integer_bytes: usize,
+    max_tokens: usize,
+) -> Result<DecodeResult, DecodeError> {
+    if max_coded_integer_bytes == 0 {
+        return Err(DecodeError::new(
+            "coded integer byte limit must be positive",
+            0,
+        ));
+    }
+    if max_tokens == 0 {
+        return Err(DecodeError::new("token limit must be positive", 0));
+    }
+    let mut reader = ByteReader::new(data);
+    let declared_size = decode_coded_integer(
+        &mut reader,
+        0,
+        max_coded_integer_bytes,
+        "declared output size",
+    )?;
+    if declared_size > max_output_size {
+        return Err(DecodeError::new(
+            format!("declared output size {declared_size} exceeds limit {max_output_size}"),
+            0,
+        ));
+    }
+    let flags = decode_coded_integer(&mut reader, 0, max_coded_integer_bytes, "flags")?;
+    let window_size = window_size_from_flags(flags);
+    let header_unknown_0 = if uses_conditional_header_value(flags, window_size, declared_size) {
+        Some(decode_coded_integer(
+            &mut reader,
+            0,
+            max_coded_integer_bytes,
+            "conditional unknown header value",
+        )?)
+    } else {
+        None
+    };
+    let header_unknown_1 = decode_coded_integer(
+        &mut reader,
+        0,
+        max_coded_integer_bytes,
+        "unknown header value",
+    )?;
+    let header_size = reader.offset;
+    let mut output = Vec::with_capacity(declared_size);
+    let mut structural_tokens = 0usize;
+
+    let count_token = |offset: usize, count: &mut usize| -> Result<(), DecodeError> {
+        *count += 1;
+        if *count > max_tokens {
+            return Err(DecodeError::new(
+                format!("structural token count exceeds limit {max_tokens}"),
+                offset,
+            ));
+        }
+        Ok(())
+    };
+
+    while output.len() < declared_size {
+        let control_offset = reader.offset;
+        count_token(control_offset, &mut structural_tokens)?;
+        let control = reader.read_byte("block control")?;
+        let mut literal_count = (control & 0x0f) as usize;
+        let mut match_count = (control >> 4) as usize;
+        if literal_count == 0 {
+            literal_count =
+                decode_coded_integer(&mut reader, 0, max_coded_integer_bytes, "literal count")?;
+            if literal_count == 0 {
+                return Err(DecodeError::new(
+                    "zero literal count is unsupported by the game decompressor",
+                    control_offset,
+                ));
+            }
+        }
+        if match_count == 0 {
+            match_count =
+                decode_coded_integer(&mut reader, 0, max_coded_integer_bytes, "match count")?;
+        }
+        let remaining = declared_size - output.len();
+        if literal_count > remaining {
+            return Err(DecodeError::new(
+                format!(
+                    "literal run of {literal_count} bytes exceeds remaining output size {remaining}"
+                ),
+                control_offset,
+            ));
+        }
+        output.extend_from_slice(reader.read_bytes(literal_count, "literal run")?);
+        if output.len() == declared_size {
+            break;
+        }
+        if match_count == 0 {
+            return Err(DecodeError::new(
+                "zero match count before end of output is unsupported by the game decompressor",
+                control_offset,
+            ));
+        }
+        for _ in 0..match_count {
+            if output.len() == declared_size {
+                return Err(DecodeError::new(
+                    "match count continues after declared output size",
+                    reader.offset,
+                ));
+            }
+            let token_offset = reader.offset;
+            count_token(token_offset, &mut structural_tokens)?;
+            let token = reader.read_byte("back-reference token")?;
+            let mut distance_value = ((token & 0x0f) >> 1) as usize;
+            if token & 1 == 0 {
+                distance_value = decode_coded_integer(
+                    &mut reader,
+                    distance_value,
+                    max_coded_integer_bytes,
+                    "back-reference distance",
+                )?;
+            }
+            let distance = distance_value + 1;
+            if distance > window_size {
+                return Err(DecodeError::new(
+                    format!("back-reference distance {distance} exceeds window size {window_size}"),
+                    token_offset,
+                ));
+            }
+            if distance > output.len() {
+                return Err(DecodeError::new(
+                    format!(
+                        "back-reference distance {distance} exceeds produced output size {}",
+                        output.len()
+                    ),
+                    token_offset,
+                ));
+            }
+            let mut length_value = (token >> 4) as usize;
+            if length_value == 0 {
+                length_value = decode_coded_integer(
+                    &mut reader,
+                    0,
+                    max_coded_integer_bytes,
+                    "back-reference length",
+                )?;
+            }
+            let length = length_value + 1;
+            let remaining = declared_size - output.len();
+            if length > remaining {
+                return Err(DecodeError::new(
+                    format!(
+                        "back-reference length {length} exceeds remaining output size {remaining}"
+                    ),
+                    token_offset,
+                ));
+            }
+            for _ in 0..length {
+                let value = output[output.len() - distance];
+                output.push(value);
+            }
+        }
+    }
+
+    Ok(DecodeResult {
+        output,
+        consumed: reader.offset,
+        declared_size,
+        flags,
+        header_size,
+        window_size,
+        header_unknown_0,
+        header_unknown_1,
+    })
+}
+
 #[derive(Clone, Copy, Debug)]
 pub struct EncodeOptions {
     pub window_size: usize,
@@ -635,6 +907,30 @@ mod tests {
             encoded,
             vec![0x07, 0x03, 0x01, 0x03, 0x01, b'a', b'b', b'c']
         );
+        let decoded = decode_stream(&encoded, 1024, 10, 1024).unwrap();
+        assert_eq!(decoded.output, b"abc");
+        assert_eq!(decoded.consumed, encoded.len());
+        assert_eq!(decoded.declared_size, 3);
+        assert_eq!(decoded.flags, 1);
+        assert_eq!(decoded.header_size, 3);
+        assert_eq!(decoded.window_size, 256);
+        assert_eq!(decoded.header_unknown_0, None);
+        assert_eq!(decoded.header_unknown_1, 0);
+    }
+
+    #[test]
+    fn decoder_rejects_coded_integer_overflow() {
+        let mut encoded = vec![0xfe; 9];
+        encoded.push(0xff);
+        let error = decode_stream(&encoded, usize::MAX, 10, 1024).unwrap_err();
+        assert!(error.to_string().contains("declared output size overflow"));
+    }
+
+    #[test]
+    fn decoder_rejects_truncated_literal_run() {
+        let encoded = vec![0x07, 0x03, 0x01, 0x03, 0x01, b'a'];
+        let error = decode_stream(&encoded, 1024, 10, 1024).unwrap_err();
+        assert!(error.to_string().contains("truncated literal run"));
     }
 
     #[test]

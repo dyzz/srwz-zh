@@ -1,9 +1,10 @@
 use std::env;
 use std::fs;
+use std::io::{Read, Write};
 use std::path::PathBuf;
 use std::process::ExitCode;
 
-use srwz_compress::{encode_payload, encode_stream, flags_for_size, EncodeOptions};
+use srwz_compress::{decode_stream, encode_payload, encode_stream, flags_for_size, EncodeOptions};
 
 #[derive(Debug)]
 struct Arguments {
@@ -98,6 +99,38 @@ fn parse_arguments() -> Result<Arguments, String> {
 }
 
 fn run() -> Result<(), String> {
+    if env::args().nth(1).as_deref() == Some("decode-stdio") {
+        let mut data = Vec::new();
+        std::io::stdin()
+            .read_to_end(&mut data)
+            .map_err(|error| format!("failed to read stdin: {error}"))?;
+        let decoded = decode_stream(&data, 256 * 1024 * 1024, 10, 10_000_000)
+            .map_err(|error| error.to_string())?;
+        let unknown_0 = decoded.header_unknown_0.unwrap_or(u64::MAX as usize) as u64;
+        let fields = [
+            decoded.consumed as u64,
+            decoded.declared_size as u64,
+            decoded.flags as u64,
+            decoded.header_size as u64,
+            decoded.window_size as u64,
+            unknown_0,
+            decoded.header_unknown_1 as u64,
+            decoded.output.len() as u64,
+        ];
+        let mut stdout = std::io::stdout().lock();
+        stdout
+            .write_all(b"SRWZD001")
+            .map_err(|error| format!("failed to write stdout: {error}"))?;
+        for field in fields {
+            stdout
+                .write_all(&field.to_le_bytes())
+                .map_err(|error| format!("failed to write stdout: {error}"))?;
+        }
+        stdout
+            .write_all(&decoded.output)
+            .map_err(|error| format!("failed to write stdout: {error}"))?;
+        return Ok(());
+    }
     let arguments = parse_arguments()?;
     let data =
         fs::read(&arguments.input).map_err(|error| format!("failed to read input: {error}"))?;

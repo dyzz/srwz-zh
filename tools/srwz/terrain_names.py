@@ -5,12 +5,13 @@ from __future__ import annotations
 import json
 import struct
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Mapping
 
-from .codec import decode, reencode_changed_suffix
+from .codec import DecodeResult, decode_production as decode, reencode_changed_suffix
 from .font import sha256_bytes
-from .text import TextTable, decode_text, encode_text
+from .text import PreparedTextEncoder, TextTable, decode_text
 
 
 class TerrainNameError(ValueError):
@@ -78,6 +79,7 @@ def inventory_terrain_names(
     *,
     first_member: int,
     last_member: int,
+    decoded_members: Mapping[int, DecodeResult] | None = None,
 ) -> tuple[dict, ...]:
     """Discover the fixed 0x1C records immediately before ``Frame``.
 
@@ -90,7 +92,11 @@ def inventory_terrain_names(
     rows: list[dict] = []
     for member in range(first_member, last_member + 1):
         stored = archive[offsets[member] : offsets[member + 1]]
-        decoded = decode(stored)
+        decoded = (
+            decoded_members[member]
+            if decoded_members is not None and member in decoded_members
+            else decode(stored)
+        )
         if decoded.consumed > len(stored) or any(stored[decoded.consumed :]):
             raise TerrainNameError(f"MAPMODEL member {member} padding drift")
         frame = decoded.output.find(b"Frame\0")
@@ -144,7 +150,8 @@ def build_terrain_names(
     archive_payload: bytes,
     table: TextTable,
     encoding_overrides: Mapping[str, int],
-) -> tuple[bytes, dict, tuple[Path, Path, Path]]:
+    decoded_cache: dict[int, DecodeResult] | None = None,
+) -> tuple[bytes, dict, tuple[Path, Path, Path, Path]]:
     """Return a same-size MAPMODEL archive with every terrain label encoded."""
 
     if not isinstance(reference, Mapping):
@@ -163,6 +170,11 @@ def build_terrain_names(
         project_root,
         reference.get("corpus"),
         label="terrain-name corpus",
+    )
+    inventory_path, inventory_data = _locked_file(
+        project_root,
+        reference.get("inventory"),
+        label="terrain-name locked inventory",
     )
     if len(archive_payload) != len(original_archive):
         raise TerrainNameError("terrain-name MAPMODEL size drift")
@@ -191,16 +203,52 @@ def build_terrain_names(
     if not 0 <= first_member <= last_member < len(offsets) - 1:
         raise TerrainNameError("terrain-name member range is invalid")
 
-    inventory = inventory_terrain_names(
-        original_archive,
-        offsets,
-        table,
-        first_member=first_member,
-        last_member=last_member,
-    )
+    try:
+        inventory_document = json.loads(inventory_data.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise TerrainNameError("terrain-name locked inventory is invalid JSON") from error
+    raw_inventory = inventory_document.get("occurrences")
+    inventory = tuple(raw_inventory) if isinstance(raw_inventory, list) else ()
+    inventory_expected = inventory_document.get("expected")
+    inventory_source = inventory_document.get("source_archive")
     if (
-        len(inventory) != expected.get("occurrence_count")
+        inventory_document.get("schema_version") != 1
+        or inventory_document.get("status") != "reviewed_locked"
+        or inventory_document.get("selection_authority")
+        != "explicit_member_offsets"
+        or inventory_document.get("scan_policy") != "explicit_refreeze_only"
+        or not isinstance(inventory_expected, Mapping)
+        or not isinstance(inventory_source, Mapping)
+        or inventory_source.get("path")
+        != reference.get("original_archive", {}).get("path")
+        or inventory_source.get("size") != len(original_archive)
+        or inventory_source.get("sha256") != sha256_bytes(original_archive)
+        or len(inventory) != expected.get("occurrence_count")
         or _inventory_sha256(inventory) != expected.get("inventory_sha256")
+        or len(inventory) != inventory_expected.get("occurrence_count")
+        or _inventory_sha256(inventory)
+        != inventory_expected.get("inventory_sha256")
+        or any(
+            not isinstance(row, dict)
+            or set(row)
+            != {"member", "decoded_offset", "source", "source_consumed"}
+            or not isinstance(row.get("member"), int)
+            or isinstance(row.get("member"), bool)
+            or not first_member <= row["member"] <= last_member
+            or not isinstance(row.get("decoded_offset"), int)
+            or isinstance(row.get("decoded_offset"), bool)
+            or row["decoded_offset"] < 0
+            or not isinstance(row.get("source"), str)
+            or not row["source"]
+            or not isinstance(row.get("source_consumed"), int)
+            or isinstance(row.get("source_consumed"), bool)
+            or row["source_consumed"] <= 0
+            for row in inventory
+        )
+        or list(inventory)
+        != sorted(inventory, key=lambda row: (row["member"], row["decoded_offset"]))
+        or len({(row["member"], row["decoded_offset"]) for row in inventory})
+        != len(inventory)
     ):
         raise TerrainNameError("terrain-name inventory drift")
     corpus = json.loads(corpus_data.decode("utf-8"))
@@ -235,10 +283,23 @@ def build_terrain_names(
     rows_by_member: dict[int, list[dict]] = {}
     for row in inventory:
         rows_by_member.setdefault(row["member"], []).append(row)
+    if (
+        len(rows_by_member) != inventory_expected.get("member_count")
+        or len(rows_by_member) != expected.get("changed_member_count")
+    ):
+        raise TerrainNameError("terrain-name locked member coverage drift")
+    decoded_cache = decoded_cache if decoded_cache is not None else {}
+    for member in rows_by_member:
+        if member not in decoded_cache:
+            start, end = offsets[member : member + 2]
+            decoded_cache[member] = decode(original_archive[start:end])
     output = bytearray(archive_payload)
     output_table = _output_table(table, encoding_overrides)
+    encoder = PreparedTextEncoder(table, encoding_overrides)
     member_reports = []
-    for member, rows in sorted(rows_by_member.items()):
+
+    def build_member(item: tuple[int, list[dict]]) -> tuple[int, int, bytes, dict]:
+        member, rows = item
         start, end = offsets[member : member + 2]
         source_stored = original_archive[start:end]
         current_stored = archive_payload[start:end]
@@ -246,7 +307,7 @@ def build_terrain_names(
             raise TerrainNameError(
                 f"terrain-name member {member} changed before text writeback"
             )
-        decoded = decode(current_stored)
+        decoded = decoded_cache[member]
         modified = bytearray(decoded.output)
         for row in rows:
             position = row["decoded_offset"]
@@ -258,10 +319,8 @@ def build_terrain_names(
                 raise TerrainNameError(
                     f"terrain-name source drift in member {member} at 0x{position:X}"
                 )
-            encoded = encode_text(
+            encoded = encoder.encode(
                 translations[source.text],
-                table,
-                overrides=encoding_overrides,
                 terminate=True,
             )
             if len(encoded) > source.consumed:
@@ -288,28 +347,33 @@ def build_terrain_names(
             ),
             lazy_matching=False,
             max_output_size=len(current_stored),
+            original_result=decoded,
         )
         rebuilt = encoded_stored + bytes(len(current_stored) - len(encoded_stored))
-        round_trip = decode(rebuilt)
-        if (
-            round_trip.output != bytes(modified)
-            or round_trip.consumed != len(encoded_stored)
-            or any(rebuilt[len(encoded_stored) :])
-        ):
+        if any(rebuilt[len(encoded_stored) :]):
             raise TerrainNameError(f"terrain-name member {member} round-trip failed")
-        output[start:end] = rebuilt
-        member_reports.append(
-            {
-                "member": member,
-                "occurrence_count": len(rows),
-                "stored_size": len(current_stored),
-                "source_encoded_size": decoded.consumed,
-                "output_encoded_size": len(encoded_stored),
-                "compressed_headroom": len(current_stored) - len(encoded_stored),
-                "output_stored_sha256": sha256_bytes(rebuilt),
-                "reread_exact": True,
-            }
-        )
+        return start, end, rebuilt, {
+            "member": member,
+            "occurrence_count": len(rows),
+            "stored_size": len(current_stored),
+            "source_encoded_size": decoded.consumed,
+            "output_encoded_size": len(encoded_stored),
+            "compressed_headroom": len(current_stored) - len(encoded_stored),
+            "output_stored_sha256": sha256_bytes(rebuilt),
+            "reread_exact": True,
+        }
+
+    ordered_members = sorted(rows_by_member.items())
+    with ThreadPoolExecutor(
+        max_workers=min(4, len(ordered_members)),
+        thread_name_prefix="srwz-terrain",
+    ) as executor:
+        for start, end, rebuilt, member_report in executor.map(
+            build_member,
+            ordered_members,
+        ):
+            output[start:end] = rebuilt
+            member_reports.append(member_report)
 
     rebuilt_archive = bytes(output)
     if (
@@ -324,6 +388,8 @@ def build_terrain_names(
         "unique_source_count": len(translations),
         "occurrence_count": len(inventory),
         "inventory_sha256": _inventory_sha256(inventory),
+        "selection_authority": "locked_occurrence_inventory",
+        "discovery_scan_used": False,
         "member_range": [first_member, last_member],
         "changed_member_count": len(member_reports),
         "changed_members": [item["member"] for item in member_reports],
@@ -336,6 +402,7 @@ def build_terrain_names(
     }
     return rebuilt_archive, report, (
         corpus_path,
+        inventory_path,
         original_slps_path,
         original_archive_path,
     )

@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "status": "final_iso_static_readback_passed_runtime_pending",
+  "scope": {
+    "stage_indices": [
+      46,
+      154,
+      155,
+      156,
+      157,
+      160,
+      163,
+      164,
+      169,
+      170,
+      175,
+      176,
+      177,
+      178,
+      179,
+      180
+    ],
+    "stage_count": 16,
+    "dialogue_occurrence_count": 781,
+    "unique_source_text_count": 522,
+    "existing_exact_reuse_count": 66,
+    "machine_translation_candidate_count": 456,
+    "speaker_occurrence_count": 196
+  },
+  "resource_classification": {
+    "direct_route_choice_stages": [
+      154,
+      157,
+      160
+    ],
+    "route_period_bazaar_variant_stages": [
+      155,
+      156,
+      163,
+      164,
+      169,
+      170,
+      175,
+      176,
+      177,
+      178,
+      179,
+      180
+    ],
+    "special_prebattle_event_stages": [
+      46
+    ],
+    "shared_structure": "Each decoded STAGE has exactly one block reference and that sole reference owns dialogue."
+  },
+  "root_cause": {
+    "former_behavior": "The parser unconditionally skipped block_references[0] as non-dialogue.",
+    "impact": "All text in one-reference compact STAGE resources was absent from extraction, corpus coverage, writeback, and residual-Japanese audits.",
+    "fix": "Treat the sole reference as dialogue when len(block_references) == 1; retain the first-reference skip for ordinary two- and three-reference STAGE resources.",
+    "archive_wide_guard": "The story component build now rejects any source STAGE with parsed dialogue that lacks a registered dialogue corpus."
+  },
+  "translation": {
+    "provider": "Alibaba Cloud DashScope",
+    "model": "deepseek-v4-flash-0731",
+    "rolling_alias_allowed": false,
+    "writes_canonical_corpus_directly": false,
+    "queue": {
+      "path": "work/review/omitted-stage-dialogue-v1/all-candidates-context-v2.jsonl",
+      "sha256": "35a2bebcd21dba25bf66c387052785ffeb4527fcc3c81e32d83b7500629c5b3e",
+      "speaker_identity_complete": true,
+      "speaker_work_complete": true,
+      "adjacent_context_complete": true,
+      "context_before_max": 2,
+      "context_after_max": 2
+    },
+    "machine_draft": {
+      "path": "work/review/omitted-stage-dialogue-v1/deepseek-v4-flash-0731-context-v2/aggregate.jsonl",
+      "sha256": "ade331e22ee4e041b7b6bfde25f6fc57c80690ca3a353a7be722c45528ce48d2",
+      "entry_count": 456,
+      "confidence_high_count": 456,
+      "ambiguous_count": 0
+    },
+    "required_input_contract": {
+      "runner": "tools/run_aliyun_story_dialogue_batch.py",
+      "speaker_fields": [
+        "ja",
+        "zh",
+        "identity",
+        "work"
+      ],
+      "context_fields": [
+        "context_before",
+        "context_after"
+      ],
+      "failure_policy": "Reject the queue before any billable request when speaker identity, work, or adjacent context is missing."
+    }
+  },
+  "editorial_corrections": [
+    {
+      "from": "奥古士兵",
+      "to": "奥古",
+      "reason": "エゥーゴ is the organization in these lines, not a soldier label."
+    },
+    {
+      "from": "西伯铁队员",
+      "to": "西伯铁",
+      "reason": "シベ鉄 is the organization abbreviation in this line."
+    },
+    {
+      "from": "盖因",
+      "to": "该隐",
+      "reason": "Match the existing Gain Bijou character-name decision."
+    },
+    {
+      "from": "神西格玛 / 神之西格玛",
+      "to": "巨神西格玛",
+      "reason": "Match the existing God Sigma machine-name decision."
+    },
+    {
+      "scope": "four route-choice records",
+      "to": "Three separately quoted runtime rows using 1． and 2．.",
+      "reason": "Preserve the player-choice renderer contract."
+    }
+  ],
+  "validation": {
+    "kana_residue_count": 0,
+    "runtime_variable_drift_count": 0,
+    "registered_dialogue_stage_count": 170,
+    "registered_dialogue_entry_count": 83500,
+    "registered_speaker_entry_count": 8665,
+    "layout": {
+      "line_width_cells": 21,
+      "maximum_lines": 3,
+      "reflowed_entry_count": 128,
+      "violation_count_after_reflow": 0
+    },
+    "final_iso_static_readback": {
+      "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
+      "size": 3758358528,
+      "sha256": "3ed7042edbcc699a981da23a09302ae0fa72ac6575b6af1e765bd65db51035f6",
+      "replacement_member_count": 16,
+      "replacement_members_exact": true,
+      "selected_stage_count": 170,
+      "selected_dialogue_count": 83500,
+      "selected_condition_count": 558,
+      "selected_speaker_count": 8665,
+      "compact_stage_count": 16,
+      "compact_dialogue_count": 781,
+      "compact_speaker_count": 196,
+      "translated_text_exact": true,
+      "speaker_readback_exact": true,
+      "archive_padding_zero": true,
+      "unknown_code_count": 0
+    },
+    "runtime_acceptance": "not tested"
+  }
+}

@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 from tools import build_full_story_components
-from tools.srwz.codec import decode
+from tools.srwz.codec import decode_production as decode
 from tools.srwz.display_names import (
     load_display_name_source,
     load_full_unit_name_corpus,

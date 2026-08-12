@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
+import base64
 import json
 import struct
 import subprocess
+import zlib
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Mapping
 
-from .codec import decode, reencode_changed_suffix
+from .codec import DecodeResult, decode_production as decode, reencode_changed_suffix
 from .font import sha256_bytes
 from .font_flavor import (
     font_flavor_metadata,
@@ -80,6 +83,33 @@ def _integer(raw: object, *, label: str) -> int:
     if value < 0:
         raise WorldMapTitleError(f"{label} cannot be negative")
     return value
+
+
+def _json_sha256(value: object) -> str:
+    return sha256_bytes(
+        json.dumps(
+            value,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+
+
+def _decode_snapshot_raw(record: Mapping, *, expected_size: int) -> bytes:
+    encoded = record.get("output_raw_zlib_base64")
+    if not isinstance(encoded, str) or not encoded:
+        raise WorldMapTitleError("world-map render snapshot payload is missing")
+    try:
+        compressed = base64.b64decode(encoded, validate=True)
+        raw = zlib.decompress(compressed)
+    except (ValueError, zlib.error) as error:
+        raise WorldMapTitleError(
+            "world-map render snapshot payload is invalid"
+        ) from error
+    if len(raw) != expected_size:
+        raise WorldMapTitleError("world-map render snapshot geometry drift")
+    return raw
 
 
 def unpack_vertical_linear_4bpp(
@@ -383,6 +413,9 @@ def build_world_map_titles(
     reference: object,
     *,
     preview_root: Path | None = None,
+    decoded_cache: dict[int, DecodeResult] | None = None,
+    live_render: bool = False,
+    render_snapshot_sink: dict | None = None,
 ) -> tuple[bytes, dict, dict[str, Path]]:
     """Build a same-size MAPMODEL archive with all reviewed titles localized."""
 
@@ -409,6 +442,24 @@ def build_world_map_titles(
         raise WorldMapTitleError("world-map title corpus is invalid JSON") from error
     if not isinstance(corpus, dict) or corpus.get("schema_version") != 1:
         raise WorldMapTitleError("unsupported world-map title corpus schema")
+
+    snapshot_path = _project_path(
+        project_root,
+        reference.get("render_snapshot", {}).get("path"),
+    )
+    snapshot = None
+    if not live_render:
+        snapshot_path, snapshot_data = _locked_file(
+            project_root,
+            reference.get("render_snapshot"),
+            label="world-map title render snapshot",
+        )
+        try:
+            snapshot = json.loads(snapshot_data.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise WorldMapTitleError(
+                "world-map title render snapshot is invalid JSON"
+            ) from error
 
     archive_config = reference.get("archive")
     texture = reference.get("texture")
@@ -477,6 +528,13 @@ def build_world_map_titles(
     )
     if not (0 <= first_member <= last_member < len(offsets) - 1):
         raise WorldMapTitleError("world-map title member range is invalid")
+    decoded_cache = decoded_cache if decoded_cache is not None else {}
+
+    def decoded_member(member: int) -> DecodeResult:
+        if member not in decoded_cache:
+            stored = original_archive[offsets[member] : offsets[member + 1]]
+            decoded_cache[member] = decode(stored)
+        return decoded_cache[member]
 
     entries = corpus.get("entries")
     if not isinstance(entries, list):
@@ -548,10 +606,16 @@ def build_world_map_titles(
     font_path = primary_files.get("font")
     if font_path is None:
         raise WorldMapTitleError("world-map primary font is unavailable")
-    executable = require_imagemagick()
-    version = imagemagick_version(executable)
-    if version != render.get("imagemagick_version"):
-        raise WorldMapTitleError("world-map ImageMagick version drift")
+    executable = None
+    if live_render:
+        executable = require_imagemagick()
+        version = imagemagick_version(executable)
+        if version != render.get("imagemagick_version"):
+            raise WorldMapTitleError("world-map ImageMagick version drift")
+    else:
+        if not isinstance(snapshot, Mapping):
+            raise WorldMapTitleError("world-map render snapshot is invalid")
+        version = snapshot.get("imagemagick_version")
     max_point_size = _integer(
         render.get("max_point_size"), label="maximum point size"
     )
@@ -601,11 +665,35 @@ def build_world_map_titles(
     all_headrooms = []
     english_hash = texture.get("english_raw_sha256")
     entry_render_cache: dict[str, tuple[bytes, tuple[int, int, int, int], dict]] = {}
+    snapshot_records = {}
+    if not live_render:
+        raw_records = snapshot.get("entries")
+        if (
+            snapshot.get("schema_version") != 1
+            or snapshot.get("status") != "reviewed_locked"
+            or snapshot.get("selection_authority")
+            != "frozen_rendered_title_raw"
+            or snapshot.get("corpus_sha256") != sha256_bytes(corpus_data)
+            or snapshot.get("font_sha256")
+            != sha256_bytes(font_path.read_bytes())
+            or snapshot.get("render_config_sha256") != _json_sha256(render)
+            or version != render.get("imagemagick_version")
+            or not isinstance(raw_records, list)
+            or len(raw_records) != len(entries)
+        ):
+            raise WorldMapTitleError("world-map render snapshot contract drift")
+        snapshot_records = {
+            record.get("id"): record
+            for record in raw_records
+            if isinstance(record, Mapping) and isinstance(record.get("id"), str)
+        }
+        if len(snapshot_records) != len(entries):
+            raise WorldMapTitleError("world-map render snapshot coverage drift")
 
     for entry in entries:
         representative = entry["members"][0]
         stored = original_archive[offsets[representative] : offsets[representative + 1]]
-        decoded = decode(stored)
+        decoded = decoded_member(representative)
         if decoded.consumed > len(stored) or any(stored[decoded.consumed :]):
             raise WorldMapTitleError(
                 f"member {representative} compressed padding is not zero"
@@ -631,7 +719,7 @@ def build_world_map_titles(
         bbox = index_bbox(source_logical, width=width, height=height)
         if bbox is None:
             raise WorldMapTitleError(f"member {representative} title is blank")
-        if entry["source"] == entry["translation"]:
+        if live_render and entry["source"] == entry["translation"]:
             replacement = source_logical
             geometry = {
                 "point_size": None,
@@ -641,7 +729,8 @@ def build_world_map_titles(
                 "rendered_width": bbox[2] - bbox[0] + 1,
                 "rendered_height": bbox[3] - bbox[1] + 1,
             }
-        else:
+        elif live_render:
+            assert executable is not None
             rendered, geometry = render_title_inside_bbox(
                 executable,
                 font_path,
@@ -664,6 +753,37 @@ def build_world_map_titles(
                 width=width,
                 height=height,
             )
+        else:
+            record = snapshot_records.get(entry["id"])
+            if (
+                not isinstance(record, Mapping)
+                or record.get("source_raw_sha256")
+                != entry["source_raw_sha256"]
+                or record.get("translation") != entry["translation"]
+                or not isinstance(record.get("geometry"), Mapping)
+            ):
+                raise WorldMapTitleError(
+                    f"world-map render snapshot entry drift: {entry['id']}"
+                )
+            output_raw = _decode_snapshot_raw(record, expected_size=raw_size)
+            if sha256_bytes(output_raw) != record.get("output_raw_sha256"):
+                raise WorldMapTitleError(
+                    f"world-map render snapshot hash drift: {entry['id']}"
+                )
+            replacement = unpack_vertical_linear_4bpp(
+                output_raw,
+                width=width,
+                height=height,
+            )
+            geometry = dict(record["geometry"])
+            if tuple(geometry.get("source_bbox", ())) != bbox:
+                raise WorldMapTitleError(
+                    f"world-map render snapshot bbox drift: {entry['id']}"
+                )
+            if entry["source"] == entry["translation"] and replacement != source_logical:
+                raise WorldMapTitleError(
+                    f"world-map no-op render snapshot drift: {entry['id']}"
+                )
         entry_render_cache[entry["id"]] = (replacement, bbox, geometry)
         preview_rows.append(replacement)
         title_reports.append(
@@ -685,12 +805,12 @@ def build_world_map_titles(
             }
         )
 
-    for member in expected_members:
+    def build_member(member: int) -> tuple[int, int, int, bytes, int, bool, dict]:
         entry = member_to_entry[member]
         start = offsets[member]
         end = offsets[member + 1]
         stored = original_archive[start:end]
-        decoded = decode(stored)
+        decoded = decoded_member(member)
         if decoded.consumed > len(stored) or any(stored[decoded.consumed :]):
             raise WorldMapTitleError(f"member {member} compressed padding is not zero")
         if english_end > len(decoded.output):
@@ -739,19 +859,15 @@ def build_world_map_titles(
                 min_match_length=min_match_length,
                 max_match_chain=max_match_chain,
                 max_output_size=len(stored),
+                original_result=decoded,
             )
             encoded_size = len(encoded)
             output_stored = encoded + bytes(len(stored) - encoded_size)
-            reread = decode(output_stored)
-            if (
-                reread.output != bytes(modified)
-                or reread.consumed != encoded_size
-                or any(output_stored[encoded_size:])
-            ):
+            if any(output_stored[encoded_size:]):
                 raise WorldMapTitleError(
                     f"member {member} compressed round-trip failed"
                 )
-            output_decoded = reread.output
+            output_decoded = bytes(modified)
         if len(output_stored) != len(stored):
             raise WorldMapTitleError(f"member {member} allocation size changed")
         if output_decoded[english_start:english_end] != source_english:
@@ -763,30 +879,37 @@ def build_world_map_titles(
             raise WorldMapTitleError(f"member {member} non-title bytes changed")
         if same_text and output_stored != stored:
             raise WorldMapTitleError(f"member {member} no-op was re-encoded")
-        output_archive[start:end] = output_stored
         headroom = len(stored) - encoded_size
-        all_headrooms.append(headroom)
-        if not same_text:
-            translated_headrooms.append(headroom)
-        member_reports.append(
-            {
-                "member": member,
-                "entry_id": entry["id"],
-                "same_text_no_op": same_text,
-                "stored_size": len(stored),
-                "source_encoded_size": decoded.consumed,
-                "output_encoded_size": encoded_size,
-                "compressed_headroom": headroom,
-                "source_stored_sha256": sha256_bytes(stored),
-                "output_stored_sha256": sha256_bytes(output_stored),
-                "source_decoded_sha256": sha256_bytes(decoded.output),
-                "output_decoded_sha256": sha256_bytes(output_decoded),
-                "source_title_raw_sha256": sha256_bytes(source_raw),
-                "output_title_raw_sha256": sha256_bytes(
-                    output_decoded[japanese_start:japanese_end]
-                ),
-            }
-        )
+        report = {
+            "member": member,
+            "entry_id": entry["id"],
+            "same_text_no_op": same_text,
+            "stored_size": len(stored),
+            "source_encoded_size": decoded.consumed,
+            "output_encoded_size": encoded_size,
+            "compressed_headroom": headroom,
+            "source_stored_sha256": sha256_bytes(stored),
+            "output_stored_sha256": sha256_bytes(output_stored),
+            "source_decoded_sha256": sha256_bytes(decoded.output),
+            "output_decoded_sha256": sha256_bytes(output_decoded),
+            "source_title_raw_sha256": sha256_bytes(source_raw),
+            "output_title_raw_sha256": sha256_bytes(
+                output_decoded[japanese_start:japanese_end]
+            ),
+        }
+        return member, start, end, output_stored, headroom, same_text, report
+
+    with ThreadPoolExecutor(
+        max_workers=min(4, len(expected_members)),
+        thread_name_prefix="srwz-mapmodel-title",
+    ) as executor:
+        built_members = executor.map(build_member, expected_members)
+        for _member, start, end, output_stored, headroom, same_text, report in built_members:
+            output_archive[start:end] = output_stored
+            all_headrooms.append(headroom)
+            if not same_text:
+                translated_headrooms.append(headroom)
+            member_reports.append(report)
 
     output = bytes(output_archive)
     if (
@@ -798,20 +921,93 @@ def build_world_map_titles(
         raise WorldMapTitleError("MAPMODEL non-target archive bytes changed")
 
     preview_report = None
+    preview_path = None
+    preview_data = None
     if preview_root is not None:
-        preview_path, preview_data = _write_preview(
-            executable,
-            preview_root,
-            preview_rows,
-            width=width,
-            height=height,
-        )
+        if live_render:
+            assert executable is not None
+            preview_path, preview_data = _write_preview(
+                executable,
+                preview_root,
+                preview_rows,
+                width=width,
+                height=height,
+            )
+        else:
+            preview_lock = snapshot.get("preview")
+            if not isinstance(preview_lock, Mapping):
+                raise WorldMapTitleError("world-map frozen preview is missing")
+            try:
+                preview_data = base64.b64decode(
+                    preview_lock.get("png_base64", ""),
+                    validate=True,
+                )
+            except ValueError as error:
+                raise WorldMapTitleError(
+                    "world-map frozen preview payload is invalid"
+                ) from error
+            if (
+                len(preview_data) != preview_lock.get("size")
+                or sha256_bytes(preview_data) != preview_lock.get("sha256")
+            ):
+                raise WorldMapTitleError("world-map frozen preview lock drift")
+            preview_root.mkdir(parents=True, exist_ok=True)
+            preview_path = preview_root / "world-map-titles-contact-sheet.png"
+            preview_path.write_bytes(preview_data)
         preview_report = {
             "path": _display_path(project_root, preview_path),
             "size": len(preview_data),
             "sha256": sha256_bytes(preview_data),
             "row_order": [entry["id"] for entry in entries],
         }
+
+    if live_render and render_snapshot_sink is not None:
+        if preview_data is None:
+            raise WorldMapTitleError(
+                "world-map snapshot refreeze requires a rendered preview"
+            )
+        render_snapshot_sink.update(
+            {
+                "schema_version": 1,
+                "status": "reviewed_locked",
+                "selection_authority": "frozen_rendered_title_raw",
+                "corpus_sha256": sha256_bytes(corpus_data),
+                "font_sha256": sha256_bytes(font_path.read_bytes()),
+                "render_config_sha256": _json_sha256(render),
+                "imagemagick_version": version,
+                "entries": [
+                    {
+                        "id": entry["id"],
+                        "source_raw_sha256": entry["source_raw_sha256"],
+                        "translation": entry["translation"],
+                        "output_raw_sha256": sha256_bytes(
+                            pack_vertical_linear_4bpp(
+                                entry_render_cache[entry["id"]][0],
+                                width=width,
+                                height=height,
+                            )
+                        ),
+                        "output_raw_zlib_base64": base64.b64encode(
+                            zlib.compress(
+                                pack_vertical_linear_4bpp(
+                                    entry_render_cache[entry["id"]][0],
+                                    width=width,
+                                    height=height,
+                                ),
+                                level=9,
+                            )
+                        ).decode("ascii"),
+                        "geometry": entry_render_cache[entry["id"]][2],
+                    }
+                    for entry in entries
+                ],
+                "preview": {
+                    "size": len(preview_data),
+                    "sha256": sha256_bytes(preview_data),
+                    "png_base64": base64.b64encode(preview_data).decode("ascii"),
+                },
+            }
+        )
 
     no_op_titles = len(entries) - translated_unique_count
     no_op_members = sum(
@@ -844,6 +1040,9 @@ def build_world_map_titles(
         },
         "render": {
             "imagemagick_version": version,
+            "source": (
+                "live_explicit_refreeze" if live_render else "locked_snapshot"
+            ),
             "max_point_size": max_point_size,
             "min_point_size": min_point_size,
             "kerning_candidates": list(kerning_candidates),
@@ -884,6 +1083,7 @@ def build_world_map_titles(
         "original_slps": original_slps_path,
         "original_archive": original_archive_path,
         "corpus": corpus_path,
+        "render_snapshot": snapshot_path,
     }
 
 

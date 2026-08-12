@@ -14,7 +14,7 @@ from srwz.chinese_layout import (
     DEFAULT_MAX_LINES,
     dialogue_line_widths,
 )
-from srwz.codec import decode
+from srwz.codec import decode_production as decode
 from srwz.display_names import (
     load_display_name_source,
     load_full_unit_name_corpus,
@@ -53,8 +53,8 @@ from srwz.stage import (
 from srwz.stage_overview import parse_stage_overviews
 from srwz.stage_formations import (
     STAGE_OFFSET_SPEC,
-    discover_stage_default_formations,
     formation_inventory_sha256,
+    load_locked_stage_default_formations,
 )
 from srwz.tim2 import scan_tim2
 from srwz.text import (
@@ -490,6 +490,7 @@ def verify_targeted_ui_glyphs(
             "与搭档在荒野经营修理店的男人"
             "自称烈焰豪爽而热血但有时会热情过头"
         ),
+        "male_default_unit_name": "钢狮子",
         "female_default_unit_name": "巴尔戈拉",
         "formation_action_labels": "攻击反击参与攻击",
         "formation_names": "三角中央广域",
@@ -970,7 +971,7 @@ def verify_stage_default_formation(
     source_table: TextTable,
     output_table: TextTable,
 ) -> dict:
-    """Reread every discovered default formation name from the final STAGE."""
+    """Reread every reviewed fixed-position formation name from final STAGE."""
 
     component_config = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
@@ -987,7 +988,20 @@ def verify_stage_default_formation(
         or sha256_bytes(corpus_data) != corpus_reference.get("sha256")
     ):
         raise SystemExit("default formation-name corpus lock drift")
+    inventory_reference = remaining_config.get(
+        "stage_default_formation_inventory"
+    )
+    if not isinstance(inventory_reference, dict):
+        raise SystemExit("default formation-name inventory contract drift")
+    inventory_path = PROJECT_ROOT / inventory_reference["path"]
+    inventory_data = inventory_path.read_bytes()
+    if (
+        len(inventory_data) != inventory_reference.get("size")
+        or sha256_bytes(inventory_data) != inventory_reference.get("sha256")
+    ):
+        raise SystemExit("default formation-name inventory lock drift")
     document = json.loads(corpus_data.decode("utf-8"))
+    inventory_document = json.loads(inventory_data.decode("utf-8"))
     translations_by_source = document.get("translations_by_source_text")
     if (
         document.get("schema_version") != 1
@@ -995,9 +1009,12 @@ def verify_stage_default_formation(
         or document.get("editorial_status") != "reviewed"
         or document.get("policy", {}).get("source_text_authority")
         != "original_disc_only"
+        or document.get("policy", {}).get("build_selection_authority")
+        != "locked_occurrence_inventory"
         or not document.get("policy", {}).get(
-            "discover_all_locked_structural_occurrences"
+            "scan_only_when_explicitly_refreezing"
         )
+        or not document.get("policy", {}).get("require_locked_source_coverage")
         or not document.get("policy", {}).get("preserve_record_metadata")
         or not isinstance(translations_by_source, dict)
     ):
@@ -1013,9 +1030,25 @@ def verify_stage_default_formation(
     ):
         raise SystemExit("original STAGE baseline drift")
 
-    groups = discover_stage_default_formations(
-        original_stage, hb, source_table
-    )
+    try:
+        groups = load_locked_stage_default_formations(
+            original_stage,
+            hb,
+            source_table,
+            inventory_document,
+        )
+    except ValueError as error:
+        raise SystemExit(str(error)) from error
+    locked_source_texts = {
+        cell.source_text for group in groups for cell in group.cells
+    }
+    if set(translations_by_source) != locked_source_texts:
+        missing = sorted(locked_source_texts - set(translations_by_source))
+        extra = sorted(set(translations_by_source) - locked_source_texts)
+        raise SystemExit(
+            "default formation-name locked source coverage drift: "
+            f"missing={missing!r} extra={extra!r}"
+        )
     entry_count = sum(len(group.cells) for group in groups)
     stage_indices = {group.stage_index for group in groups}
     source_texts = {
@@ -1023,10 +1056,10 @@ def verify_stage_default_formation(
     }
     layout_counts = {
         layout: sum(group.layout == layout for group in groups)
-        for layout in ("record23+6", "slot32")
+        for layout in ("formation18+33+1", "record6+23", "slot32")
     }
     record_metadata_count = sum(
-        len(group.cells) for group in groups if group.layout == "record23+6"
+        len(group.cells) for group in groups if group.layout == "record6+23"
     )
     inventory_sha256 = formation_inventory_sha256(groups)
     if (
@@ -1053,8 +1086,15 @@ def verify_stage_default_formation(
     minimum_headroom = None
     translations = set()
     ranges_by_stage: dict[int, list[tuple[int, int]]] = {}
-    for group in sorted(groups, key=lambda item: (item.stage_index, item.cells[0].offset)):
-        stage_index = group.stage_index
+    indexed_cells = sorted(
+        (
+            (group.stage_index, group, cell)
+            for group in groups
+            for cell in group.cells
+        ),
+        key=lambda item: (item[0], item[2].offset),
+    )
+    for stage_index, group, cell in indexed_cells:
         slot_size = group.slot_size
         if stage_index < 0 or stage_index + 1 >= len(offsets):
             raise SystemExit("default formation-name group contract drift")
@@ -1077,72 +1117,82 @@ def verify_stage_default_formation(
             ranges_by_stage[stage_index] = []
         decoded = decoded_by_stage[stage_index]
         original = original_by_stage[stage_index]
-        for cell in group.cells:
-            decoded_offset = cell.offset
-            raw_offset = f"0x{decoded_offset:X}"
-            slot_end = decoded_offset + slot_size
+        decoded_offset = cell.offset
+        raw_offset = f"0x{decoded_offset:X}"
+        slot_end = decoded_offset + slot_size
+        if slot_end > len(decoded):
+            raise SystemExit(
+                f"default formation-name entry drift: {raw_offset!r}"
+            )
+        ranges = ranges_by_stage[stage_index]
+        if ranges and decoded_offset < ranges[-1][1]:
+            raise SystemExit(
+                f"default formation-name overlap: {raw_offset}"
+            )
+        ranges.append((decoded_offset, slot_end))
+        source = decode_text(
+            original, decoded_offset, source_table, end=slot_end
+        )
+        actual = decode_text(decoded, decoded_offset, output_table)
+        translation = normalize_original_fullwidth_ascii(
+            translations_by_source[cell.source_text]
+        )
+        if (
+            source.text != cell.source_text
+            or source.consumed != cell.source_consumed
+            or any(original[decoded_offset + source.consumed : slot_end])
+            or actual.text != translation
+            or actual.consumed > slot_size
+            or any(decoded[decoded_offset + actual.consumed : slot_end])
+        ):
+            raise SystemExit(
+                f"default formation-name mismatch at stage "
+                f"{stage_index} {raw_offset}"
+            )
+        if group.layout in {"record6+23", "formation18+33+1"}:
+            prefix_size = 6 if group.layout == "record6+23" else 18
+            metadata_start = decoded_offset - prefix_size
+            expected_metadata = bytes.fromhex(cell.prefix_hex)
             if (
-                slot_end > len(decoded)
+                metadata_start < 0
+                or len(expected_metadata) != prefix_size
+                or original[metadata_start:decoded_offset] != expected_metadata
+                or decoded[metadata_start:decoded_offset] != expected_metadata
             ):
                 raise SystemExit(
-                    f"default formation-name entry drift: {raw_offset!r}"
-                )
-            ranges = ranges_by_stage[stage_index]
-            if ranges and decoded_offset < ranges[-1][1]:
-                raise SystemExit(
-                    f"default formation-name overlap: {raw_offset}"
-                )
-            ranges.append((decoded_offset, slot_end))
-            source = decode_text(
-                original, decoded_offset, source_table, end=slot_end
-            )
-            actual = decode_text(decoded, decoded_offset, output_table)
-            translation = normalize_original_fullwidth_ascii(
-                translations_by_source[cell.source_text]
-            )
-            if (
-                source.text != cell.source_text
-                or source.consumed != cell.source_consumed
-                or any(original[decoded_offset + source.consumed : slot_end])
-                or actual.text != translation
-                or actual.consumed > slot_size
-                or any(decoded[decoded_offset + actual.consumed : slot_end])
-            ):
-                raise SystemExit(
-                    f"default formation-name mismatch at stage "
+                    "default formation-name metadata mismatch at stage "
                     f"{stage_index} {raw_offset}"
                 )
-            if group.layout == "record23+6":
-                trailer_end = decoded_offset + group.stride
+            if group.layout == "formation18+33+1":
                 expected_trailer = bytes.fromhex(cell.trailer_hex)
                 if (
-                    len(expected_trailer) != 6
-                    or original[slot_end:trailer_end] != expected_trailer
-                    or decoded[slot_end:trailer_end] != expected_trailer
+                    len(expected_trailer) != 1
+                    or original[slot_end : slot_end + 1] != expected_trailer
+                    or decoded[slot_end : slot_end + 1] != expected_trailer
                 ):
                     raise SystemExit(
-                        "default formation-name metadata mismatch at stage "
+                        "default formation-name trailer mismatch at stage "
                         f"{stage_index} {raw_offset}"
                     )
-            source_tokens = tuple(
-                (token.kind, token.text)
-                for token in control_notation_tokens(source.text)
+        source_tokens = tuple(
+            (token.kind, token.text)
+            for token in control_notation_tokens(source.text)
+        )
+        target_tokens = tuple(
+            (token.kind, token.text)
+            for token in control_notation_tokens(translation)
+        )
+        if source_tokens != target_tokens:
+            raise SystemExit(
+                f"default formation-name control drift at {raw_offset}"
             )
-            target_tokens = tuple(
-                (token.kind, token.text)
-                for token in control_notation_tokens(translation)
-            )
-            if source_tokens != target_tokens:
-                raise SystemExit(
-                    f"default formation-name control drift at {raw_offset}"
-                )
-            headroom = slot_size - actual.consumed
-            minimum_headroom = (
-                headroom
-                if minimum_headroom is None
-                else min(minimum_headroom, headroom)
-            )
-            translations.add((source.text, translation))
+        headroom = slot_size - actual.consumed
+        minimum_headroom = (
+            headroom
+            if minimum_headroom is None
+            else min(minimum_headroom, headroom)
+        )
+        translations.add((source.text, translation))
     return {
         "group_count": len(groups),
         "stage_count": len(decoded_by_stage),
@@ -1633,6 +1683,14 @@ def verify_final_compdata(
         for offset in new_game_name_expectations
     } != new_game_name_expectations:
         raise SystemExit("male new-game default-name offset contract drift")
+    male_default_unit_name_expectations = {
+        "0x3479E0": "钢狮子",
+    }
+    if {
+        offset: remaining_document["slps_by_offset"].get(offset)
+        for offset in male_default_unit_name_expectations
+    } != male_default_unit_name_expectations:
+        raise SystemExit("male default-unit-name offset contract drift")
     female_default_name_expectations = {
         "0x337728": "节子",
         "0x337730": "小原",
@@ -1973,6 +2031,10 @@ def verify_final_compdata(
         "new_game_regressions": {
             "male_default_name_offsets": new_game_name_expectations,
             "male_default_name_readback_exact": True,
+            "male_default_unit_name_offsets": (
+                male_default_unit_name_expectations
+            ),
+            "male_default_unit_name_readback_exact": True,
             "female_default_name_offsets": female_default_name_expectations,
             "female_default_name_readback_exact": True,
             "female_default_unit_name_offsets": (
@@ -2480,6 +2542,10 @@ def main() -> int:
         "story/142/dialogue/01.14/0008",
         "story/147/dialogue/01.10/0010",
         "story/147/dialogue/01.14/0010",
+        "story/154/dialogue/00.01/0152",
+        "story/154/dialogue/00.01/0185",
+        "story/157/dialogue/00.01/0023",
+        "story/160/dialogue/00.01/0058",
     }
     player_choice_readbacks = {}
     reported_land_entry_id = "story/016/dialogue/02.03/0027"
@@ -3200,8 +3266,9 @@ def main() -> int:
         "schema_version": 1,
         "status": "full_story_final_iso_static_content_readback_passed",
         "scope": (
-            "Independent final-ISO readback of all 154 selected story "
-            "chunks and 91,746 dialogue, condition, and speaker entries, "
+            f"Independent final-ISO readback of all {len(stages)} selected "
+            f"story chunks and {total_entries:,} dialogue, condition, and "
+            "speaker entries, "
             "plus reviewed save/load overviews, pilot-name, button-prompt, "
             "title-idle work-title and speaker-name overlays, "
             f"{DEFAULT_LINE_WIDTH}x{DEFAULT_MAX_LINES} layout, runtime-token, "
@@ -3367,13 +3434,30 @@ def main() -> int:
             ),
             "hb_stage_offsets_valid": True,
             "default_formation_names_exact": (
-                default_formation_report["group_count"] == 85
-                and default_formation_report["stage_count"] == 83
-                and default_formation_report["entry_count"] == 2382
-                and default_formation_report["unique_source_count"] == 103
-                and default_formation_report["record_metadata_count"] == 2364
+                default_formation_report["group_count"]
+                == full_component_config["remaining_ui"]["expected"][
+                    "stage_default_formation_group_count"
+                ]
+                and default_formation_report["stage_count"]
+                == full_component_config["remaining_ui"]["expected"][
+                    "stage_default_formation_stage_count"
+                ]
+                and default_formation_report["entry_count"]
+                == full_component_config["remaining_ui"]["expected"][
+                    "stage_default_formation_entry_count"
+                ]
+                and default_formation_report["unique_source_count"]
+                == full_component_config["remaining_ui"]["expected"][
+                    "stage_default_formation_unique_source_count"
+                ]
+                and default_formation_report["record_metadata_count"]
+                == full_component_config["remaining_ui"]["expected"][
+                    "stage_default_formation_record_metadata_count"
+                ]
                 and default_formation_report["inventory_sha256"]
-                == "1ede725d2a21c3124da144551f9914a9ddc8375ba235e1b19ea3f37a0a93d4b6"
+                == full_component_config["remaining_ui"]["expected"][
+                    "stage_default_formation_inventory_sha256"
+                ]
                 and default_formation_report[
                     "record_metadata_preserved_byte_exact"
                 ]
@@ -3409,7 +3493,7 @@ def main() -> int:
                 ]
             ),
             "player_choice_records_exact": (
-                len(player_choice_readbacks) == 13
+                len(player_choice_readbacks) == len(player_choice_entry_ids)
             ),
             "reported_land_dialogue_exact": (
                 reported_land_translation == expected_land_translation

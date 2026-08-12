@@ -8,9 +8,10 @@ import re
 import struct
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Mapping, Sequence
+from typing import Callable, Mapping, Sequence
 
-from .codec import decode
+from .codec import decode_production as decode
+from .codec_contract import DecodeResult
 from .font import sha256_bytes
 from .text import (
     TextTable,
@@ -514,6 +515,8 @@ def _load_json_object(path: Path) -> dict:
 def load_display_name_source(
     project_root: Path,
     config_path: Path,
+    *,
+    decoder: Callable[[bytes], DecodeResult] = decode,
 ) -> tuple[dict, bytes, DisplayNameParseResult, dict]:
     """Load hash-locked COMPDATA and return its validated display-name parse."""
 
@@ -530,7 +533,7 @@ def load_display_name_source(
         "sha256"
     ):
         raise DisplayNameError("display-name COMPDATA source drift")
-    decoded = decode(stored)
+    decoded = decoder(stored)
     if decoded.consumed != len(stored):
         raise DisplayNameError("display-name COMPDATA source has trailing bytes")
     if (

@@ -78,6 +78,7 @@
     "corpus/zh/story-dialogue/stage-043.json",
     "corpus/zh/story-dialogue/stage-044.json",
     "corpus/zh/story-dialogue/stage-045.json",
+    "corpus/zh/story-dialogue/stage-046.json",
     "corpus/zh/story-dialogue/stage-047.json",
     "corpus/zh/story-dialogue/stage-048.json",
     "corpus/zh/story-dialogue/stage-049.json",
@@ -185,6 +186,21 @@
     "corpus/zh/story-dialogue/stage-151.json",
     "corpus/zh/story-dialogue/stage-152.json",
     "corpus/zh/story-dialogue/stage-153.json",
+    "corpus/zh/story-dialogue/stage-154.json",
+    "corpus/zh/story-dialogue/stage-155.json",
+    "corpus/zh/story-dialogue/stage-156.json",
+    "corpus/zh/story-dialogue/stage-157.json",
+    "corpus/zh/story-dialogue/stage-160.json",
+    "corpus/zh/story-dialogue/stage-163.json",
+    "corpus/zh/story-dialogue/stage-164.json",
+    "corpus/zh/story-dialogue/stage-169.json",
+    "corpus/zh/story-dialogue/stage-170.json",
+    "corpus/zh/story-dialogue/stage-175.json",
+    "corpus/zh/story-dialogue/stage-176.json",
+    "corpus/zh/story-dialogue/stage-177.json",
+    "corpus/zh/story-dialogue/stage-178.json",
+    "corpus/zh/story-dialogue/stage-179.json",
+    "corpus/zh/story-dialogue/stage-180.json",
     "corpus/zh/story-dialogue/stage-185.json",
     "corpus/zh/story-dialogue/stage-186.json"
   ],
@@ -263,15 +279,15 @@
     {
       "batch_id": "v1-story-speakers",
       "domain": "story",
-      "target_entry_count": 8469,
+      "target_entry_count": 8665,
       "status": "draft_complete"
     },
     {
       "batch_id": "v1-story-dialogue",
       "domain": "story",
-      "target_entry_count": 82719,
+      "target_entry_count": 83500,
       "status": "draft_complete"
     }
   ],
-  "notes": "v1 remains in progress. All 82,719 story-dialogue records across 154 text stages now have corpus files: stages 001-009 and 018 retain their committed reviewed status, Stage 010 is reviewed, and the validated Stage 011-015 plus remaining-stage machine translations remain draft. The full-story terminology decisions are applied; Tam remains explicitly deferred. Draft rows still require line editing and runtime validation. The 711-entry weapon-name batch completed human review on 2026-08-08; fixed-span menu contractions remain explicit."
+  "notes": "v1 remains in progress. All 83,500 story-dialogue records across 170 text stages now have corpus files: stages 001-009 and 018 retain their committed reviewed status, Stage 010 is reviewed, and the validated Stage 011-015 plus remaining-stage machine translations remain draft. The 16 compact transition, route-choice, and bazaar-event STAGE resources omitted by the former first-reference rule are now included. The full-story terminology decisions are applied; Tam remains explicitly deferred. Draft rows still require line editing and runtime validation. The 711-entry weapon-name batch completed human review on 2026-08-08; fixed-span menu contractions remain explicit."
 }

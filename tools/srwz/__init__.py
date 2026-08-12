@@ -3,7 +3,7 @@
 from .archive import ArchiveLayoutError, OffsetLayout, slice_archive
 from .codec import (
     ByteReader,
-    decode,
+    decode_production as decode,
     encode,
     encode_coded_integer,
     flags_for_size,

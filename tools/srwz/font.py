@@ -13,9 +13,10 @@ import hashlib
 import struct
 import zlib
 from dataclasses import dataclass
-from typing import Iterable, Mapping, Optional
+from typing import Callable, Iterable, Mapping, Optional
 
-from .codec import decode
+from .codec import decode_production as decode
+from .codec_contract import DecodeResult
 from .iso_layout import CORE_ARCHIVE_SPECS, read_executable_archive_offsets
 from .text import TextTable
 
@@ -328,8 +329,12 @@ class GlyphCodeMappingAnalysis:
         }
 
 
-def decode_font_stream(data: bytes) -> DecodedFontSegment:
-    result = decode(data)
+def decode_font_stream(
+    data: bytes,
+    *,
+    decoder: Callable[[bytes], DecodeResult] = decode,
+) -> DecodedFontSegment:
+    result = decoder(data)
     padding = data[result.consumed :]
     return DecodedFontSegment(
         compressed_size=len(data),
@@ -346,6 +351,7 @@ def decode_vt1_font_segment(
     vt1: bytes,
     *,
     segment_index: int = FONT_SEGMENT_INDEX,
+    decoder: Callable[[bytes], DecodeResult] = decode,
 ) -> DecodedFontSegment:
     offsets = read_executable_archive_offsets(
         executable,
@@ -354,7 +360,10 @@ def decode_vt1_font_segment(
     )
     if not 0 <= segment_index < len(offsets) - 1:
         raise ValueError("font segment index is outside VT1")
-    return decode_font_stream(vt1[offsets[segment_index] : offsets[segment_index + 1]])
+    return decode_font_stream(
+        vt1[offsets[segment_index] : offsets[segment_index + 1]],
+        decoder=decoder,
+    )
 
 
 def _difference_range_count(indices: Iterable[int]) -> int:

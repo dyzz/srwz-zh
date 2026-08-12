@@ -16,7 +16,7 @@ import struct
 from dataclasses import dataclass
 from typing import Mapping
 
-from .text import DecodedText, TextTable, decode_text, encode_text
+from .text import DecodedText, PreparedTextEncoder, TextTable, decode_text
 
 
 SRVC_MAGIC = 0x4F00
@@ -333,6 +333,7 @@ def rebuild_srvc_archive(
     translations: Mapping[str, str],
     *,
     encoding_overrides: Mapping[str, int],
+    parsed_chunks: tuple[SrvcChunk, ...] | None = None,
 ) -> tuple[bytes, tuple[SrvcChunk, ...], dict[str, int]]:
     """Rebuild each indexed pool without changing its SEG-delimited chunk.
 
@@ -349,7 +350,14 @@ def rebuild_srvc_archive(
     global fullwidth ASCII routing cannot turn either marker byte into a glyph.
     """
 
-    chunks = parse_srvc_archive(data, offsets, source_table)
+    chunks = parsed_chunks or parse_srvc_archive(data, offsets, source_table)
+    if any(
+        chunk.archive_start != offsets[chunk.chunk_index]
+        or chunk.archive_end != offsets[chunk.chunk_index + 1]
+        for chunk in chunks
+    ):
+        raise SrvcParseError("preparsed SRVC chunk boundaries drift")
+    encoder = PreparedTextEncoder(source_table, encoding_overrides)
     output = bytearray(data)
     translated_record_count = 0
     original_pool_bytes = 0
@@ -381,10 +389,8 @@ def rebuild_srvc_archive(
             if not isinstance(translation, str) or not translation:
                 raise SrvcParseError("SRVC translation must be non-empty text")
             stored_text = translation.replace("\\n", "{5C}{6E}")
-            payload = encode_text(
+            payload = encoder.encode(
                 stored_text,
-                source_table,
-                overrides=encoding_overrides,
                 terminate=True,
             )
             if len(payload) > record.encoded_size:

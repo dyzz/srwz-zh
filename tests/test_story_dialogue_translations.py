@@ -32,7 +32,7 @@ class StoryDialogueTranslationTests(unittest.TestCase):
             for path in self.release["translation_sources"]
             if path.startswith("corpus/zh/story-dialogue/stage-")
         }
-        self.assertEqual(len(actual_sources), 154)
+        self.assertEqual(len(actual_sources), 170)
         self.assertEqual(registered_sources, actual_sources)
 
         batch = next(
@@ -40,7 +40,7 @@ class StoryDialogueTranslationTests(unittest.TestCase):
             for item in self.release["coverage_plan"]
             if item["batch_id"] == "v1-story-dialogue"
         )
-        self.assertEqual(batch["target_entry_count"], 82719)
+        self.assertEqual(batch["target_entry_count"], 83500)
         self.assertEqual(batch["status"], "draft_complete")
 
     def test_every_stage_document_has_stable_ids_and_complete_scope_counts(self):
@@ -84,8 +84,33 @@ class StoryDialogueTranslationTests(unittest.TestCase):
                 all_ids.add(entry["id"])
             total_entries += len(entries)
 
-        self.assertEqual(total_entries, 82719)
+        self.assertEqual(total_entries, 83500)
         self.assertEqual(len(all_ids), total_entries)
+
+    def test_compact_transition_route_and_bazaar_stages_are_registered(self):
+        actual_stages = {
+            int(path.stem.removeprefix("stage-")) for path in self.paths
+        }
+        self.assertTrue(
+            {
+                46,
+                154,
+                155,
+                156,
+                157,
+                160,
+                163,
+                164,
+                169,
+                170,
+                175,
+                176,
+                177,
+                178,
+                179,
+                180,
+            }.issubset(actual_stages)
+        )
 
     def test_translations_use_chinese_punctuation_and_contain_no_kana(self):
         for _path, document in self.documents:
@@ -165,6 +190,21 @@ class StoryDialogueTranslationTests(unittest.TestCase):
             ),
             "story/147/dialogue/01.14/0010": (
                 "“$n的选择”\n“1．希望世界稳定”\n“2．无法自行决定”"
+            ),
+            "story/154/dialogue/00.01/0152": (
+                "“$n的选择”\n“1．希望加入太平洋部队”\n"
+                "“2．希望加入加利亚部队”"
+            ),
+            "story/154/dialogue/00.01/0185": (
+                "“兰德的选择”\n“1．希望加入太平洋部队”\n"
+                "“2．希望加入加利亚部队”"
+            ),
+            "story/157/dialogue/00.01/0023": (
+                "“布莱德的选择”\n“1．让$n前往直布罗陀基地”\n"
+                "“2．让$n负责周边警戒”"
+            ),
+            "story/160/dialogue/00.01/0058": (
+                "“$n的选择”\n“1．去找兰顿”\n“2．留下来看家”"
             ),
         }
         self.assertEqual(

@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 try:
-    from srwz.codec import decode
+    from srwz.codec import decode_production as decode
     from srwz.diagnostics import require_work_output
     from srwz.iso_layout import (
         ExecutableOffsetSpec,
@@ -33,7 +33,7 @@ try:
         validate_library_scope_mapping,
     )
 except ModuleNotFoundError:  # pragma: no cover - package import in tests
-    from tools.srwz.codec import decode
+    from tools.srwz.codec import decode_production as decode
     from tools.srwz.diagnostics import require_work_output
     from tools.srwz.iso_layout import (
         ExecutableOffsetSpec,

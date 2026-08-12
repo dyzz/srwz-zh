@@ -216,7 +216,7 @@ class ZhReleaseFontTests(unittest.TestCase):
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]
-        self.assertEqual(selection["unique_entry_count"], 122049)
+        self.assertEqual(selection["unique_entry_count"], 123012)
         source_paths = {item["path"] for item in selection["sources"]}
         self.assertIn("corpus/zh/battle/srvc-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/battle-lines.json", source_paths)
@@ -246,8 +246,8 @@ class ZhReleaseFontTests(unittest.TestCase):
             '"%&\',-./:<=>@[\\]~',
         )
         control_tokens = selection["control_tokens"]
-        self.assertEqual(control_tokens["entry_count"], 2124)
-        self.assertEqual(control_tokens["occurrence_count"], 2237)
+        self.assertEqual(control_tokens["entry_count"], 2149)
+        self.assertEqual(control_tokens["occurrence_count"], 2263)
         self.assertEqual(
             control_tokens["kinds"]["runtime_format"]["forms"],
             {"%s": 59},
@@ -256,7 +256,7 @@ class ZhReleaseFontTests(unittest.TestCase):
             control_tokens["kinds"]["runtime_substitution"][
                 "occurrence_count"
             ],
-            2060,
+            2086,
         )
         self.assertEqual(
             {
@@ -276,10 +276,10 @@ class ZhReleaseFontTests(unittest.TestCase):
             selection["literal_percent_signs"]["occurrence_count"], 178
         )
         self.assertEqual(
-            coverage["control_token_occurrence_count"], 2237
+            coverage["control_token_occurrence_count"], 2263
         )
         self.assertEqual(
-            coverage["runtime_placeholder_occurrence_count"], 2119
+            coverage["runtime_placeholder_occurrence_count"], 2145
         )
         self.assertTrue(coverage["runtime_placeholder_bytes_preserved_exactly"])
         self.assertEqual(coverage["literal_percent_occurrence_count"], 178)

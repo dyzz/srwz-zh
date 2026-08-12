@@ -1,7 +1,7 @@
 import struct
 import unittest
 
-from tools.srwz.codec import decode
+from tools.srwz.codec import decode_production as decode
 from tools.srwz.iso_layout import ExecutableOffsetSpec
 from tools.srwz.menu import MenuParseResult, MenuTextEntry
 from tools.srwz.text import TextTable

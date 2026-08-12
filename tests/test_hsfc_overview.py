@@ -3,7 +3,7 @@ import struct
 import unittest
 from pathlib import Path
 
-from tools.srwz.codec import decode
+from tools.srwz.codec import decode_production as decode
 from tools.srwz.hsfc_overview import (
     group_hsfc_overviews,
     parse_hsfc_overviews,

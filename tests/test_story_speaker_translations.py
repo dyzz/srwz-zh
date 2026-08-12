@@ -32,14 +32,14 @@ class StorySpeakerTranslationTests(unittest.TestCase):
             {
                 "domain": "story",
                 "kind": "speaker",
-                "entry_count": 8469,
+                "entry_count": 8665,
                 "unique_source_text_count": 425,
-                "translated_entry_count": 7931,
-                "preserved_placeholder_entry_count": 538,
+                "translated_entry_count": 8108,
+                "preserved_placeholder_entry_count": 557,
             },
         )
-        self.assertEqual(len(entries), 8469)
-        self.assertEqual(len({entry["id"] for entry in entries}), 8469)
+        self.assertEqual(len(entries), 8665)
+        self.assertEqual(len({entry["id"] for entry in entries}), 8665)
         self.assertEqual(entries[0]["id"], "story/001/speaker/001")
         self.assertEqual(entries[-1]["id"], "story/186/speaker/006")
 
@@ -85,15 +85,15 @@ class StorySpeakerTranslationTests(unittest.TestCase):
             for entry in self.translations["entries"]
             if entry["translation_action"] == "preserve"
         ]
-        self.assertEqual(len(preserved), 538)
+        self.assertEqual(len(preserved), 557)
         self.assertEqual(
             Counter(entry["translation"] for entry in preserved),
             {
-                "": 145,
-                "$n": 129,
+                "": 160,
+                "$n": 132,
                 "　": 98,
                 "　　": 94,
-                "？？？": 72,
+                "？？？": 73,
             },
         )
         self.assertTrue(all(entry["notes"] for entry in preserved))
@@ -202,7 +202,7 @@ class StorySpeakerTranslationTests(unittest.TestCase):
             for batch in release["coverage_plan"]
             if batch["batch_id"] == "v1-story-speakers"
         )
-        self.assertEqual(batch["target_entry_count"], 8469)
+        self.assertEqual(batch["target_entry_count"], 8665)
         self.assertEqual(batch["status"], "draft_complete")
 
 

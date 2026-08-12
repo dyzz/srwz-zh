@@ -152,6 +152,51 @@ def validate_component_output_binding(config: dict) -> dict:
     }
 
 
+def refresh_component_output_locks(config: dict) -> int:
+    """Refresh a non-release working profile from its validated components."""
+
+    if config.get("release_tag") is not None:
+        raise IsoBuildError("refusing to refresh output locks in a release profile")
+    if config.get("require_component_output_binding") is not True:
+        raise IsoBuildError("working lock refresh requires component binding")
+    manifest_reference = config.get("component_validation_manifest")
+    manifest_path = resolve_project_path(manifest_reference)
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise IsoBuildError(
+            f"cannot load component validation manifest: {manifest_reference}"
+        ) from error
+    outputs = manifest.get("outputs")
+    if (
+        manifest.get("status") != config.get("component_required_status")
+        or not isinstance(outputs, dict)
+    ):
+        raise IsoBuildError("component validation manifest identity drift")
+    replacements = config.get("replacements")
+    if not isinstance(replacements, list) or {
+        item.get("member") for item in replacements if isinstance(item, dict)
+    } != set(outputs):
+        raise IsoBuildError("replacement member set differs from component manifest")
+    for replacement in replacements:
+        member = replacement["member"]
+        lock = outputs.get(member)
+        if (
+            not isinstance(lock, dict)
+            or replacement.get("source") != lock.get("path")
+            or not isinstance(lock.get("size"), int)
+            or not isinstance(lock.get("sha256"), str)
+        ):
+            raise IsoBuildError(
+                f"replacement path differs from component manifest: {member}"
+            )
+        replacement["size"] = lock["size"]
+        replacement["sha256"] = lock["sha256"]
+    config["output"].pop("expected_sha256", None)
+    config["output"].pop("expected_member_manifest_sha256", None)
+    return len(replacements)
+
+
 def validate_replacement_sector_budget(config: dict, source_image) -> dict:
     """Fail before rebuilding when a fixed-LBA profile outgrows a member."""
 
@@ -785,13 +830,29 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Recreate the cached original layout under work/ with dumps2iso.",
     )
+    parser.add_argument(
+        "--refresh-output-locks",
+        action="store_true",
+        help=(
+            "For a non-release working profile, bind replacements to the "
+            "current validated component manifest and record the newly "
+            "validated ISO/member-manifest hashes."
+        ),
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
     try:
-        config = load_config(args.config.resolve())
+        config_path = args.config.resolve()
+        config = load_config(config_path)
+        if args.refresh_output_locks:
+            refreshed_count = refresh_component_output_locks(config)
+            print(
+                "[refresh] working replacement locks:",
+                f"{refreshed_count} members",
+            )
         component_binding = validate_component_output_binding(config)
         if component_binding["enforced"]:
             print(
@@ -913,6 +974,16 @@ def main() -> int:
             json.dumps(report, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
         )
+        if args.refresh_output_locks:
+            config["output"]["expected_sha256"] = report["output_iso"]["sha256"]
+            config["output"]["expected_member_manifest_sha256"] = report["layout"][
+                "member_manifest_sha256"
+            ]
+            config_path.write_text(
+                json.dumps(config, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            print(f"[refresh] working ISO locks: {config_path}")
         print(
             f"[OK] ISO: {report['output_iso']['size']} bytes, "
             f"SHA-256 {report['output_iso']['sha256']}"

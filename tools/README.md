@@ -18,6 +18,7 @@ vendor/upstream-python/       两份固定只读数据定义
 | 字体 | `fetch_zh_font.py`、`update_zh_release_font_snapshot.py`、`rebuild_zh_font.py` |
 | 图片 | `ui_atlas.py build/verify/build-suite/verify-suite` |
 | 剧情组件 | `build_story_component.py`（通常由全局字体主链自动调用） |
+| 剧情批量初译 | `run_aliyun_story_dialogue_batch.py`（强制说话人、作品和相邻上下文；仅输出 `work/` 机器初稿） |
 | 最终组件 | `build_full_story_components.py`（通常由全局字体主链自动调用） |
 | ISO | `build_iso.py --config config/iso/zh-release-full-story-build.json` |
 | 发布补丁 | `build_release.py --config config/release/v0.1.0.json` |
@@ -29,8 +30,10 @@ vendor/upstream-python/       两份固定只读数据定义
 分域 ISO 回读入口已移除。`rebuild_zh_font.py` 与
 `build_zh_font_component.py` 各自直接包含规范实现，不再经过兼容转发层。
 
-`tools/srwz/codec.py` 保留严格 decoder 和小样本 oracle；生产写回必须选择 Rust
-策略，满足原槽或成员扇区预算即可，不要求无意义地追求全局最大压缩率。
+`tools/srwz/codec.py` 只为格式研究和隔离单元测试保留严格 Python decoder 的代码；
+任何 build、提取、静态验证和压缩后回读都只走仓库自有 Rust codec，Python decoder
+不再是生产或验收路径。写回满足原槽或成员扇区预算即可，不要求无意义地追求全局
+最大压缩率。
 
 基础 UI 的中间过程已经折叠为 `release-base-ui` 验证收据；旧 ISO 组合、翻译模型、
 审校网页、通用解析导出器、研究探针和 dashboard 命令已移除。各生产模块仍在构建
@@ -44,8 +47,56 @@ python3 tools/build_iso.py --config config/iso/zh-release-full-story-build.json
 python3 tools/build_release.py --config config/release/v0.1.0.json
 ```
 
-前者按顺序重建全局字体、154 个 STAGE 块、六张图集、MAPMODEL 世界地图地名和
-13 成员最终组件；确认输入或 ratchet 发生预期变化时才附加
+日常润色后的工作版使用通用增量构建。它会比较上一次完整验证留下的输入快照，按
+依赖关系计算受影响的 ISO 成员；例如新游戏主人公选择画面的固定名称只会更新
+`SLPS_258.87`：
+
+```bash
+python3 tools/build_full_story_components.py \
+  --config config/full-story-components.json \
+  --incremental --force --refresh-manifest
+python3 tools/build_iso.py \
+  --config config/iso/zh-release-current-build.json \
+  --refresh-output-locks
+```
+
+`--incremental` 要求先有一次完整构建留下的增量状态，并会先核对上一份组件清单中的
+全部 16 个输出。人物/机体与菜单文本、STAGE、HSFC、NISVDATA、SRVC、自动演示、
+VEFF2DX、MAPMODEL、字体及继承组件均有明确依赖边；只有能证明未受影响的成员才会
+复用。出现未登记的输入或配置变化时会直接拒绝增量构建。`--refresh-output-locks`
+仅允许无 `release_tag` 的工作配置使用，不会修改 `v0.1.0` 等发布配置；ISO 封装仍会
+执行完整的固定 LBA 与成员回读验证。
+
+STAGE 编队名的生产构建只读取
+`config/stage-default-formation-inventory.json` 中已经审核并冻结的关卡号、布局和
+槽位偏移，逐项核对原始日文前像、容量、零填充及记录元数据；不会在构建时发现新
+位置。只有明确进行编队资源审计时才运行扫描并重新冻结：
+
+```bash
+python3 tools/freeze_stage_default_formation_inventory.py --force
+```
+
+`report_stage_default_formation_names.py` 默认同样只报告冻结位置；
+`--formation-tables-only`、`--all-structural` 与 `--legacy-heuristic` 是显式扫描模式。
+
+MAPMODEL 地形名同样只读取 `config/terrain-name-inventory.json` 中冻结的 66 个位置；
+生产 build 不再扫描成员 0–80，只解压并最终压缩实际命中的 10 个成员。世界地图标题
+的位置已经由审核 corpus 的 member 列表锁定，也不做发现式扫描；普通 build 直接读取
+`config/world-map-title-render-snapshot.json` 中冻结的 4bpp 渲染结果和预览，不启动
+ImageMagick。只有明确改变标题语料、字体或渲染规则时才显式重新冻结：
+
+```bash
+python3 tools/freeze_world_map_title_renders.py --force
+```
+
+最终组件构建把同一物理压缩流视为一个 decoded workspace。`COMPDATA.BN` 先用 Rust
+解码一次，依次完成全人物／机体名、关卡标题、剩余 UI、战斗字幕、武器名和全局安全
+别名写入及各自回读，再只压缩一次；`STAGE.BIN` chunk 0 的概览与系统对白也共用一次
+解码和一次最终压缩。工作报告的 `compression.*_workspace` 会锁定阶段数、解码次数和
+压缩次数。
+
+前者按顺序重建全局字体、170 个含对白 STAGE 块、六张图集、MAPMODEL 世界地图地名和
+16 个最终组件成员；确认输入或 ratchet 发生预期变化时才附加
 `--refresh-manifests`，字体视觉规则变化时再附加 `--refresh-asset-ratchets`。
 发布入口先验证原版和目标 ISO 的固定大小与 SHA-256，再用锁定的 xdelta3 版本生成
 补丁并实际还原一次；`build/release/v0.1.0/` 中不得出现 ISO。

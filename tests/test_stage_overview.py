@@ -2,7 +2,7 @@ import json
 import unittest
 from pathlib import Path
 
-from tools.srwz.codec import decode
+from tools.srwz.codec import decode_production as decode
 from tools.srwz.iso_layout import (
     ExecutableOffsetSpec,
     read_executable_archive_offsets,

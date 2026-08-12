@@ -58,7 +58,7 @@
       "member": "SLPS_258.87",
       "source": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "d0215445d7dd0f729e1ce728772237d67dc724c05e7fe675068b4c5b031d7852"
+      "sha256": "d4a858a7a7f3d6de6c5f9ca7a48b6d779afbc0aa7ffb197a65489d1f27d4deab"
     },
     {
       "member": "DATA/COMPDATA.BN",
@@ -88,7 +88,7 @@
       "member": "DATA/STAGE.BIN",
       "source": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "0124fa7fbbec4bdfa58926ebe5f24b4278c0783024369bad9c8c2832121eaaaf"
+      "sha256": "5edf9b5bf3f6ac69d3c7017ffd37d2b37ebfe29e8fe493b9e7467bdfd0d79368"
     },
     {
       "member": "DATA/HSFC.BIN",
@@ -155,12 +155,12 @@
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "report": "build/iso/zh-release-full-story/iso-validation-current.json",
     "expected_size": 3758358528,
-    "expected_sha256": "d65bfca8469582105357b2f71d8627490513c9e4aef346672bbcb4dcfd518146",
-    "expected_member_manifest_sha256": "6337d50cad36f33c7afe0d09fa7d1270d1c7bc003a37a254e1f65fb511f47a2e",
     "expected_root_directory_size": 960,
     "expected_pcsx2_v263_image_type": "DVD",
     "expected_udf_volume_recognition_sequence": "NSR02",
-    "byte_reproducible": true
+    "byte_reproducible": true,
+    "expected_sha256": "9770e0b79404a5e5924adb300e79f9f2bdeb42470d5317ccc6eed309e68c0d38",
+    "expected_member_manifest_sha256": "8c2a4b723f08d56320095e54c4a7e78bda4a5855363d00e1096e37ff65509964"
   },
   "acceptance": {
     "udf_verify_members": [

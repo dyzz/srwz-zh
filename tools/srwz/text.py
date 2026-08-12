@@ -288,20 +288,19 @@ def decode_text(
     raise SrwzTextError("unterminated text", offset=current)
 
 
-def _inverse_characters(
-    table: TextTable,
-    overrides: Optional[Mapping[str, int]] = None,
+def _validated_overrides(
+    overrides: Optional[Mapping[str, int]],
 ) -> Mapping[str, int]:
     if not overrides:
-        return table.inverse_characters
-    inverse = dict(table.inverse_characters)
+        return MappingProxyType({})
+    validated = {}
     for character, encoded in overrides.items():
         if not isinstance(character, str) or len(character) != 1:
             raise ValueError("text encoding overrides need one character")
         if not 0 <= encoded <= 0xFFFF:
             raise ValueError("text encoding override is outside two bytes")
-        inverse[character] = encoded
-    return inverse
+        validated[character] = encoded
+    return MappingProxyType(validated)
 
 
 def control_notation_tokens(text: str) -> tuple[ControlNotationToken, ...]:
@@ -356,18 +355,16 @@ def unrecognized_control_notation_offsets(text: str) -> tuple[int, ...]:
     )
 
 
-def encode_text(
+def _encode_text_prepared(
     text: str,
     table: TextTable,
     *,
-    overrides: Optional[Mapping[str, int]] = None,
+    overrides: Mapping[str, int],
     terminate: bool = False,
 ) -> bytes:
-    """Encode the decoder's lossless text notation deterministically."""
-
     if not isinstance(text, str):
         raise TypeError("text must be a string")
-    inverse_characters = _inverse_characters(table, overrides)
+    inverse_characters = table.inverse_characters
     inverse_tags = table.inverse_tags
     output = bytearray()
     index = 0
@@ -417,7 +414,7 @@ def encode_text(
             index += len(tag_match.group(0))
             continue
 
-        override_code = overrides.get(character) if overrides is not None else None
+        override_code = overrides.get(character)
         if override_code is not None:
             if character in PRINTABLE_ASCII and override_code == ord(character):
                 output.append(override_code)
@@ -457,6 +454,40 @@ def encode_text(
     if terminate:
         output.append(0)
     return bytes(output)
+
+
+@dataclass(frozen=True)
+class PreparedTextEncoder:
+    """Validated reusable encoder state for one table/override combination."""
+
+    table: TextTable
+    overrides: Optional[Mapping[str, int]] = None
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "overrides", _validated_overrides(self.overrides))
+
+    def encode(self, text: str, *, terminate: bool = False) -> bytes:
+        return _encode_text_prepared(
+            text,
+            self.table,
+            overrides=self.overrides,
+            terminate=terminate,
+        )
+
+
+def encode_text(
+    text: str,
+    table: TextTable,
+    *,
+    overrides: Optional[Mapping[str, int]] = None,
+    terminate: bool = False,
+) -> bytes:
+    """Encode the decoder's lossless text notation deterministically."""
+
+    return PreparedTextEncoder(table, overrides).encode(
+        text,
+        terminate=terminate,
+    )
 
 
 def augment_text_table(
@@ -521,6 +552,7 @@ __all__ = [
     "DecodedText",
     "ControlNotationToken",
     "ORIGINAL_FULLWIDTH_ASCII",
+    "PreparedTextEncoder",
     "RUNTIME_FORMAT_TOKEN",
     "RUNTIME_ICON_SLOT_TOKEN",
     "RUNTIME_SUBSTITUTION_TOKEN",

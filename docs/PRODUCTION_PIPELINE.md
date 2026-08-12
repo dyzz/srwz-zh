@@ -149,13 +149,18 @@ offset 的详细契约见 `WRITEBACK_CONTRACT.md`。
 ## 7. 压缩
 
 生产 profile 统一使用 `tools/native/srwz-codec-rs/` 的 clean-room Rust codec。
-Python codec 保留为严格 decoder、round-trip 和结构 oracle。当前生产规则：
+Python decoder 只保留源码供隔离的格式研究和对照测试，任何生产与静态验收入口均不
+调用。当前生产规则：
 
 - 保持游戏原生格式，不引入 Deflate/LZMA 或运行时解压补丁；
 - 生产链统一使用 `rust-fit`，match 参数由当前 profile 锁定；
 - `rust-fit` 重压完整 decoded payload，不继承旧 Python encoder 的 block；
 - COMPDATA 执行 145,408-byte／71-sector 硬门；
-- 任何候选均需由独立 Python decoder 完整回解；
+- 任何候选均需由 Rust decoder 完整回解；
+- 同一物理压缩流先解码一次，在 decoded workspace 完成全部有序写入与前置检查，
+  最后只压缩一次并做一次最终 Rust 回读；
+- 当前 `COMPDATA.BN` 的六组写入共用一个 workspace，`STAGE.BIN` chunk 0 的概览与
+  系统对白共用另一个 workspace；
 - archive alignment、offset、成员 LBA 和最终 ISO 分别复核。
 
 格式和预算见 `SRWZ_COMPRESSION.md`。

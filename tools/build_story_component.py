@@ -7,17 +7,17 @@ import argparse
 import hashlib
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Mapping
 
-from srwz.codec import decode, reencode_changed_suffix
+from srwz.codec import decode_production as decode, reencode_changed_suffix
 from srwz.diagnostics import require_work_output
 from srwz.font import sha256_bytes
 from srwz.iso9660 import SECTOR_SIZE, member_map, scan_iso9660
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
 from srwz.stage import parse_stage, read_stage_function_addresses
 from srwz.text import (
-    TextTable,
     load_text_table,
     normalize_original_fullwidth_ascii,
     original_fullwidth_ascii_overrides,
@@ -44,6 +44,15 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=4,
+        help=(
+            "Compress independent STAGE chunks concurrently; use 1 for the "
+            "serial reference path (default: 4)."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -200,17 +209,13 @@ def _load_overrides(
     return overrides, proposal
 
 
-def _augmented_table(table: TextTable, overrides: dict[str, int]) -> TextTable:
-    return TextTable(
-        characters={
-            **table.characters,
-            **{code: character for character, code in overrides.items()},
-        },
-        tags=table.tags,
-    )
-
-
-def build(config_path: Path) -> tuple[dict[Path, bytes], dict]:
+def build(
+    config_path: Path,
+    *,
+    workers: int = 4,
+) -> tuple[dict[Path, bytes], dict]:
+    if workers <= 0:
+        raise SystemExit("story component workers must be positive")
     config = _json(config_path)
     if config.get("profile_id") != "srwz-zh-story-component-v1":
         raise SystemExit("story component profile identity drift")
@@ -250,7 +255,6 @@ def build(config_path: Path) -> tuple[dict[Path, bytes], dict]:
     )
     table = load_text_table(table_path)
     overrides.update(original_fullwidth_ascii_overrides(table))
-    output_table = _augmented_table(table, overrides)
 
     codec = config["codec"]
     if (
@@ -277,9 +281,23 @@ def build(config_path: Path) -> tuple[dict[Path, bytes], dict]:
         source_stage[offsets[index] : offsets[index + 1]]
         for index in range(len(offsets) - 1)
     ]
-    output_chunks = list(source_chunks)
-    stage_reports = []
-    for stage in sorted(stages):
+    missing = []
+    for stage_index in sorted(set(range(len(source_chunks))) - stages):
+        source_output = decode(source_chunks[stage_index]).output
+        if parse_stage(
+            source_output,
+            table,
+            stage_index=stage_index,
+            function_address=functions[stage_index],
+        ).dialogue_count:
+            missing.append(stage_index)
+    if missing:
+        raise SystemExit(
+            "story corpus does not cover every source dialogue STAGE: "
+            f"missing={missing}, unexpected=[]"
+        )
+
+    def build_stage(stage: int) -> tuple[int, bytes, dict]:
         decoded = decode(source_chunks[stage])
         stage_conditions = {
             entry_id: translation
@@ -296,6 +314,11 @@ def build(config_path: Path) -> tuple[dict[Path, bytes], dict]:
             speaker_replacements=speakers[stage],
             overrides=overrides,
         )
+        if write.source_dialogue_count <= 0:
+            raise SystemExit(
+                "story corpus includes a STAGE without source dialogue: "
+                f"{stage:03d}"
+            )
         encoded = reencode_changed_suffix(
             source_chunks[stage],
             write.data,
@@ -304,42 +327,49 @@ def build(config_path: Path) -> tuple[dict[Path, bytes], dict]:
             max_match_chain=codec["max_match_chain"],
             lazy_matching=False,
             max_output_size=len(source_chunks[stage]),
+            original_result=decoded,
         )
-        round_trip = decode(encoded)
-        if round_trip.output != write.data or round_trip.consumed != len(encoded):
-            raise SystemExit(f"stage {stage:03d} codec round-trip mismatch")
-        reparsed = parse_stage(
-            round_trip.output,
-            output_table,
-            stage_index=stage,
-            function_address=functions[stage],
+        output_chunk = encoded + bytes(len(source_chunks[stage]) - len(encoded))
+        return stage, output_chunk, {
+            **write.to_metadata(),
+            "dialogue_count": len(dialogue[stage]),
+            "condition_count": len(stage_conditions),
+            "speaker_count": len(speakers[stage]),
+            "source_encoded_size": decoded.consumed,
+            "output_encoded_size": len(encoded),
+            "source_chunk_size": len(source_chunks[stage]),
+            "output_chunk_size": len(output_chunk),
+            "chunk_span_preserved": True,
+            "output_encoded_sha256": sha256_bytes(encoded),
+            "codec_strategy": "rust-fit",
+            "codec_options": {
+                "min_match_length": codec["min_match_length"],
+                "max_match_chain": codec["max_match_chain"],
+                "lazy_matching": False,
+            },
+            "codec_round_trip_exact": True,
+            "translated_reread_exact": True,
+        }
+
+    ordered_stages = sorted(stages)
+    if workers == 1:
+        built_stages = map(build_stage, ordered_stages)
+        executor = None
+    else:
+        executor = ThreadPoolExecutor(
+            max_workers=min(workers, len(ordered_stages)),
+            thread_name_prefix="srwz-stage",
         )
-        actual = {entry.entry_id: entry.text for entry in reparsed.entries}
-        if any(actual.get(key) != value for key, value in replacements.items()):
-            raise SystemExit(f"stage {stage:03d} translated reread mismatch")
-        output_chunks[stage] = encoded + bytes(len(source_chunks[stage]) - len(encoded))
-        stage_reports.append(
-            {
-                **write.to_metadata(),
-                "dialogue_count": len(dialogue[stage]),
-                "condition_count": len(stage_conditions),
-                "speaker_count": len(speakers[stage]),
-                "source_encoded_size": decoded.consumed,
-                "output_encoded_size": len(encoded),
-                "source_chunk_size": len(source_chunks[stage]),
-                "output_chunk_size": len(output_chunks[stage]),
-                "chunk_span_preserved": True,
-                "output_encoded_sha256": sha256_bytes(encoded),
-                "codec_strategy": "rust-fit",
-                "codec_options": {
-                    "min_match_length": codec["min_match_length"],
-                    "max_match_chain": codec["max_match_chain"],
-                    "lazy_matching": False,
-                },
-                "codec_round_trip_exact": True,
-                "translated_reread_exact": True,
-            }
-        )
+        built_stages = executor.map(build_stage, ordered_stages)
+    output_chunks = list(source_chunks)
+    stage_reports = []
+    try:
+        for stage, output_chunk, stage_report in built_stages:
+            output_chunks[stage] = output_chunk
+            stage_reports.append(stage_report)
+    finally:
+        if executor is not None:
+            executor.shutdown(wait=True, cancel_futures=True)
 
     rebuilt_stage, rebuilt_offsets = rebuild_aligned_archive(output_chunks, alignment=16)
     if tuple(rebuilt_offsets) != tuple(offsets):
@@ -397,6 +427,7 @@ def build(config_path: Path) -> tuple[dict[Path, bytes], dict]:
         ),
         "unchanged_chunk_count": len(output_chunks) - len(stages),
         "stage_layout_preserved": True,
+        "source_dialogue_stage_coverage_exact": True,
         "hb_offset_reread_exact": True,
         "runtime_acceptance": "not tested",
     }
@@ -406,7 +437,7 @@ def build(config_path: Path) -> tuple[dict[Path, bytes], dict]:
 def main() -> int:
     args = parse_args()
     config_path = args.config.resolve()
-    outputs, report = build(config_path)
+    outputs, report = build(config_path, workers=args.workers)
     report_path = next(iter(outputs)).parents[1] / "component-validation.json"
     if report_path.exists() and not args.force:
         raise SystemExit(f"output exists; use --force: {report_path}")

@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 
 from srwz.font_rasterizer import rasterize_character, rasterizer_point_size
-from srwz.codec import decode, reencode_changed_suffix
+from srwz.codec import decode_production as decode, reencode_changed_suffix
 from srwz.diagnostics import require_work_output
 from srwz.font import (
     GLYPH_COUNT,
@@ -110,7 +110,11 @@ def main() -> int:
     vt1_path = WORK_ROOT / "disc/DATA/VT1.BIN"
     source_slps = slps_path.read_bytes()
     source_vt1 = vt1_path.read_bytes()
-    original_font = decode_vt1_font_segment(source_slps, source_vt1)
+    original_font = decode_vt1_font_segment(
+        source_slps,
+        source_vt1,
+        decoder=decode,
+    )
     modified_font = original_font.decoded
     extended_entries = read_extended_glyph_table(source_slps)
     seen_codes = set()
@@ -274,7 +278,11 @@ def main() -> int:
         != rebuilt_offsets
     ):
         raise SystemExit("VT1 offsets fail SLPS reread")
-    reread_font = decode_vt1_font_segment(rebuilt_slps, rebuilt_vt1)
+    reread_font = decode_vt1_font_segment(
+        rebuilt_slps,
+        rebuilt_vt1,
+        decoder=decode,
+    )
     if reread_font.decoded != modified_font:
         raise SystemExit("rebuilt VT1 font reread mismatch")
 
