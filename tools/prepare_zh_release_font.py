@@ -34,6 +34,7 @@ from srwz.release_font import (
     ReleaseFontError,
     audit_legacy_formation_glyph_compatibility,
     audit_runtime_generated_glyph_compatibility,
+    load_frozen_formation_compatibility,
     rendered_characters,
     selected_translation_tree_entries,
 )
@@ -192,6 +193,13 @@ def main() -> int:
                 snapshot,
                 load_text_table(table_path),
                 project_root=PROJECT_ROOT,
+            )
+        )
+        frozen_formation_assignments = (
+            load_frozen_formation_compatibility(
+                PROJECT_ROOT,
+                config,
+                snapshot,
             )
         )
         profile = load_font_profile(PROJECT_ROOT, config_path)
@@ -410,6 +418,9 @@ def main() -> int:
         "legacy_formation_compatibility": legacy_formation_compatibility,
         "runtime_generated_glyph_compatibility": (
             runtime_generated_compatibility
+        ),
+        "formation_affected_character_freeze": (
+            frozen_formation_assignments
         ),
         "new_character_allocation_policy": config[
             "new_character_allocation_policy"

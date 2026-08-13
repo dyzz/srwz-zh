@@ -47,6 +47,12 @@ try:
     )
     from srwz.image_export import parse_seg_offsets
     from srwz.psmt4 import swizzle_psmt4, unswizzle_psmt4
+    from srwz.runtime_keywords import (
+        RuntimeKeywordError,
+        apply_compdata_keyword_names,
+        apply_stage_keyword_popups,
+        load_keyword_authority,
+    )
     from srwz.hsfc_overview import replace_hsfc_overviews_in_place
     from srwz.srvc import (
         parse_srvc_archive,
@@ -135,6 +141,12 @@ except ModuleNotFoundError:
     )
     from tools.srwz.image_export import parse_seg_offsets
     from tools.srwz.psmt4 import swizzle_psmt4, unswizzle_psmt4
+    from tools.srwz.runtime_keywords import (
+        RuntimeKeywordError,
+        apply_compdata_keyword_names,
+        apply_stage_keyword_popups,
+        load_keyword_authority,
+    )
     from tools.srwz.hsfc_overview import replace_hsfc_overviews_in_place
     from tools.srwz.srvc import (
         parse_srvc_archive,
@@ -408,6 +420,7 @@ CONFIG_SECTION_IMPACTS = {
     "mode_select_effect": {VEFF_MEMBER},
     "kvmdata": {KVMDATA_MEMBER},
     "world_map_titles": {MAPMODEL_MEMBER},
+    "runtime_keywords": {COMPDATA_MEMBER, STAGE_MEMBER},
     "composition": {SLPS_MEMBER, VT1_MEMBER},
     "intermission_list_font_geometry": {SLPS_MEMBER},
 }
@@ -467,6 +480,9 @@ INPUT_IMPACTS = {
     "auto_demo_original_slps": {SLPS_MEMBER},
     "auto_demo_story_speakers": set(AUTO_DEMO_MEMBERS),
     "auto_demo_unit_names": {SLPS_MEMBER, *AUTO_DEMO_MEMBERS},
+    "runtime_keyword_catalog": {COMPDATA_MEMBER, STAGE_MEMBER},
+    "runtime_keyword_library_archive": {COMPDATA_MEMBER, STAGE_MEMBER},
+    "runtime_keyword_executable": {COMPDATA_MEMBER, STAGE_MEMBER},
 }
 
 
@@ -7025,6 +7041,14 @@ def build(
         or stage_report.get("runtime_keyword_link_count") != 122
         or stage_report.get("runtime_keyword_source_count") != 52
         or stage_report.get("runtime_keyword_links_exact") is not True
+        or stage_report.get("dialogue_outer_punctuation_exact") is not True
+        or stage_report.get("dialogue_quote_style_counts")
+        != {
+            "keyword_exempt": 111,
+            "parenthetical": 2349,
+            "spoken_quote": 77167,
+            "unquoted": 3880,
+        }
         or stage_report.get("all_safe_aliases") is not True
         or stage_report.get(
             "unaliased_conditional_localized_assignment_count"
@@ -7046,6 +7070,69 @@ def build(
     kvm_path, kvm_payload = _locked_file(
         config["kvmdata"], label="localized KVMDATA.BIN"
     )
+
+    runtime_keyword_reference = config.get("runtime_keywords")
+    if not isinstance(runtime_keyword_reference, dict):
+        raise FullStoryComponentError("runtime-keyword configuration is missing")
+    runtime_keyword_catalog_path, runtime_keyword_catalog_data = _locked_file(
+        runtime_keyword_reference.get("catalog"),
+        label="runtime-keyword catalog",
+    )
+    (
+        runtime_keyword_library_path,
+        runtime_keyword_library_payload,
+    ) = _locked_file(
+        runtime_keyword_reference.get("library_archive"),
+        label="translated runtime-keyword LIBRARY archive",
+    )
+    (
+        runtime_keyword_executable_path,
+        runtime_keyword_executable_payload,
+    ) = _locked_file(
+        runtime_keyword_reference.get("original_executable"),
+        label="runtime-keyword offset-table executable",
+    )
+    runtime_keyword_source_table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    (
+        _runtime_keyword_proposal_path,
+        runtime_keyword_primary,
+        runtime_keyword_aliases,
+        _runtime_keyword_alias_report,
+    ) = _full_story_overrides(font_manifest)
+    runtime_keyword_table = project_runtime_text_table(
+        runtime_keyword_source_table,
+        runtime_keyword_primary,
+    )
+    runtime_keyword_table = project_runtime_text_table(
+        runtime_keyword_table,
+        runtime_keyword_aliases,
+    )
+    runtime_keyword_table = project_runtime_text_table(
+        runtime_keyword_table,
+        original_fullwidth_ascii_overrides(runtime_keyword_source_table),
+    )
+    try:
+        runtime_keyword_authority = load_keyword_authority(
+            runtime_keyword_catalog_data,
+            runtime_keyword_library_payload,
+            runtime_keyword_executable_payload,
+            runtime_keyword_table,
+            table_start=int(
+                str(runtime_keyword_reference["keyword_table_start"]), 0
+            ),
+            table_end=int(
+                str(runtime_keyword_reference["keyword_table_end"]), 0
+            ),
+            expected_count=runtime_keyword_reference["expected"][
+                "keyword_count"
+            ],
+        )
+    except (KeyError, TypeError, ValueError, RuntimeKeywordError) as error:
+        raise FullStoryComponentError(
+            f"runtime-keyword authority validation failed: {error}"
+        ) from error
 
     chunk_index = composition.get("font_chunk_index")
     alignment = composition.get("archive_alignment")
@@ -7309,6 +7396,36 @@ def build(
         workspace=compdata_workspace,
     )
     try:
+        runtime_keyword_compdata_decoded, runtime_keyword_compdata_report = (
+            apply_compdata_keyword_names(
+                compdata_workspace.current,
+                original_compdata_decoded.output,
+                runtime_keyword_authority,
+                runtime_keyword_source_table,
+                runtime_keyword_reference,
+                runtime_base=int(
+                    str(runtime_keyword_reference["compdata_runtime_base"]), 0
+                ),
+                pointer_table_offset=int(
+                    str(
+                        runtime_keyword_reference[
+                            "compdata_pointer_table_offset"
+                        ]
+                    ),
+                    0,
+                ),
+            )
+        )
+        compdata_workspace.replace(
+            runtime_keyword_compdata_decoded,
+            stage="runtime keyword encyclopedia list labels",
+        )
+        output_compdata = compdata_workspace.stored
+    except (KeyError, TypeError, ValueError, RuntimeKeywordError) as error:
+        raise FullStoryComponentError(
+            f"runtime-keyword COMPDATA write failed: {error}"
+        ) from error
+    try:
         output_compdata, compdata_workspace_report = compdata_workspace.finalize(
             **config["full_pilot_names"]["codec"]
         )
@@ -7329,6 +7446,7 @@ def build(
         compdata_battle_line_report,
         reviewed_weapon_report,
         global_safe_alias_report,
+        runtime_keyword_compdata_report,
     ):
         compdata_report["compdata_output_size"] = final_compdata_size
     stage_title_report["compdata_round_trip_exact"] = True
@@ -7336,6 +7454,7 @@ def build(
     compdata_battle_line_report["codec_round_trip_exact"] = True
     reviewed_weapon_report["codec_round_trip_exact"] = True
     global_safe_alias_report["compdata_round_trip_exact"] = True
+    runtime_keyword_compdata_report["codec_round_trip_exact"] = True
     if reuse_group({SLPS_MEMBER, *AUTO_DEMO_MEMBERS}):
         output_auto_demo_archives = {
             member: _prior_output_payload(output_root, member)
@@ -7425,6 +7544,9 @@ def build(
         )
         stage_system_dialogue_corpus_path = _prior_input_path(
             prior_report, "stage_system_dialogue"
+        )
+        runtime_keyword_stage_report = json.loads(
+            json.dumps(prior_report["runtime_keywords"]["stage"])
         )
     else:
         stage_offset_spec = ExecutableOffsetSpec(
@@ -7537,6 +7659,33 @@ def build(
                 ),
             }
         )
+        (
+            runtime_keyword_original_stage_path,
+            runtime_keyword_original_stage,
+        ) = _locked_file(
+            config["remaining_ui"]["original_stage"],
+            label="runtime-keyword original STAGE",
+        )
+        if runtime_keyword_original_stage_path != original_stage_path:
+            raise FullStoryComponentError(
+                "runtime-keyword original STAGE path drift"
+            )
+        try:
+            output_stage, runtime_keyword_stage_report = (
+                apply_stage_keyword_popups(
+                    output_stage,
+                    runtime_keyword_original_stage,
+                    hb_payload,
+                    runtime_keyword_authority,
+                    runtime_keyword_source_table,
+                    runtime_keyword_reference,
+                    config["full_pilot_names"]["codec"],
+                )
+            )
+        except (KeyError, TypeError, ValueError, RuntimeKeywordError) as error:
+            raise FullStoryComponentError(
+                f"runtime-keyword STAGE write failed: {error}"
+            ) from error
     remaining_ui_report["stage_fixed_formation"] = stage_fixed_formation_report
     remaining_ui_report["stage_default_formation"] = stage_default_formation_report
     remaining_ui_report["stage_system_dialogue"] = stage_system_dialogue_report
@@ -7805,6 +7954,18 @@ def build(
                 original_stage_path,
                 original_stage_path.read_bytes(),
             ),
+            "runtime_keyword_catalog": _file_lock(
+                runtime_keyword_catalog_path,
+                runtime_keyword_catalog_data,
+            ),
+            "runtime_keyword_library_archive": _file_lock(
+                runtime_keyword_library_path,
+                runtime_keyword_library_payload,
+            ),
+            "runtime_keyword_executable": _file_lock(
+                runtime_keyword_executable_path,
+                runtime_keyword_executable_payload,
+            ),
             "srvc_battle_text_corpus": _file_lock(
                 srvc_input_paths[0], srvc_input_paths[0].read_bytes()
             ),
@@ -7946,6 +8107,12 @@ def build(
         "mode_select_effect": mode_select_report,
         "world_map_titles": world_map_title_report,
         "global_safe_aliases": global_safe_alias_report,
+        "runtime_keywords": {
+            "authority_keyword_count": len(runtime_keyword_authority.entries),
+            "library_popup_fields_validated": True,
+            "compdata": runtime_keyword_compdata_report,
+            "stage": runtime_keyword_stage_report,
+        },
         "outputs": {
             name: _output_lock(output_paths[name], payload)
             for name, payload in payloads.items()
@@ -8044,6 +8211,13 @@ def build(
             "all_story_text_reread_exact": all(
                 item["translated_reread_exact"] for item in stage_report["stages"]
             ),
+            "all_story_outer_punctuation_exact": (
+                stage_report["dialogue_outer_punctuation_exact"]
+                and all(
+                    item["dialogue_outer_punctuation_exact"]
+                    for item in stage_report["stages"]
+                )
+            ),
             "full_story_pilot_names_reread_exact": pilot_name_report[
                 "reread_exact"
             ],
@@ -8105,6 +8279,65 @@ def build(
                 and stage_overview_report["hb_offsets_preserved"]
                 and stage_overview_report[
                     "non_target_chunks_preserved_byte_exact"
+                ]
+            ),
+            "runtime_keyword_surfaces_reread_exact": (
+                len(runtime_keyword_authority.entries)
+                == config["runtime_keywords"]["expected"]["keyword_count"]
+                and runtime_keyword_compdata_report["list_label_count"]
+                == config["runtime_keywords"]["expected"]["keyword_count"]
+                and runtime_keyword_compdata_report["relocation_count"]
+                == config["runtime_keywords"]["expected"][
+                    "compdata_relocation_count"
+                ]
+                and runtime_keyword_compdata_report[
+                    "all_list_labels_match_library_word"
+                ]
+                and runtime_keyword_compdata_report[
+                    "pointer_table_reread_exact"
+                ]
+                and runtime_keyword_compdata_report["codec_round_trip_exact"]
+                and runtime_keyword_stage_report["record_count"]
+                == config["runtime_keywords"]["expected"][
+                    "stage_record_count"
+                ]
+                and runtime_keyword_stage_report["stage_chunk_count"]
+                == config["runtime_keywords"]["expected"][
+                    "stage_chunk_count"
+                ]
+                and runtime_keyword_stage_report["field_reference_count"]
+                == config["runtime_keywords"]["expected"][
+                    "stage_field_reference_count"
+                ]
+                and runtime_keyword_stage_report["allocation_count"]
+                == config["runtime_keywords"]["expected"][
+                    "stage_allocation_count"
+                ]
+                and runtime_keyword_stage_report["shared_reference_count"]
+                == config["runtime_keywords"]["expected"][
+                    "stage_shared_reference_count"
+                ]
+                and runtime_keyword_stage_report["relocation_count"]
+                == config["runtime_keywords"]["expected"][
+                    "stage_relocation_count"
+                ]
+                and sum(
+                    row["reason"] == "occupied_current_allocation"
+                    for row in runtime_keyword_stage_report["relocations"]
+                )
+                == config["runtime_keywords"]["expected"][
+                    "stage_occupied_source_relocation_count"
+                ]
+                and runtime_keyword_stage_report[
+                    "all_four_fields_match_library"
+                ]
+                and runtime_keyword_stage_report["minimum_output_headroom"] >= 0
+                and runtime_keyword_stage_report["archive_size_preserved"]
+                and runtime_keyword_stage_report["hb_offsets_preserved"]
+                and runtime_keyword_stage_report["codec_round_trip_exact"]
+                and stage_report["runtime_keyword_link_count"]
+                == config["runtime_keywords"]["expected"][
+                    "story_link_occurrence_count"
                 ]
             ),
             "world_history_reread_exact": (

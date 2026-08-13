@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import re
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Mapping
@@ -17,6 +18,7 @@ from srwz.font import sha256_bytes
 from srwz.iso9660 import SECTOR_SIZE, member_map, scan_iso9660
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
 from srwz.stage import parse_stage, read_stage_function_addresses
+from srwz.story_quotes import evaluate_story_quote
 from srwz.text import (
     load_text_table,
     normalize_original_fullwidth_ascii,
@@ -394,26 +396,46 @@ def build(
         )
         runtime_keyword_link_count = 0
         runtime_keyword_source_hashes = set()
+        quote_style_counts = Counter()
+        source_speakers = {
+            entry.speaker_id: entry.text
+            for entry in parsed_source.entries
+            if entry.kind == "speaker"
+        }
         for entry in parsed_source.entries:
-            if entry.kind != "dialogue" or "《" not in entry.text:
+            if entry.kind != "dialogue":
                 continue
             translated = dialogue[stage].get(entry.entry_id)
             if translated is None:
                 raise SystemExit(
-                    f"missing translated runtime-keyword entry: {entry.entry_id}"
+                    f"missing translated dialogue entry: {entry.entry_id}"
                 )
-            runtime_keyword_link_count += _validate_runtime_keywords(
+            has_keyword_links = "《" in entry.text
+            verdict = evaluate_story_quote(
                 entry.text,
                 translated,
-                keyword_catalog,
-                label=entry.entry_id,
+                source_speakers[entry.speaker_id],
+                has_keyword_links=has_keyword_links,
             )
-            runtime_keyword_source_hashes.update(
-                hashlib.sha256(term.encode("utf-8")).hexdigest()
-                for term in _keyword_spans(
-                    entry.text, label=f"{entry.entry_id} source"
+            quote_style_counts[verdict.expected] += 1
+            if not verdict.exact:
+                raise SystemExit(
+                    f"{entry.entry_id} dialogue outer punctuation mismatch: "
+                    f"expected={verdict.expected} actual={verdict.actual}"
                 )
-            )
+            if has_keyword_links:
+                runtime_keyword_link_count += _validate_runtime_keywords(
+                    entry.text,
+                    translated,
+                    keyword_catalog,
+                    label=entry.entry_id,
+                )
+                runtime_keyword_source_hashes.update(
+                    hashlib.sha256(term.encode("utf-8")).hexdigest()
+                    for term in _keyword_spans(
+                        entry.text, label=f"{entry.entry_id} source"
+                    )
+                )
         stage_conditions = {
             entry_id: translation
             for entry_id, translation in conditions.items()
@@ -455,6 +477,8 @@ def build(
                 runtime_keyword_source_hashes
             ),
             "runtime_keyword_links_exact": True,
+            "dialogue_quote_style_counts": dict(sorted(quote_style_counts.items())),
+            "dialogue_outer_punctuation_exact": True,
             "source_encoded_size": decoded.consumed,
             "output_encoded_size": len(encoded),
             "source_chunk_size": len(source_chunks[stage]),
@@ -501,6 +525,21 @@ def build(
             for source_hash in item["runtime_keyword_source_hashes"]
         }
     )
+    dialogue_quote_style_counts = Counter()
+    for item in stage_reports:
+        dialogue_quote_style_counts.update(item["dialogue_quote_style_counts"])
+    expected_quote_styles = translations.get("expected_dialogue_quote_styles")
+    if (
+        sum(dialogue_quote_style_counts.values())
+        != translations.get("expected_dialogue_entry_count")
+        or dict(sorted(dialogue_quote_style_counts.items()))
+        != expected_quote_styles
+    ):
+        raise SystemExit(
+            "dialogue outer-punctuation coverage drift: "
+            f"expected={expected_quote_styles} "
+            f"actual={dict(sorted(dialogue_quote_style_counts.items()))}"
+        )
     if (
         runtime_keyword_link_count
         != translations.get("expected_runtime_keyword_link_count")
@@ -580,6 +619,12 @@ def build(
         "runtime_keyword_source_hashes": runtime_keyword_source_hashes,
         "runtime_keyword_links_exact": all(
             item["runtime_keyword_links_exact"] for item in stage_reports
+        ),
+        "dialogue_quote_style_counts": dict(
+            sorted(dialogue_quote_style_counts.items())
+        ),
+        "dialogue_outer_punctuation_exact": all(
+            item["dialogue_outer_punctuation_exact"] for item in stage_reports
         ),
         "runtime_acceptance": "not tested",
     }

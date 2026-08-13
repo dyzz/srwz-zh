@@ -1,0 +1,484 @@
+{
+  "schema_version": 1,
+  "freeze_id": "srwz-zh-legacy-formation-affected-characters-v1",
+  "status": "reviewed_locked",
+  "update_policy": "explicit_refreeze_only",
+  "scope": "Freeze every current display-character assignment affected by the complete legacy/default-formation compatibility migration. Normal font updates may append unrelated characters but must not move these characters or repurpose their vacated codes.",
+  "source_snapshot_id": "srwz-zh-release-font-assignments-v1",
+  "expected": {
+    "relocation_count": 30,
+    "retired_alias_count": 27,
+    "affected_character_count": 57,
+    "current_primary_assignment_count": 54,
+    "current_surface_alias_assignment_count": 3,
+    "frozen_mapping_sha256": "9530a4bbef6fc040092d0102a7b93019c46e83dcc4fea7be50daec2e1d6f3833"
+  },
+  "current_translation_audit": {
+    "selection_sha256": "16d2076c921f9b2ec213bdbdf035c6f0ffbaef6f7c4db40282aa13d42fa64ec1",
+    "unique_entry_count": 125750,
+    "positive_demand_character_count": 54,
+    "zero_demand_characters": "ビラン",
+    "total_occurrence_count": 108724,
+    "note": "Audit evidence captured when this mapping was approved; demand may evolve without permitting mapping drift."
+  },
+  "relocations": [
+    {
+      "character": "耕",
+      "from_code": "82A2",
+      "current_code": "82D3",
+      "current_glyph_index": 339,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "い"
+    },
+    {
+      "character": "鶫",
+      "from_code": "82CC",
+      "current_code": "82D4",
+      "current_glyph_index": 340,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "の"
+    },
+    {
+      "character": "蟑",
+      "from_code": "8D95",
+      "current_code": "90F0",
+      "current_glyph_index": 3056,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "黒"
+    },
+    {
+      "character": "呣",
+      "from_code": "9167",
+      "current_code": "90F1",
+      "current_glyph_index": 3057,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "組"
+    },
+    {
+      "character": "噪",
+      "from_code": "91E0",
+      "current_code": "90FC",
+      "current_glyph_index": 3068,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "隊"
+    },
+    {
+      "character": "箔",
+      "from_code": "95CA",
+      "current_code": "9140",
+      "current_glyph_index": 3072,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "別"
+    },
+    {
+      "character": "“",
+      "from_code": "8FE6",
+      "current_code": "9141",
+      "current_glyph_index": 3073,
+      "current_assignment_kind": "surface_alias",
+      "from_code_active_character": "乗"
+    },
+    {
+      "character": "哄",
+      "from_code": "93AD",
+      "current_code": "9142",
+      "current_glyph_index": 3074,
+      "current_assignment_kind": "surface_alias",
+      "from_code_active_character": "働"
+    },
+    {
+      "character": "涂",
+      "from_code": "94F2",
+      "current_code": "9143",
+      "current_glyph_index": 3075,
+      "current_assignment_kind": "surface_alias",
+      "from_code_active_character": "飛"
+    },
+    {
+      "character": "喻",
+      "from_code": "88D9",
+      "current_code": "9145",
+      "current_glyph_index": 3077,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "異"
+    },
+    {
+      "character": "孙",
+      "from_code": "8971",
+      "current_code": "914A",
+      "current_glyph_index": 3082,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "衛"
+    },
+    {
+      "character": "殄",
+      "from_code": "8ACD",
+      "current_code": "914B",
+      "current_glyph_index": 3083,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "艦"
+    },
+    {
+      "character": "潦",
+      "from_code": "8B63",
+      "current_code": "93E8",
+      "current_glyph_index": 3624,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "議"
+    },
+    {
+      "character": "炽",
+      "from_code": "8B89",
+      "current_code": "9743",
+      "current_glyph_index": 4227,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "級"
+    },
+    {
+      "character": "痣",
+      "from_code": "8BE2",
+      "current_code": "978D",
+      "current_glyph_index": 4301,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "銀"
+    },
+    {
+      "character": "瞎",
+      "from_code": "8C52",
+      "current_code": "95DC",
+      "current_glyph_index": 3996,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "軍"
+    },
+    {
+      "character": "簇",
+      "from_code": "8C82",
+      "current_code": "93A8",
+      "current_glyph_index": 3560,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "撃"
+    },
+    {
+      "character": "缘",
+      "from_code": "8CAB",
+      "current_code": "93A2",
+      "current_glyph_index": 3554,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "賢"
+    },
+    {
+      "character": "诅",
+      "from_code": "8DBB",
+      "current_code": "9375",
+      "current_glyph_index": 3509,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "砂"
+    },
+    {
+      "character": "颇",
+      "from_code": "8F62",
+      "current_code": "924C",
+      "current_glyph_index": 3276,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "獣"
+    },
+    {
+      "character": "咧",
+      "from_code": "918D",
+      "current_code": "93C9",
+      "current_glyph_index": 3593,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "総"
+    },
+    {
+      "character": "慨",
+      "from_code": "9347",
+      "current_code": "95F7",
+      "current_glyph_index": 4023,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "敵"
+    },
+    {
+      "character": "抡",
+      "from_code": "9353",
+      "current_code": "8FF5",
+      "current_glyph_index": 2869,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "鉄"
+    },
+    {
+      "character": "掸",
+      "from_code": "93AA",
+      "current_code": "9294",
+      "current_glyph_index": 3348,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "頭"
+    },
+    {
+      "character": "旨",
+      "from_code": "93AE",
+      "current_code": "92C1",
+      "current_glyph_index": 3393,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "動"
+    },
+    {
+      "character": "窟",
+      "from_code": "94F5",
+      "current_code": "94AB",
+      "current_glyph_index": 3755,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "備"
+    },
+    {
+      "character": "窿",
+      "from_code": "9589",
+      "current_code": "9644",
+      "current_glyph_index": 4036,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "負"
+    },
+    {
+      "character": "聒",
+      "from_code": "96B3",
+      "current_code": "919B",
+      "current_glyph_index": 3163,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "無"
+    },
+    {
+      "character": "饷",
+      "from_code": "9841",
+      "current_code": "9655",
+      "current_glyph_index": 4053,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "連"
+    },
+    {
+      "character": "驼",
+      "from_code": "9862",
+      "current_code": "9292",
+      "current_glyph_index": 3346,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "話"
+    }
+  ],
+  "retired_aliases": [
+    {
+      "character": "═",
+      "from_code": "95DC",
+      "current_code": "8794",
+      "current_glyph_index": 1236,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "瞎"
+    },
+    {
+      "character": "●",
+      "from_code": "8FF5",
+      "current_code": "819C",
+      "current_glyph_index": 92,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "抡"
+    },
+    {
+      "character": "ビ",
+      "from_code": "9145",
+      "current_code": "8372",
+      "current_glyph_index": 434,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "喻"
+    },
+    {
+      "character": "ラ",
+      "from_code": "914A",
+      "current_code": "8389",
+      "current_glyph_index": 457,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "孙"
+    },
+    {
+      "character": "ン",
+      "from_code": "914B",
+      "current_code": "8393",
+      "current_glyph_index": 467,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "殄"
+    },
+    {
+      "character": "佯",
+      "from_code": "9375",
+      "current_code": "8563",
+      "current_glyph_index": 803,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "诅"
+    },
+    {
+      "character": "吝",
+      "from_code": "93A2",
+      "current_code": "8572",
+      "current_glyph_index": 818,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "缘"
+    },
+    {
+      "character": "吭",
+      "from_code": "93A8",
+      "current_code": "8574",
+      "current_glyph_index": 820,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "簇"
+    },
+    {
+      "character": "喽",
+      "from_code": "919B",
+      "current_code": "83E9",
+      "current_glyph_index": 553,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "聒"
+    },
+    {
+      "character": "壤",
+      "from_code": "924C",
+      "current_code": "847F",
+      "current_glyph_index": 639,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "颇"
+    },
+    {
+      "character": "姨",
+      "from_code": "93C9",
+      "current_code": "8583",
+      "current_glyph_index": 835,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "咧"
+    },
+    {
+      "character": "惭",
+      "from_code": "9292",
+      "current_code": "84CC",
+      "current_glyph_index": 716,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "驼"
+    },
+    {
+      "character": "愣",
+      "from_code": "9294",
+      "current_code": "84CE",
+      "current_glyph_index": 718,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "掸"
+    },
+    {
+      "character": "拱",
+      "from_code": "93E8",
+      "current_code": "8597",
+      "current_glyph_index": 855,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "潦"
+    },
+    {
+      "character": "揪",
+      "from_code": "92C1",
+      "current_code": "84E6",
+      "current_glyph_index": 742,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "旨"
+    },
+    {
+      "character": "膛",
+      "from_code": "95F7",
+      "current_code": "87A4",
+      "current_glyph_index": 1252,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "慨"
+    },
+    {
+      "character": "茬",
+      "from_code": "9644",
+      "current_code": "87A7",
+      "current_glyph_index": 1255,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "窿"
+    },
+    {
+      "character": "蛊",
+      "from_code": "9655",
+      "current_code": "87B0",
+      "current_glyph_index": 1264,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "饷"
+    },
+    {
+      "character": "跤",
+      "from_code": "9743",
+      "current_code": "87F4",
+      "current_glyph_index": 1332,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "炽"
+    },
+    {
+      "character": "钛",
+      "from_code": "978D",
+      "current_code": "8853",
+      "current_glyph_index": 1363,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "痣"
+    },
+    {
+      "character": "隘",
+      "from_code": "94AB",
+      "current_code": "86E8",
+      "current_glyph_index": 1128,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "窟"
+    },
+    {
+      "character": "丫",
+      "from_code": "9065",
+      "current_code": "81BA",
+      "current_glyph_index": 122,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "親"
+    },
+    {
+      "character": "伦",
+      "from_code": "90BF",
+      "current_code": "81FE",
+      "current_glyph_index": 190,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "請"
+    },
+    {
+      "character": "挤",
+      "from_code": "92B9",
+      "current_code": "84E2",
+      "current_glyph_index": 738,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "鳥"
+    },
+    {
+      "character": "狱",
+      "from_code": "9550",
+      "current_code": "875A",
+      "current_glyph_index": 1178,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "姫"
+    },
+    {
+      "character": "边",
+      "from_code": "9762",
+      "current_code": "8843",
+      "current_glyph_index": 1347,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "傭"
+    },
+    {
+      "character": "连",
+      "from_code": "977A",
+      "current_code": "884D",
+      "current_glyph_index": 1357,
+      "current_assignment_kind": "primary",
+      "from_code_active_character": "陽"
+    }
+  ]
+}

@@ -24,6 +24,7 @@ from srwz.release_font import (
     audit_legacy_formation_glyph_compatibility,
     audit_runtime_generated_glyph_compatibility,
     baseline_with_original_ascii,
+    load_frozen_formation_compatibility,
     rendered_characters,
     selected_translation_tree_entries,
 )
@@ -198,6 +199,13 @@ def main() -> int:
                 snapshot,
                 table,
                 project_root=PROJECT_ROOT,
+            )
+        )
+        frozen_formation_assignments = (
+            load_frozen_formation_compatibility(
+                PROJECT_ROOT,
+                config,
+                snapshot,
             )
         )
     except ReleaseFontError as error:
@@ -392,6 +400,12 @@ def main() -> int:
                 "all_runtime_generated_original_codes_preserved"
             ]
         ),
+        "formation_affected_character_assignments_frozen": (
+            frozen_formation_assignments[
+                "all_affected_character_assignments_frozen"
+            ]
+            and frozen_formation_assignments["all_vacated_codes_frozen"]
+        ),
         "proposal_and_component_assignment_counts_exact": True,
         "glyph_preimages_and_rasters_exact": True,
         "all_translation_fields_missing_character_count_zero": True,
@@ -503,6 +517,9 @@ def main() -> int:
         "legacy_formation_compatibility": legacy_formation_compatibility,
         "runtime_generated_glyph_compatibility": (
             runtime_generated_compatibility
+        ),
+        "formation_affected_character_freeze": (
+            frozen_formation_assignments
         ),
         "proposal": _lock(proposal_path),
         "readiness": _lock(readiness_path),

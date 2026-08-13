@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import struct
+from collections import Counter
 from pathlib import Path
 
 from srwz.archive import sha256_file
@@ -44,12 +45,19 @@ from srwz.hsfc_overview import (
 from srwz.image_export import parse_seg_offsets
 from srwz.menu import parse_menu_file
 from srwz.psmt4 import unswizzle_psmt4
+from srwz.runtime_keywords import (
+    RuntimeKeywordError,
+    apply_compdata_keyword_names,
+    apply_stage_keyword_popups,
+    load_keyword_authority,
+)
 from srwz.srvc import parse_srvc_archive
 from srwz.stage import (
     parse_stage,
     parse_stage_system_dialogues,
     read_stage_function_addresses,
 )
+from srwz.story_quotes import evaluate_story_quote
 from srwz.stage_overview import parse_stage_overviews
 from srwz.stage_formations import (
     STAGE_OFFSET_SPEC,
@@ -1987,6 +1995,50 @@ def verify_final_compdata(
         for offset in scenario_button_expectations
     } != scenario_button_expectations:
         raise SystemExit("scenario-select button-label offset contract drift")
+    library_runtime_text_expectations = {
+        "0x340BD8": "攻略Q&A",
+        "0x340C08": "：确定",
+        "0x340C10": "：返回",
+        "0x340C18": "：切换页面",
+        "0x3472B0": "　　＜机体图鉴＞　",
+        "0x3472D0": "　　＜角色事典＞　　",
+        "0x3472E8": "＜术语事典＞",
+        "0x347300": "　　＜音乐选择＞　　",
+        "0x347320": "　　＜剧情流程＞　　",
+        "0x347338": "＜攻略Q&A＞",
+    }
+    if {
+        offset: {
+            **remaining_document["slps_context_ui_by_offset"],
+            **remaining_document["slps_by_offset"],
+        }.get(offset)
+        for offset in library_runtime_text_expectations
+    } != library_runtime_text_expectations:
+        raise SystemExit("LIBRARY runtime-text offset contract drift")
+    confirm_prompt_expectations = {
+        "0x3407B0": "：确定",
+        "0x340C08": "：确定",
+        "0x340CA8": "：确定",
+        "0x340E38": "：确定",
+        "0x3434B0": "：确定",
+        "0x3435C0": "：确定",
+        "0x347870": "：确定",
+    }
+    if {
+        offset: {
+            **remaining_document["slps_context_ui_by_offset"],
+            **remaining_document["slps_by_offset"],
+        }.get(offset)
+        for offset in confirm_prompt_expectations
+    } != confirm_prompt_expectations:
+        raise SystemExit("global confirm-prompt offset contract drift")
+    raw_decision_glyph = bytes.fromhex("8c8892e8")
+    residual_raw_decision_count = slps.count(raw_decision_glyph)
+    if residual_raw_decision_count:
+        raise SystemExit(
+            "final SLPS still contains raw 決定 glyph codes: "
+            f"{residual_raw_decision_count}"
+        )
     male_profile = remaining_document["compdata_direct_by_offset"].get(
         "0x7FD20"
     )
@@ -2249,6 +2301,16 @@ def verify_final_compdata(
             "map_names_readback_exact": True,
             "squad_name_offsets": squad_formation_name_expectations,
             "squad_names_readback_exact": True,
+        },
+        "library_regressions": {
+            "runtime_text_offsets": library_runtime_text_expectations,
+            "runtime_text_readback_exact": True,
+            "confirm_prompt_offsets": confirm_prompt_expectations,
+            "confirm_prompts_readback_exact": True,
+            "residual_raw_decision_glyph_count": (
+                residual_raw_decision_count
+            ),
+            "raw_decision_glyph_absent": True,
         },
         "new_game_regressions": {
             "male_default_name_offsets": new_game_name_expectations,
@@ -2602,6 +2664,109 @@ def main() -> int:
     full_component_config = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )
+    runtime_keyword_reference = full_component_config.get("runtime_keywords")
+    if not isinstance(runtime_keyword_reference, dict):
+        raise SystemExit("runtime-keyword final-ISO configuration is missing")
+
+    def locked_runtime_keyword_input(reference: dict, label: str) -> bytes:
+        path = PROJECT_ROOT / str(reference.get("path", ""))
+        data = path.read_bytes()
+        if (
+            len(data) != reference.get("size")
+            or sha256_bytes(data) != reference.get("sha256")
+        ):
+            raise SystemExit(f"runtime-keyword input lock drift: {label}")
+        return data
+
+    runtime_keyword_catalog = locked_runtime_keyword_input(
+        runtime_keyword_reference["catalog"],
+        "catalog",
+    )
+    locked_runtime_keyword_input(
+        runtime_keyword_reference["library_archive"],
+        "translated LIBRARY archive",
+    )
+    try:
+        runtime_keyword_authority = load_keyword_authority(
+            runtime_keyword_catalog,
+            members["DATA/MTVZKNKW.BIN"],
+            slps,
+            compdata_table,
+            table_start=int(
+                str(runtime_keyword_reference["keyword_table_start"]), 0
+            ),
+            table_end=int(
+                str(runtime_keyword_reference["keyword_table_end"]), 0
+            ),
+            expected_count=runtime_keyword_reference["expected"][
+                "keyword_count"
+            ],
+        )
+        original_compdata_stored = locked_runtime_keyword_input(
+            full_component_config["remaining_ui"]["original_compdata"],
+            "original COMPDATA",
+        )
+        original_compdata = decode(original_compdata_stored)
+        final_compdata_stored = members["DATA/COMPDATA.BN"]
+        final_compdata = decode(final_compdata_stored)
+        if (
+            original_compdata.consumed != len(original_compdata_stored)
+            or final_compdata.consumed != len(final_compdata_stored)
+        ):
+            raise RuntimeKeywordError("COMPDATA keyword stream boundary drift")
+        verified_compdata, runtime_keyword_compdata_report = (
+            apply_compdata_keyword_names(
+                final_compdata.output,
+                original_compdata.output,
+                runtime_keyword_authority,
+                source_table,
+                runtime_keyword_reference,
+                runtime_base=int(
+                    str(runtime_keyword_reference["compdata_runtime_base"]), 0
+                ),
+                pointer_table_offset=int(
+                    str(
+                        runtime_keyword_reference[
+                            "compdata_pointer_table_offset"
+                        ]
+                    ),
+                    0,
+                ),
+            )
+        )
+        if verified_compdata != final_compdata.output:
+            raise RuntimeKeywordError(
+                "final COMPDATA keyword list labels are not complete"
+            )
+        original_stage = locked_runtime_keyword_input(
+            full_component_config["remaining_ui"]["original_stage"],
+            "original STAGE",
+        )
+        verified_stage, runtime_keyword_stage_report = (
+            apply_stage_keyword_popups(
+                stage_archive,
+                original_stage,
+                hb,
+                runtime_keyword_authority,
+                source_table,
+                runtime_keyword_reference,
+                full_component_config["full_pilot_names"]["codec"],
+                verify_only=True,
+            )
+        )
+        if verified_stage != stage_archive:
+            raise RuntimeKeywordError(
+                "final STAGE keyword popup fields are not complete"
+            )
+    except (KeyError, TypeError, ValueError, RuntimeKeywordError) as error:
+        raise SystemExit(f"runtime-keyword final-ISO readback failed: {error}") from error
+    runtime_keyword_report = {
+        "authority_keyword_count": len(runtime_keyword_authority.entries),
+        "library_popup_fields_exact": True,
+        "compdata": runtime_keyword_compdata_report,
+        "stage": runtime_keyword_stage_report,
+        "all_three_runtime_surfaces_exact": True,
+    }
     world_history_report = verify_world_history(
         slps,
         members["DATA/MTV_PROS.BIN"],
@@ -2877,6 +3042,13 @@ def main() -> int:
         .get("chunks", [])
         if isinstance(item, dict)
     }
+    runtime_keyword_stage_metadata = {
+        item.get("stage_index"): item
+        for item in component.get("runtime_keywords", {})
+        .get("stage", {})
+        .get("chunks", [])
+        if isinstance(item, dict)
+    }
 
     stage_reports = []
     total_entries = 0
@@ -2885,6 +3057,7 @@ def main() -> int:
     total_speakers = 0
     maximum_dialogue_line_width = 0
     maximum_dialogue_line_count = 0
+    dialogue_quote_style_counts = Counter()
     runtime_token_entry_count = 0
     runtime_token_occurrence_count = 0
     story_raw_space_target_count = 0
@@ -2962,6 +3135,13 @@ def main() -> int:
                 "output_encoded_size"
             )
             expected_encoded_sha256 = default_formation_metadata[stage].get(
+                "output_encoded_sha256"
+            )
+        if stage in runtime_keyword_stage_metadata:
+            expected_encoded_size = runtime_keyword_stage_metadata[stage].get(
+                "output_encoded_size"
+            )
+            expected_encoded_sha256 = runtime_keyword_stage_metadata[stage].get(
                 "output_encoded_sha256"
             )
         encoded = chunk[:decoded.consumed]
@@ -3152,6 +3332,11 @@ def main() -> int:
             entry.entry_id: entry for entry in source_parsed.entries
             if entry.kind == "dialogue"
         }
+        source_speakers = {
+            entry.speaker_id: entry.text
+            for entry in source_parsed.entries
+            if entry.kind == "speaker"
+        }
         if set(output_entries) != set(source_entries):
             raise SystemExit(
                 f"stage {stage:03d} dialogue structure changed"
@@ -3322,6 +3507,19 @@ def main() -> int:
                 else output_entry.text_offset
             )
             expected_translation = dialogue[entry_id]
+            quote_verdict = evaluate_story_quote(
+                source_entry.text,
+                expected_translation,
+                source_speakers[source_entry.speaker_id],
+                has_keyword_links=("《" in source_entry.text),
+            )
+            dialogue_quote_style_counts[quote_verdict.expected] += 1
+            if not quote_verdict.exact:
+                raise SystemExit(
+                    f"{entry_id} final-ISO outer punctuation mismatch: "
+                    f"expected={quote_verdict.expected} "
+                    f"actual={quote_verdict.actual}"
+                )
             expected_payload = encode_stage_message(
                 source_table,
                 stage_overrides,
@@ -3504,6 +3702,15 @@ def main() -> int:
             f"full-story entry count {total_entries}, expected "
             f"{expected_entry_count}"
         )
+    expected_quote_styles = source_config["translations"].get(
+        "expected_dialogue_quote_styles"
+    )
+    if dict(sorted(dialogue_quote_style_counts.items())) != expected_quote_styles:
+        raise SystemExit(
+            "final ISO dialogue outer-punctuation coverage drift: "
+            f"expected={expected_quote_styles} "
+            f"actual={dict(sorted(dialogue_quote_style_counts.items()))}"
+        )
     if set(story_ascii_storage_examples) != {"ZAFT", "PLANT"}:
         raise SystemExit(
             "final ISO story ASCII examples are incomplete: "
@@ -3679,6 +3886,11 @@ def main() -> int:
             "maximum_line_count": maximum_dialogue_line_count,
             "all_dialogue_within_limit": True,
         },
+        "dialogue_outer_punctuation": {
+            "policy": "source-driven; runtime keyword records are exempt",
+            "style_counts": dict(sorted(dialogue_quote_style_counts.items())),
+            "all_dialogue_outer_punctuation_exact": True,
+        },
         "library": {
             "robot_entry_count": 321,
             "character_entry_count": 411,
@@ -3760,6 +3972,7 @@ def main() -> int:
         "nisv_effect_names": nisv_effect_names,
         "auto_demo_overlays": auto_demo_overlays,
         "world_history": world_history_report,
+        "runtime_keywords": runtime_keyword_report,
         "stage_overviews": overview_report,
         "hsfc_overviews": hsfc_report,
         "members": {
@@ -3799,6 +4012,21 @@ def main() -> int:
                     "fixed_index_rectangles_reread_exact"
                 ]
                 and all(library_acceptance.values())
+            ),
+            "runtime_keyword_surfaces_exact": (
+                runtime_keyword_report["all_three_runtime_surfaces_exact"]
+                and runtime_keyword_report["authority_keyword_count"] == 52
+                and runtime_keyword_compdata_report["list_label_count"] == 52
+                and runtime_keyword_compdata_report["relocation_count"] == 2
+                and runtime_keyword_compdata_report["changed_byte_count"] == 0
+                and runtime_keyword_stage_report["record_count"] == 77
+                and runtime_keyword_stage_report["stage_chunk_count"] == 44
+                and runtime_keyword_stage_report["field_reference_count"] == 308
+                and runtime_keyword_stage_report["allocation_count"] == 233
+                and runtime_keyword_stage_report["relocation_count"] == 3
+                and runtime_keyword_stage_report[
+                    "all_four_fields_match_library"
+                ]
             ),
             "font_chunk_exact": True,
             "font_renderer_coverage_complete": (
@@ -3960,6 +4188,17 @@ def main() -> int:
             "remaining_ui_binary_text_exact": compdata_report[
                 "remaining_ui"
             ]["readback_exact"],
+            "library_runtime_text_exact": compdata_report[
+                "library_regressions"
+            ]["runtime_text_readback_exact"],
+            "all_confirm_prompts_use_localized_glyphs": (
+                compdata_report["library_regressions"][
+                    "confirm_prompts_readback_exact"
+                ]
+                and compdata_report["library_regressions"][
+                    "raw_decision_glyph_absent"
+                ]
+            ),
             "compdata_battle_lines_exact": (
                 compdata_report["battle_lines"]["corpus_entry_count"] == 297
                 and compdata_report["battle_lines"][

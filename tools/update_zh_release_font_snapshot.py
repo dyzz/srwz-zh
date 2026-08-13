@@ -31,6 +31,7 @@ from srwz.release_font import (
     assignment_index,
     audit_legacy_formation_glyph_compatibility,
     audit_runtime_generated_glyph_compatibility,
+    load_frozen_formation_compatibility,
     rendered_characters,
     selected_translation_tree_entries,
 )
@@ -143,6 +144,14 @@ def main() -> int:
         "source_compatibility_mapping_sha256"
     ):
         raise SystemExit("release source-compatibility mapping drift")
+    try:
+        frozen_formation_assignments = load_frozen_formation_compatibility(
+            PROJECT_ROOT,
+            config,
+            snapshot,
+        )
+    except ReleaseFontError as error:
+        raise SystemExit(str(error)) from error
     before_primary = json.dumps(
         primary,
         ensure_ascii=False,
@@ -380,6 +389,7 @@ def main() -> int:
         f"allocations={allocation_additions}",
         f"reraster={reraster_additions}",
         f"remaining={remaining}",
+        f"formation_frozen={frozen_formation_assignments['affected_character_count']}",
     )
     if added:
         print(

@@ -43,6 +43,246 @@ def _hash_file(path: Path) -> str:
     return sha256_bytes(path.read_bytes())
 
 
+def audit_frozen_formation_compatibility_assignments(
+    snapshot: Mapping[str, object],
+    freeze: Mapping[str, object],
+) -> dict:
+    """Fail closed if any approved formation-compatibility mapping moves."""
+
+    expected = freeze.get("expected")
+    relocations = freeze.get("relocations")
+    retired_aliases = freeze.get("retired_aliases")
+    if (
+        freeze.get("schema_version") != 1
+        or freeze.get("status") != "reviewed_locked"
+        or freeze.get("update_policy") != "explicit_refreeze_only"
+        or freeze.get("source_snapshot_id") != snapshot.get("snapshot_id")
+        or not isinstance(expected, Mapping)
+        or not isinstance(relocations, list)
+        or not isinstance(retired_aliases, list)
+    ):
+        raise ReleaseFontError(
+            "frozen formation affected-character contract is invalid"
+        )
+
+    frozen_rows = {
+        "relocations": relocations,
+        "retired_aliases": retired_aliases,
+    }
+    frozen_mapping_sha256 = sha256_bytes(
+        json.dumps(
+            frozen_rows,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+    rows = [*relocations, *retired_aliases]
+    characters = [
+        row.get("character") for row in rows if isinstance(row, Mapping)
+    ]
+    primary_count = sum(
+        isinstance(row, Mapping)
+        and row.get("current_assignment_kind") == "primary"
+        for row in rows
+    )
+    alias_count = sum(
+        isinstance(row, Mapping)
+        and row.get("current_assignment_kind") == "surface_alias"
+        for row in rows
+    )
+    if (
+        len(relocations) != expected.get("relocation_count")
+        or len(retired_aliases) != expected.get("retired_alias_count")
+        or len(rows) != expected.get("affected_character_count")
+        or len(set(characters)) != len(rows)
+        or primary_count != expected.get("current_primary_assignment_count")
+        or alias_count
+        != expected.get("current_surface_alias_assignment_count")
+        or frozen_mapping_sha256 != expected.get("frozen_mapping_sha256")
+    ):
+        raise ReleaseFontError(
+            "frozen formation affected-character inventory drift"
+        )
+
+    extensions = snapshot.get("extensions")
+    if not isinstance(extensions, list):
+        raise ReleaseFontError("release font snapshot extensions are invalid")
+    contracts = [
+        extension["legacy_save_formation_compatibility"]
+        for extension in extensions
+        if isinstance(extension, Mapping)
+        and "legacy_save_formation_compatibility" in extension
+    ]
+    if len(contracts) != 1 or not isinstance(contracts[0], Mapping):
+        raise ReleaseFontError(
+            "release font snapshot must have exactly one legacy formation contract"
+        )
+    contract = contracts[0]
+    contract_relocations = contract.get("relocations")
+    contract_retired_aliases = contract.get("retired_aliases")
+    if not isinstance(contract_relocations, list) or not isinstance(
+        contract_retired_aliases, list
+    ):
+        raise ReleaseFontError("legacy formation compatibility contract is invalid")
+    if [
+        (row.get("character"), row.get("from_code"), row.get("to_code"))
+        for row in contract_relocations
+        if isinstance(row, Mapping)
+    ] != [
+        (row.get("character"), row.get("from_code"), row.get("current_code"))
+        for row in relocations
+        if isinstance(row, Mapping)
+    ] or [
+        (row.get("character"), row.get("from_code"))
+        for row in contract_retired_aliases
+        if isinstance(row, Mapping)
+    ] != [
+        (row.get("character"), row.get("from_code"))
+        for row in retired_aliases
+        if isinstance(row, Mapping)
+    ]:
+        raise ReleaseFontError(
+            "frozen formation affected-character migration scope drift"
+        )
+
+    primary = snapshot.get("primary_assignments")
+    aliases = snapshot.get("surface_alias_assignments")
+    compatibility = snapshot.get("source_compatibility_assignments")
+    if not all(
+        isinstance(mapping_rows, list)
+        for mapping_rows in (primary, aliases, compatibility)
+    ):
+        raise ReleaseFontError("release font snapshot mappings are invalid")
+    primary_by_character = {
+        row.get("character"): row
+        for row in primary
+        if isinstance(row, Mapping)
+    }
+    alias_by_character = {
+        row.get("character"): row
+        for row in aliases
+        if isinstance(row, Mapping)
+    }
+    active_by_code: dict[str, str] = {}
+    for row in (*primary, *aliases, *compatibility):
+        if not isinstance(row, Mapping):
+            raise ReleaseFontError("release font snapshot mapping row is invalid")
+        code = row.get("code")
+        character = row.get("character")
+        if (
+            not isinstance(code, str)
+            or not isinstance(character, str)
+            or len(character) != 1
+            or code in active_by_code
+        ):
+            raise ReleaseFontError("release font snapshot mapping row is invalid")
+        active_by_code[code] = character
+
+    for row in rows:
+        if not isinstance(row, Mapping):
+            raise ReleaseFontError(
+                "frozen formation affected-character row is invalid"
+            )
+        character = row.get("character")
+        from_code = row.get("from_code")
+        current_code = row.get("current_code")
+        glyph_index = row.get("current_glyph_index")
+        assignment_kind = row.get("current_assignment_kind")
+        from_code_character = row.get("from_code_active_character")
+        try:
+            codes_are_canonical = all(
+                f"{int(code, 16):04X}" == code
+                for code in (from_code, current_code)
+            )
+        except (TypeError, ValueError):
+            codes_are_canonical = False
+        if (
+            not isinstance(character, str)
+            or len(character) != 1
+            or not isinstance(from_code_character, str)
+            or len(from_code_character) != 1
+            or not isinstance(glyph_index, int)
+            or isinstance(glyph_index, bool)
+            or assignment_kind not in {"primary", "surface_alias"}
+            or not codes_are_canonical
+        ):
+            raise ReleaseFontError(
+                "frozen formation affected-character row is invalid"
+            )
+        assignment = (
+            primary_by_character.get(character)
+            if assignment_kind == "primary"
+            else alias_by_character.get(character)
+        )
+        if (
+            not isinstance(assignment, Mapping)
+            or assignment.get("code") != current_code
+            or assignment.get("glyph_index") != glyph_index
+            or active_by_code.get(current_code) != character
+            or active_by_code.get(from_code) != from_code_character
+        ):
+            raise ReleaseFontError(
+                "frozen formation affected-character mapping drift: "
+                f"{character!r}"
+            )
+
+    return {
+        "freeze_id": freeze.get("freeze_id"),
+        "status": freeze.get("status"),
+        "update_policy": freeze.get("update_policy"),
+        "relocation_count": len(relocations),
+        "retired_alias_count": len(retired_aliases),
+        "affected_character_count": len(rows),
+        "current_primary_assignment_count": primary_count,
+        "current_surface_alias_assignment_count": alias_count,
+        "frozen_mapping_sha256": frozen_mapping_sha256,
+        "all_affected_character_assignments_frozen": True,
+        "all_vacated_codes_frozen": True,
+    }
+
+
+def load_frozen_formation_compatibility(
+    project_root: Path,
+    config: Mapping[str, object],
+    snapshot: Mapping[str, object],
+) -> dict:
+    """Load the hash-locked freeze file and audit it against a snapshot."""
+
+    reference = config.get("formation_compatibility_freeze")
+    if not isinstance(reference, Mapping):
+        raise ReleaseFontError(
+            "release font profile has no formation compatibility freeze"
+        )
+    path = _project_path(project_root, reference.get("path"))
+    data = path.read_bytes()
+    if (
+        len(data) != reference.get("size")
+        or sha256_bytes(data) != reference.get("sha256")
+    ):
+        raise ReleaseFontError("formation compatibility freeze lock drift")
+    try:
+        freeze = json.loads(data.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise ReleaseFontError(
+            "formation compatibility freeze is malformed"
+        ) from error
+    if (
+        not isinstance(freeze, Mapping)
+        or freeze.get("freeze_id") != reference.get("freeze_id")
+    ):
+        raise ReleaseFontError("formation compatibility freeze identity drift")
+    report = audit_frozen_formation_compatibility_assignments(snapshot, freeze)
+    return {
+        **report,
+        "contract": {
+            "path": str(path.relative_to(project_root.resolve())),
+            "size": len(data),
+            "sha256": sha256_bytes(data),
+        },
+    }
+
+
 def assignment_index(path: Path) -> dict[str, dict]:
     document = json.loads(path.read_text(encoding="utf-8"))
     rows = document.get("assignments")

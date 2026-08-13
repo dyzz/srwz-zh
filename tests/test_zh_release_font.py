@@ -8,8 +8,10 @@ from pathlib import Path
 
 from tools.srwz.release_font import (
     ReleaseFontError,
+    audit_frozen_formation_compatibility_assignments,
     audit_legacy_formation_glyph_compatibility,
     audit_runtime_generated_glyph_compatibility,
+    load_frozen_formation_compatibility,
     selected_translation_tree_entries,
 )
 from tools.srwz.text import load_text_table
@@ -35,6 +37,12 @@ class ZhReleaseFontTests(unittest.TestCase):
             (
                 PROJECT_ROOT
                 / "config/encoding/zh-release-font-assignments.json"
+            ).read_text(encoding="utf-8")
+        )
+        cls.formation_freeze = json.loads(
+            (
+                PROJECT_ROOT
+                / "config/encoding/zh-release-formation-compatibility-freeze.json"
             ).read_text(encoding="utf-8")
         )
         cls.manifest = json.loads(
@@ -278,6 +286,50 @@ class ZhReleaseFontTests(unittest.TestCase):
         )
         self.assertEqual(active_by_code["9762"], "傭")
 
+    def test_all_formation_affected_characters_are_explicitly_frozen(self):
+        report = load_frozen_formation_compatibility(
+            PROJECT_ROOT,
+            self.profile,
+            self.snapshot,
+        )
+        self.assertEqual(report["status"], "reviewed_locked")
+        self.assertEqual(report["update_policy"], "explicit_refreeze_only")
+        self.assertEqual(report["relocation_count"], 30)
+        self.assertEqual(report["retired_alias_count"], 27)
+        self.assertEqual(report["affected_character_count"], 57)
+        self.assertEqual(report["current_primary_assignment_count"], 54)
+        self.assertEqual(
+            report["current_surface_alias_assignment_count"],
+            3,
+        )
+        self.assertEqual(
+            report["frozen_mapping_sha256"],
+            "9530a4bbef6fc040092d0102a7b93019c46e83dcc4fea7be50daec2e1d6f3833",
+        )
+        self.assertTrue(report["all_affected_character_assignments_frozen"])
+        self.assertTrue(report["all_vacated_codes_frozen"])
+        current_audit = self.formation_freeze["current_translation_audit"]
+        self.assertEqual(current_audit["positive_demand_character_count"], 54)
+        self.assertEqual(current_audit["zero_demand_characters"], "ビラン")
+        self.assertEqual(current_audit["total_occurrence_count"], 108724)
+
+    def test_formation_freeze_rejects_current_glyph_drift(self):
+        snapshot = json.loads(json.dumps(self.snapshot))
+        edge = next(
+            row
+            for row in snapshot["primary_assignments"]
+            if row["character"] == "边"
+        )
+        edge["glyph_index"] += 1
+        with self.assertRaisesRegex(
+            ReleaseFontError,
+            "frozen formation affected-character mapping drift",
+        ):
+            audit_frozen_formation_compatibility_assignments(
+                snapshot,
+                self.formation_freeze,
+            )
+
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
         self.assertEqual(self.snapshot["primary_assignment_count"], 3421)
         self.assertEqual(
@@ -490,7 +542,7 @@ class ZhReleaseFontTests(unittest.TestCase):
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]
-        self.assertEqual(selection["unique_entry_count"], 125744)
+        self.assertEqual(selection["unique_entry_count"], 125750)
         source_paths = {item["path"] for item in selection["sources"]}
         self.assertIn("corpus/zh/battle/srvc-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/battle-lines.json", source_paths)

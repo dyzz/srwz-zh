@@ -6,8 +6,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 33281,
-      "sha256": "afe1de9f49a7272aa9587bb83a74133db0a3805a4f7262a0fea1ae5cb1306d03"
+      "size": 36139,
+      "sha256": "d05203013ef82d98d61459a6d2093c154a85ad86e2a3cc7d256fcdee9b17ce1e"
     },
     "base_ui_manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -16,13 +16,13 @@
     },
     "full_story_font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 58387,
-      "sha256": "e2a0868baa73c3df469f2e7497a172d4c550fe36cf4500c2a8124cb7ebe526e3"
+      "size": 59230,
+      "sha256": "5d65e4fba0485c63fb5ec4a156e6d00f116cafeb018edd6c6fd267b0ecec9ca8"
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18066240,
-      "sha256": "2669132c63a6ecb31f432ac3c3b6508bcbc8cdeb1a59c34f01f5dd139dc66aa4"
+      "size": 18096825,
+      "sha256": "c712a8d9f51aaa739bf40aa76c94b1f2766682b188f7b78ce1e2812926b292c7"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -36,8 +36,8 @@
     },
     "remaining_display_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 95992,
-      "sha256": "f88bca8ffcda8c1c443437bb32630845a075b29ddcb099ed8ddc0850053d1854"
+      "size": 96166,
+      "sha256": "071ff782891e9846c2c58ccd69ac20b3ac77f2d86064e2698b4130b1ebc6724c"
     },
     "full_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -47,7 +47,7 @@
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
       "size": 3683306,
-      "sha256": "dd3e336ffb6c546c3f5ccb533015499aa0045972d882853a8752de604efea06a"
+      "sha256": "3a0763f4698370e4b5b7eab4c80cb7f653df46ccdf2b21d063e25f2ca579d2ef"
     },
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
@@ -61,8 +61,8 @@
     },
     "stage_overviews": {
       "path": "corpus/zh/menu/stage-overviews.json",
-      "size": 89402,
-      "sha256": "034c8fa4517a465b0aa9fe206f88974cb6f591d0bfee97253989e2ad9bb2e960"
+      "size": 89396,
+      "sha256": "a3f0fdaa574fa66cca3afa6e5fcdef9902b5449aa6ddcd3e74258fcedc197926"
     },
     "world_history_corpus": {
       "path": "corpus/zh/summary.json",
@@ -91,8 +91,8 @@
     },
     "remaining_ui_translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 95992,
-      "sha256": "f88bca8ffcda8c1c443437bb32630845a075b29ddcb099ed8ddc0850053d1854"
+      "size": 96166,
+      "sha256": "071ff782891e9846c2c58ccd69ac20b3ac77f2d86064e2698b4130b1ebc6724c"
     },
     "stage_default_formation_corpus": {
       "path": "corpus/zh/menu/stage-default-formations.json",
@@ -129,6 +129,16 @@
       "size": 555056,
       "sha256": "63afc46aeb19b41cf7332c7c298ab8bb1c7089f306d4eb4e77bce72e8dbece9c"
     },
+    "runtime_library_menu_scope": {
+      "path": "config/library/v0.2.0.json",
+      "size": 14279,
+      "sha256": "fe727f5e4f2216c96dbe9087f6801acd6098fdf84b55d019de1e9ffc484fa8dd"
+    },
+    "runtime_library_menu_font": {
+      "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
+      "size": 8261128,
+      "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
+    },
     "original_slps": {
       "path": "work/disc/SLPS_258.87",
       "size": 3471624,
@@ -139,10 +149,25 @@
       "size": 3910128,
       "sha256": "9c56d42f96df7b409ccf468b24412322ed627b9cbbd656864818a404d89240dc"
     },
+    "runtime_keyword_catalog": {
+      "path": "corpus/runtime/stage-keywords-v1.json",
+      "size": 9706,
+      "sha256": "7cdfe04b0a4a3a715547ccd94a459be35f5d3ba801b485622dc32c82ec507423"
+    },
+    "runtime_keyword_library_archive": {
+      "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNKW.BIN",
+      "size": 29936,
+      "sha256": "3abf86f3d5e227b9334f8ba214dc3f7d2947535b183bf09edc3d269025c567a7"
+    },
+    "runtime_keyword_executable": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
     "srvc_battle_text_corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6938326,
-      "sha256": "ae73aca9e98a2967f759729410a53dc7d4d14366c98329cc97f45cb5dc88d42d"
+      "size": 6938398,
+      "sha256": "30e882e4b785437165c1767c0b075a636304a13daff19105a2590392b26b7d75"
     },
     "original_srvc_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -172,7 +197,7 @@
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "b6fa0b460f6744a54934dbe8b574918675709ff864f3af0e65ec81f229e720e3"
+      "sha256": "9282496c9601d7a175d51a3ce68f3b7cd5dfc43a9a1f05f9db0ac8b2c20503ee"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -182,7 +207,7 @@
     "kvmdata": {
       "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "837e4af402e81efbc4a7eb1971281e0a46ced6bf924d3c648c194c449245a8f2"
+      "sha256": "8a0227aefc8f79c8ea0970a6f42745b14a8e3a17ec3a6a36ba4086b5a43768a9"
     },
     "original_veff2dx": {
       "path": "work/disc/EFF/VEFF2DX.BIN",
@@ -236,8 +261,8 @@
     },
     "auto_demo_residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 95992,
-      "sha256": "f88bca8ffcda8c1c443437bb32630845a075b29ddcb099ed8ddc0850053d1854"
+      "size": 96166,
+      "sha256": "071ff782891e9846c2c58ccd69ac20b3ac77f2d86064e2698b4130b1ebc6724c"
     },
     "auto_demo_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -276,8 +301,8 @@
     },
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
-      "size": 472049,
-      "sha256": "66f5f1b30537dae783fa4acaf58bd86864fc653e1bf79f2636549b152ee768b7"
+      "size": 472762,
+      "sha256": "a5c4c7aefae117ce5592df09fe5f493a45f922f44e9d8d4ee5c31fb9e59d3a4e"
     }
   },
   "compression": {
@@ -290,11 +315,11 @@
       "decoder_backend": "rust",
       "compressor_backend": "rust-fit",
       "initial_decode_count": 1,
-      "write_stage_count": 6,
+      "write_stage_count": 7,
       "compression_count": 1,
       "final_readback_decode_count": 1,
       "source_stored_size": 145283,
-      "output_stored_size": 141490,
+      "output_stored_size": 141445,
       "decoded_size": 524032,
       "sector_budget": 145408,
       "stages": [
@@ -321,6 +346,10 @@
         {
           "stage": "global safe-alias COMPDATA",
           "changed_byte_count": 3084
+        },
+        {
+          "stage": "runtime keyword encyclopedia list labels",
+          "changed_byte_count": 571
         }
       ],
       "final_round_trip_exact": true
@@ -335,7 +364,7 @@
       "compression_count": 1,
       "final_readback_decode_count": 1,
       "source_stored_size": 55392,
-      "output_stored_size": 51920,
+      "output_stored_size": 51922,
       "decoded_size": 152336,
       "sector_budget": 55392,
       "stages": [
@@ -358,6 +387,7 @@
     "scenario_select_strategy": "rust-fit",
     "mode_select_strategy": "rust-fit",
     "nisv_effect_names_strategy": "rust-fit",
+    "runtime_library_menu_strategy": "rust-fit",
     "world_map_title_strategy": "rust-fit",
     "world_history_strategy": "rust-fit"
   },
@@ -387,7 +417,7 @@
       "release_proposal": {
         "path": "work/writeback/zh-release-codebook-proposal.json",
         "size": 3683306,
-        "sha256": "dd3e336ffb6c546c3f5ccb533015499aa0045972d882853a8752de604efea06a"
+        "sha256": "3a0763f4698370e4b5b7eab4c80cb7f653df46ccdf2b21d063e25f2ca579d2ef"
       },
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
@@ -628,7 +658,7 @@
       "reread_exact": true
     },
     "source_compressed_size": 145283,
-    "output_compressed_size": 141490,
+    "output_compressed_size": 141445,
     "compressed_sector_budget": 145408,
     "codec": {
       "strategy": "rust-fit",
@@ -670,7 +700,7 @@
     "printable_ascii_passthrough": true,
     "available_surface_safe_aliases_used": true,
     "compdata_source_size": 145283,
-    "compdata_output_size": 141490,
+    "compdata_output_size": 141445,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
     "slps_size_preserved": true,
@@ -3950,9 +3980,9 @@
     "chunk_index": 0,
     "source_stored_size": 55392,
     "source_encoded_size": 55392,
-    "output_encoded_size": 51920,
-    "output_encoded_sha256": "b6ccb52b634f2498d6b076278588c230c221ab88d67f9addd3dd827f2e51d09d",
-    "output_padding_size": 3472,
+    "output_encoded_size": 51922,
+    "output_encoded_sha256": "3dcf9a22220561cfcfc1318eaf4a5e5d5fe9f28a2ee6977d88084aead42c9e99",
+    "output_padding_size": 3470,
     "codec_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
     "archive_size_preserved": true,
@@ -4434,22 +4464,22 @@
       "reread_exact": true
     },
     "slps_context_ui": {
-      "entry_count": 412,
-      "write_entry_count": 365,
+      "entry_count": 414,
+      "write_entry_count": 367,
       "no_op_entry_count": 47,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 5515,
+      "changed_byte_count": 5523,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
       "reread_exact": true
     },
     "slps": {
-      "entry_count": 189,
-      "write_entry_count": 156,
+      "entry_count": 193,
+      "write_entry_count": 160,
       "no_op_entry_count": 33,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 1649,
+      "changed_byte_count": 1665,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -6631,7 +6661,7 @@
       "single_character_regions_untouched": true
     },
     "compdata_source_size": 145283,
-    "compdata_output_size": 141490,
+    "compdata_output_size": 141445,
     "compdata_sector_budget": 145408,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
@@ -7893,10 +7923,10 @@
           "stage_index": 6,
           "entry_count": 27,
           "source_stored_size": 21584,
-          "source_encoded_size": 19831,
-          "output_encoded_size": 19815,
-          "output_encoded_sha256": "00793db306f9c4a922b4ddb3865b2620ad5639d9052e03c565902f054b904b8c",
-          "output_padding_size": 1769,
+          "source_encoded_size": 19829,
+          "output_encoded_size": 19813,
+          "output_encoded_sha256": "12449c28c07e64beea2db6360c69080e72ace1e669ee00e18c617cf6b93c5aea",
+          "output_padding_size": 1771,
           "codec_round_trip_exact": true
         },
         {
@@ -7915,7 +7945,7 @@
           "source_stored_size": 18624,
           "source_encoded_size": 17005,
           "output_encoded_size": 16999,
-          "output_encoded_sha256": "c42584a5b9cb465dda8246fb6a6463fc4e86a35af82cb3c5f92233a04b8d28b0",
+          "output_encoded_sha256": "8349e901a7ad2c49d836d6dc6229a6e3881a0f506faae6dee64223070626d801",
           "output_padding_size": 1625,
           "codec_round_trip_exact": true
         },
@@ -7923,10 +7953,10 @@
           "stage_index": 10,
           "entry_count": 38,
           "source_stored_size": 30752,
-          "source_encoded_size": 28859,
-          "output_encoded_size": 28809,
-          "output_encoded_sha256": "0117c5cd9ab57a704a8c7a13d0cb46bcf572144b5340cbbc94abfce70f7beaf5",
-          "output_padding_size": 1943,
+          "source_encoded_size": 28850,
+          "output_encoded_size": 28801,
+          "output_encoded_sha256": "9c4a01bcb43f2c5ee00ef45dd42fa3c9554c38bc3bd819f123c20386001b3d84",
+          "output_padding_size": 1951,
           "codec_round_trip_exact": true
         },
         {
@@ -8073,10 +8103,10 @@
           "stage_index": 26,
           "entry_count": 38,
           "source_stored_size": 30768,
-          "source_encoded_size": 27432,
-          "output_encoded_size": 27406,
-          "output_encoded_sha256": "d330ce20405d9d5a0f886f7d1452532d2f869566a4aec6e85b614c40d5488b2c",
-          "output_padding_size": 3362,
+          "source_encoded_size": 27429,
+          "output_encoded_size": 27401,
+          "output_encoded_sha256": "294c87d4b0811f76cd20c48f3dcc115906ba5a084c1f356ef6501d0e72bfc8ce",
+          "output_padding_size": 3367,
           "codec_round_trip_exact": true
         },
         {
@@ -8093,30 +8123,30 @@
           "stage_index": 28,
           "entry_count": 87,
           "source_stored_size": 40608,
-          "source_encoded_size": 36978,
-          "output_encoded_size": 36946,
-          "output_encoded_sha256": "358eb1a3ecf01f7f2ae64ca3db011f8930b26b02f1b8b3d9f47dee08efae9f1f",
-          "output_padding_size": 3662,
+          "source_encoded_size": 36971,
+          "output_encoded_size": 36939,
+          "output_encoded_sha256": "e8513c8c4ca105f36713080868452896a063188c6043959164f3da776abc0192",
+          "output_padding_size": 3669,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 29,
           "entry_count": 32,
           "source_stored_size": 28288,
-          "source_encoded_size": 25441,
-          "output_encoded_size": 25442,
-          "output_encoded_sha256": "b5676ef32a1ed5bd492b113701a67a46d7655de6684eb6b4d0c0fe67ca6f45ad",
-          "output_padding_size": 2846,
+          "source_encoded_size": 25433,
+          "output_encoded_size": 25434,
+          "output_encoded_sha256": "8501068339ba8c4a6e4ba87bb96b476b4e37eab4be954ab7823399d38c673d54",
+          "output_padding_size": 2854,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 30,
           "entry_count": 73,
           "source_stored_size": 31456,
-          "source_encoded_size": 28902,
-          "output_encoded_size": 28860,
-          "output_encoded_sha256": "e6ee100d15bcfe53126973e882148b60c16be6445adddcfc575b882d5353d062",
-          "output_padding_size": 2596,
+          "source_encoded_size": 28900,
+          "output_encoded_size": 28858,
+          "output_encoded_sha256": "1e3ad18fc9677e13733d3fb25a9f27a3eab51a33df59375eabdd718edcdd75c7",
+          "output_padding_size": 2598,
           "codec_round_trip_exact": true
         },
         {
@@ -8133,10 +8163,10 @@
           "stage_index": 32,
           "entry_count": 51,
           "source_stored_size": 22944,
-          "source_encoded_size": 20933,
-          "output_encoded_size": 20917,
-          "output_encoded_sha256": "e9970eb047063d7817d9d05361cfc563f2f213d37c60e4f94c64bb9cf31c6e55",
-          "output_padding_size": 2027,
+          "source_encoded_size": 20925,
+          "output_encoded_size": 20908,
+          "output_encoded_sha256": "444fe1e43da904aa8d1f7eea8ef5765538ccec0179f66f05fd943e464905d682",
+          "output_padding_size": 2036,
           "codec_round_trip_exact": true
         },
         {
@@ -8203,10 +8233,10 @@
           "stage_index": 39,
           "entry_count": 19,
           "source_stored_size": 14480,
-          "source_encoded_size": 13249,
-          "output_encoded_size": 13224,
-          "output_encoded_sha256": "62389d977399336510334be4ff316cf075364ac1363133c98403267a7a4efef8",
-          "output_padding_size": 1256,
+          "source_encoded_size": 13239,
+          "output_encoded_size": 13214,
+          "output_encoded_sha256": "801410a04221ca60d70022abbe9bc2f6691ebee48260c9a59e3a0a54066ae976",
+          "output_padding_size": 1266,
           "codec_round_trip_exact": true
         },
         {
@@ -8453,10 +8483,10 @@
           "stage_index": 68,
           "entry_count": 63,
           "source_stored_size": 20016,
-          "source_encoded_size": 18435,
-          "output_encoded_size": 18374,
-          "output_encoded_sha256": "62258d24bcfa148032f0abba033610add584ffca71c4f16175f490beeb952646",
-          "output_padding_size": 1642,
+          "source_encoded_size": 18434,
+          "output_encoded_size": 18373,
+          "output_encoded_sha256": "0428a2ba06331d413bb7142099000a170f41164ff04ad29ce9351d88656b5f0a",
+          "output_padding_size": 1643,
           "codec_round_trip_exact": true
         },
         {
@@ -8773,10 +8803,10 @@
           "stage_index": 104,
           "entry_count": 94,
           "source_stored_size": 38880,
-          "source_encoded_size": 35409,
-          "output_encoded_size": 35313,
-          "output_encoded_sha256": "2b1f3d87a388efe6410a80065962863a773940464cb3e76e87f82b2e2385e425",
-          "output_padding_size": 3567,
+          "source_encoded_size": 35407,
+          "output_encoded_size": 35311,
+          "output_encoded_sha256": "aac5aaa4289b6b9f9d778a58f9d8e3d9b5e280d138644662170bb1fd15629674",
+          "output_padding_size": 3569,
           "codec_round_trip_exact": true
         },
         {
@@ -8794,69 +8824,69 @@
           "entry_count": 169,
           "source_stored_size": 47280,
           "source_encoded_size": 43666,
-          "output_encoded_size": 43572,
-          "output_encoded_sha256": "e620cb506ed44db94b6e726119ae32dcdf86797cb840fbd4cfc4f24372bbdb68",
-          "output_padding_size": 3708,
+          "output_encoded_size": 43574,
+          "output_encoded_sha256": "935fd7a9b1cf516cebba1e79c7f7e3f16aa133227d281288a84e911c498fefdd",
+          "output_padding_size": 3706,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 108,
           "entry_count": 107,
           "source_stored_size": 39712,
-          "source_encoded_size": 36246,
-          "output_encoded_size": 36205,
-          "output_encoded_sha256": "fc343768abc35b0422fa22992fdc1baf8f0054840d53bba48a7496881cc9f3be",
-          "output_padding_size": 3507,
+          "source_encoded_size": 36240,
+          "output_encoded_size": 36199,
+          "output_encoded_sha256": "d74227a6774c330855c19a4a0b9faaaca2189b50173b9b2ad4a7fe8007a676ab",
+          "output_padding_size": 3513,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 109,
           "entry_count": 137,
           "source_stored_size": 44144,
-          "source_encoded_size": 41260,
-          "output_encoded_size": 41163,
-          "output_encoded_sha256": "5cf3d4f311aa0d0cb4cb2c3f9a7222cc8fb2c2c3e29e1a9093817c4ca63ec549",
-          "output_padding_size": 2981,
+          "source_encoded_size": 41258,
+          "output_encoded_size": 41161,
+          "output_encoded_sha256": "bdef5ebe0b5fd595396e97e6aee7ea25c3fd4f3f5524b2560b80ca2f76334821",
+          "output_padding_size": 2983,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 110,
           "entry_count": 76,
           "source_stored_size": 41888,
-          "source_encoded_size": 37473,
-          "output_encoded_size": 37376,
-          "output_encoded_sha256": "e7337589e5ca45884d695e00ff27034d34931d1702e305ffae192b46b1bdcbc8",
-          "output_padding_size": 4512,
+          "source_encoded_size": 37471,
+          "output_encoded_size": 37374,
+          "output_encoded_sha256": "df4c88eca1a63606108f3c6f80a0a0a1c4938aabf266e3facf763696f4166219",
+          "output_padding_size": 4514,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 111,
           "entry_count": 81,
           "source_stored_size": 45424,
-          "source_encoded_size": 40805,
-          "output_encoded_size": 40716,
-          "output_encoded_sha256": "a19200c7950f9718543d89ab6ec40942ef6d6a4ddaefcb0dd7f4d38cd196351a",
-          "output_padding_size": 4708,
+          "source_encoded_size": 40804,
+          "output_encoded_size": 40715,
+          "output_encoded_sha256": "78ccd6885770f15d0caac7a40f0026f40a0b855acb56e0639f0247062176fd3f",
+          "output_padding_size": 4709,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 112,
           "entry_count": 135,
           "source_stored_size": 37136,
-          "source_encoded_size": 34498,
-          "output_encoded_size": 34437,
-          "output_encoded_sha256": "d75d33e956c02a5c747ba7aef3ae01a2b86e3301fe521c90dc3dafa1473a0f4b",
-          "output_padding_size": 2699,
+          "source_encoded_size": 34496,
+          "output_encoded_size": 34435,
+          "output_encoded_sha256": "be4b1594d0c94ab1142065d2e1e63a3c037125f711c52c7ed06aac55b8e11ad5",
+          "output_padding_size": 2701,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 113,
           "entry_count": 132,
           "source_stored_size": 35360,
-          "source_encoded_size": 32651,
-          "output_encoded_size": 32585,
-          "output_encoded_sha256": "6ad79bf3bffc7f05cb41c36b7e5e85866993ddf8b19ac2f79828de6a7b1628b9",
-          "output_padding_size": 2775,
+          "source_encoded_size": 32645,
+          "output_encoded_size": 32580,
+          "output_encoded_sha256": "913e9fb594362d0a32035f9e3ed4c34e4dd7df54927c6c126455fa52b1442dba",
+          "output_padding_size": 2780,
           "codec_round_trip_exact": true
         },
         {
@@ -8893,20 +8923,20 @@
           "stage_index": 117,
           "entry_count": 118,
           "source_stored_size": 39920,
-          "source_encoded_size": 37140,
-          "output_encoded_size": 37056,
-          "output_encoded_sha256": "f308fb8dbd2bb750cbf70601c5a8e59b810330992cafdbadf1dfe8fb6e325a8b",
-          "output_padding_size": 2864,
+          "source_encoded_size": 37139,
+          "output_encoded_size": 37055,
+          "output_encoded_sha256": "bed05b6c57c6115b5d9633781c0e39c3da5ef16b848fd6ba11db6b72f04cf023",
+          "output_padding_size": 2865,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 118,
           "entry_count": 135,
           "source_stored_size": 43328,
-          "source_encoded_size": 40484,
-          "output_encoded_size": 40408,
-          "output_encoded_sha256": "effe2340077d30dabe49fe7936ad49430ffe6d329acdc393b03832eff63ee628",
-          "output_padding_size": 2920,
+          "source_encoded_size": 40482,
+          "output_encoded_size": 40406,
+          "output_encoded_sha256": "a45fc83dd3bd51624e676f24a3744a48d9d57276907f9ec61bbae4d6eedf1e18",
+          "output_padding_size": 2922,
           "codec_round_trip_exact": true
         },
         {
@@ -8935,7 +8965,7 @@
           "source_stored_size": 30688,
           "source_encoded_size": 28450,
           "output_encoded_size": 28363,
-          "output_encoded_sha256": "03141c5a77edbadd5b06461ecd17adcef0b703675d404b4a3be80ab63bc7aba5",
+          "output_encoded_sha256": "01240f26e9113d797cdd75382978b3ef9922084633cd54be96babfc31bb5c52c",
           "output_padding_size": 2325,
           "codec_round_trip_exact": true
         },
@@ -8963,10 +8993,10 @@
           "stage_index": 125,
           "entry_count": 21,
           "source_stored_size": 16320,
-          "source_encoded_size": 14875,
-          "output_encoded_size": 14867,
-          "output_encoded_sha256": "3ef051b3b369d8a9c59a54024b3996f1595ca1e46a16582983efc146a792ae07",
-          "output_padding_size": 1453,
+          "source_encoded_size": 14874,
+          "output_encoded_size": 14866,
+          "output_encoded_sha256": "4325d86b676f12329dd938e21ce7c1001b99dd01de9b77aa45f3101ec0830050",
+          "output_padding_size": 1454,
           "codec_round_trip_exact": true
         },
         {
@@ -9023,10 +9053,10 @@
           "stage_index": 131,
           "entry_count": 182,
           "source_stored_size": 48592,
-          "source_encoded_size": 45180,
-          "output_encoded_size": 45093,
-          "output_encoded_sha256": "974f08ae7c33510bf2a6943ac0d8a60b626dfba9f8c0b81ef87be9512a4aad42",
-          "output_padding_size": 3499,
+          "source_encoded_size": 45179,
+          "output_encoded_size": 45092,
+          "output_encoded_sha256": "3550bb04a23d20c738f0b7e0ab0f4fb23d5c56756b72b81c42dcd2ca39d68acc",
+          "output_padding_size": 3500,
           "codec_round_trip_exact": true
         },
         {
@@ -9123,30 +9153,30 @@
           "stage_index": 141,
           "entry_count": 37,
           "source_stored_size": 16384,
-          "source_encoded_size": 14608,
-          "output_encoded_size": 14535,
-          "output_encoded_sha256": "5ab363ed6007c2d2e6c3737881cde4edbb15709adb4f2836aa01519e6e3ce5a0",
-          "output_padding_size": 1849,
+          "source_encoded_size": 14607,
+          "output_encoded_size": 14534,
+          "output_encoded_sha256": "8650ecc26d847f7257cff09944a740a7d8047e7e3be54120e9639a87a038cb31",
+          "output_padding_size": 1850,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 142,
           "entry_count": 129,
           "source_stored_size": 31440,
-          "source_encoded_size": 29360,
-          "output_encoded_size": 29278,
-          "output_encoded_sha256": "c374b0c8e38f4696195b57a6e82f4530374ae571029f410eaf97cded3ab58fbc",
-          "output_padding_size": 2162,
+          "source_encoded_size": 29358,
+          "output_encoded_size": 29275,
+          "output_encoded_sha256": "34271a87d2acac8a30924f9c88bc068d113ac1629ab50f65c8c0e1374c3a05e2",
+          "output_padding_size": 2165,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 143,
           "entry_count": 113,
           "source_stored_size": 56928,
-          "source_encoded_size": 53064,
-          "output_encoded_size": 52931,
-          "output_encoded_sha256": "806571273ce4a1993a77c480eed358c0732841f4a6890a00e7e368b1dd72fae6",
-          "output_padding_size": 3997,
+          "source_encoded_size": 53069,
+          "output_encoded_size": 52936,
+          "output_encoded_sha256": "3d9acd7c395eaf197b17561e6d0278630fd88f16c274b70a4c4a1fe64340982f",
+          "output_padding_size": 3992,
           "codec_round_trip_exact": true
         },
         {
@@ -9163,30 +9193,30 @@
           "stage_index": 145,
           "entry_count": 24,
           "source_stored_size": 22928,
-          "source_encoded_size": 21129,
-          "output_encoded_size": 21046,
-          "output_encoded_sha256": "e458e942951aeaa9c7e9ae975f42374b58deb5612d930a68034eb8c9965eb037",
-          "output_padding_size": 1882,
+          "source_encoded_size": 21127,
+          "output_encoded_size": 21044,
+          "output_encoded_sha256": "6cc37fb5c121b86900c3fc0c5af72402b76d288c1b1ac3cab470e5544577ca1e",
+          "output_padding_size": 1884,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 146,
           "entry_count": 14,
           "source_stored_size": 15728,
-          "source_encoded_size": 13944,
-          "output_encoded_size": 13929,
-          "output_encoded_sha256": "32245222a007dfc96a901e6a5cd38719c4e099722de2b296dbec8b3bbbe4e3af",
-          "output_padding_size": 1799,
+          "source_encoded_size": 13942,
+          "output_encoded_size": 13927,
+          "output_encoded_sha256": "fbe58a5deffeae124b76f4ebc349bbc621110b2b0d1880e18ce23fd5530fa2e0",
+          "output_padding_size": 1801,
           "codec_round_trip_exact": true
         },
         {
           "stage_index": 147,
           "entry_count": 152,
           "source_stored_size": 32160,
-          "source_encoded_size": 29802,
-          "output_encoded_size": 29720,
-          "output_encoded_sha256": "23ddbaae086abb9053e109561c66bca9be7db1c88d67023f91b982ee14f8eee9",
-          "output_padding_size": 2440,
+          "source_encoded_size": 29800,
+          "output_encoded_size": 29717,
+          "output_encoded_sha256": "16d8e81c68c75937dc738ea279e597beab6a642ef793a700a7b2b9a03197e628",
+          "output_padding_size": 2443,
           "codec_round_trip_exact": true
         },
         {
@@ -9213,10 +9243,10 @@
           "stage_index": 150,
           "entry_count": 24,
           "source_stored_size": 23936,
-          "source_encoded_size": 22469,
-          "output_encoded_size": 22373,
-          "output_encoded_sha256": "7afa41d461af91af5930284185c7b328a939394852ffe669eba5b9e6c26da819",
-          "output_padding_size": 1563,
+          "source_encoded_size": 22468,
+          "output_encoded_size": 22372,
+          "output_encoded_sha256": "1d573bb20d69d385a6f41689dadc885525751cd9e03414c18c0df69ea4b9ee98",
+          "output_padding_size": 1564,
           "codec_round_trip_exact": true
         },
         {
@@ -14058,7 +14088,7 @@
       "reread_exact": true,
       "codec_strategy": "rust-fit",
       "source_encoded_size": 55392,
-      "output_encoded_size": 51920,
+      "output_encoded_size": 51922,
       "codec_round_trip_exact": true,
       "compression_deferred_to_workspace": true,
       "archive_size_preserved": true,
@@ -14112,6 +14142,110 @@
     "fullwidth_space_padding_only": true,
     "translated_reread_exact": true
   },
+  "runtime_library_menu": {
+    "member": "DATA/NISVDATA.BIN",
+    "chunk_index": 0,
+    "record_index": 2,
+    "record_offset": 575680,
+    "source_record_sha256": "9b5613b49938a578edfeb5084ac462c28ae44b7ca6f9c2aaf2a3e21bfa731adf",
+    "output_record_sha256": "fe84d71dc5fe55c0e05cda4bd59417cfa92d5346ce02463d58a4fa548057786e",
+    "source_logical_indexes_sha256": "f6eeb178adaac2de29962a62463ad1a9cc91bea39c821d3e4a90cf4be7037cc2",
+    "output_logical_indexes_sha256": "d74ab81162151ff61df33d9cd9b3a83769e9ff5158484f9be6753866c45080bd",
+    "changed_pixel_count": 15356,
+    "source_stored_size": 169504,
+    "output_encoded_size": 160067,
+    "output_padding_size": 9437,
+    "render_source": "locked_snapshot",
+    "render_snapshot": {
+      "path": "config/library/library-menu-runtime-render-snapshot.json",
+      "size": 34845,
+      "sha256": "fbb0624489af3e450ca0d31c370e096171cb7f1f71cd3471b94309cef3ba9709"
+    },
+    "frozen_preview_png": {
+      "size": 16818,
+      "sha256": "07b6e848221969a2b6b56756ec76ebdd156bcee6a4270e2ff43411ccd12aae32"
+    },
+    "labels": [
+      {
+        "id": "robot-encyclopedia",
+        "source_text": "ロボット大図鑑",
+        "translation": "机体图鉴",
+        "x": 0,
+        "y": 29,
+        "width": 190,
+        "height": 36,
+        "source_indexes_sha256": "c7bd748f4e5273ed190b4e21cc2cc70cca4b07606bf5da61c619bb05e3755671",
+        "output_indexes_sha256": "155a7a77b0516f00dec2a825b634c9dcc07c82208b7b364f57b462e434449290",
+        "changed_pixel_count": 6085
+      },
+      {
+        "id": "character-encyclopedia",
+        "source_text": "キャラクター事典",
+        "translation": "角色事典",
+        "x": 0,
+        "y": 69,
+        "width": 190,
+        "height": 36,
+        "source_indexes_sha256": "d17e937cdacefc92ab9bec719a2ad29f69a339ddc0239f0e95c35de2a7ea47f8",
+        "output_indexes_sha256": "ab02657f254c74c2dd835773c449a43d85d683a5a4e29ca7744da3125c06f56b",
+        "changed_pixel_count": 5964
+      },
+      {
+        "id": "glossary",
+        "source_text": "用語事典",
+        "translation": "术语事典",
+        "x": 0,
+        "y": 109,
+        "width": 190,
+        "height": 36,
+        "source_indexes_sha256": "4547ffa0f120b1432f7e43ceede6b5264711b5aac1b5f3aaedd18f4d194b4635",
+        "output_indexes_sha256": "5409706d9e1e1007c4412d5c47c4c3442f9119e191cc3f3ada8350972016e36d",
+        "changed_pixel_count": 5963
+      },
+      {
+        "id": "sound-select",
+        "source_text": "サウンドセレクト",
+        "translation": "音乐选择",
+        "x": 0,
+        "y": 149,
+        "width": 190,
+        "height": 36,
+        "source_indexes_sha256": "0bbdfe770db0174b3d253511fe2d27cb473879d6913a342463a96dc17266ed2c",
+        "output_indexes_sha256": "1a50b79279510f02dac3f336569c4d91b6f51bd23f457aefde9e3d8c9dcf05c6",
+        "changed_pixel_count": 5965
+      },
+      {
+        "id": "scenario-chart",
+        "source_text": "シナリオチャート",
+        "translation": "剧情流程",
+        "x": 0,
+        "y": 189,
+        "width": 190,
+        "height": 36,
+        "source_indexes_sha256": "7869a890280bd126472486f7d064ab235ed939602ff7270cefa3ed31d0eade14",
+        "output_indexes_sha256": "6c603cda0126d9af32b37cac29819463cdc5d6cd6ae1a1b50414e886546a428e",
+        "changed_pixel_count": 6007
+      },
+      {
+        "id": "strategy-qa",
+        "source_text": "攻略Ｑ＆Ａ",
+        "translation": "攻略Q&A",
+        "x": 39,
+        "y": 224,
+        "width": 118,
+        "height": 32,
+        "source_indexes_sha256": "86045e733602c9aca95fb84d51c0154f772c88698771325db77de9c8f510038f",
+        "output_indexes_sha256": "4e5494cb7797da9a6709d3eb5ad72618a608f3586a44f045f6631af1608afdb1",
+        "changed_pixel_count": 3381
+      }
+    ],
+    "all_six_labels_written": true,
+    "archive_size_preserved": true,
+    "archive_non_target_chunks_preserved": true,
+    "tim2_metadata_preserved": true,
+    "clut_and_non_image_bytes_preserved": true,
+    "codec_round_trip_exact": true
+  },
   "compdata_battle_lines": {
     "entry_count": 297,
     "write_entry_count": 297,
@@ -14131,7 +14265,7 @@
     "all_editorial_statuses_draft": true,
     "target_offset_reread_exact": true,
     "compdata_source_size": 145283,
-    "compdata_output_size": 141490,
+    "compdata_output_size": 141445,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
@@ -14162,7 +14296,7 @@
     "all_editorial_statuses_reviewed": true,
     "target_offset_reread_exact": true,
     "compdata_source_size": 145283,
-    "compdata_output_size": 141490,
+    "compdata_output_size": 141445,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true,
     "compression_deferred_to_workspace": true
@@ -14179,8 +14313,8 @@
     "pool": {
       "translated_record_count": 58740,
       "original_indexed_pool_bytes": 2165802,
-      "output_indexed_pool_bytes": 1643902,
-      "released_indexed_pool_bytes": 521900,
+      "output_indexed_pool_bytes": 1643914,
+      "released_indexed_pool_bytes": 521888,
       "minimum_record_headroom": 0,
       "minimum_chunk_headroom": 0
     },
@@ -19787,15 +19921,652 @@
       "reread_exact": true
     },
     "compdata_source_size": 145283,
-    "compdata_output_size": 141490,
+    "compdata_output_size": 141445,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true
+  },
+  "runtime_keywords": {
+    "authority_keyword_count": 52,
+    "library_popup_fields_validated": true,
+    "compdata": {
+      "list_label_count": 52,
+      "pointer_table_offset": 382576,
+      "runtime_base": 7170048,
+      "relocations": [
+        {
+          "keyword_index": 19,
+          "donor_index": 15,
+          "source_capacity": 8,
+          "target_size": 11,
+          "donor_capacity": 24,
+          "donor_target_size": 7,
+          "relocation_offset": 466872,
+          "runtime_pointer": 7636920,
+          "source_allocation_preserved": true
+        },
+        {
+          "keyword_index": 24,
+          "donor_index": 16,
+          "source_capacity": 8,
+          "target_size": 9,
+          "donor_capacity": 24,
+          "donor_target_size": 7,
+          "relocation_offset": 466896,
+          "runtime_pointer": 7636944,
+          "source_allocation_preserved": true
+        }
+      ],
+      "relocation_count": 2,
+      "changed_byte_count": 571,
+      "all_list_labels_match_library_word": true,
+      "pointer_table_reread_exact": true,
+      "decoded_size_preserved": true,
+      "compdata_output_size": 141445,
+      "codec_round_trip_exact": true
+    },
+    "stage": {
+      "authority": "translated DATA/MTVZKNKW.BIN KYWD fields",
+      "keyword_count": 52,
+      "record_count": 77,
+      "stage_chunk_count": 44,
+      "field_reference_count": 308,
+      "allocation_count": 233,
+      "shared_reference_count": 75,
+      "relocations": [
+        {
+          "stage_index": 2,
+          "keyword_index": 25,
+          "tag": "WORD",
+          "source_offset": 59880,
+          "source_capacity": 24,
+          "target_size": 11,
+          "donor_offset": 59952,
+          "donor_capacity": 176,
+          "donor_target_size": 117,
+          "relocation_offset": 60070,
+          "runtime_pointer": 7754134,
+          "pointer_reference_count": 1,
+          "reason": "occupied_current_allocation",
+          "source_allocation_preserved": true
+        },
+        {
+          "stage_index": 55,
+          "keyword_index": 36,
+          "tag": "WORD",
+          "source_offset": 80944,
+          "source_capacity": 16,
+          "target_size": 20,
+          "donor_offset": 81008,
+          "donor_capacity": 320,
+          "donor_target_size": 209,
+          "relocation_offset": 81218,
+          "runtime_pointer": 7775282,
+          "pointer_reference_count": 1,
+          "reason": "fixed_allocation_overflow",
+          "source_allocation_preserved": true
+        },
+        {
+          "stage_index": 95,
+          "keyword_index": 19,
+          "tag": "WORD",
+          "source_offset": 67272,
+          "source_capacity": 8,
+          "target_size": 11,
+          "donor_offset": 67328,
+          "donor_capacity": 704,
+          "donor_target_size": 486,
+          "relocation_offset": 67814,
+          "runtime_pointer": 7761878,
+          "pointer_reference_count": 1,
+          "reason": "fixed_allocation_overflow",
+          "source_allocation_preserved": true
+        }
+      ],
+      "relocation_count": 3,
+      "preserved_relocated_source_allocation_count": 3,
+      "chunks": [
+        {
+          "stage_index": 1,
+          "record_count": 3,
+          "source_encoded_size": 16198,
+          "output_encoded_size": 15884,
+          "output_encoded_sha256": "adb134197678b619d13d2e9dab697bf9e4085aeebf114c291bab63ad265b3f89",
+          "slot_size": 17024,
+          "output_headroom": 1140,
+          "changed_byte_count": 2754,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 2,
+          "record_count": 12,
+          "source_encoded_size": 21513,
+          "output_encoded_size": 20638,
+          "output_encoded_sha256": "91c75ea554ae4880d8486b1fa51b18cab552c822e6ec523f246242dc3ff89643",
+          "slot_size": 22608,
+          "output_headroom": 1970,
+          "changed_byte_count": 7605,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 4,
+          "record_count": 3,
+          "source_encoded_size": 24903,
+          "output_encoded_size": 24541,
+          "output_encoded_sha256": "994dd9c146a23db4faf43882f585276e599a94e253030292cff7d58cbe87e799",
+          "slot_size": 26752,
+          "output_headroom": 2211,
+          "changed_byte_count": 1893,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 5,
+          "record_count": 4,
+          "source_encoded_size": 16131,
+          "output_encoded_size": 15729,
+          "output_encoded_sha256": "36165dcaf2cf5f969f0a8ae4309e78d7ba3a5ed174a337d66d6cd5131a2fea02",
+          "slot_size": 17216,
+          "output_headroom": 1487,
+          "changed_byte_count": 1723,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 10,
+          "record_count": 1,
+          "source_encoded_size": 28801,
+          "output_encoded_size": 28640,
+          "output_encoded_sha256": "f49e41df396124429b37767ee41b37b2d0d93e975889066572ef0da9af65a4aa",
+          "slot_size": 30752,
+          "output_headroom": 2112,
+          "changed_byte_count": 560,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 13,
+          "record_count": 2,
+          "source_encoded_size": 13143,
+          "output_encoded_size": 12920,
+          "output_encoded_sha256": "f21c19672a99922ababd8b346dd44e053868cf4778b66ac89b96bdadca10e262",
+          "slot_size": 14560,
+          "output_headroom": 1640,
+          "changed_byte_count": 2518,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 14,
+          "record_count": 3,
+          "source_encoded_size": 17097,
+          "output_encoded_size": 16781,
+          "output_encoded_sha256": "989a14c9af478b8be818136ed15a898e0140386adeed4b50d9855e780b95e35c",
+          "slot_size": 19232,
+          "output_headroom": 2451,
+          "changed_byte_count": 1607,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 19,
+          "record_count": 1,
+          "source_encoded_size": 14690,
+          "output_encoded_size": 14567,
+          "output_encoded_sha256": "b9de8092e776308ad51297f48b6d8491236935a6fe3a033ead73ff708d230022",
+          "slot_size": 16368,
+          "output_headroom": 1801,
+          "changed_byte_count": 376,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 20,
+          "record_count": 1,
+          "source_encoded_size": 25457,
+          "output_encoded_size": 25262,
+          "output_encoded_sha256": "a7b5690bb6ac7b4210d49a6a1ceaa3cdfd961aeaf0c869adb900456b1d8c3e29",
+          "slot_size": 28080,
+          "output_headroom": 2818,
+          "changed_byte_count": 701,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 25,
+          "record_count": 6,
+          "source_encoded_size": 36939,
+          "output_encoded_size": 36573,
+          "output_encoded_sha256": "d9c1a59ce5c1fecf99fa4e3761784c461b955d303d94a403c66106b6b56abf9c",
+          "slot_size": 39856,
+          "output_headroom": 3283,
+          "changed_byte_count": 3842,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 26,
+          "record_count": 1,
+          "source_encoded_size": 27401,
+          "output_encoded_size": 27328,
+          "output_encoded_sha256": "e30df75a98987f4ab4519811f9f5514a12ff4bd70e86e15dae97f9e8c6c82970",
+          "slot_size": 30768,
+          "output_headroom": 3440,
+          "changed_byte_count": 323,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 27,
+          "record_count": 1,
+          "source_encoded_size": 28294,
+          "output_encoded_size": 28050,
+          "output_encoded_sha256": "0fce4cd8ade96f5bece091625bd7c0528ea19b5be97af7610f637c8cebc56d0f",
+          "slot_size": 31856,
+          "output_headroom": 3806,
+          "changed_byte_count": 714,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 29,
+          "record_count": 2,
+          "source_encoded_size": 25434,
+          "output_encoded_size": 25231,
+          "output_encoded_sha256": "535dc1d60245fe122d9dc78279fb2d1c5689ed8d7d21843ce9c0ef421be53d0d",
+          "slot_size": 28288,
+          "output_headroom": 3057,
+          "changed_byte_count": 1901,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 30,
+          "record_count": 1,
+          "source_encoded_size": 28858,
+          "output_encoded_size": 28720,
+          "output_encoded_sha256": "d533457cedffdd18e09e718fcf4eabab95f40ac4263cb69b74fbd915b71892b2",
+          "slot_size": 31456,
+          "output_headroom": 2736,
+          "changed_byte_count": 399,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 31,
+          "record_count": 2,
+          "source_encoded_size": 29696,
+          "output_encoded_size": 29566,
+          "output_encoded_sha256": "ebc3118bce59ef91578e46a0406f114af58aadd4340868c0a304ac9e28c847fd",
+          "slot_size": 32336,
+          "output_headroom": 2770,
+          "changed_byte_count": 327,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 32,
+          "record_count": 1,
+          "source_encoded_size": 20908,
+          "output_encoded_size": 20774,
+          "output_encoded_sha256": "4f1e3c7620f5841eeefcc4138f3298bf7f385f769ca96930d3afe27c1e919065",
+          "slot_size": 22944,
+          "output_headroom": 2170,
+          "changed_byte_count": 497,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 33,
+          "record_count": 1,
+          "source_encoded_size": 9365,
+          "output_encoded_size": 9238,
+          "output_encoded_sha256": "53beeea0257a4c1c6f89ae18bbaeb71addeef357361639ea9a12734460bd31c7",
+          "slot_size": 10288,
+          "output_headroom": 1050,
+          "changed_byte_count": 469,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 34,
+          "record_count": 1,
+          "source_encoded_size": 22936,
+          "output_encoded_size": 22825,
+          "output_encoded_sha256": "e6bbf66873d27ad61e87a089629927162b0047998e504e731e57a24bdfde13cd",
+          "slot_size": 25472,
+          "output_headroom": 2647,
+          "changed_byte_count": 396,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 37,
+          "record_count": 1,
+          "source_encoded_size": 23158,
+          "output_encoded_size": 23029,
+          "output_encoded_sha256": "a0455a5e0e6335dd11c10f78497c56761972d9565561978dbf09e3f8031292e7",
+          "slot_size": 25664,
+          "output_headroom": 2635,
+          "changed_byte_count": 396,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 38,
+          "record_count": 1,
+          "source_encoded_size": 32424,
+          "output_encoded_size": 32351,
+          "output_encoded_sha256": "8d00ca8a9ae32791bc5ea019a008f857f99686b6fe7aa36f896911b013329d3e",
+          "slot_size": 35520,
+          "output_headroom": 3169,
+          "changed_byte_count": 349,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 39,
+          "record_count": 2,
+          "source_encoded_size": 13214,
+          "output_encoded_size": 12999,
+          "output_encoded_sha256": "5f60286cb494b7acb5aafe12988a63c9b76f84ebde26fe1e5478bb154575dc82",
+          "slot_size": 14480,
+          "output_headroom": 1481,
+          "changed_byte_count": 966,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 43,
+          "record_count": 1,
+          "source_encoded_size": 26098,
+          "output_encoded_size": 25968,
+          "output_encoded_sha256": "8a63039453c8aaec585f04eb933506cb94f3857805dd48b96661548b373ef133",
+          "slot_size": 28128,
+          "output_headroom": 2160,
+          "changed_byte_count": 560,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 48,
+          "record_count": 1,
+          "source_encoded_size": 35126,
+          "output_encoded_size": 34975,
+          "output_encoded_sha256": "16ce2974123ab9d41c35001750075effe7255fd51ec719349632af165793d9ea",
+          "slot_size": 38576,
+          "output_headroom": 3601,
+          "changed_byte_count": 375,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 50,
+          "record_count": 1,
+          "source_encoded_size": 28798,
+          "output_encoded_size": 28678,
+          "output_encoded_sha256": "c89cb9219cb915a1f50c293e4a3b1dc2a0531a01b9d0e6e7b4c34ceef6c71cf7",
+          "slot_size": 32048,
+          "output_headroom": 3370,
+          "changed_byte_count": 497,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 55,
+          "record_count": 1,
+          "source_encoded_size": 30937,
+          "output_encoded_size": 30840,
+          "output_encoded_sha256": "be3c07e5fdf4103c5cb142846744da01270c5049e0266846baa65c4cddad0853",
+          "slot_size": 34304,
+          "output_headroom": 3464,
+          "changed_byte_count": 347,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 66,
+          "record_count": 1,
+          "source_encoded_size": 34108,
+          "output_encoded_size": 34006,
+          "output_encoded_sha256": "c63b6b01b059de4e644f32c89eb5e0b9928ffd2dc02b6acb1831b04155e0dbde",
+          "slot_size": 36848,
+          "output_headroom": 2842,
+          "changed_byte_count": 1659,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 82,
+          "record_count": 2,
+          "source_encoded_size": 21963,
+          "output_encoded_size": 21850,
+          "output_encoded_sha256": "eaf5c7e85906d95518686d7d5f214ceffb6a77666b3bf12d415cc03a96337cab",
+          "slot_size": 23648,
+          "output_headroom": 1798,
+          "changed_byte_count": 2881,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 83,
+          "record_count": 1,
+          "source_encoded_size": 29384,
+          "output_encoded_size": 29247,
+          "output_encoded_sha256": "57fea537bfb64f9a418d57f7c05f6366d33a7cbad23465a5fcc242bdadebdaf6",
+          "slot_size": 32400,
+          "output_headroom": 3153,
+          "changed_byte_count": 396,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 88,
+          "record_count": 1,
+          "source_encoded_size": 24060,
+          "output_encoded_size": 23977,
+          "output_encoded_sha256": "62ee7c97289f1b951a3d4adc1c2dba42b130ba9f402acc06480bc7ed0b9c2f42",
+          "slot_size": 26352,
+          "output_headroom": 2375,
+          "changed_byte_count": 564,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 89,
+          "record_count": 1,
+          "source_encoded_size": 5370,
+          "output_encoded_size": 5296,
+          "output_encoded_sha256": "a471c38937bf8f81215fa196bd7aab2e4b3b56a0869b594e5aba2d4abe9a3bc3",
+          "slot_size": 5904,
+          "output_headroom": 608,
+          "changed_byte_count": 288,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 91,
+          "record_count": 1,
+          "source_encoded_size": 23048,
+          "output_encoded_size": 22975,
+          "output_encoded_sha256": "283bf104f980aabfe20aa3db77561321062646ccc9f406510fe6b6850ab294c4",
+          "slot_size": 25504,
+          "output_headroom": 2529,
+          "changed_byte_count": 524,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 93,
+          "record_count": 1,
+          "source_encoded_size": 6243,
+          "output_encoded_size": 6212,
+          "output_encoded_sha256": "8c92a765e02febb0e557d6761c6f4dd087a9dbbbb26888a9c265a6d02562b756",
+          "slot_size": 6480,
+          "output_headroom": 268,
+          "changed_byte_count": 564,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 95,
+          "record_count": 1,
+          "source_encoded_size": 29051,
+          "output_encoded_size": 28944,
+          "output_encoded_sha256": "7e1e791c670b3d174ed42665441f71529cb12ba0859b028e3950c23751305b94",
+          "slot_size": 31296,
+          "output_headroom": 2352,
+          "changed_byte_count": 1651,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 102,
+          "record_count": 1,
+          "source_encoded_size": 21909,
+          "output_encoded_size": 21809,
+          "output_encoded_sha256": "c26995e5fd66827c6fe0d70fd34f2ed89bc3a092c8ac3400bef9ef62dff9a98c",
+          "slot_size": 24160,
+          "output_headroom": 2351,
+          "changed_byte_count": 1184,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 104,
+          "record_count": 1,
+          "source_encoded_size": 35311,
+          "output_encoded_size": 35223,
+          "output_encoded_sha256": "bd2531f1ce3a204407499d1e6326dd77341d7d0b66665e657c06febcaed8c9a9",
+          "slot_size": 38880,
+          "output_headroom": 3657,
+          "changed_byte_count": 328,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 108,
+          "record_count": 2,
+          "source_encoded_size": 36199,
+          "output_encoded_size": 36082,
+          "output_encoded_sha256": "c9b50682ab11b1a632074e6e8db0bc40870e910300d6561f787faff462826da6",
+          "slot_size": 39712,
+          "output_headroom": 3630,
+          "changed_byte_count": 1322,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 111,
+          "record_count": 1,
+          "source_encoded_size": 40715,
+          "output_encoded_size": 40629,
+          "output_encoded_sha256": "c8bea40b5fb982f709374b13c5d696cac5c6c274cd810197eb4a0e8666fce366",
+          "slot_size": 45424,
+          "output_headroom": 4795,
+          "changed_byte_count": 553,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 118,
+          "record_count": 2,
+          "source_encoded_size": 40406,
+          "output_encoded_size": 40067,
+          "output_encoded_sha256": "a9a1a151afe8ae0c82762da07cff67209e7b37f384b22182610c0a17d3dd4d2f",
+          "slot_size": 43328,
+          "output_headroom": 3261,
+          "changed_byte_count": 1710,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 125,
+          "record_count": 2,
+          "source_encoded_size": 14866,
+          "output_encoded_size": 14537,
+          "output_encoded_sha256": "19208a3fa0b75a0fa695179a799d724996869c7c4193eb375408ad75ae17693e",
+          "slot_size": 16320,
+          "output_headroom": 1783,
+          "changed_byte_count": 1710,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 127,
+          "record_count": 1,
+          "source_encoded_size": 52252,
+          "output_encoded_size": 52190,
+          "output_encoded_sha256": "244e91a2077835eb88fc92bda8ba27fcd88a8d659cfbd2569e7077c2fea5ea98",
+          "slot_size": 56288,
+          "output_headroom": 4098,
+          "changed_byte_count": 597,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 135,
+          "record_count": 1,
+          "source_encoded_size": 52967,
+          "output_encoded_size": 52604,
+          "output_encoded_sha256": "f17f7138c26e51e3221f752f3ab40e87896036d11bd68fa20afee8501bb64f22",
+          "slot_size": 56432,
+          "output_headroom": 3828,
+          "changed_byte_count": 1816,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 138,
+          "record_count": 1,
+          "source_encoded_size": 59011,
+          "output_encoded_size": 58644,
+          "output_encoded_sha256": "b4c1b92c5168b01493066159a60e882e9e16e18e37d73877b5b5060b9b314e8c",
+          "slot_size": 62704,
+          "output_headroom": 4060,
+          "changed_byte_count": 1816,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 185,
+          "record_count": 1,
+          "source_encoded_size": 14767,
+          "output_encoded_size": 14682,
+          "output_encoded_sha256": "221e8688855e4eb0606900eac178a19f265957c89502681c83424906c35253de",
+          "slot_size": 16816,
+          "output_headroom": 2134,
+          "changed_byte_count": 256,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        },
+        {
+          "stage_index": 186,
+          "record_count": 1,
+          "source_encoded_size": 16812,
+          "output_encoded_size": 16732,
+          "output_encoded_sha256": "a5a5060dd53f6a90e005d164abb9d99719234cdeb1c6fdde4ea49c128c3c6990",
+          "slot_size": 19296,
+          "output_headroom": 2564,
+          "changed_byte_count": 256,
+          "codec_strategy": "rust-fit",
+          "codec_round_trip_exact": true
+        }
+      ],
+      "minimum_output_headroom": 268,
+      "all_four_fields_match_library": true,
+      "archive_size_preserved": true,
+      "hb_offsets_preserved": true,
+      "codec_round_trip_exact": true,
+      "verify_only": false
+    }
   },
   "outputs": {
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "098e0312262dbad5773493a909a907559feed6243c9158358b4952f1a2594052"
+      "sha256": "25b1da1879cfb6413ccc721e6665c2dd9e63d491fea66636046f17368dda5054"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -19804,13 +20575,13 @@
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 141490,
-      "sha256": "e2fb36a97eb87dd732b290fa1422761a62e1436b09b89151f375b2cc05c34daf"
+      "size": 141445,
+      "sha256": "fd21cd7ebc54c957aa610be25476b0f0d2cf011f582b3d4e0b4aa0f3448ed2f5"
     },
     "DATA/NISVDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
       "size": 555056,
-      "sha256": "fc6cb8730a1852e4cf7e72f7b46fea0e178b5e39eafcefd5ba63ff232e957789"
+      "sha256": "4ac146f2a1fc425e62accafd6cf23703a141447f43b08b0885983253c6ce1fb0"
     },
     "DATA/MTV_PROS.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
@@ -19820,7 +20591,7 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "2adb9bb9a2c15baee0119c7d0a47befa6f7fb26cd2e37c3b7f4190d817fce643"
+      "sha256": "a81e7b153e78cba8415b2ad6b44515299c644585bcd6695259f1fc328a0fd265"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
@@ -19835,12 +20606,12 @@
     "KURODATA/KVMDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "837e4af402e81efbc4a7eb1971281e0a46ced6bf924d3c648c194c449245a8f2"
+      "sha256": "8a0227aefc8f79c8ea0970a6f42745b14a8e3a17ec3a6a36ba4086b5a43768a9"
     },
     "BTL/SRVC.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
       "size": 3313040,
-      "sha256": "dc9577638bb6aba1cc02ee2d33d1306eefc170ece8087a63bc8a0eb0678c0e75"
+      "sha256": "0fcf202bed95ec7159e7cd5445b509ce389f96e8b00cccd214febb8d3ed1ad7a"
     },
     "BTL/SRVC.SEG": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.SEG",
@@ -19857,25 +20628,25 @@
       "size": 55136688,
       "sha256": "6d766567b4e36082fbe8532baf59c4cfc4994718b30e349602f9da95a37d7957"
     },
-    "BTL/OP0.BIN": {
-      "path": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
-      "size": 266224,
-      "sha256": "5c9cb63a7e6e37c5b2c16cdaead04e80162a10c54c2b78c971b3dfa2cd1a38d3"
+    "BTL/OP1.BIN": {
+      "path": "work/build/zh-release-full-story/components/BTL/OP1.BIN",
+      "size": 265872,
+      "sha256": "e5198d1a85ec19572a9d0d7c8c603d27ae884737754ff71076e46e525177009c"
     },
     "BTL/OP2.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/OP2.BIN",
       "size": 266352,
       "sha256": "73a28d29c9c0d5c0ed6f49ff63a92f5a459537ca67d4590e9caf9864c82b1724"
     },
-    "BTL/OP1.BIN": {
-      "path": "work/build/zh-release-full-story/components/BTL/OP1.BIN",
-      "size": 265872,
-      "sha256": "e5198d1a85ec19572a9d0d7c8c603d27ae884737754ff71076e46e525177009c"
+    "BTL/OP0.BIN": {
+      "path": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
+      "size": 266224,
+      "sha256": "5c9cb63a7e6e37c5b2c16cdaead04e80162a10c54c2b78c971b3dfa2cd1a38d3"
     },
     "DATA/JTIM.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/JTIM.BIN",
       "size": 7539728,
-      "sha256": "a8ad25badec08a064d3162f896e585425976321e81e5d9e5f99f90ee44008aa1"
+      "sha256": "c02f0b01a20024243c6fce96ffaa423feba7239dacf19309583ee97ac2c24b56"
     },
     "DATA/MTVZKNRT.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/MTVZKNRT.BIN",
@@ -19897,6 +20668,7 @@
     "production_compression_backend_rust_only": true,
     "world_map_titles_reread_exact": true,
     "p10_ui_members_inherited_exact": true,
+    "runtime_library_menu_frozen_writeback_exact": true,
     "encoded_ui_codebook_is_release_subset": true,
     "global_release_font_missing_character_count_zero": true,
     "global_release_font_original_han_count_zero": true,
@@ -19906,6 +20678,7 @@
     "stage_layout_preserved": true,
     "stage_hb_offset_reread_exact": true,
     "all_story_text_reread_exact": true,
+    "all_story_outer_punctuation_exact": true,
     "full_story_pilot_names_reread_exact": true,
     "full_story_unit_names_reread_exact": true,
     "full_story_unit_name_pointer_relocations_exact": true,
@@ -19914,6 +20687,7 @@
     "full_story_pilot_name_changes_confined": true,
     "full_story_stage_titles_reread_exact": true,
     "stage_overviews_reread_exact": true,
+    "runtime_keyword_surfaces_reread_exact": true,
     "world_history_reread_exact": true,
     "hsfc_overviews_reread_exact": true,
     "remaining_ui_binary_text_reread_exact": true,
@@ -19949,232 +20723,224 @@
       "deterministic_reviewed_count": 0
     },
     "library_menu": {
-      "member": "DATA/JTIM.BIN",
-      "record_index": 5,
-      "source_record": {
-        "offset": 3752272,
-        "size": 132160,
-        "width": 512,
-        "height": 256,
-        "image_type": 5,
-        "clut_color_count": 256,
-        "sha256": "b7c5008406d8b8ff2e3ca4d0875eb8ec8e1d780bc57ac9e0624261470ca886e6"
-      },
-      "output_record_sha256": "f9b6195803935962df70c3f5543baced4346ff2e33eedd4367ed83a105357482",
-      "image_offset": 3752336,
-      "image_size": 131072,
-      "font_path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
-      "font_sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1",
-      "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+      "member": "DATA/NISVDATA.BIN",
+      "chunk_index": 0,
+      "record_index": 2,
+      "record_offset": 575680,
+      "source_record_sha256": "9b5613b49938a578edfeb5084ac462c28ae44b7ca6f9c2aaf2a3e21bfa731adf",
+      "output_record_sha256": "fe84d71dc5fe55c0e05cda4bd59417cfa92d5346ce02463d58a4fa548057786e",
+      "source_logical_indexes_sha256": "f6eeb178adaac2de29962a62463ad1a9cc91bea39c821d3e4a90cf4be7037cc2",
+      "output_logical_indexes_sha256": "d74ab81162151ff61df33d9cd9b3a83769e9ff5158484f9be6753866c45080bd",
+      "changed_pixel_count": 15356,
+      "source_stored_size": 169504,
+      "output_encoded_size": 160067,
+      "output_padding_size": 9437,
       "render_source": "locked_snapshot",
       "render_snapshot": {
-        "path": "config/library/library-menu-render-snapshot.json",
-        "size": 40119,
-        "sha256": "68810898211b8f233cf1b48322a640092b83e9e18942ef36d608e4150924a229"
+        "path": "config/library/library-menu-runtime-render-snapshot.json",
+        "size": 34845,
+        "sha256": "fbb0624489af3e450ca0d31c370e096171cb7f1f71cd3471b94309cef3ba9709"
       },
       "frozen_preview_png": {
-        "size": 13790,
-        "sha256": "3719c510809d0a2e77d1e77f314761d9f3d50b7428b0118d5c2b128c8cf46e77"
+        "size": 16818,
+        "sha256": "07b6e848221969a2b6b56756ec76ebdd156bcee6a4270e2ff43411ccd12aae32"
       },
       "labels": [
         {
-          "id": "strategy-qa-normal",
-          "source_text": "攻略Ｑ＆Ａ",
-          "translation": "攻略Q&A",
-          "x": 218,
-          "y": 0,
-          "width": 118,
-          "height": 36,
-          "horizontal_offset": 0,
-          "palette_start": 33,
-          "palette_stop": 63,
-          "source_indexes_sha256": "e3a87305b26fed695763bdd42edd65e9086542cc6e2eab6f2a8e0d34815442ee",
-          "output_indexes_sha256": "9cea7d952479e0576b4c9a0854f6ec0dd090f0447c7636960b4ef3e6fa4b7a66",
-          "changed_pixel_count": 2398,
-          "visible_pixel_count": 1734
-        },
-        {
-          "id": "strategy-qa-dimmed",
-          "source_text": "攻略Ｑ＆Ａ",
-          "translation": "攻略Q&A",
-          "x": 346,
-          "y": 0,
-          "width": 118,
-          "height": 36,
-          "horizontal_offset": 0,
-          "palette_start": 65,
-          "palette_stop": 95,
-          "source_indexes_sha256": "a77cf299839d576f5e27549984f60477ffab56a5e9707a36934007e9b3679871",
-          "output_indexes_sha256": "044f8af29d147804c4521e146cb4e070b0fbf311ac06e615917c3e942d6dcc06",
-          "changed_pixel_count": 2398,
-          "visible_pixel_count": 1734
-        },
-        {
-          "id": "robot-encyclopedia-normal",
+          "id": "robot-encyclopedia",
           "source_text": "ロボット大図鑑",
           "translation": "机体图鉴",
           "x": 0,
-          "y": 39,
+          "y": 29,
           "width": 190,
           "height": 36,
-          "horizontal_offset": 36,
-          "palette_start": 33,
-          "palette_stop": 63,
-          "source_indexes_sha256": "768a177a8495c7ab9b60e0a832d63ddca6da03e5506b39e6179fd276e8c5ea02",
-          "output_indexes_sha256": "f169297163791917f4ef8a4bac346e3eeef43d37640bd7bf97abd1744efadf7f",
-          "changed_pixel_count": 3772,
-          "visible_pixel_count": 2279
+          "source_indexes_sha256": "c7bd748f4e5273ed190b4e21cc2cc70cca4b07606bf5da61c619bb05e3755671",
+          "output_indexes_sha256": "155a7a77b0516f00dec2a825b634c9dcc07c82208b7b364f57b462e434449290",
+          "changed_pixel_count": 6085
         },
         {
-          "id": "robot-encyclopedia-dimmed",
-          "source_text": "ロボット大図鑑",
-          "translation": "机体图鉴",
-          "x": 200,
-          "y": 39,
-          "width": 190,
-          "height": 36,
-          "horizontal_offset": 36,
-          "palette_start": 65,
-          "palette_stop": 95,
-          "source_indexes_sha256": "c1ff50efb8ef5b92ee2c0f85b769cbfdfc8b4fbf78ba24b62202b4daad64f2da",
-          "output_indexes_sha256": "ce0a908ab0447afcc4720a9b1b94a0f1ad4de97a8dcd3452326c45507ac29828",
-          "changed_pixel_count": 3804,
-          "visible_pixel_count": 2279
-        },
-        {
-          "id": "character-encyclopedia-normal",
+          "id": "character-encyclopedia",
           "source_text": "キャラクター事典",
           "translation": "角色事典",
           "x": 0,
-          "y": 79,
+          "y": 69,
           "width": 190,
           "height": 36,
-          "horizontal_offset": 36,
-          "palette_start": 33,
-          "palette_stop": 63,
-          "source_indexes_sha256": "ed9bd42477b6ce0618290cd9c6a0c5262ea7c163e0132c4c82339ff7f7026d04",
-          "output_indexes_sha256": "5149c062479cc8e1610087db7463133e4bad118d8bd7e297edc91975abe9cddc",
-          "changed_pixel_count": 3678,
-          "visible_pixel_count": 2174
+          "source_indexes_sha256": "d17e937cdacefc92ab9bec719a2ad29f69a339ddc0239f0e95c35de2a7ea47f8",
+          "output_indexes_sha256": "ab02657f254c74c2dd835773c449a43d85d683a5a4e29ca7744da3125c06f56b",
+          "changed_pixel_count": 5964
         },
         {
-          "id": "character-encyclopedia-dimmed",
-          "source_text": "キャラクター事典",
-          "translation": "角色事典",
-          "x": 200,
-          "y": 79,
-          "width": 190,
-          "height": 36,
-          "horizontal_offset": 36,
-          "palette_start": 65,
-          "palette_stop": 95,
-          "source_indexes_sha256": "4121fab6fa52dedc4b41e7ccdf6da96f1373cc26e1ee41b4a7ba3fcd4f4107a2",
-          "output_indexes_sha256": "53c6c5fe3773f24afa720003285b55db36cd152fda5ff8a1b2882967f6857df0",
-          "changed_pixel_count": 3751,
-          "visible_pixel_count": 2174
-        },
-        {
-          "id": "glossary-normal",
+          "id": "glossary",
           "source_text": "用語事典",
           "translation": "术语事典",
           "x": 0,
-          "y": 119,
+          "y": 109,
           "width": 190,
           "height": 36,
-          "horizontal_offset": 36,
-          "palette_start": 33,
-          "palette_stop": 63,
-          "source_indexes_sha256": "ddbc6f7c6a7ab256699daf990253886b5b04ba9d7c5b5cd6368f038b4a3f3def",
-          "output_indexes_sha256": "09b32b76895a454af33ef4955282852d87fcf95d1af360689090302ed8b4c59e",
-          "changed_pixel_count": 2874,
-          "visible_pixel_count": 2128
+          "source_indexes_sha256": "4547ffa0f120b1432f7e43ceede6b5264711b5aac1b5f3aaedd18f4d194b4635",
+          "output_indexes_sha256": "5409706d9e1e1007c4412d5c47c4c3442f9119e191cc3f3ada8350972016e36d",
+          "changed_pixel_count": 5963
         },
         {
-          "id": "glossary-dimmed",
-          "source_text": "用語事典",
-          "translation": "术语事典",
-          "x": 200,
-          "y": 119,
-          "width": 190,
-          "height": 36,
-          "horizontal_offset": 36,
-          "palette_start": 65,
-          "palette_stop": 95,
-          "source_indexes_sha256": "b9de310e244cad156bca132bdcbe1ff2df5adcde6a552460198a67c2f023f546",
-          "output_indexes_sha256": "8ad25bbc30df820aac927ff1bb65bd09fa968ce7fd5c2a61b6482b5c67ea088b",
-          "changed_pixel_count": 2974,
-          "visible_pixel_count": 2128
-        },
-        {
-          "id": "sound-select-normal",
+          "id": "sound-select",
           "source_text": "サウンドセレクト",
           "translation": "音乐选择",
           "x": 0,
-          "y": 160,
+          "y": 149,
           "width": 190,
           "height": 36,
-          "horizontal_offset": 36,
-          "palette_start": 33,
-          "palette_stop": 63,
-          "source_indexes_sha256": "bf77799fc7abcc4fe1af61a290a80ee8d25b9800a4c7f5b7a5dc876b8a7f651f",
-          "output_indexes_sha256": "2da164dc0cb02e7fd83eb75275b88e7decd15d4c7fb84477c5ebf1314e850341",
-          "changed_pixel_count": 3493,
-          "visible_pixel_count": 2180
+          "source_indexes_sha256": "0bbdfe770db0174b3d253511fe2d27cb473879d6913a342463a96dc17266ed2c",
+          "output_indexes_sha256": "1a50b79279510f02dac3f336569c4d91b6f51bd23f457aefde9e3d8c9dcf05c6",
+          "changed_pixel_count": 5965
         },
         {
-          "id": "sound-select-dimmed",
-          "source_text": "サウンドセレクト",
-          "translation": "音乐选择",
-          "x": 200,
-          "y": 160,
-          "width": 190,
-          "height": 36,
-          "horizontal_offset": 36,
-          "palette_start": 65,
-          "palette_stop": 95,
-          "source_indexes_sha256": "c20ccbb51f651d18872a3dc5bfd9f8b05bfb0b9122f78828594d7849cb82f346",
-          "output_indexes_sha256": "b202b6387a1b96ac5c6a064574a58122b6a8247b39bd801d5f354bdd5f89617a",
-          "changed_pixel_count": 3463,
-          "visible_pixel_count": 2180
-        },
-        {
-          "id": "scenario-chart-normal",
+          "id": "scenario-chart",
           "source_text": "シナリオチャート",
           "translation": "剧情流程",
           "x": 0,
-          "y": 200,
+          "y": 189,
           "width": 190,
           "height": 36,
-          "horizontal_offset": 36,
-          "palette_start": 33,
-          "palette_stop": 63,
-          "source_indexes_sha256": "7c636e5125dc727e18fddbeec8748250b2b2943a50eb0042f67e39bdd79d9640",
-          "output_indexes_sha256": "0d7d754fda97b541ed907d490ec5da081a7af46f98bcba1811cfebc9541a16b0",
-          "changed_pixel_count": 3525,
-          "visible_pixel_count": 2406
+          "source_indexes_sha256": "7869a890280bd126472486f7d064ab235ed939602ff7270cefa3ed31d0eade14",
+          "output_indexes_sha256": "6c603cda0126d9af32b37cac29819463cdc5d6cd6ae1a1b50414e886546a428e",
+          "changed_pixel_count": 6007
         },
         {
-          "id": "scenario-chart-dimmed",
-          "source_text": "シナリオチャート",
-          "translation": "剧情流程",
-          "x": 200,
-          "y": 200,
-          "width": 190,
-          "height": 36,
-          "horizontal_offset": 36,
-          "palette_start": 65,
-          "palette_stop": 95,
-          "source_indexes_sha256": "6f01dde69b838338db67436e1f438ca70c1c62558ada19ced68a6a5f8ff36d5e",
-          "output_indexes_sha256": "fa0b15bf9de9dddbfb8de0a31b54739d2900f48f5f0556b44cdd7bfa70439863",
-          "changed_pixel_count": 3513,
-          "visible_pixel_count": 2406
+          "id": "strategy-qa",
+          "source_text": "攻略Ｑ＆Ａ",
+          "translation": "攻略Q&A",
+          "x": 39,
+          "y": 224,
+          "width": 118,
+          "height": 32,
+          "source_indexes_sha256": "86045e733602c9aca95fb84d51c0154f772c88698771325db77de9c8f510038f",
+          "output_indexes_sha256": "4e5494cb7797da9a6709d3eb5ad72618a608f3586a44f045f6631af1608afdb1",
+          "changed_pixel_count": 3381
         }
       ],
-      "all_six_labels_built_in_both_states": true,
-      "member_size_preserved": true,
+      "all_six_labels_written": true,
+      "archive_size_preserved": true,
+      "archive_non_target_chunks_preserved": true,
       "tim2_metadata_preserved": true,
       "clut_and_non_image_bytes_preserved": true,
-      "linear_index_reread_exact": true
+      "codec_round_trip_exact": true,
+      "font_path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf"
+    },
+    "runtime_library_menu": {
+      "member": "DATA/NISVDATA.BIN",
+      "chunk_index": 0,
+      "record_index": 2,
+      "record_offset": 575680,
+      "source_record_sha256": "9b5613b49938a578edfeb5084ac462c28ae44b7ca6f9c2aaf2a3e21bfa731adf",
+      "output_record_sha256": "fe84d71dc5fe55c0e05cda4bd59417cfa92d5346ce02463d58a4fa548057786e",
+      "source_logical_indexes_sha256": "f6eeb178adaac2de29962a62463ad1a9cc91bea39c821d3e4a90cf4be7037cc2",
+      "output_logical_indexes_sha256": "d74ab81162151ff61df33d9cd9b3a83769e9ff5158484f9be6753866c45080bd",
+      "changed_pixel_count": 15356,
+      "source_stored_size": 169504,
+      "output_encoded_size": 160067,
+      "output_padding_size": 9437,
+      "render_source": "locked_snapshot",
+      "render_snapshot": {
+        "path": "config/library/library-menu-runtime-render-snapshot.json",
+        "size": 34845,
+        "sha256": "fbb0624489af3e450ca0d31c370e096171cb7f1f71cd3471b94309cef3ba9709"
+      },
+      "frozen_preview_png": {
+        "size": 16818,
+        "sha256": "07b6e848221969a2b6b56756ec76ebdd156bcee6a4270e2ff43411ccd12aae32"
+      },
+      "labels": [
+        {
+          "id": "robot-encyclopedia",
+          "source_text": "ロボット大図鑑",
+          "translation": "机体图鉴",
+          "x": 0,
+          "y": 29,
+          "width": 190,
+          "height": 36,
+          "source_indexes_sha256": "c7bd748f4e5273ed190b4e21cc2cc70cca4b07606bf5da61c619bb05e3755671",
+          "output_indexes_sha256": "155a7a77b0516f00dec2a825b634c9dcc07c82208b7b364f57b462e434449290",
+          "changed_pixel_count": 6085
+        },
+        {
+          "id": "character-encyclopedia",
+          "source_text": "キャラクター事典",
+          "translation": "角色事典",
+          "x": 0,
+          "y": 69,
+          "width": 190,
+          "height": 36,
+          "source_indexes_sha256": "d17e937cdacefc92ab9bec719a2ad29f69a339ddc0239f0e95c35de2a7ea47f8",
+          "output_indexes_sha256": "ab02657f254c74c2dd835773c449a43d85d683a5a4e29ca7744da3125c06f56b",
+          "changed_pixel_count": 5964
+        },
+        {
+          "id": "glossary",
+          "source_text": "用語事典",
+          "translation": "术语事典",
+          "x": 0,
+          "y": 109,
+          "width": 190,
+          "height": 36,
+          "source_indexes_sha256": "4547ffa0f120b1432f7e43ceede6b5264711b5aac1b5f3aaedd18f4d194b4635",
+          "output_indexes_sha256": "5409706d9e1e1007c4412d5c47c4c3442f9119e191cc3f3ada8350972016e36d",
+          "changed_pixel_count": 5963
+        },
+        {
+          "id": "sound-select",
+          "source_text": "サウンドセレクト",
+          "translation": "音乐选择",
+          "x": 0,
+          "y": 149,
+          "width": 190,
+          "height": 36,
+          "source_indexes_sha256": "0bbdfe770db0174b3d253511fe2d27cb473879d6913a342463a96dc17266ed2c",
+          "output_indexes_sha256": "1a50b79279510f02dac3f336569c4d91b6f51bd23f457aefde9e3d8c9dcf05c6",
+          "changed_pixel_count": 5965
+        },
+        {
+          "id": "scenario-chart",
+          "source_text": "シナリオチャート",
+          "translation": "剧情流程",
+          "x": 0,
+          "y": 189,
+          "width": 190,
+          "height": 36,
+          "source_indexes_sha256": "7869a890280bd126472486f7d064ab235ed939602ff7270cefa3ed31d0eade14",
+          "output_indexes_sha256": "6c603cda0126d9af32b37cac29819463cdc5d6cd6ae1a1b50414e886546a428e",
+          "changed_pixel_count": 6007
+        },
+        {
+          "id": "strategy-qa",
+          "source_text": "攻略Ｑ＆Ａ",
+          "translation": "攻略Q&A",
+          "x": 39,
+          "y": 224,
+          "width": 118,
+          "height": 32,
+          "source_indexes_sha256": "86045e733602c9aca95fb84d51c0154f772c88698771325db77de9c8f510038f",
+          "output_indexes_sha256": "4e5494cb7797da9a6709d3eb5ad72618a608f3586a44f045f6631af1608afdb1",
+          "changed_pixel_count": 3381
+        }
+      ],
+      "all_six_labels_written": true,
+      "archive_size_preserved": true,
+      "archive_non_target_chunks_preserved": true,
+      "tim2_metadata_preserved": true,
+      "clut_and_non_image_bytes_preserved": true,
+      "codec_round_trip_exact": true,
+      "font_path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf"
+    },
+    "legacy_jtim_restoration": {
+      "member": "DATA/JTIM.BIN",
+      "role": "lookalike_atlas_restored_original",
+      "source_size": 7539728,
+      "output_size": 7539728,
+      "source_sha256": "c02f0b01a20024243c6fce96ffaa423feba7239dacf19309583ee97ac2c24b56",
+      "output_sha256": "c02f0b01a20024243c6fce96ffaa423feba7239dacf19309583ee97ac2c24b56",
+      "restored_original_byte_exact": true,
+      "production_text_writeback_disabled": true
     },
     "archives": [
       {
@@ -33627,10 +34393,10 @@
       "all_chunk_spans_preserved": true,
       "all_runtime_text_reread_exact": true,
       "all_binary_fields_preserved": true,
-      "library_menu_member_size_preserved": true,
-      "library_menu_both_states_written": true,
-      "library_menu_tim2_metadata_preserved": true,
-      "library_menu_clut_preserved": true,
+      "legacy_jtim_restored_original_byte_exact": true,
+      "runtime_library_menu_all_six_labels_written": true,
+      "runtime_library_menu_archive_size_preserved": true,
+      "runtime_library_menu_codec_round_trip_exact": true,
       "all_editorial_statuses_reviewed": true,
       "release_eligible": true
     }

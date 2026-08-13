@@ -28,8 +28,8 @@ class CurrentResidualUiTests(unittest.TestCase):
 
     def test_fixed_slps_and_suspend_return_dialogue_are_locked(self):
         remaining = self.component["remaining_ui"]
-        self.assertEqual(remaining["slps_context_ui"]["entry_count"], 412)
-        self.assertEqual(remaining["slps"]["entry_count"], 189)
+        self.assertEqual(remaining["slps_context_ui"]["entry_count"], 414)
+        self.assertEqual(remaining["slps"]["entry_count"], 193)
 
         formation = remaining["stage_default_formation"]
         self.assertEqual(formation["group_count"], 401)
@@ -119,7 +119,7 @@ class CurrentResidualUiTests(unittest.TestCase):
             "slps_context_ui"
         ]
         self.assertTrue(fixed_slps["readback_exact"])
-        self.assertEqual(fixed_slps["entry_count"], 412)
+        self.assertEqual(fixed_slps["entry_count"], 414)
         context = self.remaining_ui["slps_context_ui_by_offset"]
         self.assertEqual(
             {offset: context[offset] for offset in (
@@ -138,6 +138,48 @@ class CurrentResidualUiTests(unittest.TestCase):
                 "0x33DBD2": "返回",
                 "0x33DBE2": "高速）",
             },
+        )
+
+    def test_library_runtime_text_and_confirm_prompts_are_locked(self):
+        regressions = self.content["compdata"]["library_regressions"]
+        self.assertEqual(
+            regressions["runtime_text_offsets"],
+            {
+                "0x340BD8": "攻略Q&A",
+                "0x340C08": "：确定",
+                "0x340C10": "：返回",
+                "0x340C18": "：切换页面",
+                "0x3472B0": "　　＜机体图鉴＞　",
+                "0x3472D0": "　　＜角色事典＞　　",
+                "0x3472E8": "＜术语事典＞",
+                "0x347300": "　　＜音乐选择＞　　",
+                "0x347320": "　　＜剧情流程＞　　",
+                "0x347338": "＜攻略Q&A＞",
+            },
+        )
+        self.assertEqual(
+            regressions["confirm_prompt_offsets"],
+            {
+                "0x3407B0": "：确定",
+                "0x340C08": "：确定",
+                "0x340CA8": "：确定",
+                "0x340E38": "：确定",
+                "0x3434B0": "：确定",
+                "0x3435C0": "：确定",
+                "0x347870": "：确定",
+            },
+        )
+        self.assertTrue(regressions["runtime_text_readback_exact"])
+        self.assertTrue(regressions["confirm_prompts_readback_exact"])
+        self.assertEqual(regressions["residual_raw_decision_glyph_count"], 0)
+        self.assertTrue(regressions["raw_decision_glyph_absent"])
+        self.assertTrue(
+            self.content["checks"]["library_runtime_text_exact"]
+        )
+        self.assertTrue(
+            self.content["checks"][
+                "all_confirm_prompts_use_localized_glyphs"
+            ]
         )
 
     def test_all_discovered_terrain_names_are_reencoded(self):
