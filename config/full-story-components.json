@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "profile_id": "srwz-global-zh-release-integrated-v1",
-  "scope": "Compose the validated encoded UI component, all 297 COMPDATA map battle/retreat lines, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, both STAGE flow summaries and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, all title-idle auto-demo work-title and speaker-name overlays, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
+  "scope": "Compose the validated encoded UI component, all 297 COMPDATA map battle/retreat lines, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, STAGE flow summaries, MTV_PROS world-history scrolling text and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, all title-idle auto-demo work-title and speaker-name overlays, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
   "base_ui": {
     "manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -36,8 +36,8 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 52845,
-      "sha256": "e7a95009a80a1d775ed4e2ec13e2270a023b2dfad7798a4a166c273b474174ce"
+      "size": 58387,
+      "sha256": "e2a0868baa73c3df469f2e7497a172d4c550fe36cf4500c2a8124cb7ebe526e3"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -49,21 +49,21 @@
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "c84d48ea8cb73613c0252f3f0c70fa177663f4a55af8e58ae6fc21557f93c127"
+      "sha256": "bcf4182198a0cbd7a2683a937afa6150460173751b940f92b0c9bb03de0ceecf"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18066260,
-      "sha256": "21b085b6d55c176d95da6039dd05f659749a3eb0b0dcefa90294f0915abeeaf6"
+      "size": 18066240,
+      "sha256": "2669132c63a6ecb31f432ac3c3b6508bcbc8cdeb1a59c34f01f5dd139dc66aa4"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "5e5b91cb0a13519f4d3bdf7d106b62adbe2d57c6d4822a0786ccfaa0c9de754e"
+      "sha256": "b6fa0b460f6744a54934dbe8b574918675709ff864f3af0e65ec81f229e720e3"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -84,8 +84,8 @@
     },
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
-      "size": 2965199,
-      "sha256": "1313b1e1884bc40faab9ff9e21de92f0875e666a8f1a931e46575f06064cf056"
+      "size": 2965395,
+      "sha256": "6398a6d71e69ba45f6f8dd9641b3ae75f9d94e9c82ca5a9f83b8aebfc1faf86c"
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
@@ -94,17 +94,10 @@
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
-      "size": 15688,
-      "sha256": "9721489827a99a2eb5725e25aa7d9d2d961d4b6ca085f864f17d8cd69e4b4ca1"
+      "size": 15764,
+      "sha256": "0e7727563a9fb2c364fc046e0e33083c1953740858b97d746d5416ea98f5210a"
     },
-    "unit_name_relocations": [
-      {
-        "entry_id": "display-name/unit/0011/name",
-        "source_target_offset": "0x6D198",
-        "target_offset": "0x6D1A0",
-        "reason": "free one aligned cell so Drill Spazer can use a two-byte space"
-      }
-    ],
+    "unit_name_relocations": [],
     "expected": {
       "story_unique_source_count": 424,
       "residual_unique_source_count": 283,
@@ -138,8 +131,8 @@
     },
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
-      "size": 2965199,
-      "sha256": "1313b1e1884bc40faab9ff9e21de92f0875e666a8f1a931e46575f06064cf056"
+      "size": 2965395,
+      "sha256": "6398a6d71e69ba45f6f8dd9641b3ae75f9d94e9c82ca5a9f83b8aebfc1faf86c"
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
@@ -148,8 +141,8 @@
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
-      "size": 15688,
-      "sha256": "9721489827a99a2eb5725e25aa7d9d2d961d4b6ca085f864f17d8cd69e4b4ca1"
+      "size": 15764,
+      "sha256": "0e7727563a9fb2c364fc046e0e33083c1953740858b97d746d5416ea98f5210a"
     },
     "battle_archives": [
       {
@@ -205,8 +198,8 @@
   "compdata_battle_lines": {
     "corpus": {
       "path": "corpus/zh/menu/battle-lines.json",
-      "size": 105220,
-      "sha256": "522723d829041e040490e495c73aa39d126b57f38a3820bcf493848b11c333a5"
+      "size": 105265,
+      "sha256": "58a64a76c071947fc19a169f0877f7b80dc42aec250fb9ab31e3ed6052cbe0d8"
     },
     "expected": {
       "entry_count": 297,
@@ -352,7 +345,7 @@
     "corpus": {
       "path": "corpus/zh/menu/stage-overviews.json",
       "size": 89402,
-      "sha256": "ca148cb9599dc1f7d93b03afff4f585a9bee7ebba40ed29f74365034036b5eac"
+      "sha256": "034c8fa4517a465b0aa9fe206f88974cb6f591d0bfee97253989e2ad9bb2e960"
     },
     "expected": {
       "inventory_entry_count": 110,
@@ -474,6 +467,25 @@
       "offset_count": 206
     }
   },
+  "world_history": {
+    "corpus": {
+      "path": "corpus/zh/summary.json",
+      "size": 18195,
+      "sha256": "95231cdc4e3a76442ee4aa21960a16463d0c173fb8ccd63f310b09f4afd7d082"
+    },
+    "codec": {
+      "strategy": "rust-fit",
+      "min_match_length": 2,
+      "max_match_chain": 16384,
+      "lazy_matching": false
+    },
+    "expected": {
+      "entry_count": 28,
+      "chunk_count": 14,
+      "offset_count": 15,
+      "archive_size": 8368
+    }
+  },
   "hsfc_overviews": {
     "original": {
       "path": "work/disc/DATA/HSFC.BIN",
@@ -483,7 +495,7 @@
     "corpus": {
       "path": "corpus/zh/menu/hsfc-overviews.json",
       "size": 22152,
-      "sha256": "f3648996515097779b7eae650c3cd7facd740fb14840ae8270027dcd0eee7ba3"
+      "sha256": "5f4f42f684fb7edb25aa1cffb635e858f03072c753bbb43e91e46259559bee54"
     },
     "expected": {
       "record_count": 180,
@@ -532,7 +544,7 @@
     "stage_system_dialogue": {
       "path": "corpus/zh/story-system-dialogue.json",
       "size": 137640,
-      "sha256": "cf43a3ee4ed90649c1087647d9eb1a6690906eae84905d2d9835d2f6fe7a9478"
+      "sha256": "337ef48eabd4357ae3f6aa328c2ffdb98c16558ba18356f8e32750ad4483b5d3"
     },
     "stage_default_formations": {
       "path": "corpus/zh/menu/stage-default-formations.json",
@@ -641,8 +653,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6925364,
-      "sha256": "c817a8cf9d5fc1dc6bf0a139b4185a20eeb271e4b1e39d5b32df01ede8ed627b"
+      "size": 6938326,
+      "sha256": "ae73aca9e98a2967f759729410a53dc7d4d14366c98329cc97f45cb5dc88d42d"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -1045,12 +1057,12 @@
       "mode": "flattened-release-superset-of-encoded-ui",
       "encoded_assignment_count": 1803,
       "encoded_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
-      "release_assignment_count": 3419,
-      "release_assignment_mapping_sha256": "17603c0f940700267d32e54dfce4863b41d735201281cd53d95659813b8367cb",
-      "release_snapshot_primary_mapping_sha256": "64cb03d99778bdc0a805f8ed36fabd076e4ddceff6932e7298c741d526d42a29",
+      "release_assignment_count": 3421,
+      "release_assignment_mapping_sha256": "5f171a63453cba38b8db4c4bd7b85fc2b7cd0fd26fa642481d32f5654051a330",
+      "release_snapshot_primary_mapping_sha256": "7c243f77bf4271b7bb2d39827d89947172e3a850698201afbeecd7ba84e3a7c5",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "224a892b4f44beedbd46666032b760941ad25a25534e4fc79223cc692d7ed173",
+        "sha256": "0e46c1e6c6143e553fb0a25fbdd4ef6e392f3ed5159074355a5ad232d227d162",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
       "reason": "The already encoded UI bytes remain valid because all 1,803 mappings they use are an exact character/code/glyph subset of the flattened global release snapshot. The inherited encoded UI component is not rebuilt."

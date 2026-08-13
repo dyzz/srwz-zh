@@ -96,6 +96,60 @@ def verify_file(path: Path, expected_size: int, expected_sha256: str) -> None:
         )
 
 
+def validate_current_component_inputs(config: dict, manifest: dict) -> dict:
+    """Reject a working ISO assembled from a stale component receipt."""
+
+    if config.get("require_current_component_input_binding") is not True:
+        return {"enforced": False}
+    if config.get("release_tag") is not None:
+        raise IsoBuildError(
+            "current component input binding is only valid for a working profile"
+        )
+    inputs = manifest.get("inputs")
+    if not isinstance(inputs, dict) or not inputs:
+        raise IsoBuildError("component validation manifest has no input locks")
+
+    verified_paths: dict[Path, tuple[int, str]] = {}
+    for label, lock in inputs.items():
+        if not isinstance(lock, dict):
+            raise IsoBuildError(f"component input lock is invalid: {label}")
+        raw_path = lock.get("path")
+        expected_size = lock.get("size")
+        expected_sha256 = lock.get("sha256")
+        if (
+            not isinstance(raw_path, str)
+            or not raw_path
+            or not isinstance(expected_size, int)
+            or isinstance(expected_size, bool)
+            or expected_size < 0
+            or not isinstance(expected_sha256, str)
+            or len(expected_sha256) != 64
+        ):
+            raise IsoBuildError(f"component input lock is invalid: {label}")
+        path = resolve_project_path(raw_path)
+        identity = (expected_size, expected_sha256)
+        previous = verified_paths.get(path)
+        if previous is not None:
+            if previous != identity:
+                raise IsoBuildError(
+                    f"component input has conflicting locks: {raw_path}"
+                )
+            continue
+        verified_paths[path] = identity
+        try:
+            verify_file(path, expected_size, expected_sha256)
+        except IsoBuildError as error:
+            raise IsoBuildError(
+                f"component input drift requires a component rebuild: {label}"
+            ) from error
+    return {
+        "enforced": True,
+        "input_lock_count": len(inputs),
+        "unique_input_path_count": len(verified_paths),
+        "all_component_inputs_current": True,
+    }
+
+
 def validate_component_output_binding(config: dict) -> dict:
     """Bind every ISO replacement to one validated component manifest."""
 
@@ -122,6 +176,7 @@ def validate_component_output_binding(config: dict) -> dict:
         outputs, dict
     ):
         raise IsoBuildError("component validation manifest identity drift")
+    current_inputs = validate_current_component_inputs(config, manifest)
     replacement_members = {
         replacement["member"] for replacement in config["replacements"]
     }
@@ -149,6 +204,7 @@ def validate_component_output_binding(config: dict) -> dict:
         "status": required_status,
         "replacement_count": len(config["replacements"]),
         "all_replacements_match_component_outputs": True,
+        "current_inputs": current_inputs,
     }
 
 
@@ -859,6 +915,12 @@ def main() -> int:
                 "[OK] component manifest binding: "
                 f"{component_binding['replacement_count']} replacements"
             )
+            current_inputs = component_binding["current_inputs"]
+            if current_inputs["enforced"]:
+                print(
+                    "[OK] component manifest live inputs: "
+                    f"{current_inputs['input_lock_count']} locks"
+                )
         source_iso = resolve_project_path(config["source_iso"]["path"])
         verify_file(
             source_iso,

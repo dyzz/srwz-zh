@@ -102,6 +102,484 @@ def baseline_with_original_ascii(
     return {**baseline, "proposal_assignments": assignments}
 
 
+def audit_legacy_formation_glyph_compatibility(
+    snapshot: Mapping[str, object],
+    table: object,
+    *,
+    project_root: Path | None = None,
+) -> dict:
+    """Prove every glyph used by stock names in legacy saves stays readable."""
+
+    extensions = snapshot.get("extensions")
+    if not isinstance(extensions, list):
+        raise ReleaseFontError("release font snapshot extensions are invalid")
+    contracts = [
+        extension["legacy_save_formation_compatibility"]
+        for extension in extensions
+        if isinstance(extension, dict)
+        and "legacy_save_formation_compatibility" in extension
+    ]
+    if len(contracts) != 1 or not isinstance(contracts[0], dict):
+        raise ReleaseFontError(
+            "release font snapshot must have exactly one legacy formation contract"
+        )
+    contract = contracts[0]
+    inventory_reference = contract.get("source_inventory")
+    source_inventory = None
+    if inventory_reference is not None:
+        if project_root is None or not isinstance(inventory_reference, dict):
+            raise ReleaseFontError(
+                "legacy formation compatibility inventory reference is invalid"
+            )
+        inventory_path = _project_path(
+            project_root,
+            inventory_reference.get("path"),
+        )
+        inventory_bytes = inventory_path.read_bytes()
+        inventory_sha256 = sha256_bytes(inventory_bytes)
+        if inventory_sha256 != inventory_reference.get("sha256"):
+            raise ReleaseFontError(
+                "legacy formation compatibility inventory SHA-256 drift"
+            )
+        try:
+            inventory = json.loads(inventory_bytes.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise ReleaseFontError(
+                "legacy formation compatibility inventory is malformed"
+            ) from error
+        inventory_names = inventory.get("sources")
+        expected_name_count = inventory_reference.get("source_count")
+        if (
+            not isinstance(expected_name_count, int)
+            or isinstance(expected_name_count, bool)
+            or not isinstance(inventory_names, list)
+            or len(inventory_names) != expected_name_count
+            or inventory.get("expected", {}).get("unique_source_count")
+            != expected_name_count
+        ):
+            raise ReleaseFontError(
+                "legacy formation compatibility inventory count drift"
+            )
+        source_inventory = {
+            "path": str(inventory_path.relative_to(project_root.resolve())),
+            "size": len(inventory_bytes),
+            "sha256": inventory_sha256,
+            "source_count": expected_name_count,
+        }
+        extra_names = contract.get("observed_legacy_names", [])
+        if not isinstance(extra_names, list):
+            raise ReleaseFontError(
+                "legacy formation compatibility observed-name list is invalid"
+            )
+        observed_names = list(dict.fromkeys([*inventory_names, *extra_names]))
+    else:
+        observed_names = contract.get("observed_legacy_names")
+    preserved_text = contract.get("preserved_source_characters")
+    reserved_text = contract.get("reserved_unoccupied_source_characters", "")
+    if (
+        not isinstance(observed_names, list)
+        or not observed_names
+        or any(not isinstance(name, str) or not name for name in observed_names)
+        or not isinstance(preserved_text, str)
+        or not preserved_text
+        or not isinstance(reserved_text, str)
+        or len(set(preserved_text)) != len(preserved_text)
+        or len(set(reserved_text)) != len(reserved_text)
+    ):
+        raise ReleaseFontError("legacy formation compatibility contract is invalid")
+
+    primary = snapshot.get("primary_assignments")
+    aliases = snapshot.get("surface_alias_assignments")
+    compatibility = snapshot.get("source_compatibility_assignments")
+    candidates = snapshot.get("remaining_allocation_candidates")
+    if not all(isinstance(rows, list) for rows in (
+        primary,
+        aliases,
+        compatibility,
+        candidates,
+    )):
+        raise ReleaseFontError("release font snapshot mappings are invalid")
+
+    active_by_code: dict[int, str] = {}
+    for row in (*primary, *aliases, *compatibility):
+        if not isinstance(row, dict):
+            raise ReleaseFontError("release font snapshot mapping row is invalid")
+        try:
+            code = int(row["code"], 16)
+            character = row["character"]
+        except (KeyError, TypeError, ValueError) as error:
+            raise ReleaseFontError(
+                "release font snapshot mapping row is invalid"
+            ) from error
+        if code in active_by_code:
+            raise ReleaseFontError(
+                f"release font snapshot has duplicate active code {code:04X}"
+            )
+        active_by_code[code] = character
+    try:
+        candidate_codes = {int(row["code"], 16) for row in candidates}
+    except (KeyError, TypeError, ValueError) as error:
+        raise ReleaseFontError(
+            "release font allocation candidate row is invalid"
+        ) from error
+
+    observed_characters = set("".join(observed_names))
+    preserved_characters = set(preserved_text)
+    reserved_characters = set(reserved_text)
+    if (
+        not preserved_characters <= observed_characters
+        or not reserved_characters <= observed_characters
+        or preserved_characters & reserved_characters
+    ):
+        raise ReleaseFontError(
+            "legacy formation compatibility declarations do not match observed names"
+        )
+    expected_character_count = contract.get("protected_source_character_count")
+    if expected_character_count is not None and (
+        source_inventory is None
+        or expected_character_count
+        != len(set("".join(inventory_names)))
+    ):
+        raise ReleaseFontError(
+            "legacy formation compatibility character-count drift"
+        )
+    legacy_compatibility_characters = {
+        row.get("character")
+        for row in compatibility
+        if isinstance(row, dict)
+        and row.get("mapping")
+        == "legacy_save_formation_source_compatibility"
+    }
+    if legacy_compatibility_characters != preserved_characters:
+        raise ReleaseFontError(
+            "legacy formation compatibility assignments do not match the contract"
+        )
+
+    inverse_characters = getattr(table, "inverse_characters", None)
+    if not isinstance(inverse_characters, Mapping):
+        raise ReleaseFontError("legacy formation audit requires a text table")
+    collisions = []
+    reclaimable = []
+    protected_original_codes = []
+    for character in sorted(observed_characters):
+        code = inverse_characters.get(character)
+        if code is None:
+            collisions.append({"character": character, "reason": "unmapped"})
+            continue
+        protected_original_codes.append(f"{code:04X}")
+        effective_character = active_by_code.get(code, character)
+        if effective_character != character:
+            collisions.append({
+                "character": character,
+                "code": f"{code:04X}",
+                "effective_character": effective_character,
+                "reason": "glyph_reassigned",
+            })
+        if code in candidate_codes:
+            reclaimable.append({"character": character, "code": f"{code:04X}"})
+    if collisions or reclaimable:
+        raise ReleaseFontError(
+            "legacy formation glyph compatibility failed: "
+            + json.dumps(
+                {"collisions": collisions, "reclaimable": reclaimable},
+                ensure_ascii=False,
+                sort_keys=True,
+            )
+        )
+    report = {
+        "observed_name_count": len(observed_names),
+        "observed_character_count": len(observed_characters),
+        "explicit_compatibility_character_count": len(preserved_characters),
+        "reserved_unoccupied_character_count": len(reserved_characters),
+        "protected_original_code_count": len(protected_original_codes),
+        "protected_original_codes": protected_original_codes,
+        "collision_count": 0,
+        "reclaimable_observed_character_count": 0,
+        "all_observed_original_codes_preserved": True,
+    }
+    if source_inventory is not None:
+        report["source_inventory"] = source_inventory
+    return report
+
+
+def audit_runtime_generated_glyph_compatibility(
+    snapshot: Mapping[str, object],
+    table: object,
+    *,
+    project_root: Path | None = None,
+) -> dict:
+    """Prove glyphs synthesized by the executable remain stock-compatible.
+
+    These glyphs do not have to occur in any static text corpus.  The game can
+    construct them after loading text, so a corpus-only allocator must treat
+    their original codes as live runtime dependencies.
+    """
+
+    extensions = snapshot.get("extensions")
+    if not isinstance(extensions, list):
+        raise ReleaseFontError("release font snapshot extensions are invalid")
+    contracts = [
+        extension["runtime_generated_glyph_compatibility"]
+        for extension in extensions
+        if isinstance(extension, dict)
+        and "runtime_generated_glyph_compatibility" in extension
+    ]
+    if len(contracts) != 1 or not isinstance(contracts[0], dict):
+        raise ReleaseFontError(
+            "release font snapshot must have exactly one runtime-generated "
+            "glyph contract"
+        )
+    contract = contracts[0]
+    outputs = contract.get("conversion_outputs")
+    literal_outputs = contract.get("literal_outputs", [])
+    if (
+        not isinstance(outputs, list)
+        or not outputs
+        or any(not isinstance(row, dict) for row in outputs)
+        or not isinstance(literal_outputs, list)
+        or any(not isinstance(row, dict) for row in literal_outputs)
+    ):
+        raise ReleaseFontError(
+            "runtime-generated glyph compatibility contract is invalid"
+        )
+
+    source_executable = contract.get("source_executable")
+    source_report = None
+    if source_executable is not None:
+        if project_root is None or not isinstance(source_executable, dict):
+            raise ReleaseFontError(
+                "runtime-generated glyph executable reference is invalid"
+            )
+        executable_path = _project_path(
+            project_root,
+            source_executable.get("path"),
+        )
+        executable_bytes = executable_path.read_bytes()
+        executable_sha256 = sha256_bytes(executable_bytes)
+        if (
+            len(executable_bytes) != source_executable.get("size")
+            or executable_sha256 != source_executable.get("sha256")
+        ):
+            raise ReleaseFontError(
+                "runtime-generated glyph executable evidence drift"
+            )
+        source_report = {
+            "path": str(executable_path.relative_to(project_root.resolve())),
+            "size": len(executable_bytes),
+            "sha256": executable_sha256,
+        }
+
+    primary = snapshot.get("primary_assignments")
+    aliases = snapshot.get("surface_alias_assignments")
+    compatibility = snapshot.get("source_compatibility_assignments")
+    candidates = snapshot.get("remaining_allocation_candidates")
+    if not all(
+        isinstance(rows, list)
+        for rows in (primary, aliases, compatibility, candidates)
+    ):
+        raise ReleaseFontError("release font snapshot mappings are invalid")
+
+    active_by_code: dict[int, str] = {}
+    for row in (*primary, *aliases, *compatibility):
+        if not isinstance(row, dict):
+            raise ReleaseFontError("release font snapshot mapping row is invalid")
+        try:
+            code = int(row["code"], 16)
+            character = row["character"]
+        except (KeyError, TypeError, ValueError) as error:
+            raise ReleaseFontError(
+                "release font snapshot mapping row is invalid"
+            ) from error
+        if code in active_by_code:
+            raise ReleaseFontError(
+                f"release font snapshot has duplicate active code {code:04X}"
+            )
+        active_by_code[code] = character
+    try:
+        candidate_codes = {int(row["code"], 16) for row in candidates}
+    except (KeyError, TypeError, ValueError) as error:
+        raise ReleaseFontError(
+            "release font allocation candidate row is invalid"
+        ) from error
+
+    table_characters = getattr(table, "characters", None)
+    if not isinstance(table_characters, Mapping):
+        raise ReleaseFontError(
+            "runtime-generated glyph audit requires a text table"
+        )
+    protected_codes = []
+    protected_characters = []
+    collisions = []
+    reclaimable = []
+    evidence_rows = []
+    literal_evidence_rows = []
+    seen_inputs = set()
+    seen_codes = set()
+    for row in outputs:
+        input_character = row.get("input_character")
+        source_character = row.get("source_character")
+        try:
+            code = int(row["code"], 16)
+            evidence_file_offset = int(row["evidence_file_offset"], 16)
+            evidence_bytes = bytes.fromhex(row["evidence_bytes_le"])
+        except (KeyError, TypeError, ValueError) as error:
+            raise ReleaseFontError(
+                "runtime-generated glyph conversion row is invalid"
+            ) from error
+        if (
+            not isinstance(input_character, str)
+            or len(input_character) != 1
+            or not isinstance(source_character, str)
+            or len(source_character) != 1
+            or input_character in seen_inputs
+            or code in seen_codes
+            or table_characters.get(code) != source_character
+            or len(evidence_bytes) != 4
+        ):
+            raise ReleaseFontError(
+                "runtime-generated glyph conversion row is invalid"
+            )
+        seen_inputs.add(input_character)
+        seen_codes.add(code)
+        protected_codes.append(f"{code:04X}")
+        protected_characters.append(source_character)
+        if source_executable is not None:
+            observed_bytes = executable_bytes[
+                evidence_file_offset : evidence_file_offset + len(evidence_bytes)
+            ]
+            if observed_bytes != evidence_bytes:
+                raise ReleaseFontError(
+                    "runtime-generated glyph instruction evidence drift"
+                )
+        evidence_rows.append({
+            "input_character": input_character,
+            "code": f"{code:04X}",
+            "evidence_vma": row.get("evidence_vma"),
+            "evidence_file_offset": f"0x{evidence_file_offset:08X}",
+            "evidence_bytes_le": evidence_bytes.hex().upper(),
+        })
+        effective_character = active_by_code.get(code, source_character)
+        if effective_character != source_character:
+            collisions.append({
+                "input_character": input_character,
+                "source_character": source_character,
+                "code": f"{code:04X}",
+                "effective_character": effective_character,
+            })
+        if code in candidate_codes:
+            reclaimable.append({
+                "source_character": source_character,
+                "code": f"{code:04X}",
+            })
+    for row in literal_outputs:
+        source_character = row.get("source_character")
+        producer = row.get("producer")
+        role = row.get("role")
+        try:
+            code = int(row["code"], 16)
+        except (KeyError, TypeError, ValueError) as error:
+            raise ReleaseFontError(
+                "runtime-generated glyph literal row is invalid"
+            ) from error
+        if (
+            not isinstance(source_character, str)
+            or len(source_character) != 1
+            or not isinstance(producer, str)
+            or not producer
+            or not isinstance(role, str)
+            or not role
+            or code in seen_codes
+            or table_characters.get(code) != source_character
+        ):
+            raise ReleaseFontError(
+                "runtime-generated glyph literal row is invalid"
+            )
+        seen_codes.add(code)
+        protected_codes.append(f"{code:04X}")
+        protected_characters.append(source_character)
+        literal_evidence_rows.append({
+            "source_character": source_character,
+            "code": f"{code:04X}",
+            "producer": producer,
+            "role": role,
+        })
+        effective_character = active_by_code.get(code, source_character)
+        if effective_character != source_character:
+            collisions.append({
+                "source_character": source_character,
+                "code": f"{code:04X}",
+                "effective_character": effective_character,
+                "producer": producer,
+                "role": role,
+            })
+        if code in candidate_codes:
+            reclaimable.append({
+                "source_character": source_character,
+                "code": f"{code:04X}",
+            })
+    if collisions or reclaimable:
+        raise ReleaseFontError(
+            "runtime-generated glyph compatibility failed: "
+            + json.dumps(
+                {"collisions": collisions, "reclaimable": reclaimable},
+                ensure_ascii=False,
+                sort_keys=True,
+            )
+        )
+    relocations = contract.get("relocations")
+    if not isinstance(relocations, list):
+        raise ReleaseFontError(
+            "runtime-generated glyph relocation contract is invalid"
+        )
+    active_by_character = {
+        character: code for code, character in active_by_code.items()
+    }
+    relocation_rows = []
+    for relocation in relocations:
+        if not isinstance(relocation, dict):
+            raise ReleaseFontError(
+                "runtime-generated glyph relocation contract is invalid"
+            )
+        character = relocation.get("character")
+        try:
+            from_code = int(relocation["from_code"], 16)
+            to_code = int(relocation["to_code"], 16)
+        except (KeyError, TypeError, ValueError) as error:
+            raise ReleaseFontError(
+                "runtime-generated glyph relocation contract is invalid"
+            ) from error
+        if (
+            not isinstance(character, str)
+            or len(character) != 1
+            or from_code not in seen_codes
+            or to_code in seen_codes
+            or active_by_character.get(character) != to_code
+        ):
+            raise ReleaseFontError(
+                "runtime-generated glyph relocation contract is invalid"
+            )
+        relocation_rows.append({
+            "character": character,
+            "from_code": f"{from_code:04X}",
+            "to_code": f"{to_code:04X}",
+        })
+    report = {
+        "conversion_output_count": len(outputs),
+        "literal_output_count": len(literal_outputs),
+        "protected_source_characters": "".join(protected_characters),
+        "protected_original_codes": protected_codes,
+        "instruction_evidence": evidence_rows,
+        "literal_output_evidence": literal_evidence_rows,
+        "relocations": relocation_rows,
+        "collision_count": 0,
+        "reclaimable_output_count": 0,
+        "all_runtime_generated_original_codes_preserved": True,
+    }
+    if source_report is not None:
+        report["source_executable"] = source_report
+    return report
+
+
 def _selection_digest(entries: Mapping[str, Mapping[str, object]]) -> str:
     digest = hashlib.sha256()
     for entry_id in sorted(entries):
@@ -452,6 +930,8 @@ __all__ = [
     "ReleaseFontError",
     "assignment_index",
     "audit_entry_font",
+    "audit_legacy_formation_glyph_compatibility",
+    "audit_runtime_generated_glyph_compatibility",
     "baseline_with_original_ascii",
     "rendered_characters",
     "selected_translation_tree_entries",

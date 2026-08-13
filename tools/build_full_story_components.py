@@ -58,6 +58,7 @@ try:
         load_locked_stage_default_formations,
     )
     from srwz.stage import parse_stage_system_dialogues
+    from srwz.summary import parse_summary
     from srwz.stage_title_graphics import (
         GLYPH_SIZE as STAGE_TITLE_GLYPH_SIZE,
         TITLE_HEIGHT as STAGE_TITLE_HEIGHT,
@@ -87,6 +88,7 @@ try:
     )
     from srwz.writers import (
         WritebackError,
+        apply_summary_replacements,
         build_executable_offset_patch_plan,
         replace_menu_texts_in_place,
         replace_stage_system_dialogues_in_place,
@@ -142,6 +144,7 @@ except ModuleNotFoundError:
         load_locked_stage_default_formations,
     )
     from tools.srwz.stage import parse_stage_system_dialogues
+    from tools.srwz.summary import parse_summary
     from tools.srwz.stage_title_graphics import (
         GLYPH_SIZE as STAGE_TITLE_GLYPH_SIZE,
         TITLE_HEIGHT as STAGE_TITLE_HEIGHT,
@@ -173,6 +176,7 @@ except ModuleNotFoundError:
     )
     from tools.srwz.writers import (
         WritebackError,
+        apply_summary_replacements,
         build_executable_offset_patch_plan,
         replace_menu_texts_in_place,
         replace_stage_system_dialogues_in_place,
@@ -390,6 +394,7 @@ CONFIG_SECTION_IMPACTS = {
     "reviewed_weapons": {COMPDATA_MEMBER},
     "full_stage_titles": {SLPS_MEMBER, VT1_MEMBER, COMPDATA_MEMBER},
     "stage_overviews": {STAGE_MEMBER},
+    "world_history": {MTV_PROS_MEMBER},
     "hsfc_overviews": {HSFC_MEMBER},
     "remaining_ui": {SLPS_MEMBER, COMPDATA_MEMBER, STAGE_MEMBER},
     "nisv_effect_names": {NISVDATA_MEMBER},
@@ -414,6 +419,7 @@ INPUT_IMPACTS = {
     "stage_names": {SLPS_MEMBER, VT1_MEMBER, COMPDATA_MEMBER},
     "stage_title_format": {COMPDATA_MEMBER},
     "stage_overviews": {STAGE_MEMBER},
+    "world_history_corpus": {MTV_PROS_MEMBER},
     "stage_system_dialogue": {STAGE_MEMBER},
     "hsfc_overviews": {HSFC_MEMBER},
     "original_hsfc": {HSFC_MEMBER},
@@ -641,6 +647,50 @@ def _validate_prior_component_outputs(
             raise FullStoryComponentError(
                 f"incremental build refused because component drifted: {member}"
             )
+
+
+def _validate_reviewed_incremental_candidate(
+    *,
+    config_path: Path,
+    output_root: Path,
+    report: dict,
+) -> None:
+    """Validate a stopped two-phase candidate before manifest promotion."""
+
+    if (
+        report.get("status")
+        != "integrated_global_zh_release_components_validated_runtime_pending"
+        or not isinstance(report.get("acceptance"), dict)
+        or not report["acceptance"]
+        or not all(report["acceptance"].values())
+    ):
+        raise FullStoryComponentError(
+            "incremental candidate acceptance is incomplete"
+        )
+    expected_config_lock = _file_lock(
+        config_path,
+        config_path.read_bytes(),
+    )
+    inputs = report.get("inputs")
+    if not isinstance(inputs, dict) or inputs.get("config") != expected_config_lock:
+        raise FullStoryComponentError("incremental candidate config drift")
+    for label, lock in inputs.items():
+        if not isinstance(lock, dict) or not isinstance(lock.get("path"), str):
+            raise FullStoryComponentError(
+                f"incremental candidate input lock is invalid: {label}"
+            )
+        path = _project_path(lock["path"])
+        try:
+            payload = path.read_bytes()
+        except OSError as error:
+            raise FullStoryComponentError(
+                f"incremental candidate input is missing: {label}"
+            ) from error
+        if _file_lock(path, payload) != lock:
+            raise FullStoryComponentError(
+                f"incremental candidate input drifted: {label}"
+            )
+    _validate_prior_component_outputs(output_root, report)
 
 
 def _prior_input_path(prior_report: dict, label: str) -> Path:
@@ -1112,8 +1162,8 @@ def _apply_full_pilot_names(
     # the Japanese preimage, while some explicitly approved Latin names need
     # one additional zero-padded alignment block.  Permit that expansion only
     # inside an already-zero gap before the next validated unit-name target.
-    # One explicitly configured in-slot relocation also frees the extra cell
-    # needed by ``Drill Spazer`` without changing any unrelated target.
+    # An explicitly configured in-slot relocation may also free one aligned
+    # cell for a longer approved name without changing any unrelated target.
     unit_alignment = structure["unit_table"].get("target_alignment")
     if not isinstance(unit_alignment, int) or unit_alignment <= 0:
         raise FullStoryComponentError("unit-name target alignment is invalid")
@@ -3291,6 +3341,171 @@ def _apply_stage_system_dialogues(
         }
     )
     return output, report, corpus_path
+
+
+def _apply_world_history_layout(
+    slps: bytes,
+    archive: bytes,
+    reference: dict,
+    font_manifest: dict,
+) -> tuple[bytes, dict, Path]:
+    """Reflow the localized MTV_PROS world-history text in fixed chunks."""
+
+    if not isinstance(reference, dict):
+        raise FullStoryComponentError("world-history configuration is invalid")
+    corpus_path, corpus_bytes = _locked_file(
+        reference.get("corpus"), label="world-history corpus"
+    )
+    corpus = json.loads(corpus_bytes.decode("utf-8"))
+    entries = corpus.get("entries")
+    expected = reference.get("expected")
+    codec = reference.get("codec")
+    if (
+        corpus.get("batch_id") != "v1-summary-world-history"
+        or corpus.get("scope", {}).get("domain") != "summary"
+        or not isinstance(entries, list)
+        or not isinstance(expected, dict)
+        or len(entries) != expected.get("entry_count")
+        or not isinstance(codec, dict)
+        or codec.get("strategy") != "rust-fit"
+    ):
+        raise FullStoryComponentError("world-history corpus contract drift")
+
+    spec = CORE_ARCHIVE_SPECS["MTV_PROS.BIN"]
+    offsets = read_executable_archive_offsets(slps, spec, len(archive))
+    if (
+        len(archive) != expected.get("archive_size")
+        or len(offsets) != expected.get("offset_count")
+        or len(offsets) - 1 != expected.get("chunk_count")
+        or offsets[-1] != len(archive)
+    ):
+        raise FullStoryComponentError("world-history archive layout drift")
+
+    replacements_by_chunk: dict[int, dict[str, str]] = {}
+    for entry in entries:
+        entry_id = entry.get("id")
+        translation = entry.get("translation")
+        try:
+            chunk_index = int(str(entry_id).split("/")[1])
+        except (IndexError, TypeError, ValueError) as error:
+            raise FullStoryComponentError(
+                "world-history entry identity drift"
+            ) from error
+        if (
+            not isinstance(translation, str)
+            or not translation
+            or not 0 <= chunk_index < len(offsets) - 1
+            or entry_id in replacements_by_chunk.setdefault(chunk_index, {})
+        ):
+            raise FullStoryComponentError("world-history entry contract drift")
+        replacements_by_chunk[chunk_index][entry_id] = translation
+
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    output_table = project_runtime_text_table(table, primary)
+    output_table = project_runtime_text_table(output_table, aliases)
+    output_table = project_runtime_text_table(
+        output_table,
+        original_fullwidth_ascii_overrides(table),
+    )
+
+    output = bytearray(archive)
+    chunk_reports = []
+    changed_entry_count = 0
+    for chunk_index, replacements in sorted(replacements_by_chunk.items()):
+        start, end = offsets[chunk_index : chunk_index + 2]
+        stored = archive[start:end]
+        decoded = decode(stored)
+        if any(stored[decoded.consumed :]):
+            raise FullStoryComponentError(
+                f"world-history chunk {chunk_index} has nonzero padding"
+            )
+        parsed = parse_summary(
+            decoded.output,
+            output_table,
+            chunk_index=chunk_index,
+        )
+        current_by_id = {entry.entry_id: entry.text for entry in parsed.entries}
+        if not set(replacements) <= set(current_by_id):
+            raise FullStoryComponentError(
+                f"world-history chunk {chunk_index} selection drift"
+            )
+        for entry_id, translation in replacements.items():
+            current = current_by_id[entry_id]
+            if current.replace("\r", "").replace("\n", "") != (
+                translation.replace("\r", "").replace("\n", "")
+            ):
+                raise FullStoryComponentError(
+                    f"world-history logical preimage drift: {entry_id}"
+                )
+            changed_entry_count += current != translation
+        try:
+            rewritten = apply_summary_replacements(
+                decoded.output,
+                output_table,
+                chunk_index=chunk_index,
+                replacements=replacements,
+                overrides=encoding_overrides,
+            )
+            encoded = reencode_changed_suffix(
+                stored,
+                rewritten,
+                strategy=codec["strategy"],
+                min_match_length=int(codec["min_match_length"]),
+                max_match_chain=int(codec["max_match_chain"]),
+                lazy_matching=bool(codec["lazy_matching"]),
+                max_output_size=len(stored),
+                original_result=decoded,
+            )
+        except (RuntimeError, ValueError, WritebackError) as error:
+            raise FullStoryComponentError(
+                f"world-history chunk {chunk_index} write failed: {error}"
+            ) from error
+        reread = decode(encoded)
+        if reread.consumed != len(encoded) or reread.output != rewritten:
+            raise FullStoryComponentError(
+                f"world-history chunk {chunk_index} codec round-trip failed"
+            )
+        output[start:end] = encoded + bytes(len(stored) - len(encoded))
+        chunk_reports.append(
+            {
+                "chunk_index": chunk_index,
+                "entry_count": len(replacements),
+                "source_stored_size": len(stored),
+                "source_encoded_size": decoded.consumed,
+                "output_encoded_size": len(encoded),
+                "headroom": len(stored) - len(encoded),
+                "logical_text_preserved": True,
+                "runtime_text_reread_exact": True,
+                "codec_round_trip_exact": True,
+            }
+        )
+
+    if (
+        len(output) != len(archive)
+        or read_executable_archive_offsets(slps, spec, len(output)) != offsets
+    ):
+        raise FullStoryComponentError("world-history archive layout changed")
+    return bytes(output), {
+        "entry_count": len(entries),
+        "changed_entry_count": changed_entry_count,
+        "chunk_count": len(chunk_reports),
+        "minimum_chunk_headroom": min(
+            report["headroom"] for report in chunk_reports
+        ),
+        "archive_size_preserved": True,
+        "slps_offsets_preserved": True,
+        "logical_text_preserved": True,
+        "runtime_text_reread_exact": True,
+        "codec_round_trip_exact": True,
+        "codec": dict(codec),
+        "chunks": chunk_reports,
+    }, corpus_path
 
 
 def _apply_hsfc_overviews(
@@ -7238,6 +7453,26 @@ def build(
     remaining_ui_report["stage_default_formation"] = stage_default_formation_report
     remaining_ui_report["stage_system_dialogue"] = stage_system_dialogue_report
 
+    if reuse_group({MTV_PROS_MEMBER}):
+        output_mtv_pros = _prior_output_payload(output_root, MTV_PROS_MEMBER)
+        world_history_report = json.loads(
+            json.dumps(prior_report["world_history"])
+        )
+        world_history_corpus_path = _prior_input_path(
+            prior_report, "world_history_corpus"
+        )
+    else:
+        (
+            output_mtv_pros,
+            world_history_report,
+            world_history_corpus_path,
+        ) = _apply_world_history_layout(
+            output_slps,
+            base_payloads["mtv_pros"],
+            config.get("world_history"),
+            font_manifest,
+        )
+
     if reuse_group({HSFC_MEMBER}):
         output_hsfc = _prior_output_payload(output_root, HSFC_MEMBER)
         hsfc_overview_report = json.loads(json.dumps(prior_report["hsfc_overviews"]))
@@ -7355,7 +7590,7 @@ def build(
         "DATA/VT1.BIN": output_vt1,
         "DATA/COMPDATA.BN": output_compdata,
         "DATA/NISVDATA.BIN": output_nisvdata,
-        "DATA/MTV_PROS.BIN": base_payloads["mtv_pros"],
+        "DATA/MTV_PROS.BIN": output_mtv_pros,
         "DATA/STAGE.BIN": output_stage,
         "DATA/HSFC.BIN": output_hsfc,
         "HEDBDY/HB.BIN": hb_payload,
@@ -7414,6 +7649,10 @@ def build(
             "stage_overviews": _file_lock(
                 stage_overview_corpus_path,
                 stage_overview_corpus_path.read_bytes(),
+            ),
+            "world_history_corpus": _file_lock(
+                world_history_corpus_path,
+                world_history_corpus_path.read_bytes(),
             ),
             "stage_system_dialogue": _file_lock(
                 stage_system_dialogue_corpus_path,
@@ -7542,6 +7781,9 @@ def build(
             "world_map_title_strategy": world_map_title_report["codec"][
                 "strategy"
             ],
+            "world_history_strategy": world_history_report["codec"][
+                "strategy"
+            ],
         },
         "composition": {
             "font_chunk_index": chunk_index,
@@ -7594,6 +7836,7 @@ def build(
         "pilot_names": pilot_name_report,
         "stage_titles": stage_title_report,
         "stage_overviews": stage_overview_report,
+        "world_history": world_history_report,
         "hsfc_overviews": hsfc_overview_report,
         "remaining_ui": remaining_ui_report,
         "nisv_effect_names": nisv_effect_names_report,
@@ -7626,6 +7869,8 @@ def build(
                 and stage_fixed_formation_report["codec_strategy"]
                 == "rust-fit"
                 and world_map_title_report["codec"]["strategy"]
+                == "rust-fit"
+                and world_history_report["codec"]["strategy"]
                 == "rust-fit"
                 and terrain_name_report["codec_round_trip_exact"]
             ),
@@ -7750,6 +7995,15 @@ def build(
                 and stage_overview_report[
                     "non_target_chunks_preserved_byte_exact"
                 ]
+            ),
+            "world_history_reread_exact": (
+                world_history_report["entry_count"]
+                == config["world_history"]["expected"]["entry_count"]
+                and world_history_report["archive_size_preserved"]
+                and world_history_report["slps_offsets_preserved"]
+                and world_history_report["logical_text_preserved"]
+                and world_history_report["runtime_text_reread_exact"]
+                and world_history_report["codec_round_trip_exact"]
             ),
             "hsfc_overviews_reread_exact": (
                 hsfc_overview_report["translated_readback_exact"]
@@ -8063,6 +8317,37 @@ def main() -> int:
                     "incremental build requires a prior full component manifest"
                 )
             prior_report = _json(manifest_path)
+            if args.refresh_manifest and report_path.is_file():
+                candidate_report = _json(report_path)
+                if candidate_report != prior_report:
+                    _validate_reviewed_incremental_candidate(
+                        config_path=config_path,
+                        output_root=output_root,
+                        report=candidate_report,
+                    )
+                    manifest_path.write_text(
+                        json.dumps(
+                            candidate_report,
+                            ensure_ascii=False,
+                            indent=2,
+                        )
+                        + "\n",
+                        encoding="utf-8",
+                    )
+                    _write_incremental_state(
+                        config_path=config_path,
+                        config=config,
+                        output_root=output_root,
+                        manifest_path=manifest_path,
+                    )
+                    print(
+                        "full-story components: promoted reviewed "
+                        "incremental candidate; updated_members=0 "
+                        "runtime=pending"
+                    )
+                    print(f"manifest refreshed: {manifest_path}")
+                    print(f"report: {report_path}")
+                    return 0
             _validate_prior_component_outputs(output_root, prior_report)
             remaining_reference = config.get("remaining_ui", {}).get(
                 "translations"

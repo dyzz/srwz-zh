@@ -1,4 +1,5 @@
 import copy
+import hashlib
 import json
 import tempfile
 import unittest
@@ -27,6 +28,57 @@ RELEASE_CONFIG = (
 
 
 class Mkps2isoBuildTests(unittest.TestCase):
+    def test_working_component_binding_rejects_stale_live_inputs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.json"
+            source.write_text('{"version":1}\n', encoding="utf-8")
+            source_data = source.read_bytes()
+            manifest = root / "manifest.json"
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "status": "validated",
+                        "inputs": {
+                            "config": {
+                                "path": "source.json",
+                                "size": len(source_data),
+                                "sha256": hashlib.sha256(source_data).hexdigest(),
+                            }
+                        },
+                        "outputs": {
+                            "DATA/VT1.BIN": {
+                                "path": "work/build/profile/components/DATA/VT1.BIN",
+                                "size": 10,
+                                "sha256": "a" * 64,
+                            }
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            config = {
+                "require_component_output_binding": True,
+                "require_current_component_input_binding": True,
+                "component_validation_manifest": "manifest.json",
+                "component_required_status": "validated",
+                "replacements": [
+                    {
+                        "member": "DATA/VT1.BIN",
+                        "source": "work/build/profile/components/DATA/VT1.BIN",
+                        "size": 10,
+                        "sha256": "a" * 64,
+                    }
+                ],
+            }
+            source.write_text('{"version":2}\n', encoding="utf-8")
+            with patch("tools.build_iso.PROJECT_ROOT", root.resolve()):
+                with self.assertRaisesRegex(
+                    IsoBuildError,
+                    "component input drift requires a component rebuild: config",
+                ):
+                    validate_component_output_binding(config)
+
     def test_component_binding_rejects_copied_lock_drift(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -32,9 +32,12 @@ from srwz.release_font_policy import (
 )
 from srwz.release_font import (
     ReleaseFontError,
+    audit_legacy_formation_glyph_compatibility,
+    audit_runtime_generated_glyph_compatibility,
     rendered_characters,
     selected_translation_tree_entries,
 )
+from srwz.text import load_text_table
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -167,6 +170,30 @@ def main() -> int:
         raise SystemExit("release font assignment-count ratchet drift")
 
     try:
+        base_config_path = _project_path(config["base_font_config"]["path"])
+        base_config = _load(base_config_path)
+        encoding_baseline = base_config.get("encoding_baseline")
+        if not isinstance(encoding_baseline, dict):
+            raise ReleaseFontError("global font base has no encoding baseline")
+        table_path = _project_path(encoding_baseline["text_table"]["path"])
+        if sha256_bytes(table_path.read_bytes()) != encoding_baseline[
+            "text_table"
+        ]["sha256"]:
+            raise ReleaseFontError("global font text table SHA-256 drift")
+        legacy_formation_compatibility = (
+            audit_legacy_formation_glyph_compatibility(
+                snapshot,
+                load_text_table(table_path),
+                project_root=PROJECT_ROOT,
+            )
+        )
+        runtime_generated_compatibility = (
+            audit_runtime_generated_glyph_compatibility(
+                snapshot,
+                load_text_table(table_path),
+                project_root=PROJECT_ROOT,
+            )
+        )
         profile = load_font_profile(PROJECT_ROOT, config_path)
         font_lock = load_font_lock(PROJECT_ROOT / profile["font_lock"])
         locked_paths = verify_font_lock_files(
@@ -380,6 +407,10 @@ def main() -> int:
         "remaining_candidate_slot_count": expected[
             "remaining_candidate_slot_count"
         ],
+        "legacy_formation_compatibility": legacy_formation_compatibility,
+        "runtime_generated_glyph_compatibility": (
+            runtime_generated_compatibility
+        ),
         "new_character_allocation_policy": config[
             "new_character_allocation_policy"
         ],

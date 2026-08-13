@@ -21,6 +21,8 @@ from srwz.release_font import (
     ReleaseFontError,
     assignment_index,
     audit_entry_font,
+    audit_legacy_formation_glyph_compatibility,
+    audit_runtime_generated_glyph_compatibility,
     baseline_with_original_ascii,
     rendered_characters,
     selected_translation_tree_entries,
@@ -182,8 +184,26 @@ def main() -> int:
         reference = encoding_baseline[label.replace(" ", "_")]
         if sha256_bytes(path.read_bytes()) != reference.get("sha256"):
             raise SystemExit(f"global font {label} SHA-256 drift")
+    table = load_text_table(text_table_path)
+    try:
+        legacy_formation_compatibility = (
+            audit_legacy_formation_glyph_compatibility(
+                snapshot,
+                table,
+                project_root=PROJECT_ROOT,
+            )
+        )
+        runtime_generated_compatibility = (
+            audit_runtime_generated_glyph_compatibility(
+                snapshot,
+                table,
+                project_root=PROJECT_ROOT,
+            )
+        )
+    except ReleaseFontError as error:
+        raise SystemExit(str(error)) from error
     baseline = {
-        "table": load_text_table(text_table_path),
+        "table": table,
         "extended_entries": read_extended_glyph_table(candidate_slps),
         "font": candidate_font,
         "base_assignments": assignment_index(base_codebook_path),
@@ -351,10 +371,26 @@ def main() -> int:
         raise SystemExit("release font migration-equivalence ratchet drift")
     acceptance = {
         "flattened_snapshot_is_self_contained": True,
-        "historical_primary_mappings_preserved": True,
+        "historical_primary_mapping_change_is_compatibility_scoped": (
+            migration.get("mode")
+            == "flattened_release_baseline_with_legacy_save_compatibility"
+            and legacy_formation_compatibility[
+                "all_observed_original_codes_preserved"
+            ]
+        ),
         "raw_source_structural_glyph_compatibility_preserved": (
             len(compatibility)
             == config["expected"]["source_compatibility_assignment_count"]
+        ),
+        "observed_legacy_formation_glyphs_preserved": (
+            legacy_formation_compatibility[
+                "all_observed_original_codes_preserved"
+            ]
+        ),
+        "runtime_generated_glyphs_preserved": (
+            runtime_generated_compatibility[
+                "all_runtime_generated_original_codes_preserved"
+            ]
         ),
         "proposal_and_component_assignment_counts_exact": True,
         "glyph_preimages_and_rasters_exact": True,
@@ -464,6 +500,10 @@ def main() -> int:
             "historical_profiles_are_active_build_dependencies": False,
         },
         "coverage": coverage,
+        "legacy_formation_compatibility": legacy_formation_compatibility,
+        "runtime_generated_glyph_compatibility": (
+            runtime_generated_compatibility
+        ),
         "proposal": _lock(proposal_path),
         "readiness": _lock(readiness_path),
         "font_component": {

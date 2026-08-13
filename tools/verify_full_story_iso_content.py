@@ -3243,7 +3243,10 @@ def main() -> int:
                     "raw_single_byte_ascii": False,
                 }
 
-            widths = dialogue_line_widths(expected_translation)
+            widths = dialogue_line_widths(
+                expected_translation,
+                stage_keyword_links=("《" in source_entry.text),
+            )
             if (
                 len(widths) > DEFAULT_MAX_LINES
                 or max(widths, default=0) > DEFAULT_LINE_WIDTH

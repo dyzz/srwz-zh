@@ -29,6 +29,8 @@ from srwz.text import (
 from srwz.release_font import (
     ReleaseFontError,
     assignment_index,
+    audit_legacy_formation_glyph_compatibility,
+    audit_runtime_generated_glyph_compatibility,
     rendered_characters,
     selected_translation_tree_entries,
 )
@@ -163,6 +165,23 @@ def main() -> int:
     ):
         raise SystemExit("global font encoding baseline SHA-256 drift")
     table = load_text_table(table_path)
+    try:
+        legacy_formation_compatibility = (
+            audit_legacy_formation_glyph_compatibility(
+                snapshot,
+                table,
+                project_root=PROJECT_ROOT,
+            )
+        )
+        runtime_generated_compatibility = (
+            audit_runtime_generated_glyph_compatibility(
+                snapshot,
+                table,
+                project_root=PROJECT_ROOT,
+            )
+        )
+    except ReleaseFontError as error:
+        raise SystemExit(str(error)) from error
     base_codebook = assignment_index(codebook_path)
 
     try:
@@ -209,12 +228,31 @@ def main() -> int:
     occupied_glyphs.update(
         assignment["glyph_index"] for assignment in base_codebook.values()
     )
+    legacy_formation_codes = {
+        int(code, 16)
+        for code in legacy_formation_compatibility[
+            "protected_original_codes"
+        ]
+    }
+    runtime_generated_codes = {
+        int(code, 16)
+        for code in runtime_generated_compatibility[
+            "protected_original_codes"
+        ]
+    }
+    protected_runtime_codes = legacy_formation_codes | runtime_generated_codes
+    occupied_codes.update(protected_runtime_codes)
     # Preserved table glyphs are intentionally absent from the localized
     # primary registry.  They are still live runtime assets and therefore
     # cannot be reclaimed from an older trusted candidate pool.  In
     # particular, 0x8140 is the ideographic space used by stored UI text.
     source_slps = (WORK_ROOT / "disc/SLPS_258.87").read_bytes()
     extended = read_extended_glyph_table(source_slps)
+    for code in protected_runtime_codes:
+        try:
+            occupied_glyphs.add(glyph_index_for_code(code, extended))
+        except ValueError:
+            pass
     preserved_codes = {
         table.inverse_characters[character]
         for character in preserved_table_characters

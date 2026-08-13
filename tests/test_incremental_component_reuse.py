@@ -103,6 +103,27 @@ class IncrementalComponentReuseTests(unittest.TestCase):
             build_full_story_components.ALL_COMPONENT_MEMBERS,
         )
 
+    def test_reviewed_incremental_candidate_can_be_promoted_without_rebuild(self):
+        report = json.loads(self.manifest_path.read_text(encoding="utf-8"))
+        output_root = PROJECT_ROOT / self.config["outputs"]["component_root"]
+        build_full_story_components._validate_reviewed_incremental_candidate(
+            config_path=CONFIG_PATH.resolve(),
+            output_root=output_root.resolve(),
+            report=report,
+        )
+        rejected = json.loads(json.dumps(report))
+        first_acceptance = next(iter(rejected["acceptance"]))
+        rejected["acceptance"][first_acceptance] = False
+        with self.assertRaisesRegex(
+            build_full_story_components.FullStoryComponentError,
+            "candidate acceptance",
+        ):
+            build_full_story_components._validate_reviewed_incremental_candidate(
+                config_path=CONFIG_PATH.resolve(),
+                output_root=output_root.resolve(),
+                report=rejected,
+            )
+
     def test_fixed_slps_executor_emits_only_slps_and_updates_inventory(self):
         current_ui = json.loads(
             (PROJECT_ROOT / "corpus/zh/menu/remaining-ui.json").read_text(
