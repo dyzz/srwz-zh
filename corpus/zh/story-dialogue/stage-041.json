@@ -559,7 +559,7 @@
     {
       "id": "story/041/dialogue/01.10/0007",
       "source_text_sha256": "381e940ec8742a7b144af6a0a12f2df801c6a3560f06f50282d71b9f1ef9e094",
-      "translation": "“$n！\n　乌鸦交给其他人，我们瞄准阿萨基姆！”",
+      "translation": "“$n！乌鸦交给其他人，\n　我们瞄准阿萨基姆！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -1461,14 +1461,15 @@
     {
       "id": "story/041/dialogue/02.01/0010",
       "source_text_sha256": "246652f4375f41f2535c828ba2da1db539ba023f640fcdb1f4091ca7598d4e1c",
-      "translation": "“优莱卡……那个叫蒂普特利的大婶，\n　是你和霍兰德的熟人吗？”",
+      "translation": "“优莱卡……那个叫蒂普特里的大婶，\n　是你和霍兰德的熟人吗？”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "people/eureka",
-        "people/holland"
+        "people/holland",
+        "people/speaker-8765039f5ae9"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-8765039f5ae9。"
     },
     {
       "id": "story/041/dialogue/02.01/0011",
@@ -1851,11 +1852,13 @@
     {
       "id": "story/041/dialogue/02.01/0050",
       "source_text_sha256": "cd1c5132e218e1b91cbee6ceb88e5f5c80b2766a801e29aafd9d1d3cdf532450",
-      "translation": "“蒂普特利大婶也这么说。”",
+      "translation": "“蒂普特里大婶也这么说。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-8765039f5ae9"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-8765039f5ae9。"
     },
     {
       "id": "story/041/dialogue/02.01/0051",
@@ -3105,35 +3108,38 @@
     {
       "id": "story/041/dialogue/02.03/0000",
       "source_text_sha256": "704e2abe698873074e66626c9398fb02a473f7e187ad00556b1641e0204e0340",
-      "translation": "阿伽玛单人房间",
+      "translation": "阿伽玛单人房",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
+        "place/argama-private-room",
         "unit/argama"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：place/argama-private-room。"
     },
     {
       "id": "story/041/dialogue/02.03/0001",
       "source_text_sha256": "704e2abe698873074e66626c9398fb02a473f7e187ad00556b1641e0204e0340",
-      "translation": "阿伽玛单人房间",
+      "translation": "阿伽玛单人房",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
+        "place/argama-private-room",
         "unit/argama"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：place/argama-private-room。"
     },
     {
       "id": "story/041/dialogue/02.03/0002",
       "source_text_sha256": "704e2abe698873074e66626c9398fb02a473f7e187ad00556b1641e0204e0340",
-      "translation": "阿伽玛单人房间",
+      "translation": "阿伽玛单人房",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
+        "place/argama-private-room",
         "unit/argama"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：place/argama-private-room。"
     },
     {
       "id": "story/041/dialogue/02.03/0003",
@@ -3299,7 +3305,7 @@
     {
       "id": "story/041/dialogue/02.03/0019",
       "source_text_sha256": "50822a2eb8758c6489c1fd775e2ab0dd09aa5452fdf94900b54123aa69f6ad2f",
-      "translation": "“……\n　新联邦军编成了以我们为目标的特种部队？”",
+      "translation": "“……新联邦军编成了以\n　我们为目标的特种部队？”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -3364,7 +3370,7 @@
     {
       "id": "story/041/dialogue/02.03/0024",
       "source_text_sha256": "a429b9f6948d72c28242fae0c8b9759faeddb810c222aa9d66d53798dd7ba075",
-      "translation": "“也有提坦斯的成员，但据说还集结了除他\n　们以外的旧联邦军和旧联合系的特种部队。”",
+      "translation": "“也有提坦斯的成员，但据说还集结了除他们\n　以外的旧联邦军和旧联合系的特种部队。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -3464,7 +3470,7 @@
     {
       "id": "story/041/dialogue/02.03/0033",
       "source_text_sha256": "59192b84910f1206da97a9d249eb8f4b849f511a20d66ce50064ae86f273e8f3",
-      "translation": "“不过，\n　能指挥那种部队的人物应该是个大人物吧。”",
+      "translation": "“不过，能指挥那种部队的\n　人物应该是个大人物吧。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -3680,7 +3686,10 @@
         "organization/ageha-team",
         "organization/phantom-pain"
       ],
-      "notes": "采用项目人物词表的组织名“凤蝶队”，并路由到人工确认项U33。"
+      "notes": "采用项目人物词表的组织名“凤蝶队”，并路由到人工确认项U33。",
+      "glossary_exceptions": [
+        "people/speaker-a23753fe36e8"
+      ]
     },
     {
       "id": "story/041/dialogue/02.03/0055",
@@ -3723,7 +3732,7 @@
     {
       "id": "story/041/dialogue/02.03/0059",
       "source_text_sha256": "725990c27d6da60d7269786c4f7d96185d078e88d9eacaf9e575fc5b95f3d0c2",
-      "translation": "“我、我知道埃曼的女性在18\n　岁就会失去作为女性的能力……”",
+      "translation": "“我、我知道埃曼的女性在18岁\n　就会失去作为女性的能力……”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [

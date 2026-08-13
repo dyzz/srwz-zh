@@ -122,12 +122,16 @@
         "ダブルバーニングファイヤー"
       ],
       "translation": "双重燃烧烈焰",
+      "deprecated_translations": [
+        "双重燃烧火焰"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《魔神Z／大魔神》武器名称首译；本轮人工审核已确认。"
     },
     {
@@ -234,12 +238,16 @@
         "ネーブルミサイル"
       ],
       "translation": "脐部导弹",
+      "deprecated_translations": [
+        "舰桥导弹"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《魔神Z／大魔神》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“脐部导弹”。"
     },
     {
@@ -304,12 +312,16 @@
         "サンダーブレーク"
       ],
       "translation": "暴烈闪电",
+      "deprecated_translations": [
+        "雷霆爆裂"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《魔神Z／大魔神》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“暴烈闪电”。"
     },
     {
@@ -321,9 +333,10 @@
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《魔神Z／大魔神》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“巨型喷射器”。"
     },
     {
@@ -976,12 +989,16 @@
         "ライガーミサイル"
       ],
       "translation": "猎豹导弹",
+      "deprecated_translations": [
+        "狮虎导弹"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "Liger 的中文定名不统一，暂按“莱格”音译，列为重点复核。 本轮人工审核定稿为“猎豹导弹”。"
     },
     {
@@ -1953,15 +1970,21 @@
     {
       "id": "weapon/0139",
       "source_terms": [
-        "ザンボット・ブロー"
+        "ザンボット・ブロー",
+        "ザンボットブロー"
       ],
       "translation": "赞波特重击",
+      "deprecated_translations": [
+        "桑波特·冲击",
+        "桑波特冲击"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《无敌超人赞波特3》武器名称首译；本轮人工审核已确认。"
     },
     {
@@ -3678,12 +3701,16 @@
         "ファンネル"
       ],
       "translation": "浮游炮",
+      "deprecated_translations": [
+        "花"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "宇宙世纪GUNDAM武器名称首译；本轮人工审核已确认。"
     },
     {
@@ -7296,7 +7323,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "OverFreeze 为作品内能力名，保留英文拼写并翻译 Bullet。 本轮人工审核定稿为“超限冻结弹”。"
+      "notes": "“オーバーフリーズ”统一译为“超限冻结”，Bullet 译为“弹”。 本轮人工审核定稿为“超限冻结弹”。"
     },
     {
       "id": "weapon/0521",
@@ -7388,12 +7415,17 @@
         "黒いサザンクロス"
       ],
       "translation": "黑色南十字星",
-      "category": "weapon",
+      "deprecated_translations": [
+        "黑色南十字"
+      ],
+      "category": "epithet",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "story",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的 YYDM-11FANS《返乡战士》全26集字幕；“黑色南十字星”检出40次，剧情正文也已采用该形式。"
     },
     {
@@ -7486,12 +7518,16 @@
         "アンダースティック"
       ],
       "translation": "安德斯蒂克",
+      "deprecated_translations": [
+        "安德棒棒棒"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《返乡战士》武器名称首译；本轮人工审核已确认。"
     },
     {
@@ -7514,12 +7550,16 @@
         "マッハバンドシェイカー"
       ],
       "translation": "马赫频带振荡器",
+      "deprecated_translations": [
+        "马赫带震荡器"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《返乡战士》武器名称首译；本轮人工审核已确认。"
     },
     {
@@ -7639,14 +7679,18 @@
       "source_terms": [
         "オーバーフリーズ"
       ],
-      "translation": "OverFreeze",
+      "translation": "超限冻结",
+      "deprecated_translations": [
+        "OverFreeze"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
-      "notes": "OverFreeze 为作品内能力名，保留英文拼写。 本轮菜单人工审核确认定长显示“OverFreeze”；术语表保留全称“OverFreeze”。"
+      "enforce": true,
+      "notes": "“オーバーフリーズ”统一译为“超限冻结”；英文旧译仅作为淘汰形式保留。"
     },
     {
       "id": "weapon/0546",
@@ -8057,15 +8101,20 @@
     {
       "id": "weapon/0575",
       "source_terms": [
-        "ソルグラヴィトンクラッシャーパンチ"
+        "ソルグラヴィトンクラッシャーパンチ",
+        "ソルグラヴィトンクラッシャー\\n　パンチ"
       ],
       "translation": "烈阳超重翔腕碎",
+      "deprecated_translations": [
+        "Sol重力子粉碎\\n　飞拳"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的《超重神 GRAVION Zwei》第11集对应喊名。"
     },
     {
@@ -8127,15 +8176,20 @@
     {
       "id": "weapon/0580",
       "source_terms": [
-        "ソルグラヴィトンスパイラルクラッシャーパンチ"
+        "ソルグラヴィトンスパイラルクラッシャーパンチ",
+        "ソルグラヴィトンスパイ\\n　ラルクラッシャーパンチ"
       ],
       "translation": "烈阳超重翔灭钻炎爆",
+      "deprecated_translations": [
+        "Sol Gravion螺旋\\n　粉碎飞拳"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的《超重神 GRAVION Zwei》第11集对应喊名。"
     },
     {
@@ -8463,15 +8517,21 @@
     {
       "id": "weapon/0604",
       "source_terms": [
-        "ルナティックアーチェリー"
+        "ルナティックアーチェリー",
+        "ルナティック・アーチェリー"
       ],
       "translation": "月狂弓术",
+      "deprecated_translations": [
+        "狂月弓术",
+        "月神弓"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "battle"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "Lunatic Archery 暂译“月狂弓术”，兼顾 Luna 与疯狂的双关，列为重点复核。"
     },
     {
@@ -9435,9 +9495,10 @@
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "原创机体／敌方兵器武器名称首译；本轮人工审核已确认。"
     },
     {

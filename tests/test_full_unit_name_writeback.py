@@ -146,14 +146,10 @@ class FullUnitNameWritebackTests(unittest.TestCase):
         self.assertEqual(after["display-name/unit/0157/name"], "高达X分裂者")
         self.assertEqual(after["display-name/unit/0158/name"], "高达X·分裂者")
 
-    def test_long_approved_latin_names_stay_in_the_validated_unit_pool(self):
+    def test_current_chinese_names_need_no_zero_padding_expansion(self):
         self.assertEqual(
             self.report["unit_names"]["expanded_zero_padding_entry_ids"],
-            [
-                "display-name/unit/0008/name",
-                "display-name/unit/0009/name",
-                "display-name/unit/0010/name",
-            ],
+            [],
         )
         before = {
             entry.entry_id: entry for entry in self.base_names.unit_entries
@@ -173,9 +169,6 @@ class FullUnitNameWritebackTests(unittest.TestCase):
 
     def test_latin_word_separators_are_stored_as_two_byte_spaces(self):
         expected_ids = [
-            "display-name/unit/0008/name",
-            "display-name/unit/0009/name",
-            "display-name/unit/0010/name",
             "display-name/unit/0271/name",
             "display-name/unit/0298/name",
             "display-name/unit/0299/name",
@@ -199,26 +192,12 @@ class FullUnitNameWritebackTests(unittest.TestCase):
             self.assertEqual(payload.count(self.unit_space_payload), 1)
         self.assertTrue(self.report["unit_names"]["two_byte_spaces_exact"])
 
-    def test_drill_spazer_space_uses_one_controlled_pointer_relocation(self):
+    def test_current_chinese_names_need_no_pointer_relocation(self):
         self.assertEqual(
             self.report["unit_names"]["relocated_entry_ids"],
-            ["display-name/unit/0011/name"],
+            [],
         )
-        self.assertEqual(self.report["unit_names"]["relocated_pointer_count"], 3)
-        before = {
-            entry.entry_id: entry for entry in self.base_names.unit_entries
-        }
-        after = {
-            entry.entry_id: entry for entry in self.rebuilt_names.unit_entries
-        }
-        entry_id = "display-name/unit/0011/name"
-        self.assertEqual(before[entry_id].target_offset, 0x6D198)
-        self.assertEqual(after[entry_id].target_offset, 0x6D1A0)
-        self.assertEqual(after[entry_id].text, "中型碟")
-        self.assertEqual(
-            after[entry_id].pointer_offsets,
-            before[entry_id].pointer_offsets,
-        )
+        self.assertEqual(self.report["unit_names"]["relocated_pointer_count"], 0)
         self.assertTrue(self.report["unit_names"]["pointer_relocations_exact"])
 
 

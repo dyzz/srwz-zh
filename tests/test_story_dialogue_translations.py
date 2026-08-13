@@ -129,7 +129,7 @@ class StoryDialogueTranslationTests(unittest.TestCase):
         self.assertTrue(hidden_branch_ids.issubset(translations))
         self.assertEqual(
             translations["story/040/dialogue/01.21/0003"],
-            "“哦哦！\n　这份真心非常强烈！”",
+            "“哦哦！这份真心非常强烈！”",
         )
         self.assertEqual(
             translations["story/040/dialogue/02.01/0078"],

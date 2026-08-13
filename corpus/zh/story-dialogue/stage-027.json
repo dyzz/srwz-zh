@@ -65,7 +65,7 @@
     {
       "id": "story/027/dialogue/01.01/0005",
       "source_text_sha256": "fe217d461721af07f7924a23e0fbdcab2534554fa579f5b848bd941015d15d31",
-      "translation": "“交给我们吧，卡利斯。\n　那些月球人，我们马上就把他们赶出地球。”",
+      "translation": "“交给我们吧，卡利斯。那些月球人，\n　我们马上就把他们赶出地球。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -695,22 +695,25 @@
     {
       "id": "story/027/dialogue/01.15/0021",
       "source_text_sha256": "860e2ee0eed55353b65e0e307387a302c374ae6e61672f5887816c0411943789",
-      "translation": "“可、可是……！\n　出击前基艾尔小姐突然闯进来……”",
+      "translation": "“可、可是……！\n　出击前姬艾尔小姐突然闯进来……”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7d9d1b56f2f0"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7d9d1b56f2f0。"
     },
     {
       "id": "story/027/dialogue/01.15/0022",
       "source_text_sha256": "3d60c80186f7d05cf00a4ec372411947ee77988e1d0ef002614a4aa13020a12d",
-      "translation": "“罗兰说得对，索希耶。\n　是我硬要罗兰让我看看战场。”",
+      "translation": "“罗兰说得对，苏茜亚。\n　是我硬要罗兰让我看看战场。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/loran"
+        "people/loran",
+        "people/speaker-5b924f0e102e"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-5b924f0e102e。"
     },
     {
       "id": "story/027/dialogue/01.15/0023",
@@ -747,14 +750,15 @@
     {
       "id": "story/027/dialogue/01.15/0026",
       "source_text_sha256": "67189ec30b213865881d9123076858dac68278f4ebe061f44f54cc4f15148354",
-      "translation": "（我想如果来到与月之民的战场，\n　就有机会回苏蕾尤和基艾尔小姐交换……）",
+      "translation": "（我想如果来到与月之民的战场，\n　就有机会回太阳号和姬艾尔小姐交换……）",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "people/moonrace",
+        "people/speaker-7d9d1b56f2f0",
         "unit/soleil"
       ],
-      "notes": "",
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7d9d1b56f2f0、unit/soleil。",
       "glossary_exceptions": [
         "people/ray"
       ]
@@ -762,13 +766,13 @@
     {
       "id": "story/027/dialogue/01.15/0027",
       "source_text_sha256": "0b250063e4c141079758f9040fc08cab1f9197ac68945ae135344302dc9f6704",
-      "translation": "（苏蕾尤没有出动，也就是说这场战斗……\n　不是迪安娜·索雷尔的命令吗。）",
+      "translation": "（太阳号没有出动，也就是说这场战斗……\n　不是迪安娜·索雷尔的命令吗。）",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "unit/soleil"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：unit/soleil。"
     },
     {
       "id": "story/027/dialogue/01.16/0000",
@@ -1022,7 +1026,10 @@
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
-      "notes": ""
+      "notes": "日文“元気”为普通词（精神、健康或保重），不是人物元气。",
+      "glossary_exceptions": [
+        "people/speaker-7fc6e83611c6"
+      ]
     },
     {
       "id": "story/027/dialogue/01.19/0003",
@@ -1101,7 +1108,7 @@
     {
       "id": "story/027/dialogue/01.20/0001",
       "source_text_sha256": "a40c20d12988618d502dfa39e7db6124ba66d62fa6528c797a117bd899f0179e",
-      "translation": "“这是警告！\n　想证明清白的话，就去打倒敌人！”",
+      "translation": "“这是警告！想证明清白的话，\n　就去打倒敌人！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -1265,11 +1272,13 @@
     {
       "id": "story/027/dialogue/01.21/0009",
       "source_text_sha256": "2de759c1acdc64776d0312557dd4be47840835202cb218e670a9c9fbe8350367",
-      "translation": "“了解！叫我‘热火’就行！”",
+      "translation": "“了解！叫我‘THE HEAT’就行！”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "title/the-heat"
+      ],
+      "notes": "按日文源词绑定统一全局术语：title/the-heat。"
     },
     {
       "id": "story/027/dialogue/01.21/0010",
@@ -1899,11 +1908,13 @@
     {
       "id": "story/027/dialogue/01.30/0006",
       "source_text_sha256": "ea683bd13e45a806b024539c3b2160435a28649554604bb98de5714f7d482619",
-      "translation": "“怎么了，基艾尔小姐？”",
+      "translation": "“怎么了，姬艾尔小姐？”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7d9d1b56f2f0"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7d9d1b56f2f0。"
     },
     {
       "id": "story/027/dialogue/01.30/0007",
@@ -2002,22 +2013,24 @@
     {
       "id": "story/027/dialogue/01.32/0002",
       "source_text_sha256": "93f1dac9c355c89c2bb2c3038a61537b117a88ef94e12bda0389b818b5788035",
-      "translation": "“索希耶小姐……真是英勇。”",
+      "translation": "“苏茜亚小姐……真是英勇。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-5b924f0e102e"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-5b924f0e102e。"
     },
     {
       "id": "story/027/dialogue/01.32/0003",
       "source_text_sha256": "220226aa1d2eccf528f925e4f65de34af89265e1e562fe054f42485d3b91a954",
-      "translation": "（……这样一来，\n　接触苏蕾尤的方法就失去了吗……）",
+      "translation": "（……这样一来，\n　接触太阳号的方法就失去了吗……）",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "unit/soleil"
       ],
-      "notes": "",
+      "notes": "按日文源词绑定统一全局术语：unit/soleil。",
       "glossary_exceptions": [
         "people/ray"
       ]
@@ -2181,11 +2194,13 @@
     {
       "id": "story/027/dialogue/01.35/0000",
       "source_text_sha256": "0f12426ed9bb9a044bd3ab82d925fcb19594c9a13b89016dfb2d76ed3c6825fa",
-      "translation": "“基艾尔小姐……”",
+      "translation": "“姬艾尔小姐……”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7d9d1b56f2f0"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7d9d1b56f2f0。"
     },
     {
       "id": "story/027/dialogue/01.35/0001",
@@ -2217,7 +2232,7 @@
     {
       "id": "story/027/dialogue/01.35/0004",
       "source_text_sha256": "35c52dc1157a510fabb24ec83d90a45352133bbc6789da095307d5fbcebaa110",
-      "translation": "“太厉害了！真不愧是我的姐姐大人！”",
+      "translation": "“太厉害了！不愧是我的姐姐大人！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -2226,11 +2241,13 @@
     {
       "id": "story/027/dialogue/01.35/0005",
       "source_text_sha256": "b8e6cbe83be95bfe41863dc2693c32fe47d8d9239bd6378319a55b04050137a9",
-      "translation": "“谢谢你，索希耶。”",
+      "translation": "“谢谢你，苏茜亚。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-5b924f0e102e"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-5b924f0e102e。"
     },
     {
       "id": "story/027/dialogue/01.35/0006",
@@ -2946,7 +2963,7 @@
     {
       "id": "story/027/dialogue/01.56/0000",
       "source_text_sha256": "2a37eabb6c2de519ee1ca8ee9bf096739b7ce97fd0bbe11a5138c560857ac122",
-      "translation": "“在‘应许之地’发掘的白色MS……\n　你的力量就这点程度吗？”",
+      "translation": "“在‘应许之地’发掘的白色MS……\n　你就这点本事吗？”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -3572,7 +3589,7 @@
     {
       "id": "story/027/dialogue/02.01/0032",
       "source_text_sha256": "9376c494474d4bb475c96d2c47063343190dcde9988dcd04c81e93d5350b1143",
-      "translation": "“果然，\n　那个月之女王就是迪安娜·索雷尔……！？”",
+      "translation": "“果然，那个月之女王就是\n　迪安娜·索雷尔……！？”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -3696,13 +3713,13 @@
     {
       "id": "story/027/dialogue/02.01/0044",
       "source_text_sha256": "798526655c1e6d2d5b2fbf57416f9eb804a343866785b68ba37959f1ac84658a",
-      "translation": "苏蕾尤舰桥",
+      "translation": "太阳号舰桥",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "unit/soleil"
       ],
-      "notes": "",
+      "notes": "按日文源词绑定统一全局术语：unit/soleil。",
       "glossary_exceptions": [
         "people/ray"
       ]
@@ -3710,13 +3727,13 @@
     {
       "id": "story/027/dialogue/02.01/0045",
       "source_text_sha256": "798526655c1e6d2d5b2fbf57416f9eb804a343866785b68ba37959f1ac84658a",
-      "translation": "苏蕾尤舰桥",
+      "translation": "太阳号舰桥",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "unit/soleil"
       ],
-      "notes": "",
+      "notes": "按日文源词绑定统一全局术语：unit/soleil。",
       "glossary_exceptions": [
         "people/ray"
       ]
@@ -3724,13 +3741,13 @@
     {
       "id": "story/027/dialogue/02.01/0046",
       "source_text_sha256": "798526655c1e6d2d5b2fbf57416f9eb804a343866785b68ba37959f1ac84658a",
-      "translation": "苏蕾尤舰桥",
+      "translation": "太阳号舰桥",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "unit/soleil"
       ],
-      "notes": "",
+      "notes": "按日文源词绑定统一全局术语：unit/soleil。",
       "glossary_exceptions": [
         "people/ray"
       ]
@@ -3738,13 +3755,13 @@
     {
       "id": "story/027/dialogue/02.01/0047",
       "source_text_sha256": "ac5a24b3e653b694a25f04ba85ba8dafb624b5bd4b12e82c4038dc57e540ee20",
-      "translation": "〜苏蕾尤舰桥〜",
+      "translation": "〜太阳号舰桥〜",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "unit/soleil"
       ],
-      "notes": "",
+      "notes": "按日文源词绑定统一全局术语：unit/soleil。",
       "glossary_exceptions": [
         "people/ray"
       ]
@@ -3782,7 +3799,7 @@
     {
       "id": "story/027/dialogue/02.01/0051",
       "source_text_sha256": "4a7c6ea10cd887915a851f9c3560df103dd5bcf91e88b3a9b099b5c9daa2efd7",
-      "translation": "“这完全是现场判断。\n　当然，并没有违背迪安娜阁下的意思。”",
+      "translation": "“这完全是现场判断。当然，\n　并没有违背迪安娜阁下的意思。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -3895,7 +3912,7 @@
     {
       "id": "story/027/dialogue/02.01/0062",
       "source_text_sha256": "d0a0b17eb25f34e348dc106bef029a056fd55af7b5d383a3ce1f05e4f70f3729",
-      "translation": "“既然作为‘应许之地’的太阳带被联邦政\n　府占据，月之民必须寻找新的回归之地。”",
+      "translation": "“既然作为‘应许之地’的太阳带被联邦政府\n　占据，月之民必须寻找新的回归之地。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -4166,7 +4183,7 @@
     {
       "id": "story/027/dialogue/02.01/0090",
       "source_text_sha256": "6cda3ce000fe581d046f6238dd7f79aa875a667411eee840adfae7c6de2dd2ce",
-      "translation": "“……\n　那么美丽的英格莱萨竟被联邦政府接管……”",
+      "translation": "“……那么美丽的英格莱萨\n　竟被联邦政府接管……”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -4211,22 +4228,24 @@
     {
       "id": "story/027/dialogue/02.01/0095",
       "source_text_sha256": "e1a40614a3a27ba4e1d9c49092e1925d0960d277614e093726c6906f86372663",
-      "translation": "（迪安娜大人……这个基艾尔和迪安娜大人\n　开玩笑交换身份，已经过去好几个月了……）",
+      "translation": "（迪安娜大人……这个姬艾尔和迪安娜大人\n　开玩笑交换身份，已经过去好几个月了……）",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7d9d1b56f2f0"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7d9d1b56f2f0。"
     },
     {
       "id": "story/027/dialogue/02.01/0096",
       "source_text_sha256": "404173feaa412cae1cd25db2c360be1f2fb489308782b7fa83b490c8e9e6e7b1",
-      "translation": "（我学习了苏蕾尤内的资料，好不容易到\n　今天都没被周围察觉，一直扮演着您……）",
+      "translation": "（我学习了太阳号内的资料，好不容易到\n　今天都没被周围察觉，一直扮演着您……）",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "unit/soleil"
       ],
-      "notes": "",
+      "notes": "按日文源词绑定统一全局术语：unit/soleil。",
       "glossary_exceptions": [
         "people/ray"
       ]
@@ -4474,7 +4493,7 @@
     {
       "id": "story/027/dialogue/02.01/0121",
       "source_text_sha256": "4c0ed70437f6784330dfd3e9e993af82146c187b1bb91a8404ffbe2c0d55997b",
-      "translation": "“是是……我会努力的。”",
+      "translation": "“行行行……我会努力的。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -4645,7 +4664,7 @@
     {
       "id": "story/027/dialogue/02.01/0139",
       "source_text_sha256": "eed47792c02db9ba478e8e453398bf25a43f4512dbee8a4c7d969fa9efb355c6",
-      "translation": "“但是是非常重要的人……”",
+      "translation": "“但他对我非常重要……”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -4875,11 +4894,13 @@
     {
       "id": "story/027/dialogue/02.01/0163",
       "source_text_sha256": "000b99880ca143f79f8a8b10e3f83b91b64d307984fd3f4998b04278ce3e15f7",
-      "translation": "“我是$F。叫我‘热火’就行。”",
+      "translation": "“我是$F。\n　叫我‘THE HEAT’就行。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "title/the-heat"
+      ],
+      "notes": "按日文源词绑定统一全局术语：title/the-heat。"
     },
     {
       "id": "story/027/dialogue/02.01/0164",
@@ -5020,7 +5041,7 @@
     {
       "id": "story/027/dialogue/02.01/0178",
       "source_text_sha256": "4c0ed70437f6784330dfd3e9e993af82146c187b1bb91a8404ffbe2c0d55997b",
-      "translation": "“是是……我会努力的。”",
+      "translation": "“行行行……我会努力的。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -5347,11 +5368,13 @@
     {
       "id": "story/027/dialogue/02.01/0212",
       "source_text_sha256": "7cb31e2f32ffbe8dc777f9ab609235ee38fc95f706676faf1f514ef8aac5e7ba",
-      "translation": "“彼此彼此，热浪。”",
+      "translation": "“彼此彼此，THE HEAT。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "title/the-heat"
+      ],
+      "notes": "按日文源词绑定统一全局术语：title/the-heat。"
     },
     {
       "id": "story/027/dialogue/02.01/0213",
@@ -5374,13 +5397,13 @@
     {
       "id": "story/027/dialogue/02.02/0000",
       "source_text_sha256": "798526655c1e6d2d5b2fbf57416f9eb804a343866785b68ba37959f1ac84658a",
-      "translation": "苏蕾尤舰桥",
+      "translation": "太阳号舰桥",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "unit/soleil"
       ],
-      "notes": "",
+      "notes": "按日文源词绑定统一全局术语：unit/soleil。",
       "glossary_exceptions": [
         "people/ray"
       ]
@@ -5388,13 +5411,13 @@
     {
       "id": "story/027/dialogue/02.02/0001",
       "source_text_sha256": "798526655c1e6d2d5b2fbf57416f9eb804a343866785b68ba37959f1ac84658a",
-      "translation": "苏蕾尤舰桥",
+      "translation": "太阳号舰桥",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "unit/soleil"
       ],
-      "notes": "",
+      "notes": "按日文源词绑定统一全局术语：unit/soleil。",
       "glossary_exceptions": [
         "people/ray"
       ]
@@ -5402,13 +5425,13 @@
     {
       "id": "story/027/dialogue/02.02/0002",
       "source_text_sha256": "798526655c1e6d2d5b2fbf57416f9eb804a343866785b68ba37959f1ac84658a",
-      "translation": "苏蕾尤舰桥",
+      "translation": "太阳号舰桥",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "unit/soleil"
       ],
-      "notes": "",
+      "notes": "按日文源词绑定统一全局术语：unit/soleil。",
       "glossary_exceptions": [
         "people/ray"
       ]
@@ -5438,7 +5461,7 @@
     {
       "id": "story/027/dialogue/02.02/0005",
       "source_text_sha256": "0f7bb9d781f0088ba8dbed8519f0c34eaa5f487696ba8b6c1d8e72b699814729",
-      "translation": "“这下您明白了吧。\n　地球人不讲道理，就是要排除我们……！”",
+      "translation": "“这下您明白了吧。地球人不讲道理，\n　就是要排除我们……！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -5541,11 +5564,13 @@
     {
       "id": "story/027/dialogue/02.02/0016",
       "source_text_sha256": "011044fea187e587a998048cc234053a675c08e490a7629541d826e7bcb350a3",
-      "translation": "“但是，英格莱萨的格温卿，在我们回归\n　的同时，从地下发掘出了机械人偶……”",
+      "translation": "“但是，英格莱萨的高安卿，在我们回归\n　的同时，从地下发掘出了机械人偶……”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-75872b1833fc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-75872b1833fc。"
     },
     {
       "id": "story/027/dialogue/02.02/0017",
@@ -5699,11 +5724,14 @@
     {
       "id": "story/027/dialogue/02.02/0032",
       "source_text_sha256": "03c058fcb38c15c4e23460896d627cf2b1066ca6f43e5ef45be41ac73f606ff3",
-      "translation": "“基艾尔·海姆呢……！？\n　格温阁下的秘书基艾尔·海姆在那里！？”",
+      "translation": "“姬艾尔·海姆呢……！？\n　高安阁下的秘书姬艾尔·海姆在那里！？”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-75872b1833fc",
+        "people/speaker-7d9d1b56f2f0"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-75872b1833fc、people/speaker-7d9d1b56f2f0。"
     },
     {
       "id": "story/027/dialogue/02.02/0033",
@@ -5719,13 +5747,14 @@
     {
       "id": "story/027/dialogue/02.02/0034",
       "source_text_sha256": "5c64c7bf26d4e54124e45e679d25fde7d0cd3d044a29ecd1c585d11fd2dfeb15",
-      "translation": "（迪安娜大人……您平安无事啊。\n　既然罗兰也在，那索希耶一定也……）",
+      "translation": "（迪安娜大人……您平安无事啊。\n　既然罗兰也在，那苏茜亚一定也……）",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/loran"
+        "people/loran",
+        "people/speaker-5b924f0e102e"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-5b924f0e102e。"
     },
     {
       "id": "story/027/dialogue/02.02/0035",
@@ -5905,13 +5934,14 @@
     {
       "id": "story/027/dialogue/02.02/0052",
       "source_text_sha256": "ad09a25384140d6779c9861c9ad6a35bb856a3dc248673be8eda7ffc7d85f8d2",
-      "translation": "“话是这么说，\n　但威兹和罗亚比的高达也大破了，挺惨的。”",
+      "translation": "“话是这么说，\n　但威兹和罗比的高达也大破了，挺惨的。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
+        "people/speaker-8d5a38b4d77f",
         "unit/gundam-generic"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-8d5a38b4d77f。"
     },
     {
       "id": "story/027/dialogue/02.02/0053",
@@ -6257,11 +6287,13 @@
     {
       "id": "story/027/dialogue/02.02/0088",
       "source_text_sha256": "5f409f7948b5d1d5806c6823af47fde23a0ee38de557347c4711a20812d087e9",
-      "translation": "“真的吗，格温大人！？”",
+      "translation": "“真的吗，高安大人！？”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-75872b1833fc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-75872b1833fc。"
     },
     {
       "id": "story/027/dialogue/02.02/0089",
@@ -6306,13 +6338,14 @@
     {
       "id": "story/027/dialogue/02.02/0093",
       "source_text_sha256": "8c3f5aefbb60388084dee4b4e32c18bcfba46544de48c1b2161ddd28b68bee91",
-      "translation": "“希望雅邦的天花板没事……”",
+      "translation": "“希望雅邦天井没事……”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "place/yapan"
+        "place/yapan",
+        "place/yapans-ceiling"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：place/yapans-ceiling。"
     },
     {
       "id": "story/027/dialogue/02.02/0094",
@@ -6389,11 +6422,13 @@
     {
       "id": "story/027/dialogue/02.02/0101",
       "source_text_sha256": "7d3bedd4eb6af5ec536bdd3e470b2b026e1ff0a030eff66fa6697b5813714a2a",
-      "translation": "“我倒是可以为格温大人效劳……”",
+      "translation": "“我倒是可以为高安大人效劳……”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-75872b1833fc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-75872b1833fc。"
     },
     {
       "id": "story/027/dialogue/02.02/0102",
@@ -6435,7 +6470,10 @@
       "glossary_refs": [
         "people/loran"
       ],
-      "notes": ""
+      "notes": "日文“元気”为普通词（精神、健康或保重），不是人物元气。",
+      "glossary_exceptions": [
+        "people/speaker-7fc6e83611c6"
+      ]
     },
     {
       "id": "story/027/dialogue/02.02/0106",
@@ -6446,7 +6484,10 @@
       "glossary_refs": [
         "people/garrod"
       ],
-      "notes": ""
+      "notes": "日文“元気”为普通词（精神、健康或保重），不是人物元气。",
+      "glossary_exceptions": [
+        "people/speaker-7fc6e83611c6"
+      ]
     },
     {
       "id": "story/027/dialogue/02.02/0107",
@@ -6457,7 +6498,10 @@
       "glossary_refs": [
         "system/un-network"
       ],
-      "notes": ""
+      "notes": "",
+      "glossary_exceptions": [
+        "people/speaker-e547903f3879"
+      ]
     },
     {
       "id": "story/027/dialogue/02.02/0108",
@@ -6726,11 +6770,13 @@
     {
       "id": "story/027/dialogue/02.02/0136",
       "source_text_sha256": "6fd8c9e064a8671f920cec26629ab985ebaf4b63ecb6990dd6975b7e0457ddea",
-      "translation": "“这么说来，邮件姐呢？”",
+      "translation": "“这么说来，梅尔姐呢？”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-e547903f3879"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-e547903f3879。"
     },
     {
       "id": "story/027/dialogue/02.02/0137",
@@ -6806,11 +6852,13 @@
     {
       "id": "story/027/dialogue/02.02/0144",
       "source_text_sha256": "44fa6b00e5624679724c4342a898531cb3ca8d24005dd6bfefc72408a7ca3589",
-      "translation": "“……$n先生，\n　我觉得你很快就能见到邮件小姐了。”",
+      "translation": "“……$n先生，\n　我觉得你很快就能见到梅尔小姐了。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-e547903f3879"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-e547903f3879。"
     },
     {
       "id": "story/027/dialogue/02.02/0145",
@@ -6833,7 +6881,7 @@
     {
       "id": "story/027/dialogue/02.02/0147",
       "source_text_sha256": "49ca8f0188c361f6b663ac311c096133bd919aa0a847322964e222353d0e4537",
-      "translation": "“谢了，蒂珐。\n　既然这样，我就相信你的预言吧。”",
+      "translation": "“谢了，蒂珐。既然这样，\n　我就相信你的预言吧。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -6907,11 +6955,13 @@
     {
       "id": "story/027/dialogue/02.02/0154",
       "source_text_sha256": "a5bbfeab8bc16ac0f6b603820ec32457f002ccf2cffba939cd2c5b920eed8890",
-      "translation": "“再见了，$n。……\n　我和邮件都受你照顾了。一定要找到她啊。”",
+      "translation": "“再见了，$n。……\n　我和梅尔都受你照顾了。一定要找到她啊。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-e547903f3879"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-e547903f3879。"
     },
     {
       "id": "story/027/dialogue/02.02/0155",

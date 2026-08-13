@@ -73,11 +73,13 @@
     {
       "id": "story/034/dialogue/01.01/0005",
       "source_text_sha256": "9ab3a5cb470d1f6269ba75ca11e5e11efdbc6df39e75988cf07e371bd2f710a0",
-      "translation": "（这是基艾尔女士的意志吗……\n　还是米兰或菲尔下的指示……）",
+      "translation": "（这是姬艾尔女士的意志吗……\n　还是米兰或菲尔下的指示……）",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7d9d1b56f2f0"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7d9d1b56f2f0。"
     },
     {
       "id": "story/034/dialogue/01.01/0006",
@@ -127,13 +129,14 @@
     {
       "id": "story/034/dialogue/01.01/0011",
       "source_text_sha256": "ccfb2e687be9e81d18d31fe67b3d82956a8457727ed6acf9d7dee80f24aace9d",
-      "translation": "“蜜姆晶、莫姆！回来！我要派出桂了！”",
+      "translation": "“蜜姆晶、摩姆！回来！我要派出桂了！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/kei"
+        "people/kei",
+        "people/speaker-431100102afc"
       ],
-      "notes": "嵌套词表子串自动例外：people/kei"
+      "notes": "嵌套词表子串自动例外：people/kei；按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/01.02/0000",
@@ -478,7 +481,7 @@
     {
       "id": "story/034/dialogue/01.05/0010",
       "source_text_sha256": "146756920b806a3614a676b3568209ecc6f2c8daa8668d69b3e1c086ded468f4",
-      "translation": "“但是，大尉……！\n　在这里动手的话，会违反与埃曼的条约！”",
+      "translation": "“但是，大尉……！在这里动手的话，\n　会违反与埃曼的条约！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -552,7 +555,7 @@
     {
       "id": "story/034/dialogue/01.05/0018",
       "source_text_sha256": "327d05919435e29d8c573e87477681d05bc6d90a3336351264c72142e014d146",
-      "translation": "“真是可叹啊……。\n　不知是什么缘由，人类竟要互相争斗……”",
+      "translation": "“真是可叹啊……。不知是什么缘由，\n　人类竟要互相争斗……”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -620,11 +623,13 @@
     {
       "id": "story/034/dialogue/01.06/0002",
       "source_text_sha256": "5ee2c325896a9c5865013f417d60b3bfff29e24a33892f302cfe3140d007abde",
-      "translation": "“莫姆！数量呢！？”",
+      "translation": "“摩姆！数量呢！？”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-431100102afc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/01.06/0003",
@@ -682,7 +687,10 @@
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
-      "notes": ""
+      "notes": "日文“ボス”为普通词（头目、老板或BOSS），不是人物波士。",
+      "glossary_exceptions": [
+        "people/speaker-ad9d3832188b"
+      ]
     },
     {
       "id": "story/034/dialogue/01.07/0005",
@@ -807,7 +815,7 @@
     {
       "id": "story/034/dialogue/01.10/0002",
       "source_text_sha256": "b85a721311588758af618ce8fef5fe8851b9ea859ecccec110f465d7b8e0157a",
-      "translation": "“那家伙不是轻易能对付的对手。而且还有同\n　伴在……。我们这边也需要相应的准备吧。”",
+      "translation": "“那家伙不是轻易能对付的对手。而且还有\n　同伴在……。我们这边也需要相应的准备吧。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -1073,13 +1081,13 @@
     {
       "id": "story/034/dialogue/01.13/0012",
       "source_text_sha256": "a0ed6c70335483ad0feee9e9bd035bd6618c5364f0b7a760e1ec8c8129f490bc",
-      "translation": "（这样至少能知道一点苏蕾尤的动向……）",
+      "translation": "（这样至少能知道一点太阳号的动向……）",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "unit/soleil"
       ],
-      "notes": "",
+      "notes": "按日文源词绑定统一全局术语：unit/soleil。",
       "glossary_exceptions": [
         "people/ray"
       ]
@@ -1143,7 +1151,7 @@
     {
       "id": "story/034/dialogue/01.16/0002",
       "source_text_sha256": "b85a721311588758af618ce8fef5fe8851b9ea859ecccec110f465d7b8e0157a",
-      "translation": "“那家伙不是轻易能对付的对手。而且还有同\n　伴在……。我们这边也需要相应的准备吧。”",
+      "translation": "“那家伙不是轻易能对付的对手。而且还有\n　同伴在……。我们这边也需要相应的准备吧。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -1643,7 +1651,7 @@
     {
       "id": "story/034/dialogue/02.01/0011",
       "source_text_sha256": "2d520544ac2f6ed862c83be6e80da1d5b6f1fb2a8c613ec6b00d42ed29280dd1",
-      "translation": "“那仍然是最高优先事项。\n　不过，我们既然也是人类，就必须活下去。”",
+      "translation": "“那仍然是最高优先事项。不过，\n　我们既然也是人类，就必须活下去。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -1729,7 +1737,7 @@
     {
       "id": "story/034/dialogue/02.01/0020",
       "source_text_sha256": "a94934b74b044a397c16726649983a607ecd13529d528b78cddc9b044af583bc",
-      "translation": "“即使无法拯救所有人，也应该尽力而为。\n　作为同样的人类。”",
+      "translation": "“即使无法拯救所有人，\n　也应该尽力而为。作为同样的人类。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -1922,11 +1930,13 @@
     {
       "id": "story/034/dialogue/02.01/0041",
       "source_text_sha256": "2fd8682f0004bd08e2af2b1204f62934d3b8612f47b8c21c74a2b2fe368a1cb2",
-      "translation": "“喂，基艾尔酱也是！\n　你在当售货员，也喊起来啊，来！”",
+      "translation": "“喂，姬艾尔酱也是！\n　你在当售货员，也喊起来啊，来！”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7d9d1b56f2f0"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7d9d1b56f2f0。"
     },
     {
       "id": "story/034/dialogue/02.01/0042",
@@ -2003,7 +2013,7 @@
     {
       "id": "story/034/dialogue/02.01/0050",
       "source_text_sha256": "3044d746443db198230a96a5d6299b8efbd9a3b21077487d2ca72e69c476aa5b",
-      "translation": "“明白了。那么，\n　这个小的的话，1G怎么样？”",
+      "translation": "“明白了。那么这个小一点的，只收您1G。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -2075,7 +2085,7 @@
     {
       "id": "story/034/dialogue/02.01/0058",
       "source_text_sha256": "9a63ac65082217998cb53cbd930b2e933c8c39e3431511bbef3dbf3e224e1de6",
-      "translation": "“我不介意的。\n　唱歌的话，下次有机会再听吧。”",
+      "translation": "“我不介意的。唱歌的话，\n　下次有机会再听吧。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -2102,20 +2112,24 @@
     {
       "id": "story/034/dialogue/02.01/0061",
       "source_text_sha256": "e99970fa74af38ecd10fcbe5f18652dc1770e8d3fbdbd348e1b5d9ddb946ce5d",
-      "translation": "“不过，感觉挺开心的！\n　喂，梅谢……我们也干吧。”",
+      "translation": "“不过，感觉挺开心的！\n　喂，美雪……我们也干吧。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-3d0f47a6e193"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-3d0f47a6e193。"
     },
     {
       "id": "story/034/dialogue/02.01/0062",
       "source_text_sha256": "c80da32845fe1d09c2dbe72ed2fec7a4c63af4a7bd73a85b225c247873e3c962",
-      "translation": "“干吧干吧！……索西耶怎么办？”",
+      "translation": "“干吧干吧！……苏茜亚怎么办？”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-5b924f0e102e"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-5b924f0e102e。"
     },
     {
       "id": "story/034/dialogue/02.01/0063",
@@ -2131,11 +2145,13 @@
     {
       "id": "story/034/dialogue/02.01/0064",
       "source_text_sha256": "aeac981a4068680a933e6f44ee960eeeaf4e57dbdbc480ed72fc0d01a2569866",
-      "translation": "“哦，索西耶小姐。护卫就交给在下吧。”",
+      "translation": "“哦，苏茜亚小姐。护卫就交给在下吧。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-5b924f0e102e"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-5b924f0e102e。"
     },
     {
       "id": "story/034/dialogue/02.01/0065",
@@ -2218,13 +2234,14 @@
     {
       "id": "story/034/dialogue/02.01/0073",
       "source_text_sha256": "02fb0ad1b1298e227fbbfe9cbc94a15e0142d0ac3fb2918a5e0bb39307892c29",
-      "translation": "“真是！你也太迟钝了！\n　嘉班先生在打索西耶的主意啊！”",
+      "translation": "“真是！你也太迟钝了！\n　嘉班先生在打苏茜亚的主意啊！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/speaker-39bb8bf5e8f1"
+        "people/speaker-39bb8bf5e8f1",
+        "people/speaker-5b924f0e102e"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-5b924f0e102e。"
     },
     {
       "id": "story/034/dialogue/02.01/0074",
@@ -2287,13 +2304,14 @@
     {
       "id": "story/034/dialogue/02.01/0080",
       "source_text_sha256": "ec6f911de06eea3b814091e70ca227119daa74490f0e254ad4c977b3df96fbef",
-      "translation": "“嘉班先生和索西耶小姐结婚吗……”",
+      "translation": "“嘉班先生和苏茜亚小姐结婚吗……”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/speaker-39bb8bf5e8f1"
+        "people/speaker-39bb8bf5e8f1",
+        "people/speaker-5b924f0e102e"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-5b924f0e102e。"
     },
     {
       "id": "story/034/dialogue/02.01/0081",
@@ -2334,11 +2352,13 @@
     {
       "id": "story/034/dialogue/02.01/0085",
       "source_text_sha256": "08a019a296775357a844a0a78d8d88f4bd5284677d1ac1edc281a2ad0bb9e640",
-      "translation": "“那边有花江小姐和夏亚她们负责，\n　我们是采购员。”",
+      "translation": "“那边有花江小姐和夏伊亚她们负责，\n　我们是采购员。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7e722f885dfc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7e722f885dfc。"
     },
     {
       "id": "story/034/dialogue/02.01/0086",
@@ -2416,14 +2436,15 @@
     {
       "id": "story/034/dialogue/02.01/0093",
       "source_text_sha256": "6911aec5692c1005d6a3068de4f495898b8ef9be08a01c7a2c9edd32ae9ff75b",
-      "translation": "“那就是大逃亡吧。嘿嘿……\n　我绝对支持，雅邦的天花板上的各位。”",
+      "translation": "“那就是大逃亡吧。嘿嘿……\n　我绝对支持，雅邦天井上的各位。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "event/exodus",
-        "place/yapan"
+        "place/yapan",
+        "place/yapans-ceiling"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：place/yapans-ceiling。"
     },
     {
       "id": "story/034/dialogue/02.01/0094",
@@ -2531,7 +2552,7 @@
     {
       "id": "story/034/dialogue/02.01/0104",
       "source_text_sha256": "15a0950462742be7e5ecda34797185cad200351f17419c6bee9bffdcadb04f73",
-      "translation": "“咦……？好像在各地的市场里拼\n　命砍价的男人也叫这个名字……”",
+      "translation": "“咦……？好像在各地的市场里\n　拼命砍价的男人也叫这个名字……”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -2680,20 +2701,24 @@
     {
       "id": "story/034/dialogue/02.01/0120",
       "source_text_sha256": "b4265f1d584d4004cfb5f88ba1cd794a79cd9c8a874cbe7f8b67cf7771676da3",
-      "translation": "“嘉比先生……\n　那个和莫姆酱是在同一个地方制造的吗？”",
+      "translation": "“嘉比先生……\n　那个和摩姆酱是在同一个地方制造的吗？”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-431100102afc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/02.01/0121",
       "source_text_sha256": "b32df529028a53f6dc7b2e4e861e1198f17e6e88962a35782c218b636dd96f53",
-      "translation": "“莫姆是医疗用机器人，\n　那边那个似乎是纯粹为战斗而制造的。”",
+      "translation": "“摩姆是医疗用机器人，\n　那边那个似乎是纯粹为战斗而制造的。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-431100102afc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/02.01/0122",
@@ -2707,11 +2732,13 @@
     {
       "id": "story/034/dialogue/02.01/0123",
       "source_text_sha256": "6552218cb17b6b05c0d3335d700c3f5987421d06a918f793d2daac845aa1ab01",
-      "translation": "“嘛……莫姆酱用那纤细的胳膊挥\n　舞大型枪械也颇有情趣就是了。”",
+      "translation": "“嘛……摩姆酱用那纤细的胳膊挥\n　舞大型枪械也颇有情趣就是了。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-431100102afc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/02.01/0124",
@@ -2882,11 +2909,13 @@
     {
       "id": "story/034/dialogue/02.01/0142",
       "source_text_sha256": "6746a04d7b81d2ffb39a96460e8821dcf056d21b208e93062b120085d1b37e86",
-      "translation": "“莫姆酱也会高兴的吧。”",
+      "translation": "“摩姆酱也会高兴的吧。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-431100102afc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/02.01/0143",
@@ -3008,20 +3037,24 @@
     {
       "id": "story/034/dialogue/02.01/0156",
       "source_text_sha256": "6275e4eb05d146e212c8c2be959e8ac950775738c248e82edd91b79a4eb47920",
-      "translation": "“那么……\n　那个大家伙和莫姆是在同一个地方制造的吗？”",
+      "translation": "“那么……那个大家伙和摩姆\n　是在同一个地方制造的吗？”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-431100102afc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/02.01/0157",
       "source_text_sha256": "d9645ef386622db0b59c9d26f1a790440508ed65786228bf727a45c90350c0de",
-      "translation": "“莫姆是医疗用机器人，\n　那边那个似乎是纯粹为战斗而制造的。”",
+      "translation": "“摩姆是医疗用机器人，\n　那边那个似乎是纯粹为战斗而制造的。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-431100102afc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/02.01/0158",
@@ -3071,29 +3104,35 @@
     {
       "id": "story/034/dialogue/02.01/0163",
       "source_text_sha256": "8b2821bcea6863be7afca3e76588cc10a212164108ea700c8926269895c4e439",
-      "translation": "“亲爱的，你不会……连莫姆都想拆掉吧？”",
+      "translation": "“亲爱的，你不会……连摩姆都想拆掉吧？”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-431100102afc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/02.01/0164",
       "source_text_sha256": "a2ec4952f5554689814a608717d4a172f7ca34ec00fd5a959842aa69422916fc",
-      "translation": "“没那个必要。莫姆酱会乖乖接受保养。”",
+      "translation": "“没那个必要。摩姆酱会乖乖接受保养。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-431100102afc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/02.01/0165",
       "source_text_sha256": "cdca0567dac554378ec3c59b748a6b75c625b8f65ca02df2f379e1927a9723c9",
-      "translation": "“那、那就是说！\n　亲爱的在摆弄莫姆的身体！？”",
+      "translation": "“那、那就是说！\n　亲爱的在摆弄摩姆的身体！？”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-431100102afc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/02.01/0166",
@@ -3197,7 +3236,7 @@
     {
       "id": "story/034/dialogue/02.01/0177",
       "source_text_sha256": "61c5cc104778c1067c2849480bbe5b6562a2731ac44c22b90d3956c10933b8d2",
-      "translation": "“好了好了，梅尔。\n　确实比起你，那边的机器人更有用吧。”",
+      "translation": "“好了好了，梅尔。确实比起你，\n　那边的机器人更有用吧。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -3289,11 +3328,13 @@
     {
       "id": "story/034/dialogue/02.01/0187",
       "source_text_sha256": "6eb54f344bb63b1593114495487c5f4c380a039ac96c9e9ef896efe7f2c58bd6",
-      "translation": "“那就没问题！莫姆也一定会高兴的！”",
+      "translation": "“那就没问题！摩姆也一定会高兴的！”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-431100102afc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-431100102afc。"
     },
     {
       "id": "story/034/dialogue/02.01/0188",
@@ -3754,11 +3795,13 @@
     {
       "id": "story/034/dialogue/02.02/0040",
       "source_text_sha256": "f68de0c816a835f6b5ff8f150c116d510b791496689a1ffc641f1c8845a49e05",
-      "translation": "“接下来不是小孩子该看的。\n　奇尔……到那边去。”",
+      "translation": "“接下来不是小孩子该看的。\n　琪露……到那边去。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-662e27566286"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-662e27566286。"
     },
     {
       "id": "story/034/dialogue/02.02/0041",
@@ -3882,11 +3925,13 @@
     {
       "id": "story/034/dialogue/02.02/0054",
       "source_text_sha256": "57a315c8ed498dbd7614187239747bab626d9ca184819d056fa45e280a38a37f",
-      "translation": "“真了不起，基艾尔·海姆。\n　不用武力就让那个士兵心生悔恨……”",
+      "translation": "“真了不起，姬艾尔·海姆。\n　不用武力就让那个士兵心生悔恨……”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7d9d1b56f2f0"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7d9d1b56f2f0。"
     },
     {
       "id": "story/034/dialogue/02.02/0055",
@@ -3918,11 +3963,13 @@
     {
       "id": "story/034/dialogue/02.02/0058",
       "source_text_sha256": "abad80d3ec3d139e3f6575340a13620fe697149bf4d158cc5e70a1a4ac60c6f6",
-      "translation": "“正如高安大人所说。\n　您做得很好，基艾尔小姐。”",
+      "translation": "“正如高安大人所说。\n　您做得很好，姬艾尔小姐。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7d9d1b56f2f0"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7d9d1b56f2f0。"
     },
     {
       "id": "story/034/dialogue/02.02/0059",
@@ -3967,11 +4014,13 @@
     {
       "id": "story/034/dialogue/02.02/0063",
       "source_text_sha256": "94d1134f38f171fc91f2bde56bd7e9a3565d529b976e2b1abc70b476b7e7d907",
-      "translation": "（在那之前，\n　无论如何都必须和基艾尔小姐交换回来……）",
+      "translation": "（在那之前，\n　无论如何都必须和姬艾尔小姐交换回来……）",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7d9d1b56f2f0"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7d9d1b56f2f0。"
     },
     {
       "id": "story/034/dialogue/02.02/0064",
@@ -4263,11 +4312,13 @@
     {
       "id": "story/034/dialogue/02.02/0094",
       "source_text_sha256": "968011a409ba4f9c01d896705739c498e61afaf3dd50263e3803d20689b3ea27",
-      "translation": "“嗯……。我会想办法说服夏亚和蜜姆晶的。”",
+      "translation": "“嗯……我会想办法说服夏伊亚和蜜姆晶。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": "本句是对白中的说服语义或“说服力”，不是指令名“说得”。",
+      "glossary_refs": [
+        "people/speaker-7e722f885dfc"
+      ],
+      "notes": "本句是对白中的说服语义或“说服力”，不是指令名“说得”。按日文源词绑定统一全局术语：people/speaker-7e722f885dfc。",
       "glossary_exceptions": [
         "system/persuade"
       ]
@@ -4284,7 +4335,7 @@
     {
       "id": "story/034/dialogue/02.02/0096",
       "source_text_sha256": "ccf1d6b4d1bee4745cb23a0cf15c531e8ef62da10ba3646ebd20864a451c3937",
-      "translation": "“是是……。请多关照了，大尉。”",
+      "translation": "“好好好……那就请多关照了，大尉。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -4481,11 +4532,13 @@
     {
       "id": "story/034/dialogue/02.02/0117",
       "source_text_sha256": "968011a409ba4f9c01d896705739c498e61afaf3dd50263e3803d20689b3ea27",
-      "translation": "“嗯……。我会想办法说服夏亚和蜜姆晶的。”",
+      "translation": "“嗯……我会想办法说服夏伊亚和蜜姆晶。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": "本句是对白中的说服语义或“说服力”，不是指令名“说得”。",
+      "glossary_refs": [
+        "people/speaker-7e722f885dfc"
+      ],
+      "notes": "本句是对白中的说服语义或“说服力”，不是指令名“说得”。按日文源词绑定统一全局术语：people/speaker-7e722f885dfc。",
       "glossary_exceptions": [
         "system/persuade"
       ]
@@ -4502,7 +4555,7 @@
     {
       "id": "story/034/dialogue/02.02/0119",
       "source_text_sha256": "ccf1d6b4d1bee4745cb23a0cf15c531e8ef62da10ba3646ebd20864a451c3937",
-      "translation": "“是是……。请多关照了，大尉。”",
+      "translation": "“好好好……那就请多关照了，大尉。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -4577,7 +4630,7 @@
     {
       "id": "story/034/dialogue/02.02/0126",
       "source_text_sha256": "bf57efc549837e228b2738fbafb2554572d95e345ec5802fe0200f92ebcdd278",
-      "translation": "“但是，\n　为什么奇拉姆不惜违反条约也要发动攻击呢？”",
+      "translation": "“但是，为什么奇拉姆不惜\n　违反条约也要发动攻击呢？”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -4597,19 +4650,20 @@
     {
       "id": "story/034/dialogue/02.02/0128",
       "source_text_sha256": "ebd58d15abc1b3e7feb207ba1c5068a258c2bac55ec92a7b002e9b5e86fa2533",
-      "translation": "（不行，夏亚……！要是知道了奇点的意义，\n　新联邦也不会沉默的……！）",
+      "translation": "（不行，夏伊亚……！要是知道了奇点的意义，\n　新联邦也不会沉默的……！）",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "organization/new-federation",
+        "people/speaker-7e722f885dfc",
         "technology/singularity"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7e722f885dfc。"
     },
     {
       "id": "story/034/dialogue/02.02/0129",
       "source_text_sha256": "ec2565068fab68acb746a7deb2c50721636ee8aa64389b6b0c162603cb3cd9e6",
-      "translation": "（我知道。桂对于埃曼的未来是绝对必要的，\n　这点程度的事。）",
+      "translation": "（我知道。为了埃曼的未来，\n　桂是绝对不可或缺的。）",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -4621,11 +4675,13 @@
     {
       "id": "story/034/dialogue/02.02/0130",
       "source_text_sha256": "3ff9c0c5320df59fc1bfc5ff86f9cd4cc560abf2b0427f49c0f1586f863015c0",
-      "translation": "“怎么了，夏亚小姐？”",
+      "translation": "“怎么了，夏伊亚小姐？”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7e722f885dfc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7e722f885dfc。"
     },
     {
       "id": "story/034/dialogue/02.02/0131",
@@ -4695,15 +4751,16 @@
     {
       "id": "story/034/dialogue/02.02/0138",
       "source_text_sha256": "8e987cf9b51a11f6762ddd9a97325a67efc7b032c922db954377d9462816ce88",
-      "translation": "“大逃亡的乌鲁古斯克城市单位，\n　通称雅邦的天花板的准确位置已经判明。”",
+      "translation": "“大逃亡的乌鲁古斯克城市单位，\n　通称雅邦天井的准确位置已经判明。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "event/exodus",
         "place/yapan",
+        "place/yapans-ceiling",
         "system/unit"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：place/yapans-ceiling。"
     },
     {
       "id": "story/034/dialogue/02.03/0000",
@@ -5061,11 +5118,13 @@
     {
       "id": "story/034/dialogue/02.04/0014",
       "source_text_sha256": "239a4fa4d291a3aa02e5e5f42d2a8c78208786a80599c43da923350ddd93deed",
-      "translation": "“贝罗……”",
+      "translation": "“贝洛……”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-542832967a32"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-542832967a32。"
     },
     {
       "id": "story/034/dialogue/02.04/0015",
@@ -5099,13 +5158,14 @@
     {
       "id": "story/034/dialogue/02.04/0018",
       "source_text_sha256": "e7d3b3bcb6c96ddc36d686916c4c8e7fc078f02caaafb7d2a646a4f0cafa8cfc",
-      "translation": "“我这边也一样！马上就要和雅邦的\n　天井会合了……胜负从那里开始！”",
+      "translation": "“我这边也一样！马上就要和雅邦天井\n　会合了……胜负从那里开始！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "place/yapan"
+        "place/yapan",
+        "place/yapans-ceiling"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：place/yapans-ceiling。"
     },
     {
       "id": "story/034/dialogue/02.04/0019",

@@ -137,6 +137,15 @@
         "ザ・ヒート"
       ],
       "translation": "THE HEAT",
+      "deprecated_translations": [
+        "热火",
+        "热力",
+        "热力男",
+        "热浪",
+        "热风",
+        "THE·HEAT",
+        "扎·希特"
+      ],
       "category": "title",
       "status": "approved",
       "domains": [
@@ -145,6 +154,581 @@
       ],
       "enforce": true,
       "notes": "兰德的自称；沿用人物简介、剧情和战斗台词中的既有统一写法。"
+    },
+    {
+      "id": "system/hangar",
+      "source_terms": [
+        "格納庫"
+      ],
+      "translation": "机库",
+      "deprecated_translations": [
+        "格纳库"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "大陆简体通用军事用语；清理日文汉字直译“格纳库”。"
+    },
+    {
+      "id": "place/moonlight-living-room",
+      "source_terms": [
+        "月光号　居間"
+      ],
+      "translation": "月光号起居室",
+      "deprecated_translations": [
+        "月光号客厅",
+        "月光号　居间",
+        "月光号　起居室"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "作为舰内地点标签统一为“起居室”，并去除日文汉字直译“居间”。"
+    },
+    {
+      "id": "place/glomar-living-room",
+      "source_terms": [
+        "グローマ　居間"
+      ],
+      "translation": "格罗玛起居室",
+      "deprecated_translations": [
+        "格罗玛客厅",
+        "格罗玛　客厅",
+        "格罗玛　起居室"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "作为舰内地点标签统一为“起居室”。"
+    },
+    {
+      "id": "weapon/requiem",
+      "source_terms": [
+        "レクイエム"
+      ],
+      "translation": "镇魂曲",
+      "deprecated_translations": [
+        "安魂曲"
+      ],
+      "category": "weapon",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《高达SEED DESTINY》的月面光束武器 Requiem；沿用本项目资料库与多数现有剧情的“镇魂曲”。"
+    },
+    {
+      "id": "place/bazaar-venue",
+      "source_terms": [
+        "バザー会場"
+      ],
+      "translation": "集市会场",
+      "deprecated_translations": [
+        "巴扎会场",
+        "跳蚤市场会场"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一系统地点标签；“集市”与本作交易系统现有译法一致。"
+    },
+    {
+      "id": "unit/bachcron",
+      "source_terms": [
+        "バッハクロン"
+      ],
+      "translation": "巴赫克隆",
+      "deprecated_translations": [
+        "巴赫克伦号",
+        "巴赫克伦",
+        "巴哈克伦",
+        "巴赫克龙"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与机体显示名、默认编队名和已审资料库统一。"
+    },
+    {
+      "id": "place/bostonia",
+      "source_terms": [
+        "ボストニア"
+      ],
+      "translation": "博斯托尼亚",
+      "deprecated_translations": [
+        "波斯特尼亚"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "沿用同作品多数既有剧情译名。"
+    },
+    {
+      "id": "organization/deava",
+      "source_terms": [
+        "ディーバ"
+      ],
+      "translation": "DEAVA",
+      "deprecated_translations": [
+        "迪巴",
+        "迪瓦",
+        "迪娃"
+      ],
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《创圣的大天使》地球再生机构的作品内官方缩写；与已审资料库的编辑规则统一。"
+    },
+    {
+      "id": "place/yapans-ceiling",
+      "source_terms": [
+        "ヤーパンの天井"
+      ],
+      "translation": "雅邦天井",
+      "deprecated_translations": [
+        "雅邦的天井",
+        "雅邦的天顶",
+        "雅邦天顶",
+        "雅邦的天花板",
+        "雅邦天花板",
+        "雅邦之天盖",
+        "雅帕恩天顶"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》的都市单元专名；大陆中文资料常见“雅邦的天井”，作为复合专名时省略结构助词，统一为“雅邦天井”。"
+    },
+    {
+      "id": "place/trinity-base",
+      "source_terms": [
+        "トリニティ基地"
+      ],
+      "translation": "三位一体基地",
+      "deprecated_translations": [
+        "特里尼蒂基地",
+        "特立尼提基地",
+        "三一基地"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与同作品多数剧情以及“三位一体能量”等既有译法统一。"
+    },
+    {
+      "id": "place/atlandia",
+      "source_terms": [
+        "アトランディア"
+      ],
+      "translation": "亚特兰迪亚",
+      "deprecated_translations": [
+        "亚特兰蒂亚"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《创圣的大天使》专名 Atlandia；与中文作品资料及已审资料库统一。"
+    },
+    {
+      "id": "place/genganam",
+      "source_terms": [
+        "ゲンガナム"
+      ],
+      "translation": "根加纳姆",
+      "deprecated_translations": [
+        "金加纳姆"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》的月球首都；与人物金卡拉姆（ギンガナム）区分，并与已审资料库统一。由于两者会在同一句中并列，不把“金卡拉姆”登记为可全句扫描的废弃译名。"
+    },
+    {
+      "id": "place/mountain-cycle",
+      "source_terms": [
+        "マウンテンサイクル"
+      ],
+      "translation": "山岳循环",
+      "deprecated_translations": [
+        "山脉循环",
+        "山地循环",
+        "环形山循环带",
+        "环形山循环",
+        "环形山"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》黑历史遗产埋藏地；沿用已审资料库的主要译法。"
+    },
+    {
+      "id": "place/vicinity",
+      "source_terms": [
+        "ビシニティ"
+      ],
+      "translation": "比西尼提",
+      "deprecated_translations": [
+        "维西尼提",
+        "维西尼蒂"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》英格莱萨领地的地名 Vicinity；大陆正版 IP 手游公开稿与大陆高达社区资料均采用“比西尼提”。"
+    },
+    {
+      "id": "place/un-station",
+      "source_terms": [
+        "ＵＮステーション"
+      ],
+      "translation": "UN空间站",
+      "deprecated_translations": [
+        "UN站点",
+        "UN站"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一为能准确表达设施性质的“UN空间站”。"
+    },
+    {
+      "id": "system/office",
+      "source_terms": [
+        "執務室"
+      ],
+      "translation": "办公室",
+      "deprecated_translations": [
+        "执务室"
+      ],
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "清理日文汉字直译“执务室”，统一为大陆简体常用的“办公室”。"
+    },
+    {
+      "id": "place/roger-mansion",
+      "source_terms": [
+        "ロジャー邸"
+      ],
+      "translation": "罗杰宅邸",
+      "deprecated_translations": [
+        "罗杰宅"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "作为地点专名统一为完整的“罗杰宅邸”。"
+    },
+    {
+      "id": "place/argama-private-room",
+      "source_terms": [
+        "アーガマ　個室",
+        "アーガマ個室"
+      ],
+      "translation": "阿伽玛单人房",
+      "deprecated_translations": [
+        "阿伽玛单人房间",
+        "阿伽玛　单间",
+        "阿伽玛单间",
+        "阿伽玛　个人房间",
+        "阿伽玛个人房间"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一舰内地点标签，避免“个人房间”“单间”等异译。"
+    },
+    {
+      "id": "place/minerva-private-room",
+      "source_terms": [
+        "ミネルバ　個室"
+      ],
+      "translation": "密涅瓦单人房",
+      "deprecated_translations": [
+        "密涅瓦　个人房间",
+        "密涅瓦个人房间",
+        "密涅瓦　单人房"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一舰内地点标签。"
+    },
+    {
+      "id": "place/iron-gear-private-room",
+      "source_terms": [
+        "アイアン・ギアー　個室"
+      ],
+      "translation": "钢铁齿轮单人房",
+      "deprecated_translations": [
+        "钢铁齿轮单间",
+        "钢铁齿轮个人房间"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一舰内地点标签。"
+    },
+    {
+      "id": "title/council-chair",
+      "source_terms": [
+        "評議会議長"
+      ],
+      "translation": "评议会议长",
+      "deprecated_translations": [
+        "评议会主席"
+      ],
+      "category": "title",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与《高达SEED DESTINY》人物称谓及多数现有剧情统一。"
+    },
+    {
+      "id": "place/three-sages-chamber",
+      "source_terms": [
+        "三賢人の間"
+      ],
+      "translation": "三贤人厅",
+      "deprecated_translations": [
+        "三贤人之间",
+        "三贤者之间"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "日文“间”在此指房间，改为中文地点标签“厅”，不译作方位关系“之间”。"
+    },
+    {
+      "id": "place/white-palace",
+      "source_terms": [
+        "白の宮殿"
+      ],
+      "translation": "白之宫殿",
+      "deprecated_translations": [
+        "白色宫殿"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》根加纳姆内的宫殿专名；与已审资料库统一。"
+    },
+    {
+      "id": "place/bachcron-bridge",
+      "source_terms": [
+        "バッハクロンブリッジ"
+      ],
+      "translation": "巴赫克隆舰桥",
+      "deprecated_translations": [
+        "巴赫克隆桥"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "此处 bridge 指舰桥，不是桥梁。"
+    },
+    {
+      "id": "place/ingressa",
+      "source_terms": [
+        "イングレッサ"
+      ],
+      "translation": "英格莱萨",
+      "deprecated_translations": [
+        "英格雷萨",
+        "因格雷萨",
+        "英格蕾萨",
+        "英格列萨"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《∀高达》地名；沿用已审资料库的主要译法。"
+    },
+    {
+      "id": "place/agato-crystal",
+      "source_terms": [
+        "アガトの結晶"
+      ],
+      "translation": "阿加托结晶",
+      "deprecated_translations": [
+        "阿加特结晶",
+        "阿加托的结晶",
+        "阿加特的结晶"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》的设施专名；与已审资料库多数译法统一。"
+    },
+    {
+      "id": "place/urugsk",
+      "source_terms": [
+        "ウルグスク"
+      ],
+      "translation": "乌鲁古斯克",
+      "deprecated_translations": [
+        "乌尔古斯克",
+        "乌尔格斯克",
+        "乌鲁古斯库"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story",
+        "battle"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》圆顶都市 Urugsk；按原文音节及已审资料库主要译法统一。"
+    },
+    {
+      "id": "people/gareji-thurston",
+      "source_terms": [
+        "ガレエジ・サーストン"
+      ],
+      "translation": "加雷吉·萨斯顿",
+      "deprecated_translations": [
+        "车库·萨斯顿"
+      ],
+      "category": "people",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》人物名；清理把人名首段误译为普通名词“车库”的错误。"
+    },
+    {
+      "id": "place/hyakkitei-emperor-hall",
+      "source_terms": [
+        "百鬼帝国　大帝の間"
+      ],
+      "translation": "百鬼帝国大帝殿",
+      "deprecated_translations": [
+        "百鬼帝国　大帝之间",
+        "百鬼帝国大帝之间"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "日文“间”在此指宫殿内厅堂，统一为“大帝殿”。"
+    },
+    {
+      "id": "place/requiem-interior",
+      "source_terms": [
+        "レクイエム内"
+      ],
+      "translation": "镇魂曲内部",
+      "deprecated_translations": [
+        "镇魂曲内"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "统一地点标签表述。"
+    },
+    {
+      "id": "place/king-beal-bridge",
+      "source_terms": [
+        "キング・ビアル　ブリッジ"
+      ],
+      "translation": "帝皇比亚路舰桥",
+      "deprecated_translations": [
+        "帝皇比亚路号舰桥"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与机体显示名“帝皇比亚路”统一。"
     }
   ]
 }

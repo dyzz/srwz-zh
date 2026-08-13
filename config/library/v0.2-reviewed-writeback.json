@@ -21,6 +21,13 @@
   },
   "layout": {
     "decoded_alignment": 16,
+    "profile_config": "config/text-layout/zh-layout-profiles.json",
+    "protected_term_release": "corpus/releases/v1.json",
+    "body_profiles": {
+      "ROBO": "library_robot",
+      "CHAR": "library_character",
+      "KYWD": "library_glossary"
+    },
     "body_line_widths": {
       "ROBO": 26,
       "CHAR": 16,

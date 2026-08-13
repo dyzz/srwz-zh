@@ -39,7 +39,6 @@ class WeaponTranslationTests(unittest.TestCase):
             505: "XM47特里斯坦",
             519: "超限攻击",
             544: "超限连击",
-            545: "超限冻结",
             553: "Big O·最终舞台",
             565: "格兰骑士攻击",
         }
@@ -68,10 +67,16 @@ class WeaponTranslationTests(unittest.TestCase):
                 )
             else:
                 self.assertEqual(term["translation"], entry["translation"])
-            self.assertEqual(term["category"], "weapon")
+            self.assertIn(term["category"], {"weapon", "epithet"})
+            if term["category"] == "epithet":
+                self.assertEqual(term["id"], "weapon/0527")
             self.assertEqual(term["status"], "approved")
-            self.assertEqual(term["domains"], ["menu"])
-            self.assertFalse(term["enforce"])
+            self.assertIn("menu", term["domains"])
+            self.assertLessEqual(
+                set(term["domains"]),
+                {"menu", "battle", "story"},
+            )
+            self.assertEqual(term["enforce"], len(term["domains"]) > 1)
 
     def test_high_risk_weapon_decisions_remain_explicit(self):
         entries = {

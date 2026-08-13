@@ -26,7 +26,7 @@ class CombinedTextReviewTranslationTests(unittest.TestCase):
     def test_reviewed_glossary_choices_are_canonical(self):
         expected = {
             "skill/category-f": "伪新人类",
-            "skill/extended": "强化人SEED",
+            "skill/extended": "扩展人",
             "spirit/cheer": "应援",
             "spirit/flash": "必闪",
             "system/enhancement-part": "强化零件",
@@ -41,7 +41,7 @@ class CombinedTextReviewTranslationTests(unittest.TestCase):
     def test_glossary_bound_surfaces_use_reviewed_terms(self):
         rules = {
             "skill/category-f": ("F类型", "伪新人类", 19),
-            "skill/extended": ("Extended", "强化人SEED", 30),
+            "skill/extended": ("Extended", "扩展人", 32),
             "spirit/cheer": ("声援", "应援", 2),
             "system/enhancement-part": ("强化部件", "强化零件", 12),
         }

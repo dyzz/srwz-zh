@@ -81,7 +81,7 @@ class BattleLineTranslationTests(unittest.TestCase):
             for entry in self.translations["entries"]
         }
         expected = {
-            24: "“糟！\n　Lady Command办不到！”",
+            24: "“糟！\n　仕女指挥机办不到！”",
             25: "“怎、怎么会……！\n　我布莱竟然会败北！”",
             40: "“加冈总司令，请原谅！”",
             69: "“哎呀呀……\n　又给加里森添工作了。”",

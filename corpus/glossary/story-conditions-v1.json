@@ -1034,13 +1034,16 @@
         "ディクリール"
       ],
       "translation": "迪克利尔",
+      "deprecated_translations": [
+        "迪克里尔"
+      ],
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《超重神GRAVION》敌方单位D-Kryl的暂定音译。"
+      "notes": "与已审核机体名表及资料库统一。"
     },
     {
       "id": "unit/ginn-high-maneuver-ii",
@@ -1048,8 +1051,11 @@
         "ジン・ハイマニューバ２型"
       ],
       "translation": "高机动型基恩II",
+      "deprecated_translations": [
+        "吉恩高机动2型"
+      ],
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
         "story"
       ],
@@ -1132,8 +1138,11 @@
         "アルマイヤー"
       ],
       "translation": "阿麦雅级",
+      "deprecated_translations": [
+        "阿尔迈亚号"
+      ],
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
@@ -1171,16 +1180,21 @@
     {
       "id": "unit/beck-victory-deluxe",
       "source_terms": [
-        "ベック・ビクトリー・デラックス"
+        "ベック・ビクトリー・デラックス",
+        "ベック・ビクトリー・\n　デラックス"
       ],
       "translation": "贝克·胜利·豪华型",
+      "deprecated_translations": [
+        "贝克胜利豪华型",
+        "贝克·胜利·豪华版"
+      ],
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《THE Big O》贝克所驾驶机体的暂定译名。"
+      "notes": "《THE Big O》贝克所驾驶机体；补录剧情原文的换行写法。"
     },
     {
       "id": "unit/mummy",
@@ -1412,16 +1426,20 @@
     {
       "id": "unit/big-duo",
       "source_terms": [
-        "ビッグデュオ"
+        "ビッグデュオ",
+        "ビッグ・デュオ"
       ],
       "translation": "BIG-DUO",
+      "deprecated_translations": [
+        "Big Duo"
+      ],
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《THE Big O》机体BIG-DUO。"
+      "notes": "《THE Big O》机体BIG-DUO；补录剧情中带间隔点的日文写法。"
     },
     {
       "id": "unit/mecha-tekkoki",
@@ -1457,8 +1475,11 @@
         "クラーゲン"
       ],
       "translation": "克拉根",
+      "deprecated_translations": [
+        "克拉肯"
+      ],
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
@@ -1541,8 +1562,11 @@
         "エルダー戦艦"
       ],
       "translation": "埃尔德战舰",
+      "deprecated_translations": [
+        "埃尔达战舰"
+      ],
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
@@ -1634,16 +1658,48 @@
     {
       "id": "unit/nirvash-the-end",
       "source_terms": [
-        "ニルヴァーシュ　ｔｈｅ　ＥＮＤ"
+        "ニルヴァーシュ　ｔｈｅ　ＥＮＤ",
+        "ジ・エンド",
+        "ｔｈｅ　ＥＮＤ"
       ],
       "translation": "尼尔瓦修终式",
+      "deprecated_translations": [
+        "the END",
+        "THE END"
+      ],
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
         "story"
       ],
       "enforce": true,
-      "notes": "《交响诗篇》机体；用户确认统一采用尼尔瓦修终式。"
+      "notes": "《交响诗篇》机体；用户确认统一采用尼尔瓦修终式，单独出现的全角“ｔｈｅ　ＥＮＤ”也按同一机体绑定。"
+    },
+    {
+      "id": "unit/nirvash-type-zero",
+      "source_terms": [
+        "ニルヴァーシュｔｙｐｅＺＥＲＯ",
+        "ｔｙｐｅＺＥＲＯ",
+        "ｔｙｐｅ　ＺＥＲＯ",
+        "タイプゼロ",
+        "タイプ・ゼロ"
+      ],
+      "translation": "尼尔瓦修零式",
+      "deprecated_translations": [
+        "Type Zero",
+        "type ZERO",
+        "尼尔瓦修type ZERO",
+        "零式"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》主角机Nirvash type ZERO；中国大陆资料与模型社区普遍采用“尼尔瓦修零式”，正文不再混用英文或仅写“零式”。"
     },
     {
       "id": "unit/rasveht",
@@ -1727,14 +1783,18 @@
       "source_terms": [
         "フォースインパルスガンダム"
       ],
-      "translation": "强攻型脉冲高达",
+      "translation": "空影脉冲高达",
+      "deprecated_translations": [
+        "强攻型脉冲高达",
+        "空战脉冲高达"
+      ],
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《高达SEED DESTINY》Force Impulse Gundam的暂定简体译名。"
+      "notes": "采用高达中国官方网站现行简体商品名“空影脉冲高达”。"
     },
     {
       "id": "unit/cherubim-shururukubera",
@@ -1742,8 +1802,11 @@
         "ケルビム・シュルルクベラ"
       ],
       "translation": "凯鲁宾·修鲁鲁克贝拉",
+      "deprecated_translations": [
+        "凯鲁比姆·修尔尔克贝拉"
+      ],
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
@@ -1756,8 +1819,11 @@
         "イシュキック・コマンダーⅡ"
       ],
       "translation": "伊修基克·指挥官II",
+      "deprecated_translations": [
+        "伊修基克·指挥官型Ⅱ"
+      ],
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
@@ -1818,6 +1884,7 @@
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
         "story"
       ],
       "enforce": true,
@@ -1913,13 +1980,17 @@
         "アクエリオンアルファ"
       ],
       "translation": "阿尔法机械天使",
+      "deprecated_translations": [
+        "Aquarion Alpha",
+        "亚库艾里翁阿尔法"
+      ],
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《创圣的大天使》单位专名暂保留英文。"
+      "notes": "与已审核机体名表及资料库统一为“阿尔法机械天使”。"
     },
     {
       "id": "unit/big-duo-inferno",
@@ -1927,8 +1998,11 @@
         "ビッグデュオ・インフェルノ"
       ],
       "translation": "BIG-DUO地狱",
+      "deprecated_translations": [
+        "Big Duo Inferno"
+      ],
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
         "story"
       ],

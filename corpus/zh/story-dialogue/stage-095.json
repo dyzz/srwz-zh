@@ -120,7 +120,7 @@
     {
       "id": "story/095/dialogue/01.03/0005",
       "source_text_sha256": "9330176bb150ddc816730cb03d5a6102d193d9ebf8ef810fbec8e3d67645fbdb",
-      "translation": "“别抱怨了，斯汀。\n　机体和驾驶员之间是有相性的”",
+      "translation": "“别抱怨了，斯汀。\n　驾驶员和机体也讲究契合度。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -226,11 +226,13 @@
     {
       "id": "story/095/dialogue/01.03/0015",
       "source_text_sha256": "f0598c5bf093ff2f080a5077b01277c64c6ac7ef75a26a92f621a6af8645461d",
-      "translation": "“巴斯科大佐！$c的舰船来了！”",
+      "translation": "“巴斯克大佐！$c的舰船来了！”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-93dd74e14970"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-93dd74e14970。"
     },
     {
       "id": "story/095/dialogue/01.03/0016",
@@ -507,7 +509,7 @@
     {
       "id": "story/095/dialogue/01.05/0020",
       "source_text_sha256": "e2883c6df68aeb6c52fcfc02890e135b648d707387bb55e3a49128a8c91885f8",
-      "translation": "“我不承认你……！\n　让母亲不幸的男人，我怎么可能认作父亲！”",
+      "translation": "“我不承认你……！让母亲不幸的男人，\n　我怎么可能认作父亲！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -795,11 +797,13 @@
     {
       "id": "story/095/dialogue/01.06/0017",
       "source_text_sha256": "6552943c84bcb63f4affb8797d54942f73509becd600780db1ab149c38d805cc",
-      "translation": "“你这话什么意思，皮埃尔！”",
+      "translation": "“你这话什么意思，皮耶尔！”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-1f75f72fc076"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-1f75f72fc076。"
     },
     {
       "id": "story/095/dialogue/01.06/0018",
@@ -1324,14 +1328,14 @@
     {
       "id": "story/095/dialogue/01.10/0012",
       "source_text_sha256": "a0247bd290245c19df6b61bf4ad2f02f3f62d703225283438af214d9bb5a3eb1",
-      "translation": "“是真放走的那个联邦的强化人SEED吗！”",
+      "translation": "“是真放走的那个联邦的扩展人吗！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "people/shinn",
         "skill/extended"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：skill/extended。"
     },
     {
       "id": "story/095/dialogue/01.10/0013",
@@ -1510,7 +1514,7 @@
     {
       "id": "story/095/dialogue/01.12/0001",
       "source_text_sha256": "c3b1711f2e9e8b963333d10f2125ea2e4a2a4cf7ab544e3f0a19e82e9522dd36",
-      "translation": "“不要啊啊啊啊！\n　死掉不行……不要……好可怕！！”",
+      "translation": "“不要啊啊啊啊！死掉不行……\n　不要……好可怕！！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -2873,7 +2877,7 @@
     {
       "id": "story/095/dialogue/01.52/0001",
       "source_text_sha256": "192ef554dd481bd6862c842cfcde24034a6a270f696d131776c948da5bf9b261",
-      "translation": "“我来阻止！\n　不管是你们还是战争，都用这股力量！”",
+      "translation": "“我来阻止！不管是你们还是战争，\n　都用这股力量！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -3633,14 +3637,15 @@
     {
       "id": "story/095/dialogue/02.01/0066",
       "source_text_sha256": "f81340c39de8df28cc16bc2e9c9e42cbb94313c140395a1a52cd9f819c67216b",
-      "translation": "“拜托了，奥尔森上尉。如果D计划出\n　了什么问题，你和桂木桂要修复时空”",
+      "translation": "“拜托了，奥尔森大尉。如果D计划出\n　了什么问题，你和桂木桂要修复时空”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "people/kei",
-        "people/olson"
+        "people/olson",
+        "people/speaker-12eb2b5facdc"
       ],
-      "notes": "嵌套词表子串自动例外：people/kei"
+      "notes": "嵌套词表子串自动例外：people/kei；按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。"
     },
     {
       "id": "story/095/dialogue/02.01/0067",
@@ -3721,7 +3726,7 @@
     {
       "id": "story/095/dialogue/02.02/0006",
       "source_text_sha256": "52fc7fa65cc1628fb3ef4409a0afa869de2e5f04bfcb4ae466caea949ae9834b",
-      "translation": "“所以……安心睡吧……晚安……。\n　变成那颗星星……”",
+      "translation": "“所以……安心睡吧……\n　晚安……。变成那颗星星……”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -3772,7 +3777,7 @@
     {
       "id": "story/095/dialogue/02.02/0011",
       "source_text_sha256": "b3fda39cca1fd465333ba06158ec5dc4a41ebc68b77fc2f4343f5d1d7b53e2cd",
-      "translation": "“……我们又……什么都没能做到……。\n　什么都没……”",
+      "translation": "“……我们又……\n　什么都没能做到……。什么都没……”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -3883,11 +3888,13 @@
     {
       "id": "story/095/dialogue/02.02/0022",
       "source_text_sha256": "9d3e055b06772e9e9303bc9298df8575764dec5a9206b64a456e1acc2bdf4516",
-      "translation": "“关于时空崩坏加剧的事，我从夏亚那\n　里听说了。确实，那条线可能性最大”",
+      "translation": "“关于时空崩坏加剧的事，我从夏伊亚\n　那里听说了。确实，那条线可能性最大”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-7e722f885dfc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-7e722f885dfc。"
     },
     {
       "id": "story/095/dialogue/02.02/0023",
@@ -3921,7 +3928,7 @@
     {
       "id": "story/095/dialogue/02.02/0026",
       "source_text_sha256": "d51b11b4d4c4c140b4cd614f50ba0326be47e922a540af9bd1004b2b7b3140a2",
-      "translation": "“但是，\n　那些家伙也应该知道这样下去时空会崩坏啊”",
+      "translation": "“但是，那些家伙也应该\n　知道这样下去时空会崩坏啊”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -4035,7 +4042,7 @@
     {
       "id": "story/095/dialogue/02.02/0037",
       "source_text_sha256": "fdcab97f568fde17bdde11f54f5d5179270346136bf392b245c51ce3b91b25da",
-      "translation": "“PLANT的最高评议会\n　议长在这个时间点……？”",
+      "translation": "“PLANT的最高评议会议长\n　在这个时间点……？”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -4058,7 +4065,7 @@
     {
       "id": "story/095/dialogue/02.02/0039",
       "source_text_sha256": "f9cd788cb5b1acf1d523090b723a4e5895246466c7304495b63bbe68cdd3293f",
-      "translation": "“也许吧……。\n　不过，面向全世界，还真是大阵仗”",
+      "translation": "“也许吧……。不过，\n　面向全世界，还真是大阵仗”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -4199,7 +4206,7 @@
     {
       "id": "story/095/dialogue/02.02/0053",
       "source_text_sha256": "1be8027dccffc5ac1b208cba3da69d28ae2072cd79ba510c368fec5d1730ec49",
-      "translation": "“是那个叫风暴的家伙带\n　来的联邦军士兵吗……”",
+      "translation": "“是那个叫风暴的家伙\n　带来的联邦军士兵吗……”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -4657,7 +4664,7 @@
     {
       "id": "story/095/dialogue/02.02/0099",
       "source_text_sha256": "9e4034dbfc25721d95d1c468cb6da2e7df79a74a53d75da73185eb832c7327b7",
-      "translation": "“……这次的战争，大概是由多元世界这\n　个新世界的诞生所带来的混乱造成的吧”",
+      "translation": "“……这次的战争，大概是由多元世界\n　这个新世界的诞生所带来的混乱造成的吧”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [

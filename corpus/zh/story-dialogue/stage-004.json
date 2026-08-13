@@ -208,7 +208,7 @@
     {
       "id": "story/004/dialogue/01.02/0002",
       "source_text_sha256": "056ec9eada372ab6f10791cbe52796d3f196f97578012c612219668df4dcd9a5",
-      "translation": "“现在不是高兴的时候。\n　按理说，我们本应还要更久才能追上对方”",
+      "translation": "“现在不是高兴的时候。按理说，\n　我们本应还要更久才能追上对方”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -801,7 +801,7 @@
       "glossary_refs": [
         "system/block-word"
       ],
-      "notes": "BLOCK WORD 是强化人SEED的心理触发词；采用阶段术语表定名。"
+      "notes": "BLOCK WORD 是扩展人的心理触发词；采用阶段术语表定名。"
     },
     {
       "id": "story/004/dialogue/01.09/0008",
@@ -1557,13 +1557,14 @@
     {
       "id": "story/004/dialogue/01.24/0003",
       "source_text_sha256": "f754cc90998a62e03c502d05991ec5219df3a125078cabc1b3a0bfee3c6cc831",
-      "translation": "“克瓦特罗上尉！看那里……！”",
+      "translation": "“克瓦特罗大尉！看那里……！”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/quattro"
+        "people/quattro",
+        "people/speaker-12eb2b5facdc"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。"
     },
     {
       "id": "story/004/dialogue/01.25/0000",
@@ -1808,11 +1809,13 @@
     {
       "id": "story/004/dialogue/01.26/0010",
       "source_text_sha256": "64746d80fc0e4b38c2b038d89da3aba673d216c1487bfbcb6606f1e4b1a2f72d",
-      "translation": "“上尉，你知道他们的来历吗？”",
+      "translation": "“大尉，你知道他们的来历吗？”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-12eb2b5facdc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。"
     },
     {
       "id": "story/004/dialogue/01.26/0011",
@@ -1969,14 +1972,15 @@
     {
       "id": "story/004/dialogue/01.28/0004",
       "source_text_sha256": "a098d6eeb7b4146e70df9467cebb1d226b5fc5db77e34db258bac841926e518d",
-      "translation": "“提坦斯的战舰请注意！\n　这里是月面驻留军所属的丹泽尔·哈默上尉！”",
+      "translation": "“提坦斯的战舰请注意！\n　这里是月面驻留军所属的丹泽尔·哈默大尉！”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
         "organization/titans",
-        "people/denzel-hamer-full"
+        "people/denzel-hamer-full",
+        "people/speaker-12eb2b5facdc"
       ],
-      "notes": "system/turn 的片假名“ターン”误命中组织名“ティターンズ”内部子串；本句按“提坦斯”翻译并显式豁免。",
+      "notes": "system/turn 的片假名“ターン”误命中组织名“ティターンズ”内部子串；本句按“提坦斯”翻译并显式豁免。按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。",
       "glossary_exceptions": [
         "system/turn"
       ]
@@ -2041,11 +2045,13 @@
     {
       "id": "story/004/dialogue/01.28/0010",
       "source_text_sha256": "21ca8c109a43e56321312d404c7e794696716196ad4669e49828498101580089",
-      "translation": "“丹泽尔上尉，你的行为已经越权，\n　并且妨碍我军执行任务”",
+      "translation": "“丹泽尔大尉，你的行为已经越权，\n　并且妨碍我军执行任务”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-12eb2b5facdc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。"
     },
     {
       "id": "story/004/dialogue/01.28/0011",
@@ -2117,7 +2123,7 @@
     {
       "id": "story/004/dialogue/01.28/0018",
       "source_text_sha256": "245e052b9d736f9323dfa214ac27c22363564c0368058647e6a5fad35a89a4d2",
-      "translation": "“什么异世界……！\n　要背叛的话，至少想个像样点的借口！”",
+      "translation": "“什么异世界……！要背叛的话，\n　至少想个像样点的借口！”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
@@ -2370,7 +2376,7 @@
     {
       "id": "story/004/dialogue/01.29/0022",
       "source_text_sha256": "8c4c7e9149afa60ad545bf3e85d588a4870878bd49599ff32a893134db91af7c",
-      "translation": "“舰长，详情虽然不明……但考虑到他\n　们的处境，我们不妨暂且装作没看见”",
+      "translation": "“舰长，详情虽然不明……但考虑到\n　他们的处境，我们不妨暂且装作没看见”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -2949,7 +2955,7 @@
     {
       "id": "story/004/dialogue/01.39/0002",
       "source_text_sha256": "cc977757dc5de2113c6a1c9c80a837ced4ed66177152fe006ad94f51816c902e",
-      "translation": "“而且，\n　与我们同提坦斯交战时遭遇的现象极其相似”",
+      "translation": "“而且，与我们同提坦斯\n　交战时遭遇的现象极其相似”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
@@ -3143,7 +3149,10 @@
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [],
-      "notes": ""
+      "notes": "日文“元気”为普通词（精神、健康或保重），不是人物元气。",
+      "glossary_exceptions": [
+        "people/speaker-7fc6e83611c6"
+      ]
     },
     {
       "id": "story/004/dialogue/01.44/0002",
@@ -4264,11 +4273,13 @@
     {
       "id": "story/004/dialogue/02.01/0052",
       "source_text_sha256": "cfe95b97316eeded66e166b4732b81049ef422bfd5a3ff56aeed7109046a5816",
-      "translation": "“呃～咳咳……丹泽尔上尉……很遗憾，\n　这次审讯很难说取得了有用的情报”",
+      "translation": "“呃～咳咳……丹泽尔大尉……很遗憾，\n　这次审讯很难说取得了有用的情报”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-12eb2b5facdc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。"
     },
     {
       "id": "story/004/dialogue/02.01/0053",
@@ -4946,7 +4957,7 @@
     {
       "id": "story/004/dialogue/02.03/0009",
       "source_text_sha256": "118ef5ad9e74577a0a815726e7e9b051da5718d76ac00046e932426b1bbc020d",
-      "translation": "“……\n　你是打算借此把他们的战力纳入ZAFT吗？”",
+      "translation": "“……你是打算借此把他们\n　的战力纳入ZAFT吗？”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [

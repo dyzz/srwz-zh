@@ -374,14 +374,26 @@
       "notes": "高达 SEED 系列专有能力，统一采用半角大写。"
     },
     {
+      "id": "concept/biological-cpu",
+      "source_terms": ["生体ＣＰＵ", "生体CPU"],
+      "translation": "生体CPU",
+      "deprecated_translations": ["生物CPU", "生化CPU"],
+      "category": "concept",
+      "status": "approved",
+      "domains": ["library", "story"],
+      "enforce": true,
+      "notes": "《高达SEED》前代强化驾驶员的正式称呼；保留大陆高达社区通行的日文汉字写法，与《DESTINY》的“扩展人”分开。"
+    },
+    {
       "id": "skill/extended",
       "source_terms": ["エクステンデッド"],
-      "translation": "强化人SEED",
+      "translation": "扩展人",
+      "deprecated_translations": ["强化人SEED"],
       "category": "system",
       "status": "approved",
-      "domains": ["menu", "story"],
+      "domains": ["library", "menu", "story"],
       "enforce": true,
-      "notes": "《高达SEED DESTINY》生体CPU类别；本轮人工审核定稿为“强化人SEED”，以区别宇宙世纪“强化人”。"
+      "notes": "《高达SEED DESTINY》的エクステンデッド；大陆社区通行译作“扩展人”。与《SEED》的“生体CPU”和宇宙世纪“强化人”分开。"
     },
     {
       "id": "skill/lift-technique",

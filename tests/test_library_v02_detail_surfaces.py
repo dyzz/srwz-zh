@@ -13,6 +13,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 from build_library_v02_component import (
     CLOSING,
     OPENING,
+    load_production_layout,
     reflow_body,
 )
 
@@ -145,6 +146,26 @@ class LibraryV02DetailSurfaceTests(unittest.TestCase):
         self.assertTrue(all(width >= 15 for width in widths[:-1]))
         self.assertTrue(all(line[0] not in CLOSING for line in lines))
         self.assertTrue(all(line[-1] not in OPENING for line in lines))
+
+    def test_production_body_reflow_uses_checked_in_chinese_profile(self):
+        config = json.loads(
+            (
+                PROJECT_ROOT / "config/library/v0.2-reviewed-writeback.json"
+            ).read_text(encoding="utf-8")
+        )
+        layout = config["layout"]
+        profiles, terms, *_paths = load_production_layout(
+            layout,
+            layout["body_line_widths"],
+        )
+        reflowed, widths = reflow_body(
+            "他们仍要继续战斗，直到迎来真正的和平。",
+            16,
+            profile=profiles["CHAR"],
+            protected_terms=terms,
+        )
+        self.assertNotIn("战\n斗", reflowed)
+        self.assertTrue(all(width <= 16 for width in widths))
 
     def test_library_menu_builds_all_six_labels_in_both_states(self):
         contract = self.library_scope["library_menu_tim2"]

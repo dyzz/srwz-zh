@@ -16,6 +16,7 @@ from tools.srwz.glossary import (
     deprecated_translation_conflicts,
     global_glossary_by_id,
     load_global_glossary,
+    relevant_glossary_terms,
 )
 
 
@@ -84,6 +85,28 @@ class GlobalGlossaryTests(unittest.TestCase):
             deprecated_translation_conflicts("钢狮与钢狮子", terms)[0]["matched"],
             ["钢狮"],
         )
+
+    def test_longer_registered_source_shadows_short_name(self) -> None:
+        terms = [
+            {
+                "id": "people/cielo",
+                "source_terms": ["シエロ"],
+                "translation": "谢洛",
+                "enforce": True,
+                "declared_enforce": True,
+                "status": "approved",
+            },
+            {
+                "id": "place/del-cielo",
+                "source_terms": ["デル・シエロ"],
+                "translation": "德尔·谢罗",
+                "enforce": True,
+                "declared_enforce": True,
+                "status": "approved",
+            },
+        ]
+        matches = relevant_glossary_terms("シウダデス・デル・シエロ", terms)
+        self.assertEqual([term["id"] for term in matches], ["place/del-cielo"])
 
     def test_duplicate_ids_merge_but_conflicting_translations_fail(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -263,6 +286,7 @@ class GlobalGlossaryTests(unittest.TestCase):
             "unit/g-shadow": "G战影",
             "unit/god-gravion": "神机超重神",
             "people/speaker-58574ffbd89b": "威兹",
+            "people/speaker-22359c86b24b": "西利乌斯",
             "organization/earth-federation-forces": "地球联邦军",
             "place/unious-seven": "尤尼乌斯7",
             "species/scub-coral": "斯卡布珊瑚",
@@ -321,8 +345,8 @@ class GlobalGlossaryTests(unittest.TestCase):
                 "unit/freeden": 204,
                 "unit/strike-freedom-gundam": 2,
                 "people/speaker-9f0da37da623": 154,
-                "people/speaker-b3a6e71cada9": 3,
-                "people/moondoggie-short": 47,
+                "people/speaker-b3a6e71cada9": 4,
+                "people/moondoggie-short": 46,
                 "people/speaker-e00210e47303": 197,
             },
         )
