@@ -3398,7 +3398,14 @@ def _apply_world_history_layout(
             or entry_id in replacements_by_chunk.setdefault(chunk_index, {})
         ):
             raise FullStoryComponentError("world-history entry contract drift")
-        replacements_by_chunk[chunk_index][entry_id] = translation
+        # MTV_PROS is consumed as a two-byte text stream.  Keep the corpus's
+        # logical ASCII identity (for example ``Side 3``), but store every
+        # visible separator through the stock 0x8140 ideographic-space glyph.
+        # A raw 0x20 shifts every following two-byte code by one byte and can
+        # turn the remainder of the line into blanks or unrelated glyphs.
+        replacements_by_chunk[chunk_index][entry_id] = (
+            _two_byte_visible_spaces(translation)
+        )
 
     table = load_text_table(
         PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
@@ -3437,8 +3444,14 @@ def _apply_world_history_layout(
             )
         for entry_id, translation in replacements.items():
             current = current_by_id[entry_id]
-            if current.replace("\r", "").replace("\n", "") != (
-                translation.replace("\r", "").replace("\n", "")
+            normalized_current = normalize_original_fullwidth_ascii(
+                current
+            ).replace("　", " ")
+            normalized_translation = normalize_original_fullwidth_ascii(
+                translation
+            ).replace("　", " ")
+            if normalized_current.replace("\r", "").replace("\n", "") != (
+                normalized_translation.replace("\r", "").replace("\n", "")
             ):
                 raise FullStoryComponentError(
                     f"world-history logical preimage drift: {entry_id}"
@@ -3471,6 +3484,23 @@ def _apply_world_history_layout(
             raise FullStoryComponentError(
                 f"world-history chunk {chunk_index} codec round-trip failed"
             )
+        reparsed = parse_summary(
+            rewritten,
+            output_table,
+            chunk_index=chunk_index,
+        )
+        by_id = {entry.entry_id: entry for entry in reparsed.entries}
+        raw_space_entry_count = 0
+        for entry_id in replacements:
+            entry = by_id[entry_id]
+            payload = rewritten[
+                entry.text_offset : entry.text_offset + entry.allocated_length
+            ]
+            raw_space_entry_count += b"\x20" in payload
+        if raw_space_entry_count:
+            raise FullStoryComponentError(
+                f"world-history chunk {chunk_index} contains raw visible spaces"
+            )
         output[start:end] = encoded + bytes(len(stored) - len(encoded))
         chunk_reports.append(
             {
@@ -3483,6 +3513,7 @@ def _apply_world_history_layout(
                 "logical_text_preserved": True,
                 "runtime_text_reread_exact": True,
                 "codec_round_trip_exact": True,
+                "raw_visible_space_entry_count": raw_space_entry_count,
             }
         )
 
@@ -3501,6 +3532,9 @@ def _apply_world_history_layout(
         "archive_size_preserved": True,
         "slps_offsets_preserved": True,
         "logical_text_preserved": True,
+        "logical_ascii_and_digits_preserved": True,
+        "raw_visible_space_entry_count": 0,
+        "two_byte_visible_spaces_exact": True,
         "runtime_text_reread_exact": True,
         "codec_round_trip_exact": True,
         "codec": dict(codec),

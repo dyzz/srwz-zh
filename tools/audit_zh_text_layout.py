@@ -71,6 +71,7 @@ LIBRARY_CORPUS = PROJECT_ROOT / "corpus/zh/library/v0.2-reviewed.json"
 STAGE_OVERVIEWS = PROJECT_ROOT / "corpus/zh/menu/stage-overviews.json"
 HSFC_OVERVIEWS = PROJECT_ROOT / "corpus/zh/menu/hsfc-overviews.json"
 WORLD_HISTORY_SUMMARY = PROJECT_ROOT / "corpus/zh/summary.json"
+WORLD_HISTORY_MAX_PARAGRAPH_WIDTH_SPREAD = 4
 TABLE_PATH = PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
 FONT_ASSIGNMENTS = PROJECT_ROOT / "config/encoding/zh-release-font-assignments.json"
 
@@ -332,6 +333,7 @@ def reflow_preserved_paragraph(
     *,
     profile: ChineseLayoutProfile,
     protected_terms: tuple[str, ...],
+    prefer_existing_breaks: bool = True,
 ) -> list[str]:
     if not any(line.strip("　 ") for line in lines):
         return lines
@@ -345,7 +347,11 @@ def reflow_preserved_paragraph(
         profile=profile,
         protected_terms=protected_terms,
         exact_lines=len(lines),
-        preferred_break_offsets=preferred_offsets(content_lines),
+        preferred_break_offsets=(
+            preferred_offsets(content_lines)
+            if prefer_existing_breaks
+            else frozenset()
+        ),
     )
     output = result.text.splitlines()
     if indent:
@@ -365,6 +371,7 @@ def audit_world_history_scroll(
     failures = []
     existing_violation_count = 0
     proposed_violation_count = 0
+    maximum_paragraph_line_width_spread = 0
     for entry in document["entries"]:
         original = entry["translation"]
         original_lines = original.splitlines()
@@ -382,6 +389,7 @@ def audit_world_history_scroll(
                         paragraph,
                         profile=profile,
                         protected_terms=protected_terms,
+                        prefer_existing_breaks=False,
                     )
                 )
             proposed = "\n".join(output_lines)
@@ -409,6 +417,27 @@ def audit_world_history_scroll(
                 raise AssertionError(
                     f"world-history encoded size drift: {entry['id']}"
                 )
+            for paragraph in split_stage_paragraphs(proposed.splitlines()):
+                widths = [
+                    width
+                    for width in dialogue_line_widths(
+                        "\n".join(paragraph),
+                        protected_terms=(*profile.unbroken_terms, *protected_terms),
+                    )
+                    if width
+                ]
+                if len(widths) < 2:
+                    continue
+                spread = max(widths) - min(widths)
+                maximum_paragraph_line_width_spread = max(
+                    maximum_paragraph_line_width_spread,
+                    spread,
+                )
+                if spread > WORLD_HISTORY_MAX_PARAGRAPH_WIDTH_SPREAD:
+                    raise ChineseLayoutError(
+                        "world-history paragraph line-width spread "
+                        f"{spread}>{WORLD_HISTORY_MAX_PARAGRAPH_WIDTH_SPREAD}"
+                    )
         except (ChineseLayoutError, ValueError) as error:
             failures.append({"id": entry["id"], "error": str(error)})
             continue
@@ -448,6 +477,12 @@ def audit_world_history_scroll(
         "proposed_violation_count": proposed_violation_count,
         "fixed_allocation_encoded_sizes_preserved": True,
         "scroll_line_counts_preserved": True,
+        "maximum_paragraph_line_width_spread": (
+            maximum_paragraph_line_width_spread
+        ),
+        "maximum_allowed_paragraph_line_width_spread": (
+            WORLD_HISTORY_MAX_PARAGRAPH_WIDTH_SPREAD
+        ),
         "failure_count": len(failures),
         "failures": failures,
         "changes": changes,

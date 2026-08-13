@@ -56,6 +56,7 @@ from srwz.stage_formations import (
     formation_inventory_sha256,
     load_locked_stage_default_formations,
 )
+from srwz.summary import parse_summary
 from srwz.tim2 import scan_tim2
 from srwz.text import (
     ORIGINAL_FULLWIDTH_ASCII,
@@ -298,6 +299,121 @@ def raw_visible_ascii_glyphs(payload: bytes) -> tuple[tuple[int, str], ...]:
             found.append((cursor, chr(value)))
         cursor += 1
     return tuple(found)
+
+
+def verify_world_history(
+    slps: bytes,
+    archive: bytes,
+    table: TextTable,
+    reference: dict,
+) -> dict:
+    """Reread every localized MTV_PROS entry from the final ISO."""
+
+    corpus_reference = reference.get("corpus", {})
+    corpus_path = project_path(Path(corpus_reference.get("path", "")))
+    corpus_bytes = corpus_path.read_bytes()
+    if (
+        len(corpus_bytes) != corpus_reference.get("size")
+        or sha256_bytes(corpus_bytes) != corpus_reference.get("sha256")
+    ):
+        raise SystemExit("world-history corpus lock drift")
+    corpus = json.loads(corpus_bytes.decode("utf-8"))
+    expected_by_id = {
+        row["id"]: normalize_original_fullwidth_ascii(row["translation"])
+        for row in corpus.get("entries", [])
+    }
+    expected = reference.get("expected", {})
+    if len(expected_by_id) != expected.get("entry_count"):
+        raise SystemExit("world-history corpus inventory drift")
+
+    offsets = read_executable_archive_offsets(
+        slps,
+        CORE_ARCHIVE_SPECS["MTV_PROS.BIN"],
+        len(archive),
+    )
+    if (
+        len(archive) != expected.get("archive_size")
+        or len(offsets) != expected.get("offset_count")
+        or len(offsets) - 1 != expected.get("chunk_count")
+        or offsets[-1] != len(archive)
+    ):
+        raise SystemExit("world-history archive layout drift")
+
+    seen_ids = []
+    raw_space_entry_count = 0
+    raw_visible_ascii_glyph_count = 0
+    raw_visible_ascii_entry_count = 0
+    side_3_readback = None
+    for chunk_index, (start, end) in enumerate(zip(offsets, offsets[1:])):
+        stored = archive[start:end]
+        decoded = decode(stored)
+        if any(stored[decoded.consumed :]):
+            raise SystemExit(
+                f"final ISO world-history chunk {chunk_index} has nonzero padding"
+            )
+        parsed = parse_summary(
+            decoded.output,
+            table,
+            chunk_index=chunk_index,
+        )
+        for entry in parsed.entries:
+            expected_text = expected_by_id.get(entry.entry_id)
+            if expected_text is None:
+                raise SystemExit(
+                    f"unexpected final ISO world-history entry: {entry.entry_id}"
+                )
+            stored_expected_text = expected_text.replace(" ", "\u3000")
+            if entry.text != stored_expected_text:
+                raise SystemExit(
+                    f"final ISO world-history mismatch: {entry.entry_id}"
+                )
+            expected_ascii_alnum = "".join(
+                character
+                for character in expected_text
+                if character.isascii() and character.isalnum()
+            )
+            stored_ascii_alnum = "".join(
+                character
+                for character in entry.text
+                if character.isascii() and character.isalnum()
+            )
+            if stored_ascii_alnum != expected_ascii_alnum:
+                raise SystemExit(
+                    "final ISO world-history Latin/digit identity drift: "
+                    f"{entry.entry_id}"
+                )
+            payload = decoded.output[
+                entry.text_offset : entry.text_offset + entry.allocated_length
+            ]
+            raw_space_entry_count += b"\x20" in payload
+            raw_ascii = raw_visible_ascii_glyphs(payload)
+            raw_visible_ascii_glyph_count += len(raw_ascii)
+            raw_visible_ascii_entry_count += bool(raw_ascii)
+            if "Side\u30003" in entry.text:
+                side_3_readback = "Side\u30003"
+            seen_ids.append(entry.entry_id)
+
+    if set(seen_ids) != set(expected_by_id) or len(seen_ids) != len(expected_by_id):
+        raise SystemExit("final ISO world-history selection drift")
+    if raw_space_entry_count or raw_visible_ascii_glyph_count:
+        raise SystemExit(
+            "final ISO world-history contains unsafe raw visible ASCII or spaces"
+        )
+    if side_3_readback is None:
+        raise SystemExit("final ISO world-history Side 3 readback missing")
+    return {
+        "entry_count": len(seen_ids),
+        "chunk_count": len(offsets) - 1,
+        "translated_readback_exact": True,
+        "logical_ascii_and_digits_preserved": True,
+        "raw_space_entry_count": raw_space_entry_count,
+        "raw_visible_ascii_glyph_count": raw_visible_ascii_glyph_count,
+        "raw_visible_ascii_entry_count": raw_visible_ascii_entry_count,
+        "two_byte_visible_spaces_exact": True,
+        "archive_offsets_exact": True,
+        "side_3_logical_text": "Side 3",
+        "side_3_storage_readback": side_3_readback,
+    }
 
 
 def verify_auto_demo_overlays(
@@ -2457,6 +2573,12 @@ def main() -> int:
     full_component_config = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )
+    world_history_report = verify_world_history(
+        slps,
+        members["DATA/MTV_PROS.BIN"],
+        overview_table,
+        full_component_config.get("world_history", {}),
+    )
     stage_system_dialogue_report = verify_stage_system_dialogues(
         stage_archive,
         offsets,
@@ -3464,6 +3586,9 @@ def main() -> int:
         "stage_overview_raw_space_entry_count": (
             overview_raw_space_entry_count
         ),
+        "world_history_raw_space_entry_count": world_history_report[
+            "raw_space_entry_count"
+        ],
         "hsfc_raw_space_cell_count": hsfc_raw_space_cell_count,
         "srvc_raw_space_record_count": srvc_raw_space_record_count,
         "srvc_pollution_record_count": srvc_pollution_record_count,
@@ -3473,6 +3598,12 @@ def main() -> int:
     raw_visible_ascii_storage = {
         "story_glyph_count": story_raw_visible_ascii_glyph_count,
         "story_target_count": story_raw_visible_ascii_target_count,
+        "world_history_glyph_count": world_history_report[
+            "raw_visible_ascii_glyph_count"
+        ],
+        "world_history_entry_count": world_history_report[
+            "raw_visible_ascii_entry_count"
+        ],
         "srvc_glyph_count": srvc_raw_visible_ascii_glyph_count,
         "srvc_record_count": srvc_raw_visible_ascii_record_count,
         "runtime_substitution_tokens_excluded": True,
@@ -3599,6 +3730,7 @@ def main() -> int:
         "mode_select_effect": mode_select_effect,
         "nisv_effect_names": nisv_effect_names,
         "auto_demo_overlays": auto_demo_overlays,
+        "world_history": world_history_report,
         "stage_overviews": overview_report,
         "hsfc_overviews": hsfc_report,
         "members": {
@@ -3768,6 +3900,10 @@ def main() -> int:
             "raw_visible_ascii_glyph_count_zero": (
                 raw_visible_ascii_storage["story_glyph_count"] == 0
                 and raw_visible_ascii_storage["story_target_count"] == 0
+                and raw_visible_ascii_storage["world_history_glyph_count"]
+                == 0
+                and raw_visible_ascii_storage["world_history_entry_count"]
+                == 0
                 and raw_visible_ascii_storage["srvc_glyph_count"] == 0
                 and raw_visible_ascii_storage["srvc_record_count"] == 0
             ),
@@ -3811,6 +3947,14 @@ def main() -> int:
                 "translated_readback_exact"
             ]
             and overview_report["fixed_pointer_entries_exact"],
+            "world_history_exact": (
+                world_history_report["translated_readback_exact"]
+                and world_history_report[
+                    "logical_ascii_and_digits_preserved"
+                ]
+                and world_history_report["two_byte_visible_spaces_exact"]
+                and world_history_report["archive_offsets_exact"]
+            ),
             "hsfc_overviews_exact": hsfc_report[
                 "translated_readback_exact"
             ]

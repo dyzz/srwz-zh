@@ -7,12 +7,14 @@ from tools.srwz.codec import decode_production as decode
 from tools.srwz.display_names import load_display_name_source
 from tools.srwz.image_export import parse_seg_offsets
 from tools.srwz.iso_layout import (
+    CORE_ARCHIVE_SPECS,
     ExecutableOffsetSpec,
     read_executable_archive_offsets,
 )
 from tools.srwz.menu import parse_menu_file
 from tools.srwz.srvc import parse_srvc_archive
 from tools.srwz.stage_overview import parse_stage_overviews
+from tools.srwz.summary import parse_summary
 from tools.srwz.text import (
     decode_text,
     load_text_table,
@@ -56,6 +58,9 @@ class RuntimeVisibleSpacePolicyTests(unittest.TestCase):
         ).read_bytes()
         cls.srvc_seg = (
             PROJECT_ROOT / outputs["BTL/SRVC.SEG"]["path"]
+        ).read_bytes()
+        cls.mtv_pros = (
+            PROJECT_ROOT / outputs["DATA/MTV_PROS.BIN"]["path"]
         ).read_bytes()
 
         reference = cls.config["full_pilot_names"]
@@ -124,6 +129,30 @@ class RuntimeVisibleSpacePolicyTests(unittest.TestCase):
                 entry.text_offset : entry.text_offset + entry.encoded_size
             ]
             self.assertNotIn(b"\x20", payload, entry.entry_id)
+
+    def test_world_history_has_no_raw_visible_spaces(self):
+        offsets = read_executable_archive_offsets(
+            self.slps,
+            CORE_ARCHIVE_SPECS["MTV_PROS.BIN"],
+            len(self.mtv_pros),
+        )
+        seen = 0
+        for chunk_index, (start, end) in enumerate(
+            zip(offsets, offsets[1:])
+        ):
+            decoded = decode(self.mtv_pros[start:end]).output
+            parsed = parse_summary(
+                decoded,
+                self.output_table,
+                chunk_index=chunk_index,
+            )
+            for entry in parsed.entries:
+                payload = decoded[
+                    entry.text_offset : entry.text_offset + entry.allocated_length
+                ]
+                self.assertNotIn(b"\x20", payload, entry.entry_id)
+                seen += 1
+        self.assertEqual(seen, 28)
 
     def test_srvc_records_have_no_raw_spaces_or_json_fragment_pollution(self):
         chunks = parse_srvc_archive(

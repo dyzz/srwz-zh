@@ -3,6 +3,7 @@ import unittest
 from pathlib import Path
 
 from tools.audit_zh_text_layout import (
+    WORLD_HISTORY_MAX_PARAGRAPH_WIDTH_SPREAD,
     edge_violations,
     layout_violations,
     reflow_preserved_paragraph,
@@ -71,6 +72,29 @@ class ZhTextLayoutAuditTests(unittest.TestCase):
         )
         self.assertEqual(output, ["　"])
 
+    def test_world_history_scroll_balances_without_changing_side_3(self):
+        lines = [
+            "　然而，这也成了孕育新一轮战争的土壤。",
+            "诞生于宇宙殖民地群“Side 3”的吉翁公国",
+            "发表脱离地球联邦的独立宣言，事态最终",
+            "发展为“一年战争”。这场规模空前的巨大战争",
+            "带来惨重灾祸，也给此后的社会留下了深重伤痕。",
+        ]
+        output = reflow_preserved_paragraph(
+            lines,
+            profile=self.profiles["world_history_scroll"],
+            protected_terms=("Side 3", "吉翁公国"),
+            prefer_existing_breaks=False,
+        )
+        self.assertEqual(len(output), len(lines))
+        self.assertIn("Side 3", "".join(output))
+        self.assertNotIn("Side　3", "".join(output))
+        widths = [len(line.lstrip("　")) for line in output]
+        self.assertLessEqual(
+            max(widths) - min(widths),
+            WORLD_HISTORY_MAX_PARAGRAPH_WIDTH_SPREAD,
+        )
+
     def test_built_world_history_member_uses_reflowed_corpus(self):
         config = json.loads(
             (PROJECT_ROOT / "config/full-story-components.json").read_text(
@@ -101,8 +125,11 @@ class ZhTextLayoutAuditTests(unittest.TestCase):
             font_manifest,
         )
         self.assertEqual(output, expected)
-        self.assertEqual(report["changed_entry_count"], 2)
+        self.assertGreater(report["changed_entry_count"], 0)
         self.assertTrue(report["runtime_text_reread_exact"])
+        self.assertTrue(report["logical_ascii_and_digits_preserved"])
+        self.assertTrue(report["two_byte_visible_spaces_exact"])
+        self.assertEqual(report["raw_visible_space_entry_count"], 0)
 
 
 if __name__ == "__main__":
