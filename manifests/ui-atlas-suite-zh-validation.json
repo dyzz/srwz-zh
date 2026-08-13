@@ -7,8 +7,8 @@
   "inputs": {
     "config": {
       "path": "config/assets/ui-atlas-suite-zh.json",
-      "size": 6808,
-      "sha256": "8b7c85a31ad55bb0ed144dd576654a31bdaf16c325ba9beeba47383b5bbe49ab"
+      "size": 6809,
+      "sha256": "acbbb3da5f24dff2f9289cfd8826b86d88d415367eeb6a161de1aa7e80c52794"
     },
     "source_iso": {
       "path": "rom/Super Robot Taisen Z (Japan, Korea).iso",
@@ -135,18 +135,18 @@
         "chunk_index": 6,
         "config": {
           "path": "config/assets/ui-intermission-atlas-zh.json",
-          "size": 17767,
-          "sha256": "c4a4f601b9764e6627e660926efecc0c6f370ed8b9c34a1df930c3f5cd6b1e53"
+          "size": 17715,
+          "sha256": "bf9bdb15d93bbc4833b5e9e1b86758bdeadd4c23d5bb3faa95a26abd5f581bc7"
         },
         "manifest": {
           "path": "manifests/ui-intermission-atlas-zh-validation.json",
-          "size": 99484,
-          "sha256": "938c56a8b5e030ec406a5094e3e3ffb04899c6c65f06063030c3c540017b7a9d"
+          "size": 102711,
+          "sha256": "97b7dc27c1c4849d3c452581e58de3081582c37206758a88f645c9f90c73732e"
         },
         "archive": {
           "path": "work/build/ui-intermission-atlas-zh/components/KURODATA/KVMDATA.BIN",
           "size": 3335408,
-          "sha256": "d5b0e6559f15bcd644309015c540183ff6fb4dbcaf0dea5ea6d57f19e26e67c2"
+          "sha256": "9fa101791597b911da3092edf7ed4477d37985e657da29e9c95cb3967ad3317f"
         },
         "target": {
           "member": "KURODATA/KVMDATA.BIN",
@@ -154,14 +154,14 @@
           "chunk_end": 233408
         },
         "diff": {
-          "diff_count": 6828,
-          "range_count": 985,
+          "diff_count": 6719,
+          "range_count": 1036,
           "first_offset": 200417,
           "last_offset": 232420,
-          "offsets_sha256": "8719bcde7e30a7b8556b16120f130f04c69a426db5caec0e654c28f2ea6ff0dd",
-          "ranges_sha256": "4a80aeac2f83a3d1e8d142d4ba259cd3de30adc1cb5d3076f474d9d1ba1f0558",
-          "before_values_sha256": "38b1be3dd6958545cc655e081eafb6e1e9ebcb3d0b6ae8a02e873d7647af3302",
-          "after_values_sha256": "a95121721609116786dfcf734a02b5970d20b50ff060beede26c6fa1715f326c"
+          "offsets_sha256": "0e738bb885f14f0b8bc9e0de8ced86e2f5f144f72b8411b28a6e670d91b5083f",
+          "ranges_sha256": "8f3a65148e367d4d314b19b6ad7ab052493d1d41f00808a8ca422fede5aedbec",
+          "before_values_sha256": "a23bba89618f79f8178e5d00b0664724d967e065b5ee2df5a081ff112937b0f8",
+          "after_values_sha256": "d016d9e5fcd3534c4ddc182004cb0b2b4807c78fb6f647e873903ff98f011204"
         },
         "runtime_status": "not_tested",
         "exact": true
@@ -252,23 +252,23 @@
       11
     ],
     "ownership_overlap_count": 0,
-    "changed_byte_count": 12812,
-    "changed_range_count": 1572,
+    "changed_byte_count": 12703,
+    "changed_range_count": 1623,
     "combined_diff": {
-      "diff_count": 12812,
-      "range_count": 1572,
+      "diff_count": 12703,
+      "range_count": 1623,
       "first_offset": 66798,
       "last_offset": 338543,
-      "offsets_sha256": "474c4d0ff33b1db21c1af8fc7c54c4b7e8b276b5362610dc73cc4801af441503",
-      "ranges_sha256": "1fa84dd61d433b7e551e3b305dbdeb956622fffba10630f531ac354a013b85bb",
-      "before_values_sha256": "8e3ec4120e743677a819b7fe7fa7bf518c379bf7c8bb2dc61e64f966a14dfea3",
-      "after_values_sha256": "fd4ebe873571b78c9aa689eda50d7d13283689ad4c054d1d4605243a2d71f699"
+      "offsets_sha256": "d5bfd4666e08ec1d03bd85d9aed1d40dd3cf9beaa0f725b5450d3e36141beba0",
+      "ranges_sha256": "b995a754dc76904c950acb224f7ee73b3b1b5e12b0857c6fe02fde5d71a9d827",
+      "before_values_sha256": "32b38d83089d33789deb823da3a3923f13bde09d20b6ded047fcaba3b8674731",
+      "after_values_sha256": "6f379944087de67467523a23e148a93c2d718cccbb938c310105767214f49f42"
     }
   },
   "outputs": {
     "archive": {
       "size": 3335408,
-      "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b"
+      "sha256": "837e4af402e81efbc4a7eb1971281e0a46ced6bf924d3c648c194c449245a8f2"
     }
   },
   "acceptance": {

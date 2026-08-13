@@ -7,7 +7,7 @@
     "config": {
       "path": "config/full-story-components.json",
       "size": 33281,
-      "sha256": "d00844caefdf96d75bef09149b83dc26f85526e294f4c1fff3e6846279d88ed8"
+      "sha256": "afe1de9f49a7272aa9587bb83a74133db0a3805a4f7262a0fea1ae5cb1306d03"
     },
     "base_ui_manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -67,7 +67,7 @@
     "world_history_corpus": {
       "path": "corpus/zh/summary.json",
       "size": 18195,
-      "sha256": "95231cdc4e3a76442ee4aa21960a16463d0c173fb8ccd63f310b09f4afd7d082"
+      "sha256": "47fe90fa1849cda8b4616c1a20a06b12ae7c688d95346c96e374b402c7527703"
     },
     "stage_system_dialogue": {
       "path": "corpus/zh/story-system-dialogue.json",
@@ -182,7 +182,7 @@
     "kvmdata": {
       "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b"
+      "sha256": "837e4af402e81efbc4a7eb1971281e0a46ced6bf924d3c648c194c449245a8f2"
     },
     "original_veff2dx": {
       "path": "work/disc/EFF/VEFF2DX.BIN",
@@ -276,8 +276,8 @@
     },
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
-      "size": 471668,
-      "sha256": "6b83d0ec7bcd5efcff1dab8a81c44e17fc47d6e8244638f2e948f76efbc5dd7f"
+      "size": 472049,
+      "sha256": "66f5f1b30537dae783fa4acaf58bd86864fc653e1bf79f2636549b152ee768b7"
     }
   },
   "compression": {
@@ -3961,12 +3961,15 @@
   },
   "world_history": {
     "entry_count": 28,
-    "changed_entry_count": 2,
+    "changed_entry_count": 10,
     "chunk_count": 12,
     "minimum_chunk_headroom": 0,
     "archive_size_preserved": true,
     "slps_offsets_preserved": true,
     "logical_text_preserved": true,
+    "logical_ascii_and_digits_preserved": true,
+    "raw_visible_space_entry_count": 0,
+    "two_byte_visible_spaces_exact": true,
     "runtime_text_reread_exact": true,
     "codec_round_trip_exact": true,
     "codec": {
@@ -3981,11 +3984,12 @@
         "entry_count": 1,
         "source_stored_size": 1264,
         "source_encoded_size": 1250,
-        "output_encoded_size": 1249,
-        "headroom": 15,
+        "output_encoded_size": 1248,
+        "headroom": 16,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       },
       {
         "chunk_index": 1,
@@ -3996,7 +4000,8 @@
         "headroom": 7,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       },
       {
         "chunk_index": 2,
@@ -4007,29 +4012,32 @@
         "headroom": 14,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       },
       {
         "chunk_index": 3,
         "entry_count": 1,
         "source_stored_size": 800,
         "source_encoded_size": 796,
-        "output_encoded_size": 794,
-        "headroom": 6,
+        "output_encoded_size": 796,
+        "headroom": 4,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       },
       {
         "chunk_index": 4,
         "entry_count": 1,
         "source_stored_size": 592,
         "source_encoded_size": 578,
-        "output_encoded_size": 577,
-        "headroom": 15,
+        "output_encoded_size": 579,
+        "headroom": 13,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       },
       {
         "chunk_index": 5,
@@ -4040,7 +4048,8 @@
         "headroom": 5,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       },
       {
         "chunk_index": 6,
@@ -4051,29 +4060,32 @@
         "headroom": 4,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       },
       {
         "chunk_index": 7,
         "entry_count": 1,
         "source_stored_size": 864,
         "source_encoded_size": 856,
-        "output_encoded_size": 853,
-        "headroom": 11,
+        "output_encoded_size": 856,
+        "headroom": 8,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       },
       {
         "chunk_index": 8,
         "entry_count": 2,
         "source_stored_size": 432,
         "source_encoded_size": 421,
-        "output_encoded_size": 423,
-        "headroom": 9,
+        "output_encoded_size": 421,
+        "headroom": 11,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       },
       {
         "chunk_index": 9,
@@ -4084,7 +4096,8 @@
         "headroom": 5,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       },
       {
         "chunk_index": 10,
@@ -4095,7 +4108,8 @@
         "headroom": 1,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       },
       {
         "chunk_index": 11,
@@ -4106,7 +4120,8 @@
         "headroom": 0,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
-        "codec_round_trip_exact": true
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
       }
     ]
   },
@@ -19800,7 +19815,7 @@
     "DATA/MTV_PROS.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
       "size": 8368,
-      "sha256": "3fdf65f1e19b6cdc0d1d199fe16fe5f2f6f5f718689ec19256d7d5e438c81b8d"
+      "sha256": "c073afea7a5a7e929330ce9605d09dc7cef3bbcc2803afb36abef8714f7f6877"
     },
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
@@ -19820,7 +19835,7 @@
     "KURODATA/KVMDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b"
+      "sha256": "837e4af402e81efbc4a7eb1971281e0a46ced6bf924d3c648c194c449245a8f2"
     },
     "BTL/SRVC.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
@@ -19842,20 +19857,20 @@
       "size": 55136688,
       "sha256": "6d766567b4e36082fbe8532baf59c4cfc4994718b30e349602f9da95a37d7957"
     },
-    "BTL/OP1.BIN": {
-      "path": "work/build/zh-release-full-story/components/BTL/OP1.BIN",
-      "size": 265872,
-      "sha256": "e5198d1a85ec19572a9d0d7c8c603d27ae884737754ff71076e46e525177009c"
+    "BTL/OP0.BIN": {
+      "path": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
+      "size": 266224,
+      "sha256": "5c9cb63a7e6e37c5b2c16cdaead04e80162a10c54c2b78c971b3dfa2cd1a38d3"
     },
     "BTL/OP2.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/OP2.BIN",
       "size": 266352,
       "sha256": "73a28d29c9c0d5c0ed6f49ff63a92f5a459537ca67d4590e9caf9864c82b1724"
     },
-    "BTL/OP0.BIN": {
-      "path": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
-      "size": 266224,
-      "sha256": "5c9cb63a7e6e37c5b2c16cdaead04e80162a10c54c2b78c971b3dfa2cd1a38d3"
+    "BTL/OP1.BIN": {
+      "path": "work/build/zh-release-full-story/components/BTL/OP1.BIN",
+      "size": 265872,
+      "sha256": "e5198d1a85ec19572a9d0d7c8c603d27ae884737754ff71076e46e525177009c"
     },
     "DATA/JTIM.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/JTIM.BIN",
@@ -19951,6 +19966,16 @@
       "font_path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
       "font_sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1",
       "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+      "render_source": "locked_snapshot",
+      "render_snapshot": {
+        "path": "config/library/library-menu-render-snapshot.json",
+        "size": 40119,
+        "sha256": "68810898211b8f233cf1b48322a640092b83e9e18942ef36d608e4150924a229"
+      },
+      "frozen_preview_png": {
+        "size": 13790,
+        "sha256": "3719c510809d0a2e77d1e77f314761d9f3d50b7428b0118d5c2b128c8cf46e77"
+      },
       "labels": [
         {
           "id": "strategy-qa-normal",

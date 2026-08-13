@@ -5,7 +5,7 @@
   "iso": {
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "size": 3758358528,
-    "sha256": "b97b50bea16ce266398abb98e5cc0cdb9230bddf687384209401fc120522f7dc"
+    "sha256": "c4780e89ee965f0b6c238ac08febe34f6eafd99e6d8c2c09c8cdb004a023d2f9"
   },
   "stage_indices": [
     1,
@@ -377,6 +377,7 @@
     "raw_space_count_zero": true,
     "story_raw_space_target_count": 0,
     "stage_overview_raw_space_entry_count": 0,
+    "world_history_raw_space_entry_count": 0,
     "hsfc_raw_space_cell_count": 0,
     "srvc_raw_space_record_count": 0,
     "srvc_pollution_record_count": 0,
@@ -385,6 +386,8 @@
   "raw_visible_ascii_storage": {
     "story_glyph_count": 0,
     "story_target_count": 0,
+    "world_history_glyph_count": 0,
+    "world_history_entry_count": 0,
     "srvc_glyph_count": 0,
     "srvc_record_count": 0,
     "runtime_substitution_tokens_excluded": true,
@@ -2401,6 +2404,19 @@
     "unknown_code_count": 0,
     "translated_reread_exact": true
   },
+  "world_history": {
+    "entry_count": 28,
+    "chunk_count": 14,
+    "translated_readback_exact": true,
+    "logical_ascii_and_digits_preserved": true,
+    "raw_space_entry_count": 0,
+    "raw_visible_ascii_glyph_count": 0,
+    "raw_visible_ascii_entry_count": 0,
+    "two_byte_visible_spaces_exact": true,
+    "archive_offsets_exact": true,
+    "side_3_logical_text": "Side 3",
+    "side_3_storage_readback": "Side　3"
+  },
   "stage_overviews": {
     "inventory_entry_count": 110,
     "translated_entry_count": 110,
@@ -2569,7 +2585,7 @@
     },
     "DATA/MTV_PROS.BIN": {
       "size": 8368,
-      "sha256": "3fdf65f1e19b6cdc0d1d199fe16fe5f2f6f5f718689ec19256d7d5e438c81b8d",
+      "sha256": "c073afea7a5a7e929330ce9605d09dc7cef3bbcc2803afb36abef8714f7f6877",
       "replacement_exact": true
     },
     "DATA/VT1.BIN": {
@@ -2594,7 +2610,7 @@
     },
     "KURODATA/KVMDATA.BIN": {
       "size": 3335408,
-      "sha256": "4cf9a6c3645e36d795499622787443c539b3ad09898715244b226d9065d7eb6b",
+      "sha256": "837e4af402e81efbc4a7eb1971281e0a46ced6bf924d3c648c194c449245a8f2",
       "replacement_exact": true
     },
     "MAP/MAPMODEL.BIN": {
@@ -8440,6 +8456,7 @@
     "remaining_ui_binary_text_exact": true,
     "compdata_battle_lines_exact": true,
     "stage_overviews_exact": true,
+    "world_history_exact": true,
     "hsfc_overviews_exact": true
   },
   "runtime_acceptance": "static final-ISO content readback; fresh PCSX2 runtime evidence is separate"
