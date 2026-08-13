@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import base64
 import hashlib
 import json
 import tempfile
+import zlib
 from pathlib import Path
 from typing import Mapping, Sequence
 
@@ -68,6 +70,46 @@ def _sha256_path(path: Path) -> str:
         while chunk := source.read(4 * 1024 * 1024):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _json_sha256(value: object) -> str:
+    return sha256_bytes(
+        json.dumps(
+            value,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+
+
+def _frozen_bytes(data: bytes) -> dict:
+    return {
+        "size": len(data),
+        "sha256": sha256_bytes(data),
+        "zlib_base64": base64.b64encode(zlib.compress(data, 9)).decode("ascii"),
+    }
+
+
+def _thaw_bytes(raw: object, *, label: str, expected_size: int) -> bytes:
+    if not isinstance(raw, Mapping):
+        raise UiAtlasLocalizationError(f"{label} snapshot payload is missing")
+    encoded = raw.get("zlib_base64")
+    if not isinstance(encoded, str) or not encoded:
+        raise UiAtlasLocalizationError(f"{label} snapshot payload is invalid")
+    try:
+        data = zlib.decompress(base64.b64decode(encoded, validate=True))
+    except (ValueError, zlib.error) as error:
+        raise UiAtlasLocalizationError(
+            f"{label} snapshot payload cannot be decoded"
+        ) from error
+    if (
+        len(data) != expected_size
+        or raw.get("size") != len(data)
+        or raw.get("sha256") != sha256_bytes(data)
+    ):
+        raise UiAtlasLocalizationError(f"{label} snapshot payload drift")
+    return data
 
 
 def _file_lock(root: Path, path: Path) -> dict:
@@ -482,8 +524,10 @@ def build_ui_atlas_localization(
     config_path: Path,
     *,
     enforce_expected: bool = True,
+    live_render: bool = False,
+    render_snapshot_sink: dict | None = None,
 ) -> tuple[dict[str, bytes], dict]:
-    """Build one localized atlas component from a locked erasure canary."""
+    """Build one localized atlas from frozen masks or an explicit refreeze."""
 
     root = project_root.resolve()
     work = work_root.resolve()
@@ -826,6 +870,83 @@ def build_ui_atlas_localization(
             "localized atlas ImageMagick version drift"
         )
 
+    render_contract = [
+        {
+            "entry_id": spec["entry_id"],
+            "text": spec["text"],
+            "mask": spec["mask"].to_mapping(),
+            "point_size": spec["point_size"],
+            "stroke_gray": spec["stroke_gray"],
+            "stroke_width": spec["stroke_width"],
+            "fill_stroke_width": spec["fill_stroke_width"],
+            "italic_shear_degrees": spec["italic_shear_degrees"],
+            "horizontal_offset": spec["horizontal_offset"],
+            "ramp_rgba": [color.hex() for color in spec["ramp"]],
+            "indexed_layers": (
+                _indexed_layers_metadata(spec["indexed_layers"])
+                if spec["indexed_layers"] is not None
+                else None
+            ),
+        }
+        for spec in label_specs
+    ]
+    render_contract_sha256 = _json_sha256(render_contract)
+    font_sha256 = _sha256_path(font_files["font"])
+    translation_sha256 = _sha256_path(translation_path)
+    base_reference_png_sha256 = sha256_bytes(base_payloads["reference_png"])
+    base_erased_png_sha256 = sha256_bytes(base_payloads["edited_png"])
+    render_snapshot_path = None
+    render_snapshot = None
+    render_snapshot_reference = config.get("render_snapshot")
+    if not live_render and render_snapshot_reference is not None:
+        if not isinstance(render_snapshot_reference, Mapping):
+            raise UiAtlasLocalizationError(
+                "localized atlas frozen render snapshot reference is invalid"
+            )
+        render_snapshot_path = _project_path(
+            root,
+            render_snapshot_reference.get("path"),
+        )
+        if (
+            not render_snapshot_path.is_file()
+            or render_snapshot_path.stat().st_size
+            != render_snapshot_reference.get("size")
+            or _sha256_path(render_snapshot_path)
+            != render_snapshot_reference.get("sha256")
+        ):
+            raise UiAtlasLocalizationError(
+                "localized atlas frozen render snapshot lock drift"
+            )
+        render_snapshot = _json_object(render_snapshot_path)
+        if (
+            render_snapshot.get("schema_version") != 1
+            or render_snapshot.get("status") != "reviewed_locked"
+            or render_snapshot.get("selection_authority")
+            != "frozen_rendered_text_masks"
+            or render_snapshot.get("profile_id") != config.get("profile_id")
+            or render_snapshot.get("translation_source_sha256")
+            != translation_sha256
+            or render_snapshot.get("font_sha256") != font_sha256
+            or render_snapshot.get("render_contract_sha256")
+            != render_contract_sha256
+            or render_snapshot.get("base_reference_png_sha256")
+            != base_reference_png_sha256
+            or render_snapshot.get("base_erased_png_sha256")
+            != base_erased_png_sha256
+            or render_snapshot.get("imagemagick_version") != version
+        ):
+            raise UiAtlasLocalizationError(
+                "localized atlas frozen render snapshot provenance drift"
+            )
+        frozen_labels = render_snapshot.get("labels")
+        if (
+            not isinstance(frozen_labels, list)
+            or len(frozen_labels) != len(label_specs)
+        ):
+            raise UiAtlasLocalizationError(
+                "localized atlas frozen render label count drift"
+            )
+
     with tempfile.TemporaryDirectory(
         prefix="srwz-ui-atlas-localization-"
     ) as directory:
@@ -928,22 +1049,43 @@ def build_ui_atlas_localization(
         grayscale_masks = []
         fill_masks = []
         forced_palette_indexes_by_pixel = {}
-        for spec in label_specs:
-            current_mask = render_grayscale_text_mask(
-                magick,
-                font_files["font"],
-                spec["text"],
-                width=spec["mask"].width,
-                height=spec["mask"].height,
-                point_size=spec["point_size"],
-                stroke_gray=spec["stroke_gray"],
-                stroke_width=float(spec["stroke_width"]),
-                fill_stroke_width=float(spec["fill_stroke_width"]),
-                italic_shear_degrees=float(
-                    spec["italic_shear_degrees"]
-                ),
-                horizontal_offset=spec["horizontal_offset"],
+        for label_index, spec in enumerate(label_specs):
+            frozen_label = (
+                None
+                if render_snapshot is None
+                else render_snapshot["labels"][label_index]
             )
+            if render_snapshot is None:
+                current_mask = render_grayscale_text_mask(
+                    magick,
+                    font_files["font"],
+                    spec["text"],
+                    width=spec["mask"].width,
+                    height=spec["mask"].height,
+                    point_size=spec["point_size"],
+                    stroke_gray=spec["stroke_gray"],
+                    stroke_width=float(spec["stroke_width"]),
+                    fill_stroke_width=float(spec["fill_stroke_width"]),
+                    italic_shear_degrees=float(
+                        spec["italic_shear_degrees"]
+                    ),
+                    horizontal_offset=spec["horizontal_offset"],
+                )
+            else:
+                if (
+                    not isinstance(frozen_label, Mapping)
+                    or frozen_label.get("entry_id") != spec["entry_id"]
+                    or frozen_label.get("text_sha256")
+                    != sha256_bytes(spec["text"].encode("utf-8"))
+                ):
+                    raise UiAtlasLocalizationError(
+                        "localized atlas frozen render label identity drift"
+                    )
+                current_mask = _thaw_bytes(
+                    frozen_label.get("outline_mask"),
+                    label=f"{spec['entry_id']} outline mask",
+                    expected_size=spec["mask"].width * spec["mask"].height,
+                )
             indexed_layers = spec["indexed_layers"]
             if indexed_layers is None:
                 localized_rgba, current_audit = apply_text_mask(
@@ -954,21 +1096,30 @@ def build_ui_atlas_localization(
                 )
                 fill_masks.append(None)
             else:
-                fill_mask = render_grayscale_text_mask(
-                    magick,
-                    font_files["font"],
-                    spec["text"],
-                    width=spec["mask"].width,
-                    height=spec["mask"].height,
-                    point_size=spec["point_size"],
-                    stroke_gray="black",
-                    stroke_width=0,
-                    fill_stroke_width=float(spec["fill_stroke_width"]),
-                    italic_shear_degrees=float(
-                        spec["italic_shear_degrees"]
-                    ),
-                    horizontal_offset=spec["horizontal_offset"],
-                )
+                if render_snapshot is None:
+                    fill_mask = render_grayscale_text_mask(
+                        magick,
+                        font_files["font"],
+                        spec["text"],
+                        width=spec["mask"].width,
+                        height=spec["mask"].height,
+                        point_size=spec["point_size"],
+                        stroke_gray="black",
+                        stroke_width=0,
+                        fill_stroke_width=float(spec["fill_stroke_width"]),
+                        italic_shear_degrees=float(
+                            spec["italic_shear_degrees"]
+                        ),
+                        horizontal_offset=spec["horizontal_offset"],
+                    )
+                else:
+                    fill_mask = _thaw_bytes(
+                        frozen_label.get("fill_mask"),
+                        label=f"{spec['entry_id']} fill mask",
+                        expected_size=(
+                            spec["mask"].width * spec["mask"].height
+                        ),
+                    )
                 (
                     localized_rgba,
                     current_audit,
@@ -1100,14 +1251,39 @@ def build_ui_atlas_localization(
             raise UiAtlasLocalizationError(
                 "localized atlas TIM2 RGBA reread mismatch"
             )
-        write_deterministic_rgba8_png(
-            magick,
-            localized_rgba,
-            localized_path,
-            width=CANARY_WIDTH,
-            height=CANARY_HEIGHT,
-        )
-        localized_png = localized_path.read_bytes()
+        if render_snapshot is None:
+            write_deterministic_rgba8_png(
+                magick,
+                localized_rgba,
+                localized_path,
+                width=CANARY_WIDTH,
+                height=CANARY_HEIGHT,
+            )
+            localized_png = localized_path.read_bytes()
+        else:
+            frozen_preview = render_snapshot.get("preview_png")
+            if not isinstance(frozen_preview, Mapping) or not isinstance(
+                frozen_preview.get("size"), int
+            ):
+                raise UiAtlasLocalizationError(
+                    "localized atlas frozen preview is invalid"
+                )
+            localized_png = _thaw_bytes(
+                frozen_preview,
+                label="localized atlas preview PNG",
+                expected_size=frozen_preview["size"],
+            )
+            localized_path.write_bytes(localized_png)
+            frozen_preview_rgba = read_rgba8(
+                magick,
+                localized_path,
+                expected_width=CANARY_WIDTH,
+                expected_height=CANARY_HEIGHT,
+            )
+            if frozen_preview_rgba != localized_rgba:
+                raise UiAtlasLocalizationError(
+                    "localized atlas frozen preview pixels drift"
+                )
 
     localized_archive = (
         base_archive[:chunk_start]
@@ -1122,6 +1298,41 @@ def build_ui_atlas_localization(
         base_archive,
         localized_archive,
     ).to_mapping()
+    if live_render and render_snapshot_sink is not None:
+        render_snapshot_sink.update(
+            {
+                "schema_version": 1,
+                "status": "reviewed_locked",
+                "selection_authority": "frozen_rendered_text_masks",
+                "profile_id": config["profile_id"],
+                "translation_source_sha256": translation_sha256,
+                "font_sha256": font_sha256,
+                "render_contract_sha256": render_contract_sha256,
+                "base_reference_png_sha256": base_reference_png_sha256,
+                "base_erased_png_sha256": base_erased_png_sha256,
+                "imagemagick_version": version,
+                "labels": [
+                    {
+                        "entry_id": spec["entry_id"],
+                        "text_sha256": sha256_bytes(
+                            spec["text"].encode("utf-8")
+                        ),
+                        "outline_mask": _frozen_bytes(current_mask),
+                        "fill_mask": (
+                            _frozen_bytes(fill_mask)
+                            if fill_mask is not None
+                            else None
+                        ),
+                    }
+                    for spec, current_mask, fill_mask in zip(
+                        label_specs,
+                        grayscale_masks,
+                        fill_masks,
+                    )
+                ],
+                "preview_png": _frozen_bytes(localized_png),
+            }
+        )
     expected = {
         "text_mask": {
             "size": len(grayscale_masks[0]),
@@ -1229,6 +1440,22 @@ def build_ui_atlas_localization(
                 "editorial_status": decision["editorial_status"],
                 "source_ref_count": len(source_refs),
             },
+            **(
+                {
+                    "render_snapshot": (
+                        _file_lock(root, render_snapshot_path)
+                        if render_snapshot_path is not None
+                        else {
+                            "source": "live_explicit_refreeze",
+                            "render_contract_sha256": (
+                                render_contract_sha256
+                            ),
+                        }
+                    )
+                }
+                if live_render or render_snapshot_path is not None
+                else {}
+            ),
         },
         "target": {
             "member": target["member"],
@@ -1366,6 +1593,17 @@ def build_ui_atlas_localization(
         ),
         "toolchain": {
             "imagemagick": version,
+            **(
+                {
+                    "text_render_source": (
+                        "live_explicit_refreeze"
+                        if live_render
+                        else "locked_snapshot"
+                    )
+                }
+                if live_render or render_snapshot is not None
+                else {}
+            ),
         },
         "text_audit": (
             {
@@ -1410,6 +1648,11 @@ def build_ui_atlas_localization(
             "base_mapping_reproduced_exact": True,
             "font_and_license_locked": True,
             "text_mask_hash_locked": True,
+            **(
+                {"frozen_render_snapshot_consumed": True}
+                if render_snapshot is not None
+                else {}
+            ),
             "ramp_uses_only_source_palette_rgba": True,
             "localized_pixels_within_mapping_mask": True,
             **(

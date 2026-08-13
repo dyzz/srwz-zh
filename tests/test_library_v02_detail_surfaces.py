@@ -187,6 +187,7 @@ class LibraryV02DetailSurfaceTests(unittest.TestCase):
             source,
             contract,
             font_path=font_path,
+            project_root=PROJECT_ROOT,
         )
         self.assertEqual(len(output), len(source))
         self.assertNotEqual(output, source)

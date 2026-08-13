@@ -479,6 +479,7 @@ def main() -> int:
         menu_source,
         menu_contract,
         font_path=menu_font_path,
+        project_root=PROJECT_ROOT,
     )
     menu_report["font_path"] = str(menu_font_path.relative_to(PROJECT_ROOT))
 

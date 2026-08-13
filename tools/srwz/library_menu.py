@@ -2,13 +2,18 @@
 
 from __future__ import annotations
 
+import base64
 import hashlib
+import json
+import tempfile
+import zlib
 from pathlib import Path
 from typing import Mapping
 
 from .imagemagick import (
     imagemagick_version,
     render_grayscale_text_mask,
+    render_tim2_png8,
     require_imagemagick,
 )
 from .library import LibraryScopeError, verify_jtim_library_menu_record
@@ -17,6 +22,57 @@ from .tim2 import scan_tim2
 
 def _sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def _json_sha256(value: object) -> str:
+    return _sha256(
+        json.dumps(
+            value,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+
+
+def _frozen_bytes(data: bytes) -> dict[str, object]:
+    return {
+        "size": len(data),
+        "sha256": _sha256(data),
+        "zlib_base64": base64.b64encode(zlib.compress(data, 9)).decode("ascii"),
+    }
+
+
+def _thaw_bytes(raw: object, *, label: str, expected_size: int) -> bytes:
+    if not isinstance(raw, Mapping):
+        raise LibraryScopeError(f"{label} snapshot payload is missing")
+    encoded = raw.get("zlib_base64")
+    if not isinstance(encoded, str) or not encoded:
+        raise LibraryScopeError(f"{label} snapshot payload is invalid")
+    try:
+        data = zlib.decompress(base64.b64decode(encoded, validate=True))
+    except (ValueError, zlib.error) as error:
+        raise LibraryScopeError(
+            f"{label} snapshot payload cannot be decoded"
+        ) from error
+    if (
+        len(data) != expected_size
+        or raw.get("size") != len(data)
+        or raw.get("sha256") != _sha256(data)
+    ):
+        raise LibraryScopeError(f"{label} snapshot payload drift")
+    return data
+
+
+def _project_path(root: Path, raw: object) -> Path:
+    if not isinstance(raw, str) or not raw:
+        raise LibraryScopeError("LIBRARY menu project path is invalid")
+    path = (root / raw).resolve()
+    try:
+        path.relative_to(root.resolve())
+    except ValueError as error:
+        raise LibraryScopeError("LIBRARY menu path escapes project root") from error
+    return path
 
 
 def _integer(value: object, label: str) -> int:
@@ -63,18 +119,28 @@ def build_jtim_library_menu(
     raw_lock: Mapping[str, object],
     *,
     font_path: Path,
+    project_root: Path | None = None,
+    live_render: bool = False,
+    render_snapshot_sink: dict | None = None,
 ) -> tuple[bytes, dict[str, object]]:
-    """Replace all twelve visible label variants without changing TIM2 shape."""
+    """Replace all labels from frozen masks or an explicit refreeze."""
 
     source_metadata = verify_jtim_library_menu_record(source, raw_lock)
     render = raw_lock.get("writeback")
     labels = raw_lock.get("labels")
     if not isinstance(render, Mapping) or not isinstance(labels, Mapping):
         raise LibraryScopeError("JTIM LIBRARY menu writeback contract is missing")
-    magick = require_imagemagick()
-    version = imagemagick_version(magick)
-    if version != render.get("imagemagick_version"):
-        raise LibraryScopeError("JTIM LIBRARY menu ImageMagick version drift")
+    configured_version = render.get("imagemagick_version")
+    if not isinstance(configured_version, str) or not configured_version:
+        raise LibraryScopeError("JTIM LIBRARY menu ImageMagick lock is missing")
+    if live_render:
+        magick = require_imagemagick()
+        version = imagemagick_version(magick)
+        if version != configured_version:
+            raise LibraryScopeError("JTIM LIBRARY menu ImageMagick version drift")
+    else:
+        magick = None
+        version = configured_version
     masks = render.get("masks")
     if not isinstance(masks, list) or len(masks) != 12:
         raise LibraryScopeError("JTIM LIBRARY menu must define twelve masks")
@@ -105,9 +171,77 @@ def build_jtim_library_menu(
     ):
         raise LibraryScopeError("JTIM LIBRARY menu render style drift")
 
+    font_sha256 = _sha256(font_path.read_bytes())
+    source_record_sha256 = _sha256(
+        source[record.offset : record.offset + record.size]
+    )
+    render_contract_sha256 = _json_sha256(
+        {
+            "labels": dict(labels),
+            "point_size": point_size,
+            "stroke_gray": stroke_gray,
+            "stroke_width": stroke_width,
+            "fill_stroke_width": fill_stroke_width,
+            "masks": masks,
+        }
+    )
+    render_snapshot_path = None
+    render_snapshot = None
+    if not live_render:
+        if project_root is None:
+            raise LibraryScopeError(
+                "JTIM LIBRARY menu project root is required for frozen renders"
+            )
+        snapshot_reference = render.get("render_snapshot")
+        if not isinstance(snapshot_reference, Mapping):
+            raise LibraryScopeError(
+                "JTIM LIBRARY menu frozen render snapshot is missing"
+            )
+        render_snapshot_path = _project_path(
+            project_root,
+            snapshot_reference.get("path"),
+        )
+        if (
+            not render_snapshot_path.is_file()
+            or render_snapshot_path.stat().st_size
+            != snapshot_reference.get("size")
+            or _sha256(render_snapshot_path.read_bytes())
+            != snapshot_reference.get("sha256")
+        ):
+            raise LibraryScopeError(
+                "JTIM LIBRARY menu frozen render snapshot lock drift"
+            )
+        try:
+            render_snapshot = json.loads(
+                render_snapshot_path.read_text(encoding="utf-8")
+            )
+        except (OSError, json.JSONDecodeError) as error:
+            raise LibraryScopeError(
+                "JTIM LIBRARY menu frozen render snapshot is unreadable"
+            ) from error
+        if (
+            not isinstance(render_snapshot, dict)
+            or render_snapshot.get("schema_version") != 1
+            or render_snapshot.get("status") != "reviewed_locked"
+            or render_snapshot.get("selection_authority")
+            != "frozen_rendered_text_masks"
+            or render_snapshot.get("source_record_sha256")
+            != source_record_sha256
+            or render_snapshot.get("font_sha256") != font_sha256
+            or render_snapshot.get("render_contract_sha256")
+            != render_contract_sha256
+            or render_snapshot.get("imagemagick_version") != version
+            or not isinstance(render_snapshot.get("labels"), list)
+            or len(render_snapshot["labels"]) != len(masks)
+        ):
+            raise LibraryScopeError(
+                "JTIM LIBRARY menu frozen render provenance drift"
+            )
+
     reports = []
     seen_ids = set()
-    for raw_mask in masks:
+    grayscale_masks = []
+    for mask_index, raw_mask in enumerate(masks):
         if not isinstance(raw_mask, Mapping):
             raise LibraryScopeError("JTIM LIBRARY menu mask is malformed")
         mask_id = raw_mask.get("id")
@@ -162,21 +296,39 @@ def build_jtim_library_menu(
             for index in range(palette_start, palette_stop + 1)
         ]
         maximum_luminance = max(value for _index, value in ramp)
-        mask = render_grayscale_text_mask(
-            magick,
-            font_path,
-            translation,
-            width=width,
-            height=height,
-            point_size=_integer(
-                raw_mask.get("point_size", point_size),
-                f"{mask_id} point size",
-            ),
-            stroke_gray=stroke_gray,
-            stroke_width=float(stroke_width),
-            fill_stroke_width=float(fill_stroke_width),
-            horizontal_offset=horizontal_offset,
-        )
+        if live_render:
+            mask = render_grayscale_text_mask(
+                magick,
+                font_path,
+                translation,
+                width=width,
+                height=height,
+                point_size=_integer(
+                    raw_mask.get("point_size", point_size),
+                    f"{mask_id} point size",
+                ),
+                stroke_gray=stroke_gray,
+                stroke_width=float(stroke_width),
+                fill_stroke_width=float(fill_stroke_width),
+                horizontal_offset=horizontal_offset,
+            )
+        else:
+            frozen_label = render_snapshot["labels"][mask_index]
+            if (
+                not isinstance(frozen_label, Mapping)
+                or frozen_label.get("id") != mask_id
+                or frozen_label.get("translation_sha256")
+                != _sha256(translation.encode("utf-8"))
+            ):
+                raise LibraryScopeError(
+                    "JTIM LIBRARY menu frozen render label identity drift"
+                )
+            mask = _thaw_bytes(
+                frozen_label.get("mask"),
+                label=f"{mask_id} text mask",
+                expected_size=width * height,
+            )
+        grayscale_masks.append(mask)
         changed_pixels = 0
         for row in range(height):
             destination = (y + row) * picture.width + x
@@ -225,6 +377,53 @@ def build_jtim_library_menu(
         raise LibraryScopeError("JTIM LIBRARY menu changed TIM2 metadata")
     if output[:image_start] != source[:image_start] or output[image_end:] != source[image_end:]:
         raise LibraryScopeError("JTIM LIBRARY menu changed bytes outside pixels")
+    frozen_preview = None
+    if live_render:
+        with tempfile.TemporaryDirectory(prefix="srwz-library-menu-freeze-") as directory:
+            temporary = Path(directory)
+            record_path = temporary / "library-menu.tm2"
+            preview_path = temporary / "library-menu.png"
+            record_path.write_bytes(
+                output[record.offset : record.offset + record.size]
+            )
+            render_tim2_png8(magick, record_path, preview_path)
+            frozen_preview = _frozen_bytes(preview_path.read_bytes())
+        if render_snapshot_sink is not None:
+            render_snapshot_sink.update(
+                {
+                    "schema_version": 1,
+                    "status": "reviewed_locked",
+                    "selection_authority": "frozen_rendered_text_masks",
+                    "source_record_sha256": source_record_sha256,
+                    "font_sha256": font_sha256,
+                    "render_contract_sha256": render_contract_sha256,
+                    "imagemagick_version": version,
+                    "labels": [
+                        {
+                            "id": raw_mask["id"],
+                            "translation_sha256": _sha256(
+                                labels[raw_mask["source_text"]].encode("utf-8")
+                            ),
+                            "mask": _frozen_bytes(mask),
+                        }
+                        for raw_mask, mask in zip(masks, grayscale_masks)
+                    ],
+                    "preview_png": frozen_preview,
+                }
+            )
+    else:
+        frozen_preview = render_snapshot.get("preview_png")
+        if not isinstance(frozen_preview, Mapping) or not isinstance(
+            frozen_preview.get("size"), int
+        ):
+            raise LibraryScopeError(
+                "JTIM LIBRARY menu frozen preview is invalid"
+            )
+        _thaw_bytes(
+            frozen_preview,
+            label="JTIM LIBRARY menu preview PNG",
+            expected_size=frozen_preview["size"],
+        )
     return output, {
         "member": raw_lock.get("member"),
         "record_index": record_index,
@@ -237,6 +436,29 @@ def build_jtim_library_menu(
         "font_path": str(font_path),
         "font_sha256": _sha256(font_path.read_bytes()),
         "imagemagick_version": version,
+        "render_source": (
+            "live_explicit_refreeze" if live_render else "locked_snapshot"
+        ),
+        "render_snapshot": (
+            {
+                "path": str(
+                    render_snapshot_path.resolve().relative_to(
+                        project_root.resolve()
+                    )
+                ),
+                "size": render_snapshot_path.stat().st_size,
+                "sha256": _sha256(render_snapshot_path.read_bytes()),
+            }
+            if render_snapshot_path is not None and project_root is not None
+            else {
+                "source": "live_explicit_refreeze",
+                "render_contract_sha256": render_contract_sha256,
+            }
+        ),
+        "frozen_preview_png": {
+            "size": frozen_preview["size"],
+            "sha256": frozen_preview["sha256"],
+        },
         "labels": reports,
         "all_six_labels_built_in_both_states": len(reports) == 12,
         "member_size_preserved": len(output) == len(source),
