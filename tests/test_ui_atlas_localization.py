@@ -46,11 +46,11 @@ PROFILES = {
     "intermission": {
         "stem": "ui-intermission-atlas-zh",
         "archive_sha256": (
-            "d5b0e6559f15bcd644309015c540183ff6fb4dbcaf0dea5ea6d57f19e26e67c2"
+            "9fa101791597b911da3092edf7ed4477d37985e657da29e9c95cb3967ad3317f"
         ),
         "character_count": 4,
-        "added_pixel_count": 7695,
-        "changed_pixel_count": 11483,
+        "added_pixel_count": 7181,
+        "changed_pixel_count": 11259,
     },
     "formation": {
         "stem": "ui-formation-atlas-zh",
@@ -270,9 +270,20 @@ class UiAtlasLocalizationTests(unittest.TestCase):
         )
         self.assertTrue(
             all(
-                label["render"]["italic_shear_degrees"] == 12
+                "italic_shear_degrees" not in label["render"]
                 for label in labels[2:]
             )
+        )
+        self.assertEqual(
+            config["render_snapshot"]["path"],
+            "config/assets/ui-intermission-atlas-render-snapshot.json",
+        )
+        self.assertEqual(
+            manifest["toolchain"]["text_render_source"],
+            "locked_snapshot",
+        )
+        self.assertTrue(
+            manifest["acceptance"]["frozen_render_snapshot_consumed"]
         )
         base_mapping = json.loads(
             (
