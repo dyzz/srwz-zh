@@ -19,56 +19,56 @@ PROFILES = {
     "info": {
         "stem": "ui-info-atlas-zh",
         "archive_sha256": (
-            "c2e17e91730ec39e2d2deee6b29fb1607b1f6c13f75cbf0b314dd0f1a8494201"
+            "bf31697f19bca40446bf089374c4a6ef7cb1ec29a1e7a3f68c7eb0c00f321b6b"
         ),
         "character_count": 2,
-        "added_pixel_count": 330,
-        "changed_pixel_count": 425,
+        "added_pixel_count": 264,
+        "changed_pixel_count": 414,
     },
     "battle-command": {
         "stem": "ui-battle-command-atlas-zh",
         "archive_sha256": (
-            "f6db010cb6c7f6adc27c7f48d8eaa1c6ebbbe499ca0a43dbcac68a4d25fe62b9"
+            "68fafca4b120667b15514a48a4999affc2799438540e2998a037dea48dbb5bdc"
         ),
         "character_count": 4,
-        "added_pixel_count": 610,
-        "changed_pixel_count": 2284,
+        "added_pixel_count": 554,
+        "changed_pixel_count": 2332,
     },
     "bazaar": {
         "stem": "ui-bazaar-atlas-zh",
         "archive_sha256": (
-            "977f434fa01781e244cb0726875fe4823d72c24b126da5808956d1ad4a2f90af"
+            "54670e0d0a1340dd297d2c531e6f8180796717d4651c7525e735ed0cc92baadc"
         ),
         "character_count": 3,
-        "added_pixel_count": 2844,
-        "changed_pixel_count": 3713,
+        "added_pixel_count": 2603,
+        "changed_pixel_count": 3704,
     },
     "intermission": {
         "stem": "ui-intermission-atlas-zh",
         "archive_sha256": (
-            "9fa101791597b911da3092edf7ed4477d37985e657da29e9c95cb3967ad3317f"
+            "3d9ab911ebe65eb0fad5d0afaae031f4c70170d821a1d7a014dfe3aaae8d152b"
         ),
         "character_count": 4,
-        "added_pixel_count": 7181,
-        "changed_pixel_count": 11259,
+        "added_pixel_count": 5467,
+        "changed_pixel_count": 10563,
     },
     "formation": {
         "stem": "ui-formation-atlas-zh",
         "archive_sha256": (
-            "ab49d229e4bb8582d81d602aaa69f98d8cbf67a35eb6a8e521d3e0ee1bfbcc59"
+            "d5ce2a06be0b407005a353d56c0543bca0e29187b545e09b1deeb97fa37b6dd8"
         ),
         "character_count": 4,
-        "added_pixel_count": 2268,
-        "changed_pixel_count": 3214,
+        "added_pixel_count": 1923,
+        "changed_pixel_count": 3270,
     },
     "stage-clear": {
         "stem": "ui-stage-clear-atlas-zh",
         "archive_sha256": (
-            "b1b22cade3b9a3494783e03beed48bdb75cd23a3091c14a6f4b83d9cc2ced90b"
+            "ba3f2fad9351294402e3488b66edf7d3a211818efd3ce58a96e25f17bffee13f"
         ),
         "character_count": 4,
-        "added_pixel_count": 563,
-        "changed_pixel_count": 729,
+        "added_pixel_count": 469,
+        "changed_pixel_count": 689,
     },
 }
 
@@ -220,7 +220,36 @@ class UiAtlasLocalizationTests(unittest.TestCase):
                 self.assertEqual(manifest["runtime"]["status"], "not_tested")
                 self.assertTrue(all(manifest["acceptance"].values()))
 
-    def test_intermission_uses_frozen_upright_source_element_renders(self):
+    def test_all_production_atlas_text_uses_frozen_four_x_renders(self):
+        for name, profile in self.profiles.items():
+            with self.subTest(profile=name):
+                config = profile["config"]
+                labels = [
+                    config["localized_label"],
+                    *config.get("additional_localized_labels", []),
+                ]
+                self.assertTrue(labels)
+                self.assertTrue(
+                    all(
+                        label["render"]["supersample_factor"] == 4
+                        for label in labels
+                    )
+                )
+                snapshot = config["render_snapshot"]
+                self.assertTrue(snapshot["path"].endswith("-render-snapshot.json"))
+                self.assertGreater(snapshot["size"], 0)
+                self.assertEqual(len(snapshot["sha256"]), 64)
+                self.assertEqual(
+                    profile["manifest"]["toolchain"]["text_render_source"],
+                    "locked_snapshot",
+                )
+                self.assertTrue(
+                    profile["manifest"]["acceptance"][
+                        "frozen_render_snapshot_consumed"
+                    ]
+                )
+
+    def test_intermission_uses_frozen_supersampled_pixel_aligned_italic_renders(self):
         manifest = self.profiles["intermission"]["manifest"]
         config = self.profiles["intermission"]["config"]
         self.assertEqual(config["replacement_mode"], "fixed_source_elements")
@@ -231,8 +260,18 @@ class UiAtlasLocalizationTests(unittest.TestCase):
             len({label["source_element_id"] for label in labels}),
             len(labels),
         )
-        self.assertNotIn("italic_shear_degrees", labels[0]["render"])
-        self.assertNotIn("italic_shear_degrees", labels[1]["render"])
+        self.assertTrue(
+            all(
+                label["render"]["italic_shear_degrees"] == 12
+                for label in labels
+            )
+        )
+        self.assertTrue(
+            all(
+                label["render"]["supersample_factor"] == 4
+                for label in labels
+            )
+        )
         self.assertEqual(
             labels[0]["render"]["indexed_layers"],
             labels[1]["render"]["indexed_layers"],
@@ -270,7 +309,7 @@ class UiAtlasLocalizationTests(unittest.TestCase):
         )
         self.assertTrue(
             all(
-                "italic_shear_degrees" not in label["render"]
+                label["render"]["stroke_width"] == 0.25
                 for label in labels[2:]
             )
         )

@@ -30,6 +30,7 @@
       "stroke_gray": "#303030",
       "stroke_width": 0.35,
       "fill_stroke_width": 0,
+      "supersample_factor": 4,
       "ramp_rgba": [
         "101010ff",
         "202020ff",
@@ -42,6 +43,11 @@
         "787878ff"
       ]
     }
+  },
+  "render_snapshot": {
+    "path": "config/assets/ui-info-atlas-render-snapshot.json",
+    "size": 30198,
+    "sha256": "551163a6e3fec37de0349399c6c8573d60508e27450a982ad543d45b3533142b"
   },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 2 supplies the unit-information locator and that the localized label renders at the intended position.",
@@ -62,30 +68,30 @@
   "expected": {
     "text_mask": {
       "size": 784,
-      "sha256": "2690d9d44a798bc7be6c394200acce091a25ce8a4191019da5f6d653ee67ef56",
-      "nonzero_pixel_count": 330
+      "sha256": "f10cdb4554beab126bf63f81846b240afa2a97e2031b74ac9dc513cf06a8b272",
+      "nonzero_pixel_count": 264
     },
     "reference_png": {
       "size": 21229,
       "sha256": "21b78aa7dc1557bbd928e8f8ed740379b7aa3701d087fb76e579e337293e3d88"
     },
     "localized_png": {
-      "size": 21557,
-      "sha256": "244bf7df7e00b7c0ba41391c9631458c508b668dc92de0e56c8ae0d135c78e89"
+      "size": 21632,
+      "sha256": "e47263799b692bd44d5b006539d3a5a32bb62406bc7b085160e29cca3a6c8ce1"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "c2e17e91730ec39e2d2deee6b29fb1607b1f6c13f75cbf0b314dd0f1a8494201"
+      "sha256": "bf31697f19bca40446bf089374c4a6ef7cb1ec29a1e7a3f68c7eb0c00f321b6b"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "32e47097df3d1423385effe7b6acfbc2828f8735559c4f9044d41bd91695c44d"
+      "sha256": "84f227f93536613745e1bd84e71a75b7113ca8d5d44a27a9c153dbc9704a6749"
     },
-    "added_pixel_count": 330,
-    "original_changed_pixel_count": 425,
-    "original_changed_pixel_indexes_sha256": "4418ef006d61c44502f57b6a0b306d3669e7169d903e79dca737de446bddf5c5",
-    "changed_archive_byte_count": 187,
-    "changed_archive_range_count": 24
+    "added_pixel_count": 264,
+    "original_changed_pixel_count": 414,
+    "original_changed_pixel_indexes_sha256": "0a379d0abe33bc5acee480632a3f30be2894752f0aca3275c4be3d1021406791",
+    "changed_archive_byte_count": 156,
+    "changed_archive_range_count": 34
   },
   "outputs": {
     "component_root": "work/build/ui-info-atlas-zh/components",

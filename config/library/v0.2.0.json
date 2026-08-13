@@ -8,7 +8,7 @@
       "id": "library-menu",
       "label": "LIBRARY主菜单",
       "policy": "translate_zh_Hans",
-      "source_member": "DATA/JTIM.BIN"
+      "source_member": "DATA/NISVDATA.BIN"
     },
     {
       "id": "robot-encyclopedia",
@@ -65,6 +65,11 @@
       "path": "work/disc/DATA/JTIM.BIN",
       "size": 7539728,
       "sha256": "c02f0b01a20024243c6fce96ffaa423feba7239dacf19309583ee97ac2c24b56"
+    },
+    "DATA/NISVDATA.BIN": {
+      "path": "work/disc/DATA/NISVDATA.BIN",
+      "size": 555056,
+      "sha256": "63afc46aeb19b41cf7332c7c298ab8bb1c7089f306d4eb4e77bce72e8dbece9c"
     },
     "DATA/MTVZKNRT.BIN": {
       "path": "work/disc/DATA/MTVZKNRT.BIN",
@@ -269,6 +274,140 @@
           "source_indexes_sha256": "6f01dde69b838338db67436e1f438ca70c1c62558ada19ced68a6a5f8ff36d5e"
         }
       ]
+    }
+  },
+  "library_menu_runtime_tim2": {
+    "member": "DATA/NISVDATA.BIN",
+    "target": {
+      "chunk_index": 0,
+      "stored_start": 0,
+      "stored_end": 169504,
+      "stored_size": 169504,
+      "stored_consumed": 169500,
+      "stored_sha256": "fbc6b54a56553a2ebfeec28c89369ab319555a3c8080619ac7530bdd5ecd8812",
+      "decoded_size": 647136,
+      "decoded_sha256": "fa679786609e37cf38445316da3f4698e395f5831571f2016eaabfbab6298a4f",
+      "record_index": 2,
+      "record_offset": 575680,
+      "record_size": 66624,
+      "record_sha256": "9b5613b49938a578edfeb5084ac462c28ae44b7ca6f9c2aaf2a3e21bfa731adf",
+      "logical_indexes_sha256": "f6eeb178adaac2de29962a62463ad1a9cc91bea39c821d3e4a90cf4be7037cc2",
+      "width": 256,
+      "height": 256,
+      "image_type": 5
+    },
+    "labels": {
+      "ロボット大図鑑": "机体图鉴",
+      "キャラクター事典": "角色事典",
+      "用語事典": "术语事典",
+      "サウンドセレクト": "音乐选择",
+      "シナリオチャート": "剧情流程",
+      "攻略Ｑ＆Ａ": "攻略Q&A"
+    },
+    "writeback": {
+      "font_flavor": "config/fonts/zh-localization-font.json",
+      "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+      "render_snapshot": {
+        "path": "config/library/library-menu-runtime-render-snapshot.json",
+        "size": 34845,
+        "sha256": "fbb0624489af3e450ca0d31c370e096171cb7f1f71cd3471b94309cef3ba9709"
+      },
+      "point_size": 26,
+      "supersample_factor": 4,
+      "stroke_gray": "#303030",
+      "stroke_width": 1.25,
+      "fill_stroke_width": 0,
+      "clear_index_start": 65,
+      "clear_index_stop": 77,
+      "palette_start": 65,
+      "palette_stop": 77,
+      "masks": [
+        {
+          "id": "robot-encyclopedia",
+          "source_text": "ロボット大図鑑",
+          "x": 0,
+          "y": 29,
+          "width": 190,
+          "height": 36,
+          "clear_x": 0,
+          "clear_y": 32,
+          "clear_width": 190,
+          "clear_height": 30,
+          "source_indexes_sha256": "c7bd748f4e5273ed190b4e21cc2cc70cca4b07606bf5da61c619bb05e3755671"
+        },
+        {
+          "id": "character-encyclopedia",
+          "source_text": "キャラクター事典",
+          "x": 0,
+          "y": 69,
+          "width": 190,
+          "height": 36,
+          "clear_x": 0,
+          "clear_y": 69,
+          "clear_width": 190,
+          "clear_height": 32,
+          "source_indexes_sha256": "d17e937cdacefc92ab9bec719a2ad29f69a339ddc0239f0e95c35de2a7ea47f8"
+        },
+        {
+          "id": "glossary",
+          "source_text": "用語事典",
+          "x": 0,
+          "y": 109,
+          "width": 190,
+          "height": 36,
+          "clear_x": 0,
+          "clear_y": 109,
+          "clear_width": 190,
+          "clear_height": 32,
+          "source_indexes_sha256": "4547ffa0f120b1432f7e43ceede6b5264711b5aac1b5f3aaedd18f4d194b4635"
+        },
+        {
+          "id": "sound-select",
+          "source_text": "サウンドセレクト",
+          "x": 0,
+          "y": 149,
+          "width": 190,
+          "height": 36,
+          "clear_x": 0,
+          "clear_y": 149,
+          "clear_width": 190,
+          "clear_height": 31,
+          "source_indexes_sha256": "0bbdfe770db0174b3d253511fe2d27cb473879d6913a342463a96dc17266ed2c"
+        },
+        {
+          "id": "scenario-chart",
+          "source_text": "シナリオチャート",
+          "x": 0,
+          "y": 189,
+          "width": 190,
+          "height": 36,
+          "clear_x": 0,
+          "clear_y": 189,
+          "clear_width": 190,
+          "clear_height": 32,
+          "source_indexes_sha256": "7869a890280bd126472486f7d064ab235ed939602ff7270cefa3ed31d0eade14"
+        },
+        {
+          "id": "strategy-qa",
+          "source_text": "攻略Ｑ＆Ａ",
+          "x": 39,
+          "y": 224,
+          "width": 118,
+          "height": 32,
+          "point_size": 24,
+          "clear_x": 39,
+          "clear_y": 224,
+          "clear_width": 118,
+          "clear_height": 32,
+          "source_indexes_sha256": "86045e733602c9aca95fb84d51c0154f772c88698771325db77de9c8f510038f"
+        }
+      ]
+    },
+    "codec": {
+      "strategy": "rust-fit",
+      "min_match_length": 2,
+      "max_match_chain": 16384,
+      "lazy_matching": false
     }
   },
   "sound_select": {

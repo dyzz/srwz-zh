@@ -682,6 +682,7 @@ def build_ui_atlas_localization(
     stroke_width = render.get("stroke_width")
     fill_stroke_width = render.get("fill_stroke_width", 0)
     italic_shear_degrees = render.get("italic_shear_degrees", 0)
+    supersample_factor = render.get("supersample_factor", 1)
     horizontal_offset = render.get("horizontal_offset", 0)
     if (
         not isinstance(point_size, int)
@@ -694,6 +695,9 @@ def build_ui_atlas_localization(
         or isinstance(fill_stroke_width, bool)
         or not isinstance(italic_shear_degrees, (int, float))
         or isinstance(italic_shear_degrees, bool)
+        or not isinstance(supersample_factor, int)
+        or isinstance(supersample_factor, bool)
+        or not 1 <= supersample_factor <= 8
         or not isinstance(horizontal_offset, int)
         or isinstance(horizontal_offset, bool)
     ):
@@ -715,6 +719,7 @@ def build_ui_atlas_localization(
             "stroke_width": stroke_width,
             "fill_stroke_width": fill_stroke_width,
             "italic_shear_degrees": italic_shear_degrees,
+            "supersample_factor": supersample_factor,
             "horizontal_offset": horizontal_offset,
             "ramp": ramp,
             "indexed_layers": _resolve_indexed_layers(
@@ -783,6 +788,9 @@ def build_ui_atlas_localization(
         additional_italic_shear_degrees = additional_render.get(
             "italic_shear_degrees", 0
         )
+        additional_supersample_factor = additional_render.get(
+            "supersample_factor", 1
+        )
         additional_horizontal_offset = additional_render.get(
             "horizontal_offset", 0
         )
@@ -801,6 +809,9 @@ def build_ui_atlas_localization(
                 additional_italic_shear_degrees, (int, float)
             )
             or isinstance(additional_italic_shear_degrees, bool)
+            or not isinstance(additional_supersample_factor, int)
+            or isinstance(additional_supersample_factor, bool)
+            or not 1 <= additional_supersample_factor <= 8
             or not isinstance(additional_horizontal_offset, int)
             or isinstance(additional_horizontal_offset, bool)
         ):
@@ -822,6 +833,7 @@ def build_ui_atlas_localization(
                 "italic_shear_degrees": (
                     additional_italic_shear_degrees
                 ),
+                "supersample_factor": additional_supersample_factor,
                 "horizontal_offset": additional_horizontal_offset,
                 "ramp": _decode_ramp(additional_render.get("ramp_rgba")),
                 "indexed_layers": _resolve_indexed_layers(
@@ -880,6 +892,11 @@ def build_ui_atlas_localization(
             "stroke_width": spec["stroke_width"],
             "fill_stroke_width": spec["fill_stroke_width"],
             "italic_shear_degrees": spec["italic_shear_degrees"],
+            **(
+                {"supersample_factor": spec["supersample_factor"]}
+                if spec["supersample_factor"] != 1
+                else {}
+            ),
             "horizontal_offset": spec["horizontal_offset"],
             "ramp_rgba": [color.hex() for color in spec["ramp"]],
             "indexed_layers": (
@@ -1069,6 +1086,7 @@ def build_ui_atlas_localization(
                     italic_shear_degrees=float(
                         spec["italic_shear_degrees"]
                     ),
+                    supersample_factor=spec["supersample_factor"],
                     horizontal_offset=spec["horizontal_offset"],
                 )
             else:
@@ -1110,6 +1128,7 @@ def build_ui_atlas_localization(
                         italic_shear_degrees=float(
                             spec["italic_shear_degrees"]
                         ),
+                        supersample_factor=spec["supersample_factor"],
                         horizontal_offset=spec["horizontal_offset"],
                     )
                 else:
@@ -1512,6 +1531,11 @@ def build_ui_atlas_localization(
                     else {}
                 ),
                 **(
+                    {"supersample_factor": supersample_factor}
+                    if supersample_factor != 1
+                    else {}
+                ),
+                **(
                     {"horizontal_offset": horizontal_offset}
                     if horizontal_offset
                     else {}
@@ -1555,6 +1579,15 @@ def build_ui_atlas_localization(
                                     ]
                                 }
                                 if spec["italic_shear_degrees"]
+                                else {}
+                            ),
+                            **(
+                                {
+                                    "supersample_factor": spec[
+                                        "supersample_factor"
+                                    ]
+                                }
+                                if spec["supersample_factor"] != 1
                                 else {}
                             ),
                             **(

@@ -11,8 +11,8 @@
     },
     "scope_config": {
       "path": "config/library/v0.2.0.json",
-      "size": 9716,
-      "sha256": "e639e23e4c76266391592cd52aa89be6944b8d94503e7ebe0076d06155b037be"
+      "size": 14279,
+      "sha256": "fe727f5e4f2216c96dbe9087f6801acd6098fdf84b55d019de1e9ffc484fa8dd"
     },
     "corpus": {
       "path": "corpus/zh/library/v0.2-reviewed.json",
@@ -21,13 +21,13 @@
     },
     "font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 58387,
-      "sha256": "e2a0868baa73c3df469f2e7497a172d4c550fe36cf4500c2a8124cb7ebe526e3"
+      "size": 59230,
+      "sha256": "5d65e4fba0485c63fb5ec4a156e6d00f116cafeb018edd6c6fd267b0ecec9ca8"
     },
     "font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
       "size": 3683306,
-      "sha256": "dd3e336ffb6c546c3f5ccb533015499aa0045972d882853a8752de604efea06a"
+      "sha256": "3a0763f4698370e4b5b7eab4c80cb7f653df46ccdf2b21d063e25f2ca579d2ef"
     },
     "executable": {
       "path": "work/disc/SLPS_258.87",
@@ -54,10 +54,15 @@
       "size": 7539728,
       "sha256": "c02f0b01a20024243c6fce96ffaa423feba7239dacf19309583ee97ac2c24b56"
     },
+    "runtime_menu_source": {
+      "path": "work/disc/DATA/NISVDATA.BIN",
+      "size": 555056,
+      "sha256": "63afc46aeb19b41cf7332c7c298ab8bb1c7089f306d4eb4e77bce72e8dbece9c"
+    },
     "layout_profiles": {
       "path": "config/text-layout/zh-layout-profiles.json",
-      "size": 3306,
-      "sha256": "0127ad83e90ab443be4d3c11e24c2012558600f7e343feefcea79adcdc2524ce"
+      "size": 3309,
+      "sha256": "ec6cf7e8d0a5c143c335f33829a42426b30d2b6af686068a2b4f1ccbd8eefeed"
     },
     "layout_release": {
       "path": "corpus/releases/v1.json",
@@ -199,232 +204,224 @@
     }
   },
   "library_menu": {
-    "member": "DATA/JTIM.BIN",
-    "record_index": 5,
-    "source_record": {
-      "offset": 3752272,
-      "size": 132160,
-      "width": 512,
-      "height": 256,
-      "image_type": 5,
-      "clut_color_count": 256,
-      "sha256": "b7c5008406d8b8ff2e3ca4d0875eb8ec8e1d780bc57ac9e0624261470ca886e6"
-    },
-    "output_record_sha256": "f9b6195803935962df70c3f5543baced4346ff2e33eedd4367ed83a105357482",
-    "image_offset": 3752336,
-    "image_size": 131072,
-    "font_path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
-    "font_sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1",
-    "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+    "member": "DATA/NISVDATA.BIN",
+    "chunk_index": 0,
+    "record_index": 2,
+    "record_offset": 575680,
+    "source_record_sha256": "9b5613b49938a578edfeb5084ac462c28ae44b7ca6f9c2aaf2a3e21bfa731adf",
+    "output_record_sha256": "fe84d71dc5fe55c0e05cda4bd59417cfa92d5346ce02463d58a4fa548057786e",
+    "source_logical_indexes_sha256": "f6eeb178adaac2de29962a62463ad1a9cc91bea39c821d3e4a90cf4be7037cc2",
+    "output_logical_indexes_sha256": "d74ab81162151ff61df33d9cd9b3a83769e9ff5158484f9be6753866c45080bd",
+    "changed_pixel_count": 15356,
+    "source_stored_size": 169504,
+    "output_encoded_size": 160067,
+    "output_padding_size": 9437,
     "render_source": "locked_snapshot",
     "render_snapshot": {
-      "path": "config/library/library-menu-render-snapshot.json",
-      "size": 40119,
-      "sha256": "68810898211b8f233cf1b48322a640092b83e9e18942ef36d608e4150924a229"
+      "path": "config/library/library-menu-runtime-render-snapshot.json",
+      "size": 34845,
+      "sha256": "fbb0624489af3e450ca0d31c370e096171cb7f1f71cd3471b94309cef3ba9709"
     },
     "frozen_preview_png": {
-      "size": 13790,
-      "sha256": "3719c510809d0a2e77d1e77f314761d9f3d50b7428b0118d5c2b128c8cf46e77"
+      "size": 16818,
+      "sha256": "07b6e848221969a2b6b56756ec76ebdd156bcee6a4270e2ff43411ccd12aae32"
     },
     "labels": [
       {
-        "id": "strategy-qa-normal",
-        "source_text": "攻略Ｑ＆Ａ",
-        "translation": "攻略Q&A",
-        "x": 218,
-        "y": 0,
-        "width": 118,
-        "height": 36,
-        "horizontal_offset": 0,
-        "palette_start": 33,
-        "palette_stop": 63,
-        "source_indexes_sha256": "e3a87305b26fed695763bdd42edd65e9086542cc6e2eab6f2a8e0d34815442ee",
-        "output_indexes_sha256": "9cea7d952479e0576b4c9a0854f6ec0dd090f0447c7636960b4ef3e6fa4b7a66",
-        "changed_pixel_count": 2398,
-        "visible_pixel_count": 1734
-      },
-      {
-        "id": "strategy-qa-dimmed",
-        "source_text": "攻略Ｑ＆Ａ",
-        "translation": "攻略Q&A",
-        "x": 346,
-        "y": 0,
-        "width": 118,
-        "height": 36,
-        "horizontal_offset": 0,
-        "palette_start": 65,
-        "palette_stop": 95,
-        "source_indexes_sha256": "a77cf299839d576f5e27549984f60477ffab56a5e9707a36934007e9b3679871",
-        "output_indexes_sha256": "044f8af29d147804c4521e146cb4e070b0fbf311ac06e615917c3e942d6dcc06",
-        "changed_pixel_count": 2398,
-        "visible_pixel_count": 1734
-      },
-      {
-        "id": "robot-encyclopedia-normal",
+        "id": "robot-encyclopedia",
         "source_text": "ロボット大図鑑",
         "translation": "机体图鉴",
         "x": 0,
-        "y": 39,
+        "y": 29,
         "width": 190,
         "height": 36,
-        "horizontal_offset": 36,
-        "palette_start": 33,
-        "palette_stop": 63,
-        "source_indexes_sha256": "768a177a8495c7ab9b60e0a832d63ddca6da03e5506b39e6179fd276e8c5ea02",
-        "output_indexes_sha256": "f169297163791917f4ef8a4bac346e3eeef43d37640bd7bf97abd1744efadf7f",
-        "changed_pixel_count": 3772,
-        "visible_pixel_count": 2279
+        "source_indexes_sha256": "c7bd748f4e5273ed190b4e21cc2cc70cca4b07606bf5da61c619bb05e3755671",
+        "output_indexes_sha256": "155a7a77b0516f00dec2a825b634c9dcc07c82208b7b364f57b462e434449290",
+        "changed_pixel_count": 6085
       },
       {
-        "id": "robot-encyclopedia-dimmed",
-        "source_text": "ロボット大図鑑",
-        "translation": "机体图鉴",
-        "x": 200,
-        "y": 39,
-        "width": 190,
-        "height": 36,
-        "horizontal_offset": 36,
-        "palette_start": 65,
-        "palette_stop": 95,
-        "source_indexes_sha256": "c1ff50efb8ef5b92ee2c0f85b769cbfdfc8b4fbf78ba24b62202b4daad64f2da",
-        "output_indexes_sha256": "ce0a908ab0447afcc4720a9b1b94a0f1ad4de97a8dcd3452326c45507ac29828",
-        "changed_pixel_count": 3804,
-        "visible_pixel_count": 2279
-      },
-      {
-        "id": "character-encyclopedia-normal",
+        "id": "character-encyclopedia",
         "source_text": "キャラクター事典",
         "translation": "角色事典",
         "x": 0,
-        "y": 79,
+        "y": 69,
         "width": 190,
         "height": 36,
-        "horizontal_offset": 36,
-        "palette_start": 33,
-        "palette_stop": 63,
-        "source_indexes_sha256": "ed9bd42477b6ce0618290cd9c6a0c5262ea7c163e0132c4c82339ff7f7026d04",
-        "output_indexes_sha256": "5149c062479cc8e1610087db7463133e4bad118d8bd7e297edc91975abe9cddc",
-        "changed_pixel_count": 3678,
-        "visible_pixel_count": 2174
+        "source_indexes_sha256": "d17e937cdacefc92ab9bec719a2ad29f69a339ddc0239f0e95c35de2a7ea47f8",
+        "output_indexes_sha256": "ab02657f254c74c2dd835773c449a43d85d683a5a4e29ca7744da3125c06f56b",
+        "changed_pixel_count": 5964
       },
       {
-        "id": "character-encyclopedia-dimmed",
-        "source_text": "キャラクター事典",
-        "translation": "角色事典",
-        "x": 200,
-        "y": 79,
-        "width": 190,
-        "height": 36,
-        "horizontal_offset": 36,
-        "palette_start": 65,
-        "palette_stop": 95,
-        "source_indexes_sha256": "4121fab6fa52dedc4b41e7ccdf6da96f1373cc26e1ee41b4a7ba3fcd4f4107a2",
-        "output_indexes_sha256": "53c6c5fe3773f24afa720003285b55db36cd152fda5ff8a1b2882967f6857df0",
-        "changed_pixel_count": 3751,
-        "visible_pixel_count": 2174
-      },
-      {
-        "id": "glossary-normal",
+        "id": "glossary",
         "source_text": "用語事典",
         "translation": "术语事典",
         "x": 0,
-        "y": 119,
+        "y": 109,
         "width": 190,
         "height": 36,
-        "horizontal_offset": 36,
-        "palette_start": 33,
-        "palette_stop": 63,
-        "source_indexes_sha256": "ddbc6f7c6a7ab256699daf990253886b5b04ba9d7c5b5cd6368f038b4a3f3def",
-        "output_indexes_sha256": "09b32b76895a454af33ef4955282852d87fcf95d1af360689090302ed8b4c59e",
-        "changed_pixel_count": 2874,
-        "visible_pixel_count": 2128
+        "source_indexes_sha256": "4547ffa0f120b1432f7e43ceede6b5264711b5aac1b5f3aaedd18f4d194b4635",
+        "output_indexes_sha256": "5409706d9e1e1007c4412d5c47c4c3442f9119e191cc3f3ada8350972016e36d",
+        "changed_pixel_count": 5963
       },
       {
-        "id": "glossary-dimmed",
-        "source_text": "用語事典",
-        "translation": "术语事典",
-        "x": 200,
-        "y": 119,
-        "width": 190,
-        "height": 36,
-        "horizontal_offset": 36,
-        "palette_start": 65,
-        "palette_stop": 95,
-        "source_indexes_sha256": "b9de310e244cad156bca132bdcbe1ff2df5adcde6a552460198a67c2f023f546",
-        "output_indexes_sha256": "8ad25bbc30df820aac927ff1bb65bd09fa968ce7fd5c2a61b6482b5c67ea088b",
-        "changed_pixel_count": 2974,
-        "visible_pixel_count": 2128
-      },
-      {
-        "id": "sound-select-normal",
+        "id": "sound-select",
         "source_text": "サウンドセレクト",
         "translation": "音乐选择",
         "x": 0,
-        "y": 160,
+        "y": 149,
         "width": 190,
         "height": 36,
-        "horizontal_offset": 36,
-        "palette_start": 33,
-        "palette_stop": 63,
-        "source_indexes_sha256": "bf77799fc7abcc4fe1af61a290a80ee8d25b9800a4c7f5b7a5dc876b8a7f651f",
-        "output_indexes_sha256": "2da164dc0cb02e7fd83eb75275b88e7decd15d4c7fb84477c5ebf1314e850341",
-        "changed_pixel_count": 3493,
-        "visible_pixel_count": 2180
+        "source_indexes_sha256": "0bbdfe770db0174b3d253511fe2d27cb473879d6913a342463a96dc17266ed2c",
+        "output_indexes_sha256": "1a50b79279510f02dac3f336569c4d91b6f51bd23f457aefde9e3d8c9dcf05c6",
+        "changed_pixel_count": 5965
       },
       {
-        "id": "sound-select-dimmed",
-        "source_text": "サウンドセレクト",
-        "translation": "音乐选择",
-        "x": 200,
-        "y": 160,
-        "width": 190,
-        "height": 36,
-        "horizontal_offset": 36,
-        "palette_start": 65,
-        "palette_stop": 95,
-        "source_indexes_sha256": "c20ccbb51f651d18872a3dc5bfd9f8b05bfb0b9122f78828594d7849cb82f346",
-        "output_indexes_sha256": "b202b6387a1b96ac5c6a064574a58122b6a8247b39bd801d5f354bdd5f89617a",
-        "changed_pixel_count": 3463,
-        "visible_pixel_count": 2180
-      },
-      {
-        "id": "scenario-chart-normal",
+        "id": "scenario-chart",
         "source_text": "シナリオチャート",
         "translation": "剧情流程",
         "x": 0,
-        "y": 200,
+        "y": 189,
         "width": 190,
         "height": 36,
-        "horizontal_offset": 36,
-        "palette_start": 33,
-        "palette_stop": 63,
-        "source_indexes_sha256": "7c636e5125dc727e18fddbeec8748250b2b2943a50eb0042f67e39bdd79d9640",
-        "output_indexes_sha256": "0d7d754fda97b541ed907d490ec5da081a7af46f98bcba1811cfebc9541a16b0",
-        "changed_pixel_count": 3525,
-        "visible_pixel_count": 2406
+        "source_indexes_sha256": "7869a890280bd126472486f7d064ab235ed939602ff7270cefa3ed31d0eade14",
+        "output_indexes_sha256": "6c603cda0126d9af32b37cac29819463cdc5d6cd6ae1a1b50414e886546a428e",
+        "changed_pixel_count": 6007
       },
       {
-        "id": "scenario-chart-dimmed",
-        "source_text": "シナリオチャート",
-        "translation": "剧情流程",
-        "x": 200,
-        "y": 200,
-        "width": 190,
-        "height": 36,
-        "horizontal_offset": 36,
-        "palette_start": 65,
-        "palette_stop": 95,
-        "source_indexes_sha256": "6f01dde69b838338db67436e1f438ca70c1c62558ada19ced68a6a5f8ff36d5e",
-        "output_indexes_sha256": "fa0b15bf9de9dddbfb8de0a31b54739d2900f48f5f0556b44cdd7bfa70439863",
-        "changed_pixel_count": 3513,
-        "visible_pixel_count": 2406
+        "id": "strategy-qa",
+        "source_text": "攻略Ｑ＆Ａ",
+        "translation": "攻略Q&A",
+        "x": 39,
+        "y": 224,
+        "width": 118,
+        "height": 32,
+        "source_indexes_sha256": "86045e733602c9aca95fb84d51c0154f772c88698771325db77de9c8f510038f",
+        "output_indexes_sha256": "4e5494cb7797da9a6709d3eb5ad72618a608f3586a44f045f6631af1608afdb1",
+        "changed_pixel_count": 3381
       }
     ],
-    "all_six_labels_built_in_both_states": true,
-    "member_size_preserved": true,
+    "all_six_labels_written": true,
+    "archive_size_preserved": true,
+    "archive_non_target_chunks_preserved": true,
     "tim2_metadata_preserved": true,
     "clut_and_non_image_bytes_preserved": true,
-    "linear_index_reread_exact": true
+    "codec_round_trip_exact": true,
+    "font_path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf"
+  },
+  "runtime_library_menu": {
+    "member": "DATA/NISVDATA.BIN",
+    "chunk_index": 0,
+    "record_index": 2,
+    "record_offset": 575680,
+    "source_record_sha256": "9b5613b49938a578edfeb5084ac462c28ae44b7ca6f9c2aaf2a3e21bfa731adf",
+    "output_record_sha256": "fe84d71dc5fe55c0e05cda4bd59417cfa92d5346ce02463d58a4fa548057786e",
+    "source_logical_indexes_sha256": "f6eeb178adaac2de29962a62463ad1a9cc91bea39c821d3e4a90cf4be7037cc2",
+    "output_logical_indexes_sha256": "d74ab81162151ff61df33d9cd9b3a83769e9ff5158484f9be6753866c45080bd",
+    "changed_pixel_count": 15356,
+    "source_stored_size": 169504,
+    "output_encoded_size": 160067,
+    "output_padding_size": 9437,
+    "render_source": "locked_snapshot",
+    "render_snapshot": {
+      "path": "config/library/library-menu-runtime-render-snapshot.json",
+      "size": 34845,
+      "sha256": "fbb0624489af3e450ca0d31c370e096171cb7f1f71cd3471b94309cef3ba9709"
+    },
+    "frozen_preview_png": {
+      "size": 16818,
+      "sha256": "07b6e848221969a2b6b56756ec76ebdd156bcee6a4270e2ff43411ccd12aae32"
+    },
+    "labels": [
+      {
+        "id": "robot-encyclopedia",
+        "source_text": "ロボット大図鑑",
+        "translation": "机体图鉴",
+        "x": 0,
+        "y": 29,
+        "width": 190,
+        "height": 36,
+        "source_indexes_sha256": "c7bd748f4e5273ed190b4e21cc2cc70cca4b07606bf5da61c619bb05e3755671",
+        "output_indexes_sha256": "155a7a77b0516f00dec2a825b634c9dcc07c82208b7b364f57b462e434449290",
+        "changed_pixel_count": 6085
+      },
+      {
+        "id": "character-encyclopedia",
+        "source_text": "キャラクター事典",
+        "translation": "角色事典",
+        "x": 0,
+        "y": 69,
+        "width": 190,
+        "height": 36,
+        "source_indexes_sha256": "d17e937cdacefc92ab9bec719a2ad29f69a339ddc0239f0e95c35de2a7ea47f8",
+        "output_indexes_sha256": "ab02657f254c74c2dd835773c449a43d85d683a5a4e29ca7744da3125c06f56b",
+        "changed_pixel_count": 5964
+      },
+      {
+        "id": "glossary",
+        "source_text": "用語事典",
+        "translation": "术语事典",
+        "x": 0,
+        "y": 109,
+        "width": 190,
+        "height": 36,
+        "source_indexes_sha256": "4547ffa0f120b1432f7e43ceede6b5264711b5aac1b5f3aaedd18f4d194b4635",
+        "output_indexes_sha256": "5409706d9e1e1007c4412d5c47c4c3442f9119e191cc3f3ada8350972016e36d",
+        "changed_pixel_count": 5963
+      },
+      {
+        "id": "sound-select",
+        "source_text": "サウンドセレクト",
+        "translation": "音乐选择",
+        "x": 0,
+        "y": 149,
+        "width": 190,
+        "height": 36,
+        "source_indexes_sha256": "0bbdfe770db0174b3d253511fe2d27cb473879d6913a342463a96dc17266ed2c",
+        "output_indexes_sha256": "1a50b79279510f02dac3f336569c4d91b6f51bd23f457aefde9e3d8c9dcf05c6",
+        "changed_pixel_count": 5965
+      },
+      {
+        "id": "scenario-chart",
+        "source_text": "シナリオチャート",
+        "translation": "剧情流程",
+        "x": 0,
+        "y": 189,
+        "width": 190,
+        "height": 36,
+        "source_indexes_sha256": "7869a890280bd126472486f7d064ab235ed939602ff7270cefa3ed31d0eade14",
+        "output_indexes_sha256": "6c603cda0126d9af32b37cac29819463cdc5d6cd6ae1a1b50414e886546a428e",
+        "changed_pixel_count": 6007
+      },
+      {
+        "id": "strategy-qa",
+        "source_text": "攻略Ｑ＆Ａ",
+        "translation": "攻略Q&A",
+        "x": 39,
+        "y": 224,
+        "width": 118,
+        "height": 32,
+        "source_indexes_sha256": "86045e733602c9aca95fb84d51c0154f772c88698771325db77de9c8f510038f",
+        "output_indexes_sha256": "4e5494cb7797da9a6709d3eb5ad72618a608f3586a44f045f6631af1608afdb1",
+        "changed_pixel_count": 3381
+      }
+    ],
+    "all_six_labels_written": true,
+    "archive_size_preserved": true,
+    "archive_non_target_chunks_preserved": true,
+    "tim2_metadata_preserved": true,
+    "clut_and_non_image_bytes_preserved": true,
+    "codec_round_trip_exact": true,
+    "font_path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf"
+  },
+  "legacy_jtim_restoration": {
+    "member": "DATA/JTIM.BIN",
+    "role": "lookalike_atlas_restored_original",
+    "source_size": 7539728,
+    "output_size": 7539728,
+    "source_sha256": "c02f0b01a20024243c6fce96ffaa423feba7239dacf19309583ee97ac2c24b56",
+    "output_sha256": "c02f0b01a20024243c6fce96ffaa423feba7239dacf19309583ee97ac2c24b56",
+    "restored_original_byte_exact": true,
+    "production_text_writeback_disabled": true
   },
   "archives": [
     {
@@ -13873,7 +13870,12 @@
     "DATA/JTIM.BIN": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/JTIM.BIN",
       "size": 7539728,
-      "sha256": "a8ad25badec08a064d3162f896e585425976321e81e5d9e5f99f90ee44008aa1"
+      "sha256": "c02f0b01a20024243c6fce96ffaa423feba7239dacf19309583ee97ac2c24b56"
+    },
+    "DATA/NISVDATA.BIN": {
+      "path": "work/build/library-v0.2-reviewed/components/DATA/NISVDATA.BIN",
+      "size": 555056,
+      "sha256": "c7efa9aba3a1c4ae9db57efbbbd23cc48d61c0404012b5983a19645253cf2861"
     },
     "DATA/MTVZKNRT.BIN": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNRT.BIN",
@@ -13899,10 +13901,10 @@
     "all_chunk_spans_preserved": true,
     "all_runtime_text_reread_exact": true,
     "all_binary_fields_preserved": true,
-    "library_menu_member_size_preserved": true,
-    "library_menu_both_states_written": true,
-    "library_menu_tim2_metadata_preserved": true,
-    "library_menu_clut_preserved": true,
+    "legacy_jtim_restored_original_byte_exact": true,
+    "runtime_library_menu_all_six_labels_written": true,
+    "runtime_library_menu_archive_size_preserved": true,
+    "runtime_library_menu_codec_round_trip_exact": true,
     "all_editorial_statuses_reviewed": true,
     "release_eligible": true
   },

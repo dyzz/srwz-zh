@@ -3,10 +3,43 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from tools.srwz.imagemagick import render_tim2_png8
+from tools.srwz.imagemagick import (
+    _box_downsample_grayscale,
+    _pixel_aligned_horizontal_shear,
+    render_tim2_png8,
+)
 
 
 class ImageMagickAdapterTests(unittest.TestCase):
+    def test_box_downsample_averages_exact_coverage_blocks(self):
+        self.assertEqual(
+            _box_downsample_grayscale(
+                bytes((0, 64, 128, 255, 255, 128, 64, 0)),
+                width=2,
+                height=1,
+                factor=2,
+            ),
+            bytes((112, 112)),
+        )
+
+    def test_pixel_aligned_shear_shifts_rows_without_interpolation(self):
+        source = bytes(range(1, 16))
+        self.assertEqual(
+            _pixel_aligned_horizontal_shear(
+                source,
+                width=5,
+                height=3,
+                degrees=45,
+            ),
+            bytes(
+                (
+                    0, 1, 2, 3, 4,
+                    6, 7, 8, 9, 10,
+                    12, 13, 14, 15, 0,
+                )
+            ),
+        )
+
     def test_tim2_png8_render_disables_palette_dithering(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

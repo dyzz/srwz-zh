@@ -29,7 +29,7 @@ from srwz.library import (
     parse_zkn_decoded_chunk,
     validate_library_scope_mapping,
 )
-from srwz.library_menu import build_jtim_library_menu
+from srwz.nisv_library_menu import build_nisv_library_menu
 from srwz.text import (
     load_text_table,
     original_fullwidth_ascii_overrides,
@@ -441,14 +441,16 @@ def main() -> int:
     if output_root.exists() and not args.force:
         raise SystemExit(f"refusing to replace existing output root: {output_root}")
 
-    menu_contract = scope.get("library_menu_tim2")
     menu_member = "DATA/JTIM.BIN"
     menu_member_lock = locks.get(menu_member)
-    if not isinstance(menu_contract, dict) or not isinstance(menu_member_lock, dict):
+    runtime_menu_contract = scope.get("library_menu_runtime_tim2")
+    if not isinstance(menu_member_lock, dict) or not isinstance(
+        runtime_menu_contract, dict
+    ):
         raise SystemExit("LIBRARY menu source/writeback contract is missing")
-    menu_writeback = menu_contract.get("writeback")
+    menu_writeback = runtime_menu_contract.get("writeback")
     if not isinstance(menu_writeback, dict):
-        raise SystemExit("LIBRARY menu writeback contract is missing")
+        raise SystemExit("runtime LIBRARY menu writeback contract is missing")
     menu_font_flavor = load_font_flavor_reference(
         PROJECT_ROOT,
         menu_writeback.get("font_flavor"),
@@ -475,17 +477,46 @@ def main() -> int:
         menu_member_lock,
         menu_member,
     )
-    menu_output, menu_report = build_jtim_library_menu(
-        menu_source,
-        menu_contract,
+    menu_output = menu_source
+    menu_report = {
+        "member": menu_member,
+        "role": "lookalike_atlas_restored_original",
+        "source_size": len(menu_source),
+        "output_size": len(menu_output),
+        "source_sha256": sha256_bytes(menu_source),
+        "output_sha256": sha256_bytes(menu_output),
+        "restored_original_byte_exact": menu_output == menu_source,
+        "production_text_writeback_disabled": True,
+    }
+
+    runtime_menu_member = "DATA/NISVDATA.BIN"
+    runtime_menu_member_lock = locks.get(runtime_menu_member)
+    if not isinstance(runtime_menu_contract, dict) or not isinstance(
+        runtime_menu_member_lock, dict
+    ):
+        raise SystemExit("runtime LIBRARY menu source/writeback contract is missing")
+    runtime_menu_source_path = project_path(runtime_menu_member_lock.get("path"))
+    runtime_menu_source = locked_member(
+        runtime_menu_source_path,
+        runtime_menu_member_lock,
+        runtime_menu_member,
+    )
+    runtime_menu_output, runtime_menu_report = build_nisv_library_menu(
+        runtime_menu_source,
+        runtime_menu_contract,
         font_path=menu_font_path,
         project_root=PROJECT_ROOT,
     )
-    menu_report["font_path"] = str(menu_font_path.relative_to(PROJECT_ROOT))
+    runtime_menu_report["font_path"] = str(
+        menu_font_path.relative_to(PROJECT_ROOT)
+    )
 
     archive_reports = []
     capacity_failures = []
-    output_payloads: dict[str, bytes] = {menu_member: menu_output}
+    output_payloads: dict[str, bytes] = {
+        menu_member: menu_output,
+        runtime_menu_member: runtime_menu_output,
+    }
     used_hashes = set()
     for domain, member, expected_kind in ARCHIVES:
         lock = locks.get(member)
@@ -805,6 +836,9 @@ def main() -> int:
             "menu_font_lock": file_lock(menu_font_lock_path, menu_font_lock_data),
             "menu_font": file_lock(menu_font_path, menu_font_data),
             "menu_source": file_lock(menu_source_path, menu_source),
+            "runtime_menu_source": file_lock(
+                runtime_menu_source_path, runtime_menu_source
+            ),
             "layout_profiles": file_lock(layout_profile_path),
             "layout_release": file_lock(layout_release_path),
             **{
@@ -831,7 +865,9 @@ def main() -> int:
             "protected_term_count": len(protected_terms),
             "body_line_widths": dict(widths),
         },
-        "library_menu": menu_report,
+        "library_menu": runtime_menu_report,
+        "runtime_library_menu": runtime_menu_report,
+        "legacy_jtim_restoration": menu_report,
         "archives": archive_reports,
         "outputs": {
             member: file_lock(path, output_payloads[member])
@@ -857,18 +893,18 @@ def main() -> int:
             "all_binary_fields_preserved": all(
                 item["binary_fields_preserved"] for item in archive_reports
             ),
-            "library_menu_member_size_preserved": menu_report[
-                "member_size_preserved"
+            "legacy_jtim_restored_original_byte_exact": menu_report[
+                "restored_original_byte_exact"
             ],
-            "library_menu_both_states_written": menu_report[
-                "all_six_labels_built_in_both_states"
-            ],
-            "library_menu_tim2_metadata_preserved": menu_report[
-                "tim2_metadata_preserved"
-            ],
-            "library_menu_clut_preserved": menu_report[
-                "clut_and_non_image_bytes_preserved"
-            ],
+            "runtime_library_menu_all_six_labels_written": (
+                runtime_menu_report["all_six_labels_written"]
+            ),
+            "runtime_library_menu_archive_size_preserved": (
+                runtime_menu_report["archive_size_preserved"]
+            ),
+            "runtime_library_menu_codec_round_trip_exact": (
+                runtime_menu_report["codec_round_trip_exact"]
+            ),
             "all_editorial_statuses_reviewed": all(
                 entry.get("editorial_status") == "reviewed" for entry in entries
             ),

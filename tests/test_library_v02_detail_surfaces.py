@@ -6,6 +6,7 @@ from pathlib import Path
 
 from tools.srwz.codec import decode_production
 from tools.srwz.library_menu import build_jtim_library_menu
+from tools.srwz.nisv_library_menu import build_nisv_library_menu
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -202,6 +203,68 @@ class LibraryV02DetailSurfaceTests(unittest.TestCase):
         self.assertEqual(
             contract["writeback"]["render_snapshot"]["path"],
             "config/library/library-menu-render-snapshot.json",
+        )
+
+    def test_runtime_library_menu_builds_from_nisvdata_chunk_zero(self):
+        contract = self.library_scope["library_menu_runtime_tim2"]
+        self.assertEqual(contract["writeback"]["supersample_factor"], 4)
+        self.assertEqual(contract["writeback"]["point_size"], 26)
+        self.assertEqual(contract["writeback"]["masks"][-1]["point_size"], 24)
+        source = (PROJECT_ROOT / "work/disc/DATA/NISVDATA.BIN").read_bytes()
+        font_flavor = json.loads(
+            (
+                PROJECT_ROOT / contract["writeback"]["font_flavor"]
+            ).read_text(encoding="utf-8")
+        )
+        font_lock = json.loads(
+            (
+                PROJECT_ROOT / font_flavor["primary"]["font_lock"]
+            ).read_text(encoding="utf-8")
+        )
+        font_path = PROJECT_ROOT / font_lock["font"]["path"]
+        output, report = build_nisv_library_menu(
+            source,
+            contract,
+            font_path=font_path,
+            project_root=PROJECT_ROOT,
+        )
+        self.assertEqual(len(output), len(source))
+        self.assertNotEqual(output, source)
+        self.assertEqual(len(report["labels"]), 6)
+        self.assertEqual(
+            {label["translation"] for label in report["labels"]},
+            set(contract["labels"].values()),
+        )
+        self.assertEqual(report["chunk_index"], 0)
+        self.assertEqual(report["record_offset"], 0x8C8C0)
+        self.assertTrue(report["archive_size_preserved"])
+        self.assertTrue(report["archive_non_target_chunks_preserved"])
+        self.assertTrue(report["tim2_metadata_preserved"])
+        self.assertTrue(report["clut_and_non_image_bytes_preserved"])
+        self.assertTrue(report["codec_round_trip_exact"])
+        self.assertEqual(report["render_source"], "locked_snapshot")
+        self.assertEqual(
+            contract["writeback"]["render_snapshot"]["path"],
+            "config/library/library-menu-runtime-render-snapshot.json",
+        )
+
+    def test_production_component_restores_legacy_jtim_byte_exact(self):
+        manifest = json.loads(
+            (
+                PROJECT_ROOT / "manifests/library-v0.2-reviewed-validation.json"
+            ).read_text(encoding="utf-8")
+        )
+        original = (PROJECT_ROOT / "work/disc/DATA/JTIM.BIN").read_bytes()
+        output = (
+            PROJECT_ROOT
+            / "work/build/library-v0.2-reviewed/components/DATA/JTIM.BIN"
+        ).read_bytes()
+        self.assertEqual(output, original)
+        restoration = manifest["legacy_jtim_restoration"]
+        self.assertTrue(restoration["restored_original_byte_exact"])
+        self.assertTrue(restoration["production_text_writeback_disabled"])
+        self.assertTrue(
+            manifest["acceptance"]["legacy_jtim_restored_original_byte_exact"]
         )
 
 

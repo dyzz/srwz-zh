@@ -35,6 +35,7 @@
       "stroke_gray": "#303030",
       "stroke_width": 0.5,
       "fill_stroke_width": 0,
+      "supersample_factor": 4,
       "ramp_rgba": [
         "101010ff",
         "202020ff",
@@ -112,6 +113,11 @@
       }
     }
   },
+  "render_snapshot": {
+    "path": "config/assets/ui-stage-clear-atlas-render-snapshot.json",
+    "size": 6278,
+    "sha256": "2160d38bc21818e9dc61be939fd7e84117833cd8763c360c412e759cfdda741a"
+  },
   "runtime": {
     "purpose": "Confirm that the localized fixed suffix composes with the unchanged chapter markers, numeric sprite, closing quote, and translated runtime stage title.",
     "required_routes": [
@@ -130,30 +136,30 @@
   "expected": {
     "text_mask": {
       "size": 2256,
-      "sha256": "87d9165b14bafbe52123a41d34fe82dc6b8a4c26972a5351518056110c2c50dc",
-      "nonzero_pixel_count": 563
+      "sha256": "510d55e1a69f9387bd6da18987f6e8f5e7c730e1b9e8c4df0c75314a98c1d066",
+      "nonzero_pixel_count": 469
     },
     "reference_png": {
       "size": 3414,
       "sha256": "3857343a6d5262a0a4667c4821775ee0266f1bd27753ea2e673bcac5d94ede1a"
     },
     "localized_png": {
-      "size": 3012,
-      "sha256": "9dfd6b801aa06c1fa148b59f14c8cf9c54ce896d348d0d1939f525711d18433b"
+      "size": 3044,
+      "sha256": "dd9fe1bf8dac6fea3641ff77259e8df8ab95f359de0503c26943e5d43c951485"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "b1b22cade3b9a3494783e03beed48bdb75cd23a3091c14a6f4b83d9cc2ced90b"
+      "sha256": "ba3f2fad9351294402e3488b66edf7d3a211818efd3ce58a96e25f17bffee13f"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "8d44e0253760cc268c768ef5a18ad819788e6f11d239cb2f4ba6581649264582"
+      "sha256": "a03fa85b9f047a0ed4e70dda32b257cce4a53e78909833c4742c8437585d3edf"
     },
-    "added_pixel_count": 563,
-    "original_changed_pixel_count": 729,
-    "original_changed_pixel_indexes_sha256": "7c40938f9823157c2bad4a1fca8f9f6d992d07b7e08b89188b3691e62929ae8f",
-    "changed_archive_byte_count": 317,
-    "changed_archive_range_count": 69
+    "added_pixel_count": 469,
+    "original_changed_pixel_count": 689,
+    "original_changed_pixel_indexes_sha256": "4fe80eab5c0ca413554f7cb339bf0775d0ee4b73c88ed87e074b5e177fd8a5ae",
+    "changed_archive_byte_count": 274,
+    "changed_archive_range_count": 65
   },
   "outputs": {
     "component_root": "work/build/ui-stage-clear-atlas-zh/components",

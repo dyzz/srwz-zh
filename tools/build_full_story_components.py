@@ -33,6 +33,8 @@ try:
         sha256_bytes,
     )
     from srwz.menu import parse_menu_file
+    from srwz.library import LibraryScopeError
+    from srwz.nisv_library_menu import build_nisv_library_menu
     from srwz.intermission_font_geometry import (
         IntermissionFontGeometryError,
         IntermissionFontGeometryMetrics,
@@ -119,6 +121,8 @@ except ModuleNotFoundError:
         sha256_bytes,
     )
     from tools.srwz.menu import parse_menu_file
+    from tools.srwz.library import LibraryScopeError
+    from tools.srwz.nisv_library_menu import build_nisv_library_menu
     from tools.srwz.intermission_font_geometry import (
         IntermissionFontGeometryError,
         IntermissionFontGeometryMetrics,
@@ -398,6 +402,7 @@ CONFIG_SECTION_IMPACTS = {
     "hsfc_overviews": {HSFC_MEMBER},
     "remaining_ui": {SLPS_MEMBER, COMPDATA_MEMBER, STAGE_MEMBER},
     "nisv_effect_names": {NISVDATA_MEMBER},
+    "runtime_library_menu": {NISVDATA_MEMBER},
     "srvc_battle_text": set(SRVC_MEMBERS),
     "scenario_select_effect": {SLPS_MEMBER, VEFF_MEMBER},
     "mode_select_effect": {VEFF_MEMBER},
@@ -431,6 +436,8 @@ INPUT_IMPACTS = {
     "compdata_battle_lines": {COMPDATA_MEMBER},
     "original_compdata": {COMPDATA_MEMBER},
     "original_nisvdata": {NISVDATA_MEMBER},
+    "runtime_library_menu_scope": {NISVDATA_MEMBER},
+    "runtime_library_menu_font": {NISVDATA_MEMBER},
     "original_slps": {
         SLPS_MEMBER,
         NISVDATA_MEMBER,
@@ -7200,9 +7207,16 @@ def build(
         nisv_effect_names_report = json.loads(
             json.dumps(prior_report["nisv_effect_names"])
         )
+        runtime_library_menu_report = json.loads(
+            json.dumps(prior_report["runtime_library_menu"])
+        )
         nisv_effect_names_input_paths = (
             _prior_input_path(prior_report, "remaining_ui_translations"),
             _prior_input_path(prior_report, "original_nisvdata"),
+        )
+        runtime_library_menu_input_paths = (
+            _prior_input_path(prior_report, "runtime_library_menu_scope"),
+            _prior_input_path(prior_report, "runtime_library_menu_font"),
         )
     else:
         (
@@ -7213,6 +7227,46 @@ def build(
             output_slps,
             font_manifest,
             config.get("nisv_effect_names"),
+        )
+        runtime_library_menu_config = config.get("runtime_library_menu")
+        if not isinstance(runtime_library_menu_config, dict):
+            raise FullStoryComponentError(
+                "runtime LIBRARY menu config is invalid"
+            )
+        runtime_library_menu_scope_path, runtime_library_menu_scope_data = (
+            _locked_file(
+                runtime_library_menu_config.get("scope"),
+                label="runtime LIBRARY menu scope",
+            )
+        )
+        runtime_library_menu_font_path, _runtime_library_menu_font_data = (
+            _locked_file(
+                runtime_library_menu_config.get("font"),
+                label="runtime LIBRARY menu font",
+            )
+        )
+        try:
+            runtime_library_menu_scope = json.loads(
+                runtime_library_menu_scope_data.decode("utf-8")
+            )
+            runtime_library_menu_contract = runtime_library_menu_scope[
+                "library_menu_runtime_tim2"
+            ]
+            output_nisvdata, runtime_library_menu_report = (
+                build_nisv_library_menu(
+                    output_nisvdata,
+                    runtime_library_menu_contract,
+                    font_path=runtime_library_menu_font_path,
+                    project_root=PROJECT_ROOT,
+                )
+            )
+        except (KeyError, UnicodeDecodeError, json.JSONDecodeError, LibraryScopeError) as error:
+            raise FullStoryComponentError(
+                f"runtime LIBRARY menu writeback failed: {error}"
+            ) from error
+        runtime_library_menu_input_paths = (
+            runtime_library_menu_scope_path,
+            runtime_library_menu_font_path,
         )
     (
         output_compdata,
@@ -7735,6 +7789,14 @@ def build(
                 nisv_effect_names_input_paths[1],
                 nisv_effect_names_input_paths[1].read_bytes(),
             ),
+            "runtime_library_menu_scope": _file_lock(
+                runtime_library_menu_input_paths[0],
+                runtime_library_menu_input_paths[0].read_bytes(),
+            ),
+            "runtime_library_menu_font": _file_lock(
+                runtime_library_menu_input_paths[1],
+                runtime_library_menu_input_paths[1].read_bytes(),
+            ),
             "original_slps": _file_lock(
                 remaining_ui_input_paths[3],
                 remaining_ui_input_paths[3].read_bytes(),
@@ -7812,6 +7874,7 @@ def build(
             "nisv_effect_names_strategy": nisv_effect_names_report["codec"][
                 "strategy"
             ],
+            "runtime_library_menu_strategy": "rust-fit",
             "world_map_title_strategy": world_map_title_report["codec"][
                 "strategy"
             ],
@@ -7874,6 +7937,7 @@ def build(
         "hsfc_overviews": hsfc_overview_report,
         "remaining_ui": remaining_ui_report,
         "nisv_effect_names": nisv_effect_names_report,
+        "runtime_library_menu": runtime_library_menu_report,
         "compdata_battle_lines": compdata_battle_line_report,
         "reviewed_weapons": reviewed_weapon_report,
         "srvc_battle_text": srvc_report,
@@ -7900,6 +7964,7 @@ def build(
                 and mode_select_report["codec"]["strategy"] == "rust-fit"
                 and nisv_effect_names_report["codec"]["strategy"]
                 == "rust-fit"
+                and runtime_library_menu_report["codec_round_trip_exact"]
                 and stage_fixed_formation_report["codec_strategy"]
                 == "rust-fit"
                 and world_map_title_report["codec"]["strategy"]
@@ -7942,6 +8007,18 @@ def build(
                 and terrain_name_report["reread_exact"]
             ),
             "p10_ui_members_inherited_exact": True,
+            "runtime_library_menu_frozen_writeback_exact": (
+                runtime_library_menu_report["all_six_labels_written"]
+                and runtime_library_menu_report["archive_size_preserved"]
+                and runtime_library_menu_report[
+                    "archive_non_target_chunks_preserved"
+                ]
+                and runtime_library_menu_report["tim2_metadata_preserved"]
+                and runtime_library_menu_report[
+                    "clut_and_non_image_bytes_preserved"
+                ]
+                and runtime_library_menu_report["codec_round_trip_exact"]
+            ),
             "encoded_ui_codebook_is_release_subset": True,
             "global_release_font_missing_character_count_zero": (
                 font_manifest["coverage"]["missing_character_count"]

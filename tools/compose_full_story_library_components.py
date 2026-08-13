@@ -22,6 +22,7 @@ LIBRARY_STATUS = "library_v0.2_reviewed_components_static_validated"
 OUTPUT_STATUS = (
     "integrated_global_zh_release_library_components_validated_runtime_pending"
 )
+SHARED_OUTPUT_MEMBERS = {"DATA/NISVDATA.BIN"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -67,11 +68,27 @@ def main() -> int:
     if not isinstance(full_outputs, dict) or not isinstance(library_outputs, dict):
         raise SystemExit("component outputs are malformed")
     overlap = set(full_outputs) & set(library_outputs)
-    if overlap:
+    if overlap - SHARED_OUTPUT_MEMBERS:
         raise SystemExit(f"component output ownership overlap: {sorted(overlap)}")
+    if "DATA/NISVDATA.BIN" in overlap:
+        full_runtime_menu = full.get("runtime_library_menu")
+        library_runtime_menu = library.get("runtime_library_menu")
+        if (
+            not isinstance(full_runtime_menu, dict)
+            or not isinstance(library_runtime_menu, dict)
+            or full_runtime_menu.get("output_logical_indexes_sha256")
+            != library_runtime_menu.get("output_logical_indexes_sha256")
+            or full_runtime_menu.get("render_snapshot")
+            != library_runtime_menu.get("render_snapshot")
+            or full_runtime_menu.get("all_six_labels_written") is not True
+            or library_runtime_menu.get("all_six_labels_written") is not True
+        ):
+            raise SystemExit("shared NISVDATA runtime menu composition drift")
 
     installed_library_outputs = {}
     for member, lock in library_outputs.items():
+        if member in overlap:
+            continue
         if not isinstance(lock, dict):
             raise SystemExit(f"invalid LIBRARY output lock: {member}")
         source = PROJECT_ROOT / str(lock.get("path"))
@@ -104,6 +121,12 @@ def main() -> int:
         "release_eligible": library["release_eligible"],
         "translation": deepcopy(library["translation"]),
         "library_menu": deepcopy(library["library_menu"]),
+        "runtime_library_menu": deepcopy(
+            library.get("runtime_library_menu")
+        ),
+        "legacy_jtim_restoration": deepcopy(
+            library.get("legacy_jtim_restoration")
+        ),
         "archives": deepcopy(library["archives"]),
         "acceptance": deepcopy(library["acceptance"]),
     }

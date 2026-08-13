@@ -32,6 +32,7 @@
       "stroke_gray": "#303030",
       "stroke_width": 0.4,
       "fill_stroke_width": 0,
+      "supersample_factor": 4,
       "ramp_rgba": [
         "101010ff",
         "171717ff",
@@ -65,6 +66,7 @@
         "stroke_gray": "#303030",
         "stroke_width": 0.4,
         "fill_stroke_width": 0,
+        "supersample_factor": 4,
         "ramp_rgba": [
           "101010ff",
           "171717ff",
@@ -97,6 +99,7 @@
         "stroke_gray": "#303030",
         "stroke_width": 0.4,
         "fill_stroke_width": 0,
+        "supersample_factor": 4,
         "ramp_rgba": [
           "101010ff",
           "171717ff",
@@ -111,6 +114,11 @@
       }
     }
   ],
+  "render_snapshot": {
+    "path": "config/assets/ui-formation-atlas-render-snapshot.json",
+    "size": 34551,
+    "sha256": "90930e35800fb6d0037e5c7af20b31ceeb36919ad6521cafd1501fd31480c478"
+  },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 7 supplies the new-squad locator and that the localized label renders at the intended position.",
     "required_routes": [
@@ -130,42 +138,42 @@
   "expected": {
     "text_mask": {
       "size": 1480,
-      "sha256": "63faa9b7a5c839128ead0706c1094ec6824f5af4353dfbdc715e33fa67ab66e0",
-      "nonzero_pixel_count": 769
+      "sha256": "81a3cea1a7d9de0e06d556c2f3a02f9a73f762e1bdc39b1c71640ce4d729a9dc",
+      "nonzero_pixel_count": 651
     },
     "reference_png": {
       "size": 23240,
       "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
     },
     "localized_png": {
-      "size": 22567,
-      "sha256": "75246346139cfca800b35cc66d37363f3258546e5d7d9e0394aab2b94a1741d6"
+      "size": 22943,
+      "sha256": "e85aaef5050ef89629030ae20ffce3dc7df6ba0ae78c9f615af70a0c6859a55d"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "ab49d229e4bb8582d81d602aaa69f98d8cbf67a35eb6a8e521d3e0ee1bfbcc59"
+      "sha256": "d5ce2a06be0b407005a353d56c0543bca0e29187b545e09b1deeb97fa37b6dd8"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "15207e56227fafa0359b27d2a8e039b4caaee10495558a10aa3831857dfc771c"
+      "sha256": "f6bc7cf3c0dbfb0f02e33cd6eba7950a38d44f6dfd4003b597bd1d4dd2f6539d"
     },
-    "added_pixel_count": 2268,
-    "original_changed_pixel_count": 3214,
-    "original_changed_pixel_indexes_sha256": "da6e617e27194834a2ee1036ae06112ff9277c14fb83d6583e51cc78d117b614",
-    "changed_archive_byte_count": 1521,
+    "added_pixel_count": 1923,
+    "original_changed_pixel_count": 3270,
+    "original_changed_pixel_indexes_sha256": "0d0ad1ce9aeb41a11ae357d1796a73cffd8930dd8f2ea12cc1a501f7caeebc2f",
+    "changed_archive_byte_count": 1443,
     "changed_archive_range_count": 160,
     "additional_text_masks": [
       {
         "semantic_locator_sha256": "f522c7ac3284a6ad2bacf6fd1819cd399a693256b562024f3e00efb50d4250fe",
         "size": 1680,
-        "sha256": "1502d28c4dc5b46c6d6fc100b459a494ac4f7c077a1a3b79d8e418aa1e9e976d",
-        "nonzero_pixel_count": 840
+        "sha256": "ed4d0846e5caabc443056baaa769ba69416820129b80bc70f975653c125f2f2e",
+        "nonzero_pixel_count": 744
       },
       {
         "semantic_locator_sha256": "3aa1afec7941bc733161ab77e56295c4e551f93a6453d1ab9d3a08b760dfb548",
         "size": 1474,
-        "sha256": "78bdbd34ef8d4843a8c30a82c56d5bf8cde929b762168b9cfc3127346680f054",
-        "nonzero_pixel_count": 659
+        "sha256": "732c173e64369436117cebe48c7c3ab904dbd9684c816b6b78db0774d64b5570",
+        "nonzero_pixel_count": 528
       }
     ]
   },

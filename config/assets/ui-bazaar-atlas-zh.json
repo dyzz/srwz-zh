@@ -30,6 +30,7 @@
       "stroke_gray": "#303030",
       "stroke_width": 1.0,
       "fill_stroke_width": 0,
+      "supersample_factor": 4,
       "ramp_rgba": [
         "101010ff",
         "202020ff",
@@ -40,6 +41,11 @@
         "707070ff"
       ]
     }
+  },
+  "render_snapshot": {
+    "path": "config/assets/ui-bazaar-atlas-render-snapshot.json",
+    "size": 24651,
+    "sha256": "95ab91f7abc7eb1f418d30297954d0609375bcbe530d1b7365dcc1e525865ba9"
   },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 5 supplies the bazaar purchase-and-sale locator and that the localized label renders at the intended position.",
@@ -60,30 +66,30 @@
   "expected": {
     "text_mask": {
       "size": 8357,
-      "sha256": "d3622be5ebe34db9d45e5aa6bb8484fc58a0fd7924e12d81eb664607a3367295",
-      "nonzero_pixel_count": 2844
+      "sha256": "bc1e014f1c118df6296d95ae89763d9cfc31e460655b56b06cc05f486a2cb7e5",
+      "nonzero_pixel_count": 2603
     },
     "reference_png": {
       "size": 16117,
       "sha256": "4c2da38c2ba01b513ea06f12a06dac930948860ca0adb27853c9590031d17673"
     },
     "localized_png": {
-      "size": 16090,
-      "sha256": "bc5532308461ad6e3b7294bb6deef8fb4792fb34c3e35f7c956c1278954f54ff"
+      "size": 16070,
+      "sha256": "ed8bf2fb981dfa19f879d25c2d60868a9fdc0ee385854f661115923c1243b724"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "977f434fa01781e244cb0726875fe4823d72c24b126da5808956d1ad4a2f90af"
+      "sha256": "54670e0d0a1340dd297d2c531e6f8180796717d4651c7525e735ed0cc92baadc"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "2b11564a686028be8e85d578d19341283e31b04170ef5220cd1c0c40ab353f72"
+      "sha256": "68314cc77575a273ca11ea1d8ef6dbbcb69baa66e91050c2fc8526fe16325cd5"
     },
-    "added_pixel_count": 2844,
-    "original_changed_pixel_count": 3713,
-    "original_changed_pixel_indexes_sha256": "5b2a3d162c4f0ce5df14504d34db5fcd6045551c8df9812e50c936087fee4785",
-    "changed_archive_byte_count": 1546,
-    "changed_archive_range_count": 216
+    "added_pixel_count": 2603,
+    "original_changed_pixel_count": 3704,
+    "original_changed_pixel_indexes_sha256": "d8995ce99b125959e7b9b58e7aed47e51c186e1a5421eb55be471c88559668cc",
+    "changed_archive_byte_count": 1417,
+    "changed_archive_range_count": 226
   },
   "outputs": {
     "component_root": "work/build/ui-bazaar-atlas-zh/components",

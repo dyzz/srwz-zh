@@ -48,6 +48,74 @@ def _run(
     return process.stdout
 
 
+def _pixel_aligned_horizontal_shear(
+    pixels: bytes,
+    *,
+    width: int,
+    height: int,
+    degrees: float,
+) -> bytes:
+    """Shear an 8-bit mask without inventing intermediate gray pixels."""
+
+    expected_size = width * height
+    if len(pixels) != expected_size:
+        raise ImageMagickError(
+            f"grayscale mask has {len(pixels)} bytes, expected {expected_size}"
+        )
+    tangent = math.tan(math.radians(degrees))
+    center_y = (height - 1) / 2
+    sheared = bytearray(expected_size)
+    for y in range(height):
+        shift = round(tangent * (center_y - y))
+        source_start = y * width
+        source_x = max(0, -shift)
+        destination_x = max(0, shift)
+        copy_width = width - abs(shift)
+        if copy_width > 0:
+            sheared[
+                source_start + destination_x :
+                source_start + destination_x + copy_width
+            ] = pixels[
+                source_start + source_x :
+                source_start + source_x + copy_width
+            ]
+    return bytes(sheared)
+
+
+def _box_downsample_grayscale(
+    pixels: bytes,
+    *,
+    width: int,
+    height: int,
+    factor: int,
+) -> bytes:
+    """Average exact factor-by-factor blocks into an 8-bit coverage mask."""
+
+    if factor == 1:
+        return pixels
+    source_width = width * factor
+    source_height = height * factor
+    expected_size = source_width * source_height
+    if len(pixels) != expected_size:
+        raise ImageMagickError(
+            f"supersampled mask has {len(pixels)} bytes, expected {expected_size}"
+        )
+    divisor = factor * factor
+    output = bytearray(width * height)
+    for target_y in range(height):
+        source_y = target_y * factor
+        for target_x in range(width):
+            source_x = target_x * factor
+            coverage = 0
+            for sub_y in range(factor):
+                start = (source_y + sub_y) * source_width + source_x
+                coverage += sum(pixels[start : start + factor])
+            output[target_y * width + target_x] = (
+                coverage + divisor // 2
+            ) // divisor
+    return bytes(output)
+
+
 def identify_dimensions(executable: str, path: Path) -> tuple[int, int]:
     raw = _run(
         [
@@ -216,12 +284,16 @@ def render_grayscale_text_mask(
     stroke_width: float,
     fill_stroke_width: float = 0,
     italic_shear_degrees: float = 0,
+    supersample_factor: int = 1,
     horizontal_offset: int = 0,
 ) -> bytes:
     """Render text inside one fixed-size atlas-element canvas.
 
-    The optional horizontal shear is cropped back to the requested canvas, so
-    an italic treatment cannot change the source element geometry.
+    The optional italic treatment shifts complete rows by whole pixels after
+    rasterization.  Atlas text has too few indexed gray levels for a second
+    interpolating shear pass: interpolating the already antialiased edge makes
+    the outline look like several offset copies at runtime.  Row-aligned shear
+    keeps the outline and fill registered while preserving the fixed canvas.
     """
 
     if not font.is_file():
@@ -232,6 +304,14 @@ def render_grayscale_text_mask(
         raise ImageMagickError("text mask geometry must be positive")
     if stroke_width < 0 or fill_stroke_width < 0:
         raise ImageMagickError("text mask stroke widths cannot be negative")
+    if (
+        not isinstance(supersample_factor, int)
+        or isinstance(supersample_factor, bool)
+        or not 1 <= supersample_factor <= 8
+    ):
+        raise ImageMagickError(
+            "text mask supersample factor must be between 1 and 8"
+        )
     if (
         not isinstance(horizontal_offset, int)
         or isinstance(horizontal_offset, bool)
@@ -249,15 +329,17 @@ def render_grayscale_text_mask(
         raise ImageMagickError(
             "text mask italic shear must be between -30 and 30 degrees"
         )
+    canvas_width = width * supersample_factor
+    canvas_height = height * supersample_factor
     command = [
         executable,
         "-size",
-        f"{width}x{height}",
+        f"{canvas_width}x{canvas_height}",
         "xc:black",
         "-font",
         str(font),
         "-pointsize",
-        str(point_size),
+        str(point_size * supersample_factor),
         "-gravity",
         "center",
         "-fill",
@@ -265,33 +347,20 @@ def render_grayscale_text_mask(
         "-stroke",
         stroke_gray,
         "-strokewidth",
-        str(stroke_width),
+        str(stroke_width * supersample_factor),
         "-annotate",
-        f"{horizontal_offset:+d}+0",
+        f"{horizontal_offset * supersample_factor:+d}+0",
         text,
         "-fill",
         "white",
         "-stroke",
         "white",
         "-strokewidth",
-        str(fill_stroke_width),
+        str(fill_stroke_width * supersample_factor),
         "-annotate",
-        f"{horizontal_offset:+d}+0",
+        f"{horizontal_offset * supersample_factor:+d}+0",
         text,
     ]
-    if italic_shear_degrees:
-        command.extend(
-            [
-                "-background",
-                "black",
-                "-shear",
-                f"{float(italic_shear_degrees):g}x0",
-                "-gravity",
-                "center",
-                "-extent",
-                f"{width}x{height}",
-            ]
-        )
     command.extend(
         [
             "-alpha",
@@ -307,12 +376,25 @@ def render_grayscale_text_mask(
         command,
         f"ImageMagick text mask for {text!r}",
     )
-    expected_size = width * height
+    expected_size = canvas_width * canvas_height
     if len(pixels) != expected_size:
         raise ImageMagickError(
             f"ImageMagick returned {len(pixels)} mask bytes, "
             f"expected {expected_size}"
         )
+    if italic_shear_degrees:
+        pixels = _pixel_aligned_horizontal_shear(
+            pixels,
+            width=canvas_width,
+            height=canvas_height,
+            degrees=float(italic_shear_degrees),
+        )
+    pixels = _box_downsample_grayscale(
+        pixels,
+        width=width,
+        height=height,
+        factor=supersample_factor,
+    )
     return pixels
 
 

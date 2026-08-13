@@ -58,6 +58,7 @@ from srwz.stage_formations import (
 )
 from srwz.summary import parse_summary
 from srwz.tim2 import scan_tim2
+from srwz.tim2_writeback import unswizzle_psmt8
 from srwz.text import (
     ORIGINAL_FULLWIDTH_ASCII,
     RUNTIME_SUBSTITUTION_TOKEN,
@@ -2377,6 +2378,11 @@ def main() -> int:
         if isinstance(library_component, dict)
         else {}
     )
+    legacy_jtim = (
+        library_component.get("legacy_jtim_restoration", {})
+        if isinstance(library_component, dict)
+        else {}
+    )
     if (
         not library_members <= set(members)
         or not isinstance(library_component, dict)
@@ -2387,36 +2393,64 @@ def main() -> int:
         or library_translation.get("used_unique_text_count") != 2709
         or library_translation.get("field_reference_count") != 4921
         or not isinstance(library_menu, dict)
-        or library_menu.get("all_six_labels_built_in_both_states") is not True
+        or library_menu.get("all_six_labels_written") is not True
         or library_menu.get("tim2_metadata_preserved") is not True
+        or not isinstance(legacy_jtim, dict)
+        or legacy_jtim.get("restored_original_byte_exact") is not True
         or not library_acceptance
         or not all(library_acceptance.values())
     ):
         raise SystemExit("final ISO reviewed LIBRARY component proof is incomplete")
 
     jtim = members["DATA/JTIM.BIN"]
-    jtim_records = scan_tim2(jtim)
-    jtim_record_index = int(library_menu["record_index"])
-    if not 0 <= jtim_record_index < len(jtim_records):
-        raise SystemExit("final ISO LIBRARY menu record is missing")
-    jtim_record = jtim_records[jtim_record_index]
-    if len(jtim_record.pictures) != 1:
-        raise SystemExit("final ISO LIBRARY menu picture-count drift")
-    jtim_picture = jtim_record.pictures[0]
-    jtim_image_start = jtim_picture.offset + jtim_picture.header_size
-    jtim_image_end = jtim_image_start + jtim_picture.image_size
     if (
-        jtim_image_start != library_menu.get("image_offset")
-        or jtim_picture.image_size != library_menu.get("image_size")
+        len(jtim) != legacy_jtim.get("output_size")
+        or sha256_bytes(jtim) != legacy_jtim.get("output_sha256")
+        or legacy_jtim.get("source_sha256") != legacy_jtim.get("output_sha256")
+    ):
+        raise SystemExit("final ISO legacy JTIM restoration drift")
+
+    library_scope = json.loads(
+        (PROJECT_ROOT / "config/library/v0.2.0.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    runtime_contract = library_scope["library_menu_runtime_tim2"]
+    runtime_target = runtime_contract["target"]
+    nisvdata = members["DATA/NISVDATA.BIN"]
+    stored_start = int(runtime_target["stored_start"])
+    stored_end = int(runtime_target["stored_end"])
+    stored_menu = nisvdata[stored_start:stored_end]
+    decoded_menu = decode(stored_menu)
+    if any(stored_menu[decoded_menu.consumed :]):
+        raise SystemExit("final ISO runtime LIBRARY menu padding is nonzero")
+    runtime_records = scan_tim2(decoded_menu.output)
+    runtime_record_index = int(runtime_target["record_index"])
+    if not 0 <= runtime_record_index < len(runtime_records):
+        raise SystemExit("final ISO runtime LIBRARY menu record is missing")
+    runtime_record = runtime_records[runtime_record_index]
+    if len(runtime_record.pictures) != 1:
+        raise SystemExit("final ISO runtime LIBRARY menu picture-count drift")
+    runtime_picture = runtime_record.pictures[0]
+    runtime_image_start = runtime_picture.offset + runtime_picture.header_size
+    runtime_image_end = runtime_image_start + runtime_picture.image_size
+    logical_menu = unswizzle_psmt8(
+        decoded_menu.output[runtime_image_start:runtime_image_end],
+        runtime_picture.width,
+        runtime_picture.height,
+    )
+    if (
+        runtime_record.offset != library_menu.get("record_offset")
         or sha256_bytes(
-            jtim[jtim_record.offset : jtim_record.offset + jtim_record.size]
+            decoded_menu.output[runtime_record.offset : runtime_record.end]
         )
         != library_menu.get("output_record_sha256")
+        or sha256_bytes(logical_menu)
+        != library_menu.get("output_logical_indexes_sha256")
     ):
-        raise SystemExit("final ISO LIBRARY menu record readback drift")
-    jtim_image = jtim[jtim_image_start:jtim_image_end]
+        raise SystemExit("final ISO runtime LIBRARY menu readback drift")
     menu_label_reports = library_menu.get("labels")
-    if not isinstance(menu_label_reports, list) or len(menu_label_reports) != 12:
+    if not isinstance(menu_label_reports, list) or len(menu_label_reports) != 6:
         raise SystemExit("final ISO LIBRARY menu label proof is incomplete")
     menu_label_readbacks = []
     for label in menu_label_reports:
@@ -2427,22 +2461,14 @@ def main() -> int:
         width = int(label["width"])
         height = int(label["height"])
         crop = b"".join(
-            jtim_image[
-                (y + row) * jtim_picture.width + x :
-                (y + row) * jtim_picture.width + x + width
+            logical_menu[
+                (y + row) * runtime_picture.width + x :
+                (y + row) * runtime_picture.width + x + width
             ]
             for row in range(height)
         )
         if (
             sha256_bytes(crop) != label.get("output_indexes_sha256")
-            or not set(crop)
-            <= {
-                0,
-                *range(
-                    int(label["palette_start"]),
-                    int(label["palette_stop"]) + 1,
-                ),
-            }
             or not any(crop)
         ):
             raise SystemExit(
@@ -2459,17 +2485,20 @@ def main() -> int:
             }
         )
     library_menu_readback = {
-        "record_index": jtim_record_index,
-        "record_offset": jtim_record.offset,
-        "record_size": jtim_record.size,
+        "member": "DATA/NISVDATA.BIN",
+        "chunk_index": int(runtime_target["chunk_index"]),
+        "record_index": runtime_record_index,
+        "record_offset": runtime_record.offset,
+        "record_size": runtime_record.size,
         "record_sha256": library_menu["output_record_sha256"],
         "label_variant_count": len(menu_label_readbacks),
         "unique_translation_count": len(
             {item["translation"] for item in menu_label_readbacks}
         ),
         "labels": menu_label_readbacks,
-        "all_six_labels_built_in_both_states": True,
+        "all_six_labels_written": True,
         "fixed_index_rectangles_reread_exact": True,
+        "legacy_jtim_restored_original_byte_exact": True,
     }
 
     slps = members["SLPS_258.87"]

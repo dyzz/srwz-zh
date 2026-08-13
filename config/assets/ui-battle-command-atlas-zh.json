@@ -30,6 +30,7 @@
       "stroke_gray": "#303030",
       "stroke_width": 0.35,
       "fill_stroke_width": 0,
+      "supersample_factor": 4,
       "ramp_rgba": [
         "101010ff",
         "202020ff",
@@ -42,6 +43,11 @@
         "787878ff"
       ]
     }
+  },
+  "render_snapshot": {
+    "path": "config/assets/ui-battle-command-atlas-render-snapshot.json",
+    "size": 37209,
+    "sha256": "9e700bb289ea78cd8828719bf356805a841be9d8f109dd74a354f858786805ac"
   },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 4 supplies the tactical command-menu locator and that the localized label renders at the intended position.",
@@ -62,30 +68,30 @@
   "expected": {
     "text_mask": {
       "size": 2788,
-      "sha256": "124ff2ec5439bd008bee633437885538e7ff0482427d64b4f43cb0c1a8185e01",
-      "nonzero_pixel_count": 610
+      "sha256": "0286f416ffb5a08b3807777abe1c213e78f65d739f7cba6e45feb58865bbabb7",
+      "nonzero_pixel_count": 554
     },
     "reference_png": {
       "size": 27121,
       "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
     },
     "localized_png": {
-      "size": 26409,
-      "sha256": "e68709dc24678a5d3c33c884a44d8258a48c1e4cd78eaa5e282891ae90c9f422"
+      "size": 26530,
+      "sha256": "366b05f8837e943a601e59460dfa12241ea9f22ca77352d4f6262a9cbdd5dbbe"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "f6db010cb6c7f6adc27c7f48d8eaa1c6ebbbe499ca0a43dbcac68a4d25fe62b9"
+      "sha256": "68fafca4b120667b15514a48a4999affc2799438540e2998a037dea48dbb5bdc"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "22d18d5b96e275e2f29732d092fedc9f39a619725921697090692161e1cd95b9"
+      "sha256": "67a1c87141473b1f29b7be6eab83cd4108322017f03daa31388954d2f8af8094"
     },
-    "added_pixel_count": 610,
-    "original_changed_pixel_count": 2284,
-    "original_changed_pixel_indexes_sha256": "5624098c75080a274197a37421267a01558e4ac7c285d2d2326281a7b31f0e98",
-    "changed_archive_byte_count": 334,
-    "changed_archive_range_count": 47
+    "added_pixel_count": 554,
+    "original_changed_pixel_count": 2332,
+    "original_changed_pixel_indexes_sha256": "833fcc17c0ce6f44c8d68ac31f225effba564c2a62e2e1df09c5d81e1c68e24a",
+    "changed_archive_byte_count": 306,
+    "changed_archive_range_count": 56
   },
   "outputs": {
     "component_root": "work/build/ui-battle-command-atlas-zh/components",

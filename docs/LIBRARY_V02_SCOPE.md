@@ -65,19 +65,28 @@ python3 tools/verify_library_v02.py \
 
 | 范围 | 原版成员 | 已知结构 |
 | --- | --- | --- |
-| LIBRARY 主菜单 | `DATA/JTIM.BIN` | TIM2 记录 5，512×256，PSMT8 |
+| LIBRARY 主菜单（运行时） | `DATA/NISVDATA.BIN` | chunk 0 解压后 TIM2 记录 2，256×256，PSMT8 |
+| 相似但未被该页面采用的菜单图 | `DATA/JTIM.BIN` | TIM2 记录 5；生产组件恢复并保持原版 byte-exact |
+| LIBRARY 动态标题／按键提示 | `SLPS_258.87` | 固定槽文字；Q&A 提示从 `0x340BD8..0x340C18` 读取 |
 | 机体图鉴正文 | `DATA/MTVZKNRT.BIN` | 321 个压缩块 |
 | 角色事典正文 | `DATA/MTVZKNPT.BIN` | 411 个压缩块 |
 | 术语正文／关键词 | `DATA/MTVZKNKW.BIN` | 52 个压缩块 |
 | 音乐选择曲名 | `DATA/COMPDATA.BN` | 解压区间内 85 条原始标题 |
 
-LIBRARY 主菜单的六个中文标签、正常／暗化两种状态共 12 块字形，冻结在
-`config/library/library-menu-render-snapshot.json`。普通组件构建只核对并消费快照，
-不重新调用 ImageMagick；仅在译文、字体或渲染规则经过明确审改后执行：
+实际运行的 LIBRARY 主菜单六个中文标签以 4 倍分辨率栅格化、一次面积平均缩回目标
+尺寸，冻结在 `config/library/library-menu-runtime-render-snapshot.json`。普通组件构建
+只核对并消费快照，不重新调用 ImageMagick；仅在译文、字体或渲染规则经过明确审改
+后执行：
 
 ```bash
-python3 tools/freeze_library_menu_renders.py --force
+python3 tools/freeze_nisv_library_menu_renders.py --force
 ```
+
+JTIM 中存在一张外观相似的菜单图，但运行截图与归档定位证明它不是当前主菜单的
+实际来源；生产组件不再向它写入中文，并要求输出与原版逐字节一致。右上角
+“确定／返回”、Q&A 页提示和进入子页后的动态标题由 SLPS 固定槽提供；最终回读还
+要求原始 `決定` 的字节序列为零，否则被中文字库复用的 `決` 字形会显示成“糕”。
+修改或验收 Library 时必须分别检查 NISVDATA、JTIM 还原状态和 SLPS。
 
 三个 `MTVZKN` 成员由压缩块组成；解压后是带 0x20 字节包装、转义变换和 TLV 字段
 的 ZKAN 文档，文本编码为 CP932。读取侧已经实现严格解析、稳定条目 ID 和前像哈希；
