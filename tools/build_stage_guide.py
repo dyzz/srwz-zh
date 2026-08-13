@@ -14,6 +14,7 @@ import html
 import json
 import re
 import sys
+import unicodedata
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Iterable
@@ -24,6 +25,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
 from srwz.archive import load_offset_layout, slice_archive, verify_archive  # noqa: E402
 from srwz.codec import decode_production  # noqa: E402
+from srwz.display_names import load_display_name_source  # noqa: E402
 from srwz.stage import parse_stage, read_stage_function_addresses  # noqa: E402
 from srwz.text import load_text_table  # noqa: E402
 
@@ -31,9 +33,18 @@ from srwz.text import load_text_table  # noqa: E402
 ROUTE_MAP = PROJECT_ROOT / "docs/STAGE_ROUTE_MAP.md"
 STAGE_NAMES = PROJECT_ROOT / "corpus/zh/menu/stage-names.json"
 STAGE_CONDITIONS = PROJECT_ROOT / "corpus/zh/story-conditions.json"
+REMAINING_UI = PROJECT_ROOT / "corpus/zh/menu/remaining-ui.json"
+UNCLASSIFIED_UI = PROJECT_ROOT / "corpus/zh/menu/unclassified.json"
+PILOT_SKILLS_UI = PROJECT_ROOT / "corpus/zh/menu/system-ui-skills.json"
+MECH_ABILITIES_UI = PROJECT_ROOT / "corpus/zh/menu/system-ui-special-abilities.json"
+LEADERSHIP_UI = PROJECT_ROOT / "corpus/zh/menu/system-ui-leadership.json"
+PARTS_UI = PROJECT_ROOT / "corpus/zh/menu/system-ui-parts.json"
 HIDDEN_ELEMENTS = PROJECT_ROOT / "guide/data/hidden-elements.json"
 PROGRESSION = PROJECT_ROOT / "guide/data/progression.json"
+REFERENCE = PROJECT_ROOT / "guide/data/reference.json"
 STAGE_LAYOUT = PROJECT_ROOT / "config/stage-offsets.json"
+DISPLAY_NAME_CONFIG = PROJECT_ROOT / "config/display-names/compdata.json"
+COMPDATA = PROJECT_ROOT / "work/disc/DATA/COMPDATA.BN"
 STAGE_ARCHIVE = PROJECT_ROOT / "work/disc/DATA/STAGE.BIN"
 SLPS = PROJECT_ROOT / "work/disc/SLPS_258.87"
 TEXT_TABLE = PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
@@ -194,6 +205,29 @@ def _load_terms() -> tuple[dict[str, str], dict[str, str]]:
     return translations, sources
 
 
+def _load_term_source_surfaces() -> dict[str, list[str]]:
+    """Load original Japanese surfaces used to cross-check Timeline items."""
+
+    surfaces: dict[str, list[str]] = {}
+    for path in sorted((PROJECT_ROOT / "corpus/glossary").glob("*.json")):
+        for term in _json(path).get("terms", []):
+            term_id = term.get("id")
+            source_terms = term.get("source_terms", [])
+            if not isinstance(term_id, str) or not isinstance(source_terms, list):
+                continue
+            values = [value for value in source_terms if isinstance(value, str) and value]
+            if values:
+                surfaces.setdefault(term_id, []).extend(values)
+
+    _, _, parsed, _ = load_display_name_source(PROJECT_ROOT, DISPLAY_NAME_CONFIG)
+    for entry in parsed.unit_entries:
+        surfaces[entry.entry_id] = [entry.text]
+    return {
+        term_id: list(dict.fromkeys(values))
+        for term_id, values in surfaces.items()
+    }
+
+
 def _expand_terms(value: str, terms: dict[str, str], used: set[str]) -> str:
     def replace(match: re.Match[str]) -> str:
         term_id = match.group(1)
@@ -246,7 +280,212 @@ def _expand_progression_terms(
             return {key: walk(item) for key, item in value.items()}
         return value
 
-    return walk(entries), used
+    expanded = walk(entries)
+    timeline_fields = (
+        "acquisitions",
+        "temporary",
+        "availability",
+        "upgrades",
+        "akurasu_corrections",
+    )
+    for raw_entry, expanded_entry in zip(entries, expanded):
+        expanded_entry["_term_refs"] = {
+            field: [TERM_RE.findall(value) for value in raw_entry.get(field, [])]
+            for field in timeline_fields
+        }
+    return expanded, used
+
+
+def _expand_reference_terms(
+    document: dict[str, Any], terms: dict[str, str]
+) -> tuple[dict[str, Any], set[str]]:
+    used: set[str] = set()
+
+    def walk(value: Any) -> Any:
+        if isinstance(value, str):
+            return _expand_terms(value, terms, used)
+        if isinstance(value, list):
+            return [walk(item) for item in value]
+        if isinstance(value, dict):
+            return {key: walk(item) for key, item in value.items()}
+        return value
+
+    return walk(document), used
+
+
+LEADERSHIP_GROUP_SIZES = (1, 3, 1, 1, 3, 4, 3, 20, 6, 4, 4, 1, 2, 2, 4)
+PILOT_SKILL_EFFECT_INDEX = {
+    **{index: index + 1 for index in range(2, 62, 2)},
+    62: 63,   # ESP
+    64: 65,   # Newtype
+    66: 65,   # Cyber-Newtype shares the Newtype explanation.
+    67: 63,   # Newtype (X) shares the ESP explanation.
+    68: 65,   # Artificial Newtype shares the Newtype explanation.
+    69: 70,   # Category F
+    71: 72,   # SEED has its own non-levelled effect.
+    73: 70,   # Extended shares the Category F explanation.
+    74: 75,   # Lifting
+    76: 77,   # Oversense
+    78: 79,   # Gamer
+    80: 81,   # Game Champ
+    82: 83,   # Negotiator
+    84: 85,   # Double Action
+    86: 87,   # Very Lucky
+}
+MECH_ABILITY_DESCRIPTION_INDEX = {
+    0: 46, 1: 47, 2: 48, 3: 49, 4: 50, 5: 51, 6: 52, 7: 53,
+    8: 54, 9: 54, 10: 55, 11: 56, 12: 57, 13: 58, 14: 58,
+    15: 59, 16: 60, 17: 61, 18: 62, 19: 63, 20: 63, 21: 64,
+    22: 65, 23: 66, 24: 67, 25: 68, 26: 69, 27: 70, 28: 71,
+    29: 72, 30: 73, 31: 74, 32: 75, 33: 76, 35: 83, 36: 83,
+    37: 84, 38: 85, 39: 77, 40: 78, 41: 79, 42: 80, 43: 81,
+    44: 82, 45: 67,
+}
+
+
+def _load_reference_catalogs(reference: dict[str, Any]) -> dict[str, Any]:
+    """Build player reference tables from reviewed original-game UI text."""
+
+    skill_entries = _json(PILOT_SKILLS_UI).get("entries", [])
+    if len(skill_entries) != 88:
+        raise GuideBuildError("pilot-skill UI count drift")
+    rare_pilot_entries = reference.get("rare_pilot_skills", [])
+    rare_pilot_skills = {
+        item["name"]: item["holders"]
+        for item in rare_pilot_entries
+    }
+    if len(rare_pilot_skills) != len(rare_pilot_entries):
+        raise GuideBuildError("duplicate rare pilot-skill annotation")
+    if any(not holders for holders in rare_pilot_skills.values()):
+        raise GuideBuildError("rare pilot-skill annotation has no holder")
+    level_entries = reference.get("pilot_skill_levels", [])
+    skill_levels = {item["name"]: item for item in level_entries}
+    if len(skill_levels) != len(level_entries):
+        raise GuideBuildError("duplicate pilot-skill level table")
+    for name, detail in skill_levels.items():
+        columns = detail.get("columns", [])
+        rows = detail.get("rows", [])
+        if len(columns) < 2 or not rows:
+            raise GuideBuildError(f"empty pilot-skill level table: {name}")
+        if any(len(row) != len(columns) for row in rows):
+            raise GuideBuildError(f"pilot-skill level row width drift: {name}")
+    note_entries = reference.get("pilot_skill_notes", [])
+    skill_notes = {item["name"]: item for item in note_entries}
+    if len(skill_notes) != len(note_entries):
+        raise GuideBuildError("duplicate pilot-skill note")
+    if any(not item.get("label") or not item.get("text") for item in note_entries):
+        raise GuideBuildError("empty pilot-skill note")
+    pilot_skills = [
+        {
+            "name": skill_entries[index]["translation"],
+            "effect": skill_entries[effect_index]["translation"],
+            "holders": rare_pilot_skills.get(
+                skill_entries[index]["translation"], []
+            ),
+            "level_detail": skill_levels.get(
+                skill_entries[index]["translation"]
+            ),
+            "note": skill_notes.get(skill_entries[index]["translation"]),
+        }
+        for index, effect_index in PILOT_SKILL_EFFECT_INDEX.items()
+    ]
+    skill_names = {item["name"] for item in pilot_skills}
+    if unknown := sorted(set(rare_pilot_skills) - skill_names):
+        raise GuideBuildError(f"rare pilot skills are not in game UI: {unknown}")
+    if unknown := sorted(set(skill_levels) - skill_names):
+        raise GuideBuildError(f"levelled pilot skills are not in game UI: {unknown}")
+    if unknown := sorted(set(skill_notes) - skill_names):
+        raise GuideBuildError(f"pilot-skill notes are not in game UI: {unknown}")
+    levelled_skill_names = {
+        item["name"] for item in pilot_skills if "技能等级" in item["effect"]
+    }
+    if set(skill_levels) != levelled_skill_names:
+        missing = sorted(levelled_skill_names - set(skill_levels))
+        extra = sorted(set(skill_levels) - levelled_skill_names)
+        raise GuideBuildError(
+            f"pilot-skill level table coverage drift: missing={missing}, extra={extra}"
+        )
+    seed = next(item for item in pilot_skills if item["name"] == "SEED")
+    extended = next(item for item in pilot_skills if item["name"] == "扩展人")
+    if "技能等级" in seed["effect"] or "1.1倍" not in seed["effect"]:
+        raise GuideBuildError("SEED effect mapping drift")
+    if "技能等级" not in extended["effect"] or "暴击率" not in extended["effect"]:
+        raise GuideBuildError("Extended effect mapping drift")
+
+    leadership_labels = [
+        entry["translation"] for entry in _json(LEADERSHIP_UI).get("entries", [])
+    ]
+    leadership_effects = list(
+        _json(REMAINING_UI).get("leadership_effect_by_offset", {}).values()
+    )
+    if len(leadership_labels) != len(LEADERSHIP_GROUP_SIZES):
+        raise GuideBuildError("leadership category count drift")
+    if len(leadership_effects) != sum(LEADERSHIP_GROUP_SIZES):
+        raise GuideBuildError("leadership effect count drift")
+    leadership_groups = []
+    rare_leadership_entries = reference.get("rare_leadership_effects", [])
+    rare_leadership = {
+        item["effect"]: item["holders"]
+        for item in rare_leadership_entries
+    }
+    if len(rare_leadership) != len(rare_leadership_entries):
+        raise GuideBuildError("duplicate rare leadership annotation")
+    if any(not holders for holders in rare_leadership.values()):
+        raise GuideBuildError("rare leadership annotation has no holder")
+    if unknown := sorted(set(rare_leadership) - set(leadership_effects)):
+        raise GuideBuildError(f"rare leadership effects are not in game UI: {unknown}")
+    cursor = 0
+    for label, size in zip(leadership_labels, LEADERSHIP_GROUP_SIZES):
+        effects = leadership_effects[cursor : cursor + size]
+        leadership_groups.append(
+            {
+                "label": label,
+                "effects": [
+                    {
+                        "effect": effect,
+                        "holders": rare_leadership.get(effect, []),
+                    }
+                    for effect in effects
+                ],
+            }
+        )
+        cursor += size
+
+    mech_entries = _json(MECH_ABILITIES_UI).get("entries", [])
+    if len(mech_entries) != 158:
+        raise GuideBuildError("mech-ability UI count drift")
+    mech_abilities = []
+    for name_index, description_index in MECH_ABILITY_DESCRIPTION_INDEX.items():
+        name = mech_entries[name_index]["translation"]
+        effect = mech_entries[description_index]["translation"]
+        if not name or not effect:
+            raise GuideBuildError(
+                f"empty mech-ability pair: {name_index}/{description_index}"
+            )
+        mech_abilities.append({"name": name, "effect": effect})
+
+    part_entries = _json(PARTS_UI).get("entries", [])
+    if len(part_entries) != 133:
+        raise GuideBuildError("part UI count drift")
+    part_effects = {
+        part_entries[index]["translation"]: part_entries[index + 1]["translation"]
+        for index in range(0, 130, 2)
+    }
+    bazaar_parts = []
+    for item in reference.get("bazaar_parts", []):
+        name = item.get("name")
+        if name not in part_effects:
+            raise GuideBuildError(f"bazaar part missing game effect: {name}")
+        bazaar_parts.append({**item, "effect": part_effects[name]})
+
+    return {
+        "pilot_skills": pilot_skills,
+        "pilot_skill_notices": reference.get("pilot_skill_akurasu_issues", []),
+        "leadership_groups": leadership_groups,
+        "leadership_notices": reference.get("leadership_akurasu_issues", []),
+        "mech_abilities": mech_abilities,
+        "bazaar_parts": bazaar_parts,
+    }
 
 
 def _condition_translations() -> dict[str, str]:
@@ -323,6 +562,11 @@ def parse_stage_resources() -> tuple[dict[int, list[dict[str, Any]]], dict[str, 
                 "decoded_sha256": _sha256_bytes(decoded),
                 "dialogue_count": parsed.dialogue_count,
                 "speaker_count": parsed.speaker_count,
+                "_script_text": "\n".join(
+                    entry.text
+                    for entry in parsed.entries
+                    if entry.kind in {"speaker", "dialogue"}
+                ),
                 "conditions": translated_conditions,
             }
         )
@@ -433,16 +677,59 @@ def _attach_hidden(
 
 
 def _attach_progression(
-    entries: list[dict[str, Any]], catalog: dict[int, dict[str, Any]]
-) -> dict[int, dict[str, list[str]]]:
-    attached: dict[int, dict[str, list[str]]] = defaultdict(
+    entries: list[dict[str, Any]],
+    catalog: dict[int, dict[str, Any]],
+    source_surfaces: dict[str, list[str]],
+) -> tuple[dict[int, dict[str, list[dict[str, str]]]], dict[str, int]]:
+    attached: dict[int, dict[str, list[dict[str, str]]]] = defaultdict(
         lambda: {
             "acquisitions": [],
+            "temporary": [],
+            "availability": [],
             "upgrades": [],
             "akurasu_corrections": [],
         }
     )
-    allowed = {"acquisitions", "upgrades", "akurasu_corrections"}
+    allowed = {
+        "acquisitions",
+        "temporary",
+        "availability",
+        "upgrades",
+        "akurasu_corrections",
+    }
+    verification_counts: dict[str, int] = defaultdict(int)
+
+    def normalized(value: str) -> str:
+        value = unicodedata.normalize("NFKC", value)
+        return re.sub(r"[\s・･·\-−－—―（）()【】\[\]]+", "", value).casefold()
+
+    def verification_for(
+        entry: dict[str, Any], key: str, value_index: int, ordinal: int
+    ) -> str:
+        if key == "akurasu_corrections":
+            return "source-correction"
+        refs = entry.get("_term_refs", {}).get(key, [])[value_index]
+        script_text = normalized(
+            "\n".join(
+                resource.get("_script_text", "")
+                for resource in catalog[ordinal]["resources"]
+            )
+        )
+        matched = 0
+        checkable = 0
+        for term_id in dict.fromkeys(refs):
+            candidates = [normalized(value) for value in source_surfaces.get(term_id, [])]
+            candidates = [value for value in candidates if len(value) >= 2]
+            if not candidates:
+                continue
+            checkable += 1
+            if any(candidate in script_text for candidate in candidates):
+                matched += 1
+        if checkable and matched == checkable:
+            return "stage-script"
+        if matched:
+            return "stage-script-partial"
+        return "guide-supplement"
     for index, entry in enumerate(entries, start=1):
         stage = entry.get("stage")
         if not isinstance(stage, int) or not 1 <= stage <= 60:
@@ -473,8 +760,13 @@ def _attach_progression(
                     f"stage={stage} ordinal={ordinal}"
                 )
             for key in allowed:
-                attached[ordinal][key].extend(entry.get(key, []))
-    return dict(attached)
+                for value_index, value in enumerate(entry.get(key, [])):
+                    verification = verification_for(entry, key, value_index, ordinal)
+                    attached[ordinal][key].append(
+                        {"text": value, "verification": verification}
+                    )
+                    verification_counts[verification] += 1
+    return dict(attached), dict(sorted(verification_counts.items()))
 
 
 def _esc(value: Any) -> str:
@@ -498,10 +790,12 @@ def _conditions_html(resources: Iterable[dict[str, Any]]) -> str:
     return '<ul class="conditions">' + "".join(rows) + "</ul>"
 
 
-def _simple_list_block(label: str, kind: str, values: list[str]) -> str:
+def _simple_list_block(
+    label: str, kind: str, values: list[dict[str, str]]
+) -> str:
     if not values:
         return ""
-    items = "".join(f"<li>{_esc(value)}</li>" for value in values)
+    items = "".join(f'<li>{_esc(value["text"])}</li>' for value in values)
     return (
         f'<section class="stage-block {kind}">'
         f'<h4><span class="block-dot"></span>{_esc(label)}</h4>'
@@ -532,16 +826,21 @@ def _stage_card_html(
     ordinal = record["ordinal"]
     update = progression.get(
         ordinal,
-        {"acquisitions": [], "upgrades": [], "akurasu_corrections": []},
+        {
+            "acquisitions": [],
+            "temporary": [],
+            "availability": [],
+            "upgrades": [],
+            "akurasu_corrections": [],
+        },
     )
     content = "".join(
         (
             _simple_list_block("加入／取得", "acquisition", update["acquisitions"]),
+            _simple_list_block("临时参战", "temporary", update["temporary"]),
+            _simple_list_block("离队／换机", "availability", update["availability"]),
             _simple_list_block("强化／新能力", "upgrade", update["upgrades"]),
             _hidden_stage_block(hidden.get(ordinal, [])),
-            '<section class="stage-block conditions-block"><h4>'
-            '<span class="block-dot"></span>胜败／SR条件</h4>'
-            f'{_conditions_html(record["resources"])}</section>',
             _simple_list_block(
                 "Akurasu 校正", "correction", update["akurasu_corrections"]
             ),
@@ -612,12 +911,278 @@ def _hidden_html(entries: list[dict[str, Any]]) -> str:
     return "".join(cards)
 
 
+def _notice_html(values: list[str]) -> str:
+    if not values:
+        return ""
+    return (
+        '<aside class="reference-notice"><div class="reference-notice-title">'
+        'Akurasu 资料差异</div><ul>'
+        + "".join(f"<li>{_esc(value)}</li>" for value in values)
+        + "</ul></aside>"
+    )
+
+
+def _carryover_html(reference: dict[str, Any]) -> str:
+    data = reference["carryover"]
+    rates = "".join(
+        f'<div class="rate-card"><strong>{_esc(item["rate"])}</strong>'
+        f'<span>{_esc(item["playthrough"])}</span></div>'
+        for item in data["rates"]
+    )
+    facts = "".join(
+        f'<li><strong>{_esc(item["label"])}</strong><span>{_esc(item["value"])}</span></li>'
+        for item in data["items"]
+    )
+    modes = "".join(
+        f'<article class="mode-card"><div><h3>{_esc(item["name"])}</h3>'
+        f'<span>{_esc(item["unlock"])}</span></div><p>{_esc(item["rules"])}</p></article>'
+        for item in data["modes"]
+    )
+    notes = "".join(f"<li>{_esc(value)}</li>" for value in data["notes"])
+    return (
+        '<div class="reference-shell">'
+        f'<section class="reference-card"><h2>继承比例</h2><div class="rate-grid">{rates}</div></section>'
+        f'<section class="reference-card"><h2>继承范围</h2><ul class="fact-list">{facts}</ul></section>'
+        f'<section class="reference-card wide"><h2>通关模式</h2><div class="mode-grid">{modes}</div></section>'
+        f'<section class="reference-card wide"><h2>容易弄错的规则</h2><ul class="note-list">{notes}</ul></section>'
+        f'{_notice_html(data["akurasu_issues"])}'
+        '</div>'
+    )
+
+
+def _upgrade_carryover_html(reference: dict[str, Any]) -> str:
+    rows = "".join(
+        '<tr>'
+        f'<td><strong>{_esc(item["from"])}</strong></td>'
+        f'<td><span class="carry-arrow">→</span><strong>{_esc(item["to"])}</strong></td>'
+        f'<td>{_esc(item["when"])}</td>'
+        f'<td><span class="keep-badge {"yes" if item["keeps_old"] else "no"}">'
+        f'{"保留" if item["keeps_old"] else "替换"}</span>'
+        + (f'<p class="cell-note">{_esc(item["note"])}</p>' if item.get("note") else "")
+        + "</td></tr>"
+        for item in reference["upgrade_carryover"]
+    )
+    notes = "".join(
+        f"<li>{_esc(value)}</li>" for value in reference["upgrade_notes"]
+    )
+    return (
+        '<div class="reference-shell one-column">'
+        '<section class="reference-card"><h2>剧情换机改造继承</h2>'
+        '<p class="section-lead">“保留”表示旧机仍在；“替换”表示旧机退出，由后继机接手改造。</p>'
+        '<div class="table-wrap"><table class="reference-table"><thead><tr>'
+        '<th>原机体</th><th>继承到</th><th>发生时间</th><th>旧机</th>'
+        f'</tr></thead><tbody>{rows}</tbody></table></div></section>'
+        f'<section class="reference-card"><h2>继承规则</h2><ul class="note-list">{notes}</ul></section>'
+        f'{_notice_html(reference["upgrade_akurasu_issues"])}'
+        '</div>'
+    )
+
+
+def _full_upgrade_bonus_html(reference: dict[str, Any]) -> str:
+    bonuses = "".join(
+        f'<li><span>{index:02d}</span><strong>{_esc(value)}</strong></li>'
+        for index, value in enumerate(reference["full_upgrade_bonuses"], start=1)
+    )
+    notes = "".join(
+        f"<li>{_esc(value)}</li>" for value in reference["full_upgrade_notes"]
+    )
+    return (
+        '<div class="reference-shell one-column">'
+        f'<section class="reference-card"><h2>通用全改造奖励</h2><ul class="bonus-grid">{bonuses}</ul></section>'
+        f'<section class="reference-card"><h2>选择规则</h2><ul class="note-list">{notes}</ul></section>'
+        '</div>'
+    )
+
+
+def _rare_holders_html(item: dict[str, Any]) -> str:
+    holders = item.get("holders", [])
+    if not holders:
+        return ""
+    return (
+        '<div class="rare-meta"><span class="rare-badge">稀有</span>'
+        f'<span>持有人：{_esc("、".join(holders))}</span></div>'
+    )
+
+
+def _skill_note_html(item: dict[str, Any]) -> str:
+    note = item.get("note")
+    if not note:
+        return ""
+    return (
+        '<div class="skill-note">'
+        f'<span class="skill-note-badge">{_esc(note["label"])}</span>'
+        f'<span>{_esc(note["text"])}</span></div>'
+    )
+
+
+def _skill_level_detail_html(item: dict[str, Any]) -> str:
+    detail = item.get("level_detail")
+    if not detail:
+        return ""
+    headers = "".join(f"<th>{_esc(value)}</th>" for value in detail["columns"])
+    rows = "".join(
+        "<tr>" + "".join(f"<td>{_esc(value)}</td>" for value in row) + "</tr>"
+        for row in detail["rows"]
+    )
+    note = detail.get("note")
+    note_html = f'<p class="level-note">{_esc(note)}</p>' if note else ""
+    return (
+        '<div class="skill-level-detail"><div class="skill-level-title">等级效果</div>'
+        '<div class="level-table-wrap"><table class="level-table">'
+        f'<thead><tr>{headers}</tr></thead><tbody>{rows}</tbody></table></div>'
+        f'{note_html}</div>'
+    )
+
+
+def _catalog_cards_html(
+    entries: list[dict[str, Any]], *, lead: str, notices: list[str] | None = None
+) -> str:
+    cards = "".join(
+        '<article class="catalog-card">'
+        f'<h3>{_esc(item["name"])}</h3><p>{_esc(item["effect"])}</p>'
+        f'{_rare_holders_html(item)}'
+        f'{_skill_note_html(item)}'
+        f'{_skill_level_detail_html(item)}'
+        '</article>'
+        for item in entries
+    )
+    return (
+        '<div class="reference-shell one-column">'
+        f'<section class="reference-card"><p class="section-lead catalog-lead">{_esc(lead)}</p>'
+        f'<div class="catalog-grid">{cards}</div></section>'
+        f'{_notice_html(notices or [])}</div>'
+    )
+
+
+def _leadership_html(catalogs: dict[str, Any]) -> str:
+    groups = "".join(
+        '<article class="catalog-card leadership-card">'
+        f'<h3>{_esc(group["label"])}</h3><ul>'
+        + "".join(
+            f'<li><span class="leadership-effect">{_esc(item["effect"])}</span>'
+            f'{_rare_holders_html(item)}</li>'
+            for item in group["effects"]
+        )
+        + '</ul></article>'
+        for group in catalogs["leadership_groups"]
+    )
+    return (
+        '<div class="reference-shell one-column"><section class="reference-card">'
+        '<p class="section-lead catalog-lead">成为小队长时生效；战舰舰长效果作用于相邻友军。标有“稀有”的效果，在可用／客串角色中仅有一人持有。</p>'
+        f'<div class="catalog-grid">{groups}</div></section>'
+        f'{_notice_html(catalogs["leadership_notices"])}</div>'
+    )
+
+
+def _bazaar_html(reference: dict[str, Any], catalogs: dict[str, Any]) -> str:
+    part_rows = "".join(
+        '<tr>'
+        f'<td><strong>{_esc(item["name"])}</strong></td>'
+        f'<td>{_esc(item["effect"])}</td>'
+        f'<td class="number-cell">{_esc(item["buy"])}</td>'
+        f'<td class="number-cell">{_esc(item["sell"])}</td>'
+        '</tr>'
+        for item in catalogs["bazaar_parts"]
+    )
+    unit_rows = "".join(
+        '<tr>'
+        f'<td><strong>{_esc(item["name"])}</strong></td>'
+        f'<td class="number-cell">{_esc(item["cost"])}</td>'
+        f'<td>{_esc(item["availability"])}</td>'
+        '</tr>'
+        for item in reference["bazaar_units"]
+    )
+    notes = "".join(f'<li>{_esc(value)}</li>' for value in reference["bazaar_notes"])
+    return (
+        '<div class="reference-shell one-column">'
+        '<section class="reference-card"><h2>常规强化零件</h2>'
+        '<div class="table-wrap"><table class="reference-table data-table"><thead><tr>'
+        '<th>物品</th><th>效果</th><th>购买BS</th><th>出售BS</th>'
+        f'</tr></thead><tbody>{part_rows}</tbody></table></div></section>'
+        '<section class="reference-card"><h2>可购买机体</h2>'
+        '<div class="table-wrap"><table class="reference-table data-table"><thead><tr>'
+        '<th>机体</th><th>BS</th><th>出现时期</th>'
+        f'</tr></thead><tbody>{unit_rows}</tbody></table></div></section>'
+        f'<section class="reference-card"><h2>购买规则</h2><ul class="note-list">{notes}</ul></section>'
+        '</div>'
+    )
+
+
+def _team_attacks_html(reference: dict[str, Any]) -> str:
+    rows = "".join(
+        '<tr>'
+        f'<td><strong>{_esc(item["name"])}</strong>'
+        + (f'<p class="cell-note">{_esc(item["note"])}</p>' if item.get("note") else "")
+        + '</td>'
+        f'<td>{_esc(item["units"])}</td>'
+        f'<td class="number-cell">{_esc(item["morale"])}</td>'
+        f'<td class="number-cell">{_esc(item["range"])}</td>'
+        '</tr>'
+        for item in reference["team_attacks"]
+    )
+    notes = "".join(
+        f'<li>{_esc(value)}</li>' for value in reference["team_attack_notes"]
+    )
+    return (
+        '<div class="reference-shell one-column">'
+        '<section class="reference-card"><h2>合体攻击一览</h2>'
+        '<div class="table-wrap"><table class="reference-table data-table"><thead><tr>'
+        '<th>攻击</th><th>所需机体</th><th>气力</th><th>射程</th>'
+        f'</tr></thead><tbody>{rows}</tbody></table></div></section>'
+        f'<section class="reference-card"><h2>使用规则</h2><ul class="note-list">{notes}</ul></section>'
+        '</div>'
+    )
+
+
+def _validate_reference_against_game(
+    reference: dict[str, Any], catalogs: dict[str, Any]
+) -> None:
+    rates = [item["rate"] for item in reference["carryover"]["rates"]]
+    if rates != ["50%", "75%", "100%"]:
+        raise GuideBuildError(f"carryover-rate drift: {rates}")
+    game_ui = json.dumps(_json(REMAINING_UI), ensure_ascii=False)
+    for token in ("2周目", "50％", "3周目", "75％", "4周目起", "100％", "15段"):
+        if token not in game_ui:
+            raise GuideBuildError(f"carryover rule missing from game UI: {token}")
+    if len(reference["upgrade_carryover"]) != 20:
+        raise GuideBuildError("upgrade-carryover table must contain 20 rows")
+    if len(reference["full_upgrade_bonuses"]) != 14:
+        raise GuideBuildError("full-upgrade bonus table must contain 14 choices")
+    full_upgrade_ui = json.dumps(_json(UNCLASSIFIED_UI), ensure_ascii=False)
+    for token in ("装甲值", "移动力", "获得干扰功能", "武器射程＋1", "武器CT修正"):
+        if token not in full_upgrade_ui:
+            raise GuideBuildError(f"full-upgrade rule missing from game UI: {token}")
+    expected_counts = {
+        "pilot_skills": 45,
+        "leadership_groups": 15,
+        "mech_abilities": 45,
+        "bazaar_parts": 28,
+    }
+    for key, expected in expected_counts.items():
+        if len(catalogs[key]) != expected:
+            raise GuideBuildError(
+                f"reference catalog count drift: {key}={len(catalogs[key])}"
+            )
+    if sum(len(group["effects"]) for group in catalogs["leadership_groups"]) != 59:
+        raise GuideBuildError("leadership effect table must contain 59 effects")
+    if len(reference.get("bazaar_units", [])) != 15:
+        raise GuideBuildError("bazaar unit table must contain 15 units")
+    if len(reference.get("team_attacks", [])) != 12:
+        raise GuideBuildError("team-attack table must contain 12 attacks")
+    weapon_ui = json.dumps(_json(PROJECT_ROOT / "corpus/zh/menu/weapons.json"), ensure_ascii=False)
+    for item in reference["team_attacks"]:
+        if item["name"] not in weapon_ui:
+            raise GuideBuildError(f"team attack missing from game weapon UI: {item['name']}")
+
+
 def _render_html(
     sections: list[dict[str, Any]],
     catalog: dict[int, dict[str, Any]],
     hidden_entries: list[dict[str, Any]],
     hidden_by_stage: dict[int, list[dict[str, str]]],
     progression_by_stage: dict[int, dict[str, list[str]]],
+    reference: dict[str, Any],
+    catalogs: dict[str, Any],
     manifest: dict[str, Any],
 ) -> str:
     embedded = json.dumps(manifest, ensure_ascii=False, separators=(",", ":")).replace(
@@ -625,21 +1190,39 @@ def _render_html(
     )
     flow = _flow_html(sections, catalog, hidden_by_stage, progression_by_stage)
     secrets = _hidden_html(hidden_entries)
+    carryover = _carryover_html(reference)
+    upgrade_carryover = _upgrade_carryover_html(reference)
+    full_upgrade_bonus = _full_upgrade_bonus_html(reference)
+    leadership = _leadership_html(catalogs)
+    pilot_skills = _catalog_cards_html(
+        catalogs["pilot_skills"],
+        lead="游戏内全部45项特殊技能及其实际效果。有等级的技能直接列出每级效果。不可通过PP购买、且我方常驻或可控客串角色中持有人去重后不超过5人的技能标为稀有；同一人物的化名与剧情形态合并计算。",
+        notices=catalogs["pilot_skill_notices"],
+    )
+    mech_abilities = _catalog_cards_html(
+        catalogs["mech_abilities"],
+        lead="游戏内有名称的机体特殊能力。相同效果会按不同能力名分别列出。",
+        notices=reference["mech_ability_akurasu_issues"],
+    )
+    bazaar = _bazaar_html(reference, catalogs)
+    team_attacks = _team_attacks_html(reference)
     return f"""<!doctype html>
 <html lang="zh-Hans">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
-<title>《超级机器人大战Z》流程与隐藏要素攻略</title>
+<title>《超级机器人大战Z》流程、隐藏要素与资料攻略</title>
 <style>
-:root{{--background:#f8fafc;--foreground:#0f172a;--card:#fff;--muted:#64748b;--muted-bg:#f1f5f9;--border:#e2e8f0;--primary:#0f172a;--blue:#2563eb;--blue-bg:#eff6ff;--green:#15803d;--green-bg:#f0fdf4;--amber:#a16207;--amber-bg:#fffbeb;--red:#b91c1c;--red-bg:#fef2f2;--ring:rgba(37,99,235,.18);--shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.04)}}
+:root{{--background:#f8fafc;--foreground:#0f172a;--card:#fff;--muted:#64748b;--muted-bg:#f1f5f9;--border:#e2e8f0;--primary:#0f172a;--blue:#2563eb;--blue-bg:#eff6ff;--green:#15803d;--green-bg:#f0fdf4;--amber:#a16207;--amber-bg:#fffbeb;--red:#b91c1c;--red-bg:#fef2f2;--violet:#7c3aed;--violet-bg:#f5f3ff;--orange:#c2410c;--orange-bg:#fff7ed;--ring:rgba(37,99,235,.18);--shadow:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.04)}}
 *{{box-sizing:border-box}}html{{scroll-behavior:smooth;background:var(--background)}}body{{margin:0;background:var(--background);color:var(--foreground);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}}
-a{{color:inherit;text-decoration:none}}button{{font:inherit}}.mode-tabs{{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:1fr 1fr;height:52px;background:rgba(255,255,255,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}}.mode-tab{{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.92rem;font-weight:650;border-bottom:2px solid transparent;transition:.15s ease}}.mode-tab:hover{{background:var(--muted-bg);color:var(--foreground)}}.mode-tab.active{{color:var(--foreground);border-bottom-color:var(--foreground)}}main{{width:min(1280px,calc(100% - 32px));margin:22px auto 64px}}.guide-panel[hidden]{{display:none}}
-.flow-section{{margin:0 0 42px}}.flow-section h2{{margin:0 0 12px;padding:0 2px 9px;border-bottom:1px solid var(--border);font-size:.8rem;line-height:1.2;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}}.flow-row{{display:grid;grid-template-columns:56px 1fr;gap:10px;margin:0 0 10px;align-items:stretch}}.stage-number{{position:sticky;top:62px;align-self:start;min-height:78px;border:1px solid var(--border);border-radius:10px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;box-shadow:0 1px 2px rgba(15,23,42,.03)}}.stage-number strong{{font-size:1.35rem;font-variant-numeric:tabular-nums}}.stage-number span{{font-size:.65rem;color:var(--muted);margin:2px 0}}.stage-lanes{{display:grid;grid-template-columns:repeat(var(--lanes),minmax(0,1fr));gap:10px}}.stage-card,.secret-card{{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}}.stage-card{{overflow:hidden;scroll-margin-top:62px}}.stage-header{{padding:14px 16px 12px;border-bottom:1px solid var(--border)}}.lane{{display:inline-flex;align-items:center;min-height:22px;padding:2px 8px;border:1px solid #bfdbfe;border-radius:999px;background:var(--blue-bg);color:#1d4ed8;font-size:.7rem;font-weight:650}}.stage-card h3,.secret-card h3{{margin:7px 0 0;font-size:1rem;line-height:1.35;letter-spacing:-.01em}}.source-title{{margin:2px 0 0;color:var(--muted);font-size:.75rem}}.stage-content{{padding:4px 16px 10px}}.stage-block{{padding:11px 0;border-top:1px solid var(--border)}}.stage-block:first-child{{border-top:0}}.stage-block h4{{display:flex;align-items:center;gap:7px;margin:0 0 6px;font-size:.76rem;line-height:1.25;font-weight:700;color:var(--muted)}}.block-dot{{width:7px;height:7px;border-radius:999px;background:var(--muted)}}.acquisition h4{{color:var(--blue)}}.acquisition .block-dot{{background:var(--blue)}}.upgrade h4{{color:var(--green)}}.upgrade .block-dot{{background:var(--green)}}.hidden-progress h4{{color:var(--amber)}}.hidden-progress .block-dot{{background:var(--amber)}}.conditions-block .block-dot{{background:var(--foreground)}}.correction{{margin:5px -8px 2px;padding:10px 8px;border:1px solid #fecaca!important;border-radius:8px;background:var(--red-bg)}}.correction h4{{color:var(--red)}}.correction .block-dot{{background:var(--red)}}.info-list,.hidden-list,.conditions{{list-style:none;padding:0;margin:0}}.info-list li,.hidden-list li,.conditions li{{position:relative;padding:4px 0 4px 13px;font-size:.81rem;line-height:1.55}}.info-list li::before,.hidden-list li::before,.conditions li::before{{content:"";position:absolute;left:1px;top:.78rem;width:3px;height:3px;border-radius:50%;background:#94a3b8}}.hidden-list a{{color:#92400e;font-weight:650;text-decoration:underline;text-decoration-color:#fde68a;text-underline-offset:3px}}.hidden-list p{{margin:2px 0 0;color:#475569}}.conditions li{{display:grid;grid-template-columns:78px 1fr;gap:7px}}.condition-kind{{font-weight:650;color:var(--muted)}}.empty{{margin:0;color:var(--muted);font-size:.78rem}}
+a{{color:inherit;text-decoration:none}}button{{font:inherit}}.mode-tabs{{position:sticky;top:0;z-index:20;display:flex;height:52px;overflow-x:auto;background:rgba(255,255,255,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);scrollbar-width:none}}.mode-tabs::-webkit-scrollbar{{display:none}}.mode-tab{{flex:1 0 96px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.88rem;font-weight:650;white-space:nowrap;border-bottom:2px solid transparent;transition:.15s ease}}.mode-tab:hover{{background:var(--muted-bg);color:var(--foreground)}}.mode-tab.active{{color:var(--foreground);border-bottom-color:var(--foreground)}}main{{width:min(1280px,calc(100% - 32px));margin:22px auto 64px}}.guide-panel[hidden]{{display:none}}
+.flow-section{{margin:0 0 42px}}.flow-section h2{{margin:0 0 12px;padding:0 2px 9px;border-bottom:1px solid var(--border);font-size:.8rem;line-height:1.2;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}}.flow-row{{display:grid;grid-template-columns:56px 1fr;gap:10px;margin:0 0 10px;align-items:stretch}}.stage-number{{position:sticky;top:62px;align-self:start;min-height:78px;border:1px solid var(--border);border-radius:10px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;box-shadow:0 1px 2px rgba(15,23,42,.03)}}.stage-number strong{{font-size:1.35rem;font-variant-numeric:tabular-nums}}.stage-number span{{font-size:.65rem;color:var(--muted);margin:2px 0}}.stage-lanes{{display:grid;grid-template-columns:repeat(var(--lanes),minmax(0,1fr));gap:10px}}.stage-card,.secret-card{{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}}.stage-card{{overflow:hidden;scroll-margin-top:62px}}.stage-header{{padding:14px 16px 12px;border-bottom:1px solid var(--border)}}.lane{{display:inline-flex;align-items:center;min-height:22px;padding:2px 8px;border:1px solid #bfdbfe;border-radius:999px;background:var(--blue-bg);color:#1d4ed8;font-size:.7rem;font-weight:650}}.stage-card h3,.secret-card h3{{margin:7px 0 0;font-size:1rem;line-height:1.35;letter-spacing:-.01em}}.source-title{{margin:2px 0 0;color:var(--muted);font-size:.75rem}}.stage-content{{padding:4px 16px 10px}}.stage-block{{padding:11px 0;border-top:1px solid var(--border)}}.stage-block:first-child{{border-top:0}}.stage-block h4{{display:flex;align-items:center;gap:7px;margin:0 0 6px;font-size:.76rem;line-height:1.25;font-weight:700;color:var(--muted)}}.block-dot{{width:7px;height:7px;border-radius:999px;background:var(--muted)}}.acquisition h4{{color:var(--blue)}}.acquisition .block-dot{{background:var(--blue)}}.temporary h4{{color:var(--violet)}}.temporary .block-dot{{background:var(--violet)}}.availability h4{{color:var(--orange)}}.availability .block-dot{{background:var(--orange)}}.upgrade h4{{color:var(--green)}}.upgrade .block-dot{{background:var(--green)}}.hidden-progress h4{{color:var(--amber)}}.hidden-progress .block-dot{{background:var(--amber)}}.correction{{margin:5px -8px 2px;padding:10px 8px;border:1px solid #fecaca!important;border-radius:8px;background:var(--red-bg)}}.correction h4{{color:var(--red)}}.correction .block-dot{{background:var(--red)}}.info-list,.hidden-list{{list-style:none;padding:0;margin:0}}.info-list li,.hidden-list li{{position:relative;padding:4px 0 4px 13px;font-size:.81rem;line-height:1.55}}.info-list li::before,.hidden-list li::before{{content:"";position:absolute;left:1px;top:.78rem;width:3px;height:3px;border-radius:50%;background:#94a3b8}}.hidden-list a{{color:#92400e;font-weight:650;text-decoration:underline;text-decoration-color:#fde68a;text-underline-offset:3px}}.hidden-list p{{margin:2px 0 0;color:#475569}}.source-badge{{display:inline-flex;margin-left:7px;padding:0 5px;border:1px solid #fed7aa;border-radius:999px;background:var(--orange-bg);color:var(--orange);font-size:.6rem;font-weight:700;vertical-align:1px}}.empty{{margin:0;color:var(--muted);font-size:.78rem}}
 #flow,#hidden-elements{{scroll-margin-top:62px}}.category-filters{{position:sticky;top:52px;z-index:10;display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px;padding:10px 0;background:linear-gradient(var(--background) 78%,transparent)}}.category-filters button{{min-height:34px;padding:5px 11px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--muted);cursor:pointer;font-size:.78rem;font-weight:600;box-shadow:0 1px 2px rgba(15,23,42,.02)}}.category-filters button:hover{{color:var(--foreground);border-color:#cbd5e1}}.category-filters button.active{{background:var(--primary);color:white;border-color:var(--primary)}}.category-filters button:focus-visible,.mode-tab:focus-visible{{outline:3px solid var(--ring);outline-offset:-2px}}.secret-grid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}.secret-card{{padding:17px 18px;scroll-margin-top:106px}}.secret-kicker{{display:inline-flex;padding:2px 7px;border-radius:999px;background:var(--amber-bg);color:var(--amber);font-size:.68rem;font-weight:700}}.secret-summary{{color:var(--muted);font-size:.82rem;margin:7px 0 12px}}.secret-steps{{padding:0;margin:0;list-style:none;counter-reset:secret-step}}.secret-steps>li{{position:relative;padding:10px 0 10px 38px;border-top:1px solid var(--border);counter-increment:secret-step}}.secret-steps>li::before{{content:counter(secret-step);position:absolute;left:0;top:10px;display:grid;place-items:center;width:24px;height:24px;border:1px solid var(--border);border-radius:7px;background:var(--muted-bg);color:var(--muted);font-size:.7rem;font-weight:700}}.secret-steps p{{margin:4px 0 0;font-size:.82rem}}.step-head{{display:flex;gap:7px;align-items:center;flex-wrap:wrap}}.when{{display:inline-flex;padding:1px 7px;border-radius:999px;background:var(--blue-bg);color:#1d4ed8;font-size:.68rem;font-weight:700}}.is-hidden{{display:none!important}}
-@media(max-width:900px){{.stage-lanes,.secret-grid{{grid-template-columns:1fr}}}}
-@media(max-width:620px){{main{{width:min(100% - 16px,1280px);margin-top:12px}}.flow-row{{grid-template-columns:42px 1fr;gap:7px}}.stage-number{{top:59px;min-height:68px;border-radius:9px}}.stage-number strong{{font-size:1.12rem}}.stage-header{{padding:12px 13px 10px}}.stage-content{{padding:3px 13px 8px}}.conditions li{{display:block}}.condition-kind{{display:block;margin-bottom:1px}}.secret-card{{padding:15px}}}}
+#carryover,#upgrade-carryover,#full-upgrade-bonus,#leadership,#pilot-skills,#mech-abilities,#bazaar,#team-attacks{{scroll-margin-top:62px}}.reference-shell{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:1120px;margin:auto}}.reference-shell.one-column{{grid-template-columns:1fr}}.reference-card,.reference-notice{{padding:18px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}}.reference-card.wide,.reference-notice{{grid-column:1/-1}}.reference-card h2{{margin:0 0 13px;font-size:.86rem;color:var(--muted);letter-spacing:.04em}}.rate-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}}.rate-card{{display:flex;flex-direction:column;align-items:center;padding:15px 8px;border:1px solid var(--border);border-radius:10px;background:var(--muted-bg)}}.rate-card strong{{font-size:1.35rem;line-height:1.1}}.rate-card span{{margin-top:5px;color:var(--muted);font-size:.72rem}}.fact-list,.note-list,.reference-notice ul,.bonus-grid{{list-style:none;padding:0;margin:0}}.fact-list li{{display:grid;grid-template-columns:95px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--border);font-size:.82rem}}.fact-list li:first-child{{border-top:0;padding-top:0}}.fact-list strong{{font-size:.76rem}}.fact-list span,.section-lead,.cell-note{{color:var(--muted)}}.mode-grid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}.mode-card{{padding:14px;border:1px solid var(--border);border-radius:10px;background:var(--muted-bg)}}.mode-card>div{{display:flex;justify-content:space-between;gap:12px;align-items:center}}.mode-card h3{{margin:0;font-size:1rem}}.mode-card span{{color:var(--blue);font-size:.7rem;font-weight:650;text-align:right}}.mode-card p{{margin:8px 0 0;font-size:.8rem}}.note-list li,.reference-notice li{{position:relative;padding:7px 0 7px 15px;font-size:.82rem}}.note-list li::before,.reference-notice li::before{{content:"";position:absolute;left:1px;top:.82rem;width:4px;height:4px;border-radius:99px;background:#94a3b8}}.reference-notice{{border-color:#fecaca;background:var(--red-bg);box-shadow:none;color:#7f1d1d}}.reference-notice-title{{margin-bottom:5px;font-size:.76rem;font-weight:750}}.section-lead{{margin:-5px 0 14px;font-size:.78rem}}.catalog-lead{{margin:0 0 14px}}.catalog-grid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}}.catalog-card{{padding:13px 14px;border:1px solid var(--border);border-radius:10px;background:var(--muted-bg)}}.catalog-card h3{{margin:0;font-size:.84rem}}.catalog-card p{{margin:6px 0 0;color:#475569;font-size:.78rem;white-space:pre-line}}.rare-meta{{display:flex;align-items:flex-start;gap:7px;margin-top:9px;color:#7c2d12;font-size:.7rem;line-height:1.45}}.rare-badge{{flex:0 0 auto;padding:1px 6px;border:1px solid #fed7aa;border-radius:999px;background:#fff7ed;color:#c2410c;font-size:.62rem;font-weight:750}}.leadership-card ul{{margin:7px 0 0;padding:0;list-style:none}}.leadership-card li{{padding:7px 0;border-top:1px solid var(--border);color:#475569;font-size:.77rem;white-space:pre-line}}.leadership-card .rare-meta{{white-space:normal}}.table-wrap{{overflow-x:auto;border:1px solid var(--border);border-radius:10px}}.reference-table{{width:100%;border-collapse:collapse;font-size:.79rem;min-width:720px}}.reference-table th{{padding:9px 11px;background:var(--muted-bg);color:var(--muted);font-size:.7rem;text-align:left}}.reference-table td{{padding:10px 11px;border-top:1px solid var(--border);vertical-align:top}}.reference-table td:nth-child(1),.reference-table td:nth-child(2){{width:25%}}.reference-table td:nth-child(3){{width:30%}}.data-table td{{width:auto!important;white-space:pre-line}}.data-table td:first-child{{min-width:150px}}.data-table .number-cell{{width:86px!important;white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}}.carry-arrow{{margin-right:8px;color:var(--muted)}}.keep-badge{{display:inline-flex;padding:2px 7px;border-radius:999px;font-size:.68rem;font-weight:700}}.keep-badge.yes{{background:var(--blue-bg);color:var(--blue)}}.keep-badge.no{{background:var(--muted-bg);color:var(--muted)}}.cell-note{{margin:5px 0 0;font-size:.7rem}}.bonus-grid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}.bonus-grid li{{display:flex;gap:10px;align-items:center;padding:11px 12px;border:1px solid var(--border);border-radius:9px;font-size:.8rem}}.bonus-grid li>span{{display:grid;place-items:center;flex:0 0 24px;width:24px;height:24px;border-radius:7px;background:var(--muted-bg);color:var(--muted);font-size:.65rem}}
+.catalog-card{{min-width:0}}.skill-note{{display:flex;align-items:flex-start;gap:7px;margin-top:9px;color:#475569;font-size:.7rem;line-height:1.45}}.skill-note-badge{{flex:0 0 auto;padding:1px 6px;border:1px solid #cbd5e1;border-radius:999px;background:#f8fafc;color:#475569;font-size:.62rem;font-weight:750}}.skill-level-detail{{margin-top:12px;padding-top:11px;border-top:1px solid var(--border)}}.skill-level-title{{margin-bottom:7px;color:var(--muted);font-size:.67rem;font-weight:750;letter-spacing:.04em}}.level-table-wrap{{max-width:100%;overflow-x:auto;border:1px solid var(--border);border-radius:8px;background:var(--card)}}.level-table{{width:100%;min-width:max-content;border-collapse:collapse;font-size:.68rem;font-variant-numeric:tabular-nums}}.level-table th{{padding:6px 8px;background:#f8fafc;color:var(--muted);font-size:.62rem;text-align:left;white-space:nowrap}}.level-table td{{padding:6px 8px;border-top:1px solid var(--border);white-space:nowrap}}.level-note{{margin:7px 0 0!important;color:var(--muted)!important;font-size:.67rem!important;line-height:1.5}}.reference-card{{min-width:0}}@media(max-width:900px){{.stage-lanes,.secret-grid{{grid-template-columns:1fr}}}}
+@media(max-width:620px){{.mode-tab{{flex-basis:78px;font-size:.78rem}}main{{width:min(100% - 16px,1280px);margin-top:12px}}.flow-row{{grid-template-columns:42px 1fr;gap:7px}}.stage-number{{top:59px;min-height:68px;border-radius:9px}}.stage-number strong{{font-size:1.12rem}}.stage-header{{padding:12px 13px 10px}}.stage-content{{padding:3px 13px 8px}}.secret-card{{padding:15px}}.reference-shell{{grid-template-columns:1fr}}.reference-card{{padding:15px}}.mode-grid,.bonus-grid,.catalog-grid{{grid-template-columns:1fr}}.fact-list li{{grid-template-columns:82px 1fr;gap:9px}}}}
+@media(max-width:620px){{.catalog-grid{{grid-template-columns:minmax(0,1fr)}}}}
 @media print{{.mode-tabs,.category-filters{{display:none}}body{{background:white}}main{{width:100%;margin:0}}.guide-panel[hidden]{{display:block}}.stage-card,.secret-card{{box-shadow:none;break-inside:avoid}}.stage-number{{position:static}}}}
 </style>
 </head>
@@ -647,14 +1230,30 @@ a{{color:inherit;text-decoration:none}}button{{font:inherit}}.mode-tabs{{positio
 <nav class="mode-tabs" aria-label="攻略页面">
   <a class="mode-tab active" data-panel="flow" href="#flow">流程图</a>
   <a class="mode-tab" data-panel="hidden-elements" href="#hidden-elements">隐藏要素</a>
+  <a class="mode-tab" data-panel="carryover" href="#carryover">周目继承</a>
+  <a class="mode-tab" data-panel="upgrade-carryover" href="#upgrade-carryover">改造继承</a>
+  <a class="mode-tab" data-panel="full-upgrade-bonus" href="#full-upgrade-bonus">全改造奖励</a>
+  <a class="mode-tab" data-panel="leadership" href="#leadership">小队长能力</a>
+  <a class="mode-tab" data-panel="pilot-skills" href="#pilot-skills">人物技能</a>
+  <a class="mode-tab" data-panel="mech-abilities" href="#mech-abilities">机体能力</a>
+  <a class="mode-tab" data-panel="bazaar" href="#bazaar">集市物品</a>
+  <a class="mode-tab" data-panel="team-attacks" href="#team-attacks">合体攻击</a>
 </nav>
 <main>
   <section class="guide-panel" id="flow" data-panel-content="flow">{flow}</section>
   <section class="guide-panel" id="hidden-elements" data-panel-content="hidden-elements" hidden><div class="category-filters"><button class="active" data-category="all">全部</button>{''.join(f'<button data-category="{key}">{label}</button>' for key,label in CATEGORY_LABELS.items())}</div><div class="secret-grid">{secrets}</div></section>
+  <section class="guide-panel" id="carryover" data-panel-content="carryover" hidden>{carryover}</section>
+  <section class="guide-panel" id="upgrade-carryover" data-panel-content="upgrade-carryover" hidden>{upgrade_carryover}</section>
+  <section class="guide-panel" id="full-upgrade-bonus" data-panel-content="full-upgrade-bonus" hidden>{full_upgrade_bonus}</section>
+  <section class="guide-panel" id="leadership" data-panel-content="leadership" hidden>{leadership}</section>
+  <section class="guide-panel" id="pilot-skills" data-panel-content="pilot-skills" hidden>{pilot_skills}</section>
+  <section class="guide-panel" id="mech-abilities" data-panel-content="mech-abilities" hidden>{mech_abilities}</section>
+  <section class="guide-panel" id="bazaar" data-panel-content="bazaar" hidden>{bazaar}</section>
+  <section class="guide-panel" id="team-attacks" data-panel-content="team-attacks" hidden>{team_attacks}</section>
 </main>
 <script type="application/json" id="guide-manifest">{embedded}</script>
 <script>
-(()=>{{const tabs=[...document.querySelectorAll('[data-panel]')];const panels=[...document.querySelectorAll('[data-panel-content]')];const categoryButtons=[...document.querySelectorAll('button[data-category]')];function selectPanel(){{const hash=location.hash;const name=hash==='#hidden-elements'||hash.startsWith('#secret-')?'hidden-elements':'flow';panels.forEach(panel=>panel.hidden=panel.dataset.panelContent!==name);tabs.forEach(tab=>tab.classList.toggle('active',tab.dataset.panel===name));if(hash.startsWith('#secret-'))requestAnimationFrame(()=>document.querySelector(hash)?.scrollIntoView());}}function selectCategory(category){{categoryButtons.forEach(button=>button.classList.toggle('active',button.dataset.category===category));document.querySelectorAll('.secret-card').forEach(card=>card.classList.toggle('is-hidden',category!=='all'&&card.dataset.category!==category));}}window.addEventListener('hashchange',selectPanel);categoryButtons.forEach(button=>button.addEventListener('click',()=>selectCategory(button.dataset.category)));selectPanel();}})();
+(()=>{{const tabs=[...document.querySelectorAll('[data-panel]')];const panels=[...document.querySelectorAll('[data-panel-content]')];const categoryButtons=[...document.querySelectorAll('button[data-category]')];const pageNames=new Set(panels.map(panel=>panel.dataset.panelContent));function selectPanel(){{const hash=location.hash;let name=hash.startsWith('#secret-')?'hidden-elements':hash.slice(1);if(!pageNames.has(name))name='flow';panels.forEach(panel=>panel.hidden=panel.dataset.panelContent!==name);tabs.forEach(tab=>tab.classList.toggle('active',tab.dataset.panel===name));tabs.find(tab=>tab.dataset.panel===name)?.scrollIntoView({{inline:'center',block:'nearest'}});if(hash.startsWith('#secret-'))requestAnimationFrame(()=>document.querySelector(hash)?.scrollIntoView());}}function selectCategory(category){{categoryButtons.forEach(button=>button.classList.toggle('active',button.dataset.category===category));document.querySelectorAll('.secret-card').forEach(card=>card.classList.toggle('is-hidden',category!=='all'&&card.dataset.category!==category));}}window.addEventListener('hashchange',selectPanel);categoryButtons.forEach(button=>button.addEventListener('click',()=>selectCategory(button.dataset.category)));selectPanel();}})();
 </script>
 </body></html>
 """
@@ -672,8 +1271,24 @@ def build() -> tuple[bytes, bytes]:
     progression_entries, progression_terms = _expand_progression_terms(
         progression_source, terms
     )
-    progression_by_stage = _attach_progression(progression_entries, catalog)
-    used_terms = hidden_terms | progression_terms
+    source_surfaces = _load_term_source_surfaces()
+    progression_by_stage, progression_verification = _attach_progression(
+        progression_entries, catalog, source_surfaces
+    )
+    reference_source = _json(REFERENCE)
+    reference, reference_terms = _expand_reference_terms(reference_source, terms)
+    catalogs = _load_reference_catalogs(reference)
+    _validate_reference_against_game(reference, catalogs)
+    verified_progression = (
+        progression_verification.get("stage-script", 0)
+        + progression_verification.get("stage-script-partial", 0)
+    )
+    supplement_progression = progression_verification.get("guide-supplement", 0)
+    if verified_progression <= supplement_progression:
+        raise GuideBuildError(
+            "Timeline cross-check coverage must exceed guide-only supplements"
+        )
+    used_terms = hidden_terms | progression_terms | reference_terms
     flow_conditions = {
         condition["id"]
         for ordinal in range(107)
@@ -697,9 +1312,18 @@ def build() -> tuple[bytes, bytes]:
         ROUTE_MAP,
         STAGE_NAMES,
         STAGE_CONDITIONS,
+        REMAINING_UI,
+        UNCLASSIFIED_UI,
+        PILOT_SKILLS_UI,
+        MECH_ABILITIES_UI,
+        LEADERSHIP_UI,
+        PARTS_UI,
         HIDDEN_ELEMENTS,
         PROGRESSION,
+        REFERENCE,
         STAGE_LAYOUT,
+        DISPLAY_NAME_CONFIG,
+        COMPDATA,
         STAGE_ARCHIVE,
         SLPS,
         TEXT_TABLE,
@@ -707,7 +1331,11 @@ def build() -> tuple[bytes, bytes]:
     manifest = {
         "schema_version": 1,
         "generator": "tools/build_stage_guide.py",
-        "source_policy": hidden_source.get("source_policy", {}),
+        "source_policy": {
+            "hidden_elements": hidden_source.get("source_policy", {}),
+            "timeline": progression_source.get("source_policy", {}),
+            "reference": reference_source.get("source_policy", {}),
+        },
         "inputs": {
             path.relative_to(PROJECT_ROOT).as_posix(): {
                 "size": path.stat().st_size,
@@ -736,6 +1364,35 @@ def build() -> tuple[bytes, bytes]:
                 len(entry["akurasu_corrections"])
                 for entry in progression_by_stage.values()
             ),
+            "progression_verification_counts": progression_verification,
+            "reference_upgrade_carryover_count": len(
+                reference["upgrade_carryover"]
+            ),
+            "reference_full_upgrade_bonus_count": len(
+                reference["full_upgrade_bonuses"]
+            ),
+            "reference_pilot_skill_count": len(catalogs["pilot_skills"]),
+            "reference_pilot_skill_level_table_count": sum(
+                bool(item["level_detail"]) for item in catalogs["pilot_skills"]
+            ),
+            "reference_rare_pilot_skill_count": sum(
+                bool(item["holders"]) for item in catalogs["pilot_skills"]
+            ),
+            "reference_leadership_category_count": len(
+                catalogs["leadership_groups"]
+            ),
+            "reference_leadership_effect_count": sum(
+                len(group["effects"]) for group in catalogs["leadership_groups"]
+            ),
+            "reference_rare_leadership_effect_count": sum(
+                bool(item["holders"])
+                for group in catalogs["leadership_groups"]
+                for item in group["effects"]
+            ),
+            "reference_mech_ability_count": len(catalogs["mech_abilities"]),
+            "reference_bazaar_part_count": len(catalogs["bazaar_parts"]),
+            "reference_bazaar_unit_count": len(reference["bazaar_units"]),
+            "reference_team_attack_count": len(reference["team_attacks"]),
             "evidence_level_counts": dict(sorted(evidence_counts.items())),
             "used_global_term_count": len(used_terms),
         },
@@ -744,7 +1401,15 @@ def build() -> tuple[bytes, bytes]:
             "sources": {term_id: term_sources[term_id] for term_id in sorted(used_terms)},
         },
         "resources": {
-            f"{number:03d}": resources[number] for number in range(1, 108)
+            f"{number:03d}": [
+                {
+                    key: value
+                    for key, value in resource.items()
+                    if not key.startswith("_") and key != "conditions"
+                }
+                for resource in resources[number]
+            ]
+            for number in range(1, 108)
         },
     }
     html_text = _render_html(
@@ -753,6 +1418,8 @@ def build() -> tuple[bytes, bytes]:
         hidden_entries,
         hidden_by_stage,
         progression_by_stage,
+        reference,
+        catalogs,
         manifest,
     )
     manifest_bytes = (

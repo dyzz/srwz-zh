@@ -1,7 +1,7 @@
 {
   "coverage": {
-    "akurasu_correction_card_count": 11,
-    "akurasu_correction_count": 9,
+    "akurasu_correction_card_count": 10,
+    "akurasu_correction_count": 8,
     "all_parsed_condition_count": 558,
     "condition_corpus_count": 558,
     "evidence_level_counts": {
@@ -15,39 +15,93 @@
     "playable_chunk_count": 153,
     "playable_resource_number_count": 107,
     "playable_title_count": 107,
-    "progression_entry_count": 81,
-    "progression_stage_card_count": 87,
-    "used_global_term_count": 240
+    "progression_entry_count": 135,
+    "progression_stage_card_count": 101,
+    "progression_verification_counts": {
+      "guide-supplement": 81,
+      "source-correction": 10,
+      "stage-script": 50,
+      "stage-script-partial": 77
+    },
+    "reference_bazaar_part_count": 28,
+    "reference_bazaar_unit_count": 15,
+    "reference_full_upgrade_bonus_count": 14,
+    "reference_leadership_category_count": 15,
+    "reference_leadership_effect_count": 59,
+    "reference_mech_ability_count": 45,
+    "reference_pilot_skill_count": 45,
+    "reference_pilot_skill_level_table_count": 15,
+    "reference_rare_leadership_effect_count": 19,
+    "reference_rare_pilot_skill_count": 12,
+    "reference_team_attack_count": 12,
+    "reference_upgrade_carryover_count": 20,
+    "used_global_term_count": 324
   },
   "generator": "tools/build_stage_guide.py",
   "inputs": {
+    "config/display-names/compdata.json": {
+      "sha256": "cd0b06663d0c25af23b8dda13729c3a97b6bee44d43b7bc1834e7f11b840cb9b",
+      "size": 3584
+    },
     "config/stage-offsets.json": {
       "sha256": "524f31420a1683f5f890ef954b2ee24162e1775d9633bd4d03b0289a90828f71",
       "size": 3222
+    },
+    "corpus/zh/menu/remaining-ui.json": {
+      "sha256": "f88bca8ffcda8c1c443437bb32630845a075b29ddcb099ed8ddc0850053d1854",
+      "size": 95992
     },
     "corpus/zh/menu/stage-names.json": {
       "sha256": "bc0fbbffa8fd03c67d47ff06b8fb36ac1aa5a972340e478d248ff303959cf0df",
       "size": 28759
     },
+    "corpus/zh/menu/system-ui-leadership.json": {
+      "sha256": "0800b26fe8e6ba3a32a76172830a4c69bb973ac0f30d4bcd0e5544b9f85ef64a",
+      "size": 4609
+    },
+    "corpus/zh/menu/system-ui-parts.json": {
+      "sha256": "fa33dce8df69c64e843395772985072f0b1ed242da9df545a1dec795fbce96ba",
+      "size": 34430
+    },
+    "corpus/zh/menu/system-ui-skills.json": {
+      "sha256": "eb907b9ac94b3fda403792c3667811873a010a22fd749b475e25c6c5bf703993",
+      "size": 29922
+    },
+    "corpus/zh/menu/system-ui-special-abilities.json": {
+      "sha256": "d17a612474db90c0eb2dd4c3802bc0b378793af3ebb5319a0109ff75717aba27",
+      "size": 55057
+    },
+    "corpus/zh/menu/unclassified.json": {
+      "sha256": "a1f04817cd6dc0ad903af55cc8bc7b7f9f79b88afbab44bb38b04d26c3be01cc",
+      "size": 114547
+    },
     "corpus/zh/story-conditions.json": {
-      "sha256": "3b6864137005b8d0c3e5ad5c7782ad50f75bebd97779e0313c1d2b559c7fd78d",
-      "size": 216038
+      "sha256": "c51e6b3a434710ce4f1995af5bfbe330d5a5d549bc4439a43c80c5da6e0d1e90",
+      "size": 215998
     },
     "docs/STAGE_ROUTE_MAP.md": {
       "sha256": "15d87a8f031f53ee28aa2d5b7c792270c3bc1db07b7f701a3e9c79339f09e137",
       "size": 12855
     },
     "guide/data/hidden-elements.json": {
-      "sha256": "9dd6c592b47daadd1766f5bfc5047fb90ee9b30284f226f5792695628118011e",
-      "size": 41867
+      "sha256": "ef312a80f281f89916b89be959a96bdf1c0852083b25abf08b6f6953a4cecc6c",
+      "size": 41907
     },
     "guide/data/progression.json": {
-      "sha256": "c8cc227020a495f734532fa408ac6d4278459cd499cde00cea5f9219c8208772",
-      "size": 20412
+      "sha256": "c5870d3aee92176ca1eedbe50dd79e342979556681959e12d7e5bf1e99609a55",
+      "size": 32945
+    },
+    "guide/data/reference.json": {
+      "sha256": "e85d29ce4e20f55b729721e56d0247ae1f85a726b57ac5013678a8db2ae0bf34",
+      "size": 23378
     },
     "vendor/upstream-python/project/tbl_all.json": {
       "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c",
       "size": 164751
+    },
+    "work/disc/DATA/COMPDATA.BN": {
+      "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+      "size": 144990
     },
     "work/disc/DATA/STAGE.BIN": {
       "sha256": "9c56d42f96df7b409ccf468b24412322ed627b9cbbd656864818a404d89240dc",
@@ -62,43 +116,6 @@
     "001": [
       {
         "archive_index": 1,
-        "conditions": [
-          {
-            "id": "story/001/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 17656,
-            "text": "击坠阿波利和罗伯托。",
-            "text_offset": 45520
-          },
-          {
-            "id": "story/001/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 17660,
-            "text": "使克瓦特罗或卡缪的HP降至4000以下。",
-            "text_offset": 45552
-          },
-          {
-            "id": "story/001/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 17664,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 45616
-          },
-          {
-            "id": "story/001/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 17672,
-            "text": "？？？",
-            "text_offset": 45648
-          },
-          {
-            "id": "story/001/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 17676,
-            "text": "击坠克瓦特罗或卡缪。\n（两者都会在HP降至4000以下时撤退）",
-            "text_offset": 45664
-          }
-        ],
         "decoded_sha256": "cee23992794e053f79dbe04976ada74793557b2d3435d4e7eb32069c82000096",
         "decoded_size": 45968,
         "dialogue_count": 312,
@@ -112,43 +129,6 @@
     "002": [
       {
         "archive_index": 2,
-        "conditions": [
-          {
-            "id": "story/002/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 31456,
-            "text": "敌全灭。",
-            "text_offset": 74696
-          },
-          {
-            "id": "story/002/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 31460,
-            "text": "击坠真或亚历克斯。",
-            "text_offset": 74720
-          },
-          {
-            "id": "story/002/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 31472,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 74848
-          },
-          {
-            "id": "story/002/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 31480,
-            "text": "在2回合内使敌人全灭。",
-            "text_offset": 74880
-          },
-          {
-            "id": "story/002/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 31484,
-            "text": "无",
-            "text_offset": 74912
-          }
-        ],
         "decoded_sha256": "f99d238ae4607748e5f11bc70cd77527dee79913363b8bc8c549a3e62bd17646",
         "decoded_size": 75152,
         "dialogue_count": 542,
@@ -162,7 +142,6 @@
     "003": [
       {
         "archive_index": 3,
-        "conditions": [],
         "decoded_sha256": "21955822b660db010e342b60c87fbf5d7475cea7fb93ca45b5e7e92eabf28fce",
         "decoded_size": 7312,
         "dialogue_count": 36,
@@ -174,50 +153,6 @@
       },
       {
         "archive_index": 4,
-        "conditions": [
-          {
-            "id": "story/004/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 29800,
-            "text": "击坠加迪·鲁号或埃格萨斯。",
-            "text_offset": 74240
-          },
-          {
-            "id": "story/004/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 29804,
-            "text": "使亚历山大号的HP降至10000以下。",
-            "text_offset": 74288
-          },
-          {
-            "id": "story/004/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 29808,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 74336
-          },
-          {
-            "id": "story/004/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 29812,
-            "text": "阿伽玛或密涅瓦被击坠。",
-            "text_offset": 74368
-          },
-          {
-            "id": "story/004/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 29824,
-            "text": "在4回合内击坠伊安；或在4回合内击坠斯汀、\n奥尔和史黛拉后，最后击坠尼奥。",
-            "text_offset": 74448
-          },
-          {
-            "id": "story/004/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 29828,
-            "text": "无",
-            "text_offset": 74560
-          }
-        ],
         "decoded_sha256": "1b614d665fab648c1efcf0a0b64bf5e79de320225bd0fd8c58783199cd62c0e3",
         "decoded_size": 74768,
         "dialogue_count": 523,
@@ -231,43 +166,6 @@
     "004": [
       {
         "archive_index": 5,
-        "conditions": [
-          {
-            "id": "story/005/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 17296,
-            "text": "击坠维加之王。",
-            "text_offset": 43840
-          },
-          {
-            "id": "story/005/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 17300,
-            "text": "敌全灭。",
-            "text_offset": 43872
-          },
-          {
-            "id": "story/005/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 17304,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 43888
-          },
-          {
-            "id": "story/005/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 17312,
-            "text": "在3回合内使维加之王的HP降至10000以下。",
-            "text_offset": 43920
-          },
-          {
-            "id": "story/005/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 17316,
-            "text": "无",
-            "text_offset": 43984
-          }
-        ],
         "decoded_sha256": "fbb2ddfc55b5882f9eb7fd86fd397c08a6c5a831d8d2b0ba0f5c706a7b8fea13",
         "decoded_size": 44304,
         "dialogue_count": 298,
@@ -281,36 +179,6 @@
     "005": [
       {
         "archive_index": 6,
-        "conditions": [
-          {
-            "id": "story/006/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 24256,
-            "text": "敌全灭。",
-            "text_offset": 59272
-          },
-          {
-            "id": "story/006/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 24264,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 59296
-          },
-          {
-            "id": "story/006/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 24272,
-            "text": "？？？",
-            "text_offset": 57320
-          },
-          {
-            "id": "story/006/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 24276,
-            "text": "敌方增援出现后，在3回合内使敌人全灭。",
-            "text_offset": 59328
-          }
-        ],
         "decoded_sha256": "af35cd1bf894261a0c6f5a7a2223e22cee7bd153192e30c4631a3f0750cd96e7",
         "decoded_size": 59664,
         "dialogue_count": 447,
@@ -324,50 +192,6 @@
     "006": [
       {
         "archive_index": 7,
-        "conditions": [
-          {
-            "id": "story/007/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 32480,
-            "text": "敌全灭。",
-            "text_offset": 78856
-          },
-          {
-            "id": "story/007/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 32484,
-            "text": "神机超重神登场后，\n在3回合内击坠迪克里尔。",
-            "text_offset": 78880
-          },
-          {
-            "id": "story/007/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 32488,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 78960
-          },
-          {
-            "id": "story/007/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 32492,
-            "text": "神机超重神登场后的第4回合到来。",
-            "text_offset": 78992
-          },
-          {
-            "id": "story/007/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 32496,
-            "text": "在2回合内使敌人全灭。",
-            "text_offset": 79040
-          },
-          {
-            "id": "story/007/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 32500,
-            "text": "无",
-            "text_offset": 79072
-          }
-        ],
         "decoded_sha256": "f4d1394cf961fc3a187074010eedd7dcabe2d5a2f35a8e2a5c21f44d6512d595",
         "decoded_size": 79248,
         "dialogue_count": 633,
@@ -381,7 +205,6 @@
     "007": [
       {
         "archive_index": 8,
-        "conditions": [],
         "decoded_sha256": "6f4483ab8a4ca130b414ecabc4cb36423d55bc56318cae4d6ef18a8766c30662",
         "decoded_size": 20112,
         "dialogue_count": 188,
@@ -393,36 +216,6 @@
       },
       {
         "archive_index": 9,
-        "conditions": [
-          {
-            "id": "story/009/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21896,
-            "text": "敌全灭。",
-            "text_offset": 52872
-          },
-          {
-            "id": "story/009/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21904,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 52896
-          },
-          {
-            "id": "story/009/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21912,
-            "text": "在2回合内击坠2台敌机。",
-            "text_offset": 52928
-          },
-          {
-            "id": "story/009/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 21916,
-            "text": "无",
-            "text_offset": 52968
-          }
-        ],
         "decoded_sha256": "77c51fe9f9b59454434effc2e22cfa85f6fd546812146df57c926d1a6498275d",
         "decoded_size": 53264,
         "dialogue_count": 361,
@@ -436,43 +229,6 @@
     "008": [
       {
         "archive_index": 10,
-        "conditions": [
-          {
-            "id": "story/010/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 35384,
-            "text": "击坠所有吉恩高机动2型。",
-            "text_offset": 88384
-          },
-          {
-            "id": "story/010/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 35388,
-            "text": "击坠佐藤。",
-            "text_offset": 88432
-          },
-          {
-            "id": "story/010/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 35408,
-            "text": "友方战舰被击坠。",
-            "text_offset": 88496
-          },
-          {
-            "id": "story/010/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 35412,
-            "text": "卡缪或真被击坠。",
-            "text_offset": 88528
-          },
-          {
-            "id": "story/010/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 35424,
-            "text": "在6回合内过关。",
-            "text_offset": 88672
-          }
-        ],
         "decoded_sha256": "26ff5e8d53d9d5ae453ba718d4292cf1ff152eabee051441454f20bf30bb4e39",
         "decoded_size": 89104,
         "dialogue_count": 631,
@@ -486,7 +242,6 @@
     "009": [
       {
         "archive_index": 11,
-        "conditions": [],
         "decoded_sha256": "2fb23c3473fb03e8b4f06917e3afe928bea267f685c59c48af03a90b0f96abd7",
         "decoded_size": 8080,
         "dialogue_count": 45,
@@ -498,29 +253,6 @@
       },
       {
         "archive_index": 12,
-        "conditions": [
-          {
-            "id": "story/012/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 13952,
-            "text": "敌全灭。",
-            "text_offset": 33896
-          },
-          {
-            "id": "story/012/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 13960,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 33920
-          },
-          {
-            "id": "story/012/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 13968,
-            "text": "在3回合内过关。",
-            "text_offset": 33952
-          }
-        ],
         "decoded_sha256": "740155c551ab533a606be48599e92c8c5f06f686cb47250c10f03aa80eb8f9a1",
         "decoded_size": 34192,
         "dialogue_count": 225,
@@ -534,29 +266,6 @@
     "010": [
       {
         "archive_index": 13,
-        "conditions": [
-          {
-            "id": "story/013/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 13920,
-            "text": "击坠杰拉巴。",
-            "text_offset": 36944
-          },
-          {
-            "id": "story/013/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 13928,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 36960
-          },
-          {
-            "id": "story/013/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 13936,
-            "text": "在第4回合我方阶段结束前，\n击坠包括杰拉巴在内的所有敌人。",
-            "text_offset": 36992
-          }
-        ],
         "decoded_sha256": "ca3e8e246f36a3532d60b8ce68aa2233ac3ceb721dd2e531d984da4e61b175d4",
         "decoded_size": 37264,
         "dialogue_count": 251,
@@ -570,43 +279,6 @@
     "011": [
       {
         "archive_index": 14,
-        "conditions": [
-          {
-            "id": "story/014/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21072,
-            "text": "敌全灭。",
-            "text_offset": 50544
-          },
-          {
-            "id": "story/014/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21080,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 50560
-          },
-          {
-            "id": "story/014/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 21084,
-            "text": "友方全灭。",
-            "text_offset": 50592
-          },
-          {
-            "id": "story/014/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21088,
-            "text": "？？？",
-            "text_offset": 41320
-          },
-          {
-            "id": "story/014/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 21092,
-            "text": "击坠亚蒂特的多格佐。\n另外，亚蒂特机会在HP降至3000以下时后撤。",
-            "text_offset": 50608
-          }
-        ],
         "decoded_sha256": "3bf021b90abb7273a5f15a6dc6e2354f12659e22bcbdf0a343e762c89bfc27b1",
         "decoded_size": 50832,
         "dialogue_count": 376,
@@ -620,50 +292,6 @@
     "012": [
       {
         "archive_index": 15,
-        "conditions": [
-          {
-            "id": "story/015/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 25744,
-            "text": "敌全灭。",
-            "text_offset": 63080
-          },
-          {
-            "id": "story/015/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 25748,
-            "text": "击坠拉什罗德。",
-            "text_offset": 63104
-          },
-          {
-            "id": "story/015/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 25752,
-            "text": "莎拉或该隐被击坠。",
-            "text_offset": 63136
-          },
-          {
-            "id": "story/015/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 25756,
-            "text": "盖纳或该隐被击坠。",
-            "text_offset": 63168
-          },
-          {
-            "id": "story/015/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 25768,
-            "text": "在第3回合我方阶段结束前击坠布法罗。",
-            "text_offset": 63232
-          },
-          {
-            "id": "story/015/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 25772,
-            "text": "无",
-            "text_offset": 63288
-          }
-        ],
         "decoded_sha256": "9b1f4256d4a358a315c3160715d4178671ddff755bcb93869ef5af5140f8a7fe",
         "decoded_size": 63632,
         "dialogue_count": 480,
@@ -677,50 +305,6 @@
     "013": [
       {
         "archive_index": 16,
-        "conditions": [
-          {
-            "id": "story/016/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 29368,
-            "text": "敌全灭。",
-            "text_offset": 73096
-          },
-          {
-            "id": "story/016/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 29372,
-            "text": "击坠拉什罗德。",
-            "text_offset": 73120
-          },
-          {
-            "id": "story/016/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 29376,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 73152
-          },
-          {
-            "id": "story/016/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 29380,
-            "text": "钢铁齿轮号被击坠。",
-            "text_offset": 73184
-          },
-          {
-            "id": "story/016/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 29384,
-            "text": "？？？",
-            "text_offset": 73216
-          },
-          {
-            "id": "story/016/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 29388,
-            "text": "在第5回合我方阶段结束前击坠所有敌人，\n最后击坠拉什罗德。",
-            "text_offset": 73232
-          }
-        ],
         "decoded_sha256": "b7760da29afea3ff1ad74d587f4e9c6cb621e964ba646d1c9dccc2a5ce7032d0",
         "decoded_size": 73616,
         "dialogue_count": 590,
@@ -734,36 +318,6 @@
     "014": [
       {
         "archive_index": 17,
-        "conditions": [
-          {
-            "id": "story/017/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 14800,
-            "text": "敌全灭。",
-            "text_offset": 35544
-          },
-          {
-            "id": "story/017/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 14808,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 35568
-          },
-          {
-            "id": "story/017/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 14812,
-            "text": "钢铁齿轮号或月光号被击坠。",
-            "text_offset": 35600
-          },
-          {
-            "id": "story/017/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 14816,
-            "text": "在3回合内过关。",
-            "text_offset": 35648
-          }
-        ],
         "decoded_sha256": "6adc1e2ad6ccaef62a1104367399e074fe4ef4597e4c60c2cef82a8ceff1cb73",
         "decoded_size": 35856,
         "dialogue_count": 247,
@@ -775,7 +329,6 @@
       },
       {
         "archive_index": 18,
-        "conditions": [],
         "decoded_sha256": "9b7384bfe0d4027b139d374c13404aad71e7387b69945e1814e4344c11887d90",
         "decoded_size": 3728,
         "dialogue_count": 3,
@@ -789,36 +342,6 @@
     "015": [
       {
         "archive_index": 19,
-        "conditions": [
-          {
-            "id": "story/019/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 16840,
-            "text": "击坠沃多姆。",
-            "text_offset": 44784
-          },
-          {
-            "id": "story/019/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 16848,
-            "text": "钢铁齿轮号被击坠。",
-            "text_offset": 44816
-          },
-          {
-            "id": "story/019/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 16852,
-            "text": "罗兰被击坠。",
-            "text_offset": 44848
-          },
-          {
-            "id": "story/019/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 16856,
-            "text": "在第3回合我方阶段结束前击坠所有敌人，\n最后击坠沃多姆。",
-            "text_offset": 44864
-          }
-        ],
         "decoded_sha256": "caaa4f10c5e9d93b3ee5affc4cc752698c0b0d028b5cddfd459b061a91c570d6",
         "decoded_size": 45072,
         "dialogue_count": 316,
@@ -832,50 +355,6 @@
     "016": [
       {
         "archive_index": 20,
-        "conditions": [
-          {
-            "id": "story/020/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 32536,
-            "text": "敌全灭。",
-            "text_offset": 80248
-          },
-          {
-            "id": "story/020/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 32540,
-            "text": "击坠阿尔迈亚号。",
-            "text_offset": 80272
-          },
-          {
-            "id": "story/020/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 32544,
-            "text": "罗拉被击坠。",
-            "text_offset": 80296
-          },
-          {
-            "id": "story/020/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 32548,
-            "text": "钢铁齿轮号被击坠。",
-            "text_offset": 80320
-          },
-          {
-            "id": "story/020/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 32560,
-            "text": "？？？",
-            "text_offset": 80368
-          },
-          {
-            "id": "story/020/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 32564,
-            "text": "在6回合内将夏基亚、奥尔巴和哈利\n全部击坠。",
-            "text_offset": 80384
-          }
-        ],
         "decoded_sha256": "a75d8d6f0aff67c135700749960fcdcc00ea8c35353372da0defd9bd4902e019",
         "decoded_size": 80656,
         "dialogue_count": 610,
@@ -889,36 +368,6 @@
     "017": [
       {
         "archive_index": 21,
-        "conditions": [
-          {
-            "id": "story/021/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 27696,
-            "text": "敌全灭。",
-            "text_offset": 68304
-          },
-          {
-            "id": "story/021/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 27704,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 68320
-          },
-          {
-            "id": "story/021/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 27708,
-            "text": "钢铁齿轮号被击坠。",
-            "text_offset": 68352
-          },
-          {
-            "id": "story/021/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 27720,
-            "text": "在3回合内使敌人全灭。",
-            "text_offset": 68400
-          }
-        ],
         "decoded_sha256": "d3adc9ec88404dab1410b2ca76db064aba3d69d348e631124f46e6b0fd94474b",
         "decoded_size": 68624,
         "dialogue_count": 503,
@@ -932,36 +381,6 @@
     "018": [
       {
         "archive_index": 22,
-        "conditions": [
-          {
-            "id": "story/022/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21544,
-            "text": "敌全灭。",
-            "text_offset": 56376
-          },
-          {
-            "id": "story/022/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21552,
-            "text": "钢铁齿轮号被击坠。",
-            "text_offset": 56400
-          },
-          {
-            "id": "story/022/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 21556,
-            "text": "亚库艾里翁被击坠。",
-            "text_offset": 56432
-          },
-          {
-            "id": "story/022/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21560,
-            "text": "在4回合内过关。",
-            "text_offset": 56464
-          }
-        ],
         "decoded_sha256": "97a3f0de931f6244611ca8053f1bde9d39021493f2bfc820145129590df37bb0",
         "decoded_size": 56720,
         "dialogue_count": 375,
@@ -975,43 +394,6 @@
     "019": [
       {
         "archive_index": 23,
-        "conditions": [
-          {
-            "id": "story/023/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 14208,
-            "text": "敌全灭。",
-            "text_offset": 32088
-          },
-          {
-            "id": "story/023/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 14216,
-            "text": "格罗玛号被击坠。",
-            "text_offset": 32112
-          },
-          {
-            "id": "story/023/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 14220,
-            "text": "桂被击坠。",
-            "text_offset": 32136
-          },
-          {
-            "id": "story/023/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 14232,
-            "text": "在3回合内使敌人全灭。",
-            "text_offset": 32224
-          },
-          {
-            "id": "story/023/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 14236,
-            "text": "无",
-            "text_offset": 32256
-          }
-        ],
         "decoded_sha256": "3811da1cef190bb09a1dbd0691c8cab74f0f7562d15901c308ffd85212e025f5",
         "decoded_size": 32400,
         "dialogue_count": 220,
@@ -1025,50 +407,6 @@
     "020": [
       {
         "archive_index": 24,
-        "conditions": [
-          {
-            "id": "story/024/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 41632,
-            "text": "击坠贝克胜利豪华型。",
-            "text_offset": 89488
-          },
-          {
-            "id": "story/024/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 41636,
-            "text": "击坠木乃伊。",
-            "text_offset": 89528
-          },
-          {
-            "id": "story/024/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 41640,
-            "text": "罗杰被击坠。",
-            "text_offset": 89552
-          },
-          {
-            "id": "story/024/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 41644,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 89584
-          },
-          {
-            "id": "story/024/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 41648,
-            "text": "？？？",
-            "text_offset": 64536
-          },
-          {
-            "id": "story/024/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 41652,
-            "text": "登场后，在3回合内击坠所有Archetype，\n最后击坠木乃伊。",
-            "text_offset": 89616
-          }
-        ],
         "decoded_sha256": "79832b7ca4cdfe9320d160b33391c96a5ae0bef30e47d17f6a741b5fcdd3278b",
         "decoded_size": 89872,
         "dialogue_count": 883,
@@ -1082,43 +420,6 @@
     "021": [
       {
         "archive_index": 25,
-        "conditions": [
-          {
-            "id": "story/025/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 48144,
-            "text": "敌全灭。",
-            "text_offset": 122216
-          },
-          {
-            "id": "story/025/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 48152,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 122240
-          },
-          {
-            "id": "story/025/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 48156,
-            "text": "友方战舰被击坠。",
-            "text_offset": 122272
-          },
-          {
-            "id": "story/025/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 48168,
-            "text": "？？？",
-            "text_offset": 122328
-          },
-          {
-            "id": "story/025/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 48172,
-            "text": "登场后，在2回合内击坠梅萨拉。",
-            "text_offset": 122336
-          }
-        ],
         "decoded_sha256": "dd98bd5072ffb93cc3154e0dc003648f8dd8e448090dd070df04fb72a5a2244f",
         "decoded_size": 122640,
         "dialogue_count": 979,
@@ -1132,36 +433,6 @@
     "022": [
       {
         "archive_index": 26,
-        "conditions": [
-          {
-            "id": "story/026/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 34504,
-            "text": "敌全灭。",
-            "text_offset": 87088
-          },
-          {
-            "id": "story/026/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 34512,
-            "text": "帝皇比亚路号被击坠。",
-            "text_offset": 87104
-          },
-          {
-            "id": "story/026/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 34516,
-            "text": "斗志也被击坠。",
-            "text_offset": 87128
-          },
-          {
-            "id": "story/026/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 34520,
-            "text": "在4回合内过关。",
-            "text_offset": 87152
-          }
-        ],
         "decoded_sha256": "256b2cbd72bb27bdb01223109131d8795d7fff542f8522dd1452506ede09a3d8",
         "decoded_size": 87440,
         "dialogue_count": 656,
@@ -1175,43 +446,6 @@
     "023": [
       {
         "archive_index": 27,
-        "conditions": [
-          {
-            "id": "story/027/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 36528,
-            "text": "敌全灭。",
-            "text_offset": 92464
-          },
-          {
-            "id": "story/027/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 36532,
-            "text": "击坠波机和科伦机。",
-            "text_offset": 92480
-          },
-          {
-            "id": "story/027/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 36544,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 92576
-          },
-          {
-            "id": "story/027/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 36548,
-            "text": "友方战舰被击坠。",
-            "text_offset": 92608
-          },
-          {
-            "id": "story/027/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 36560,
-            "text": "在第6回合我方阶段结束前过关。",
-            "text_offset": 92656
-          }
-        ],
         "decoded_sha256": "c5bbce552fbda3f14d331b17643f4a884249b684e57b483db65c3115ea0b36a6",
         "decoded_size": 93072,
         "dialogue_count": 695,
@@ -1225,43 +459,6 @@
     "024": [
       {
         "archive_index": 28,
-        "conditions": [
-          {
-            "id": "story/028/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 44256,
-            "text": "击坠伊修基克·指挥官型。",
-            "text_offset": 116480
-          },
-          {
-            "id": "story/028/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 44260,
-            "text": "击坠温达姆（尼奥机）。",
-            "text_offset": 116528
-          },
-          {
-            "id": "story/028/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 44288,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 116640
-          },
-          {
-            "id": "story/028/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 44292,
-            "text": "友方战舰被击坠。",
-            "text_offset": 116672
-          },
-          {
-            "id": "story/028/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 44312,
-            "text": "在9回合内过关。",
-            "text_offset": 116816
-          }
-        ],
         "decoded_sha256": "ed8c6f305f7ea6860e31df8d305c16175d5aeafb197e207c02b8a737262f8bc9",
         "decoded_size": 117392,
         "dialogue_count": 801,
@@ -1275,50 +472,6 @@
     "025": [
       {
         "archive_index": 29,
-        "conditions": [
-          {
-            "id": "story/029/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 31712,
-            "text": "使月光号的HP降至10%以下。",
-            "text_offset": 80464
-          },
-          {
-            "id": "story/029/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 31716,
-            "text": "敌全灭。",
-            "text_offset": 80504
-          },
-          {
-            "id": "story/029/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 31720,
-            "text": "友方战舰被击坠。",
-            "text_offset": 80528
-          },
-          {
-            "id": "story/029/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 31724,
-            "text": "任一敌方单位被击坠。",
-            "text_offset": 80560
-          },
-          {
-            "id": "story/029/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 31728,
-            "text": "？？？",
-            "text_offset": 80584
-          },
-          {
-            "id": "story/029/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 31732,
-            "text": "敌方增援出现后，在4回合内使敌人全灭。",
-            "text_offset": 80592
-          }
-        ],
         "decoded_sha256": "46604462de25fa80707efa81ad0670344ea249904a72485efc2d624e970f778a",
         "decoded_size": 80912,
         "dialogue_count": 632,
@@ -1332,36 +485,6 @@
     "026": [
       {
         "archive_index": 30,
-        "conditions": [
-          {
-            "id": "story/030/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 35848,
-            "text": "敌全灭。",
-            "text_offset": 91648
-          },
-          {
-            "id": "story/030/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 35856,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 91664
-          },
-          {
-            "id": "story/030/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 35860,
-            "text": "友方战舰被击坠。",
-            "text_offset": 91696
-          },
-          {
-            "id": "story/030/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 35872,
-            "text": "在第6回合我方阶段结束前过关。",
-            "text_offset": 91760
-          }
-        ],
         "decoded_sha256": "75be16d325765d8cfe5de939f234e8bd698d2fb873595493455bc457f32f73ce",
         "decoded_size": 92176,
         "dialogue_count": 649,
@@ -1375,43 +498,6 @@
     "027": [
       {
         "archive_index": 31,
-        "conditions": [
-          {
-            "id": "story/031/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 36784,
-            "text": "敌全灭。",
-            "text_offset": 93528
-          },
-          {
-            "id": "story/031/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 36788,
-            "text": "击坠扎姆扎扎。",
-            "text_offset": 93552
-          },
-          {
-            "id": "story/031/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 36800,
-            "text": "友方战舰被击坠。",
-            "text_offset": 93632
-          },
-          {
-            "id": "story/031/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 36804,
-            "text": "真被击坠。",
-            "text_offset": 93656
-          },
-          {
-            "id": "story/031/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 36816,
-            "text": "在7回合内过关。",
-            "text_offset": 93712
-          }
-        ],
         "decoded_sha256": "d8bc6e659db4f13da7ed88e4c486cdf9001ceb32116f6f0afb6a70b0b8c3dc46",
         "decoded_size": 94096,
         "dialogue_count": 669,
@@ -1425,50 +511,6 @@
     "028": [
       {
         "archive_index": 32,
-        "conditions": [
-          {
-            "id": "story/032/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 26696,
-            "text": "敌全灭。",
-            "text_offset": 63480
-          },
-          {
-            "id": "story/032/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 26700,
-            "text": "大天使号到达地图南端。",
-            "text_offset": 63504
-          },
-          {
-            "id": "story/032/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 26704,
-            "text": "基拉被击坠。",
-            "text_offset": 63544
-          },
-          {
-            "id": "story/032/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 26708,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 63568
-          },
-          {
-            "id": "story/032/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 26720,
-            "text": "在3回合内使敌人全灭。",
-            "text_offset": 63680
-          },
-          {
-            "id": "story/032/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 26724,
-            "text": "无",
-            "text_offset": 63712
-          }
-        ],
         "decoded_sha256": "c236a4626fb003c8ed18603756a2893f7ce349d8e51b3b9d3f0554d6ce494d8f",
         "decoded_size": 64016,
         "dialogue_count": 472,
@@ -1480,7 +522,6 @@
       },
       {
         "archive_index": 33,
-        "conditions": [],
         "decoded_sha256": "33e2f35f4aff1ef1d461b01b12c413deb499b8f63ecd4441901261b80ed20ca1",
         "decoded_size": 23568,
         "dialogue_count": 143,
@@ -1494,43 +535,6 @@
     "029": [
       {
         "archive_index": 34,
-        "conditions": [
-          {
-            "id": "story/034/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 28800,
-            "text": "敌全灭。",
-            "text_offset": 71568
-          },
-          {
-            "id": "story/034/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 28804,
-            "text": "击坠伊修基克·指挥官型（罗伯托）。",
-            "text_offset": 71584
-          },
-          {
-            "id": "story/034/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 28808,
-            "text": "友方战舰被击坠。",
-            "text_offset": 71632
-          },
-          {
-            "id": "story/034/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 28816,
-            "text": "在3回合内使敌人全灭。",
-            "text_offset": 71664
-          },
-          {
-            "id": "story/034/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 28820,
-            "text": "无",
-            "text_offset": 71696
-          }
-        ],
         "decoded_sha256": "a69649388bfd1f2a21a37658a7aede8e16eabae43b7aeb270b8e887b0c4725ad",
         "decoded_size": 71952,
         "dialogue_count": 532,
@@ -1544,7 +548,6 @@
     "030": [
       {
         "archive_index": 35,
-        "conditions": [],
         "decoded_sha256": "71f707f851f2cea7728a56ab439da962e231e7d3b0e7c9112f1dcbcd80eec92a",
         "decoded_size": 40848,
         "dialogue_count": 383,
@@ -1556,43 +559,6 @@
       },
       {
         "archive_index": 36,
-        "conditions": [
-          {
-            "id": "story/036/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21104,
-            "text": "击坠葛雷姆。",
-            "text_offset": 56352
-          },
-          {
-            "id": "story/036/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21112,
-            "text": "该隐被击坠。",
-            "text_offset": 56376
-          },
-          {
-            "id": "story/036/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 21116,
-            "text": "友方战舰被击坠。",
-            "text_offset": 56400
-          },
-          {
-            "id": "story/036/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21120,
-            "text": "？？？",
-            "text_offset": 56424
-          },
-          {
-            "id": "story/036/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 21124,
-            "text": "BIG-O登场后，在4回合内\n达成胜利条件。",
-            "text_offset": 56432
-          }
-        ],
         "decoded_sha256": "816fc9d99a3a293a60503fe984e673c35c2f2e1cd058ef647814fd9afc2b9893",
         "decoded_size": 56848,
         "dialogue_count": 329,
@@ -1606,36 +572,6 @@
     "031": [
       {
         "archive_index": 37,
-        "conditions": [
-          {
-            "id": "story/037/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 29216,
-            "text": "敌全灭。",
-            "text_offset": 75120
-          },
-          {
-            "id": "story/037/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 29232,
-            "text": "胜平被击坠。",
-            "text_offset": 75136
-          },
-          {
-            "id": "story/037/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 29236,
-            "text": "友方战舰被击坠。",
-            "text_offset": 75152
-          },
-          {
-            "id": "story/037/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 29248,
-            "text": "在7回合内过关。",
-            "text_offset": 75248
-          }
-        ],
         "decoded_sha256": "e81bbf91ac25e01d7ed31a2afbe95c3360f6f5065135c88eb5d83c7caca153b3",
         "decoded_size": 75536,
         "dialogue_count": 500,
@@ -1649,50 +585,6 @@
     "032": [
       {
         "archive_index": 38,
-        "conditions": [
-          {
-            "id": "story/038/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 42032,
-            "text": "击坠沃多姆（波）和金色斯摩。",
-            "text_offset": 102928
-          },
-          {
-            "id": "story/038/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 42036,
-            "text": "击坠金巴和贝克胜利豪华型（贝克）。",
-            "text_offset": 102976
-          },
-          {
-            "id": "story/038/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 42048,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 103040
-          },
-          {
-            "id": "story/038/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 42052,
-            "text": "苏蕾尤号被击坠。",
-            "text_offset": 103072
-          },
-          {
-            "id": "story/038/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 42064,
-            "text": "在4回合内达成胜利条件。",
-            "text_offset": 103168
-          },
-          {
-            "id": "story/038/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 42068,
-            "text": "无",
-            "text_offset": 103208
-          }
-        ],
         "decoded_sha256": "be7fbe37912ce16e17c45f39c846e17df43d7e38898b265c977571eb78469e00",
         "decoded_size": 103440,
         "dialogue_count": 818,
@@ -1704,7 +596,6 @@
       },
       {
         "archive_index": 39,
-        "conditions": [],
         "decoded_sha256": "e1dd583055dac11696e99ff13a7df2f52d380dcb51c743712833f825c1d57404",
         "decoded_size": 33808,
         "dialogue_count": 221,
@@ -1718,50 +609,6 @@
     "033": [
       {
         "archive_index": 40,
-        "conditions": [
-          {
-            "id": "story/040/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 41480,
-            "text": "击坠普拉涅塔。",
-            "text_offset": 100256
-          },
-          {
-            "id": "story/040/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 41484,
-            "text": "击坠摩克斯兰。",
-            "text_offset": 100288
-          },
-          {
-            "id": "story/040/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 41496,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 100368
-          },
-          {
-            "id": "story/040/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 41500,
-            "text": "友方战舰被击坠。",
-            "text_offset": 100400
-          },
-          {
-            "id": "story/040/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 41504,
-            "text": "在3回合内击坠摩克斯兰。",
-            "text_offset": 100432
-          },
-          {
-            "id": "story/040/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 41508,
-            "text": "无",
-            "text_offset": 100480
-          }
-        ],
         "decoded_sha256": "03360995ea5e6b914e11a09153e5a3436b52228f44f8452e41999ad2f129aa2e",
         "decoded_size": 100880,
         "dialogue_count": 749,
@@ -1775,50 +622,6 @@
     "034": [
       {
         "archive_index": 41,
-        "conditions": [
-          {
-            "id": "story/041/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 26648,
-            "text": "敌全灭。",
-            "text_offset": 65752
-          },
-          {
-            "id": "story/041/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 26652,
-            "text": "击坠狩狼牙。",
-            "text_offset": 65776
-          },
-          {
-            "id": "story/041/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 26656,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 65808
-          },
-          {
-            "id": "story/041/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 26660,
-            "text": "友方战舰被击坠。",
-            "text_offset": 65840
-          },
-          {
-            "id": "story/041/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 26672,
-            "text": "？？？",
-            "text_offset": 64848
-          },
-          {
-            "id": "story/041/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 26676,
-            "text": "在5回合内击坠狩狼牙。",
-            "text_offset": 65936
-          }
-        ],
         "decoded_sha256": "c4fcd6f17e64ffff0d0315b244355c65a6b64a7d42c954e1931a210617ac8ca6",
         "decoded_size": 66192,
         "dialogue_count": 470,
@@ -1832,43 +635,6 @@
     "035": [
       {
         "archive_index": 42,
-        "conditions": [
-          {
-            "id": "story/042/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21936,
-            "text": "敌全灭。",
-            "text_offset": 60680
-          },
-          {
-            "id": "story/042/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21944,
-            "text": "：被击坠。",
-            "text_offset": 60696
-          },
-          {
-            "id": "story/042/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 21948,
-            "text": "友方战舰被击坠。",
-            "text_offset": 60720
-          },
-          {
-            "id": "story/042/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21960,
-            "text": "在3回合内使敌人全灭。",
-            "text_offset": 60784
-          },
-          {
-            "id": "story/042/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 21964,
-            "text": "无",
-            "text_offset": 60816
-          }
-        ],
         "decoded_sha256": "146cb2254a861af93b717ee3d0ff0969401b26a64d9f2b6fa668e1c865034dbf",
         "decoded_size": 61072,
         "dialogue_count": 430,
@@ -1882,50 +648,6 @@
     "036": [
       {
         "archive_index": 43,
-        "conditions": [
-          {
-            "id": "story/043/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 35488,
-            "text": "敌全灭。",
-            "text_offset": 85048
-          },
-          {
-            "id": "story/043/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 35492,
-            "text": "击坠多米尼达。",
-            "text_offset": 85072
-          },
-          {
-            "id": "story/043/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 35496,
-            "text": "友方战舰被击坠。",
-            "text_offset": 85104
-          },
-          {
-            "id": "story/043/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 35500,
-            "text": "盖纳或高利被击坠。",
-            "text_offset": 85136
-          },
-          {
-            "id": "story/043/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 35512,
-            "text": "？？？",
-            "text_offset": 85192
-          },
-          {
-            "id": "story/043/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 35516,
-            "text": "在5回合内击坠其他所有敌人后，\n最后击坠多米尼达。",
-            "text_offset": 85200
-          }
-        ],
         "decoded_sha256": "839042494b8c19000eed7dbdb246efe23a83785da898f0ba6fea7cf664b8b8dc",
         "decoded_size": 85520,
         "dialogue_count": 597,
@@ -1939,7 +661,6 @@
     "037": [
       {
         "archive_index": 44,
-        "conditions": [],
         "decoded_sha256": "3621078e3670fac53c8cfdf462900e1602951c68c6b83811ced3ed2b9cb4f0b2",
         "decoded_size": 9872,
         "dialogue_count": 65,
@@ -1951,43 +672,6 @@
       },
       {
         "archive_index": 45,
-        "conditions": [
-          {
-            "id": "story/045/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 38472,
-            "text": "敌全灭。",
-            "text_offset": 100088
-          },
-          {
-            "id": "story/045/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 38476,
-            "text": "击坠独眼鬼和BIG-DUO。",
-            "text_offset": 100112
-          },
-          {
-            "id": "story/045/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 38480,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 100144
-          },
-          {
-            "id": "story/045/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 38484,
-            "text": "友方战舰被击坠。",
-            "text_offset": 100176
-          },
-          {
-            "id": "story/045/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 38488,
-            "text": "在7回合内过关。",
-            "text_offset": 100208
-          }
-        ],
         "decoded_sha256": "3d1e702cde0029112d3642c0b69c2023f121f55ca74b8d417deedf913b16ecc5",
         "decoded_size": 100496,
         "dialogue_count": 682,
@@ -2001,7 +685,6 @@
     "038": [
       {
         "archive_index": 46,
-        "conditions": [],
         "decoded_sha256": "107a7d8c0c62e1a19c5bc25c8c709357b5cca0e278e30d7991d6a78034efad8b",
         "decoded_size": 6032,
         "dialogue_count": 28,
@@ -2013,43 +696,6 @@
       },
       {
         "archive_index": 47,
-        "conditions": [
-          {
-            "id": "story/047/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 30672,
-            "text": "敌全灭。",
-            "text_offset": 76096
-          },
-          {
-            "id": "story/047/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 30676,
-            "text": "击坠机械铁甲鬼。",
-            "text_offset": 76112
-          },
-          {
-            "id": "story/047/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 30680,
-            "text": "友方战舰被击坠。",
-            "text_offset": 76144
-          },
-          {
-            "id": "story/047/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 30688,
-            "text": "在3回合内击坠其他所有敌人，\n最后击坠独眼鬼。",
-            "text_offset": 76176
-          },
-          {
-            "id": "story/047/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 30692,
-            "text": "无",
-            "text_offset": 76240
-          }
-        ],
         "decoded_sha256": "c8453007fd92ee1998efa7d5d9c4fe96b0c9b22d513e3490330e1c015780402c",
         "decoded_size": 76560,
         "dialogue_count": 554,
@@ -2063,50 +709,6 @@
     "039": [
       {
         "archive_index": 48,
-        "conditions": [
-          {
-            "id": "story/048/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 42512,
-            "text": "敌全灭。",
-            "text_offset": 107544
-          },
-          {
-            "id": "story/048/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 42516,
-            "text": "击坠机械铁甲鬼。",
-            "text_offset": 107568
-          },
-          {
-            "id": "story/048/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 42528,
-            "text": "友方战舰被击坠。",
-            "text_offset": 107600
-          },
-          {
-            "id": "story/048/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 42532,
-            "text": "亚库艾里翁被击坠。",
-            "text_offset": 107632
-          },
-          {
-            "id": "story/048/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 42544,
-            "text": "在6回合内达成胜利条件。",
-            "text_offset": 107712
-          },
-          {
-            "id": "story/048/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 42548,
-            "text": "无",
-            "text_offset": 107752
-          }
-        ],
         "decoded_sha256": "fc9dce31d2b79396b677961bfd54449dce8bb38bf669f4fcca1dce368f1e6d13",
         "decoded_size": 107920,
         "dialogue_count": 815,
@@ -2118,7 +720,6 @@
       },
       {
         "archive_index": 49,
-        "conditions": [],
         "decoded_sha256": "b7cf9117684897b6db500828c03b0ccd98ff0902552853583b15621d73b3c1c0",
         "decoded_size": 12816,
         "dialogue_count": 29,
@@ -2132,50 +733,6 @@
     "040": [
       {
         "archive_index": 50,
-        "conditions": [
-          {
-            "id": "story/050/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 37296,
-            "text": "敌全灭。",
-            "text_offset": 92008
-          },
-          {
-            "id": "story/050/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 37300,
-            "text": "击坠精神感应高达。",
-            "text_offset": 92032
-          },
-          {
-            "id": "story/050/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 37304,
-            "text": "友方战舰被击坠。",
-            "text_offset": 92064
-          },
-          {
-            "id": "story/050/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 37308,
-            "text": "斗牙被击坠。",
-            "text_offset": 92088
-          },
-          {
-            "id": "story/050/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 37312,
-            "text": "？？？",
-            "text_offset": 92104
-          },
-          {
-            "id": "story/050/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 37316,
-            "text": "在6回合内击坠精神感应高达。",
-            "text_offset": 92112
-          }
-        ],
         "decoded_sha256": "f3d2c0839359d1e7833f6403ca817b92e86c3627190b8bff6e7a93726fdecb0e",
         "decoded_size": 92432,
         "dialogue_count": 730,
@@ -2189,7 +746,6 @@
     "041": [
       {
         "archive_index": 51,
-        "conditions": [],
         "decoded_sha256": "0707fa5abc4ba3c2f90b5f030fe249e6ea7a97f3f068bbe87346287967c49b0b",
         "decoded_size": 4368,
         "dialogue_count": 7,
@@ -2201,43 +757,6 @@
       },
       {
         "archive_index": 52,
-        "conditions": [
-          {
-            "id": "story/052/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 29504,
-            "text": "敌全灭。",
-            "text_offset": 77232
-          },
-          {
-            "id": "story/052/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 29512,
-            "text": "友方战舰被击坠。",
-            "text_offset": 77248
-          },
-          {
-            "id": "story/052/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 29516,
-            "text": "斗牙、罗兰或哈利任一人被击坠。",
-            "text_offset": 77280
-          },
-          {
-            "id": "story/052/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 29528,
-            "text": "在4回合内使敌人全灭。",
-            "text_offset": 77376
-          },
-          {
-            "id": "story/052/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 29532,
-            "text": "无",
-            "text_offset": 77408
-          }
-        ],
         "decoded_sha256": "5eceb7a1beb7a12601bfe661e804642031d885e8cea85faea897734c42f4f121",
         "decoded_size": 77712,
         "dialogue_count": 525,
@@ -2251,50 +770,6 @@
     "042": [
       {
         "archive_index": 53,
-        "conditions": [
-          {
-            "id": "story/053/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 34368,
-            "text": "敌全灭。",
-            "text_offset": 83392
-          },
-          {
-            "id": "story/053/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 34372,
-            "text": "击坠迪拉尔。",
-            "text_offset": 83408
-          },
-          {
-            "id": "story/053/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 34384,
-            "text": "友方战舰被击坠。",
-            "text_offset": 83488
-          },
-          {
-            "id": "story/053/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 34388,
-            "text": "斗志也被击坠。",
-            "text_offset": 83512
-          },
-          {
-            "id": "story/053/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 34400,
-            "text": "？？？",
-            "text_offset": 83544
-          },
-          {
-            "id": "story/053/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 34404,
-            "text": "击坠至少4台克拉肯；\n或在所有克拉肯到达地图边缘前\n击坠迪拉尔。",
-            "text_offset": 83552
-          }
-        ],
         "decoded_sha256": "26176fad425d0a5b4325897fc8316c8d4b0034c64de77b75f51a643debee96fa",
         "decoded_size": 83856,
         "dialogue_count": 601,
@@ -2308,50 +783,6 @@
     "043": [
       {
         "archive_index": 54,
-        "conditions": [
-          {
-            "id": "story/054/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 38512,
-            "text": "击坠布兰、尼奥和罗莎米娅。",
-            "text_offset": 88960
-          },
-          {
-            "id": "story/054/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 38516,
-            "text": "击坠玛希罗（史瓦特森）。",
-            "text_offset": 88992
-          },
-          {
-            "id": "story/054/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 38520,
-            "text": "友方战舰被击坠。",
-            "text_offset": 89024
-          },
-          {
-            "id": "story/054/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 38524,
-            "text": "：或卡缪任一人被击坠。",
-            "text_offset": 89056
-          },
-          {
-            "id": "story/054/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 38536,
-            "text": "在5回合内达成胜利条件。",
-            "text_offset": 89104
-          },
-          {
-            "id": "story/054/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 38540,
-            "text": "无",
-            "text_offset": 89144
-          }
-        ],
         "decoded_sha256": "2b676ec512f123d0499cd35feb5abd79c2bf25e077d616b8b6e3ff51a244dff1",
         "decoded_size": 89360,
         "dialogue_count": 562,
@@ -2365,50 +796,6 @@
     "044": [
       {
         "archive_index": 55,
-        "conditions": [
-          {
-            "id": "story/055/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 44616,
-            "text": "敌全灭。",
-            "text_offset": 105336
-          },
-          {
-            "id": "story/055/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 44620,
-            "text": "击坠迦楼罗级。",
-            "text_offset": 105360
-          },
-          {
-            "id": "story/055/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 44624,
-            "text": "友方战舰被击坠。",
-            "text_offset": 105392
-          },
-          {
-            "id": "story/055/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 44628,
-            "text": "阿斯兰或真被击坠。",
-            "text_offset": 105424
-          },
-          {
-            "id": "story/055/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 44640,
-            "text": "在5回合内击坠精神感应高达。",
-            "text_offset": 105504
-          },
-          {
-            "id": "story/055/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 44644,
-            "text": "无",
-            "text_offset": 105552
-          }
-        ],
         "decoded_sha256": "3f986e0bd0918a522dd73584265b3d3983c99941519c826c9796c9657e2c90aa",
         "decoded_size": 105744,
         "dialogue_count": 790,
@@ -2422,50 +809,6 @@
     "045": [
       {
         "archive_index": 56,
-        "conditions": [
-          {
-            "id": "story/056/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 26400,
-            "text": "击坠奈基克。",
-            "text_offset": 67424
-          },
-          {
-            "id": "story/056/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 26404,
-            "text": "击坠艾利法斯。",
-            "text_offset": 67456
-          },
-          {
-            "id": "story/056/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 26408,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 67488
-          },
-          {
-            "id": "story/056/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 26412,
-            "text": "友方战舰被击坠。",
-            "text_offset": 67520
-          },
-          {
-            "id": "story/056/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 26424,
-            "text": "在3回合内击坠其他所有敌人后，\n最后击坠奈基克。",
-            "text_offset": 67568
-          },
-          {
-            "id": "story/056/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 26428,
-            "text": "无",
-            "text_offset": 67632
-          }
-        ],
         "decoded_sha256": "a8f1ee29915e20f11637711ea123e91c4aa6af749551554c7183617dcb3f8a4c",
         "decoded_size": 67856,
         "dialogue_count": 490,
@@ -2479,50 +822,6 @@
     "046": [
       {
         "archive_index": 57,
-        "conditions": [
-          {
-            "id": "story/057/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21296,
-            "text": "击坠钢狮子。",
-            "text_offset": 55584
-          },
-          {
-            "id": "story/057/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 21300,
-            "text": "敌全灭。",
-            "text_offset": 55608
-          },
-          {
-            "id": "story/057/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21304,
-            "text": "：被击坠。",
-            "text_offset": 55624
-          },
-          {
-            "id": "story/057/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 21308,
-            "text": "友方战舰被击坠。",
-            "text_offset": 55648
-          },
-          {
-            "id": "story/057/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21312,
-            "text": "？？？",
-            "text_offset": 54056
-          },
-          {
-            "id": "story/057/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 21316,
-            "text": "兹妮登场后，在4回合内使敌人全灭。",
-            "text_offset": 55680
-          }
-        ],
         "decoded_sha256": "91bcf691d0d2140d233ac94f664f88ebe131eaee75c0ff78088ae871ee5629e6",
         "decoded_size": 55952,
         "dialogue_count": 359,
@@ -2536,50 +835,6 @@
     "047": [
       {
         "archive_index": 58,
-        "conditions": [
-          {
-            "id": "story/058/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 29440,
-            "text": "敌全灭。",
-            "text_offset": 68848
-          },
-          {
-            "id": "story/058/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 29444,
-            "text": "击坠梅萨拉。",
-            "text_offset": 68864
-          },
-          {
-            "id": "story/058/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 29448,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 68896
-          },
-          {
-            "id": "story/058/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 29452,
-            "text": "友方战舰被击坠。",
-            "text_offset": 68928
-          },
-          {
-            "id": "story/058/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 29464,
-            "text": "在5回合内达成胜利条件。",
-            "text_offset": 69008
-          },
-          {
-            "id": "story/058/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 29468,
-            "text": "无",
-            "text_offset": 69048
-          }
-        ],
         "decoded_sha256": "f622f78ee63ae7010854e5365f58ed4e92021e9db00ab0a3d9de709c544e31aa",
         "decoded_size": 69264,
         "dialogue_count": 512,
@@ -2593,7 +848,6 @@
     "048": [
       {
         "archive_index": 59,
-        "conditions": [],
         "decoded_sha256": "c89ce2ba0066e85d729166379a069f99335513e035f0f1294cd37f5016168882",
         "decoded_size": 14736,
         "dialogue_count": 97,
@@ -2605,43 +859,6 @@
       },
       {
         "archive_index": 60,
-        "conditions": [
-          {
-            "id": "story/060/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 36272,
-            "text": "敌全灭。",
-            "text_offset": 90768
-          },
-          {
-            "id": "story/060/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 36276,
-            "text": "使罗兰与苏蕾尤号相邻。",
-            "text_offset": 90784
-          },
-          {
-            "id": "story/060/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 36288,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 90816
-          },
-          {
-            "id": "story/060/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 36292,
-            "text": "罗兰被击坠。",
-            "text_offset": 90848
-          },
-          {
-            "id": "story/060/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 36304,
-            "text": "使幻痛部队全灭。",
-            "text_offset": 90928
-          }
-        ],
         "decoded_sha256": "fdc1e1188696345fd2e7b014057c39fa7068639773349a418eb7e346744fc4d8",
         "decoded_size": 91152,
         "dialogue_count": 666,
@@ -2655,36 +872,6 @@
     "049": [
       {
         "archive_index": 61,
-        "conditions": [
-          {
-            "id": "story/061/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 29232,
-            "text": "在7回合内使苏蕾尤号的HP降至10%以下。",
-            "text_offset": 72208
-          },
-          {
-            "id": "story/061/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 29240,
-            "text": "友方战舰或哈利被击坠。",
-            "text_offset": 72272
-          },
-          {
-            "id": "story/061/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 29244,
-            "text": "苏蕾尤号被击坠。",
-            "text_offset": 72304
-          },
-          {
-            "id": "story/061/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 29256,
-            "text": "在7回合内击坠苏蕾尤号以外的所有敌人后，\n达成胜利条件。",
-            "text_offset": 72368
-          }
-        ],
         "decoded_sha256": "4a7fdb3600975696947926143cb92d09c103e928e31a844cdf3bb18d86c10380",
         "decoded_size": 72592,
         "dialogue_count": 556,
@@ -2698,43 +885,6 @@
     "050": [
       {
         "archive_index": 62,
-        "conditions": [
-          {
-            "id": "story/062/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21840,
-            "text": "敌全灭。",
-            "text_offset": 55008
-          },
-          {
-            "id": "story/062/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 21844,
-            "text": "击坠机械邦多克。",
-            "text_offset": 55024
-          },
-          {
-            "id": "story/062/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21848,
-            "text": "友方战舰被击坠。",
-            "text_offset": 55056
-          },
-          {
-            "id": "story/062/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 21852,
-            "text": "胜平被击坠。",
-            "text_offset": 55080
-          },
-          {
-            "id": "story/062/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21864,
-            "text": "让帝皇比亚路号在不受到任何伤害的情况下\n过关。",
-            "text_offset": 55104
-          }
-        ],
         "decoded_sha256": "e397b2e8dbdca6ee01c822eaf761315bfff0244395603ba8fa5c2520867acb9f",
         "decoded_size": 55312,
         "dialogue_count": 409,
@@ -2748,50 +898,6 @@
     "051": [
       {
         "archive_index": 63,
-        "conditions": [
-          {
-            "id": "story/063/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 24464,
-            "text": "击坠埃尔达战舰。",
-            "text_offset": 63904
-          },
-          {
-            "id": "story/063/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 24468,
-            "text": "敌全灭。",
-            "text_offset": 63928
-          },
-          {
-            "id": "story/063/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 24472,
-            "text": "友方战舰被击坠。",
-            "text_offset": 63952
-          },
-          {
-            "id": "story/063/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 24476,
-            "text": "斗志也被击坠。",
-            "text_offset": 63976
-          },
-          {
-            "id": "story/063/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 24488,
-            "text": "在苏蕾尤号到达地图边缘前使其他敌人全灭，\n最后击坠埃尔达战舰。",
-            "text_offset": 64032
-          },
-          {
-            "id": "story/063/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 24492,
-            "text": "无",
-            "text_offset": 64120
-          }
-        ],
         "decoded_sha256": "80395f1072f4f21c1df747552f0913dd173957f8ee62c662ba5f0be270af4f6c",
         "decoded_size": 64272,
         "dialogue_count": 466,
@@ -2805,7 +911,6 @@
     "052": [
       {
         "archive_index": 64,
-        "conditions": [],
         "decoded_sha256": "b88004b719e997e5e29bebcc327527ea363bd168b323484fe43f477dd3671310",
         "decoded_size": 42896,
         "dialogue_count": 335,
@@ -2817,43 +922,6 @@
       },
       {
         "archive_index": 65,
-        "conditions": [
-          {
-            "id": "story/065/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21208,
-            "text": "击坠超重骑警。",
-            "text_offset": 53440
-          },
-          {
-            "id": "story/065/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 21212,
-            "text": "敌全灭。",
-            "text_offset": 53472
-          },
-          {
-            "id": "story/065/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21216,
-            "text": "友方战舰被击坠。",
-            "text_offset": 53488
-          },
-          {
-            "id": "story/065/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 21220,
-            "text": "斗牙被击坠。",
-            "text_offset": 53512
-          },
-          {
-            "id": "story/065/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21232,
-            "text": "在5回合内过关。",
-            "text_offset": 53552
-          }
-        ],
         "decoded_sha256": "d0c9d4ce4cf25296f15ce712e6255f50850272d05e8dd879ac46ba733644ecd5",
         "decoded_size": 53776,
         "dialogue_count": 336,
@@ -2867,36 +935,6 @@
     "053": [
       {
         "archive_index": 66,
-        "conditions": [
-          {
-            "id": "story/066/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 46272,
-            "text": "击坠毁灭高达。",
-            "text_offset": 114272
-          },
-          {
-            "id": "story/066/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 46276,
-            "text": "击坠毁灭高达和精神感应高达。",
-            "text_offset": 114304
-          },
-          {
-            "id": "story/066/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 46280,
-            "text": "友方战舰被击坠。",
-            "text_offset": 114352
-          },
-          {
-            "id": "story/066/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 46288,
-            "text": "在6回合内击坠其他所有敌人后，\n达成胜利条件。",
-            "text_offset": 114384
-          }
-        ],
         "decoded_sha256": "3ed170cf13252a99f82c992f3143d7794d5c589c028c134856e275d16cd166af",
         "decoded_size": 114704,
         "dialogue_count": 805,
@@ -2910,7 +948,6 @@
     "054": [
       {
         "archive_index": 67,
-        "conditions": [],
         "decoded_sha256": "3ee851ff3bc4edf7c45c79f9882dd88b5bfa4abc43e1678a2858c73ca8a74cb6",
         "decoded_size": 14992,
         "dialogue_count": 98,
@@ -2922,29 +959,6 @@
       },
       {
         "archive_index": 68,
-        "conditions": [
-          {
-            "id": "story/068/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21544,
-            "text": "敌全灭。",
-            "text_offset": 54408
-          },
-          {
-            "id": "story/068/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21552,
-            "text": "友方战舰被击坠。",
-            "text_offset": 54432
-          },
-          {
-            "id": "story/068/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21560,
-            "text": "在第4回合我方阶段结束前使敌人全灭。",
-            "text_offset": 54464
-          }
-        ],
         "decoded_sha256": "0698286709eb22c377e035b6024f8afb7073afbe369129f80b8c801814d353f3",
         "decoded_size": 54672,
         "dialogue_count": 365,
@@ -2958,43 +972,6 @@
     "055": [
       {
         "archive_index": 69,
-        "conditions": [
-          {
-            "id": "story/069/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 60216,
-            "text": "击坠大天使号。",
-            "text_offset": 164096
-          },
-          {
-            "id": "story/069/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 60220,
-            "text": "击坠自由高达。",
-            "text_offset": 164128
-          },
-          {
-            "id": "story/069/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 60232,
-            "text": "友方战舰被击坠。",
-            "text_offset": 164176
-          },
-          {
-            "id": "story/069/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 60240,
-            "text": "在4回合内达成胜利条件。",
-            "text_offset": 164208
-          },
-          {
-            "id": "story/069/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 60244,
-            "text": "无",
-            "text_offset": 164248
-          }
-        ],
         "decoded_sha256": "27518151e50e23a23a5123d558a634515ffa1b090920596066898464f57d6871",
         "decoded_size": 164496,
         "dialogue_count": 1091,
@@ -3008,7 +985,6 @@
     "056": [
       {
         "archive_index": 70,
-        "conditions": [],
         "decoded_sha256": "8f0d74686c428a22dbf32c3df580334fa886ab75227f14d9713759f754587246",
         "decoded_size": 20240,
         "dialogue_count": 125,
@@ -3020,36 +996,6 @@
       },
       {
         "archive_index": 71,
-        "conditions": [
-          {
-            "id": "story/071/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 17384,
-            "text": "柯拉利安全灭。",
-            "text_offset": 42800
-          },
-          {
-            "id": "story/071/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 17392,
-            "text": "友方战舰被击坠。",
-            "text_offset": 42832
-          },
-          {
-            "id": "story/071/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 17396,
-            "text": "柯拉利安到达地图南端。",
-            "text_offset": 42864
-          },
-          {
-            "id": "story/071/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 17400,
-            "text": "在5回合内击坠75个柯拉利安。",
-            "text_offset": 42896
-          }
-        ],
         "decoded_sha256": "3ce84670bb6b6c1433478b31f11761bdcdc6860689a0bd4233932e6e1191bd49",
         "decoded_size": 43152,
         "dialogue_count": 216,
@@ -3063,36 +1009,6 @@
     "057": [
       {
         "archive_index": 72,
-        "conditions": [
-          {
-            "id": "story/072/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 27680,
-            "text": "使迦楼罗级的HP降至2000以下。",
-            "text_offset": 70992
-          },
-          {
-            "id": "story/072/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 27688,
-            "text": "友方战舰被击坠。",
-            "text_offset": 71040
-          },
-          {
-            "id": "story/072/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 27692,
-            "text": "击坠迦楼罗级。",
-            "text_offset": 71072
-          },
-          {
-            "id": "story/072/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 27696,
-            "text": "在6回合内达成胜利条件。",
-            "text_offset": 71104
-          }
-        ],
         "decoded_sha256": "2305bd6111059bf6dc59b252541ff891e2ad53608c7e8c771d7218b1c4e0c2d3",
         "decoded_size": 71312,
         "dialogue_count": 418,
@@ -3106,50 +1022,6 @@
     "058": [
       {
         "archive_index": 73,
-        "conditions": [
-          {
-            "id": "story/073/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 31680,
-            "text": "让优莱卡到达目标地点。",
-            "text_offset": 72512
-          },
-          {
-            "id": "story/073/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 31684,
-            "text": "击坠尼尔瓦修终式。",
-            "text_offset": 72560
-          },
-          {
-            "id": "story/073/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 31688,
-            "text": "友方战舰被击坠。",
-            "text_offset": 72608
-          },
-          {
-            "id": "story/073/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 31692,
-            "text": "优莱卡被击坠。",
-            "text_offset": 72640
-          },
-          {
-            "id": "story/073/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 31696,
-            "text": "？？？",
-            "text_offset": 67160
-          },
-          {
-            "id": "story/073/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 31700,
-            "text": "在6回合内击坠其他所有敌人后，\n最后击坠尼尔瓦修终式。",
-            "text_offset": 72672
-          }
-        ],
         "decoded_sha256": "e7cd8abf7b2ea06adf7289fd84a8714b4fd8f303b35962b124d61dceac210c37",
         "decoded_size": 72976,
         "dialogue_count": 643,
@@ -3161,7 +1033,6 @@
       },
       {
         "archive_index": 74,
-        "conditions": [],
         "decoded_sha256": "dc3cdc0c84f9a186ed4d1869e66a04f8991b2d9fff2029e220d07fe92399d1bc",
         "decoded_size": 14736,
         "dialogue_count": 78,
@@ -3175,29 +1046,6 @@
     "059": [
       {
         "archive_index": 75,
-        "conditions": [
-          {
-            "id": "story/075/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 22640,
-            "text": "击坠拉斯维特。",
-            "text_offset": 58048
-          },
-          {
-            "id": "story/075/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 22648,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 58080
-          },
-          {
-            "id": "story/075/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 22656,
-            "text": "无",
-            "text_offset": 58112
-          }
-        ],
         "decoded_sha256": "1f24875d0fbdf1c29a44a502f24c0d249903963d8c93b6f8adfea14432660d2f",
         "decoded_size": 58256,
         "dialogue_count": 486,
@@ -3209,50 +1057,6 @@
       },
       {
         "archive_index": 76,
-        "conditions": [
-          {
-            "id": "story/076/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 30640,
-            "text": "在5回合内让霍兰德到达基地设施。",
-            "text_offset": 72000
-          },
-          {
-            "id": "story/076/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 30644,
-            "text": "击坠帕特利亚。",
-            "text_offset": 72048
-          },
-          {
-            "id": "story/076/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 30656,
-            "text": "友方战舰被击坠。",
-            "text_offset": 72080
-          },
-          {
-            "id": "story/076/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 30660,
-            "text": "霍兰德被击坠。",
-            "text_offset": 72112
-          },
-          {
-            "id": "story/076/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 30680,
-            "text": "在4回合内击坠所有敌人后，\n让霍兰德到达基地设施。",
-            "text_offset": 72240
-          },
-          {
-            "id": "story/076/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 30684,
-            "text": "无",
-            "text_offset": 72312
-          }
-        ],
         "decoded_sha256": "474998f181e42063be3dc30080a47df8f41dc8405af3a1a4d34d9bfd332c364a",
         "decoded_size": 72592,
         "dialogue_count": 487,
@@ -3266,29 +1070,6 @@
     "060": [
       {
         "archive_index": 77,
-        "conditions": [
-          {
-            "id": "story/077/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 14768,
-            "text": "敌全灭。",
-            "text_offset": 35808
-          },
-          {
-            "id": "story/077/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 14776,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 35824
-          },
-          {
-            "id": "story/077/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 14784,
-            "text": "无",
-            "text_offset": 35856
-          }
-        ],
         "decoded_sha256": "e6777742d0e7b0f0f3a929579db72c4a913ba8a083085462c09432e374c53992",
         "decoded_size": 35984,
         "dialogue_count": 300,
@@ -3300,36 +1081,6 @@
       },
       {
         "archive_index": 78,
-        "conditions": [
-          {
-            "id": "story/078/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 25912,
-            "text": "敌全灭。",
-            "text_offset": 61440
-          },
-          {
-            "id": "story/078/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 25920,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 61456
-          },
-          {
-            "id": "story/078/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 25924,
-            "text": "友方战舰被击坠。",
-            "text_offset": 61488
-          },
-          {
-            "id": "story/078/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 25936,
-            "text": "在6回合内过关。",
-            "text_offset": 61600
-          }
-        ],
         "decoded_sha256": "262f2f1ca4792ab294c26fc298e7a45f118f1ff77f6d2a94450bfa01f1385ac2",
         "decoded_size": 61840,
         "dialogue_count": 450,
@@ -3343,7 +1094,6 @@
     "061": [
       {
         "archive_index": 79,
-        "conditions": [],
         "decoded_sha256": "b9e35edfdde538733e6e913b22fe0113d1dfa9e744926d52c44b4ef0b7a5b288",
         "decoded_size": 29712,
         "dialogue_count": 225,
@@ -3355,50 +1105,6 @@
       },
       {
         "archive_index": 80,
-        "conditions": [
-          {
-            "id": "story/080/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 28704,
-            "text": "敌全灭。",
-            "text_offset": 72184
-          },
-          {
-            "id": "story/080/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 28708,
-            "text": "击坠老虎烈焰型和奈基克（奥尔森机）。",
-            "text_offset": 72208
-          },
-          {
-            "id": "story/080/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 28712,
-            "text": "友方战舰被击坠。",
-            "text_offset": 72272
-          },
-          {
-            "id": "story/080/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 28716,
-            "text": "兹妮被击坠。",
-            "text_offset": 72304
-          },
-          {
-            "id": "story/080/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 28728,
-            "text": "在第3回合我方阶段结束前使埃曼部队全灭。",
-            "text_offset": 72352
-          },
-          {
-            "id": "story/080/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 28732,
-            "text": "无",
-            "text_offset": 72408
-          }
-        ],
         "decoded_sha256": "1d1685a1e1818131a55c473f1d51d2d7dfef96ddf8799ab4cb3142f418d1dd50",
         "decoded_size": 72720,
         "dialogue_count": 484,
@@ -3412,7 +1118,6 @@
     "062": [
       {
         "archive_index": 81,
-        "conditions": [],
         "decoded_sha256": "9159035ecec3abde02d6da0c918a37cacd6fe87b56a6aba9bd3899dfda6e536f",
         "decoded_size": 10128,
         "dialogue_count": 51,
@@ -3424,36 +1129,6 @@
       },
       {
         "archive_index": 82,
-        "conditions": [
-          {
-            "id": "story/082/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 28600,
-            "text": "敌全灭。",
-            "text_offset": 70856
-          },
-          {
-            "id": "story/082/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 28608,
-            "text": "友方战舰被击坠。",
-            "text_offset": 70880
-          },
-          {
-            "id": "story/082/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 28612,
-            "text": "基拉、巴尔特菲尔德或艾妮尔任一人被击坠。",
-            "text_offset": 70912
-          },
-          {
-            "id": "story/082/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 28616,
-            "text": "在6回合内使敌人全灭。",
-            "text_offset": 70960
-          }
-        ],
         "decoded_sha256": "855fee8c14863c2e24378f09ce82929883d9704521d49a3cafb8cdad861df6d7",
         "decoded_size": 71312,
         "dialogue_count": 442,
@@ -3467,50 +1142,6 @@
     "063": [
       {
         "archive_index": 83,
-        "conditions": [
-          {
-            "id": "story/083/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 38808,
-            "text": "使霍兰德或兰顿与奇拉姆攻击航母相邻。",
-            "text_offset": 94608
-          },
-          {
-            "id": "story/083/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 38812,
-            "text": "击坠艾利法斯。",
-            "text_offset": 94672
-          },
-          {
-            "id": "story/083/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 38816,
-            "text": "友方战舰被击坠。",
-            "text_offset": 94704
-          },
-          {
-            "id": "story/083/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 38820,
-            "text": "霍兰德或：被击坠。",
-            "text_offset": 94736
-          },
-          {
-            "id": "story/083/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 38832,
-            "text": "在3回合内击坠其他所有敌人后，\n最后达成胜利条件。",
-            "text_offset": 94848
-          },
-          {
-            "id": "story/083/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 38836,
-            "text": "无",
-            "text_offset": 94920
-          }
-        ],
         "decoded_sha256": "991406865eb13391b62612f843ada2e715c08fa0a3fc33c0a4156ad2d039fb51",
         "decoded_size": 95248,
         "dialogue_count": 771,
@@ -3524,29 +1155,6 @@
     "064": [
       {
         "archive_index": 84,
-        "conditions": [
-          {
-            "id": "story/084/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 31960,
-            "text": "击坠狩狼牙。",
-            "text_offset": 84048
-          },
-          {
-            "id": "story/084/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 31968,
-            "text": "友方战舰被击坠。",
-            "text_offset": 84080
-          },
-          {
-            "id": "story/084/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 31976,
-            "text": "在4回合内击坠其他所有敌人后，\n最后击坠狩狼牙。",
-            "text_offset": 84112
-          }
-        ],
         "decoded_sha256": "35c159658dba5874d336de06681d509f3e40741add7eb98e9cc4a22560d578c9",
         "decoded_size": 84368,
         "dialogue_count": 640,
@@ -3560,36 +1168,6 @@
     "065": [
       {
         "archive_index": 85,
-        "conditions": [
-          {
-            "id": "story/085/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 24432,
-            "text": "敌全灭。",
-            "text_offset": 62576
-          },
-          {
-            "id": "story/085/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 24440,
-            "text": "友方全灭。",
-            "text_offset": 62592
-          },
-          {
-            "id": "story/085/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 24444,
-            "text": "卡洛德被击坠。",
-            "text_offset": 62608
-          },
-          {
-            "id": "story/085/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 24456,
-            "text": "在4回合内过关。",
-            "text_offset": 62672
-          }
-        ],
         "decoded_sha256": "4a34d3ef95c5a925e2db232efae1a5304bbdca09cca223524685c7bc4770ff16",
         "decoded_size": 62992,
         "dialogue_count": 452,
@@ -3603,7 +1181,6 @@
     "066": [
       {
         "archive_index": 86,
-        "conditions": [],
         "decoded_sha256": "d5c2f6277e447ee23763b8f15d445728cdce5ae2b168909b26ca8c6acc276110",
         "decoded_size": 24848,
         "dialogue_count": 219,
@@ -3615,43 +1192,6 @@
       },
       {
         "archive_index": 87,
-        "conditions": [
-          {
-            "id": "story/087/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21720,
-            "text": "击坠伊修基克·指挥官型（罗伯托）。",
-            "text_offset": 52272
-          },
-          {
-            "id": "story/087/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 21724,
-            "text": "击坠阿斯哈姆、霍拉、格蕾塔和贝克。",
-            "text_offset": 52320
-          },
-          {
-            "id": "story/087/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21728,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 52368
-          },
-          {
-            "id": "story/087/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 21732,
-            "text": "奥尔森、雅典娜、吉隆、该隐或罗杰\n任一人被击坠。",
-            "text_offset": 52400
-          },
-          {
-            "id": "story/087/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21744,
-            "text": "在6回合内过关。",
-            "text_offset": 52544
-          }
-        ],
         "decoded_sha256": "eb7f76938248c247ae5bf6e45e94281f2aeaeac17f1a47bea141c8f1af5098bb",
         "decoded_size": 52880,
         "dialogue_count": 287,
@@ -3665,50 +1205,6 @@
     "067": [
       {
         "archive_index": 88,
-        "conditions": [
-          {
-            "id": "story/088/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 32048,
-            "text": "敌全灭。",
-            "text_offset": 78864
-          },
-          {
-            "id": "story/088/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 32052,
-            "text": "击坠查尔斯和雷。",
-            "text_offset": 78880
-          },
-          {
-            "id": "story/088/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 32056,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 78912
-          },
-          {
-            "id": "story/088/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 32060,
-            "text": "友方战舰被击坠。",
-            "text_offset": 78944
-          },
-          {
-            "id": "story/088/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 32072,
-            "text": "？？？",
-            "text_offset": 79000
-          },
-          {
-            "id": "story/088/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 32076,
-            "text": "在6回合内击坠其他所有敌方单位后，\n最后达成胜利条件。",
-            "text_offset": 79008
-          }
-        ],
         "decoded_sha256": "6b62609ea68a59e479c8b209ba237822ffd06c100d609033c72486bef916638a",
         "decoded_size": 79248,
         "dialogue_count": 615,
@@ -3720,7 +1216,6 @@
       },
       {
         "archive_index": 89,
-        "conditions": [],
         "decoded_sha256": "d052c90d66981aec9f2a0d70e8a4fb17a02f7d4b093f91c2efa05519c98cd9d9",
         "decoded_size": 15504,
         "dialogue_count": 81,
@@ -3734,50 +1229,6 @@
     "068": [
       {
         "archive_index": 90,
-        "conditions": [
-          {
-            "id": "story/090/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 30816,
-            "text": "击坠机械要塞鬼。",
-            "text_offset": 81936
-          },
-          {
-            "id": "story/090/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 30820,
-            "text": "敌全灭。",
-            "text_offset": 81960
-          },
-          {
-            "id": "story/090/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 30832,
-            "text": "友方战舰被击坠。",
-            "text_offset": 82048
-          },
-          {
-            "id": "story/090/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 30836,
-            "text": "马林或弗里克被击坠。",
-            "text_offset": 82080
-          },
-          {
-            "id": "story/090/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 30848,
-            "text": "在3回合内击坠机械要塞鬼。",
-            "text_offset": 82176
-          },
-          {
-            "id": "story/090/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 30852,
-            "text": "无",
-            "text_offset": 82216
-          }
-        ],
         "decoded_sha256": "8b59505f82e98a2d2f09bdbac7e76c8f87ec4fc98c66e41d271c0235681efb3c",
         "decoded_size": 82576,
         "dialogue_count": 615,
@@ -3791,36 +1242,6 @@
     "069": [
       {
         "archive_index": 91,
-        "conditions": [
-          {
-            "id": "story/091/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 27832,
-            "text": "击坠多米尼达。",
-            "text_offset": 72208
-          },
-          {
-            "id": "story/091/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 27840,
-            "text": "友方战舰被击坠。",
-            "text_offset": 72240
-          },
-          {
-            "id": "story/091/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 27844,
-            "text": "盖纳被击坠。",
-            "text_offset": 72272
-          },
-          {
-            "id": "story/091/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 27848,
-            "text": "在5回合内击坠其他所有敌人后，\n最后击坠多米尼达。",
-            "text_offset": 72304
-          }
-        ],
         "decoded_sha256": "4e0bb1df2b0a7b3c8fd61fc5935f092f3d1be832bcef25ad9f118804a033882f",
         "decoded_size": 72720,
         "dialogue_count": 460,
@@ -3834,36 +1255,6 @@
     "070": [
       {
         "archive_index": 92,
-        "conditions": [
-          {
-            "id": "story/092/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21432,
-            "text": "击坠超限恶魔。",
-            "text_offset": 51024
-          },
-          {
-            "id": "story/092/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21440,
-            "text": "友方战舰被击坠。",
-            "text_offset": 51056
-          },
-          {
-            "id": "story/092/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 21444,
-            "text": "盖纳被击坠。",
-            "text_offset": 51088
-          },
-          {
-            "id": "story/092/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21448,
-            "text": "在6回合内击坠其他所有敌人后，\n最后击坠超限恶魔。",
-            "text_offset": 51120
-          }
-        ],
         "decoded_sha256": "835e35696aa285cbc56f119aabcda5277b407942de267b9f247995f335851592",
         "decoded_size": 51344,
         "dialogue_count": 301,
@@ -3875,7 +1266,6 @@
       },
       {
         "archive_index": 93,
-        "conditions": [],
         "decoded_sha256": "ea76b9717cf27f651717749bc8a980874a3d15f1f5f621f9df64addf515ea143",
         "decoded_size": 16144,
         "dialogue_count": 88,
@@ -3887,7 +1277,6 @@
       },
       {
         "archive_index": 94,
-        "conditions": [],
         "decoded_sha256": "276cccd77fb345320abe7d6025a8643a169f37e7e6ebb4a10ef7279812d5bfd6",
         "decoded_size": 12944,
         "dialogue_count": 56,
@@ -3901,36 +1290,6 @@
     "071": [
       {
         "archive_index": 95,
-        "conditions": [
-          {
-            "id": "story/095/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 34656,
-            "text": "击坠毁灭高达。",
-            "text_offset": 89456
-          },
-          {
-            "id": "story/095/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 34664,
-            "text": "友方战舰被击坠。",
-            "text_offset": 89488
-          },
-          {
-            "id": "story/095/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 34668,
-            "text": "基拉被击坠。",
-            "text_offset": 89512
-          },
-          {
-            "id": "story/095/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 34672,
-            "text": "在6回合内击坠其他所有敌人后，\n最后击坠毁灭高达。",
-            "text_offset": 89536
-          }
-        ],
         "decoded_sha256": "056bf58220b35b77af665d336b10b8e52546492de9ea5ec792b43111ac6ab885",
         "decoded_size": 89872,
         "dialogue_count": 588,
@@ -3944,7 +1303,6 @@
     "072": [
       {
         "archive_index": 96,
-        "conditions": [],
         "decoded_sha256": "d73f6ddb18979738463cbee57a5a205bb208598f27335c79b85a2bc4344a7c30",
         "decoded_size": 13584,
         "dialogue_count": 82,
@@ -3956,29 +1314,6 @@
       },
       {
         "archive_index": 97,
-        "conditions": [
-          {
-            "id": "story/097/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 22024,
-            "text": "敌全灭。",
-            "text_offset": 55496
-          },
-          {
-            "id": "story/097/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 22032,
-            "text": "友方战舰被击坠。",
-            "text_offset": 55520
-          },
-          {
-            "id": "story/097/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 22040,
-            "text": "在3回合内击坠夏基亚和奥尔巴\n（两者都会在HP降至8000以下时撤退）。",
-            "text_offset": 55552
-          }
-        ],
         "decoded_sha256": "823dea88b1d14da21b7ac55274aae5f409689f622114c7ceaf8238594ab77ab1",
         "decoded_size": 55824,
         "dialogue_count": 362,
@@ -3992,36 +1327,6 @@
     "073": [
       {
         "archive_index": 98,
-        "conditions": [
-          {
-            "id": "story/098/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 54168,
-            "text": "击坠密涅瓦。",
-            "text_offset": 147888
-          },
-          {
-            "id": "story/098/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 54172,
-            "text": "击坠空战脉冲高达。",
-            "text_offset": 147920
-          },
-          {
-            "id": "story/098/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 54176,
-            "text": "友方战舰被击坠。",
-            "text_offset": 147968
-          },
-          {
-            "id": "story/098/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 54184,
-            "text": "在4回合内达成胜利条件。",
-            "text_offset": 148000
-          }
-        ],
         "decoded_sha256": "f67952ed0d64d4ac68e1275a5680c842d677c5efee96f25fbe4134fdba46789c",
         "decoded_size": 148240,
         "dialogue_count": 926,
@@ -4035,7 +1340,6 @@
     "074": [
       {
         "archive_index": 99,
-        "conditions": [],
         "decoded_sha256": "6246934a4edce444ea6bacde7ecff78f3a62b6db6d90f2fa63ec4455f9bbaf62",
         "decoded_size": 42768,
         "dialogue_count": 345,
@@ -4047,36 +1351,6 @@
       },
       {
         "archive_index": 100,
-        "conditions": [
-          {
-            "id": "story/100/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 27104,
-            "text": "敌全灭。",
-            "text_offset": 73056
-          },
-          {
-            "id": "story/100/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 27112,
-            "text": "友方战舰被击坠。",
-            "text_offset": 73072
-          },
-          {
-            "id": "story/100/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 27120,
-            "text": "？？？",
-            "text_offset": 73096
-          },
-          {
-            "id": "story/100/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 27124,
-            "text": "柯拉利安出现后，在3回合内使敌人全灭。",
-            "text_offset": 73104
-          }
-        ],
         "decoded_sha256": "d8557723f620f5bf197c85a8b72c3cbd913e0af815a2cc62416648535c790ea3",
         "decoded_size": 73360,
         "dialogue_count": 476,
@@ -4090,43 +1364,6 @@
     "075": [
       {
         "archive_index": 101,
-        "conditions": [
-          {
-            "id": "story/101/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 35280,
-            "text": "击坠迦楼罗级。",
-            "text_offset": 89904
-          },
-          {
-            "id": "story/101/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 35284,
-            "text": "击坠凯鲁比姆·修尔尔克贝拉。",
-            "text_offset": 89936
-          },
-          {
-            "id": "story/101/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 35288,
-            "text": "友方战舰被击坠。",
-            "text_offset": 89984
-          },
-          {
-            "id": "story/101/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 35296,
-            "text": "？？？",
-            "text_offset": 85480
-          },
-          {
-            "id": "story/101/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 35300,
-            "text": "在6回合内击坠凯鲁比姆·修尔尔克贝拉。",
-            "text_offset": 90016
-          }
-        ],
         "decoded_sha256": "36cb12a8840b197a43f994a0dd3b9a221740946e056f74495f8bc148d9add5a5",
         "decoded_size": 90256,
         "dialogue_count": 631,
@@ -4140,7 +1377,6 @@
     "076": [
       {
         "archive_index": 102,
-        "conditions": [],
         "decoded_sha256": "6b1c0d2a4e8e3c471254cb49e58a9b1321d491dd724ebcf62c378d0737b0ac60",
         "decoded_size": 60432,
         "dialogue_count": 519,
@@ -4152,36 +1388,6 @@
       },
       {
         "archive_index": 103,
-        "conditions": [
-          {
-            "id": "story/103/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 29408,
-            "text": "击坠埃曼战舰。",
-            "text_offset": 75712
-          },
-          {
-            "id": "story/103/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 29412,
-            "text": "击坠伊修基克·指挥官型Ⅱ（罗伯托）。",
-            "text_offset": 75744
-          },
-          {
-            "id": "story/103/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 29416,
-            "text": "友方战舰被击坠。",
-            "text_offset": 75792
-          },
-          {
-            "id": "story/103/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 29424,
-            "text": "在5回合内过关。",
-            "text_offset": 75824
-          }
-        ],
         "decoded_sha256": "2b5863312f817bf8306c68f56420bc8c81a4bb042973974cbf8a3eafdcd68037",
         "decoded_size": 76048,
         "dialogue_count": 469,
@@ -4195,36 +1401,6 @@
     "077": [
       {
         "archive_index": 104,
-        "conditions": [
-          {
-            "id": "story/104/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 47072,
-            "text": "敌全灭。",
-            "text_offset": 115616
-          },
-          {
-            "id": "story/104/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 47080,
-            "text": "友方战舰被击坠。",
-            "text_offset": 115632
-          },
-          {
-            "id": "story/104/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 47084,
-            "text": "胜平、万丈或斗牙任一人被击坠。",
-            "text_offset": 115664
-          },
-          {
-            "id": "story/104/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 47096,
-            "text": "在6回合内过关。",
-            "text_offset": 115760
-          }
-        ],
         "decoded_sha256": "e27900955c6e4a8ae93878e231377ba1f591351e2fae7171903ae702ca72c5e0",
         "decoded_size": 115984,
         "dialogue_count": 923,
@@ -4238,29 +1414,6 @@
     "078": [
       {
         "archive_index": 105,
-        "conditions": [
-          {
-            "id": "story/105/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 20448,
-            "text": "击坠救世主高达。",
-            "text_offset": 46912
-          },
-          {
-            "id": "story/105/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 20456,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 46944
-          },
-          {
-            "id": "story/105/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 20464,
-            "text": "无",
-            "text_offset": 46976
-          }
-        ],
         "decoded_sha256": "943d9057cfa51e6db83e15507e976be1b6b1f4d1f6e0a96a6315d808e8c9942f",
         "decoded_size": 47120,
         "dialogue_count": 436,
@@ -4272,36 +1425,6 @@
       },
       {
         "archive_index": 106,
-        "conditions": [
-          {
-            "id": "story/106/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 21904,
-            "text": "击坠萨拉米斯改。",
-            "text_offset": 53584
-          },
-          {
-            "id": "story/106/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 21912,
-            "text": "友方战舰被击坠。",
-            "text_offset": 53616
-          },
-          {
-            "id": "story/106/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 21916,
-            "text": "哈利被击坠。",
-            "text_offset": 53640
-          },
-          {
-            "id": "story/106/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 21928,
-            "text": "在5回合内击坠所有敌方单位后，\n最后击坠萨拉米斯改。",
-            "text_offset": 53712
-          }
-        ],
         "decoded_sha256": "05540ee1ab87ce5dee00d32e4cfda5137198f3a1c7b5e6f687332758902a282d",
         "decoded_size": 53904,
         "dialogue_count": 354,
@@ -4315,43 +1438,6 @@
     "079": [
       {
         "archive_index": 107,
-        "conditions": [
-          {
-            "id": "story/107/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 65032,
-            "text": "击坠人工太阳。",
-            "text_offset": 155136
-          },
-          {
-            "id": "story/107/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 65036,
-            "text": "太阳超重王登场后，在3回合内\n击坠人工太阳。",
-            "text_offset": 155168
-          },
-          {
-            "id": "story/107/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 65040,
-            "text": "友方战舰被击坠。",
-            "text_offset": 155232
-          },
-          {
-            "id": "story/107/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 65044,
-            "text": "斗牙被击坠。",
-            "text_offset": 155256
-          },
-          {
-            "id": "story/107/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 65056,
-            "text": "在击坠人工太阳前消灭所有敌人。",
-            "text_offset": 155328
-          }
-        ],
         "decoded_sha256": "d3d9af10fbc47ffcab10a71b245c77b9be25a8dddd0c25a5b5f86425d2a23d6e",
         "decoded_size": 155664,
         "dialogue_count": 1148,
@@ -4365,50 +1451,6 @@
     "080": [
       {
         "archive_index": 108,
-        "conditions": [
-          {
-            "id": "story/108/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 43880,
-            "text": "敌全灭。",
-            "text_offset": 113880
-          },
-          {
-            "id": "story/108/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 43884,
-            "text": "击坠所有毁灭高达和精神感应高达。",
-            "text_offset": 113904
-          },
-          {
-            "id": "story/108/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 43896,
-            "text": "友方战舰被击坠。",
-            "text_offset": 114048
-          },
-          {
-            "id": "story/108/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 43900,
-            "text": "霍兰德、吉隆或艾露琪任一人被击坠。",
-            "text_offset": 114080
-          },
-          {
-            "id": "story/108/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 43912,
-            "text": "？？？",
-            "text_offset": 114160
-          },
-          {
-            "id": "story/108/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 43916,
-            "text": "在5回合内过关。",
-            "text_offset": 114176
-          }
-        ],
         "decoded_sha256": "78ea534fccbb8f639ce74144c076d26033cd10bc5e53de5246b385036d9425eb",
         "decoded_size": 114448,
         "dialogue_count": 826,
@@ -4422,43 +1464,6 @@
     "081": [
       {
         "archive_index": 109,
-        "conditions": [
-          {
-            "id": "story/109/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 59336,
-            "text": "敌全灭。",
-            "text_offset": 140136
-          },
-          {
-            "id": "story/109/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 59340,
-            "text": "击坠克劳达（兰斯洛机）。",
-            "text_offset": 140160
-          },
-          {
-            "id": "story/109/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 59344,
-            "text": "友方战舰被击坠。",
-            "text_offset": 140192
-          },
-          {
-            "id": "story/109/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 59348,
-            "text": "基拉被击坠。",
-            "text_offset": 140216
-          },
-          {
-            "id": "story/109/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 59352,
-            "text": "在4回合内过关。",
-            "text_offset": 140240
-          }
-        ],
         "decoded_sha256": "46314d3994288c056d7a0c3a9a2d75aba4b2c380c4263ccf942e47c0ed6d13d5",
         "decoded_size": 140560,
         "dialogue_count": 1110,
@@ -4472,50 +1477,6 @@
     "082": [
       {
         "archive_index": 110,
-        "conditions": [
-          {
-            "id": "story/110/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 52096,
-            "text": "击坠2台巴尔戈拉。",
-            "text_offset": 127024
-          },
-          {
-            "id": "story/110/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 52100,
-            "text": "击坠混沌·雷欧、混沌·安吉斯或\n混沌·卡佩尔中的任意一台。",
-            "text_offset": 127056
-          },
-          {
-            "id": "story/110/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 52104,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 127136
-          },
-          {
-            "id": "story/110/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 52108,
-            "text": "友方战舰被击坠。",
-            "text_offset": 127168
-          },
-          {
-            "id": "story/110/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 52112,
-            "text": "？？？",
-            "text_offset": 127192
-          },
-          {
-            "id": "story/110/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 52116,
-            "text": "奇美拉登场后，在4回合内过关。",
-            "text_offset": 127200
-          }
-        ],
         "decoded_sha256": "8f52585e6618da9dacb83e51fad7dc0b51cd69cf92dc216a5519049101c56c3a",
         "decoded_size": 127376,
         "dialogue_count": 1085,
@@ -4529,50 +1490,6 @@
     "083": [
       {
         "archive_index": 111,
-        "conditions": [
-          {
-            "id": "story/111/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 54320,
-            "text": "敌全灭。",
-            "text_offset": 135128
-          },
-          {
-            "id": "story/111/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 54324,
-            "text": "击坠混沌·雷欧、混沌·安吉斯、\n混沌·卡佩尔或狩狼牙中的任意一台。",
-            "text_offset": 135152
-          },
-          {
-            "id": "story/111/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 54328,
-            "text": "任一友方单位被击坠。",
-            "text_offset": 135248
-          },
-          {
-            "id": "story/111/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 54332,
-            "text": "友方战舰被击坠。",
-            "text_offset": 135280
-          },
-          {
-            "id": "story/111/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 54344,
-            "text": "？？？",
-            "text_offset": 135336
-          },
-          {
-            "id": "story/111/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 54348,
-            "text": "奇美拉登场后，在3回合内过关。",
-            "text_offset": 135344
-          }
-        ],
         "decoded_sha256": "f416ee1ce358722706ba855d1ecd1decc5197142f0e0df15f9004eb29d4405d2",
         "decoded_size": 135568,
         "dialogue_count": 1127,
@@ -4586,50 +1503,6 @@
     "084": [
       {
         "archive_index": 112,
-        "conditions": [
-          {
-            "id": "story/112/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 47880,
-            "text": "击坠机械要塞鬼。",
-            "text_offset": 117056
-          },
-          {
-            "id": "story/112/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 47884,
-            "text": "击坠Aquarion Alpha。",
-            "text_offset": 117088
-          },
-          {
-            "id": "story/112/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 47888,
-            "text": "友方战舰被击坠。",
-            "text_offset": 117120
-          },
-          {
-            "id": "story/112/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 47892,
-            "text": "亚库艾里翁被击坠。",
-            "text_offset": 117152
-          },
-          {
-            "id": "story/112/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 47896,
-            "text": "在4回合内使其他敌人全灭后，\n最后击坠机械要塞鬼。",
-            "text_offset": 117184
-          },
-          {
-            "id": "story/112/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 47900,
-            "text": "无",
-            "text_offset": 117256
-          }
-        ],
         "decoded_sha256": "007aced90a3478b741e92beacf41409561921d24881294a042f0dd0d58a73c7b",
         "decoded_size": 117392,
         "dialogue_count": 825,
@@ -4643,50 +1516,6 @@
     "085": [
       {
         "archive_index": 113,
-        "conditions": [
-          {
-            "id": "story/113/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 43080,
-            "text": "击坠Big Duo Inferno。",
-            "text_offset": 113072
-          },
-          {
-            "id": "story/113/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 43084,
-            "text": "击坠科学要塞岛。",
-            "text_offset": 113120
-          },
-          {
-            "id": "story/113/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 43088,
-            "text": "罗杰被击坠。",
-            "text_offset": 113152
-          },
-          {
-            "id": "story/113/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 43092,
-            "text": "友方战舰被击坠。",
-            "text_offset": 113184
-          },
-          {
-            "id": "story/113/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 43096,
-            "text": "在4回合内击坠Big Duo Inferno。",
-            "text_offset": 113216
-          },
-          {
-            "id": "story/113/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 43100,
-            "text": "无",
-            "text_offset": 113272
-          }
-        ],
         "decoded_sha256": "db3fd7d6df9b0c426dfc63c0f1fed4df296967b1ee05af0ec567de584998eea7",
         "decoded_size": 113552,
         "dialogue_count": 805,
@@ -4700,7 +1529,6 @@
     "086": [
       {
         "archive_index": 114,
-        "conditions": [],
         "decoded_sha256": "e6f8fd13f6eb173c2b01785a79a9f023458676a388331b91b9904f1104e19ebc",
         "decoded_size": 9360,
         "dialogue_count": 49,
@@ -4712,7 +1540,6 @@
       },
       {
         "archive_index": 115,
-        "conditions": [],
         "decoded_sha256": "134896adf8220e09858d44b6f3c4069f801d7566b788ee965fe4042e8d7f67ef",
         "decoded_size": 14736,
         "dialogue_count": 107,
@@ -4724,7 +1551,6 @@
       },
       {
         "archive_index": 116,
-        "conditions": [],
         "decoded_sha256": "590f397f22daeff6ad86b25ccd2bffca968c5aa87ba714cf28fa16eb34b6af02",
         "decoded_size": 28944,
         "dialogue_count": 242,
@@ -4736,50 +1562,6 @@
       },
       {
         "archive_index": 117,
-        "conditions": [
-          {
-            "id": "story/117/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 52336,
-            "text": "击坠超限恶魔。",
-            "text_offset": 128208
-          },
-          {
-            "id": "story/117/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 52340,
-            "text": "登场后，在3回合内击坠双翅或诗翅。",
-            "text_offset": 128240
-          },
-          {
-            "id": "story/117/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 52352,
-            "text": "友方战舰被击坠。",
-            "text_offset": 128320
-          },
-          {
-            "id": "story/117/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 52356,
-            "text": "该隐或阿波罗被击坠。",
-            "text_offset": 128352
-          },
-          {
-            "id": "story/117/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 52368,
-            "text": "？？？",
-            "text_offset": 128440
-          },
-          {
-            "id": "story/117/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 52372,
-            "text": "击坠其他所有敌人后，再击坠超限恶魔。",
-            "text_offset": 128448
-          }
-        ],
         "decoded_sha256": "786c9259a4b4ecd44076cb69f78c3df7a6041e7635eacb7605150b5ffdc8d7f1",
         "decoded_size": 128784,
         "dialogue_count": 834,
@@ -4793,36 +1575,6 @@
     "087": [
       {
         "archive_index": 118,
-        "conditions": [
-          {
-            "id": "story/118/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 52352,
-            "text": "敌全灭。",
-            "text_offset": 132064
-          },
-          {
-            "id": "story/118/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 52360,
-            "text": "友方战舰被击坠。",
-            "text_offset": 132080
-          },
-          {
-            "id": "story/118/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 52364,
-            "text": "真、雷或露娜玛丽亚任一人被击坠。",
-            "text_offset": 132112
-          },
-          {
-            "id": "story/118/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 52368,
-            "text": "在6回合内过关。",
-            "text_offset": 132160
-          }
-        ],
         "decoded_sha256": "e0f38bdb71571b472342de938e5ba419b2e507b7f2f20ea71971de5c4db512b2",
         "decoded_size": 132496,
         "dialogue_count": 999,
@@ -4836,50 +1588,6 @@
     "088": [
       {
         "archive_index": 119,
-        "conditions": [
-          {
-            "id": "story/119/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 57472,
-            "text": "在3回合内击坠亚历山大号和加迪·鲁号。",
-            "text_offset": 153840
-          },
-          {
-            "id": "story/119/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 57476,
-            "text": "击坠夏基亚或奥尔巴。",
-            "text_offset": 153904
-          },
-          {
-            "id": "story/119/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 57488,
-            "text": "友方战舰被击坠。",
-            "text_offset": 153936
-          },
-          {
-            "id": "story/119/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 57492,
-            "text": "罗兰或卡洛德被击坠。",
-            "text_offset": 153968
-          },
-          {
-            "id": "story/119/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 57504,
-            "text": "击坠其他所有敌人后，达成胜利条件。",
-            "text_offset": 154048
-          },
-          {
-            "id": "story/119/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 57508,
-            "text": "无",
-            "text_offset": 154096
-          }
-        ],
         "decoded_sha256": "af76157f0de0904d64d3aa6b5a2e948342d3ba473829d0e30771d4e0ae273b7a",
         "decoded_size": 154384,
         "dialogue_count": 1110,
@@ -4893,36 +1601,6 @@
     "089": [
       {
         "archive_index": 120,
-        "conditions": [
-          {
-            "id": "story/120/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 40872,
-            "text": "敌全灭。",
-            "text_offset": 106104
-          },
-          {
-            "id": "story/120/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 40880,
-            "text": "友方战舰被击坠。",
-            "text_offset": 106128
-          },
-          {
-            "id": "story/120/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 40884,
-            "text": "斗志也被击坠。",
-            "text_offset": 106152
-          },
-          {
-            "id": "story/120/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 40888,
-            "text": "在6回合内过关。",
-            "text_offset": 106176
-          }
-        ],
         "decoded_sha256": "f774582029620c5ea474d4aa7ff64fd50643ea1835f6ef42459b607749634ab8",
         "decoded_size": 106384,
         "dialogue_count": 709,
@@ -4936,7 +1614,6 @@
     "090": [
       {
         "archive_index": 121,
-        "conditions": [],
         "decoded_sha256": "2b68c1648d1718c3f8f3233ebaebdd1d480c4bdec7658c71d560e21fd1108e4f",
         "decoded_size": 3344,
         "dialogue_count": 11,
@@ -4948,43 +1625,6 @@
       },
       {
         "archive_index": 122,
-        "conditions": [
-          {
-            "id": "story/122/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 34768,
-            "text": "击坠埃尔达战舰。",
-            "text_offset": 91392
-          },
-          {
-            "id": "story/122/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 34772,
-            "text": "击坠老虎烈焰型（伊扎克机）。",
-            "text_offset": 91424
-          },
-          {
-            "id": "story/122/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 34776,
-            "text": "友方战舰被击坠。",
-            "text_offset": 91472
-          },
-          {
-            "id": "story/122/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 34784,
-            "text": "在4回合内击坠其他所有敌人后，\n最后击坠埃尔达战舰。",
-            "text_offset": 91504
-          },
-          {
-            "id": "story/122/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 34788,
-            "text": "无",
-            "text_offset": 91576
-          }
-        ],
         "decoded_sha256": "984341d28c6dd0d84341b48566eba34f233cb09b682145d2238e4bbf91443cff",
         "decoded_size": 91792,
         "dialogue_count": 657,
@@ -4996,7 +1636,6 @@
       },
       {
         "archive_index": 123,
-        "conditions": [],
         "decoded_sha256": "96fc84516499f3fdd314df94002abb698e4fe8df5792227fd04cc2505258590c",
         "decoded_size": 4880,
         "dialogue_count": 12,
@@ -5008,7 +1647,6 @@
       },
       {
         "archive_index": 124,
-        "conditions": [],
         "decoded_sha256": "03f06d019b72ff792478c821cab641222b631338f56d928f22c2a96e2eed173f",
         "decoded_size": 6288,
         "dialogue_count": 8,
@@ -5022,29 +1660,6 @@
     "091": [
       {
         "archive_index": 125,
-        "conditions": [
-          {
-            "id": "story/125/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 16256,
-            "text": "击坠亚历山大号。",
-            "text_offset": 41568
-          },
-          {
-            "id": "story/125/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 16264,
-            "text": "友方战舰被击坠。",
-            "text_offset": 41600
-          },
-          {
-            "id": "story/125/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 16272,
-            "text": "无",
-            "text_offset": 41624
-          }
-        ],
         "decoded_sha256": "1a08b82f7b8bad82ac2144bfd209b416c33f98845df4ae4c6fd76926e2c37669",
         "decoded_size": 41872,
         "dialogue_count": 297,
@@ -5056,36 +1671,6 @@
       },
       {
         "archive_index": 126,
-        "conditions": [
-          {
-            "id": "story/126/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 34560,
-            "text": "敌全灭。",
-            "text_offset": 85256
-          },
-          {
-            "id": "story/126/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 34568,
-            "text": "友方战舰被击坠。",
-            "text_offset": 85280
-          },
-          {
-            "id": "story/126/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 34572,
-            "text": "卡洛德或帕拉被击坠。",
-            "text_offset": 85312
-          },
-          {
-            "id": "story/126/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 34576,
-            "text": "在6回合内使敌人全灭。",
-            "text_offset": 85344
-          }
-        ],
         "decoded_sha256": "dfe246d0bc79b0e6fea2bbc0292050b7902424fdfb23afd647a2ebbcbce5377c",
         "decoded_size": 85520,
         "dialogue_count": 550,
@@ -5099,50 +1684,6 @@
     "092": [
       {
         "archive_index": 127,
-        "conditions": [
-          {
-            "id": "story/127/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 66464,
-            "text": "在5回合内击坠亚历山大号和\n加迪·鲁号。",
-            "text_offset": 176080
-          },
-          {
-            "id": "story/127/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 66468,
-            "text": "击坠夏基亚或奥尔巴。",
-            "text_offset": 176144
-          },
-          {
-            "id": "story/127/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 66496,
-            "text": "友方战舰被击坠。",
-            "text_offset": 176304
-          },
-          {
-            "id": "story/127/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 66500,
-            "text": "罗兰或亚库艾里翁被击坠。",
-            "text_offset": 176336
-          },
-          {
-            "id": "story/127/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 66512,
-            "text": "在3回合内击坠其他所有联邦军后，\n达成胜利条件。",
-            "text_offset": 176448
-          },
-          {
-            "id": "story/127/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 66516,
-            "text": "无",
-            "text_offset": 176512
-          }
-        ],
         "decoded_sha256": "752db0ead4095249524d9d885bfb1272df447d0cd9f1f32b9c70da31523fd780",
         "decoded_size": 176784,
         "dialogue_count": 1276,
@@ -5156,43 +1697,6 @@
     "093": [
       {
         "archive_index": 128,
-        "conditions": [
-          {
-            "id": "story/128/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 48960,
-            "text": "击坠Aquarion Alpha。",
-            "text_offset": 124448
-          },
-          {
-            "id": "story/128/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 48964,
-            "text": "击坠Aquarion Alpha、凯鲁比姆·伊斯丘隆或\n凯鲁比姆Mars中的任意一台，并击坠机械要塞鬼。",
-            "text_offset": 124480
-          },
-          {
-            "id": "story/128/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 48976,
-            "text": "友方战舰被击坠。",
-            "text_offset": 124704
-          },
-          {
-            "id": "story/128/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 48980,
-            "text": "亚库艾里翁被击坠。",
-            "text_offset": 124736
-          },
-          {
-            "id": "story/128/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 48984,
-            "text": "在5回合内过关。",
-            "text_offset": 124768
-          }
-        ],
         "decoded_sha256": "9dd090b30da5368bfd5d6f63514b64b11500c9ef151c5646c9cea68bcd7ab2e3",
         "decoded_size": 124944,
         "dialogue_count": 929,
@@ -5206,7 +1710,6 @@
     "094": [
       {
         "archive_index": 129,
-        "conditions": [],
         "decoded_sha256": "53590bfdcd58f615518b815f2a220d59ea120f728d3de37abc78432b34a480ac",
         "decoded_size": 36880,
         "dialogue_count": 317,
@@ -5218,50 +1721,6 @@
       },
       {
         "archive_index": 130,
-        "conditions": [
-          {
-            "id": "story/130/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 44512,
-            "text": "在7回合内击坠超限恶魔。",
-            "text_offset": 107104
-          },
-          {
-            "id": "story/130/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 44516,
-            "text": "在8回合内击坠超限恶魔。",
-            "text_offset": 107152
-          },
-          {
-            "id": "story/130/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 44544,
-            "text": "友方战舰被击坠。",
-            "text_offset": 107296
-          },
-          {
-            "id": "story/130/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 44548,
-            "text": "该隐被击坠。",
-            "text_offset": 107320
-          },
-          {
-            "id": "story/130/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 44568,
-            "text": "在5回合内击坠其他所有敌人后，\n最后击坠超限恶魔。",
-            "text_offset": 107440
-          },
-          {
-            "id": "story/130/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 44572,
-            "text": "在6回合内击坠其他所有敌人后，\n最后击坠超限恶魔。",
-            "text_offset": 107520
-          }
-        ],
         "decoded_sha256": "7fb3107f32ca800b68295e8c697d034758efb843a90be574b830e88f90dfd0f0",
         "decoded_size": 108048,
         "dialogue_count": 622,
@@ -5275,43 +1734,6 @@
     "095": [
       {
         "archive_index": 131,
-        "conditions": [
-          {
-            "id": "story/131/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 61048,
-            "text": "敌全灭。",
-            "text_offset": 158320
-          },
-          {
-            "id": "story/131/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 61052,
-            "text": "救出俘虏。",
-            "text_offset": 158336
-          },
-          {
-            "id": "story/131/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 61056,
-            "text": "友方战舰被击坠。",
-            "text_offset": 158352
-          },
-          {
-            "id": "story/131/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 61060,
-            "text": "斗志也被击坠。",
-            "text_offset": 158376
-          },
-          {
-            "id": "story/131/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 61072,
-            "text": "在7回合内过关。",
-            "text_offset": 158432
-          }
-        ],
         "decoded_sha256": "c86fb9d2942e00d95e46230ba133e83057dfae2cd435d630c3640252b48f68ee",
         "decoded_size": 158608,
         "dialogue_count": 1112,
@@ -5325,29 +1747,6 @@
     "096": [
       {
         "archive_index": 132,
-        "conditions": [
-          {
-            "id": "story/132/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 46088,
-            "text": "敌全灭。",
-            "text_offset": 117240
-          },
-          {
-            "id": "story/132/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 46096,
-            "text": "友方战舰被击坠。",
-            "text_offset": 117264
-          },
-          {
-            "id": "story/132/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 46104,
-            "text": "在6回合内使敌人全灭。",
-            "text_offset": 117296
-          }
-        ],
         "decoded_sha256": "53097753c242eabdd9780f3f62718270922537ca2edd09a47d2bb8c8ff147c4d",
         "decoded_size": 117520,
         "dialogue_count": 667,
@@ -5361,36 +1760,6 @@
     "097": [
       {
         "archive_index": 133,
-        "conditions": [
-          {
-            "id": "story/133/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 27784,
-            "text": "击坠戈玛。",
-            "text_offset": 73280
-          },
-          {
-            "id": "story/133/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 27792,
-            "text": "友方战舰被击坠。",
-            "text_offset": 73296
-          },
-          {
-            "id": "story/133/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 27796,
-            "text": "胜平或斗牙被击坠。",
-            "text_offset": 73328
-          },
-          {
-            "id": "story/133/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 27808,
-            "text": "在5回合内击坠所有泽拉拜亚，\n最后击坠戈玛。",
-            "text_offset": 73424
-          }
-        ],
         "decoded_sha256": "e935d68673af082d3c4b83664731db17ec47e393f02d61d9074ed0328e1470de",
         "decoded_size": 73744,
         "dialogue_count": 353,
@@ -5402,29 +1771,6 @@
       },
       {
         "archive_index": 134,
-        "conditions": [
-          {
-            "id": "story/134/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 7912,
-            "text": "击坠机械邦多克。",
-            "text_offset": 19792
-          },
-          {
-            "id": "story/134/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 7920,
-            "text": "友方战舰被击坠。",
-            "text_offset": 19824
-          },
-          {
-            "id": "story/134/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 7928,
-            "text": "无",
-            "text_offset": 19848
-          }
-        ],
         "decoded_sha256": "f62fb099ad3e0446f0cd5b4bf53a50239871ba27683f79d9240eede149e63fc0",
         "decoded_size": 19984,
         "dialogue_count": 105,
@@ -5438,29 +1784,6 @@
     "098": [
       {
         "archive_index": 135,
-        "conditions": [
-          {
-            "id": "story/135/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 72504,
-            "text": "敌全灭。",
-            "text_offset": 188296
-          },
-          {
-            "id": "story/135/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 72512,
-            "text": "友方战舰被击坠。",
-            "text_offset": 188320
-          },
-          {
-            "id": "story/135/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 72520,
-            "text": "在7回合内使敌人全灭。",
-            "text_offset": 188352
-          }
-        ],
         "decoded_sha256": "af9c14d7a160405654a6dea5df59597912003a3f8c94aec9126cfe1e51f2e5e2",
         "decoded_size": 188560,
         "dialogue_count": 1256,
@@ -5474,50 +1797,6 @@
     "099": [
       {
         "archive_index": 136,
-        "conditions": [
-          {
-            "id": "story/136/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 55216,
-            "text": "击坠安妮莫奈。",
-            "text_offset": 130640
-          },
-          {
-            "id": "story/136/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 55220,
-            "text": "击坠安妮莫奈、弗罗斯特兄弟、金卡拉姆和诗翅。",
-            "text_offset": 130672
-          },
-          {
-            "id": "story/136/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 55248,
-            "text": "友方战舰被击坠。",
-            "text_offset": 130880
-          },
-          {
-            "id": "story/136/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 55252,
-            "text": "Aquarion或强攻型亚库艾里翁被击坠。",
-            "text_offset": 130912
-          },
-          {
-            "id": "story/136/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 55272,
-            "text": "？？？",
-            "text_offset": 131096
-          },
-          {
-            "id": "story/136/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 55276,
-            "text": "在6回合内击坠安妮莫奈、弗罗斯特兄弟、金卡拉姆和\n诗翅。",
-            "text_offset": 131104
-          }
-        ],
         "decoded_sha256": "63777b877879833e7e8f9a01995e5882d25ebbfa709773f7c206ee99779b9473",
         "decoded_size": 131344,
         "dialogue_count": 812,
@@ -5529,7 +1808,6 @@
       },
       {
         "archive_index": 137,
-        "conditions": [],
         "decoded_sha256": "6afe42cc4ebfa81ea52021844b8b95506c15080a8e7a2f306adbf4bea1466308",
         "decoded_size": 28560,
         "dialogue_count": 160,
@@ -5543,29 +1821,6 @@
     "100": [
       {
         "archive_index": 138,
-        "conditions": [
-          {
-            "id": "story/138/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 81672,
-            "text": "敌全灭。",
-            "text_offset": 210152
-          },
-          {
-            "id": "story/138/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 81680,
-            "text": "友方战舰被击坠。",
-            "text_offset": 210176
-          },
-          {
-            "id": "story/138/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 81688,
-            "text": "在8回合内过关。",
-            "text_offset": 210208
-          }
-        ],
         "decoded_sha256": "67a9146c0b4c0657deab09cb0cd0214127317ddae998c5f8722498f13d80cbe6",
         "decoded_size": 210448,
         "dialogue_count": 1383,
@@ -5579,43 +1834,6 @@
     "101": [
       {
         "archive_index": 139,
-        "conditions": [
-          {
-            "id": "story/139/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 67456,
-            "text": "击坠诗翅。",
-            "text_offset": 162696
-          },
-          {
-            "id": "story/139/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 67460,
-            "text": "击坠弗罗斯特兄弟、金卡拉姆和诗翅。",
-            "text_offset": 162720
-          },
-          {
-            "id": "story/139/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 67472,
-            "text": "友方战舰被击坠。",
-            "text_offset": 162848
-          },
-          {
-            "id": "story/139/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 67476,
-            "text": "Aquarion或强攻型亚库艾里翁被击坠。",
-            "text_offset": 162880
-          },
-          {
-            "id": "story/139/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 67488,
-            "text": "在8回合内过关。",
-            "text_offset": 162944
-          }
-        ],
         "decoded_sha256": "b9bf2d748c2c1b9371f80cb163691f236b3733379e0f1e29971b5be2cb52958d",
         "decoded_size": 163088,
         "dialogue_count": 1109,
@@ -5629,50 +1847,6 @@
     "102": [
       {
         "archive_index": 140,
-        "conditions": [
-          {
-            "id": "story/140/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 56048,
-            "text": "击坠BIG-FAU。",
-            "text_offset": 127440
-          },
-          {
-            "id": "story/140/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 56052,
-            "text": "The Big登场后，在5回合内\n让罗杰到达指定地点。",
-            "text_offset": 127472
-          },
-          {
-            "id": "story/140/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 56056,
-            "text": "罗杰被击坠。",
-            "text_offset": 127552
-          },
-          {
-            "id": "story/140/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 56060,
-            "text": "友方战舰被击坠。",
-            "text_offset": 127584
-          },
-          {
-            "id": "story/140/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 56072,
-            "text": "？？？",
-            "text_offset": 112336
-          },
-          {
-            "id": "story/140/condition/02/01",
-            "kind": "SR点数条件",
-            "pointer_offset": 56076,
-            "text": "在达成胜利条件前使敌人全灭。",
-            "text_offset": 127664
-          }
-        ],
         "decoded_sha256": "996904a3a14b59329e1e24c8cbc22291da0e5fdf4e1b94f7cf26690b91078dc4",
         "decoded_size": 127888,
         "dialogue_count": 1126,
@@ -5686,7 +1860,6 @@
     "103": [
       {
         "archive_index": 141,
-        "conditions": [],
         "decoded_sha256": "a5fc5e6e7ab167b748183155884baa06c5f12b2a0f7566e234076fc5dd3e9bf9",
         "decoded_size": 40976,
         "dialogue_count": 330,
@@ -5698,29 +1871,6 @@
       },
       {
         "archive_index": 142,
-        "conditions": [
-          {
-            "id": "story/142/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 44640,
-            "text": "敌全灭。",
-            "text_offset": 102040
-          },
-          {
-            "id": "story/142/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 44648,
-            "text": "友方战舰被击坠。",
-            "text_offset": 102064
-          },
-          {
-            "id": "story/142/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 44656,
-            "text": "在7回合内达成胜利条件。",
-            "text_offset": 102096
-          }
-        ],
         "decoded_sha256": "3d26395777e5d51640823a53be862a528b953a7bf73ca1b8698cb3296dd7e212",
         "decoded_size": 102288,
         "dialogue_count": 775,
@@ -5734,36 +1884,6 @@
     "104": [
       {
         "archive_index": 143,
-        "conditions": [
-          {
-            "id": "story/143/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 68504,
-            "text": "击坠雷姆雷斯。",
-            "text_offset": 175792
-          },
-          {
-            "id": "story/143/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 68512,
-            "text": "友方战舰被击坠。",
-            "text_offset": 175824
-          },
-          {
-            "id": "story/143/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 68516,
-            "text": "雷姆雷斯到达指定地点。",
-            "text_offset": 175856
-          },
-          {
-            "id": "story/143/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 68528,
-            "text": "无",
-            "text_offset": 175912
-          }
-        ],
         "decoded_sha256": "ae437da057425f451d7df74b36ee791b4a4cede6de31dbf63c501d677e5f06a0",
         "decoded_size": 176144,
         "dialogue_count": 1502,
@@ -5775,43 +1895,6 @@
       },
       {
         "archive_index": 144,
-        "conditions": [
-          {
-            "id": "story/144/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 53600,
-            "text": "在5回合内让兰顿到达司令簇。",
-            "text_offset": 153392
-          },
-          {
-            "id": "story/144/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 53604,
-            "text": "击坠混沌·雷姆雷斯。",
-            "text_offset": 153456
-          },
-          {
-            "id": "story/144/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 53608,
-            "text": "友方战舰被击坠。",
-            "text_offset": 153488
-          },
-          {
-            "id": "story/144/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 53612,
-            "text": "兰顿被击坠。",
-            "text_offset": 153520
-          },
-          {
-            "id": "story/144/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 53624,
-            "text": "无",
-            "text_offset": 153576
-          }
-        ],
         "decoded_sha256": "5079a800b75c47f5036059dc513c3cb0912cf012ad1d6b39b0403f1105aeac87",
         "decoded_size": 153744,
         "dialogue_count": 882,
@@ -5823,7 +1906,6 @@
       },
       {
         "archive_index": 145,
-        "conditions": [],
         "decoded_sha256": "516f22af68042907700927c412eba6c1c9014cbeeeed6b689c353218fab3e7bd",
         "decoded_size": 101648,
         "dialogue_count": 1465,
@@ -5837,7 +1919,6 @@
     "105": [
       {
         "archive_index": 146,
-        "conditions": [],
         "decoded_sha256": "efd8ee7d8d678a0efb98d0db085031d0523067e87f2e8931cf4c07535f1a1933",
         "decoded_size": 39312,
         "dialogue_count": 330,
@@ -5849,29 +1930,6 @@
       },
       {
         "archive_index": 147,
-        "conditions": [
-          {
-            "id": "story/147/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 45184,
-            "text": "敌全灭。",
-            "text_offset": 104792
-          },
-          {
-            "id": "story/147/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 45192,
-            "text": "友方战舰被击坠。",
-            "text_offset": 104816
-          },
-          {
-            "id": "story/147/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 45200,
-            "text": "在7回合内达成胜利条件。",
-            "text_offset": 104848
-          }
-        ],
         "decoded_sha256": "8a2dbfa8f71b4f85a7b6f85a5e259b3bd72efeb1fdf728cf443da8e5cee688c9",
         "decoded_size": 104976,
         "dialogue_count": 792,
@@ -5885,36 +1943,6 @@
     "106": [
       {
         "archive_index": 148,
-        "conditions": [
-          {
-            "id": "story/148/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 73112,
-            "text": "击坠雷姆雷斯。",
-            "text_offset": 186640
-          },
-          {
-            "id": "story/148/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 73120,
-            "text": "友方战舰被击坠。",
-            "text_offset": 186672
-          },
-          {
-            "id": "story/148/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 73124,
-            "text": "雷姆雷斯到达指定地点。",
-            "text_offset": 186704
-          },
-          {
-            "id": "story/148/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 73136,
-            "text": "无",
-            "text_offset": 186760
-          }
-        ],
         "decoded_sha256": "0ea3bb57bd4717cbe1eb497766e5e303bee4fb3a0a7b3755e7d15c7fbd2ef45c",
         "decoded_size": 187024,
         "dialogue_count": 1615,
@@ -5926,43 +1954,6 @@
       },
       {
         "archive_index": 149,
-        "conditions": [
-          {
-            "id": "story/149/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 88176,
-            "text": "让兰顿到达司令簇。",
-            "text_offset": 192240
-          },
-          {
-            "id": "story/149/condition/00/01",
-            "kind": "胜利条件",
-            "pointer_offset": 88180,
-            "text": "在同一回合内击坠3台混沌·雷姆雷斯。",
-            "text_offset": 192288
-          },
-          {
-            "id": "story/149/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 88184,
-            "text": "友方战舰被击坠。",
-            "text_offset": 192336
-          },
-          {
-            "id": "story/149/condition/01/01",
-            "kind": "失败条件",
-            "pointer_offset": 88188,
-            "text": "兰顿被击坠。",
-            "text_offset": 192368
-          },
-          {
-            "id": "story/149/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 88192,
-            "text": "无",
-            "text_offset": 192392
-          }
-        ],
         "decoded_sha256": "85186c946c95ae7f5391c3b168fb7b96782cffff2551e46052295fd484103a36",
         "decoded_size": 192656,
         "dialogue_count": 1677,
@@ -5974,7 +1965,6 @@
       },
       {
         "archive_index": 150,
-        "conditions": [],
         "decoded_sha256": "d5c3ef01bbaab04e4132149ce7fa20ba5cc3f75cdb42c6ac1c86264c132b0488",
         "decoded_size": 105872,
         "dialogue_count": 1530,
@@ -5988,29 +1978,6 @@
     "107": [
       {
         "archive_index": 151,
-        "conditions": [
-          {
-            "id": "story/151/condition/00/00",
-            "kind": "胜利条件",
-            "pointer_offset": 22440,
-            "text": "击坠雷姆雷斯。",
-            "text_offset": 54544
-          },
-          {
-            "id": "story/151/condition/01/00",
-            "kind": "失败条件",
-            "pointer_offset": 22448,
-            "text": "友方战舰被击坠。",
-            "text_offset": 54576
-          },
-          {
-            "id": "story/151/condition/02/00",
-            "kind": "SR点数条件",
-            "pointer_offset": 22456,
-            "text": "无",
-            "text_offset": 54600
-          }
-        ],
         "decoded_sha256": "d3459dbe637a141e70c6b08267cb87edd358803fd013f86c4c5591ba7206b875",
         "decoded_size": 54672,
         "dialogue_count": 300,
@@ -6022,7 +1989,6 @@
       },
       {
         "archive_index": 152,
-        "conditions": [],
         "decoded_sha256": "a3d62fb9b0d957ea407f70417fdacd8273573fad01f2e7bbb48b5ad1b4dc04da",
         "decoded_size": 12176,
         "dialogue_count": 57,
@@ -6034,7 +2000,6 @@
       },
       {
         "archive_index": 153,
-        "conditions": [],
         "decoded_sha256": "cd63e6882a194216ec9925eba043de39df80729574c04ed330141de6ee1b91d0",
         "decoded_size": 13328,
         "dialogue_count": 29,
@@ -6048,10 +2013,33 @@
   },
   "schema_version": 1,
   "source_policy": {
-    "boundary": "STAGE anchors prove scenario/resource ownership; cross-stage counters and Bazaar chains remain explicitly labelled until their non-STAGE owners are decoded.",
-    "comparison_only": "https://akurasu.net/wiki/Super_Robot_Wars/Z/Flow_Chart and /Secrets",
-    "primary": "Original-disc STAGE.BIN + SLPS_258.87 static parse",
-    "terminology": "corpus/glossary/*.json and corpus/zh/display-names/units-full.json"
+    "hidden_elements": {
+      "boundary": "STAGE anchors prove scenario/resource ownership; cross-stage counters and Bazaar chains remain explicitly labelled until their non-STAGE owners are decoded.",
+      "comparison_only": "https://akurasu.net/wiki/Super_Robot_Wars/Z/Flow_Chart and /Secrets",
+      "primary": "Original-disc STAGE.BIN + SLPS_258.87 static parse",
+      "terminology": "corpus/glossary/*.json and corpus/zh/display-names/units-full.json"
+    },
+    "reference": {
+      "boundary": "Player-facing rules only. External conflicts are called out, but evidence locations are not rendered.",
+      "primary": "Game UI text extracted from the original disc and the project's global terminology.",
+      "references": [
+        "https://akurasu.net/wiki/Super_Robot_Wars/Z/Clear_Bonuses",
+        "https://akurasu.net/wiki/Super_Robot_Wars/Z/Upgrade_Bonus",
+        "https://akurasu.net/wiki/Super_Robot_Wars/Z/Pilot_Skills",
+        "https://akurasu.net/wiki/Super_Robot_Wars/Z/Pilot_Database",
+        "https://akurasu.net/wiki/Super_Robot_Wars/Z/Squad_Leader_Bonus",
+        "https://akurasu.net/wiki/Super_Robot_Wars/Z/Mech_Abilities",
+        "https://akurasu.net/wiki/Super_Robot_Wars/Z/Bazaar_Items",
+        "https://akurasu.net/wiki/Super_Robot_Wars/Z/Team_Attacks",
+        "https://srw.wiki.cre.jp/wiki/特殊技能/Z",
+        "https://s-rpg-navi.com/srw-z/sp-skill/"
+      ]
+    },
+    "timeline": {
+      "boundary": "Permanent joins, temporary participation, departures, pilot changes, PP transfers and unit powerups are included. Hidden acquisitions remain governed by hidden-elements.json.",
+      "reference": "https://akurasu.net/wiki/Super_Robot_Wars/Z/Timeline",
+      "usage": "Acquisition timing and upgrade coverage are checked against the timeline, then rewritten with the project's global terminology."
+    }
   },
   "terminology": {
     "sources": {
@@ -6070,13 +2058,16 @@
       "display-name/unit/0018/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0027/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0028/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0039/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0040/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0049/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0051/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0064/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0065/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0068/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0070/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0072/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0075/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0081/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0087/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0088/name": "corpus/zh/display-names/units-full.json",
@@ -6087,13 +2078,17 @@
       "display-name/unit/0094/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0095/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0096/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0098/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0105/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0106/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0107/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0109/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0110/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0111/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0119/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0120/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0121/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0122/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0126/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0128/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0129/name": "corpus/zh/display-names/units-full.json",
@@ -6104,11 +2099,13 @@
       "display-name/unit/0143/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0145/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0147/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0150/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0156/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0157/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0161/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0162/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0163/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0165/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0166/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0174/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0176/name": "corpus/zh/display-names/units-full.json",
@@ -6118,6 +2115,7 @@
       "display-name/unit/0191/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0193/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0194/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0195/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0196/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0197/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0200/name": "corpus/zh/display-names/units-full.json",
@@ -6131,6 +2129,7 @@
       "display-name/unit/0223/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0225/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0228/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0230/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0231/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0232/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0249/name": "corpus/zh/display-names/units-full.json",
@@ -6143,38 +2142,73 @@
       "display-name/unit/0297/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0298/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0299/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0300/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0301/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0302/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0303/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0304/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0316/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0317/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0318/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0319/name": "corpus/zh/display-names/units-full.json",
       "display-name/unit/0320/name": "corpus/zh/display-names/units-full.json",
+      "display-name/unit/0330/name": "corpus/zh/display-names/units-full.json",
       "faction/zeravire": "corpus/glossary/terms-v1.json",
+      "organization/gekkostate": "corpus/glossary/global-variants-v1.json",
+      "part/a-adapter": "corpus/glossary/parts-v1.json",
+      "part/apogee-motor": "corpus/glossary/parts-v1.json",
+      "part/attuned-helmet": "corpus/glossary/parts-v1.json",
+      "part/barrier-field": "corpus/glossary/parts-v1.json",
       "part/black-box-f": "corpus/glossary/parts-v1.json",
+      "part/booster": "corpus/glossary/parts-v1.json",
       "part/bouquet": "corpus/glossary/parts-v1.json",
+      "part/cartridge": "corpus/glossary/parts-v1.json",
       "part/chiram-motorcycle": "corpus/glossary/parts-v1.json",
+      "part/chobham-armor": "corpus/glossary/parts-v1.json",
+      "part/combat-manual": "corpus/glossary/parts-v1.json",
+      "part/donkey-bread": "corpus/glossary/parts-v1.json",
+      "part/dustproof-device": "corpus/glossary/parts-v1.json",
       "part/emaan-pennant": "corpus/glossary/parts-v1.json",
       "part/fallen-angel-wing": "corpus/glossary/parts-v1.json",
       "part/haro": "corpus/glossary/parts-v1.json",
       "part/hero-mark": "corpus/glossary/parts-v1.json",
+      "part/high-performance-radar": "corpus/glossary/parts-v1.json",
       "part/hong-kong-video": "corpus/glossary/parts-v1.json",
+      "part/hybrid-armor": "corpus/glossary/parts-v1.json",
       "part/inertial-control-engineering-manual": "corpus/glossary/parts-v1.json",
+      "part/inertial-control-system": "corpus/glossary/parts-v1.json",
       "part/large-energy-pack": "corpus/glossary/parts-v1.json",
+      "part/linear-seat": "corpus/glossary/parts-v1.json",
+      "part/magnetic-coating": "corpus/glossary/parts-v1.json",
       "part/makeup-kit": "corpus/glossary/parts-v1.json",
+      "part/mega-booster": "corpus/glossary/parts-v1.json",
       "part/mega-condenser": "corpus/glossary/parts-v1.json",
+      "part/nano-skin-armor": "corpus/glossary/parts-v1.json",
+      "part/nanomachine-unit": "corpus/glossary/parts-v1.json",
       "part/natto": "corpus/glossary/parts-v1.json",
       "part/om-scrap": "corpus/glossary/parts-v1.json",
       "part/overcoat": "corpus/glossary/parts-v1.json",
+      "part/pancha-fruit": "corpus/glossary/parts-v1.json",
       "part/photon-power-research-report": "corpus/glossary/parts-v1.json",
+      "part/propellant-tank": "corpus/glossary/parts-v1.json",
       "part/rare-wheel": "corpus/glossary/parts-v1.json",
       "part/ray-out-first-issue": "corpus/glossary/parts-v1.json",
+      "part/repair-kit": "corpus/glossary/parts-v1.json",
+      "part/screw-module": "corpus/glossary/parts-v1.json",
       "part/shiranui": "corpus/glossary/parts-v1.json",
       "part/signed-disc": "corpus/glossary/parts-v1.json",
       "part/silver-accessory": "corpus/glossary/parts-v1.json",
+      "part/sleep-learning-device": "corpus/glossary/parts-v1.json",
       "part/smoked-giant-lizard": "corpus/glossary/parts-v1.json",
       "part/smoked-lizard": "corpus/glossary/parts-v1.json",
+      "part/solar-panel": "corpus/glossary/parts-v1.json",
       "part/steel-soul": "corpus/glossary/parts-v1.json",
       "part/super-alloy-nz-fragment": "corpus/glossary/parts-v1.json",
+      "part/super-repair-kit": "corpus/glossary/parts-v1.json",
+      "part/thruster-module": "corpus/glossary/parts-v1.json",
+      "part/tin-goldfish": "corpus/glossary/parts-v1.json",
       "part/vector-machine": "corpus/glossary/parts-v1.json",
+      "part/vr-helmet": "corpus/glossary/parts-v1.json",
       "people/alex": "corpus/glossary/story-conditions-v1.json",
       "people/anemone": "corpus/glossary/story-conditions-v1.json",
       "people/apollo": "corpus/glossary/story-conditions-v1.json",
@@ -6184,10 +2218,12 @@
       "people/auel": "corpus/glossary/story-conditions-v1.json",
       "people/beck": "corpus/glossary/story-conditions-v1.json",
       "people/charles": "corpus/glossary/story-conditions-v1.json",
+      "people/cynthia": "corpus/glossary/battle-lines-v1.json",
       "people/denzel-short": "corpus/glossary/story-dialogue-stage-002-v1.json",
       "people/emma": "corpus/glossary/battle-lines-v1.json",
       "people/enil": "corpus/glossary/global-variants-v1.json",
       "people/eureka": "corpus/glossary/battle-lines-v1.json",
+      "people/gainer": "corpus/glossary/battle-lines-v1.json",
       "people/garrod": "corpus/glossary/story-conditions-v1.json",
       "people/ghingham": "corpus/glossary/global-variants-v1.json",
       "people/holland": "corpus/glossary/story-conditions-v1.json",
@@ -6196,66 +2232,100 @@
       "people/kappei": "corpus/glossary/story-conditions-v1.json",
       "people/kei": "corpus/glossary/story-conditions-v1.json",
       "people/kira": "corpus/glossary/story-conditions-v1.json",
+      "people/lancerow": "corpus/glossary/story-conditions-v1.json",
       "people/moroha": "corpus/glossary/story-conditions-v1.json",
       "people/olba": "corpus/glossary/story-conditions-v1.json",
       "people/olson": "corpus/glossary/story-conditions-v1.json",
       "people/quattro": "corpus/glossary/battle-lines-v1.json",
       "people/rand": "corpus/glossary/terms-v1.json",
       "people/renton": "corpus/glossary/stage-titles-v1.json",
-      "people/rey-za-burrel-short": "corpus/glossary/story-dialogue-stage-002-v1.json",
+      "people/rey-za-burrel-short": "corpus/glossary/global-variants-v1.json",
       "people/roberto": "corpus/glossary/story-conditions-v1.json",
+      "people/roger": "corpus/glossary/menu-terms-v1.json",
+      "people/rosamia": "corpus/glossary/story-conditions-v1.json",
+      "people/sandman": "corpus/glossary/battle-lines-v1.json",
       "people/sara": "corpus/glossary/story-conditions-v1.json",
+      "people/sara-tyrell": "corpus/glossary/global-variants-v1.json",
       "people/sato": "corpus/glossary/story-conditions-v1.json",
       "people/setsuko": "corpus/glossary/terms-v1.json",
       "people/shagia": "corpus/glossary/story-conditions-v1.json",
       "people/shinn": "corpus/glossary/battle-lines-v1.json",
-      "people/speaker-0809e902288f": "corpus/glossary/story-speakers-v1.json",
-      "people/speaker-242048308cbb": "corpus/glossary/story-speakers-v1.json",
-      "people/speaker-2f643283052c": "corpus/glossary/story-speakers-v1.json",
-      "people/speaker-312cbf08471d": "corpus/glossary/story-speakers-v1.json",
-      "people/speaker-4db10c7578e6": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-03754cfe760d": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-0809e902288f": "corpus/glossary/global-variants-v1.json",
+      "people/speaker-0f0824173296": "corpus/glossary/global-variants-v1.json",
+      "people/speaker-242048308cbb": "corpus/glossary/global-variants-v1.json",
+      "people/speaker-2548f866db58": "corpus/glossary/global-variants-v1.json",
+      "people/speaker-2f643283052c": "corpus/glossary/global-variants-v1.json",
+      "people/speaker-312cbf08471d": "corpus/glossary/global-variants-v1.json",
+      "people/speaker-431100102afc": "corpus/glossary/global-variants-v1.json",
+      "people/speaker-4db10c7578e6": "corpus/glossary/global-variants-v1.json",
+      "people/speaker-52bd0a2936b4": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-58ffc6397f82": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-5b924f0e102e": "corpus/glossary/global-variants-v1.json",
       "people/speaker-68642f8dc73f": "corpus/glossary/story-speakers-v1.json",
-      "people/speaker-73fc8638fc0c": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-73fc8638fc0c": "corpus/glossary/global-variants-v1.json",
       "people/speaker-7e722f885dfc": "corpus/glossary/global-variants-v1.json",
-      "people/speaker-98397dd93972": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-98397dd93972": "corpus/glossary/global-variants-v1.json",
       "people/speaker-9b760cb1dad1": "corpus/glossary/story-speakers-v1.json",
       "people/speaker-9f0da37da623": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-9fd8001a1110": "corpus/glossary/global-variants-v1.json",
       "people/speaker-a1763505f7f3": "corpus/glossary/story-speakers-v1.json",
-      "people/speaker-a23753fe36e8": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-a23753fe36e8": "corpus/glossary/global-variants-v1.json",
       "people/speaker-a52075c737b1": "corpus/glossary/story-speakers-v1.json",
       "people/speaker-aa16fea188ec": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-b388eaad3e0f": "corpus/glossary/global-variants-v1.json",
       "people/speaker-b85bd152a7ad": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-ba4f4b2724f1": "corpus/glossary/global-variants-v1.json",
+      "people/speaker-bdc0fa70d514": "corpus/glossary/story-speakers-v1.json",
       "people/speaker-c12dfb53f28b": "corpus/glossary/global-variants-v1.json",
       "people/speaker-c2810db52aa2": "corpus/glossary/story-speakers-v1.json",
       "people/speaker-c799af3b0540": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-ce1e8aeca780": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-ce2a3c67ca70": "corpus/glossary/story-speakers-v1.json",
       "people/speaker-ce7a64f1e283": "corpus/glossary/story-speakers-v1.json",
       "people/speaker-d3320f02b47d": "corpus/glossary/global-variants-v1.json",
+      "people/speaker-d337215d0c0f": "corpus/glossary/global-variants-v1.json",
       "people/speaker-d34010c02035": "corpus/glossary/story-speakers-v1.json",
-      "people/speaker-e547903f3879": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-e547903f3879": "corpus/glossary/global-variants-v1.json",
+      "people/speaker-ea256a1b288e": "corpus/glossary/story-speakers-v1.json",
+      "people/speaker-ec24b8d9e164": "corpus/glossary/story-speakers-v1.json",
       "people/stella": "corpus/glossary/story-conditions-v1.json",
       "people/sting": "corpus/glossary/story-conditions-v1.json",
       "people/toby-short": "corpus/glossary/story-dialogue-stage-002-v1.json",
+      "people/toshiya": "corpus/glossary/story-conditions-v1.json",
       "people/tsine": "corpus/glossary/global-variants-v1.json",
       "people/yzak": "corpus/glossary/story-conditions-v1.json",
       "system/sr-point": "corpus/glossary/terms-v1.json",
       "unit/aquarion-alpha": "corpus/glossary/story-conditions-v1.json",
       "unit/big-o": "corpus/glossary/story-conditions-v1.json",
       "unit/chaos-capel": "corpus/glossary/story-conditions-v1.json",
+      "unit/double-spazer": "corpus/glossary/story-dialogue-stage-006-v1.json",
+      "unit/drill-spazer": "corpus/glossary/story-dialogue-stage-006-v1.json",
       "unit/force-impulse-gundam": "corpus/glossary/story-conditions-v1.json",
+      "unit/freeden": "corpus/glossary/battle-lines-v1.json",
       "unit/freedom-gundam": "corpus/glossary/story-conditions-v1.json",
       "unit/gouf-ignited": "corpus/glossary/story-conditions-v1.json",
       "unit/gran-trooper": "corpus/glossary/story-conditions-v1.json",
       "unit/gunleon": "corpus/glossary/menu-terms-v1.json",
+      "unit/king-beal": "corpus/glossary/story-conditions-v1.json",
+      "unit/king-of-vega": "corpus/glossary/global-variants-v1.json",
+      "unit/marine-spazer": "corpus/glossary/story-dialogue-stage-006-v1.json",
       "unit/mecha-tekkoki": "corpus/glossary/story-conditions-v1.json",
       "unit/patulia": "corpus/glossary/story-conditions-v1.json",
       "unit/rush-rod": "corpus/glossary/story-conditions-v1.json",
       "unit/saviour-gundam": "corpus/glossary/story-conditions-v1.json",
       "unit/shurouga": "corpus/glossary/story-conditions-v1.json",
       "unit/sol-gravion": "corpus/glossary/story-conditions-v1.json",
+      "unit/strike-freedom-gundam": "corpus/glossary/story-conditions-v1.json",
       "unit/xabungle": "corpus/glossary/global-variants-v1.json",
+      "unit/zambot-three": "corpus/glossary/story-dialogue-stage-009-v1.json",
+      "weapon/0008": "corpus/glossary/weapons-v1.json",
       "weapon/0009": "corpus/glossary/weapons-v1.json",
       "weapon/0010": "corpus/glossary/weapons-v1.json",
       "weapon/0022": "corpus/glossary/weapons-v1.json",
+      "weapon/0034": "corpus/glossary/weapons-v1.json",
+      "weapon/0035": "corpus/glossary/weapons-v1.json",
+      "weapon/0036": "corpus/glossary/weapons-v1.json",
       "weapon/0076": "corpus/glossary/weapons-v1.json",
       "weapon/0098": "corpus/glossary/weapons-v1.json",
       "weapon/0099": "corpus/glossary/weapons-v1.json",
@@ -6273,6 +2343,8 @@
       "weapon/0308": "corpus/glossary/weapons-v1.json",
       "weapon/0310": "corpus/glossary/weapons-v1.json",
       "weapon/0358": "corpus/glossary/weapons-v1.json",
+      "weapon/0466": "corpus/glossary/weapons-v1.json",
+      "weapon/0467": "corpus/glossary/weapons-v1.json",
       "weapon/0519": "corpus/glossary/weapons-v1.json",
       "weapon/0520": "corpus/glossary/weapons-v1.json",
       "weapon/0521": "corpus/glossary/weapons-v1.json",
@@ -6312,13 +2384,16 @@
       "display-name/unit/0018/name",
       "display-name/unit/0027/name",
       "display-name/unit/0028/name",
+      "display-name/unit/0039/name",
       "display-name/unit/0040/name",
       "display-name/unit/0049/name",
       "display-name/unit/0051/name",
       "display-name/unit/0064/name",
       "display-name/unit/0065/name",
       "display-name/unit/0068/name",
+      "display-name/unit/0070/name",
       "display-name/unit/0072/name",
+      "display-name/unit/0075/name",
       "display-name/unit/0081/name",
       "display-name/unit/0087/name",
       "display-name/unit/0088/name",
@@ -6329,13 +2404,17 @@
       "display-name/unit/0094/name",
       "display-name/unit/0095/name",
       "display-name/unit/0096/name",
+      "display-name/unit/0098/name",
       "display-name/unit/0105/name",
       "display-name/unit/0106/name",
       "display-name/unit/0107/name",
+      "display-name/unit/0109/name",
       "display-name/unit/0110/name",
       "display-name/unit/0111/name",
       "display-name/unit/0119/name",
       "display-name/unit/0120/name",
+      "display-name/unit/0121/name",
+      "display-name/unit/0122/name",
       "display-name/unit/0126/name",
       "display-name/unit/0128/name",
       "display-name/unit/0129/name",
@@ -6346,11 +2425,13 @@
       "display-name/unit/0143/name",
       "display-name/unit/0145/name",
       "display-name/unit/0147/name",
+      "display-name/unit/0150/name",
       "display-name/unit/0156/name",
       "display-name/unit/0157/name",
       "display-name/unit/0161/name",
       "display-name/unit/0162/name",
       "display-name/unit/0163/name",
+      "display-name/unit/0165/name",
       "display-name/unit/0166/name",
       "display-name/unit/0174/name",
       "display-name/unit/0176/name",
@@ -6360,6 +2441,7 @@
       "display-name/unit/0191/name",
       "display-name/unit/0193/name",
       "display-name/unit/0194/name",
+      "display-name/unit/0195/name",
       "display-name/unit/0196/name",
       "display-name/unit/0197/name",
       "display-name/unit/0200/name",
@@ -6373,6 +2455,7 @@
       "display-name/unit/0223/name",
       "display-name/unit/0225/name",
       "display-name/unit/0228/name",
+      "display-name/unit/0230/name",
       "display-name/unit/0231/name",
       "display-name/unit/0232/name",
       "display-name/unit/0249/name",
@@ -6385,38 +2468,73 @@
       "display-name/unit/0297/name",
       "display-name/unit/0298/name",
       "display-name/unit/0299/name",
+      "display-name/unit/0300/name",
+      "display-name/unit/0301/name",
+      "display-name/unit/0302/name",
+      "display-name/unit/0303/name",
+      "display-name/unit/0304/name",
       "display-name/unit/0316/name",
       "display-name/unit/0317/name",
       "display-name/unit/0318/name",
       "display-name/unit/0319/name",
       "display-name/unit/0320/name",
+      "display-name/unit/0330/name",
       "faction/zeravire",
+      "organization/gekkostate",
+      "part/a-adapter",
+      "part/apogee-motor",
+      "part/attuned-helmet",
+      "part/barrier-field",
       "part/black-box-f",
+      "part/booster",
       "part/bouquet",
+      "part/cartridge",
       "part/chiram-motorcycle",
+      "part/chobham-armor",
+      "part/combat-manual",
+      "part/donkey-bread",
+      "part/dustproof-device",
       "part/emaan-pennant",
       "part/fallen-angel-wing",
       "part/haro",
       "part/hero-mark",
+      "part/high-performance-radar",
       "part/hong-kong-video",
+      "part/hybrid-armor",
       "part/inertial-control-engineering-manual",
+      "part/inertial-control-system",
       "part/large-energy-pack",
+      "part/linear-seat",
+      "part/magnetic-coating",
       "part/makeup-kit",
+      "part/mega-booster",
       "part/mega-condenser",
+      "part/nano-skin-armor",
+      "part/nanomachine-unit",
       "part/natto",
       "part/om-scrap",
       "part/overcoat",
+      "part/pancha-fruit",
       "part/photon-power-research-report",
+      "part/propellant-tank",
       "part/rare-wheel",
       "part/ray-out-first-issue",
+      "part/repair-kit",
+      "part/screw-module",
       "part/shiranui",
       "part/signed-disc",
       "part/silver-accessory",
+      "part/sleep-learning-device",
       "part/smoked-giant-lizard",
       "part/smoked-lizard",
+      "part/solar-panel",
       "part/steel-soul",
       "part/super-alloy-nz-fragment",
+      "part/super-repair-kit",
+      "part/thruster-module",
+      "part/tin-goldfish",
       "part/vector-machine",
+      "part/vr-helmet",
       "people/alex",
       "people/anemone",
       "people/apollo",
@@ -6426,10 +2544,12 @@
       "people/auel",
       "people/beck",
       "people/charles",
+      "people/cynthia",
       "people/denzel-short",
       "people/emma",
       "people/enil",
       "people/eureka",
+      "people/gainer",
       "people/garrod",
       "people/ghingham",
       "people/holland",
@@ -6438,6 +2558,7 @@
       "people/kappei",
       "people/kei",
       "people/kira",
+      "people/lancerow",
       "people/moroha",
       "people/olba",
       "people/olson",
@@ -6446,58 +2567,91 @@
       "people/renton",
       "people/rey-za-burrel-short",
       "people/roberto",
+      "people/roger",
+      "people/rosamia",
+      "people/sandman",
       "people/sara",
+      "people/sara-tyrell",
       "people/sato",
       "people/setsuko",
       "people/shagia",
       "people/shinn",
+      "people/speaker-03754cfe760d",
       "people/speaker-0809e902288f",
+      "people/speaker-0f0824173296",
       "people/speaker-242048308cbb",
+      "people/speaker-2548f866db58",
       "people/speaker-2f643283052c",
       "people/speaker-312cbf08471d",
+      "people/speaker-431100102afc",
       "people/speaker-4db10c7578e6",
+      "people/speaker-52bd0a2936b4",
+      "people/speaker-58ffc6397f82",
+      "people/speaker-5b924f0e102e",
       "people/speaker-68642f8dc73f",
       "people/speaker-73fc8638fc0c",
       "people/speaker-7e722f885dfc",
       "people/speaker-98397dd93972",
       "people/speaker-9b760cb1dad1",
       "people/speaker-9f0da37da623",
+      "people/speaker-9fd8001a1110",
       "people/speaker-a1763505f7f3",
       "people/speaker-a23753fe36e8",
       "people/speaker-a52075c737b1",
       "people/speaker-aa16fea188ec",
+      "people/speaker-b388eaad3e0f",
       "people/speaker-b85bd152a7ad",
+      "people/speaker-ba4f4b2724f1",
+      "people/speaker-bdc0fa70d514",
       "people/speaker-c12dfb53f28b",
       "people/speaker-c2810db52aa2",
       "people/speaker-c799af3b0540",
+      "people/speaker-ce1e8aeca780",
+      "people/speaker-ce2a3c67ca70",
       "people/speaker-ce7a64f1e283",
       "people/speaker-d3320f02b47d",
+      "people/speaker-d337215d0c0f",
       "people/speaker-d34010c02035",
       "people/speaker-e547903f3879",
+      "people/speaker-ea256a1b288e",
+      "people/speaker-ec24b8d9e164",
       "people/stella",
       "people/sting",
       "people/toby-short",
+      "people/toshiya",
       "people/tsine",
       "people/yzak",
       "system/sr-point",
       "unit/aquarion-alpha",
       "unit/big-o",
       "unit/chaos-capel",
+      "unit/double-spazer",
+      "unit/drill-spazer",
       "unit/force-impulse-gundam",
+      "unit/freeden",
       "unit/freedom-gundam",
       "unit/gouf-ignited",
       "unit/gran-trooper",
       "unit/gunleon",
+      "unit/king-beal",
+      "unit/king-of-vega",
+      "unit/marine-spazer",
       "unit/mecha-tekkoki",
       "unit/patulia",
       "unit/rush-rod",
       "unit/saviour-gundam",
       "unit/shurouga",
       "unit/sol-gravion",
+      "unit/strike-freedom-gundam",
       "unit/xabungle",
+      "unit/zambot-three",
+      "weapon/0008",
       "weapon/0009",
       "weapon/0010",
       "weapon/0022",
+      "weapon/0034",
+      "weapon/0035",
+      "weapon/0036",
       "weapon/0076",
       "weapon/0098",
       "weapon/0099",
@@ -6515,6 +2669,8 @@
       "weapon/0308",
       "weapon/0310",
       "weapon/0358",
+      "weapon/0466",
+      "weapon/0467",
       "weapon/0519",
       "weapon/0520",
       "weapon/0521",

@@ -3,7 +3,7 @@
   "source_policy": {
     "reference": "https://akurasu.net/wiki/Super_Robot_Wars/Z/Timeline",
     "usage": "Acquisition timing and upgrade coverage are checked against the timeline, then rewritten with the project's global terminology.",
-    "boundary": "Temporary event-only units are omitted unless they materially change the player's available roster. Hidden acquisitions remain governed by hidden-elements.json."
+    "boundary": "Permanent joins, temporary participation, departures, pilot changes, PP transfers and unit powerups are included. Hidden acquisitions remain governed by hidden-elements.json."
   },
   "entries": [
     {
@@ -30,8 +30,7 @@
     {
       "stage": 3,
       "ordinals": [2],
-      "upgrades": ["{{display-name/unit/0176/name}}解锁强攻魅影换装。"],
-      "akurasu_corrections": ["Akurasu 把“到第5回合”等场内推进触发并入隐藏胜利条件；这不是玩家界面显示的胜利条件，本页不混写。"]
+      "upgrades": ["{{display-name/unit/0176/name}}解锁强攻魅影换装。"]
     },
     {
       "stage": 3,
@@ -436,6 +435,276 @@
       "stage": 60,
       "ordinals": [103, 105],
       "acquisitions": ["前半战中{{display-name/unit/0298/name}}升级为{{display-name/unit/0299/name}}；{{people/anemone}}等终盘援军加入。"]
+    },
+    {
+      "stage": 3,
+      "ordinals": [2],
+      "acquisitions": ["奥古的{{display-name/unit/0105/name}}、{{display-name/unit/0109/name}}、3台{{display-name/unit/0111/name}}与{{display-name/unit/0131/name}}加入。"],
+      "availability": ["过关后除荣耀之星三人外，其余成员暂时无法使用。"]
+    },
+    {
+      "stage": 5,
+      "ordinals": [13],
+      "acquisitions": ["{{organization/gekkostate}}队加入：{{display-name/unit/0297/name}}、{{display-name/unit/0302/name}}、{{display-name/unit/0300/name}}、{{display-name/unit/0301/name}}与{{display-name/unit/0304/name}}。"]
+    },
+    {
+      "stage": 8,
+      "ordinals": [7],
+      "temporary": ["亚历克斯驾驶{{display-name/unit/0181/name}}参战。"],
+      "upgrades": ["白色{{display-name/unit/0105/name}}可在本话提前解锁飞翔装甲突击。"],
+      "availability": ["整备结束后除荣耀之星三人外，其余成员暂时无法使用。"]
+    },
+    {
+      "stage": 9,
+      "ordinals": [8],
+      "temporary": ["{{people/kei}}与{{people/olson}}分别驾驶{{display-name/unit/0075/name}}参战。"],
+      "availability": ["{{people/setsuko}}与{{people/toby-short}}暂时离队；{{people/denzel-short}}永久离队，累计PP转移给{{people/setsuko}}。"]
+    },
+    {
+      "stage": 9,
+      "ordinals": [17],
+      "availability": ["本话结束后当前全体成员暂时无法使用。"]
+    },
+    {
+      "stage": 10,
+      "temporary": ["本话为剧情限定编成：{{people/kei}}、{{people/olson}}与埃曼队，以及幻痛队临时参战。"],
+      "availability": ["本话成员在整备结束后全部暂时离队。"]
+    },
+    {
+      "stage": 11,
+      "temporary": ["主人公机与{{unit/big-o}}按剧情临时出击。"],
+      "availability": ["兰德路线的{{people/speaker-e547903f3879}}暂时离开副驾驶席；{{people/roger}}在整备结束后暂时离队。"]
+    },
+    {
+      "stage": 12,
+      "temporary": ["{{organization/gekkostate}}、奥古、ZAFT等队伍按剧情合流；{{people/renton}}成为{{display-name/unit/0297/name}}副驾驶。"],
+      "availability": ["整备结束后除主人公外，其他成员再次暂时离队。"]
+    },
+    {
+      "stage": 13,
+      "temporary": ["魔神系、赞波特3、比亚I世、空雷王与神机超重神等队伍按剧情参战。"],
+      "availability": ["整备结束后除主人公外，其他成员暂时离队。"]
+    },
+    {
+      "stage": 14,
+      "temporary": ["{{unit/freeden}}、王者盖纳队、钢铁齿轮队与倒A高达队按剧情临时参战。"]
+    },
+    {
+      "stage": 15,
+      "acquisitions": ["{{people/speaker-431100102afc}}成为格罗玛号副驾驶。"],
+      "availability": ["{{display-name/unit/0075/name}}退出，{{people/kei}}换乘{{display-name/unit/0068/name}}；节子路线{{people/toby-short}}归队，兰德路线{{people/speaker-e547903f3879}}回到副驾驶席。"]
+    },
+    {
+      "stage": 16,
+      "ordinals": [24],
+      "temporary": ["{{organization/gekkostate}}与{{unit/freeden}}队伍参战；{{unit/freedom-gundam}}以NPC身份出现。"]
+    },
+    {
+      "stage": 17,
+      "ordinals": [25],
+      "temporary": ["古连泰沙、海洋飞天神机、{{display-name/unit/0027/name}}与{{organization/gekkostate}}按剧情参战。"],
+      "availability": ["{{organization/gekkostate}}队在本话后暂时离队。"]
+    },
+    {
+      "stage": 18,
+      "ordinals": [30],
+      "acquisitions": ["亚库艾里翁E编组加入。"]
+    },
+    {
+      "stage": 19,
+      "ordinals": [27],
+      "temporary": ["{{people/kira}}驾驶{{unit/freedom-gundam}}、安德鲁驾驶村雨，{{display-name/unit/0206/name}}按剧情参战。"]
+    },
+    {
+      "stage": 20,
+      "availability": ["{{display-name/unit/0222/name}}暂时无法使用；{{people/renton}}与{{people/eureka}}交换{{display-name/unit/0297/name}}的主副驾驶位置。"]
+    },
+    {
+      "stage": 21,
+      "ordinals": [33],
+      "temporary": ["勒温驾驶混沌利奥参战。"],
+      "availability": ["{{people/toby-short}}与{{display-name/unit/0317/name}}永久离队；{{display-name/unit/0316/name}}退出，{{people/setsuko}}换乘{{display-name/unit/0319/name}}。"]
+    },
+    {
+      "stage": 21,
+      "ordinals": [34],
+      "temporary": ["阿萨基姆与勒温按剧情参战。"]
+    },
+    {
+      "stage": 23,
+      "availability": ["西尔维娅、皮耶尔、纯与克罗亚加入亚库艾里翁副驾驶阵容，并开放A、B、D、E编组。"]
+    },
+    {
+      "stage": 25,
+      "availability": ["{{people/roger}}与{{unit/big-o}}暂时离队。"]
+    },
+    {
+      "stage": 27,
+      "ordinals": [58],
+      "availability": ["{{people/speaker-73fc8638fc0c}}转为MS驾驶员，{{people/sara-tyrell}}接任{{unit/freeden}}舰长；{{people/renton}}与{{people/eureka}}再次交换主副驾驶位置。"]
+    },
+    {
+      "stage": 28,
+      "ordinals": [41],
+      "availability": ["{{display-name/unit/0249/name}}退出，斗牙等人改乘{{display-name/unit/0250/name}}。"]
+    },
+    {
+      "stage": 29,
+      "ordinals": [60],
+      "temporary": ["{{people/tsine}}驾驶{{display-name/unit/0330/name}}参战。"]
+    },
+    {
+      "stage": 30,
+      "ordinals": [61],
+      "availability": ["{{people/renton}}成为{{display-name/unit/0297/name}}主驾驶，{{people/eureka}}转为副驾驶且不能再用PP培养；其累计PP转移给{{people/renton}}。"]
+    },
+    {
+      "stage": 31,
+      "temporary": ["勒温与阿萨基姆按主人公路线参战。"]
+    },
+    {
+      "stage": 32,
+      "ordinals": [45],
+      "availability": ["{{display-name/unit/0319/name}}退出，{{people/setsuko}}换乘{{display-name/unit/0320/name}}。"]
+    },
+    {
+      "stage": 34,
+      "ordinals": [47],
+      "availability": ["蕾柯娅与梅塔斯永久离队。"]
+    },
+    {
+      "stage": 35,
+      "ordinals": [48, 51],
+      "temporary": ["{{people/kira}}驾驶{{unit/freedom-gundam}}以NPC身份参战。"],
+      "availability": ["{{people/speaker-ba4f4b2724f1}}与{{people/speaker-0f0824173296}}暂时退出{{display-name/unit/0250/name}}副驾驶阵容；机体暂时失去部分武器。"]
+    },
+    {
+      "stage": 35,
+      "ordinals": [66, 69],
+      "availability": ["{{people/eureka}}以新造型回到{{display-name/unit/0297/name}}副驾驶席，解锁“觉醒”，并停止PP培养。"]
+    },
+    {
+      "stage": 36,
+      "ordinals": [52],
+      "temporary": ["{{people/kira}}、玛琉、{{people/kei}}、{{people/speaker-73fc8638fc0c}}、阿姆罗、龙马与马林等友军以NPC身份参战。"]
+    },
+    {
+      "stage": 36,
+      "ordinals": [70],
+      "acquisitions": ["{{people/kira}}与{{unit/freedom-gundam}}、玛琉与{{display-name/unit/0208/name}}加入。"],
+      "temporary": ["{{people/shinn}}、塔莉亚、{{people/athrun}}、卡缪、阿姆罗、甲儿、铁也与{{people/kappei}}等友军以NPC身份参战。"]
+    },
+    {
+      "stage": 38,
+      "ordinals": [72],
+      "availability": ["{{people/kira}}、{{unit/freedom-gundam}}与{{display-name/unit/0206/name}}暂时离队。"]
+    },
+    {
+      "stage": 39,
+      "ordinals": [73],
+      "availability": ["旧{{display-name/unit/0297/name}}退出并换为{{display-name/unit/0298/name}}；塔荷失去“热血”，改为解锁“信赖”和“爱”。"]
+    },
+    {
+      "stage": 40,
+      "availability": ["另一支ZEUTH在整备阶段完全归队，并一次补齐未走路线中的常规机体、换机、武器与数值强化。"]
+    },
+    {
+      "stage": 42,
+      "availability": ["斗牙与{{people/speaker-9fd8001a1110}}暂时离队；{{display-name/unit/0250/name}}暂时失去重力子龙卷拳。"]
+    },
+    {
+      "stage": 43,
+      "temporary": ["本话使用剧情限定编成；前后半会依次切换母舰与各阵营单位。"],
+      "availability": ["{{people/shinn}}换乘{{display-name/unit/0193/name}}，雷换乘{{display-name/unit/0194/name}}；{{people/athrun}}与美玲暂时离队；{{unit/freedom-gundam}}退出，{{people/kira}}换乘{{display-name/unit/0196/name}}。脉冲高达开放换乘，默认驾驶员改为露娜玛丽亚。"]
+    },
+    {
+      "stage": 44,
+      "availability": ["{{display-name/unit/0250/name}}退出，斗牙等六人换乘{{display-name/unit/0251/name}}；{{people/speaker-9fd8001a1110}}、{{people/speaker-0f0824173296}}回归副驾驶阵容。"]
+    },
+    {
+      "stage": 45,
+      "temporary": ["{{unit/freeden}}、钢铁齿轮及部分泰坦斯NPC参战。"],
+      "acquisitions": ["交易所新增{{display-name/unit/0122/name}}与{{display-name/unit/0121/name}}。"]
+    },
+    {
+      "stage": 46,
+      "temporary": ["{{unit/freeden}}、钢铁齿轮、{{people/athrun}}与奥布友军按剧情参战。"],
+      "availability": ["{{unit/saviour-gundam}}退出，{{people/athrun}}换乘{{display-name/unit/0197/name}}并解锁SEED。"]
+    },
+    {
+      "stage": 47,
+      "availability": ["勒温与混沌利奥永久离队。"]
+    },
+    {
+      "stage": 48,
+      "ordinals": [83],
+      "acquisitions": ["第47话后整备：{{display-name/unit/0303/name}}、科连专用卡普尔加入；交易所满足条件时亚萨巴加入，另可购买艾格尔与{{display-name/unit/0106/name}}。"],
+      "availability": ["{{display-name/unit/0302/name}}退出并继承到{{display-name/unit/0303/name}}。"]
+    },
+    {
+      "stage": 48,
+      "ordinals": [89],
+      "acquisitions": ["第47话后整备：{{display-name/unit/0303/name}}、科连专用卡普尔加入；交易所满足条件时亚萨巴加入，另可购买艾格尔与{{display-name/unit/0106/name}}。"],
+      "availability": ["{{people/shinn}}与露娜玛丽亚暂时离队；{{people/rey-za-burrel-short}}、{{display-name/unit/0194/name}}及密涅瓦号永久离队；{{unit/freeden}}与钢铁齿轮暂时无法使用；{{display-name/unit/0302/name}}退出并继承到{{display-name/unit/0303/name}}。"]
+    },
+    {
+      "stage": 48,
+      "ordinals": [83],
+      "availability": ["希里乌斯暂离副驾驶阵容，亚库艾里翁A/C编组停用；亚库艾里翁·玛尔斯停用，亚库艾里翁·天使替代登场。"]
+    },
+    {
+      "stage": 49,
+      "ordinals": [84],
+      "availability": ["{{people/gainer}}与{{display-name/unit/0220/name}}暂时离队。"]
+    },
+    {
+      "stage": 50,
+      "ordinals": [85],
+      "availability": ["{{unit/freeden}}与钢铁齿轮暂时无法使用；艾露琪与{{people/speaker-d337215d0c0f}}改为可驾驶机体。"]
+    },
+    {
+      "stage": 50,
+      "ordinals": [91],
+      "availability": ["亚库艾里翁·玛尔斯停用，亚库艾里翁·天使替代登场；希里乌斯暂离副驾驶阵容，A/C编组停用。"]
+    },
+    {
+      "stage": 51,
+      "ordinals": [86],
+      "availability": ["雷、{{display-name/unit/0194/name}}与密涅瓦号在通常情况下永久离队。"]
+    },
+    {
+      "stage": 51,
+      "ordinals": [92],
+      "availability": ["{{people/gainer}}与{{display-name/unit/0220/name}}暂时离队。"]
+    },
+    {
+      "stage": 53,
+      "ordinals": [94],
+      "availability": ["{{unit/freeden}}与钢铁齿轮暂时无法使用；艾露琪与{{people/speaker-d337215d0c0f}}改为可驾驶机体。"]
+    },
+    {
+      "stage": 54,
+      "availability": ["永恒号与桑德曼的{{display-name/unit/0252/name}}暂时无法使用。"]
+    },
+    {
+      "stage": 55,
+      "temporary": ["前半战中桑德曼、永恒号与索蕾优号参战；后半战无法继续使用这两艘母舰。"]
+    },
+    {
+      "stage": 56,
+      "availability": ["尼奥恢复穆的身份；蕾柯娅重新加入时按初始等级、PP、能力与技能计算，不继承此前培养。"]
+    },
+    {
+      "stage": 57,
+      "acquisitions": ["希里乌斯回归亚库艾里翁副驾驶阵容，丽娜加入。"],
+      "availability": ["亚库艾里翁·天使退出，亚库艾里翁·玛尔斯恢复；{{people/eureka}}暂离{{display-name/unit/0298/name}}副驾驶席。艾露琪与{{people/speaker-d337215d0c0f}}回归钢铁齿轮，{{people/speaker-d337215d0c0f}}不能再用PP培养。"],
+      "upgrades": ["战斗中恢复A编组；过关后恢复C编组，{{unit/aquarion-alpha}}补齐A、C、D、E编组。"]
+    },
+    {
+      "stage": 60,
+      "ordinals": [103, 105],
+      "availability": ["前半战{{display-name/unit/0298/name}}退出并换为{{display-name/unit/0299/name}}；后半战{{people/eureka}}回到副驾驶席。"],
+      "temporary": ["安妮莫奈、尤尔根斯、多米尼克等终盘友军参战；兰德路线另有查尔斯、蕾与阿萨基姆作为援军，但不会正式加入。"]
     }
   ]
 }

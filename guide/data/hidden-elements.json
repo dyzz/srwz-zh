@@ -201,7 +201,7 @@
       "summary": "两件交易所素材合成；漏掉时第24话自动取得。",
       "term_refs": ["display-name/unit/0007/name", "part/super-alloy-nz-fragment", "part/inertial-control-engineering-manual"],
       "steps": [
-        {"stage": 13, "text": "让Double Spazer至少受击一次；过关后购买{{part/super-alloy-nz-fragment}}。", "evidence_level": "cross-file", "evidence_note": "受击事件在STAGE；商品开放与合成在交易所系统。"},
+        {"stage": 13, "text": "让{{unit/double-spazer}}至少受击一次；过关后购买{{part/super-alloy-nz-fragment}}。", "evidence_level": "cross-file", "evidence_note": "受击事件在STAGE；商品开放与合成在交易所系统。"},
         {"stage": 15, "text": "过关后购买{{part/inertial-control-engineering-manual}}，两件素材合成{{display-name/unit/0007/name}}。", "evidence_level": "cross-file", "evidence_note": "交易所商品组合不属于战斗STAGE文本。"},
         {"stage": 24, "text": "未达成前置时在本话自动取得。", "evidence_level": "stage-static"}
       ]
@@ -359,7 +359,7 @@
       "term_refs": ["weapon/0010"],
       "steps": [
         {"stage": 49, "ordinals": [84], "text": "ZEUTH路线：魔神Z、大魔神、古连泰沙、盖塔龙同时出击，魔神Z与大魔神由甲儿、铁也驾驶；保持存活并击坠布莱大帝。", "evidence_level": "stage-static"},
-        {"stage": 53, "ordinals": [94], "text": "ZAFT路线执行同一条件；击坠贝加大王也可触发，但本关仍必须处理布莱大帝。", "evidence_level": "stage-static"}
+        {"stage": 53, "ordinals": [94], "text": "ZAFT路线执行同一条件；击坠{{unit/king-of-vega}}也可触发，但本关仍必须处理布莱大帝。", "evidence_level": "stage-static"}
       ]
     },
 
@@ -425,7 +425,7 @@
       "id": "system-aki-points",
       "category": "system",
       "title": "亚纪生存点数",
-      "summary": "节子开局需7点；兰德开局需4点并有32以上SR点数。成功时第42话胜平以200气力出击，并增加1结局点数。",
+      "summary": "节子开局需7点；兰德开局需4点并有32以上SR点数。成功时第42话{{people/kappei}}以200气力出击，并增加1结局点数。",
       "term_refs": ["people/aki", "people/kappei", "people/speaker-a52075c737b1", "people/setsuko", "people/rand", "faction/zeravire", "system/sr-point"],
       "steps": [
         {"stage": 7, "ordinals": [6], "text": "节子：赞波特3登场时，{{people/kappei}}击坠数至少5，＋1。", "evidence_level": "stage-static"},
@@ -436,7 +436,7 @@
         {"stage": 33, "ordinals": [49], "text": "节子周边警戒路线：完成关卡，＋3。", "evidence_level": "stage-static"},
         {"stage": 40, "ordinals": [56], "text": "节子：击坠{{people/speaker-a52075c737b1}}，＋1。", "evidence_level": "stage-static"},
         {"stage": 40, "ordinals": [74], "text": "兰德：击坠{{people/speaker-a52075c737b1}}，＋2。", "evidence_level": "stage-static"},
-        {"stage": 42, "text": "开场判定：节子至少7点；兰德至少4点并有32以上{{system/sr-point}}。满足时亚纪生存、胜平200气力出击、结局点数＋1。", "evidence_level": "cross-stage"}
+        {"stage": 42, "text": "开场判定：节子至少7点；兰德至少4点并有32以上{{system/sr-point}}。满足时亚纪生存、{{people/kappei}}200气力出击、结局点数＋1。", "evidence_level": "cross-stage"}
       ]
     },
     {
@@ -482,7 +482,7 @@
         {"stage": 48, "ordinals": [89], "text": "ZAFT路线过关时场上没有敌人，－1。", "evidence_level": "stage-static"},
         {"stage": 49, "ordinals": [84], "text": "ZEUTH路线击坠BIG-DUO地狱时{{people/beck}}仍存活，＋1。", "evidence_level": "stage-static"},
         {"stage": 49, "ordinals": [90], "text": "ZAFT路线由克瓦特罗、卡缪、花或爱玛与蕾柯亚交战且双方存活，＋1。", "evidence_level": "stage-static"},
-        {"stage": 50, "ordinals": [85], "text": "ZEUTH路线击坠{{people/moroha}}：＋1；格伦被击坠：－1；西里乌斯存活到过关：－1。", "evidence_level": "stage-static"},
+        {"stage": 50, "ordinals": [85], "text": "ZEUTH路线击坠{{people/moroha}}：＋1；格伦被击坠：－1；西利乌斯存活到过关：－1。", "evidence_level": "stage-static"},
         {"stage": 50, "ordinals": [91], "text": "ZAFT路线同时击坠{{people/shagia}}和{{people/olba}}，＋1。", "evidence_level": "stage-static"},
         {"stage": 51, "ordinals": [86], "text": "ZEUTH路线蕾柯亚交战且双方存活：＋1。", "evidence_level": "stage-static"},
         {"stage": 51, "ordinals": [92], "text": "ZAFT路线击坠双翅：＋1；格伦被击坠：－1。", "evidence_level": "stage-static"},

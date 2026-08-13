@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "source_policy": {
+    "primary": "Game UI text extracted from the original disc and the project's global terminology.",
+    "references": [
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Clear_Bonuses",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Upgrade_Bonus",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Pilot_Skills",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Pilot_Database",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Squad_Leader_Bonus",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Mech_Abilities",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Bazaar_Items",
+      "https://akurasu.net/wiki/Super_Robot_Wars/Z/Team_Attacks",
+      "https://srw.wiki.cre.jp/wiki/特殊技能/Z",
+      "https://s-rpg-navi.com/srw-z/sp-skill/"
+    ],
+    "boundary": "Player-facing rules only. External conflicts are called out, but evidence locations are not rendered."
+  },
+  "carryover": {
+    "rates": [
+      {"playthrough": "二周目", "rate": "50%"},
+      {"playthrough": "三周目", "rate": "75%"},
+      {"playthrough": "四周目起", "rate": "100%"}
+    ],
+    "items": [
+      {"label": "击坠数", "value": "所有驾驶员的累计击坠数全部继承。"},
+      {"label": "资金／BS／PP", "value": "按当前周目比例继承；机体与武器的改造投入计入结算，不用在最终话前主动退款。"},
+      {"label": "机体状态", "value": "机体、武器改造段数不会原样带入下一周目，需用继承资金重新改造。"},
+      {"label": "隐藏要素", "value": "隐藏人物、机体、武器、强化零件及点数条件按新周目重新判定。累计击坠数门槛会直接受继承值帮助。"},
+      {"label": "路线选择", "value": "二周目起，第47话后的ZEUTH／ZAFT路线可以直接选择。"}
+    ],
+    "modes": [
+      {"name": "EX-HARD", "unlock": "任一路线通关一次", "rules": "机体和武器无法改造、驾驶员无法培养、强化零件无法购买；敌方单位带改造，难度固定为HARD。"},
+      {"name": "SPECIAL", "unlock": "节子与兰德两位主人公剧情均通关", "rules": "机体和武器开放15段改造；开始游戏时持有全套强化零件。"}
+    ],
+    "notes": [
+      "兰顿与优莱卡、莎拉·泰瑞尔等剧情换位驾驶员存在PP／击坠数接管规则，以流程卡中的换位说明为准。",
+      "亚历克斯与阿斯兰按不同驾驶员数据计算，两者的击坠数与PP不会互相转移。"
+    ],
+    "akurasu_issues": [
+      "Akurasu 的 Clear Bonuses 页目前把首次通关后的比例写成25%；游戏内通关说明明确显示二周目50%、三周目75%、四周目起100%，本页采用游戏内数值。"
+    ]
+  },
+  "upgrade_carryover": [
+    {"from": "{{display-name/unit/0156/name}}", "to": "{{display-name/unit/0161/name}}", "when": "兰德路线第27话", "keeps_old": true},
+    {"from": "{{display-name/unit/0161/name}}", "to": "{{display-name/unit/0163/name}}", "when": "第33话“寻找兰顿”路线", "keeps_old": true, "note": "取得后两机继续共享改造。"},
+    {"from": "{{display-name/unit/0105/name}}（白）", "to": "{{display-name/unit/0107/name}}", "when": "节子路线第33话“前往直布罗陀基地”", "keeps_old": true},
+    {"from": "{{display-name/unit/0176/name}}（各换装）", "to": "{{display-name/unit/0193/name}}", "when": "第43话", "keeps_old": true},
+    {"from": "{{display-name/unit/0181/name}}", "to": "{{display-name/unit/0194/name}}", "when": "第43话", "keeps_old": true},
+    {"from": "{{display-name/unit/0087/name}}（第1台）", "to": "{{display-name/unit/0087/name}}（第2台）", "when": "兰德路线第45话交易所", "keeps_old": true},
+    {"from": "{{display-name/unit/0221/name}}（莎拉机）", "to": "{{display-name/unit/0231/name}}", "when": "ZEUTH路线第50话／ZAFT路线第52话", "keeps_old": true},
+    {"from": "{{display-name/unit/0051/name}}", "to": "{{display-name/unit/0049/name}}", "when": "节子路线第7话", "keeps_old": false},
+    {"from": "{{display-name/unit/0039/name}}", "to": "{{display-name/unit/0040/name}}", "when": "第13话", "keeps_old": false},
+    {"from": "{{display-name/unit/0075/name}}", "to": "{{display-name/unit/0068/name}}", "when": "第15话", "keeps_old": false, "note": "第10话可改造前机武器，费用更便宜。"},
+    {"from": "{{display-name/unit/0316/name}}", "to": "{{display-name/unit/0319/name}}", "when": "节子路线第21话", "keeps_old": false},
+    {"from": "{{display-name/unit/0222/name}}", "to": "{{display-name/unit/0223/name}}", "when": "第22话", "keeps_old": false, "note": "先改造前机武器更省资金。"},
+    {"from": "{{display-name/unit/0249/name}}", "to": "{{display-name/unit/0250/name}}", "when": "节子路线第28话", "keeps_old": false},
+    {"from": "{{display-name/unit/0319/name}}", "to": "{{display-name/unit/0320/name}}", "when": "节子路线第32话", "keeps_old": false},
+    {"from": "{{display-name/unit/0297/name}}", "to": "{{display-name/unit/0298/name}}", "when": "兰德路线第39话", "keeps_old": false},
+    {"from": "{{display-name/unit/0195/name}}", "to": "{{display-name/unit/0196/name}}", "when": "第43话", "keeps_old": false},
+    {"from": "{{display-name/unit/0250/name}}", "to": "{{display-name/unit/0251/name}}", "when": "第44话", "keeps_old": false},
+    {"from": "{{unit/saviour-gundam}}", "to": "{{display-name/unit/0197/name}}", "when": "第46话", "keeps_old": false},
+    {"from": "{{display-name/unit/0302/name}}", "to": "{{display-name/unit/0303/name}}", "when": "第47话后整备", "keeps_old": false},
+    {"from": "{{display-name/unit/0298/name}}", "to": "{{display-name/unit/0299/name}}", "when": "最终话", "keeps_old": false}
+  ],
+  "upgrade_notes": [
+    "改造段数、武器改造和已选择的全改造奖励一并继承；后继机不能重新选择全改造奖励。",
+    "巴尔戈拉（2号机）在第21话结束时、巴尔戈拉（3号机）在第9话结束时返还改造资金。"
+  ],
+  "upgrade_akurasu_issues": [
+    "Akurasu Upgrade Bonus 表把救世主高达换乘无限正义高达写成第45话；实际流程发生在第46话。",
+    "Akurasu 把塔米纳斯909换乘塔米纳斯303列作第48话；更准确的说法是第47话结束后的路线整备阶段。"
+  ],
+  "full_upgrade_bonuses": [
+    "最大HP+10%",
+    "最大EN+10%",
+    "运动性+10%",
+    "瞄准值+10%",
+    "装甲值+10%",
+    "移动力+1",
+    "获得干扰功能",
+    "机体与武器地形适应【空】变为S",
+    "机体与武器地形适应【陆】变为S",
+    "机体与武器地形适应【海】变为S",
+    "机体与武器地形适应【宇】变为S",
+    "屏障／装甲类能力的EN消耗变为0",
+    "武器射程+1（射程1与MAP武器除外）",
+    "武器CT修正+10%"
+  ],
+  "full_upgrade_notes": [
+    "机体五项能力全部改满后可选择一项机体全改造奖励；武器改造不计入解锁条件。",
+    "可以暂缓选择；再次进入改造画面时仍可决定。剧情换机继承后不能重新选择。",
+    "SPECIAL模式开放15段改造，但全改造奖励仍按完整改满机体能力后取得。"
+  ],
+  "rare_pilot_skills": [
+    {"name": "天才", "holders": ["{{people/sandman}}（我方常驻）"]},
+    {"name": "极", "holders": ["{{people/ghingham}}（客串友军；无常驻我方持有者）"]},
+    {"name": "强化人", "holders": ["{{people/rosamia}}", "{{people/speaker-242048308cbb}}"]},
+    {"name": "新人类（X）", "holders": ["{{people/speaker-73fc8638fc0c}}", "{{people/lancerow}}", "{{people/speaker-b388eaad3e0f}}"]},
+    {"name": "人工新人类", "holders": ["{{people/speaker-a1763505f7f3}}"]},
+    {"name": "伪新人类", "holders": ["{{people/shagia}}", "{{people/olba}}"]},
+    {"name": "SEED", "holders": ["{{people/shinn}}", "{{people/athrun}}", "{{people/kira}}", "{{people/speaker-58ffc6397f82}}"]},
+    {"name": "扩展人", "holders": ["{{people/sting}}", "{{people/auel}}", "{{people/stella}}"]},
+    {"name": "玩家", "holders": ["{{people/gainer}}（升级前）", "{{people/cynthia}}"]},
+    {"name": "游戏冠军", "holders": ["{{people/gainer}}（剧情升级后）"]},
+    {"name": "谈判专家", "holders": ["{{people/roger}}"]},
+    {"name": "强运", "holders": ["{{people/kei}}", "{{people/speaker-5b924f0e102e}}", "{{people/garrod}}", "{{people/speaker-ea256a1b288e}}（客串友军）", "{{people/beck}}（客串友军）"]}
+  ],
+  "pilot_skill_notes": [
+    {"name": "二次行动", "label": "敌方专用", "text": "我方常驻与可控客串角色均无人持有，不计入稀有技能的持有人数。"}
+  ],
+  "pilot_skill_levels": [
+    {
+      "name": "底力",
+      "columns": ["等级", "开始生效", "HP10%时命中／回避", "HP10%时暴击", "HP10%时装甲"],
+      "rows": [
+        ["L1", "HP≤10%", "+5%", "+8%", "+10%"],
+        ["L2", "HP≤20%", "+10%", "+16%", "+20%"],
+        ["L3", "HP≤30%", "+15%", "+24%", "+30%"],
+        ["L4", "HP≤40%", "+20%", "+32%", "+40%"],
+        ["L5", "HP≤50%", "+25%", "+40%", "+50%"],
+        ["L6", "HP≤60%", "+30%", "+48%", "+60%"],
+        ["L7", "HP≤70%", "+35%", "+56%", "+70%"],
+        ["L8", "HP≤80%", "+40%", "+64%", "+80%"],
+        ["L9", "HP≤90%", "+45%", "+72%", "+90%"]
+      ],
+      "note": "生效后，HP每再降低10%，命中／回避＋5%、暴击＋8%、装甲＋10%；表中末三列是HP降至10%时的最大补正。"
+    },
+    {
+      "name": "反击",
+      "columns": ["等级", "双方技量相同时的发动率"],
+      "rows": [
+        ["L1", "6.25%"], ["L2", "12.5%"], ["L3", "18.75%"],
+        ["L4", "25%"], ["L5", "31.25%"], ["L6", "37.5%"],
+        ["L7", "43.75%"], ["L8", "50%"], ["L9", "56.25%"]
+      ],
+      "note": "发动率＝〔技能等级＋（己方技量－敌方技量）÷10〕÷16；表中按双方技量相同计算。"
+    },
+    {
+      "name": "援护攻击",
+      "columns": ["等级", "每回合次数"],
+      "rows": [["L1", "1次"], ["L2", "2次"], ["L3", "3次"], ["L4", "4次"]]
+    },
+    {
+      "name": "援护防御",
+      "columns": ["等级", "每回合次数"],
+      "rows": [["L1", "1次"], ["L2", "2次"], ["L3", "3次"], ["L4", "4次"]]
+    },
+    {
+      "name": "SP提升",
+      "columns": ["等级", "最大SP"],
+      "rows": [
+        ["L1", "+5"], ["L2", "+10"], ["L3", "+15"],
+        ["L4", "+20"], ["L5", "+25"], ["L6", "+30"],
+        ["L7", "+35"], ["L8", "+40"], ["L9", "+45"]
+      ]
+    },
+    {
+      "name": "指挥官",
+      "columns": ["等级", "同小队", "距离1", "距离2", "距离3", "距离4", "距离5"],
+      "rows": [
+        ["L1", "+12%", "+10%", "+8%", "—", "—", "—"],
+        ["L2", "+18%", "+15%", "+12%", "+9%", "—", "—"],
+        ["L3", "+24%", "+20%", "+16%", "+12%", "+8%", "—"],
+        ["L4", "+30%", "+25%", "+20%", "+15%", "+10%", "+5%"]
+      ],
+      "note": "命中与回避使用同一补正；多个指挥范围重叠时不叠加，只取较高效果。"
+    },
+    {
+      "name": "超能力",
+      "columns": ["等级", "命中／回避"],
+      "rows": [
+        ["L1", "+2%"], ["L2", "+4%"], ["L3", "+6%"],
+        ["L4", "+8%"], ["L5", "+10%"], ["L6", "+12%"],
+        ["L7", "+14%"], ["L8", "+16%"], ["L9", "+18%"]
+      ]
+    },
+    {
+      "name": "新人类",
+      "columns": ["等级", "命中／回避", "特定武器射程"],
+      "rows": [
+        ["L1", "+0%", "+0"], ["L2", "+5%", "+0"], ["L3", "+10%", "+0"],
+        ["L4", "+15%", "+0"], ["L5", "+20%", "+0"], ["L6", "+25%", "+0"],
+        ["L7", "+30%", "+1"], ["L8", "+30%", "+1"], ["L9", "+30%", "+2"]
+      ]
+    },
+    {
+      "name": "强化人",
+      "columns": ["等级", "命中／回避", "特定武器射程"],
+      "rows": [
+        ["L1", "+0%", "+0"], ["L2", "+4%", "+0"], ["L3", "+8%", "+0"],
+        ["L4", "+12%", "+0"], ["L5", "+15%", "+0"], ["L6", "+20%", "+0"],
+        ["L7", "+20%", "+1"], ["L8", "+25%", "+1"]
+      ],
+      "note": "本作没有L9数据，最高为L8。"
+    },
+    {
+      "name": "新人类（X）",
+      "columns": ["等级", "命中／回避"],
+      "rows": [
+        ["L1", "+0%"], ["L2", "+5%"], ["L3", "+10%"],
+        ["L4", "+15%"], ["L5", "+20%"], ["L6", "+25%"],
+        ["L7", "+30%"], ["L8", "+30%"], ["L9", "+30%"]
+      ],
+      "note": "与新人类使用同一命中／回避补正，但不提供武器射程加成。"
+    },
+    {
+      "name": "人工新人类",
+      "columns": ["等级", "命中／回避", "特定武器射程"],
+      "rows": [
+        ["L1", "+0%", "+0"], ["L2", "+4%", "+0"], ["L3", "+8%", "+0"],
+        ["L4", "+12%", "+0"], ["L5", "+15%", "+0"], ["L6", "+20%", "+0"],
+        ["L7", "+20%", "+1"], ["L8", "+25%", "+1"]
+      ],
+      "note": "本作没有L9数据，最高为L8。"
+    },
+    {
+      "name": "伪新人类",
+      "columns": ["等级", "命中／回避", "暴击"],
+      "rows": [
+        ["L1", "+0%", "+0%"], ["L2", "+4%", "+3%"], ["L3", "+8%", "+6%"],
+        ["L4", "+12%", "+9%"], ["L5", "+15%", "+12%"], ["L6", "+20%", "+15%"],
+        ["L7", "+20%", "+18%"], ["L8", "+25%", "+21%"], ["L9", "+30%", "+24%"]
+      ]
+    },
+    {
+      "name": "扩展人",
+      "columns": ["等级", "命中／回避", "暴击"],
+      "rows": [
+        ["L1", "+3%", "+2%"], ["L2", "+6%", "+4%"], ["L3", "+9%", "+6%"],
+        ["L4", "+12%", "+8%"], ["L5", "+15%", "+10%"], ["L6", "+18%", "+12%"],
+        ["L7", "+21%", "+14%"]
+      ],
+      "note": "本作没有L8、L9数据，最高为L7。"
+    },
+    {
+      "name": "滑空技巧",
+      "columns": ["等级", "命中", "暴击", "完全回避率"],
+      "rows": [
+        ["L1", "+2%", "+3%", "4%"], ["L2", "+4%", "+6%", "8%"], ["L3", "+6%", "+9%", "12%"],
+        ["L4", "+8%", "+12%", "16%"], ["L5", "+10%", "+15%", "20%"], ["L6", "+12%", "+18%", "24%"],
+        ["L7", "+14%", "+21%", "28%"], ["L8", "+16%", "+24%", "32%"], ["L9", "+18%", "+27%", "36%"]
+      ],
+      "note": "完全回避会独立判定，即使机体本身没有分身能力也能发动，且没有气力门槛。"
+    },
+    {
+      "name": "超感知",
+      "columns": ["等级", "命中／回避", "特定武器攻击力", "光子垫减伤"],
+      "rows": [
+        ["L1", "+2%", "+50", "+100"], ["L2", "+4%", "+50", "+200"], ["L3", "+6%", "+100", "+300"],
+        ["L4", "+8%", "+100", "+400"], ["L5", "+10%", "+150", "+500"], ["L6", "+12%", "+150", "+600"],
+        ["L7", "+14%", "+200", "+700"], ["L8", "+24%", "+200", "+800"], ["L9", "+27%", "+250", "+900"]
+      ]
+    }
+  ],
+  "pilot_skill_akurasu_issues": [
+    "Akurasu 把指挥官写成最高L9；本作实际只有L1～L4，等级与距离的完整补正见表。",
+    "Akurasu 把扩展人概括为最高L9；本作实际只有L1～L7，L8、L9没有效果数据。"
+  ],
+  "rare_leadership_effects": [
+    {"effect": "命中率＋30%", "holders": ["{{people/ghingham}}"]},
+    {"effect": "敌方回合回避率＋20%", "holders": ["{{people/speaker-2548f866db58}}"]},
+    {"effect": "反击时攻击力＋30%", "holders": ["{{people/beck}}"]},
+    {"effect": "我方回合的攻击力\n＋10%", "holders": ["{{people/speaker-03754cfe760d}}"]},
+    {"effect": "射击武器攻击力＋10%", "holders": ["{{people/setsuko}}"]},
+    {"effect": "相邻友方对盖佐克的\n攻击力＋40%", "holders": ["{{people/speaker-ec24b8d9e164}}"]},
+    {"effect": "对泽拉拜亚攻击力＋20%", "holders": ["{{people/sandman}}"]},
+    {"effect": "对堕天翅攻击力＋40%", "holders": ["{{people/apollo}}"]},
+    {"effect": "伤害−20%", "holders": ["{{people/speaker-52bd0a2936b4}}"]},
+    {"effect": "伤害−30%", "holders": ["{{people/speaker-d337215d0c0f}}"]},
+    {"effect": "援护时暴击率\n＋20%", "holders": ["{{people/speaker-bdc0fa70d514}}"]},
+    {"effect": "小队全机的空中地形适应\n变为S", "holders": ["{{people/speaker-9f0da37da623}}"]},
+    {"effect": "小队全机的陆地地形适应\n变为S", "holders": ["{{people/speaker-ce2a3c67ca70}}"]},
+    {"effect": "小队全机的海中地形适应\n变为S", "holders": ["{{people/speaker-ce1e8aeca780}}"]},
+    {"effect": "小队全机的地形适应\n“空陆海”变为A", "holders": ["{{people/speaker-d34010c02035}}"]},
+    {"effect": "格挡发动率＋40%", "holders": ["{{people/toshiya}}"]},
+    {"effect": "使全部特殊效果武器无效", "holders": ["{{people/rand}}"]},
+    {"effect": "小队全员获得\n“战意高扬”效果", "holders": ["{{people/jiron}}"]},
+    {"effect": "小队全员获得\n“气力＋（伤害）”效果", "holders": ["{{people/kappei}}"]}
+  ],
+  "leadership_akurasu_issues": [
+    "Akurasu 的 Pilot Database 把拉克丝的舰长效果写成相邻友方命中率＋10%；其 Squad Leader Bonus 页及实际效果应为相邻友方攻击力＋10%。",
+    "Akurasu 的 Squad Leader Bonus 页漏掉托比效果的“援护时”限定；游戏内效果为援护时暴击率＋20%。"
+  ],
+  "mech_ability_akurasu_issues": [
+    "Akurasu 的英文说明把修理装置、补给装置带来的小队阶段回复写成“数量×3%”；游戏内说明为每台装置10%，本页采用游戏内数值。"
+  ],
+  "bazaar_parts": [
+    {"name": "{{part/booster}}", "buy": 100, "sell": 50},
+    {"name": "{{part/mega-booster}}", "buy": 250, "sell": 100},
+    {"name": "{{part/apogee-motor}}", "buy": 120, "sell": 50},
+    {"name": "{{part/magnetic-coating}}", "buy": 40, "sell": 20},
+    {"name": "{{part/inertial-control-system}}", "buy": 100, "sell": 50},
+    {"name": "{{part/vr-helmet}}", "buy": 40, "sell": 20},
+    {"name": "{{part/attuned-helmet}}", "buy": 100, "sell": 50},
+    {"name": "{{part/high-performance-radar}}", "buy": 150, "sell": 50},
+    {"name": "{{part/linear-seat}}", "buy": 300, "sell": 100},
+    {"name": "{{part/chobham-armor}}", "buy": 40, "sell": 20},
+    {"name": "{{part/hybrid-armor}}", "buy": 120, "sell": 50},
+    {"name": "{{part/nano-skin-armor}}", "buy": 200, "sell": 100},
+    {"name": "{{part/solar-panel}}", "buy": 250, "sell": 100},
+    {"name": "{{part/nanomachine-unit}}", "buy": 250, "sell": 100},
+    {"name": "{{part/barrier-field}}", "buy": 300, "sell": 100},
+    {"name": "{{part/thruster-module}}", "buy": 150, "sell": 50},
+    {"name": "{{part/dustproof-device}}", "buy": 120, "sell": 50},
+    {"name": "{{part/screw-module}}", "buy": 80, "sell": 50},
+    {"name": "{{part/a-adapter}}", "buy": 350, "sell": 100},
+    {"name": "{{part/propellant-tank}}", "buy": 30, "sell": 20},
+    {"name": "{{part/cartridge}}", "buy": 30, "sell": 20},
+    {"name": "{{part/repair-kit}}", "buy": 30, "sell": 20},
+    {"name": "{{part/super-repair-kit}}", "buy": 200, "sell": 100},
+    {"name": "{{part/donkey-bread}}", "buy": 80, "sell": 50},
+    {"name": "{{part/pancha-fruit}}", "buy": 250, "sell": 100},
+    {"name": "{{part/tin-goldfish}}", "buy": 120, "sell": 50},
+    {"name": "{{part/sleep-learning-device}}", "buy": 350, "sell": 100},
+    {"name": "{{part/combat-manual}}", "buy": 150, "sell": 50}
+  ],
+  "bazaar_units": [
+    {"name": "{{display-name/unit/0092/name}}", "cost": 100, "availability": "兰德·加利亚路线第16～19话"},
+    {"name": "{{display-name/unit/0093/name}}", "cost": 120, "availability": "兰德·加利亚路线第16～19话；汇合后第20～21话"},
+    {"name": "{{display-name/unit/0094/name}}", "cost": 200, "availability": "第20～22话"},
+    {"name": "{{display-name/unit/0225/name}}", "cost": 200, "availability": "汇合后第22～25话；兰德路线第26～35话"},
+    {"name": "{{display-name/unit/0095/name}}", "cost": 250, "availability": "兰德路线第26～35话"},
+    {"name": "{{display-name/unit/0096/name}}", "cost": 280, "availability": "兰德路线第26～39话；汇合后第41～44话"},
+    {"name": "{{display-name/unit/0230/name}}", "cost": 250, "availability": "兰德第32话后留守路线第33～39话；寻找兰顿路线第35～39话"},
+    {"name": "{{display-name/unit/0119/name}}", "cost": 200, "availability": "节子第32话后直布罗陀路线第33～39话；周边警戒路线第35～39话"},
+    {"name": "{{display-name/unit/0165/name}}", "cost": 200, "availability": "兰德路线第36话；汇合后第41～44话"},
+    {"name": "{{display-name/unit/0228/name}}", "cost": 280, "availability": "第41～47话"},
+    {"name": "{{display-name/unit/0122/name}}", "cost": 240, "availability": "第45～46话、第48～59话"},
+    {"name": "{{display-name/unit/0121/name}}", "cost": 250, "availability": "第45～46话；ZAFT路线第48～50话、ZEUTH路线第48～49话"},
+    {"name": "{{display-name/unit/0150/name}}", "cost": 240, "availability": "第47话"},
+    {"name": "{{display-name/unit/0140/name}}", "cost": 250, "availability": "第47～59话"},
+    {"name": "{{display-name/unit/0098/name}}", "cost": 260, "availability": "ZEUTH路线第50～59话；ZAFT路线第52～59话"}
+  ],
+  "bazaar_notes": [
+    "强化零件表为标准BS价格；部分关卡会打折或提高出售价格。",
+    "每关目录只出现固定9种强化零件，每种每关限购1个；交易所机体不占强化零件的9格目录。",
+    "隐藏素材和合成物仍以“隐藏要素”页的逐话步骤为准。"
+  ],
+  "team_attacks": [
+    {"name": "{{weapon/0010}}", "units": "{{display-name/unit/0000/name}}＋{{display-name/unit/0002/name}}＋{{display-name/unit/0006/name}}＋{{display-name/unit/0015/name}}", "morale": 140, "range": "1～2"},
+    {"name": "{{weapon/0009}}", "units": "{{display-name/unit/0000/name}}＋{{display-name/unit/0002/name}}＋{{display-name/unit/0006/name}}", "morale": 110, "range": "1～3"},
+    {"name": "{{weapon/0008}}", "units": "{{display-name/unit/0000/name}}＋{{display-name/unit/0002/name}}", "morale": 110, "range": "1～2"},
+    {"name": "{{weapon/0034}}", "units": "{{display-name/unit/0006/name}}＋{{unit/double-spazer}}", "morale": 105, "range": "1～4"},
+    {"name": "{{weapon/0035}}", "units": "{{display-name/unit/0006/name}}＋{{unit/marine-spazer}}", "morale": 105, "range": "1～4"},
+    {"name": "{{weapon/0036}}", "units": "{{display-name/unit/0006/name}}＋{{unit/drill-spazer}}", "morale": 105, "range": "1～4"},
+    {"name": "{{weapon/0141}}", "units": "{{display-name/unit/0065/name}}＋{{unit/zambot-three}}", "morale": 140, "range": "1～3", "note": "第42话事件后开放。"},
+    {"name": "{{weapon/0140}}", "units": "{{unit/zambot-three}}＋{{unit/king-beal}}", "morale": 135, "range": "2～8"},
+    {"name": "{{weapon/0583}}", "units": "{{unit/sol-gravion}}＋{{display-name/unit/0252/name}}", "morale": 145, "range": "2～6"},
+    {"name": "{{weapon/0467}}", "units": "{{display-name/unit/0209/name}}＋{{unit/strike-freedom-gundam}}或{{display-name/unit/0197/name}}", "morale": 130, "range": "3～8"},
+    {"name": "{{weapon/0466}}", "units": "{{display-name/unit/0209/name}}＋{{unit/strike-freedom-gundam}}或{{display-name/unit/0197/name}}", "morale": 130, "range": "1～4"},
+    {"name": "{{weapon/0170}}", "units": "{{display-name/unit/0068/name}}＋{{display-name/unit/0070/name}}", "morale": 120, "range": "1～5", "note": "两机都不能处于飞行形态。"}
+  ],
+  "team_attack_notes": [
+    "所需机体都必须出击；气力门槛按发动机体计算。",
+    "攻击名称、机体名称走项目全局术语；Akurasu 仅用于核对气力与射程表。"
+  ]
+}
