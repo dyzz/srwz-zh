@@ -10,14 +10,76 @@
       "source_terms": [
         "アゲハ隊"
       ],
-      "translation": "凤蝶队",
+      "translation": "阿盖哈队",
       "category": "organization",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "deprecated_translations": [
+        "凤蝶队",
+        "扬羽队"
+      ],
+      "enforce": true,
+      "notes": "用户于 2026-08-13 最终定稿；アゲハ作为作品专名音译为阿盖哈。"
+    },
+    {
+      "id": "concept/ageha-plan",
+      "source_terms": [
+        "アゲハ構想"
+      ],
+      "translation": "阿盖哈构想",
+      "category": "concept",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "deprecated_translations": [
+        "凤蝶构想",
+        "凤蝶计划",
+        "扬羽构想",
+        "扬羽蝶构想",
+        "阿盖哈计划"
+      ],
+      "enforce": true,
+      "notes": "用户于 2026-08-13 最终定稿；组合词统一使用构想，不改写为计划。"
+    },
+    {
+      "id": "term/ageha",
+      "source_terms": [
+        "アゲハ"
+      ],
+      "translation": "阿盖哈",
+      "category": "term",
       "status": "approved",
       "domains": [
         "story"
       ],
-      "enforce": false,
-      "notes": "用户于 2026-08-04 明确定稿；替换阿盖哈队、扬羽队等机器异译。"
+      "deprecated_translations": [
+        "凤蝶",
+        "扬羽",
+        "扬羽蝶"
+      ],
+      "enforce": true,
+      "notes": "用户于 2026-08-13 最终定稿；较长的アゲハ隊、アゲハ構想和アゲハ蝶优先匹配。"
+    },
+    {
+      "id": "biology/ageha-butterfly",
+      "source_terms": [
+        "アゲハ蝶"
+      ],
+      "translation": "凤蝶",
+      "category": "biology",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "明确指昆虫时保留意译凤蝶，并覆盖较短的作品专名アゲハ。"
     },
     {
       "id": "people/black-charisma",
