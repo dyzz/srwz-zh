@@ -1,3 +1,4 @@
+import json
 import unittest
 import sys
 from pathlib import Path
@@ -13,11 +14,13 @@ from tools.build_story_component import (
 )
 from tools.audit_stage_keyword_links import (
     KeywordOccurrence,
+    audit_keyword_link_layout,
     audit_keyword_links,
     load_canonical_keyword_catalog,
     load_original_keyword_entries,
     load_story_keyword_occurrences,
 )
+from tools.srwz.chinese_layout import dialogue_line_widths
 
 
 class StageKeywordLinkAuditTests(unittest.TestCase):
@@ -54,11 +57,40 @@ class StageKeywordLinkAuditTests(unittest.TestCase):
         self.assertEqual(report["matched_occurrence_count"], 122)
         self.assertEqual(report["mismatch_occurrence_count"], 0)
 
+        layout = audit_keyword_link_layout(load_story_keyword_occurrences())
+        self.assertEqual(layout["status"], "passed")
+        self.assertEqual(layout["link_occurrence_count"], 122)
+        self.assertEqual(layout["atomic_occurrence_count"], 122)
+        self.assertEqual(layout["zero_width_delimiter_occurrence_count"], 122)
+        self.assertEqual(layout["zero_width_delimiter_count"], 244)
+        self.assertEqual(layout["reflow_regression_occurrence_count"], 122)
+        self.assertEqual(layout["failure_count"], 0)
+
+    def test_translator_added_book_brackets_remain_visible(self):
+        native_entry_ids = {
+            row.entry_id for row in load_story_keyword_occurrences()
+        }
+        entry_id = "story/025/dialogue/02.01/0119"
+        self.assertNotIn(entry_id, native_entry_ids)
+        stage = json.loads(
+            (PROJECT_ROOT / "corpus/zh/story-dialogue/stage-025.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        translation = next(
+            row["translation"] for row in stage["entries"] if row["id"] == entry_id
+        )
+        self.assertEqual(dialogue_line_widths(translation), (12, 19))
+        self.assertEqual(
+            dialogue_line_widths(translation, stage_keyword_links=True),
+            (12, 17),
+        )
+
     def test_story_builder_fails_closed_on_runtime_keyword_drift(self):
         config = {
             "path": "corpus/runtime/stage-keywords-v1.json",
-            "size": 9710,
-            "sha256": "76d6e7e6a48ac336a62301260c6ac5cad9ba13322f092c9061c818a5a0cc4f4e",
+            "size": 9706,
+            "sha256": "7cdfe04b0a4a3a715547ccd94a459be35f5d3ba801b485622dc32c82ec507423",
         }
         catalog = _runtime_keyword_catalog(config)
         self.assertEqual(

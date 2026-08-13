@@ -29,6 +29,25 @@ class LibraryV02EditorialFinalizationTests(unittest.TestCase):
         self.assertIn("新地球联邦军军人", finalization.KNOWN_BAD_SUBSTRINGS)
         self.assertIn("迪安娜反击军军曹", finalization.KNOWN_BAD_SUBSTRINGS)
 
+    def test_current_source_bound_terms_reconcile_old_review_text(self):
+        candidate = {
+            "id": "library-text/example",
+            "source_text": "メディック・ヘルト",
+            "glossary_terms": [
+                {
+                    "id": "people/speaker-aeac9828182c",
+                    "translation": "梅迪克",
+                    "deprecated_translations": ["医护兵"],
+                }
+            ],
+        }
+        translation, applied = finalization.reconcile_current_candidate_rules(
+            "医护兵·赫尔特",
+            candidate,
+        )
+        self.assertEqual(translation, "梅迪克·赫尔特")
+        self.assertTrue(applied)
+
     def test_runtime_keyword_decisions_are_source_hash_pinned_in_library(self):
         overrides = json.loads(
             (PROJECT_ROOT / "config/library/v0.2-editorial-overrides.json").read_text(

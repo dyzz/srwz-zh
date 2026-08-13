@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "standard": {
+    "line_break_opportunities": "Unicode UAX #14 tailored for Simplified Chinese",
+    "punctuation_prohibition": "W3C CLReq strict",
+    "runtime_measurement": "SRWZ fixed display cells"
+  },
+  "default_weights": {
+    "strong_break": 0,
+    "weak_break": 20,
+    "clause_break": 30,
+    "arbitrary_break": 120,
+    "manual_break_max": 35,
+    "raggedness": 6,
+    "discouraged_start": 90,
+    "short_line_per_cell": 45
+  },
+  "common_unbroken_terms": [
+    "下落不明",
+    "时空震动弹",
+    "转瞬即逝",
+    "超重骑士",
+    "机动兵器",
+    "金光闪闪",
+    "联邦政府",
+    "这一团体",
+    "同一个",
+    "第一个",
+    "战斗",
+    "混战",
+    "背叛",
+    "陷入",
+    "吞噬",
+    "属于",
+    "同伴",
+    "巨大",
+    "长距离",
+    "合作者",
+    "屈服于",
+    "阿斯哈",
+    "一直",
+    "一个",
+    "奥古",
+    "地球",
+    "原本",
+    "反抗",
+    "交战",
+    "他们",
+    "你们",
+    "自己",
+    "自称",
+    "送给",
+    "没法",
+    "追踪",
+    "承认",
+    "真敢",
+    "带来",
+    "降临",
+    "坠落",
+    "那里",
+    "拼命",
+    "团体",
+    "确实",
+    "歌唱",
+    "先生",
+    "那么",
+    "包裹",
+    "关于",
+    "甩掉",
+    "知道",
+    "这些",
+    "生命",
+    "意志",
+    "这个",
+    "拜托",
+    "助手",
+    "团队",
+    "失去",
+    "无法",
+    "稍微",
+    "只是"
+  ],
+  "profiles": {
+    "story_dialogue": {
+      "maximum_width": 21,
+      "maximum_lines": 3,
+      "line_count_mode": "minimum",
+      "continuation_indent": "　",
+      "minimum_line_width": 6,
+      "allow_oversized_token_split": true,
+      "weights": {
+        "weak_break": 60,
+        "clause_break": 80,
+        "arbitrary_break": 450,
+        "manual_break_max": 50,
+        "raggedness": 3,
+        "discouraged_start": 120,
+        "short_line_per_cell": 30
+      }
+    },
+    "library_robot": {
+      "maximum_width": 26,
+      "maximum_lines": null,
+      "line_count_mode": "minimum",
+      "minimum_line_width": 10,
+      "allow_oversized_token_split": true
+    },
+    "library_character": {
+      "maximum_width": 16,
+      "maximum_lines": null,
+      "line_count_mode": "minimum",
+      "minimum_line_width": 7,
+      "allow_oversized_token_split": true
+    },
+    "library_glossary": {
+      "maximum_width": 24,
+      "maximum_lines": null,
+      "line_count_mode": "minimum",
+      "minimum_line_width": 9,
+      "allow_oversized_token_split": true
+    },
+    "stage_scroll_overview": {
+      "maximum_width": 23,
+      "maximum_lines": null,
+      "line_count_mode": "preserve",
+      "minimum_line_width": 8,
+      "allow_oversized_token_split": true,
+      "weights": {
+        "manual_break_max": 5,
+        "raggedness": 3
+      }
+    },
+    "world_history_scroll": {
+      "maximum_width": 22,
+      "maximum_lines": null,
+      "line_count_mode": "preserve",
+      "minimum_line_width": 8,
+      "allow_oversized_token_split": true,
+      "weights": {
+        "manual_break_max": 5,
+        "raggedness": 3
+      }
+    },
+    "scenario_chart_overview": {
+      "maximum_width": 21,
+      "maximum_lines": 3,
+      "line_count_mode": "exact",
+      "minimum_line_width": 8,
+      "allow_oversized_token_split": true
+    }
+  }
+}

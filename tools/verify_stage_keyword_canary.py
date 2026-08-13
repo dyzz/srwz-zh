@@ -73,6 +73,8 @@ STAGE001_EXPECTED_KEYWORDS = (
     (51, "グローリー・スター", "荣耀之星", 7),
 )
 CANARY_ENTRY_ID = "story/001/dialogue/02.01/0006"
+BACK_LOG_EDGE_ENTRY_ID = "story/001/dialogue/02.01/0004"
+BACK_LOG_EDGE_TEXT = "“喂，那边那个……”"
 VISIBLE_QUOTE_ENTRY_IDS = (
     "story/001/dialogue/02.01/0006",
     "story/001/dialogue/02.01/0008",
@@ -305,6 +307,39 @@ def main() -> None:
         )
 
     by_entry_id = {entry.entry_id: entry for entry in parsed.entries}
+    back_log_entry = by_entry_id.get(BACK_LOG_EDGE_ENTRY_ID)
+    if back_log_entry is None or back_log_entry.text_offset is None:
+        raise SystemExit(
+            f"missing Back Log edge regression entry: {BACK_LOG_EDGE_ENTRY_ID}"
+        )
+    back_log_speaker = decode_text(
+        decoded_stage,
+        back_log_entry.text_offset,
+        semantic_table,
+        stop_at_newline=True,
+    )
+    back_log_message = decode_text(
+        decoded_stage,
+        back_log_speaker.end,
+        semantic_table,
+    )
+    back_log_payload = decoded_stage[
+        back_log_message.start : back_log_message.end
+    ]
+    edge_code = runtime_table.inverse_characters.get("边")
+    if edge_code is None:
+        raise SystemExit("release font has no active encoding for 边")
+    edge_bytes = edge_code.to_bytes(2, "big")
+    stale_edge_bytes = bytes.fromhex("9762")
+    if (
+        back_log_message.text != BACK_LOG_EDGE_TEXT
+        or back_log_payload.count(edge_bytes) != 1
+        or stale_edge_bytes in back_log_payload
+    ):
+        raise SystemExit(
+            "female Stage 1 Back Log edge encoding regression: "
+            f"text={back_log_message.text!r} payload={back_log_payload.hex()}"
+        )
     glory_star_byte_variants = stage_keyword_bytes.get("荣耀之星", set())
     if len(glory_star_byte_variants) != 1:
         raise SystemExit(
@@ -518,6 +553,14 @@ def main() -> None:
             "native_keyword_start_count": native_start_count,
             "native_keyword_end_count": native_end_count,
             "visible_quote_entries": visible_quote_entries,
+            "back_log_edge_regression": {
+                "entry_id": BACK_LOG_EDGE_ENTRY_ID,
+                "decoded_text": back_log_message.text,
+                "edge_code": f"{edge_code:04X}",
+                "edge_bytes_hex": edge_bytes.hex(),
+                "stale_edge_code_absent": True,
+                "reread_exact": True,
+            },
         },
         "keyword_popup_keys": popup_keys,
         "acceptance": {

@@ -10,21 +10,25 @@ from collections import Counter
 from pathlib import Path
 
 try:
+    from audit_stage_keyword_links import load_story_keyword_occurrences
     from srwz.chinese_layout import (
         DEFAULT_LINE_WIDTH,
         DEFAULT_MAX_LINES,
         ChineseLayoutError,
         dialogue_line_widths,
+        load_release_protected_terms,
         logical_dialogue_text,
         reflow_chinese_dialogue,
     )
     from srwz.diagnostics import require_work_output
 except ModuleNotFoundError:  # Imported as tools.* by the unit test suite.
+    from tools.audit_stage_keyword_links import load_story_keyword_occurrences
     from tools.srwz.chinese_layout import (
         DEFAULT_LINE_WIDTH,
         DEFAULT_MAX_LINES,
         ChineseLayoutError,
         dialogue_line_widths,
+        load_release_protected_terms,
         logical_dialogue_text,
         reflow_chinese_dialogue,
     )
@@ -58,17 +62,10 @@ def _project_path(raw: object) -> Path:
 
 
 def _load_protected_terms(release_path: Path) -> tuple[str, ...]:
-    release = json.loads(release_path.read_text(encoding="utf-8"))
-    terms = set()
-    for raw_path in release.get("glossary_sources", ()):
-        glossary = json.loads(
-            _project_path(raw_path).read_text(encoding="utf-8")
-        )
-        for term in glossary.get("terms", ()):
-            translation = term.get("translation")
-            if isinstance(translation, str) and len(translation) > 1:
-                terms.add(translation)
-    return tuple(sorted(terms, key=lambda term: (-len(term), term)))
+    return load_release_protected_terms(
+        release_path,
+        project_root=PROJECT_ROOT,
+    )
 
 
 def _translation_paths() -> tuple[Path, ...]:
@@ -96,6 +93,13 @@ def main() -> int:
     after_widths = Counter()
     entry_count = 0
     widest_after = 0
+    keyword_occurrences = load_story_keyword_occurrences()
+    keyword_entry_ids = {row.entry_id for row in keyword_occurrences}
+    if len(keyword_occurrences) != 122 or len(keyword_entry_ids) != 111:
+        raise ChineseLayoutError(
+            "source-bound STAGE keyword-link inventory drift: "
+            f"links={len(keyword_occurrences)} entries={len(keyword_entry_ids)}"
+        )
 
     for path in _translation_paths():
         document = json.loads(path.read_text(encoding="utf-8"))
@@ -103,9 +107,11 @@ def main() -> int:
         for entry in document["entries"]:
             entry_count += 1
             original = entry["translation"]
+            has_keyword_links = entry["id"] in keyword_entry_ids
             original_widths = dialogue_line_widths(
                 original,
                 protected_terms=protected_terms,
+                stage_keyword_links=has_keyword_links,
             )
             before_widths[max(original_widths, default=0)] += 1
             if _within_limit(original_widths, args.line_width, args.max_lines):
@@ -117,6 +123,7 @@ def main() -> int:
                     protected_terms=protected_terms,
                     line_width=args.line_width,
                     max_lines=args.max_lines,
+                    stage_keyword_links=has_keyword_links,
                 )
                 result_text = result.text
                 result_widths = result.line_widths
@@ -164,6 +171,8 @@ def main() -> int:
         "maximum_lines": args.max_lines,
         "continuation_indent_cells": 1,
         "maximum_rendered_continuation_width": args.line_width + 1,
+        "runtime_keyword_link_entry_count": len(keyword_entry_ids),
+        "runtime_keyword_link_occurrence_count": len(keyword_occurrences),
         "entry_count": entry_count,
         "changed_entry_count": len(changes),
         "maximum_projected_line_width": widest_after,

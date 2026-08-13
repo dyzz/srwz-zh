@@ -8,16 +8,173 @@ remain byte-for-byte identical to the Japanese source.
 from __future__ import annotations
 
 import hashlib
+import re
 import struct
+import unicodedata
 from dataclasses import dataclass
-from typing import Mapping, Sequence
+from typing import Iterable, Mapping, Sequence
 
+from .glossary import apply_glossary_variants
 from .text import TextTable, decode_text, encode_text
 from .tim2 import scan_tim2
 
 
 class LibraryScopeError(ValueError):
     """A v0.2 LIBRARY source or preservation lock does not match."""
+
+
+def compact_source_surface(text: str) -> str:
+    """Normalize a Japanese source surface without changing semantic letters."""
+
+    normalized = unicodedata.normalize("NFKC", text)
+    return re.sub(r"[\s・\-−－]", "", normalized).lower()
+
+
+def apply_source_surface_replacements(
+    text: str,
+    source_text: str,
+    config: Mapping[str, object],
+) -> tuple[str, list[str]]:
+    """Apply a reviewed variant only when its Japanese source is present."""
+
+    compact_source = compact_source_surface(source_text)
+    candidate = text
+    applied: list[str] = []
+    replacements: list[tuple[str, str, str]] = []
+    rules = config.get("source_surface_replacements", [])
+    if not isinstance(rules, list):
+        raise LibraryScopeError("source_surface_replacements must be an array")
+    for rule in rules:
+        if not isinstance(rule, Mapping):
+            raise LibraryScopeError("invalid LIBRARY source-surface replacement")
+        source_terms = rule.get("source_terms", [])
+        variants = rule.get("from", [])
+        target = rule.get("to")
+        rule_id = rule.get("id")
+        if (
+            not isinstance(source_terms, list)
+            or not isinstance(variants, list)
+            or not isinstance(target, str)
+            or not target
+            or not isinstance(rule_id, str)
+            or not rule_id
+        ):
+            raise LibraryScopeError("invalid LIBRARY source-surface replacement")
+        if not any(
+            isinstance(term, str)
+            and term
+            and compact_source_surface(term) in compact_source
+            for term in source_terms
+        ):
+            continue
+        replacements.extend(
+            (variant, target, rule_id)
+            for variant in variants
+            if isinstance(variant, str) and variant
+        )
+    for variant, target, rule_id in sorted(
+        set(replacements),
+        key=lambda item: (-len(item[0]), item[0], item[2]),
+    ):
+        parts = candidate.split(target) if variant in target else [candidate]
+        replaced = target.join(part.replace(variant, target) for part in parts)
+        if replaced == candidate:
+            continue
+        candidate = replaced
+        applied.append(f"{variant}→{target}[{rule_id}:source-surface]")
+    return candidate, applied
+
+
+def apply_library_rules(
+    text: str,
+    config: Mapping[str, object],
+    glossary_terms: Iterable[Mapping[str, object]] = (),
+) -> tuple[str, list[str]]:
+    """Apply deterministic glossary, literal, and punctuation review rules."""
+
+    candidate, applied = apply_glossary_variants(text, glossary_terms)
+    literal_rules = config.get("literal_replacements")
+    if not isinstance(literal_rules, list):
+        raise LibraryScopeError("literal_replacements must be an array")
+    for rule in literal_rules:
+        if not isinstance(rule, Mapping):
+            raise LibraryScopeError("invalid LIBRARY literal replacement")
+        before = rule.get("from")
+        after = rule.get("to")
+        if not isinstance(before, str) or not isinstance(after, str):
+            raise LibraryScopeError("invalid LIBRARY literal replacement")
+        if before in candidate:
+            candidate = candidate.replace(before, after)
+            applied.append(f"{before}→{after}")
+
+    style = config.get("style_rules")
+    if not isinstance(style, Mapping):
+        raise LibraryScopeError("style_rules must be an object")
+    if style.get("normalize_curly_single_quote_pairs"):
+        normalized = re.sub(r"‘([^’\n]+)’", r"“\1”", candidate)
+        if normalized != candidate:
+            candidate = normalized
+            applied.append("中文单引号→中文双引号")
+    if style.get("normalize_ascii_quote_pairs"):
+        normalized = re.sub(r'"([^"\n]+)"', r"“\1”", candidate)
+        if normalized != candidate:
+            candidate = normalized
+            applied.append("ASCII双引号→中文双引号")
+    if style.get("normalize_plant_token"):
+        normalized = re.sub(
+            r"(?<![A-Za-z])plant(?![A-Za-z])",
+            "PLANT",
+            candidate,
+            flags=re.I,
+        )
+        if normalized != candidate:
+            candidate = normalized
+            applied.append("PLANT大小写")
+    return candidate, applied
+
+
+def apply_source_bound_review_replacements(
+    text: str,
+    config: Mapping[str, object],
+    relevant_term_ids: set[str],
+) -> tuple[str, list[str]]:
+    """Apply reviewed variants only when the matching glossary ID is bound."""
+
+    candidate = text
+    applied: list[str] = []
+    replacements: list[tuple[str, str, str]] = []
+    rules = config.get("source_bound_replacements", [])
+    if not isinstance(rules, list):
+        raise LibraryScopeError("source_bound_replacements must be an array")
+    for rule in rules:
+        if not isinstance(rule, Mapping):
+            raise LibraryScopeError("invalid LIBRARY source-bound replacement")
+        term_id = rule.get("glossary_id")
+        target = rule.get("to")
+        variants = rule.get("from", [])
+        if (
+            term_id not in relevant_term_ids
+            or not isinstance(target, str)
+            or not target
+            or not isinstance(variants, list)
+        ):
+            continue
+        replacements.extend(
+            (variant, target, str(term_id))
+            for variant in variants
+            if isinstance(variant, str) and variant
+        )
+    for variant, target, term_id in sorted(
+        set(replacements),
+        key=lambda item: (-len(item[0]), item[0], item[2]),
+    ):
+        parts = candidate.split(target) if variant in target else [candidate]
+        replaced = target.join(part.replace(variant, target) for part in parts)
+        if replaced == candidate:
+            continue
+        candidate = replaced
+        applied.append(f"{variant}→{target}[{term_id}:library-review]")
+    return candidate, applied
 
 
 ZKAN_TEXT_TAGS = frozenset(

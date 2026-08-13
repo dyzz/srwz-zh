@@ -14,11 +14,21 @@ from typing import Mapping, Sequence
 try:
     import run_aliyun_library_v02_batch as api
     import run_library_v02_full_editorial_audit as first_pass
-    from srwz.library import LibraryScopeError
+    from srwz.library import (
+        LibraryScopeError,
+        apply_library_rules,
+        apply_source_bound_review_replacements,
+        apply_source_surface_replacements,
+    )
 except ModuleNotFoundError:  # pragma: no cover - package import in tests
     from tools import run_aliyun_library_v02_batch as api
     from tools import run_library_v02_full_editorial_audit as first_pass
-    from tools.srwz.library import LibraryScopeError
+    from tools.srwz.library import (
+        LibraryScopeError,
+        apply_library_rules,
+        apply_source_bound_review_replacements,
+        apply_source_surface_replacements,
+    )
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -36,6 +46,7 @@ DEFAULT_NOOP_ADJUDICATION = PROJECT_ROOT / (
 DEFAULT_OVERRIDES = (
     PROJECT_ROOT / "config/library/v0.2-editorial-overrides.json"
 )
+LIBRARY_POLISH = PROJECT_ROOT / "config/editorial/library-polish.json"
 DEFAULT_OUTPUT_DIR = (
     PROJECT_ROOT / "work/review/editorial/library-v0.2-final-v1"
 )
@@ -62,10 +73,60 @@ REQUIRED_TERM_ALLOWLIST = {
     ("library-text/bd12a38ef638c247", "unit/freedom-gundam"),
     # Preserve the authoritative work-title surface.
     ("library-text/621a52ab33ae7a7c", "unit/god-sigma"),
-    # エクステンデッド is a generic enhanced-human category in this prose.
-    ("library-text/b3f19ec3222f550b", "skill/extended"),
-    ("library-text/e06b3fe09578eba0", "skill/extended"),
+    # 強化人間 is explanatory prose for the C.E. Extended category here,
+    # not the Universal Century Cyber-Newtype proper noun.
+    ("library-text/3dcda804caa2dbbc", "skill/cyber-newtype"),
+    ("library-text/75b88504bff44899", "skill/cyber-newtype"),
+    ("library-text/b1bfeb34cfaf8c3e", "skill/cyber-newtype"),
 }
+
+
+def reconcile_current_candidate_rules(
+    translation: str,
+    candidate: Mapping[str, object],
+) -> tuple[str, list[str]]:
+    """Replay current source-bound terminology after the fixed old audit.
+
+    The prose audit is an immutable snapshot.  Names and unit terms continue
+    to improve afterwards, so accepting an old prose revision must not restore
+    a superseded Chinese surface.  Explicit final overrides remain later in
+    the pipeline and therefore retain the highest priority.
+    """
+
+    config = json.loads(LIBRARY_POLISH.read_text(encoding="utf-8"))
+    raw_terms = candidate.get("glossary_terms", [])
+    if not isinstance(raw_terms, list) or not all(
+        isinstance(term, Mapping) for term in raw_terms
+    ):
+        raise LibraryScopeError(
+            f"invalid candidate glossary terms: {candidate.get('id')}"
+        )
+    terms = [dict(term) for term in raw_terms]
+    reconciled, applied = apply_library_rules(
+        translation,
+        config,
+        terms,
+    )
+    reconciled, source_bound_applied = (
+        apply_source_bound_review_replacements(
+            reconciled,
+            config,
+            {str(term["id"]) for term in terms},
+        )
+    )
+    applied.extend(source_bound_applied)
+    source_text = candidate.get("source_text")
+    if not isinstance(source_text, str):
+        raise LibraryScopeError(
+            f"invalid candidate source text: {candidate.get('id')}"
+        )
+    reconciled, surface_applied = apply_source_surface_replacements(
+        reconciled,
+        source_text,
+        config,
+    )
+    applied.extend(surface_applied)
+    return reconciled, applied
 
 
 def parse_args() -> argparse.Namespace:
@@ -211,6 +272,13 @@ def final_rows(
                 origin = "noop_revision_rejected"
             else:
                 raise LibraryScopeError(f"unknown no-op decision: {row_id}")
+        reconciled, terminology_applied = reconcile_current_candidate_rules(
+            translation,
+            candidate,
+        )
+        if reconciled != translation:
+            translation = reconciled
+            origin = f"{origin}_current_terminology"
         if row_id in overrides:
             translation = str(overrides[row_id]["translation"])
             origin = "manual_source_verified_override"

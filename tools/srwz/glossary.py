@@ -193,11 +193,15 @@ def _kana_script(character: str) -> str | None:
 
 
 def _bounded_contains(text: str, source: str) -> bool:
+    return any(_bounded_occurrences(text, source))
+
+
+def _bounded_occurrences(text: str, source: str) -> Iterable[tuple[int, int]]:
     cursor = 0
     while True:
         index = text.find(source, cursor)
         if index < 0:
-            return False
+            return
         end = index + len(source)
         left_script = _kana_script(source[0]) if source else None
         right_script = _kana_script(source[-1]) if source else None
@@ -212,7 +216,7 @@ def _bounded_contains(text: str, source: str) -> bool:
             and _kana_script(text[end]) == right_script
         )
         if left_ok and right_ok:
-            return True
+            yield index, end
         cursor = index + 1
 
 
@@ -224,15 +228,42 @@ def relevant_glossary_terms(
 ) -> list[dict[str, object]]:
     """Return the global terms whose Japanese source forms occur in ``text``."""
 
-    matches: list[dict[str, object]] = []
+    raw_matches: list[tuple[int, int, str, Mapping[str, object]]] = []
     prefixes = tuple(context_sensitive_hard_prefixes)
     for term in terms:
         sources = term.get("source_terms")
         if not isinstance(sources, list):
             raise GlossaryError(f"term {term.get('id')} has no source_terms")
-        matched = [str(source) for source in sources if _bounded_contains(text, str(source))]
-        if not matched:
+        for source in sources:
+            source = str(source)
+            raw_matches.extend(
+                (start, end, source, term)
+                for start, end in _bounded_occurrences(text, source)
+            )
+
+    # A short name can be a suffix of another proper noun (for example
+    # シエロ in デル・シエロ, or リーア in モラーバー・リーア).
+    # Prefer the longest registered Japanese surface at each overlap so the
+    # shorter term neither rewrites nor audits an unrelated entity.
+    matched_by_id: dict[str, tuple[Mapping[str, object], set[str]]] = {}
+    for start, end, source, term in raw_matches:
+        shadowed = any(
+            other_start <= start
+            and end <= other_end
+            and other_end - other_start > end - start
+            and str(other_term.get("id", "")) != str(term.get("id", ""))
+            for other_start, other_end, _other_source, other_term in raw_matches
+        )
+        if shadowed:
             continue
+        term_id = str(term["id"])
+        _stored, matched = matched_by_id.setdefault(term_id, (term, set()))
+        matched.add(source)
+
+    matches: list[dict[str, object]] = []
+    for term_id in sorted(matched_by_id):
+        term, matched_set = matched_by_id[term_id]
+        matched = sorted(matched_set)
         term_id = str(term["id"])
         exact_field_match = any(
             text.strip("\u3000 ") == source.strip("\u3000 ") for source in matched
@@ -269,6 +300,12 @@ def apply_glossary_variants(
         canonical = str(term["translation"])
         for variant in term.get("deprecated_translations", []):
             variant = str(variant)
+            # An absent spelling cannot be ambiguous for this input.  Delaying
+            # conflict detection until a variant is actually present also
+            # permits source rows that legitimately mention a registered full
+            # term and its short form together.
+            if variant not in text:
+                continue
             prior = replacements.get(variant)
             if prior is not None and prior[0] != canonical:
                 raise GlossaryError(

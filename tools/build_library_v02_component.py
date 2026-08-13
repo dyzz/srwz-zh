@@ -11,7 +11,14 @@ from itertools import combinations
 from pathlib import Path
 from typing import Mapping
 
-from srwz.chinese_layout import rendered_line_width, tokenize_dialogue
+from srwz.chinese_layout import (
+    ChineseLayoutProfile,
+    load_layout_profiles,
+    load_release_protected_terms,
+    reflow_chinese_paragraph,
+    rendered_line_width,
+    tokenize_dialogue,
+)
 from srwz.codec import decode_production as decode, reencode_changed_suffix
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
 from srwz.font_flavor import load_font_flavor_reference
@@ -138,7 +145,31 @@ def font_mapping(manifest: dict) -> tuple[Path, object, dict[str, int], dict[str
     return proposal_path, load_text_table(table_path), primary, aliases
 
 
-def reflow_body(text: str, width: int) -> tuple[str, tuple[int, ...]]:
+def reflow_body(
+    text: str,
+    width: int,
+    *,
+    profile: ChineseLayoutProfile | None = None,
+    protected_terms: tuple[str, ...] = (),
+) -> tuple[str, tuple[int, ...]]:
+    if profile is not None:
+        if profile.maximum_width != width or profile.line_count_mode != "minimum":
+            raise LibraryScopeError(
+                f"LIBRARY layout profile/width drift: {profile.profile_id}"
+            )
+        logical = text.replace("\r", "").replace("\n", "")
+        try:
+            result = reflow_chinese_paragraph(
+                logical,
+                profile=profile,
+                protected_terms=protected_terms,
+            )
+        except ValueError as error:
+            raise LibraryScopeError(str(error)) from error
+        if result.text.replace("\n", "") != logical:
+            raise LibraryScopeError("LIBRARY balanced reflow changed content")
+        return result.text, result.line_widths
+
     logical = text.replace("\r", "").replace("\n", "")
     tokens = list(tokenize_dialogue(logical))
     lines: list[str] = []
@@ -261,6 +292,57 @@ def write_json(path: Path, value: object) -> None:
     temporary.replace(path)
 
 
+def load_production_layout(
+    layout: dict,
+    widths: dict,
+) -> tuple[
+    dict[str, ChineseLayoutProfile],
+    tuple[str, ...],
+    Path,
+    Path,
+    tuple[Path, ...],
+]:
+    profile_path = project_path(layout.get("profile_config"))
+    release_path = project_path(layout.get("protected_term_release"))
+    raw_profile_ids = layout.get("body_profiles")
+    if not isinstance(raw_profile_ids, dict) or set(raw_profile_ids) != {
+        "ROBO",
+        "CHAR",
+        "KYWD",
+    }:
+        raise SystemExit("LIBRARY body-profile inventory drift")
+    profiles = load_layout_profiles(profile_path)
+    selected = {}
+    for kind, profile_id in raw_profile_ids.items():
+        profile = profiles.get(profile_id)
+        if (
+            profile is None
+            or profile.maximum_width != widths.get(kind)
+            or profile.maximum_lines is not None
+            or profile.line_count_mode != "minimum"
+        ):
+            raise SystemExit(f"LIBRARY layout profile drift: {kind}")
+        selected[kind] = profile
+    protected_terms = load_release_protected_terms(
+        release_path,
+        project_root=PROJECT_ROOT,
+    )
+    release = load_json(release_path)
+    glossary_paths = tuple(
+        project_path(raw_path)
+        for raw_path in release.get("glossary_sources", ())
+    )
+    if not glossary_paths:
+        raise SystemExit("LIBRARY protected-term glossary inventory is empty")
+    return (
+        selected,
+        protected_terms,
+        profile_path,
+        release_path,
+        glossary_paths,
+    )
+
+
 def main() -> int:
     args = parse_args()
     if args.workers <= 0:
@@ -347,6 +429,13 @@ def main() -> int:
     widths = layout.get("body_line_widths")
     if not isinstance(widths, dict):
         raise SystemExit("LIBRARY body widths are missing")
+    (
+        layout_profiles,
+        protected_terms,
+        layout_profile_path,
+        layout_release_path,
+        layout_glossary_paths,
+    ) = load_production_layout(layout, widths)
     alignment = int(layout.get("decoded_alignment", 0))
     output_root = project_path(config["outputs"]["component_root"])
     if output_root.exists() and not args.force:
@@ -447,6 +536,8 @@ def main() -> int:
                         dense_text, dense_widths = reflow_body(
                             translation,
                             int(widths[expected_kind]),
+                            profile=layout_profiles[expected_kind],
+                            protected_terms=protected_terms,
                         )
                         legacy_text, legacy_widths = reflow_body_legacy(
                             translation,
@@ -713,6 +804,12 @@ def main() -> int:
             "menu_font_lock": file_lock(menu_font_lock_path, menu_font_lock_data),
             "menu_font": file_lock(menu_font_path, menu_font_data),
             "menu_source": file_lock(menu_source_path, menu_source),
+            "layout_profiles": file_lock(layout_profile_path),
+            "layout_release": file_lock(layout_release_path),
+            **{
+                f"layout_glossary_{index:03d}": file_lock(path)
+                for index, path in enumerate(layout_glossary_paths)
+            },
         },
         "translation": {
             "unique_text_count": len(translation_by_hash),
@@ -724,6 +821,15 @@ def main() -> int:
             ],
         },
         "codec": dict(codec),
+        "layout": {
+            "algorithm": "balanced-simplified-chinese-v1",
+            "profiles": {
+                kind: profile.profile_id
+                for kind, profile in sorted(layout_profiles.items())
+            },
+            "protected_term_count": len(protected_terms),
+            "body_line_widths": dict(widths),
+        },
         "library_menu": menu_report,
         "archives": archive_reports,
         "outputs": {

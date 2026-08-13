@@ -1,16 +1,32 @@
 import unittest
+from pathlib import Path
 
 from tools.srwz.chinese_layout import (
     DEFAULT_LINE_WIDTH,
+    FORBIDDEN_LINE_END_CHARACTERS,
+    FORBIDDEN_LINE_START_CHARACTERS,
     ChineseLayoutError,
     dialogue_line_widths,
+    load_layout_profiles,
     logical_dialogue_text,
     partition_chinese_text,
     reflow_chinese_dialogue,
+    reflow_chinese_paragraph,
+    stage_keyword_link_spans,
+    tokenize_dialogue,
 )
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
 class ChineseLayoutTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.profiles = load_layout_profiles(
+            PROJECT_ROOT / "config/text-layout/zh-layout-profiles.json"
+        )
+
     def test_source_shaped_dialogue_reflows_to_the_runtime_limit(self):
         original = "“所谓新兵器评估\n　测试，和实战相比不过是\n　儿戏”"
         result = reflow_chinese_dialogue(original)
@@ -112,8 +128,7 @@ class ChineseLayoutTests(unittest.TestCase):
 
     def test_runtime_overflow_sample_reflows_with_continuation_margin(self):
         original = (
-            "“别为这种无聊事高兴，托比！\n"
-            "　他们应该就是为了引开提坦斯而行动的那支部队”"
+            "“别为这种无聊事高兴，托比！\n　他们应该就是为了引开提坦斯而行动的那支部队”"
         )
         result = reflow_chinese_dialogue(original)
         self.assertEqual(result.line_widths, (18, 18))
@@ -142,6 +157,117 @@ class ChineseLayoutTests(unittest.TestCase):
                 line_width=16,
                 max_lines=2,
             )
+
+    def test_checked_in_profiles_keep_surface_widths_separate(self):
+        self.assertEqual(self.profiles["story_dialogue"].maximum_width, 21)
+        self.assertEqual(self.profiles["library_robot"].maximum_width, 26)
+        self.assertEqual(self.profiles["library_character"].maximum_width, 16)
+        self.assertEqual(self.profiles["library_glossary"].maximum_width, 24)
+        self.assertEqual(
+            self.profiles["stage_scroll_overview"].maximum_width,
+            23,
+        )
+        self.assertEqual(
+            self.profiles["world_history_scroll"].maximum_width,
+            22,
+        )
+        self.assertEqual(
+            self.profiles["scenario_chart_overview"].maximum_lines,
+            3,
+        )
+
+    def test_stage_keyword_controls_are_zero_width_and_body_is_atomic(self):
+        text = "“去找《荣耀之星》吧”"
+        self.assertEqual(dialogue_line_widths(text), (11,))
+        self.assertEqual(
+            dialogue_line_widths(text, stage_keyword_links=True),
+            (9,),
+        )
+        tokens = tokenize_dialogue(
+            "甲《荣耀之星》乙",
+            stage_keyword_links=True,
+        )
+        keyword = next(token for token in tokens if token.atomic)
+        self.assertEqual(keyword.text, "《荣耀之星》")
+        self.assertEqual(keyword.width, 4)
+
+    def test_stage_keyword_can_only_wrap_before_or_after_whole_span(self):
+        lines = partition_chinese_text(
+            "甲甲甲《荣耀之星》乙",
+            line_width=4,
+            max_lines=3,
+            stage_keyword_links=True,
+        )
+        self.assertEqual(lines, ("甲甲甲", "《荣耀之星》", "乙"))
+        with self.assertRaisesRegex(ChineseLayoutError, "indivisible term"):
+            partition_chinese_text(
+                "《一二三四五》",
+                line_width=4,
+                max_lines=2,
+                allow_oversized_token_split=True,
+                stage_keyword_links=True,
+            )
+
+    def test_stage_keyword_parser_rejects_malformed_controls(self):
+        self.assertEqual(stage_keyword_link_spans("《奥古》")[0].body, "奥古")
+        for malformed in ("《》", "《奥古", "奥古》", "《奥《古》》"):
+            with self.subTest(malformed=malformed):
+                with self.assertRaises(ChineseLayoutError):
+                    stage_keyword_link_spans(malformed)
+
+    def test_exact_three_line_profile_balances_without_orphan_punctuation(self):
+        original_lines = [
+            "奥古袭击月面卢特提姆基地，",
+            "荣耀之星驾驶巴尔戈拉迎击，",
+            "却在战斗中卷入空间扭曲。",
+        ]
+        offsets = frozenset(
+            {
+                len(original_lines[0]),
+                len(original_lines[0]) + len(original_lines[1]),
+            }
+        )
+        result = reflow_chinese_paragraph(
+            "".join(original_lines),
+            profile=self.profiles["scenario_chart_overview"],
+            exact_lines=3,
+            preferred_break_offsets=offsets,
+        )
+        self.assertEqual(len(result.line_widths), 3)
+        self.assertLessEqual(max(result.line_widths), 21)
+        for line in result.text.splitlines():
+            self.assertNotIn(line[0], FORBIDDEN_LINE_START_CHARACTERS)
+            self.assertNotIn(line[-1], FORBIDDEN_LINE_END_CHARACTERS)
+
+    def test_number_and_unit_remain_atomic_when_they_fit(self):
+        result = partition_chinese_text(
+            "距今12000年前曾经发生过战争。",
+            line_width=10,
+            max_lines=3,
+        )
+        self.assertNotIn("12000\n年", "\n".join(result))
+
+    def test_quoted_sentence_can_wrap_inside_quote_marks(self):
+        text = "“‘约定之地乃禁忌之地……任何人不得触碰’……”"
+        result = partition_chinese_text(
+            text,
+            line_width=21,
+            max_lines=3,
+        )
+        self.assertEqual("".join(result), text)
+        self.assertTrue(all(line[0] not in "’”" for line in result[1:]))
+        self.assertTrue(all(line[-1] not in "‘“" for line in result[:-1]))
+
+    def test_profile_lexicon_does_not_split_common_word(self):
+        original = "“那么，\n　从今以后我们这一团体称为‘$c’。”"
+        result = reflow_chinese_dialogue(
+            original,
+            profile=self.profiles["story_dialogue"],
+        )
+        self.assertEqual(result.line_widths, (14, 12))
+        self.assertIn("这一团体\n", result.text)
+        self.assertNotIn("这一团\n　体", result.text)
+
 
 if __name__ == "__main__":
     unittest.main()

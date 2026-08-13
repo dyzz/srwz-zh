@@ -39,6 +39,14 @@ from tools.build_story_component import (  # noqa: E402
     _read_iso_member,
 )
 from srwz.codec import decode_production as decode  # noqa: E402
+from srwz.chinese_layout import (  # noqa: E402
+    ChineseLayoutError,
+    load_layout_profiles,
+    reflow_chinese_dialogue,
+    rendered_line_width,
+    stage_keyword_link_spans,
+    tokenize_dialogue,
+)
 from srwz.iso_layout import (  # noqa: E402
     ExecutableOffsetSpec,
     read_executable_archive_offsets,
@@ -56,6 +64,9 @@ DEFAULT_CANONICAL_KEYWORDS = (
     PROJECT_ROOT / "corpus/runtime/stage-keywords-v1.json"
 )
 DEFAULT_REPORT = PROJECT_ROOT / "work/review/stage-keyword-link-audit.json"
+DEFAULT_LAYOUT_PROFILES = (
+    PROJECT_ROOT / "config/text-layout/zh-layout-profiles.json"
+)
 KEYWORD_MEMBER = "DATA/MTVZKNKW.BIN"
 
 
@@ -70,6 +81,9 @@ class KeywordOccurrence:
     span_index: int
     source_word: str
     translated_word: str
+    translated_text: str | None = None
+    marker_start: int | None = None
+    marker_end: int | None = None
 
 
 def _sha256_text(text: str) -> str:
@@ -171,13 +185,19 @@ def load_story_keyword_occurrences(
                 translation,
                 label=f"{source_entry.entry_id} translation",
             )
+            try:
+                translated_layout_spans = stage_keyword_link_spans(translation)
+            except ChineseLayoutError as error:
+                raise StageKeywordAuditError(
+                    f"{source_entry.entry_id} has malformed keyword layout: {error}"
+                ) from error
             if len(source_spans) != len(translated_spans):
                 raise StageKeywordAuditError(
                     f"{source_entry.entry_id} keyword span-count mismatch: "
                     f"source={len(source_spans)} translation={len(translated_spans)}"
                 )
-            for span_index, (source_word, translated_word) in enumerate(
-                zip(source_spans, translated_spans)
+            for span_index, (source_word, translated_word, layout_span) in enumerate(
+                zip(source_spans, translated_spans, translated_layout_spans)
             ):
                 occurrences.append(
                     KeywordOccurrence(
@@ -186,6 +206,9 @@ def load_story_keyword_occurrences(
                         span_index=span_index,
                         source_word=source_word,
                         translated_word=translated_word,
+                        translated_text=translation,
+                        marker_start=layout_span.start,
+                        marker_end=layout_span.end,
                     )
                 )
     if selected_stages is not None:
@@ -508,6 +531,157 @@ def audit_keyword_links(
     }
 
 
+def audit_keyword_link_layout(
+    occurrences: Iterable[KeywordOccurrence],
+) -> dict[str, object]:
+    """Verify zero-width, atomic layout semantics on actual STAGE links."""
+
+    rows = list(occurrences)
+    failures = []
+    atomic_occurrence_count = 0
+    zero_width_delimiter_occurrence_count = 0
+    reflow_regression_occurrence_count = 0
+    story_profile = load_layout_profiles(DEFAULT_LAYOUT_PROFILES)[
+        "story_dialogue"
+    ]
+    for row in rows:
+        if (
+            row.translated_text is None
+            or row.marker_start is None
+            or row.marker_end is None
+        ):
+            failures.append(
+                {
+                    "entry_id": row.entry_id,
+                    "span_index": row.span_index,
+                    "kind": "missing_layout_locator",
+                }
+            )
+            continue
+        span_text = row.translated_text[row.marker_start : row.marker_end]
+        try:
+            spans = stage_keyword_link_spans(span_text)
+        except ChineseLayoutError as error:
+            failures.append(
+                {
+                    "entry_id": row.entry_id,
+                    "span_index": row.span_index,
+                    "kind": "malformed_marker_span",
+                    "detail": str(error),
+                }
+            )
+            continue
+        if len(spans) != 1 or spans[0].text != span_text:
+            failures.append(
+                {
+                    "entry_id": row.entry_id,
+                    "span_index": row.span_index,
+                    "kind": "marker_locator_mismatch",
+                }
+            )
+            continue
+        body = spans[0].body
+        if "\n" in body or "\r" in body:
+            failures.append(
+                {
+                    "entry_id": row.entry_id,
+                    "span_index": row.span_index,
+                    "kind": "line_break_inside_keyword",
+                    "keyword": row.translated_word,
+                }
+            )
+            continue
+        tokens = tokenize_dialogue(span_text, stage_keyword_links=True)
+        if (
+            len(tokens) != 1
+            or not tokens[0].atomic
+            or tokens[0].text != span_text
+        ):
+            failures.append(
+                {
+                    "entry_id": row.entry_id,
+                    "span_index": row.span_index,
+                    "kind": "keyword_not_atomic",
+                    "keyword": row.translated_word,
+                }
+            )
+            continue
+        atomic_occurrence_count += 1
+        body_width = rendered_line_width(body)
+        linked_width = rendered_line_width(
+            span_text,
+            stage_keyword_links=True,
+        )
+        visible_bracket_width = rendered_line_width(span_text)
+        if linked_width != body_width or visible_bracket_width != body_width + 2:
+            failures.append(
+                {
+                    "entry_id": row.entry_id,
+                    "span_index": row.span_index,
+                    "kind": "keyword_delimiter_width_mismatch",
+                    "body_width": body_width,
+                    "linked_width": linked_width,
+                    "visible_bracket_width": visible_bracket_width,
+                }
+            )
+            continue
+        zero_width_delimiter_occurrence_count += 1
+        try:
+            reflowed = reflow_chinese_dialogue(
+                row.translated_text,
+                profile=story_profile,
+                stage_keyword_links=True,
+            ).text
+            reflowed_spans = stage_keyword_link_spans(reflowed)
+        except ChineseLayoutError as error:
+            failures.append(
+                {
+                    "entry_id": row.entry_id,
+                    "span_index": row.span_index,
+                    "kind": "keyword_reflow_failed",
+                    "detail": str(error),
+                }
+            )
+            continue
+        if (
+            row.span_index >= len(reflowed_spans)
+            or reflowed_spans[row.span_index].body != row.translated_word
+            or "\n" in reflowed_spans[row.span_index].body
+            or "\r" in reflowed_spans[row.span_index].body
+        ):
+            failures.append(
+                {
+                    "entry_id": row.entry_id,
+                    "span_index": row.span_index,
+                    "kind": "keyword_split_or_changed_by_reflow",
+                    "keyword": row.translated_word,
+                }
+            )
+            continue
+        reflow_regression_occurrence_count += 1
+    return {
+        "status": "passed" if not failures else "failed",
+        "contract": (
+            "STAGE 0x8173/0x8174 delimiters have zero layout width; each "
+            "delimited body is one hard atomic token, so line breaks are "
+            "legal only before or after the whole keyword."
+        ),
+        "link_occurrence_count": len(rows),
+        "atomic_occurrence_count": atomic_occurrence_count,
+        "zero_width_delimiter_occurrence_count": (
+            zero_width_delimiter_occurrence_count
+        ),
+        "zero_width_delimiter_count": (
+            zero_width_delimiter_occurrence_count * 2
+        ),
+        "reflow_regression_occurrence_count": (
+            reflow_regression_occurrence_count
+        ),
+        "failure_count": len(failures),
+        "failures": failures,
+    }
+
+
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--story-config", type=Path, default=DEFAULT_STORY_CONFIG)
@@ -548,6 +722,12 @@ def main() -> int:
         canonical_words,
         original_entries,
     )
+    report["layout"] = audit_keyword_link_layout(occurrences)
+    report["status"] = (
+        "passed"
+        if report["status"] == "passed" and report["layout"]["status"] == "passed"
+        else "failed"
+    )
     report["authority"] = "corpus/runtime/stage-keywords-v1.json"
     report["library_alignment"] = audit_keyword_links(
         occurrences,
@@ -578,6 +758,7 @@ def main() -> int:
         f"missing={report['missing_library_word_count']} "
         f"missing_source={report['missing_original_keyword_word_count']} "
         f"ambiguous_source={report['ambiguous_original_keyword_word_count']} "
+        f"layout_failures={report['layout']['failure_count']} "
         f"library_drift={report['library_alignment']['mismatch_occurrence_count']} "
         f"report={report_path}"
     )
