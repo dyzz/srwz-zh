@@ -27,6 +27,12 @@ try:
         load_global_glossary,
         relevant_glossary_terms,
     )
+    from srwz.library import (
+        apply_library_rules,
+        apply_source_bound_review_replacements,
+        apply_source_surface_replacements,
+        compact_source_surface,
+    )
 except ModuleNotFoundError:  # pragma: no cover - package import in tests
     from tools.srwz.display_names import (
         load_display_name_source,
@@ -38,6 +44,12 @@ except ModuleNotFoundError:  # pragma: no cover - package import in tests
         global_glossary_by_id,
         load_global_glossary,
         relevant_glossary_terms,
+    )
+    from tools.srwz.library import (
+        apply_library_rules,
+        apply_source_bound_review_replacements,
+        apply_source_surface_replacements,
+        compact_source_surface,
     )
 
 
@@ -200,132 +212,6 @@ def build_stage_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
     return rows, stats
 
 
-def apply_library_rules(
-    text: str,
-    config: dict[str, Any],
-    glossary_terms: Iterable[dict[str, Any]] = (),
-) -> tuple[str, list[str]]:
-    candidate, applied = apply_glossary_variants(text, glossary_terms)
-    for rule in config["literal_replacements"]:
-        if rule["from"] in candidate:
-            candidate = candidate.replace(rule["from"], rule["to"])
-            applied.append(f"{rule['from']}→{rule['to']}")
-
-    style = config["style_rules"]
-    if style.get("normalize_curly_single_quote_pairs"):
-        normalized = re.sub(r"‘([^’\n]+)’", r"“\1”", candidate)
-        if normalized != candidate:
-            candidate = normalized
-            applied.append("中文单引号→中文双引号")
-    if style.get("normalize_ascii_quote_pairs"):
-        normalized = re.sub(r'"([^"\n]+)"', r"“\1”", candidate)
-        if normalized != candidate:
-            candidate = normalized
-            applied.append("ASCII双引号→中文双引号")
-    if style.get("normalize_plant_token"):
-        normalized = re.sub(r"(?<![A-Za-z])plant(?![A-Za-z])", "PLANT", candidate, flags=re.I)
-        if normalized != candidate:
-            candidate = normalized
-            applied.append("PLANT大小写")
-    return candidate, applied
-
-
-def apply_source_bound_review_replacements(
-    text: str,
-    config: dict[str, Any],
-    relevant_term_ids: set[str],
-) -> tuple[str, list[str]]:
-    """Apply reviewed machine-variant fixes only when Japanese binds the term."""
-
-    candidate = text
-    applied: list[str] = []
-    replacements: list[tuple[str, str, str]] = []
-    for rule in config.get("source_bound_replacements", []):
-        term_id = rule.get("glossary_id")
-        target = rule.get("to")
-        variants = rule.get("from", [])
-        if (
-            term_id not in relevant_term_ids
-            or not isinstance(target, str)
-            or not target
-            or not isinstance(variants, list)
-        ):
-            continue
-        replacements.extend(
-            (str(variant), target, str(term_id))
-            for variant in variants
-            if isinstance(variant, str) and variant
-        )
-    for variant, target, term_id in sorted(
-        set(replacements),
-        key=lambda item: (-len(item[0]), item[0], item[2]),
-    ):
-        parts = candidate.split(target) if variant in target else [candidate]
-        replaced = target.join(part.replace(variant, target) for part in parts)
-        if replaced == candidate:
-            continue
-        candidate = replaced
-        applied.append(f"{variant}→{target}[{term_id}:library-review]")
-    return candidate, applied
-
-
-def apply_source_surface_replacements(
-    text: str,
-    source_text: str,
-    config: dict[str, Any],
-) -> tuple[str, list[str]]:
-    """Apply reviewed variants only when a Japanese source surface is present.
-
-    These contracts cover names whose authoritative display-name corpus is
-    stronger than the machine draft, but which are not yet approved global
-    glossary entries (for example Megadeus and Baldios).  Source binding keeps
-    a spelling such as ``奥加斯`` from touching unrelated words such as
-    ``奥加斯塔研究所``.
-    """
-
-    compact_source = compact_source_surface(source_text)
-    candidate = text
-    applied: list[str] = []
-    replacements: list[tuple[str, str, str]] = []
-    for rule in config.get("source_surface_replacements", []):
-        source_terms = rule.get("source_terms", [])
-        variants = rule.get("from", [])
-        target = rule.get("to")
-        rule_id = rule.get("id")
-        if (
-            not isinstance(source_terms, list)
-            or not isinstance(variants, list)
-            or not isinstance(target, str)
-            or not target
-            or not isinstance(rule_id, str)
-            or not rule_id
-        ):
-            raise ValueError("invalid LIBRARY source-surface replacement")
-        if not any(
-            isinstance(term, str)
-            and term
-            and compact_source_surface(term) in compact_source
-            for term in source_terms
-        ):
-            continue
-        replacements.extend(
-            (str(variant), target, rule_id)
-            for variant in variants
-            if isinstance(variant, str) and variant
-        )
-    for variant, target, rule_id in sorted(
-        set(replacements),
-        key=lambda item: (-len(item[0]), item[0], item[2]),
-    ):
-        parts = candidate.split(target) if variant in target else [candidate]
-        replaced = target.join(part.replace(variant, target) for part in parts)
-        if replaced == candidate:
-            continue
-        candidate = replaced
-        applied.append(f"{variant}→{target}[{rule_id}:source-surface]")
-    return candidate, applied
-
-
 BODY_TAGS = {"DSC2", "DSCR", "CHFN", "CHNN"}
 JAPANESE_KANA_RE = re.compile(r"[ぁ-ゖァ-ヺー]")
 
@@ -336,12 +222,6 @@ def library_row_kind(tags: Iterable[str]) -> str:
 
 def normalized_text(text: str) -> str:
     return unicodedata.normalize("NFKC", text)
-
-
-def compact_source_surface(text: str) -> str:
-    """Normalize source display surfaces without changing semantic letters."""
-
-    return re.sub(r"[\s・\-−－]", "", normalized_text(text)).lower()
 
 
 def load_library_authoritative_surfaces(
@@ -775,6 +655,11 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
         "id",
         "LIBRARY reviewed replacement entries",
     )
+    source_bound_exception_by_id = require_unique(
+        config.get("source_bound_exceptions", []),
+        "id",
+        "LIBRARY source-bound exceptions",
+    )
     overlap = set(reviewed_by_id) & set(replacement_by_id)
     if overlap:
         raise ValueError(
@@ -788,6 +673,7 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
         )
     )
     seen_reviewed: set[str] = set()
+    seen_source_bound_exceptions: set[str] = set()
     rows: list[dict[str, Any]] = []
     for source in source_rows:
         row_id = source["id"]
@@ -812,6 +698,40 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
                 CONTEXT_SENSITIVE_HARD_TERM_PREFIXES
             ),
         )
+        source_bound_exception = source_bound_exception_by_id.get(row_id)
+        glossary_exception_ids: list[str] = []
+        if source_bound_exception is not None:
+            seen_source_bound_exceptions.add(row_id)
+            if (
+                source_bound_exception.get("source_text_sha256")
+                != source["source_text_sha256"]
+            ):
+                raise ValueError(
+                    f"LIBRARY source-bound exception hash mismatch for {row_id}"
+                )
+            raw_exception_ids = source_bound_exception.get("glossary_ids")
+            note = source_bound_exception.get("note")
+            if (
+                not isinstance(raw_exception_ids, list)
+                or not raw_exception_ids
+                or not all(isinstance(term_id, str) and term_id for term_id in raw_exception_ids)
+                or len(raw_exception_ids) != len(set(raw_exception_ids))
+                or not isinstance(note, str)
+                or not note
+            ):
+                raise ValueError(f"invalid LIBRARY source-bound exception for {row_id}")
+            relevant_ids = {str(term["id"]) for term in glossary_terms}
+            stale_ids = set(raw_exception_ids) - relevant_ids
+            if stale_ids:
+                raise ValueError(
+                    f"stale LIBRARY source-bound exception for {row_id}: {sorted(stale_ids)}"
+                )
+            glossary_exception_ids = sorted(set(raw_exception_ids))
+            glossary_terms = [
+                term
+                for term in glossary_terms
+                if str(term["id"]) not in glossary_exception_ids
+            ]
         rule_terms_by_id = {
             str(term["id"]): term for term in global_variant_terms
         }
@@ -840,9 +760,20 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
             if not isinstance(reviewed_translation, str) or not reviewed_translation:
                 raise ValueError(f"LIBRARY reviewed translation is empty for {row_id}")
             candidate_input = reviewed_translation
+            authority_applied: list[str] = []
+        elif row_id in authoritative_by_id:
+            authoritative = authoritative_by_id[row_id]
+            candidate_input = authoritative["translation"]
+            authority_applied = (
+                [f"同步{authoritative['authority']}"]
+                if candidate_input != current
+                else []
+            )
         else:
             candidate_input = current
+            authority_applied = []
         candidate, applied = apply_library_rules(candidate_input, config, rule_terms)
+        applied = [*authority_applied, *applied]
         candidate, reviewed_applied = apply_source_bound_review_replacements(
             candidate,
             config,
@@ -855,13 +786,6 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
             config,
         )
         applied.extend(surface_applied)
-        if human_review is None and row_id in authoritative_by_id:
-            authoritative = authoritative_by_id[row_id]
-            if candidate != authoritative["translation"]:
-                candidate = authoritative["translation"]
-                applied.append(
-                    f"同步{authoritative['authority']}"
-                )
         if kind == "body":
             compact_match_text = re.sub(
                 r"\s+", "", normalized_text(glossary_match_text)
@@ -1004,6 +928,7 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
                 "risks": sorted(set(risks)),
                 "risk_details": risk_details,
                 "accepted_audit_risks": accepted_audit_risks,
+                "glossary_exceptions": glossary_exception_ids,
                 "glossary_terms": glossary_terms,
                 "references": references,
                 "scenes": [],
@@ -1020,6 +945,14 @@ def build_library_rows() -> tuple[list[dict[str, Any]], dict[str, int]]:
     if missing_reviewed:
         raise ValueError(
             f"LIBRARY reviewed IDs not found in source queue: {sorted(missing_reviewed)}"
+        )
+    missing_source_bound_exceptions = (
+        set(source_bound_exception_by_id) - seen_source_bound_exceptions
+    )
+    if missing_source_bound_exceptions:
+        raise ValueError(
+            "LIBRARY source-bound exception IDs not found in source queue: "
+            f"{sorted(missing_source_bound_exceptions)}"
         )
 
     add_library_collision_risks(rows, config.get("accepted_collision_groups", []))

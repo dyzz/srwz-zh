@@ -11,6 +11,11 @@ python3 -m compileall -q tools tests
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
+默认测试只覆盖生产语料、组件和 ISO 链路，不导入或重建 `work/review/` 下的人工
+审核网页。审核网页的候选统计会随尚未定稿的人工决策变化，也不属于确定性 ISO 的
+输入。审核页面只通过 `python3 tools/build_editorial_review.py` 手动重建，不属于默认
+测试套件。
+
 生产压缩测试构建 `tools/native/srwz-codec-rs/`，再由 Rust decoder 回解；Python
 严格 decoder 只允许出现在隔离的格式对照单元测试中，生产与静态验收不得调用。
 仓库不再包含 Python/C 生产压缩加速路径。需要原盘、ImageMagick、mkps2iso 或

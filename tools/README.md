@@ -36,8 +36,8 @@ vendor/upstream-python/       两份固定只读数据定义
 最大压缩率。
 
 基础 UI 的中间过程已经折叠为 `release-base-ui` 验证收据；旧 ISO 组合、翻译模型、
-审校网页、通用解析导出器、研究探针和 dashboard 命令已移除。各生产模块仍在构建
-时直接解析自己的锁定输入，不依赖预生成的总解析报告。
+重复审校网页入口、通用解析导出器、研究探针和 dashboard 命令已移除。各生产模块
+仍在构建时直接解析自己的锁定输入，不依赖预生成的总解析报告。
 
 当前生产重建只有两个顶层入口：
 
@@ -45,6 +45,14 @@ vendor/upstream-python/       两份固定只读数据定义
 python3 tools/rebuild_zh_font.py --skip-fetch
 python3 tools/build_iso.py --config config/iso/zh-release-full-story-build.json
 python3 tools/build_release.py --config config/release/v0.1.0.json
+```
+
+`build_editorial_review.py` 只生成 `work/review/` 下的离线人工审核页面和候选 JSON，
+不会被字体、组件、ISO 或发布入口调用。需要更新审核页面时必须单独显式执行；网页及
+候选统计不属于生产构建输入或发布验收门：
+
+```bash
+python3 tools/build_editorial_review.py
 ```
 
 日常润色后的工作版使用通用增量构建。它会比较上一次完整验证留下的输入快照，按
