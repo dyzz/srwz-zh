@@ -26,13 +26,15 @@ VEFF2DX 文档中的“从全局 glyph 裁切”和“修改 quad”只适用于
 - `config/assets/maps/tim2-kvm6-intermission.json`：原始归档、chunk、TIM2 和第一块
   擦除前像；不拥有中文译文。
 - `corpus/zh/ui-atlas/core-menus-v1.json`：中文标签的唯一文本事实源。
-- `config/assets/ui-intermission-atlas-zh.json`：九个源切片、字体 flavor、字号、斜体、
-  索引层和输出哈希。
+- `config/assets/ui-intermission-atlas-zh.json`：九个源切片、字体 flavor、字号、
+  索引层、冻结渲染锁和输出哈希。
+- `config/assets/ui-intermission-atlas-render-snapshot.json`：已审九块字形的 outline/fill
+  灰度 mask 及整图预览；普通生产构建只消费该快照。
 - `manifests/ui-intermission-atlas-zh-validation.json`：确定性组件回读结果。
 - `config/assets/ui-atlas-suite-zh.json`：六张 KVMDATA 图集的互斥字节所有权合成。
 
-提交的 PNG 不是写回输入。生产组件始终从锁定原始前像、受审译文和配置化渲染参数
-重新生成。
+提交的 PNG 不是写回输入。生产组件从锁定原始前像和冻结 mask 确定性重建；只有在
+译文、字体或渲染规则经过明确审改后，才允许用显式冻结命令重新栅格化并更新快照。
 
 ## 3. 中场休息切片
 
@@ -42,13 +44,13 @@ VEFF2DX 文档中的“从全局 glyph 裁切”和“修改 quad”只适用于
 | --- | ---: | ---: | ---: | --- |
 | 中场休息 | 0 | 0 | 215×31 | 26px，正体 |
 | 中场休息 | 0 | 106 | 218×29 | 26px，正体 |
-| 机体 | 0 | 135 | 69×27 | 18px，右斜 12° |
-| 机师 | 139 | 135 | 99×27 | 18px，右斜 12° |
-| 集市 | 0 | 162 | 63×22 | 18px，右斜 12° |
-| 下个地图 | 63 | 162 | 100×22 | 18px，右斜 12° |
-| 选项 | 0 | 184 | 101×25 | 18px，右斜 12° |
-| 小队 | 0 | 209 | 88×22 | 18px，右斜 12° |
-| 数据管理 | 0 | 231 | 111×25 | 18px，右斜 12° |
+| 机体 | 0 | 135 | 69×27 | 18px，正体 |
+| 机师 | 139 | 135 | 99×27 | 18px，正体 |
+| 集市 | 0 | 162 | 63×22 | 18px，正体 |
+| 下个地图 | 63 | 162 | 100×22 | 18px，正体 |
+| 选项 | 0 | 184 | 101×25 | 18px，正体 |
+| 小队 | 0 | 209 | 88×22 | 18px，正体 |
+| 数据管理 | 0 | 231 | 111×25 | 18px，正体 |
 
 九块中文统一使用
 `config/fonts/zh-localization-font-light.json`，即锁定官方压缩包内的
@@ -60,7 +62,8 @@ HarmonyOS Sans SC Light 1.0。它只是同一 HarmonyOS Sans 家族的静态图�
 每个切片都锁定原始 RGBA SHA-256，并执行以下顺序：
 
 1. 只在登记矩形内把全部像素强制重建为背景索引 `0`；
-2. 在同一矩形中渲染中文，标题保持正体，菜单保持右斜；
+2. 在同一矩形中写入冻结的中文 mask，标题和菜单均保持正体；禁止字形栅格化后再
+   shear，避免二次采样把 18px 笔画和阴影边缘打毛；
 3. 标题 outline 使用索引 `1..7`、fill 使用 `8..15`；
 4. 菜单 outline 使用索引 `1..7`、fill 使用 `8..14`；
 5. 对整个矩形执行强制 reindex，禁止残留原日文像素或旧索引边缘；
@@ -101,6 +104,9 @@ python3 tools/fetch_zh_font.py \
 重建并验证独立图集：
 
 ```bash
+# 仅在有意修改译文、字体或渲染规则时重新冻结；普通 build 不运行此命令
+python3 tools/freeze_ui_atlas_renders.py --force
+
 python3 tools/ui_atlas.py build \
   --config config/assets/ui-intermission-atlas-zh.json --force
 python3 tools/ui_atlas.py verify \

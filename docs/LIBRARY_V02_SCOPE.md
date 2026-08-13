@@ -71,6 +71,14 @@ python3 tools/verify_library_v02.py \
 | 术语正文／关键词 | `DATA/MTVZKNKW.BIN` | 52 个压缩块 |
 | 音乐选择曲名 | `DATA/COMPDATA.BN` | 解压区间内 85 条原始标题 |
 
+LIBRARY 主菜单的六个中文标签、正常／暗化两种状态共 12 块字形，冻结在
+`config/library/library-menu-render-snapshot.json`。普通组件构建只核对并消费快照，
+不重新调用 ImageMagick；仅在译文、字体或渲染规则经过明确审改后执行：
+
+```bash
+python3 tools/freeze_library_menu_renders.py --force
+```
+
 三个 `MTVZKN` 成员由压缩块组成；解压后是带 0x20 字节包装、转义变换和 TLV 字段
 的 ZKAN 文档，文本编码为 CP932。读取侧已经实现严格解析、稳定条目 ID 和前像哈希；
 生产写回侧仍需补齐字段编码、块重压缩、容量检查和独立回读。不得按截图散改，也不

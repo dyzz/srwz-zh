@@ -220,7 +220,7 @@ class UiAtlasLocalizationTests(unittest.TestCase):
                 self.assertEqual(manifest["runtime"]["status"], "not_tested")
                 self.assertTrue(all(manifest["acceptance"].values()))
 
-    def test_intermission_uses_exact_source_element_cuts_and_italic_text(self):
+    def test_intermission_uses_frozen_upright_source_element_renders(self):
         manifest = self.profiles["intermission"]["manifest"]
         config = self.profiles["intermission"]["config"]
         self.assertEqual(config["replacement_mode"], "fixed_source_elements")

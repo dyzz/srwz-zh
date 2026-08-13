@@ -198,6 +198,11 @@ class LibraryV02DetailSurfaceTests(unittest.TestCase):
         )
         self.assertTrue(report["tim2_metadata_preserved"])
         self.assertTrue(report["clut_and_non_image_bytes_preserved"])
+        self.assertEqual(report["render_source"], "locked_snapshot")
+        self.assertEqual(
+            contract["writeback"]["render_snapshot"]["path"],
+            "config/library/library-menu-render-snapshot.json",
+        )
 
 
 if __name__ == "__main__":

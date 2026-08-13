@@ -82,6 +82,9 @@ VT1 主字库固定为 4,480 个 `24×24/4-bpp` glyph。生产规则是：
   `ui-intermission-atlas-zh` 使用
   `config/fonts/zh-localization-font-light.json`，并对标题和七个菜单统一使用
   Light；这不改变 VT1 的 Regular 字形；
+- 已审静态文字栅格必须作为带输入与工具链 provenance 的渲染快照冻结；普通生产
+  构建消费快照，不重新栅格化。当前中场休息图集和 LIBRARY 主菜单分别由
+  `freeze_ui_atlas_renders.py`、`freeze_library_menu_renders.py` 显式更新；
 - 原始字体和许可证只下载到忽略的 `work/font-source/`，提交物保留官方压缩包、
   archive member、大小和 SHA-256 锁；
 - HarmonyOS Sans 缺少的 `〜∀♪` 只允许通过全局 flavor 中的明确 Noto fallback；

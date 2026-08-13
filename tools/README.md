@@ -97,6 +97,14 @@ ImageMagick。只有明确改变标题语料、字体或渲染规则时才显式
 python3 tools/freeze_world_map_title_renders.py --force
 ```
 
+中场休息图集和 LIBRARY 主菜单也使用相同的“显式重冻结、普通构建只消费快照”规则。
+只有明确改变译文、字体或渲染合同后才运行：
+
+```bash
+python3 tools/freeze_ui_atlas_renders.py --force
+python3 tools/freeze_library_menu_renders.py --force
+```
+
 最终组件构建把同一物理压缩流视为一个 decoded workspace。`COMPDATA.BN` 先用 Rust
 解码一次，依次完成全人物／机体名、关卡标题、剩余 UI、战斗字幕、武器名和全局安全
 别名写入及各自回读，再只压缩一次；`STAGE.BIN` chunk 0 的概览与系统对白也共用一次
