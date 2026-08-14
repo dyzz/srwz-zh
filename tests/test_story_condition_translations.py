@@ -39,17 +39,17 @@ class StoryConditionTranslationTests(unittest.TestCase):
                     "Defeat Conditions",
                     "SR Conditions",
                 ],
-                "entry_count": 558,
-                "unique_source_text_count": 241,
+                "entry_count": 670,
+                "unique_source_text_count": 312,
             },
         )
-        self.assertEqual(len(entries), 558)
-        self.assertEqual(len({entry["id"] for entry in entries}), 558)
+        self.assertEqual(len(entries), 670)
+        self.assertEqual(len({entry["id"] for entry in entries}), 670)
         self.assertEqual(entries[0]["id"], "story/001/condition/00/00")
         self.assertEqual(entries[-1]["id"], "story/186/condition/02/01")
 
         status_counts = Counter(entry["editorial_status"] for entry in entries)
-        self.assertEqual(status_counts, Counter({"draft": 526, "reviewed": 32}))
+        self.assertEqual(status_counts, Counter({"draft": 559, "reviewed": 111}))
         for entry in entries:
             self.assertRegex(
                 entry["id"],
@@ -75,10 +75,10 @@ class StoryConditionTranslationTests(unittest.TestCase):
         by_source_hash = defaultdict(list)
         for entry in self.translations["entries"]:
             by_source_hash[entry["source_text_sha256"]].append(entry)
-        self.assertEqual(len(by_source_hash), 241)
+        self.assertEqual(len(by_source_hash), 312)
         self.assertEqual(
             sorted(len(group) for group in by_source_hash.values())[-3:],
-            [44, 63, 85],
+            [49, 65, 87],
         )
         for group in by_source_hash.values():
             decisions = {
@@ -97,11 +97,11 @@ class StoryConditionTranslationTests(unittest.TestCase):
         newline_counts = [
             entry["translation"].count("\n") for entry in entries
         ]
-        self.assertEqual(Counter(newline_counts), {0: 516, 1: 41, 2: 1})
+        self.assertEqual(Counter(newline_counts), {0: 622, 1: 47, 2: 1})
         pattern = "".join(str(count) for count in newline_counts)
         self.assertEqual(
             hashlib.sha256(pattern.encode("ascii")).hexdigest(),
-            "b15fa0f39211129681b33675f9b23d68c20645b58feb1cf3bae982e56d1db58a",
+            "482280c69532427b74685acb831c6a6321ff3d632a09010aca74f9d4a1c5b704",
         )
 
         preserved = [
@@ -109,7 +109,7 @@ class StoryConditionTranslationTests(unittest.TestCase):
             for entry in entries
             if entry["translation_action"] == "preserve"
         ]
-        self.assertEqual(len(preserved), 24)
+        self.assertEqual(len(preserved), 25)
         self.assertTrue(
             all(entry["translation"] == "？？？" for entry in preserved)
         )
@@ -126,10 +126,15 @@ class StoryConditionTranslationTests(unittest.TestCase):
                 "（两者都会在HP降至4000以下时撤退）"
             ),
             "story/002/condition/00/01": "击坠真或亚历克斯。",
+            "story/002/condition/00/02": "友方单位到达脱出点。",
+            "story/002/condition/00/03": (
+                "击坠混沌、深渊、盖亚中的任意一机。"
+            ),
             "story/004/condition/02/00": (
                 "在4回合内击坠伊安；或在4回合内击坠斯汀、\n"
                 "奥尔和史黛拉后，最后击坠尼奥。"
             ),
+            "story/004/condition/01/02": "荣耀之星被击坠。",
             "story/042/condition/01/00": "：被击坠。",
             "story/054/condition/01/01": "：或卡缪任一人被击坠。",
             "story/083/condition/01/01": "霍兰德或：被击坠。",
@@ -218,7 +223,7 @@ class StoryConditionTranslationTests(unittest.TestCase):
             for batch in release["coverage_plan"]
             if batch["batch_id"] == "v1-story-conditions"
         )
-        self.assertEqual(batch["target_entry_count"], 558)
+        self.assertEqual(batch["target_entry_count"], 670)
         self.assertEqual(batch["status"], "draft_complete")
 
 

@@ -70,6 +70,7 @@ from srwz.story_quotes import evaluate_story_quote
 from srwz.stage_overview import parse_stage_overviews
 from srwz.stage_formations import (
     STAGE_OFFSET_SPEC,
+    compact_formation_ascii_replacement,
     formation_inventory_sha256,
     load_locked_stage_default_formations,
 )
@@ -780,6 +781,89 @@ def verify_stage_system_dialogues(
     }
 
 
+def verify_stage_scenario_chart_prompts(
+    stage_archive: bytes,
+    offsets: tuple,
+    source_table: TextTable,
+    output_table: TextTable,
+    component_config: dict,
+) -> dict:
+    """Read back the fixed Scenario Chart prompt from STAGE chunk zero."""
+
+    remaining = component_config["remaining_ui"]
+    original_stage = (
+        PROJECT_ROOT / remaining["original_stage"]["path"]
+    ).read_bytes()
+    translations = json.loads(
+        (
+            PROJECT_ROOT / remaining["translations"]["path"]
+        ).read_text(encoding="utf-8")
+    )
+    replacements = translations.get("stage_scenario_chart_prompts_by_offset")
+    expected = remaining.get("expected")
+    if (
+        not isinstance(replacements, dict)
+        or not isinstance(expected, dict)
+        or len(replacements)
+        != expected.get("stage_scenario_chart_prompt_entry_count")
+    ):
+        raise SystemExit("Scenario Chart prompt corpus contract drift")
+    start, end = offsets[0:2]
+    original_stored = original_stage[start:end]
+    final_stored = stage_archive[start:end]
+    original_decoded = decode(original_stored)
+    final_decoded = decode(final_stored)
+    if (
+        any(original_stored[original_decoded.consumed :])
+        or any(final_stored[final_decoded.consumed :])
+        or len(original_decoded.output) != len(final_decoded.output)
+    ):
+        raise SystemExit("Scenario Chart prompt STAGE decode drift")
+    source_texts = {
+        "0x1F790": "：決定",
+        "0x1F798": "：戻る",
+        "0x1F7A0": "：スピードＵＰ",
+    }
+    if set(replacements) != set(source_texts):
+        raise SystemExit("Scenario Chart prompt source selection drift")
+    readbacks = {}
+    for raw_offset, expected_text in replacements.items():
+        offset = int(raw_offset, 16)
+        source = decode_text(original_decoded.output, offset, source_table)
+        actual = decode_text(final_decoded.output, offset, output_table)
+        if (
+            raw_offset != f"0x{offset:X}"
+            or source.text != source_texts[raw_offset]
+            or actual.text != expected_text
+            or actual.consumed > source.consumed
+            or any(
+                final_decoded.output[
+                    offset + actual.consumed : offset + source.consumed
+                ]
+            )
+        ):
+            raise SystemExit(
+                f"final ISO Scenario Chart prompt mismatch: {raw_offset}"
+            )
+        readbacks[raw_offset] = {
+            "source_text": source.text,
+            "translation": actual.text,
+            "source_capacity": source.consumed,
+            "output_size": actual.consumed,
+            "headroom": source.consumed - actual.consumed,
+            "readback_exact": True,
+        }
+    return {
+        "member": "DATA/STAGE.BIN",
+        "chunk_index": 0,
+        "entry_count": len(readbacks),
+        "entries": readbacks,
+        "fixed_spans_preserved": True,
+        "zero_padding_preserved": True,
+        "translated_readback_exact": True,
+    }
+
+
 def verify_scenario_select_effect(
     slps: bytes,
     archive: bytes,
@@ -946,6 +1030,9 @@ def verify_nisv_effect_names(
     ):
         raise SystemExit("final ISO NisVData chunk decode drift")
     term_reports = []
+    raw_visible_ascii_glyph_count = 0
+    raw_visible_ascii_target_count = 0
+    raw_space_target_count = 0
     for item in terms:
         source_encoded = encode_text(
             item["source"], source_table, terminate=False
@@ -954,6 +1041,16 @@ def verify_nisv_effect_names(
         decoded_offsets = [int(value, 0) for value in item["decoded_offsets"]]
         for offset in decoded_offsets:
             actual = decode_text(decoded.output, offset, output_table)
+            translation_size = len(
+                encode_text(translation, output_table, terminate=False)
+            )
+            translation_payload = decoded.output[
+                offset : offset + translation_size
+            ]
+            raw_ascii = raw_visible_ascii_glyphs(translation_payload)
+            raw_visible_ascii_glyph_count += len(raw_ascii)
+            raw_visible_ascii_target_count += bool(raw_ascii)
+            raw_space_target_count += b"\x20" in translation_payload
             if not actual.text.startswith(translation + "\u3000") or (
                 decoded.output[offset : offset + len(source_encoded)]
                 == source_encoded
@@ -962,11 +1059,28 @@ def verify_nisv_effect_names(
                     "final ISO NisVData effect-name mismatch at "
                     f"0x{offset:X}"
                 )
+        residual_source_offsets = []
+        cursor = 0
+        while True:
+            cursor = decoded.output.find(source_encoded, cursor)
+            if cursor < 0:
+                break
+            residual_source_offsets.append(cursor)
+            cursor += 1
+        if residual_source_offsets:
+            raise SystemExit(
+                "final ISO NisVData retains source effect name "
+                f"{item['source']!r} at "
+                + ", ".join(
+                    f"0x{offset:X}" for offset in residual_source_offsets
+                )
+            )
         term_reports.append(
             {
                 "source": item["source"],
                 "translation": translation,
                 "decoded_offsets": decoded_offsets,
+                "residual_source_occurrence_count": 0,
                 "reread_exact": True,
             }
         )
@@ -979,6 +1093,9 @@ def verify_nisv_effect_names(
         manifest_report.get("term_count") != len(term_reports)
         or manifest_report.get("occurrence_count")
         != sum(len(item["decoded_offsets"]) for item in term_reports)
+        or raw_visible_ascii_glyph_count
+        or raw_visible_ascii_target_count
+        or raw_space_target_count
     ):
         raise SystemExit("final ISO NisVData component report drift")
     return {
@@ -991,6 +1108,11 @@ def verify_nisv_effect_names(
         "terms": term_reports,
         "codec_padding_zero": True,
         "archive_offsets_preserved": True,
+        "all_source_occurrences_absent": True,
+        "raw_visible_ascii_glyph_count": 0,
+        "raw_visible_ascii_target_count": 0,
+        "raw_space_target_count": 0,
+        "runtime_control_tokens_excluded": True,
         "translated_reread_exact": True,
     }
 
@@ -1191,7 +1313,7 @@ def verify_stage_default_formation(
     }
     layout_counts = {
         layout: sum(group.layout == layout for group in groups)
-        for layout in ("formation18+33+1", "record6+23", "slot32")
+        for layout in sorted({group.layout for group in groups})
     }
     record_metadata_count = sum(
         len(group.cells) for group in groups if group.layout == "record6+23"
@@ -1220,6 +1342,7 @@ def verify_stage_default_formation(
     original_by_stage = {}
     minimum_headroom = None
     translations = set()
+    compact_ascii_entry_count = 0
     ranges_by_stage: dict[int, list[tuple[int, int]]] = {}
     indexed_cells = sorted(
         (
@@ -1272,6 +1395,12 @@ def verify_stage_default_formation(
         translation = normalize_original_fullwidth_ascii(
             translations_by_source[cell.source_text]
         )
+        expected_compact = compact_formation_ascii_replacement(
+            source_text=source.text,
+            translation=translation,
+            layout=group.layout,
+            slot_size=slot_size,
+        )
         if (
             source.text != cell.source_text
             or source.consumed != cell.source_consumed
@@ -1284,6 +1413,13 @@ def verify_stage_default_formation(
                 f"default formation-name mismatch at stage "
                 f"{stage_index} {raw_offset}"
             )
+        if expected_compact is not None:
+            if decoded[decoded_offset:slot_end] != expected_compact:
+                raise SystemExit(
+                    "default formation-name compact ASCII drift at stage "
+                    f"{stage_index} {raw_offset}"
+                )
+            compact_ascii_entry_count += 1
         if group.layout in {"record6+23", "formation18+33+1"}:
             prefix_size = 6 if group.layout == "record6+23" else 18
             metadata_start = decoded_offset - prefix_size
@@ -1328,6 +1464,12 @@ def verify_stage_default_formation(
             else min(minimum_headroom, headroom)
         )
         translations.add((source.text, translation))
+    if compact_ascii_entry_count != expected.get(
+        "stage_default_formation_compact_ascii_entry_count"
+    ):
+        raise SystemExit(
+            "default formation-name compact ASCII ratchet drift"
+        )
     return {
         "group_count": len(groups),
         "stage_count": len(decoded_by_stage),
@@ -1336,6 +1478,7 @@ def verify_stage_default_formation(
         "unique_source_count": len(source_texts),
         "layout_group_counts": layout_counts,
         "record_metadata_count": record_metadata_count,
+        "compact_ascii_entry_count": compact_ascii_entry_count,
         "inventory_sha256": inventory_sha256,
         "translations": [
             {"source": source, "translation": translation}
@@ -1604,6 +1747,239 @@ def verify_final_compdata(
         item for item in descriptors if item.get("friendly_name") == "SLPS"
     )
     parsed_slps_menu = parse_menu_file(slps, slps_descriptor, output_table)
+
+    ascii_audit_config = component_config.get("ability_visible_ascii_audit")
+    if not isinstance(ascii_audit_config, dict):
+        raise SystemExit("ability visible-ASCII audit config is missing")
+
+    def locked_menu_audit_family(config_key: str, label: str):
+        reference = ascii_audit_config.get(config_key)
+        if not isinstance(reference, dict):
+            raise SystemExit(f"{label} audit config is missing")
+        corpus_reference = reference.get("corpus")
+        expected = reference.get("expected")
+        prefix = reference.get("entry_id_prefix")
+        if (
+            not isinstance(corpus_reference, dict)
+            or not isinstance(expected, dict)
+            or not isinstance(prefix, str)
+            or not prefix
+        ):
+            raise SystemExit(f"{label} audit config drift")
+        corpus_path = PROJECT_ROOT / str(corpus_reference.get("path", ""))
+        corpus_data = corpus_path.read_bytes()
+        if (
+            len(corpus_data) != corpus_reference.get("size")
+            or sha256_bytes(corpus_data) != corpus_reference.get("sha256")
+        ):
+            raise SystemExit(f"{label} audit corpus lock drift")
+        document = json.loads(corpus_data.decode("utf-8"))
+        corpus_entries = document.get("entries")
+        if (
+            not isinstance(corpus_entries, list)
+            or len(corpus_entries) != expected.get("entry_count")
+        ):
+            raise SystemExit(f"{label} audit corpus inventory drift")
+        corpus_ids = [item.get("id") for item in corpus_entries]
+        expected_ids = [
+            f"{prefix}{ordinal:04d}" for ordinal in range(len(corpus_entries))
+        ]
+        menu_entries = [
+            entry
+            for entry in parsed_slps_menu.entries
+            if entry.entry_id.startswith(prefix)
+        ]
+        if (
+            corpus_ids != expected_ids
+            or [entry.entry_id for entry in menu_entries] != expected_ids
+        ):
+            raise SystemExit(f"{label} audit menu inventory drift")
+        return menu_entries, expected
+
+    def audit_menu_visible_ascii(data: bytes, entries, expected: dict, label: str) -> dict:
+        target_occurrence_count = sum(
+            len(entry.target_offsets) for entry in entries
+        )
+        target_offsets = sorted(
+            {
+                offset
+                for entry in entries
+                for offset in entry.target_offsets
+            }
+        )
+        raw_visible_ascii_glyph_count = 0
+        raw_visible_ascii_target_count = 0
+        raw_space_target_count = 0
+        for offset in target_offsets:
+            actual = decode_text(data, offset, output_table)
+            payload = data[offset : offset + actual.consumed]
+            raw_ascii = raw_visible_ascii_glyphs(payload)
+            raw_visible_ascii_glyph_count += len(raw_ascii)
+            raw_visible_ascii_target_count += bool(raw_ascii)
+            raw_space_target_count += b"\x20" in payload
+        if (
+            len(entries) != expected.get("entry_count")
+            or target_occurrence_count
+            != expected.get("target_occurrence_count")
+            or len(target_offsets) != expected.get("unique_target_count")
+            or raw_visible_ascii_glyph_count
+            or raw_visible_ascii_target_count
+            or raw_space_target_count
+            or any(entry.unknown_code_count for entry in entries)
+        ):
+            raise SystemExit(f"{label} contains unsafe single-byte text")
+        return {
+            "entry_count": len(entries),
+            "target_occurrence_count": target_occurrence_count,
+            "unique_target_count": len(target_offsets),
+            "logical_visible_ascii_entry_count": sum(
+                any("!" <= character <= "~" for character in entry.text)
+                for entry in entries
+            ),
+            "runtime_control_token_count": sum(
+                len(control_notation_tokens(entry.text)) for entry in entries
+            ),
+            "raw_visible_ascii_glyph_count": 0,
+            "raw_visible_ascii_target_count": 0,
+            "raw_space_target_count": 0,
+            "runtime_control_tokens_excluded": True,
+            "unknown_code_count": 0,
+            "readback_exact": True,
+        }
+
+    pilot_skill_entries, pilot_skill_expected = locked_menu_audit_family(
+        "pilot_skills", "pilot special skills"
+    )
+    pilot_skill_ascii_report = audit_menu_visible_ascii(
+        slps,
+        pilot_skill_entries,
+        pilot_skill_expected,
+        "pilot special skills",
+    )
+    unit_ui_entries, unit_ui_expected = locked_menu_audit_family(
+        "unit_mech_pilot_weapon_ui", "unit/mech/pilot/weapon UI"
+    )
+    unit_ui_ascii_report = audit_menu_visible_ascii(
+        slps,
+        unit_ui_entries,
+        unit_ui_expected,
+        "unit/mech/pilot/weapon UI",
+    )
+    weapon_effect_1_ids = {
+        f"menu/SLPS/11/{ordinal:04d}" for ordinal in range(5, 13)
+    }
+    weapon_effect_1_entries = [
+        entry
+        for entry in unit_ui_entries
+        if entry.entry_id in weapon_effect_1_ids
+    ]
+    weapon_effect_1_ascii_report = audit_menu_visible_ascii(
+        slps,
+        weapon_effect_1_entries,
+        {
+            "entry_count": unit_ui_expected.get(
+                "weapon_special_effect_1_entry_count"
+            ),
+            "target_occurrence_count": 8,
+            "unique_target_count": 8,
+        },
+        "weapon special effect 1",
+    )
+    weapon_effect_label_ids = {
+        "menu/SLPS/11/0092",
+        "menu/SLPS/11/0093",
+    }
+    weapon_effect_label_entries = [
+        entry
+        for entry in unit_ui_entries
+        if entry.entry_id in weapon_effect_label_ids
+    ]
+    weapon_effect_label_ascii_report = audit_menu_visible_ascii(
+        slps,
+        weapon_effect_label_entries,
+        {
+            "entry_count": unit_ui_expected.get(
+                "weapon_special_effect_label_entry_count"
+            ),
+            "target_occurrence_count": 2,
+            "unique_target_count": 2,
+        },
+        "weapon special-effect labels",
+    )
+
+    weapon_effect_help = {
+        "0x77100": remaining_document["compdata_context_help_by_offset"].get(
+            "0x77100"
+        ),
+        **{
+            offset: item.get("translation")
+            for offset, item in remaining_document[
+                "compdata_inline_by_offset"
+            ].items()
+        },
+    }
+    if (
+        len(weapon_effect_help)
+        != unit_ui_expected.get("weapon_special_effect_help_entry_count")
+        or any(not isinstance(text, str) for text in weapon_effect_help.values())
+    ):
+        raise SystemExit("weapon special-effect help inventory drift")
+    help_raw_visible_ascii_glyph_count = 0
+    help_raw_visible_ascii_target_count = 0
+    help_raw_space_target_count = 0
+    for raw_offset, translation in weapon_effect_help.items():
+        offset = int(raw_offset, 16)
+        actual = decode_text(decoded_compdata.output, offset, output_table)
+        normalized_translation = normalize_original_fullwidth_ascii(
+            translation
+        )
+        translation_size = len(
+            encode_text(
+                normalized_translation,
+                output_table,
+                terminate=False,
+            )
+        )
+        payload = decoded_compdata.output[
+            offset : offset + translation_size
+        ]
+        raw_ascii = raw_visible_ascii_glyphs(payload)
+        if not actual.text.startswith(normalized_translation):
+            raise SystemExit(
+                f"weapon special-effect help mismatch at {raw_offset}"
+            )
+        help_raw_visible_ascii_glyph_count += len(raw_ascii)
+        help_raw_visible_ascii_target_count += bool(raw_ascii)
+        help_raw_space_target_count += b"\x20" in payload
+    if (
+        help_raw_visible_ascii_glyph_count
+        or help_raw_visible_ascii_target_count
+        or help_raw_space_target_count
+    ):
+        raise SystemExit(
+            "weapon special-effect help contains unsafe single-byte text"
+        )
+    weapon_effect_help_ascii_report = {
+        "entry_count": len(weapon_effect_help),
+        "offsets": list(weapon_effect_help),
+        "logical_visible_ascii_entry_count": sum(
+            any("!" <= character <= "~" for character in text)
+            for text in weapon_effect_help.values()
+        ),
+        "raw_visible_ascii_glyph_count": 0,
+        "raw_visible_ascii_target_count": 0,
+        "raw_space_target_count": 0,
+        "runtime_control_tokens_excluded": True,
+        "readback_exact": True,
+    }
+    ability_visible_ascii_report = {
+        "pilot_special_skills": pilot_skill_ascii_report,
+        "unit_mech_pilot_weapon_ui": unit_ui_ascii_report,
+        "weapon_special_effect_1": weapon_effect_1_ascii_report,
+        "weapon_special_effect_labels": weapon_effect_label_ascii_report,
+        "weapon_special_effect_help": weapon_effect_help_ascii_report,
+        "all_checked_fields_use_two_byte_visible_ascii": True,
+    }
 
     display_name_raw_space_count = sum(
         b"\x20"
@@ -1969,6 +2345,21 @@ def verify_final_compdata(
         for offset in map_formation_name_expectations
     } != map_formation_name_expectations:
         raise SystemExit("map formation-name offset contract drift")
+    weapon_effect_1_expectations = {
+        "0x3462A0": "SP降低（P系）",
+        "0x3462C0": "运动性降低（R系）",
+        "0x3462E0": "气力降低（P系）",
+        "0x346300": "行动不能（P系）",
+        "0x346320": "装甲值降低（R系）",
+        "0x346340": "能力减半（P系）",
+        "0x346360": "瞄准值降低（R系）",
+        "0x346380": "EN降低（R系）",
+    }
+    if {
+        offset: remaining_document["slps_by_offset"].get(offset)
+        for offset in weapon_effect_1_expectations
+    } != weapon_effect_1_expectations:
+        raise SystemExit("weapon special-effect-1 offset contract drift")
     squad_formation_name_expectations = {
         "0x7F580": "三角队形",
         "0x7F5A0": "中央队形",
@@ -2104,6 +2495,131 @@ def verify_final_compdata(
         entry.entry_id: entry for entry in original_parsed_menu.entries
     }
     final_menu_by_id = {entry.entry_id: entry for entry in parsed_menu.entries}
+
+    special_config = component_config["special_abilities"]
+    special_document = json.loads(
+        (PROJECT_ROOT / special_config["corpus"]["path"]).read_text(
+            encoding="utf-8"
+        )
+    )
+    special_entries = special_document.get("entries")
+    special_expected = special_config.get("expected")
+    if (
+        special_document.get("batch_id") != "v1-menu-system-ui"
+        or special_document.get("scope", {}).get("section")
+        != "Special Abilities"
+        or not isinstance(special_entries, list)
+        or not isinstance(special_expected, dict)
+        or len(special_entries) != special_expected.get("entry_count")
+    ):
+        raise SystemExit("special-ability corpus contract drift")
+    special_target_occurrence_count = 0
+    special_targets = set()
+    special_translated_entry_count = 0
+    special_preserved_entry_count = 0
+    special_raw_visible_ascii_glyph_count = 0
+    special_raw_visible_ascii_target_count = 0
+    special_raw_space_target_count = 0
+    vps_readback = None
+    for ordinal, item in enumerate(special_entries):
+        entry_id = f"menu/Compdata/04/{ordinal:04d}"
+        source_entry = original_menu_by_id.get(entry_id)
+        if (
+            not isinstance(item, dict)
+            or item.get("id") != entry_id
+            or source_entry is None
+            or source_entry.section != "Special Abilities"
+            or sha256_bytes(source_entry.text.encode("utf-8"))
+            != item.get("source_text_sha256")
+        ):
+            raise SystemExit(f"special-ability source drift: {entry_id}")
+        action = item.get("translation_action", "translate")
+        if action == "preserve":
+            if (
+                item.get("editorial_status") != "final"
+                or item.get("translation") != source_entry.text
+            ):
+                raise SystemExit(
+                    f"special-ability preserve decision drift: {entry_id}"
+                )
+            expected_text = source_entry.text
+            special_preserved_entry_count += 1
+        else:
+            if (
+                action != "translate"
+                or item.get("editorial_status") != "reviewed"
+                or not isinstance(item.get("translation"), str)
+                or not item["translation"]
+            ):
+                raise SystemExit(
+                    f"special-ability translation decision drift: {entry_id}"
+                )
+            expected_text = normalize_original_fullwidth_ascii(
+                item["translation"]
+            ).replace(" ", "　")
+            special_translated_entry_count += 1
+        special_target_occurrence_count += len(source_entry.target_offsets)
+        for target_offset in source_entry.target_offsets:
+            special_targets.add(target_offset)
+            actual = decode_text(
+                decoded_compdata.output,
+                target_offset,
+                output_table,
+            )
+            if normalize_original_fullwidth_ascii(actual.text) != expected_text:
+                raise SystemExit(
+                    f"special-ability mismatch: {entry_id} at "
+                    f"0x{target_offset:X}: expected={expected_text!r} "
+                    f"actual={actual.text!r}"
+                )
+            payload = decoded_compdata.output[
+                target_offset : target_offset + actual.consumed
+            ]
+            raw_ascii = raw_visible_ascii_glyphs(payload)
+            special_raw_visible_ascii_glyph_count += len(raw_ascii)
+            special_raw_visible_ascii_target_count += bool(raw_ascii)
+            special_raw_space_target_count += b"\x20" in payload
+            if entry_id == "menu/Compdata/04/0035":
+                prefix = decoded_compdata.output[
+                    target_offset : target_offset + 6
+                ]
+                vps_readback = {
+                    "entry_id": entry_id,
+                    "target_offset": target_offset,
+                    "translation": "VPS装甲",
+                    "readback": normalize_original_fullwidth_ascii(actual.text),
+                    "stored_prefix_hex": prefix.hex(),
+                    "two_byte_latin_storage": prefix.hex()
+                    == "8275826f8272",
+                }
+    if (
+        special_target_occurrence_count
+        != special_expected.get("target_occurrence_count")
+        or len(special_targets) != special_expected.get("unique_target_count")
+        or special_translated_entry_count
+        != special_expected.get("translated_entry_count")
+        or special_preserved_entry_count
+        != special_expected.get("preserved_structure_entry_count")
+        or special_raw_visible_ascii_glyph_count
+        or special_raw_visible_ascii_target_count
+        or special_raw_space_target_count
+        or vps_readback is None
+        or not vps_readback["two_byte_latin_storage"]
+    ):
+        raise SystemExit("special-ability final-ISO readback failed")
+    special_ability_report = {
+        "corpus_entry_count": len(special_entries),
+        "translated_entry_count": special_translated_entry_count,
+        "preserved_structure_entry_count": special_preserved_entry_count,
+        "target_occurrence_count": special_target_occurrence_count,
+        "unique_target_count": len(special_targets),
+        "source_preimages_sha256_exact": True,
+        "target_offset_readback_exact": True,
+        "raw_visible_ascii_glyph_count": 0,
+        "raw_visible_ascii_target_count": 0,
+        "raw_space_target_count": 0,
+        "vps_armor": vps_readback,
+    }
 
     battle_config = component_config["compdata_battle_lines"]
     battle_document = json.loads(
@@ -2305,6 +2821,8 @@ def verify_final_compdata(
             "readback_exact": True,
         },
         "battle_lines": battle_line_report,
+        "special_abilities": special_ability_report,
+        "ability_visible_ascii_audit": ability_visible_ascii_report,
         "formation_regressions": {
             "map_name_offsets": map_formation_name_expectations,
             "map_names_readback_exact": True,
@@ -2931,6 +3449,13 @@ def main() -> int:
         stage_table,
         full_component_config,
     )
+    stage_scenario_chart_prompt_report = verify_stage_scenario_chart_prompts(
+        stage_archive,
+        offsets,
+        source_table,
+        stage_table,
+        full_component_config,
+    )
     overview_reference = full_component_config.get("stage_overviews", {})
     overview_corpus_reference = overview_reference.get("corpus", {})
     overview_corpus_path = PROJECT_ROOT / overview_corpus_reference.get(
@@ -3128,6 +3653,28 @@ def main() -> int:
         "raw_space_cell_count": hsfc_raw_space_cell_count,
         "raw_space_count_zero": True,
     }
+    scenario_stored_start = hsfc_offsets[1]
+    scenario_stored_end = hsfc_offsets[2]
+    original_scenario_stored = original_hsfc[
+        scenario_stored_start:scenario_stored_end
+    ]
+    final_scenario_stored = final_hsfc[
+        scenario_stored_start:scenario_stored_end
+    ]
+    if final_scenario_stored != original_scenario_stored:
+        raise SystemExit(
+            "final ISO Scenario Chart title chunk is not original byte-exact"
+        )
+    scenario_chart_title_preservation = {
+        "member": "DATA/HSFC.BIN",
+        "chunk_index": 1,
+        "stored_start": scenario_stored_start,
+        "stored_end": scenario_stored_end,
+        "stored_size": len(final_scenario_stored),
+        "stored_sha256": sha256_bytes(final_scenario_stored),
+        "policy": "preserve_original_japanese_until_transparency_is_understood",
+        "chunk_byte_exact_original": True,
+    }
     functions = read_stage_function_addresses(slps)
     source_stage_spec = source_config["source"]["stage"]
     source_stage_archive = (
@@ -3223,7 +3770,7 @@ def main() -> int:
     dynamic_condition_variant_stages = set()
     condition_source_payload_match_count = 0
     condition_original_offset_source_payload_match_count = 0
-    reported_dynamic_condition_entry_id = "story/002/condition/00/01"
+    reported_dynamic_condition_entry_id = "story/002/condition/00/03"
     reported_dynamic_condition_readback = None
     player_choice_entry_ids = {
         "story/002/dialogue/01.18/0008",
@@ -3936,6 +4483,39 @@ def main() -> int:
         and fixed_formation_report["readback_exact"]
         and default_formation_report["readback_exact"]
     )
+    compdata_ascii_audit = compdata_report["ability_visible_ascii_audit"]
+    ability_visible_ascii_audit = {
+        "pilot_special_skills": compdata_ascii_audit[
+            "pilot_special_skills"
+        ],
+        "mech_special_abilities": compdata_report["special_abilities"],
+        "unit_mech_pilot_weapon_ui": compdata_ascii_audit[
+            "unit_mech_pilot_weapon_ui"
+        ],
+        "weapon_special_effect_1": compdata_ascii_audit[
+            "weapon_special_effect_1"
+        ],
+        "weapon_special_effect_labels": compdata_ascii_audit[
+            "weapon_special_effect_labels"
+        ],
+        "weapon_special_effect_help": compdata_ascii_audit[
+            "weapon_special_effect_help"
+        ],
+        "weapon_special_effect_2": nisv_effect_names,
+        "runtime_control_tokens_excluded": True,
+        "all_checked_fields_use_two_byte_visible_ascii": True,
+    }
+    for label, category in ability_visible_ascii_audit.items():
+        if not isinstance(category, dict):
+            continue
+        if (
+            category.get("raw_visible_ascii_glyph_count") != 0
+            or category.get("raw_visible_ascii_target_count") != 0
+            or category.get("raw_space_target_count") != 0
+        ):
+            raise SystemExit(
+                f"{label} final-ISO single-byte storage audit failed"
+            )
 
     srvc_data = members["BTL/SRVC.BIN"]
     srvc_offsets = parse_seg_offsets(
@@ -4000,6 +4580,46 @@ def main() -> int:
         ],
         "srvc_glyph_count": srvc_raw_visible_ascii_glyph_count,
         "srvc_record_count": srvc_raw_visible_ascii_record_count,
+        "special_ability_glyph_count": compdata_report[
+            "special_abilities"
+        ]["raw_visible_ascii_glyph_count"],
+        "special_ability_target_count": compdata_report[
+            "special_abilities"
+        ]["raw_visible_ascii_target_count"],
+        "pilot_skill_glyph_count": ability_visible_ascii_audit[
+            "pilot_special_skills"
+        ]["raw_visible_ascii_glyph_count"],
+        "pilot_skill_target_count": ability_visible_ascii_audit[
+            "pilot_special_skills"
+        ]["raw_visible_ascii_target_count"],
+        "unit_mech_pilot_weapon_ui_glyph_count": (
+            ability_visible_ascii_audit["unit_mech_pilot_weapon_ui"][
+                "raw_visible_ascii_glyph_count"
+            ]
+        ),
+        "unit_mech_pilot_weapon_ui_target_count": (
+            ability_visible_ascii_audit["unit_mech_pilot_weapon_ui"][
+                "raw_visible_ascii_target_count"
+            ]
+        ),
+        "weapon_effect_1_glyph_count": ability_visible_ascii_audit[
+            "weapon_special_effect_1"
+        ]["raw_visible_ascii_glyph_count"],
+        "weapon_effect_1_target_count": ability_visible_ascii_audit[
+            "weapon_special_effect_1"
+        ]["raw_visible_ascii_target_count"],
+        "weapon_effect_help_glyph_count": ability_visible_ascii_audit[
+            "weapon_special_effect_help"
+        ]["raw_visible_ascii_glyph_count"],
+        "weapon_effect_help_target_count": ability_visible_ascii_audit[
+            "weapon_special_effect_help"
+        ]["raw_visible_ascii_target_count"],
+        "weapon_effect_2_glyph_count": ability_visible_ascii_audit[
+            "weapon_special_effect_2"
+        ]["raw_visible_ascii_glyph_count"],
+        "weapon_effect_2_target_count": ability_visible_ascii_audit[
+            "weapon_special_effect_2"
+        ]["raw_visible_ascii_target_count"],
         "runtime_substitution_tokens_excluded": True,
         "all_stored_visible_ascii_uses_two_byte_glyphs": True,
     }
@@ -4058,6 +4678,9 @@ def main() -> int:
             "component_acceptance": library_acceptance,
             "main_menu": library_menu_readback,
             "sound_select": sound_select_readback,
+            "scenario_chart_title_preservation": (
+                scenario_chart_title_preservation
+            ),
             "iso_member_bytes_exact": True,
             "semantic_reread_transitive_through_exact_component_bytes": True,
         },
@@ -4112,6 +4735,7 @@ def main() -> int:
         },
         "visible_space_storage": visible_space_storage,
         "raw_visible_ascii_storage": raw_visible_ascii_storage,
+        "ability_visible_ascii_audit": ability_visible_ascii_audit,
         "player_choice_records": {
             "entry_count": len(player_choice_readbacks),
             "entry_ids": sorted(player_choice_readbacks),
@@ -4125,6 +4749,7 @@ def main() -> int:
             "encoded_payload_readback_exact": True,
         },
         "stage_system_dialogue": stage_system_dialogue_report,
+        "stage_scenario_chart_prompts": stage_scenario_chart_prompt_report,
         "compdata": compdata_report,
         "scenario_select_effect": scenario_select_effect,
         "mode_select_effect": mode_select_effect,
@@ -4134,6 +4759,7 @@ def main() -> int:
         "runtime_keywords": runtime_keyword_report,
         "stage_overviews": overview_report,
         "hsfc_overviews": hsfc_report,
+        "scenario_chart_title_preservation": scenario_chart_title_preservation,
         "members": {
             path: {
                 "size": len(data),
@@ -4172,6 +4798,9 @@ def main() -> int:
                 ]
                 and sound_select_readback[
                     "fixed_title_rectangle_reread_exact"
+                ]
+                and scenario_chart_title_preservation[
+                    "chunk_byte_exact_original"
                 ]
                 and sound_select_readback["track_titles_byte_exact"]
                 and sound_select_readback["track_title_count"] == 101
@@ -4230,6 +4859,7 @@ def main() -> int:
             "nisv_effect_names_exact": (
                 nisv_effect_names["translated_reread_exact"]
                 and nisv_effect_names["archive_offsets_preserved"]
+                and nisv_effect_names["all_source_occurrences_absent"]
             ),
             "auto_demo_overlays_exact": (
                 auto_demo_overlays["title_entry_count"] == 22
@@ -4301,6 +4931,18 @@ def main() -> int:
                     "translated_readback_exact"
                 ]
             ),
+            "stage_scenario_chart_prompts_exact": (
+                stage_scenario_chart_prompt_report["entry_count"] == 3
+                and stage_scenario_chart_prompt_report[
+                    "fixed_spans_preserved"
+                ]
+                and stage_scenario_chart_prompt_report[
+                    "zero_padding_preserved"
+                ]
+                and stage_scenario_chart_prompt_report[
+                    "translated_readback_exact"
+                ]
+            ),
             "player_choice_records_exact": (
                 len(player_choice_readbacks) == len(player_choice_entry_ids)
             ),
@@ -4337,6 +4979,53 @@ def main() -> int:
                 == 0
                 and raw_visible_ascii_storage["srvc_glyph_count"] == 0
                 and raw_visible_ascii_storage["srvc_record_count"] == 0
+                and raw_visible_ascii_storage[
+                    "special_ability_glyph_count"
+                ]
+                == 0
+                and raw_visible_ascii_storage[
+                    "special_ability_target_count"
+                ]
+                == 0
+                and raw_visible_ascii_storage["pilot_skill_glyph_count"] == 0
+                and raw_visible_ascii_storage["pilot_skill_target_count"] == 0
+                and raw_visible_ascii_storage[
+                    "unit_mech_pilot_weapon_ui_glyph_count"
+                ]
+                == 0
+                and raw_visible_ascii_storage[
+                    "unit_mech_pilot_weapon_ui_target_count"
+                ]
+                == 0
+                and raw_visible_ascii_storage[
+                    "weapon_effect_1_glyph_count"
+                ]
+                == 0
+                and raw_visible_ascii_storage[
+                    "weapon_effect_1_target_count"
+                ]
+                == 0
+                and raw_visible_ascii_storage[
+                    "weapon_effect_help_glyph_count"
+                ]
+                == 0
+                and raw_visible_ascii_storage[
+                    "weapon_effect_help_target_count"
+                ]
+                == 0
+                and raw_visible_ascii_storage[
+                    "weapon_effect_2_glyph_count"
+                ]
+                == 0
+                and raw_visible_ascii_storage[
+                    "weapon_effect_2_target_count"
+                ]
+                == 0
+            ),
+            "ability_visible_ascii_storage_exact": (
+                ability_visible_ascii_audit[
+                    "all_checked_fields_use_two_byte_visible_ascii"
+                ]
             ),
             "srvc_json_fragment_pollution_absent": visible_space_storage[
                 "srvc_pollution_absent"
@@ -4401,6 +5090,11 @@ def main() -> int:
                 "translated_readback_exact"
             ]
             and hsfc_report["fixed_record_cells_exact"],
+            "scenario_chart_title_preserved_original": (
+                scenario_chart_title_preservation[
+                    "chunk_byte_exact_original"
+                ]
+            ),
         },
         "runtime_acceptance": (
             "static final-ISO content readback; fresh PCSX2 runtime evidence "

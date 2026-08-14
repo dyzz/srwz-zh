@@ -20,8 +20,8 @@ vendor/upstream-python/       两份固定只读数据定义
 | 剧情组件 | `build_story_component.py`（通常由全局字体主链自动调用） |
 | 剧情批量初译 | `run_aliyun_story_dialogue_batch.py`（强制说话人、作品和相邻上下文；仅输出 `work/` 机器初稿） |
 | 最终组件 | `build_full_story_components.py`（通常由全局字体主链自动调用） |
-| ISO | `build_iso.py --config config/iso/zh-release-full-story-build.json` |
-| 发布补丁 | `build_release.py --config config/release/v0.1.0.json` |
+| ISO | `build_iso.py --config config/iso/zh-release-current-build.json` |
+| 发布补丁 | `build_release.py --config config/release/v0.2.0.json` |
 | 静态回读 | `verify_zh_release_font.py`、`ui_atlas.py verify-suite`、`verify_full_story_iso_content.py` |
 | 运行证据 | `pcsx2.py prepare/verify/launch/stop/collect/savestate-register/savestate-verify` |
 
@@ -43,8 +43,8 @@ vendor/upstream-python/       两份固定只读数据定义
 
 ```bash
 python3 tools/rebuild_zh_font.py --skip-fetch
-python3 tools/build_iso.py --config config/iso/zh-release-full-story-build.json
-python3 tools/build_release.py --config config/release/v0.1.0.json
+python3 tools/build_iso.py --config config/iso/zh-release-current-build.json
+python3 tools/build_release.py --config config/release/v0.2.0.json
 ```
 
 `build_editorial_review.py` 只生成 `work/review/` 下的离线人工审核页面和候选 JSON，
@@ -72,7 +72,7 @@ python3 tools/build_iso.py \
 全部 16 个输出。人物/机体与菜单文本、STAGE、HSFC、NISVDATA、SRVC、自动演示、
 VEFF2DX、MAPMODEL、字体及继承组件均有明确依赖边；只有能证明未受影响的成员才会
 复用。出现未登记的输入或配置变化时会直接拒绝增量构建。`--refresh-output-locks`
-仅允许无 `release_tag` 的工作配置使用，不会修改 `v0.1.0` 等发布配置；ISO 封装仍会
+仅允许无 `release_tag` 的工作配置使用，不会修改已经冻结的版本化发布配置；ISO 封装仍会
 执行完整的固定 LBA 与成员回读验证。
 
 STAGE 编队名的生产构建只读取
@@ -112,7 +112,7 @@ python3 tools/freeze_library_menu_renders.py --force
 压缩次数。
 
 前者按顺序重建全局字体、170 个含对白 STAGE 块、六张图集、MAPMODEL 世界地图地名和
-16 个最终组件成员；确认输入或 ratchet 发生预期变化时才附加
+20 个当前最终组件成员；确认输入或 ratchet 发生预期变化时才附加
 `--refresh-manifests`，字体视觉规则变化时再附加 `--refresh-asset-ratchets`。
 发布入口先验证原版和目标 ISO 的固定大小与 SHA-256，再用锁定的 xdelta3 版本生成
-补丁并实际还原一次；`build/release/v0.1.0/` 中不得出现 ISO。
+补丁并实际还原一次；`build/release/v0.2.0/` 中不得出现 ISO。

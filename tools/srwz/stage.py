@@ -210,27 +210,73 @@ def _condition_entries(
                 tables[label] = (high << 16) + low
             current = found + len(pattern)
 
+    table_offsets = {
+        label: address - base_address
+        for label, address in tables.items()
+    }
+    ordered_offsets = [
+        table_offsets[label]
+        for label, _ in labels
+        if label in table_offsets
+    ]
+    if ordered_offsets != sorted(ordered_offsets):
+        raise StageParseError(
+            "condition pointer tables are out of order",
+            offset=min(ordered_offsets),
+        )
+
     entries = []
     unknown_code_count = 0
     for condition_index, (label, _) in enumerate(labels):
-        table_address = tables.get(label)
-        if table_address is None:
+        table_offset = table_offsets.get(label)
+        if table_offset is None:
             continue
-        table_offset = table_address - base_address
-        _require_span(data, table_offset, 8, "condition pointer table")
+        following_offsets = [
+            offset for offset in ordered_offsets if offset > table_offset
+        ]
+        table_end = min(following_offsets) if following_offsets else None
+        _require_span(data, table_offset, 4, "condition pointer table")
+        if table_offset % 4 or (
+            table_end is not None
+            and (table_end % 4 or table_end <= table_offset)
+        ):
+            raise StageParseError(
+                "condition pointer table is not word aligned",
+                offset=table_offset,
+            )
+
         ordinal = 0
-        for index in range(2):
-            pointer_offset = table_offset + index * 4
+        pointer_offset = table_offset
+        for _ in range(32):
+            if table_end is not None and pointer_offset >= table_end:
+                break
+            _require_span(data, pointer_offset, 4, "condition text pointer")
             text_address = _u32(data, pointer_offset, "condition text pointer")
             if text_address == 0:
+                # Victory and defeat tables are bounded by the following
+                # table and may contain empty slots.  The final SR table has
+                # no structural successor; its first zero word is therefore
+                # the terminator.
+                if table_end is None:
+                    break
+                pointer_offset += 4
                 continue
             text_offset = text_address - base_address
             if not 0 <= text_offset < len(data):
+                if table_end is None:
+                    break
                 raise StageParseError(
                     "condition text pointer is outside decoded stage",
                     offset=pointer_offset,
                 )
             decoded = decode_text(data, text_offset, table)
+            if not decoded.text:
+                if table_end is None:
+                    break
+                raise StageParseError(
+                    "condition text pointer resolves to empty text",
+                    offset=pointer_offset,
+                )
             entries.append(
                 StageTextEntry(
                     entry_id=(
@@ -247,6 +293,12 @@ def _condition_entries(
             )
             unknown_code_count += decoded.unknown_code_count
             ordinal += 1
+            pointer_offset += 4
+        else:
+            raise StageParseError(
+                "condition pointer table exceeds slot limit",
+                offset=table_offset,
+            )
     return tuple(entries), unknown_code_count
 
 

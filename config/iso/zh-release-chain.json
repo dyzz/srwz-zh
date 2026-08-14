@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "chain_id": "zh-release-full-story-v1",
-  "principle": "Materialize exactly one ISO from the validated global HarmonyOS Sans release component, including the complete indexed SRVC battle-text domain, localized scenario/mode-selection titles, all reviewed MAPMODEL world-map location titles, and NisVData weapon-effect labels without changing member sector allocations.",
+  "chain_id": "zh-release-full-story-v2",
+  "principle": "Materialize exactly one ISO from the validated global HarmonyOS Sans release component, including the complete indexed SRVC battle-text domain, reviewed LIBRARY components, localized scenario/mode-selection titles, all reviewed MAPMODEL world-map location titles, and NisVData weapon-effect labels without changing member sector allocations.",
   "steps": [
     {
       "index": 0,
       "step_id": "zh-release-full-story",
-      "purpose": "Build the current global Chinese font, UI, exact-source-element italic atlas, all reviewed MAPMODEL world-map titles, complete STAGE story, all reviewed save/load overviews and complete indexed SRVC battle-text component.",
-      "build_config": "config/iso/zh-release-full-story-build.json",
-      "iso_path": "build/iso/v0.1.0/srwz-zh-v0.1.0.iso",
+      "purpose": "Build the current global Chinese font, UI, reviewed LIBRARY content, exact-source-element italic atlas, all reviewed MAPMODEL world-map titles, complete STAGE story, all reviewed save/load overviews and complete indexed SRVC battle-text component.",
+      "build_config": "config/iso/zh-release-current-build.json",
+      "iso_path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
       "iso_size": 3758358528,
-      "iso_sha256": "d65bfca8469582105357b2f71d8627490513c9e4aef346672bbcb4dcfd518146",
+      "iso_sha256": "24319f1bc509beab4e838bc7078b22d576280b55aece18948901fc7c0fa01bba",
       "materialization": "existing_profile",
       "component_sources": {
         "SLPS_258.87": "work/build/zh-release-full-story/components/SLPS_258.87",
@@ -25,6 +25,13 @@
         "MAP/MAPMODEL.BIN": "work/build/zh-release-full-story/components/MAP/MAPMODEL.BIN",
         "BTL/SRVC.BIN": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
         "BTL/SRVC.SEG": "work/build/zh-release-full-story/components/BTL/SRVC.SEG",
+        "BTL/OP0.BIN": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
+        "BTL/OP1.BIN": "work/build/zh-release-full-story/components/BTL/OP1.BIN",
+        "BTL/OP2.BIN": "work/build/zh-release-full-story/components/BTL/OP2.BIN",
+        "DATA/JTIM.BIN": "work/build/zh-release-full-story/components/DATA/JTIM.BIN",
+        "DATA/MTVZKNRT.BIN": "work/build/zh-release-full-story/components/DATA/MTVZKNRT.BIN",
+        "DATA/MTVZKNPT.BIN": "work/build/zh-release-full-story/components/DATA/MTVZKNPT.BIN",
+        "DATA/MTVZKNKW.BIN": "work/build/zh-release-full-story/components/DATA/MTVZKNKW.BIN",
         "EFF/VEFF2DX.BIN": "work/build/zh-release-full-story/components/EFF/VEFF2DX.BIN"
       },
       "changed_members": [
@@ -40,6 +47,13 @@
         "MAP/MAPMODEL.BIN",
         "BTL/SRVC.BIN",
         "BTL/SRVC.SEG",
+        "BTL/OP0.BIN",
+        "BTL/OP1.BIN",
+        "BTL/OP2.BIN",
+        "DATA/JTIM.BIN",
+        "DATA/MTVZKNRT.BIN",
+        "DATA/MTVZKNPT.BIN",
+        "DATA/MTVZKNKW.BIN",
         "EFF/VEFF2DX.BIN"
       ],
       "excluded_incomplete_domains": [],

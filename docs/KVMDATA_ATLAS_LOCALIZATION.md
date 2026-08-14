@@ -156,7 +156,7 @@ stored slot，不要求无条件使用 maximum 策略。
 
 ```bash
 python3 tools/build_iso.py \
-  --config config/iso/zh-release-full-story-build.json
+  --config config/iso/zh-release-current-build.json
 ```
 
 静态通过只证明切片、索引、归档、成员和 LBA 合同成立。最终仍需在该精确 ISO 上

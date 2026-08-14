@@ -8,7 +8,8 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-CONFIG_PATH = PROJECT_ROOT / "config/release/v0.1.0.json"
+CONFIG_PATH = PROJECT_ROOT / "config/release/v0.2.0.json"
+LEGACY_CONFIG_PATH = PROJECT_ROOT / "config/release/v0.1.0.json"
 TOOL_PATH = PROJECT_ROOT / "tools/build_release.py"
 
 SPEC = importlib.util.spec_from_file_location("build_release", TOOL_PATH)
@@ -21,16 +22,18 @@ class ReleasePatchTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+        cls.legacy_config = json.loads(
+            LEGACY_CONFIG_PATH.read_text(encoding="utf-8")
+        )
         cls.iso_config = json.loads(
-            (
-                PROJECT_ROOT
-                / "config/iso/zh-release-full-story-build.json"
-            ).read_text(encoding="utf-8")
+            (PROJECT_ROOT / cls.config["iso_config"]).read_text(
+                encoding="utf-8"
+            )
         )
 
     def test_release_name_and_iso_binding(self):
-        self.assertEqual(self.config["version"], "0.1.0")
-        self.assertEqual(self.config["tag"], "v0.1.0")
+        self.assertEqual(self.config["version"], "0.2.0")
+        self.assertEqual(self.config["tag"], "v0.2.0")
         self.assertEqual(
             self.config["target_iso"]["path"],
             self.iso_config["output"]["path"],
@@ -41,8 +44,12 @@ class ReleasePatchTests(unittest.TestCase):
         )
         self.assertEqual(
             Path(self.config["target_iso"]["path"]).name,
-            "srwz-zh-v0.1.0.iso",
+            "srwz-zh-current.iso",
         )
+        BUILD_RELEASE.verify_config_bindings(self.config)
+
+    def test_legacy_release_config_remains_supported(self):
+        BUILD_RELEASE.verify_config_bindings(self.legacy_config)
 
     def test_release_is_bound_to_redump_canonical_filename(self):
         source = self.config["source_iso"]
@@ -69,6 +76,9 @@ class ReleasePatchTests(unittest.TestCase):
         self.assertIn(f"Redump 规范文件名：{filename}", text)
         self.assertIn(f'xdelta3 -d -s "{filename}"', text)
         self.assertNotIn('xdelta3 -d -s "原版.iso"', text)
+        self.assertIn("已知限制／TODO", text)
+        for item in self.config["known_limitations"]:
+            self.assertIn(item, text)
 
     def test_release_redump_hashes_are_bound_to_original_disc_manifest(self):
         mismatched = copy.deepcopy(self.config)

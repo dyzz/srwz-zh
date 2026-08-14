@@ -29,7 +29,7 @@ class CurrentResidualUiTests(unittest.TestCase):
     def test_fixed_slps_and_suspend_return_dialogue_are_locked(self):
         remaining = self.component["remaining_ui"]
         self.assertEqual(remaining["slps_context_ui"]["entry_count"], 414)
-        self.assertEqual(remaining["slps"]["entry_count"], 197)
+        self.assertEqual(remaining["slps"]["entry_count"], 205)
         fixed_slps = self.remaining_ui["slps_by_offset"]
         self.assertEqual(
             {
@@ -48,24 +48,54 @@ class CurrentResidualUiTests(unittest.TestCase):
                 "0x346990": "队长效果",
             },
         )
+        self.assertEqual(
+            {
+                offset: fixed_slps[offset]
+                for offset in (
+                    "0x3462A0",
+                    "0x3462C0",
+                    "0x3462E0",
+                    "0x346300",
+                    "0x346320",
+                    "0x346340",
+                    "0x346360",
+                    "0x346380",
+                )
+            },
+            {
+                "0x3462A0": "SP降低（P系）",
+                "0x3462C0": "运动性降低（R系）",
+                "0x3462E0": "气力降低（P系）",
+                "0x346300": "行动不能（P系）",
+                "0x346320": "装甲值降低（R系）",
+                "0x346340": "能力减半（P系）",
+                "0x346360": "瞄准值降低（R系）",
+                "0x346380": "EN降低（R系）",
+            },
+        )
 
         formation = remaining["stage_default_formation"]
-        self.assertEqual(formation["group_count"], 401)
-        self.assertEqual(formation["stage_count"], 167)
-        self.assertEqual(formation["entry_count"], 10293)
+        self.assertEqual(formation["group_count"], 794)
+        self.assertEqual(formation["stage_count"], 179)
+        self.assertEqual(formation["entry_count"], 11170)
         self.assertEqual(formation["unique_source_count"], 248)
         self.assertEqual(
             formation["layout_group_counts"],
             {
-                "formation18+33+1": 255,
-                "record6+23": 140,
+                "formation18+33+1": 344,
+                "packed8-16": 119,
+                "packed8-24": 87,
+                "packed8-32": 27,
+                "packed8-8": 48,
+                "record6+23": 163,
                 "slot32": 6,
             },
         )
-        self.assertEqual(formation["record_metadata_count"], 8238)
+        self.assertEqual(formation["record_metadata_count"], 8267)
+        self.assertEqual(formation["compact_ascii_entry_count"], 14)
         self.assertEqual(
             formation["inventory_sha256"],
-            "1215468274a60ab131d9a6758ddbdb39f42fb39f2fae60d92292581e496a2f2c",
+            "95772e2274f3cca29df73046cba174232f2e7ba102535b12449d79308071370d",
         )
         translations = {
             item["source"]: item["translation"]
@@ -100,13 +130,67 @@ class CurrentResidualUiTests(unittest.TestCase):
         self.assertTrue(dialogue["archive_size_preserved"])
         self.assertTrue(dialogue["hb_offsets_preserved"])
 
+        prompts = remaining["stage_scenario_chart_prompts"]
+        self.assertEqual(
+            self.remaining_ui["stage_scenario_chart_prompts_by_offset"],
+            {
+                "0x1F790": "：确定",
+                "0x1F798": "：返回",
+                "0x1F7A0": "：加速",
+            },
+        )
+        self.assertEqual(
+            prompts["source_texts"],
+            {
+                "0x1F790": "：決定",
+                "0x1F798": "：戻る",
+                "0x1F7A0": "：スピードＵＰ",
+            },
+        )
+        self.assertEqual(
+            prompts["translations"],
+            {
+                "0x1F790": "：确定",
+                "0x1F798": "：返回",
+                "0x1F7A0": "：加速",
+            },
+        )
+        self.assertTrue(prompts["fixed_spans_preserved"])
+        self.assertTrue(prompts["reread_exact"])
+        self.assertTrue(prompts["codec_round_trip_exact"])
+        self.assertTrue(prompts["archive_size_preserved"])
+        self.assertTrue(prompts["hb_offsets_preserved"])
+
     def test_current_story_content_scope_is_locked(self):
         self.assertEqual(self.content["stage_count"], 170)
-        self.assertEqual(self.content["translation_entry_count"], 92730)
+        self.assertEqual(self.content["translation_entry_count"], 92842)
         self.assertEqual(self.content["dialogue_count"], 83507)
-        self.assertEqual(self.content["condition_count"], 558)
+        self.assertEqual(self.content["condition_count"], 670)
         self.assertEqual(self.content["speaker_count"], 8665)
         self.assertTrue(all(self.content["checks"].values()))
+
+    def test_weapon_special_effect_2_final_iso_readback_is_complete(self):
+        effect_2 = self.content["nisv_effect_names"]
+        self.assertEqual(effect_2["term_count"], 2)
+        self.assertEqual(effect_2["occurrence_count"], 6)
+        self.assertEqual(
+            {
+                item["translation"]: item["decoded_offsets"]
+                for item in effect_2["terms"]
+            },
+            {
+                "屏障贯通": [0x1C37, 0x5A52, 0x8627],
+                "无视体型修正": [0x1C50, 0x5A92, 0x8722],
+            },
+        )
+        self.assertTrue(
+            all(
+                item["residual_source_occurrence_count"] == 0
+                for item in effect_2["terms"]
+            )
+        )
+        self.assertTrue(effect_2["all_source_occurrences_absent"])
+        self.assertTrue(effect_2["translated_reread_exact"])
 
     def test_female_default_name_and_back_log_labels_are_locked(self):
         regressions = self.content["compdata"]["new_game_regressions"]
@@ -229,8 +313,8 @@ class CurrentResidualUiTests(unittest.TestCase):
 
     def test_final_iso_contains_no_stale_stage_text_rendered_by_new_font(self):
         story = self.content["stale_stage_runtime_rendering_audit"]
-        self.assertEqual(story["checked_entry_count"], 92730)
-        self.assertEqual(story["distinct_stale_fingerprint_count"], 91117)
+        self.assertEqual(story["checked_entry_count"], 92842)
+        self.assertEqual(story["distinct_stale_fingerprint_count"], 91228)
         self.assertEqual(story["stale_fingerprint_match_count"], 0)
         self.assertTrue(
             story["all_distinct_stale_source_renderings_absent"]
@@ -245,8 +329,8 @@ class CurrentResidualUiTests(unittest.TestCase):
 
     def test_dynamic_condition_updates_have_no_original_payload_fallback(self):
         audit = self.content["dynamic_condition_update_audit"]
-        self.assertEqual(audit["translated_condition_count"], 534)
-        self.assertEqual(audit["dynamic_variant_count"], 210)
+        self.assertEqual(audit["translated_condition_count"], 645)
+        self.assertEqual(audit["dynamic_variant_count"], 321)
         self.assertEqual(audit["dynamic_variant_stage_count"], 100)
         self.assertEqual(audit["exact_source_payload_match_count"], 0)
         self.assertEqual(
@@ -256,13 +340,16 @@ class CurrentResidualUiTests(unittest.TestCase):
         reported = audit["reported_impulse_entry_update"]
         self.assertEqual(
             reported["entry_id"],
-            "story/002/condition/00/01",
+            "story/002/condition/00/03",
         )
         self.assertEqual(reported["stage_index"], 2)
-        self.assertEqual(reported["condition_table_pointer_offset"], 31460)
-        self.assertEqual(reported["original_text_offset"], 74720)
-        self.assertEqual(reported["final_text_offset"], 45936)
-        self.assertEqual(reported["translation"], "击坠真或亚历克斯。")
+        self.assertEqual(reported["condition_table_pointer_offset"], 31468)
+        self.assertEqual(reported["original_text_offset"], 74800)
+        self.assertEqual(reported["final_text_offset"], 46000)
+        self.assertEqual(
+            reported["translation"],
+            "击坠混沌、深渊、盖亚中的任意一机。",
+        )
         self.assertTrue(reported["final_table_readback_exact"])
         self.assertTrue(
             reported["exact_source_payload_absent_from_final_stage"]
@@ -281,12 +368,31 @@ class CurrentResidualUiTests(unittest.TestCase):
         self.assertEqual(storage["story_target_count"], 0)
         self.assertEqual(storage["srvc_glyph_count"], 0)
         self.assertEqual(storage["srvc_record_count"], 0)
+        self.assertEqual(storage["special_ability_glyph_count"], 0)
+        self.assertEqual(storage["special_ability_target_count"], 0)
+        self.assertEqual(storage["pilot_skill_glyph_count"], 0)
+        self.assertEqual(storage["pilot_skill_target_count"], 0)
+        self.assertEqual(
+            storage["unit_mech_pilot_weapon_ui_glyph_count"], 0
+        )
+        self.assertEqual(
+            storage["unit_mech_pilot_weapon_ui_target_count"], 0
+        )
+        self.assertEqual(storage["weapon_effect_1_glyph_count"], 0)
+        self.assertEqual(storage["weapon_effect_1_target_count"], 0)
+        self.assertEqual(storage["weapon_effect_help_glyph_count"], 0)
+        self.assertEqual(storage["weapon_effect_help_target_count"], 0)
+        self.assertEqual(storage["weapon_effect_2_glyph_count"], 0)
+        self.assertEqual(storage["weapon_effect_2_target_count"], 0)
         self.assertTrue(storage["runtime_substitution_tokens_excluded"])
         self.assertTrue(
             storage["all_stored_visible_ascii_uses_two_byte_glyphs"]
         )
         self.assertTrue(
             self.content["checks"]["raw_visible_ascii_glyph_count_zero"]
+        )
+        self.assertTrue(
+            self.content["checks"]["ability_visible_ascii_storage_exact"]
         )
 
 

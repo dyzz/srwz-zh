@@ -28,7 +28,7 @@ git diff --check
 准备补丁包时运行：
 
 ```bash
-python3 tools/build_release.py --config config/release/v0.1.0.json
+python3 tools/build_release.py --config config/release/v0.2.0.json
 ```
 
 完整 ISO 只保留在本地 `build/iso/`。`build/release/` 只能包含 xdelta 补丁、说明、

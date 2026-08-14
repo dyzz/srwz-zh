@@ -38,11 +38,11 @@ PROFILES = {
     "bazaar": {
         "stem": "ui-bazaar-atlas-zh",
         "archive_sha256": (
-            "87889240c67d4dd12172863fe90ab2fa8b8b59199ed2288375b297c209438f3e"
+            "4d4158b51d6662ee7ba081c781b4fe6b0860a006c22dbdaf741b371d7b0e2f6b"
         ),
         "character_count": 2,
         "added_pixel_count": 8843,
-        "changed_pixel_count": 15534,
+        "changed_pixel_count": 15487,
     },
     "intermission": {
         "stem": "ui-intermission-atlas-zh",

@@ -145,6 +145,64 @@ class StageParserTests(unittest.TestCase):
             (10, 20, 30),
         )
 
+    def test_parses_every_dynamic_condition_table_slot(self):
+        data = bytearray(0x380)
+        function_offset = 0x20
+        patterns = (
+            (0x50, 0x180, bytes.fromhex("b05222ac")),
+            (0x70, 0x190, bytes.fromhex("b85222ac")),
+            (0x90, 0x19C, bytes.fromhex("c05222ac")),
+        )
+        for pattern_offset, table_offset, pattern in patterns:
+            struct.pack_into("<H", data, pattern_offset - 12, 0)
+            struct.pack_into("<h", data, pattern_offset - 8, table_offset)
+            data[pattern_offset : pattern_offset + 4] = pattern
+
+        text_offsets = iter(range(0x240, 0x380, 0x20))
+
+        def add_text(text):
+            offset = next(text_offsets)
+            payload = text.encode("ascii") + b"\0"
+            data[offset : offset + len(payload)] = payload
+            return offset
+
+        victory = (
+            add_text("Victory Alpha"),
+            add_text("Victory Beta"),
+            0,
+            add_text("Victory Delta"),
+        )
+        defeat = (add_text("Defeat Alpha"), 0, add_text("Defeat Gamma"))
+        sr = (add_text("SR Alpha"), add_text("SR Beta"), add_text("SR Gamma"))
+        struct.pack_into("<4I", data, 0x180, *victory)
+        struct.pack_into("<3I", data, 0x190, *defeat)
+        struct.pack_into("<3I", data, 0x19C, *sr)
+        struct.pack_into("<I", data, 0x1A8, 0xFFFFFFFF)
+
+        result = parse_stage(
+            bytes(data),
+            self.table,
+            stage_index=2,
+            function_address=function_offset,
+            base_address=0,
+        )
+        conditions = [
+            entry for entry in result.entries if entry.kind == "condition"
+        ]
+        self.assertEqual(
+            [(entry.entry_id, entry.text) for entry in conditions],
+            [
+                ("story/002/condition/00/00", "Victory Alpha"),
+                ("story/002/condition/00/01", "Victory Beta"),
+                ("story/002/condition/00/02", "Victory Delta"),
+                ("story/002/condition/01/00", "Defeat Alpha"),
+                ("story/002/condition/01/01", "Defeat Gamma"),
+                ("story/002/condition/02/00", "SR Alpha"),
+                ("story/002/condition/02/01", "SR Beta"),
+                ("story/002/condition/02/02", "SR Gamma"),
+            ],
+        )
+
     def test_parses_chunk_zero_system_dialogue_signature(self):
         data = bytearray(0x280)
         struct.pack_into("<I", data, 0x100, 0x200)

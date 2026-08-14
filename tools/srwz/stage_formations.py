@@ -58,6 +58,15 @@ _LOCKED_LAYOUT_SPECS = {
         "prefix_size": 0,
         "trailer_size": 0,
     },
+    **{
+        f"packed8-{slot_size}": {
+            "slot_size": slot_size,
+            "stride": slot_size,
+            "prefix_size": 0,
+            "trailer_size": 0,
+        }
+        for slot_size in range(8, 65, 8)
+    },
 }
 
 
@@ -355,13 +364,14 @@ def _scan_known_record_slots(
     stage_index: int,
     source_texts: set[str] | frozenset[str],
 ) -> FormationGroup | None:
-    """Find every known name in a six-byte-prefix plus 23-byte slot record.
+    """Find every independently owned known 6+23-byte name record.
 
     The old heuristic inferred groups from the *next* record's prefix and only
     accepted a subset of its type values.  That missed valid records when a
-    squad was followed by a different leader type.  This scanner starts from
-    the reviewed Japanese source inventory and validates the actual owning
-    record, fixed slot, and zero padding instead.
+    squad was followed by a different leader type or when a valid record was
+    isolated.  This scanner starts from the reviewed Japanese source inventory
+    and validates the actual owning prefix, fixed slot, and zero padding
+    independently instead.
     """
 
     for source_text in source_texts:
@@ -373,14 +383,20 @@ def _scan_known_record_slots(
             )
 
     cells_by_offset: dict[int, FormationCell] = {}
-    for group in _scan_structural_record_groups(
-        data,
-        table,
-        stage_index=stage_index,
-    ):
-        for cell in group.cells:
-            if cell.source_text in source_texts:
-                cells_by_offset[cell.offset] = cell
+    for offset in range(6, len(data) - 23 + 1):
+        prefix = data[offset - 6 : offset]
+        if not _known_record_prefix_is_valid(prefix):
+            continue
+        cell = _cell_at(data, offset, 23, table)
+        if cell is None or cell.source_text not in source_texts:
+            continue
+        cells_by_offset[offset] = FormationCell(
+            offset=cell.offset,
+            source_text=cell.source_text,
+            source_consumed=cell.source_consumed,
+            trailer_hex="",
+            prefix_hex=prefix.hex(),
+        )
     if not cells_by_offset:
         return None
     return FormationGroup(
@@ -389,6 +405,205 @@ def _scan_known_record_slots(
         slot_size=23,
         stride=29,
         cells=tuple(cells_by_offset[offset] for offset in sorted(cells_by_offset)),
+    )
+
+
+def _scan_known_formation_slots(
+    data: bytes,
+    table: TextTable,
+    *,
+    stage_index: int,
+    source_texts: set[str] | frozenset[str],
+) -> FormationGroup | None:
+    """Find every independently owned known 18+33+1 formation record.
+
+    Repeated adjacent records remain the authority for open-ended structural
+    discovery.  Once the Japanese source-name set has been reviewed, however,
+    a single record has sufficient ownership evidence: six bounded member IDs,
+    the six-byte metadata prefix, a zero-padded 33-byte name, and its trailing
+    identifier.  Treating that singleton as invisible was the source of the
+    incomplete locked inventory.
+    """
+
+    candidates_by_offset: dict[int, FormationCell] = {}
+    strict_offsets: set[int] = set()
+    for offset in range(18, len(data) - 33):
+        member_ids = struct.unpack(">6H", data[offset - 18 : offset - 6])
+        metadata = data[offset - 6 : offset]
+        if metadata[0] != 0:
+            continue
+        cell = _cell_at(data, offset, 33, table)
+        if cell is None or cell.source_text not in source_texts:
+            continue
+        candidates_by_offset[offset] = FormationCell(
+            offset=cell.offset,
+            source_text=cell.source_text,
+            source_consumed=cell.source_consumed,
+            trailer_hex=data[offset + 33 : offset + 34].hex(),
+            prefix_hex=data[offset - 18 : offset].hex(),
+        )
+        if all(
+            member_id == 0xFFFF or member_id <= _FORMATION_MEMBER_ID_MAX
+            for member_id in member_ids
+        ):
+            strict_offsets.add(offset)
+
+    cells_by_offset: dict[int, FormationCell] = {}
+    for run_start in sorted(candidates_by_offset):
+        if run_start - 52 in candidates_by_offset:
+            continue
+        run: list[int] = []
+        offset = run_start
+        while offset in candidates_by_offset:
+            run.append(offset)
+            offset += 52
+        strict_indices = [
+            index for index, candidate_offset in enumerate(run)
+            if candidate_offset in strict_offsets
+        ]
+        for index, candidate_offset in enumerate(run):
+            if candidate_offset in strict_offsets or (
+                strict_indices
+                and strict_indices[0] < index < strict_indices[-1]
+            ):
+                cells_by_offset[candidate_offset] = candidates_by_offset[
+                    candidate_offset
+                ]
+    if not cells_by_offset:
+        return None
+    return FormationGroup(
+        stage_index=stage_index,
+        layout="formation18+33+1",
+        slot_size=33,
+        stride=52,
+        cells=tuple(cells_by_offset[offset] for offset in sorted(cells_by_offset)),
+    )
+
+
+def _scan_packed8_groups(
+    data: bytes,
+    table: TextTable,
+    *,
+    stage_index: int,
+    source_texts: set[str] | frozenset[str],
+) -> tuple[FormationGroup, ...]:
+    """Find reviewed names inside eight-byte-aligned packed string tables.
+
+    These tables store variable-size, NUL-terminated fields.  Each next field
+    begins on an eight-byte boundary, so a fixed 23- or 32-byte probe misses a
+    short field when another string immediately follows it.  Requiring at
+    least three linked fields distinguishes the tables from aligned dialogue.
+    """
+
+    starts: dict[int, tuple[FormationCell, int]] = {}
+    for offset in range(0, len(data), 8):
+        if offset and data[offset - 1] != 0:
+            continue
+        for slot_size in range(8, 65, 8):
+            if offset + slot_size > len(data):
+                break
+            cell = _cell_at(data, offset, slot_size, table)
+            if cell is not None:
+                starts[offset] = (cell, slot_size)
+                break
+
+    ordered_offsets = sorted(starts)
+    next_by_offset: dict[int, int] = {}
+    for index, offset in enumerate(ordered_offsets):
+        cell, _minimum_slot_size = starts[offset]
+        for next_offset in ordered_offsets[index + 1 :]:
+            if next_offset - offset > 64:
+                break
+            if not any(data[offset + cell.source_consumed : next_offset]):
+                next_by_offset[offset] = next_offset
+                break
+
+    previous_offsets = set(next_by_offset.values())
+    cells_by_layout: dict[str, list[FormationCell]] = {}
+    for run_start in ordered_offsets:
+        if run_start in previous_offsets:
+            continue
+        run = [run_start]
+        while run[-1] in next_by_offset:
+            run.append(next_by_offset[run[-1]])
+        if len(run) < 3:
+            continue
+        for index, offset in enumerate(run):
+            cell, minimum_slot_size = starts[offset]
+            if cell.source_text not in source_texts:
+                continue
+            slot_size = (
+                run[index + 1] - offset
+                if index + 1 < len(run)
+                else minimum_slot_size
+            )
+            layout = f"packed8-{slot_size}"
+            if layout not in _LOCKED_LAYOUT_SPECS:
+                continue
+            cells_by_layout.setdefault(layout, []).append(cell)
+
+    return tuple(
+        FormationGroup(
+            stage_index=stage_index,
+            layout=layout,
+            slot_size=_LOCKED_LAYOUT_SPECS[layout]["slot_size"],
+            stride=_LOCKED_LAYOUT_SPECS[layout]["stride"],
+            cells=tuple(cells),
+        )
+        for layout, cells in sorted(cells_by_layout.items())
+    )
+
+
+_COMPACT_ASCII_FORMATION_TRANSLATIONS: dict[tuple[str, str], str] = {
+    ("packed8-8", "ザフト"): "ZAFT",
+}
+
+
+def compact_formation_ascii_replacement(
+    *,
+    source_text: str,
+    translation: str,
+    layout: str,
+    slot_size: int,
+) -> bytes | None:
+    """Return one explicitly reviewed raw-ASCII packed-field replacement.
+
+    The allowlist is limited to source/layout pairs whose canonical Latin name
+    cannot fit through the normal two-byte text encoder.  Every use is counted
+    and reread from the final ISO.
+    """
+
+    if _COMPACT_ASCII_FORMATION_TRANSLATIONS.get(
+        (layout, source_text)
+    ) != translation:
+        return None
+    compact = translation.encode("ascii") + b"\x00"
+    if len(compact) > slot_size:
+        return None
+    return compact + bytes(slot_size - len(compact))
+
+
+def fit_formation_replacement(
+    *,
+    source_text: str,
+    translation: str,
+    layout: str,
+    slot_size: int,
+    encoded: bytes,
+) -> bytes | None:
+    """Fit a canonical replacement into one locked formation-name slot.
+
+    Any overflows remain excluded from the frozen inventory unless an exact
+    field/layout pair is explicitly reviewed in the compact-ASCII allowlist.
+    """
+
+    if len(encoded) <= slot_size:
+        return encoded + bytes(slot_size - len(encoded))
+    return compact_formation_ascii_replacement(
+        source_text=source_text,
+        translation=translation,
+        layout=layout,
+        slot_size=slot_size,
     )
 
 
@@ -452,9 +667,10 @@ def discover_known_stage_default_formations(
 ) -> tuple[FormationGroup, ...]:
     """Return every fixed-slot occurrence of the reviewed Japanese names.
 
-    The reviewed source inventory is the selection authority.  Record-backed
-    names are found independently in every decoded STAGE chunk; the separate
-    32-byte arrays retain their stricter repeated-array structural gate.
+    The reviewed source inventory is the selection authority.  Repeated
+    structural groups are retained first, then independently owned singleton
+    formation and unit-name records are added.  The separate 32-byte arrays
+    retain their stricter repeated-array structural gate.
     """
 
     if not source_texts or any(not text for text in source_texts):
@@ -492,23 +708,28 @@ def discover_known_stage_default_formations(
             occupied.update(cell.offset for cell in cells)
             seen_sources.update(cell.source_text for cell in cells)
 
-        record_group = _scan_known_record_slots(
-            decoded.output,
-            table,
-            stage_index=stage_index,
-            source_texts=source_texts,
-        )
-        if record_group is not None:
+        structural_record_cells = {
+            cell.offset: cell
+            for structural_group in _scan_structural_record_groups(
+                decoded.output,
+                table,
+                stage_index=stage_index,
+            )
+            for cell in structural_group.cells
+            if cell.source_text in source_texts and cell.offset not in occupied
+        }
+        if structural_record_cells:
             cells = tuple(
-                cell for cell in record_group.cells if cell.offset not in occupied
+                structural_record_cells[offset]
+                for offset in sorted(structural_record_cells)
             )
             if cells:
                 groups.append(
                     FormationGroup(
-                        stage_index=record_group.stage_index,
-                        layout=record_group.layout,
-                        slot_size=record_group.slot_size,
-                        stride=record_group.stride,
+                        stage_index=stage_index,
+                        layout="record6+23",
+                        slot_size=23,
+                        stride=29,
                         cells=cells,
                     )
                 )
@@ -538,7 +759,83 @@ def discover_known_stage_default_formations(
                     cells=cells,
                 )
             )
+            occupied.update(cell.offset for cell in cells)
             seen_sources.update(cell.source_text for cell in cells)
+
+        for packed_group in _scan_packed8_groups(
+            decoded.output,
+            table,
+            stage_index=stage_index,
+            source_texts=source_texts,
+        ):
+            cells = tuple(
+                cell
+                for cell in packed_group.cells
+                if cell.offset not in occupied
+            )
+            if not cells:
+                continue
+            groups.append(
+                FormationGroup(
+                    stage_index=stage_index,
+                    layout=packed_group.layout,
+                    slot_size=packed_group.slot_size,
+                    stride=packed_group.stride,
+                    cells=cells,
+                )
+            )
+            occupied.update(cell.offset for cell in cells)
+            seen_sources.update(cell.source_text for cell in cells)
+
+        independent_formation_group = _scan_known_formation_slots(
+            decoded.output,
+            table,
+            stage_index=stage_index,
+            source_texts=source_texts,
+        )
+        if independent_formation_group is not None:
+            cells = tuple(
+                cell
+                for cell in independent_formation_group.cells
+                if cell.offset not in occupied
+            )
+            if cells:
+                groups.append(
+                    FormationGroup(
+                        stage_index=stage_index,
+                        layout=independent_formation_group.layout,
+                        slot_size=independent_formation_group.slot_size,
+                        stride=independent_formation_group.stride,
+                        cells=cells,
+                    )
+                )
+                occupied.update(cell.offset for cell in cells)
+                seen_sources.update(cell.source_text for cell in cells)
+
+        independent_record_group = _scan_known_record_slots(
+            decoded.output,
+            table,
+            stage_index=stage_index,
+            source_texts=source_texts,
+        )
+        if independent_record_group is not None:
+            cells = tuple(
+                cell
+                for cell in independent_record_group.cells
+                if cell.offset not in occupied
+            )
+            if cells:
+                groups.append(
+                    FormationGroup(
+                        stage_index=stage_index,
+                        layout=independent_record_group.layout,
+                        slot_size=independent_record_group.slot_size,
+                        stride=independent_record_group.stride,
+                        cells=cells,
+                    )
+                )
+                occupied.update(cell.offset for cell in cells)
+                seen_sources.update(cell.source_text for cell in cells)
     missing_sources = source_texts - seen_sources
     if missing_sources:
         raise ValueError(
@@ -546,6 +843,122 @@ def discover_known_stage_default_formations(
             + ", ".join(sorted(missing_sources))
         )
     return tuple(groups)
+
+
+def filter_current_stage_default_formations(
+    original_stage: bytes,
+    current_stage: bytes,
+    hb: bytes,
+    groups: tuple[FormationGroup, ...],
+    replacements_by_source: dict[str, bytes],
+    translations_by_source: dict[str, str],
+    accepted_current_replacements_by_source: dict[
+        str, tuple[tuple[str, bytes], ...]
+    ] | None = None,
+) -> tuple[FormationGroup, ...]:
+    """Keep only candidates whose current owner and text preimage are intact.
+
+    A reviewed Japanese name plus zero padding is useful for finding candidates,
+    but isolated dialogue strings can have the same byte shape by coincidence.
+    The release component is therefore the second selection authority during an
+    explicit refreeze: its slot must still contain the original bytes, the
+    canonical translated bytes, or a source-bound prior translation explicitly
+    accepted for migration, and record metadata must remain byte-exact.
+    """
+
+    if len(original_stage) != len(current_stage):
+        raise ValueError("current STAGE size differs from the original STAGE")
+    offsets = read_executable_archive_offsets(
+        hb, STAGE_OFFSET_SPEC, len(original_stage)
+    )
+    original_by_stage: dict[int, bytes] = {}
+    current_by_stage: dict[int, bytes] = {}
+    filtered: list[FormationGroup] = []
+    for group in groups:
+        stage_index = group.stage_index
+        if stage_index not in original_by_stage:
+            start, end = offsets[stage_index : stage_index + 2]
+            original_decoded = decode(original_stage[start:end])
+            current_decoded = decode(current_stage[start:end])
+            if (
+                any(original_stage[start + original_decoded.consumed : end])
+                or any(current_stage[start + current_decoded.consumed : end])
+                or len(original_decoded.output) != len(current_decoded.output)
+            ):
+                raise ValueError(
+                    f"current STAGE decode drift during refreeze: {stage_index}"
+                )
+            original_by_stage[stage_index] = original_decoded.output
+            current_by_stage[stage_index] = current_decoded.output
+        original = original_by_stage[stage_index]
+        current = current_by_stage[stage_index]
+        cells: list[FormationCell] = []
+        for cell in group.cells:
+            replacement = replacements_by_source.get(cell.source_text)
+            translation = translations_by_source.get(cell.source_text)
+            if replacement is None or translation is None:
+                raise ValueError(
+                    "missing current-stage replacement for reviewed source: "
+                    f"{cell.source_text!r}"
+                )
+            slot_end = cell.offset + group.slot_size
+            source_slot = original[cell.offset:slot_end]
+            replacement_slot = fit_formation_replacement(
+                source_text=cell.source_text,
+                translation=translation,
+                layout=group.layout,
+                slot_size=group.slot_size,
+                encoded=replacement,
+            )
+            if replacement_slot is None:
+                continue
+            accepted_slots = {source_slot, replacement_slot}
+            for prior_translation, prior_encoded in (
+                accepted_current_replacements_by_source or {}
+            ).get(cell.source_text, ()):
+                prior_slot = fit_formation_replacement(
+                    source_text=cell.source_text,
+                    translation=prior_translation,
+                    layout=group.layout,
+                    slot_size=group.slot_size,
+                    encoded=prior_encoded,
+                )
+                if (
+                    prior_slot is None
+                    and prior_translation.isascii()
+                    and len(prior_translation.encode("ascii")) + 1
+                    <= group.slot_size
+                ):
+                    compact = prior_translation.encode("ascii") + b"\x00"
+                    prior_slot = compact + bytes(group.slot_size - len(compact))
+                if prior_slot is not None:
+                    accepted_slots.add(prior_slot)
+            current_slot = current[cell.offset:slot_end]
+            if current_slot not in accepted_slots:
+                continue
+            prefix_size = _LOCKED_LAYOUT_SPECS[group.layout]["prefix_size"]
+            trailer_size = _LOCKED_LAYOUT_SPECS[group.layout]["trailer_size"]
+            prefix_start = cell.offset - prefix_size
+            trailer_end = slot_end + trailer_size
+            if (
+                current[prefix_start:cell.offset]
+                != original[prefix_start:cell.offset]
+                or current[slot_end:trailer_end]
+                != original[slot_end:trailer_end]
+            ):
+                continue
+            cells.append(cell)
+        if cells:
+            filtered.append(
+                FormationGroup(
+                    stage_index=group.stage_index,
+                    layout=group.layout,
+                    slot_size=group.slot_size,
+                    stride=group.stride,
+                    cells=tuple(cells),
+                )
+            )
+    return tuple(filtered)
 
 
 def formation_inventory_sha256(groups: tuple[FormationGroup, ...]) -> str:

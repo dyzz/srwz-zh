@@ -2,11 +2,12 @@
 
 这是《超级机器人大战 Z》PS2 日文版的非官方简体中文化项目。
 
-当前版本为 **v0.1.0 测试版**。游戏的主要剧情、常用菜单、人物与机体名称以及
-大部分战斗相关文本已经完成中文化。我们仍在进行实际游玩测试，并会继续修正
-残留日文、错别字、术语不统一和显示问题。
+当前版本为 **v0.2.0 测试版**。游戏的主要剧情、常用菜单、人物与机体名称、
+大部分战斗相关文本，以及机体图鉴、角色事典和术语事典均已完成中文化。未完成的
+剧情流程深层界面、攻略 Q&A 正文和完整运行覆盖已明确列入
+[v0.2.0 TODO](docs/V0.2.0_TODO.md)，不阻断本次测试版发布。
 
-## v0.1.0 汉化内容
+## v0.2.0 汉化内容
 
 - 154 个剧情关卡的对白、说话人、关卡条件和关卡概要；
 - 人物名、机体名和武器名；
@@ -14,30 +15,28 @@
 - 精神指令、战斗指令、队长能力、搜索菜单和胜败条件；
 - 战斗动画中的语音字幕；
 - 世界地图地名、场景选择标题和中场休息菜单；
+- LIBRARY 六个入口、321 条机体图鉴、411 条角色事典、52 条术语事典及关键词弹窗；
+- 音乐选择通用界面；101 首曲名保持游戏原始日语，并默认解锁全部非空曲目；
+- 剧情流程入口与操作提示、攻略 Q&A 入口与固定提示；
 - 统一整理并润色了高频人名、机体名、武器名及相关术语；
 - 统一中文字形、标点和全角空格，修复了一批乱码及文本污染问题。
 
 ## 当前状态
 
-v0.1.0 已完成自动检查和镜像内容回读，但尚未完成覆盖所有路线的完整通关测试。
+v0.2.0 已完成自动检查、固定 LBA 镜像构建和最终内容回读，但尚未完成当前精确
+ISO 的完整 PCSX2 运行覆盖及所有路线通关测试。
 正常游玩中仍可能遇到以下情况：
 
 - 少量界面或特殊流程中残留日文；
 - 个别文本的换行、长度或显示位置不理想；
-- 人物图鉴正文、机体图鉴正文、名词解释（用语列表）和游戏内教程均尚未汉化，
-  不属于 v0.1.0 的完成范围；
+- 剧情流程的 HSFC 标题贴图仍保留原版日文；
+- 攻略 Q&A 正文尚未完成清单化和中文化；
 - 某些战斗字幕或较少触发的分支事件仍需实际画面确认。
 
 如果你更看重稳定体验，建议等待后续版本；如果愿意协助测试，欢迎记录发生问题的
 关卡、操作步骤和画面截图并通过
-[GitHub Issues](https://github.com/dyzz/srwz-zh/issues) 反馈。
-
-## v0.2.0 已确定范围
-
-下一版本将完整纳入 LIBRARY：机体图鉴、角色事典、术语事典及关键词弹窗、音乐
-选择、剧情流程和攻略 Q&A。音乐选择的通用界面会中文化，101 首曲名保持游戏原始
-日语，不做翻译。图鉴结构提取和机器初稿已经完成，仍需人工审校、写回和运行
-验证；这不代表 v0.2.0 已经形成可发布候选。具体边界和发布门见
+[GitHub Issues](https://github.com/dyzz/srwz-zh/issues) 反馈。完整改动说明见
+[v0.2.0 发布说明](docs/RELEASE_NOTES_V0.2.0.md)，LIBRARY 技术范围见
 [v0.2 LIBRARY 汉化范围](docs/LIBRARY_V02_SCOPE.md)。
 
 ## 下载与使用
@@ -46,7 +45,7 @@ v0.1.0 已完成自动检查和镜像内容回读，但尚未完成覆盖所有�
 《超级机器人大战 Z》PS2 日文原版。补丁和源码构建统一以
 [Redump Disc 4932](https://redump.info/disc/4932/) 的原始版镜像为基准。
 
-目前 v0.1.0 仍在准备可分发补丁包。补丁通过最终运行检查后，将在
+v0.2.0 可分发补丁包已通过 xdelta 还原校验，并在
 [GitHub Releases](https://github.com/dyzz/srwz-zh/releases) 提供下载、校验值和
 具体使用说明。使用补丁前请备份原版镜像和存档，并以对应发布页面的说明为准。
 
@@ -87,22 +86,22 @@ python3 tools/fetch_zh_font.py \
 python3 tools/rebuild_zh_font.py --skip-fetch
 
 python3 tools/build_iso.py \
-  --config config/iso/zh-release-full-story-build.json
+  --config config/iso/zh-release-current-build.json
 python3 tools/verify_full_story_iso_content.py --force
 python3 tools/build_release.py \
-  --config config/release/v0.1.0.json
+  --config config/release/v0.2.0.json
 ```
 
 构建成功后，镜像位于：
 
 ```text
-build/iso/v0.1.0/srwz-zh-v0.1.0.iso
+build/iso/zh-release-full-story/srwz-zh-current.iso
 ```
 
 本地完整 ISO 只用于开发和运行验证，不进入发布包。可分发文件位于：
 
 ```text
-build/release/v0.1.0/srwz-zh-v0.1.0.zip
+build/release/v0.2.0/srwz-zh-v0.2.0.zip
 ```
 
 其中只包含 xdelta 补丁、使用说明、发布清单和 SHA-256 校验值，不包含游戏 ISO。
@@ -130,13 +129,13 @@ HarmonyOS Sans，并对少数字符使用 Noto Sans CJK；第三方字体及许�
 《超级机器人大战 Z》及相关作品、角色和名称的权利归各自权利方所有。
 
 <details>
-<summary>v0.1.0 当前候选的技术信息</summary>
+<summary>v0.2.0 当前候选的技术信息</summary>
 
-- 汉化版本：`v0.1.0`
+- 汉化版本：`v0.2.0`
 - 原版 ISO 大小：`3,758,358,528` 字节
 - Redump：Disc `4932`，文件名 `Super Robot Taisen Z (Japan, Korea).iso`
 - 原版 ISO SHA-256：`ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2`
-- 当前候选 ISO SHA-256：`d65bfca8469582105357b2f71d8627490513c9e4aef346672bbcb4dcfd518146`
+- 当前候选 ISO SHA-256：`24319f1bc509beab4e838bc7078b22d576280b55aece18948901fc7c0fa01bba`
 - 当前候选已通过确定性构建、ISO 结构检查和最终文本回读；精确镜像的完整运行
   验收仍在进行中。
 

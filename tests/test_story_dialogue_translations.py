@@ -10,6 +10,73 @@ DIALOGUE_ROOT = PROJECT_ROOT / "corpus/zh/story-dialogue"
 GLOSSARY_ROOT = PROJECT_ROOT / "corpus/glossary"
 RELEASE_PATH = PROJECT_ROOT / "corpus/releases/v1.json"
 KANA_RE = re.compile(r"[\u3041-\u3096\u30a1-\u30fa\u30fd-\u30ff]")
+DYNAMIC_MALE_TITLE_RE = re.compile(
+    r"\$(?:n|f|F|l)[ \n　]*(?:先生|大哥|哥哥|兄弟|老兄|大叔|小伙|男士)"
+)
+DYNAMIC_FEMALE_TITLE_RE = re.compile(
+    r"\$(?:n|f|F|l)[ \n　]*(?:小姐|女士|太太|姑娘|大姐|姐姐)"
+)
+
+# These are STAGE archive indices, classified from their embedded
+# stg_NNN*.bin resource names and docs/STAGE_ROUTE_MAP.md.
+SETSUKO_EXCLUSIVE_STAGE_INDICES = frozenset(
+    {
+        *range(1, 13),
+        41,
+        *range(50, 73),
+        110,
+        *range(141, 146),
+    }
+)
+LAND_EXCLUSIVE_STAGE_INDICES = frozenset(
+    {
+        *range(13, 23),
+        42,
+        *range(73, 102),
+        111,
+        *range(146, 151),
+    }
+)
+
+# Shared resources contain separate protagonist branches. These records are
+# tied to Setsuko by nearby first-person dialogue and route-specific terms.
+SETSUKO_CONTEXT_ENTRY_IDS = frozenset(
+    {
+        "story/028/dialogue/01.15/0010",
+        "story/029/dialogue/01.09/0014",
+        "story/029/dialogue/02.02/0189",
+        "story/029/dialogue/02.02/0194",
+        "story/032/dialogue/01.16/0000",
+        "story/032/dialogue/01.21/0003",
+        "story/032/dialogue/02.03/0094",
+        "story/035/dialogue/02.02/0009",
+        "story/035/dialogue/02.02/0015",
+        "story/035/dialogue/02.02/0037",
+        "story/043/dialogue/02.01/0009",
+        "story/048/dialogue/02.02/0098",
+        "story/103/dialogue/01.05/0009",
+        "story/103/dialogue/01.05/0011",
+        "story/103/dialogue/01.10/0007",
+        "story/116/dialogue/02.01/0009",
+        "story/116/dialogue/02.01/0086",
+        "story/122/dialogue/01.20/0001",
+        "story/122/dialogue/02.01/0074",
+        "story/140/dialogue/01.30/0001",
+        "story/151/dialogue/01.07/0001",
+        "story/152/dialogue/02.01/0006",
+        "story/152/dialogue/02.01/0008",
+    }
+)
+MIXED_PROTAGONIST_NEUTRAL_ENTRY_IDS = frozenset(
+    {
+        "story/025/dialogue/01.05/0000",
+        "story/025/dialogue/01.07/0000",
+        "story/103/dialogue/01.10/0001",
+        "story/103/dialogue/01.11/0001",
+        "story/104/dialogue/02.01/0211",
+        "story/104/dialogue/02.01/0243",
+    }
+)
 
 
 def load_json(path: Path) -> dict:
@@ -165,6 +232,48 @@ class StoryDialogueTranslationTests(unittest.TestCase):
                     1,
                     f"{path.name}:{source_hash}",
                 )
+
+    def test_dynamic_protagonist_titles_match_route_gender(self):
+        entries = {
+            entry["id"]: entry["translation"]
+            for _path, document in self.documents
+            for entry in document["entries"]
+        }
+
+        for path, document in self.documents:
+            stage_index = int(path.stem.removeprefix("stage-"))
+            if stage_index in SETSUKO_EXCLUSIVE_STAGE_INDICES:
+                for entry in document["entries"]:
+                    self.assertIsNone(
+                        DYNAMIC_MALE_TITLE_RE.search(entry["translation"]),
+                        entry["id"],
+                    )
+            if stage_index in LAND_EXCLUSIVE_STAGE_INDICES:
+                for entry in document["entries"]:
+                    self.assertIsNone(
+                        DYNAMIC_FEMALE_TITLE_RE.search(entry["translation"]),
+                        entry["id"],
+                    )
+
+        for entry_id in SETSUKO_CONTEXT_ENTRY_IDS:
+            self.assertIsNone(
+                DYNAMIC_MALE_TITLE_RE.search(entries[entry_id]),
+                entry_id,
+            )
+        for entry_id in MIXED_PROTAGONIST_NEUTRAL_ENTRY_IDS:
+            self.assertIsNone(
+                DYNAMIC_MALE_TITLE_RE.search(entries[entry_id]),
+                entry_id,
+            )
+            self.assertIsNone(
+                DYNAMIC_FEMALE_TITLE_RE.search(entries[entry_id]),
+                entry_id,
+            )
+
+        self.assertEqual(
+            entries["story/026/dialogue/02.01/0124"],
+            "“欢迎来到三位一体城，\n　$f先生。”",
+        )
 
     def test_player_choice_records_preserve_three_runtime_rows(self):
         entries = {

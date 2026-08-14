@@ -10,6 +10,9 @@ PARTS_GLOSSARY_PATH = GLOSSARY_ROOT / "parts-v1.json"
 REMAINING_UI_PATH = PROJECT_ROOT / "corpus/zh/menu/remaining-ui.json"
 SEARCH_UI_PATH = PROJECT_ROOT / "corpus/zh/menu/system-ui-search.json"
 BATTLE_PATH = PROJECT_ROOT / "corpus/zh/battle/srvc-lines.json"
+CONTENT_PATH = (
+    PROJECT_ROOT / "work/verification/zh-release-full-story-content.json"
+)
 
 
 def load(path):
@@ -123,6 +126,73 @@ class SpecialAbilityTranslationTests(unittest.TestCase):
         self.assertEqual(barrier["translation"], "防护力场")
         self.assertEqual(barrier["status"], "approved")
         self.assertEqual(self.entries[33]["translation"], barrier["translation"])
+
+    def test_final_iso_binds_every_reviewed_special_ability(self):
+        content = load(CONTENT_PATH)
+        report = content["compdata"]["special_abilities"]
+        self.assertEqual(report["corpus_entry_count"], 158)
+        self.assertEqual(report["translated_entry_count"], 156)
+        self.assertEqual(report["preserved_structure_entry_count"], 2)
+        self.assertEqual(report["target_occurrence_count"], 194)
+        self.assertEqual(report["unique_target_count"], 159)
+        self.assertEqual(report["raw_visible_ascii_glyph_count"], 0)
+        self.assertEqual(report["raw_visible_ascii_target_count"], 0)
+        self.assertEqual(report["raw_space_target_count"], 0)
+        self.assertTrue(report["source_preimages_sha256_exact"])
+        self.assertTrue(report["target_offset_readback_exact"])
+        self.assertEqual(report["vps_armor"]["readback"], "VPS装甲")
+        self.assertEqual(
+            report["vps_armor"]["stored_prefix_hex"],
+            "8275826f8272",
+        )
+        self.assertTrue(report["vps_armor"]["two_byte_latin_storage"])
+
+    def test_all_ability_and_weapon_effect_fields_reject_raw_visible_ascii(self):
+        content = load(CONTENT_PATH)
+        audit = content["ability_visible_ascii_audit"]
+        expected_counts = {
+            "pilot_special_skills": (88, 92, 88),
+            "mech_special_abilities": (158, 194, 159),
+            "unit_mech_pilot_weapon_ui": (104, 113, 112),
+            "weapon_special_effect_1": (8, 8, 8),
+        }
+        for label, (entries, occurrences, targets) in expected_counts.items():
+            report = audit[label]
+            entry_key = (
+                "corpus_entry_count"
+                if label == "mech_special_abilities"
+                else "entry_count"
+            )
+            self.assertEqual(report[entry_key], entries)
+            self.assertEqual(report["target_occurrence_count"], occurrences)
+            self.assertEqual(report["unique_target_count"], targets)
+            self.assertEqual(report["raw_visible_ascii_glyph_count"], 0)
+            self.assertEqual(report["raw_visible_ascii_target_count"], 0)
+            self.assertEqual(report["raw_space_target_count"], 0)
+
+        labels = audit["weapon_special_effect_labels"]
+        self.assertEqual(labels["entry_count"], 2)
+        self.assertEqual(labels["raw_visible_ascii_glyph_count"], 0)
+        self.assertEqual(labels["raw_visible_ascii_target_count"], 0)
+
+        help_report = audit["weapon_special_effect_help"]
+        self.assertEqual(help_report["entry_count"], 7)
+        self.assertEqual(help_report["raw_visible_ascii_glyph_count"], 0)
+        self.assertEqual(help_report["raw_visible_ascii_target_count"], 0)
+
+        effect_2 = audit["weapon_special_effect_2"]
+        self.assertEqual(effect_2["term_count"], 2)
+        self.assertEqual(effect_2["occurrence_count"], 6)
+        self.assertEqual(effect_2["raw_visible_ascii_glyph_count"], 0)
+        self.assertEqual(effect_2["raw_visible_ascii_target_count"], 0)
+        self.assertEqual(effect_2["raw_space_target_count"], 0)
+        self.assertTrue(audit["runtime_control_tokens_excluded"])
+        self.assertTrue(
+            audit["all_checked_fields_use_two_byte_visible_ascii"]
+        )
+        self.assertTrue(
+            content["checks"]["ability_visible_ascii_storage_exact"]
+        )
 
 
 if __name__ == "__main__":

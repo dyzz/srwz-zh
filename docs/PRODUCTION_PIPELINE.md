@@ -180,9 +180,9 @@ Python decoder 只保留源码供隔离的格式研究和对照测试，任何�
 - 154 个 STAGE 剧情块、STAGE/HSFC 概要和完整 SRVC 战斗字幕；
 - 全局 `zh-release-font`、KVMDATA 六图和 VEFF2DX 场景标题。
 
-当前 v0.1.0 ISO 已完成静态结构、16 个组件和统一整盘内容回读；
+当前 v0.2.0 候选 ISO 已完成静态结构、20 个组件和统一整盘内容回读；
 `manifests/zh-release-full-story-iso-content-validation.json` 与当前精确哈希一致。
-匹配 v0.1.0 精确哈希的新游戏、读档和目标战斗字幕运行验收仍待完成。
+匹配 v0.2.0 精确哈希的新游戏、读档和目标战斗字幕运行验收仍列在 TODO。
 
 ## 9. 新增一个 surface
 

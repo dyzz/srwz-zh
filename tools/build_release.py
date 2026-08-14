@@ -19,7 +19,7 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.1.0.json"
+DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.2.0.json"
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 ZIP_TIMESTAMP = (2020, 1, 1, 0, 0, 0)
 
@@ -82,7 +82,12 @@ def verify_config_bindings(config: dict[str, Any]) -> None:
 
     source = config["source_iso"]
     target = config["target_iso"]
-    iso_config_path = project_path("config/iso/zh-release-full-story-build.json")
+    iso_config_value = config.get(
+        "iso_config", "config/iso/zh-release-full-story-build.json"
+    )
+    if not isinstance(iso_config_value, str) or not iso_config_value:
+        raise ReleaseBuildError("iso_config must be a non-empty project path")
+    iso_config_path = project_path(iso_config_value)
     iso_config = load_json(iso_config_path)
     original_disc = load_json(
         project_path("manifests/original-disc.json")
@@ -176,6 +181,13 @@ def verify_config_bindings(config: dict[str, Any]) -> None:
     if archive_name != f"srwz-zh-{tag}.zip":
         raise ReleaseBuildError("archive filename does not match release tag")
 
+    known_limitations = config.get("known_limitations", [])
+    if not isinstance(known_limitations, list) or any(
+        not isinstance(item, str) or not item.strip()
+        for item in known_limitations
+    ):
+        raise ReleaseBuildError("known_limitations must be a list of text items")
+
 
 def xdelta_version(executable: str) -> str:
     resolved = shutil.which(executable)
@@ -216,6 +228,12 @@ def release_readme(config: dict[str, Any]) -> bytes:
     source_filename = redump["filename"]
     target = config["target_iso"]
     patch_name = config["xdelta"]["patch_filename"]
+    known_limitations = config.get("known_limitations", [])
+    limitation_text = ""
+    if known_limitations:
+        limitation_text = "\n已知限制／TODO：\n" + "".join(
+            f"- {item}\n" for item in known_limitations
+        )
     text = f"""《超级机器人大战 Z》简体中文补丁 {tag}
 
 这是非官方测试版补丁，不包含游戏 ISO 或其他原版游戏数据。
@@ -236,6 +254,7 @@ xdelta3 -d -s "{source_filename}" "{patch_name}" "srwz-zh-{tag}.iso"
 
 生成镜像大小：{target['size']} 字节
 生成镜像 SHA-256：{target['sha256']}
+{limitation_text}
 
 请勿在旧汉化版或其他修改版镜像上重复打补丁。操作前请备份原版镜像和存档。
 本补丁仍处于测试阶段，完整状态与已知限制见项目 README 和对应发布页面。
@@ -389,7 +408,7 @@ def parse_args() -> argparse.Namespace:
         "--config",
         type=Path,
         default=DEFAULT_CONFIG,
-        help="release config (default: config/release/v0.1.0.json)",
+        help="release config (default: config/release/v0.2.0.json)",
     )
     parser.add_argument(
         "--force",

@@ -162,7 +162,7 @@ python3 tools/build_full_story_components.py \
 
 ```bash
 python3 tools/build_iso.py \
-  --config config/iso/zh-release-full-story-build.json
+  --config config/iso/zh-release-current-build.json
 ```
 
 ## 7. 第二份重复纹理已按独立目标写回

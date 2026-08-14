@@ -74,6 +74,8 @@ try:
     from srwz.stage_overview import replace_stage_overviews_in_place
     from srwz.stage_formations import (
         STAGE_OFFSET_SPEC,
+        compact_formation_ascii_replacement,
+        fit_formation_replacement,
         formation_inventory_sha256,
         load_locked_stage_default_formations,
     )
@@ -180,6 +182,8 @@ except ModuleNotFoundError:
     from tools.srwz.stage_overview import replace_stage_overviews_in_place
     from tools.srwz.stage_formations import (
         STAGE_OFFSET_SPEC,
+        compact_formation_ascii_replacement,
+        fit_formation_replacement,
         formation_inventory_sha256,
         load_locked_stage_default_formations,
     )
@@ -432,6 +436,7 @@ CONFIG_SECTION_IMPACTS = {
     "auto_demo_overlays": {SLPS_MEMBER, COMPDATA_MEMBER, *AUTO_DEMO_MEMBERS},
     "compdata_battle_lines": {COMPDATA_MEMBER},
     "reviewed_weapons": {COMPDATA_MEMBER},
+    "special_abilities": {COMPDATA_MEMBER},
     "full_stage_titles": {SLPS_MEMBER, VT1_MEMBER, COMPDATA_MEMBER},
     "stage_overviews": {STAGE_MEMBER},
     "world_history": {MTV_PROS_MEMBER},
@@ -470,6 +475,7 @@ INPUT_IMPACTS = {
     "stage_default_formation_inventory": {STAGE_MEMBER},
     "remaining_ui_parts": {COMPDATA_MEMBER},
     "reviewed_weapons": {COMPDATA_MEMBER},
+    "special_abilities": {COMPDATA_MEMBER},
     "compdata_battle_lines": {COMPDATA_MEMBER},
     "original_compdata": {COMPDATA_MEMBER},
     "original_nisvdata": {NISVDATA_MEMBER},
@@ -520,6 +526,7 @@ REMAINING_UI_IMPACTS = {
     "slps_by_offset": {SLPS_MEMBER},
     "nisv_effect_names": {NISVDATA_MEMBER},
     "stage_fixed_formation_by_offset": {STAGE_MEMBER},
+    "stage_scenario_chart_prompts_by_offset": {STAGE_MEMBER},
     "display_names_by_source_text": {COMPDATA_MEMBER, *AUTO_DEMO_MEMBERS},
     # This inventory is currently validation-only, but recomputing COMPDATA
     # keeps policy changes fail-closed instead of silently accepting them.
@@ -2753,7 +2760,7 @@ def _apply_stage_default_formation_names(
     }
     layout_counts = {
         layout: sum(group.layout == layout for group in groups)
-        for layout in ("formation18+33+1", "record6+23", "slot32")
+        for layout in sorted({group.layout for group in groups})
     }
     record_metadata_count = sum(
         len(group.cells) for group in groups if group.layout == "record6+23"
@@ -2852,6 +2859,7 @@ def _apply_stage_default_formation_names(
     fixed_changed_byte_count = 0
     fixed_write_entry_count = 0
     fixed_no_op_entry_count = 0
+    compact_ascii_entry_count = 0
     fixed_minimum_headroom = None
     fixed_chunk_report = None
     compression_executor = ThreadPoolExecutor(
@@ -2939,12 +2947,27 @@ def _apply_stage_default_formation_names(
                     f"default formation-name encoding failed at "
                     f"{raw_offset}: {error}"
                 ) from error
-            if len(encoded) > slot_size:
+            replacement = fit_formation_replacement(
+                source_text=source.text,
+                translation=translation,
+                layout=group.layout,
+                slot_size=slot_size,
+                encoded=encoded,
+            )
+            if replacement is None:
                 raise FullStoryComponentError(
                     f"default formation-name overflow at {raw_offset}: "
                     f"need {len(encoded)}, capacity {slot_size}"
                 )
-            replacement = encoded + bytes(slot_size - len(encoded))
+            compact_ascii_entry_count += (
+                compact_formation_ascii_replacement(
+                    source_text=source.text,
+                    translation=translation,
+                    layout=group.layout,
+                    slot_size=slot_size,
+                )
+                is not None
+            )
             source_slot = original_decoded.output[decoded_offset:slot_end]
             current_slot = bytes(rewritten[decoded_offset:slot_end])
             if current_slot not in {source_slot, replacement}:
@@ -3028,7 +3051,7 @@ def _apply_stage_default_formation_names(
                 raise FullStoryComponentError(
                     f"default formation-name readback drift at {raw_offset}"
                 )
-            headroom = slot_size - len(encoded)
+            headroom = slot_size - reread.consumed
             minimum_headroom = (
                 headroom
                 if minimum_headroom is None
@@ -3102,6 +3125,13 @@ def _apply_stage_default_formation_names(
             fixed_chunk_report = chunk_report
     compression_executor.shutdown(wait=True, cancel_futures=True)
 
+    if compact_ascii_entry_count != expected.get(
+        "stage_default_formation_compact_ascii_entry_count"
+    ):
+        raise FullStoryComponentError(
+            "default formation-name compact ASCII ratchet drift"
+        )
+
     result = bytes(output)
     if (
         len(result) != len(stage)
@@ -3151,6 +3181,7 @@ def _apply_stage_default_formation_names(
         "unique_source_count": len(source_texts),
         "layout_group_counts": layout_counts,
         "record_metadata_count": record_metadata_count,
+        "compact_ascii_entry_count": compact_ascii_entry_count,
         "inventory_sha256": inventory_sha256,
         "translations": [
             {"source": source, "translation": translation}
@@ -3388,6 +3419,115 @@ def _apply_stage_system_dialogues(
         }
     )
     return output, report, corpus_path
+
+
+def _apply_stage_scenario_chart_prompts(
+    stage: bytes,
+    hb: bytes,
+    reference: dict,
+    font_manifest: dict,
+    *,
+    chunk_workspace: CompressedStreamWorkspace,
+) -> tuple[bytes, dict]:
+    """Rewrite the fixed Scenario Chart control prompt in STAGE chunk 0."""
+
+    if not isinstance(reference, dict):
+        raise FullStoryComponentError("remaining UI configuration is invalid")
+    _original_stage_path, original_stage = _locked_file(
+        reference.get("original_stage"), label="original STAGE"
+    )
+    _translation_path, translation_data = _locked_file(
+        reference.get("translations"), label="remaining UI translations"
+    )
+    translations = json.loads(translation_data.decode("utf-8"))
+    replacements = translations.get("stage_scenario_chart_prompts_by_offset")
+    expected = reference.get("expected")
+    if (
+        not isinstance(expected, dict)
+        or not isinstance(replacements, dict)
+        or len(replacements)
+        != expected.get("stage_scenario_chart_prompt_entry_count")
+        or len(original_stage) != len(stage)
+    ):
+        raise FullStoryComponentError(
+            "Scenario Chart prompt selection drift"
+        )
+
+    offset_spec = ExecutableOffsetSpec(
+        name="HEDBDY/HB.BIN STAGE offsets",
+        member="HEDBDY/HB.BIN",
+        table_start=30320,
+        table_end=31144,
+    )
+    offsets = read_executable_archive_offsets(hb, offset_spec, len(stage))
+    chunk_end = offsets[1]
+    original_stored = original_stage[:chunk_end]
+    original_decoded = decode(original_stored)
+    current_decoded = chunk_workspace.view()
+    if (
+        any(original_stored[original_decoded.consumed :])
+        or len(current_decoded.output) != len(original_decoded.output)
+    ):
+        raise FullStoryComponentError(
+            "Scenario Chart prompt chunk decode drift"
+        )
+
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    source_texts = {
+        raw_offset: decode_text(
+            original_decoded.output,
+            int(raw_offset, 16),
+            table,
+        ).text
+        for raw_offset in replacements
+    }
+    if source_texts != {
+        "0x1F790": "：決定",
+        "0x1F798": "：戻る",
+        "0x1F7A0": "：スピードＵＰ",
+    }:
+        raise FullStoryComponentError(
+            "Scenario Chart prompt source preimage drift"
+        )
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    output_table = project_runtime_text_table(table, primary)
+    output_table = project_runtime_text_table(output_table, aliases)
+    output_table = project_runtime_text_table(
+        output_table, original_fullwidth_ascii_overrides(table)
+    )
+    rewritten, report = _apply_fixed_span_translations(
+        current_decoded.output,
+        original_decoded.output,
+        replacements,
+        table=table,
+        output_table=output_table,
+        encoding_overrides=encoding_overrides,
+        label="STAGE Scenario Chart prompts",
+    )
+    try:
+        chunk_workspace.replace(
+            rewritten,
+            stage="stage Scenario Chart prompts",
+        )
+    except ValueError as error:
+        raise FullStoryComponentError(str(error)) from error
+    report.update(
+        {
+            "member": STAGE_MEMBER,
+            "chunk_index": 0,
+            "source_texts": source_texts,
+            "translations": dict(replacements),
+            "compression_deferred_to_workspace": True,
+            "archive_size_preserved": True,
+            "hb_offsets_preserved": True,
+        }
+    )
+    return stage, report
 
 
 def _apply_world_history_layout(
@@ -3906,6 +4046,243 @@ def _apply_fixed_span_translations(
         "placeholder_control_tokens_preserved": True,
         "reread_exact": True,
     }
+
+
+def _raw_visible_ascii_glyphs(payload: bytes) -> tuple[tuple[int, str], ...]:
+    """Locate unsafe one-byte visible glyphs while retaining control tokens."""
+
+    found = []
+    cursor = 0
+    while cursor < len(payload):
+        value = payload[cursor]
+        if value == 0:
+            break
+        if value == 0x0A:
+            cursor += 1
+            continue
+        if (
+            value == ord("$")
+            and cursor + 1 < len(payload)
+            and payload[cursor + 1] in b"cflnF"
+        ):
+            cursor += 2
+            continue
+        if payload.startswith((b"\\n", b"%s"), cursor):
+            cursor += 2
+            continue
+        if value >= 0x80:
+            cursor += 2
+            continue
+        if 0x21 <= value <= 0x7E:
+            found.append((cursor, chr(value)))
+        cursor += 1
+    return tuple(found)
+
+
+def _apply_special_abilities(
+    stored_compdata: bytes,
+    reference: dict,
+    descriptor_path: Path,
+    font_manifest: dict,
+    codec: dict,
+    *,
+    workspace: CompressedStreamWorkspace | None = None,
+    original_decoded=None,
+) -> tuple[bytes, dict, Path]:
+    """Write the complete reviewed special-ability table from source bindings."""
+
+    if not isinstance(reference, dict):
+        raise FullStoryComponentError("special-ability configuration is invalid")
+    corpus_path, corpus_data = _locked_file(
+        reference.get("corpus"), label="special-ability corpus"
+    )
+    corpus = json.loads(corpus_data.decode("utf-8"))
+    entries = corpus.get("entries")
+    expected = reference.get("expected")
+    if (
+        corpus.get("batch_id") != "v1-menu-system-ui"
+        or corpus.get("scope", {}).get("section") != "Special Abilities"
+        or not isinstance(entries, list)
+        or not isinstance(expected, dict)
+        or len(entries) != expected.get("entry_count")
+    ):
+        raise FullStoryComponentError("special-ability corpus identity drift")
+
+    descriptors = json.loads(descriptor_path.read_text(encoding="utf-8"))
+    descriptor = next(
+        (
+            item
+            for item in descriptors
+            if isinstance(item, dict) and item.get("friendly_name") == "Compdata"
+        ),
+        None,
+    )
+    if descriptor is None:
+        raise FullStoryComponentError("special-ability Compdata descriptor missing")
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    output_table = project_runtime_text_table(table, primary)
+    output_table = project_runtime_text_table(output_table, aliases)
+    output_table = project_runtime_text_table(
+        output_table, original_fullwidth_ascii_overrides(table)
+    )
+
+    if original_decoded is None:
+        raise FullStoryComponentError("special-ability original COMPDATA is missing")
+    current_decoded = (
+        workspace.view() if workspace is not None else decode(stored_compdata)
+    )
+    if len(current_decoded.output) != len(original_decoded.output):
+        raise FullStoryComponentError("special-ability COMPDATA decode drift")
+    original_menu = parse_menu_file(original_decoded.output, descriptor, table)
+    source_entries = [
+        entry
+        for entry in original_menu.entries
+        if entry.entry_id.startswith("menu/Compdata/04/")
+    ]
+    source_by_id = {entry.entry_id: entry for entry in source_entries}
+    if len(source_entries) != expected.get("entry_count"):
+        raise FullStoryComponentError("special-ability source entry-count drift")
+
+    source_target_occurrence_count = sum(
+        len(entry.target_offsets) for entry in source_entries
+    )
+    source_targets = {
+        offset for entry in source_entries for offset in entry.target_offsets
+    }
+    if (
+        source_target_occurrence_count
+        != expected.get("target_occurrence_count")
+        or len(source_targets) != expected.get("unique_target_count")
+    ):
+        raise FullStoryComponentError("special-ability source target-count drift")
+
+    replacements = {}
+    accepted_current = {}
+    translated_entry_count = 0
+    preserved_entry_count = 0
+    for ordinal, row in enumerate(entries):
+        entry_id = f"menu/Compdata/04/{ordinal:04d}"
+        source = source_by_id.get(entry_id)
+        if (
+            not isinstance(row, dict)
+            or row.get("id") != entry_id
+            or source is None
+            or row.get("source_text_sha256")
+            != sha256_bytes(source.text.encode("utf-8"))
+        ):
+            raise FullStoryComponentError(
+                f"special-ability source binding drift: {entry_id}"
+            )
+        action = row.get("translation_action", "translate")
+        translation = row.get("translation")
+        if action == "preserve":
+            if row.get("editorial_status") != "final" or translation != source.text:
+                raise FullStoryComponentError(
+                    f"special-ability preserve decision drift: {entry_id}"
+                )
+            preserved_entry_count += 1
+            continue
+        if (
+            action != "translate"
+            or row.get("editorial_status") != "reviewed"
+            or not isinstance(translation, str)
+            or not translation
+        ):
+            raise FullStoryComponentError(
+                f"special-ability translation decision drift: {entry_id}"
+            )
+        translated_entry_count += 1
+        stored_translation = _two_byte_visible_spaces(
+            normalize_original_fullwidth_ascii(translation)
+        )
+        for offset in set(source.target_offsets):
+            key = f"0x{offset:X}"
+            prior = replacements.setdefault(key, stored_translation)
+            if prior != stored_translation:
+                raise FullStoryComponentError(
+                    f"special-ability shared target conflict: {key}"
+                )
+            accepted_current[key] = normalize_original_fullwidth_ascii(
+                decode_text(current_decoded.output, offset, output_table).text
+            )
+
+    if (
+        translated_entry_count != expected.get("translated_entry_count")
+        or len(replacements) != expected.get("translated_target_count")
+        or preserved_entry_count
+        != expected.get("preserved_structure_entry_count")
+    ):
+        raise FullStoryComponentError("special-ability decision-count drift")
+
+    output_decoded, write_report = _apply_fixed_span_translations(
+        current_decoded.output,
+        original_decoded.output,
+        replacements,
+        table=table,
+        output_table=output_table,
+        encoding_overrides=encoding_overrides,
+        label="reviewed special abilities",
+        accepted_current_texts=accepted_current,
+    )
+    unsafe = {}
+    for raw_offset, translation in replacements.items():
+        offset = int(raw_offset, 16)
+        readback = decode_text(output_decoded, offset, output_table)
+        if readback.text != translation:
+            raise FullStoryComponentError(
+                f"special-ability final readback drift at {raw_offset}"
+            )
+        payload = output_decoded[offset : offset + readback.consumed]
+        raw_ascii = _raw_visible_ascii_glyphs(payload)
+        if raw_ascii:
+            unsafe[raw_offset] = raw_ascii
+    if unsafe:
+        raise FullStoryComponentError(
+            f"special-ability unsafe raw visible ASCII: {unsafe!r}"
+        )
+
+    rebuilt = _commit_compdata_stage(
+        stored_compdata,
+        output_decoded,
+        current_decoded,
+        codec,
+        label="reviewed special abilities",
+        workspace=workspace,
+    )
+    vps_offset = source_by_id["menu/Compdata/04/0035"].target_offsets[0]
+    vps_readback = decode_text(output_decoded, vps_offset, output_table)
+    write_report.update(
+        {
+            "corpus_entry_count": len(entries),
+            "source_target_occurrence_count": source_target_occurrence_count,
+            "source_target_unique_count": len(source_targets),
+            "translated_entry_count": translated_entry_count,
+            "preserved_structure_entry_count": preserved_entry_count,
+            "source_preimages_sha256_exact": True,
+            "raw_visible_ascii_glyph_count": 0,
+            "all_reviewed_entries_reread_exact": True,
+            "vps_armor": {
+                "entry_id": "menu/Compdata/04/0035",
+                "target_offset": vps_offset,
+                "translation": "VPS装甲",
+                "readback": normalize_original_fullwidth_ascii(vps_readback.text),
+                "stored_prefix_hex": output_decoded[
+                    vps_offset : vps_offset + 6
+                ].hex(),
+                "two_byte_latin_storage": output_decoded[
+                    vps_offset : vps_offset + 6
+                ].hex() == "8275826f8272",
+            },
+            "compression_deferred_to_workspace": workspace is not None,
+        }
+    )
+    return rebuilt, write_report, corpus_path
 
 
 def _apply_fixed_inline_translations(
@@ -7475,6 +7852,19 @@ def build(
         original_decoded=original_compdata_decoded,
     )
     (
+        output_compdata,
+        special_ability_report,
+        special_ability_corpus_path,
+    ) = _apply_special_abilities(
+        compdata_workspace.stored,
+        config.get("special_abilities"),
+        stage_title_input_paths[2],
+        font_manifest,
+        config["full_pilot_names"]["codec"],
+        workspace=compdata_workspace,
+        original_decoded=original_compdata_decoded,
+    )
+    (
         output_slps,
         output_compdata,
         global_safe_alias_report,
@@ -7626,6 +8016,13 @@ def build(
         stage_system_dialogue_report = json.loads(
             json.dumps(prior_report["remaining_ui"]["stage_system_dialogue"])
         )
+        stage_scenario_chart_prompt_report = json.loads(
+            json.dumps(
+                prior_report["remaining_ui"][
+                    "stage_scenario_chart_prompts"
+                ]
+            )
+        )
         original_stage_path = _prior_input_path(prior_report, "original_stage")
         stage_default_formation_corpus_path = _prior_input_path(
             prior_report, "stage_default_formation_corpus"
@@ -7696,6 +8093,16 @@ def build(
             config["full_pilot_names"]["codec"],
             chunk_workspace=stage_chunk0_workspace,
         )
+        (
+            output_stage,
+            stage_scenario_chart_prompt_report,
+        ) = _apply_stage_scenario_chart_prompts(
+            output_stage,
+            hb_payload,
+            config.get("remaining_ui"),
+            font_manifest,
+            chunk_workspace=stage_chunk0_workspace,
+        )
         try:
             stage_chunk0_encoded, stage_chunk0_workspace_report = (
                 stage_chunk0_workspace.finalize(
@@ -7735,6 +8142,7 @@ def build(
         for chunk0_report in (
             stage_overview_report,
             stage_system_dialogue_report,
+            stage_scenario_chart_prompt_report,
         ):
             chunk0_report.update(
                 {
@@ -7780,6 +8188,9 @@ def build(
     remaining_ui_report["stage_fixed_formation"] = stage_fixed_formation_report
     remaining_ui_report["stage_default_formation"] = stage_default_formation_report
     remaining_ui_report["stage_system_dialogue"] = stage_system_dialogue_report
+    remaining_ui_report["stage_scenario_chart_prompts"] = (
+        stage_scenario_chart_prompt_report
+    )
 
     if reuse_group({MTV_PROS_MEMBER}):
         output_mtv_pros = _prior_output_payload(output_root, MTV_PROS_MEMBER)
@@ -8051,6 +8462,10 @@ def build(
                 reviewed_weapon_corpus_path,
                 reviewed_weapon_corpus_path.read_bytes(),
             ),
+            "special_abilities": _file_lock(
+                special_ability_corpus_path,
+                special_ability_corpus_path.read_bytes(),
+            ),
             "compdata_battle_lines": _file_lock(
                 compdata_battle_line_corpus_path,
                 compdata_battle_line_corpus_path.read_bytes(),
@@ -8245,6 +8660,7 @@ def build(
         "sound_select_default_unlock": sound_select_unlock_report,
         "compdata_battle_lines": compdata_battle_line_report,
         "reviewed_weapons": reviewed_weapon_report,
+        "special_abilities": special_ability_report,
         "srvc_battle_text": srvc_report,
         "auto_demo_overlays": auto_demo_report,
         "scenario_select_effect": scenario_select_report,
@@ -8646,6 +9062,21 @@ def build(
                 and remaining_ui_report["stage_system_dialogue"][
                     "hb_offsets_preserved"
                 ]
+                and remaining_ui_report["stage_scenario_chart_prompts"][
+                    "reread_exact"
+                ]
+                and remaining_ui_report["stage_scenario_chart_prompts"][
+                    "fixed_spans_preserved"
+                ]
+                and remaining_ui_report["stage_scenario_chart_prompts"][
+                    "codec_round_trip_exact"
+                ]
+                and remaining_ui_report["stage_scenario_chart_prompts"][
+                    "archive_size_preserved"
+                ]
+                and remaining_ui_report["stage_scenario_chart_prompts"][
+                    "hb_offsets_preserved"
+                ]
                 and remaining_ui_report["compdata_round_trip_exact"]
                 and remaining_ui_report["slps_size_preserved"]
             ),
@@ -8685,6 +9116,9 @@ def build(
                 ]
                 and remaining_ui_report["stage_system_dialogue"][
                     "source_preimages_sha256_exact"
+                ]
+                and remaining_ui_report["stage_scenario_chart_prompts"][
+                    "placeholder_control_tokens_preserved"
                 ]
             ),
             "reviewed_weapon_names_reread_exact": (

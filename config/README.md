@@ -5,9 +5,11 @@
 | 文件 | 作用 |
 | --- | --- |
 | `iso/zh-release-chain.json` | 当前唯一 ISO、哈希和运行状态 |
-| `iso/zh-release-full-story-build.json` | 固定原盘、成员、LBA 和 ISO 工具链 |
-| `release/v0.1.0.json` | v0.1.0 原版／目标 ISO 哈希、xdelta3 参数和发布包布局 |
-| `full-story-components.json` | 16 个最终成员的组合契约 |
+| `iso/zh-release-current-build.json` | 当前 v0.2.0 候选的固定原盘、20 个成员、LBA 和输出哈希 |
+| `iso/zh-release-full-story-build.json` | 已发布 v0.1.0 的冻结 ISO 构建配置 |
+| `release/v0.2.0.json` | v0.2.0 原版／目标 ISO 哈希、已知限制、xdelta3 参数和发布包布局 |
+| `release/v0.1.0.json` | 已发布 v0.1.0 的历史补丁契约 |
+| `full-story-components.json` | 20 个当前最终成员的组合契约 |
 | `stage-default-formation-inventory.json` | 已审核 STAGE 编队／阵营名的固定关卡、布局与槽位偏移；普通构建只校验，不扫描 |
 | `terrain-name-inventory.json` | 已审核 MAPMODEL 地形名固定成员与偏移；普通构建只校验，不扫描 |
 | `world-map-title-render-snapshot.json` | 已审核地图标题的冻结 4bpp 渲染结果与预览；普通构建不启动 ImageMagick |
