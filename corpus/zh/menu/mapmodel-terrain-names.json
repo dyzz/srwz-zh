@@ -3,22 +3,511 @@
   "translation_id": "srwz-mapmodel-terrain-names-v1",
   "language": "zh-Hans",
   "editorial_status": "reviewed",
-  "scope": "All runtime MAP DATA terrain names in MAPMODEL members 0 through 80.",
+  "scope": "All 475 runtime MAP DATA terrain-name records in global MAPMODEL members 0 through 80, including composite location and facility labels.",
   "entries": [
-    {"source":"台地","translation":"台地","occurrence_count":2,"editorial_status":"reviewed"},
-    {"source":"基地施設","translation":"基地设施","occurrence_count":4,"editorial_status":"reviewed"},
-    {"source":"宇宙","translation":"宇宙","occurrence_count":3,"editorial_status":"reviewed"},
-    {"source":"宇宙空間","translation":"宇宙空间","occurrence_count":12,"editorial_status":"reviewed"},
-    {"source":"山岳地帯","translation":"山岳地带","occurrence_count":1,"editorial_status":"reviewed"},
-    {"source":"平地","translation":"平地","occurrence_count":5,"editorial_status":"reviewed"},
-    {"source":"森","translation":"森","occurrence_count":1,"editorial_status":"reviewed"},
-    {"source":"海","translation":"海","occurrence_count":4,"editorial_status":"reviewed"},
-    {"source":"滑走路","translation":"跑道","occurrence_count":2,"editorial_status":"reviewed"},
-    {"source":"砂浜","translation":"沙滩","occurrence_count":2,"editorial_status":"reviewed"},
-    {"source":"神殿","translation":"神殿","occurrence_count":2,"editorial_status":"reviewed"},
-    {"source":"軍事施設","translation":"军事设施","occurrence_count":22,"editorial_status":"reviewed"},
-    {"source":"道路","translation":"道路","occurrence_count":3,"editorial_status":"reviewed"},
-    {"source":"邸宅","translation":"宅邸","occurrence_count":1,"editorial_status":"reviewed"},
-    {"source":"雪原","translation":"雪原","occurrence_count":2,"editorial_status":"reviewed"}
+    {
+      "source": "アガトの結晶",
+      "translation": "阿加托结晶",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "アーモリーワン周辺",
+      "translation": "军械库一号周边",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "イノセントドーム",
+      "translation": "天真者穹顶",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ウルグスク",
+      "translation": "乌鲁古斯克",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "オーブ施設",
+      "translation": "奥布设施",
+      "occurrence_count": 5,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "カイメラ要塞",
+      "translation": "奇美拉要塞",
+      "occurrence_count": 3,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "クレーター",
+      "translation": "环形山",
+      "occurrence_count": 3,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "クレーター内部",
+      "translation": "环形山内部",
+      "occurrence_count": 3,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "コーラリアン",
+      "translation": "科拉利安",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "サンジェルマン城",
+      "translation": "圣日耳曼城",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "サーストン家",
+      "translation": "萨斯顿家",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "スカルムーン基地",
+      "translation": "骷髅月基地",
+      "occurrence_count": 3,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ダミー",
+      "translation": "占位",
+      "occurrence_count": 8,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "チラム軍司令部",
+      "translation": "奇拉姆军司令部",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "トリニティシティ",
+      "translation": "三位一体城",
+      "occurrence_count": 5,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ドーム",
+      "translation": "穹顶",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ドームポリス",
+      "translation": "穹顶都市",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ハイム家",
+      "translation": "海姆家",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "バザー",
+      "translation": "集市",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "パラダイム本社",
+      "translation": "帕拉迪姆总部",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ビル",
+      "translation": "大楼",
+      "occurrence_count": 4,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ビル街",
+      "translation": "高楼区",
+      "occurrence_count": 13,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ビル街（地）",
+      "translation": "高楼区（地）",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ホテル",
+      "translation": "酒店",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ヤーパンの天井",
+      "translation": "雅邦天井",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "レクイエム",
+      "translation": "镇魂曲",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "レクイエム周辺施設",
+      "translation": "镇魂曲周边设施",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ローエングリン砲台",
+      "translation": "罗恩格林炮台",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "ヴォダラ宮",
+      "translation": "补陀落宫",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "中継ステーション周辺",
+      "translation": "中继站周边",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "住宅街",
+      "translation": "住宅区",
+      "occurrence_count": 8,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "光子力研究所",
+      "translation": "光子力研究所",
+      "occurrence_count": 8,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "光子力研究所施設",
+      "translation": "光子力研究所设施",
+      "occurrence_count": 8,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "公園",
+      "translation": "公园",
+      "occurrence_count": 8,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "台地",
+      "translation": "台地",
+      "occurrence_count": 27,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "地球連邦議会議事堂",
+      "translation": "地球联邦议会大厦",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "基地施設",
+      "translation": "基地设施",
+      "occurrence_count": 7,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "塔",
+      "translation": "塔",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "宇宙",
+      "translation": "宇宙",
+      "occurrence_count": 5,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "宇宙空間",
+      "translation": "宇宙空间",
+      "occurrence_count": 22,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "山",
+      "translation": "山",
+      "occurrence_count": 21,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "山岳地帯",
+      "translation": "山岳地带",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "崖",
+      "translation": "崖",
+      "occurrence_count": 3,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "崖下",
+      "translation": "崖下",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "川",
+      "translation": "河",
+      "occurrence_count": 3,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "市街地",
+      "translation": "市区",
+      "occurrence_count": 3,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "平地",
+      "translation": "平地",
+      "occurrence_count": 38,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "広場",
+      "translation": "广场",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "庭",
+      "translation": "庭",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "建物",
+      "translation": "建筑",
+      "occurrence_count": 3,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "新早乙女研究所",
+      "translation": "新早乙女研究所",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "時空振動弾",
+      "translation": "时空震动弹",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "月面",
+      "translation": "月面",
+      "occurrence_count": 10,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "月面基地施設",
+      "translation": "月面基地设施",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "森",
+      "translation": "林",
+      "occurrence_count": 27,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "洞窟",
+      "translation": "洞穴",
+      "occurrence_count": 4,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "海",
+      "translation": "海",
+      "occurrence_count": 32,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "海岸",
+      "translation": "海岸",
+      "occurrence_count": 4,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "渓谷",
+      "translation": "峡谷",
+      "occurrence_count": 5,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "港",
+      "translation": "港",
+      "occurrence_count": 6,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "港内施設",
+      "translation": "港内设施",
+      "occurrence_count": 4,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "湖",
+      "translation": "湖",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "滑走路",
+      "translation": "跑道",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "爆発跡",
+      "translation": "爆炸区",
+      "occurrence_count": 3,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "生命の樹",
+      "translation": "生命之树",
+      "occurrence_count": 3,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "砂浜",
+      "translation": "沙滩",
+      "occurrence_count": 15,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "破壊されたビル",
+      "translation": "被毁大楼",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "破壊された道路",
+      "translation": "被毁道路",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "破壊跡",
+      "translation": "废墟",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "神殿",
+      "translation": "神殿",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "緑地",
+      "translation": "绿地",
+      "occurrence_count": 5,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "線路",
+      "translation": "铁路",
+      "occurrence_count": 5,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "荒地",
+      "translation": "荒地",
+      "occurrence_count": 20,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "落下跡",
+      "translation": "坠落点",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "軌道エレベーター",
+      "translation": "轨道电梯",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "軍事施設",
+      "translation": "军事设施",
+      "occurrence_count": 25,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "道路",
+      "translation": "道路",
+      "occurrence_count": 22,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "道路（住）",
+      "translation": "住宅区道路",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "邸宅",
+      "translation": "宅邸",
+      "occurrence_count": 1,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "雪原",
+      "translation": "雪原",
+      "occurrence_count": 13,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "雪山",
+      "translation": "雪山",
+      "occurrence_count": 3,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "駅",
+      "translation": "站",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "駅施設",
+      "translation": "车站",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    },
+    {
+      "source": "？？？",
+      "translation": "？？？",
+      "occurrence_count": 2,
+      "editorial_status": "reviewed"
+    }
   ]
 }

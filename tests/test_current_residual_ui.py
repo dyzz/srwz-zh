@@ -29,7 +29,19 @@ class CurrentResidualUiTests(unittest.TestCase):
     def test_fixed_slps_and_suspend_return_dialogue_are_locked(self):
         remaining = self.component["remaining_ui"]
         self.assertEqual(remaining["slps_context_ui"]["entry_count"], 414)
-        self.assertEqual(remaining["slps"]["entry_count"], 193)
+        self.assertEqual(remaining["slps"]["entry_count"], 196)
+        fixed_slps = self.remaining_ui["slps_by_offset"]
+        self.assertEqual(
+            {
+                offset: fixed_slps[offset]
+                for offset in ("0x343DE8", "0x345EE8", "0x346990")
+            },
+            {
+                "0x343DE8": "强化零件",
+                "0x345EE8": "队长效果",
+                "0x346990": "队长效果",
+            },
+        )
 
         formation = remaining["stage_default_formation"]
         self.assertEqual(formation["group_count"], 401)
@@ -182,11 +194,27 @@ class CurrentResidualUiTests(unittest.TestCase):
             ]
         )
 
+    def test_all_keyword_visible_spaces_are_stored_as_two_byte_glyphs(self):
+        keywords = self.content["runtime_keywords"]
+        storage = keywords["visible_space_storage"]
+        self.assertEqual(keywords["authority_keyword_count"], 52)
+        self.assertEqual(storage["field_count"], 52 * 4)
+        self.assertEqual(storage["raw_visible_space_count"], 0)
+        self.assertEqual(storage["two_byte_visible_space_count"], 85)
+        self.assertTrue(storage["all_visible_spaces_two_byte"])
+        self.assertTrue(keywords["library_popup_fields_exact"])
+        self.assertTrue(
+            keywords["compdata"]["all_list_labels_match_library_word"]
+        )
+        self.assertEqual(keywords["stage"]["record_count"], 77)
+        self.assertTrue(keywords["stage"]["all_four_fields_match_library"])
+        self.assertTrue(keywords["all_three_runtime_surfaces_exact"])
+
     def test_all_discovered_terrain_names_are_reencoded(self):
         terrain = self.component["world_map_titles"]["terrain_names"]
-        self.assertEqual(terrain["unique_source_count"], 15)
-        self.assertEqual(terrain["occurrence_count"], 66)
-        self.assertEqual(terrain["changed_member_count"], 10)
+        self.assertEqual(terrain["unique_source_count"], 84)
+        self.assertEqual(terrain["occurrence_count"], 475)
+        self.assertEqual(terrain["changed_member_count"], 80)
         self.assertTrue(terrain["fixed_decoded_spans_preserved"])
         self.assertTrue(terrain["archive_size_preserved"])
         self.assertTrue(terrain["offset_table_preserved"])

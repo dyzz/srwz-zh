@@ -332,12 +332,12 @@ class ZhReleaseFontTests(unittest.TestCase):
             )
 
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
-        self.assertEqual(self.snapshot["primary_assignment_count"], 3421)
+        self.assertEqual(self.snapshot["primary_assignment_count"], 3422)
         self.assertEqual(
-            self.snapshot["surface_alias_assignment_count"], 605
+            self.snapshot["surface_alias_assignment_count"], 604
         )
         self.assertEqual(
-            self.snapshot["remaining_allocation_candidate_count"], 181
+            self.snapshot["remaining_allocation_candidate_count"], 180
         )
         compatibility = self.snapshot["source_compatibility_assignments"]
         compatibility_by_character = {
@@ -476,13 +476,40 @@ class ZhReleaseFontTests(unittest.TestCase):
         )
         self.assertEqual(
             runtime_audit["protected_original_codes"],
-            ["8144", "8151", "815D", "8175", "8176"],
+            ["8144", "8151", "815D", "8175", "8176", "817D"],
         )
         self.assertEqual(
             runtime_audit["protected_source_characters"],
-            "．＿‐「」",
+            "．＿‐「」±",
         )
-        self.assertEqual(runtime_audit["literal_output_count"], 2)
+        self.assertEqual(runtime_audit["literal_output_count"], 3)
+        self.assertEqual(
+            next(
+                row
+                for row in self.snapshot["primary_assignments"]
+                if row["character"] == "屯"
+            )["code"],
+            "91E9",
+        )
+        runtime_contract = next(
+            extension["runtime_generated_glyph_compatibility"]
+            for extension in self.snapshot["extensions"]
+            if "runtime_generated_glyph_compatibility" in extension
+        )
+        frozen_characters = {
+            row["character"]
+            for row in (
+                *self.formation_freeze["relocations"],
+                *self.formation_freeze["retired_aliases"],
+            )
+        }
+        self.assertTrue(
+            {
+                row["reused_alias_character"]
+                for row in runtime_contract["relocations"]
+                if "reused_alias_character" in row
+            }.isdisjoint(frozen_characters)
+        )
         self.assertTrue(
             runtime_audit[
                 "all_runtime_generated_original_codes_preserved"
@@ -516,6 +543,7 @@ class ZhReleaseFontTests(unittest.TestCase):
             item["code"] for item in runtime_audit["literal_output_evidence"]
         }
         self.assertTrue(literal_codes.isdisjoint(active_codes))
+
         assigned_codes = {
             item["code"]
             for item in (
@@ -585,7 +613,7 @@ class ZhReleaseFontTests(unittest.TestCase):
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]
-        self.assertEqual(selection["unique_entry_count"], 125796)
+        self.assertEqual(selection["unique_entry_count"], 125868)
         source_paths = {item["path"] for item in selection["sources"]}
         self.assertIn("corpus/zh/battle/srvc-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/battle-lines.json", source_paths)

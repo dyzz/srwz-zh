@@ -83,11 +83,43 @@ def inventory_terrain_names(
 ) -> tuple[dict, ...]:
     """Discover the fixed 0x1C records immediately before ``Frame``.
 
-    The first field is a NUL-terminated terrain label of at most four
-    double-byte glyphs.  A 12-byte gap and a 16-byte MAPMODEL header separate
-    the final record from the first ``Frame`` marker.  Walking backwards from
-    that structural anchor avoids scanning unrelated Japanese strings.
+    The first 24 bytes of each record contain a NUL-terminated terrain label.
+    Depending on the member header variant, 44, 48, 52, or 56 bytes separate
+    the start of the final record from the first ``Frame`` marker.  Trying only
+    those aligned structural positions and selecting the longest contiguous
+    0x1C-record run avoids scanning unrelated Japanese strings while covering
+    both short labels and composite names such as ``月面基地施設``.
     """
+
+    record_size = 0x1C
+    text_cell_size = 24
+    final_record_frame_gaps = (44, 48, 52, 56)
+
+    def decode_cell(payload: bytes, position: int):
+        if (
+            position < 0
+            or position % 4
+            or position + text_cell_size > len(payload)
+            or payload[position] == 0
+        ):
+            return None
+        try:
+            source = decode_text(
+                payload[position : position + text_cell_size],
+                0,
+                table,
+            )
+        except ValueError:
+            return None
+        if (
+            source.terminator != "nul"
+            or not source.text
+            or source.consumed > text_cell_size
+            or source.unknown_code_count
+            or any(ord(character) < 0x3000 for character in source.text)
+        ):
+            return None
+        return source
 
     rows: list[dict] = []
     for member in range(first_member, last_member + 1):
@@ -100,36 +132,30 @@ def inventory_terrain_names(
         if decoded.consumed > len(stored) or any(stored[decoded.consumed :]):
             raise TerrainNameError(f"MAPMODEL member {member} padding drift")
         frame = decoded.output.find(b"Frame\0")
-        if frame < 0x1C:
+        if frame < record_size:
             continue
-        position = frame - 0x1C - 0x1C
-        member_rows = []
-        while position >= 0:
-            cell = decoded.output[position : position + 9]
-            if not cell or cell[0] == 0:
-                break
-            try:
-                source = decode_text(cell, 0, table)
-            except ValueError:
-                break
-            if (
-                source.terminator != "nul"
-                or not source.text
-                or source.consumed > 9
-                or source.unknown_code_count
-                or any(ord(character) < 0x3000 for character in source.text)
-            ):
-                break
-            member_rows.append(
-                {
-                    "member": member,
-                    "decoded_offset": position,
-                    "source": source.text,
-                    "source_consumed": source.consumed,
-                }
+        candidates = []
+        for gap in final_record_frame_gaps:
+            position = frame - gap
+            member_rows = []
+            while (source := decode_cell(decoded.output, position)) is not None:
+                member_rows.append(
+                    {
+                        "member": member,
+                        "decoded_offset": position,
+                        "source": source.text,
+                        "source_consumed": source.consumed,
+                    }
+                )
+                position -= record_size
+            if member_rows:
+                candidates.append((len(member_rows), gap, member_rows))
+        if candidates:
+            _count, _gap, member_rows = max(
+                candidates,
+                key=lambda item: (item[0], item[1]),
             )
-            position -= 0x1C
-        rows.extend(reversed(member_rows))
+            rows.extend(reversed(member_rows))
     return tuple(rows)
 
 

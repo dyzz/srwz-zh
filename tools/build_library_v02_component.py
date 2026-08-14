@@ -43,6 +43,7 @@ from srwz.text import (
     load_text_table,
     original_fullwidth_ascii_overrides,
     project_runtime_text_table,
+    two_byte_visible_spaces,
 )
 
 
@@ -646,10 +647,18 @@ def main() -> int:
                 replacements[field.tag] = translation
 
             def rebuild(candidate_replacements: dict[str, str]) -> bytes:
+                stored_replacements = (
+                    {
+                        tag: two_byte_visible_spaces(text)
+                        for tag, text in candidate_replacements.items()
+                    }
+                    if expected_kind == "KYWD"
+                    else candidate_replacements
+                )
                 return build_runtime_zkn_decoded_chunk(
                     document,
                     base_table,
-                    candidate_replacements,
+                    stored_replacements,
                     overrides=encoding_overrides,
                     alignment=alignment,
                 )
@@ -718,7 +727,14 @@ def main() -> int:
                 ),
                 default=0,
             )
-            expected_text = dict(replacements)
+            expected_text = (
+                {
+                    tag: two_byte_visible_spaces(text)
+                    for tag, text in replacements.items()
+                }
+                if expected_kind == "KYWD"
+                else dict(replacements)
+            )
             if encoded is None:
                 if args.audit_capacity:
                     unconstrained = reencode_changed_suffix(
@@ -768,6 +784,17 @@ def main() -> int:
                 raise LibraryScopeError(
                     f"localized LIBRARY reread mismatch: {domain}/{index:03d}"
                 )
+            if expected_kind == "KYWD":
+                raw_space_tags = tuple(
+                    field.tag
+                    for field in reread.fields
+                    if field.text is not None and b"\x20" in field.data
+                )
+                if raw_space_tags:
+                    raise LibraryScopeError(
+                        "localized KYWD contains raw visible-space bytes: "
+                        f"{domain}/{index:03d}/{','.join(raw_space_tags)}"
+                    )
             source_binary = {
                 field.tag: field.data
                 for field in document.fields

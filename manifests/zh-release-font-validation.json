@@ -7,7 +7,7 @@
     "config": {
       "path": "config/fonts/zh-release-font.json",
       "size": 4363,
-      "sha256": "fab2e69246d1de47d40c96a60d5668e6a62114cb67429ab70e5e79f40f4e4c99"
+      "sha256": "81fb507a49f8f964f48d2bb4881acc9dc107318cb8065386c85af6e4942a2ee6"
     },
     "base_config": {
       "path": "config/fonts/zh-font-base.json",
@@ -26,8 +26,8 @@
     },
     "allocation_snapshot": {
       "path": "config/encoding/zh-release-font-assignments.json",
-      "size": 724745,
-      "sha256": "0e46c1e6c6143e553fb0a25fbdd4ef6e392f3ed5159074355a5ad232d227d162"
+      "size": 742571,
+      "sha256": "2384e341a47837846584cf0e204cf1b2fe559acdaeaffdc32d0eee4c86a6edc1"
     },
     "translation_selection": {
       "kind": "global_translation_tree",
@@ -105,8 +105,8 @@
         },
         {
           "path": "corpus/zh/menu/mapmodel-terrain-names.json",
-          "sha256": "c3de129825bf0961649a5e025896290f0b990262f300816a7e3de7b5241641d8",
-          "entry_count": 15
+          "sha256": "59ba6e3dccd08cc395b8f7a516f5b4ebaa00cce1e7d13db2571f994a3ad58c2c",
+          "entry_count": 84
         },
         {
           "path": "corpus/zh/menu/opening-protagonist-profile.json",
@@ -115,8 +115,8 @@
         },
         {
           "path": "corpus/zh/menu/remaining-ui.json",
-          "sha256": "c729d764b27f5a1822a30d467a9450532f1eff7927b6514dca4df9925268a274",
-          "entry_count": 1648
+          "sha256": "0a348be050391e8184bab0c93b73fed07860ddc129faef141a06ca7e10ab48ed",
+          "entry_count": 1651
         },
         {
           "path": "corpus/zh/menu/stage-names.json",
@@ -1095,11 +1095,11 @@
         },
         {
           "path": "corpus/zh/summary.json",
-          "sha256": "597090e9779d4bf013922960dc67d9228ef6488ed689e83742a233703bd0548f",
+          "sha256": "d40eb0d46e0a7340ca3321589358432557dd01ef6e5b153649f18cadc95fc993",
           "entry_count": 28
         }
       ],
-      "unique_entry_count": 125796,
+      "unique_entry_count": 125868,
       "control_tokens": {
         "preservation": "lossless_encoder_control_path",
         "excluded_from_font_glyph_demand": true,
@@ -1188,20 +1188,20 @@
         "entry_count": 169,
         "occurrence_count": 185
       },
-      "selection_sha256": "b9df413bb97d40b7f56788655be3b92aa87ddd38eb3c2c04bba457e781e5d4f9"
+      "selection_sha256": "08d21589bcdd952d8a1e01f8fed80dac5c3a3226f729a6e8b167a82256349139"
     }
   },
   "mapping": {
-    "primary_assignment_count": 3421,
-    "surface_alias_assignment_count": 664,
+    "primary_assignment_count": 3422,
+    "surface_alias_assignment_count": 604,
     "source_compatibility_assignment_count": 37,
-    "allocation_assignment_count": 1801,
+    "allocation_assignment_count": 1802,
     "reraster_existing_assignment_count": 1620,
-    "primary_mapping_sha256": "7c243f77bf4271b7bb2d39827d89947172e3a850698201afbeecd7ba84e3a7c5",
-    "surface_alias_mapping_sha256": "98670771389df2129c72a01793679075c7a2ee740ac84fde5c35cc26bba923ab",
+    "primary_mapping_sha256": "9987fca86b14044122b26c070c0668e4a7de4074ca44a76dc5e4f35cc19c1545",
+    "surface_alias_mapping_sha256": "ae062f0387a470b52d6b89b685f306ecb3a01bd72ffa926dbe0bbecf3dba50b6",
     "source_compatibility_mapping_sha256": "53258b29b6b633607c89ca45ad605002798dfbee2ff94fd1a7a91cff15e3b6fb",
-    "remaining_allocation_candidates_sha256": "aadb627dce04084eafe9c3adda988a04dbf6e28d143d545155483153938f3fe1",
-    "remaining_candidate_slot_count": 197,
+    "remaining_allocation_candidates_sha256": "9074f5776c13a43c98637496e0d8536d42b263177c8a567e8dc161ef9f5afede",
+    "remaining_candidate_slot_count": 180,
     "new_character_allocation_policy": {
       "required_width_class": "renderer_addressable_double_byte",
       "reclaim_unused_japanese_positions": true,
@@ -1209,30 +1209,30 @@
       "applies_to": "Every primary assignment appended by update_zh_release_font_snapshot.py, including a character already present in the original text table.",
       "preserve": "Printable ASCII glyph slots, occupied primary and alias mappings, source-compatibility mappings, and non-text control bytes remain reserved."
     },
-    "guarded_post_migration_assignment_count": 263,
-    "guarded_extension_assignment_count": 244,
-    "remaining_renderer_double_byte_candidate_count": 197,
-    "conditional_width_assignment_count": 151,
-    "conditional_width_candidate_count": 197
+    "guarded_post_migration_assignment_count": 264,
+    "guarded_extension_assignment_count": 245,
+    "remaining_renderer_double_byte_candidate_count": 180,
+    "conditional_width_assignment_count": 124,
+    "conditional_width_candidate_count": 180
   },
   "migration": {
     "mode": "flattened_release_baseline_with_legacy_save_compatibility",
     "historical_primary_assignment_count": 3158,
-    "historical_primary_mapping_sha256": "fb10dbd232525780f6648f1ab3e3312825c1548a4a8865b488c6564622602a42",
+    "historical_primary_mapping_sha256": "c1d8a7330bef424f3b67fe3a1945b4a6973dca7b29966a74c048340c75cfc204",
     "added_global_assignment_count": 19,
     "historical_profiles_are_active_build_dependencies": false
   },
   "coverage": {
-    "literal_character_count": 2288875,
-    "unique_literal_character_count": 3433,
+    "literal_character_count": 2289132,
+    "unique_literal_character_count": 3434,
     "missing_character_count": 0,
     "missing_character_occurrence_count": 0,
     "missing_characters": "",
     "missing": [],
-    "selected_font_han_count": 3288,
+    "selected_font_han_count": 3289,
     "original_font_han_count": 0,
     "original_font_han_characters": "",
-    "selected_font_visible_character_count": 3414,
+    "selected_font_visible_character_count": 3415,
     "original_font_visible_character_count": 0,
     "original_font_visible_characters": "",
     "vt1_missing_character_count_before_raw_ascii_policy": 18,
@@ -1543,14 +1543,15 @@
   },
   "runtime_generated_glyph_compatibility": {
     "conversion_output_count": 3,
-    "literal_output_count": 2,
-    "protected_source_characters": "．＿‐「」",
+    "literal_output_count": 3,
+    "protected_source_characters": "．＿‐「」±",
     "protected_original_codes": [
       "8144",
       "8151",
       "815D",
       "8175",
-      "8176"
+      "8176",
+      "817D"
     ],
     "instruction_evidence": [
       {
@@ -1587,6 +1588,12 @@
         "code": "8176",
         "producer": "keyword_popup_title_wrapper",
         "role": "closing_quote"
+      },
+      {
+        "source_character": "±",
+        "code": "817D",
+        "producer": "formation_terrain_recovery_rate_formatter",
+        "role": "signed_zero_prefix"
       }
     ],
     "relocations": [
@@ -1609,6 +1616,11 @@
         "character": "屐",
         "from_code": "8176",
         "to_code": "92C5"
+      },
+      {
+        "character": "屯",
+        "from_code": "817D",
+        "to_code": "91E9"
       }
     ],
     "collision_count": 0,
@@ -1619,6 +1631,572 @@
       "size": 3471624,
       "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
     }
+  },
+  "sound_select_title_glyph_compatibility": {
+    "source_member": {
+      "path": "work/disc/DATA/COMPDATA.BN",
+      "size": 144990,
+      "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34",
+      "decoded_size": 524032,
+      "decoded_sha256": "d5ac885369da7e81e3d395e13eec36cf44508709bbed54e46e346fcedcda38bb"
+    },
+    "track_title_count": 101,
+    "unique_two_byte_code_count": 252,
+    "protected_original_codes": [
+      "8140",
+      "8144",
+      "8145",
+      "8149",
+      "8158",
+      "815B",
+      "8160",
+      "8166",
+      "8167",
+      "8168",
+      "8169",
+      "816A",
+      "8195",
+      "8251",
+      "8252",
+      "8254",
+      "8260",
+      "8261",
+      "8262",
+      "8263",
+      "8264",
+      "8265",
+      "8266",
+      "8267",
+      "8268",
+      "826A",
+      "826B",
+      "826C",
+      "826D",
+      "826E",
+      "826F",
+      "8271",
+      "8272",
+      "8273",
+      "8274",
+      "8275",
+      "8276",
+      "8277",
+      "8278",
+      "8279",
+      "8281",
+      "8285",
+      "8286",
+      "8287",
+      "8288",
+      "8289",
+      "828B",
+      "828E",
+      "828F",
+      "8292",
+      "8293",
+      "8294",
+      "8295",
+      "8296",
+      "8299",
+      "82A0",
+      "82A2",
+      "82A4",
+      "82A6",
+      "82A8",
+      "82AA",
+      "82AB",
+      "82AD",
+      "82AE",
+      "82AF",
+      "82B4",
+      "82B5",
+      "82BA",
+      "82BB",
+      "82BD",
+      "82BE",
+      "82BF",
+      "82C1",
+      "82C4",
+      "82C5",
+      "82C6",
+      "82C8",
+      "82C9",
+      "82CC",
+      "82CD",
+      "82CE",
+      "82D0",
+      "82D7",
+      "82DD",
+      "82DE",
+      "82DF",
+      "82E0",
+      "82E1",
+      "82E6",
+      "82E7",
+      "82E9",
+      "82EA",
+      "82EB",
+      "82ED",
+      "82F0",
+      "82F1",
+      "8341",
+      "8342",
+      "8343",
+      "8346",
+      "8347",
+      "8349",
+      "834A",
+      "834B",
+      "834C",
+      "834E",
+      "834F",
+      "8350",
+      "8351",
+      "8353",
+      "8354",
+      "8355",
+      "8356",
+      "8357",
+      "8358",
+      "8359",
+      "835E",
+      "835F",
+      "8362",
+      "8365",
+      "8366",
+      "8367",
+      "8368",
+      "8369",
+      "836D",
+      "836E",
+      "836F",
+      "8370",
+      "8371",
+      "8372",
+      "8375",
+      "837B",
+      "837D",
+      "837E",
+      "8380",
+      "8383",
+      "8384",
+      "8389",
+      "838A",
+      "838B",
+      "838C",
+      "838D",
+      "8393",
+      "8394",
+      "8946",
+      "89AF",
+      "89BB",
+      "89C1",
+      "89E5",
+      "89EF",
+      "89F1",
+      "89F3",
+      "8A45",
+      "8AE1",
+      "8AEB",
+      "8AF5",
+      "8B40",
+      "8B49",
+      "8B4C",
+      "8B81",
+      "8BAB",
+      "8BEC",
+      "8C43",
+      "8C4E",
+      "8C52",
+      "8C8E",
+      "8CA9",
+      "8CB3",
+      "8CC0",
+      "8CEC",
+      "8CF5",
+      "8D67",
+      "8D73",
+      "8D87",
+      "8D95",
+      "8D96",
+      "8DBB",
+      "8DD5",
+      "8DE7",
+      "8E55",
+      "8E6D",
+      "8E71",
+      "8E82",
+      "8E97",
+      "8EA9",
+      "8EAE",
+      "8EBE",
+      "8EC0",
+      "8ED2",
+      "8ED6",
+      "8ED7",
+      "8F50",
+      "8FCE",
+      "9040",
+      "905B",
+      "905E",
+      "905F",
+      "906C",
+      "906E",
+      "9098",
+      "90A2",
+      "90AF",
+      "90B6",
+      "90B9",
+      "90ED",
+      "914D",
+      "916E",
+      "91BD",
+      "91CC",
+      "9242",
+      "9251",
+      "9263",
+      "9286",
+      "9288",
+      "92F6",
+      "93A5",
+      "93AE",
+      "93B9",
+      "944D",
+      "944E",
+      "9492",
+      "94AD",
+      "94DF",
+      "9559",
+      "9589",
+      "9591",
+      "9597",
+      "95B1",
+      "95F6",
+      "95FB",
+      "964B",
+      "9654",
+      "966C",
+      "9682",
+      "969A",
+      "96B3",
+      "96DA",
+      "96E9",
+      "9752",
+      "9755",
+      "9768",
+      "9783",
+      "9788",
+      "97AC",
+      "97B7",
+      "97CD",
+      "97DC",
+      "9863",
+      "9866",
+      "98F8",
+      "9953",
+      "E3B9"
+    ],
+    "relocations": [
+      {
+        "character": "叱",
+        "from_code": "8158",
+        "to_code": "8FF2"
+      },
+      {
+        "character": "掴",
+        "from_code": "8195",
+        "to_code": "90CF"
+      },
+      {
+        "character": "缨",
+        "from_code": "82A0",
+        "to_code": "90A3"
+      },
+      {
+        "character": "肘",
+        "from_code": "82A4",
+        "to_code": "955D"
+      },
+      {
+        "character": "肢",
+        "from_code": "82A6",
+        "to_code": "9297"
+      },
+      {
+        "character": "茉",
+        "from_code": "82AA",
+        "to_code": "9844"
+      },
+      {
+        "character": "茧",
+        "from_code": "82AB",
+        "to_code": "97D6"
+      },
+      {
+        "character": "萃",
+        "from_code": "82AD",
+        "to_code": "919F"
+      },
+      {
+        "character": "葵",
+        "from_code": "82AE",
+        "to_code": "9740"
+      },
+      {
+        "character": "蓬",
+        "from_code": "82AF",
+        "to_code": "95A1"
+      },
+      {
+        "character": "裟",
+        "from_code": "82B5",
+        "to_code": "95E4"
+      },
+      {
+        "character": "谄",
+        "from_code": "82BA",
+        "to_code": "9184"
+      },
+      {
+        "character": "谲",
+        "from_code": "82BB",
+        "to_code": "9469"
+      },
+      {
+        "character": "辻",
+        "from_code": "82BE",
+        "to_code": "909D"
+      },
+      {
+        "character": "铛",
+        "from_code": "82C1",
+        "to_code": "91D0"
+      },
+      {
+        "character": "镀",
+        "from_code": "82C4",
+        "to_code": "91AA"
+      },
+      {
+        "character": "阀",
+        "from_code": "82C5",
+        "to_code": "9549"
+      },
+      {
+        "character": "阪",
+        "from_code": "82C6",
+        "to_code": "91A4"
+      },
+      {
+        "character": "髋",
+        "from_code": "82C8",
+        "to_code": "918B"
+      },
+      {
+        "character": "鲇",
+        "from_code": "82C9",
+        "to_code": "8FE2"
+      },
+      {
+        "character": "黜",
+        "from_code": "82CD",
+        "to_code": "8FE5"
+      },
+      {
+        "character": "龉",
+        "from_code": "82D0",
+        "to_code": "919A"
+      },
+      {
+        "character": "广",
+        "from_code": "89AF",
+        "to_code": "917C"
+      },
+      {
+        "character": "懈",
+        "from_code": "89F3",
+        "to_code": "928B"
+      },
+      {
+        "character": "浓",
+        "from_code": "8B40",
+        "to_code": "91A1"
+      },
+      {
+        "character": "涨",
+        "from_code": "8B49",
+        "to_code": "94CB"
+      },
+      {
+        "character": "淆",
+        "from_code": "8B4C",
+        "to_code": "9362"
+      },
+      {
+        "character": "痹",
+        "from_code": "8BEC",
+        "to_code": "909A"
+      },
+      {
+        "character": "皂",
+        "from_code": "8C43",
+        "to_code": "8FDC"
+      },
+      {
+        "character": "缆",
+        "from_code": "8CA9",
+        "to_code": "9850"
+      },
+      {
+        "character": "腻",
+        "from_code": "8CEC",
+        "to_code": "95E2"
+      },
+      {
+        "character": "茵",
+        "from_code": "8D67",
+        "to_code": "97D3"
+      },
+      {
+        "character": "衍",
+        "from_code": "8D96",
+        "to_code": "8FF8"
+      },
+      {
+        "character": "蹭",
+        "from_code": "8E82",
+        "to_code": "8FF7"
+      },
+      {
+        "character": "鉴",
+        "from_code": "8EC0",
+        "to_code": "979E"
+      },
+      {
+        "character": "隧",
+        "from_code": "8F50",
+        "to_code": "94C4"
+      },
+      {
+        "character": "冈",
+        "from_code": "90B9",
+        "to_code": "9753"
+      },
+      {
+        "character": "浏",
+        "from_code": "90ED",
+        "to_code": "94B3"
+      },
+      {
+        "character": "剃",
+        "from_code": "914D",
+        "to_code": "954C"
+      },
+      {
+        "character": "呸",
+        "from_code": "916E",
+        "to_code": "918F"
+      },
+      {
+        "character": "嚏",
+        "from_code": "9242",
+        "to_code": "9147"
+      },
+      {
+        "character": "帮",
+        "from_code": "9251",
+        "to_code": "90BD"
+      },
+      {
+        "character": "强",
+        "from_code": "9263",
+        "to_code": "949D"
+      },
+      {
+        "character": "漓",
+        "from_code": "944D",
+        "to_code": "94A3"
+      },
+      {
+        "character": "眯",
+        "from_code": "94AD",
+        "to_code": "9248"
+      },
+      {
+        "character": "筝",
+        "from_code": "9597",
+        "to_code": "92AE"
+      },
+      {
+        "character": "终",
+        "from_code": "95B1",
+        "to_code": "9172"
+      },
+      {
+        "character": "营",
+        "from_code": "964B",
+        "to_code": "9387"
+      },
+      {
+        "character": "纹",
+        "from_code": "966C",
+        "to_code": "9460"
+      },
+      {
+        "character": "讽",
+        "from_code": "969A",
+        "to_code": "95DD"
+      },
+      {
+        "character": "勒",
+        "from_code": "9755",
+        "to_code": "8FF4"
+      },
+      {
+        "character": "过",
+        "from_code": "9768",
+        "to_code": "9448"
+      },
+      {
+        "character": "顾",
+        "from_code": "97DC",
+        "to_code": "979F"
+      },
+      {
+        "character": "咄",
+        "from_code": "E3B9",
+        "to_code": "96D9"
+      },
+      {
+        "character": "腊",
+        "from_code": "82A8",
+        "to_code": "97CB"
+      },
+      {
+        "character": "袈",
+        "from_code": "82B4",
+        "to_code": "93DC"
+      },
+      {
+        "character": "辄",
+        "from_code": "82BD",
+        "to_code": "94EB"
+      },
+      {
+        "character": "遏",
+        "from_code": "82BF",
+        "to_code": "94CE"
+      },
+      {
+        "character": "黯",
+        "from_code": "82CE",
+        "to_code": "945E"
+      }
+    ],
+    "retired_alias_count": 59,
+    "collision_count": 0,
+    "reclaimable_output_count": 0,
+    "all_sound_select_title_codes_resolve_original_characters": true
   },
   "formation_affected_character_freeze": {
     "freeze_id": "srwz-zh-legacy-formation-affected-characters-v1",
@@ -1640,19 +2218,19 @@
   },
   "proposal": {
     "path": "work/writeback/zh-release-codebook-proposal.json",
-    "size": 3683638,
-    "sha256": "7660cf5fb84b907144428f244d0753bacd289fbab5143519aaf5a3a060cc6c6b"
+    "size": 3630646,
+    "sha256": "b6f524ef748105183f9bfaca6294b506c4888344965110db491e6729de5da397"
   },
   "readiness": {
     "path": "work/writeback/zh-release-font-readiness.json",
-    "size": 51913,
-    "sha256": "1bcb8d49965aa86f94a658cf332f1a947552fd5c9160cad0c16ce21feb774be7"
+    "size": 62283,
+    "sha256": "f912b8a44b28f26a0adc6d8243bd3926edb08a6ad6ee8f9afb552aa85e0caed5"
   },
   "font_component": {
     "report": {
       "path": "work/build/zh-release-font/components/font-validation.json",
-      "size": 2050597,
-      "sha256": "efb84d28dea120df2584424d6ca8056c0d3b21ec6e17105ca01e303eacab1fbc"
+      "size": 2021185,
+      "sha256": "f029648395cb829980de34f98e0efba77f048946d94fc379c953a8f0de3884dc"
     },
     "slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
@@ -1662,11 +2240,11 @@
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "bcf4182198a0cbd7a2683a937afa6150460173751b940f92b0c9bb03de0ceecf"
+      "sha256": "4634f7d5c21c3ff48a37d1d900da120bbfd89525670617c93fcd7a99c8d600b6"
     },
-    "assignment_count": 4122,
-    "changed_glyph_count": 4121,
-    "decoded_font_sha256": "6005ac57f6c916326bf0563239d5feb7103283d458c81088317cbb25971db99d"
+    "assignment_count": 4063,
+    "changed_glyph_count": 4062,
+    "decoded_font_sha256": "ec9376bbebb8fa692a0a7aa309505616c6baeef8b86faf741dd0f31f3c51ee43"
   },
   "acceptance": {
     "flattened_snapshot_is_self_contained": true,
@@ -1674,6 +2252,7 @@
     "raw_source_structural_glyph_compatibility_preserved": true,
     "observed_legacy_formation_glyphs_preserved": true,
     "runtime_generated_glyphs_preserved": true,
+    "sound_select_title_codes_preserved": true,
     "formation_affected_character_assignments_frozen": true,
     "proposal_and_component_assignment_counts_exact": true,
     "glyph_preimages_and_rasters_exact": true,

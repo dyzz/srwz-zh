@@ -13,6 +13,8 @@ from tools.srwz.runtime_keywords import (
 )
 from tools.srwz.text import (
     load_text_table,
+    normalize_original_fullwidth_ascii,
+    normalize_two_byte_visible_spaces,
     original_fullwidth_ascii_overrides,
     project_runtime_text_table,
 )
@@ -69,6 +71,22 @@ class RuntimeKeywordSurfaceTests(unittest.TestCase):
             tuple(tuple(fields) for fields in self.authority.fields),
             (("WORD", "SRCE", "DSCR", "DSC2"),) * 52,
         )
+        stored_fields = [
+            field
+            for fields in self.authority.fields
+            for field in fields.values()
+        ]
+        self.assertEqual(len(stored_fields), 208)
+        for field in stored_fields:
+            self.assertNotIn(b"\x20", field.data, field.tag)
+        self.assertIn(
+            "Anti Earth Union \nGovernment",
+            normalize_two_byte_visible_spaces(
+                normalize_original_fullwidth_ascii(
+                    self.authority.fields[8]["DSCR"].text or ""
+                )
+            ),
+        )
 
     def test_compdata_list_labels_are_complete_and_idempotent(self):
         original = decode(
@@ -120,6 +138,11 @@ class RuntimeKeywordSurfaceTests(unittest.TestCase):
             pointers[24],
             kwargs["runtime_base"] + 0x71FD0,
         )
+        for pointer, fields in zip(pointers, self.authority.fields):
+            offset = pointer - kwargs["runtime_base"]
+            target = fields["WORD"].data + b"\0"
+            self.assertEqual(rewritten[offset : offset + len(target)], target)
+            self.assertNotIn(b"\x20", target[:-1])
 
     def test_all_77_stage_popup_copies_match_library(self):
         original = (PROJECT_ROOT / "work/disc/DATA/STAGE.BIN").read_bytes()
@@ -155,7 +178,7 @@ class RuntimeKeywordSurfaceTests(unittest.TestCase):
         self.assertEqual(report["allocation_count"], 233)
         self.assertEqual(report["shared_reference_count"], 75)
         self.assertEqual(report["relocation_count"], 3)
-        self.assertEqual(report["minimum_output_headroom"], 257)
+        self.assertEqual(report["minimum_output_headroom"], 256)
         self.assertTrue(verify_report["all_four_fields_match_library"])
 
         offsets = read_executable_archive_offsets(

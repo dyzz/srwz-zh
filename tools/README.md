@@ -87,7 +87,7 @@ python3 tools/freeze_stage_default_formation_inventory.py --force
 `report_stage_default_formation_names.py` 默认同样只报告冻结位置；
 `--formation-tables-only`、`--all-structural` 与 `--legacy-heuristic` 是显式扫描模式。
 
-MAPMODEL 地形名同样只读取 `config/terrain-name-inventory.json` 中冻结的 66 个位置；
+MAPMODEL 地形名同样只读取 `config/terrain-name-inventory.json` 中冻结的 475 个位置；
 生产 build 不再扫描成员 0–80，只解压并最终压缩实际命中的 10 个成员。世界地图标题
 的位置已经由审核 corpus 的 member 列表锁定，也不做发现式扫描；普通 build 直接读取
 `config/world-map-title-render-snapshot.json` 中冻结的 4bpp 渲染结果和预览，不启动

@@ -3,14 +3,16 @@
 
 The Chinese corpora intentionally store source hashes rather than duplicated
 Japanese strings.  This audit reconstructs the stable source-ID pairing from
-the locked original STAGE and SRVC resources, then checks selected glossary
-terms in source context.  It therefore distinguishes homophonous translations
-such as Freedom Gundam ``フリーダム`` and the Freeden ``フリーデン``.
+the locked original STAGE, SRVC, and MTV_PROS resources, then checks selected
+glossary terms in source context.  It therefore distinguishes homophonous
+translations such as Freedom Gundam ``フリーダム`` and the Freeden
+``フリーデン`` while keeping the world-history scroll in the same workflow.
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -31,9 +33,14 @@ from tools.build_story_component import (
 from srwz.codec import decode_production as decode
 from srwz.glossary import global_glossary_by_id, load_global_glossary
 from srwz.image_export import parse_seg_offsets
-from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
+from srwz.iso_layout import (
+    CORE_ARCHIVE_SPECS,
+    ExecutableOffsetSpec,
+    read_executable_archive_offsets,
+)
 from srwz.srvc import parse_srvc_archive
 from srwz.stage import parse_stage, read_stage_function_addresses
+from srwz.summary import parse_summary
 from srwz.text import load_text_table
 
 
@@ -234,8 +241,67 @@ def _battle_rows(root: Path) -> list[SourceTranslation]:
     return rows
 
 
+def _summary_rows(root: Path) -> list[SourceTranslation]:
+    config = json.loads(
+        (root / "config/full-story-components.json").read_text(encoding="utf-8")
+    )["world_history"]
+    source_slps = (root / config["original_slps"]["path"]).read_bytes()
+    source_archive = (root / config["original"]["path"]).read_bytes()
+    offsets = read_executable_archive_offsets(
+        source_slps,
+        CORE_ARCHIVE_SPECS["MTV_PROS.BIN"],
+        len(source_archive),
+    )
+    table = load_text_table(
+        root / "vendor/upstream-python/project/tbl_all.json"
+    )
+    corpus_path = root / config["corpus"]["path"]
+    corpus_entries = json.loads(corpus_path.read_text(encoding="utf-8"))["entries"]
+    corpus_by_id = {entry["id"]: entry for entry in corpus_entries}
+    if len(corpus_by_id) != len(corpus_entries):
+        raise SourceGlossaryAuditError("duplicate summary corpus ID")
+    rows: list[SourceTranslation] = []
+    for chunk_index, (start, end) in enumerate(zip(offsets, offsets[1:])):
+        decoded = decode(source_archive[start:end]).output
+        for source_entry in parse_summary(
+            decoded,
+            table,
+            chunk_index=chunk_index,
+        ).entries:
+            corpus_entry = corpus_by_id.get(source_entry.entry_id)
+            if not isinstance(corpus_entry, dict):
+                raise SourceGlossaryAuditError(
+                    f"summary source has no corpus row: {source_entry.entry_id}"
+                )
+            source_hash = hashlib.sha256(
+                source_entry.text.encode("utf-8")
+            ).hexdigest()
+            translation = corpus_entry.get("translation")
+            exceptions = corpus_entry.get("glossary_exceptions", [])
+            if (
+                corpus_entry.get("source_text_sha256") != source_hash
+                or not isinstance(translation, str)
+                or not isinstance(exceptions, list)
+            ):
+                raise SourceGlossaryAuditError(
+                    f"invalid summary corpus row: {source_entry.entry_id}"
+                )
+            rows.append(
+                SourceTranslation(
+                    surface="summary",
+                    entry_id=source_entry.entry_id,
+                    source_text=source_entry.text,
+                    translation=translation,
+                    glossary_exceptions=tuple(exceptions),
+                )
+            )
+    if len(rows) != len(corpus_entries):
+        raise SourceGlossaryAuditError("summary source/corpus entry count drift")
+    return rows
+
+
 def load_source_translations(root: Path = PROJECT_ROOT) -> list[SourceTranslation]:
-    return [*_story_rows(root), *_battle_rows(root)]
+    return [*_story_rows(root), *_battle_rows(root), *_summary_rows(root)]
 
 
 def audit_source_terms(
@@ -370,6 +436,13 @@ def _parse_args() -> argparse.Namespace:
         required=True,
         help="Glossary term ID to audit; repeat for more than one term.",
     )
+    parser.add_argument(
+        "--surface",
+        action="append",
+        choices=("story", "battle", "summary"),
+        default=[],
+        help="Limit the audit to one or more runtime text surfaces.",
+    )
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
     parser.add_argument("--fail-on-mismatch", action="store_true")
     return parser.parse_args()
@@ -384,7 +457,16 @@ def main() -> int:
     if missing:
         raise SystemExit(f"unknown glossary term IDs: {missing}")
     terms = [glossary[term_id] for term_id in dict.fromkeys(args.term_id)]
-    report = audit_source_terms(load_source_translations(), terms)
+    rows = load_source_translations()
+    if args.surface:
+        selected_surfaces = set(args.surface)
+        rows = [row for row in rows if row.surface in selected_surfaces]
+    report = audit_source_terms(rows, terms)
+    report["surfaces"] = (
+        sorted(set(args.surface))
+        if args.surface
+        else ["battle", "story", "summary"]
+    )
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n",

@@ -13,7 +13,9 @@ from tools.srwz.text import (
     encode_text,
     load_text_table,
     normalize_original_fullwidth_ascii,
+    normalize_two_byte_visible_spaces,
     original_fullwidth_ascii_overrides,
+    two_byte_visible_spaces,
     unrecognized_control_notation_offsets,
 )
 
@@ -187,6 +189,19 @@ class TextDecodeTests(unittest.TestCase):
             normalize_original_fullwidth_ascii("第１２话・ＺＡＦＴ"),
             "第12话・ZAFT",
         )
+
+    def test_visible_spaces_use_stock_two_byte_glyph_at_storage_boundary(self):
+        logical = "Anti Earth Union\nGovernment"
+        stored = two_byte_visible_spaces(logical)
+        self.assertEqual(stored, "Anti\u3000Earth\u3000Union\nGovernment")
+        self.assertEqual(normalize_two_byte_visible_spaces(stored), logical)
+        encoded = encode_text(
+            stored,
+            self.table,
+            overrides=original_fullwidth_ascii_overrides(self.table),
+        )
+        self.assertNotIn(b"\x20", encoded)
+        self.assertEqual(encoded.count(b"\x81\x40"), 2)
 
     def test_runtime_tokens_bypass_original_ascii_overrides(self):
         overrides = original_fullwidth_ascii_overrides(self.table)

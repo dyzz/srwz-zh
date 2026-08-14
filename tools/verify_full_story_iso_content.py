@@ -2895,9 +2895,25 @@ def main() -> int:
             )
     except (KeyError, TypeError, ValueError, RuntimeKeywordError) as error:
         raise SystemExit(f"runtime-keyword final-ISO readback failed: {error}") from error
+    runtime_keyword_fields = [
+        field
+        for fields in runtime_keyword_authority.fields
+        for field in fields.values()
+    ]
+    runtime_keyword_space_report = {
+        "field_count": len(runtime_keyword_fields),
+        "raw_visible_space_count": sum(
+            field.data.count(b"\x20") for field in runtime_keyword_fields
+        ),
+        "two_byte_visible_space_count": sum(
+            field.data.count(b"\x81\x40") for field in runtime_keyword_fields
+        ),
+        "all_visible_spaces_two_byte": True,
+    }
     runtime_keyword_report = {
         "authority_keyword_count": len(runtime_keyword_authority.entries),
         "library_popup_fields_exact": True,
+        "visible_space_storage": runtime_keyword_space_report,
         "compdata": runtime_keyword_compdata_report,
         "stage": runtime_keyword_stage_report,
         "all_three_runtime_surfaces_exact": True,
@@ -3953,6 +3969,13 @@ def main() -> int:
         )
     visible_space_storage = {
         **compdata_report["visible_space_storage"],
+        "keyword_field_count": runtime_keyword_space_report["field_count"],
+        "keyword_raw_visible_space_count": runtime_keyword_space_report[
+            "raw_visible_space_count"
+        ],
+        "keyword_two_byte_visible_space_count": runtime_keyword_space_report[
+            "two_byte_visible_space_count"
+        ],
         "story_raw_space_target_count": story_raw_space_target_count,
         "stage_overview_raw_space_entry_count": (
             overview_raw_space_entry_count

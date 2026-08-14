@@ -8311,9 +8311,9 @@ def build(
                     "compressed_chunks_fit_allocations"
                 ]
                 and world_map_title_report["codec_round_trip_exact"]
-                and terrain_name_report["unique_source_count"] == 15
-                and terrain_name_report["occurrence_count"] == 66
-                and terrain_name_report["changed_member_count"] == 10
+                and terrain_name_report["unique_source_count"] == 84
+                and terrain_name_report["occurrence_count"] == 475
+                and terrain_name_report["changed_member_count"] == 80
                 and terrain_name_report["fixed_decoded_spans_preserved"]
                 and terrain_name_report["archive_size_preserved"]
                 and terrain_name_report["offset_table_preserved"]

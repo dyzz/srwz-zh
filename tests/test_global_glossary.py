@@ -277,12 +277,59 @@ class GlobalGlossaryTests(unittest.TestCase):
         self.assertGreater(checked, 300)
         self.assertEqual(mismatches, [])
 
+    def test_world_history_scroll_matches_every_relevant_global_term(self) -> None:
+        summary = json.loads(
+            (ZH_CORPUS / "summary.json").read_text(encoding="utf-8")
+        )
+        formal_refs = {
+            term_id
+            for entry in summary["entries"]
+            for term_id in entry.get("glossary_refs", [])
+        }
+        term_ids = sorted(
+            str(term["id"])
+            for term in self.terms
+            if "summary" in term["domains"]
+            or term["id"] in formal_refs
+            or term["variant_scope"] == "global"
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            report_path = Path(temporary) / "summary-glossary-audit.json"
+            command = [
+                sys.executable,
+                str(ROOT / "tools/audit_source_bound_glossary.py"),
+                "--surface",
+                "summary",
+                "--report",
+                str(report_path),
+                "--fail-on-mismatch",
+            ]
+            for term_id in term_ids:
+                command.extend(("--term-id", term_id))
+            result = subprocess.run(
+                command,
+                cwd=ROOT,
+                env={**os.environ, "PYTHONPATH": str(ROOT / "tools")},
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(report["surfaces"], ["summary"])
+        self.assertEqual(report["source_occurrence_count"], 75)
+        self.assertEqual(report["mismatch_count"], 0)
+
     def test_selected_release_terms_have_one_canonical_form(self) -> None:
         expected = {
             "organization/emaan": "埃曼",
             "organization/gekkostate": "月光洲",
+            "organization/titans": "提坦斯",
+            "organization/aeug": "奥古",
             "activity/lifting": "滑空",
             "faction/aldébaran": "阿尔德巴朗",
+            "faction/gaizok": "盖佐克",
             "unit/g-shadow": "G战影",
             "unit/god-gravion": "神机超重神",
             "people/speaker-58574ffbd89b": "威兹",
@@ -314,6 +361,9 @@ class GlobalGlossaryTests(unittest.TestCase):
     def test_reported_names_match_every_japanese_source_occurrence(self) -> None:
         term_ids = [
             "organization/gekkostate",
+            "organization/titans",
+            "organization/aeug",
+            "faction/gaizok",
             "unit/freedom-gundam",
             "unit/freeden",
             "unit/strike-freedom-gundam",
@@ -350,6 +400,9 @@ class GlobalGlossaryTests(unittest.TestCase):
             report["source_occurrences"],
             {
                 "organization/gekkostate": 221,
+                "organization/titans": 218,
+                "organization/aeug": 253,
+                "faction/gaizok": 191,
                 "unit/freedom-gundam": 153,
                 "unit/freeden": 204,
                 "unit/strike-freedom-gundam": 2,
@@ -368,11 +421,11 @@ class GlobalGlossaryTests(unittest.TestCase):
             "concept/great-power": 95,
             "concept/taiji": 98,
             "technology/dimensional-boundary-line": 88,
-            "technology/spacetime-oscillation-bomb": 63,
+            "technology/spacetime-oscillation-bomb": 64,
             "technology/great-singularity": 97,
             "technology/singularity": 261,
-            "technology/dimensional-boundary": 39,
-            "system/un-network": 340,
+            "technology/dimensional-boundary": 42,
+            "system/un-network": 343,
         }
         with tempfile.TemporaryDirectory() as temporary:
             report_path = Path(temporary) / "original-setting-audit.json"

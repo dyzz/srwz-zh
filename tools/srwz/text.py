@@ -192,6 +192,27 @@ def normalize_original_fullwidth_ascii(text: str) -> str:
     )
 
 
+def two_byte_visible_spaces(text: str) -> str:
+    """Store visible word separators through the stock ``0x8140`` glyph.
+
+    Some SRWZ renderers consume visible glyphs as two-byte codes. A raw
+    one-byte ``0x20`` changes the byte pairing for every following glyph, so
+    ordinary corpus spaces must be converted only at the storage boundary.
+    """
+
+    if not isinstance(text, str):
+        raise TypeError("visible text must be a string")
+    return text.replace(" ", "\u3000")
+
+
+def normalize_two_byte_visible_spaces(text: str) -> str:
+    """Canonicalize stored ``0x8140`` spaces to corpus ASCII identity."""
+
+    if not isinstance(text, str):
+        raise TypeError("visible text must be a string")
+    return text.replace("\u3000", " ")
+
+
 def decode_text(
     data: bytes,
     offset: int,
@@ -566,7 +587,9 @@ __all__ = [
     "encode_text",
     "load_text_table",
     "normalize_original_fullwidth_ascii",
+    "normalize_two_byte_visible_spaces",
     "original_fullwidth_ascii_overrides",
     "project_runtime_text_table",
+    "two_byte_visible_spaces",
     "unrecognized_control_notation_offsets",
 ]

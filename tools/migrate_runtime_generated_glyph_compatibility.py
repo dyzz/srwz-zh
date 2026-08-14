@@ -76,9 +76,15 @@ def main() -> int:
             "producer": "keyword_popup_title_wrapper",
             "role": "closing_quote",
         },
+        {
+            "source_character": "±",
+            "code": "817D",
+            "producer": "formation_terrain_recovery_rate_formatter",
+            "role": "signed_zero_prefix",
+        },
     ]
     existing_literals = contract.get("literal_outputs", [])
-    if existing_literals not in ([], literal_outputs):
+    if existing_literals not in ([], literal_outputs[:-1], literal_outputs):
         raise SystemExit("runtime literal-output contract is inconsistent")
 
     base = _load(PROJECT_ROOT / config["base_font_config"]["path"])
@@ -90,6 +96,23 @@ def main() -> int:
     protected_characters = {
         row["source_character"] for row in protected_outputs
     }
+    formation_freeze_reference = config.get("formation_compatibility_freeze")
+    if not isinstance(formation_freeze_reference, dict):
+        raise SystemExit("formation compatibility freeze reference is missing")
+    formation_freeze_path = (
+        PROJECT_ROOT / formation_freeze_reference["path"]
+    )
+    formation_freeze = _load(formation_freeze_path)
+    frozen_rows = formation_freeze.get("relocations")
+    frozen_retired_aliases = formation_freeze.get("retired_aliases")
+    if not isinstance(frozen_rows, list) or not isinstance(
+        frozen_retired_aliases, list
+    ):
+        raise SystemExit("formation compatibility freeze is invalid")
+    frozen_characters = {
+        row["character"] for row in (*frozen_rows, *frozen_retired_aliases)
+    }
+    frozen_codes = {int(row["current_code"], 16) for row in frozen_rows}
     for row in literal_outputs:
         code = int(row["code"], 16)
         if table.characters.get(code) != row["source_character"]:
@@ -154,8 +177,10 @@ def main() -> int:
             row
             for row in aliases
             if int(row["code"], 16) not in protected_codes
+            and int(row["code"], 16) not in frozen_codes
             and row.get("source_character") not in protected_characters
             and row["character"] not in moved_characters
+            and row["character"] not in frozen_characters
         ),
         key=alias_priority,
     )[: len(primary_conflicts)]

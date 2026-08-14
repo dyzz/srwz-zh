@@ -30,6 +30,7 @@ from .text import (
     TextTable,
     decode_text,
     normalize_original_fullwidth_ascii,
+    normalize_two_byte_visible_spaces,
 )
 
 
@@ -188,8 +189,18 @@ def load_keyword_authority(
             raise RuntimeKeywordError(
                 f"translated KYWD field contract drift at slot {entry.entry_index}"
             )
+        raw_space_tags = tuple(
+            tag for tag, field in fields.items() if b"\x20" in field.data
+        )
+        if raw_space_tags:
+            raise RuntimeKeywordError(
+                "translated KYWD contains raw visible-space bytes at slot "
+                f"{entry.entry_index}: {','.join(raw_space_tags)}"
+            )
         if (
-            normalize_original_fullwidth_ascii(fields["WORD"].text or "")
+            normalize_two_byte_visible_spaces(
+                normalize_original_fullwidth_ascii(fields["WORD"].text or "")
+            )
             != entry.translation
         ):
             raise RuntimeKeywordError(
