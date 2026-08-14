@@ -58,6 +58,44 @@ class SourceBoundNameRegressionTests(unittest.TestCase):
                 )
                 self.assertEqual(report["mismatches"], [])
 
+    def test_gravion_terms_match_japanese_source_context(self) -> None:
+        by_id = {
+            term["id"]: term
+            for term in load_global_glossary(ROOT / "corpus/glossary")
+        }
+        term_ids = [
+            "episode/gravion-12",
+            "faction/zeravire",
+            "organization/gran-knights",
+            "people/speaker-389b01366661",
+            "technology/ergo-storm",
+            "unit/god-gravion",
+            "unit/god-sigma-gravion",
+            "unit/gran-diva",
+            "unit/proto-gran-diva",
+            "unit/sol-grandiva",
+            "unit/geo-calibur",
+            "unit/geo-stinger",
+            "unit/geo-javelin",
+            "unit/geo-mirage",
+            "unit/soldier-zeravire",
+            "unit/ultimate-gravion",
+            "weapon/0566",
+            "weapon/0570",
+            "weapon/0571",
+            "weapon/0572",
+            "weapon/0575",
+            "weapon/0578",
+            "weapon/0584",
+            "weapon/graviton-viper",
+        ]
+        report = audit_source_terms(
+            self.rows,
+            [by_id[term_id] for term_id in term_ids],
+        )
+        self.assertGreater(report["source_occurrence_count"], 0)
+        self.assertEqual(report["mismatches"], [])
+
     def test_longer_source_terms_shadow_short_kana_names(self) -> None:
         rows = [
             SourceTranslation("story", "ordinary", "ささやかな礼", "微薄谢礼", ()),
@@ -250,6 +288,43 @@ class SourceBoundNameRegressionTests(unittest.TestCase):
             sum(term["id"] in row.glossary_exceptions for row in bound_rows),
             99,
         )
+
+    def test_king_gainer_official_setting_terms_are_source_bound(self) -> None:
+        term_ids = {
+            "ability/overskill",
+            "event/exodus",
+            "organization/london-ima",
+            "organization/saint-regan",
+            "organization/siberian-railway",
+            "organization/siberian-railway-full",
+            "organization/siberian-railway-guard",
+            "organization/siberian-railway-guard-short",
+            "place/domepolis",
+            "place/yapans-ceiling",
+            "technology/photon-mat",
+            "technology/photon-mat-ring",
+            "unit/black-domi",
+            "unit/emperanza",
+            "unit/gachiko",
+            "unit/overdevil",
+            "unit/overman",
+            "unit/panther",
+            "unit/silhouette-engine",
+            "unit/silhouette-machine",
+            "unit/silhouette-mammoth",
+            "weapon/panther-shoot",
+        }
+        terms = [
+            term
+            for term in load_global_glossary(ROOT / "corpus/glossary")
+            if term["id"] in term_ids
+        ]
+        self.assertEqual({term["id"] for term in terms}, term_ids)
+
+        report = audit_source_terms(self.rows, terms)
+        self.assertEqual(report["mismatches"], [])
+        self.assertEqual(report["source_occurrence_count"], 1530)
+        self.assertTrue(all(report["source_occurrences"].values()))
 
     def test_all_approved_people_and_units_match_battle_source(self) -> None:
         terms = []

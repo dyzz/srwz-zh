@@ -721,13 +721,14 @@
     {
       "id": "story/043/dialogue/01.09/0002",
       "source_text_sha256": "5f41347f6984fb5bdb15550c38471dbb44eaa029c0301f0eb39cf6f0d66402ca",
-      "translation": "“久等了，盖纳。\n　这家伙就是我的新搭档，恩佩兰萨。”",
+      "translation": "“久等了，盖纳。\n　这家伙就是我的新搭档，安佩兰扎。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/gainer"
+        "people/gainer",
+        "unit/emperanza"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：unit/emperanza。"
     },
     {
       "id": "story/043/dialogue/01.09/0003",
@@ -5688,11 +5689,13 @@
     {
       "id": "story/043/dialogue/02.03/0006",
       "source_text_sha256": "1b42e159660389c9eb840301d90805acd86b33b8f14afd737d48fd169b14f270",
-      "translation": "“以后超限人和剪影机器\n　的整备都得由我来做了。”",
+      "translation": "“以后超限人和剪影机\n　的整备都得由我来做了。”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": "修正将オーバーマン缩译为普通词“超人”的问题。",
+      "glossary_refs": [
+        "unit/silhouette-machine"
+      ],
+      "notes": "修正将オーバーマン缩译为普通词“超人”的问题。按日文源词绑定统一全局术语：unit/silhouette-machine。",
       "glossary_exceptions": [
         "people/shinn"
       ]

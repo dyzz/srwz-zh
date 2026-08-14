@@ -74,7 +74,7 @@ class WeaponTranslationTests(unittest.TestCase):
             self.assertIn("menu", term["domains"])
             self.assertLessEqual(
                 set(term["domains"]),
-                {"menu", "battle", "story"},
+                {"menu", "battle", "library", "story"},
             )
             self.assertEqual(term["enforce"], len(term["domains"]) > 1)
 

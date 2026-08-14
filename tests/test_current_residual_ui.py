@@ -29,15 +29,21 @@ class CurrentResidualUiTests(unittest.TestCase):
     def test_fixed_slps_and_suspend_return_dialogue_are_locked(self):
         remaining = self.component["remaining_ui"]
         self.assertEqual(remaining["slps_context_ui"]["entry_count"], 414)
-        self.assertEqual(remaining["slps"]["entry_count"], 196)
+        self.assertEqual(remaining["slps"]["entry_count"], 197)
         fixed_slps = self.remaining_ui["slps_by_offset"]
         self.assertEqual(
             {
                 offset: fixed_slps[offset]
-                for offset in ("0x343DE8", "0x345EE8", "0x346990")
+                for offset in (
+                    "0x343DE8",
+                    "0x345EB8",
+                    "0x345EE8",
+                    "0x346990",
+                )
             },
             {
                 "0x343DE8": "强化零件",
+                "0x345EB8": "无变化",
                 "0x345EE8": "队长效果",
                 "0x346990": "队长效果",
             },

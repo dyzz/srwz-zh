@@ -7975,15 +7975,25 @@
     {
       "id": "weapon/0566",
       "source_terms": [
-        "グラヴィトンプレッシャーパンチ"
+        "グラヴィトンプレッシャーパンチ",
+        "グラヴィトン\\n　プレッシャーパンチ",
+        "グラヴィトンプレッシャァァァ"
       ],
       "translation": "超重压力拳",
+      "deprecated_translations": [
+        "重力子\\n　压力飞拳",
+        "重力子\\n　压力拳",
+        "重力子压力啊啊啊"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的《超重神 GRAVION》字幕；“超重压力拳”检出10次。"
     },
     {
@@ -7995,9 +8005,12 @@
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的《超重神 GRAVION》字幕；“超重飞弹”检出9次。"
     },
     {
@@ -8031,43 +8044,70 @@
     {
       "id": "weapon/0570",
       "source_terms": [
-        "グラヴィトントルネードパンチ"
+        "グラヴィトントルネードパンチ",
+        "グラヴィトン\\n　トルネードパンチ"
       ],
       "translation": "超重龙卷拳",
+      "deprecated_translations": [
+        "重力子\\n　龙卷飞拳"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的《超重神 GRAVION》字幕；对应喊名使用“超重龙卷拳”。"
     },
     {
       "id": "weapon/0571",
       "source_terms": [
-        "グラヴィトンアーク"
+        "グラヴィトンアーク",
+        "グラヴィトンアァァァァァック"
       ],
       "translation": "超重弧光",
+      "deprecated_translations": [
+        "重力子啊啊啊啊啊",
+        "重力子——攻击",
+        "重力子电——弧",
+        "超重子弧"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的《超重神 GRAVION》字幕；“超重弧光”检出13次。"
     },
     {
       "id": "weapon/0572",
       "source_terms": [
-        "グラヴィティクレッセント"
+        "グラヴィティクレッセント",
+        "グラヴィティ\\n　クレッセント",
+        "グラヴィティクレッセェェェント"
       ],
       "translation": "超重新月镖",
+      "deprecated_translations": [
+        "重力\\n　新月",
+        "重力新——月",
+        "重力新——月——"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的 POPGO/FREEWIND《超重神 GRAVION》字幕；“超重新月镖”检出18次。"
     },
     {
@@ -8079,9 +8119,12 @@
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《超重神GRAVION》武器名称首译；本轮人工审核已确认。"
     },
     {
@@ -8102,11 +8145,15 @@
       "id": "weapon/0575",
       "source_terms": [
         "ソルグラヴィトンクラッシャーパンチ",
-        "ソルグラヴィトンクラッシャー\\n　パンチ"
+        "ソルグラヴィトンクラッシャー\\n　パンチ",
+        "ソルグラヴィトン\\n　クラッシャーパンチ",
+        "ソルグラヴィトンクラッシャァァァ"
       ],
       "translation": "烈阳超重翔腕碎",
       "deprecated_translations": [
-        "Sol重力子粉碎\\n　飞拳"
+        "Sol重力子粉碎\\n　飞拳",
+        "Sol重力子\\n　粉碎飞拳",
+        "Sol重力子粉碎"
       ],
       "category": "weapon",
       "status": "approved",
@@ -8137,26 +8184,40 @@
         "ソルグラヴィトンキャノン"
       ],
       "translation": "烈阳超重加农",
+      "deprecated_translations": [
+        "烈阳超重加农炮"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的《超重神 GRAVION Zwei》第11集对应喊名。"
     },
     {
       "id": "weapon/0578",
       "source_terms": [
-        "ソルグラヴィトンブリンガー"
+        "ソルグラヴィトンブリンガー",
+        "ソルグラヴィトンブリンガァァァ"
       ],
       "translation": "烈阳超重使者",
+      "deprecated_translations": [
+        "烈阳超重冲击者",
+        "Sol重力子使者"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《超重神GRAVION》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“烈阳超重使者”。"
     },
     {
@@ -8201,9 +8262,12 @@
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的《超重神 GRAVION Zwei》字幕；“烈阳超重爆炎霸”检出12次。"
     },
     {
@@ -8229,9 +8293,12 @@
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《超重神GRAVION》武器名称首译；本轮人工审核已确认。"
     },
     {
@@ -8240,12 +8307,19 @@
         "グラヴィトンランサー"
       ],
       "translation": "超重骑枪",
+      "deprecated_translations": [
+        "重力长枪",
+        "Gran Σ骑枪"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的《超重神 GRAVION Zwei》第11集对应喊名。"
     },
     {
@@ -8257,9 +8331,12 @@
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "依据下载的《超重神 GRAVION Zwei》字幕；“重力放射镖”检出2次。"
     },
     {
@@ -8271,9 +8348,12 @@
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《超重神GRAVION》武器名称首译；本轮人工审核已确认。"
     },
     {
@@ -8296,12 +8376,18 @@
         "ライトニング・デトネイター"
       ],
       "translation": "闪电引爆",
+      "deprecated_translations": [
+        "闪电引爆者"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《超重神GRAVION》武器名称首译；本轮人工审核已确认。"
     },
     {

@@ -58,6 +58,8 @@ class BattleFormationUiTests(unittest.TestCase):
     def test_battle_formation_labels_are_localized_and_reread_exact(self):
         expected = {
             0x343DE8: ("強化パーツ", "强化零件"),
+            0x343C42: ("変化無し", "无变化"),
+            0x345EB8: ("変化無し", "无变化"),
             0x345EE8: ("隊長効果", "队长效果"),
             0x346398: ("無効", "无效"),
             0x346990: ("隊長効果", "队长效果"),

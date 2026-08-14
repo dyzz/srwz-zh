@@ -332,12 +332,12 @@ class ZhReleaseFontTests(unittest.TestCase):
             )
 
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
-        self.assertEqual(self.snapshot["primary_assignment_count"], 3422)
+        self.assertEqual(self.snapshot["primary_assignment_count"], 3423)
         self.assertEqual(
             self.snapshot["surface_alias_assignment_count"], 604
         )
         self.assertEqual(
-            self.snapshot["remaining_allocation_candidate_count"], 180
+            self.snapshot["remaining_allocation_candidate_count"], 179
         )
         compatibility = self.snapshot["source_compatibility_assignments"]
         compatibility_by_character = {
@@ -613,7 +613,7 @@ class ZhReleaseFontTests(unittest.TestCase):
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]
-        self.assertEqual(selection["unique_entry_count"], 125868)
+        self.assertEqual(selection["unique_entry_count"], 125869)
         source_paths = {item["path"] for item in selection["sources"]}
         self.assertIn("corpus/zh/battle/srvc-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/battle-lines.json", source_paths)

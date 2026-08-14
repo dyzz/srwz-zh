@@ -58,11 +58,16 @@
       ],
       "translation": "超重皇",
       "deprecated_translations": [
-        "重力凯撒"
+        "重力凯撒",
+        "格兰凯撒",
+        "Gran Kaiser"
       ],
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
@@ -74,13 +79,41 @@
         "グランディーヴァ"
       ],
       "translation": "超重机组",
+      "deprecated_translations": [
+        "格兰迪瓦",
+        "Gran Σ机"
+      ],
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "依据下载的 POPGO/FREEWIND 字幕统一为超重机组。"
+      "notes": "Good Smile Company《GRAVION》版权方中文专题页列出四架组成机；结合下载的 POPGO/FREEWIND 字幕，统一为“超重机组”。"
+    },
+    {
+      "id": "unit/proto-gran-diva",
+      "source_terms": [
+        "プロトグランディーヴァ"
+      ],
+      "translation": "原型超重机组",
+      "deprecated_translations": [
+        "原初大地女神",
+        "原型格兰迪瓦",
+        "原型迪瓦",
+        "Proto Grandiva"
+      ],
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "グランディーヴァ的原型人工生命体；沿用剧情中已稳定使用的“原型超重机组”，并与基础术语“超重机组”保持构词一致。"
     },
     {
       "id": "unit/g-shadow",
@@ -93,6 +126,9 @@
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
@@ -119,8 +155,11 @@
       ],
       "translation": "格兰骑士团",
       "category": "organization",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,

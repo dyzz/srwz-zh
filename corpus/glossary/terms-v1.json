@@ -433,15 +433,21 @@
         "ゼラバイア"
       ],
       "translation": "泽拉拜亚",
+      "deprecated_translations": [
+        "杰拉拜亚"
+      ],
+      "variant_scope": "source_bound",
       "category": "faction",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
-        "summary",
+        "battle",
+        "library",
         "menu",
+        "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "《超重神GRAVION》敌对势力；音译待人工确认。"
+      "notes": "《超重神GRAVION》敌对势力；与莉露·泽拉拜亚等既有正式译名统一为“泽拉拜亚”。"
     },
     {
       "id": "faction/elder",
@@ -933,17 +939,237 @@
     {
       "id": "technology/photon-mat",
       "source_terms": [
+        "フォトン・マット",
         "フォトンマット"
       ],
       "translation": "光子垫",
+      "deprecated_translations": [
+        "光子软垫"
+      ],
+      "variant_scope": "source_bound",
       "category": "technology",
       "status": "approved",
       "domains": [
+        "battle",
         "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《返乡战士》Photon Mat；暂按原词直译，另有“光子力场／光子护罩”等待审核异译。 本轮特殊能力审核确认。"
+      "notes": "《返乡战士》Photon Mat。作品官网定义为剪影机产生的可视化余能；沿用已审术语“光子垫”，并覆盖游戏中带、不带中点的两种日文写法。"
+    },
+    {
+      "id": "technology/photon-mat-ring",
+      "source_terms": [
+        "フォトン・マット・リング",
+        "フォトンマットリング"
+      ],
+      "translation": "光子垫环",
+      "category": "technology",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》官网定义：超限人的光子垫通常呈环状，因此称为光子垫环。"
+    },
+    {
+      "id": "place/domepolis",
+      "source_terms": [
+        "ドームポリス"
+      ],
+      "translation": "穹顶都市",
+      "deprecated_translations": [
+        "穹顶警察",
+        "穹顶警察局",
+        "穹顶城",
+        "圆顶都市",
+        "圆顶城市",
+        "圆顶城"
+      ],
+      "variant_scope": "source_bound",
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》官网定义为严酷自然环境中供人居住的巨大都市国家，并非警察机构；与地图和世界地图界面的既有译名统一为“穹顶都市”。"
+    },
+    {
+      "id": "unit/silhouette-machine",
+      "source_terms": [
+        "シルエット・マシン",
+        "シルエットマシン"
+      ],
+      "translation": "剪影机",
+      "deprecated_translations": [
+        "剪影机器",
+        "幻影机",
+        "幻影战机"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》的基础机械类别；作品官网将其与高性能子类“超限人”明确区分，统一为已审资料库用语“剪影机”。"
+    },
+    {
+      "id": "unit/silhouette-engine",
+      "source_terms": [
+        "シルエット・エンジン",
+        "シルエットエンジン"
+      ],
+      "translation": "剪影引擎",
+      "deprecated_translations": [
+        "轮廓引擎"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》官网说明这是剪影机的另一称法，源于机体形体本身兼具引擎作用；中文保留作品术语形式“剪影引擎”。"
+    },
+    {
+      "id": "unit/silhouette-mammoth",
+      "source_terms": [
+        "シルエット・マンモス",
+        "シルエットマンモス"
+      ],
+      "translation": "剪影猛犸",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》用于采掘、土木和牵引都市单元的大型剪影引擎；沿用现有剧情译名。"
+    },
+    {
+      "id": "organization/london-ima",
+      "source_terms": [
+        "ロンドン・イマ",
+        "ロンドンイマ",
+        "ロンドンＩＭＡ"
+      ],
+      "translation": "伦敦IMA",
+      "deprecated_translations": [
+        "伦敦·伊玛",
+        "伦敦伊玛"
+      ],
+      "variant_scope": "source_bound",
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》设于伦敦的国际监视机构；沿用已审资料库的机构缩写形式“伦敦IMA”。"
+    },
+    {
+      "id": "organization/saint-regan",
+      "source_terms": [
+        "セント・レーガン"
+      ],
+      "translation": "圣雷根",
+      "deprecated_translations": [
+        "圣·雷根",
+        "圣雷加",
+        "圣雷冈",
+        "圣雷甘"
+      ],
+      "variant_scope": "source_bound",
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》伦敦IMA直属的特殊警察机构；与菜单和已审资料库统一为“圣雷根”。"
+    },
+    {
+      "id": "organization/siberian-railway-full",
+      "source_terms": [
+        "シベリア鉄道"
+      ],
+      "translation": "西伯利亚铁路",
+      "deprecated_translations": [
+        "西伯利亚铁道"
+      ],
+      "variant_scope": "source_bound",
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》西伯利亚铁路公社；全称与菜单、地图及已审术语统一为“西伯利亚铁路”，简称另用“西伯铁”。"
+    },
+    {
+      "id": "organization/siberian-railway-guard",
+      "source_terms": [
+        "シベリア鉄道警備隊"
+      ],
+      "translation": "西伯利亚铁路警备队",
+      "deprecated_translations": [
+        "西伯利亚铁道警备队",
+        "西伯铁警备队"
+      ],
+      "variant_scope": "source_bound",
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》铁道王基兹·蒙特的私设警备队；全称与项目既定“西伯利亚铁路”统一。"
+    },
+    {
+      "id": "organization/siberian-railway-guard-short",
+      "source_terms": [
+        "シベ鉄警備隊"
+      ],
+      "translation": "西伯铁警备队",
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "“西伯利亚铁路警备队”的日文简称；中文相应使用“西伯铁警备队”。"
     },
     {
       "id": "system/un-network",
@@ -2111,6 +2337,7 @@
       "translation": "终极超重神",
       "deprecated_translations": [
         "Ultimate Gravion",
+        "终极Gran Σ神",
         "终极重力王"
       ],
       "category": "unit",
@@ -2164,11 +2391,17 @@
       ],
       "translation": "神机超重神",
       "deprecated_translations": [
+        "神机Gran Σ神",
+        "神Gran Σ神",
+        "神格拉维昂",
+        "神重力王",
         "神机重力王"
       ],
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
         "story"
       ],
@@ -2183,11 +2416,15 @@
       ],
       "translation": "超重神西格玛",
       "deprecated_translations": [
+        "神机Σ超重神",
+        "神Σ格拉维翁",
         "太阳Σ重力王"
       ],
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
         "story"
       ],
@@ -2204,6 +2441,8 @@
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
         "story"
       ],
@@ -2220,6 +2459,8 @@
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
         "story"
       ],
@@ -2236,6 +2477,8 @@
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
         "story"
       ],
@@ -2249,12 +2492,11 @@
         "グラン═"
       ],
       "translation": "Gran Σ",
-      "deprecated_translations": [
-        "超重"
-      ],
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
         "story"
       ],
@@ -2275,6 +2517,110 @@
       ],
       "enforce": true,
       "notes": "沿用用户定稿；字幕中的 Overman 仅作作品内类别识别，不覆盖中文规范名。"
+    },
+    {
+      "id": "unit/emperanza",
+      "source_terms": [
+        "エンペランザ"
+      ],
+      "translation": "安佩兰扎",
+      "deprecated_translations": [
+        "恩佩兰萨"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》该隐的超限人；与用户已审机体显示名统一。"
+    },
+    {
+      "id": "unit/gachiko",
+      "source_terms": [
+        "ガチコ"
+      ],
+      "translation": "加奇科",
+      "deprecated_translations": [
+        "硬家伙"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》该隐使用的剪影机；与用户已审机体显示名统一，避免按日语普通词义误译。"
+    },
+    {
+      "id": "unit/panther",
+      "source_terms": [
+        "パンサー"
+      ],
+      "translation": "豹式",
+      "deprecated_translations": [
+        "黑豹"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》高利队使用的剪影机；与用户已审机体显示名统一。"
+    },
+    {
+      "id": "unit/black-domi",
+      "source_terms": [
+        "ブラック・ドミ"
+      ],
+      "translation": "多米尼达-黑",
+      "deprecated_translations": [
+        "黑方多米"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》多米尼达的简化型；与用户已审机体显示名统一。"
+    },
+    {
+      "id": "weapon/panther-shoot",
+      "source_terms": [
+        "パンサーシュート"
+      ],
+      "translation": "豹式射门",
+      "deprecated_translations": [
+        "黑豹射门"
+      ],
+      "variant_scope": "source_bound",
+      "category": "weapon",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《返乡战士》豹式的攻击名；机体名部分与已审显示名统一。"
     },
     {
       "id": "unit/under-golem",
