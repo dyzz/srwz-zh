@@ -1,0 +1,65 @@
+- generic [active] [ref=e1]:
+  - navigation "攻略页面" [ref=e2]:
+    - link "流程图" [ref=e3] [cursor=pointer]:
+      - /url: "#flow"
+    - link "隐藏要素" [ref=e4] [cursor=pointer]:
+      - /url: "#hidden-elements"
+    - link "周目继承" [ref=e5] [cursor=pointer]:
+      - /url: "#carryover"
+    - link "改造继承" [ref=e6] [cursor=pointer]:
+      - /url: "#upgrade-carryover"
+    - link "全改造奖励" [ref=e7] [cursor=pointer]:
+      - /url: "#full-upgrade-bonus"
+  - main [ref=e8]:
+    - generic [ref=e3187]:
+      - generic [ref=e3188]:
+        - heading "通用全改造奖励" [level=2] [ref=e3189]
+        - list [ref=e3190]:
+          - listitem [ref=e3191]:
+            - generic [ref=e3192]: "01"
+            - strong [ref=e3193]: 最大HP+10%
+          - listitem [ref=e3194]:
+            - generic [ref=e3195]: "02"
+            - strong [ref=e3196]: 最大EN+10%
+          - listitem [ref=e3197]:
+            - generic [ref=e3198]: "03"
+            - strong [ref=e3199]: 运动性+10%
+          - listitem [ref=e3200]:
+            - generic [ref=e3201]: "04"
+            - strong [ref=e3202]: 瞄准值+10%
+          - listitem [ref=e3203]:
+            - generic [ref=e3204]: "05"
+            - strong [ref=e3205]: 装甲值+10%
+          - listitem [ref=e3206]:
+            - generic [ref=e3207]: "06"
+            - strong [ref=e3208]: 移动力+1
+          - listitem [ref=e3209]:
+            - generic [ref=e3210]: "07"
+            - strong [ref=e3211]: 获得干扰功能
+          - listitem [ref=e3212]:
+            - generic [ref=e3213]: "08"
+            - strong [ref=e3214]: 机体与武器地形适应【空】变为S
+          - listitem [ref=e3215]:
+            - generic [ref=e3216]: "09"
+            - strong [ref=e3217]: 机体与武器地形适应【陆】变为S
+          - listitem [ref=e3218]:
+            - generic [ref=e3219]: "10"
+            - strong [ref=e3220]: 机体与武器地形适应【海】变为S
+          - listitem [ref=e3221]:
+            - generic [ref=e3222]: "11"
+            - strong [ref=e3223]: 机体与武器地形适应【宇】变为S
+          - listitem [ref=e3224]:
+            - generic [ref=e3225]: "12"
+            - strong [ref=e3226]: 屏障／装甲类能力的EN消耗变为0
+          - listitem [ref=e3227]:
+            - generic [ref=e3228]: "13"
+            - strong [ref=e3229]: 武器射程+1（射程1与MAP武器除外）
+          - listitem [ref=e3230]:
+            - generic [ref=e3231]: "14"
+            - strong [ref=e3232]: 武器CT修正+10%
+      - generic [ref=e3233]:
+        - heading "选择规则" [level=2] [ref=e3234]
+        - list [ref=e3235]:
+          - listitem [ref=e3236]: 机体五项能力全部改满后可选择一项机体全改造奖励；武器改造不计入解锁条件。
+          - listitem [ref=e3237]: 可以暂缓选择；再次进入改造画面时仍可决定。剧情换机继承后不能重新选择。
+          - listitem [ref=e3238]: SPECIAL模式开放15段改造，但全改造奖励仍按完整改满机体能力后取得。

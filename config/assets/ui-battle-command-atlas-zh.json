@@ -2,6 +2,29 @@
   "schema_version": 1,
   "profile_id": "ui-battle-command-atlas-zh",
   "scope": "A deterministic Chinese replacement of the COMMAND MENU locator inside the locked KVMDATA chunk 4 mapping mask. Static construction does not prove which runtime battle pages consume this atlas.",
+  "indexed_text_layer_profiles": {
+    "source-text": {
+      "outline": [
+        {"rgba": "101010ff", "palette_index": 1},
+        {"rgba": "202020ff", "palette_index": 2},
+        {"rgba": "303030ff", "palette_index": 3},
+        {"rgba": "404040ff", "palette_index": 4},
+        {"rgba": "505050ff", "palette_index": 5},
+        {"rgba": "606060ff", "palette_index": 6},
+        {"rgba": "707070ff", "palette_index": 7}
+      ],
+      "fill": [
+        {"rgba": "000000ff", "palette_index": 8},
+        {"rgba": "101010ff", "palette_index": 9},
+        {"rgba": "202020ff", "palette_index": 10},
+        {"rgba": "303030ff", "palette_index": 11},
+        {"rgba": "404040ff", "palette_index": 12},
+        {"rgba": "505050ff", "palette_index": 13},
+        {"rgba": "686868ff", "palette_index": 14},
+        {"rgba": "787878ff", "palette_index": 15}
+      ]
+    }
+  },
   "base_mapping": {
     "config": "config/assets/maps/tim2-kvm4-battle-command.json",
     "config_sha256": "56d627463f79a97110f678cc8fb446cc836ad8e202e0f4e6347a9b731c46acba",
@@ -18,6 +41,8 @@
     "operation": "replace_erased_locator_with_text"
   },
   "localized_label": {
+    "source_element_id": "command-menu-164x17",
+    "source_element_rgba_sha256": "139d00a1f7d711aab1699301eece440d6c43de68fcd6492483b413fd41a1c5a7",
     "translation_source": {
       "path": "corpus/zh/ui-atlas/core-menus-v1.json",
       "sha256": "6ac311a4239fe2d57d46c69954158c67bf27ef69eef0393ec7e0401a6e6748ab",
@@ -41,13 +66,14 @@
         "686868ff",
         "707070ff",
         "787878ff"
-      ]
+      ],
+      "indexed_layer_profile": "source-text"
     }
   },
   "render_snapshot": {
     "path": "config/assets/ui-battle-command-atlas-render-snapshot.json",
-    "size": 37209,
-    "sha256": "9e700bb289ea78cd8828719bf356805a841be9d8f109dd74a354f858786805ac"
+    "size": 38111,
+    "sha256": "337053215df45dd3179cc9592fc8bbf2454b0ee14f81145e715e20a0efe00930"
   },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 4 supplies the tactical command-menu locator and that the localized label renders at the intended position.",
@@ -76,20 +102,20 @@
       "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
     },
     "localized_png": {
-      "size": 26530,
-      "sha256": "366b05f8837e943a601e59460dfa12241ea9f22ca77352d4f6262a9cbdd5dbbe"
+      "size": 26533,
+      "sha256": "617e5ea7f7b31db06e09d59d0dfb6caa7e23750492a26f9d7d47473cbd469518"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "68fafca4b120667b15514a48a4999affc2799438540e2998a037dea48dbb5bdc"
+      "sha256": "ad2de747bc59a1d80b863e568273ca72cc3a4c5f99fd60b2b9d5b55531b631cb"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "67a1c87141473b1f29b7be6eab83cd4108322017f03daa31388954d2f8af8094"
+      "sha256": "c07e26085e60548c10ddd8fe608c2213b1f2c371d251a880872318104cca45c5"
     },
     "added_pixel_count": 554,
-    "original_changed_pixel_count": 2332,
-    "original_changed_pixel_indexes_sha256": "833fcc17c0ce6f44c8d68ac31f225effba564c2a62e2e1df09c5d81e1c68e24a",
+    "original_changed_pixel_count": 2343,
+    "original_changed_pixel_indexes_sha256": "4cc6f39ecfcf4e7b1c4630ba7edd36377fa21564e18afaf04455a5ec753ca66c",
     "changed_archive_byte_count": 306,
     "changed_archive_range_count": 56
   },

@@ -370,7 +370,7 @@ def build_ui_atlas_suite(
         "runtime": {
             "status": "not_tested",
             "purpose": (
-                "Exercise all five localized atlas candidates in one test image "
+                "Exercise all six localized atlas candidates in one test image "
                 "after isolated mapping evidence remains available."
             ),
             "isolated_mapping_profiles_remain_required": True,

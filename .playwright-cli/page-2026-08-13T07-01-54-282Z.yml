@@ -1,0 +1,66 @@
+- generic [active] [ref=e1]:
+  - navigation "攻略页面" [ref=e2]:
+    - link "流程图" [ref=e3] [cursor=pointer]:
+      - /url: "#flow"
+    - link "隐藏要素" [ref=e4] [cursor=pointer]:
+      - /url: "#hidden-elements"
+    - link "周目继承" [ref=e5] [cursor=pointer]:
+      - /url: "#carryover"
+    - link "改造继承" [ref=e6] [cursor=pointer]:
+      - /url: "#upgrade-carryover"
+    - link "全改造奖励" [ref=e7] [cursor=pointer]:
+      - /url: "#full-upgrade-bonus"
+  - main [ref=e8]:
+    - generic [ref=e2946]:
+      - generic [ref=e2947]:
+        - heading "继承比例" [level=2] [ref=e2948]
+        - generic [ref=e2949]:
+          - generic [ref=e2950]:
+            - strong [ref=e2951]: 50%
+            - generic [ref=e2952]: 二周目
+          - generic [ref=e2953]:
+            - strong [ref=e2954]: 75%
+            - generic [ref=e2955]: 三周目
+          - generic [ref=e2956]:
+            - strong [ref=e2957]: 100%
+            - generic [ref=e2958]: 四周目起
+      - generic [ref=e2959]:
+        - heading "继承范围" [level=2] [ref=e2960]
+        - list [ref=e2961]:
+          - listitem [ref=e2962]:
+            - strong [ref=e2963]: 击坠数
+            - generic [ref=e2964]: 所有驾驶员的累计击坠数全部继承。
+          - listitem [ref=e2965]:
+            - strong [ref=e2966]: 资金／BS／PP
+            - generic [ref=e2967]: 按当前周目比例继承；机体与武器的改造投入计入结算，不用在最终话前主动退款。
+          - listitem [ref=e2968]:
+            - strong [ref=e2969]: 机体状态
+            - generic [ref=e2970]: 机体、武器改造段数不会原样带入下一周目，需用继承资金重新改造。
+          - listitem [ref=e2971]:
+            - strong [ref=e2972]: 隐藏要素
+            - generic [ref=e2973]: 隐藏人物、机体、武器、强化零件及点数条件按新周目重新判定。累计击坠数门槛会直接受继承值帮助。
+          - listitem [ref=e2974]:
+            - strong [ref=e2975]: 路线选择
+            - generic [ref=e2976]: 二周目起，第47话后的ZEUTH／ZAFT路线可以直接选择。
+      - generic [ref=e2977]:
+        - heading "通关模式" [level=2] [ref=e2978]
+        - generic [ref=e2979]:
+          - article [ref=e2980]:
+            - generic [ref=e2981]:
+              - heading "EX-HARD" [level=3] [ref=e2982]
+              - generic [ref=e2983]: 任一路线通关一次
+            - paragraph [ref=e2984]: 机体和武器无法改造、驾驶员无法培养、强化零件无法购买；敌方单位带改造，难度固定为HARD。
+          - article [ref=e2985]:
+            - generic [ref=e2986]:
+              - heading "SPECIAL" [level=3] [ref=e2987]
+              - generic [ref=e2988]: 节子与兰德两位主人公剧情均通关
+            - paragraph [ref=e2989]: 机体和武器开放15段改造；开始游戏时持有全套强化零件。
+      - generic [ref=e2990]:
+        - heading "容易弄错的规则" [level=2] [ref=e2991]
+        - list [ref=e2992]:
+          - listitem [ref=e2993]: 兰顿与优莱卡、莎拉·泰瑞尔等剧情换位驾驶员存在PP／击坠数接管规则，以流程卡中的换位说明为准。
+          - listitem [ref=e2994]: 亚历克斯与阿斯兰按不同驾驶员数据计算，两者的击坠数与PP不会互相转移。
+      - complementary [ref=e2995]:
+        - generic [ref=e2996]: Akurasu 资料差异
+        - list [ref=e2997]:
+          - listitem [ref=e2998]: Akurasu 的 Clear Bonuses 页目前把首次通关后的比例写成25%；游戏内通关说明明确显示二周目50%、三周目75%、四周目起100%，本页采用游戏内数值。

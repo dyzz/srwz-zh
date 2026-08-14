@@ -20,9 +20,12 @@ from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offset
 from srwz.stage import parse_stage, read_stage_function_addresses
 from srwz.story_quotes import evaluate_story_quote
 from srwz.text import (
+    decode_text,
+    encode_text,
     load_text_table,
     normalize_original_fullwidth_ascii,
     original_fullwidth_ascii_overrides,
+    project_runtime_text_table,
 )
 from srwz.writeback import rebuild_aligned_archive
 from srwz.writers import (
@@ -248,6 +251,290 @@ def _speaker_translations(path: Path, stages: set[int]) -> dict[int, dict[int, s
     return result
 
 
+def _load_story_tickers(
+    reference: Mapping[str, object],
+) -> tuple[Path, dict[str, dict]]:
+    path = _project_path(str(reference.get("path", "")))
+    if (
+        not path.is_file()
+        or path.stat().st_size != reference.get("size")
+        or _sha256(path) != reference.get("sha256")
+    ):
+        raise SystemExit("story ticker corpus size or SHA-256 drift")
+    document = _json(path)
+    entries = document.get("entries")
+    if (
+        document.get("batch_id") != "v1-story-tickers"
+        or not isinstance(entries, list)
+        or len(entries) != reference.get("expected_entry_count")
+    ):
+        raise SystemExit("story ticker corpus identity or entry count drift")
+
+    inventory = document.get("inventory")
+    if inventory != {
+        "selection_authority": "structural_stage_scan",
+        "decoded_alignment": 4,
+        "prefix_ff_bytes": 6,
+        "prefix_zero_bytes": 4,
+        "slot_allocation_size": 140,
+    }:
+        raise SystemExit("story ticker inventory contract is invalid")
+
+    by_source: dict[str, dict] = {}
+    for entry in entries:
+        if not isinstance(entry, dict):
+            raise SystemExit("story ticker entry is malformed")
+        entry_id = entry.get("id")
+        source_text = entry.get("source_text")
+        translation = entry.get("translation")
+        glossary_refs = entry.get("glossary_refs")
+        if (
+            not isinstance(entry_id, str)
+            or not entry_id
+            or not isinstance(source_text, str)
+            or not source_text
+            or entry.get("source_text_sha256")
+            != sha256_bytes(source_text.encode("utf-8"))
+            or not isinstance(translation, str)
+            or not translation
+            or entry.get("editorial_status") != "reviewed"
+            or not isinstance(glossary_refs, list)
+            or not glossary_refs
+            or any(not isinstance(item, str) or not item for item in glossary_refs)
+            or "targets" in entry
+        ):
+            raise SystemExit(f"story ticker decision is invalid: {entry_id!r}")
+        if source_text in by_source:
+            raise SystemExit(f"duplicate story ticker source: {source_text!r}")
+        normalized_source = normalize_original_fullwidth_ascii(source_text)
+        normalized_translation = normalize_original_fullwidth_ascii(translation)
+        source_ascii = Counter(re.findall(r"[A-Za-z0-9]+", normalized_source))
+        translated_ascii = Counter(
+            re.findall(r"[A-Za-z0-9]+", normalized_translation)
+        )
+        if any(translated_ascii[token] < count for token, count in source_ascii.items()):
+            raise SystemExit(
+                f"story ticker visible Latin/digit drift: {entry_id!r}"
+            )
+        by_source[source_text] = {
+            "entry_id": entry_id,
+            "source_text": source_text,
+            "source_text_sha256": entry["source_text_sha256"],
+            "translation": normalized_translation,
+        }
+    return path, by_source
+
+
+def _discover_story_tickers(
+    source_chunks: list[bytes],
+    table,
+    entries_by_source: Mapping[str, dict],
+    reference: Mapping[str, object],
+) -> tuple[dict[int, list[dict]], dict]:
+    """Discover every fixed 140-byte bazaar ticker slot in STAGE.BIN.
+
+    The ticker is not part of the ordinary dialogue pointer graph.  Each
+    occurrence is nevertheless identified by a stable decoded layout: a
+    four-byte-aligned string follows six 0xFF bytes and four zero bytes, and
+    its NUL-terminated payload plus zero padding occupies exactly 140 bytes.
+    Scan the full archive so ticker-only stage chunks cannot escape coverage.
+    """
+
+    by_stage: dict[int, list[dict]] = {}
+    inventory = []
+    unknown_sources = set()
+    allocation_size = 140
+    japanese = re.compile(r"[\u3040-\u30ff\u3400-\u9fff]")
+    for stage_index, source_chunk in enumerate(source_chunks):
+        data = decode(source_chunk).output
+        for offset in range(12, len(data), 4):
+            if (
+                data[offset - 4 : offset] != b"\0" * 4
+                or offset + allocation_size > len(data)
+            ):
+                continue
+            try:
+                source = decode_text(
+                    data,
+                    offset,
+                    table,
+                    end=offset + allocation_size,
+                )
+            except Exception:
+                continue
+            if (
+                source.terminator != "nul"
+                or source.unknown_code_count
+                or not japanese.search(source.text)
+                or any(data[source.end : offset + allocation_size])
+                or (
+                    offset + allocation_size < len(data)
+                    and data[offset + allocation_size] == 0
+                )
+                or data[offset - 12 : offset - 4].count(0xFF) < 4
+            ):
+                continue
+            if data[offset - 10 : offset - 4] != b"\xFF" * 6:
+                raise SystemExit(
+                    "story ticker candidate has an unknown prefix layout: "
+                    f"stage={stage_index} offset=0x{offset:X}"
+                )
+            entry = entries_by_source.get(source.text)
+            if entry is None:
+                unknown_sources.add(source.text)
+                continue
+            target = {
+                **entry,
+                "decoded_offset": offset,
+                "source_slot_size": source.consumed,
+            }
+            by_stage.setdefault(stage_index, []).append(target)
+            inventory.append(
+                {
+                    "stage_index": stage_index,
+                    "decoded_offset": offset,
+                    "source_slot_size": source.consumed,
+                    "source_text_sha256": entry["source_text_sha256"],
+                }
+            )
+    if unknown_sources:
+        raise SystemExit(
+            "unregistered structural story ticker sources: "
+            + repr(sorted(unknown_sources))
+        )
+    discovered_sources = {
+        target["source_text"]
+        for targets in by_stage.values()
+        for target in targets
+    }
+    missing_sources = sorted(set(entries_by_source) - discovered_sources)
+    inventory.sort(key=lambda item: (item["stage_index"], item["decoded_offset"]))
+    inventory_sha256 = sha256_bytes(
+        json.dumps(
+            inventory,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+    if (
+        missing_sources
+        or len(discovered_sources) != reference.get("expected_entry_count")
+        or len(inventory) != reference.get("expected_target_count")
+        or len(by_stage) != reference.get("expected_stage_count")
+        or inventory_sha256 != reference.get("expected_inventory_sha256")
+        or any(len(targets) != 1 for targets in by_stage.values())
+    ):
+        raise SystemExit(
+            "story ticker structural inventory drift: "
+            f"entries={len(discovered_sources)} targets={len(inventory)} "
+            f"stages={len(by_stage)} missing={missing_sources} "
+            f"sha256={inventory_sha256}"
+        )
+    return by_stage, {
+        "entry_count": len(discovered_sources),
+        "target_count": len(inventory),
+        "stage_count": len(by_stage),
+        "stage_indices": sorted(by_stage),
+        "inventory_sha256": inventory_sha256,
+        "structural_slots_exact": True,
+    }
+
+
+def _write_story_tickers(
+    data: bytes,
+    table,
+    *,
+    stage_index: int,
+    targets: list[dict],
+    overrides: Mapping[str, int],
+) -> tuple[bytes, dict]:
+    if not targets:
+        return data, {
+            "story_ticker_count": 0,
+            "story_ticker_changed_byte_count": 0,
+            "story_ticker_source_hashes": [],
+            "story_ticker_fixed_slots_exact": True,
+            "story_ticker_translated_reread_exact": True,
+        }
+
+    runtime_table = project_runtime_text_table(table, overrides)
+    output = bytearray(data)
+    owned_indexes = set()
+    readbacks = []
+    source_hashes = set()
+    for target in targets:
+        offset = target["decoded_offset"]
+        slot_size = target["source_slot_size"]
+        end = offset + slot_size
+        if end > len(data):
+            raise SystemExit(
+                f"story ticker slot exceeds stage {stage_index} decoded data"
+            )
+        source = decode_text(data, offset, table, end=end)
+        if (
+            source.terminator != "nul"
+            or source.end != end
+            or source.text != target["source_text"]
+            or sha256_bytes(source.text.encode("utf-8"))
+            != target["source_text_sha256"]
+        ):
+            raise SystemExit(
+                f"story ticker source preimage drift: "
+                f"{target['entry_id']} stage={stage_index} offset=0x{offset:X}"
+            )
+        payload = encode_text(
+            target["translation"],
+            table,
+            overrides=overrides,
+            terminate=True,
+        )
+        if len(payload) > slot_size:
+            raise SystemExit(
+                f"story ticker replacement exceeds fixed slot: "
+                f"{target['entry_id']} encoded={len(payload)} slot={slot_size}"
+            )
+        current_indexes = set(range(offset, end))
+        if current_indexes & owned_indexes:
+            raise SystemExit("story ticker fixed slots overlap")
+        owned_indexes.update(current_indexes)
+        output[offset:end] = payload + bytes(slot_size - len(payload))
+        readbacks.append((target, len(payload)))
+        source_hashes.add(target["source_text_sha256"])
+
+    rebuilt = bytes(output)
+    if any(
+        before != after and index not in owned_indexes
+        for index, (before, after) in enumerate(zip(data, rebuilt))
+    ):
+        raise SystemExit("story ticker write escaped its fixed slots")
+    for target, payload_size in readbacks:
+        reread = decode_text(
+            rebuilt,
+            target["decoded_offset"],
+            runtime_table,
+            end=target["decoded_offset"] + payload_size,
+        )
+        if (
+            reread.terminator != "nul"
+            or reread.end != target["decoded_offset"] + payload_size
+            or reread.text != target["translation"]
+        ):
+            raise SystemExit(
+                f"story ticker translated reread mismatch: "
+                f"{target['entry_id']} stage={stage_index}"
+            )
+    return rebuilt, {
+        "story_ticker_count": len(targets),
+        "story_ticker_changed_byte_count": sum(
+            before != after for before, after in zip(data, rebuilt)
+        ),
+        "story_ticker_source_hashes": sorted(source_hashes),
+        "story_ticker_fixed_slots_exact": True,
+        "story_ticker_translated_reread_exact": True,
+    }
+
+
 def _load_overrides(
     proposal_path: Path,
     allocation_registry_path: Path,
@@ -324,6 +611,9 @@ def build(
     stages = set(stage_files)
     conditions_path = _project_path(translations["conditions"])
     speakers_path = _project_path(translations["speakers"])
+    tickers_path, ticker_entries_by_source = _load_story_tickers(
+        translations["tickers"]
+    )
     conditions = _entry_translations(conditions_path, stages)
     speakers = _speaker_translations(speakers_path, stages)
     dialogue = {
@@ -331,7 +621,6 @@ def build(
         for stage, path in stage_files.items()
     }
     keyword_catalog = _runtime_keyword_catalog(translations["runtime_keywords"])
-
     font = config["font"]
     proposal_path = _project_path(font["proposal"])
     allocation_path = _project_path(font["allocation_registry"])
@@ -370,6 +659,12 @@ def build(
         source_stage[offsets[index] : offsets[index + 1]]
         for index in range(len(offsets) - 1)
     ]
+    tickers_by_stage, ticker_inventory = _discover_story_tickers(
+        source_chunks,
+        table,
+        ticker_entries_by_source,
+        translations["tickers"],
+    )
     missing = []
     for stage_index in sorted(set(range(len(source_chunks))) - stages):
         source_output = decode(source_chunks[stage_index]).output
@@ -451,6 +746,13 @@ def build(
             speaker_replacements=speakers[stage],
             overrides=overrides,
         )
+        stage_data, ticker_report = _write_story_tickers(
+            write.data,
+            table,
+            stage_index=stage,
+            targets=tickers_by_stage.get(stage, []),
+            overrides=overrides,
+        )
         if write.source_dialogue_count <= 0:
             raise SystemExit(
                 "story corpus includes a STAGE without source dialogue: "
@@ -458,7 +760,7 @@ def build(
             )
         encoded = reencode_changed_suffix(
             source_chunks[stage],
-            write.data,
+            stage_data,
             strategy="rust-fit",
             min_match_length=codec["min_match_length"],
             max_match_chain=codec["max_match_chain"],
@@ -469,6 +771,7 @@ def build(
         output_chunk = encoded + bytes(len(source_chunks[stage]) - len(encoded))
         return stage, output_chunk, {
             **write.to_metadata(),
+            **ticker_report,
             "dialogue_count": len(dialogue[stage]),
             "condition_count": len(stage_conditions),
             "speaker_count": len(speakers[stage]),
@@ -495,6 +798,40 @@ def build(
             "translated_reread_exact": True,
         }
 
+    def build_ticker_only_stage(stage: int) -> tuple[int, bytes, dict]:
+        decoded = decode(source_chunks[stage])
+        stage_data, ticker_report = _write_story_tickers(
+            decoded.output,
+            table,
+            stage_index=stage,
+            targets=tickers_by_stage[stage],
+            overrides=overrides,
+        )
+        encoded = reencode_changed_suffix(
+            source_chunks[stage],
+            stage_data,
+            strategy="rust-fit",
+            min_match_length=codec["min_match_length"],
+            max_match_chain=codec["max_match_chain"],
+            lazy_matching=False,
+            max_output_size=len(source_chunks[stage]),
+            original_result=decoded,
+        )
+        output_chunk = encoded + bytes(len(source_chunks[stage]) - len(encoded))
+        return stage, output_chunk, {
+            **ticker_report,
+            "stage_index": stage,
+            "source_encoded_size": decoded.consumed,
+            "output_encoded_size": len(encoded),
+            "source_chunk_size": len(source_chunks[stage]),
+            "output_chunk_size": len(output_chunk),
+            "chunk_span_preserved": True,
+            "output_encoded_sha256": sha256_bytes(encoded),
+            "codec_strategy": "rust-fit",
+            "codec_round_trip_exact": True,
+            "translated_reread_exact": True,
+        }
+
     ordered_stages = sorted(stages)
     if workers == 1:
         built_stages = map(build_stage, ordered_stages)
@@ -515,6 +852,12 @@ def build(
         if executor is not None:
             executor.shutdown(wait=True, cancel_futures=True)
 
+    ticker_only_stage_reports = []
+    for stage in sorted(set(tickers_by_stage) - stages):
+        stage, output_chunk, stage_report = build_ticker_only_stage(stage)
+        output_chunks[stage] = output_chunk
+        ticker_only_stage_reports.append(stage_report)
+
     runtime_keyword_link_count = sum(
         item["runtime_keyword_link_count"] for item in stage_reports
     )
@@ -525,6 +868,28 @@ def build(
             for source_hash in item["runtime_keyword_source_hashes"]
         }
     )
+    all_ticker_reports = [*stage_reports, *ticker_only_stage_reports]
+    story_ticker_count = sum(
+        item["story_ticker_count"] for item in all_ticker_reports
+    )
+    story_ticker_source_hashes = sorted(
+        {
+            source_hash
+            for item in all_ticker_reports
+            for source_hash in item["story_ticker_source_hashes"]
+        }
+    )
+    if (
+        story_ticker_count
+        != translations["tickers"].get("expected_target_count")
+        or len(story_ticker_source_hashes)
+        != translations["tickers"].get("expected_entry_count")
+    ):
+        raise SystemExit(
+            "story ticker build coverage drift: "
+            f"targets={story_ticker_count} "
+            f"entries={len(story_ticker_source_hashes)}"
+        )
     dialogue_quote_style_counts = Counter()
     for item in stage_reports:
         dialogue_quote_style_counts.update(item["dialogue_quote_style_counts"])
@@ -593,6 +958,11 @@ def build(
                 "path": translations["runtime_keywords"]["path"],
                 "sha256": translations["runtime_keywords"]["sha256"],
             },
+            "tickers": {
+                "path": str(tickers_path.relative_to(PROJECT_ROOT)),
+                "size": tickers_path.stat().st_size,
+                "sha256": _sha256(tickers_path),
+            },
         },
         "stage_indices": sorted(stages),
         "codebook_proposal": str(proposal_path.relative_to(PROJECT_ROOT)),
@@ -602,6 +972,7 @@ def build(
         "safe_alias_assignment_count": len(proposal.get("surface_alias_assignments", [])),
         "unaliased_conditional_localized_assignment_count": proposal.get("surface_safe_aliases", {}).get("unaliased_conditional_assignment_count"),
         "stages": stage_reports,
+        "ticker_only_stages": ticker_only_stage_reports,
         "outputs": {
             "stage": {"size": len(rebuilt_stage), "sha256": sha256_bytes(rebuilt_stage)},
             "hb": {"size": len(rebuilt_hb), "sha256": sha256_bytes(rebuilt_hb)},
@@ -610,7 +981,8 @@ def build(
             item["source_chunk_size"] - item["output_encoded_size"]
             for item in stage_reports
         ),
-        "unchanged_chunk_count": len(output_chunks) - len(stages),
+        "unchanged_chunk_count": len(output_chunks)
+        - len(stages | set(tickers_by_stage)),
         "stage_layout_preserved": True,
         "source_dialogue_stage_coverage_exact": True,
         "hb_offset_reread_exact": True,
@@ -619,6 +991,25 @@ def build(
         "runtime_keyword_source_hashes": runtime_keyword_source_hashes,
         "runtime_keyword_links_exact": all(
             item["runtime_keyword_links_exact"] for item in stage_reports
+        ),
+        "story_ticker_count": story_ticker_count,
+        "story_ticker_source_count": len(story_ticker_source_hashes),
+        "story_ticker_source_hashes": story_ticker_source_hashes,
+        "story_ticker_stage_count": ticker_inventory["stage_count"],
+        "story_ticker_stage_indices": ticker_inventory["stage_indices"],
+        "story_ticker_inventory_sha256": ticker_inventory[
+            "inventory_sha256"
+        ],
+        "story_ticker_structural_slots_exact": ticker_inventory[
+            "structural_slots_exact"
+        ],
+        "story_ticker_fixed_slots_exact": all(
+            item["story_ticker_fixed_slots_exact"]
+            for item in all_ticker_reports
+        ),
+        "story_ticker_translated_reread_exact": all(
+            item["story_ticker_translated_reread_exact"]
+            for item in all_ticker_reports
         ),
         "dialogue_quote_style_counts": dict(
             sorted(dialogue_quote_style_counts.items())

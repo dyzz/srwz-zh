@@ -25,13 +25,13 @@
       ],
       "translation": "多元世纪",
       "category": "era",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "SRWZ 世界观纪年。"
+      "notes": "SRWZ 原创世界观纪年；与“多元世界”区分。"
     },
     {
       "id": "event/one-year-war",
@@ -70,14 +70,14 @@
       ],
       "translation": "时空震动",
       "category": "event",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "summary",
         "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "保留 SRWZ 使用的汉字术语。"
+      "notes": "SRWZ／《超时空世纪欧卡斯》时空现象；按游戏正文统一为“时空震动”。"
     },
     {
       "id": "event/break-the-world",
@@ -86,14 +86,14 @@
       ],
       "translation": "世界崩坏",
       "category": "event",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "summary",
         "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "暂用中文意译；建议人工确认是否保留英文副标题。"
+      "notes": "SRWZ 多元世界诞生事件；项目已统一采用中文事件名“世界崩坏”。"
     },
     {
       "id": "event/second-break",
@@ -102,13 +102,13 @@
       ],
       "translation": "第二次崩坏",
       "category": "event",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "与“世界崩坏”保持同一事件命名体系。"
+      "notes": "SRWZ 第二次大规模时空崩坏；与“世界崩坏”保持同一事件命名体系。"
     },
     {
       "id": "organization/earth-federation",
@@ -578,13 +578,13 @@
       ],
       "translation": "多元世界",
       "category": "place",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "SRWZ 核心世界观术语。"
+      "notes": "SRWZ 核心世界观术语，指世界崩坏后多个世界混合形成的新世界。"
     },
     {
       "id": "place/ameria-continent",
@@ -653,15 +653,23 @@
       "source_terms": [
         "抗体コーラリアン"
       ],
-      "translation": "抗体珊瑚岩",
+      "translation": "抗体科拉利安",
+      "deprecated_translations": [
+        "抗体珊瑚岩",
+        "抗体柯拉利安"
+      ],
+      "variant_scope": "source_bound",
       "category": "species",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "《交响诗篇》术语；“珊瑚体”等异译待人工确认。"
+      "notes": "《交响诗篇》官方设定将其定义为科拉利安的一类，并非珊瑚岩本体；大陆 SGS＆dmhy 简体字幕及大陆社区使用“抗体科拉利安”。"
     },
     {
       "id": "unit/mazinger-z",
@@ -694,34 +702,223 @@
       "notes": "盖塔系列通行译名。"
     },
     {
+      "id": "concept/sphere",
+      "source_terms": [
+        "スフィア"
+      ],
+      "translation": "珠玉",
+      "deprecated_translations": [
+        "球体",
+        "宝珠",
+        "斯菲亚",
+        "天体"
+      ],
+      "variant_scope": "source_bound",
+      "category": "concept",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "summary",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "用户人工确认；SRWZ 原创核心设定スフィア统一为“珠玉”，不再使用直译“球体”、近义词“宝珠”或音译“斯菲亚”。"
+    },
+    {
+      "id": "energy/dimensional-power",
+      "source_terms": [
+        "次元力"
+      ],
+      "translation": "次元力",
+      "variant_scope": "source_bound",
+      "category": "energy",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "summary",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ 原创核心能量名；不得省略或在“次元／力”之间断行。"
+    },
+    {
+      "id": "concept/origin-law",
+      "source_terms": [
+        "源理の力",
+        "オリジン・ロー"
+      ],
+      "translation": "源理之力",
+      "deprecated_translations": [
+        "源理的力量",
+        "源理力量"
+      ],
+      "variant_scope": "source_bound",
+      "category": "concept",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "summary",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "次元力的别称 Origin Law；语义术语统一为“源理之力”。当原文将“源理の力”和“オリジン・ロー”并列说明时，正文保留 Origin Law，避免重复显示两次“源理之力”。"
+    },
+    {
+      "id": "concept/great-power",
+      "source_terms": [
+        "大いなる力"
+      ],
+      "translation": "伟大之力",
+      "deprecated_translations": [
+        "伟大力量",
+        "伟大的力量",
+        "巨大力量",
+        "巨大的力量",
+        "大力量",
+        "强大力量",
+        "强大的力量"
+      ],
+      "variant_scope": "source_bound",
+      "category": "concept",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ 原创主线对次元力／太极一侧力量的称呼，作为专名统一为“伟大之力”。LIBRARY 中同形日文也可只是普通修饰语，故不纳入该术语的自动范围。"
+    },
+    {
+      "id": "concept/taiji",
+      "source_terms": [
+        "太極"
+      ],
+      "translation": "太极",
+      "variant_scope": "source_bound",
+      "category": "concept",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "summary",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ 原创主线概念；使用简体字“太极”。"
+    },
+    {
+      "id": "technology/dimensional-boundary-line",
+      "source_terms": [
+        "次元境界線",
+        "じげんきょーかいせん",
+        "じげんきょうかいせん"
+      ],
+      "translation": "次元边界线",
+      "deprecated_translations": [
+        "次元境界线"
+      ],
+      "variant_scope": "source_bound",
+      "category": "technology",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "summary",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "SRWZ 时空理论术语；日文“境界線”按中文语义统一为“边界线”，避免混用“境界线”。"
+    },
+    {
+      "id": "technology/spacetime-oscillation-bomb",
+      "source_terms": [
+        "時空震動弾",
+        "時空振動弾"
+      ],
+      "translation": "时空震动弹",
+      "deprecated_translations": [
+        "时空振动弹"
+      ],
+      "variant_scope": "source_bound",
+      "category": "technology",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "summary",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超时空世纪欧卡斯》兵器，SRWZ 正文多写作“時空震動弾”，LIBRARY 原作说明也有“時空振動弾”；中文跨文本统一为“时空震动弹”。"
+    },
+    {
+      "id": "technology/great-singularity",
+      "source_terms": [
+        "大特異点"
+      ],
+      "translation": "大奇点",
+      "deprecated_translations": [
+        "主奇点",
+        "大特异点"
+      ],
+      "variant_scope": "source_bound",
+      "category": "technology",
+      "status": "approved",
+      "domains": [
+        "library",
+        "menu",
+        "summary",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超时空世纪欧卡斯》时空理论术语；与“特异点／奇点”保持层级关系。"
+    },
+    {
       "id": "technology/dimensional-boundary",
       "source_terms": [
         "相克界"
       ],
       "translation": "相克界",
       "category": "technology",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "SRWZ 世界观术语，保留原汉字。"
+      "notes": "《超时空世纪欧卡斯》设定；简体中文写作“相克界”，无需沿用日文异体字“剋”。"
     },
     {
       "id": "technology/trapar",
       "source_terms": [
         "トラパー"
       ],
-      "translation": "特拉帕",
+      "translation": "光粒子",
+      "deprecated_translations": [
+        "特拉帕",
+        "特拉帕粒子"
+      ],
+      "variant_scope": "source_bound",
       "category": "technology",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "《交响诗篇》Trapar；暂用音译，正文可按语义写作“特拉帕粒子／特拉帕波”。"
+      "notes": "《交响诗篇》Trapar（Transparence Light Particle）；大陆 SGS＆dmhy 简体字幕及大陆社区普遍译作“光粒子”。"
     },
     {
       "id": "technology/photon-mat",
@@ -744,14 +941,20 @@
         "ＵＮ"
       ],
       "translation": "UN",
+      "deprecated_translations": [
+        "联合国"
+      ],
+      "variant_scope": "source_bound",
       "category": "system",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "library",
+        "menu",
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "SRWZ 全球信息系统，并非联合国缩写。"
+      "notes": "UNIVERSAL NETWORK 的缩写，是 SRWZ 多元世界的信息网络，并非联合国。保留英文缩写 UN。"
     },
     {
       "id": "system/experience",

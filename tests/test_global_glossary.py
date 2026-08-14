@@ -289,13 +289,22 @@ class GlobalGlossaryTests(unittest.TestCase):
             "people/speaker-22359c86b24b": "西利乌斯",
             "organization/earth-federation-forces": "地球联邦军",
             "place/unious-seven": "尤尼乌斯7",
-            "species/scub-coral": "斯卡布珊瑚",
+            "species/scub-coral": "珊瑚岩",
             "unit/naikick": "奈基克",
             "unit/xabungle": "萨芬格尔",
             "unit/walker-gallia": "沃卡加利亚",
             "concept/contolism": "康提主义",
             "concept/ereism": "地球圣地主义",
             "concept/sideism": "Side国家主义",
+            "concept/sphere": "珠玉",
+            "energy/dimensional-power": "次元力",
+            "concept/origin-law": "源理之力",
+            "concept/great-power": "伟大之力",
+            "technology/dimensional-boundary-line": "次元边界线",
+            "technology/spacetime-oscillation-bomb": "时空震动弹",
+            "technology/great-singularity": "大奇点",
+            "technology/singularity": "奇点",
+            "system/un-network": "UN",
         }
         self.assertEqual(
             {term_id: self.by_id[term_id]["translation"] for term_id in expected},
@@ -350,6 +359,45 @@ class GlobalGlossaryTests(unittest.TestCase):
                 "people/speaker-e00210e47303": 197,
             },
         )
+
+    def test_original_setting_terms_match_every_japanese_source_occurrence(self) -> None:
+        expected = {
+            "concept/sphere": 120,
+            "energy/dimensional-power": 107,
+            "concept/origin-law": 26,
+            "concept/great-power": 95,
+            "concept/taiji": 98,
+            "technology/dimensional-boundary-line": 88,
+            "technology/spacetime-oscillation-bomb": 63,
+            "technology/great-singularity": 97,
+            "technology/singularity": 261,
+            "technology/dimensional-boundary": 39,
+            "system/un-network": 340,
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            report_path = Path(temporary) / "original-setting-audit.json"
+            command = [
+                sys.executable,
+                str(ROOT / "tools/audit_source_bound_glossary.py"),
+                "--report",
+                str(report_path),
+                "--fail-on-mismatch",
+            ]
+            for term_id in expected:
+                command.extend(("--term-id", term_id))
+            result = subprocess.run(
+                command,
+                cwd=ROOT,
+                env={**os.environ, "PYTHONPATH": str(ROOT / "tools")},
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(report["mismatch_count"], 0)
+        self.assertEqual(report["source_occurrences"], expected)
 
 
 if __name__ == "__main__":

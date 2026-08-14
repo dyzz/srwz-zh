@@ -1,0 +1,188 @@
+- generic [active] [ref=e1]:
+  - navigation "攻略页面" [ref=e2]:
+    - link "流程图" [ref=e3] [cursor=pointer]:
+      - /url: "#flow"
+    - link "隐藏要素" [ref=e4] [cursor=pointer]:
+      - /url: "#hidden-elements"
+    - link "周目继承" [ref=e5] [cursor=pointer]:
+      - /url: "#carryover"
+    - link "改造继承" [ref=e6] [cursor=pointer]:
+      - /url: "#upgrade-carryover"
+    - link "全改造奖励" [ref=e7] [cursor=pointer]:
+      - /url: "#full-upgrade-bonus"
+    - link "小队长能力" [ref=e8] [cursor=pointer]:
+      - /url: "#leadership"
+    - link "人物技能" [ref=e9] [cursor=pointer]:
+      - /url: "#pilot-skills"
+    - link "机体能力" [ref=e10] [cursor=pointer]:
+      - /url: "#mech-abilities"
+    - link "集市物品" [ref=e11] [cursor=pointer]:
+      - /url: "#bazaar"
+    - link "合体攻击" [ref=e12] [cursor=pointer]:
+      - /url: "#team-attacks"
+  - main [ref=e13]:
+    - generic [ref=e16]:
+      - paragraph [ref=e17]: 游戏内全部45项特殊技能及其实际效果。少数角色固有的技能标出持有人；同一人物的化名与剧情形态合并计算。
+      - generic [ref=e18]:
+        - article [ref=e19]:
+          - heading "格挡" [level=3] [ref=e20]
+          - paragraph [ref=e21]: 装备“盾”时可发动“盾牌防御”， 装备“剑”时可发动“斩切”。 发动概率由与对手的技量差决定。
+        - article [ref=e22]:
+          - heading "底力" [level=3] [ref=e23]
+          - paragraph [ref=e24]: 随着HP降低，命中率、回避率、 暴击率和防御力会提高。 技能等级越高，效果越强。
+        - article [ref=e25]:
+          - heading "反击" [level=3] [ref=e26]
+          - paragraph [ref=e27]: 选择反击时，会抢在作为攻击方的 敌方单位之前发动攻击。 发动概率由技能等级及与对手的技量差决定。
+        - article [ref=e28]:
+          - heading "援护攻击" [level=3] [ref=e29]
+          - paragraph [ref=e30]: 可为相邻小队的队长进行援护攻击。 每回合最多发动与技能等级相同的次数。
+        - article [ref=e31]:
+          - heading "再攻击" [level=3] [ref=e32]
+          - paragraph [ref=e33]: 技量比对手高20以上时， 在对手反击后，对自己进行一次援护攻击。
+        - article [ref=e34]:
+          - heading "援护防御" [level=3] [ref=e35]
+          - paragraph [ref=e36]: 可为同一小队的单位或相邻战舰进行援护防御。 每回合最多发动与技能等级相同的次数。
+        - article [ref=e37]:
+          - heading "SP回复" [level=3] [ref=e38]
+          - paragraph [ref=e39]: 每回合回复10点SP。
+        - article [ref=e40]:
+          - heading "SP提升" [level=3] [ref=e41]
+          - paragraph [ref=e42]: 技能等级每提高1级，最大SP增加5点。
+        - article [ref=e43]:
+          - heading "斗争心" [level=3] [ref=e44]
+          - paragraph [ref=e45]: 出击时气力＋5。
+        - article [ref=e46]:
+          - heading "战意高扬" [level=3] [ref=e47]
+          - paragraph [ref=e48]: 出击第2回合起，每回合气力＋3。
+        - article [ref=e49]:
+          - heading "气力＋（回避）" [level=3] [ref=e50]
+          - paragraph [ref=e51]: 回避敌方攻击时， 除原有气力增减外，气力再＋1。
+        - article [ref=e52]:
+          - heading "气力＋（命中）" [level=3] [ref=e53]
+          - paragraph [ref=e54]: 攻击命中敌方时， 除原有气力增减外，气力再＋1。
+        - article [ref=e55]:
+          - heading "气力＋（伤害）" [level=3] [ref=e56]
+          - paragraph [ref=e57]: 受到敌方伤害时， 除原有气力增减外，气力再＋2。
+        - article [ref=e58]:
+          - heading "气力＋（击破）" [level=3] [ref=e59]
+          - paragraph [ref=e60]: 任一友方击坠敌机时 （困难难度下为歼灭敌方小队时）， 除原有气力增减外，气力再＋1。
+        - article [ref=e61]:
+          - heading "气力上限突破" [level=3] [ref=e62]
+          - paragraph [ref=e63]: 气力上限提高至170。
+        - article [ref=e64]:
+          - heading "E节省" [level=3] [ref=e65]
+          - paragraph [ref=e66]: 武器的EN消耗变为通常的80%。
+        - article [ref=e67]:
+          - heading "B节省" [level=3] [ref=e68]
+          - paragraph [ref=e69]: 武器弹数变为1.5倍， 小数部分舍去。
+        - article [ref=e70]:
+          - heading "连携攻击" [level=3] [ref=e71]
+          - paragraph [ref=e72]: 援护攻击和再攻击必定产生暴击。
+        - article [ref=e73]:
+          - heading "支援攻击" [level=3] [ref=e74]
+          - paragraph [ref=e75]: 作为小队员参与小队攻击时， 对敌伤害＋20%。
+        - article [ref=e76]:
+          - heading "集束攻击" [level=3] [ref=e77]
+          - paragraph [ref=e78]: 使用ALL武器时，敌方小队有2机／3机时， 原本分别为－20%／－40%的伤害修正， 降低为－5%／－25%。
+        - article [ref=e79]:
+          - heading "无视尺寸差修正" [level=3] [ref=e80]
+          - paragraph [ref=e81]: 无视尺寸差修正造成的伤害降低。
+        - article [ref=e82]:
+          - heading "指挥官" [level=3] [ref=e83]
+          - paragraph [ref=e84]: 提升周围友方单位的最终命中率和回避率。 效果由技能等级及与技能持有者的距离决定。
+        - article [ref=e85]:
+          - heading "天才" [level=3] [ref=e86]
+          - paragraph [ref=e87]: 命中率、回避率和暴击率＋20%。
+        - article [ref=e88]:
+          - heading "极" [level=3] [ref=e89]
+          - paragraph [ref=e90]: 气力达到130以上时， 最终命中率、回避率和暴击率＋30%。
+        - article [ref=e91]:
+          - heading "识破" [level=3] [ref=e92]
+          - paragraph [ref=e93]: 气力达到130以上时， 最终命中率、回避率和暴击率＋10%。
+        - article [ref=e94]:
+          - heading "防护" [level=3] [ref=e95]
+          - paragraph [ref=e96]: 气力达到130以上时， 受到敌方攻击的最终伤害变为80%。
+        - article [ref=e97]:
+          - heading "精神抗性" [level=3] [ref=e98]
+          - paragraph [ref=e99]: 使P系特殊效果无效。
+        - article [ref=e100]:
+          - heading "一击脱离" [level=3] [ref=e101]
+          - paragraph [ref=e102]: 未移动便发动攻击时， 攻击后仍可移动。
+        - article [ref=e103]:
+          - heading "修理技能" [level=3] [ref=e104]
+          - paragraph [ref=e105]: 使用修理指令时， HP回复量变为通常的1.5倍。
+        - article [ref=e106]:
+          - heading "补给技能" [level=3] [ref=e107]
+          - paragraph [ref=e108]: 搭乘具有补给能力的机体时， 可在移动后进行补给。
+        - article [ref=e109]:
+          - heading "超能力" [level=3] [ref=e110]
+          - paragraph [ref=e111]: 命中率和回避率提高。 技能等级越高，效果越强。
+        - article [ref=e112]:
+          - heading "新人类" [level=3] [ref=e113]
+          - paragraph [ref=e114]: 命中率和回避率提高， 特定武器的射程延长。 技能等级越高，效果越强。
+        - article [ref=e115]:
+          - heading "强化人" [level=3] [ref=e116]
+          - paragraph [ref=e117]: 命中率和回避率提高， 特定武器的射程延长。 技能等级越高，效果越强。
+          - generic [ref=e118]:
+            - generic [ref=e119]: 稀有
+            - generic [ref=e120]: 持有人：罗莎米娅、凤
+        - article [ref=e121]:
+          - heading "新人类（X）" [level=3] [ref=e122]
+          - paragraph [ref=e123]: 命中率和回避率提高。 技能等级越高，效果越强。
+          - generic [ref=e124]:
+            - generic [ref=e125]: 稀有
+            - generic [ref=e126]: 持有人：贾米尔、兰斯洛、亚伯
+        - article [ref=e127]:
+          - heading "人工新人类" [level=3] [ref=e128]
+          - paragraph [ref=e129]: 命中率和回避率提高， 特定武器的射程延长。 技能等级越高，效果越强。
+          - generic [ref=e130]:
+            - generic [ref=e131]: 稀有
+            - generic [ref=e132]: 持有人：卡利斯
+        - article [ref=e133]:
+          - heading "伪新人类" [level=3] [ref=e134]
+          - paragraph [ref=e135]: 命中率、回避率和暴击率提高。 技能等级越高，效果越强。
+          - generic [ref=e136]:
+            - generic [ref=e137]: 稀有
+            - generic [ref=e138]: 持有人：夏基亚、奥尔巴
+        - article [ref=e139]:
+          - heading "SEED" [level=3] [ref=e140]
+          - paragraph [ref=e141]: 气力达到130以上时发动。 最终伤害变为1.1倍， 最终命中率、回避率和暴击率＋20%。
+          - generic [ref=e142]:
+            - generic [ref=e143]: 稀有
+            - generic [ref=e144]: 持有人：真、阿斯兰、基拉、拉克丝
+        - article [ref=e145]:
+          - heading "扩展人" [level=3] [ref=e146]
+          - paragraph [ref=e147]: 命中率、回避率和暴击率提高。 技能等级越高，效果越强。
+          - generic [ref=e148]:
+            - generic [ref=e149]: 稀有
+            - generic [ref=e150]: 持有人：斯汀、奥尔、史黛拉
+        - article [ref=e151]:
+          - heading "滑空技巧" [level=3] [ref=e152]
+          - paragraph [ref=e153]: 命中率和暴击率提高， 并有一定概率让机体完全回避攻击。 技能等级越高，效果越强。
+        - article [ref=e154]:
+          - heading "超感知" [level=3] [ref=e155]
+          - paragraph [ref=e156]: 提高命中率、回避率、光子垫效果， 以及特定武器的攻击力。 技能等级越高，效果越强。
+        - article [ref=e157]:
+          - heading "玩家" [level=3] [ref=e158]
+          - paragraph [ref=e159]: 气力达到130以上时，技量＋10。
+          - generic [ref=e160]:
+            - generic [ref=e161]: 稀有
+            - generic [ref=e162]: 持有人：盖纳（升级前）、辛西娅
+        - article [ref=e163]:
+          - heading "游戏冠军" [level=3] [ref=e164]
+          - paragraph [ref=e165]: 气力达到130以上时，技量＋30。
+          - generic [ref=e166]:
+            - generic [ref=e167]: 稀有
+            - generic [ref=e168]: 持有人：盖纳（剧情升级后）
+        - article [ref=e169]:
+          - heading "谈判专家" [level=3] [ref=e170]
+          - paragraph [ref=e171]: 使交战对象的气力－2。 结算我方部队修理费时，若技能持有者 在地图上，修理费归零。
+          - generic [ref=e172]:
+            - generic [ref=e173]: 稀有
+            - generic [ref=e174]: 持有人：罗杰
+        - article [ref=e175]:
+          - heading "二次行动" [level=3] [ref=e176]
+          - paragraph [ref=e177]: 每回合可行动2次。
+        - article [ref=e178]:
+          - heading "强运" [level=3] [ref=e179]
+          - paragraph [ref=e180]: 击坠敌方单位时获得的资金 变为通常的1.2倍。

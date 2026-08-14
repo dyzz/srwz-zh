@@ -115,8 +115,24 @@ def main() -> int:
             raise LibrarySourceBoundApplyError(
                 f"LIBRARY source or translation is invalid: {entry_id}"
             )
+        exceptions = entry.get("glossary_exceptions", [])
+        if not isinstance(exceptions, list) or not all(
+            isinstance(term_id, str) for term_id in exceptions
+        ):
+            raise LibrarySourceBoundApplyError(
+                f"LIBRARY glossary_exceptions is invalid: {entry_id}"
+            )
         relevant = relevant_glossary_terms(source_text, glossary)
-        selected = [term for term in relevant if str(term["id"]) in selected_ids]
+        selected = [
+            term
+            for term in relevant
+            if str(term["id"]) in selected_ids
+            and str(term["id"]) not in exceptions
+            and (
+                not term.get("domains")
+                or "library" in term.get("domains", [])
+            )
+        ]
         if not selected:
             continue
         matched_entry_count += 1

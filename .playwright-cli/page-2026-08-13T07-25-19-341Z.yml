@@ -1,0 +1,130 @@
+- generic [active] [ref=e1]:
+  - navigation "攻略页面" [ref=e2]:
+    - link "流程图" [ref=e3] [cursor=pointer]:
+      - /url: "#flow"
+    - link "隐藏要素" [ref=e4] [cursor=pointer]:
+      - /url: "#hidden-elements"
+    - link "周目继承" [ref=e5] [cursor=pointer]:
+      - /url: "#carryover"
+    - link "改造继承" [ref=e6] [cursor=pointer]:
+      - /url: "#upgrade-carryover"
+    - link "全改造奖励" [ref=e7] [cursor=pointer]:
+      - /url: "#full-upgrade-bonus"
+    - link "小队长能力" [ref=e8] [cursor=pointer]:
+      - /url: "#leadership"
+    - link "人物技能" [ref=e9] [cursor=pointer]:
+      - /url: "#pilot-skills"
+    - link "机体能力" [ref=e10] [cursor=pointer]:
+      - /url: "#mech-abilities"
+    - link "集市物品" [ref=e11] [cursor=pointer]:
+      - /url: "#bazaar"
+    - link "合体攻击" [ref=e12] [cursor=pointer]:
+      - /url: "#team-attacks"
+  - main [ref=e13]:
+    - generic [ref=e16]:
+      - paragraph [ref=e17]: 成为小队长时生效；战舰舰长效果作用于相邻友军。下表列出游戏内全部效果类型。
+      - generic [ref=e18]:
+        - article [ref=e19]:
+          - heading "经验值增加" [level=3] [ref=e20]
+          - list [ref=e21]:
+            - listitem [ref=e22]: 获得经验值＋20%
+        - article [ref=e23]:
+          - heading "资金增加" [level=3] [ref=e24]
+          - list [ref=e25]:
+            - listitem [ref=e26]: 获得资金＋20%
+            - listitem [ref=e27]: 获得资金＋30%
+            - listitem [ref=e28]: 相邻友方获得资金 ＋20%
+        - article [ref=e29]:
+          - heading "射程延长" [level=3] [ref=e30]
+          - list [ref=e31]:
+            - listitem [ref=e32]: MAP武器及射程1以外的 武器射程＋1
+        - article [ref=e33]:
+          - heading "小队移动力增加" [level=3] [ref=e34]
+          - list [ref=e35]:
+            - listitem [ref=e36]: 小队移动力＋1
+        - article [ref=e37]:
+          - heading "EN减耗" [level=3] [ref=e38]
+          - list [ref=e39]:
+            - listitem [ref=e40]: 武器EN消耗−10%
+            - listitem [ref=e41]: 武器EN消耗−20%
+            - listitem [ref=e42]: 相邻友方的武器EN消耗 −10%
+        - article [ref=e43]:
+          - heading "命中提升" [level=3] [ref=e44]
+          - list [ref=e45]:
+            - listitem [ref=e46]: 命中率＋10%
+            - listitem [ref=e47]: 命中率＋20%
+            - listitem [ref=e48]: 命中率＋30%
+            - listitem [ref=e49]: 相邻友方命中率＋10%
+        - article [ref=e50]:
+          - heading "回避提升" [level=3] [ref=e51]
+          - list [ref=e52]:
+            - listitem [ref=e53]: 回避率＋10%
+            - listitem [ref=e54]: 回避率＋20%
+            - listitem [ref=e55]: 敌方回合回避率＋20%
+        - article [ref=e56]:
+          - heading "攻击力提升" [level=3] [ref=e57]
+          - list [ref=e58]:
+            - listitem [ref=e59]: 攻击力＋10%
+            - listitem [ref=e60]: 攻击力＋20%
+            - listitem [ref=e61]: 相邻友方攻击力＋10%
+            - listitem [ref=e62]: 反击时攻击力＋10%
+            - listitem [ref=e63]: 反击时攻击力＋20%
+            - listitem [ref=e64]: 反击时攻击力＋30%
+            - listitem [ref=e65]: 小队攻击的攻击力＋20%
+            - listitem [ref=e66]: 小队攻击的攻击力＋40%
+            - listitem [ref=e67]: 我方回合的攻击力 ＋10%
+            - listitem [ref=e68]: 格斗武器攻击力＋10%
+            - listitem [ref=e69]: 格斗武器攻击力＋20%
+            - listitem [ref=e70]: 射击武器攻击力＋10%
+            - listitem [ref=e71]: 射击武器攻击力＋20%
+            - listitem [ref=e72]: 援护攻击时攻击力＋20%
+            - listitem [ref=e73]: 对男性攻击力＋20% 对女性攻击力−20%
+            - listitem [ref=e74]: 相邻友方对盖佐克的 攻击力＋40%
+            - listitem [ref=e75]: 对泽拉拜亚攻击力＋20%
+            - listitem [ref=e76]: 对堕天翅攻击力＋40%
+            - listitem [ref=e77]: 对飞行单位攻击力 ＋20%
+            - listitem [ref=e78]: 对女性攻击力＋20%
+        - article [ref=e79]:
+          - heading "伤害减轻" [level=3] [ref=e80]
+          - list [ref=e81]:
+            - listitem [ref=e82]: 伤害−10%
+            - listitem [ref=e83]: 伤害−20%
+            - listitem [ref=e84]: 伤害−30%
+            - listitem [ref=e85]: 援护防御时伤害−30%
+            - listitem [ref=e86]: 相邻友方受到的伤害 −10%
+            - listitem [ref=e87]: 相邻友方受到的伤害 −20%
+        - article [ref=e88]:
+          - heading "暴击率提升" [level=3] [ref=e89]
+          - list [ref=e90]:
+            - listitem [ref=e91]: 暴击率＋10%
+            - listitem [ref=e92]: 暴击率＋20%
+            - listitem [ref=e93]: 暴击率＋30%
+            - listitem [ref=e94]: 援护时暴击率 ＋20%
+        - article [ref=e95]:
+          - heading "地形适应" [level=3] [ref=e96]
+          - list [ref=e97]:
+            - listitem [ref=e98]: 小队全机的空中地形适应 变为S
+            - listitem [ref=e99]: 小队全机的陆地地形适应 变为S
+            - listitem [ref=e100]: 小队全机的海中地形适应 变为S
+            - listitem [ref=e101]: 小队全机的地形适应 “空陆海”变为A
+        - article [ref=e102]:
+          - heading "回复量提升" [level=3] [ref=e103]
+          - list [ref=e104]:
+            - listitem [ref=e105]: HP、EN恢复量＋50%
+        - article [ref=e106]:
+          - heading "特殊防御触发率提升" [level=3] [ref=e107]
+          - list [ref=e108]:
+            - listitem [ref=e109]: 格挡发动率＋20%
+            - listitem [ref=e110]: 格挡发动率＋40%
+        - article [ref=e111]:
+          - heading "特殊武器无效类" [level=3] [ref=e112]
+          - list [ref=e113]:
+            - listitem [ref=e114]: 使驾驶员类的 特殊效果武器无效
+            - listitem [ref=e115]: 使全部特殊效果武器无效
+        - article [ref=e116]:
+          - heading "特殊技能赋予类" [level=3] [ref=e117]
+          - list [ref=e118]:
+            - listitem [ref=e119]: 小队全员获得 “战意高扬”效果
+            - listitem [ref=e120]: 小队全员获得 “气力＋（回避）”效果
+            - listitem [ref=e121]: 小队全员获得 “气力＋（伤害）”效果
+            - listitem [ref=e122]: 小队全员获得 “气力＋（命中）”效果

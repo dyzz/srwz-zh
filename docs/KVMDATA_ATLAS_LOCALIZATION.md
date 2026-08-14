@@ -10,12 +10,12 @@
 | ---: | --- | --- | ---: |
 | 2 | 机体 | `ui-info-atlas-zh.json` | 1 |
 | 4 | 指令菜单 | `ui-battle-command-atlas-zh.json` | 1 |
-| 5 | 交易所 | `ui-bazaar-atlas-zh.json` | 1 |
+| 5 | 集市等 15 项（英文装饰保留） | `ui-bazaar-atlas-zh.json` | 15 |
 | 6 | 中场休息及七个菜单标签 | `ui-intermission-atlas-zh.json` | 9 |
 | 7 | 新建小队、移至后备区、移至小队区 | `ui-formation-atlas-zh.json` | 3 |
 | 11 | 已通关！ | `ui-stage-clear-atlas-zh.json` | 1 |
 
-六组配置合计 16 块冻结字形；每组都有独立的
+六组配置合计 30 块冻结字形；每组都有独立的
 `config/assets/*-render-snapshot.json`，并由 `ui-atlas-suite-zh.json` 在互斥字节范围内
 合成为一个 KVMDATA 组件。
 
@@ -43,7 +43,7 @@ VEFF2DX 文档中的“从全局 glyph 裁切”和“修改 quad”只适用于
   渲染规则、冻结渲染锁和输出哈希。
 - `config/assets/ui-*-atlas-render-snapshot.json`：已审字形的 outline/fill 灰度 mask
   及整图预览；普通生产构建只消费快照。
-- `manifests/ui-intermission-atlas-zh-validation.json`：确定性组件回读结果。
+- `manifests/ui-*-atlas-zh-validation.json`：六组确定性组件回读结果。
 - `config/assets/ui-atlas-suite-zh.json`：六张 KVMDATA 图集的互斥字节所有权合成。
 
 提交的 PNG 不是写回输入。生产组件从锁定原始前像和冻结 mask 确定性重建；只有在
@@ -72,7 +72,7 @@ HarmonyOS Sans SC Light 1.0。它只是同一 HarmonyOS Sans 家族的静态图�
 
 ## 4. 擦除、调色板与选中状态
 
-每个切片都锁定原始 RGBA SHA-256，并执行以下顺序：
+中场休息的每个切片都锁定原始 RGBA SHA-256，并执行以下顺序：
 
 1. 只在登记矩形内把全部像素强制重建为背景索引 `0`；
 2. 在同一矩形中写入冻结的中文 mask；标题和菜单先在 4 倍分辨率栅格化，以高分辨率
@@ -86,6 +86,12 @@ HarmonyOS Sans SC Light 1.0。它只是同一 HarmonyOS Sans 家族的静态图�
 选中与未选中的亮暗由原图索引层和运行时 palette/材质状态产生。writer 不画白底、
 绿色矩形或选中框，也不通过改 RGB 猜测运行效果。索引 `8` 只能出现在实际字形边缘，
 不能成为覆盖切片的实心矩形。
+
+其余五组生产图集也必须锁定每个原文字块，并按各自源 TIM2 的调色板写入双层索引：
+outline 为 `1..7`，fill 为 `8..15`。不能只提供一组 RGBA 灰阶再让 writer 自动选择
+重复颜色的最小索引；那会把中文全部压到 `1..7` 的暗层，离线 PNG 看似有字，实机
+中的“集市／购买”等状态文字却会明显比原日文暗。当前回归测试要求全部 30 个
+生产标签同时含有非零 outline 与 fill 像素，并保留各自原文字块的 RGBA 前像锁。
 
 ## 5. 关卡通关滚动条
 

@@ -2,6 +2,29 @@
   "schema_version": 1,
   "profile_id": "ui-info-atlas-zh",
   "scope": "A deterministic Chinese replacement of the SHIP locator inside the locked KVMDATA chunk 2 mapping mask. Static construction does not prove which runtime information pages consume this atlas.",
+  "indexed_text_layer_profiles": {
+    "source-text": {
+      "outline": [
+        {"rgba": "101010ff", "palette_index": 1},
+        {"rgba": "202020ff", "palette_index": 2},
+        {"rgba": "303030ff", "palette_index": 3},
+        {"rgba": "404040ff", "palette_index": 4},
+        {"rgba": "505050ff", "palette_index": 5},
+        {"rgba": "606060ff", "palette_index": 6},
+        {"rgba": "707070ff", "palette_index": 7}
+      ],
+      "fill": [
+        {"rgba": "000000ff", "palette_index": 8},
+        {"rgba": "101010ff", "palette_index": 9},
+        {"rgba": "202020ff", "palette_index": 10},
+        {"rgba": "303030ff", "palette_index": 11},
+        {"rgba": "404040ff", "palette_index": 12},
+        {"rgba": "505050ff", "palette_index": 13},
+        {"rgba": "686868ff", "palette_index": 14},
+        {"rgba": "787878ff", "palette_index": 15}
+      ]
+    }
+  },
   "base_mapping": {
     "config": "config/assets/maps/tim2-kvm2-info.json",
     "config_sha256": "4fb3e77b704f30858036d933ccdeb3bbfb27512932d69ed7db2bde4015769a2f",
@@ -18,6 +41,8 @@
     "operation": "replace_erased_locator_with_text"
   },
   "localized_label": {
+    "source_element_id": "ship-49x16",
+    "source_element_rgba_sha256": "3065b4bfc289313eefaeb2bf54e960be0a93647f8f806f717d661454975c3803",
     "translation_source": {
       "path": "corpus/zh/ui-atlas/info-v1.json",
       "sha256": "5c964d0390ea024179146c81bba853c05850a120a3e9cf2e2122821db372fb70",
@@ -41,13 +66,14 @@
         "686868ff",
         "707070ff",
         "787878ff"
-      ]
+      ],
+      "indexed_layer_profile": "source-text"
     }
   },
   "render_snapshot": {
     "path": "config/assets/ui-info-atlas-render-snapshot.json",
-    "size": 30198,
-    "sha256": "551163a6e3fec37de0349399c6c8573d60508e27450a982ad543d45b3533142b"
+    "size": 30571,
+    "sha256": "7119878f2d8288ab299ea6b8bae54f8f414ea042de8fd238544b6c8678504829"
   },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 2 supplies the unit-information locator and that the localized label renders at the intended position.",
@@ -76,20 +102,20 @@
       "sha256": "21b78aa7dc1557bbd928e8f8ed740379b7aa3701d087fb76e579e337293e3d88"
     },
     "localized_png": {
-      "size": 21632,
-      "sha256": "e47263799b692bd44d5b006539d3a5a32bb62406bc7b085160e29cca3a6c8ce1"
+      "size": 21524,
+      "sha256": "ce01f19ba2f01d343b59ac01b62f440e2584b193a860cda2c613765f237eae6e"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "bf31697f19bca40446bf089374c4a6ef7cb1ec29a1e7a3f68c7eb0c00f321b6b"
+      "sha256": "9dd16938c988512f9df06ff16c37aeb1e0bca49572b036f9b7bd26de64a0f9e2"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "84f227f93536613745e1bd84e71a75b7113ca8d5d44a27a9c153dbc9704a6749"
+      "sha256": "65d423b566a0e4290789fb2788ece2d9a1be13708f742292e54371cebbeaa257"
     },
     "added_pixel_count": 264,
-    "original_changed_pixel_count": 414,
-    "original_changed_pixel_indexes_sha256": "0a379d0abe33bc5acee480632a3f30be2894752f0aca3275c4be3d1021406791",
+    "original_changed_pixel_count": 410,
+    "original_changed_pixel_indexes_sha256": "a5ae512569cd2feabbf7e913d1b7a641cd6103c254f534d4a68c56dbd1859257",
     "changed_archive_byte_count": 156,
     "changed_archive_range_count": 34
   },

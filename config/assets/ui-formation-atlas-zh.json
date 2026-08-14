@@ -4,6 +4,29 @@
   "scope": "Deterministic Chinese replacements of the new-formation, reserve and squad-group locators inside their original locked KVMDATA chunk 7 rectangles. Static construction does not prove which runtime squad-formation pages consume this atlas.",
   "force_reindex_entire_masks": true,
   "expected_background_palette_index": 0,
+  "indexed_text_layer_profiles": {
+    "source-text": {
+      "outline": [
+        {"rgba": "000000ff", "palette_index": 1},
+        {"rgba": "020202ff", "palette_index": 2},
+        {"rgba": "0b0b0bff", "palette_index": 3},
+        {"rgba": "0f0f0fff", "palette_index": 4},
+        {"rgba": "171717ff", "palette_index": 5},
+        {"rgba": "1a1a1aff", "palette_index": 6},
+        {"rgba": "262626ff", "palette_index": 7}
+      ],
+      "fill": [
+        {"rgba": "00000000", "palette_index": 8},
+        {"rgba": "000000ff", "palette_index": 9},
+        {"rgba": "101010ff", "palette_index": 10},
+        {"rgba": "202020ff", "palette_index": 11},
+        {"rgba": "303030ff", "palette_index": 12},
+        {"rgba": "404040ff", "palette_index": 13},
+        {"rgba": "505050ff", "palette_index": 14},
+        {"rgba": "808080ff", "palette_index": 15}
+      ]
+    }
+  },
   "base_mapping": {
     "config": "config/assets/maps/tim2-kvm7-formation.json",
     "config_sha256": "160c06392a0c141d319dea0d00dcee25a539f8d76b868b153464e3ebff2c244a",
@@ -20,6 +43,8 @@
     "operation": "replace_erased_locator_with_text"
   },
   "localized_label": {
+    "source_element_id": "new-formation-74x20",
+    "source_element_rgba_sha256": "d8903fd69887255b7c4a4be34ce40d2f2888390a077c6bccb643565ee3a53819",
     "translation_source": {
       "path": "corpus/zh/ui-atlas/core-menus-v1.json",
       "sha256": "6ac311a4239fe2d57d46c69954158c67bf27ef69eef0393ec7e0401a6e6748ab",
@@ -43,7 +68,8 @@
         "404040ff",
         "505050ff",
         "808080ff"
-      ]
+      ],
+      "indexed_layer_profile": "source-text"
     }
   },
   "additional_localized_labels": [
@@ -51,6 +77,8 @@
       "entry_id": "ui-atlas/kvm7/reserve",
       "semantic_locator": "リザーブへ",
       "minimum_editorial_status": "reviewed",
+      "source_element_id": "reserve-84x20",
+      "source_element_rgba_sha256": "28f0226fa807db9a426cde37bc6c900f11dbf898d06d2d4a8fa029673f54160b",
       "mask": {
         "x": 172,
         "y": 26,
@@ -77,13 +105,16 @@
           "404040ff",
           "505050ff",
           "808080ff"
-        ]
+        ],
+        "indexed_layer_profile": "source-text"
       }
     },
     {
       "entry_id": "ui-atlas/kvm7/squad-group",
       "semantic_locator": "小隊群へ",
       "minimum_editorial_status": "reviewed",
+      "source_element_id": "squad-group-67x22",
+      "source_element_rgba_sha256": "b6e64cee8af6c3dc138b2825e8a0fd99bc9eee56edd08ccaf4153bbc5415a476",
       "mask": {
         "x": 44,
         "y": 178,
@@ -110,14 +141,15 @@
           "404040ff",
           "505050ff",
           "808080ff"
-        ]
+        ],
+        "indexed_layer_profile": "source-text"
       }
     }
   ],
   "render_snapshot": {
     "path": "config/assets/ui-formation-atlas-render-snapshot.json",
-    "size": 34551,
-    "sha256": "90930e35800fb6d0037e5c7af20b31ceeb36919ad6521cafd1501fd31480c478"
+    "size": 36945,
+    "sha256": "40d5ae8cc5ce34a492648fbe44b22d3533e6973a17e8ac9de4039cc7955c06b3"
   },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 7 supplies the new-squad locator and that the localized label renders at the intended position.",
@@ -146,22 +178,22 @@
       "sha256": "d571ea78a39b1302e4837e452d8be48ded33b023d99c88cf72a96611e99e6647"
     },
     "localized_png": {
-      "size": 22943,
-      "sha256": "e85aaef5050ef89629030ae20ffce3dc7df6ba0ae78c9f615af70a0c6859a55d"
+      "size": 22509,
+      "sha256": "21a978e03adbdb65946d2e7132bf12e91f10da8d8e008d60faa0c730fcc61c87"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "d5ce2a06be0b407005a353d56c0543bca0e29187b545e09b1deeb97fa37b6dd8"
+      "sha256": "891d4c0cb22d371509fd8bc62966038a574b1ed47b23c09d5cf709978ef2bcde"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "f6bc7cf3c0dbfb0f02e33cd6eba7950a38d44f6dfd4003b597bd1d4dd2f6539d"
+      "sha256": "4eec85cb3d0fa13859c98569cd665b7a8225d67a84b5ac12fa89ddceec285679"
     },
     "added_pixel_count": 1923,
-    "original_changed_pixel_count": 3270,
-    "original_changed_pixel_indexes_sha256": "0d0ad1ce9aeb41a11ae357d1796a73cffd8930dd8f2ea12cc1a501f7caeebc2f",
-    "changed_archive_byte_count": 1443,
-    "changed_archive_range_count": 160,
+    "original_changed_pixel_count": 3211,
+    "original_changed_pixel_indexes_sha256": "404f833465adb809264fd488809fc0d36231db96659d4f5d890e1b5c0eb89af8",
+    "changed_archive_byte_count": 1442,
+    "changed_archive_range_count": 161,
     "additional_text_masks": [
       {
         "semantic_locator_sha256": "f522c7ac3284a6ad2bacf6fd1819cd399a693256b562024f3e00efb50d4250fe",

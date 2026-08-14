@@ -10,6 +10,7 @@ from tools.srwz.ui_atlas_localization import (
     build_ui_atlas_localization,
     rgba_delta,
 )
+from tools.srwz.imagemagick import read_rgba8, require_imagemagick
 from tools.srwz.tim2 import parse_tim2
 
 
@@ -19,29 +20,29 @@ PROFILES = {
     "info": {
         "stem": "ui-info-atlas-zh",
         "archive_sha256": (
-            "bf31697f19bca40446bf089374c4a6ef7cb1ec29a1e7a3f68c7eb0c00f321b6b"
+            "9dd16938c988512f9df06ff16c37aeb1e0bca49572b036f9b7bd26de64a0f9e2"
         ),
         "character_count": 2,
         "added_pixel_count": 264,
-        "changed_pixel_count": 414,
+        "changed_pixel_count": 410,
     },
     "battle-command": {
         "stem": "ui-battle-command-atlas-zh",
         "archive_sha256": (
-            "68fafca4b120667b15514a48a4999affc2799438540e2998a037dea48dbb5bdc"
+            "ad2de747bc59a1d80b863e568273ca72cc3a4c5f99fd60b2b9d5b55531b631cb"
         ),
         "character_count": 4,
         "added_pixel_count": 554,
-        "changed_pixel_count": 2332,
+        "changed_pixel_count": 2343,
     },
     "bazaar": {
         "stem": "ui-bazaar-atlas-zh",
         "archive_sha256": (
-            "54670e0d0a1340dd297d2c531e6f8180796717d4651c7525e735ed0cc92baadc"
+            "87889240c67d4dd12172863fe90ab2fa8b8b59199ed2288375b297c209438f3e"
         ),
-        "character_count": 3,
-        "added_pixel_count": 2603,
-        "changed_pixel_count": 3704,
+        "character_count": 2,
+        "added_pixel_count": 8843,
+        "changed_pixel_count": 15534,
     },
     "intermission": {
         "stem": "ui-intermission-atlas-zh",
@@ -55,11 +56,11 @@ PROFILES = {
     "formation": {
         "stem": "ui-formation-atlas-zh",
         "archive_sha256": (
-            "d5ce2a06be0b407005a353d56c0543bca0e29187b545e09b1deeb97fa37b6dd8"
+            "891d4c0cb22d371509fd8bc62966038a574b1ed47b23c09d5cf709978ef2bcde"
         ),
         "character_count": 4,
         "added_pixel_count": 1923,
-        "changed_pixel_count": 3270,
+        "changed_pixel_count": 3211,
     },
     "stage-clear": {
         "stem": "ui-stage-clear-atlas-zh",
@@ -249,6 +250,55 @@ class UiAtlasLocalizationTests(unittest.TestCase):
                     ]
                 )
 
+    def test_all_production_atlas_text_rebuilds_source_indexed_layers(self):
+        for name, profile in self.profiles.items():
+            with self.subTest(profile=name):
+                config = profile["config"]
+                manifest = profile["manifest"]
+                labels = [
+                    config["localized_label"],
+                    *config.get("additional_localized_labels", []),
+                ]
+                profiles = config.get("indexed_text_layer_profiles", {})
+                for label in labels:
+                    render = label["render"]
+                    layers = render.get("indexed_layers")
+                    if layers is None:
+                        layers = profiles[render["indexed_layer_profile"]]
+                    self.assertEqual(
+                        [entry["palette_index"] for entry in layers["outline"]],
+                        list(range(1, 8)),
+                    )
+                    self.assertTrue(
+                        set(
+                            entry["palette_index"]
+                            for entry in layers["fill"]
+                        ) <= set(range(8, 16))
+                    )
+                    self.assertGreaterEqual(len(layers["fill"]), 7)
+                    self.assertTrue(label["source_element_id"])
+                    self.assertEqual(
+                        len(label["source_element_rgba_sha256"]),
+                        64,
+                    )
+
+                self.assertTrue(
+                    manifest["acceptance"][
+                        "source_element_rectangles_and_rgba_locked"
+                    ]
+                )
+                self.assertTrue(
+                    manifest["acceptance"][
+                        "indexed_outline_and_fill_layers_rebuilt"
+                    ]
+                )
+                text_audit = manifest["text_audit"]
+                audits = text_audit.get("labels", [text_audit])
+                for audit in audits:
+                    counts = audit["indexed_layer_counts"]
+                    self.assertGreater(sum(counts["outline"].values()), 0)
+                    self.assertGreater(sum(counts["fill"].values()), 0)
+
     def test_intermission_uses_frozen_supersampled_pixel_aligned_italic_renders(self):
         manifest = self.profiles["intermission"]["manifest"]
         config = self.profiles["intermission"]["config"]
@@ -430,6 +480,75 @@ class UiAtlasLocalizationTests(unittest.TestCase):
             else:
                 self.assertNotIn(15, source_indexes)
             self.assertIn(0, source_indexes)
+
+    def test_bazaar_erases_only_the_detached_long_mark_and_preserves_english(self):
+        profile = self.profiles["bazaar"]
+        config = profile["config"]
+        manifest = profile["manifest"]
+        erased = config["additional_erased_elements"]
+        self.assertEqual(len(erased), 1)
+        self.assertEqual(
+            erased[0]["mask"],
+            {
+                "x": 143,
+                "y": 27,
+                "width": 54,
+                "height": 10,
+                "replacement_rgba": "00000000",
+                "preserve_rgba": ["00000000"],
+            },
+        )
+        self.assertEqual(len(config["additional_localized_labels"]), 14)
+        self.assertTrue(
+            manifest["acceptance"][
+                "erased_element_rectangles_and_rgba_locked"
+            ]
+        )
+
+        magick = require_imagemagick()
+        reference = read_rgba8(
+            magick,
+            PROJECT_ROOT / config["outputs"]["reference_png"],
+            expected_width=256,
+            expected_height=256,
+        )
+        localized = read_rgba8(
+            magick,
+            PROJECT_ROOT / config["outputs"]["localized_png"],
+            expected_width=256,
+            expected_height=256,
+        )
+
+        def crop(data, x, y, width, height):
+            return b"".join(
+                data[(row * 256 + x) * 4 : (row * 256 + x + width) * 4]
+                for row in range(y, y + height)
+            )
+
+        self.assertEqual(
+            crop(reference, 2, 70, 124, 23),
+            crop(localized, 2, 70, 124, 23),
+        )
+        self.assertEqual(
+            crop(reference, 140, 66, 113, 13),
+            crop(localized, 140, 66, 113, 13),
+        )
+        self.assertEqual(
+            crop(reference, 164, 82, 88, 13),
+            crop(localized, 164, 82, 88, 13),
+        )
+        self.assertEqual(
+            crop(reference, 146, 2, 57, 20),
+            crop(localized, 146, 2, 57, 20),
+        )
+        self.assertEqual(
+            crop(reference, 143, 22, 54, 5),
+            crop(localized, 143, 22, 54, 5),
+        )
+        self.assertEqual(
+            crop(reference, 143, 37, 54, 5),
+            crop(localized, 143, 37, 54, 5),
+        )
 
     def test_stage_clear_replaces_only_the_fixed_suffix(self):
         profile = self.profiles["stage-clear"]

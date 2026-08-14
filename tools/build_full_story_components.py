@@ -4496,6 +4496,10 @@ def _apply_remaining_ui(
             "新規編成",
             "リザーブへ",
             "小隊群へ",
+            "アイテム",
+            "売却",
+            "強化パーツ",
+            "購入",
         ]
         or protected.get("protected_single_character_sources") != ["攻", "反"]
         or len(protected.get("pending_dedicated_mask_sources", []))
@@ -7041,6 +7045,14 @@ def build(
         or stage_report.get("runtime_keyword_link_count") != 122
         or stage_report.get("runtime_keyword_source_count") != 52
         or stage_report.get("runtime_keyword_links_exact") is not True
+        or stage_report.get("story_ticker_count") != 89
+        or stage_report.get("story_ticker_source_count") != 46
+        or stage_report.get("story_ticker_stage_count") != 89
+        or stage_report.get("story_ticker_inventory_sha256")
+        != "57a55b76a189dce8ec0479a0b03656c1155d7e8acb1dfc14cd62bcf45a4d4872"
+        or stage_report.get("story_ticker_structural_slots_exact") is not True
+        or stage_report.get("story_ticker_fixed_slots_exact") is not True
+        or stage_report.get("story_ticker_translated_reread_exact") is not True
         or stage_report.get("dialogue_outer_punctuation_exact") is not True
         or stage_report.get("dialogue_quote_style_counts")
         != {
@@ -8090,6 +8102,24 @@ def build(
             "codec_round_trip_exact": all(
                 item["codec_round_trip_exact"] for item in stage_report["stages"]
             ),
+            "ticker_source_count": stage_report["story_ticker_source_count"],
+            "ticker_target_count": stage_report["story_ticker_count"],
+            "ticker_stage_count": stage_report["story_ticker_stage_count"],
+            "ticker_stage_indices": stage_report[
+                "story_ticker_stage_indices"
+            ],
+            "ticker_inventory_sha256": stage_report[
+                "story_ticker_inventory_sha256"
+            ],
+            "ticker_structural_slots_exact": stage_report[
+                "story_ticker_structural_slots_exact"
+            ],
+            "ticker_fixed_slots_exact": stage_report[
+                "story_ticker_fixed_slots_exact"
+            ],
+            "ticker_translated_reread_exact": stage_report[
+                "story_ticker_translated_reread_exact"
+            ],
         },
         "pilot_names": pilot_name_report,
         "stage_titles": stage_title_report,

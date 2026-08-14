@@ -96,6 +96,24 @@ class UiAtlasSuiteTests(unittest.TestCase):
         )
         self.assertTrue(all(self.manifest["acceptance"].values()))
 
+    def test_full_story_component_input_points_to_current_suite(self):
+        full_story = json.loads(
+            (
+                PROJECT_ROOT / "config/full-story-components.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            full_story["kvmdata"],
+            {
+                "path": (
+                    "work/build/ui-atlas-suite-zh/components/"
+                    "KURODATA/KVMDATA.BIN"
+                ),
+                "size": self.config["expected_output"]["size"],
+                "sha256": self.config["expected_output"]["sha256"],
+            },
+        )
+
     def test_manifest_contains_no_translation_payload(self):
         def visit(value):
             if isinstance(value, dict):

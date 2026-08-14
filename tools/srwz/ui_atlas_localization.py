@@ -847,12 +847,63 @@ def build_ui_atlas_localization(
             }
         )
 
-    _mask_pixels([spec["mask"] for spec in label_specs])
-    if not fixed_source_elements and any(
-        spec["indexed_layers"] is not None for spec in label_specs
-    ):
+    additional_erased_elements = config.get(
+        "additional_erased_elements", []
+    )
+    if not isinstance(additional_erased_elements, list):
         raise UiAtlasLocalizationError(
-            "indexed text layers require fixed source elements"
+            "additional erased atlas elements must be a list"
+        )
+    erased_element_specs = []
+    for raw in additional_erased_elements:
+        if not isinstance(raw, Mapping):
+            raise UiAtlasLocalizationError(
+                "additional erased atlas element is malformed"
+            )
+        semantic_locator = raw.get("semantic_locator")
+        source_element_id = raw.get("source_element_id")
+        source_element_hash = raw.get("source_element_rgba_sha256")
+        if (
+            not isinstance(semantic_locator, str)
+            or not semantic_locator
+            or not isinstance(source_element_id, str)
+            or not source_element_id
+            or not isinstance(source_element_hash, str)
+            or len(source_element_hash) != 64
+        ):
+            raise UiAtlasLocalizationError(
+                "additional erased atlas element lock is invalid"
+            )
+        erased_element_specs.append(
+            {
+                "semantic_locator": semantic_locator,
+                "source_element_id": source_element_id,
+                "source_element_rgba_sha256": source_element_hash,
+                "mask": AtlasMask.from_mapping(raw.get("mask")),
+            }
+        )
+    if fixed_source_elements and erased_element_specs:
+        raise UiAtlasLocalizationError(
+            "additional erased atlas elements require masked text mode"
+        )
+
+    all_element_specs = [*label_specs, *erased_element_specs]
+    _mask_pixels([spec["mask"] for spec in all_element_specs])
+    unlocked_indexed_labels = [
+        spec["entry_id"]
+        for spec in label_specs
+        if spec["indexed_layers"] is not None
+        and (
+            not isinstance(spec["source_element_id"], str)
+            or not spec["source_element_id"]
+            or not isinstance(spec["source_element_rgba_sha256"], str)
+            or len(spec["source_element_rgba_sha256"]) != 64
+        )
+    ]
+    if unlocked_indexed_labels:
+        raise UiAtlasLocalizationError(
+            "indexed text layers require locked source elements: "
+            + ", ".join(unlocked_indexed_labels)
         )
 
     try:
@@ -989,7 +1040,7 @@ def build_ui_atlas_localization(
         )
         source_element_ids = []
         source_element_audits = []
-        for spec in label_specs:
+        for spec in all_element_specs:
             source_element_id = spec["source_element_id"]
             source_element_hash = spec["source_element_rgba_sha256"]
             if (
@@ -1059,7 +1110,7 @@ def build_ui_atlas_localization(
                 + ", ".join(missing_ramp)
             )
         erased_rgba = base_erased_rgba
-        for spec in label_specs[1:]:
+        for spec in [*label_specs[1:], *erased_element_specs]:
             erased_rgba = apply_masked_rgba(erased_rgba, spec["mask"])
         localized_rgba = erased_rgba
         text_audits = []
@@ -1156,7 +1207,7 @@ def build_ui_atlas_localization(
                 fill_masks.append(fill_mask)
             grayscale_masks.append(current_mask)
             text_audits.append(current_audit)
-        masks = [spec["mask"] for spec in label_specs]
+        masks = [spec["mask"] for spec in all_element_specs]
         expected_background_palette_index = config.get(
             "expected_background_palette_index"
         )
@@ -1402,6 +1453,19 @@ def build_ui_atlas_localization(
                 label_specs[1:], grayscale_masks[1:]
             )
         ]
+    if erased_element_specs:
+        expected["erased_elements"] = [
+            {
+                "semantic_locator_sha256": sha256_bytes(
+                    spec["semantic_locator"].encode("utf-8")
+                ),
+                "mask": spec["mask"].to_mapping(),
+                "source_element_rgba_sha256": spec[
+                    "source_element_rgba_sha256"
+                ],
+            }
+            for spec in erased_element_specs
+        ]
     configured_expected = config.get("expected")
     if enforce_expected and configured_expected != expected:
         raise UiAtlasLocalizationError(
@@ -1490,10 +1554,11 @@ def build_ui_atlas_localization(
             **(
                 {
                     "masks": [
-                        spec["mask"].to_mapping() for spec in label_specs
+                        spec["mask"].to_mapping()
+                        for spec in all_element_specs
                     ]
                 }
-                if len(label_specs) > 1
+                if len(all_element_specs) > 1
                 else {}
             ),
             "mask_audit": original_delta,
@@ -1624,6 +1689,25 @@ def build_ui_atlas_localization(
             if len(label_specs) > 1
             else {}
         ),
+        **(
+            {
+                "additional_erased_elements": [
+                    {
+                        "semantic_locator_sha256": sha256_bytes(
+                            spec["semantic_locator"].encode("utf-8")
+                        ),
+                        "source_element_id": spec["source_element_id"],
+                        "source_element_rgba_sha256": spec[
+                            "source_element_rgba_sha256"
+                        ],
+                        "mask": spec["mask"].to_mapping(),
+                    }
+                    for spec in erased_element_specs
+                ]
+            }
+            if erased_element_specs
+            else {}
+        ),
         "toolchain": {
             "imagemagick": version,
             **(
@@ -1689,8 +1773,13 @@ def build_ui_atlas_localization(
             "ramp_uses_only_source_palette_rgba": True,
             "localized_pixels_within_mapping_mask": True,
             **(
+                {"erased_element_rectangles_and_rgba_locked": True}
+                if erased_element_specs
+                else {}
+            ),
+            **(
                 {"source_element_rectangles_and_rgba_locked": True}
-                if fixed_source_elements
+                if source_element_audits
                 else {}
             ),
             **(

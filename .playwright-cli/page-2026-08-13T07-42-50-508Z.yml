@@ -1,0 +1,212 @@
+- generic [active] [ref=e1]:
+  - navigation "攻略页面" [ref=e2]:
+    - link "流程图" [ref=e3] [cursor=pointer]:
+      - /url: "#flow"
+    - link "隐藏要素" [ref=e4] [cursor=pointer]:
+      - /url: "#hidden-elements"
+    - link "周目继承" [ref=e5] [cursor=pointer]:
+      - /url: "#carryover"
+    - link "改造继承" [ref=e6] [cursor=pointer]:
+      - /url: "#upgrade-carryover"
+    - link "全改造奖励" [ref=e7] [cursor=pointer]:
+      - /url: "#full-upgrade-bonus"
+    - link "小队长能力" [ref=e8] [cursor=pointer]:
+      - /url: "#leadership"
+    - link "人物技能" [ref=e9] [cursor=pointer]:
+      - /url: "#pilot-skills"
+    - link "机体能力" [ref=e10] [cursor=pointer]:
+      - /url: "#mech-abilities"
+    - link "集市物品" [ref=e11] [cursor=pointer]:
+      - /url: "#bazaar"
+    - link "合体攻击" [ref=e12] [cursor=pointer]:
+      - /url: "#team-attacks"
+  - main [ref=e13]:
+    - generic [ref=e182]:
+      - generic [ref=e183]:
+        - paragraph [ref=e184]: 成为小队长时生效；战舰舰长效果作用于相邻友军。标有“稀有”的效果，在可用／客串角色中仅有一人持有。
+        - generic [ref=e185]:
+          - article [ref=e186]:
+            - heading "经验值增加" [level=3] [ref=e187]
+            - list [ref=e188]:
+              - listitem [ref=e189]: 获得经验值＋20%
+          - article [ref=e190]:
+            - heading "资金增加" [level=3] [ref=e191]
+            - list [ref=e192]:
+              - listitem [ref=e193]: 获得资金＋20%
+              - listitem [ref=e194]: 获得资金＋30%
+              - listitem [ref=e195]: 相邻友方获得资金 ＋20%
+          - article [ref=e196]:
+            - heading "射程延长" [level=3] [ref=e197]
+            - list [ref=e198]:
+              - listitem [ref=e199]: MAP武器及射程1以外的 武器射程＋1
+          - article [ref=e200]:
+            - heading "小队移动力增加" [level=3] [ref=e201]
+            - list [ref=e202]:
+              - listitem [ref=e203]: 小队移动力＋1
+          - article [ref=e204]:
+            - heading "EN减耗" [level=3] [ref=e205]
+            - list [ref=e206]:
+              - listitem [ref=e207]: 武器EN消耗−10%
+              - listitem [ref=e208]: 武器EN消耗−20%
+              - listitem [ref=e209]: 相邻友方的武器EN消耗 −10%
+          - article [ref=e210]:
+            - heading "命中提升" [level=3] [ref=e211]
+            - list [ref=e212]:
+              - listitem [ref=e213]: 命中率＋10%
+              - listitem [ref=e214]: 命中率＋20%
+              - listitem [ref=e215]:
+                - text: 命中率＋30%
+                - generic [ref=e216]:
+                  - generic [ref=e217]: 稀有
+                  - generic [ref=e218]: 持有人：金卡拉姆
+              - listitem [ref=e219]: 相邻友方命中率＋10%
+          - article [ref=e220]:
+            - heading "回避提升" [level=3] [ref=e221]
+            - list [ref=e222]:
+              - listitem [ref=e223]: 回避率＋10%
+              - listitem [ref=e224]: 回避率＋20%
+              - listitem [ref=e225]:
+                - text: 敌方回合回避率＋20%
+                - generic [ref=e226]:
+                  - generic [ref=e227]: 稀有
+                  - generic [ref=e228]: 持有人：莉娜
+          - article [ref=e229]:
+            - heading "攻击力提升" [level=3] [ref=e230]
+            - list [ref=e231]:
+              - listitem [ref=e232]: 攻击力＋10%
+              - listitem [ref=e233]: 攻击力＋20%
+              - listitem [ref=e234]: 相邻友方攻击力＋10%
+              - listitem [ref=e235]: 反击时攻击力＋10%
+              - listitem [ref=e236]: 反击时攻击力＋20%
+              - listitem [ref=e237]:
+                - text: 反击时攻击力＋30%
+                - generic [ref=e238]:
+                  - generic [ref=e239]: 稀有
+                  - generic [ref=e240]: 持有人：贝克
+              - listitem [ref=e241]: 小队攻击的攻击力＋20%
+              - listitem [ref=e242]: 小队攻击的攻击力＋40%
+              - listitem [ref=e243]:
+                - text: 我方回合的攻击力 ＋10%
+                - generic [ref=e244]:
+                  - generic [ref=e245]: 稀有
+                  - generic [ref=e246]: 持有人：斗牙
+              - listitem [ref=e247]: 格斗武器攻击力＋10%
+              - listitem [ref=e248]: 格斗武器攻击力＋20%
+              - listitem [ref=e249]:
+                - text: 射击武器攻击力＋10%
+                - generic [ref=e250]:
+                  - generic [ref=e251]: 稀有
+                  - generic [ref=e252]: 持有人：节子
+              - listitem [ref=e253]: 射击武器攻击力＋20%
+              - listitem [ref=e254]: 援护攻击时攻击力＋20%
+              - listitem [ref=e255]: 对男性攻击力＋20% 对女性攻击力−20%
+              - listitem [ref=e256]:
+                - text: 相邻友方对盖佐克的 攻击力＋40%
+                - generic [ref=e257]:
+                  - generic [ref=e258]: 稀有
+                  - generic [ref=e259]: 持有人：兵左卫门
+              - listitem [ref=e260]:
+                - text: 对泽拉拜亚攻击力＋20%
+                - generic [ref=e261]:
+                  - generic [ref=e262]: 稀有
+                  - generic [ref=e263]: 持有人：桑德曼
+              - listitem [ref=e264]:
+                - text: 对堕天翅攻击力＋40%
+                - generic [ref=e265]:
+                  - generic [ref=e266]: 稀有
+                  - generic [ref=e267]: 持有人：阿波罗
+              - listitem [ref=e268]: 对飞行单位攻击力 ＋20%
+              - listitem [ref=e269]: 对女性攻击力＋20%
+          - article [ref=e270]:
+            - heading "伤害减轻" [level=3] [ref=e271]
+            - list [ref=e272]:
+              - listitem [ref=e273]: 伤害−10%
+              - listitem [ref=e274]:
+                - text: 伤害−20%
+                - generic [ref=e275]:
+                  - generic [ref=e276]: 稀有
+                  - generic [ref=e277]: 持有人：甲儿
+              - listitem [ref=e278]:
+                - text: 伤害−30%
+                - generic [ref=e279]:
+                  - generic [ref=e280]: 稀有
+                  - generic [ref=e281]: 持有人：法特曼
+              - listitem [ref=e282]: 援护防御时伤害−30%
+              - listitem [ref=e283]: 相邻友方受到的伤害 −10%
+              - listitem [ref=e284]: 相邻友方受到的伤害 −20%
+          - article [ref=e285]:
+            - heading "暴击率提升" [level=3] [ref=e286]
+            - list [ref=e287]:
+              - listitem [ref=e288]: 暴击率＋10%
+              - listitem [ref=e289]: 暴击率＋20%
+              - listitem [ref=e290]: 暴击率＋30%
+              - listitem [ref=e291]:
+                - text: 援护时暴击率 ＋20%
+                - generic [ref=e292]:
+                  - generic [ref=e293]: 稀有
+                  - generic [ref=e294]: 持有人：托比
+          - article [ref=e295]:
+            - heading "地形适应" [level=3] [ref=e296]
+            - list [ref=e297]:
+              - listitem [ref=e298]:
+                - text: 小队全机的空中地形适应 变为S
+                - generic [ref=e299]:
+                  - generic [ref=e300]: 稀有
+                  - generic [ref=e301]: 持有人：龙马
+              - listitem [ref=e302]:
+                - text: 小队全机的陆地地形适应 变为S
+                - generic [ref=e303]:
+                  - generic [ref=e304]: 稀有
+                  - generic [ref=e305]: 持有人：隼人
+              - listitem [ref=e306]:
+                - text: 小队全机的海中地形适应 变为S
+                - generic [ref=e307]:
+                  - generic [ref=e308]: 稀有
+                  - generic [ref=e309]: 持有人：弁庆
+              - listitem [ref=e310]:
+                - text: 小队全机的地形适应 “空陆海”变为A
+                - generic [ref=e311]:
+                  - generic [ref=e312]: 稀有
+                  - generic [ref=e313]: 持有人：铁甲鬼
+          - article [ref=e314]:
+            - heading "回复量提升" [level=3] [ref=e315]
+            - list [ref=e316]:
+              - listitem [ref=e317]: HP、EN恢复量＋50%
+          - article [ref=e318]:
+            - heading "特殊防御触发率提升" [level=3] [ref=e319]
+            - list [ref=e320]:
+              - listitem [ref=e321]: 格挡发动率＋20%
+              - listitem [ref=e322]:
+                - text: 格挡发动率＋40%
+                - generic [ref=e323]:
+                  - generic [ref=e324]: 稀有
+                  - generic [ref=e325]: 持有人：斗志也
+          - article [ref=e326]:
+            - heading "特殊武器无效类" [level=3] [ref=e327]
+            - list [ref=e328]:
+              - listitem [ref=e329]: 使驾驶员类的 特殊效果武器无效
+              - listitem [ref=e330]:
+                - text: 使全部特殊效果武器无效
+                - generic [ref=e331]:
+                  - generic [ref=e332]: 稀有
+                  - generic [ref=e333]: 持有人：兰德
+          - article [ref=e334]:
+            - heading "特殊技能赋予类" [level=3] [ref=e335]
+            - list [ref=e336]:
+              - listitem [ref=e337]:
+                - text: 小队全员获得 “战意高扬”效果
+                - generic [ref=e338]:
+                  - generic [ref=e339]: 稀有
+                  - generic [ref=e340]: 持有人：吉隆
+              - listitem [ref=e341]: 小队全员获得 “气力＋（回避）”效果
+              - listitem [ref=e342]:
+                - text: 小队全员获得 “气力＋（伤害）”效果
+                - generic [ref=e343]:
+                  - generic [ref=e344]: 稀有
+                  - generic [ref=e345]: 持有人：胜平
+              - listitem [ref=e346]: 小队全员获得 “气力＋（命中）”效果
+      - complementary [ref=e347]:
+        - generic [ref=e348]: Akurasu 资料差异
+        - list [ref=e349]:
+          - listitem [ref=e350]: Akurasu 的 Pilot Database 把拉克丝的舰长效果写成相邻友方命中率＋10%；其 Squad Leader Bonus 页及实际效果应为相邻友方攻击力＋10%。
+          - listitem [ref=e351]: Akurasu 的 Squad Leader Bonus 页漏掉托比效果的“援护时”限定；游戏内效果为援护时暴击率＋20%。

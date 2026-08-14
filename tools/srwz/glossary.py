@@ -279,6 +279,7 @@ def relevant_glossary_terms(
                 "deprecated_translations": list(
                     term.get("deprecated_translations", [])
                 ),
+                "domains": list(term.get("domains", [])),
                 "variant_scope": str(term.get("variant_scope", "source_bound")),
                 "enforce": enforce,
                 "declared_enforce": bool(term.get("declared_enforce", False)),
