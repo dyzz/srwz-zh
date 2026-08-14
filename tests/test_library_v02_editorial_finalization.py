@@ -28,6 +28,7 @@ class LibraryV02EditorialFinalizationTests(unittest.TestCase):
         self.assertIn("赤骑士赤骑士", finalization.KNOWN_BAD_SUBSTRINGS)
         self.assertIn("新地球联邦军军人", finalization.KNOWN_BAD_SUBSTRINGS)
         self.assertIn("迪安娜反击军军曹", finalization.KNOWN_BAD_SUBSTRINGS)
+        self.assertIn("迪安娜回归军军曹", finalization.KNOWN_BAD_SUBSTRINGS)
 
     def test_current_source_bound_terms_reconcile_old_review_text(self):
         candidate = {

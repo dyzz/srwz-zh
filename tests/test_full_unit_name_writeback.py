@@ -144,7 +144,7 @@ class FullUnitNameWritebackTests(unittest.TestCase):
         self.assertEqual(before["display-name/unit/0157/name"], "高达X分频者")
         self.assertEqual(before["display-name/unit/0158/name"], "高达X·分频者")
         self.assertEqual(after["display-name/unit/0157/name"], "高达X分裂者")
-        self.assertEqual(after["display-name/unit/0158/name"], "高达X·分裂者")
+        self.assertEqual(after["display-name/unit/0158/name"], "高达X分裂者")
 
     def test_current_chinese_names_need_no_zero_padding_expansion(self):
         self.assertEqual(

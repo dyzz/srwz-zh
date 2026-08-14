@@ -391,14 +391,15 @@
     {
       "id": "story/127/dialogue/01.10/0000",
       "source_text_sha256": "622332def41b545294c1dd917dce3b8b4cce7206944f65990c55f46bb9569f49",
-      "translation": "“倒X！是吉姆·金卡拉姆吗！”",
+      "translation": "“倒X！是基姆·金卡拉姆吗！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "people/ghingham",
+        "people/gym-ghingham-full",
         "unit/turn-x"
       ],
-      "notes": "嵌套词表子串自动例外：system/turn\n本句的ターン用于Turn A、动作名或一般转向，不是战斗系统“回合”。",
+      "notes": "嵌套词表子串自动例外：system/turn\n本句的ターン用于Turn A、动作名或一般转向，不是战斗系统“回合”。按日文源词绑定统一全局术语：people/gym-ghingham-full。",
       "glossary_exceptions": [
         "system/turn"
       ]
@@ -543,14 +544,15 @@
     {
       "id": "story/127/dialogue/01.10/0014",
       "source_text_sha256": "899a33537ed6aceaa3fc9b333a6afc4c65699a68514c98aa78da29be3900ecab",
-      "translation": "“罗兰·塞亚克！必须阻止那架倒X！”",
+      "translation": "“罗兰·瑟亚克！必须阻止那架倒X！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
         "people/loran",
+        "people/loran-cehack-full",
         "unit/turn-x"
       ],
-      "notes": "嵌套词表子串自动例外：system/turn\n本句的ターン用于Turn A、动作名或一般转向，不是战斗系统“回合”。",
+      "notes": "嵌套词表子串自动例外：system/turn\n本句的ターン用于Turn A、动作名或一般转向，不是战斗系统“回合”。按日文源词绑定统一全局术语：people/loran-cehack-full。",
       "glossary_exceptions": [
         "system/turn"
       ]
@@ -1793,13 +1795,14 @@
     {
       "id": "story/127/dialogue/01.14/0021",
       "source_text_sha256": "6c1e303e0410de713f53ef94241553813644c9515fd7f629bcb992d3ced80bc8",
-      "translation": "“吉姆·金卡拉姆。\n　像你这样的男人，才应该知道真相。”",
+      "translation": "“基姆·金卡拉姆。\n　像你这样的男人，才应该知道真相。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/ghingham"
+        "people/ghingham",
+        "people/gym-ghingham-full"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/gym-ghingham-full。"
     },
     {
       "id": "story/127/dialogue/01.14/0022",
@@ -1830,13 +1833,14 @@
     {
       "id": "story/127/dialogue/01.14/0024",
       "source_text_sha256": "f50cee8c48d04c6ed0669086a84ca4a1f6f1cf803a7c32f7297b9e00ac6c6dd9",
-      "translation": "“拜托了，罗兰·塞亚克。”",
+      "translation": "“拜托了，罗兰·瑟亚克。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/loran"
+        "people/loran",
+        "people/loran-cehack-full"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/loran-cehack-full。"
     },
     {
       "id": "story/127/dialogue/01.14/0025",
@@ -2923,13 +2927,14 @@
     {
       "id": "story/127/dialogue/01.27/0000",
       "source_text_sha256": "d2bed5c89e0346c36effcbb9886c3dfe25cccee3bd7f7708fee6bd020e098fc8",
-      "translation": "“住手，吉姆·金卡拉姆！\n　那力量是埋葬了地球文明的禁忌之力！”",
+      "translation": "“住手，基姆·金卡拉姆！\n　那力量是埋葬了地球文明的禁忌之力！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/ghingham"
+        "people/ghingham",
+        "people/gym-ghingham-full"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/gym-ghingham-full。"
     },
     {
       "id": "story/127/dialogue/01.27/0001",
@@ -3019,7 +3024,7 @@
     {
       "id": "story/127/dialogue/01.27/0009",
       "source_text_sha256": "971e28b91a71c8c7444b9df6ec5c0843e733a62c4a5aa2ae907bbad8f0c2ec6d",
-      "translation": "“完成任务后的白色人偶\n　在英格莱萨沉睡了……”",
+      "translation": "“完成任务后的白色人偶\n　在英格利萨沉睡了……”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -3126,11 +3131,13 @@
     {
       "id": "story/127/dialogue/01.27/0019",
       "source_text_sha256": "255cf28bf83bd9760fcf9b5b10e4e24c695de9c9ed2f355fac18a1236145ba6f",
-      "translation": "“阿格里帕·门特纳！”",
+      "translation": "“阿格里帕·曼泰纳！”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/agrippa-maintainer-full"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/agrippa-maintainer-full。"
     },
     {
       "id": "story/127/dialogue/01.28/0000",
@@ -3146,13 +3153,14 @@
     {
       "id": "story/127/dialogue/01.28/0001",
       "source_text_sha256": "fbf3f0d24d8e252e966a4dda3452f70eb38c2bd4cf3f1e0195fb565303cc251f",
-      "translation": "“我吉姆·金卡拉姆，\n　要制裁出卖月之迪安娜的叛逆者！”",
+      "translation": "“我基姆·金卡拉姆，\n　要制裁出卖月之迪安娜的叛逆者！”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/ghingham"
+        "people/ghingham",
+        "people/gym-ghingham-full"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/gym-ghingham-full。"
     },
     {
       "id": "story/127/dialogue/01.29/0000",
@@ -3205,13 +3213,14 @@
     {
       "id": "story/127/dialogue/01.31/0001",
       "source_text_sha256": "36567d2f0fd73bdb687b9734f9f1f7e8e847a6316449293905a3655d2116b298",
-      "translation": "“月之吉姆·金卡拉姆……那个男人……\n　目标虽与我们不同，但可以利用。”",
+      "translation": "“月之基姆·金卡拉姆……那个男人……\n　目标虽与我们不同，但可以利用。”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/ghingham"
+        "people/ghingham",
+        "people/gym-ghingham-full"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/gym-ghingham-full。"
     },
     {
       "id": "story/127/dialogue/01.31/0002",
@@ -7544,13 +7553,14 @@
     {
       "id": "story/127/dialogue/02.01/0063",
       "source_text_sha256": "55e786fee0c1ade736890a550cbc36cd16d3bab46760a5e2cd3dbcc869c62d46",
-      "translation": "“阿格里帕·门特纳阁下，管理月之民\n　冷冻睡眠的你追求和平，我可以理解”",
+      "translation": "“阿格里帕·曼泰纳阁下，管理月之民\n　冷冻睡眠的你追求和平，我可以理解”",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
+        "people/agrippa-maintainer-full",
         "people/moonrace"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/agrippa-maintainer-full。"
     },
     {
       "id": "story/127/dialogue/02.01/0064",
@@ -8912,11 +8922,13 @@
     {
       "id": "story/127/dialogue/02.02/0093",
       "source_text_sha256": "2489d1105d5eccd731252b342795fc431dc95389a196ad203e31bbb86ab28046",
-      "translation": "“退下，阿格里帕·门特纳……！”",
+      "translation": "“退下，阿格里帕·曼泰纳……！”",
       "editorial_status": "draft",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/agrippa-maintainer-full"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/agrippa-maintainer-full。"
     },
     {
       "id": "story/127/dialogue/02.02/0094",

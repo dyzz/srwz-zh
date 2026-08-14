@@ -332,12 +332,12 @@ class ZhReleaseFontTests(unittest.TestCase):
             )
 
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
-        self.assertEqual(self.snapshot["primary_assignment_count"], 3423)
+        self.assertEqual(self.snapshot["primary_assignment_count"], 3424)
         self.assertEqual(
             self.snapshot["surface_alias_assignment_count"], 604
         )
         self.assertEqual(
-            self.snapshot["remaining_allocation_candidate_count"], 179
+            self.snapshot["remaining_allocation_candidate_count"], 178
         )
         compatibility = self.snapshot["source_compatibility_assignments"]
         compatibility_by_character = {
@@ -375,6 +375,8 @@ class ZhReleaseFontTests(unittest.TestCase):
         }
         self.assertEqual(by_character["锵"]["code"], "986E")
         self.assertEqual(by_character["锵"]["glyph_index"], 4462)
+        self.assertEqual(by_character["倩"]["code"], "82DA")
+        self.assertEqual(by_character["倩"]["glyph_index"], 346)
         migration = self.snapshot["migration"]
         self.assertFalse(migration["active_build_dependency"])
         self.assertEqual(

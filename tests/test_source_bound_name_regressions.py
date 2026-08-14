@@ -96,6 +96,207 @@ class SourceBoundNameRegressionTests(unittest.TestCase):
         self.assertGreater(report["source_occurrence_count"], 0)
         self.assertEqual(report["mismatches"], [])
 
+    def test_xabungle_terms_match_japanese_source_context(self) -> None:
+        by_id = {
+            term["id"]: term
+            for term in load_global_glossary(ROOT / "corpus/glossary")
+        }
+        expected_occurrences = {
+            "people/civilian": 15,
+            "unit/walker-gallia": 17,
+            "unit/iron-gear": 236,
+            "unit/brockary": 4,
+            "organization/sand-rat": 12,
+            "people/geraba": 17,
+        }
+        report = audit_source_terms(
+            self.rows,
+            [by_id[term_id] for term_id in expected_occurrences],
+        )
+        self.assertEqual(report["source_occurrences"], expected_occurrences)
+        self.assertEqual(report["mismatches"], [])
+
+    def test_xabungle_speaker_and_condition_surfaces_use_geraba(self) -> None:
+        for relative_path in (
+            "corpus/zh/story-speakers.json",
+            "corpus/zh/story-conditions.json",
+        ):
+            document = json.loads((ROOT / relative_path).read_text(encoding="utf-8"))
+            bound = [
+                entry
+                for entry in document["entries"]
+                if "people/geraba" in entry.get("glossary_refs", [])
+            ]
+            self.assertTrue(bound, relative_path)
+            self.assertTrue(
+                all("格拉巴" in entry["translation"] for entry in bound),
+                relative_path,
+            )
+            self.assertTrue(
+                all("杰拉巴" not in entry["translation"] for entry in bound),
+                relative_path,
+            )
+
+    def test_gundam_x_terms_match_japanese_source_context(self) -> None:
+        by_id = {
+            term["id"]: term
+            for term in load_global_glossary(ROOT / "corpus/glossary")
+        }
+        expected_occurrences = {
+            "people/sara-tyrell": 0,
+            "people/tiffa-adill": 46,
+            "people/jamil-neate": 36,
+            "people/witz-sou": 0,
+            "people/roybea-loy": 0,
+            "people/kid-salsamille": 2,
+            "people/shagia-frost": 12,
+            "people/shingo-mori": 0,
+            "people/pala-sys": 4,
+            "people/lancerow-darwell": 8,
+            "people/katokk-alzamille": 0,
+            "people/seidel-rasso": 1,
+            "people/carris-nautilus": 3,
+            "people/lucille-lilliant": 4,
+            "people/abel-bauer": 2,
+            "unit/gundam-x-divider": 0,
+            "unit/gundam-airmaster": 0,
+            "unit/gundam-airmaster-burst": 0,
+            "unit/gundam-leopard": 0,
+            "unit/gundam-leopard-destroy": 0,
+            "unit/gundam-virsago-chest-break": 0,
+            "unit/daughtress-neo": 0,
+            "unit/clouda": 0,
+            "unit/bertigo": 0,
+            "unit/gundam-double-x-spoken": 4,
+            "unit/g-falcon": 16,
+            "unit/airmaster-short": 7,
+            "unit/leopard-short": 3,
+            "unit/virsago-short": 4,
+            "unit/ashtaron-hc": 0,
+            "unit/gadiel": 0,
+        }
+        report = audit_source_terms(
+            self.rows,
+            [by_id[term_id] for term_id in expected_occurrences],
+        )
+        self.assertEqual(report["source_occurrences"], expected_occurrences)
+        self.assertEqual(report["mismatches"], [])
+
+    def test_gundam_x_condition_uses_clouda(self) -> None:
+        document = json.loads(
+            (ROOT / "corpus/zh/story-conditions.json").read_text(encoding="utf-8")
+        )
+        bound = [
+            entry
+            for entry in document["entries"]
+            if "unit/clouda" in entry.get("glossary_refs", [])
+        ]
+        self.assertTrue(bound)
+        self.assertTrue(all("克鲁达" in entry["translation"] for entry in bound))
+        self.assertTrue(all("克劳达" not in entry["translation"] for entry in bound))
+
+    def test_gundam_x_pilot_name_components_follow_reviewed_full_names(self) -> None:
+        document = json.loads(
+            (ROOT / "corpus/zh/menu/remaining-ui.json").read_text(encoding="utf-8")
+        )
+        names = document["display_names_by_source_text"]
+        expected = {
+            "アディール": "阿迪尔",
+            "ニート": "尼特",
+            "タイレル": "泰雷尔",
+            "モリ": "森",
+            "スー": "苏",
+            "ロイ": "罗伊",
+            "サルサミル": "萨尔萨米尔",
+            "シス": "西斯",
+            "フロスト": "弗罗斯特",
+            "ダーウェル": "达威尔",
+            "アルザミール": "阿尔扎米尔",
+            "ラッソ": "拉索",
+            "ノーティラス": "诺提拉斯",
+            "リリアント": "莉莉安特",
+            "バウアー": "鲍尔",
+        }
+        self.assertEqual({source: names[source] for source in expected}, expected)
+
+    def test_big_o_terms_match_japanese_source_context(self) -> None:
+        by_id = {
+            term["id"]: term
+            for term in load_global_glossary(ROOT / "corpus/glossary")
+        }
+        expected_occurrences = {
+            "concept/dominus": 24,
+            "concept/paradigm-shift": 1,
+            "organization/paradigm-short": 20,
+            "place/paradigm-city": 173,
+            "organization/paradigm-corporation": 38,
+            "people/schwarzwald-full": 23,
+            "unit/archetype": 8,
+            "unit/megadeus": 59,
+            "unit/prairie-dog": 1,
+            "unit/big-o": 95,
+            "unit/big-duo": 33,
+            "unit/big-duo-inferno": 0,
+            "unit/big-fau": 12,
+            "unit/the-big": 16,
+        }
+        report = audit_source_terms(
+            self.rows,
+            [by_id[term_id] for term_id in expected_occurrences],
+        )
+        self.assertEqual(report["source_occurrences"], expected_occurrences)
+        self.assertEqual(report["mismatches"], [])
+
+    def test_zeta_and_chars_counterattack_terms_match_japanese_source(self) -> None:
+        by_id = {
+            term["id"]: term
+            for term in load_global_glossary(ROOT / "corpus/glossary")
+        }
+        expected_occurrences = {
+            "unit/rick-dias": 7,
+            "unit/re-gz": 6,
+            "people/fa-yuiry-full": 4,
+            "people/reccoa-londe-full": 22,
+            "people/four-murasame-full": 7,
+            "people/bran-blutarch-full": 0,
+            "people/rosamia-badam-full": 0,
+            "people/ben-wood-full": 0,
+            "people/henken-bekkener-full": 0,
+            "people/mouar-pharaoh-full": 0,
+            "people/blex-forer-full": 1,
+            "people/gady-kinsey-full": 0,
+            "technology/psycommu": 14,
+            "weapon/0271": 10,
+            "ability/psycho-frame": 10,
+        }
+        report = audit_source_terms(
+            self.rows,
+            [by_id[term_id] for term_id in expected_occurrences],
+        )
+        self.assertEqual(report["source_occurrences"], expected_occurrences)
+        self.assertEqual(report["mismatches"], [])
+
+    def test_seed_destiny_terms_match_japanese_source_context(self) -> None:
+        by_id = {
+            term["id"]: term
+            for term in load_global_glossary(ROOT / "corpus/glossary")
+        }
+        expected_occurrences = {
+            "unit/force-impulse-gundam": 0,
+            "unit/akatsuki-gundam": 3,
+            "unit/minerva": 447,
+            "unit/girty-lue": 3,
+            "unit/core-splendor": 5,
+            "people/lunamaria": 68,
+            "people/stella-loussier": 2,
+        }
+        report = audit_source_terms(
+            self.rows,
+            [by_id[term_id] for term_id in expected_occurrences],
+        )
+        self.assertEqual(report["source_occurrences"], expected_occurrences)
+        self.assertEqual(report["mismatches"], [])
+
     def test_longer_source_terms_shadow_short_kana_names(self) -> None:
         rows = [
             SourceTranslation("story", "ordinary", "ささやかな礼", "微薄谢礼", ()),

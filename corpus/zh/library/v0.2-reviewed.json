@@ -230,7 +230,7 @@
     {
       "id": "library-text/00c09fc37cf68c11",
       "source_text_sha256": "00c09fc37cf68c1141067e85e0b4fe1ac16753e99cefe3e2a1783358e2c54095",
-      "translation": "由天真者制造的大型步行机，性能卓越，动作几乎与人类无异。机体可分离为两台机械，也可重新合体；两台机械连接后还能变形成汽车形态。无论运动性、出力还是丰富的可选武装，都远超以往的步行机。缺点是结构复杂、难以维护。即便科特塞特技术高超，处理起来也很棘手；机体还曾在完成变形后因头部卡住而无法复原。共制造了两机，其中一机的机翼被吉隆破坏，从此无法变形，之后作为“副·萨芬格尔”使用，最终在与格蕾塔·加利交战时被摧毁。",
+      "translation": "由天真者制造的大型步行机甲，性能卓越，动作几乎与人类无异。机体可分离为两台机械，也可重新合体；两台机械连接后还能变形成汽车形态。无论运动性、出力还是丰富的可选武装，都远超以往的步行机甲。缺点是结构复杂、难以维护。即便科特塞特技术高超，处理起来也很棘手；机体还曾在完成变形后因头部卡住而无法复原。共制造了两机，其中一机的机翼被吉隆破坏，从此无法变形，之后作为“副·萨芬格尔”使用，最终在与格蕾塔·加利交战时被摧毁。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -249,13 +249,14 @@
         "system/mobility",
         "system/separate",
         "system/transform",
+        "unit/walker-machine",
         "unit/xabungle"
       ]
     },
     {
       "id": "library-text/00d6b42be2195c2d",
       "source_text_sha256": "00d6b42be2195c2d46ca4f68c3203a72a4889de971fa197824695ad79f935adf",
-      "translation": "基亚基亚的步行机形态。由被天真者洗脑的艾露琪担任舰长，与吉隆等人乘坐的钢铁齿轮展开了激烈的缠斗。但在舰船操控上技高一筹的科特塞特等人的钢铁齿轮面前力有不逮，被重创击毁。",
+      "translation": "基亚基亚的步行机甲形态。由被天真者洗脑的艾露琪担任舰长，与吉隆等人乘坐的钢铁齿轮展开了激烈的缠斗。但在舰船操控上技高一筹的科特塞特等人的钢铁齿轮面前力有不逮，被重创击毁。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -269,7 +270,8 @@
         "people/elchi",
         "people/jiron",
         "people/speaker-d054189b475d",
-        "unit/iron-gear"
+        "unit/iron-gear",
+        "unit/walker-machine"
       ]
     },
     {
@@ -757,7 +759,7 @@
     {
       "id": "library-text/044a522145ad236d",
       "source_text_sha256": "044a522145ad236da330042ab8bfc3b8d27756e6ccf068859381cb2793eb3f5b",
-      "translation": "克劳达",
+      "translation": "克鲁达",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -773,7 +775,7 @@
     {
       "id": "library-text/0479cf6228d2a281",
       "source_text_sha256": "0479cf6228d2a2815dfde5ebc6415c0d3e1245777800da26d195f082eeba5aa0",
-      "translation": "空中霸王高达爆裂型",
+      "translation": "空中霸王爆裂者高达",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -782,7 +784,9 @@
       "tags": [
         "RBTN"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "unit/gundam-airmaster-burst"
+      ]
     },
     {
       "id": "library-text/047b3558d8b85662",
@@ -970,7 +974,7 @@
     {
       "id": "library-text/053fe2dbecb1f81a",
       "source_text_sha256": "053fe2dbecb1f81ae77c0bde8cef39571dcd3ab4ca4bd2103d2ae1b10b491856",
-      "translation": "花·尤伊莉",
+      "translation": "花·园丽",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -980,6 +984,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/fa-yuiry-full",
         "people/speaker-a23753fe36e8"
       ]
     },
@@ -2165,7 +2170,7 @@
     {
       "id": "library-text/0a36533111e93dcf",
       "source_text_sha256": "0a36533111e93dcf14224edef3b83ac46f573a4b61ab661b0a515f67303e15e4",
-      "translation": "在破坏者中拥有根深蒂固人气的步行机。正如不适合发掘作业的双臂凝固汽油弹枪和丰富的固定武装所示，它是纯粹为战斗而开发的。与给人笨重印象的躯体相反，它拥有很高的运动性。通过悬浮喷嘴还可进行近距离飞行，机动性也无可挑剔。",
+      "translation": "在破坏者中拥有根深蒂固人气的步行机甲。正如不适合发掘作业的双臂凝固汽油弹枪和丰富的固定武装所示，它是纯粹为战斗而开发的。与给人笨重印象的躯体相反，它拥有很高的运动性。通过悬浮喷嘴还可进行近距离飞行，机动性也无可挑剔。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -2178,6 +2183,7 @@
       "glossary_refs": [
         "people/speaker-438059a318cd",
         "system/mobility",
+        "unit/walker-machine",
         "weapon/0207"
       ]
     },
@@ -3437,7 +3443,7 @@
     {
       "id": "library-text/1121cdced53629e3",
       "source_text_sha256": "1121cdced53629e33f17da830d26c9bbf8ec3ab1592a2b2b4df7c19db1b0eaab",
-      "translation": "与罗兰和芙兰一同作为地球归还先遣调查员，于两年前降落地球的月之民少年，17岁。在诺克斯的面包店唐基当学徒。但在迪安娜·反击部队降落时，因店主受伤，便代替他与店主的女儿贝尔蕾娜一起继续经营店铺。他将降落地球时使用的平板车卖给英格莱萨民兵，用那笔钱建起了面包工厂，并积极雇用逃跑的月之民。这种尽力做好自己力所能及之事的积极态度，为民间层面地球与月球的沟通桥梁做出了巨大贡献。或许是努力的成果，他的面包制作手艺精湛，其味道无论地球人还是月之民都赞不绝口。在尾声部分，可以确认他与贝尔蕾娜之间育有子女。",
+      "translation": "与罗兰和芙兰一同作为地球归还先遣调查员，于两年前降落地球的月之民少年，17岁。在诺克斯的面包店唐基当学徒。但在迪安娜回归军降落时，因店主受伤，便代替他与店主的女儿贝尔蕾娜一起继续经营店铺。他将降落地球时使用的平板车卖给英格利萨民兵团，用那笔钱建起了面包工厂，并积极雇用逃跑的月之民。这种尽力做好自己力所能及之事的积极态度，为民间层面地球与月球的沟通桥梁做出了巨大贡献。或许是努力的成果，他的面包制作手艺精湛，其味道无论地球人还是月之民都赞不绝口。在尾声部分，可以确认他与贝尔蕾娜之间育有子女。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -3447,11 +3453,14 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
+        "organization/ingressa-militia",
         "people/loran",
         "people/moonrace",
         "people/speaker-749ca4675490",
         "people/speaker-b8db49048797",
         "people/speaker-e67a48b9dc5a",
+        "place/ingressa",
         "skill/counter",
         "skill/extreme",
         "spirit/effort"
@@ -3683,7 +3692,7 @@
     {
       "id": "library-text/12642ab947fffede",
       "source_text_sha256": "12642ab947fffede0357bb21c010672d84db8b3e5846e84aa1da0c6ac26bab34",
-      "translation": "盗贼团沙鼠的女首领。袭击洛克曼时，得到倒地的吉隆相助，两人意气相投。因协助他抢夺萨芬格尔而与卡戈一家产生关联，最终整个团队被铁甲吉亚雇佣。她拥有不输男子的气性、胆量和行动力，不仅擅长操纵步行机械，在艾露琪不在时还曾指挥铁甲吉亚。以吉隆为首，她对将自己当作女性对待的对象很容易动心。虽然也名列“阿瑟大人亲卫队”，但她的真爱似乎还是吉隆。",
+      "translation": "盗贼团沙鼠的女首领。袭击洛克曼时，得到倒地的吉隆相助，两人意气相投。因协助他抢夺萨芬格尔而与卡戈一家产生关联，最终整个团队被钢铁齿轮雇佣。她拥有不输男子的气性、胆量和行动力，不仅擅长操纵步行机甲，在艾露琪不在时还曾指挥钢铁齿轮。以吉隆为首，她对将自己当作女性对待的对象很容易动心。虽然也名列“阿瑟大人亲卫队”，但她的真爱似乎还是吉隆。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -3698,6 +3707,8 @@
         "people/elchi",
         "people/jiron",
         "people/speaker-56e2adead895",
+        "unit/iron-gear",
+        "unit/walker-machine",
         "unit/xabungle"
       ]
     },
@@ -4183,7 +4194,7 @@
     {
       "id": "library-text/150ba9a539fa8927",
       "source_text_sha256": "150ba9a539fa892741fc4bc664cb6e75d2999362f26b9a69b10ec0f6e5b2fce9",
-      "translation": "罗兰担任佣人的海姆家次女，15岁。性格好强、争强好胜且不输男子。虽然在意罗兰，却因彼此的身份立场及自身性情而无法坦诚相待。为报遭迪安娜反击部队袭击而身亡的父亲之仇，志愿加入英格莱萨民兵并成为卡普尔驾驶员。为此，她起初对月之民怀有强烈的憎恨。但得知罗兰的真实身份，并经历深爱自己且求婚的嘉班一事之后，在人格上获得了巨大成长。",
+      "translation": "罗兰担任佣人的海姆家次女，15岁。性格好强、争强好胜且不输男子。虽然在意罗兰，却因彼此的身份立场及自身性情而无法坦诚相待。为报遭迪安娜回归军袭击而身亡的父亲之仇，志愿加入英格利萨民兵团并成为卡普尔驾驶员。为此，她起初对月之民怀有强烈的憎恨。但得知罗兰的真实身份，并经历深爱自己且求婚的嘉班一事之后，在人格上获得了巨大成长。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -4193,10 +4204,13 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
+        "organization/ingressa-militia",
         "people/loran",
         "people/moonrace",
         "people/speaker-39bb8bf5e8f1",
         "people/speaker-b8db49048797",
+        "place/ingressa",
         "skill/counter",
         "spirit/love",
         "system/pilot",
@@ -5671,7 +5685,7 @@
     {
       "id": "library-text/1cb2bfe4843fafb2",
       "source_text_sha256": "1cb2bfe4843fafb2bf7720aae915339b4c54076131d8677c291d0eeffb8b3303",
-      "translation": "杀害吉隆双亲的破坏者。原以为是流浪者，实际上是以试炼为名让平民互相残杀的天真者的幕后黑手。智谋、步行机操纵技术、拔枪快射均属超一流，态度颇具大人物风范。但有些冒失，曾多次上演叼着雪茄烫伤鼻子等滑稽场面。与前来复仇的吉隆反复激战，最终看似败于吉隆之手，却也用装死度过了危机。",
+      "translation": "杀害吉隆双亲的破坏者。原以为是流浪者，实际上是以试炼为名让平民互相残杀的天真者的幕后黑手。智谋、步行机甲操纵技术、拔枪快射均属超一流，态度颇具大人物风范。但有些冒失，曾多次上演叼着雪茄烫伤鼻子等滑稽场面。与前来复仇的吉隆反复激战，最终看似败于吉隆之手，却也用装死度过了危机。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -5684,7 +5698,8 @@
         "faction/innocent",
         "people/civilian",
         "people/jiron",
-        "people/speaker-438059a318cd"
+        "people/speaker-438059a318cd",
+        "unit/walker-machine"
       ]
     },
     {
@@ -6034,7 +6049,7 @@
     {
       "id": "library-text/1e89c95c9a713c4f",
       "source_text_sha256": "1e89c95c9a713c4f55ea83f47ade89a5e187a8dc3eec29736361ca1a6a5c62b2",
-      "translation": "原迪安娜·反击部队军曹。败于罗兰后出家，流浪各地，但看到梅莉贝儿的倒A高达发出的月光蝶之光后，想起了自己的使命。于是前往迪安娜处，获准回归军队并讨伐回合型高达时，激动得热泪盈眶。将卡普尔涂成专用配色等，令周围人目瞪口呆的奔放作风依旧。但身手并未衰退，以本应不熟悉的卡普尔进行空战，展现出压制玛希罗部队的活跃表现。当倒X也发动月光蝶时，他故意夺取苏茜亚和美雪的卡普尔的燃料，让两人留在远离战场之处，独自赴死。",
+      "translation": "原迪安娜回归军军曹。败于罗兰后出家，流浪各地，但看到梅莉贝儿的倒A高达发出的月光蝶之光后，想起了自己的使命。于是前往迪安娜处，获准回归军队并讨伐回合型高达时，激动得热泪盈眶。将卡普尔涂成专用配色等，令周围人目瞪口呆的奔放作风依旧。但身手并未衰退，以本应不熟悉的卡普尔进行空战，展现出压制玛希罗部队的活跃表现。当倒X也发动月光蝶时，他故意夺取苏茜亚和美雪的卡普尔的燃料，让两人留在远离战场之处，独自赴死。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -6044,6 +6059,7 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/loran",
         "people/speaker-003ed4edd7a8",
         "people/speaker-3d0f47a6e193",
@@ -6129,7 +6145,7 @@
     {
       "id": "library-text/1f3a1c3af72a2288",
       "source_text_sha256": "1f3a1c3af72a228841d4fef7927e4d985890e2b4bcb3f2c8d7aecb9419077c8c",
-      "translation": "与罗兰和芙兰一同作为地球归还先遣调查员于两年前降落地球的月之民少年。17岁。在诺克斯的面包店唐基做学徒。但在迪安娜·反击部队降落时，因师傅受伤，便与师傅之女贝尔蕾娜一同继续经营店铺。将降落地球时使用的弗拉特卖给英格莱萨民兵，用所得资金建造了面包工厂，并积极雇用逃亡的月之民。这种尽力做好自己力所能及之事的积极态度，为民间层面地球与月球之间的桥梁做出了巨大贡献。或许是努力的成果，他制作面包的手艺十分出色，其味道深受地球人和月之民好评。",
+      "translation": "与罗兰和芙兰一同作为地球归还先遣调查员于两年前降落地球的月之民少年。17岁。在诺克斯的面包店唐基做学徒。但在迪安娜回归军降落时，因师傅受伤，便与师傅之女贝尔蕾娜一同继续经营店铺。将降落地球时使用的弗拉特卖给英格利萨民兵团，用所得资金建造了面包工厂，并积极雇用逃亡的月之民。这种尽力做好自己力所能及之事的积极态度，为民间层面地球与月球之间的桥梁做出了巨大贡献。或许是努力的成果，他制作面包的手艺十分出色，其味道深受地球人和月之民好评。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -6139,11 +6155,14 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
+        "organization/ingressa-militia",
         "people/loran",
         "people/moonrace",
         "people/speaker-749ca4675490",
         "people/speaker-b8db49048797",
         "people/speaker-e67a48b9dc5a",
+        "place/ingressa",
         "skill/counter",
         "skill/extreme",
         "spirit/effort"
@@ -6678,7 +6697,7 @@
     {
       "id": "library-text/22623abdac106cc7",
       "source_text_sha256": "22623abdac106cc791e18d2a889341eda3bcaae681014c758870f52e257161b8",
-      "translation": "从卢贾纳领地的山岳循环中发掘出的MS。以领主博尔加诺公爵之名命名，配备给卢贾纳民兵的自杀部队。外观与吉翁公国军的MS-06扎古II极为相似（实际上雷特队也称其为扎古），但从驾驶舱形状和性能来看，应该是复制品。经过少量改装即可在宇宙中运用，通用性优秀，擅长使用与机体一同发掘的多种武装进行集团战斗。",
+      "translation": "从露琪亚娜领地的环形山中发掘出的MS。以领主博尔加诺公爵之名命名，配备给露琪亚娜民兵团的苏赛德队。外观与吉翁公国军的MS-06扎古II极为相似（实际上雷特队也称其为扎古），但从驾驶舱形状和性能来看，应该是复制品。经过少量改装即可在宇宙中运用，通用性优秀，擅长使用与机体一同发掘的多种武装进行集团战斗。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -6688,7 +6707,11 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "organization/lujana-militia",
         "organization/principality-of-zeon",
+        "organization/suicide-squad",
+        "place/lujana",
+        "place/mountain-cycle",
         "system/cockpit",
         "system/mobile-suit",
         "unit/zaku-generic"
@@ -6867,7 +6890,7 @@
     {
       "id": "library-text/23ad5ecb851cd66b",
       "source_text_sha256": "23ad5ecb851cd66bd973da011ed95fb9a109fabdd6a9408fba48ebf6e52b57a0",
-      "translation": "米利夏",
+      "translation": "民兵",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -6876,7 +6899,9 @@
       "tags": [
         "WORD"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "organization/militia"
+      ]
     },
     {
       "id": "library-text/23b7e7c923fc7198",
@@ -7020,7 +7045,7 @@
     {
       "id": "library-text/246891a6ac8122e2",
       "source_text_sha256": "246891a6ac8122e2da7eacbcbacf3c0b823c1dbb03785d7f6a162d665556edcc",
-      "translation": "蕾柯亚·隆德",
+      "translation": "蕾柯亚·朗特",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -7030,13 +7055,14 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/reccoa-londe-full",
         "people/speaker-2f643283052c"
       ]
     },
     {
       "id": "library-text/246d9ef2d7f90753",
       "source_text_sha256": "246d9ef2d7f9075371c2449a1e51ca97976ad8d0e86367180837786292a4b09a",
-      "translation": "凤·村雨",
+      "translation": "村雨凤",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -7048,6 +7074,7 @@
         "PLTN"
       ],
       "glossary_refs": [
+        "people/four-murasame-full",
         "people/speaker-242048308cbb"
       ]
     },
@@ -7930,7 +7957,7 @@
     {
       "id": "library-text/2905cc8b120835bc",
       "source_text_sha256": "2905cc8b120835bc12c362df61b92832a71f87c5ab7882af5954bdbd63729050",
-      "translation": "多特列斯·新型",
+      "translation": "新多托列斯",
       "editorial_status": "reviewed",
       "review_origin": "authoritative_surface_preserved",
       "domains": [
@@ -7939,7 +7966,9 @@
       "tags": [
         "RBTN"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "unit/daughtress-neo"
+      ]
     },
     {
       "id": "library-text/29341345709d8c2a",
@@ -8025,7 +8054,7 @@
     {
       "id": "library-text/29e544b93a650098",
       "source_text_sha256": "29e544b93a6500981439536b4cb1332d2169106d3fdae9bf39e90ff44dd90f53",
-      "translation": "出生于祖父一代就开始经营飞机屋的家庭，自己也作为飞机驾驶员翱翔于天空的少女。18岁。隶属于英格莱萨民兵的飞机部队，从开战时起就一直在战斗。与苏茜亚是堪称挚友的关系，卡普尔被发掘后经常一起搭乘作战。登上月球时，与迪安娜·反击的少年兵成为了朋友，曾一起乘坐瓦德出击。与这名少年的关系，似乎在战争结束后也一直持续着。",
+      "translation": "出生于祖父一代就开始经营飞机屋的家庭，自己也作为飞机驾驶员翱翔于天空的少女。18岁。隶属于英格利萨民兵团的飞机部队，从开战时起就一直在战斗。与苏茜亚是堪称挚友的关系，卡普尔被发掘后经常一起搭乘作战。登上月球时，与迪安娜回归军的少年兵成为了朋友，曾一起乘坐瓦德出击。与这名少年的关系，似乎在战争结束后也一直持续着。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -8035,6 +8064,8 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
+        "organization/ingressa-militia",
         "people/speaker-5b924f0e102e",
         "people/speaker-749ca4675490",
         "people/speaker-b8db49048797",
@@ -8081,7 +8112,7 @@
     {
       "id": "library-text/2a1929645e718be9",
       "source_text_sha256": "2a1929645e718be904741380d6242ad9105126e71682710a3a62e7be45868c4b",
-      "translation": "被称为山师的发掘家，同时也是黑历史研究者的老人。与弟子约瑟夫一起，从山岳循环中发掘卡普尔等。因曾指挥兵器发掘工作，便随同米利夏行动。他不惜牺牲睡眠奔波于发掘现场，人手不足时还会搭乘博加农迎击敌人，处处展现出超越年龄的活力。让人联想到青蛙、带手电筒的发掘用头盔是他的标志。战争结束后，他带着似乎新收为弟子的波乌，接替了已成家的约瑟夫，重新做回了山师。",
+      "translation": "被称为山师的发掘家，同时也是黑历史研究者的老人。与弟子约瑟夫一起，从环形山中发掘卡普尔等。因曾指挥兵器发掘工作，便随同民兵行动。他不惜牺牲睡眠奔波于发掘现场，人手不足时还会搭乘博加农迎击敌人，处处展现出超越年龄的活力。让人联想到青蛙、带手电筒的发掘用头盔是他的标志。战争结束后，他带着似乎新收为弟子的波乌，接替了已成家的约瑟夫，重新做回了山师。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -8092,6 +8123,7 @@
       ],
       "glossary_refs": [
         "event/black-history",
+        "organization/militia",
         "people/poe",
         "people/speaker-56b61e9ee8f2",
         "place/mountain-cycle",
@@ -8342,7 +8374,7 @@
     {
       "id": "library-text/2c9104306fc08590",
       "source_text_sha256": "2c9104306fc08590be44783ef762fa4388e03594d7f610e50a4617e28aa9a2ed",
-      "translation": "堪称初学者用的小型步行机。操纵简单、价格低廉，加上能完成各种作业的泛用性，成为步行机普及的契机。",
+      "translation": "堪称初学者用的小型步行机甲。操纵简单、价格低廉，加上能完成各种作业的泛用性，成为步行机甲普及的契机。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -8352,12 +8384,14 @@
         "DSC2",
         "DSCR"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "unit/walker-machine"
+      ]
     },
     {
       "id": "library-text/2cb3c658318eca46",
       "source_text_sha256": "2cb3c658318eca462b35cbbbb94f83bb0baa649f613df974e5444c8e422eb68d",
-      "translation": "专精飞行能力的步行机。背部搭载的两台悬浮装置带来的空中攻击，颠覆了以往战斗的常识。加上集中于前部的强大火力，令吉隆等人苦不堪言。腿部仅用于着陆时操作，已无法再称之为“步行机”。",
+      "translation": "专精飞行能力的步行机甲。背部搭载的两台悬浮装置带来的空中攻击，颠覆了以往战斗的常识。加上集中于前部的强大火力，令吉隆等人苦不堪言。腿部仅用于着陆时操作，已无法再称之为“步行机甲”。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -8370,7 +8404,8 @@
       "glossary_refs": [
         "people/jiron",
         "spirit/focus",
-        "system/load"
+        "system/load",
+        "unit/walker-machine"
       ]
     },
     {
@@ -8933,7 +8968,7 @@
     {
       "id": "library-text/2ec93d8a5f2afd62",
       "source_text_sha256": "2ec93d8a5f2afd62164094ed6910a352d96cfdf51957c7cddafdfeb41ad99c31",
-      "translation": "忠于自身信念、一味向前突进的西维利安少年，16岁。他违背了天真者制定的“任何罪行，三天后都无效”的“三日之规”，持续追杀杀害父母的仇人廷普。途中与拉格等人相遇，并试图一起偷走偶然看到的萨芬格尔。虽然最终失败，但此后机缘巧合登上了钢铁齿轮。他充满的不仅是行动力，而是无法以常理衡量的力量，一旦认定便一往无前。乍看只是鲁莽，但这种姿态正是天真者历代夙愿的“强大的西维利安”。其影响扩散到对现状不满的人们，最终连万恶之源卡西姆·金也被击败。步行机的操纵技术相当了得，实际上也曾教过布尔梅等人。但那只是基础程度，与其说擅长精细技术，更多时候是靠蛮力硬闯。圆脸、爱闹、粗鲁、欠考虑的性格，按常理绝非受女生欢迎的类型。然而或许正因为各方面都破天荒，周围的女孩子对他相当有好感。",
+      "translation": "忠于自身信念、一味向前突进的平民少年，16岁。他违背了天真者制定的“任何罪行，三天后都无效”的“三日之规”，持续追杀杀害父母的仇人廷普。途中与拉格等人相遇，并试图一起偷走偶然看到的萨芬格尔。虽然最终失败，但此后机缘巧合登上了钢铁齿轮。他充满的不仅是行动力，而是无法以常理衡量的力量，一旦认定便一往无前。乍看只是鲁莽，但这种姿态正是天真者历代夙愿的“强大的平民”。其影响扩散到对现状不满的人们，最终连万恶之源卡西姆·金也被击败。步行机甲的操纵技术相当了得，实际上也曾教过布尔梅等人。但那只是基础程度，与其说擅长精细技术，更多时候是靠蛮力硬闯。圆脸、爱闹、粗鲁、欠考虑的性格，按常理绝非受女生欢迎的类型。然而或许正因为各方面都破天荒，周围的女孩子对他相当有好感。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -8944,10 +8979,12 @@
       ],
       "glossary_refs": [
         "faction/innocent",
+        "people/civilian",
         "people/rag",
         "people/speaker-749ca4675490",
         "people/speaker-a4c3b72d9af2",
         "unit/iron-gear",
+        "unit/walker-machine",
         "unit/xabungle"
       ]
     },
@@ -9423,7 +9460,7 @@
     {
       "id": "library-text/311718fe422dc8a1",
       "source_text_sha256": "311718fe422dc8a10fb3a5edc4cd86e578c86cb29c531aa50205dd2b0b66b126",
-      "translation": "贾米尔担任船长的阿尔卑斯级陆上战舰。形式上虽然是“陆上战舰”，但通过气垫悬浮也可以在水上前进，因此活动范围很广。最大可搭载6架MS，主要搭载机为高达X、高达空中大师、高达豹式。这里也是驾驶员卡洛德等人的生活场所，罗比在被和平号专属雇佣时，为了让旅途更舒适，自掏腰包设置了休息室。",
+      "translation": "贾米尔担任船长的阿尔卑斯级陆上战舰。形式上虽然是“陆上战舰”，但通过气垫悬浮也可以在水上前进，因此活动范围很广。最大可搭载6架MS，主要搭载机为高达X、空中霸王高达、斑豹高达。这里也是驾驶员卡洛德等人的生活场所，罗比在被和平号专属雇佣时，为了让旅途更舒适，自掏腰包设置了休息室。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated_current_terminology",
       "domains": [
@@ -9440,7 +9477,9 @@
         "system/load",
         "system/mobile-suit",
         "system/pilot",
-        "unit/freeden"
+        "unit/freeden",
+        "unit/gundam-airmaster",
+        "unit/gundam-leopard"
       ]
     },
     {
@@ -10069,7 +10108,7 @@
     {
       "id": "library-text/345d97af8a5e9681",
       "source_text_sha256": "345d97af8a5e96815aaa30e98c234febf897e453ede62e6d221f5b773ef5bf8f",
-      "translation": "瞬发型扎古幻影的雷·扎·巴雷尔专用机。与雷的驾驶服相同，采用白色涂装，被尼奥称为“白毛小子”。虽然该机体泛用性高，可从宇宙到海中运用，但无法在大气圈内长时间飞行，海上战斗时主要在密涅瓦号甲板上进行迎击。",
+      "translation": "瞬发型扎古幻影的雷·扎·巴雷尔专用机。与雷的驾驶服相同，采用白色涂装，被尼奥称为“白毛小子”。虽然该机体泛用性高，可从宇宙到海中运用，但无法在大气圈内长时间飞行，海上战斗时主要在密涅瓦甲板上进行迎击。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -10516,7 +10555,7 @@
     {
       "id": "library-text/37410f426a3a5410",
       "source_text_sha256": "37410f426a3a54109bfd2cbfd7cac7762f553881f41778acacfd66938b8f6dba",
-      "translation": "迈克尔·格尔恩",
+      "translation": "迈克尔·格恩",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -10526,13 +10565,14 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/michael-gern-full",
         "people/speaker-33025692730a"
       ]
     },
     {
       "id": "library-text/3768684293d3d744",
       "source_text_sha256": "3768684293d3d744557c6245ef4091a682ee2bc27824286d1770bc75b0ab8874",
-      "translation": "以高达X为基础，由政府重建委员会以“拥有作为象征的强大力量的新高达”为目标开发的MS。基础机体是贾米尔在第7次宇宙战争中搭乘的机体，但内部引入了最新技术，称之为全新机体也不为过。不过卡托克称其为“第15年的亡灵”。高达X最大特征的卫星加农炮增至两门，成为双卫星加农炮。威力也提升了两倍以上，强大到连人工岛宗达艾普塔和殖民卫星激光都能摧毁。不仅卫星加农炮，机体自身的出力、机动性、运动性等所有方面都有飞跃性提升。首次战斗时，尽管是单机且未携带步枪的状态，仍击坠了8架巴利恩特，可见其性能之高。不过只有专用的破坏步枪不再与盾牌一体化，在耐久性方面似乎适得其反，屡次被破坏。因此也曾不得不向高达空中大师借用步枪作战。",
+      "translation": "以高达X为基础，由政府重建委员会以“拥有作为象征的强大力量的新高达”为目标开发的MS。基础机体是贾米尔在第7次宇宙战争中搭乘的机体，但内部引入了最新技术，称之为全新机体也不为过。不过卡托克称其为“第15年的亡灵”。高达X最大特征的卫星加农炮增至两门，成为双卫星加农炮。威力也提升了两倍以上，强大到连人工岛宗达艾普塔和殖民卫星激光都能摧毁。不仅卫星加农炮，机体自身的出力、机动性、运动性等所有方面都有飞跃性提升。首次战斗时，尽管是单机且未携带步枪的状态，仍击坠了8架巴利恩特，可见其性能之高。不过只有专用的破坏步枪不再与盾牌一体化，在耐久性方面似乎适得其反，屡次被破坏。因此也曾不得不向空中霸王高达借用步枪作战。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -10550,6 +10590,7 @@
         "system/mobile-suit",
         "system/mobility",
         "system/space-colony-short",
+        "unit/gundam-airmaster",
         "unit/gundam-generic",
         "weapon/0100",
         "weapon/0215"
@@ -10875,7 +10916,7 @@
     {
       "id": "library-text/38d891957af1dc27",
       "source_text_sha256": "38d891957af1dc276976b56d8e76bc9f249c485df37be39f71ce0f10d70e6dbf",
-      "translation": "天真者为赋予自己手下而开发的战斗用步行机。是兼具萨芬格尔和沃卡加利亚优点的机体，通过排除变形、合体机构提升了维护性和可靠性。此外，除背部大型旋翼外，下部还搭载了悬浮喷嘴，拥有与沃卡加利亚相当或更高的飞行性能。",
+      "translation": "天真者为赋予自己手下而开发的战斗用步行机甲。是兼具萨芬格尔和沃卡加利亚优点的机体，通过排除变形、合体机构提升了维护性和可靠性。此外，除背部大型旋翼外，下部还搭载了悬浮喷嘴，拥有与沃卡加利亚相当或更高的飞行性能。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -10891,6 +10932,7 @@
         "system/load",
         "system/transform",
         "unit/walker-gallia",
+        "unit/walker-machine",
         "unit/xabungle"
       ]
     },
@@ -11108,7 +11150,7 @@
     {
       "id": "library-text/3a94ae284c226c7d",
       "source_text_sha256": "3a94ae284c226c7dcb26e55f10d0928c31be0687f64924366cf8de11673b4e71",
-      "translation": "英格莱萨民兵的司令官。军衔为大佐。35岁。他认为月之民是侵略地球者，与他们的战斗就是保卫故乡。因此，对于他认为只是摆设的高安将战争仅仅视为交涉手段之一的想法，他似乎并不愉快。然而，他被急剧变化的局势以及随之制定战略的高安的行动力所摆布，最终不得不追随到最终决战。",
+      "translation": "英格利萨民兵团的司令官。军衔为大佐。35岁。他认为月之民是侵略地球者，与他们的战斗就是保卫故乡。因此，对于他认为只是摆设的高安将战争仅仅视为交涉手段之一的想法，他似乎并不愉快。然而，他被急剧变化的局势以及随之制定战略的高安的行动力所摆布，最终不得不追随到最终决战。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -11118,6 +11160,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "organization/ingressa-militia",
         "people/moonrace",
         "people/speaker-75872b1833fc",
         "place/ingressa"
@@ -11322,7 +11365,7 @@
     {
       "id": "library-text/3bc4e5c802f08ea5",
       "source_text_sha256": "3bc4e5c802f08ea5d6ff410593ce8eae52064917a64765daa60ecd93be82b885",
-      "translation": "贝克的部下。与达夫一起帮助贝克越狱。",
+      "translation": "贝克的部下。与Dove一起帮助贝克越狱。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -11333,7 +11376,8 @@
         "DSCR"
       ],
       "glossary_refs": [
-        "people/beck"
+        "people/beck",
+        "people/speaker-3ebfb90dd843"
       ]
     },
     {
@@ -11489,7 +11533,7 @@
     {
       "id": "library-text/3c41cb7ca3015717",
       "source_text_sha256": "3c41cb7ca3015717444f020d2cf233c344fa3a44ace02a93ce46eb6c1b35aa6c",
-      "translation": "在新人类研究设施村雨研究所开发的巨大可变MA，是地球联邦军首台新人类专用机。驾驶员是出身村雨研究所的凤·村雨。她将以往仅用于机体控制和火器管制的塞可缪也用于机体的远程诱导。但或许正因为其强大，它给驾驶员的精神带来巨大负担，具有仿佛被机体束缚般的副作用。机体各处配备了三连米加粒子炮和光束炮等武装，以过剩的火力将香港城卷入火海的身姿宛如黑色恶魔。另外，虽然仅限MA形态，但可以使用米诺夫斯基飞行器进行飞行。",
+      "translation": "在新人类研究设施村雨研究所开发的巨大可变MA，是地球联邦军首台新人类专用机。驾驶员是出身村雨研究所的村雨凤。她将以往仅用于机体控制和火器管制的塞可缪也用于机体的远程诱导。但或许正因为其强大，它给驾驶员的精神带来巨大负担，具有仿佛被机体束缚般的副作用。机体各处配备了三连米加粒子炮和光束炮等武装，以过剩的火力将香港城卷入火海的身姿宛如黑色恶魔。另外，虽然仅限MA形态，但可以使用米诺夫斯基飞行器进行飞行。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -11501,6 +11545,7 @@
       ],
       "glossary_refs": [
         "organization/earth-federation-forces",
+        "people/four-murasame-full",
         "people/speaker-242048308cbb",
         "place/hong-kong-city",
         "skill/newtype",
@@ -11613,7 +11658,7 @@
     {
       "id": "library-text/3d0627fac91a34d8",
       "source_text_sha256": "3d0627fac91a34d8dd531134e72cf77d95659b80f1c7162c71d16786df0656b9",
-      "translation": "特泰丝·哈雷",
+      "translation": "特泰丝·哈勒赫",
       "editorial_status": "reviewed",
       "review_origin": "authoritative_surface_preserved",
       "domains": [
@@ -11623,7 +11668,8 @@
         "CHFN"
       ],
       "glossary_refs": [
-        "people/speaker-0a8ee4e9b797"
+        "people/speaker-0a8ee4e9b797",
+        "people/teteth-halleh-full"
       ]
     },
     {
@@ -11682,7 +11728,7 @@
     {
       "id": "library-text/3d4e96cfb996ae29",
       "source_text_sha256": "3d4e96cfb996ae299ac60eee7197b2e30256fc7186908363499b1ebc660e3bbb",
-      "translation": "新联邦军开发的高机动MA。战斗机的外形配上类似MS头部的驾驶舱、用机械手握住枪身的光束步枪等，与其他MS和MA相比，其形状相当独特。以夺取制空权为目的而设计，在与高达空中霸者的空战中使对方中破。",
+      "translation": "新联邦军开发的高机动MA。战斗机的外形配上类似MS头部的驾驶舱、用机械手握住枪身的光束步枪等，与其他MS和MA相比，其形状相当独特。以夺取制空权为目的而设计，在与空中霸王高达的空战中使对方中破。",
       "editorial_status": "reviewed",
       "review_origin": "proposed_revision_rejected",
       "domains": [
@@ -11695,6 +11741,7 @@
         "organization/new-federation-forces",
         "system/cockpit",
         "system/mobile-suit",
+        "unit/gundam-airmaster",
         "unit/mobile-armor"
       ]
     },
@@ -11799,7 +11846,7 @@
     {
       "id": "library-text/3dee794b65e725ea",
       "source_text_sha256": "3dee794b65e725ea4eb0c36bf8df7cdc9328e311bdece0d27f8cdb60d09662dc",
-      "translation": "忠实于自身信念，只是一味向前突进的西维利安少年。16岁。他打破了天真者制定的《任何罪行，三天后都无效》的《三日戒律》，持续追捕杀害父母的仇人廷普。途中与拉格等人相遇，并偶然看到萨芬格尔，试图一起偷走。虽然最终失败了，但之后顺势登上了钢铁齿轮号。他充满了无法仅用“有行动力”来形容的力量，一旦认定就会一往无前。乍看只是鲁莽，但这种姿态正是天真者历代夙愿的《强大的西维利安》的体现。这种影响扩散到了对现状不满的人们之中，最终甚至击败了万恶之源的卡西姆·金。驾驶步行机的技术相当高超，实际上也曾教过布尔梅等人。但那只是基础程度，与其说擅长精细技术，不如说更多是靠蛮力硬撑。圆脸、爱耍宝、粗鲁且欠考虑的性格，按常理来说绝不是受女孩子欢迎的类型。然而，或许是因为他在各方面都不拘一格，周围的女孩子们对他相当有好感。但随着阿瑟的出现，他的地位一下子被夺走了。打倒天真者后，他以“我要成为失明的艾露琪的眼睛”这样男子气概十足的告白，成功俘获了芳心。然后与同伴们，以及那些算不上同伴的人们，大家一起驰骋在荒野之中。",
+      "translation": "忠实于自身信念，只是一味向前突进的平民少年。16岁。他打破了天真者制定的《任何罪行，三天后都无效》的《三日戒律》，持续追捕杀害父母的仇人廷普。途中与拉格等人相遇，并偶然看到萨芬格尔，试图一起偷走。虽然最终失败了，但之后顺势登上了钢铁齿轮号。他充满了无法仅用“有行动力”来形容的力量，一旦认定就会一往无前。乍看只是鲁莽，但这种姿态正是天真者历代夙愿的《强大的平民》的体现。这种影响扩散到了对现状不满的人们之中，最终甚至击败了万恶之源的卡西姆·金。驾驶步行机甲的技术相当高超，实际上也曾教过布尔梅等人。但那只是基础程度，与其说擅长精细技术，不如说更多是靠蛮力硬撑。圆脸、爱耍宝、粗鲁且欠考虑的性格，按常理来说绝不是受女孩子欢迎的类型。然而，或许是因为他在各方面都不拘一格，周围的女孩子们对他相当有好感。但随着阿瑟的出现，他的地位一下子被夺走了。打倒天真者后，他以“我要成为失明的艾露琪的眼睛”这样男子气概十足的告白，成功俘获了芳心。然后与同伴们，以及那些算不上同伴的人们，大家一起驰骋在荒野之中。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired_current_terminology",
       "domains": [
@@ -11811,12 +11858,14 @@
       "glossary_refs": [
         "faction/innocent",
         "people/arthur-short",
+        "people/civilian",
         "people/elchi",
         "people/rag",
         "people/speaker-56e2adead895",
         "people/speaker-749ca4675490",
         "people/speaker-a4c3b72d9af2",
         "unit/iron-gear",
+        "unit/walker-machine",
         "unit/xabungle"
       ]
     },
@@ -11901,7 +11950,7 @@
     {
       "id": "library-text/3e5d0e47116c69b4",
       "source_text_sha256": "3e5d0e47116c69b4a91f72e3682bf9fc8b254670c92e53ff1dfee28f643f3c53",
-      "translation": "迪安娜计数器中的尉官，在先任死后成为地球降下作战的指挥官。他蔑视地球人为蛮族，主张以武力镇压。但趁希望和平共存的迪安娜离开地球之机，他举旗反叛，宣布建立太阳带共和国。一度甚至展现出成为地球之王的野心，但最终再次向迪安娜宣誓效忠。并与仍有隔阂的地球方团结一致，与金卡拉姆舰队作战。",
+      "translation": "迪安娜回归军中的尉官，在先任死后成为地球降下作战的指挥官。他蔑视地球人为蛮族，主张以武力镇压。但趁希望和平共存的迪安娜离开地球之机，他举旗反叛，宣布建立太阳带共和国。一度甚至展现出成为地球之王的野心，但最终再次向迪安娜宣誓效忠。并与仍有隔阂的地球方团结一致，与金卡拉姆舰队作战。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -11911,6 +11960,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/ghingham",
         "people/speaker-b8db49048797",
         "skill/commander"
@@ -11975,7 +12025,7 @@
     {
       "id": "library-text/3eb26b6cd9a1572e",
       "source_text_sha256": "3eb26b6cd9a1572edf2f6cb6ea8292a47dbe3a2af6cd1333fb57a11c22eda000",
-      "translation": "ZAFT特务队FAITH的成员。奉迪兰达尔之命转属密涅瓦号。21岁。性格开朗随和，虽然是中途加入，但拥有能迅速融入密涅瓦号成员的适应力和社交性。尤其很照顾阿斯兰，看到他因战斗而烦恼会加以开导，并设法拉近他与有隔阂的真等人之间的距离。MS驾驶技术也很高超，机体总是涂装成个人标志性的橙色。在PLANT防卫战中驾驶扎古幻影，在达达尼尔海峡战斗中驾驶先行配备的老虎烈焰型活跃。但在为阻止战斗而闯入的自由高达夺去其战斗力之际，遭到背后盖亚高达的攻击，连机体一起被斩断而战死。另外，在德语中，韦斯滕意为“西”，弗尔斯意为“河”。这是为了向海涅的声优兼主题曲演唱者、艺人西川贵教致敬而起的名字。",
+      "translation": "ZAFT特务队FAITH的成员。奉迪兰达尔之命转属密涅瓦。21岁。性格开朗随和，虽然是中途加入，但拥有能迅速融入密涅瓦成员的适应力和社交性。尤其很照顾阿斯兰，看到他因战斗而烦恼会加以开导，并设法拉近他与有隔阂的真等人之间的距离。MS驾驶技术也很高超，机体总是涂装成个人标志性的橙色。在PLANT防卫战中驾驶扎古幻影，在达达尼尔海峡战斗中驾驶先行配备的老虎烈焰型活跃。但在为阻止战斗而闯入的自由高达夺去其战斗力之际，遭到背后盖亚高达的攻击，连机体一起被斩断而战死。另外，在德语中，韦斯滕意为“西”，弗尔斯意为“河”。这是为了向海涅的声优兼主题曲演唱者、艺人西川贵教致敬而起的名字。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -13319,7 +13369,7 @@
     {
       "id": "library-text/44cfe91e70c8a062",
       "source_text_sha256": "44cfe91e70c8a062d4fc1ddb67a73421ae627838a8bb69178e8ec4637219f39d",
-      "translation": "拂晓",
+      "translation": "拂晓高达",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -13328,7 +13378,9 @@
       "tags": [
         "RBTN"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "unit/akatsuki-gundam"
+      ]
     },
     {
       "id": "library-text/44d49429753dcf8e",
@@ -13684,7 +13736,7 @@
     {
       "id": "library-text/46a4fd42f7148160",
       "source_text_sha256": "46a4fd42f714816036375e4d104871dc878c00beb55289d7bd2b53f08049daa9",
-      "translation": "金卡拉姆",
+      "translation": "基姆·金卡拉姆",
       "editorial_status": "reviewed",
       "review_origin": "authoritative_surface_preserved",
       "domains": [
@@ -13696,7 +13748,8 @@
         "PLTN"
       ],
       "glossary_refs": [
-        "people/ghingham"
+        "people/ghingham",
+        "people/gym-ghingham-full"
       ]
     },
     {
@@ -13918,7 +13971,7 @@
     {
       "id": "library-text/48233cba69841073",
       "source_text_sha256": "48233cba69841073bba7616b3cf7c6b7f9e560078880816b4012834792a8c153",
-      "translation": "隶属于地球联合军特殊部队幻痛部队的军人，军衔为少校。担任部队母舰、新造舰加迪·鲁号的舰长，是能做出冷静而准确判断的干练指挥官。但在上司尼奥的活动场所转移到地面后，便再未见到他的身影。吉布利尔从月球代达罗斯基地逃脱时他再度登场，但转瞬之间便被雷连人带舰桥一起轰飞，从此永远无法再见到他了。",
+      "translation": "隶属于地球联合军特殊部队幻痛部队的军人，军衔为少校。担任部队母舰、新造舰加迪·鲁的舰长，是能做出冷静而准确判断的干练指挥官。但在上司尼奥的活动场所转移到地面后，便再未见到他的身影。吉布利尔从月球代达罗斯基地逃脱时他再度登场，但转瞬之间便被雷连人带舰桥一起轰飞，从此永远无法再见到他了。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -14097,7 +14150,7 @@
     {
       "id": "library-text/496f1e2c334dbf63",
       "source_text_sha256": "496f1e2c334dbf63c7dd83f21cdcded6017b4c946784a62206d2ef18018d3a29",
-      "translation": "ZAFT玖尔队队长，19岁。前大战时，在最后关头与大天使号和永恒号合作，共同促成了战争的终结。战后，在迪兰达尔的帮助下回归ZAFT，凭借其才能年纪轻轻便担任一队队长。运用丰富实战经验的部队指挥能力和战斗实力均属一流。与密涅瓦号合作阻止尤尼乌斯7坠落、抵御地球联合军单方面攻击保卫PLANT、在PLANT成为镇魂曲目标时执行光束偏转空间站破坏任务（虽然以失败告终），在宇宙舞台上展开了广泛的活动。与阿斯兰重逢时极力劝其归队，展现出已从过去执着的小小竞争心中解放出来的成长姿态。",
+      "translation": "ZAFT玖尔队队长，19岁。前大战时，在最后关头与大天使号和永恒号合作，共同促成了战争的终结。战后，在迪兰达尔的帮助下回归ZAFT，凭借其才能年纪轻轻便担任一队队长。运用丰富实战经验的部队指挥能力和战斗实力均属一流。与密涅瓦合作阻止尤尼乌斯7坠落、抵御地球联合军单方面攻击保卫PLANT、在PLANT成为镇魂曲目标时执行光束偏转空间站破坏任务（虽然以失败告终），在宇宙舞台上展开了广泛的活动。与阿斯兰重逢时极力劝其归队，展现出已从过去执着的小小竞争心中解放出来的成长姿态。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -14175,7 +14228,7 @@
     {
       "id": "library-text/49cf4cdf777a852f",
       "source_text_sha256": "49cf4cdf777a852f8354b3411f85092f9c10ad21c3b3c2c5cb1125c49528721c",
-      "translation": "老虎烈焰型的海涅·威斯滕夫鲁斯专用机。与海涅之前乘坐的扎古一样，涂装改成了个人色的橙色。在达达尼尔海峡的战斗中，配合海涅的技艺击落了多架村雨。连盖亚高达也始终被压制，但被自由高达斩落右臂后失去战斗力，最终被盖亚高达从背后以光束军刀斩为两段。",
+      "translation": "老虎烈焰型的海涅·威斯藤夫鲁斯专用机。与海涅之前乘坐的扎古一样，涂装改成了个人色的橙色。在达达尼尔海峡的战斗中，配合海涅的技艺击落了多架村雨。连盖亚高达也始终被压制，但被自由高达斩落右臂后失去战斗力，最终被盖亚高达从背后以光束军刀斩为两段。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -14185,6 +14238,7 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "people/heine-westenfluss-full",
         "people/speaker-07290303c5a4",
         "unit/freedom-gundam",
         "unit/gouf-ignited",
@@ -14301,7 +14355,7 @@
     {
       "id": "library-text/4a8f18a2736ea21d",
       "source_text_sha256": "4a8f18a2736ea21d1394ad6c3c1c1c42b1759d9c78b82bcc0fb54a25ebdb434f",
-      "translation": "史黛拉·鲁谢",
+      "translation": "史黛拉·鲁西耶",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -14313,7 +14367,8 @@
         "PLTN"
       ],
       "glossary_refs": [
-        "people/stella"
+        "people/stella",
+        "people/stella-loussier"
       ]
     },
     {
@@ -14566,7 +14621,7 @@
     {
       "id": "library-text/4b66897c14ab72a0",
       "source_text_sha256": "4b66897c14ab72a0ca98af184841599ef2390e3e3c57bb3c869315fa0c17935e",
-      "translation": "作为科伦·南达专用机而经过改造的卡普尔。虽是仓促制成，但凭借科伦的技艺，即使面对玛希罗和班迪特也丝毫不落下风。与原本涂装相去甚远的红色涂装、从伊格尔挪用的大型绞肉钻头、可作为火箭飞拳射出的沃多姆单臂，以及最后追加的头部角饰，是特征过多的机体。",
+      "translation": "作为科伦·南达专用机而经过改造的卡普尔。虽是仓促制成，但凭借科伦的技艺，即使面对玛希罗和班迪特也丝毫不落下风。与原本涂装相去甚远的红色涂装、从伊格尔挪用的大型绞肉钻头、可作为火箭飞拳射出的瓦多姆单臂，以及最后追加的头部角饰，是特征过多的机体。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -14590,7 +14645,7 @@
     {
       "id": "library-text/4b84dfc8c4cf9e36",
       "source_text_sha256": "4b84dfc8c4cf9e368f609215f182c213d4194ebefef3b7ef320f206ab3fb4bcc",
-      "translation": "担任地方都市福特塞文自卫团领袖的少年，15岁。是市长诺莫亚自称“我的最高杰作”的优秀人工新人类。本人也对自己的力量抱有绝对自信，也确实拥有相应的实力。用爱机贝尔提戈击退了高达X，但因本不该存在的天然新人类蒂珐的出现，以及重新振作的卡洛德的击败而失去了存在意义。最终试图自我了断时被卡洛德所救，以此为契机敞开了心扉。之后其力量被诺莫亚即多拉特利用，在帕特利亚破坏了城市。卡洛德等人打倒多拉特后，他决心为赎罪而投身于城市复兴。后来作为率领反新联邦组织一支部队的队长，拯救了和平号船员们的危机。在需要前往宇宙的交通工具时，甚至筹措到了宇宙战舰。",
+      "translation": "担任地方都市福特塞文自卫团领袖的少年，15岁。是市长诺莫亚自称“我的最高杰作”的优秀人工新人类。本人也对自己的力量抱有绝对自信，也确实拥有相应的实力。用爱机贝迪哥击退了高达X，但因本不该存在的天然新人类蒂珐的出现，以及重新振作的卡洛德的击败而失去了存在意义。最终试图自我了断时被卡洛德所救，以此为契机敞开了心扉。之后其力量被诺莫亚即多拉特利用，在帕特利亚破坏了城市。卡洛德等人打倒多拉特后，他决心为赎罪而投身于城市复兴。后来作为率领反新联邦组织一支部队的队长，拯救了和平号船员们的危机。在需要前往宇宙的交通工具时，甚至筹措到了宇宙战舰。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated_current_terminology",
       "domains": [
@@ -14607,6 +14662,7 @@
         "skill/artificial-newtype",
         "skill/newtype",
         "spirit/love",
+        "unit/bertigo",
         "unit/freeden",
         "unit/patulia"
       ]
@@ -14666,7 +14722,7 @@
     {
       "id": "library-text/4bfc6bb9235a03a5",
       "source_text_sha256": "4bfc6bb9235a03a5a33d7eabd0fd5295508330d800e0c574f8d3d70221bedf85",
-      "translation": "老虎烈焰型的海涅·威斯滕夫鲁斯专用机。与海涅之前乘坐的扎古一样，涂装改成了个人色的橙色。在达达尼尔海峡的战斗中，配合海涅的技艺击落了多架村雨。连盖亚高达也始终被压制，但被自由高达斩落右臂后失去了战斗力。",
+      "translation": "老虎烈焰型的海涅·威斯藤夫鲁斯专用机。与海涅之前乘坐的扎古一样，涂装改成了个人色的橙色。在达达尼尔海峡的战斗中，配合海涅的技艺击落了多架村雨。连盖亚高达也始终被压制，但被自由高达斩落右臂后失去了战斗力。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -14676,6 +14732,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "people/heine-westenfluss-full",
         "people/speaker-07290303c5a4",
         "unit/freedom-gundam",
         "unit/gouf-ignited",
@@ -14739,7 +14796,7 @@
     {
       "id": "library-text/4c58e1a0b6ffe6b1",
       "source_text_sha256": "4c58e1a0b6ffe6b18606f921a461df077692105278356ec04621e27715222f43",
-      "translation": "米姆·米德加尔德",
+      "translation": "梅梅·米德加尔德",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -14749,6 +14806,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/meme-midgard-full",
         "people/speaker-7a69835fd376"
       ]
     },
@@ -14923,7 +14981,7 @@
     {
       "id": "library-text/4d50ef4b428a9fa3",
       "source_text_sha256": "4d50ef4b428a9fa328494637168ba19dd2ab914a7a952fd56a2c07edb5db99cc",
-      "translation": "迪安娜·反击部队用于地球回归作战的战舰。装备有在舰体前方展开的用于突入据点的巨大光束军刀，以及舰体上部的对舰主炮等武器。",
+      "translation": "迪安娜回归军用于地球回归作战的战舰。装备有在舰体前方展开的用于突入据点的巨大光束军刀，以及舰体上部的对舰主炮等武器。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -14934,6 +14992,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/speaker-b8db49048797",
         "skill/counter",
         "weapon/0266"
@@ -15477,7 +15536,7 @@
     {
       "id": "library-text/4fc6be8d70696478",
       "source_text_sha256": "4fc6be8d706964784c213a4cfeddced2a19579515dff09d7a8cb10d089664bc8",
-      "translation": "西维利安出身的医生。虽然嗜酒如命，但医术确实高明。开头为吉隆治疗手臂并给了他衣服，但这些费用被拉格偷走，结果等于被赖账了。之后经过成为“索尔特”的一员，登上了钢铁齿轮，此后担任吉隆的参谋。有时会说出仿佛看透天真者意图的言论，是个相当有智慧的人。",
+      "translation": "平民出身的医生。虽然嗜酒如命，但医术确实高明。开头为吉隆治疗手臂并给了他衣服，但这些费用被拉格偷走，结果等于被赖账了。之后经过成为“索尔特”的一员，登上了钢铁齿轮，此后担任吉隆的参谋。有时会说出仿佛看透天真者意图的言论，是个相当有智慧的人。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -15489,6 +15548,7 @@
       ],
       "glossary_refs": [
         "faction/innocent",
+        "people/civilian",
         "people/jiron",
         "people/rag",
         "unit/iron-gear"
@@ -15874,7 +15934,7 @@
     {
       "id": "library-text/51b022a89c91a768",
       "source_text_sha256": "51b022a89c91a76832607e6100547b0b39ecc092b01f5842281e98e18c44c950",
-      "translation": "倒A高达的驾驶员，月之民少年。17岁。与基斯和芙兰一同作为地球回归作战的先遣调查员，于两年前降落到地球。当时在河中溺水时被海姆姐妹所救，以此机缘在海姆家的矿山工作，后来成为佣人。他性格温厚、厌恶争斗，但为了阻止月球与地球之间的战争，不得已参加了英格莱萨民兵。与性格相反，他拥有出色的MS操纵技术，配合倒A高达的性能，作为民兵的核心而活跃。此外，在赤手空拳面对武器时，也展现出毫不畏惧、勇敢战斗的男子气概。与其他月之民一样，他对迪安娜心醉神迷，其行动总是以迪安娜为先。与金卡拉姆的了断之后，他与顶替姬艾尔留在地球的迪安娜一同，迈出了新的人生。",
+      "translation": "倒A高达的驾驶员，月之民少年。17岁。与基斯和芙兰一同作为地球回归作战的先遣调查员，于两年前降落到地球。当时在河中溺水时被海姆姐妹所救，以此机缘在海姆家的矿山工作，后来成为佣人。他性格温厚、厌恶争斗，但为了阻止月球与地球之间的战争，不得已参加了英格利萨民兵团。与性格相反，他拥有出色的MS操纵技术，配合倒A高达的性能，作为民兵的核心而活跃。此外，在赤手空拳面对武器时，也展现出毫不畏惧、勇敢战斗的男子气概。与其他月之民一样，他对迪安娜心醉神迷，其行动总是以迪安娜为先。与金卡拉姆的了断之后，他与顶替姬艾尔留在地球的迪安娜一同，迈出了新的人生。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -15884,6 +15944,7 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "organization/ingressa-militia",
         "people/ghingham",
         "people/moonrace",
         "people/speaker-749ca4675490",
@@ -15891,6 +15952,7 @@
         "people/speaker-b8db49048797",
         "people/speaker-bb655432ad3b",
         "people/speaker-e67a48b9dc5a",
+        "place/ingressa",
         "system/mobile-suit",
         "system/pilot",
         "unit/gundam-generic"
@@ -16427,7 +16489,7 @@
     {
       "id": "library-text/5467d8f43fdff821",
       "source_text_sha256": "5467d8f43fdff8216743b147fbac1f182edf276d22d9f60ffcedbbfd363a0829",
-      "translation": "以量产Z高达为目的，由阿纳海姆电子公司开发的试作MS。名称是“精炼高达Z”的缩写。该机排除了变形机构，通过与包裹机体的背部武器系统合体来形成巡航形态。但由于在变形为MS形态时需要卸除该系统，一旦分离便无法当场重新装备，成为了一台缺乏灵活性的机体。该机兼具高机动性与火力，作为MS的性能本身非常出色。但由于生产成本高昂，量产计划被搁置。唯一完成的一机被配属给了追击新吉翁的隆德·贝尔。前期由阿姆罗使用，中期由凯拉接手。后期，珍为了给阿姆罗送精神感应框架而搭乘该机。但被因葵丝之死而失去理智的哈萨维发射的光束击坠。",
+      "translation": "以量产Z高达为目的，由阿纳海姆电子公司开发的试作MS。名称是“精炼高达Z”的缩写。该机排除了变形机构，通过与包裹机体的背部武器系统合体来形成巡航形态。但由于在变形为MS形态时需要卸除该系统，一旦分离便无法当场重新装备，成为了一台缺乏灵活性的机体。该机兼具高机动性与火力，作为MS的性能本身非常出色。但由于生产成本高昂，量产计划被搁置。唯一完成的一机被配属给了追击新吉翁的隆德·贝尔。前期由阿姆罗使用，中期由凯拉接手。后期，倩恩为了给阿姆罗送精神感应框架而搭乘该机。但被因葵丝之死而失去理智的哈萨维发射的光束击坠。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -16439,6 +16501,7 @@
       "glossary_refs": [
         "ability/psycho-frame",
         "organization/zeon-short",
+        "people/chan-agi-library",
         "people/speaker-0809e902288f",
         "system/combine-action",
         "system/condition-shot-down",
@@ -17571,7 +17634,7 @@
     {
       "id": "library-text/59a79ad2e0668682",
       "source_text_sha256": "59a79ad2e066868293e073066a65f472a48985e1a4521b7471aea4ac13916299",
-      "translation": "波·英司",
+      "translation": "波·艾吉",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -17582,6 +17645,9 @@
       ],
       "glossary_refs": [
         "people/poe",
+        "people/poe-aijee-full"
+      ],
+      "glossary_exceptions": [
         "people/speaker-e00210e47303"
       ]
     },
@@ -17701,7 +17767,7 @@
     {
       "id": "library-text/5abd688639d1d91c",
       "source_text_sha256": "5abd688639d1d91c1095ee54bd18025a92b90fb88f8f80390a178bd3820d3a52",
-      "translation": "涂成红色的沃多姆。由驻守于将地面物体发射到大气层外的质量投射系统“扎克·特雷格”的部队所运用。",
+      "translation": "涂成红色的瓦多姆。由驻守于将地面物体发射到大气层外的质量投射系统“扎克·特雷格”的部队所运用。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -17815,7 +17881,7 @@
     {
       "id": "library-text/5b971f0a0ee1c716",
       "source_text_sha256": "5b971f0a0ee1c7166027bb2c7a192d5598bc94b098722d1025e0dcab555192c6",
-      "translation": "隶属奥布陆军的军人，军衔为一佐（大佐）。他是奥布前元首乌兹米的直属部下，前大战时也曾担任卡嘉莉的护卫。乌兹米死后，他作为卡嘉莉的监护人一直守护着她。地球联合与奥布结盟后，他潜入地球联合军探查其动向。途中得知阿斯兰和梅琳逃走的消息后，他救出了被击坠的两人，并引导他们前往大天使号。得知奥布的危机后，面对坚持要出击的卡嘉莉，他将乌兹米留下的拂晓托付给了她，自己也驾驶村雨出击。",
+      "translation": "隶属奥布陆军的军人，军衔为一佐（大佐）。他是奥布前元首乌兹米的直属部下，前大战时也曾担任卡嘉莉的护卫。乌兹米死后，他作为卡嘉莉的监护人一直守护着她。地球联合与奥布结盟后，他潜入地球联合军探查其动向。途中得知阿斯兰和梅琳逃走的消息后，他救出了被击坠的两人，并引导他们前往大天使号。得知奥布的危机后，面对坚持要出击的卡嘉莉，他将乌兹米留下的拂晓高达托付给了她，自己也驾驶村雨出击。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -17832,6 +17898,7 @@
         "people/speaker-d10da1000a24",
         "people/uzumi-short",
         "system/condition-shot-down",
+        "unit/akatsuki-gundam",
         "unit/archangel"
       ]
     },
@@ -17950,7 +18017,7 @@
     {
       "id": "library-text/5be95a1a19cb0479",
       "source_text_sha256": "5be95a1a19cb047904f0015d7c2ce4f91ffaaa5ded5e3dd4ae619c860f221a98",
-      "translation": "皇帝改级的陆行舰。它以战斗为唯一目的而建造，除舰桥周边外前后左右对称，这在陆行舰中属于罕见的形态。由迎战西比连的霍拉以及受到精神控制的艾露琪运用，与钢铁齿轮展开了激战。",
+      "translation": "皇帝改级的陆行舰。它以战斗为唯一目的而建造，除舰桥周边外前后左右对称，这在陆行舰中属于罕见的形态。由迎战平民的霍拉以及受到精神控制的艾露琪运用，与钢铁齿轮展开了激战。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -17961,6 +18028,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "people/civilian",
         "people/elchi",
         "people/holla",
         "unit/iron-gear",
@@ -18431,7 +18499,7 @@
     {
       "id": "library-text/5ea2ad98e7ba8bf6",
       "source_text_sha256": "5ea2ad98e7ba8bf69c2346cd6f8fdaadaf5f194d88579063979410d2ff7028a9",
-      "translation": "从卢贾纳领地的山岳循环中发掘出的机动战士。以领主博尔加诺公爵之名命名，配备给卢贾纳民兵的自杀突击队。外观与吉翁公国军的MS-06扎古II极为相似（事实上雷特队也称其为扎古），但从驾驶舱形状及性能来看，应是复制品。该机经过些许改装即可在宇宙中运用，通用性出色，擅长使用与机体一同发掘的多种武装进行集团战斗。外形酷似MS-05扎古I的型号也被发掘出来，在自杀突击队中由队长嘉班作为专用机使用。但在战斗中被击破后，嘉班也换乘了普通机体。",
+      "translation": "从露琪亚娜领地的环形山中发掘出的机动战士。以领主博尔加诺公爵之名命名，配备给露琪亚娜民兵团的苏赛德队。外观与吉翁公国军的MS-06扎古II极为相似（事实上雷特队也称其为扎古），但从驾驶舱形状及性能来看，应是复制品。该机经过些许改装即可在宇宙中运用，通用性出色，擅长使用与机体一同发掘的多种武装进行集团战斗。外形酷似MS-05扎古I的型号也被发掘出来，在苏赛德队中由队长嘉班作为专用机使用。但在战斗中被击破后，嘉班也换乘了普通机体。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -18441,8 +18509,12 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "organization/lujana-militia",
         "organization/principality-of-zeon",
+        "organization/suicide-squad",
         "people/speaker-39bb8bf5e8f1",
+        "place/lujana",
+        "place/mountain-cycle",
         "system/cockpit",
         "system/mobile-suit",
         "unit/zaku-generic"
@@ -18568,7 +18640,7 @@
     {
       "id": "library-text/5f616392b839c6fe",
       "source_text_sha256": "5f616392b839c6fec456c11e47d9608f515be56c072a481ce46957d359870cd9",
-      "translation": "英格莱萨领和博尔加诺领各自拥有的军队，通常如“英格莱萨民兵”一样，在名称前冠以所属领地。与月之民开始直接交涉前，他们只有双翼机、火炮等带有工业革命时代色彩的武器。白色玩偶中出现倒A高达后，他们陆续从山岳循环发掘出MS，逐步增强了武装。",
+      "translation": "英格利萨领和博尔加诺领各自拥有的军队，通常如“英格利萨民兵团”一样，在名称前冠以所属领地。与月之民开始直接交涉前，他们只有双翼机、火炮等带有工业革命时代色彩的武器。白色玩偶中出现倒A高达后，他们陆续从环形山发掘出MS，逐步增强了武装。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -18579,7 +18651,10 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "organization/ingressa-militia",
         "people/moonrace",
+        "place/ingressa",
+        "place/mountain-cycle",
         "system/mobile-suit",
         "unit/gundam-generic"
       ]
@@ -18653,7 +18728,7 @@
     {
       "id": "library-text/6030f43ecd614d4a",
       "source_text_sha256": "6030f43ecd614d4a1c08450d565a17981db065d3a84f996ce57e5bfeb27e1cbb",
-      "translation": "作为ZAFT的新一代高性能机“第二阶段系列”开发的MS。阿斯兰被任命为FAITH时由迪兰达尔授予。该机专精空战，变形为MA形态后可获得更高机动性，并具备长距离巡航能力。作为海上战斗较多的密涅瓦号主力而活跃。战斗中可利用高机动性采取一击脱离战法，或以速度缓急变化迷惑敌人。后来与因意见分歧而对立的基拉的自由高达交战，但在搭载中子干扰消除器的机体面前基本性能不及，陷入苦战。基拉发动SEED更成为决定性因素，机体被光束军刀斩断。",
+      "translation": "作为ZAFT的新一代高性能机“第二阶段系列”开发的MS。阿斯兰被任命为FAITH时由迪兰达尔授予。该机专精空战，变形为MA形态后可获得更高机动性，并具备长距离巡航能力。作为海上战斗较多的密涅瓦主力而活跃。战斗中可利用高机动性采取一击脱离战法，或以速度缓急变化迷惑敌人。后来与因意见分歧而对立的基拉的自由高达交战，但在搭载中子干扰消除器的机体面前基本性能不及，陷入苦战。基拉发动SEED更成为决定性因素，机体被光束军刀斩断。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -18898,7 +18973,7 @@
     {
       "id": "library-text/61290b98b7310595",
       "source_text_sha256": "61290b98b731059510bb18f135375098dad4c931d7696dd3da45a9a6b5044c4b",
-      "translation": "迪安娜反击军曹。过去因未经审判便惨杀企图谋害迪安娜的85名叛乱分子，被处以连同伊格尔一同冷冻的刑罚，关押在军事监狱中。从这一行为可以看出，他对迪安娜的忠诚心远超常人。他以参加地球回归作战的赦免名义出狱，降落地球。但这似乎是阿格里帕的阴谋，意图通过送入无法无天的科伦来扰乱前线。由于冷冻及解冻时的失误，他的头发脱落、面部部分变形，但据说原本是金发美男子。他对“高达”表现出异常的执着与敌意，持续追击倒A高达。",
+      "translation": "迪安娜回归军的军曹。过去因未经审判便惨杀企图谋害迪安娜的85名叛乱分子，被处以连同伊格尔一同冷冻的刑罚，关押在军事监狱中。从这一行为可以看出，他对迪安娜的忠诚心远超常人。他以参加地球回归作战的赦免名义出狱，降落地球。但这似乎是阿格里帕的阴谋，意图通过送入无法无天的科伦来扰乱前线。由于冷冻及解冻时的失误，他的头发脱落、面部部分变形，但据说原本是金发美男子。他对“高达”表现出异常的执着与敌意，持续追击倒A高达。",
       "editorial_status": "reviewed",
       "review_origin": "manual_source_verified_override",
       "domains": [
@@ -18909,6 +18984,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/corin",
         "people/speaker-b8db49048797",
         "people/speaker-c61391ac2329",
@@ -18968,7 +19044,7 @@
     {
       "id": "library-text/61743a7b181a4da1",
       "source_text_sha256": "61743a7b181a4da117d11a1197f57b75d520467d387e655228c481ff9fb2dbc9",
-      "translation": "与迪安娜一同降落地球的执政官，相当于副官的存在。起初被认为性情温和理智，但在菲尔企图掌控迪安娜·反击而叛乱时，他站到了军部一边。这似乎是面对进展缓慢的外交与粮食问题等各种难题时做出的痛苦抉择。他内心深处对迪安娜的忠诚根深蒂固，迪安娜返回地球时再度成为其臣下。与金卡拉姆之战后，他追随迪安娜（姬艾尔）返回月球。",
+      "translation": "与迪安娜一同降落地球的执政官，相当于副官的存在。起初被认为性情温和理智，但在菲尔企图掌控迪安娜回归军而叛乱时，他站到了军部一边。这似乎是面对进展缓慢的外交与粮食问题等各种难题时做出的痛苦抉择。他内心深处对迪安娜的忠诚根深蒂固，迪安娜返回地球时再度成为其臣下。与金卡拉姆之战后，他追随迪安娜（姬艾尔）返回月球。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -18978,6 +19054,7 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/ghingham",
         "people/speaker-7d9d1b56f2f0",
         "people/speaker-b8db49048797",
@@ -19701,7 +19778,7 @@
     {
       "id": "library-text/6672e14dc8a0f446",
       "source_text_sha256": "6672e14dc8a0f44680de861cca094625e56979ffd635ee4d9bd17954b881224d",
-      "translation": "为了弥补在与贝尔提戈的战斗中卫星加农炮被毁的GX-9900高达X的火力不足，基德使用“保存的超棒零件”进行强化和改造的机体。虽然失去了卫星加农炮，但通过装备作为名称由来的分裂者，即使在无月之夜也能发挥稳定的性能。分裂者又名口琴炮，兼具多联装光束炮、展开式盾牌和推进喷气功能。是从攻击、防御到机动性提升都能受益的万能兵器。",
+      "translation": "为了弥补在与贝迪哥的战斗中卫星加农炮被毁的GX-9900高达X的火力不足，基德使用“保存的超棒零件”进行强化和改造的机体。虽然失去了卫星加农炮，但通过装备作为名称由来的分裂者，即使在无月之夜也能发挥稳定的性能。分裂者又名口琴炮，兼具多联装光束炮、展开式盾牌和推进喷气功能。是从攻击、防御到机动性提升都能受益的万能兵器。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -19716,6 +19793,7 @@
         "part/satellite-cannon-outfit",
         "people/speaker-e453576c1081",
         "system/defense",
+        "unit/bertigo",
         "unit/gundam-generic",
         "weapon/0259",
         "weapon/0313"
@@ -20206,7 +20284,7 @@
     {
       "id": "library-text/68d3abab9de965e5",
       "source_text_sha256": "68d3abab9de965e53189288bcb0ad480036a27a563724192ab647050421a1fbd",
-      "translation": "基德看到与新联邦军交战中中破的高达雷欧帕尔德后，宣称“（与其修理）不如直接大改造来得快”，于是对机体进行了强化改造。机体配色由绿色改为以红色为基调，原本就高的火力得到进一步提升。原先以实弹为主的武装换装了大量光束兵器。其中右臂用的内臂加特林换装为双臂装备的双光束圆筒，由实弹兵器改为光束兵器，且炮门数量倍增，威力实质上达到两倍以上。与G猎鹰合体后，实现了罗比梦寐以求的空中运用。但此后战场随即转移至宇宙，未能在实战中运用。",
+      "translation": "基德看到与新联邦军交战中中破的斑豹高达后，宣称“（与其修理）不如直接大改造来得快”，于是对机体进行了强化改造。机体配色由绿色改为以红色为基调，原本就高的火力得到进一步提升。原先以实弹为主的武装换装了大量光束兵器。其中右臂用的内臂加特林换装为双臂装备的双光束圆筒，由实弹兵器改为光束兵器，且炮门数量倍增，威力实质上达到两倍以上。与G猎鹰合体后，实现了罗比梦寐以求的空中运用。但此后战场随即转移至宇宙，未能在实战中运用。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -20222,7 +20300,8 @@
         "people/speaker-e453576c1081",
         "system/combine-action",
         "system/equipment-change",
-        "system/repair"
+        "system/repair",
+        "unit/gundam-leopard"
       ]
     },
     {
@@ -20266,7 +20345,7 @@
     {
       "id": "library-text/68f36b2eeb91b56f",
       "source_text_sha256": "68f36b2eeb91b56f8602635f02bc09d59fdbea90407d8b75558c0f79abe14b2a",
-      "translation": "从月球的山岳循环发掘出的MS。虽发掘了数架，但除梅莉贝儿搭乘的机体外，其余均为与之联动的无人机体。拥有将纳米机器硬化以提高耐弹性的乌吉装甲（分泌装甲），以及以不杀伤敌方驾驶员、仅破坏机体为目的的有线捕缚爪兵器群等独特武装。因此，该机体在对MS战斗中能发挥真正价值。此外，它也是采用站立操纵这一罕见类型驾驶舱的机体。",
+      "translation": "从月球的环形山发掘出的MS。虽发掘了数架，但除梅莉贝儿搭乘的机体外，其余均为与之联动的无人机体。拥有将纳米机器硬化以提高耐弹性的乌吉装甲（分泌装甲），以及以不杀伤敌方驾驶员、仅破坏机体为目的的有线捕缚爪兵器群等独特武装。因此，该机体在对MS战斗中能发挥真正价值。此外，它也是采用站立操纵这一罕见类型驾驶舱的机体。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -20520,7 +20599,7 @@
     {
       "id": "library-text/6a104b966a877a59",
       "source_text_sha256": "6a104b966a877a59af4dc91ef372faba5f75014c47f5e6c38a92fec3041da972",
-      "translation": "布兰·布尔塔克",
+      "translation": "布兰·布尔达克",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -20532,7 +20611,8 @@
         "PLTN"
       ],
       "glossary_refs": [
-        "people/bran"
+        "people/bran",
+        "people/bran-blutarch-full"
       ]
     },
     {
@@ -20554,7 +20634,7 @@
     {
       "id": "library-text/6a53867642c11dfb",
       "source_text_sha256": "6a53867642c11dfbe47f6004de2d2eda400137702fad198a772d3871bf2b1829",
-      "translation": "迪安娜·卡文特使用的小型MS。准确来说该机体被归类为步行翻斗机，这也是其名称的由来。虽然体型小，但通过运用集团战法可应对大型MS的战斗，也能执行原本用途的对人战斗、物资搬运、设施建设乃至发掘作业，运用范围极为广泛。在米利夏被称为“犰狳”，缴获的机体也曾被使用。",
+      "translation": "迪安娜回归军使用的小型MS。准确来说该机体被归类为步行翻斗机，这也是其名称的由来。虽然体型小，但通过运用集团战法可应对大型MS的战斗，也能执行原本用途的对人战斗、物资搬运、设施建设乃至发掘作业，运用范围极为广泛。在民兵被称为“犰狳”，缴获的机体也曾被使用。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -20565,6 +20645,8 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
+        "organization/militia",
         "people/speaker-b8db49048797",
         "system/mobile-suit"
       ]
@@ -20600,7 +20682,7 @@
     {
       "id": "library-text/6a7033fa9384fcad",
       "source_text_sha256": "6a7033fa9384fcad8b6f75d46c1f550907dbef220196f594ab599719c8f09ec4",
-      "translation": "科伦在月球山岳循环发掘的机体上独自进行改造，以格斗战为主的MS。主要武装是同样由科伦改造、以民用掘削重机为基础的绞肉钻头。利用从头到尾相连的脊柱结构，可变形为令人联想到恐龙的快速步行形态。变形时可发动将头部当作打击武器使用的头槌攻击。",
+      "translation": "科伦在月球环形山发掘的机体上独自进行改造，以格斗战为主的MS。主要武装是同样由科伦改造、以民用掘削重机为基础的绞肉钻头。利用从头到尾相连的脊柱结构，可变形为令人联想到恐龙的快速步行形态。变形时可发动将头部当作打击武器使用的头槌攻击。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -20771,7 +20853,7 @@
     {
       "id": "library-text/6b279abbc5bce8fb",
       "source_text_sha256": "6b279abbc5bce8fb6f971e9428004646b182a1d77a11ffe9bb88dfa7ec743e67",
-      "translation": "宇宙革命军主力量产型MS。拥有耐光束的坚固装甲，即使高达DX和维萨戈高达CB的攻击也难以轻易击沉。与笨重的印象相反，凭借机体各处搭载的推进器也保持了高机动性。但实际存在瞄准推进器便会变得脆弱的弱点，被卡洛德看穿后接连被击坠。一般士兵搭乘的机体涂装为白色。",
+      "translation": "宇宙革命军主力量产型MS。拥有耐光束的坚固装甲，即使高达DX和维萨戈高达·破坏者的攻击也难以轻易击沉。与笨重的印象相反，凭借机体各处搭载的推进器也保持了高机动性。但实际存在瞄准推进器便会变得脆弱的弱点，被卡洛德看穿后接连被击坠。一般士兵搭乘的机体涂装为白色。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -20788,6 +20870,7 @@
         "system/condition-shot-down",
         "system/load",
         "system/mobile-suit",
+        "unit/gundam-virsago-chest-break",
         "weapon/0121"
       ]
     },
@@ -21099,7 +21182,7 @@
     {
       "id": "library-text/6cf20692df32e5c1",
       "source_text_sha256": "6cf20692df32e5c1dad4b43db80473a5662672205988a93001f4e069db1ffb3b",
-      "translation": "和平号的机械师队长。从以船员中最年轻的12岁之龄担任队长可以看出，其机械技术之精湛与知识之丰富不输大人。不仅负责MS的整备，还制作比特攻击的模拟器、调整G猎鹰的合体机构等，多才多艺。贾米尔也对其工作毫无插嘴，想必寄予了深厚信任。他时常囤积可用的零件和点子，从高达X开始，空中霸王和雷欧帕尔德等各高达机体的强化升级也出自他手。",
+      "translation": "和平号的机械师队长。从以船员中最年轻的12岁之龄担任队长可以看出，其机械技术之精湛与知识之丰富不输大人。不仅负责MS的整备，还制作比特攻击的模拟器、调整G猎鹰的合体机构等，多才多艺。贾米尔也对其工作毫无插嘴，想必寄予了深厚信任。他时常囤积可用的零件和点子，从高达X开始，空中霸王和斑豹等各高达机体的强化升级也出自他手。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -21115,6 +21198,7 @@
         "system/mobile-suit",
         "unit/freeden",
         "unit/gundam-generic",
+        "unit/leopard-short",
         "weapon/0346"
       ]
     },
@@ -21361,7 +21445,7 @@
     {
       "id": "library-text/6e35ed82084cf2a6",
       "source_text_sha256": "6e35ed82084cf2a6288013335b0e4cfdefdfe2a36cf4d1544b03c4c8ac7e484b",
-      "translation": "基亚基亚的步行机形态。被天真者洗脑的艾露琪担任舰长，与吉隆等人乘坐的钢铁齿轮展开了激烈的缠斗。",
+      "translation": "基亚基亚的步行机甲形态。被天真者洗脑的艾露琪担任舰长，与吉隆等人乘坐的钢铁齿轮展开了激烈的缠斗。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -21374,7 +21458,8 @@
         "faction/innocent",
         "people/elchi",
         "people/jiron",
-        "unit/iron-gear"
+        "unit/iron-gear",
+        "unit/walker-machine"
       ]
     },
     {
@@ -21394,7 +21479,7 @@
     {
       "id": "library-text/6e6dba24c2d47e7b",
       "source_text_sha256": "6e6dba24c2d47e7bebe6a34d5279a5174c84398ec054c8b7ab70424506159a17",
-      "translation": "原迪安娜反击军曹。败给罗兰后出家，流浪各地，但看到梅莉贝儿的倒A高达释放的月光蝶之光后，想起了自己的使命。于是前往迪安娜处，获准重返军队并讨伐倒A型高达时，激动得流下了眼泪。她将卡普尔涂成专用配色等，依然是我行我素得令人瞠目。但身手并未衰退，用本应不熟悉的卡普尔完成了空战，以压倒玛希罗部队的活跃表现大放异彩。",
+      "translation": "原为迪安娜回归军的军曹。败给罗兰后出家，流浪各地，但看到梅莉贝儿的倒A高达释放的月光蝶之光后，想起了自己的使命。于是前往迪安娜处，获准重返军队并讨伐倒A型高达时，激动得流下了眼泪。她将卡普尔涂成专用配色等，依然是我行我素得令人瞠目。但身手并未衰退，用本应不熟悉的卡普尔完成了空战，以压倒玛希罗部队的活跃表现大放异彩。",
       "editorial_status": "reviewed",
       "review_origin": "manual_source_verified_override",
       "domains": [
@@ -21404,6 +21489,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/loran",
         "people/speaker-003ed4edd7a8",
         "people/speaker-b8db49048797",
@@ -21553,7 +21639,7 @@
     {
       "id": "library-text/6fbdb80f17f18d77",
       "source_text_sha256": "6fbdb80f17f18d7707f0dacfa2dff93e7500c594f214f1258c7215bdf9e8203f",
-      "translation": "在相对早期阶段开发的人型步行机。关节部位虽然脆弱，但因轻量而易于操控，机动性和运动性出色。由于便于使用可选零件以及搭载于陆行舰等运输，总体上是高性能机体。此外，步行机存在多种配色，是因为多数为破坏者个人所有，所有者的兴趣和喜好也各不相同。",
+      "translation": "在相对早期阶段开发的人型步行机甲。关节部位虽然脆弱，但因轻量而易于操控，机动性和运动性出色。由于便于使用可选零件以及搭载于陆行舰等运输，总体上是高性能机体。此外，步行机甲存在多种配色，是因为多数为破坏者个人所有，所有者的兴趣和喜好也各不相同。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -21567,7 +21653,8 @@
         "people/speaker-438059a318cd",
         "system/load",
         "system/mobility",
-        "unit/landship"
+        "unit/landship",
+        "unit/walker-machine"
       ]
     },
     {
@@ -21751,7 +21838,7 @@
     {
       "id": "library-text/70f9f5e26bd5ca02",
       "source_text_sha256": "70f9f5e26bd5ca0217b4162b6b1f3a83483d07d4f66a4ebc8b64bfb4f021e989",
-      "translation": "鲁贾纳·民兵的精锐机械人偶部队——苏赛德队的队长，27岁。性格开朗，但在战场上总是身先士卒的勇猛指挥官，深受部下信赖。能根据情况改变战术，思维灵活。与英格莱萨·民兵初次会面时，他称罗兰等人为英格莱萨小子，还向倒A高达挑战角力，态度轻蔑。但随着共同战斗，逐渐认可他们为战友。尤其对被他称为“小姑娘”的苏茜亚，被她一心一意战斗的身姿所吸引，最终发展到求婚。然而，在围绕发掘出的核弹于失落山地下坑道与雷德队交战时，他消失在误爆的核光之中。所有同伴都为他的死感到惋惜，流下了眼泪。",
+      "translation": "露琪亚娜民兵团的精锐机械人偶部队——苏赛德队的队长，27岁。性格开朗，但在战场上总是身先士卒的勇猛指挥官，深受部下信赖。能根据情况改变战术，思维灵活。与英格利萨民兵团初次会面时，他称罗兰等人为英格利萨小子，还向倒A高达挑战角力，态度轻蔑。但随着共同战斗，逐渐认可他们为战友。尤其对被他称为“小姑娘”的苏茜亚，被她一心一意战斗的身姿所吸引，最终发展到求婚。然而，在围绕发掘出的核弹于失落山地下坑道与雷德队交战时，他消失在误爆的核光之中。所有同伴都为他的死感到惋惜，流下了眼泪。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -21761,8 +21848,10 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "organization/lujana-militia",
         "people/loran",
         "people/speaker-5b924f0e102e",
+        "place/ingressa",
         "skill/commander",
         "spirit/trust",
         "unit/gundam-generic"
@@ -21950,7 +22039,7 @@
     {
       "id": "library-text/71887da44a260505",
       "source_text_sha256": "71887da44a260505b942a7d11654fe0908dfeac01ef240c55a440d6aa377dc3d",
-      "translation": "斑豹高达毁灭型",
+      "translation": "斑豹毁灭者高达",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -21959,12 +22048,14 @@
       "tags": [
         "RBTN"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "unit/gundam-leopard-destroy"
+      ]
     },
     {
       "id": "library-text/71bfefae66a2ff60",
       "source_text_sha256": "71bfefae66a2ff60806bb92c746797245452f79a3bb454b7f9a70aa4da7ab2b3",
-      "translation": "第七次宇宙战争时期旧联邦军开发的MS。凭借能够操控比特MS的闪光系统，以及足以摧毁殖民卫星的卫星加农炮，由新人类搭乘时便成为最强兵器。卡洛德搭乘的机体是量产多架中的一架。与同期开发的空中霸王、豹式不同，启动时需要装备兼作右操纵杆和卫星加农炮发射扳机的G控制器。",
+      "translation": "第七次宇宙战争时期旧联邦军开发的MS。凭借能够操控比特MS的闪光系统，以及足以摧毁殖民卫星的卫星加农炮，由新人类搭乘时便成为最强兵器。卡洛德搭乘的机体是量产多架中的一架。与同期开发的空中霸王、斑豹不同，启动时需要装备兼作右操纵杆和卫星加农炮发射扳机的G控制器。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -21981,7 +22072,8 @@
         "people/garrod",
         "skill/newtype",
         "system/mobile-suit",
-        "system/space-colony-short"
+        "system/space-colony-short",
+        "unit/leopard-short"
       ]
     },
     {
@@ -22028,7 +22120,7 @@
     {
       "id": "library-text/720e78b4da78d6da",
       "source_text_sha256": "720e78b4da78d6da11ea753dc994041f5d048c1fba8f073cafdb343713366763",
-      "translation": "罗兰·塞亚克",
+      "translation": "罗兰·瑟亚克",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -22040,7 +22132,8 @@
         "PLTN"
       ],
       "glossary_refs": [
-        "people/loran"
+        "people/loran",
+        "people/loran-cehack-full"
       ]
     },
     {
@@ -22153,7 +22246,7 @@
     {
       "id": "library-text/72d52043f4a9473d",
       "source_text_sha256": "72d52043f4a9473da82fce925d107f5abd5bd56496328e678b69de2e0f806285",
-      "translation": "卢贾纳·米利夏的精锐机械人偶部队——苏赛德队的队长。27岁。性格开朗，但在战场上总是身先士卒，是位勇猛的指挥官，因此深受部下信赖。能根据情况灵活变换战术，思维灵活。与英格莱萨·米利夏初次会面时，他曾把罗兰等人称为英格莱萨佬，还向倒A高达挑战角力，态度轻蔑。但随着共同战斗，逐渐认可了对方为战友。特别是对被他称为“小姑娘”的苏茜亚，被她一心一意战斗的身姿所吸引，最终甚至向她求婚。",
+      "translation": "露琪亚娜民兵团的精锐机械人偶部队——苏赛德队的队长。27岁。性格开朗，但在战场上总是身先士卒，是位勇猛的指挥官，因此深受部下信赖。能根据情况灵活变换战术，思维灵活。与英格利萨民兵团初次会面时，他曾把罗兰等人称为英格利萨佬，还向倒A高达挑战角力，态度轻蔑。但随着共同战斗，逐渐认可了对方为战友。特别是对被他称为“小姑娘”的苏茜亚，被她一心一意战斗的身姿所吸引，最终甚至向她求婚。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -22163,8 +22256,11 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "organization/ingressa-militia",
+        "organization/lujana-militia",
         "people/loran",
         "people/speaker-5b924f0e102e",
+        "place/ingressa",
         "skill/commander",
         "spirit/trust",
         "unit/gundam-generic"
@@ -22797,7 +22893,7 @@
     {
       "id": "library-text/763943e24be0a8c1",
       "source_text_sha256": "763943e24be0a8c1b24a78d0f7abd8309b75c48a0656b621bc5a8a27dfd54d2c",
-      "translation": "生活在名为波因特的穹顶都市、拥有高度科学技术的种族。他们给予平民步行机，并收购其开采的蓝石。他们的祖先是躲避袭击地球的大变动而逃往宇宙的人类。时光流转，归来的他们所看到的是荒废的大地佐拉。那里变成了对他们而言极其危险的星球，暴露在外气中数小时就会死亡。于是，他们创造出适应佐拉环境的新人类——平民，作为继承自身文明的继任者。并且成功通过对他们而言毫无价值的蓝石交易灌输经济，通过三日之规灌输秩序。面对平民的崛起，担心天真者对佐拉的霸权会丧失的卡西姆·金，为了压制平民而对抵抗组织反复进行镇压。但吉隆等人克服了困境，最终推翻了天真者的统治体制。",
+      "translation": "生活在名为波因特的穹顶都市、拥有高度科学技术的种族。他们给予平民步行机甲，并收购其开采的蓝石。他们的祖先是躲避袭击地球的大变动而逃往宇宙的人类。时光流转，归来的他们所看到的是荒废的大地佐拉。那里变成了对他们而言极其危险的星球，暴露在外气中数小时就会死亡。于是，他们创造出适应佐拉环境的新人类——平民，作为继承自身文明的继任者。并且成功通过对他们而言毫无价值的蓝石交易灌输经济，通过三日之规灌输秩序。面对平民的崛起，担心天真者对佐拉的霸权会丧失的卡西姆·金，为了压制平民而对抵抗组织反复进行镇压。但吉隆等人克服了困境，最终推翻了天真者的统治体制。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -22809,13 +22905,14 @@
       "glossary_refs": [
         "faction/innocent",
         "people/civilian",
-        "people/jiron"
+        "people/jiron",
+        "unit/walker-machine"
       ]
     },
     {
       "id": "library-text/76476a0523710b4a",
       "source_text_sha256": "76476a0523710b4aa1140219a69136639c3430a851fba53cc71403cc8e5a666e",
-      "translation": "钢铁基亚（WM）",
+      "translation": "钢铁齿轮（WM）",
       "editorial_status": "reviewed",
       "review_origin": "authoritative_surface_preserved",
       "domains": [
@@ -22824,7 +22921,9 @@
       "tags": [
         "RBTN"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "unit/iron-gear-wm"
+      ]
     },
     {
       "id": "library-text/7666d229a74270e2",
@@ -22957,7 +23056,7 @@
     {
       "id": "library-text/77465a774511c79c",
       "source_text_sha256": "77465a774511c79c0256465672f226c7640e2c9ef4018372b97f5fe5da38939c",
-      "translation": "嘉班·古尼",
+      "translation": "嘉班·格尼",
       "editorial_status": "reviewed",
       "review_origin": "authoritative_surface_preserved",
       "domains": [
@@ -22967,6 +23066,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/gavane-gooney-full",
         "people/speaker-39bb8bf5e8f1"
       ]
     },
@@ -23074,7 +23174,7 @@
     {
       "id": "library-text/78176db8ab6aec71",
       "source_text_sha256": "78176db8ab6aec713d4d61868c045a5f2d7514a9d5049dc75c8daa0fd1bc6b98",
-      "translation": "美雪·昆",
+      "translation": "美雪·库恩",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -23084,6 +23184,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/meshee-kun-full",
         "people/speaker-3d0f47a6e193"
       ]
     },
@@ -23204,7 +23305,7 @@
     {
       "id": "library-text/78673e08d5b12ff9",
       "source_text_sha256": "78673e08d5b12ff9c0a24a929b01ef71f268a653f59765ae139c135c01f5409c",
-      "translation": "罗莎米娅·巴塔姆",
+      "translation": "罗莎米娅·巴达姆",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -23214,7 +23315,8 @@
         "CHFN"
       ],
       "glossary_refs": [
-        "people/rosamia"
+        "people/rosamia",
+        "people/rosamia-badam-full"
       ]
     },
     {
@@ -23965,7 +24067,7 @@
     {
       "id": "library-text/7bcde9e4348a8a28",
       "source_text_sha256": "7bcde9e4348a8a2872b175ab2e62e44b44e4628a7d108a5c31168121273f0c74",
-      "translation": "作为山师希德的弟子参与山岳循环发掘工作的青年，23岁。出身于少数民族马巴族，幼年时在部族争斗中父母被杀，被遗弃在山中时被希德捡到。因此对北阿美利亚人和月之民抱有近乎敌意的竞争心，尤其对罗兰的态度十分强硬。凭借丰富的机械知识加入米利夏的机械人部队，担任加拉皮（废铁车）队的指挥官。在罗兰等人降落地球时乘坐弗拉特作战，与教导他驾驶的芙兰逐渐发展为亲密关系。",
+      "translation": "作为山师希德的弟子参与环形山发掘工作的青年，23岁。出身于少数民族马巴族，幼年时在部族争斗中父母被杀，被遗弃在山中时被希德捡到。因此对北阿美利亚人和月之民抱有近乎敌意的竞争心，尤其对罗兰的态度十分强硬。凭借丰富的机械知识加入民兵的机械人部队，担任加拉皮（废铁车）队的指挥官。在罗兰等人降落地球时乘坐弗拉特作战，与教导他驾驶的芙兰逐渐发展为亲密关系。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -23975,6 +24077,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "organization/militia",
         "people/loran",
         "people/moonrace",
         "people/speaker-5cf2a20e0254",
@@ -24548,7 +24651,7 @@
     {
       "id": "library-text/7e7ea5ef3042ff47",
       "source_text_sha256": "7e7ea5ef3042ff479cdb62eb0dbb6d8ba265f2227495a39ca55eab5396cd6c83",
-      "translation": "盗贼团沙尘鼠的一员。15岁。拔枪神速的名手，爱说俏皮话的讽刺家。虽然装酷，但本性善良，内心火热。在成员中相当于副首领的存在。其实暗恋拉格，因此对新人吉隆受到拉格青睐感到不快，曾因此一度离开钢铁齿轮。",
+      "translation": "盗贼团沙鼠的一员。15岁。拔枪神速的名手，爱说俏皮话的讽刺家。虽然装酷，但本性善良，内心火热。在成员中相当于副首领的存在。其实暗恋拉格，因此对新人吉隆受到拉格青睐感到不快，曾因此一度离开钢铁齿轮。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -24559,6 +24662,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "organization/sand-rat",
         "people/jiron",
         "people/rag",
         "unit/iron-gear"
@@ -24878,7 +24982,7 @@
     {
       "id": "library-text/7fa4b3f892c88e09",
       "source_text_sha256": "7fa4b3f892c88e0910166df5d22bcc48f3ce5d193d0b3a4744cfde3aa3cc6fa5",
-      "translation": "高安·萨德·莱因福德",
+      "translation": "高安·桑德·莱茵福特",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -24888,6 +24992,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/guin-sard-lineford-full",
         "people/speaker-75872b1833fc"
       ]
     },
@@ -25172,7 +25277,7 @@
     {
       "id": "library-text/80b8184374497a1f",
       "source_text_sha256": "80b8184374497a1feb4e6fcefec99efad7cfa4490c5712b35b97307a0360a8fd",
-      "translation": "布雷克斯·佛拉",
+      "translation": "布雷克斯·弗拉",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -25182,13 +25287,14 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/blex-forer-full",
         "people/speaker-c199af7c9cba"
       ]
     },
     {
       "id": "library-text/80c0f4adab78021e",
       "source_text_sha256": "80c0f4adab78021eab0b5c5a354f4bd96487ce3b29230d12d38dd2a71184d69b",
-      "translation": "迪安娜反击势力的对舰战斗用大型MS。名称是“步行穹顶”的缩写，名副其实，头部圆顶内藏有对空火神炮、对舰光束炮等多种武器。其炮火威力强大到足以改变山的形状。覆盖的纳米皮肤装甲具有自我修复能力，火力和装甲俱佳。然而被倒A高达手刀砍断手腕等，因其巨大体型和武装而在近身战中较弱。在民兵中被称作“稻草人”。",
+      "translation": "迪安娜回归军势力的对舰战斗用大型MS。名称是“步行穹顶”的缩写，名副其实，头部圆顶内藏有对空火神炮、对舰光束炮等多种武器。其炮火威力强大到足以改变山的形状。覆盖的纳米皮肤装甲具有自我修复能力，火力和装甲俱佳。然而被倒A高达手刀砍断手腕等，因其巨大体型和武装而在近身战中较弱。在民兵中被称作“稻草人”。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -25199,6 +25305,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/speaker-b8db49048797",
         "skill/counter",
         "system/armor",
@@ -25449,7 +25556,7 @@
     {
       "id": "library-text/826687071b24e7e8",
       "source_text_sha256": "826687071b24e7e8b3679323f16bdc374a2d74d37c40ff33b85c90c368ed4bf5",
-      "translation": "从月球的山岳循环中发掘出的MS。与倒A高达同属Turn型，彼此感知到对方存在时会引发共鸣现象。与倒A高达不同，驾驶舱位于头部，可单独行动。此外，可将全身分离为9个部件进行全方位攻击，或束缚敌人夺取数据。由此获取了倒A高达的数据，甚至能使用月光蝶。拥有纳米机器自我修复功能，但据称过去被倒A高达留下的胸部X形伤痕至今仍在，原因不明。名称中“X”的由来，据说是“被第10（X）颗星改变了道路之物”的意思。",
+      "translation": "从月球的环形山中发掘出的MS。与倒A高达同属Turn型，彼此感知到对方存在时会引发共鸣现象。与倒A高达不同，驾驶舱位于头部，可单独行动。此外，可将全身分离为9个部件进行全方位攻击，或束缚敌人夺取数据。由此获取了倒A高达的数据，甚至能使用月光蝶。拥有纳米机器自我修复功能，但据称过去被倒A高达留下的胸部X形伤痕至今仍在，原因不明。名称中“X”的由来，据说是“被第10（X）颗星改变了道路之物”的意思。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -25583,7 +25690,7 @@
     {
       "id": "library-text/830cd949021f659b",
       "source_text_sha256": "830cd949021f659bd5e75221ee13ce0a93a8686df800b51ec4ffbf763246d265",
-      "translation": "受雇于和平号的MS驾驶员。17岁。性格在各种意义上都很男子气概，是那种动手先于动口的人，说话方式也相当粗鲁。原本是自由的MS驾驶员，高达空中大师是过去关照过他的拾荒者的遗物。起初给人的印象像是只为钱而战的守财奴，但那一切都是为了让故乡的家人过上好日子。父亲过去被MS驾驶员杀害，面对憎恨这一职业的母亲，他无法坦白自己的工作，虽然为此苦恼，却仍为了家人而继续战斗，拥有这份温柔。与颇有缘分的和平号最终签订了专属契约。威兹给出的理由是和平号适合作为藏匿所赚金块的地点，但一般认为想留在暗自倾心的托妮娅身边也是原因之一。在最终决战临近的夜晚，他将戒指交给托妮娅并告白。后来他把她带回了故乡，看来是成功了。但就在那之后，处于幸福顶峰的威兹，却迎来了意想不到的悲剧（喜剧？）的开幕。",
+      "translation": "受雇于和平号的MS驾驶员。17岁。性格在各种意义上都很男子气概，是那种动手先于动口的人，说话方式也相当粗鲁。原本是自由的MS驾驶员，空中霸王高达是过去关照过他的拾荒者的遗物。起初给人的印象像是只为钱而战的守财奴，但那一切都是为了让故乡的家人过上好日子。父亲过去被MS驾驶员杀害，面对憎恨这一职业的母亲，他无法坦白自己的工作，虽然为此苦恼，却仍为了家人而继续战斗，拥有这份温柔。与颇有缘分的和平号最终签订了专属契约。威兹给出的理由是和平号适合作为藏匿所赚金块的地点，但一般认为想留在暗自倾心的托妮娅身边也是原因之一。在最终决战临近的夜晚，他将戒指交给托妮娅并告白。后来他把她带回了故乡，看来是成功了。但就在那之后，处于幸福顶峰的威兹，却迎来了意想不到的悲剧（喜剧？）的开幕。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated_current_terminology",
       "domains": [
@@ -25596,7 +25703,8 @@
         "people/speaker-58574ffbd89b",
         "people/speaker-cabb37010493",
         "system/mobile-suit",
-        "unit/freeden"
+        "unit/freeden",
+        "unit/gundam-airmaster"
       ]
     },
     {
@@ -25697,7 +25805,7 @@
     {
       "id": "library-text/8360382c424bc8a2",
       "source_text_sha256": "8360382c424bc8a2763b30fb1219c4cec20a62a380ceb298b5b36294a1db2857",
-      "translation": "沃多姆",
+      "translation": "瓦多姆",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -26292,7 +26400,7 @@
     {
       "id": "library-text/86eedff32d9bee46",
       "source_text_sha256": "86eedff32d9bee46f726d91c42b20f6f49cf1d6bb86ccd0265990282e5ac8bd7",
-      "translation": "倒A高达的驾驶员，月之民少年。17岁。与基斯和芙兰一同作为地球回归作战的先遣调查员于两年前降下地球。当时在河中溺水被海姆姐妹所救，以此机缘在海姆家的矿山工作，后来成为佣人。性格温厚、厌恶争斗，但为了阻止月球与地球的战争，不得已参加了英格莱萨民兵。与性格相反，他精通MS操纵技术，配合倒A高达的性能作为民兵的核心而活跃。在赤手空拳持械的场合，也展现出毫不畏惧、勇敢战斗的男子气概一面。与其他月之民一样醉心于迪安娜，其行动总是以迪安娜为先。",
+      "translation": "倒A高达的驾驶员，月之民少年。17岁。与基斯和芙兰一同作为地球回归作战的先遣调查员于两年前降下地球。当时在河中溺水被海姆姐妹所救，以此机缘在海姆家的矿山工作，后来成为佣人。性格温厚、厌恶争斗，但为了阻止月球与地球的战争，不得已参加了英格利萨民兵团。与性格相反，他精通MS操纵技术，配合倒A高达的性能作为民兵的核心而活跃。在赤手空拳持械的场合，也展现出毫不畏惧、勇敢战斗的男子气概一面。与其他月之民一样醉心于迪安娜，其行动总是以迪安娜为先。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -26302,6 +26410,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "organization/ingressa-militia",
         "people/moonrace",
         "people/speaker-749ca4675490",
         "people/speaker-b8db49048797",
@@ -26316,7 +26425,7 @@
     {
       "id": "library-text/86f4ba71c6de42c0",
       "source_text_sha256": "86f4ba71c6de42c08e04f406dde18afe829cc72def7618967008b957d1a1dd87",
-      "translation": "梅莉贝儿·加吉特",
+      "translation": "梅莉贝儿·卡洁特",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -26326,6 +26435,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/merrybell-gadget-full",
         "people/speaker-003ed4edd7a8"
       ]
     },
@@ -26640,7 +26750,7 @@
     {
       "id": "library-text/886b06a15707041f",
       "source_text_sha256": "886b06a15707041f7a283a36c6340d1980dbb0b330afd5eabee0e1cdca71f0ed",
-      "translation": "受雇于和平号的MS驾驶员。18岁。不愧是自由的MS驾驶员，保持着“讨厌带思想的东西”的轻松随性态度。但以前受雇的和平号陷入危机时也曾赶去救援，正如他本人所说，是个“意外的好人”。与颇有缘分的和平号最终签订了专属契约，共同行动。当时他在船内设立了放松室，想向船员收取会费。但在莎拉的条件下，女性免费、不能向小孩（15岁以下）收钱，于是加洛德和蒂珐也免费，台球对决输了后泰克斯也免费，结果几乎所有可能使用的人都可以免费使用。他轻浮浅薄，手脚和嘴都很麻利，爱好是搭讪女性。各地都有恋人，有空就会以售后服务为名去见她们，这份勤快也是他的特点。但他真正心仪的女性已经去世，爱机高达豹式就是她的遗物。现在的真命天女是莎拉。他似乎意外地真心爱慕着她，平日里不断献殷勤。最终在决战前夕说出了自己的心意，寻求答复。战斗结束后，莎拉成了贾米尔的伴侣，但他发挥天生的花花公子本色，这次又和艾妮尔亲近了起来。",
+      "translation": "受雇于和平号的MS驾驶员。18岁。不愧是自由的MS驾驶员，保持着“讨厌带思想的东西”的轻松随性态度。但以前受雇的和平号陷入危机时也曾赶去救援，正如他本人所说，是个“意外的好人”。与颇有缘分的和平号最终签订了专属契约，共同行动。当时他在船内设立了放松室，想向船员收取会费。但在莎拉的条件下，女性免费、不能向小孩（15岁以下）收钱，于是加洛德和蒂珐也免费，台球对决输了后泰克斯也免费，结果几乎所有可能使用的人都可以免费使用。他轻浮浅薄，手脚和嘴都很麻利，爱好是搭讪女性。各地都有恋人，有空就会以售后服务为名去见她们，这份勤快也是他的特点。但他真正心仪的女性已经去世，爱机斑豹高达就是她的遗物。现在的真命天女是莎拉。他似乎意外地真心爱慕着她，平日里不断献殷勤。最终在决战前夕说出了自己的心意，寻求答复。战斗结束后，莎拉成了贾米尔的伴侣，但他发挥天生的花花公子本色，这次又和艾妮尔亲近了起来。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired_current_terminology",
       "domains": [
@@ -26657,7 +26767,8 @@
         "people/speaker-975911a13e87",
         "spirit/love",
         "system/mobile-suit",
-        "unit/freeden"
+        "unit/freeden",
+        "unit/gundam-leopard"
       ]
     },
     {
@@ -27057,7 +27168,7 @@
     {
       "id": "library-text/8a3aa77571ca5582",
       "source_text_sha256": "8a3aa77571ca558242b86898bc818ff65a4d3bb6343252a1247cf27ee9d43b5e",
-      "translation": "在名为波因特的穹顶都市中生活、拥有高度科学技术的人类。他们向平民提供步行机，并收购其开采的蓝石。他们的祖先是躲避袭击地球的大变动而逃往宇宙的人类。经过漫长岁月归来后，他们看到的是荒废的大地佐拉。那里已变成对他们而言极其危险的星球，暴露在外气中数小时便会死亡。于是，他们创造出适应佐拉环境的新人类——平民，作为继承自身文明的继任者。并且通过在他们眼中毫无价值的蓝石交易灌输经济观念，通过三日之规灌输秩序，均获成功。面对平民的崛起，担心天真者对佐拉的霸权会丧失的卡西姆·金不断镇压抵抗组织以压制平民。但吉隆等人克服了困境，最终推翻了天真者的统治体制。天真者看似即将走向灭亡，但通过研究开发出了可在穹顶外生活的技术。此后双方携手共生存。",
+      "translation": "在名为波因特的穹顶都市中生活、拥有高度科学技术的人类。他们向平民提供步行机甲，并收购其开采的蓝石。他们的祖先是躲避袭击地球的大变动而逃往宇宙的人类。经过漫长岁月归来后，他们看到的是荒废的大地佐拉。那里已变成对他们而言极其危险的星球，暴露在外气中数小时便会死亡。于是，他们创造出适应佐拉环境的新人类——平民，作为继承自身文明的继任者。并且通过在他们眼中毫无价值的蓝石交易灌输经济观念，通过三日之规灌输秩序，均获成功。面对平民的崛起，担心天真者对佐拉的霸权会丧失的卡西姆·金不断镇压抵抗组织以压制平民。但吉隆等人克服了困境，最终推翻了天真者的统治体制。天真者看似即将走向灭亡，但通过研究开发出了可在穹顶外生活的技术。此后双方携手共生存。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -27069,7 +27180,8 @@
       "glossary_refs": [
         "faction/innocent",
         "people/civilian",
-        "people/jiron"
+        "people/jiron",
+        "unit/walker-machine"
       ]
     },
     {
@@ -27114,7 +27226,7 @@
     {
       "id": "library-text/8a7ebc81fd80b624",
       "source_text_sha256": "8a7ebc81fd80b624b9ad7a0d81fdb003c06000d643ad6e0962574ea12ced6ca2",
-      "translation": "新联邦军开发的高机动MA。战斗机外形搭配类似MS头部的驾驶舱、用机械手握住枪身的光束步枪等，与其他MS和MA相比外形相当独特。以夺取制空权为目的设计，在与高达空中大师的空战中使对方中破。但面对其改良型空中霸王高达爆裂型时，转眼间便被击坠。",
+      "translation": "新联邦军开发的高机动MA。战斗机外形搭配类似MS头部的驾驶舱、用机械手握住枪身的光束步枪等，与其他MS和MA相比外形相当独特。以夺取制空权为目的设计，在与空中霸王高达的空战中使对方中破。但面对其改良型空中霸王爆裂者高达时，转眼间便被击坠。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -27128,6 +27240,8 @@
         "system/cockpit",
         "system/condition-shot-down",
         "system/mobile-suit",
+        "unit/gundam-airmaster",
+        "unit/gundam-airmaster-burst",
         "unit/mobile-armor"
       ]
     },
@@ -27572,7 +27686,7 @@
     {
       "id": "library-text/8c61fee6236c8ef8",
       "source_text_sha256": "8c61fee6236c8ef896c928acde62fa3dec78bcd59f9fe5561e09a26a8b6fa0ca",
-      "translation": "本·伍达",
+      "translation": "本·伍德",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -27582,6 +27696,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/ben-wood-full",
         "people/speaker-0ecdb9ad211b"
       ]
     },
@@ -27624,7 +27739,7 @@
     {
       "id": "library-text/8ca1970a4cf75be0",
       "source_text_sha256": "8ca1970a4cf75be096eea390062203b70378ac7e9858175c58c1e32b8d384630",
-      "translation": "小次郎·马德克",
+      "translation": "小次郎·玛多克",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -27634,6 +27749,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/kojiro-murdoch-full",
         "people/speaker-5105ef42feec"
       ]
     },
@@ -27689,7 +27805,7 @@
     {
       "id": "library-text/8d2420018dc7b6dc",
       "source_text_sha256": "8d2420018dc7b6dc411397358c2acc0c04fb5976c30691791016dff41957ce45",
-      "translation": "月之民武门之首金卡拉姆家的总领，同时是金卡拉姆宇宙舰队总司令。正如其“战斗才是自身存在的意义”之言，常时佩刀，亲自驾驶倒X奔赴前线。这是源于自己是武门之人的强烈自尊。平时冷静且具大局观，但一旦进入战斗便暴露出傲慢好战的本性。结果因亢奋而丧失对周围的判断，不分敌我地发动攻击，尽显战斗狂之姿。与迪安娜敌对的最大原因，是对无视了2500年来反复演习的他们、擅自组织迪安娜反击队降落地球的反感。反过来说，这也证明了他对迪安娜怀有强烈的忠诚心。",
+      "translation": "月之民武门之首金卡拉姆家的总领，同时是金卡拉姆宇宙舰队总司令。正如其“战斗才是自身存在的意义”之言，常时佩刀，亲自驾驶倒X奔赴前线。这是源于自己是武门之人的强烈自尊。平时冷静且具大局观，但一旦进入战斗便暴露出傲慢好战的本性。结果因亢奋而丧失对周围的判断，不分敌我地发动攻击，尽显战斗狂之姿。与迪安娜敌对的最大原因，是对无视了2500年来反复演习的他们、擅自组织迪安娜回归军降落地球的反感。反过来说，这也证明了他对迪安娜怀有强烈的忠诚心。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -27699,6 +27815,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/ghingham",
         "people/moonrace",
         "people/speaker-b8db49048797",
@@ -28204,7 +28321,7 @@
     {
       "id": "library-text/8feb6bae524b0713",
       "source_text_sha256": "8feb6bae524b0713ce7a2172dceb54f5f5a0a98c15000b7fe44033e575abb541",
-      "translation": "与迪安娜一同降落地球的执政官，相当于副官的存在。原以为是个温厚理智的人物，但在菲尔企图掌控迪安娜反击队而造反时站到了军部一边。这似乎是为了应对进展缓慢的外交和粮食问题等各种难题而做出的痛苦决断。内心深处对迪安娜的忠诚根深蒂固，迪安娜返回地球时再次成为其臣下。",
+      "translation": "与迪安娜一同降落地球的执政官，相当于副官的存在。原以为是个温厚理智的人物，但在菲尔企图掌控迪安娜回归军而造反时站到了军部一边。这似乎是为了应对进展缓慢的外交和粮食问题等各种难题而做出的痛苦决断。内心深处对迪安娜的忠诚根深蒂固，迪安娜返回地球时再次成为其臣下。",
       "editorial_status": "reviewed",
       "review_origin": "proposed_revision_rejected",
       "domains": [
@@ -28214,6 +28331,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/speaker-b8db49048797",
         "people/speaker-c6edbd6db659",
         "skill/counter"
@@ -28254,7 +28372,7 @@
     {
       "id": "library-text/9021bb6332e08d92",
       "source_text_sha256": "9021bb6332e08d92e7caa9084e73b630571e73bb71dbadef92d6a267f7aa9609",
-      "translation": "地球联合军第81独立机动群幻痛部队队长。军衔为上校。总是以面具遮面且履历不明，是个充满谜团的人物。性格洒脱但指挥和战斗能力出众，待人亲和且照顾下属，因此深受部下信赖。不仅其不像军人的性格，还有自如操控炮筒的空间认知能力之高，以及与雷之间产生的互相感知能力等，多处令人联想到前大战中阵亡的穆·拉·弗拉加。在柏林与基拉交战时被击坠，从驾驶舱弹出时显露的真面目正是穆本人。检查结果显示生物数据也一致，确认就是穆·拉·弗拉加本人。此后作为俘虏登上大天使号，被恋人玛琉释放。但因残存的少量过去记忆和对玛琉的情感碎片，决定返回舰上共同战斗。后来正式编入奥布军，代替必须留在地球的卡嘉莉成为拂晓的驾驶员，立下赫赫战功。军衔仍是一佐（上校），但一个不久前还在敌军的人，即使考虑到是旧识且身手可靠，能受到如此厚待也堪称破格待遇。",
+      "translation": "地球联合军第81独立机动群幻痛部队队长。军衔为上校。总是以面具遮面且履历不明，是个充满谜团的人物。性格洒脱但指挥和战斗能力出众，待人亲和且照顾下属，因此深受部下信赖。不仅其不像军人的性格，还有自如操控炮筒的空间认知能力之高，以及与雷之间产生的互相感知能力等，多处令人联想到前大战中阵亡的穆·拉·弗拉加。在柏林与基拉交战时被击坠，从驾驶舱弹出时显露的真面目正是穆本人。检查结果显示生物数据也一致，确认就是穆·拉·弗拉加本人。此后作为俘虏登上大天使号，被恋人玛琉释放。但因残存的少量过去记忆和对玛琉的情感碎片，决定返回舰上共同战斗。后来正式编入奥布军，代替必须留在地球的卡嘉莉成为拂晓高达的驾驶员，立下赫赫战功。军衔仍是一佐（上校），但一个不久前还在敌军的人，即使考虑到是旧识且身手可靠，能受到如此厚待也堪称破格待遇。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -28278,6 +28396,7 @@
         "system/condition-shot-down",
         "system/pilot",
         "system/reassignment",
+        "unit/akatsuki-gundam",
         "unit/archangel"
       ]
     },
@@ -28599,7 +28718,7 @@
     {
       "id": "library-text/9287e4b64f03789b",
       "source_text_sha256": "9287e4b64f03789b60269f6d64c8bb9e6719a6efe6891d82a9ae646b9d5dddf1",
-      "translation": "月之民中掌管武门的金卡拉姆家的总领，同时是金卡拉姆宇宙舰队的总司令官。正如他所说“战斗才是自己的存在意义”，他时常佩刀，亲自驾驶倒X奔赴前线。这是源于自己是武门之人的强烈自尊心的行动。平时冷静且具有大局观，但一旦进入战斗，便会暴露出傲慢好战的本性。结果因兴奋而看不清周围，做出不分敌我发动攻击等战斗狂行径。他敌对迪安娜的最大理由是，对于无视他们2500年来反复演习、擅自组织迪安娜·反击并降落地球一事感到反感。反过来，这也证明了他对迪安娜怀有强烈的忠诚心。与他认定的宿敌罗兰的倒A高达，在最终决战中也是同归于尽，未分胜负。而逃出后不久，又以肉身与罗兰进行白刃战，期间被月光蝶的茧卷入，与两台回合型机体一同回归大地。",
+      "translation": "月之民中掌管武门的金卡拉姆家的总领，同时是金卡拉姆宇宙舰队的总司令官。正如他所说“战斗才是自己的存在意义”，他时常佩刀，亲自驾驶倒X奔赴前线。这是源于自己是武门之人的强烈自尊心的行动。平时冷静且具有大局观，但一旦进入战斗，便会暴露出傲慢好战的本性。结果因兴奋而看不清周围，做出不分敌我发动攻击等战斗狂行径。他敌对迪安娜的最大理由是，对于无视他们2500年来反复演习、擅自组织迪安娜回归军并降落地球一事感到反感。反过来，这也证明了他对迪安娜怀有强烈的忠诚心。与他认定的宿敌罗兰的倒A高达，在最终决战中也是同归于尽，未分胜负。而逃出后不久，又以肉身与罗兰进行白刃战，期间被月光蝶的茧卷入，与两台回合型机体一同回归大地。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -28609,6 +28728,7 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/ghingham",
         "people/loran",
         "people/moonrace",
@@ -28810,7 +28930,7 @@
     {
       "id": "library-text/9381156202c618f0",
       "source_text_sha256": "9381156202c618f03b7de207bb32ab42616460314ef4d40ef85fdab55714c0b8",
-      "translation": "和平号的机械师队长。从他以船员中最年轻的12岁之龄担任队长可以看出，其机械技术与知识不输大人。除了MS的整备，还能制作比特攻击的模拟器、调整G猎鹰的合体机构等，相当多才多艺。贾米尔也从未对其工作指手画脚，可见对他抱有深厚信任。他时常囤积可用的零件和点子，包括高达X在内，空中霸王、豹式等高达各机的强化也出自他手。和平号完成使命后，他与新吾、帕拉以及部下机械师们一同开始经营废品店《和平号III》。",
+      "translation": "和平号的机械师队长。从他以船员中最年轻的12岁之龄担任队长可以看出，其机械技术与知识不输大人。除了MS的整备，还能制作比特攻击的模拟器、调整G猎鹰的合体机构等，相当多才多艺。贾米尔也从未对其工作指手画脚，可见对他抱有深厚信任。他时常囤积可用的零件和点子，包括高达X在内，空中霸王、斑豹等高达各机的强化也出自他手。和平号完成使命后，他与新吾、帕拉以及部下机械师们一同开始经营废品店《和平号III》。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -28828,6 +28948,7 @@
         "system/mobile-suit",
         "unit/freeden",
         "unit/gundam-generic",
+        "unit/leopard-short",
         "weapon/0346"
       ]
     },
@@ -28950,7 +29071,7 @@
     {
       "id": "library-text/942ab7682ca91b12",
       "source_text_sha256": "942ab7682ca91b12ca9e44f7b35578eb40a9c153e607ddb065b6e0f5ef96d0c5",
-      "translation": "英格莱萨民兵的司令官。军衔为大佐。35岁。他认为月之民是侵略地球者，与他们的战斗就是保卫故乡。因此，对于他认为不过是装饰品的高安将战争仅视为交涉手段之一的想法，似乎并不愉快。然而在急剧变化的局势和随之制定战略的高安的行动力面前被牵着走，最终一直追随到最终决战。但当威尔盖姆坠落、高安的野心画上句号的同时，他也抛弃了高安离去。",
+      "translation": "英格利萨民兵团的司令官。军衔为大佐。35岁。他认为月之民是侵略地球者，与他们的战斗就是保卫故乡。因此，对于他认为不过是装饰品的高安将战争仅视为交涉手段之一的想法，似乎并不愉快。然而在急剧变化的局势和随之制定战略的高安的行动力面前被牵着走，最终一直追随到最终决战。但当威尔盖姆坠落、高安的野心画上句号的同时，他也抛弃了高安离去。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -28960,8 +29081,10 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "organization/ingressa-militia",
         "people/moonrace",
-        "people/speaker-75872b1833fc"
+        "people/speaker-75872b1833fc",
+        "place/ingressa"
       ]
     },
     {
@@ -29023,7 +29146,7 @@
     {
       "id": "library-text/94c795c3e8af6b06",
       "source_text_sha256": "94c795c3e8af6b06f000ebdde7815a231b677ee61742ecb62d4caad6b5fd26e6",
-      "translation": "阿纳海姆电子应隆德·贝尔之请开发的新人类专用MS。驾驶员阿姆罗亲自负责设计。由于分析了历代高达的性能并引入最新技术开发，最终完成了令人难以置信的超高性能机。驾驶舱周围嵌入的精神感应框架实现了超群的机动性与追随性。此外，还可使用高达系MS中首见的塞可缪兵器——浮游飞翅炮。这比通常的浮游炮更大，相应地输出也更高。除作为攻击使用外，还可将数基连接起来产生I力场形成对光束屏障，攻守兼备。为阻止新吉翁的阿克西斯坠落计划，与同样配备精神感应框架的夏亚的沙扎比展开决战并取得胜利。",
+      "translation": "阿纳海姆电子应隆德·贝尔之请开发的新人类专用MS。驾驶员阿姆罗亲自负责设计。由于分析了历代高达的性能并引入最新技术开发，最终完成了令人难以置信的超高性能机。驾驶舱周围嵌入的精神感应框架实现了超群的机动性与追随性。此外，还可使用高达系MS中首见的塞可缪兵器——翼状浮游炮。这比通常的浮游炮更大，相应地输出也更高。除作为攻击使用外，还可将数基连接起来产生I力场形成对光束屏障，攻守兼备。为阻止新吉翁的阿克西斯坠落计划，与同样配备精神感应框架的夏亚的沙扎比展开决战并取得胜利。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -29044,7 +29167,8 @@
         "system/mobile-suit",
         "system/pilot",
         "unit/gundam-generic",
-        "weapon/0262"
+        "weapon/0262",
+        "weapon/0271"
       ]
     },
     {
@@ -29116,7 +29240,7 @@
     {
       "id": "library-text/957b83eff107de56",
       "source_text_sha256": "957b83eff107de56ed64a3a2a55be6f949c989a9e7751acbef13ee551836c047",
-      "translation": "从月之山岳循环发掘出的MS，由科伦独自改造而成的以格斗战为主的MS。主要武装是同样由科伦改造、以民用掘削重机为基础的绞肉钻头。利用从头部延伸至尾部的脊柱结构，可变形为令人联想到恐龙的快速步行形态。变形时，可像使用头部打击武器一样发动头槌攻击。",
+      "translation": "从月之环形山发掘出的MS，由科伦独自改造而成的以格斗战为主的MS。主要武装是同样由科伦改造、以民用掘削重机为基础的绞肉钻头。利用从头部延伸至尾部的脊柱结构，可变形为令人联想到恐龙的快速步行形态。变形时，可像使用头部打击武器一样发动头槌攻击。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -29127,6 +29251,7 @@
       ],
       "glossary_refs": [
         "people/corin",
+        "place/mountain-cycle",
         "system/melee",
         "system/mobile-suit",
         "system/transform",
@@ -30452,7 +30577,7 @@
     {
       "id": "library-text/9d9812198a845e01",
       "source_text_sha256": "9d9812198a845e0157bfea41dfd0151514013d7901299ea5fced114a8f8abcb1",
-      "translation": "天真者制造的最新型大型步行机。被失去萨芬格尔的吉隆夺取，并就此在钢铁齿轮号上运用。拥有与萨芬格尔同等的运动性，同时在机动性、装甲、攻击力等所有方面都得到强化。萨芬格尔最大的问题——合体机构被大幅简化后引入，结果整备性也极为优秀，成为万能机体。装备回旋镖·伊迪欧姆、五连火箭发射器等专用武器，以及与女战士特隆争夺得来的火箭筒，火力强大。此外还拥有强大的悬浮能力，虽不能完全自由，但也能单体飞行。",
+      "translation": "天真者制造的最新型大型步行机甲。被失去萨芬格尔的吉隆夺取，并就此在钢铁齿轮号上运用。拥有与萨芬格尔同等的运动性，同时在机动性、装甲、攻击力等所有方面都得到强化。萨芬格尔最大的问题——合体机构被大幅简化后引入，结果整备性也极为优秀，成为万能机体。装备回旋镖·伊迪欧姆、五连火箭发射器等专用武器，以及与女战士特隆争夺得来的火箭筒，火力强大。此外还拥有强大的悬浮能力，虽不能完全自由，但也能单体飞行。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -30470,6 +30595,7 @@
         "system/combine-action",
         "system/mobility",
         "unit/iron-gear",
+        "unit/walker-machine",
         "unit/xabungle",
         "weapon/0194"
       ]
@@ -31467,7 +31593,7 @@
     {
       "id": "library-text/a1672c9ed414afbb",
       "source_text_sha256": "a1672c9ed414afbb6fa65f4d8fb4285fa11b3960d1dcfb3b9d81f3e404ae47d5",
-      "translation": "从供奉在英格莱萨领地比西尼提的山岳循环山脚下的白色人偶中出现的MS。当初几乎没有什么武装，以徒手和光束军刀进行格斗战。但后来发掘出步枪、盾牌、铁锤等，通过装备这些武器提升了战斗力。通过将从内部产生的I力场覆盖于机体表面并加以控制来操纵机体的IFBD（I力场光束驱动）进行运作。由于不搭载发电机等设备，内部结构有充裕空间，设置在胸部的多用途发射井（多功能武器库）可根据需要搭载各种武装。实际上罗兰曾利用它运送从核导弹到牛的各种物品。被纳米机器覆盖的装甲具有自我修复能力，只要花时间就能再生缺损的零件。被称为倒A高达最大特征的月光蝶系统，是通过I力场散布纳米机器的装置，据称曾毁灭旧世纪的科学文明。腰部的驾驶舱可分离变形为核心战斗机。虽然几乎没有战斗力，但也是正确使用月光蝶系统不可或缺的部件。此外，剧中只有极少数人称其为“高达”，以罗兰为首的大多数人都称之为“白色人偶”或“白胡子”。",
+      "translation": "从供奉在英格利萨领地比西尼提的环形山山脚下的白色人偶中出现的MS。当初几乎没有什么武装，以徒手和光束军刀进行格斗战。但后来发掘出步枪、盾牌、铁锤等，通过装备这些武器提升了战斗力。通过将从内部产生的I力场覆盖于机体表面并加以控制来操纵机体的IFBD（I力场光束驱动）进行运作。由于不搭载发电机等设备，内部结构有充裕空间，设置在胸部的多用途发射井（多功能武器库）可根据需要搭载各种武装。实际上罗兰曾利用它运送从核导弹到牛的各种物品。被纳米机器覆盖的装甲具有自我修复能力，只要花时间就能再生缺损的零件。被称为倒A高达最大特征的月光蝶系统，是通过I力场散布纳米机器的装置，据称曾毁灭旧世纪的科学文明。腰部的驾驶舱可分离变形为核心战斗机。虽然几乎没有战斗力，但也是正确使用月光蝶系统不可或缺的部件。此外，剧中只有极少数人称其为“高达”，以罗兰为首的大多数人都称之为“白色人偶”或“白胡子”。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -31481,6 +31607,7 @@
         "ability/i-field",
         "people/loran",
         "place/ingressa",
+        "place/mountain-cycle",
         "place/vicinity",
         "system/armor",
         "system/cockpit",
@@ -31530,7 +31657,7 @@
     {
       "id": "library-text/a1859b1bf05cf09d",
       "source_text_sha256": "a1859b1bf05cf09d86e22d5f37f8cd639884436e05df46c636f36da606dbdb72",
-      "translation": "出生于祖父一代起就经营飞机店的家庭，自己也作为飞机驾驶员翱翔于天空的少女。18岁。隶属于英格莱萨民兵的飞机部队，从开战时起就一直在战斗。与苏茜亚是堪称挚友的关系，卡普尔被发掘后经常一起搭乘作战。登上月球时，与迪安娜·反击的少年兵成为好友，曾一起搭乘瓦德出击。",
+      "translation": "出生于祖父一代起就经营飞机店的家庭，自己也作为飞机驾驶员翱翔于天空的少女。18岁。隶属于英格利萨民兵团的飞机部队，从开战时起就一直在战斗。与苏茜亚是堪称挚友的关系，卡普尔被发掘后经常一起搭乘作战。登上月球时，与迪安娜回归军的少年兵成为好友，曾一起搭乘瓦德出击。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -31540,6 +31667,8 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
+        "organization/ingressa-militia",
         "people/speaker-5b924f0e102e",
         "people/speaker-749ca4675490",
         "people/speaker-b8db49048797",
@@ -31706,7 +31835,7 @@
     {
       "id": "library-text/a202fb1851ec1990",
       "source_text_sha256": "a202fb1851ec1990d0b957940c10099258585a922ddfb473cf5063bdd6fbe307",
-      "translation": "贝克使出的三机合体型重金属单元，伴随着“最终合体！”的喊声进行合体。贝克的跑车“贝克·摩比尔”构成头部，达夫的工程车辆构成胸部和手臂，T-Bone的拖车构成下半身。设计由贝克负责，制造由约希弗拉·矢加本工业承担。武器是将双肩的刀刃状部件合体而成的三日月形剑（中央饰有“斩”字）。在Big O面前展示了带专用BGM的招牌姿势，但被O雷霆的毫不留情的攻击打得千疮百孔，未及展现像样的战斗场面就被击败了。",
+      "translation": "贝克使出的三机合体型重金属单元，伴随着“最终合体！”的喊声进行合体。贝克的跑车“贝克·摩比尔”构成头部，Dove的工程车辆构成胸部和手臂，T-Bone的拖车构成下半身。设计由贝克负责，制造由约希弗拉·矢加本工业承担。武器是将双肩的刀刃状部件合体而成的三日月形剑（中央饰有“斩”字）。在Big O面前展示了带专用BGM的招牌姿势，但被O雷霆的毫不留情的攻击打得千疮百孔，未及展现像样的战斗场面就被击败了。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -31718,6 +31847,7 @@
       ],
       "glossary_refs": [
         "people/beck",
+        "people/speaker-3ebfb90dd843",
         "people/speaker-83a32dbe9033",
         "system/bgm",
         "system/combine-action",
@@ -31890,7 +32020,7 @@
     {
       "id": "library-text/a38e32f0b8cb55cb",
       "source_text_sha256": "a38e32f0b8cb55cbd7943ad93a654889f2f7dcf338befa2be262018b36b7d307",
-      "translation": "阿纳海姆电子应隆德·贝尔的请求开发的新人类专用MS。驾驶员阿姆罗亲自参与了设计。由于分析了历代高达的性能并导入了最新技术，得以完成一台不像是仓促制造的超级高性能机。通过驾驶舱周围搭载的精神感应框架，实现了超规格的运动性和追随性。此外，还可使用高达系MS中首款塞克谬兵器——翼状浮游炮。该武器比普通浮游炮更大，相应地输出也更高。除了作为攻击手段外，还可将数基连接起来产生I力场形成对光束屏障，攻守兼备。为阻止新吉翁的阿克西斯坠落计划，与同样搭载精神感应框架的夏亚的沙扎比展开决战并获胜。此后为推回阿克西斯而奋力拼搏。其身影令其他机体不分敌我地相继追随，目睹者的心凝聚为一体。当时精神感应框架产生了闪耀的力场，在其影响下阿克西斯的轨道发生了改变。",
+      "translation": "阿纳海姆电子应隆德·贝尔的请求开发的新人类专用MS。驾驶员阿姆罗亲自参与了设计。由于分析了历代高达的性能并导入了最新技术，得以完成一台不像是仓促制造的超级高性能机。通过驾驶舱周围搭载的精神感应框架，实现了超规格的运动性和追随性。此外，还可使用高达系MS中首款塞可缪兵器——翼状浮游炮。该武器比普通浮游炮更大，相应地输出也更高。除了作为攻击手段外，还可将数基连接起来产生I力场形成对光束屏障，攻守兼备。为阻止新吉翁的阿克西斯坠落计划，与同样搭载精神感应框架的夏亚的沙扎比展开决战并获胜。此后为推回阿克西斯而奋力拼搏。其身影令其他机体不分敌我地相继追随，目睹者的心凝聚为一体。当时精神感应框架产生了闪耀的力场，在其影响下阿克西斯的轨道发生了改变。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -31911,6 +32041,7 @@
         "system/mobile-suit",
         "system/mobility",
         "system/pilot",
+        "technology/psycommu",
         "unit/gundam-generic",
         "weapon/0262",
         "weapon/0271"
@@ -32438,7 +32569,7 @@
     {
       "id": "library-text/a63c8ab43fd3fd4b",
       "source_text_sha256": "a63c8ab43fd3fd4baa6ec10c7cc524164c98c8bce1528cb1c21af917c979126b",
-      "translation": "钢铁基亚（LS）",
+      "translation": "钢铁齿轮（LS）",
       "editorial_status": "reviewed",
       "review_origin": "authoritative_surface_preserved",
       "domains": [
@@ -32447,7 +32578,9 @@
       "tags": [
         "RBTN"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "unit/iron-gear-ls"
+      ]
     },
     {
       "id": "library-text/a6531f3b58d220d1",
@@ -33795,7 +33928,7 @@
     {
       "id": "library-text/acd0edef7b7556fd",
       "source_text_sha256": "acd0edef7b7556fd01500797bbe1e4ed3c11652d90aed84a637448069ecf0153",
-      "translation": "机动战士高达 逆袭的夏亚",
+      "translation": "机动战士高达：逆袭的夏亚",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -33805,7 +33938,8 @@
         "PRDC"
       ],
       "glossary_refs": [
-        "unit/gundam-generic"
+        "unit/gundam-generic",
+        "work/chars-counterattack"
       ]
     },
     {
@@ -34240,7 +34374,7 @@
     {
       "id": "library-text/b00f25e1f6dc6ad5",
       "source_text_sha256": "b00f25e1f6dc6ad5768c4326e622d2cb3780be387c88a3f376161de5c175a663",
-      "translation": "盗贼团沙德拉特的成员。随身携带熊形小包的吉祥物般存在，但作为专业人士工作完成得干净利落。从尖锐指出他人心理的发言中，可以看出其洞察力之深和精神年龄之高。不过在危急时哭喊的样子，果然还是符合年龄。吉隆称其“将来会是个好女人”。",
+      "translation": "盗贼团沙鼠的成员。随身携带熊形小包的吉祥物般存在，但作为专业人士工作完成得干净利落。从尖锐指出他人心理的发言中，可以看出其洞察力之深和精神年龄之高。不过在危急时哭喊的样子，果然还是符合年龄。吉隆称其“将来会是个好女人”。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -34250,6 +34384,7 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "organization/sand-rat",
         "people/jiron"
       ]
     },
@@ -34731,7 +34866,7 @@
     {
       "id": "library-text/b3bcd5e3736e1435",
       "source_text_sha256": "b3bcd5e3736e1435c086f1cee6262f20ccb714d0e46d943dbdc0da76a923506c",
-      "translation": "鲁杰纳领主波尔加诺公的第13个幺女。性格任性且不谙世事，不理解战斗的轻松态度十足是大小姐做派。但对事物的洞察力和判断人性的观察力却超乎常人。与高安自幼相识，也曾看到她对接近高安的姬艾尔（迪安娜）使坏。但最终对代替迪安娜担任月之女王的姬艾尔产生敬佩，主动提出成为朋友。",
+      "translation": "露琪亚娜领主波尔加诺公的第13个幺女。性格任性且不谙世事，不理解战斗的轻松态度十足是大小姐做派。但对事物的洞察力和判断人性的观察力却超乎常人。与高安自幼相识，也曾看到她对接近高安的姬艾尔（迪安娜）使坏。但最终对代替迪安娜担任月之女王的姬艾尔产生敬佩，主动提出成为朋友。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -35424,7 +35559,7 @@
     {
       "id": "library-text/b80384b1392720b2",
       "source_text_sha256": "b80384b1392720b2f66f4442265f330c578483618ea0c735f17961da5b47a50c",
-      "translation": "霍拉的部下、搭档兼小弟。外表凶悍且臂力过人，操纵步行机的技术也不差。但意外地胆小，对曾收拾过自己一次的霍拉不敢违抗。他假装背叛霍拉潜入钢铁齿轮，绑架了艾露琪，做出了如此大胆的行动。其展现的演技等，让人不禁觉得其实即使不跟霍拉搭档也能独当一面。",
+      "translation": "霍拉的部下、搭档兼小弟。外表凶悍且臂力过人，操纵步行机甲的技术也不差。但意外地胆小，对曾收拾过自己一次的霍拉不敢违抗。他假装背叛霍拉潜入钢铁齿轮，绑架了艾露琪，做出了如此大胆的行动。其展现的演技等，让人不禁觉得其实即使不跟霍拉搭档也能独当一面。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -35436,7 +35571,8 @@
       "glossary_refs": [
         "people/elchi",
         "people/holla",
-        "unit/iron-gear"
+        "unit/iron-gear",
+        "unit/walker-machine"
       ]
     },
     {
@@ -35590,7 +35726,7 @@
     {
       "id": "library-text/b8b52b71e5cca39c",
       "source_text_sha256": "b8b52b71e5cca39cc6ea2c363bc0f48d65a4a8ce207531277f8762fb64541a58",
-      "translation": "T-Bone和达夫将贝克从监狱救出时使用的巨型机器人，别名“超级贝克”。利用从怀斯公司夺取的重金属单元部件制造而成。武器包括收纳于双胸的导弹和从指尖发射的光束。光束具有斩断莫比迪克锚链的威力，但命中BIG-O头部水晶时被弹开了。特点是逃跑速度快，上半身可旋转180度，曾利用这一功能对BIG-O发动偷袭。",
+      "translation": "T-Bone和Dove将贝克从监狱救出时使用的巨神，别名“超级贝克”。利用从怀斯公司夺取的重金属单元部件制造而成。武器包括收纳于双胸的导弹和从指尖发射的光束。光束具有斩断莫比迪克锚链的威力，但命中BIG-O头部水晶时被弹开了。特点是逃跑速度快，上半身可旋转180度，曾利用这一功能对BIG-O发动偷袭。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -35602,10 +35738,12 @@
       ],
       "glossary_refs": [
         "people/beck",
+        "people/speaker-3ebfb90dd843",
         "people/speaker-83a32dbe9033",
         "system/accuracy",
         "system/part",
         "unit/big-o",
+        "unit/megadeus",
         "weapon/0053",
         "weapon/0121"
       ]
@@ -35773,7 +35911,7 @@
     {
       "id": "library-text/b9ca34cb0e2224ed",
       "source_text_sha256": "b9ca34cb0e2224ed419e5600344dacbbfb04f32383bb388ffc12ac9e8f29c721",
-      "translation": "斯埃森·斯特罗",
+      "translation": "史瓦特森·史特洛",
       "editorial_status": "reviewed",
       "review_origin": "authoritative_surface_preserved",
       "domains": [
@@ -35782,7 +35920,9 @@
       "tags": [
         "CHFN"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "people/suesson-stero-full"
+      ]
     },
     {
       "id": "library-text/b9cc038458da57eb",
@@ -36034,7 +36174,7 @@
     {
       "id": "library-text/bb19981589443969",
       "source_text_sha256": "bb19981589443969a711baadac8601b0f8c4dd4acd96f77e80cbb6028ce4576a",
-      "translation": "旧联邦军为支援高达型MS而开发的高机动支援战斗机。是未投入实战的试作机，半损坏状态漂浮在宇宙中，被帕拉等人所属的反宇宙革命军组织萨泰利孔回收修复后使用。由驾驶舱部分（A部件）和推进器部分（B部件）构成，部件之间可收纳（合体）高达型MS，从而发挥各机优点或弥补缺点。但实际上只与高达DX合体过数次，与高达斑豹毁灭者仅以测试为目的合体过一次，至于高达空中霸王爆裂者则一次也未曾合体。单机也具备优秀的机动性和火力，曾击坠多架塞普特姆和多特列斯·尼奥。是与高达DX并列、在副标题中被提及名字的少数机体之一。",
+      "translation": "旧联邦军为支援高达型MS而开发的高机动支援战斗机。是未投入实战的试作机，半损坏状态漂浮在宇宙中，被帕拉等人所属的反宇宙革命军组织萨泰利孔回收修复后使用。由驾驶舱部分（A部件）和推进器部分（B部件）构成，部件之间可收纳（合体）高达型MS，从而发挥各机优点或弥补缺点。但实际上只与高达DX合体过数次，与斑豹毁灭者高达仅以测试为目的合体过一次，至于空中霸王爆裂者高达则一次也未曾合体。单机也具备优秀的机动性和火力，曾击坠多架塞普特姆和新多托列斯。是与高达DX并列、在副标题中被提及名字的少数机体之一。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -36054,7 +36194,10 @@
         "system/combine-action",
         "system/condition-shot-down",
         "system/mobile-suit",
-        "system/part"
+        "system/part",
+        "unit/daughtress-neo",
+        "unit/gundam-airmaster-burst",
+        "unit/gundam-leopard-destroy"
       ]
     },
     {
@@ -36088,7 +36231,7 @@
     {
       "id": "library-text/bb4d8dcfe683853e",
       "source_text_sha256": "bb4d8dcfe683853e59fe1dd7f380d32cfb98b3c5d0f77d3ed173fbd241c38aaa",
-      "translation": "亨肯·贝肯纳",
+      "translation": "亨肯·贝克纳",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -36100,6 +36243,7 @@
         "PLTN"
       ],
       "glossary_refs": [
+        "people/henken-bekkener-full",
         "people/speaker-120dec75ea50"
       ]
     },
@@ -36422,7 +36566,7 @@
     {
       "id": "library-text/bc662b22e5381c15",
       "source_text_sha256": "bc662b22e5381c15d6fa9dd8f127fb43235e9edd6235bd7280457225908c0901",
-      "translation": "在近身战斗中发挥真正价值的大型步行机。是台个性强烈、难以操控的机体，但廷普轻松驾驭。杀害吉隆父母所用的也是这台机体，在与前来复仇的吉隆本人战斗时也使用了它。髋关节部位印有廷普的个人标志。",
+      "translation": "在近身战斗中发挥真正价值的大型步行机甲。是台个性强烈、难以操控的机体，但廷普轻松驾驭。杀害吉隆父母所用的也是这台机体，在与前来复仇的吉隆本人战斗时也使用了它。髋关节部位印有廷普的个人标志。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -36434,7 +36578,8 @@
       ],
       "glossary_refs": [
         "people/jiron",
-        "people/speaker-a4c3b72d9af2"
+        "people/speaker-a4c3b72d9af2",
+        "unit/walker-machine"
       ]
     },
     {
@@ -37452,7 +37597,7 @@
     {
       "id": "library-text/c18e4e268656df46",
       "source_text_sha256": "c18e4e268656df4601c63ac4127e0591905ed56a15872f3360598a39a9ee2e77",
-      "translation": "盗贼团桑德拉特的成员。随身携带熊形小包的吉祥物般存在，但作为专业人士工作完成得干净利落。常与吉隆一同搭乘萨芬格尔或沃卡加利亚进行支援。从她尖锐指出他人心理的发言中，可见其洞察力之深与精神年龄之高。不过危急时哭喊的样子，果然还是符合年龄的。吉隆称她“将来会是好女人”。",
+      "translation": "盗贼团沙鼠的成员。随身携带熊形小包的吉祥物般存在，但作为专业人士工作完成得干净利落。常与吉隆一同搭乘萨芬格尔或沃卡加利亚进行支援。从她尖锐指出他人心理的发言中，可见其洞察力之深与精神年龄之高。不过危急时哭喊的样子，果然还是符合年龄的。吉隆称她“将来会是好女人”。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -37462,6 +37607,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "organization/sand-rat",
         "people/jiron",
         "unit/walker-gallia",
         "unit/xabungle"
@@ -37486,7 +37632,7 @@
     {
       "id": "library-text/c199e31d791bd0e8",
       "source_text_sha256": "c199e31d791bd0e8177337301cef1bfa37bd7cf8c7c4adda9d72d52151875020",
-      "translation": "法特曼大号",
+      "translation": "法特曼·比格",
       "editorial_status": "reviewed",
       "review_origin": "authoritative_surface_preserved",
       "domains": [
@@ -37496,6 +37642,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/fatman-big",
         "people/speaker-d337215d0c0f"
       ]
     },
@@ -37542,7 +37689,7 @@
     {
       "id": "library-text/c1d9f9fe966b6cf4",
       "source_text_sha256": "c1d9f9fe966b6cf4cf9248114bf8690413a10b1787a6f124d095165687a72dfc",
-      "translation": "迪安娜·卡特尔少尉。作为菲尔麾下沃多姆的驾驶员降下地球。她迎击米利夏飞行机部队一事，成为漫长地球与月球战端的开端。泪腺松弛，动辄流泪，其易泪程度甚至成为第31话的副标题。与上司菲尔似乎是恋人关系，当他背叛迪安娜时也追随其后。但内心深处仍根植着对女王的忠诚，迪安娜归来时果然流下了欢喜的泪水。一切战斗结束后，似乎拜了希德为师，可见其一同挑战山岳循环的姿态。",
+      "translation": "迪安娜回归军少尉。作为菲尔麾下瓦多姆的驾驶员降下地球。她迎击民兵飞行机部队一事，成为漫长地球与月球战端的开端。泪腺松弛，动辄流泪，其易泪程度甚至成为第31话的副标题。与上司菲尔似乎是恋人关系，当他背叛迪安娜时也追随其后。但内心深处仍根植着对女王的忠诚，迪安娜归来时果然流下了欢喜的泪水。一切战斗结束后，似乎拜了希德为师，可见其一同挑战环形山的姿态。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -37552,6 +37699,8 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
+        "organization/militia",
         "people/speaker-5cf2a20e0254",
         "people/speaker-b8db49048797",
         "people/speaker-c6edbd6db659",
@@ -37977,7 +38126,7 @@
     {
       "id": "library-text/c4f8b03eea4b7123",
       "source_text_sha256": "c4f8b03eea4b7123ba472b185142cf108785c927ef09dbba83954bd2ba350e16",
-      "translation": "月之民的技术人员。起初与随行的迪安娜·卡特尔一同行动，但出于对发掘出的地球兵器的求知欲而亡命地球。之后应高安的请求，开始协助英格莱萨·米利夏。以倒A高达为首的发掘兵器的研究解析、修理整备等，发挥其能力的场合众多。月之民的技术人员大多不受地球人欢迎，但他们似乎只对未知技术感兴趣，并不太在意。有着大佛般特征性的面容，被熊猫脸的梅莉贝儿说“脸很有趣”。",
+      "translation": "月之民的技术人员。起初与随行的迪安娜回归军一同行动，但出于对发掘出的地球兵器的求知欲而亡命地球。之后应高安的请求，开始协助英格利萨民兵团。以倒A高达为首的发掘兵器的研究解析、修理整备等，发挥其能力的场合众多。月之民的技术人员大多不受地球人欢迎，但他们似乎只对未知技术感兴趣，并不太在意。有着大佛般特征性的面容，被熊猫脸的梅莉贝儿说“脸很有趣”。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -37987,10 +38136,13 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
+        "organization/ingressa-militia",
         "people/moonrace",
         "people/speaker-003ed4edd7a8",
         "people/speaker-75872b1833fc",
         "people/speaker-b8db49048797",
+        "place/ingressa",
         "system/repair",
         "unit/gundam-generic"
       ]
@@ -38138,7 +38290,7 @@
     {
       "id": "library-text/c6006a227d85bbac",
       "source_text_sha256": "c6006a227d85bbac024b0b42616b17ccc63d6ce9483770b8916523a768cc2727",
-      "translation": "共建造三艘的钢铁齿轮型一号舰。最大特征是可变形式为步行机械形态。是天真者提供给艾露琪之父卡林格的，拥有压倒性战斗力。但另一方面，也是燃耗与整备性存在问题的试作型战舰，屡次故障令负责操舵与整备的科特塞特恼火。初代钢铁齿轮在与同型二号舰格蕾塔·加利的战斗中大破。不过因战斗获胜，缴获格蕾塔·加利并重新涂装后作为二代钢铁齿轮运用。",
+      "translation": "共建造三艘的钢铁齿轮型一号舰。最大特征是可变形式为步行机甲形态。是天真者提供给艾露琪之父卡林格的，拥有压倒性战斗力。但另一方面，也是燃耗与整备性存在问题的试作型战舰，屡次故障令负责操舵与整备的科特塞特恼火。初代钢铁齿轮在与同型二号舰格蕾塔·加利的战斗中大破。不过因战斗获胜，缴获格蕾塔·加利并重新涂装后作为二代钢铁齿轮运用。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -38154,7 +38306,8 @@
         "people/greta",
         "people/speaker-d054189b475d",
         "system/transform",
-        "unit/iron-gear"
+        "unit/iron-gear",
+        "unit/walker-machine"
       ]
     },
     {
@@ -39376,7 +39529,7 @@
     {
       "id": "library-text/cb94715beca6a7da",
       "source_text_sha256": "cb94715beca6a7dac933e7176993c1f6b1d815dcf347ae93d75091a07ccf70a2",
-      "translation": "马雅·法老",
+      "translation": "马雅·法拉奥",
       "editorial_status": "reviewed",
       "review_origin": "authoritative_surface_preserved",
       "domains": [
@@ -39386,6 +39539,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/mouar-pharaoh-full",
         "people/speaker-89c5bc3f5768"
       ]
     },
@@ -39556,7 +39710,7 @@
     {
       "id": "library-text/cc3d3f80edc6f3bd",
       "source_text_sha256": "cc3d3f80edc6f3bd505644245e25f0bbad4d0941e3049b3376f24d46e0e5bc44",
-      "translation": "空影脉冲高达",
+      "translation": "强攻型脉冲高达",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -39812,7 +39966,7 @@
     {
       "id": "library-text/ce00193a4fc03d37",
       "source_text_sha256": "ce00193a4fc03d37d96393dabbb93377fb5a293aa2e7e29098dbbdfe979e89b8",
-      "translation": "性能均衡的大型步行机。虽不及特定能力特化的机体，但可用于采矿作业、物资运输移动乃至战斗等多种用途，因此普及率最高。步行机存在多种配色，是因为多数为破坏者个人所有，所有者的兴趣喜好也各不相同。",
+      "translation": "性能均衡的大型步行机甲。虽不及特定能力特化的机体，但可用于采矿作业、物资运输移动乃至战斗等多种用途，因此普及率最高。步行机甲存在多种配色，是因为多数为破坏者个人所有，所有者的兴趣喜好也各不相同。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -39823,7 +39977,8 @@
         "DSCR"
       ],
       "glossary_refs": [
-        "people/speaker-438059a318cd"
+        "people/speaker-438059a318cd",
+        "unit/walker-machine"
       ]
     },
     {
@@ -39927,7 +40082,7 @@
     {
       "id": "library-text/ce92542286698696",
       "source_text_sha256": "ce92542286698696c69d4d30d356ed4f2927f8f00f387097a9708dfd2fa90635",
-      "translation": "在与新联邦军的战斗中中破的高达空霸，经过强化与改造的机体。是埃斯塔尔德共和国李将军提供的设施与资材，加上基德看到后“心动”的创意与手艺的结晶。乍看之下最引人注目的是机体配色从红色改为蓝色，但此次改修重点在于提升空霸最大的弱点——火力。尤其是将机首火神炮改为光束加农炮，使飞行形态能发挥更高战斗力。此外翼端大型推进器提升了推进力，以前需要吊运的高达豹式如今可搭载其上飞行。设计上，与G猎鹰合体后可获得超越巡洋舰级舰艇的输出，但未在实战中运用。",
+      "translation": "在与新联邦军的战斗中中破的空中霸王高达，经过强化与改造的机体。是埃斯塔尔德共和国李将军提供的设施与资材，加上基德看到后“心动”的创意与手艺的结晶。乍看之下最引人注目的是机体配色从红色改为蓝色，但此次改修重点在于提升空中霸王最大的弱点——火力。尤其是将机首火神炮改为光束加农炮，使飞行形态能发挥更高战斗力。此外翼端大型推进器提升了推进力，以前需要吊运的斑豹高达如今可搭载其上飞行。设计上，与G猎鹰合体后可获得超越巡洋舰级舰艇的输出，但未在实战中运用。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -39942,6 +40097,9 @@
         "part/booster",
         "people/speaker-e453576c1081",
         "system/combine-action",
+        "unit/airmaster-short",
+        "unit/gundam-airmaster",
+        "unit/gundam-leopard",
         "weapon/0652"
       ]
     },
@@ -39999,7 +40157,7 @@
     {
       "id": "library-text/cef08311b775ccf9",
       "source_text_sha256": "cef08311b775ccf9566c2046f511de788aab6f1ee92d3eb9148c2ec85ee1c593",
-      "translation": "英格莱萨领主的孙子，英格莱萨·米利夏的核心人物。19岁。虽是少爷出身，却毫无不谙世事之感，展现出可利用之物尽数利用的精明，以及出色的谈判术、政治力与判断力，并在战斗中进一步磨炼。即使目睹月球压倒性的技术力也不气馁，反而暗中盘算以该技术引发产业革命。英格莱萨陷落失去权力后，也决心从中重新崛起，是个坚韧不拔的野心家。对罗兰怀有强烈执念，称其为罗拉并让其穿女装。",
+      "translation": "英格利萨领主的孙子，英格利萨民兵团的核心人物。19岁。虽是少爷出身，却毫无不谙世事之感，展现出可利用之物尽数利用的精明，以及出色的谈判术、政治力与判断力，并在战斗中进一步磨炼。即使目睹月球压倒性的技术力也不气馁，反而暗中盘算以该技术引发产业革命。英格利萨陷落失去权力后，也决心从中重新崛起，是个坚韧不拔的野心家。对罗兰怀有强烈执念，称其为罗拉并让其穿女装。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -40009,14 +40167,16 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "organization/ingressa-militia",
         "people/laura",
-        "people/loran"
+        "people/loran",
+        "place/ingressa"
       ]
     },
     {
       "id": "library-text/cef44817e6883dcc",
       "source_text_sha256": "cef44817e6883dcc2fc071ba48d0371e5009a520857109f4411ca1a4c3ff96e8",
-      "translation": "希德·穆恩扎",
+      "translation": "希德·蒙泽",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -40026,6 +40186,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/sid-munzer-full",
         "people/speaker-5cf2a20e0254"
       ]
     },
@@ -40078,7 +40239,7 @@
     {
       "id": "library-text/cf8419ed4bfeae4b",
       "source_text_sha256": "cf8419ed4bfeae4ba4988ce4d8918d327f51e87cba030fd4cf60982c1ae169a0",
-      "translation": "钢铁齿轮成员之一。15岁。原为反天真者组织《索尔特》成员，因对领袖卡塔卡姆的无能感到失望而脱离，同时赞同吉隆的意见，遂成现状。行动力强，积极利用小型步行机的腿部进行侦察与谍报活动。曾与玛丽亚搭乘缴获的多兰并肩作战，还组建《阿瑟大人亲卫队》玩得不亦乐乎，两人关系颇为要好。",
+      "translation": "钢铁齿轮成员之一。15岁。原为反天真者组织《索尔特》成员，因对领袖卡塔卡姆的无能感到失望而脱离，同时赞同吉隆的意见，遂成现状。行动力强，积极利用小型步行机甲的腿部进行侦察与谍报活动。曾与玛丽亚搭乘缴获的多兰并肩作战，还组建《阿瑟大人亲卫队》玩得不亦乐乎，两人关系颇为要好。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated_current_terminology",
       "domains": [
@@ -40095,7 +40256,8 @@
         "people/speaker-56e2adead895",
         "people/speaker-c9c663346fa6",
         "spirit/scout",
-        "unit/iron-gear"
+        "unit/iron-gear",
+        "unit/walker-machine"
       ]
     },
     {
@@ -40211,7 +40373,7 @@
     {
       "id": "library-text/d0ebe21bcdbf3545",
       "source_text_sha256": "d0ebe21bcdbf35455a1f954c19d41433212d40446ca43ea23b72cc9425569a8a",
-      "translation": "莉莉·波尔加诺",
+      "translation": "莉莉·波佳诺",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -40221,6 +40383,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/lily-borjarno-full",
         "people/speaker-2e175f10ddad"
       ]
     },
@@ -40274,7 +40437,7 @@
     {
       "id": "library-text/d13606ca04bc78e8",
       "source_text_sha256": "d13606ca04bc78e80e9bab6ee79cf182b8c63ab9f9e091a72546f430eaf68af9",
-      "translation": "杰拉巴",
+      "translation": "格拉巴",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -40487,7 +40650,7 @@
     {
       "id": "library-text/d24f4216be408de5",
       "source_text_sha256": "d24f4216be408de5c2877f8d42c8cd7b38afa5aa84be5e2440e1f0ee73c194f6",
-      "translation": "达利达·罗拉哈·钱德拉二世",
+      "translation": "达里达·罗拉哈·钱德勒二世",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -40497,6 +40660,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/dalida-roelaha-chandra-ii-full",
         "people/speaker-798e5a886fdd"
       ]
     },
@@ -41794,7 +41958,7 @@
     {
       "id": "library-text/d8e2a5c69d7259c2",
       "source_text_sha256": "d8e2a5c69d7259c22fd7559273b657a7044b5f05dfd07c75d69f414d2242181a",
-      "translation": "被称为山师的发掘家，也是研究黑历史的老人。与弟子约瑟夫一起，从山岳循环中发掘卡普尔等机体。因指挥兵器发掘工作而结缘，开始与米利夏同行。废寝忘食地奔走于发掘现场，人手不足时还会驾驶博加农迎击敌人，处处展现出超越年龄的活力。形似青蛙、带有便于发掘工作的手电筒的头盔是他的标志。",
+      "translation": "被称为山师的发掘家，也是研究黑历史的老人。与弟子约瑟夫一起，从环形山中发掘卡普尔等机体。因指挥兵器发掘工作而结缘，开始与民兵同行。废寝忘食地奔走于发掘现场，人手不足时还会驾驶博加农迎击敌人，处处展现出超越年龄的活力。形似青蛙、带有便于发掘工作的手电筒的头盔是他的标志。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -41805,6 +41969,7 @@
       ],
       "glossary_refs": [
         "event/black-history",
+        "organization/militia",
         "people/speaker-56b61e9ee8f2",
         "place/mountain-cycle",
         "unit/borjarnon",
@@ -42354,7 +42519,7 @@
     {
       "id": "library-text/dc0a9a1467e73419",
       "source_text_sha256": "dc0a9a1467e734196db6834df67eda2f4b2bf41f1b960317b5089a0d6ce3f053",
-      "translation": "菲尔·阿卡曼",
+      "translation": "菲尔·阿克曼",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -42364,6 +42529,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/phil-ackman-full",
         "people/speaker-c6edbd6db659"
       ]
     },
@@ -42533,7 +42699,7 @@
     {
       "id": "library-text/dd1257c5053d15bd",
       "source_text_sha256": "dd1257c5053d15bd788d4cc719cb11985ba2418e882cd08581361d80c3ebc006",
-      "translation": "迪安娜计数器中的中尉，前任死后成为地球降下作战的指挥官。他蔑视地球人为蛮族，主张以武力镇压。但趁希望和平共存的迪安娜离开地球之机，举旗造反，宣布建立太阳带共和国。一度甚至展现出成为地球之王的野心，但最终再次向迪安娜宣誓效忠。并与心存芥蒂的地球方团结一致，与金卡拉姆舰队作战。战斗结束后，与迪安娜（姬艾尔）等人一同返回了月球。",
+      "translation": "迪安娜回归军中的中尉，前任死后成为地球降下作战的指挥官。他蔑视地球人为蛮族，主张以武力镇压。但趁希望和平共存的迪安娜离开地球之机，举旗造反，宣布建立太阳带共和国。一度甚至展现出成为地球之王的野心，但最终再次向迪安娜宣誓效忠。并与心存芥蒂的地球方团结一致，与金卡拉姆舰队作战。战斗结束后，与迪安娜（姬艾尔）等人一同返回了月球。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -42543,6 +42709,7 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/ghingham",
         "people/speaker-7d9d1b56f2f0",
         "people/speaker-b8db49048797",
@@ -43326,7 +43493,7 @@
     {
       "id": "library-text/e0ea5ae9d3eeab7b",
       "source_text_sha256": "e0ea5ae9d3eeab7be65ec1b58e10dd06093ba163d6d5b8b002736e3eef3ffbf8",
-      "translation": "钢铁齿轮变形为步行机后的状态。从陆行舰变形为步行机的机构仅搭载于钢铁齿轮型，其战斗力无出其右。但相应地，对机体的负担也相当大。此外，机动性大幅下降、缺乏后方攻击手段等问题也亟待改善。令人意外的是手部也很灵巧，曾有过自行解开作为雪原迷彩佩戴的头巾结的场景。虽然体型巨大，也能高高跃入空中以俯冲方式攻击。攻击力无与伦比，但如果搭载物未固定，预计内部会造成相当严重的损害。",
+      "translation": "钢铁齿轮变形为步行机甲后的状态。从陆行舰变形为步行机甲的机构仅搭载于钢铁齿轮型，其战斗力无出其右。但相应地，对机体的负担也相当大。此外，机动性大幅下降、缺乏后方攻击手段等问题也亟待改善。令人意外的是手部也很灵巧，曾有过自行解开作为雪原迷彩佩戴的头巾结的场景。虽然体型巨大，也能高高跃入空中以俯冲方式攻击。攻击力无与伦比，但如果搭载物未固定，预计内部会造成相当严重的损害。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -43341,7 +43508,8 @@
         "system/load",
         "system/transform",
         "unit/iron-gear",
-        "unit/landship"
+        "unit/landship",
+        "unit/walker-machine"
       ]
     },
     {
@@ -43618,7 +43786,7 @@
     {
       "id": "library-text/e28146631b3cd5bb",
       "source_text_sha256": "e28146631b3cd5bbbf955484e6a41ce609b27ef9adc93a4650981d6e382bd6de",
-      "translation": "月之民的技术人员。起初与随行的迪安娜回归者一同行动，但出于对发掘出的地球兵器的求知欲而亡命地球。此后应高安的请求，开始协助英格莱萨民兵。以倒A高达为首的发掘兵器的研究解析、修理整备等，发挥其能力的场合数不胜数。月之民的技术人员大多不受地球人欢迎，但他们似乎只对未知技术感兴趣，并不太在意。有着大佛般特征鲜明的面孔，被长着熊猫脸的梅莉贝儿说“脸真有趣”。战争结束后留在地球，协助修复威尔格姆。",
+      "translation": "月之民的技术人员。起初与随行的迪安娜回归军一同行动，但出于对发掘出的地球兵器的求知欲而亡命地球。此后应高安的请求，开始协助英格利萨民兵团。以倒A高达为首的发掘兵器的研究解析、修理整备等，发挥其能力的场合数不胜数。月之民的技术人员大多不受地球人欢迎，但他们似乎只对未知技术感兴趣，并不太在意。有着大佛般特征鲜明的面孔，被长着熊猫脸的梅莉贝儿说“脸真有趣”。战争结束后留在地球，协助修复威尔格姆。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -43628,10 +43796,13 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
+        "organization/ingressa-militia",
         "people/moonrace",
         "people/speaker-003ed4edd7a8",
         "people/speaker-75872b1833fc",
         "people/speaker-b8db49048797",
+        "place/ingressa",
         "system/repair",
         "unit/gundam-generic"
       ]
@@ -43737,7 +43908,7 @@
     {
       "id": "library-text/e34191c1a515ae1a",
       "source_text_sha256": "e34191c1a515ae1a6ad62b759028ead7a7bd161104e63016d8c15a769af6660b",
-      "translation": "作为纯洁者的幕后策划者而行动的破坏者。原本是被货运货轮雇佣的破坏者们的首领，但因吉隆的出现而一切被打乱，失去了地位。此后，为了打倒吉隆，以及得到虽然被拒绝却仍一直思慕的艾露琪这两个目的，不断谋划策略。刚登场时给人的印象是沉着冷静的干练人物，但之后逐渐暴露出考虑不周的缺点。到了后半段，失败后向搭档杰拉巴撒气成了常态。",
+      "translation": "作为纯洁者的幕后策划者而行动的破坏者。原本是被货运货轮雇佣的破坏者们的首领，但因吉隆的出现而一切被打乱，失去了地位。此后，为了打倒吉隆，以及得到虽然被拒绝却仍一直思慕的艾露琪这两个目的，不断谋划策略。刚登场时给人的印象是沉着冷静的干练人物，但之后逐渐暴露出考虑不周的缺点。到了后半段，失败后向搭档格拉巴撒气成了常态。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -44062,7 +44233,7 @@
     {
       "id": "library-text/e508968d8ed875f4",
       "source_text_sha256": "e508968d8ed875f4353ae20f7a018b991a4520e8522fc981fd84595ea560594e",
-      "translation": "盖迪·金泽",
+      "translation": "盖迪·金赛",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -44072,6 +44243,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/gady-kinsey-full",
         "people/speaker-638790300a7e"
       ]
     },
@@ -44429,7 +44601,7 @@
     {
       "id": "library-text/e76f2eeefe57c9e2",
       "source_text_sha256": "e76f2eeefe57c9e2fd1c436984f8ea91fa0f2628189f94ecd5d6e92db7e8c628",
-      "translation": "ZAFT特务队FAITH的一员。奉迪兰达尔之命转属密涅瓦号，21岁。性格开朗随和，虽是中途加入，却具备迅速融入密涅瓦号成员的适应力和社交能力。尤其对阿斯兰照顾有加，会开导为战斗而苦恼的他，并设法拉近他与心存隔阂的真等人的距离。其MS操纵技术也很高超，机体始终涂装成个人色彩的橙色。在PLANT防卫战中驾驶扎古幻影，在达达尼尔海峡战斗中驾驶先行配备的老虎烈焰型并大显身手。另外，德语中韦斯滕意为“西”，弗卢斯意为“河”。这是为了向海涅的声优兼主题曲演唱者、艺人西川贵教致敬而起的名字。",
+      "translation": "ZAFT特务队FAITH的一员。奉迪兰达尔之命转属密涅瓦，21岁。性格开朗随和，虽是中途加入，却具备迅速融入密涅瓦成员的适应力和社交能力。尤其对阿斯兰照顾有加，会开导为战斗而苦恼的他，并设法拉近他与心存隔阂的真等人的距离。其MS操纵技术也很高超，机体始终涂装成个人色彩的橙色。在PLANT防卫战中驾驶扎古幻影，在达达尼尔海峡战斗中驾驶先行配备的老虎烈焰型并大显身手。另外，德语中韦斯滕意为“西”，弗卢斯意为“河”。这是为了向海涅的声优兼主题曲演唱者、艺人西川贵教致敬而起的名字。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -44686,7 +44858,7 @@
     {
       "id": "library-text/e969289648f56e13",
       "source_text_sha256": "e969289648f56e1394726ef6f0ae7518fd4f28757e34e1925d5c71d35c95ce96",
-      "translation": "阿格里帕·门特纳",
+      "translation": "阿格里帕·曼泰纳",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -44696,6 +44868,7 @@
         "CHFN"
       ],
       "glossary_refs": [
+        "people/agrippa-maintainer-full",
         "people/speaker-c61391ac2329"
       ]
     },
@@ -44718,7 +44891,7 @@
     {
       "id": "library-text/e974850642b6c182",
       "source_text_sha256": "e974850642b6c182eeb97163daabbdbff6f62e6dc51f4ff33daa15ae7cc2ba78",
-      "translation": "将高达阿斯塔隆强化为宇宙战规格的机体。其最大特征的变形为MA形态的机构“变形系统”也依然健在。不仅防御力出色，MA形态下的高机动性在大气层内外都足以与G猎鹰匹敌。变形时，机体约有一半被收纳进巨大化的背包中，因此呈现出体现机体名称“寄居蟹”之意的形态。除了原子剪刀的巨大化、剪刀光束炮改为剪刀加农炮之外，虽然使用条件严苛（需成功控制卫星系统，并与维萨戈高达CB共同作战方可首次使用），还装备了卫星发射器。由此，其攻击力也足以与高达DX比肩。",
+      "translation": "将高达阿斯塔隆强化为宇宙战规格的机体。其最大特征的变形为MA形态的机构“变形系统”也依然健在。不仅防御力出色，MA形态下的高机动性在大气层内外都足以与G猎鹰匹敌。变形时，机体约有一半被收纳进巨大化的背包中，因此呈现出体现机体名称“寄居蟹”之意的形态。除了原子剪刀的巨大化、剪刀光束炮改为剪刀加农炮之外，虽然使用条件严苛（需成功控制卫星系统，并与维萨戈高达·破坏者共同作战方可首次使用），还装备了卫星发射器。由此，其攻击力也足以与高达DX比肩。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -44732,6 +44905,7 @@
         "system/attack-power",
         "system/defense",
         "system/transform",
+        "unit/gundam-virsago-chest-break",
         "unit/mobile-armor"
       ]
     },
@@ -44833,7 +45007,7 @@
     {
       "id": "library-text/ea100fa43f228b94",
       "source_text_sha256": "ea100fa43f228b947bd4b435f1b7afd2abf2c5c46debfc603a90d1a58ad6815a",
-      "translation": "在近身战斗中能发挥真正价值的大型步行机。其接近人手的四指结构使作业性极高，这是其特点。正因如此，操作难度大且不易驾驭，普及率难以称得上普遍。不过由于改造余地大，根据调校程度有可能脱胎换骨，是深受行家喜爱的机体。",
+      "translation": "在近身战斗中能发挥真正价值的大型步行机甲。其接近人手的四指结构使作业性极高，这是其特点。正因如此，操作难度大且不易驾驭，普及率难以称得上普遍。不过由于改造余地大，根据调校程度有可能脱胎换骨，是深受行家喜爱的机体。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -44843,7 +45017,9 @@
         "DSC2",
         "DSCR"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "unit/walker-machine"
+      ]
     },
     {
       "id": "library-text/ea256a1b288e6380",
@@ -44883,7 +45059,7 @@
     {
       "id": "library-text/ea59f412f0a0f40c",
       "source_text_sha256": "ea59f412f0a0f40cd56d0757c9148a5ee3154515f7b5414db206a134411f0b0f",
-      "translation": "被称为比特MS的、通过搭载闪光系统的高达发出的脑波控制而行动的无人MS的一种。因与高达对应而被称为G比特。原本的G比特是各宿主高达各自拥有的，但这台机体是由月球的D.O.M.E.通过赛可缪操控的。它拥有能一击击落克劳达的光束火箭炮，以及不逊于高达型的运动性，担任着微波发射设施的防卫系统。",
+      "translation": "被称为比特MS的、通过搭载闪光系统的高达发出的脑波控制而行动的无人MS的一种。因与高达对应而被称为G比特。原本的G比特是各宿主高达各自拥有的，但这台机体是由月球的D.O.M.E.通过塞可缪操控的。它拥有能一击击落克鲁达的光束火箭炮，以及不逊于高达型的运动性，担任着微波发射设施的防卫系统。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -44898,6 +45074,7 @@
         "system/mobile-suit",
         "system/mobility",
         "technology/dome",
+        "technology/psycommu",
         "unit/clouda",
         "unit/gundam-generic",
         "weapon/0310"
@@ -44930,7 +45107,7 @@
     {
       "id": "library-text/ea9c43773dd3fd79",
       "source_text_sha256": "ea9c43773dd3fd79fe3af1bc0368ad7eef5a8d5b5ce2d991768c1ac2d69a58b0",
-      "translation": "盗贼团沙德拉特的一员。16岁。温厚而正直，心地善良且力大无穷，体贴入微、充满关怀的男性。在脾气火爆者众多的钢铁齿轮号上，是非常宝贵的存在。擅长使用火器，从步行机驾驶员、维护到钢铁齿轮号的操舵和炮手，各种工作都能胜任。尽管如此，却从未有过成为焦点的时候。对此，他自己说出的“因为我是配角嘛”这句话足以说明一切。他似乎很清楚自己的定位，或许是登场人物中精神最成熟的一个。",
+      "translation": "盗贼团沙鼠的一员。16岁。温厚而正直，心地善良且力大无穷，体贴入微、充满关怀的男性。在脾气火爆者众多的钢铁齿轮号上，是非常宝贵的存在。擅长使用火器，从步行机甲驾驶员、维护到钢铁齿轮号的操舵和炮手，各种工作都能胜任。尽管如此，却从未有过成为焦点的时候。对此，他自己说出的“因为我是配角嘛”这句话足以说明一切。他似乎很清楚自己的定位，或许是登场人物中精神最成熟的一个。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -44941,8 +45118,10 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "organization/sand-rat",
         "system/pilot",
-        "unit/iron-gear"
+        "unit/iron-gear",
+        "unit/walker-machine"
       ]
     },
     {
@@ -45054,7 +45233,7 @@
     {
       "id": "library-text/eb5d1c8b919841e9",
       "source_text_sha256": "eb5d1c8b919841e92b038c3e529b8f0ba415be71c74c7fa58d40c85d59b013c5",
-      "translation": "迪安娜·反击军少尉。作为菲尔部下的沃多姆驾驶员降落到地球。她迎击民兵飞行队，成为了漫长的地球与月球之战的导火索。她泪腺脆弱，动辄流泪，其易流泪的特点甚至成为了第31话的副标题。与上司菲尔似乎是恋人关系，当他背叛迪安娜时她也跟随了他。但内心深处对女王的忠诚根深蒂固，迪安娜归来时她果然流下了喜悦的泪水。",
+      "translation": "迪安娜回归军少尉。作为菲尔部下的瓦多姆驾驶员降落到地球。她迎击民兵飞行队，成为了漫长的地球与月球之战的导火索。她泪腺脆弱，动辄流泪，其易流泪的特点甚至成为了第31话的副标题。与上司菲尔似乎是恋人关系，当他背叛迪安娜时她也跟随了他。但内心深处对女王的忠诚根深蒂固，迪安娜归来时她果然流下了喜悦的泪水。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -45064,6 +45243,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
         "people/speaker-b8db49048797",
         "people/speaker-c6edbd6db659",
         "skill/counter",
@@ -45491,7 +45671,7 @@
     {
       "id": "library-text/ed57c75916e5da66",
       "source_text_sha256": "ed57c75916e5da66aa6a75526175b0b8757833635306886c5ed94de92ea15721",
-      "translation": "鲁贾纳领主波尔加诺公爵的第13个幺女。性格任性且不谙世事，对战斗缺乏理解的那种轻松态度十足是大小姐做派。但她对事物的洞察力，以及判断人性根底的观察力却超乎常人。她与高安自幼相识，也曾看到她对接近高安的姬艾尔（迪安娜）使坏。但后来，她对取代迪安娜担任月球女王的姬艾尔心生佩服，主动提出与她做朋友。在遭到高安背叛时，她丝毫不见动摇，反而试图阻止其行动，展现了坚强的一面。她曾一度向罗兰提议“变成罗拉去勾引高安”。或许这也是她因身为女性却未被对方放在眼里而产生的伤心之情的反向表现吧。",
+      "translation": "露琪亚娜领主波尔加诺公爵的第13个幺女。性格任性且不谙世事，对战斗缺乏理解的那种轻松态度十足是大小姐做派。但她对事物的洞察力，以及判断人性根底的观察力却超乎常人。她与高安自幼相识，也曾看到她对接近高安的姬艾尔（迪安娜）使坏。但后来，她对取代迪安娜担任月球女王的姬艾尔心生佩服，主动提出与她做朋友。在遭到高安背叛时，她丝毫不见动摇，反而试图阻止其行动，展现了坚强的一面。她曾一度向罗兰提议“变成罗拉去勾引高安”。或许这也是她因身为女性却未被对方放在眼里而产生的伤心之情的反向表现吧。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -45505,13 +45685,14 @@
         "people/loran",
         "people/speaker-75872b1833fc",
         "people/speaker-7d9d1b56f2f0",
-        "people/speaker-b8db49048797"
+        "people/speaker-b8db49048797",
+        "place/lujana"
       ]
     },
     {
       "id": "library-text/ed76a1023392dcd1",
       "source_text_sha256": "ed76a1023392dcd10920d2e38421defd922fae87b271e535e51bea26cf858f68",
-      "translation": "霍拉的部下、搭档兼小弟。外表凶悍，身手也了得，驾驶步行机的技术也不差。但意外地胆小，对曾经收拾过自己的霍拉不敢违抗。他曾假装背叛霍拉潜入铁甲舰，绑架了艾露琪，干出了这样大胆的事。看到那时展现的演技，不禁让人觉得他其实不跟霍拉搭档也能独当一面。最终决战中没有出场，但在结尾处好好登场了，这一点也和霍拉一样。",
+      "translation": "霍拉的部下、搭档兼小弟。外表凶悍，身手也了得，驾驶步行机甲的技术也不差。但意外地胆小，对曾经收拾过自己的霍拉不敢违抗。他曾假装背叛霍拉潜入钢铁齿轮，绑架了艾露琪，干出了这样大胆的事。看到那时展现的演技，不禁让人觉得他其实不跟霍拉搭档也能独当一面。最终决战中没有出场，但在结尾处好好登场了，这一点也和霍拉一样。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -45522,7 +45703,9 @@
       ],
       "glossary_refs": [
         "people/elchi",
-        "people/holla"
+        "people/holla",
+        "unit/iron-gear",
+        "unit/walker-machine"
       ]
     },
     {
@@ -45565,7 +45748,7 @@
     {
       "id": "library-text/ee21e9ea12e11040",
       "source_text_sha256": "ee21e9ea12e110405b0c475ed243bb4c87f12065f16d1aba7243fc9f53367f4a",
-      "translation": "从山岳循环中发掘出的MS。大量配备给英格莱萨民兵，似乎多由苏茜亚、美雪等飞行部队的队员直接担任驾驶员使用。外观与新吉翁的AMX-109卡普尔极为相似，但从驾驶舱形状和略小一圈的机体尺寸来判断，应该是复制品。它曾使用倒A高达的锤子，也经过改装在宇宙空间运用，表现甚至超越了原版。",
+      "translation": "从环形山中发掘出的MS。大量配备给英格利萨民兵团，似乎多由苏茜亚、美雪等飞行部队的队员直接担任驾驶员使用。外观与新吉翁的AMX-109卡普尔极为相似，但从驾驶舱形状和略小一圈的机体尺寸来判断，应该是复制品。它曾使用倒A高达的锤子，也经过改装在宇宙空间运用，表现甚至超越了原版。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -45576,6 +45759,7 @@
         "DSCR"
       ],
       "glossary_refs": [
+        "organization/ingressa-militia",
         "people/speaker-3d0f47a6e193",
         "people/speaker-5b924f0e102e",
         "place/ingressa",
@@ -45899,7 +46083,7 @@
     {
       "id": "library-text/f02dc7d324d420c9",
       "source_text_sha256": "f02dc7d324d420c9429171632b6ec62c910f6edbfdf2f4b35d5665f44b740b20",
-      "translation": "杀害吉隆双亲的破坏者。看似流浪者，实际上是以试炼为名让平民互相厮杀的、天真者的幕后操盘手。智谋、步行机驾驶技术以及拔枪快射都是超一流，态度也颇具大人物风范。但总有些脱线之处，贡献了叼着雪茄烫伤鼻子等许多滑稽场面。他与前来复仇的吉隆反复激战，看似终于败在吉隆手下，却也曾靠装死渡过危机。最终他一直活到最后，在结尾也帅气收场。",
+      "translation": "杀害吉隆双亲的破坏者。看似流浪者，实际上是以试炼为名让平民互相厮杀的、天真者的幕后操盘手。智谋、步行机甲驾驶技术以及拔枪快射都是超一流，态度也颇具大人物风范。但总有些脱线之处，贡献了叼着雪茄烫伤鼻子等许多滑稽场面。他与前来复仇的吉隆反复激战，看似终于败在吉隆手下，却也曾靠装死渡过危机。最终他一直活到最后，在结尾也帅气收场。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -45912,7 +46096,8 @@
         "faction/innocent",
         "people/civilian",
         "people/jiron",
-        "people/speaker-438059a318cd"
+        "people/speaker-438059a318cd",
+        "unit/walker-machine"
       ]
     },
     {
@@ -45972,7 +46157,7 @@
     {
       "id": "library-text/f0632fbc0e51859f",
       "source_text_sha256": "f0632fbc0e51859f63f31d337ca619dc7c6523000c42e91a8fbffa2f9ced4fec",
-      "translation": "获得破坏者绝大支持的步行机。高输出引擎和悬浮喷嘴带来的机动性非常高。此外，重装甲、固定武装充实，居住性也优良，是一台高性能机。但也正因如此，价格昂贵是最大的缺点。另外，步行机存在多种配色，是因为多数为破坏者各自所有，所有者的兴趣和喜好也多种多样。",
+      "translation": "获得破坏者绝大支持的步行机甲。高输出引擎和悬浮喷嘴带来的机动性非常高。此外，重装甲、固定武装充实，居住性也优良，是一台高性能机。但也正因如此，价格昂贵是最大的缺点。另外，步行机甲存在多种配色，是因为多数为破坏者各自所有，所有者的兴趣和喜好也多种多样。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -45984,7 +46169,8 @@
       ],
       "glossary_refs": [
         "people/speaker-438059a318cd",
-        "system/armor"
+        "system/armor",
+        "unit/walker-machine"
       ]
     },
     {
@@ -46338,7 +46524,7 @@
     {
       "id": "library-text/f2a889738fea6d16",
       "source_text_sha256": "f2a889738fea6d1656d0224f33dd1808e38dd90b20c75729fbfc9c6d16e4bc28",
-      "translation": "地球联合军开发的试作型MA。螃蟹般的轮廓与巨大的体型，给与之对峙者带来压迫感。事实上密涅瓦号的舰桥人员（尤其是阿瑟）初次见到时受到了相当大的冲击。拥有与其庞大身躯难以想象的机动性，并能以钩爪和光束炮进行全方位攻击。此外还能在机体前方展开阳电子反射器，连密涅瓦号的坦豪瑟都能弹开，是一台强力机体。但要发挥其性能，需要机长、舵手、炮手共三名驾驶员搭乘。初期投入的型号曾将脉冲高达逼至濒临击坠，但这却成为真觉醒SEED的契机。觉醒后真判若两人的动作令其被玩弄于股掌之间，最终驾驶舱被贯穿而毁。",
+      "translation": "地球联合军开发的试作型MA。螃蟹般的轮廓与巨大的体型，给与之对峙者带来压迫感。事实上密涅瓦的舰桥人员（尤其是阿瑟）初次见到时受到了相当大的冲击。拥有与其庞大身躯难以想象的机动性，并能以钩爪和光束炮进行全方位攻击。此外还能在机体前方展开阳电子反射器，连密涅瓦的坦豪瑟都能弹开，是一台强力机体。但要发挥其性能，需要机长、舵手、炮手共三名驾驶员搭乘。初期投入的型号曾将脉冲高达逼至濒临击坠，但这却成为真觉醒SEED的契机。觉醒后真判若两人的动作令其被玩弄于股掌之间，最终驾驶舱被贯穿而毁。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -46486,7 +46672,7 @@
     {
       "id": "library-text/f36b5b693d442a73",
       "source_text_sha256": "f36b5b693d442a73d0674134d5099112f21399a6f53a59038ddf70d2cd375677",
-      "translation": "贝尔提戈",
+      "translation": "贝迪哥",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -46495,7 +46681,9 @@
       "tags": [
         "RBTN"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "unit/bertigo"
+      ]
     },
     {
       "id": "library-text/f36c3c82dc7fc999",
@@ -46518,7 +46706,7 @@
     {
       "id": "library-text/f38bcc49d5358774",
       "source_text_sha256": "f38bcc49d5358774573aa3d0620c1eb04c10c702ccc7196403b3beaed8b833da",
-      "translation": "罗兰担任佣人的海姆家的次女。15岁。性格好强、争强好胜、有男子气概。虽然在意罗兰，但因彼此的立场和自身的性格而无法坦诚相待。为报父亲遭迪安娜·反击部队袭击身亡之仇，志愿加入英格莱萨民兵，成为卡普尔驾驶员。为此，她起初对月之民怀有强烈的憎恨。但在得知罗兰的真实身份，以及经历深爱自己并求婚的嘉班一事之后，在人格上获得了巨大成长。最终对罗兰的心意未能如愿，罗兰选择了与迪安娜同行，两人在泪水中交换了离别之吻。此后，她将罗兰所持有的金鱼玩具投入河中，与自己的感情作了了断。",
+      "translation": "罗兰担任佣人的海姆家的次女。15岁。性格好强、争强好胜、有男子气概。虽然在意罗兰，但因彼此的立场和自身的性格而无法坦诚相待。为报父亲遭迪安娜回归军袭击身亡之仇，志愿加入英格利萨民兵团，成为卡普尔驾驶员。为此，她起初对月之民怀有强烈的憎恨。但在得知罗兰的真实身份，以及经历深爱自己并求婚的嘉班一事之后，在人格上获得了巨大成长。最终对罗兰的心意未能如愿，罗兰选择了与迪安娜同行，两人在泪水中交换了离别之吻。此后，她将罗兰所持有的金鱼玩具投入河中，与自己的感情作了了断。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated",
       "domains": [
@@ -46528,10 +46716,13 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "faction/diana-counter",
+        "organization/ingressa-militia",
         "people/loran",
         "people/moonrace",
         "people/speaker-39bb8bf5e8f1",
         "people/speaker-b8db49048797",
+        "place/ingressa",
         "skill/counter",
         "spirit/love",
         "system/pilot",
@@ -46586,7 +46777,7 @@
     {
       "id": "library-text/f3d957d0e3ebbb2f",
       "source_text_sha256": "f3d957d0e3ebbb2fd64cce3a48c3611792c5ba25606d219d6574a681eaf82bbe",
-      "translation": "奥布联合首长国代表。18岁。继承前代表乌兹米的遗志，力图引导祖国与世界走向和平。然而由于年轻和经验不足，加上赛兰父子的暗中活动，国家难以团结，令她深切感受到自身力量的不足。前大战期间相恋的阿斯兰离开奥布时，赠予了她一枚戒指。但此后以“为了团结国家”为由，不得已决定与尤纳结婚，斩断了这份情意。然而在婚礼进行中，被双生兄弟基拉的自由高达带走，婚事就此告吹。此后赛兰家夺取实权，与地球联合结盟并开始调动军队，她试图阻止却以失败告终。但在目睹奥布军人拼死的觉悟后，她重新坚定了守护祖国的决心。当奥布遭遇危机时，她驾驶乌兹米留下的拂晓赶回祖国，拯救了国家的危难。重新就任奥布代表后，她很好地团结了国家，并挺身对抗提出“命运计划”的迪兰达尔。或许是为了证明这份决心，她摘下了阿斯兰所赠的戒指，并将他的安危托付给了美玲。",
+      "translation": "奥布联合首长国代表。18岁。继承前代表乌兹米的遗志，力图引导祖国与世界走向和平。然而由于年轻和经验不足，加上赛兰父子的暗中活动，国家难以团结，令她深切感受到自身力量的不足。前大战期间相恋的阿斯兰离开奥布时，赠予了她一枚戒指。但此后以“为了团结国家”为由，不得已决定与尤纳结婚，斩断了这份情意。然而在婚礼进行中，被双生兄弟基拉的自由高达带走，婚事就此告吹。此后赛兰家夺取实权，与地球联合结盟并开始调动军队，她试图阻止却以失败告终。但在目睹奥布军人拼死的觉悟后，她重新坚定了守护祖国的决心。当奥布遭遇危机时，她驾驶乌兹米留下的拂晓高达赶回祖国，拯救了国家的危难。重新就任奥布代表后，她很好地团结了国家，并挺身对抗提出“命运计划”的迪兰达尔。或许是为了证明这份决心，她摘下了阿斯兰所赠的戒指，并将他的安危托付给了美玲。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -46605,6 +46796,7 @@
         "people/speaker-346f43dc50d5",
         "people/speaker-4af567ce870d",
         "people/uzumi-short",
+        "unit/akatsuki-gundam",
         "unit/freedom-gundam"
       ]
     },
@@ -46685,7 +46877,7 @@
     {
       "id": "library-text/f4d97ec5f1b66b6e",
       "source_text_sha256": "f4d97ec5f1b66b6ec88c4b3313c303e74aff324e62d8a9e0819cf491571aa0e8",
-      "translation": "海涅·韦斯滕弗鲁斯",
+      "translation": "海涅·威斯藤夫鲁斯",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -46697,6 +46889,7 @@
         "PLTN"
       ],
       "glossary_refs": [
+        "people/heine-westenfluss-full",
         "people/speaker-07290303c5a4"
       ]
     },
@@ -46720,7 +46913,7 @@
     {
       "id": "library-text/f4f8be23f9d345c1",
       "source_text_sha256": "f4f8be23f9d345c1458c443dab6f569f2f6936c1a59cd200412a3ab57c5e8f30",
-      "translation": "奥布海军所属航母建御雷号的舰长。军衔为一佐（大佐）。性格富有人情味且具备良知，深受部下信赖。对从尤尼乌斯7坠落中拯救地球的密涅瓦号，以及对拥戴国家元首卡嘉莉的大天使号发动攻击等无理命令，始终心怀抵触。对于作为最高指令乘舰的尤纳所下达的“那个卡嘉莉是冒牌货，予以讨伐”这一荒唐命令，他判断既然已与地球联合结盟，为守护奥布别无选择。他将希望寄托于自由高达的护卫，忍痛下达了攻击命令。在克里特岛近海之战中，见大势已去便喝令部下们前往大天使号。而自己则留在正在沉没的舰中，被真的剑装脉冲连舰桥一同劈成两半而阵亡。至死都以奥布军人的身份殉职，其姿态正是奥布所倡导理想的体现。此外，真失去家人时为其安排移居PLANT的正是户高，但在战斗中交锋的两人无从知晓彼此的身份。",
+      "translation": "奥布海军所属航母建御雷号的舰长。军衔为一佐（大佐）。性格富有人情味且具备良知，深受部下信赖。对从尤尼乌斯7坠落中拯救地球的密涅瓦，以及对拥戴国家元首卡嘉莉的大天使号发动攻击等无理命令，始终心怀抵触。对于作为最高指令乘舰的尤纳所下达的“那个卡嘉莉是冒牌货，予以讨伐”这一荒唐命令，他判断既然已与地球联合结盟，为守护奥布别无选择。他将希望寄托于自由高达的护卫，忍痛下达了攻击命令。在克里特岛近海之战中，见大势已去便喝令部下们前往大天使号。而自己则留在正在沉没的舰中，被真的剑装脉冲连舰桥一同劈成两半而阵亡。至死都以奥布军人的身份殉职，其姿态正是奥布所倡导理想的体现。此外，真失去家人时为其安排移居PLANT的正是户高，但在战斗中交锋的两人无从知晓彼此的身份。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -46835,7 +47028,7 @@
     {
       "id": "library-text/f580ce0efe8f87ea",
       "source_text_sha256": "f580ce0efe8f87ea7de71ebb3b0b85197830b34996f27a1a092737a6afc8ac72",
-      "translation": "受雇于和平号的MS驾驶员。18岁。作为自由MS驾驶员，秉持“讨厌带思想色彩的东西”的轻松随性态度。但以前受雇的和平号陷入危机时也曾赶去救援，正如他本人所说，是个“意外的好人”。与颇有缘分的和平号最终签订了专属契约，共同行动。当时他在船内设置了放松室，企图向乘员收取会费。但在萨拉的条件约束下，女性免费、儿童（15岁以下）不得收费，卡洛德和蒂珐也免费，台球对决输掉后特克斯也免费，结果几乎所有可能使用的人都被免费提供。他轻浮浅薄，手脚和嘴都很利索，以追求女性为乐。各地都有恋人，一有空就借口售后回访去探望她们，这份殷勤也令人佩服。然而他真正心仪的女性早已离世，爱机高达雷欧帕尔德便是她的遗物。现在的真命天女是萨拉。他似乎意外地以真挚的心意追求着她，平日里不断献殷勤。",
+      "translation": "受雇于和平号的MS驾驶员。18岁。作为自由MS驾驶员，秉持“讨厌带思想色彩的东西”的轻松随性态度。但以前受雇的和平号陷入危机时也曾赶去救援，正如他本人所说，是个“意外的好人”。与颇有缘分的和平号最终签订了专属契约，共同行动。当时他在船内设置了放松室，企图向乘员收取会费。但在萨拉的条件约束下，女性免费、儿童（15岁以下）不得收费，卡洛德和蒂珐也免费，台球对决输掉后特克斯也免费，结果几乎所有可能使用的人都被免费提供。他轻浮浅薄，手脚和嘴都很利索，以追求女性为乐。各地都有恋人，一有空就借口售后回访去探望她们，这份殷勤也令人佩服。然而他真正心仪的女性早已离世，爱机斑豹高达便是她的遗物。现在的真命天女是萨拉。他似乎意外地以真挚的心意追求着她，平日里不断献殷勤。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired_current_terminology",
       "domains": [
@@ -46849,13 +47042,14 @@
         "people/speaker-68642f8dc73f",
         "spirit/love",
         "system/mobile-suit",
-        "unit/freeden"
+        "unit/freeden",
+        "unit/gundam-leopard"
       ]
     },
     {
       "id": "library-text/f5acadc2df24f369",
       "source_text_sha256": "f5acadc2df24f369948be072c1444b4dcab09a804f9c9757c894e6b034729064",
-      "translation": "受雇于和平号的MS驾驶员。17岁。从各种意义上都很男子气概，是动手先于动口的类型，言辞也相当粗暴。原本是自由MS驾驶员，高达空中大师是过去关照过他的拾荒者的遗物。起初给人的印象是只为金钱而战的守财奴，但那一切都是为了让故乡的家人过上好日子。过去父亲被MS驾驶员杀害，面对憎恨MS驾驶员的母亲，无法坦白自己工作的痛苦一直折磨着他，但他仍为家人而战的温柔令人动容。与颇有缘分的和平号最终签订了专属契约。威兹以和平号适合作为藏匿所赚金块的地点为由，但暗中思慕的托妮娅也在船上，恐怕也是理由之一。",
+      "translation": "受雇于和平号的MS驾驶员。17岁。从各种意义上都很男子气概，是动手先于动口的类型，言辞也相当粗暴。原本是自由MS驾驶员，空中霸王高达是过去关照过他的拾荒者的遗物。起初给人的印象是只为金钱而战的守财奴，但那一切都是为了让故乡的家人过上好日子。过去父亲被MS驾驶员杀害，面对憎恨MS驾驶员的母亲，无法坦白自己工作的痛苦一直折磨着他，但他仍为家人而战的温柔令人动容。与颇有缘分的和平号最终签订了专属契约。威兹以和平号适合作为藏匿所赚金块的地点为由，但暗中思慕的托妮娅也在船上，恐怕也是理由之一。",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_revision_adjudicated_current_terminology",
       "domains": [
@@ -46868,7 +47062,8 @@
         "people/speaker-58574ffbd89b",
         "people/speaker-cabb37010493",
         "system/mobile-suit",
-        "unit/freeden"
+        "unit/freeden",
+        "unit/gundam-airmaster"
       ]
     },
     {
@@ -46917,7 +47112,7 @@
     {
       "id": "library-text/f5d5f2083e856580",
       "source_text_sha256": "f5d5f2083e856580dfc6ab16808f8dc1dd65caa9ade9b0331291d517dff2b9bb",
-      "translation": "担任地方都市福特塞文自卫团领袖的少年。15岁。是市长诺莫亚自称“我的最高杰作”的优秀人工新人类。他本人也对自己的力量抱有绝对自信，并具备相应的实力。用爱机贝尔提戈击退了高达X，但本不应存在的天然新人类蒂珐的出现，以及败于重新振作的卡洛德之手，使他失去了存在的意义。最终他试图自尽时被卡洛德救下，以此为契机敞开了心扉。此后其力量被诺莫亚即多拉特利用，在帕特利亚破坏了城市。卡洛德等人打倒多拉特后，他决心以复兴城市作为赎罪。后来作为率领反新联邦组织一支部队的队长，解救了和平号船员们的危机。当需要前往宇宙的交通工具时，他甚至筹措到了宇宙战舰。终战后的一段时间里，他似乎与卡洛德和蒂珐一同旅行。但“总不能一直打扰二位”的识趣独自离去，这份察言观色的本事不愧新人类之名。",
+      "translation": "担任地方都市福特塞文自卫团领袖的少年。15岁。是市长诺莫亚自称“我的最高杰作”的优秀人工新人类。他本人也对自己的力量抱有绝对自信，并具备相应的实力。用爱机贝迪哥击退了高达X，但本不应存在的天然新人类蒂珐的出现，以及败于重新振作的卡洛德之手，使他失去了存在的意义。最终他试图自尽时被卡洛德救下，以此为契机敞开了心扉。此后其力量被诺莫亚即多拉特利用，在帕特利亚破坏了城市。卡洛德等人打倒多拉特后，他决心以复兴城市作为赎罪。后来作为率领反新联邦组织一支部队的队长，解救了和平号船员们的危机。当需要前往宇宙的交通工具时，他甚至筹措到了宇宙战舰。终战后的一段时间里，他似乎与卡洛德和蒂珐一同旅行。但“总不能一直打扰二位”的识趣独自离去，这份察言观色的本事不愧新人类之名。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired_current_terminology",
       "domains": [
@@ -46934,6 +47129,7 @@
         "skill/artificial-newtype",
         "skill/newtype",
         "spirit/love",
+        "unit/bertigo",
         "unit/freeden",
         "unit/patulia"
       ]
@@ -46979,7 +47175,7 @@
     {
       "id": "library-text/f5e8428f3e65f3e6",
       "source_text_sha256": "f5e8428f3e65f3e6628783849c2e28c8653662dfe5a57944469abb2ca136619a",
-      "translation": "统治帕拉迪姆城的帕拉迪姆公司总帅。43岁。作为缔造帕拉迪姆公司的戈登的嫡子出生，因此自诩是被选为统治者的全能感十足的人物。正因如此，精神上有些幼稚，以自我为中心的言行十分显眼。同时怀有强烈的精英思想，彻底鄙视在穹顶外生活的居民。为达目的不惜冷酷地抹除目标人物，曾命令阿兰收集记忆碎片。他以为罗杰是伪多米纳斯，但后来查明自己才是伪多米纳斯。当被揭穿甚至不是戈登嫡子这一事实时，他仿佛要让他人承认自己的存在一般令BIG-FAU暴走。但在突然出现的BIG-VENUS的攻击下，与BIG-FAU一同消失了。",
+      "translation": "统治帕拉迪姆城的帕拉迪姆公司总帅。43岁。作为缔造帕拉迪姆公司的戈登的嫡子出生，因此自诩是被选为多米纳斯的全能感十足的人物。正因如此，精神上有些幼稚，以自我为中心的言行十分显眼。同时怀有强烈的精英思想，彻底鄙视在穹顶外生活的居民。为达目的不惜冷酷地抹除目标人物，曾命令阿兰收集记忆碎片。他以为罗杰是伪多米纳斯，但后来查明自己才是伪多米纳斯。当被揭穿甚至不是戈登嫡子这一事实时，他仿佛要让他人承认自己的存在一般令BIG-FAU暴走。但在突然出现的BIG-VENUS的攻击下，与BIG-FAU一同消失了。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -46989,6 +47185,7 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "concept/dominus",
         "organization/paradigm-corporation",
         "people/roger",
         "people/speaker-6ff4be5ed69d",
@@ -47112,7 +47309,8 @@
         "CHFN"
       ],
       "glossary_refs": [
-        "people/sara"
+        "people/sara",
+        "people/sara-tyrell"
       ]
     },
     {
@@ -47165,7 +47363,7 @@
     {
       "id": "library-text/f73fc0cb2d795670",
       "source_text_sha256": "f73fc0cb2d795670e91373799a6e23fd54c0aa9fd15c50982104218fd6b8100e",
-      "translation": "作为山师希德的弟子参与山岳循环发掘工作的青年，23岁。出身于少数民族马巴族，幼年时在部族争斗中父母被杀，被遗弃在山中时被希德捡到。因此对北阿美利亚人和月之民抱有近乎敌意的竞争心，尤其对罗兰的态度十分强硬。凭借丰富的机械知识加入米利夏的机械人部队，担任加拉皮（废铁车）队的指挥官。在罗兰等人降落地球时乘坐弗拉特作战，与教导他驾驶的芙兰逐渐发展为亲密关系。和平到来后，似乎为了家庭辞去了山师的工作，可以看到他背着与芙兰所生的孩子，在新工作（鱼店）中努力的身影。",
+      "translation": "作为山师希德的弟子参与环形山发掘工作的青年，23岁。出身于少数民族马巴族，幼年时在部族争斗中父母被杀，被遗弃在山中时被希德捡到。因此对北阿美利亚人和月之民抱有近乎敌意的竞争心，尤其对罗兰的态度十分强硬。凭借丰富的机械知识加入民兵的机械人部队，担任加拉皮（废铁车）队的指挥官。在罗兰等人降落地球时乘坐弗拉特作战，与教导他驾驶的芙兰逐渐发展为亲密关系。和平到来后，似乎为了家庭辞去了山师的工作，可以看到他背着与芙兰所生的孩子，在新工作（鱼店）中努力的身影。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_rejected",
       "domains": [
@@ -47175,6 +47373,7 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "organization/militia",
         "people/loran",
         "people/moonrace",
         "people/speaker-5cf2a20e0254",
@@ -47497,7 +47696,7 @@
     {
       "id": "library-text/f900544a069fb7ac",
       "source_text_sha256": "f900544a069fb7ac7968bb9e316316f831ee6431a60a44b6771c26dedece4946",
-      "translation": "灵格斯",
+      "translation": "灵·格斯",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -47506,7 +47705,9 @@
       "tags": [
         "RBTN"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "unit/re-gz"
+      ]
     },
     {
       "id": "library-text/f94a162e16925a45",
@@ -47944,7 +48145,7 @@
     {
       "id": "library-text/fb4394469ec6f880",
       "source_text_sha256": "fb4394469ec6f8800b6aabf0ffb01624f67ac3abc1336210976e40d37481a280",
-      "translation": "英格莱萨领主的孙子，英格莱萨·米利夏的核心人物，19岁。虽是少爷出身，却毫无不谙世事之感，展现出可利用之物尽数利用的精明，以及出色的谈判术、政治力和判断力，这些在战斗中进一步磨练。即使目睹月球压倒性的技术力，也不气馁，反而暗中盘算要用那项技术带来产业革命。即使英格莱萨陷落失去权力，也决心从中重新崛起，是抗打击能力强的野心家。对罗兰有强烈的执念，称他为罗拉或让他穿女装。背叛迪安娜时也试图将罗兰拉拢为同伴，其投入程度有些过度。在尾声部分，可以看到他与自己亲手救出的梅莉贝儿一同前往加利亚的身影。",
+      "translation": "英格利萨领主的孙子，英格利萨民兵团的核心人物，19岁。虽是少爷出身，却毫无不谙世事之感，展现出可利用之物尽数利用的精明，以及出色的谈判术、政治力和判断力，这些在战斗中进一步磨练。即使目睹月球压倒性的技术力，也不气馁，反而暗中盘算要用那项技术带来产业革命。即使英格利萨陷落失去权力，也决心从中重新崛起，是抗打击能力强的野心家。对罗兰有强烈的执念，称他为罗拉或让他穿女装。背叛迪安娜时也试图将罗兰拉拢为同伴，其投入程度有些过度。在尾声部分，可以看到他与自己亲手救出的梅莉贝儿一同前往加利亚的身影。",
       "editorial_status": "reviewed",
       "review_origin": "noop_revision_repaired",
       "domains": [
@@ -47954,10 +48155,12 @@
         "DSC2"
       ],
       "glossary_refs": [
+        "organization/ingressa-militia",
         "people/laura",
         "people/loran",
         "people/speaker-003ed4edd7a8",
-        "people/speaker-b8db49048797"
+        "people/speaker-b8db49048797",
+        "place/ingressa"
       ]
     },
     {
@@ -48433,7 +48636,7 @@
     {
       "id": "library-text/fd70a1caebce8cbb",
       "source_text_sha256": "fd70a1caebce8cbbbdc939274dd420cfb4212234f7afba559ce8ea5d4f64b143",
-      "translation": "维萨戈高达CB",
+      "translation": "维萨戈高达·破坏者",
       "editorial_status": "reviewed",
       "review_origin": "first_pass_keep",
       "domains": [
@@ -48442,7 +48645,9 @@
       "tags": [
         "RBTN"
       ],
-      "glossary_refs": []
+      "glossary_refs": [
+        "unit/gundam-virsago-chest-break"
+      ]
     },
     {
       "id": "library-text/fd756a70a412a8ec",

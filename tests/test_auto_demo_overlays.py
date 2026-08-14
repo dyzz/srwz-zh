@@ -57,6 +57,10 @@ class AutoDemoOverlayTests(unittest.TestCase):
         self.assertTrue(report["translated_reread_exact"])
         self.assertEqual(report["titles"][10]["source_text"], "機動戦士Ｚガンダム")
         self.assertEqual(report["titles"][10]["translation"], "机动战士Z高达")
+        self.assertEqual(
+            report["titles"][11]["translation"],
+            "机动战士高达：逆袭的夏亚",
+        )
         kamille = [
             name
             for archive in report["archives"]

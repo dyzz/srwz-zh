@@ -307,14 +307,21 @@
       "source_terms": [
         "ゲラバ"
       ],
-      "translation": "杰拉巴",
+      "translation": "格拉巴",
+      "deprecated_translations": [
+        "杰拉巴"
+      ],
+      "variant_scope": "source_bound",
       "category": "people",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《返乡战士》角色Geraba的暂定音译。"
+      "notes": "《战斗机甲萨芬格尔》角色Geraba Geraba；与大陆模型社区和图鉴全名“格拉巴·格拉巴”统一，修正早期误归类及“杰拉巴”混用。"
     },
     {
       "id": "people/adette",
@@ -370,7 +377,7 @@
         "story"
       ],
       "enforce": true,
-      "notes": "《∀高达》主人公罗兰·塞亚克。"
+      "notes": "《∀高达》主人公罗兰·瑟亚克。"
     },
     {
       "id": "people/laura",
@@ -393,12 +400,12 @@
       ],
       "translation": "夏基亚",
       "category": "people",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《机动新世纪高达X》角色Shagia Frost的暂定音译。"
+      "notes": "《机动新世纪高达X》角色Shagia Frost；本轮人工审核定稿。"
     },
     {
       "id": "people/olba",
@@ -407,7 +414,7 @@
       ],
       "translation": "奥尔巴",
       "category": "people",
-      "status": "proposed",
+      "status": "researched",
       "domains": [
         "story"
       ],
@@ -463,12 +470,12 @@
       ],
       "translation": "波",
       "category": "people",
-      "status": "proposed",
+      "status": "researched",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《∀高达》角色Poe Aijee的暂定简称。"
+      "notes": "《∀高达》角色波·艾吉的简称。"
     },
     {
       "id": "people/corin",
@@ -480,7 +487,7 @@
         "柯连"
       ],
       "category": "people",
-      "status": "proposed",
+      "status": "researched",
       "domains": [
         "story"
       ],
@@ -541,7 +548,7 @@
         "story"
       ],
       "enforce": true,
-      "notes": "《机动战士Z高达》角色布兰·布鲁塔克。"
+      "notes": "《机动战士Z高达》角色布兰·布尔达克。"
     },
     {
       "id": "people/rosamia",
@@ -564,12 +571,12 @@
       ],
       "translation": "史瓦特森",
       "category": "people",
-      "status": "proposed",
+      "status": "researched",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《∀高达》角色Sweatson Stero的暂定简体译名。"
+      "notes": "《∀高达》角色史瓦特森·史特洛的简称。"
     },
     {
       "id": "people/athrun",
@@ -788,12 +795,12 @@
       ],
       "translation": "兰斯洛",
       "category": "people",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《机动新世纪高达X》角色Lancerow Dawell的暂定简称。"
+      "notes": "《机动新世纪高达X》角色Lancerow Dawell；本轮人工审核定稿。"
     },
     {
       "id": "people/banjo",
@@ -847,12 +854,15 @@
         "露娜玛利亚"
       ],
       "category": "people",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《高达SEED DESTINY》角色露娜玛丽亚·霍克。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+      "notes": "《机动战士高达SEED DESTINY》角色；中国大陆万代现行商品页采用“露娜玛丽亚·霍克”，旧大陆授权游戏曾采用“露娜玛利亚”。"
     },
     {
       "id": "people/yzak",
@@ -875,12 +885,12 @@
       ],
       "translation": "帕拉",
       "category": "people",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《机动新世纪高达X》角色Pala Sys的暂定简称。"
+      "notes": "《机动新世纪高达X》角色Pala Sys；本轮人工审核定稿。"
     },
     {
       "id": "people/moroha",
@@ -975,13 +985,17 @@
       "deprecated_translations": [
         "卡迪·露"
       ],
+      "variant_scope": "source_bound",
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《高达SEED DESTINY》战舰Girty Lue，canonical形式不带“号”。 前五关高达名称口径已按锁定的 Biligame 参考表采用。"
+      "notes": "《机动战士高达SEED DESTINY》战舰 Girty Lue；大陆社区采用“加迪·鲁”，用户已在本地审核页明确确认该形式。"
     },
     {
       "id": "unit/exus",
@@ -1048,19 +1062,27 @@
     {
       "id": "unit/ginn-high-maneuver-ii",
       "source_terms": [
-        "ジン・ハイマニューバ２型"
+        "ジン・ハイマニューバ２型",
+        "高機動型ジン"
       ],
       "translation": "高机动型基恩II",
       "deprecated_translations": [
-        "吉恩高机动2型"
+        "吉恩高机动2型",
+        "高机动型金恩II",
+        "高机动型金Ⅱ",
+        "高机动型金"
       ],
+      "variant_scope": "source_bound",
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《高达SEED DESTINY》机体GINN High Maneuver Type II。"
+      "notes": "《机动战士高达SEED DESTINY》机体 GINN High Maneuver Type II；旧中文官网用“基恩”，现行大陆商品基础机名用“金恩”；本项目经人工审核定案为“高机动型基恩II”。剧情中的简称“高機動型ジン”按同一机体统一。"
     },
     {
       "id": "unit/dogozzo",
@@ -1110,27 +1132,43 @@
         "アイアン・ギアー"
       ],
       "translation": "钢铁齿轮",
+      "deprecated_translations": [
+        "钢铁基亚",
+        "铁甲吉亚",
+        "铁甲舰"
+      ],
+      "variant_scope": "source_bound",
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《战斗机甲萨芬格尔》陆行舰钢铁齿轮号，canonical形式不带“号”。"
+      "notes": "《战斗机甲萨芬格尔》陆行舰 Iron Gear；大陆模型社区普遍使用“钢铁齿轮”，canonical 形式不带“号”。"
     },
     {
       "id": "unit/wodom",
       "source_terms": [
         "ウォドム"
       ],
-      "translation": "沃多姆",
+      "translation": "瓦多姆",
+      "deprecated_translations": [
+        "沃多姆"
+      ],
+      "variant_scope": "source_bound",
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《∀高达》机体Wodom的常见音译。"
+      "notes": "《∀高达》机体 Wodom；大陆高达资料与大陆近期设定整理采用“瓦多姆”。"
     },
     {
       "id": "unit/almeyer",
@@ -1798,18 +1836,21 @@
       "source_terms": [
         "フォースインパルスガンダム"
       ],
-      "translation": "空影脉冲高达",
+      "translation": "强攻型脉冲高达",
       "deprecated_translations": [
-        "强攻型脉冲高达",
+        "空影脉冲高达",
         "空战脉冲高达"
       ],
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "采用高达中国官方网站现行简体商品名“空影脉冲高达”。"
+      "notes": "采用中国大陆万代模型现行商品名“强攻型脉冲高达”；“空影脉冲高达”为旧版中文官网用名。"
     },
     {
       "id": "unit/cherubim-shururukubera",
@@ -1917,14 +1958,20 @@
       "source_terms": [
         "クラウダ"
       ],
-      "translation": "克劳达",
+      "translation": "克鲁达",
+      "deprecated_translations": [
+        "克劳达"
+      ],
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
-        "story"
+        "library",
+        "menu",
+        "story",
+        "battle"
       ],
       "enforce": true,
-      "notes": "《机动新世纪高达X》机体Clouda的暂定音译。"
+      "notes": "《机动新世纪高达X》机体Crouda；采用大陆高达社区通行译名。"
     },
     {
       "id": "unit/virgola",

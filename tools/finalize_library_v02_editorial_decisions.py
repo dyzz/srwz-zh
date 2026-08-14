@@ -66,6 +66,7 @@ KNOWN_BAD_SUBSTRINGS = (
     "Z G M F",
     "新地球联邦军军人",
     "迪安娜反击军军曹",
+    "迪安娜回归军军曹",
 )
 REQUIRED_TERM_ALLOWLIST = {
     # フリーダム is part of Freedom Space Corps, not Freedom Gundam.

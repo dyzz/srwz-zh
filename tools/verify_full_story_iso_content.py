@@ -2213,12 +2213,12 @@ def verify_final_compdata(
 
     unit_ascii_expectations = {
         "display-name/unit/0089/name": {
-            "text": "钢铁基亚（LS）",
+            "text": "钢铁齿轮（LS）",
             "token": "LS",
             "stored_hex": "826b8272",
         },
         "display-name/unit/0090/name": {
-            "text": "钢铁基亚（WM）",
+            "text": "钢铁齿轮（WM）",
             "token": "WM",
             "stored_hex": "8276826c",
         },

@@ -86,6 +86,8 @@ class WeaponTranslationTests(unittest.TestCase):
         expected = {
             1: "腐蚀飓风",
             64: "双战斧",
+            195: "沃卡加利亚全功率",
+            217: "布洛克利全功率",
             270: "ν超级火箭筒",
             352: "MA-M941“金刚杵式”光束军刀",
             372: "光束突击枪（连射）",

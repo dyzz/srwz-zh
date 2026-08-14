@@ -2762,14 +2762,17 @@
       "source_terms": [
         "ウォーカーギャリア・フルパワー"
       ],
-      "translation": "沃克·伽利亚全功率",
+      "translation": "沃卡加利亚全功率",
+      "deprecated_translations": [
+        "沃克·伽利亚全功率"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
         "menu"
       ],
       "enforce": false,
-      "notes": "《战斗机甲萨芬格尔》武器名称首译；本轮人工审核已确认。"
+      "notes": "与已审核机体名“沃卡加利亚”统一。"
     },
     {
       "id": "weapon/0196",
@@ -3070,14 +3073,17 @@
       "source_terms": [
         "ブラッカリィ・フルパワー"
       ],
-      "translation": "布拉卡利全功率",
+      "translation": "布洛克利全功率",
+      "deprecated_translations": [
+        "布拉卡利全功率"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
         "menu"
       ],
       "enforce": false,
-      "notes": "《战斗机甲萨芬格尔》武器名称首译；本轮人工审核已确认。"
+      "notes": "与已审核机体名“布洛克利”统一。"
     },
     {
       "id": "weapon/0218",
@@ -3831,13 +3837,20 @@
         "フィン・ファンネル"
       ],
       "translation": "翼状浮游炮",
+      "deprecated_translations": [
+        "浮游飞翅炮"
+      ],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
-      "notes": "Fin Funnel 暂用简中资料常见的“翼状浮游炮”；本轮人工审核已确认。 本轮人工审核定稿为“翼状浮游炮”。"
+      "enforce": true,
+      "notes": "Fin Funnel；本轮人工审核已定稿为大陆常见写法“翼状浮游炮”，并覆盖图鉴和战斗台词。"
     },
     {
       "id": "weapon/0272",

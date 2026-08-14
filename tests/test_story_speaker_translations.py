@@ -142,7 +142,7 @@ class StorySpeakerTranslationTests(unittest.TestCase):
         self.assertEqual(len({term["id"] for term in terms}), 342)
         self.assertEqual(
             Counter(term["status"] for term in terms),
-            {"researched": 221, "proposed": 112, "approved": 9},
+            {"researched": 212, "proposed": 109, "approved": 21},
         )
         self.assertTrue(all(term["category"] == "people" for term in terms))
         self.assertTrue(all(term["enforce"] for term in terms))

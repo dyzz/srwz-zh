@@ -2,16 +2,16 @@
   "schema_version": 1,
   "snapshot_id": "srwz-zh-release-font-assignments-v1",
   "policy": "Canonical character-to-code-to-glyph mapping for every Chinese localization surface. Add future menu, story and battle-dialogue coverage here without creating another font profile layer.",
-  "allocation_assignment_count": 1803,
+  "allocation_assignment_count": 1804,
   "reraster_existing_assignment_count": 1620,
-  "primary_assignment_count": 3423,
+  "primary_assignment_count": 3424,
   "surface_alias_assignment_count": 604,
-  "primary_mapping_sha256": "41591b786913d3ec09638066577070b32a7ebbc8ebe536e766b26b47ffe072bf",
+  "primary_mapping_sha256": "76f753e4e18b388560f298d249dee09260424b079953567a1abbfac7252b16b8",
   "surface_alias_mapping_sha256": "ae062f0387a470b52d6b89b685f306ecb3a01bd72ffa926dbe0bbecf3dba50b6",
   "source_compatibility_assignment_count": 37,
   "source_compatibility_mapping_sha256": "53258b29b6b633607c89ca45ad605002798dfbee2ff94fd1a7a91cff15e3b6fb",
-  "remaining_allocation_candidate_count": 179,
-  "remaining_allocation_candidates_sha256": "7d3731ac761c221a73c31d299cf1dd3d01897110fbdeb7acb510da2fdfe685f0",
+  "remaining_allocation_candidate_count": 178,
+  "remaining_allocation_candidates_sha256": "8173bb6be0f39aa1e67b2cd0d54186024175269000c25902e68ff6bbba8d89f2",
   "primary_assignments": [
     {
       "character": "、",
@@ -21625,6 +21625,13 @@
       "glyph_index": 345,
       "mapping": "reclaimed_unused_original_double_byte",
       "source_character": "ほ"
+    },
+    {
+      "character": "倩",
+      "code": "82DA",
+      "glyph_index": 346,
+      "mapping": "reclaimed_unused_original_double_byte",
+      "source_character": "ぼ"
     }
   ],
   "surface_alias_assignments": [
@@ -26761,12 +26768,6 @@
   ],
   "remaining_allocation_candidates": [
     {
-      "code": "82DA",
-      "glyph_index": 346,
-      "mapping": "reclaimed_unused_original_double_byte",
-      "source_character": "ぼ"
-    },
-    {
       "code": "82DB",
       "glyph_index": 347,
       "mapping": "reclaimed_unused_original_double_byte",
@@ -31129,6 +31130,21 @@
           "glyph_index": 345,
           "mapping": "reclaimed_unused_original_double_byte",
           "source_character": "ほ"
+        }
+      ]
+    },
+    {
+      "selection_sha256": "23bb484456e172f52a71c15ac904b803b4c46ee08de96e576509202f5e727d01",
+      "assignment_count": 1,
+      "allocation_assignment_count": 1,
+      "reraster_existing_assignment_count": 0,
+      "assignments": [
+        {
+          "character": "倩",
+          "code": "82DA",
+          "glyph_index": 346,
+          "mapping": "reclaimed_unused_original_double_byte",
+          "source_character": "ぼ"
         }
       ]
     }

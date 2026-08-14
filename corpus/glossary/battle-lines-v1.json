@@ -203,17 +203,27 @@
     {
       "id": "organization/suicide-squad",
       "source_terms": [
-        "スエサイド隊"
+        "スエサイド隊",
+        "スエサイド部隊"
       ],
-      "translation": "自杀队",
+      "translation": "苏赛德队",
+      "deprecated_translations": [
+        "自杀队",
+        "自杀部队",
+        "自杀突击队",
+        "斯埃塞德队"
+      ],
+      "variant_scope": "source_bound",
       "category": "organization",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《∀高达》的 Suicide 部队；先按词义译为“自杀队”，待与作品完整译名表统一。"
+      "notes": "《∀高达》露琪亚娜民兵团的精锐部队 Suicide Squad；按大陆高达资料作为专名音译为“苏赛德队”。"
     },
     {
       "id": "unit/turn-x",
@@ -276,14 +286,19 @@
         "ミネルバ"
       ],
       "translation": "密涅瓦",
+      "deprecated_translations": [
+        "密涅瓦号"
+      ],
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《机动战士高达SEED DESTINY》的密涅瓦号；canonical 形式不含“号”，以兼容说明句中的语法位置。"
+      "notes": "《机动战士高达SEED DESTINY》战舰；发布译名按用户定案为不加舰名后缀的“密涅瓦”。"
     },
     {
       "id": "unit/archangel",

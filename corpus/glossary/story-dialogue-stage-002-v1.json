@@ -350,16 +350,23 @@
     {
       "id": "unit/core-splendor",
       "source_terms": [
-        "コアスプレンダー"
+        "コアスプレンダー",
+        "コア・スプレンダー"
       ],
       "translation": "核心飞梭",
+      "deprecated_translations": [
+        "核心战机"
+      ],
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "YFX-M56S Core Splendor，脉冲高达的独立驾驶舱兼战斗机；采用中文官方资料用名。"
+      "notes": "YFX-M56S Core Splendor；采用中国大陆万代模型现行商品说明中的“核心飞梭”。"
     },
     {
       "id": "system/silhouette-hangar",
@@ -373,7 +380,7 @@
         "story"
       ],
       "enforce": true,
-      "notes": "Silhouette Hangar 是密涅瓦号内存放剪影飞行器及换装背包、开舱后送往中央弹射器的专用库位；这里是 hangar 而非外置 mounting rack，因此由“剪影挂架”修订为“剪影机库”。"
+      "notes": "Silhouette Hangar 是密涅瓦内存放剪影飞行器及换装背包、开舱后送往中央弹射器的专用库位；这里是 hangar 而非外置 mounting rack，因此由“剪影挂架”修订为“剪影机库”。"
     },
     {
       "id": "unit/silhouette-flyer",

@@ -108,6 +108,25 @@ class GlobalGlossaryTests(unittest.TestCase):
         matches = relevant_glossary_terms("シウダデス・デル・シエロ", terms)
         self.assertEqual([term["id"] for term in matches], ["place/del-cielo"])
 
+    def test_big_o_canonical_terms_keep_reviewed_mainland_surfaces(self) -> None:
+        expected = {
+            "concept/dominus": "多米纳斯",
+            "place/paradigm-city": "帕拉迪姆城",
+            "organization/paradigm-corporation": "帕拉迪姆公司",
+            "people/schwarzwald-full": "施瓦兹·瓦尔德",
+            "people/speaker-3ebfb90dd843": "Dove",
+            "unit/archetype": "原型",
+            "unit/megadeus": "巨神",
+            "unit/prairie-dog": "草原犬鼠",
+        }
+        self.assertEqual(
+            {term_id: self.by_id[term_id]["translation"] for term_id in expected},
+            expected,
+        )
+        self.assertIn("范式城", self.by_id["place/paradigm-city"]["deprecated_translations"])
+        self.assertIn("Megadeus", self.by_id["unit/megadeus"]["deprecated_translations"])
+        self.assertIn("达夫", self.by_id["people/speaker-3ebfb90dd843"]["deprecated_translations"])
+
     def test_duplicate_ids_merge_but_conflicting_translations_fail(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
@@ -343,6 +362,15 @@ class GlobalGlossaryTests(unittest.TestCase):
             "unit/naikick": "奈基克",
             "unit/xabungle": "萨芬格尔",
             "unit/walker-gallia": "沃卡加利亚",
+            "unit/walker-machine": "步行机甲",
+            "unit/iron-gear": "钢铁齿轮",
+            "unit/iron-gear-ls": "钢铁齿轮（LS）",
+            "unit/iron-gear-wm": "钢铁齿轮（WM）",
+            "unit/brockary": "布洛克利",
+            "organization/sand-rat": "沙鼠",
+            "people/civilian": "平民",
+            "people/fatman-big": "法特曼·比格",
+            "people/geraba": "格拉巴",
             "concept/contolism": "康提主义",
             "concept/ereism": "地球圣地主义",
             "concept/sideism": "Side国家主义",

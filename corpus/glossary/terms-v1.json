@@ -517,14 +517,23 @@
         "シビリアン"
       ],
       "translation": "平民",
+      "deprecated_translations": [
+        "西维利安",
+        "西比连",
+        "西比利安"
+      ],
+      "variant_scope": "source_bound",
       "category": "people",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "《战斗装甲萨芬格尔》新人类专名；待人工确认是否加引号保留专名感。"
+      "notes": "《战斗机甲萨芬格尔》由天真者创造、适应佐拉环境的新人类；中文资料普遍按 Civilian 译作“平民”，不再使用片假名转写。"
     },
     {
       "id": "people/moonrace",
@@ -2702,15 +2711,25 @@
       "source_terms": [
         "ウォーカーマシン"
       ],
-      "translation": "沃卡机械",
-      "category": "unit",
-      "status": "researched",
-      "domains": [
-        "menu",
-        "story"
+      "translation": "步行机甲",
+      "deprecated_translations": [
+        "沃卡机械",
+        "沃克机甲",
+        "步行机",
+        "步行机械",
+        "行走机械",
+        "行走机甲"
       ],
-      "enforce": false,
-      "notes": "《战斗装甲萨芬格尔》的通用机体类别；菜单和剧情使用“沃卡机械”，战斗台词允许沿用显示空间受限的“WM”缩写。"
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "library",
+        "menu",
+        "summary"
+      ],
+      "enforce": true,
+      "notes": "《战斗机甲萨芬格尔》的 Walker Machine 通用类别；大陆模型社区普遍使用“步行机甲”。剧情和战斗台词中既有的 WM 是明确缩写，不强制展开。"
     },
     {
       "id": "organization/luio-and-co",
@@ -2760,15 +2779,34 @@
       "source_terms": [
         "ディアナ・カウンター"
       ],
-      "translation": "迪安娜反击",
+      "translation": "迪安娜回归军",
+      "deprecated_translations": [
+        "迪安娜反击",
+        "迪安娜\n　反击",
+        "迪安娜·反击",
+        "迪安娜反击队",
+        "迪安娜·反击队",
+        "迪安娜反击部队",
+        "迪安娜·反击部队",
+        "迪安娜反击军",
+        "迪安娜·反击军",
+        "迪安娜·卡特尔",
+        "迪安娜·卡文特",
+        "迪安娜计数器",
+        "迪安娜回归者"
+      ],
+      "variant_scope": "source_bound",
       "category": "faction",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
+        "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "与既有默认编队译名保持一致。"
+      "notes": "《∀高达》的 Dianna Counter；大陆高达资料稳定使用“迪安娜回归军”，也准确体现其协助月之民回归地球的组织性质。"
     }
   ]
 }

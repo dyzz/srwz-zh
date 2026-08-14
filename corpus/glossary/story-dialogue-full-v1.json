@@ -451,23 +451,29 @@
     {
       "id": "place/mountain-cycle",
       "source_terms": [
-        "マウンテンサイクル"
+        "マウンテンサイクル",
+        "マウンテン・サイクル"
       ],
-      "translation": "山岳循环",
+      "translation": "环形山",
       "deprecated_translations": [
+        "山岳循环",
         "山脉循环",
         "山地循环",
+        "山岳周期",
+        "月之山岳周期",
         "环形山循环带",
-        "环形山循环",
-        "环形山"
+        "环形山循环"
       ],
+      "variant_scope": "source_bound",
       "category": "place",
       "status": "approved",
       "domains": [
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《∀高达》黑历史遗产埋藏地；沿用已审资料库的主要译法。"
+      "notes": "《∀高达》黑历史遗产埋藏地 Mountain Cycle；大陆高达资料与大陆授权游戏资料采用“环形山”。"
     },
     {
       "id": "place/vicinity",
@@ -485,7 +491,7 @@
         "story"
       ],
       "enforce": true,
-      "notes": "《∀高达》英格莱萨领地的地名 Vicinity；大陆正版 IP 手游公开稿与大陆高达社区资料均采用“比西尼提”。"
+      "notes": "《∀高达》英格利萨领地的地名 Vicinity；大陆正版 IP 手游公开稿与大陆高达社区资料均采用“比西尼提”。"
     },
     {
       "id": "place/un-station",
@@ -568,6 +574,7 @@
       ],
       "translation": "密涅瓦单人房",
       "deprecated_translations": [
+        "密涅瓦号单人房",
         "密涅瓦　个人房间",
         "密涅瓦个人房间",
         "密涅瓦　单人房"
@@ -578,7 +585,7 @@
         "story"
       ],
       "enforce": true,
-      "notes": "统一舰内地点标签。"
+      "notes": "统一密涅瓦舰内地点标签；舰名不加“号”。"
     },
     {
       "id": "place/iron-gear-private-room",
@@ -672,21 +679,25 @@
       "source_terms": [
         "イングレッサ"
       ],
-      "translation": "英格莱萨",
+      "translation": "英格利萨",
       "deprecated_translations": [
+        "英格莱萨",
         "英格雷萨",
         "因格雷萨",
         "英格蕾萨",
         "英格列萨"
       ],
+      "variant_scope": "source_bound",
       "category": "place",
       "status": "approved",
       "domains": [
+        "library",
+        "menu",
         "story",
         "battle"
       ],
       "enforce": true,
-      "notes": "《∀高达》地名；沿用已审资料库的主要译法。"
+      "notes": "《∀高达》地名 Inglessa；大陆高达资料稳定使用“英格利萨”。"
     },
     {
       "id": "place/agato-crystal",

@@ -109,6 +109,123 @@ class FullUnitNameCorpusTests(unittest.TestCase):
             expected,
         )
 
+    def test_xabungle_unit_family_uses_mainland_reviewed_names(self):
+        expected = {
+            87: "萨芬格尔",
+            88: "沃卡加利亚",
+            89: "钢铁齿轮（LS）",
+            90: "钢铁齿轮（WM）",
+            98: "布洛克利",
+        }
+        self.assertEqual(
+            {
+                index: self.decisions[
+                    f"display-name/unit/{index:04d}/name"
+                ]["translation"]
+                for index in expected
+            },
+            expected,
+        )
+
+    def test_gundam_x_unit_family_uses_mainland_reviewed_names(self):
+        expected = {
+            156: "高达X",
+            157: "高达X分裂者",
+            158: "高达X分裂者",
+            159: "空中霸王爆裂者高达",
+            160: "斑豹毁灭者高达",
+            161: "高达DX",
+            162: "高达DX+G猎鹰",
+            163: "G猎鹰",
+            164: "和平号",
+            165: "杰尼斯改·艾妮尔专用",
+            166: "艾斯佩兰扎",
+            167: "维萨戈高达·破坏者",
+            168: "阿斯塔隆高达HC",
+            169: "拉斯维特",
+            170: "加迪尔",
+            171: "新多托列斯",
+            172: "克鲁达",
+            173: "帕特利亚",
+            174: "贝迪哥",
+            175: "D.O.M.E.G比特",
+        }
+        self.assertEqual(
+            {
+                index: self.decisions[
+                    f"display-name/unit/{index:04d}/name"
+                ]["translation"]
+                for index in expected
+            },
+            expected,
+        )
+
+    def test_seed_destiny_unit_family_uses_mainland_reviewed_names(self):
+        expected = {
+            176: "强攻型脉冲高达",
+            177: "巨剑型脉冲高达",
+            178: "轰击型脉冲高达",
+            182: "老虎烈焰型",
+            184: "高机动型基恩II",
+            198: "强袭嫣红",
+            200: "拂晓高达",
+            206: "密涅瓦",
+            207: "加迪·鲁",
+            214: "核心飞梭",
+            215: "胸部飞行器",
+            216: "腿部飞行器",
+            217: "巨剑魅影",
+            218: "强攻魅影",
+        }
+        self.assertEqual(
+            {
+                index: self.decisions[
+                    f"display-name/unit/{index:04d}/name"
+                ]["translation"]
+                for index in expected
+            },
+            expected,
+        )
+
+    def test_big_o_unit_family_uses_reviewed_names(self):
+        expected = {
+            239: "BIG-O",
+            240: "木乃伊",
+            241: "BIG-DUO",
+            242: "BIG-DUO地狱",
+            243: "BIG-FAU",
+            244: "贝克·胜利·豪华型",
+            245: "贝克·大帝RX3",
+            246: "原型",
+            247: "波拿巴",
+            248: "草原犬鼠",
+        }
+        self.assertEqual(
+            {
+                index: self.decisions[
+                    f"display-name/unit/{index:04d}/name"
+                ]["translation"]
+                for index in expected
+            },
+            expected,
+        )
+
+    def test_zeta_and_chars_counterattack_use_mainland_reviewed_names(self):
+        expected = {
+            111: "里克·迪亚斯",
+            140: "灵·格斯",
+            141: "ν高达",
+        }
+        self.assertEqual(
+            {
+                index: self.decisions[
+                    f"display-name/unit/{index:04d}/name"
+                ]["translation"]
+                for index in expected
+            },
+            expected,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
