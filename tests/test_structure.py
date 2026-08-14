@@ -15,6 +15,7 @@ ALLOWED_IMPORT_ROOTS = {
     "bisect",
     "binascii",
     "build_library_v02_component",
+    "build_story_component",
     "collections",
     "concurrent",
     "configparser",

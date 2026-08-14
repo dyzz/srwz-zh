@@ -155,7 +155,7 @@ class RuntimeKeywordSurfaceTests(unittest.TestCase):
         self.assertEqual(report["allocation_count"], 233)
         self.assertEqual(report["shared_reference_count"], 75)
         self.assertEqual(report["relocation_count"], 3)
-        self.assertEqual(report["minimum_output_headroom"], 268)
+        self.assertEqual(report["minimum_output_headroom"], 257)
         self.assertTrue(verify_report["all_four_fields_match_library"])
 
         offsets = read_executable_archive_offsets(

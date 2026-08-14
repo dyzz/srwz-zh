@@ -3395,19 +3395,55 @@ def _apply_world_history_layout(
         raise FullStoryComponentError("world-history corpus contract drift")
 
     spec = CORE_ARCHIVE_SPECS["MTV_PROS.BIN"]
+    original_slps_path, original_slps = _locked_file(
+        reference.get("original_slps"), label="world-history original SLPS"
+    )
+    original_path, original = _locked_file(
+        reference.get("original"), label="world-history original MTV_PROS"
+    )
+    original_offsets = read_executable_archive_offsets(
+        original_slps, spec, len(original)
+    )
     offsets = read_executable_archive_offsets(slps, spec, len(archive))
     if (
         len(archive) != expected.get("archive_size")
         or len(offsets) != expected.get("offset_count")
         or len(offsets) - 1 != expected.get("chunk_count")
         or offsets[-1] != len(archive)
+        or len(original_offsets) != len(offsets)
+        or original_offsets[-1] != len(original)
     ):
         raise FullStoryComponentError("world-history archive layout drift")
+
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    source_by_id = {}
+    for chunk_index, (start, end) in enumerate(
+        zip(original_offsets, original_offsets[1:])
+    ):
+        stored = original[start:end]
+        decoded = decode(stored)
+        if any(stored[decoded.consumed :]):
+            raise FullStoryComponentError(
+                f"world-history original chunk {chunk_index} has nonzero padding"
+            )
+        for entry in parse_summary(
+            decoded.output,
+            table,
+            chunk_index=chunk_index,
+        ).entries:
+            if entry.entry_id in source_by_id:
+                raise FullStoryComponentError(
+                    f"duplicate world-history source ID: {entry.entry_id}"
+                )
+            source_by_id[entry.entry_id] = entry
 
     replacements_by_chunk: dict[int, dict[str, str]] = {}
     for entry in entries:
         entry_id = entry.get("id")
         translation = entry.get("translation")
+        source = source_by_id.get(entry_id)
         try:
             chunk_index = int(str(entry_id).split("/")[1])
         except (IndexError, TypeError, ValueError) as error:
@@ -3415,7 +3451,10 @@ def _apply_world_history_layout(
                 "world-history entry identity drift"
             ) from error
         if (
-            not isinstance(translation, str)
+            source is None
+            or entry.get("source_text_sha256")
+            != sha256_bytes(source.text.encode("utf-8"))
+            or not isinstance(translation, str)
             or not translation
             or not 0 <= chunk_index < len(offsets) - 1
             or entry_id in replacements_by_chunk.setdefault(chunk_index, {})
@@ -3429,10 +3468,13 @@ def _apply_world_history_layout(
         replacements_by_chunk[chunk_index][entry_id] = (
             _two_byte_visible_spaces(translation)
         )
+    if set(source_by_id) != {
+        entry.get("id") for entry in entries if isinstance(entry, dict)
+    }:
+        raise FullStoryComponentError(
+            "world-history source/translation selection drift"
+        )
 
-    table = load_text_table(
-        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
-    )
     _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
         font_manifest
     )
@@ -3467,18 +3509,6 @@ def _apply_world_history_layout(
             )
         for entry_id, translation in replacements.items():
             current = current_by_id[entry_id]
-            normalized_current = normalize_original_fullwidth_ascii(
-                current
-            ).replace("　", " ")
-            normalized_translation = normalize_original_fullwidth_ascii(
-                translation
-            ).replace("　", " ")
-            if normalized_current.replace("\r", "").replace("\n", "") != (
-                normalized_translation.replace("\r", "").replace("\n", "")
-            ):
-                raise FullStoryComponentError(
-                    f"world-history logical preimage drift: {entry_id}"
-                )
             changed_entry_count += current != translation
         try:
             rewritten = apply_summary_replacements(
@@ -3513,6 +3543,14 @@ def _apply_world_history_layout(
             chunk_index=chunk_index,
         )
         by_id = {entry.entry_id: entry for entry in reparsed.entries}
+        if any(
+            by_id.get(entry_id) is None
+            or by_id[entry_id].text != translation
+            for entry_id, translation in replacements.items()
+        ):
+            raise FullStoryComponentError(
+                f"world-history chunk {chunk_index} runtime text reread mismatch"
+            )
         raw_space_entry_count = 0
         for entry_id in replacements:
             entry = by_id[entry_id]
@@ -3554,6 +3592,9 @@ def _apply_world_history_layout(
         ),
         "archive_size_preserved": True,
         "slps_offsets_preserved": True,
+        "original_source_preimages_sha256_exact": True,
+        "original_slps": _file_lock(original_slps_path, original_slps),
+        "original_archive": _file_lock(original_path, original),
         "logical_text_preserved": True,
         "logical_ascii_and_digits_preserved": True,
         "raw_visible_space_entry_count": 0,

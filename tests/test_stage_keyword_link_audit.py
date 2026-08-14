@@ -89,8 +89,8 @@ class StageKeywordLinkAuditTests(unittest.TestCase):
     def test_story_builder_fails_closed_on_runtime_keyword_drift(self):
         config = {
             "path": "corpus/runtime/stage-keywords-v1.json",
-            "size": 9706,
-            "sha256": "7cdfe04b0a4a3a715547ccd94a459be35f5d3ba801b485622dc32c82ec507423",
+            "size": 9697,
+            "sha256": "1b9566dddd75a53555babd2e5f6f76070b9288fae4436ac281cdfe4624bafc2c",
         }
         catalog = _runtime_keyword_catalog(config)
         self.assertEqual(

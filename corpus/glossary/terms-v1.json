@@ -987,6 +987,21 @@
       "notes": "系统资源用语。"
     },
     {
+      "id": "system/sell",
+      "source_terms": [
+        "売却"
+      ],
+      "translation": "出售",
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": false,
+      "notes": "集市出售操作及促销滚动字幕的领域术语；语境中也可能表现为收购、义卖或甩卖，因此不作全文强制替换。"
+    },
+    {
       "id": "system/range",
       "source_terms": [
         "射程"
@@ -2325,6 +2340,79 @@
       ],
       "enforce": true,
       "notes": "女主人公 Setsuko Ohara 的姓；采用简中机战资料常见的日本姓氏写法，替代早期纯音译“奥哈拉”。"
+    },
+    {
+      "id": "unit/walker-machine",
+      "source_terms": [
+        "ウォーカーマシン"
+      ],
+      "translation": "沃卡机械",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": false,
+      "notes": "《战斗装甲萨芬格尔》的通用机体类别；菜单和剧情使用“沃卡机械”，战斗台词允许沿用显示空间受限的“WM”缩写。"
+    },
+    {
+      "id": "organization/luio-and-co",
+      "source_terms": [
+        "ルオ商会"
+      ],
+      "translation": "罗商会",
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": true,
+      "notes": "集市滚动字幕中的商会名。"
+    },
+    {
+      "id": "system/parts",
+      "source_terms": [
+        "戦場で回収したジャンク"
+      ],
+      "translation": "零件",
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "enforce": false,
+      "notes": "集市广告语境中的回收零件；不覆盖菜单系统术语“部件／强化零件”。"
+    },
+    {
+      "id": "faction/factory",
+      "source_terms": [
+        "ファクトリー"
+      ],
+      "translation": "工厂",
+      "category": "faction",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与既有默认编队译名保持一致。"
+    },
+    {
+      "id": "faction/diana-counter",
+      "source_terms": [
+        "ディアナ・カウンター"
+      ],
+      "translation": "迪安娜反击",
+      "category": "faction",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与既有默认编队译名保持一致。"
     }
   ]
 }

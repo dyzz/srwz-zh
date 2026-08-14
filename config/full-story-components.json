@@ -36,8 +36,8 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 59230,
-      "sha256": "948cb0ee91a2e2a7ad3870e50dab2081c49fc214d431af5f12142d6ed5f37439"
+      "size": 59580,
+      "sha256": "ea46d1a3aba6645a787e1cba3654775307fd4f16c90549559b3a6a4d500c8fd5"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -55,15 +55,15 @@
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18152717,
-      "sha256": "51bf5d971aa03cc67fd5d3ea20d0c242df6c916ed3ef6a1fc20e171e2322d837"
+      "size": 18152713,
+      "sha256": "3ede51c5201e94d7066ec67168c486671d149f7986376697081b0b7ed679b02e"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "99d2aada2cf2dcd9b38f48a0f5615c1a980720959b7011f58480c57846c4faed"
+      "sha256": "5c706812396d6bf780911bbea21d483bf24200e733c7fb001596ee745950a6de"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -84,18 +84,18 @@
     },
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
-      "size": 2965661,
-      "sha256": "97040701192891d17338341e2b2e3abbcfde56a8c41b3916db596669b9e5f274"
+      "size": 2965655,
+      "sha256": "f56b063d01f7e8ce47cea8df5e0143b616de68e4049fe67ef2e996010954a522"
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
       "size": 96166,
-      "sha256": "071ff782891e9846c2c58ccd69ac20b3ac77f2d86064e2698b4130b1ebc6724c"
+      "sha256": "c729d764b27f5a1822a30d467a9450532f1eff7927b6514dca4df9925268a274"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
-      "size": 15764,
-      "sha256": "0e7727563a9fb2c364fc046e0e33083c1953740858b97d746d5416ea98f5210a"
+      "size": 15767,
+      "sha256": "b35ec15c435db1d08e381db91268622bdabf726a6377233eca420ff0bdcd869b"
     },
     "unit_name_relocations": [],
     "expected": {
@@ -131,18 +131,18 @@
     },
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
-      "size": 2965661,
-      "sha256": "97040701192891d17338341e2b2e3abbcfde56a8c41b3916db596669b9e5f274"
+      "size": 2965655,
+      "sha256": "f56b063d01f7e8ce47cea8df5e0143b616de68e4049fe67ef2e996010954a522"
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
       "size": 96166,
-      "sha256": "071ff782891e9846c2c58ccd69ac20b3ac77f2d86064e2698b4130b1ebc6724c"
+      "sha256": "c729d764b27f5a1822a30d467a9450532f1eff7927b6514dca4df9925268a274"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
-      "size": 15764,
-      "sha256": "0e7727563a9fb2c364fc046e0e33083c1953740858b97d746d5416ea98f5210a"
+      "size": 15767,
+      "sha256": "b35ec15c435db1d08e381db91268622bdabf726a6377233eca420ff0bdcd869b"
     },
     "battle_archives": [
       {
@@ -344,8 +344,8 @@
   "stage_overviews": {
     "corpus": {
       "path": "corpus/zh/menu/stage-overviews.json",
-      "size": 89396,
-      "sha256": "a3f0fdaa574fa66cca3afa6e5fcdef9902b5449aa6ddcd3e74258fcedc197926"
+      "size": 89384,
+      "sha256": "6bceba42fcb191b3c8eaf3b46ed2e97b2e2521540f2c2118735a6b84465d23b1"
     },
     "expected": {
       "inventory_entry_count": 110,
@@ -468,10 +468,20 @@
     }
   },
   "world_history": {
+    "original_slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "original": {
+      "path": "work/disc/DATA/MTV_PROS.BIN",
+      "size": 9056,
+      "sha256": "47999cb2994d9775a68ecca49ebe3e5f73c0118b92168a6ba577f836886e1b5a"
+    },
     "corpus": {
       "path": "corpus/zh/summary.json",
       "size": 18195,
-      "sha256": "47fe90fa1849cda8b4616c1a20a06b12ae7c688d95346c96e374b402c7527703"
+      "sha256": "597090e9779d4bf013922960dc67d9228ef6488ed689e83742a233703bd0548f"
     },
     "codec": {
       "strategy": "rust-fit",
@@ -495,7 +505,7 @@
     "corpus": {
       "path": "corpus/zh/menu/hsfc-overviews.json",
       "size": 22152,
-      "sha256": "5f4f42f684fb7edb25aa1cffb635e858f03072c753bbb43e91e46259559bee54"
+      "sha256": "fa265c293f8c6356473c95954f1463b4203e8de4f6f9a721b1d0cccab26c3b8e"
     },
     "expected": {
       "record_count": 180,
@@ -519,12 +529,12 @@
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
       "size": 96166,
-      "sha256": "071ff782891e9846c2c58ccd69ac20b3ac77f2d86064e2698b4130b1ebc6724c"
+      "sha256": "c729d764b27f5a1822a30d467a9450532f1eff7927b6514dca4df9925268a274"
     },
     "parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
-      "size": 34430,
-      "sha256": "fa33dce8df69c64e843395772985072f0b1ed242da9df545a1dec795fbce96ba"
+      "size": 34485,
+      "sha256": "dc4a5354a716deec377f6ccc8495152ebb4a4c8439417ba2f1845f3f748db904"
     },
     "original_compdata": {
       "path": "work/disc/DATA/COMPDATA.BN",
@@ -548,8 +558,8 @@
     },
     "stage_default_formations": {
       "path": "corpus/zh/menu/stage-default-formations.json",
-      "size": 10179,
-      "sha256": "3211d9b6bfbd908ea261e3c52ad7e3032942d00c540095d702dc1168e6855165"
+      "size": 10182,
+      "sha256": "def3080ff1d02380b81f2442e5e644d8e1be7d9b78958a28a7bbc9a492b3e24e"
     },
     "stage_default_formation_inventory": {
       "path": "config/stage-default-formation-inventory.json",
@@ -613,7 +623,7 @@
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
       "size": 96166,
-      "sha256": "071ff782891e9846c2c58ccd69ac20b3ac77f2d86064e2698b4130b1ebc6724c"
+      "sha256": "c729d764b27f5a1822a30d467a9450532f1eff7927b6514dca4df9925268a274"
     },
     "original_archive": {
       "path": "work/disc/DATA/NISVDATA.BIN",
@@ -664,8 +674,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6938401,
-      "sha256": "8d84efa9450121fe83a506c4900eea7ad3924641c6b40499612d3b3d37df5aab"
+      "size": 6939583,
+      "sha256": "f836f4ff31df343bec602eb7a3d9e6b9b37d0306aaa4be50becc40b820fd6f53"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -960,12 +970,12 @@
     "corpus": {
       "path": "corpus/zh/ui-atlas/world-map-titles-v1.json",
       "size": 19849,
-      "sha256": "6a18df0541e90ad6ed633c294866821be0f4b312b4d55ff2722401a797a42a59"
+      "sha256": "7f417a3d090f20fcdf7a4386b40e71252771775e7d1f99db1b087b0d7eaa0249"
     },
     "render_snapshot": {
       "path": "config/world-map-title-render-snapshot.json",
-      "size": 421376,
-      "sha256": "10129741d1f27a947a23dcde0270327cb30743e1e918eece5cf48dc10ddda40e"
+      "size": 421740,
+      "sha256": "9f7b7d8c26f4b6b1518a329f5309766431438172d1be5d683b1ab3252aeae8c5"
     },
     "archive": {
       "member": "MAP/MAPMODEL.BIN",
@@ -1064,13 +1074,13 @@
   "runtime_keywords": {
     "catalog": {
       "path": "corpus/runtime/stage-keywords-v1.json",
-      "size": 9706,
-      "sha256": "7cdfe04b0a4a3a715547ccd94a459be35f5d3ba801b485622dc32c82ec507423"
+      "size": 9697,
+      "sha256": "1b9566dddd75a53555babd2e5f6f76070b9288fae4436ac281cdfe4624bafc2c"
     },
     "library_archive": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNKW.BIN",
       "size": 29936,
-      "sha256": "3abf86f3d5e227b9334f8ba214dc3f7d2947535b183bf09edc3d269025c567a7"
+      "sha256": "b4fda6abf167323809910472058e998b7a9f5423f79cdd96f7f431cd608eabbc"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
