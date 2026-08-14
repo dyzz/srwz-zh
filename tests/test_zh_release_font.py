@@ -11,6 +11,7 @@ from tools.srwz.release_font import (
     audit_frozen_formation_compatibility_assignments,
     audit_legacy_formation_glyph_compatibility,
     audit_runtime_generated_glyph_compatibility,
+    audit_sound_select_title_glyph_compatibility,
     load_frozen_formation_compatibility,
     selected_translation_tree_entries,
 )
@@ -333,10 +334,10 @@ class ZhReleaseFontTests(unittest.TestCase):
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
         self.assertEqual(self.snapshot["primary_assignment_count"], 3421)
         self.assertEqual(
-            self.snapshot["surface_alias_assignment_count"], 664
+            self.snapshot["surface_alias_assignment_count"], 605
         )
         self.assertEqual(
-            self.snapshot["remaining_allocation_candidate_count"], 197
+            self.snapshot["remaining_allocation_candidate_count"], 181
         )
         compatibility = self.snapshot["source_compatibility_assignments"]
         compatibility_by_character = {
@@ -487,6 +488,22 @@ class ZhReleaseFontTests(unittest.TestCase):
                 "all_runtime_generated_original_codes_preserved"
             ]
         )
+        sound_audit = audit_sound_select_title_glyph_compatibility(
+            self.snapshot,
+            table,
+            project_root=PROJECT_ROOT,
+        )
+        self.assertEqual(sound_audit["track_title_count"], 101)
+        self.assertEqual(sound_audit["unique_two_byte_code_count"], 252)
+        self.assertEqual(len(sound_audit["relocations"]), 59)
+        self.assertEqual(sound_audit["retired_alias_count"], 59)
+        self.assertEqual(sound_audit["collision_count"], 0)
+        self.assertEqual(sound_audit["reclaimable_output_count"], 0)
+        self.assertTrue(
+            sound_audit[
+                "all_sound_select_title_codes_resolve_original_characters"
+            ]
+        )
         active_codes = {
             item["code"]
             for item in (
@@ -539,6 +556,32 @@ class ZhReleaseFontTests(unittest.TestCase):
                 "candidate_count": 418,
             },
         )
+
+    def test_sound_select_title_glyph_audit_rejects_reclaimed_code(self):
+        snapshot = json.loads(json.dumps(self.snapshot))
+        protected = next(
+            extension["sound_select_title_glyph_compatibility"]
+            for extension in snapshot["extensions"]
+            if "sound_select_title_glyph_compatibility" in extension
+        )["protected_codes"]
+        code = protected[0]
+        table = load_text_table(
+            PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+        )
+        snapshot["remaining_allocation_candidates"].append({
+            "code": code,
+            "glyph_index": 0,
+            "source_character": table.characters[int(code, 16)],
+        })
+        with self.assertRaisesRegex(
+            ReleaseFontError,
+            "sound-select title glyph compatibility",
+        ):
+            audit_sound_select_title_glyph_compatibility(
+                snapshot,
+                table,
+                project_root=PROJECT_ROOT,
+            )
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]

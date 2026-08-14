@@ -73,17 +73,56 @@ def main() -> int:
     if "DATA/NISVDATA.BIN" in overlap:
         full_runtime_menu = full.get("runtime_library_menu")
         library_runtime_menu = library.get("runtime_library_menu")
+        full_sound_select = (
+            full_runtime_menu.get("sound_select")
+            if isinstance(full_runtime_menu, dict)
+            else None
+        )
+        library_sound_select = (
+            library_runtime_menu.get("sound_select")
+            if isinstance(library_runtime_menu, dict)
+            else None
+        )
         if (
             not isinstance(full_runtime_menu, dict)
             or not isinstance(library_runtime_menu, dict)
+            or not isinstance(full_sound_select, dict)
+            or not isinstance(library_sound_select, dict)
             or full_runtime_menu.get("output_logical_indexes_sha256")
             != library_runtime_menu.get("output_logical_indexes_sha256")
             or full_runtime_menu.get("render_snapshot")
             != library_runtime_menu.get("render_snapshot")
+            or full_sound_select.get("output_logical_indexes_sha256")
+            != library_sound_select.get("output_logical_indexes_sha256")
+            or full_sound_select.get("render_snapshot")
+            != library_sound_select.get("render_snapshot")
+            or full_sound_select.get("labels")
+            != library_sound_select.get("labels")
+            or full_sound_select.get("sound_select_title_written") is not True
+            or library_sound_select.get("sound_select_title_written") is not True
             or full_runtime_menu.get("all_six_labels_written") is not True
             or library_runtime_menu.get("all_six_labels_written") is not True
         ):
             raise SystemExit("shared NISVDATA runtime menu composition drift")
+
+    full_unlock = full.get("sound_select_default_unlock")
+    library_unlock = library.get("sound_select_default_unlock")
+    if (
+        not isinstance(full_unlock, dict)
+        or not isinstance(library_unlock, dict)
+        or full_unlock.get("virtual_address")
+        != library_unlock.get("virtual_address")
+        or full_unlock.get("file_offset") != library_unlock.get("file_offset")
+        or full_unlock.get("original_instruction_hex")
+        != library_unlock.get("original_instruction_hex")
+        or full_unlock.get("replacement_instruction_hex")
+        != library_unlock.get("replacement_instruction_hex")
+        or full_unlock.get("metadata") != library_unlock.get("metadata")
+        or full_unlock.get("instruction_replacement_exact") is not True
+        or library_unlock.get("instruction_replacement_exact") is not True
+        or library_unlock.get("full_story_component_owns_writeback") is not True
+    ):
+        raise SystemExit("sound-select default-unlock composition drift")
 
     installed_library_outputs = {}
     for member, lock in library_outputs.items():
@@ -123,6 +162,9 @@ def main() -> int:
         "library_menu": deepcopy(library["library_menu"]),
         "runtime_library_menu": deepcopy(
             library.get("runtime_library_menu")
+        ),
+        "sound_select_default_unlock": deepcopy(
+            library.get("sound_select_default_unlock")
         ),
         "legacy_jtim_restoration": deepcopy(
             library.get("legacy_jtim_restoration")

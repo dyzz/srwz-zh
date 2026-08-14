@@ -129,16 +129,21 @@ def _render_rgba(indexes: bytes, palette: bytes) -> bytes:
     return bytes(rendered)
 
 
-def build_nisv_library_menu(
+def _build_nisv_text_texture(
     archive: bytes,
     raw_lock: Mapping[str, object],
     *,
     font_path: Path,
+    expected_chunk_index: int,
+    expected_mask_count: int,
+    selection_authority: str,
+    temporary_prefix: str,
+    preview_filename: str,
     project_root: Path | None = None,
     live_render: bool = False,
     render_snapshot_sink: dict | None = None,
 ) -> tuple[bytes, dict[str, object]]:
-    """Patch the compressed runtime menu record and preserve archive layout."""
+    """Patch one compressed NISV text texture and preserve archive layout."""
 
     target = raw_lock.get("target")
     render = raw_lock.get("writeback")
@@ -153,7 +158,10 @@ def build_nisv_library_menu(
     chunk_index = _integer(target.get("chunk_index"), "runtime menu chunk index")
     stored_start = _integer(target.get("stored_start"), "runtime menu stored start")
     stored_end = _integer(target.get("stored_end"), "runtime menu stored end")
-    if chunk_index != 0 or not 0 <= stored_start < stored_end <= len(archive):
+    if (
+        chunk_index != expected_chunk_index
+        or not 0 <= stored_start < stored_end <= len(archive)
+    ):
         raise LibraryScopeError("runtime LIBRARY menu chunk span drift")
     stored = archive[stored_start:stored_end]
     if (
@@ -216,8 +224,11 @@ def build_nisv_library_menu(
         magick = None
         version = configured_version
     masks = render.get("masks")
-    if not isinstance(masks, list) or len(masks) != 6:
-        raise LibraryScopeError("runtime LIBRARY menu must define six masks")
+    if not isinstance(masks, list) or len(masks) != expected_mask_count:
+        raise LibraryScopeError(
+            "runtime NISV text texture mask-count drift: "
+            f"expected {expected_mask_count}"
+        )
     point_size = _integer(render.get("point_size"), "runtime menu point size")
     supersample_factor = _integer(
         render.get("supersample_factor", 1),
@@ -287,8 +298,7 @@ def build_nisv_library_menu(
             not isinstance(snapshot, dict)
             or snapshot.get("schema_version") != 1
             or snapshot.get("status") != "reviewed_locked"
-            or snapshot.get("selection_authority")
-            != "runtime_nisv_frozen_rendered_text_masks"
+            or snapshot.get("selection_authority") != selection_authority
             or snapshot.get("source_record_sha256") != _sha256(source_record)
             or snapshot.get("source_logical_indexes_sha256")
             != _sha256(logical_source)
@@ -339,6 +349,14 @@ def build_nisv_library_menu(
         clear_height = _integer(
             raw_mask.get("clear_height"), f"{mask_id} clear height"
         )
+        clear_dilation_radius = _integer(
+            raw_mask.get("clear_dilation_radius", 0),
+            f"{mask_id} clear dilation radius",
+        )
+        clear_replacement_index = _integer(
+            raw_mask.get("clear_replacement_index", 0),
+            f"{mask_id} clear replacement index",
+        )
         if (
             x < 0
             or y < 0
@@ -352,6 +370,8 @@ def build_nisv_library_menu(
             or clear_height <= 0
             or clear_x + clear_width > picture.width
             or clear_y + clear_height > picture.height
+            or not 0 <= clear_dilation_radius <= 8
+            or not 0 <= clear_replacement_index < 256
         ):
             raise LibraryScopeError(
                 f"runtime LIBRARY menu mask is outside: {mask_id}"
@@ -369,12 +389,39 @@ def build_nisv_library_menu(
                 f"runtime LIBRARY menu source-pixel drift: {mask_id}"
             )
         before_label = bytes(logical)
-        for row in range(clear_y, clear_y + clear_height):
-            start = row * picture.width + clear_x
-            for column in range(clear_width):
-                offset = start + column
-                if clear_start <= logical[offset] <= clear_stop:
-                    logical[offset] = 0
+        clear_offsets = {
+            row * picture.width + column
+            for row in range(clear_y, clear_y + clear_height)
+            for column in range(clear_x, clear_x + clear_width)
+            if clear_start
+            <= logical[row * picture.width + column]
+            <= clear_stop
+        }
+        if clear_dilation_radius:
+            clear_offsets = {
+                target_row * picture.width + target_column
+                for source_offset in clear_offsets
+                for target_row in range(
+                    max(clear_y, source_offset // picture.width - clear_dilation_radius),
+                    min(
+                        clear_y + clear_height,
+                        source_offset // picture.width
+                        + clear_dilation_radius
+                        + 1,
+                    ),
+                )
+                for target_column in range(
+                    max(clear_x, source_offset % picture.width - clear_dilation_radius),
+                    min(
+                        clear_x + clear_width,
+                        source_offset % picture.width
+                        + clear_dilation_radius
+                        + 1,
+                    ),
+                )
+            }
+        for offset in clear_offsets:
+            logical[offset] = clear_replacement_index
         if live_render:
             mask = render_grayscale_text_mask(
                 magick,
@@ -458,10 +505,8 @@ def build_nisv_library_menu(
     preview_rgba = _render_rgba(logical_output, palette)
     frozen_preview = None
     if live_render:
-        with tempfile.TemporaryDirectory(
-            prefix="srwz-nisv-library-menu-freeze-"
-        ) as directory:
-            preview_path = Path(directory) / "library-menu-runtime.png"
+        with tempfile.TemporaryDirectory(prefix=temporary_prefix) as directory:
+            preview_path = Path(directory) / preview_filename
             write_deterministic_rgba8_png(
                 magick,
                 preview_rgba,
@@ -475,9 +520,7 @@ def build_nisv_library_menu(
                 {
                     "schema_version": 1,
                     "status": "reviewed_locked",
-                    "selection_authority": (
-                        "runtime_nisv_frozen_rendered_text_masks"
-                    ),
+                    "selection_authority": selection_authority,
                     "source_record_sha256": _sha256(source_record),
                     "source_logical_indexes_sha256": _sha256(logical_source),
                     "output_logical_indexes_sha256": output_logical_sha256,
@@ -609,7 +652,10 @@ def build_nisv_library_menu(
             "sha256": frozen_preview["sha256"],
         },
         "labels": reports,
-        "all_six_labels_written": len(reports) == 6,
+        "all_labels_written": len(reports) == expected_mask_count,
+        "all_six_labels_written": (
+            expected_mask_count == 6 and len(reports) == 6
+        ),
         "archive_size_preserved": len(output_archive) == len(archive),
         "archive_non_target_chunks_preserved": (
             output_archive[:stored_start] == archive[:stored_start]
@@ -624,4 +670,58 @@ def build_nisv_library_menu(
     }
 
 
-__all__ = ["build_nisv_library_menu"]
+def build_nisv_library_menu(
+    archive: bytes,
+    raw_lock: Mapping[str, object],
+    *,
+    font_path: Path,
+    project_root: Path | None = None,
+    live_render: bool = False,
+    render_snapshot_sink: dict | None = None,
+) -> tuple[bytes, dict[str, object]]:
+    """Patch the six-label runtime LIBRARY menu in NISVDATA chunk 0."""
+
+    return _build_nisv_text_texture(
+        archive,
+        raw_lock,
+        font_path=font_path,
+        expected_chunk_index=0,
+        expected_mask_count=6,
+        selection_authority="runtime_nisv_frozen_rendered_text_masks",
+        temporary_prefix="srwz-nisv-library-menu-freeze-",
+        preview_filename="library-menu-runtime.png",
+        project_root=project_root,
+        live_render=live_render,
+        render_snapshot_sink=render_snapshot_sink,
+    )
+
+
+def build_nisv_sound_select(
+    archive: bytes,
+    raw_lock: Mapping[str, object],
+    *,
+    font_path: Path,
+    project_root: Path | None = None,
+    live_render: bool = False,
+    render_snapshot_sink: dict | None = None,
+) -> tuple[bytes, dict[str, object]]:
+    """Patch the runtime sound-select title in NISVDATA chunk 1."""
+
+    output, report = _build_nisv_text_texture(
+        archive,
+        raw_lock,
+        font_path=font_path,
+        expected_chunk_index=1,
+        expected_mask_count=1,
+        selection_authority="runtime_nisv_sound_select_frozen_text_mask",
+        temporary_prefix="srwz-nisv-sound-select-freeze-",
+        preview_filename="sound-select-runtime.png",
+        project_root=project_root,
+        live_render=live_render,
+        render_snapshot_sink=render_snapshot_sink,
+    )
+    report["sound_select_title_written"] = report["all_labels_written"]
+    return output, report
+
+
+__all__ = ["build_nisv_library_menu", "build_nisv_sound_select"]

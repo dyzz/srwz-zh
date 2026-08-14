@@ -31,6 +31,7 @@ from srwz.release_font import (
     assignment_index,
     audit_legacy_formation_glyph_compatibility,
     audit_runtime_generated_glyph_compatibility,
+    audit_sound_select_title_glyph_compatibility,
     load_frozen_formation_compatibility,
     rendered_characters,
     selected_translation_tree_entries,
@@ -189,6 +190,13 @@ def main() -> int:
                 project_root=PROJECT_ROOT,
             )
         )
+        sound_select_title_compatibility = (
+            audit_sound_select_title_glyph_compatibility(
+                snapshot,
+                table,
+                project_root=PROJECT_ROOT,
+            )
+        )
     except ReleaseFontError as error:
         raise SystemExit(str(error)) from error
     base_codebook = assignment_index(codebook_path)
@@ -249,7 +257,17 @@ def main() -> int:
             "protected_original_codes"
         ]
     }
-    protected_runtime_codes = legacy_formation_codes | runtime_generated_codes
+    sound_select_title_codes = {
+        int(code, 16)
+        for code in sound_select_title_compatibility[
+            "protected_original_codes"
+        ]
+    }
+    protected_runtime_codes = (
+        legacy_formation_codes
+        | runtime_generated_codes
+        | sound_select_title_codes
+    )
     occupied_codes.update(protected_runtime_codes)
     # Preserved table glyphs are intentionally absent from the localized
     # primary registry.  They are still live runtime assets and therefore

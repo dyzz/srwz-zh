@@ -8,6 +8,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Iterable, Mapping
 
+from .codec import decode_production
 from .font import (
     GLYPH_SIZE,
     ascii_glyph_index,
@@ -15,6 +16,7 @@ from .font import (
     is_cjk_unified_ideograph,
     sha256_bytes,
 )
+from .library import SoundTitleSpanLock, verify_sound_title_source
 from .text import (
     control_notation_positions,
     control_notation_tokens,
@@ -820,6 +822,251 @@ def audit_runtime_generated_glyph_compatibility(
     return report
 
 
+def audit_sound_select_title_glyph_compatibility(
+    snapshot: Mapping[str, object],
+    table: object,
+    *,
+    project_root: Path | None = None,
+) -> dict:
+    """Prove all stock two-byte glyphs used by the 101 song titles survive.
+
+    Sound-select titles stay byte-exact Japanese.  Their codes therefore form
+    a live VT1 dependency even though they are deliberately absent from the
+    Chinese translation corpus.
+    """
+
+    extensions = snapshot.get("extensions")
+    if not isinstance(extensions, list):
+        raise ReleaseFontError("release font snapshot extensions are invalid")
+    contracts = [
+        extension["sound_select_title_glyph_compatibility"]
+        for extension in extensions
+        if isinstance(extension, Mapping)
+        and "sound_select_title_glyph_compatibility" in extension
+    ]
+    if len(contracts) != 1 or not isinstance(contracts[0], Mapping):
+        raise ReleaseFontError(
+            "release font snapshot must have exactly one sound-select title "
+            "glyph contract"
+        )
+    contract = contracts[0]
+    source_member = contract.get("source_member")
+    span_raw = contract.get("decoded_span")
+    protected_code_rows = contract.get("protected_codes")
+    relocations = contract.get("relocations")
+    retired_aliases = contract.get("retired_aliases")
+    if (
+        project_root is None
+        or not isinstance(source_member, Mapping)
+        or not isinstance(span_raw, Mapping)
+        or not isinstance(protected_code_rows, list)
+        or not isinstance(relocations, list)
+        or not isinstance(retired_aliases, list)
+    ):
+        raise ReleaseFontError(
+            "sound-select title glyph compatibility contract is invalid"
+        )
+
+    source_path = _project_path(project_root, source_member.get("path"))
+    source_bytes = source_path.read_bytes()
+    if (
+        len(source_bytes) != source_member.get("size")
+        or sha256_bytes(source_bytes) != source_member.get("sha256")
+    ):
+        raise ReleaseFontError("sound-select COMPDATA source evidence drift")
+    try:
+        decoded = decode_production(source_bytes)
+    except (RuntimeError, ValueError) as error:
+        raise ReleaseFontError(
+            "sound-select COMPDATA source decode failed"
+        ) from error
+    if (
+        decoded.consumed != len(source_bytes)
+        or len(decoded.output) != source_member.get("decoded_size")
+        or sha256_bytes(decoded.output) != source_member.get("decoded_sha256")
+    ):
+        raise ReleaseFontError(
+            "sound-select decoded COMPDATA source evidence drift"
+        )
+
+    table_characters = getattr(table, "characters", None)
+    if not isinstance(table_characters, Mapping):
+        raise ReleaseFontError(
+            "sound-select title glyph audit requires a text table"
+        )
+    try:
+        span = SoundTitleSpanLock.from_mapping(span_raw)
+        titles = verify_sound_title_source(decoded.output, table, span)
+    except ValueError as error:
+        raise ReleaseFontError(
+            "sound-select title source contract is invalid"
+        ) from error
+
+    observed_codes: set[int] = set()
+    for title in titles:
+        raw = decoded.output[title.start:title.end]
+        cursor = 0
+        while cursor < len(raw):
+            lead = raw[cursor]
+            cursor += 1
+            if lead == 0:
+                break
+            if 0x31 <= lead <= 0x35:
+                if cursor >= len(raw):
+                    raise ReleaseFontError(
+                        "sound-select title contains a truncated text tag"
+                    )
+                cursor += 1
+                continue
+            if 0x80 <= lead <= 0x9F or 0xE0 <= lead <= 0xEA:
+                if cursor >= len(raw):
+                    raise ReleaseFontError(
+                        "sound-select title contains a truncated two-byte code"
+                    )
+                observed_codes.add((lead << 8) | raw[cursor])
+                cursor += 1
+    observed_code_rows = [f"{code:04X}" for code in sorted(observed_codes)]
+    if (
+        protected_code_rows != observed_code_rows
+        or contract.get("expected_title_count") != len(titles)
+        or contract.get("expected_unique_two_byte_code_count")
+        != len(observed_codes)
+    ):
+        raise ReleaseFontError(
+            "sound-select title protected-code inventory drift"
+        )
+
+    primary = snapshot.get("primary_assignments")
+    aliases = snapshot.get("surface_alias_assignments")
+    compatibility = snapshot.get("source_compatibility_assignments")
+    candidates = snapshot.get("remaining_allocation_candidates")
+    if not all(
+        isinstance(rows, list)
+        for rows in (primary, aliases, compatibility, candidates)
+    ):
+        raise ReleaseFontError("release font snapshot mappings are invalid")
+    active_by_code: dict[int, str] = {}
+    for row in (*primary, *aliases, *compatibility):
+        if not isinstance(row, Mapping):
+            raise ReleaseFontError("release font snapshot mapping row is invalid")
+        try:
+            code = int(row["code"], 16)
+            character = row["character"]
+        except (KeyError, TypeError, ValueError) as error:
+            raise ReleaseFontError(
+                "release font snapshot mapping row is invalid"
+            ) from error
+        if code in active_by_code:
+            raise ReleaseFontError(
+                f"release font snapshot has duplicate active code {code:04X}"
+            )
+        active_by_code[code] = character
+    try:
+        candidate_codes = {int(row["code"], 16) for row in candidates}
+    except (KeyError, TypeError, ValueError) as error:
+        raise ReleaseFontError(
+            "release font allocation candidate row is invalid"
+        ) from error
+
+    collisions = []
+    reclaimable = []
+    for code in sorted(observed_codes):
+        source_character = table_characters.get(code)
+        if not isinstance(source_character, str) or len(source_character) != 1:
+            raise ReleaseFontError(
+                "sound-select title code is absent from the stock text table"
+            )
+        effective_character = active_by_code.get(code, source_character)
+        if effective_character != source_character:
+            collisions.append({
+                "code": f"{code:04X}",
+                "source_character": source_character,
+                "effective_character": effective_character,
+            })
+        if code in candidate_codes:
+            reclaimable.append({
+                "code": f"{code:04X}",
+                "source_character": source_character,
+            })
+    if collisions or reclaimable:
+        raise ReleaseFontError(
+            "sound-select title glyph compatibility failed: "
+            + json.dumps(
+                {"collisions": collisions, "reclaimable": reclaimable},
+                ensure_ascii=False,
+                sort_keys=True,
+            )
+        )
+
+    active_by_character = {
+        character: code for code, character in active_by_code.items()
+    }
+    relocation_rows = []
+    for row in relocations:
+        if not isinstance(row, Mapping):
+            raise ReleaseFontError(
+                "sound-select title glyph relocation contract is invalid"
+            )
+        character = row.get("character")
+        try:
+            from_code = int(row["from_code"], 16)
+            to_code = int(row["to_code"], 16)
+        except (KeyError, TypeError, ValueError) as error:
+            raise ReleaseFontError(
+                "sound-select title glyph relocation contract is invalid"
+            ) from error
+        if (
+            not isinstance(character, str)
+            or len(character) != 1
+            or from_code not in observed_codes
+            or to_code in observed_codes
+            or active_by_character.get(character) != to_code
+        ):
+            raise ReleaseFontError(
+                "sound-select title glyph relocation contract is invalid"
+            )
+        relocation_rows.append({
+            "character": character,
+            "from_code": f"{from_code:04X}",
+            "to_code": f"{to_code:04X}",
+        })
+    for row in retired_aliases:
+        if not isinstance(row, Mapping) or not isinstance(
+            row.get("character"), str
+        ):
+            raise ReleaseFontError(
+                "sound-select title retired-alias contract is invalid"
+            )
+        try:
+            from_code = int(row["from_code"], 16)
+        except (KeyError, TypeError, ValueError) as error:
+            raise ReleaseFontError(
+                "sound-select title retired-alias contract is invalid"
+            ) from error
+        if active_by_code.get(from_code) == row["character"]:
+            raise ReleaseFontError(
+                "sound-select title retired-alias contract is invalid"
+            )
+
+    return {
+        "source_member": {
+            "path": str(source_path.relative_to(project_root.resolve())),
+            "size": len(source_bytes),
+            "sha256": sha256_bytes(source_bytes),
+            "decoded_size": len(decoded.output),
+            "decoded_sha256": sha256_bytes(decoded.output),
+        },
+        "track_title_count": len(titles),
+        "unique_two_byte_code_count": len(observed_codes),
+        "protected_original_codes": observed_code_rows,
+        "relocations": relocation_rows,
+        "retired_alias_count": len(retired_aliases),
+        "collision_count": 0,
+        "reclaimable_output_count": 0,
+        "all_sound_select_title_codes_resolve_original_characters": True,
+    }
+
+
 def _selection_digest(entries: Mapping[str, Mapping[str, object]]) -> str:
     digest = hashlib.sha256()
     for entry_id in sorted(entries):
@@ -1172,6 +1419,7 @@ __all__ = [
     "audit_entry_font",
     "audit_legacy_formation_glyph_compatibility",
     "audit_runtime_generated_glyph_compatibility",
+    "audit_sound_select_title_glyph_compatibility",
     "baseline_with_original_ascii",
     "rendered_characters",
     "selected_translation_tree_entries",

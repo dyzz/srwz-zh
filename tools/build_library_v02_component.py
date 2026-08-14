@@ -24,12 +24,21 @@ from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offset
 from srwz.font_flavor import load_font_flavor_reference
 from srwz.library import (
     LibraryScopeError,
+    SoundTitleSpanLock,
     build_runtime_zkn_decoded_chunk,
     parse_runtime_zkn_decoded_chunk,
     parse_zkn_decoded_chunk,
     validate_library_scope_mapping,
+    verify_sound_title_source,
 )
-from srwz.nisv_library_menu import build_nisv_library_menu
+from srwz.nisv_library_menu import (
+    build_nisv_library_menu,
+    build_nisv_sound_select,
+)
+from srwz.sound_select import (
+    apply_sound_select_default_unlock,
+    audit_sound_select_track_metadata,
+)
 from srwz.text import (
     load_text_table,
     original_fullwidth_ascii_overrides,
@@ -422,6 +431,42 @@ def main() -> int:
         raise SystemExit("LIBRARY executable lock is missing")
     executable_path = project_path(executable_lock.get("path"))
     executable = locked_member(executable_path, executable_lock, "SLPS_258.87")
+    sound_compdata_lock = locks.get("DATA/COMPDATA.BN")
+    if not isinstance(sound_compdata_lock, dict):
+        raise SystemExit("sound-select COMPDATA lock is missing")
+    sound_compdata_path = project_path(sound_compdata_lock.get("path"))
+    sound_compdata = locked_member(
+        sound_compdata_path,
+        sound_compdata_lock,
+        "DATA/COMPDATA.BN",
+    )
+    sound_compdata_decoded = decode(sound_compdata)
+    if sound_compdata_decoded.consumed != len(sound_compdata):
+        raise SystemExit("sound-select COMPDATA has trailing compressed bytes")
+    sound_title_span = SoundTitleSpanLock.from_mapping(
+        scope["sound_select"]["decoded_compdata"]
+    )
+    sound_titles = verify_sound_title_source(
+        sound_compdata_decoded.output,
+        base_table,
+        sound_title_span,
+    )
+    sound_select_unlock_contract = scope["sound_select_default_unlock"]
+    _unlock_candidate, sound_select_unlock_report = (
+        apply_sound_select_default_unlock(
+            executable,
+            sound_select_unlock_contract,
+        )
+    )
+    sound_select_unlock_report["metadata"] = (
+        audit_sound_select_track_metadata(
+            sound_compdata_decoded.output,
+            sound_titles,
+            sound_select_unlock_contract,
+        )
+    )
+    sound_select_unlock_report["component_output_member_written"] = False
+    sound_select_unlock_report["full_story_component_owns_writeback"] = True
     codec = config.get("codec")
     layout = config.get("layout")
     if not isinstance(codec, dict) or not isinstance(layout, dict):
@@ -510,6 +555,19 @@ def main() -> int:
     runtime_menu_report["font_path"] = str(
         menu_font_path.relative_to(PROJECT_ROOT)
     )
+    sound_select_contract = scope.get("sound_select_runtime_tim2")
+    if not isinstance(sound_select_contract, dict):
+        raise SystemExit("runtime sound-select writeback contract is missing")
+    runtime_menu_output, sound_select_report = build_nisv_sound_select(
+        runtime_menu_output,
+        sound_select_contract,
+        font_path=menu_font_path,
+        project_root=PROJECT_ROOT,
+    )
+    sound_select_report["font_path"] = str(
+        menu_font_path.relative_to(PROJECT_ROOT)
+    )
+    runtime_menu_report["sound_select"] = sound_select_report
 
     archive_reports = []
     capacity_failures = []
@@ -832,6 +890,10 @@ def main() -> int:
             "font_manifest": file_lock(font_manifest_path),
             "font_proposal": file_lock(proposal_path),
             "executable": file_lock(executable_path, executable),
+            "sound_select_compdata_source": file_lock(
+                sound_compdata_path,
+                sound_compdata,
+            ),
             "menu_font_flavor": file_lock(menu_font_flavor_path),
             "menu_font_lock": file_lock(menu_font_lock_path, menu_font_lock_data),
             "menu_font": file_lock(menu_font_path, menu_font_data),
@@ -867,6 +929,7 @@ def main() -> int:
         },
         "library_menu": runtime_menu_report,
         "runtime_library_menu": runtime_menu_report,
+        "sound_select_default_unlock": sound_select_unlock_report,
         "legacy_jtim_restoration": menu_report,
         "archives": archive_reports,
         "outputs": {
@@ -904,6 +967,28 @@ def main() -> int:
             ),
             "runtime_library_menu_codec_round_trip_exact": (
                 runtime_menu_report["codec_round_trip_exact"]
+            ),
+            "runtime_sound_select_title_written": (
+                sound_select_report["sound_select_title_written"]
+            ),
+            "runtime_sound_select_archive_size_preserved": (
+                sound_select_report["archive_size_preserved"]
+            ),
+            "runtime_sound_select_codec_round_trip_exact": (
+                sound_select_report["codec_round_trip_exact"]
+            ),
+            "sound_select_all_101_tracks_contract_validated": (
+                sound_select_unlock_report["instruction_replacement_exact"]
+                and sound_select_unlock_report["metadata"][
+                    "default_unlocked_track_count"
+                ]
+                == 101
+                and sound_select_unlock_report["metadata"][
+                    "empty_sentinel_excluded"
+                ]
+                and sound_select_unlock_report[
+                    "full_story_component_owns_writeback"
+                ]
             ),
             "all_editorial_statuses_reviewed": all(
                 entry.get("editorial_status") == "reviewed" for entry in entries

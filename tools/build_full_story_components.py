@@ -33,8 +33,15 @@ try:
         sha256_bytes,
     )
     from srwz.menu import parse_menu_file
-    from srwz.library import LibraryScopeError
-    from srwz.nisv_library_menu import build_nisv_library_menu
+    from srwz.library import (
+        LibraryScopeError,
+        SoundTitleSpanLock,
+        verify_sound_title_source,
+    )
+    from srwz.nisv_library_menu import (
+        build_nisv_library_menu,
+        build_nisv_sound_select,
+    )
     from srwz.intermission_font_geometry import (
         IntermissionFontGeometryError,
         IntermissionFontGeometryMetrics,
@@ -52,6 +59,11 @@ try:
         apply_compdata_keyword_names,
         apply_stage_keyword_popups,
         load_keyword_authority,
+    )
+    from srwz.sound_select import (
+        SoundSelectError,
+        apply_sound_select_default_unlock,
+        audit_sound_select_track_metadata,
     )
     from srwz.hsfc_overview import replace_hsfc_overviews_in_place
     from srwz.srvc import (
@@ -127,8 +139,15 @@ except ModuleNotFoundError:
         sha256_bytes,
     )
     from tools.srwz.menu import parse_menu_file
-    from tools.srwz.library import LibraryScopeError
-    from tools.srwz.nisv_library_menu import build_nisv_library_menu
+    from tools.srwz.library import (
+        LibraryScopeError,
+        SoundTitleSpanLock,
+        verify_sound_title_source,
+    )
+    from tools.srwz.nisv_library_menu import (
+        build_nisv_library_menu,
+        build_nisv_sound_select,
+    )
     from tools.srwz.intermission_font_geometry import (
         IntermissionFontGeometryError,
         IntermissionFontGeometryMetrics,
@@ -146,6 +165,11 @@ except ModuleNotFoundError:
         apply_compdata_keyword_names,
         apply_stage_keyword_popups,
         load_keyword_authority,
+    )
+    from tools.srwz.sound_select import (
+        SoundSelectError,
+        apply_sound_select_default_unlock,
+        audit_sound_select_track_metadata,
     )
     from tools.srwz.hsfc_overview import replace_hsfc_overviews_in_place
     from tools.srwz.srvc import (
@@ -414,7 +438,7 @@ CONFIG_SECTION_IMPACTS = {
     "hsfc_overviews": {HSFC_MEMBER},
     "remaining_ui": {SLPS_MEMBER, COMPDATA_MEMBER, STAGE_MEMBER},
     "nisv_effect_names": {NISVDATA_MEMBER},
-    "runtime_library_menu": {NISVDATA_MEMBER},
+    "runtime_library_menu": {SLPS_MEMBER, NISVDATA_MEMBER},
     "srvc_battle_text": set(SRVC_MEMBERS),
     "scenario_select_effect": {SLPS_MEMBER, VEFF_MEMBER},
     "mode_select_effect": {VEFF_MEMBER},
@@ -449,7 +473,7 @@ INPUT_IMPACTS = {
     "compdata_battle_lines": {COMPDATA_MEMBER},
     "original_compdata": {COMPDATA_MEMBER},
     "original_nisvdata": {NISVDATA_MEMBER},
-    "runtime_library_menu_scope": {NISVDATA_MEMBER},
+    "runtime_library_menu_scope": {SLPS_MEMBER, NISVDATA_MEMBER},
     "runtime_library_menu_font": {NISVDATA_MEMBER},
     "original_slps": {
         SLPS_MEMBER,
@@ -7342,6 +7366,30 @@ def build(
         workspace=compdata_workspace,
         original_decoded=original_compdata_decoded,
     )
+    runtime_library_menu_config = config.get("runtime_library_menu")
+    if not isinstance(runtime_library_menu_config, dict):
+        raise FullStoryComponentError("runtime LIBRARY menu config is invalid")
+    runtime_library_menu_scope_path, runtime_library_menu_scope_data = (
+        _locked_file(
+            runtime_library_menu_config.get("scope"),
+            label="runtime LIBRARY menu scope",
+        )
+    )
+    runtime_library_menu_font_path, _runtime_library_menu_font_data = (
+        _locked_file(
+            runtime_library_menu_config.get("font"),
+            label="runtime LIBRARY menu font",
+        )
+    )
+    try:
+        runtime_library_menu_scope = json.loads(
+            runtime_library_menu_scope_data.decode("utf-8")
+        )
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise FullStoryComponentError(
+            f"runtime LIBRARY menu scope decode failed: {error}"
+        ) from error
+
     if reuse_group({NISVDATA_MEMBER}):
         output_nisvdata = _prior_output_payload(output_root, NISVDATA_MEMBER)
         nisv_effect_names_report = json.loads(
@@ -7368,29 +7416,12 @@ def build(
             font_manifest,
             config.get("nisv_effect_names"),
         )
-        runtime_library_menu_config = config.get("runtime_library_menu")
-        if not isinstance(runtime_library_menu_config, dict):
-            raise FullStoryComponentError(
-                "runtime LIBRARY menu config is invalid"
-            )
-        runtime_library_menu_scope_path, runtime_library_menu_scope_data = (
-            _locked_file(
-                runtime_library_menu_config.get("scope"),
-                label="runtime LIBRARY menu scope",
-            )
-        )
-        runtime_library_menu_font_path, _runtime_library_menu_font_data = (
-            _locked_file(
-                runtime_library_menu_config.get("font"),
-                label="runtime LIBRARY menu font",
-            )
-        )
         try:
-            runtime_library_menu_scope = json.loads(
-                runtime_library_menu_scope_data.decode("utf-8")
-            )
             runtime_library_menu_contract = runtime_library_menu_scope[
                 "library_menu_runtime_tim2"
+            ]
+            sound_select_contract = runtime_library_menu_scope[
+                "sound_select_runtime_tim2"
             ]
             output_nisvdata, runtime_library_menu_report = (
                 build_nisv_library_menu(
@@ -7400,7 +7431,14 @@ def build(
                     project_root=PROJECT_ROOT,
                 )
             )
-        except (KeyError, UnicodeDecodeError, json.JSONDecodeError, LibraryScopeError) as error:
+            output_nisvdata, sound_select_report = build_nisv_sound_select(
+                output_nisvdata,
+                sound_select_contract,
+                font_path=runtime_library_menu_font_path,
+                project_root=PROJECT_ROOT,
+            )
+            runtime_library_menu_report["sound_select"] = sound_select_report
+        except (KeyError, LibraryScopeError) as error:
             raise FullStoryComponentError(
                 f"runtime LIBRARY menu writeback failed: {error}"
             ) from error
@@ -7875,6 +7913,40 @@ def build(
             ) from error
         world_map_title_report["terrain_names"] = terrain_name_report
 
+    try:
+        sound_title_span = SoundTitleSpanLock.from_mapping(
+            runtime_library_menu_scope["sound_select"]["decoded_compdata"]
+        )
+        sound_select_unlock_contract = runtime_library_menu_scope[
+            "sound_select_default_unlock"
+        ]
+        final_compdata_decoded = decode(output_compdata)
+        if final_compdata_decoded.consumed != len(output_compdata):
+            raise SoundSelectError(
+                "composed COMPDATA has trailing compressed bytes"
+            )
+        sound_titles = verify_sound_title_source(
+            final_compdata_decoded.output,
+            runtime_keyword_source_table,
+            sound_title_span,
+        )
+        sound_select_metadata_report = audit_sound_select_track_metadata(
+            final_compdata_decoded.output,
+            sound_titles,
+            sound_select_unlock_contract,
+        )
+        output_slps, sound_select_unlock_report = (
+            apply_sound_select_default_unlock(
+                output_slps,
+                sound_select_unlock_contract,
+            )
+        )
+        sound_select_unlock_report["metadata"] = sound_select_metadata_report
+    except (KeyError, ValueError, SoundSelectError) as error:
+        raise FullStoryComponentError(
+            f"sound-select default unlock failed: {error}"
+        ) from error
+
     payloads = {
         "SLPS_258.87": output_slps,
         "DATA/VT1.BIN": output_vt1,
@@ -8170,6 +8242,7 @@ def build(
         "remaining_ui": remaining_ui_report,
         "nisv_effect_names": nisv_effect_names_report,
         "runtime_library_menu": runtime_library_menu_report,
+        "sound_select_default_unlock": sound_select_unlock_report,
         "compdata_battle_lines": compdata_battle_line_report,
         "reviewed_weapons": reviewed_weapon_report,
         "srvc_battle_text": srvc_report,
@@ -8203,6 +8276,9 @@ def build(
                 and nisv_effect_names_report["codec"]["strategy"]
                 == "rust-fit"
                 and runtime_library_menu_report["codec_round_trip_exact"]
+                and runtime_library_menu_report["sound_select"][
+                    "codec_round_trip_exact"
+                ]
                 and stage_fixed_formation_report["codec_strategy"]
                 == "rust-fit"
                 and world_map_title_report["codec"]["strategy"]
@@ -8256,6 +8332,35 @@ def build(
                     "clut_and_non_image_bytes_preserved"
                 ]
                 and runtime_library_menu_report["codec_round_trip_exact"]
+                and runtime_library_menu_report["sound_select"][
+                    "sound_select_title_written"
+                ]
+                and runtime_library_menu_report["sound_select"][
+                    "archive_size_preserved"
+                ]
+                and runtime_library_menu_report["sound_select"][
+                    "archive_non_target_chunks_preserved"
+                ]
+                and runtime_library_menu_report["sound_select"][
+                    "tim2_metadata_preserved"
+                ]
+                and runtime_library_menu_report["sound_select"][
+                    "clut_and_non_image_bytes_preserved"
+                ]
+                and runtime_library_menu_report["sound_select"][
+                    "codec_round_trip_exact"
+                ]
+            ),
+            "sound_select_all_101_tracks_default_unlocked": (
+                sound_select_unlock_report["instruction_replacement_exact"]
+                and sound_select_unlock_report["executable_size_preserved"]
+                and sound_select_unlock_report["metadata"][
+                    "default_unlocked_track_count"
+                ]
+                == 101
+                and sound_select_unlock_report["metadata"][
+                    "empty_sentinel_excluded"
+                ]
             ),
             "encoded_ui_codebook_is_release_subset": True,
             "global_release_font_missing_character_count_zero": (

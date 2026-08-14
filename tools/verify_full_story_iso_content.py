@@ -43,6 +43,11 @@ from srwz.hsfc_overview import (
     parse_hsfc_overviews,
 )
 from srwz.image_export import parse_seg_offsets
+from srwz.library import (
+    SoundTitleSpanLock,
+    verify_sound_title_source,
+    verify_sound_titles_preserved,
+)
 from srwz.menu import parse_menu_file
 from srwz.psmt4 import unswizzle_psmt4
 from srwz.runtime_keywords import (
@@ -50,6 +55,10 @@ from srwz.runtime_keywords import (
     apply_compdata_keyword_names,
     apply_stage_keyword_popups,
     load_keyword_authority,
+)
+from srwz.sound_select import (
+    apply_sound_select_default_unlock,
+    audit_sound_select_track_metadata,
 )
 from srwz.srvc import parse_srvc_archive
 from srwz.stage import (
@@ -2563,6 +2572,132 @@ def main() -> int:
         "legacy_jtim_restored_original_byte_exact": True,
     }
 
+    sound_select_component = library_menu.get("sound_select")
+    sound_contract = library_scope["sound_select_runtime_tim2"]
+    sound_target = sound_contract["target"]
+    if (
+        not isinstance(sound_select_component, dict)
+        or sound_select_component.get("sound_select_title_written") is not True
+    ):
+        raise SystemExit("final ISO sound-select component proof is incomplete")
+    sound_stored = nisvdata[
+        int(sound_target["stored_start"]):int(sound_target["stored_end"])
+    ]
+    decoded_sound = decode(sound_stored)
+    if any(sound_stored[decoded_sound.consumed:]):
+        raise SystemExit("final ISO sound-select padding is nonzero")
+    sound_records = scan_tim2(decoded_sound.output)
+    sound_record_index = int(sound_target["record_index"])
+    if not 0 <= sound_record_index < len(sound_records):
+        raise SystemExit("final ISO sound-select TIM2 record is missing")
+    sound_record = sound_records[sound_record_index]
+    sound_picture = sound_record.pictures[0]
+    sound_image_start = sound_picture.offset + sound_picture.header_size
+    sound_image_end = sound_image_start + sound_picture.image_size
+    logical_sound = unswizzle_psmt8(
+        decoded_sound.output[sound_image_start:sound_image_end],
+        sound_picture.width,
+        sound_picture.height,
+    )
+    sound_labels = sound_select_component.get("labels")
+    if (
+        sound_record.offset != sound_select_component.get("record_offset")
+        or sha256_bytes(
+            decoded_sound.output[sound_record.offset:sound_record.end]
+        )
+        != sound_select_component.get("output_record_sha256")
+        or sha256_bytes(logical_sound)
+        != sound_select_component.get("output_logical_indexes_sha256")
+        or not isinstance(sound_labels, list)
+        or len(sound_labels) != 1
+    ):
+        raise SystemExit("final ISO sound-select texture readback drift")
+    sound_label = sound_labels[0]
+    sound_crop = b"".join(
+        logical_sound[
+            (int(sound_label["y"]) + row) * sound_picture.width
+            + int(sound_label["x"]):
+            (int(sound_label["y"]) + row) * sound_picture.width
+            + int(sound_label["x"])
+            + int(sound_label["width"])
+        ]
+        for row in range(int(sound_label["height"]))
+    )
+    if (
+        sha256_bytes(sound_crop) != sound_label.get("output_indexes_sha256")
+        or not any(sound_crop)
+    ):
+        raise SystemExit("final ISO sound-select title rectangle drift")
+
+    sound_span = SoundTitleSpanLock.from_mapping(
+        library_scope["sound_select"]["decoded_compdata"]
+    )
+    source_compdata = decode(
+        (PROJECT_ROOT / "work/disc/DATA/COMPDATA.BN").read_bytes()
+    ).output
+    final_compdata = decode(members["DATA/COMPDATA.BN"]).output
+    sound_titles = verify_sound_title_source(
+        source_compdata,
+        load_text_table(TEXT_TABLE),
+        sound_span,
+    )
+    verify_sound_titles_preserved(
+        source_compdata,
+        final_compdata,
+        sound_span,
+    )
+    unlock_contract = library_scope["sound_select_default_unlock"]
+    _verified_slps, unlock_instruction_readback = (
+        apply_sound_select_default_unlock(
+            members["SLPS_258.87"],
+            unlock_contract,
+        )
+    )
+    unlock_metadata_readback = audit_sound_select_track_metadata(
+        final_compdata,
+        sound_titles,
+        unlock_contract,
+    )
+    full_unlock_component = component.get("sound_select_default_unlock")
+    library_unlock_component = library_component.get(
+        "sound_select_default_unlock"
+    )
+    if (
+        not isinstance(full_unlock_component, dict)
+        or not isinstance(library_unlock_component, dict)
+        or unlock_instruction_readback["output_instruction_hex"]
+        != full_unlock_component.get("output_instruction_hex")
+        or unlock_instruction_readback["replacement_instruction_hex"]
+        != library_unlock_component.get("replacement_instruction_hex")
+        or unlock_metadata_readback != full_unlock_component.get("metadata")
+        or unlock_metadata_readback != library_unlock_component.get("metadata")
+        or unlock_instruction_readback["instruction_replacement_exact"]
+        is not True
+    ):
+        raise SystemExit("final ISO sound-select default-unlock readback drift")
+    sound_select_unlock_readback = {
+        **unlock_instruction_readback,
+        "metadata": unlock_metadata_readback,
+        "component_receipts_exact": True,
+    }
+    sound_select_readback = {
+        "member": "DATA/NISVDATA.BIN",
+        "chunk_index": int(sound_target["chunk_index"]),
+        "record_index": sound_record_index,
+        "record_offset": sound_record.offset,
+        "record_size": sound_record.size,
+        "record_sha256": sound_select_component["output_record_sha256"],
+        "title": sound_label["translation"],
+        "title_output_indexes_sha256": sound_label[
+            "output_indexes_sha256"
+        ],
+        "track_title_count": len(sound_titles),
+        "track_title_span_sha256": sound_span.expected_span_sha256,
+        "track_titles_byte_exact": True,
+        "fixed_title_rectangle_reread_exact": True,
+        "default_unlock": sound_select_unlock_readback,
+    }
+
     slps = members["SLPS_258.87"]
     hb = members["HEDBDY/HB.BIN"]
     vt1 = members["DATA/VT1.BIN"]
@@ -3899,6 +4034,7 @@ def main() -> int:
             **library_translation,
             "component_acceptance": library_acceptance,
             "main_menu": library_menu_readback,
+            "sound_select": sound_select_readback,
             "iso_member_bytes_exact": True,
             "semantic_reread_transitive_through_exact_component_bytes": True,
         },
@@ -4010,6 +4146,21 @@ def main() -> int:
                 and library_translation.get("field_reference_count") == 4921
                 and library_menu_readback[
                     "fixed_index_rectangles_reread_exact"
+                ]
+                and sound_select_readback[
+                    "fixed_title_rectangle_reread_exact"
+                ]
+                and sound_select_readback["track_titles_byte_exact"]
+                and sound_select_readback["track_title_count"] == 101
+                and sound_select_readback["default_unlock"][
+                    "instruction_replacement_exact"
+                ]
+                and sound_select_readback["default_unlock"]["metadata"][
+                    "default_unlocked_track_count"
+                ]
+                == 101
+                and sound_select_readback["default_unlock"]["metadata"][
+                    "empty_sentinel_excluded"
                 ]
                 and all(library_acceptance.values())
             ),

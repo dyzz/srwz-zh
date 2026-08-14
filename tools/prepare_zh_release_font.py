@@ -34,6 +34,7 @@ from srwz.release_font import (
     ReleaseFontError,
     audit_legacy_formation_glyph_compatibility,
     audit_runtime_generated_glyph_compatibility,
+    audit_sound_select_title_glyph_compatibility,
     load_frozen_formation_compatibility,
     rendered_characters,
     selected_translation_tree_entries,
@@ -190,6 +191,13 @@ def main() -> int:
         )
         runtime_generated_compatibility = (
             audit_runtime_generated_glyph_compatibility(
+                snapshot,
+                load_text_table(table_path),
+                project_root=PROJECT_ROOT,
+            )
+        )
+        sound_select_title_compatibility = (
+            audit_sound_select_title_glyph_compatibility(
                 snapshot,
                 load_text_table(table_path),
                 project_root=PROJECT_ROOT,
@@ -418,6 +426,9 @@ def main() -> int:
         "legacy_formation_compatibility": legacy_formation_compatibility,
         "runtime_generated_glyph_compatibility": (
             runtime_generated_compatibility
+        ),
+        "sound_select_title_glyph_compatibility": (
+            sound_select_title_compatibility
         ),
         "formation_affected_character_freeze": (
             frozen_formation_assignments

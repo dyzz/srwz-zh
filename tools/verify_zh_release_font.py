@@ -23,6 +23,7 @@ from srwz.release_font import (
     audit_entry_font,
     audit_legacy_formation_glyph_compatibility,
     audit_runtime_generated_glyph_compatibility,
+    audit_sound_select_title_glyph_compatibility,
     baseline_with_original_ascii,
     load_frozen_formation_compatibility,
     rendered_characters,
@@ -196,6 +197,13 @@ def main() -> int:
         )
         runtime_generated_compatibility = (
             audit_runtime_generated_glyph_compatibility(
+                snapshot,
+                table,
+                project_root=PROJECT_ROOT,
+            )
+        )
+        sound_select_title_compatibility = (
+            audit_sound_select_title_glyph_compatibility(
                 snapshot,
                 table,
                 project_root=PROJECT_ROOT,
@@ -400,6 +408,11 @@ def main() -> int:
                 "all_runtime_generated_original_codes_preserved"
             ]
         ),
+        "sound_select_title_codes_preserved": (
+            sound_select_title_compatibility[
+                "all_sound_select_title_codes_resolve_original_characters"
+            ]
+        ),
         "formation_affected_character_assignments_frozen": (
             frozen_formation_assignments[
                 "all_affected_character_assignments_frozen"
@@ -517,6 +530,9 @@ def main() -> int:
         "legacy_formation_compatibility": legacy_formation_compatibility,
         "runtime_generated_glyph_compatibility": (
             runtime_generated_compatibility
+        ),
+        "sound_select_title_glyph_compatibility": (
+            sound_select_title_compatibility
         ),
         "formation_affected_character_freeze": (
             frozen_formation_assignments

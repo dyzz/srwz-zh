@@ -6,7 +6,10 @@ from pathlib import Path
 
 from tools.srwz.codec import decode_production
 from tools.srwz.library_menu import build_jtim_library_menu
-from tools.srwz.nisv_library_menu import build_nisv_library_menu
+from tools.srwz.nisv_library_menu import (
+    build_nisv_library_menu,
+    build_nisv_sound_select,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -246,6 +249,44 @@ class LibraryV02DetailSurfaceTests(unittest.TestCase):
         self.assertEqual(
             contract["writeback"]["render_snapshot"]["path"],
             "config/library/library-menu-runtime-render-snapshot.json",
+        )
+
+    def test_runtime_sound_select_title_builds_from_nisvdata_chunk_one(self):
+        contract = self.library_scope["sound_select_runtime_tim2"]
+        source = (PROJECT_ROOT / "work/disc/DATA/NISVDATA.BIN").read_bytes()
+        font_flavor = json.loads(
+            (
+                PROJECT_ROOT / contract["writeback"]["font_flavor"]
+            ).read_text(encoding="utf-8")
+        )
+        font_lock = json.loads(
+            (
+                PROJECT_ROOT / font_flavor["primary"]["font_lock"]
+            ).read_text(encoding="utf-8")
+        )
+        font_path = PROJECT_ROOT / font_lock["font"]["path"]
+        output, report = build_nisv_sound_select(
+            source,
+            contract,
+            font_path=font_path,
+            project_root=PROJECT_ROOT,
+        )
+        self.assertEqual(len(output), len(source))
+        self.assertNotEqual(output, source)
+        self.assertEqual(report["chunk_index"], 1)
+        self.assertEqual(report["record_offset"], 0x40)
+        self.assertEqual(len(report["labels"]), 1)
+        self.assertEqual(report["labels"][0]["translation"], "音乐选择")
+        self.assertTrue(report["sound_select_title_written"])
+        self.assertTrue(report["archive_size_preserved"])
+        self.assertTrue(report["archive_non_target_chunks_preserved"])
+        self.assertTrue(report["tim2_metadata_preserved"])
+        self.assertTrue(report["clut_and_non_image_bytes_preserved"])
+        self.assertTrue(report["codec_round_trip_exact"])
+        self.assertEqual(report["render_source"], "locked_snapshot")
+        self.assertEqual(
+            contract["writeback"]["render_snapshot"]["path"],
+            "config/library/sound-select-runtime-render-snapshot.json",
         )
 
     def test_production_component_restores_legacy_jtim_byte_exact(self):

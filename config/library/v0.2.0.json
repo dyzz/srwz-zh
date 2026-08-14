@@ -410,16 +410,108 @@
       "lazy_matching": false
     }
   },
+  "sound_select_runtime_tim2": {
+    "member": "DATA/NISVDATA.BIN",
+    "target": {
+      "chunk_index": 1,
+      "stored_start": 169504,
+      "stored_end": 361040,
+      "stored_size": 191536,
+      "stored_consumed": 191532,
+      "stored_sha256": "c825db5014071157b1d1dddd3cb48242911c386700071bc0be0af4e0d6207bd4",
+      "decoded_size": 650496,
+      "decoded_sha256": "1b4496d041aba457748f53be89fa4d5589ba8338ad9e12ebb02e0c5bae3480c3",
+      "record_index": 0,
+      "record_offset": 64,
+      "record_size": 132160,
+      "record_sha256": "abc23b8a97badcb83d1de7dc8b4691d48201be02c40227e5da3b8e3cd86b1fc0",
+      "logical_indexes_sha256": "392a2b74e6cdeff807d9f2e0ade554f0d04207f19a3a0f4801990b055f426df6",
+      "width": 512,
+      "height": 256,
+      "image_type": 5
+    },
+    "labels": {
+      "サウンドセレクト": "音乐选择"
+    },
+    "writeback": {
+      "font_flavor": "config/fonts/zh-localization-font.json",
+      "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+      "render_snapshot": {
+        "path": "config/library/sound-select-runtime-render-snapshot.json",
+        "size": 11216,
+        "sha256": "c8a5daebd0cde11ea614612767307731f98215bbf645273954284358aca10161"
+      },
+      "point_size": 26,
+      "supersample_factor": 4,
+      "stroke_gray": "#303030",
+      "stroke_width": 1.25,
+      "fill_stroke_width": 0,
+      "clear_index_start": 1,
+      "clear_index_stop": 255,
+      "palette_start": 14,
+      "palette_stop": 31,
+      "masks": [
+        {
+          "id": "sound-select-title",
+          "source_text": "サウンドセレクト",
+          "x": 14,
+          "y": 0,
+          "width": 180,
+          "height": 36,
+          "clear_x": 15,
+          "clear_y": 4,
+          "clear_width": 189,
+          "clear_height": 29,
+          "horizontal_offset": 0,
+          "source_indexes_sha256": "16794b3ad4af3f566153bcabdc60d2e846a92e99fb8c9305b0e99a15777ac946"
+        }
+      ]
+    },
+    "codec": {
+      "strategy": "rust-fit",
+      "min_match_length": 2,
+      "max_match_chain": 16384,
+      "lazy_matching": false
+    }
+  },
   "sound_select": {
     "ui_policy": "translate_zh_Hans",
     "track_title_policy": "preserve_original_japanese_byte_exact",
     "track_titles_in_translation_corpus": false,
     "decoded_compdata": {
-      "start": "0x6EDC0",
+      "start": "0x6EBF0",
       "end": "0x6F630",
       "alignment": 8,
-      "expected_title_count": 85,
-      "expected_span_sha256": "d4167f7ddcf53bcbc0c9f6bffd93f7c327134f273b118ea05d1033731fec222f"
+      "expected_title_count": 101,
+      "expected_span_sha256": "785b440ffbcfcc70d578822e06fc4473c75a9f92c9046a03192f4fa6544f51a6"
+    }
+  },
+  "sound_select_default_unlock": {
+    "member": "SLPS_258.87",
+    "policy": "include_all_nonempty_tracks_without_save_progress",
+    "elf_file_offset_base": "0x1A80",
+    "elf_virtual_address_base": "0x100000",
+    "virtual_address": "0x2D2520",
+    "file_offset": "0x1D3FA0",
+    "original_instruction_hex": "21006210",
+    "replacement_instruction_hex": "09000010",
+    "original_branch_target": "0x2D25A8",
+    "replacement_branch_target": "0x2D2548",
+    "metadata": {
+      "decoded_table_start": "0x5A180",
+      "record_size": 12,
+      "record_count": 102,
+      "title_record_count": 101,
+      "empty_sentinel_record_index": 101,
+      "availability_flag_offset": 8,
+      "availability_flag_mask": "0xF",
+      "decoded_runtime_base": "0x6D6800",
+      "expected_rule_counts": {
+        "0": 1,
+        "1": 95,
+        "3": 6
+      },
+      "expected_table_sha256": "77b9ea3791dce56bc1870b99a758a057e856148e0bcd0e25543741493b44c4d9"
     }
   },
   "translation_model_lock": {

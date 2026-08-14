@@ -659,6 +659,21 @@ def validate_library_scope_mapping(raw: Mapping[str, object]) -> None:
         raise LibraryScopeError("sound track titles must remain byte-exact")
     if sound.get("track_titles_in_translation_corpus") is not False:
         raise LibraryScopeError("sound track titles cannot enter translation corpus")
+    unlock = raw.get("sound_select_default_unlock")
+    if not isinstance(unlock, Mapping):
+        raise LibraryScopeError("sound-select default unlock config is missing")
+    if unlock.get("member") != "SLPS_258.87" or unlock.get("policy") != (
+        "include_all_nonempty_tracks_without_save_progress"
+    ):
+        raise LibraryScopeError("sound-select default unlock policy drift")
+    decoded_span = sound.get("decoded_compdata")
+    metadata = unlock.get("metadata")
+    if not isinstance(decoded_span, Mapping) or not isinstance(metadata, Mapping):
+        raise LibraryScopeError("sound-select title/unlock metadata is malformed")
+    if _number(metadata.get("title_record_count"), "sound title record count") != (
+        _number(decoded_span.get("expected_title_count"), "sound title count")
+    ):
+        raise LibraryScopeError("sound-select title and unlock counts disagree")
 
 
 @dataclass(frozen=True)
@@ -758,7 +773,7 @@ def verify_sound_title_source(
     table: TextTable,
     lock: SoundTitleSpanLock,
 ) -> tuple[SoundTrackTitle, ...]:
-    """Verify the stock decoded span hash and its 85 parseable titles."""
+    """Verify the stock decoded span hash and its 101 parseable titles."""
 
     source = bytes(decoded_compdata)
     if lock.end > len(source):
