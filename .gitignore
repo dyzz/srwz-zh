@@ -12,6 +12,12 @@ htmlcov/
 .env
 target/
 
+# Local browser QA artifacts.
+/.playwright-cli/
+/output/playwright/
+/playwright-report/
+/test-results/
+
 # Never commit original game data or reconstructed disc images.
 /rom/
 /work/
