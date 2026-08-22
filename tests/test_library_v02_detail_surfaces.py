@@ -347,7 +347,15 @@ class LibraryV02DetailSurfaceTests(unittest.TestCase):
         )
         restore = report["labels"][0]["background_restore"]
         self.assertEqual(restore["source_transparent_pixel_count"], 0)
-        self.assertEqual(restore["row_indexes"], [3] + [2] * 28)
+        self.assertEqual(restore["source_index_start"], 14)
+        self.assertEqual(restore["source_index_stop"], 31)
+        self.assertEqual(restore["source_dilation_radius"], 1)
+        self.assertEqual(restore["restored_pixel_count"], 4451)
+        self.assertEqual(restore["row_indexes"], [5, 3] + [2] * 28 + [3])
+        self.assertEqual(
+            (restore["x"], restore["y"], restore["width"], restore["height"]),
+            (14, 3, 193, 31),
+        )
 
         target = contract["target"]
         source_decoded = decode_production(

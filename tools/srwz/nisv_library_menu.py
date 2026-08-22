@@ -504,6 +504,14 @@ def _build_nisv_text_texture(
                 f"{mask_id} background restore width",
             )
             row_indexes = background_restore.get("row_indexes")
+            source_index_start = background_restore.get("source_index_start")
+            source_index_stop = background_restore.get("source_index_stop")
+            source_dilation_radius = background_restore.get(
+                "source_dilation_radius", 0
+            )
+            selective_restore = (
+                source_index_start is not None or source_index_stop is not None
+            )
             if (
                 not isinstance(row_indexes, list)
                 or not row_indexes
@@ -518,6 +526,19 @@ def _build_nisv_text_texture(
                 or restore_width <= 0
                 or restore_x + restore_width > picture.width
                 or restore_y + len(row_indexes) > picture.height
+                or (
+                    selective_restore
+                    and (
+                        not isinstance(source_index_start, int)
+                        or isinstance(source_index_start, bool)
+                        or not isinstance(source_index_stop, int)
+                        or isinstance(source_index_stop, bool)
+                        or not 0 <= source_index_start <= source_index_stop < 256
+                        or not isinstance(source_dilation_radius, int)
+                        or isinstance(source_dilation_radius, bool)
+                        or not 0 <= source_dilation_radius <= 8
+                    )
+                )
             ):
                 raise LibraryScopeError(
                     f"runtime LIBRARY menu background restore is invalid: {mask_id}"
@@ -534,11 +555,60 @@ def _build_nisv_text_texture(
                 raise LibraryScopeError(
                     f"runtime LIBRARY menu source-pixel drift: {mask_id}"
                 )
-            for row, background_index in enumerate(row_indexes):
-                start = (restore_y + row) * picture.width + restore_x
-                logical[start : start + restore_width] = bytes(
-                    [background_index]
-                ) * restore_width
+            if selective_restore:
+                restore_offsets = {
+                    row * picture.width + column
+                    for row in range(restore_y, restore_y + len(row_indexes))
+                    for column in range(restore_x, restore_x + restore_width)
+                    if source_index_start
+                    <= logical_source[row * picture.width + column]
+                    <= source_index_stop
+                }
+                if source_dilation_radius:
+                    restore_offsets = {
+                        target_row * picture.width + target_column
+                        for source_offset in restore_offsets
+                        for target_row in range(
+                            max(
+                                restore_y,
+                                source_offset // picture.width
+                                - source_dilation_radius,
+                            ),
+                            min(
+                                restore_y + len(row_indexes),
+                                source_offset // picture.width
+                                + source_dilation_radius
+                                + 1,
+                            ),
+                        )
+                        for target_column in range(
+                            max(
+                                restore_x,
+                                source_offset % picture.width
+                                - source_dilation_radius,
+                            ),
+                            min(
+                                restore_x + restore_width,
+                                source_offset % picture.width
+                                + source_dilation_radius
+                                + 1,
+                            ),
+                        )
+                    }
+                for offset in restore_offsets:
+                    row = offset // picture.width - restore_y
+                    logical[offset] = row_indexes[row]
+            else:
+                restore_offsets = {
+                    row * picture.width + column
+                    for row in range(restore_y, restore_y + len(row_indexes))
+                    for column in range(restore_x, restore_x + restore_width)
+                }
+                for row, background_index in enumerate(row_indexes):
+                    start = (restore_y + row) * picture.width + restore_x
+                    logical[start : start + restore_width] = bytes(
+                        [background_index]
+                    ) * restore_width
             restored_crop = _crop(
                 logical,
                 picture.width,
@@ -555,11 +625,20 @@ def _build_nisv_text_texture(
                 "row_indexes": list(row_indexes),
                 "source_indexes_sha256": _sha256(source_crop),
                 "restored_indexes_sha256": _sha256(restored_crop),
+                "restored_pixel_count": len(restore_offsets),
                 "source_transparent_pixel_count": sum(
                     _alpha_plane(source_crop, palette)[pixel] == 0
                     for pixel in range(len(source_crop))
                 ),
             }
+            if selective_restore:
+                background_restore_report.update(
+                    {
+                        "source_index_start": source_index_start,
+                        "source_index_stop": source_index_stop,
+                        "source_dilation_radius": source_dilation_radius,
+                    }
+                )
         else:
             raise LibraryScopeError(
                 f"runtime LIBRARY menu background restore is malformed: {mask_id}"

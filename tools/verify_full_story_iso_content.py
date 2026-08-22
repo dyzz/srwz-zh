@@ -4102,12 +4102,20 @@ def main() -> int:
     sound_restore_y = int(sound_restore.get("y", -1))
     sound_restore_width = int(sound_restore.get("width", -1))
     sound_restore_rows = sound_restore.get("row_indexes")
+    sound_source_index_start = sound_restore.get("source_index_start")
+    sound_source_index_stop = sound_restore.get("source_index_stop")
+    sound_source_dilation_radius = sound_restore.get(
+        "source_dilation_radius"
+    )
     if (
         not isinstance(sound_restore_rows, list)
         or not sound_restore_rows
-        or sound_restore_x < 0
-        or sound_restore_y < 0
-        or sound_restore_width <= 0
+        or (sound_restore_x, sound_restore_y, sound_restore_width)
+        != (14, 3, 193)
+        or sound_restore_rows != [5, 3] + [2] * 28 + [3]
+        or sound_source_index_start != 14
+        or sound_source_index_stop != 31
+        or sound_source_dilation_radius != 1
         or sound_restore_x + sound_restore_width > sound_picture.width
         or sound_restore_y + len(sound_restore_rows) > sound_picture.height
     ):
@@ -4151,6 +4159,70 @@ def main() -> int:
     ):
         raise SystemExit(
             "final ISO sound-select restore rectangle crosses transparency"
+        )
+    sound_source_title_offsets = {
+        row * sound_picture.width + column
+        for row in range(
+            sound_restore_y,
+            sound_restore_y + len(sound_restore_rows),
+        )
+        for column in range(
+            sound_restore_x,
+            sound_restore_x + sound_restore_width,
+        )
+        if sound_source_index_start
+        <= original_logical_sound[row * sound_picture.width + column]
+        <= sound_source_index_stop
+    }
+    sound_selective_restore_offsets = {
+        target_row * sound_picture.width + target_column
+        for source_offset in sound_source_title_offsets
+        for target_row in range(
+            max(
+                sound_restore_y,
+                source_offset // sound_picture.width
+                - sound_source_dilation_radius,
+            ),
+            min(
+                sound_restore_y + len(sound_restore_rows),
+                source_offset // sound_picture.width
+                + sound_source_dilation_radius
+                + 1,
+            ),
+        )
+        for target_column in range(
+            max(
+                sound_restore_x,
+                source_offset % sound_picture.width
+                - sound_source_dilation_radius,
+            ),
+            min(
+                sound_restore_x + sound_restore_width,
+                source_offset % sound_picture.width
+                + sound_source_dilation_radius
+                + 1,
+            ),
+        )
+    }
+    sound_source_title_bbox = (
+        min(offset % sound_picture.width for offset in sound_source_title_offsets),
+        min(offset // sound_picture.width for offset in sound_source_title_offsets),
+        max(offset % sound_picture.width for offset in sound_source_title_offsets),
+        max(offset // sound_picture.width for offset in sound_source_title_offsets),
+    )
+    sound_restore_report = sound_label.get("background_restore")
+    if (
+        len(sound_source_title_offsets) != 3690
+        or len(sound_selective_restore_offsets) != 4451
+        or sound_source_title_bbox != (15, 4, 205, 32)
+        or not isinstance(sound_restore_report, dict)
+        or sound_restore_report.get("source_index_start") != 14
+        or sound_restore_report.get("source_index_stop") != 31
+        or sound_restore_report.get("source_dilation_radius") != 1
+        or sound_restore_report.get("restored_pixel_count") != 4451
+    ):
+        raise SystemExit(
+            "final ISO sound-select source-glyph selective restore drift"
         )
     sound_label_x = int(sound_label.get("x", -1))
     sound_label_y = int(sound_label.get("y", -1))
@@ -4258,6 +4330,13 @@ def main() -> int:
         "transparent_pixel_count": final_sound_alpha.count(0),
         "alpha_mask_preserved": True,
         "background_restore_crosses_no_transparent_pixels": True,
+        "source_title_index_bbox": list(sound_source_title_bbox),
+        "source_title_index_pixel_count": len(sound_source_title_offsets),
+        "selective_background_pixel_count": len(
+            sound_selective_restore_offsets
+        ),
+        "source_title_right_edge_covered": sound_source_title_bbox[2] == 205,
+        "source_title_pixels_selectively_restored": True,
         "non_title_pixels_byte_exact": True,
         "clut_and_tim2_metadata_byte_exact": True,
         "title_output_indexes_sha256": sound_label[
@@ -4267,7 +4346,9 @@ def main() -> int:
         "track_title_span_sha256": sound_span.expected_span_sha256,
         "track_titles_byte_exact": True,
         "fixed_title_rectangle_reread_exact": True,
-        "policy": "restore_original_plate_interior_and_preserve_alpha_mask",
+        "policy": (
+            "restore_only_source_glyph_pixels_and_preserve_plate_and_alpha"
+        ),
         "default_unlock": sound_select_unlock_readback,
     }
 

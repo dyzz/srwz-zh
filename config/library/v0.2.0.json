@@ -449,8 +449,8 @@
       "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
       "render_snapshot": {
         "path": "config/library/sound-select-runtime-render-snapshot.json",
-        "size": 11464,
-        "sha256": "370ae9edceb3fdb0f2f2f93cdb43a684c1e6e4d0851d2aa4e035a0fc0fbe6d62"
+        "size": 11408,
+        "sha256": "519c61f6ee226a19c5e683e7519af1e54d1b2ea9a080c8cfde949d7254b7228e"
       },
       "point_size": 26,
       "supersample_factor": 4,
@@ -471,12 +471,16 @@
           "width": 180,
           "height": 36,
           "horizontal_offset": 0,
-          "source_indexes_sha256": "16794b3ad4af3f566153bcabdc60d2e846a92e99fb8c9305b0e99a15777ac946",
+          "source_indexes_sha256": "0c3c9f03977d3cf6ddace02cec64492ca7bec8c25b2422387a7b1f4edceef370",
           "background_restore": {
-            "x": 15,
-            "y": 4,
-            "width": 189,
+            "x": 14,
+            "y": 3,
+            "width": 193,
+            "source_index_start": 14,
+            "source_index_stop": 31,
+            "source_dilation_radius": 1,
             "row_indexes": [
+              5,
               3,
               2,
               2,
@@ -505,7 +509,8 @@
               2,
               2,
               2,
-              2
+              2,
+              3
             ]
           }
         }
