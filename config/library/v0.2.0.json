@@ -435,6 +435,8 @@
       "record_size": 132160,
       "record_sha256": "abc23b8a97badcb83d1de7dc8b4691d48201be02c40227e5da3b8e3cd86b1fc0",
       "logical_indexes_sha256": "392a2b74e6cdeff807d9f2e0ade554f0d04207f19a3a0f4801990b055f426df6",
+      "source_alpha_plane_sha256": "fbb05d72aaccc4e00e6ee2d128501b1d8a455c69f22ba6ab488ad11142227c67",
+      "storage_layout": "gs_psmt8",
       "width": 512,
       "height": 256,
       "image_type": 5
@@ -447,8 +449,8 @@
       "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
       "render_snapshot": {
         "path": "config/library/sound-select-runtime-render-snapshot.json",
-        "size": 11216,
-        "sha256": "c8a5daebd0cde11ea614612767307731f98215bbf645273954284358aca10161"
+        "size": 11464,
+        "sha256": "370ae9edceb3fdb0f2f2f93cdb43a684c1e6e4d0851d2aa4e035a0fc0fbe6d62"
       },
       "point_size": 26,
       "supersample_factor": 4,
@@ -459,6 +461,7 @@
       "clear_index_stop": 255,
       "palette_start": 14,
       "palette_stop": 31,
+      "require_alpha_mask_preserved": true,
       "masks": [
         {
           "id": "sound-select-title",
@@ -467,12 +470,44 @@
           "y": 0,
           "width": 180,
           "height": 36,
-          "clear_x": 15,
-          "clear_y": 4,
-          "clear_width": 189,
-          "clear_height": 29,
           "horizontal_offset": 0,
-          "source_indexes_sha256": "16794b3ad4af3f566153bcabdc60d2e846a92e99fb8c9305b0e99a15777ac946"
+          "source_indexes_sha256": "16794b3ad4af3f566153bcabdc60d2e846a92e99fb8c9305b0e99a15777ac946",
+          "background_restore": {
+            "x": 15,
+            "y": 4,
+            "width": 189,
+            "row_indexes": [
+              3,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          }
         }
       ]
     },

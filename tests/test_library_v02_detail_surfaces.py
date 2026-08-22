@@ -23,6 +23,7 @@ from tools.srwz.nisv_library_menu import (
     build_nisv_sound_select,
 )
 from tools.srwz.tim2 import scan_tim2
+from tools.srwz.tim2_writeback import unswizzle_psmt8
 
 
 class LibraryV02DetailSurfaceTests(unittest.TestCase):
@@ -331,6 +332,70 @@ class LibraryV02DetailSurfaceTests(unittest.TestCase):
         self.assertEqual(len(report["labels"]), 1)
         self.assertEqual(report["labels"][0]["translation"], "音乐选择")
         self.assertTrue(report["sound_select_title_written"])
+        self.assertTrue(report["alpha_mask_preserved"])
+        self.assertEqual(
+            report["source_alpha_plane_sha256"],
+            contract["target"]["source_alpha_plane_sha256"],
+        )
+        self.assertEqual(
+            report["source_alpha_plane_sha256"],
+            report["output_alpha_plane_sha256"],
+        )
+        self.assertEqual(
+            report["source_transparent_pixel_count"],
+            report["output_transparent_pixel_count"],
+        )
+        restore = report["labels"][0]["background_restore"]
+        self.assertEqual(restore["source_transparent_pixel_count"], 0)
+        self.assertEqual(restore["row_indexes"], [3] + [2] * 28)
+
+        target = contract["target"]
+        source_decoded = decode_production(
+            source[target["stored_start"] : target["stored_end"]]
+        ).output
+        output_decoded = decode_production(
+            output[target["stored_start"] : target["stored_end"]]
+        ).output
+        source_record = scan_tim2(source_decoded)[target["record_index"]]
+        output_record = scan_tim2(output_decoded)[target["record_index"]]
+        picture = source_record.pictures[0]
+        image_start = picture.offset + picture.header_size
+        image_end = image_start + picture.image_size
+        source_indexes = unswizzle_psmt8(
+            source_decoded[image_start:image_end],
+            picture.width,
+            picture.height,
+        )
+        output_indexes = unswizzle_psmt8(
+            output_decoded[image_start:image_end],
+            picture.width,
+            picture.height,
+        )
+        self.assertEqual(
+            hashlib.sha256(output_indexes).hexdigest(),
+            report["output_logical_indexes_sha256"],
+        )
+        restore_offsets = {
+            row * picture.width + column
+            for row in range(restore["y"], restore["y"] + restore["height"])
+            for column in range(
+                restore["x"], restore["x"] + restore["width"]
+            )
+        }
+        self.assertTrue(
+            all(
+                source_index == output_index
+                for offset, (source_index, output_index) in enumerate(
+                    zip(source_indexes, output_indexes)
+                )
+                if offset not in restore_offsets
+            )
+        )
+        self.assertEqual(source_record.pictures, output_record.pictures)
+        self.assertEqual(
+            source_decoded[:image_start] + source_decoded[image_end:],
+            output_decoded[:image_start] + output_decoded[image_end:],
+        )
         self.assertTrue(report["archive_size_preserved"])
         self.assertTrue(report["archive_non_target_chunks_preserved"])
         self.assertTrue(report["tim2_metadata_preserved"])

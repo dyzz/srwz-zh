@@ -3947,56 +3947,242 @@ def main() -> int:
     sound_select_component = library_menu.get("sound_select")
     sound_contract = library_scope["sound_select_runtime_tim2"]
     sound_target = sound_contract["target"]
+    sound_writeback = sound_contract.get("writeback")
+    sound_source_lock = library_scope.get("source_member_locks", {}).get(
+        "DATA/NISVDATA.BIN"
+    )
     if (
         not isinstance(sound_select_component, dict)
         or sound_select_component.get("sound_select_title_written") is not True
+        or sound_select_component.get("alpha_mask_preserved") is not True
+        or not isinstance(sound_writeback, dict)
+        or not isinstance(sound_source_lock, dict)
     ):
         raise SystemExit("final ISO sound-select component proof is incomplete")
-    sound_stored = nisvdata[
-        int(sound_target["stored_start"]):int(sound_target["stored_end"])
+    source_nisvdata_path = project_path(Path(sound_source_lock.get("path", "")))
+    source_nisvdata = source_nisvdata_path.read_bytes()
+    if (
+        len(source_nisvdata) != sound_source_lock.get("size")
+        or sha256_bytes(source_nisvdata) != sound_source_lock.get("sha256")
+    ):
+        raise SystemExit("source sound-select NISVDATA member drift")
+    sound_stored_start = int(sound_target["stored_start"])
+    sound_stored_end = int(sound_target["stored_end"])
+    original_sound_stored = source_nisvdata[
+        sound_stored_start:sound_stored_end
     ]
-    decoded_sound = decode(sound_stored)
-    if any(sound_stored[decoded_sound.consumed:]):
-        raise SystemExit("final ISO sound-select padding is nonzero")
-    sound_records = scan_tim2(decoded_sound.output)
+    final_sound_stored = nisvdata[sound_stored_start:sound_stored_end]
+    if (
+        len(original_sound_stored) != sound_target.get("stored_size")
+        or sha256_bytes(original_sound_stored)
+        != sound_target.get("stored_sha256")
+    ):
+        raise SystemExit("final ISO sound-select source contract drift")
+    original_sound_decoded = decode(original_sound_stored)
+    final_sound_decoded = decode(final_sound_stored)
+    if (
+        original_sound_decoded.consumed
+        != sound_target.get("stored_consumed")
+        or len(original_sound_decoded.output) != sound_target.get("decoded_size")
+        or sha256_bytes(original_sound_decoded.output)
+        != sound_target.get("decoded_sha256")
+        or any(original_sound_stored[original_sound_decoded.consumed:])
+        or any(final_sound_stored[final_sound_decoded.consumed:])
+        or final_sound_decoded.consumed
+        != sound_select_component.get("output_encoded_size")
+    ):
+        raise SystemExit("final ISO sound-select chunk decode drift")
+    original_sound_records = scan_tim2(original_sound_decoded.output)
+    final_sound_records = scan_tim2(final_sound_decoded.output)
     sound_record_index = int(sound_target["record_index"])
-    if not 0 <= sound_record_index < len(sound_records):
+    if (
+        not 0 <= sound_record_index < len(original_sound_records)
+        or len(original_sound_records) != len(final_sound_records)
+    ):
         raise SystemExit("final ISO sound-select TIM2 record is missing")
-    sound_record = sound_records[sound_record_index]
-    sound_picture = sound_record.pictures[0]
+    original_sound_record = original_sound_records[sound_record_index]
+    sound_record = final_sound_records[sound_record_index]
+    if (
+        original_sound_record.offset != sound_target.get("record_offset")
+        or original_sound_record.size != sound_target.get("record_size")
+        or original_sound_record != sound_record
+        or sha256_bytes(
+            original_sound_decoded.output[
+                original_sound_record.offset:original_sound_record.end
+            ]
+        )
+        != sound_target.get("record_sha256")
+        or len(original_sound_record.pictures) != 1
+    ):
+        raise SystemExit("final ISO sound-select TIM2 metadata drift")
+    sound_picture = original_sound_record.pictures[0]
     sound_image_start = sound_picture.offset + sound_picture.header_size
     sound_image_end = sound_image_start + sound_picture.image_size
-    logical_sound = unswizzle_psmt8(
-        decoded_sound.output[sound_image_start:sound_image_end],
+    sound_palette_end = sound_image_end + sound_picture.clut_size
+    original_logical_sound = unswizzle_psmt8(
+        original_sound_decoded.output[sound_image_start:sound_image_end],
         sound_picture.width,
         sound_picture.height,
     )
+    logical_sound = unswizzle_psmt8(
+        final_sound_decoded.output[sound_image_start:sound_image_end],
+        sound_picture.width,
+        sound_picture.height,
+    )
+    original_sound_palette = original_sound_decoded.output[
+        sound_image_end:sound_palette_end
+    ]
+    final_sound_palette = final_sound_decoded.output[
+        sound_image_end:sound_palette_end
+    ]
     sound_labels = sound_select_component.get("labels")
     if (
-        sound_record.offset != sound_select_component.get("record_offset")
+        sound_target.get("storage_layout") != "gs_psmt8"
+        or sound_picture.width != sound_target.get("width")
+        or sound_picture.height != sound_target.get("height")
+        or sound_picture.image_type != sound_target.get("image_type")
+        or sound_picture.image_size
+        != sound_picture.width * sound_picture.height
+        or sound_picture.clut_size != 256 * 4
+        or sha256_bytes(original_logical_sound)
+        != sound_target.get("logical_indexes_sha256")
+        or sound_record.offset != sound_select_component.get("record_offset")
         or sha256_bytes(
-            decoded_sound.output[sound_record.offset:sound_record.end]
+            final_sound_decoded.output[sound_record.offset:sound_record.end]
         )
         != sound_select_component.get("output_record_sha256")
         or sha256_bytes(logical_sound)
         != sound_select_component.get("output_logical_indexes_sha256")
+        or original_sound_palette != final_sound_palette
+        or (
+            original_sound_decoded.output[:sound_image_start]
+            + original_sound_decoded.output[sound_image_end:]
+        )
+        != (
+            final_sound_decoded.output[:sound_image_start]
+            + final_sound_decoded.output[sound_image_end:]
+        )
         or not isinstance(sound_labels, list)
         or len(sound_labels) != 1
     ):
         raise SystemExit("final ISO sound-select texture readback drift")
-    sound_label = sound_labels[0]
-    sound_crop = b"".join(
-        logical_sound[
-            (int(sound_label["y"]) + row) * sound_picture.width
-            + int(sound_label["x"]):
-            (int(sound_label["y"]) + row) * sound_picture.width
-            + int(sound_label["x"])
-            + int(sound_label["width"])
-        ]
-        for row in range(int(sound_label["height"]))
+
+    original_sound_alpha = indexed_alpha_plane(
+        original_logical_sound,
+        original_sound_palette,
+    )
+    final_sound_alpha = indexed_alpha_plane(
+        logical_sound,
+        final_sound_palette,
     )
     if (
-        sha256_bytes(sound_crop) != sound_label.get("output_indexes_sha256")
+        sha256_bytes(original_sound_alpha)
+        != sound_target.get("source_alpha_plane_sha256")
+        or original_sound_alpha != final_sound_alpha
+        or sha256_bytes(original_sound_alpha)
+        != sound_select_component.get("source_alpha_plane_sha256")
+        or sha256_bytes(final_sound_alpha)
+        != sound_select_component.get("output_alpha_plane_sha256")
+        or original_sound_alpha.count(0)
+        != sound_select_component.get("source_transparent_pixel_count")
+        or final_sound_alpha.count(0)
+        != sound_select_component.get("output_transparent_pixel_count")
+    ):
+        raise SystemExit("final ISO sound-select alpha mask drift")
+
+    sound_masks = sound_writeback.get("masks")
+    if not isinstance(sound_masks, list) or len(sound_masks) != 1:
+        raise SystemExit("final ISO sound-select title selection drift")
+    sound_mask = sound_masks[0]
+    sound_label = sound_labels[0]
+    sound_restore = sound_mask.get("background_restore")
+    if not isinstance(sound_restore, dict):
+        raise SystemExit("final ISO sound-select background restore is missing")
+    sound_restore_x = int(sound_restore.get("x", -1))
+    sound_restore_y = int(sound_restore.get("y", -1))
+    sound_restore_width = int(sound_restore.get("width", -1))
+    sound_restore_rows = sound_restore.get("row_indexes")
+    if (
+        not isinstance(sound_restore_rows, list)
+        or not sound_restore_rows
+        or sound_restore_x < 0
+        or sound_restore_y < 0
+        or sound_restore_width <= 0
+        or sound_restore_x + sound_restore_width > sound_picture.width
+        or sound_restore_y + len(sound_restore_rows) > sound_picture.height
+    ):
+        raise SystemExit("final ISO sound-select background geometry drift")
+    sound_restore_offsets = {
+        row * sound_picture.width + column
+        for row in range(
+            sound_restore_y,
+            sound_restore_y + len(sound_restore_rows),
+        )
+        for column in range(
+            sound_restore_x,
+            sound_restore_x + sound_restore_width,
+        )
+    }
+    if any(
+        source_index != final_index
+        for offset, (source_index, final_index) in enumerate(
+            zip(original_logical_sound, logical_sound)
+        )
+        if offset not in sound_restore_offsets
+    ):
+        raise SystemExit("final ISO sound-select changed outside title interior")
+    source_sound_restore_crop = b"".join(
+        original_logical_sound[
+            (sound_restore_y + row) * sound_picture.width + sound_restore_x:
+            (sound_restore_y + row) * sound_picture.width
+            + sound_restore_x
+            + sound_restore_width
+        ]
+        for row in range(len(sound_restore_rows))
+    )
+    if (
+        sha256_bytes(source_sound_restore_crop)
+        != sound_mask.get("source_indexes_sha256")
+        or indexed_alpha_plane(
+            source_sound_restore_crop,
+            original_sound_palette,
+        ).count(0)
+        != 0
+    ):
+        raise SystemExit(
+            "final ISO sound-select restore rectangle crosses transparency"
+        )
+    sound_label_x = int(sound_label.get("x", -1))
+    sound_label_y = int(sound_label.get("y", -1))
+    sound_label_width = int(sound_label.get("width", -1))
+    sound_label_height = int(sound_label.get("height", -1))
+    if (
+        sound_label.get("id") != sound_mask.get("id")
+        or sound_label_x != int(sound_mask.get("x", -1))
+        or sound_label_y != int(sound_mask.get("y", -1))
+        or sound_label_width != int(sound_mask.get("width", -1))
+        or sound_label_height != int(sound_mask.get("height", -1))
+        or sound_label_x < 0
+        or sound_label_y < 0
+        or sound_label_width <= 0
+        or sound_label_height <= 0
+        or sound_label_x + sound_label_width > sound_picture.width
+        or sound_label_y + sound_label_height > sound_picture.height
+    ):
+        raise SystemExit("final ISO sound-select label geometry drift")
+    sound_crop = b"".join(
+        logical_sound[
+            (sound_label_y + row) * sound_picture.width + sound_label_x:
+            (sound_label_y + row) * sound_picture.width
+            + sound_label_x
+            + sound_label_width
+        ]
+        for row in range(sound_label_height)
+    )
+    if (
+        sound_label.get("id") != "sound-select-title"
+        or sound_label.get("translation") != "音乐选择"
+        or sha256_bytes(sound_crop) != sound_label.get("output_indexes_sha256")
         or not any(sound_crop)
     ):
         raise SystemExit("final ISO sound-select title rectangle drift")
@@ -4055,11 +4241,25 @@ def main() -> int:
     sound_select_readback = {
         "member": "DATA/NISVDATA.BIN",
         "chunk_index": int(sound_target["chunk_index"]),
+        "stored_start": sound_stored_start,
+        "stored_end": sound_stored_end,
+        "stored_size": len(final_sound_stored),
+        "stored_sha256": sha256_bytes(final_sound_stored),
+        "encoded_size": final_sound_decoded.consumed,
         "record_index": sound_record_index,
         "record_offset": sound_record.offset,
         "record_size": sound_record.size,
         "record_sha256": sound_select_component["output_record_sha256"],
         "title": sound_label["translation"],
+        "storage_layout": "gs_psmt8",
+        "output_logical_indexes_sha256": sha256_bytes(logical_sound),
+        "source_alpha_plane_sha256": sha256_bytes(original_sound_alpha),
+        "output_alpha_plane_sha256": sha256_bytes(final_sound_alpha),
+        "transparent_pixel_count": final_sound_alpha.count(0),
+        "alpha_mask_preserved": True,
+        "background_restore_crosses_no_transparent_pixels": True,
+        "non_title_pixels_byte_exact": True,
+        "clut_and_tim2_metadata_byte_exact": True,
         "title_output_indexes_sha256": sound_label[
             "output_indexes_sha256"
         ],
@@ -4067,6 +4267,7 @@ def main() -> int:
         "track_title_span_sha256": sound_span.expected_span_sha256,
         "track_titles_byte_exact": True,
         "fixed_title_rectangle_reread_exact": True,
+        "policy": "restore_original_plate_interior_and_preserve_alpha_mask",
         "default_unlock": sound_select_unlock_readback,
     }
 
@@ -5893,6 +6094,14 @@ def main() -> int:
                 and sound_select_readback[
                     "fixed_title_rectangle_reread_exact"
                 ]
+                and sound_select_readback["alpha_mask_preserved"]
+                and sound_select_readback[
+                    "background_restore_crosses_no_transparent_pixels"
+                ]
+                and sound_select_readback["non_title_pixels_byte_exact"]
+                and sound_select_readback[
+                    "clut_and_tim2_metadata_byte_exact"
+                ]
                 and scenario_chart_title_readback[
                     "alpha_mask_preserved"
                 ]
@@ -6231,6 +6440,19 @@ def main() -> int:
                 ]
                 and scenario_chart_title_readback[
                     "translated_title_reread_exact"
+                ]
+            ),
+            "sound_select_title_alpha_preserving_writeback_exact": (
+                sound_select_readback["alpha_mask_preserved"]
+                and sound_select_readback[
+                    "background_restore_crosses_no_transparent_pixels"
+                ]
+                and sound_select_readback["non_title_pixels_byte_exact"]
+                and sound_select_readback[
+                    "clut_and_tim2_metadata_byte_exact"
+                ]
+                and sound_select_readback[
+                    "fixed_title_rectangle_reread_exact"
                 ]
             ),
         },
