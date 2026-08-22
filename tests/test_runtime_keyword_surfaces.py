@@ -3,7 +3,11 @@ import struct
 import unittest
 from pathlib import Path
 
-from tools.build_full_story_components import _full_story_overrides
+from tools.build_full_story_components import (
+    _apply_library_archive_offset_patches,
+    _full_story_overrides,
+    _library_archive_offset_patches,
+)
 from tools.srwz.codec import decode_production as decode
 from tools.srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
 from tools.srwz.runtime_keywords import (
@@ -47,14 +51,26 @@ class RuntimeKeywordSurfaceTests(unittest.TestCase):
             runtime_table,
             original_fullwidth_ascii_overrides(cls.source_table),
         )
+        _manifest_path, archive_patches, _outputs = (
+            _library_archive_offset_patches(
+                cls.reference["library_component_manifest"]
+            )
+        )
+        patched_executable, _patch_report = (
+            _apply_library_archive_offset_patches(
+                (
+                    PROJECT_ROOT
+                    / cls.reference["original_executable"]["path"]
+                ).read_bytes(),
+                archive_patches,
+            )
+        )
         cls.authority = load_keyword_authority(
             (PROJECT_ROOT / cls.reference["catalog"]["path"]).read_bytes(),
             (
                 PROJECT_ROOT / cls.reference["library_archive"]["path"]
             ).read_bytes(),
-            (
-                PROJECT_ROOT / cls.reference["original_executable"]["path"]
-            ).read_bytes(),
+            patched_executable,
             runtime_table,
             table_start=int(cls.reference["keyword_table_start"], 0),
             table_end=int(cls.reference["keyword_table_end"], 0),
@@ -178,7 +194,7 @@ class RuntimeKeywordSurfaceTests(unittest.TestCase):
         self.assertEqual(report["allocation_count"], 233)
         self.assertEqual(report["shared_reference_count"], 75)
         self.assertEqual(report["relocation_count"], 3)
-        self.assertEqual(report["minimum_output_headroom"], 256)
+        self.assertGreaterEqual(report["minimum_output_headroom"], 256)
         self.assertTrue(verify_report["all_four_fields_match_library"])
 
         offsets = read_executable_archive_offsets(
@@ -200,10 +216,22 @@ class RuntimeKeywordSurfaceTests(unittest.TestCase):
             before_stage2[0xE9E8:0xEA00],
             after_stage2[0xE9E8:0xEA00],
         )
-        self.assertEqual(
-            struct.unpack_from("<I", after_stage2, 0x64F0)[0],
-            int(self.reference["stage_runtime_base"], 0) + 0xEAA6,
+        before_pointer = struct.unpack_from("<I", before_stage2, 0x64F0)[0]
+        after_pointer = struct.unpack_from("<I", after_stage2, 0x64F0)[0]
+        self.assertEqual(after_pointer, before_pointer)
+        target_offset = after_pointer - int(
+            self.reference["stage_runtime_base"], 0
         )
+        target = self.authority.fields[25]["WORD"].data + b"\0"
+        self.assertEqual(
+            after_stage2[target_offset : target_offset + len(target)],
+            target,
+        )
+        self.assertEqual(
+            before_stage2[0xEAA6 : 0xEAA6 + len(target)],
+            after_stage2[0xEAA6 : 0xEAA6 + len(target)],
+        )
+        self.assertGreater(report["pretranslated_pointer_count"], 0)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "batch_id": "v1-stage-z-reports",
+  "language": "zh-Hans",
+  "scope": "All structurally matching non-dialogue Z Report PP reward strings in every original-disc STAGE chunk.",
+  "inventory": {
+    "selection_authority": "full_structural_stage_scan",
+    "source_pattern": "<team>チームはＰＰ＋<fullwidth-digits>",
+    "slot_ownership": "nul_terminated_source_span_only"
+  },
+  "entries": [
+    {
+      "id": "z-report/stage-036/sara-team-pp50",
+      "source_text": "サラチームはＰＰ＋５０",
+      "source_text_sha256": "a9dfe7b60e29f6ce1b6547ce89f116b677381ef1e744113340b6516cf9837d96",
+      "translation": "莎拉队获得PP+50",
+      "glossary_refs": [
+        "people/sara",
+        "ui/pilot-points"
+      ],
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "z-report/stage-036/adette-team-pp50",
+      "source_text": "アデットチームはＰＰ＋５０",
+      "source_text_sha256": "9e65e96b48a517fb0d0cbf35a0c52dabe595b5004ae8ef45804fea3c7cb1664e",
+      "translation": "亚蒂特队获得PP+50",
+      "glossary_refs": [
+        "people/adette",
+        "ui/pilot-points"
+      ],
+      "editorial_status": "reviewed"
+    }
+  ]
+}

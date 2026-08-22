@@ -21,9 +21,15 @@
         "デュークフリード"
       ],
       "translation": "杜克·弗里德",
+      "deprecated_translations": [
+        "杜克弗里德"
+      ],
       "category": "people",
       "status": "researched",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
@@ -35,9 +41,20 @@
         "グレンダイザー"
       ],
       "translation": "古连泰沙",
+      "deprecated_translations": [
+        "古兰戴萨",
+        "古兰泰沙",
+        "克连大沙",
+        "克连泰沙",
+        "克雷达萨",
+        "克雷泰扎"
+      ],
       "category": "unit",
       "status": "researched",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
@@ -52,6 +69,9 @@
       "category": "place",
       "status": "researched",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
@@ -66,6 +86,8 @@
       "category": "place",
       "status": "researched",
       "domains": [
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
@@ -80,6 +102,8 @@
       "category": "organization",
       "status": "researched",
       "domains": [
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
@@ -94,6 +118,9 @@
       "category": "unit",
       "status": "proposed",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
@@ -105,9 +132,15 @@
         "レディガンダル"
       ],
       "translation": "蕾蒂·卡达尔",
+      "deprecated_translations": [
+        "蕾蒂·甘达尔",
+        "甘达尔夫人"
+      ],
       "category": "people",
       "status": "researched",
       "domains": [
+        "battle",
+        "library",
         "story"
       ],
       "enforce": true,
@@ -122,6 +155,9 @@
       "category": "unit",
       "status": "researched",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
@@ -136,10 +172,54 @@
       "category": "unit",
       "status": "researched",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
       "notes": "东映官方第 52 话明确说明ベガ獣是战斗能力超过円盤獣的新兵器；中文规范为“维加兽”，与既有“维加星联合军”统一用字。"
+    },
+    {
+      "id": "unit/saucer-beast-gorgor",
+      "source_terms": [
+        "円盤獣ゴルゴル"
+      ],
+      "translation": "圆盘兽戈尔戈尔",
+      "deprecated_translations": [
+        "飞碟兽格鲁格鲁",
+        "圆盘兽格鲁格鲁"
+      ],
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "东映原文确认分类为円盤獣；ゴルゴル按原音规范为“戈尔戈尔”，修复旧稿将ゴル误读成グル而产生的“格鲁格鲁”。尚无直接官方简中全名。"
+    },
+    {
+      "id": "unit/vega-beast-guragura",
+      "source_terms": [
+        "ベガ獣グラグラ"
+      ],
+      "translation": "维加兽格拉格拉",
+      "deprecated_translations": [
+        "贝加兽古拉古拉"
+      ],
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "与已统一的“维加兽”一致；グラグラ按原音写作“格拉格拉”，并与现有战斗台词保持一致。尚无直接官方简中全名。"
     },
     {
       "id": "technology/other-world",

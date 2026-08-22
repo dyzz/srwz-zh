@@ -31,6 +31,7 @@ from srwz.font import (
     sha256_bytes,
     standard_glyph_index,
 )
+from srwz.release_font_policy import DEFAULT_WIDTH_CLASS, allocation_width_class
 from srwz.iso9660 import SECTOR_SIZE, member_map, scan_iso9660
 from srwz.iso_layout import (
     CORE_ARCHIVE_SPECS,
@@ -49,6 +50,14 @@ from srwz.library import (
     verify_sound_titles_preserved,
 )
 from srwz.menu import parse_menu_file
+from srwz.nisv_strategy_qa import (
+    QA_METADATA_STRING_COUNT,
+    QA_PAGE_COUNT,
+    QA_TEXT_RECORD_COUNT,
+    layout_nisv_strategy_qa_page,
+    parse_nisv_strategy_qa,
+)
+from srwz.nisv_tutorial import parse_nisv_tutorial_pages
 from srwz.psmt4 import unswizzle_psmt4
 from srwz.runtime_keywords import (
     RuntimeKeywordError,
@@ -77,6 +86,7 @@ from srwz.stage_formations import (
 from srwz.summary import parse_summary
 from srwz.tim2 import scan_tim2
 from srwz.tim2_writeback import unswizzle_psmt8
+from srwz.veff_tutorial_titles import audit_tutorial_effect_binding
 from srwz.text import (
     ORIGINAL_FULLWIDTH_ASCII,
     RUNTIME_SUBSTITUTION_TOKEN,
@@ -86,6 +96,7 @@ from srwz.text import (
     encode_text,
     load_text_table,
     normalize_original_fullwidth_ascii,
+    normalize_two_byte_visible_spaces,
     original_fullwidth_ascii_overrides,
     project_runtime_text_table,
 )
@@ -192,10 +203,17 @@ def load_overrides(
         for assignment in proposal["assignments"]
         if 0x8140 <= int(assignment["code"], 16) < 0x889F
     }
+    special_characters = {
+        assignment["character"]
+        for assignment in proposal["assignments"]
+        if allocation_width_class(int(assignment["code"], 16))
+        != DEFAULT_WIDTH_CLASS
+    }
     alias_report = proposal.get("surface_safe_aliases", {})
     unaliased_characters = conditional_characters - set(aliases)
+    unaliased_special_characters = special_characters - set(aliases)
     if (
-        not set(aliases) <= conditional_characters
+        not set(aliases) <= special_characters
         or alias_report.get("assignment_count") != len(aliases)
         or alias_report.get("conditional_primary_assignment_count")
         != len(conditional_characters)
@@ -203,7 +221,14 @@ def load_overrides(
         != len(unaliased_characters)
         or alias_report.get("all_selected_assignments")
         is not (not unaliased_characters)
-        or any(0x8140 <= code < 0x889F for code in aliases.values())
+        or alias_report.get("special_primary_assignment_count")
+        != len(special_characters)
+        or alias_report.get("unaliased_special_assignment_count")
+        != len(unaliased_special_characters)
+        or any(
+            allocation_width_class(code) != DEFAULT_WIDTH_CLASS
+            for code in aliases.values()
+        )
     ):
         raise SystemExit("global safe-alias proposal contract failed")
     return overrides, aliases, proposal
@@ -623,13 +648,13 @@ def verify_targeted_ui_glyphs(
         "male_default_name": "兰德·特拉维斯",
         "female_default_name": "节子·小原",
         "male_profile": (
-            "与搭档在荒野经营修理店的男人"
-            "自称烈焰豪爽而热血但有时会热情过头"
+            "与同伴在荒野当修理店老板的男人"
+            "自称烈焰豪爽而有血性但有时会冲得太猛"
         ),
         "male_default_unit_name": "钢狮子",
         "female_default_unit_name": "巴尔戈拉",
         "formation_action_labels": "攻击反击参与攻击",
-        "formation_names": "三角中央广域",
+        "formation_names": "TRI中央广域",
         "spirit_acronyms": "热魂闪不铁集必加迅觉手狙直幸努乱分",
         "reported_land_dialogue": "哦把自己机器弄坏的那家伙罚你帮忙修理",
         "reported_kejinan_retreat": "今今天只是身体不舒服你们给我记住",
@@ -1114,6 +1139,363 @@ def verify_nisv_effect_names(
         "raw_space_target_count": 0,
         "runtime_control_tokens_excluded": True,
         "translated_reread_exact": True,
+    }
+
+
+def verify_nisv_strategy_qa(
+    slps: bytes,
+    archive: bytes,
+    output_table: TextTable,
+    component_manifest: dict | None,
+) -> dict:
+    """Independently reread the complete translated Strategy Q&A surface."""
+
+    config = json.loads(FULL_COMPONENT_CONFIG.read_text(encoding="utf-8"))
+    reference = config.get("nisv_strategy_qa")
+    if not isinstance(reference, dict):
+        raise SystemExit("NisVData Strategy Q&A config is missing")
+    corpus_reference = reference.get("corpus")
+    source_reference = reference.get("original_archive")
+    if not isinstance(corpus_reference, dict) or not isinstance(
+        source_reference, dict
+    ):
+        raise SystemExit("NisVData Strategy Q&A input locks are missing")
+    corpus_path = project_path(Path(corpus_reference["path"]))
+    corpus_data = corpus_path.read_bytes()
+    if (
+        len(corpus_data) != corpus_reference.get("size")
+        or sha256_bytes(corpus_data) != corpus_reference.get("sha256")
+    ):
+        raise SystemExit("NisVData Strategy Q&A corpus lock drift")
+    corpus = json.loads(corpus_data.decode("utf-8"))
+    if (
+        corpus.get("expected_metadata_string_count")
+        != QA_METADATA_STRING_COUNT
+        or corpus.get("expected_page_count") != QA_PAGE_COUNT
+        or corpus.get("expected_text_record_count") != QA_TEXT_RECORD_COUNT
+    ):
+        raise SystemExit("NisVData Strategy Q&A corpus identity drift")
+
+    source_path = project_path(Path(source_reference["path"]))
+    source_archive = source_path.read_bytes()
+    if (
+        len(source_archive) != source_reference.get("size")
+        or sha256_bytes(source_archive) != source_reference.get("sha256")
+    ):
+        raise SystemExit("NisVData Strategy Q&A source archive lock drift")
+    archive_spec = reference["archive"]
+    target = reference["target"]
+    spec = ExecutableOffsetSpec(
+        name=archive_spec["name"],
+        member=archive_spec["member"],
+        table_start=int(archive_spec["table_start"], 0),
+        table_end=int(archive_spec["table_end"], 0),
+    )
+    final_offsets = read_executable_archive_offsets(slps, spec, len(archive))
+    source_offsets = read_executable_archive_offsets(
+        slps, spec, len(source_archive)
+    )
+    chunk_index = target["chunk_index"]
+    if (
+        final_offsets != source_offsets
+        or final_offsets[chunk_index] != target["stored_start"]
+        or final_offsets[chunk_index + 1] != target["stored_end"]
+    ):
+        raise SystemExit("final ISO Strategy Q&A archive layout drift")
+    final_stored = archive[
+        final_offsets[chunk_index] : final_offsets[chunk_index + 1]
+    ]
+    source_stored = source_archive[
+        source_offsets[chunk_index] : source_offsets[chunk_index + 1]
+    ]
+    final_decoded = decode(final_stored)
+    source_decoded = decode(source_stored)
+    if (
+        len(final_decoded.output) != target["decoded_size"]
+        or len(source_decoded.output) != target["decoded_size"]
+        or any(final_stored[final_decoded.consumed :])
+    ):
+        raise SystemExit("final ISO Strategy Q&A chunk decode drift")
+    final_qa = parse_nisv_strategy_qa(final_decoded.output)
+    source_qa = parse_nisv_strategy_qa(source_decoded.output)
+    if (
+        final_qa["entries"] != source_qa["entries"]
+        or final_qa["metadata_prefix"] != source_qa["metadata_prefix"]
+    ):
+        raise SystemExit("final ISO Strategy Q&A allocation metadata drift")
+
+    metadata_groups = (
+        ("categories", 4),
+        ("topics", 26),
+        ("questions", 102),
+        ("category_summaries", 4),
+        ("topic_summaries", 26),
+        ("keyword_summaries", 102),
+    )
+    semantic_records = []
+    raw_visible_ascii_glyph_count = 0
+    raw_visible_ascii_target_count = 0
+    raw_space_target_count = 0
+    metadata_count = 0
+    for group_name, expected_count in metadata_groups:
+        corpus_records = corpus["metadata"].get(group_name)
+        source_records = source_qa["metadata"].get(group_name)
+        final_records = final_qa["metadata"].get(group_name)
+        if not all(
+            len(records) == expected_count
+            for records in (corpus_records, source_records, final_records)
+        ):
+            raise SystemExit(
+                f"final ISO Strategy Q&A metadata group drift: {group_name}"
+            )
+        for corpus_record, source_raw, final_raw in zip(
+            corpus_records, source_records, final_records
+        ):
+            if source_raw != corpus_record["source"].encode("cp932"):
+                raise SystemExit(
+                    "final ISO Strategy Q&A metadata source preimage drift: "
+                    f"{corpus_record['id']}"
+                )
+            actual = normalize_two_byte_visible_spaces(
+                decode_text(final_raw + b"\x00", 0, output_table).text
+            )
+            if actual != corpus_record["translation"]:
+                raise SystemExit(
+                    "final ISO Strategy Q&A metadata mismatch: "
+                    f"{corpus_record['id']}"
+                )
+            raw_ascii = raw_visible_ascii_glyphs(final_raw)
+            raw_visible_ascii_glyph_count += len(raw_ascii)
+            raw_visible_ascii_target_count += bool(raw_ascii)
+            raw_space_target_count += b"\x20" in final_raw
+            semantic_records.append((corpus_record, actual))
+            metadata_count += 1
+
+    glyph_advance_px = reference["format"]["glyph_advance_px"]
+    line_step_y = reference["format"]["line_step_y"]
+    max_last_glyph_x = reference["format"]["max_last_glyph_x"]
+    page_count = 0
+    text_record_count = 0
+    reflowed_record_count = 0
+    horizontally_reflowed_record_count = 0
+    vertically_reflowed_record_count = 0
+    fixed_column_line_count = 0
+    empty_translation_record_count = 0
+    source_style_counts = Counter()
+    for page_index, (corpus_page, source_page, final_page) in enumerate(
+        zip(corpus["pages"], source_qa["pages"], final_qa["pages"]),
+        start=1,
+    ):
+        corpus_records = corpus_page.get("records")
+        if (
+            corpus_page.get("page") != page_index
+            or len(corpus_records) != len(source_page["records"])
+            or len(final_page["records"]) != len(source_page["records"])
+            or final_page["size"] != source_page["size"]
+            or final_page["sprite_size"] != source_page["sprite_size"]
+            or final_page["sprite_bytes"] != source_page["sprite_bytes"]
+        ):
+            raise SystemExit(
+                f"final ISO Strategy Q&A page structure drift: {page_index}"
+            )
+        page_layout = layout_nisv_strategy_qa_page(
+            source_page,
+            corpus_records,
+            glyph_advance_px=glyph_advance_px,
+            line_step_y=line_step_y,
+            max_last_glyph_x=max_last_glyph_x,
+        )
+        fixed_column_line_count += page_layout["fixed_column_line_count"]
+        empty_translation_record_count += page_layout[
+            "empty_translation_record_count"
+        ]
+        for corpus_record, source_record, final_record, expected_position in zip(
+            corpus_records,
+            source_page["records"],
+            final_page["records"],
+            page_layout["positions"],
+        ):
+            record_id = corpus_record["id"]
+            if source_record["raw"] != corpus_record["source"].encode("cp932"):
+                raise SystemExit(
+                    f"final ISO Strategy Q&A source preimage drift: {record_id}"
+                )
+            actual = normalize_two_byte_visible_spaces(
+                decode_text(final_record["raw"] + b"\x00", 0, output_table).text
+            )
+            if actual != corpus_record["translation"]:
+                raise SystemExit(
+                    f"final ISO Strategy Q&A text mismatch: {record_id}"
+                )
+            if (
+                final_record["style0"] != source_record["style0"]
+                or final_record["style1"] != source_record["style1"]
+                or final_record["z"] != source_record["z"]
+            ):
+                raise SystemExit(
+                    f"final ISO Strategy Q&A visual style drift: {record_id}"
+                )
+            if (
+                final_record["x"],
+                final_record["y"],
+                final_record["z"],
+            ) != expected_position:
+                raise SystemExit(
+                    f"final ISO Strategy Q&A positioned layout drift: {record_id}"
+                )
+            reflowed_record_count += (
+                final_record["x"], final_record["y"]
+            ) != (source_record["x"], source_record["y"])
+            horizontally_reflowed_record_count += (
+                final_record["x"] != source_record["x"]
+            )
+            vertically_reflowed_record_count += (
+                final_record["y"] != source_record["y"]
+            )
+            raw_ascii = raw_visible_ascii_glyphs(final_record["raw"])
+            raw_visible_ascii_glyph_count += len(raw_ascii)
+            raw_visible_ascii_target_count += bool(raw_ascii)
+            raw_space_target_count += b"\x20" in final_record["raw"]
+            source_style_counts[
+                (source_record["style0"], source_record["style1"])
+            ] += 1
+            semantic_records.append((corpus_record, actual))
+            text_record_count += 1
+        page_count += 1
+
+    if (
+        metadata_count != QA_METADATA_STRING_COUNT
+        or page_count != QA_PAGE_COUNT
+        or text_record_count != QA_TEXT_RECORD_COUNT
+        or raw_visible_ascii_glyph_count
+        or raw_visible_ascii_target_count
+        or raw_space_target_count
+    ):
+        raise SystemExit(
+            "final ISO Strategy Q&A inventory or storage drift: "
+            f"metadata={metadata_count}, pages={page_count}, "
+            f"records={text_record_count}, raw_ascii="
+            f"{raw_visible_ascii_glyph_count}, raw_ascii_targets="
+            f"{raw_visible_ascii_target_count}, raw_space_targets="
+            f"{raw_space_target_count}"
+        )
+    component_report = (
+        component_manifest.get("nisv_strategy_qa", {})
+        if component_manifest is not None
+        else {}
+    )
+    if (
+        component_report.get("metadata_string_count") != metadata_count
+        or component_report.get("page_count") != page_count
+        or component_report.get("text_record_count") != text_record_count
+        or component_report.get("output_encoded_size") != final_decoded.consumed
+        or component_report.get("record_styles_preserved") is not True
+        or component_report.get("record_z_coordinates_preserved") is not True
+        or component_report.get("mixed_style_line_flow") is not True
+        or component_report.get("empty_continuation_rows_collapsed") is not True
+        or component_report.get("fixed_column_anchors_aligned") is not True
+        or component_report.get("empty_records_extend_scroll_height") is not False
+        or component_report.get("translated_reread_exact") is not True
+    ):
+        raise SystemExit("final ISO Strategy Q&A component report drift")
+
+    effect_reference = config["nisv_effect_names"]
+    effect_corpus_reference = effect_reference["translations"]
+    effect_corpus_data = project_path(
+        Path(effect_corpus_reference["path"])
+    ).read_bytes()
+    if (
+        len(effect_corpus_data) != effect_corpus_reference["size"]
+        or sha256_bytes(effect_corpus_data)
+        != effect_corpus_reference["sha256"]
+    ):
+        raise SystemExit("NisVData effect-name corpus lock drift")
+    effect_terms = json.loads(effect_corpus_data.decode("utf-8"))[
+        "nisv_effect_names"
+    ]
+    effect_reports = []
+    for item in effect_terms:
+        matches = [
+            (record, actual)
+            for record, actual in semantic_records
+            if item["source"] in record["source"]
+        ]
+        if (
+            len(matches) != len(item["decoded_offsets"])
+            or any(item["translation"] not in actual for _record, actual in matches)
+            or any(
+                item["source"] in actual
+                for _record, actual in semantic_records
+            )
+        ):
+            raise SystemExit(
+                "final ISO Strategy Q&A effect-name semantic mismatch: "
+                f"{item['source']}"
+            )
+        effect_reports.append(
+            {
+                "source": item["source"],
+                "translation": item["translation"],
+                "record_ids": [record["id"] for record, _actual in matches],
+                "occurrence_count": len(matches),
+                "residual_source_occurrence_count": 0,
+                "reread_exact": True,
+            }
+        )
+    effect_names = {
+        "member": archive_spec["member"],
+        "chunk_index": chunk_index,
+        "term_count": len(effect_reports),
+        "occurrence_count": sum(
+            item["occurrence_count"] for item in effect_reports
+        ),
+        "terms": effect_reports,
+        "codec_padding_zero": True,
+        "archive_offsets_preserved": True,
+        "all_source_occurrences_absent": True,
+        "raw_visible_ascii_glyph_count": 0,
+        "raw_visible_ascii_target_count": 0,
+        "raw_space_target_count": 0,
+        "runtime_control_tokens_excluded": True,
+        "translated_reread_exact": True,
+    }
+    return {
+        "member": archive_spec["member"],
+        "chunk_index": chunk_index,
+        "metadata_string_count": metadata_count,
+        "page_count": page_count,
+        "text_record_count": text_record_count,
+        "style_counts": {
+            f"{style0:02X}:{style1:02X}": count
+            for (style0, style1), count in sorted(source_style_counts.items())
+        },
+        "output_encoded_size": final_decoded.consumed,
+        "output_padding_size": len(final_stored) - final_decoded.consumed,
+        "reflowed_record_count": reflowed_record_count,
+        "horizontally_reflowed_record_count": horizontally_reflowed_record_count,
+        "vertically_reflowed_record_count": vertically_reflowed_record_count,
+        "fixed_column_line_count": fixed_column_line_count,
+        "empty_translation_record_count": empty_translation_record_count,
+        "allocation_table_preserved": True,
+        "metadata_indexes_preserved": True,
+        "page_allocations_preserved": True,
+        "record_styles_preserved": True,
+        "record_z_coordinates_preserved": True,
+        "mixed_style_line_flow": True,
+        "empty_continuation_rows_collapsed": True,
+        "fixed_column_anchors_aligned": True,
+        "empty_records_extend_scroll_height": False,
+        "glyph_advance_px": glyph_advance_px,
+        "line_step_y": line_step_y,
+        "max_last_glyph_x": max_last_glyph_x,
+        "sprite_sections_preserved": True,
+        "archive_offsets_preserved": True,
+        "codec_padding_zero": True,
+        "raw_visible_ascii_glyph_count": 0,
+        "raw_visible_ascii_target_count": 0,
+        "raw_space_target_count": 0,
+        "translated_reread_exact": True,
+        "effect_names": effect_names,
     }
 
 
@@ -2336,7 +2718,7 @@ def verify_final_compdata(
     } != formation_action_label_expectations:
         raise SystemExit("formation action-label offset contract drift")
     map_formation_name_expectations = {
-        "0x345DC8": "三角",
+        "0x345DC8": "TRI",
         "0x345DD0": "中央",
         "0x345DE0": "广域",
     }
@@ -2361,10 +2743,10 @@ def verify_final_compdata(
     } != weapon_effect_1_expectations:
         raise SystemExit("weapon special-effect-1 offset contract drift")
     squad_formation_name_expectations = {
-        "0x7F580": "三角队形",
+        "0x7F580": "TRI队形",
         "0x7F5A0": "中央队形",
         "0x7F5C0": "广域队形",
-        "0x7F5E0": "三角",
+        "0x7F5E0": "TRI",
         "0x7F5E8": "中央",
         "0x7F5F8": "广域",
     }
@@ -2443,9 +2825,9 @@ def verify_final_compdata(
         "0x7FD20"
     )
     expected_profile = (
-        "与搭档在荒野经营修理店的男人。\n"
-        "自称“烈焰”，豪爽而热血。\n"
-        "但有时会热情过头。"
+        "与同伴在荒野当修理店老板的男人。\n"
+        "自称“烈焰”，豪爽而有血性。\n"
+        "但有时会冲得太猛。"
     )
     if male_profile != expected_profile:
         raise SystemExit("male new-game profile contract drift")
@@ -2871,6 +3253,459 @@ def verify_final_compdata(
     }
 
 
+def verify_post_release_runtime_surfaces(
+    *,
+    slps: bytes,
+    mtv_prop: bytes,
+    stage: bytes,
+    hb: bytes,
+    source_table: TextTable,
+    output_table: TextTable,
+    component: dict,
+) -> dict:
+    """Reread the five post-release data surfaces from final ISO bytes."""
+
+    component_config = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )
+    remaining = component_config["remaining_ui"]
+    remaining_document = json.loads(
+        (PROJECT_ROOT / remaining["translations"]["path"]).read_text(
+            encoding="utf-8"
+        )
+    )
+    original_slps = (
+        PROJECT_ROOT / remaining["original_slps"]["path"]
+    ).read_bytes()
+    expected_auto_roots = {
+        0x31B610: "帝皇比亚路",
+        0x31B624: "阿伽玛",
+        0x31B638: "钢铁齿轮",
+        0x31B64C: "钢铁齿轮",
+        0x31B660: "格罗玛",
+        0x31B674: "和平号",
+        0x31B688: "月光号",
+        0x31B69C: "大天使",
+        0x31B6B0: "密涅瓦",
+        0x31B6C4: "太阳号",
+        0x31B6D8: "永恒",
+        0x31B6EC: "永恒",
+        0x31B700: "拉迪修",
+    }
+    auto_root_readbacks = {}
+    for offset, translation in expected_auto_roots.items():
+        raw_offset = f"0x{offset:X}"
+        source = decode_text(original_slps, offset, source_table)
+        actual = decode_text(slps, offset, output_table, end=offset + source.consumed)
+        if (
+            remaining_document["slps_by_offset"].get(raw_offset)
+            != translation
+            or actual.text != translation
+            or actual.consumed > source.consumed
+        ):
+            raise SystemExit(
+                f"final ISO auto-squad root mismatch at {raw_offset}"
+            )
+        auto_root_readbacks[raw_offset] = translation
+
+    offset_spec = ExecutableOffsetSpec(
+        name="HEDBDY/HB.BIN STAGE offsets",
+        member="HEDBDY/HB.BIN",
+        table_start=30320,
+        table_end=31144,
+    )
+    stage_offsets = read_executable_archive_offsets(hb, offset_spec, len(stage))
+
+    def decoded_stage(index: int) -> bytes:
+        stored = stage[stage_offsets[index] : stage_offsets[index + 1]]
+        result = decode(stored)
+        if any(stored[result.consumed :]):
+            raise SystemExit(f"final ISO STAGE {index} has nonzero padding")
+        return result.output
+
+    z_report_expected = {
+        0xDD50: "莎拉队获得PP+50",
+        0xDD70: "亚蒂特队获得PP+50",
+    }
+    z_report_stage = decoded_stage(36)
+    z_report_readbacks = {}
+    for offset, translation in z_report_expected.items():
+        actual = decode_text(
+            z_report_stage,
+            offset,
+            output_table,
+            end=offset + 32,
+        )
+        raw = z_report_stage[offset : offset + actual.consumed]
+        if actual.text != translation or b"PP+50" in raw:
+            raise SystemExit(
+                f"final ISO Z Report mismatch at 0x{offset:X}"
+            )
+        z_report_readbacks[f"0x{offset:X}"] = translation
+
+    ticker_targets = (
+        (39, 0x3B64, "西伯铁大市场，为旅客大放送超值商品。"),
+        (155, 0x1234, "埃曼特色商品齐全，唐吉的面包也有出售。"),
+        (156, 0x1294, "埃曼特色商品齐全，唐吉的面包也有出售。"),
+    )
+    ticker_readbacks = {}
+    for stage_index, offset, translation in ticker_targets:
+        actual = decode_text(
+            decoded_stage(stage_index),
+            offset,
+            output_table,
+            end=offset + 140,
+        )
+        if actual.text != translation:
+            raise SystemExit(
+                f"final ISO ISSUE-020 ticker mismatch in STAGE {stage_index}"
+            )
+        ticker_readbacks[str(stage_index)] = {
+            "decoded_offset": offset,
+            "translation": actual.text,
+        }
+
+    tutorial_headers = {}
+    for stage_index, expected_name in ((185, "stg_500.bin"), (186, "stg_501.bin")):
+        data = decoded_stage(stage_index)
+        name = data[0x30:0x50].split(b"\0", 1)[0].decode("ascii")
+        if name != expected_name:
+            raise SystemExit(
+                f"final ISO tutorial binding drift in STAGE {stage_index}"
+            )
+        tutorial_headers[str(stage_index)] = name
+    tutorial_component = component.get("story", {}).get("tutorial_binding")
+    if tutorial_component != {
+        "stage_names": tutorial_headers,
+        "dialogue_counts": {"185": 407, "186": 431},
+        "total_dialogue_count": 838,
+        "source_stage_headers_exact": True,
+        "translated_stage_reread_exact": True,
+        "alternate_mtv_prop_text_owner_ruled_out": True,
+    }:
+        raise SystemExit("final ISO tutorial component binding drift")
+
+    intertitle_component = component.get("chapter_intertitles")
+    if not isinstance(intertitle_component, dict):
+        raise SystemExit("final ISO chapter-intertitle receipt is missing")
+    table_start = 0x32BB70
+    table_end = 0x32BBD0
+    mtv_offsets = struct.unpack_from(
+        f"<{(table_end - table_start) // 4}I",
+        slps,
+        table_start,
+    )
+    if (
+        len(mtv_offsets) != 24
+        or mtv_offsets[0] != 0
+        or mtv_offsets[-1] != len(mtv_prop)
+    ):
+        raise SystemExit("final ISO MTV_PROP offset table drift")
+    intertitle_readbacks = []
+    receipt_entries = {
+        item["chunk_index"]: item
+        for item in intertitle_component.get("entries", [])
+    }
+    for chunk_index in (21, 22):
+        stored = mtv_prop[
+            mtv_offsets[chunk_index] : mtv_offsets[chunk_index + 1]
+        ]
+        decoded = decode(stored)
+        records = scan_tim2(decoded.output)
+        if len(records) != 1 or len(records[0].pictures) != 1:
+            raise SystemExit(
+                f"final ISO intertitle TIM2 drift in chunk {chunk_index}"
+            )
+        picture = records[0].pictures[0]
+        image_start = picture.offset + picture.header_size
+        image_end = image_start + picture.image_size
+        logical = unswizzle_psmt8(
+            decoded.output[image_start:image_end],
+            picture.width,
+            picture.height,
+        )
+        receipt = receipt_entries.get(chunk_index)
+        if (
+            not isinstance(receipt, dict)
+            or sha256_bytes(logical)
+            != receipt.get("output_logical_indexes_sha256")
+            or any(stored[decoded.consumed :])
+        ):
+            raise SystemExit(
+                f"final ISO intertitle index readback drift in chunk {chunk_index}"
+            )
+        intertitle_readbacks.append(
+            {
+                "chunk_index": chunk_index,
+                "translation": receipt["translation"],
+                "output_logical_indexes_sha256": sha256_bytes(logical),
+            }
+        )
+
+    return {
+        "issue_011_chapter_intertitles": {
+            "member": "DATA/MTV_PROP.BIN",
+            "chunk_count": 23,
+            "localized_chunks": intertitle_readbacks,
+            "all_other_chunks_preserved_by_component_receipt": True,
+            "indexed_pixels_reread_exact": True,
+        },
+        "issue_016_tutorial_binding": {
+            "stage_headers": tutorial_headers,
+            "dialogue_counts": tutorial_component["dialogue_counts"],
+            "total_dialogue_count": 838,
+            "translated_reread_exact": True,
+        },
+        "issue_020_bazaar_ticker": {
+            "stage_readbacks": ticker_readbacks,
+            "unique_translation_count": len(
+                {translation for _stage, _offset, translation in ticker_targets}
+            ),
+            "reported_siberian_slot": {
+                "stage_index": 39,
+                "decoded_offset": 0x3B64,
+                "translation": ticker_targets[0][2],
+            },
+            "translated_reread_exact": True,
+        },
+        "issue_022_auto_squad_names": {
+            "root_count": len(auto_root_readbacks),
+            "root_offsets": auto_root_readbacks,
+            "runtime_suffix": "队",
+            "old_savedata_names_untouched": True,
+            "translated_reread_exact": True,
+        },
+        "issue_026_z_report": {
+            "stage_index": 36,
+            "reward_readbacks": z_report_readbacks,
+            "raw_single_byte_pp50_absent": True,
+            "translated_reread_exact": True,
+        },
+    }
+
+
+def verify_issue_036_tutorial(
+    *,
+    slps: bytes,
+    nisvdata: bytes,
+    veff: bytes,
+    stage: bytes,
+    hb: bytes,
+    source_table: TextTable,
+    output_table: TextTable,
+    component: dict,
+) -> dict:
+    """Reread tutorial headings, body records, and title effects from ISO bytes."""
+
+    config = json.loads(FULL_COMPONENT_CONFIG.read_text(encoding="utf-8"))
+    remaining_path = PROJECT_ROOT / config["remaining_ui"]["translations"]["path"]
+    remaining = json.loads(remaining_path.read_text(encoding="utf-8"))
+    source_slps = (
+        PROJECT_ROOT / config["remaining_ui"]["original_slps"]["path"]
+    ).read_bytes()
+    title_offsets = (
+        0x347B40,
+        0x347B60,
+        0x347B80,
+        0x347BA0,
+        0x347BD0,
+        0x347C00,
+        0x347C30,
+        0x347C60,
+        0x347C80,
+        0x347CA0,
+    )
+    title_readbacks = []
+    for offset in title_offsets:
+        key = f"0x{offset:X}"
+        source = decode_text(source_slps, offset, source_table)
+        actual = decode_text(slps, offset, output_table, end=offset + source.consumed)
+        expected = remaining["slps_by_offset"].get(key)
+        if actual.text != expected or actual.consumed > source.consumed:
+            raise SystemExit(f"final ISO tutorial page-title mismatch at {key}")
+        title_readbacks.append(
+            {
+                "offset": key,
+                "translation": actual.text,
+                "source_allocation_size": source.consumed,
+            }
+        )
+
+    body_contract = config["nisv_tutorial_pages"]
+    corpus_path = PROJECT_ROOT / body_contract["corpus"]["path"]
+    corpus_data = corpus_path.read_bytes()
+    if (
+        len(corpus_data) != body_contract["corpus"]["size"]
+        or sha256_bytes(corpus_data) != body_contract["corpus"]["sha256"]
+    ):
+        raise SystemExit("final ISO tutorial body corpus lock drift")
+    corpus = json.loads(corpus_data.decode("utf-8"))
+    archive = body_contract["archive"]
+    nisv_offsets = read_executable_archive_offsets(
+        slps,
+        ExecutableOffsetSpec(
+            name=archive["name"],
+            member=archive["member"],
+            table_start=int(archive["table_start"], 0),
+            table_end=int(archive["table_end"], 0),
+        ),
+        len(nisvdata),
+    )
+    chunk_index = body_contract["target"]["chunk_index"]
+    stored = nisvdata[nisv_offsets[chunk_index] : nisv_offsets[chunk_index + 1]]
+    decoded = decode(stored)
+    if any(stored[decoded.consumed :]):
+        raise SystemExit("final ISO tutorial body compressed padding is nonzero")
+    pages = parse_nisv_tutorial_pages(decoded.output)
+    body_readbacks = []
+    record_count = 0
+    for page, corpus_page in zip(pages, corpus["pages"]):
+        translations = []
+        for record, corpus_record in zip(page["records"], corpus_page["records"]):
+            actual = decode_text(record["raw"] + b"\0", 0, output_table)
+            if actual.text != corpus_record["translation"]:
+                raise SystemExit(
+                    f"final ISO tutorial body mismatch: page={corpus_page['page']}"
+                )
+            translations.append(actual.text)
+            record_count += 1
+        body_readbacks.append(
+            {
+                "page": corpus_page["page"],
+                "record_count": len(translations),
+                "translations": translations,
+            }
+        )
+    if len(pages) != 10 or record_count != 114:
+        raise SystemExit("final ISO tutorial body inventory drift")
+
+    effect_contract = config["tutorial_title_effects"]
+    effect_component = component.get("tutorial_title_effects")
+    if not isinstance(effect_component, dict):
+        raise SystemExit("final ISO tutorial title-effect receipt is missing")
+    event_binding = audit_tutorial_effect_binding(
+        stage, hb, effect_contract["event_binding"]
+    )
+    if event_binding != effect_component.get("event_binding"):
+        raise SystemExit("final ISO tutorial effect event-binding receipt drift")
+    effect_archive = effect_contract["archive"]
+    veff_offsets = read_executable_archive_offsets(
+        slps,
+        ExecutableOffsetSpec(
+            name=effect_archive["name"],
+            member=effect_archive["member"],
+            table_start=int(effect_archive["table_start"], 0),
+            table_end=int(effect_archive["table_end"], 0),
+        ),
+        len(veff),
+    )
+    target_receipts = {
+        item["chunk_index"]: item for item in effect_component.get("targets", [])
+    }
+    effect_readbacks = []
+    for target in effect_contract["targets"]:
+        chunk_index = target["chunk_index"]
+        stored = veff[veff_offsets[chunk_index] : veff_offsets[chunk_index + 1]]
+        decoded = decode(stored)
+        records = scan_tim2(decoded.output)
+        record = records[effect_contract["record_index"]]
+        background_record = records[effect_contract["background_record_index"]]
+        receipt = target_receipts.get(chunk_index)
+        if not isinstance(receipt, dict) or any(stored[decoded.consumed :]):
+            raise SystemExit(
+                f"final ISO tutorial VEFF receipt drift: chunk={chunk_index}"
+            )
+        picture_receipts = {
+            item["picture_index"]: item for item in receipt.get("pictures", [])
+        }
+        background_picture_receipts = {
+            item["picture_index"]: item
+            for item in receipt.get("background_pictures", [])
+        }
+        picture_readbacks = []
+        for picture_index, picture in enumerate(record.pictures):
+            image_start = picture.offset + picture.header_size
+            image_end = image_start + picture.image_size
+            logical = unswizzle_psmt8(
+                decoded.output[image_start:image_end], picture.width, picture.height
+            )
+            picture_receipt = picture_receipts.get(picture_index)
+            if (
+                not isinstance(picture_receipt, dict)
+                or sha256_bytes(logical)
+                != picture_receipt.get("output_logical_sha256")
+            ):
+                raise SystemExit(
+                    "final ISO tutorial title picture mismatch: "
+                    f"chunk={chunk_index} picture={picture_index}"
+                )
+            picture_readbacks.append(
+                {
+                    "picture_index": picture_index,
+                    "translation": picture_receipt["translation"],
+                    "output_logical_sha256": sha256_bytes(logical),
+                }
+            )
+        if len(picture_readbacks) != 4:
+            raise SystemExit("final ISO tutorial title picture-count drift")
+        background_picture_readbacks = []
+        for picture_index, picture in enumerate(background_record.pictures):
+            image_start = picture.offset + picture.header_size
+            image_end = image_start + picture.image_size
+            logical = unswizzle_psmt4(
+                decoded.output[image_start:image_end],
+                picture.width,
+                picture.height,
+            )
+            picture_receipt = background_picture_receipts.get(picture_index)
+            if (
+                not isinstance(picture_receipt, dict)
+                or sha256_bytes(logical)
+                != picture_receipt.get("output_logical_sha256")
+            ):
+                raise SystemExit(
+                    "final ISO tutorial background picture mismatch: "
+                    f"chunk={chunk_index} picture={picture_index}"
+                )
+            background_picture_readbacks.append(
+                {
+                    "picture_index": picture_index,
+                    "output_logical_sha256": sha256_bytes(logical),
+                }
+            )
+        if len(background_picture_readbacks) != 4:
+            raise SystemExit(
+                "final ISO tutorial background picture-count drift"
+            )
+        effect_readbacks.append(
+            {
+                "effect_id": target["effect_id"],
+                "chunk_index": chunk_index,
+                "pictures": picture_readbacks,
+                "background_pictures": background_picture_readbacks,
+            }
+        )
+    if len(effect_readbacks) != 4:
+        raise SystemExit("final ISO tutorial title effect-count drift")
+    return {
+        "slps_page_titles": title_readbacks,
+        "page_title_count": len(title_readbacks),
+        "nisv_body_pages": body_readbacks,
+        "body_page_count": len(body_readbacks),
+        "body_record_count": record_count,
+        "event_binding": event_binding,
+        "title_effects": effect_readbacks,
+        "title_effect_count": len(effect_readbacks),
+        "title_picture_count": sum(
+            len(item["pictures"]) for item in effect_readbacks
+        ),
+        "background_title_picture_count": sum(
+            len(item["background_pictures"]) for item in effect_readbacks
+        ),
+        "translated_reread_exact": True,
+    }
+
+
 def main() -> int:
     args = parse_args()
     iso_path = project_path(args.iso)
@@ -3293,19 +4128,38 @@ def main() -> int:
         component_manifest,
         config_key="mode_select_effect",
     )
-    nisv_effect_names = verify_nisv_effect_names(
+    nisv_strategy_qa = verify_nisv_strategy_qa(
         slps,
         members["DATA/NISVDATA.BIN"],
-        source_table,
         compdata_table,
         component_manifest,
     )
+    nisv_effect_names = nisv_strategy_qa["effect_names"]
     stage_overrides = dict(overrides)
     stage_overrides.update(surface_aliases)
     stage_overrides.update(ascii_overrides)
     stage_table = project_runtime_text_table(
         source_table,
         stage_overrides,
+    )
+    post_release_runtime_surfaces = verify_post_release_runtime_surfaces(
+        slps=slps,
+        mtv_prop=members["DATA/MTV_PROP.BIN"],
+        stage=stage_archive,
+        hb=hb,
+        source_table=source_table,
+        output_table=stage_table,
+        component=component,
+    )
+    issue_036_tutorial = verify_issue_036_tutorial(
+        slps=slps,
+        nisvdata=members["DATA/NISVDATA.BIN"],
+        veff=members["EFF/VEFF2DX.BIN"],
+        stage=stage_archive,
+        hb=hb,
+        source_table=source_table,
+        output_table=stage_table,
+        component=component,
     )
     overview_overrides = dict(overrides)
     overview_overrides.update(surface_aliases)
@@ -4657,6 +5511,8 @@ def main() -> int:
         "dialogue_count": total_dialogue,
         "condition_count": total_conditions,
         "speaker_count": total_speakers,
+        "post_release_runtime_surfaces": post_release_runtime_surfaces,
+        "issue_036_tutorial": issue_036_tutorial,
         "dialogue_layout": {
             "line_width_limit": DEFAULT_LINE_WIDTH,
             "line_count_limit": DEFAULT_MAX_LINES,
@@ -4753,6 +5609,7 @@ def main() -> int:
         "compdata": compdata_report,
         "scenario_select_effect": scenario_select_effect,
         "mode_select_effect": mode_select_effect,
+        "nisv_strategy_qa": nisv_strategy_qa,
         "nisv_effect_names": nisv_effect_names,
         "auto_demo_overlays": auto_demo_overlays,
         "world_history": world_history_report,
@@ -4860,6 +5717,35 @@ def main() -> int:
                 nisv_effect_names["translated_reread_exact"]
                 and nisv_effect_names["archive_offsets_preserved"]
                 and nisv_effect_names["all_source_occurrences_absent"]
+            ),
+            "nisv_strategy_qa_exact": (
+                nisv_strategy_qa["metadata_string_count"] == 264
+                and nisv_strategy_qa["page_count"] == 102
+                and nisv_strategy_qa["text_record_count"] == 2609
+                and nisv_strategy_qa["allocation_table_preserved"]
+                and nisv_strategy_qa["metadata_indexes_preserved"]
+                and nisv_strategy_qa["page_allocations_preserved"]
+                and nisv_strategy_qa["record_styles_preserved"]
+                and nisv_strategy_qa["record_z_coordinates_preserved"]
+                and nisv_strategy_qa["mixed_style_line_flow"]
+                and nisv_strategy_qa["empty_continuation_rows_collapsed"]
+                and nisv_strategy_qa["fixed_column_anchors_aligned"]
+                and not nisv_strategy_qa["empty_records_extend_scroll_height"]
+                and nisv_strategy_qa["sprite_sections_preserved"]
+                and nisv_strategy_qa["archive_offsets_preserved"]
+                and nisv_strategy_qa["codec_padding_zero"]
+                and nisv_strategy_qa["translated_reread_exact"]
+            ),
+            "issue_036_tutorial_exact": (
+                issue_036_tutorial["page_title_count"] == 10
+                and issue_036_tutorial["body_page_count"] == 10
+                and issue_036_tutorial["body_record_count"] == 114
+                and issue_036_tutorial["title_effect_count"] == 4
+                and issue_036_tutorial["title_picture_count"] == 16
+                and issue_036_tutorial["event_binding"][
+                    "all_four_effects_referenced"
+                ]
+                and issue_036_tutorial["translated_reread_exact"]
             ),
             "auto_demo_overlays_exact": (
                 auto_demo_overlays["title_entry_count"] == 22

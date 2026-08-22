@@ -201,8 +201,11 @@
       ],
       "translation": "迈锡尼帝国",
       "category": "organization",
-      "status": "proposed",
+      "status": "researched",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "summary",
         "story"
       ],
@@ -216,13 +219,15 @@
       ],
       "translation": "恐龙帝国",
       "category": "organization",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "library",
+        "menu",
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "盖塔系列通行直译。"
+      "notes": "盖塔系列势力名；中国大陆哔哩哔哩正版简介采用“恐龙帝国”。"
     },
     {
       "id": "organization/vega-alliance-force",
@@ -233,6 +238,9 @@
       "category": "organization",
       "status": "proposed",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "summary",
         "story"
       ],
@@ -399,15 +407,66 @@
       "source_terms": [
         "イノセント"
       ],
-      "translation": "天真者",
+      "translation": "伊诺森特",
+      "deprecated_translations": [
+        "天真者",
+        "纯洁者",
+        "因诺森特",
+        "纯真之心"
+      ],
       "category": "faction",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "《战斗装甲萨芬格尔》专名；存在“纯洁者”等异译，待人工确认。"
+      "notes": "《战斗装甲萨芬格尔》专名；按中国大陆社区通行译法统一为“伊诺森特”，“天真者／纯洁者／因诺森特”列为弃用异译。"
+    },
+    {
+      "id": "place/innocent-dome",
+      "source_terms": [
+        "イノセントドーム"
+      ],
+      "translation": "伊诺森特穹顶",
+      "deprecated_translations": [
+        "天真者穹顶",
+        "纯洁者穹顶",
+        "因诺森特穹顶"
+      ],
+      "category": "place",
+      "status": "approved",
+      "domains": [
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《战斗装甲萨芬格尔》地图地形名；复合词整体统一为“伊诺森特穹顶”，并优先于较短的“イノセント”匹配。"
+    },
+    {
+      "id": "role/vulture",
+      "source_terms": [
+        "バルチャー"
+      ],
+      "translation": "秃鹰",
+      "deprecated_translations": [
+        "拾荒者",
+        "秃鹫",
+        "猎鹰"
+      ],
+      "category": "role",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动新世纪高达X》职业／群体专名；项目定案采用大陆社区通用译名“秃鹰”，仅按日文源词绑定替换。"
     },
     {
       "id": "faction/gaizok",
@@ -425,7 +484,7 @@
         "story"
       ],
       "enforce": true,
-      "notes": "《无敌超人赞波3》敌对势力统一为“盖佐克”；说话人标签“ガイゾック兵”另由“盖佐克士兵”条目管理。"
+      "notes": "《无敌超人赞波特3》敌对势力统一为“盖佐克”；说话人标签“ガイゾック兵”另由“盖佐克士兵”条目管理。"
     },
     {
       "id": "faction/zeravire",
@@ -455,14 +514,70 @@
         "エルダー星人"
       ],
       "translation": "伊尔塔星人",
+      "deprecated_translations": [
+        "艾尔达星人",
+        "埃尔达星人",
+        "埃尔德星人"
+      ],
       "category": "faction",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "《宇宙大帝西格玛神》敌对势力；采用旧中文引进译名的简体写法，待人工批准。"
+      "notes": "《宇宙大帝神西格玛》敌对势力；采用中国大陆旧引进译名的简体写法“伊尔塔星人”，并与裸称及军队称谓统一。"
+    },
+    {
+      "id": "faction/elder-short",
+      "source_terms": [
+        "エルダー"
+      ],
+      "translation": "伊尔塔",
+      "deprecated_translations": [
+        "艾尔达",
+        "埃尔达",
+        "埃尔德",
+        "长老"
+      ],
+      "category": "faction",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "summary",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《宇宙大帝神西格玛》エルダー的裸称；按大陆旧译统一为“伊尔塔”。较长的“伊尔塔星人／伊尔塔军／伊尔塔战舰／伊尔塔士兵”由各自源词条目优先匹配。"
+    },
+    {
+      "id": "organization/elder-army",
+      "source_terms": [
+        "エルダー軍"
+      ],
+      "translation": "伊尔塔军",
+      "deprecated_translations": [
+        "艾尔达军",
+        "埃尔达军",
+        "埃尔德军",
+        "长老军"
+      ],
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "summary",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《宇宙大帝神西格玛》エルダー軍；按大陆旧译统一为“伊尔塔军”。"
     },
     {
       "id": "faction/aldébaran",
@@ -473,6 +588,9 @@
       "category": "faction",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "summary",
         "story"
       ],
@@ -557,9 +675,14 @@
         "Ｄｒ．ヘル"
       ],
       "translation": "地狱博士",
+      "deprecated_translations": [
+        "赫尔博士",
+        "Dr.赫尔"
+      ],
       "category": "people",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "library",
         "summary",
         "story"
       ],
@@ -703,13 +826,101 @@
       ],
       "translation": "魔神Z",
       "category": "unit",
-      "status": "proposed",
+      "status": "researched",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "简体中文常见译名。"
+      "notes": "大陆授权《机动战队大作战》联动及《魔神Z：INFINITY》大陆发行资料均采用“魔神Z”。"
+    },
+    {
+      "id": "unit/great-mazinger",
+      "source_terms": [
+        "グレートマジンガー"
+      ],
+      "translation": "大魔神",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "大陆授权《机动战队大作战》联动采用“大魔神”。"
+    },
+    {
+      "id": "unit/dianan-a",
+      "source_terms": [
+        "ダイアナンＡ"
+      ],
+      "translation": "戴安娜A",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Dianan A；大陆简体社区通行“戴安娜A”，保留原名拉丁字母 A。"
+    },
+    {
+      "id": "unit/venus-a",
+      "source_terms": [
+        "ビューナスＡ"
+      ],
+      "translation": "维纳斯A",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "Venus A；大陆简体社区通行“维纳斯A”，保留原名拉丁字母 A。"
+    },
+    {
+      "id": "unit/venus-short",
+      "source_terms": [
+        "ビューナス"
+      ],
+      "translation": "维纳斯",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "ビューナスＡ在台词中的简称；只在日文原文省略 A 时采用“维纳斯”。"
+    },
+    {
+      "id": "unit/tfo",
+      "source_terms": [
+        "ＴＦＯ"
+      ],
+      "translation": "TFO",
+      "category": "unit",
+      "status": "researched",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "原文缩写直接保留为半角 TFO，不改写成中文名称。"
     },
     {
       "id": "unit/getter-robo",
@@ -718,13 +929,16 @@
       ],
       "translation": "盖塔机器人",
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "summary",
         "story"
       ],
       "enforce": true,
-      "notes": "盖塔系列通行译名。"
+      "notes": "盖塔系列主役机体名；中国大陆哔哩哔哩正版简介采用“盖塔机器人”。"
     },
     {
       "id": "concept/sphere",
@@ -893,7 +1107,8 @@
       "translation": "大奇点",
       "deprecated_translations": [
         "主奇点",
-        "大特异点"
+        "大特异点",
+        "巨大奇点"
       ],
       "variant_scope": "source_bound",
       "category": "technology",
@@ -2775,6 +2990,67 @@
       "notes": "与既有默认编队译名保持一致。"
     },
     {
+      "id": "technology/singularity",
+      "source_terms": [
+        "特異点"
+      ],
+      "translation": "奇点",
+      "deprecated_translations": [
+        "特异点"
+      ],
+      "variant_scope": "source_bound",
+      "category": "technology",
+      "status": "approved",
+      "domains": [
+        "library",
+        "menu",
+        "summary",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超时空世纪奥格斯》时空理论术语；与“大特異点／大奇点”保持层级关系。"
+    },
+    {
+      "id": "transform/gerwalk",
+      "source_terms": [
+        "ガウォーク"
+      ],
+      "translation": "盖沃克",
+      "deprecated_translations": [
+        "噶沃克",
+        "葛沃克",
+        "高沃克",
+        "加沃克"
+      ],
+      "variant_scope": "source_bound",
+      "category": "transform",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《超时空世纪奥格斯》的双足中间形态 Gerwalk；剧情既有译名为“盖沃克型”，图鉴按上下文写作“盖沃克形态”。"
+    },
+    {
+      "id": "transform/orguroid",
+      "source_terms": [
+        "オーガロイド"
+      ],
+      "translation": "奥格罗伊德",
+      "deprecated_translations": [
+        "奥加罗伊德"
+      ],
+      "variant_scope": "source_bound",
+      "category": "transform",
+      "status": "approved",
+      "domains": [
+        "library"
+      ],
+      "enforce": true,
+      "notes": "奥卡斯的机器人形态 Orguroid；与作品名“奥格斯”的词根保持一致。"
+    },
+    {
       "id": "faction/diana-counter",
       "source_terms": [
         "ディアナ・カウンター"
@@ -2807,6 +3083,67 @@
       ],
       "enforce": true,
       "notes": "《∀高达》的 Dianna Counter；大陆高达资料稳定使用“迪安娜回归军”，也准确体现其协助月之民回归地球的组织性质。"
+    },
+    {
+      "id": "rank/colonel",
+      "source_terms": [
+        "大佐"
+      ],
+      "translation": "上校",
+      "deprecated_translations": [
+        "大佐",
+        "大校"
+      ],
+      "variant_scope": "source_bound",
+      "category": "rank",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "日语军衔；面向中国大陆读者按现代军衔对应为“上校”，仅按日文源词绑定。"
+    },
+    {
+      "id": "rank/lieutenant-colonel",
+      "source_terms": [
+        "中佐"
+      ],
+      "translation": "中校",
+      "deprecated_translations": [
+        "中佐"
+      ],
+      "variant_scope": "source_bound",
+      "category": "rank",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "日语军衔；面向中国大陆读者按现代军衔对应为“中校”，仅按日文源词绑定。"
+    },
+    {
+      "id": "rank/major",
+      "source_terms": [
+        "少佐"
+      ],
+      "translation": "少校",
+      "deprecated_translations": [
+        "少佐"
+      ],
+      "variant_scope": "source_bound",
+      "category": "rank",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "日语军衔；面向中国大陆读者按现代军衔对应为“少校”，仅按日文源词绑定。"
     }
   ]
 }

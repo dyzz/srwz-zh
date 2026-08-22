@@ -15,6 +15,7 @@ from typing import Mapping
 from srwz.codec import decode_production as decode, reencode_changed_suffix
 from srwz.diagnostics import require_work_output
 from srwz.font import sha256_bytes
+from srwz.release_font_policy import DEFAULT_WIDTH_CLASS, allocation_width_class
 from srwz.iso9660 import SECTOR_SIZE, member_map, scan_iso9660
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
 from srwz.stage import parse_stage, read_stage_function_addresses
@@ -325,6 +326,248 @@ def _load_story_tickers(
     return path, by_source
 
 
+def _load_z_reports(
+    reference: Mapping[str, object],
+) -> tuple[Path, dict[str, dict]]:
+    """Load the reviewed non-dialogue Z Report reward strings."""
+
+    path = _project_path(str(reference.get("path", "")))
+    if (
+        not path.is_file()
+        or path.stat().st_size != reference.get("size")
+        or _sha256(path) != reference.get("sha256")
+    ):
+        raise SystemExit("Z Report corpus size or SHA-256 drift")
+    document = _json(path)
+    entries = document.get("entries")
+    if (
+        document.get("batch_id") != "v1-stage-z-reports"
+        or not isinstance(entries, list)
+        or len(entries) != reference.get("expected_entry_count")
+        or document.get("inventory")
+        != {
+            "selection_authority": "full_structural_stage_scan",
+            "source_pattern": "<team>チームはＰＰ＋<fullwidth-digits>",
+            "slot_ownership": "nul_terminated_source_span_only",
+        }
+    ):
+        raise SystemExit("Z Report corpus identity or inventory contract drift")
+
+    by_source: dict[str, dict] = {}
+    for entry in entries:
+        if not isinstance(entry, dict):
+            raise SystemExit("Z Report entry is malformed")
+        entry_id = entry.get("id")
+        source_text = entry.get("source_text")
+        translation = entry.get("translation")
+        if (
+            not isinstance(entry_id, str)
+            or not entry_id
+            or not isinstance(source_text, str)
+            or not source_text
+            or entry.get("source_text_sha256")
+            != sha256_bytes(source_text.encode("utf-8"))
+            or not isinstance(translation, str)
+            or not translation
+            or entry.get("editorial_status") != "reviewed"
+            or not isinstance(entry.get("glossary_refs"), list)
+            or not entry["glossary_refs"]
+            or source_text in by_source
+        ):
+            raise SystemExit(f"Z Report decision is invalid: {entry_id!r}")
+        by_source[source_text] = {
+            "entry_id": entry_id,
+            "source_text": source_text,
+            "source_text_sha256": entry["source_text_sha256"],
+            "translation": normalize_original_fullwidth_ascii(translation),
+        }
+    return path, by_source
+
+
+def _discover_z_reports(
+    source_chunks: list[bytes],
+    table,
+    entries_by_source: Mapping[str, dict],
+    reference: Mapping[str, object],
+) -> tuple[dict[int, list[dict]], dict]:
+    """Inventory all structurally matching Z Report PP reward slots."""
+
+    pattern = re.compile(r"^.+チームはＰＰ＋[０-９]+$")
+    by_stage: dict[int, list[dict]] = {}
+    inventory = []
+    unknown_sources = set()
+    for stage_index, source_chunk in enumerate(source_chunks):
+        data = decode(source_chunk).output
+        for offset in range(len(data)):
+            if offset and data[offset - 1] != 0:
+                continue
+            try:
+                source = decode_text(
+                    data,
+                    offset,
+                    table,
+                    end=min(len(data), offset + 96),
+                )
+            except Exception:
+                continue
+            if (
+                source.terminator != "nul"
+                or source.unknown_code_count
+                or not pattern.fullmatch(source.text)
+            ):
+                continue
+            entry = entries_by_source.get(source.text)
+            if entry is None:
+                unknown_sources.add(source.text)
+                continue
+            target = {
+                **entry,
+                "decoded_offset": offset,
+                "source_slot_size": source.consumed,
+            }
+            by_stage.setdefault(stage_index, []).append(target)
+            inventory.append(
+                {
+                    "stage_index": stage_index,
+                    "decoded_offset": offset,
+                    "source_slot_size": source.consumed,
+                    "source_text": source.text,
+                    "source_text_sha256": entry["source_text_sha256"],
+                }
+            )
+    if unknown_sources:
+        raise SystemExit(
+            "unregistered structural Z Report sources: "
+            + repr(sorted(unknown_sources))
+        )
+    discovered_sources = {
+        target["source_text"]
+        for targets in by_stage.values()
+        for target in targets
+    }
+    missing_sources = sorted(set(entries_by_source) - discovered_sources)
+    inventory.sort(key=lambda item: (item["stage_index"], item["decoded_offset"]))
+    inventory_sha256 = sha256_bytes(
+        json.dumps(
+            inventory,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+    if (
+        missing_sources
+        or len(discovered_sources) != reference.get("expected_entry_count")
+        or len(inventory) != reference.get("expected_target_count")
+        or len(by_stage) != reference.get("expected_stage_count")
+        or inventory_sha256 != reference.get("expected_inventory_sha256")
+    ):
+        raise SystemExit(
+            "Z Report structural inventory drift: "
+            f"entries={len(discovered_sources)} targets={len(inventory)} "
+            f"stages={len(by_stage)} missing={missing_sources} "
+            f"sha256={inventory_sha256}"
+        )
+    return by_stage, {
+        "entry_count": len(discovered_sources),
+        "target_count": len(inventory),
+        "stage_count": len(by_stage),
+        "stage_indices": sorted(by_stage),
+        "inventory_sha256": inventory_sha256,
+        "structural_slots_exact": True,
+    }
+
+
+def _write_z_reports(
+    data: bytes,
+    table,
+    *,
+    stage_index: int,
+    targets: list[dict],
+    overrides: Mapping[str, int],
+) -> tuple[bytes, dict]:
+    """Rewrite only each source string's exact NUL-terminated allocation."""
+
+    if not targets:
+        return data, {
+            "z_report_count": 0,
+            "z_report_changed_byte_count": 0,
+            "z_report_source_hashes": [],
+            "z_report_fixed_slots_exact": True,
+            "z_report_translated_reread_exact": True,
+        }
+    runtime_table = project_runtime_text_table(table, overrides)
+    output = bytearray(data)
+    owned_indexes = set()
+    readbacks = []
+    source_hashes = set()
+    for target in targets:
+        offset = target["decoded_offset"]
+        slot_size = target["source_slot_size"]
+        end = offset + slot_size
+        source = decode_text(data, offset, table, end=end)
+        if (
+            source.terminator != "nul"
+            or source.end != end
+            or source.text != target["source_text"]
+            or sha256_bytes(source.text.encode("utf-8"))
+            != target["source_text_sha256"]
+        ):
+            raise SystemExit(
+                "Z Report source preimage drift: "
+                f"{target['entry_id']} stage={stage_index} offset=0x{offset:X}"
+            )
+        payload = encode_text(
+            target["translation"],
+            table,
+            overrides=overrides,
+            terminate=True,
+        )
+        if len(payload) > slot_size:
+            raise SystemExit(
+                "Z Report replacement exceeds fixed slot: "
+                f"{target['entry_id']} encoded={len(payload)} slot={slot_size}"
+            )
+        current_indexes = set(range(offset, end))
+        if current_indexes & owned_indexes:
+            raise SystemExit("Z Report fixed slots overlap")
+        owned_indexes.update(current_indexes)
+        output[offset:end] = payload + bytes(slot_size - len(payload))
+        readbacks.append((target, len(payload)))
+        source_hashes.add(target["source_text_sha256"])
+
+    rebuilt = bytes(output)
+    if any(
+        before != after and index not in owned_indexes
+        for index, (before, after) in enumerate(zip(data, rebuilt))
+    ):
+        raise SystemExit("Z Report write escaped its fixed slots")
+    for target, payload_size in readbacks:
+        reread = decode_text(
+            rebuilt,
+            target["decoded_offset"],
+            runtime_table,
+            end=target["decoded_offset"] + payload_size,
+        )
+        if (
+            reread.terminator != "nul"
+            or reread.end != target["decoded_offset"] + payload_size
+            or reread.text != target["translation"]
+        ):
+            raise SystemExit(
+                f"Z Report translated reread mismatch: {target['entry_id']}"
+            )
+    return rebuilt, {
+        "z_report_count": len(targets),
+        "z_report_changed_byte_count": sum(
+            before != after for before, after in zip(data, rebuilt)
+        ),
+        "z_report_source_hashes": sorted(source_hashes),
+        "z_report_fixed_slots_exact": True,
+        "z_report_translated_reread_exact": True,
+    }
+
+
 def _discover_story_tickers(
     source_chunks: list[bytes],
     table,
@@ -568,16 +811,29 @@ def _load_overrides(
         for assignment in proposal["assignments"]
         if 0x8140 <= int(assignment["code"], 16) < 0x889F
     }
+    special = {
+        assignment["character"]
+        for assignment in proposal["assignments"]
+        if allocation_width_class(int(assignment["code"], 16))
+        != DEFAULT_WIDTH_CLASS
+    }
     unaliased = conditional - set(aliases)
+    unaliased_special = special - set(aliases)
     if (
-        not set(aliases) <= conditional
+        not set(aliases) <= special
         or alias_report.get("assignment_count") != len(aliases)
         or alias_report.get("conditional_primary_assignment_count")
         != len(conditional)
         or alias_report.get("unaliased_conditional_assignment_count")
         != len(unaliased)
         or alias_report.get("all_selected_assignments") is not (not unaliased)
-        or any(0x8140 <= code < 0x889F for code in aliases.values())
+        or alias_report.get("special_primary_assignment_count") != len(special)
+        or alias_report.get("unaliased_special_assignment_count")
+        != len(unaliased_special)
+        or any(
+            allocation_width_class(code) != DEFAULT_WIDTH_CLASS
+            for code in aliases.values()
+        )
     ):
         raise SystemExit("global safe-alias proposal contract failed")
     overrides.update(aliases)
@@ -613,6 +869,9 @@ def build(
     speakers_path = _project_path(translations["speakers"])
     tickers_path, ticker_entries_by_source = _load_story_tickers(
         translations["tickers"]
+    )
+    z_reports_path, z_report_entries_by_source = _load_z_reports(
+        translations["z_reports"]
     )
     conditions = _entry_translations(conditions_path, stages)
     speakers = _speaker_translations(speakers_path, stages)
@@ -665,6 +924,33 @@ def build(
         ticker_entries_by_source,
         translations["tickers"],
     )
+    z_reports_by_stage, z_report_inventory = _discover_z_reports(
+        source_chunks,
+        table,
+        z_report_entries_by_source,
+        translations["z_reports"],
+    )
+    tutorial_binding = translations.get("tutorial_binding")
+    if tutorial_binding != {
+        "stage_names": {"185": "stg_500.bin", "186": "stg_501.bin"},
+        "dialogue_counts": {"185": 407, "186": 431},
+        "expected_total_dialogue_count": 838,
+    }:
+        raise SystemExit("tutorial STAGE binding contract drift")
+    tutorial_source_names = {}
+    for raw_stage, expected_name in tutorial_binding["stage_names"].items():
+        stage_index = int(raw_stage)
+        decoded_stage = decode(source_chunks[stage_index]).output
+        raw_name = decoded_stage[0x30:0x50].split(b"\0", 1)[0]
+        try:
+            source_name = raw_name.decode("ascii")
+        except UnicodeDecodeError as error:
+            raise SystemExit("tutorial STAGE header is not ASCII") from error
+        if source_name != expected_name:
+            raise SystemExit(
+                f"tutorial STAGE binding drift: {stage_index}={source_name!r}"
+            )
+        tutorial_source_names[raw_stage] = source_name
     missing = []
     for stage_index in sorted(set(range(len(source_chunks))) - stages):
         source_output = decode(source_chunks[stage_index]).output
@@ -736,6 +1022,30 @@ def build(
             for entry_id, translation in conditions.items()
             if int(entry_id.split("/")[1]) == stage
         }
+        source_conditions = {
+            entry.entry_id: entry.text
+            for entry in parsed_source.entries
+            if entry.kind == "condition"
+        }
+        for entry_id, translation in stage_conditions.items():
+            source_text = source_conditions.get(entry_id)
+            if source_text is None:
+                raise SystemExit(
+                    f"condition source entry is absent: {entry_id}"
+                )
+            # In STAGE victory/defeat conditions, a raw ASCII colon is not
+            # punctuation: the runtime replaces it with a scenario-dependent
+            # pilot name.  Fullwidth punctuation looks similar in the corpus
+            # but disables that substitution on screen.
+            if (
+                translation.count(":") != source_text.count(":")
+                or (":" in source_text and "：" in translation)
+            ):
+                raise SystemExit(
+                    "condition runtime-name placeholder drift: "
+                    f"{entry_id} source={source_text!r} "
+                    f"translation={translation!r}"
+                )
         replacements = {**dialogue[stage], **stage_conditions}
         write = repack_stage_texts_in_place(
             decoded.output,
@@ -751,6 +1061,13 @@ def build(
             table,
             stage_index=stage,
             targets=tickers_by_stage.get(stage, []),
+            overrides=overrides,
+        )
+        stage_data, z_report_report = _write_z_reports(
+            stage_data,
+            table,
+            stage_index=stage,
+            targets=z_reports_by_stage.get(stage, []),
             overrides=overrides,
         )
         if write.source_dialogue_count <= 0:
@@ -772,8 +1089,13 @@ def build(
         return stage, output_chunk, {
             **write.to_metadata(),
             **ticker_report,
+            **z_report_report,
             "dialogue_count": len(dialogue[stage]),
             "condition_count": len(stage_conditions),
+            "condition_runtime_name_placeholder_count": sum(
+                translation.count(":")
+                for translation in stage_conditions.values()
+            ),
             "speaker_count": len(speakers[stage]),
             "runtime_keyword_link_count": runtime_keyword_link_count,
             "runtime_keyword_source_hashes": sorted(
@@ -798,13 +1120,20 @@ def build(
             "translated_reread_exact": True,
         }
 
-    def build_ticker_only_stage(stage: int) -> tuple[int, bytes, dict]:
+    def build_auxiliary_only_stage(stage: int) -> tuple[int, bytes, dict]:
         decoded = decode(source_chunks[stage])
         stage_data, ticker_report = _write_story_tickers(
             decoded.output,
             table,
             stage_index=stage,
-            targets=tickers_by_stage[stage],
+            targets=tickers_by_stage.get(stage, []),
+            overrides=overrides,
+        )
+        stage_data, z_report_report = _write_z_reports(
+            stage_data,
+            table,
+            stage_index=stage,
+            targets=z_reports_by_stage.get(stage, []),
             overrides=overrides,
         )
         encoded = reencode_changed_suffix(
@@ -820,6 +1149,7 @@ def build(
         output_chunk = encoded + bytes(len(source_chunks[stage]) - len(encoded))
         return stage, output_chunk, {
             **ticker_report,
+            **z_report_report,
             "stage_index": stage,
             "source_encoded_size": decoded.consumed,
             "output_encoded_size": len(encoded),
@@ -852,11 +1182,12 @@ def build(
         if executor is not None:
             executor.shutdown(wait=True, cancel_futures=True)
 
-    ticker_only_stage_reports = []
-    for stage in sorted(set(tickers_by_stage) - stages):
-        stage, output_chunk, stage_report = build_ticker_only_stage(stage)
+    auxiliary_stages = set(tickers_by_stage) | set(z_reports_by_stage)
+    auxiliary_only_stage_reports = []
+    for stage in sorted(auxiliary_stages - stages):
+        stage, output_chunk, stage_report = build_auxiliary_only_stage(stage)
         output_chunks[stage] = output_chunk
-        ticker_only_stage_reports.append(stage_report)
+        auxiliary_only_stage_reports.append(stage_report)
 
     runtime_keyword_link_count = sum(
         item["runtime_keyword_link_count"] for item in stage_reports
@@ -868,7 +1199,8 @@ def build(
             for source_hash in item["runtime_keyword_source_hashes"]
         }
     )
-    all_ticker_reports = [*stage_reports, *ticker_only_stage_reports]
+    all_auxiliary_reports = [*stage_reports, *auxiliary_only_stage_reports]
+    all_ticker_reports = all_auxiliary_reports
     story_ticker_count = sum(
         item["story_ticker_count"] for item in all_ticker_reports
     )
@@ -890,6 +1222,48 @@ def build(
             f"targets={story_ticker_count} "
             f"entries={len(story_ticker_source_hashes)}"
         )
+    z_report_count = sum(
+        item["z_report_count"] for item in all_auxiliary_reports
+    )
+    z_report_source_hashes = sorted(
+        {
+            source_hash
+            for item in all_auxiliary_reports
+            for source_hash in item["z_report_source_hashes"]
+        }
+    )
+    if (
+        z_report_count
+        != translations["z_reports"].get("expected_target_count")
+        or len(z_report_source_hashes)
+        != translations["z_reports"].get("expected_entry_count")
+    ):
+        raise SystemExit(
+            "Z Report build coverage drift: "
+            f"targets={z_report_count} entries={len(z_report_source_hashes)}"
+        )
+    tutorial_stage_reports = {
+        str(item["stage_index"]): item
+        for item in stage_reports
+        if item["stage_index"] in {185, 186}
+    }
+    if (
+        set(tutorial_stage_reports) != {"185", "186"}
+        or {
+            stage: item["dialogue_count"]
+            for stage, item in tutorial_stage_reports.items()
+        }
+        != tutorial_binding["dialogue_counts"]
+        or sum(
+            item["dialogue_count"] for item in tutorial_stage_reports.values()
+        )
+        != tutorial_binding["expected_total_dialogue_count"]
+        or not all(
+            item["translated_reread_exact"]
+            for item in tutorial_stage_reports.values()
+        )
+    ):
+        raise SystemExit("tutorial translated STAGE coverage drift")
     dialogue_quote_style_counts = Counter()
     for item in stage_reports:
         dialogue_quote_style_counts.update(item["dialogue_quote_style_counts"])
@@ -963,6 +1337,11 @@ def build(
                 "size": tickers_path.stat().st_size,
                 "sha256": _sha256(tickers_path),
             },
+            "z_reports": {
+                "path": str(z_reports_path.relative_to(PROJECT_ROOT)),
+                "size": z_reports_path.stat().st_size,
+                "sha256": _sha256(z_reports_path),
+            },
         },
         "stage_indices": sorted(stages),
         "codebook_proposal": str(proposal_path.relative_to(PROJECT_ROOT)),
@@ -972,7 +1351,12 @@ def build(
         "safe_alias_assignment_count": len(proposal.get("surface_alias_assignments", [])),
         "unaliased_conditional_localized_assignment_count": proposal.get("surface_safe_aliases", {}).get("unaliased_conditional_assignment_count"),
         "stages": stage_reports,
-        "ticker_only_stages": ticker_only_stage_reports,
+        "auxiliary_only_stages": auxiliary_only_stage_reports,
+        "ticker_only_stages": [
+            item
+            for item in auxiliary_only_stage_reports
+            if item["story_ticker_count"]
+        ],
         "outputs": {
             "stage": {"size": len(rebuilt_stage), "sha256": sha256_bytes(rebuilt_stage)},
             "hb": {"size": len(rebuilt_hb), "sha256": sha256_bytes(rebuilt_hb)},
@@ -982,7 +1366,7 @@ def build(
             for item in stage_reports
         ),
         "unchanged_chunk_count": len(output_chunks)
-        - len(stages | set(tickers_by_stage)),
+        - len(stages | auxiliary_stages),
         "stage_layout_preserved": True,
         "source_dialogue_stage_coverage_exact": True,
         "hb_offset_reread_exact": True,
@@ -1011,6 +1395,35 @@ def build(
             item["story_ticker_translated_reread_exact"]
             for item in all_ticker_reports
         ),
+        "z_report_count": z_report_count,
+        "z_report_source_count": len(z_report_source_hashes),
+        "z_report_source_hashes": z_report_source_hashes,
+        "z_report_stage_count": z_report_inventory["stage_count"],
+        "z_report_stage_indices": z_report_inventory["stage_indices"],
+        "z_report_inventory_sha256": z_report_inventory[
+            "inventory_sha256"
+        ],
+        "z_report_structural_slots_exact": z_report_inventory[
+            "structural_slots_exact"
+        ],
+        "z_report_fixed_slots_exact": all(
+            item["z_report_fixed_slots_exact"]
+            for item in all_auxiliary_reports
+        ),
+        "z_report_translated_reread_exact": all(
+            item["z_report_translated_reread_exact"]
+            for item in all_auxiliary_reports
+        ),
+        "tutorial_binding": {
+            "stage_names": tutorial_source_names,
+            "dialogue_counts": tutorial_binding["dialogue_counts"],
+            "total_dialogue_count": tutorial_binding[
+                "expected_total_dialogue_count"
+            ],
+            "source_stage_headers_exact": True,
+            "translated_stage_reread_exact": True,
+            "alternate_mtv_prop_text_owner_ruled_out": True,
+        },
         "dialogue_quote_style_counts": dict(
             sorted(dialogue_quote_style_counts.items())
         ),

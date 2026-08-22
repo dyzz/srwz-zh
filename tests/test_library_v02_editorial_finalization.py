@@ -17,6 +17,18 @@ KEYWORD_DECISIONS = {
 
 
 class LibraryV02EditorialFinalizationTests(unittest.TestCase):
+    def test_rolan_actor_name_stays_corrected(self):
+        reviewed = json.loads(
+            (PROJECT_ROOT / "corpus/zh/library/v0.2-reviewed.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        by_id = {row["id"]: row for row in reviewed["entries"]}
+        actor = by_id["library-text/e43db94669718cab"]
+        self.assertEqual(actor["translation"], "朴璐美")
+        self.assertEqual(actor["tags"], ["ACTR"])
+        self.assertEqual(actor["review_origin"], "manual_issue_010_correction")
+
     def test_normalized_source_ignores_game_hard_wraps(self):
         self.assertEqual(
             finalization.normalized_source("　同じ\n原文"),

@@ -2,6 +2,7 @@ import unittest
 from pathlib import Path
 
 from tools.srwz.chinese_layout import (
+    DEFAULT_CONTINUATION_LINE_WIDTH,
     DEFAULT_LINE_WIDTH,
     FORBIDDEN_LINE_END_CHARACTERS,
     FORBIDDEN_LINE_START_CHARACTERS,
@@ -159,7 +160,14 @@ class ChineseLayoutTests(unittest.TestCase):
             )
 
     def test_checked_in_profiles_keep_surface_widths_separate(self):
-        self.assertEqual(self.profiles["story_dialogue"].maximum_width, 21)
+        self.assertEqual(
+            self.profiles["story_dialogue"].maximum_width,
+            DEFAULT_CONTINUATION_LINE_WIDTH,
+        )
+        self.assertEqual(
+            self.profiles["story_dialogue"].first_line_maximum_width,
+            DEFAULT_LINE_WIDTH,
+        )
         self.assertEqual(self.profiles["library_robot"].maximum_width, 26)
         self.assertEqual(self.profiles["library_character"].maximum_width, 16)
         self.assertEqual(self.profiles["library_glossary"].maximum_width, 24)

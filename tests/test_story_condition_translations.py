@@ -135,9 +135,9 @@ class StoryConditionTranslationTests(unittest.TestCase):
                 "奥尔和史黛拉后，最后击坠尼奥。"
             ),
             "story/004/condition/01/02": "荣耀之星被击坠。",
-            "story/042/condition/01/00": "：被击坠。",
-            "story/054/condition/01/01": "：或卡缪任一人被击坠。",
-            "story/083/condition/01/01": "霍兰德或：被击坠。",
+            "story/042/condition/01/00": ":被击坠。",
+            "story/054/condition/01/01": ":或卡缪任一人被击坠。",
+            "story/083/condition/01/01": "霍兰德或:被击坠。",
             "story/130/condition/02/00": (
                 "在5回合内击坠其他所有敌人后，\n"
                 "最后击坠超限恶魔。"
@@ -161,6 +161,14 @@ class StoryConditionTranslationTests(unittest.TestCase):
         ):
             self.assertIn("冒号", entries[entry_id]["notes"])
             self.assertIn("不推测", entries[entry_id]["notes"])
+
+    def test_runtime_name_placeholders_keep_source_halfwidth_colons(self):
+        entries = self.translations["entries"]
+        dynamic = [entry for entry in entries if "姓名占位控制标记" in entry["notes"]]
+        self.assertEqual(len(dynamic), 12)
+        for entry in dynamic:
+            self.assertIn(":", entry["translation"])
+            self.assertNotIn("：", entry["translation"])
 
     def test_condition_glossary_is_complete_and_separately_reviewable(self):
         terms = self.glossary["terms"]

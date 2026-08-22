@@ -1,4 +1,5 @@
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -9,6 +10,9 @@ TRANSLATIONS_PATH = (
 )
 GLOSSARY_PATH = (
     PROJECT_ROOT / "corpus" / "glossary" / "weapons-v1.json"
+)
+BATTLE_TRANSLATIONS_PATH = (
+    PROJECT_ROOT / "corpus" / "zh" / "battle" / "srvc-lines.json"
 )
 RELEASE_PATH = PROJECT_ROOT / "corpus" / "releases" / "v1.json"
 COMPONENT_MANIFEST_PATH = (
@@ -25,10 +29,17 @@ class WeaponTranslationTests(unittest.TestCase):
         cls.glossary = json.loads(
             GLOSSARY_PATH.read_text(encoding="utf-8")
         )
+        cls.battle_translations = json.loads(
+            BATTLE_TRANSLATIONS_PATH.read_text(encoding="utf-8")
+        )
 
     def test_all_weapon_records_have_one_matching_canonical_term(self):
         entries = self.translations["entries"]
-        terms = self.glossary["terms"]
+        terms = [
+            term
+            for term in self.glossary["terms"]
+            if re.fullmatch(r"weapon/[0-9]{4}", term["id"])
+        ]
         fixed_span_display_contractions = {
             167: "爆雷",
             345: "荷粒子炮",
@@ -86,6 +97,7 @@ class WeaponTranslationTests(unittest.TestCase):
         expected = {
             1: "腐蚀飓风",
             64: "双战斧",
+            97: "雷霆闪光",
             195: "沃卡加利亚全功率",
             217: "布洛克利全功率",
             270: "ν超级火箭筒",
@@ -93,6 +105,7 @@ class WeaponTranslationTests(unittest.TestCase):
             372: "光束突击枪（连射）",
             448: "分离式统合控制高速机动兵装群网络系统（连射）",
             518: "光子垫",
+            550: "铁腕猛击",
             638: "七波",
             650: "队形·加贡多拉",
             709: "灵脉爆破",
@@ -103,6 +116,15 @@ class WeaponTranslationTests(unittest.TestCase):
         )
         self.assertIn("technology/photon-mat", entries[518]["glossary_refs"])
         self.assertIn("system/formation", entries[650]["glossary_refs"])
+
+    def test_baldios_split_attack_calls_match_thunder_flash_name(self):
+        by_id = {
+            entry["id"]: entry["translation"]
+            for entry in self.battle_translations["entries"]
+        }
+        self.assertEqual(by_id["battle:17870"], "“上了！雷——霆——！”")
+        self.assertEqual(by_id["battle:17871"], "“闪——光！！”")
+        self.assertEqual(by_id["battle:17874"], "“雷——霆——！”")
 
     def test_v1_release_registers_complete_weapon_batch(self):
         release = json.loads(RELEASE_PATH.read_text(encoding="utf-8"))
@@ -130,6 +152,7 @@ class WeaponTranslationTests(unittest.TestCase):
         terms = {
             int(term["id"].rsplit("/", 1)[1]): term["translation"]
             for term in self.glossary["terms"]
+            if re.fullmatch(r"weapon/[0-9]{4}", term["id"])
         }
         menu_expected = {
             516: "电锯枪（射击）",

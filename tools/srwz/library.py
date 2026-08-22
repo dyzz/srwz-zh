@@ -244,6 +244,42 @@ def zkan_escape_transform(data: bytes) -> bytes:
     )
 
 
+def raw_visible_ascii_offsets(data: bytes) -> tuple[int, ...]:
+    """Return offsets of one-byte visible ASCII in a localized ZKAN field.
+
+    The localized library renderer consumes the game's two-byte character
+    stream.  A naive ``bytes`` search is not sufficient because a printable
+    value may be the parameter of a control code or the trail byte of a
+    two-byte character.  Walk the field with the same byte classes as
+    :func:`decode_text` and report only bytes that the runtime would interpret
+    as standalone visible ASCII glyphs.
+    """
+
+    source = bytes(data)
+    offsets: list[int] = []
+    cursor = 0
+    while cursor < len(source):
+        code = source[cursor]
+        if 0x31 <= code <= 0x35:
+            if cursor + 1 >= len(source):
+                raise LibraryScopeError(
+                    "localized ZKAN text ends inside a control code"
+                )
+            cursor += 2
+            continue
+        if 0x80 <= code <= 0x9F or 0xE0 <= code <= 0xEA:
+            if cursor + 1 >= len(source):
+                raise LibraryScopeError(
+                    "localized ZKAN text ends inside a two-byte character"
+                )
+            cursor += 2
+            continue
+        if 0x20 <= code <= 0x7E:
+            offsets.append(cursor)
+        cursor += 1
+    return tuple(offsets)
+
+
 @dataclass(frozen=True)
 class ZkanField:
     tag: str
@@ -889,6 +925,7 @@ __all__ = [
     "build_runtime_zkn_decoded_chunk",
     "parse_zkn_decoded_chunk",
     "parse_runtime_zkn_decoded_chunk",
+    "raw_visible_ascii_offsets",
     "parse_sound_track_titles",
     "verify_jtim_library_menu_record",
     "verify_sound_title_source",

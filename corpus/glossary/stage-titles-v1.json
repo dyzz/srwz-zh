@@ -26,15 +26,16 @@
       "source_terms": [
         "百鬼"
       ],
-      "translation": "百鬼兵",
+      "translation": "百鬼",
       "category": "organization",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "library",
         "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "指《盖塔机器人G》的百鬼帝国。"
+      "notes": "《盖塔机器人G》的上位短称；统一保留为“百鬼”，具体的“百鬼兵／百鬼帝国／百鬼一族”由更长日文源词和句法决定，避免短词污染。"
     },
     {
       "id": "place/photon-power-laboratory",
@@ -101,6 +102,42 @@
       ],
       "enforce": true,
       "notes": "《交响诗篇》自造词与集标题；不是普通英语 Experience。"
+    },
+    {
+      "id": "title/bluesky-fish",
+      "source_terms": [
+        "ブルースカイ・フィッシュ"
+      ],
+      "translation": "飞鱼",
+      "deprecated_translations": [
+        "蓝天之鱼"
+      ],
+      "variant_scope": "source_bound",
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》同名集标题；大陆流通的 SGS＆dmhy 简体字幕采用“飞鱼”，并与作品内生物名统一。"
+    },
+    {
+      "id": "title/morning-glory",
+      "source_terms": [
+        "モーニング・グローリー"
+      ],
+      "translation": "牵牛花",
+      "deprecated_translations": [
+        "晨光"
+      ],
+      "variant_scope": "source_bound",
+      "category": "system",
+      "status": "approved",
+      "domains": [
+        "menu"
+      ],
+      "enforce": true,
+      "notes": "《交响诗篇》同名集标题；Morning Glory 在此指牵牛花，不按字面误译为“晨光”。"
     },
     {
       "id": "event/black-history",

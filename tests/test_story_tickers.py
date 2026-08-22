@@ -1,13 +1,6 @@
 import json
-import sys
 import unittest
 from pathlib import Path
-
-
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-TOOLS_ROOT = PROJECT_ROOT / "tools"
-if str(TOOLS_ROOT) not in sys.path:
-    sys.path.insert(0, str(TOOLS_ROOT))
 
 from tools.build_story_component import (
     _discover_story_tickers,
@@ -26,6 +19,9 @@ from tools.srwz.text import (
     original_fullwidth_ascii_overrides,
     project_runtime_text_table,
 )
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class StoryTickerTests(unittest.TestCase):
@@ -129,6 +125,24 @@ class StoryTickerTests(unittest.TestCase):
         self.assertEqual(
             sorted(set(self.targets_by_stage) - dialogue_stages),
             [158, 159, 161, 162, 165, 166, 167, 168, 171, 172, 173, 174],
+        )
+
+    def test_issue_020_siberian_market_has_one_structural_runtime_slot(self):
+        matches = [
+            (stage_index, target)
+            for stage_index, targets in self.targets_by_stage.items()
+            for target in targets
+            if target["source_text"]
+            == "シベ鉄の大マーケット。旅の皆様にお値打ち品を大放出。"
+        ]
+        self.assertEqual(len(matches), 1)
+        stage_index, target = matches[0]
+        self.assertEqual(stage_index, 39)
+        self.assertEqual(target["decoded_offset"], 0x3B64)
+        self.assertEqual(target["source_slot_size"], 53)
+        self.assertEqual(
+            target["translation"],
+            "西伯铁大市场，为旅客大放送超值商品。",
         )
 
 

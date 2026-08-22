@@ -11,13 +11,13 @@
       ],
       "translation": "仕女指挥机",
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《盖塔机器人G》早乙女美智琉所驾驶的支援机；中文资料缺少稳定统一译名，初稿保留英文名，列为人工重点复核项。"
+      "notes": "《盖塔机器人G》中早乙女美智留驾驶的支援机；沿用此前机体名人工审核定稿“仕女指挥机”。"
     },
     {
       "id": "people/burai",
@@ -26,13 +26,15 @@
       ],
       "translation": "布莱",
       "category": "people",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《盖塔机器人G》的布莱大帝；台词是否带“大帝”由原句敬称决定。"
+      "notes": "《盖塔机器人G》的布莱大帝；中文采用既定人物审核结果，台词是否带“大帝”由日文原句敬称决定。"
     },
     {
       "id": "people/gagan",
@@ -56,13 +58,13 @@
       ],
       "translation": "加里森",
       "category": "people",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
         "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《无敌钢人泰坦3》的加里森时田；采用简体音译，待与完整角色表统一。"
+      "notes": "《无敌钢人泰坦3》的加里森时田；与完整姓名词条统一。"
     },
     {
       "id": "people/rag",
@@ -305,16 +307,42 @@
       "source_terms": [
         "アークエンジェル"
       ],
-      "translation": "大天使号",
+      "translation": "大天使",
+      "deprecated_translations": [
+        "大天使号"
+      ],
+      "variant_scope": "source_bound",
       "category": "unit",
       "status": "approved",
       "domains": [
         "battle",
+        "library",
         "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "高达SEED系列战舰 Archangel 的通行译名。"
+      "notes": "《机动战士高达SEED DESTINY》战舰 Archangel；按用户审核定案，不加舰名后缀，统一为“大天使”。"
+    },
+    {
+      "id": "unit/eternal",
+      "source_terms": [
+        "エターナル"
+      ],
+      "translation": "永恒",
+      "deprecated_translations": [
+        "永恒号"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "menu",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《机动战士高达SEED DESTINY》战舰 Eternal；按用户审核定案，不加舰名后缀，统一为“永恒”。"
     },
     {
       "id": "people/neo",
@@ -524,14 +552,19 @@
         "エウレカ"
       ],
       "translation": "优莱卡",
+      "deprecated_translations": [
+        "艾蕾卡"
+      ],
       "category": "people",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《交响诗篇》女主人公 Eureka 的简体中文常见译名。"
+      "notes": "《交响诗篇》女主人公 Eureka；中国大陆哔哩哔哩正版 TV 版及《优莱卡 交响诗篇 超进化》均采用“优莱卡”。"
     },
     {
       "id": "people/stoner",
@@ -554,9 +587,15 @@
         "月光号"
       ],
       "translation": "月光号",
+      "deprecated_translations": [
+        "月光洲"
+      ],
+      "variant_scope": "source_bound",
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu",
         "story"
       ],
@@ -572,6 +611,7 @@
       "category": "people",
       "status": "researched",
       "domains": [
+        "battle",
         "menu",
         "story"
       ],

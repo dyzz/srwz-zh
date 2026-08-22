@@ -314,6 +314,19 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
     ):
         raise SystemExit("global release snapshot reference is malformed")
     snapshot_document = _load(PROJECT_ROOT / current_snapshot["path"])
+    clean_contracts = [
+        extension["clean_default_width_cjk_primary_migration"]
+        for extension in snapshot_document.get("extensions", [])
+        if isinstance(extension, dict)
+        and "clean_default_width_cjk_primary_migration" in extension
+    ]
+    if len(clean_contracts) != 1:
+        raise SystemExit("clean CJK-primary migration contract is absent")
+    clean_migration_by_character = {
+        row["character"]: row
+        for row in clean_contracts[0].get("migrations", [])
+        if isinstance(row, dict)
+    }
     compatibility_drift = (
         not isinstance(snapshot, dict)
         or snapshot.get("path") != current_snapshot.get("path")
@@ -337,7 +350,7 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
         )
         encoded_reference = base_manifest.get("inputs", {}).get(
             "codebook", {}
-        ).get("proposal", {})
+        ).get("mapping_snapshot", {})
         encoded = _load(PROJECT_ROOT / encoded_reference.get("path", ""))
         encoded_assignments = encoded.get("assignments")
         encoded_mapping_sha256 = _assignment_mapping_sha256(
@@ -347,14 +360,35 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
             item["character"]: (item["code"], item["glyph_index"])
             for item in assignments
         }
+
+        def encoded_assignment_is_current_or_migrated(item: dict) -> bool:
+            character = item["character"]
+            current = release_by_character.get(character)
+            encoded_pair = (item["code"], item["glyph_index"])
+            if current == encoded_pair:
+                return True
+            migration = clean_migration_by_character.get(character)
+            return bool(
+                migration
+                and encoded_pair
+                == (
+                    migration.get("from_code"),
+                    migration.get("from_glyph_index"),
+                )
+                and current
+                == (
+                    migration.get("to_code"),
+                    migration.get("to_glyph_index"),
+                )
+            )
+
         if (
             len(encoded_assignments)
             != compatibility.get("encoded_assignment_count")
             or encoded_mapping_sha256
             != compatibility.get("encoded_assignment_mapping_sha256")
             or any(
-                release_by_character.get(item["character"])
-                != (item["code"], item["glyph_index"])
+                not encoded_assignment_is_current_or_migrated(item)
                 for item in encoded_assignments
             )
         ):

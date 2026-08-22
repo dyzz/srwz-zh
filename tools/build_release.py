@@ -99,16 +99,6 @@ def verify_config_bindings(config: dict[str, Any]) -> None:
             raise ReleaseBuildError(
                 f"source_iso.{key} is not bound to ISO build input"
             )
-    for release_key, iso_key in (
-        ("path", "path"),
-        ("size", "expected_size"),
-        ("sha256", "expected_sha256"),
-    ):
-        if target[release_key] != iso_output[iso_key]:
-            raise ReleaseBuildError(
-                f"target_iso.{release_key} is not bound to ISO build output"
-            )
-
     redump = source.get("redump")
     if not isinstance(redump, dict):
         raise ReleaseBuildError("source_iso.redump metadata is required")
@@ -167,6 +157,16 @@ def verify_config_bindings(config: dict[str, Any]) -> None:
         or disc_id <= 0
     ):
         raise ReleaseBuildError("invalid Redump disc ID")
+
+    for release_key, iso_key in (
+        ("path", "path"),
+        ("size", "expected_size"),
+        ("sha256", "expected_sha256"),
+    ):
+        if target[release_key] != iso_output[iso_key]:
+            raise ReleaseBuildError(
+                f"target_iso.{release_key} is not bound to ISO build output"
+            )
 
     expected_release_dir = f"build/release/{tag}"
     if config["output"]["directory"] != expected_release_dir:

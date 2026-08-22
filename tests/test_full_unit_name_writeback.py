@@ -10,6 +10,7 @@ from tools.srwz.display_names import (
     parse_display_names,
 )
 from tools.srwz.text import (
+    encode_text,
     load_text_table,
     normalize_original_fullwidth_ascii,
     original_fullwidth_ascii_overrides,
@@ -36,6 +37,20 @@ class FullUnitNameWritebackTests(unittest.TestCase):
         cls.base_compdata = (
             PROJECT_ROOT / compdata_reference["path"]
         ).read_bytes()
+        base_manifest_reference = cls.config["base_ui"]["manifest"]
+        base_manifest = json.loads(
+            (PROJECT_ROOT / base_manifest_reference["path"]).read_text(
+                encoding="utf-8"
+            )
+        )
+        mapping_reference = base_manifest["inputs"]["codebook"][
+            "mapping_snapshot"
+        ]
+        encoded_mapping = json.loads(
+            (PROJECT_ROOT / mapping_reference["path"]).read_text(
+                encoding="utf-8"
+            )
+        )
         (
             cls.rebuilt_compdata,
             cls.report,
@@ -48,6 +63,7 @@ class FullUnitNameWritebackTests(unittest.TestCase):
             cls.base_compdata,
             cls.config["full_pilot_names"],
             font_manifest,
+            encoded_mapping,
         )
 
         structure, _source, cls.source_names, _context = (
@@ -73,9 +89,15 @@ class FullUnitNameWritebackTests(unittest.TestCase):
             output_table,
             original_fullwidth_ascii_overrides(table),
         )
+        source_table = project_runtime_text_table(
+            table,
+            build_full_story_components._encoded_mapping_overrides(
+                encoded_mapping
+            ),
+        )
         cls.base_names = parse_display_names(
             decode(cls.base_compdata).output,
-            output_table,
+            source_table,
             structure,
             verify_text_preimages=False,
         )
@@ -92,10 +114,11 @@ class FullUnitNameWritebackTests(unittest.TestCase):
         component_reference = cls.component_manifest["outputs"][
             "DATA/COMPDATA.BN"
         ]
+        cls.component_payload = decode(
+            (PROJECT_ROOT / component_reference["path"]).read_bytes()
+        ).output
         cls.component_names = parse_display_names(
-            decode(
-                (PROJECT_ROOT / component_reference["path"]).read_bytes()
-            ).output,
+            cls.component_payload,
             output_table,
             structure,
             verify_text_preimages=False,
@@ -132,6 +155,52 @@ class FullUnitNameWritebackTests(unittest.TestCase):
         self.assertEqual(unit_report["entry_count"], 348)
         self.assertTrue(unit_report["pointer_relocations_exact"])
         self.assertTrue(unit_report["reread_exact"])
+
+    def test_issue_017_glenn_pilot_names_use_the_safe_surface_alias(self):
+        expected_ids = {
+            "display-name/pilot/0619/display",
+            "display-name/pilot/0619/given",
+            "display-name/pilot/0620/display",
+            "display-name/pilot/0620/given",
+        }
+        matches = {
+            entry.entry_id: entry
+            for entry in self.rebuilt_names.pilot_entries
+            if entry.text == "格伦"
+        }
+        self.assertEqual(set(matches), expected_ids)
+
+        snapshot = json.loads(
+            (
+                PROJECT_ROOT
+                / "config/encoding/zh-release-font-assignments.json"
+            ).read_text(encoding="utf-8")
+        )
+        table = load_text_table(
+            PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+        )
+        primary = {
+            row["character"]: int(row["code"], 16)
+            for row in snapshot["primary_assignments"]
+        }
+        aliases = {
+            row["character"]: int(row["code"], 16)
+            for row in snapshot["surface_alias_assignments"]
+        }
+        encoding_overrides = build_full_story_components._stored_text_overrides(
+            table,
+            primary,
+            aliases,
+        )
+        encoded = encode_text(
+            "格伦",
+            table,
+            overrides=encoding_overrides,
+            terminate=True,
+        )
+        self.assertEqual(encoded, bytes.fromhex("8A6991C800"))
+        self.assertNotIn(bytes.fromhex("81FE"), encoded)
+        self.assertNotIn(bytes.fromhex("9F40"), encoded)
 
     def test_gundam_x_divider_regression_reaches_the_binary(self):
         before = {

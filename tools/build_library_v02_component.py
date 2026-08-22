@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Build the reviewed v0.2 ZKAN translations into fixed-span members."""
+"""Build the reviewed v0.2 ZKAN translations into fixed-size members."""
 
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
+import struct
 from concurrent.futures import ThreadPoolExecutor
 from itertools import combinations
 from pathlib import Path
@@ -28,6 +29,7 @@ from srwz.library import (
     build_runtime_zkn_decoded_chunk,
     parse_runtime_zkn_decoded_chunk,
     parse_zkn_decoded_chunk,
+    raw_visible_ascii_offsets,
     validate_library_scope_mapping,
     verify_sound_title_source,
 )
@@ -472,6 +474,10 @@ def main() -> int:
     layout = config.get("layout")
     if not isinstance(codec, dict) or not isinstance(layout, dict):
         raise SystemExit("LIBRARY codec/layout config is missing")
+    repack_enabled = codec.get("allow_archive_repack") is True
+    repack_alignment = int(codec.get("repack_alignment", 0))
+    if repack_enabled and repack_alignment != 16:
+        raise SystemExit("LIBRARY archive repack alignment must be 16")
     widths = layout.get("body_line_widths")
     if not isinstance(widths, dict):
         raise SystemExit("LIBRARY body widths are missing")
@@ -652,8 +658,6 @@ def main() -> int:
                         tag: two_byte_visible_spaces(text)
                         for tag, text in candidate_replacements.items()
                     }
-                    if expected_kind == "KYWD"
-                    else candidate_replacements
                 )
                 return build_runtime_zkn_decoded_chunk(
                     document,
@@ -671,15 +675,21 @@ def main() -> int:
                     min_match_length=int(codec["min_match_length"]),
                     max_match_chain=int(codec["max_match_chain"]),
                     lazy_matching=bool(codec["lazy_matching"]),
-                    max_output_size=len(stored),
+                    max_output_size=(
+                        len(stored)
+                        if args.audit_capacity or not repack_enabled
+                        else len(source)
+                    ),
                     original_result=decoded,
                 )
 
             rebuilt_decoded = rebuild(replacements)
             fallback_body_tags: tuple[str, ...] = ()
+            dense_error: Exception | None = None
             try:
                 encoded = compress(rebuilt_decoded)
-            except (RuntimeError, ValueError) as dense_error:
+            except (RuntimeError, ValueError) as error:
+                dense_error = error
                 encoded = None
                 body_tags = sorted(
                     body_variants,
@@ -732,8 +742,6 @@ def main() -> int:
                     tag: two_byte_visible_spaces(text)
                     for tag, text in replacements.items()
                 }
-                if expected_kind == "KYWD"
-                else dict(replacements)
             )
             if encoded is None:
                 if args.audit_capacity:
@@ -758,18 +766,32 @@ def main() -> int:
                         "text_field_count": len(expected_text),
                         "body_line_count": body_line_count,
                         "maximum_body_line_width": maximum_width,
+                        "dense_body_layout": False,
                         "capacity_fallback_body_tags": list(
                             fallback_body_tags
                         ),
                         "translation_hashes": sorted(chunk_hashes),
                         "capacity_failure": str(dense_error),
+                        "codec_round_trip_exact": False,
+                        "runtime_text_reread_exact": False,
+                        "binary_fields_preserved": True,
+                        "raw_visible_space_count": 0,
+                        "two_byte_visible_space_count": 0,
+                        "all_visible_spaces_two_byte": True,
+                        "raw_visible_ascii_count": 0,
+                        "raw_visible_ascii_bytes": {},
+                        "all_visible_ascii_two_byte": True,
                     }
                 raise LibraryScopeError(
                     f"localized LIBRARY compression failed: "
                     f"{domain}/{index:03d} slot={len(stored)} "
                     f"decoded={len(rebuilt_decoded)}: {dense_error}"
                 ) from dense_error
-            output = encoded + bytes(len(stored) - len(encoded))
+            output = (
+                encoded
+                if repack_enabled and not args.audit_capacity
+                else encoded + bytes(len(stored) - len(encoded))
+            )
             reread_compressed = decode(output)
             reread = parse_runtime_zkn_decoded_chunk(
                 reread_compressed.output,
@@ -784,17 +806,44 @@ def main() -> int:
                 raise LibraryScopeError(
                     f"localized LIBRARY reread mismatch: {domain}/{index:03d}"
                 )
-            if expected_kind == "KYWD":
-                raw_space_tags = tuple(
-                    field.tag
-                    for field in reread.fields
-                    if field.text is not None and b"\x20" in field.data
+            raw_space_tags = tuple(
+                field.tag
+                for field in reread.fields
+                if field.text is not None and b"\x20" in field.data
+            )
+            if raw_space_tags:
+                raise LibraryScopeError(
+                    "localized LIBRARY contains raw visible-space bytes: "
+                    f"{domain}/{index:03d}/{','.join(raw_space_tags)}"
                 )
-                if raw_space_tags:
-                    raise LibraryScopeError(
-                        "localized KYWD contains raw visible-space bytes: "
-                        f"{domain}/{index:03d}/{','.join(raw_space_tags)}"
+            raw_visible_ascii: dict[str, list[tuple[int, int]]] = {}
+            for field in reread.fields:
+                if field.text is None:
+                    continue
+                hits = [
+                    (offset, field.data[offset])
+                    for offset in raw_visible_ascii_offsets(field.data)
+                ]
+                if hits:
+                    raw_visible_ascii[field.tag] = hits
+            if raw_visible_ascii:
+                details = ",".join(
+                    f"{tag}:"
+                    + "/".join(
+                        f"0x{value:02X}@0x{offset:X}"
+                        for offset, value in hits
                     )
+                    for tag, hits in sorted(raw_visible_ascii.items())
+                )
+                raise LibraryScopeError(
+                    "localized LIBRARY contains raw visible ASCII bytes: "
+                    f"{domain}/{index:03d}/{details}"
+                )
+            two_byte_visible_space_count = sum(
+                field.data.count(b"\x81\x40")
+                for field in reread.fields
+                if field.text is not None
+            )
             source_binary = {
                 field.tag: field.data
                 for field in document.fields
@@ -812,6 +861,7 @@ def main() -> int:
             return index, output, {
                 "entry_index": index,
                 "slot_size": len(stored),
+                "source_slot_size": len(stored),
                 "source_encoded_size": decoded.consumed,
                 "output_encoded_size": len(encoded),
                 "headroom": len(stored) - len(encoded),
@@ -826,6 +876,12 @@ def main() -> int:
                 "codec_round_trip_exact": True,
                 "runtime_text_reread_exact": True,
                 "binary_fields_preserved": True,
+                "raw_visible_space_count": 0,
+                "two_byte_visible_space_count": two_byte_visible_space_count,
+                "all_visible_spaces_two_byte": True,
+                "raw_visible_ascii_count": 0,
+                "raw_visible_ascii_bytes": {},
+                "all_visible_ascii_two_byte": True,
             }
 
         work = [
@@ -838,8 +894,67 @@ def main() -> int:
         ) as executor:
             built = list(executor.map(build_chunk, work))
         built.sort(key=lambda item: item[0])
-        output = b"".join(item[1] for item in built)
         reports = [item[2] for item in built]
+        offset_patch = None
+        if repack_enabled and not args.audit_capacity:
+            minimum_repacked_size = sum(
+                (len(item[1]) + repack_alignment - 1)
+                // repack_alignment
+                * repack_alignment
+                for item in built
+            )
+            if minimum_repacked_size > len(source):
+                raise LibraryScopeError(
+                    f"localized LIBRARY archive cannot be repacked: {member} "
+                    f"required={minimum_repacked_size} size={len(source)}"
+                )
+            new_offsets = []
+            packed_chunks = []
+            cursor = 0
+            for built_index, (_index, encoded, report) in enumerate(built):
+                new_offsets.append(cursor)
+                if built_index + 1 == len(built):
+                    span = len(source) - cursor
+                else:
+                    span = (
+                        (len(encoded) + repack_alignment - 1)
+                        // repack_alignment
+                        * repack_alignment
+                    )
+                if len(encoded) > span:
+                    raise LibraryScopeError(
+                        f"localized LIBRARY repack span underflow: "
+                        f"{member}/{built_index:03d}"
+                    )
+                packed_chunks.append(encoded + bytes(span - len(encoded)))
+                report["slot_size"] = span
+                report["headroom"] = span - len(encoded)
+                report["repacked_start"] = cursor
+                report["repacked_end"] = cursor + span
+                cursor += span
+            new_offsets.append(len(source))
+            output = b"".join(packed_chunks)
+            table_positions = tuple(range(spec.table_start, spec.table_end, 4))
+            if len(table_positions) not in {len(built), len(built) + 1}:
+                raise LibraryScopeError(
+                    f"LIBRARY offset-table value count drift: {member}"
+                )
+            table_values = new_offsets[: len(table_positions)]
+            packed_table = struct.pack(
+                f"<{len(table_values)}I", *table_values
+            )
+            offset_patch = {
+                "member": member,
+                "table_start": spec.table_start,
+                "table_end": spec.table_end,
+                "value_count": len(table_values),
+                "values": table_values,
+                "packed_sha256": sha256_bytes(packed_table),
+                "archive_size": len(source),
+                "alignment": repack_alignment,
+            }
+        else:
+            output = b"".join(item[1] for item in built)
         capacity_failures.extend(
             {
                 "domain": domain,
@@ -863,6 +978,15 @@ def main() -> int:
                 "output_size": len(output),
                 "source_sha256": sha256_bytes(source),
                 "output_sha256": sha256_bytes(output),
+                "minimum_repacked_size_16": sum(
+                    (item["output_encoded_size"] + 15) // 16 * 16
+                    for item in reports
+                ),
+                "repack_headroom_16": len(source)
+                - sum(
+                    (item["output_encoded_size"] + 15) // 16 * 16
+                    for item in reports
+                ),
                 "minimum_chunk_headroom": min(item["headroom"] for item in reports),
                 "maximum_body_line_width": max(
                     item["maximum_body_line_width"] for item in reports
@@ -877,17 +1001,55 @@ def main() -> int:
                     len(item["capacity_fallback_body_tags"])
                     for item in reports
                 ),
-                "chunk_spans_preserved": True,
-                "offset_table_unchanged": True,
+                "chunk_spans_preserved": not repack_enabled,
+                "offset_table_unchanged": not repack_enabled,
+                "archive_repacked": repack_enabled,
+                "offset_table_patch": offset_patch,
                 "codec_round_trip_exact": True,
                 "runtime_text_reread_exact": True,
                 "binary_fields_preserved": True,
+                "raw_visible_space_count": sum(
+                    item["raw_visible_space_count"] for item in reports
+                ),
+                "two_byte_visible_space_count": sum(
+                    item["two_byte_visible_space_count"] for item in reports
+                ),
+                "all_visible_spaces_two_byte": all(
+                    item["all_visible_spaces_two_byte"] for item in reports
+                ),
+                "raw_visible_ascii_count": sum(
+                    item["raw_visible_ascii_count"] for item in reports
+                ),
+                "raw_visible_ascii_bytes": {},
+                "all_visible_ascii_two_byte": all(
+                    item["all_visible_ascii_two_byte"] for item in reports
+                ),
                 "entries": reports,
             }
         )
 
     if args.audit_capacity:
-        print(json.dumps({"capacity_failures": capacity_failures}, indent=2))
+        print(
+            json.dumps(
+                {
+                    "capacity_failures": capacity_failures,
+                    "archive_capacity": [
+                        {
+                            key: archive[key]
+                            for key in (
+                                "domain",
+                                "member",
+                                "source_size",
+                                "minimum_repacked_size_16",
+                                "repack_headroom_16",
+                            )
+                        }
+                        for archive in archive_reports
+                    ],
+                },
+                indent=2,
+            )
+        )
         return 1 if capacity_failures else 0
 
     if used_hashes != set(translation_by_hash):
@@ -974,14 +1136,34 @@ def main() -> int:
                 item["source_size"] == item["output_size"]
                 for item in archive_reports
             ),
-            "all_chunk_spans_preserved": all(
-                item["chunk_spans_preserved"] for item in archive_reports
+            "all_archive_offset_tables_locked": all(
+                (
+                    item["chunk_spans_preserved"]
+                    and item["offset_table_unchanged"]
+                )
+                or (
+                    item["archive_repacked"]
+                    and isinstance(item["offset_table_patch"], dict)
+                    and item["offset_table_patch"]["archive_size"]
+                    == item["output_size"]
+                )
+                for item in archive_reports
             ),
             "all_runtime_text_reread_exact": all(
                 item["runtime_text_reread_exact"] for item in archive_reports
             ),
             "all_binary_fields_preserved": all(
                 item["binary_fields_preserved"] for item in archive_reports
+            ),
+            "all_library_visible_spaces_two_byte": all(
+                item["raw_visible_space_count"] == 0
+                and item["all_visible_spaces_two_byte"]
+                for item in archive_reports
+            ),
+            "all_library_visible_ascii_two_byte": all(
+                item["raw_visible_ascii_count"] == 0
+                and item["all_visible_ascii_two_byte"]
+                for item in archive_reports
             ),
             "legacy_jtim_restored_original_byte_exact": menu_report[
                 "restored_original_byte_exact"

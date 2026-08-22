@@ -129,8 +129,8 @@ STAGE 块、六组 UI 图集、组合图集和最终整合组件。KVMDATA 与 V
 旧映射；updater、prepare、verifier 都会拒绝单字符模式区的新映射。随后重建
 release，不再创建新的 VT1 profile。
 
-当前静态 release 有 3,419 个主映射、693 个 surface-safe 别名，剩余追加候选槽为
-264。“邓”使用的默认宽度槽来自一个在完整活动语料中出现次数为 0 的片假名
+当前静态 release 有 3,450 个主映射、48 个 surface-safe 别名，剩余追加候选槽为
+101。“邓”使用的默认宽度槽来自一个在完整活动语料中出现次数为 0 的片假名
 surface-safe alias；原片假名主码位未改动，回收记录固定在分配快照 extension 中。
 该结果只证明当前语料覆盖、容量和组件回读，不证明
 所有 raw trail、direct-index 或目标画面的运行安全。底层容量分析见

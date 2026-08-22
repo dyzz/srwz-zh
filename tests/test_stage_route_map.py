@@ -2,6 +2,8 @@ import json
 import unittest
 from pathlib import Path
 
+from tools.srwz.chinese_layout import dialogue_line_widths
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 STAGE_TRANSLATIONS = (
@@ -56,6 +58,23 @@ class StageRouteMapTests(unittest.TestCase):
                 f"| {ordinal} | {translations[ordinal]}",
                 route_map,
             )
+
+    def test_runtime_route_choices_remain_single_line_dynamic_text(self):
+        document = json.loads(STAGE_TRANSLATIONS.read_text(encoding="utf-8"))
+        route_choices = document["entries"][107:116]
+        self.assertEqual(
+            [int(entry["id"].rsplit("/", 1)[1]) for entry in route_choices],
+            list(range(107, 116)),
+        )
+        self.assertTrue(
+            all("\n" not in entry["translation"] for entry in route_choices)
+        )
+        self.assertTrue(
+            all(
+                max(dialogue_line_widths(entry["translation"]), default=0) <= 21
+                for entry in route_choices
+            )
+        )
 
 
 if __name__ == "__main__":

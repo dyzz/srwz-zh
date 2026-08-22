@@ -271,6 +271,33 @@ class GlobalGlossaryTests(unittest.TestCase):
                         missing.append(f"{path.relative_to(ROOT)}:{item.get('id')}:{term_id}")
         self.assertEqual(missing, [])
 
+    def test_aquarion_work_title_and_unit_names_remain_distinct(self) -> None:
+        self.assertEqual(
+            self.by_id["work/aquarion"]["translation"], "创圣机械天使"
+        )
+        self.assertEqual(
+            self.by_id["unit/mechanical-angel-aquarion"]["translation"],
+            "机械天使亚库艾里翁",
+        )
+        units = json.loads(
+            (ZH_CORPUS / "display-names/units-full.json").read_text(encoding="utf-8")
+        )
+        aquarion_group = next(
+            group
+            for group in units["segments"]
+            if group.get("work") == "创圣机械天使"
+        )
+        self.assertIn("太阳机械天使", aquarion_group["translations"])
+
+        leaks: list[str] = []
+        for path in sorted(ZH_CORPUS.rglob("*.json")):
+            document = json.loads(path.read_text(encoding="utf-8"))
+            for field_path, value in release_strings(document):
+                for deprecated in ("阿克艾利昂", "阿克艾利安"):
+                    if deprecated in value:
+                        leaks.append(f"{path.relative_to(ROOT)}{field_path}:{deprecated}")
+        self.assertEqual(leaks, [])
+
     def test_approved_enforced_terms_match_every_bound_surface(self) -> None:
         mismatches: list[str] = []
         checked = 0
@@ -347,6 +374,9 @@ class GlobalGlossaryTests(unittest.TestCase):
             "organization/titans": "提坦斯",
             "organization/aeug": "奥古",
             "activity/lifting": "滑空",
+            "people/lifter": "滑空者",
+            "item/lifting-board": "滑空板",
+            "item/reflection-film": "反射膜",
             "faction/aldébaran": "阿尔德巴朗",
             "faction/gaizok": "盖佐克",
             "unit/g-shadow": "G战影",
@@ -430,9 +460,9 @@ class GlobalGlossaryTests(unittest.TestCase):
         self.assertEqual(
             report["source_occurrences"],
             {
-                "organization/gekkostate": 221,
+                "organization/gekkostate": 223,
                 "organization/titans": 218,
-                "organization/aeug": 253,
+                "organization/aeug": 254,
                 "faction/gaizok": 191,
                 "unit/freedom-gundam": 153,
                 "unit/freeden": 204,

@@ -6,6 +6,15 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from tools.audit_special_width_font_assignments import build_report
+from tools.srwz.font import (
+    glyph_index_for_code,
+    standard_glyph_index,
+)
+from tools.srwz.release_font_policy import (
+    DEFAULT_WIDTH_CLASS,
+    allocation_width_class,
+)
 from tools.srwz.release_font import (
     ReleaseFontError,
     audit_frozen_formation_compatibility_assignments,
@@ -49,6 +58,12 @@ class ZhReleaseFontTests(unittest.TestCase):
         cls.manifest = json.loads(
             (
                 PROJECT_ROOT / "manifests/zh-release-font-validation.json"
+            ).read_text(encoding="utf-8")
+        )
+        cls.special_width_audit = json.loads(
+            (
+                PROJECT_ROOT
+                / "manifests/zh-release-special-width-assignment-audit.json"
             ).read_text(encoding="utf-8")
         )
 
@@ -274,7 +289,11 @@ class ZhReleaseFontTests(unittest.TestCase):
             )
         for retired in contract["retired_aliases"]:
             character = retired["character"]
-            self.assertNotIn(character, aliases_by_character)
+            if character in aliases_by_character:
+                self.assertNotEqual(
+                    aliases_by_character[character]["code"],
+                    retired["from_code"],
+                )
             self.assertNotEqual(
                 active_by_code.get(retired["from_code"]),
                 character,
@@ -298,14 +317,14 @@ class ZhReleaseFontTests(unittest.TestCase):
         self.assertEqual(report["relocation_count"], 30)
         self.assertEqual(report["retired_alias_count"], 27)
         self.assertEqual(report["affected_character_count"], 57)
-        self.assertEqual(report["current_primary_assignment_count"], 54)
+        self.assertEqual(report["current_primary_assignment_count"], 56)
         self.assertEqual(
             report["current_surface_alias_assignment_count"],
-            3,
+            1,
         )
         self.assertEqual(
             report["frozen_mapping_sha256"],
-            "9530a4bbef6fc040092d0102a7b93019c46e83dcc4fea7be50daec2e1d6f3833",
+            "ed2340e967c1e722efdb4bea211112d169d52f79c0336ce2f75d9ce68fd2bb57",
         )
         self.assertTrue(report["all_affected_character_assignments_frozen"])
         self.assertTrue(report["all_vacated_codes_frozen"])
@@ -332,12 +351,36 @@ class ZhReleaseFontTests(unittest.TestCase):
             )
 
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
-        self.assertEqual(self.snapshot["primary_assignment_count"], 3424)
+        self.assertEqual(self.snapshot["primary_assignment_count"], 3450)
         self.assertEqual(
-            self.snapshot["surface_alias_assignment_count"], 604
+            self.snapshot["surface_alias_assignment_count"], 48
         )
         self.assertEqual(
-            self.snapshot["remaining_allocation_candidate_count"], 178
+            self.snapshot["remaining_allocation_candidate_count"], 101
+        )
+        primary_by_character = {
+            row["character"]: row
+            for row in self.snapshot["primary_assignments"]
+        }
+        aliases_by_character = {
+            row["character"]: row
+            for row in self.snapshot["surface_alias_assignments"]
+        }
+        self.assertTrue(set("伦尘坞访").isdisjoint(aliases_by_character))
+        self.assertEqual(
+            {
+                character: (
+                    primary_by_character[character]["code"],
+                    primary_by_character[character]["glyph_index"],
+                )
+                for character in "伦尘坞访"
+            },
+            {
+                "伦": ("91C8", 3208),
+                "尘": ("969E", 4126),
+                "坞": ("95A5", 3941),
+                "访": ("87C8", 1288),
+            },
         )
         compatibility = self.snapshot["source_compatibility_assignments"]
         compatibility_by_character = {
@@ -345,7 +388,7 @@ class ZhReleaseFontTests(unittest.TestCase):
         }
         self.assertEqual(
             set(compatibility_by_character),
-            set("いの乗備傭働別動姫撃敵無獣異砂級組総艦衛親話請議負賢軍連鉄銀陽隊頭飛鳥黒陆"),
+            set("いの乗備傭働別動姫撃敵無獣異砂級組総艦衛親話請議負賢軍連鉄銀陽隊頭飛鳥黒"),
         )
         legacy_codes = {
             "い": "82A2",
@@ -366,29 +409,48 @@ class ZhReleaseFontTests(unittest.TestCase):
                 row["mapping"],
                 "legacy_save_formation_source_compatibility",
             )
-        self.assertEqual(
-            compatibility_by_character["陆"]["source_character"], "陸"
-        )
+        self.assertNotIn("陆", compatibility_by_character)
         by_character = {
             item["character"]: item
             for item in self.snapshot["primary_assignments"]
         }
+        self.assertEqual(by_character["陆"]["code"], "97A4")
+        self.assertEqual(by_character["陆"]["glyph_index"], 4324)
+        self.assertEqual(by_character["陆"]["source_character"], "陸")
+        self.assertEqual(by_character["硅"]["code"], "94CF")
+        self.assertEqual(by_character["硅"]["glyph_index"], 3791)
+        self.assertEqual(by_character["硅"]["source_character"], "煩")
+        issue_037 = next(
+            extension["issue_037_raw_land_primary_swap"]
+            for extension in self.snapshot["extensions"]
+            if "issue_037_raw_land_primary_swap" in extension
+        )
+        self.assertEqual(issue_037["runtime_raw_code"], "97A4")
+        self.assertEqual(issue_037["runtime_rendered_character"], "陆")
+        self.assertFalse(issue_037["renderer_binary_patch_required"])
+        self.assertFalse(
+            issue_037["duplicate_compatibility_assignment_required"]
+        )
+        self.assertEqual(issue_037["safe_region_duplicate_character_count"], 0)
         self.assertEqual(by_character["锵"]["code"], "986E")
         self.assertEqual(by_character["锵"]["glyph_index"], 4462)
-        self.assertEqual(by_character["倩"]["code"], "82DA")
-        self.assertEqual(by_character["倩"]["glyph_index"], 346)
+        self.assertEqual(by_character["倩"]["code"], "944A")
+        self.assertEqual(by_character["倩"]["glyph_index"], 3658)
         migration = self.snapshot["migration"]
         self.assertFalse(migration["active_build_dependency"])
         self.assertEqual(
             migration["preserved_historical_primary_assignment_count"],
             3158,
         )
-        self.assertEqual(migration["added_global_assignment_count"], 19)
+        self.assertEqual(migration["added_global_assignment_count"], 29)
         assigned = {
             item["character"]
             for item in self.snapshot["primary_assignments"]
         }
-        self.assertTrue(set("储剂椅潘罐贱蹄Σ妲浏珀碌裘蔷蹴邓") <= assigned)
+        self.assertTrue(
+            set("储剂椅潘罐贱蹄Σ妲浏珀碌裘蔷蹴邓倚惦柜硅缀茅译迸雉颈")
+            <= assigned
+        )
         self.assertEqual(by_character["邓"]["code"], "90EF")
         self.assertEqual(by_character["邓"]["glyph_index"], 3055)
         self.assertNotIn(
@@ -418,15 +480,15 @@ class ZhReleaseFontTests(unittest.TestCase):
                 for character in "耕鶫蟑呣噪箔“哄涂冴呓寺屐"
             },
             {
-                "耕": "82D3",
-                "鶫": "82D4",
+                "耕": "93ED",
+                "鶫": "93EE",
                 "蟑": "90F0",
                 "呣": "90F1",
                 "噪": "90FC",
                 "箔": "9140",
                 "“": "9141",
-                "哄": "9142",
-                "涂": "9143",
+                "哄": "8576",
+                "涂": "8746",
                 "冴": "96FD",
                 "呓": "97FD",
                 "寺": "9579",
@@ -442,11 +504,6 @@ class ZhReleaseFontTests(unittest.TestCase):
                     ]
                 }
             )
-        )
-        legacy = next(
-            item["legacy_save_formation_compatibility"]
-            for item in self.snapshot["extensions"]
-            if "legacy_save_formation_compatibility" in item
         )
         table = load_text_table(
             PROJECT_ROOT
@@ -569,22 +626,163 @@ class ZhReleaseFontTests(unittest.TestCase):
                 ]
             )
         )
-        self.assertTrue(
-            any(
-                0x8140 <= int(item["code"], 16) < 0x889F
-                for item in self.snapshot[
-                    "remaining_allocation_candidates"
-                ]
-            )
+        self.assertEqual(
+            len(self.snapshot["remaining_allocation_candidates"]), 101
         )
         self.assertEqual(
             self.snapshot["candidate_pool"],
             {
-                "mode": "all_unoccupied_renderer_standard_double_byte_slots",
+                "mode": (
+                    "unique_default_width_slots_after_clean_cjk_primary_migration"
+                ),
                 "includes_retired_japanese_positions": True,
-                "includes_conditional_width_positions": True,
-                "candidate_count": 418,
+                "includes_conditional_width_positions": False,
+                "includes_raw_trail_gaps": False,
+                "ordering": "code_ascending_within_default_width",
+                "candidate_count": 105,
             },
+        )
+
+    def test_safe_region_has_no_duplicate_characters_and_names_stay_safe(self):
+        owners = {}
+        duplicates = {}
+        for group in (
+            "primary_assignments",
+            "surface_alias_assignments",
+            "source_compatibility_assignments",
+        ):
+            for row in self.snapshot[group]:
+                if (
+                    allocation_width_class(int(row["code"], 16))
+                    != DEFAULT_WIDTH_CLASS
+                ):
+                    continue
+                previous = owners.setdefault(
+                    row["character"], f"{group}:{row['code']}"
+                )
+                if previous != f"{group}:{row['code']}":
+                    duplicates.setdefault(row["character"], [previous]).append(
+                        f"{group}:{row['code']}"
+                    )
+        self.assertEqual(duplicates, {})
+
+        contract = next(
+            extension["clean_default_width_cjk_primary_migration"]
+            for extension in self.snapshot["extensions"]
+            if "clean_default_width_cjk_primary_migration" in extension
+        )
+        self.assertEqual(
+            contract["strategy"],
+            "stock_renderer_unique_default_width_primaries",
+        )
+        self.assertFalse(contract["renderer_binary_patch_required"])
+        self.assertEqual(contract["restored_low_zone_cjk_slot_count"], 266)
+        self.assertEqual(contract["promoted_cjk_surface_alias_count"], 210)
+        self.assertEqual(contract["new_candidate_allocation_count"], 219)
+        self.assertEqual(contract["restored_low_zone_nonstock_slot_count"], 8)
+        self.assertEqual(contract["promoted_non_cjk_surface_alias_count"], 6)
+        self.assertEqual(contract["new_non_cjk_candidate_allocation_count"], 2)
+        self.assertEqual(contract["total_migration_count"], 439)
+        self.assertEqual(contract["remaining_cjk_surface_alias_count"], 0)
+        self.assertEqual(contract["remaining_default_width_candidate_count"], 105)
+        self.assertFalse(
+            any(
+                0x8140 <= int(row["code"], 16) <= 0x8491
+                and 0x3400 <= ord(row["character"]) <= 0x9FFF
+                for row in self.snapshot["primary_assignments"]
+            )
+        )
+        self.assertFalse(
+            any(
+                0x3400 <= ord(row["character"]) <= 0x9FFF
+                for row in self.snapshot["surface_alias_assignments"]
+            )
+        )
+
+    def test_special_width_inventory_is_complete_and_current(self):
+        self.assertEqual(
+            build_report(PROJECT_ROOT / "config/fonts/zh-release-font.json"),
+            self.special_width_audit,
+        )
+        summary = self.special_width_audit["summary"]
+        self.assertEqual(summary["conditional_width_cjk_assignment_count"], 347)
+        self.assertEqual(summary["raw_trail_default_width_cjk_assignment_count"], 38)
+        self.assertEqual(summary["remaining_default_width_candidate_count"], 101)
+        self.assertEqual(
+            summary["protected_compact_name_special_width_violation_count"],
+            0,
+        )
+        self.assertEqual(summary["safe_region_duplicate_character_count"], 0)
+        observed = {
+            row["character"]: row
+            for row in self.special_width_audit["observed_issue_characters"]
+        }
+        self.assertEqual(observed["伦"]["effective_code"], "91C8")
+        self.assertEqual(observed["尘"]["effective_code"], "969E")
+        self.assertTrue(observed["伦"]["effective_code_default_width"])
+        self.assertTrue(observed["尘"]["effective_code_default_width"])
+
+    def test_clean_migration_restores_stock_and_compatibility_glyphs(self):
+        component = self.manifest["font_component"]
+        self.assertEqual(
+            component["preserved_source_compatibility_glyph_count"], 36
+        )
+        self.assertTrue(
+            component[
+                "source_compatibility_glyphs_byte_exact_to_original_iso"
+            ]
+        )
+        self.assertEqual(component["restored_low_zone_stock_glyph_count"], 274)
+        self.assertTrue(
+            component["low_zone_stock_glyphs_byte_exact_to_original_iso"]
+        )
+        self.assertTrue(
+            component["complete_low_zone_byte_exact_to_original_iso"]
+        )
+        self.assertTrue(
+            self.manifest["acceptance"][
+                "source_compatibility_glyphs_byte_exact_to_original_iso"
+            ]
+        )
+        self.assertTrue(
+            self.manifest["acceptance"][
+                "low_zone_stock_glyphs_byte_exact_to_original_iso"
+            ]
+        )
+        self.assertTrue(
+            self.manifest["acceptance"][
+                "complete_low_zone_byte_exact_to_original_iso"
+            ]
+        )
+
+    def test_issue_017_uses_unique_safe_primary_codes(self):
+        primary = {
+            row["character"]: row
+            for row in self.snapshot["primary_assignments"]
+        }
+        aliases = {
+            row["character"]: row
+            for row in self.snapshot["surface_alias_assignments"]
+        }
+        for character, primary_code, primary_glyph in (
+            ("伦", "91C8", 3208),
+            ("尘", "969E", 4126),
+        ):
+            row = primary[character]
+            self.assertEqual(row["code"], primary_code)
+            self.assertEqual(row["glyph_index"], primary_glyph)
+            self.assertNotIn(character, aliases)
+            code = int(primary_code, 16)
+            self.assertEqual(standard_glyph_index(code), primary_glyph)
+            self.assertEqual(glyph_index_for_code(code, ()), primary_glyph)
+        self.assertTrue(
+            {"9F40", "9F41"}.isdisjoint(
+                row["code"]
+                for row in (
+                    *self.snapshot["primary_assignments"],
+                    *self.snapshot["surface_alias_assignments"],
+                )
+            )
         )
 
     def test_sound_select_title_glyph_audit_rejects_reclaimed_code(self):
@@ -615,7 +813,7 @@ class ZhReleaseFontTests(unittest.TestCase):
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]
-        self.assertEqual(selection["unique_entry_count"], 125989)
+        self.assertEqual(selection["unique_entry_count"], 129041)
         source_paths = {item["path"] for item in selection["sources"]}
         self.assertIn("corpus/zh/battle/srvc-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/battle-lines.json", source_paths)
@@ -647,8 +845,8 @@ class ZhReleaseFontTests(unittest.TestCase):
             '"%&\'+,-./:<=>@[\\]~',
         )
         control_tokens = selection["control_tokens"]
-        self.assertEqual(control_tokens["entry_count"], 2149)
-        self.assertEqual(control_tokens["occurrence_count"], 2263)
+        self.assertEqual(control_tokens["entry_count"], 2154)
+        self.assertEqual(control_tokens["occurrence_count"], 2268)
         self.assertEqual(
             control_tokens["kinds"]["runtime_format"]["forms"],
             {"%s": 59},
@@ -657,7 +855,7 @@ class ZhReleaseFontTests(unittest.TestCase):
             control_tokens["kinds"]["runtime_substitution"][
                 "occurrence_count"
             ],
-            2086,
+            2091,
         )
         self.assertEqual(
             {
@@ -674,16 +872,16 @@ class ZhReleaseFontTests(unittest.TestCase):
         )
         self.assertTrue(control_tokens["excluded_from_font_glyph_demand"])
         self.assertEqual(
-            selection["literal_percent_signs"]["occurrence_count"], 185
+            selection["literal_percent_signs"]["occurrence_count"], 269
         )
         self.assertEqual(
-            coverage["control_token_occurrence_count"], 2263
+            coverage["control_token_occurrence_count"], 2268
         )
         self.assertEqual(
-            coverage["runtime_placeholder_occurrence_count"], 2145
+            coverage["runtime_placeholder_occurrence_count"], 2150
         )
         self.assertTrue(coverage["runtime_placeholder_bytes_preserved_exactly"])
-        self.assertEqual(coverage["literal_percent_occurrence_count"], 185)
+        self.assertEqual(coverage["literal_percent_occurrence_count"], 269)
 
     def test_snapshot_updater_appends_without_reordering_existing_rows(self):
         updated = self._run_snapshot_updater("龘")

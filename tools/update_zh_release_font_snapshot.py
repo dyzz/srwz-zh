@@ -18,7 +18,10 @@ from srwz.font import (
     standard_code_for_glyph_index,
 )
 from srwz.release_font_policy import (
+    DEFAULT_WIDTH_CLASS,
     ReleaseFontPolicyError,
+    allocation_candidate_priority,
+    allocation_width_class,
     validate_new_character_allocations,
 )
 from srwz.text import (
@@ -60,8 +63,8 @@ def parse_args() -> argparse.Namespace:
         "--refresh-candidate-pool",
         action="store_true",
         help=(
-            "Rebuild the remaining pool from every unoccupied standard "
-            "double-byte renderer position, including retired Japanese slots."
+            "Rebuild the remaining pool from unoccupied default-width "
+            "double-byte renderer positions, including retired Japanese slots."
         ),
     )
     return parser.parse_args()
@@ -97,7 +100,7 @@ def _reclaimable_double_byte_candidates(
     occupied_codes: set[int],
     occupied_glyphs: set[int],
 ) -> list[dict]:
-    """Return every unoccupied renderer-addressable standard two-byte slot."""
+    """Return eligible default-width standard slots."""
 
     ascii_glyphs = {
         ascii_glyph_index(code) for code in range(ASCII_FIRST, ASCII_LAST + 1)
@@ -109,6 +112,7 @@ def _reclaimable_double_byte_candidates(
             code in occupied_codes
             or glyph_index in occupied_glyphs
             or glyph_index in ascii_glyphs
+            or allocation_width_class(code) != DEFAULT_WIDTH_CLASS
         ):
             continue
         source_character = table.characters.get(code)
@@ -120,7 +124,53 @@ def _reclaimable_double_byte_candidates(
         if source_character is not None:
             row["source_character"] = source_character
         rows.append(row)
+    rows.sort(
+        key=lambda row: allocation_candidate_priority(int(row["code"], 16))
+    )
     return rows
+
+
+def _pop_allocation_candidate(
+    candidates: list[tuple[int, int, str, str | None]],
+    occupied_codes: set[int],
+    occupied_glyphs: set[int],
+    *,
+    width_class: str | None = None,
+) -> tuple[int, int, str, str | None] | None:
+    """Remove the first live candidate, optionally from one width class."""
+
+    index = 0
+    while index < len(candidates):
+        candidate = candidates[index]
+        code, glyph_index, _mapping, _source_character = candidate
+        if code in occupied_codes or glyph_index in occupied_glyphs:
+            candidates.pop(index)
+            continue
+        if (
+            width_class is None
+            or allocation_width_class(code) == width_class
+        ):
+            return candidates.pop(index)
+        index += 1
+    return None
+
+
+def _record_width_allocation(row: dict) -> None:
+    """Keep the ordinary updater on unique default-width positions.
+
+    Conditional-width exceptions require a whole-corpus surface audit and are
+    therefore created only by the explicit surface rebalance migration.
+    """
+
+    width_class = allocation_width_class(int(row["code"], 16))
+    if width_class != DEFAULT_WIDTH_CLASS:
+        raise SystemExit(
+            "ordinary release allocation is not a default-width slot; use "
+            "the explicit surface rebalance audit for a conditional-width "
+            "long-text exception: "
+            f"{row['character']!r}={row['code']}"
+        )
+    row["allocation_width_class"] = width_class
 
 
 def main() -> int:
@@ -325,6 +375,9 @@ def main() -> int:
         )
         for row in trusted_candidates
     ]
+    allocation_candidates.sort(
+        key=lambda item: allocation_candidate_priority(item[0])
+    )
     added = []
     allocation_additions = 0
     reraster_additions = 0
@@ -342,9 +395,21 @@ def main() -> int:
             if (
                 candidate_glyph is not None
                 and candidate_glyph not in occupied_glyphs
+                and allocation_width_class(code) == DEFAULT_WIDTH_CLASS
             ):
                 glyph_index = candidate_glyph
-        if glyph_index is not None:
+        direct_width_class = (
+            allocation_width_class(code) if glyph_index is not None else None
+        )
+        pooled_candidate = None
+        if direct_width_class != DEFAULT_WIDTH_CLASS:
+            pooled_candidate = _pop_allocation_candidate(
+                allocation_candidates,
+                occupied_codes,
+                occupied_glyphs,
+                width_class=DEFAULT_WIDTH_CLASS,
+            )
+        if glyph_index is not None and direct_width_class == DEFAULT_WIDTH_CLASS:
             row = {
                 "character": character,
                 "code": f"{code:04X}",
@@ -353,17 +418,14 @@ def main() -> int:
             }
             reraster_additions += 1
         else:
-            while allocation_candidates:
-                code, glyph_index, mapping, source_character = (
-                    allocation_candidates.pop(0)
-                )
-                if code not in occupied_codes and glyph_index not in occupied_glyphs:
-                    break
-            else:
+            if pooled_candidate is None:
                 raise SystemExit(
-                    "global release font has no remaining safe allocation "
-                    f"candidate for {character!r}"
+                    "global release font has no remaining default-width "
+                    f"allocation candidate for {character!r}; a conditional-"
+                    "width long-text exception requires the explicit surface "
+                    "rebalance audit, and raw-trail slots are forbidden"
                 )
+            code, glyph_index, mapping, source_character = pooled_candidate
             row = {
                 "character": character,
                 "code": f"{code:04X}",
@@ -373,6 +435,7 @@ def main() -> int:
             if source_character is not None:
                 row["source_character"] = source_character
             allocation_additions += 1
+        _record_width_allocation(row)
         occupied_codes.add(code)
         occupied_glyphs.add(glyph_index)
         primary.append(row)
@@ -399,6 +462,15 @@ def main() -> int:
         for code, glyph_index, mapping, source_character in allocation_candidates
         if code not in occupied_codes and glyph_index not in occupied_glyphs
     ]
+    try:
+        validate_new_character_allocations(
+            config,
+            snapshot,
+            primary,
+            remaining_rows,
+        )
+    except ReleaseFontPolicyError as error:
+        raise SystemExit(str(error)) from error
     remaining = len(remaining_rows)
     print(
         "global release snapshot audit:",
@@ -440,9 +512,13 @@ def main() -> int:
     )
     if args.refresh_candidate_pool:
         snapshot["candidate_pool"] = {
-            "mode": "all_unoccupied_renderer_standard_double_byte_slots",
+            "mode": (
+                "unique_default_width_slots_with_surface_sensitive_exceptions"
+            ),
             "includes_retired_japanese_positions": True,
-            "includes_conditional_width_positions": True,
+            "includes_conditional_width_positions": False,
+            "includes_raw_trail_gaps": False,
+            "ordering": "code_ascending_within_default_width",
             "candidate_count": len(remaining_rows),
         }
     if added:

@@ -749,16 +749,19 @@
     {
       "id": "people/marin",
       "source_terms": [
-        "マリン"
+        "マリン",
+        "マリン・レイガン"
       ],
       "translation": "马林",
       "category": "people",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "story"
       ],
       "enforce": true,
-      "notes": "《宇宙战士巴鲁迪奥斯》角色Marin Reigan的暂定译名。"
+      "notes": "《宇宙战士巴鲁迪奥斯》马林·雷根；日本制作方角色表确认原名，中文沿用用户首轮人物审核结果。"
     },
     {
       "id": "people/flick",
@@ -809,12 +812,12 @@
       ],
       "translation": "万丈",
       "category": "people",
-      "status": "researched",
+      "status": "approved",
       "domains": [
         "story"
       ],
       "enforce": true,
-      "notes": "《无敌钢人泰坦3》主人公破岚万丈。"
+      "notes": "《无敌钢人泰坦3》主人公破岚万丈；与全名词条统一。"
     },
     {
       "id": "people/apollo",
@@ -899,12 +902,13 @@
       ],
       "translation": "双翅",
       "category": "people",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "library",
         "story"
       ],
       "enforce": true,
-      "notes": "《创圣的大天使》堕天翅族角色Moroha，中文译名待作品术语表复核。"
+      "notes": "《创圣机械天使》堕天翅族角色；按用户审核的人物名统一。"
     },
     {
       "id": "people/sirius-wing",
@@ -913,26 +917,33 @@
       ],
       "translation": "诗翅",
       "category": "people",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "library",
         "story"
       ],
       "enforce": true,
-      "notes": "《创圣的大天使》剧情中的诗翅称呼。"
+      "notes": "《创圣机械天使》剧情中的称号；按用户审核的人物名统一。"
     },
     {
       "id": "people/anemone",
       "source_terms": [
         "アネモネ"
       ],
-      "translation": "安妮莫奈",
+      "translation": "阿尼莫奈",
+      "deprecated_translations": [
+        "安妮莫奈"
+      ],
       "category": "people",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《交响诗篇》角色安妮莫奈。"
+      "notes": "《交响诗篇》角色 Anemone；本作对应的中国大陆哔哩哔哩正版 TV 版人物表采用“阿尼莫奈”。"
     },
     {
       "id": "people/frost-brothers",
@@ -1194,12 +1205,14 @@
       ],
       "translation": "亚库艾里翁",
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "story"
       ],
       "enforce": true,
-      "notes": "《创圣的大天使》主角机专名暂保留英文，与既有菜单语料一致。"
+      "notes": "《创圣机械天使》机体总称；用于不指向某一固定合体形态的语境。"
     },
     {
       "id": "unit/glomar",
@@ -1260,7 +1273,7 @@
         "story"
       ],
       "enforce": true,
-      "notes": "《THE Big O》《交响诗篇艾蕾卡7》技术名词；按“archetype”语义及大陆简体字幕统一为“原型”。"
+      "notes": "《THE Big O》《交响诗篇 优莱卡7》技术名词；按“archetype”语义及大陆简体字幕统一为“原型”。"
     },
     {
       "id": "unit/messala",
@@ -1599,17 +1612,21 @@
       "source_terms": [
         "エルダー戦艦"
       ],
-      "translation": "埃尔德战舰",
+      "translation": "伊尔塔战舰",
       "deprecated_translations": [
-        "埃尔达战舰"
+        "艾尔达战舰",
+        "埃尔达战舰",
+        "埃尔德战舰"
       ],
       "category": "unit",
       "status": "approved",
       "domains": [
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
-      "notes": "《宇宙大帝God Sigma》的埃尔达战舰。"
+      "notes": "《宇宙大帝神西格玛》的伊尔塔战舰；按大陆旧译统一。"
     },
     {
       "id": "unit/gran-trooper",
@@ -1693,7 +1710,8 @@
       ],
       "translation": "科拉利安",
       "deprecated_translations": [
-        "柯拉利安"
+        "柯拉利安",
+        "珊瑚岩"
       ],
       "variant_scope": "source_bound",
       "category": "species",
@@ -1717,6 +1735,7 @@
       ],
       "translation": "尼尔瓦修终式",
       "deprecated_translations": [
+        "吉·恩德",
         "the END",
         "THE END"
       ],
@@ -1724,6 +1743,8 @@
       "status": "approved",
       "domains": [
         "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
@@ -1743,12 +1764,15 @@
         "Type Zero",
         "type ZERO",
         "尼尔瓦修type ZERO",
+        "零型",
         "零式"
       ],
       "category": "unit",
       "status": "approved",
       "domains": [
         "battle",
+        "library",
+        "menu",
         "story"
       ],
       "enforce": true,
@@ -1864,10 +1888,12 @@
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "story"
       ],
       "enforce": true,
-      "notes": "《创圣的大天使》单位名的暂定音译，列为重点复核项。"
+      "notes": "《创圣机械天使》机体名；按用户审核的固定机体显示名统一。"
     },
     {
       "id": "unit/ishkick-commander-ii",
@@ -1881,6 +1907,8 @@
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "story"
       ],
       "enforce": true,
@@ -2056,6 +2084,8 @@
       "category": "unit",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "story"
       ],
       "enforce": true,
@@ -2099,12 +2129,14 @@
       ],
       "translation": "凯鲁宾·伊斯库隆",
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "story"
       ],
       "enforce": true,
-      "notes": "《创圣的大天使》单位名的暂定音译，列为重点复核项。"
+      "notes": "《创圣机械天使》机体名；按用户审核的固定机体显示名统一。"
     },
     {
       "id": "unit/cherubim-mars",
@@ -2113,12 +2145,14 @@
       ],
       "translation": "凯鲁宾·火星",
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "story"
       ],
       "enforce": true,
-      "notes": "《创圣的大天使》单位名，Mars保留既有Vector命名体系。"
+      "notes": "《创圣机械天使》机体名；按用户审核的固定机体显示名统一。"
     },
     {
       "id": "unit/goma",
@@ -2144,12 +2178,13 @@
       ],
       "translation": "强攻型亚库艾里翁",
       "category": "unit",
-      "status": "proposed",
+      "status": "approved",
       "domains": [
+        "library",
         "story"
       ],
       "enforce": true,
-      "notes": "《创圣的大天使》强攻型亚库艾里翁，与既有菜单语料一致。"
+      "notes": "《创圣机械天使》强攻型机体总称；与用户审核的各固定形态名配套使用。"
     },
     {
       "id": "unit/big-fau",

@@ -1,17 +1,7 @@
 import json
 import unittest
-import sys
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-TOOLS_ROOT = PROJECT_ROOT / "tools"
-if str(TOOLS_ROOT) not in sys.path:
-    sys.path.insert(0, str(TOOLS_ROOT))
-
-from tools.build_story_component import (
-    _runtime_keyword_catalog,
-    _validate_runtime_keywords,
-)
 from tools.audit_stage_keyword_links import (
     KeywordOccurrence,
     audit_keyword_link_layout,
@@ -20,7 +10,14 @@ from tools.audit_stage_keyword_links import (
     load_original_keyword_entries,
     load_story_keyword_occurrences,
 )
+from tools.build_story_component import (
+    _runtime_keyword_catalog,
+    _validate_runtime_keywords,
+)
 from tools.srwz.chinese_layout import dialogue_line_widths
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class StageKeywordLinkAuditTests(unittest.TestCase):
@@ -87,11 +84,12 @@ class StageKeywordLinkAuditTests(unittest.TestCase):
         )
 
     def test_story_builder_fails_closed_on_runtime_keyword_drift(self):
-        config = {
-            "path": "corpus/runtime/stage-keywords-v1.json",
-            "size": 9694,
-            "sha256": "021a9d26f64df5d45cbad53319fc9f124a0ab4a275e430c13ecc63336efd7a58",
-        }
+        story_config = json.loads(
+            (PROJECT_ROOT / "config/story-component.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        config = story_config["translations"]["runtime_keywords"]
         catalog = _runtime_keyword_catalog(config)
         self.assertEqual(
             _validate_runtime_keywords(
@@ -109,6 +107,10 @@ class StageKeywordLinkAuditTests(unittest.TestCase):
                 catalog,
                 label="swapped-canary",
             )
+        drifted = dict(config)
+        drifted["size"] += 1
+        with self.assertRaisesRegex(SystemExit, "size or SHA-256 drift"):
+            _runtime_keyword_catalog(drifted)
 
     def test_exact_runtime_key_match_passes(self):
         occurrences = [

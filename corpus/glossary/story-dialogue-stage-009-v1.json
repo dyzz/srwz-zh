@@ -12,13 +12,65 @@
         "ザンボット3"
       ],
       "translation": "赞波特3",
+      "deprecated_translations": [
+        "桑波特3",
+        "桑波3",
+        "赞波3"
+      ],
+      "variant_scope": "source_bound",
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "battle",
+        "library",
+        "menu",
         "story"
       ],
-      "enforce": false,
-      "notes": "沿用项目机体表《无敌超人赞波特3》的中文写法。"
+      "enforce": true,
+      "notes": "按用户首轮机体名审核定稿为“赞波特3”；授权番剧页亦支持主词根使用“赞”而非“桑”。"
+    },
+    {
+      "id": "unit/zambot",
+      "source_terms": [
+        "ザンボット"
+      ],
+      "translation": "赞波特",
+      "deprecated_translations": [
+        "桑波特",
+        "桑波"
+      ],
+      "variant_scope": "source_bound",
+      "category": "unit",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "不带数字的ザンボット短称；与用户确认的完整机体名“赞波特3”统一。"
+    },
+    {
+      "id": "phrase/zambot-combination",
+      "source_terms": [
+        "ザンボット・コンビネーション"
+      ],
+      "translation": "赞波特合体",
+      "deprecated_translations": [
+        "桑波特合体",
+        "桑波特组合",
+        "赞波特组合"
+      ],
+      "variant_scope": "source_bound",
+      "category": "phrase",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "赞波特3的合体口令；按剧情动作译为“赞波特合体”。"
     },
     {
       "id": "unit/zambull",
@@ -27,12 +79,13 @@
       ],
       "translation": "桑布鲁",
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "library",
         "story"
       ],
-      "enforce": false,
-      "notes": "沿用项目机体表中的桑布鲁。"
+      "enforce": true,
+      "notes": "按用户首轮机体名审核定稿。"
     },
     {
       "id": "unit/air-rai-oh",
@@ -56,12 +109,13 @@
       ],
       "translation": "比亚路II世",
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "library",
         "story"
       ],
-      "enforce": false,
-      "notes": "与比亚尔I世及比亚尔III世的半角罗马数字格式一致。"
+      "enforce": true,
+      "notes": "按用户首轮机体名审核定稿；与比亚路I世及III世的半角罗马数字格式一致。"
     },
     {
       "id": "unit/bial-third",
@@ -71,12 +125,13 @@
       ],
       "translation": "比亚路III世",
       "category": "unit",
-      "status": "researched",
+      "status": "approved",
       "domains": [
+        "library",
         "story"
       ],
-      "enforce": false,
-      "notes": "与比亚尔I世及比亚尔II世的半角罗马数字格式一致。"
+      "enforce": true,
+      "notes": "按用户首轮机体名审核定稿；与比亚路I世及II世的半角罗马数字格式一致。"
     },
     {
       "id": "people/dan-toshiya",

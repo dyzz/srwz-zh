@@ -5,8 +5,8 @@
   "base_ui": {
     "manifest": {
       "path": "manifests/release-base-ui-validation.json",
-      "size": 1352,
-      "sha256": "a47b1a0387e706385c96cede5ea7445f23d51c04c3d8e1e333c969d1bfd15404"
+      "size": 1512,
+      "sha256": "c35f4a947e98291734a5b6735a1fc588caec1291d068f3a7219d3febd6f4a4c3"
     },
     "required_status": "release_base_ui_component_validated",
     "required_profile_id": "srwz-release-base-ui-v1",
@@ -36,34 +36,34 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 69998,
-      "sha256": "412f2736f082745bb2ed29f9f8b2e97b81d70281d033fa1e93c4116525aba49c"
+      "size": 72098,
+      "sha256": "cbb3f288570e9a332b2db08641bb86a93e339534cf2b45190be3abcc36e7f7c8"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
     "slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      "sha256": "02b65498f91bbd767666a3e5a211ad9b2cfc3af5bb0e69eda43ed7083db3fdda"
     },
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "8dbdc6348a865ca950369aa5e63645bdc624e3994aef268eae6c1f8079173ce4"
+      "sha256": "94b1777ae6e6381ee4b293fdfc494a0848e09187bf87acddce85c535162d0934"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18169585,
-      "sha256": "e50286b0901e7e2287b706869f791185a6185b6a30cf59183d0f272ec04f32e2"
+      "size": 18259643,
+      "sha256": "8af90c455ef5d9e1c36ee1667212e30e79a2599213ff8e1c6b3f053e35c5ed29"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "9f5145981cbd04a8eaa175fdbd5e9ac54c3aa2aa94384f294a2666029dddf478"
+      "sha256": "a2408286ec0de9cdd57f5496103e215c2bab1b6f736348d9a858a44a45aff16b"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -84,18 +84,18 @@
     },
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
-      "size": 2965655,
-      "sha256": "d580d1ce6bf4d596cde62f04a684e36e1cd52b13336b621c214c6263c992ad75"
+      "size": 2989045,
+      "sha256": "1fdd4059a63010cf907db7a659e9895dbf7a05ccde55b31e702996d77e31197d"
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 96804,
-      "sha256": "6ac60908862085c7500fef21c04ff8a1e6e90a107c8da2d1c325a46a3150ae34"
+      "size": 109157,
+      "sha256": "628b8884c376aa76a8fa1d8c2b9f8175d806fa68c80af1827bdcfe98c989a2e8"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
-      "size": 15965,
-      "sha256": "1082709be0c4597732bd8a6532c4bae5a011b81cf206cc3377bdf67f5c64db75"
+      "size": 15958,
+      "sha256": "c523e42f9ee5be143dcd4ee9e70daad0c3b38e0bc8f12be0e858d0c66b021c82"
     },
     "unit_name_relocations": [],
     "expected": {
@@ -121,8 +121,8 @@
   "auto_demo_overlays": {
     "title_corpus": {
       "path": "corpus/zh/auto-demo-work-titles.json",
-      "size": 10858,
-      "sha256": "3b5e71f093eb2af953d2f8d2c94ee0f559965ac93ba6ae1684265218efc3c8b5"
+      "size": 10859,
+      "sha256": "dab96c21a671df278e817611537451ced804b5f2ad04fb227255845cadf4c64d"
     },
     "original_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -131,18 +131,18 @@
     },
     "story_speakers": {
       "path": "corpus/zh/story-speakers.json",
-      "size": 2965655,
-      "sha256": "d580d1ce6bf4d596cde62f04a684e36e1cd52b13336b621c214c6263c992ad75"
+      "size": 2989045,
+      "sha256": "1fdd4059a63010cf907db7a659e9895dbf7a05ccde55b31e702996d77e31197d"
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 96804,
-      "sha256": "6ac60908862085c7500fef21c04ff8a1e6e90a107c8da2d1c325a46a3150ae34"
+      "size": 109157,
+      "sha256": "628b8884c376aa76a8fa1d8c2b9f8175d806fa68c80af1827bdcfe98c989a2e8"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
-      "size": 15965,
-      "sha256": "1082709be0c4597732bd8a6532c4bae5a011b81cf206cc3377bdf67f5c64db75"
+      "size": 15958,
+      "sha256": "c523e42f9ee5be143dcd4ee9e70daad0c3b38e0bc8f12be0e858d0c66b021c82"
     },
     "battle_archives": [
       {
@@ -198,8 +198,8 @@
   "compdata_battle_lines": {
     "corpus": {
       "path": "corpus/zh/menu/battle-lines.json",
-      "size": 105265,
-      "sha256": "3a2584ab75f840cf6f6d6f45cbb4a529534bfb141198b1da523a35bd77ecadec"
+      "size": 105286,
+      "sha256": "16ad7b50a62df644973a609d29a8102e8727598d6fc36de80c3f018812ea96f1"
     },
     "expected": {
       "entry_count": 297,
@@ -211,8 +211,8 @@
   "reviewed_weapons": {
     "corpus": {
       "path": "corpus/zh/menu/weapons.json",
-      "size": 214935,
-      "sha256": "5be068a869160ce18e863d853e339f69ec3d05fbd8f8d9ea47b7d128cf33136f"
+      "size": 214932,
+      "sha256": "97c734a95a4bcebb0a15785b5117a3a2fa639e4132fa12013b30ae9173b49df4"
     },
     "expected": {
       "entry_count": 711,
@@ -270,14 +270,14 @@
   "full_stage_titles": {
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
-      "size": 28759,
-      "sha256": "bc0fbbffa8fd03c67d47ff06b8fb36ac1aa5a972340e478d248ff303959cf0df",
+      "size": 28886,
+      "sha256": "33190f899c14693481eaa31bb704ce23d90a7e2b63d9ba96acf2e40fb76db7eb",
       "expected_entry_count": 122
     },
     "title_format": {
       "path": "corpus/zh/menu/unclassified.json",
-      "size": 114547,
-      "sha256": "a1f04817cd6dc0ad903af55cc8bc7b7f9f79b88afbab44bb38b04d26c3be01cc",
+      "size": 114541,
+      "sha256": "6abf16cd53dc4528d43ae513bebc32f83663fb51f8f580d83978fa905682e1a5",
       "entry_id": "menu/SLPS/00/0342",
       "translation": "\"%s\""
     },
@@ -390,8 +390,8 @@
   "stage_overviews": {
     "corpus": {
       "path": "corpus/zh/menu/stage-overviews.json",
-      "size": 89445,
-      "sha256": "2ac20d13ca73f93edb76c837d7166a08204b15a50fd9c174e9c9e38a392e8e64"
+      "size": 89425,
+      "sha256": "f73e394f14776052fe8997ad3d3767fb98f8fdf21d859d5f0c51583d5984d4bb"
     },
     "expected": {
       "inventory_entry_count": 110,
@@ -526,8 +526,8 @@
     },
     "corpus": {
       "path": "corpus/zh/summary.json",
-      "size": 18401,
-      "sha256": "d40eb0d46e0a7340ca3321589358432557dd01ef6e5b153649f18cadc95fc993"
+      "size": 18438,
+      "sha256": "0fc1be2b3db31dd4c81b3307e6208e4db717fedd39099638263f1d019fe234e7"
     },
     "codec": {
       "strategy": "rust-fit",
@@ -542,6 +542,28 @@
       "archive_size": 8368
     }
   },
+  "chapter_intertitles": {
+    "original_slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "original_mtv_prop": {
+      "path": "work/disc/DATA/MTV_PROP.BIN",
+      "size": 2232448,
+      "sha256": "3bb30842097353b75da9d4a89bddef1392336d5cf325644aa2059d3fd6ce9ed3"
+    },
+    "corpus": {
+      "path": "corpus/zh/chapter-intertitles.json",
+      "size": 3164,
+      "sha256": "5d801a95b154ca1cbcc83fc282094b2a2f34142c9f082fd4a7fe1cd1d49a6a3f"
+    },
+    "font": {
+      "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
+      "size": 8261128,
+      "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
+    }
+  },
   "hsfc_overviews": {
     "original": {
       "path": "work/disc/DATA/HSFC.BIN",
@@ -550,8 +572,8 @@
     },
     "corpus": {
       "path": "corpus/zh/menu/hsfc-overviews.json",
-      "size": 22173,
-      "sha256": "bd6897b7ae6838703f1fa1bffd55b66638d82c4c1208407ac2a8f090acbae23b"
+      "size": 22158,
+      "sha256": "a08f05e18751f8a0b33d8910009e0ddfaa56e85b07a866b094911725e2af82f3"
     },
     "expected": {
       "record_count": 180,
@@ -574,13 +596,13 @@
   "remaining_ui": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 96804,
-      "sha256": "6ac60908862085c7500fef21c04ff8a1e6e90a107c8da2d1c325a46a3150ae34"
+      "size": 109157,
+      "sha256": "628b8884c376aa76a8fa1d8c2b9f8175d806fa68c80af1827bdcfe98c989a2e8"
     },
     "parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
-      "size": 34515,
-      "sha256": "53cccf716497134739538bb86e8c7415d0387c82b10dd35694b8a5008b9d309c"
+      "size": 35065,
+      "sha256": "4edff31c3bf7fff60e08a21aa2f4578fd66eb5ceb5caad73ffa0b690decfef19"
     },
     "original_compdata": {
       "path": "work/disc/DATA/COMPDATA.BN",
@@ -599,26 +621,26 @@
     },
     "stage_system_dialogue": {
       "path": "corpus/zh/story-system-dialogue.json",
-      "size": 137640,
-      "sha256": "d24a7ccde7e1383f6a7dc9706506b533b15adb22dd57adcb87d826a03465fdbf"
+      "size": 137940,
+      "sha256": "d7dd20c754f2d7e9acfb23a39a5f1248682feac30e6cac8fe98577c8d09ec545"
     },
     "stage_default_formations": {
       "path": "corpus/zh/menu/stage-default-formations.json",
-      "size": 10301,
-      "sha256": "5982f88adb33a605145cf4750e1ecfcb08ee3e72b59473cdd6e146c7ba8a7a56"
+      "size": 10285,
+      "sha256": "97c29684d540b3f14548a8c6465d7e81c391be382463b5207501da3f877819f4"
     },
     "stage_default_formation_inventory": {
       "path": "config/stage-default-formation-inventory.json",
       "size": 176853,
-      "sha256": "a9d0a974e1c23114119619e26d7d3e24d1cd052fd0ea777493ebda0ff7b14022"
+      "sha256": "590997259bddb6b5b3aeac110f07f0afabaa469656c04accde100c02f27f2228"
     },
     "expected": {
-      "compdata_direct_entry_count": 308,
+      "compdata_direct_entry_count": 309,
       "compdata_library_work_title_entry_count": 22,
       "compdata_context_help_entry_count": 357,
       "compdata_inline_entry_count": 6,
       "leadership_effect_entry_count": 59,
-      "slps_context_ui_entry_count": 414,
+      "slps_context_ui_entry_count": 613,
       "stage_fixed_formation_entry_count": 9,
       "stage_fixed_formation_chunk_index": 101,
       "stage_default_formation_group_count": 794,
@@ -632,8 +654,10 @@
       "stage_system_dialogue_entry_count": 379,
       "stage_system_dialogue_pointer_offsets_sha256": "296c64123f0587124a1583935d522f189ba0e9e992feb774ec3e4173b793a058",
       "stage_scenario_chart_prompt_entry_count": 3,
-      "slps_entry_count": 205,
-      "accepted_current_preimage_count": 10,
+      "slps_entry_count": 242,
+      "auto_squad_name_root_entry_count": 13,
+      "auto_squad_name_root_inventory_sha256": "c3020eb2c664fdff7fc881f681316beeb824f05787858fdcdc0331d0485b18fc",
+      "accepted_current_preimage_count": 11,
       "parts_entry_count": 133,
       "parts_source_target_occurrence_count": 134,
       "parts_source_target_unique_count": 133,
@@ -670,8 +694,8 @@
   "nisv_effect_names": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 96804,
-      "sha256": "6ac60908862085c7500fef21c04ff8a1e6e90a107c8da2d1c325a46a3150ae34"
+      "size": 109157,
+      "sha256": "628b8884c376aa76a8fa1d8c2b9f8175d806fa68c80af1827bdcfe98c989a2e8"
     },
     "original_archive": {
       "path": "work/disc/DATA/NISVDATA.BIN",
@@ -707,6 +731,316 @@
       "lazy_matching": false
     }
   },
+  "nisv_strategy_qa": {
+    "corpus": {
+      "path": "corpus/zh/menu/nisv-strategy-qa.json",
+      "size": 902984,
+      "sha256": "e805e852a48bab18b2e15455a12d20a743716456388036d10b237add9d7f8dc0"
+    },
+    "original_archive": {
+      "path": "work/disc/DATA/NISVDATA.BIN",
+      "size": 555056,
+      "sha256": "63afc46aeb19b41cf7332c7c298ab8bb1c7089f306d4eb4e77bce72e8dbece9c"
+    },
+    "archive": {
+      "name": "NisVData.bin",
+      "member": "DATA/NISVDATA.BIN",
+      "table_start": "0x328E90",
+      "table_end": "0x328EAB",
+      "storage": "srwz_stream",
+      "alignment": 16
+    },
+    "target": {
+      "chunk_index": 6,
+      "stored_start": 513744,
+      "stored_end": 555056,
+      "stored_size": 41312,
+      "stored_consumed": 41312,
+      "stored_sha256": "ef82e8247f039b71e6ff3cd890044e94762f21a38e2a52af482caad5050cec55",
+      "decoded_size": 102288,
+      "decoded_sha256": "4e2d29867d424fb7deabedc8b92c7d2665269597d8ac1f195306c80664e586ce",
+      "page_sizes": [
+        528,
+        992,
+        976,
+        688,
+        1696,
+        848,
+        368,
+        560,
+        1280,
+        352,
+        704,
+        1232,
+        1392,
+        416,
+        1440,
+        512,
+        496,
+        336,
+        448,
+        1136,
+        1616,
+        464,
+        400,
+        944,
+        656,
+        1024,
+        1552,
+        384,
+        752,
+        1136,
+        816,
+        944,
+        800,
+        800,
+        960,
+        816,
+        896,
+        256,
+        320,
+        784,
+        976,
+        800,
+        896,
+        256,
+        336,
+        448,
+        896,
+        512,
+        1968,
+        432,
+        736,
+        944,
+        1328,
+        1056,
+        880,
+        880,
+        512,
+        896,
+        1040,
+        2064,
+        496,
+        336,
+        320,
+        1712,
+        928,
+        832,
+        592,
+        1440,
+        1776,
+        1120,
+        448,
+        320,
+        928,
+        1104,
+        784,
+        1920,
+        768,
+        1440,
+        1968,
+        368,
+        1392,
+        624,
+        1296,
+        384,
+        480,
+        416,
+        1504,
+        1360,
+        464,
+        416,
+        1408,
+        432,
+        2384,
+        528,
+        736,
+        624,
+        400,
+        752,
+        1984,
+        1568,
+        800,
+        400
+      ],
+      "record_counts": [
+        13,
+        25,
+        23,
+        17,
+        61,
+        21,
+        12,
+        15,
+        31,
+        11,
+        17,
+        35,
+        42,
+        12,
+        42,
+        15,
+        13,
+        10,
+        12,
+        31,
+        52,
+        14,
+        11,
+        34,
+        18,
+        25,
+        51,
+        11,
+        22,
+        41,
+        28,
+        33,
+        25,
+        23,
+        30,
+        27,
+        33,
+        6,
+        8,
+        24,
+        31,
+        26,
+        33,
+        6,
+        9,
+        14,
+        29,
+        14,
+        57,
+        9,
+        20,
+        26,
+        38,
+        28,
+        22,
+        23,
+        17,
+        25,
+        32,
+        61,
+        16,
+        8,
+        8,
+        54,
+        31,
+        27,
+        15,
+        38,
+        44,
+        34,
+        14,
+        13,
+        27,
+        33,
+        17,
+        67,
+        23,
+        44,
+        59,
+        10,
+        37,
+        14,
+        48,
+        12,
+        13,
+        13,
+        34,
+        36,
+        12,
+        11,
+        33,
+        12,
+        63,
+        13,
+        20,
+        13,
+        11,
+        18,
+        46,
+        37,
+        24,
+        13
+      ]
+    },
+    "format": {
+      "layout_policy": "mixed_style_compact_v1",
+      "glyph_advance_px": 19,
+      "line_step_y": 11,
+      "max_last_glyph_x": 532
+    },
+    "codec": {
+      "strategy": "rust-fit",
+      "min_match_length": 2,
+      "max_match_chain": 16384,
+      "lazy_matching": false
+    }
+  },
+  "nisv_tutorial_pages": {
+    "corpus": {
+      "path": "corpus/zh/menu/nisv-tutorial-pages.json",
+      "size": 14824,
+      "sha256": "c4a053c811090f2f49637442f59974e8d5af25c68ff7cd4df7dfff52ffacb123"
+    },
+    "original_archive": {
+      "path": "work/disc/DATA/NISVDATA.BIN",
+      "size": 555056,
+      "sha256": "63afc46aeb19b41cf7332c7c298ab8bb1c7089f306d4eb4e77bce72e8dbece9c"
+    },
+    "archive": {
+      "name": "NisVData.bin",
+      "member": "DATA/NISVDATA.BIN",
+      "table_start": "0x328E90",
+      "table_end": "0x328EAB",
+      "storage": "srwz_stream",
+      "alignment": 16
+    },
+    "target": {
+      "chunk_index": 5,
+      "stored_start": 511424,
+      "stored_end": 513744,
+      "stored_size": 2320,
+      "stored_consumed": 2308,
+      "stored_sha256": "3a25982d5b43e0820009578b9a5203b78567967f398740a010567ba25da5171a",
+      "decoded_size": 4240,
+      "decoded_sha256": "d50cb3b3056feaf710adfa53a624124c3002267a9cf0b36cae4a846bbb71cd86",
+      "page_sizes": [
+        400,
+        416,
+        400,
+        448,
+        544,
+        368,
+        608,
+        320,
+        272,
+        368
+      ],
+      "record_counts": [
+        9,
+        10,
+        8,
+        13,
+        16,
+        12,
+        23,
+        6,
+        7,
+        10
+      ]
+    },
+    "codec": {
+      "strategy": "rust-fit",
+      "min_match_length": 2,
+      "max_match_chain": 16384,
+      "lazy_matching": false
+    }
+  },
   "runtime_library_menu": {
     "scope": {
       "path": "config/library/v0.2.0.json",
@@ -722,8 +1056,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6950485,
-      "sha256": "13e68b254dadd6fe1306ca7db4291a7b8e4e8e4772f0064f746c872acb218b79"
+      "size": 6970334,
+      "sha256": "1c2c13cf0d5b6813f573f3b21dc90612dedd5293ab3feae3031d454b1fe6cdf3"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -999,6 +1333,434 @@
     "codec_strategy": "rust-fit",
     "codec_max_match_chain": 1024
   },
+  "tutorial_title_effects": {
+    "original_archive": {
+      "path": "work/disc/EFF/VEFF2DX.BIN",
+      "size": 36890512,
+      "sha256": "afa7ba9d06d933eefcd82f5c9a9094b7f11aaa0e31ee721d6112849988c46abe"
+    },
+    "font": {
+      "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
+      "size": 8261128,
+      "sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1"
+    },
+    "archive": {
+      "name": "VEFF2DX.BIN",
+      "member": "EFF/VEFF2DX.BIN",
+      "table_start": "0x31ABB0",
+      "table_end": "0x31B067",
+      "storage": "srwz_stream",
+      "alignment": 16
+    },
+    "event_binding": {
+      "stage_index": 186,
+      "opcode": 5064,
+      "expected_effect_ids": [
+        284,
+        285,
+        286,
+        287
+      ],
+      "commands": [
+        {
+          "decoded_offset": 29744,
+          "effect_id": 284,
+          "duration": 180,
+          "parameter": 60
+        },
+        {
+          "decoded_offset": 34336,
+          "effect_id": 287,
+          "duration": 180,
+          "parameter": 60
+        },
+        {
+          "decoded_offset": 34528,
+          "effect_id": 284,
+          "duration": 180,
+          "parameter": 60
+        },
+        {
+          "decoded_offset": 34656,
+          "effect_id": 284,
+          "duration": 180,
+          "parameter": 60
+        },
+        {
+          "decoded_offset": 34784,
+          "effect_id": 284,
+          "duration": 180,
+          "parameter": 60
+        },
+        {
+          "decoded_offset": 35216,
+          "effect_id": 286,
+          "duration": 180,
+          "parameter": 60
+        },
+        {
+          "decoded_offset": 35360,
+          "effect_id": 284,
+          "duration": 180,
+          "parameter": 60
+        },
+        {
+          "decoded_offset": 35808,
+          "effect_id": 286,
+          "duration": 180,
+          "parameter": 60
+        },
+        {
+          "decoded_offset": 36544,
+          "effect_id": 285,
+          "duration": 180,
+          "parameter": 60
+        }
+      ]
+    },
+    "record_index": 1,
+    "record_size": 528592,
+    "record_sha256": "81d1aceaa5eb93c5d2e20cb82322265f2f5b13678cbb0b5090b31492f5e305a4",
+    "background_record_index": 0,
+    "background_record_size": 262608,
+    "render": {
+      "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+      "font_size": 8261128,
+      "font_sha256": "297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1",
+      "point_policy": "centered-harmonyos-mask-to-existing-csm1-ramp",
+      "supersample_factor": 2,
+      "background_index": 0,
+      "coverage_ramp_indices": [
+        9,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "source_palette_sha256": "7a1815babc2aea97a265ead50443217a50e60e971c5b7e9a858716231bfe2955"
+    },
+    "background_pictures": [
+      {
+        "picture_index": 0,
+        "clear_rect": [
+          0,
+          0,
+          512,
+          256
+        ]
+      },
+      {
+        "picture_index": 1,
+        "clear_rect": [
+          0,
+          0,
+          512,
+          256
+        ]
+      },
+      {
+        "picture_index": 2,
+        "clear_rect": [
+          0,
+          0,
+          512,
+          256
+        ]
+      },
+      {
+        "picture_index": 3,
+        "clear_rect": [
+          0,
+          0,
+          512,
+          256
+        ]
+      }
+    ],
+    "pictures": [
+      {
+        "picture_index": 0,
+        "source_text": "Lesson",
+        "translation": "教学",
+        "clear_rect": [
+          0,
+          0,
+          280,
+          100
+        ],
+        "segments": [
+          {
+            "text": "教学",
+            "rect": [
+              0,
+              0,
+              280,
+              100
+            ],
+            "point_size": 64,
+            "mask_sha256": "f2a48281499711148e43577bb4226fb78ccab367edc4e6afbf93689d156f6a58"
+          }
+        ],
+        "source_logical_sha256": "55d15c2eb333bc8bae5e59031d82bb91956732621963e8b27235b24c284c9716",
+        "output_logical_sha256": "9dc24e2bc1c5c18c5ef442985ee9f4f3da46b74bb5efcd52b4d5c6cc764855b6"
+      },
+      {
+        "picture_index": 1,
+        "source_text": "～移動編～",
+        "translation": "～移动篇～",
+        "clear_rect": [
+          96,
+          0,
+          293,
+          100
+        ],
+        "segments": [
+          {
+            "text": "移动篇",
+            "rect": [
+              96,
+              0,
+              293,
+              100
+            ],
+            "point_size": 94,
+            "mask_sha256": "4f9d9fba18b4b0c9a6d8ec3392d04a9f3fe9311b01348d796acce617b2fec42b",
+            "fit_ink_rect": [
+              104,
+              6,
+              277,
+              83
+            ],
+            "fitted_mask_sha256": "e6df2334779ff443479e75ba4c6cecb18cb43a31c558273cbc02cf3975614357"
+          }
+        ],
+        "source_logical_sha256": "cada52227d9b486c3963b41dfc3f509f7146288fa6cb8d449078b06a2801e7e1"
+      },
+      {
+        "picture_index": 2,
+        "source_text": "精神コマンド／実戦訓練／～",
+        "translation": "精神指令／实战训练／～",
+        "clear_rect": [
+          0,
+          0,
+          512,
+          200
+        ],
+        "segments": [
+          {
+            "text": "精神指令",
+            "rect": [
+              0,
+              0,
+              512,
+              96
+            ],
+            "point_size": 104,
+            "mask_sha256": "44d4f67e982c837d99a6d4d108e110608a2fa8b6ba2c6470cfccd0186b2d79bb",
+            "fit_ink_rect": [
+              7,
+              3,
+              485,
+              86
+            ],
+            "fitted_mask_sha256": "365af934fb36575ab92fe11da4de14377e2dc6c460a6d225940fbf6366ec18b3"
+          },
+          {
+            "text": "实战训练",
+            "rect": [
+              0,
+              96,
+              386,
+              96
+            ],
+            "point_size": 98,
+            "mask_sha256": "9c12f87fd3ef276834b14248ac1fefa8549b73ae2e9b4c71d62eec84fd974bd6",
+            "fit_ink_rect": [
+              6,
+              102,
+              374,
+              83
+            ],
+            "fitted_mask_sha256": "f6f0b013d11ddce95c574174a33f0220eda0a85e03d228358aa6f3edc487cd08"
+          }
+        ],
+        "source_logical_sha256": "300e8b4fe3a5ab91d4c80ac6bcb6b430b2ebd57224c0e2fc932a2d01803955c8"
+      },
+      {
+        "picture_index": 3,
+        "source_text": "MISON CLEAR",
+        "translation": "MISON CLEAR",
+        "source_logical_sha256": "f36d800bd121956562a39b74583520c6c942eafc6c55e4b68688f24c2001a1b3"
+      }
+    ],
+    "targets": [
+      {
+        "effect_id": 284,
+        "chunk_index": 285,
+        "localized_picture_indices": [
+          0
+        ],
+        "clear_background_picture_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "stored_start": 32379488,
+        "stored_end": 32550496,
+        "stored_size": 171008,
+        "stored_consumed": 170995,
+        "stored_sha256": "e01a07fca2fa2780b69cdc00ab5d4cd4df8c34cc5bd4c5e6701f9a59416e196b",
+        "decoded_size": 903216,
+        "decoded_sha256": "4c00f94a0e430013aa50bd1f9107952eda4deb97bdf0ea189a91f0180128f2f5",
+        "background_record_sha256": "b06c882a82968e254f4c55de2d46f025dcc23b1ae5956edde4a253211b88752b",
+        "background_source_logical_sha256": [
+          "b6592575bface7a88becabdb16a258c14f961a872f51031430eafdc345d13c3f",
+          "e63cc2e973c642af43765c5b0db7e545577938f6a26bd8cc63a9fc6815e6d2e1",
+          "6d2b7ced3e02943561492404ccb42273aae862f0a3a65ddd2dc1f4be3ea730e2",
+          "11c3876d07673aab5c60300d541b48c81033ef615ac1d9ef7b001922a8428853"
+        ],
+        "background_output_logical_sha256": [
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471"
+        ],
+        "foreground_output_logical_sha256": [
+          "7f443f4966e89c2e40d01dbdf02eed96c0bb20c76f9c79dbff9998ab0510905e",
+          "cada52227d9b486c3963b41dfc3f509f7146288fa6cb8d449078b06a2801e7e1",
+          "300e8b4fe3a5ab91d4c80ac6bcb6b430b2ebd57224c0e2fc932a2d01803955c8",
+          "f36d800bd121956562a39b74583520c6c942eafc6c55e4b68688f24c2001a1b3"
+        ],
+        "output_encoded_size": 114340,
+        "output_encoded_sha256": "b4d4aec018f07790bc30cc06e93df8c7e93e210cdaaee305aba0882f82d8c170",
+        "output_decoded_sha256": "4cb2496e6dbbfc32af2f1d3b059506bc798de3580cb78e4eaae479c1ee11d15b"
+      },
+      {
+        "effect_id": 285,
+        "chunk_index": 286,
+        "localized_picture_indices": [
+          1
+        ],
+        "clear_background_picture_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "stored_start": 32550496,
+        "stored_end": 32724592,
+        "stored_size": 174096,
+        "stored_consumed": 174081,
+        "stored_sha256": "0842817650b837c3cd3926abdc44a3b384a4680cfd4588e4d35073517b7c3072",
+        "decoded_size": 873040,
+        "decoded_sha256": "ca2cb5794cfc372595de734745b19ffb15840f0f82fcd146fce06f2bdeaf8efc",
+        "background_record_sha256": "b06c882a82968e254f4c55de2d46f025dcc23b1ae5956edde4a253211b88752b",
+        "background_source_logical_sha256": [
+          "b6592575bface7a88becabdb16a258c14f961a872f51031430eafdc345d13c3f",
+          "e63cc2e973c642af43765c5b0db7e545577938f6a26bd8cc63a9fc6815e6d2e1",
+          "6d2b7ced3e02943561492404ccb42273aae862f0a3a65ddd2dc1f4be3ea730e2",
+          "11c3876d07673aab5c60300d541b48c81033ef615ac1d9ef7b001922a8428853"
+        ],
+        "background_output_logical_sha256": [
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471"
+        ],
+        "foreground_output_logical_sha256": [
+          "55d15c2eb333bc8bae5e59031d82bb91956732621963e8b27235b24c284c9716",
+          "a5889864429ad6b96235c8c508266493496bfaedf027e6fbb94c24742f0a7ea2",
+          "300e8b4fe3a5ab91d4c80ac6bcb6b430b2ebd57224c0e2fc932a2d01803955c8",
+          "f36d800bd121956562a39b74583520c6c942eafc6c55e4b68688f24c2001a1b3"
+        ],
+        "output_encoded_size": 117295,
+        "output_encoded_sha256": "a7a2d5d88fece5512e46291d701103ed9b56adaf12703304f891c24bf27c986e",
+        "output_decoded_sha256": "0261fb45f215bddfa71b8ad97cb9539828f6430ee251f56356070ad4f199baaa"
+      },
+      {
+        "effect_id": 286,
+        "chunk_index": 287,
+        "localized_picture_indices": [
+          1,
+          2
+        ],
+        "clear_background_picture_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "stored_start": 32724592,
+        "stored_end": 32923600,
+        "stored_size": 199008,
+        "stored_consumed": 199004,
+        "stored_sha256": "683809f1bb4ee12b2f86c309e432496bc08c73f0fbb1cba8474f0be8277cc00c",
+        "decoded_size": 899008,
+        "decoded_sha256": "f433af1ca5b074a1dc05c21a2335fcfc31083f6cca388a46a00956f09db8d373",
+        "background_record_sha256": "b5441cac4c79c4492f5cf13bc26ca8ddb240390e6c0626747c7646358009e28a",
+        "background_source_logical_sha256": [
+          "b6592575bface7a88becabdb16a258c14f961a872f51031430eafdc345d13c3f",
+          "35d26e5b3e117180911e51645d84b736acba38d4ea4d9c466f27cb386c6b88bd",
+          "ce1da6725e6d7c851e40ebbd91758816c03637c23a8994016582795bb2c7152b",
+          "5f4bbc6d12434fc38a488a3f6bf617d171b1ea3c083c5ce309b5f305bc553149"
+        ],
+        "background_output_logical_sha256": [
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+          "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471"
+        ],
+        "foreground_output_logical_sha256": [
+          "55d15c2eb333bc8bae5e59031d82bb91956732621963e8b27235b24c284c9716",
+          "a5889864429ad6b96235c8c508266493496bfaedf027e6fbb94c24742f0a7ea2",
+          "0a8695e57fc3f04b45742eda48c08a54cc3651e0105cee374289951124fd1216",
+          "f36d800bd121956562a39b74583520c6c942eafc6c55e4b68688f24c2001a1b3"
+        ],
+        "output_encoded_size": 101640,
+        "output_encoded_sha256": "096251f1f983225f7a632c74858f2db5cbb529c1f9925bda537b39b7f109ee77",
+        "output_decoded_sha256": "74b8d5b0aada86a46ec02d01cdca540623ec24f90ae01ef664b3c98e119c9b26"
+      },
+      {
+        "effect_id": 287,
+        "chunk_index": 288,
+        "preserve_original": true,
+        "localized_picture_indices": [],
+        "clear_background_picture_indices": [],
+        "stored_start": 32923600,
+        "stored_end": 33117472,
+        "stored_size": 193872,
+        "stored_consumed": 193862,
+        "stored_sha256": "75b0488cade55b15bc0299fb0db5534af09d4295cfb2248de3afef1c47bfa54a",
+        "decoded_size": 877376,
+        "decoded_sha256": "d127fd20cba5e6f7b3060d2405a1e2ac8fb664e6031ad5c62a82a833dff83fcc",
+        "background_record_sha256": "b5441cac4c79c4492f5cf13bc26ca8ddb240390e6c0626747c7646358009e28a",
+        "background_source_logical_sha256": [
+          "b6592575bface7a88becabdb16a258c14f961a872f51031430eafdc345d13c3f",
+          "35d26e5b3e117180911e51645d84b736acba38d4ea4d9c466f27cb386c6b88bd",
+          "ce1da6725e6d7c851e40ebbd91758816c03637c23a8994016582795bb2c7152b",
+          "5f4bbc6d12434fc38a488a3f6bf617d171b1ea3c083c5ce309b5f305bc553149"
+        ],
+        "background_output_logical_sha256": [
+          "b6592575bface7a88becabdb16a258c14f961a872f51031430eafdc345d13c3f",
+          "35d26e5b3e117180911e51645d84b736acba38d4ea4d9c466f27cb386c6b88bd",
+          "ce1da6725e6d7c851e40ebbd91758816c03637c23a8994016582795bb2c7152b",
+          "5f4bbc6d12434fc38a488a3f6bf617d171b1ea3c083c5ce309b5f305bc553149"
+        ],
+        "foreground_output_logical_sha256": [
+          "55d15c2eb333bc8bae5e59031d82bb91956732621963e8b27235b24c284c9716",
+          "cada52227d9b486c3963b41dfc3f509f7146288fa6cb8d449078b06a2801e7e1",
+          "300e8b4fe3a5ab91d4c80ac6bcb6b430b2ebd57224c0e2fc932a2d01803955c8",
+          "f36d800bd121956562a39b74583520c6c942eafc6c55e4b68688f24c2001a1b3"
+        ],
+        "output_encoded_size": 193862,
+        "output_encoded_sha256": "2b2a226549d178ccc59f62dea23a68f712f6318e3b226d1c57bab74c60eaddf3",
+        "output_decoded_sha256": "d127fd20cba5e6f7b3060d2405a1e2ac8fb664e6031ad5c62a82a833dff83fcc"
+      }
+    ]
+  },
   "kvmdata": {
     "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
     "size": 3335408,
@@ -1017,13 +1779,13 @@
     },
     "corpus": {
       "path": "corpus/zh/ui-atlas/world-map-titles-v1.json",
-      "size": 19855,
-      "sha256": "523170fa2fce53225f29569779fa93daa2e321f9dd897539252523f94758e5ed"
+      "size": 19854,
+      "sha256": "15478d8b742c8037ceeb3706dc64ebf5f473a2f3809668290571fc7eb10c7e8b"
     },
     "render_snapshot": {
       "path": "config/world-map-title-render-snapshot.json",
-      "size": 422447,
-      "sha256": "c214272474c3f0ba8edc9b8208d48de5b2a8c004c0274c3d716254f3eab29e6f"
+      "size": 422978,
+      "sha256": "35c8eaa677710ae9710ff246e5d63766feaf81f60295cd0b109ca9ce494b8b46"
     },
     "archive": {
       "member": "MAP/MAPMODEL.BIN",
@@ -1048,8 +1810,8 @@
       },
       "corpus": {
         "path": "corpus/zh/menu/mapmodel-terrain-names.json",
-        "size": 12616,
-        "sha256": "59ba6e3dccd08cc395b8f7a516f5b4ebaa00cce1e7d13db2571f994a3ad58c2c"
+        "size": 12619,
+        "sha256": "ae89600614f4bb2150d905f58bc49a8914f3a5266dbd0271d89629d7e477d492"
       },
       "inventory": {
         "path": "config/terrain-name-inventory.json",
@@ -1122,13 +1884,18 @@
   "runtime_keywords": {
     "catalog": {
       "path": "corpus/runtime/stage-keywords-v1.json",
-      "size": 9694,
-      "sha256": "021a9d26f64df5d45cbad53319fc9f124a0ab4a275e430c13ecc63336efd7a58"
+      "size": 9697,
+      "sha256": "26da0433ae0d797ab0a24469f58c25b4f87547f87cd2a4f8abfcc10173776d75"
     },
     "library_archive": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNKW.BIN",
       "size": 29936,
-      "sha256": "3919424c4cfe838a1ae8f143613a280d64ce276cc3bfc2a4cccf9c475139e5fd"
+      "sha256": "8136bcde2b188c0b0ee17da4c2830771efe6fb77fcf758fcd225f01fa7ae51fa"
+    },
+    "library_component_manifest": {
+      "path": "manifests/library-v0.2-reviewed-validation.json",
+      "size": 777605,
+      "sha256": "2f4203e6480af368db4e3c2f389e778d9c7c15bdf13235e4483e7b96d5b236d5"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -1206,12 +1973,12 @@
       "mode": "flattened-release-superset-of-encoded-ui",
       "encoded_assignment_count": 1803,
       "encoded_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
-      "release_assignment_count": 3424,
-      "release_assignment_mapping_sha256": "e3b91da2fa9c7f7038bb40d8748dfc0c281b1ad79b0d77414e9f0eedd7d75406",
-      "release_snapshot_primary_mapping_sha256": "76f753e4e18b388560f298d249dee09260424b079953567a1abbfac7252b16b8",
+      "release_assignment_count": 3450,
+      "release_assignment_mapping_sha256": "1f74a7489feab13cb8d57020df3c430f115e7db4d6fa799c74ede437ef6d79c0",
+      "release_snapshot_primary_mapping_sha256": "6e9486ea8123fd8e4988afaa32a3cab98c41979274b0bd3ae027ccf961fcd5b0",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "846e64511e9c06629b505f360c4d5d4570c5ee1abb391f1b3dacc7598ff89b05",
+        "sha256": "a9cd5c2e047096f277725ed309c790d5e15f06787cc935e31e7405888bfe8166",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
       "reason": "The already encoded UI bytes remain valid because all 1,803 mappings they use are an exact character/code/glyph subset of the flattened global release snapshot. The inherited encoded UI component is not rebuilt."

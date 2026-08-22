@@ -129,13 +129,13 @@ HarmonyOS Sans，并对少数字符使用 Noto Sans CJK；第三方字体及许�
 《超级机器人大战 Z》及相关作品、角色和名称的权利归各自权利方所有。
 
 <details>
-<summary>v0.2.0 当前候选的技术信息</summary>
+<summary>当前开发候选的技术信息</summary>
 
-- 汉化版本：`v0.2.0`
+- 汉化基线：`v0.2.0` 后续开发
 - 原版 ISO 大小：`3,758,358,528` 字节
 - Redump：Disc `4932`，文件名 `Super Robot Taisen Z (Japan, Korea).iso`
 - 原版 ISO SHA-256：`ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2`
-- 当前候选 ISO SHA-256：`24319f1bc509beab4e838bc7078b22d576280b55aece18948901fc7c0fa01bba`
+- 当前候选 ISO SHA-256：`b0e877ec97939938ab9ef70d77c0b86f697761f8d0e04020a512e2bd01d4cc31`
 - 当前候选已通过确定性构建、ISO 结构检查和最终文本回读；精确镜像的完整运行
   验收仍在进行中。
 

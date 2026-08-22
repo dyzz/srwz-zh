@@ -58,6 +58,7 @@ ALLOWED_IMPORT_ROOTS = {
     "zipfile",
     "zlib",
 }
+ALLOWED_IMPORT_ROOTS.update(path.stem for path in TOOLS_ROOT.glob("*.py"))
 
 
 class SourceStructureTests(unittest.TestCase):

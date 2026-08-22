@@ -27,7 +27,9 @@ from srwz.font_source import (
     verify_font_lock_files,
 )
 from srwz.release_font_policy import (
+    DEFAULT_WIDTH_CLASS,
     ReleaseFontPolicyError,
+    allocation_width_class,
     validate_new_character_allocations,
 )
 from srwz.release_font import (
@@ -45,6 +47,8 @@ from srwz.text import load_text_table
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORK_ROOT = PROJECT_ROOT / "work"
 DEFAULT_CONFIG = PROJECT_ROOT / "config/fonts/zh-release-font.json"
+LOW_STOCK_START = 0x8140
+LOW_STOCK_END = 0x8491
 
 
 def parse_args() -> argparse.Namespace:
@@ -146,6 +150,8 @@ def main() -> int:
             snapshot,
             primary_rows,
             remaining_candidates,
+            surface_alias_rows=alias_rows,
+            source_compatibility_rows=compatibility_rows,
         )
     except ReleaseFontPolicyError as error:
         raise SystemExit(str(error)) from error
@@ -182,24 +188,25 @@ def main() -> int:
             "text_table"
         ]["sha256"]:
             raise ReleaseFontError("global font text table SHA-256 drift")
+        text_table = load_text_table(table_path)
         legacy_formation_compatibility = (
             audit_legacy_formation_glyph_compatibility(
                 snapshot,
-                load_text_table(table_path),
+                text_table,
                 project_root=PROJECT_ROOT,
             )
         )
         runtime_generated_compatibility = (
             audit_runtime_generated_glyph_compatibility(
                 snapshot,
-                load_text_table(table_path),
+                text_table,
                 project_root=PROJECT_ROOT,
             )
         )
         sound_select_title_compatibility = (
             audit_sound_select_title_glyph_compatibility(
                 snapshot,
-                load_text_table(table_path),
+                text_table,
                 project_root=PROJECT_ROOT,
             )
         )
@@ -281,16 +288,51 @@ def main() -> int:
             or not isinstance(glyph_index, int)
         ):
             raise SystemExit("release font mapping row is malformed")
-        try:
-            resolved = glyph_index_for_code(int(code_text, 16), extended_entries)
-        except ValueError as error:
-            raise SystemExit(
-                f"release font code is not renderer-addressable: {character!r}"
-            ) from error
+        if row.get("mapping") == "extended_shared_glyph_alias":
+            if not alias:
+                raise SystemExit("extended shared glyph mapping must be an alias")
+            table_offset = row.get("extended_table_offset")
+            source_code = row.get("extended_table_source_code")
+            source_entry = next(
+                (
+                    entry
+                    for entry in extended_entries
+                    if entry.table_offset == table_offset
+                ),
+                None,
+            )
+            if (
+                not isinstance(table_offset, int)
+                or not isinstance(source_code, str)
+                or source_entry is None
+                or source_entry.code != int(source_code, 16)
+                or source_entry.code >= 0x989F
+            ):
+                raise SystemExit(
+                    f"extended shared alias table preimage drift: {character!r}"
+                )
+            resolved = glyph_index
+        else:
+            try:
+                resolved = glyph_index_for_code(int(code_text, 16), extended_entries)
+            except ValueError as error:
+                raise SystemExit(
+                    f"release font code is not renderer-addressable: {character!r}"
+                ) from error
         if resolved != glyph_index:
             raise SystemExit(f"release font glyph mapping drift: {character!r}")
         start = glyph_index * GLYPH_SIZE
         preimage = original_font[start : start + GLYPH_SIZE]
+        code = int(code_text, 16)
+        preserve_stock_primary = (
+            not alias
+            and not source_compatibility
+            and LOW_STOCK_START <= code <= LOW_STOCK_END
+            and text_table.characters.get(code) == character
+        )
+        preserve_original_glyph = (
+            source_compatibility or preserve_stock_primary
+        )
         assignment = {
             "id": (
                 f"zh-release-alias-u{ord(character):04x}"
@@ -322,7 +364,26 @@ def main() -> int:
                 "glyph_preimage_sha256": sha256_bytes(preimage),
                 "glyph_preimage_all_zero": not any(preimage),
             },
-            "raster": rasters[character],
+            **(
+                {
+                    "preserve_source_glyph": True,
+                    **(
+                        {"preserve_original_stock_primary": True}
+                        if preserve_stock_primary
+                        else {}
+                    ),
+                }
+                if preserve_original_glyph
+                else {}
+            ),
+            "raster": (
+                {
+                    "mode": "preserve_original_iso_glyph",
+                    "packed_glyph_sha256": sha256_bytes(preimage),
+                }
+                if preserve_original_glyph
+                else rasters[character]
+            ),
         }
         return assignment
 
@@ -335,13 +396,18 @@ def main() -> int:
     all_codes = [
         item["code"] for item in (*assignments, *aliases, *compatibility)
     ]
-    all_glyphs = [
-        item["glyph_index"]
-        for item in (*assignments, *aliases, *compatibility)
-    ]
-    if len(all_codes) != len(set(all_codes)) or len(all_glyphs) != len(
-        set(all_glyphs)
-    ):
+    glyph_owners = {}
+    invalid_shared_glyph = False
+    for item in (*assignments, *aliases, *compatibility):
+        owner = glyph_owners.get(item["glyph_index"])
+        if owner is None:
+            glyph_owners[item["glyph_index"]] = item
+        elif not (
+            item.get("mapping") == "extended_shared_glyph_alias"
+            and item["character"] == owner["character"]
+        ):
+            invalid_shared_glyph = True
+    if len(all_codes) != len(set(all_codes)) or invalid_shared_glyph:
         raise SystemExit("release font proposal has a code/glyph collision")
 
     demand = Counter(
@@ -392,6 +458,24 @@ def main() -> int:
             "unaliased_conditional_assignment_count": (
                 sum(
                     0x8140 <= int(assignment["code"], 16) < 0x889F
+                    for assignment in assignments
+                )
+                - sum(
+                    0x8140
+                    <= int(assignment["primary_code"], 16)
+                    < 0x889F
+                    for assignment in aliases
+                )
+            ),
+            "special_primary_assignment_count": sum(
+                allocation_width_class(int(assignment["code"], 16))
+                != DEFAULT_WIDTH_CLASS
+                for assignment in assignments
+            ),
+            "unaliased_special_assignment_count": (
+                sum(
+                    allocation_width_class(int(assignment["code"], 16))
+                    != DEFAULT_WIDTH_CLASS
                     for assignment in assignments
                 )
                 - len(aliases)

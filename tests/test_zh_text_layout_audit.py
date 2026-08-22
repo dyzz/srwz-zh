@@ -43,7 +43,7 @@ class ZhTextLayoutAuditTests(unittest.TestCase):
             protected_terms=(),
         )
         self.assertIn(
-            {"kind": "line_too_wide", "line": 2, "width": 22, "limit": 21},
+            {"kind": "line_too_wide", "line": 2, "width": 22, "limit": 20},
             violations,
         )
         self.assertIn(

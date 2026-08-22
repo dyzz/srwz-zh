@@ -1228,6 +1228,27 @@ def repack_stage_texts_in_place(
             owned_regions[-1][1] = max(owned_regions[-1][1], end)
     if not owned_regions:
         raise WritebackError("stage in-place repack has no owned regions")
+
+    # Repoint exact aliases of a parsed source string together with its
+    # dialogue records. Do not treat arbitrary words that merely resolve
+    # inside a text span as pointers: aligned CP932 text routinely forms such
+    # values by coincidence. Parser completeness is enforced structurally
+    # before this ownership pass.
+    selected_pointer_offsets = set(pointer_offsets)
+    selected_source_offsets = {entry.text_offset for entry in selected}
+    alias_pointer_offsets: dict[int, list[int]] = {}
+    for pointer_offset in range(0, len(data) - 3, 4):
+        if any(start <= pointer_offset < end for start, end in owned_regions):
+            continue
+        target_offset = (
+            struct.unpack_from("<I", data, pointer_offset)[0] - base_address
+        )
+        if any(start <= target_offset < end for start, end in owned_regions):
+            if pointer_offset not in selected_pointer_offsets:
+                if target_offset in selected_source_offsets:
+                    alias_pointer_offsets.setdefault(target_offset, []).append(
+                        pointer_offset
+                    )
     pools = [
         AllocationPool(
             owner=f"stage {stage_index:03d} text region {index}",
@@ -1271,6 +1292,25 @@ def repack_stage_texts_in_place(
     for key, position in placements.items():
         payload = key[1]
         output[position : position + len(payload)] = payload
+
+    placements_by_source: dict[int, set[int]] = {}
+    for (source_offset, _payload), position in placements.items():
+        placements_by_source.setdefault(source_offset, set()).add(position)
+    for source_offset, aliases in alias_pointer_offsets.items():
+        source_placements = placements_by_source.get(source_offset, set())
+        if len(source_placements) != 1:
+            raise WritebackError(
+                f"stage {stage_index:03d} direct-pointer alias has "
+                f"ambiguous replacement at source 0x{source_offset:X}"
+            )
+        replacement_offset = next(iter(source_placements))
+        for pointer_offset in aliases:
+            struct.pack_into(
+                "<I",
+                output,
+                pointer_offset,
+                base_address + replacement_offset,
+            )
 
     allocations = []
     expected_speakers = {}

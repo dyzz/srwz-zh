@@ -102,6 +102,44 @@ class StageParserTests(unittest.TestCase):
         )
         self.assertEqual(result.entries[1].text, "Hello")
 
+    def test_parses_live_first_block_in_multi_reference_stage(self):
+        data = bytearray(0x480)
+
+        for reference_offset, block_offset in ((0x90, 0x120), (0xA0, 0x140)):
+            struct.pack_into("<h", data, reference_offset, 0)
+            struct.pack_into("<h", data, reference_offset + 8, block_offset)
+
+        for block_offset, table_offset, section_offset, text_offset, text in (
+            (0x120, 0x180, 0x280, 0x380, b"Alice\nFirst\x00"),
+            (0x140, 0x1A0, 0x2C0, 0x3C0, b"Bob\nSecond\x00"),
+        ):
+            struct.pack_into("<II", data, block_offset, table_offset, 1)
+            struct.pack_into("<I", data, table_offset, section_offset)
+            struct.pack_into("<I", data, section_offset + 0x20, 1)
+            struct.pack_into("<I", data, section_offset + 0x30, text_offset)
+            struct.pack_into("<I", data, section_offset + 0x40, 0x7E)
+            data[text_offset : text_offset + len(text)] = text
+
+        result = parse_stage(
+            bytes(data),
+            self.table,
+            stage_index=49,
+            base_address=0,
+        )
+
+        self.assertEqual(result.dialogue_count, 2)
+        self.assertEqual(
+            [entry.entry_id for entry in result.entries if entry.kind == "dialogue"],
+            [
+                "story/049/dialogue/00.01/0000",
+                "story/049/dialogue/01.01/0000",
+            ],
+        )
+        self.assertEqual(
+            [entry.text for entry in result.entries if entry.kind == "dialogue"],
+            ["First", "Second"],
+        )
+
     def test_parses_dialogue_after_in_section_control_records(self):
         data = bytearray(0x380)
 

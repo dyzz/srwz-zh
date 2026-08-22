@@ -485,11 +485,71 @@ def _rewrite_stage_decoded(
     if len(current) != len(original):
         raise RuntimeKeywordError(f"STAGE decoded size drift at {stage_index}")
 
+    pretranslated_pointers: dict[int, int] = {}
+    pretranslated_allocations: set[tuple[int, int]] = set()
+    for allocation in stage_allocations:
+        exact_reference_count = 0
+        for reference in allocation.references:
+            pointer_offset = (
+                reference.row_offset + FIELD_INDEX[reference.tag] * 4
+            )
+            current_pointer = struct.unpack_from(
+                "<I", current, pointer_offset
+            )[0]
+            target_offset = current_pointer - runtime_base
+            if (
+                0 <= target_offset
+                and target_offset + len(allocation.target) <= len(current)
+                and current[
+                    target_offset : target_offset + len(allocation.target)
+                ]
+                == allocation.target
+            ):
+                pretranslated_pointers[pointer_offset] = current_pointer
+                exact_reference_count += 1
+        if exact_reference_count == len(allocation.references):
+            pretranslated_allocations.add(
+                (stage_index, allocation.offset)
+            )
+
     final_slots: dict[int, bytes] = {}
     donors: dict[int, list[tuple[int, bytes]]] = {}
+    preserved_donor_slack: dict[int, list[tuple[int, int]]] = {}
     for allocation in stage_allocations:
+        allocation_key = (stage_index, allocation.offset)
         relocation = relocation_plan.get((stage_index, allocation.offset))
-        if relocation is None:
+        if allocation_key in pretranslated_allocations:
+            # The story allocator may already own both the old allocation and
+            # the statically planned donor slack, while having redirected all
+            # glossary references to an exact translated copy elsewhere.
+            # Preserve that proven live target and every byte in the two old
+            # regions instead of applying a second relocation over story text.
+            final = current[
+                allocation.offset : allocation.offset + allocation.capacity
+            ]
+            if relocation is not None:
+                relocation_offset, _payload, _reason = relocation
+                donor = next(
+                    (
+                        candidate
+                        for candidate in stage_allocations
+                        if candidate.offset <= relocation_offset
+                        and relocation_offset
+                        < candidate.offset + candidate.capacity
+                    ),
+                    None,
+                )
+                if donor is None:
+                    raise RuntimeKeywordError(
+                        "STAGE keyword preserved donor vanished"
+                    )
+                preserved_donor_slack.setdefault(donor.offset, []).append(
+                    (
+                        relocation_offset,
+                        donor.offset + donor.capacity,
+                    )
+                )
+        elif relocation is None:
             if len(allocation.target) > allocation.capacity:
                 raise RuntimeKeywordError("unplanned STAGE keyword overflow")
             final = allocation.target + bytes(allocation.capacity - len(allocation.target))
@@ -552,13 +612,23 @@ def _rewrite_stage_decoded(
             final[relative : relative + len(payload)] = payload
         final_slots[donor_offset] = bytes(final)
 
+    for donor_offset, ranges in preserved_donor_slack.items():
+        final = bytearray(final_slots[donor_offset])
+        for start, end in ranges:
+            relative_start = start - donor_offset
+            relative_end = end - donor_offset
+            final[relative_start:relative_end] = current[start:end]
+        final_slots[donor_offset] = bytes(final)
+
     final_pointers: dict[int, int] = {}
     for record in stage_records:
         for tag, source_offset in zip(FIELD_TAGS, record.field_offsets):
             pointer_offset = record.row_offset + FIELD_INDEX[tag] * 4
             relocation = relocation_plan.get((stage_index, source_offset))
-            final_pointers[pointer_offset] = runtime_base + (
-                relocation[0] if relocation is not None else source_offset
+            final_pointers[pointer_offset] = pretranslated_pointers.get(
+                pointer_offset,
+                runtime_base
+                + (relocation[0] if relocation is not None else source_offset),
             )
 
     for allocation in stage_allocations:
@@ -577,6 +647,8 @@ def _rewrite_stage_decoded(
         # Relocated source allocations are preserved verbatim because other
         # translated records may now own bytes inside the old retail padding.
         if (stage_index, start) in relocation_plan:
+            accepted.add(current_slot)
+        if (stage_index, start) in pretranslated_allocations:
             accepted.add(current_slot)
         if current_slot not in accepted:
             raise RuntimeKeywordError(
@@ -630,6 +702,7 @@ def _rewrite_stage_decoded(
                 )
     return bytes(output), {
         "changed_byte_count": len(changed),
+        "pretranslated_pointer_count": len(pretranslated_pointers),
     }
 
 
@@ -718,6 +791,9 @@ def apply_stage_keyword_popups(
                     "slot_size": len(stored),
                     "output_headroom": len(stored) - current_decoded.consumed,
                     "changed_byte_count": 0,
+                    "pretranslated_pointer_count": decoded_report[
+                        "pretranslated_pointer_count"
+                    ],
                     "codec_round_trip_exact": True,
                 }
             )
@@ -776,6 +852,9 @@ def apply_stage_keyword_popups(
                     "slot_size": end - start,
                     "output_headroom": end - start - len(rebuilt),
                     "changed_byte_count": decoded_report["changed_byte_count"],
+                    "pretranslated_pointer_count": decoded_report[
+                        "pretranslated_pointer_count"
+                    ],
                     "codec_strategy": codec["strategy"],
                     "codec_round_trip_exact": True,
                 }
@@ -810,6 +889,9 @@ def apply_stage_keyword_popups(
         "relocations": relocation_report,
         "relocation_count": len(relocation_report),
         "preserved_relocated_source_allocation_count": len(relocation_report),
+        "pretranslated_pointer_count": sum(
+            row["pretranslated_pointer_count"] for row in chunk_reports
+        ),
         "chunks": sorted(chunk_reports, key=lambda row: row["stage_index"]),
         "minimum_output_headroom": min(
             row["output_headroom"] for row in chunk_reports

@@ -83,7 +83,7 @@ class BattleLineTranslationTests(unittest.TestCase):
         expected = {
             24: "“糟！\n　仕女指挥机办不到！”",
             25: "“怎、怎么会……！\n　我布莱竟然会败北！”",
-            40: "“加冈总司令，请原谅！”",
+            40: "“加根总司令，请原谅！”",
             69: "“哎呀呀……\n　又给加里森添工作了。”",
             80: "“我被打败了，吉隆——！”",
             87: "“我、我的陆行舰啊！！”",
@@ -97,11 +97,11 @@ class BattleLineTranslationTests(unittest.TestCase):
             153: "“迪兰达尔议长究竟打算\n　用这股力量做什么……！”",
             162: "“可恶！　奥古\n　已经完全听命于ZAFT了吗！”",
             176: "“报告受损情况！\n　密涅瓦开始后撤！”",
-            179: "“为什么……！\n　他们为什么会和大天使号一起……！”",
+            179: "“为什么……！\n　他们为什么会和大天使一起……！”",
             195: "“尼奥……真？”",
             205: "“莎拉·柯达玛，现在逃生！\n　接下来拜托各位了！”",
             210: "“不妙……！\n　使出雅邦忍法，隐身术！”",
-            219: "“我、我要是倒下了，\n　谁来管理西伯铁的运行时刻表！”",
+            219: "“我、我要是倒下了，\n　谁来管理西伯铁的运行图！”",
             221: "“超限恶魔！\n　我要把灵魂献给你！”",
             237: "“对不起，桑德曼……\n　我……”",
             256: "“区区无翼者……呜！”",
@@ -131,8 +131,8 @@ class BattleLineTranslationTests(unittest.TestCase):
             self.glossary["glossary_id"],
             "srwz-zh-battle-lines-v1",
         )
-        self.assertEqual(len(terms), 39)
-        self.assertEqual(len({term["id"] for term in terms}), 39)
+        self.assertEqual(len(terms), 40)
+        self.assertEqual(len({term["id"] for term in terms}), 40)
         self.assertTrue(all(term["notes"] for term in terms))
         self.assertEqual(
             {term["status"] for term in terms},
@@ -144,6 +144,9 @@ class BattleLineTranslationTests(unittest.TestCase):
             by_id["unit/overdevil"]["translation"],
             "超限恶魔",
         )
+        self.assertEqual(by_id["unit/minerva"]["translation"], "密涅瓦")
+        self.assertEqual(by_id["unit/archangel"]["translation"], "大天使")
+        self.assertEqual(by_id["unit/eternal"]["translation"], "永恒")
         self.assertEqual(
             by_id["people/edel-bernal"]["status"],
             "proposed",

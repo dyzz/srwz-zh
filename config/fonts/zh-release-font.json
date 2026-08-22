@@ -7,13 +7,13 @@
   },
   "allocation_snapshot": {
     "path": "config/encoding/zh-release-font-assignments.json",
-    "sha256": "846e64511e9c06629b505f360c4d5d4570c5ee1abb391f1b3dacc7598ff89b05",
+    "sha256": "a9cd5c2e047096f277725ed309c790d5e15f06787cc935e31e7405888bfe8166",
     "snapshot_id": "srwz-zh-release-font-assignments-v1"
   },
   "formation_compatibility_freeze": {
     "path": "config/encoding/zh-release-formation-compatibility-freeze.json",
-    "size": 13623,
-    "sha256": "65a195e76aa16620e831173aee2f990acea874f336517e54ce4e07d17ea02743",
+    "size": 13616,
+    "sha256": "d43bc08dadb4ab41ae31171160d08fab4286e6be88e5a63093ca3dbd9f70dbb5",
     "freeze_id": "srwz-zh-legacy-formation-affected-characters-v1"
   },
   "translation_tree_selection": {
@@ -49,25 +49,44 @@
     "required_width_class": "renderer_addressable_double_byte",
     "reclaim_unused_japanese_positions": true,
     "conditional_width_positions_allowed": true,
+    "preferred_width_class": "default_width",
+    "conditional_width_fallback": "long_text_surface_only_with_audit",
+    "raw_trail_positions_allowed": false,
+    "policy_effective_primary_assignment_count": 3433,
     "applies_to": "Every primary assignment appended by update_zh_release_font_snapshot.py, including a character already present in the original text table.",
-    "preserve": "Printable ASCII glyph slots, occupied primary and alias mappings, source-compatibility mappings, and non-text control bytes remain reserved."
+    "preserve": "Printable ASCII glyph slots, original Japanese compatibility glyphs, unique canonical default-width CJK primaries, non-text controls, and stock kana/punctuation positions remain reserved. Chinese ideographs may not use 0x8140..0x8491.",
+    "conditional_width_exception": {
+      "allowed_surfaces": [
+        "story_dialogue",
+        "battle_dialogue",
+        "story_system_dialogue",
+        "library"
+      ],
+      "forbidden_compact_name_surfaces": [
+        "unit_name",
+        "pilot_or_speaker_name",
+        "part_name"
+      ],
+      "runtime_reference_character": "喂",
+      "requires_explicit_assignment_metadata": true
+    }
   },
   "reraster_all_selected_visible_characters": true,
   "scope": {
     "base_stage_indices": [],
     "selection": "Every non-empty runtime-font translation field under corpus/zh, including menu, database, story and future battle-dialogue corpora; pre-rendered texture corpora are explicitly hash-locked and excluded.",
     "rerasterize": "Every selected visible glyph through the single global HarmonyOS Sans SC flavor, except the explicit stock fullwidth ASCII preservation policy.",
-    "preserve": "Unselected source glyphs; all runtime placeholders and lossless control notation (%s/%2$s, $c/$f/$l/$n/$F, {XX}, and @?<tag:XX>) through their dedicated encoder paths; archive size; and executable font layout. New character assignments never enter the renderer's 0x8140..0x889E single-character mode range."
+    "preserve": "Unselected stock ISO glyphs; source-compatibility glyphs byte-exact at their original codes; all runtime placeholders and lossless control notation; archive size; and executable layout. The renderer binary is not patched."
   },
   "expected": {
-    "primary_assignment_count": 3424,
-    "surface_alias_assignment_count": 604,
-    "source_compatibility_assignment_count": 37,
-    "allocation_assignment_count": 1804,
+    "primary_assignment_count": 3450,
+    "surface_alias_assignment_count": 48,
+    "source_compatibility_assignment_count": 36,
+    "allocation_assignment_count": 1830,
     "reraster_existing_assignment_count": 1620,
     "historical_primary_assignment_count": 3158,
-    "added_global_assignment_count": 19,
-    "remaining_candidate_slot_count": 178
+    "added_global_assignment_count": 29,
+    "remaining_candidate_slot_count": 101
   },
   "outputs": {
     "readiness": "work/writeback/zh-release-font-readiness.json",

@@ -35,8 +35,8 @@
     "speakers": "corpus/zh/story-speakers.json",
     "runtime_keywords": {
       "path": "corpus/runtime/stage-keywords-v1.json",
-      "size": 9694,
-      "sha256": "021a9d26f64df5d45cbad53319fc9f124a0ab4a275e430c13ecc63336efd7a58"
+      "size": 9697,
+      "sha256": "26da0433ae0d797ab0a24469f58c25b4f87547f87cd2a4f8abfcc10173776d75"
     },
     "tickers": {
       "path": "corpus/zh/story-tickers.json",
@@ -47,13 +47,33 @@
       "expected_stage_count": 89,
       "expected_inventory_sha256": "57a55b76a189dce8ec0479a0b03656c1155d7e8acb1dfc14cd62bcf45a4d4872"
     },
+    "z_reports": {
+      "path": "corpus/zh/story-z-reports.json",
+      "size": 1203,
+      "sha256": "8565e1e7932a7c465b60f4ffd04bee646c081ce9ff3d8b31848ce2fc4bbf1cc2",
+      "expected_entry_count": 2,
+      "expected_target_count": 2,
+      "expected_stage_count": 1,
+      "expected_inventory_sha256": "88dc3b72d46b201d7949e0e441ceb60fc9eca1893e63f335bd36cba9c3a1acd9"
+    },
+    "tutorial_binding": {
+      "stage_names": {
+        "185": "stg_500.bin",
+        "186": "stg_501.bin"
+      },
+      "dialogue_counts": {
+        "185": 407,
+        "186": 431
+      },
+      "expected_total_dialogue_count": 838
+    },
     "expected_runtime_keyword_link_count": 122,
     "expected_runtime_keyword_source_count": 52,
-    "expected_dialogue_entry_count": 83507,
+    "expected_dialogue_entry_count": 83668,
     "expected_dialogue_quote_styles": {
       "keyword_exempt": 111,
-      "parenthetical": 2349,
-      "spoken_quote": 77167,
+      "parenthetical": 2358,
+      "spoken_quote": 77319,
       "unquoted": 3880
     },
     "expected_stage_count": 170,

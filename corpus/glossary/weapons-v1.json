@@ -624,14 +624,20 @@
       "source_terms": [
         "ダブルカッター"
       ],
-      "translation": "双重切割器",
+      "translation": "双重切割",
+      "deprecated_translations": [
+        "双重切割器"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
-      "notes": "《UFO机器人古连泰沙》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“双重切割器”。"
+      "enforce": true,
+      "notes": "《UFO机器人古连泰沙》武器名；按最新人工反馈定稿为“双重切割”，旧译“双重切割器”弃用。"
     },
     {
       "id": "weapon/0044",
@@ -916,16 +922,24 @@
     {
       "id": "weapon/0064",
       "source_terms": [
-        "ダブルトマホーク"
+        "ダブルトマホーク",
+        "ダブルトマホゥク",
+        "ダブルトマホゥゥゥゥク"
       ],
       "translation": "双战斧",
+      "deprecated_translations": [
+        "双重战斧"
+      ],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu"
       ],
-      "enforce": false,
-      "notes": "日文原文为“双战斧”；上游英文参考曾误作 Drill Tomahawk，按日文原文处理。"
+      "enforce": true,
+      "notes": "此前武器名人工审核已定稿为“双战斧”；上游英文参考曾误作 Drill Tomahawk，现同步约束图鉴与战斗台词。"
     },
     {
       "id": "weapon/0065",
@@ -995,11 +1009,12 @@
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "library",
         "menu",
         "battle"
       ],
       "enforce": true,
-      "notes": "Liger 的中文定名不统一，暂按“莱格”音译，列为重点复核。 本轮人工审核定稿为“猎豹导弹”。"
+      "notes": "此前武器名人工审核已定稿为“猎豹导弹”；图鉴说明同步沿用，不随机体名“盖塔狮虎”改写。"
     },
     {
       "id": "weapon/0070",
@@ -1231,13 +1246,18 @@
         "百鬼タイフーン"
       ],
       "translation": "百鬼飓风",
+      "deprecated_translations": [
+        "百鬼台风"
+      ],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "library",
         "menu"
       ],
-      "enforce": false,
-      "notes": "《盖塔机器人G》武器名称首译；本轮人工审核已确认。"
+      "enforce": true,
+      "notes": "《盖塔机器人G》武器名称；本轮人工审核已确认“百鬼飓风”，图鉴说明同步沿用。"
     },
     {
       "id": "weapon/0087",
@@ -1335,7 +1355,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0094",
@@ -1349,7 +1369,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0095",
@@ -1363,7 +1383,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“巴尔剑”。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“巴尔剑”。"
     },
     {
       "id": "weapon/0096",
@@ -1377,21 +1397,21 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0097",
       "source_terms": [
         "サンダーフラッシュ"
       ],
-      "translation": "闪电终结",
+      "translation": "雷霆闪光",
       "category": "weapon",
       "status": "approved",
       "domains": [
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“闪电终结”。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称；2026-08-22 按玩家反馈采用 Z2 惯用译名“雷霆闪光”。"
     },
     {
       "id": "weapon/0098",
@@ -1419,7 +1439,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“巴尔迪蔷薇”。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“巴尔迪蔷薇”。"
     },
     {
       "id": "weapon/0100",
@@ -1433,7 +1453,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0101",
@@ -1447,7 +1467,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0102",
@@ -1461,7 +1481,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0103",
@@ -1475,7 +1495,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0104",
@@ -1489,7 +1509,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0105",
@@ -1503,7 +1523,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0106",
@@ -1517,7 +1537,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0107",
@@ -1531,7 +1551,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0108",
@@ -1545,7 +1565,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0109",
@@ -1559,7 +1579,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0110",
@@ -1573,7 +1593,7 @@
         "menu"
       ],
       "enforce": false,
-      "notes": "《宇宙战士巴尔迪奥斯》武器名称首译；本轮人工审核已确认。"
+      "notes": "《宇宙战士巴鲁迪奥斯》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0111",
@@ -1700,6 +1720,27 @@
       ],
       "enforce": false,
       "notes": "《宇宙大帝God Sigma》武器名称首译；本轮人工审核已确认。"
+    },
+    {
+      "id": "weapon/sigma-breast",
+      "source_terms": [
+        "シグマブレスト",
+        "シグマ・ブレスト"
+      ],
+      "translation": "西格玛胸甲",
+      "deprecated_translations": [
+        "西格玛胸炮",
+        "西格玛·胸炮"
+      ],
+      "variant_scope": "source_bound",
+      "category": "weapon",
+      "status": "approved",
+      "domains": [
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "《宇宙大帝神西格玛》招式名；沿用已由用户确认的“西格玛胸甲无双剑”词根，并统一剧情与图鉴中的单独称呼。"
     },
     {
       "id": "weapon/0120",
@@ -1886,29 +1927,45 @@
     {
       "id": "weapon/0133",
       "source_terms": [
-        "バスター・ミサイル"
+        "バスター・ミサイル",
+        "バスターミサイル"
       ],
       "translation": "爆破导弹",
+      "deprecated_translations": [
+        "破坏者导弹",
+        "破坏导弹"
+      ],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
         "menu"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《无敌超人赞波特3》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0134",
       "source_terms": [
-        "ザンボット・バスター"
+        "ザンボット・バスター",
+        "ザンボットバスター"
       ],
       "translation": "赞波特爆破炮",
+      "deprecated_translations": [
+        "桑波特爆破炮",
+        "桑波特破坏炮",
+        "赞波特破坏炮"
+      ],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《无敌超人赞波特3》武器名称首译；本轮人工审核已确认。"
     },
     {
@@ -1942,15 +1999,34 @@
     {
       "id": "weapon/0137",
       "source_terms": [
-        "ザンボット・ムーン・アタック"
+        "ザンボット・ムーン・アタック",
+        "ザンボット・\n　ムーン・アタック",
+        "ムーンアタック",
+        "ムーン・アタック",
+        "ムーン・アタ"
       ],
       "translation": "月环攻击",
+      "deprecated_translations": [
+        "桑波特·\n　月面攻击",
+        "桑波特月面攻击",
+        "赞波特月面攻击",
+        "赞波特月球攻击",
+        "月面攻击",
+        "月球攻击",
+        "月光攻击",
+        "月之攻击",
+        "月神攻击"
+      ],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《无敌超人赞波特3》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“月环攻击”。"
     },
     {
@@ -1966,6 +2042,72 @@
       ],
       "enforce": false,
       "notes": "《无敌超人赞波特3》武器名称首译；本轮人工审核已确认。"
+    },
+    {
+      "id": "weapon/zambot-grap",
+      "source_terms": [
+        "ザンボット・グラップ",
+        "ザンボットグラップ",
+        "ザンボットグラーップ"
+      ],
+      "translation": "赞波特双铁尺",
+      "deprecated_translations": [
+        "桑波特·格斗",
+        "赞波特钩爪",
+        "赞波特擒拿",
+        "桑波特双铁尺"
+      ],
+      "variant_scope": "source_bound",
+      "category": "weapon",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "ザンボットグラップ是以十手／铁尺为造型的双持武器；与用户定稿的“双铁尺组合攻击”统一。"
+    },
+    {
+      "id": "weapon/zambot-cutter",
+      "source_terms": [
+        "ザンボット・カッター"
+      ],
+      "translation": "赞波特切割刀",
+      "deprecated_translations": [
+        "桑波特·切割刀",
+        "桑波特切割刀"
+      ],
+      "variant_scope": "source_bound",
+      "category": "weapon",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "由赞波特双铁尺组合成的刀形武器。"
+    },
+    {
+      "id": "weapon/zambot-cross-slash",
+      "source_terms": [
+        "ザンボット十文字斬り"
+      ],
+      "translation": "赞波特十字斩",
+      "deprecated_translations": [
+        "桑波特十字斩"
+      ],
+      "variant_scope": "source_bound",
+      "category": "weapon",
+      "status": "approved",
+      "domains": [
+        "battle",
+        "library",
+        "story"
+      ],
+      "enforce": true,
+      "notes": "赞波特3使用双铁尺施展的十字斩击。"
     },
     {
       "id": "weapon/0139",
@@ -2018,29 +2160,39 @@
     {
       "id": "weapon/0142",
       "source_terms": [
-        "バード・ガン"
+        "バード・ガン",
+        "バードガン",
+        "バードガァン"
       ],
       "translation": "鸟枪",
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
         "menu"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《无敌超人赞波特3》武器名称首译；本轮人工审核已确认。"
     },
     {
       "id": "weapon/0143",
       "source_terms": [
-        "トレンブル・ホーン"
+        "トレンブル・ホーン",
+        "トレンブルホーン"
       ],
       "translation": "震颤角",
+      "deprecated_translations": [
+        "震颤号角"
+      ],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
         "menu"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《无敌超人赞波特3》武器名称首译；本轮人工审核已确认。"
     },
     {
@@ -2060,15 +2212,26 @@
     {
       "id": "weapon/0145",
       "source_terms": [
-        "ザンボ・マグナム"
+        "ザンボ・マグナム",
+        "ザンボマグナム"
       ],
       "translation": "赞波马格南",
+      "deprecated_translations": [
+        "桑波特马格南",
+        "桑波马格南",
+        "赞波·马格南",
+        "桑波·马格南"
+      ],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《无敌超人赞波特3》武器名称首译；本轮人工审核已确认。"
     },
     {
@@ -2244,112 +2407,229 @@
       "source_terms": [
         "バンドック砲"
       ],
-      "translation": "班多克炮",
+      "translation": "邦多克炮",
+      "deprecated_translations": [
+        "班多克炮",
+        "机械邦多克炮"
+      ],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
-      "notes": "《无敌超人赞波特3》武器名称首译；本轮人工审核已确认。"
+      "enforce": true,
+      "notes": "与用户确认的要塞名“机械邦多克”统一，武器简称为“邦多克炮”。"
     },
     {
       "id": "weapon/0159",
       "source_terms": [
-        "ダイターン・スナッパー"
+        "ダイターン・スナッパー",
+        "ダイターンスナッパー"
       ],
       "translation": "泰坦套鞭",
+      "deprecated_translations": [
+        "戴坦套鞭",
+        "泰坦捕捉器"
+      ],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu"
       ],
-      "enforce": false,
-      "notes": "Snapper 的具体武器形态需结合动画画面复核，暂译“捕捉器”。 本轮人工审核定稿为“泰坦套鞭”。"
+      "enforce": true,
+      "notes": "用户人工审核定稿为“泰坦套鞭”。"
     },
     {
       "id": "weapon/0160",
       "source_terms": [
-        "ダイターン・ミサイル"
+        "ダイターン・ミサイル",
+        "ダイターンミサイル"
       ],
       "translation": "泰坦导弹",
+      "deprecated_translations": ["戴坦导弹"],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu"
       ],
-      "enforce": false,
-      "notes": "《无敌钢人戴坦3》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“泰坦导弹”。"
+      "enforce": true,
+      "notes": "《无敌钢人泰坦3》武器名；用户人工审核定稿为“泰坦导弹”。"
     },
     {
       "id": "weapon/0161",
       "source_terms": [
-        "ダイターン・キャノン"
+        "ダイターン・キャノン",
+        "ダイターンキャノン"
       ],
       "translation": "泰坦加农炮",
+      "deprecated_translations": ["戴坦加农炮"],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu"
       ],
-      "enforce": false,
-      "notes": "《无敌钢人戴坦3》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“泰坦加农炮”。"
+      "enforce": true,
+      "notes": "《无敌钢人泰坦3》武器名；用户人工审核定稿为“泰坦加农炮”。"
     },
     {
       "id": "weapon/0162",
       "source_terms": [
-        "ダイターン・ハンマー"
+        "ダイターン・ハンマー",
+        "ダイターンハンマー"
       ],
       "translation": "泰坦战锤",
+      "deprecated_translations": ["戴坦之锤", "泰坦之锤"],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
         "menu"
       ],
-      "enforce": false,
-      "notes": "《无敌钢人戴坦3》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“泰坦战锤”。"
+      "enforce": true,
+      "notes": "《无敌钢人泰坦3》武器名；用户人工审核定稿为“泰坦战锤”。"
     },
     {
       "id": "weapon/0163",
       "source_terms": [
-        "ダイターン・ジャベリン"
+        "ダイターン・ジャベリン",
+        "ダイターンジャベリン"
       ],
       "translation": "泰坦标枪",
+      "deprecated_translations": ["戴坦标枪", "泰坦长矛"],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
         "menu"
       ],
-      "enforce": false,
-      "notes": "《无敌钢人戴坦3》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“泰坦标枪”。"
+      "enforce": true,
+      "notes": "《无敌钢人泰坦3》武器名；用户人工审核定稿为“泰坦标枪”。"
     },
     {
       "id": "weapon/0164",
       "source_terms": [
-        "サン・アタック乱れ撃ち"
+        "サン・アタック乱れ撃ち",
+        "サンアタック乱れ撃ち"
       ],
       "translation": "日轮攻击·乱射",
+      "deprecated_translations": ["太阳攻击乱射", "日轮攻击乱射"],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
         "menu"
       ],
-      "enforce": false,
-      "notes": "《无敌钢人戴坦3》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“日轮攻击·乱射”。"
+      "enforce": true,
+      "notes": "《无敌钢人泰坦3》武器名；用户人工审核定稿为“日轮攻击·乱射”。"
     },
     {
       "id": "weapon/0165",
       "source_terms": [
-        "サン・アタック"
+        "サン・アタック",
+        "サンアタック"
       ],
       "translation": "日轮攻击",
+      "deprecated_translations": ["太阳攻击"],
+      "variant_scope": "source_bound",
       "category": "weapon",
       "status": "approved",
       "domains": [
+        "battle",
+        "library",
         "menu"
       ],
-      "enforce": false,
-      "notes": "《无敌钢人戴坦3》武器名称首译；本轮人工审核已确认。 本轮人工审核定稿为“日轮攻击”。"
+      "enforce": true,
+      "notes": "《无敌钢人泰坦3》武器名；用户人工审核定稿为“日轮攻击”。"
+    },
+    {
+      "id": "weapon/daitarn-zanber",
+      "source_terms": [
+        "ダイターン・ザンバー",
+        "ダイターンザンバー"
+      ],
+      "translation": "泰坦斩马刀",
+      "deprecated_translations": ["戴坦斩刀", "泰坦斩刀", "泰坦斩刃"],
+      "variant_scope": "source_bound",
+      "category": "weapon",
+      "status": "approved",
+      "domains": ["battle", "library"],
+      "enforce": true,
+      "notes": "中国大陆《机战DD》资料采用“泰坦斩马刀”；统一战斗台词与图鉴中的三种旧译。"
+    },
+    {
+      "id": "weapon/daitarn-fan",
+      "source_terms": [
+        "ダイターン・ファン",
+        "ダイターンファン",
+        "ダイタァァァァァンファン"
+      ],
+      "translation": "泰坦扇",
+      "deprecated_translations": ["戴坦花"],
+      "variant_scope": "source_bound",
+      "category": "weapon",
+      "status": "approved",
+      "domains": ["battle", "library"],
+      "enforce": true,
+      "notes": "泰坦3的扇形武器；修复战斗台词将 fan 误译为“花”的错误。"
+    },
+    {
+      "id": "weapon/daitarn-web",
+      "source_terms": [
+        "ダイターン・ウェッブ",
+        "ダイターンウェッブ"
+      ],
+      "translation": "泰坦网",
+      "deprecated_translations": [],
+      "variant_scope": "source_bound",
+      "category": "weapon",
+      "status": "approved",
+      "domains": ["library"],
+      "enforce": true,
+      "notes": "泰坦3腕部十字变形而成的投掷武器。"
+    },
+    {
+      "id": "weapon/daitarn-leg-cannon",
+      "source_terms": [
+        "ダイターン・レッグキャノン"
+      ],
+      "translation": "泰坦腿部加农炮",
+      "deprecated_translations": ["戴坦·腿部加农炮"],
+      "variant_scope": "source_bound",
+      "category": "weapon",
+      "status": "approved",
+      "domains": ["battle"],
+      "enforce": true,
+      "notes": "战斗台词中的泰坦3腿部加农炮。"
+    },
+    {
+      "id": "weapon/sun-laser-daitarn",
+      "source_terms": [
+        "サンレーザー"
+      ],
+      "translation": "日轮激光",
+      "deprecated_translations": ["太阳激光"],
+      "variant_scope": "source_bound",
+      "category": "weapon",
+      "status": "approved",
+      "domains": ["battle"],
+      "enforce": true,
+      "notes": "与泰坦3的日轮意象及“日轮攻击”统一。"
     },
     {
       "id": "weapon/0166",
@@ -7133,28 +7413,40 @@
       "source_terms": [
         "タンホイザー"
       ],
-      "translation": "坦豪瑟",
+      "translation": "唐怀瑟",
+      "deprecated_translations": [
+        "坦豪瑟"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
-      "notes": "《机动战士GUNDAM SEED DESTINY》武器名称首译；本轮人工审核已确认。"
+      "enforce": true,
+      "notes": "《机动战士GUNDAM SEED DESTINY》密涅瓦主炮；按大陆通行译名统一为“唐怀瑟”，旧译“坦豪瑟”弃用。"
     },
     {
       "id": "weapon/0507",
       "source_terms": [
         "ＱＺＸ−１タンホイザー"
       ],
-      "translation": "QZX-1“坦豪瑟”",
+      "translation": "QZX-1“唐怀瑟”",
+      "deprecated_translations": [
+        "QZX-1“坦豪瑟”"
+      ],
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
-      "notes": "《机动战士GUNDAM SEED DESTINY》武器名称首译；本轮人工审核已确认。"
+      "enforce": true,
+      "notes": "《机动战士GUNDAM SEED DESTINY》密涅瓦主炮全称；按大陆通行译名统一为“QZX-1‘唐怀瑟’”。"
     },
     {
       "id": "weapon/0508",
@@ -7766,14 +8058,14 @@
       "source_terms": [
         "サドン・インパクト"
       ],
-      "translation": "突然冲击",
+      "translation": "铁腕猛击",
       "category": "weapon",
       "status": "approved",
       "domains": [
         "menu"
       ],
       "enforce": false,
-      "notes": "《THE Big O》武器名称首译；本轮人工审核已确认。"
+      "notes": "《THE Big O》武器名称；2026-08-22 按玩家反馈采用 Z2 惯用译名“铁腕猛击”。"
     },
     {
       "id": "weapon/0551",
@@ -9090,9 +9382,11 @@
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "滑板动作 Cutback Drop Turn 暂译“回切急降转向”，需结合《交响诗篇》既有字幕复核。 本轮人工审核定稿为“回切急降转向”。"
     },
     {
@@ -9238,15 +9532,19 @@
     {
       "id": "weapon/0648",
       "source_terms": [
-        "バスクード・クライシス"
+        "バスクード・クライシス",
+        "バスクードクライシス"
       ],
       "translation": "巴斯库德危机",
       "category": "weapon",
       "status": "approved",
       "domains": [
-        "menu"
+        "battle",
+        "library",
+        "menu",
+        "story"
       ],
-      "enforce": false,
+      "enforce": true,
       "notes": "《交响诗篇》武器名称首译；本轮人工审核已确认。"
     },
     {

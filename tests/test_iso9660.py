@@ -141,7 +141,7 @@ class Iso9660Tests(unittest.TestCase):
                 root
                 / "config"
                 / "iso"
-                / "zh-release-full-story-build.json"
+                / "zh-release-current-build.json"
             ).read_text()
         )
         manifest = json.loads(

@@ -28,9 +28,10 @@ class CurrentResidualUiTests(unittest.TestCase):
 
     def test_fixed_slps_and_suspend_return_dialogue_are_locked(self):
         remaining = self.component["remaining_ui"]
-        self.assertEqual(remaining["slps_context_ui"]["entry_count"], 414)
-        self.assertEqual(remaining["slps"]["entry_count"], 205)
+        self.assertEqual(remaining["slps_context_ui"]["entry_count"], 613)
         fixed_slps = self.remaining_ui["slps_by_offset"]
+        self.assertEqual(len(fixed_slps), 242)
+        self.assertEqual(remaining["slps"]["entry_count"], 242)
         self.assertEqual(
             {
                 offset: fixed_slps[offset]
@@ -46,6 +47,74 @@ class CurrentResidualUiTests(unittest.TestCase):
                 "0x345EB8": "无变化",
                 "0x345EE8": "队长效果",
                 "0x346990": "队长效果",
+            },
+        )
+        self.assertEqual(
+            {
+                offset: fixed_slps[offset]
+                for offset in (
+                    "0x347B40",
+                    "0x347B60",
+                    "0x347B80",
+                    "0x347BA0",
+                    "0x347BD0",
+                    "0x347C00",
+                    "0x347C30",
+                    "0x347C60",
+                    "0x347C80",
+                    "0x347CA0",
+                )
+            },
+            {
+                "0x347B40": "1．关于“SR点数”",
+                "0x347B60": "2．关于“精神指令”",
+                "0x347B80": "3．关于“中断保存”",
+                "0x347BA0": "4．关于“TRI队形”",
+                "0x347BD0": "5．关于“中央队形”",
+                "0x347C00": "6．关于“广域队形”",
+                "0x347C30": "7．关于三种队形",
+                "0x347C60": "8．关于“选择帮助”",
+                "0x347C80": "9．关于“重试”",
+                "0x347CA0": "10．关于“攻略Q&A”",
+            },
+        )
+
+        context = self.remaining_ui["slps_context_ui_by_offset"]
+        bazaar = {
+            offset: translation
+            for offset, translation in context.items()
+            if 0x33C280 <= int(offset, 16) <= 0x33D6E0
+        }
+        self.assertEqual(len(bazaar), 44)
+        self.assertEqual(bazaar["0x33C3E0"], "经验值、PP提升")
+        self.assertIn("纳豆菌", bazaar["0x33CE60"])
+        self.assertIn("银制工艺", bazaar["0x33D2B0"])
+        self.assertIn("超合金新Z", bazaar["0x33D6E0"])
+        self.assertEqual(
+            {
+                offset: fixed_slps[offset]
+                for offset in (
+                    "0x3434B8",
+                    "0x3434D8",
+                    "0x3434E0",
+                    "0x3435D8",
+                    "0x3435E0",
+                    "0x3435F0",
+                    "0x343CF0",
+                    "0x345E30",
+                    "0x345E38",
+                )
+            },
+            {
+                "0x3434B8": "：菜单",
+                "0x3434D8": "：选择",
+                "0x3434E0": "：全队逆序配置",
+                "0x3435D8": "：选择",
+                "0x3435E0": "：全队逆序配置",
+                "0x3435F0": "：返回",
+                "0x343CF0": "不，等一下。",
+                "0x345E30": "空中用",
+                "0x345E38": "陆地用",
             },
         )
         self.assertEqual(
@@ -163,10 +232,10 @@ class CurrentResidualUiTests(unittest.TestCase):
 
     def test_current_story_content_scope_is_locked(self):
         self.assertEqual(self.content["stage_count"], 170)
-        self.assertEqual(self.content["translation_entry_count"], 92842)
-        self.assertEqual(self.content["dialogue_count"], 83507)
+        self.assertEqual(self.content["translation_entry_count"], 93071)
+        self.assertEqual(self.content["dialogue_count"], 83668)
         self.assertEqual(self.content["condition_count"], 670)
-        self.assertEqual(self.content["speaker_count"], 8665)
+        self.assertEqual(self.content["speaker_count"], 8733)
         self.assertTrue(all(self.content["checks"].values()))
 
     def test_weapon_special_effect_2_final_iso_readback_is_complete(self):
@@ -175,12 +244,20 @@ class CurrentResidualUiTests(unittest.TestCase):
         self.assertEqual(effect_2["occurrence_count"], 6)
         self.assertEqual(
             {
-                item["translation"]: item["decoded_offsets"]
+                item["translation"]: item["record_ids"]
                 for item in effect_2["terms"]
             },
             {
-                "屏障贯通": [0x1C37, 0x5A52, 0x8627],
-                "无视体型修正": [0x1C50, 0x5A92, 0x8722],
+                "屏障贯通": [
+                    "metadata/keyword_summaries/026",
+                    "page/013/record/034",
+                    "page/027/record/033",
+                ],
+                "无视体型修正": [
+                    "metadata/keyword_summaries/026",
+                    "page/013/record/036",
+                    "page/027/record/044",
+                ],
             },
         )
         self.assertTrue(
@@ -221,7 +298,7 @@ class CurrentResidualUiTests(unittest.TestCase):
             "slps_context_ui"
         ]
         self.assertTrue(fixed_slps["readback_exact"])
-        self.assertEqual(fixed_slps["entry_count"], 414)
+        self.assertEqual(fixed_slps["entry_count"], 613)
         context = self.remaining_ui["slps_context_ui_by_offset"]
         self.assertEqual(
             {offset: context[offset] for offset in (
@@ -313,8 +390,8 @@ class CurrentResidualUiTests(unittest.TestCase):
 
     def test_final_iso_contains_no_stale_stage_text_rendered_by_new_font(self):
         story = self.content["stale_stage_runtime_rendering_audit"]
-        self.assertEqual(story["checked_entry_count"], 92842)
-        self.assertEqual(story["distinct_stale_fingerprint_count"], 91228)
+        self.assertEqual(story["checked_entry_count"], 93071)
+        self.assertEqual(story["distinct_stale_fingerprint_count"], 91471)
         self.assertEqual(story["stale_fingerprint_match_count"], 0)
         self.assertTrue(
             story["all_distinct_stale_source_renderings_absent"]

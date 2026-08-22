@@ -292,6 +292,71 @@ class WriterTests(unittest.TestCase):
             base + 0x200,
         )
 
+    def test_stage_in_place_repack_ignores_pointer_like_interior_word(self):
+        base = 0x7566F0
+        source = bytearray(0x220)
+        for index, target in enumerate((0x100, 0x120, 0x140)):
+            high = ((base + target + 0x8000) >> 16) & 0xFFFF
+            low = (base + target) & 0xFFFF
+            struct.pack_into("<h", source, 0x90 + index * 16, high)
+            struct.pack_into("<h", source, 0x98 + index * 16, low)
+        struct.pack_into("<II", source, 0x120, base + 0x160, 1)
+        struct.pack_into("<II", source, 0x140, 0, 1)
+        struct.pack_into("<II", source, 0x160, base + 0x180, 0)
+        struct.pack_into("<I", source, 0x1A0, 1)
+        struct.pack_into("<I", source, 0x1B0, base + 0x200)
+        struct.pack_into("<I", source, 0x1C0, 0x7E)
+        source[0x200:0x209] = b"Pilot\nHi\x00"
+
+        # Aligned encoded text can coincidentally resemble an interior address.
+        struct.pack_into("<I", source, 0x50, base + 0x202)
+
+        result = repack_stage_texts_in_place(
+            bytes(source),
+            self.table,
+            stage_index=1,
+            function_address=0,
+            replacements={
+                "story/001/dialogue/01.01/0000": "Longer message",
+            },
+        )
+        self.assertEqual(
+            struct.unpack_from("<I", result.data, 0x50)[0],
+            base + 0x202,
+        )
+
+    def test_stage_in_place_repack_repoints_registered_source_alias(self):
+        base = 0x7566F0
+        source = bytearray(0x240)
+        for index, target in enumerate((0x100, 0x120, 0x140)):
+            high = ((base + target + 0x8000) >> 16) & 0xFFFF
+            low = (base + target) & 0xFFFF
+            struct.pack_into("<h", source, 0x90 + index * 16, high)
+            struct.pack_into("<h", source, 0x98 + index * 16, low)
+        struct.pack_into("<II", source, 0x120, base + 0x160, 1)
+        struct.pack_into("<II", source, 0x140, 0, 1)
+        struct.pack_into("<II", source, 0x160, base + 0x180, 0)
+        struct.pack_into("<I", source, 0x1A0, 1)
+        struct.pack_into("<I", source, 0x1B0, base + 0x200)
+        struct.pack_into("<I", source, 0x1C0, 0x7E)
+        source[0x200:0x209] = b"Pilot\nHi\x00"
+        struct.pack_into("<I", source, 0x50, base + 0x200)
+
+        result = repack_stage_texts_in_place(
+            bytes(source),
+            self.table,
+            stage_index=1,
+            function_address=0,
+            replacements={
+                "story/001/dialogue/01.01/0000": "Longer message",
+            },
+        )
+
+        self.assertEqual(
+            struct.unpack_from("<I", result.data, 0x50)[0],
+            base + result.allocations[0].arena_offset,
+        )
+
     def test_stage_repack_preserves_original_keyword_control_codes(self):
         base = 0x7566F0
         source = bytearray(0x220)

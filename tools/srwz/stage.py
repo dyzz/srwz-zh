@@ -177,6 +177,122 @@ def _decode_speaker_and_message(
     )
 
 
+def _is_dialogue_block(
+    data: bytes,
+    block_reference: int,
+    table: TextTable,
+    *,
+    base_address: int,
+    max_sections: int,
+    max_records_per_section: int,
+) -> bool:
+    """Return whether one observed block reference is live dialogue.
+
+    Most STAGE chunks put a non-dialogue object first, but compact chunks and
+    six multi-reference intermission chunks put live dialogue there instead.
+    Cardinality therefore cannot identify the dialogue blocks.  Validate the
+    complete pointer-table/record/text shape so non-dialogue objects remain
+    excluded without dropping a structurally valid first block.
+    """
+
+    try:
+        pointer_table_address = _u32(
+            data,
+            block_reference,
+            "dialogue block pointer",
+        )
+        sections_count = _u32(
+            data,
+            block_reference + 4,
+            "dialogue block section count",
+        )
+        if sections_count > max_sections:
+            return False
+        pointer_table_offset = pointer_table_address - base_address
+        if not 0 < pointer_table_offset < len(data):
+            return False
+
+        if sections_count == 0:
+            speaker = decode_text(
+                data,
+                pointer_table_offset,
+                table,
+                stop_at_newline=True,
+            )
+            message = (
+                decode_text(data, speaker.end, table)
+                if speaker.terminator == "newline"
+                else speaker
+            )
+            return message.terminator == "nul" and bool(message.text)
+
+        _require_span(
+            data,
+            pointer_table_offset,
+            sections_count * 8,
+            "dialogue section pointer table",
+        )
+        live_text_count = 0
+        for section_index in range(sections_count):
+            section_pointer_offset = pointer_table_offset + section_index * 8
+            section_address = _u32(
+                data,
+                section_pointer_offset,
+                "dialogue section pointer",
+            )
+            section_offset = section_address - base_address
+            if not 0 < section_offset < len(data):
+                # The observed count includes zero sentinel rows in many
+                # ordinary blocks.  They are not sections and match the
+                # parser's established skip behavior.
+                continue
+
+            record_offset = section_offset + 0x20
+            for _ in range(max_records_per_section):
+                structure_value = _u32(
+                    data,
+                    record_offset,
+                    "dialogue record type",
+                )
+                if structure_value == 0x7E:
+                    break
+                if structure_value >= 0x60 and structure_value not in {
+                    0x60,
+                    0x61,
+                }:
+                    return False
+                _require_span(data, record_offset, 32, "dialogue record")
+                text_address = _u32(
+                    data,
+                    record_offset + 16,
+                    "dialogue text pointer",
+                )
+                if text_address > base_address:
+                    text_offset = text_address - base_address
+                    if not 0 <= text_offset < len(data):
+                        return False
+                    speaker = decode_text(
+                        data,
+                        text_offset,
+                        table,
+                        stop_at_newline=True,
+                    )
+                    message = (
+                        decode_text(data, speaker.end, table)
+                        if speaker.terminator == "newline"
+                        else speaker
+                    )
+                    if message.terminator != "nul" or not message.text:
+                        return False
+                    live_text_count += 1
+                record_offset += 32
+            else:
+                return False
+        return live_text_count > 0
+    except ValueError:
+        return False
+
+
 def _condition_entries(
     data: bytes,
     function_address: int,
@@ -323,16 +439,16 @@ def parse_stage(
     section_count = 0
     unknown_code_count = 0
 
-    # Ordinary stages reserve the first observed block reference for a
-    # non-dialogue structure.  The route-selection and bazaar-only chunks use
-    # a compact layout with exactly one reference, and that sole reference is
-    # the dialogue block itself.  Selecting by structure cardinality keeps the
-    # ordinary layout stable while exposing those otherwise skipped chunks.
-    dialogue_block_start = 0 if len(block_references) == 1 else 1
-    for block_index, block_reference in enumerate(
-        block_references[dialogue_block_start:],
-        start=dialogue_block_start,
-    ):
+    for block_index, block_reference in enumerate(block_references):
+        if not _is_dialogue_block(
+            data,
+            block_reference,
+            table,
+            base_address=base_address,
+            max_sections=max_sections,
+            max_records_per_section=max_records_per_section,
+        ):
+            continue
         pointer_table_address = _u32(
             data,
             block_reference,

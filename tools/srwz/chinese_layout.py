@@ -13,9 +13,11 @@ from .text import RUNTIME_FORMAT_TOKEN
 
 
 # Continuation lines gain one full-width ideographic-space indent at writeback.
-# Keep their content at 21 cells so the rendered line occupies at most 22 cells
-# and retains a safe right margin in the 640 px story message window.
+# The production story-dialogue profile therefore gives the first line 21
+# content cells and continuation lines 20 content cells, keeping every visible
+# line inside the same 21-cell boundary after indentation is rendered.
 DEFAULT_LINE_WIDTH = 21
+DEFAULT_CONTINUATION_LINE_WIDTH = 20
 DEFAULT_MAX_LINES = 3
 PLAYER_NAME_RENDER_WIDTH = 6
 CONTINUATION_INDENT = "　"

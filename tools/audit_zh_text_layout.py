@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Iterable
@@ -30,6 +31,7 @@ try:
         logical_dialogue_text,
         reflow_chinese_dialogue,
         reflow_chinese_paragraph,
+        rendered_line_width,
     )
     from srwz.diagnostics import require_work_output
     from srwz.text import (
@@ -53,6 +55,7 @@ except ModuleNotFoundError:  # Imported as tools.* by the unit test suite.
         logical_dialogue_text,
         reflow_chinese_dialogue,
         reflow_chinese_paragraph,
+        rendered_line_width,
     )
     from tools.srwz.diagnostics import require_work_output
     from tools.srwz.text import (
@@ -67,6 +70,11 @@ DEFAULT_PROFILES = PROJECT_ROOT / "config/text-layout/zh-layout-profiles.json"
 DEFAULT_RELEASE = PROJECT_ROOT / "corpus/releases/v1.json"
 DEFAULT_REPORT = WORK_ROOT / "review/zh-text-layout-audit.json"
 STORY_ROOT = PROJECT_ROOT / "corpus/zh/story-dialogue"
+STORY_SYSTEM_DIALOGUE = PROJECT_ROOT / "corpus/zh/story-system-dialogue.json"
+STORY_TICKERS = PROJECT_ROOT / "corpus/zh/story-tickers.json"
+STORY_Z_REPORTS = PROJECT_ROOT / "corpus/zh/story-z-reports.json"
+STAGE_NAMES = PROJECT_ROOT / "corpus/zh/menu/stage-names.json"
+CHAPTER_INTERTITLES = PROJECT_ROOT / "corpus/zh/chapter-intertitles.json"
 LIBRARY_CORPUS = PROJECT_ROOT / "corpus/zh/library/v0.2-reviewed.json"
 STAGE_OVERVIEWS = PROJECT_ROOT / "corpus/zh/menu/stage-overviews.json"
 HSFC_OVERVIEWS = PROJECT_ROOT / "corpus/zh/menu/hsfc-overviews.json"
@@ -74,6 +82,9 @@ WORLD_HISTORY_SUMMARY = PROJECT_ROOT / "corpus/zh/summary.json"
 WORLD_HISTORY_MAX_PARAGRAPH_WIDTH_SPREAD = 4
 TABLE_PATH = PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
 FONT_ASSIGNMENTS = PROJECT_ROOT / "config/encoding/zh-release-font-assignments.json"
+PLAYER_CHOICE_TEXT = re.compile(
+    r"^“.+的选择”\n“1．.+”\n“2．.+”$"
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -312,6 +323,317 @@ def audit_story(
         "failure_count": len(failures),
         "failures": failures,
         "changes": changed,
+    }
+
+
+def audit_story_system_dialogue(
+    profile: ChineseLayoutProfile,
+    protected_terms: tuple[str, ...],
+) -> dict[str, object]:
+    """Audit STG00 suspend-save and quit dialogue in the 21x3 box."""
+
+    document = load_json(STORY_SYSTEM_DIALOGUE)
+    changed = []
+    failures = []
+    existing_violation_count = 0
+    proposed_violation_count = 0
+    entries = document.get("entries")
+    if not isinstance(entries, list):
+        raise ChineseLayoutError("STG00 system-dialogue corpus has no entries")
+    for entry in entries:
+        original = entry["translation"]
+        before_violations = layout_violations(
+            original,
+            profile=profile,
+            protected_terms=protected_terms,
+        )
+        existing_violation_count += len(before_violations)
+        # STG00 contains intentionally paced character beats. Once an entry
+        # satisfies the hard runtime constraints, retain the reviewed breaks
+        # instead of replacing them with a merely different valid layout.
+        if not before_violations:
+            continue
+        try:
+            result = reflow_chinese_dialogue(
+                original,
+                protected_terms=protected_terms,
+                profile=profile,
+            )
+        except ChineseLayoutError as error:
+            failures.append(
+                {
+                    "id": entry["id"],
+                    "path": str(STORY_SYSTEM_DIALOGUE.relative_to(PROJECT_ROOT)),
+                    "before": original,
+                    "before_metrics": width_metrics(
+                        original,
+                        protected_terms=protected_terms,
+                        profile=profile,
+                    ),
+                    "before_violations": before_violations,
+                    "error": str(error),
+                }
+            )
+            continue
+        if logical_dialogue_text(result.text) != logical_dialogue_text(original):
+            raise AssertionError(
+                f"STG00 layout changed logical text: {entry['id']}"
+            )
+        after_violations = layout_violations(
+            result.text,
+            profile=profile,
+            protected_terms=protected_terms,
+        )
+        proposed_violation_count += len(after_violations)
+        if result.text != original or before_violations or after_violations:
+            changed.append(
+                {
+                    "id": entry["id"],
+                    "path": str(STORY_SYSTEM_DIALOGUE.relative_to(PROJECT_ROOT)),
+                    "before": original,
+                    "after": result.text,
+                    "before_metrics": width_metrics(
+                        original,
+                        protected_terms=protected_terms,
+                        profile=profile,
+                    ),
+                    "after_metrics": width_metrics(
+                        result.text,
+                        protected_terms=protected_terms,
+                        profile=profile,
+                    ),
+                    "before_violations": before_violations,
+                    "after_violations": after_violations,
+                    "preserved_reason": result.preserved_reason,
+                }
+            )
+    return {
+        "profile": profile.profile_id,
+        "entry_count": len(entries),
+        "changed_entry_count": len(changed),
+        "existing_violation_count": existing_violation_count,
+        "proposed_violation_count": proposed_violation_count,
+        "failure_count": len(failures),
+        "failures": failures,
+        "changes": changed,
+    }
+
+
+def audit_special_story_surfaces(
+    profile: ChineseLayoutProfile,
+    protected_terms: tuple[str, ...],
+) -> dict[str, object]:
+    """Audit nonstandard STAGE text surfaces outside ordinary dialogue flow."""
+
+    failures: list[dict[str, object]] = []
+    player_choices = []
+    for path in sorted(STORY_ROOT.glob("stage-*.json")):
+        document = load_json(path)
+        for entry in document["entries"]:
+            if PLAYER_CHOICE_TEXT.fullmatch(entry["translation"]):
+                player_choices.append(entry)
+    if len(player_choices) != 17:
+        failures.append(
+            {
+                "surface": "player_choice",
+                "error": f"inventory drift: {len(player_choices)} != 17",
+            }
+        )
+    player_choice_maximum_width = 0
+    for entry in player_choices:
+        widths = dialogue_line_widths(
+            entry["translation"],
+            protected_terms=protected_terms,
+        )
+        player_choice_maximum_width = max(
+            player_choice_maximum_width,
+            max(widths, default=0),
+        )
+        violations = edge_violations(entry["translation"])
+        if len(widths) != 3 or max(widths, default=0) > 21 or violations:
+            failures.append(
+                {
+                    "surface": "player_choice",
+                    "id": entry["id"],
+                    "line_widths": list(widths),
+                    "violations": violations,
+                }
+            )
+
+    stage_names = load_json(STAGE_NAMES).get("entries")
+    if not isinstance(stage_names, list) or len(stage_names) != 122:
+        raise ChineseLayoutError("stage-name special-surface inventory drift")
+    route_choices = stage_names[107:116]
+    route_choice_maximum_width = 0
+    for entry in route_choices:
+        text = entry.get("translation")
+        widths = (
+            dialogue_line_widths(text, protected_terms=protected_terms)
+            if isinstance(text, str)
+            else ()
+        )
+        route_choice_maximum_width = max(
+            route_choice_maximum_width,
+            max(widths, default=0),
+        )
+        if (
+            not isinstance(text, str)
+            or not text
+            or len(widths) != 1
+            or max(widths, default=0) > 21
+            or edge_violations(text)
+        ):
+            failures.append(
+                {
+                    "surface": "route_choice_transition",
+                    "id": entry.get("id"),
+                    "line_widths": list(widths),
+                }
+            )
+
+    table, overrides = font_encoder_inputs()
+    tickers = load_json(STORY_TICKERS).get("entries")
+    if not isinstance(tickers, list) or len(tickers) != 46:
+        raise ChineseLayoutError("story-ticker special-surface inventory drift")
+    ticker_maximum_width = 0
+    ticker_maximum_encoded_size = 0
+    for entry in tickers:
+        text = entry.get("translation")
+        if not isinstance(text, str) or not text or "\n" in text or "\r" in text:
+            failures.append(
+                {
+                    "surface": "horizontal_story_ticker",
+                    "id": entry.get("id"),
+                    "error": "ticker is not one non-empty line",
+                }
+            )
+            continue
+        width = rendered_line_width(text, protected_terms=protected_terms)
+        encoded_size = len(
+            encode_text(text, table, overrides=overrides, terminate=True)
+        )
+        ticker_maximum_width = max(ticker_maximum_width, width)
+        ticker_maximum_encoded_size = max(
+            ticker_maximum_encoded_size,
+            encoded_size,
+        )
+        if encoded_size > 140:
+            failures.append(
+                {
+                    "surface": "horizontal_story_ticker",
+                    "id": entry.get("id"),
+                    "encoded_size": encoded_size,
+                    "limit": 140,
+                }
+            )
+
+    z_reports = load_json(STORY_Z_REPORTS).get("entries")
+    if not isinstance(z_reports, list) or len(z_reports) != 2:
+        raise ChineseLayoutError("Z Report special-surface inventory drift")
+    z_report_maximum_width = 0
+    for entry in z_reports:
+        text = entry.get("translation")
+        widths = (
+            dialogue_line_widths(text, protected_terms=protected_terms)
+            if isinstance(text, str)
+            else ()
+        )
+        z_report_maximum_width = max(
+            z_report_maximum_width,
+            max(widths, default=0),
+        )
+        if (
+            not isinstance(text, str)
+            or not text
+            or len(widths) != 1
+            or max(widths, default=0) > 21
+        ):
+            failures.append(
+                {
+                    "surface": "z_report_overlay",
+                    "id": entry.get("id"),
+                    "line_widths": list(widths),
+                }
+            )
+
+    intertitles = load_json(CHAPTER_INTERTITLES).get("entries")
+    if not isinstance(intertitles, list) or len(intertitles) != 2:
+        raise ChineseLayoutError("chapter-intertitle inventory drift")
+    intertitle_maximum_width = 0
+    for entry in intertitles:
+        text = entry.get("translation")
+        widths = (
+            dialogue_line_widths(text, protected_terms=protected_terms)
+            if isinstance(text, str)
+            else ()
+        )
+        intertitle_maximum_width = max(
+            intertitle_maximum_width,
+            max(widths, default=0),
+        )
+        if (
+            not isinstance(text, str)
+            or not text
+            or len(widths) != 1
+            or not isinstance(entry.get("render_mask_sha256"), str)
+            or not isinstance(entry.get("output_logical_indexes_sha256"), str)
+        ):
+            failures.append(
+                {
+                    "surface": "chapter_transition_intertitle",
+                    "id": entry.get("id"),
+                    "line_widths": list(widths),
+                }
+            )
+
+    return {
+        "profile": profile.profile_id,
+        "entry_count": (
+            len(player_choices)
+            + len(route_choices)
+            + len(tickers)
+            + len(z_reports)
+            + len(intertitles)
+        ),
+        "changed_entry_count": 0,
+        "existing_violation_count": len(failures),
+        "proposed_violation_count": len(failures),
+        "failure_count": len(failures),
+        "failures": failures,
+        "changes": [],
+        "surfaces": {
+            "player_choices": {
+                "entry_count": len(player_choices),
+                "required_line_count": 3,
+                "maximum_width": player_choice_maximum_width,
+                "width_limit": 21,
+            },
+            "route_choice_transitions": {
+                "entry_count": len(route_choices),
+                "required_line_count": 1,
+                "maximum_width": route_choice_maximum_width,
+                "width_limit": 21,
+            },
+            "horizontal_story_tickers": {
+                "entry_count": len(tickers),
+                "required_line_count": 1,
+                "maximum_width": ticker_maximum_width,
+                "maximum_encoded_size": ticker_maximum_encoded_size,
+                "fixed_slot_size": 140,
+            },
+            "z_report_overlays": {
+                "entry_count": len(z_reports),
+                "required_line_count": 1,
+                "maximum_width": z_report_maximum_width,
+                "width_limit": 21,
+            },
+            "chapter_transition_intertitles": {
+                "entry_count": len(intertitles),
+                "required_line_count": 1,
+                "maximum_width": intertitle_maximum_width,
+                "frozen_pixel_render_regression_required": True,
+            },
+        },
     }
 
 
@@ -781,6 +1103,14 @@ def collect_surfaces(
             profiles["story_dialogue"],
             protected_terms,
         ),
+        "stage_system_dialogue": audit_story_system_dialogue(
+            profiles["story_dialogue"],
+            protected_terms,
+        ),
+        "special_story_surfaces": audit_special_story_surfaces(
+            profiles["story_dialogue"],
+            protected_terms,
+        ),
         "library": audit_library(profiles, protected_terms),
         "stage_scroll_overview": audit_stage_overviews(
             profiles["stage_scroll_overview"],
@@ -897,6 +1227,10 @@ def apply_validated_changes(
     applied = sum(
         _apply_document_changes(path, changes)
         for path, changes in sorted(story_by_path.items())
+    )
+    applied += _apply_document_changes(
+        STORY_SYSTEM_DIALOGUE,
+        list(surfaces["stage_system_dialogue"]["changes"]),
     )
     for surface_name, path in (
         ("stage_scroll_overview", STAGE_OVERVIEWS),

@@ -107,7 +107,7 @@ class StoryDialogueTranslationTests(unittest.TestCase):
             for item in self.release["coverage_plan"]
             if item["batch_id"] == "v1-story-dialogue"
         )
-        self.assertEqual(batch["target_entry_count"], 83507)
+        self.assertEqual(batch["target_entry_count"], 83668)
         self.assertEqual(batch["status"], "draft_complete")
 
     def test_every_stage_document_has_stable_ids_and_complete_scope_counts(self):
@@ -151,7 +151,7 @@ class StoryDialogueTranslationTests(unittest.TestCase):
                 all_ids.add(entry["id"])
             total_entries += len(entries)
 
-        self.assertEqual(total_entries, 83507)
+        self.assertEqual(total_entries, 83668)
         self.assertEqual(len(all_ids), total_entries)
 
     def test_compact_transition_route_and_bazaar_stages_are_registered(self):
@@ -176,6 +176,8 @@ class StoryDialogueTranslationTests(unittest.TestCase):
                 178,
                 179,
                 180,
+                185,
+                186,
             }.issubset(actual_stages)
         )
 
@@ -272,7 +274,7 @@ class StoryDialogueTranslationTests(unittest.TestCase):
 
         self.assertEqual(
             entries["story/026/dialogue/02.01/0124"],
-            "“欢迎来到三位一体城，\n　$f先生。”",
+            "“欢迎来到三位一体城，$f先生。”",
         )
 
     def test_player_choice_records_preserve_three_runtime_rows(self):

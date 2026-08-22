@@ -44,7 +44,7 @@
     {
       "id": "story/001/dialogue/01.01/0003",
       "source_text_sha256": "3882a6cdd33cd20db8a688fddb3252dc6da9f43c0dee2127f4b35782123c33ee",
-      "translation": "“真是的……刚才还在为没机会上战场而发\n　愁呢，转眼间就变成这样。这发展也太突然了”",
+      "translation": "“真是的……刚才还在为没机会上战场而发愁\n　呢，转眼间就变成这样。这发展也太突然了”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -157,15 +157,16 @@
     {
       "id": "story/001/dialogue/01.02/0004",
       "source_text_sha256": "3c27f7010955243adbf27997435d96c0a193a78f8756ef359c259683d90538b9",
-      "translation": "“他们拿克瓦特罗大尉和高达Mk-II\n　当诱饵。提坦斯那帮人当然会一口咬钩”",
+      "translation": "“我们拿克瓦特罗上尉和高达Mk-II\n　作诱饵。提坦斯那帮人当然会一口咬钩”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
         "organization/titans",
         "people/quattro",
+        "people/speaker-12eb2b5facdc",
         "unit/gundam-mk-ii"
       ],
-      "notes": "system/turn 是“ティターンズ”内部片假名的子串误命中；显式豁免。",
+      "notes": "system/turn 是“ティターンズ”内部片假名的子串误命中；显式豁免。按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。",
       "glossary_exceptions": [
         "system/turn"
       ]
@@ -191,7 +192,7 @@
     {
       "id": "story/001/dialogue/01.02/0007",
       "source_text_sha256": "1be0675d0ef54c963813f78de586c4b5004269c30f7588961d71b0a19c73270e",
-      "translation": "“继高达Mk-II之后，\n　这次也让我们收下吧”",
+      "translation": "“继高达Mk-II之后，这架也归我们了。”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
@@ -437,7 +438,7 @@
     {
       "id": "story/001/dialogue/01.03/0015",
       "source_text_sha256": "708ebcbaafb25c08925818e7dedfed91a37918ab639c1d0514580677cb94d36a",
-      "translation": "“嘿……没想到巴尔戈拉的实战测试\n　竟会在这种情况下进行”",
+      "translation": "“嘿……没想到会在这种情况下\n　测试巴尔戈拉的实战性能。”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
@@ -584,13 +585,14 @@
     {
       "id": "story/001/dialogue/01.07/0001",
       "source_text_sha256": "0ba0426569f39fcdcb86ba8f9509f8fd19f81b6bf8fd457c166b96f2c8fbb95a",
-      "translation": "“怎么办，克瓦特罗大尉？”",
+      "translation": "“怎么办，克瓦特罗上尉？”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/quattro"
+        "people/quattro",
+        "people/speaker-12eb2b5facdc"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。"
     },
     {
       "id": "story/001/dialogue/01.07/0002",
@@ -960,13 +962,14 @@
     {
       "id": "story/001/dialogue/01.18/0001",
       "source_text_sha256": "f6e586f0eeb312fb1c3c47d7c1715bf29fd32c5d202c3fd131050d965e206a8a",
-      "translation": "“克瓦特罗大尉！”",
+      "translation": "“克瓦特罗上尉！”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/quattro"
+        "people/quattro",
+        "people/speaker-12eb2b5facdc"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。"
     },
     {
       "id": "story/001/dialogue/01.18/0002",
@@ -1104,11 +1107,13 @@
     {
       "id": "story/001/dialogue/01.26/0001",
       "source_text_sha256": "5c412cd50e6de1a552a33839b10e83f786adf3e022f107f0a794d4988113230c",
-      "translation": "“请离远一点，大尉！\n　虽然不清楚发生了什么，但很危险！！”",
+      "translation": "“请离远一点，上尉！\n　虽然不清楚发生了什么，但很危险！！”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-12eb2b5facdc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。"
     },
     {
       "id": "story/001/dialogue/01.26/0002",
@@ -1291,7 +1296,7 @@
     {
       "id": "story/001/dialogue/01.33/0001",
       "source_text_sha256": "9e8ff6729c108b45b6c680dcd659e7acadaff73a498522b6df3a4a2b99845d1d",
-      "translation": "“好强……！\n　这就是久经沙场的士兵所使出的动作吗……！”",
+      "translation": "“好强……！这就是久经沙场\n　的士兵所使出的动作吗……！”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -1865,14 +1870,15 @@
     {
       "id": "story/001/dialogue/02.01/0047",
       "source_text_sha256": "cb9c4b8a63fdd9a026a632797b152e03b8ef8bb5edb6c9f744507e6c457b234c",
-      "translation": "（这个男人就是丹泽尔·哈默大尉……\n　《荣耀之星》的队长吗……）",
+      "translation": "（这个男人就是丹泽尔·哈默上尉……\n　《荣耀之星》的队长吗……）",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
         "organization/glory-star",
-        "people/denzel-hamer-full"
+        "people/denzel-hamer-full",
+        "people/speaker-12eb2b5facdc"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。"
     },
     {
       "id": "story/001/dialogue/02.01/0048",
@@ -1945,11 +1951,13 @@
     {
       "id": "story/001/dialogue/02.01/0055",
       "source_text_sha256": "e764029626abcbfcd1caf32aa6be20afb2580c3496378da01cf1639494fc3e2c",
-      "translation": "“刚才丹泽尔大尉和托比中尉\n　正在向我介绍基地设施。你也一起来怎么样？”",
+      "translation": "“刚才丹泽尔上尉和托比中尉正在向我\n　介绍基地设施。你也一起来怎么样？”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
-      "glossary_refs": [],
-      "notes": ""
+      "glossary_refs": [
+        "people/speaker-12eb2b5facdc"
+      ],
+      "notes": "按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。"
     },
     {
       "id": "story/001/dialogue/02.01/0056",
@@ -2276,7 +2284,7 @@
     {
       "id": "story/001/dialogue/02.01/0087",
       "source_text_sha256": "d415cd8d4b48bdde8004806a0459f204c4dbb2adbad418bb0e17324c29123d29",
-      "translation": "“全领域泛用武装系统，\n　‘加纳利·卡弗’啊……还真是什么都想包办”",
+      "translation": "“全领域泛用武装系统，‘加纳利·卡弗’\n　啊……还真是什么都想包办”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
@@ -2310,7 +2318,7 @@
     {
       "id": "story/001/dialogue/02.01/0090",
       "source_text_sha256": "04a6fa795ec63392883fbdf8a80a2f9418a61c043c03f890c90a1a682b1a93d5",
-      "translation": "“也就是说，我们的巴尔戈拉\n　是以运用加纳利·卡弗为前提进行调整的”",
+      "translation": "“也就是说，我们的巴尔戈拉\n　是专门针对加纳利·卡弗调整的。”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
@@ -2713,7 +2721,7 @@
     {
       "id": "story/001/dialogue/02.01/0130",
       "source_text_sha256": "9565fb03e5bc36139a5dc709f5ab6204e61d41c6b043c2b100c7763294e5d920",
-      "translation": "“……就是这么回事，少尉。无论是否\n　站在战场上，我们都在进行自己的战斗”",
+      "translation": "“……就是这么回事，少尉。\n　无论是否身在战场，我们都在打自己的仗。”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -2842,7 +2850,7 @@
     {
       "id": "story/001/dialogue/02.01/0143",
       "source_text_sha256": "8b068c2c8d7032b934f70bb6d2547775a49acb6705e77ded5522a73c48255bda",
-      "translation": "“对不起，少尉。\n　事先说明得确实不够充分，这一点我承认……”",
+      "translation": "“对不起，少尉。事先说明得确实不够充分，\n　这一点我承认……”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [],
@@ -3000,13 +3008,14 @@
     {
       "id": "story/001/dialogue/02.01/0160",
       "source_text_sha256": "09209580358cdca499f92d6d3f649c7375e68551e14486fb05440448929412c6",
-      "translation": "“所以今晚也请让我好好尊敬您，\n　丹泽尔·哈默大尉！”",
+      "translation": "“所以今晚也请让我好好尊敬您，\n　丹泽尔·哈默上尉！”",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/denzel-hamer-full"
+        "people/denzel-hamer-full",
+        "people/speaker-12eb2b5facdc"
       ],
-      "notes": ""
+      "notes": "按日文源词绑定统一全局术语：people/speaker-12eb2b5facdc。"
     },
     {
       "id": "story/001/dialogue/02.01/0161",

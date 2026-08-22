@@ -32,14 +32,14 @@ class StorySpeakerTranslationTests(unittest.TestCase):
             {
                 "domain": "story",
                 "kind": "speaker",
-                "entry_count": 8665,
+                "entry_count": 8733,
                 "unique_source_text_count": 425,
-                "translated_entry_count": 8108,
-                "preserved_placeholder_entry_count": 557,
+                "translated_entry_count": 8175,
+                "preserved_placeholder_entry_count": 558,
             },
         )
-        self.assertEqual(len(entries), 8665)
-        self.assertEqual(len({entry["id"] for entry in entries}), 8665)
+        self.assertEqual(len(entries), 8733)
+        self.assertEqual(len({entry["id"] for entry in entries}), 8733)
         self.assertEqual(entries[0]["id"], "story/001/speaker/001")
         self.assertEqual(entries[-1]["id"], "story/186/speaker/006")
 
@@ -85,12 +85,12 @@ class StorySpeakerTranslationTests(unittest.TestCase):
             for entry in self.translations["entries"]
             if entry["translation_action"] == "preserve"
         ]
-        self.assertEqual(len(preserved), 557)
+        self.assertEqual(len(preserved), 558)
         self.assertEqual(
             Counter(entry["translation"] for entry in preserved),
             {
                 "": 160,
-                "$n": 132,
+                "$n": 133,
                 "　": 98,
                 "　　": 94,
                 "？？？": 73,
@@ -142,7 +142,7 @@ class StorySpeakerTranslationTests(unittest.TestCase):
         self.assertEqual(len({term["id"] for term in terms}), 342)
         self.assertEqual(
             Counter(term["status"] for term in terms),
-            {"researched": 212, "proposed": 109, "approved": 21},
+            {"researched": 197, "proposed": 86, "approved": 59},
         )
         self.assertTrue(all(term["category"] == "people" for term in terms))
         self.assertTrue(all(term["enforce"] for term in terms))
@@ -155,7 +155,7 @@ class StorySpeakerTranslationTests(unittest.TestCase):
                     for source_term in term["source_terms"]
                 }
             ),
-            343,
+            352,
         )
 
         referenced = {
@@ -202,7 +202,7 @@ class StorySpeakerTranslationTests(unittest.TestCase):
             for batch in release["coverage_plan"]
             if batch["batch_id"] == "v1-story-speakers"
         )
-        self.assertEqual(batch["target_entry_count"], 8665)
+        self.assertEqual(batch["target_entry_count"], 8733)
         self.assertEqual(batch["status"], "draft_complete")
 
 

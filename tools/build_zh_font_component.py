@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import struct
 from pathlib import Path
 
 from srwz.font_rasterizer import rasterize_character, rasterizer_point_size
@@ -20,6 +21,7 @@ from srwz.font import (
     read_extended_glyph_table,
     replace_glyph,
     sha256_bytes,
+    standard_glyph_index,
 )
 from srwz.font_profile import FontProfileError, load_font_profile
 from srwz.font_source import (
@@ -102,6 +104,9 @@ def main() -> int:
         sha256_bytes(allocation_registry_path.read_bytes())
     ):
         raise SystemExit("font proposal allocation registry drift")
+    allocation_registry = json.loads(
+        allocation_registry_path.read_text(encoding="utf-8")
+    )
     font_path = locked_paths["font"]
     rasterizer = profile["rasterizer"]
     if proposal.get("rasterizer") != rasterizer:
@@ -119,7 +124,10 @@ def main() -> int:
     extended_entries = read_extended_glyph_table(source_slps)
     seen_codes = set()
     seen_glyphs = set()
+    glyph_characters = {}
     unchanged_assignment_glyphs = set()
+    preserved_source_compatibility_glyphs = set()
+    preserved_stock_primary_glyphs = set()
     glyph_reports = []
 
     primary_assignments = proposal["assignments"]
@@ -149,6 +157,8 @@ def main() -> int:
             ascii_glyph_index(code)
             if assignment.get("mapping")
             in {"printable_ascii", "runtime_ascii_reraster"}
+            else glyph_index
+            if assignment.get("mapping") == "extended_shared_glyph_alias"
             else glyph_index_for_code(code, extended_entries)
         )
         repeated_runtime_digit_slot = (
@@ -158,15 +168,25 @@ def main() -> int:
                 assignment.get("overwrites_primary_character"), str
             )
         )
+        repeated_shared_glyph_alias = (
+            glyph_index in seen_glyphs
+            and assignment.get("mapping") == "extended_shared_glyph_alias"
+            and glyph_characters.get(glyph_index) == character
+        )
         if (
             code in seen_codes
-            or (glyph_index in seen_glyphs and not repeated_runtime_digit_slot)
+            or (
+                glyph_index in seen_glyphs
+                and not repeated_runtime_digit_slot
+                and not repeated_shared_glyph_alias
+            )
             or resolved_glyph_index != glyph_index
             or not 0 <= glyph_index < GLYPH_COUNT
         ):
             raise SystemExit(f"invalid assignment for {character!r}")
         seen_codes.add(code)
         seen_glyphs.add(glyph_index)
+        glyph_characters.setdefault(glyph_index, character)
         start = glyph_index * GLYPH_SIZE
         before = original_font.decoded[start : start + GLYPH_SIZE]
         expected_preimage = assignment["allocation"]["glyph_preimage_sha256"]
@@ -177,40 +197,71 @@ def main() -> int:
             raise SystemExit(
                 f"glyph blank-preimage classification drift for {character!r}"
             )
-        assignment_rasterizer = rasterizer
         optical_override = assignment.get("optical_override")
         if optical_override is not None:
             raise SystemExit(
                 f"character-specific optical override is forbidden for "
                 f"{character!r}"
             )
-        gray, pixels, packed = rasterize_character(
-            assignment_rasterizer["executable"],
-            fallback_font_paths.get(character, font_path),
-            character,
-            assignment_rasterizer,
-        )
-        if not character.isspace() and not any(packed):
-            raise SystemExit(
-                "visible glyph raster is empty; add an explicit global "
-                f"fallback for {character!r}"
+        preserve_source_glyph = assignment.get("preserve_source_glyph") is True
+        if preserve_source_glyph:
+            preserve_stock_primary = (
+                assignment.get("preserve_original_stock_primary") is True
             )
-        actual_raster = {
-            "point_size": rasterizer_point_size(
+            valid_source_compatibility = (
+                assignment in source_compatibility_assignments
+                and assignment.get("source_character") == character
+                and assignment.get("mapping")
+                == "legacy_save_formation_source_compatibility"
+            )
+            valid_stock_primary = (
+                preserve_stock_primary
+                and assignment in primary_assignments
+                and 0x8140 <= code <= 0x8491
+            )
+            if not (valid_source_compatibility or valid_stock_primary):
+                raise SystemExit(
+                    f"invalid source-glyph preservation request for {character!r}"
+                )
+            packed = before
+            actual_raster = {
+                "mode": "preserve_original_iso_glyph",
+                "packed_glyph_sha256": sha256_bytes(before),
+            }
+            if valid_source_compatibility:
+                preserved_source_compatibility_glyphs.add(glyph_index)
+            else:
+                preserved_stock_primary_glyphs.add(glyph_index)
+        else:
+            assignment_rasterizer = rasterizer
+            gray, pixels, packed = rasterize_character(
+                assignment_rasterizer["executable"],
+                fallback_font_paths.get(character, font_path),
                 character,
                 assignment_rasterizer,
-            ),
-            "raw_gray_sha256": sha256_bytes(gray),
-            "pixels_4bpp_sha256": sha256_bytes(pixels),
-            "packed_glyph_sha256": sha256_bytes(packed),
-        }
-        if "metrics" in assignment["raster"]:
-            actual_raster["metrics"] = glyph_raster_metrics(pixels)
+            )
+            if not character.isspace() and not any(packed):
+                raise SystemExit(
+                    "visible glyph raster is empty; add an explicit global "
+                    f"fallback for {character!r}"
+                )
+            actual_raster = {
+                "point_size": rasterizer_point_size(
+                    character,
+                    assignment_rasterizer,
+                ),
+                "raw_gray_sha256": sha256_bytes(gray),
+                "pixels_4bpp_sha256": sha256_bytes(pixels),
+                "packed_glyph_sha256": sha256_bytes(packed),
+            }
+            if "metrics" in assignment["raster"]:
+                actual_raster["metrics"] = glyph_raster_metrics(pixels)
         if actual_raster != assignment["raster"]:
             raise SystemExit(f"raster lock drift for {character!r}")
         if before == packed:
             unchanged_assignment_glyphs.add(glyph_index)
-        modified_font = replace_glyph(modified_font, glyph_index, pixels)
+        if not preserve_source_glyph:
+            modified_font = replace_glyph(modified_font, glyph_index, pixels)
         glyph_reports.append(
             {
                 "character": character,
@@ -234,6 +285,46 @@ def main() -> int:
     ]
     if changed_glyphs != sorted(seen_glyphs - unchanged_assignment_glyphs):
         raise SystemExit("font changed outside proposed glyph assignments")
+
+    clean_migrations = [
+        extension["clean_default_width_cjk_primary_migration"]
+        for extension in allocation_registry.get("extensions", [])
+        if "clean_default_width_cjk_primary_migration" in extension
+    ]
+    if len(clean_migrations) != 1:
+        raise SystemExit("clean CJK-primary migration contract is absent")
+    restored_low_slots = [
+        row
+        for row in clean_migrations[0]["migrations"]
+        if 0x8140 <= int(row["from_code"], 16) <= 0x8491
+    ]
+    expected_restored_low_slots = clean_migrations[0].get(
+        "restored_low_zone_cjk_slot_count", 0
+    ) + clean_migrations[0].get("restored_low_zone_nonstock_slot_count", 0)
+    if len(restored_low_slots) != expected_restored_low_slots:
+        raise SystemExit("clean CJK-primary restored-slot inventory drift")
+    for row in restored_low_slots:
+        glyph_index = row["from_glyph_index"]
+        start = glyph_index * GLYPH_SIZE
+        end = start + GLYPH_SIZE
+        if modified_font[start:end] != original_font.decoded[start:end]:
+            raise SystemExit(
+                "low-zone stock glyph was not restored: "
+                f"{row['from_code']}={row['character']}"
+            )
+    low_zone_glyph_indices = []
+    for code in range(0x8140, 0x8492):
+        try:
+            glyph_index = standard_glyph_index(code)
+        except ValueError:
+            continue
+        low_zone_glyph_indices.append(glyph_index)
+        start = glyph_index * GLYPH_SIZE
+        end = start + GLYPH_SIZE
+        if modified_font[start:end] != original_font.decoded[start:end]:
+            raise SystemExit(
+                f"complete low-zone glyph restoration failed: {code:04X}"
+            )
 
     spec = CORE_ARCHIVE_SPECS["VT1.BIN"]
     old_offsets = read_executable_archive_offsets(
@@ -269,6 +360,59 @@ def main() -> int:
         rebuilt_offsets,
     )
     rebuilt_slps = plan.apply(source_slps)
+    extended_alias_reports = []
+    if any(
+        assignment.get("mapping") == "extended_shared_glyph_alias"
+        for assignment in surface_alias_assignments
+    ):
+        patched_slps = bytearray(rebuilt_slps)
+        source_entries_by_offset = {
+            entry.table_offset: entry for entry in extended_entries
+        }
+        for assignment in surface_alias_assignments:
+            if assignment.get("mapping") != "extended_shared_glyph_alias":
+                continue
+            table_offset = assignment.get("extended_table_offset")
+            source_code_text = assignment.get("extended_table_source_code")
+            source_entry = source_entries_by_offset.get(table_offset)
+            if (
+                source_entry is None
+                or not isinstance(source_code_text, str)
+                or source_entry.code != int(source_code_text, 16)
+                or source_entry.code >= 0x989F
+            ):
+                raise SystemExit("extended shared glyph alias preimage drift")
+            glyph_index = assignment["glyph_index"]
+            row, packed_position = divmod(glyph_index, 224)
+            if not 0 <= row <= 0x7F or not 0 <= packed_position <= 0xFF:
+                raise SystemExit("extended shared glyph alias index overflow")
+            struct.pack_into(
+                "<HbB",
+                patched_slps,
+                table_offset,
+                int(assignment["code"], 16),
+                row,
+                packed_position,
+            )
+            extended_alias_reports.append(
+                {
+                    "character": assignment["character"],
+                    "code": assignment["code"],
+                    "glyph_index": glyph_index,
+                    "table_offset": table_offset,
+                    "replaced_unreachable_code": source_code_text,
+                }
+            )
+        rebuilt_slps = bytes(patched_slps)
+        reread_extended = {
+            entry.code: entry.glyph_index
+            for entry in read_extended_glyph_table(rebuilt_slps)
+        }
+        if any(
+            reread_extended.get(int(item["code"], 16)) != item["glyph_index"]
+            for item in extended_alias_reports
+        ):
+            raise SystemExit("extended shared glyph aliases fail SLPS reread")
     if (
         read_executable_archive_offsets(
             rebuilt_slps,
@@ -295,6 +439,20 @@ def main() -> int:
         "source_compatibility_assignment_count": len(
             source_compatibility_assignments
         ),
+        "preserved_source_compatibility_glyph_count": len(
+            preserved_source_compatibility_glyphs
+        ),
+        "source_compatibility_glyphs_byte_exact_to_original_iso": (
+            len(preserved_source_compatibility_glyphs)
+            == len(source_compatibility_assignments)
+        ),
+        "preserved_stock_primary_glyph_count": len(
+            preserved_stock_primary_glyphs
+        ),
+        "restored_low_zone_stock_glyph_count": len(restored_low_slots),
+        "low_zone_stock_glyphs_byte_exact_to_original_iso": True,
+        "complete_low_zone_stock_glyph_count": len(low_zone_glyph_indices),
+        "complete_low_zone_byte_exact_to_original_iso": True,
         "runtime_ascii_assignment_count": len(runtime_ascii_assignments),
         "allocation_assignment_count": proposal["allocation_assignment_count"],
         "reraster_existing_assignment_count": proposal[
@@ -326,6 +484,12 @@ def main() -> int:
             else {}
         ),
         "glyphs": glyph_reports,
+        "extended_shared_glyph_aliases": {
+            "assignment_count": len(extended_alias_reports),
+            "aliases": extended_alias_reports,
+            "source_standard_codes_remain_formula_addressable": True,
+            "slps_table_reread_exact": True,
+        },
         "font": {
             "decoded_size": len(modified_font),
             "source_decoded_sha256": sha256_bytes(original_font.decoded),

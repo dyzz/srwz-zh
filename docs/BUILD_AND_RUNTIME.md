@@ -97,12 +97,12 @@ build/iso/zh-release-full-story/
 ```
 
 其 SHA-256 为
-`24319f1bc509beab4e838bc7078b22d576280b55aece18948901fc7c0fa01bba`，大小为
+`b0e877ec97939938ab9ef70d77c0b86f697761f8d0e04020a512e2bd01d4cc31`，大小为
 `3758358528` 字节，与原版镜像大小完全一致。`DATA/VT1.BIN` 保持原始
 `127500736` 字节，`DATA/STAGE.BIN` 及其后所有成员的 LBA 均不移动。
 `build/iso/zh-release-full-story/iso-validation-current.json` 锁定
-66 个成员的 ISO9660/UDF 读取、46 个未替换成员 byte-exact 和
-20 个 replacement byte-exact。构建配置还要求 20 个 replacement 与
+66 个成员的 ISO9660/UDF 读取、45 个未替换成员 byte-exact 和
+21 个 replacement byte-exact。构建配置还要求 21 个 replacement 与
 `manifests/full-story-library-components-validation.json` 的输出路径、大小和 SHA-256
 逐项一致，不能复制旧锁后直接出盘。单候选重建命令为：
 
@@ -125,7 +125,7 @@ xdelta3 3.2.0 生成补丁；附带说明中的 `-s` 输入也固定写为
 不得进入发布目录或 ZIP。
 
 `manifests/zh-release-full-story-iso-content-validation.json` 是唯一的整盘内容回读
-摘要，并绑定当前 v0.2.0 候选的大小与 SHA-256。它覆盖 170 个剧情块的 92,842 条
+摘要，并绑定当前开发候选的大小与 SHA-256。它覆盖 170 个剧情块的 93,071 条
 对白、条件和说话人记录，以及完整 LIBRARY 图鉴回读、2,452 个机师长名／短名字段、
 308 条 COMPDATA 固定偏移 UI、357 条 COMPDATA
 帮助文本、6 条 COMPDATA 定长内联 UI、59 条队长效果、407 条 SLPS 上下文 UI、
@@ -138,7 +138,7 @@ xdelta3 3.2.0 生成补丁；附带说明中的 `-s` 输入也固定写为
 Regular 1.0，只有 `〜∀♪` 三个字符显式回退 Noto Sans CJK SC 2.004；动态 CJK
 统一使用 22px、`24x24` 字槽和全局 `y=+1`，不做逐字裁切、缩放、重心修正或
 例外。当前唯一活动的 `zh-release-font` 扫描 `corpus/zh` 全部非空翻译字段，
-共有 125728 条选择输入、3419 个主映射和 693 个 surface-safe 别名，另有 264 个
+共有 129041 条选择输入、3450 个主映射和 48 个 surface-safe 别名，另有 101 个
 未占用的 renderer 双字节位置可按需替换原日文字形；`%s/%2$s`、
 `$c/$f/$l/$n/$F`、`{XX}` 和文本 tag 均走既有控制编码路径并从字形覆盖中排除；
 ASCII、控制码和已占用映射保持不变，VT1 仍为 `127500736` 字节。
@@ -151,7 +151,7 @@ HarmonyOS Sans SC Light；chunk 7 的“移至后备区／移至小队区”在�
 Name 的显示归属：107 个可玩标题由 VT1 group 8 中独立的 512×64、4bpp TIM2
 提供并逐槽生成中文；另外 15 条路线选择／内部记录由 COMPDATA 动态文字覆盖。
 每个压缩 slot、内部偏移表、VT1 总大小和成员 LBA 均保持不变。当前
-`24319f1b...` ISO 尚未取得绑定精确哈希的
+`b0e877ec...` ISO 尚未取得绑定精确哈希的
 fresh-process 启动收据；上一候选的启动结果不能外推。新游戏、读档 STAGE 入口和
 战斗字幕画面均由用户继续测试；静态回读不能晋级为 runtime passed。
 

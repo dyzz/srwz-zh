@@ -37,7 +37,7 @@ class StoryDialogueQuoteTests(unittest.TestCase):
         report = audit(PROJECT_ROOT / "config/story-component.json")
         self.assertEqual(report["status"], "passed")
         self.assertEqual(report["stage_count"], 170)
-        self.assertEqual(report["entry_count"], 83507)
+        self.assertEqual(report["entry_count"], 83668)
         self.assertEqual(report["runtime_keyword_link_count"], 122)
         self.assertEqual(report["mismatch_count"], 0)
         self.assertEqual(report["source_hash_mismatch_count"], 0)

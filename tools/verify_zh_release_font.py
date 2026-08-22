@@ -385,6 +385,16 @@ def main() -> int:
         != config["expected"]["added_global_assignment_count"]
     ):
         raise SystemExit("release font migration-equivalence ratchet drift")
+    clean_contracts = [
+        extension["clean_default_width_cjk_primary_migration"]
+        for extension in snapshot.get("extensions", [])
+        if "clean_default_width_cjk_primary_migration" in extension
+    ]
+    if len(clean_contracts) != 1:
+        raise SystemExit("clean primary migration contract is absent")
+    expected_restored_low_slots = clean_contracts[0].get(
+        "restored_low_zone_cjk_slot_count", 0
+    ) + clean_contracts[0].get("restored_low_zone_nonstock_slot_count", 0)
     acceptance = {
         "flattened_snapshot_is_self_contained": True,
         "historical_primary_mapping_change_is_compatibility_scoped": (
@@ -397,6 +407,32 @@ def main() -> int:
         "raw_source_structural_glyph_compatibility_preserved": (
             len(compatibility)
             == config["expected"]["source_compatibility_assignment_count"]
+        ),
+        "source_compatibility_glyphs_byte_exact_to_original_iso": (
+            component_report.get(
+                "source_compatibility_glyphs_byte_exact_to_original_iso"
+            )
+            is True
+            and component_report.get(
+                "preserved_source_compatibility_glyph_count"
+            )
+            == len(compatibility)
+        ),
+        "low_zone_stock_glyphs_byte_exact_to_original_iso": (
+            component_report.get(
+                "low_zone_stock_glyphs_byte_exact_to_original_iso"
+            )
+            is True
+            and component_report.get("restored_low_zone_stock_glyph_count")
+            == expected_restored_low_slots
+        ),
+        "complete_low_zone_byte_exact_to_original_iso": (
+            component_report.get(
+                "complete_low_zone_byte_exact_to_original_iso"
+            )
+            is True
+            and component_report.get("complete_low_zone_stock_glyph_count", 0)
+            > expected_restored_low_slots
         ),
         "observed_legacy_formation_glyphs_preserved": (
             legacy_formation_compatibility[
@@ -546,6 +582,31 @@ def main() -> int:
             "assignment_count": component_report["assignment_count"],
             "changed_glyph_count": component_report[
                 "changed_glyph_count"
+            ],
+            "preserved_source_compatibility_glyph_count": component_report[
+                "preserved_source_compatibility_glyph_count"
+            ],
+            "source_compatibility_glyphs_byte_exact_to_original_iso": (
+                component_report[
+                    "source_compatibility_glyphs_byte_exact_to_original_iso"
+                ]
+            ),
+            "preserved_stock_primary_glyph_count": component_report[
+                "preserved_stock_primary_glyph_count"
+            ],
+            "restored_low_zone_stock_glyph_count": component_report[
+                "restored_low_zone_stock_glyph_count"
+            ],
+            "low_zone_stock_glyphs_byte_exact_to_original_iso": (
+                component_report[
+                    "low_zone_stock_glyphs_byte_exact_to_original_iso"
+                ]
+            ),
+            "complete_low_zone_stock_glyph_count": component_report[
+                "complete_low_zone_stock_glyph_count"
+            ],
+            "complete_low_zone_byte_exact_to_original_iso": component_report[
+                "complete_low_zone_byte_exact_to_original_iso"
             ],
             "decoded_font_sha256": component_report["font"][
                 "output_decoded_sha256"

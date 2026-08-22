@@ -1,24 +1,25 @@
+# ruff: noqa: E402
 import hashlib
 import json
 import sys
 import unittest
 from pathlib import Path
 
-from tools.srwz.codec import decode_production
-from tools.srwz.library_menu import build_jtim_library_menu
-from tools.srwz.nisv_library_menu import (
-    build_nisv_library_menu,
-    build_nisv_sound_select,
-)
-
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
-from build_library_v02_component import (
+
+from tools.build_library_v02_component import (
     CLOSING,
     OPENING,
     load_production_layout,
     reflow_body,
+)
+from tools.srwz.codec import decode_production
+from tools.srwz.library import raw_visible_ascii_offsets
+from tools.srwz.library_menu import build_jtim_library_menu
+from tools.srwz.nisv_library_menu import (
+    build_nisv_library_menu,
+    build_nisv_sound_select,
 )
 
 
@@ -170,6 +171,56 @@ class LibraryV02DetailSurfaceTests(unittest.TestCase):
         )
         self.assertNotIn("战\n斗", reflowed)
         self.assertTrue(all(width <= 16 for width in widths))
+
+    def test_all_library_archives_store_visible_spaces_as_two_byte_glyphs(self):
+        manifest = json.loads(
+            (
+                PROJECT_ROOT
+                / "manifests/library-v0.2-reviewed-validation.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertTrue(
+            manifest["acceptance"]["all_library_visible_spaces_two_byte"]
+        )
+        self.assertEqual(
+            {archive["domain"]: archive["raw_visible_space_count"] for archive in manifest["archives"]},
+            {"robot": 0, "character": 0, "glossary": 0},
+        )
+        self.assertTrue(
+            all(
+                archive["all_visible_spaces_two_byte"]
+                for archive in manifest["archives"]
+            )
+        )
+
+    def test_raw_visible_ascii_scanner_walks_two_byte_and_control_codes(self):
+        stored = b"\x81\x40\x82\x20\x31\x3c\x3c\x3e"
+        self.assertEqual(raw_visible_ascii_offsets(stored), (6, 7))
+
+    def test_all_library_archives_reject_raw_visible_ascii(self):
+        manifest = json.loads(
+            (
+                PROJECT_ROOT
+                / "manifests/library-v0.2-reviewed-validation.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertTrue(
+            manifest["acceptance"]["all_library_visible_ascii_two_byte"]
+        )
+        self.assertEqual(
+            {
+                archive["domain"]: archive["raw_visible_ascii_count"]
+                for archive in manifest["archives"]
+            },
+            {"robot": 0, "character": 0, "glossary": 0},
+        )
+        self.assertTrue(
+            all(
+                archive["all_visible_ascii_two_byte"]
+                and not archive["raw_visible_ascii_bytes"]
+                for archive in manifest["archives"]
+            )
+        )
 
     def test_library_menu_builds_all_six_labels_in_both_states(self):
         contract = self.library_scope["library_menu_tim2"]

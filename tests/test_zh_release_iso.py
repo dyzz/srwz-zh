@@ -36,6 +36,10 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+@unittest.skipUnless(
+    ISO_REPORT.is_file() and FONT_PROPOSAL.is_file() and STAGE_REPORT.is_file(),
+    "frozen v0.1 local build artifacts are not present",
+)
 class ZhReleaseIsoTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -405,7 +409,7 @@ class ZhReleaseIsoTests(unittest.TestCase):
                 for offset in ("0x345DC8", "0x345DD0", "0x345DE0")
             },
             {
-                "0x345DC8": "三角",
+                "0x345DC8": "TRI",
                 "0x345DD0": "中央",
                 "0x345DE0": "广域",
             },
@@ -426,10 +430,10 @@ class ZhReleaseIsoTests(unittest.TestCase):
                 )
             },
             {
-                "0x7F580": "三角队形",
+                "0x7F580": "TRI队形",
                 "0x7F5A0": "中央队形",
                 "0x7F5C0": "广域队形",
-                "0x7F5E0": "三角",
+                "0x7F5E0": "TRI",
                 "0x7F5E8": "中央",
                 "0x7F5F8": "广域",
             },

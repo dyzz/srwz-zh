@@ -32,7 +32,15 @@ try:
         decode_vt1_font_segment,
         sha256_bytes,
     )
+    from srwz.release_font_policy import (
+        DEFAULT_WIDTH_CLASS,
+        allocation_width_class,
+    )
     from srwz.menu import parse_menu_file
+    from srwz.mtv_prop_intertitles import (
+        MtvPropIntertitleError,
+        build_mtv_prop_intertitles,
+    )
     from srwz.library import (
         LibraryScopeError,
         SoundTitleSpanLock,
@@ -41,6 +49,14 @@ try:
     from srwz.nisv_library_menu import (
         build_nisv_library_menu,
         build_nisv_sound_select,
+    )
+    from srwz.nisv_tutorial import (
+        NisvTutorialError,
+        build_nisv_tutorial_pages,
+    )
+    from srwz.nisv_strategy_qa import (
+        NisvStrategyQaError,
+        build_nisv_strategy_qa,
     )
     from srwz.intermission_font_geometry import (
         IntermissionFontGeometryError,
@@ -92,6 +108,11 @@ try:
     )
     from srwz.tim2 import scan_tim2
     from srwz.terrain_names import TerrainNameError, build_terrain_names
+    from srwz.veff_tutorial_titles import (
+        VeffTutorialTitleError,
+        audit_tutorial_effect_binding,
+        build_veff_tutorial_titles,
+    )
     from srwz.text import (
         PreparedTextEncoder,
         SrwzTextEncodeError,
@@ -140,7 +161,15 @@ except ModuleNotFoundError:
         decode_vt1_font_segment,
         sha256_bytes,
     )
+    from tools.srwz.release_font_policy import (
+        DEFAULT_WIDTH_CLASS,
+        allocation_width_class,
+    )
     from tools.srwz.menu import parse_menu_file
+    from tools.srwz.mtv_prop_intertitles import (
+        MtvPropIntertitleError,
+        build_mtv_prop_intertitles,
+    )
     from tools.srwz.library import (
         LibraryScopeError,
         SoundTitleSpanLock,
@@ -149,6 +178,14 @@ except ModuleNotFoundError:
     from tools.srwz.nisv_library_menu import (
         build_nisv_library_menu,
         build_nisv_sound_select,
+    )
+    from tools.srwz.nisv_tutorial import (
+        NisvTutorialError,
+        build_nisv_tutorial_pages,
+    )
+    from tools.srwz.nisv_strategy_qa import (
+        NisvStrategyQaError,
+        build_nisv_strategy_qa,
     )
     from tools.srwz.intermission_font_geometry import (
         IntermissionFontGeometryError,
@@ -200,6 +237,11 @@ except ModuleNotFoundError:
     )
     from tools.srwz.tim2 import scan_tim2
     from tools.srwz.terrain_names import TerrainNameError, build_terrain_names
+    from tools.srwz.veff_tutorial_titles import (
+        VeffTutorialTitleError,
+        audit_tutorial_effect_binding,
+        build_veff_tutorial_titles,
+    )
     from tools.srwz.text import (
         PreparedTextEncoder,
         SrwzTextEncodeError,
@@ -390,6 +432,7 @@ VT1_MEMBER = "DATA/VT1.BIN"
 COMPDATA_MEMBER = "DATA/COMPDATA.BN"
 NISVDATA_MEMBER = "DATA/NISVDATA.BIN"
 MTV_PROS_MEMBER = "DATA/MTV_PROS.BIN"
+MTV_PROP_MEMBER = "DATA/MTV_PROP.BIN"
 STAGE_MEMBER = "DATA/STAGE.BIN"
 HSFC_MEMBER = "DATA/HSFC.BIN"
 HB_MEMBER = "HEDBDY/HB.BIN"
@@ -407,6 +450,7 @@ ALL_COMPONENT_MEMBERS = frozenset(
         COMPDATA_MEMBER,
         NISVDATA_MEMBER,
         MTV_PROS_MEMBER,
+        MTV_PROP_MEMBER,
         STAGE_MEMBER,
         HSFC_MEMBER,
         HB_MEMBER,
@@ -440,13 +484,17 @@ CONFIG_SECTION_IMPACTS = {
     "full_stage_titles": {SLPS_MEMBER, VT1_MEMBER, COMPDATA_MEMBER},
     "stage_overviews": {STAGE_MEMBER},
     "world_history": {MTV_PROS_MEMBER},
+    "chapter_intertitles": {MTV_PROP_MEMBER},
     "hsfc_overviews": {HSFC_MEMBER},
     "remaining_ui": {SLPS_MEMBER, COMPDATA_MEMBER, STAGE_MEMBER},
     "nisv_effect_names": {NISVDATA_MEMBER},
+    "nisv_strategy_qa": {NISVDATA_MEMBER, SLPS_MEMBER},
+    "nisv_tutorial_pages": {NISVDATA_MEMBER, SLPS_MEMBER},
     "runtime_library_menu": {SLPS_MEMBER, NISVDATA_MEMBER},
     "srvc_battle_text": set(SRVC_MEMBERS),
     "scenario_select_effect": {SLPS_MEMBER, VEFF_MEMBER},
     "mode_select_effect": {VEFF_MEMBER},
+    "tutorial_title_effects": {VEFF_MEMBER},
     "kvmdata": {KVMDATA_MEMBER},
     "world_map_titles": {MAPMODEL_MEMBER},
     "runtime_keywords": {COMPDATA_MEMBER, STAGE_MEMBER},
@@ -467,6 +515,10 @@ INPUT_IMPACTS = {
     "stage_title_format": {COMPDATA_MEMBER},
     "stage_overviews": {STAGE_MEMBER},
     "world_history_corpus": {MTV_PROS_MEMBER},
+    "chapter_intertitle_corpus": {MTV_PROP_MEMBER},
+    "chapter_intertitle_font": {MTV_PROP_MEMBER},
+    "original_mtv_prop": {MTV_PROP_MEMBER},
+    "chapter_intertitle_original_slps": {MTV_PROP_MEMBER},
     "stage_system_dialogue": {STAGE_MEMBER},
     "hsfc_overviews": {HSFC_MEMBER},
     "original_hsfc": {HSFC_MEMBER},
@@ -479,6 +531,8 @@ INPUT_IMPACTS = {
     "compdata_battle_lines": {COMPDATA_MEMBER},
     "original_compdata": {COMPDATA_MEMBER},
     "original_nisvdata": {NISVDATA_MEMBER},
+    "nisv_strategy_qa_corpus": {NISVDATA_MEMBER},
+    "nisv_tutorial_corpus": {NISVDATA_MEMBER},
     "runtime_library_menu_scope": {SLPS_MEMBER, NISVDATA_MEMBER},
     "runtime_library_menu_font": {NISVDATA_MEMBER},
     "original_slps": {
@@ -500,6 +554,7 @@ INPUT_IMPACTS = {
     "hb": {STAGE_MEMBER, HB_MEMBER},
     "kvmdata": {KVMDATA_MEMBER},
     "original_veff2dx": {VEFF_MEMBER},
+    "tutorial_title_font": {VEFF_MEMBER},
     "world_map_title_corpus": {MAPMODEL_MEMBER},
     "world_map_title_render_snapshot": {MAPMODEL_MEMBER},
     "world_map_original_slps": {MAPMODEL_MEMBER},
@@ -512,6 +567,11 @@ INPUT_IMPACTS = {
     "auto_demo_unit_names": {SLPS_MEMBER, *AUTO_DEMO_MEMBERS},
     "runtime_keyword_catalog": {COMPDATA_MEMBER, STAGE_MEMBER},
     "runtime_keyword_library_archive": {COMPDATA_MEMBER, STAGE_MEMBER},
+    "reviewed_library_component_manifest": {
+        SLPS_MEMBER,
+        COMPDATA_MEMBER,
+        STAGE_MEMBER,
+    },
     "runtime_keyword_executable": {COMPDATA_MEMBER, STAGE_MEMBER},
 }
 
@@ -878,6 +938,143 @@ def _sha_locked_json(reference: dict, *, label: str) -> tuple[Path, dict]:
     return path, _json(path)
 
 
+def _library_archive_offset_patches(
+    reference: dict,
+) -> tuple[Path, dict[str, dict], dict[str, dict]]:
+    manifest_path, manifest_data = _locked_file(
+        reference,
+        label="reviewed LIBRARY component manifest",
+    )
+    try:
+        manifest = json.loads(manifest_data.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise FullStoryComponentError(
+            "reviewed LIBRARY component manifest is invalid JSON"
+        ) from error
+    if (
+        manifest.get("schema_version") != 1
+        or manifest.get("status")
+        != "library_v0.2_reviewed_components_static_validated"
+        or manifest.get("release_eligible") is not True
+        or not all(manifest.get("acceptance", {}).values())
+    ):
+        raise FullStoryComponentError(
+            "reviewed LIBRARY component acceptance is incomplete"
+        )
+    outputs = manifest.get("outputs")
+    archives = manifest.get("archives")
+    if not isinstance(outputs, dict) or not isinstance(archives, list):
+        raise FullStoryComponentError(
+            "reviewed LIBRARY component archive report is malformed"
+        )
+    patches = {}
+    for archive in archives:
+        if not isinstance(archive, dict):
+            raise FullStoryComponentError("LIBRARY archive row is malformed")
+        member = archive.get("member")
+        patch = archive.get("offset_table_patch")
+        output = outputs.get(member)
+        if (
+            not isinstance(member, str)
+            or not isinstance(patch, dict)
+            or archive.get("archive_repacked") is not True
+            or not isinstance(output, dict)
+            or patch.get("member") != member
+            or patch.get("archive_size") != output.get("size")
+        ):
+            raise FullStoryComponentError(
+                "LIBRARY repacked archive offset contract is incomplete"
+            )
+        values = patch.get("values")
+        table_start = patch.get("table_start")
+        table_end = patch.get("table_end")
+        if (
+            not isinstance(values, list)
+            or not values
+            or any(
+                not isinstance(value, int) or isinstance(value, bool)
+                for value in values
+            )
+            or patch.get("value_count") != len(values)
+            or not isinstance(table_start, int)
+            or not isinstance(table_end, int)
+            or len(tuple(range(table_start, table_end, 4))) != len(values)
+        ):
+            raise FullStoryComponentError(
+                "LIBRARY repacked offset values are malformed"
+            )
+        packed = struct.pack(f"<{len(values)}I", *values)
+        if sha256_bytes(packed) != patch.get("packed_sha256"):
+            raise FullStoryComponentError(
+                "LIBRARY repacked offset-table hash drift"
+            )
+        patches[member] = dict(patch)
+    if set(patches) != {
+        "DATA/MTVZKNRT.BIN",
+        "DATA/MTVZKNPT.BIN",
+        "DATA/MTVZKNKW.BIN",
+    }:
+        raise FullStoryComponentError(
+            "reviewed LIBRARY repacked archive set is incomplete"
+        )
+    return manifest_path, patches, outputs
+
+
+def _apply_library_archive_offset_patches(
+    executable: bytes,
+    patches: dict[str, dict],
+) -> tuple[bytes, dict]:
+    output = bytearray(executable)
+    ranges = []
+    reports = []
+    for member, patch in sorted(patches.items()):
+        table_start = patch["table_start"]
+        values = patch["values"]
+        packed = struct.pack(f"<{len(values)}I", *values)
+        end = table_start + len(packed)
+        if not 0 <= table_start < end <= len(output):
+            raise FullStoryComponentError(
+                f"LIBRARY offset table leaves SLPS: {member}"
+            )
+        if any(not (end <= start or table_start >= stop) for start, stop in ranges):
+            raise FullStoryComponentError("LIBRARY offset-table patches overlap")
+        ranges.append((table_start, end))
+        output[table_start:end] = packed
+        spec = ExecutableOffsetSpec(
+            name=member,
+            member=member,
+            table_start=patch["table_start"],
+            table_end=patch["table_end"],
+        )
+        reread = read_executable_archive_offsets(
+            bytes(output), spec, patch["archive_size"]
+        )
+        expected = tuple(values)
+        if expected[-1] < patch["archive_size"]:
+            expected += (patch["archive_size"],)
+        if reread != expected:
+            raise FullStoryComponentError(
+                f"LIBRARY offset-table reread mismatch: {member}"
+            )
+        reports.append(
+            {
+                "member": member,
+                "table_start": table_start,
+                "table_end": end,
+                "value_count": len(values),
+                "packed_sha256": patch["packed_sha256"],
+                "archive_size": patch["archive_size"],
+                "reread_exact": True,
+            }
+        )
+    return bytes(output), {
+        "archive_count": len(reports),
+        "offset_table_ranges_disjoint": True,
+        "reread_exact": all(item["reread_exact"] for item in reports),
+        "archives": reports,
+    }
+
+
 def _full_story_overrides(
     font_manifest: dict,
 ) -> tuple[Path, dict[str, int], dict[str, int], dict]:
@@ -936,8 +1133,9 @@ def _full_story_overrides(
             or character in surface_aliases
             or character not in overrides
             or primary_code != f"{overrides[character]:04X}"
-            or not (0x8140 <= overrides[character] < 0x889F)
-            or 0x8140 <= code < 0x889F
+            or allocation_width_class(overrides[character])
+            == DEFAULT_WIDTH_CLASS
+            or allocation_width_class(code) != DEFAULT_WIDTH_CLASS
             or code in seen_codes
         ):
             raise FullStoryComponentError(
@@ -954,6 +1152,40 @@ def _full_story_overrides(
     ):
         raise FullStoryComponentError("full-story surface alias report drift")
     return proposal_path, overrides, surface_aliases, alias_report
+
+
+def _encoded_mapping_overrides(mapping_snapshot: dict) -> dict[str, int]:
+    """Return the exact one-to-one codebook used by the flattened base UI."""
+
+    assignments = mapping_snapshot.get("assignments")
+    if not isinstance(assignments, list) or not assignments:
+        raise FullStoryComponentError("encoded base-UI mapping has no assignments")
+    overrides: dict[str, int] = {}
+    seen_codes: set[int] = set()
+    for assignment in assignments:
+        if not isinstance(assignment, dict):
+            raise FullStoryComponentError(
+                "encoded base-UI mapping assignment is malformed"
+            )
+        character = assignment.get("character")
+        try:
+            code = int(assignment.get("code"), 16)
+        except (TypeError, ValueError) as error:
+            raise FullStoryComponentError(
+                "encoded base-UI mapping code is malformed"
+            ) from error
+        if (
+            not isinstance(character, str)
+            or len(character) != 1
+            or character in overrides
+            or code in seen_codes
+        ):
+            raise FullStoryComponentError(
+                "encoded base-UI mapping is not one-to-one"
+            )
+        overrides[character] = code
+        seen_codes.add(code)
+    return overrides
 
 
 def _stored_text_overrides(
@@ -989,6 +1221,7 @@ def _apply_full_pilot_names(
     stored_compdata: bytes,
     reference: dict,
     font_manifest: dict,
+    encoded_mapping: dict,
     *,
     workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, dict, Path, Path, Path, Path, Path]:
@@ -1021,7 +1254,7 @@ def _apply_full_pilot_names(
             "full-story font has no safe intermission display-name aliases"
         )
     try:
-        structure, _original_data, original_names, _context = (
+        structure, original_display_name_data, original_names, _context = (
             load_display_name_source(
                 PROJECT_ROOT,
                 structure_path,
@@ -1138,7 +1371,8 @@ def _apply_full_pilot_names(
         raise FullStoryComponentError("base COMPDATA has trailing compressed bytes")
     table_path = _project_path(structure["text_table"]["path"])
     table = load_text_table(table_path)
-    source_table = project_runtime_text_table(table, overrides)
+    source_overrides = _encoded_mapping_overrides(encoded_mapping)
+    source_table = project_runtime_text_table(table, source_overrides)
     encoding_overrides = _stored_text_overrides(table, overrides)
     unit_space_code = table.inverse_characters.get("\u3000")
     if unit_space_code is None or unit_space_code < 0x8000:
@@ -1151,8 +1385,9 @@ def _apply_full_pilot_names(
     # A raw 0x20 shifts every following Latin glyph by one byte, so retain an
     # ordinary space in the review corpus but store the stock two-byte space.
     unit_encoding_overrides[" "] = unit_space_code
+    output_table = project_runtime_text_table(table, overrides)
     output_table = project_runtime_text_table(
-        source_table, original_fullwidth_ascii_overrides(table)
+        output_table, original_fullwidth_ascii_overrides(table)
     )
     try:
         current_names = parse_display_names(
@@ -1419,6 +1654,47 @@ def _apply_full_pilot_names(
             output[pointer_offset : pointer_offset + 4] = pointer_payload
             relocated_pointer_count += 1
 
+    # Some pilot fields were already localized in the flattened base UI but
+    # are outside this pass's canonical speaker/residual selection.  Re-encode
+    # those fields from the exact historical base-UI table to the clean current
+    # table.  Byte-exact original Japanese fields remain untouched and retain
+    # ownership of their original CP932 codes.
+    original_pilot_by_id = {
+        entry.entry_id: entry for entry in original_names.pilot_entries
+    }
+    selected_pilot_ids = {entry.entry_id for entry in selected}
+    migrated_base_pilot_ids = []
+    for current in current_names.pilot_entries:
+        if current.entry_id in selected_pilot_ids:
+            continue
+        original = original_pilot_by_id[current.entry_id]
+        start = current.target_offset
+        end = start + current.capacity
+        if (
+            decoded.output[start:end]
+            == original_display_name_data[
+                original.target_offset : original.target_offset + original.capacity
+            ]
+        ):
+            continue
+        try:
+            encoded = encode_text(
+                normalize_original_fullwidth_ascii(current.text),
+                table,
+                overrides=encoding_overrides,
+                terminate=True,
+            )
+        except (SrwzTextEncodeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"base pilot-name migration failed: {current.entry_id}: {error}"
+            ) from error
+        if len(encoded) > current.capacity:
+            raise FullStoryComponentError(
+                f"base pilot-name migration exceeds field: {current.entry_id}"
+            )
+        output[start:end] = encoded + bytes(current.capacity - len(encoded))
+        migrated_base_pilot_ids.append(current.entry_id)
+
     try:
         pre_alias_names = parse_display_names(
             bytes(output),
@@ -1435,9 +1711,12 @@ def _apply_full_pilot_names(
     alias_encoding_overrides = _stored_text_overrides(
         table, overrides, menu_surface_aliases
     )
+    alias_output_table = project_runtime_text_table(table, overrides)
     alias_output_table = project_runtime_text_table(
-        project_runtime_text_table(source_table, menu_surface_aliases),
-        original_fullwidth_ascii_overrides(table),
+        alias_output_table, menu_surface_aliases
+    )
+    alias_output_table = project_runtime_text_table(
+        alias_output_table, original_fullwidth_ascii_overrides(table)
     )
     alias_entries = [
         entry
@@ -1570,6 +1849,12 @@ def _apply_full_pilot_names(
     )
     allowed_offsets.update(
         offset
+        for entry_id in migrated_base_pilot_ids
+        for entry in (current_by_id[entry_id],)
+        for offset in range(entry.target_offset, entry.target_offset + entry.capacity)
+    )
+    allowed_offsets.update(
+        offset
         for entry in original_names.unit_entries
         for offset in range(
             effective_unit_targets[entry.entry_id],
@@ -1598,6 +1883,12 @@ def _apply_full_pilot_names(
         "changed_byte_count": len(changed_offsets),
         "changed_entry_ids_sha256": sha256_bytes(
             json.dumps(changed_ids, separators=(",", ":")).encode("utf-8")
+        ),
+        "migrated_base_pilot_entry_count": len(migrated_base_pilot_ids),
+        "migrated_base_pilot_entry_ids_sha256": sha256_bytes(
+            json.dumps(
+                migrated_base_pilot_ids, separators=(",", ":")
+            ).encode("utf-8")
         ),
         "unit_names": {
             "corpus_batch_id": unit_corpus_report["batch_id"],
@@ -3930,6 +4221,7 @@ def _apply_fixed_span_translations(
     encoding_overrides: dict[str, int],
     label: str,
     accepted_current_texts: dict[str, str] | None = None,
+    accepted_current_table=None,
 ) -> tuple[bytes, dict]:
     """Write a locked offset map using only original terminated capacities."""
 
@@ -3997,6 +4289,11 @@ def _apply_fixed_span_translations(
         replacement = encoded + bytes(source.consumed - len(encoded))
         if current_span != original_span and current_span != replacement:
             current_text = decode_text(current, offset, output_table)
+            historical_current_text = (
+                decode_text(current, offset, accepted_current_table)
+                if accepted_current_table is not None
+                else None
+            )
             accepted_current = (
                 accepted_current_texts.get(raw_offset)
                 if isinstance(accepted_current_texts, dict)
@@ -4005,11 +4302,24 @@ def _apply_fixed_span_translations(
             if (
                 normalize_original_fullwidth_ascii(current_text.text)
                 not in {translation, accepted_current}
+                and (
+                    historical_current_text is None
+                    or normalize_original_fullwidth_ascii(
+                        historical_current_text.text
+                    )
+                    not in {
+                        normalize_original_fullwidth_ascii(source.text),
+                        translation,
+                        accepted_current,
+                    }
+                )
                 or current_text.consumed > source.consumed
             ):
                 raise FullStoryComponentError(
                     f"{label} current preimage drift at {raw_offset}: "
-                    f"current={current_text.text!r} expected={translation!r}"
+                    f"current={current_text.text!r} "
+                    f"historical={None if historical_current_text is None else historical_current_text.text!r} "
+                    f"expected={translation!r}"
                 )
         headroom = source.consumed - len(encoded)
         minimum_headroom = (
@@ -4628,6 +4938,7 @@ def _apply_remaining_ui(
     work_title_reference: object,
     descriptor_path: Path,
     font_manifest: dict,
+    encoded_mapping: dict,
     codec: dict,
     *,
     workspace: CompressedStreamWorkspace | None = None,
@@ -4725,6 +5036,13 @@ def _apply_remaining_ui(
     output_table = project_runtime_text_table(
         output_table, original_fullwidth_ascii_overrides(table)
     )
+    historical_table = project_runtime_text_table(
+        table, _encoded_mapping_overrides(encoded_mapping)
+    )
+    historical_table = project_runtime_text_table(historical_table, aliases)
+    historical_table = project_runtime_text_table(
+        historical_table, original_fullwidth_ascii_overrides(table)
+    )
 
     if original_decoded is None:
         original_decoded = decode(original_compdata)
@@ -4746,6 +5064,7 @@ def _apply_remaining_ui(
         encoding_overrides=encoding_overrides,
         label="remaining COMPDATA UI",
         accepted_current_texts=accepted_current,
+        accepted_current_table=historical_table,
     )
     compdata_output, library_work_title_report = (
         _apply_library_work_title_slots(
@@ -4766,6 +5085,7 @@ def _apply_remaining_ui(
         output_table=output_table,
         encoding_overrides=encoding_overrides,
         label="remaining COMPDATA context help",
+        accepted_current_table=historical_table,
     )
     compdata_output, inline_report = _apply_fixed_inline_translations(
         compdata_output,
@@ -4783,6 +5103,7 @@ def _apply_remaining_ui(
         output_table=output_table,
         encoding_overrides=encoding_overrides,
         label="leadership effects",
+        accepted_current_table=historical_table,
     )
     output_slps, slps_context_report = _apply_fixed_span_translations(
         slps,
@@ -4792,6 +5113,7 @@ def _apply_remaining_ui(
         output_table=output_table,
         encoding_overrides=encoding_overrides,
         label="remaining SLPS context UI",
+        accepted_current_table=historical_table,
     )
     output_slps, slps_report = _apply_fixed_span_translations(
         output_slps,
@@ -4802,7 +5124,92 @@ def _apply_remaining_ui(
         encoding_overrides=encoding_overrides,
         label="remaining SLPS UI",
         accepted_current_texts=accepted_current,
+        accepted_current_table=historical_table,
     )
+    auto_squad_sources = [
+        "キング・ビアル",
+        "アーガマ",
+        "アイアン・ギアー",
+        "アイアン・ギアー",
+        "グローマ",
+        "フリーデン",
+        "月光号",
+        "アークエンジェル",
+        "ミネルバ",
+        "ソレイユ",
+        "エターナル",
+        "エターナル",
+        "ラーディッシュ",
+    ]
+    auto_squad_offsets = [0x31B610 + index * 0x14 for index in range(13)]
+    auto_squad_inventory = []
+    for index, (offset, source_text) in enumerate(
+        zip(auto_squad_offsets, auto_squad_sources)
+    ):
+        source = decode_text(original_slps, offset, table, end=offset + 0x14)
+        raw_offset = f"0x{offset:X}"
+        expected_translation = slps_map.get(raw_offset)
+        if (
+            source.terminator != "nul"
+            or source.text != source_text
+            or any(original_slps[source.end : offset + 0x14])
+            or not isinstance(expected_translation, str)
+            or not expected_translation
+        ):
+            raise FullStoryComponentError(
+                f"auto-squad root table drift at {raw_offset}"
+            )
+        reread = decode_text(
+            output_slps,
+            offset,
+            output_table,
+            end=offset + source.consumed,
+        )
+        if reread.text != normalize_original_fullwidth_ascii(
+            expected_translation
+        ):
+            raise FullStoryComponentError(
+                f"auto-squad root reread mismatch at {raw_offset}"
+            )
+        auto_squad_inventory.append(
+            {
+                "index": index,
+                "offset": offset,
+                "slot_size": 20,
+                "source_span_size": source.consumed,
+                "source_text": source.text,
+                "source_text_sha256": sha256_bytes(
+                    source.text.encode("utf-8")
+                ),
+            }
+        )
+    auto_squad_inventory_sha256 = sha256_bytes(
+        json.dumps(
+            auto_squad_inventory,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+    if (
+        len(auto_squad_inventory)
+        != expected.get("auto_squad_name_root_entry_count")
+        or auto_squad_inventory_sha256
+        != expected.get("auto_squad_name_root_inventory_sha256")
+    ):
+        raise FullStoryComponentError("auto-squad root inventory drift")
+    auto_squad_name_report = {
+        "entry_count": len(auto_squad_inventory),
+        "unique_source_count": len(set(auto_squad_sources)),
+        "table_start": auto_squad_offsets[0],
+        "table_stride": 20,
+        "inventory_sha256": auto_squad_inventory_sha256,
+        "runtime_composition": "localized fixed root plus existing 隊 suffix",
+        "source_table_structure_exact": True,
+        "fixed_spans_preserved": True,
+        "translated_reread_exact": True,
+        "old_savedata_names_untouched": True,
+    }
 
     descriptors = json.loads(descriptor_path.read_text(encoding="utf-8"))
     descriptor_by_name = {
@@ -4960,6 +5367,7 @@ def _apply_remaining_ui(
         "leadership_effects": leadership_report,
         "slps_context_ui": slps_context_report,
         "slps": slps_report,
+        "auto_squad_name_roots": auto_squad_name_report,
         "parts": parts_report,
         "residual_display_names": {
             "unique_source_count": len(display_names),
@@ -5008,11 +5416,21 @@ def _apply_global_safe_aliases(
     stored_compdata: bytes,
     descriptor_path: Path,
     font_manifest: dict,
+    encoded_mapping: dict,
     codec: dict,
     *,
+    original_slps: bytes,
+    original_compdata_decoded: bytes,
     workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, bytes, dict]:
-    """Re-encode every parsed localized menu surface with safe aliases."""
+    """Re-encode parsed menu text to the current canonical release codes.
+
+    Besides the remaining non-CJK surface aliases, this applies the frozen
+    clean-primary migration from historical low/special CJK codes to their
+    unique 0x889F+ primary codes.  The source table therefore models the
+    already-encoded base-UI payload, while the output table models the current
+    release mapping.
+    """
 
     descriptors = json.loads(descriptor_path.read_text(encoding="utf-8"))
     if not isinstance(descriptors, list):
@@ -5027,26 +5445,66 @@ def _apply_global_safe_aliases(
     _proposal_path, primary, aliases, alias_report = _full_story_overrides(
         font_manifest
     )
-    conditional_characters = {
+    _snapshot_path, allocation_snapshot = _sha_locked_json(
+        font_manifest.get("inputs", {}).get("allocation_snapshot"),
+        label="global safe-alias allocation snapshot",
+    )
+    clean_contracts = [
+        extension["clean_default_width_cjk_primary_migration"]
+        for extension in allocation_snapshot.get("extensions", [])
+        if isinstance(extension, dict)
+        and "clean_default_width_cjk_primary_migration" in extension
+    ]
+    if len(clean_contracts) != 1:
+        raise FullStoryComponentError(
+            "clean CJK-primary migration contract is absent"
+        )
+    clean_migrations = clean_contracts[0].get("migrations")
+    if not isinstance(clean_migrations, list) or not clean_migrations:
+        raise FullStoryComponentError(
+            "clean CJK-primary migration rows are malformed"
+        )
+    clean_source_codes = {}
+    clean_code_substitutions = {}
+    for row in clean_migrations:
+        if not isinstance(row, dict):
+            raise FullStoryComponentError(
+                "clean CJK-primary migration row is malformed"
+            )
+        character = row.get("character")
+        try:
+            source_code = int(row["from_code"], 16)
+            target_code = int(row["to_code"], 16)
+        except (KeyError, TypeError, ValueError) as error:
+            raise FullStoryComponentError(
+                "clean CJK-primary migration code is malformed"
+            ) from error
+        if (
+            not isinstance(character, str)
+            or len(character) != 1
+            or primary.get(character) != target_code
+            or source_code == target_code
+            or source_code in clean_code_substitutions
+        ):
+            raise FullStoryComponentError(
+                "clean CJK-primary migration is not one-to-one"
+            )
+        clean_source_codes[character] = source_code
+        clean_code_substitutions[source_code] = target_code
+    special_characters = {
         character
         for character, code in primary.items()
-        if 0x8140 <= code < 0x889F
+        if allocation_width_class(code) != DEFAULT_WIDTH_CLASS
     }
-    flattened_release = alias_report.get("mode") == "flattened_global_snapshot"
-    if (
-        (
-            set(aliases) > conditional_characters
-            if flattened_release
-            else set(aliases) != conditional_characters
+    if alias_report.get("mode") != "flattened_global_snapshot":
+        raise FullStoryComponentError(
+            "global safe aliases require the flattened release snapshot"
         )
-        or any(0x8140 <= code < 0x889F for code in aliases.values())
-        or (
-            not flattened_release
-            and (
-                alias_report.get("all_selected_assignments") is not True
-                or alias_report.get("unaliased_conditional_assignment_count")
-                != 0
-            )
+    if (
+        set(aliases) > special_characters
+        or any(
+            allocation_width_class(code) != DEFAULT_WIDTH_CLASS
+            for code in aliases.values()
         )
     ):
         raise FullStoryComponentError("global safe-alias contract failed")
@@ -5054,12 +5512,17 @@ def _apply_global_safe_aliases(
     table = load_text_table(
         PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
     )
-    source_table = project_runtime_text_table(table, primary)
-    source_table = project_runtime_text_table(source_table, aliases)
+    source_primary = _encoded_mapping_overrides(encoded_mapping)
+    for character, source_code in clean_source_codes.items():
+        if character in source_primary and source_primary[character] != source_code:
+            raise FullStoryComponentError(
+                "encoded base-UI mapping disagrees with clean migration"
+            )
+    source_table = project_runtime_text_table(table, source_primary)
     ascii_overrides = original_fullwidth_ascii_overrides(table)
-    output_table = project_runtime_text_table(
-        source_table, ascii_overrides
-    )
+    output_table = project_runtime_text_table(table, primary)
+    output_table = project_runtime_text_table(output_table, aliases)
+    output_table = project_runtime_text_table(output_table, ascii_overrides)
     menu_aliases = {
         character: code
         for character, code in aliases.items()
@@ -5076,6 +5539,22 @@ def _apply_global_safe_aliases(
         and primary[character] != ascii_overrides[character]
     }
     code_substitutions.update(ascii_code_substitutions)
+    base_mapping_substitution_count = 0
+    for character, source_code in source_primary.items():
+        target_code = primary.get(character)
+        if character in menu_aliases:
+            target_code = menu_aliases[character]
+        if character in ascii_overrides and source_code >= 0x8000:
+            target_code = ascii_overrides[character]
+        if target_code is None or target_code == source_code:
+            continue
+        existing = code_substitutions.get(source_code)
+        if existing is not None and existing != target_code:
+            raise FullStoryComponentError(
+                "base-UI code substitution has conflicting targets"
+            )
+        code_substitutions[source_code] = target_code
+        base_mapping_substitution_count += 1
     if any(
         source == target
         or source < 0x8000
@@ -5092,9 +5571,14 @@ def _apply_global_safe_aliases(
 
     def rewrite(
         data: bytes,
+        original_data: bytes,
         descriptor: dict,
         label: str,
     ) -> tuple[bytes, dict]:
+        if len(original_data) != len(data):
+            raise FullStoryComponentError(
+                f"clean CJK-primary ownership source size drift for {label}"
+            )
         parsed = parse_menu_file(data, descriptor, source_table)
         target_offsets = {
             offset
@@ -5108,6 +5592,11 @@ def _apply_global_safe_aliases(
                 offset,
                 offset + decoded_target.consumed,
             )
+        localized_target_spans = [
+            (start, end)
+            for start, end in target_spans.values()
+            if data[start:end] != original_data[start:end]
+        ]
         merged_ranges = []
         for start, end in target_spans.values():
             if not merged_ranges or start > merged_ranges[-1][1]:
@@ -5125,6 +5614,8 @@ def _apply_global_safe_aliases(
             }
         output = bytearray(data)
         changed_offsets = set()
+        preserved_original_clean_offsets = set()
+        original_owned_reinterpretation_offsets = set()
         for start, end in merged_ranges:
             cursor = start
             while cursor < end:
@@ -5141,7 +5632,35 @@ def _apply_global_safe_aliases(
                             f"truncated menu code in {label}"
                         )
                     code = (lead << 8) | data[cursor + 1]
+                    localized_owner = any(
+                        start <= cursor < end
+                        for start, end in localized_target_spans
+                    )
+                    if (
+                        not localized_owner
+                        and
+                        original_data[cursor : cursor + 2]
+                        == data[cursor : cursor + 2]
+                        and source_table.characters.get(code)
+                        != output_table.characters.get(code)
+                    ):
+                        original_owned_reinterpretation_offsets.add(cursor)
                     replacement = code_substitutions.get(code)
+                    if (
+                        replacement is not None
+                        and not localized_owner
+                        and original_data[cursor : cursor + 2]
+                        == data[cursor : cursor + 2]
+                        and source_table.characters.get(code)
+                        != table.characters.get(code)
+                    ):
+                        # The old Chinese allocation collided with stock CP932
+                        # kanji.  Byte-exact original text owns this occurrence,
+                        # so keep the original code and let the restored stock
+                        # glyph render it.  Only bytes changed by localization
+                        # are owned by the historical Chinese mapping.
+                        preserved_original_clean_offsets.add(cursor)
+                        replacement = None
                     if replacement is not None:
                         output[cursor : cursor + 2] = replacement.to_bytes(
                             2, "big"
@@ -5167,9 +5686,6 @@ def _apply_global_safe_aliases(
                 if reread_by_id.get(entry_id) != expected
         ]
         invalid_mismatches = []
-        entries_by_id = {
-            entry.entry_id: entry for entry in parsed.entries
-        }
         entry_spans = {
             entry.entry_id: [
                 target_spans[offset]
@@ -5194,44 +5710,20 @@ def _apply_global_safe_aliases(
                 nested_raw_mismatches.append(mismatch)
             else:
                 invalid_mismatches.append(mismatch)
-        if invalid_mismatches:
-            mismatch_details = []
-            for entry_id, _expected, _actual in invalid_mismatches[:10]:
-                entry = entries_by_id[entry_id]
-                spans = entry_spans[entry_id]
-                affected = sorted(
-                    changed
-                    for changed in changed_offsets
-                    if any(
-                        changed < end and changed + 2 > start
-                        for start, end in spans
-                    )
-                )
-                owners = sorted(
-                    (other.entry_id, other.text, list(other.target_offsets))
-                    for other in parsed.entries
-                    if any(
-                        changed < end and changed + 2 > start
-                        for changed in affected
-                        for start, end in (
-                            (
-                                offset,
-                                entry_spans[other.entry_id][index][1],
-                            )
-                            for index, offset in enumerate(other.target_offsets)
-                        )
-                    )
-                )
-                mismatch_details.append(
-                    {
-                        "entry_id": entry_id,
-                        "affected_offsets": [hex(value) for value in affected],
-                        "overlapping_entries": owners,
-                    }
-                )
+        mismatch_without_original_owner = []
+        for mismatch in invalid_mismatches:
+            entry_id, _expected, _actual = mismatch
+            spans = entry_spans[entry_id]
+            if not any(
+                offset < end and offset + 2 > start
+                for offset in original_owned_reinterpretation_offsets
+                for start, end in spans
+            ):
+                mismatch_without_original_owner.append(mismatch)
+        if mismatch_without_original_owner:
             raise FullStoryComponentError(
                 f"global safe-alias reread failed for {label}: "
-                f"{invalid_mismatches[:10]!r} details={mismatch_details!r}"
+                f"{mismatch_without_original_owner[:10]!r}"
             )
         selected_entries = _count_span_groups_containing_offsets(
             [entry_spans[entry.entry_id] for entry in parsed.entries],
@@ -5242,6 +5734,12 @@ def _apply_global_safe_aliases(
             "selected_target_count": len(target_offsets),
             "merged_text_range_count": len(merged_ranges),
             "substituted_code_count": len(changed_offsets),
+            "preserved_original_clean_code_count": len(
+                preserved_original_clean_offsets
+            ),
+            "original_stock_reinterpretation_count": len(
+                original_owned_reinterpretation_offsets
+            ),
             "nested_raw_overlap_mismatch_count": len(
                 nested_raw_mismatches
             ),
@@ -5254,10 +5752,14 @@ def _apply_global_safe_aliases(
         }
 
     rewritten_slps, slps_report = rewrite(
-        slps, descriptor_by_name["SLPS"], "global safe aliases SLPS"
+        slps,
+        original_slps,
+        descriptor_by_name["SLPS"],
+        "global safe aliases SLPS",
     )
     rewritten_compdata, compdata_report = rewrite(
         decoded.output,
+        original_compdata_decoded,
         descriptor_by_name["Compdata"],
         "global safe aliases COMPDATA",
     )
@@ -5270,13 +5772,28 @@ def _apply_global_safe_aliases(
         workspace=workspace,
     )
     return rewritten_slps, rebuilt_compdata, {
+        "clean_primary_substitution_count": len(clean_code_substitutions),
+        "base_mapping_substitution_count": base_mapping_substitution_count,
         "scope": "all-parsed-localized-menu-surfaces",
         "conditional_primary_assignment_count": len(aliases),
         "release_conditional_primary_assignment_count": len(
-            conditional_characters
+            {
+                character
+                for character, code in primary.items()
+                if 0x8140 <= code < 0x889F
+            }
         ),
         "release_only_unaliased_conditional_assignment_count": len(
-            conditional_characters - set(aliases)
+            {
+                character
+                for character, code in primary.items()
+                if 0x8140 <= code < 0x889F
+            }
+            - set(aliases)
+        ),
+        "release_special_primary_assignment_count": len(special_characters),
+        "release_only_unaliased_special_assignment_count": len(
+            special_characters - set(aliases)
         ),
         "safe_alias_assignment_count": len(aliases),
         "menu_applicable_safe_alias_assignment_count": len(menu_aliases),
@@ -7120,6 +7637,10 @@ def _build_incremental_fixed_slps(
         raise FullStoryComponentError(
             "incremental fixed-SLPS handler selected without changed fields"
         )
+    changed_replacements = {
+        offset: current_map[offset]
+        for offset in changed_offsets
+    }
 
     remaining_reference = config.get("remaining_ui")
     if not isinstance(remaining_reference, dict):
@@ -7161,7 +7682,7 @@ def _build_incremental_fixed_slps(
     output_slps, _incremental_slps_report = _apply_fixed_span_translations(
         current_slps,
         original_slps,
-        current_map,
+        changed_replacements,
         table=table,
         output_table=output_table,
         encoding_overrides=encoding_overrides,
@@ -7356,8 +7877,10 @@ def build(
         or font_manifest.get("font_profile_id") != font.get("required_profile_id")
     ):
         raise FullStoryComponentError("full-story font manifest identity drift")
-    encoded_text_proposal = base_manifest.get("inputs", {}).get("codebook", {}).get(
-        "proposal", {}
+    encoded_mapping_reference = (
+        base_manifest.get("inputs", {})
+        .get("codebook", {})
+        .get("mapping_snapshot", {})
     )
     composition = config.get("composition", {})
     compatibility = composition.get("encoded_text_codebook_compatibility")
@@ -7367,8 +7890,10 @@ def build(
         raise FullStoryComponentError(
             "encoded-text/release codebook compatibility is missing"
         )
-    encoded_proposal_path = _project_path(encoded_text_proposal.get("path"))
-    encoded_proposal = _json(encoded_proposal_path)
+    encoded_mapping_path, encoded_mapping = _sha_locked_json(
+        encoded_mapping_reference,
+        label="base UI codebook mapping snapshot",
+    )
     release_proposal_path, release_proposal = _sha_locked_json(
         font_manifest.get("proposal"),
         label="global release font proposal",
@@ -7377,7 +7902,7 @@ def build(
         compatibility.get("release_snapshot"),
         label="global release assignment snapshot",
     )
-    encoded_assignments = encoded_proposal.get("assignments")
+    encoded_assignments = encoded_mapping.get("assignments")
     release_assignments = release_proposal.get("assignments")
     if not isinstance(encoded_assignments, list) or not isinstance(
         release_assignments, list
@@ -7388,6 +7913,36 @@ def build(
         for item in release_assignments
         if isinstance(item, dict)
     }
+    clean_contracts = [
+        extension["clean_default_width_cjk_primary_migration"]
+        for extension in snapshot.get("extensions", [])
+        if isinstance(extension, dict)
+        and "clean_default_width_cjk_primary_migration" in extension
+    ]
+    if len(clean_contracts) != 1:
+        raise FullStoryComponentError(
+            "clean CJK-primary migration contract is absent"
+        )
+    clean_migration_by_character = {
+        row["character"]: row
+        for row in clean_contracts[0].get("migrations", [])
+        if isinstance(row, dict)
+    }
+
+    def encoded_assignment_is_current_or_migrated(item: dict) -> bool:
+        character = item.get("character")
+        current = release_by_character.get(character)
+        encoded = (item.get("code"), item.get("glyph_index"))
+        if current == encoded:
+            return True
+        migration = clean_migration_by_character.get(character)
+        return bool(
+            migration
+            and encoded
+            == (migration.get("from_code"), migration.get("from_glyph_index"))
+            and current
+            == (migration.get("to_code"), migration.get("to_glyph_index"))
+        )
     encoded_mapping_sha256 = sha256_bytes(
         json.dumps(
             sorted(
@@ -7409,7 +7964,13 @@ def build(
         ).encode("utf-8")
     )
     if (
-        len(encoded_assignments) != compatibility.get("encoded_assignment_count")
+        encoded_mapping.get("assignment_count")
+        != encoded_mapping_reference.get("assignment_count")
+        or encoded_mapping.get("mapping_sha256")
+        != encoded_mapping_reference.get("mapping_sha256")
+        or encoded_mapping.get("assignment_count") != len(encoded_assignments)
+        or encoded_mapping.get("mapping_sha256") != encoded_mapping_sha256
+        or len(encoded_assignments) != compatibility.get("encoded_assignment_count")
         or encoded_mapping_sha256
         != compatibility.get("encoded_assignment_mapping_sha256")
         or len(release_assignments)
@@ -7421,8 +7982,7 @@ def build(
         or release_proposal.get("allocation_registry", {}).get("sha256")
         != compatibility.get("release_snapshot", {}).get("sha256")
         or any(
-            release_by_character.get(item.get("character"))
-            != (item.get("code"), item.get("glyph_index"))
+            not encoded_assignment_is_current_or_migrated(item)
             for item in encoded_assignments
         )
     ):
@@ -7495,12 +8055,30 @@ def build(
         or stage_report.get("story_ticker_structural_slots_exact") is not True
         or stage_report.get("story_ticker_fixed_slots_exact") is not True
         or stage_report.get("story_ticker_translated_reread_exact") is not True
+        or stage_report.get("z_report_count") != 2
+        or stage_report.get("z_report_source_count") != 2
+        or stage_report.get("z_report_stage_count") != 1
+        or stage_report.get("z_report_stage_indices") != [36]
+        or stage_report.get("z_report_inventory_sha256")
+        != "88dc3b72d46b201d7949e0e441ceb60fc9eca1893e63f335bd36cba9c3a1acd9"
+        or stage_report.get("z_report_structural_slots_exact") is not True
+        or stage_report.get("z_report_fixed_slots_exact") is not True
+        or stage_report.get("z_report_translated_reread_exact") is not True
+        or stage_report.get("tutorial_binding")
+        != {
+            "stage_names": {"185": "stg_500.bin", "186": "stg_501.bin"},
+            "dialogue_counts": {"185": 407, "186": 431},
+            "total_dialogue_count": 838,
+            "source_stage_headers_exact": True,
+            "translated_stage_reread_exact": True,
+            "alternate_mtv_prop_text_owner_ruled_out": True,
+        }
         or stage_report.get("dialogue_outer_punctuation_exact") is not True
         or stage_report.get("dialogue_quote_style_counts")
         != {
             "keyword_exempt": 111,
-            "parenthetical": 2349,
-            "spoken_quote": 77167,
+            "parenthetical": 2358,
+            "spoken_quote": 77319,
             "unquoted": 3880,
         }
         or stage_report.get("all_safe_aliases") is not True
@@ -7540,11 +8118,39 @@ def build(
         label="translated runtime-keyword LIBRARY archive",
     )
     (
+        runtime_keyword_library_manifest_path,
+        library_archive_offset_patches,
+        runtime_keyword_library_outputs,
+    ) = _library_archive_offset_patches(
+        runtime_keyword_reference.get("library_component_manifest")
+    )
+    keyword_library_output = runtime_keyword_library_outputs.get(
+        "DATA/MTVZKNKW.BIN"
+    )
+    if (
+        not isinstance(keyword_library_output, dict)
+        or keyword_library_output.get("path")
+        != runtime_keyword_reference["library_archive"].get("path")
+        or keyword_library_output.get("size") != len(runtime_keyword_library_payload)
+        or keyword_library_output.get("sha256")
+        != sha256_bytes(runtime_keyword_library_payload)
+    ):
+        raise FullStoryComponentError(
+            "runtime-keyword archive disagrees with the LIBRARY component"
+        )
+    (
         runtime_keyword_executable_path,
         runtime_keyword_executable_payload,
     ) = _locked_file(
         runtime_keyword_reference.get("original_executable"),
         label="runtime-keyword offset-table executable",
+    )
+    (
+        runtime_keyword_offset_executable,
+        _runtime_keyword_offset_patch_report,
+    ) = _apply_library_archive_offset_patches(
+        runtime_keyword_executable_payload,
+        library_archive_offset_patches,
     )
     runtime_keyword_source_table = load_text_table(
         PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
@@ -7571,7 +8177,7 @@ def build(
         runtime_keyword_authority = load_keyword_authority(
             runtime_keyword_catalog_data,
             runtime_keyword_library_payload,
-            runtime_keyword_executable_payload,
+            runtime_keyword_offset_executable,
             runtime_keyword_table,
             table_start=int(
                 str(runtime_keyword_reference["keyword_table_start"]), 0
@@ -7696,6 +8302,34 @@ def build(
             "original COMPDATA workspace source has trailing compressed bytes"
         )
 
+    clean_migration_descriptor_path, _clean_migration_descriptor_data = (
+        _locked_file(
+            config["full_stage_titles"].get("menu_descriptor"),
+            label="clean CJK-primary migration menu descriptor",
+        )
+    )
+    _clean_migration_original_slps_path, clean_migration_original_slps = (
+        _locked_file(
+            config["remaining_ui"].get("original_slps"),
+            label="clean CJK-primary migration original SLPS",
+        )
+    )
+    (
+        output_slps,
+        output_compdata,
+        global_safe_alias_report,
+    ) = _apply_global_safe_aliases(
+        output_slps,
+        compdata_workspace.stored,
+        clean_migration_descriptor_path,
+        font_manifest,
+        encoded_mapping,
+        config["full_pilot_names"]["codec"],
+        original_slps=clean_migration_original_slps,
+        original_compdata_decoded=original_compdata_decoded.output,
+        workspace=compdata_workspace,
+    )
+
     (
         output_compdata,
         pilot_name_report,
@@ -7708,6 +8342,7 @@ def build(
         compdata_workspace.stored,
         config.get("full_pilot_names"),
         font_manifest,
+        encoded_mapping,
         workspace=compdata_workspace,
     )
     (
@@ -7739,6 +8374,7 @@ def build(
         config.get("auto_demo_overlays", {}).get("title_corpus"),
         stage_title_input_paths[2],
         font_manifest,
+        encoded_mapping,
         config["full_pilot_names"]["codec"],
         workspace=compdata_workspace,
         original_decoded=original_compdata_decoded,
@@ -7772,6 +8408,12 @@ def build(
         nisv_effect_names_report = json.loads(
             json.dumps(prior_report["nisv_effect_names"])
         )
+        nisv_tutorial_report = json.loads(
+            json.dumps(prior_report["nisv_tutorial_pages"])
+        )
+        nisv_strategy_qa_report = json.loads(
+            json.dumps(prior_report["nisv_strategy_qa"])
+        )
         runtime_library_menu_report = json.loads(
             json.dumps(prior_report["runtime_library_menu"])
         )
@@ -7783,6 +8425,12 @@ def build(
             _prior_input_path(prior_report, "runtime_library_menu_scope"),
             _prior_input_path(prior_report, "runtime_library_menu_font"),
         )
+        nisv_tutorial_corpus_path = _prior_input_path(
+            prior_report, "nisv_tutorial_corpus"
+        )
+        nisv_strategy_qa_corpus_path = _prior_input_path(
+            prior_report, "nisv_strategy_qa_corpus"
+        )
     else:
         (
             output_nisvdata,
@@ -7793,6 +8441,99 @@ def build(
             font_manifest,
             config.get("nisv_effect_names"),
         )
+        nisv_strategy_qa_config = config.get("nisv_strategy_qa")
+        if not isinstance(nisv_strategy_qa_config, dict):
+            raise FullStoryComponentError(
+                "NISVDATA Strategy Q&A configuration is invalid"
+            )
+        nisv_strategy_qa_corpus_path, nisv_strategy_qa_corpus_data = _locked_file(
+            nisv_strategy_qa_config.get("corpus"),
+            label="NISVDATA Strategy Q&A corpus",
+        )
+        nisv_strategy_qa_original_path, nisv_strategy_qa_original_data = _locked_file(
+            nisv_strategy_qa_config.get("original_archive"),
+            label="NISVDATA Strategy Q&A original archive",
+        )
+        if (
+            nisv_strategy_qa_original_path != nisv_effect_names_input_paths[1]
+            or nisv_strategy_qa_original_data
+            != nisv_effect_names_input_paths[1].read_bytes()
+        ):
+            raise FullStoryComponentError(
+                "NISVDATA Strategy Q&A and effect-name source archives disagree"
+            )
+        try:
+            nisv_strategy_qa_corpus = json.loads(
+                nisv_strategy_qa_corpus_data.decode("utf-8")
+            )
+            strategy_qa_encoding_overrides = _stored_text_overrides(
+                runtime_keyword_source_table,
+                runtime_keyword_primary,
+                runtime_keyword_aliases,
+            )
+            output_nisvdata, nisv_strategy_qa_report = build_nisv_strategy_qa(
+                output_nisvdata,
+                nisv_strategy_qa_original_data,
+                output_slps,
+                nisv_strategy_qa_config,
+                nisv_strategy_qa_corpus,
+                runtime_keyword_source_table,
+                strategy_qa_encoding_overrides,
+            )
+        except (
+            UnicodeDecodeError,
+            json.JSONDecodeError,
+            NisvStrategyQaError,
+        ) as error:
+            raise FullStoryComponentError(
+                f"NISVDATA Strategy Q&A writeback failed: {error}"
+            ) from error
+        nisv_tutorial_config = config.get("nisv_tutorial_pages")
+        if not isinstance(nisv_tutorial_config, dict):
+            raise FullStoryComponentError(
+                "NISVDATA tutorial-page configuration is invalid"
+            )
+        nisv_tutorial_corpus_path, nisv_tutorial_corpus_data = _locked_file(
+            nisv_tutorial_config.get("corpus"),
+            label="NISVDATA tutorial-page corpus",
+        )
+        nisv_tutorial_original_path, nisv_tutorial_original_data = _locked_file(
+            nisv_tutorial_config.get("original_archive"),
+            label="NISVDATA tutorial-page original archive",
+        )
+        if (
+            nisv_tutorial_original_path != nisv_strategy_qa_original_path
+            or nisv_tutorial_original_data
+            != nisv_strategy_qa_original_data
+        ):
+            raise FullStoryComponentError(
+                "NISVDATA tutorial and Strategy Q&A source archives disagree"
+            )
+        try:
+            nisv_tutorial_corpus = json.loads(
+                nisv_tutorial_corpus_data.decode("utf-8")
+            )
+            tutorial_encoding_overrides = _stored_text_overrides(
+                runtime_keyword_source_table,
+                runtime_keyword_primary,
+                runtime_keyword_aliases,
+            )
+            output_nisvdata, nisv_tutorial_report = build_nisv_tutorial_pages(
+                output_nisvdata,
+                output_slps,
+                nisv_tutorial_config,
+                nisv_tutorial_corpus,
+                runtime_keyword_source_table,
+                tutorial_encoding_overrides,
+            )
+        except (
+            UnicodeDecodeError,
+            json.JSONDecodeError,
+            NisvTutorialError,
+        ) as error:
+            raise FullStoryComponentError(
+                f"NISVDATA tutorial-page writeback failed: {error}"
+            ) from error
         try:
             runtime_library_menu_contract = runtime_library_menu_scope[
                 "library_menu_runtime_tim2"
@@ -7863,18 +8604,6 @@ def build(
         config["full_pilot_names"]["codec"],
         workspace=compdata_workspace,
         original_decoded=original_compdata_decoded,
-    )
-    (
-        output_slps,
-        output_compdata,
-        global_safe_alias_report,
-    ) = _apply_global_safe_aliases(
-        output_slps,
-        compdata_workspace.stored,
-        stage_title_input_paths[2],
-        font_manifest,
-        config["full_pilot_names"]["codec"],
-        workspace=compdata_workspace,
     )
     try:
         runtime_keyword_compdata_decoded, runtime_keyword_compdata_report = (
@@ -8212,6 +8941,83 @@ def build(
             font_manifest,
         )
 
+    if reuse_group({MTV_PROP_MEMBER}):
+        output_mtv_prop = _prior_output_payload(output_root, MTV_PROP_MEMBER)
+        chapter_intertitle_report = json.loads(
+            json.dumps(prior_report["chapter_intertitles"])
+        )
+        chapter_intertitle_input_paths = {
+            "original_slps": _prior_input_path(
+                prior_report, "chapter_intertitle_original_slps"
+            ),
+            "original_mtv_prop": _prior_input_path(
+                prior_report, "original_mtv_prop"
+            ),
+            "corpus": _prior_input_path(
+                prior_report, "chapter_intertitle_corpus"
+            ),
+            "font": _prior_input_path(
+                prior_report, "chapter_intertitle_font"
+            ),
+        }
+    else:
+        chapter_reference = config.get("chapter_intertitles")
+        if not isinstance(chapter_reference, dict):
+            raise FullStoryComponentError(
+                "chapter-intertitle configuration is invalid"
+            )
+        original_intertitle_slps_path, original_intertitle_slps = _locked_file(
+            chapter_reference.get("original_slps"),
+            label="chapter-intertitle original SLPS",
+        )
+        original_mtv_prop_path, original_mtv_prop = _locked_file(
+            chapter_reference.get("original_mtv_prop"),
+            label="original MTV_PROP",
+        )
+        chapter_corpus_path, chapter_corpus_data = _locked_file(
+            chapter_reference.get("corpus"),
+            label="chapter-intertitle corpus",
+        )
+        chapter_font_path, _chapter_font_data = _locked_file(
+            chapter_reference.get("font"),
+            label="chapter-intertitle font",
+        )
+        try:
+            chapter_contract = json.loads(chapter_corpus_data.decode("utf-8"))
+            if (
+                chapter_contract.get("batch_id")
+                != "v1-mtv-prop-chapter-intertitles"
+                or chapter_contract.get("selection_authority")
+                != "complete_23_chunk_tim2_inventory_plus_manual_visual_review"
+                or chapter_contract.get("visible_japanese_text_chunk_indices")
+                != [21, 22]
+                or any(
+                    item.get("editorial_status") != "reviewed"
+                    for item in chapter_contract.get("entries", [])
+                )
+            ):
+                raise MtvPropIntertitleError(
+                    "chapter-intertitle editorial contract drift"
+                )
+            output_mtv_prop, chapter_intertitle_report = (
+                build_mtv_prop_intertitles(
+                    original_mtv_prop,
+                    original_intertitle_slps,
+                    chapter_font_path,
+                    chapter_contract,
+                )
+            )
+        except (json.JSONDecodeError, MtvPropIntertitleError) as error:
+            raise FullStoryComponentError(
+                f"chapter-intertitle build failed: {error}"
+            ) from error
+        chapter_intertitle_input_paths = {
+            "original_slps": original_intertitle_slps_path,
+            "original_mtv_prop": original_mtv_prop_path,
+            "corpus": chapter_corpus_path,
+            "font": chapter_font_path,
+        }
+
     if reuse_group({HSFC_MEMBER}):
         output_hsfc = _prior_output_payload(output_root, HSFC_MEMBER)
         hsfc_overview_report = json.loads(json.dumps(prior_report["hsfc_overviews"]))
@@ -8237,8 +9043,14 @@ def build(
             json.dumps(prior_report["scenario_select_effect"])
         )
         mode_select_report = json.loads(json.dumps(prior_report["mode_select_effect"]))
+        tutorial_title_report = json.loads(
+            json.dumps(prior_report["tutorial_title_effects"])
+        )
         scenario_select_source_path = _prior_input_path(prior_report, "original_veff2dx")
         mode_select_source_path = scenario_select_source_path
+        tutorial_title_font_path = _prior_input_path(
+            prior_report, "tutorial_title_font"
+        )
     else:
         (
             output_veff,
@@ -8266,6 +9078,55 @@ def build(
         )
         if mode_select_source_path != scenario_select_source_path:
             raise FullStoryComponentError("VEFF2DX source path drift between targets")
+        tutorial_title_config = config.get("tutorial_title_effects")
+        if not isinstance(tutorial_title_config, dict):
+            raise FullStoryComponentError(
+                "tutorial title-effect configuration is invalid"
+            )
+        tutorial_title_source_path, tutorial_title_source = _locked_file(
+            tutorial_title_config.get("original_archive"),
+            label="tutorial title-effect original VEFF2DX",
+        )
+        tutorial_title_font_path, _tutorial_title_font = _locked_file(
+            tutorial_title_config.get("font"),
+            label="tutorial title-effect font",
+        )
+        if (
+            tutorial_title_source_path != scenario_select_source_path
+            or tutorial_title_source
+            != scenario_select_source_path.read_bytes()
+        ):
+            raise FullStoryComponentError(
+                "tutorial and menu effect VEFF2DX sources disagree"
+            )
+        try:
+            output_veff, tutorial_title_report = build_veff_tutorial_titles(
+                tutorial_title_source,
+                output_slps,
+                tutorial_title_font_path,
+                tutorial_title_config,
+                archive_payload=output_veff,
+            )
+        except VeffTutorialTitleError as error:
+            raise FullStoryComponentError(
+                f"tutorial title-effect writeback failed: {error}"
+            ) from error
+
+    tutorial_title_config = config.get("tutorial_title_effects")
+    if not isinstance(tutorial_title_config, dict):
+        raise FullStoryComponentError(
+            "tutorial title-effect configuration is invalid"
+        )
+    try:
+        tutorial_title_report["event_binding"] = audit_tutorial_effect_binding(
+            output_stage,
+            hb_payload,
+            tutorial_title_config.get("event_binding", {}),
+        )
+    except VeffTutorialTitleError as error:
+        raise FullStoryComponentError(
+            f"tutorial title-effect event binding failed: {error}"
+        ) from error
 
     if reuse_group({MAPMODEL_MEMBER}):
         output_mapmodel = _prior_output_payload(output_root, MAPMODEL_MEMBER)
@@ -8358,12 +9219,20 @@ def build(
             f"sound-select default unlock failed: {error}"
         ) from error
 
+    output_slps, library_offset_table_report = (
+        _apply_library_archive_offset_patches(
+            output_slps,
+            library_archive_offset_patches,
+        )
+    )
+
     payloads = {
         "SLPS_258.87": output_slps,
         "DATA/VT1.BIN": output_vt1,
         "DATA/COMPDATA.BN": output_compdata,
         "DATA/NISVDATA.BIN": output_nisvdata,
         "DATA/MTV_PROS.BIN": output_mtv_pros,
+        "DATA/MTV_PROP.BIN": output_mtv_prop,
         "DATA/STAGE.BIN": output_stage,
         "DATA/HSFC.BIN": output_hsfc,
         "HEDBDY/HB.BIN": hb_payload,
@@ -8394,6 +9263,10 @@ def build(
             ),
             "full_story_font_manifest": _file_lock(
                 font_manifest_path, font_manifest_path.read_bytes()
+            ),
+            "reviewed_library_component_manifest": _file_lock(
+                runtime_keyword_library_manifest_path,
+                runtime_keyword_library_manifest_path.read_bytes(),
             ),
             "full_story_stage_report": _file_lock(
                 stage_report_path, stage_report_path.read_bytes()
@@ -8426,6 +9299,24 @@ def build(
             "world_history_corpus": _file_lock(
                 world_history_corpus_path,
                 world_history_corpus_path.read_bytes(),
+            ),
+            "chapter_intertitle_corpus": _file_lock(
+                chapter_intertitle_input_paths["corpus"],
+                chapter_intertitle_input_paths["corpus"].read_bytes(),
+            ),
+            "chapter_intertitle_font": _file_lock(
+                chapter_intertitle_input_paths["font"],
+                chapter_intertitle_input_paths["font"].read_bytes(),
+            ),
+            "original_mtv_prop": _file_lock(
+                chapter_intertitle_input_paths["original_mtv_prop"],
+                chapter_intertitle_input_paths[
+                    "original_mtv_prop"
+                ].read_bytes(),
+            ),
+            "chapter_intertitle_original_slps": _file_lock(
+                chapter_intertitle_input_paths["original_slps"],
+                chapter_intertitle_input_paths["original_slps"].read_bytes(),
             ),
             "stage_system_dialogue": _file_lock(
                 stage_system_dialogue_corpus_path,
@@ -8478,6 +9369,14 @@ def build(
                 nisv_effect_names_input_paths[1],
                 nisv_effect_names_input_paths[1].read_bytes(),
             ),
+            "nisv_tutorial_corpus": _file_lock(
+                nisv_tutorial_corpus_path,
+                nisv_tutorial_corpus_path.read_bytes(),
+            ),
+            "nisv_strategy_qa_corpus": _file_lock(
+                nisv_strategy_qa_corpus_path,
+                nisv_strategy_qa_corpus_path.read_bytes(),
+            ),
             "runtime_library_menu_scope": _file_lock(
                 runtime_library_menu_input_paths[0],
                 runtime_library_menu_input_paths[0].read_bytes(),
@@ -8489,6 +9388,10 @@ def build(
             "original_slps": _file_lock(
                 remaining_ui_input_paths[3],
                 remaining_ui_input_paths[3].read_bytes(),
+            ),
+            "tutorial_title_font": _file_lock(
+                tutorial_title_font_path,
+                tutorial_title_font_path.read_bytes(),
             ),
             "original_stage": _file_lock(
                 original_stage_path,
@@ -8572,9 +9475,14 @@ def build(
                 "strategy"
             ],
             "mode_select_strategy": mode_select_report["codec"]["strategy"],
+            "tutorial_title_effect_strategy": tutorial_title_report[
+                "codec_strategy"
+            ],
             "nisv_effect_names_strategy": nisv_effect_names_report["codec"][
                 "strategy"
             ],
+            "nisv_strategy_qa_strategy": "rust-fit",
+            "nisv_tutorial_strategy": "rust-fit",
             "runtime_library_menu_strategy": "rust-fit",
             "world_map_title_strategy": world_map_title_report["codec"][
                 "strategy"
@@ -8595,9 +9503,9 @@ def build(
             "intermission_list_font_geometry": geometry_report,
             "encoded_text_codebook_compatibility": {
                 "encoded_ui_mapping_is_release_subset": True,
-                "encoded_proposal": _file_lock(
-                    encoded_proposal_path,
-                    encoded_proposal_path.read_bytes(),
+                "encoded_mapping_snapshot": _file_lock(
+                    encoded_mapping_path,
+                    encoded_mapping_path.read_bytes(),
                 ),
                 "release_proposal": _file_lock(
                     release_proposal_path,
@@ -8612,6 +9520,7 @@ def build(
                 "release_assignment_count": len(release_assignments),
                 "release_assignment_mapping_sha256": release_mapping_sha256,
             },
+            "library_archive_offset_tables": library_offset_table_report,
         },
         "story": {
             "stage_count": len(stage_report["stage_indices"]),
@@ -8648,14 +9557,35 @@ def build(
             "ticker_translated_reread_exact": stage_report[
                 "story_ticker_translated_reread_exact"
             ],
+            "z_report_source_count": stage_report["z_report_source_count"],
+            "z_report_target_count": stage_report["z_report_count"],
+            "z_report_stage_indices": stage_report[
+                "z_report_stage_indices"
+            ],
+            "z_report_inventory_sha256": stage_report[
+                "z_report_inventory_sha256"
+            ],
+            "z_report_structural_slots_exact": stage_report[
+                "z_report_structural_slots_exact"
+            ],
+            "z_report_fixed_slots_exact": stage_report[
+                "z_report_fixed_slots_exact"
+            ],
+            "z_report_translated_reread_exact": stage_report[
+                "z_report_translated_reread_exact"
+            ],
+            "tutorial_binding": stage_report["tutorial_binding"],
         },
         "pilot_names": pilot_name_report,
         "stage_titles": stage_title_report,
         "stage_overviews": stage_overview_report,
         "world_history": world_history_report,
+        "chapter_intertitles": chapter_intertitle_report,
         "hsfc_overviews": hsfc_overview_report,
         "remaining_ui": remaining_ui_report,
         "nisv_effect_names": nisv_effect_names_report,
+        "nisv_strategy_qa": nisv_strategy_qa_report,
+        "nisv_tutorial_pages": nisv_tutorial_report,
         "runtime_library_menu": runtime_library_menu_report,
         "sound_select_default_unlock": sound_select_unlock_report,
         "compdata_battle_lines": compdata_battle_line_report,
@@ -8665,6 +9595,7 @@ def build(
         "auto_demo_overlays": auto_demo_report,
         "scenario_select_effect": scenario_select_report,
         "mode_select_effect": mode_select_report,
+        "tutorial_title_effects": tutorial_title_report,
         "world_map_titles": world_map_title_report,
         "global_safe_aliases": global_safe_alias_report,
         "runtime_keywords": {
@@ -8689,8 +9620,12 @@ def build(
                 and scenario_select_report["codec"]["strategy"]
                 == "rust-fit"
                 and mode_select_report["codec"]["strategy"] == "rust-fit"
+                and tutorial_title_report["codec_strategy"] == "rust-fit"
+                and tutorial_title_report["translated_reread_exact"]
                 and nisv_effect_names_report["codec"]["strategy"]
                 == "rust-fit"
+                and nisv_strategy_qa_report["translated_reread_exact"]
+                and nisv_tutorial_report["translated_reread_exact"]
                 and runtime_library_menu_report["codec_round_trip_exact"]
                 and runtime_library_menu_report["sound_select"][
                     "codec_round_trip_exact"
@@ -8701,7 +9636,27 @@ def build(
                 == "rust-fit"
                 and world_history_report["codec"]["strategy"]
                 == "rust-fit"
+                and chapter_intertitle_report["codec_strategy"]
+                == "rust-fit"
                 and terrain_name_report["codec_round_trip_exact"]
+            ),
+            "chapter_intertitles_reread_exact": (
+                chapter_intertitle_report["chunk_count"] == 23
+                and chapter_intertitle_report["tim2_chunk_count"] == 23
+                and chapter_intertitle_report["localized_chunk_indices"]
+                == [21, 22]
+                and chapter_intertitle_report["localized_entry_count"] == 2
+                and chapter_intertitle_report["archive_size_preserved"]
+                and chapter_intertitle_report["archive_offsets_preserved"]
+                and chapter_intertitle_report[
+                    "non_target_chunks_preserved_byte_exact"
+                ]
+                and chapter_intertitle_report["fixed_chunk_spans_preserved"]
+                and chapter_intertitle_report["tim2_metadata_preserved"]
+                and chapter_intertitle_report[
+                    "palette_preserved_byte_exact"
+                ]
+                and chapter_intertitle_report["translated_reread_exact"]
             ),
             "world_map_titles_reread_exact": (
                 world_map_title_report["unique_title_count"] == 78
@@ -8767,6 +9722,81 @@ def build(
                     "codec_round_trip_exact"
                 ]
             ),
+            "nisv_tutorial_pages_reread_exact": (
+                nisv_tutorial_report["page_count"] == 10
+                and nisv_tutorial_report["text_record_count"] == 114
+                and nisv_tutorial_report["archive_size_preserved"]
+                and nisv_tutorial_report["archive_offsets_preserved"]
+                and nisv_tutorial_report[
+                    "non_target_chunks_preserved_byte_exact"
+                ]
+                and nisv_tutorial_report["record_styles_preserved"]
+                and nisv_tutorial_report["undeclared_coordinates_preserved"]
+                and nisv_tutorial_report["coordinate_override_count"] == 2
+                and nisv_tutorial_report["page_allocations_preserved"]
+                and nisv_tutorial_report["translated_reread_exact"]
+            ),
+            "nisv_strategy_qa_reread_exact": (
+                nisv_strategy_qa_report["metadata_string_count"] == 264
+                and nisv_strategy_qa_report["page_count"] == 102
+                and nisv_strategy_qa_report["text_record_count"] == 2609
+                and nisv_strategy_qa_report["archive_size_preserved"]
+                and nisv_strategy_qa_report["archive_offsets_preserved"]
+                and nisv_strategy_qa_report[
+                    "non_target_chunks_preserved_byte_exact"
+                ]
+                and nisv_strategy_qa_report["allocation_table_preserved"]
+                and nisv_strategy_qa_report["metadata_indexes_preserved"]
+                and nisv_strategy_qa_report["page_allocations_preserved"]
+                and nisv_strategy_qa_report["record_styles_preserved"]
+                and nisv_strategy_qa_report["record_z_coordinates_preserved"]
+                and nisv_strategy_qa_report["mixed_style_line_flow"]
+                and nisv_strategy_qa_report[
+                    "empty_continuation_rows_collapsed"
+                ]
+                and nisv_strategy_qa_report[
+                    "fixed_column_anchors_aligned"
+                ]
+                and not nisv_strategy_qa_report[
+                    "empty_records_extend_scroll_height"
+                ]
+                and nisv_strategy_qa_report["sprite_sections_preserved"]
+                and nisv_strategy_qa_report["translated_reread_exact"]
+            ),
+            "tutorial_title_effects_reread_exact": (
+                tutorial_title_report["effect_ids"] == [284, 285, 286, 287]
+                and tutorial_title_report["chunk_indices"] == [285, 286, 287, 288]
+                and tutorial_title_report["localized_effect_count"] == 3
+                and tutorial_title_report["preserved_effect_count"] == 1
+                and tutorial_title_report["localized_picture_count"] == 4
+                and tutorial_title_report["preserved_picture_count"] == 12
+                and tutorial_title_report[
+                    "localized_background_picture_count"
+                ]
+                == 12
+                and tutorial_title_report[
+                    "preserved_background_picture_count"
+                ]
+                == 4
+                and tutorial_title_report["archive_size_preserved"]
+                and tutorial_title_report["archive_offsets_preserved"]
+                and tutorial_title_report[
+                    "non_target_chunks_preserved_byte_exact"
+                ]
+                and tutorial_title_report["tim2_metadata_preserved"]
+                and tutorial_title_report["coverage_ramp_indices"]
+                == [9, 3, 4, 5, 6, 7, 8]
+                and tutorial_title_report[
+                    "coverage_ramp_safe_across_all_four_clut_banks"
+                ]
+                and tutorial_title_report["localized_title_underlays_removed"]
+                and tutorial_title_report["mission_clear_preserved_byte_exact"]
+                and tutorial_title_report["palette_preserved_byte_exact"]
+                and tutorial_title_report["translated_reread_exact"]
+                and tutorial_title_report["event_binding"][
+                    "all_four_effects_referenced"
+                ]
+            ),
             "sound_select_all_101_tracks_default_unlocked": (
                 sound_select_unlock_report["instruction_replacement_exact"]
                 and sound_select_unlock_report["executable_size_preserved"]
@@ -8802,6 +9832,17 @@ def build(
             "stage_hb_offset_reread_exact": stage_report["hb_offset_reread_exact"],
             "all_story_text_reread_exact": all(
                 item["translated_reread_exact"] for item in stage_report["stages"]
+            ),
+            "stage_auxiliary_text_reread_exact": (
+                stage_report["story_ticker_structural_slots_exact"]
+                and stage_report["story_ticker_fixed_slots_exact"]
+                and stage_report["story_ticker_translated_reread_exact"]
+                and stage_report["z_report_structural_slots_exact"]
+                and stage_report["z_report_fixed_slots_exact"]
+                and stage_report["z_report_translated_reread_exact"]
+                and stage_report["tutorial_binding"][
+                    "translated_stage_reread_exact"
+                ]
             ),
             "all_story_outer_punctuation_exact": (
                 stage_report["dialogue_outer_punctuation_exact"]
@@ -8983,6 +10024,15 @@ def build(
                 and remaining_ui_report["leadership_effects"]["reread_exact"]
                 and remaining_ui_report["slps_context_ui"]["reread_exact"]
                 and remaining_ui_report["slps"]["reread_exact"]
+                and remaining_ui_report["auto_squad_name_roots"][
+                    "source_table_structure_exact"
+                ]
+                and remaining_ui_report["auto_squad_name_roots"][
+                    "fixed_spans_preserved"
+                ]
+                and remaining_ui_report["auto_squad_name_roots"][
+                    "translated_reread_exact"
+                ]
                 and remaining_ui_report["parts"]["reread_exact"]
                 and remaining_ui_report["stage_fixed_formation"][
                     "reread_exact"

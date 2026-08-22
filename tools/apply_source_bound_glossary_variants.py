@@ -13,25 +13,36 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Mapping, Sequence
 
+try:
+    from audit_source_bound_glossary import (
+        audit_source_terms,
+        load_source_translations,
+    )
+    from srwz.glossary import (
+        apply_glossary_variants,
+        global_glossary_by_id,
+        load_global_glossary,
+    )
+except ModuleNotFoundError:
+    from tools.audit_source_bound_glossary import (
+        audit_source_terms,
+        load_source_translations,
+    )
+    from tools.srwz.glossary import (
+        apply_glossary_variants,
+        global_glossary_by_id,
+        load_global_glossary,
+    )
+
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
-
-from audit_source_bound_glossary import audit_source_terms, load_source_translations
-from srwz.glossary import (
-    apply_glossary_variants,
-    global_glossary_by_id,
-    load_global_glossary,
-)
-
-
 DEFAULT_REPORT = PROJECT_ROOT / "work/review/source-bound-variant-apply.json"
 BATTLE_CORPUS = PROJECT_ROOT / "corpus/zh/battle/srvc-lines.json"
+SUMMARY_CORPUS = PROJECT_ROOT / "corpus/zh/summary.json"
 STORY_ID = re.compile(r"^story/(?P<stage>\d{3})/dialogue/")
 APPLIED_TERM_ID = re.compile(r"\[([^\]]+)\]$")
 
@@ -57,6 +68,8 @@ def _parse_args() -> argparse.Namespace:
 def _corpus_path(surface: str, entry_id: str) -> Path:
     if surface == "battle":
         return BATTLE_CORPUS
+    if surface == "summary":
+        return SUMMARY_CORPUS
     if surface != "story":
         raise SourceBoundApplyError(f"unsupported corpus surface: {surface}")
     match = STORY_ID.match(entry_id)
@@ -170,7 +183,7 @@ def _write_updates(updates: Sequence[dict[str, object]]) -> list[str]:
             term_ids = [str(value) for value in update["applied_term_ids"]]
             entry["translation"] = update["after"]
             entry["glossary_refs"] = sorted(set(map(str, refs)) | set(term_ids))
-            if surface == "story":
+            if surface in {"story", "summary"}:
                 entry["notes"] = _append_note(str(notes), term_ids)
         path.write_text(
             json.dumps(document, ensure_ascii=False, indent=2) + "\n",
