@@ -119,8 +119,10 @@ class NisvStrategyQaTests(unittest.TestCase):
         self.assertEqual(page1[2]["style"], [2, 14])
         self.assertEqual(page1[3]["source_position"], [190, 25, 1])
         self.assertEqual(page1[3]["position"], [76, 25, 1])
-        self.assertEqual(page1[8]["translation"], "TRI队形")
+        self.assertEqual(page1[8]["translation"], "TRI队形 ")
         self.assertEqual(page1[8]["style"], [2, 14])
+        self.assertEqual(page1[9]["translation"], "中央队形 ")
+        self.assertEqual(page1[10]["translation"], "广域队形")
         self.assertEqual(page2[5]["translation"], "TRI攻击")
         self.assertEqual(page2[5]["style"], [2, 14])
         self.assertEqual(page2[5]["position"], [304, 36, 1])
@@ -155,6 +157,41 @@ class NisvStrategyQaTests(unittest.TestCase):
                         len(record["translation"]) - 1
                     ) * report["glyph_advance_px"]
                     self.assertLessEqual(last_x, report["max_last_glyph_x"])
+
+        offsets = read_executable_archive_offsets(
+            self.slps,
+            ExecutableOffsetSpec(
+                name=self.contract["archive"]["name"],
+                member=self.contract["archive"]["member"],
+                table_start=int(self.contract["archive"]["table_start"], 0),
+                table_end=int(self.contract["archive"]["table_end"], 0),
+            ),
+            len(output),
+        )
+        chunk = self.contract["target"]["chunk_index"]
+        final_qa = parse_nisv_strategy_qa(
+            decode_production(output[offsets[chunk] : offsets[chunk + 1]]).output
+        )
+        self.assertTrue(final_qa["pages"][0]["records"][8]["raw"].endswith(b"\x81\x40"))
+        self.assertTrue(final_qa["pages"][0]["records"][9]["raw"].endswith(b"\x81\x40"))
+        self.assertFalse(
+            any(
+                b"\x20" in record["raw"]
+                for page in final_qa["pages"]
+                for record in page["records"]
+            )
+        )
+
+        separator_records = {
+            record["id"]
+            for page in self.corpus["pages"]
+            for record in page["records"]
+            if record["translation"].endswith(" ")
+        }
+        self.assertEqual(len(separator_records), 46)
+        self.assertIn("page/001/record/008", separator_records)
+        self.assertIn("page/057/record/014", separator_records)
+        self.assertIn("page/078/record/042", separator_records)
 
 
 if __name__ == "__main__":
