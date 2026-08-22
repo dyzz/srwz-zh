@@ -1,4 +1,4 @@
-"""Frozen writeback for the runtime LIBRARY menu in NISVDATA chunk 0."""
+"""Frozen writeback for indexed runtime LIBRARY textures."""
 
 from __future__ import annotations
 
@@ -129,6 +129,15 @@ def _render_rgba(indexes: bytes, palette: bytes) -> bytes:
     return bytes(rendered)
 
 
+def _alpha_plane(indexes: bytes, palette: bytes) -> bytes:
+    """Return the stored PS2 CLUT alpha value for every logical pixel."""
+
+    return bytes(
+        palette[_stored_palette_index(index) * 4 + 3]
+        for index in indexes
+    )
+
+
 def _build_nisv_text_texture(
     archive: bytes,
     raw_lock: Mapping[str, object],
@@ -202,11 +211,19 @@ def _build_nisv_text_texture(
     image_end = image_start + picture.image_size
     palette_end = image_end + picture.clut_size
     stored_indexes = decoded.output[image_start:image_end]
-    logical_source = unswizzle_psmt8(
-        stored_indexes,
-        picture.width,
-        picture.height,
-    )
+    storage_layout = target.get("storage_layout", "gs_psmt8")
+    if storage_layout == "gs_psmt8":
+        logical_source = unswizzle_psmt8(
+            stored_indexes,
+            picture.width,
+            picture.height,
+        )
+    elif storage_layout == "linear_indexed8":
+        logical_source = stored_indexes
+    else:
+        raise LibraryScopeError(
+            "runtime LIBRARY menu storage-layout contract is invalid"
+        )
     if _sha256(logical_source) != target.get("logical_indexes_sha256"):
         raise LibraryScopeError("runtime LIBRARY menu logical-index lock drift")
     logical = bytearray(logical_source)
@@ -241,6 +258,28 @@ def _build_nisv_text_texture(
     clear_stop = _integer(render.get("clear_index_stop"), "clear index stop")
     palette_start = _integer(render.get("palette_start"), "palette start")
     palette_stop = _integer(render.get("palette_stop"), "palette stop")
+    raw_palette_indexes = render.get("palette_indexes")
+    if raw_palette_indexes is None:
+        palette_indexes = list(range(palette_start, palette_stop + 1))
+    elif (
+        not isinstance(raw_palette_indexes, list)
+        or not raw_palette_indexes
+        or any(
+            not isinstance(index, int)
+            or isinstance(index, bool)
+            or not 0 < index < 256
+            for index in raw_palette_indexes
+        )
+        or len(set(raw_palette_indexes)) != len(raw_palette_indexes)
+    ):
+        raise LibraryScopeError(
+            "runtime LIBRARY menu palette-index contract is invalid"
+        )
+    else:
+        palette_indexes = list(raw_palette_indexes)
+    require_alpha_mask_preserved = render.get(
+        "require_alpha_mask_preserved", False
+    )
     if (
         not isinstance(stroke_gray, str)
         or not isinstance(stroke_width, (int, float))
@@ -250,25 +289,31 @@ def _build_nisv_text_texture(
         or not 1 <= supersample_factor <= 8
         or not 0 < clear_start <= clear_stop < 256
         or not 0 < palette_start <= palette_stop < 256
+        or not isinstance(require_alpha_mask_preserved, bool)
     ):
         raise LibraryScopeError("runtime LIBRARY menu render style drift")
 
     font_sha256 = _sha256(font_path.read_bytes())
-    render_contract_sha256 = _json_sha256(
-        {
-            "labels": dict(labels),
-            "point_size": point_size,
-            "stroke_gray": stroke_gray,
-            "stroke_width": stroke_width,
-            "fill_stroke_width": fill_stroke_width,
-            "supersample_factor": supersample_factor,
-            "clear_index_start": clear_start,
-            "clear_index_stop": clear_stop,
-            "palette_start": palette_start,
-            "palette_stop": palette_stop,
-            "masks": masks,
-        }
-    )
+    render_contract = {
+        "labels": dict(labels),
+        "point_size": point_size,
+        "stroke_gray": stroke_gray,
+        "stroke_width": stroke_width,
+        "fill_stroke_width": fill_stroke_width,
+        "supersample_factor": supersample_factor,
+        "clear_index_start": clear_start,
+        "clear_index_stop": clear_stop,
+        "palette_start": palette_start,
+        "palette_stop": palette_stop,
+        "masks": masks,
+    }
+    if raw_palette_indexes is not None:
+        render_contract["palette_indexes"] = palette_indexes
+    if "require_alpha_mask_preserved" in render:
+        render_contract["require_alpha_mask_preserved"] = (
+            require_alpha_mask_preserved
+        )
+    render_contract_sha256 = _json_sha256(render_contract)
     snapshot_path = None
     snapshot = None
     if not live_render:
@@ -314,7 +359,7 @@ def _build_nisv_text_texture(
 
     ramp = [
         (index, _palette_luminance(palette, index))
-        for index in range(palette_start, palette_stop + 1)
+        for index in palette_indexes
     ]
     maximum_luminance = max(value for _index, value in ramp)
     reports = []
@@ -341,22 +386,6 @@ def _build_nisv_text_texture(
         y = _integer(raw_mask.get("y"), f"{mask_id} y")
         width = _integer(raw_mask.get("width"), f"{mask_id} width")
         height = _integer(raw_mask.get("height"), f"{mask_id} height")
-        clear_x = _integer(raw_mask.get("clear_x"), f"{mask_id} clear x")
-        clear_y = _integer(raw_mask.get("clear_y"), f"{mask_id} clear y")
-        clear_width = _integer(
-            raw_mask.get("clear_width"), f"{mask_id} clear width"
-        )
-        clear_height = _integer(
-            raw_mask.get("clear_height"), f"{mask_id} clear height"
-        )
-        clear_dilation_radius = _integer(
-            raw_mask.get("clear_dilation_radius", 0),
-            f"{mask_id} clear dilation radius",
-        )
-        clear_replacement_index = _integer(
-            raw_mask.get("clear_replacement_index", 0),
-            f"{mask_id} clear replacement index",
-        )
         if (
             x < 0
             or y < 0
@@ -364,64 +393,177 @@ def _build_nisv_text_texture(
             or height <= 0
             or x + width > picture.width
             or y + height > picture.height
-            or clear_x < 0
-            or clear_y < 0
-            or clear_width <= 0
-            or clear_height <= 0
-            or clear_x + clear_width > picture.width
-            or clear_y + clear_height > picture.height
-            or not 0 <= clear_dilation_radius <= 8
-            or not 0 <= clear_replacement_index < 256
         ):
             raise LibraryScopeError(
                 f"runtime LIBRARY menu mask is outside: {mask_id}"
             )
-        source_crop = _crop(
-            logical_source,
+        before_label = _crop(
+            logical,
             picture.width,
-            clear_x,
-            clear_y,
-            clear_width,
-            clear_height,
+            x,
+            y,
+            width,
+            height,
         )
-        if _sha256(source_crop) != raw_mask.get("source_indexes_sha256"):
-            raise LibraryScopeError(
-                f"runtime LIBRARY menu source-pixel drift: {mask_id}"
+        background_restore = raw_mask.get("background_restore")
+        background_restore_report = None
+        if background_restore is None:
+            clear_x = _integer(raw_mask.get("clear_x"), f"{mask_id} clear x")
+            clear_y = _integer(raw_mask.get("clear_y"), f"{mask_id} clear y")
+            clear_width = _integer(
+                raw_mask.get("clear_width"), f"{mask_id} clear width"
             )
-        before_label = bytes(logical)
-        clear_offsets = {
-            row * picture.width + column
-            for row in range(clear_y, clear_y + clear_height)
-            for column in range(clear_x, clear_x + clear_width)
-            if clear_start
-            <= logical[row * picture.width + column]
-            <= clear_stop
-        }
-        if clear_dilation_radius:
+            clear_height = _integer(
+                raw_mask.get("clear_height"), f"{mask_id} clear height"
+            )
+            clear_dilation_radius = _integer(
+                raw_mask.get("clear_dilation_radius", 0),
+                f"{mask_id} clear dilation radius",
+            )
+            clear_replacement_index = _integer(
+                raw_mask.get("clear_replacement_index", 0),
+                f"{mask_id} clear replacement index",
+            )
+            if (
+                clear_x < 0
+                or clear_y < 0
+                or clear_width <= 0
+                or clear_height <= 0
+                or clear_x + clear_width > picture.width
+                or clear_y + clear_height > picture.height
+                or not 0 <= clear_dilation_radius <= 8
+                or not 0 <= clear_replacement_index < 256
+            ):
+                raise LibraryScopeError(
+                    f"runtime LIBRARY menu clear mask is outside: {mask_id}"
+                )
+            source_crop = _crop(
+                logical_source,
+                picture.width,
+                clear_x,
+                clear_y,
+                clear_width,
+                clear_height,
+            )
+            if _sha256(source_crop) != raw_mask.get("source_indexes_sha256"):
+                raise LibraryScopeError(
+                    f"runtime LIBRARY menu source-pixel drift: {mask_id}"
+                )
             clear_offsets = {
-                target_row * picture.width + target_column
-                for source_offset in clear_offsets
-                for target_row in range(
-                    max(clear_y, source_offset // picture.width - clear_dilation_radius),
-                    min(
-                        clear_y + clear_height,
-                        source_offset // picture.width
-                        + clear_dilation_radius
-                        + 1,
-                    ),
-                )
-                for target_column in range(
-                    max(clear_x, source_offset % picture.width - clear_dilation_radius),
-                    min(
-                        clear_x + clear_width,
-                        source_offset % picture.width
-                        + clear_dilation_radius
-                        + 1,
-                    ),
-                )
+                row * picture.width + column
+                for row in range(clear_y, clear_y + clear_height)
+                for column in range(clear_x, clear_x + clear_width)
+                if clear_start
+                <= logical[row * picture.width + column]
+                <= clear_stop
             }
-        for offset in clear_offsets:
-            logical[offset] = clear_replacement_index
+            if clear_dilation_radius:
+                clear_offsets = {
+                    target_row * picture.width + target_column
+                    for source_offset in clear_offsets
+                    for target_row in range(
+                        max(
+                            clear_y,
+                            source_offset // picture.width
+                            - clear_dilation_radius,
+                        ),
+                        min(
+                            clear_y + clear_height,
+                            source_offset // picture.width
+                            + clear_dilation_radius
+                            + 1,
+                        ),
+                    )
+                    for target_column in range(
+                        max(
+                            clear_x,
+                            source_offset % picture.width
+                            - clear_dilation_radius,
+                        ),
+                        min(
+                            clear_x + clear_width,
+                            source_offset % picture.width
+                            + clear_dilation_radius
+                            + 1,
+                        ),
+                    )
+                }
+            for offset in clear_offsets:
+                logical[offset] = clear_replacement_index
+        elif isinstance(background_restore, Mapping):
+            restore_x = _integer(
+                background_restore.get("x"),
+                f"{mask_id} background restore x",
+            )
+            restore_y = _integer(
+                background_restore.get("y"),
+                f"{mask_id} background restore y",
+            )
+            restore_width = _integer(
+                background_restore.get("width"),
+                f"{mask_id} background restore width",
+            )
+            row_indexes = background_restore.get("row_indexes")
+            if (
+                not isinstance(row_indexes, list)
+                or not row_indexes
+                or any(
+                    not isinstance(index, int)
+                    or isinstance(index, bool)
+                    or not 0 <= index < 256
+                    for index in row_indexes
+                )
+                or restore_x < 0
+                or restore_y < 0
+                or restore_width <= 0
+                or restore_x + restore_width > picture.width
+                or restore_y + len(row_indexes) > picture.height
+            ):
+                raise LibraryScopeError(
+                    f"runtime LIBRARY menu background restore is invalid: {mask_id}"
+                )
+            source_crop = _crop(
+                logical_source,
+                picture.width,
+                restore_x,
+                restore_y,
+                restore_width,
+                len(row_indexes),
+            )
+            if _sha256(source_crop) != raw_mask.get("source_indexes_sha256"):
+                raise LibraryScopeError(
+                    f"runtime LIBRARY menu source-pixel drift: {mask_id}"
+                )
+            for row, background_index in enumerate(row_indexes):
+                start = (restore_y + row) * picture.width + restore_x
+                logical[start : start + restore_width] = bytes(
+                    [background_index]
+                ) * restore_width
+            restored_crop = _crop(
+                logical,
+                picture.width,
+                restore_x,
+                restore_y,
+                restore_width,
+                len(row_indexes),
+            )
+            background_restore_report = {
+                "x": restore_x,
+                "y": restore_y,
+                "width": restore_width,
+                "height": len(row_indexes),
+                "row_indexes": list(row_indexes),
+                "source_indexes_sha256": _sha256(source_crop),
+                "restored_indexes_sha256": _sha256(restored_crop),
+                "source_transparent_pixel_count": sum(
+                    _alpha_plane(source_crop, palette)[pixel] == 0
+                    for pixel in range(len(source_crop))
+                ),
+            }
+        else:
+            raise LibraryScopeError(
+                f"runtime LIBRARY menu background restore is malformed: {mask_id}"
+            )
         if live_render:
             mask = render_grayscale_text_mask(
                 magick,
@@ -480,8 +622,7 @@ def _build_nisv_text_texture(
             ]
             for row in range(height)
         )
-        reports.append(
-            {
+        label_report = {
                 "id": mask_id,
                 "source_text": source_text,
                 "translation": translation,
@@ -496,10 +637,19 @@ def _build_nisv_text_texture(
                     for before, after in zip(before_label, output_label)
                 ),
             }
-        )
+        if background_restore_report is not None:
+            label_report["background_restore"] = background_restore_report
+        reports.append(label_report)
 
     logical_output = bytes(logical)
     output_logical_sha256 = _sha256(logical_output)
+    source_alpha_plane = _alpha_plane(logical_source, palette)
+    output_alpha_plane = _alpha_plane(logical_output, palette)
+    alpha_mask_preserved = output_alpha_plane == source_alpha_plane
+    if require_alpha_mask_preserved and not alpha_mask_preserved:
+        raise LibraryScopeError(
+            "runtime LIBRARY menu alpha mask changed during writeback"
+        )
     if not live_render and snapshot.get("output_logical_indexes_sha256") != output_logical_sha256:
         raise LibraryScopeError("runtime LIBRARY menu frozen output drift")
     preview_rgba = _render_rgba(logical_output, palette)
@@ -524,6 +674,15 @@ def _build_nisv_text_texture(
                     "source_record_sha256": _sha256(source_record),
                     "source_logical_indexes_sha256": _sha256(logical_source),
                     "output_logical_indexes_sha256": output_logical_sha256,
+                    "source_alpha_plane_sha256": _sha256(source_alpha_plane),
+                    "output_alpha_plane_sha256": _sha256(output_alpha_plane),
+                    "alpha_mask_preserved": alpha_mask_preserved,
+                    "source_transparent_pixel_count": (
+                        source_alpha_plane.count(0)
+                    ),
+                    "output_transparent_pixel_count": (
+                        output_alpha_plane.count(0)
+                    ),
                     "font_sha256": font_sha256,
                     "render_contract_sha256": render_contract_sha256,
                     "imagemagick_version": version,
@@ -554,11 +713,14 @@ def _build_nisv_text_texture(
             expected_size=frozen_preview["size"],
         )
 
-    stored_output_indexes = swizzle_psmt8(
-        logical_output,
-        picture.width,
-        picture.height,
-    )
+    if storage_layout == "gs_psmt8":
+        stored_output_indexes = swizzle_psmt8(
+            logical_output,
+            picture.width,
+            picture.height,
+        )
+    else:
+        stored_output_indexes = logical_output
     output_decoded = (
         decoded.output[:image_start]
         + stored_output_indexes
@@ -568,15 +730,22 @@ def _build_nisv_text_texture(
         len(output_decoded) != len(decoded.output)
         or output_decoded[:image_start] != decoded.output[:image_start]
         or output_decoded[image_end:] != decoded.output[image_end:]
-        or unswizzle_psmt8(
-            output_decoded[image_start:image_end],
-            picture.width,
-            picture.height,
-        )
-        != logical_output
         or scan_tim2(output_decoded) != records
     ):
         raise LibraryScopeError("runtime LIBRARY menu TIM2 writeback drift")
+    reread_stored_indexes = output_decoded[image_start:image_end]
+    if storage_layout == "gs_psmt8":
+        reread_logical = unswizzle_psmt8(
+            reread_stored_indexes,
+            picture.width,
+            picture.height,
+        )
+    else:
+        reread_logical = reread_stored_indexes
+    if reread_logical != logical_output:
+        raise LibraryScopeError(
+            "runtime LIBRARY menu indexed writeback did not round-trip"
+        )
     try:
         rebuilt = reencode_changed_suffix(
             stored[: decoded.consumed],
@@ -617,12 +786,18 @@ def _build_nisv_text_texture(
         "chunk_index": chunk_index,
         "record_index": record_index,
         "record_offset": record.offset,
+        "storage_layout": storage_layout,
         "source_record_sha256": _sha256(source_record),
         "output_record_sha256": _sha256(
             output_decoded[record.offset : record.end]
         ),
         "source_logical_indexes_sha256": _sha256(logical_source),
         "output_logical_indexes_sha256": output_logical_sha256,
+        "source_alpha_plane_sha256": _sha256(source_alpha_plane),
+        "output_alpha_plane_sha256": _sha256(output_alpha_plane),
+        "alpha_mask_preserved": alpha_mask_preserved,
+        "source_transparent_pixel_count": source_alpha_plane.count(0),
+        "output_transparent_pixel_count": output_alpha_plane.count(0),
         "changed_pixel_count": sum(
             before != after
             for before, after in zip(logical_source, logical_output)
@@ -724,4 +899,38 @@ def build_nisv_sound_select(
     return output, report
 
 
-__all__ = ["build_nisv_library_menu", "build_nisv_sound_select"]
+def build_hsfc_scenario_chart(
+    archive: bytes,
+    raw_lock: Mapping[str, object],
+    *,
+    font_path: Path,
+    project_root: Path | None = None,
+    live_render: bool = False,
+    render_snapshot_sink: dict | None = None,
+) -> tuple[bytes, dict[str, object]]:
+    """Patch the runtime Scenario Chart title in HSFC chunk 1."""
+
+    output, report = _build_nisv_text_texture(
+        archive,
+        raw_lock,
+        font_path=font_path,
+        expected_chunk_index=1,
+        expected_mask_count=1,
+        selection_authority=(
+            "runtime_hsfc_scenario_chart_alpha_preserving_text_mask"
+        ),
+        temporary_prefix="srwz-hsfc-scenario-chart-freeze-",
+        preview_filename="scenario-chart-runtime.png",
+        project_root=project_root,
+        live_render=live_render,
+        render_snapshot_sink=render_snapshot_sink,
+    )
+    report["scenario_chart_title_written"] = report["all_labels_written"]
+    return output, report
+
+
+__all__ = [
+    "build_hsfc_scenario_chart",
+    "build_nisv_library_menu",
+    "build_nisv_sound_select",
+]

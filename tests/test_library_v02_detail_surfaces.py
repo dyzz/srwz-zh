@@ -18,9 +18,11 @@ from tools.srwz.codec import decode_production
 from tools.srwz.library import raw_visible_ascii_offsets
 from tools.srwz.library_menu import build_jtim_library_menu
 from tools.srwz.nisv_library_menu import (
+    build_hsfc_scenario_chart,
     build_nisv_library_menu,
     build_nisv_sound_select,
 )
+from tools.srwz.tim2 import scan_tim2
 
 
 class LibraryV02DetailSurfaceTests(unittest.TestCase):
@@ -339,6 +341,102 @@ class LibraryV02DetailSurfaceTests(unittest.TestCase):
             contract["writeback"]["render_snapshot"]["path"],
             "config/library/sound-select-runtime-render-snapshot.json",
         )
+
+    def test_runtime_scenario_chart_title_preserves_original_alpha_mask(self):
+        contract = self.library_scope["scenario_chart_runtime_tim2"]
+        source = (PROJECT_ROOT / "work/disc/DATA/HSFC.BIN").read_bytes()
+        font_flavor = json.loads(
+            (
+                PROJECT_ROOT / contract["writeback"]["font_flavor"]
+            ).read_text(encoding="utf-8")
+        )
+        font_lock = json.loads(
+            (
+                PROJECT_ROOT / font_flavor["primary"]["font_lock"]
+            ).read_text(encoding="utf-8")
+        )
+        font_path = PROJECT_ROOT / font_lock["font"]["path"]
+        output, report = build_hsfc_scenario_chart(
+            source,
+            contract,
+            font_path=font_path,
+            project_root=PROJECT_ROOT,
+        )
+        self.assertEqual(len(output), len(source))
+        self.assertNotEqual(output, source)
+        self.assertEqual(report["chunk_index"], 1)
+        self.assertEqual(report["record_offset"], 0x30CC0)
+        self.assertEqual(report["storage_layout"], "linear_indexed8")
+        self.assertEqual(len(report["labels"]), 1)
+        self.assertEqual(report["labels"][0]["translation"], "剧情流程")
+        self.assertTrue(report["scenario_chart_title_written"])
+        self.assertTrue(report["alpha_mask_preserved"])
+        self.assertEqual(
+            report["source_alpha_plane_sha256"],
+            contract["target"]["source_alpha_plane_sha256"],
+        )
+        self.assertEqual(
+            report["source_alpha_plane_sha256"],
+            report["output_alpha_plane_sha256"],
+        )
+        self.assertEqual(
+            report["source_transparent_pixel_count"],
+            report["output_transparent_pixel_count"],
+        )
+        restore = report["labels"][0]["background_restore"]
+        self.assertEqual(restore["source_transparent_pixel_count"], 0)
+        self.assertEqual(
+            restore["row_indexes"],
+            [8] * 14 + [9] * 4 + [10] * 3 + [11] * 3 + [12] * 2 + [15] * 2,
+        )
+
+        target = contract["target"]
+        source_decoded = decode_production(
+            source[target["stored_start"] : target["stored_end"]]
+        ).output
+        output_decoded = decode_production(
+            output[target["stored_start"] : target["stored_end"]]
+        ).output
+        source_record = scan_tim2(source_decoded)[target["record_index"]]
+        output_record = scan_tim2(output_decoded)[target["record_index"]]
+        picture = source_record.pictures[0]
+        image_start = picture.offset + picture.header_size
+        image_end = image_start + picture.image_size
+        source_indexes = source_decoded[image_start:image_end]
+        output_indexes = output_decoded[image_start:image_end]
+        self.assertEqual(
+            hashlib.sha256(output_indexes).hexdigest(),
+            report["output_logical_indexes_sha256"],
+        )
+        restore_x = restore["x"]
+        restore_y = restore["y"]
+        restore_width = restore["width"]
+        restore_height = restore["height"]
+        restore_offsets = {
+            row * picture.width + column
+            for row in range(restore_y, restore_y + restore_height)
+            for column in range(restore_x, restore_x + restore_width)
+        }
+        self.assertTrue(
+            all(
+                source_index == output_index
+                for offset, (source_index, output_index) in enumerate(
+                    zip(source_indexes, output_indexes)
+                )
+                if offset not in restore_offsets
+            )
+        )
+        self.assertEqual(source_record.pictures, output_record.pictures)
+        self.assertEqual(
+            source_decoded[:image_start] + source_decoded[image_end:],
+            output_decoded[:image_start] + output_decoded[image_end:],
+        )
+        self.assertTrue(report["archive_size_preserved"])
+        self.assertTrue(report["archive_non_target_chunks_preserved"])
+        self.assertTrue(report["tim2_metadata_preserved"])
+        self.assertTrue(report["clut_and_non_image_bytes_preserved"])
+        self.assertTrue(report["codec_round_trip_exact"])
+        self.assertEqual(report["render_source"], "locked_snapshot")
 
     def test_production_component_restores_legacy_jtim_byte_exact(self):
         manifest = json.loads(

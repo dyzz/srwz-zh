@@ -47,6 +47,7 @@ try:
         verify_sound_title_source,
     )
     from srwz.nisv_library_menu import (
+        build_hsfc_scenario_chart,
         build_nisv_library_menu,
         build_nisv_sound_select,
     )
@@ -176,6 +177,7 @@ except ModuleNotFoundError:
         verify_sound_title_source,
     )
     from tools.srwz.nisv_library_menu import (
+        build_hsfc_scenario_chart,
         build_nisv_library_menu,
         build_nisv_sound_select,
     )
@@ -490,7 +492,7 @@ CONFIG_SECTION_IMPACTS = {
     "nisv_effect_names": {NISVDATA_MEMBER},
     "nisv_strategy_qa": {NISVDATA_MEMBER, SLPS_MEMBER},
     "nisv_tutorial_pages": {NISVDATA_MEMBER, SLPS_MEMBER},
-    "runtime_library_menu": {SLPS_MEMBER, NISVDATA_MEMBER},
+    "runtime_library_menu": {SLPS_MEMBER, NISVDATA_MEMBER, HSFC_MEMBER},
     "srvc_battle_text": set(SRVC_MEMBERS),
     "scenario_select_effect": {SLPS_MEMBER, VEFF_MEMBER},
     "mode_select_effect": {VEFF_MEMBER},
@@ -533,8 +535,8 @@ INPUT_IMPACTS = {
     "original_nisvdata": {NISVDATA_MEMBER},
     "nisv_strategy_qa_corpus": {NISVDATA_MEMBER},
     "nisv_tutorial_corpus": {NISVDATA_MEMBER},
-    "runtime_library_menu_scope": {SLPS_MEMBER, NISVDATA_MEMBER},
-    "runtime_library_menu_font": {NISVDATA_MEMBER},
+    "runtime_library_menu_scope": {SLPS_MEMBER, NISVDATA_MEMBER, HSFC_MEMBER},
+    "runtime_library_menu_font": {NISVDATA_MEMBER, HSFC_MEMBER},
     "original_slps": {
         SLPS_MEMBER,
         NISVDATA_MEMBER,
@@ -9021,6 +9023,11 @@ def build(
     if reuse_group({HSFC_MEMBER}):
         output_hsfc = _prior_output_payload(output_root, HSFC_MEMBER)
         hsfc_overview_report = json.loads(json.dumps(prior_report["hsfc_overviews"]))
+        scenario_chart_title_report = json.loads(
+            json.dumps(
+                prior_report["runtime_library_menu"]["scenario_chart"]
+            )
+        )
         hsfc_overview_input_paths = (
             _prior_input_path(prior_report, "hsfc_overviews"),
             _prior_input_path(prior_report, "original_hsfc"),
@@ -9036,6 +9043,25 @@ def build(
             font_manifest,
             config["full_pilot_names"]["codec"],
         )
+        try:
+            scenario_chart_contract = runtime_library_menu_scope[
+                "scenario_chart_runtime_tim2"
+            ]
+            output_hsfc, scenario_chart_title_report = (
+                build_hsfc_scenario_chart(
+                    output_hsfc,
+                    scenario_chart_contract,
+                    font_path=runtime_library_menu_font_path,
+                    project_root=PROJECT_ROOT,
+                )
+            )
+        except (KeyError, LibraryScopeError) as error:
+            raise FullStoryComponentError(
+                f"runtime Scenario Chart title writeback failed: {error}"
+            ) from error
+    runtime_library_menu_report["scenario_chart"] = (
+        scenario_chart_title_report
+    )
 
     if reuse_group({VEFF_MEMBER}):
         output_veff = _prior_output_payload(output_root, VEFF_MEMBER)
@@ -9630,6 +9656,9 @@ def build(
                 and runtime_library_menu_report["sound_select"][
                     "codec_round_trip_exact"
                 ]
+                and runtime_library_menu_report["scenario_chart"][
+                    "codec_round_trip_exact"
+                ]
                 and stage_fixed_formation_report["codec_strategy"]
                 == "rust-fit"
                 and world_map_title_report["codec"]["strategy"]
@@ -9719,6 +9748,43 @@ def build(
                     "clut_and_non_image_bytes_preserved"
                 ]
                 and runtime_library_menu_report["sound_select"][
+                    "codec_round_trip_exact"
+                ]
+                and runtime_library_menu_report["scenario_chart"][
+                    "scenario_chart_title_written"
+                ]
+                and runtime_library_menu_report["scenario_chart"][
+                    "storage_layout"
+                ]
+                == "linear_indexed8"
+                and runtime_library_menu_report["scenario_chart"][
+                    "alpha_mask_preserved"
+                ]
+                and runtime_library_menu_report["scenario_chart"][
+                    "source_alpha_plane_sha256"
+                ]
+                == runtime_library_menu_report["scenario_chart"][
+                    "output_alpha_plane_sha256"
+                ]
+                and runtime_library_menu_report["scenario_chart"][
+                    "source_transparent_pixel_count"
+                ]
+                == runtime_library_menu_report["scenario_chart"][
+                    "output_transparent_pixel_count"
+                ]
+                and runtime_library_menu_report["scenario_chart"][
+                    "archive_size_preserved"
+                ]
+                and runtime_library_menu_report["scenario_chart"][
+                    "archive_non_target_chunks_preserved"
+                ]
+                and runtime_library_menu_report["scenario_chart"][
+                    "tim2_metadata_preserved"
+                ]
+                and runtime_library_menu_report["scenario_chart"][
+                    "clut_and_non_image_bytes_preserved"
+                ]
+                and runtime_library_menu_report["scenario_chart"][
                     "codec_round_trip_exact"
                 ]
             ),

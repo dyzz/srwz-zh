@@ -11,8 +11,8 @@
     },
     "scope_config": {
       "path": "config/library/v0.2.0.json",
-      "size": 17455,
-      "sha256": "172d7f076e0f098d0d1291f2094e07e5b087d5048765e64ec7b178f50833872e"
+      "size": 20729,
+      "sha256": "f5be9f83b92a36c3716525a2a1b41bcd20c1914ea3bbcd6627b3a0ad2c468aca"
     },
     "corpus": {
       "path": "corpus/zh/library/v0.2-reviewed.json",
@@ -21,13 +21,13 @@
     },
     "font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 71901,
-      "sha256": "fe569d49dd0f2868276f98af04698b48a9643cb3bbe956a7cdbb01a5e2f520ee"
+      "size": 72098,
+      "sha256": "cbb3f288570e9a332b2db08641bb86a93e339534cf2b45190be3abcc36e7f7c8"
     },
     "font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
-      "size": 3219239,
-      "sha256": "94ec75008c02e8eddac6d9019f328c59ba97c87b1b7dbf5ad0f60da24c687cf2"
+      "size": 3223285,
+      "sha256": "3f0663b1b37522e86eabf1617f293689c5feb71e1401ff67c1d0138363d84a8d"
     },
     "executable": {
       "path": "work/disc/SLPS_258.87",
@@ -215,10 +215,16 @@
     "chunk_index": 0,
     "record_index": 2,
     "record_offset": 575680,
+    "storage_layout": "gs_psmt8",
     "source_record_sha256": "9b5613b49938a578edfeb5084ac462c28ae44b7ca6f9c2aaf2a3e21bfa731adf",
     "output_record_sha256": "fe84d71dc5fe55c0e05cda4bd59417cfa92d5346ce02463d58a4fa548057786e",
     "source_logical_indexes_sha256": "f6eeb178adaac2de29962a62463ad1a9cc91bea39c821d3e4a90cf4be7037cc2",
     "output_logical_indexes_sha256": "d74ab81162151ff61df33d9cd9b3a83769e9ff5158484f9be6753866c45080bd",
+    "source_alpha_plane_sha256": "e21a9c9d62aa215116db9026717f6aa3b9b10732a4501f17f3c422d1eb3a3d29",
+    "output_alpha_plane_sha256": "9f7f25a2df7ba1c7828b300d634786ccd4190f8f8907f119472fe0b26f4e1685",
+    "alpha_mask_preserved": false,
+    "source_transparent_pixel_count": 44294,
+    "output_transparent_pixel_count": 45870,
     "changed_pixel_count": 15356,
     "source_stored_size": 169504,
     "output_encoded_size": 160067,
@@ -244,7 +250,7 @@
         "height": 36,
         "source_indexes_sha256": "c7bd748f4e5273ed190b4e21cc2cc70cca4b07606bf5da61c619bb05e3755671",
         "output_indexes_sha256": "155a7a77b0516f00dec2a825b634c9dcc07c82208b7b364f57b462e434449290",
-        "changed_pixel_count": 6085
+        "changed_pixel_count": 2812
       },
       {
         "id": "character-encyclopedia",
@@ -256,7 +262,7 @@
         "height": 36,
         "source_indexes_sha256": "d17e937cdacefc92ab9bec719a2ad29f69a339ddc0239f0e95c35de2a7ea47f8",
         "output_indexes_sha256": "ab02657f254c74c2dd835773c449a43d85d683a5a4e29ca7744da3125c06f56b",
-        "changed_pixel_count": 5964
+        "changed_pixel_count": 2996
       },
       {
         "id": "glossary",
@@ -268,7 +274,7 @@
         "height": 36,
         "source_indexes_sha256": "4547ffa0f120b1432f7e43ceede6b5264711b5aac1b5f3aaedd18f4d194b4635",
         "output_indexes_sha256": "5409706d9e1e1007c4412d5c47c4c3442f9119e191cc3f3ada8350972016e36d",
-        "changed_pixel_count": 5963
+        "changed_pixel_count": 2083
       },
       {
         "id": "sound-select",
@@ -280,7 +286,7 @@
         "height": 36,
         "source_indexes_sha256": "0bbdfe770db0174b3d253511fe2d27cb473879d6913a342463a96dc17266ed2c",
         "output_indexes_sha256": "1a50b79279510f02dac3f336569c4d91b6f51bd23f457aefde9e3d8c9dcf05c6",
-        "changed_pixel_count": 5965
+        "changed_pixel_count": 2779
       },
       {
         "id": "scenario-chart",
@@ -292,7 +298,7 @@
         "height": 36,
         "source_indexes_sha256": "7869a890280bd126472486f7d064ab235ed939602ff7270cefa3ed31d0eade14",
         "output_indexes_sha256": "6c603cda0126d9af32b37cac29819463cdc5d6cd6ae1a1b50414e886546a428e",
-        "changed_pixel_count": 6007
+        "changed_pixel_count": 2729
       },
       {
         "id": "strategy-qa",
@@ -304,7 +310,7 @@
         "height": 32,
         "source_indexes_sha256": "86045e733602c9aca95fb84d51c0154f772c88698771325db77de9c8f510038f",
         "output_indexes_sha256": "4e5494cb7797da9a6709d3eb5ad72618a608f3586a44f045f6631af1608afdb1",
-        "changed_pixel_count": 3381
+        "changed_pixel_count": 1957
       }
     ],
     "all_labels_written": true,
@@ -320,10 +326,16 @@
       "chunk_index": 1,
       "record_index": 0,
       "record_offset": 64,
+      "storage_layout": "gs_psmt8",
       "source_record_sha256": "abc23b8a97badcb83d1de7dc8b4691d48201be02c40227e5da3b8e3cd86b1fc0",
       "output_record_sha256": "0954c0a0ba0943e6e395323bee83f23395b0c1a0d71bbd3a594705742cc6397d",
       "source_logical_indexes_sha256": "392a2b74e6cdeff807d9f2e0ade554f0d04207f19a3a0f4801990b055f426df6",
       "output_logical_indexes_sha256": "43911d6403839e51465c038e053a238d66a23894676ad86ffb10012d37e49aad",
+      "source_alpha_plane_sha256": "fbb05d72aaccc4e00e6ee2d128501b1d8a455c69f22ba6ab488ad11142227c67",
+      "output_alpha_plane_sha256": "c278b36bb193935c5b8b5dbd6560ef1ed8a003d04bdc1c2681776c936e32bb14",
+      "alpha_mask_preserved": false,
+      "source_transparent_pixel_count": 52236,
+      "output_transparent_pixel_count": 55868,
       "changed_pixel_count": 5247,
       "source_stored_size": 191536,
       "output_encoded_size": 185986,
@@ -349,7 +361,7 @@
           "height": 36,
           "source_indexes_sha256": "16794b3ad4af3f566153bcabdc60d2e846a92e99fb8c9305b0e99a15777ac946",
           "output_indexes_sha256": "875ef9d22926d12a79b5975559f91e830633e0f33c7bfb293571f8f05b6c823a",
-          "changed_pixel_count": 5939
+          "changed_pixel_count": 4957
         }
       ],
       "all_labels_written": true,
@@ -368,10 +380,16 @@
     "chunk_index": 0,
     "record_index": 2,
     "record_offset": 575680,
+    "storage_layout": "gs_psmt8",
     "source_record_sha256": "9b5613b49938a578edfeb5084ac462c28ae44b7ca6f9c2aaf2a3e21bfa731adf",
     "output_record_sha256": "fe84d71dc5fe55c0e05cda4bd59417cfa92d5346ce02463d58a4fa548057786e",
     "source_logical_indexes_sha256": "f6eeb178adaac2de29962a62463ad1a9cc91bea39c821d3e4a90cf4be7037cc2",
     "output_logical_indexes_sha256": "d74ab81162151ff61df33d9cd9b3a83769e9ff5158484f9be6753866c45080bd",
+    "source_alpha_plane_sha256": "e21a9c9d62aa215116db9026717f6aa3b9b10732a4501f17f3c422d1eb3a3d29",
+    "output_alpha_plane_sha256": "9f7f25a2df7ba1c7828b300d634786ccd4190f8f8907f119472fe0b26f4e1685",
+    "alpha_mask_preserved": false,
+    "source_transparent_pixel_count": 44294,
+    "output_transparent_pixel_count": 45870,
     "changed_pixel_count": 15356,
     "source_stored_size": 169504,
     "output_encoded_size": 160067,
@@ -397,7 +415,7 @@
         "height": 36,
         "source_indexes_sha256": "c7bd748f4e5273ed190b4e21cc2cc70cca4b07606bf5da61c619bb05e3755671",
         "output_indexes_sha256": "155a7a77b0516f00dec2a825b634c9dcc07c82208b7b364f57b462e434449290",
-        "changed_pixel_count": 6085
+        "changed_pixel_count": 2812
       },
       {
         "id": "character-encyclopedia",
@@ -409,7 +427,7 @@
         "height": 36,
         "source_indexes_sha256": "d17e937cdacefc92ab9bec719a2ad29f69a339ddc0239f0e95c35de2a7ea47f8",
         "output_indexes_sha256": "ab02657f254c74c2dd835773c449a43d85d683a5a4e29ca7744da3125c06f56b",
-        "changed_pixel_count": 5964
+        "changed_pixel_count": 2996
       },
       {
         "id": "glossary",
@@ -421,7 +439,7 @@
         "height": 36,
         "source_indexes_sha256": "4547ffa0f120b1432f7e43ceede6b5264711b5aac1b5f3aaedd18f4d194b4635",
         "output_indexes_sha256": "5409706d9e1e1007c4412d5c47c4c3442f9119e191cc3f3ada8350972016e36d",
-        "changed_pixel_count": 5963
+        "changed_pixel_count": 2083
       },
       {
         "id": "sound-select",
@@ -433,7 +451,7 @@
         "height": 36,
         "source_indexes_sha256": "0bbdfe770db0174b3d253511fe2d27cb473879d6913a342463a96dc17266ed2c",
         "output_indexes_sha256": "1a50b79279510f02dac3f336569c4d91b6f51bd23f457aefde9e3d8c9dcf05c6",
-        "changed_pixel_count": 5965
+        "changed_pixel_count": 2779
       },
       {
         "id": "scenario-chart",
@@ -445,7 +463,7 @@
         "height": 36,
         "source_indexes_sha256": "7869a890280bd126472486f7d064ab235ed939602ff7270cefa3ed31d0eade14",
         "output_indexes_sha256": "6c603cda0126d9af32b37cac29819463cdc5d6cd6ae1a1b50414e886546a428e",
-        "changed_pixel_count": 6007
+        "changed_pixel_count": 2729
       },
       {
         "id": "strategy-qa",
@@ -457,7 +475,7 @@
         "height": 32,
         "source_indexes_sha256": "86045e733602c9aca95fb84d51c0154f772c88698771325db77de9c8f510038f",
         "output_indexes_sha256": "4e5494cb7797da9a6709d3eb5ad72618a608f3586a44f045f6631af1608afdb1",
-        "changed_pixel_count": 3381
+        "changed_pixel_count": 1957
       }
     ],
     "all_labels_written": true,
@@ -473,10 +491,16 @@
       "chunk_index": 1,
       "record_index": 0,
       "record_offset": 64,
+      "storage_layout": "gs_psmt8",
       "source_record_sha256": "abc23b8a97badcb83d1de7dc8b4691d48201be02c40227e5da3b8e3cd86b1fc0",
       "output_record_sha256": "0954c0a0ba0943e6e395323bee83f23395b0c1a0d71bbd3a594705742cc6397d",
       "source_logical_indexes_sha256": "392a2b74e6cdeff807d9f2e0ade554f0d04207f19a3a0f4801990b055f426df6",
       "output_logical_indexes_sha256": "43911d6403839e51465c038e053a238d66a23894676ad86ffb10012d37e49aad",
+      "source_alpha_plane_sha256": "fbb05d72aaccc4e00e6ee2d128501b1d8a455c69f22ba6ab488ad11142227c67",
+      "output_alpha_plane_sha256": "c278b36bb193935c5b8b5dbd6560ef1ed8a003d04bdc1c2681776c936e32bb14",
+      "alpha_mask_preserved": false,
+      "source_transparent_pixel_count": 52236,
+      "output_transparent_pixel_count": 55868,
       "changed_pixel_count": 5247,
       "source_stored_size": 191536,
       "output_encoded_size": 185986,
@@ -502,7 +526,7 @@
           "height": 36,
           "source_indexes_sha256": "16794b3ad4af3f566153bcabdc60d2e846a92e99fb8c9305b0e99a15777ac946",
           "output_indexes_sha256": "875ef9d22926d12a79b5975559f91e830633e0f33c7bfb293571f8f05b6c823a",
-          "changed_pixel_count": 5939
+          "changed_pixel_count": 4957
         }
       ],
       "all_labels_written": true,

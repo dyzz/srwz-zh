@@ -5,7 +5,7 @@
   "iso": {
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "size": 3758358528,
-    "sha256": "b0e877ec97939938ab9ef70d77c0b86f697761f8d0e04020a512e2bd01d4cc31"
+    "sha256": "d702e416ab6d977efaaea713db24cecca71f9e8fa0e9380db7d6f047b4723692"
   },
   "stage_indices": [
     1,
@@ -911,15 +911,29 @@
         "component_receipts_exact": true
       }
     },
-    "scenario_chart_title_preservation": {
+    "scenario_chart_title_readback": {
       "member": "DATA/HSFC.BIN",
       "chunk_index": 1,
       "stored_start": 9584,
       "stored_end": 236288,
       "stored_size": 226704,
-      "stored_sha256": "b7128f3044be09f5f999241af98f6c331b8fd9186f1da9aba65f2d4e28c2db05",
-      "policy": "preserve_original_japanese_until_transparency_is_understood",
-      "chunk_byte_exact_original": true
+      "stored_sha256": "faaaf111cbf26ee63388495695fa7204490df6ddcf94a7f413b42f90f4ac3b7c",
+      "encoded_size": 214770,
+      "record_index": 2,
+      "record_offset": 199872,
+      "record_sha256": "a30bc35b9c920a9388917f410b12385930dd94ad24c241a43833009395fe90df",
+      "storage_layout": "linear_indexed8",
+      "translation": "剧情流程",
+      "output_logical_indexes_sha256": "317180e48d4b08b22502272010536ee1f22ecfc8ad394265f64a7fbe13c9b4a9",
+      "source_alpha_plane_sha256": "e77e736a92ee2d6b717f5a49134131c634e44006ae3a3774ffef7be51abe056e",
+      "output_alpha_plane_sha256": "e77e736a92ee2d6b717f5a49134131c634e44006ae3a3774ffef7be51abe056e",
+      "transparent_pixel_count": 19449,
+      "alpha_mask_preserved": true,
+      "background_restore_crosses_no_transparent_pixels": true,
+      "non_title_pixels_byte_exact": true,
+      "clut_and_tim2_metadata_byte_exact": true,
+      "translated_title_reread_exact": true,
+      "policy": "restore_original_row_gradient_and_preserve_alpha_mask"
     },
     "iso_member_bytes_exact": true,
     "semantic_reread_transitive_through_exact_component_bytes": true
@@ -3080,15 +3094,25 @@
       "04:00": 102,
       "04:06": 102
     },
-    "output_encoded_size": 36341,
-    "output_padding_size": 4971,
-    "reflowed_record_count": 587,
+    "output_encoded_size": 36308,
+    "output_padding_size": 5004,
+    "reflowed_record_count": 2182,
+    "horizontally_reflowed_record_count": 854,
+    "vertically_reflowed_record_count": 2054,
+    "fixed_column_line_count": 178,
+    "empty_translation_record_count": 415,
     "allocation_table_preserved": true,
     "metadata_indexes_preserved": true,
     "page_allocations_preserved": true,
     "record_styles_preserved": true,
-    "record_yz_coordinates_preserved": true,
-    "same_line_source_gaps_preserved": true,
+    "record_z_coordinates_preserved": true,
+    "mixed_style_line_flow": true,
+    "empty_continuation_rows_collapsed": true,
+    "fixed_column_anchors_aligned": true,
+    "empty_records_extend_scroll_height": false,
+    "glyph_advance_px": 19,
+    "line_step_y": 11,
+    "max_last_glyph_x": 532,
     "sprite_sections_preserved": true,
     "archive_offsets_preserved": true,
     "codec_padding_zero": true,
@@ -4132,15 +4156,29 @@
     "raw_space_cell_count": 0,
     "raw_space_count_zero": true
   },
-  "scenario_chart_title_preservation": {
+  "scenario_chart_title_readback": {
     "member": "DATA/HSFC.BIN",
     "chunk_index": 1,
     "stored_start": 9584,
     "stored_end": 236288,
     "stored_size": 226704,
-    "stored_sha256": "b7128f3044be09f5f999241af98f6c331b8fd9186f1da9aba65f2d4e28c2db05",
-    "policy": "preserve_original_japanese_until_transparency_is_understood",
-    "chunk_byte_exact_original": true
+    "stored_sha256": "faaaf111cbf26ee63388495695fa7204490df6ddcf94a7f413b42f90f4ac3b7c",
+    "encoded_size": 214770,
+    "record_index": 2,
+    "record_offset": 199872,
+    "record_sha256": "a30bc35b9c920a9388917f410b12385930dd94ad24c241a43833009395fe90df",
+    "storage_layout": "linear_indexed8",
+    "translation": "剧情流程",
+    "output_logical_indexes_sha256": "317180e48d4b08b22502272010536ee1f22ecfc8ad394265f64a7fbe13c9b4a9",
+    "source_alpha_plane_sha256": "e77e736a92ee2d6b717f5a49134131c634e44006ae3a3774ffef7be51abe056e",
+    "output_alpha_plane_sha256": "e77e736a92ee2d6b717f5a49134131c634e44006ae3a3774ffef7be51abe056e",
+    "transparent_pixel_count": 19449,
+    "alpha_mask_preserved": true,
+    "background_restore_crosses_no_transparent_pixels": true,
+    "non_title_pixels_byte_exact": true,
+    "clut_and_tim2_metadata_byte_exact": true,
+    "translated_title_reread_exact": true,
+    "policy": "restore_original_row_gradient_and_preserve_alpha_mask"
   },
   "members": {
     "SLPS_258.87": {
@@ -4155,7 +4193,7 @@
     },
     "DATA/NISVDATA.BIN": {
       "size": 555056,
-      "sha256": "4850e667571996f24a78f919dfd845623c47163387049ce5b897bb722d7cb0cd",
+      "sha256": "d0f27f0e13727bd71cadfa6b9c775d618dcae8635d87dfdc41d2915cde72a442",
       "replacement_exact": true
     },
     "DATA/MTV_PROS.BIN": {
@@ -4180,7 +4218,7 @@
     },
     "DATA/HSFC.BIN": {
       "size": 250112,
-      "sha256": "a07723d65f67489654bbfb7e130b97650dd6fc13f858d06aff0a9f5c9e3af91c",
+      "sha256": "61bcbb87f352a84cdf548fc6ad18752d607c350b0b58d6905085ff4653e6ab95",
       "replacement_exact": true
     },
     "HEDBDY/HB.BIN": {
@@ -10069,7 +10107,7 @@
     "stage_overviews_exact": true,
     "world_history_exact": true,
     "hsfc_overviews_exact": true,
-    "scenario_chart_title_preserved_original": true
+    "scenario_chart_title_alpha_preserving_writeback_exact": true
   },
   "runtime_acceptance": "static final-ISO content readback; fresh PCSX2 runtime evidence is separate"
 }

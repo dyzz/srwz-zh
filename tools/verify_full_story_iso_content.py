@@ -114,6 +114,25 @@ DEFAULT_REPORT = (
 DEFAULT_MANIFEST = (
     PROJECT_ROOT / "manifests/zh-release-full-story-iso-content-validation.json"
 )
+
+
+def stored_csm1_palette_index(index: int) -> int:
+    """Map one logical PSMT8 index to its stored CSM1 CLUT entry."""
+
+    return (
+        (index & 0xE7)
+        | ((index & 0x08) << 1)
+        | ((index & 0x10) >> 1)
+    )
+
+
+def indexed_alpha_plane(indexes: bytes, palette: bytes) -> bytes:
+    """Return the stored PS2 CLUT alpha value for each indexed pixel."""
+
+    return bytes(
+        palette[stored_csm1_palette_index(index) * 4 + 3]
+        for index in indexes
+    )
 BUILD_CONFIG = PROJECT_ROOT / "config/iso/zh-release-current-build.json"
 COMPONENT_REPORT = (
     PROJECT_ROOT
@@ -4515,19 +4534,237 @@ def main() -> int:
     final_scenario_stored = final_hsfc[
         scenario_stored_start:scenario_stored_end
     ]
-    if final_scenario_stored != original_scenario_stored:
-        raise SystemExit(
-            "final ISO Scenario Chart title chunk is not original byte-exact"
+    scenario_chart_component = component.get("runtime_library_menu", {}).get(
+        "scenario_chart"
+    )
+    scenario_chart_contract = library_scope.get("scenario_chart_runtime_tim2")
+    if (
+        not isinstance(scenario_chart_component, dict)
+        or not isinstance(scenario_chart_contract, dict)
+        or scenario_chart_component.get("scenario_chart_title_written")
+        is not True
+        or scenario_chart_component.get("alpha_mask_preserved") is not True
+    ):
+        raise SystemExit("final ISO Scenario Chart title proof is incomplete")
+    scenario_target = scenario_chart_contract.get("target")
+    scenario_writeback = scenario_chart_contract.get("writeback")
+    if (
+        not isinstance(scenario_target, dict)
+        or not isinstance(scenario_writeback, dict)
+        or scenario_target.get("storage_layout") != "linear_indexed8"
+        or scenario_target.get("stored_start") != scenario_stored_start
+        or scenario_target.get("stored_end") != scenario_stored_end
+        or scenario_target.get("stored_size") != len(original_scenario_stored)
+        or sha256_bytes(original_scenario_stored)
+        != scenario_target.get("stored_sha256")
+    ):
+        raise SystemExit("final ISO Scenario Chart source contract drift")
+
+    original_scenario_decoded = decode(original_scenario_stored)
+    final_scenario_decoded = decode(final_scenario_stored)
+    if (
+        original_scenario_decoded.consumed
+        != scenario_target.get("stored_consumed")
+        or len(original_scenario_decoded.output)
+        != scenario_target.get("decoded_size")
+        or sha256_bytes(original_scenario_decoded.output)
+        != scenario_target.get("decoded_sha256")
+        or any(
+            original_scenario_stored[original_scenario_decoded.consumed :]
         )
-    scenario_chart_title_preservation = {
+        or any(final_scenario_stored[final_scenario_decoded.consumed :])
+        or final_scenario_decoded.consumed
+        != scenario_chart_component.get("output_encoded_size")
+    ):
+        raise SystemExit("final ISO Scenario Chart chunk decode drift")
+    original_scenario_records = scan_tim2(original_scenario_decoded.output)
+    final_scenario_records = scan_tim2(final_scenario_decoded.output)
+    record_index = int(scenario_target.get("record_index", -1))
+    if (
+        not 0 <= record_index < len(original_scenario_records)
+        or len(original_scenario_records) != len(final_scenario_records)
+    ):
+        raise SystemExit("final ISO Scenario Chart TIM2 record is missing")
+    original_record = original_scenario_records[record_index]
+    final_record = final_scenario_records[record_index]
+    if (
+        original_record.offset != scenario_target.get("record_offset")
+        or original_record.size != scenario_target.get("record_size")
+        or original_record != final_record
+        or sha256_bytes(
+            original_scenario_decoded.output[
+                original_record.offset:original_record.end
+            ]
+        )
+        != scenario_target.get("record_sha256")
+        or len(original_record.pictures) != 1
+    ):
+        raise SystemExit("final ISO Scenario Chart TIM2 metadata drift")
+    picture = original_record.pictures[0]
+    image_start = picture.offset + picture.header_size
+    image_end = image_start + picture.image_size
+    palette_end = image_end + picture.clut_size
+    original_indexes = original_scenario_decoded.output[image_start:image_end]
+    final_indexes = final_scenario_decoded.output[image_start:image_end]
+    original_palette = original_scenario_decoded.output[image_end:palette_end]
+    final_palette = final_scenario_decoded.output[image_end:palette_end]
+    if (
+        picture.width != scenario_target.get("width")
+        or picture.height != scenario_target.get("height")
+        or picture.image_type != scenario_target.get("image_type")
+        or picture.image_size != picture.width * picture.height
+        or picture.clut_size != 256 * 4
+        or sha256_bytes(original_indexes)
+        != scenario_target.get("logical_indexes_sha256")
+        or sha256_bytes(final_indexes)
+        != scenario_chart_component.get("output_logical_indexes_sha256")
+        or sha256_bytes(
+            final_scenario_decoded.output[final_record.offset:final_record.end]
+        )
+        != scenario_chart_component.get("output_record_sha256")
+        or original_palette != final_palette
+        or (
+            original_scenario_decoded.output[:image_start]
+            + original_scenario_decoded.output[image_end:]
+        )
+        != (
+            final_scenario_decoded.output[:image_start]
+            + final_scenario_decoded.output[image_end:]
+        )
+    ):
+        raise SystemExit("final ISO Scenario Chart indexed texture drift")
+
+    original_alpha = indexed_alpha_plane(original_indexes, original_palette)
+    final_alpha = indexed_alpha_plane(final_indexes, final_palette)
+    if (
+        sha256_bytes(original_alpha)
+        != scenario_target.get("source_alpha_plane_sha256")
+        or original_alpha != final_alpha
+        or sha256_bytes(original_alpha)
+        != scenario_chart_component.get("source_alpha_plane_sha256")
+        or sha256_bytes(final_alpha)
+        != scenario_chart_component.get("output_alpha_plane_sha256")
+        or original_alpha.count(0)
+        != scenario_chart_component.get("source_transparent_pixel_count")
+        or final_alpha.count(0)
+        != scenario_chart_component.get("output_transparent_pixel_count")
+    ):
+        raise SystemExit("final ISO Scenario Chart alpha mask drift")
+
+    masks = scenario_writeback.get("masks")
+    labels = scenario_chart_component.get("labels")
+    if (
+        not isinstance(masks, list)
+        or len(masks) != 1
+        or not isinstance(labels, list)
+        or len(labels) != 1
+    ):
+        raise SystemExit("final ISO Scenario Chart title selection drift")
+    mask = masks[0]
+    label = labels[0]
+    restore = mask.get("background_restore")
+    if not isinstance(restore, dict):
+        raise SystemExit("final ISO Scenario Chart background restore is missing")
+    restore_x = int(restore.get("x", -1))
+    restore_y = int(restore.get("y", -1))
+    restore_width = int(restore.get("width", -1))
+    restore_rows = restore.get("row_indexes")
+    if (
+        not isinstance(restore_rows, list)
+        or not restore_rows
+        or restore_x < 0
+        or restore_y < 0
+        or restore_width <= 0
+        or restore_x + restore_width > picture.width
+        or restore_y + len(restore_rows) > picture.height
+    ):
+        raise SystemExit("final ISO Scenario Chart background geometry drift")
+    restore_offsets = {
+        row * picture.width + column
+        for row in range(restore_y, restore_y + len(restore_rows))
+        for column in range(restore_x, restore_x + restore_width)
+    }
+    if any(
+        source_index != final_index
+        for offset, (source_index, final_index) in enumerate(
+            zip(original_indexes, final_indexes)
+        )
+        if offset not in restore_offsets
+    ):
+        raise SystemExit("final ISO Scenario Chart changed outside title interior")
+    source_restore_crop = b"".join(
+        original_indexes[
+            (restore_y + row) * picture.width + restore_x:
+            (restore_y + row) * picture.width + restore_x + restore_width
+        ]
+        for row in range(len(restore_rows))
+    )
+    if (
+        sha256_bytes(source_restore_crop) != mask.get("source_indexes_sha256")
+        or indexed_alpha_plane(source_restore_crop, original_palette).count(0)
+        != 0
+    ):
+        raise SystemExit(
+            "final ISO Scenario Chart restore rectangle crosses transparency"
+        )
+    label_x = int(label.get("x", -1))
+    label_y = int(label.get("y", -1))
+    label_width = int(label.get("width", -1))
+    label_height = int(label.get("height", -1))
+    if (
+        label.get("id") != mask.get("id")
+        or label_x != int(mask.get("x", -1))
+        or label_y != int(mask.get("y", -1))
+        or label_width != int(mask.get("width", -1))
+        or label_height != int(mask.get("height", -1))
+        or label_x < 0
+        or label_y < 0
+        or label_width <= 0
+        or label_height <= 0
+        or label_x + label_width > picture.width
+        or label_y + label_height > picture.height
+    ):
+        raise SystemExit("final ISO Scenario Chart label geometry drift")
+    label_crop = b"".join(
+        final_indexes[
+            (label_y + row) * picture.width + label_x:
+            (label_y + row) * picture.width + label_x + label_width
+        ]
+        for row in range(label_height)
+    )
+    if (
+        label.get("id") != "scenario-chart-title"
+        or label.get("translation") != "剧情流程"
+        or sha256_bytes(label_crop) != label.get("output_indexes_sha256")
+        or not any(label_crop)
+    ):
+        raise SystemExit("final ISO Scenario Chart Chinese title drift")
+
+    scenario_chart_title_readback = {
         "member": "DATA/HSFC.BIN",
         "chunk_index": 1,
         "stored_start": scenario_stored_start,
         "stored_end": scenario_stored_end,
         "stored_size": len(final_scenario_stored),
         "stored_sha256": sha256_bytes(final_scenario_stored),
-        "policy": "preserve_original_japanese_until_transparency_is_understood",
-        "chunk_byte_exact_original": True,
+        "encoded_size": final_scenario_decoded.consumed,
+        "record_index": record_index,
+        "record_offset": final_record.offset,
+        "record_sha256": sha256_bytes(
+            final_scenario_decoded.output[final_record.offset:final_record.end]
+        ),
+        "storage_layout": "linear_indexed8",
+        "translation": "剧情流程",
+        "output_logical_indexes_sha256": sha256_bytes(final_indexes),
+        "source_alpha_plane_sha256": sha256_bytes(original_alpha),
+        "output_alpha_plane_sha256": sha256_bytes(final_alpha),
+        "transparent_pixel_count": final_alpha.count(0),
+        "alpha_mask_preserved": True,
+        "background_restore_crosses_no_transparent_pixels": True,
+        "non_title_pixels_byte_exact": True,
+        "clut_and_tim2_metadata_byte_exact": True,
+        "translated_title_reread_exact": True,
+        "policy": "restore_original_row_gradient_and_preserve_alpha_mask",
     }
     functions = read_stage_function_addresses(slps)
     source_stage_spec = source_config["source"]["stage"]
@@ -5534,8 +5771,8 @@ def main() -> int:
             "component_acceptance": library_acceptance,
             "main_menu": library_menu_readback,
             "sound_select": sound_select_readback,
-            "scenario_chart_title_preservation": (
-                scenario_chart_title_preservation
+            "scenario_chart_title_readback": (
+                scenario_chart_title_readback
             ),
             "iso_member_bytes_exact": True,
             "semantic_reread_transitive_through_exact_component_bytes": True,
@@ -5616,7 +5853,7 @@ def main() -> int:
         "runtime_keywords": runtime_keyword_report,
         "stage_overviews": overview_report,
         "hsfc_overviews": hsfc_report,
-        "scenario_chart_title_preservation": scenario_chart_title_preservation,
+        "scenario_chart_title_readback": scenario_chart_title_readback,
         "members": {
             path: {
                 "size": len(data),
@@ -5656,8 +5893,11 @@ def main() -> int:
                 and sound_select_readback[
                     "fixed_title_rectangle_reread_exact"
                 ]
-                and scenario_chart_title_preservation[
-                    "chunk_byte_exact_original"
+                and scenario_chart_title_readback[
+                    "alpha_mask_preserved"
+                ]
+                and scenario_chart_title_readback[
+                    "translated_title_reread_exact"
                 ]
                 and sound_select_readback["track_titles_byte_exact"]
                 and sound_select_readback["track_title_count"] == 101
@@ -5976,9 +6216,21 @@ def main() -> int:
                 "translated_readback_exact"
             ]
             and hsfc_report["fixed_record_cells_exact"],
-            "scenario_chart_title_preserved_original": (
-                scenario_chart_title_preservation[
-                    "chunk_byte_exact_original"
+            "scenario_chart_title_alpha_preserving_writeback_exact": (
+                scenario_chart_title_readback[
+                    "alpha_mask_preserved"
+                ]
+                and scenario_chart_title_readback[
+                    "background_restore_crosses_no_transparent_pixels"
+                ]
+                and scenario_chart_title_readback[
+                    "non_title_pixels_byte_exact"
+                ]
+                and scenario_chart_title_readback[
+                    "clut_and_tim2_metadata_byte_exact"
+                ]
+                and scenario_chart_title_readback[
+                    "translated_title_reread_exact"
                 ]
             ),
         },

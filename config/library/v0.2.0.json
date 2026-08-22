@@ -42,6 +42,7 @@
       "label": "剧情流程",
       "policy": "translate_zh_Hans",
       "source_members": [
+        "DATA/HSFC.BIN",
         "DATA/STAGE.BIN"
       ]
     },
@@ -73,6 +74,11 @@
       "path": "work/disc/DATA/NISVDATA.BIN",
       "size": 555056,
       "sha256": "63afc46aeb19b41cf7332c7c298ab8bb1c7089f306d4eb4e77bce72e8dbece9c"
+    },
+    "DATA/HSFC.BIN": {
+      "path": "work/disc/DATA/HSFC.BIN",
+      "size": 250112,
+      "sha256": "8af309977df9b2991557c5788410a9ed74c62f09f7c850c7f9a02cf56dfab23c"
     },
     "DATA/MTVZKNRT.BIN": {
       "path": "work/disc/DATA/MTVZKNRT.BIN",
@@ -467,6 +473,121 @@
           "clear_height": 29,
           "horizontal_offset": 0,
           "source_indexes_sha256": "16794b3ad4af3f566153bcabdc60d2e846a92e99fb8c9305b0e99a15777ac946"
+        }
+      ]
+    },
+    "codec": {
+      "strategy": "rust-fit",
+      "min_match_length": 2,
+      "max_match_chain": 16384,
+      "lazy_matching": false
+    }
+  },
+  "scenario_chart_runtime_tim2": {
+    "member": "DATA/HSFC.BIN",
+    "target": {
+      "chunk_index": 1,
+      "stored_start": 9584,
+      "stored_end": 236288,
+      "stored_size": 226704,
+      "stored_consumed": 226690,
+      "stored_sha256": "b7128f3044be09f5f999241af98f6c331b8fd9186f1da9aba65f2d4e28c2db05",
+      "decoded_size": 770784,
+      "decoded_sha256": "5a9f972d304b3ae78a729617999b25196f79d83a1a63c6bcbdca5dbdb5ec8e26",
+      "record_index": 2,
+      "record_offset": 199872,
+      "record_size": 66624,
+      "record_sha256": "520c390fc47c2d82a1cc3edb7ad9aed8b00ca161e38a875a1e457b8e046b15ba",
+      "logical_indexes_sha256": "b564b610b282796777e5842b5fceaa7807e5d2b6d6212bd90cbf310cbedc3b3b",
+      "source_alpha_plane_sha256": "e77e736a92ee2d6b717f5a49134131c634e44006ae3a3774ffef7be51abe056e",
+      "storage_layout": "linear_indexed8",
+      "width": 256,
+      "height": 256,
+      "image_type": 5
+    },
+    "labels": {
+      "シナリオチャート": "剧情流程"
+    },
+    "writeback": {
+      "font_flavor": "config/fonts/zh-localization-font.json",
+      "imagemagick_version": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+      "render_snapshot": {
+        "path": "config/library/scenario-chart-runtime-render-snapshot.json",
+        "size": 14406,
+        "sha256": "7876a64c4978dc41d5efb1ba15312b7d2dad5f33a6e418b793ce3ddda51c767d"
+      },
+      "point_size": 23,
+      "supersample_factor": 4,
+      "stroke_gray": "#303030",
+      "stroke_width": 1.25,
+      "fill_stroke_width": 0,
+      "clear_index_start": 3,
+      "clear_index_stop": 31,
+      "palette_start": 2,
+      "palette_stop": 30,
+      "palette_indexes": [
+        2,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "require_alpha_mask_preserved": true,
+      "masks": [
+        {
+          "id": "scenario-chart-title",
+          "source_text": "シナリオチャート",
+          "x": 14,
+          "y": 7,
+          "width": 228,
+          "height": 28,
+          "source_indexes_sha256": "c3155c1567c86b63e15f1b645066f64c3838e9d5355d977989f65af9b066a768",
+          "background_restore": {
+            "x": 30,
+            "y": 7,
+            "width": 184,
+            "row_indexes": [
+              8,
+              8,
+              8,
+              8,
+              8,
+              8,
+              8,
+              8,
+              8,
+              8,
+              8,
+              8,
+              8,
+              8,
+              9,
+              9,
+              9,
+              9,
+              10,
+              10,
+              10,
+              11,
+              11,
+              11,
+              12,
+              12,
+              15,
+              15
+            ]
+          }
         }
       ]
     },
