@@ -643,6 +643,14 @@ def _build_nisv_text_texture(
             raise LibraryScopeError(
                 f"runtime LIBRARY menu background restore is malformed: {mask_id}"
             )
+        horizontal_offset = _integer(
+            raw_mask.get("horizontal_offset", 0),
+            f"{mask_id} horizontal offset",
+        )
+        vertical_offset = _integer(
+            raw_mask.get("vertical_offset", 0),
+            f"{mask_id} vertical offset",
+        )
         if live_render:
             mask = render_grayscale_text_mask(
                 magick,
@@ -658,10 +666,8 @@ def _build_nisv_text_texture(
                 stroke_width=float(stroke_width),
                 fill_stroke_width=float(fill_stroke_width),
                 supersample_factor=supersample_factor,
-                horizontal_offset=_integer(
-                    raw_mask.get("horizontal_offset", 0),
-                    f"{mask_id} horizontal offset",
-                ),
+                horizontal_offset=horizontal_offset,
+                vertical_offset=vertical_offset,
             )
         else:
             frozen_label = snapshot["labels"][mask_index]
@@ -709,6 +715,8 @@ def _build_nisv_text_texture(
                 "y": y,
                 "width": width,
                 "height": height,
+                "horizontal_offset": horizontal_offset,
+                "vertical_offset": vertical_offset,
                 "source_indexes_sha256": raw_mask.get("source_indexes_sha256"),
                 "output_indexes_sha256": _sha256(output_label),
                 "changed_pixel_count": sum(

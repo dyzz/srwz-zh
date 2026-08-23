@@ -373,7 +373,12 @@ def main() -> int:
         or coverage["original_font_visible_character_count"] != 0
     ):
         raise SystemExit(
-            "global translation tree is not fully covered by the release font"
+            "global translation tree is not fully covered by the release font: "
+            f"missing={coverage['missing_character_count']}, "
+            f"missing_characters={coverage['missing_characters']!r}, "
+            f"original_han={coverage['original_font_han_count']}, "
+            "original_visible="
+            f"{coverage['original_font_visible_character_count']}"
         )
 
     migration = snapshot.get("migration", {})

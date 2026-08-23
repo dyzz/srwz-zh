@@ -69,6 +69,10 @@ from srwz.sound_select import (
     apply_sound_select_default_unlock,
     audit_sound_select_track_metadata,
 )
+from srwz.weapon_special_effects import (
+    WeaponSpecialEffectError,
+    apply_weapon_special_effect_2,
+)
 from srwz.srvc import parse_srvc_archive
 from srwz.stage import (
     parse_stage,
@@ -4472,6 +4476,55 @@ def main() -> int:
     full_component_config = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )
+    weapon_effect_config = full_component_config.get(
+        "weapon_special_effect_2"
+    )
+    if not isinstance(weapon_effect_config, dict):
+        raise SystemExit(
+            "weapon special-effect-2 final-ISO configuration is missing"
+        )
+    weapon_effect_corpus_path = (
+        PROJECT_ROOT / weapon_effect_config["corpus"]["path"]
+    )
+    weapon_effect_corpus_data = weapon_effect_corpus_path.read_bytes()
+    if (
+        len(weapon_effect_corpus_data)
+        != weapon_effect_config["corpus"]["size"]
+        or sha256_bytes(weapon_effect_corpus_data)
+        != weapon_effect_config["corpus"]["sha256"]
+    ):
+        raise SystemExit("weapon special-effect-2 corpus lock drift")
+    try:
+        verified_slps, weapon_effect_2_readback = (
+            apply_weapon_special_effect_2(
+                slps,
+                weapon_effect_config,
+                json.loads(weapon_effect_corpus_data.decode("utf-8")),
+                source_table=source_table,
+                encoding_overrides=overview_overrides,
+            )
+        )
+    except (
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+        WeaponSpecialEffectError,
+    ) as error:
+        raise SystemExit(
+            f"weapon special-effect-2 final-ISO readback failed: {error}"
+        ) from error
+    if (
+        verified_slps != slps
+        or not all(
+            row["already_patched"]
+            for row in weapon_effect_2_readback["entries"]
+        )
+        or weapon_effect_2_readback["changed_byte_count"] != 0
+        or [row["translation"] for row in weapon_effect_2_readback["entries"]]
+        != weapon_effect_config["expected"]["translated_labels"]
+        or component.get("weapon_special_effect_2", {}).get("entry_count")
+        != weapon_effect_2_readback["entry_count"]
+    ):
+        raise SystemExit("weapon special-effect-2 final-ISO receipt drift")
     runtime_keyword_reference = full_component_config.get("runtime_keywords")
     if not isinstance(runtime_keyword_reference, dict):
         raise SystemExit("runtime-keyword final-ISO configuration is missing")
@@ -5081,6 +5134,19 @@ def main() -> int:
         entry["id"]: entry["translation_action"]
         for entry in condition_corpus["entries"]
     }
+    condition_runtime_name_placeholders = {
+        entry["id"]: entry["translation"].count(":")
+        for entry in condition_corpus["entries"]
+        if "姓名占位控制标记" in entry.get("notes", "")
+    }
+    if (
+        len(condition_runtime_name_placeholders) != 12
+        or any(
+            count <= 0
+            for count in condition_runtime_name_placeholders.values()
+        )
+    ):
+        raise SystemExit("condition runtime-name placeholder registry drift")
     speakers = load_translations(
         PROJECT_ROOT / "corpus/zh/story-speakers.json"
     )
@@ -5143,6 +5209,9 @@ def main() -> int:
     dynamic_condition_variant_stages = set()
     condition_source_payload_match_count = 0
     condition_original_offset_source_payload_match_count = 0
+    condition_runtime_name_placeholder_entry_count = 0
+    condition_runtime_name_placeholder_occurrence_count = 0
+    condition_runtime_name_placeholder_readback = None
     reported_dynamic_condition_entry_id = "story/002/condition/00/03"
     reported_dynamic_condition_readback = None
     player_choice_entry_ids = {
@@ -5284,6 +5353,10 @@ def main() -> int:
             ]
             stage_raw_space_target_count += b"\x20" in stored_payload
             raw_ascii = raw_visible_ascii_glyphs(stored_payload)
+            if entry.entry_id in condition_runtime_name_placeholders:
+                raw_ascii = tuple(
+                    item for item in raw_ascii if item[1] != ":"
+                )
             stage_raw_visible_ascii_glyph_count += len(raw_ascii)
             stage_raw_visible_ascii_target_count += bool(raw_ascii)
         if stage_raw_space_target_count:
@@ -5368,6 +5441,43 @@ def main() -> int:
                 raise SystemExit(
                     f"{entry_id} retains its original condition payload"
                 )
+            expected_placeholder_count = (
+                condition_runtime_name_placeholders.get(entry_id, 0)
+            )
+            if expected_placeholder_count:
+                final_condition = decode_text(
+                    decoded.output,
+                    output_condition.text_offset,
+                    stage_table,
+                )
+                final_payload = decoded.output[
+                    output_condition.text_offset :
+                    output_condition.text_offset + final_condition.consumed
+                ]
+                raw_placeholder_count = final_payload.count(b"\x3A")
+                if (
+                    source_condition.text.count(":")
+                    != expected_placeholder_count
+                    or stage_conditions[entry_id].count(":")
+                    != expected_placeholder_count
+                    or raw_placeholder_count != expected_placeholder_count
+                ):
+                    raise SystemExit(
+                        f"{entry_id} runtime-name placeholder storage drift"
+                    )
+                condition_runtime_name_placeholder_entry_count += 1
+                condition_runtime_name_placeholder_occurrence_count += (
+                    raw_placeholder_count
+                )
+                if entry_id == "story/041/condition/01/02":
+                    condition_runtime_name_placeholder_readback = {
+                        "entry_id": entry_id,
+                        "stage_index": stage,
+                        "translation": stage_conditions[entry_id],
+                        "stored_hex": final_payload.hex(),
+                        "raw_0x3a_count": raw_placeholder_count,
+                        "raw_placeholder_exact": True,
+                    }
             if entry_id == reported_dynamic_condition_entry_id:
                 reported_dynamic_condition_readback = {
                     "entry_id": entry_id,
@@ -5807,6 +5917,11 @@ def main() -> int:
         or condition_original_offset_source_payload_match_count
         or reported_dynamic_condition_readback is None
         or not reported_dynamic_condition_readback["final_table_readback_exact"]
+        or condition_runtime_name_placeholder_entry_count
+        != len(condition_runtime_name_placeholders)
+        or condition_runtime_name_placeholder_occurrence_count
+        != sum(condition_runtime_name_placeholders.values())
+        or condition_runtime_name_placeholder_readback is None
     ):
         raise SystemExit(
             "final ISO dynamic-condition source-payload audit failed"
@@ -6032,6 +6147,7 @@ def main() -> int:
         "speaker_count": total_speakers,
         "post_release_runtime_surfaces": post_release_runtime_surfaces,
         "issue_036_tutorial": issue_036_tutorial,
+        "weapon_special_effect_2": weapon_effect_2_readback,
         "dialogue_layout": {
             "line_width_limit": DEFAULT_LINE_WIDTH,
             "line_count_limit": DEFAULT_MAX_LINES,
@@ -6101,6 +6217,16 @@ def main() -> int:
             "reported_impulse_entry_update": (
                 reported_dynamic_condition_readback
             ),
+            "runtime_name_placeholder_entry_count": (
+                condition_runtime_name_placeholder_entry_count
+            ),
+            "runtime_name_placeholder_occurrence_count": (
+                condition_runtime_name_placeholder_occurrence_count
+            ),
+            "reported_episode_21_placeholder": (
+                condition_runtime_name_placeholder_readback
+            ),
+            "all_runtime_name_placeholders_raw_0x3a": True,
             "all_translated_condition_source_payloads_absent": True,
         },
         "visible_ascii_policy": {
@@ -6467,6 +6593,13 @@ def main() -> int:
             "remaining_ui_binary_text_exact": compdata_report[
                 "remaining_ui"
             ]["readback_exact"],
+            "weapon_special_effect_2_exact": (
+                weapon_effect_2_readback["entry_count"] == 2
+                and weapon_effect_2_readback["all_translated_reread_exact"]
+                and weapon_effect_2_readback["control_flow_preserved"]
+                and weapon_effect_2_readback["executable_size_preserved"]
+                and weapon_effect_2_readback["changed_byte_count"] == 0
+            ),
             "library_runtime_text_exact": compdata_report[
                 "library_regressions"
             ]["runtime_text_readback_exact"],

@@ -267,6 +267,20 @@ class LibraryV02DetailSurfaceTests(unittest.TestCase):
         self.assertEqual(contract["writeback"]["supersample_factor"], 4)
         self.assertEqual(contract["writeback"]["point_size"], 26)
         self.assertEqual(contract["writeback"]["masks"][-1]["point_size"], 24)
+        self.assertEqual(
+            [
+                mask.get("horizontal_offset", 0)
+                for mask in contract["writeback"]["masks"]
+            ],
+            [-2, 0, 0, 0, 0, 0],
+        )
+        self.assertEqual(
+            [
+                mask["vertical_offset"]
+                for mask in contract["writeback"]["masks"]
+            ],
+            [-2, -2, -3, -3, -3, 3],
+        )
         source = (PROJECT_ROOT / "work/disc/DATA/NISVDATA.BIN").read_bytes()
         font_flavor = json.loads(
             (
@@ -300,6 +314,14 @@ class LibraryV02DetailSurfaceTests(unittest.TestCase):
         self.assertTrue(report["clut_and_non_image_bytes_preserved"])
         self.assertTrue(report["codec_round_trip_exact"])
         self.assertEqual(report["render_source"], "locked_snapshot")
+        self.assertEqual(
+            [label["horizontal_offset"] for label in report["labels"]],
+            [-2, 0, 0, 0, 0, 0],
+        )
+        self.assertEqual(
+            [label["vertical_offset"] for label in report["labels"]],
+            [-2, -2, -3, -3, -3, 3],
+        )
         self.assertEqual(
             contract["writeback"]["render_snapshot"]["path"],
             "config/library/library-menu-runtime-render-snapshot.json",

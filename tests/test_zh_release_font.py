@@ -351,12 +351,12 @@ class ZhReleaseFontTests(unittest.TestCase):
             )
 
     def test_flat_snapshot_preserves_history_and_adds_global_corpora(self):
-        self.assertEqual(self.snapshot["primary_assignment_count"], 3450)
+        self.assertEqual(self.snapshot["primary_assignment_count"], 3451)
         self.assertEqual(
             self.snapshot["surface_alias_assignment_count"], 48
         )
         self.assertEqual(
-            self.snapshot["remaining_allocation_candidate_count"], 101
+            self.snapshot["remaining_allocation_candidate_count"], 100
         )
         primary_by_character = {
             row["character"]: row
@@ -627,7 +627,7 @@ class ZhReleaseFontTests(unittest.TestCase):
             )
         )
         self.assertEqual(
-            len(self.snapshot["remaining_allocation_candidates"]), 101
+            len(self.snapshot["remaining_allocation_candidates"]), 100
         )
         self.assertEqual(
             self.snapshot["candidate_pool"],
@@ -707,7 +707,7 @@ class ZhReleaseFontTests(unittest.TestCase):
         summary = self.special_width_audit["summary"]
         self.assertEqual(summary["conditional_width_cjk_assignment_count"], 347)
         self.assertEqual(summary["raw_trail_default_width_cjk_assignment_count"], 38)
-        self.assertEqual(summary["remaining_default_width_candidate_count"], 101)
+        self.assertEqual(summary["remaining_default_width_candidate_count"], 100)
         self.assertEqual(
             summary["protected_compact_name_special_width_violation_count"],
             0,
@@ -813,7 +813,7 @@ class ZhReleaseFontTests(unittest.TestCase):
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]
-        self.assertEqual(selection["unique_entry_count"], 129041)
+        self.assertEqual(selection["unique_entry_count"], 129043)
         source_paths = {item["path"] for item in selection["sources"]}
         self.assertIn("corpus/zh/battle/srvc-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/battle-lines.json", source_paths)

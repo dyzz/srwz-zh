@@ -73,10 +73,10 @@ class PostReleaseStaticFixTests(unittest.TestCase):
             "0x345ED8": "艦長効果",
         }
         expected_translations = {
-            "0x33E3B0": "三位一体充能",
+            "0x33E3B0": "充能",
             "0x342618": "射程外",
             "0x343AD0": "战术换装",
-            "0x343AE8": "三位一体充能",
+            "0x343AE8": "充能",
             "0x345ED8": "舰长效果",
         }
         for raw_offset, source_text in expected_sources.items():
@@ -128,7 +128,7 @@ class PostReleaseStaticFixTests(unittest.TestCase):
             source_width = rendered_line_width(source.text)
             translation_width = rendered_line_width(translation)
             self.assertEqual(source_width, expected_source_width)
-            self.assertEqual(translation_width, 6)
+            self.assertEqual(translation_width, 2)
             self.assertLessEqual(
                 translation_width,
                 source_width,
@@ -139,7 +139,7 @@ class PostReleaseStaticFixTests(unittest.TestCase):
         fixed = self.remaining["slps_by_offset"]
         expectations = {
             "0x343AD0": ("戦術換装", "战术换装", 4),
-            "0x343AE8": ("トリニティＣ", "三位一体充能", 6),
+            "0x343AE8": ("トリニティＣ", "充能", 6),
         }
         for raw_offset, (source_text, translation, width) in expectations.items():
             source = decode_text(
@@ -150,7 +150,7 @@ class PostReleaseStaticFixTests(unittest.TestCase):
             self.assertEqual(source.text, source_text)
             self.assertEqual(fixed[raw_offset], translation)
             self.assertEqual(rendered_line_width(source_text), width)
-            self.assertEqual(rendered_line_width(translation), width)
+            self.assertLessEqual(rendered_line_width(translation), width)
             self.assertFalse(translation.startswith((" ", "　")))
             self.assertFalse(translation.endswith((" ", "　")))
             for character in translation:

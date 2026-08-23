@@ -2,16 +2,16 @@
   "schema_version": 1,
   "snapshot_id": "srwz-zh-release-font-assignments-v1",
   "policy": "Canonical character-to-code-to-glyph mapping for every Chinese localization surface. Add future menu, story and battle-dialogue coverage here without creating another font profile layer.",
-  "allocation_assignment_count": 1830,
+  "allocation_assignment_count": 1831,
   "reraster_existing_assignment_count": 1620,
-  "primary_assignment_count": 3450,
+  "primary_assignment_count": 3451,
   "surface_alias_assignment_count": 48,
-  "primary_mapping_sha256": "6e9486ea8123fd8e4988afaa32a3cab98c41979274b0bd3ae027ccf961fcd5b0",
+  "primary_mapping_sha256": "e7cad754c7f931c2b818861bef8554e26d2f2779ba9f381ddbe67da73c388ba4",
   "surface_alias_mapping_sha256": "36ad2ee280d87aac3639743a738d690a6c54b8ab1a2c9f9df6c8c26ca8dbd4c2",
   "source_compatibility_assignment_count": 36,
   "source_compatibility_mapping_sha256": "2a01296e8138d6343232359cb3818de870d704222de0d26a0ba53a38319beb62",
-  "remaining_allocation_candidate_count": 101,
-  "remaining_allocation_candidates_sha256": "27184963d1169b3c54b2f54890724e5ec9ac78d3bedff8186d6882941242ea79",
+  "remaining_allocation_candidate_count": 100,
+  "remaining_allocation_candidates_sha256": "7943e8d37d9cb51fc5da3c01d3969f93950770ee28a95dbfc11c0bf2ad4880b5",
   "primary_assignments": [
     {
       "character": "、",
@@ -23181,6 +23181,14 @@
       "mapping": "reclaimed_unique_default_width_candidate",
       "source_character": "頬",
       "allocation_width_class": "default_width"
+    },
+    {
+      "character": "拈",
+      "code": "966F",
+      "glyph_index": 4079,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "撲",
+      "allocation_width_class": "default_width"
     }
   ],
   "surface_alias_assignments": [
@@ -23860,12 +23868,6 @@
     }
   ],
   "remaining_allocation_candidates": [
-    {
-      "code": "966F",
-      "glyph_index": 4079,
-      "mapping": "reclaimed_unique_default_width_candidate",
-      "source_character": "撲"
-    },
     {
       "code": "9670",
       "glyph_index": 4080,
@@ -40556,6 +40558,22 @@
           "glyph_index": 4074,
           "mapping": "reclaimed_unique_default_width_candidate",
           "source_character": "頬",
+          "allocation_width_class": "default_width"
+        }
+      ]
+    },
+    {
+      "selection_sha256": "cb7cf00b2718a23d44f3ef6222802ca44d69fdd9cf698a585bffc43a21b69858",
+      "assignment_count": 1,
+      "allocation_assignment_count": 1,
+      "reraster_existing_assignment_count": 0,
+      "assignments": [
+        {
+          "character": "拈",
+          "code": "966F",
+          "glyph_index": 4079,
+          "mapping": "reclaimed_unique_default_width_candidate",
+          "source_character": "撲",
           "allocation_width_class": "default_width"
         }
       ]

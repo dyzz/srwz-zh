@@ -455,6 +455,108 @@ class SourceBoundNameRegressionTests(unittest.TestCase):
             "“可是，小纯……你要输了。”",
         )
 
+    def test_issue_040_and_041_reported_wording_stays_fixed(self) -> None:
+        rows = {row.entry_id: row.translation for row in self.rows}
+        self.assertEqual(
+            rows["story/076/dialogue/01.31/0000"],
+            "“这种大家伙，\n　我跟陆行舰交手时\n　就已经打惯了！”",
+        )
+        self.assertEqual(rows["battle:21009"], "“站那儿别动！”")
+
+    def test_issue_042_reported_wording_stays_fixed(self) -> None:
+        rows = {row.entry_id: row.translation for row in self.rows}
+        expected = {
+            "story/073/dialogue/01.08/0000": (
+                "“居然叫‘空停’，真没劲。\n　军人果然都是笨蛋吧？”"
+            ),
+            "battle:01683": "“把能用的全灌进去吧！”",
+            "battle:02475": "“不管从哪儿来，尽管放马过来！”",
+            "story/075/dialogue/02.02/0105": (
+                "“在其他世界也做过类似的事。\n"
+                "　旧地球联邦的强化人，\n"
+                "　地球联合的扩展人……”"
+            ),
+            "battle:21010": "“我已经不是小鬼了！\\n　看我的！”",
+            "battle:09061": "“你也是第15年的亡灵吗！”",
+            "story/076/dialogue/01.16/0002": "“蒂珐！究竟会发生什么！？”",
+        }
+        self.assertEqual(
+            {entry_id: rows[entry_id] for entry_id in expected},
+            expected,
+        )
+
+    def test_issue_043_thunder_break_uses_hong_tian_lei(self) -> None:
+        rows = {row.entry_id: row.translation for row in self.rows}
+        term = glossary_term("corpus/glossary/weapons-v1.json", "weapon/0021")
+        self.assertEqual(term["translation"], "轰天雷")
+        self.assertEqual(
+            term["domains"],
+            ["menu", "battle", "library"],
+        )
+        self.assertEqual(rows["battle:07278"], "“轰天雷！！”")
+        self.assertEqual(rows["battle:20167"], "“轰天雷！！”")
+        self.assertEqual(rows["battle:23254"], "“必杀力量！轰天雷！”")
+        library = json.loads(
+            (ROOT / "corpus/zh/library/v0.2-reviewed.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        library_rows = {
+            entry["id"]: entry["translation"] for entry in library["entries"]
+        }
+        self.assertIn("轰天雷", library_rows["library-text/0a97639e3ccccb09"])
+        self.assertIn("轰天雷", library_rows["library-text/e57e516e2231e5e3"])
+
+    def test_issue_044_story_wording_and_timp_address_stay_fixed(self) -> None:
+        rows = {row.entry_id: row.translation for row in self.rows}
+        expected = {
+            "story/073/dialogue/02.01/0221": (
+                "“也教教我吧！\n　我早就想试一次了！”"
+            ),
+            "story/073/dialogue/01.19/0007": (
+                "“参谋长……你的表情放松下来了。”"
+            ),
+            "story/073/dialogue/02.02/0041": "“可恶的异星人！”",
+            "story/073/dialogue/02.02/0103": "“……洛……卡洛……德……”",
+        }
+        self.assertEqual(
+            {entry_id: rows[entry_id] for entry_id in expected},
+            expected,
+        )
+
+        timp_to_jiron = (
+            "story/040/dialogue/01.30/0004",
+            "story/040/dialogue/01.30/0006",
+            "story/040/dialogue/01.30/0011",
+            "story/040/dialogue/01.53/0001",
+            "story/040/dialogue/01.53/0004",
+            "story/040/dialogue/01.53/0006",
+            "story/043/dialogue/01.29/0002",
+            "story/043/dialogue/01.30/0001",
+            "story/043/dialogue/01.30/0002",
+            "story/043/dialogue/01.31/0002",
+            "story/043/dialogue/01.45/0001",
+            "story/043/dialogue/01.46/0001",
+            "story/073/dialogue/02.02/0013",
+            "story/073/dialogue/02.02/0015",
+            "story/073/dialogue/02.02/0017",
+            "story/073/dialogue/02.02/0018",
+            "story/091/dialogue/01.31/0000",
+            "story/092/dialogue/01.38/0000",
+            "story/117/dialogue/01.30/0002",
+            "story/117/dialogue/01.59/0002",
+            "story/117/dialogue/01.86/0002",
+            "story/130/dialogue/01.35/0002",
+            "story/130/dialogue/01.46/0002",
+            "story/130/dialogue/01.70/0002",
+        )
+        self.assertEqual(len(timp_to_jiron), 24)
+        for entry_id in timp_to_jiron:
+            with self.subTest(entry_id=entry_id):
+                self.assertIn("小哥", rows[entry_id])
+                self.assertNotIn("大哥", rows[entry_id])
+                self.assertNotIn("老兄", rows[entry_id])
+
     def test_common_machine_translation_scaffolding_stays_removed(self) -> None:
         for row in self.rows:
             with self.subTest(entry_id=row.entry_id):
@@ -695,7 +797,7 @@ class SourceBoundNameRegressionTests(unittest.TestCase):
             "story/025/dialogue/02.04/0007": "“果然如此……”",
             "story/027/dialogue/02.01/0206":
                 "“没办法，我就是适合干这种活……”",
-            "battle:00612": "“来了啊！你这讨女人欢心的恶党！”",
+            "battle:00612": "“来了啊！你这拈花惹草的恶党！”",
             "battle:22592": "“那种东西可打不中\\n　我兜甲儿大爷！”",
         }
         for entry_id, translation in expected.items():
@@ -1490,6 +1592,51 @@ class SourceBoundNameRegressionTests(unittest.TestCase):
         battle_rows = [row for row in self.rows if row.surface == "battle"]
         report = audit_source_terms(battle_rows, terms)
         self.assertEqual(report["mismatches"], [])
+
+    def test_issue_039_and_047_to_049_feedback_lines_stay_fixed(self) -> None:
+        rows = {row.entry_id: row for row in self.rows}
+        expected = {
+            "battle:09461": "“你竟敢！”",
+            "story/034/dialogue/02.03/0007": (
+                "“斯雷，给这位戴眼镜的小哥\n　挑些女孩子会喜欢的东西。”"
+            ),
+            "story/034/dialogue/02.03/0009": (
+                "“因为这位小哥好像也和你一样，\n　有想讨好的对象。”"
+            ),
+            "story/034/dialogue/02.03/0011": (
+                "“好好加油吧。\n　戴眼镜的小哥也是，斯雷也是。”"
+            ),
+            "story/035/dialogue/01.05/0002": (
+                "“盖纳！该隐！我们都平安无事——！”"
+            ),
+            "battle:00611": (
+                "“拈花惹草的家伙，\\n　竟敢大摇大摆地现身——！！”"
+            ),
+            "battle:00612": "“来了啊！你这拈花惹草的恶党！”",
+        }
+        for entry_id, translation in expected.items():
+            with self.subTest(entry_id=entry_id):
+                self.assertEqual(rows[entry_id].translation, translation)
+
+        self.assertIn("やったなぁっ", rows["battle:09461"].source_text)
+        self.assertIn("私達は無事ですよーっ", rows["story/035/dialogue/01.05/0002"].source_text)
+        self.assertIn("女ったらし", rows["battle:00611"].source_text)
+        self.assertIn("女ったらし", rows["battle:00612"].source_text)
+
+    def test_issue_051_and_052_battle_lines_stay_contextual(self) -> None:
+        rows = {row.entry_id: row for row in self.rows}
+        expected = {
+            "battle:07804": ("シュート", "“发射！”"),
+            "battle:23437": ("シュート", "“发射……！”"),
+            "battle:14654": ("ファイヤーゴール", "“灼热的！火焰射门！！”"),
+            "battle:06169": ("真っ向唐竹割り", "“迎头直劈！”"),
+            "battle:24266": ("唐竹割り", "“唐竹斩！”"),
+            "battle:24271": ("唐竹割り", "“唐竹斩！！”"),
+        }
+        for entry_id, (source_fragment, translation) in expected.items():
+            with self.subTest(entry_id=entry_id):
+                self.assertIn(source_fragment, rows[entry_id].source_text)
+                self.assertEqual(rows[entry_id].translation, translation)
 
 
 if __name__ == "__main__":

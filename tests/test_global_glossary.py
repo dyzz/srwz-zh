@@ -315,6 +315,8 @@ class GlobalGlossaryTests(unittest.TestCase):
                     checked += 1
                     canonical = str(term["translation"])
                     compact_translation = translation.replace("\n", "").replace("　", "")
+                    if item.get("fixed_span_display_contraction") == canonical:
+                        continue
                     if canonical not in compact_translation:
                         mismatches.append(
                             f"{path.relative_to(ROOT)}:{item.get('id')}:"

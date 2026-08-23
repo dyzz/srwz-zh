@@ -6,6 +6,7 @@ from unittest.mock import patch
 from tools.srwz.imagemagick import (
     _box_downsample_grayscale,
     _pixel_aligned_horizontal_shear,
+    render_grayscale_text_mask,
     render_tim2_png8,
 )
 
@@ -71,6 +72,40 @@ class ImageMagickAdapterTests(unittest.TestCase):
                 render_tim2_png8("magick", source, output)
 
             self.assertEqual(output.read_bytes(), b"png")
+
+    def test_text_mask_passes_integer_vertical_offset_to_both_layers(self):
+        with tempfile.TemporaryDirectory() as directory:
+            font = Path(directory) / "font.ttf"
+            font.write_bytes(b"fixture")
+
+            def render(command, context):
+                self.assertEqual(
+                    [
+                        command[index + 1]
+                        for index, value in enumerate(command)
+                        if value == "-annotate"
+                    ],
+                    ["+0+3", "+0+3"],
+                )
+                self.assertEqual(context, "ImageMagick text mask for '攻略Q&A'")
+                return bytes(118 * 32)
+
+            with patch(
+                "tools.srwz.imagemagick._run",
+                side_effect=render,
+            ):
+                mask = render_grayscale_text_mask(
+                    "magick",
+                    font,
+                    "攻略Q&A",
+                    width=118,
+                    height=32,
+                    point_size=24,
+                    stroke_gray="#303030",
+                    stroke_width=1.25,
+                    vertical_offset=3,
+                )
+            self.assertEqual(mask, bytes(118 * 32))
 
 
 if __name__ == "__main__":

@@ -36,34 +36,34 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 72098,
-      "sha256": "cbb3f288570e9a332b2db08641bb86a93e339534cf2b45190be3abcc36e7f7c8"
+      "size": 72299,
+      "sha256": "7552f150d17c0794891aa76b06fe7d293ce086b7548a6fc3d02e7a751ea0f7fc"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
     "slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "02b65498f91bbd767666a3e5a211ad9b2cfc3af5bb0e69eda43ed7083db3fdda"
+      "sha256": "b48351f4706390df7caebf5c23b0d75ed176cda618ad7e9dbe3c88c565df0fb7"
     },
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "94b1777ae6e6381ee4b293fdfc494a0848e09187bf87acddce85c535162d0934"
+      "sha256": "0066b658e0f1e0215599b8de54d967710ec8ca3229bcb7f7ec330645589b572b"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18259643,
-      "sha256": "8af90c455ef5d9e1c36ee1667212e30e79a2599213ff8e1c6b3f053e35c5ed29"
+      "size": 18259645,
+      "sha256": "521cbc6534735579fe2529156e48ebb47a5dce02982f72c1429a2e2ee5aa7795"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "a2408286ec0de9cdd57f5496103e215c2bab1b6f736348d9a858a44a45aff16b"
+      "sha256": "f3f1296b11f28374a4aef46c8d1551204a7c31d145c20d3ceb0b7a10b3c9764d"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -89,8 +89,8 @@
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 109157,
-      "sha256": "628b8884c376aa76a8fa1d8c2b9f8175d806fa68c80af1827bdcfe98c989a2e8"
+      "size": 109109,
+      "sha256": "997d033158cd394a873054e79576f02cb99b897c94981d4dc4ebe7a9cb76e601"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -136,8 +136,8 @@
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 109157,
-      "sha256": "628b8884c376aa76a8fa1d8c2b9f8175d806fa68c80af1827bdcfe98c989a2e8"
+      "size": 109109,
+      "sha256": "997d033158cd394a873054e79576f02cb99b897c94981d4dc4ebe7a9cb76e601"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -211,8 +211,8 @@
   "reviewed_weapons": {
     "corpus": {
       "path": "corpus/zh/menu/weapons.json",
-      "size": 214932,
-      "sha256": "97c734a95a4bcebb0a15785b5117a3a2fa639e4132fa12013b30ae9173b49df4"
+      "size": 214986,
+      "sha256": "5d00d136f0f25a217ec9cef2ddb6b1ab00fc0755a2dd04c270a3f6009e241aef"
     },
     "expected": {
       "entry_count": 711,
@@ -224,8 +224,8 @@
   "special_abilities": {
     "corpus": {
       "path": "corpus/zh/menu/system-ui-special-abilities.json",
-      "size": 55057,
-      "sha256": "d17a612474db90c0eb2dd4c3802bc0b378793af3ebb5319a0109ff75717aba27"
+      "size": 55041,
+      "sha256": "94bac433d92e35f0b00cdd0c7ffcc7a528b4271484cb1d0f4aaf86c278b219bc"
     },
     "expected": {
       "entry_count": 158,
@@ -596,8 +596,8 @@
   "remaining_ui": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 109157,
-      "sha256": "628b8884c376aa76a8fa1d8c2b9f8175d806fa68c80af1827bdcfe98c989a2e8"
+      "size": 109109,
+      "sha256": "997d033158cd394a873054e79576f02cb99b897c94981d4dc4ebe7a9cb76e601"
     },
     "parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
@@ -694,8 +694,8 @@
   "nisv_effect_names": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 109157,
-      "sha256": "628b8884c376aa76a8fa1d8c2b9f8175d806fa68c80af1827bdcfe98c989a2e8"
+      "size": 109109,
+      "sha256": "997d033158cd394a873054e79576f02cb99b897c94981d4dc4ebe7a9cb76e601"
     },
     "original_archive": {
       "path": "work/disc/DATA/NISVDATA.BIN",
@@ -1041,11 +1041,87 @@
       "lazy_matching": false
     }
   },
+  "weapon_special_effect_2": {
+    "strategy": "slps-inline-mips-immediate-strings",
+    "corpus": {
+      "path": "corpus/zh/menu/weapon-special-effect-2.json",
+      "size": 650,
+      "sha256": "e19e722f03dfd17629ef3c5c84886dd1c20f74d41e65eaa0499b968e0cfc5fa3"
+    },
+    "elf_file_offset_base": "0x1A80",
+    "elf_virtual_address_base": "0x100000",
+    "fields": [
+      {
+        "id": "ignore-size-correction",
+        "condition_flag_mask": "0x2",
+        "capacity_bytes": 16,
+        "word_builders": [
+          {
+            "lui_file_offset": "0x2925A4",
+            "lui_original_hex": "8343023C",
+            "ori_file_offset": "0x2925AC",
+            "ori_original_hex": "83544234"
+          },
+          {
+            "lui_file_offset": "0x2925B8",
+            "lui_original_hex": "95E2023C",
+            "ori_file_offset": "0x2925BC",
+            "ori_original_hex": "83594334"
+          },
+          {
+            "lui_file_offset": "0x2925C0",
+            "lui_original_hex": "96B3023C",
+            "ori_file_offset": "0x2925C8",
+            "ori_original_hex": "90B34234"
+          },
+          {
+            "ori_file_offset": "0x2925D0",
+            "ori_original_hex": "8E8B0234"
+          }
+        ]
+      },
+      {
+        "id": "barrier-pierce",
+        "condition_flag_mask": "0x1",
+        "capacity_bytes": 12,
+        "word_builders": [
+          {
+            "lui_file_offset": "0x2925F8",
+            "lui_original_hex": "838A023C",
+            "ori_file_offset": "0x2925FC",
+            "ori_original_hex": "836F4334"
+          },
+          {
+            "lui_file_offset": "0x292600",
+            "lui_original_hex": "8AD1023C",
+            "ori_file_offset": "0x292608",
+            "ori_original_hex": "83414234"
+          },
+          {
+            "ori_file_offset": "0x292610",
+            "ori_original_hex": "92CA0234"
+          }
+        ]
+      }
+    ],
+    "expected": {
+      "entry_count": 2,
+      "instruction_count": 12,
+      "source_labels": [
+        "サイズ補正無視",
+        "バリア貫通"
+      ],
+      "translated_labels": [
+        "无视体型修正",
+        "屏障贯通"
+      ]
+    }
+  },
   "runtime_library_menu": {
     "scope": {
       "path": "config/library/v0.2.0.json",
-      "size": 20729,
-      "sha256": "f5be9f83b92a36c3716525a2a1b41bcd20c1914ea3bbcd6627b3a0ad2c468aca"
+      "size": 21834,
+      "sha256": "12060cadec42a7ca50e6ba34c022bf6bdbe12d309fc2386dd1ee0d870f2c7d3f"
     },
     "font": {
       "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
@@ -1056,8 +1132,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6970334,
-      "sha256": "1c2c13cf0d5b6813f573f3b21dc90612dedd5293ab3feae3031d454b1fe6cdf3"
+      "size": 6970331,
+      "sha256": "a2b6c31c3f3913d90a2c582fe1209d838c96086b1bdae23aaf534cf9fe9fcebc"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -1894,8 +1970,8 @@
     },
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
-      "size": 779073,
-      "sha256": "76708779451029af80e9c6d1cbb2d7fe37862e17df9936cd4b85dbcaae7c8ae2"
+      "size": 782215,
+      "sha256": "b9e71cc0b0e88ebbe20d527ef57c0ec31b2c980828d63326bdf724e025280685"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -1973,12 +2049,12 @@
       "mode": "flattened-release-superset-of-encoded-ui",
       "encoded_assignment_count": 1803,
       "encoded_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
-      "release_assignment_count": 3450,
-      "release_assignment_mapping_sha256": "1f74a7489feab13cb8d57020df3c430f115e7db4d6fa799c74ede437ef6d79c0",
-      "release_snapshot_primary_mapping_sha256": "6e9486ea8123fd8e4988afaa32a3cab98c41979274b0bd3ae027ccf961fcd5b0",
+      "release_assignment_count": 3451,
+      "release_assignment_mapping_sha256": "19360a755a79549690d884269fb0574cd45443dee7ae85afe85ef791671055b2",
+      "release_snapshot_primary_mapping_sha256": "e7cad754c7f931c2b818861bef8554e26d2f2779ba9f381ddbe67da73c388ba4",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "a9cd5c2e047096f277725ed309c790d5e15f06787cc935e31e7405888bfe8166",
+        "sha256": "5955faa44b64ebb92d336a2b008b65e9198bdc10589cdd10e0cc2e31d0d33242",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
       "reason": "The already encoded UI bytes remain valid because all 1,803 mappings they use are an exact character/code/glyph subset of the flattened global release snapshot. The inherited encoded UI component is not rebuilt."

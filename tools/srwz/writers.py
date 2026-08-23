@@ -28,6 +28,8 @@ from .writeback import (
 
 
 STAGE_KEYWORD_CODES = {"《": 0x8173, "》": 0x8174}
+STAGE_RUNTIME_NAME_PLACEHOLDER = ":"
+STAGE_RUNTIME_NAME_PLACEHOLDER_CODE = 0x3A
 
 
 def _stage_keyword_span_count(text: str, *, label: str) -> int:
@@ -76,12 +78,37 @@ def encode_stage_message(
     must force the original codes back into the translated message.
     """
 
+    message_overrides = dict(overrides or {})
+    if (
+        "/condition/" in entry_id
+        and STAGE_RUNTIME_NAME_PLACEHOLDER in source_text
+    ):
+        source_placeholder_count = source_text.count(
+            STAGE_RUNTIME_NAME_PLACEHOLDER
+        )
+        replacement_placeholder_count = replacement.count(
+            STAGE_RUNTIME_NAME_PLACEHOLDER
+        )
+        if replacement_placeholder_count != source_placeholder_count:
+            raise WritebackError(
+                f"{entry_id} runtime-name placeholder count mismatch: "
+                f"source={source_placeholder_count}, "
+                f"replacement={replacement_placeholder_count}"
+            )
+        # A raw ASCII colon is a runtime pilot-name substitution token in
+        # STAGE condition strings.  The release-wide visible-ASCII mapping
+        # normally projects ':' to a two-byte glyph, which looks similar but
+        # disables the substitution.  Preserve 0x3A only on this surface.
+        message_overrides[STAGE_RUNTIME_NAME_PLACEHOLDER] = (
+            STAGE_RUNTIME_NAME_PLACEHOLDER_CODE
+        )
+
     source_count = _stage_keyword_span_count(
         source_text,
         label=f"{entry_id} source text",
     )
     if source_count == 0:
-        return PreparedTextEncoder(table, overrides).encode(
+        return PreparedTextEncoder(table, message_overrides).encode(
             replacement,
             terminate=terminate,
         )
@@ -101,7 +128,7 @@ def encode_stage_message(
                 f"{entry_id} source table does not map STAGE keyword code "
                 f"0x{code:04X} to {character!r}"
             )
-    keyword_overrides = dict(overrides or {})
+    keyword_overrides = dict(message_overrides)
     keyword_overrides.update(STAGE_KEYWORD_CODES)
     return PreparedTextEncoder(table, keyword_overrides).encode(
         replacement,

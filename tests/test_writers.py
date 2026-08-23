@@ -10,6 +10,7 @@ from tools.srwz.writers import (
     apply_summary_replacements,
     build_executable_offset_patch_plan,
     build_summary_patch_plan,
+    encode_stage_message,
     rebuild_codec_archive,
     relocate_menu_texts_to_pool,
     relocate_stage_text_to_arena,
@@ -62,6 +63,45 @@ class WriterTests(unittest.TestCase):
             replacements=replacements,
         )
         self.assertEqual(output[0x6A:0x72], b"Hi\x00\x00\x00\x00\x00\x00")
+
+    def test_stage_condition_runtime_name_placeholder_stays_raw_ascii(self):
+        table = TextTable(characters={0x8146: ":"}, tags={})
+        overrides = {":": 0x8146}
+        encoded = encode_stage_message(
+            table,
+            overrides,
+            entry_id="story/041/condition/01/02",
+            source_text=":、またはトビーの撃墜。",
+            replacement=": or Toby down.",
+            terminate=True,
+        )
+        self.assertEqual(encoded[0], 0x3A)
+        self.assertNotEqual(encoded[:2], b"\x81\x46")
+
+    def test_stage_dialogue_visible_colon_keeps_release_override(self):
+        table = TextTable(characters={0x8146: ":"}, tags={})
+        encoded = encode_stage_message(
+            table,
+            {":": 0x8146},
+            entry_id="story/041/dialogue/01.01/0000",
+            source_text="A:B",
+            replacement="A:B",
+            terminate=True,
+        )
+        self.assertEqual(encoded, b"A\x81\x46B\x00")
+
+    def test_stage_condition_runtime_name_placeholder_count_is_locked(self):
+        with self.assertRaisesRegex(
+            WritebackError,
+            "runtime-name placeholder count mismatch",
+        ):
+            encode_stage_message(
+                self.table,
+                {":": 0x8146},
+                entry_id="story/041/condition/01/02",
+                source_text=":、またはトビーの撃墜。",
+                replacement="or Toby down.",
+            )
 
     def test_summary_writer_accepts_profile_codebook_overrides(self):
         source = summary_fixture()

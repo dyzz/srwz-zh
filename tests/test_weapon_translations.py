@@ -52,6 +52,7 @@ class WeaponTranslationTests(unittest.TestCase):
             544: "超限连击",
             553: "Big O·最终舞台",
             565: "格兰骑士攻击",
+            673: "HEAT CRUSHER",
         }
 
         self.assertEqual(self.translations["batch_id"], "v1-menu-weapons")
@@ -76,6 +77,11 @@ class WeaponTranslationTests(unittest.TestCase):
                     term["translation"],
                     entry["translation"],
                 )
+                if ordinal == 673:
+                    self.assertEqual(
+                        entry["fixed_span_display_contraction"],
+                        term["translation"],
+                    )
             else:
                 self.assertEqual(term["translation"], entry["translation"])
             self.assertIn(term["category"], {"weapon", "epithet"})
@@ -96,6 +102,7 @@ class WeaponTranslationTests(unittest.TestCase):
         }
         expected = {
             1: "腐蚀飓风",
+            21: "轰天雷",
             64: "双战斧",
             97: "雷霆闪光",
             195: "沃卡加利亚全功率",

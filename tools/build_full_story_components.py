@@ -82,6 +82,10 @@ try:
         apply_sound_select_default_unlock,
         audit_sound_select_track_metadata,
     )
+    from srwz.weapon_special_effects import (
+        WeaponSpecialEffectError,
+        apply_weapon_special_effect_2,
+    )
     from srwz.hsfc_overview import replace_hsfc_overviews_in_place
     from srwz.srvc import (
         parse_srvc_archive,
@@ -211,6 +215,10 @@ except ModuleNotFoundError:
         SoundSelectError,
         apply_sound_select_default_unlock,
         audit_sound_select_track_metadata,
+    )
+    from tools.srwz.weapon_special_effects import (
+        WeaponSpecialEffectError,
+        apply_weapon_special_effect_2,
     )
     from tools.srwz.hsfc_overview import replace_hsfc_overviews_in_place
     from tools.srwz.srvc import (
@@ -489,6 +497,7 @@ CONFIG_SECTION_IMPACTS = {
     "chapter_intertitles": {MTV_PROP_MEMBER},
     "hsfc_overviews": {HSFC_MEMBER},
     "remaining_ui": {SLPS_MEMBER, COMPDATA_MEMBER, STAGE_MEMBER},
+    "weapon_special_effect_2": {SLPS_MEMBER},
     "nisv_effect_names": {NISVDATA_MEMBER},
     "nisv_strategy_qa": {NISVDATA_MEMBER, SLPS_MEMBER},
     "nisv_tutorial_pages": {NISVDATA_MEMBER, SLPS_MEMBER},
@@ -575,6 +584,7 @@ INPUT_IMPACTS = {
         STAGE_MEMBER,
     },
     "runtime_keyword_executable": {COMPDATA_MEMBER, STAGE_MEMBER},
+    "weapon_special_effect_2_corpus": {SLPS_MEMBER},
 }
 
 
@@ -9245,6 +9255,41 @@ def build(
             f"sound-select default unlock failed: {error}"
         ) from error
 
+    weapon_effect_config = config.get("weapon_special_effect_2")
+    if not isinstance(weapon_effect_config, dict):
+        raise FullStoryComponentError(
+            "weapon special-effect-2 configuration is invalid"
+        )
+    weapon_effect_corpus_path, weapon_effect_corpus_data = _locked_file(
+        weapon_effect_config.get("corpus"),
+        label="weapon special-effect-2 corpus",
+    )
+    try:
+        weapon_effect_corpus = json.loads(
+            weapon_effect_corpus_data.decode("utf-8")
+        )
+        output_slps, weapon_effect_2_report = apply_weapon_special_effect_2(
+            output_slps,
+            weapon_effect_config,
+            weapon_effect_corpus,
+            source_table=runtime_keyword_source_table,
+            encoding_overrides={
+                **runtime_keyword_primary,
+                **runtime_keyword_aliases,
+                **original_fullwidth_ascii_overrides(
+                    runtime_keyword_source_table
+                ),
+            },
+        )
+    except (
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+        WeaponSpecialEffectError,
+    ) as error:
+        raise FullStoryComponentError(
+            f"weapon special-effect-2 write failed: {error}"
+        ) from error
+
     output_slps, library_offset_table_report = (
         _apply_library_archive_offset_patches(
             output_slps,
@@ -9435,6 +9480,10 @@ def build(
                 runtime_keyword_executable_path,
                 runtime_keyword_executable_payload,
             ),
+            "weapon_special_effect_2_corpus": _file_lock(
+                weapon_effect_corpus_path,
+                weapon_effect_corpus_data,
+            ),
             "srvc_battle_text_corpus": _file_lock(
                 srvc_input_paths[0], srvc_input_paths[0].read_bytes()
             ),
@@ -9614,6 +9663,7 @@ def build(
         "nisv_tutorial_pages": nisv_tutorial_report,
         "runtime_library_menu": runtime_library_menu_report,
         "sound_select_default_unlock": sound_select_unlock_report,
+        "weapon_special_effect_2": weapon_effect_2_report,
         "compdata_battle_lines": compdata_battle_line_report,
         "reviewed_weapons": reviewed_weapon_report,
         "special_abilities": special_ability_report,
@@ -9873,6 +9923,12 @@ def build(
                 and sound_select_unlock_report["metadata"][
                     "empty_sentinel_excluded"
                 ]
+            ),
+            "weapon_special_effect_2_reread_exact": (
+                weapon_effect_2_report["entry_count"] == 2
+                and weapon_effect_2_report["all_translated_reread_exact"]
+                and weapon_effect_2_report["control_flow_preserved"]
+                and weapon_effect_2_report["executable_size_preserved"]
             ),
             "encoded_ui_codebook_is_release_subset": True,
             "global_release_font_missing_character_count_zero": (

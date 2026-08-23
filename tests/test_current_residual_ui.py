@@ -435,6 +435,24 @@ class CurrentResidualUiTests(unittest.TestCase):
         self.assertTrue(
             audit["all_translated_condition_source_payloads_absent"]
         )
+        self.assertEqual(audit["runtime_name_placeholder_entry_count"], 12)
+        self.assertEqual(
+            audit["runtime_name_placeholder_occurrence_count"], 12
+        )
+        reported_placeholder = audit["reported_episode_21_placeholder"]
+        self.assertEqual(
+            reported_placeholder["entry_id"],
+            "story/041/condition/01/02",
+        )
+        self.assertEqual(reported_placeholder["stage_index"], 41)
+        self.assertEqual(
+            reported_placeholder["translation"],
+            ":或托比被击坠。",
+        )
+        self.assertEqual(reported_placeholder["raw_0x3a_count"], 1)
+        self.assertTrue(reported_placeholder["stored_hex"].startswith("3a"))
+        self.assertTrue(reported_placeholder["raw_placeholder_exact"])
+        self.assertTrue(audit["all_runtime_name_placeholders_raw_0x3a"])
         self.assertTrue(
             self.content["checks"]["dynamic_condition_updates_exact"]
         )
