@@ -1,4 +1,5 @@
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -126,6 +127,20 @@ class SpecialAbilityTranslationTests(unittest.TestCase):
         self.assertEqual(barrier["translation"], "防护力场")
         self.assertEqual(barrier["status"], "approved")
         self.assertEqual(self.entries[33]["translation"], barrier["translation"])
+
+    def test_numeric_en_costs_do_not_insert_a_full_cell_gap(self):
+        for ordinal, entry in self.entries.items():
+            self.assertIsNone(
+                re.search(r"消耗\d+ EN", entry["translation"]),
+                msg=f"ordinal {ordinal} keeps an oversized EN gap",
+            )
+        self.assertIn("消耗10EN。", self.entries[83]["translation"])
+
+        remaining = load(REMAINING_UI_PATH)
+        self.assertIn(
+            "消耗10EN。",
+            remaining["compdata_direct_by_offset"]["0x7D6F0"],
+        )
 
     def test_final_iso_binds_every_reviewed_special_ability(self):
         content = load(CONTENT_PATH)

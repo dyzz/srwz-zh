@@ -30,8 +30,8 @@ class CurrentResidualUiTests(unittest.TestCase):
         remaining = self.component["remaining_ui"]
         self.assertEqual(remaining["slps_context_ui"]["entry_count"], 613)
         fixed_slps = self.remaining_ui["slps_by_offset"]
-        self.assertEqual(len(fixed_slps), 242)
-        self.assertEqual(remaining["slps"]["entry_count"], 242)
+        self.assertEqual(len(fixed_slps), 245)
+        self.assertEqual(remaining["slps"]["entry_count"], 245)
         self.assertEqual(
             {
                 offset: fixed_slps[offset]

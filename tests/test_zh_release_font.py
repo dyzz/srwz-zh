@@ -813,7 +813,7 @@ class ZhReleaseFontTests(unittest.TestCase):
 
     def test_every_translation_tree_entry_is_covered(self):
         selection = self.manifest["inputs"]["translation_selection"]
-        self.assertEqual(selection["unique_entry_count"], 129043)
+        self.assertEqual(selection["unique_entry_count"], 129046)
         source_paths = {item["path"] for item in selection["sources"]}
         self.assertIn("corpus/zh/battle/srvc-lines.json", source_paths)
         self.assertIn("corpus/zh/menu/battle-lines.json", source_paths)
@@ -849,7 +849,7 @@ class ZhReleaseFontTests(unittest.TestCase):
         self.assertEqual(control_tokens["occurrence_count"], 2268)
         self.assertEqual(
             control_tokens["kinds"]["runtime_format"]["forms"],
-            {"%s": 59},
+            {"%<width:64>": 1, "%s": 59},
         )
         self.assertEqual(
             control_tokens["kinds"]["runtime_substitution"][
@@ -868,20 +868,20 @@ class ZhReleaseFontTests(unittest.TestCase):
             {"<0>": 3, "<6>": 1, "<8>": 1, "<9>": 1},
         )
         self.assertEqual(
-            control_tokens["kinds"]["text_tag"]["occurrence_count"], 118
+            control_tokens["kinds"]["text_tag"]["occurrence_count"], 117
         )
         self.assertTrue(control_tokens["excluded_from_font_glyph_demand"])
         self.assertEqual(
-            selection["literal_percent_signs"]["occurrence_count"], 269
+            selection["literal_percent_signs"]["occurrence_count"], 268
         )
         self.assertEqual(
             coverage["control_token_occurrence_count"], 2268
         )
         self.assertEqual(
-            coverage["runtime_placeholder_occurrence_count"], 2150
+            coverage["runtime_placeholder_occurrence_count"], 2151
         )
         self.assertTrue(coverage["runtime_placeholder_bytes_preserved_exactly"])
-        self.assertEqual(coverage["literal_percent_occurrence_count"], 269)
+        self.assertEqual(coverage["literal_percent_occurrence_count"], 268)
 
     def test_snapshot_updater_appends_without_reordering_existing_rows(self):
         updated = self._run_snapshot_updater("龘")

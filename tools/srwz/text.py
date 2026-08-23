@@ -15,11 +15,16 @@ PRINTABLE_ASCII = frozenset(
     "".join((string.digits, string.ascii_letters, string.punctuation, " "))
 )
 ORIGINAL_FULLWIDTH_ASCII = frozenset(string.digits + string.ascii_letters)
-RUNTIME_FORMAT_TOKEN = re.compile(r"%(?:\d+\$)?[diouxXeEfFgGcrsa]")
+RUNTIME_FORMAT_TOKEN = re.compile(
+    r"%(?:(?:\d+)\$)?[-+#0 ]*(?:\d+|\*)?(?:\.(?:\d+|\*))?"
+    r"[diouxXeEfFgGcrsa]"
+)
+RUNTIME_FORMAT_TAG_TOKEN = re.compile(r"%<width:([0-9A-Fa-f]{2})>")
 RUNTIME_SUBSTITUTION_TOKEN = re.compile(r"\$[cflnF]")
 RUNTIME_ICON_SLOT_TOKEN = re.compile(r"<[0-9]>")
 CONTROL_NOTATION = re.compile(
-    rf"{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
+    rf"{RUNTIME_FORMAT_TAG_TOKEN.pattern}"
+    rf"|{RUNTIME_SUBSTITUTION_TOKEN.pattern}"
     rf"|{RUNTIME_FORMAT_TOKEN.pattern}"
     rf"|{RUNTIME_ICON_SLOT_TOKEN.pattern}"
     r"|\{[0-9A-Fa-f]{2}\}"
@@ -332,7 +337,9 @@ def control_notation_tokens(text: str) -> tuple[ControlNotationToken, ...]:
     tokens = []
     for match in CONTROL_NOTATION.finditer(text):
         token = match.group(0)
-        if RUNTIME_FORMAT_TOKEN.fullmatch(token):
+        if RUNTIME_FORMAT_TOKEN.fullmatch(token) or RUNTIME_FORMAT_TAG_TOKEN.fullmatch(
+            token
+        ):
             kind = "runtime_format"
         elif RUNTIME_SUBSTITUTION_TOKEN.fullmatch(token) or RUNTIME_ICON_SLOT_TOKEN.fullmatch(token):
             kind = "runtime_substitution"
@@ -364,7 +371,7 @@ def unrecognized_control_notation_offsets(text: str) -> tuple[int, ...]:
     """Locate placeholder-like syntax not accepted by the strict encoder.
 
     A literal percentage such as ``30%`` is not suspicious.  A sequence such
-    as ``%02d`` or ``$q`` is: silently treating it as visible ASCII would let
+    as ``%Q`` or ``$q`` is: silently treating it as visible ASCII would let
     a future runtime placeholder leak into font allocation.
     """
 
@@ -396,6 +403,37 @@ def _encode_text_prepared(
         if character == "\n":
             output.append(0x0A)
             index += 1
+            continue
+
+        runtime_format_tag_match = RUNTIME_FORMAT_TAG_TOKEN.match(text, index)
+        if runtime_format_tag_match:
+            width_tag = inverse_tags.get("width")
+            if width_tag is None:
+                raise SrwzTextEncodeError(
+                    "text table has no width tag",
+                    character_index=index,
+                )
+            raw_format = bytes(
+                (
+                    ord("%"),
+                    width_tag,
+                    int(runtime_format_tag_match.group(1), 16),
+                )
+            )
+            try:
+                decoded_format = raw_format.decode("ascii")
+            except UnicodeDecodeError as error:
+                raise SrwzTextEncodeError(
+                    "lossless runtime format is not ASCII",
+                    character_index=index,
+                ) from error
+            if RUNTIME_FORMAT_TOKEN.fullmatch(decoded_format) is None:
+                raise SrwzTextEncodeError(
+                    f"invalid lossless runtime format {decoded_format!r}",
+                    character_index=index,
+                )
+            output.extend(raw_format)
+            index = runtime_format_tag_match.end()
             continue
 
         runtime_substitution_match = RUNTIME_SUBSTITUTION_TOKEN.match(text, index)
@@ -574,6 +612,7 @@ __all__ = [
     "ControlNotationToken",
     "ORIGINAL_FULLWIDTH_ASCII",
     "PreparedTextEncoder",
+    "RUNTIME_FORMAT_TAG_TOKEN",
     "RUNTIME_FORMAT_TOKEN",
     "RUNTIME_ICON_SLOT_TOKEN",
     "RUNTIME_SUBSTITUTION_TOKEN",

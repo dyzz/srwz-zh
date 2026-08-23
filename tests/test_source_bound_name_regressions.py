@@ -1638,6 +1638,20 @@ class SourceBoundNameRegressionTests(unittest.TestCase):
                 self.assertIn(source_fragment, rows[entry_id].source_text)
                 self.assertEqual(rows[entry_id].translation, translation)
 
+    def test_issue_058_setsuko_glory_star_cry_is_translated_by_meaning(self) -> None:
+        rows = {row.entry_id: row for row in self.rows}
+        expected = {
+            "battle:11418": ("ハブ・ア・ゴー", "“放手一搏！！”"),
+            "battle:11465": (
+                "ハブ・ア・ゴー",
+                "“连续射击…\\n　放手一搏…！”",
+            ),
+        }
+        for entry_id, (source_fragment, translation) in expected.items():
+            with self.subTest(entry_id=entry_id):
+                self.assertIn(source_fragment, rows[entry_id].source_text)
+                self.assertEqual(rows[entry_id].translation, translation)
+
 
 if __name__ == "__main__":
     unittest.main()

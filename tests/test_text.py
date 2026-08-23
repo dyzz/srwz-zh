@@ -40,12 +40,13 @@ class TextDecodeTests(unittest.TestCase):
 
     def test_control_notation_is_classified_without_splitting_tokens(self):
         tokens = control_notation_tokens(
-            "第%2$s话$c$n<0><9>{7F}@<color:31>"
+            "第%2$s话%<width:64>$c$n<0><9>{7F}@<color:31>"
         )
         self.assertEqual(
             [(token.kind, token.text) for token in tokens],
             [
                 ("runtime_format", "%2$s"),
+                ("runtime_format", "%<width:64>"),
                 ("runtime_substitution", "$c"),
                 ("runtime_substitution", "$n"),
                 ("runtime_substitution", "<0>"),
@@ -56,10 +57,10 @@ class TextDecodeTests(unittest.TestCase):
         )
 
     def test_unknown_placeholder_like_syntax_is_fail_closed(self):
-        text = "30%正常，%02d异常，$q异常，@<color:ZZ>异常"
+        text = "30%正常，%Q异常，$q异常，@<color:ZZ>异常"
         self.assertEqual(
             unrecognized_control_notation_offsets(text),
-            (text.index("%02d"), text.index("$q"), text.index("@<")),
+            (text.index("%Q"), text.index("$q"), text.index("@<")),
         )
 
     def test_matches_all_upstream_control_code_fixtures(self):
@@ -237,7 +238,7 @@ class TextDecodeTests(unittest.TestCase):
 
     def test_runtime_format_tokens_bypass_ascii_glyph_overrides(self):
         encoded = encode_text(
-            "%s：%2$s",
+            "%s：%2$s：%2d：%02d",
             self.table,
             overrides={
                 "%": 0x8140,
@@ -248,8 +249,23 @@ class TextDecodeTests(unittest.TestCase):
         )
         self.assertEqual(
             encoded,
-            b"%s" + self.table.inverse_characters["："].to_bytes(2, "big") + b"%2$s",
+            b"%s"
+            + self.table.inverse_characters["："].to_bytes(2, "big")
+            + b"%2$s"
+            + self.table.inverse_characters["："].to_bytes(2, "big")
+            + b"%2d"
+            + self.table.inverse_characters["："].to_bytes(2, "big")
+            + b"%02d",
         )
+
+    def test_lossless_runtime_format_tag_bypasses_ascii_glyph_overrides(self):
+        encoded = encode_text(
+            "%<width:64>",
+            self.table,
+            overrides={"%": 0x9865, "2": 0x8140, "d": 0x8141},
+            terminate=True,
+        )
+        self.assertEqual(encoded, b"%2d\x00")
 
     def test_augmented_table_reads_explicit_override(self):
         augmented = augment_text_table(self.table, {"测": 0x987E})

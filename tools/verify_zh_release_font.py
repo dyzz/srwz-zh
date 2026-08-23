@@ -29,7 +29,7 @@ from srwz.release_font import (
     rendered_characters,
     selected_translation_tree_entries,
 )
-from srwz.text import encode_text, load_text_table
+from srwz.text import RUNTIME_FORMAT_TOKEN, encode_text, load_text_table
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -287,9 +287,16 @@ def main() -> int:
                 runtime_placeholder_occurrence_count += kind_report["forms"][
                     token
                 ]
-                if encode_text(token, baseline["table"]) != token.encode(
-                    "ascii"
-                ):
+                encoded_token = encode_text(token, baseline["table"])
+                if kind == "runtime_format":
+                    try:
+                        decoded_token = encoded_token.decode("ascii")
+                    except UnicodeDecodeError:
+                        runtime_placeholder_bytes_exact = False
+                        continue
+                    if RUNTIME_FORMAT_TOKEN.fullmatch(decoded_token) is None:
+                        runtime_placeholder_bytes_exact = False
+                elif encoded_token != token.encode("ascii"):
                     runtime_placeholder_bytes_exact = False
         control_occurrence_count += kind_report["occurrence_count"]
     if (

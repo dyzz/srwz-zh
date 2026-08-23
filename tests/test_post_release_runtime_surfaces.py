@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 from tools.srwz.mtv_prop_intertitles import build_mtv_prop_intertitles
-from tools.srwz.text import decode_text, load_text_table
+from tools.srwz.text import decode_text, encode_text, load_text_table
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -67,6 +67,27 @@ def test_issue_022_auto_squad_root_table_is_complete_and_reviewed():
         assert decoded.text == source_text
         assert not any(source[decoded.end : offset + 0x14])
         assert remaining[f"0x{offset:X}"] == translation
+
+
+def test_issue_054_remaining_squad_count_keeps_raw_printf_width_token():
+    source = (ROOT / "work/disc/SLPS_258.87").read_bytes()
+    table = load_text_table(
+        ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    remaining = json.loads(
+        (ROOT / "corpus/zh/menu/remaining-ui.json").read_text(
+            encoding="utf-8"
+        )
+    )["slps_context_ui_by_offset"]
+    decoded = decode_text(source, 0x33FC80, table)
+    assert decoded.text == "%<width:64>隊"
+    assert remaining["0x33FC80"] == "%<width:64>"
+    assert encode_text(
+        remaining["0x33FC80"],
+        table,
+        overrides={"%": 0x9865, "2": 0x8140, "d": 0x8141},
+        terminate=True,
+    ) == b"%2d\x00"
 
 
 def test_issue_016_020_026_stage_component_has_structural_closure():

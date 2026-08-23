@@ -62,7 +62,13 @@ class CombinedTextReviewTranslationTests(unittest.TestCase):
         for stale in ("F类型", "Extended", "强化部件"):
             self.assertNotIn(stale, text)
         # Generic cheering in dialogue/summary/battle is not the spirit-command name.
-        self.assertEqual(text.count("声援"), 7)
+        # Compatibility preimages are evidence, not player-facing translations.
+        translations = [
+            row["translation"]
+            for path in sorted((PROJECT_ROOT / "corpus/zh").rglob("*.json"))
+            for row in iter_records(read_json(path))
+        ]
+        self.assertEqual(sum(value.count("声援") for value in translations), 7)
 
     def test_selected_copy_edits_are_present(self):
         skills = {row["id"]: row for row in read_json(PROJECT_ROOT / "corpus/zh/menu/system-ui-skills.json")["entries"]}

@@ -5125,6 +5125,7 @@ def _apply_remaining_ui(
         output_table=output_table,
         encoding_overrides=encoding_overrides,
         label="remaining SLPS context UI",
+        accepted_current_texts=accepted_current,
         accepted_current_table=historical_table,
     )
     output_slps, slps_report = _apply_fixed_span_translations(

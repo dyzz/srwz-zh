@@ -80,7 +80,7 @@
         },
         {
           "path": "corpus/zh/battle/srvc-lines.json",
-          "sha256": "a2b6c31c3f3913d90a2c582fe1209d838c96086b1bdae23aaf534cf9fe9fcebc",
+          "sha256": "353ccc39a311604a8cf4b929e23795fd9e2ec29659483ecfa1ee1e1e8de39305",
           "entry_count": 25708
         },
         {
@@ -130,8 +130,8 @@
         },
         {
           "path": "corpus/zh/menu/remaining-ui.json",
-          "sha256": "997d033158cd394a873054e79576f02cb99b897c94981d4dc4ebe7a9cb76e601",
-          "entry_count": 1897
+          "sha256": "3c0ad42ccff6304998c1ec49411f39069009846be050fb714e4969bb75c714f9",
+          "entry_count": 1900
         },
         {
           "path": "corpus/zh/menu/stage-names.json",
@@ -180,7 +180,7 @@
         },
         {
           "path": "corpus/zh/menu/system-ui-parts.json",
-          "sha256": "4edff31c3bf7fff60e08a21aa2f4578fd66eb5ceb5caad73ffa0b690decfef19",
+          "sha256": "3801b4d1dc7cc4150029067b4ff7a7145c0b70302acdca2c916022c50001095e",
           "entry_count": 132
         },
         {
@@ -190,7 +190,7 @@
         },
         {
           "path": "corpus/zh/menu/system-ui-search-menu.json",
-          "sha256": "b75448bdcadffefba1a21e9aaa4968db57e4c8605c66400e4f2ce63336869ab3",
+          "sha256": "6f966c933dc9ffdcd778eb5b1e8410d66166237d6d94699c50dc016420eeba17",
           "entry_count": 29
         },
         {
@@ -205,7 +205,7 @@
         },
         {
           "path": "corpus/zh/menu/system-ui-special-abilities.json",
-          "sha256": "94bac433d92e35f0b00cdd0c7ffcc7a528b4271484cb1d0f4aaf86c278b219bc",
+          "sha256": "2d22a53f56f6be23a3a8c9637ca9ddce4d0bf1fd878e026de6df3356216a2c25",
           "entry_count": 157
         },
         {
@@ -1124,7 +1124,7 @@
           "entry_count": 28
         }
       ],
-      "unique_entry_count": 129043,
+      "unique_entry_count": 129046,
       "control_tokens": {
         "preservation": "lossless_encoder_control_path",
         "excluded_from_font_glyph_demand": true,
@@ -1132,8 +1132,9 @@
         "occurrence_count": 2268,
         "kinds": {
           "runtime_format": {
-            "occurrence_count": 59,
+            "occurrence_count": 60,
             "forms": {
+              "%<width:64>": 1,
               "%s": 59
             }
           },
@@ -1152,7 +1153,7 @@
             }
           },
           "text_tag": {
-            "occurrence_count": 118,
+            "occurrence_count": 117,
             "forms": {
               "<35:08>": 1,
               "<35:09>": 5,
@@ -1199,7 +1200,6 @@
               "<width:38>": 1,
               "<width:39>": 1,
               "<width:3E>": 2,
-              "<width:64>": 1,
               "@<35:00>": 1,
               "@<color:31>": 2,
               "@<height:00>": 1,
@@ -1210,10 +1210,10 @@
         }
       },
       "literal_percent_signs": {
-        "entry_count": 249,
-        "occurrence_count": 269
+        "entry_count": 248,
+        "occurrence_count": 268
       },
-      "selection_sha256": "655c9480de0c69815ac36cce03b779a984b90f6d08eeded2d2b4db076691fdba"
+      "selection_sha256": "1bdee409275449d4d4290153cbd37ffa1e257e6ef949899c5252c155af324f4b"
     }
   },
   "mapping": {
@@ -1267,7 +1267,7 @@
     "historical_profiles_are_active_build_dependencies": false
   },
   "coverage": {
-    "literal_character_count": 2322800,
+    "literal_character_count": 2322803,
     "unique_literal_character_count": 3448,
     "missing_character_count": 0,
     "missing_character_occurrence_count": 0,
@@ -1286,8 +1286,9 @@
     "control_token_occurrence_count": 2268,
     "control_token_kinds": {
       "runtime_format": {
-        "occurrence_count": 59,
+        "occurrence_count": 60,
         "forms": {
+          "%<width:64>": 1,
           "%s": 59
         }
       },
@@ -1306,7 +1307,7 @@
         }
       },
       "text_tag": {
-        "occurrence_count": 118,
+        "occurrence_count": 117,
         "forms": {
           "<35:08>": 1,
           "<35:09>": 5,
@@ -1353,7 +1354,6 @@
           "<width:38>": 1,
           "<width:39>": 1,
           "<width:3E>": 2,
-          "<width:64>": 1,
           "@<35:00>": 1,
           "@<color:31>": 2,
           "@<height:00>": 1,
@@ -1363,10 +1363,10 @@
       }
     },
     "control_tokens_excluded_from_glyph_demand": true,
-    "runtime_placeholder_occurrence_count": 2150,
+    "runtime_placeholder_occurrence_count": 2151,
     "runtime_placeholder_bytes_preserved_exactly": true,
-    "literal_percent_entry_count": 249,
-    "literal_percent_occurrence_count": 269
+    "literal_percent_entry_count": 248,
+    "literal_percent_occurrence_count": 268
   },
   "legacy_formation_compatibility": {
     "observed_name_count": 251,
@@ -2262,13 +2262,13 @@
   },
   "proposal": {
     "path": "work/writeback/zh-release-codebook-proposal.json",
-    "size": 3224441,
-    "sha256": "dd7c72cf79b06ec54ef6d0e78ab8f1c0441390a209984e0ac0b929abf674c92a"
+    "size": 3224442,
+    "sha256": "556016c6e5b440cdb7406e7003b1674a120fe02ea8004a32e41748fa8d320365"
   },
   "readiness": {
     "path": "work/writeback/zh-release-font-readiness.json",
-    "size": 63981,
-    "sha256": "fb1fa44474a1037c6c1aab3fd270359785c54d4214c257c92151923d5bdd404b"
+    "size": 63982,
+    "sha256": "9f8419ebd413330792eae93cc840534b38bd62b58a0e3d7d85edfbd767dd39d1"
   },
   "font_component": {
     "report": {

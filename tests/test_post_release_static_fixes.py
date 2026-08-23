@@ -16,6 +16,7 @@ from tools.srwz.release_font_policy import (
 )
 from tools.srwz.text import (
     decode_text,
+    encode_text,
     load_text_table,
     original_fullwidth_ascii_overrides,
     project_runtime_text_table,
@@ -205,6 +206,48 @@ class PostReleaseStaticFixTests(unittest.TestCase):
             self.source_table,
         )
         self.assertEqual(source.text, "パラメータ上昇")
+
+    def test_search_tabs_are_centered_inside_their_six_cell_slots(self):
+        expected = {
+            "0x346248": ("精神コマンド", "　精神指令　", "slps_by_offset"),
+            "0x346288": ("小隊ボーナス", "　小队奖励　", "slps_by_offset"),
+            "0x346970": (
+                "精神コマンド",
+                "　精神指令　",
+                "slps_context_ui_by_offset",
+            ),
+            "0x3469B0": (
+                "小隊ボーナス",
+                "　小队奖励　",
+                "slps_context_ui_by_offset",
+            ),
+        }
+        for raw_offset, (source_text, translation, group) in expected.items():
+            source = decode_text(
+                self.source_slps,
+                int(raw_offset, 16),
+                self.source_table,
+            )
+            self.assertEqual(source.text, source_text)
+            self.assertEqual(self.remaining[group][raw_offset], translation)
+            encoded = encode_text(
+                translation,
+                self.source_table,
+                overrides=self.encoding_overrides,
+                terminate=True,
+            )
+            self.assertEqual(len(encoded), source.consumed)
+            self.assertTrue(encoded.startswith(b"\x81\x40"))
+            self.assertTrue(encoded.endswith(b"\x81\x40\x00"))
+
+    def test_cheer_spirit_command_uses_approved_name_on_current_preimage(self):
+        source = decode_text(self.source_slps, 0x3375F8, self.source_table)
+        self.assertEqual(source.text, "応援")
+        self.assertEqual(
+            self.remaining["accepted_current_preimages_by_offset"]["0x3375F8"],
+            "声援",
+        )
+        self.assertEqual(self.remaining["slps_by_offset"]["0x3375F8"], "应援")
 
     def test_issue_019_gravion_combine_confirmation_is_source_locked(self):
         source = decode_text(
