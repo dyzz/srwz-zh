@@ -510,6 +510,7 @@ def relocate_menu_texts_to_pool(
     pool_start: int,
     pool_end: int,
     overrides: Mapping[str, int] | None = None,
+    source_table: TextTable | None = None,
     alignment: int = 2,
     source_name: str | None = None,
 ) -> TextPoolWrite:
@@ -557,7 +558,11 @@ def relocate_menu_texts_to_pool(
             parsed.base_offset + target for target in entry.target_offsets
         }
         for target_offset in entry.target_offsets:
-            source = decode_text(data, target_offset, table)
+            source = decode_text(
+                data,
+                target_offset,
+                source_table or table,
+            )
             if source.text != entry.text:
                 raise WritebackError(f"{entry_id} source text preimage mismatch")
 

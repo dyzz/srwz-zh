@@ -127,7 +127,27 @@ class ZhReleaseIsoTests(unittest.TestCase):
         )
 
     def test_stage_title_textures_are_bound_to_vt1(self):
-        graphics = self.component["stage_titles"]["graphics"]
+        stage_titles = self.component["stage_titles"]
+        self.assertEqual(
+            stage_titles["visible_ascii_storage"],
+            "original_fullwidth_two_byte",
+        )
+        self.assertTrue(stage_titles["raw_visible_ascii_absent"])
+        self.assertFalse(stage_titles["pointer_bytes_unchanged"])
+        self.assertTrue(stage_titles["pointer_relocations_exact"])
+        self.assertEqual(
+            [
+                item["entry_id"]
+                for item in stage_titles["relocation"]["allocations"]
+            ],
+            [
+                "menu/Compdata/03/0059",
+                "menu/Compdata/03/0061",
+                "menu/Compdata/03/0069",
+                "menu/Compdata/03/0093",
+            ],
+        )
+        graphics = stage_titles["graphics"]
         self.assertEqual(graphics["member"], "DATA/VT1.BIN")
         self.assertEqual(graphics["stage_name_entry_count"], 122)
         self.assertEqual(graphics["scenario_record_count"], 204)

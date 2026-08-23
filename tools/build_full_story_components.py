@@ -138,6 +138,7 @@ try:
         WritebackError,
         apply_summary_replacements,
         build_executable_offset_patch_plan,
+        relocate_menu_texts_to_pool,
         replace_menu_texts_in_place,
         replace_stage_system_dialogues_in_place,
     )
@@ -274,6 +275,7 @@ except ModuleNotFoundError:
         WritebackError,
         apply_summary_replacements,
         build_executable_offset_patch_plan,
+        relocate_menu_texts_to_pool,
         replace_menu_texts_in_place,
         replace_stage_system_dialogues_in_place,
     )
@@ -2577,22 +2579,37 @@ def _apply_full_stage_titles(
     )
     encoding = reference.get("encoding")
     if not isinstance(encoding, dict) or (
-        encoding.get("printable_ascii_passthrough") is not True
+        encoding.get("visible_ascii_storage")
+        != "original_fullwidth_two_byte"
         or encoding.get("use_available_surface_safe_aliases") is not True
     ):
         raise FullStoryComponentError("stage-title encoding policy drift")
+    relocation = encoding.get("relocation")
+    if not isinstance(relocation, dict):
+        raise FullStoryComponentError("stage-title relocation policy is missing")
+    try:
+        pool_start = int(relocation.get("pool_start"), 0)
+        pool_end = int(relocation.get("pool_end"), 0)
+        pool_alignment = int(relocation.get("alignment"))
+    except (TypeError, ValueError) as error:
+        raise FullStoryComponentError(
+            "stage-title relocation pool is malformed"
+        ) from error
+    relocated_entry_ids = relocation.get("entry_ids")
+    if (
+        not isinstance(relocated_entry_ids, list)
+        or len(relocated_entry_ids) != 4
+        or len(set(relocated_entry_ids)) != len(relocated_entry_ids)
+        or any(entry_id not in stage_replacements for entry_id in relocated_entry_ids)
+    ):
+        raise FullStoryComponentError(
+            "stage-title relocation selection drift"
+        )
     table = load_text_table(
         PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
     )
     title_overrides = _stored_text_overrides(
         table, primary_overrides, surface_aliases
-    )
-    title_overrides.update(
-        {
-            character: ord(character)
-            for character in original_fullwidth_ascii_overrides(table)
-            if character not in "12345"
-        }
     )
     current_table = project_runtime_text_table(table, primary_overrides)
     current_table = project_runtime_text_table(
@@ -2613,16 +2630,87 @@ def _apply_full_stage_titles(
         descriptor_by_name["SLPS"],
         current_table,
     )
+    pool_conflicts = []
+    for entry in parsed_compdata.entries:
+        for target_offset in set(entry.target_offsets):
+            source = decode_text(decoded.output, target_offset, current_table)
+            target_end = target_offset + source.consumed
+            if pool_start < target_end and target_offset < pool_end:
+                pool_conflicts.append(
+                    (entry.entry_id, target_offset, target_end)
+                )
+    if pool_conflicts:
+        raise FullStoryComponentError(
+            "stage-title relocation pool overlaps owned menu text: "
+            f"{pool_conflicts[:8]!r}"
+        )
     try:
+        relocated_replacements = {
+            entry_id: stored_stage_replacements[entry_id]
+            for entry_id in relocated_entry_ids
+        }
+        in_place_replacements = {
+            entry_id: replacement
+            for entry_id, replacement in stored_stage_replacements.items()
+            if entry_id not in relocated_replacements
+        }
         compdata_write = replace_menu_texts_in_place(
             decoded.output,
             parsed_compdata,
             table,
-            replacements=stored_stage_replacements,
+            replacements=in_place_replacements,
             overrides=title_overrides,
             source_table=current_table,
             source_name="full-story stage titles",
         )
+        compdata_relocation = relocate_menu_texts_to_pool(
+            compdata_write.data,
+            parsed_compdata,
+            table,
+            replacements=relocated_replacements,
+            pool_start=pool_start,
+            pool_end=pool_end,
+            overrides=title_overrides,
+            source_table=current_table,
+            alignment=pool_alignment,
+            source_name="full-story relocated stage titles",
+        )
+        output_title_table = project_runtime_text_table(
+            table, title_overrides
+        )
+        reread_titles = parse_menu_file(
+            compdata_relocation.data,
+            descriptor_by_name["Compdata"],
+            output_title_table,
+        )
+        reread_by_id = {
+            entry.entry_id: entry
+            for entry in reread_titles.entries
+            if entry.section == "Stage Name"
+        }
+        raw_visible_ascii = []
+        for entry_id, expected in stored_stage_replacements.items():
+            entry = reread_by_id.get(entry_id)
+            if entry is None or entry.text != expected:
+                raise FullStoryComponentError(
+                    f"stage-title reread mismatch: {entry_id}"
+                )
+            for target_offset in set(entry.target_offsets):
+                position = target_offset
+                while compdata_relocation.data[position] != 0:
+                    first = compdata_relocation.data[position]
+                    if 0x20 <= first <= 0x7E:
+                        raw_visible_ascii.append((entry_id, position, first))
+                        position += 1
+                    elif first >= 0x80:
+                        position += 2
+                    else:
+                        position += 1
+        if raw_visible_ascii:
+            raise FullStoryComponentError(
+                "stage titles contain unsafe raw visible ASCII: "
+                f"{raw_visible_ascii[:8]!r}"
+            )
         slps_write = replace_menu_texts_in_place(
             slps,
             parsed_slps,
@@ -2639,7 +2727,7 @@ def _apply_full_stage_titles(
 
     rebuilt_compdata = _commit_compdata_stage(
         stored_compdata,
-        compdata_write.data,
+        compdata_relocation.data,
         decoded,
         codec,
         label="stage-title COMPDATA",
@@ -2663,9 +2751,13 @@ def _apply_full_stage_titles(
         "title_format_entry_id": format_id,
         "title_format_translation": format_translation,
         "stage_38_title": stage_replacements[example_id],
-        "fixed_spans_preserved": True,
-        "pointer_bytes_unchanged": True,
-        "printable_ascii_passthrough": True,
+        "non_relocated_fixed_spans_preserved": True,
+        "pointer_bytes_unchanged": False,
+        "pointer_relocations_exact": True,
+        "visible_ascii_storage": "original_fullwidth_two_byte",
+        "raw_visible_ascii_absent": True,
+        "raw_visible_ascii_count": len(raw_visible_ascii),
+        "relocation": compdata_relocation.to_metadata(),
         "available_surface_safe_aliases_used": True,
         "compdata_source_size": len(stored_compdata),
         "compdata_output_size": (
@@ -9996,8 +10088,11 @@ def build(
                 stage_title_report["stage_title_entry_count"] == 122
                 and stage_title_report["stage_38_title"] == "被安排的决战"
                 and stage_title_report["compdata_round_trip_exact"]
-                and stage_title_report["fixed_spans_preserved"]
-                and stage_title_report["pointer_bytes_unchanged"]
+                and stage_title_report[
+                    "non_relocated_fixed_spans_preserved"
+                ]
+                and stage_title_report["pointer_relocations_exact"]
+                and stage_title_report["raw_visible_ascii_absent"]
                 and stage_title_report["slps_size_preserved"]
                 and stage_title_report["graphics"]["texture_entry_count"] == 107
                 and stage_title_report["graphics"]["stage_name_entry_count"]

@@ -287,8 +287,19 @@
       "sha256": "93927c935bbadb5c391f8696c2ee51cc0530c3c98ebe0daaa037005a9770113a"
     },
     "encoding": {
-      "printable_ascii_passthrough": true,
-      "use_available_surface_safe_aliases": true
+      "visible_ascii_storage": "original_fullwidth_two_byte",
+      "use_available_surface_safe_aliases": true,
+      "relocation": {
+        "pool_start": "0x7FE98",
+        "pool_end": "0x7FF00",
+        "alignment": 2,
+        "entry_ids": [
+          "menu/Compdata/03/0059",
+          "menu/Compdata/03/0061",
+          "menu/Compdata/03/0069",
+          "menu/Compdata/03/0093"
+        ]
+      }
     },
     "graphics": {
       "archive": {

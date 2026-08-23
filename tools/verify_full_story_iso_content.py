@@ -652,9 +652,7 @@ def verify_stock_ascii_glyphs(
         "stock_alphanumeric_glyphs_byte_exact": True,
         "raw_and_fullwidth_codes_share_glyph_slots": True,
         "story_and_display_name_storage": "original_fullwidth_two_byte",
-        "stage_title_storage": (
-            "stock_raw_ascii_except_tag_bytes_31_35"
-        ),
+        "stage_title_storage": "original_fullwidth_two_byte",
         "runtime_tokens_raw_ascii": True,
         "source_decoded_font_sha256": sha256_bytes(source_font),
     }
