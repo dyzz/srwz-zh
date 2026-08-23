@@ -37,7 +37,7 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 72301,
-      "sha256": "92b176b171b26b077b2c17a5b15fba6b6343b8677e090bf039c7978e35632f8a"
+      "sha256": "7f321f730640d4e47670ff41e47e02f805e49dfc89f862824f81a006332840bc"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -56,7 +56,7 @@
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18259645,
-      "sha256": "80570b8a1b20687cfa8a75b7021c045c062072e7181e410400805495af8aa519"
+      "sha256": "f5fad3e4cf2ffdeb0d71a2a60009cbc68731c8d63374e53496510a1463d020f2"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
@@ -2042,8 +2042,8 @@
     },
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
-      "size": 782215,
-      "sha256": "b9e71cc0b0e88ebbe20d527ef57c0ec31b2c980828d63326bdf724e025280685"
+      "size": 784630,
+      "sha256": "2d1c842f90482c46167e8894792fdd4bafd934521d1f1a7610016100a4f4b5d3"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -2126,7 +2126,7 @@
       "release_snapshot_primary_mapping_sha256": "e7cad754c7f931c2b818861bef8554e26d2f2779ba9f381ddbe67da73c388ba4",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "5955faa44b64ebb92d336a2b008b65e9198bdc10589cdd10e0cc2e31d0d33242",
+        "sha256": "6d0823c9a08cb2b55456125353c15b359e8c9f2c1e4eefbfd5087b6473fa004b",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
       "reason": "The already encoded UI bytes remain valid because all 1,803 mappings they use are an exact character/code/glyph subset of the flattened global release snapshot. The inherited encoded UI component is not rebuilt."

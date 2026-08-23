@@ -11,8 +11,8 @@
     },
     "scope_config": {
       "path": "config/library/v0.2.0.json",
-      "size": 21834,
-      "sha256": "12060cadec42a7ca50e6ba34c022bf6bdbe12d309fc2386dd1ee0d870f2c7d3f"
+      "size": 22986,
+      "sha256": "18c5d89414393e79a20e1361fb939e68d1f4d5b8360e974c163bb7d76edd6630"
     },
     "corpus": {
       "path": "corpus/zh/library/v0.2-reviewed.json",
@@ -21,13 +21,13 @@
     },
     "font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 72299,
-      "sha256": "50633f1e67fcdf35e6d192a1a5b692052b19c8403a92ce0450633acff51f6013"
+      "size": 72301,
+      "sha256": "92b176b171b26b077b2c17a5b15fba6b6343b8677e090bf039c7978e35632f8a"
     },
     "font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
-      "size": 3224441,
-      "sha256": "cfcb481cb01b246eaa8c39ff8ed542e18c85ce12fb3f791667e0955060861ca5"
+      "size": 3224442,
+      "sha256": "556016c6e5b440cdb7406e7003b1674a120fe02ea8004a32e41748fa8d320365"
     },
     "executable": {
       "path": "work/disc/SLPS_258.87",
@@ -698,6 +698,72 @@
       "empty_sentinel_excluded": true,
       "default_unlocked_track_count": 101
     },
+    "component_output_member_written": false,
+    "full_story_component_owns_writeback": true
+  },
+  "library_default_unlock": {
+    "policy": "include_all_valid_entries_without_save_writeback",
+    "member": "SLPS_258.87",
+    "patches": [
+      {
+        "surface": "keyword_encyclopedia",
+        "virtual_address": "0x153E84",
+        "file_offset": "0x55904",
+        "original_instruction_hex": "2410A200",
+        "replacement_instruction_hex": "2510A200",
+        "source_instruction_hex": "2410A200",
+        "output_instruction_hex": "2510A200",
+        "already_patched": false,
+        "changed": true,
+        "and_to_or_exact": true
+      },
+      {
+        "surface": "scenario_chart",
+        "virtual_address": "0x15407C",
+        "file_offset": "0x55AFC",
+        "original_instruction_hex": "24108200",
+        "replacement_instruction_hex": "25108200",
+        "source_instruction_hex": "24108200",
+        "output_instruction_hex": "25108200",
+        "already_patched": false,
+        "changed": true,
+        "and_to_or_exact": true
+      },
+      {
+        "surface": "character_encyclopedia",
+        "virtual_address": "0x154124",
+        "file_offset": "0x55BA4",
+        "original_instruction_hex": "2410A200",
+        "replacement_instruction_hex": "2510A200",
+        "source_instruction_hex": "2410A200",
+        "output_instruction_hex": "2510A200",
+        "already_patched": false,
+        "changed": true,
+        "and_to_or_exact": true
+      },
+      {
+        "surface": "robot_encyclopedia",
+        "virtual_address": "0x154284",
+        "file_offset": "0x55D04",
+        "original_instruction_hex": "24104500",
+        "replacement_instruction_hex": "25104500",
+        "source_instruction_hex": "24104500",
+        "output_instruction_hex": "25104500",
+        "already_patched": false,
+        "changed": true,
+        "and_to_or_exact": true
+      }
+    ],
+    "surface_count": 4,
+    "changed_instruction_count": 4,
+    "changed_byte_count": 4,
+    "source_size": 3471624,
+    "output_size": 3471624,
+    "source_sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+    "output_sha256": "16c5409b405b5b39ccd853fc4e64c0d10c620be2e5b946beb01d0bbe3ce5bbae",
+    "all_instruction_replacements_exact": true,
+    "save_writeback_functions_unchanged": true,
+    "executable_size_preserved": true,
     "component_output_member_written": false,
     "full_story_component_owns_writeback": true
   },
@@ -22050,6 +22116,7 @@
     "runtime_sound_select_archive_size_preserved": true,
     "runtime_sound_select_codec_round_trip_exact": true,
     "sound_select_all_101_tracks_contract_validated": true,
+    "library_all_four_surfaces_default_unlocked": true,
     "all_editorial_statuses_reviewed": true,
     "release_eligible": true
   },
