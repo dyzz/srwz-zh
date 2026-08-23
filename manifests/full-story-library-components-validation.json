@@ -6,8 +6,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 64195,
-      "sha256": "eb25044c0a2a387e58fc0efbcb206d1f081b5a83807054f7b4941d96eb50a86e"
+      "size": 65304,
+      "sha256": "3668b0b4cee3228d0598db86f2ad7165f47c8aea162caa4208ed9721e7a31342"
     },
     "base_ui_manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -66,8 +66,8 @@
     },
     "stage_overviews": {
       "path": "corpus/zh/menu/stage-overviews.json",
-      "size": 89425,
-      "sha256": "f73e394f14776052fe8997ad3d3767fb98f8fdf21d859d5f0c51583d5984d4bb"
+      "size": 88956,
+      "sha256": "07b7f314cf2d046e3ee7519bfbe87700bf2baaddca875001ee8122e373698f8f"
     },
     "world_history_corpus": {
       "path": "corpus/zh/summary.json",
@@ -418,13 +418,13 @@
       "compression_count": 1,
       "final_readback_decode_count": 1,
       "source_stored_size": 55392,
-      "output_stored_size": 52008,
+      "output_stored_size": 51497,
       "decoded_size": 152336,
       "sector_budget": 55392,
       "stages": [
         {
           "stage": "stage overviews",
-          "changed_byte_count": 50068
+          "changed_byte_count": 50013
         },
         {
           "stage": "stage system dialogues",
@@ -4365,20 +4365,24 @@
       "overview:109"
     ],
     "unique_source_text_count": 107,
-    "minimum_output_headroom": 64,
+    "minimum_output_headroom": 66,
     "pointer_table_start": "0x10DD4",
     "pointer_table_end_inclusive": "0x10F88",
     "pointer_table_preserved_byte_exact": true,
     "fixed_allocations_preserved": true,
     "untranslated_allocations_preserved": true,
-    "newline_counts_preserved": true,
+    "line_width_limit": 29,
+    "maximum_output_line_width": 29,
+    "line_counts_within_source_height": true,
+    "paragraph_indents_present": true,
+    "paragraph_indent_count": 467,
     "translated_readback_exact": true,
     "chunk_index": 0,
     "source_stored_size": 55392,
     "source_encoded_size": 55392,
-    "output_encoded_size": 52008,
-    "output_encoded_sha256": "375b3c7cf3e53821b68f15aa7be4fd292a4dcbe8fe53a4763733b37723f15822",
-    "output_padding_size": 3384,
+    "output_encoded_size": 51497,
+    "output_encoded_sha256": "0023b0d8ae2308f055071bc9d75c31315f35983653dbfa69d77381367eb17995",
+    "output_padding_size": 3895,
     "codec_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
     "archive_size_preserved": true,
@@ -14710,7 +14714,7 @@
       "reread_exact": true,
       "codec_strategy": "rust-fit",
       "source_encoded_size": 55392,
-      "output_encoded_size": 52008,
+      "output_encoded_size": 51497,
       "codec_round_trip_exact": true,
       "compression_deferred_to_workspace": true,
       "archive_size_preserved": true,
@@ -14742,7 +14746,7 @@
       "compression_deferred_to_workspace": true,
       "archive_size_preserved": true,
       "hb_offsets_preserved": true,
-      "output_encoded_size": 52008,
+      "output_encoded_size": 51497,
       "codec_round_trip_exact": true
     }
   },
@@ -73165,6 +73169,32 @@
     "all_replacements_exact": true,
     "executable_size_preserved": true
   },
+  "remaining_squad_count_alignment": {
+    "policy": "move_printf_number_right_without_touching_adjacent_text",
+    "member": "SLPS_258.87",
+    "source_format_file_offset": "0x33FC80",
+    "prefix_x": 460,
+    "original_number_x": 506,
+    "replacement_number_x": 514,
+    "suffix_x": 552,
+    "shift_pixels": 8,
+    "number_instruction_virtual_address": "0x29FFB4",
+    "number_instruction_file_offset": "0x1A1A34",
+    "original_number_instruction_hex": "FA010624",
+    "replacement_number_instruction_hex": "02020624",
+    "source_number_instruction_hex": "FA010624",
+    "output_number_instruction_hex": "02020624",
+    "already_patched": false,
+    "changed_byte_count": 2,
+    "source_size": 3471624,
+    "output_size": 3471624,
+    "source_sha256": "2f71fd2c10dc74c5ac84f97b12fa0ceadaecf2358e0b99a0fe697254069e51c0",
+    "output_sha256": "b1bd2e72bb2e1248f511de70566432cb56dc31fd8a2c56d7845bce040ebb6466",
+    "adjacent_coordinates_preserved": true,
+    "format_token_untouched": true,
+    "instruction_replacement_exact": true,
+    "executable_size_preserved": true
+  },
   "weapon_special_effect_2": {
     "strategy": "slps-inline-mips-immediate-strings",
     "entry_count": 2,
@@ -73204,8 +73234,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "2f71fd2c10dc74c5ac84f97b12fa0ceadaecf2358e0b99a0fe697254069e51c0",
-    "output_sha256": "f57fb41f123db236ef1fd5fb656447520357d7154333171cad99e2aa5c76e1e1",
+    "source_sha256": "b1bd2e72bb2e1248f511de70566432cb56dc31fd8a2c56d7845bce040ebb6466",
+    "output_sha256": "da24945c231a0eb1af232b8992f08bc61e20209814744fd3e8f78dd1242d945a",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -81083,7 +81113,7 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "07b1541281028c0cefa2591eed475738b6ae4ac26e488ef0879194f77329d6bf"
+      "sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -81113,7 +81143,7 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "a0655ae0bb9a2cfe16250164566d36f49ec480b743ea0780ac0e7ec4e00db9bd"
+      "sha256": "b22c5219f9d1fe09e300672c7a20ed49e82c4d41219f4fd21b3fc4dc47c6d9da"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
@@ -81198,6 +81228,7 @@
     "sound_select_all_101_tracks_default_unlocked": true,
     "library_all_four_surfaces_default_unlocked": true,
     "search_tabs_aligned_as_five_label_set": true,
+    "remaining_squad_count_spacing_exact": true,
     "weapon_special_effect_2_reread_exact": true,
     "encoded_ui_codebook_is_release_subset": true,
     "global_release_font_missing_character_count_zero": true,

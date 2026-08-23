@@ -5,7 +5,7 @@
   "iso": {
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "size": 3758358528,
-    "sha256": "5e31dbfcfe47a2cf95d461dbf8b8ec2a11ce0c3cfaeb3b288cb6f4a941cd36cb"
+    "sha256": "b281fc2a2c6732b969e6dfb6e7084fc381a9d318cedda72f66e1f8e24e9114cb"
   },
   "stage_indices": [
     1,
@@ -791,8 +791,8 @@
     "changed_instruction_count": 0,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "07b1541281028c0cefa2591eed475738b6ae4ac26e488ef0879194f77329d6bf",
-    "output_sha256": "07b1541281028c0cefa2591eed475738b6ae4ac26e488ef0879194f77329d6bf",
+    "source_sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e",
+    "output_sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -904,9 +904,36 @@
     "changed_byte_count": 0,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "07b1541281028c0cefa2591eed475738b6ae4ac26e488ef0879194f77329d6bf",
-    "output_sha256": "07b1541281028c0cefa2591eed475738b6ae4ac26e488ef0879194f77329d6bf",
+    "source_sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e",
+    "output_sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e",
     "all_replacements_exact": true,
+    "executable_size_preserved": true,
+    "component_receipt_exact": true
+  },
+  "remaining_squad_count_alignment": {
+    "policy": "move_printf_number_right_without_touching_adjacent_text",
+    "member": "SLPS_258.87",
+    "source_format_file_offset": "0x33FC80",
+    "prefix_x": 460,
+    "original_number_x": 506,
+    "replacement_number_x": 514,
+    "suffix_x": 552,
+    "shift_pixels": 8,
+    "number_instruction_virtual_address": "0x29FFB4",
+    "number_instruction_file_offset": "0x1A1A34",
+    "original_number_instruction_hex": "FA010624",
+    "replacement_number_instruction_hex": "02020624",
+    "source_number_instruction_hex": "02020624",
+    "output_number_instruction_hex": "02020624",
+    "already_patched": true,
+    "changed_byte_count": 0,
+    "source_size": 3471624,
+    "output_size": 3471624,
+    "source_sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e",
+    "output_sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e",
+    "adjacent_coordinates_preserved": true,
+    "format_token_untouched": true,
+    "instruction_replacement_exact": true,
     "executable_size_preserved": true,
     "component_receipt_exact": true
   },
@@ -1069,8 +1096,8 @@
         "changed_byte_count": 0,
         "source_size": 3471624,
         "output_size": 3471624,
-        "source_sha256": "07b1541281028c0cefa2591eed475738b6ae4ac26e488ef0879194f77329d6bf",
-        "output_sha256": "07b1541281028c0cefa2591eed475738b6ae4ac26e488ef0879194f77329d6bf",
+        "source_sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e",
+        "output_sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e",
         "instruction_replacement_exact": true,
         "executable_size_preserved": true,
         "metadata": {
@@ -1153,8 +1180,8 @@
       "changed_byte_count": 0,
       "source_size": 3471624,
       "output_size": 3471624,
-      "source_sha256": "07b1541281028c0cefa2591eed475738b6ae4ac26e488ef0879194f77329d6bf",
-      "output_sha256": "07b1541281028c0cefa2591eed475738b6ae4ac26e488ef0879194f77329d6bf",
+      "source_sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e",
+      "output_sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e",
       "all_instruction_replacements_exact": true,
       "save_writeback_functions_unchanged": true,
       "executable_size_preserved": true,
@@ -4383,12 +4410,17 @@
     ],
     "chunk_index": 0,
     "stored_chunk_size": 55392,
-    "encoded_size": 52008,
-    "padding_size": 3384,
+    "encoded_size": 51497,
+    "padding_size": 3895,
     "fixed_pointer_entries_exact": true,
     "translated_readback_exact": true,
     "raw_space_entry_count": 0,
-    "raw_space_count_zero": true
+    "raw_space_count_zero": true,
+    "line_width_limit": 29,
+    "maximum_output_line_width": 29,
+    "output_line_count": 786,
+    "paragraph_indent_count": 467,
+    "layout_policy_exact": true
   },
   "hsfc_overviews": {
     "inventory_record_count": 180,
@@ -4443,7 +4475,7 @@
   "members": {
     "SLPS_258.87": {
       "size": 3471624,
-      "sha256": "07b1541281028c0cefa2591eed475738b6ae4ac26e488ef0879194f77329d6bf",
+      "sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e",
       "replacement_exact": true
     },
     "DATA/COMPDATA.BN": {
@@ -4473,7 +4505,7 @@
     },
     "DATA/STAGE.BIN": {
       "size": 3910128,
-      "sha256": "a0655ae0bb9a2cfe16250164566d36f49ec480b743ea0780ac0e7ec4e00db9bd",
+      "sha256": "b22c5219f9d1fe09e300672c7a20ed49e82c4d41219f4fd21b3fc4dc47c6d9da",
       "replacement_exact": true
     },
     "DATA/HSFC.BIN": {
@@ -10319,6 +10351,7 @@
     "iso_sha256_exact": true,
     "replacement_members_exact": true,
     "search_tab_five_label_alignment_exact": true,
+    "remaining_squad_count_spacing_exact": true,
     "reviewed_library_components_exact": true,
     "runtime_keyword_surfaces_exact": true,
     "font_chunk_exact": true,
