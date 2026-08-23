@@ -109,13 +109,13 @@ class StageOverviewTests(unittest.TestCase):
         )
         self.assertEqual(
             row["translation"],
-            "　奇美拉希望从内部改革新地球联邦军。\n"
-            "众人以各自方式回应使者雷本大尉的合作邀请。\n"
+            "　奇美拉希望从内部改革新地球联邦军。众人以各自方式回应使者\n"
+            "雷本大尉的合作邀请。\n"
             "　众人分为两队，分别向太平洋与加利亚大陆开辟新的前进路线。\n",
         )
         self.assertEqual(
             dialogue_line_widths(row["translation"].rstrip("\n")),
-            (17, 21, 28),
+            (28, 10, 28),
         )
 
 

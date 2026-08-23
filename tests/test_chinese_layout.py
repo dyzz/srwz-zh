@@ -180,6 +180,10 @@ class ChineseLayoutTests(unittest.TestCase):
             "minimum",
         )
         self.assertEqual(
+            self.profiles["stage_scroll_overview"].line_packing,
+            "fill",
+        )
+        self.assertEqual(
             self.profiles["world_history_scroll"].maximum_width,
             22,
         )
@@ -258,6 +262,20 @@ class ChineseLayoutTests(unittest.TestCase):
             max_lines=3,
         )
         self.assertNotIn("12000\n年", "\n".join(result))
+
+    def test_stage_scroll_overview_fills_each_nonfinal_line(self):
+        result = reflow_chinese_paragraph(
+            "众人勉强击退敌人后，新地球联邦特殊部队奇美拉的雷本大尉前来接触。",
+            profile=self.profiles["stage_scroll_overview"],
+            protected_terms=("奇美拉", "雷本"),
+        )
+        self.assertEqual(
+            result.text,
+            "众人勉强击退敌人后，新地球联邦特殊部队奇美拉的\n"
+            "雷本大尉前来接触。",
+        )
+        self.assertEqual(result.line_widths, (23, 9))
+        self.assertNotIn("特\n殊", result.text)
 
     def test_quoted_sentence_can_wrap_inside_quote_marks(self):
         text = "“‘约定之地乃禁忌之地……任何人不得触碰’……”"

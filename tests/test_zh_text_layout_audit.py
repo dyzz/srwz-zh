@@ -4,8 +4,10 @@ from pathlib import Path
 
 from tools.audit_zh_text_layout import (
     WORLD_HISTORY_MAX_PARAGRAPH_WIDTH_SPREAD,
+    audit_stage_overviews,
     edge_violations,
     layout_violations,
+    load_protected_terms,
     reflow_preserved_paragraph,
 )
 from tools.build_full_story_components import _apply_world_history_layout
@@ -63,6 +65,33 @@ class ZhTextLayoutAuditTests(unittest.TestCase):
         self.assertEqual(
             "".join(output).replace("　", ""), "察觉异常的众人出动迎击。战斗随后开始。"
         )
+
+    def test_stage_overview_does_not_wrap_independent_word_early(self):
+        output = reflow_preserved_paragraph(
+            [
+                "　胜平不听神秘男子的劝告，一气之下驾驶赞波王牌独",
+                "自挑战异星人。堕天翅也在此时出现，战场陷入混战。",
+            ],
+            profile=self.profiles["stage_scroll_overview"],
+            protected_terms=(),
+        )
+        self.assertEqual(
+            output,
+            [
+                "　胜平不听神秘男子的劝告，一气之下驾驶赞波王牌独自挑战",
+                "异星人。堕天翅也在此时出现，战场陷入混战。",
+            ],
+        )
+
+    def test_all_stage_overviews_match_the_wide_scroll_profile(self):
+        audit = audit_stage_overviews(
+            self.profiles["stage_scroll_overview"],
+            load_protected_terms(PROJECT_ROOT / "corpus/releases/v1.json"),
+        )
+        self.assertEqual(audit["entry_count"], 110)
+        self.assertEqual(audit["changed_entry_count"], 0)
+        self.assertEqual(audit["failure_count"], 0)
+        self.assertEqual(audit["proposed_violation_count"], 0)
 
     def test_preserved_scroll_blank_line_remains_one_line(self):
         output = reflow_preserved_paragraph(

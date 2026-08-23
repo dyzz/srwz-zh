@@ -86,6 +86,7 @@ class ChineseLayoutProfile:
     first_line_maximum_width: int | None
     maximum_lines: int | None
     line_count_mode: str
+    line_packing: str = "balanced"
     continuation_indent: str = ""
     minimum_line_width: int = 0
     allow_oversized_token_split: bool = False
@@ -109,6 +110,10 @@ class ChineseLayoutProfile:
         if self.line_count_mode not in {"minimum", "exact", "preserve"}:
             raise ChineseLayoutError(
                 f"unsupported line-count mode: {self.line_count_mode}"
+            )
+        if self.line_packing not in {"balanced", "fill"}:
+            raise ChineseLayoutError(
+                f"unsupported line-packing mode: {self.line_packing}"
             )
         if not 0 <= self.minimum_line_width <= self.maximum_width:
             raise ChineseLayoutError("layout profile minimum width is invalid")
@@ -174,6 +179,7 @@ def load_layout_profiles(path: Path) -> dict[str, ChineseLayoutProfile]:
                     else int(raw["maximum_lines"])
                 ),
                 line_count_mode=str(raw.get("line_count_mode", "minimum")),
+                line_packing=str(raw.get("line_packing", "balanced")),
                 continuation_indent=str(raw.get("continuation_indent", "")),
                 minimum_line_width=int(raw.get("minimum_line_width", 0)),
                 allow_oversized_token_split=bool(
@@ -517,12 +523,15 @@ def _partition_tokens(
     first_line_width: int | None,
     max_lines: int,
     exact_lines: int | None = None,
+    line_packing: str = "balanced",
     preferred_break_offsets: frozenset[int] = frozenset(),
     weights: LayoutWeights = LayoutWeights(),
     minimum_line_width: int = 0,
 ) -> tuple[tuple[int, int], ...]:
     if not tokens:
         return ((0, 0),)
+    if line_packing not in {"balanced", "fill"}:
+        raise ChineseLayoutError(f"unsupported line-packing mode: {line_packing}")
 
     prefix = [0]
     character_offsets = [0]
@@ -549,10 +558,26 @@ def _partition_tokens(
     else:
         requested_line_counts = range(minimum_lines, max_lines + 1)
 
-    def line_cost(current_width: int, requested_lines: int) -> int:
-        raggedness = (current_width * requested_lines - total_width) ** 2 // (
-            requested_lines * requested_lines
-        )
+    def line_cost(
+        current_width: int,
+        requested_lines: int,
+        current_line: int,
+        current_limit: int,
+    ) -> int:
+        if line_packing == "fill":
+            # Wide scrolling prose should use the available row before it
+            # wraps, but a natural/manual breakpoint may still beat squeezing
+            # in the final one or two cells.  Do not penalize the last line:
+            # its width is simply what remains after the earlier rows.
+            raggedness = (
+                0
+                if current_line == requested_lines - 1
+                else (current_limit - current_width) ** 2
+            )
+        else:
+            raggedness = (current_width * requested_lines - total_width) ** 2 // (
+                requested_lines * requested_lines
+            )
         shortfall = max(0, minimum_line_width - current_width)
         return raggedness * weights.raggedness + shortfall * weights.short_line_per_cell
 
@@ -569,7 +594,21 @@ def _partition_tokens(
                 final_width = width(start, len(tokens))
                 if final_width > current_limit:
                     return None
-                return line_cost(final_width, requested_lines), ((start, len(tokens)),)
+                if (
+                    line_packing == "fill"
+                    and requested_lines > 1
+                    and final_width < minimum_line_width
+                ):
+                    return None
+                return (
+                    line_cost(
+                        final_width,
+                        requested_lines,
+                        current_line,
+                        current_limit,
+                    ),
+                    ((start, len(tokens)),),
+                )
 
             best = None
             minimum_remaining_tokens = remaining_lines - 1
@@ -583,6 +622,12 @@ def _partition_tokens(
                 remaining_width = width(end, len(tokens))
                 if remaining_width > line_width * (remaining_lines - 1):
                     continue
+                if (
+                    line_packing == "fill"
+                    and remaining_width
+                    < minimum_line_width * (remaining_lines - 1)
+                ):
+                    continue
                 tail = solve(end, remaining_lines - 1)
                 if tail is None:
                     continue
@@ -593,7 +638,16 @@ def _partition_tokens(
                 )
                 if character_offsets[end] in preferred_break_offsets:
                     penalty = min(penalty, weights.manual_break_max)
-                cost = penalty + line_cost(current_width, requested_lines) + tail[0]
+                cost = (
+                    penalty
+                    + line_cost(
+                        current_width,
+                        requested_lines,
+                        current_line,
+                        current_limit,
+                    )
+                    + tail[0]
+                )
                 candidate = (cost, ((start, end), *tail[1]))
                 if best is None or candidate < best:
                     best = candidate
@@ -632,6 +686,7 @@ def partition_chinese_text(
     first_line_width: int | None = None,
     max_lines: int,
     exact_lines: int | None = None,
+    line_packing: str = "balanced",
     preferred_break_offsets: frozenset[int] = frozenset(),
     weights: LayoutWeights = LayoutWeights(),
     minimum_line_width: int = 0,
@@ -659,6 +714,7 @@ def partition_chinese_text(
         first_line_width=first_line_width,
         max_lines=max_lines,
         exact_lines=exact_lines,
+        line_packing=line_packing,
         preferred_break_offsets=preferred_break_offsets,
         weights=weights,
         minimum_line_width=minimum_line_width,
@@ -708,6 +764,7 @@ def reflow_chinese_paragraph(
         first_line_width=profile.first_line_maximum_width,
         max_lines=maximum_lines,
         exact_lines=exact_lines,
+        line_packing=profile.line_packing,
         preferred_break_offsets=preferred_break_offsets,
         weights=profile.weights,
         minimum_line_width=profile.minimum_line_width,
@@ -791,6 +848,7 @@ def reflow_chinese_dialogue(
         line_width=line_width,
         first_line_width=first_line_width,
         max_lines=max_lines,
+        line_packing=(profile.line_packing if profile is not None else "balanced"),
         preferred_break_offsets=_original_break_offsets(text),
         weights=weights,
         minimum_line_width=minimum_line_width,
