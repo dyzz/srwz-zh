@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "version": "0.3.0",
+  "tag": "v0.3.0",
+  "channel": "beta",
+  "iso_config": "config/iso/zh-release-current-build.json",
+  "source_iso": {
+    "path": "rom/Super Robot Taisen Z (Japan, Korea).iso",
+    "size": 3758358528,
+    "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+    "redump": {
+      "disc_id": 4932,
+      "url": "https://redump.info/disc/4932/",
+      "filename": "Super Robot Taisen Z (Japan, Korea).iso",
+      "edition": "Original",
+      "version": "1.04",
+      "crc32": "0d9deb37",
+      "md5": "b8ea8ff82ce2d6e09aa550635a5f61b4",
+      "sha1": "e8dbe37e88afe8f82d48889b0775274ccde3cf99"
+    }
+  },
+  "target_iso": {
+    "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
+    "size": 3758358528,
+    "sha256": "234c7e7beced51c9ea8debab8e6da4c74340bf3f909d7c3cd8459dd99556bd3c"
+  },
+  "xdelta": {
+    "executable": "xdelta3",
+    "version_line": "Xdelta version 3.2.0, Copyright (C) Joshua MacDonald",
+    "encode_args": [
+      "-e",
+      "-9",
+      "-S",
+      "djw"
+    ],
+    "patch_filename": "srwz-zh-v0.3.0.xdelta"
+  },
+  "output": {
+    "directory": "build/release/v0.3.0",
+    "archive_filename": "srwz-zh-v0.3.0.zip"
+  },
+  "known_limitations": [
+    "最终 ISO 已完成固定 LBA 构建、整盘静态回读和本轮重点界面人工验证，但尚未完成全部路线通关测试。",
+    "少量低频分支、特殊触发文本和个别显示位置仍可能在后续玩家反馈中继续修正。"
+  ],
+  "evidence": [
+    "config/release/v0.3.0.json",
+    "tools/build_release.py",
+    "manifests/original-disc.json",
+    "config/iso/zh-release-current-build.json",
+    "config/iso/zh-release-chain.json",
+    "build/iso/zh-release-full-story/iso-validation-current.json",
+    "manifests/full-story-library-components-validation.json",
+    "manifests/zh-release-full-story-iso-content-validation.json",
+    "docs/RELEASE_NOTES_V0.3.0.md"
+  ]
+}
