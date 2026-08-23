@@ -419,16 +419,17 @@ def _scan_known_formation_slots(
 
     Repeated adjacent records remain the authority for open-ended structural
     discovery.  Once the Japanese source-name set has been reviewed, however,
-    a single record has sufficient ownership evidence: six bounded member IDs,
-    the six-byte metadata prefix, a zero-padded 33-byte name, and its trailing
-    identifier.  Treating that singleton as invisible was the source of the
-    incomplete locked inventory.
+    a single record has sufficient ownership evidence: the full 18-byte owner
+    prefix, a zero-padded 33-byte name from that reviewed source set, and its
+    trailing identifier.  Some runtime auto-formation records use sentinel or
+    packed values in the first 12 bytes instead of six ordinary bounded member
+    IDs.  Those values are opaque owner metadata and are preserved byte-exact;
+    rejecting them left valid auto-generated squad names outside the locked
+    inventory.
     """
 
     candidates_by_offset: dict[int, FormationCell] = {}
-    strict_offsets: set[int] = set()
     for offset in range(18, len(data) - 33):
-        member_ids = struct.unpack(">6H", data[offset - 18 : offset - 6])
         metadata = data[offset - 6 : offset]
         if metadata[0] != 0:
             continue
@@ -442,41 +443,17 @@ def _scan_known_formation_slots(
             trailer_hex=data[offset + 33 : offset + 34].hex(),
             prefix_hex=data[offset - 18 : offset].hex(),
         )
-        if all(
-            member_id == 0xFFFF or member_id <= _FORMATION_MEMBER_ID_MAX
-            for member_id in member_ids
-        ):
-            strict_offsets.add(offset)
-
-    cells_by_offset: dict[int, FormationCell] = {}
-    for run_start in sorted(candidates_by_offset):
-        if run_start - 52 in candidates_by_offset:
-            continue
-        run: list[int] = []
-        offset = run_start
-        while offset in candidates_by_offset:
-            run.append(offset)
-            offset += 52
-        strict_indices = [
-            index for index, candidate_offset in enumerate(run)
-            if candidate_offset in strict_offsets
-        ]
-        for index, candidate_offset in enumerate(run):
-            if candidate_offset in strict_offsets or (
-                strict_indices
-                and strict_indices[0] < index < strict_indices[-1]
-            ):
-                cells_by_offset[candidate_offset] = candidates_by_offset[
-                    candidate_offset
-                ]
-    if not cells_by_offset:
+    if not candidates_by_offset:
         return None
     return FormationGroup(
         stage_index=stage_index,
         layout="formation18+33+1",
         slot_size=33,
         stride=52,
-        cells=tuple(cells_by_offset[offset] for offset in sorted(cells_by_offset)),
+        cells=tuple(
+            candidates_by_offset[offset]
+            for offset in sorted(candidates_by_offset)
+        ),
     )
 
 

@@ -187,6 +187,30 @@ class StageDefaultFormationTests(unittest.TestCase):
             [18, 70, 122, 174],
         )
 
+    def test_known_formation_scan_keeps_reviewed_opaque_owner_metadata(self):
+        table = load_text_table(
+            PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+        )
+        source = "グローリー・スター"
+        encoded = encode_text(source, table, terminate=True)
+        prefix = bytes.fromhex(
+            "ffffff00000000000000000000ffffffff0d"
+        )
+        data = prefix + encoded + bytes(33 - len(encoded)) + b"\xE5"
+
+        group = _scan_known_formation_slots(
+            data,
+            table,
+            stage_index=41,
+            source_texts=frozenset({source}),
+        )
+
+        self.assertIsNotNone(group)
+        assert group is not None
+        self.assertEqual([cell.offset for cell in group.cells], [18])
+        self.assertEqual(group.cells[0].prefix_hex, prefix.hex())
+        self.assertEqual(group.cells[0].trailer_hex, "e5")
+
     def test_packed8_scan_keeps_adjacent_variable_size_fields(self):
         table = load_text_table(
             PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
@@ -306,8 +330,8 @@ class StageDefaultFormationTests(unittest.TestCase):
             cell.source_text for group in groups for cell in group.cells
         }
         self.assertEqual(set(terms), locked_sources)
-        self.assertEqual(len(groups), 794)
-        self.assertEqual(sum(len(group.cells) for group in groups), 11170)
+        self.assertEqual(len(groups), 813)
+        self.assertEqual(sum(len(group.cells) for group in groups), 11398)
         female_stage_1 = {
             (cell.offset, cell.source_text)
             for group in groups
@@ -360,6 +384,16 @@ class StageDefaultFormationTests(unittest.TestCase):
         self.assertIn((6, 0xE800, "グローリー・スター２"), packed_positions)
         self.assertNotIn((59, 0x1B90, "ザフト"), packed_positions)
         self.assertIn((107, 0x25F08, "Ｇソルジャー"), packed_positions)
+        formation_positions = {
+            (group.stage_index, cell.offset, cell.source_text)
+            for group in groups
+            if group.layout == "formation18+33+1"
+            for cell in group.cells
+        }
+        self.assertIn(
+            (41, 0x6E65, "グローリー・スター"), formation_positions
+        )
+        self.assertIn((41, 0x6F45, "エゥーゴ"), formation_positions)
         self.assertEqual(inventory["scan_policy"], "explicit_refreeze_only")
 
     def test_inventory_hash_locks_order_sources_and_metadata(self):
