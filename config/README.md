@@ -5,9 +5,10 @@
 | 文件 | 作用 |
 | --- | --- |
 | `iso/zh-release-chain.json` | 当前唯一 ISO、哈希和运行状态 |
-| `iso/zh-release-current-build.json` | 当前 v0.2.0 候选的固定原盘、20 个成员、LBA 和输出哈希 |
+| `iso/zh-release-current-build.json` | 当前 v0.3.0 候选的固定原盘、21 个成员、LBA 和输出哈希 |
 | `iso/zh-release-full-story-build.json` | 已发布 v0.1.0 的冻结 ISO 构建配置 |
-| `release/v0.2.0.json` | v0.2.0 原版／目标 ISO 哈希、已知限制、xdelta3 参数和发布包布局 |
+| `release/v0.3.0.json` | v0.3.0 原版／目标 ISO 哈希、已知限制、xdelta3 参数和发布包布局 |
+| `release/v0.2.0.json` | 已发布 v0.2.0 的历史补丁契约 |
 | `release/v0.1.0.json` | 已发布 v0.1.0 的历史补丁契约 |
 | `full-story-components.json` | 20 个当前最终成员的组合契约 |
 | `stage-default-formation-inventory.json` | 已审核 STAGE 编队／阵营名的固定关卡、布局与槽位偏移；普通构建只校验，不扫描 |

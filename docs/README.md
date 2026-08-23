@@ -12,6 +12,7 @@
 | `PRODUCTION_PIPELINE.md` | 当前生产输入、命令、写回顺序和失败门禁 |
 | `RUNTIME_LOCALIZATION_AUDIT.md` | 已有运行结论、当前缺口和验收范围 |
 | `LIBRARY_V02_SCOPE.md` | v0.2 完整 LIBRARY 范围、曲名保留规则和发布门 |
+| `RELEASE_NOTES_V0.3.0.md` | v0.3.0 测试版新增内容、验证和已知限制 |
 | `RELEASE_NOTES_V0.2.0.md` | v0.2.0 测试版新增内容、验证和已知限制 |
 | `V0.2.0_TODO.md` | 不阻断 v0.2.0 测试版发布的剩余中文化与运行覆盖 |
 | `V0.2.0_POST_RELEASE_ISSUES.md` | v0.2.0 发布后玩家反馈的问题登记、定位线索与状态 |

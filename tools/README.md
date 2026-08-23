@@ -21,7 +21,7 @@ vendor/upstream-python/       两份固定只读数据定义
 | 剧情批量初译 | `run_aliyun_story_dialogue_batch.py`（强制说话人、作品和相邻上下文；仅输出 `work/` 机器初稿） |
 | 最终组件 | `build_full_story_components.py`（通常由全局字体主链自动调用） |
 | ISO | `build_iso.py --config config/iso/zh-release-current-build.json` |
-| 发布补丁 | `build_release.py --config config/release/v0.2.0.json` |
+| 发布补丁 | `build_release.py --config config/release/v0.3.0.json` |
 | 静态回读 | `verify_zh_release_font.py`、`ui_atlas.py verify-suite`、`verify_full_story_iso_content.py` |
 | 运行证据 | `pcsx2.py prepare/verify/launch/stop/collect/savestate-register/savestate-verify` |
 
@@ -44,7 +44,7 @@ vendor/upstream-python/       两份固定只读数据定义
 ```bash
 python3 tools/rebuild_zh_font.py --skip-fetch
 python3 tools/build_iso.py --config config/iso/zh-release-current-build.json
-python3 tools/build_release.py --config config/release/v0.2.0.json
+python3 tools/build_release.py --config config/release/v0.3.0.json
 ```
 
 `build_editorial_review.py` 只生成 `work/review/` 下的离线人工审核页面和候选 JSON，
@@ -115,4 +115,4 @@ python3 tools/freeze_library_menu_renders.py --force
 20 个当前最终组件成员；确认输入或 ratchet 发生预期变化时才附加
 `--refresh-manifests`，字体视觉规则变化时再附加 `--refresh-asset-ratchets`。
 发布入口先验证原版和目标 ISO 的固定大小与 SHA-256，再用锁定的 xdelta3 版本生成
-补丁并实际还原一次；`build/release/v0.2.0/` 中不得出现 ISO。
+补丁并实际还原一次；`build/release/v0.3.0/` 中不得出现 ISO。

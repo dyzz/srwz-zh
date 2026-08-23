@@ -111,17 +111,17 @@ python3 tools/build_iso.py \
   --config config/iso/zh-release-current-build.json
 ```
 
-完整 ISO 是本地开发和运行验收制品，不对外分发。生成 v0.2.0 可分发补丁包时运行：
+完整 ISO 是本地开发和运行验收制品，不对外分发。生成 v0.3.0 可分发补丁包时运行：
 
 ```bash
-python3 tools/build_release.py --config config/release/v0.2.0.json
+python3 tools/build_release.py --config config/release/v0.3.0.json
 ```
 
 发布工具固定核对 Redump 规范文件名以及原版与目标 ISO 的大小和 SHA-256，使用
 xdelta3 3.2.0 生成补丁；附带说明中的 `-s` 输入也固定写为
 `Super Robot Taisen Z (Japan, Korea).iso`，
 再从原版实际还原目标镜像并复核哈希。输出目录
-`build/release/v0.2.0/` 只允许包含 `.xdelta`、说明、清单、校验文件和 ZIP；ISO
+`build/release/v0.3.0/` 只允许包含 `.xdelta`、说明、清单、校验文件和 ZIP；ISO
 不得进入发布目录或 ZIP。
 
 `manifests/zh-release-full-story-iso-content-validation.json` 是唯一的整盘内容回读

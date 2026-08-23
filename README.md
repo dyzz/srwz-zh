@@ -2,12 +2,11 @@
 
 这是《超级机器人大战 Z》PS2 日文版的非官方简体中文化项目。
 
-当前版本为 **v0.2.0 测试版**。游戏的主要剧情、常用菜单、人物与机体名称、
-大部分战斗相关文本，以及机体图鉴、角色事典和术语事典均已完成中文化。未完成的
-剧情流程深层界面、攻略 Q&A 正文和完整运行覆盖已明确列入
-[v0.2.0 TODO](docs/V0.2.0_TODO.md)，不阻断本次测试版发布。
+当前版本为 **v0.3.0 测试版**。本版在主要剧情、菜单、战斗文本和完整 LIBRARY
+中文化的基础上，补齐攻略 Q&A、教学与剧情流程内容，并集中修正 v0.2.0 发布后的
+玩家反馈、术语、排版和界面显示问题。
 
-## v0.2.0 汉化内容
+## v0.3.0 汉化内容
 
 - 154 个剧情关卡的对白、说话人、关卡条件和关卡概要；
 - 人物名、机体名和武器名；
@@ -17,26 +16,25 @@
 - 世界地图地名、场景选择标题和中场休息菜单；
 - LIBRARY 六个入口、321 条机体图鉴、411 条角色事典、52 条术语事典及关键词弹窗；
 - 音乐选择通用界面；101 首曲名保持游戏原始日语，并默认解锁全部非空曲目；
-- 剧情流程入口与操作提示、攻略 Q&A 入口与固定提示；
+- 剧情流程、攻略 Q&A、教学关卡及相关操作提示；
+- 发布后反馈涉及的特殊分支、集市事件、自动编队和低频文本路径；
 - 统一整理并润色了高频人名、机体名、武器名及相关术语；
 - 统一中文字形、标点和全角空格，修复了一批乱码及文本污染问题。
 
 ## 当前状态
 
-v0.2.0 已完成自动检查、固定 LBA 镜像构建和最终内容回读，但尚未完成当前精确
-ISO 的完整 PCSX2 运行覆盖及所有路线通关测试。
+v0.3.0 已完成自动检查、固定 LBA 镜像构建、最终内容回读和本轮重点界面人工验证，
+但尚未完成所有路线通关测试。
 正常游玩中仍可能遇到以下情况：
 
 - 少量界面或特殊流程中残留日文；
 - 个别文本的换行、长度或显示位置不理想；
-- 剧情流程的 HSFC 标题贴图仍保留原版日文；
-- 攻略 Q&A 正文尚未完成清单化和中文化；
 - 某些战斗字幕或较少触发的分支事件仍需实际画面确认。
 
 如果你更看重稳定体验，建议等待后续版本；如果愿意协助测试，欢迎记录发生问题的
 关卡、操作步骤和画面截图并通过
 [GitHub Issues](https://github.com/dyzz/srwz-zh/issues) 反馈。完整改动说明见
-[v0.2.0 发布说明](docs/RELEASE_NOTES_V0.2.0.md)，LIBRARY 技术范围见
+[v0.3.0 发布说明](docs/RELEASE_NOTES_V0.3.0.md)，LIBRARY 技术范围见
 [v0.2 LIBRARY 汉化范围](docs/LIBRARY_V02_SCOPE.md)。
 
 ## 下载与使用
@@ -45,7 +43,7 @@ ISO 的完整 PCSX2 运行覆盖及所有路线通关测试。
 《超级机器人大战 Z》PS2 日文原版。补丁和源码构建统一以
 [Redump Disc 4932](https://redump.info/disc/4932/) 的原始版镜像为基准。
 
-v0.2.0 可分发补丁包已通过 xdelta 还原校验，并在
+v0.3.0 可分发补丁包已通过 xdelta 还原校验，并在
 [GitHub Releases](https://github.com/dyzz/srwz-zh/releases) 提供下载、校验值和
 具体使用说明。使用补丁前请备份原版镜像和存档，并以对应发布页面的说明为准。
 
@@ -89,7 +87,7 @@ python3 tools/build_iso.py \
   --config config/iso/zh-release-current-build.json
 python3 tools/verify_full_story_iso_content.py --force
 python3 tools/build_release.py \
-  --config config/release/v0.2.0.json
+  --config config/release/v0.3.0.json
 ```
 
 构建成功后，镜像位于：
@@ -101,7 +99,7 @@ build/iso/zh-release-full-story/srwz-zh-current.iso
 本地完整 ISO 只用于开发和运行验证，不进入发布包。可分发文件位于：
 
 ```text
-build/release/v0.2.0/srwz-zh-v0.2.0.zip
+build/release/v0.3.0/srwz-zh-v0.3.0.zip
 ```
 
 其中只包含 xdelta 补丁、使用说明、发布清单和 SHA-256 校验值，不包含游戏 ISO。
@@ -131,11 +129,11 @@ HarmonyOS Sans，并对少数字符使用 Noto Sans CJK；第三方字体及许�
 <details>
 <summary>当前开发候选的技术信息</summary>
 
-- 汉化基线：`v0.2.0` 后续开发
+- 汉化基线：`v0.3.0`
 - 原版 ISO 大小：`3,758,358,528` 字节
 - Redump：Disc `4932`，文件名 `Super Robot Taisen Z (Japan, Korea).iso`
 - 原版 ISO SHA-256：`ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2`
-- 当前候选 ISO SHA-256：`b0e877ec97939938ab9ef70d77c0b86f697761f8d0e04020a512e2bd01d4cc31`
+- 当前候选 ISO SHA-256：`234c7e7beced51c9ea8debab8e6da4c74340bf3f909d7c3cd8459dd99556bd3c`
 - 当前候选已通过确定性构建、ISO 结构检查和最终文本回读；精确镜像的完整运行
   验收仍在进行中。
 
