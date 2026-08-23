@@ -69,6 +69,8 @@ from srwz.sound_select import (
     apply_sound_select_default_unlock,
     audit_sound_select_track_metadata,
 )
+from srwz.library_unlock import apply_library_default_unlock
+from srwz.search_tab_alignment import apply_search_tab_alignment
 from srwz.weapon_special_effects import (
     WeaponSpecialEffectError,
     apply_weapon_special_effect_2,
@@ -4312,6 +4314,105 @@ def main() -> int:
         "metadata": unlock_metadata_readback,
         "component_receipts_exact": True,
     }
+    library_unlock_contract = library_scope["library_default_unlock"]
+    _verified_library_slps, library_unlock_readback = (
+        apply_library_default_unlock(
+            members["SLPS_258.87"],
+            library_unlock_contract,
+        )
+    )
+    full_library_unlock_component = component.get("library_default_unlock")
+    reviewed_library_unlock_component = library_component.get(
+        "library_default_unlock"
+    )
+    readback_rows = library_unlock_readback.get("patches")
+    full_rows = (
+        full_library_unlock_component.get("patches")
+        if isinstance(full_library_unlock_component, dict)
+        else None
+    )
+    reviewed_rows = (
+        reviewed_library_unlock_component.get("patches")
+        if isinstance(reviewed_library_unlock_component, dict)
+        else None
+    )
+    receipt_fields = (
+        "surface",
+        "virtual_address",
+        "file_offset",
+        "original_instruction_hex",
+        "replacement_instruction_hex",
+        "output_instruction_hex",
+    )
+    normalized_readback = [
+        tuple(row.get(field) for field in receipt_fields)
+        for row in readback_rows
+    ] if isinstance(readback_rows, list) else None
+    normalized_full = [
+        tuple(row.get(field) for field in receipt_fields)
+        for row in full_rows
+    ] if isinstance(full_rows, list) else None
+    normalized_reviewed = [
+        tuple(row.get(field) for field in receipt_fields)
+        for row in reviewed_rows
+    ] if isinstance(reviewed_rows, list) else None
+    if (
+        normalized_readback is None
+        or normalized_readback != normalized_full
+        or normalized_readback != normalized_reviewed
+        or library_unlock_readback[
+            "all_instruction_replacements_exact"
+        ] is not True
+        or library_unlock_readback["save_writeback_functions_unchanged"]
+        is not True
+    ):
+        raise SystemExit("final ISO LIBRARY default-unlock readback drift")
+    library_unlock_readback["component_receipts_exact"] = True
+    search_alignment_contract = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )["remaining_ui"]["search_tab_alignment"]
+    _verified_search_slps, search_tab_alignment_readback = (
+        apply_search_tab_alignment(
+            members["SLPS_258.87"], search_alignment_contract
+        )
+    )
+    component_search_alignment = component.get("search_tab_alignment")
+    readback_search_rows = search_tab_alignment_readback.get("patches")
+    component_search_rows = (
+        component_search_alignment.get("patches")
+        if isinstance(component_search_alignment, dict)
+        else None
+    )
+    search_receipt_fields = (
+        "surface",
+        "label",
+        "source_text",
+        "source_string_file_offset",
+        "virtual_address",
+        "file_offset",
+        "original_byte_hex",
+        "replacement_byte_hex",
+        "output_byte_hex",
+    )
+    normalized_search_readback = [
+        tuple(row.get(field) for field in search_receipt_fields)
+        for row in readback_search_rows
+    ] if isinstance(readback_search_rows, list) else None
+    normalized_search_component = [
+        tuple(row.get(field) for field in search_receipt_fields)
+        for row in component_search_rows
+    ] if isinstance(component_search_rows, list) else None
+    if (
+        normalized_search_readback is None
+        or normalized_search_readback != normalized_search_component
+        or search_tab_alignment_readback["surface_count"] != 5
+        or search_tab_alignment_readback["center_byte_hex"] != "0F"
+        or search_tab_alignment_readback["changed_byte_count"] != 0
+        or search_tab_alignment_readback["all_replacements_exact"] is not True
+        or search_tab_alignment_readback["executable_size_preserved"] is not True
+    ):
+        raise SystemExit("final ISO Search-tab alignment readback drift")
+    search_tab_alignment_readback["component_receipt_exact"] = True
     sound_select_readback = {
         "member": "DATA/NISVDATA.BIN",
         "chunk_index": int(sound_target["chunk_index"]),
@@ -6146,6 +6247,7 @@ def main() -> int:
         "post_release_runtime_surfaces": post_release_runtime_surfaces,
         "issue_036_tutorial": issue_036_tutorial,
         "weapon_special_effect_2": weapon_effect_2_readback,
+        "search_tab_alignment": search_tab_alignment_readback,
         "dialogue_layout": {
             "line_width_limit": DEFAULT_LINE_WIDTH,
             "line_count_limit": DEFAULT_MAX_LINES,
@@ -6167,6 +6269,7 @@ def main() -> int:
             "component_acceptance": library_acceptance,
             "main_menu": library_menu_readback,
             "sound_select": sound_select_readback,
+            "default_unlock": library_unlock_readback,
             "scenario_chart_title_readback": (
                 scenario_chart_title_readback
             ),
@@ -6290,6 +6393,13 @@ def main() -> int:
             "iso_size_exact": iso_size == output["expected_size"],
             "iso_sha256_exact": iso_sha256 == output["expected_sha256"],
             "replacement_members_exact": True,
+            "search_tab_five_label_alignment_exact": (
+                search_tab_alignment_readback["surface_count"] == 5
+                and search_tab_alignment_readback["center_byte_hex"] == "0F"
+                and search_tab_alignment_readback["changed_byte_count"] == 0
+                and search_tab_alignment_readback["all_replacements_exact"]
+                and search_tab_alignment_readback["component_receipt_exact"]
+            ),
             "reviewed_library_components_exact": (
                 library_translation.get("unique_text_count") == 2709
                 and library_translation.get("field_reference_count") == 4921
@@ -6325,6 +6435,13 @@ def main() -> int:
                 and sound_select_readback["default_unlock"]["metadata"][
                     "empty_sentinel_excluded"
                 ]
+                and library_unlock_readback[
+                    "all_instruction_replacements_exact"
+                ]
+                and library_unlock_readback[
+                    "save_writeback_functions_unchanged"
+                ]
+                and library_unlock_readback["surface_count"] == 4
                 and all(library_acceptance.values())
             ),
             "runtime_keyword_surfaces_exact": (

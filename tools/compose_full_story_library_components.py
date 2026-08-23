@@ -124,6 +124,50 @@ def main() -> int:
     ):
         raise SystemExit("sound-select default-unlock composition drift")
 
+    full_library_unlock = full.get("library_default_unlock")
+    library_library_unlock = library.get("library_default_unlock")
+    full_library_patches = (
+        full_library_unlock.get("patches")
+        if isinstance(full_library_unlock, dict)
+        else None
+    )
+    library_library_patches = (
+        library_library_unlock.get("patches")
+        if isinstance(library_library_unlock, dict)
+        else None
+    )
+    patch_contract_fields = (
+        "surface",
+        "virtual_address",
+        "file_offset",
+        "original_instruction_hex",
+        "replacement_instruction_hex",
+        "output_instruction_hex",
+    )
+    if (
+        not isinstance(full_library_unlock, dict)
+        or not isinstance(library_library_unlock, dict)
+        or not isinstance(full_library_patches, list)
+        or not isinstance(library_library_patches, list)
+        or full_library_unlock.get("policy")
+        != library_library_unlock.get("policy")
+        or [
+            tuple(patch.get(field) for field in patch_contract_fields)
+            for patch in full_library_patches
+        ]
+        != [
+            tuple(patch.get(field) for field in patch_contract_fields)
+            for patch in library_library_patches
+        ]
+        or full_library_unlock.get("all_instruction_replacements_exact")
+        is not True
+        or library_library_unlock.get("all_instruction_replacements_exact")
+        is not True
+        or library_library_unlock.get("full_story_component_owns_writeback")
+        is not True
+    ):
+        raise SystemExit("LIBRARY default-unlock composition drift")
+
     installed_library_outputs = {}
     for member, lock in library_outputs.items():
         if member in overlap:
@@ -165,6 +209,9 @@ def main() -> int:
         ),
         "sound_select_default_unlock": deepcopy(
             library.get("sound_select_default_unlock")
+        ),
+        "library_default_unlock": deepcopy(
+            library.get("library_default_unlock")
         ),
         "legacy_jtim_restoration": deepcopy(
             library.get("legacy_jtim_restoration")

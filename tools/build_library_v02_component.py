@@ -33,6 +33,7 @@ from srwz.library import (
     validate_library_scope_mapping,
     verify_sound_title_source,
 )
+from srwz.library_unlock import apply_library_default_unlock
 from srwz.nisv_library_menu import (
     build_nisv_library_menu,
     build_nisv_sound_select,
@@ -470,6 +471,14 @@ def main() -> int:
     )
     sound_select_unlock_report["component_output_member_written"] = False
     sound_select_unlock_report["full_story_component_owns_writeback"] = True
+    _library_unlock_candidate, library_default_unlock_report = (
+        apply_library_default_unlock(
+            executable,
+            scope["library_default_unlock"],
+        )
+    )
+    library_default_unlock_report["component_output_member_written"] = False
+    library_default_unlock_report["full_story_component_owns_writeback"] = True
     codec = config.get("codec")
     layout = config.get("layout")
     if not isinstance(codec, dict) or not isinstance(layout, dict):
@@ -1119,6 +1128,7 @@ def main() -> int:
         "library_menu": runtime_menu_report,
         "runtime_library_menu": runtime_menu_report,
         "sound_select_default_unlock": sound_select_unlock_report,
+        "library_default_unlock": library_default_unlock_report,
         "legacy_jtim_restoration": menu_report,
         "archives": archive_reports,
         "outputs": {
@@ -1196,6 +1206,18 @@ def main() -> int:
                     "empty_sentinel_excluded"
                 ]
                 and sound_select_unlock_report[
+                    "full_story_component_owns_writeback"
+                ]
+            ),
+            "library_all_four_surfaces_default_unlocked": (
+                library_default_unlock_report["surface_count"] == 4
+                and library_default_unlock_report[
+                    "all_instruction_replacements_exact"
+                ]
+                and library_default_unlock_report[
+                    "save_writeback_functions_unchanged"
+                ]
+                and library_default_unlock_report[
                     "full_story_component_owns_writeback"
                 ]
             ),

@@ -207,18 +207,18 @@ class PostReleaseStaticFixTests(unittest.TestCase):
         )
         self.assertEqual(source.text, "パラメータ上昇")
 
-    def test_search_tabs_are_centered_inside_their_six_cell_slots(self):
+    def test_search_tabs_keep_four_cells_for_runtime_optical_alignment(self):
         expected = {
-            "0x346248": ("精神コマンド", "　精神指令　", "slps_by_offset"),
-            "0x346288": ("小隊ボーナス", "　小队奖励　", "slps_by_offset"),
+            "0x346248": ("精神コマンド", "精神指令", "slps_by_offset"),
+            "0x346288": ("小隊ボーナス", "小队奖励", "slps_by_offset"),
             "0x346970": (
                 "精神コマンド",
-                "　精神指令　",
+                "精神指令",
                 "slps_context_ui_by_offset",
             ),
             "0x3469B0": (
                 "小隊ボーナス",
-                "　小队奖励　",
+                "小队奖励",
                 "slps_context_ui_by_offset",
             ),
         }
@@ -236,9 +236,15 @@ class PostReleaseStaticFixTests(unittest.TestCase):
                 overrides=self.encoding_overrides,
                 terminate=True,
             )
-            self.assertEqual(len(encoded), source.consumed)
-            self.assertTrue(encoded.startswith(b"\x81\x40"))
-            self.assertTrue(encoded.endswith(b"\x81\x40\x00"))
+            self.assertEqual(len(encoded), 9)
+            self.assertLess(len(encoded), source.consumed)
+            self.assertNotIn(b"\x81\x40", encoded)
+            self.assertEqual(
+                self.remaining["accepted_current_preimages_by_offset"][
+                    raw_offset
+                ],
+                f"　{translation}　",
+            )
 
     def test_cheer_spirit_command_uses_approved_name_on_current_preimage(self):
         source = decode_text(self.source_slps, 0x3375F8, self.source_table)

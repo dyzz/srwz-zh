@@ -46,6 +46,10 @@ try:
         SoundTitleSpanLock,
         verify_sound_title_source,
     )
+    from srwz.library_unlock import (
+        LibraryUnlockError,
+        apply_library_default_unlock,
+    )
     from srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
         build_nisv_library_menu,
@@ -81,6 +85,10 @@ try:
         SoundSelectError,
         apply_sound_select_default_unlock,
         audit_sound_select_track_metadata,
+    )
+    from srwz.search_tab_alignment import (
+        SearchTabAlignmentError,
+        apply_search_tab_alignment,
     )
     from srwz.weapon_special_effects import (
         WeaponSpecialEffectError,
@@ -181,6 +189,10 @@ except ModuleNotFoundError:
         SoundTitleSpanLock,
         verify_sound_title_source,
     )
+    from tools.srwz.library_unlock import (
+        LibraryUnlockError,
+        apply_library_default_unlock,
+    )
     from tools.srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
         build_nisv_library_menu,
@@ -216,6 +228,10 @@ except ModuleNotFoundError:
         SoundSelectError,
         apply_sound_select_default_unlock,
         audit_sound_select_track_metadata,
+    )
+    from tools.srwz.search_tab_alignment import (
+        SearchTabAlignmentError,
+        apply_search_tab_alignment,
     )
     from tools.srwz.weapon_special_effects import (
         WeaponSpecialEffectError,
@@ -7796,6 +7812,17 @@ def _build_incremental_fixed_slps(
             "accepted_current_preimages_by_offset"
         ),
     )
+    try:
+        output_slps, search_tab_alignment_report = (
+            apply_search_tab_alignment(
+                output_slps,
+                remaining_reference["search_tab_alignment"],
+            )
+        )
+    except (KeyError, ValueError, SearchTabAlignmentError) as error:
+        raise FullStoryComponentError(
+            f"incremental Search-tab alignment failed: {error}"
+        ) from error
     changed_byte_offsets = {
         index
         for index, (before, after) in enumerate(zip(current_slps, output_slps))
@@ -7806,6 +7833,10 @@ def _build_incremental_fixed_slps(
         offset = int(raw_offset, 16)
         source = decode_text(original_slps, offset, table)
         allowed_byte_offsets.update(range(offset, offset + source.consumed))
+    allowed_byte_offsets.update(
+        int(item["file_offset"], 16)
+        for item in search_tab_alignment_report["patches"]
+    )
     if changed_byte_offsets - allowed_byte_offsets:
         raise FullStoryComponentError(
             "incremental SLPS write changed bytes outside affected fixed fields"
@@ -7915,6 +7946,12 @@ def _build_incremental_fixed_slps(
     report["outputs"][SLPS_MEMBER] = _output_lock(
         current_slps_path,
         output_slps,
+    )
+    report["search_tab_alignment"] = search_tab_alignment_report
+    report["acceptance"]["search_tabs_aligned_as_five_label_set"] = (
+        search_tab_alignment_report["surface_count"] == 5
+        and search_tab_alignment_report["all_replacements_exact"]
+        and search_tab_alignment_report["executable_size_preserved"]
     )
     if not all(report.get("acceptance", {}).values()):
         raise FullStoryComponentError("prior component acceptance is not reusable")
@@ -9348,6 +9385,30 @@ def build(
             f"sound-select default unlock failed: {error}"
         ) from error
 
+    try:
+        output_slps, library_default_unlock_report = (
+            apply_library_default_unlock(
+                output_slps,
+                runtime_library_menu_scope["library_default_unlock"],
+            )
+        )
+    except (KeyError, ValueError, LibraryUnlockError) as error:
+        raise FullStoryComponentError(
+            f"LIBRARY default unlock failed: {error}"
+        ) from error
+
+    try:
+        output_slps, search_tab_alignment_report = (
+            apply_search_tab_alignment(
+                output_slps,
+                config["remaining_ui"]["search_tab_alignment"],
+            )
+        )
+    except (KeyError, ValueError, SearchTabAlignmentError) as error:
+        raise FullStoryComponentError(
+            f"Search-tab alignment failed: {error}"
+        ) from error
+
     weapon_effect_config = config.get("weapon_special_effect_2")
     if not isinstance(weapon_effect_config, dict):
         raise FullStoryComponentError(
@@ -9756,6 +9817,8 @@ def build(
         "nisv_tutorial_pages": nisv_tutorial_report,
         "runtime_library_menu": runtime_library_menu_report,
         "sound_select_default_unlock": sound_select_unlock_report,
+        "library_default_unlock": library_default_unlock_report,
+        "search_tab_alignment": search_tab_alignment_report,
         "weapon_special_effect_2": weapon_effect_2_report,
         "compdata_battle_lines": compdata_battle_line_report,
         "reviewed_weapons": reviewed_weapon_report,
@@ -10015,6 +10078,25 @@ def build(
                 == 101
                 and sound_select_unlock_report["metadata"][
                     "empty_sentinel_excluded"
+                ]
+            ),
+            "library_all_four_surfaces_default_unlocked": (
+                library_default_unlock_report["surface_count"] == 4
+                and library_default_unlock_report[
+                    "all_instruction_replacements_exact"
+                ]
+                and library_default_unlock_report[
+                    "save_writeback_functions_unchanged"
+                ]
+                and library_default_unlock_report[
+                    "executable_size_preserved"
+                ]
+            ),
+            "search_tabs_aligned_as_five_label_set": (
+                search_tab_alignment_report["surface_count"] == 5
+                and search_tab_alignment_report["all_replacements_exact"]
+                and search_tab_alignment_report[
+                    "executable_size_preserved"
                 ]
             ),
             "weapon_special_effect_2_reread_exact": (

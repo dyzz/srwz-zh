@@ -710,6 +710,30 @@ def validate_library_scope_mapping(raw: Mapping[str, object]) -> None:
         _number(decoded_span.get("expected_title_count"), "sound title count")
     ):
         raise LibraryScopeError("sound-select title and unlock counts disagree")
+    library_unlock = raw.get("library_default_unlock")
+    if not isinstance(library_unlock, Mapping):
+        raise LibraryScopeError("LIBRARY default unlock config is missing")
+    if library_unlock.get("member") != "SLPS_258.87" or (
+        library_unlock.get("policy")
+        != "include_all_valid_entries_without_save_writeback"
+    ):
+        raise LibraryScopeError("LIBRARY default unlock policy drift")
+    library_patches = library_unlock.get("patches")
+    if not isinstance(library_patches, list) or len(library_patches) != 4:
+        raise LibraryScopeError("LIBRARY default unlock patch count drift")
+    expected_unlock_surfaces = {
+        "robot_encyclopedia",
+        "character_encyclopedia",
+        "keyword_encyclopedia",
+        "scenario_chart",
+    }
+    unlock_surfaces = {
+        patch.get("surface")
+        for patch in library_patches
+        if isinstance(patch, Mapping)
+    }
+    if unlock_surfaces != expected_unlock_surfaces:
+        raise LibraryScopeError("LIBRARY default unlock surface set drift")
 
 
 @dataclass(frozen=True)

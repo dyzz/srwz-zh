@@ -685,6 +685,42 @@
       "expected_table_sha256": "77b9ea3791dce56bc1870b99a758a057e856148e0bcd0e25543741493b44c4d9"
     }
   },
+  "library_default_unlock": {
+    "member": "SLPS_258.87",
+    "policy": "include_all_valid_entries_without_save_writeback",
+    "elf_file_offset_base": "0x1A80",
+    "elf_virtual_address_base": "0x100000",
+    "patches": [
+      {
+        "surface": "keyword_encyclopedia",
+        "virtual_address": "0x153E84",
+        "file_offset": "0x55904",
+        "original_instruction_hex": "2410A200",
+        "replacement_instruction_hex": "2510A200"
+      },
+      {
+        "surface": "scenario_chart",
+        "virtual_address": "0x15407C",
+        "file_offset": "0x55AFC",
+        "original_instruction_hex": "24108200",
+        "replacement_instruction_hex": "25108200"
+      },
+      {
+        "surface": "character_encyclopedia",
+        "virtual_address": "0x154124",
+        "file_offset": "0x55BA4",
+        "original_instruction_hex": "2410A200",
+        "replacement_instruction_hex": "2510A200"
+      },
+      {
+        "surface": "robot_encyclopedia",
+        "virtual_address": "0x154284",
+        "file_offset": "0x55D04",
+        "original_instruction_hex": "24104500",
+        "replacement_instruction_hex": "25104500"
+      }
+    ]
+  },
   "translation_model_lock": {
     "provider": "Alibaba Cloud DashScope",
     "model": "deepseek-v4-flash-0731",

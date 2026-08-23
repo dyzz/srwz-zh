@@ -90,7 +90,7 @@
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
       "size": 109376,
-      "sha256": "3c0ad42ccff6304998c1ec49411f39069009846be050fb714e4969bb75c714f9"
+      "sha256": "a4e80be27fcd73570336f54788b3514f2200120e176fee5f4fe1fb21a333c5e4"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -137,7 +137,7 @@
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
       "size": 109376,
-      "sha256": "3c0ad42ccff6304998c1ec49411f39069009846be050fb714e4969bb75c714f9"
+      "sha256": "a4e80be27fcd73570336f54788b3514f2200120e176fee5f4fe1fb21a333c5e4"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -608,7 +608,7 @@
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
       "size": 109376,
-      "sha256": "3c0ad42ccff6304998c1ec49411f39069009846be050fb714e4969bb75c714f9"
+      "sha256": "a4e80be27fcd73570336f54788b3514f2200120e176fee5f4fe1fb21a333c5e4"
     },
     "parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
@@ -642,8 +642,69 @@
     },
     "stage_default_formation_inventory": {
       "path": "config/stage-default-formation-inventory.json",
-      "size": 176853,
-      "sha256": "590997259bddb6b5b3aeac110f07f0afabaa469656c04accde100c02f27f2228"
+      "size": 180567,
+      "sha256": "ff949f39c166a5133df6395a45078396a64a86a36381335f34678ab79a356c33"
+    },
+    "search_tab_alignment": {
+      "member": "SLPS_258.87",
+      "policy": "five_four_cjk_labels_share_verified_center",
+      "source_reference": "tools/asm/menu_search.asm",
+      "source_reference_note": "The upstream 22/26 coordinates target different text widths and are migration preimages only; all five four-CJK Chinese labels use the original table's verified 0F center.",
+      "elf_file_offset_base": "0x0",
+      "elf_virtual_address_base": "0xFE580",
+      "center_byte_hex": "0F",
+      "patches": [
+        {
+          "surface": "spirit_command",
+          "label": "精神指令",
+          "source_text": "精神コマンド",
+          "source_string_file_offset": "0x346248",
+          "virtual_address": "0x42FCB2",
+          "file_offset": "0x331732",
+          "original_byte_hex": "07",
+          "accepted_current_byte_hexes": ["22", "1E"]
+        },
+        {
+          "surface": "special_skill",
+          "label": "特殊技能",
+          "source_text": "特殊スキル",
+          "source_string_file_offset": "0x346258",
+          "virtual_address": "0x42FCBA",
+          "file_offset": "0x33173A",
+          "original_byte_hex": "0E",
+          "accepted_current_byte_hexes": ["26", "24"]
+        },
+        {
+          "surface": "leader_effect",
+          "label": "队长效果",
+          "source_text": "隊長効果",
+          "source_string_file_offset": "0x346268",
+          "virtual_address": "0x42FCC2",
+          "file_offset": "0x331742",
+          "original_byte_hex": "0F",
+          "accepted_current_byte_hexes": []
+        },
+        {
+          "surface": "special_ability",
+          "label": "特殊能力",
+          "source_text": "特殊能力",
+          "source_string_file_offset": "0x346278",
+          "virtual_address": "0x42FCCA",
+          "file_offset": "0x33174A",
+          "original_byte_hex": "0F",
+          "accepted_current_byte_hexes": []
+        },
+        {
+          "surface": "squad_bonus",
+          "label": "小队奖励",
+          "source_text": "小隊ボーナス",
+          "source_string_file_offset": "0x346288",
+          "virtual_address": "0x42FCD2",
+          "file_offset": "0x331752",
+          "original_byte_hex": "07",
+          "accepted_current_byte_hexes": []
+        }
+      ]
     },
     "expected": {
       "compdata_direct_entry_count": 309,
@@ -706,7 +767,7 @@
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
       "size": 109376,
-      "sha256": "3c0ad42ccff6304998c1ec49411f39069009846be050fb714e4969bb75c714f9"
+      "sha256": "a4e80be27fcd73570336f54788b3514f2200120e176fee5f4fe1fb21a333c5e4"
     },
     "original_archive": {
       "path": "work/disc/DATA/NISVDATA.BIN",
@@ -1131,8 +1192,8 @@
   "runtime_library_menu": {
     "scope": {
       "path": "config/library/v0.2.0.json",
-      "size": 21834,
-      "sha256": "12060cadec42a7ca50e6ba34c022bf6bdbe12d309fc2386dd1ee0d870f2c7d3f"
+      "size": 22986,
+      "sha256": "18c5d89414393e79a20e1361fb939e68d1f4d5b8360e974c163bb7d76edd6630"
     },
     "font": {
       "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Regular.ttf",
