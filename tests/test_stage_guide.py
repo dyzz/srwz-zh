@@ -27,8 +27,9 @@ class StageGuideTests(unittest.TestCase):
         self.assertEqual(coverage["hidden_step_count"], 160)
         self.assertEqual(coverage["progression_entry_count"], 135)
         self.assertEqual(coverage["progression_stage_card_count"], 101)
-        self.assertEqual(coverage["akurasu_correction_count"], 8)
-        self.assertEqual(coverage["akurasu_correction_card_count"], 10)
+        self.assertEqual(coverage["akurasu_correction_count"], 1)
+        self.assertEqual(coverage["akurasu_hidden_text_correction_count"], 7)
+        self.assertEqual(coverage["akurasu_correction_card_count"], 1)
         self.assertEqual(coverage["reference_upgrade_carryover_count"], 20)
         self.assertEqual(coverage["reference_full_upgrade_bonus_count"], 14)
         self.assertEqual(coverage["reference_pilot_skill_count"], 45)
@@ -83,6 +84,42 @@ class StageGuideTests(unittest.TestCase):
         self.assertEqual(placeholders, set(manifest["terminology"]["used_ids"]))
         self.assertEqual(set(manifest["terminology"]["sources"]), placeholders)
 
+    def test_player_names_units_and_weapons_use_global_term_ids(self):
+        page = GUIDE.read_text(encoding="utf-8")
+        progression = PROGRESSION.read_text(encoding="utf-8")
+        hidden = HIDDEN.read_text(encoding="utf-8")
+        reference = REFERENCE.read_text(encoding="utf-8")
+
+        for term_ref in (
+            "{{people/leben}}",
+            "{{unit/chaos-leo}}",
+            "{{people/anemone}}",
+            "{{people/sara-tyrell}}",
+            "{{unit/brockary}}",
+            "{{unit/baldios}}",
+            "{{weapon/0235}}",
+        ):
+            with self.subTest(term_ref=term_ref):
+                self.assertIn(term_ref, progression + hidden + reference)
+
+        for stale in (
+            "勒温",
+            "混沌利奥",
+            "安妮莫奈",
+            "莎拉·泰瑞尔",
+            "布拉卡利",
+            "巴尔迪奥斯",
+        ):
+            with self.subTest(stale=stale):
+                self.assertNotIn(stale, page)
+
+        self.assertIn("雷本驾驶混沌·雷欧参战", page)
+        self.assertIn("阿尼莫奈", page)
+        self.assertIn("莎拉·泰雷尔", page)
+        self.assertIn("布洛克利", page)
+        self.assertIn("巴鲁迪奥斯", page)
+        self.assertIn("百式默认解锁超级米加发射器", page)
+
     def test_player_ui_has_ten_views_and_no_collapsed_content(self):
         page = GUIDE.read_text(encoding="utf-8")
         self.assertEqual(page.count('<a class="mode-tab'), 10)
@@ -113,7 +150,12 @@ class StageGuideTests(unittest.TestCase):
         self.assertNotIn("胜败／SR条件", page)
         self.assertNotIn('class="conditions-block"', page)
         self.assertNotIn('class="condition-kind"', page)
-        self.assertEqual(page.count('class="stage-block correction"'), 10)
+        self.assertEqual(page.count('class="stage-block correction"'), 1)
+        self.assertNotIn("英文拼写混用", page)
+        self.assertNotIn("英文武器名拼写", page)
+        self.assertNotIn("Gundam XX", page)
+        self.assertNotIn("Chaos Caper", page)
+        self.assertIn("同一格重复列出", page)
 
     def test_pilot_skill_effects_and_rare_holders_are_rendered(self):
         page = GUIDE.read_text(encoding="utf-8")

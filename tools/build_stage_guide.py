@@ -1360,6 +1360,10 @@ def build() -> tuple[bytes, bytes]:
                 len(entry.get("akurasu_corrections", []))
                 for entry in progression_entries
             ),
+            "akurasu_hidden_text_correction_count": sum(
+                len(entry.get("akurasu_text_corrections", []))
+                for entry in progression_entries
+            ),
             "akurasu_correction_card_count": sum(
                 len(entry["akurasu_corrections"])
                 for entry in progression_by_stage.values()

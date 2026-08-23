@@ -127,6 +127,16 @@ class GlobalGlossaryTests(unittest.TestCase):
         self.assertIn("Megadeus", self.by_id["unit/megadeus"]["deprecated_translations"])
         self.assertIn("达夫", self.by_id["people/speaker-3ebfb90dd843"]["deprecated_translations"])
 
+    def test_leben_and_chaos_leo_keep_guide_surfaces_canonical(self) -> None:
+        self.assertEqual(self.by_id["people/leben"]["translation"], "雷本")
+        self.assertIn(
+            "勒温", self.by_id["people/leben"]["deprecated_translations"]
+        )
+        self.assertEqual(self.by_id["unit/chaos-leo"]["translation"], "混沌·雷欧")
+        self.assertIn(
+            "混沌利奥", self.by_id["unit/chaos-leo"]["deprecated_translations"]
+        )
+
     def test_duplicate_ids_merge_but_conflicting_translations_fail(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)

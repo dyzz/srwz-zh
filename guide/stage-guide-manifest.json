@@ -1,7 +1,8 @@
 {
   "coverage": {
-    "akurasu_correction_card_count": 10,
-    "akurasu_correction_count": 8,
+    "akurasu_correction_card_count": 1,
+    "akurasu_correction_count": 1,
+    "akurasu_hidden_text_correction_count": 7,
     "all_parsed_condition_count": 670,
     "condition_corpus_count": 670,
     "evidence_level_counts": {
@@ -18,10 +19,10 @@
     "progression_entry_count": 135,
     "progression_stage_card_count": 101,
     "progression_verification_counts": {
-      "guide-supplement": 81,
-      "source-correction": 10,
-      "stage-script": 51,
-      "stage-script-partial": 76
+      "guide-supplement": 72,
+      "source-correction": 1,
+      "stage-script": 58,
+      "stage-script-partial": 78
     },
     "reference_bazaar_part_count": 28,
     "reference_bazaar_unit_count": 15,
@@ -35,7 +36,7 @@
     "reference_rare_pilot_skill_count": 12,
     "reference_team_attack_count": 12,
     "reference_upgrade_carryover_count": 20,
-    "used_global_term_count": 324
+    "used_global_term_count": 329
   },
   "generator": "tools/build_stage_guide.py",
   "inputs": {
@@ -48,7 +49,7 @@
       "size": 3222
     },
     "corpus/zh/menu/remaining-ui.json": {
-      "sha256": "3c0ad42ccff6304998c1ec49411f39069009846be050fb714e4969bb75c714f9",
+      "sha256": "a4e80be27fcd73570336f54788b3514f2200120e176fee5f4fe1fb21a333c5e4",
       "size": 109376
     },
     "corpus/zh/menu/stage-names.json": {
@@ -84,16 +85,16 @@
       "size": 12852
     },
     "guide/data/hidden-elements.json": {
-      "sha256": "ef312a80f281f89916b89be959a96bdf1c0852083b25abf08b6f6953a4cecc6c",
-      "size": 41907
+      "sha256": "2e4ac0076e778c4a8512f8d793bbb34daddfb2cd3812817d50cb25f842378177",
+      "size": 41913
     },
     "guide/data/progression.json": {
-      "sha256": "c5870d3aee92176ca1eedbe50dd79e342979556681959e12d7e5bf1e99609a55",
-      "size": 32945
+      "sha256": "f50e85747ca4f052d9d40a3502e504a861a59e77b55e0d3cc2ef3fa2785ab0fb",
+      "size": 33114
     },
     "guide/data/reference.json": {
-      "sha256": "e88ec21bdc6c65189349db183dd94cffeec129bfdd4c8caa7f34538cb6208c26",
-      "size": 23390
+      "sha256": "f0a833776886601085c7ee9303844191f75aa1f1809502612eb2f061fb138809",
+      "size": 23395
     },
     "vendor/upstream-python/project/tbl_all.json": {
       "sha256": "843b43293d65543c065e2847dfa1d2a39aa6ea563f1461729b3ff2c5f6d3d69c",
@@ -2233,6 +2234,7 @@
       "people/kei": "corpus/glossary/story-conditions-v1.json",
       "people/kira": "corpus/glossary/story-conditions-v1.json",
       "people/lancerow": "corpus/glossary/story-conditions-v1.json",
+      "people/leben": "corpus/glossary/battle-lines-v1.json",
       "people/moroha": "corpus/glossary/story-conditions-v1.json",
       "people/olba": "corpus/glossary/story-conditions-v1.json",
       "people/olson": "corpus/glossary/story-conditions-v1.json",
@@ -2297,8 +2299,11 @@
       "people/yzak": "corpus/glossary/story-conditions-v1.json",
       "system/sr-point": "corpus/glossary/terms-v1.json",
       "unit/aquarion-alpha": "corpus/glossary/story-conditions-v1.json",
+      "unit/baldios": "corpus/glossary/global-variants-v1.json",
       "unit/big-o": "corpus/glossary/story-conditions-v1.json",
+      "unit/brockary": "corpus/glossary/global-variants-v1.json",
       "unit/chaos-capel": "corpus/glossary/story-conditions-v1.json",
+      "unit/chaos-leo": "corpus/glossary/story-conditions-v1.json",
       "unit/double-spazer": "corpus/glossary/story-dialogue-stage-006-v1.json",
       "unit/drill-spazer": "corpus/glossary/story-dialogue-stage-006-v1.json",
       "unit/force-impulse-gundam": "corpus/glossary/story-conditions-v1.json",
@@ -2336,6 +2341,7 @@
       "weapon/0170": "corpus/glossary/weapons-v1.json",
       "weapon/0196": "corpus/glossary/weapons-v1.json",
       "weapon/0231": "corpus/glossary/weapons-v1.json",
+      "weapon/0235": "corpus/glossary/weapons-v1.json",
       "weapon/0239": "corpus/glossary/weapons-v1.json",
       "weapon/0273": "corpus/glossary/weapons-v1.json",
       "weapon/0274": "corpus/glossary/weapons-v1.json",
@@ -2559,6 +2565,7 @@
       "people/kei",
       "people/kira",
       "people/lancerow",
+      "people/leben",
       "people/moroha",
       "people/olba",
       "people/olson",
@@ -2623,8 +2630,11 @@
       "people/yzak",
       "system/sr-point",
       "unit/aquarion-alpha",
+      "unit/baldios",
       "unit/big-o",
+      "unit/brockary",
       "unit/chaos-capel",
+      "unit/chaos-leo",
       "unit/double-spazer",
       "unit/drill-spazer",
       "unit/force-impulse-gundam",
@@ -2662,6 +2672,7 @@
       "weapon/0170",
       "weapon/0196",
       "weapon/0231",
+      "weapon/0235",
       "weapon/0239",
       "weapon/0273",
       "weapon/0274",
