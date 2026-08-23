@@ -7,7 +7,7 @@
     "config": {
       "path": "config/full-story-components.json",
       "size": 65304,
-      "sha256": "3668b0b4cee3228d0598db86f2ad7165f47c8aea162caa4208ed9721e7a31342"
+      "sha256": "bfc3c76cd7d7c42fd056a82584c48259178647cbbf89a0f1b87d18228a2d3945"
     },
     "base_ui_manifest": {
       "path": "manifests/release-base-ui-validation.json",
@@ -67,7 +67,7 @@
     "stage_overviews": {
       "path": "corpus/zh/menu/stage-overviews.json",
       "size": 88956,
-      "sha256": "07b7f314cf2d046e3ee7519bfbe87700bf2baaddca875001ee8122e373698f8f"
+      "sha256": "1b688bf02621316b137a4c71767635c26dfd05f47c783afc2911ab56e67c1238"
     },
     "world_history_corpus": {
       "path": "corpus/zh/summary.json",
@@ -413,13 +413,13 @@
       "compression_count": 1,
       "final_readback_decode_count": 1,
       "source_stored_size": 55392,
-      "output_stored_size": 51497,
+      "output_stored_size": 51436,
       "decoded_size": 152336,
       "sector_budget": 55392,
       "stages": [
         {
           "stage": "stage overviews",
-          "changed_byte_count": 50013
+          "changed_byte_count": 49999
         },
         {
           "stage": "stage system dialogues",
@@ -4375,9 +4375,9 @@
     "chunk_index": 0,
     "source_stored_size": 55392,
     "source_encoded_size": 55392,
-    "output_encoded_size": 51497,
-    "output_encoded_sha256": "0023b0d8ae2308f055071bc9d75c31315f35983653dbfa69d77381367eb17995",
-    "output_padding_size": 3895,
+    "output_encoded_size": 51436,
+    "output_encoded_sha256": "2cd9d1b95385e7172e18aa6e0a61e2f6f954d74fc5250a91854b4f9da0e7c438",
+    "output_padding_size": 3956,
     "codec_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
     "archive_size_preserved": true,
@@ -14709,7 +14709,7 @@
       "reread_exact": true,
       "codec_strategy": "rust-fit",
       "source_encoded_size": 55392,
-      "output_encoded_size": 51497,
+      "output_encoded_size": 51436,
       "codec_round_trip_exact": true,
       "compression_deferred_to_workspace": true,
       "archive_size_preserved": true,
@@ -14741,7 +14741,7 @@
       "compression_deferred_to_workspace": true,
       "archive_size_preserved": true,
       "hb_offsets_preserved": true,
-      "output_encoded_size": 51497,
+      "output_encoded_size": 51436,
       "codec_round_trip_exact": true
     }
   },
@@ -72978,8 +72978,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "904c07701a9c3330cf017e5817b5ba871c1eebfb6fcad4d03eae17c47744878d",
-    "output_sha256": "aad2d77816f0e3689b5460ca4fabe4cbbc95ffd7a25afe542d0e1cbdf9cfb071",
+    "source_sha256": "1f74c9c0119403000d6a3d52b290f9e8f0dc69a05ac7ccc9ea15768ccada8d7d",
+    "output_sha256": "d61844923e0e689a8dd1586eaa61aeaf23dc1445c08f2dfd16fcf10d38a6c216",
     "instruction_replacement_exact": true,
     "executable_size_preserved": true,
     "metadata": {
@@ -73060,8 +73060,8 @@
     "changed_byte_count": 4,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "aad2d77816f0e3689b5460ca4fabe4cbbc95ffd7a25afe542d0e1cbdf9cfb071",
-    "output_sha256": "1dd955fa0df21793b5a2890605d7313c34839d8a66340174d84be5e180cbe6e7",
+    "source_sha256": "d61844923e0e689a8dd1586eaa61aeaf23dc1445c08f2dfd16fcf10d38a6c216",
+    "output_sha256": "c57ebba0f0d04425da6f20e9a4bdc374b4daa6c9890fc1a0a099d3cfc0c12932",
     "all_instruction_replacements_exact": true,
     "save_writeback_functions_unchanged": true,
     "executable_size_preserved": true
@@ -73159,8 +73159,8 @@
     "changed_byte_count": 3,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "1dd955fa0df21793b5a2890605d7313c34839d8a66340174d84be5e180cbe6e7",
-    "output_sha256": "2f71fd2c10dc74c5ac84f97b12fa0ceadaecf2358e0b99a0fe697254069e51c0",
+    "source_sha256": "c57ebba0f0d04425da6f20e9a4bdc374b4daa6c9890fc1a0a099d3cfc0c12932",
+    "output_sha256": "3ea0e2d0d3061757b83b2181d5a3f264bb6c43e121fce5c618008ceaa475cc91",
     "all_replacements_exact": true,
     "executable_size_preserved": true
   },
@@ -73183,8 +73183,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "2f71fd2c10dc74c5ac84f97b12fa0ceadaecf2358e0b99a0fe697254069e51c0",
-    "output_sha256": "b1bd2e72bb2e1248f511de70566432cb56dc31fd8a2c56d7845bce040ebb6466",
+    "source_sha256": "3ea0e2d0d3061757b83b2181d5a3f264bb6c43e121fce5c618008ceaa475cc91",
+    "output_sha256": "0e09d9dbd42c673adbff1a3b9c0b22f7e8b95a893c6f4709f47a9c44c9dd6c54",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -73229,8 +73229,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "b1bd2e72bb2e1248f511de70566432cb56dc31fd8a2c56d7845bce040ebb6466",
-    "output_sha256": "da24945c231a0eb1af232b8992f08bc61e20209814744fd3e8f78dd1242d945a",
+    "source_sha256": "0e09d9dbd42c673adbff1a3b9c0b22f7e8b95a893c6f4709f47a9c44c9dd6c54",
+    "output_sha256": "a1a7185f5ee3cced53034ded0f976be2224263be5a6260a55f83810157d2791f",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -81138,7 +81138,7 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "b22c5219f9d1fe09e300672c7a20ed49e82c4d41219f4fd21b3fc4dc47c6d9da"
+      "sha256": "2e7f3946c3e67b98b31c29e68d30ef3e8efa05e89a2998825a699e245c2e5573"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
@@ -81175,11 +81175,6 @@
       "size": 55136688,
       "sha256": "f36eea51a31aeaf67b31613bb2773204bdc9c58c031ec2bd8b95e47639712542"
     },
-    "BTL/OP0.BIN": {
-      "path": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
-      "size": 266224,
-      "sha256": "4338048b8a6e05c6b0d4ea520e5d1efaa3d071c0db44babf95ec8a028aabb023"
-    },
     "BTL/OP1.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/OP1.BIN",
       "size": 265872,
@@ -81189,6 +81184,11 @@
       "path": "work/build/zh-release-full-story/components/BTL/OP2.BIN",
       "size": 266352,
       "sha256": "d9835799b4575c8a47a5ca16d07174db181c765ad87484a737feeb91bfe7fadf"
+    },
+    "BTL/OP0.BIN": {
+      "path": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
+      "size": 266224,
+      "sha256": "4338048b8a6e05c6b0d4ea520e5d1efaa3d071c0db44babf95ec8a028aabb023"
     }
   },
   "acceptance": {
