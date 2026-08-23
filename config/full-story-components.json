@@ -706,6 +706,37 @@
         }
       ]
     },
+    "remaining_squad_count_alignment": {
+      "member": "SLPS_258.87",
+      "policy": "move_printf_number_right_without_touching_adjacent_text",
+      "source_format_file_offset": "0x33FC80",
+      "source_format_notation": "%<width:64>",
+      "elf_file_offset_base": "0x0",
+      "elf_virtual_address_base": "0xFE580",
+      "prefix": {
+        "text": "（剩余",
+        "original_x": 460,
+        "instruction_virtual_address": "0x29FF48",
+        "instruction_file_offset": "0x1A19C8",
+        "original_instruction_hex": "CC010624"
+      },
+      "number": {
+        "text": "%<width:64>",
+        "original_x": 506,
+        "instruction_virtual_address": "0x29FFB4",
+        "instruction_file_offset": "0x1A1A34",
+        "original_instruction_hex": "FA010624"
+      },
+      "suffix": {
+        "text": "个小队）",
+        "original_x": 552,
+        "instruction_virtual_address": "0x29FF68",
+        "instruction_file_offset": "0x1A19E8",
+        "original_instruction_hex": "28020624"
+      },
+      "replacement_number_x": 514,
+      "replacement_number_instruction_hex": "02020624"
+    },
     "expected": {
       "compdata_direct_entry_count": 309,
       "compdata_library_work_title_entry_count": 22,

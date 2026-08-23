@@ -71,6 +71,9 @@ from srwz.sound_select import (
 )
 from srwz.library_unlock import apply_library_default_unlock
 from srwz.search_tab_alignment import apply_search_tab_alignment
+from srwz.remaining_squad_count_alignment import (
+    apply_remaining_squad_count_alignment,
+)
 from srwz.weapon_special_effects import (
     WeaponSpecialEffectError,
     apply_weapon_special_effect_2,
@@ -4413,6 +4416,71 @@ def main() -> int:
     ):
         raise SystemExit("final ISO Search-tab alignment readback drift")
     search_tab_alignment_readback["component_receipt_exact"] = True
+    remaining_count_alignment_contract = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )["remaining_ui"]["remaining_squad_count_alignment"]
+    (
+        _verified_remaining_count_slps,
+        remaining_squad_count_alignment_readback,
+    ) = apply_remaining_squad_count_alignment(
+        members["SLPS_258.87"], remaining_count_alignment_contract
+    )
+    component_remaining_count_alignment = component.get(
+        "remaining_squad_count_alignment"
+    )
+    remaining_count_receipt_fields = (
+        "policy",
+        "member",
+        "source_format_file_offset",
+        "prefix_x",
+        "original_number_x",
+        "replacement_number_x",
+        "suffix_x",
+        "shift_pixels",
+        "number_instruction_virtual_address",
+        "number_instruction_file_offset",
+        "original_number_instruction_hex",
+        "replacement_number_instruction_hex",
+        "output_number_instruction_hex",
+    )
+    normalized_remaining_count_readback = tuple(
+        remaining_squad_count_alignment_readback.get(field)
+        for field in remaining_count_receipt_fields
+    )
+    normalized_remaining_count_component = (
+        tuple(
+            component_remaining_count_alignment.get(field)
+            for field in remaining_count_receipt_fields
+        )
+        if isinstance(component_remaining_count_alignment, dict)
+        else None
+    )
+    if (
+        normalized_remaining_count_readback
+        != normalized_remaining_count_component
+        or remaining_squad_count_alignment_readback["shift_pixels"] != 8
+        or remaining_squad_count_alignment_readback["changed_byte_count"] != 0
+        or remaining_squad_count_alignment_readback[
+            "adjacent_coordinates_preserved"
+        ]
+        is not True
+        or remaining_squad_count_alignment_readback["format_token_untouched"]
+        is not True
+        or remaining_squad_count_alignment_readback[
+            "instruction_replacement_exact"
+        ]
+        is not True
+        or remaining_squad_count_alignment_readback[
+            "executable_size_preserved"
+        ]
+        is not True
+    ):
+        raise SystemExit(
+            "final ISO remaining squad-count alignment readback drift"
+        )
+    remaining_squad_count_alignment_readback[
+        "component_receipt_exact"
+    ] = True
     sound_select_readback = {
         "member": "DATA/NISVDATA.BIN",
         "chunk_index": int(sound_target["chunk_index"]),
@@ -6284,6 +6352,9 @@ def main() -> int:
         "issue_036_tutorial": issue_036_tutorial,
         "weapon_special_effect_2": weapon_effect_2_readback,
         "search_tab_alignment": search_tab_alignment_readback,
+        "remaining_squad_count_alignment": (
+            remaining_squad_count_alignment_readback
+        ),
         "dialogue_layout": {
             "line_width_limit": DEFAULT_LINE_WIDTH,
             "line_count_limit": DEFAULT_MAX_LINES,
@@ -6435,6 +6506,25 @@ def main() -> int:
                 and search_tab_alignment_readback["changed_byte_count"] == 0
                 and search_tab_alignment_readback["all_replacements_exact"]
                 and search_tab_alignment_readback["component_receipt_exact"]
+            ),
+            "remaining_squad_count_spacing_exact": (
+                remaining_squad_count_alignment_readback["shift_pixels"] == 8
+                and remaining_squad_count_alignment_readback[
+                    "changed_byte_count"
+                ]
+                == 0
+                and remaining_squad_count_alignment_readback[
+                    "adjacent_coordinates_preserved"
+                ]
+                and remaining_squad_count_alignment_readback[
+                    "format_token_untouched"
+                ]
+                and remaining_squad_count_alignment_readback[
+                    "instruction_replacement_exact"
+                ]
+                and remaining_squad_count_alignment_readback[
+                    "component_receipt_exact"
+                ]
             ),
             "reviewed_library_components_exact": (
                 library_translation.get("unique_text_count") == 2709

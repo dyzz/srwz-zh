@@ -90,6 +90,10 @@ try:
         SearchTabAlignmentError,
         apply_search_tab_alignment,
     )
+    from srwz.remaining_squad_count_alignment import (
+        RemainingSquadCountAlignmentError,
+        apply_remaining_squad_count_alignment,
+    )
     from srwz.weapon_special_effects import (
         WeaponSpecialEffectError,
         apply_weapon_special_effect_2,
@@ -232,6 +236,10 @@ except ModuleNotFoundError:
     from tools.srwz.search_tab_alignment import (
         SearchTabAlignmentError,
         apply_search_tab_alignment,
+    )
+    from tools.srwz.remaining_squad_count_alignment import (
+        RemainingSquadCountAlignmentError,
+        apply_remaining_squad_count_alignment,
     )
     from tools.srwz.weapon_special_effects import (
         WeaponSpecialEffectError,
@@ -7826,6 +7834,21 @@ def _build_incremental_fixed_slps(
         raise FullStoryComponentError(
             f"incremental Search-tab alignment failed: {error}"
         ) from error
+    try:
+        output_slps, remaining_squad_count_alignment_report = (
+            apply_remaining_squad_count_alignment(
+                output_slps,
+                remaining_reference["remaining_squad_count_alignment"],
+            )
+        )
+    except (
+        KeyError,
+        ValueError,
+        RemainingSquadCountAlignmentError,
+    ) as error:
+        raise FullStoryComponentError(
+            f"incremental remaining squad-count alignment failed: {error}"
+        ) from error
     changed_byte_offsets = {
         index
         for index, (before, after) in enumerate(zip(current_slps, output_slps))
@@ -7839,6 +7862,18 @@ def _build_incremental_fixed_slps(
     allowed_byte_offsets.update(
         int(item["file_offset"], 16)
         for item in search_tab_alignment_report["patches"]
+    )
+    remaining_count_instruction_offset = int(
+        remaining_squad_count_alignment_report[
+            "number_instruction_file_offset"
+        ],
+        16,
+    )
+    allowed_byte_offsets.update(
+        range(
+            remaining_count_instruction_offset,
+            remaining_count_instruction_offset + 4,
+        )
     )
     if changed_byte_offsets - allowed_byte_offsets:
         raise FullStoryComponentError(
@@ -7951,10 +7986,26 @@ def _build_incremental_fixed_slps(
         output_slps,
     )
     report["search_tab_alignment"] = search_tab_alignment_report
+    report["remaining_squad_count_alignment"] = (
+        remaining_squad_count_alignment_report
+    )
     report["acceptance"]["search_tabs_aligned_as_five_label_set"] = (
         search_tab_alignment_report["surface_count"] == 5
         and search_tab_alignment_report["all_replacements_exact"]
         and search_tab_alignment_report["executable_size_preserved"]
+    )
+    report["acceptance"]["remaining_squad_count_spacing_exact"] = (
+        remaining_squad_count_alignment_report["shift_pixels"] == 8
+        and remaining_squad_count_alignment_report[
+            "adjacent_coordinates_preserved"
+        ]
+        and remaining_squad_count_alignment_report["format_token_untouched"]
+        and remaining_squad_count_alignment_report[
+            "instruction_replacement_exact"
+        ]
+        and remaining_squad_count_alignment_report[
+            "executable_size_preserved"
+        ]
     )
     if not all(report.get("acceptance", {}).values()):
         raise FullStoryComponentError("prior component acceptance is not reusable")
@@ -9412,6 +9463,22 @@ def build(
             f"Search-tab alignment failed: {error}"
         ) from error
 
+    try:
+        output_slps, remaining_squad_count_alignment_report = (
+            apply_remaining_squad_count_alignment(
+                output_slps,
+                config["remaining_ui"]["remaining_squad_count_alignment"],
+            )
+        )
+    except (
+        KeyError,
+        ValueError,
+        RemainingSquadCountAlignmentError,
+    ) as error:
+        raise FullStoryComponentError(
+            f"remaining squad-count alignment failed: {error}"
+        ) from error
+
     weapon_effect_config = config.get("weapon_special_effect_2")
     if not isinstance(weapon_effect_config, dict):
         raise FullStoryComponentError(
@@ -9822,6 +9889,9 @@ def build(
         "sound_select_default_unlock": sound_select_unlock_report,
         "library_default_unlock": library_default_unlock_report,
         "search_tab_alignment": search_tab_alignment_report,
+        "remaining_squad_count_alignment": (
+            remaining_squad_count_alignment_report
+        ),
         "weapon_special_effect_2": weapon_effect_2_report,
         "compdata_battle_lines": compdata_battle_line_report,
         "reviewed_weapons": reviewed_weapon_report,
@@ -10099,6 +10169,21 @@ def build(
                 search_tab_alignment_report["surface_count"] == 5
                 and search_tab_alignment_report["all_replacements_exact"]
                 and search_tab_alignment_report[
+                    "executable_size_preserved"
+                ]
+            ),
+            "remaining_squad_count_spacing_exact": (
+                remaining_squad_count_alignment_report["shift_pixels"] == 8
+                and remaining_squad_count_alignment_report[
+                    "adjacent_coordinates_preserved"
+                ]
+                and remaining_squad_count_alignment_report[
+                    "format_token_untouched"
+                ]
+                and remaining_squad_count_alignment_report[
+                    "instruction_replacement_exact"
+                ]
+                and remaining_squad_count_alignment_report[
                     "executable_size_preserved"
                 ]
             ),
