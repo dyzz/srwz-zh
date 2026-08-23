@@ -173,7 +173,11 @@ class ChineseLayoutTests(unittest.TestCase):
         self.assertEqual(self.profiles["library_glossary"].maximum_width, 24)
         self.assertEqual(
             self.profiles["stage_scroll_overview"].maximum_width,
-            23,
+            29,
+        )
+        self.assertEqual(
+            self.profiles["stage_scroll_overview"].line_count_mode,
+            "minimum",
         )
         self.assertEqual(
             self.profiles["world_history_scroll"].maximum_width,

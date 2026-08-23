@@ -4776,6 +4776,16 @@ def main() -> int:
     ):
         raise SystemExit("stage-overview corpus lock drift")
     overview_corpus = json.loads(overview_corpus_bytes.decode("utf-8"))
+    overview_policy = overview_corpus.get("policy", {})
+    overview_line_width_limit = overview_policy.get("maximum_line_width")
+    if (
+        overview_policy.get("reflow_profile_id")
+        != "stage_scroll_overview"
+        or overview_line_width_limit != 29
+        or overview_policy.get("source_line_count_is_upper_bound") is not True
+        or overview_policy.get("preserve_paragraph_indents") is not True
+    ):
+        raise SystemExit("stage-overview layout policy drift")
     overview_chunk = stage_archive[offsets[0] : offsets[1]]
     decoded_overview = decode(overview_chunk)
     if any(overview_chunk[decoded_overview.consumed :]):
@@ -4796,6 +4806,9 @@ def main() -> int:
     if overview_raw_space_entry_count:
         raise SystemExit("final ISO stage overview contains raw spaces")
     overview_examples = {}
+    overview_output_line_count = 0
+    overview_paragraph_indent_count = 0
+    overview_maximum_line_width = 0
     for row in overview_corpus.get("entries", []):
         entry = overview_by_id.get(row.get("id"))
         expected_text = normalize_original_fullwidth_ascii(
@@ -4812,6 +4825,24 @@ def main() -> int:
             raise SystemExit(
                 f"final ISO stage-overview mismatch: {row.get('id')}"
             )
+        overview_lines = entry.source_text.rstrip("\n").splitlines()
+        overview_widths = dialogue_line_widths(entry.source_text.rstrip("\n"))
+        if (
+            not overview_lines
+            or not overview_lines[0].startswith("　")
+            or max(overview_widths, default=0) > overview_line_width_limit
+        ):
+            raise SystemExit(
+                f"final ISO stage-overview layout drift: {row.get('id')}"
+            )
+        overview_output_line_count += len(overview_lines)
+        overview_paragraph_indent_count += sum(
+            line.startswith("　") for line in overview_lines
+        )
+        overview_maximum_line_width = max(
+            overview_maximum_line_width,
+            max(overview_widths, default=0),
+        )
         overview_examples[entry.entry_id] = entry.source_text
     overview_expected = overview_reference.get("expected", {})
     if (
@@ -4835,6 +4866,11 @@ def main() -> int:
         "translated_readback_exact": True,
         "raw_space_entry_count": overview_raw_space_entry_count,
         "raw_space_count_zero": True,
+        "line_width_limit": overview_line_width_limit,
+        "maximum_output_line_width": overview_maximum_line_width,
+        "output_line_count": overview_output_line_count,
+        "paragraph_indent_count": overview_paragraph_indent_count,
+        "layout_policy_exact": True,
     }
     hsfc_reference = full_component_config.get("hsfc_overviews", {})
     hsfc_corpus_reference = hsfc_reference.get("corpus", {})
@@ -6741,7 +6777,10 @@ def main() -> int:
             "stage_overviews_exact": overview_report[
                 "translated_readback_exact"
             ]
-            and overview_report["fixed_pointer_entries_exact"],
+            and overview_report["fixed_pointer_entries_exact"]
+            and overview_report["layout_policy_exact"]
+            and overview_report["line_width_limit"] == 29
+            and overview_report["maximum_output_line_width"] <= 29,
             "world_history_exact": (
                 world_history_report["translated_readback_exact"]
                 and world_history_report[

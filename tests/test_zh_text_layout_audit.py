@@ -57,9 +57,9 @@ class ZhTextLayoutAuditTests(unittest.TestCase):
             profile=self.profiles["stage_scroll_overview"],
             protected_terms=(),
         )
-        self.assertEqual(len(output), 2)
+        self.assertLessEqual(len(output), 2)
         self.assertTrue(output[0].startswith("　"))
-        self.assertFalse(output[1].startswith("。"))
+        self.assertTrue(all(not line.startswith("。") for line in output))
         self.assertEqual(
             "".join(output).replace("　", ""), "察觉异常的众人出动迎击。战斗随后开始。"
         )

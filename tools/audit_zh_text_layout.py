@@ -664,11 +664,16 @@ def reflow_preserved_paragraph(
     if indent:
         content_lines[0] = content_lines[0][1:]
     logical = "".join(content_lines)
+    exact_lines = None
+    if profile.line_count_mode == "preserve":
+        exact_lines = len(lines)
+    elif profile.line_count_mode == "exact":
+        exact_lines = profile.maximum_lines
     result = reflow_chinese_paragraph(
         logical,
         profile=profile,
         protected_terms=protected_terms,
-        exact_lines=len(lines),
+        exact_lines=exact_lines,
         preferred_break_offsets=(
             preferred_offsets(content_lines)
             if prefer_existing_breaks
@@ -820,10 +825,13 @@ def audit_stage_overviews(
     failures = []
     existing_violation_count = 0
     proposed_violation_count = 0
+    original_line_count = 0
+    proposed_line_count = 0
     for entry in document["entries"]:
         original = entry["translation"]
         trailing_newline = original.endswith("\n")
         original_lines = original.rstrip("\n").splitlines()
+        original_line_count += len(original_lines)
         before_violations = layout_violations(
             original.rstrip("\n"),
             profile=profile,
@@ -844,8 +852,15 @@ def audit_stage_overviews(
         except ChineseLayoutError as error:
             failures.append({"id": entry["id"], "error": str(error)})
             continue
-        if proposed.count("\n") != original.count("\n"):
-            raise AssertionError(f"stage overview line-count drift: {entry['id']}")
+        if proposed.replace("\n", "") != original.replace("\n", ""):
+            raise AssertionError(f"stage overview content drift: {entry['id']}")
+        proposed_lines = proposed.rstrip("\n").splitlines()
+        proposed_line_count += len(proposed_lines)
+        if len(proposed_lines) > len(original_lines):
+            raise AssertionError(
+                f"stage overview height increased: {entry['id']} "
+                f"{len(original_lines)}->{len(proposed_lines)}"
+            )
         after_violations = layout_violations(
             proposed.rstrip("\n"),
             profile=profile,
@@ -870,6 +885,9 @@ def audit_stage_overviews(
                     ),
                     "before_violations": before_violations,
                     "after_violations": after_violations,
+                    "line_count_nonincreasing": (
+                        len(proposed_lines) <= len(original_lines)
+                    ),
                 }
             )
     return {
@@ -878,6 +896,11 @@ def audit_stage_overviews(
         "changed_entry_count": len(changes),
         "existing_violation_count": existing_violation_count,
         "proposed_violation_count": proposed_violation_count,
+        "original_line_count": original_line_count,
+        "proposed_line_count": proposed_line_count,
+        "line_counts_nonincreasing": (
+            proposed_line_count <= original_line_count
+        ),
         "failure_count": len(failures),
         "failures": failures,
         "changes": changes,

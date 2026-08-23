@@ -2813,7 +2813,10 @@ def _apply_stage_overviews(
         or policy.get("source_text_authority") != "original_disc_only"
         or policy.get("preserve_pointer_table") is not True
         or policy.get("preserve_fixed_allocations") is not True
-        or policy.get("preserve_newline_counts") is not True
+        or policy.get("reflow_profile_id") != "stage_scroll_overview"
+        or policy.get("maximum_line_width") != 29
+        or policy.get("source_line_count_is_upper_bound") is not True
+        or policy.get("preserve_paragraph_indents") is not True
         or not isinstance(expected, dict)
         or len(entries) != expected.get("translated_entry_count")
         or [entry.get("id") for entry in entries]
@@ -10206,7 +10209,11 @@ def build(
                 stage_overview_report["translated_readback_exact"]
                 and stage_overview_report["fixed_allocations_preserved"]
                 and stage_overview_report["untranslated_allocations_preserved"]
-                and stage_overview_report["newline_counts_preserved"]
+                and stage_overview_report["line_width_limit"] == 29
+                and stage_overview_report["maximum_output_line_width"] <= 29
+                and stage_overview_report["line_counts_within_source_height"]
+                and stage_overview_report["paragraph_indents_present"]
+                and stage_overview_report["paragraph_indent_count"] > 0
                 and stage_overview_report["codec_round_trip_exact"]
                 and stage_overview_report["archive_size_preserved"]
                 and stage_overview_report["hb_offsets_preserved"]

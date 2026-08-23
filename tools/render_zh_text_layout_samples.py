@@ -622,7 +622,7 @@ def render_overviews(report: dict, font: RuntimeFont) -> RGBImage:
         x=44,
         y=360,
         text=before_lines,
-        maximum_cells=23,
+        maximum_cells=29,
         line_slots=2,
         highlight="before",
     )
@@ -632,7 +632,7 @@ def render_overviews(report: dict, font: RuntimeFont) -> RGBImage:
         x=718,
         y=360,
         text=after_lines,
-        maximum_cells=23,
+        maximum_cells=29,
         line_slots=2,
         highlight="after",
     )

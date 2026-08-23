@@ -8,9 +8,11 @@ from tools.srwz.iso_layout import (
     read_executable_archive_offsets,
 )
 from tools.srwz.stage_overview import (
+    STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH,
     parse_stage_overviews,
     replace_stage_overviews_in_place,
 )
+from tools.srwz.chinese_layout import dialogue_line_widths
 from tools.srwz.text import (
     load_text_table,
     original_fullwidth_ascii_overrides,
@@ -90,9 +92,31 @@ class StageOverviewTests(unittest.TestCase):
         self.assertGreaterEqual(report["minimum_output_headroom"], 0)
         self.assertTrue(report["fixed_allocations_preserved"])
         self.assertTrue(report["untranslated_allocations_preserved"])
-        self.assertTrue(report["newline_counts_preserved"])
+        self.assertEqual(report["line_width_limit"], 29)
+        self.assertLessEqual(report["maximum_output_line_width"], 29)
+        self.assertTrue(report["line_counts_within_source_height"])
+        self.assertTrue(report["paragraph_indents_present"])
+        self.assertGreater(report["paragraph_indent_count"], 0)
         self.assertTrue(report["translated_readback_exact"])
         self.assertEqual(len(rewritten), len(self.decoded))
+
+    def test_scenario_chart_overviews_use_the_original_surface_width(self):
+        self.assertEqual(STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH, 29)
+        row = next(
+            entry
+            for entry in self.corpus["entries"]
+            if entry["id"] == "overview:107"
+        )
+        self.assertEqual(
+            row["translation"],
+            "　奇美拉希望从内部改革新地球联邦军。\n"
+            "众人以各自方式回应使者雷本大尉的合作邀请。\n"
+            "　众人分为两队，分别向太平洋与加利亚大陆开辟新的前进路线。\n",
+        )
+        self.assertEqual(
+            dialogue_line_widths(row["translation"].rstrip("\n")),
+            (17, 21, 28),
+        )
 
 
 if __name__ == "__main__":

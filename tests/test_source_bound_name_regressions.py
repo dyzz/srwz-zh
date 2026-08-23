@@ -1386,10 +1386,15 @@ class SourceBoundNameRegressionTests(unittest.TestCase):
             "加利亚大陆西部 DEAVA司令部",
         )
 
-        overview = (
-            ROOT / "corpus/zh/menu/stage-overviews.json"
-        ).read_text(encoding="utf-8")
-        for deprecated in ("Element们", "桑\\n波Ace"):
+        overview_entries = json.loads(
+            (ROOT / "corpus/zh/menu/stage-overviews.json").read_text(
+                encoding="utf-8"
+            )
+        )["entries"]
+        overview = "".join(
+            entry["translation"].replace("\n", "") for entry in overview_entries
+        )
+        for deprecated in ("Element们", "桑波Ace"):
             with self.subTest(deprecated=deprecated):
                 self.assertNotIn(deprecated, overview)
         self.assertIn("元素能力者们", overview)

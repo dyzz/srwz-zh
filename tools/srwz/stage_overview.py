@@ -6,6 +6,7 @@ import struct
 from dataclasses import dataclass
 from typing import Mapping
 
+from .chinese_layout import dialogue_line_widths
 from .font import sha256_bytes
 from .stage import STAGE_BASE_ADDRESS
 from .text import (
@@ -20,6 +21,7 @@ from .text import project_runtime_text_table
 OVERVIEW_POINTER_TABLE_START = 0x10DD4
 OVERVIEW_POINTER_TABLE_END_INCLUSIVE = 0x10F88
 OVERVIEW_ENTRY_COUNT = 110
+STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH = 29
 
 
 class StageOverviewError(ValueError):
@@ -131,7 +133,10 @@ def replace_stage_overviews_in_place(
     output_table = project_runtime_text_table(table, encoding_overrides)
     output = bytearray(decoded)
     minimum_headroom = None
-    newline_count_exact = True
+    line_counts_within_source_height = True
+    paragraph_indents_present = True
+    paragraph_indent_count = 0
+    maximum_output_line_width = 0
     seen_translations: dict[str, str] = {}
     translated_ids = []
     for source in parsed:
@@ -139,6 +144,17 @@ def replace_stage_overviews_in_place(
         if row is None:
             continue
         translation = row.get("translation")
+        source_lines = source.source_text.rstrip("\n").splitlines()
+        translated_lines = (
+            translation.rstrip("\n").splitlines()
+            if isinstance(translation, str)
+            else []
+        )
+        translated_widths = (
+            dialogue_line_widths(translation.rstrip("\n"))
+            if isinstance(translation, str)
+            else ()
+        )
         if (
             row.get("id") != source.entry_id
             or row.get("ordinal") != source.ordinal
@@ -152,7 +168,12 @@ def replace_stage_overviews_in_place(
             or not isinstance(translation, str)
             or not translation
             or "\r" in translation
-            or translation.count("\n") != source.source_text.count("\n")
+            or translation.endswith("\n") != source.source_text.endswith("\n")
+            or len(translated_lines) > len(source_lines)
+            or max(translated_widths, default=0)
+            > STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH
+            or not translated_lines
+            or not translated_lines[0].startswith("　")
         ):
             raise StageOverviewError(
                 f"stage-overview corpus drift: {source.entry_id}"
@@ -201,8 +222,17 @@ def replace_stage_overviews_in_place(
             if minimum_headroom is None
             else min(minimum_headroom, headroom)
         )
-        newline_count_exact &= (
-            reread.text.count("\n") == source.source_text.count("\n")
+        line_counts_within_source_height &= (
+            len(translated_lines) <= len(source_lines)
+        )
+        current_paragraph_indent_count = sum(
+            line.startswith("　") for line in translated_lines
+        )
+        paragraph_indents_present &= current_paragraph_indent_count > 0
+        paragraph_indent_count += current_paragraph_indent_count
+        maximum_output_line_width = max(
+            maximum_output_line_width,
+            max(translated_widths, default=0),
         )
         translated_ids.append(source.entry_id)
     if bytes(output)[
@@ -237,7 +267,11 @@ def replace_stage_overviews_in_place(
         "pointer_table_preserved_byte_exact": True,
         "fixed_allocations_preserved": True,
         "untranslated_allocations_preserved": True,
-        "newline_counts_preserved": newline_count_exact,
+        "line_width_limit": STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH,
+        "maximum_output_line_width": maximum_output_line_width,
+        "line_counts_within_source_height": line_counts_within_source_height,
+        "paragraph_indents_present": paragraph_indents_present,
+        "paragraph_indent_count": paragraph_indent_count,
         "translated_readback_exact": True,
     }
 
@@ -246,6 +280,7 @@ __all__ = [
     "OVERVIEW_ENTRY_COUNT",
     "OVERVIEW_POINTER_TABLE_END_INCLUSIVE",
     "OVERVIEW_POINTER_TABLE_START",
+    "STAGE_OVERVIEW_MAXIMUM_LINE_WIDTH",
     "StageOverviewEntry",
     "StageOverviewError",
     "parse_stage_overviews",
