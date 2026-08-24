@@ -5,7 +5,7 @@
 
 ## 前提
 
-- Python 3、Git、CMake、Rust／Cargo、7-Zip 和 ImageMagick 7；
+- Python 3、Git、CMake、Rust／Cargo、xdelta3、7-Zip 和 ImageMagick 7；
 - 用户合法持有的 Redump Disc 4932 原版镜像；
 - 原版文件放在 `rom/Super Robot Taisen Z (Japan, Korea).iso`；
 - 原版大小为 `3758358528` 字节，SHA-256 为
@@ -20,8 +20,18 @@ Git 或发布 ZIP。
 
 ```bash
 python3 tools/verify_original_disc.py
+python3 tools/extract_iso_member.py --force \
+  SLPS_258.87 \
+  MAP/MAPMODEL.BIN EFF/VEFF2DX.BIN \
+  BTL/OP0.BIN BTL/OP0.SEG BTL/OP1.BIN BTL/OP1.SEG \
+  BTL/OP2.BIN BTL/OP2.SEG BTL/SRVC.BIN BTL/SRVC.SEG \
+  DATA/COMPDATA.BN DATA/HSFC.BIN DATA/JTIM.BIN \
+  DATA/MTV_PROP.BIN DATA/MTV_PROS.BIN \
+  DATA/MTVZKNKW.BIN DATA/MTVZKNPT.BIN DATA/MTVZKNRT.BIN \
+  DATA/NISVDATA.BIN DATA/STAGE.BIN DATA/VT1.BIN
 python3 tools/bootstrap_mkps2iso.py
 python3 tools/build_rust_compressor.py
+python3 tools/build_release_base_ui.py
 
 python3 tools/fetch_zh_font.py
 python3 tools/fetch_zh_font.py \
@@ -35,9 +45,11 @@ python3 tools/build_release.py \
   --config config/release/v0.3.0.json
 ```
 
-若原版成员缓存尚未建立，可先显式提取主链需要的成员，或给 ISO builder 使用
-`--refresh-extraction`。普通构建不修改配置中的哈希与快照；只有确认生产输入发生变化
-后，才使用各入口提供的 `--refresh-*` 选项。
+`extract_iso_member.py` 建立 `work/disc/` 原版成员缓存；`build_release_base_ui.py`
+从锁定的原版成员和仓库内 xdelta 重建四个基础 UI 成员。`rebuild_zh_font.py` 会在
+字体完成后自动构建 reviewed LIBRARY 组件，随后构建剧情／图集组件并合并全部 21 个
+最终成员。普通构建不修改配置中的哈希与快照；只有确认生产输入发生变化后，才使用
+各入口提供的 `--refresh-*` 选项。
 
 ## 固定输出
 

@@ -17,8 +17,10 @@ vendor/upstream-python/       构建链读取的固定静态定义
 | --- | --- |
 | 原版校验与提取 | `verify_original_disc.py`、`extract_iso_member.py` |
 | 工具链准备 | `bootstrap_mkps2iso.py`、`build_rust_compressor.py` |
+| 基础 UI | `build_release_base_ui.py` |
 | 字体来源与组件 | `fetch_zh_font.py`、`prepare_zh_release_font.py`、`rebuild_zh_font.py` |
-| 领域组件 | `build_story_component.py`、`build_zh_font_component.py`、`build_full_story_components.py`、`ui_atlas.py` |
+| 领域组件 | `build_library_v02_component.py`、`build_story_component.py`、`build_zh_font_component.py`、`build_full_story_components.py`、`ui_atlas.py` |
+| 最终组合 | `compose_full_story_library_components.py` |
 | ISO | `build_iso.py` |
 | 静态回读 | `verify_zh_release_font.py`、`verify_full_story_iso_content.py` |
 | 发布包 | `build_release.py` |
@@ -27,8 +29,10 @@ vendor/upstream-python/       构建链读取的固定静态定义
 
 ```bash
 python3 tools/verify_original_disc.py
+python3 tools/extract_iso_member.py --force <主链成员...>
 python3 tools/bootstrap_mkps2iso.py
 python3 tools/build_rust_compressor.py
+python3 tools/build_release_base_ui.py
 python3 tools/rebuild_zh_font.py --skip-fetch
 python3 tools/build_iso.py
 python3 tools/verify_full_story_iso_content.py --force
@@ -37,7 +41,8 @@ python3 tools/build_release.py
 
 不带 `--config` 时，ISO 与发布入口分别读取
 `config/iso/zh-release-current-build.json` 和 `config/release/v0.3.0.json`。
-`rebuild_zh_font.py` 会按依赖顺序生成全局字体、STAGE、UI 图集和最终组件；
+完整的原版成员列表见 `docs/BUILD_AND_RUNTIME.md`。`rebuild_zh_font.py` 会按依赖顺序
+生成全局字体、reviewed LIBRARY、STAGE、UI 图集和最终组合组件；
 `build_iso.py` 强制校验固定 LBA、成员预算与整盘哈希；`build_release.py` 生成 xdelta
 后会实际还原一次并核对目标 ISO，发布目录和 ZIP 均不得包含完整 ISO。
 

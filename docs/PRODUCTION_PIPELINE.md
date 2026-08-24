@@ -23,8 +23,9 @@
 固定原版 ISO
   -> 原版身份与成员提取
   -> Rust codec 与字体来源准备
+  -> release-base-ui 精确重建
   -> 字符分配、布局预算与受控写回
-  -> STAGE、UI 图集和领域组件
+  -> LIBRARY、STAGE、UI 图集和领域组件
   -> 最终组件组合与独立回读
   -> fixed-LBA ISO 与整盘静态回读
   -> xdelta 生成、实际还原与 SHA-256 复核
@@ -34,13 +35,19 @@
 
 ```bash
 python3 tools/verify_original_disc.py
+python3 tools/extract_iso_member.py --force <主链成员...>
 python3 tools/bootstrap_mkps2iso.py
 python3 tools/build_rust_compressor.py
+python3 tools/build_release_base_ui.py
 python3 tools/rebuild_zh_font.py --skip-fetch
 python3 tools/build_iso.py
 python3 tools/verify_full_story_iso_content.py --force
 python3 tools/build_release.py
 ```
+
+完整的成员列表见 [构建与验收](BUILD_AND_RUNTIME.md)。`rebuild_zh_font.py` 会按依赖
+顺序构建 reviewed LIBRARY、STAGE 和 UI 图集，并在结束时生成 21 个最终成员的组合
+收据。
 
 ## 字体、文本与图集
 
@@ -63,7 +70,9 @@ python3 tools/build_release.py
 
 ISO 采用 fixed-LBA 构建：replacement 可以比原成员小，但不能超过原扇区预算，
 不能移动后续成员，也不能通过向压缩流追加无意义填充来改变格式。最终镜像大小、
-成员、UDF/ISO9660 读取和整盘哈希必须与当前配置一致。
+成员、UDF/ISO9660 读取和整盘哈希必须与当前配置一致。构建器总是先创建空目标镜像；
+发布盘中位于逻辑成员之外的已冻结间隙字节由 ISO 配置显式锁定，不能继承上一次构建
+残留。
 
 ## 失败门
 

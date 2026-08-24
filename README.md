@@ -71,7 +71,7 @@ v0.3.0 可分发补丁包已通过 xdelta 还原校验，并在
 普通玩家不需要自行构建，发布版补丁会附带单独的使用说明。以下流程面向希望参与
 开发或复验结果的贡献者。
 
-构建需要 Python 3、Git、CMake、Rust／Cargo、7-Zip 和 ImageMagick 7，并需要
+构建需要 Python 3、Git、CMake、Rust／Cargo、xdelta3、7-Zip 和 ImageMagick 7，并需要
 联网下载锁定版本的开源构建工具与字体。将自己合法持有的日文原版镜像放到：
 
 ```text
@@ -90,12 +90,22 @@ ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2
 `b8ea8ff82ce2d6e09aa550635a5f61b4`、SHA-1
 `e8dbe37e88afe8f82d48889b0775274ccde3cf99`。
 
-在已经完成本地原版成员和 `release-base-ui` 基线准备的项目工作区中执行：
+在项目工作区中执行：
 
 ```bash
 python3 tools/verify_original_disc.py
+python3 tools/extract_iso_member.py --force \
+  SLPS_258.87 \
+  MAP/MAPMODEL.BIN EFF/VEFF2DX.BIN \
+  BTL/OP0.BIN BTL/OP0.SEG BTL/OP1.BIN BTL/OP1.SEG \
+  BTL/OP2.BIN BTL/OP2.SEG BTL/SRVC.BIN BTL/SRVC.SEG \
+  DATA/COMPDATA.BN DATA/HSFC.BIN DATA/JTIM.BIN \
+  DATA/MTV_PROP.BIN DATA/MTV_PROS.BIN \
+  DATA/MTVZKNKW.BIN DATA/MTVZKNPT.BIN DATA/MTVZKNRT.BIN \
+  DATA/NISVDATA.BIN DATA/STAGE.BIN DATA/VT1.BIN
 python3 tools/bootstrap_mkps2iso.py
 python3 tools/build_rust_compressor.py
+python3 tools/build_release_base_ui.py
 
 python3 tools/fetch_zh_font.py
 python3 tools/fetch_zh_font.py \
