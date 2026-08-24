@@ -53,8 +53,7 @@ v0.2.0 发布后的玩家反馈，并对剧情、战斗、资料库和系统界�
 由于游戏包含大量路线分支、条件台词和低频界面，仍可能存在未发现的问题。反馈时请
 尽量附上所用版本、关卡、路线、触发步骤和画面截图，并通过
 [GitHub Issues](https://github.com/dyzz/srwz-zh/issues) 提交。完整改动说明见
-[v0.3.0 发布说明](docs/RELEASE_NOTES_V0.3.0.md)，LIBRARY 技术范围见
-[v0.2 LIBRARY 汉化范围](docs/LIBRARY_V02_SCOPE.md)。
+[v0.3.0 发布说明](docs/RELEASE_NOTES_V0.3.0.md)。
 
 ## 下载与使用
 

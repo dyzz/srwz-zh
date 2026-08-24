@@ -1,6 +1,6 @@
 # 贡献与发布约定
 
-本仓库只提交可审查源码、中文语料、配置、测试和不含游戏字节的验证摘要。
+本仓库只提交可审查源码、中文语料、配置和不含游戏字节的验证摘要。
 `rom/`、`work/`、`build/`、`outputs/`、存档和完整镜像均为本地数据，不得提交。
 
 ## 修改边界
@@ -9,20 +9,20 @@
 - 中文决定写入 `corpus/zh/`，术语写入 `corpus/glossary/`，不得把 `work/`
   中的派生结果当作事实源。
 - 所有写回必须锁定输入哈希、目标前像、容量和非目标字节；禁止静默截断。
-- 生产压缩只使用 `tools/native/srwz-codec-rs/`。Python codec 只承担严格解码、
-  小样本 round-trip 和回归 oracle。
+- 生产压缩和解压只使用 `tools/native/srwz-codec-rs/`。
 - 不执行上游 EXE/DLL、Wine 或 Mono，不修改相邻上游仓库。
 
 ## 提交前检查
 
 ```bash
 python3 tools/verify_original_disc.py
-python3 -m compileall -q tools tests
-python3 -m unittest discover -s tests -p 'test_*.py'
+python3 -m compileall -q tools
+python3 tools/build_iso.py --help
+python3 tools/build_release.py --help
 git diff --check
 ```
 
-涉及最终组件或 ISO 时，还要运行对应 verifier，并把结论绑定到精确制品哈希。
+涉及最终组件或 ISO 时，还要完成实际构建和对应 verifier，并把结论绑定到精确制品哈希。
 静态回读、模拟器启动、目标流程和画面验收是不同证据层，不能互相替代。
 
 准备补丁包时运行：

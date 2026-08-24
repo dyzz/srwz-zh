@@ -38,8 +38,7 @@ manifest 用于锁定输入与结果。`work/`、`build/` 和 dashboard 都不�
 - `tools/native/srwz-codec-rs/`：生产压缩器；
 - `tools/*.py`：薄 CLI 与 orchestration；
 - `config/`：地址、成员、surface、字体、写回和 profile；
-- `tests/`：格式与流程门禁；
-- `manifests/`：可提交的 hash-only 结果。
+- `manifests/`：可提交的 hash-only 构建与回读结果。
 
 字段和新增 surface 顺序见 `PRODUCTION_PIPELINE.md`。
 
