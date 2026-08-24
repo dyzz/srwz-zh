@@ -18,25 +18,25 @@
     },
     {
       "id": "ui-atlas/kvm5/funds",
-      "source_text": "資金",
-      "source_text_sha256": "9ea1d3f3009fe58e54cb7dacfe394126507d044e3c1845f0daef3873f89b3493",
-      "translation": "资金",
+      "source_text": "資",
+      "source_text_sha256": "b10eec118ea2aeaf00483e2a1de2b9741d7b0bddc7ed981a283b609c73281e66",
+      "translation": "資",
       "editorial_status": "reviewed",
       "source_refs": [
         "config/assets/ui-bazaar-atlas-zh.json"
       ],
-      "notes": "Only the 資金 glyph rectangle is localized; the separate leading glyph, BS acronym and separators remain byte-exact."
+      "notes": "Keep the original Japanese 資 glyph pixel-exact by user request; 金, the separate leading glyph, BS acronym and separators also remain byte-exact."
     },
     {
       "id": "ui-atlas/kvm5/sr-points",
-      "source_text": "SRポイント・",
-      "source_text_sha256": "1c6f99c74760865d21b33bb4e902d45e0ab23bfb5e24d7b914a83b53ced3b958",
-      "translation": "SR点数·",
+      "source_text": "ポイント",
+      "source_text_sha256": "80ebe4f118802a72d8ed2b0076434895eadf99658f50d6e162c6733fe2809485",
+      "translation": "点数",
       "editorial_status": "reviewed",
       "source_refs": [
         "config/assets/ui-bazaar-atlas-zh.json"
       ],
-      "notes": "Preserve SR and use the compact project-facing Chinese points label."
+      "notes": "Localize only ポイント; preserve the original SR acronym and the original full-width Japanese middle dot ・ byte-exact."
     },
     {
       "id": "ui-atlas/kvm5/purchase",

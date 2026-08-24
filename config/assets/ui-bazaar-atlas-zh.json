@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "profile_id": "ui-bazaar-atlas-zh",
-  "scope": "A deterministic Chinese replacement of every selected Japanese text label in the locked KVMDATA chunk 5 atlas. The English -Bazaar-, BLOOD TYPE and BIRTHDAY elements plus the separate leading glyph and BS acronym remain byte-exact, and the detached Japanese title long mark is erased only inside its exact 54x10 source rectangle.",
+  "scope": "A deterministic Chinese replacement of selected Japanese text labels in the locked KVMDATA chunk 5 atlas. The original 資 glyph is retained by user request; the English -Bazaar-, BLOOD TYPE and BIRTHDAY elements plus the separate leading glyph, BS and SR acronyms, the already-correct 金 glyph and the full-width SR separator ・ remain byte-exact, and the detached Japanese title long mark is erased only inside its exact 54x10 source rectangle.",
   "indexed_text_layer_profiles": {
     "source-text": {
       "outline": [
@@ -90,7 +90,7 @@
     "source_element_rgba_sha256": "37492c142cc4adc7bd85c8b25bff7fa8beae46757c024445891c19778bae1f4c",
     "translation_source": {
       "path": "corpus/zh/ui-atlas/bazaar-v2.json",
-      "sha256": "a3865ac71a8129181f4ca1b4ddb9a09ab7146e86eb1f3a443668a41e5c4c2767",
+      "sha256": "90d5df24b1a48a0ce02916c1ea1c3457e392e331a84b3b2512c81801ee577054",
       "entry_id": "ui-atlas/kvm5/bazaar",
       "minimum_editorial_status": "reviewed"
     },
@@ -132,15 +132,15 @@
   ],
   "additional_localized_labels": [
     {
-      "semantic_locator": "資金",
+      "semantic_locator": "資",
       "entry_id": "ui-atlas/kvm5/funds",
       "minimum_editorial_status": "reviewed",
-      "source_element_id": "funds-38x20",
-      "source_element_rgba_sha256": "633a109328f066d94feaabfbfe5ea3d6dc9641d1ec47a6f4c344e4bca81fa204",
+      "source_element_id": "funds-first-glyph-20x20",
+      "source_element_rgba_sha256": "ea786a24d4bad5938aaf50a8fa19280e1daa688de67da6fbffbc8a027b8a2ed8",
       "mask": {
         "x": 209,
         "y": 2,
-        "width": 38,
+        "width": 20,
         "height": 20,
         "replacement_rgba": "00000000",
         "preserve_rgba": [
@@ -150,7 +150,7 @@
       "render": {
         "point_size": 17,
         "stroke_gray": "#303030",
-        "stroke_width": 0.5,
+        "stroke_width": 1.5,
         "fill_stroke_width": 0,
         "supersample_factor": 4,
         "ramp_rgba": [
@@ -166,15 +166,15 @@
       }
     },
     {
-      "semantic_locator": "SRポイント・",
+      "semantic_locator": "ポイント",
       "entry_id": "ui-atlas/kvm5/sr-points",
       "minimum_editorial_status": "reviewed",
-      "source_element_id": "sr-points-86x21",
-      "source_element_rgba_sha256": "a72bebc169a0d1ec616fb731e56c4fe52b97d078774aea561c96c0051cc022f7",
+      "source_element_id": "sr-points-body-53x21",
+      "source_element_rgba_sha256": "15aa55f0449908c3d1451f85a28f38b4ff3eaca5bb9de6dee9c32f52b75dfa68",
       "mask": {
-        "x": 149,
+        "x": 174,
         "y": 42,
-        "width": 86,
+        "width": 53,
         "height": 21,
         "replacement_rgba": "00000000",
         "preserve_rgba": [
@@ -182,9 +182,9 @@
         ]
       },
       "render": {
-        "point_size": 16,
+        "point_size": 19,
         "stroke_gray": "#303030",
-        "stroke_width": 0.5,
+        "stroke_width": 1.0,
         "fill_stroke_width": 0,
         "supersample_factor": 4,
         "ramp_rgba": [
@@ -611,8 +611,8 @@
   ],
   "render_snapshot": {
     "path": "config/assets/ui-bazaar-atlas-render-snapshot.json",
-    "size": 42106,
-    "sha256": "bf14b09dedae122b274fdd1183204649ba48468fa95c351407ef88f71cfc19c5"
+    "size": 42389,
+    "sha256": "a47e75ffc43d5bd3b9d0ee5037f353d5233a7b7a01558f644f7897f1ca1566be"
   },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 5 supplies the bazaar and shared profile surfaces, that the detached Japanese long mark is gone, and that every selected localized label renders in its intended fixed rectangle.",
@@ -625,7 +625,7 @@
       "capture_visible_chinese_labels_with_decorative_english_bazaar_intact",
       "capture_texture_dump_delta_for_the_exact_mask_union"
     ],
-    "expected_visual_effect": "The large title reads 集市, the 54x10 detached Japanese long mark is erased without touching the labels above or below, all selected Japanese labels are Chinese, and the leading glyph, BS, -Bazaar-, BLOOD TYPE and BIRTHDAY remain unchanged.",
+    "expected_visual_effect": "The large title reads 集市, the 54x10 detached Japanese long mark is erased without touching the labels above or below, selected Japanese labels are Chinese except for the explicitly retained 資, and the leading glyph, BS, SR, 資, 金, the SR separator ・, -Bazaar-, BLOOD TYPE and BIRTHDAY remain unchanged.",
     "promotion_rule": "Only matching runtime screenshots and an exact original-to-localized texture delta may promote the scene mapping and localized atlas."
   },
   "toolchain": {
@@ -642,34 +642,34 @@
       "sha256": "4c2da38c2ba01b513ea06f12a06dac930948860ca0adb27853c9590031d17673"
     },
     "localized_png": {
-      "size": 13079,
-      "sha256": "78d6539647010b3cda44ce95eb2f2b34237bd276ecf3116ab1bb4159f346d754"
+      "size": 13169,
+      "sha256": "4f30d0c6f244ed734d103f737c14977a058f1d31af1241ab6eda38337ad0da9d"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "4d4158b51d6662ee7ba081c781b4fe6b0860a006c22dbdaf741b371d7b0e2f6b"
+      "sha256": "02d0f874ca20f3cf7929958e7052819353e89226cd0816db94f3e1241070d86a"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "49a8823665505c588bfa7f8fa162ba9694bbbd1857a7053e78bc9ca76476af55"
+      "sha256": "e99e8cc2ad69f68ae87da15a7af1d7e57639005547f53ded6855efad6e3598d9"
     },
-    "added_pixel_count": 8843,
-    "original_changed_pixel_count": 15487,
-    "original_changed_pixel_indexes_sha256": "0a11ffe3c76b5f92ceb41460b2fe6a8a875e81461e82b03b89124b5dc6c01648",
-    "changed_archive_byte_count": 7964,
-    "changed_archive_range_count": 821,
+    "added_pixel_count": 8965,
+    "original_changed_pixel_count": 14487,
+    "original_changed_pixel_indexes_sha256": "d707764b74e37009cc97027ac3179cda0a75c7cb90ad35e570e9b5354319a188",
+    "changed_archive_byte_count": 7417,
+    "changed_archive_range_count": 776,
     "additional_text_masks": [
       {
-        "semantic_locator_sha256": "9ea1d3f3009fe58e54cb7dacfe394126507d044e3c1845f0daef3873f89b3493",
-        "size": 760,
-        "sha256": "41769b203f32c72e7fd31bc2912ffee027a054b1441f1e11c42eaa67c6a8ba8c",
-        "nonzero_pixel_count": 404
+        "semantic_locator_sha256": "b10eec118ea2aeaf00483e2a1de2b9741d7b0bddc7ed981a283b609c73281e66",
+        "size": 400,
+        "sha256": "6976ad9d010e5eecf0241438726ec21303741f150610afadb8af349c18e62360",
+        "nonzero_pixel_count": 224
       },
       {
-        "semantic_locator_sha256": "1c6f99c74760865d21b33bb4e902d45e0ab23bfb5e24d7b914a83b53ced3b958",
-        "size": 1806,
-        "sha256": "3f64248a53947370d3e7674b28021eada21f0e33b60c58327e50ab6004d294e0",
-        "nonzero_pixel_count": 539
+        "semantic_locator_sha256": "80ebe4f118802a72d8ed2b0076434895eadf99658f50d6e162c6733fe2809485",
+        "size": 1113,
+        "sha256": "60892a0e3599f5d7e464b4fd29ca209b45abd0b469376025577cfd536e4d4afa",
+        "nonzero_pixel_count": 472
       },
       {
         "semantic_locator_sha256": "a78fd552405817d7ed46474ea987856a31af3b5554936b72767b7b76ea0d3420",

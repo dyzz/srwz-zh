@@ -8586,11 +8586,13 @@ def build(
         or stage_report.get("runtime_keyword_link_count") != 122
         or stage_report.get("runtime_keyword_source_count") != 52
         or stage_report.get("runtime_keyword_links_exact") is not True
-        or stage_report.get("story_ticker_count") != 89
-        or stage_report.get("story_ticker_source_count") != 46
-        or stage_report.get("story_ticker_stage_count") != 89
+        or stage_report.get("story_ticker_count") != 97
+        or stage_report.get("story_ticker_source_count") != 48
+        or stage_report.get("story_ticker_stage_count") != 97
+        or stage_report.get("story_ticker_prefix_kind_counts")
+        != {"runtime_pointer": 8, "zero": 89}
         or stage_report.get("story_ticker_inventory_sha256")
-        != "57a55b76a189dce8ec0479a0b03656c1155d7e8acb1dfc14cd62bcf45a4d4872"
+        != "51406cc957f2d596cef9ea658776faf7f43e0f5f3f09bd20ab855321b6f77ad5"
         or stage_report.get("story_ticker_structural_slots_exact") is not True
         or stage_report.get("story_ticker_fixed_slots_exact") is not True
         or stage_report.get("story_ticker_translated_reread_exact") is not True
@@ -10383,6 +10385,9 @@ def build(
             "ticker_stage_count": stage_report["story_ticker_stage_count"],
             "ticker_stage_indices": stage_report[
                 "story_ticker_stage_indices"
+            ],
+            "ticker_prefix_kind_counts": stage_report[
+                "story_ticker_prefix_kind_counts"
             ],
             "ticker_inventory_sha256": stage_report[
                 "story_ticker_inventory_sha256"

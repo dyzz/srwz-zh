@@ -39,6 +39,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORK_ROOT = PROJECT_ROOT / "work"
 DEFAULT_CONFIG = PROJECT_ROOT / "config/story-component.json"
 _STAGE_NAME = re.compile(r"stage-(\d{3})\.json$")
+TICKER_RUNTIME_POINTER_MIN = 0x00750000
+TICKER_RUNTIME_POINTER_MAX = 0x0076FFFF
 
 
 def parse_args() -> argparse.Namespace:
@@ -276,7 +278,10 @@ def _load_story_tickers(
         "selection_authority": "structural_stage_scan",
         "decoded_alignment": 4,
         "prefix_ff_bytes": 6,
-        "prefix_zero_bytes": 4,
+        "prefix_payload_bytes": 4,
+        "prefix_payload_kinds": ["zero", "runtime_pointer"],
+        "runtime_pointer_min": f"0x{TICKER_RUNTIME_POINTER_MIN:08X}",
+        "runtime_pointer_max": f"0x{TICKER_RUNTIME_POINTER_MAX:08X}",
         "slot_allocation_size": 140,
     }:
         raise SystemExit("story ticker inventory contract is invalid")
@@ -578,9 +583,11 @@ def _discover_story_tickers(
 
     The ticker is not part of the ordinary dialogue pointer graph.  Each
     occurrence is nevertheless identified by a stable decoded layout: a
-    four-byte-aligned string follows six 0xFF bytes and four zero bytes, and
-    its NUL-terminated payload plus zero padding occupies exactly 140 bytes.
-    Scan the full archive so ticker-only stage chunks cannot escape coverage.
+    four-byte-aligned string follows six 0xFF bytes and a four-byte payload.
+    Most payloads are zero, while eight slots store a runtime pointer there.
+    The NUL-terminated text plus zero padding occupies exactly 140 bytes.
+    Scan the full archive so pointer-prefixed and ticker-only stage chunks
+    cannot escape coverage.
     """
 
     by_stage: dict[int, list[dict]] = {}
@@ -591,10 +598,9 @@ def _discover_story_tickers(
     for stage_index, source_chunk in enumerate(source_chunks):
         data = decode(source_chunk).output
         for offset in range(12, len(data), 4):
-            if (
-                data[offset - 4 : offset] != b"\0" * 4
-                or offset + allocation_size > len(data)
-            ):
+            if offset + allocation_size > len(data):
+                continue
+            if data[offset - 10 : offset - 4] != b"\xFF" * 6:
                 continue
             try:
                 source = decode_text(
@@ -614,13 +620,24 @@ def _discover_story_tickers(
                     offset + allocation_size < len(data)
                     and data[offset + allocation_size] == 0
                 )
-                or data[offset - 12 : offset - 4].count(0xFF) < 4
             ):
                 continue
-            if data[offset - 10 : offset - 4] != b"\xFF" * 6:
+            prefix_word = int.from_bytes(
+                data[offset - 4 : offset], byteorder="little"
+            )
+            if prefix_word == 0:
+                prefix_kind = "zero"
+            elif (
+                TICKER_RUNTIME_POINTER_MIN
+                <= prefix_word
+                <= TICKER_RUNTIME_POINTER_MAX
+            ):
+                prefix_kind = "runtime_pointer"
+            else:
                 raise SystemExit(
-                    "story ticker candidate has an unknown prefix layout: "
-                    f"stage={stage_index} offset=0x{offset:X}"
+                    "story ticker candidate has an unknown prefix payload: "
+                    f"stage={stage_index} offset=0x{offset:X} "
+                    f"value=0x{prefix_word:08X}"
                 )
             entry = entries_by_source.get(source.text)
             if entry is None:
@@ -630,6 +647,8 @@ def _discover_story_tickers(
                 **entry,
                 "decoded_offset": offset,
                 "source_slot_size": source.consumed,
+                "slot_prefix_kind": prefix_kind,
+                "slot_prefix_word": prefix_word,
             }
             by_stage.setdefault(stage_index, []).append(target)
             inventory.append(
@@ -638,6 +657,8 @@ def _discover_story_tickers(
                     "decoded_offset": offset,
                     "source_slot_size": source.consumed,
                     "source_text_sha256": entry["source_text_sha256"],
+                    "slot_prefix_kind": prefix_kind,
+                    "slot_prefix_word": prefix_word,
                 }
             )
     if unknown_sources:
@@ -679,6 +700,9 @@ def _discover_story_tickers(
         "target_count": len(inventory),
         "stage_count": len(by_stage),
         "stage_indices": sorted(by_stage),
+        "prefix_kind_counts": dict(
+            sorted(Counter(item["slot_prefix_kind"] for item in inventory).items())
+        ),
         "inventory_sha256": inventory_sha256,
         "structural_slots_exact": True,
     }
@@ -1381,6 +1405,9 @@ def build(
         "story_ticker_source_hashes": story_ticker_source_hashes,
         "story_ticker_stage_count": ticker_inventory["stage_count"],
         "story_ticker_stage_indices": ticker_inventory["stage_indices"],
+        "story_ticker_prefix_kind_counts": ticker_inventory[
+            "prefix_kind_counts"
+        ],
         "story_ticker_inventory_sha256": ticker_inventory[
             "inventory_sha256"
         ],

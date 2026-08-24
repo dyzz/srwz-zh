@@ -3371,25 +3371,78 @@ def verify_post_release_runtime_surfaces(
         z_report_readbacks[f"0x{offset:X}"] = translation
 
     ticker_targets = (
-        (39, 0x3B64, "西伯铁大市场，为旅客大放送超值商品。"),
-        (155, 0x1234, "埃曼特色商品齐全，唐吉的面包也有出售。"),
-        (156, 0x1294, "埃曼特色商品齐全，唐吉的面包也有出售。"),
+        (
+            28,
+            0xC3E4,
+            "埃曼特色商品齐全，唐吉的面包也有出售。",
+            0x00762130,
+        ),
+        (
+            33,
+            0x2CE4,
+            "西伯铁大市场，为旅客大放送超值商品。",
+            0x007589C0,
+        ),
+        (39, 0x3B64, "西伯铁大市场，为旅客大放送超值商品。", 0),
+        (43, 0x99E4, "庆祝大逃亡成功！全场大优惠！！", 0x0075F6D0),
+        (66, 0xC194, "战区救援市场，物资短缺，欢迎出售。", 0x007620F0),
+        (
+            112,
+            0xCC74,
+            "应对各种状况！超级补修套件出售中！",
+            0x00762740,
+        ),
+        (
+            119,
+            0xF314,
+            "宇宙作战必需品喷射模组！热卖中！",
+            0x00764EC0,
+        ),
+        (
+            127,
+            0x11994,
+            "宇宙作战必需品喷射模组！热卖中！",
+            0x00767410,
+        ),
+        (128, 0xD014, "冲向战场！强化推进器大放送！", 0x00762AE0),
+        (
+            155,
+            0x1234,
+            "埃曼特色商品齐全，唐吉的面包也有出售。",
+            0,
+        ),
+        (
+            156,
+            0x1294,
+            "埃曼特色商品齐全，唐吉的面包也有出售。",
+            0,
+        ),
     )
     ticker_readbacks = {}
-    for stage_index, offset, translation in ticker_targets:
+    for stage_index, offset, translation, prefix_word in ticker_targets:
+        stage_data = decoded_stage(stage_index)
         actual = decode_text(
-            decoded_stage(stage_index),
+            stage_data,
             offset,
             output_table,
             end=offset + 140,
         )
-        if actual.text != translation:
+        actual_prefix_word = int.from_bytes(
+            stage_data[offset - 4 : offset], byteorder="little"
+        )
+        if (
+            actual.text != translation
+            or stage_data[offset - 10 : offset - 4] != b"\xFF" * 6
+            or actual_prefix_word != prefix_word
+        ):
             raise SystemExit(
                 f"final ISO ISSUE-020 ticker mismatch in STAGE {stage_index}"
             )
         ticker_readbacks[str(stage_index)] = {
             "decoded_offset": offset,
             "translation": actual.text,
+            "prefix_kind": "zero" if prefix_word == 0 else "runtime_pointer",
+            "prefix_word": f"0x{prefix_word:08X}",
         }
 
     tutorial_headers = {}
@@ -3486,13 +3539,30 @@ def verify_post_release_runtime_surfaces(
         "issue_020_bazaar_ticker": {
             "stage_readbacks": ticker_readbacks,
             "unique_translation_count": len(
-                {translation for _stage, _offset, translation in ticker_targets}
+                {
+                    translation
+                    for _stage, _offset, translation, _prefix_word in ticker_targets
+                }
             ),
             "reported_siberian_slot": {
                 "stage_index": 39,
                 "decoded_offset": 0x3B64,
-                "translation": ticker_targets[0][2],
+                "translation": ticker_targets[2][2],
             },
+            "pointer_siberian_slot": {
+                "stage_index": 33,
+                "decoded_offset": 0x2CE4,
+                "translation": ticker_targets[1][2],
+            },
+            "reported_exodus_slot": {
+                "stage_index": 43,
+                "decoded_offset": 0x99E4,
+                "translation": ticker_targets[3][2],
+            },
+            "runtime_pointer_slot_count": sum(
+                prefix_word != 0
+                for _stage, _offset, _translation, prefix_word in ticker_targets
+            ),
             "translated_reread_exact": True,
         },
         "issue_022_auto_squad_names": {

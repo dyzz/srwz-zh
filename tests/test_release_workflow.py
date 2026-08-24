@@ -45,6 +45,102 @@ def _mapping_sha256(assignments: list[dict]) -> str:
 
 
 class ReleaseWorkflowTest(unittest.TestCase):
+    def test_bazaar_status_labels_preserve_original_pixels(self) -> None:
+        config = _load("config/assets/ui-bazaar-atlas-zh.json")
+        corpus = _load("corpus/zh/ui-atlas/bazaar-v2.json")
+        decisions = {entry["id"]: entry for entry in corpus["entries"]}
+        labels = {
+            entry["entry_id"]: entry
+            for entry in config["additional_localized_labels"]
+        }
+        self.assertEqual(
+            (
+                decisions["ui-atlas/kvm5/funds"]["source_text"],
+                decisions["ui-atlas/kvm5/funds"]["translation"],
+                labels["ui-atlas/kvm5/funds"]["mask"],
+            ),
+            ("資", "資", {
+                "x": 209,
+                "y": 2,
+                "width": 20,
+                "height": 20,
+                "replacement_rgba": "00000000",
+                "preserve_rgba": ["00000000"],
+            }),
+        )
+        self.assertEqual(
+            (
+                decisions["ui-atlas/kvm5/sr-points"]["source_text"],
+                decisions["ui-atlas/kvm5/sr-points"]["translation"],
+                labels["ui-atlas/kvm5/sr-points"]["mask"],
+            ),
+            ("ポイント", "点数", {
+                "x": 174,
+                "y": 42,
+                "width": 53,
+                "height": 21,
+                "replacement_rgba": "00000000",
+                "preserve_rgba": ["00000000"],
+            }),
+        )
+        snapshot = _load(
+            "config/assets/ui-bazaar-atlas-render-snapshot.json"
+        )
+        frozen = {
+            entry["entry_id"]: entry for entry in snapshot["labels"]
+        }
+        funds_template = frozen["ui-atlas/kvm5/funds"][
+            "template_provenance"
+        ]
+        points_template = frozen["ui-atlas/kvm5/sr-points"][
+            "template_provenance"
+        ]
+        self.assertEqual(
+            funds_template["selection_authority"],
+            "original_japanese_texture_pixel_exact_user_requested",
+        )
+        self.assertEqual(funds_template["exact_original_rows"], 20)
+        self.assertEqual(
+            points_template["glyphs"],
+            [
+                {"character": "点", "glyph_index": 3487},
+                {"character": "数", "glyph_index": 2964},
+            ],
+        )
+        self.assertEqual(
+            points_template["placement"],
+            {
+                "mask_width": 53,
+                "mask_height": 21,
+                "cell_width": 20,
+                "cell_height": 20,
+                "left_offsets": [6, 27],
+                "top_offset": 0,
+            },
+        )
+        self.assertEqual(
+            sum(
+                count
+                for index, count in funds_template[
+                    "logical_index_counts"
+                ].items()
+                if 1 <= int(index) <= 7
+            ),
+            224,
+        )
+        self.assertEqual(
+            sum(
+                count
+                for index, count in points_template[
+                    "logical_index_counts"
+                ].items()
+                if 8 <= int(index) <= 15
+            ),
+            243,
+        )
+        self.assertTrue(funds_template["source_palette_histogram_exact"])
+        self.assertTrue(points_template["source_palette_histogram_exact"])
+
     def test_every_component_member_has_one_build_group(self) -> None:
         members = [
             member

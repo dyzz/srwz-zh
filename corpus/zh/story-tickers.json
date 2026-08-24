@@ -7,7 +7,13 @@
     "selection_authority": "structural_stage_scan",
     "decoded_alignment": 4,
     "prefix_ff_bytes": 6,
-    "prefix_zero_bytes": 4,
+    "prefix_payload_bytes": 4,
+    "prefix_payload_kinds": [
+      "zero",
+      "runtime_pointer"
+    ],
+    "runtime_pointer_min": "0x00750000",
+    "runtime_pointer_max": "0x0076FFFF",
     "slot_allocation_size": 140
   },
   "entries": [
@@ -23,6 +29,16 @@
       ]
     },
     {
+      "id": "story-ticker/super-repair-kit-sale",
+      "source_text": "あらゆる状況に対応！　スーパーリペアキット販売中！",
+      "source_text_sha256": "d0b405ddc95f8f8e1bfc28018e045700edeef9bdee1d82cfdbccd3ece5197e7f",
+      "translation": "应对各种状况！超级补修套件出售中！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "part/super-repair-kit"
+      ]
+    },
+    {
       "id": "story-ticker/yapan-exodus-preparation",
       "source_text": "ヤーパンへのエクソダス。旅の準備は忘れずに。",
       "source_text_sha256": "06f56a6c3c711d1a21d15a9700944e237850c1e77207f023377ec3799009c470",
@@ -31,6 +47,17 @@
       "glossary_refs": [
         "place/yapan",
         "event/exodus"
+      ]
+    },
+    {
+      "id": "story-ticker/exodus-success-sale",
+      "source_text": "祝エクソダス成功！　全品、大サービス！！",
+      "source_text_sha256": "a84e1a1ec72f05ca9785a4f776b7b19a130ce779b11875129be145f9fca3359c",
+      "translation": "庆祝大逃亡成功！全场大优惠！！",
+      "editorial_status": "reviewed",
+      "glossary_refs": [
+        "event/exodus",
+        "system/sell"
       ]
     },
     {
