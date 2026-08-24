@@ -467,8 +467,18 @@ def main() -> int:
         *refresh,
         "--force",
     )
+    library_args = [
+        "tools/build_library_v02_component.py",
+        "--force",
+    ]
+    if args.refresh_manifests:
+        library_args.append("--refresh-manifest")
+    print("[font-consumer] reviewed LIBRARY component", flush=True)
+    _run(*library_args)
     if not args.skip_assets:
         _build_assets(chain, args)
+        print("[font-consumer] compose full-story + LIBRARY", flush=True)
+        _run("tools/compose_full_story_library_components.py")
     return 0
 
 

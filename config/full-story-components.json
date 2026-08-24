@@ -37,7 +37,7 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 72301,
-      "sha256": "7f321f730640d4e47670ff41e47e02f805e49dfc89f862824f81a006332840bc"
+      "sha256": "534424d1cf0cc08431c0ad6a568dbc8cd9d052e6a7c14e2ca6635be88ef03391"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -56,7 +56,7 @@
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18259645,
-      "sha256": "f5fad3e4cf2ffdeb0d71a2a60009cbc68731c8d63374e53496510a1463d020f2"
+      "sha256": "85ea92ab37cf0564a5b1bc82f00fdfcdf6c1431f9579cf9f2c427e28729bb44f"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
@@ -662,7 +662,10 @@
           "virtual_address": "0x42FCB2",
           "file_offset": "0x331732",
           "original_byte_hex": "07",
-          "accepted_current_byte_hexes": ["22", "1E"]
+          "accepted_current_byte_hexes": [
+            "22",
+            "1E"
+          ]
         },
         {
           "surface": "special_skill",
@@ -672,7 +675,10 @@
           "virtual_address": "0x42FCBA",
           "file_offset": "0x33173A",
           "original_byte_hex": "0E",
-          "accepted_current_byte_hexes": ["26", "24"]
+          "accepted_current_byte_hexes": [
+            "26",
+            "24"
+          ]
         },
         {
           "surface": "leader_effect",
@@ -2074,7 +2080,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 784630,
-      "sha256": "2d1c842f90482c46167e8894792fdd4bafd934521d1f1a7610016100a4f4b5d3"
+      "sha256": "a154481d663ee369e0164072ad4530488d44c7f6cea65f1506d385b8c16f0e50"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
