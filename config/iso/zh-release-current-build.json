@@ -190,6 +190,14 @@
     "expected_pcsx2_v263_image_type": "DVD",
     "expected_udf_volume_recognition_sequence": "NSR02",
     "byte_reproducible": true,
+    "gap_byte_overrides": [
+      {
+        "offset": 3211810816,
+        "preimage_hex": "00",
+        "output_hex": "d7",
+        "reason": "Preserve the published v0.3.0 byte-exact image at an inter-file gap outside every logical ISO member."
+      }
+    ],
     "expected_sha256": "234c7e7beced51c9ea8debab8e6da4c74340bf3f909d7c3cd8459dd99556bd3c",
     "expected_member_manifest_sha256": "6352d33231f91d3a173b6f93f5b02bdce50e403ceb98e3dbe29c3a6cab92637d"
   },

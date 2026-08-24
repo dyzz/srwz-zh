@@ -631,6 +631,12 @@ def run_mkps2iso(
 ) -> list[str]:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     lba_log.parent.mkdir(parents=True, exist_ok=True)
+    # mkps2iso opens an existing image for overwrite without clearing every
+    # inter-file gap.  A shorter replacement can therefore inherit unrelated
+    # bytes from an earlier build even though every logical member is exact.
+    # Start from a fresh image so the configured byte hash is reproducible.
+    if output_path.exists():
+        output_path.unlink()
     command = [
         executable,
         "-q",
@@ -649,6 +655,80 @@ def run_mkps2iso(
     if process.returncode != 0:
         raise IsoBuildError(f"mkps2iso failed with exit {process.returncode}")
     return command
+
+
+def apply_output_gap_overrides(config: dict, output_path: Path) -> list[dict]:
+    """Pin published bytes that live outside every logical ISO member."""
+
+    overrides = config["output"].get("gap_byte_overrides", [])
+    if not overrides:
+        return []
+    if not isinstance(overrides, list):
+        raise IsoBuildError("output gap-byte overrides must be a list")
+
+    output_image = scan_iso9660(output_path)
+    occupied = [
+        (
+            member.extent_lba * SECTOR_SIZE,
+            member.extent_lba * SECTOR_SIZE + member.size,
+            member.path,
+        )
+        for member in output_image.members
+    ]
+    claimed: set[int] = set()
+    applied = []
+    with output_path.open("r+b") as image:
+        for index, item in enumerate(overrides):
+            if not isinstance(item, dict):
+                raise IsoBuildError(f"invalid output gap override #{index}")
+            offset = item.get("offset")
+            reason = item.get("reason")
+            try:
+                preimage = bytes.fromhex(item.get("preimage_hex", ""))
+                replacement = bytes.fromhex(item.get("output_hex", ""))
+            except (TypeError, ValueError) as error:
+                raise IsoBuildError(
+                    f"invalid output gap override bytes #{index}"
+                ) from error
+            if (
+                not isinstance(offset, int)
+                or isinstance(offset, bool)
+                or offset < 0
+                or not isinstance(reason, str)
+                or not reason
+                or not preimage
+                or len(preimage) != len(replacement)
+            ):
+                raise IsoBuildError(f"invalid output gap override #{index}")
+            byte_offsets = set(range(offset, offset + len(replacement)))
+            if claimed & byte_offsets:
+                raise IsoBuildError("output gap-byte overrides overlap")
+            claimed.update(byte_offsets)
+            for start, end, member_path in occupied:
+                if offset < end and offset + len(replacement) > start:
+                    raise IsoBuildError(
+                        "output gap-byte override overlaps logical member: "
+                        f"{member_path}"
+                    )
+            image.seek(offset)
+            actual = image.read(len(preimage))
+            if actual != preimage:
+                raise IsoBuildError(
+                    f"output gap-byte preimage drift at byte {offset}"
+                )
+            image.seek(offset)
+            image.write(replacement)
+            applied.append(
+                {
+                    "offset": offset,
+                    "preimage_hex": preimage.hex(),
+                    "output_hex": replacement.hex(),
+                    "outside_logical_members": True,
+                    "reason": reason,
+                }
+            )
+    print(f"[OK] canonical output gap bytes: {len(applied)} override(s)")
+    return applied
 
 
 def sha256_7z_member(seven_zip: str, image: Path, member: str) -> str:
@@ -1012,9 +1092,11 @@ def main() -> int:
             output_path,
             lba_log,
         )
+        gap_overrides = apply_output_gap_overrides(config, output_path)
         report = validate_output(config, source_image, output_path)
         report["component_binding"] = component_binding
         report["sector_budget"] = sector_budget
+        report["output_gap_overrides"] = gap_overrides
         report["builder"] = {
             "name": "mkps2iso",
             "version": config["toolchain"]["version"],
