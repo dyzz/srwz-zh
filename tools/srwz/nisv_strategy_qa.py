@@ -15,6 +15,7 @@ from collections import Counter, defaultdict
 from typing import Mapping, Sequence
 
 from .codec import decode_production, reencode_changed_suffix
+from .compressed_workspace import CompressedStreamWorkspace
 from .font import sha256_bytes
 from .iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
 from .text import (
@@ -608,6 +609,8 @@ def build_nisv_strategy_qa(
     corpus: Mapping[str, object],
     table: TextTable,
     encoding_overrides: Mapping[str, int],
+    *,
+    workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, dict]:
     """Translate all Strategy Q&A text and preserve its visual record format."""
 
@@ -634,6 +637,11 @@ def build_nisv_strategy_qa(
         raise NisvStrategyQaError("Strategy Q&A input archive size drift")
     if read_executable_archive_offsets(slps, offset_spec, len(archive)) != offsets:
         raise NisvStrategyQaError("Strategy Q&A input archive offsets drift")
+    if workspace is not None and (
+        workspace.stored != stored[: raw_config["target"]["stored_consumed"]]
+        or len(workspace.current) != len(source_decoded)
+    ):
+        raise NisvStrategyQaError("Strategy Q&A workspace source drift")
 
     source = parse_nisv_strategy_qa(source_decoded)
     format_config = raw_config.get("format")
@@ -663,7 +671,9 @@ def build_nisv_strategy_qa(
 
     encoder = PreparedTextEncoder(table, encoding_overrides)
     runtime_table = project_runtime_text_table(table, encoding_overrides)
-    modified = bytearray(source_decoded)
+    modified = bytearray(
+        workspace.current if workspace is not None else source_decoded
+    )
     metadata_payload = bytearray(source["metadata_prefix"])
     metadata_reports = []
     source_metadata = [
@@ -828,39 +838,53 @@ def build_nisv_strategy_qa(
         )
     modified_bytes = bytes(modified)
 
-    try:
-        rebuilt = reencode_changed_suffix(
-            stored,
-            modified_bytes,
-            strategy=str(codec.get("strategy")),
-            min_match_length=_integer(
-                codec.get("min_match_length"), "Strategy Q&A codec min-match"
-            ),
-            max_match_chain=_integer(
-                codec.get("max_match_chain"), "Strategy Q&A codec max-chain"
-            ),
-            lazy_matching=codec.get("lazy_matching"),
-            max_output_size=len(stored),
-        )
-    except (RuntimeError, ValueError) as error:
-        raise NisvStrategyQaError(
-            f"Strategy Q&A compression failed: {error}"
-        ) from error
-    round_trip = decode_production(rebuilt)
-    if round_trip.consumed != len(rebuilt) or round_trip.output != modified_bytes:
-        raise NisvStrategyQaError("Strategy Q&A codec round trip failed")
-    padded = rebuilt + bytes(len(stored) - len(rebuilt))
-    output = archive[:chunk_start] + padded + archive[chunk_end:]
-    if (
-        len(output) != len(archive)
-        or output[:chunk_start] != archive[:chunk_start]
-        or output[chunk_end:] != archive[chunk_end:]
-        or read_executable_archive_offsets(slps, offset_spec, len(output)) != offsets
-    ):
-        raise NisvStrategyQaError("Strategy Q&A archive layout changed")
-
-    reread = decode_production(output[chunk_start:chunk_end])
-    reread_qa = parse_nisv_strategy_qa(reread.output)
+    if workspace is not None:
+        try:
+            workspace.replace(modified_bytes, stage="NISVDATA Strategy Q&A")
+        except ValueError as error:
+            raise NisvStrategyQaError(str(error)) from error
+        rebuilt = None
+        output = archive
+        reread_qa = parse_nisv_strategy_qa(modified_bytes)
+    else:
+        try:
+            rebuilt = reencode_changed_suffix(
+                stored,
+                modified_bytes,
+                strategy=str(codec.get("strategy")),
+                min_match_length=_integer(
+                    codec.get("min_match_length"),
+                    "Strategy Q&A codec min-match",
+                ),
+                max_match_chain=_integer(
+                    codec.get("max_match_chain"),
+                    "Strategy Q&A codec max-chain",
+                ),
+                lazy_matching=codec.get("lazy_matching"),
+                max_output_size=len(stored),
+            )
+        except (RuntimeError, ValueError) as error:
+            raise NisvStrategyQaError(
+                f"Strategy Q&A compression failed: {error}"
+            ) from error
+        round_trip = decode_production(rebuilt)
+        if (
+            round_trip.consumed != len(rebuilt)
+            or round_trip.output != modified_bytes
+        ):
+            raise NisvStrategyQaError("Strategy Q&A codec round trip failed")
+        padded = rebuilt + bytes(len(stored) - len(rebuilt))
+        output = archive[:chunk_start] + padded + archive[chunk_end:]
+        if (
+            len(output) != len(archive)
+            or output[:chunk_start] != archive[:chunk_start]
+            or output[chunk_end:] != archive[chunk_end:]
+            or read_executable_archive_offsets(slps, offset_spec, len(output))
+            != offsets
+        ):
+            raise NisvStrategyQaError("Strategy Q&A archive layout changed")
+        reread = decode_production(output[chunk_start:chunk_end])
+        reread_qa = parse_nisv_strategy_qa(reread.output)
     corpus_metadata = _corpus_metadata(corpus)
     reread_metadata = [
         raw
@@ -907,7 +931,9 @@ def build_nisv_strategy_qa(
                 raise NisvStrategyQaError(
                     f"Strategy Q&A reflow reread failed at {record_id}"
                 )
-    if any(output[chunk_start + reread.consumed : chunk_end]):
+    if workspace is None and any(
+        output[chunk_start + reread.consumed : chunk_end]
+    ):
         raise NisvStrategyQaError("Strategy Q&A stored padding is nonzero")
 
     source_style_counts = Counter(
@@ -931,8 +957,11 @@ def build_nisv_strategy_qa(
             for (style0, style1), count in sorted(source_style_counts.items())
         },
         "source_stored_size": len(stored),
-        "output_encoded_size": len(rebuilt),
-        "output_padding_size": len(stored) - len(rebuilt),
+        "output_encoded_size": None if rebuilt is None else len(rebuilt),
+        "output_padding_size": (
+            None if rebuilt is None else len(stored) - len(rebuilt)
+        ),
+        "compression_deferred_to_workspace": workspace is not None,
         "archive_size_preserved": True,
         "archive_offsets_preserved": True,
         "non_target_chunks_preserved_byte_exact": True,

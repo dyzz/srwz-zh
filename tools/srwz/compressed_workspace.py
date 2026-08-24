@@ -17,6 +17,7 @@ class CompressedStreamWorkspace:
     source: DecodeResult
     current: bytes
     write_stages: list[dict] = field(default_factory=list)
+    _finalized: bool = field(default=False, init=False, repr=False)
 
     @classmethod
     def open(cls, label: str, stored: bytes) -> "CompressedStreamWorkspace":
@@ -42,6 +43,8 @@ class CompressedStreamWorkspace:
         )
 
     def view(self) -> DecodeResult:
+        if self._finalized:
+            raise ValueError(f"{self.label} is already finalized")
         return DecodeResult(
             output=self.current,
             consumed=len(self.stored),
@@ -52,6 +55,8 @@ class CompressedStreamWorkspace:
         )
 
     def replace(self, decoded: bytes, *, stage: str) -> None:
+        if self._finalized:
+            raise ValueError(f"{self.label} is already finalized")
         if len(decoded) != len(self.current):
             raise ValueError(f"{self.label} decoded size changed at {stage}")
         changed = sum(left != right for left, right in zip(self.current, decoded))
@@ -72,6 +77,8 @@ class CompressedStreamWorkspace:
         lazy_matching: bool,
         max_output_size: int,
     ) -> tuple[bytes, dict]:
+        if self._finalized:
+            raise ValueError(f"{self.label} was already compressed")
         if strategy != "rust-fit":
             raise ValueError(f"{self.label} must use rust-fit")
         rebuilt = reencode_changed_suffix(
@@ -91,6 +98,7 @@ class CompressedStreamWorkspace:
             or reread.flags != self.source.flags
         ):
             raise ValueError(f"{self.label} final Rust round-trip failed")
+        self._finalized = True
         return rebuilt, {
             "physical_stream": self.label,
             "workflow": "decode_once_write_all_check_then_compress_once",

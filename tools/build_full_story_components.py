@@ -498,6 +498,66 @@ ALL_COMPONENT_MEMBERS = frozenset(
     }
 )
 
+# These are ownership batches, not a return to the historical P0-P10 chain.
+# Every physical member belongs to exactly one pass.  Compressed members open
+# their touched streams once, apply all domain writers, and finalize once.
+COMPONENT_BUILD_PASSES = (
+    {
+        "id": "P1",
+        "category": "executable_and_font",
+        "members": (SLPS_MEMBER, VT1_MEMBER),
+    },
+    {
+        "id": "P2",
+        "category": "localized_stream_archives",
+        "members": (
+            COMPDATA_MEMBER,
+            NISVDATA_MEMBER,
+            MTV_PROS_MEMBER,
+            MTV_PROP_MEMBER,
+            STAGE_MEMBER,
+            HSFC_MEMBER,
+            HB_MEMBER,
+        ),
+    },
+    {
+        "id": "P3",
+        "category": "battle_map_and_effect_archives",
+        "members": tuple(
+            sorted(
+                {
+                    KVMDATA_MEMBER,
+                    *SRVC_MEMBERS,
+                    VEFF_MEMBER,
+                    MAPMODEL_MEMBER,
+                    *AUTO_DEMO_MEMBERS,
+                }
+            )
+        ),
+    },
+)
+
+
+def _validated_component_build_passes() -> list[dict]:
+    members = [
+        member
+        for build_pass in COMPONENT_BUILD_PASSES
+        for member in build_pass["members"]
+    ]
+    if len(members) != len(set(members)) or set(members) != ALL_COMPONENT_MEMBERS:
+        raise FullStoryComponentError(
+            "component build-pass ownership is incomplete or duplicated"
+        )
+    return [
+        {
+            "id": build_pass["id"],
+            "category": build_pass["category"],
+            "members": list(build_pass["members"]),
+            "physical_member_count": len(build_pass["members"]),
+        }
+        for build_pass in COMPONENT_BUILD_PASSES
+    ]
+
 
 CONFIG_SECTION_IMPACTS = {
     "base_ui": {
@@ -6901,6 +6961,9 @@ def _apply_nisv_effect_names(
     slps: bytes,
     font_manifest: dict,
     raw_config: object,
+    *,
+    archive_payload: bytes | None = None,
+    chunk_workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, dict, tuple[Path, Path]]:
     """Replace the duplicated weapon-effect labels in NisVData chunk 6."""
 
@@ -6910,10 +6973,13 @@ def _apply_nisv_effect_names(
         raw_config.get("translations"),
         label="NisVData effect-name translations",
     )
-    archive_path, archive = _locked_file(
+    archive_path, original_archive = _locked_file(
         raw_config.get("original_archive"),
         label="original NisVData.bin",
     )
+    archive = original_archive if archive_payload is None else archive_payload
+    if len(archive) != len(original_archive):
+        raise FullStoryComponentError("NisVData archive size drift")
     archive_spec = raw_config.get("archive")
     target = raw_config.get("target")
     expected = raw_config.get("expected")
@@ -6967,12 +7033,20 @@ def _apply_nisv_effect_names(
         or sha256_bytes(stored) != target.get("stored_sha256")
     ):
         raise FullStoryComponentError("NisVData stored chunk lock drift")
-    decoded = decode(stored)
+    decoded = (
+        chunk_workspace.view()
+        if chunk_workspace is not None
+        else decode(stored)
+    )
     if (
         decoded.consumed != target.get("stored_consumed")
         or any(stored[decoded.consumed :])
         or len(decoded.output) != target.get("decoded_size")
         or sha256_bytes(decoded.output) != target.get("decoded_sha256")
+        or (
+            chunk_workspace is not None
+            and stored[: decoded.consumed] != chunk_workspace.stored
+        )
     ):
         raise FullStoryComponentError("NisVData decoded chunk lock drift")
 
@@ -7065,43 +7139,56 @@ def _apply_nisv_effect_names(
             raise FullStoryComponentError(
                 "NisVData changed bytes outside effect-name spans"
             )
-    try:
-        rebuilt = reencode_changed_suffix(
-            stored[: decoded.consumed],
-            bytes(output_decoded),
-            strategy=codec["strategy"],
-            min_match_length=codec["min_match_length"],
-            max_match_chain=codec["max_match_chain"],
-            lazy_matching=codec["lazy_matching"],
-            max_output_size=len(stored),
-        )
-    except (RuntimeError, ValueError) as error:
-        raise FullStoryComponentError(
-            f"NisVData Rust compression failed: {error}"
-        ) from error
-    round_trip = decode(rebuilt)
-    if (
-        round_trip.consumed != len(rebuilt)
-        or round_trip.output != bytes(output_decoded)
-        or round_trip.flags != decoded.flags
-    ):
-        raise FullStoryComponentError("NisVData codec round trip failed")
-    padded = rebuilt + bytes(len(stored) - len(rebuilt))
-    output_archive = archive[:chunk_start] + padded + archive[chunk_end:]
-    if (
-        len(output_archive) != len(archive)
-        or output_archive[:chunk_start] != archive[:chunk_start]
-        or output_archive[chunk_end:] != archive[chunk_end:]
-        or read_executable_archive_offsets(slps, spec, len(output_archive))
-        != offsets
-    ):
-        raise FullStoryComponentError("NisVData archive layout changed")
-    reread = decode(output_archive[chunk_start:chunk_end])
-    if (
-        reread.output != bytes(output_decoded)
-        or any(output_archive[chunk_start + reread.consumed : chunk_end])
-    ):
-        raise FullStoryComponentError("NisVData archive reread failed")
+    if chunk_workspace is not None:
+        try:
+            chunk_workspace.replace(
+                bytes(output_decoded),
+                stage="NISVDATA weapon-effect names",
+            )
+        except ValueError as error:
+            raise FullStoryComponentError(str(error)) from error
+        rebuilt = None
+        output_archive = archive
+    else:
+        try:
+            rebuilt = reencode_changed_suffix(
+                stored[: decoded.consumed],
+                bytes(output_decoded),
+                strategy=codec["strategy"],
+                min_match_length=codec["min_match_length"],
+                max_match_chain=codec["max_match_chain"],
+                lazy_matching=codec["lazy_matching"],
+                max_output_size=len(stored),
+            )
+        except (RuntimeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"NisVData Rust compression failed: {error}"
+            ) from error
+        round_trip = decode(rebuilt)
+        if (
+            round_trip.consumed != len(rebuilt)
+            or round_trip.output != bytes(output_decoded)
+            or round_trip.flags != decoded.flags
+        ):
+            raise FullStoryComponentError("NisVData codec round trip failed")
+        padded = rebuilt + bytes(len(stored) - len(rebuilt))
+        output_archive = archive[:chunk_start] + padded + archive[chunk_end:]
+        if (
+            len(output_archive) != len(archive)
+            or output_archive[:chunk_start] != archive[:chunk_start]
+            or output_archive[chunk_end:] != archive[chunk_end:]
+            or read_executable_archive_offsets(slps, spec, len(output_archive))
+            != offsets
+        ):
+            raise FullStoryComponentError("NisVData archive layout changed")
+        reread = decode(output_archive[chunk_start:chunk_end])
+        if (
+            reread.output != bytes(output_decoded)
+            or any(
+                output_archive[chunk_start + reread.consumed : chunk_end]
+            )
+        ):
+            raise FullStoryComponentError("NisVData archive reread failed")
     return output_archive, {
         "member": archive_spec["member"],
         "chunk_index": chunk_index,
@@ -7111,8 +7198,11 @@ def _apply_nisv_effect_names(
             len(item["decoded_offsets"]) for item in term_reports
         ),
         "source_stored_size": len(stored),
-        "output_encoded_size": len(rebuilt),
-        "output_padding_size": len(stored) - len(rebuilt),
+        "output_encoded_size": None if rebuilt is None else len(rebuilt),
+        "output_padding_size": (
+            None if rebuilt is None else len(stored) - len(rebuilt)
+        ),
+        "compression_deferred_to_workspace": chunk_workspace is not None,
         "codec": dict(codec),
         "archive_size_preserved": True,
         "archive_offsets_preserved": True,
@@ -8601,6 +8691,21 @@ def build(
 
     if reuse_group({NISVDATA_MEMBER}):
         output_nisvdata = _prior_output_payload(output_root, NISVDATA_MEMBER)
+        nisv_chunk6_workspace_report = json.loads(
+            json.dumps(
+                prior_report.get("compression", {}).get(
+                    "nisv_chunk_6_workspace",
+                    {
+                        "physical_stream": "DATA/NISVDATA.BIN chunk 6",
+                        "workflow": (
+                            "legacy_sequential_compression_manifest"
+                        ),
+                        "initial_decode_count": 2,
+                        "compression_count": 2,
+                    },
+                )
+            )
+        )
         nisv_effect_names_report = json.loads(
             json.dumps(prior_report["nisv_effect_names"])
         )
@@ -8628,6 +8733,36 @@ def build(
             prior_report, "nisv_strategy_qa_corpus"
         )
     else:
+        nisv_effect_names_config = config.get("nisv_effect_names")
+        if not isinstance(nisv_effect_names_config, dict):
+            raise FullStoryComponentError(
+                "NISVDATA effect-name configuration is invalid"
+            )
+        nisv_effect_names_source_path, nisv_effect_names_source_data = (
+            _locked_file(
+                nisv_effect_names_config.get("original_archive"),
+                label="NISVDATA effect-name original archive",
+            )
+        )
+        try:
+            nisv_chunk6_start = int(
+                nisv_effect_names_config["target"]["stored_start"]
+            )
+            nisv_chunk6_end = int(
+                nisv_effect_names_config["target"]["stored_end"]
+            )
+        except (KeyError, TypeError, ValueError) as error:
+            raise FullStoryComponentError(
+                "NISVDATA chunk-6 allocation is invalid"
+            ) from error
+        nisv_chunk6_workspace = (
+            CompressedStreamWorkspace.open_zero_padded_allocation(
+                "DATA/NISVDATA.BIN chunk 6",
+                nisv_effect_names_source_data[
+                    nisv_chunk6_start:nisv_chunk6_end
+                ],
+            )
+        )
         (
             output_nisvdata,
             nisv_effect_names_report,
@@ -8635,7 +8770,9 @@ def build(
         ) = _apply_nisv_effect_names(
             output_slps,
             font_manifest,
-            config.get("nisv_effect_names"),
+            nisv_effect_names_config,
+            archive_payload=nisv_effect_names_source_data,
+            chunk_workspace=nisv_chunk6_workspace,
         )
         nisv_strategy_qa_config = config.get("nisv_strategy_qa")
         if not isinstance(nisv_strategy_qa_config, dict):
@@ -8653,7 +8790,9 @@ def build(
         if (
             nisv_strategy_qa_original_path != nisv_effect_names_input_paths[1]
             or nisv_strategy_qa_original_data
-            != nisv_effect_names_input_paths[1].read_bytes()
+            != nisv_effect_names_source_data
+            or nisv_effect_names_source_path
+            != nisv_effect_names_input_paths[1]
         ):
             raise FullStoryComponentError(
                 "NISVDATA Strategy Q&A and effect-name source archives disagree"
@@ -8675,6 +8814,7 @@ def build(
                 nisv_strategy_qa_corpus,
                 runtime_keyword_source_table,
                 strategy_qa_encoding_overrides,
+                workspace=nisv_chunk6_workspace,
             )
         except (
             UnicodeDecodeError,
@@ -8684,6 +8824,58 @@ def build(
             raise FullStoryComponentError(
                 f"NISVDATA Strategy Q&A writeback failed: {error}"
             ) from error
+        try:
+            nisv_chunk6_encoded, nisv_chunk6_workspace_report = (
+                nisv_chunk6_workspace.finalize(
+                    strategy=nisv_strategy_qa_config["codec"]["strategy"],
+                    min_match_length=nisv_strategy_qa_config["codec"][
+                        "min_match_length"
+                    ],
+                    max_match_chain=nisv_strategy_qa_config["codec"][
+                        "max_match_chain"
+                    ],
+                    lazy_matching=nisv_strategy_qa_config["codec"][
+                        "lazy_matching"
+                    ],
+                    max_output_size=(nisv_chunk6_end - nisv_chunk6_start),
+                )
+            )
+        except (KeyError, RuntimeError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"final NISVDATA chunk-6 compression failed: {error}"
+            ) from error
+        output_nisvdata = (
+            output_nisvdata[:nisv_chunk6_start]
+            + nisv_chunk6_encoded
+            + bytes(
+                nisv_chunk6_end
+                - nisv_chunk6_start
+                - len(nisv_chunk6_encoded)
+            )
+            + output_nisvdata[nisv_chunk6_end:]
+        )
+        nisv_effect_names_report.update(
+            {
+                "output_encoded_size": len(nisv_chunk6_encoded),
+                "output_padding_size": (
+                    nisv_chunk6_end
+                    - nisv_chunk6_start
+                    - len(nisv_chunk6_encoded)
+                ),
+                "translated_reread_exact": True,
+            }
+        )
+        nisv_strategy_qa_report.update(
+            {
+                "output_encoded_size": len(nisv_chunk6_encoded),
+                "output_padding_size": (
+                    nisv_chunk6_end
+                    - nisv_chunk6_start
+                    - len(nisv_chunk6_encoded)
+                ),
+                "translated_reread_exact": True,
+            }
+        )
         nisv_tutorial_config = config.get("nisv_tutorial_pages")
         if not isinstance(nisv_tutorial_config, dict):
             raise FullStoryComponentError(
@@ -9551,6 +9743,7 @@ def build(
         "status": "integrated_global_zh_release_components_validated_runtime_pending",
         "profile_id": config["profile_id"],
         "scope": config["scope"],
+        "build_passes": _validated_component_build_passes(),
         "inputs": {
             "config": _file_lock(config_path, config_path.read_bytes()),
             "base_ui_manifest": _file_lock(
@@ -9764,6 +9957,7 @@ def build(
             "python_encoder_used": False,
             "python_decoder_used": False,
             "compdata_workspace": compdata_workspace_report,
+            "nisv_chunk_6_workspace": nisv_chunk6_workspace_report,
             "stage_chunk_0_workspace": stage_chunk0_workspace_report,
             "font_strategy": font_codec_strategy,
             "stage_strategies": sorted(stage_codec_strategies),
