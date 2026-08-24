@@ -281,6 +281,12 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
             integrated["full_story_stage"]["hb"]["path"],
         ),
         (integrated["kvmdata"], integrated["kvmdata"]["path"]),
+        (
+            integrated["runtime_keywords"]["library_component_manifest"],
+            integrated["runtime_keywords"]["library_component_manifest"][
+                "path"
+            ],
+        ),
     )
     dependency_drift = False
     for target, dependency_reference in dependency_locks:
@@ -293,9 +299,7 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
             target["sha256"] = actual["sha256"]
     font_manifest = _load(PROJECT_ROOT / font_reference["manifest"]["path"])
     proposal_reference = font_manifest.get("proposal")
-    compatibility = integrated.get("composition", {}).get(
-        "encoded_text_codebook_compatibility"
-    )
+    compatibility = integrated.get("composition", {}).get("release_codebook")
     if not isinstance(proposal_reference, dict) or not isinstance(
         compatibility, dict
     ):
@@ -338,63 +342,73 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
         != compatibility.get("release_snapshot_primary_mapping_sha256")
     )
     if (
-        compatibility.get("mode")
-        != "flattened-release-superset-of-encoded-ui"
+        compatibility.get("mode") != "direct-original-writeback"
         or _sha256(PROJECT_ROOT / current_snapshot["path"])
         != current_snapshot.get("sha256")
     ):
         raise SystemExit("global release assignment snapshot is invalid")
+
+    menu_reference = integrated.get("menu_text_release", {}).get("codebook")
+    if not isinstance(menu_reference, dict) or not isinstance(
+        menu_reference.get("path"), str
+    ):
+        raise SystemExit("release menu codebook reference is malformed")
+    menu_path = PROJECT_ROOT / menu_reference["path"]
+    menu_lock = _file_lock(menu_reference["path"])
+    if (
+        menu_reference.get("size") != menu_lock["size"]
+        or menu_reference.get("sha256") != menu_lock["sha256"]
+    ):
+        raise SystemExit("release menu codebook lock drift")
+    menu_codebook = _load(menu_path)
+    menu_assignments = menu_codebook.get("assignments")
+    menu_mapping_sha256 = _assignment_mapping_sha256(menu_assignments)
+    if (
+        menu_codebook.get("codebook_id")
+        != menu_reference.get("required_codebook_id")
+        or menu_codebook.get("status") != "current_release_menu_codebook"
+        or len(menu_assignments) != compatibility.get("menu_assignment_count")
+        or menu_mapping_sha256
+        != compatibility.get("menu_assignment_mapping_sha256")
+        or menu_codebook.get("assignment_count") != len(menu_assignments)
+        or menu_codebook.get("mapping_sha256") != menu_mapping_sha256
+    ):
+        raise SystemExit("release menu codebook contract is invalid")
+
+    release_by_character = {
+        item["character"]: (item["code"], item["glyph_index"])
+        for item in assignments
+    }
+
+    def menu_assignment_is_current_or_migrated(item: dict) -> bool:
+        character = item["character"]
+        current = release_by_character.get(character)
+        menu_pair = (item["code"], item["glyph_index"])
+        if current == menu_pair:
+            return True
+        migration = clean_migration_by_character.get(character)
+        return bool(
+            migration
+            and menu_pair
+            == (
+                migration.get("from_code"),
+                migration.get("from_glyph_index"),
+            )
+            and current
+            == (
+                migration.get("to_code"),
+                migration.get("to_glyph_index"),
+            )
+        )
+
+    if any(
+        not menu_assignment_is_current_or_migrated(item)
+        for item in menu_assignments
+    ):
+        raise SystemExit(
+            "release menu codebook is incompatible with the current font"
+        )
     if compatibility_drift:
-        base_manifest = _load(
-            PROJECT_ROOT / integrated["base_ui"]["manifest"]["path"]
-        )
-        encoded_reference = base_manifest.get("inputs", {}).get(
-            "codebook", {}
-        ).get("mapping_snapshot", {})
-        encoded = _load(PROJECT_ROOT / encoded_reference.get("path", ""))
-        encoded_assignments = encoded.get("assignments")
-        encoded_mapping_sha256 = _assignment_mapping_sha256(
-            encoded_assignments
-        )
-        release_by_character = {
-            item["character"]: (item["code"], item["glyph_index"])
-            for item in assignments
-        }
-
-        def encoded_assignment_is_current_or_migrated(item: dict) -> bool:
-            character = item["character"]
-            current = release_by_character.get(character)
-            encoded_pair = (item["code"], item["glyph_index"])
-            if current == encoded_pair:
-                return True
-            migration = clean_migration_by_character.get(character)
-            return bool(
-                migration
-                and encoded_pair
-                == (
-                    migration.get("from_code"),
-                    migration.get("from_glyph_index"),
-                )
-                and current
-                == (
-                    migration.get("to_code"),
-                    migration.get("to_glyph_index"),
-                )
-            )
-
-        if (
-            len(encoded_assignments)
-            != compatibility.get("encoded_assignment_count")
-            or encoded_mapping_sha256
-            != compatibility.get("encoded_assignment_mapping_sha256")
-            or any(
-                not encoded_assignment_is_current_or_migrated(item)
-                for item in encoded_assignments
-            )
-        ):
-            raise SystemExit(
-                "encoded UI mapping is not a subset of the new release snapshot"
-            )
         if not args.refresh_manifests:
             raise SystemExit(
                 "global release mapping changed; rerun with --refresh-manifests"

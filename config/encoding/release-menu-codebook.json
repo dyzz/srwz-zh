@@ -1,0 +1,9050 @@
+{
+  "schema_version": 1,
+  "codebook_id": "srwz-release-menu-v0.3",
+  "status": "current_release_menu_codebook",
+  "scope": "Character-to-code assignments used by the consolidated v0.3 menu writeback. The build applies these assignments directly to original-disc menu members.",
+  "selection_authority": "manually_accepted_v0.3_release_menu_and_font",
+  "inputs": {
+    "original_slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "original_vt1": {
+      "path": "work/disc/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "9b380618001b7f4d8a008f24bbf75b5409054e1b054e64d27ba4d0eb0b3a4964"
+    },
+    "release_font_manifest_path": "manifests/zh-release-font-validation.json",
+    "release_font_proposal_path": "work/writeback/zh-release-codebook-proposal.json"
+  },
+  "changed_glyph_count": 1802,
+  "unchanged_selected_characters": [
+    " "
+  ],
+  "assignment_count": 1803,
+  "mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
+  "assignments": [
+    {
+      "character": " ",
+      "code": "889C",
+      "glyph_index": 1436
+    },
+    {
+      "character": "%",
+      "code": "889D",
+      "glyph_index": 1437
+    },
+    {
+      "character": "+",
+      "code": "8EFF",
+      "glyph_index": 2687
+    },
+    {
+      "character": "-",
+      "code": "889E",
+      "glyph_index": 1438
+    },
+    {
+      "character": ".",
+      "code": "9873",
+      "glyph_index": 4467
+    },
+    {
+      "character": "/",
+      "code": "8FFF",
+      "glyph_index": 2879
+    },
+    {
+      "character": "0",
+      "code": "9874",
+      "glyph_index": 4468
+    },
+    {
+      "character": "1",
+      "code": "81AE",
+      "glyph_index": 110
+    },
+    {
+      "character": "2",
+      "code": "81AF",
+      "glyph_index": 111
+    },
+    {
+      "character": "3",
+      "code": "81B0",
+      "glyph_index": 112
+    },
+    {
+      "character": "4",
+      "code": "81B1",
+      "glyph_index": 113
+    },
+    {
+      "character": "5",
+      "code": "81B2",
+      "glyph_index": 114
+    },
+    {
+      "character": "6",
+      "code": "9875",
+      "glyph_index": 4469
+    },
+    {
+      "character": "7",
+      "code": "9876",
+      "glyph_index": 4470
+    },
+    {
+      "character": "8",
+      "code": "9877",
+      "glyph_index": 4471
+    },
+    {
+      "character": "A",
+      "code": "9878",
+      "glyph_index": 4472
+    },
+    {
+      "character": "B",
+      "code": "9879",
+      "glyph_index": 4473
+    },
+    {
+      "character": "C",
+      "code": "987A",
+      "glyph_index": 4474
+    },
+    {
+      "character": "D",
+      "code": "987B",
+      "glyph_index": 4475
+    },
+    {
+      "character": "E",
+      "code": "987C",
+      "glyph_index": 4476
+    },
+    {
+      "character": "F",
+      "code": "987D",
+      "glyph_index": 4477
+    },
+    {
+      "character": "G",
+      "code": "8540",
+      "glyph_index": 768
+    },
+    {
+      "character": "H",
+      "code": "8541",
+      "glyph_index": 769
+    },
+    {
+      "character": "I",
+      "code": "8542",
+      "glyph_index": 770
+    },
+    {
+      "character": "K",
+      "code": "8543",
+      "glyph_index": 771
+    },
+    {
+      "character": "L",
+      "code": "8544",
+      "glyph_index": 772
+    },
+    {
+      "character": "M",
+      "code": "8545",
+      "glyph_index": 773
+    },
+    {
+      "character": "N",
+      "code": "8546",
+      "glyph_index": 774
+    },
+    {
+      "character": "O",
+      "code": "8547",
+      "glyph_index": 775
+    },
+    {
+      "character": "P",
+      "code": "8548",
+      "glyph_index": 776
+    },
+    {
+      "character": "R",
+      "code": "8549",
+      "glyph_index": 777
+    },
+    {
+      "character": "S",
+      "code": "854A",
+      "glyph_index": 778
+    },
+    {
+      "character": "T",
+      "code": "854B",
+      "glyph_index": 779
+    },
+    {
+      "character": "U",
+      "code": "854C",
+      "glyph_index": 780
+    },
+    {
+      "character": "W",
+      "code": "854D",
+      "glyph_index": 781
+    },
+    {
+      "character": "X",
+      "code": "854E",
+      "glyph_index": 782
+    },
+    {
+      "character": "Z",
+      "code": "854F",
+      "glyph_index": 783
+    },
+    {
+      "character": "c",
+      "code": "8550",
+      "glyph_index": 784
+    },
+    {
+      "character": "d",
+      "code": "8551",
+      "glyph_index": 785
+    },
+    {
+      "character": "e",
+      "code": "8552",
+      "glyph_index": 786
+    },
+    {
+      "character": "i",
+      "code": "8554",
+      "glyph_index": 788
+    },
+    {
+      "character": "k",
+      "code": "8555",
+      "glyph_index": 789
+    },
+    {
+      "character": "n",
+      "code": "8556",
+      "glyph_index": 790
+    },
+    {
+      "character": "t",
+      "code": "8558",
+      "glyph_index": 792
+    },
+    {
+      "character": "v",
+      "code": "8559",
+      "glyph_index": 793
+    },
+    {
+      "character": "x",
+      "code": "855A",
+      "glyph_index": 794
+    },
+    {
+      "character": "·",
+      "code": "81B3",
+      "glyph_index": 115
+    },
+    {
+      "character": "一",
+      "code": "88EA",
+      "glyph_index": 1514
+    },
+    {
+      "character": "七",
+      "code": "8EB5",
+      "glyph_index": 2613
+    },
+    {
+      "character": "万",
+      "code": "969C",
+      "glyph_index": 4124
+    },
+    {
+      "character": "丈",
+      "code": "8FE4",
+      "glyph_index": 2852
+    },
+    {
+      "character": "三",
+      "code": "8E4F",
+      "glyph_index": 2511
+    },
+    {
+      "character": "上",
+      "code": "8FE3",
+      "glyph_index": 2851
+    },
+    {
+      "character": "下",
+      "code": "89BA",
+      "glyph_index": 1658
+    },
+    {
+      "character": "不",
+      "code": "9573",
+      "glyph_index": 3891
+    },
+    {
+      "character": "与",
+      "code": "975E",
+      "glyph_index": 4254
+    },
+    {
+      "character": "丑",
+      "code": "894E",
+      "glyph_index": 1550
+    },
+    {
+      "character": "专",
+      "code": "81B4",
+      "glyph_index": 116
+    },
+    {
+      "character": "且",
+      "code": "8A8E",
+      "glyph_index": 1806
+    },
+    {
+      "character": "世",
+      "code": "90A2",
+      "glyph_index": 2978
+    },
+    {
+      "character": "东",
+      "code": "81B5",
+      "glyph_index": 117
+    },
+    {
+      "character": "丝",
+      "code": "81B6",
+      "glyph_index": 118
+    },
+    {
+      "character": "丢",
+      "code": "81B7",
+      "glyph_index": 119
+    },
+    {
+      "character": "两",
+      "code": "81B8",
+      "glyph_index": 120
+    },
+    {
+      "character": "严",
+      "code": "81B9",
+      "glyph_index": 121
+    },
+    {
+      "character": "个",
+      "code": "855C",
+      "glyph_index": 796
+    },
+    {
+      "character": "丫",
+      "code": "81BA",
+      "glyph_index": 122
+    },
+    {
+      "character": "中",
+      "code": "9286",
+      "glyph_index": 3334
+    },
+    {
+      "character": "临",
+      "code": "81BB",
+      "glyph_index": 123
+    },
+    {
+      "character": "丹",
+      "code": "924F",
+      "glyph_index": 3279
+    },
+    {
+      "character": "为",
+      "code": "81BC",
+      "glyph_index": 124
+    },
+    {
+      "character": "主",
+      "code": "8EE5",
+      "glyph_index": 2661
+    },
+    {
+      "character": "丽",
+      "code": "81BD",
+      "glyph_index": 125
+    },
+    {
+      "character": "举",
+      "code": "81BE",
+      "glyph_index": 126
+    },
+    {
+      "character": "乃",
+      "code": "9454",
+      "glyph_index": 3668
+    },
+    {
+      "character": "久",
+      "code": "8B76",
+      "glyph_index": 1974
+    },
+    {
+      "character": "么",
+      "code": "81BF",
+      "glyph_index": 127
+    },
+    {
+      "character": "义",
+      "code": "81C0",
+      "glyph_index": 128
+    },
+    {
+      "character": "之",
+      "code": "9456",
+      "glyph_index": 3670
+    },
+    {
+      "character": "乌",
+      "code": "81C1",
+      "glyph_index": 129
+    },
+    {
+      "character": "乎",
+      "code": "8CC1",
+      "glyph_index": 2241
+    },
+    {
+      "character": "乐",
+      "code": "81C2",
+      "glyph_index": 130
+    },
+    {
+      "character": "乔",
+      "code": "90FF",
+      "glyph_index": 3071
+    },
+    {
+      "character": "乘",
+      "code": "855D",
+      "glyph_index": 797
+    },
+    {
+      "character": "乙",
+      "code": "89B3",
+      "glyph_index": 1651
+    },
+    {
+      "character": "也",
+      "code": "96E7",
+      "glyph_index": 4199
+    },
+    {
+      "character": "乡",
+      "code": "81C3",
+      "glyph_index": 131
+    },
+    {
+      "character": "书",
+      "code": "81C4",
+      "glyph_index": 132
+    },
+    {
+      "character": "买",
+      "code": "81C5",
+      "glyph_index": 133
+    },
+    {
+      "character": "乱",
+      "code": "9790",
+      "glyph_index": 4304
+    },
+    {
+      "character": "了",
+      "code": "97B9",
+      "glyph_index": 4345
+    },
+    {
+      "character": "予",
+      "code": "975C",
+      "glyph_index": 4252
+    },
+    {
+      "character": "争",
+      "code": "9188",
+      "glyph_index": 3144
+    },
+    {
+      "character": "事",
+      "code": "8E96",
+      "glyph_index": 2582
+    },
+    {
+      "character": "二",
+      "code": "93F1",
+      "glyph_index": 3633
+    },
+    {
+      "character": "于",
+      "code": "855E",
+      "glyph_index": 798
+    },
+    {
+      "character": "互",
+      "code": "8CDD",
+      "glyph_index": 2269
+    },
+    {
+      "character": "五",
+      "code": "8CDC",
+      "glyph_index": 2268
+    },
+    {
+      "character": "亚",
+      "code": "81C6",
+      "glyph_index": 134
+    },
+    {
+      "character": "些",
+      "code": "8DB1",
+      "glyph_index": 2417
+    },
+    {
+      "character": "亡",
+      "code": "9653",
+      "glyph_index": 4051
+    },
+    {
+      "character": "交",
+      "code": "8CF0",
+      "glyph_index": 2288
+    },
+    {
+      "character": "产",
+      "code": "81C7",
+      "glyph_index": 135
+    },
+    {
+      "character": "亨",
+      "code": "8B9C",
+      "glyph_index": 2012
+    },
+    {
+      "character": "享",
+      "code": "8B9D",
+      "glyph_index": 2013
+    },
+    {
+      "character": "亮",
+      "code": "97BA",
+      "glyph_index": 4346
+    },
+    {
+      "character": "亲",
+      "code": "81CF",
+      "glyph_index": 143
+    },
+    {
+      "character": "人",
+      "code": "906C",
+      "glyph_index": 2924
+    },
+    {
+      "character": "什",
+      "code": "8F59",
+      "glyph_index": 2713
+    },
+    {
+      "character": "仅",
+      "code": "81D0",
+      "glyph_index": 144
+    },
+    {
+      "character": "今",
+      "code": "8DA1",
+      "glyph_index": 2401
+    },
+    {
+      "character": "介",
+      "code": "89EE",
+      "glyph_index": 1710
+    },
+    {
+      "character": "仍",
+      "code": "86FA",
+      "glyph_index": 1146
+    },
+    {
+      "character": "从",
+      "code": "855F",
+      "glyph_index": 799
+    },
+    {
+      "character": "仕",
+      "code": "8E64",
+      "glyph_index": 2532
+    },
+    {
+      "character": "他",
+      "code": "91BC",
+      "glyph_index": 3196
+    },
+    {
+      "character": "仗",
+      "code": "8560",
+      "glyph_index": 800
+    },
+    {
+      "character": "付",
+      "code": "9574",
+      "glyph_index": 3892
+    },
+    {
+      "character": "代",
+      "code": "91E3",
+      "glyph_index": 3235
+    },
+    {
+      "character": "令",
+      "code": "97DF",
+      "glyph_index": 4383
+    },
+    {
+      "character": "以",
+      "code": "88C8",
+      "glyph_index": 1480
+    },
+    {
+      "character": "仪",
+      "code": "81D1",
+      "glyph_index": 145
+    },
+    {
+      "character": "们",
+      "code": "81D2",
+      "glyph_index": 146
+    },
+    {
+      "character": "件",
+      "code": "8C8F",
+      "glyph_index": 2191
+    },
+    {
+      "character": "价",
+      "code": "8561",
+      "glyph_index": 801
+    },
+    {
+      "character": "任",
+      "code": "9443",
+      "glyph_index": 3651
+    },
+    {
+      "character": "份",
+      "code": "81D3",
+      "glyph_index": 147
+    },
+    {
+      "character": "企",
+      "code": "8AE9",
+      "glyph_index": 1897
+    },
+    {
+      "character": "伊",
+      "code": "88C9",
+      "glyph_index": 1481
+    },
+    {
+      "character": "伐",
+      "code": "94B0",
+      "glyph_index": 3760
+    },
+    {
+      "character": "休",
+      "code": "8B78",
+      "glyph_index": 1976
+    },
+    {
+      "character": "众",
+      "code": "81D4",
+      "glyph_index": 148
+    },
+    {
+      "character": "优",
+      "code": "81D5",
+      "glyph_index": 149
+    },
+    {
+      "character": "伙",
+      "code": "81D6",
+      "glyph_index": 150
+    },
+    {
+      "character": "会",
+      "code": "89EF",
+      "glyph_index": 1711
+    },
+    {
+      "character": "传",
+      "code": "81D7",
+      "glyph_index": 151
+    },
+    {
+      "character": "伤",
+      "code": "81D8",
+      "glyph_index": 152
+    },
+    {
+      "character": "伦",
+      "code": "81FE",
+      "glyph_index": 190
+    },
+    {
+      "character": "伯",
+      "code": "948C",
+      "glyph_index": 3724
+    },
+    {
+      "character": "估",
+      "code": "8562",
+      "glyph_index": 802
+    },
+    {
+      "character": "伴",
+      "code": "94BA",
+      "glyph_index": 3770
+    },
+    {
+      "character": "似",
+      "code": "8E97",
+      "glyph_index": 2583
+    },
+    {
+      "character": "伽",
+      "code": "89BE",
+      "glyph_index": 1662
+    },
+    {
+      "character": "但",
+      "code": "9241",
+      "glyph_index": 3265
+    },
+    {
+      "character": "位",
+      "code": "88CA",
+      "glyph_index": 1482
+    },
+    {
+      "character": "低",
+      "code": "92E1",
+      "glyph_index": 3425
+    },
+    {
+      "character": "住",
+      "code": "8F5A",
+      "glyph_index": 2714
+    },
+    {
+      "character": "佐",
+      "code": "8DB2",
+      "glyph_index": 2418
+    },
+    {
+      "character": "体",
+      "code": "91CC",
+      "glyph_index": 3212
+    },
+    {
+      "character": "何",
+      "code": "89BD",
+      "glyph_index": 1661
+    },
+    {
+      "character": "余",
+      "code": "975D",
+      "glyph_index": 4253
+    },
+    {
+      "character": "佛",
+      "code": "82FE",
+      "glyph_index": 382
+    },
+    {
+      "character": "作",
+      "code": "8DEC",
+      "glyph_index": 2476
+    },
+    {
+      "character": "你",
+      "code": "81D9",
+      "glyph_index": 153
+    },
+    {
+      "character": "佩",
+      "code": "84FF",
+      "glyph_index": 767
+    },
+    {
+      "character": "佯",
+      "code": "8563",
+      "glyph_index": 803
+    },
+    {
+      "character": "佳",
+      "code": "89C0",
+      "glyph_index": 1664
+    },
+    {
+      "character": "使",
+      "code": "8E67",
+      "glyph_index": 2535
+    },
+    {
+      "character": "例",
+      "code": "97E1",
+      "glyph_index": 4385
+    },
+    {
+      "character": "供",
+      "code": "8B9F",
+      "glyph_index": 2015
+    },
+    {
+      "character": "依",
+      "code": "88CB",
+      "glyph_index": 1483
+    },
+    {
+      "character": "侣",
+      "code": "83FE",
+      "glyph_index": 574
+    },
+    {
+      "character": "侦",
+      "code": "81E9",
+      "glyph_index": 169
+    },
+    {
+      "character": "侵",
+      "code": "904E",
+      "glyph_index": 2894
+    },
+    {
+      "character": "便",
+      "code": "95D6",
+      "glyph_index": 3990
+    },
+    {
+      "character": "促",
+      "code": "91A3",
+      "glyph_index": 3171
+    },
+    {
+      "character": "俏",
+      "code": "81EA",
+      "glyph_index": 170
+    },
+    {
+      "character": "俘",
+      "code": "8564",
+      "glyph_index": 804
+    },
+    {
+      "character": "保",
+      "code": "95DB",
+      "glyph_index": 3995
+    },
+    {
+      "character": "信",
+      "code": "904D",
+      "glyph_index": 2893
+    },
+    {
+      "character": "修",
+      "code": "8F43",
+      "glyph_index": 2691
+    },
+    {
+      "character": "俯",
+      "code": "91FF",
+      "glyph_index": 3263
+    },
+    {
+      "character": "倍",
+      "code": "947B",
+      "glyph_index": 3707
+    },
+    {
+      "character": "倒",
+      "code": "937C",
+      "glyph_index": 3516
+    },
+    {
+      "character": "候",
+      "code": "8CF3",
+      "glyph_index": 2291
+    },
+    {
+      "character": "借",
+      "code": "8ED8",
+      "glyph_index": 2648
+    },
+    {
+      "character": "值",
+      "code": "81EB",
+      "glyph_index": 171
+    },
+    {
+      "character": "假",
+      "code": "8565",
+      "glyph_index": 805
+    },
+    {
+      "character": "偏",
+      "code": "95CE",
+      "glyph_index": 3982
+    },
+    {
+      "character": "做",
+      "code": "8566",
+      "glyph_index": 806
+    },
+    {
+      "character": "停",
+      "code": "92E2",
+      "glyph_index": 3426
+    },
+    {
+      "character": "偷",
+      "code": "81EC",
+      "glyph_index": 172
+    },
+    {
+      "character": "催",
+      "code": "8DC3",
+      "glyph_index": 2435
+    },
+    {
+      "character": "傲",
+      "code": "98FC",
+      "glyph_index": 957
+    },
+    {
+      "character": "傻",
+      "code": "81ED",
+      "glyph_index": 173
+    },
+    {
+      "character": "像",
+      "code": "919C",
+      "glyph_index": 3164
+    },
+    {
+      "character": "僚",
+      "code": "97BB",
+      "glyph_index": 4347
+    },
+    {
+      "character": "僧",
+      "code": "916D",
+      "glyph_index": 3117
+    },
+    {
+      "character": "僵",
+      "code": "8567",
+      "glyph_index": 807
+    },
+    {
+      "character": "儿",
+      "code": "8568",
+      "glyph_index": 808
+    },
+    {
+      "character": "元",
+      "code": "8CB3",
+      "glyph_index": 2227
+    },
+    {
+      "character": "充",
+      "code": "8F5B",
+      "glyph_index": 2715
+    },
+    {
+      "character": "先",
+      "code": "90E6",
+      "glyph_index": 3046
+    },
+    {
+      "character": "光",
+      "code": "8CF5",
+      "glyph_index": 2293
+    },
+    {
+      "character": "克",
+      "code": "8D8E",
+      "glyph_index": 2382
+    },
+    {
+      "character": "免",
+      "code": "96C6",
+      "glyph_index": 4166
+    },
+    {
+      "character": "兜",
+      "code": "8A95",
+      "glyph_index": 1813
+    },
+    {
+      "character": "入",
+      "code": "93FC",
+      "glyph_index": 3644
+    },
+    {
+      "character": "全",
+      "code": "9153",
+      "glyph_index": 3091
+    },
+    {
+      "character": "八",
+      "code": "94AA",
+      "glyph_index": 3754
+    },
+    {
+      "character": "公",
+      "code": "8CF6",
+      "glyph_index": 2294
+    },
+    {
+      "character": "兰",
+      "code": "81EE",
+      "glyph_index": 174
+    },
+    {
+      "character": "共",
+      "code": "8BA4",
+      "glyph_index": 2020
+    },
+    {
+      "character": "关",
+      "code": "81EF",
+      "glyph_index": 175
+    },
+    {
+      "character": "兴",
+      "code": "81F8",
+      "glyph_index": 184
+    },
+    {
+      "character": "兵",
+      "code": "95BA",
+      "glyph_index": 3962
+    },
+    {
+      "character": "其",
+      "code": "91B4",
+      "glyph_index": 3188
+    },
+    {
+      "character": "具",
+      "code": "8BEF",
+      "glyph_index": 2095
+    },
+    {
+      "character": "典",
+      "code": "9354",
+      "glyph_index": 3476
+    },
+    {
+      "character": "兹",
+      "code": "81F9",
+      "glyph_index": 185
+    },
+    {
+      "character": "养",
+      "code": "86F1",
+      "glyph_index": 1137
+    },
+    {
+      "character": "兼",
+      "code": "8C93",
+      "glyph_index": 2195
+    },
+    {
+      "character": "兽",
+      "code": "81FA",
+      "glyph_index": 186
+    },
+    {
+      "character": "内",
+      "code": "93E0",
+      "glyph_index": 3616
+    },
+    {
+      "character": "册",
+      "code": "8569",
+      "glyph_index": 809
+    },
+    {
+      "character": "再",
+      "code": "8DC4",
+      "glyph_index": 2436
+    },
+    {
+      "character": "冒",
+      "code": "9660",
+      "glyph_index": 4064
+    },
+    {
+      "character": "写",
+      "code": "8ECA",
+      "glyph_index": 2634
+    },
+    {
+      "character": "军",
+      "code": "827D",
+      "glyph_index": 253
+    },
+    {
+      "character": "农",
+      "code": "92FF",
+      "glyph_index": 3455
+    },
+    {
+      "character": "冠",
+      "code": "8AA5",
+      "glyph_index": 1829
+    },
+    {
+      "character": "冬",
+      "code": "937E",
+      "glyph_index": 3518
+    },
+    {
+      "character": "冲",
+      "code": "856A",
+      "glyph_index": 810
+    },
+    {
+      "character": "决",
+      "code": "856B",
+      "glyph_index": 811
+    },
+    {
+      "character": "况",
+      "code": "856C",
+      "glyph_index": 812
+    },
+    {
+      "character": "冷",
+      "code": "97E2",
+      "glyph_index": 4386
+    },
+    {
+      "character": "冻",
+      "code": "93FF",
+      "glyph_index": 3647
+    },
+    {
+      "character": "净",
+      "code": "82F2",
+      "glyph_index": 370
+    },
+    {
+      "character": "准",
+      "code": "8F79",
+      "glyph_index": 2745
+    },
+    {
+      "character": "凉",
+      "code": "94FF",
+      "glyph_index": 3839
+    },
+    {
+      "character": "减",
+      "code": "86F2",
+      "glyph_index": 1138
+    },
+    {
+      "character": "凝",
+      "code": "8BC3",
+      "glyph_index": 2051
+    },
+    {
+      "character": "几",
+      "code": "997B",
+      "glyph_index": 1099
+    },
+    {
+      "character": "凤",
+      "code": "84FE",
+      "glyph_index": 766
+    },
+    {
+      "character": "凭",
+      "code": "856D",
+      "glyph_index": 813
+    },
+    {
+      "character": "凯",
+      "code": "86FE",
+      "glyph_index": 1150
+    },
+    {
+      "character": "凶",
+      "code": "8BA5",
+      "glyph_index": 2021
+    },
+    {
+      "character": "出",
+      "code": "8F6F",
+      "glyph_index": 2735
+    },
+    {
+      "character": "击",
+      "code": "82F3",
+      "glyph_index": 371
+    },
+    {
+      "character": "函",
+      "code": "949F",
+      "glyph_index": 3743
+    },
+    {
+      "character": "凿",
+      "code": "82F4",
+      "glyph_index": 372
+    },
+    {
+      "character": "刀",
+      "code": "9381",
+      "glyph_index": 3521
+    },
+    {
+      "character": "刃",
+      "code": "906E",
+      "glyph_index": 2926
+    },
+    {
+      "character": "分",
+      "code": "95AA",
+      "glyph_index": 3946
+    },
+    {
+      "character": "切",
+      "code": "90D8",
+      "glyph_index": 3032
+    },
+    {
+      "character": "划",
+      "code": "82F5",
+      "glyph_index": 373
+    },
+    {
+      "character": "列",
+      "code": "97F1",
+      "glyph_index": 4401
+    },
+    {
+      "character": "则",
+      "code": "82F6",
+      "glyph_index": 374
+    },
+    {
+      "character": "刚",
+      "code": "82F7",
+      "glyph_index": 375
+    },
+    {
+      "character": "创",
+      "code": "86FB",
+      "glyph_index": 1147
+    },
+    {
+      "character": "初",
+      "code": "8F89",
+      "glyph_index": 2761
+    },
+    {
+      "character": "删",
+      "code": "86F3",
+      "glyph_index": 1139
+    },
+    {
+      "character": "判",
+      "code": "94BB",
+      "glyph_index": 3771
+    },
+    {
+      "character": "利",
+      "code": "9798",
+      "glyph_index": 4312
+    },
+    {
+      "character": "别",
+      "code": "82F8",
+      "glyph_index": 376
+    },
+    {
+      "character": "到",
+      "code": "939E",
+      "glyph_index": 3550
+    },
+    {
+      "character": "制",
+      "code": "90A7",
+      "glyph_index": 2983
+    },
+    {
+      "character": "刷",
+      "code": "8DFC",
+      "glyph_index": 2492
+    },
+    {
+      "character": "刺",
+      "code": "8E68",
+      "glyph_index": 2536
+    },
+    {
+      "character": "刻",
+      "code": "8D8F",
+      "glyph_index": 2383
+    },
+    {
+      "character": "前",
+      "code": "914F",
+      "glyph_index": 3087
+    },
+    {
+      "character": "剑",
+      "code": "82F9",
+      "glyph_index": 377
+    },
+    {
+      "character": "剧",
+      "code": "82FA",
+      "glyph_index": 378
+    },
+    {
+      "character": "剩",
+      "code": "856E",
+      "glyph_index": 814
+    },
+    {
+      "character": "剪",
+      "code": "856F",
+      "glyph_index": 815
+    },
+    {
+      "character": "副",
+      "code": "959B",
+      "glyph_index": 3931
+    },
+    {
+      "character": "割",
+      "code": "8A84",
+      "glyph_index": 1796
+    },
+    {
+      "character": "力",
+      "code": "97CD",
+      "glyph_index": 4365
+    },
+    {
+      "character": "办",
+      "code": "82FB",
+      "glyph_index": 379
+    },
+    {
+      "character": "功",
+      "code": "8CF7",
+      "glyph_index": 2295
+    },
+    {
+      "character": "加",
+      "code": "89C1",
+      "glyph_index": 1665
+    },
+    {
+      "character": "务",
+      "code": "82FC",
+      "glyph_index": 380
+    },
+    {
+      "character": "动",
+      "code": "8397",
+      "glyph_index": 471
+    },
+    {
+      "character": "助",
+      "code": "8F95",
+      "glyph_index": 2773
+    },
+    {
+      "character": "努",
+      "code": "9377",
+      "glyph_index": 3511
+    },
+    {
+      "character": "劫",
+      "code": "8D85",
+      "glyph_index": 2373
+    },
+    {
+      "character": "励",
+      "code": "97E3",
+      "glyph_index": 4387
+    },
+    {
+      "character": "劲",
+      "code": "8398",
+      "glyph_index": 472
+    },
+    {
+      "character": "劳",
+      "code": "8399",
+      "glyph_index": 473
+    },
+    {
+      "character": "势",
+      "code": "839A",
+      "glyph_index": 474
+    },
+    {
+      "character": "勇",
+      "code": "9745",
+      "glyph_index": 4229
+    },
+    {
+      "character": "勉",
+      "code": "95D7",
+      "glyph_index": 3991
+    },
+    {
+      "character": "勒",
+      "code": "87FE",
+      "glyph_index": 1342
+    },
+    {
+      "character": "包",
+      "code": "95EF",
+      "glyph_index": 4015
+    },
+    {
+      "character": "化",
+      "code": "89BB",
+      "glyph_index": 1659
+    },
+    {
+      "character": "北",
+      "code": "966B",
+      "glyph_index": 4075
+    },
+    {
+      "character": "匹",
+      "code": "9543",
+      "glyph_index": 3843
+    },
+    {
+      "character": "区",
+      "code": "8BE6",
+      "glyph_index": 2086
+    },
+    {
+      "character": "医",
+      "code": "88E3",
+      "glyph_index": 1507
+    },
+    {
+      "character": "十",
+      "code": "8F5C",
+      "glyph_index": 2716
+    },
+    {
+      "character": "千",
+      "code": "90E7",
+      "glyph_index": 3047
+    },
+    {
+      "character": "升",
+      "code": "8FA1",
+      "glyph_index": 2785
+    },
+    {
+      "character": "半",
+      "code": "94BC",
+      "glyph_index": 3772
+    },
+    {
+      "character": "华",
+      "code": "95FF",
+      "glyph_index": 4031
+    },
+    {
+      "character": "协",
+      "code": "839B",
+      "glyph_index": 475
+    },
+    {
+      "character": "单",
+      "code": "839C",
+      "glyph_index": 476
+    },
+    {
+      "character": "南",
+      "code": "93EC",
+      "glyph_index": 3628
+    },
+    {
+      "character": "博",
+      "code": "948E",
+      "glyph_index": 3726
+    },
+    {
+      "character": "占",
+      "code": "90E8",
+      "glyph_index": 3048
+    },
+    {
+      "character": "卡",
+      "code": "839D",
+      "glyph_index": 477
+    },
+    {
+      "character": "卢",
+      "code": "86F0",
+      "glyph_index": 1136
+    },
+    {
+      "character": "卫",
+      "code": "839E",
+      "glyph_index": 478
+    },
+    {
+      "character": "危",
+      "code": "8AEB",
+      "glyph_index": 1899
+    },
+    {
+      "character": "即",
+      "code": "91A6",
+      "glyph_index": 3174
+    },
+    {
+      "character": "却",
+      "code": "8B70",
+      "glyph_index": 1968
+    },
+    {
+      "character": "卷",
+      "code": "8570",
+      "glyph_index": 816
+    },
+    {
+      "character": "厂",
+      "code": "8571",
+      "glyph_index": 817
+    },
+    {
+      "character": "历",
+      "code": "83B7",
+      "glyph_index": 503
+    },
+    {
+      "character": "厉",
+      "code": "83B8",
+      "glyph_index": 504
+    },
+    {
+      "character": "压",
+      "code": "83B9",
+      "glyph_index": 505
+    },
+    {
+      "character": "厌",
+      "code": "83BA",
+      "glyph_index": 506
+    },
+    {
+      "character": "厘",
+      "code": "97D0",
+      "glyph_index": 4368
+    },
+    {
+      "character": "厚",
+      "code": "8CFA",
+      "glyph_index": 2298
+    },
+    {
+      "character": "原",
+      "code": "8CB4",
+      "glyph_index": 2228
+    },
+    {
+      "character": "去",
+      "code": "8B8E",
+      "glyph_index": 1998
+    },
+    {
+      "character": "参",
+      "code": "8E51",
+      "glyph_index": 2513
+    },
+    {
+      "character": "又",
+      "code": "9694",
+      "glyph_index": 4116
+    },
+    {
+      "character": "叉",
+      "code": "8DB3",
+      "glyph_index": 2419
+    },
+    {
+      "character": "及",
+      "code": "8B79",
+      "glyph_index": 1977
+    },
+    {
+      "character": "友",
+      "code": "9746",
+      "glyph_index": 4230
+    },
+    {
+      "character": "双",
+      "code": "916F",
+      "glyph_index": 3119
+    },
+    {
+      "character": "反",
+      "code": "94BD",
+      "glyph_index": 3773
+    },
+    {
+      "character": "发",
+      "code": "83BB",
+      "glyph_index": 507
+    },
+    {
+      "character": "叔",
+      "code": "8F66",
+      "glyph_index": 2726
+    },
+    {
+      "character": "取",
+      "code": "8EE6",
+      "glyph_index": 2662
+    },
+    {
+      "character": "受",
+      "code": "8EF3",
+      "glyph_index": 2675
+    },
+    {
+      "character": "变",
+      "code": "83BC",
+      "glyph_index": 508
+    },
+    {
+      "character": "叛",
+      "code": "94BE",
+      "glyph_index": 3774
+    },
+    {
+      "character": "口",
+      "code": "8CFB",
+      "glyph_index": 2299
+    },
+    {
+      "character": "古",
+      "code": "8CC3",
+      "glyph_index": 2243
+    },
+    {
+      "character": "句",
+      "code": "8BE5",
+      "glyph_index": 2085
+    },
+    {
+      "character": "另",
+      "code": "83BD",
+      "glyph_index": 509
+    },
+    {
+      "character": "只",
+      "code": "91FC",
+      "glyph_index": 3260
+    },
+    {
+      "character": "叫",
+      "code": "8BA9",
+      "glyph_index": 2025
+    },
+    {
+      "character": "召",
+      "code": "8FA2",
+      "glyph_index": 2786
+    },
+    {
+      "character": "可",
+      "code": "89C2",
+      "glyph_index": 1666
+    },
+    {
+      "character": "台",
+      "code": "91E4",
+      "glyph_index": 3236
+    },
+    {
+      "character": "史",
+      "code": "8E6A",
+      "glyph_index": 2538
+    },
+    {
+      "character": "右",
+      "code": "8945",
+      "glyph_index": 1541
+    },
+    {
+      "character": "号",
+      "code": "8D86",
+      "glyph_index": 2374
+    },
+    {
+      "character": "司",
+      "code": "8E69",
+      "glyph_index": 2537
+    },
+    {
+      "character": "吃",
+      "code": "8B68",
+      "glyph_index": 1960
+    },
+    {
+      "character": "各",
+      "code": "8A65",
+      "glyph_index": 1765
+    },
+    {
+      "character": "合",
+      "code": "8D87",
+      "glyph_index": 2375
+    },
+    {
+      "character": "吉",
+      "code": "8B67",
+      "glyph_index": 1959
+    },
+    {
+      "character": "吊",
+      "code": "92DD",
+      "glyph_index": 3421
+    },
+    {
+      "character": "同",
+      "code": "93AF",
+      "glyph_index": 3567
+    },
+    {
+      "character": "名",
+      "code": "96BC",
+      "glyph_index": 4156
+    },
+    {
+      "character": "后",
+      "code": "8D40",
+      "glyph_index": 2304
+    },
+    {
+      "character": "向",
+      "code": "8CFC",
+      "glyph_index": 2300
+    },
+    {
+      "character": "吓",
+      "code": "83BE",
+      "glyph_index": 510
+    },
+    {
+      "character": "吗",
+      "code": "83D7",
+      "glyph_index": 535
+    },
+    {
+      "character": "吝",
+      "code": "8572",
+      "glyph_index": 818
+    },
+    {
+      "character": "吞",
+      "code": "83D8",
+      "glyph_index": 536
+    },
+    {
+      "character": "否",
+      "code": "94DB",
+      "glyph_index": 3803
+    },
+    {
+      "character": "吧",
+      "code": "83D9",
+      "glyph_index": 537
+    },
+    {
+      "character": "吨",
+      "code": "96FF",
+      "glyph_index": 4223
+    },
+    {
+      "character": "含",
+      "code": "8ADC",
+      "glyph_index": 1884
+    },
+    {
+      "character": "听",
+      "code": "8573",
+      "glyph_index": 819
+    },
+    {
+      "character": "吭",
+      "code": "8574",
+      "glyph_index": 820
+    },
+    {
+      "character": "启",
+      "code": "83DA",
+      "glyph_index": 538
+    },
+    {
+      "character": "吸",
+      "code": "8B7A",
+      "glyph_index": 1978
+    },
+    {
+      "character": "吾",
+      "code": "8CE1",
+      "glyph_index": 2273
+    },
+    {
+      "character": "呀",
+      "code": "8575",
+      "glyph_index": 821
+    },
+    {
+      "character": "呃",
+      "code": "83DB",
+      "glyph_index": 539
+    },
+    {
+      "character": "呈",
+      "code": "92E6",
+      "glyph_index": 3430
+    },
+    {
+      "character": "告",
+      "code": "8D90",
+      "glyph_index": 2384
+    },
+    {
+      "character": "呐",
+      "code": "97FF",
+      "glyph_index": 4415
+    },
+    {
+      "character": "员",
+      "code": "83DC",
+      "glyph_index": 540
+    },
+    {
+      "character": "呜",
+      "code": "83DD",
+      "glyph_index": 541
+    },
+    {
+      "character": "呢",
+      "code": "83DE",
+      "glyph_index": 542
+    },
+    {
+      "character": "周",
+      "code": "8EFC",
+      "glyph_index": 2684
+    },
+    {
+      "character": "味",
+      "code": "96A1",
+      "glyph_index": 4129
+    },
+    {
+      "character": "呵",
+      "code": "99E8",
+      "glyph_index": 1057
+    },
+    {
+      "character": "呼",
+      "code": "8CC4",
+      "glyph_index": 2244
+    },
+    {
+      "character": "命",
+      "code": "96BD",
+      "glyph_index": 4157
+    },
+    {
+      "character": "和",
+      "code": "9861",
+      "glyph_index": 4449
+    },
+    {
+      "character": "咦",
+      "code": "83DF",
+      "glyph_index": 543
+    },
+    {
+      "character": "咫",
+      "code": "8157",
+      "glyph_index": 23
+    },
+    {
+      "character": "咬",
+      "code": "99F9",
+      "glyph_index": 1073
+    },
+    {
+      "character": "咲",
+      "code": "8DE7",
+      "glyph_index": 2471
+    },
+    {
+      "character": "咳",
+      "code": "8A50",
+      "glyph_index": 1744
+    },
+    {
+      "character": "品",
+      "code": "9569",
+      "glyph_index": 3881
+    },
+    {
+      "character": "哄",
+      "code": "8576",
+      "glyph_index": 822
+    },
+    {
+      "character": "哇",
+      "code": "8577",
+      "glyph_index": 823
+    },
+    {
+      "character": "哈",
+      "code": "8578",
+      "glyph_index": 824
+    },
+    {
+      "character": "响",
+      "code": "86FC",
+      "glyph_index": 1148
+    },
+    {
+      "character": "哎",
+      "code": "83E0",
+      "glyph_index": 544
+    },
+    {
+      "character": "哥",
+      "code": "8579",
+      "glyph_index": 825
+    },
+    {
+      "character": "哦",
+      "code": "857A",
+      "glyph_index": 826
+    },
+    {
+      "character": "哪",
+      "code": "83E1",
+      "glyph_index": 545
+    },
+    {
+      "character": "哼",
+      "code": "83E2",
+      "glyph_index": 546
+    },
+    {
+      "character": "唐",
+      "code": "9382",
+      "glyph_index": 3522
+    },
+    {
+      "character": "唔",
+      "code": "857B",
+      "glyph_index": 827
+    },
+    {
+      "character": "唯",
+      "code": "9742",
+      "glyph_index": 4226
+    },
+    {
+      "character": "啄",
+      "code": "91ED",
+      "glyph_index": 3245
+    },
+    {
+      "character": "商",
+      "code": "8FA4",
+      "glyph_index": 2788
+    },
+    {
+      "character": "啊",
+      "code": "83E3",
+      "glyph_index": 547
+    },
+    {
+      "character": "啤",
+      "code": "83E4",
+      "glyph_index": 548
+    },
+    {
+      "character": "啦",
+      "code": "83E5",
+      "glyph_index": 549
+    },
+    {
+      "character": "啧",
+      "code": "83E6",
+      "glyph_index": 550
+    },
+    {
+      "character": "啰",
+      "code": "83E7",
+      "glyph_index": 551
+    },
+    {
+      "character": "喂",
+      "code": "83E8",
+      "glyph_index": 552
+    },
+    {
+      "character": "善",
+      "code": "9150",
+      "glyph_index": 3088
+    },
+    {
+      "character": "喊",
+      "code": "E8F1",
+      "glyph_index": 705
+    },
+    {
+      "character": "喙",
+      "code": "98F0",
+      "glyph_index": 706
+    },
+    {
+      "character": "喜",
+      "code": "8AEC",
+      "glyph_index": 1900
+    },
+    {
+      "character": "喷",
+      "code": "9FB2",
+      "glyph_index": 707
+    },
+    {
+      "character": "喽",
+      "code": "83E9",
+      "glyph_index": 553
+    },
+    {
+      "character": "嗦",
+      "code": "83EA",
+      "glyph_index": 554
+    },
+    {
+      "character": "嗯",
+      "code": "83EB",
+      "glyph_index": 555
+    },
+    {
+      "character": "嘉",
+      "code": "89C3",
+      "glyph_index": 1667
+    },
+    {
+      "character": "嘛",
+      "code": "857C",
+      "glyph_index": 828
+    },
+    {
+      "character": "嘴",
+      "code": "857D",
+      "glyph_index": 829
+    },
+    {
+      "character": "嘿",
+      "code": "83EC",
+      "glyph_index": 556
+    },
+    {
+      "character": "器",
+      "code": "8AED",
+      "glyph_index": 1901
+    },
+    {
+      "character": "噩",
+      "code": "83ED",
+      "glyph_index": 557
+    },
+    {
+      "character": "嚯",
+      "code": "83EE",
+      "glyph_index": 558
+    },
+    {
+      "character": "四",
+      "code": "8E6C",
+      "glyph_index": 2540
+    },
+    {
+      "character": "回",
+      "code": "89F1",
+      "glyph_index": 1713
+    },
+    {
+      "character": "因",
+      "code": "88F6",
+      "glyph_index": 1526
+    },
+    {
+      "character": "团",
+      "code": "817F",
+      "glyph_index": 63
+    },
+    {
+      "character": "困",
+      "code": "8DA2",
+      "glyph_index": 2402
+    },
+    {
+      "character": "围",
+      "code": "83EF",
+      "glyph_index": 559
+    },
+    {
+      "character": "固",
+      "code": "8CC5",
+      "glyph_index": 2245
+    },
+    {
+      "character": "国",
+      "code": "8D91",
+      "glyph_index": 2385
+    },
+    {
+      "character": "图",
+      "code": "83F0",
+      "glyph_index": 560
+    },
+    {
+      "character": "圆",
+      "code": "83F1",
+      "glyph_index": 561
+    },
+    {
+      "character": "圈",
+      "code": "857E",
+      "glyph_index": 830
+    },
+    {
+      "character": "土",
+      "code": "9379",
+      "glyph_index": 3513
+    },
+    {
+      "character": "圣",
+      "code": "E6C8",
+      "glyph_index": 896
+    },
+    {
+      "character": "在",
+      "code": "8DDD",
+      "glyph_index": 2461
+    },
+    {
+      "character": "圭",
+      "code": "8C5C",
+      "glyph_index": 2140
+    },
+    {
+      "character": "地",
+      "code": "926E",
+      "glyph_index": 3310
+    },
+    {
+      "character": "场",
+      "code": "83F2",
+      "glyph_index": 562
+    },
+    {
+      "character": "均",
+      "code": "8BCF",
+      "glyph_index": 2063
+    },
+    {
+      "character": "坎",
+      "code": "9AAA",
+      "glyph_index": 1032
+    },
+    {
+      "character": "坏",
+      "code": "8580",
+      "glyph_index": 832
+    },
+    {
+      "character": "坐",
+      "code": "8DBF",
+      "glyph_index": 2431
+    },
+    {
+      "character": "块",
+      "code": "83F3",
+      "glyph_index": 563
+    },
+    {
+      "character": "坚",
+      "code": "83F4",
+      "glyph_index": 564
+    },
+    {
+      "character": "坞",
+      "code": "83F5",
+      "glyph_index": 565
+    },
+    {
+      "character": "坠",
+      "code": "83F6",
+      "glyph_index": 566
+    },
+    {
+      "character": "坦",
+      "code": "9252",
+      "glyph_index": 3282
+    },
+    {
+      "character": "型",
+      "code": "8C5E",
+      "glyph_index": 2142
+    },
+    {
+      "character": "垒",
+      "code": "837F",
+      "glyph_index": 447
+    },
+    {
+      "character": "垫",
+      "code": "E0F8",
+      "glyph_index": 897
+    },
+    {
+      "character": "垮",
+      "code": "83F7",
+      "glyph_index": 567
+    },
+    {
+      "character": "埃",
+      "code": "86EE",
+      "glyph_index": 1134
+    },
+    {
+      "character": "埋",
+      "code": "9684",
+      "glyph_index": 4100
+    },
+    {
+      "character": "城",
+      "code": "8FE9",
+      "glyph_index": 2857
+    },
+    {
+      "character": "域",
+      "code": "88E6",
+      "glyph_index": 1510
+    },
+    {
+      "character": "培",
+      "code": "947C",
+      "glyph_index": 3708
+    },
+    {
+      "character": "基",
+      "code": "8AEE",
+      "glyph_index": 1902
+    },
+    {
+      "character": "堂",
+      "code": "93B0",
+      "glyph_index": 3568
+    },
+    {
+      "character": "堕",
+      "code": "91C2",
+      "glyph_index": 3202
+    },
+    {
+      "character": "塔",
+      "code": "9383",
+      "glyph_index": 3523
+    },
+    {
+      "character": "塞",
+      "code": "8DC7",
+      "glyph_index": 2439
+    },
+    {
+      "character": "境",
+      "code": "8BAB",
+      "glyph_index": 2027
+    },
+    {
+      "character": "增",
+      "code": "83F8",
+      "glyph_index": 568
+    },
+    {
+      "character": "壁",
+      "code": "95C7",
+      "glyph_index": 3975
+    },
+    {
+      "character": "壤",
+      "code": "847F",
+      "glyph_index": 639
+    },
+    {
+      "character": "士",
+      "code": "8E6D",
+      "glyph_index": 2541
+    },
+    {
+      "character": "声",
+      "code": "90BA",
+      "glyph_index": 3002
+    },
+    {
+      "character": "处",
+      "code": "83F9",
+      "glyph_index": 569
+    },
+    {
+      "character": "备",
+      "code": "83FA",
+      "glyph_index": 570
+    },
+    {
+      "character": "复",
+      "code": "83FB",
+      "glyph_index": 571
+    },
+    {
+      "character": "夏",
+      "code": "89C4",
+      "glyph_index": 1668
+    },
+    {
+      "character": "外",
+      "code": "8A4F",
+      "glyph_index": 1743
+    },
+    {
+      "character": "夙",
+      "code": "8F67",
+      "glyph_index": 2727
+    },
+    {
+      "character": "多",
+      "code": "91BD",
+      "glyph_index": 3197
+    },
+    {
+      "character": "夜",
+      "code": "96E9",
+      "glyph_index": 4201
+    },
+    {
+      "character": "够",
+      "code": "83FC",
+      "glyph_index": 572
+    },
+    {
+      "character": "大",
+      "code": "91E5",
+      "glyph_index": 3237
+    },
+    {
+      "character": "天",
+      "code": "9356",
+      "glyph_index": 3478
+    },
+    {
+      "character": "太",
+      "code": "91BE",
+      "glyph_index": 3198
+    },
+    {
+      "character": "夫",
+      "code": "9576",
+      "glyph_index": 3894
+    },
+    {
+      "character": "央",
+      "code": "899B",
+      "glyph_index": 1627
+    },
+    {
+      "character": "失",
+      "code": "8EB8",
+      "glyph_index": 2616
+    },
+    {
+      "character": "头",
+      "code": "845B",
+      "glyph_index": 603
+    },
+    {
+      "character": "夸",
+      "code": "8581",
+      "glyph_index": 833
+    },
+    {
+      "character": "夹",
+      "code": "8461",
+      "glyph_index": 609
+    },
+    {
+      "character": "夺",
+      "code": "8462",
+      "glyph_index": 610
+    },
+    {
+      "character": "奇",
+      "code": "8AEF",
+      "glyph_index": 1903
+    },
+    {
+      "character": "奈",
+      "code": "93DE",
+      "glyph_index": 3614
+    },
+    {
+      "character": "奉",
+      "code": "95F2",
+      "glyph_index": 4018
+    },
+    {
+      "character": "奋",
+      "code": "889B",
+      "glyph_index": 1435
+    },
+    {
+      "character": "奔",
+      "code": "967A",
+      "glyph_index": 4090
+    },
+    {
+      "character": "奖",
+      "code": "8463",
+      "glyph_index": 611
+    },
+    {
+      "character": "套",
+      "code": "9385",
+      "glyph_index": 3525
+    },
+    {
+      "character": "奥",
+      "code": "899C",
+      "glyph_index": 1628
+    },
+    {
+      "character": "女",
+      "code": "8F97",
+      "glyph_index": 2775
+    },
+    {
+      "character": "她",
+      "code": "8464",
+      "glyph_index": 612
+    },
+    {
+      "character": "好",
+      "code": "8D44",
+      "glyph_index": 2308
+    },
+    {
+      "character": "如",
+      "code": "9440",
+      "glyph_index": 3648
+    },
+    {
+      "character": "妄",
+      "code": "96CF",
+      "glyph_index": 4175
+    },
+    {
+      "character": "妈",
+      "code": "8465",
+      "glyph_index": 613
+    },
+    {
+      "character": "妒",
+      "code": "9E48",
+      "glyph_index": 898
+    },
+    {
+      "character": "妖",
+      "code": "9764",
+      "glyph_index": 4260
+    },
+    {
+      "character": "妙",
+      "code": "96AD",
+      "glyph_index": 4141
+    },
+    {
+      "character": "妥",
+      "code": "91C3",
+      "glyph_index": 3203
+    },
+    {
+      "character": "妨",
+      "code": "9657",
+      "glyph_index": 4055
+    },
+    {
+      "character": "妮",
+      "code": "88FE",
+      "glyph_index": 1534
+    },
+    {
+      "character": "妹",
+      "code": "9685",
+      "glyph_index": 4101
+    },
+    {
+      "character": "姆",
+      "code": "8582",
+      "glyph_index": 834
+    },
+    {
+      "character": "始",
+      "code": "8E6E",
+      "glyph_index": 2542
+    },
+    {
+      "character": "姑",
+      "code": "8CC6",
+      "glyph_index": 2246
+    },
+    {
+      "character": "姓",
+      "code": "90A9",
+      "glyph_index": 2985
+    },
+    {
+      "character": "姨",
+      "code": "8583",
+      "glyph_index": 835
+    },
+    {
+      "character": "姬",
+      "code": "89FE",
+      "glyph_index": 1726
+    },
+    {
+      "character": "姿",
+      "code": "8E70",
+      "glyph_index": 2544
+    },
+    {
+      "character": "威",
+      "code": "88D0",
+      "glyph_index": 1488
+    },
+    {
+      "character": "娃",
+      "code": "88A1",
+      "glyph_index": 1441
+    },
+    {
+      "character": "娅",
+      "code": "8466",
+      "glyph_index": 614
+    },
+    {
+      "character": "娘",
+      "code": "96BA",
+      "glyph_index": 4154
+    },
+    {
+      "character": "娜",
+      "code": "8584",
+      "glyph_index": 836
+    },
+    {
+      "character": "媚",
+      "code": "9B5A",
+      "glyph_index": 1019
+    },
+    {
+      "character": "嫉",
+      "code": "8EB9",
+      "glyph_index": 2617
+    },
+    {
+      "character": "嫣",
+      "code": "E978",
+      "glyph_index": 899
+    },
+    {
+      "character": "子",
+      "code": "8E71",
+      "glyph_index": 2545
+    },
+    {
+      "character": "孔",
+      "code": "8D45",
+      "glyph_index": 2309
+    },
+    {
+      "character": "孕",
+      "code": "857F",
+      "glyph_index": 831
+    },
+    {
+      "character": "字",
+      "code": "8E9A",
+      "glyph_index": 2586
+    },
+    {
+      "character": "存",
+      "code": "91B6",
+      "glyph_index": 3190
+    },
+    {
+      "character": "学",
+      "code": "8A77",
+      "glyph_index": 1783
+    },
+    {
+      "character": "孩",
+      "code": "8585",
+      "glyph_index": 837
+    },
+    {
+      "character": "宁",
+      "code": "8467",
+      "glyph_index": 615
+    },
+    {
+      "character": "它",
+      "code": "8586",
+      "glyph_index": 838
+    },
+    {
+      "character": "宇",
+      "code": "8946",
+      "glyph_index": 1542
+    },
+    {
+      "character": "守",
+      "code": "8EE7",
+      "glyph_index": 2663
+    },
+    {
+      "character": "安",
+      "code": "88C0",
+      "glyph_index": 1472
+    },
+    {
+      "character": "完",
+      "code": "8AAE",
+      "glyph_index": 1838
+    },
+    {
+      "character": "官",
+      "code": "8AAF",
+      "glyph_index": 1839
+    },
+    {
+      "character": "宙",
+      "code": "9288",
+      "glyph_index": 3336
+    },
+    {
+      "character": "定",
+      "code": "92E8",
+      "glyph_index": 3432
+    },
+    {
+      "character": "宝",
+      "code": "95F3",
+      "glyph_index": 4019
+    },
+    {
+      "character": "实",
+      "code": "8468",
+      "glyph_index": 616
+    },
+    {
+      "character": "审",
+      "code": "8469",
+      "glyph_index": 617
+    },
+    {
+      "character": "客",
+      "code": "8B71",
+      "glyph_index": 1969
+    },
+    {
+      "character": "宣",
+      "code": "90E9",
+      "glyph_index": 3049
+    },
+    {
+      "character": "宰",
+      "code": "8DC9",
+      "glyph_index": 2441
+    },
+    {
+      "character": "害",
+      "code": "8A51",
+      "glyph_index": 1745
+    },
+    {
+      "character": "宴",
+      "code": "8983",
+      "glyph_index": 1603
+    },
+    {
+      "character": "家",
+      "code": "89C6",
+      "glyph_index": 1670
+    },
+    {
+      "character": "容",
+      "code": "9765",
+      "glyph_index": 4261
+    },
+    {
+      "character": "宾",
+      "code": "E1C9",
+      "glyph_index": 902
+    },
+    {
+      "character": "密",
+      "code": "96A7",
+      "glyph_index": 4135
+    },
+    {
+      "character": "富",
+      "code": "9578",
+      "glyph_index": 3896
+    },
+    {
+      "character": "察",
+      "code": "8E40",
+      "glyph_index": 2496
+    },
+    {
+      "character": "寸",
+      "code": "90A1",
+      "glyph_index": 2977
+    },
+    {
+      "character": "对",
+      "code": "846A",
+      "glyph_index": 618
+    },
+    {
+      "character": "寻",
+      "code": "846B",
+      "glyph_index": 619
+    },
+    {
+      "character": "导",
+      "code": "846C",
+      "glyph_index": 620
+    },
+    {
+      "character": "射",
+      "code": "8ECB",
+      "glyph_index": 2635
+    },
+    {
+      "character": "将",
+      "code": "8FAB",
+      "glyph_index": 2795
+    },
+    {
+      "character": "尉",
+      "code": "88D1",
+      "glyph_index": 1489
+    },
+    {
+      "character": "尊",
+      "code": "91B8",
+      "glyph_index": 3192
+    },
+    {
+      "character": "小",
+      "code": "8FAC",
+      "glyph_index": 2796
+    },
+    {
+      "character": "少",
+      "code": "8FAD",
+      "glyph_index": 2797
+    },
+    {
+      "character": "尔",
+      "code": "846D",
+      "glyph_index": 621
+    },
+    {
+      "character": "尖",
+      "code": "90EB",
+      "glyph_index": 3051
+    },
+    {
+      "character": "尘",
+      "code": "846E",
+      "glyph_index": 622
+    },
+    {
+      "character": "尚",
+      "code": "8FAE",
+      "glyph_index": 2798
+    },
+    {
+      "character": "尝",
+      "code": "846F",
+      "glyph_index": 623
+    },
+    {
+      "character": "尤",
+      "code": "96DE",
+      "glyph_index": 4190
+    },
+    {
+      "character": "就",
+      "code": "8F41",
+      "glyph_index": 2689
+    },
+    {
+      "character": "尺",
+      "code": "8EDA",
+      "glyph_index": 2650
+    },
+    {
+      "character": "尼",
+      "code": "93F2",
+      "glyph_index": 3634
+    },
+    {
+      "character": "尽",
+      "code": "9073",
+      "glyph_index": 2931
+    },
+    {
+      "character": "尾",
+      "code": "94F6",
+      "glyph_index": 3830
+    },
+    {
+      "character": "局",
+      "code": "8BC7",
+      "glyph_index": 2055
+    },
+    {
+      "character": "层",
+      "code": "877F",
+      "glyph_index": 1215
+    },
+    {
+      "character": "居",
+      "code": "8B8F",
+      "glyph_index": 1999
+    },
+    {
+      "character": "屈",
+      "code": "8BFC",
+      "glyph_index": 2108
+    },
+    {
+      "character": "屏",
+      "code": "8587",
+      "glyph_index": 839
+    },
+    {
+      "character": "展",
+      "code": "9357",
+      "glyph_index": 3479
+    },
+    {
+      "character": "属",
+      "code": "91AE",
+      "glyph_index": 3182
+    },
+    {
+      "character": "屠",
+      "code": "936A",
+      "glyph_index": 3498
+    },
+    {
+      "character": "山",
+      "code": "8E52",
+      "glyph_index": 2514
+    },
+    {
+      "character": "岑",
+      "code": "E3A9",
+      "glyph_index": 903
+    },
+    {
+      "character": "岛",
+      "code": "8AFE",
+      "glyph_index": 1918
+    },
+    {
+      "character": "岩",
+      "code": "8AE2",
+      "glyph_index": 1890
+    },
+    {
+      "character": "崩",
+      "code": "95F6",
+      "glyph_index": 4022
+    },
+    {
+      "character": "川",
+      "code": "90EC",
+      "glyph_index": 3052
+    },
+    {
+      "character": "州",
+      "code": "8F42",
+      "glyph_index": 2690
+    },
+    {
+      "character": "工",
+      "code": "8D48",
+      "glyph_index": 2312
+    },
+    {
+      "character": "左",
+      "code": "8DB6",
+      "glyph_index": 2422
+    },
+    {
+      "character": "巧",
+      "code": "8D49",
+      "glyph_index": 2313
+    },
+    {
+      "character": "巨",
+      "code": "8B90",
+      "glyph_index": 2000
+    },
+    {
+      "character": "差",
+      "code": "8DB7",
+      "glyph_index": 2423
+    },
+    {
+      "character": "己",
+      "code": "8CC8",
+      "glyph_index": 2248
+    },
+    {
+      "character": "已",
+      "code": "8588",
+      "glyph_index": 840
+    },
+    {
+      "character": "巴",
+      "code": "9462",
+      "glyph_index": 3682
+    },
+    {
+      "character": "市",
+      "code": "8E73",
+      "glyph_index": 2547
+    },
+    {
+      "character": "布",
+      "code": "957A",
+      "glyph_index": 3898
+    },
+    {
+      "character": "帅",
+      "code": "8492",
+      "glyph_index": 658
+    },
+    {
+      "character": "希",
+      "code": "8AF3",
+      "glyph_index": 1907
+    },
+    {
+      "character": "帕",
+      "code": "887F",
+      "glyph_index": 1407
+    },
+    {
+      "character": "帝",
+      "code": "92E9",
+      "glyph_index": 3433
+    },
+    {
+      "character": "带",
+      "code": "8493",
+      "glyph_index": 659
+    },
+    {
+      "character": "席",
+      "code": "90C8",
+      "glyph_index": 3016
+    },
+    {
+      "character": "帮",
+      "code": "8494",
+      "glyph_index": 660
+    },
+    {
+      "character": "常",
+      "code": "8FED",
+      "glyph_index": 2861
+    },
+    {
+      "character": "幅",
+      "code": "959D",
+      "glyph_index": 3933
+    },
+    {
+      "character": "幕",
+      "code": "968B",
+      "glyph_index": 4107
+    },
+    {
+      "character": "干",
+      "code": "8AB1",
+      "glyph_index": 1841
+    },
+    {
+      "character": "平",
+      "code": "95BD",
+      "glyph_index": 3965
+    },
+    {
+      "character": "年",
+      "code": "944E",
+      "glyph_index": 3662
+    },
+    {
+      "character": "并",
+      "code": "8589",
+      "glyph_index": 841
+    },
+    {
+      "character": "幸",
+      "code": "8D4B",
+      "glyph_index": 2315
+    },
+    {
+      "character": "幻",
+      "code": "8CB6",
+      "glyph_index": 2230
+    },
+    {
+      "character": "庆",
+      "code": "8BFE",
+      "glyph_index": 2110
+    },
+    {
+      "character": "序",
+      "code": "8F98",
+      "glyph_index": 2776
+    },
+    {
+      "character": "库",
+      "code": "8495",
+      "glyph_index": 661
+    },
+    {
+      "character": "应",
+      "code": "8496",
+      "glyph_index": 662
+    },
+    {
+      "character": "底",
+      "code": "92EA",
+      "glyph_index": 3434
+    },
+    {
+      "character": "店",
+      "code": "9358",
+      "glyph_index": 3480
+    },
+    {
+      "character": "府",
+      "code": "957B",
+      "glyph_index": 3899
+    },
+    {
+      "character": "废",
+      "code": "897F",
+      "glyph_index": 1599
+    },
+    {
+      "character": "度",
+      "code": "9378",
+      "glyph_index": 3512
+    },
+    {
+      "character": "座",
+      "code": "8DC0",
+      "glyph_index": 2432
+    },
+    {
+      "character": "廖",
+      "code": "9F72",
+      "glyph_index": 904
+    },
+    {
+      "character": "延",
+      "code": "8984",
+      "glyph_index": 1604
+    },
+    {
+      "character": "建",
+      "code": "8C9A",
+      "glyph_index": 2202
+    },
+    {
+      "character": "开",
+      "code": "8497",
+      "glyph_index": 663
+    },
+    {
+      "character": "弁",
+      "code": "95D9",
+      "glyph_index": 3993
+    },
+    {
+      "character": "异",
+      "code": "8498",
+      "glyph_index": 664
+    },
+    {
+      "character": "弃",
+      "code": "858A",
+      "glyph_index": 842
+    },
+    {
+      "character": "弄",
+      "code": "984D",
+      "glyph_index": 4429
+    },
+    {
+      "character": "式",
+      "code": "8EAE",
+      "glyph_index": 2606
+    },
+    {
+      "character": "弓",
+      "code": "8B7C",
+      "glyph_index": 1980
+    },
+    {
+      "character": "引",
+      "code": "88F8",
+      "glyph_index": 1528
+    },
+    {
+      "character": "弗",
+      "code": "95A4",
+      "glyph_index": 3940
+    },
+    {
+      "character": "弟",
+      "code": "92ED",
+      "glyph_index": 3437
+    },
+    {
+      "character": "张",
+      "code": "8499",
+      "glyph_index": 665
+    },
+    {
+      "character": "弦",
+      "code": "8CB7",
+      "glyph_index": 2231
+    },
+    {
+      "character": "弧",
+      "code": "8CCA",
+      "glyph_index": 2250
+    },
+    {
+      "character": "弯",
+      "code": "E080",
+      "glyph_index": 905
+    },
+    {
+      "character": "弱",
+      "code": "8EE3",
+      "glyph_index": 2659
+    },
+    {
+      "character": "弹",
+      "code": "849A",
+      "glyph_index": 666
+    },
+    {
+      "character": "强",
+      "code": "849B",
+      "glyph_index": 667
+    },
+    {
+      "character": "归",
+      "code": "849C",
+      "glyph_index": 668
+    },
+    {
+      "character": "当",
+      "code": "9396",
+      "glyph_index": 3542
+    },
+    {
+      "character": "录",
+      "code": "849D",
+      "glyph_index": 669
+    },
+    {
+      "character": "彗",
+      "code": "9C61",
+      "glyph_index": 901
+    },
+    {
+      "character": "形",
+      "code": "8C60",
+      "glyph_index": 2144
+    },
+    {
+      "character": "彩",
+      "code": "8DCA",
+      "glyph_index": 2442
+    },
+    {
+      "character": "影",
+      "code": "8965",
+      "glyph_index": 1573
+    },
+    {
+      "character": "役",
+      "code": "96F0",
+      "glyph_index": 4208
+    },
+    {
+      "character": "彻",
+      "code": "849E",
+      "glyph_index": 670
+    },
+    {
+      "character": "彼",
+      "code": "94DE",
+      "glyph_index": 3806
+    },
+    {
+      "character": "往",
+      "code": "899D",
+      "glyph_index": 1629
+    },
+    {
+      "character": "征",
+      "code": "90AA",
+      "glyph_index": 2986
+    },
+    {
+      "character": "待",
+      "code": "91D2",
+      "glyph_index": 3218
+    },
+    {
+      "character": "很",
+      "code": "858B",
+      "glyph_index": 843
+    },
+    {
+      "character": "徒",
+      "code": "936B",
+      "glyph_index": 3499
+    },
+    {
+      "character": "得",
+      "code": "93BE",
+      "glyph_index": 3582
+    },
+    {
+      "character": "御",
+      "code": "8CE4",
+      "glyph_index": 2276
+    },
+    {
+      "character": "循",
+      "code": "8F7A",
+      "glyph_index": 2746
+    },
+    {
+      "character": "德",
+      "code": "84BF",
+      "glyph_index": 703
+    },
+    {
+      "character": "心",
+      "code": "9053",
+      "glyph_index": 2899
+    },
+    {
+      "character": "必",
+      "code": "954B",
+      "glyph_index": 3851
+    },
+    {
+      "character": "忆",
+      "code": "87FF",
+      "glyph_index": 1343
+    },
+    {
+      "character": "忌",
+      "code": "8AF5",
+      "glyph_index": 1909
+    },
+    {
+      "character": "志",
+      "code": "8E75",
+      "glyph_index": 2549
+    },
+    {
+      "character": "忘",
+      "code": "9659",
+      "glyph_index": 4057
+    },
+    {
+      "character": "忙",
+      "code": "965A",
+      "glyph_index": 4058
+    },
+    {
+      "character": "忧",
+      "code": "8A7F",
+      "glyph_index": 1791
+    },
+    {
+      "character": "快",
+      "code": "89F5",
+      "glyph_index": 1717
+    },
+    {
+      "character": "念",
+      "code": "944F",
+      "glyph_index": 3663
+    },
+    {
+      "character": "怀",
+      "code": "84C4",
+      "glyph_index": 708
+    },
+    {
+      "character": "态",
+      "code": "84C5",
+      "glyph_index": 709
+    },
+    {
+      "character": "怎",
+      "code": "858C",
+      "glyph_index": 844
+    },
+    {
+      "character": "怒",
+      "code": "937B",
+      "glyph_index": 3515
+    },
+    {
+      "character": "怕",
+      "code": "858D",
+      "glyph_index": 845
+    },
+    {
+      "character": "怖",
+      "code": "957C",
+      "glyph_index": 3900
+    },
+    {
+      "character": "思",
+      "code": "8E76",
+      "glyph_index": 2550
+    },
+    {
+      "character": "急",
+      "code": "8B7D",
+      "glyph_index": 1981
+    },
+    {
+      "character": "性",
+      "code": "90AB",
+      "glyph_index": 2987
+    },
+    {
+      "character": "怨",
+      "code": "8985",
+      "glyph_index": 1605
+    },
+    {
+      "character": "怪",
+      "code": "89F6",
+      "glyph_index": 1718
+    },
+    {
+      "character": "怯",
+      "code": "8BAF",
+      "glyph_index": 2031
+    },
+    {
+      "character": "总",
+      "code": "84C6",
+      "glyph_index": 710
+    },
+    {
+      "character": "恐",
+      "code": "8BB0",
+      "glyph_index": 2032
+    },
+    {
+      "character": "恒",
+      "code": "8D50",
+      "glyph_index": 2320
+    },
+    {
+      "character": "恕",
+      "code": "8F9A",
+      "glyph_index": 2778
+    },
+    {
+      "character": "恢",
+      "code": "89F8",
+      "glyph_index": 1720
+    },
+    {
+      "character": "恨",
+      "code": "8DA6",
+      "glyph_index": 2406
+    },
+    {
+      "character": "恩",
+      "code": "89B6",
+      "glyph_index": 1654
+    },
+    {
+      "character": "息",
+      "code": "91A7",
+      "glyph_index": 3175
+    },
+    {
+      "character": "恶",
+      "code": "84C7",
+      "glyph_index": 711
+    },
+    {
+      "character": "恼",
+      "code": "84C8",
+      "glyph_index": 712
+    },
+    {
+      "character": "悄",
+      "code": "8B7F",
+      "glyph_index": 1983
+    },
+    {
+      "character": "悉",
+      "code": "8EBB",
+      "glyph_index": 2619
+    },
+    {
+      "character": "悔",
+      "code": "89F7",
+      "glyph_index": 1719
+    },
+    {
+      "character": "悟",
+      "code": "8CE5",
+      "glyph_index": 2277
+    },
+    {
+      "character": "悠",
+      "code": "9749",
+      "glyph_index": 4233
+    },
+    {
+      "character": "您",
+      "code": "84C9",
+      "glyph_index": 713
+    },
+    {
+      "character": "悲",
+      "code": "94DF",
+      "glyph_index": 3807
+    },
+    {
+      "character": "情",
+      "code": "8FEE",
+      "glyph_index": 2862
+    },
+    {
+      "character": "惊",
+      "code": "84CA",
+      "glyph_index": 714
+    },
+    {
+      "character": "惜",
+      "code": "90C9",
+      "glyph_index": 3017
+    },
+    {
+      "character": "惠",
+      "code": "8CFE",
+      "glyph_index": 2302
+    },
+    {
+      "character": "惧",
+      "code": "9C9C",
+      "glyph_index": 941
+    },
+    {
+      "character": "惨",
+      "code": "8E53",
+      "glyph_index": 2515
+    },
+    {
+      "character": "惩",
+      "code": "84CB",
+      "glyph_index": 715
+    },
+    {
+      "character": "惭",
+      "code": "84CC",
+      "glyph_index": 716
+    },
+    {
+      "character": "惮",
+      "code": "8C7F",
+      "glyph_index": 2175
+    },
+    {
+      "character": "惯",
+      "code": "84CD",
+      "glyph_index": 717
+    },
+    {
+      "character": "想",
+      "code": "917A",
+      "glyph_index": 3130
+    },
+    {
+      "character": "惶",
+      "code": "8D7F",
+      "glyph_index": 2367
+    },
+    {
+      "character": "愁",
+      "code": "8F44",
+      "glyph_index": 2692
+    },
+    {
+      "character": "愈",
+      "code": "96FA",
+      "glyph_index": 4218
+    },
+    {
+      "character": "意",
+      "code": "88D3",
+      "glyph_index": 1491
+    },
+    {
+      "character": "愚",
+      "code": "8BF0",
+      "glyph_index": 2096
+    },
+    {
+      "character": "感",
+      "code": "8AB4",
+      "glyph_index": 1844
+    },
+    {
+      "character": "愣",
+      "code": "84CE",
+      "glyph_index": 718
+    },
+    {
+      "character": "愤",
+      "code": "95AE",
+      "glyph_index": 3950
+    },
+    {
+      "character": "愧",
+      "code": "858E",
+      "glyph_index": 846
+    },
+    {
+      "character": "愿",
+      "code": "858F",
+      "glyph_index": 847
+    },
+    {
+      "character": "慢",
+      "code": "969D",
+      "glyph_index": 4125
+    },
+    {
+      "character": "慧",
+      "code": "8C64",
+      "glyph_index": 2148
+    },
+    {
+      "character": "憎",
+      "code": "919E",
+      "glyph_index": 3166
+    },
+    {
+      "character": "憾",
+      "code": "8AB6",
+      "glyph_index": 1846
+    },
+    {
+      "character": "懂",
+      "code": "84CF",
+      "glyph_index": 719
+    },
+    {
+      "character": "懒",
+      "code": "84D0",
+      "glyph_index": 720
+    },
+    {
+      "character": "戈",
+      "code": "8590",
+      "glyph_index": 848
+    },
+    {
+      "character": "戏",
+      "code": "84D1",
+      "glyph_index": 721
+    },
+    {
+      "character": "成",
+      "code": "90AC",
+      "glyph_index": 2988
+    },
+    {
+      "character": "我",
+      "code": "89E4",
+      "glyph_index": 1700
+    },
+    {
+      "character": "戒",
+      "code": "89FA",
+      "glyph_index": 1722
+    },
+    {
+      "character": "或",
+      "code": "88BD",
+      "glyph_index": 1469
+    },
+    {
+      "character": "战",
+      "code": "84D2",
+      "glyph_index": 722
+    },
+    {
+      "character": "截",
+      "code": "8591",
+      "glyph_index": 849
+    },
+    {
+      "character": "戮",
+      "code": "9D43",
+      "glyph_index": 1062
+    },
+    {
+      "character": "戴",
+      "code": "91D5",
+      "glyph_index": 3221
+    },
+    {
+      "character": "户",
+      "code": "8DFE",
+      "glyph_index": 2494
+    },
+    {
+      "character": "房",
+      "code": "965B",
+      "glyph_index": 4059
+    },
+    {
+      "character": "所",
+      "code": "8F8A",
+      "glyph_index": 2762
+    },
+    {
+      "character": "扇",
+      "code": "90EE",
+      "glyph_index": 3054
+    },
+    {
+      "character": "手",
+      "code": "8EE8",
+      "glyph_index": 2664
+    },
+    {
+      "character": "才",
+      "code": "8DCB",
+      "glyph_index": 2443
+    },
+    {
+      "character": "扎",
+      "code": "8592",
+      "glyph_index": 850
+    },
+    {
+      "character": "打",
+      "code": "91C5",
+      "glyph_index": 3205
+    },
+    {
+      "character": "托",
+      "code": "91EF",
+      "glyph_index": 3247
+    },
+    {
+      "character": "扣",
+      "code": "8593",
+      "glyph_index": 851
+    },
+    {
+      "character": "执",
+      "code": "84D3",
+      "glyph_index": 723
+    },
+    {
+      "character": "扩",
+      "code": "E65D",
+      "glyph_index": 906
+    },
+    {
+      "character": "扬",
+      "code": "84D4",
+      "glyph_index": 724
+    },
+    {
+      "character": "扭",
+      "code": "84D5",
+      "glyph_index": 725
+    },
+    {
+      "character": "扮",
+      "code": "95AF",
+      "glyph_index": 3951
+    },
+    {
+      "character": "扰",
+      "code": "84D6",
+      "glyph_index": 726
+    },
+    {
+      "character": "扳",
+      "code": "9BB3",
+      "glyph_index": 907
+    },
+    {
+      "character": "批",
+      "code": "94E1",
+      "glyph_index": 3809
+    },
+    {
+      "character": "找",
+      "code": "8594",
+      "glyph_index": 852
+    },
+    {
+      "character": "承",
+      "code": "8FB3",
+      "glyph_index": 2803
+    },
+    {
+      "character": "技",
+      "code": "8B5A",
+      "glyph_index": 1946
+    },
+    {
+      "character": "把",
+      "code": "9463",
+      "glyph_index": 3683
+    },
+    {
+      "character": "抓",
+      "code": "8595",
+      "glyph_index": 853
+    },
+    {
+      "character": "投",
+      "code": "938A",
+      "glyph_index": 3530
+    },
+    {
+      "character": "抗",
+      "code": "8D52",
+      "glyph_index": 2322
+    },
+    {
+      "character": "折",
+      "code": "90DC",
+      "glyph_index": 3036
+    },
+    {
+      "character": "抢",
+      "code": "84D7",
+      "glyph_index": 727
+    },
+    {
+      "character": "护",
+      "code": "84D8",
+      "glyph_index": 728
+    },
+    {
+      "character": "报",
+      "code": "84D9",
+      "glyph_index": 729
+    },
+    {
+      "character": "抱",
+      "code": "95F8",
+      "glyph_index": 4024
+    },
+    {
+      "character": "抵",
+      "code": "92EF",
+      "glyph_index": 3439
+    },
+    {
+      "character": "押",
+      "code": "899F",
+      "glyph_index": 1631
+    },
+    {
+      "character": "拂",
+      "code": "E0F3",
+      "glyph_index": 909
+    },
+    {
+      "character": "担",
+      "code": "9253",
+      "glyph_index": 3283
+    },
+    {
+      "character": "拉",
+      "code": "9D66",
+      "glyph_index": 908
+    },
+    {
+      "character": "拐",
+      "code": "89FB",
+      "glyph_index": 1723
+    },
+    {
+      "character": "拓",
+      "code": "91F1",
+      "glyph_index": 3249
+    },
+    {
+      "character": "拖",
+      "code": "84DA",
+      "glyph_index": 730
+    },
+    {
+      "character": "拘",
+      "code": "8D53",
+      "glyph_index": 2323
+    },
+    {
+      "character": "招",
+      "code": "8FB5",
+      "glyph_index": 2805
+    },
+    {
+      "character": "拜",
+      "code": "8596",
+      "glyph_index": 854
+    },
+    {
+      "character": "拟",
+      "code": "84DB",
+      "glyph_index": 731
+    },
+    {
+      "character": "拢",
+      "code": "84DC",
+      "glyph_index": 732
+    },
+    {
+      "character": "拥",
+      "code": "84DD",
+      "glyph_index": 733
+    },
+    {
+      "character": "拦",
+      "code": "84DE",
+      "glyph_index": 734
+    },
+    {
+      "character": "择",
+      "code": "84DF",
+      "glyph_index": 735
+    },
+    {
+      "character": "括",
+      "code": "8A87",
+      "glyph_index": 1799
+    },
+    {
+      "character": "拱",
+      "code": "8597",
+      "glyph_index": 855
+    },
+    {
+      "character": "拳",
+      "code": "8C9D",
+      "glyph_index": 2205
+    },
+    {
+      "character": "拼",
+      "code": "84E0",
+      "glyph_index": 736
+    },
+    {
+      "character": "拾",
+      "code": "8F45",
+      "glyph_index": 2693
+    },
+    {
+      "character": "拿",
+      "code": "8598",
+      "glyph_index": 856
+    },
+    {
+      "character": "持",
+      "code": "8E9D",
+      "glyph_index": 2589
+    },
+    {
+      "character": "指",
+      "code": "8E77",
+      "glyph_index": 2551
+    },
+    {
+      "character": "按",
+      "code": "88C2",
+      "glyph_index": 1474
+    },
+    {
+      "character": "挑",
+      "code": "92A7",
+      "glyph_index": 3367
+    },
+    {
+      "character": "挟",
+      "code": "8BB2",
+      "glyph_index": 2034
+    },
+    {
+      "character": "挡",
+      "code": "E387",
+      "glyph_index": 911
+    },
+    {
+      "character": "挤",
+      "code": "84E2",
+      "glyph_index": 738
+    },
+    {
+      "character": "挥",
+      "code": "84E3",
+      "glyph_index": 739
+    },
+    {
+      "character": "振",
+      "code": "9055",
+      "glyph_index": 2901
+    },
+    {
+      "character": "挺",
+      "code": "92F0",
+      "glyph_index": 3440
+    },
+    {
+      "character": "捉",
+      "code": "91A8",
+      "glyph_index": 3176
+    },
+    {
+      "character": "捕",
+      "code": "95DF",
+      "glyph_index": 3999
+    },
+    {
+      "character": "损",
+      "code": "84E4",
+      "glyph_index": 740
+    },
+    {
+      "character": "换",
+      "code": "84E5",
+      "glyph_index": 741
+    },
+    {
+      "character": "据",
+      "code": "9098",
+      "glyph_index": 2968
+    },
+    {
+      "character": "捷",
+      "code": "8FB7",
+      "glyph_index": 2807
+    },
+    {
+      "character": "掉",
+      "code": "8599",
+      "glyph_index": 857
+    },
+    {
+      "character": "掌",
+      "code": "8FB6",
+      "glyph_index": 2806
+    },
+    {
+      "character": "排",
+      "code": "9472",
+      "glyph_index": 3698
+    },
+    {
+      "character": "探",
+      "code": "9254",
+      "glyph_index": 3284
+    },
+    {
+      "character": "接",
+      "code": "90DA",
+      "glyph_index": 3034
+    },
+    {
+      "character": "控",
+      "code": "8D54",
+      "glyph_index": 2324
+    },
+    {
+      "character": "推",
+      "code": "9084",
+      "glyph_index": 2948
+    },
+    {
+      "character": "掩",
+      "code": "8986",
+      "glyph_index": 1606
+    },
+    {
+      "character": "掷",
+      "code": "E0A0",
+      "glyph_index": 912
+    },
+    {
+      "character": "提",
+      "code": "92F1",
+      "glyph_index": 3441
+    },
+    {
+      "character": "握",
+      "code": "88AC",
+      "glyph_index": 1452
+    },
+    {
+      "character": "揪",
+      "code": "84E6",
+      "glyph_index": 742
+    },
+    {
+      "character": "援",
+      "code": "8987",
+      "glyph_index": 1607
+    },
+    {
+      "character": "搜",
+      "code": "859A",
+      "glyph_index": 858
+    },
+    {
+      "character": "搞",
+      "code": "84E7",
+      "glyph_index": 743
+    },
+    {
+      "character": "搭",
+      "code": "938B",
+      "glyph_index": 3531
+    },
+    {
+      "character": "携",
+      "code": "8C67",
+      "glyph_index": 2151
+    },
+    {
+      "character": "摆",
+      "code": "84E8",
+      "glyph_index": 744
+    },
+    {
+      "character": "摔",
+      "code": "84E9",
+      "glyph_index": 745
+    },
+    {
+      "character": "摧",
+      "code": "859B",
+      "glyph_index": 859
+    },
+    {
+      "character": "摩",
+      "code": "9680",
+      "glyph_index": 4096
+    },
+    {
+      "character": "撑",
+      "code": "84EA",
+      "glyph_index": 746
+    },
+    {
+      "character": "撒",
+      "code": "8E54",
+      "glyph_index": 2516
+    },
+    {
+      "character": "撕",
+      "code": "9989",
+      "glyph_index": 913
+    },
+    {
+      "character": "撞",
+      "code": "93B3",
+      "glyph_index": 3571
+    },
+    {
+      "character": "撤",
+      "code": "9350",
+      "glyph_index": 3472
+    },
+    {
+      "character": "播",
+      "code": "9464",
+      "glyph_index": 3684
+    },
+    {
+      "character": "撼",
+      "code": "9D9E",
+      "glyph_index": 1040
+    },
+    {
+      "character": "擅",
+      "code": "859C",
+      "glyph_index": 860
+    },
+    {
+      "character": "操",
+      "code": "9180",
+      "glyph_index": 3136
+    },
+    {
+      "character": "擒",
+      "code": "9FB7",
+      "glyph_index": 914
+    },
+    {
+      "character": "支",
+      "code": "8E78",
+      "glyph_index": 2552
+    },
+    {
+      "character": "收",
+      "code": "859D",
+      "glyph_index": 861
+    },
+    {
+      "character": "改",
+      "code": "89FC",
+      "glyph_index": 1724
+    },
+    {
+      "character": "攻",
+      "code": "8D55",
+      "glyph_index": 2325
+    },
+    {
+      "character": "放",
+      "code": "95FA",
+      "glyph_index": 4026
+    },
+    {
+      "character": "政",
+      "code": "90AD",
+      "glyph_index": 2989
+    },
+    {
+      "character": "故",
+      "code": "8CCC",
+      "glyph_index": 2252
+    },
+    {
+      "character": "效",
+      "code": "86F4",
+      "glyph_index": 1140
+    },
+    {
+      "character": "敌",
+      "code": "84EB",
+      "glyph_index": 747
+    },
+    {
+      "character": "救",
+      "code": "8B7E",
+      "glyph_index": 1982
+    },
+    {
+      "character": "教",
+      "code": "8BB3",
+      "glyph_index": 2035
+    },
+    {
+      "character": "敢",
+      "code": "8AB8",
+      "glyph_index": 1848
+    },
+    {
+      "character": "散",
+      "code": "8E55",
+      "glyph_index": 2517
+    },
+    {
+      "character": "敬",
+      "code": "8C68",
+      "glyph_index": 2152
+    },
+    {
+      "character": "数",
+      "code": "9094",
+      "glyph_index": 2964
+    },
+    {
+      "character": "整",
+      "code": "90AE",
+      "glyph_index": 2990
+    },
+    {
+      "character": "文",
+      "code": "95B6",
+      "glyph_index": 3958
+    },
+    {
+      "character": "斑",
+      "code": "94C1",
+      "glyph_index": 3777
+    },
+    {
+      "character": "斗",
+      "code": "936C",
+      "glyph_index": 3500
+    },
+    {
+      "character": "斧",
+      "code": "9580",
+      "glyph_index": 3904
+    },
+    {
+      "character": "斩",
+      "code": "E37E",
+      "glyph_index": 915
+    },
+    {
+      "character": "断",
+      "code": "9266",
+      "glyph_index": 3302
+    },
+    {
+      "character": "斯",
+      "code": "8E7A",
+      "glyph_index": 2554
+    },
+    {
+      "character": "新",
+      "code": "9056",
+      "glyph_index": 2902
+    },
+    {
+      "character": "方",
+      "code": "95FB",
+      "glyph_index": 4027
+    },
+    {
+      "character": "施",
+      "code": "8E7B",
+      "glyph_index": 2555
+    },
+    {
+      "character": "旁",
+      "code": "859E",
+      "glyph_index": 862
+    },
+    {
+      "character": "旋",
+      "code": "90F9",
+      "glyph_index": 3065
+    },
+    {
+      "character": "族",
+      "code": "91B0",
+      "glyph_index": 3184
+    },
+    {
+      "character": "旗",
+      "code": "8AF8",
+      "glyph_index": 1912
+    },
+    {
+      "character": "无",
+      "code": "859F",
+      "glyph_index": 863
+    },
+    {
+      "character": "既",
+      "code": "8AF9",
+      "glyph_index": 1913
+    },
+    {
+      "character": "日",
+      "code": "93FA",
+      "glyph_index": 3642
+    },
+    {
+      "character": "旦",
+      "code": "9255",
+      "glyph_index": 3285
+    },
+    {
+      "character": "旧",
+      "code": "8B8C",
+      "glyph_index": 1996
+    },
+    {
+      "character": "早",
+      "code": "9181",
+      "glyph_index": 3137
+    },
+    {
+      "character": "时",
+      "code": "84EC",
+      "glyph_index": 748
+    },
+    {
+      "character": "明",
+      "code": "96BE",
+      "glyph_index": 4158
+    },
+    {
+      "character": "昏",
+      "code": "8DA8",
+      "glyph_index": 2408
+    },
+    {
+      "character": "易",
+      "code": "88D5",
+      "glyph_index": 1493
+    },
+    {
+      "character": "昔",
+      "code": "90CC",
+      "glyph_index": 3020
+    },
+    {
+      "character": "星",
+      "code": "90AF",
+      "glyph_index": 2991
+    },
+    {
+      "character": "昧",
+      "code": "9686",
+      "glyph_index": 4102
+    },
+    {
+      "character": "是",
+      "code": "90A5",
+      "glyph_index": 2981
+    },
+    {
+      "character": "昵",
+      "code": "86F5",
+      "glyph_index": 1141
+    },
+    {
+      "character": "显",
+      "code": "88FF",
+      "glyph_index": 1535
+    },
+    {
+      "character": "晃",
+      "code": "8D57",
+      "glyph_index": 2327
+    },
+    {
+      "character": "晓",
+      "code": "E0C2",
+      "glyph_index": 916
+    },
+    {
+      "character": "晚",
+      "code": "84ED",
+      "glyph_index": 749
+    },
+    {
+      "character": "普",
+      "code": "9581",
+      "glyph_index": 3905
+    },
+    {
+      "character": "智",
+      "code": "9271",
+      "glyph_index": 3313
+    },
+    {
+      "character": "暂",
+      "code": "84EE",
+      "glyph_index": 750
+    },
+    {
+      "character": "暗",
+      "code": "88C3",
+      "glyph_index": 1475
+    },
+    {
+      "character": "暴",
+      "code": "965C",
+      "glyph_index": 4060
+    },
+    {
+      "character": "曲",
+      "code": "8BC8",
+      "glyph_index": 2056
+    },
+    {
+      "character": "更",
+      "code": "8D58",
+      "glyph_index": 2328
+    },
+    {
+      "character": "曼",
+      "code": "8E7F",
+      "glyph_index": 2559
+    },
+    {
+      "character": "曾",
+      "code": "915C",
+      "glyph_index": 3100
+    },
+    {
+      "character": "替",
+      "code": "91D6",
+      "glyph_index": 3222
+    },
+    {
+      "character": "最",
+      "code": "8DC5",
+      "glyph_index": 2437
+    },
+    {
+      "character": "月",
+      "code": "8C8E",
+      "glyph_index": 2190
+    },
+    {
+      "character": "有",
+      "code": "974C",
+      "glyph_index": 4236
+    },
+    {
+      "character": "服",
+      "code": "959E",
+      "glyph_index": 3934
+    },
+    {
+      "character": "朗",
+      "code": "984E",
+      "glyph_index": 4430
+    },
+    {
+      "character": "望",
+      "code": "965D",
+      "glyph_index": 4061
+    },
+    {
+      "character": "朝",
+      "code": "92A9",
+      "glyph_index": 3369
+    },
+    {
+      "character": "期",
+      "code": "8AFA",
+      "glyph_index": 1914
+    },
+    {
+      "character": "木",
+      "code": "96D8",
+      "glyph_index": 4184
+    },
+    {
+      "character": "未",
+      "code": "96A2",
+      "glyph_index": 4130
+    },
+    {
+      "character": "末",
+      "code": "9696",
+      "glyph_index": 4118
+    },
+    {
+      "character": "本",
+      "code": "967B",
+      "glyph_index": 4091
+    },
+    {
+      "character": "术",
+      "code": "84EF",
+      "glyph_index": 751
+    },
+    {
+      "character": "朱",
+      "code": "8EE9",
+      "glyph_index": 2665
+    },
+    {
+      "character": "机",
+      "code": "8AF7",
+      "glyph_index": 1911
+    },
+    {
+      "character": "杀",
+      "code": "84F0",
+      "glyph_index": 752
+    },
+    {
+      "character": "杂",
+      "code": "84F1",
+      "glyph_index": 753
+    },
+    {
+      "character": "权",
+      "code": "84F2",
+      "glyph_index": 754
+    },
+    {
+      "character": "杆",
+      "code": "9E9E",
+      "glyph_index": 917
+    },
+    {
+      "character": "李",
+      "code": "979B",
+      "glyph_index": 4315
+    },
+    {
+      "character": "村",
+      "code": "91BA",
+      "glyph_index": 3194
+    },
+    {
+      "character": "杜",
+      "code": "936D",
+      "glyph_index": 3501
+    },
+    {
+      "character": "束",
+      "code": "91A9",
+      "glyph_index": 3177
+    },
+    {
+      "character": "条",
+      "code": "8FF0",
+      "glyph_index": 2864
+    },
+    {
+      "character": "来",
+      "code": "9788",
+      "glyph_index": 4296
+    },
+    {
+      "character": "杯",
+      "code": "9474",
+      "glyph_index": 3700
+    },
+    {
+      "character": "杰",
+      "code": "85A0",
+      "glyph_index": 864
+    },
+    {
+      "character": "杵",
+      "code": "8B6E",
+      "glyph_index": 1966
+    },
+    {
+      "character": "松",
+      "code": "8FBC",
+      "glyph_index": 2812
+    },
+    {
+      "character": "板",
+      "code": "94C2",
+      "glyph_index": 3778
+    },
+    {
+      "character": "极",
+      "code": "84F3",
+      "glyph_index": 755
+    },
+    {
+      "character": "析",
+      "code": "90CD",
+      "glyph_index": 3021
+    },
+    {
+      "character": "林",
+      "code": "97D1",
+      "glyph_index": 4369
+    },
+    {
+      "character": "枚",
+      "code": "9687",
+      "glyph_index": 4103
+    },
+    {
+      "character": "果",
+      "code": "89CA",
+      "glyph_index": 1674
+    },
+    {
+      "character": "枝",
+      "code": "8E7D",
+      "glyph_index": 2557
+    },
+    {
+      "character": "枪",
+      "code": "84F4",
+      "glyph_index": 756
+    },
+    {
+      "character": "架",
+      "code": "89CB",
+      "glyph_index": 1675
+    },
+    {
+      "character": "某",
+      "code": "965E",
+      "glyph_index": 4062
+    },
+    {
+      "character": "查",
+      "code": "84F5",
+      "glyph_index": 757
+    },
+    {
+      "character": "柯",
+      "code": "85A1",
+      "glyph_index": 865
+    },
+    {
+      "character": "标",
+      "code": "84F6",
+      "glyph_index": 758
+    },
+    {
+      "character": "校",
+      "code": "8D5A",
+      "glyph_index": 2330
+    },
+    {
+      "character": "样",
+      "code": "84F7",
+      "glyph_index": 759
+    },
+    {
+      "character": "核",
+      "code": "8A6A",
+      "glyph_index": 1770
+    },
+    {
+      "character": "根",
+      "code": "8DAA",
+      "glyph_index": 2410
+    },
+    {
+      "character": "格",
+      "code": "8A69",
+      "glyph_index": 1769
+    },
+    {
+      "character": "框",
+      "code": "98A5",
+      "glyph_index": 919
+    },
+    {
+      "character": "案",
+      "code": "88C4",
+      "glyph_index": 1476
+    },
+    {
+      "character": "桑",
+      "code": "8C4B",
+      "glyph_index": 2123
+    },
+    {
+      "character": "档",
+      "code": "85A2",
+      "glyph_index": 866
+    },
+    {
+      "character": "桥",
+      "code": "84F8",
+      "glyph_index": 760
+    },
+    {
+      "character": "桨",
+      "code": "E8A6",
+      "glyph_index": 920
+    },
+    {
+      "character": "桩",
+      "code": "E192",
+      "glyph_index": 921
+    },
+    {
+      "character": "梅",
+      "code": "947E",
+      "glyph_index": 3710
+    },
+    {
+      "character": "梦",
+      "code": "85A3",
+      "glyph_index": 867
+    },
+    {
+      "character": "梭",
+      "code": "85A4",
+      "glyph_index": 868
+    },
+    {
+      "character": "械",
+      "code": "8A42",
+      "glyph_index": 1730
+    },
+    {
+      "character": "检",
+      "code": "84F9",
+      "glyph_index": 761
+    },
+    {
+      "character": "棋",
+      "code": "8AFB",
+      "glyph_index": 1915
+    },
+    {
+      "character": "棒",
+      "code": "965F",
+      "glyph_index": 4063
+    },
+    {
+      "character": "森",
+      "code": "9058",
+      "glyph_index": 2904
+    },
+    {
+      "character": "楚",
+      "code": "915E",
+      "glyph_index": 3102
+    },
+    {
+      "character": "楼",
+      "code": "984F",
+      "glyph_index": 4431
+    },
+    {
+      "character": "概",
+      "code": "8A54",
+      "glyph_index": 1748
+    },
+    {
+      "character": "榴",
+      "code": "9ED6",
+      "glyph_index": 1077
+    },
+    {
+      "character": "模",
+      "code": "96CD",
+      "glyph_index": 4173
+    },
+    {
+      "character": "次",
+      "code": "8E9F",
+      "glyph_index": 2591
+    },
+    {
+      "character": "欢",
+      "code": "84FA",
+      "glyph_index": 762
+    },
+    {
+      "character": "欧",
+      "code": "89A2",
+      "glyph_index": 1634
+    },
+    {
+      "character": "欲",
+      "code": "977E",
+      "glyph_index": 4286
+    },
+    {
+      "character": "欺",
+      "code": "8B5C",
+      "glyph_index": 1948
+    },
+    {
+      "character": "歉",
+      "code": "85A5",
+      "glyph_index": 869
+    },
+    {
+      "character": "止",
+      "code": "8E7E",
+      "glyph_index": 2558
+    },
+    {
+      "character": "正",
+      "code": "90B3",
+      "glyph_index": 2995
+    },
+    {
+      "character": "此",
+      "code": "8D9F",
+      "glyph_index": 2399
+    },
+    {
+      "character": "步",
+      "code": "84FB",
+      "glyph_index": 763
+    },
+    {
+      "character": "武",
+      "code": "9590",
+      "glyph_index": 3920
+    },
+    {
+      "character": "歧",
+      "code": "84FC",
+      "glyph_index": 764
+    },
+    {
+      "character": "死",
+      "code": "8E80",
+      "glyph_index": 2560
+    },
+    {
+      "character": "歼",
+      "code": "9BDE",
+      "glyph_index": 922
+    },
+    {
+      "character": "殉",
+      "code": "8F7D",
+      "glyph_index": 2749
+    },
+    {
+      "character": "殊",
+      "code": "8EEA",
+      "glyph_index": 2666
+    },
+    {
+      "character": "殖",
+      "code": "9042",
+      "glyph_index": 2882
+    },
+    {
+      "character": "段",
+      "code": "9269",
+      "glyph_index": 3305
+    },
+    {
+      "character": "毁",
+      "code": "8740",
+      "glyph_index": 1152
+    },
+    {
+      "character": "母",
+      "code": "95EA",
+      "glyph_index": 4010
+    },
+    {
+      "character": "每",
+      "code": "8741",
+      "glyph_index": 1153
+    },
+    {
+      "character": "毒",
+      "code": "93C5",
+      "glyph_index": 3589
+    },
+    {
+      "character": "比",
+      "code": "94E4",
+      "glyph_index": 3812
+    },
+    {
+      "character": "毕",
+      "code": "8742",
+      "glyph_index": 1154
+    },
+    {
+      "character": "毛",
+      "code": "96D1",
+      "glyph_index": 4177
+    },
+    {
+      "character": "毫",
+      "code": "85A6",
+      "glyph_index": 870
+    },
+    {
+      "character": "民",
+      "code": "96AF",
+      "glyph_index": 4143
+    },
+    {
+      "character": "气",
+      "code": "85A7",
+      "glyph_index": 871
+    },
+    {
+      "character": "氛",
+      "code": "85A8",
+      "glyph_index": 872
+    },
+    {
+      "character": "水",
+      "code": "9085",
+      "glyph_index": 2949
+    },
+    {
+      "character": "永",
+      "code": "8969",
+      "glyph_index": 1577
+    },
+    {
+      "character": "汀",
+      "code": "92F3",
+      "glyph_index": 3443
+    },
+    {
+      "character": "求",
+      "code": "8B81",
+      "glyph_index": 1985
+    },
+    {
+      "character": "汇",
+      "code": "8F7F",
+      "glyph_index": 2751
+    },
+    {
+      "character": "汉",
+      "code": "86EF",
+      "glyph_index": 1135
+    },
+    {
+      "character": "江",
+      "code": "8D5D",
+      "glyph_index": 2333
+    },
+    {
+      "character": "汪",
+      "code": "85A9",
+      "glyph_index": 873
+    },
+    {
+      "character": "汽",
+      "code": "8B44",
+      "glyph_index": 1924
+    },
+    {
+      "character": "沃",
+      "code": "9780",
+      "glyph_index": 4288
+    },
+    {
+      "character": "沉",
+      "code": "8743",
+      "glyph_index": 1155
+    },
+    {
+      "character": "沌",
+      "code": "93D7",
+      "glyph_index": 3607
+    },
+    {
+      "character": "沙",
+      "code": "8DB9",
+      "glyph_index": 2425
+    },
+    {
+      "character": "没",
+      "code": "9676",
+      "glyph_index": 4086
+    },
+    {
+      "character": "沦",
+      "code": "8744",
+      "glyph_index": 1156
+    },
+    {
+      "character": "沫",
+      "code": "9697",
+      "glyph_index": 4119
+    },
+    {
+      "character": "河",
+      "code": "89CD",
+      "glyph_index": 1677
+    },
+    {
+      "character": "油",
+      "code": "96FB",
+      "glyph_index": 4219
+    },
+    {
+      "character": "治",
+      "code": "8EA1",
+      "glyph_index": 2593
+    },
+    {
+      "character": "沿",
+      "code": "8988",
+      "glyph_index": 1608
+    },
+    {
+      "character": "法",
+      "code": "9640",
+      "glyph_index": 4032
+    },
+    {
+      "character": "泛",
+      "code": "85AA",
+      "glyph_index": 874
+    },
+    {
+      "character": "泡",
+      "code": "9641",
+      "glyph_index": 4033
+    },
+    {
+      "character": "波",
+      "code": "9467",
+      "glyph_index": 3687
+    },
+    {
+      "character": "注",
+      "code": "928D",
+      "glyph_index": 3341
+    },
+    {
+      "character": "泪",
+      "code": "85AB",
+      "glyph_index": 875
+    },
+    {
+      "character": "泰",
+      "code": "91D7",
+      "glyph_index": 3223
+    },
+    {
+      "character": "泽",
+      "code": "8745",
+      "glyph_index": 1157
+    },
+    {
+      "character": "洋",
+      "code": "976D",
+      "glyph_index": 4269
+    },
+    {
+      "character": "洛",
+      "code": "978C",
+      "glyph_index": 4300
+    },
+    {
+      "character": "洞",
+      "code": "93B4",
+      "glyph_index": 3572
+    },
+    {
+      "character": "活",
+      "code": "8A88",
+      "glyph_index": 1800
+    },
+    {
+      "character": "派",
+      "code": "9468",
+      "glyph_index": 3688
+    },
+    {
+      "character": "流",
+      "code": "97AC",
+      "glyph_index": 4332
+    },
+    {
+      "character": "测",
+      "code": "987E",
+      "glyph_index": 4478
+    },
+    {
+      "character": "浪",
+      "code": "9851",
+      "glyph_index": 4433
+    },
+    {
+      "character": "浮",
+      "code": "9582",
+      "glyph_index": 3906
+    },
+    {
+      "character": "海",
+      "code": "8A43",
+      "glyph_index": 1731
+    },
+    {
+      "character": "涂",
+      "code": "8746",
+      "glyph_index": 1158
+    },
+    {
+      "character": "涅",
+      "code": "85AC",
+      "glyph_index": 876
+    },
+    {
+      "character": "消",
+      "code": "8FC1",
+      "glyph_index": 2817
+    },
+    {
+      "character": "涉",
+      "code": "8747",
+      "glyph_index": 1159
+    },
+    {
+      "character": "涡",
+      "code": "E0E8",
+      "glyph_index": 923
+    },
+    {
+      "character": "液",
+      "code": "8974",
+      "glyph_index": 1588
+    },
+    {
+      "character": "淋",
+      "code": "97D2",
+      "glyph_index": 4370
+    },
+    {
+      "character": "深",
+      "code": "905B",
+      "glyph_index": 2907
+    },
+    {
+      "character": "混",
+      "code": "8DAC",
+      "glyph_index": 2412
+    },
+    {
+      "character": "添",
+      "code": "9359",
+      "glyph_index": 3481
+    },
+    {
+      "character": "清",
+      "code": "90B4",
+      "glyph_index": 2996
+    },
+    {
+      "character": "渊",
+      "code": "85AD",
+      "glyph_index": 877
+    },
+    {
+      "character": "渐",
+      "code": "8748",
+      "glyph_index": 1160
+    },
+    {
+      "character": "渔",
+      "code": "8749",
+      "glyph_index": 1161
+    },
+    {
+      "character": "温",
+      "code": "89B7",
+      "glyph_index": 1655
+    },
+    {
+      "character": "港",
+      "code": "8D60",
+      "glyph_index": 2336
+    },
+    {
+      "character": "游",
+      "code": "85AE",
+      "glyph_index": 878
+    },
+    {
+      "character": "渺",
+      "code": "85AF",
+      "glyph_index": 879
+    },
+    {
+      "character": "湾",
+      "code": "9870",
+      "glyph_index": 4464
+    },
+    {
+      "character": "溃",
+      "code": "874A",
+      "glyph_index": 1162
+    },
+    {
+      "character": "源",
+      "code": "8CB9",
+      "glyph_index": 2233
+    },
+    {
+      "character": "溶",
+      "code": "976E",
+      "glyph_index": 4270
+    },
+    {
+      "character": "滑",
+      "code": "8A8A",
+      "glyph_index": 1802
+    },
+    {
+      "character": "满",
+      "code": "874B",
+      "glyph_index": 1163
+    },
+    {
+      "character": "滨",
+      "code": "8EFE",
+      "glyph_index": 2686
+    },
+    {
+      "character": "漂",
+      "code": "9559",
+      "glyph_index": 3865
+    },
+    {
+      "character": "漏",
+      "code": "9852",
+      "glyph_index": 4434
+    },
+    {
+      "character": "演",
+      "code": "8989",
+      "glyph_index": 1609
+    },
+    {
+      "character": "漩",
+      "code": "E2B0",
+      "glyph_index": 925
+    },
+    {
+      "character": "潜",
+      "code": "90F6",
+      "glyph_index": 3062
+    },
+    {
+      "character": "激",
+      "code": "8C83",
+      "glyph_index": 2179
+    },
+    {
+      "character": "濒",
+      "code": "907F",
+      "glyph_index": 2943
+    },
+    {
+      "character": "火",
+      "code": "89CE",
+      "glyph_index": 1678
+    },
+    {
+      "character": "灭",
+      "code": "874C",
+      "glyph_index": 1164
+    },
+    {
+      "character": "灰",
+      "code": "8A44",
+      "glyph_index": 1732
+    },
+    {
+      "character": "灵",
+      "code": "9CDF",
+      "glyph_index": 926
+    },
+    {
+      "character": "灼",
+      "code": "8EDC",
+      "glyph_index": 2652
+    },
+    {
+      "character": "灾",
+      "code": "917F",
+      "glyph_index": 3135
+    },
+    {
+      "character": "炎",
+      "code": "898A",
+      "glyph_index": 1610
+    },
+    {
+      "character": "炮",
+      "code": "85B0",
+      "glyph_index": 880
+    },
+    {
+      "character": "炸",
+      "code": "85B1",
+      "glyph_index": 881
+    },
+    {
+      "character": "点",
+      "code": "935F",
+      "glyph_index": 3487
+    },
+    {
+      "character": "烈",
+      "code": "97F3",
+      "glyph_index": 4403
+    },
+    {
+      "character": "烦",
+      "code": "874D",
+      "glyph_index": 1165
+    },
+    {
+      "character": "烧",
+      "code": "E6F8",
+      "glyph_index": 927
+    },
+    {
+      "character": "热",
+      "code": "874E",
+      "glyph_index": 1166
+    },
+    {
+      "character": "焦",
+      "code": "8FC5",
+      "glyph_index": 2821
+    },
+    {
+      "character": "焰",
+      "code": "874F",
+      "glyph_index": 1167
+    },
+    {
+      "character": "然",
+      "code": "9152",
+      "glyph_index": 3090
+    },
+    {
+      "character": "照",
+      "code": "8FC6",
+      "glyph_index": 2822
+    },
+    {
+      "character": "煽",
+      "code": "90F8",
+      "glyph_index": 3064
+    },
+    {
+      "character": "熄",
+      "code": "927F",
+      "glyph_index": 3327
+    },
+    {
+      "character": "熔",
+      "code": "976F",
+      "glyph_index": 4271
+    },
+    {
+      "character": "熟",
+      "code": "8F6E",
+      "glyph_index": 2734
+    },
+    {
+      "character": "燃",
+      "code": "9452",
+      "glyph_index": 3666
+    },
+    {
+      "character": "爆",
+      "code": "949A",
+      "glyph_index": 3738
+    },
+    {
+      "character": "爪",
+      "code": "92DC",
+      "glyph_index": 3420
+    },
+    {
+      "character": "爬",
+      "code": "937F",
+      "glyph_index": 3519
+    },
+    {
+      "character": "爱",
+      "code": "8750",
+      "glyph_index": 1168
+    },
+    {
+      "character": "爷",
+      "code": "8751",
+      "glyph_index": 1169
+    },
+    {
+      "character": "爸",
+      "code": "8752",
+      "glyph_index": 1170
+    },
+    {
+      "character": "爽",
+      "code": "9175",
+      "glyph_index": 3125
+    },
+    {
+      "character": "片",
+      "code": "95D0",
+      "glyph_index": 3984
+    },
+    {
+      "character": "牌",
+      "code": "9476",
+      "glyph_index": 3702
+    },
+    {
+      "character": "牙",
+      "code": "89E5",
+      "glyph_index": 1701
+    },
+    {
+      "character": "牛",
+      "code": "8B8D",
+      "glyph_index": 1997
+    },
+    {
+      "character": "物",
+      "code": "95A8",
+      "glyph_index": 3944
+    },
+    {
+      "character": "牲",
+      "code": "90B5",
+      "glyph_index": 2997
+    },
+    {
+      "character": "牵",
+      "code": "8753",
+      "glyph_index": 1171
+    },
+    {
+      "character": "特",
+      "code": "93C1",
+      "glyph_index": 3585
+    },
+    {
+      "character": "牺",
+      "code": "8758",
+      "glyph_index": 1176
+    },
+    {
+      "character": "犬",
+      "code": "8CA2",
+      "glyph_index": 2210
+    },
+    {
+      "character": "状",
+      "code": "8FF3",
+      "glyph_index": 2867
+    },
+    {
+      "character": "狂",
+      "code": "8BB6",
+      "glyph_index": 2038
+    },
+    {
+      "character": "狗",
+      "code": "8BE7",
+      "glyph_index": 2087
+    },
+    {
+      "character": "狙",
+      "code": "915F",
+      "glyph_index": 3103
+    },
+    {
+      "character": "狠",
+      "code": "85B2",
+      "glyph_index": 882
+    },
+    {
+      "character": "独",
+      "code": "93C6",
+      "glyph_index": 3590
+    },
+    {
+      "character": "狭",
+      "code": "8BB7",
+      "glyph_index": 2039
+    },
+    {
+      "character": "狮",
+      "code": "8759",
+      "glyph_index": 1177
+    },
+    {
+      "character": "狱",
+      "code": "875A",
+      "glyph_index": 1178
+    },
+    {
+      "character": "狼",
+      "code": "9854",
+      "glyph_index": 4436
+    },
+    {
+      "character": "猎",
+      "code": "E757",
+      "glyph_index": 928
+    },
+    {
+      "character": "猛",
+      "code": "96D2",
+      "glyph_index": 4178
+    },
+    {
+      "character": "猜",
+      "code": "85B3",
+      "glyph_index": 883
+    },
+    {
+      "character": "猫",
+      "code": "944C",
+      "glyph_index": 3660
+    },
+    {
+      "character": "獠",
+      "code": "947F",
+      "glyph_index": 3711
+    },
+    {
+      "character": "率",
+      "code": "97A6",
+      "glyph_index": 4326
+    },
+    {
+      "character": "王",
+      "code": "89A4",
+      "glyph_index": 1636
+    },
+    {
+      "character": "玛",
+      "code": "875B",
+      "glyph_index": 1179
+    },
+    {
+      "character": "玩",
+      "code": "8ADF",
+      "glyph_index": 1887
+    },
+    {
+      "character": "环",
+      "code": "957F",
+      "glyph_index": 3903
+    },
+    {
+      "character": "现",
+      "code": "875E",
+      "glyph_index": 1182
+    },
+    {
+      "character": "玲",
+      "code": "97E6",
+      "glyph_index": 4390
+    },
+    {
+      "character": "珊",
+      "code": "8E58",
+      "glyph_index": 2520
+    },
+    {
+      "character": "班",
+      "code": "94C7",
+      "glyph_index": 3783
+    },
+    {
+      "character": "球",
+      "code": "8B85",
+      "glyph_index": 1989
+    },
+    {
+      "character": "理",
+      "code": "979D",
+      "glyph_index": 4317
+    },
+    {
+      "character": "琉",
+      "code": "97AE",
+      "glyph_index": 4334
+    },
+    {
+      "character": "琪",
+      "code": "8FFE",
+      "glyph_index": 2878
+    },
+    {
+      "character": "琳",
+      "code": "97D4",
+      "glyph_index": 4372
+    },
+    {
+      "character": "瑚",
+      "code": "8CE8",
+      "glyph_index": 2280
+    },
+    {
+      "character": "瑞",
+      "code": "9090",
+      "glyph_index": 2960
+    },
+    {
+      "character": "瑟",
+      "code": "85B4",
+      "glyph_index": 884
+    },
+    {
+      "character": "瓜",
+      "code": "895A",
+      "glyph_index": 1562
+    },
+    {
+      "character": "瓦",
+      "code": "8AA2",
+      "glyph_index": 1826
+    },
+    {
+      "character": "甘",
+      "code": "8AC3",
+      "glyph_index": 1859
+    },
+    {
+      "character": "甚",
+      "code": "9072",
+      "glyph_index": 2930
+    },
+    {
+      "character": "生",
+      "code": "90B6",
+      "glyph_index": 2998
+    },
+    {
+      "character": "用",
+      "code": "9770",
+      "glyph_index": 4272
+    },
+    {
+      "character": "甩",
+      "code": "875F",
+      "glyph_index": 1183
+    },
+    {
+      "character": "田",
+      "code": "9363",
+      "glyph_index": 3491
+    },
+    {
+      "character": "由",
+      "code": "9752",
+      "glyph_index": 4242
+    },
+    {
+      "character": "甲",
+      "code": "8D62",
+      "glyph_index": 2338
+    },
+    {
+      "character": "申",
+      "code": "905C",
+      "glyph_index": 2908
+    },
+    {
+      "character": "电",
+      "code": "8760",
+      "glyph_index": 1184
+    },
+    {
+      "character": "男",
+      "code": "926A",
+      "glyph_index": 3306
+    },
+    {
+      "character": "画",
+      "code": "89E6",
+      "glyph_index": 1702
+    },
+    {
+      "character": "界",
+      "code": "8A45",
+      "glyph_index": 1733
+    },
+    {
+      "character": "畏",
+      "code": "88D8",
+      "glyph_index": 1496
+    },
+    {
+      "character": "留",
+      "code": "97AF",
+      "glyph_index": 4335
+    },
+    {
+      "character": "略",
+      "code": "97AA",
+      "glyph_index": 4330
+    },
+    {
+      "character": "疑",
+      "code": "8B5E",
+      "glyph_index": 1950
+    },
+    {
+      "character": "疫",
+      "code": "8975",
+      "glyph_index": 1589
+    },
+    {
+      "character": "疯",
+      "code": "9DB1",
+      "glyph_index": 929
+    },
+    {
+      "character": "痕",
+      "code": "8DAD",
+      "glyph_index": 2413
+    },
+    {
+      "character": "痛",
+      "code": "92C9",
+      "glyph_index": 3401
+    },
+    {
+      "character": "痴",
+      "code": "9273",
+      "glyph_index": 3315
+    },
+    {
+      "character": "登",
+      "code": "936F",
+      "glyph_index": 3503
+    },
+    {
+      "character": "白",
+      "code": "9492",
+      "glyph_index": 3730
+    },
+    {
+      "character": "百",
+      "code": "9553",
+      "glyph_index": 3859
+    },
+    {
+      "character": "的",
+      "code": "9349",
+      "glyph_index": 3465
+    },
+    {
+      "character": "皇",
+      "code": "8D63",
+      "glyph_index": 2339
+    },
+    {
+      "character": "皮",
+      "code": "94E7",
+      "glyph_index": 3815
+    },
+    {
+      "character": "益",
+      "code": "8976",
+      "glyph_index": 1590
+    },
+    {
+      "character": "盖",
+      "code": "85B5",
+      "glyph_index": 885
+    },
+    {
+      "character": "盗",
+      "code": "9390",
+      "glyph_index": 3536
+    },
+    {
+      "character": "盘",
+      "code": "8761",
+      "glyph_index": 1185
+    },
+    {
+      "character": "目",
+      "code": "96DA",
+      "glyph_index": 4186
+    },
+    {
+      "character": "盯",
+      "code": "8762",
+      "glyph_index": 1186
+    },
+    {
+      "character": "盲",
+      "code": "96D3",
+      "glyph_index": 4179
+    },
+    {
+      "character": "直",
+      "code": "92BC",
+      "glyph_index": 3388
+    },
+    {
+      "character": "相",
+      "code": "918A",
+      "glyph_index": 3146
+    },
+    {
+      "character": "盾",
+      "code": "8F82",
+      "glyph_index": 2754
+    },
+    {
+      "character": "省",
+      "code": "8FC8",
+      "glyph_index": 2824
+    },
+    {
+      "character": "看",
+      "code": "8AC5",
+      "glyph_index": 1861
+    },
+    {
+      "character": "真",
+      "code": "905E",
+      "glyph_index": 2910
+    },
+    {
+      "character": "眸",
+      "code": "E1D2",
+      "glyph_index": 1026
+    },
+    {
+      "character": "眼",
+      "code": "8AE1",
+      "glyph_index": 1889
+    },
+    {
+      "character": "着",
+      "code": "9285",
+      "glyph_index": 3333
+    },
+    {
+      "character": "瞄",
+      "code": "8763",
+      "glyph_index": 1187
+    },
+    {
+      "character": "瞒",
+      "code": "8764",
+      "glyph_index": 1188
+    },
+    {
+      "character": "瞧",
+      "code": "8765",
+      "glyph_index": 1189
+    },
+    {
+      "character": "瞬",
+      "code": "8F75",
+      "glyph_index": 2741
+    },
+    {
+      "character": "矛",
+      "code": "96B5",
+      "glyph_index": 4149
+    },
+    {
+      "character": "知",
+      "code": "926D",
+      "glyph_index": 3309
+    },
+    {
+      "character": "矩",
+      "code": "8BE9",
+      "glyph_index": 2089
+    },
+    {
+      "character": "短",
+      "code": "925A",
+      "glyph_index": 3290
+    },
+    {
+      "character": "石",
+      "code": "90CE",
+      "glyph_index": 3022
+    },
+    {
+      "character": "研",
+      "code": "8CA4",
+      "glyph_index": 2212
+    },
+    {
+      "character": "破",
+      "code": "946A",
+      "glyph_index": 3690
+    },
+    {
+      "character": "础",
+      "code": "8766",
+      "glyph_index": 1190
+    },
+    {
+      "character": "硫",
+      "code": "97B0",
+      "glyph_index": 4336
+    },
+    {
+      "character": "硬",
+      "code": "8D64",
+      "glyph_index": 2340
+    },
+    {
+      "character": "确",
+      "code": "8767",
+      "glyph_index": 1191
+    },
+    {
+      "character": "碍",
+      "code": "8A56",
+      "glyph_index": 1750
+    },
+    {
+      "character": "碎",
+      "code": "85B6",
+      "glyph_index": 886
+    },
+    {
+      "character": "碟",
+      "code": "8768",
+      "glyph_index": 1192
+    },
+    {
+      "character": "碧",
+      "code": "95C9",
+      "glyph_index": 3977
+    },
+    {
+      "character": "碰",
+      "code": "8769",
+      "glyph_index": 1193
+    },
+    {
+      "character": "磁",
+      "code": "8EA5",
+      "glyph_index": 2597
+    },
+    {
+      "character": "磨",
+      "code": "9681",
+      "glyph_index": 4097
+    },
+    {
+      "character": "示",
+      "code": "8EA6",
+      "glyph_index": 2598
+    },
+    {
+      "character": "礼",
+      "code": "97E7",
+      "glyph_index": 4391
+    },
+    {
+      "character": "社",
+      "code": "8ED0",
+      "glyph_index": 2640
+    },
+    {
+      "character": "祈",
+      "code": "8B46",
+      "glyph_index": 1926
+    },
+    {
+      "character": "祖",
+      "code": "9163",
+      "glyph_index": 3107
+    },
+    {
+      "character": "祝",
+      "code": "8F6A",
+      "glyph_index": 2730
+    },
+    {
+      "character": "神",
+      "code": "905F",
+      "glyph_index": 2911
+    },
+    {
+      "character": "祥",
+      "code": "8FCB",
+      "glyph_index": 2827
+    },
+    {
+      "character": "祭",
+      "code": "8DD5",
+      "glyph_index": 2453
+    },
+    {
+      "character": "祷",
+      "code": "9398",
+      "glyph_index": 3544
+    },
+    {
+      "character": "祸",
+      "code": "876A",
+      "glyph_index": 1194
+    },
+    {
+      "character": "福",
+      "code": "959F",
+      "glyph_index": 3935
+    },
+    {
+      "character": "离",
+      "code": "876B",
+      "glyph_index": 1195
+    },
+    {
+      "character": "秀",
+      "code": "8F47",
+      "glyph_index": 2695
+    },
+    {
+      "character": "秉",
+      "code": "967F",
+      "glyph_index": 4095
+    },
+    {
+      "character": "种",
+      "code": "876C",
+      "glyph_index": 1196
+    },
+    {
+      "character": "科",
+      "code": "89C8",
+      "glyph_index": 1672
+    },
+    {
+      "character": "秒",
+      "code": "9562",
+      "glyph_index": 3874
+    },
+    {
+      "character": "秘",
+      "code": "94E9",
+      "glyph_index": 3817
+    },
+    {
+      "character": "秩",
+      "code": "9281",
+      "glyph_index": 3329
+    },
+    {
+      "character": "积",
+      "code": "876D",
+      "glyph_index": 1197
+    },
+    {
+      "character": "称",
+      "code": "8FCC",
+      "glyph_index": 2828
+    },
+    {
+      "character": "移",
+      "code": "88DA",
+      "glyph_index": 1498
+    },
+    {
+      "character": "稀",
+      "code": "8B48",
+      "glyph_index": 1928
+    },
+    {
+      "character": "程",
+      "code": "92F6",
+      "glyph_index": 3446
+    },
+    {
+      "character": "稍",
+      "code": "85B7",
+      "glyph_index": 887
+    },
+    {
+      "character": "稳",
+      "code": "876E",
+      "glyph_index": 1198
+    },
+    {
+      "character": "穆",
+      "code": "9673",
+      "glyph_index": 4083
+    },
+    {
+      "character": "穴",
+      "code": "8C8A",
+      "glyph_index": 2186
+    },
+    {
+      "character": "究",
+      "code": "8B86",
+      "glyph_index": 1990
+    },
+    {
+      "character": "穷",
+      "code": "876F",
+      "glyph_index": 1199
+    },
+    {
+      "character": "空",
+      "code": "8BF3",
+      "glyph_index": 2099
+    },
+    {
+      "character": "穿",
+      "code": "90FA",
+      "glyph_index": 3066
+    },
+    {
+      "character": "突",
+      "code": "93CB",
+      "glyph_index": 3595
+    },
+    {
+      "character": "立",
+      "code": "97A7",
+      "glyph_index": 4327
+    },
+    {
+      "character": "站",
+      "code": "85B8",
+      "glyph_index": 888
+    },
+    {
+      "character": "竟",
+      "code": "85B9",
+      "glyph_index": 889
+    },
+    {
+      "character": "章",
+      "code": "8FCD",
+      "glyph_index": 2829
+    },
+    {
+      "character": "竭",
+      "code": "85BA",
+      "glyph_index": 890
+    },
+    {
+      "character": "笑",
+      "code": "8FCE",
+      "glyph_index": 2830
+    },
+    {
+      "character": "笔",
+      "code": "8770",
+      "glyph_index": 1200
+    },
+    {
+      "character": "符",
+      "code": "9584",
+      "glyph_index": 3908
+    },
+    {
+      "character": "笨",
+      "code": "85BB",
+      "glyph_index": 891
+    },
+    {
+      "character": "第",
+      "code": "91E6",
+      "glyph_index": 3238
+    },
+    {
+      "character": "笼",
+      "code": "977F",
+      "glyph_index": 4287
+    },
+    {
+      "character": "等",
+      "code": "9399",
+      "glyph_index": 3545
+    },
+    {
+      "character": "筒",
+      "code": "939B",
+      "glyph_index": 3547
+    },
+    {
+      "character": "答",
+      "code": "939A",
+      "glyph_index": 3546
+    },
+    {
+      "character": "策",
+      "code": "8DF4",
+      "glyph_index": 2484
+    },
+    {
+      "character": "简",
+      "code": "8771",
+      "glyph_index": 1201
+    },
+    {
+      "character": "算",
+      "code": "8E5A",
+      "glyph_index": 2522
+    },
+    {
+      "character": "管",
+      "code": "8AC7",
+      "glyph_index": 1863
+    },
+    {
+      "character": "箭",
+      "code": "90FB",
+      "glyph_index": 3067
+    },
+    {
+      "character": "米",
+      "code": "95C4",
+      "glyph_index": 3972
+    },
+    {
+      "character": "类",
+      "code": "8772",
+      "glyph_index": 1202
+    },
+    {
+      "character": "粉",
+      "code": "95B2",
+      "glyph_index": 3954
+    },
+    {
+      "character": "粒",
+      "code": "97B1",
+      "glyph_index": 4337
+    },
+    {
+      "character": "粗",
+      "code": "9165",
+      "glyph_index": 3109
+    },
+    {
+      "character": "精",
+      "code": "90B8",
+      "glyph_index": 3000
+    },
+    {
+      "character": "糊",
+      "code": "8CD0",
+      "glyph_index": 2256
+    },
+    {
+      "character": "糙",
+      "code": "8773",
+      "glyph_index": 1203
+    },
+    {
+      "character": "糟",
+      "code": "918C",
+      "glyph_index": 3148
+    },
+    {
+      "character": "系",
+      "code": "8C6E",
+      "glyph_index": 2158
+    },
+    {
+      "character": "素",
+      "code": "9166",
+      "glyph_index": 3110
+    },
+    {
+      "character": "索",
+      "code": "8DF5",
+      "glyph_index": 2485
+    },
+    {
+      "character": "紧",
+      "code": "8774",
+      "glyph_index": 1204
+    },
+    {
+      "character": "累",
+      "code": "97DD",
+      "glyph_index": 4381
+    },
+    {
+      "character": "繁",
+      "code": "94C9",
+      "glyph_index": 3785
+    },
+    {
+      "character": "纠",
+      "code": "8775",
+      "glyph_index": 1205
+    },
+    {
+      "character": "红",
+      "code": "8776",
+      "glyph_index": 1206
+    },
+    {
+      "character": "约",
+      "code": "8777",
+      "glyph_index": 1207
+    },
+    {
+      "character": "级",
+      "code": "8778",
+      "glyph_index": 1208
+    },
+    {
+      "character": "纪",
+      "code": "8779",
+      "glyph_index": 1209
+    },
+    {
+      "character": "纯",
+      "code": "877A",
+      "glyph_index": 1210
+    },
+    {
+      "character": "纳",
+      "code": "877B",
+      "glyph_index": 1211
+    },
+    {
+      "character": "纵",
+      "code": "877C",
+      "glyph_index": 1212
+    },
+    {
+      "character": "纷",
+      "code": "877D",
+      "glyph_index": 1213
+    },
+    {
+      "character": "线",
+      "code": "877E",
+      "glyph_index": 1214
+    },
+    {
+      "character": "练",
+      "code": "8780",
+      "glyph_index": 1216
+    },
+    {
+      "character": "组",
+      "code": "8781",
+      "glyph_index": 1217
+    },
+    {
+      "character": "细",
+      "code": "8782",
+      "glyph_index": 1218
+    },
+    {
+      "character": "织",
+      "code": "8783",
+      "glyph_index": 1219
+    },
+    {
+      "character": "终",
+      "code": "8784",
+      "glyph_index": 1220
+    },
+    {
+      "character": "绊",
+      "code": "E34A",
+      "glyph_index": 910
+    },
+    {
+      "character": "绍",
+      "code": "8785",
+      "glyph_index": 1221
+    },
+    {
+      "character": "经",
+      "code": "8786",
+      "glyph_index": 1222
+    },
+    {
+      "character": "绑",
+      "code": "8787",
+      "glyph_index": 1223
+    },
+    {
+      "character": "结",
+      "code": "8788",
+      "glyph_index": 1224
+    },
+    {
+      "character": "绕",
+      "code": "8789",
+      "glyph_index": 1225
+    },
+    {
+      "character": "给",
+      "code": "878A",
+      "glyph_index": 1226
+    },
+    {
+      "character": "络",
+      "code": "878B",
+      "glyph_index": 1227
+    },
+    {
+      "character": "绝",
+      "code": "878C",
+      "glyph_index": 1228
+    },
+    {
+      "character": "绞",
+      "code": "E58A",
+      "glyph_index": 930
+    },
+    {
+      "character": "统",
+      "code": "878D",
+      "glyph_index": 1229
+    },
+    {
+      "character": "继",
+      "code": "878E",
+      "glyph_index": 1230
+    },
+    {
+      "character": "绩",
+      "code": "878F",
+      "glyph_index": 1231
+    },
+    {
+      "character": "绪",
+      "code": "8790",
+      "glyph_index": 1232
+    },
+    {
+      "character": "续",
+      "code": "8791",
+      "glyph_index": 1233
+    },
+    {
+      "character": "绯",
+      "code": "E5A0",
+      "glyph_index": 931
+    },
+    {
+      "character": "维",
+      "code": "8792",
+      "glyph_index": 1234
+    },
+    {
+      "character": "绷",
+      "code": "9AF8",
+      "glyph_index": 932
+    },
+    {
+      "character": "综",
+      "code": "81FD",
+      "glyph_index": 189
+    },
+    {
+      "character": "绿",
+      "code": "8793",
+      "glyph_index": 1235
+    },
+    {
+      "character": "缓",
+      "code": "89FF",
+      "glyph_index": 1727
+    },
+    {
+      "character": "缔",
+      "code": "8795",
+      "glyph_index": 1237
+    },
+    {
+      "character": "编",
+      "code": "86F6",
+      "glyph_index": 1142
+    },
+    {
+      "character": "缠",
+      "code": "8796",
+      "glyph_index": 1238
+    },
+    {
+      "character": "缩",
+      "code": "8797",
+      "glyph_index": 1239
+    },
+    {
+      "character": "缪",
+      "code": "8798",
+      "glyph_index": 1240
+    },
+    {
+      "character": "缴",
+      "code": "8799",
+      "glyph_index": 1241
+    },
+    {
+      "character": "缺",
+      "code": "E6D2",
+      "glyph_index": 933
+    },
+    {
+      "character": "网",
+      "code": "8AFF",
+      "glyph_index": 1919
+    },
+    {
+      "character": "罗",
+      "code": "879A",
+      "glyph_index": 1242
+    },
+    {
+      "character": "罢",
+      "code": "879B",
+      "glyph_index": 1243
+    },
+    {
+      "character": "罩",
+      "code": "82FD",
+      "glyph_index": 381
+    },
+    {
+      "character": "置",
+      "code": "9275",
+      "glyph_index": 3317
+    },
+    {
+      "character": "署",
+      "code": "8F90",
+      "glyph_index": 2768
+    },
+    {
+      "character": "美",
+      "code": "94FC",
+      "glyph_index": 3836
+    },
+    {
+      "character": "羞",
+      "code": "E3B5",
+      "glyph_index": 1083
+    },
+    {
+      "character": "群",
+      "code": "8C51",
+      "glyph_index": 2129
+    },
+    {
+      "character": "翁",
+      "code": "89A5",
+      "glyph_index": 1637
+    },
+    {
+      "character": "翅",
+      "code": "E3C0",
+      "glyph_index": 1059
+    },
+    {
+      "character": "翔",
+      "code": "E3C4",
+      "glyph_index": 918
+    },
+    {
+      "character": "翻",
+      "code": "967C",
+      "glyph_index": 4092
+    },
+    {
+      "character": "翼",
+      "code": "9783",
+      "glyph_index": 4291
+    },
+    {
+      "character": "耀",
+      "code": "9773",
+      "glyph_index": 4275
+    },
+    {
+      "character": "老",
+      "code": "9856",
+      "glyph_index": 4438
+    },
+    {
+      "character": "考",
+      "code": "8D6C",
+      "glyph_index": 2348
+    },
+    {
+      "character": "者",
+      "code": "8ED2",
+      "glyph_index": 2642
+    },
+    {
+      "character": "而",
+      "code": "8EA7",
+      "glyph_index": 2599
+    },
+    {
+      "character": "耍",
+      "code": "879C",
+      "glyph_index": 1244
+    },
+    {
+      "character": "耗",
+      "code": "96D5",
+      "glyph_index": 4181
+    },
+    {
+      "character": "耳",
+      "code": "8EA8",
+      "glyph_index": 2600
+    },
+    {
+      "character": "耶",
+      "code": "96EB",
+      "glyph_index": 4203
+    },
+    {
+      "character": "聊",
+      "code": "85BC",
+      "glyph_index": 892
+    },
+    {
+      "character": "职",
+      "code": "879D",
+      "glyph_index": 1245
+    },
+    {
+      "character": "联",
+      "code": "879E",
+      "glyph_index": 1246
+    },
+    {
+      "character": "肃",
+      "code": "879F",
+      "glyph_index": 1247
+    },
+    {
+      "character": "肆",
+      "code": "85BD",
+      "glyph_index": 893
+    },
+    {
+      "character": "肉",
+      "code": "93F7",
+      "glyph_index": 3639
+    },
+    {
+      "character": "肚",
+      "code": "9D7C",
+      "glyph_index": 934
+    },
+    {
+      "character": "股",
+      "code": "8CD2",
+      "glyph_index": 2258
+    },
+    {
+      "character": "肩",
+      "code": "8CA8",
+      "glyph_index": 2216
+    },
+    {
+      "character": "肯",
+      "code": "8D6D",
+      "glyph_index": 2349
+    },
+    {
+      "character": "育",
+      "code": "88E7",
+      "glyph_index": 1511
+    },
+    {
+      "character": "胁",
+      "code": "83FD",
+      "glyph_index": 573
+    },
+    {
+      "character": "胆",
+      "code": "925F",
+      "glyph_index": 3295
+    },
+    {
+      "character": "背",
+      "code": "9477",
+      "glyph_index": 3703
+    },
+    {
+      "character": "胜",
+      "code": "87A1",
+      "glyph_index": 1249
+    },
+    {
+      "character": "胞",
+      "code": "9645",
+      "glyph_index": 4037
+    },
+    {
+      "character": "胡",
+      "code": "8CD3",
+      "glyph_index": 2259
+    },
+    {
+      "character": "胸",
+      "code": "8BB9",
+      "glyph_index": 2041
+    },
+    {
+      "character": "能",
+      "code": "945C",
+      "glyph_index": 3676
+    },
+    {
+      "character": "脆",
+      "code": "90C6",
+      "glyph_index": 3014
+    },
+    {
+      "character": "脉",
+      "code": "85BE",
+      "glyph_index": 894
+    },
+    {
+      "character": "脐",
+      "code": "E6D1",
+      "glyph_index": 935
+    },
+    {
+      "character": "脑",
+      "code": "87A2",
+      "glyph_index": 1250
+    },
+    {
+      "character": "脚",
+      "code": "8B72",
+      "glyph_index": 1970
+    },
+    {
+      "character": "脱",
+      "code": "9245",
+      "glyph_index": 3269
+    },
+    {
+      "character": "脸",
+      "code": "87A3",
+      "glyph_index": 1251
+    },
+    {
+      "character": "腐",
+      "code": "9585",
+      "glyph_index": 3909
+    },
+    {
+      "character": "腕",
+      "code": "9872",
+      "glyph_index": 4466
+    },
+    {
+      "character": "腿",
+      "code": "91DA",
+      "glyph_index": 3226
+    },
+    {
+      "character": "膛",
+      "code": "87A4",
+      "glyph_index": 1252
+    },
+    {
+      "character": "膝",
+      "code": "9547",
+      "glyph_index": 3847
+    },
+    {
+      "character": "臂",
+      "code": "9B9B",
+      "glyph_index": 936
+    },
+    {
+      "character": "自",
+      "code": "8EA9",
+      "glyph_index": 2601
+    },
+    {
+      "character": "至",
+      "code": "8E8A",
+      "glyph_index": 2570
+    },
+    {
+      "character": "致",
+      "code": "9276",
+      "glyph_index": 3318
+    },
+    {
+      "character": "舍",
+      "code": "85BF",
+      "glyph_index": 895
+    },
+    {
+      "character": "舞",
+      "code": "9591",
+      "glyph_index": 3921
+    },
+    {
+      "character": "航",
+      "code": "8D71",
+      "glyph_index": 2353
+    },
+    {
+      "character": "般",
+      "code": "94CA",
+      "glyph_index": 3786
+    },
+    {
+      "character": "舰",
+      "code": "87A5",
+      "glyph_index": 1253
+    },
+    {
+      "character": "舱",
+      "code": "87A6",
+      "glyph_index": 1254
+    },
+    {
+      "character": "舷",
+      "code": "8CBD",
+      "glyph_index": 2237
+    },
+    {
+      "character": "船",
+      "code": "9144",
+      "glyph_index": 3076
+    },
+    {
+      "character": "艘",
+      "code": "85C4",
+      "glyph_index": 900
+    },
+    {
+      "character": "良",
+      "code": "97C7",
+      "glyph_index": 4359
+    },
+    {
+      "character": "色",
+      "code": "9046",
+      "glyph_index": 2886
+    },
+    {
+      "character": "艾",
+      "code": "85EB",
+      "glyph_index": 939
+    },
+    {
+      "character": "节",
+      "code": "86F7",
+      "glyph_index": 1143
+    },
+    {
+      "character": "芙",
+      "code": "9587",
+      "glyph_index": 3911
+    },
+    {
+      "character": "芬",
+      "code": "E19B",
+      "glyph_index": 937
+    },
+    {
+      "character": "花",
+      "code": "89D4",
+      "glyph_index": 1684
+    },
+    {
+      "character": "苏",
+      "code": "90FE",
+      "glyph_index": 3070
+    },
+    {
+      "character": "若",
+      "code": "8EE1",
+      "glyph_index": 2657
+    },
+    {
+      "character": "苦",
+      "code": "8BEA",
+      "glyph_index": 2090
+    },
+    {
+      "character": "英",
+      "code": "8970",
+      "glyph_index": 1584
+    },
+    {
+      "character": "范",
+      "code": "84FD",
+      "glyph_index": 765
+    },
+    {
+      "character": "茄",
+      "code": "89D6",
+      "glyph_index": 1686
+    },
+    {
+      "character": "茜",
+      "code": "88A9",
+      "glyph_index": 1449
+    },
+    {
+      "character": "茨",
+      "code": "88EF",
+      "glyph_index": 1519
+    },
+    {
+      "character": "茬",
+      "code": "87A7",
+      "glyph_index": 1255
+    },
+    {
+      "character": "草",
+      "code": "9190",
+      "glyph_index": 3152
+    },
+    {
+      "character": "荒",
+      "code": "8D72",
+      "glyph_index": 2354
+    },
+    {
+      "character": "荚",
+      "code": "E153",
+      "glyph_index": 938
+    },
+    {
+      "character": "荡",
+      "code": "86FD",
+      "glyph_index": 1149
+    },
+    {
+      "character": "荣",
+      "code": "87A8",
+      "glyph_index": 1256
+    },
+    {
+      "character": "药",
+      "code": "E49D",
+      "glyph_index": 940
+    },
+    {
+      "character": "荷",
+      "code": "89D7",
+      "glyph_index": 1687
+    },
+    {
+      "character": "莉",
+      "code": "85F1",
+      "glyph_index": 945
+    },
+    {
+      "character": "莎",
+      "code": "91FE",
+      "glyph_index": 3262
+    },
+    {
+      "character": "莫",
+      "code": "949C",
+      "glyph_index": 3740
+    },
+    {
+      "character": "莱",
+      "code": "9789",
+      "glyph_index": 4297
+    },
+    {
+      "character": "获",
+      "code": "87A9",
+      "glyph_index": 1257
+    },
+    {
+      "character": "菜",
+      "code": "8DD8",
+      "glyph_index": 2456
+    },
+    {
+      "character": "菲",
+      "code": "92FE",
+      "glyph_index": 3454
+    },
+    {
+      "character": "萝",
+      "code": "93FE",
+      "glyph_index": 3646
+    },
+    {
+      "character": "营",
+      "code": "87AA",
+      "glyph_index": 1258
+    },
+    {
+      "character": "萨",
+      "code": "87AB",
+      "glyph_index": 1259
+    },
+    {
+      "character": "落",
+      "code": "978E",
+      "glyph_index": 4302
+    },
+    {
+      "character": "蒂",
+      "code": "8658",
+      "glyph_index": 984
+    },
+    {
+      "character": "蒙",
+      "code": "96D6",
+      "glyph_index": 4182
+    },
+    {
+      "character": "蓝",
+      "code": "87AC",
+      "glyph_index": 1260
+    },
+    {
+      "character": "蔑",
+      "code": "95CC",
+      "glyph_index": 3980
+    },
+    {
+      "character": "蕾",
+      "code": "869D",
+      "glyph_index": 1053
+    },
+    {
+      "character": "薄",
+      "code": "9496",
+      "glyph_index": 3734
+    },
+    {
+      "character": "薇",
+      "code": "E54E",
+      "glyph_index": 1024
+    },
+    {
+      "character": "薙",
+      "code": "93E3",
+      "glyph_index": 3619
+    },
+    {
+      "character": "藏",
+      "code": "86AC",
+      "glyph_index": 1068
+    },
+    {
+      "character": "藤",
+      "code": "93A1",
+      "glyph_index": 3553
+    },
+    {
+      "character": "虏",
+      "code": "87AD",
+      "glyph_index": 1261
+    },
+    {
+      "character": "虑",
+      "code": "87AE",
+      "glyph_index": 1262
+    },
+    {
+      "character": "虚",
+      "code": "8B95",
+      "glyph_index": 2005
+    },
+    {
+      "character": "虫",
+      "code": "928E",
+      "glyph_index": 3342
+    },
+    {
+      "character": "虽",
+      "code": "87AF",
+      "glyph_index": 1263
+    },
+    {
+      "character": "蛇",
+      "code": "8ED6",
+      "glyph_index": 2646
+    },
+    {
+      "character": "蛊",
+      "code": "87B0",
+      "glyph_index": 1264
+    },
+    {
+      "character": "蛋",
+      "code": "9260",
+      "glyph_index": 3296
+    },
+    {
+      "character": "蛛",
+      "code": "9A99",
+      "glyph_index": 942
+    },
+    {
+      "character": "蜂",
+      "code": "9649",
+      "glyph_index": 4041
+    },
+    {
+      "character": "蜃",
+      "code": "9EFA",
+      "glyph_index": 943
+    },
+    {
+      "character": "蜘",
+      "code": "9277",
+      "glyph_index": 3319
+    },
+    {
+      "character": "蜥",
+      "code": "9A6C",
+      "glyph_index": 944
+    },
+    {
+      "character": "蝰",
+      "code": "9B40",
+      "glyph_index": 946
+    },
+    {
+      "character": "蝶",
+      "code": "92B1",
+      "glyph_index": 3377
+    },
+    {
+      "character": "融",
+      "code": "975A",
+      "glyph_index": 4250
+    },
+    {
+      "character": "螺",
+      "code": "9786",
+      "glyph_index": 4294
+    },
+    {
+      "character": "蟒",
+      "code": "9E58",
+      "glyph_index": 947
+    },
+    {
+      "character": "蟹",
+      "code": "8A49",
+      "glyph_index": 1737
+    },
+    {
+      "character": "蠢",
+      "code": "86AD",
+      "glyph_index": 1069
+    },
+    {
+      "character": "血",
+      "code": "8C8C",
+      "glyph_index": 2188
+    },
+    {
+      "character": "衅",
+      "code": "87B1",
+      "glyph_index": 1265
+    },
+    {
+      "character": "行",
+      "code": "8D73",
+      "glyph_index": 2355
+    },
+    {
+      "character": "衔",
+      "code": "87B2",
+      "glyph_index": 1266
+    },
+    {
+      "character": "衡",
+      "code": "8D74",
+      "glyph_index": 2356
+    },
+    {
+      "character": "衣",
+      "code": "88DF",
+      "glyph_index": 1503
+    },
+    {
+      "character": "补",
+      "code": "87B3",
+      "glyph_index": 1267
+    },
+    {
+      "character": "表",
+      "code": "955C",
+      "glyph_index": 3868
+    },
+    {
+      "character": "衰",
+      "code": "908A",
+      "glyph_index": 2954
+    },
+    {
+      "character": "袋",
+      "code": "91DC",
+      "glyph_index": 3228
+    },
+    {
+      "character": "袖",
+      "code": "91B3",
+      "glyph_index": 3187
+    },
+    {
+      "character": "被",
+      "code": "94ED",
+      "glyph_index": 3821
+    },
+    {
+      "character": "袭",
+      "code": "87B4",
+      "glyph_index": 1268
+    },
+    {
+      "character": "裁",
+      "code": "8DD9",
+      "glyph_index": 2457
+    },
+    {
+      "character": "裂",
+      "code": "97F4",
+      "glyph_index": 4404
+    },
+    {
+      "character": "装",
+      "code": "9195",
+      "glyph_index": 3157
+    },
+    {
+      "character": "裙",
+      "code": "86B9",
+      "glyph_index": 1081
+    },
+    {
+      "character": "裹",
+      "code": "87FD",
+      "glyph_index": 1341
+    },
+    {
+      "character": "西",
+      "code": "90BC",
+      "glyph_index": 3004
+    },
+    {
+      "character": "要",
+      "code": "9776",
+      "glyph_index": 4278
+    },
+    {
+      "character": "覆",
+      "code": "95A2",
+      "glyph_index": 3938
+    },
+    {
+      "character": "见",
+      "code": "87B5",
+      "glyph_index": 1269
+    },
+    {
+      "character": "观",
+      "code": "87B6",
+      "glyph_index": 1270
+    },
+    {
+      "character": "规",
+      "code": "87B7",
+      "glyph_index": 1271
+    },
+    {
+      "character": "视",
+      "code": "87B8",
+      "glyph_index": 1272
+    },
+    {
+      "character": "览",
+      "code": "86F8",
+      "glyph_index": 1144
+    },
+    {
+      "character": "觉",
+      "code": "87B9",
+      "glyph_index": 1273
+    },
+    {
+      "character": "角",
+      "code": "8A70",
+      "glyph_index": 1776
+    },
+    {
+      "character": "解",
+      "code": "89F0",
+      "glyph_index": 1712
+    },
+    {
+      "character": "触",
+      "code": "9047",
+      "glyph_index": 2887
+    },
+    {
+      "character": "言",
+      "code": "8CBE",
+      "glyph_index": 2238
+    },
+    {
+      "character": "誓",
+      "code": "90BE",
+      "glyph_index": 3006
+    },
+    {
+      "character": "警",
+      "code": "8C78",
+      "glyph_index": 2168
+    },
+    {
+      "character": "计",
+      "code": "87BA",
+      "glyph_index": 1274
+    },
+    {
+      "character": "认",
+      "code": "87BB",
+      "glyph_index": 1275
+    },
+    {
+      "character": "讨",
+      "code": "87BC",
+      "glyph_index": 1276
+    },
+    {
+      "character": "让",
+      "code": "87BD",
+      "glyph_index": 1277
+    },
+    {
+      "character": "训",
+      "code": "87BE",
+      "glyph_index": 1278
+    },
+    {
+      "character": "议",
+      "code": "87BF",
+      "glyph_index": 1279
+    },
+    {
+      "character": "讯",
+      "code": "87C0",
+      "glyph_index": 1280
+    },
+    {
+      "character": "记",
+      "code": "87C1",
+      "glyph_index": 1281
+    },
+    {
+      "character": "讲",
+      "code": "87C2",
+      "glyph_index": 1282
+    },
+    {
+      "character": "讶",
+      "code": "87C3",
+      "glyph_index": 1283
+    },
+    {
+      "character": "许",
+      "code": "87C4",
+      "glyph_index": 1284
+    },
+    {
+      "character": "论",
+      "code": "87C5",
+      "glyph_index": 1285
+    },
+    {
+      "character": "讽",
+      "code": "87C6",
+      "glyph_index": 1286
+    },
+    {
+      "character": "设",
+      "code": "87C7",
+      "glyph_index": 1287
+    },
+    {
+      "character": "访",
+      "code": "87C8",
+      "glyph_index": 1288
+    },
+    {
+      "character": "证",
+      "code": "87C9",
+      "glyph_index": 1289
+    },
+    {
+      "character": "评",
+      "code": "87CA",
+      "glyph_index": 1290
+    },
+    {
+      "character": "识",
+      "code": "87CB",
+      "glyph_index": 1291
+    },
+    {
+      "character": "诉",
+      "code": "87CC",
+      "glyph_index": 1292
+    },
+    {
+      "character": "词",
+      "code": "87CD",
+      "glyph_index": 1293
+    },
+    {
+      "character": "试",
+      "code": "987F",
+      "glyph_index": 4479
+    },
+    {
+      "character": "诚",
+      "code": "87CE",
+      "glyph_index": 1294
+    },
+    {
+      "character": "话",
+      "code": "87CF",
+      "glyph_index": 1295
+    },
+    {
+      "character": "诞",
+      "code": "87D0",
+      "glyph_index": 1296
+    },
+    {
+      "character": "该",
+      "code": "87D1",
+      "glyph_index": 1297
+    },
+    {
+      "character": "详",
+      "code": "87D2",
+      "glyph_index": 1298
+    },
+    {
+      "character": "诩",
+      "code": "88FD",
+      "glyph_index": 1533
+    },
+    {
+      "character": "语",
+      "code": "87D3",
+      "glyph_index": 1299
+    },
+    {
+      "character": "误",
+      "code": "87D4",
+      "glyph_index": 1300
+    },
+    {
+      "character": "诱",
+      "code": "87D5",
+      "glyph_index": 1301
+    },
+    {
+      "character": "说",
+      "code": "87D6",
+      "glyph_index": 1302
+    },
+    {
+      "character": "请",
+      "code": "87D7",
+      "glyph_index": 1303
+    },
+    {
+      "character": "诸",
+      "code": "87D8",
+      "glyph_index": 1304
+    },
+    {
+      "character": "诺",
+      "code": "87D9",
+      "glyph_index": 1305
+    },
+    {
+      "character": "读",
+      "code": "87DA",
+      "glyph_index": 1306
+    },
+    {
+      "character": "谁",
+      "code": "87DB",
+      "glyph_index": 1307
+    },
+    {
+      "character": "调",
+      "code": "87DC",
+      "glyph_index": 1308
+    },
+    {
+      "character": "谅",
+      "code": "87DD",
+      "glyph_index": 1309
+    },
+    {
+      "character": "谈",
+      "code": "87DE",
+      "glyph_index": 1310
+    },
+    {
+      "character": "谓",
+      "code": "87DF",
+      "glyph_index": 1311
+    },
+    {
+      "character": "谢",
+      "code": "87E0",
+      "glyph_index": 1312
+    },
+    {
+      "character": "谣",
+      "code": "89FD",
+      "glyph_index": 1725
+    },
+    {
+      "character": "谦",
+      "code": "94FE",
+      "glyph_index": 3838
+    },
+    {
+      "character": "谨",
+      "code": "87E1",
+      "glyph_index": 1313
+    },
+    {
+      "character": "豆",
+      "code": "93A4",
+      "glyph_index": 3556
+    },
+    {
+      "character": "象",
+      "code": "8FDB",
+      "glyph_index": 2843
+    },
+    {
+      "character": "豪",
+      "code": "8D8B",
+      "glyph_index": 2379
+    },
+    {
+      "character": "豹",
+      "code": "955E",
+      "glyph_index": 3870
+    },
+    {
+      "character": "贝",
+      "code": "87E2",
+      "glyph_index": 1314
+    },
+    {
+      "character": "负",
+      "code": "87E3",
+      "glyph_index": 1315
+    },
+    {
+      "character": "贡",
+      "code": "E953",
+      "glyph_index": 948
+    },
+    {
+      "character": "责",
+      "code": "87E4",
+      "glyph_index": 1316
+    },
+    {
+      "character": "败",
+      "code": "87E5",
+      "glyph_index": 1317
+    },
+    {
+      "character": "账",
+      "code": "87E6",
+      "glyph_index": 1318
+    },
+    {
+      "character": "货",
+      "code": "87E7",
+      "glyph_index": 1319
+    },
+    {
+      "character": "质",
+      "code": "87E8",
+      "glyph_index": 1320
+    },
+    {
+      "character": "贵",
+      "code": "87EA",
+      "glyph_index": 1322
+    },
+    {
+      "character": "贸",
+      "code": "87EB",
+      "glyph_index": 1323
+    },
+    {
+      "character": "费",
+      "code": "87EC",
+      "glyph_index": 1324
+    },
+    {
+      "character": "贾",
+      "code": "87ED",
+      "glyph_index": 1325
+    },
+    {
+      "character": "资",
+      "code": "87EE",
+      "glyph_index": 1326
+    },
+    {
+      "character": "赋",
+      "code": "9947",
+      "glyph_index": 949
+    },
+    {
+      "character": "赌",
+      "code": "87EF",
+      "glyph_index": 1327
+    },
+    {
+      "character": "赖",
+      "code": "E472",
+      "glyph_index": 950
+    },
+    {
+      "character": "赛",
+      "code": "95FE",
+      "glyph_index": 4030
+    },
+    {
+      "character": "赞",
+      "code": "96FE",
+      "glyph_index": 4222
+    },
+    {
+      "character": "赢",
+      "code": "87F0",
+      "glyph_index": 1328
+    },
+    {
+      "character": "赫",
+      "code": "8A71",
+      "glyph_index": 1777
+    },
+    {
+      "character": "走",
+      "code": "9196",
+      "glyph_index": 3158
+    },
+    {
+      "character": "赴",
+      "code": "958B",
+      "glyph_index": 3915
+    },
+    {
+      "character": "赶",
+      "code": "87F1",
+      "glyph_index": 1329
+    },
+    {
+      "character": "起",
+      "code": "8B4E",
+      "glyph_index": 1934
+    },
+    {
+      "character": "趁",
+      "code": "86E0",
+      "glyph_index": 1120
+    },
+    {
+      "character": "超",
+      "code": "92B4",
+      "glyph_index": 3380
+    },
+    {
+      "character": "越",
+      "code": "897A",
+      "glyph_index": 1594
+    },
+    {
+      "character": "趋",
+      "code": "8AFD",
+      "glyph_index": 1917
+    },
+    {
+      "character": "趟",
+      "code": "87F2",
+      "glyph_index": 1330
+    },
+    {
+      "character": "趣",
+      "code": "8EEF",
+      "glyph_index": 2671
+    },
+    {
+      "character": "足",
+      "code": "91AB",
+      "glyph_index": 3179
+    },
+    {
+      "character": "跃",
+      "code": "8BFD",
+      "glyph_index": 2109
+    },
+    {
+      "character": "跑",
+      "code": "87F3",
+      "glyph_index": 1331
+    },
+    {
+      "character": "距",
+      "code": "8B97",
+      "glyph_index": 2007
+    },
+    {
+      "character": "跟",
+      "code": "86E1",
+      "glyph_index": 1121
+    },
+    {
+      "character": "跤",
+      "code": "87F4",
+      "glyph_index": 1332
+    },
+    {
+      "character": "路",
+      "code": "9848",
+      "glyph_index": 4424
+    },
+    {
+      "character": "跳",
+      "code": "92B5",
+      "glyph_index": 3381
+    },
+    {
+      "character": "践",
+      "code": "9148",
+      "glyph_index": 3080
+    },
+    {
+      "character": "踏",
+      "code": "93A5",
+      "glyph_index": 3557
+    },
+    {
+      "character": "踞",
+      "code": "86E2",
+      "glyph_index": 1122
+    },
+    {
+      "character": "踢",
+      "code": "9CC6",
+      "glyph_index": 951
+    },
+    {
+      "character": "踪",
+      "code": "E748",
+      "glyph_index": 1051
+    },
+    {
+      "character": "躁",
+      "code": "86E3",
+      "glyph_index": 1123
+    },
+    {
+      "character": "身",
+      "code": "9067",
+      "glyph_index": 2919
+    },
+    {
+      "character": "躲",
+      "code": "87F5",
+      "glyph_index": 1333
+    },
+    {
+      "character": "车",
+      "code": "87F6",
+      "glyph_index": 1334
+    },
+    {
+      "character": "轨",
+      "code": "E444",
+      "glyph_index": 952
+    },
+    {
+      "character": "转",
+      "code": "87F7",
+      "glyph_index": 1335
+    },
+    {
+      "character": "轮",
+      "code": "87F8",
+      "glyph_index": 1336
+    },
+    {
+      "character": "轰",
+      "code": "87F9",
+      "glyph_index": 1337
+    },
+    {
+      "character": "轻",
+      "code": "87FA",
+      "glyph_index": 1338
+    },
+    {
+      "character": "载",
+      "code": "87FB",
+      "glyph_index": 1339
+    },
+    {
+      "character": "较",
+      "code": "87FC",
+      "glyph_index": 1340
+    },
+    {
+      "character": "辅",
+      "code": "8840",
+      "glyph_index": 1344
+    },
+    {
+      "character": "辉",
+      "code": "9952",
+      "glyph_index": 953
+    },
+    {
+      "character": "辐",
+      "code": "E081",
+      "glyph_index": 954
+    },
+    {
+      "character": "输",
+      "code": "8841",
+      "glyph_index": 1345
+    },
+    {
+      "character": "辙",
+      "code": "8842",
+      "glyph_index": 1346
+    },
+    {
+      "character": "辛",
+      "code": "9068",
+      "glyph_index": 2920
+    },
+    {
+      "character": "辱",
+      "code": "904A",
+      "glyph_index": 2890
+    },
+    {
+      "character": "边",
+      "code": "8843",
+      "glyph_index": 1347
+    },
+    {
+      "character": "达",
+      "code": "8844",
+      "glyph_index": 1348
+    },
+    {
+      "character": "迅",
+      "code": "9076",
+      "glyph_index": 2934
+    },
+    {
+      "character": "过",
+      "code": "8845",
+      "glyph_index": 1349
+    },
+    {
+      "character": "迈",
+      "code": "8846",
+      "glyph_index": 1350
+    },
+    {
+      "character": "迎",
+      "code": "8C7D",
+      "glyph_index": 2173
+    },
+    {
+      "character": "运",
+      "code": "8847",
+      "glyph_index": 1351
+    },
+    {
+      "character": "近",
+      "code": "8BDF",
+      "glyph_index": 2079
+    },
+    {
+      "character": "返",
+      "code": "95D4",
+      "glyph_index": 3988
+    },
+    {
+      "character": "还",
+      "code": "8848",
+      "glyph_index": 1352
+    },
+    {
+      "character": "这",
+      "code": "8849",
+      "glyph_index": 1353
+    },
+    {
+      "character": "进",
+      "code": "884A",
+      "glyph_index": 1354
+    },
+    {
+      "character": "远",
+      "code": "884B",
+      "glyph_index": 1355
+    },
+    {
+      "character": "违",
+      "code": "884C",
+      "glyph_index": 1356
+    },
+    {
+      "character": "连",
+      "code": "884D",
+      "glyph_index": 1357
+    },
+    {
+      "character": "迟",
+      "code": "884E",
+      "glyph_index": 1358
+    },
+    {
+      "character": "迦",
+      "code": "89DE",
+      "glyph_index": 1694
+    },
+    {
+      "character": "迪",
+      "code": "86E4",
+      "glyph_index": 1124
+    },
+    {
+      "character": "迫",
+      "code": "9497",
+      "glyph_index": 3735
+    },
+    {
+      "character": "述",
+      "code": "8F71",
+      "glyph_index": 2737
+    },
+    {
+      "character": "迷",
+      "code": "96C0",
+      "glyph_index": 4160
+    },
+    {
+      "character": "追",
+      "code": "92C7",
+      "glyph_index": 3399
+    },
+    {
+      "character": "退",
+      "code": "91DE",
+      "glyph_index": 3230
+    },
+    {
+      "character": "送",
+      "code": "9197",
+      "glyph_index": 3159
+    },
+    {
+      "character": "适",
+      "code": "884F",
+      "glyph_index": 1359
+    },
+    {
+      "character": "逃",
+      "code": "93A6",
+      "glyph_index": 3558
+    },
+    {
+      "character": "逆",
+      "code": "8B74",
+      "glyph_index": 1972
+    },
+    {
+      "character": "选",
+      "code": "8850",
+      "glyph_index": 1360
+    },
+    {
+      "character": "透",
+      "code": "93A7",
+      "glyph_index": 3559
+    },
+    {
+      "character": "逐",
+      "code": "9280",
+      "glyph_index": 3328
+    },
+    {
+      "character": "通",
+      "code": "92CA",
+      "glyph_index": 3402
+    },
+    {
+      "character": "逝",
+      "code": "90C0",
+      "glyph_index": 3008
+    },
+    {
+      "character": "逞",
+      "code": "86E5",
+      "glyph_index": 1125
+    },
+    {
+      "character": "速",
+      "code": "91AC",
+      "glyph_index": 3180
+    },
+    {
+      "character": "造",
+      "code": "91A2",
+      "glyph_index": 3170
+    },
+    {
+      "character": "逼",
+      "code": "954E",
+      "glyph_index": 3854
+    },
+    {
+      "character": "遇",
+      "code": "8BF6",
+      "glyph_index": 2102
+    },
+    {
+      "character": "遍",
+      "code": "95D5",
+      "glyph_index": 3989
+    },
+    {
+      "character": "道",
+      "code": "93B9",
+      "glyph_index": 3577
+    },
+    {
+      "character": "遗",
+      "code": "8851",
+      "glyph_index": 1361
+    },
+    {
+      "character": "遣",
+      "code": "8CAD",
+      "glyph_index": 2221
+    },
+    {
+      "character": "遭",
+      "code": "9198",
+      "glyph_index": 3160
+    },
+    {
+      "character": "遵",
+      "code": "8F85",
+      "glyph_index": 2757
+    },
+    {
+      "character": "避",
+      "code": "94F0",
+      "glyph_index": 3824
+    },
+    {
+      "character": "邀",
+      "code": "E450",
+      "glyph_index": 955
+    },
+    {
+      "character": "那",
+      "code": "93DF",
+      "glyph_index": 3615
+    },
+    {
+      "character": "邦",
+      "code": "964D",
+      "glyph_index": 4045
+    },
+    {
+      "character": "邪",
+      "code": "8ED7",
+      "glyph_index": 2647
+    },
+    {
+      "character": "邻",
+      "code": "8CFD",
+      "glyph_index": 2301
+    },
+    {
+      "character": "郎",
+      "code": "9859",
+      "glyph_index": 4441
+    },
+    {
+      "character": "部",
+      "code": "9594",
+      "glyph_index": 3924
+    },
+    {
+      "character": "都",
+      "code": "9373",
+      "glyph_index": 3507
+    },
+    {
+      "character": "配",
+      "code": "947A",
+      "glyph_index": 3706
+    },
+    {
+      "character": "酒",
+      "code": "8EF0",
+      "glyph_index": 2672
+    },
+    {
+      "character": "酷",
+      "code": "8D93",
+      "glyph_index": 2387
+    },
+    {
+      "character": "酸",
+      "code": "8E5F",
+      "glyph_index": 2527
+    },
+    {
+      "character": "醒",
+      "code": "90C1",
+      "glyph_index": 3009
+    },
+    {
+      "character": "采",
+      "code": "8DD1",
+      "glyph_index": 2449
+    },
+    {
+      "character": "释",
+      "code": "8852",
+      "glyph_index": 1362
+    },
+    {
+      "character": "里",
+      "code": "97A2",
+      "glyph_index": 4322
+    },
+    {
+      "character": "重",
+      "code": "8F64",
+      "glyph_index": 2724
+    },
+    {
+      "character": "野",
+      "code": "96EC",
+      "glyph_index": 4204
+    },
+    {
+      "character": "量",
+      "code": "97CA",
+      "glyph_index": 4362
+    },
+    {
+      "character": "金",
+      "code": "8BE0",
+      "glyph_index": 2080
+    },
+    {
+      "character": "针",
+      "code": "8DFD",
+      "glyph_index": 2493
+    },
+    {
+      "character": "钉",
+      "code": "E6DC",
+      "glyph_index": 956
+    },
+    {
+      "character": "钛",
+      "code": "8853",
+      "glyph_index": 1363
+    },
+    {
+      "character": "钝",
+      "code": "8854",
+      "glyph_index": 1364
+    },
+    {
+      "character": "钢",
+      "code": "97FE",
+      "glyph_index": 4414
+    },
+    {
+      "character": "钩",
+      "code": "8855",
+      "glyph_index": 1365
+    },
+    {
+      "character": "钱",
+      "code": "82FF",
+      "glyph_index": 383
+    },
+    {
+      "character": "钳",
+      "code": "9C98",
+      "glyph_index": 958
+    },
+    {
+      "character": "钻",
+      "code": "86FF",
+      "glyph_index": 1151
+    },
+    {
+      "character": "铁",
+      "code": "8856",
+      "glyph_index": 1366
+    },
+    {
+      "character": "铆",
+      "code": "E5E1",
+      "glyph_index": 959
+    },
+    {
+      "character": "铬",
+      "code": "9FAD",
+      "glyph_index": 960
+    },
+    {
+      "character": "银",
+      "code": "8857",
+      "glyph_index": 1367
+    },
+    {
+      "character": "链",
+      "code": "E179",
+      "glyph_index": 961
+    },
+    {
+      "character": "锁",
+      "code": "8858",
+      "glyph_index": 1368
+    },
+    {
+      "character": "锋",
+      "code": "8BFF",
+      "glyph_index": 2111
+    },
+    {
+      "character": "锐",
+      "code": "8859",
+      "glyph_index": 1369
+    },
+    {
+      "character": "错",
+      "code": "885A",
+      "glyph_index": 1370
+    },
+    {
+      "character": "锚",
+      "code": "885B",
+      "glyph_index": 1371
+    },
+    {
+      "character": "锡",
+      "code": "885C",
+      "glyph_index": 1372
+    },
+    {
+      "character": "锤",
+      "code": "9CB1",
+      "glyph_index": 962
+    },
+    {
+      "character": "锦",
+      "code": "885D",
+      "glyph_index": 1373
+    },
+    {
+      "character": "键",
+      "code": "885E",
+      "glyph_index": 1374
+    },
+    {
+      "character": "镇",
+      "code": "8EFD",
+      "glyph_index": 2685
+    },
+    {
+      "character": "镖",
+      "code": "885F",
+      "glyph_index": 1375
+    },
+    {
+      "character": "镜",
+      "code": "9A58",
+      "glyph_index": 963
+    },
+    {
+      "character": "镰",
+      "code": "88A0",
+      "glyph_index": 1440
+    },
+    {
+      "character": "长",
+      "code": "8861",
+      "glyph_index": 1377
+    },
+    {
+      "character": "门",
+      "code": "8862",
+      "glyph_index": 1378
+    },
+    {
+      "character": "闪",
+      "code": "E056",
+      "glyph_index": 964
+    },
+    {
+      "character": "闭",
+      "code": "8863",
+      "glyph_index": 1379
+    },
+    {
+      "character": "问",
+      "code": "8864",
+      "glyph_index": 1380
+    },
+    {
+      "character": "闯",
+      "code": "8865",
+      "glyph_index": 1381
+    },
+    {
+      "character": "闲",
+      "code": "8866",
+      "glyph_index": 1382
+    },
+    {
+      "character": "间",
+      "code": "8867",
+      "glyph_index": 1383
+    },
+    {
+      "character": "闹",
+      "code": "8868",
+      "glyph_index": 1384
+    },
+    {
+      "character": "闻",
+      "code": "8869",
+      "glyph_index": 1385
+    },
+    {
+      "character": "队",
+      "code": "886A",
+      "glyph_index": 1386
+    },
+    {
+      "character": "阱",
+      "code": "886B",
+      "glyph_index": 1387
+    },
+    {
+      "character": "防",
+      "code": "9668",
+      "glyph_index": 4072
+    },
+    {
+      "character": "阳",
+      "code": "83FF",
+      "glyph_index": 575
+    },
+    {
+      "character": "阴",
+      "code": "886C",
+      "glyph_index": 1388
+    },
+    {
+      "character": "阵",
+      "code": "886D",
+      "glyph_index": 1389
+    },
+    {
+      "character": "阶",
+      "code": "886E",
+      "glyph_index": 1390
+    },
+    {
+      "character": "阻",
+      "code": "916A",
+      "glyph_index": 3114
+    },
+    {
+      "character": "阿",
+      "code": "88A2",
+      "glyph_index": 1442
+    },
+    {
+      "character": "附",
+      "code": "958D",
+      "glyph_index": 3917
+    },
+    {
+      "character": "际",
+      "code": "8FFD",
+      "glyph_index": 2877
+    },
+    {
+      "character": "陆",
+      "code": "86F9",
+      "glyph_index": 1145
+    },
+    {
+      "character": "陈",
+      "code": "886F",
+      "glyph_index": 1391
+    },
+    {
+      "character": "陋",
+      "code": "86E6",
+      "glyph_index": 1126
+    },
+    {
+      "character": "陌",
+      "code": "90FD",
+      "glyph_index": 3069
+    },
+    {
+      "character": "降",
+      "code": "8D7E",
+      "glyph_index": 2366
+    },
+    {
+      "character": "限",
+      "code": "8CC0",
+      "glyph_index": 2240
+    },
+    {
+      "character": "除",
+      "code": "8F9C",
+      "glyph_index": 2780
+    },
+    {
+      "character": "险",
+      "code": "8870",
+      "glyph_index": 1392
+    },
+    {
+      "character": "陪",
+      "code": "9486",
+      "glyph_index": 3718
+    },
+    {
+      "character": "陷",
+      "code": "86E7",
+      "glyph_index": 1127
+    },
+    {
+      "character": "隆",
+      "code": "97B2",
+      "glyph_index": 4338
+    },
+    {
+      "character": "随",
+      "code": "908F",
+      "glyph_index": 2959
+    },
+    {
+      "character": "隐",
+      "code": "8871",
+      "glyph_index": 1393
+    },
+    {
+      "character": "隔",
+      "code": "8A75",
+      "glyph_index": 1781
+    },
+    {
+      "character": "隘",
+      "code": "86E8",
+      "glyph_index": 1128
+    },
+    {
+      "character": "隙",
+      "code": "8C84",
+      "glyph_index": 2180
+    },
+    {
+      "character": "障",
+      "code": "8FE1",
+      "glyph_index": 2849
+    },
+    {
+      "character": "隶",
+      "code": "86E9",
+      "glyph_index": 1129
+    },
+    {
+      "character": "隼",
+      "code": "94B9",
+      "glyph_index": 3769
+    },
+    {
+      "character": "难",
+      "code": "8872",
+      "glyph_index": 1394
+    },
+    {
+      "character": "雅",
+      "code": "89EB",
+      "glyph_index": 1707
+    },
+    {
+      "character": "集",
+      "code": "8F57",
+      "glyph_index": 2711
+    },
+    {
+      "character": "雨",
+      "code": "894A",
+      "glyph_index": 1546
+    },
+    {
+      "character": "雪",
+      "code": "90E1",
+      "glyph_index": 3041
+    },
+    {
+      "character": "零",
+      "code": "97EB",
+      "glyph_index": 4395
+    },
+    {
+      "character": "雷",
+      "code": "978B",
+      "glyph_index": 4299
+    },
+    {
+      "character": "雾",
+      "code": "8873",
+      "glyph_index": 1395
+    },
+    {
+      "character": "需",
+      "code": "8EF9",
+      "glyph_index": 2681
+    },
+    {
+      "character": "霆",
+      "code": "9D68",
+      "glyph_index": 965
+    },
+    {
+      "character": "震",
+      "code": "906B",
+      "glyph_index": 2923
+    },
+    {
+      "character": "霍",
+      "code": "86EA",
+      "glyph_index": 1130
+    },
+    {
+      "character": "霰",
+      "code": "9D95",
+      "glyph_index": 966
+    },
+    {
+      "character": "露",
+      "code": "9849",
+      "glyph_index": 4425
+    },
+    {
+      "character": "霸",
+      "code": "91FD",
+      "glyph_index": 3261
+    },
+    {
+      "character": "青",
+      "code": "90C2",
+      "glyph_index": 3010
+    },
+    {
+      "character": "静",
+      "code": "90C3",
+      "glyph_index": 3011
+    },
+    {
+      "character": "非",
+      "code": "94F1",
+      "glyph_index": 3825
+    },
+    {
+      "character": "靠",
+      "code": "86EB",
+      "glyph_index": 1131
+    },
+    {
+      "character": "面",
+      "code": "96CA",
+      "glyph_index": 4170
+    },
+    {
+      "character": "革",
+      "code": "8A76",
+      "glyph_index": 1782
+    },
+    {
+      "character": "靶",
+      "code": "8874",
+      "glyph_index": 1396
+    },
+    {
+      "character": "鞭",
+      "code": "95DA",
+      "glyph_index": 3994
+    },
+    {
+      "character": "音",
+      "code": "89B9",
+      "glyph_index": 1657
+    },
+    {
+      "character": "页",
+      "code": "8CFF",
+      "glyph_index": 2303
+    },
+    {
+      "character": "顶",
+      "code": "8875",
+      "glyph_index": 1397
+    },
+    {
+      "character": "项",
+      "code": "8876",
+      "glyph_index": 1398
+    },
+    {
+      "character": "顺",
+      "code": "8877",
+      "glyph_index": 1399
+    },
+    {
+      "character": "须",
+      "code": "8878",
+      "glyph_index": 1400
+    },
+    {
+      "character": "顾",
+      "code": "8879",
+      "glyph_index": 1401
+    },
+    {
+      "character": "顿",
+      "code": "887A",
+      "glyph_index": 1402
+    },
+    {
+      "character": "预",
+      "code": "887B",
+      "glyph_index": 1403
+    },
+    {
+      "character": "领",
+      "code": "887C",
+      "glyph_index": 1404
+    },
+    {
+      "character": "频",
+      "code": "887D",
+      "glyph_index": 1405
+    },
+    {
+      "character": "颗",
+      "code": "887E",
+      "glyph_index": 1406
+    },
+    {
+      "character": "题",
+      "code": "8880",
+      "glyph_index": 1408
+    },
+    {
+      "character": "额",
+      "code": "8DFF",
+      "glyph_index": 2495
+    },
+    {
+      "character": "颤",
+      "code": "9DF0",
+      "glyph_index": 967
+    },
+    {
+      "character": "风",
+      "code": "8881",
+      "glyph_index": 1409
+    },
+    {
+      "character": "飓",
+      "code": "E0A3",
+      "glyph_index": 968
+    },
+    {
+      "character": "飞",
+      "code": "8882",
+      "glyph_index": 1410
+    },
+    {
+      "character": "饵",
+      "code": "8883",
+      "glyph_index": 1411
+    },
+    {
+      "character": "饶",
+      "code": "8884",
+      "glyph_index": 1412
+    },
+    {
+      "character": "首",
+      "code": "8EF1",
+      "glyph_index": 2673
+    },
+    {
+      "character": "香",
+      "code": "8D81",
+      "glyph_index": 2369
+    },
+    {
+      "character": "马",
+      "code": "8885",
+      "glyph_index": 1413
+    },
+    {
+      "character": "驱",
+      "code": "92FD",
+      "glyph_index": 3453
+    },
+    {
+      "character": "驶",
+      "code": "8886",
+      "glyph_index": 1414
+    },
+    {
+      "character": "驻",
+      "code": "8887",
+      "glyph_index": 1415
+    },
+    {
+      "character": "驾",
+      "code": "8888",
+      "glyph_index": 1416
+    },
+    {
+      "character": "骂",
+      "code": "8889",
+      "glyph_index": 1417
+    },
+    {
+      "character": "骄",
+      "code": "888A",
+      "glyph_index": 1418
+    },
+    {
+      "character": "验",
+      "code": "888B",
+      "glyph_index": 1419
+    },
+    {
+      "character": "骏",
+      "code": "888C",
+      "glyph_index": 1420
+    },
+    {
+      "character": "骑",
+      "code": "E669",
+      "glyph_index": 969
+    },
+    {
+      "character": "骗",
+      "code": "888D",
+      "glyph_index": 1421
+    },
+    {
+      "character": "骚",
+      "code": "888E",
+      "glyph_index": 1422
+    },
+    {
+      "character": "骷",
+      "code": "888F",
+      "glyph_index": 1423
+    },
+    {
+      "character": "髅",
+      "code": "8890",
+      "glyph_index": 1424
+    },
+    {
+      "character": "高",
+      "code": "8D82",
+      "glyph_index": 2370
+    },
+    {
+      "character": "鬼",
+      "code": "8B53",
+      "glyph_index": 1939
+    },
+    {
+      "character": "魂",
+      "code": "8DB0",
+      "glyph_index": 2416
+    },
+    {
+      "character": "魄",
+      "code": "E9AE",
+      "glyph_index": 1065
+    },
+    {
+      "character": "魅",
+      "code": "96A3",
+      "glyph_index": 4131
+    },
+    {
+      "character": "魇",
+      "code": "E0CF",
+      "glyph_index": 970
+    },
+    {
+      "character": "魔",
+      "code": "9682",
+      "glyph_index": 4098
+    },
+    {
+      "character": "鱼",
+      "code": "8891",
+      "glyph_index": 1425
+    },
+    {
+      "character": "鲁",
+      "code": "8892",
+      "glyph_index": 1426
+    },
+    {
+      "character": "鲸",
+      "code": "8893",
+      "glyph_index": 1427
+    },
+    {
+      "character": "鸟",
+      "code": "8894",
+      "glyph_index": 1428
+    },
+    {
+      "character": "鸣",
+      "code": "8895",
+      "glyph_index": 1429
+    },
+    {
+      "character": "鹉",
+      "code": "E947",
+      "glyph_index": 971
+    },
+    {
+      "character": "鹦",
+      "code": "E36B",
+      "glyph_index": 972
+    },
+    {
+      "character": "鹫",
+      "code": "E1C1",
+      "glyph_index": 973
+    },
+    {
+      "character": "鹰",
+      "code": "9F54",
+      "glyph_index": 974
+    },
+    {
+      "character": "麦",
+      "code": "949E",
+      "glyph_index": 3742
+    },
+    {
+      "character": "麻",
+      "code": "9683",
+      "glyph_index": 4099
+    },
+    {
+      "character": "黏",
+      "code": "86EC",
+      "glyph_index": 1132
+    },
+    {
+      "character": "黑",
+      "code": "8896",
+      "glyph_index": 1430
+    },
+    {
+      "character": "默",
+      "code": "86ED",
+      "glyph_index": 1133
+    },
+    {
+      "character": "黛",
+      "code": "91E1",
+      "glyph_index": 3233
+    },
+    {
+      "character": "鼻",
+      "code": "9540",
+      "glyph_index": 3840
+    },
+    {
+      "character": "齐",
+      "code": "8897",
+      "glyph_index": 1431
+    },
+    {
+      "character": "齿",
+      "code": "9E77",
+      "glyph_index": 975
+    },
+    {
+      "character": "龄",
+      "code": "8898",
+      "glyph_index": 1432
+    },
+    {
+      "character": "龙",
+      "code": "8899",
+      "glyph_index": 1433
+    },
+    {
+      "character": "－",
+      "code": "9A42",
+      "glyph_index": 976
+    },
+    {
+      "character": "～",
+      "code": "889A",
+      "glyph_index": 1434
+    }
+  ],
+  "acceptance": {
+    "every_release_glyph_has_one_primary_assignment": true,
+    "assignment_count_exact": true,
+    "mapping_sha256_exact": true,
+    "direct_original_member_writeback_supported": true
+  }
+}

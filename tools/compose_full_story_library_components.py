@@ -220,31 +220,38 @@ def main() -> int:
         "acceptance": deepcopy(library["acceptance"]),
     }
     combined["outputs"] = {**full_outputs, **installed_library_outputs}
-    build_passes = combined.get("build_passes")
-    if not isinstance(build_passes, list):
-        raise SystemExit("full-story build-pass ownership is missing")
-    pass_by_id = {
+    build_groups = combined.get("build_groups")
+    if not isinstance(build_groups, list):
+        raise SystemExit("full-story build-group ownership is missing")
+    group_by_id = {
         item.get("id"): item
-        for item in build_passes
+        for item in build_groups
         if isinstance(item, dict)
     }
-    if len(pass_by_id) != len(build_passes) or "P2" not in pass_by_id:
-        raise SystemExit("full-story build-pass IDs are malformed")
-    p2_members = pass_by_id["P2"].get("members")
-    if not isinstance(p2_members, list):
-        raise SystemExit("P2 member ownership is malformed")
-    p2_members.extend(sorted(installed_library_outputs))
-    pass_by_id["P2"]["physical_member_count"] = len(p2_members)
+    if (
+        len(group_by_id) != len(build_groups)
+        or "localized_data_members" not in group_by_id
+    ):
+        raise SystemExit("full-story build-group IDs are malformed")
+    localized_members = group_by_id["localized_data_members"].get("members")
+    if not isinstance(localized_members, list):
+        raise SystemExit("localized-data member ownership is malformed")
+    localized_members.extend(sorted(installed_library_outputs))
+    group_by_id["localized_data_members"]["physical_member_count"] = len(
+        localized_members
+    )
     owned_members = [
         member
-        for build_pass in build_passes
-        for member in build_pass.get("members", [])
+        for build_group in build_groups
+        for member in build_group.get("members", [])
     ]
     if (
         len(owned_members) != len(set(owned_members))
         or set(owned_members) != set(combined["outputs"])
     ):
-        raise SystemExit("combined build-pass ownership is incomplete or duplicated")
+        raise SystemExit(
+            "combined build-group ownership is incomplete or duplicated"
+        )
     combined.setdefault("acceptance", {})[
         "reviewed_library_components_reread_exact"
     ] = all(library["acceptance"].values())

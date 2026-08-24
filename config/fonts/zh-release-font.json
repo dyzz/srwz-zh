@@ -22,9 +22,10 @@
     "glob": "**/*.json",
     "field": "translation",
     "exclude_globs": [
-      "ui-atlas/*.json"
+      "ui-atlas/*.json",
+      "menu/release-v0.3.json"
     ],
-    "exclude_reason": "These corpora are pre-rendered into validated texture assets and never use the runtime VT1 glyph renderer.",
+    "exclude_reason": "UI-atlas corpora are pre-rendered into validated textures. The v0.3 menu corpus is a source-bound release selection duplicated from the two menu source corpora, which remain in the font scan.",
     "map_fields": [
       "compdata_direct_by_offset",
       "compdata_context_help_by_offset",

@@ -2,11 +2,11 @@
   "schema_version": 1,
   "status": "integrated_global_zh_release_library_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-library-integrated-v1",
-  "scope": "Compose the validated encoded UI component, all 297 COMPDATA map battle/retreat lines, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, STAGE flow summaries, MTV_PROS world-history scrolling text and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, all title-idle auto-demo work-title and speaker-name overlays, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer, plus the reviewed v0.2 robot, character and keyword encyclopedia members.",
-  "build_passes": [
+  "scope": "Build the complete Simplified Chinese release directly from the original disc members, including UI, global font, story, overviews, battle text, title and menu textures, archives, and executable layout changes, plus the reviewed v0.2 robot, character and keyword encyclopedia members.",
+  "build_groups": [
     {
-      "id": "P1",
-      "category": "executable_and_font",
+      "id": "core_runtime_members",
+      "category": "executable_font_and_core_ui",
       "members": [
         "SLPS_258.87",
         "DATA/VT1.BIN"
@@ -14,8 +14,8 @@
       "physical_member_count": 2
     },
     {
-      "id": "P2",
-      "category": "localized_stream_archives",
+      "id": "localized_data_members",
+      "category": "text_and_library_archives",
       "members": [
         "DATA/COMPDATA.BN",
         "DATA/NISVDATA.BIN",
@@ -32,8 +32,8 @@
       "physical_member_count": 11
     },
     {
-      "id": "P3",
-      "category": "battle_map_and_effect_archives",
+      "id": "rendered_archive_members",
+      "category": "battle_map_effect_and_demo_archives",
       "members": [
         "BTL/OP0.BIN",
         "BTL/OP1.BIN",
@@ -50,28 +50,58 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 65376,
-      "sha256": "1f4d9b4f621fba4a912e99f0113557d1c19582a06bf718fef7e4e6abfa30a100"
+      "size": 65120,
+      "sha256": "7b72849377049a9d402a0094b413a84b74d29a03da0f15846f07f04581313cb7"
     },
-    "base_ui_manifest": {
-      "path": "manifests/release-base-ui-validation.json",
-      "size": 1512,
-      "sha256": "c35f4a947e98291734a5b6735a1fc588caec1291d068f3a7219d3febd6f4a4c3"
+    "original_release_slps": {
+      "path": "work/disc/SLPS_258.87",
+      "size": 3471624,
+      "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+    },
+    "original_release_vt1": {
+      "path": "work/disc/DATA/VT1.BIN",
+      "size": 127500736,
+      "sha256": "9b380618001b7f4d8a008f24bbf75b5409054e1b054e64d27ba4d0eb0b3a4964"
+    },
+    "original_release_compdata": {
+      "path": "work/disc/DATA/COMPDATA.BN",
+      "size": 144990,
+      "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34"
+    },
+    "original_release_mtv_pros": {
+      "path": "work/disc/DATA/MTV_PROS.BIN",
+      "size": 9056,
+      "sha256": "47999cb2994d9775a68ecca49ebe3e5f73c0118b92168a6ba577f836886e1b5a"
+    },
+    "title_menu_contract": {
+      "path": "config/assets/title-menu-zh.json",
+      "size": 4092,
+      "sha256": "23c2ba06fb3a7ba2ede692ede705f9c18efb5eba174a6f64ec2aaab5f017cb5d"
+    },
+    "release_menu_corpus": {
+      "path": "corpus/zh/menu/release-v0.3.json",
+      "size": 254651,
+      "sha256": "b0fc4c9a009d2782cc66b5999d0cdd241f3008c81f8cb7c75956e9711264ff43"
+    },
+    "release_menu_codebook": {
+      "path": "config/encoding/release-menu-codebook.json",
+      "size": 157659,
+      "sha256": "14ef65b2f538515a890ec5b3b0f8809319d12d05565c22c52f3144fb19b446e6"
     },
     "full_story_font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 72301,
-      "sha256": "534424d1cf0cc08431c0ad6a568dbc8cd9d052e6a7c14e2ca6635be88ef03391"
+      "size": 72582,
+      "sha256": "b537d747c438d3dbd30f4788589f1f8696fc5687ba33a5d00948609426ed6158"
     },
     "reviewed_library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 784630,
-      "sha256": "a154481d663ee369e0164072ad4530488d44c7f6cea65f1506d385b8c16f0e50"
+      "sha256": "ffdc3218d4084781e1c2f0a332fda6a6107a01ae903d23a11e0ead01f0d11cf6"
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18259645,
-      "sha256": "85ea92ab37cf0564a5b1bc82f00fdfcdf6c1431f9579cf9f2c427e28729bb44f"
+      "sha256": "7f23ceb8fe2d39407a87b49a0a6d9b4cdc29bb16c59f2e24f575082df61b92fc"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -95,8 +125,8 @@
     },
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
-      "size": 3224442,
-      "sha256": "b920f3c43dcb9b6ea7f7798fb1c4c490ab69063780b03dd8b7a766152f8c7353"
+      "size": 3224713,
+      "sha256": "26925e3b66918deb90e017eff39752c3f124b893e128561d8abc2d2a3b9d067e"
     },
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
@@ -396,7 +426,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 784630,
-      "sha256": "a154481d663ee369e0164072ad4530488d44c7f6cea65f1506d385b8c16f0e50"
+      "sha256": "ffdc3218d4084781e1c2f0a332fda6a6107a01ae903d23a11e0ead01f0d11cf6"
     }
   },
   "compression": {
@@ -409,29 +439,33 @@
       "decoder_backend": "rust",
       "compressor_backend": "rust-fit",
       "initial_decode_count": 1,
-      "write_stage_count": 8,
+      "write_stage_count": 9,
       "compression_count": 1,
       "final_readback_decode_count": 1,
-      "source_stored_size": 145283,
+      "source_stored_size": 144990,
       "output_stored_size": 141278,
       "decoded_size": 524032,
       "sector_budget": 145408,
       "stages": [
         {
-          "stage": "global safe-alias COMPDATA",
-          "changed_byte_count": 8800
+          "stage": "release menu COMPDATA",
+          "changed_byte_count": 11265
+        },
+        {
+          "stage": "release menu normalization COMPDATA",
+          "changed_byte_count": 5552
         },
         {
           "stage": "full pilot-name COMPDATA",
-          "changed_byte_count": 13370
+          "changed_byte_count": 20539
         },
         {
           "stage": "stage-title COMPDATA",
-          "changed_byte_count": 1459
+          "changed_byte_count": 1513
         },
         {
           "stage": "remaining UI COMPDATA",
-          "changed_byte_count": 45568
+          "changed_byte_count": 42252
         },
         {
           "stage": "COMPDATA battle-line",
@@ -439,11 +473,11 @@
         },
         {
           "stage": "reviewed weapon COMPDATA",
-          "changed_byte_count": 1439
+          "changed_byte_count": 12437
         },
         {
           "stage": "reviewed special abilities",
-          "changed_byte_count": 2141
+          "changed_byte_count": 38
         },
         {
           "stage": "runtime keyword encyclopedia list labels",
@@ -525,8 +559,8 @@
     "font_chunk_index": 2,
     "font_encoded_size": 629856,
     "font_decoded_sha256": "3323ccd0857b964888d396870390bc201992776e9f777f7aa7274325132703bf",
-    "font_padding_size": 112704,
-    "additional_borrowed_preceding_zero_slack": 0,
+    "font_padding_size": 0,
+    "additional_borrowed_preceding_zero_slack": 30512,
     "preserved_non_font_vt1_chunk_count": 13,
     "archive_size_preserved": true,
     "slps_offset_reread_exact": true,
@@ -537,25 +571,18 @@
       "executable_geometry_patch_applied": false,
       "original_list_renderer_preserved": true
     },
-    "encoded_text_codebook_compatibility": {
-      "encoded_ui_mapping_is_release_subset": true,
-      "encoded_mapping_snapshot": {
-        "path": "config/encoding/release-base-ui-mapping-snapshot.json",
-        "size": 158254,
-        "sha256": "64438edaf8545071a6c269703c5df6acdd6a27461e567e87467e0004e050e8f9"
-      },
+    "release_codebook": {
+      "mode": "direct-original-writeback",
       "release_proposal": {
         "path": "work/writeback/zh-release-codebook-proposal.json",
-        "size": 3224442,
-        "sha256": "b920f3c43dcb9b6ea7f7798fb1c4c490ab69063780b03dd8b7a766152f8c7353"
+        "size": 3224713,
+        "sha256": "26925e3b66918deb90e017eff39752c3f124b893e128561d8abc2d2a3b9d067e"
       },
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
         "size": 1130664,
         "sha256": "6d0823c9a08cb2b55456125353c15b359e8c9f2c1e4eefbfd5087b6473fa004b"
       },
-      "encoded_assignment_count": 1803,
-      "encoded_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
       "release_assignment_count": 3451,
       "release_assignment_mapping_sha256": "19360a755a79549690d884269fb0574cd45443dee7ae85afe85ef791671055b2"
     },
@@ -911,22 +938,22 @@
       "given": 918,
       "family": 601
     },
-    "write_entry_count": 1996,
-    "no_op_entry_count": 456,
+    "write_entry_count": 2253,
+    "no_op_entry_count": 199,
     "minimum_output_headroom": 4,
-    "changed_byte_count": 13370,
-    "changed_entry_ids_sha256": "d4d4f460d4ca82122e7c5ef7357a7db8593fa85b0e81f959a8a698867d83f1c8",
-    "migrated_base_pilot_entry_count": 0,
-    "migrated_base_pilot_entry_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "changed_byte_count": 20539,
+    "changed_entry_ids_sha256": "425fda307e6a9db129b33ee1ebb6d138fdc1eb3699a80e745cbb8ebfe86d66f5",
+    "migrated_release_menu_pilot_entry_count": 0,
+    "migrated_release_menu_pilot_entry_ids_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
     "unit_names": {
       "corpus_batch_id": "v1-display-names-units-full",
       "entry_count": 348,
-      "write_entry_count": 307,
-      "no_op_entry_count": 41,
+      "write_entry_count": 340,
+      "no_op_entry_count": 8,
       "minimum_writable_headroom": 1,
       "expanded_zero_padding_entry_count": 0,
       "expanded_zero_padding_entry_ids": [],
-      "changed_entry_ids_sha256": "e7ff051af48b8618c14a5bef1696268aa19018e8e5d3183ed4c68016b884a44b",
+      "changed_entry_ids_sha256": "7e857ae519ca415853281a238ed2b01091ac1ee52788c522b9a8a31666b8eb96",
       "relocated_entry_count": 0,
       "relocated_entry_ids": [],
       "relocated_pointer_count": 0,
@@ -944,7 +971,7 @@
       "two_byte_spaces_exact": true,
       "reread_exact": true
     },
-    "source_compressed_size": 145283,
+    "source_compressed_size": 144990,
     "output_compressed_size": 141278,
     "compressed_sector_budget": 145408,
     "codec": {
@@ -990,9 +1017,9 @@
     "raw_visible_ascii_count": 0,
     "relocation": {
       "source_size": 524032,
-      "source_sha256": "fab5ce92161099b62bc92d539eaed1b566b77dbdeaf0883e33bae9a39b7effde",
+      "source_sha256": "6c24f2500a178e1c118ace9c44bca0d3121671ce14dbee3dde68f494842d7261",
       "output_size": 524032,
-      "output_sha256": "26bff6450938e89e30106eb8d7e8c10e6c1466d7a6bd089d0b8d21f302d9c386",
+      "output_sha256": "6989963066068312caa725baf77c79f8e8a11d2799c82ae90a31331a37c8094c",
       "pool_start": 523928,
       "pool_end": 524032,
       "pool_capacity": 104,
@@ -1053,7 +1080,7 @@
       "patch_plan": {
         "source_name": "full-story relocated stage titles",
         "source_size": 524032,
-        "source_sha256": "fab5ce92161099b62bc92d539eaed1b566b77dbdeaf0883e33bae9a39b7effde",
+        "source_sha256": "6c24f2500a178e1c118ace9c44bca0d3121671ce14dbee3dde68f494842d7261",
         "operation_count": 13,
         "operations": [
           {
@@ -1164,7 +1191,7 @@
       }
     },
     "available_surface_safe_aliases_used": true,
-    "compdata_source_size": 145283,
+    "compdata_source_size": 144990,
     "compdata_output_size": 141278,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
@@ -4318,6 +4345,169 @@
       "translated_reread_exact": true
     }
   },
+  "title_menu": {
+    "changed_pixel_count": 12514,
+    "changed_image_byte_count": 12514,
+    "masks": [
+      {
+        "label_index": 0,
+        "size": 4096,
+        "sha256": "e4885e18d42edf20ad81bbbce01358873524f549589048262f3686efc9a07ce3",
+        "nonzero_pixel_count": 633
+      },
+      {
+        "label_index": 1,
+        "size": 4096,
+        "sha256": "b0cc110e03f0fc5e442c9dde042f3d94bd0ff4975051c555eeedc0baaab1e26e",
+        "nonzero_pixel_count": 719
+      },
+      {
+        "label_index": 2,
+        "size": 4096,
+        "sha256": "544382579d688f2abccdfcfa9fd57e5e7b698579a9029f908e593545e0169129",
+        "nonzero_pixel_count": 771
+      },
+      {
+        "label_index": 3,
+        "size": 4096,
+        "sha256": "c0cb633a6b672b2951292d477a9e9e521245e24c62a786d83c80c3471452ec37",
+        "nonzero_pixel_count": 1065
+      }
+    ],
+    "edited_slots": [
+      {
+        "state": "selected",
+        "label_index": 0,
+        "x": 0,
+        "y": 0,
+        "width": 128,
+        "height": 32
+      },
+      {
+        "state": "selected",
+        "label_index": 1,
+        "x": 0,
+        "y": 32,
+        "width": 128,
+        "height": 32
+      },
+      {
+        "state": "selected",
+        "label_index": 2,
+        "x": 0,
+        "y": 64,
+        "width": 128,
+        "height": 32
+      },
+      {
+        "state": "selected",
+        "label_index": 3,
+        "x": 0,
+        "y": 96,
+        "width": 128,
+        "height": 32
+      },
+      {
+        "state": "unselected",
+        "label_index": 0,
+        "x": 0,
+        "y": 128,
+        "width": 128,
+        "height": 32
+      },
+      {
+        "state": "unselected",
+        "label_index": 1,
+        "x": 0,
+        "y": 160,
+        "width": 128,
+        "height": 32
+      },
+      {
+        "state": "unselected",
+        "label_index": 2,
+        "x": 0,
+        "y": 192,
+        "width": 128,
+        "height": 32
+      },
+      {
+        "state": "unselected",
+        "label_index": 3,
+        "x": 0,
+        "y": 224,
+        "width": 128,
+        "height": 32
+      }
+    ],
+    "member": "DATA/VT1.BIN",
+    "chunk_index": 6,
+    "labels": [
+      {
+        "source": "START",
+        "translation": "开始"
+      },
+      {
+        "source": "LOAD",
+        "translation": "读取"
+      },
+      {
+        "source": "CONTINUE",
+        "translation": "继续"
+      },
+      {
+        "source": "LIBRARY",
+        "translation": "资料库"
+      }
+    ],
+    "source_encoded_size": 468312,
+    "output_encoded_size": 456739,
+    "output_padding_size": 11581,
+    "archive_size_preserved": true,
+    "non_target_decoded_bytes_exact": true,
+    "codec_round_trip_exact": true
+  },
+  "release_menu": {
+    "release_id": "v0.3.0",
+    "batch_id": "v0.3-menu-release",
+    "entry_count": 1040,
+    "member_entry_counts": {
+      "Compdata": 334,
+      "SLPS": 706
+    },
+    "member_target_counts": {
+      "Compdata": 334,
+      "SLPS": 849
+    },
+    "codebook_id": "srwz-release-menu-v0.3",
+    "codebook_assignment_count": 1803,
+    "members": {
+      "SLPS": {
+        "translated_entry_count": 705,
+        "selected_owner_entry_count": 706,
+        "raw_ascii_compatible_entry_count": 1,
+        "target_count": 849,
+        "pointer_bytes_unchanged": true,
+        "reread_exact": true,
+        "decoded_size_preserved": true
+      },
+      "Compdata": {
+        "translated_entry_count": 334,
+        "selected_owner_entry_count": 335,
+        "raw_ascii_compatible_entry_count": 0,
+        "target_count": 334,
+        "pointer_bytes_unchanged": true,
+        "reread_exact": true,
+        "decoded_size_preserved": true
+      }
+    },
+    "source_preimages_sha256_exact": true,
+    "all_translations_reread_exact": true,
+    "release_binary_required_at_build_time": false,
+    "compression_deferred_to_workspace": true,
+    "compdata_output_size": 141278,
+    "compdata_round_trip_exact": true
+  },
   "stage_overviews": {
     "inventory_entry_count": 110,
     "translated_entry_count": 110,
@@ -4460,11 +4650,29 @@
   },
   "world_history": {
     "entry_count": 28,
-    "changed_entry_count": 27,
-    "chunk_count": 12,
-    "minimum_chunk_headroom": 0,
-    "archive_size_preserved": true,
-    "slps_offsets_preserved": true,
+    "changed_entry_count": 28,
+    "chunk_count": 14,
+    "minimum_source_chunk_headroom": 11,
+    "source_archive_size": 9056,
+    "output_archive_size": 8352,
+    "archive_rebuilt_from_original": true,
+    "slps_offsets_rebuilt": true,
+    "offset_patch_plan": {
+      "source_name": "SLPS_258.87",
+      "source_size": 3471624,
+      "source_sha256": "f39c8820f292a4df7101bb1bddfb8c4aa76cde9b71a769386185d162590c7f2e",
+      "operation_count": 1,
+      "operations": [
+        {
+          "owner": "MTV_PROS.BIN offset table",
+          "offset": 3324576,
+          "end": 3324636,
+          "size": 60,
+          "before_sha256": "e74ea0c85a8d047cedb847863502cf82e359137bb49e0917f973decfd69cf727",
+          "after_sha256": "7d6e4f7ab0378dec89d696b3e1be8a472e80b806951537171e01ff0071628d98"
+        }
+      ]
+    },
     "original_source_preimages_sha256_exact": true,
     "original_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -4492,10 +4700,12 @@
       {
         "chunk_index": 0,
         "entry_count": 1,
-        "source_stored_size": 1264,
-        "source_encoded_size": 1250,
+        "source_stored_size": 1376,
+        "source_encoded_size": 1373,
         "output_encoded_size": 1247,
-        "headroom": 17,
+        "source_headroom": 129,
+        "output_stored_size": 1248,
+        "output_padding_size": 1,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4504,10 +4714,12 @@
       {
         "chunk_index": 1,
         "entry_count": 1,
-        "source_stored_size": 784,
-        "source_encoded_size": 779,
+        "source_stored_size": 896,
+        "source_encoded_size": 886,
         "output_encoded_size": 777,
-        "headroom": 7,
+        "source_headroom": 119,
+        "output_stored_size": 784,
+        "output_padding_size": 7,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4516,10 +4728,12 @@
       {
         "chunk_index": 2,
         "entry_count": 3,
-        "source_stored_size": 432,
-        "source_encoded_size": 419,
+        "source_stored_size": 448,
+        "source_encoded_size": 448,
         "output_encoded_size": 418,
-        "headroom": 14,
+        "source_headroom": 30,
+        "output_stored_size": 432,
+        "output_padding_size": 14,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4528,10 +4742,12 @@
       {
         "chunk_index": 3,
         "entry_count": 1,
-        "source_stored_size": 800,
-        "source_encoded_size": 796,
+        "source_stored_size": 864,
+        "source_encoded_size": 854,
         "output_encoded_size": 791,
-        "headroom": 9,
+        "source_headroom": 73,
+        "output_stored_size": 800,
+        "output_padding_size": 9,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4540,10 +4756,12 @@
       {
         "chunk_index": 4,
         "entry_count": 1,
-        "source_stored_size": 592,
-        "source_encoded_size": 578,
+        "source_stored_size": 640,
+        "source_encoded_size": 628,
         "output_encoded_size": 579,
-        "headroom": 13,
+        "source_headroom": 61,
+        "output_stored_size": 592,
+        "output_padding_size": 13,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4552,10 +4770,12 @@
       {
         "chunk_index": 5,
         "entry_count": 1,
-        "source_stored_size": 1040,
-        "source_encoded_size": 1037,
+        "source_stored_size": 1104,
+        "source_encoded_size": 1103,
         "output_encoded_size": 1035,
-        "headroom": 5,
+        "source_headroom": 69,
+        "output_stored_size": 1040,
+        "output_padding_size": 5,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4564,10 +4784,12 @@
       {
         "chunk_index": 6,
         "entry_count": 1,
-        "source_stored_size": 256,
-        "source_encoded_size": 252,
+        "source_stored_size": 288,
+        "source_encoded_size": 276,
         "output_encoded_size": 252,
-        "headroom": 4,
+        "source_headroom": 36,
+        "output_stored_size": 256,
+        "output_padding_size": 4,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4576,10 +4798,12 @@
       {
         "chunk_index": 7,
         "entry_count": 1,
-        "source_stored_size": 864,
-        "source_encoded_size": 856,
+        "source_stored_size": 944,
+        "source_encoded_size": 940,
         "output_encoded_size": 856,
-        "headroom": 8,
+        "source_headroom": 88,
+        "output_stored_size": 864,
+        "output_padding_size": 8,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4588,10 +4812,12 @@
       {
         "chunk_index": 8,
         "entry_count": 2,
-        "source_stored_size": 432,
-        "source_encoded_size": 421,
+        "source_stored_size": 464,
+        "source_encoded_size": 461,
         "output_encoded_size": 421,
-        "headroom": 11,
+        "source_headroom": 43,
+        "output_stored_size": 432,
+        "output_padding_size": 11,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4600,10 +4826,12 @@
       {
         "chunk_index": 9,
         "entry_count": 7,
-        "source_stored_size": 656,
-        "source_encoded_size": 651,
+        "source_stored_size": 704,
+        "source_encoded_size": 689,
         "output_encoded_size": 651,
-        "headroom": 5,
+        "source_headroom": 53,
+        "output_stored_size": 656,
+        "output_padding_size": 5,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4612,10 +4840,12 @@
       {
         "chunk_index": 10,
         "entry_count": 7,
-        "source_stored_size": 672,
-        "source_encoded_size": 671,
+        "source_stored_size": 688,
+        "source_encoded_size": 686,
         "output_encoded_size": 671,
-        "headroom": 1,
+        "source_headroom": 17,
+        "output_stored_size": 672,
+        "output_padding_size": 1,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4624,10 +4854,40 @@
       {
         "chunk_index": 11,
         "entry_count": 2,
-        "source_stored_size": 352,
-        "source_encoded_size": 352,
+        "source_stored_size": 416,
+        "source_encoded_size": 401,
         "output_encoded_size": 352,
-        "headroom": 0,
+        "source_headroom": 64,
+        "output_stored_size": 352,
+        "output_padding_size": 0,
+        "logical_text_preserved": true,
+        "runtime_text_reread_exact": true,
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
+      },
+      {
+        "chunk_index": 12,
+        "entry_count": 0,
+        "source_stored_size": 112,
+        "source_encoded_size": 101,
+        "output_encoded_size": 101,
+        "source_headroom": 11,
+        "output_stored_size": 112,
+        "output_padding_size": 11,
+        "logical_text_preserved": true,
+        "runtime_text_reread_exact": true,
+        "codec_round_trip_exact": true,
+        "raw_visible_space_entry_count": 0
+      },
+      {
+        "chunk_index": 13,
+        "entry_count": 0,
+        "source_stored_size": 112,
+        "source_encoded_size": 101,
+        "output_encoded_size": 101,
+        "source_headroom": 11,
+        "output_stored_size": 112,
+        "output_padding_size": 11,
         "logical_text_preserved": true,
         "runtime_text_reread_exact": true,
         "codec_round_trip_exact": true,
@@ -4731,10 +4991,10 @@
   "remaining_ui": {
     "compdata_direct": {
       "entry_count": 309,
-      "write_entry_count": 302,
-      "no_op_entry_count": 7,
+      "write_entry_count": 297,
+      "no_op_entry_count": 12,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 8941,
+      "changed_byte_count": 8887,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -5023,10 +5283,10 @@
     },
     "slps": {
       "entry_count": 245,
-      "write_entry_count": 196,
-      "no_op_entry_count": 49,
+      "write_entry_count": 183,
+      "no_op_entry_count": 62,
       "minimum_output_headroom": 0,
-      "changed_byte_count": 2163,
+      "changed_byte_count": 2079,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -5047,19 +5307,19 @@
     "parts": {
       "source_size": 524032,
       "output_size": 524032,
-      "source_sha256": "bb6b343c9f55bea143c2a26c97e1fa1a68730b3c7c67d6b888f6c16516f17c6a",
-      "output_sha256": "d38cd9d39d7b3d6651252923361896f1f4d1b7882dfd6c0d62e9427b23ebd4ca",
+      "source_sha256": "7d9f7f94b982f0e78fc6abe6adff426e3e4fda71a9362f616351637cf10f7d12",
+      "output_sha256": "b72c4559d6d7c4e2b2206e0945e04977857d81b30068aa1c49ecb7b3247330bf",
       "entry_count": 132,
       "target_count": 132,
       "payload_size": 3036,
-      "owned_capacity": 3950,
+      "owned_capacity": 3036,
       "targets": [
         {
           "entry_ids": [
             "menu/Compdata/01/0000"
           ],
           "target_offset": 413960,
-          "capacity": 5,
+          "capacity": 3,
           "payload_size": 3
         },
         {
@@ -5067,7 +5327,7 @@
             "menu/Compdata/01/0001"
           ],
           "target_offset": 413968,
-          "capacity": 21,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5075,7 +5335,7 @@
             "menu/Compdata/01/0002"
           ],
           "target_offset": 413992,
-          "capacity": 11,
+          "capacity": 7,
           "payload_size": 7
         },
         {
@@ -5091,7 +5351,7 @@
             "menu/Compdata/01/0004"
           ],
           "target_offset": 414024,
-          "capacity": 15,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5107,7 +5367,7 @@
             "menu/Compdata/01/0006"
           ],
           "target_offset": 414056,
-          "capacity": 15,
+          "capacity": 13,
           "payload_size": 13
         },
         {
@@ -5123,7 +5383,7 @@
             "menu/Compdata/01/0008"
           ],
           "target_offset": 414112,
-          "capacity": 23,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5139,7 +5399,7 @@
             "menu/Compdata/01/0010"
           ],
           "target_offset": 414160,
-          "capacity": 17,
+          "capacity": 13,
           "payload_size": 13
         },
         {
@@ -5155,7 +5415,7 @@
             "menu/Compdata/01/0012"
           ],
           "target_offset": 414200,
-          "capacity": 11,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5171,7 +5431,7 @@
             "menu/Compdata/01/0014"
           ],
           "target_offset": 414232,
-          "capacity": 15,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5187,7 +5447,7 @@
             "menu/Compdata/01/0016"
           ],
           "target_offset": 414264,
-          "capacity": 15,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5195,7 +5455,7 @@
             "menu/Compdata/01/0017"
           ],
           "target_offset": 414288,
-          "capacity": 42,
+          "capacity": 38,
           "payload_size": 38
         },
         {
@@ -5203,7 +5463,7 @@
             "menu/Compdata/01/0018"
           ],
           "target_offset": 414336,
-          "capacity": 13,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5211,7 +5471,7 @@
             "menu/Compdata/01/0019"
           ],
           "target_offset": 414352,
-          "capacity": 55,
+          "capacity": 51,
           "payload_size": 51
         },
         {
@@ -5235,7 +5495,7 @@
             "menu/Compdata/01/0022"
           ],
           "target_offset": 414496,
-          "capacity": 17,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5251,7 +5511,7 @@
             "menu/Compdata/01/0024"
           ],
           "target_offset": 414560,
-          "capacity": 21,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5267,7 +5527,7 @@
             "menu/Compdata/01/0026"
           ],
           "target_offset": 414624,
-          "capacity": 19,
+          "capacity": 13,
           "payload_size": 13
         },
         {
@@ -5283,7 +5543,7 @@
             "menu/Compdata/01/0028"
           ],
           "target_offset": 414688,
-          "capacity": 15,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5291,7 +5551,7 @@
             "menu/Compdata/01/0029"
           ],
           "target_offset": 414704,
-          "capacity": 42,
+          "capacity": 40,
           "payload_size": 40
         },
         {
@@ -5299,7 +5559,7 @@
             "menu/Compdata/01/0030"
           ],
           "target_offset": 414752,
-          "capacity": 19,
+          "capacity": 13,
           "payload_size": 13
         },
         {
@@ -5307,7 +5567,7 @@
             "menu/Compdata/01/0031"
           ],
           "target_offset": 414784,
-          "capacity": 42,
+          "capacity": 40,
           "payload_size": 40
         },
         {
@@ -5315,7 +5575,7 @@
             "menu/Compdata/01/0032"
           ],
           "target_offset": 414832,
-          "capacity": 19,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5323,7 +5583,7 @@
             "menu/Compdata/01/0033"
           ],
           "target_offset": 414864,
-          "capacity": 77,
+          "capacity": 61,
           "payload_size": 61
         },
         {
@@ -5331,7 +5591,7 @@
             "menu/Compdata/01/0034"
           ],
           "target_offset": 414944,
-          "capacity": 17,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5339,7 +5599,7 @@
             "menu/Compdata/01/0035"
           ],
           "target_offset": 414976,
-          "capacity": 52,
+          "capacity": 48,
           "payload_size": 48
         },
         {
@@ -5355,7 +5615,7 @@
             "menu/Compdata/01/0037"
           ],
           "target_offset": 415056,
-          "capacity": 62,
+          "capacity": 54,
           "payload_size": 54
         },
         {
@@ -5371,7 +5631,7 @@
             "menu/Compdata/01/0039"
           ],
           "target_offset": 415136,
-          "capacity": 62,
+          "capacity": 54,
           "payload_size": 54
         },
         {
@@ -5379,7 +5639,7 @@
             "menu/Compdata/01/0040"
           ],
           "target_offset": 415200,
-          "capacity": 21,
+          "capacity": 17,
           "payload_size": 17
         },
         {
@@ -5387,7 +5647,7 @@
             "menu/Compdata/01/0041"
           ],
           "target_offset": 415232,
-          "capacity": 77,
+          "capacity": 61,
           "payload_size": 61
         },
         {
@@ -5395,7 +5655,7 @@
             "menu/Compdata/01/0042"
           ],
           "target_offset": 415312,
-          "capacity": 21,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5403,7 +5663,7 @@
             "menu/Compdata/01/0043"
           ],
           "target_offset": 415344,
-          "capacity": 36,
+          "capacity": 32,
           "payload_size": 32
         },
         {
@@ -5419,7 +5679,7 @@
             "menu/Compdata/01/0045"
           ],
           "target_offset": 415408,
-          "capacity": 77,
+          "capacity": 61,
           "payload_size": 61
         },
         {
@@ -5427,7 +5687,7 @@
             "menu/Compdata/01/0046"
           ],
           "target_offset": 415488,
-          "capacity": 21,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5435,7 +5695,7 @@
             "menu/Compdata/01/0047"
           ],
           "target_offset": 415520,
-          "capacity": 77,
+          "capacity": 61,
           "payload_size": 61
         },
         {
@@ -5443,7 +5703,7 @@
             "menu/Compdata/01/0048"
           ],
           "target_offset": 415600,
-          "capacity": 15,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5451,7 +5711,7 @@
             "menu/Compdata/01/0049"
           ],
           "target_offset": 415616,
-          "capacity": 38,
+          "capacity": 32,
           "payload_size": 32
         },
         {
@@ -5459,7 +5719,7 @@
             "menu/Compdata/01/0050"
           ],
           "target_offset": 415656,
-          "capacity": 15,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5467,7 +5727,7 @@
             "menu/Compdata/01/0051"
           ],
           "target_offset": 415680,
-          "capacity": 38,
+          "capacity": 32,
           "payload_size": 32
         },
         {
@@ -5475,7 +5735,7 @@
             "menu/Compdata/01/0052"
           ],
           "target_offset": 415728,
-          "capacity": 19,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5483,7 +5743,7 @@
             "menu/Compdata/01/0053"
           ],
           "target_offset": 415760,
-          "capacity": 59,
+          "capacity": 47,
           "payload_size": 47
         },
         {
@@ -5491,7 +5751,7 @@
             "menu/Compdata/01/0054"
           ],
           "target_offset": 415824,
-          "capacity": 13,
+          "capacity": 7,
           "payload_size": 7
         },
         {
@@ -5499,7 +5759,7 @@
             "menu/Compdata/01/0055"
           ],
           "target_offset": 415840,
-          "capacity": 59,
+          "capacity": 47,
           "payload_size": 47
         },
         {
@@ -5507,7 +5767,7 @@
             "menu/Compdata/01/0056"
           ],
           "target_offset": 415904,
-          "capacity": 13,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5515,7 +5775,7 @@
             "menu/Compdata/01/0057"
           ],
           "target_offset": 415920,
-          "capacity": 59,
+          "capacity": 47,
           "payload_size": 47
         },
         {
@@ -5523,7 +5783,7 @@
             "menu/Compdata/01/0058"
           ],
           "target_offset": 415984,
-          "capacity": 21,
+          "capacity": 13,
           "payload_size": 13
         },
         {
@@ -5531,7 +5791,7 @@
             "menu/Compdata/01/0059"
           ],
           "target_offset": 416016,
-          "capacity": 71,
+          "capacity": 55,
           "payload_size": 55
         },
         {
@@ -5539,7 +5799,7 @@
             "menu/Compdata/01/0060"
           ],
           "target_offset": 416088,
-          "capacity": 15,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5547,7 +5807,7 @@
             "menu/Compdata/01/0061"
           ],
           "target_offset": 416112,
-          "capacity": 73,
+          "capacity": 53,
           "payload_size": 53
         },
         {
@@ -5555,7 +5815,7 @@
             "menu/Compdata/01/0062"
           ],
           "target_offset": 416192,
-          "capacity": 13,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5563,7 +5823,7 @@
             "menu/Compdata/01/0063"
           ],
           "target_offset": 416208,
-          "capacity": 71,
+          "capacity": 51,
           "payload_size": 51
         },
         {
@@ -5571,7 +5831,7 @@
             "menu/Compdata/01/0064"
           ],
           "target_offset": 416280,
-          "capacity": 13,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5579,7 +5839,7 @@
             "menu/Compdata/01/0065"
           ],
           "target_offset": 416304,
-          "capacity": 17,
+          "capacity": 15,
           "payload_size": 15
         },
         {
@@ -5595,7 +5855,7 @@
             "menu/Compdata/01/0067"
           ],
           "target_offset": 416352,
-          "capacity": 19,
+          "capacity": 17,
           "payload_size": 17
         },
         {
@@ -5611,7 +5871,7 @@
             "menu/Compdata/01/0069"
           ],
           "target_offset": 416400,
-          "capacity": 54,
+          "capacity": 32,
           "payload_size": 32
         },
         {
@@ -5627,7 +5887,7 @@
             "menu/Compdata/01/0071"
           ],
           "target_offset": 416480,
-          "capacity": 63,
+          "capacity": 43,
           "payload_size": 43
         },
         {
@@ -5635,7 +5895,7 @@
             "menu/Compdata/01/0072"
           ],
           "target_offset": 416544,
-          "capacity": 15,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5643,7 +5903,7 @@
             "menu/Compdata/01/0073"
           ],
           "target_offset": 416560,
-          "capacity": 75,
+          "capacity": 69,
           "payload_size": 69
         },
         {
@@ -5651,7 +5911,7 @@
             "menu/Compdata/01/0074"
           ],
           "target_offset": 416640,
-          "capacity": 19,
+          "capacity": 13,
           "payload_size": 13
         },
         {
@@ -5659,7 +5919,7 @@
             "menu/Compdata/01/0075"
           ],
           "target_offset": 416672,
-          "capacity": 21,
+          "capacity": 17,
           "payload_size": 17
         },
         {
@@ -5667,7 +5927,7 @@
             "menu/Compdata/01/0076"
           ],
           "target_offset": 416704,
-          "capacity": 19,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5675,7 +5935,7 @@
             "menu/Compdata/01/0077"
           ],
           "target_offset": 416736,
-          "capacity": 56,
+          "capacity": 36,
           "payload_size": 36
         },
         {
@@ -5683,7 +5943,7 @@
             "menu/Compdata/01/0078"
           ],
           "target_offset": 416800,
-          "capacity": 23,
+          "capacity": 17,
           "payload_size": 17
         },
         {
@@ -5691,7 +5951,7 @@
             "menu/Compdata/01/0079"
           ],
           "target_offset": 416832,
-          "capacity": 39,
+          "capacity": 25,
           "payload_size": 25
         },
         {
@@ -5699,7 +5959,7 @@
             "menu/Compdata/01/0080"
           ],
           "target_offset": 416880,
-          "capacity": 19,
+          "capacity": 13,
           "payload_size": 13
         },
         {
@@ -5707,7 +5967,7 @@
             "menu/Compdata/01/0081"
           ],
           "target_offset": 416912,
-          "capacity": 38,
+          "capacity": 30,
           "payload_size": 30
         },
         {
@@ -5715,7 +5975,7 @@
             "menu/Compdata/01/0082"
           ],
           "target_offset": 416952,
-          "capacity": 15,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5723,7 +5983,7 @@
             "menu/Compdata/01/0083"
           ],
           "target_offset": 416976,
-          "capacity": 32,
+          "capacity": 28,
           "payload_size": 28
         },
         {
@@ -5731,7 +5991,7 @@
             "menu/Compdata/01/0084"
           ],
           "target_offset": 417008,
-          "capacity": 19,
+          "capacity": 7,
           "payload_size": 7
         },
         {
@@ -5739,7 +5999,7 @@
             "menu/Compdata/01/0085"
           ],
           "target_offset": 417040,
-          "capacity": 32,
+          "capacity": 22,
           "payload_size": 22
         },
         {
@@ -5755,7 +6015,7 @@
             "menu/Compdata/01/0087"
           ],
           "target_offset": 417088,
-          "capacity": 42,
+          "capacity": 24,
           "payload_size": 24
         },
         {
@@ -5763,7 +6023,7 @@
             "menu/Compdata/01/0088"
           ],
           "target_offset": 417136,
-          "capacity": 23,
+          "capacity": 17,
           "payload_size": 17
         },
         {
@@ -5771,7 +6031,7 @@
             "menu/Compdata/01/0089"
           ],
           "target_offset": 417168,
-          "capacity": 35,
+          "capacity": 23,
           "payload_size": 23
         },
         {
@@ -5779,7 +6039,7 @@
             "menu/Compdata/01/0090"
           ],
           "target_offset": 417208,
-          "capacity": 15,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5787,7 +6047,7 @@
             "menu/Compdata/01/0091"
           ],
           "target_offset": 417232,
-          "capacity": 27,
+          "capacity": 19,
           "payload_size": 19
         },
         {
@@ -5795,7 +6055,7 @@
             "menu/Compdata/01/0092"
           ],
           "target_offset": 417264,
-          "capacity": 15,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5803,7 +6063,7 @@
             "menu/Compdata/01/0093"
           ],
           "target_offset": 417280,
-          "capacity": 46,
+          "capacity": 34,
           "payload_size": 34
         },
         {
@@ -5811,7 +6071,7 @@
             "menu/Compdata/01/0094"
           ],
           "target_offset": 417328,
-          "capacity": 13,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5819,7 +6079,7 @@
             "menu/Compdata/01/0095"
           ],
           "target_offset": 417344,
-          "capacity": 36,
+          "capacity": 32,
           "payload_size": 32
         },
         {
@@ -5827,7 +6087,7 @@
             "menu/Compdata/01/0096"
           ],
           "target_offset": 417392,
-          "capacity": 19,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5835,7 +6095,7 @@
             "menu/Compdata/01/0097"
           ],
           "target_offset": 417424,
-          "capacity": 42,
+          "capacity": 25,
           "payload_size": 25
         },
         {
@@ -5843,7 +6103,7 @@
             "menu/Compdata/01/0098"
           ],
           "target_offset": 417472,
-          "capacity": 23,
+          "capacity": 13,
           "payload_size": 13
         },
         {
@@ -5851,7 +6111,7 @@
             "menu/Compdata/01/0099"
           ],
           "target_offset": 417504,
-          "capacity": 33,
+          "capacity": 21,
           "payload_size": 21
         },
         {
@@ -5859,7 +6119,7 @@
             "menu/Compdata/01/0100"
           ],
           "target_offset": 417552,
-          "capacity": 17,
+          "capacity": 15,
           "payload_size": 15
         },
         {
@@ -5867,7 +6127,7 @@
             "menu/Compdata/01/0101"
           ],
           "target_offset": 417584,
-          "capacity": 36,
+          "capacity": 26,
           "payload_size": 26
         },
         {
@@ -5875,7 +6135,7 @@
             "menu/Compdata/01/0102"
           ],
           "target_offset": 417632,
-          "capacity": 19,
+          "capacity": 15,
           "payload_size": 15
         },
         {
@@ -5883,7 +6143,7 @@
             "menu/Compdata/01/0103"
           ],
           "target_offset": 417664,
-          "capacity": 29,
+          "capacity": 25,
           "payload_size": 25
         },
         {
@@ -5891,7 +6151,7 @@
             "menu/Compdata/01/0104"
           ],
           "target_offset": 417696,
-          "capacity": 17,
+          "capacity": 7,
           "payload_size": 7
         },
         {
@@ -5899,7 +6159,7 @@
             "menu/Compdata/01/0105"
           ],
           "target_offset": 417728,
-          "capacity": 42,
+          "capacity": 36,
           "payload_size": 36
         },
         {
@@ -5915,7 +6175,7 @@
             "menu/Compdata/01/0107"
           ],
           "target_offset": 417792,
-          "capacity": 62,
+          "capacity": 48,
           "payload_size": 48
         },
         {
@@ -5923,7 +6183,7 @@
             "menu/Compdata/01/0108"
           ],
           "target_offset": 417856,
-          "capacity": 19,
+          "capacity": 7,
           "payload_size": 7
         },
         {
@@ -5931,7 +6191,7 @@
             "menu/Compdata/01/0109"
           ],
           "target_offset": 417888,
-          "capacity": 64,
+          "capacity": 44,
           "payload_size": 44
         },
         {
@@ -5947,7 +6207,7 @@
             "menu/Compdata/01/0111"
           ],
           "target_offset": 417984,
-          "capacity": 52,
+          "capacity": 38,
           "payload_size": 38
         },
         {
@@ -5955,7 +6215,7 @@
             "menu/Compdata/01/0112"
           ],
           "target_offset": 418048,
-          "capacity": 19,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -5963,7 +6223,7 @@
             "menu/Compdata/01/0113"
           ],
           "target_offset": 418080,
-          "capacity": 64,
+          "capacity": 42,
           "payload_size": 42
         },
         {
@@ -5971,7 +6231,7 @@
             "menu/Compdata/01/0114"
           ],
           "target_offset": 418144,
-          "capacity": 15,
+          "capacity": 11,
           "payload_size": 11
         },
         {
@@ -5979,7 +6239,7 @@
             "menu/Compdata/01/0115"
           ],
           "target_offset": 418160,
-          "capacity": 54,
+          "capacity": 42,
           "payload_size": 42
         },
         {
@@ -5987,7 +6247,7 @@
             "menu/Compdata/01/0116"
           ],
           "target_offset": 418216,
-          "capacity": 15,
+          "capacity": 5,
           "payload_size": 5
         },
         {
@@ -5995,7 +6255,7 @@
             "menu/Compdata/01/0117"
           ],
           "target_offset": 418240,
-          "capacity": 42,
+          "capacity": 26,
           "payload_size": 26
         },
         {
@@ -6011,7 +6271,7 @@
             "menu/Compdata/01/0119"
           ],
           "target_offset": 418304,
-          "capacity": 65,
+          "capacity": 59,
           "payload_size": 59
         },
         {
@@ -6027,7 +6287,7 @@
             "menu/Compdata/01/0121"
           ],
           "target_offset": 418384,
-          "capacity": 34,
+          "capacity": 30,
           "payload_size": 30
         },
         {
@@ -6035,7 +6295,7 @@
             "menu/Compdata/01/0122"
           ],
           "target_offset": 418432,
-          "capacity": 21,
+          "capacity": 13,
           "payload_size": 13
         },
         {
@@ -6043,7 +6303,7 @@
             "menu/Compdata/01/0123"
           ],
           "target_offset": 418464,
-          "capacity": 46,
+          "capacity": 32,
           "payload_size": 32
         },
         {
@@ -6051,7 +6311,7 @@
             "menu/Compdata/01/0124"
           ],
           "target_offset": 418512,
-          "capacity": 23,
+          "capacity": 15,
           "payload_size": 15
         },
         {
@@ -6059,7 +6319,7 @@
             "menu/Compdata/01/0125"
           ],
           "target_offset": 418544,
-          "capacity": 58,
+          "capacity": 57,
           "payload_size": 57
         },
         {
@@ -6067,7 +6327,7 @@
             "menu/Compdata/01/0126"
           ],
           "target_offset": 418608,
-          "capacity": 17,
+          "capacity": 15,
           "payload_size": 15
         },
         {
@@ -6075,7 +6335,7 @@
             "menu/Compdata/01/0127"
           ],
           "target_offset": 418640,
-          "capacity": 60,
+          "capacity": 50,
           "payload_size": 50
         },
         {
@@ -6083,7 +6343,7 @@
             "menu/Compdata/01/0128"
           ],
           "target_offset": 418704,
-          "capacity": 19,
+          "capacity": 15,
           "payload_size": 15
         },
         {
@@ -6091,7 +6351,7 @@
             "menu/Compdata/01/0129"
           ],
           "target_offset": 418736,
-          "capacity": 31,
+          "capacity": 23,
           "payload_size": 23
         },
         {
@@ -6099,7 +6359,7 @@
             "menu/Compdata/01/0130"
           ],
           "target_offset": 418768,
-          "capacity": 13,
+          "capacity": 9,
           "payload_size": 9
         },
         {
@@ -6107,182 +6367,182 @@
             "menu/Compdata/01/0132"
           ],
           "target_offset": 418792,
-          "capacity": 13,
+          "capacity": 9,
           "payload_size": 9
         }
       ],
       "patch_plan": {
         "source_name": "remaining UI strengthening parts",
         "source_size": 524032,
-        "source_sha256": "bb6b343c9f55bea143c2a26c97e1fa1a68730b3c7c67d6b888f6c16516f17c6a",
+        "source_sha256": "7d9f7f94b982f0e78fc6abe6adff426e3e4fda71a9362f616351637cf10f7d12",
         "operation_count": 132,
         "operations": [
           {
             "owner": "menu/Compdata/01/0000",
             "offset": 413960,
-            "end": 413965,
-            "size": 5,
-            "before_sha256": "f68e59c82fc751e628cbeca8c104ca352bb1efcd2976722870a1c11fa7e94158",
-            "after_sha256": "f7726fb9df28a2e6966221ad7e54d1fe9437c643beaa2271265d58dfa9dc5f3a"
+            "end": 413963,
+            "size": 3,
+            "before_sha256": "f351f99d2cd3ee1c602197acfebe903b81f42125f13bde33e47f54bcefa89620",
+            "after_sha256": "f351f99d2cd3ee1c602197acfebe903b81f42125f13bde33e47f54bcefa89620"
           },
           {
             "owner": "menu/Compdata/01/0001",
             "offset": 413968,
-            "end": 413989,
-            "size": 21,
-            "before_sha256": "6097950960b4e606850ca6630e2ef736f0e6cd58181dedcf47c1b8e33e39ce04",
-            "after_sha256": "97f2d011f4c780731e7cd29969665b509b75373dbed22e0292cb1550cd8ad955"
+            "end": 413979,
+            "size": 11,
+            "before_sha256": "f374ebcb9260db462375331528cf07ceaea015e477e60ac0cee4a13e73d38de0",
+            "after_sha256": "f374ebcb9260db462375331528cf07ceaea015e477e60ac0cee4a13e73d38de0"
           },
           {
             "owner": "menu/Compdata/01/0002",
             "offset": 413992,
-            "end": 414003,
-            "size": 11,
-            "before_sha256": "2e716d96413b91b3198943e3f2d929165b54e168d1a24d488a152e121a4e09f3",
-            "after_sha256": "372a4d67718718954a6594023f9949e7ff4552de1cd28f13c0e700246601de18"
+            "end": 413999,
+            "size": 7,
+            "before_sha256": "f0a53fb8d844e1176b745f7a8812d7257248e395fe566a93f5918adb4fb4da7d",
+            "after_sha256": "f0a53fb8d844e1176b745f7a8812d7257248e395fe566a93f5918adb4fb4da7d"
           },
           {
             "owner": "menu/Compdata/01/0003",
             "offset": 414008,
             "end": 414019,
             "size": 11,
-            "before_sha256": "48d1f85bcffdd6d5ca4a5016301bae61c23e5dc83318bc3aa13bcb7be32b69c3",
+            "before_sha256": "fadadc40c089b6c0ceda5f35657516a7c7f2433574206bbb4a013e96b0fd007c",
             "after_sha256": "fadadc40c089b6c0ceda5f35657516a7c7f2433574206bbb4a013e96b0fd007c"
           },
           {
             "owner": "menu/Compdata/01/0004",
             "offset": 414024,
-            "end": 414039,
-            "size": 15,
-            "before_sha256": "6fb9dd8ead5c1a366a9f23627e11402eb0d494109b057cad5ef164e38b82be9d",
-            "after_sha256": "bce97a196067ed1509159f14d34fc1fe215c111cbe01e4c4567dc03af341f8f1"
+            "end": 414035,
+            "size": 11,
+            "before_sha256": "c405cf43645bbadda9a9020ecb38794ecab376cf5d36061b91fb9e8d9bdd2bdd",
+            "after_sha256": "c405cf43645bbadda9a9020ecb38794ecab376cf5d36061b91fb9e8d9bdd2bdd"
           },
           {
             "owner": "menu/Compdata/01/0005",
             "offset": 414040,
             "end": 414051,
             "size": 11,
-            "before_sha256": "4703dd0fa029e17b67301ee820c0e21e47409d76844b7c8d4389fc2ebf1e4fbb",
+            "before_sha256": "478173e00b966d63d78e38b910f693144303ecde7003e57afa80f4b6fbf32cad",
             "after_sha256": "478173e00b966d63d78e38b910f693144303ecde7003e57afa80f4b6fbf32cad"
           },
           {
             "owner": "menu/Compdata/01/0006",
             "offset": 414056,
-            "end": 414071,
-            "size": 15,
-            "before_sha256": "741d69c6b2f647e1171e70ade09138cd52677644bd719d9d2073aeb250452c67",
-            "after_sha256": "ba648b3204c6e63da781c80f3b657d32bb237c113f08fa2662883853739394b0"
+            "end": 414069,
+            "size": 13,
+            "before_sha256": "0d20a014e7f525f4a28cd710295bf583745b75a60d48d843e1abc3b047f44203",
+            "after_sha256": "0d20a014e7f525f4a28cd710295bf583745b75a60d48d843e1abc3b047f44203"
           },
           {
             "owner": "menu/Compdata/01/0007",
             "offset": 414080,
             "end": 414102,
             "size": 22,
-            "before_sha256": "f400d0e46347d2c4b09cea0124cf7490bdfc370ca80f119c5793044a6eb81702",
+            "before_sha256": "209280da2513040cbba1cdaf77d60395dde824771e08e85bd1d2e684c2c90c0f",
             "after_sha256": "209280da2513040cbba1cdaf77d60395dde824771e08e85bd1d2e684c2c90c0f"
           },
           {
             "owner": "menu/Compdata/01/0008",
             "offset": 414112,
-            "end": 414135,
-            "size": 23,
-            "before_sha256": "87c2a7bb030f03b8d38a286996c8b433aff1aec2757bd5bb8f27d003c6b6e55f",
-            "after_sha256": "21b4fb453de44ceebc6c5eb356e835e82cacb282af5de30a5b215ccac81027b4"
+            "end": 414121,
+            "size": 9,
+            "before_sha256": "68b3590169bc8851863524edf6e8818df4f0126e09a29b94ae1e3225acb2a7e0",
+            "after_sha256": "68b3590169bc8851863524edf6e8818df4f0126e09a29b94ae1e3225acb2a7e0"
           },
           {
             "owner": "menu/Compdata/01/0009",
             "offset": 414136,
             "end": 414149,
             "size": 13,
-            "before_sha256": "c682403408a2276b132c73e105fd7bf72965437615fcfe412ccace74744e8dbd",
+            "before_sha256": "6a844d31378d05634ceb312c3f8c2394eb83e08dd2c1c866e30c7c9fa1a96be5",
             "after_sha256": "6a844d31378d05634ceb312c3f8c2394eb83e08dd2c1c866e30c7c9fa1a96be5"
           },
           {
             "owner": "menu/Compdata/01/0010",
             "offset": 414160,
-            "end": 414177,
-            "size": 17,
-            "before_sha256": "de6efd79e68b5a494e6424ca1896600cd086d02e28e3b20cd29c60aeb5453d8e",
-            "after_sha256": "33dbe46e352c4702d0f8644326326e8ade0584c75995ff817f10dc20266c97d6"
+            "end": 414173,
+            "size": 13,
+            "before_sha256": "5116871a0ad47bfd1fff31216e783bf089b0d028cd2670459136f9db908b60e1",
+            "after_sha256": "5116871a0ad47bfd1fff31216e783bf089b0d028cd2670459136f9db908b60e1"
           },
           {
             "owner": "menu/Compdata/01/0011",
             "offset": 414184,
             "end": 414197,
             "size": 13,
-            "before_sha256": "4e97c0004c56b53024f18ea91ddcb5a751fd065d3b3b15493a71b9bcec015c59",
+            "before_sha256": "ede8ff1e218a47efed638162f139a93cee0093ba9e362b8481e52d53da0aca89",
             "after_sha256": "ede8ff1e218a47efed638162f139a93cee0093ba9e362b8481e52d53da0aca89"
           },
           {
             "owner": "menu/Compdata/01/0012",
             "offset": 414200,
-            "end": 414211,
-            "size": 11,
-            "before_sha256": "624a5ef05c2899228e1f04e5a4a21ff4322c711d80b7224c6fffcfa5e8fde0c7",
-            "after_sha256": "410280728111315af2e7a3996438c5d8da6a9b95e7966c6ac872845503e395d2"
+            "end": 414209,
+            "size": 9,
+            "before_sha256": "2b025b9d3dc88e9d2a11c6fd133f4237ca82d5194574f52e9e72f21eca6b9093",
+            "after_sha256": "2b025b9d3dc88e9d2a11c6fd133f4237ca82d5194574f52e9e72f21eca6b9093"
           },
           {
             "owner": "menu/Compdata/01/0013",
             "offset": 414216,
             "end": 414229,
             "size": 13,
-            "before_sha256": "378dada051e92a395cc829845cbcbe7861731eb88e846af906bd37a1d90541a9",
+            "before_sha256": "13800c6527b3118b8e3a70293cc40f0b53d29dcbc0839ba414fb18bb04d5801b",
             "after_sha256": "13800c6527b3118b8e3a70293cc40f0b53d29dcbc0839ba414fb18bb04d5801b"
           },
           {
             "owner": "menu/Compdata/01/0014",
             "offset": 414232,
-            "end": 414247,
-            "size": 15,
-            "before_sha256": "f13a4e01f51092d7487c9a5afb169632ce903927fdef3a4f19baae30f5ed398d",
-            "after_sha256": "a8a3d94b60e6f0ed244871934e68f57ebe11191b96db6ec27de209d0eed0c157"
+            "end": 414241,
+            "size": 9,
+            "before_sha256": "0930fa170dcf7c1f77c33ab3c342309fbfe83fda9095b5ae32cf4d9413cbdde7",
+            "after_sha256": "0930fa170dcf7c1f77c33ab3c342309fbfe83fda9095b5ae32cf4d9413cbdde7"
           },
           {
             "owner": "menu/Compdata/01/0015",
             "offset": 414248,
             "end": 414261,
             "size": 13,
-            "before_sha256": "bc60bc0baa6c64c78d59eb7800fa102a78cbee74048ef2f34779f573ef809d28",
+            "before_sha256": "cf1de763b6430726497d49eb4a16dfd751c02c20ff4a42bb85ff33c58d7bd1e6",
             "after_sha256": "cf1de763b6430726497d49eb4a16dfd751c02c20ff4a42bb85ff33c58d7bd1e6"
           },
           {
             "owner": "menu/Compdata/01/0016",
             "offset": 414264,
-            "end": 414279,
-            "size": 15,
-            "before_sha256": "cea5ad0c4c87f5d750a731873a71365804c500311f02c0cc27af91decac12ac9",
-            "after_sha256": "09e75a95c55f40559e16cc1a1b52208fc7a7e89e8f8e6558bee794deed66f0db"
+            "end": 414275,
+            "size": 11,
+            "before_sha256": "78b3a3cdb8766505683559c5a4589282dfbed642113c4b278aa747ad1a283279",
+            "after_sha256": "78b3a3cdb8766505683559c5a4589282dfbed642113c4b278aa747ad1a283279"
           },
           {
             "owner": "menu/Compdata/01/0017",
             "offset": 414288,
-            "end": 414330,
-            "size": 42,
-            "before_sha256": "e29e92e443fef7a5b366bc50b3ec25dc8b5f7dff7d58bc977e374790cfb183a4",
-            "after_sha256": "6cfe18a85af6eda577b4760af8cb597e400a9251845623e9f39cb94aa915b0e9"
+            "end": 414326,
+            "size": 38,
+            "before_sha256": "a5ebf3689fa20163969525140a328d936a1b3d6218d81bca42050861e101ad60",
+            "after_sha256": "a5ebf3689fa20163969525140a328d936a1b3d6218d81bca42050861e101ad60"
           },
           {
             "owner": "menu/Compdata/01/0018",
             "offset": 414336,
-            "end": 414349,
-            "size": 13,
-            "before_sha256": "9fe4533b1ef8d3a23c2a4821e2dc1cd4711579d584a0dde82901279701f49cc2",
-            "after_sha256": "2093bdc88c22c9a09e60f26a1f3accd6c523dc5e7f658f0b26bccd2edf865035"
+            "end": 414345,
+            "size": 9,
+            "before_sha256": "e01689842626fad95988f824ac3fd56d2e31f364296d14495512659b2a32c91a",
+            "after_sha256": "e01689842626fad95988f824ac3fd56d2e31f364296d14495512659b2a32c91a"
           },
           {
             "owner": "menu/Compdata/01/0019",
             "offset": 414352,
-            "end": 414407,
-            "size": 55,
-            "before_sha256": "3340080646d1a12795e6a23ffaa1cd00e798292b71cddbf03b3886d19f0c52bf",
-            "after_sha256": "53c8d7dd7a5948920a2f2468a667f1b9d696f0e06e0927831ef3e54e9bae176b"
+            "end": 414403,
+            "size": 51,
+            "before_sha256": "7d8b1a65912de7de07c2decd01423f52d25c7e0d4c4df3c659107b29dddda72c",
+            "after_sha256": "7d8b1a65912de7de07c2decd01423f52d25c7e0d4c4df3c659107b29dddda72c"
           },
           {
             "owner": "menu/Compdata/01/0020",
             "offset": 414408,
             "end": 414413,
             "size": 5,
-            "before_sha256": "fb5a1b473945a0021a7401ba1ff15380cd9cb1fea7be2d5a5f5c3f77f1b678a3",
+            "before_sha256": "a4f726cabbc07a2d37921894e49d0c7f06fad3977e55c34c9abfe863f05fb139",
             "after_sha256": "a4f726cabbc07a2d37921894e49d0c7f06fad3977e55c34c9abfe863f05fb139"
           },
           {
@@ -6290,16 +6550,16 @@
             "offset": 414416,
             "end": 414491,
             "size": 75,
-            "before_sha256": "1a8a0bccf47a26251c273cdc0c968dc2d7551f2756ca98553b4dd9c6d9f427e4",
+            "before_sha256": "f0988eec67db4fbe96921a989e01312bbdb21c6b1aab4be62c20e2c33f268b8d",
             "after_sha256": "f0988eec67db4fbe96921a989e01312bbdb21c6b1aab4be62c20e2c33f268b8d"
           },
           {
             "owner": "menu/Compdata/01/0022",
             "offset": 414496,
-            "end": 414513,
-            "size": 17,
-            "before_sha256": "538423a1ae16fe46836d5442ddd48390d24acd05f3ec5b1dee3adb8dc6852f5c",
-            "after_sha256": "58ae52cc9ac0c3d2f4cfeddc31dad8382c105071090e6423bd9bf8166d88ffbb"
+            "end": 414507,
+            "size": 11,
+            "before_sha256": "139dc6d64691d659ff022b5206878b64605db508394dd320def59634af2df093",
+            "after_sha256": "139dc6d64691d659ff022b5206878b64605db508394dd320def59634af2df093"
           },
           {
             "owner": "menu/Compdata/01/0023",
@@ -6312,10 +6572,10 @@
           {
             "owner": "menu/Compdata/01/0024",
             "offset": 414560,
-            "end": 414581,
-            "size": 21,
-            "before_sha256": "4aae89788807223f1c6ee6bbaa37f26ed7a735ce570c4a71e80d85d479f48518",
-            "after_sha256": "6714a53d9d9ed20159a7e0389087fb86c1cdcd903c817a837b27bd7fa1e033dc"
+            "end": 414571,
+            "size": 11,
+            "before_sha256": "5aab74ab3c1dd9ae57e338c469f235c3ee50bee769596b8aa3e7dbc33dd72aa7",
+            "after_sha256": "5aab74ab3c1dd9ae57e338c469f235c3ee50bee769596b8aa3e7dbc33dd72aa7"
           },
           {
             "owner": "menu/Compdata/01/0025",
@@ -6328,10 +6588,10 @@
           {
             "owner": "menu/Compdata/01/0026",
             "offset": 414624,
-            "end": 414643,
-            "size": 19,
-            "before_sha256": "e5eee4aec9ca16d399f460e657fbf266f8fdaffd0e7520f62ded7029fa407aca",
-            "after_sha256": "01a81421d0ee22481273ae0219f856f72611c74316af7a0f9d40871feb87666a"
+            "end": 414637,
+            "size": 13,
+            "before_sha256": "1d5b6d382f936db5530cdda96f5917397dbeb9edacddfaedc0fec06b15ee8592",
+            "after_sha256": "1d5b6d382f936db5530cdda96f5917397dbeb9edacddfaedc0fec06b15ee8592"
           },
           {
             "owner": "menu/Compdata/01/0027",
@@ -6344,738 +6604,738 @@
           {
             "owner": "menu/Compdata/01/0028",
             "offset": 414688,
-            "end": 414703,
-            "size": 15,
-            "before_sha256": "461cf96250eb44237a3db917b2b47a181c530839d5c66a6dc3b7586bf4dfae62",
-            "after_sha256": "ca590eaebe308ef8891ae99fe6cd15c268a37f0db78b46890fa2353e25ddcbe6"
+            "end": 414697,
+            "size": 9,
+            "before_sha256": "1d41c1697ce34d02023a6a61e485cb9790e9b9da0277a5b499d8650164be8126",
+            "after_sha256": "1d41c1697ce34d02023a6a61e485cb9790e9b9da0277a5b499d8650164be8126"
           },
           {
             "owner": "menu/Compdata/01/0029",
             "offset": 414704,
-            "end": 414746,
-            "size": 42,
-            "before_sha256": "e83568c69001f099b361cd21b828ef8523a51e44f09013fe4a01adb4cb5b4c93",
-            "after_sha256": "22e96393f9fcdf5b39b46e7eaae0aa0cd01507bb21aac0287b59123f2a52c5b4"
+            "end": 414744,
+            "size": 40,
+            "before_sha256": "8a7ba3c0b3849d728d7ddfddff0718e2b2e0a8d0b627da564992e345c85d217f",
+            "after_sha256": "0d5f476cec92404bcd75671b29fdb9e79a03f3767a7da97696972cafc5cdb176"
           },
           {
             "owner": "menu/Compdata/01/0030",
             "offset": 414752,
-            "end": 414771,
-            "size": 19,
-            "before_sha256": "167c58b75306c59c49780e1afcf0969f8e7131491edaa3c83f5aa1ca33e2b2f4",
-            "after_sha256": "5d42bb991f1436893f9e13e9ac9e52c820f05218ab67935380aecbab4c1ea69d"
+            "end": 414765,
+            "size": 13,
+            "before_sha256": "432397eb0524b67e19b8c4f3ba130234c0b7832bdfeffc30e0c1c99239a3d012",
+            "after_sha256": "432397eb0524b67e19b8c4f3ba130234c0b7832bdfeffc30e0c1c99239a3d012"
           },
           {
             "owner": "menu/Compdata/01/0031",
             "offset": 414784,
-            "end": 414826,
-            "size": 42,
-            "before_sha256": "2b705de5920a267e40b1ba5d5504bcffcc91c7abab378bec617b3fd7ba9ce948",
-            "after_sha256": "e973a58aa6d7cdf8be8c573916740e0dfdfd01e7c675ee0ab0df41beaa5f764e"
+            "end": 414824,
+            "size": 40,
+            "before_sha256": "b46f3e536c9b38128382d1be3e292fe4327c392a9aa72b12e18a804c835bc29c",
+            "after_sha256": "6bf3e234917125e6fc992844cd9e13b92d65a9122041d09718e53e4aa7faca98"
           },
           {
             "owner": "menu/Compdata/01/0032",
             "offset": 414832,
-            "end": 414851,
-            "size": 19,
-            "before_sha256": "a247a7c6edbbd22bcef97299c0885495f0c6c8359891d15e6505d27a856e3141",
-            "after_sha256": "5e46b2374fc381ce953889417b757863aee7968583b083da310d260fc1bffc34"
+            "end": 414841,
+            "size": 9,
+            "before_sha256": "557ebf48dceb618e471a36d397daafbdccf682ec7975849ae52d9a1869f3d947",
+            "after_sha256": "557ebf48dceb618e471a36d397daafbdccf682ec7975849ae52d9a1869f3d947"
           },
           {
             "owner": "menu/Compdata/01/0033",
             "offset": 414864,
-            "end": 414941,
-            "size": 77,
-            "before_sha256": "b2bb511fd99df650dd062362718329845e1584ddedd18cf8ce610e35c19e7cdd",
-            "after_sha256": "7f90794d3a1cd30635aeb488714107fe110555483401696064a26429faf50295"
+            "end": 414925,
+            "size": 61,
+            "before_sha256": "f4f9b525fb51ec578649078c3a542927dc303b6c48d751ae4afc80140a2a5ae4",
+            "after_sha256": "f4f9b525fb51ec578649078c3a542927dc303b6c48d751ae4afc80140a2a5ae4"
           },
           {
             "owner": "menu/Compdata/01/0034",
             "offset": 414944,
-            "end": 414961,
-            "size": 17,
-            "before_sha256": "0ed5d672e44fcfc19dcc82aff19fb4e91d4110d2b3ecaaf335db82f2f06d6f1d",
-            "after_sha256": "2f00b309ab08dc60459691d2e38d1aa9a5aa7c4b56aba5bddfcd8c5a240c20b6"
+            "end": 414955,
+            "size": 11,
+            "before_sha256": "b603be2d531352b50e2717d5c860241db5763c6a5e1fd13b97d351b8c9a028da",
+            "after_sha256": "b603be2d531352b50e2717d5c860241db5763c6a5e1fd13b97d351b8c9a028da"
           },
           {
             "owner": "menu/Compdata/01/0035",
             "offset": 414976,
-            "end": 415028,
-            "size": 52,
-            "before_sha256": "111a50bfb566009abe9fff3a06890aa98eb60d3c83493dbb5d4eee9749db9224",
-            "after_sha256": "4c538ad90a037ec28c405b43c8eb71239d7debc950e71ec629979971b0419ce5"
+            "end": 415024,
+            "size": 48,
+            "before_sha256": "a2ceed4eada7878a8cb60929041a2980d34a37e1cde30c18e71d5123bcd6afa6",
+            "after_sha256": "0854899605404fba8b4f4c13139198c5d36fe307afefebf8a420ff6ae5398e8f"
           },
           {
             "owner": "menu/Compdata/01/0036",
             "offset": 415032,
             "end": 415041,
             "size": 9,
-            "before_sha256": "a7b4c115dbfb4864832ba2c9c781839e24290501ce881c893e657aab185fef70",
+            "before_sha256": "e46f6909b1b2446010d33a5da89c4f3881f36c797e77b1bc0230fad397f2e3aa",
             "after_sha256": "e46f6909b1b2446010d33a5da89c4f3881f36c797e77b1bc0230fad397f2e3aa"
           },
           {
             "owner": "menu/Compdata/01/0037",
             "offset": 415056,
-            "end": 415118,
-            "size": 62,
-            "before_sha256": "2a97892938bffc5e69be24a4e12146c26e27f8cf54e32b9f9ddc4c87ebfcb1b2",
-            "after_sha256": "41a952e1147bc6f3813028c79591e10cf2a606ac721fc01294b44c319fef91d4"
+            "end": 415110,
+            "size": 54,
+            "before_sha256": "3ab14c9a7389a711d1571c708081e2e6613d2d87f55cb42070a2015dfce1f5d3",
+            "after_sha256": "3ab14c9a7389a711d1571c708081e2e6613d2d87f55cb42070a2015dfce1f5d3"
           },
           {
             "owner": "menu/Compdata/01/0038",
             "offset": 415120,
             "end": 415127,
             "size": 7,
-            "before_sha256": "0756593d459c0dad17ab43a1e16b17a695a5821ab1805086f61c36dd228ba21a",
+            "before_sha256": "10c48f0744baa418c6b1e5ca5c81073891f8535f8297eb21b42ba0fd74d926e3",
             "after_sha256": "10c48f0744baa418c6b1e5ca5c81073891f8535f8297eb21b42ba0fd74d926e3"
           },
           {
             "owner": "menu/Compdata/01/0039",
             "offset": 415136,
-            "end": 415198,
-            "size": 62,
-            "before_sha256": "f22d5b13dca1bf12271417097b48adfd31d245e3afccc5ae749a71c6ba2be03f",
-            "after_sha256": "ac15cee4aca3defe7c145f4bd1a4bedfb753bf26a99b89d64ad2e11c19972efa"
+            "end": 415190,
+            "size": 54,
+            "before_sha256": "7f2cd59fab20045a2402a2d8518caa138ae176ccb8e549597f8e08fd0f691127",
+            "after_sha256": "7f2cd59fab20045a2402a2d8518caa138ae176ccb8e549597f8e08fd0f691127"
           },
           {
             "owner": "menu/Compdata/01/0040",
             "offset": 415200,
-            "end": 415221,
-            "size": 21,
-            "before_sha256": "5680634123a98e77069d9794098f671fd535579bb36d2aad972511a3f80d1e05",
-            "after_sha256": "6a3e47f2aa66b37bffba0b09aa6f1eddd3a0d7af461a452b0bfc8efd0743f5a3"
+            "end": 415217,
+            "size": 17,
+            "before_sha256": "ad108c4b6730b0a16b0fb6b62a38620e5dd1a14f38f80b3dc54902c680242a1d",
+            "after_sha256": "ad108c4b6730b0a16b0fb6b62a38620e5dd1a14f38f80b3dc54902c680242a1d"
           },
           {
             "owner": "menu/Compdata/01/0041",
             "offset": 415232,
-            "end": 415309,
-            "size": 77,
-            "before_sha256": "cff28503c76d26f453005ff580eab85f713e0da66ce84782016cfa50df426f23",
-            "after_sha256": "df4d8f40b73584f34ea85ae582a407c8951038fa8968c4b3ecf542a6c4109230"
+            "end": 415293,
+            "size": 61,
+            "before_sha256": "c98a1d17c1012382d3056998a5e2fa4c4445ea2926dc5703fdddd69895a79335",
+            "after_sha256": "c98a1d17c1012382d3056998a5e2fa4c4445ea2926dc5703fdddd69895a79335"
           },
           {
             "owner": "menu/Compdata/01/0042",
             "offset": 415312,
-            "end": 415333,
-            "size": 21,
-            "before_sha256": "c7812f7fde5ea7a3802e3b05820c94f82372a0a0d6af05e6042f76ffc5518dc2",
-            "after_sha256": "4eebd76bdc94a6329b1beadca057b75a1386f9e46212d77e5a86fe0d9b555132"
+            "end": 415321,
+            "size": 9,
+            "before_sha256": "c90377692d71e7bb10558d273eb9ab83265657f80dee79905177be9a863b5e85",
+            "after_sha256": "c90377692d71e7bb10558d273eb9ab83265657f80dee79905177be9a863b5e85"
           },
           {
             "owner": "menu/Compdata/01/0043",
             "offset": 415344,
-            "end": 415380,
-            "size": 36,
-            "before_sha256": "bb04950457d92a6d2ccd2ca015d15065d7f2415f62fa75613f765ef1cd21a404",
-            "after_sha256": "4259c03ae899a675ceaef47698aabee8a2c44dbef4e2679e98fae252fed18ff5"
+            "end": 415376,
+            "size": 32,
+            "before_sha256": "15118f134364e2cbb583c950252c9c4a71526367a04ced077ba127dbb8570014",
+            "after_sha256": "15118f134364e2cbb583c950252c9c4a71526367a04ced077ba127dbb8570014"
           },
           {
             "owner": "menu/Compdata/01/0044",
             "offset": 415384,
             "end": 415393,
             "size": 9,
-            "before_sha256": "866b6e0497554c1afe8eb62d0594045ef94c8629e1e67b44f06e450d52f1bb72",
+            "before_sha256": "5f9a773db270ff73abef893465bff3848966d93836d1415758c8130c104b38ce",
             "after_sha256": "5f9a773db270ff73abef893465bff3848966d93836d1415758c8130c104b38ce"
           },
           {
             "owner": "menu/Compdata/01/0045",
             "offset": 415408,
-            "end": 415485,
-            "size": 77,
-            "before_sha256": "a132a23bf2d48d279417115dbb831630d295a2e717c7b37923a7e14069ac237d",
-            "after_sha256": "6eae60ed959440643807f3f8591a0e7555a91e7c202606210bba0db839d3722d"
+            "end": 415469,
+            "size": 61,
+            "before_sha256": "7bdd270fe0ef16f99f040afced808bd6958f60e002d91c8538fd1614cff129e9",
+            "after_sha256": "7bdd270fe0ef16f99f040afced808bd6958f60e002d91c8538fd1614cff129e9"
           },
           {
             "owner": "menu/Compdata/01/0046",
             "offset": 415488,
-            "end": 415509,
-            "size": 21,
-            "before_sha256": "0ea88fd3a05dbdb1c474ca7ecfe3defc4f80db1ba77a7b5ac3a11302d1df6264",
-            "after_sha256": "a7a27493b9c50b720409cfc3274c93c8d72d34c5b9ffbda51201753702001d4d"
+            "end": 415499,
+            "size": 11,
+            "before_sha256": "ccceac5865243107517484179679da8a3882bc0d3de9c146e12654b883c5dad0",
+            "after_sha256": "ccceac5865243107517484179679da8a3882bc0d3de9c146e12654b883c5dad0"
           },
           {
             "owner": "menu/Compdata/01/0047",
             "offset": 415520,
-            "end": 415597,
-            "size": 77,
-            "before_sha256": "40aaaef68039366b9d6b52d166f51ae4585978900f391920a77211f129f70a94",
-            "after_sha256": "d246877e0a7055c047407a10847a7aa860be8ebaee6d2e13f84b4041502289a7"
+            "end": 415581,
+            "size": 61,
+            "before_sha256": "5649efbbb39ecb32d87a158d1786bc6601f619e1e769e424e4f7bf50619feab7",
+            "after_sha256": "5649efbbb39ecb32d87a158d1786bc6601f619e1e769e424e4f7bf50619feab7"
           },
           {
             "owner": "menu/Compdata/01/0048",
             "offset": 415600,
-            "end": 415615,
-            "size": 15,
-            "before_sha256": "0705c3f4491eb3bc1a1036c39a0273841e26043dfba2db4854a62343d387cc2e",
-            "after_sha256": "dcc60ad32581efa26668ea41d7fd173a1e46d566de1e795e1191a06e59c9881b"
+            "end": 415609,
+            "size": 9,
+            "before_sha256": "1fe6ca899436f7c5fc7d74f19e01c35a325e4a6f8ca7a77b116d50b018aa7e83",
+            "after_sha256": "1fe6ca899436f7c5fc7d74f19e01c35a325e4a6f8ca7a77b116d50b018aa7e83"
           },
           {
             "owner": "menu/Compdata/01/0049",
             "offset": 415616,
-            "end": 415654,
-            "size": 38,
-            "before_sha256": "24e3d2495c758350c289b1d07e8828a4621bbf274f70388a9d926c340f140243",
-            "after_sha256": "1ba0ac15e383f1d662184c428f9450e6bcc6bc974c1f5f58b81ad5b3c29503f0"
+            "end": 415648,
+            "size": 32,
+            "before_sha256": "4121773f4730ef6675c59858c72e85fdd6a7e02242c17a9f4ceb373bc309efe6",
+            "after_sha256": "4121773f4730ef6675c59858c72e85fdd6a7e02242c17a9f4ceb373bc309efe6"
           },
           {
             "owner": "menu/Compdata/01/0050",
             "offset": 415656,
-            "end": 415671,
-            "size": 15,
-            "before_sha256": "8c46c958582c4c75bd000f93b1dfd6f71ad76660032b66efd8a74d255fd236af",
-            "after_sha256": "0c4121b4dbb78aa744f46a95335c5670269f80d0ad15b579c66b1fe2ae210d67"
+            "end": 415665,
+            "size": 9,
+            "before_sha256": "bc1d0233adac9190828d9b03cad38dde8b5df5087150cc03ce21f9b1535f4eae",
+            "after_sha256": "bc1d0233adac9190828d9b03cad38dde8b5df5087150cc03ce21f9b1535f4eae"
           },
           {
             "owner": "menu/Compdata/01/0051",
             "offset": 415680,
-            "end": 415718,
-            "size": 38,
-            "before_sha256": "66c67c5044cf23b8f3aa2469629c5b0318a64d72985d2480dfffe063dcbad5ea",
-            "after_sha256": "a244f70de17855860752ef90af2ecfe90c4dae82fa96f71ee48a9b3763d68e8e"
+            "end": 415712,
+            "size": 32,
+            "before_sha256": "53172fdee88f682be11039bc0a8a5776d2814a9239c65bff3b52a1e11e917bb0",
+            "after_sha256": "53172fdee88f682be11039bc0a8a5776d2814a9239c65bff3b52a1e11e917bb0"
           },
           {
             "owner": "menu/Compdata/01/0052",
             "offset": 415728,
-            "end": 415747,
-            "size": 19,
-            "before_sha256": "9dc7f711b2ee8e9ef6f582eb605eee54baa88bb838365a12fbb38362980a3a01",
-            "after_sha256": "884ea2e4c3c7fe4c32234f3431ce5a5c70b393f9d9f978a90d1b0d0cd93d9044"
+            "end": 415739,
+            "size": 11,
+            "before_sha256": "bca3d035ee3fa2d4675a9cdfb81c642f32e13a6dbe5ee23d47ed398dc5f69f71",
+            "after_sha256": "bca3d035ee3fa2d4675a9cdfb81c642f32e13a6dbe5ee23d47ed398dc5f69f71"
           },
           {
             "owner": "menu/Compdata/01/0053",
             "offset": 415760,
-            "end": 415819,
-            "size": 59,
-            "before_sha256": "e99e8681948766a0705421a455ea27085138e8695871a0b6ea09dae619683fbe",
-            "after_sha256": "ae2e288d888ee804edf1d368b81c382b79e531b8b6f26f53262e5cabe280f281"
+            "end": 415807,
+            "size": 47,
+            "before_sha256": "0e1e03fed27a843bffc90320301ef5f3594ae81b87c35e4f893ac30f8a949ef6",
+            "after_sha256": "0e1e03fed27a843bffc90320301ef5f3594ae81b87c35e4f893ac30f8a949ef6"
           },
           {
             "owner": "menu/Compdata/01/0054",
             "offset": 415824,
-            "end": 415837,
-            "size": 13,
-            "before_sha256": "e31c89b63d3391b2490eab3345079824a1000a4d928bcb4ae34b063fd7550e27",
-            "after_sha256": "9008bd2f87454cdb944c8b46965c0a360ad9363e41950fe7cbd29330ebee2a69"
+            "end": 415831,
+            "size": 7,
+            "before_sha256": "de722ae8983f76ef16c6b7aeca9e42e87a16e1e8f21daab551fcb1357f2e6a89",
+            "after_sha256": "de722ae8983f76ef16c6b7aeca9e42e87a16e1e8f21daab551fcb1357f2e6a89"
           },
           {
             "owner": "menu/Compdata/01/0055",
             "offset": 415840,
-            "end": 415899,
-            "size": 59,
-            "before_sha256": "e1e42433c538fac551943625690155de90261eead9c891768151968cf5a72e20",
-            "after_sha256": "c4c16ee62dd362a115f175ba0186239e5053d7c86067572e7e5add420ba7d631"
+            "end": 415887,
+            "size": 47,
+            "before_sha256": "fb7ad17cdd3e16759b4ac78798e6ab9379106fbe6de2fbb857d7b3a7696172f2",
+            "after_sha256": "fb7ad17cdd3e16759b4ac78798e6ab9379106fbe6de2fbb857d7b3a7696172f2"
           },
           {
             "owner": "menu/Compdata/01/0056",
             "offset": 415904,
-            "end": 415917,
-            "size": 13,
-            "before_sha256": "60204ba8826cfc1039bdffb3bd2fa9045d28c738847c0636582ba93340b67767",
-            "after_sha256": "9d44f897f0913d94611f12b7f0c3607929b6c8000d031207bc0dcc23fe51bf95"
+            "end": 415913,
+            "size": 9,
+            "before_sha256": "373c461809d4777c426c744b79926e1300cd7dda98fe64384181eb27d9673768",
+            "after_sha256": "373c461809d4777c426c744b79926e1300cd7dda98fe64384181eb27d9673768"
           },
           {
             "owner": "menu/Compdata/01/0057",
             "offset": 415920,
-            "end": 415979,
-            "size": 59,
-            "before_sha256": "6f26ec4a0935f1c2a026101023c0e4c3f5a77164bf4c06862e62aadb6a331b0e",
-            "after_sha256": "ff53af6d5bf7b8ed27cc99b88f981cf3ec5870f00f6b5ca458b6a04d55701967"
+            "end": 415967,
+            "size": 47,
+            "before_sha256": "5b9bcc668e9384b74baf0bf9d0163d5f3cf32b927e955f11a4c010bcd3fcf160",
+            "after_sha256": "5b9bcc668e9384b74baf0bf9d0163d5f3cf32b927e955f11a4c010bcd3fcf160"
           },
           {
             "owner": "menu/Compdata/01/0058",
             "offset": 415984,
-            "end": 416005,
-            "size": 21,
-            "before_sha256": "26e3e63dc5a0aa619a6458fe7fcba75d8ed3660b76d59b3556ba274a66117944",
-            "after_sha256": "24b673ae3735e034e37dde0589c6abf73c95a300958b4f6094331807d4a743eb"
+            "end": 415997,
+            "size": 13,
+            "before_sha256": "44c6f3b347a4141663cf0dddcaa0d92ba64f822f44354f20b1c6725e5e33918f",
+            "after_sha256": "44c6f3b347a4141663cf0dddcaa0d92ba64f822f44354f20b1c6725e5e33918f"
           },
           {
             "owner": "menu/Compdata/01/0059",
             "offset": 416016,
-            "end": 416087,
-            "size": 71,
-            "before_sha256": "812088a82ba1c8b9a65145f37bdf408dd171435d3da11349abb092a1afbc0881",
-            "after_sha256": "7e9432bffeed57879cc312be770e70f6b1f8042475c270d2a8f800f477289fd8"
+            "end": 416071,
+            "size": 55,
+            "before_sha256": "92efdd66e12ed77b2d0d159b4e0870f971b71adf22834e2a9cb00326f7a0e2a9",
+            "after_sha256": "92efdd66e12ed77b2d0d159b4e0870f971b71adf22834e2a9cb00326f7a0e2a9"
           },
           {
             "owner": "menu/Compdata/01/0060",
             "offset": 416088,
-            "end": 416103,
-            "size": 15,
-            "before_sha256": "877bc97a5545f43640493c0e7f27fc8c3ad98c1c743cb73370339a0a1e4ea71e",
-            "after_sha256": "3f2f931b2668bdfe270cd9e9485ee6cc0de8d9a3cced3eafbe0f552d7158e199"
+            "end": 416099,
+            "size": 11,
+            "before_sha256": "deeaa6f4bf3885942397be3d2a7f3135bcbd36aa48b1be7a6aef6f4835536396",
+            "after_sha256": "deeaa6f4bf3885942397be3d2a7f3135bcbd36aa48b1be7a6aef6f4835536396"
           },
           {
             "owner": "menu/Compdata/01/0061",
             "offset": 416112,
-            "end": 416185,
-            "size": 73,
-            "before_sha256": "6e0231a4706a1356a2afacec2207c9646237e103b88be4cb0fcdfbbb4174fdef",
-            "after_sha256": "54410b4e9d72fa1e6297125fc24cac86411f205fc1bb781b76d197b6c4e76e60"
+            "end": 416165,
+            "size": 53,
+            "before_sha256": "0e533001b25ee6fcd45d8876489ca55685a47382a3d3b2a6c0262d6db3df6a8c",
+            "after_sha256": "0e533001b25ee6fcd45d8876489ca55685a47382a3d3b2a6c0262d6db3df6a8c"
           },
           {
             "owner": "menu/Compdata/01/0062",
             "offset": 416192,
-            "end": 416205,
-            "size": 13,
-            "before_sha256": "0035dbce765362a8fb3aab202ec19cfa2844b5972244e9d5a9155e660457d08e",
-            "after_sha256": "841aa82887cb291771ba67412bca2fe1e4c1563035e668e1a260af2dd2a7efdc"
+            "end": 416201,
+            "size": 9,
+            "before_sha256": "2875575efbd04ee74e898b3b5e55e1ff6f8d4ffa355d7eeb12ac6b30738786b2",
+            "after_sha256": "2875575efbd04ee74e898b3b5e55e1ff6f8d4ffa355d7eeb12ac6b30738786b2"
           },
           {
             "owner": "menu/Compdata/01/0063",
             "offset": 416208,
-            "end": 416279,
-            "size": 71,
-            "before_sha256": "33bc74fc05b92222bb0ec65cab71f2db28a524d2ecd99fa7314f4f48993cb400",
-            "after_sha256": "b8cbea168a002c10db92bbedf058ec5de745cef4b27f64abd4fb25e617195b38"
+            "end": 416259,
+            "size": 51,
+            "before_sha256": "c56a40f49bc065be228de27345e8891b1b057aa607b7e728cc4149fec533e1b0",
+            "after_sha256": "c56a40f49bc065be228de27345e8891b1b057aa607b7e728cc4149fec533e1b0"
           },
           {
             "owner": "menu/Compdata/01/0064",
             "offset": 416280,
-            "end": 416293,
-            "size": 13,
-            "before_sha256": "2aee635883fd9ca49371000beaed971d25d5896b1298330c14d59747c5b1fe6a",
-            "after_sha256": "fd4c877615d0ca669d9f2ecfa648571585f9d2cb4ec280027d240b9980d57669"
+            "end": 416289,
+            "size": 9,
+            "before_sha256": "2b7caa7c4372c835f79fba82a555820df46a55600a78c0830002f59bcb2112f5",
+            "after_sha256": "2b7caa7c4372c835f79fba82a555820df46a55600a78c0830002f59bcb2112f5"
           },
           {
             "owner": "menu/Compdata/01/0065",
             "offset": 416304,
-            "end": 416321,
-            "size": 17,
-            "before_sha256": "ce0141aa241337e8ac3c7c593066fad8d0ab34601026b2b6a38be807d389608d",
-            "after_sha256": "dc606ad0962408fb180525df4ced66215ae5392f2b21d4b0b78bfe09251227ee"
+            "end": 416319,
+            "size": 15,
+            "before_sha256": "795458537f6ac7e15b486dd5e5c9dc8a2160244d96a590c8bf4cba31db9299a1",
+            "after_sha256": "795458537f6ac7e15b486dd5e5c9dc8a2160244d96a590c8bf4cba31db9299a1"
           },
           {
             "owner": "menu/Compdata/01/0066",
             "offset": 416328,
             "end": 416343,
             "size": 15,
-            "before_sha256": "a27f70853111e35a60770d0304aaefda5a621983e83db51206b74c15f134352e",
+            "before_sha256": "313c66e38669035e1decb0b9967fc6b80f12df7349ef0f0703bfe9a4937b719b",
             "after_sha256": "313c66e38669035e1decb0b9967fc6b80f12df7349ef0f0703bfe9a4937b719b"
           },
           {
             "owner": "menu/Compdata/01/0067",
             "offset": 416352,
-            "end": 416371,
-            "size": 19,
-            "before_sha256": "0b905e0669a1938a6739592f400a2dc7e80a47911610ad4f798e694d899f4a5f",
-            "after_sha256": "b989680ba9a3e718dabfb00c74d4435e91a278ca7370b6641dd9b38dadb1e23f"
+            "end": 416369,
+            "size": 17,
+            "before_sha256": "9287ab5b7cfc4cbf04a014118fe88d43e379b9be6db86fd1e485addc9f4948e9",
+            "after_sha256": "9287ab5b7cfc4cbf04a014118fe88d43e379b9be6db86fd1e485addc9f4948e9"
           },
           {
             "owner": "menu/Compdata/01/0068",
             "offset": 416376,
             "end": 416387,
             "size": 11,
-            "before_sha256": "d270047cbe54a591f485009a6c10c799c3f70b8e58f962e8144d19f3f3d52ccc",
+            "before_sha256": "a9aaed92d38c25f5b30e0bec4c6123a322bb5c6ccc6b2ee88c87748259b58c86",
             "after_sha256": "a9aaed92d38c25f5b30e0bec4c6123a322bb5c6ccc6b2ee88c87748259b58c86"
           },
           {
             "owner": "menu/Compdata/01/0069",
             "offset": 416400,
-            "end": 416454,
-            "size": 54,
-            "before_sha256": "b2af99c51adb29caa6c99f7cba90ddbc0b4922481f7fd47450e627b6aecfa745",
-            "after_sha256": "4551e69c51f2c41c73fdb304cdff5b29ac07db672af6fe53b70247bf40e5d130"
+            "end": 416432,
+            "size": 32,
+            "before_sha256": "1f32d7385e6241155f15eb246dd6728ee4d42b0283fa18ea7259849dde88bd0a",
+            "after_sha256": "1f32d7385e6241155f15eb246dd6728ee4d42b0283fa18ea7259849dde88bd0a"
           },
           {
             "owner": "menu/Compdata/01/0070",
             "offset": 416456,
             "end": 416469,
             "size": 13,
-            "before_sha256": "954fb2b99fffc35b885bdc9e4ffcc660892b80815add7d8b284e4c9c7289cf60",
+            "before_sha256": "188e73f734962344d05bd1fcdaa0c5cb12817cf4432301f99487ac7f2fb2f097",
             "after_sha256": "188e73f734962344d05bd1fcdaa0c5cb12817cf4432301f99487ac7f2fb2f097"
           },
           {
             "owner": "menu/Compdata/01/0071",
             "offset": 416480,
-            "end": 416543,
-            "size": 63,
-            "before_sha256": "b9aebcc228b229a8110280ca676fb8955730ea282e49bcd6c470bcb09a635f33",
-            "after_sha256": "01c5b280c36f92122703ef142fb1f8334efcca4c334981c8ed7cbc4e9ba508fb"
+            "end": 416523,
+            "size": 43,
+            "before_sha256": "047597ce5c6249845203bc00831057e216de2b311fea81eb27cead463ab162ed",
+            "after_sha256": "047597ce5c6249845203bc00831057e216de2b311fea81eb27cead463ab162ed"
           },
           {
             "owner": "menu/Compdata/01/0072",
             "offset": 416544,
-            "end": 416559,
-            "size": 15,
-            "before_sha256": "8c18c01dc58af2c0e8bd677520b27df778a2b2a03b2bf9098e44f758da671d6e",
-            "after_sha256": "8e08b47086a1dacb0764fa4fe4a9d039b9f59ebd5bbbaaebb388e30855317df5"
+            "end": 416553,
+            "size": 9,
+            "before_sha256": "d9665e330b33a8e8395d1381fb5e0de5d6d11eeeae0c85479465020873a5bab6",
+            "after_sha256": "d9665e330b33a8e8395d1381fb5e0de5d6d11eeeae0c85479465020873a5bab6"
           },
           {
             "owner": "menu/Compdata/01/0073",
             "offset": 416560,
-            "end": 416635,
-            "size": 75,
-            "before_sha256": "e6a26e162f558148a1f6baf255fee99983e3a3f397b55267a69221e0af897e03",
-            "after_sha256": "754c92a4a7cf500d97d1964e3466520e7cc2a14cf48b92fd079e980f40ffc8c8"
+            "end": 416629,
+            "size": 69,
+            "before_sha256": "d65cc93dc0f774298e0e7928e41862818d47be606c24f2a144b3ad0dc86d31eb",
+            "after_sha256": "2c2498048efec9bfaf195ff4015dffa5f9abc2cefbfdba6530dd48a91ab9a7c0"
           },
           {
             "owner": "menu/Compdata/01/0074",
             "offset": 416640,
-            "end": 416659,
-            "size": 19,
-            "before_sha256": "e622c832694f681ded7b959cd627fe501f8ead76a62cb2bc0a0b340ab33c0721",
-            "after_sha256": "316b4376cbcd01cadb3fff9fa72e0babbd7c9056dcc9ab5fd0cae4ea213c5c0d"
+            "end": 416653,
+            "size": 13,
+            "before_sha256": "e90912b2b3f12f8bb0a10c4e9886b45d8d5f9c533d1d8b9e846f0e2c62767f85",
+            "after_sha256": "e90912b2b3f12f8bb0a10c4e9886b45d8d5f9c533d1d8b9e846f0e2c62767f85"
           },
           {
             "owner": "menu/Compdata/01/0075",
             "offset": 416672,
-            "end": 416693,
-            "size": 21,
-            "before_sha256": "2e5f8a8cb31f3db6b462b280f39e217006b704abbbec892c2f075f81b630368e",
-            "after_sha256": "a1e8662eb0e21c571a630f1f6a895258ded11b1b7169c21c5ecba4b20c46753d"
+            "end": 416689,
+            "size": 17,
+            "before_sha256": "4507f34d2b9f203867b8ac36c50d2902e2edb6364b295217ab95e4bcc99e554e",
+            "after_sha256": "4507f34d2b9f203867b8ac36c50d2902e2edb6364b295217ab95e4bcc99e554e"
           },
           {
             "owner": "menu/Compdata/01/0076",
             "offset": 416704,
-            "end": 416723,
-            "size": 19,
-            "before_sha256": "6763df669977e37bf5260223201a9728f07d9ea007beda08ef35273da310aa62",
-            "after_sha256": "9bec219fd78584a5ed0bf1d3f05d2954915c1254495225367e3ca9c5382c1943"
+            "end": 416713,
+            "size": 9,
+            "before_sha256": "dfaae7a52220eeb99346874e2f22d0b669c4a4b95ce18c9a66cd269c03ebe469",
+            "after_sha256": "dfaae7a52220eeb99346874e2f22d0b669c4a4b95ce18c9a66cd269c03ebe469"
           },
           {
             "owner": "menu/Compdata/01/0077",
             "offset": 416736,
-            "end": 416792,
-            "size": 56,
-            "before_sha256": "f63c4401f2d3254df5dd3c334dea4c99aadb92f5abf5a18f9e182f6160693786",
-            "after_sha256": "b17605ae825e1f2046fb5fa0904d1aefd82240a99a491bd84e4fd919891e0e31"
+            "end": 416772,
+            "size": 36,
+            "before_sha256": "4e7148bbf611af2a99104b55fa3c9db46818866e7597df62ab27e3ff2d99f3f8",
+            "after_sha256": "4e7148bbf611af2a99104b55fa3c9db46818866e7597df62ab27e3ff2d99f3f8"
           },
           {
             "owner": "menu/Compdata/01/0078",
             "offset": 416800,
-            "end": 416823,
-            "size": 23,
-            "before_sha256": "9ab56a2de5e28b0d371719eaa71cd61df625277e70384628f5a30f0a19e494b2",
-            "after_sha256": "2a31a4d3e2dd69385111d896f689816f675a2f9012a143bbcdf1e7038000fd56"
+            "end": 416817,
+            "size": 17,
+            "before_sha256": "644eda2ac4f7b93ca269e5f4547f3345ba51c007f2fc3cb83fa9221d34fe23c1",
+            "after_sha256": "644eda2ac4f7b93ca269e5f4547f3345ba51c007f2fc3cb83fa9221d34fe23c1"
           },
           {
             "owner": "menu/Compdata/01/0079",
             "offset": 416832,
-            "end": 416871,
-            "size": 39,
-            "before_sha256": "523a992f8605dcd84711e4ccb7c8fbcb80357031c6983e63a22892e99e447eea",
-            "after_sha256": "2c1a0d2ccc4ade466a4179700c6e226a3afb66f82b57f6dbab0592027075f720"
+            "end": 416857,
+            "size": 25,
+            "before_sha256": "276574c9d19c7bd38782405618fdeee9bdf2e217c25d784b25963dd8cf4f9172",
+            "after_sha256": "276574c9d19c7bd38782405618fdeee9bdf2e217c25d784b25963dd8cf4f9172"
           },
           {
             "owner": "menu/Compdata/01/0080",
             "offset": 416880,
-            "end": 416899,
-            "size": 19,
-            "before_sha256": "7019bdcc18e75cf8d792534f66bae385becd1ef546092012178946e9e821eba4",
-            "after_sha256": "9f6d9b21b626c4a6860c689b6071d74d3e2cc7ff8011ce8ae5a1d082a55f29b3"
+            "end": 416893,
+            "size": 13,
+            "before_sha256": "a3e979ebde0419b7ffa40e8b97d580489f07844e8cd4c254abc01a9c3dc073d7",
+            "after_sha256": "a3e979ebde0419b7ffa40e8b97d580489f07844e8cd4c254abc01a9c3dc073d7"
           },
           {
             "owner": "menu/Compdata/01/0081",
             "offset": 416912,
-            "end": 416950,
-            "size": 38,
-            "before_sha256": "0162017e242b2fae11c4c26d18008be05955a14ffadd48ac861b2f1dc3be8d16",
-            "after_sha256": "43c85810790c069af8e72779ec16c183dd74aece640e513be63edd3d6fc6b667"
+            "end": 416942,
+            "size": 30,
+            "before_sha256": "bbd39f2dc8fb1af4f9b3b576f8ff38656bfc05aa3fef777295fec8bad809d018",
+            "after_sha256": "bbd39f2dc8fb1af4f9b3b576f8ff38656bfc05aa3fef777295fec8bad809d018"
           },
           {
             "owner": "menu/Compdata/01/0082",
             "offset": 416952,
-            "end": 416967,
-            "size": 15,
-            "before_sha256": "2f1b6717a3d7b50ec3001da459514fc1e76b99193c18a0431fc41ce6fc3bbba2",
-            "after_sha256": "db9addd49baf653c8b0399ab9d7f93c09d2e2e866e26c7fee8f246ee6d169850"
+            "end": 416961,
+            "size": 9,
+            "before_sha256": "545ce1c00e88ab64b597ea5293f0d5e92965dc49d7b8adb1ff8522a64e7094cd",
+            "after_sha256": "545ce1c00e88ab64b597ea5293f0d5e92965dc49d7b8adb1ff8522a64e7094cd"
           },
           {
             "owner": "menu/Compdata/01/0083",
             "offset": 416976,
-            "end": 417008,
-            "size": 32,
-            "before_sha256": "a4f1914bb79dc720b854481bec27e117ca9a8cf22efc9f0d4218f9b0c11a01dc",
-            "after_sha256": "b31a995386e83a017781420e41a34ffd52d965c1a749ceab52fa212f622d3ba6"
+            "end": 417004,
+            "size": 28,
+            "before_sha256": "0a10e4bedaca8f03aac654c89fb4eb2bec04652efcaca977c37f8deef9623b7a",
+            "after_sha256": "0a10e4bedaca8f03aac654c89fb4eb2bec04652efcaca977c37f8deef9623b7a"
           },
           {
             "owner": "menu/Compdata/01/0084",
             "offset": 417008,
-            "end": 417027,
-            "size": 19,
-            "before_sha256": "270f51bceda6ba21b91540248fb4bde390118df0e593cdf909e5a1129732a3a2",
-            "after_sha256": "0bed38d0a7fecb7a5e0c5c169b7bad39715075021a9ff66f8c8f727dcaa6a0d8"
+            "end": 417015,
+            "size": 7,
+            "before_sha256": "73a755809c17e875d5def7e454e1532c8165527b69f12d77cdea1d22daf1dc2d",
+            "after_sha256": "73a755809c17e875d5def7e454e1532c8165527b69f12d77cdea1d22daf1dc2d"
           },
           {
             "owner": "menu/Compdata/01/0085",
             "offset": 417040,
-            "end": 417072,
-            "size": 32,
-            "before_sha256": "8809af4d3e880845c69e389907e8b5ca83782b07d81ab25b172fb4dee5139cc0",
-            "after_sha256": "6762ed57e5322f8cfde08cbf2eb8efcdf63257680c4f3bfc1206275e72ba1642"
+            "end": 417062,
+            "size": 22,
+            "before_sha256": "e33e162727717b8ef09fcc5bfffbeae787ef11ebb943208a8b145904a033bcb7",
+            "after_sha256": "e33e162727717b8ef09fcc5bfffbeae787ef11ebb943208a8b145904a033bcb7"
           },
           {
             "owner": "menu/Compdata/01/0086",
             "offset": 417072,
             "end": 417081,
             "size": 9,
-            "before_sha256": "ae79911c1640614b082037fb332af39940f7b186ed75f47a8d465402b23f206e",
+            "before_sha256": "1785ca827bffd34e5d6376f92dbfe4fa8496dfae4e0e52b5dc75e33236589f1d",
             "after_sha256": "1785ca827bffd34e5d6376f92dbfe4fa8496dfae4e0e52b5dc75e33236589f1d"
           },
           {
             "owner": "menu/Compdata/01/0087",
             "offset": 417088,
-            "end": 417130,
-            "size": 42,
-            "before_sha256": "81884afc52a4eac83eeb2e8eb3015dc45616cc7dd80226be5cf1a811288b647b",
-            "after_sha256": "eee55781f6827a83e25d69dac30a6f3e71471ee9fe442df385bdfbf0519a0c91"
+            "end": 417112,
+            "size": 24,
+            "before_sha256": "b3d671556c610912ffbde827aaf9dd76958594edd3f7007386333c92b12cd897",
+            "after_sha256": "b3d671556c610912ffbde827aaf9dd76958594edd3f7007386333c92b12cd897"
           },
           {
             "owner": "menu/Compdata/01/0088",
             "offset": 417136,
-            "end": 417159,
-            "size": 23,
-            "before_sha256": "35a3c3f9cd7bc570d4bc422ffce0536919761ac7781a771bb44ee14bc15afe5b",
-            "after_sha256": "c2002e899db583107925e562ee7ac1f3d930cfebe56218f7e453a557251f41ec"
+            "end": 417153,
+            "size": 17,
+            "before_sha256": "a0cffd66267a38b7275fbac9b5c609c50c3dec2de524f1dc5d41a1ae5540de71",
+            "after_sha256": "a0cffd66267a38b7275fbac9b5c609c50c3dec2de524f1dc5d41a1ae5540de71"
           },
           {
             "owner": "menu/Compdata/01/0089",
             "offset": 417168,
-            "end": 417203,
-            "size": 35,
-            "before_sha256": "d9c80c2739511ed8f3db879cbaad1db6eb23718c1d33fa92b060c120ff445aba",
-            "after_sha256": "33a38f51dbaef0c99c0f902af2517775bf5b99d60fe067d7c38671bcdbb89bfa"
+            "end": 417191,
+            "size": 23,
+            "before_sha256": "87d11e33894ec227d02bd3d225c56548333dae1eb3ec389d3f9ca840a23b9b49",
+            "after_sha256": "87d11e33894ec227d02bd3d225c56548333dae1eb3ec389d3f9ca840a23b9b49"
           },
           {
             "owner": "menu/Compdata/01/0090",
             "offset": 417208,
-            "end": 417223,
-            "size": 15,
-            "before_sha256": "b8d443fb75ebb37029410c6c5f3dfb62574163b0cafd3364351c75b57c490b23",
-            "after_sha256": "2bc89d4acdbe4f5f9ec43aef836829a6f4da1a1289b4608b9ecf303cf1948966"
+            "end": 417217,
+            "size": 9,
+            "before_sha256": "d84b1cef5970aa475b2f2ed00aee802f1f6e6c07d058c9021ff68848d1d97be3",
+            "after_sha256": "d84b1cef5970aa475b2f2ed00aee802f1f6e6c07d058c9021ff68848d1d97be3"
           },
           {
             "owner": "menu/Compdata/01/0091",
             "offset": 417232,
-            "end": 417259,
-            "size": 27,
-            "before_sha256": "063a4a634a2ed360b3636ba2d72c3276db1f72f63fe73da36bb4e52f369e9efb",
-            "after_sha256": "a3cd98ce3e75427f646a4323a287741d03de2b85af97da66f5fe74bd2f323ef8"
+            "end": 417251,
+            "size": 19,
+            "before_sha256": "f1891b3eb4e4f09c5d08e09a926c8971db1cf317ef464ba6dafa57123271581e",
+            "after_sha256": "f1891b3eb4e4f09c5d08e09a926c8971db1cf317ef464ba6dafa57123271581e"
           },
           {
             "owner": "menu/Compdata/01/0092",
             "offset": 417264,
-            "end": 417279,
-            "size": 15,
-            "before_sha256": "ffe4f702b9beb31213ace063dccebcc84b2ee95d5bec1dfc76fd19f13cfbd51c",
-            "after_sha256": "59359c8321a7199bc2036c43e15bfbd8440b2c8fe0bd6ad30c56e0318fc9f882"
+            "end": 417275,
+            "size": 11,
+            "before_sha256": "675ea72123f04e249c0ceccfc6ed9573d20fe1f98c6905b61388852f291fe3d3",
+            "after_sha256": "675ea72123f04e249c0ceccfc6ed9573d20fe1f98c6905b61388852f291fe3d3"
           },
           {
             "owner": "menu/Compdata/01/0093",
             "offset": 417280,
-            "end": 417326,
-            "size": 46,
-            "before_sha256": "366944f913036f10dad158d905fe0219a559651a771b3332a3a700567ad55e59",
-            "after_sha256": "1dfd72822bece7130e936b074cdc93c2595b665994055d6aad58f634f5063366"
+            "end": 417314,
+            "size": 34,
+            "before_sha256": "eb179cf1da42bdd091713112084f6d00f0d9b582a4b073b00ec3850ddb744155",
+            "after_sha256": "eb179cf1da42bdd091713112084f6d00f0d9b582a4b073b00ec3850ddb744155"
           },
           {
             "owner": "menu/Compdata/01/0094",
             "offset": 417328,
-            "end": 417341,
-            "size": 13,
-            "before_sha256": "9f49454b1ef53ca9238be44cdcaccd519d3af9c9d66a02355a8ee1218d19714a",
-            "after_sha256": "fb2c84c0b5d72978907ba4fbed03b0e823d1dcb0df676bf66a884d66dabe9896"
+            "end": 417339,
+            "size": 11,
+            "before_sha256": "dee00aa760e4b5feef18302eafea978ac5312f36b85c8eec6abd75134546c99c",
+            "after_sha256": "dee00aa760e4b5feef18302eafea978ac5312f36b85c8eec6abd75134546c99c"
           },
           {
             "owner": "menu/Compdata/01/0095",
             "offset": 417344,
-            "end": 417380,
-            "size": 36,
-            "before_sha256": "11781af33e909fa7b5c59e2d94d249c6b4c276687c157fc59477c6f4fd238c81",
-            "after_sha256": "1afedda72c664809a281e0ef30f6df29ce70bd624893b028b24a8f2d4f256592"
+            "end": 417376,
+            "size": 32,
+            "before_sha256": "9a65a100c9e45284e9d61667fe892b6f8e61c109d2edf0f488bdfb0a827c9ff8",
+            "after_sha256": "9a65a100c9e45284e9d61667fe892b6f8e61c109d2edf0f488bdfb0a827c9ff8"
           },
           {
             "owner": "menu/Compdata/01/0096",
             "offset": 417392,
-            "end": 417411,
-            "size": 19,
-            "before_sha256": "3f590a35e2afe9cbd3262b05322d7b8c2034fa72898829d2d34d6207c47d1690",
-            "after_sha256": "55233d87fbc3f9a82ac249cf64e48c523a33a0a8bfa4c59fd3f0f58dd8c17313"
+            "end": 417401,
+            "size": 9,
+            "before_sha256": "803efc060b5db6c0d64a92faca17a8fce3939aab1c4e81eed28a4a1ce0346d0a",
+            "after_sha256": "803efc060b5db6c0d64a92faca17a8fce3939aab1c4e81eed28a4a1ce0346d0a"
           },
           {
             "owner": "menu/Compdata/01/0097",
             "offset": 417424,
-            "end": 417466,
-            "size": 42,
-            "before_sha256": "4e051405530ed83de7657e8653c9b33ba8a5c416b6aca558e0f2880f55a6a76b",
-            "after_sha256": "dd8249b3d04ae402ece1ff283ccd7fe5060d7019fa1cbdbe3a80a30b9b5bd606"
+            "end": 417449,
+            "size": 25,
+            "before_sha256": "afc82fc8eb03b6548c8373deb2da965e62c160aa3cd5865b867c21dd85e051a6",
+            "after_sha256": "afc82fc8eb03b6548c8373deb2da965e62c160aa3cd5865b867c21dd85e051a6"
           },
           {
             "owner": "menu/Compdata/01/0098",
             "offset": 417472,
-            "end": 417495,
-            "size": 23,
-            "before_sha256": "73982cf0edab43ae130d31fba77ccf0f86c92cf92f5123f3c67e163ceba96048",
-            "after_sha256": "e4656d38bbc547448ae83c17f13ff9f5e72bf2e1533271e5536403fedb028e9b"
+            "end": 417485,
+            "size": 13,
+            "before_sha256": "25a024634ebdd65a8b7163becfbb095a2dd610d176062135e18390a578d33b51",
+            "after_sha256": "25a024634ebdd65a8b7163becfbb095a2dd610d176062135e18390a578d33b51"
           },
           {
             "owner": "menu/Compdata/01/0099",
             "offset": 417504,
-            "end": 417537,
-            "size": 33,
-            "before_sha256": "bd7396aabd9d581927244f64fbea0ecd69c5c103658da7ac23d3fa9701c88953",
-            "after_sha256": "57be09463ee68c91d049766e9cf5c3e633a2665305236fbd83e01eef6c28f62e"
+            "end": 417525,
+            "size": 21,
+            "before_sha256": "34829c8dd0ad325c012d2a05028e5dac1461d962f79764f577ac4c7184bcf7c4",
+            "after_sha256": "34829c8dd0ad325c012d2a05028e5dac1461d962f79764f577ac4c7184bcf7c4"
           },
           {
             "owner": "menu/Compdata/01/0100",
             "offset": 417552,
-            "end": 417569,
-            "size": 17,
-            "before_sha256": "dd8e70720bb4fec2d9daf960032e3fabbe57ef60a31be8ce1c8b0d9501a98145",
-            "after_sha256": "99ac2c231b3f22245d90cf5b81a7d6350edd7a75a625d559b942651eee5fcb36"
+            "end": 417567,
+            "size": 15,
+            "before_sha256": "97490a4d0ee0026c10890d7308d406229d9cb43d620b4fbcac82946be033629e",
+            "after_sha256": "97490a4d0ee0026c10890d7308d406229d9cb43d620b4fbcac82946be033629e"
           },
           {
             "owner": "menu/Compdata/01/0101",
             "offset": 417584,
-            "end": 417620,
-            "size": 36,
-            "before_sha256": "98b9c7d936e7d25727a6df452ffb321f62acea61b0f6c7343c1cdfb8a4884ccb",
-            "after_sha256": "a563acaf25c0d9c2612f319ec16f2ec3b49ea2e0ecdb70c2ec1c10bb0d2fd859"
+            "end": 417610,
+            "size": 26,
+            "before_sha256": "b7afaa3c75086850aa9bc7269c4f147d8378a88e68686c6c6d24e766eb8a71ac",
+            "after_sha256": "b7afaa3c75086850aa9bc7269c4f147d8378a88e68686c6c6d24e766eb8a71ac"
           },
           {
             "owner": "menu/Compdata/01/0102",
             "offset": 417632,
-            "end": 417651,
-            "size": 19,
-            "before_sha256": "28951a6c9d339eff295eb806f4c1b1ca46fea8712452b3391554ef348ca90968",
-            "after_sha256": "7a2b3c49abf194c31ea13cfdd65b0a4e84dc9dcca788c20b6df4549581389edd"
+            "end": 417647,
+            "size": 15,
+            "before_sha256": "ff7d7f352e302b836ca05e37f60d6141686f05e0ddf70209bd9eec9c086c14b8",
+            "after_sha256": "ff7d7f352e302b836ca05e37f60d6141686f05e0ddf70209bd9eec9c086c14b8"
           },
           {
             "owner": "menu/Compdata/01/0103",
             "offset": 417664,
-            "end": 417693,
-            "size": 29,
-            "before_sha256": "1a66effab5659cbaa6036105b35c5e8fec8521bdee21bd602dfb2c538efde8e1",
-            "after_sha256": "de10a84a05e0f0e0df322e6ae4f030060473a99793b6e94123acadecf78d992f"
+            "end": 417689,
+            "size": 25,
+            "before_sha256": "2ccb6fea4c57545c0aaefaf3cd63acd2d4ec4f6e1d105347e2a0de5d0348457c",
+            "after_sha256": "2ccb6fea4c57545c0aaefaf3cd63acd2d4ec4f6e1d105347e2a0de5d0348457c"
           },
           {
             "owner": "menu/Compdata/01/0104",
             "offset": 417696,
-            "end": 417713,
-            "size": 17,
-            "before_sha256": "3db2b99200e819b96f64f770f403b010ef750bc0725f226f5b21a55c9531bd71",
-            "after_sha256": "285f7aa335b2421112afcdb58a200c7951442e27052ab50bc582cb6a336d019a"
+            "end": 417703,
+            "size": 7,
+            "before_sha256": "e7533a278bc442c67e77054b61e436223e1c126a9a8ddc0b7ded016258e4c4e5",
+            "after_sha256": "e7533a278bc442c67e77054b61e436223e1c126a9a8ddc0b7ded016258e4c4e5"
           },
           {
             "owner": "menu/Compdata/01/0105",
             "offset": 417728,
-            "end": 417770,
-            "size": 42,
-            "before_sha256": "db6b9a9ac49c3b3b07d680df62a5d789655c62be30d16ffcc42213d36dfd4dd5",
-            "after_sha256": "dbdc325e5341b5895ed3fe23b51f38cb4b05828e100f54b10cf5d66056449437"
+            "end": 417764,
+            "size": 36,
+            "before_sha256": "e7920c5e37f32318fa1ac0ab30d326bcd44e9aaa87ed641228c39098e6a1cd63",
+            "after_sha256": "e7920c5e37f32318fa1ac0ab30d326bcd44e9aaa87ed641228c39098e6a1cd63"
           },
           {
             "owner": "menu/Compdata/01/0106",
             "offset": 417776,
             "end": 417781,
             "size": 5,
-            "before_sha256": "9f072a0b8011357f775369218984913d681606a9daa9843250faf87c39ef05c7",
+            "before_sha256": "8d204bbc19c34da9b3d5e568762bb58591bf55ebc341b3bc8dd44c0d3f635b6c",
             "after_sha256": "8d204bbc19c34da9b3d5e568762bb58591bf55ebc341b3bc8dd44c0d3f635b6c"
           },
           {
             "owner": "menu/Compdata/01/0107",
             "offset": 417792,
-            "end": 417854,
-            "size": 62,
-            "before_sha256": "e890dcfc6ef6b029d1a56e10be72ed08eec1a4e2631beb4f336e36a124d510cd",
-            "after_sha256": "6d11d2e8d6b3db6ad925cd1b8c74c956eff0ab8ed488699c76d97e7fd9c81df2"
+            "end": 417840,
+            "size": 48,
+            "before_sha256": "582d74a78923f7391434afabecc2cbac5403467a652a6536dd92787abd704a3e",
+            "after_sha256": "582d74a78923f7391434afabecc2cbac5403467a652a6536dd92787abd704a3e"
           },
           {
             "owner": "menu/Compdata/01/0108",
             "offset": 417856,
-            "end": 417875,
-            "size": 19,
-            "before_sha256": "3133d31e7f6f19d8c23e6a14abb461ce3beffd630df759499b53cac47645f733",
-            "after_sha256": "136e5a8550d62b78af79bc68580a761b2d688f12209d7501c26308f9282586dd"
+            "end": 417863,
+            "size": 7,
+            "before_sha256": "790ce0105a527deddab082778835fd7b336238a99efe1825f23c83ef231b91cf",
+            "after_sha256": "790ce0105a527deddab082778835fd7b336238a99efe1825f23c83ef231b91cf"
           },
           {
             "owner": "menu/Compdata/01/0109",
             "offset": 417888,
-            "end": 417952,
-            "size": 64,
-            "before_sha256": "348309bf18ce91a44cdb28d6c41039079ddd215cdbb2a2b08c80f5b361b68e83",
-            "after_sha256": "36cd5de2556926f26d2a7a67022a639a5608c1a23556fb954ecb7d39df990a50"
+            "end": 417932,
+            "size": 44,
+            "before_sha256": "b16d1f24a1068ddce180119659692fa078e79c756a793d11a18d95a575be60b5",
+            "after_sha256": "b16d1f24a1068ddce180119659692fa078e79c756a793d11a18d95a575be60b5"
           },
           {
             "owner": "menu/Compdata/01/0110",
             "offset": 417952,
             "end": 417973,
             "size": 21,
-            "before_sha256": "7cae98718700c41573255bed9040b32ea6737decd780544144e5ab54607172d2",
+            "before_sha256": "d99a4f4cf7a17454fc871daebd37e38c3b208a331b864d30bbb0c149d5ce5708",
             "after_sha256": "d99a4f4cf7a17454fc871daebd37e38c3b208a331b864d30bbb0c149d5ce5708"
           },
           {
             "owner": "menu/Compdata/01/0111",
             "offset": 417984,
-            "end": 418036,
-            "size": 52,
-            "before_sha256": "b22a63d727e34d9aef48c07c0d8b46d44646b256342659539f03f21f9c63e9bc",
-            "after_sha256": "b5dc08e12e2700dce16312db1d6c999dc873e30c125dc5ba567cd25d35b6831d"
+            "end": 418022,
+            "size": 38,
+            "before_sha256": "6ff048fea148f26763c8be745eac53a30d24988ee9058aded0e49c3369c803b2",
+            "after_sha256": "6ff048fea148f26763c8be745eac53a30d24988ee9058aded0e49c3369c803b2"
           },
           {
             "owner": "menu/Compdata/01/0112",
             "offset": 418048,
-            "end": 418067,
-            "size": 19,
-            "before_sha256": "43584709265191a6f2ca99036803e0a6d73526cc041ba569adbb31571662045c",
-            "after_sha256": "cea446403a80752ee3ac8aa57305355aaa085049a38e89d3f38eaa73b9803323"
+            "end": 418057,
+            "size": 9,
+            "before_sha256": "3ab4355e23aba6d12b52ff35319ddfc84622f66c49e55a59e84a326e08822c94",
+            "after_sha256": "3ab4355e23aba6d12b52ff35319ddfc84622f66c49e55a59e84a326e08822c94"
           },
           {
             "owner": "menu/Compdata/01/0113",
             "offset": 418080,
-            "end": 418144,
-            "size": 64,
-            "before_sha256": "6a17b4dec83e8dc3fe04a8e6055415d6ad0f19cbd35a5d2d41e8198708935c1a",
-            "after_sha256": "bef24b697ab0e86426c9d0058daecf4b955267a27f737a2af6fc0e435e4fcaab"
+            "end": 418122,
+            "size": 42,
+            "before_sha256": "bec78fc630b817011a874a2e6c6c8f7685f7c36ddd5aa66d529ca015947aa674",
+            "after_sha256": "bec78fc630b817011a874a2e6c6c8f7685f7c36ddd5aa66d529ca015947aa674"
           },
           {
             "owner": "menu/Compdata/01/0114",
             "offset": 418144,
-            "end": 418159,
-            "size": 15,
-            "before_sha256": "56f1526d8ad86547cfceefaf41ba0f779df22352b246fbcb4e70f2c7d1201819",
-            "after_sha256": "82b2ae66c6332b409d03e8d1d621f985f844825357996fa2f6462b541eed4685"
+            "end": 418155,
+            "size": 11,
+            "before_sha256": "6576b27ef696f8bd228c9bc3cd828ebc97a8cdc8496676eaf84ff999e880cf20",
+            "after_sha256": "6576b27ef696f8bd228c9bc3cd828ebc97a8cdc8496676eaf84ff999e880cf20"
           },
           {
             "owner": "menu/Compdata/01/0115",
             "offset": 418160,
-            "end": 418214,
-            "size": 54,
-            "before_sha256": "da933bfe1f8bd2622c1fff40e6e76ce121a109565b6a40d754ae4e13878521e6",
-            "after_sha256": "487d0ea5711f912d62875235b4d2bbf71b721ab1dab904c330f47ac57d91bcfd"
+            "end": 418202,
+            "size": 42,
+            "before_sha256": "6ff7e9effff2692d31c5140093978c467e91de221ee3c610cb3fa58fd814f28b",
+            "after_sha256": "6ff7e9effff2692d31c5140093978c467e91de221ee3c610cb3fa58fd814f28b"
           },
           {
             "owner": "menu/Compdata/01/0116",
             "offset": 418216,
-            "end": 418231,
-            "size": 15,
-            "before_sha256": "eca5b4b6f1ed8bec032961c4a2add4a02bddf9905f0655afc46f1d7f9d03b277",
-            "after_sha256": "b15bc04fb824dcbc558fe02639b4882a6e9fd665effa91f378cb6bd641ff562d"
+            "end": 418221,
+            "size": 5,
+            "before_sha256": "59c04a54334d4d721c33c59bd9089b2bada7c568630e6d2efb3e0987202b228a",
+            "after_sha256": "59c04a54334d4d721c33c59bd9089b2bada7c568630e6d2efb3e0987202b228a"
           },
           {
             "owner": "menu/Compdata/01/0117",
             "offset": 418240,
-            "end": 418282,
-            "size": 42,
-            "before_sha256": "b5858bd629389f8bfbe59144b4631f1d0ba3aeae1de0766f50a9a06580fe73d2",
-            "after_sha256": "bd23a261bd8ca5193d6cba2920a552ff77040a9dbe3fc2f1f29326edbd4d0648"
+            "end": 418266,
+            "size": 26,
+            "before_sha256": "642c7edd9819bfc331d47b284ad68ba16a5aa47173154c2b5ee8862575413215",
+            "after_sha256": "642c7edd9819bfc331d47b284ad68ba16a5aa47173154c2b5ee8862575413215"
           },
           {
             "owner": "menu/Compdata/01/0118",
             "offset": 418288,
             "end": 418297,
             "size": 9,
-            "before_sha256": "c104d647c65848d5ae53695279a86a637a5a3df88b0ae38e94806c7d16eb231d",
+            "before_sha256": "5a722c3a9b1aa4eabc9a22d15dec87c17de520183045c91dd0bcfabec8b43e84",
             "after_sha256": "5a722c3a9b1aa4eabc9a22d15dec87c17de520183045c91dd0bcfabec8b43e84"
           },
           {
             "owner": "menu/Compdata/01/0119",
             "offset": 418304,
-            "end": 418369,
-            "size": 65,
-            "before_sha256": "aaf900fd95b6aa8f38bd89bd85e7695bd0db48ab4d394187a0d22b597e16fb55",
-            "after_sha256": "1593a6a5c478e4599619c4e1a5d7765343c539543ae9acd2909a2d44d8299841"
+            "end": 418363,
+            "size": 59,
+            "before_sha256": "dfe39ef30e77ce9b3c50851c39edcde149d37335294b619fdd70f11591c7afb3",
+            "after_sha256": "dfe39ef30e77ce9b3c50851c39edcde149d37335294b619fdd70f11591c7afb3"
           },
           {
             "owner": "menu/Compdata/01/0120",
@@ -7088,90 +7348,90 @@
           {
             "owner": "menu/Compdata/01/0121",
             "offset": 418384,
-            "end": 418418,
-            "size": 34,
-            "before_sha256": "cddddd28b9e4e1a28598619fc80398096550085302544c7a9759437ce01e8db2",
-            "after_sha256": "66c0b593016a429b2a87123677fc48dead08cf37dbc4ec10507c238f5640923d"
+            "end": 418414,
+            "size": 30,
+            "before_sha256": "e34ff65e55b347d2af979c9e40078df44890f4489dc8e0118547460e1c971a2c",
+            "after_sha256": "e34ff65e55b347d2af979c9e40078df44890f4489dc8e0118547460e1c971a2c"
           },
           {
             "owner": "menu/Compdata/01/0122",
             "offset": 418432,
-            "end": 418453,
-            "size": 21,
-            "before_sha256": "de2e5b891df49a0aa3e219d9e8dfa24f12c523d46d1694f34ee7fd8e30a65d15",
-            "after_sha256": "559f099ec238787b1f469e9064c489528833a1e359d84ce8b968afd70586e26a"
+            "end": 418445,
+            "size": 13,
+            "before_sha256": "116700bb1895e019042f0b3c1a5a10978d3c8a07ba2c27a136ad069f5d00fff4",
+            "after_sha256": "116700bb1895e019042f0b3c1a5a10978d3c8a07ba2c27a136ad069f5d00fff4"
           },
           {
             "owner": "menu/Compdata/01/0123",
             "offset": 418464,
-            "end": 418510,
-            "size": 46,
-            "before_sha256": "3c3f1606679ca42af0123f1f6125ab93c903ea9a77c19bbc2e266faad7ad2984",
-            "after_sha256": "09bd97f15f846138eddb540d1e7380a4471c5547879402e09ce5443aa6d3e415"
+            "end": 418496,
+            "size": 32,
+            "before_sha256": "375e3e6fcecf4200eb098563f788dd116ce46eb8799d0a17cb9f992601d09c15",
+            "after_sha256": "375e3e6fcecf4200eb098563f788dd116ce46eb8799d0a17cb9f992601d09c15"
           },
           {
             "owner": "menu/Compdata/01/0124",
             "offset": 418512,
-            "end": 418535,
-            "size": 23,
-            "before_sha256": "057300d9e779d0586d736b6ba91284c6f24f7cf80eebdb83d060fba8756c7928",
-            "after_sha256": "95e2d6db4c13ecbe37eb0345ec3e3c88c39b7655f53fc080560bce9382d0da50"
+            "end": 418527,
+            "size": 15,
+            "before_sha256": "543216ac2574937de8f05cb528bd5a031931330bee13bb575c80b26e1b10a850",
+            "after_sha256": "543216ac2574937de8f05cb528bd5a031931330bee13bb575c80b26e1b10a850"
           },
           {
             "owner": "menu/Compdata/01/0125",
             "offset": 418544,
-            "end": 418602,
-            "size": 58,
-            "before_sha256": "b3e2bd5392cd363fe0cb9e567df016b38e418d59b63a4cc84d32075ded88f8bf",
-            "after_sha256": "5dd091b62667854d3a9b9edccfecfa43c2c3a860ffa38b43861d303509160c49"
+            "end": 418601,
+            "size": 57,
+            "before_sha256": "87df29284971355edc2ed23e1cd900cd0a6d58ba7f9b99843920be4eec9a6948",
+            "after_sha256": "87df29284971355edc2ed23e1cd900cd0a6d58ba7f9b99843920be4eec9a6948"
           },
           {
             "owner": "menu/Compdata/01/0126",
             "offset": 418608,
-            "end": 418625,
-            "size": 17,
-            "before_sha256": "6b8f89900d6667236839f1774b751c1934460de029bd94da9671bd591c11c1f1",
-            "after_sha256": "7ea005e2f1580c6c5d047abfd4782fd8051dc1812ad212fd28a91c8b28716c12"
+            "end": 418623,
+            "size": 15,
+            "before_sha256": "2a74329f63abd54f389016808fc70af5ea548c4b61dc553227413c57c862a17c",
+            "after_sha256": "2a74329f63abd54f389016808fc70af5ea548c4b61dc553227413c57c862a17c"
           },
           {
             "owner": "menu/Compdata/01/0127",
             "offset": 418640,
-            "end": 418700,
-            "size": 60,
-            "before_sha256": "cedcf42bb5a8ac46bc9a510813e9732816497b19cfcf88a7a7ad629b4536e829",
-            "after_sha256": "fb2f1676571cafe530674378c7f1448235d953048c9e9d77ee6b9e898675f58b"
+            "end": 418690,
+            "size": 50,
+            "before_sha256": "078ff16507a947c2386b5e483922a75a0285012758bd2f6d9ef6fc11d116e933",
+            "after_sha256": "078ff16507a947c2386b5e483922a75a0285012758bd2f6d9ef6fc11d116e933"
           },
           {
             "owner": "menu/Compdata/01/0128",
             "offset": 418704,
-            "end": 418723,
-            "size": 19,
-            "before_sha256": "772e3e68c0e4734214c7d998e77dd4edfa58df2534b3918313ef22bdb0d5b1b4",
-            "after_sha256": "ff83261b9e3072313aa0af3dd08c1357e8b2e5493ef6ac4ab14129563c231d66"
+            "end": 418719,
+            "size": 15,
+            "before_sha256": "2f7e3582617d6ce24aa026b742ebb7463a579e65df8c527c7139c10ecc584dd8",
+            "after_sha256": "2f7e3582617d6ce24aa026b742ebb7463a579e65df8c527c7139c10ecc584dd8"
           },
           {
             "owner": "menu/Compdata/01/0129",
             "offset": 418736,
-            "end": 418767,
-            "size": 31,
-            "before_sha256": "7e8782bb922b3e6e1c0dfa3c7b60a2117957e59d8470ee8eecc430e467433812",
-            "after_sha256": "1333d1ea86789f0d11a3a87476fbea06c0719276411bfd34abfc6dbc89d5dc33"
+            "end": 418759,
+            "size": 23,
+            "before_sha256": "e8d0a94c26231f2f3f58ddf5e1892577da2584fdad94cf7776590586a0ba26b3",
+            "after_sha256": "e8d0a94c26231f2f3f58ddf5e1892577da2584fdad94cf7776590586a0ba26b3"
           },
           {
             "owner": "menu/Compdata/01/0130",
             "offset": 418768,
-            "end": 418781,
-            "size": 13,
-            "before_sha256": "5e386d872dc0eca948bcd2e293a2cb1f5f06caecf85c10773d21bc1a3d057b41",
-            "after_sha256": "efb350c46d5ef0c6415a48d2d30b309fc9d258468932abd408029e42b0a51077"
+            "end": 418777,
+            "size": 9,
+            "before_sha256": "c4789863946d4d81cf28a0e7be3278675e1df868865fc7b624fa0f4682efcb45",
+            "after_sha256": "c4789863946d4d81cf28a0e7be3278675e1df868865fc7b624fa0f4682efcb45"
           },
           {
             "owner": "menu/Compdata/01/0132",
             "offset": 418792,
-            "end": 418805,
-            "size": 13,
-            "before_sha256": "a0f8f78b8c060752f806e65e9d44272635e571b0d836b43cf30172d5164ef677",
-            "after_sha256": "e3a86db483ad21b946ea88014457b58c0fcdd830c36dd79a9833dd16b1aa664c"
+            "end": 418801,
+            "size": 9,
+            "before_sha256": "9ba6adb7a9037912d9c12996d669f21e0dbe7bc8b0a84623787e554228ed1ee4",
+            "after_sha256": "9ba6adb7a9037912d9c12996d669f21e0dbe7bc8b0a84623787e554228ed1ee4"
           }
         ]
       },
@@ -7218,7 +7478,7 @@
       "protected_single_character_count": 2,
       "single_character_regions_untouched": true
     },
-    "compdata_source_size": 145283,
+    "compdata_source_size": 144990,
     "compdata_output_size": 141278,
     "compdata_sector_budget": 145408,
     "compdata_round_trip_exact": true,
@@ -73054,8 +73314,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "904c07701a9c3330cf017e5817b5ba871c1eebfb6fcad4d03eae17c47744878d",
-    "output_sha256": "aad2d77816f0e3689b5460ca4fabe4cbbc95ffd7a25afe542d0e1cbdf9cfb071",
+    "source_sha256": "1ed60c57a3178fc950d6e6f6bf62183006ac5a5a033b040870fba5715833b063",
+    "output_sha256": "ef52bc470662a1efba3318d7c66dbe195011b4d980b8502f5d0e398aea93972a",
     "instruction_replacement_exact": true,
     "executable_size_preserved": true,
     "metadata": {
@@ -73136,8 +73396,8 @@
     "changed_byte_count": 4,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "aad2d77816f0e3689b5460ca4fabe4cbbc95ffd7a25afe542d0e1cbdf9cfb071",
-    "output_sha256": "1dd955fa0df21793b5a2890605d7313c34839d8a66340174d84be5e180cbe6e7",
+    "source_sha256": "ef52bc470662a1efba3318d7c66dbe195011b4d980b8502f5d0e398aea93972a",
+    "output_sha256": "27faa048b452030278f44d4032cb7a255a9465621442e2aa41a48b040a8895be",
     "all_instruction_replacements_exact": true,
     "save_writeback_functions_unchanged": true,
     "executable_size_preserved": true
@@ -73235,8 +73495,8 @@
     "changed_byte_count": 3,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "1dd955fa0df21793b5a2890605d7313c34839d8a66340174d84be5e180cbe6e7",
-    "output_sha256": "2f71fd2c10dc74c5ac84f97b12fa0ceadaecf2358e0b99a0fe697254069e51c0",
+    "source_sha256": "27faa048b452030278f44d4032cb7a255a9465621442e2aa41a48b040a8895be",
+    "output_sha256": "f702cb9ed4205e2e87ee37f844e22f421f79cdaab3af38430b608eb288417541",
     "all_replacements_exact": true,
     "executable_size_preserved": true
   },
@@ -73259,8 +73519,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "2f71fd2c10dc74c5ac84f97b12fa0ceadaecf2358e0b99a0fe697254069e51c0",
-    "output_sha256": "b1bd2e72bb2e1248f511de70566432cb56dc31fd8a2c56d7845bce040ebb6466",
+    "source_sha256": "f702cb9ed4205e2e87ee37f844e22f421f79cdaab3af38430b608eb288417541",
+    "output_sha256": "4457ac20c0fbdf8dc9ebdd1dba18381eed01619871b3928c43dea40eaeeac86c",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -73305,8 +73565,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "b1bd2e72bb2e1248f511de70566432cb56dc31fd8a2c56d7845bce040ebb6466",
-    "output_sha256": "da24945c231a0eb1af232b8992f08bc61e20209814744fd3e8f78dd1242d945a",
+    "source_sha256": "4457ac20c0fbdf8dc9ebdd1dba18381eed01619871b3928c43dea40eaeeac86c",
+    "output_sha256": "f42732ad79c1cf6732870c2853d1972ae455d2d5211c0302c73af0b2f042fdcb",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -73343,7 +73603,7 @@
     "source_preimages_sha256_exact": true,
     "all_editorial_statuses_draft": true,
     "target_offset_reread_exact": true,
-    "compdata_source_size": 145283,
+    "compdata_source_size": 144990,
     "compdata_output_size": 141278,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true,
@@ -73356,10 +73616,10 @@
   },
   "reviewed_weapons": {
     "entry_count": 711,
-    "write_entry_count": 161,
-    "no_op_entry_count": 550,
+    "write_entry_count": 701,
+    "no_op_entry_count": 10,
     "minimum_output_headroom": 0,
-    "changed_byte_count": 1439,
+    "changed_byte_count": 12437,
     "fixed_spans_preserved": true,
     "pointer_bytes_unchanged": true,
     "placeholder_control_tokens_preserved": true,
@@ -73374,7 +73634,7 @@
     "source_preimages_sha256_exact": true,
     "all_editorial_statuses_reviewed": true,
     "target_offset_reread_exact": true,
-    "compdata_source_size": 145283,
+    "compdata_source_size": 144990,
     "compdata_output_size": 141278,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true,
@@ -73382,10 +73642,10 @@
   },
   "special_abilities": {
     "entry_count": 156,
-    "write_entry_count": 64,
-    "no_op_entry_count": 92,
+    "write_entry_count": 18,
+    "no_op_entry_count": 138,
     "minimum_output_headroom": 0,
-    "changed_byte_count": 2141,
+    "changed_byte_count": 38,
     "fixed_spans_preserved": true,
     "pointer_bytes_unchanged": true,
     "placeholder_control_tokens_preserved": true,
@@ -80451,9 +80711,9 @@
       "reread_exact": true
     }
   },
-  "global_safe_aliases": {
+  "release_menu_code_normalization": {
     "clean_primary_substitution_count": 439,
-    "base_mapping_substitution_count": 341,
+    "release_codebook_substitution_count": 341,
     "scope": "all-parsed-localized-menu-surfaces",
     "conditional_primary_assignment_count": 48,
     "release_conditional_primary_assignment_count": 433,
@@ -80466,12 +80726,12 @@
     "unaliased_conditional_assignment_count": 0,
     "alias_codes_default_width_only": true,
     "slps": {
-      "selected_entry_count": 634,
+      "selected_entry_count": 468,
       "selected_target_count": 1166,
       "merged_text_range_count": 1165,
-      "substituted_code_count": 2055,
+      "substituted_code_count": 1241,
       "preserved_original_clean_code_count": 0,
-      "original_stock_reinterpretation_count": 40,
+      "original_stock_reinterpretation_count": 190,
       "nested_raw_overlap_mismatch_count": 1,
       "nested_raw_overlap_entry_ids": [
         "menu/SLPS/00/0083"
@@ -80481,19 +80741,19 @@
       "reread_exact": true
     },
     "compdata": {
-      "selected_entry_count": 1169,
+      "selected_entry_count": 936,
       "selected_target_count": 1480,
-      "merged_text_range_count": 1443,
-      "substituted_code_count": 4400,
+      "merged_text_range_count": 1447,
+      "substituted_code_count": 2776,
       "preserved_original_clean_code_count": 0,
-      "original_stock_reinterpretation_count": 622,
+      "original_stock_reinterpretation_count": 750,
       "nested_raw_overlap_mismatch_count": 0,
       "nested_raw_overlap_entry_ids": [],
       "size_preserved": true,
       "pointer_bytes_unchanged": true,
       "reread_exact": true
     },
-    "compdata_source_size": 145283,
+    "compdata_source_size": 144990,
     "compdata_output_size": 141278,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true
@@ -81184,12 +81444,12 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e"
+      "sha256": "5dcd619349708b32a94c7532cd10eeb53028849fa2f029cc097454c75aea82ba"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "04dc4181a536c145629896434f59b6ff0cd5d2398a948c74de12617eef37d5ce"
+      "sha256": "1779a62f4dbfe0439d8fe22d09e7646de0f474fac25ef4d7ac385e1c04fae331"
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
@@ -81203,8 +81463,8 @@
     },
     "DATA/MTV_PROS.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
-      "size": 8368,
-      "sha256": "6c2a69cba6a4637f15ebc8339d340b2d9e3d50250bfc2ce10b2c0a423d292633"
+      "size": 8352,
+      "sha256": "13ccb2b5c5c955e7c69e633c35dd300c4ba5a541a862f5bc844a741842fe3f1e"
     },
     "DATA/MTV_PROP.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/MTV_PROP.BIN",
@@ -81291,7 +81551,9 @@
     "production_compression_backend_rust_only": true,
     "chapter_intertitles_reread_exact": true,
     "world_map_titles_reread_exact": true,
-    "p10_ui_members_inherited_exact": true,
+    "original_members_are_only_binary_baseline": true,
+    "title_menu_rebuilt_from_reviewed_masks": true,
+    "release_menu_rebuilt_from_original_members": true,
     "runtime_library_menu_frozen_writeback_exact": true,
     "nisv_tutorial_pages_reread_exact": true,
     "nisv_strategy_qa_reread_exact": true,
@@ -81301,7 +81563,7 @@
     "search_tabs_aligned_as_five_label_set": true,
     "remaining_squad_count_spacing_exact": true,
     "weapon_special_effect_2_reread_exact": true,
-    "encoded_ui_codebook_is_release_subset": true,
+    "all_localized_text_written_with_release_codebook": true,
     "global_release_font_missing_character_count_zero": true,
     "global_release_font_original_han_count_zero": true,
     "global_release_font_original_visible_character_count_zero": true,
@@ -81330,7 +81592,7 @@
     "single_character_atlas_regions_untouched": true,
     "srvc_battle_text_reread_exact": true,
     "auto_demo_overlays_reread_exact": true,
-    "all_localized_text_uses_safe_double_byte_aliases": true,
+    "release_menu_code_normalization_valid": true,
     "scenario_select_labels_aligned": true,
     "intermission_list_safe_aliases_scoped": true,
     "reviewed_library_components_reread_exact": true

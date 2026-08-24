@@ -124,6 +124,7 @@ try:
         unpack_linear_4bpp,
     )
     from srwz.tim2 import scan_tim2
+    from srwz.title_menu import TitleMenuError, build_title_menu
     from srwz.terrain_names import TerrainNameError, build_terrain_names
     from srwz.veff_tutorial_titles import (
         VeffTutorialTitleError,
@@ -271,6 +272,7 @@ except ModuleNotFoundError:
         unpack_linear_4bpp,
     )
     from tools.srwz.tim2 import scan_tim2
+    from tools.srwz.title_menu import TitleMenuError, build_title_menu
     from tools.srwz.terrain_names import TerrainNameError, build_terrain_names
     from tools.srwz.veff_tutorial_titles import (
         VeffTutorialTitleError,
@@ -498,18 +500,17 @@ ALL_COMPONENT_MEMBERS = frozenset(
     }
 )
 
-# These are ownership batches, not a return to the historical P0-P10 chain.
-# Every physical member belongs to exactly one pass.  Compressed members open
+# Every physical member belongs to exactly one build group. Compressed members open
 # their touched streams once, apply all domain writers, and finalize once.
-COMPONENT_BUILD_PASSES = (
+COMPONENT_BUILD_GROUPS = (
     {
-        "id": "P1",
-        "category": "executable_and_font",
+        "id": "core_runtime_members",
+        "category": "executable_font_and_core_ui",
         "members": (SLPS_MEMBER, VT1_MEMBER),
     },
     {
-        "id": "P2",
-        "category": "localized_stream_archives",
+        "id": "localized_data_members",
+        "category": "text_and_library_archives",
         "members": (
             COMPDATA_MEMBER,
             NISVDATA_MEMBER,
@@ -521,8 +522,8 @@ COMPONENT_BUILD_PASSES = (
         ),
     },
     {
-        "id": "P3",
-        "category": "battle_map_and_effect_archives",
+        "id": "rendered_archive_members",
+        "category": "battle_map_effect_and_demo_archives",
         "members": tuple(
             sorted(
                 {
@@ -538,29 +539,29 @@ COMPONENT_BUILD_PASSES = (
 )
 
 
-def _validated_component_build_passes() -> list[dict]:
+def _validated_component_build_groups() -> list[dict]:
     members = [
         member
-        for build_pass in COMPONENT_BUILD_PASSES
-        for member in build_pass["members"]
+        for build_group in COMPONENT_BUILD_GROUPS
+        for member in build_group["members"]
     ]
     if len(members) != len(set(members)) or set(members) != ALL_COMPONENT_MEMBERS:
         raise FullStoryComponentError(
-            "component build-pass ownership is incomplete or duplicated"
+            "component build-group ownership is incomplete or duplicated"
         )
     return [
         {
-            "id": build_pass["id"],
-            "category": build_pass["category"],
-            "members": list(build_pass["members"]),
-            "physical_member_count": len(build_pass["members"]),
+            "id": build_group["id"],
+            "category": build_group["category"],
+            "members": list(build_group["members"]),
+            "physical_member_count": len(build_group["members"]),
         }
-        for build_pass in COMPONENT_BUILD_PASSES
+        for build_group in COMPONENT_BUILD_GROUPS
     ]
 
 
 CONFIG_SECTION_IMPACTS = {
-    "base_ui": {
+    "original_members": {
         SLPS_MEMBER,
         VT1_MEMBER,
         COMPDATA_MEMBER,
@@ -569,6 +570,8 @@ CONFIG_SECTION_IMPACTS = {
         HSFC_MEMBER,
         VEFF_MEMBER,
     },
+    "title_menu": {VT1_MEMBER},
+    "menu_text_release": {SLPS_MEMBER, COMPDATA_MEMBER},
     "full_story_font": ALL_COMPONENT_MEMBERS
     - {MTV_PROS_MEMBER, HB_MEMBER, KVMDATA_MEMBER},
     "full_story_stage": {STAGE_MEMBER, HB_MEMBER},
@@ -579,7 +582,7 @@ CONFIG_SECTION_IMPACTS = {
     "special_abilities": {COMPDATA_MEMBER},
     "full_stage_titles": {SLPS_MEMBER, VT1_MEMBER, COMPDATA_MEMBER},
     "stage_overviews": {STAGE_MEMBER},
-    "world_history": {MTV_PROS_MEMBER},
+    "world_history": {SLPS_MEMBER, MTV_PROS_MEMBER},
     "chapter_intertitles": {MTV_PROP_MEMBER},
     "hsfc_overviews": {HSFC_MEMBER},
     "remaining_ui": {SLPS_MEMBER, COMPDATA_MEMBER, STAGE_MEMBER},
@@ -601,7 +604,13 @@ CONFIG_SECTION_IMPACTS = {
 
 
 INPUT_IMPACTS = {
-    "base_ui_manifest": CONFIG_SECTION_IMPACTS["base_ui"],
+    "original_release_slps": {SLPS_MEMBER, VT1_MEMBER},
+    "original_release_vt1": {VT1_MEMBER},
+    "original_release_compdata": {COMPDATA_MEMBER},
+    "original_release_mtv_pros": {MTV_PROS_MEMBER},
+    "title_menu_contract": {VT1_MEMBER},
+    "release_menu_corpus": {SLPS_MEMBER, COMPDATA_MEMBER},
+    "release_menu_codebook": {SLPS_MEMBER, COMPDATA_MEMBER},
     "full_story_font_manifest": CONFIG_SECTION_IMPACTS["full_story_font"],
     "full_story_stage_report": {STAGE_MEMBER, HB_MEMBER},
     "pilot_name_structure": {COMPDATA_MEMBER},
@@ -1252,25 +1261,25 @@ def _full_story_overrides(
     return proposal_path, overrides, surface_aliases, alias_report
 
 
-def _encoded_mapping_overrides(mapping_snapshot: dict) -> dict[str, int]:
-    """Return the exact one-to-one codebook used by the flattened base UI."""
+def _release_codebook_overrides(codebook: dict) -> dict[str, int]:
+    """Return the exact one-to-one codebook used by the v0.3 menu release."""
 
-    assignments = mapping_snapshot.get("assignments")
+    assignments = codebook.get("assignments")
     if not isinstance(assignments, list) or not assignments:
-        raise FullStoryComponentError("encoded base-UI mapping has no assignments")
+        raise FullStoryComponentError("release menu codebook has no assignments")
     overrides: dict[str, int] = {}
     seen_codes: set[int] = set()
     for assignment in assignments:
         if not isinstance(assignment, dict):
             raise FullStoryComponentError(
-                "encoded base-UI mapping assignment is malformed"
+                "release menu codebook assignment is malformed"
             )
         character = assignment.get("character")
         try:
             code = int(assignment.get("code"), 16)
         except (TypeError, ValueError) as error:
             raise FullStoryComponentError(
-                "encoded base-UI mapping code is malformed"
+                "release menu codebook code is malformed"
             ) from error
         if (
             not isinstance(character, str)
@@ -1279,7 +1288,7 @@ def _encoded_mapping_overrides(mapping_snapshot: dict) -> dict[str, int]:
             or code in seen_codes
         ):
             raise FullStoryComponentError(
-                "encoded base-UI mapping is not one-to-one"
+                "release menu codebook is not one-to-one"
             )
         overrides[character] = code
         seen_codes.add(code)
@@ -1315,11 +1324,286 @@ def _two_byte_visible_spaces(text: str) -> str:
     return text.replace(" ", "\u3000")
 
 
+def _apply_release_menu_text(
+    slps: bytes,
+    stored_compdata: bytes,
+    reference: dict,
+    descriptor_reference: dict,
+    font_manifest: dict,
+    codec: dict,
+    *,
+    workspace: CompressedStreamWorkspace | None = None,
+) -> tuple[bytes, bytes, dict, tuple[Path, ...]]:
+    """Write the consolidated v0.3 menu selection into original members."""
+
+    if not isinstance(reference, dict):
+        raise FullStoryComponentError("release menu configuration is invalid")
+    corpus_path, corpus_data = _locked_file(
+        reference.get("corpus"), label="release menu corpus"
+    )
+    codebook_path, codebook_data = _locked_file(
+        reference.get("codebook"), label="release menu codebook"
+    )
+    corpus = json.loads(corpus_data.decode("utf-8"))
+    codebook = json.loads(codebook_data.decode("utf-8"))
+    entries = corpus.get("entries")
+    expected = corpus.get("expected")
+    if (
+        corpus.get("release_id") != "v0.3.0"
+        or corpus.get("batch_id") != "v0.3-menu-release"
+        or corpus.get("selection_authority")
+        != "manual_v0.3.0_release_selection"
+        or corpus.get("source_batches")
+        != ["v1-menu-unclassified", "v1-menu-system-ui"]
+        or not isinstance(entries, list)
+        or not isinstance(expected, dict)
+        or len(entries) != expected.get("entry_count")
+        or corpus.get("release_evidence", {}).get("build_dependency") is not False
+        or codebook.get("codebook_id") != "srwz-release-menu-v0.3"
+        or codebook.get("status") != "current_release_menu_codebook"
+        or codebook.get("assignment_count") != len(codebook.get("assignments", []))
+        or corpus.get("codebook")
+        != {
+            **reference["codebook"],
+            "required_codebook_id": "srwz-release-menu-v0.3",
+        }
+    ):
+        raise FullStoryComponentError("release menu corpus contract drift")
+
+    descriptor_path, descriptor_data = _locked_file(
+        descriptor_reference, label="release menu descriptor"
+    )
+    descriptors = json.loads(descriptor_data.decode("utf-8"))
+    descriptor_by_name = {
+        item.get("friendly_name"): item
+        for item in descriptors
+        if isinstance(item, dict)
+    }
+    if not {"SLPS", "Compdata"} <= set(descriptor_by_name):
+        raise FullStoryComponentError("release menu descriptors are missing")
+
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    release_codebook = _release_codebook_overrides(codebook)
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    # Most menu text keeps the accepted historical code assignment. Characters
+    # added after that baseline fall back to the current release font mapping.
+    encoding_overrides.update(release_codebook)
+    output_table = project_runtime_text_table(table, release_codebook)
+    output_table = project_runtime_text_table(output_table, primary)
+    output_table = project_runtime_text_table(output_table, aliases)
+    output_table = project_runtime_text_table(
+        output_table, original_fullwidth_ascii_overrides(table)
+    )
+    current_compdata = (
+        workspace.view() if workspace is not None else decode(stored_compdata)
+    )
+    if current_compdata.consumed != len(stored_compdata):
+        raise FullStoryComponentError(
+            "release menu COMPDATA source has trailing compressed bytes"
+        )
+    parsed_by_member = {
+        "SLPS": parse_menu_file(slps, descriptor_by_name["SLPS"], table),
+        "Compdata": parse_menu_file(
+            current_compdata.output,
+            descriptor_by_name["Compdata"],
+            table,
+        ),
+    }
+    entry_by_id = {
+        entry.entry_id: entry
+        for parsed in parsed_by_member.values()
+        for entry in parsed.entries
+    }
+    target_owners_by_member = {}
+    for member_name, parsed in parsed_by_member.items():
+        owners = {}
+        for entry in parsed.entries:
+            for target_offset in set(entry.target_offsets):
+                owners.setdefault(target_offset, set()).add(entry.entry_id)
+        target_owners_by_member[member_name] = owners
+
+    decisions = {}
+    raw_ascii_by_id = {}
+    member_entry_counts = {}
+    member_target_counts = {}
+    for row in entries:
+        if not isinstance(row, dict):
+            raise FullStoryComponentError("release menu corpus entry is malformed")
+        entry_id = row.get("id")
+        member_name = row.get("member")
+        source = entry_by_id.get(entry_id)
+        translation = row.get("translation")
+        if (
+            not isinstance(entry_id, str)
+            or entry_id in decisions
+            or member_name not in {"SLPS", "Compdata"}
+            or not entry_id.startswith(f"menu/{member_name}/")
+            or source is None
+            or row.get("source_text_sha256")
+            != sha256_bytes(source.text.encode("utf-8"))
+            or not isinstance(translation, str)
+            or not translation
+            or row.get("target_count") != len(set(source.target_offsets))
+        ):
+            raise FullStoryComponentError(
+                f"release menu source binding drift: {entry_id!r}"
+            )
+        decisions[entry_id] = translation
+        raw_ascii = row.get("raw_ascii_characters")
+        if raw_ascii is not None:
+            if entry_id != "menu/SLPS/00/0193" or raw_ascii != "Yo":
+                raise FullStoryComponentError(
+                    f"release menu raw-ASCII policy drift: {entry_id}"
+                )
+            raw_ascii_by_id[entry_id] = raw_ascii
+        member_entry_counts[member_name] = member_entry_counts.get(member_name, 0) + 1
+        member_target_counts[member_name] = member_target_counts.get(member_name, 0) + row[
+            "target_count"
+        ]
+
+    if (
+        member_entry_counts != expected.get("member_entry_counts")
+        or member_target_counts != expected.get("member_target_counts")
+        or len(raw_ascii_by_id)
+        != expected.get("raw_ascii_compatible_entry_count")
+        or sha256_bytes(
+            json.dumps(
+                entries,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        )
+        != expected.get("selection_sha256")
+    ):
+        raise FullStoryComponentError("release menu selection drift")
+
+    outputs = {"SLPS": slps, "Compdata": current_compdata.output}
+    member_reports = {}
+    for member_name, prefix in (
+        ("SLPS", "menu/SLPS/"),
+        ("Compdata", "menu/Compdata/"),
+    ):
+        replacements = {
+            entry_id: translation
+            for entry_id, translation in decisions.items()
+            if entry_id.startswith(prefix) and entry_id not in raw_ascii_by_id
+        }
+        expanded_replacements = dict(replacements)
+        owners = target_owners_by_member[member_name]
+        for entry_id, translation in list(replacements.items()):
+            for target_offset in entry_by_id[entry_id].target_offsets:
+                for owner in owners[target_offset]:
+                    current = expanded_replacements.setdefault(owner, translation)
+                    if current != translation:
+                        raise FullStoryComponentError(
+                            "release menu shared-target translation conflict: "
+                            f"{entry_id} / {owner}"
+                        )
+        try:
+            write = replace_menu_texts_in_place(
+                outputs[member_name],
+                parsed_by_member[member_name],
+                table,
+                replacements=expanded_replacements,
+                overrides=encoding_overrides,
+                source_table=table,
+                source_name=f"original {member_name} release menu",
+            )
+            output = write.data
+            target_count = len(write.targets)
+            raw_replacements = {
+                entry_id: decisions[entry_id]
+                for entry_id in raw_ascii_by_id
+                if entry_id.startswith(prefix)
+            }
+            raw_owner_replacements = dict(raw_replacements)
+            for entry_id, translation in list(raw_replacements.items()):
+                for target_offset in entry_by_id[entry_id].target_offsets:
+                    for owner in owners[target_offset]:
+                        current = raw_owner_replacements.setdefault(
+                            owner, translation
+                        )
+                        if current != translation:
+                            raise FullStoryComponentError(
+                                "release menu raw-ASCII shared-target conflict: "
+                                f"{entry_id} / {owner}"
+                            )
+            if raw_owner_replacements:
+                raw_overrides = dict(encoding_overrides)
+                for characters in raw_ascii_by_id.values():
+                    raw_overrides.update(
+                        {character: ord(character) for character in characters}
+                    )
+                raw_write = replace_menu_texts_in_place(
+                    output,
+                    parsed_by_member[member_name],
+                    table,
+                    replacements=raw_owner_replacements,
+                    overrides=raw_overrides,
+                    source_table=table,
+                    source_name=f"original {member_name} raw-ASCII menu",
+                )
+                output = raw_write.data
+                target_count += len(raw_write.targets)
+                expanded_replacements.update(raw_owner_replacements)
+        except (WritebackError, ValueError) as error:
+            raise FullStoryComponentError(
+                f"release menu {member_name} write failed: {error}"
+            ) from error
+        outputs[member_name] = output
+        for entry_id, expected_text in expanded_replacements.items():
+            for target_offset in set(entry_by_id[entry_id].target_offsets):
+                actual = decode_text(output, target_offset, output_table)
+                if actual.text != expected_text:
+                    raise FullStoryComponentError(
+                        f"menu-text reread mismatch: {entry_id}: "
+                        f"expected={expected_text!r} actual={actual.text!r}"
+                    )
+        member_reports[member_name] = {
+            "translated_entry_count": len(replacements),
+            "selected_owner_entry_count": len(expanded_replacements),
+            "raw_ascii_compatible_entry_count": len(raw_replacements),
+            "target_count": target_count,
+            "pointer_bytes_unchanged": True,
+            "reread_exact": True,
+            "decoded_size_preserved": len(output)
+            == parsed_by_member[member_name].source_size,
+        }
+
+    rebuilt_compdata = _commit_compdata_stage(
+        stored_compdata,
+        outputs["Compdata"],
+        current_compdata,
+        codec,
+        label="release menu COMPDATA",
+        workspace=workspace,
+    )
+    return outputs["SLPS"], rebuilt_compdata, {
+        "release_id": corpus["release_id"],
+        "batch_id": corpus["batch_id"],
+        "entry_count": len(decisions),
+        "member_entry_counts": member_entry_counts,
+        "member_target_counts": member_target_counts,
+        "codebook_id": codebook["codebook_id"],
+        "codebook_assignment_count": codebook["assignment_count"],
+        "members": member_reports,
+        "source_preimages_sha256_exact": True,
+        "all_translations_reread_exact": True,
+        "release_binary_required_at_build_time": False,
+        "compression_deferred_to_workspace": workspace is not None,
+    }, (corpus_path, codebook_path, descriptor_path)
+
+
 def _apply_full_pilot_names(
     stored_compdata: bytes,
     reference: dict,
     font_manifest: dict,
-    encoded_mapping: dict,
     *,
     workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, dict, Path, Path, Path, Path, Path]:
@@ -1469,8 +1753,7 @@ def _apply_full_pilot_names(
         raise FullStoryComponentError("base COMPDATA has trailing compressed bytes")
     table_path = _project_path(structure["text_table"]["path"])
     table = load_text_table(table_path)
-    source_overrides = _encoded_mapping_overrides(encoded_mapping)
-    source_table = project_runtime_text_table(table, source_overrides)
+    source_table = table
     encoding_overrides = _stored_text_overrides(table, overrides)
     unit_space_code = table.inverse_characters.get("\u3000")
     if unit_space_code is None or unit_space_code < 0x8000:
@@ -1752,16 +2035,16 @@ def _apply_full_pilot_names(
             output[pointer_offset : pointer_offset + 4] = pointer_payload
             relocated_pointer_count += 1
 
-    # Some pilot fields were already localized in the flattened base UI but
-    # are outside this pass's canonical speaker/residual selection.  Re-encode
-    # those fields from the exact historical base-UI table to the clean current
-    # table.  Byte-exact original Japanese fields remain untouched and retain
-    # ownership of their original CP932 codes.
+    # Some pilot fields are already localized by the consolidated release-menu
+    # writeback but are outside this function's speaker/residual selection.
+    # Re-encode those fields from the locked v0.3 menu codebook to the current
+    # font table. Byte-exact original Japanese fields remain untouched and
+    # retain ownership of their original CP932 codes.
     original_pilot_by_id = {
         entry.entry_id: entry for entry in original_names.pilot_entries
     }
     selected_pilot_ids = {entry.entry_id for entry in selected}
-    migrated_base_pilot_ids = []
+    migrated_release_menu_pilot_ids = []
     for current in current_names.pilot_entries:
         if current.entry_id in selected_pilot_ids:
             continue
@@ -1784,14 +2067,16 @@ def _apply_full_pilot_names(
             )
         except (SrwzTextEncodeError, ValueError) as error:
             raise FullStoryComponentError(
-                f"base pilot-name migration failed: {current.entry_id}: {error}"
+                "release-menu pilot-name migration failed: "
+                f"{current.entry_id}: {error}"
             ) from error
         if len(encoded) > current.capacity:
             raise FullStoryComponentError(
-                f"base pilot-name migration exceeds field: {current.entry_id}"
+                "release-menu pilot-name migration exceeds field: "
+                f"{current.entry_id}"
             )
         output[start:end] = encoded + bytes(current.capacity - len(encoded))
-        migrated_base_pilot_ids.append(current.entry_id)
+        migrated_release_menu_pilot_ids.append(current.entry_id)
 
     try:
         pre_alias_names = parse_display_names(
@@ -1947,7 +2232,7 @@ def _apply_full_pilot_names(
     )
     allowed_offsets.update(
         offset
-        for entry_id in migrated_base_pilot_ids
+        for entry_id in migrated_release_menu_pilot_ids
         for entry in (current_by_id[entry_id],)
         for offset in range(entry.target_offset, entry.target_offset + entry.capacity)
     )
@@ -1982,10 +2267,12 @@ def _apply_full_pilot_names(
         "changed_entry_ids_sha256": sha256_bytes(
             json.dumps(changed_ids, separators=(",", ":")).encode("utf-8")
         ),
-        "migrated_base_pilot_entry_count": len(migrated_base_pilot_ids),
-        "migrated_base_pilot_entry_ids_sha256": sha256_bytes(
+        "migrated_release_menu_pilot_entry_count": len(
+            migrated_release_menu_pilot_ids
+        ),
+        "migrated_release_menu_pilot_entry_ids_sha256": sha256_bytes(
             json.dumps(
-                migrated_base_pilot_ids, separators=(",", ":")
+                migrated_release_menu_pilot_ids, separators=(",", ":")
             ).encode("utf-8")
         ),
         "unit_names": {
@@ -2666,6 +2953,7 @@ def _apply_full_stage_titles(
         encoding.get("visible_ascii_storage")
         != "original_fullwidth_two_byte"
         or encoding.get("use_available_surface_safe_aliases") is not True
+        or encoding.get("allow_trailing_zero_padding") is not True
     ):
         raise FullStoryComponentError("stage-title encoding policy drift")
     relocation = encoding.get("relocation")
@@ -2746,6 +3034,7 @@ def _apply_full_stage_titles(
             overrides=title_overrides,
             source_table=current_table,
             source_name="full-story stage titles",
+            allow_trailing_zero_padding=True,
         )
         compdata_relocation = relocate_menu_texts_to_pool(
             compdata_write.data,
@@ -4017,8 +4306,8 @@ def _apply_world_history_layout(
     archive: bytes,
     reference: dict,
     font_manifest: dict,
-) -> tuple[bytes, dict, Path]:
-    """Reflow the localized MTV_PROS world-history text in fixed chunks."""
+) -> tuple[bytes, bytes, dict, Path]:
+    """Build the localized MTV_PROS archive and its SLPS offsets from source."""
 
     if not isinstance(reference, dict):
         raise FullStoryComponentError("world-history configuration is invalid")
@@ -4050,16 +4339,13 @@ def _apply_world_history_layout(
     original_offsets = read_executable_archive_offsets(
         original_slps, spec, len(original)
     )
-    offsets = read_executable_archive_offsets(slps, spec, len(archive))
     if (
-        len(archive) != expected.get("archive_size")
-        or len(offsets) != expected.get("offset_count")
-        or len(offsets) - 1 != expected.get("chunk_count")
-        or offsets[-1] != len(archive)
-        or len(original_offsets) != len(offsets)
+        archive != original
+        or len(original_offsets) != expected.get("offset_count")
+        or len(original_offsets) - 1 != expected.get("chunk_count")
         or original_offsets[-1] != len(original)
     ):
-        raise FullStoryComponentError("world-history archive layout drift")
+        raise FullStoryComponentError("world-history original archive layout drift")
 
     table = load_text_table(
         PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
@@ -4102,7 +4388,7 @@ def _apply_world_history_layout(
             != sha256_bytes(source.text.encode("utf-8"))
             or not isinstance(translation, str)
             or not translation
-            or not 0 <= chunk_index < len(offsets) - 1
+            or not 0 <= chunk_index < len(original_offsets) - 1
             or entry_id in replacements_by_chunk.setdefault(chunk_index, {})
         ):
             raise FullStoryComponentError("world-history entry contract drift")
@@ -4132,12 +4418,15 @@ def _apply_world_history_layout(
         original_fullwidth_ascii_overrides(table),
     )
 
-    output = bytearray(archive)
+    output_parts = []
+    output_offsets = [0]
     chunk_reports = []
     changed_entry_count = 0
-    for chunk_index, replacements in sorted(replacements_by_chunk.items()):
-        start, end = offsets[chunk_index : chunk_index + 2]
-        stored = archive[start:end]
+    for chunk_index, (start, end) in enumerate(
+        zip(original_offsets, original_offsets[1:])
+    ):
+        replacements = replacements_by_chunk.get(chunk_index, {})
+        stored = original[start:end]
         decoded = decode(stored)
         if any(stored[decoded.consumed :]):
             raise FullStoryComponentError(
@@ -4145,7 +4434,7 @@ def _apply_world_history_layout(
             )
         parsed = parse_summary(
             decoded.output,
-            output_table,
+            table,
             chunk_index=chunk_index,
         )
         current_by_id = {entry.entry_id: entry.text for entry in parsed.entries}
@@ -4157,23 +4446,27 @@ def _apply_world_history_layout(
             current = current_by_id[entry_id]
             changed_entry_count += current != translation
         try:
-            rewritten = apply_summary_replacements(
-                decoded.output,
-                output_table,
-                chunk_index=chunk_index,
-                replacements=replacements,
-                overrides=encoding_overrides,
-            )
-            encoded = reencode_changed_suffix(
-                stored,
-                rewritten,
-                strategy=codec["strategy"],
-                min_match_length=int(codec["min_match_length"]),
-                max_match_chain=int(codec["max_match_chain"]),
-                lazy_matching=bool(codec["lazy_matching"]),
-                max_output_size=len(stored),
-                original_result=decoded,
-            )
+            if replacements:
+                rewritten = apply_summary_replacements(
+                    decoded.output,
+                    table,
+                    chunk_index=chunk_index,
+                    replacements=replacements,
+                    overrides=encoding_overrides,
+                )
+                encoded = reencode_changed_suffix(
+                    stored,
+                    rewritten,
+                    strategy=codec["strategy"],
+                    min_match_length=int(codec["min_match_length"]),
+                    max_match_chain=int(codec["max_match_chain"]),
+                    lazy_matching=bool(codec["lazy_matching"]),
+                    max_output_size=len(stored),
+                    original_result=decoded,
+                )
+            else:
+                rewritten = decoded.output
+                encoded = stored[: decoded.consumed]
         except (RuntimeError, ValueError, WritebackError) as error:
             raise FullStoryComponentError(
                 f"world-history chunk {chunk_index} write failed: {error}"
@@ -4208,7 +4501,9 @@ def _apply_world_history_layout(
             raise FullStoryComponentError(
                 f"world-history chunk {chunk_index} contains raw visible spaces"
             )
-        output[start:end] = encoded + bytes(len(stored) - len(encoded))
+        aligned_size = (len(encoded) + 15) & ~15
+        output_parts.append(encoded + bytes(aligned_size - len(encoded)))
+        output_offsets.append(output_offsets[-1] + aligned_size)
         chunk_reports.append(
             {
                 "chunk_index": chunk_index,
@@ -4216,7 +4511,9 @@ def _apply_world_history_layout(
                 "source_stored_size": len(stored),
                 "source_encoded_size": decoded.consumed,
                 "output_encoded_size": len(encoded),
-                "headroom": len(stored) - len(encoded),
+                "source_headroom": len(stored) - len(encoded),
+                "output_stored_size": aligned_size,
+                "output_padding_size": aligned_size - len(encoded),
                 "logical_text_preserved": True,
                 "runtime_text_reread_exact": True,
                 "codec_round_trip_exact": True,
@@ -4224,20 +4521,32 @@ def _apply_world_history_layout(
             }
         )
 
+    output = b"".join(output_parts)
+    if len(output) != expected.get("archive_size"):
+        raise FullStoryComponentError(
+            "world-history rebuilt archive size drift: "
+            f"expected={expected.get('archive_size')} actual={len(output)} "
+            f"offsets={output_offsets!r}"
+        )
+    offset_plan = build_executable_offset_patch_plan(slps, spec, output_offsets)
+    output_slps = offset_plan.apply(slps)
     if (
-        len(output) != len(archive)
-        or read_executable_archive_offsets(slps, spec, len(output)) != offsets
+        read_executable_archive_offsets(output_slps, spec, len(output))
+        != tuple(output_offsets)
     ):
-        raise FullStoryComponentError("world-history archive layout changed")
-    return bytes(output), {
+        raise FullStoryComponentError("world-history SLPS offset reread failed")
+    return output_slps, output, {
         "entry_count": len(entries),
         "changed_entry_count": changed_entry_count,
         "chunk_count": len(chunk_reports),
-        "minimum_chunk_headroom": min(
-            report["headroom"] for report in chunk_reports
+        "minimum_source_chunk_headroom": min(
+            report["source_headroom"] for report in chunk_reports
         ),
-        "archive_size_preserved": True,
-        "slps_offsets_preserved": True,
+        "source_archive_size": len(original),
+        "output_archive_size": len(output),
+        "archive_rebuilt_from_original": True,
+        "slps_offsets_rebuilt": True,
+        "offset_patch_plan": offset_plan.to_metadata(),
         "original_source_preimages_sha256_exact": True,
         "original_slps": _file_lock(original_slps_path, original_slps),
         "original_archive": _file_lock(original_path, original),
@@ -4413,6 +4722,7 @@ def _apply_fixed_span_translations(
     label: str,
     accepted_current_texts: dict[str, str] | None = None,
     accepted_current_table=None,
+    accepted_current_data: bytes | None = None,
 ) -> tuple[bytes, dict]:
     """Write a locked offset map using only original terminated capacities."""
 
@@ -4478,7 +4788,16 @@ def _apply_fixed_span_translations(
         current_span = current[offset:end]
         original_span = original[offset:end]
         replacement = encoded + bytes(source.consumed - len(encoded))
-        if current_span != original_span and current_span != replacement:
+        accepted_span = (
+            accepted_current_data[offset:end]
+            if accepted_current_data is not None
+            else None
+        )
+        if (
+            current_span != original_span
+            and current_span != replacement
+            and current_span != accepted_span
+        ):
             current_text = decode_text(current, offset, output_table)
             historical_current_text = (
                 decode_text(current, offset, accepted_current_table)
@@ -5129,11 +5448,12 @@ def _apply_remaining_ui(
     work_title_reference: object,
     descriptor_path: Path,
     font_manifest: dict,
-    encoded_mapping: dict,
     codec: dict,
     *,
     workspace: CompressedStreamWorkspace | None = None,
     original_decoded=None,
+    release_menu_slps: bytes | None = None,
+    release_menu_compdata: bytes | None = None,
 ) -> tuple[bytes, bytes, dict, tuple[Path, Path, Path, Path]]:
     """Write the reviewed remaining UI text without touching atlas pixels."""
 
@@ -5227,13 +5547,7 @@ def _apply_remaining_ui(
     output_table = project_runtime_text_table(
         output_table, original_fullwidth_ascii_overrides(table)
     )
-    historical_table = project_runtime_text_table(
-        table, _encoded_mapping_overrides(encoded_mapping)
-    )
-    historical_table = project_runtime_text_table(historical_table, aliases)
-    historical_table = project_runtime_text_table(
-        historical_table, original_fullwidth_ascii_overrides(table)
-    )
+    current_table = output_table
 
     if original_decoded is None:
         original_decoded = decode(original_compdata)
@@ -5255,7 +5569,8 @@ def _apply_remaining_ui(
         encoding_overrides=encoding_overrides,
         label="remaining COMPDATA UI",
         accepted_current_texts=accepted_current,
-        accepted_current_table=historical_table,
+        accepted_current_table=current_table,
+        accepted_current_data=release_menu_compdata,
     )
     compdata_output, library_work_title_report = (
         _apply_library_work_title_slots(
@@ -5276,7 +5591,8 @@ def _apply_remaining_ui(
         output_table=output_table,
         encoding_overrides=encoding_overrides,
         label="remaining COMPDATA context help",
-        accepted_current_table=historical_table,
+        accepted_current_table=current_table,
+        accepted_current_data=release_menu_compdata,
     )
     compdata_output, inline_report = _apply_fixed_inline_translations(
         compdata_output,
@@ -5294,7 +5610,8 @@ def _apply_remaining_ui(
         output_table=output_table,
         encoding_overrides=encoding_overrides,
         label="leadership effects",
-        accepted_current_table=historical_table,
+        accepted_current_table=current_table,
+        accepted_current_data=release_menu_compdata,
     )
     output_slps, slps_context_report = _apply_fixed_span_translations(
         slps,
@@ -5305,7 +5622,8 @@ def _apply_remaining_ui(
         encoding_overrides=encoding_overrides,
         label="remaining SLPS context UI",
         accepted_current_texts=accepted_current,
-        accepted_current_table=historical_table,
+        accepted_current_table=current_table,
+        accepted_current_data=release_menu_slps,
     )
     output_slps, slps_report = _apply_fixed_span_translations(
         output_slps,
@@ -5316,7 +5634,8 @@ def _apply_remaining_ui(
         encoding_overrides=encoding_overrides,
         label="remaining SLPS UI",
         accepted_current_texts=accepted_current,
-        accepted_current_table=historical_table,
+        accepted_current_table=current_table,
+        accepted_current_data=release_menu_slps,
     )
     auto_squad_sources = [
         "キング・ビアル",
@@ -5603,26 +5922,19 @@ def _apply_remaining_ui(
     )
 
 
-def _apply_global_safe_aliases(
+def _normalize_release_menu_codes(
     slps: bytes,
     stored_compdata: bytes,
     descriptor_path: Path,
     font_manifest: dict,
-    encoded_mapping: dict,
+    release_codebook: dict,
     codec: dict,
     *,
     original_slps: bytes,
     original_compdata_decoded: bytes,
     workspace: CompressedStreamWorkspace | None = None,
 ) -> tuple[bytes, bytes, dict]:
-    """Re-encode parsed menu text to the current canonical release codes.
-
-    Besides the remaining non-CJK surface aliases, this applies the frozen
-    clean-primary migration from historical low/special CJK codes to their
-    unique 0x889F+ primary codes.  The source table therefore models the
-    already-encoded base-UI payload, while the output table models the current
-    release mapping.
-    """
+    """Normalize consolidated menu text to current surface-safe release codes."""
 
     descriptors = json.loads(descriptor_path.read_text(encoding="utf-8"))
     if not isinstance(descriptors, list):
@@ -5633,13 +5945,15 @@ def _apply_global_safe_aliases(
         if isinstance(descriptor, dict)
     }
     if not {"SLPS", "Compdata"} <= set(descriptor_by_name):
-        raise FullStoryComponentError("global alias menu descriptors are missing")
+        raise FullStoryComponentError(
+            "release menu normalization descriptors are missing"
+        )
     _proposal_path, primary, aliases, alias_report = _full_story_overrides(
         font_manifest
     )
     _snapshot_path, allocation_snapshot = _sha_locked_json(
         font_manifest.get("inputs", {}).get("allocation_snapshot"),
-        label="global safe-alias allocation snapshot",
+        label="release menu allocation snapshot",
     )
     clean_contracts = [
         extension["clean_default_width_cjk_primary_migration"]
@@ -5690,7 +6004,7 @@ def _apply_global_safe_aliases(
     }
     if alias_report.get("mode") != "flattened_global_snapshot":
         raise FullStoryComponentError(
-            "global safe aliases require the flattened release snapshot"
+            "release menu normalization requires the flattened font snapshot"
         )
     if (
         set(aliases) > special_characters
@@ -5699,17 +6013,21 @@ def _apply_global_safe_aliases(
             for code in aliases.values()
         )
     ):
-        raise FullStoryComponentError("global safe-alias contract failed")
+        raise FullStoryComponentError(
+            "release menu normalization alias contract failed"
+        )
 
     table = load_text_table(
         PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
     )
-    source_primary = _encoded_mapping_overrides(encoded_mapping)
+    release_primary = _release_codebook_overrides(release_codebook)
     for character, source_code in clean_source_codes.items():
-        if character in source_primary and source_primary[character] != source_code:
+        if character in release_primary and release_primary[character] != source_code:
             raise FullStoryComponentError(
-                "encoded base-UI mapping disagrees with clean migration"
+                "release menu codebook disagrees with clean migration"
             )
+    source_primary = _stored_text_overrides(table, primary, aliases)
+    source_primary.update(release_primary)
     source_table = project_runtime_text_table(table, source_primary)
     ascii_overrides = original_fullwidth_ascii_overrides(table)
     output_table = project_runtime_text_table(table, primary)
@@ -5731,7 +6049,7 @@ def _apply_global_safe_aliases(
         and primary[character] != ascii_overrides[character]
     }
     code_substitutions.update(ascii_code_substitutions)
-    base_mapping_substitution_count = 0
+    release_codebook_substitution_count = 0
     for character, source_code in source_primary.items():
         target_code = primary.get(character)
         if character in menu_aliases:
@@ -5743,22 +6061,24 @@ def _apply_global_safe_aliases(
         existing = code_substitutions.get(source_code)
         if existing is not None and existing != target_code:
             raise FullStoryComponentError(
-                "base-UI code substitution has conflicting targets"
+                "release menu code substitution has conflicting targets"
             )
         code_substitutions[source_code] = target_code
-        base_mapping_substitution_count += 1
+        release_codebook_substitution_count += 1
     if any(
         source == target
         or source < 0x8000
         or target < 0x8000
         for source, target in code_substitutions.items()
     ):
-        raise FullStoryComponentError("global safe-alias substitution is invalid")
+        raise FullStoryComponentError(
+            "release menu code substitution is invalid"
+        )
 
     decoded = workspace.view() if workspace is not None else decode(stored_compdata)
     if decoded.consumed != len(stored_compdata):
         raise FullStoryComponentError(
-            "global alias COMPDATA has trailing compressed bytes"
+            "release menu COMPDATA has trailing compressed bytes"
         )
 
     def rewrite(
@@ -5914,7 +6234,7 @@ def _apply_global_safe_aliases(
                 mismatch_without_original_owner.append(mismatch)
         if mismatch_without_original_owner:
             raise FullStoryComponentError(
-                f"global safe-alias reread failed for {label}: "
+                f"release menu normalization reread failed for {label}: "
                 f"{mismatch_without_original_owner[:10]!r}"
             )
         selected_entries = _count_span_groups_containing_offsets(
@@ -5947,25 +6267,27 @@ def _apply_global_safe_aliases(
         slps,
         original_slps,
         descriptor_by_name["SLPS"],
-        "global safe aliases SLPS",
+        "release menu normalization SLPS",
     )
     rewritten_compdata, compdata_report = rewrite(
         decoded.output,
         original_compdata_decoded,
         descriptor_by_name["Compdata"],
-        "global safe aliases COMPDATA",
+        "release menu normalization COMPDATA",
     )
     rebuilt_compdata = _commit_compdata_stage(
         stored_compdata,
         rewritten_compdata,
         decoded,
         codec,
-        label="global safe-alias COMPDATA",
+        label="release menu normalization COMPDATA",
         workspace=workspace,
     )
     return rewritten_slps, rebuilt_compdata, {
         "clean_primary_substitution_count": len(clean_code_substitutions),
-        "base_mapping_substitution_count": base_mapping_substitution_count,
+        "release_codebook_substitution_count": (
+            release_codebook_substitution_count
+        ),
         "scope": "all-parsed-localized-menu-surfaces",
         "conditional_primary_assignment_count": len(aliases),
         "release_conditional_primary_assignment_count": len(
@@ -8126,34 +8448,20 @@ def build(
     def reuse_group(members: set[str] | frozenset[str]) -> bool:
         return incremental and affected_members.isdisjoint(members)
 
-    base = config.get("base_ui")
+    original = config.get("original_members")
     font = config.get("full_story_font")
     stage = config.get("full_story_stage")
-    if not all(isinstance(value, dict) for value in (base, font, stage)):
+    if not all(isinstance(value, dict) for value in (original, font, stage)):
         raise FullStoryComponentError("component input groups are invalid")
 
-    base_manifest_path, base_manifest = _manifest(
-        base["manifest"], label="base UI manifest"
-    )
-    if (
-        base_manifest.get("status") != base.get("required_status")
-        or base_manifest.get("profile_id") != base.get("required_profile_id")
-    ):
-        raise FullStoryComponentError("base UI manifest identity drift")
-    base_payloads = {}
-    base_paths = {}
-    for name, reference in base.get("members", {}).items():
-        path, payload = _locked_file(reference, label=f"base UI {name}")
-        manifest_lock = base_manifest.get("outputs", {}).get(name)
-        if not isinstance(manifest_lock, dict) or (
-            manifest_lock.get("size") != len(payload)
-            or manifest_lock.get("sha256") != sha256_bytes(payload)
-        ):
-            raise FullStoryComponentError(f"base UI {name} manifest drift")
-        base_paths[name] = path
-        base_payloads[name] = payload
-    if set(base_payloads) != {"slps", "vt1", "compdata", "mtv_pros"}:
-        raise FullStoryComponentError("base UI member set is incomplete")
+    original_payloads = {}
+    original_paths = {}
+    for name, reference in original.get("members", {}).items():
+        path, payload = _locked_file(reference, label=f"original release {name}")
+        original_paths[name] = path
+        original_payloads[name] = payload
+    if set(original_payloads) != {"slps", "vt1", "compdata", "mtv_pros"}:
+        raise FullStoryComponentError("original release member set is incomplete")
 
     font_manifest_path, font_manifest = _manifest(
         font["manifest"], label="full-story font manifest"
@@ -8163,23 +8471,15 @@ def build(
         or font_manifest.get("font_profile_id") != font.get("required_profile_id")
     ):
         raise FullStoryComponentError("full-story font manifest identity drift")
-    encoded_mapping_reference = (
-        base_manifest.get("inputs", {})
-        .get("codebook", {})
-        .get("mapping_snapshot", {})
-    )
     composition = config.get("composition", {})
-    compatibility = composition.get("encoded_text_codebook_compatibility")
-    if not isinstance(compatibility, dict) or compatibility.get("mode") != (
-        "flattened-release-superset-of-encoded-ui"
+    compatibility = composition.get("release_codebook")
+    if (
+        not isinstance(compatibility, dict)
+        or compatibility.get("mode") != "direct-original-writeback"
     ):
         raise FullStoryComponentError(
-            "encoded-text/release codebook compatibility is missing"
+            "direct original-member codebook contract is missing"
         )
-    encoded_mapping_path, encoded_mapping = _sha_locked_json(
-        encoded_mapping_reference,
-        label="base UI codebook mapping snapshot",
-    )
     release_proposal_path, release_proposal = _sha_locked_json(
         font_manifest.get("proposal"),
         label="global release font proposal",
@@ -8188,57 +8488,14 @@ def build(
         compatibility.get("release_snapshot"),
         label="global release assignment snapshot",
     )
-    encoded_assignments = encoded_mapping.get("assignments")
     release_assignments = release_proposal.get("assignments")
-    if not isinstance(encoded_assignments, list) or not isinstance(
-        release_assignments, list
-    ):
+    if not isinstance(release_assignments, list):
         raise FullStoryComponentError("font proposal assignments are malformed")
     release_by_character = {
         item.get("character"): (item.get("code"), item.get("glyph_index"))
         for item in release_assignments
         if isinstance(item, dict)
     }
-    clean_contracts = [
-        extension["clean_default_width_cjk_primary_migration"]
-        for extension in snapshot.get("extensions", [])
-        if isinstance(extension, dict)
-        and "clean_default_width_cjk_primary_migration" in extension
-    ]
-    if len(clean_contracts) != 1:
-        raise FullStoryComponentError(
-            "clean CJK-primary migration contract is absent"
-        )
-    clean_migration_by_character = {
-        row["character"]: row
-        for row in clean_contracts[0].get("migrations", [])
-        if isinstance(row, dict)
-    }
-
-    def encoded_assignment_is_current_or_migrated(item: dict) -> bool:
-        character = item.get("character")
-        current = release_by_character.get(character)
-        encoded = (item.get("code"), item.get("glyph_index"))
-        if current == encoded:
-            return True
-        migration = clean_migration_by_character.get(character)
-        return bool(
-            migration
-            and encoded
-            == (migration.get("from_code"), migration.get("from_glyph_index"))
-            and current
-            == (migration.get("to_code"), migration.get("to_glyph_index"))
-        )
-    encoded_mapping_sha256 = sha256_bytes(
-        json.dumps(
-            sorted(
-                (item["character"], item["code"], item["glyph_index"])
-                for item in encoded_assignments
-            ),
-            ensure_ascii=False,
-            separators=(",", ":"),
-        ).encode("utf-8")
-    )
     release_mapping_sha256 = sha256_bytes(
         json.dumps(
             sorted(
@@ -8250,16 +8507,7 @@ def build(
         ).encode("utf-8")
     )
     if (
-        encoded_mapping.get("assignment_count")
-        != encoded_mapping_reference.get("assignment_count")
-        or encoded_mapping.get("mapping_sha256")
-        != encoded_mapping_reference.get("mapping_sha256")
-        or encoded_mapping.get("assignment_count") != len(encoded_assignments)
-        or encoded_mapping.get("mapping_sha256") != encoded_mapping_sha256
-        or len(encoded_assignments) != compatibility.get("encoded_assignment_count")
-        or encoded_mapping_sha256
-        != compatibility.get("encoded_assignment_mapping_sha256")
-        or len(release_assignments)
+        len(release_assignments)
         != compatibility.get("release_assignment_count")
         or release_mapping_sha256
         != compatibility.get("release_assignment_mapping_sha256")
@@ -8267,13 +8515,9 @@ def build(
         != compatibility.get("release_snapshot_primary_mapping_sha256")
         or release_proposal.get("allocation_registry", {}).get("sha256")
         != compatibility.get("release_snapshot", {}).get("sha256")
-        or any(
-            not encoded_assignment_is_current_or_migrated(item)
-            for item in encoded_assignments
-        )
     ):
         raise FullStoryComponentError(
-            "encoded UI text mapping is not an exact subset of the release font"
+            "release font mapping does not match the direct-writeback contract"
         )
     font_slps_path, font_slps = _locked_file(
         font["slps"], label="full-story font SLPS"
@@ -8497,11 +8741,11 @@ def build(
         raise FullStoryComponentError("full-story decoded font hash drift")
 
     base_offsets = read_executable_archive_offsets(
-        base_payloads["slps"], spec, len(base_payloads["vt1"])
+        original_payloads["slps"], spec, len(original_payloads["vt1"])
     )
     output_vt1, output_offsets, padding, borrowed = (
         replace_archive_chunk_with_preceding_zero_slack(
-            base_payloads["vt1"],
+            original_payloads["vt1"],
             base_offsets,
             chunk_index=chunk_index,
             replacement=font_stored[: font_decoded.consumed],
@@ -8509,9 +8753,9 @@ def build(
         )
     )
     offset_plan = build_executable_offset_patch_plan(
-        base_payloads["slps"], spec, output_offsets
+        original_payloads["slps"], spec, output_offsets
     )
-    output_slps = offset_plan.apply(base_payloads["slps"])
+    output_slps = offset_plan.apply(original_payloads["slps"])
     if read_executable_archive_offsets(output_slps, spec, len(output_vt1)) != output_offsets:
         raise FullStoryComponentError("composed VT1 offsets fail SLPS reread")
     final_font = decode_vt1_font_segment(
@@ -8561,7 +8805,7 @@ def build(
     for index, (base_start, base_end, out_start, out_end) in enumerate(
         zip(base_offsets, base_offsets[1:], output_offsets, output_offsets[1:])
     ):
-        base_chunk = base_payloads["vt1"][base_start:base_end]
+        base_chunk = original_payloads["vt1"][base_start:base_end]
         out_chunk = output_vt1[out_start:out_end]
         if index == chunk_index:
             continue
@@ -8574,9 +8818,67 @@ def build(
             raise FullStoryComponentError(f"non-font VT1 chunk changed: {index}")
         preserved_chunks += 1
 
+    title_menu_path, title_menu_data = _locked_file(
+        config.get("title_menu"), label="title-menu localization contract"
+    )
+    title_menu_contract = json.loads(title_menu_data.decode("utf-8"))
+    title_chunk_index = title_menu_contract.get("target", {}).get("chunk_index")
+    if title_chunk_index != 6:
+        raise FullStoryComponentError("title-menu VT1 chunk contract drift")
+    title_start, title_end = output_offsets[
+        title_chunk_index : title_chunk_index + 2
+    ]
+    title_stored = output_vt1[title_start:title_end]
+    title_decoded = decode(title_stored)
+    if any(title_stored[title_decoded.consumed :]):
+        raise FullStoryComponentError("title-menu source padding is nonzero")
+    try:
+        title_edit = build_title_menu(
+            title_decoded.output,
+            title_menu_contract,
+        )
+        title_encoded = reencode_changed_suffix(
+            title_stored[: title_decoded.consumed],
+            title_edit.data,
+            strategy=title_menu_contract["codec"]["strategy"],
+            min_match_length=title_menu_contract["codec"]["min_match_length"],
+            max_match_chain=title_menu_contract["codec"]["max_match_chain"],
+            lazy_matching=title_menu_contract["codec"]["lazy_matching"],
+            max_output_size=len(title_stored),
+            original_result=title_decoded,
+        )
+    except (KeyError, RuntimeError, ValueError, TitleMenuError) as error:
+        raise FullStoryComponentError(
+            f"title-menu writeback failed: {error}"
+        ) from error
+    title_reread = decode(title_encoded)
+    if (
+        title_reread.consumed != len(title_encoded)
+        or title_reread.output != title_edit.data
+    ):
+        raise FullStoryComponentError("title-menu codec round trip failed")
+    output_vt1 = (
+        output_vt1[:title_start]
+        + title_encoded
+        + bytes(len(title_stored) - len(title_encoded))
+        + output_vt1[title_end:]
+    )
+    title_menu_report = {
+        **title_edit.to_metadata(),
+        "member": VT1_MEMBER,
+        "chunk_index": title_chunk_index,
+        "labels": title_menu_contract["labels"],
+        "source_encoded_size": title_decoded.consumed,
+        "output_encoded_size": len(title_encoded),
+        "output_padding_size": len(title_stored) - len(title_encoded),
+        "archive_size_preserved": True,
+        "non_target_decoded_bytes_exact": True,
+        "codec_round_trip_exact": True,
+    }
+
     compdata_workspace = CompressedStreamWorkspace.open(
         "DATA/COMPDATA.BN",
-        base_payloads["compdata"],
+        original_payloads["compdata"],
     )
     _original_compdata_path, original_compdata_payload = _locked_file(
         config.get("remaining_ui", {}).get("original_compdata"),
@@ -8588,34 +8890,40 @@ def build(
             "original COMPDATA workspace source has trailing compressed bytes"
         )
 
-    clean_migration_descriptor_path, _clean_migration_descriptor_data = (
-        _locked_file(
-            config["full_stage_titles"].get("menu_descriptor"),
-            label="clean CJK-primary migration menu descriptor",
-        )
+    (
+        output_slps,
+        output_compdata,
+        release_menu_report,
+        release_menu_input_paths,
+    ) = _apply_release_menu_text(
+        output_slps,
+        compdata_workspace.stored,
+        config.get("menu_text_release"),
+        config.get("full_stage_titles", {}).get("menu_descriptor"),
+        font_manifest,
+        config["full_pilot_names"]["codec"],
+        workspace=compdata_workspace,
     )
-    _clean_migration_original_slps_path, clean_migration_original_slps = (
-        _locked_file(
-            config["remaining_ui"].get("original_slps"),
-            label="clean CJK-primary migration original SLPS",
-        )
+    release_menu_codebook = json.loads(
+        release_menu_input_paths[1].read_text(encoding="utf-8")
     )
     (
         output_slps,
         output_compdata,
-        global_safe_alias_report,
-    ) = _apply_global_safe_aliases(
+        release_menu_code_report,
+    ) = _normalize_release_menu_codes(
         output_slps,
         compdata_workspace.stored,
-        clean_migration_descriptor_path,
+        release_menu_input_paths[2],
         font_manifest,
-        encoded_mapping,
+        release_menu_codebook,
         config["full_pilot_names"]["codec"],
-        original_slps=clean_migration_original_slps,
+        original_slps=original_payloads["slps"],
         original_compdata_decoded=original_compdata_decoded.output,
         workspace=compdata_workspace,
     )
-
+    release_menu_slps_baseline = output_slps
+    release_menu_compdata_baseline = compdata_workspace.current
     (
         output_compdata,
         pilot_name_report,
@@ -8628,7 +8936,6 @@ def build(
         compdata_workspace.stored,
         config.get("full_pilot_names"),
         font_manifest,
-        encoded_mapping,
         workspace=compdata_workspace,
     )
     (
@@ -8660,10 +8967,11 @@ def build(
         config.get("auto_demo_overlays", {}).get("title_corpus"),
         stage_title_input_paths[2],
         font_manifest,
-        encoded_mapping,
         config["full_pilot_names"]["codec"],
         workspace=compdata_workspace,
         original_decoded=original_compdata_decoded,
+        release_menu_slps=release_menu_slps_baseline,
+        release_menu_compdata=release_menu_compdata_baseline,
     )
     runtime_library_menu_config = config.get("runtime_library_menu")
     if not isinstance(runtime_library_menu_config, dict):
@@ -9039,19 +9347,21 @@ def build(
         }
     )
     for compdata_report in (
+        release_menu_report,
         stage_title_report,
         remaining_ui_report,
         compdata_battle_line_report,
         reviewed_weapon_report,
-        global_safe_alias_report,
+        release_menu_code_report,
         runtime_keyword_compdata_report,
     ):
         compdata_report["compdata_output_size"] = final_compdata_size
     stage_title_report["compdata_round_trip_exact"] = True
+    release_menu_report["compdata_round_trip_exact"] = True
     remaining_ui_report["compdata_round_trip_exact"] = True
     compdata_battle_line_report["codec_round_trip_exact"] = True
     reviewed_weapon_report["codec_round_trip_exact"] = True
-    global_safe_alias_report["compdata_round_trip_exact"] = True
+    release_menu_code_report["compdata_round_trip_exact"] = True
     runtime_keyword_compdata_report["codec_round_trip_exact"] = True
     if reuse_group({SLPS_MEMBER, *AUTO_DEMO_MEMBERS}):
         output_auto_demo_archives = {
@@ -9319,12 +9629,13 @@ def build(
         )
     else:
         (
+            output_slps,
             output_mtv_pros,
             world_history_report,
             world_history_corpus_path,
         ) = _apply_world_history_layout(
             output_slps,
-            base_payloads["mtv_pros"],
+            original_payloads["mtv_pros"],
             config.get("world_history"),
             font_manifest,
         )
@@ -9743,11 +10054,31 @@ def build(
         "status": "integrated_global_zh_release_components_validated_runtime_pending",
         "profile_id": config["profile_id"],
         "scope": config["scope"],
-        "build_passes": _validated_component_build_passes(),
+        "build_groups": _validated_component_build_groups(),
         "inputs": {
             "config": _file_lock(config_path, config_path.read_bytes()),
-            "base_ui_manifest": _file_lock(
-                base_manifest_path, base_manifest_path.read_bytes()
+            "original_release_slps": _file_lock(
+                original_paths["slps"], original_payloads["slps"]
+            ),
+            "original_release_vt1": _file_lock(
+                original_paths["vt1"], original_payloads["vt1"]
+            ),
+            "original_release_compdata": _file_lock(
+                original_paths["compdata"], original_payloads["compdata"]
+            ),
+            "original_release_mtv_pros": _file_lock(
+                original_paths["mtv_pros"], original_payloads["mtv_pros"]
+            ),
+            "title_menu_contract": _file_lock(
+                title_menu_path, title_menu_data
+            ),
+            "release_menu_corpus": _file_lock(
+                release_menu_input_paths[0],
+                release_menu_input_paths[0].read_bytes(),
+            ),
+            "release_menu_codebook": _file_lock(
+                release_menu_input_paths[1],
+                release_menu_input_paths[1].read_bytes(),
             ),
             "full_story_font_manifest": _file_lock(
                 font_manifest_path, font_manifest_path.read_bytes()
@@ -9991,15 +10322,11 @@ def build(
             "font_padding_size": padding,
             "additional_borrowed_preceding_zero_slack": borrowed,
             "preserved_non_font_vt1_chunk_count": preserved_chunks,
-            "archive_size_preserved": len(output_vt1) == len(base_payloads["vt1"]),
+            "archive_size_preserved": len(output_vt1) == len(original_payloads["vt1"]),
             "slps_offset_reread_exact": True,
             "intermission_list_font_geometry": geometry_report,
-            "encoded_text_codebook_compatibility": {
-                "encoded_ui_mapping_is_release_subset": True,
-                "encoded_mapping_snapshot": _file_lock(
-                    encoded_mapping_path,
-                    encoded_mapping_path.read_bytes(),
-                ),
+            "release_codebook": {
+                "mode": "direct-original-writeback",
                 "release_proposal": _file_lock(
                     release_proposal_path,
                     release_proposal_path.read_bytes(),
@@ -10008,8 +10335,6 @@ def build(
                     snapshot_path,
                     snapshot_path.read_bytes(),
                 ),
-                "encoded_assignment_count": len(encoded_assignments),
-                "encoded_assignment_mapping_sha256": encoded_mapping_sha256,
                 "release_assignment_count": len(release_assignments),
                 "release_assignment_mapping_sha256": release_mapping_sha256,
             },
@@ -10071,6 +10396,8 @@ def build(
         },
         "pilot_names": pilot_name_report,
         "stage_titles": stage_title_report,
+        "title_menu": title_menu_report,
+        "release_menu": release_menu_report,
         "stage_overviews": stage_overview_report,
         "world_history": world_history_report,
         "chapter_intertitles": chapter_intertitle_report,
@@ -10096,7 +10423,7 @@ def build(
         "mode_select_effect": mode_select_report,
         "tutorial_title_effects": tutorial_title_report,
         "world_map_titles": world_map_title_report,
-        "global_safe_aliases": global_safe_alias_report,
+        "release_menu_code_normalization": release_menu_code_report,
         "runtime_keywords": {
             "authority_keyword_count": len(runtime_keyword_authority.entries),
             "library_popup_fields_validated": True,
@@ -10193,7 +10520,30 @@ def build(
                 and terrain_name_report["codec_round_trip_exact"]
                 and terrain_name_report["reread_exact"]
             ),
-            "p10_ui_members_inherited_exact": True,
+            "original_members_are_only_binary_baseline": True,
+            "title_menu_rebuilt_from_reviewed_masks": (
+                title_menu_report["changed_pixel_count"] == 12514
+                and title_menu_report["archive_size_preserved"]
+                and title_menu_report["non_target_decoded_bytes_exact"]
+                and title_menu_report["codec_round_trip_exact"]
+            ),
+            "release_menu_rebuilt_from_original_members": (
+                release_menu_report["release_id"] == "v0.3.0"
+                and release_menu_report["entry_count"] == 1040
+                and release_menu_report["member_entry_counts"]
+                == {"SLPS": 706, "Compdata": 334}
+                and release_menu_report["member_target_counts"]
+                == {"SLPS": 849, "Compdata": 334}
+                and release_menu_report["codebook_id"]
+                == "srwz-release-menu-v0.3"
+                and release_menu_report["source_preimages_sha256_exact"]
+                and release_menu_report["all_translations_reread_exact"]
+                and release_menu_report["members"]["SLPS"]["reread_exact"]
+                and release_menu_report["members"]["Compdata"]["reread_exact"]
+                and release_menu_report["release_binary_required_at_build_time"]
+                is False
+                and release_menu_report["compdata_round_trip_exact"]
+            ),
             "runtime_library_menu_frozen_writeback_exact": (
                 runtime_library_menu_report["all_six_labels_written"]
                 and runtime_library_menu_report["archive_size_preserved"]
@@ -10387,7 +10737,7 @@ def build(
                 and weapon_effect_2_report["control_flow_preserved"]
                 and weapon_effect_2_report["executable_size_preserved"]
             ),
-            "encoded_ui_codebook_is_release_subset": True,
+            "all_localized_text_written_with_release_codebook": True,
             "global_release_font_missing_character_count_zero": (
                 font_manifest["coverage"]["missing_character_count"]
                 == 0
@@ -10406,7 +10756,7 @@ def build(
                 "codec_round_trip_exact"
             ],
             "font_archive_size_preserved": len(output_vt1)
-            == len(base_payloads["vt1"]),
+            == len(original_payloads["vt1"]),
             "stage_layout_preserved": stage_report["stage_layout_preserved"],
             "stage_hb_offset_reread_exact": stage_report["hb_offset_reread_exact"],
             "all_story_text_reread_exact": all(
@@ -10562,8 +10912,10 @@ def build(
             "world_history_reread_exact": (
                 world_history_report["entry_count"]
                 == config["world_history"]["expected"]["entry_count"]
-                and world_history_report["archive_size_preserved"]
-                and world_history_report["slps_offsets_preserved"]
+                and world_history_report["archive_rebuilt_from_original"]
+                and world_history_report["slps_offsets_rebuilt"]
+                and world_history_report["output_archive_size"]
+                == config["world_history"]["expected"]["archive_size"]
                 and world_history_report["logical_text_preserved"]
                 and world_history_report["runtime_text_reread_exact"]
                 and world_history_report["codec_round_trip_exact"]
@@ -10818,21 +11170,15 @@ def build(
                 and auto_demo_report["seg_files_preserved_byte_exact"]
                 and auto_demo_report["translated_reread_exact"]
             ),
-            "all_localized_text_uses_safe_double_byte_aliases": (
-                global_safe_alias_report[
-                    "unaliased_conditional_assignment_count"
-                ]
-                == 0
-                and global_safe_alias_report[
-                    "conditional_primary_assignment_count"
-                ]
-                == global_safe_alias_report["safe_alias_assignment_count"]
-                and global_safe_alias_report[
-                    "alias_codes_default_width_only"
-                ]
-                and global_safe_alias_report["slps"]["reread_exact"]
-                and global_safe_alias_report["compdata"]["reread_exact"]
-                and global_safe_alias_report[
+            "release_menu_code_normalization_valid": (
+                release_menu_code_report["release_codebook_substitution_count"]
+                > 0
+                and release_menu_code_report["safe_alias_assignment_count"]
+                > 0
+                and release_menu_code_report["alias_codes_default_width_only"]
+                and release_menu_code_report["slps"]["reread_exact"]
+                and release_menu_code_report["compdata"]["reread_exact"]
+                and release_menu_code_report[
                     "compdata_round_trip_exact"
                 ]
             ),

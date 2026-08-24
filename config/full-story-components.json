@@ -1,43 +1,54 @@
 {
   "schema_version": 1,
   "profile_id": "srwz-global-zh-release-integrated-v1",
-  "scope": "Compose the validated encoded UI component, all 297 COMPDATA map battle/retreat lines, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, STAGE flow summaries, MTV_PROS world-history scrolling text and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, all title-idle auto-demo work-title and speaker-name overlays, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
-  "base_ui": {
-    "manifest": {
-      "path": "manifests/release-base-ui-validation.json",
-      "size": 1512,
-      "sha256": "c35f4a947e98291734a5b6735a1fc588caec1291d068f3a7219d3febd6f4a4c3"
-    },
-    "required_status": "release_base_ui_component_validated",
-    "required_profile_id": "srwz-release-base-ui-v1",
+  "scope": "Build the complete Simplified Chinese release directly from the original disc members, including UI, global font, story, overviews, battle text, title and menu textures, archives, and executable layout changes.",
+  "original_members": {
     "members": {
       "slps": {
-        "path": "work/build/release-base-ui/components/SLPS_258.87",
+        "path": "work/disc/SLPS_258.87",
         "size": 3471624,
-        "sha256": "1bdee29292af90135b054354241141cb43bf80a217059336455e7c39f8facfa2"
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
       },
       "vt1": {
-        "path": "work/build/release-base-ui/components/DATA/VT1.BIN",
+        "path": "work/disc/DATA/VT1.BIN",
         "size": 127500736,
-        "sha256": "c3da3b0518d0b87a282c0da254a89893d8a3635b14664059db37696f213fab17"
+        "sha256": "9b380618001b7f4d8a008f24bbf75b5409054e1b054e64d27ba4d0eb0b3a4964"
       },
       "compdata": {
-        "path": "work/build/release-base-ui/components/DATA/COMPDATA.BN",
-        "size": 145283,
-        "sha256": "3c40f1bff09039d4f4874e4dbd1840903536a09035fb1841d5c0e8925f3bc49b"
+        "path": "work/disc/DATA/COMPDATA.BN",
+        "size": 144990,
+        "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34"
       },
       "mtv_pros": {
-        "path": "work/build/release-base-ui/components/DATA/MTV_PROS.BIN",
-        "size": 8368,
-        "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
+        "path": "work/disc/DATA/MTV_PROS.BIN",
+        "size": 9056,
+        "sha256": "47999cb2994d9775a68ecca49ebe3e5f73c0118b92168a6ba577f836886e1b5a"
       }
+    }
+  },
+  "title_menu": {
+    "path": "config/assets/title-menu-zh.json",
+    "size": 4092,
+    "sha256": "23c2ba06fb3a7ba2ede692ede705f9c18efb5eba174a6f64ec2aaab5f017cb5d"
+  },
+  "menu_text_release": {
+    "corpus": {
+      "path": "corpus/zh/menu/release-v0.3.json",
+      "size": 254651,
+      "sha256": "b0fc4c9a009d2782cc66b5999d0cdd241f3008c81f8cb7c75956e9711264ff43"
+    },
+    "codebook": {
+      "path": "config/encoding/release-menu-codebook.json",
+      "size": 157659,
+      "sha256": "14ef65b2f538515a890ec5b3b0f8809319d12d05565c22c52f3144fb19b446e6",
+      "required_codebook_id": "srwz-release-menu-v0.3"
     }
   },
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 72301,
-      "sha256": "534424d1cf0cc08431c0ad6a568dbc8cd9d052e6a7c14e2ca6635be88ef03391"
+      "size": 72582,
+      "sha256": "b537d747c438d3dbd30f4788589f1f8696fc5687ba33a5d00948609426ed6158"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -56,7 +67,7 @@
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18259645,
-      "sha256": "85ea92ab37cf0564a5b1bc82f00fdfcdf6c1431f9579cf9f2c427e28729bb44f"
+      "sha256": "7f23ceb8fe2d39407a87b49a0a6d9b4cdc29bb16c59f2e24f575082df61b92fc"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
@@ -289,6 +300,7 @@
     "encoding": {
       "visible_ascii_storage": "original_fullwidth_two_byte",
       "use_available_surface_safe_aliases": true,
+      "allow_trailing_zero_padding": true,
       "relocation": {
         "pool_start": "0x7FE98",
         "pool_end": "0x7FF00",
@@ -550,7 +562,7 @@
       "entry_count": 28,
       "chunk_count": 14,
       "offset_count": 15,
-      "archive_size": 8368
+      "archive_size": 8352
     }
   },
   "chapter_intertitles": {
@@ -2080,7 +2092,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 784630,
-      "sha256": "a154481d663ee369e0164072ad4530488d44c7f6cea65f1506d385b8c16f0e50"
+      "sha256": "ffdc3218d4084781e1c2f0a332fda6a6107a01ae903d23a11e0ead01f0d11cf6"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -2154,10 +2166,10 @@
   "composition": {
     "font_chunk_index": 2,
     "archive_alignment": 16,
-    "encoded_text_codebook_compatibility": {
-      "mode": "flattened-release-superset-of-encoded-ui",
-      "encoded_assignment_count": 1803,
-      "encoded_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
+    "release_codebook": {
+      "mode": "direct-original-writeback",
+      "menu_assignment_count": 1803,
+      "menu_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
       "release_assignment_count": 3451,
       "release_assignment_mapping_sha256": "19360a755a79549690d884269fb0574cd45443dee7ae85afe85ef791671055b2",
       "release_snapshot_primary_mapping_sha256": "e7cad754c7f931c2b818861bef8554e26d2f2779ba9f381ddbe67da73c388ba4",
@@ -2166,7 +2178,7 @@
         "sha256": "6d0823c9a08cb2b55456125353c15b359e8c9f2c1e4eefbfd5087b6473fa004b",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
-      "reason": "The already encoded UI bytes remain valid because all 1,803 mappings they use are an exact character/code/glyph subset of the flattened global release snapshot. The inherited encoded UI component is not rebuilt."
+      "reason": "The consolidated v0.3 menu selection is written directly into original members, normalized to the current font mapping, and never consumes a prepatched binary baseline."
     },
     "preserve_non_font_vt1_chunks": true,
     "preserve_vt1_archive_size": true,

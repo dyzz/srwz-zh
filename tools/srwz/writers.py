@@ -383,12 +383,14 @@ def replace_menu_texts_in_place(
     overrides: Mapping[str, int] | None = None,
     source_table: TextTable | None = None,
     source_name: str | None = None,
+    allow_trailing_zero_padding: bool = False,
 ) -> FixedMenuWrite:
     """Replace menu strings only inside their original terminated spans.
 
     Pointer bytes never change. A target shared by multiple parsed entries is
     writable only when every owner is selected and resolves to one identical
-    payload. Longer translations must use an explicitly registered pool.
+    payload. An opted-in caller may consume immediate zero padding up to the
+    next parsed text target; other overflows must use an explicit pool.
     """
 
     if parsed.source_size != len(data):
@@ -401,6 +403,7 @@ def replace_menu_texts_in_place(
     for entry in parsed.entries:
         for target_offset in set(entry.target_offsets):
             target_owners.setdefault(target_offset, set()).add(entry.entry_id)
+    ordered_target_offsets = sorted(target_owners)
 
     payloads = {}
     for entry_id, replacement in replacements.items():
@@ -444,14 +447,26 @@ def replace_menu_texts_in_place(
         for entry_id in owners:
             if decoded.text != entries[entry_id].text:
                 raise WritebackError(f"{entry_id} source text preimage mismatch")
-        if len(payload) > decoded.consumed:
+        capacity = decoded.consumed
+        if len(payload) > capacity and allow_trailing_zero_padding:
+            target_index = ordered_target_offsets.index(target_offset)
+            next_target = (
+                ordered_target_offsets[target_index + 1]
+                if target_index + 1 < len(ordered_target_offsets)
+                else len(data)
+            )
+            requested_end = target_offset + len(payload)
+            padding = data[target_offset + capacity : requested_end]
+            if requested_end <= next_target and not any(padding):
+                capacity = len(payload)
+        if len(payload) > capacity:
             raise WritebackError(
                 f"menu target 0x{target_offset:X} "
                 f"({', '.join(sorted(owners))}) overflow: need "
-                f"{len(payload)}, capacity {decoded.consumed}"
+                f"{len(payload)}, capacity {capacity}"
             )
-        before = data[target_offset : target_offset + decoded.consumed]
-        after = payload + bytes(decoded.consumed - len(payload))
+        before = data[target_offset : target_offset + capacity]
+        after = payload + bytes(capacity - len(payload))
         operations.append(
             PatchOperation(
                 owner=" / ".join(sorted(owners)),
@@ -464,7 +479,7 @@ def replace_menu_texts_in_place(
             FixedMenuTargetWrite(
                 entry_ids=tuple(sorted(owners)),
                 target_offset=target_offset,
-                capacity=decoded.consumed,
+                capacity=capacity,
                 payload_size=len(payload),
             )
         )

@@ -6,8 +6,8 @@
   "inputs": {
     "config": {
       "path": "config/fonts/zh-release-font.json",
-      "size": 4992,
-      "sha256": "ebb952c9cb3e554190f6db3406f4471768566f831ae82ff410dc166c12d1612c"
+      "size": 5109,
+      "sha256": "07a7b2025dfb14ec1fd6ca3bd1cfdda32b04a8ef2b754a86ff2bc28e5e263450"
     },
     "base_config": {
       "path": "config/fonts/zh-font-base.json",
@@ -46,10 +46,15 @@
         "display_names_by_source_text"
       ],
       "exclude_globs": [
-        "ui-atlas/*.json"
+        "ui-atlas/*.json",
+        "menu/release-v0.3.json"
       ],
-      "exclude_reason": "These corpora are pre-rendered into validated texture assets and never use the runtime VT1 glyph renderer.",
+      "exclude_reason": "UI-atlas corpora are pre-rendered into validated textures. The v0.3 menu corpus is a source-bound release selection duplicated from the two menu source corpora, which remain in the font scan.",
       "excluded_sources": [
+        {
+          "path": "corpus/zh/menu/release-v0.3.json",
+          "sha256": "b0fc4c9a009d2782cc66b5999d0cdd241f3008c81f8cb7c75956e9711264ff43"
+        },
         {
           "path": "corpus/zh/ui-atlas/bazaar-v2.json",
           "sha256": "a3865ac71a8129181f4ca1b4ddb9a09ab7146e86eb1f3a443668a41e5c4c2767"
@@ -2262,13 +2267,13 @@
   },
   "proposal": {
     "path": "work/writeback/zh-release-codebook-proposal.json",
-    "size": 3224442,
-    "sha256": "b920f3c43dcb9b6ea7f7798fb1c4c490ab69063780b03dd8b7a766152f8c7353"
+    "size": 3224713,
+    "sha256": "26925e3b66918deb90e017eff39752c3f124b893e128561d8abc2d2a3b9d067e"
   },
   "readiness": {
     "path": "work/writeback/zh-release-font-readiness.json",
-    "size": 63982,
-    "sha256": "a6e4eac7ec4c7f6df66a98d27a361446aeeb16ce1ab1df0bc3ac7306e3e67664"
+    "size": 64253,
+    "sha256": "68da6cc3d42e3628d11d7c197fa930d813c59d78b480609843c4977e4ca0a894"
   },
   "font_component": {
     "report": {
