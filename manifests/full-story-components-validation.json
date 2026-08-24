@@ -3,6 +3,46 @@
   "status": "integrated_global_zh_release_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-integrated-v1",
   "scope": "Compose the validated encoded UI component, all 297 COMPDATA map battle/retreat lines, all 711 reviewed weapon names, the single global Chinese release font, all translated STAGE dialogue/speakers/conditions, STAGE flow summaries, MTV_PROS world-history scrolling text and the actual HSFC Scenario Chart summaries, every indexed SRVC battle subtitle, all title-idle auto-demo work-title and speaker-name overlays, the scenario-selection title texture, all reviewed MAPMODEL world-map location-title textures, the existing localized KVMDATA map component, and global default-width code aliases while preserving the original executable renderer.",
+  "build_passes": [
+    {
+      "id": "P1",
+      "category": "executable_and_font",
+      "members": [
+        "SLPS_258.87",
+        "DATA/VT1.BIN"
+      ],
+      "physical_member_count": 2
+    },
+    {
+      "id": "P2",
+      "category": "localized_stream_archives",
+      "members": [
+        "DATA/COMPDATA.BN",
+        "DATA/NISVDATA.BIN",
+        "DATA/MTV_PROS.BIN",
+        "DATA/MTV_PROP.BIN",
+        "DATA/STAGE.BIN",
+        "DATA/HSFC.BIN",
+        "HEDBDY/HB.BIN"
+      ],
+      "physical_member_count": 7
+    },
+    {
+      "id": "P3",
+      "category": "battle_map_and_effect_archives",
+      "members": [
+        "BTL/OP0.BIN",
+        "BTL/OP1.BIN",
+        "BTL/OP2.BIN",
+        "BTL/SRVC.BIN",
+        "BTL/SRVC.SEG",
+        "EFF/VEFF2DX.BIN",
+        "KURODATA/KVMDATA.BIN",
+        "MAP/MAPMODEL.BIN"
+      ],
+      "physical_member_count": 8
+    }
+  ],
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
@@ -399,6 +439,31 @@
         {
           "stage": "runtime keyword encyclopedia list labels",
           "changed_byte_count": 572
+        }
+      ],
+      "final_round_trip_exact": true
+    },
+    "nisv_chunk_6_workspace": {
+      "physical_stream": "DATA/NISVDATA.BIN chunk 6",
+      "workflow": "decode_once_write_all_check_then_compress_once",
+      "decoder_backend": "rust",
+      "compressor_backend": "rust-fit",
+      "initial_decode_count": 1,
+      "write_stage_count": 2,
+      "compression_count": 1,
+      "final_readback_decode_count": 1,
+      "source_stored_size": 41312,
+      "output_stored_size": 36339,
+      "decoded_size": 102288,
+      "sector_budget": 41312,
+      "stages": [
+        {
+          "stage": "NISVDATA weapon-effect names",
+          "changed_byte_count": 69
+        },
+        {
+          "stage": "NISVDATA Strategy Q&A",
+          "changed_byte_count": 92834
         }
       ],
       "final_round_trip_exact": true
@@ -14777,8 +14842,9 @@
     "term_count": 2,
     "occurrence_count": 6,
     "source_stored_size": 41312,
-    "output_encoded_size": 41058,
-    "output_padding_size": 254,
+    "output_encoded_size": 36339,
+    "output_padding_size": 4973,
+    "compression_deferred_to_workspace": true,
     "codec": {
       "strategy": "rust-fit",
       "min_match_length": 2,
@@ -68524,6 +68590,7 @@
     "source_stored_size": 41312,
     "output_encoded_size": 36339,
     "output_padding_size": 4973,
+    "compression_deferred_to_workspace": true,
     "archive_size_preserved": true,
     "archive_offsets_preserved": true,
     "non_target_chunks_preserved_byte_exact": true,
