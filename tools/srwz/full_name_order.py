@@ -34,6 +34,18 @@ def _instruction_bytes(value: object, label: str) -> bytes:
     return raw
 
 
+def _data_bytes(value: object, label: str) -> bytes:
+    if not isinstance(value, str):
+        raise FullNameOrderError(f"{label} must be hexadecimal text")
+    try:
+        raw = bytes.fromhex(value)
+    except ValueError as error:
+        raise FullNameOrderError(f"{label} is not hexadecimal") from error
+    if not raw:
+        raise FullNameOrderError(f"{label} must not be empty")
+    return raw
+
+
 def _lb_effective_address(
     instruction: bytes,
     *,
@@ -79,6 +91,30 @@ def _is_sltu_v0_zero_a0(instruction: bytes) -> bool:
     )
 
 
+def _is_lb_v1_from_save_name_order(instruction: bytes) -> bool:
+    """Return whether the instruction is ``lb $v1, 18($s2)``."""
+
+    word = struct.unpack("<I", instruction)[0]
+    return (
+        word >> 26 == 0x20
+        and (word >> 21) & 0x1F == 18
+        and (word >> 16) & 0x1F == 3
+        and word & 0xFFFF == 18
+    )
+
+
+def _is_lbu_v1_from_save_route(instruction: bytes) -> bool:
+    """Return whether the instruction is ``lbu $v1, 14($s2)``."""
+
+    word = struct.unpack("<I", instruction)[0]
+    return (
+        word >> 26 == 0x24
+        and (word >> 21) & 0x1F == 18
+        and (word >> 16) & 0x1F == 3
+        and word & 0xFFFF == 14
+    )
+
+
 def _mapped_site(
     raw_site: object,
     *,
@@ -102,6 +138,59 @@ def _mapped_site(
         f"replacement {label} instruction",
     )
     return raw_site, virtual_address, file_offset, original, replacement
+
+
+def _mapped_data_site(
+    raw_site: object,
+    *,
+    label: str,
+    file_base: int,
+    virtual_base: int,
+) -> tuple[int, int, bytes, bytes]:
+    if not isinstance(raw_site, Mapping):
+        raise FullNameOrderError(f"{label} contract must be an object")
+    virtual_address = _number(
+        raw_site.get("virtual_address"), f"{label} virtual address"
+    )
+    file_offset = _number(raw_site.get("file_offset"), f"{label} file offset")
+    if virtual_address - virtual_base + file_base != file_offset:
+        raise FullNameOrderError(f"{label} ELF virtual/file mapping drift")
+    expected = _data_bytes(raw_site.get("expected_hex"), f"{label} bytes")
+    accepted_preimage = _data_bytes(
+        raw_site.get("accepted_preimage_hex"),
+        f"{label} accepted preimage bytes",
+    )
+    if len(accepted_preimage) != len(expected) or accepted_preimage == expected:
+        raise FullNameOrderError(f"{label} accepted preimage contract drift")
+    return virtual_address, file_offset, expected, accepted_preimage
+
+
+def _replace_data_site(
+    source: bytes,
+    *,
+    label: str,
+    file_offset: int,
+    expected: bytes,
+    accepted_preimage: bytes,
+) -> tuple[bytes, bytes, bool]:
+    if file_offset < 0 or file_offset + len(expected) > len(source):
+        raise FullNameOrderError(f"{label} exceeds executable")
+    observed = source[file_offset : file_offset + len(expected)]
+    if observed not in (expected, accepted_preimage):
+        raise FullNameOrderError(
+            f"{label} drift: expected {expected.hex().upper()} or "
+            f"{accepted_preimage.hex().upper()}, "
+            f"got {observed.hex().upper()}"
+        )
+    if observed == expected:
+        return source, observed, False
+    return (
+        source[:file_offset]
+        + expected
+        + source[file_offset + len(expected) :],
+        observed,
+        True,
+    )
 
 
 def _replace_site(
@@ -211,6 +300,42 @@ def apply_route_specific_full_name_order(
     route_values, output_orders = _validated_route_contract(raw_contract)
 
     (
+        preview_contract,
+        preview_virtual_address,
+        preview_file_offset,
+        preview_original,
+        preview_replacement,
+    ) = _mapped_site(
+        raw_contract.get("save_preview_formatter"),
+        label="save preview formatter",
+        file_base=file_base,
+        virtual_base=virtual_base,
+    )
+    if preview_contract.get("saved_route_offset") != 14:
+        raise FullNameOrderError("save preview route offset drift")
+    if preview_contract.get("saved_name_order_offset") != 18:
+        raise FullNameOrderError("save preview name-order offset drift")
+    if not _is_lb_v1_from_save_name_order(preview_original):
+        raise FullNameOrderError(
+            "save preview original instruction must be lb $v1, 18($s2)"
+        )
+    if not _is_lbu_v1_from_save_route(preview_replacement):
+        raise FullNameOrderError(
+            "save preview replacement must be lbu $v1, 14($s2)"
+        )
+    (
+        preview_format_virtual_address,
+        preview_format_file_offset,
+        preview_format_expected,
+        preview_format_accepted_preimage,
+    ) = _mapped_data_site(
+        preview_contract.get("joined_format"),
+        label="save preview joined-name format",
+        file_base=file_base,
+        virtual_base=virtual_base,
+    )
+
+    (
         formatter_contract,
         formatter_virtual_address,
         formatter_file_offset,
@@ -232,6 +357,17 @@ def apply_route_specific_full_name_order(
         raise FullNameOrderError(
             "savedata formatter replacement must be sltu $v0, $zero, $a0"
         )
+    (
+        formatter_format_virtual_address,
+        formatter_format_file_offset,
+        formatter_format_expected,
+        formatter_format_accepted_preimage,
+    ) = _mapped_data_site(
+        formatter_contract.get("joined_format"),
+        label="savedata joined-name format",
+        file_base=file_base,
+        virtual_base=virtual_base,
+    )
 
     (
         writeback_contract,
@@ -275,12 +411,35 @@ def apply_route_specific_full_name_order(
         raise FullNameOrderError("savedata writeback route load address drift")
 
     source = bytes(executable)
-    output, observed, story_changed = _replace_site(
+    output, preview_format_observed, preview_format_changed = _replace_data_site(
         source,
+        label="save preview joined-name format",
+        file_offset=preview_format_file_offset,
+        expected=preview_format_expected,
+        accepted_preimage=preview_format_accepted_preimage,
+    )
+    output, formatter_format_observed, formatter_format_changed = (
+        _replace_data_site(
+            output,
+            label="savedata joined-name format",
+            file_offset=formatter_format_file_offset,
+            expected=formatter_format_expected,
+            accepted_preimage=formatter_format_accepted_preimage,
+        )
+    )
+    output, observed, story_changed = _replace_site(
+        output,
         label="story full-name order",
         file_offset=file_offset,
         original=original,
         replacement=replacement,
+    )
+    output, preview_observed, preview_changed = _replace_site(
+        output,
+        label="save preview formatter",
+        file_offset=preview_file_offset,
+        original=preview_original,
+        replacement=preview_replacement,
     )
     output, formatter_observed, formatter_changed = _replace_site(
         output,
@@ -296,11 +455,55 @@ def apply_route_specific_full_name_order(
         original=writeback_original,
         replacement=writeback_replacement,
     )
-    changed_sites = (story_changed, formatter_changed, writeback_changed)
-    already_patched = not any(changed_sites)
+    changed_sites = (
+        story_changed,
+        preview_changed,
+        formatter_changed,
+        writeback_changed,
+    )
+    format_changed_sites = (
+        preview_format_changed,
+        formatter_format_changed,
+    )
+    already_patched = not any(changed_sites) and not any(format_changed_sites)
     changed_byte_count = sum(
         before != after for before, after in zip(source, output)
     )
+    preview_report = {
+        "virtual_address": f"0x{preview_virtual_address:X}",
+        "file_offset": f"0x{preview_file_offset:X}",
+        "original_instruction_hex": preview_original.hex().upper(),
+        "replacement_instruction_hex": preview_replacement.hex().upper(),
+        "saved_route_offset": 14,
+        "saved_name_order_offset": 18,
+        "source_instruction_hex": preview_observed.hex().upper(),
+        "output_instruction_hex": output[
+            preview_file_offset : preview_file_offset + 4
+        ].hex().upper(),
+        "already_patched": not preview_changed,
+        "instruction_replacement_exact": (
+            output[preview_file_offset : preview_file_offset + 4]
+            == preview_replacement
+        ),
+        "joined_format_virtual_address": (
+            f"0x{preview_format_virtual_address:X}"
+        ),
+        "joined_format_file_offset": f"0x{preview_format_file_offset:X}",
+        "joined_format_expected_hex": preview_format_expected.hex().upper(),
+        "joined_format_observed_hex": preview_format_observed.hex().upper(),
+        "joined_format_output_hex": output[
+            preview_format_file_offset : preview_format_file_offset
+            + len(preview_format_expected)
+        ].hex().upper(),
+        "joined_format_repaired": preview_format_changed,
+        "joined_format_exact": (
+            output[
+                preview_format_file_offset : preview_format_file_offset
+                + len(preview_format_expected)
+            ]
+            == preview_format_expected
+        ),
+    }
     formatter_report = {
         "virtual_address": f"0x{formatter_virtual_address:X}",
         "file_offset": f"0x{formatter_file_offset:X}",
@@ -315,6 +518,24 @@ def apply_route_specific_full_name_order(
         "instruction_replacement_exact": (
             output[formatter_file_offset : formatter_file_offset + 4]
             == formatter_replacement
+        ),
+        "joined_format_virtual_address": (
+            f"0x{formatter_format_virtual_address:X}"
+        ),
+        "joined_format_file_offset": f"0x{formatter_format_file_offset:X}",
+        "joined_format_expected_hex": formatter_format_expected.hex().upper(),
+        "joined_format_observed_hex": formatter_format_observed.hex().upper(),
+        "joined_format_output_hex": output[
+            formatter_format_file_offset : formatter_format_file_offset
+            + len(formatter_format_expected)
+        ].hex().upper(),
+        "joined_format_repaired": formatter_format_changed,
+        "joined_format_exact": (
+            output[
+                formatter_format_file_offset : formatter_format_file_offset
+                + len(formatter_format_expected)
+            ]
+            == formatter_format_expected
         ),
     }
     writeback_report = {
@@ -352,6 +573,7 @@ def apply_route_specific_full_name_order(
         ].hex().upper(),
         "already_patched": already_patched,
         "changed_instruction_count": sum(changed_sites),
+        "changed_format_count": sum(format_changed_sites),
         "changed_byte_count": changed_byte_count,
         "source_size": len(source),
         "output_size": len(output),
@@ -360,11 +582,15 @@ def apply_route_specific_full_name_order(
         "instruction_replacement_exact": (
             output[file_offset : file_offset + 4] == replacement
         ),
+        "save_preview_formatter": preview_report,
         "savedata_formatter": formatter_report,
         "savedata_writeback": writeback_report,
         "all_instruction_replacements_exact": (
             output[file_offset : file_offset + 4] == replacement
+            and preview_report["instruction_replacement_exact"]
+            and preview_report["joined_format_exact"]
             and formatter_report["instruction_replacement_exact"]
+            and formatter_report["joined_format_exact"]
             and writeback_report["instruction_replacement_exact"]
         ),
         "executable_size_preserved": len(output) == len(source),

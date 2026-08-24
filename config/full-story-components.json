@@ -34,8 +34,8 @@
   "menu_text_release": {
     "corpus": {
       "path": "corpus/zh/menu/release-v0.3.json",
-      "size": 254651,
-      "sha256": "b0fc4c9a009d2782cc66b5999d0cdd241f3008c81f8cb7c75956e9711264ff43"
+      "size": 254649,
+      "sha256": "a9618f3d35327983eb1a3dd88dc58cfc0b4adbc1ba90dde7d9f895d1e8d8bda9"
     },
     "codebook": {
       "path": "config/encoding/release-menu-codebook.json",
@@ -2090,12 +2090,32 @@
     "replacement_instruction_hex": "6E852380",
     "original_load_address": "0x568572",
     "replacement_load_address": "0x56856E",
+    "save_preview_formatter": {
+      "virtual_address": "0x3E403C",
+      "file_offset": "0x2E5ABC",
+      "original_instruction_hex": "12004382",
+      "replacement_instruction_hex": "0E004392",
+      "saved_route_offset": 14,
+      "saved_name_order_offset": 18,
+      "joined_format": {
+        "virtual_address": "0x445C98",
+        "file_offset": "0x347718",
+        "expected_hex": "2573257300",
+        "accepted_preimage_hex": "2225732200"
+      }
+    },
     "savedata_formatter": {
       "virtual_address": "0x3EA61C",
       "file_offset": "0x2EC09C",
       "original_instruction_hex": "2D006280",
       "replacement_instruction_hex": "2B100400",
-      "route_argument_multiplier": 7
+      "route_argument_multiplier": 7,
+      "joined_format": {
+        "virtual_address": "0x445F98",
+        "file_offset": "0x347A18",
+        "expected_hex": "2573257300",
+        "accepted_preimage_hex": "2225732200"
+      }
     },
     "savedata_writeback": {
       "virtual_address": "0x3EAA70",

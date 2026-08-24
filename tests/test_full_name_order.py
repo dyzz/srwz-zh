@@ -21,12 +21,32 @@ def _contract() -> dict[str, object]:
         "replacement_instruction_hex": "6E852380",
         "original_load_address": "0x568572",
         "replacement_load_address": "0x56856E",
+        "save_preview_formatter": {
+            "virtual_address": "0x3E403C",
+            "file_offset": "0x2E5ABC",
+            "original_instruction_hex": "12004382",
+            "replacement_instruction_hex": "0E004392",
+            "saved_route_offset": 14,
+            "saved_name_order_offset": 18,
+            "joined_format": {
+                "virtual_address": "0x445C98",
+                "file_offset": "0x347718",
+                "expected_hex": "2573257300",
+                "accepted_preimage_hex": "2225732200",
+            },
+        },
         "savedata_formatter": {
             "virtual_address": "0x3EA61C",
             "file_offset": "0x2EC09C",
             "original_instruction_hex": "2D006280",
             "replacement_instruction_hex": "2B100400",
             "route_argument_multiplier": 7,
+            "joined_format": {
+                "virtual_address": "0x445F98",
+                "file_offset": "0x347A18",
+                "expected_hex": "2573257300",
+                "accepted_preimage_hex": "2225732200",
+            },
         },
         "savedata_writeback": {
             "virtual_address": "0x3EAA70",
@@ -49,15 +69,37 @@ class FullNameOrderTest(unittest.TestCase):
     def _executable(self) -> bytes:
         contract = _contract()
         offset = int(str(contract["file_offset"]), 0)
+        preview = contract["save_preview_formatter"]
         formatter = contract["savedata_formatter"]
         writeback = contract["savedata_writeback"]
+        self.assertIsInstance(preview, dict)
         self.assertIsInstance(formatter, dict)
         self.assertIsInstance(writeback, dict)
+        preview_offset = int(str(preview["file_offset"]), 0)
         formatter_offset = int(str(formatter["file_offset"]), 0)
         writeback_offset = int(str(writeback["file_offset"]), 0)
-        executable = bytearray(max(offset, formatter_offset, writeback_offset) + 8)
+        preview_format = preview["joined_format"]
+        formatter_format = formatter["joined_format"]
+        self.assertIsInstance(preview_format, dict)
+        self.assertIsInstance(formatter_format, dict)
+        preview_format_offset = int(str(preview_format["file_offset"]), 0)
+        formatter_format_offset = int(str(formatter_format["file_offset"]), 0)
+        executable = bytearray(
+            max(
+                offset,
+                preview_offset,
+                formatter_offset,
+                writeback_offset,
+                preview_format_offset,
+                formatter_format_offset,
+            )
+            + 8
+        )
         executable[offset : offset + 4] = bytes.fromhex(
             str(contract["original_instruction_hex"])
+        )
+        executable[preview_offset : preview_offset + 4] = bytes.fromhex(
+            str(preview["original_instruction_hex"])
         )
         executable[formatter_offset : formatter_offset + 4] = bytes.fromhex(
             str(formatter["original_instruction_hex"])
@@ -65,6 +107,17 @@ class FullNameOrderTest(unittest.TestCase):
         executable[writeback_offset : writeback_offset + 4] = bytes.fromhex(
             str(writeback["original_instruction_hex"])
         )
+        preview_expected = bytes.fromhex(str(preview_format["expected_hex"]))
+        formatter_expected = bytes.fromhex(
+            str(formatter_format["expected_hex"])
+        )
+        executable[
+            preview_format_offset : preview_format_offset + len(preview_expected)
+        ] = preview_expected
+        executable[
+            formatter_format_offset : formatter_format_offset
+            + len(formatter_expected)
+        ] = formatter_expected
         return bytes(executable)
 
     def test_applies_route_specific_name_order_patch(self) -> None:
@@ -75,11 +128,18 @@ class FullNameOrderTest(unittest.TestCase):
         output, report = apply_route_specific_full_name_order(source, contract)
 
         self.assertEqual(output[offset : offset + 4], bytes.fromhex("6E852380"))
+        preview_offset = int(
+            str(contract["save_preview_formatter"]["file_offset"]), 0
+        )
         formatter_offset = int(
             str(contract["savedata_formatter"]["file_offset"]), 0
         )
         writeback_offset = int(
             str(contract["savedata_writeback"]["file_offset"]), 0
+        )
+        self.assertEqual(
+            output[preview_offset : preview_offset + 4],
+            bytes.fromhex("0E004392"),
         )
         self.assertEqual(
             output[formatter_offset : formatter_offset + 4],
@@ -90,13 +150,21 @@ class FullNameOrderTest(unittest.TestCase):
             bytes.fromhex("6E852380"),
         )
         self.assertEqual(len(output), len(source))
-        self.assertEqual(report["changed_instruction_count"], 3)
-        self.assertEqual(report["changed_byte_count"], 6)
+        self.assertEqual(report["changed_instruction_count"], 4)
+        self.assertEqual(report["changed_format_count"], 0)
+        self.assertEqual(report["changed_byte_count"], 8)
         self.assertTrue(report["instruction_replacement_exact"])
         self.assertTrue(report["all_instruction_replacements_exact"])
         self.assertTrue(
+            report["save_preview_formatter"]["instruction_replacement_exact"]
+        )
+        self.assertTrue(
+            report["save_preview_formatter"]["joined_format_exact"]
+        )
+        self.assertTrue(
             report["savedata_formatter"]["instruction_replacement_exact"]
         )
+        self.assertTrue(report["savedata_formatter"]["joined_format_exact"])
         self.assertTrue(
             report["savedata_writeback"]["instruction_replacement_exact"]
         )
@@ -148,6 +216,51 @@ class FullNameOrderTest(unittest.TestCase):
 
         with self.assertRaisesRegex(
             FullNameOrderError, "savedata formatter instruction preimage drift"
+        ):
+            apply_route_specific_full_name_order(bytes(executable), contract)
+
+    def test_rejects_save_preview_preimage_drift(self) -> None:
+        contract = _contract()
+        preview_offset = int(
+            str(contract["save_preview_formatter"]["file_offset"]), 0
+        )
+        executable = bytearray(self._executable())
+        executable[preview_offset] = 0x00
+
+        with self.assertRaisesRegex(
+            FullNameOrderError, "save preview formatter instruction preimage drift"
+        ):
+            apply_route_specific_full_name_order(bytes(executable), contract)
+
+    def test_repairs_accepted_joined_name_format_preimage(self) -> None:
+        contract = _contract()
+        joined_format = contract["save_preview_formatter"]["joined_format"]
+        joined_offset = int(str(joined_format["file_offset"]), 0)
+        executable = bytearray(self._executable())
+        executable[joined_offset : joined_offset + 5] = b'"%s"\0'
+
+        output, report = apply_route_specific_full_name_order(
+            bytes(executable), contract
+        )
+
+        self.assertEqual(output[joined_offset : joined_offset + 5], b"%s%s\0")
+        self.assertEqual(report["changed_format_count"], 1)
+        self.assertTrue(
+            report["save_preview_formatter"]["joined_format_repaired"]
+        )
+        self.assertTrue(
+            report["save_preview_formatter"]["joined_format_exact"]
+        )
+
+    def test_rejects_unknown_joined_name_format_drift(self) -> None:
+        contract = _contract()
+        joined_format = contract["save_preview_formatter"]["joined_format"]
+        joined_offset = int(str(joined_format["file_offset"]), 0)
+        executable = bytearray(self._executable())
+        executable[joined_offset : joined_offset + 5] = b"BAD!\0"
+
+        with self.assertRaisesRegex(
+            FullNameOrderError, "save preview joined-name format drift"
         ):
             apply_route_specific_full_name_order(bytes(executable), contract)
 

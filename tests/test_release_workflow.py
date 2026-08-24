@@ -170,6 +170,15 @@ class ReleaseWorkflowTest(unittest.TestCase):
         self.assertFalse(corpus["release_evidence"]["build_dependency"])
         self.assertEqual(len(entries), expected["entry_count"])
         self.assertEqual(len({entry["id"] for entry in entries}), len(entries))
+        entry_by_id = {entry["id"]: entry for entry in entries}
+        self.assertEqual(
+            entry_by_id["menu/SLPS/00/0343"]["translation"],
+            "%s%s",
+        )
+        self.assertEqual(
+            entry_by_id["menu/SLPS/00/0343"]["target_count"],
+            2,
+        )
         self.assertTrue(
             all(
                 len(entry["source_text_sha256"]) == 64
