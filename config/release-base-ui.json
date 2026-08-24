@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "profile_id": "srwz-release-base-ui-v1",
+  "scope": "Reconstruct the frozen P10 UI baseline from four verified original-disc members and tracked xdelta patches. No original game member or complete ISO is stored in Git.",
+  "xdelta": {
+    "executable": "xdelta3",
+    "version_line": "Xdelta version 3.2.0, Copyright (C) Joshua MacDonald"
+  },
+  "manifest": {
+    "path": "manifests/release-base-ui-validation.json",
+    "size": 1512,
+    "sha256": "c35f4a947e98291734a5b6735a1fc588caec1291d068f3a7219d3febd6f4a4c3",
+    "required_status": "release_base_ui_component_validated"
+  },
+  "members": {
+    "slps": {
+      "source": {
+        "path": "work/disc/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+      },
+      "patch": {
+        "path": "patches/release-base-ui/SLPS_258.87.xdelta",
+        "size": 7143,
+        "sha256": "57aa4e906ada991d263767f9f5d5e13807524e5f65a0ea2e065d6e55acb3680e"
+      },
+      "output": {
+        "path": "work/build/release-base-ui/components/SLPS_258.87",
+        "size": 3471624,
+        "sha256": "1bdee29292af90135b054354241141cb43bf80a217059336455e7c39f8facfa2"
+      }
+    },
+    "vt1": {
+      "source": {
+        "path": "work/disc/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "9b380618001b7f4d8a008f24bbf75b5409054e1b054e64d27ba4d0eb0b3a4964"
+      },
+      "patch": {
+        "path": "patches/release-base-ui/VT1.BIN.xdelta",
+        "size": 764543,
+        "sha256": "a51fcc865147aadcd9c33e23d1ee7df3b6a04703da3aa3110085ef710710d24e"
+      },
+      "output": {
+        "path": "work/build/release-base-ui/components/DATA/VT1.BIN",
+        "size": 127500736,
+        "sha256": "c3da3b0518d0b87a282c0da254a89893d8a3635b14664059db37696f213fab17"
+      }
+    },
+    "compdata": {
+      "source": {
+        "path": "work/disc/DATA/COMPDATA.BN",
+        "size": 144990,
+        "sha256": "fd2ba668e7e012de64b953e5bc404ebb85a8bdd37666f2d95980b283a64ded34"
+      },
+      "patch": {
+        "path": "patches/release-base-ui/COMPDATA.BN.xdelta",
+        "size": 63513,
+        "sha256": "62499736d7a80b25eb0dbb52e430b3b8a28aa815cba28efea94090a91e98c0aa"
+      },
+      "output": {
+        "path": "work/build/release-base-ui/components/DATA/COMPDATA.BN",
+        "size": 145283,
+        "sha256": "3c40f1bff09039d4f4874e4dbd1840903536a09035fb1841d5c0e8925f3bc49b"
+      }
+    },
+    "mtv_pros": {
+      "source": {
+        "path": "work/disc/DATA/MTV_PROS.BIN",
+        "size": 9056,
+        "sha256": "47999cb2994d9775a68ecca49ebe3e5f73c0118b92168a6ba577f836886e1b5a"
+      },
+      "patch": {
+        "path": "patches/release-base-ui/MTV_PROS.BIN.xdelta",
+        "size": 4696,
+        "sha256": "647e68685ab9bae262d1a7865a495e52814a461de82b81dcb55a18586a8f237a"
+      },
+      "output": {
+        "path": "work/build/release-base-ui/components/DATA/MTV_PROS.BIN",
+        "size": 8368,
+        "sha256": "7475b053a99d7f028ff82b8a995ca8c48ace6985d7181d1767d82c6c4abef617"
+      }
+    }
+  },
+  "report": "work/build/release-base-ui/component-validation.json"
+}
