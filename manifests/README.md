@@ -1,29 +1,22 @@
-# Manifest 约定
+# v0.3.0 Manifest
 
-`manifests/` 只保存哈希、大小、计数、地址范围和验收状态，不保存可还原的游戏
-字节。它们是工具生成的验证摘要，不是手工驱动构建的输入替代品。
+`manifests/` 保存 v0.3.0 构建的哈希、大小、计数、地址范围和静态回读结果，不保存
+可还原的游戏字节。历史候选、内部问题盘点和一次性实验清单需要追溯时使用 Git 历史。
 
-当前发布的主要摘要：
-
-`releases/<version>/` 保存已打标签版本的不可变组件证据；当前开发构建继续更新
-顶层清单。发布后的 ISO 配置必须指向对应版本快照，不能再绑定会前移的顶层清单。
+主要发布摘要：
 
 | 文件 | 内容 |
 | --- | --- |
 | `original-disc.json` | 固定原盘身份 |
-| `zh-release-font-validation.json` | 全局字体覆盖和固定大小组件 |
-| `release-base-ui-validation.json` | 最终编码 UI 四成员基线 |
+| `zh-release-font-validation.json` | 全局字体覆盖与固定大小组件 |
+| `release-base-ui-validation.json` | 最终编码 UI 基线 |
 | `ui-*-atlas-zh-validation.json` | 六张中文 KVMDATA 图集 |
 | `ui-atlas-suite-zh-validation.json` | 图集字节所有权合成 |
-| `full-story-components-validation.json` | 13 个最终成员组合及 SRVC 全索引回读 |
-| `zh-release-full-story-iso-content-validation.json` | 当前 v0.1.0 ISO 的剧情、UI、名字、图集与文本存储统一静态回读 |
-| `slps-untranslated-jp-inventory.json` | v0.2.0 候选中 SLPS 仍为日文原文的硬编码串静态盘点（ISSUE-001/002 依据） |
-| `library-raw-single-byte-inventory.json` | v0.2.0 候选三个图鉴档案文本字段裸单字节盘点（ISSUE-007 依据） |
-| `zh-release-special-width-assignment-audit.json` | 当前中文发布树所有条件宽度／raw-trail 特殊码位及分域使用面盘点（ISSUE-017 依据） |
+| `full-story-components-validation.json` | 最终成员组合与结构回读 |
+| `full-story-library-components-validation.json` | LIBRARY 与最终组合回读 |
+| `zh-release-full-story-iso-content-validation.json` | v0.3.0 最终 ISO 内容回读 |
+| `zh-release-special-width-assignment-audit.json` | 构建使用的特殊宽度码位约束 |
 
-历史基础 UI 构建已折叠为 `release-base-ui-validation.json`；历史 ISO、测试组合、
-模型审校和旧运行会话 manifest 不再保留，需要追溯时使用 Git 历史。
-
-任何 `runtime_verified` 结论必须绑定当前 ISO SHA-256、匹配存档、fresh-process
-路线、PCSX2 版本及零 Trap/illegal-instruction/TLB 错误记录。当前 v0.1.0 只有静态
-验证，尚未取得绑定精确哈希的正式运行收据。
+manifest 是构建产生并核验的摘要，不替代 `corpus/` 与 `config/` 中的生产事实源。
+静态回读只证明精确 ISO 中的存储内容、结构和哈希；运行与画面验收仍需人工在同一
+ISO 上完成。

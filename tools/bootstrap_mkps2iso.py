@@ -13,7 +13,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = (
-    PROJECT_ROOT / "config" / "iso" / "zh-release-full-story-build.json"
+    PROJECT_ROOT / "config" / "iso" / "zh-release-current-build.json"
 )
 
 

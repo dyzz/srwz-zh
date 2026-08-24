@@ -52,7 +52,7 @@ except ModuleNotFoundError:
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = (
-    PROJECT_ROOT / "config" / "iso" / "zh-release-full-story-build.json"
+    PROJECT_ROOT / "config" / "iso" / "zh-release-current-build.json"
 )
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 BOOT_LOGO_SIZE = 12 * 2048

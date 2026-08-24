@@ -1,37 +1,23 @@
-# 配置入口
+# v0.3.0 配置入口
 
-配置树只保存可复现构建输入。当前发布从以下文件进入：
+配置树只保存可复现的 v0.3.0 构建输入。历史发布配置和实验配置需要追溯时使用
+Git 历史。
 
 | 文件 | 作用 |
 | --- | --- |
-| `iso/zh-release-chain.json` | 当前唯一 ISO、哈希和运行状态 |
-| `iso/zh-release-current-build.json` | 当前 v0.3.0 候选的固定原盘、21 个成员、LBA 和输出哈希 |
-| `iso/zh-release-full-story-build.json` | 已发布 v0.1.0 的冻结 ISO 构建配置 |
-| `release/v0.3.0.json` | v0.3.0 原版／目标 ISO 哈希、已知限制、xdelta3 参数和发布包布局 |
-| `release/v0.2.0.json` | 已发布 v0.2.0 的历史补丁契约 |
-| `release/v0.1.0.json` | 已发布 v0.1.0 的历史补丁契约 |
-| `full-story-components.json` | 20 个当前最终成员的组合契约 |
-| `stage-default-formation-inventory.json` | 已审核 STAGE 编队／阵营名的固定关卡、布局与槽位偏移；普通构建只校验，不扫描 |
-| `terrain-name-inventory.json` | 已审核 MAPMODEL 地形名固定成员与偏移；普通构建只校验，不扫描 |
-| `world-map-title-render-snapshot.json` | 已审核地图标题的冻结 4bpp 渲染结果与预览；普通构建不启动 ImageMagick |
-| `story-component.json` | 170 个含对白 STAGE 剧情块的固定布局与 Rust 写回契约 |
-| `fonts/zh-font-build-chain.json` | 全局字体及静态图集消费者 |
-| `fonts/zh-release-font.json` | 唯一活动 VT1 字体 profile |
+| `iso/zh-release-chain.json` | 当前 ISO、哈希和状态 |
+| `iso/zh-release-current-build.json` | v0.3.0 固定原盘、replacement、LBA 和输出哈希 |
+| `release/v0.3.0.json` | v0.3.0 原版／目标 ISO、xdelta 和发布包契约 |
+| `full-story-components.json` | 最终成员组合与依赖顺序 |
+| `story-component.json` | 含对白 STAGE 块的布局与写回契约 |
+| `fonts/zh-font-build-chain.json` | 全局字体及其组件消费者 |
+| `fonts/zh-release-font.json` | 当前 VT1 字体 profile |
 | `encoding/zh-release-font-assignments.json` | 追加式字符、码位和 glyph 快照 |
-| `assets/ui-atlas-suite-zh.json` | 六张 KVMDATA 中文图集组合 |
+| `assets/ui-atlas-suite-zh.json` | KVMDATA 中文图集组合 |
+| `stage-default-formation-inventory.json` | 已审核 STAGE 编队位置 |
+| `terrain-name-inventory.json` | 已审核 MAPMODEL 地形名位置 |
+| `world-map-title-render-snapshot.json` | 已审核世界地图标题像素快照 |
 
-目录职责：
-
-- `story-component.json` 与各领域配置：成员、记录、地址、容量和 renderer。
-- `fonts/`、`encoding/`：字体来源锁、raster 规则和 codebook。
-- `assets/`：当前 TIM2/PSMT4 图集、组合配置及 `maps/` 像素擦除边界。
-- `display-names/`：人物长名／短名与机体名的原版结构。
-- `iso/`：只保存当前发布构建与单候选状态。
-- `release/`：只保存补丁发布契约；完整 ISO 仍留在本地 `build/iso/`。
-
-历史 UI 分期已折叠为 `manifests/release-base-ui-validation.json`。新文本进入
-`corpus/zh` 和全局字体快照；新图片进入独立 atlas profile；最终只由
-`full-story-components.json` 组合。
-
-配置中的哈希、计数和容量都是 fail-closed ratchet。确认输入发生变化后才允许
-通过对应工具刷新，禁止为了让测试通过而手工改写结果字段。
+`assets/`、`display-names/`、`encoding/`、`fonts/`、`library/` 和文本布局配置均由
+上述主链传递引用。构建中的哈希、计数、容量和前像是 fail-closed 门；确认生产输入
+发生变化后才允许通过对应构建入口刷新，不能为了通过构建而手工改写结果字段。

@@ -10,4 +10,4 @@
 - 只有 `status: "approved"` 且 `enforce: true` 的术语构成正式语料的硬约束。
 - 所有正式中文条目的 `glossary_refs` 必须能在全局注册表中解析；绑定到硬约束术语的译文必须包含其定稿形式（版面换行不影响判断）。
 
-统一实现位于 `tools/srwz/glossary.py`，门禁位于 `tests/test_global_glossary.py`。图鉴审核配置只保留文风和展示规则，不得复制术语决定。
+统一实现位于 `tools/srwz/glossary.py`，生产构建会在组件写回前执行上述门禁。各领域配置不得复制术语决定。

@@ -19,7 +19,7 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.2.0.json"
+DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.3.0.json"
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 ZIP_TIMESTAMP = (2020, 1, 1, 0, 0, 0)
 
@@ -82,9 +82,7 @@ def verify_config_bindings(config: dict[str, Any]) -> None:
 
     source = config["source_iso"]
     target = config["target_iso"]
-    iso_config_value = config.get(
-        "iso_config", "config/iso/zh-release-full-story-build.json"
-    )
+    iso_config_value = config.get("iso_config")
     if not isinstance(iso_config_value, str) or not iso_config_value:
         raise ReleaseBuildError("iso_config must be a non-empty project path")
     iso_config_path = project_path(iso_config_value)
@@ -408,7 +406,7 @@ def parse_args() -> argparse.Namespace:
         "--config",
         type=Path,
         default=DEFAULT_CONFIG,
-        help="release config (default: config/release/v0.2.0.json)",
+        help="release config (default: config/release/v0.3.0.json)",
     )
     parser.add_argument(
         "--force",
