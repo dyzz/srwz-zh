@@ -23,9 +23,8 @@
 固定原版 ISO
   -> 原版身份与成员提取
   -> Rust codec 与字体来源准备
-  -> release-base-ui 精确重建
-  -> 字符分配、布局预算与受控写回
-  -> LIBRARY、STAGE、UI 图集和领域组件
+  -> 按物理成员直接执行字符分配、布局预算与受控写回
+  -> LIBRARY、STAGE、菜单、UI 图集和领域组件
   -> 最终组件组合与独立回读
   -> fixed-LBA ISO 与整盘静态回读
   -> xdelta 生成、实际还原与 SHA-256 复核
@@ -38,16 +37,15 @@ python3 tools/verify_original_disc.py
 python3 tools/extract_iso_member.py --force <主链成员...>
 python3 tools/bootstrap_mkps2iso.py
 python3 tools/build_rust_compressor.py
-python3 tools/build_release_base_ui.py
 python3 tools/rebuild_zh_font.py --skip-fetch
 python3 tools/build_iso.py
 python3 tools/verify_full_story_iso_content.py --force
 python3 tools/build_release.py
 ```
 
-完整的成员列表见 [构建与验收](BUILD_AND_RUNTIME.md)。`rebuild_zh_font.py` 会按依赖
-顺序构建 reviewed LIBRARY、STAGE 和 UI 图集，并在结束时生成 21 个最终成员的组合
-收据。
+完整的成员列表见 [构建与验收](BUILD_AND_RUNTIME.md)。`rebuild_zh_font.py` 会从锁定
+原版成员按依赖顺序构建 reviewed LIBRARY、STAGE、菜单和 UI 图集，并在结束时生成
+21 个最终成员的组合收据。发布用 xdelta 只在最后生成可分发补丁，不参与组件构建。
 
 ## 字体、文本与图集
 

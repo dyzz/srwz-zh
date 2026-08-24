@@ -5,7 +5,8 @@
 
 ## 前提
 
-- Python 3、Git、CMake、Rust／Cargo、xdelta3、7-Zip 和 ImageMagick 7；
+- Python 3、Git、CMake、Rust／Cargo 和 ImageMagick 7；
+- 生成可分发补丁时另外需要 xdelta3 与 7-Zip；
 - 用户合法持有的 Redump Disc 4932 原版镜像；
 - 原版文件放在 `rom/Super Robot Taisen Z (Japan, Korea).iso`；
 - 原版大小为 `3758358528` 字节，SHA-256 为
@@ -16,20 +17,21 @@
 不得在旧汉化 ISO 上重复打补丁，也不得让 `rom/`、完整 ISO、存档或本地运行记录进入
 Git 或发布 ZIP。
 
-## 四个构建 Pass
+## 按物理文件构建
 
-历史上的 P0–P10 是开发里程碑，不再是生产构建链。v0.3.0 只保留四个按物理文件
-归属划分的 Pass，同一个文件不会分散到多个 Pass：
+P0–P10 只属于开发历史，不是 v0.3.0 的生产输入。当前链从锁定原版成员直接写回，
+不先生成一套“基础汉化”二进制，也不在内部叠加 xdelta。组件阶段只有三个互斥的
+构建组：
 
-1. **P1 可执行文件与字体**：重建基础 UI，生成最终 `SLPS_258.87` 与
-   `DATA/VT1.BIN`；
-2. **P2 文本与资料压缩流**：处理 `COMPDATA`、`NISVDATA`、`STAGE`、
-   `MTV_PROS/PROP`、`HSFC/HB` 和三个 ZKAN 资料库；同一压缩流只解压一次，
-   按领域依次写入，完成全部检查后只压缩一次；
-3. **P3 战斗、地图与特效容器**：处理 `SRVC`、`OP0/1/2`、`MAPMODEL`、
-   `KVMDATA` 与 `VEFF2DX`；
-4. **P4 镜像与发布**：组合固定 LBA 成员、静态回读 ISO、生成并回读 xdelta
-   发布包。
+1. **可执行文件、字体与核心 UI**：`SLPS_258.87`、`DATA/VT1.BIN`；
+2. **文本与资料归档**：`COMPDATA`、`NISVDATA`、`STAGE`、`MTV_PROS/PROP`、
+   `HSFC/HB` 和三个 ZKAN 资料库；
+3. **战斗、地图、特效与演示归档**：`SRVC`、`OP0/1/2`、`MAPMODEL`、
+   `KVMDATA` 与 `VEFF2DX`。
+
+同一物理文件只属于一个构建组。每个压缩流先解压一次，在同一 decoded workspace
+内完成该流的字体、文本、布局和 UI 写入，通过结构检查后再统一压缩一次。组件完成后，
+ISO 组合、整盘静态回读和发布包生成是三个顺序明确的交付步骤，不再称为额外 pass。
 
 例如 `NISVDATA.BIN` 第 6 流中的武器特殊效果名和攻略 Q&A 共享一个工作区：
 先解压，连续完成两类写入，最后统一压缩。构建 manifest 会记录每个共享工作区的
@@ -50,7 +52,6 @@ python3 tools/extract_iso_member.py --force \
   DATA/NISVDATA.BIN DATA/STAGE.BIN DATA/VT1.BIN
 python3 tools/bootstrap_mkps2iso.py
 python3 tools/build_rust_compressor.py
-python3 tools/build_release_base_ui.py
 
 python3 tools/fetch_zh_font.py
 python3 tools/fetch_zh_font.py \
@@ -64,11 +65,12 @@ python3 tools/build_release.py \
   --config config/release/v0.3.0.json
 ```
 
-`extract_iso_member.py` 建立 `work/disc/` 原版成员缓存；`build_release_base_ui.py`
-从锁定的原版成员和仓库内 xdelta 重建四个基础 UI 成员。`rebuild_zh_font.py` 会在
-字体完成后自动构建 reviewed LIBRARY 组件，随后构建剧情／图集组件并合并全部 21 个
-最终成员。普通构建不修改配置中的哈希与快照；只有确认生产输入发生变化后，才使用
-各入口提供的 `--refresh-*` 选项。
+`extract_iso_member.py` 只建立 `work/disc/` 原版成员缓存。`rebuild_zh_font.py` 从这些
+原版成员开始，生成全局字体，构建 reviewed LIBRARY、剧情和 UI 图集，再合并全部
+21 个最终成员。菜单文本和标题菜单分别由
+`corpus/zh/menu/release-v0.3.json` 与 `config/assets/title-menu-zh.json` 直接写入；
+旧发布 ISO、旧汉化成员和发布用 xdelta 都不是构建依赖。普通构建不修改配置中的哈希
+与快照；只有确认生产输入发生变化后，才使用各入口提供的 `--refresh-*` 选项。
 
 ## 固定输出
 
@@ -79,7 +81,7 @@ build/iso/zh-release-full-story/srwz-zh-current.iso
 ```
 
 - 大小：`3758358528` 字节
-- SHA-256：`234c7e7beced51c9ea8debab8e6da4c74340bf3f909d7c3cd8459dd99556bd3c`
+- SHA-256：`64b42bf2134b368037fcfdd20abc068a417f95817ff10fb801d06fd6f28961f9`
 
 可分发包：
 

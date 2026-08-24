@@ -8,8 +8,9 @@ Git 历史。
 | `iso/zh-release-chain.json` | 当前 ISO、哈希和状态 |
 | `iso/zh-release-current-build.json` | v0.3.0 固定原盘、replacement、LBA 和输出哈希 |
 | `release/v0.3.0.json` | v0.3.0 原版／目标 ISO、xdelta 和发布包契约 |
-| `release-base-ui.json` | 从锁定原版成员精确重建四个基础 UI 成员 |
-| `full-story-components.json` | 最终成员组合与依赖顺序 |
+| `full-story-components.json` | 从锁定原版成员直接写回的最终组件与依赖顺序 |
+| `encoding/release-menu-codebook.json` | v0.3.0 菜单文本的固定字符编码 |
+| `assets/title-menu-zh.json` | 标题菜单四个中文标签的审核后像素掩码 |
 | `story-component.json` | 含对白 STAGE 块的布局与写回契约 |
 | `fonts/zh-font-build-chain.json` | 全局字体及其组件消费者 |
 | `fonts/zh-release-font.json` | 当前 VT1 字体 profile |

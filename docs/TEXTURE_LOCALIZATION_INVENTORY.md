@@ -70,8 +70,9 @@ selector、动画 quad 和文本位置等伴随数据，不是贴图本体。当
 
 ### 1.2 标题画面主菜单 TIM2
 
-“开始／读取／继续／资料库”是当前 `release-base-ui` 基线继承的旧贴图写回。最终
-组件继续保留这块中文材质；它不能因为历史构建配置已折叠就从当前贴图清单中省略。
+“开始／读取／继续／资料库”由当前生产链直接写入原版 VT1。审核后的四张灰度掩码、
+目标 TIM2 前像和输出索引哈希锁在 `config/assets/title-menu-zh.json`；最终组件不依赖
+旧汉化 VT1 或中间补丁。
 
 | 项目 | 当前值 |
 | --- | --- |
@@ -96,23 +97,10 @@ picture 0 的前八个 `128×32` 槽分别保存四个标签的选中和未选�
 TIM2 metadata 和 CLUT 保持不变。低层 8-bpp TIM2 解析／写回仍位于
 `tools/srwz/tim2_writeback.py`。
 
-当前生产链直接消费：
-
-- `work/build/release-base-ui/components/DATA/VT1.BIN`
-- `work/build/release-base-ui/components/SLPS_258.87`
-- `manifests/release-base-ui-validation.json`
-
-这条旧流程在 `release-base-ui` 合并时删除了活动 config 和高层 writer；详细前像、
-mask 和构建收据仍可从 Git 中追溯：
-
-```bash
-git show 1d1a739^:config/canary/tim2-vt1-title-zh.json
-git show 1d1a739^:manifests/title-menu-zh-validation.json
-git show 1d1a739^:tools/srwz/title_menu.py
-```
-
-历史候选曾完成标题菜单画面验证，但当前继承的是后来定长 Rust 重压的流；旧截图
-不能自动充当 v0.1.0 精确流的运行收据。
+当前生产入口是 `tools/srwz/title_menu.py`。它核对原版 decoded chunk、TIM2 record、
+源索引和每张掩码哈希，只替换前八个标题槽，再使用生产 Rust codec 重压并回读。
+构建 manifest 记录实际变化像素、压缩大小和非目标字节保持结果。历史截图只证明当时
+候选的画面效果；当前精确 ISO 的运行证据仍需按 ISO 哈希单独记录。
 
 ### 1.3 107 张进关标题 TIM2
 

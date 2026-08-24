@@ -105,7 +105,6 @@ python3 tools/extract_iso_member.py --force \
   DATA/NISVDATA.BIN DATA/STAGE.BIN DATA/VT1.BIN
 python3 tools/bootstrap_mkps2iso.py
 python3 tools/build_rust_compressor.py
-python3 tools/build_release_base_ui.py
 
 python3 tools/fetch_zh_font.py
 python3 tools/fetch_zh_font.py \
@@ -133,10 +132,10 @@ build/release/v0.3.0/srwz-zh-v0.3.0.zip
 
 其中只包含 xdelta 补丁、使用说明、发布清单和 SHA-256 校验值，不包含游戏 ISO。
 
-生产构建不再执行历史 P0–P10 脚本，而是收敛为四个按物理文件归属的 Pass：
-可执行文件与字体、文本与资料压缩流、战斗／地图／特效容器、ISO 与发布。
-同一个物理文件只属于一个 Pass；同一压缩流会先解压，批量完成该流的所有领域写入，
-最后统一压缩。详细边界和完整命令见
+v0.3.0 从锁定原版成员直接重建，不依赖旧汉化成员或内部 xdelta。组件阶段按物理
+文件收敛为三个构建组：可执行文件／字体／核心 UI、文本与资料归档、战斗／地图／
+特效归档；随后只进行 ISO 组合、静态回读和发布包生成。同一个物理文件只属于一个
+构建组；同一压缩流先解压，批量完成该流的全部写入，最后统一压缩。详细边界和完整命令见
 [`docs/BUILD_AND_RUNTIME.md`](docs/BUILD_AND_RUNTIME.md)。
 
 当前构建采用固定原版和一次性组件组合，不应在旧汉化镜像上重复打补丁。首次环境
@@ -177,7 +176,7 @@ HarmonyOS Sans，并对少数字符使用 Noto Sans CJK；第三方字体及许�
 - 原版 ISO 大小：`3,758,358,528` 字节
 - Redump：Disc `4932`，文件名 `Super Robot Taisen Z (Japan, Korea).iso`
 - 原版 ISO SHA-256：`ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2`
-- 当前候选 ISO SHA-256：`234c7e7beced51c9ea8debab8e6da4c74340bf3f909d7c3cd8459dd99556bd3c`
+- 当前候选 ISO SHA-256：`64b42bf2134b368037fcfdd20abc068a417f95817ff10fb801d06fd6f28961f9`
 - 当前候选已通过确定性构建、ISO 结构检查和最终文本回读；精确镜像的完整运行
   验收仍在进行中。
 

@@ -9,7 +9,6 @@
 | --- | --- |
 | `original-disc.json` | 固定原盘身份 |
 | `zh-release-font-validation.json` | 全局字体覆盖与固定大小组件 |
-| `release-base-ui-validation.json` | 最终编码 UI 基线 |
 | `ui-*-atlas-zh-validation.json` | 六张中文 KVMDATA 图集 |
 | `ui-atlas-suite-zh-validation.json` | 图集字节所有权合成 |
 | `full-story-components-validation.json` | 最终成员组合与结构回读 |

@@ -50,7 +50,8 @@ override。
 - VT1 offset 表与字库内容原子更新；
 - 字体需求必须从实际写回闭包计算，不能只扫描被选语料文件。
 
-基础 UI 以 `release-base-ui` 四成员基线输入，不拥有独立发布字库。
+所有中文 UI 都从锁定原版成员直接写回，并共享这一套发布字库；菜单的固定编码见
+`config/encoding/release-menu-codebook.json`，不存在独立的基础 UI 字库或预补丁成员。
 
 ## 字槽方案
 
