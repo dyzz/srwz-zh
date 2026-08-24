@@ -4393,6 +4393,14 @@ def main() -> int:
         "route_values",
         "output_orders",
     )
+    full_name_order_site_receipt_fields = (
+        "virtual_address",
+        "file_offset",
+        "original_instruction_hex",
+        "replacement_instruction_hex",
+        "output_instruction_hex",
+        "instruction_replacement_exact",
+    )
     if (
         not isinstance(full_name_order_component, dict)
         or any(
@@ -4400,7 +4408,18 @@ def main() -> int:
             != full_name_order_component.get(field)
             for field in full_name_order_receipt_fields
         )
-        or full_name_order_readback["instruction_replacement_exact"] is not True
+        or any(
+            not isinstance(full_name_order_component.get(site), dict)
+            or any(
+                full_name_order_readback[site].get(field)
+                != full_name_order_component[site].get(field)
+                for field in full_name_order_site_receipt_fields
+            )
+            for site in ("savedata_formatter", "savedata_writeback")
+        )
+        or full_name_order_readback[
+            "all_instruction_replacements_exact"
+        ] is not True
         or full_name_order_readback["changed_byte_count"] != 0
     ):
         raise SystemExit("final ISO route-specific full-name order readback drift")
@@ -6536,7 +6555,9 @@ def main() -> int:
             "iso_sha256_exact": iso_sha256 == output["expected_sha256"],
             "replacement_members_exact": True,
             "runtime_full_name_order_route_specific": (
-                full_name_order_readback["instruction_replacement_exact"]
+                full_name_order_readback[
+                    "all_instruction_replacements_exact"
+                ]
                 and full_name_order_readback["changed_byte_count"] == 0
                 and full_name_order_readback["component_receipt_exact"]
                 and full_name_order_readback["route_values"]

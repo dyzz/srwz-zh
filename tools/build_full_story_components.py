@@ -10732,8 +10732,14 @@ def build(
                 ]
             ),
             "runtime_full_name_order_route_specific": (
-                full_name_order_report["instruction_replacement_exact"]
+                full_name_order_report["all_instruction_replacements_exact"]
                 and full_name_order_report["executable_size_preserved"]
+                and full_name_order_report["savedata_formatter"][
+                    "instruction_replacement_exact"
+                ]
+                and full_name_order_report["savedata_writeback"][
+                    "instruction_replacement_exact"
+                ]
                 and full_name_order_report["route_values"]
                 == {"rand": 0, "setsuko": 1}
                 and full_name_order_report["output_orders"]

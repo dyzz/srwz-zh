@@ -2090,6 +2090,22 @@
     "replacement_instruction_hex": "6E852380",
     "original_load_address": "0x568572",
     "replacement_load_address": "0x56856E",
+    "savedata_formatter": {
+      "virtual_address": "0x3EA61C",
+      "file_offset": "0x2EC09C",
+      "original_instruction_hex": "2D006280",
+      "replacement_instruction_hex": "2B100400",
+      "route_argument_multiplier": 7
+    },
+    "savedata_writeback": {
+      "virtual_address": "0x3EAA70",
+      "file_offset": "0x2EC4F0",
+      "base_register_runtime_value": "0x570000",
+      "original_instruction_hex": "72852380",
+      "replacement_instruction_hex": "6E852380",
+      "original_load_address": "0x568572",
+      "replacement_load_address": "0x56856E"
+    },
     "route_values": {
       "rand": 0,
       "setsuko": 1
