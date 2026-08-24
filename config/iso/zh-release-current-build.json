@@ -59,7 +59,7 @@
       "member": "SLPS_258.87",
       "source": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "ce84ef050391b84a10e1f6bac26f94ddd48ab8a943a2bf4fd87a6fd84c70a90e"
+      "sha256": "5dcd619349708b32a94c7532cd10eeb53028849fa2f029cc097454c75aea82ba"
     },
     {
       "member": "DATA/COMPDATA.BN",
@@ -76,8 +76,8 @@
     {
       "member": "DATA/MTV_PROS.BIN",
       "source": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
-      "size": 8368,
-      "sha256": "6c2a69cba6a4637f15ebc8339d340b2d9e3d50250bfc2ce10b2c0a423d292633"
+      "size": 8352,
+      "sha256": "13ccb2b5c5c955e7c69e633c35dd300c4ba5a541a862f5bc844a741842fe3f1e"
     },
     {
       "member": "DATA/MTV_PROP.BIN",
@@ -89,7 +89,7 @@
       "member": "DATA/VT1.BIN",
       "source": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "04dc4181a536c145629896434f59b6ff0cd5d2398a948c74de12617eef37d5ce"
+      "sha256": "1779a62f4dbfe0439d8fe22d09e7646de0f474fac25ef4d7ac385e1c04fae331"
     },
     {
       "member": "DATA/STAGE.BIN",
@@ -190,16 +190,8 @@
     "expected_pcsx2_v263_image_type": "DVD",
     "expected_udf_volume_recognition_sequence": "NSR02",
     "byte_reproducible": true,
-    "gap_byte_overrides": [
-      {
-        "offset": 3211810816,
-        "preimage_hex": "00",
-        "output_hex": "d7",
-        "reason": "Preserve the published v0.3.0 byte-exact image at an inter-file gap outside every logical ISO member."
-      }
-    ],
-    "expected_sha256": "234c7e7beced51c9ea8debab8e6da4c74340bf3f909d7c3cd8459dd99556bd3c",
-    "expected_member_manifest_sha256": "6352d33231f91d3a173b6f93f5b02bdce50e403ceb98e3dbe29c3a6cab92637d"
+    "expected_sha256": "64b42bf2134b368037fcfdd20abc068a417f95817ff10fb801d06fd6f28961f9",
+    "expected_member_manifest_sha256": "99729c84c6a422a1797c44f65834da44292a110c5101f4f52ed169f525718f79"
   },
   "acceptance": {
     "udf_verify_members": [

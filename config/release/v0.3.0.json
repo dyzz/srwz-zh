@@ -22,7 +22,7 @@
   "target_iso": {
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "size": 3758358528,
-    "sha256": "234c7e7beced51c9ea8debab8e6da4c74340bf3f909d7c3cd8459dd99556bd3c"
+    "sha256": "64b42bf2134b368037fcfdd20abc068a417f95817ff10fb801d06fd6f28961f9"
   },
   "xdelta": {
     "executable": "xdelta3",
@@ -40,7 +40,7 @@
     "archive_filename": "srwz-zh-v0.3.0.zip"
   },
   "known_limitations": [
-    "最终 ISO 已完成固定 LBA 构建、整盘静态回读和本轮重点界面人工验证，但尚未完成全部路线通关测试。",
+    "v0.3.0 内容已完成人工重点界面验证；当前直接重建的精确 ISO 已通过固定 LBA 构建和整盘静态回读，但未重新执行模拟器验收。",
     "少量低频分支、特殊触发文本和个别显示位置仍可能在后续玩家反馈中继续修正。"
   ],
   "evidence": [
