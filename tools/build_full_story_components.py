@@ -50,6 +50,10 @@ try:
         LibraryUnlockError,
         apply_library_default_unlock,
     )
+    from srwz.full_name_order import (
+        FullNameOrderError,
+        apply_route_specific_full_name_order,
+    )
     from srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
         build_nisv_library_menu,
@@ -197,6 +201,10 @@ except ModuleNotFoundError:
     from tools.srwz.library_unlock import (
         LibraryUnlockError,
         apply_library_default_unlock,
+    )
+    from tools.srwz.full_name_order import (
+        FullNameOrderError,
+        apply_route_specific_full_name_order,
     )
     from tools.srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
@@ -597,6 +605,7 @@ CONFIG_SECTION_IMPACTS = {
     "tutorial_title_effects": {VEFF_MEMBER},
     "kvmdata": {KVMDATA_MEMBER},
     "world_map_titles": {MAPMODEL_MEMBER},
+    "runtime_full_name_order": {SLPS_MEMBER},
     "runtime_keywords": {COMPDATA_MEMBER, STAGE_MEMBER},
     "composition": {SLPS_MEMBER, VT1_MEMBER},
     "intermission_list_font_geometry": {SLPS_MEMBER},
@@ -9955,6 +9964,18 @@ def build(
         ) from error
 
     try:
+        output_slps, full_name_order_report = (
+            apply_route_specific_full_name_order(
+                output_slps,
+                config["runtime_full_name_order"],
+            )
+        )
+    except (KeyError, ValueError, FullNameOrderError) as error:
+        raise FullStoryComponentError(
+            f"route-specific full-name order patch failed: {error}"
+        ) from error
+
+    try:
         output_slps, search_tab_alignment_report = (
             apply_search_tab_alignment(
                 output_slps,
@@ -10409,6 +10430,7 @@ def build(
         "runtime_library_menu": runtime_library_menu_report,
         "sound_select_default_unlock": sound_select_unlock_report,
         "library_default_unlock": library_default_unlock_report,
+        "runtime_full_name_order": full_name_order_report,
         "search_tab_alignment": search_tab_alignment_report,
         "remaining_squad_count_alignment": (
             remaining_squad_count_alignment_report
@@ -10708,6 +10730,17 @@ def build(
                 and library_default_unlock_report[
                     "executable_size_preserved"
                 ]
+            ),
+            "runtime_full_name_order_route_specific": (
+                full_name_order_report["instruction_replacement_exact"]
+                and full_name_order_report["executable_size_preserved"]
+                and full_name_order_report["route_values"]
+                == {"rand": 0, "setsuko": 1}
+                and full_name_order_report["output_orders"]
+                == {
+                    "rand": "given_middle_dot_family",
+                    "setsuko": "family_given",
+                }
             ),
             "search_tabs_aligned_as_five_label_set": (
                 search_tab_alignment_report["surface_count"] == 5

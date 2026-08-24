@@ -70,6 +70,7 @@ from srwz.sound_select import (
     audit_sound_select_track_metadata,
 )
 from srwz.library_unlock import apply_library_default_unlock
+from srwz.full_name_order import apply_route_specific_full_name_order
 from srwz.search_tab_alignment import apply_search_tab_alignment
 from srwz.remaining_squad_count_alignment import (
     apply_remaining_squad_count_alignment,
@@ -4371,6 +4372,39 @@ def main() -> int:
     ):
         raise SystemExit("final ISO LIBRARY default-unlock readback drift")
     library_unlock_readback["component_receipts_exact"] = True
+    full_name_order_contract = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )["runtime_full_name_order"]
+    _verified_name_order_slps, full_name_order_readback = (
+        apply_route_specific_full_name_order(
+            members["SLPS_258.87"],
+            full_name_order_contract,
+        )
+    )
+    full_name_order_component = component.get("runtime_full_name_order")
+    full_name_order_receipt_fields = (
+        "virtual_address",
+        "file_offset",
+        "original_instruction_hex",
+        "replacement_instruction_hex",
+        "original_load_address",
+        "replacement_load_address",
+        "output_instruction_hex",
+        "route_values",
+        "output_orders",
+    )
+    if (
+        not isinstance(full_name_order_component, dict)
+        or any(
+            full_name_order_readback.get(field)
+            != full_name_order_component.get(field)
+            for field in full_name_order_receipt_fields
+        )
+        or full_name_order_readback["instruction_replacement_exact"] is not True
+        or full_name_order_readback["changed_byte_count"] != 0
+    ):
+        raise SystemExit("final ISO route-specific full-name order readback drift")
+    full_name_order_readback["component_receipt_exact"] = True
     search_alignment_contract = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )["remaining_ui"]["search_tab_alignment"]
@@ -6351,6 +6385,7 @@ def main() -> int:
         "post_release_runtime_surfaces": post_release_runtime_surfaces,
         "issue_036_tutorial": issue_036_tutorial,
         "weapon_special_effect_2": weapon_effect_2_readback,
+        "runtime_full_name_order": full_name_order_readback,
         "search_tab_alignment": search_tab_alignment_readback,
         "remaining_squad_count_alignment": (
             remaining_squad_count_alignment_readback
@@ -6500,6 +6535,18 @@ def main() -> int:
             "iso_size_exact": iso_size == output["expected_size"],
             "iso_sha256_exact": iso_sha256 == output["expected_sha256"],
             "replacement_members_exact": True,
+            "runtime_full_name_order_route_specific": (
+                full_name_order_readback["instruction_replacement_exact"]
+                and full_name_order_readback["changed_byte_count"] == 0
+                and full_name_order_readback["component_receipt_exact"]
+                and full_name_order_readback["route_values"]
+                == {"rand": 0, "setsuko": 1}
+                and full_name_order_readback["output_orders"]
+                == {
+                    "rand": "given_middle_dot_family",
+                    "setsuko": "family_given",
+                }
+            ),
             "search_tab_five_label_alignment_exact": (
                 search_tab_alignment_readback["surface_count"] == 5
                 and search_tab_alignment_readback["center_byte_hex"] == "0F"

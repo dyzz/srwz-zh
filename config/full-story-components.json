@@ -2078,6 +2078,27 @@
       "translated_member_count": 101
     }
   },
+  "runtime_full_name_order": {
+    "member": "SLPS_258.87",
+    "policy": "select_chinese_full_name_order_by_protagonist_route",
+    "elf_file_offset_base": "0x1A80",
+    "elf_virtual_address_base": "0x100000",
+    "virtual_address": "0x201334",
+    "file_offset": "0x102DB4",
+    "base_register_runtime_value": "0x570000",
+    "original_instruction_hex": "72852380",
+    "replacement_instruction_hex": "6E852380",
+    "original_load_address": "0x568572",
+    "replacement_load_address": "0x56856E",
+    "route_values": {
+      "rand": 0,
+      "setsuko": 1
+    },
+    "output_orders": {
+      "rand": "given_middle_dot_family",
+      "setsuko": "family_given"
+    }
+  },
   "runtime_keywords": {
     "catalog": {
       "path": "corpus/runtime/stage-keywords-v1.json",
