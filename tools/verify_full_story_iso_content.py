@@ -673,7 +673,7 @@ def verify_targeted_ui_glyphs(
 
     target_texts = {
         "male_default_name": "兰德·特拉维斯",
-        "female_default_name": "节子·小原",
+        "female_default_name": "小原节子",
         "male_profile": (
             "与同伴在荒野当修理店老板的男人"
             "自称烈焰豪爽而有血性但有时会冲得太猛"
@@ -2719,7 +2719,7 @@ def verify_final_compdata(
         "0x337730": "小原",
         "0x33B458": "节子",
         "0x33B460": "小原",
-        "0x33E318": "节子·小原",
+        "0x33E318": "小原节子",
     }
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
