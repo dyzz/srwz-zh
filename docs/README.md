@@ -13,6 +13,23 @@
 | `ISO_DIRECTORY_LAYOUT.md` | `rom/work/build` 的目录所有权与清理边界 |
 | `THIRD_PARTY_FONTS.md` | 字体来源、版本和许可证 |
 
+## 技术参考
+
+以下文档保留格式研究、资源定位和写回约束。部分文档会记录形成当前配置时使用的
+维护命令；v0.3.0 的现行发布入口仍以 `BUILD_AND_RUNTIME.md` 为准。
+
+| 文档 | 内容 |
+| --- | --- |
+| `SRWZ_COMPRESSION.md` | SRWZ 压缩格式、Rust codec 和容量约束 |
+| `FONT_ANALYSIS.md` | VT1 字库结构、码位与 glyph 映射 |
+| `WRITEBACK_CONTRACT.md` | 文本、指针、归档和前像写回契约 |
+| `TEXTURE_LOCALIZATION_INVENTORY.md` | 贴图中文化成员、格式和最终 ISO 落点 |
+| `KVMDATA_ATLAS_LOCALIZATION.md` | KVMDATA 图集结构与写回方法 |
+| `VEFF2DX_TEXTURE_LOCALIZATION.md` | VEFF2DX PSMT4 场景标题结构 |
+| `MAPMODEL_WORLD_MAP_TITLES.md` | MAPMODEL 世界地图标题结构与定位 |
+| `STAGE_ROUTE_MAP.md` | 章节、路线、资源号和分支映射 |
+| `LIBRARY_V02_SCOPE.md` | LIBRARY 资料库中文化范围与资源边界 |
+
 Python 构建入口见 `../tools/README.md`，机器可读结果见
 `../manifests/README.md`。文档中的数字若与当前 manifest 不一致，以 manifest 和
 精确制品哈希为准。
