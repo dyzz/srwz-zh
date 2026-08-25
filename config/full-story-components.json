@@ -47,8 +47,8 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 72582,
-      "sha256": "695830086243bd7b93b9a2aa934f3c6d189e6214626e494f1f977f607986c227"
+      "size": 72638,
+      "sha256": "09cea376b9f55be37474a1400c0eca1288e21875c844e6739eed88658cc1680b"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -67,14 +67,14 @@
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18260606,
-      "sha256": "a86682891e22e00c24cc2ccbf3e549dd7b543404109e2a483841add2a8aef13c"
+      "sha256": "af8fa9dd78ba282a8dfdf7519ff670446266bb0e119268338530a3d37805c59f"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "2cdef01208e401488e1721b0535c66feae60faac62d63b3546d04572ee46e2e8"
+      "sha256": "e7762c8ddad7bc5889d0582e09becde2bfdd1e7ffbceb6915d2d4e5144a9e7cd"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -649,13 +649,13 @@
     },
     "stage_default_formations": {
       "path": "corpus/zh/menu/stage-default-formations.json",
-      "size": 10285,
-      "sha256": "97c29684d540b3f14548a8c6465d7e81c391be382463b5207501da3f877819f4"
+      "size": 10644,
+      "sha256": "702da07f60c0dde0e36f87ffc237b807e4cf2347b39f8427d389b91359458d60"
     },
     "stage_default_formation_inventory": {
       "path": "config/stage-default-formation-inventory.json",
-      "size": 180567,
-      "sha256": "ff949f39c166a5133df6395a45078396a64a86a36381335f34678ab79a356c33"
+      "size": 182654,
+      "sha256": "addefcdc2db702461c355712b22743884960118cb163e1e92c8e2bb8888d9c64"
     },
     "search_tab_alignment": {
       "member": "SLPS_258.87",
@@ -764,13 +764,13 @@
       "slps_context_ui_entry_count": 613,
       "stage_fixed_formation_entry_count": 9,
       "stage_fixed_formation_chunk_index": 101,
-      "stage_default_formation_group_count": 813,
+      "stage_default_formation_group_count": 828,
       "stage_default_formation_stage_count": 179,
-      "stage_default_formation_entry_count": 11398,
-      "stage_default_formation_unique_source_count": 248,
+      "stage_default_formation_entry_count": 11424,
+      "stage_default_formation_unique_source_count": 256,
       "stage_default_formation_record_metadata_count": 8267,
       "stage_default_formation_compact_ascii_entry_count": 14,
-      "stage_default_formation_inventory_sha256": "33339cf8fbaeefe1b76e45b4effecd7c696b3df07ffdcfa1db3886966082b52c",
+      "stage_default_formation_inventory_sha256": "32e53fa9b14fc39f41f4e08218e90585413f2dce5dd76ac203ce2c36ede9f013",
       "stage_system_dialogue_inventory_count": 379,
       "stage_system_dialogue_entry_count": 379,
       "stage_system_dialogue_pointer_offsets_sha256": "296c64123f0587124a1583935d522f189ba0e9e992feb774ec3e4173b793a058",
@@ -2149,7 +2149,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 784628,
-      "sha256": "af9c7de18929e1786afaccd24d722702155215df4247f93d04a2f9ef04edd3c2"
+      "sha256": "f6d3d02b6911f75f6d3d37b36b11ce085c0d92f8cb07cf807f3903a6e12236a0"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -2232,7 +2232,7 @@
       "release_snapshot_primary_mapping_sha256": "e7cad754c7f931c2b818861bef8554e26d2f2779ba9f381ddbe67da73c388ba4",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "6d0823c9a08cb2b55456125353c15b359e8c9f2c1e4eefbfd5087b6473fa004b",
+        "sha256": "d2a02a139fae7e120ca63db90c1cb7a414ee7e3eca7a18257567250a42c9037f",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
       "reason": "The consolidated v0.3 menu selection is written directly into original members, normalized to the current font mapping, and never consumes a prepatched binary baseline."

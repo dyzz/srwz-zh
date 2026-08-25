@@ -91,6 +91,7 @@ from srwz.stage_formations import (
     STAGE_OFFSET_SPEC,
     compact_formation_ascii_replacement,
     formation_inventory_sha256,
+    has_stage_formation_pointer_owner,
     load_locked_stage_default_formations,
 )
 from srwz.summary import parse_summary
@@ -1820,6 +1821,14 @@ def verify_stage_default_formation(
         ):
             raise SystemExit(
                 f"default formation-name mismatch at stage "
+                f"{stage_index} {raw_offset}"
+            )
+        if group.layout.startswith("pointer8-") and (
+            not has_stage_formation_pointer_owner(original, decoded_offset)
+            or not has_stage_formation_pointer_owner(decoded, decoded_offset)
+        ):
+            raise SystemExit(
+                "default formation-name pointer owner mismatch at stage "
                 f"{stage_index} {raw_offset}"
             )
         if expected_compact is not None:

@@ -10,6 +10,7 @@ from dataclasses import asdict, dataclass
 
 from .codec import DecodeResult, decode_production as decode
 from .iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
+from .stage import STAGE_BASE_ADDRESS
 from .text import TextTable, decode_text, encode_text
 
 
@@ -67,7 +68,55 @@ _LOCKED_LAYOUT_SPECS = {
         }
         for slot_size in range(8, 65, 8)
     },
+    **{
+        f"pointer8-{slot_size}": {
+            "slot_size": slot_size,
+            "stride": slot_size,
+            "prefix_size": 0,
+            "trailer_size": 0,
+        }
+        for slot_size in range(8, 65, 8)
+    },
 }
+
+
+def has_stage_formation_pointer_owner(data: bytes, text_offset: int) -> bool:
+    """Return whether a formation owner record points to *text_offset*.
+
+    Some formation-name tables contain only one or two strings, so adjacency
+    cannot prove ownership.  Their 32-byte owner records place the name pointer
+    at byte 16 and retain two sentinel halfwords, the ``0xFF`` name selector,
+    and two zero words after it.  Validate that complete local signature so a
+    glossary row or ordinary dialogue pointer cannot claim the same text.
+    """
+
+    if not 0 <= text_offset < len(data):
+        return False
+    address = STAGE_BASE_ADDRESS + text_offset
+    return any(
+        struct.unpack_from("<I", data, offset)[0] == address
+        and data[offset - 8 : offset - 6] == b"\xFF\xFF"
+        and data[offset - 2 : offset] == b"\xFF\xFF"
+        and struct.unpack_from("<I", data, offset + 4)[0] == 0xFF
+        and data[offset + 8 : offset + 16] == bytes(8)
+        for offset in range(16, len(data) - 15, 4)
+    )
+
+
+def _stage_formation_pointer_targets(data: bytes) -> frozenset[int]:
+    """Return decoded name offsets owned by formation pointer records."""
+
+    return frozenset(
+        target
+        for offset in range(16, len(data) - 15, 4)
+        if 0
+        <= (target := struct.unpack_from("<I", data, offset)[0] - STAGE_BASE_ADDRESS)
+        < len(data)
+        and data[offset - 8 : offset - 6] == b"\xFF\xFF"
+        and data[offset - 2 : offset] == b"\xFF\xFF"
+        and struct.unpack_from("<I", data, offset + 4)[0] == 0xFF
+        and data[offset + 8 : offset + 16] == bytes(8)
+    )
 
 
 def _cell_at(
@@ -468,8 +517,10 @@ def _scan_packed8_groups(
 
     These tables store variable-size, NUL-terminated fields.  Each next field
     begins on an eight-byte boundary, so a fixed 23- or 32-byte probe misses a
-    short field when another string immediately follows it.  Requiring at
-    least three linked fields distinguishes the tables from aligned dialogue.
+    short field when another string immediately follows it.  Three linked
+    fields prove table ownership directly.  One- and two-field tables require
+    a word-aligned runtime pointer to every selected field and receive a
+    separate locked layout so later builds revalidate that ownership proof.
     """
 
     starts: dict[int, tuple[FormationCell, int]] = {}
@@ -495,6 +546,7 @@ def _scan_packed8_groups(
                 next_by_offset[offset] = next_offset
                 break
 
+    pointer_targets = _stage_formation_pointer_targets(data)
     previous_offsets = set(next_by_offset.values())
     cells_by_layout: dict[str, list[FormationCell]] = {}
     for run_start in ordered_offsets:
@@ -503,18 +555,21 @@ def _scan_packed8_groups(
         run = [run_start]
         while run[-1] in next_by_offset:
             run.append(next_by_offset[run[-1]])
-        if len(run) < 3:
-            continue
+        repeated_table = len(run) >= 3
         for index, offset in enumerate(run):
             cell, minimum_slot_size = starts[offset]
-            if cell.source_text not in source_texts:
+            if (
+                cell.source_text not in source_texts
+                or (not repeated_table and offset not in pointer_targets)
+            ):
                 continue
             slot_size = (
                 run[index + 1] - offset
                 if index + 1 < len(run)
                 else minimum_slot_size
             )
-            layout = f"packed8-{slot_size}"
+            layout_prefix = "packed8" if repeated_table else "pointer8"
+            layout = f"{layout_prefix}-{slot_size}"
             if layout not in _LOCKED_LAYOUT_SPECS:
                 continue
             cells_by_layout.setdefault(layout, []).append(cell)
@@ -739,6 +794,25 @@ def discover_known_stage_default_formations(
             occupied.update(cell.offset for cell in cells)
             seen_sources.update(cell.source_text for cell in cells)
 
+        independent_formation_group = _scan_known_formation_slots(
+            decoded.output,
+            table,
+            stage_index=stage_index,
+            source_texts=source_texts,
+        )
+        independent_record_group = _scan_known_record_slots(
+            decoded.output,
+            table,
+            stage_index=stage_index,
+            source_texts=source_texts,
+        )
+        independent_fixed_offsets = {
+            cell.offset
+            for group in (independent_formation_group, independent_record_group)
+            if group is not None
+            for cell in group.cells
+        }
+
         for packed_group in _scan_packed8_groups(
             decoded.output,
             table,
@@ -749,6 +823,10 @@ def discover_known_stage_default_formations(
                 cell
                 for cell in packed_group.cells
                 if cell.offset not in occupied
+                and not (
+                    packed_group.layout.startswith("pointer8-")
+                    and cell.offset in independent_fixed_offsets
+                )
             )
             if not cells:
                 continue
@@ -764,12 +842,6 @@ def discover_known_stage_default_formations(
             occupied.update(cell.offset for cell in cells)
             seen_sources.update(cell.source_text for cell in cells)
 
-        independent_formation_group = _scan_known_formation_slots(
-            decoded.output,
-            table,
-            stage_index=stage_index,
-            source_texts=source_texts,
-        )
         if independent_formation_group is not None:
             cells = tuple(
                 cell
@@ -789,12 +861,6 @@ def discover_known_stage_default_formations(
                 occupied.update(cell.offset for cell in cells)
                 seen_sources.update(cell.source_text for cell in cells)
 
-        independent_record_group = _scan_known_record_slots(
-            decoded.output,
-            table,
-            stage_index=stage_index,
-            source_texts=source_texts,
-        )
         if independent_record_group is not None:
             cells = tuple(
                 cell
@@ -1081,6 +1147,13 @@ def load_locked_stage_default_formations(
             if cell is None or cell.source_text != sources[source_index]:
                 raise ValueError(
                     "locked default formation source preimage drift: "
+                    f"{group_index}/{cell_index}"
+                )
+            if layout.startswith(
+                "pointer8-"
+            ) and not has_stage_formation_pointer_owner(data, offset):
+                raise ValueError(
+                    "locked default formation pointer owner drift: "
                     f"{group_index}/{cell_index}"
                 )
             prefix_start = offset - spec["prefix_size"]

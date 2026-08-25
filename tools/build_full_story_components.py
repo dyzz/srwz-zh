@@ -114,6 +114,7 @@ try:
         compact_formation_ascii_replacement,
         fit_formation_replacement,
         formation_inventory_sha256,
+        has_stage_formation_pointer_owner,
         load_locked_stage_default_formations,
     )
     from srwz.stage import parse_stage_system_dialogues
@@ -266,6 +267,7 @@ except ModuleNotFoundError:
         compact_formation_ascii_replacement,
         fit_formation_replacement,
         formation_inventory_sha256,
+        has_stage_formation_pointer_owner,
         load_locked_stage_default_formations,
     )
     from tools.srwz.stage import parse_stage_system_dialogues
@@ -3706,6 +3708,18 @@ def _apply_stage_default_formation_names(
             ):
                 raise FullStoryComponentError(
                     f"default formation-name source or slot drift at "
+                    f"stage {stage_index} {raw_offset}"
+                )
+            if group.layout.startswith("pointer8-") and (
+                not has_stage_formation_pointer_owner(
+                    original_decoded.output, decoded_offset
+                )
+                or not has_stage_formation_pointer_owner(
+                    current_decoded.output, decoded_offset
+                )
+            ):
+                raise FullStoryComponentError(
+                    "default formation-name pointer owner drift at "
                     f"stage {stage_index} {raw_offset}"
                 )
             translation = normalize_original_fullwidth_ascii(

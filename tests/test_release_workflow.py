@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import struct
 import unittest
 import zlib
 from pathlib import Path
@@ -21,6 +22,9 @@ from tools.srwz.title_menu import (
     UNSELECTED_RAMP_BASE,
     apply_title_menu_masks,
 )
+from tools.srwz.stage import STAGE_BASE_ADDRESS
+from tools.srwz.stage_formations import _scan_packed8_groups
+from tools.srwz.text import encode_text, load_text_table
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -60,6 +64,107 @@ class ReleaseWorkflowTest(unittest.TestCase):
             self.assertIn("output_linear_indexes_sha256", entry)
             self.assertNotIn("source_logical_indexes_sha256", entry)
             self.assertNotIn("output_logical_indexes_sha256", entry)
+
+    def test_short_formation_table_requires_its_owner_record(self) -> None:
+        table = load_text_table(
+            PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+        )
+        source = "ファクトリー"
+        text_offset = 64
+        encoded = encode_text(source, table, terminate=True)
+        data = bytearray(96)
+        data[text_offset : text_offset + len(encoded)] = encoded
+
+        self.assertEqual(
+            _scan_packed8_groups(
+                bytes(data),
+                table,
+                stage_index=23,
+                source_texts=frozenset({source}),
+            ),
+            (),
+        )
+
+        # The 32-byte formation owner places its name pointer at byte 16.
+        data[8:10] = b"\xFF\xFF"
+        data[14:16] = b"\xFF\xFF"
+        struct.pack_into("<I", data, 16, STAGE_BASE_ADDRESS + text_offset)
+        struct.pack_into("<I", data, 20, 0xFF)
+        groups = _scan_packed8_groups(
+            bytes(data),
+            table,
+            stage_index=23,
+            source_texts=frozenset({source}),
+        )
+        self.assertEqual(len(groups), 1)
+        self.assertEqual(groups[0].layout, "pointer8-16")
+        self.assertEqual(
+            [(cell.offset, cell.source_text) for cell in groups[0].cells],
+            [(text_offset, source)],
+        )
+
+    def test_formation_inventory_covers_all_26_new_owned_slots(self) -> None:
+        corpus = _load("corpus/zh/menu/stage-default-formations.json")
+        terms = corpus["translations_by_source_text"]
+        self.assertEqual(len(terms), 256)
+        self.assertEqual(terms["エゥーゴ１"], "奥古1")
+        self.assertEqual(terms["アイアン・ギアー組"], "钢铁齿轮组")
+        self.assertEqual(terms["アーサー親衛隊"], "阿瑟亲卫队")
+        self.assertEqual(terms["ソレイユ（味方）"], "太阳号（我方）")
+
+        inventory = _load("config/stage-default-formation-inventory.json")
+        self.assertEqual(
+            inventory["expected"],
+            {
+                "entry_count": 11424,
+                "group_count": 828,
+                "inventory_sha256": (
+                    "32e53fa9b14fc39f41f4e08218e90585413f2dce5dd76ac203ce2c36ede9f013"
+                ),
+                "stage_count": 179,
+                "unique_source_count": 256,
+            },
+        )
+        sources = inventory["sources"]
+        positions = {
+            (group["stage_index"], offset): (sources[source_index], group["layout"])
+            for group in inventory["groups"]
+            for offset, source_index in group["cells"]
+        }
+        expected = {
+            (9, 0xCF78): ("エゥーゴ２", "packed8-16"),
+            (9, 0xCFA0): ("エゥーゴ１", "packed8-16"),
+            (10, 0x15AA8): ("エゥーゴ１", "packed8-16"),
+            (10, 0x15AB8): ("エゥーゴ２", "packed8-16"),
+            (23, 0x7E10): ("ファクトリー", "pointer8-16"),
+            (28, 0x1C8B8): ("グローマ隊", "packed8-16"),
+            (28, 0x1C9C8): ("エクソダス組", "packed8-16"),
+            (29, 0x13B68): ("　ゴッドシグマ", "packed8-24"),
+            (31, 0xC510): ("カラバ", "pointer8-8"),
+            (62, 0xD780): ("キング・ビアル", "pointer8-16"),
+            (62, 0xD790): ("ゴッドシグマ", "pointer8-16"),
+            (64, 0xA700): ("グランナイツ", "pointer8-16"),
+            (65, 0xD158): ("キング・ビアル", "pointer8-16"),
+            (65, 0xD168): ("グランナイツ", "pointer8-16"),
+            (107, 0x25F30): ("アイアン・ギアー組", "packed8-32"),
+            (108, 0x1BE40): ("アイアン・ギアー組", "packed8-32"),
+            (108, 0x1BE78): ("アーサー親衛隊", "packed8-16"),
+            (124, 0x17F0): ("フリーデン隊", "pointer8-16"),
+            (137, 0x6F00): ("ソレイユ（味方）", "packed8-24"),
+            (140, 0x1F2D8): ("ネゴシエイター", "pointer8-16"),
+            (145, 0x18C40): ("ソレイユ（味方）", "packed8-32"),
+            (159, 0xD10): ("ザンボット３", "pointer8-16"),
+            (162, 0xA90): ("バルディオス", "pointer8-16"),
+            (166, 0x1010): ("ニルヴァーシュ", "pointer8-16"),
+            (169, 0x1D78): ("アクエリオン", "pointer8-16"),
+            (170, 0x1CF8): ("アクエリオン", "pointer8-16"),
+        }
+        self.assertEqual(
+            {position: positions.get(position) for position in expected},
+            expected,
+        )
+        # This is runtime-keyword row 19, not a formation owner.
+        self.assertNotIn((95, 0x106C8), positions)
 
     def test_bazaar_status_labels_preserve_original_funds_texture(self) -> None:
         config = _load("config/assets/ui-bazaar-atlas-zh.json")
