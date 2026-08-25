@@ -2135,6 +2135,43 @@
       "setsuko": "family_given"
     }
   },
+  "runtime_movement_type_labels": {
+    "member": "SLPS_258.87",
+    "policy": "replace_runtime_materialized_stock_dedicated_marker",
+    "elf_file_offset_base": "0x1A80",
+    "elf_virtual_address_base": "0x100000",
+    "sites": [
+      {
+        "id": "air_only",
+        "source_text": "空専用",
+        "translation": "空专用",
+        "virtual_address": "0x389400",
+        "file_offset": "0x28AE80",
+        "source_materialized_hex": "8BF390EA9770",
+        "output_materialized_hex": "8BF390509770",
+        "original_block_hex": "90EA023C8BF34334130003BA97700224160003AA170002BA0D0000101A0002AA",
+        "replacement_block_hex": "9050023C8BF34334130003BA97700224160003AA170002BA0D0000101A0002AA"
+      },
+      {
+        "id": "land_only",
+        "source_text": "陸専用",
+        "translation": "陆专用",
+        "virtual_address": "0x389420",
+        "file_offset": "0x28AEA0",
+        "source_materialized_hex": "97A490EA9770",
+        "output_materialized_hex": "97A490509770",
+        "original_block_hex": "90EA023C97A44334130003BA97700224160003AA170002BA050000101A0002AA",
+        "replacement_block_hex": "9050023C97A44334130003BA97700224160003AA170002BA050000101A0002AA"
+      }
+    ],
+    "preserved_parallel_type": {
+      "id": "air_water",
+      "text": "空水用",
+      "virtual_address": "0x443778",
+      "file_offset": "0x3451F8",
+      "encoded_hex": "8BF39085977000"
+    }
+  },
   "runtime_keywords": {
     "catalog": {
       "path": "corpus/runtime/stage-keywords-v1.json",

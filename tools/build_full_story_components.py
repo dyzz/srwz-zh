@@ -54,6 +54,10 @@ try:
         FullNameOrderError,
         apply_route_specific_full_name_order,
     )
+    from srwz.movement_type_labels import (
+        MovementTypeLabelError,
+        apply_runtime_movement_type_labels,
+    )
     from srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
         build_nisv_library_menu,
@@ -207,6 +211,10 @@ except ModuleNotFoundError:
         FullNameOrderError,
         apply_route_specific_full_name_order,
     )
+    from tools.srwz.movement_type_labels import (
+        MovementTypeLabelError,
+        apply_runtime_movement_type_labels,
+    )
     from tools.srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
         build_nisv_library_menu,
@@ -267,7 +275,6 @@ except ModuleNotFoundError:
         compact_formation_ascii_replacement,
         fit_formation_replacement,
         formation_inventory_sha256,
-        has_stage_formation_pointer_owner,
         load_locked_stage_default_formations,
     )
     from tools.srwz.stage import parse_stage_system_dialogues
@@ -608,6 +615,7 @@ CONFIG_SECTION_IMPACTS = {
     "kvmdata": {KVMDATA_MEMBER},
     "world_map_titles": {MAPMODEL_MEMBER},
     "runtime_full_name_order": {SLPS_MEMBER},
+    "runtime_movement_type_labels": {SLPS_MEMBER},
     "runtime_keywords": {COMPDATA_MEMBER, STAGE_MEMBER},
     "composition": {SLPS_MEMBER, VT1_MEMBER},
     "intermission_list_font_geometry": {SLPS_MEMBER},
@@ -9992,6 +10000,18 @@ def build(
         ) from error
 
     try:
+        output_slps, movement_type_label_report = (
+            apply_runtime_movement_type_labels(
+                output_slps,
+                config["runtime_movement_type_labels"],
+            )
+        )
+    except (KeyError, ValueError, MovementTypeLabelError) as error:
+        raise FullStoryComponentError(
+            f"runtime movement-type label patch failed: {error}"
+        ) from error
+
+    try:
         output_slps, search_tab_alignment_report = (
             apply_search_tab_alignment(
                 output_slps,
@@ -10450,6 +10470,7 @@ def build(
         "sound_select_default_unlock": sound_select_unlock_report,
         "library_default_unlock": library_default_unlock_report,
         "runtime_full_name_order": full_name_order_report,
+        "runtime_movement_type_labels": movement_type_label_report,
         "search_tab_alignment": search_tab_alignment_report,
         "remaining_squad_count_alignment": (
             remaining_squad_count_alignment_report
@@ -10766,6 +10787,20 @@ def build(
                     "rand": "given_middle_dot_family",
                     "setsuko": "family_given",
                 }
+            ),
+            "runtime_movement_type_labels_simplified": (
+                movement_type_label_report["site_count"] == 2
+                and movement_type_label_report["all_materialization_sequences_exact"]
+                and movement_type_label_report["all_replacements_exact"]
+                and movement_type_label_report["executable_size_preserved"]
+                and [
+                    site["translation"]
+                    for site in movement_type_label_report["sites"]
+                ]
+                == ["空专用", "陆专用"]
+                and movement_type_label_report["preserved_parallel_type"][
+                    "preserved_byte_exact"
+                ]
             ),
             "search_tabs_aligned_as_five_label_set": (
                 search_tab_alignment_report["surface_count"] == 5

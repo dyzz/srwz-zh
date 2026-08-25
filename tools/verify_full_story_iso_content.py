@@ -71,6 +71,7 @@ from srwz.sound_select import (
 )
 from srwz.library_unlock import apply_library_default_unlock
 from srwz.full_name_order import apply_route_specific_full_name_order
+from srwz.movement_type_labels import apply_runtime_movement_type_labels
 from srwz.search_tab_alignment import apply_search_tab_alignment
 from srwz.remaining_squad_count_alignment import (
     apply_remaining_squad_count_alignment,
@@ -4502,6 +4503,64 @@ def main() -> int:
     ):
         raise SystemExit("final ISO route-specific full-name order readback drift")
     full_name_order_readback["component_receipt_exact"] = True
+    movement_type_contract = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )["runtime_movement_type_labels"]
+    _verified_movement_slps, movement_type_readback = (
+        apply_runtime_movement_type_labels(
+            members["SLPS_258.87"], movement_type_contract
+        )
+    )
+    movement_type_component = component.get("runtime_movement_type_labels")
+    movement_site_fields = (
+        "id",
+        "source_text",
+        "translation",
+        "virtual_address",
+        "file_offset",
+        "source_materialized_hex",
+        "output_materialized_hex",
+        "original_instruction_hex",
+        "replacement_instruction_hex",
+        "output_instruction_hex",
+        "full_materialization_sequence_exact",
+    )
+    readback_movement_sites = movement_type_readback.get("sites")
+    component_movement_sites = (
+        movement_type_component.get("sites")
+        if isinstance(movement_type_component, dict)
+        else None
+    )
+    normalized_movement_readback = (
+        [
+            tuple(site.get(field) for field in movement_site_fields)
+            for site in readback_movement_sites
+        ]
+        if isinstance(readback_movement_sites, list)
+        else None
+    )
+    normalized_movement_component = (
+        [
+            tuple(site.get(field) for field in movement_site_fields)
+            for site in component_movement_sites
+        ]
+        if isinstance(component_movement_sites, list)
+        else None
+    )
+    if (
+        normalized_movement_readback is None
+        or normalized_movement_readback != normalized_movement_component
+        or movement_type_readback["site_count"] != 2
+        or movement_type_readback["changed_byte_count"] != 0
+        or movement_type_readback["source_suffix"] != "専用"
+        or movement_type_readback["output_suffix"] != "专用"
+        or movement_type_readback["preserved_parallel_type"]
+        != movement_type_component.get("preserved_parallel_type")
+        or not movement_type_readback["all_materialization_sequences_exact"]
+        or not movement_type_readback["all_replacements_exact"]
+    ):
+        raise SystemExit("final ISO runtime movement-type label readback drift")
+    movement_type_readback["component_receipt_exact"] = True
     search_alignment_contract = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )["remaining_ui"]["search_tab_alignment"]
@@ -6483,6 +6542,7 @@ def main() -> int:
         "issue_036_tutorial": issue_036_tutorial,
         "weapon_special_effect_2": weapon_effect_2_readback,
         "runtime_full_name_order": full_name_order_readback,
+        "runtime_movement_type_labels": movement_type_readback,
         "search_tab_alignment": search_tab_alignment_readback,
         "remaining_squad_count_alignment": (
             remaining_squad_count_alignment_readback
@@ -6645,6 +6705,21 @@ def main() -> int:
                     "rand": "given_middle_dot_family",
                     "setsuko": "family_given",
                 }
+            ),
+            "runtime_movement_type_labels_simplified": (
+                movement_type_readback["site_count"] == 2
+                and movement_type_readback["changed_byte_count"] == 0
+                and movement_type_readback["component_receipt_exact"]
+                and movement_type_readback["all_materialization_sequences_exact"]
+                and movement_type_readback["all_replacements_exact"]
+                and [
+                    site["translation"]
+                    for site in movement_type_readback["sites"]
+                ]
+                == ["空专用", "陆专用"]
+                and movement_type_readback["preserved_parallel_type"][
+                    "preserved_byte_exact"
+                ]
             ),
             "search_tab_five_label_alignment_exact": (
                 search_tab_alignment_readback["surface_count"] == 5
