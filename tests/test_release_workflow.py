@@ -45,6 +45,22 @@ def _mapping_sha256(assignments: list[dict]) -> str:
 
 
 class ReleaseWorkflowTest(unittest.TestCase):
+    def test_chapter_intertitles_keep_linear_index_storage(self) -> None:
+        corpus = _load("corpus/zh/chapter-intertitles.json")
+        self.assertEqual(
+            corpus["render"]["storage_layout"],
+            "linear_row_major_despite_psmt8_header",
+        )
+        self.assertEqual(
+            corpus["visible_japanese_text_chunk_indices"],
+            [21, 22],
+        )
+        for entry in corpus["entries"]:
+            self.assertIn("source_linear_indexes_sha256", entry)
+            self.assertIn("output_linear_indexes_sha256", entry)
+            self.assertNotIn("source_logical_indexes_sha256", entry)
+            self.assertNotIn("output_logical_indexes_sha256", entry)
+
     def test_bazaar_status_labels_preserve_original_pixels(self) -> None:
         config = _load("config/assets/ui-bazaar-atlas-zh.json")
         corpus = _load("corpus/zh/ui-atlas/bazaar-v2.json")

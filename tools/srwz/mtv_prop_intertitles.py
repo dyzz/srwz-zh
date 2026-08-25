@@ -15,7 +15,6 @@ from .imagemagick import (
     require_imagemagick,
 )
 from .tim2 import scan_tim2
-from .tim2_writeback import swizzle_psmt8, unswizzle_psmt8
 
 
 class MtvPropIntertitleError(ValueError):
@@ -155,6 +154,8 @@ def build_mtv_prop_intertitles(
         or render.get("point_size") != 29
         or render.get("supersample_factor") != 2
         or render.get("palette_rounding") != "nearest_gray_16_cap_15"
+        or render.get("storage_layout")
+        != "linear_row_major_despite_psmt8_header"
     ):
         raise MtvPropIntertitleError("intertitle geometry contract drift")
 
@@ -192,20 +193,20 @@ def build_mtv_prop_intertitles(
             )
         image_offset = picture.offset + picture.header_size
         image_end = image_offset + picture.image_size
-        logical = bytearray(
-            unswizzle_psmt8(
-                decoded.output[image_offset:image_end],
-                picture.width,
-                picture.height,
-            )
-        )
+        # These two TIM2 pictures advertise indexed 8-bpp/PSMT8 metadata, but
+        # their stored image bytes are already linear row-major indexes.  The
+        # original Japanese glyphs are readable directly in this byte order;
+        # applying the generic GS PSMT8 permutation turns them into the same
+        # horizontal stripes seen at runtime.  Preserve that asset-specific
+        # storage contract and edit the linear bytes in place.
+        linear = bytearray(decoded.output[image_offset:image_end])
         palette = decoded.output[
             image_end : image_end + picture.clut_size
         ]
         if (
-            _sha256(logical) != entry.get("source_logical_indexes_sha256")
-            or sorted(set(logical)) != expected_indexes
-            or _source_bbox(logical, picture.width) != entry.get("source_bbox")
+            _sha256(linear) != entry.get("source_linear_indexes_sha256")
+            or sorted(set(linear)) != expected_indexes
+            or _source_bbox(linear, picture.width) != entry.get("source_bbox")
             or _sha256(palette) != render.get("source_palette_sha256")
         ):
             raise MtvPropIntertitleError(
@@ -232,23 +233,19 @@ def build_mtv_prop_intertitles(
             )
         strip_y = render["strip_y"]
         for y in range(strip_y, strip_y + render["strip_height"]):
-            logical_row = y * picture.width
+            linear_row = y * picture.width
             mask_row = (y - strip_y) * picture.width
             for x in range(picture.width):
-                logical[logical_row + x] = min(
+                linear[linear_row + x] = min(
                     15,
                     (mask[mask_row + x] + 8) // 16,
                 )
-        if _sha256(logical) != entry.get("output_logical_indexes_sha256"):
+        if _sha256(linear) != entry.get("output_linear_indexes_sha256"):
             raise MtvPropIntertitleError(
                 f"intertitle output index drift: chunk={chunk_index}"
             )
         modified = bytearray(decoded.output)
-        modified[image_offset:image_end] = swizzle_psmt8(
-            logical,
-            picture.width,
-            picture.height,
-        )
+        modified[image_offset:image_end] = linear
         modified_bytes = bytes(modified)
         if (
             modified_bytes[:image_offset] != decoded.output[:image_offset]
@@ -296,12 +293,13 @@ def build_mtv_prop_intertitles(
                 "source_text": entry.get("source_text"),
                 "translation": translation,
                 "source_bbox": entry["source_bbox"],
-                "source_logical_indexes_sha256": entry[
-                    "source_logical_indexes_sha256"
+                "storage_layout": render["storage_layout"],
+                "source_linear_indexes_sha256": entry[
+                    "source_linear_indexes_sha256"
                 ],
                 "render_mask_sha256": entry["render_mask_sha256"],
-                "output_logical_indexes_sha256": entry[
-                    "output_logical_indexes_sha256"
+                "output_linear_indexes_sha256": entry[
+                    "output_linear_indexes_sha256"
                 ],
                 "source_allocation_size": len(chunk),
                 "output_encoded_size": len(encoded),

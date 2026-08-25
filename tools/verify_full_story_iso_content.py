@@ -3499,16 +3499,14 @@ def verify_post_release_runtime_surfaces(
         picture = records[0].pictures[0]
         image_start = picture.offset + picture.header_size
         image_end = image_start + picture.image_size
-        logical = unswizzle_psmt8(
-            decoded.output[image_start:image_end],
-            picture.width,
-            picture.height,
-        )
+        linear = decoded.output[image_start:image_end]
         receipt = receipt_entries.get(chunk_index)
         if (
             not isinstance(receipt, dict)
-            or sha256_bytes(logical)
-            != receipt.get("output_logical_indexes_sha256")
+            or receipt.get("storage_layout")
+            != "linear_row_major_despite_psmt8_header"
+            or sha256_bytes(linear)
+            != receipt.get("output_linear_indexes_sha256")
             or any(stored[decoded.consumed :])
         ):
             raise SystemExit(
@@ -3518,7 +3516,8 @@ def verify_post_release_runtime_surfaces(
             {
                 "chunk_index": chunk_index,
                 "translation": receipt["translation"],
-                "output_logical_indexes_sha256": sha256_bytes(logical),
+                "storage_layout": receipt["storage_layout"],
+                "output_linear_indexes_sha256": sha256_bytes(linear),
             }
         )
 
