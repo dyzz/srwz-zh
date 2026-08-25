@@ -30,8 +30,9 @@ work/
           build.xml
           lba.txt
   runtime/
-    pcsx2-sessions/
-      <session-id>/
+    lrps2/
+      <scenario-id>/
+        <session-id>/
   toolchain/
 
 build/
@@ -84,7 +85,10 @@ build/
 
 ### `work/runtime/<profile>/`：运行证据
 
-- PCSX2 日志、PINE 结果和截图按 profile 隔离。
+- LRPS2 自动 receipt、隔离记忆卡和截图按 scenario/session 隔离；PCSX2 手工证据
+  由测试者另行保存。
+- LRPS2 runner 只允许把 session 建在 `work/runtime/lrps2/` 子目录；即使显式传入
+  `--output-directory` 也不能越界。
 - 它们必须绑定最终 ISO、组件和 runtime address/hash。
 - runtime 证据不是构建输入；删除它不会改变 ISO，但会失去相应运行结论。
 
@@ -103,7 +107,7 @@ build/
 | `work/build/<profile>/components/` | 是 | 重跑 component build |
 | `work/build/<profile>/iso/` | 是 | 重跑 ISO build；必要时 refresh extraction |
 | `build/iso/<profile>/` | 是 | 从固定输入重新构建 |
-| `work/runtime/<profile>/` | 审核后 | 重新运行 PCSX2 fixture |
+| `work/runtime/<profile>/` | 审核后 | 重跑 LRPS2 场景或重新执行 PCSX2 手工验收 |
 
 清理命令不得把 `rom/`、仓库根目录或未解析变量作为递归目标。需要保留运行证明
 时，应先确认 manifest 引用的日志、PINE 报告和截图已经有匹配哈希。

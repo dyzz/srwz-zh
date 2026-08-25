@@ -1,8 +1,13 @@
 # v0.3.0 构建工具
 
 `tools/` 只保留重建 v0.3.0 所需的 Python 入口和它们直接使用的 clean-room
-模块。实验、分析、机器翻译、审校网页、迁移、运行控制和一次性快照脚本不属于
-发布构建闭包，已从当前树移除；需要追溯时使用 Git 历史。
+模块。实验、分析、机器翻译、审校网页、迁移和一次性快照脚本不属于发布构建闭包，
+已从当前树移除；需要追溯时使用 Git 历史。唯一保留的运行入口是独立的
+`run_lrps2_validation.py`，它不参与 ISO 或发布包构建。
+
+该入口通过 `--sequence` 选择已登记的 title/new-game/load/continue/library 路线，
+通过可重复的 `--append-input-sequence` 追加 issue 专用相对帧按键和截图检查点；所有
+运行产物仍只写入忽略的 `work/runtime/lrps2/`。
 
 ```text
 tools/*.py                    v0.3.0 构建与回读入口
@@ -22,6 +27,7 @@ vendor/upstream-python/       构建链读取的固定静态定义
 | 最终组合 | `compose_full_story_library_components.py` |
 | ISO | `build_iso.py` |
 | 静态回读 | `verify_zh_release_font.py`、`verify_full_story_iso_content.py` |
+| 自动运行验证（构建闭包外） | `run_lrps2_validation.py` |
 | 发布包 | `build_release.py` |
 
 通常按以下顺序构建：

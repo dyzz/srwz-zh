@@ -25,7 +25,7 @@ manifest 用于锁定输入与结果。`work/`、`build/` 和 dashboard 都不�
   -> Rust 原生格式压缩
   -> 组件与归档回读
   -> 单候选 ISO/UDF/LBA
-  -> PCSX2/PINE runtime
+  -> LRPS2 automated runtime / PCSX2 manual runtime
   -> visual/interaction acceptance
 ```
 
@@ -53,6 +53,9 @@ manifest 用于锁定输入与结果。`work/`、`build/` 和 dashboard 都不�
 | visual | 指定截图、纹理和交互断言 | 未覆盖路线和边界用例 |
 
 旧候选的 runtime 或 screenshot 只属于其原 ISO 哈希。
+
+仓库内自动 runtime 只使用 LRPS2/libretro.py；PCSX2 保留为测试者手工画面验收，
+不再由仓库脚本发送键盘事件。两条 runtime 证据必须分别记录，不能相互冒充。
 
 ## 上游与工具链
 

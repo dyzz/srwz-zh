@@ -8,6 +8,9 @@ Git 历史。
 | `iso/zh-release-chain.json` | 当前 ISO、哈希和状态 |
 | `iso/zh-release-current-build.json` | v0.3.0 固定原盘、replacement、LBA 和输出哈希 |
 | `release/v0.3.0.json` | v0.3.0 原版／目标 ISO、xdelta 和发布包契约 |
+| `runtime/lrps2-common-sequences.json` | LRPS2 常见路线别名、场景入口和按键表 |
+| `runtime/lrps2-{title,new-game-menu,load-menu,continue-menu,library-menu}.json` | 常见路线的完整逐帧输入与画面断言 |
+| `runtime/examples/lrps2-custom-open-load.json` | 相对帧自定义按键与截图检查点示例 |
 | `full-story-components.json` | 从锁定原版成员直接写回的最终组件与依赖顺序 |
 | `encoding/release-menu-codebook.json` | v0.3.0 菜单文本的固定字符编码 |
 | `assets/title-menu-zh.json` | 标题菜单四个中文标签的审核后像素掩码 |

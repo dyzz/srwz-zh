@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "scenario_id": "new-game-menu",
+  "description": "Skip the opening CG, confirm Start, and prove that the scenario-selection menu opens.",
+  "environment": {
+    "required_system": "Darwin",
+    "required_machine": "x86_64",
+    "minimum_python": "3.12",
+    "libretro_py_version": "0.8.3",
+    "core": {
+      "path": "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+      "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+    },
+    "system_directory": "work/runtime/lrps2/system"
+  },
+  "iso": {
+    "build_config": "config/iso/zh-release-current-build.json"
+  },
+  "memory_card": {
+    "path": "~/Library/Application Support/ARMSX2/memcards/Mcd001.ps2",
+    "sha256": null
+  },
+  "core_options": {
+    "pcsx2_renderer": "Software (SW)",
+    "pcsx2_shared_memory_cards": "disabled",
+    "pcsx2_fastboot": "enabled"
+  },
+  "actions": [
+    {
+      "frame": 1801,
+      "button": "start",
+      "duration_frames": 3,
+      "label": "skip-opening-cg"
+    },
+    {
+      "frame": 2041,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "open-new-game-menu"
+    }
+  ],
+  "captures": [
+    {
+      "id": "title-new-game-selected",
+      "frame": 2040,
+      "expected_width": 640,
+      "expected_height": 448,
+      "min_mean_luma": 80,
+      "max_mean_luma": 180,
+      "expected_dhash": "c22f2b828709ab55",
+      "max_dhash_distance": 2
+    },
+    {
+      "id": "scenario-selection-menu",
+      "frame": 2220,
+      "expected_width": 640,
+      "expected_height": 448,
+      "min_mean_luma": 15,
+      "max_mean_luma": 80,
+      "expected_dhash": "033f4d4d4d070600",
+      "max_dhash_distance": 2
+    }
+  ],
+  "terminal_frame": 2220
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "sequences": {
+    "title": {
+      "description": "Skip the opening CG and stop at the title menu.",
+      "scenario": "lrps2-title.json",
+      "buttons": [
+        "start"
+      ]
+    },
+    "new-game": {
+      "description": "Open the scenario-selection menu from the title screen.",
+      "scenario": "lrps2-new-game-menu.json",
+      "buttons": [
+        "start",
+        "circle"
+      ]
+    },
+    "load": {
+      "description": "Open the populated load menu using an isolated copy of the current ARMSX2 card.",
+      "scenario": "lrps2-load-menu.json",
+      "buttons": [
+        "start",
+        "down",
+        "circle"
+      ]
+    },
+    "continue": {
+      "description": "Select Continue using an isolated copy of the current ARMSX2 card.",
+      "scenario": "lrps2-continue-menu.json",
+      "buttons": [
+        "start",
+        "down",
+        "down",
+        "circle"
+      ]
+    },
+    "library": {
+      "description": "Open the Library menu from the title screen.",
+      "scenario": "lrps2-library-menu.json",
+      "buttons": [
+        "start",
+        "down",
+        "down",
+        "down",
+        "circle"
+      ]
+    }
+  }
+}

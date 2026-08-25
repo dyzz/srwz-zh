@@ -7,7 +7,8 @@
 | --- | --- |
 | `../README.md` | 项目介绍、v0.3.0 内容、下载与源码构建 |
 | `RELEASE_NOTES_V0.3.0.md` | v0.3.0 发布说明 |
-| `BUILD_AND_RUNTIME.md` | ISO、发布包和人工运行验收边界 |
+| `BUILD_AND_RUNTIME.md` | ISO、发布包和运行验收边界 |
+| `AUTOMATED_RUNTIME.md` | LRPS2/libretro.py 逐帧按键、截图与本地 receipt |
 | `PRODUCTION_PIPELINE.md` | 生产事实源、构建顺序与失败门 |
 | `ARCHITECTURE.md` | 数据边界、构建分层和工具链归属 |
 | `ISO_DIRECTORY_LAYOUT.md` | `rom/work/build` 的目录所有权与清理边界 |

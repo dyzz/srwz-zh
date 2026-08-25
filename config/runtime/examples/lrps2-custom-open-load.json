@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "sequence_id": "custom-open-load",
+  "description": "From the title-ready checkpoint, move to Load, confirm it, and capture the stable load-menu header.",
+  "steps": [
+    {
+      "after_frames": 61,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "custom-select-load"
+    },
+    {
+      "after_frames": 58,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "custom-open-load"
+    },
+    {
+      "after_frames": 177,
+      "capture": {
+        "id": "custom-populated-load-list",
+        "expected_width": 640,
+        "expected_height": 448,
+        "min_mean_luma": 20,
+        "max_mean_luma": 100,
+        "dhash_region": {
+          "x": 0,
+          "y": 0,
+          "width": 640,
+          "height": 70
+        },
+        "expected_dhash": "0058780880304846",
+        "max_dhash_distance": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "scenario_id": "continue-menu",
+  "description": "Skip the opening CG, select Continue, and record the current quick-resume result using an isolated ARMSX2 card copy.",
+  "environment": {
+    "required_system": "Darwin",
+    "required_machine": "x86_64",
+    "minimum_python": "3.12",
+    "libretro_py_version": "0.8.3",
+    "core": {
+      "path": "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+      "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+    },
+    "system_directory": "work/runtime/lrps2/system"
+  },
+  "iso": {
+    "build_config": "config/iso/zh-release-current-build.json"
+  },
+  "memory_card": {
+    "path": "~/Library/Application Support/ARMSX2/memcards/Mcd001.ps2",
+    "sha256": null
+  },
+  "core_options": {
+    "pcsx2_renderer": "Software (SW)",
+    "pcsx2_shared_memory_cards": "disabled",
+    "pcsx2_fastboot": "enabled"
+  },
+  "actions": [
+    {
+      "frame": 1801,
+      "button": "start",
+      "duration_frames": 3,
+      "label": "skip-opening-cg"
+    },
+    {
+      "frame": 1981,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "move-to-load"
+    },
+    {
+      "frame": 2041,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "select-continue"
+    },
+    {
+      "frame": 2101,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "open-continue"
+    }
+  ],
+  "captures": [
+    {
+      "id": "title-continue-selected",
+      "frame": 2100,
+      "expected_width": 640,
+      "expected_height": 448,
+      "min_mean_luma": 80,
+      "max_mean_luma": 180,
+      "expected_dhash": "c22f2b82a3290d55",
+      "max_dhash_distance": 2
+    },
+    {
+      "id": "continue-result-2460",
+      "frame": 2460,
+      "expected_width": 640,
+      "expected_height": 448,
+      "min_mean_luma": 15,
+      "max_mean_luma": 100
+    }
+  ],
+  "terminal_frame": 2460
+}

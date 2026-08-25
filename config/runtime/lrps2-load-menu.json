@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "scenario_id": "load-menu",
+  "description": "Skip the opening CG, select Load, and prove that the current ARMSX2 memory card reaches the populated file-selection screen.",
+  "environment": {
+    "required_system": "Darwin",
+    "required_machine": "x86_64",
+    "minimum_python": "3.12",
+    "libretro_py_version": "0.8.3",
+    "core": {
+      "path": "work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+      "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4"
+    },
+    "system_directory": "work/runtime/lrps2/system"
+  },
+  "iso": {
+    "build_config": "config/iso/zh-release-current-build.json"
+  },
+  "memory_card": {
+    "path": "~/Library/Application Support/ARMSX2/memcards/Mcd001.ps2",
+    "sha256": null
+  },
+  "core_options": {
+    "pcsx2_renderer": "Software (SW)",
+    "pcsx2_shared_memory_cards": "disabled",
+    "pcsx2_fastboot": "enabled"
+  },
+  "actions": [
+    {
+      "frame": 1801,
+      "button": "start",
+      "duration_frames": 3,
+      "label": "skip-opening-cg"
+    },
+    {
+      "frame": 1981,
+      "button": "down",
+      "duration_frames": 3,
+      "label": "select-load"
+    },
+    {
+      "frame": 2041,
+      "button": "circle",
+      "duration_frames": 3,
+      "label": "open-load-menu"
+    }
+  ],
+  "captures": [
+    {
+      "id": "title-load-selected",
+      "frame": 2040,
+      "expected_width": 640,
+      "expected_height": 448,
+      "min_mean_luma": 80,
+      "max_mean_luma": 180,
+      "expected_dhash": "c22f2b82a30dab55",
+      "max_dhash_distance": 2
+    },
+    {
+      "id": "memory-card-check-complete",
+      "frame": 2160,
+      "expected_width": 640,
+      "expected_height": 448,
+      "min_mean_luma": 20,
+      "max_mean_luma": 100,
+      "expected_dhash": "1803232b0b43414d",
+      "max_dhash_distance": 2
+    },
+    {
+      "id": "populated-load-list",
+      "frame": 2220,
+      "expected_width": 640,
+      "expected_height": 448,
+      "min_mean_luma": 20,
+      "max_mean_luma": 100,
+      "dhash_region": {
+        "x": 0,
+        "y": 0,
+        "width": 640,
+        "height": 70
+      },
+      "expected_dhash": "0058780880304846",
+      "max_dhash_distance": 2
+    }
+  ],
+  "terminal_frame": 2220
+}
