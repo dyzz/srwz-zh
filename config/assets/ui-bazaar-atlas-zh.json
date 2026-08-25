@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "profile_id": "ui-bazaar-atlas-zh",
-  "scope": "A deterministic Chinese replacement of selected Japanese text labels in the locked KVMDATA chunk 5 atlas. The original 資 glyph is retained by user request; the English -Bazaar-, BLOOD TYPE and BIRTHDAY elements plus the separate leading glyph, BS and SR acronyms, the already-correct 金 glyph and the full-width SR separator ・ remain byte-exact, and the detached Japanese title long mark is erased only inside its exact 54x10 source rectangle.",
+  "scope": "A deterministic Chinese replacement of selected Japanese text labels in the locked KVMDATA chunk 5 atlas. The original 資金 label remains wholly outside every write mask by user request; the English -Bazaar-, BLOOD TYPE and BIRTHDAY elements plus the separate leading glyph, BS and SR acronyms and the full-width SR separator ・ remain byte-exact, and the detached Japanese title long mark is erased only inside its exact 54x10 source rectangle.",
   "indexed_text_layer_profiles": {
     "source-text": {
       "outline": [
@@ -90,7 +90,7 @@
     "source_element_rgba_sha256": "37492c142cc4adc7bd85c8b25bff7fa8beae46757c024445891c19778bae1f4c",
     "translation_source": {
       "path": "corpus/zh/ui-atlas/bazaar-v2.json",
-      "sha256": "90d5df24b1a48a0ce02916c1ea1c3457e392e331a84b3b2512c81801ee577054",
+      "sha256": "09df2208d044cfbae5a21be1233c1292cbcc4f54702aacda0b8a94020a276fb3",
       "entry_id": "ui-atlas/kvm5/bazaar",
       "minimum_editorial_status": "reviewed"
     },
@@ -131,40 +131,6 @@
     }
   ],
   "additional_localized_labels": [
-    {
-      "semantic_locator": "資",
-      "entry_id": "ui-atlas/kvm5/funds",
-      "minimum_editorial_status": "reviewed",
-      "source_element_id": "funds-first-glyph-20x20",
-      "source_element_rgba_sha256": "ea786a24d4bad5938aaf50a8fa19280e1daa688de67da6fbffbc8a027b8a2ed8",
-      "mask": {
-        "x": 209,
-        "y": 2,
-        "width": 20,
-        "height": 20,
-        "replacement_rgba": "00000000",
-        "preserve_rgba": [
-          "00000000"
-        ]
-      },
-      "render": {
-        "point_size": 17,
-        "stroke_gray": "#303030",
-        "stroke_width": 1.5,
-        "fill_stroke_width": 0,
-        "supersample_factor": 4,
-        "ramp_rgba": [
-          "101010ff",
-          "202020ff",
-          "303030ff",
-          "404040ff",
-          "505050ff",
-          "606060ff",
-          "707070ff"
-        ],
-        "indexed_layer_profile": "source-text"
-      }
-    },
     {
       "semantic_locator": "ポイント",
       "entry_id": "ui-atlas/kvm5/sr-points",
@@ -611,8 +577,8 @@
   ],
   "render_snapshot": {
     "path": "config/assets/ui-bazaar-atlas-render-snapshot.json",
-    "size": 42389,
-    "sha256": "a47e75ffc43d5bd3b9d0ee5037f353d5233a7b7a01558f644f7897f1ca1566be"
+    "size": 40777,
+    "sha256": "36482c5d6e4e5e8aafb47b44e3da0fd916d70726f5ec17ca0ec7113ba698c3ce"
   },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 5 supplies the bazaar and shared profile surfaces, that the detached Japanese long mark is gone, and that every selected localized label renders in its intended fixed rectangle.",
@@ -625,7 +591,7 @@
       "capture_visible_chinese_labels_with_decorative_english_bazaar_intact",
       "capture_texture_dump_delta_for_the_exact_mask_union"
     ],
-    "expected_visual_effect": "The large title reads 集市, the 54x10 detached Japanese long mark is erased without touching the labels above or below, selected Japanese labels are Chinese except for the explicitly retained 資, and the leading glyph, BS, SR, 資, 金, the SR separator ・, -Bazaar-, BLOOD TYPE and BIRTHDAY remain unchanged.",
+    "expected_visual_effect": "The large title reads 集市, the 54x10 detached Japanese long mark is erased without touching the labels above or below, selected Japanese labels are Chinese, and the original 資金 label, leading glyph, BS, SR, the SR separator ・, -Bazaar-, BLOOD TYPE and BIRTHDAY remain unchanged.",
     "promotion_rule": "Only matching runtime screenshots and an exact original-to-localized texture delta may promote the scene mapping and localized atlas."
   },
   "toolchain": {
@@ -653,18 +619,12 @@
       "size": 33344,
       "sha256": "e99e8cc2ad69f68ae87da15a7af1d7e57639005547f53ded6855efad6e3598d9"
     },
-    "added_pixel_count": 8965,
+    "added_pixel_count": 8615,
     "original_changed_pixel_count": 14487,
     "original_changed_pixel_indexes_sha256": "d707764b74e37009cc97027ac3179cda0a75c7cb90ad35e570e9b5354319a188",
     "changed_archive_byte_count": 7417,
     "changed_archive_range_count": 776,
     "additional_text_masks": [
-      {
-        "semantic_locator_sha256": "b10eec118ea2aeaf00483e2a1de2b9741d7b0bddc7ed981a283b609c73281e66",
-        "size": 400,
-        "sha256": "6976ad9d010e5eecf0241438726ec21303741f150610afadb8af349c18e62360",
-        "nonzero_pixel_count": 224
-      },
       {
         "semantic_locator_sha256": "80ebe4f118802a72d8ed2b0076434895eadf99658f50d6e162c6733fe2809485",
         "size": 1113,

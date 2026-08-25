@@ -2,13 +2,13 @@
   "schema_version": 1,
   "status": "static_localized_component_validated_runtime_mapping_pending",
   "profile_id": "ui-bazaar-atlas-zh",
-  "scope": "A deterministic Chinese replacement of selected Japanese text labels in the locked KVMDATA chunk 5 atlas. The original 資 glyph is retained by user request; the English -Bazaar-, BLOOD TYPE and BIRTHDAY elements plus the separate leading glyph, BS and SR acronyms, the already-correct 金 glyph and the full-width SR separator ・ remain byte-exact, and the detached Japanese title long mark is erased only inside its exact 54x10 source rectangle.",
+  "scope": "A deterministic Chinese replacement of selected Japanese text labels in the locked KVMDATA chunk 5 atlas. The original 資金 label remains wholly outside every write mask by user request; the English -Bazaar-, BLOOD TYPE and BIRTHDAY elements plus the separate leading glyph, BS and SR acronyms and the full-width SR separator ・ remain byte-exact, and the detached Japanese title long mark is erased only inside its exact 54x10 source rectangle.",
   "content_policy": "Hashes, coordinates, counts and render parameters only; game bytes, localized text and preview PNGs remain outside this committed manifest.",
   "inputs": {
     "config": {
       "path": "config/assets/ui-bazaar-atlas-zh.json",
-      "size": 23593,
-      "sha256": "813a8170e1153e0717291e0c72706188500ccad3a9246afc9dea9b2220f52514"
+      "size": 22400,
+      "sha256": "aa91b750c4fff2ac617d5cd2bd1363f214631c9845969bde697a933fe5732185"
     },
     "base_mapping": {
       "config": {
@@ -50,8 +50,8 @@
     "translation_source": {
       "file": {
         "path": "corpus/zh/ui-atlas/bazaar-v2.json",
-        "size": 6650,
-        "sha256": "90d5df24b1a48a0ce02916c1ea1c3457e392e331a84b3b2512c81801ee577054"
+        "size": 6177,
+        "sha256": "09df2208d044cfbae5a21be1233c1292cbcc4f54702aacda0b8a94020a276fb3"
       },
       "batch_id": "v2-ui-atlas-bazaar",
       "entry_id": "ui-atlas/kvm5/bazaar",
@@ -60,8 +60,8 @@
     },
     "render_snapshot": {
       "path": "config/assets/ui-bazaar-atlas-render-snapshot.json",
-      "size": 42389,
-      "sha256": "a47e75ffc43d5bd3b9d0ee5037f353d5233a7b7a01558f644f7897f1ca1566be"
+      "size": 40777,
+      "sha256": "36482c5d6e4e5e8aafb47b44e3da0fd916d70726f5ec17ca0ec7113ba698c3ce"
     }
   },
   "target": {
@@ -92,16 +92,6 @@
         "y": 1,
         "width": 137,
         "height": 61,
-        "replacement_rgba": "00000000",
-        "preserve_rgba": [
-          "00000000"
-        ]
-      },
-      {
-        "x": 209,
-        "y": 2,
-        "width": 20,
-        "height": 20,
         "replacement_rgba": "00000000",
         "preserve_rgba": [
           "00000000"
@@ -251,7 +241,7 @@
     "mask_audit": {
       "changed_pixel_count": 14487,
       "changed_pixel_indexes_sha256": "d707764b74e37009cc97027ac3179cda0a75c7cb90ad35e570e9b5354319a188",
-      "mask_count": 16,
+      "mask_count": 15,
       "outside_masks_rgba_exact": true
     }
   },
@@ -348,109 +338,6 @@
     }
   },
   "additional_localized_labels": [
-    {
-      "source_locator_sha256": "b10eec118ea2aeaf00483e2a1de2b9741d7b0bddc7ed981a283b609c73281e66",
-      "text_sha256": "b10eec118ea2aeaf00483e2a1de2b9741d7b0bddc7ed981a283b609c73281e66",
-      "character_count": 1,
-      "mask": {
-        "x": 209,
-        "y": 2,
-        "width": 20,
-        "height": 20,
-        "replacement_rgba": "00000000",
-        "preserve_rgba": [
-          "00000000"
-        ]
-      },
-      "render": {
-        "point_size": 17,
-        "stroke_gray": "#303030",
-        "stroke_width": 1.5,
-        "fill_stroke_width": 0,
-        "supersample_factor": 4,
-        "ramp_rgba": [
-          "101010ff",
-          "202020ff",
-          "303030ff",
-          "404040ff",
-          "505050ff",
-          "606060ff",
-          "707070ff"
-        ],
-        "indexed_layers": {
-          "outline": [
-            {
-              "rgba": "101010ff",
-              "palette_index": 1
-            },
-            {
-              "rgba": "202020ff",
-              "palette_index": 2
-            },
-            {
-              "rgba": "303030ff",
-              "palette_index": 3
-            },
-            {
-              "rgba": "404040ff",
-              "palette_index": 4
-            },
-            {
-              "rgba": "505050ff",
-              "palette_index": 5
-            },
-            {
-              "rgba": "606060ff",
-              "palette_index": 6
-            },
-            {
-              "rgba": "707070ff",
-              "palette_index": 7
-            }
-          ],
-          "fill": [
-            {
-              "rgba": "000000ff",
-              "palette_index": 8
-            },
-            {
-              "rgba": "101010ff",
-              "palette_index": 9
-            },
-            {
-              "rgba": "202020ff",
-              "palette_index": 10
-            },
-            {
-              "rgba": "303030ff",
-              "palette_index": 11
-            },
-            {
-              "rgba": "404040ff",
-              "palette_index": 12
-            },
-            {
-              "rgba": "505050ff",
-              "palette_index": 13
-            },
-            {
-              "rgba": "606060ff",
-              "palette_index": 14
-            },
-            {
-              "rgba": "707070ff",
-              "palette_index": 15
-            }
-          ]
-        },
-        "text_mask": {
-          "semantic_locator_sha256": "b10eec118ea2aeaf00483e2a1de2b9741d7b0bddc7ed981a283b609c73281e66",
-          "size": 400,
-          "sha256": "6976ad9d010e5eecf0241438726ec21303741f150610afadb8af349c18e62360",
-          "nonzero_pixel_count": 224
-        }
-      }
-    },
     {
       "source_locator_sha256": "80ebe4f118802a72d8ed2b0076434895eadf99658f50d6e162c6733fe2809485",
       "text_sha256": "685b08782b5ef1e2708a31db453de50b5775729e70392a62a7b2c481a9225d9c",
@@ -1814,8 +1701,8 @@
     "text_render_source": "locked_snapshot"
   },
   "text_audit": {
-    "added_pixel_count": 8965,
-    "label_count": 15,
+    "added_pixel_count": 8615,
+    "label_count": 14,
     "labels": [
       {
         "added_pixel_count": 1856,
@@ -1843,35 +1730,6 @@
         },
         "fill_mask_sha256": "7b4284af046a09ec27a0911089072aafeeedee1e3c1a3a0222f7b391b9e9bee0",
         "fill_mask_nonzero_pixel_count": 1531,
-        "outside_mask_rgba_exact": true,
-        "erased_background_preimage_exact": true
-      },
-      {
-        "added_pixel_count": 350,
-        "added_pixel_indexes_sha256": "bb1e344b6c3912545e71ff7a06c135c7c8e6594f4fa02be1b4ee2ad76b7d0112",
-        "indexed_layer_counts": {
-          "outline": {
-            "1": 153,
-            "2": 11,
-            "3": 8,
-            "4": 34,
-            "5": 5,
-            "6": 7,
-            "7": 6
-          },
-          "fill": {
-            "8": 18,
-            "9": 5,
-            "10": 5,
-            "11": 25,
-            "12": 21,
-            "13": 6,
-            "14": 7,
-            "15": 39
-          }
-        },
-        "fill_mask_sha256": "53bc7a931e6cc7522b6351a048400d6243dc91649d97c4d3148251b13434012f",
-        "fill_mask_nonzero_pixel_count": 126,
         "outside_mask_rgba_exact": true,
         "erased_background_preimage_exact": true
       },
@@ -2244,13 +2102,6 @@
         "rgba_sha256": "37492c142cc4adc7bd85c8b25bff7fa8beae46757c024445891c19778bae1f4c"
       },
       {
-        "source_element_id": "funds-first-glyph-20x20",
-        "width": 20,
-        "height": 20,
-        "rgba_size": 1600,
-        "rgba_sha256": "ea786a24d4bad5938aaf50a8fa19280e1daa688de67da6fbffbc8a027b8a2ed8"
-      },
-      {
         "source_element_id": "sr-points-body-53x21",
         "width": 53,
         "height": 21,
@@ -2352,15 +2203,15 @@
     "outside_masks_rgba_exact": true,
     "erased_background_preimage_exact": true,
     "delta_from_erased": {
-      "changed_pixel_count": 8965,
-      "changed_pixel_indexes_sha256": "54bdc94ce0bc86cecd9dfeabfc92e103d7dba99d3889badf2e09a542fb39db4f",
-      "mask_count": 16,
+      "changed_pixel_count": 8615,
+      "changed_pixel_indexes_sha256": "ceecdc9ef852c6a74192a2122023a21363376a951014fe6a8273c508b1b6009a",
+      "mask_count": 15,
       "outside_masks_rgba_exact": true
     },
     "delta_from_original": {
       "changed_pixel_count": 14487,
       "changed_pixel_indexes_sha256": "d707764b74e37009cc97027ac3179cda0a75c7cb90ad35e570e9b5354319a188",
-      "mask_count": 16,
+      "mask_count": 15,
       "outside_masks_rgba_exact": true
     }
   },
@@ -5531,18 +5382,12 @@
       "size": 33344,
       "sha256": "e99e8cc2ad69f68ae87da15a7af1d7e57639005547f53ded6855efad6e3598d9"
     },
-    "added_pixel_count": 8965,
+    "added_pixel_count": 8615,
     "original_changed_pixel_count": 14487,
     "original_changed_pixel_indexes_sha256": "d707764b74e37009cc97027ac3179cda0a75c7cb90ad35e570e9b5354319a188",
     "changed_archive_byte_count": 7417,
     "changed_archive_range_count": 776,
     "additional_text_masks": [
-      {
-        "semantic_locator_sha256": "b10eec118ea2aeaf00483e2a1de2b9741d7b0bddc7ed981a283b609c73281e66",
-        "size": 400,
-        "sha256": "6976ad9d010e5eecf0241438726ec21303741f150610afadb8af349c18e62360",
-        "nonzero_pixel_count": 224
-      },
       {
         "semantic_locator_sha256": "80ebe4f118802a72d8ed2b0076434895eadf99658f50d6e162c6733fe2809485",
         "size": 1113,
@@ -5667,7 +5512,7 @@
       "capture_visible_chinese_labels_with_decorative_english_bazaar_intact",
       "capture_texture_dump_delta_for_the_exact_mask_union"
     ],
-    "expected_visual_effect": "The large title reads 集市, the 54x10 detached Japanese long mark is erased without touching the labels above or below, selected Japanese labels are Chinese except for the explicitly retained 資, and the leading glyph, BS, SR, 資, 金, the SR separator ・, -Bazaar-, BLOOD TYPE and BIRTHDAY remain unchanged.",
+    "expected_visual_effect": "The large title reads 集市, the 54x10 detached Japanese long mark is erased without touching the labels above or below, selected Japanese labels are Chinese, and the original 資金 label, leading glyph, BS, SR, the SR separator ・, -Bazaar-, BLOOD TYPE and BIRTHDAY remain unchanged.",
     "promotion_rule": "Only matching runtime screenshots and an exact original-to-localized texture delta may promote the scene mapping and localized atlas."
   }
 }

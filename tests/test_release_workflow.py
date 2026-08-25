@@ -61,7 +61,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             self.assertNotIn("source_logical_indexes_sha256", entry)
             self.assertNotIn("output_logical_indexes_sha256", entry)
 
-    def test_bazaar_status_labels_preserve_original_pixels(self) -> None:
+    def test_bazaar_status_labels_preserve_original_funds_texture(self) -> None:
         config = _load("config/assets/ui-bazaar-atlas-zh.json")
         corpus = _load("corpus/zh/ui-atlas/bazaar-v2.json")
         decisions = {entry["id"]: entry for entry in corpus["entries"]}
@@ -69,21 +69,8 @@ class ReleaseWorkflowTest(unittest.TestCase):
             entry["entry_id"]: entry
             for entry in config["additional_localized_labels"]
         }
-        self.assertEqual(
-            (
-                decisions["ui-atlas/kvm5/funds"]["source_text"],
-                decisions["ui-atlas/kvm5/funds"]["translation"],
-                labels["ui-atlas/kvm5/funds"]["mask"],
-            ),
-            ("資", "資", {
-                "x": 209,
-                "y": 2,
-                "width": 20,
-                "height": 20,
-                "replacement_rgba": "00000000",
-                "preserve_rgba": ["00000000"],
-            }),
-        )
+        self.assertNotIn("ui-atlas/kvm5/funds", decisions)
+        self.assertNotIn("ui-atlas/kvm5/funds", labels)
         self.assertEqual(
             (
                 decisions["ui-atlas/kvm5/sr-points"]["source_text"],
@@ -105,17 +92,10 @@ class ReleaseWorkflowTest(unittest.TestCase):
         frozen = {
             entry["entry_id"]: entry for entry in snapshot["labels"]
         }
-        funds_template = frozen["ui-atlas/kvm5/funds"][
-            "template_provenance"
-        ]
+        self.assertNotIn("ui-atlas/kvm5/funds", frozen)
         points_template = frozen["ui-atlas/kvm5/sr-points"][
             "template_provenance"
         ]
-        self.assertEqual(
-            funds_template["selection_authority"],
-            "original_japanese_texture_pixel_exact_user_requested",
-        )
-        self.assertEqual(funds_template["exact_original_rows"], 20)
         self.assertEqual(
             points_template["glyphs"],
             [
@@ -137,16 +117,6 @@ class ReleaseWorkflowTest(unittest.TestCase):
         self.assertEqual(
             sum(
                 count
-                for index, count in funds_template[
-                    "logical_index_counts"
-                ].items()
-                if 1 <= int(index) <= 7
-            ),
-            224,
-        )
-        self.assertEqual(
-            sum(
-                count
                 for index, count in points_template[
                     "logical_index_counts"
                 ].items()
@@ -154,7 +124,6 @@ class ReleaseWorkflowTest(unittest.TestCase):
             ),
             243,
         )
-        self.assertTrue(funds_template["source_palette_histogram_exact"])
         self.assertTrue(points_template["source_palette_histogram_exact"])
 
     def test_every_component_member_has_one_build_group(self) -> None:

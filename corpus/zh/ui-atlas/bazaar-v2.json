@@ -2,7 +2,7 @@
   "schema_version": 1,
   "batch_id": "v2-ui-atlas-bazaar",
   "language": "zh-Hans",
-  "scope": "Reviewed Chinese labels for the complete KVMDATA chunk 5 bazaar and shared profile atlas slices. English labels, the leading glyph and BS remain preserved by the atlas mask contract.",
+  "scope": "Reviewed Chinese labels for the KVMDATA chunk 5 bazaar and shared profile atlas slices. The original 資金 label, English labels, the leading glyph and BS remain outside the atlas write masks.",
   "entries": [
     {
       "id": "ui-atlas/kvm5/bazaar",
@@ -15,17 +15,6 @@
         "config/assets/ui-atlas-candidates.json#/candidates/2"
       ],
       "notes": "Use the same compact 集市 term as the intermission entry; the decorative English -Bazaar- label is intentionally preserved."
-    },
-    {
-      "id": "ui-atlas/kvm5/funds",
-      "source_text": "資",
-      "source_text_sha256": "b10eec118ea2aeaf00483e2a1de2b9741d7b0bddc7ed981a283b609c73281e66",
-      "translation": "資",
-      "editorial_status": "reviewed",
-      "source_refs": [
-        "config/assets/ui-bazaar-atlas-zh.json"
-      ],
-      "notes": "Keep the original Japanese 資 glyph pixel-exact by user request; 金, the separate leading glyph, BS acronym and separators also remain byte-exact."
     },
     {
       "id": "ui-atlas/kvm5/sr-points",
