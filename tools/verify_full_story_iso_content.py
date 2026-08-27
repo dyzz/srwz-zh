@@ -73,6 +73,9 @@ from srwz.library_unlock import apply_library_default_unlock
 from srwz.full_name_order import apply_route_specific_full_name_order
 from srwz.movement_type_labels import apply_runtime_movement_type_labels
 from srwz.search_tab_alignment import apply_search_tab_alignment
+from srwz.intermission_library_alignment import (
+    apply_intermission_library_alignment,
+)
 from srwz.remaining_squad_count_alignment import (
     apply_remaining_squad_count_alignment,
 )
@@ -4606,6 +4609,91 @@ def main() -> int:
     ):
         raise SystemExit("final ISO Search-tab alignment readback drift")
     search_tab_alignment_readback["component_receipt_exact"] = True
+    intermission_library_alignment_contract = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )["remaining_ui"]["intermission_library_alignment"]
+    (
+        _verified_intermission_library_slps,
+        intermission_library_alignment_readback,
+    ) = apply_intermission_library_alignment(
+        members["SLPS_258.87"],
+        intermission_library_alignment_contract,
+    )
+    component_intermission_library_alignment = component.get(
+        "intermission_library_alignment"
+    )
+    library_alignment_receipt_fields = (
+        "policy",
+        "member",
+        "target_surface",
+        "position_table_file_offset",
+        "target_coordinate_file_offset",
+        "original_x",
+        "replacement_x",
+        "shift_pixels",
+        "entry_count",
+    )
+    library_alignment_entry_fields = (
+        "surface",
+        "label",
+        "source_string_file_offset",
+        "pointer_virtual_address",
+        "row_file_offset",
+        "output_x",
+        "targeted",
+    )
+    normalized_library_alignment_readback = (
+        tuple(
+            intermission_library_alignment_readback.get(field)
+            for field in library_alignment_receipt_fields
+        ),
+        tuple(
+            tuple(entry.get(field) for field in library_alignment_entry_fields)
+            for entry in intermission_library_alignment_readback.get(
+                "entries", []
+            )
+        ),
+    )
+    normalized_library_alignment_component = (
+        (
+            tuple(
+                component_intermission_library_alignment.get(field)
+                for field in library_alignment_receipt_fields
+            ),
+            tuple(
+                tuple(entry.get(field) for field in library_alignment_entry_fields)
+                for entry in component_intermission_library_alignment.get(
+                    "entries", []
+                )
+            ),
+        )
+        if isinstance(component_intermission_library_alignment, dict)
+        else None
+    )
+    if (
+        normalized_library_alignment_readback
+        != normalized_library_alignment_component
+        or intermission_library_alignment_readback["entry_count"] != 6
+        or intermission_library_alignment_readback["original_x"] != -90
+        or intermission_library_alignment_readback["replacement_x"] != -100
+        or intermission_library_alignment_readback["shift_pixels"] != -10
+        or intermission_library_alignment_readback["changed_byte_count"] != 0
+        or not intermission_library_alignment_readback[
+            "changed_bytes_confined_to_target_coordinate"
+        ]
+        or not intermission_library_alignment_readback["pointer_table_preserved"]
+        or not intermission_library_alignment_readback["sibling_rows_preserved"]
+        or not intermission_library_alignment_readback["target_tail_preserved"]
+        or not intermission_library_alignment_readback[
+            "executable_size_preserved"
+        ]
+    ):
+        raise SystemExit(
+            "final ISO intermission Library alignment readback drift"
+        )
+    intermission_library_alignment_readback[
+        "component_receipt_exact"
+    ] = True
     remaining_count_alignment_contract = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )["remaining_ui"]["remaining_squad_count_alignment"]
@@ -6544,6 +6632,9 @@ def main() -> int:
         "runtime_full_name_order": full_name_order_readback,
         "runtime_movement_type_labels": movement_type_readback,
         "search_tab_alignment": search_tab_alignment_readback,
+        "intermission_library_alignment": (
+            intermission_library_alignment_readback
+        ),
         "remaining_squad_count_alignment": (
             remaining_squad_count_alignment_readback
         ),
@@ -6727,6 +6818,29 @@ def main() -> int:
                 and search_tab_alignment_readback["changed_byte_count"] == 0
                 and search_tab_alignment_readback["all_replacements_exact"]
                 and search_tab_alignment_readback["component_receipt_exact"]
+            ),
+            "intermission_library_robot_encyclopedia_centered": (
+                intermission_library_alignment_readback["entry_count"] == 6
+                and intermission_library_alignment_readback["replacement_x"]
+                == -100
+                and intermission_library_alignment_readback["shift_pixels"] == -10
+                and intermission_library_alignment_readback["changed_byte_count"]
+                == 0
+                and intermission_library_alignment_readback[
+                    "changed_bytes_confined_to_target_coordinate"
+                ]
+                and intermission_library_alignment_readback[
+                    "pointer_table_preserved"
+                ]
+                and intermission_library_alignment_readback[
+                    "sibling_rows_preserved"
+                ]
+                and intermission_library_alignment_readback[
+                    "target_tail_preserved"
+                ]
+                and intermission_library_alignment_readback[
+                    "component_receipt_exact"
+                ]
             ),
             "remaining_squad_count_spacing_exact": (
                 remaining_squad_count_alignment_readback["shift_pixels"] == 8

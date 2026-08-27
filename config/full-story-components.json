@@ -724,6 +724,60 @@
         }
       ]
     },
+    "intermission_library_alignment": {
+      "member": "SLPS_258.87",
+      "policy": "move_robot_encyclopedia_coordinate_without_changing_text_padding",
+      "elf_file_offset_base": "0x0",
+      "elf_virtual_address_base": "0xFE580",
+      "position_table_file_offset": "0x332410",
+      "entry_stride": 8,
+      "target_surface": "robot_encyclopedia",
+      "entries": [
+        {
+          "surface": "robot_encyclopedia",
+          "label": "＜机体图鉴＞",
+          "source_string_file_offset": "0x3472B0",
+          "pointer_virtual_address": "0x445830",
+          "original_x": -90,
+          "replacement_x": -100
+        },
+        {
+          "surface": "character_encyclopedia",
+          "label": "＜角色事典＞",
+          "source_string_file_offset": "0x3472D0",
+          "pointer_virtual_address": "0x445850",
+          "original_x": -100
+        },
+        {
+          "surface": "glossary",
+          "label": "＜术语事典＞",
+          "source_string_file_offset": "0x3472E8",
+          "pointer_virtual_address": "0x445868",
+          "original_x": -60
+        },
+        {
+          "surface": "sound_select",
+          "label": "＜音乐选择＞",
+          "source_string_file_offset": "0x347300",
+          "pointer_virtual_address": "0x445880",
+          "original_x": -100
+        },
+        {
+          "surface": "scenario_chart",
+          "label": "＜剧情流程＞",
+          "source_string_file_offset": "0x347320",
+          "pointer_virtual_address": "0x4458A0",
+          "original_x": -100
+        },
+        {
+          "surface": "strategy_qa",
+          "label": "＜攻略Q&A＞",
+          "source_string_file_offset": "0x347338",
+          "pointer_virtual_address": "0x4458B8",
+          "original_x": -70
+        }
+      ]
+    },
     "remaining_squad_count_alignment": {
       "member": "SLPS_258.87",
       "policy": "move_printf_number_right_without_touching_adjacent_text",

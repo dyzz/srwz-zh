@@ -98,6 +98,10 @@ try:
         SearchTabAlignmentError,
         apply_search_tab_alignment,
     )
+    from srwz.intermission_library_alignment import (
+        IntermissionLibraryAlignmentError,
+        apply_intermission_library_alignment,
+    )
     from srwz.remaining_squad_count_alignment import (
         RemainingSquadCountAlignmentError,
         apply_remaining_squad_count_alignment,
@@ -254,6 +258,10 @@ except ModuleNotFoundError:
     from tools.srwz.search_tab_alignment import (
         SearchTabAlignmentError,
         apply_search_tab_alignment,
+    )
+    from tools.srwz.intermission_library_alignment import (
+        IntermissionLibraryAlignmentError,
+        apply_intermission_library_alignment,
     )
     from tools.srwz.remaining_squad_count_alignment import (
         RemainingSquadCountAlignmentError,
@@ -10024,6 +10032,18 @@ def build(
         ) from error
 
     try:
+        output_slps, intermission_library_alignment_report = (
+            apply_intermission_library_alignment(
+                output_slps,
+                config["remaining_ui"]["intermission_library_alignment"],
+            )
+        )
+    except (KeyError, ValueError, IntermissionLibraryAlignmentError) as error:
+        raise FullStoryComponentError(
+            f"intermission Library alignment failed: {error}"
+        ) from error
+
+    try:
         output_slps, remaining_squad_count_alignment_report = (
             apply_remaining_squad_count_alignment(
                 output_slps,
@@ -10472,6 +10492,9 @@ def build(
         "runtime_full_name_order": full_name_order_report,
         "runtime_movement_type_labels": movement_type_label_report,
         "search_tab_alignment": search_tab_alignment_report,
+        "intermission_library_alignment": (
+            intermission_library_alignment_report
+        ),
         "remaining_squad_count_alignment": (
             remaining_squad_count_alignment_report
         ),
@@ -10806,6 +10829,27 @@ def build(
                 search_tab_alignment_report["surface_count"] == 5
                 and search_tab_alignment_report["all_replacements_exact"]
                 and search_tab_alignment_report[
+                    "executable_size_preserved"
+                ]
+            ),
+            "intermission_library_robot_encyclopedia_centered": (
+                intermission_library_alignment_report["entry_count"] == 6
+                and intermission_library_alignment_report["original_x"] == -90
+                and intermission_library_alignment_report["replacement_x"] == -100
+                and intermission_library_alignment_report["shift_pixels"] == -10
+                and intermission_library_alignment_report[
+                    "changed_bytes_confined_to_target_coordinate"
+                ]
+                and intermission_library_alignment_report[
+                    "pointer_table_preserved"
+                ]
+                and intermission_library_alignment_report[
+                    "sibling_rows_preserved"
+                ]
+                and intermission_library_alignment_report[
+                    "target_tail_preserved"
+                ]
+                and intermission_library_alignment_report[
                     "executable_size_preserved"
                 ]
             ),
