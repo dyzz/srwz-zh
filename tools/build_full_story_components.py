@@ -8626,12 +8626,12 @@ def build(
         or stage_report.get("story_ticker_structural_slots_exact") is not True
         or stage_report.get("story_ticker_fixed_slots_exact") is not True
         or stage_report.get("story_ticker_translated_reread_exact") is not True
-        or stage_report.get("z_report_count") != 2
-        or stage_report.get("z_report_source_count") != 2
-        or stage_report.get("z_report_stage_count") != 1
-        or stage_report.get("z_report_stage_indices") != [36]
+        or stage_report.get("z_report_count") != 6
+        or stage_report.get("z_report_source_count") != 5
+        or stage_report.get("z_report_stage_count") != 5
+        or stage_report.get("z_report_stage_indices") != [33, 36, 66, 119, 127]
         or stage_report.get("z_report_inventory_sha256")
-        != "88dc3b72d46b201d7949e0e441ceb60fc9eca1893e63f335bd36cba9c3a1acd9"
+        != "79f18d4287371f061d39c1d320f9bd05a3052c2fc462c281cb29ccae90d23d90"
         or stage_report.get("z_report_structural_slots_exact") is not True
         or stage_report.get("z_report_fixed_slots_exact") is not True
         or stage_report.get("z_report_translated_reread_exact") is not True

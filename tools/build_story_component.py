@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import re
+import struct
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -18,7 +19,11 @@ from srwz.font import sha256_bytes
 from srwz.release_font_policy import DEFAULT_WIDTH_CLASS, allocation_width_class
 from srwz.iso9660 import SECTOR_SIZE, member_map, scan_iso9660
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
-from srwz.stage import parse_stage, read_stage_function_addresses
+from srwz.stage import (
+    STAGE_BASE_ADDRESS,
+    parse_stage,
+    read_stage_function_addresses,
+)
 from srwz.story_quotes import evaluate_story_quote
 from srwz.text import (
     decode_text,
@@ -41,6 +46,7 @@ DEFAULT_CONFIG = PROJECT_ROOT / "config/story-component.json"
 _STAGE_NAME = re.compile(r"stage-(\d{3})\.json$")
 TICKER_RUNTIME_POINTER_MIN = 0x00750000
 TICKER_RUNTIME_POINTER_MAX = 0x0076FFFF
+Z_REPORT_RECORD_SIGNATURE = (0x00000006, 0xFFFFFFFF, 0xFFFFFFFF)
 
 
 def parse_args() -> argparse.Namespace:
@@ -334,7 +340,7 @@ def _load_story_tickers(
 def _load_z_reports(
     reference: Mapping[str, object],
 ) -> tuple[Path, dict[str, dict]]:
-    """Load the reviewed non-dialogue Z Report reward strings."""
+    """Load every reviewed non-dialogue string owned by a Z Report record."""
 
     path = _project_path(str(reference.get("path", "")))
     if (
@@ -351,8 +357,13 @@ def _load_z_reports(
         or len(entries) != reference.get("expected_entry_count")
         or document.get("inventory")
         != {
-            "selection_authority": "full_structural_stage_scan",
-            "source_pattern": "<team>チームはＰＰ＋<fullwidth-digits>",
+            "selection_authority": "z_report_record_signature",
+            "record_signature": [
+                "0x00000006",
+                "0xFFFFFFFF",
+                "0xFFFFFFFF",
+                "<absolute_text_pointer>",
+            ],
             "slot_ownership": "nul_terminated_source_span_only",
         }
     ):
@@ -395,38 +406,57 @@ def _discover_z_reports(
     entries_by_source: Mapping[str, dict],
     reference: Mapping[str, object],
 ) -> tuple[dict[int, list[dict]], dict]:
-    """Inventory all structurally matching Z Report PP reward slots."""
+    """Inventory every text slot owned by the locked Z Report record shape."""
 
-    pattern = re.compile(r"^.+チームはＰＰ＋[０-９]+$")
     by_stage: dict[int, list[dict]] = {}
     inventory = []
     unknown_sources = set()
     for stage_index, source_chunk in enumerate(source_chunks):
         data = decode(source_chunk).output
-        for offset in range(len(data)):
-            if offset and data[offset - 1] != 0:
+        for record_offset in range(0, len(data) - 15, 4):
+            if (
+                struct.unpack_from("<III", data, record_offset)
+                != Z_REPORT_RECORD_SIGNATURE
+            ):
+                continue
+            text_pointer = struct.unpack_from("<I", data, record_offset + 12)[0]
+            offset = text_pointer - STAGE_BASE_ADDRESS
+            if not 0 <= offset < len(data):
+                # The first three words can occur coincidentally in unrelated
+                # data.  A Z Report owner also requires an absolute pointer
+                # into this decoded STAGE chunk.
                 continue
             try:
                 source = decode_text(
                     data,
                     offset,
                     table,
-                    end=min(len(data), offset + 96),
+                    end=min(len(data), offset + 256),
                 )
-            except Exception:
-                continue
+            except Exception as error:
+                raise SystemExit(
+                    "Z Report record text could not be decoded: "
+                    f"stage={stage_index} record=0x{record_offset:X} "
+                    f"offset=0x{offset:X}"
+                ) from error
             if (
                 source.terminator != "nul"
                 or source.unknown_code_count
-                or not pattern.fullmatch(source.text)
+                or not source.text
             ):
-                continue
+                raise SystemExit(
+                    "Z Report record text is not an exact known NUL string: "
+                    f"stage={stage_index} record=0x{record_offset:X} "
+                    f"offset=0x{offset:X}"
+                )
             entry = entries_by_source.get(source.text)
             if entry is None:
                 unknown_sources.add(source.text)
                 continue
             target = {
                 **entry,
+                "record_offset": record_offset,
+                "text_pointer": text_pointer,
                 "decoded_offset": offset,
                 "source_slot_size": source.consumed,
             }
@@ -434,6 +464,8 @@ def _discover_z_reports(
             inventory.append(
                 {
                     "stage_index": stage_index,
+                    "record_offset": record_offset,
+                    "text_pointer": text_pointer,
                     "decoded_offset": offset,
                     "source_slot_size": source.consumed,
                     "source_text": source.text,

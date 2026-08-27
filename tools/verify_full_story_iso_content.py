@@ -3364,24 +3364,37 @@ def verify_post_release_runtime_surfaces(
         return result.output
 
     z_report_expected = {
-        0xDD50: "莎拉队获得PP+50",
-        0xDD70: "亚蒂特队获得PP+50",
+        33: {0x5BA0: "武装“巨型火箭炮”已追加"},
+        36: {
+            0xDD50: "莎拉队获得PP+50",
+            0xDD70: "亚蒂特队获得PP+50",
+        },
+        66: {0x1BF40: "武装“巨型喷射器”已追加"},
+        119: {0x25A80: "武装“G比特”已追加"},
+        127: {0x2B1D0: "武装“G比特”已追加"},
     }
-    z_report_stage = decoded_stage(36)
     z_report_readbacks = {}
-    for offset, translation in z_report_expected.items():
-        actual = decode_text(
-            z_report_stage,
-            offset,
-            output_table,
-            end=offset + 32,
-        )
-        raw = z_report_stage[offset : offset + actual.consumed]
-        if actual.text != translation or b"PP+50" in raw:
-            raise SystemExit(
-                f"final ISO Z Report mismatch at 0x{offset:X}"
+    for stage_index, expected_by_offset in z_report_expected.items():
+        z_report_stage = decoded_stage(stage_index)
+        for offset, translation in expected_by_offset.items():
+            actual = decode_text(
+                z_report_stage,
+                offset,
+                output_table,
+                end=offset + 64,
             )
-        z_report_readbacks[f"0x{offset:X}"] = translation
+            raw = z_report_stage[offset : offset + actual.consumed]
+            if (
+                actual.text != translation
+                or (stage_index == 36 and b"PP+50" in raw)
+            ):
+                raise SystemExit(
+                    "final ISO Z Report mismatch at "
+                    f"stage={stage_index} offset=0x{offset:X}"
+                )
+            z_report_readbacks[
+                f"stage-{stage_index:03d}/0x{offset:X}"
+            ] = translation
 
     ticker_targets = (
         (
@@ -3586,8 +3599,30 @@ def verify_post_release_runtime_surfaces(
         },
         "issue_026_z_report": {
             "stage_index": 36,
-            "reward_readbacks": z_report_readbacks,
+            "reward_readbacks": {
+                key: value
+                for key, value in z_report_readbacks.items()
+                if key.startswith("stage-036/")
+            },
             "raw_single_byte_pp50_absent": True,
+            "translated_reread_exact": True,
+        },
+        "v030_028_z_report_weapon_additions": {
+            "source_count": 3,
+            "target_count": 4,
+            "stage_indices": [33, 66, 119, 127],
+            "weapon_readbacks": {
+                key: value
+                for key, value in z_report_readbacks.items()
+                if not key.startswith("stage-036/")
+            },
+            "translated_reread_exact": True,
+        },
+        "z_report_structural_coverage": {
+            "source_count": 5,
+            "target_count": 6,
+            "stage_indices": [33, 36, 66, 119, 127],
+            "readbacks": z_report_readbacks,
             "translated_reread_exact": True,
         },
     }
