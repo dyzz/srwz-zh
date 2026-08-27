@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Mapping
 
 from srwz.codec import decode_production as decode, reencode_changed_suffix
+from srwz.chinese_layout import fit_chinese_dialogue_layout
 from srwz.diagnostics import require_work_output
 from srwz.font import sha256_bytes
 from srwz.release_font_policy import DEFAULT_WIDTH_CLASS, allocation_width_class
@@ -1039,6 +1040,8 @@ def build(
             for entry in parsed_source.entries
             if entry.kind == "speaker"
         }
+        fitted_dialogue = {}
+        dialogue_layout_reflowed_count = 0
         for entry in parsed_source.entries:
             if entry.kind != "dialogue":
                 continue
@@ -1048,6 +1051,15 @@ def build(
                     f"missing translated dialogue entry: {entry.entry_id}"
                 )
             has_keyword_links = "《" in entry.text
+            fitted = fit_chinese_dialogue_layout(
+                translated,
+                stage_keyword_links=has_keyword_links,
+            )
+            translated = fitted.text
+            fitted_dialogue[entry.entry_id] = translated
+            dialogue_layout_reflowed_count += (
+                fitted.preserved_reason == "reflowed_to_fit"
+            )
             verdict = evaluate_story_quote(
                 entry.text,
                 translated,
@@ -1102,7 +1114,7 @@ def build(
                     f"{entry_id} source={source_text!r} "
                     f"translation={translation!r}"
                 )
-        replacements = {**dialogue[stage], **stage_conditions}
+        replacements = {**fitted_dialogue, **stage_conditions}
         write = repack_stage_texts_in_place(
             decoded.output,
             table,
@@ -1147,6 +1159,8 @@ def build(
             **ticker_report,
             **z_report_report,
             "dialogue_count": len(dialogue[stage]),
+            "dialogue_layout_reflowed_count": dialogue_layout_reflowed_count,
+            "dialogue_layout_reflow_preserves_logical_text": True,
             "condition_count": len(stage_conditions),
             "condition_runtime_name_placeholder_count": sum(
                 translation.count(":")

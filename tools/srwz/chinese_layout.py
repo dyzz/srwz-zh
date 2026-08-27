@@ -876,3 +876,72 @@ def reflow_chinese_dialogue(
         preserved_reason="",
         line_widths=widths,
     )
+
+
+def fit_chinese_dialogue_layout(
+    text: str,
+    *,
+    protected_terms: Iterable[str] = (),
+    line_width: int = DEFAULT_LINE_WIDTH,
+    max_lines: int = DEFAULT_MAX_LINES,
+    profile: ChineseLayoutProfile | None = None,
+    stage_keyword_links: bool = False,
+) -> ReflowResult:
+    """Preserve valid manual breaks, otherwise reflow without deleting text."""
+
+    protected_terms = tuple(protected_terms)
+    if profile is not None:
+        line_width = profile.maximum_width
+        if profile.maximum_lines is None:
+            raise ChineseLayoutError(
+                "dialogue profile must have a maximum line count"
+            )
+        max_lines = profile.maximum_lines
+        first_line_width = profile.first_line_maximum_width or line_width
+        effective_terms = (*profile.unbroken_terms, *protected_terms)
+    else:
+        first_line_width = line_width
+        effective_terms = protected_terms
+    widths = dialogue_line_widths(
+        text,
+        protected_terms=effective_terms,
+        stage_keyword_links=stage_keyword_links,
+    )
+    if (
+        len(widths) <= max_lines
+        and (not widths or widths[0] <= first_line_width)
+        and all(width <= line_width for width in widths[1:])
+    ):
+        return ReflowResult(
+            original=text,
+            text=text,
+            preserved_reason="already_fits",
+            line_widths=widths,
+        )
+
+    result = reflow_chinese_dialogue(
+        text,
+        protected_terms=protected_terms,
+        line_width=line_width,
+        max_lines=max_lines,
+        profile=profile,
+        stage_keyword_links=stage_keyword_links,
+    )
+    if (
+        len(result.line_widths) > max_lines
+        or (
+            result.line_widths
+            and result.line_widths[0] > first_line_width
+        )
+        or any(width > line_width for width in result.line_widths[1:])
+    ):
+        raise ChineseLayoutError(
+            f"dialogue cannot fit {line_width}x{max_lines}: "
+            f"{result.line_widths!r}"
+        )
+    return ReflowResult(
+        original=result.original,
+        text=result.text,
+        preserved_reason="reflowed_to_fit",
+        line_widths=result.line_widths,
+    )

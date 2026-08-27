@@ -25,6 +25,7 @@ from srwz.release_font import (
     audit_runtime_generated_glyph_compatibility,
     audit_sound_select_title_glyph_compatibility,
     baseline_with_original_ascii,
+    baseline_with_protected_original_glyphs,
     load_frozen_formation_compatibility,
     rendered_characters,
     selected_translation_tree_entries,
@@ -232,6 +233,10 @@ def main() -> int:
                 "visible_ascii_policy"
             ].get("preserve_raw_ascii_punctuation", False),
         )
+    baseline = baseline_with_protected_original_glyphs(
+        baseline,
+        runtime_generated_compatibility,
+    )
     coverage = audit_entry_font(entries.values(), baseline)
     control_token_report = selection.get("control_tokens")
     literal_percent_report = selection.get("literal_percent_signs")

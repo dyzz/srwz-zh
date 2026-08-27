@@ -344,6 +344,53 @@ def baseline_with_original_ascii(
     return {**baseline, "proposal_assignments": assignments}
 
 
+def baseline_with_protected_original_glyphs(
+    baseline: Mapping[str, object],
+    compatibility: Mapping[str, object],
+) -> dict:
+    """Treat evidence-locked stock glyphs as intentional release mappings.
+
+    Runtime glyph compatibility keeps a small set of punctuation codes live in
+    the original font.  Those same characters may also be authored literally
+    in localized fragments, such as the bazaar confirmation closing quote.
+    Coverage must recognize that use as protected rather than as untranslated
+    source text.
+    """
+
+    characters = compatibility.get("protected_source_characters")
+    raw_codes = compatibility.get("protected_original_codes")
+    table = baseline["table"]
+    extended_entries = baseline["extended_entries"]
+    table_characters = getattr(table, "characters", None)
+    if (
+        not isinstance(characters, str)
+        or not isinstance(raw_codes, list)
+        or len(characters) != len(raw_codes)
+        or not isinstance(table_characters, Mapping)
+    ):
+        raise ReleaseFontError(
+            "protected original glyph compatibility report is invalid"
+        )
+    assignments = dict(baseline["proposal_assignments"])
+    for character, raw_code in zip(characters, raw_codes):
+        try:
+            code = int(raw_code, 16)
+        except (TypeError, ValueError) as error:
+            raise ReleaseFontError(
+                "protected original glyph code is invalid"
+            ) from error
+        if table_characters.get(code) != character:
+            raise ReleaseFontError(
+                "protected original glyph no longer matches the text table"
+            )
+        assignments[character] = {
+            "code_value": code,
+            "mapping": "protected_original_glyph",
+            "glyph_index": glyph_index_for_code(code, extended_entries),
+        }
+    return {**baseline, "proposal_assignments": assignments}
+
+
 def audit_legacy_formation_glyph_compatibility(
     snapshot: Mapping[str, object],
     table: object,
@@ -1421,6 +1468,7 @@ __all__ = [
     "audit_runtime_generated_glyph_compatibility",
     "audit_sound_select_title_glyph_compatibility",
     "baseline_with_original_ascii",
+    "baseline_with_protected_original_glyphs",
     "rendered_characters",
     "selected_translation_tree_entries",
 ]

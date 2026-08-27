@@ -8201,29 +8201,61 @@ def _build_incremental_fixed_slps(
 ) -> tuple[dict[str, bytes], dict]:
     """Patch reviewed fixed SLPS fields after the dependency planner selects them."""
 
-    baseline_map = baseline_remaining_ui.get("slps_by_offset")
-    current_map = current_remaining_ui.get("slps_by_offset")
-    if not isinstance(baseline_map, dict) or not isinstance(current_map, dict):
-        raise FullStoryComponentError("incremental SLPS maps are invalid")
-    changed_offsets = {
-        offset
-        for offset in set(baseline_map) | set(current_map)
-        if baseline_map.get(offset) != current_map.get(offset)
-    }
-    removed_offsets = set(baseline_map) - set(current_map)
-    if removed_offsets:
-        raise FullStoryComponentError(
-            "incremental fixed-SLPS patch does not support removing offsets: "
-            + ", ".join(sorted(removed_offsets))
+    map_specs = (
+        (
+            "slps_context_ui_by_offset",
+            "slps_context_ui",
+        ),
+        (
+            "slps_by_offset",
+            "slps",
+        ),
+    )
+    changed_maps = []
+    all_changed_offsets = set()
+    changed_replacements = {}
+    for map_key, report_key in map_specs:
+        baseline_map = baseline_remaining_ui.get(map_key)
+        current_map = current_remaining_ui.get(map_key)
+        if not isinstance(baseline_map, dict) or not isinstance(current_map, dict):
+            raise FullStoryComponentError(
+                f"incremental SLPS map is invalid: {map_key}"
+            )
+        changed_offsets = {
+            offset
+            for offset in set(baseline_map) | set(current_map)
+            if baseline_map.get(offset) != current_map.get(offset)
+        }
+        removed_offsets = set(baseline_map) - set(current_map)
+        if removed_offsets:
+            raise FullStoryComponentError(
+                "incremental fixed-SLPS patch does not support removing offsets: "
+                + ", ".join(sorted(removed_offsets))
+            )
+        overlap = all_changed_offsets & changed_offsets
+        if overlap:
+            raise FullStoryComponentError(
+                "incremental fixed-SLPS maps overlap: "
+                + ", ".join(sorted(overlap))
+            )
+        if not changed_offsets:
+            continue
+        changed_maps.append(
+            (
+                report_key,
+                baseline_map,
+                current_map,
+                changed_offsets,
+            )
         )
-    if not changed_offsets:
+        all_changed_offsets.update(changed_offsets)
+        changed_replacements.update(
+            {offset: current_map[offset] for offset in changed_offsets}
+        )
+    if not all_changed_offsets:
         raise FullStoryComponentError(
             "incremental fixed-SLPS handler selected without changed fields"
         )
-    changed_replacements = {
-        offset: current_map[offset]
-        for offset in changed_offsets
-    }
 
     remaining_reference = config.get("remaining_ui")
     if not isinstance(remaining_reference, dict):
@@ -8262,6 +8294,13 @@ def _build_incremental_fixed_slps(
     )
     current_slps_path = output_root / SLPS_MEMBER
     current_slps = current_slps_path.read_bytes()
+    accepted_previous_texts = dict(
+        current_remaining_ui.get("accepted_current_preimages_by_offset", {})
+    )
+    for _report_key, baseline_map, _current_map, changed_offsets in changed_maps:
+        for raw_offset in changed_offsets:
+            if raw_offset in baseline_map:
+                accepted_previous_texts[raw_offset] = baseline_map[raw_offset]
     output_slps, _incremental_slps_report = _apply_fixed_span_translations(
         current_slps,
         original_slps,
@@ -8270,12 +8309,10 @@ def _build_incremental_fixed_slps(
         output_table=output_table,
         encoding_overrides=encoding_overrides,
         label="remaining SLPS UI",
-        accepted_current_texts=current_remaining_ui.get(
-            "accepted_current_preimages_by_offset"
-        ),
+        accepted_current_texts=accepted_previous_texts,
     )
     try:
-        output_slps, search_tab_alignment_report = (
+        output_slps, verified_search_tab_alignment_report = (
             apply_search_tab_alignment(
                 output_slps,
                 remaining_reference["search_tab_alignment"],
@@ -8286,7 +8323,7 @@ def _build_incremental_fixed_slps(
             f"incremental Search-tab alignment failed: {error}"
         ) from error
     try:
-        output_slps, remaining_squad_count_alignment_report = (
+        output_slps, verified_remaining_squad_count_alignment_report = (
             apply_remaining_squad_count_alignment(
                 output_slps,
                 remaining_reference["remaining_squad_count_alignment"],
@@ -8306,16 +8343,16 @@ def _build_incremental_fixed_slps(
         if before != after
     }
     allowed_byte_offsets = set()
-    for raw_offset in changed_offsets:
+    for raw_offset in all_changed_offsets:
         offset = int(raw_offset, 16)
         source = decode_text(original_slps, offset, table)
         allowed_byte_offsets.update(range(offset, offset + source.consumed))
     allowed_byte_offsets.update(
         int(item["file_offset"], 16)
-        for item in search_tab_alignment_report["patches"]
+        for item in verified_search_tab_alignment_report["patches"]
     )
     remaining_count_instruction_offset = int(
-        remaining_squad_count_alignment_report[
+        verified_remaining_squad_count_alignment_report[
             "number_instruction_file_offset"
         ],
         16,
@@ -8348,7 +8385,6 @@ def _build_incremental_fixed_slps(
     # SLPS and would otherwise turn every unchanged entry into a misleading
     # incremental no-op. New fixed fields and existing fields with a locked
     # preimage can still update those counters exactly from their byte spans.
-    aggregate = report["remaining_ui"]["slps"]
     baseline_accepted = baseline_remaining_ui.get(
         "accepted_current_preimages_by_offset", {}
     )
@@ -8389,72 +8425,73 @@ def _build_incremental_fixed_slps(
             source.consumed - len(encoded_translation),
         )
 
-    for raw_offset in sorted(changed_offsets):
-        current_metrics = fixed_span_metrics(
-            raw_offset,
-            current_map[raw_offset],
-            current_accepted,
-        )
-        if raw_offset not in baseline_map:
-            aggregate["entry_count"] += 1
-            aggregate[
-                "write_entry_count" if current_metrics[0] else "no_op_entry_count"
-            ] += 1
-            aggregate["changed_byte_count"] += current_metrics[1]
-            aggregate["minimum_output_headroom"] = min(
-                aggregate["minimum_output_headroom"],
-                current_metrics[2],
-            )
-            continue
-        reliable_preimage = (
-            raw_offset in baseline_accepted
-            or raw_offset in current_accepted
-            or baseline_map[raw_offset]
-            == decode_text(original_slps, int(raw_offset, 16), table).text
-        )
-        if reliable_preimage:
-            baseline_metrics = fixed_span_metrics(
+    for report_key, baseline_map, current_map, changed_offsets in changed_maps:
+        aggregate = report["remaining_ui"][report_key]
+        for raw_offset in sorted(changed_offsets):
+            current_metrics = fixed_span_metrics(
                 raw_offset,
-                baseline_map[raw_offset],
-                baseline_accepted,
+                current_map[raw_offset],
+                current_accepted,
             )
-            if baseline_metrics[0] != current_metrics[0]:
+            if raw_offset not in baseline_map:
+                aggregate["entry_count"] += 1
                 aggregate[
-                    "write_entry_count" if baseline_metrics[0] else "no_op_entry_count"
-                ] -= 1
-                aggregate[
-                    "write_entry_count" if current_metrics[0] else "no_op_entry_count"
+                    "write_entry_count"
+                    if current_metrics[0]
+                    else "no_op_entry_count"
                 ] += 1
-            aggregate["changed_byte_count"] += (
-                current_metrics[1] - baseline_metrics[1]
-            )
-            aggregate["minimum_output_headroom"] = min(
-                aggregate["minimum_output_headroom"],
-                current_metrics[2],
-            )
+                aggregate["changed_byte_count"] += current_metrics[1]
+                aggregate["minimum_output_headroom"] = min(
+                    aggregate["minimum_output_headroom"],
+                    current_metrics[2],
+                )
+                continue
+            reliable_preimage = raw_offset in baseline_map
+            if reliable_preimage:
+                baseline_metrics = fixed_span_metrics(
+                    raw_offset,
+                    baseline_map[raw_offset],
+                    baseline_accepted,
+                )
+                if baseline_metrics[0] != current_metrics[0]:
+                    aggregate[
+                        "write_entry_count"
+                        if baseline_metrics[0]
+                        else "no_op_entry_count"
+                    ] -= 1
+                    aggregate[
+                        "write_entry_count"
+                        if current_metrics[0]
+                        else "no_op_entry_count"
+                    ] += 1
+                aggregate["changed_byte_count"] += (
+                    current_metrics[1] - baseline_metrics[1]
+                )
+                aggregate["minimum_output_headroom"] = min(
+                    aggregate["minimum_output_headroom"],
+                    current_metrics[2],
+                )
     report["outputs"][SLPS_MEMBER] = _output_lock(
         current_slps_path,
         output_slps,
     )
-    report["search_tab_alignment"] = search_tab_alignment_report
-    report["remaining_squad_count_alignment"] = (
-        remaining_squad_count_alignment_report
-    )
     report["acceptance"]["search_tabs_aligned_as_five_label_set"] = (
-        search_tab_alignment_report["surface_count"] == 5
-        and search_tab_alignment_report["all_replacements_exact"]
-        and search_tab_alignment_report["executable_size_preserved"]
+        verified_search_tab_alignment_report["surface_count"] == 5
+        and verified_search_tab_alignment_report["all_replacements_exact"]
+        and verified_search_tab_alignment_report["executable_size_preserved"]
     )
     report["acceptance"]["remaining_squad_count_spacing_exact"] = (
-        remaining_squad_count_alignment_report["shift_pixels"] == 8
-        and remaining_squad_count_alignment_report[
+        verified_remaining_squad_count_alignment_report["shift_pixels"] == 8
+        and verified_remaining_squad_count_alignment_report[
             "adjacent_coordinates_preserved"
         ]
-        and remaining_squad_count_alignment_report["format_token_untouched"]
-        and remaining_squad_count_alignment_report[
+        and verified_remaining_squad_count_alignment_report[
+            "format_token_untouched"
+        ]
+        and verified_remaining_squad_count_alignment_report[
             "instruction_replacement_exact"
         ]
-        and remaining_squad_count_alignment_report[
+        and verified_remaining_squad_count_alignment_report[
             "executable_size_preserved"
         ]
     )
@@ -8462,7 +8499,7 @@ def _build_incremental_fixed_slps(
         raise FullStoryComponentError("prior component acceptance is not reusable")
     print(
         "[incremental] fixed SLPS fields:",
-        f"changed_fields={len(changed_offsets)}",
+        f"changed_fields={len(all_changed_offsets)}",
         f"changed_bytes={len(changed_byte_offsets)}",
         flush=True,
     )
@@ -11459,6 +11496,7 @@ def main() -> int:
                 )
             if affected_members:
                 fixed_slps_reasons = {
+                    "remaining-ui:slps_context_ui_by_offset",
                     "remaining-ui:slps_by_offset",
                     "remaining-ui:accepted_current_preimages_by_offset",
                 }

@@ -14,6 +14,7 @@ from srwz.chinese_layout import (
     DEFAULT_LINE_WIDTH,
     DEFAULT_MAX_LINES,
     dialogue_line_widths,
+    fit_chinese_dialogue_layout,
 )
 from srwz.codec import decode_production as decode
 from srwz.display_names import (
@@ -5757,6 +5758,13 @@ def main() -> int:
             PROJECT_ROOT
             / f"corpus/zh/story-dialogue/stage-{stage:03d}.json"
         )
+        dialogue = {
+            entry_id: fit_chinese_dialogue_layout(
+                translation,
+                stage_keyword_links=("《" in translation),
+            ).text
+            for entry_id, translation in dialogue.items()
+        }
         stage_conditions = {
             entry_id: translation
             for entry_id, translation in conditions.items()

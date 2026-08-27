@@ -25,6 +25,16 @@ from tools.srwz.title_menu import (
 from tools.srwz.stage import STAGE_BASE_ADDRESS
 from tools.srwz.stage_formations import _scan_packed8_groups
 from tools.srwz.text import encode_text, load_text_table
+from tools.srwz.release_font import (
+    audit_entry_font,
+    baseline_with_protected_original_glyphs,
+)
+from tools.srwz.font import GLYPH_SIZE, standard_glyph_index
+from tools.srwz.chinese_layout import (
+    dialogue_line_widths,
+    fit_chinese_dialogue_layout,
+    logical_dialogue_text,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -49,6 +59,59 @@ def _mapping_sha256(assignments: list[dict]) -> str:
 
 
 class ReleaseWorkflowTest(unittest.TestCase):
+    def test_dialogue_layout_reflows_without_shortening_text(self) -> None:
+        source = "“我们也对迪兰达尔议长的所作所为心存疑虑。”"
+        fitted = fit_chinese_dialogue_layout(source)
+        self.assertEqual(fitted.preserved_reason, "reflowed_to_fit")
+        self.assertEqual(
+            logical_dialogue_text(fitted.text),
+            logical_dialogue_text(source),
+        )
+        self.assertLessEqual(len(fitted.line_widths), 3)
+        self.assertLessEqual(max(fitted.line_widths), 21)
+
+    def test_dialogue_layout_preserves_valid_manual_breaks(self) -> None:
+        source = "“第一行。”\n　第二行。”"
+        fitted = fit_chinese_dialogue_layout(source)
+        self.assertEqual(fitted.preserved_reason, "already_fits")
+        self.assertEqual(fitted.text, source)
+        self.assertEqual(fitted.line_widths, dialogue_line_widths(source))
+
+    def test_protected_stock_punctuation_is_valid_localized_text(self) -> None:
+        class Table:
+            inverse_characters = {"」": 0x8176}
+            characters = {0x8176: "」"}
+
+        baseline = {
+            "table": Table(),
+            "extended_entries": (),
+            "font": b"\x01" * (
+                (standard_glyph_index(0x8176) + 1) * GLYPH_SIZE
+            ),
+            "base_assignments": {},
+            "proposal_assignments": {},
+        }
+        protected = baseline_with_protected_original_glyphs(
+            baseline,
+            {
+                "protected_source_characters": "」",
+                "protected_original_codes": ["8176"],
+            },
+        )
+        coverage = audit_entry_font(
+            [{"id": "bazaar", "translation": "」"}],
+            protected,
+        )
+        self.assertEqual(coverage["missing_character_count"], 0)
+        self.assertEqual(coverage["original_font_visible_character_count"], 0)
+        self.assertEqual(coverage["selected_font_visible_character_count"], 1)
+
+    def test_bazaar_confirmation_fragments_keep_corner_brackets(self) -> None:
+        remaining = _load("corpus/zh/menu/remaining-ui.json")
+        fragments = remaining["slps_context_ui_by_offset"]
+        self.assertEqual(fragments["0x33DA60"], "」将被购买。")
+        self.assertEqual(fragments["0x33DA98"], "」售　")
+
     def test_chapter_intertitles_keep_linear_index_storage(self) -> None:
         corpus = _load("corpus/zh/chapter-intertitles.json")
         self.assertEqual(
