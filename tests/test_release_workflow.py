@@ -175,6 +175,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
         self.assertEqual(terms["アーサー親衛隊"], "阿瑟亲卫队")
         self.assertEqual(terms["ソレイユ（味方）"], "太阳号（我方）")
         self.assertEqual(terms["修理屋"], "修理工")
+        self.assertEqual(terms["ガウリ隊"], "高富利队")
 
         inventory = _load("config/stage-default-formation-inventory.json")
         self.assertEqual(
@@ -189,6 +190,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 "unique_source_count": 256,
             },
         )
+
         sources = inventory["sources"]
         positions = {
             (group["stage_index"], offset): (sources[source_index], group["layout"])
@@ -229,6 +231,23 @@ class ReleaseWorkflowTest(unittest.TestCase):
         )
         # This is runtime-keyword row 19, not a formation owner.
         self.assertNotIn((95, 0x106C8), positions)
+
+    def test_gowri_name_is_consistent_across_current_corpus(self) -> None:
+        glossary = _load("corpus/glossary/story-speakers-v1.json")
+        entry = next(
+            item
+            for item in glossary["terms"]
+            if item["id"] == "people/speaker-980ee4d20d74"
+        )
+        self.assertEqual(entry["translation"], "高富利")
+        self.assertIn("高富力", entry["deprecated_translations"])
+
+        stale_paths = [
+            path.relative_to(PROJECT_ROOT).as_posix()
+            for path in (PROJECT_ROOT / "corpus" / "zh").rglob("*.json")
+            if "高富力" in path.read_text(encoding="utf-8")
+        ]
+        self.assertEqual(stale_paths, [])
 
     def test_repairer_labels_use_natural_chinese_person_term(self) -> None:
         paths = sorted((PROJECT_ROOT / "corpus/zh/story-dialogue").glob("*.json"))
