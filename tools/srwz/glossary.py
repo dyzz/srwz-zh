@@ -94,11 +94,16 @@ def load_global_glossary(glossary_dir: Path) -> list[dict[str, object]]:
                 "status": status,
                 "declared_enforce": bool(raw.get("enforce", False)),
                 "variant_scope": str(raw.get("variant_scope", "source_bound")),
+                "registry_match": str(raw.get("registry_match", "automatic")),
                 "source_files": [path.name],
             }
             if candidate["variant_scope"] not in {"source_bound", "global"}:
                 raise GlossaryError(
                     f"unsupported variant_scope {candidate['variant_scope']!r}: {label}"
+                )
+            if candidate["registry_match"] not in {"automatic", "explicit_only"}:
+                raise GlossaryError(
+                    f"unsupported registry_match {candidate['registry_match']!r}: {label}"
                 )
             category = raw.get("category")
             if isinstance(category, str) and category:
@@ -142,12 +147,19 @@ def load_global_glossary(glossary_dir: Path) -> list[dict[str, object]]:
             )
             if candidate["variant_scope"] == "global":
                 prior["variant_scope"] = "global"
+            if candidate["registry_match"] != prior["registry_match"]:
+                raise GlossaryError(
+                    f"conflicting glossary registry_match for {term_id}: "
+                    f"{prior['registry_match']!r} != {candidate['registry_match']!r}"
+                )
             if STATUS_PRIORITY[status] > STATUS_PRIORITY[str(prior["status"])]:
                 prior["status"] = status
 
     result = [terms[term_id] for term_id in sorted(terms)]
     source_owners: dict[str, tuple[str, str]] = {}
     for term in result:
+        if term["registry_match"] == "explicit_only":
+            continue
         canonical = str(term["translation"])
         for source in term["source_terms"]:
             source = str(source)
@@ -231,6 +243,8 @@ def relevant_glossary_terms(
     raw_matches: list[tuple[int, int, str, Mapping[str, object]]] = []
     prefixes = tuple(context_sensitive_hard_prefixes)
     for term in terms:
+        if term.get("registry_match", "automatic") == "explicit_only":
+            continue
         sources = term.get("source_terms")
         if not isinstance(sources, list):
             raise GlossaryError(f"term {term.get('id')} has no source_terms")

@@ -408,32 +408,34 @@
     {
       "id": "skill/oversense",
       "source_terms": ["オーバーセンス"],
-      "translation": "超感知",
+      "translation": "超限感应",
+      "deprecated_translations": ["超感知"],
       "category": "system",
-      "status": "proposed",
+      "status": "approved",
       "domains": ["menu", "story"],
       "enforce": true,
-      "notes": "《返乡战士》OverSense；暂采用中文意译。"
+      "notes": "《返乡战士》OverSense；2026-08-28 用户对照《再世篇》汉化2.5后定稿为“超限感应”。"
     },
     {
       "id": "skill/gamer",
       "source_terms": ["ゲーマー"],
-      "translation": "玩家",
+      "translation": "游戏玩家",
+      "deprecated_translations": ["玩家"],
       "category": "system",
-      "status": "proposed",
+      "status": "approved",
       "domains": ["menu", "story"],
       "enforce": true,
-      "notes": "气力达到 130 后增加技量。"
+      "notes": "气力达到 130 后增加技量；2026-08-28 用户对照《再世篇》汉化2.5后定稿。"
     },
     {
       "id": "skill/game-champ",
       "source_terms": ["ゲームチャンプ"],
       "translation": "游戏冠军",
       "category": "system",
-      "status": "proposed",
+      "status": "approved",
       "domains": ["menu", "story"],
       "enforce": true,
-      "notes": "“玩家”的上位技能。"
+      "notes": "“游戏玩家”的上位技能；2026-08-28 用户确认人物技能口径。"
     },
     {
       "id": "skill/negotiator",
