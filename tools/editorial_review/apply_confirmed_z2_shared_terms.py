@@ -21,7 +21,12 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 UNAMBIGUOUS_TRANSLATION_REPLACEMENTS = (
     ("菲·辛露", "飞・心露"),
+    ("菲·辛路", "飞・心露"),
+    ("菲・辛路", "飞・心露"),
+    ("菲·新路", "飞・心露"),
+    ("菲伊", "飞"),
     ("继美·罗森迈尔", "鸫・罗森迈亚"),
+    ("继美", "鸫"),
     ("泰战机", "泰坦战机"),
     ("泰坦克", "泰坦战车"),
     ("贝克·大帝RX3", "大贝克RX3"),
@@ -55,7 +60,48 @@ SOURCE_BOUND_REPLACEMENTS = {
 # These records do not carry a glossary reference, so the stable source IDs
 # provide the same source-bound protection.  Do not make 豹式 a broad
 # replacement: it is also a deprecated translation of unrelated Leopard units.
+FEI_PERSON_SOURCE_IDS = (
+    # Fei Shinlu's short name is one Han character, so it must never be
+    # replaced globally.  These stable IDs are the complete source-bound set
+    # whose Japanese source contains the standalone person name フェイ.
+    "battle:07836",
+    "battle:07843",
+    "battle:07924",
+    "battle:07926",
+    "battle:15279",
+    "battle:23492",
+    "battle:23495",
+    "battle:23694",
+    "story/058/dialogue/02.02/0169",
+    "story/060/dialogue/01.04/0002",
+    "story/065/dialogue/01.04/0007",
+    "story/065/dialogue/01.11/0010",
+    "story/065/dialogue/01.12/0002",
+    "story/065/dialogue/01.12/0003",
+    "story/065/dialogue/01.19/0000",
+    "story/066/dialogue/02.01/0101",
+    "story/068/dialogue/01.05/0002",
+    "story/068/dialogue/01.05/0009",
+    "story/068/dialogue/01.12/0001",
+    "story/072/dialogue/02.01/0136",
+    "story/072/dialogue/02.01/0140",
+    "story/104/dialogue/01.02/0005",
+    "story/104/dialogue/01.37/0001",
+    "story/107/dialogue/01.16/0028",
+    "story/107/dialogue/01.17/0028",
+    "story/108/dialogue/01.09/0003",
+    "story/108/dialogue/01.10/0003",
+    "story/108/dialogue/02.01/0046",
+    "story/108/dialogue/02.01/0050",
+    "story/108/dialogue/02.01/0059",
+    "story/120/dialogue/01.13/0012",
+    "story/131/dialogue/01.25/0012",
+    "story/132/dialogue/01.12/0011",
+    "story/133/dialogue/01.04/0009",
+)
+
 EXPLICIT_CONTENT_REPLACEMENTS = {
+    **{entry_id: (("菲", "飞"),) for entry_id in FEI_PERSON_SOURCE_IDS},
     "battle:04003": (("豹式", "猎豹"),),
     "battle:07371": (("豹式", "猎豹"),),
     "battle:16340": (("豹式", "猎豹"),),
@@ -79,6 +125,9 @@ DISPLAY_NAME_REPLACEMENTS = (
 )
 
 EXPLICIT_FILE_REPLACEMENTS = {
+    "corpus/zh/story-system-dialogue.json": (
+        ('"speaker": "继美"', '"speaker": "鸫"'),
+    ),
     "corpus/zh/menu/remaining-ui.json": (
         ('"0x6B5E0": "元素系统"', '"0x6B5E0": "元素协调系统"'),
         ('"0x74300": "元素系统"', '"0x74300": "元素协调系统"'),

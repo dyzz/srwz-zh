@@ -12,6 +12,9 @@ from tools.build_full_story_components import (
     ALL_COMPONENT_MEMBERS,
     COMPONENT_BUILD_GROUPS,
 )
+from tools.editorial_review.apply_confirmed_z2_shared_terms import (
+    FEI_PERSON_SOURCE_IDS,
+)
 from tools.srwz.title_menu import (
     RAMP_LEVEL_COUNT,
     SELECTED_RAMP_BASE,
@@ -248,6 +251,59 @@ class ReleaseWorkflowTest(unittest.TestCase):
             if "高富力" in path.read_text(encoding="utf-8")
         ]
         self.assertEqual(stale_paths, [])
+
+    def test_latest_person_names_propagate_through_active_text(self) -> None:
+        corpus_paths = sorted((PROJECT_ROOT / "corpus" / "zh").rglob("*.json"))
+        stale_unambiguous = (
+            "贝洛",
+            "辛西娅",
+            "亚蒂特",
+            "高利",
+            "继美",
+            "塔荷",
+            "菲伊",
+            "菲·辛路",
+            "菲・辛路",
+            "菲·辛露",
+            "菲・辛露",
+            "菲·新路",
+        )
+        stale_paths = {
+            stale: [
+                path.relative_to(PROJECT_ROOT).as_posix()
+                for path in corpus_paths
+                if stale in path.read_text(encoding="utf-8")
+            ]
+            for stale in stale_unambiguous
+        }
+        self.assertEqual(stale_paths, {stale: [] for stale in stale_unambiguous})
+
+        entries: dict[str, dict] = {}
+        for path in corpus_paths:
+            document = json.loads(path.read_text(encoding="utf-8"))
+
+            def collect(node: object) -> None:
+                if isinstance(node, dict):
+                    entry_id = node.get("id")
+                    if isinstance(entry_id, str):
+                        entries[entry_id] = node
+                    for value in node.values():
+                        collect(value)
+                elif isinstance(node, list):
+                    for value in node:
+                        collect(value)
+
+            collect(document)
+
+        missing = sorted(set(FEI_PERSON_SOURCE_IDS) - set(entries))
+        stale_fei = sorted(
+            entry_id
+            for entry_id in FEI_PERSON_SOURCE_IDS
+            if "菲" in str(entries.get(entry_id, {}).get("translation", ""))
+            or "飞" not in str(entries.get(entry_id, {}).get("translation", ""))
+        )
+        self.assertEqual(missing, [])
+        self.assertEqual(stale_fei, [])
 
     def test_repairer_labels_use_natural_chinese_person_term(self) -> None:
         paths = sorted((PROJECT_ROOT / "corpus/zh/story-dialogue").glob("*.json"))
