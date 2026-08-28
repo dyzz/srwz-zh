@@ -174,6 +174,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
         self.assertEqual(terms["アイアン・ギアー組"], "钢铁齿轮组")
         self.assertEqual(terms["アーサー親衛隊"], "阿瑟亲卫队")
         self.assertEqual(terms["ソレイユ（味方）"], "太阳号（我方）")
+        self.assertEqual(terms["修理屋"], "修理工")
 
         inventory = _load("config/stage-default-formation-inventory.json")
         self.assertEqual(
@@ -228,6 +229,47 @@ class ReleaseWorkflowTest(unittest.TestCase):
         )
         # This is runtime-keyword row 19, not a formation owner.
         self.assertNotIn((95, 0x106C8), positions)
+
+    def test_repairer_labels_use_natural_chinese_person_term(self) -> None:
+        paths = sorted((PROJECT_ROOT / "corpus/zh/story-dialogue").glob("*.json"))
+        paths.append(PROJECT_ROOT / "corpus/zh/battle/srvc-lines.json")
+        allowed_compounds = ("流浪的修理屋", "流浪修理屋")
+        unexpected: list[str] = []
+        preserved: set[str] = set()
+
+        for path in paths:
+            document = json.loads(path.read_text(encoding="utf-8"))
+            for entry in document["entries"]:
+                translation = entry.get("translation", "")
+                if "修理屋" not in translation:
+                    continue
+                remainder = translation
+                for compound in allowed_compounds:
+                    if compound in translation:
+                        preserved.add(entry["id"])
+                    remainder = remainder.replace(compound, "")
+                if "修理屋" in remainder:
+                    unexpected.append(entry["id"])
+
+        self.assertEqual(unexpected, [])
+        self.assertEqual(
+            preserved,
+            {
+                "story/014/dialogue/02.02/0073",
+                "story/017/dialogue/01.06/0005",
+                "story/024/dialogue/01.27/0005",
+                "story/025/dialogue/02.01/0212",
+                "story/026/dialogue/02.01/0121",
+                "story/083/dialogue/01.17/0002",
+                "story/111/dialogue/02.01/0273",
+                "story/149/dialogue/01.35/0026",
+                "story/150/dialogue/02.01/0363",
+                "story/150/dialogue/02.01/0749",
+                "story/150/dialogue/02.01/1142",
+                "story/150/dialogue/02.01/1414",
+                "story/150/dialogue/02.01/1433",
+            },
+        )
 
     def test_bazaar_status_labels_preserve_original_funds_texture(self) -> None:
         config = _load("config/assets/ui-bazaar-atlas-zh.json")
