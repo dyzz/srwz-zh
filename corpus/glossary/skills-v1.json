@@ -26,12 +26,13 @@
     {
       "id": "skill/counter",
       "source_terms": ["カウンター"],
-      "translation": "反击",
+      "translation": "先手反击",
+      "deprecated_translations": ["反击"],
       "category": "system",
-      "status": "proposed",
+      "status": "approved",
       "domains": ["menu", "story"],
       "enforce": true,
-      "notes": "选择反击时抢先于攻击方行动的技能。"
+      "notes": "选择反击时抢先于攻击方行动的技能；2026-08-28按再世篇对照确认名称。"
     },
     {
       "id": "skill/support-attack",
@@ -246,12 +247,13 @@
     {
       "id": "skill/intuition",
       "source_terms": ["見切り"],
-      "translation": "识破",
+      "translation": "看穿",
+      "deprecated_translations": ["识破"],
       "category": "system",
-      "status": "proposed",
+      "status": "approved",
       "domains": ["menu", "story"],
       "enforce": true,
-      "notes": "气力达到 130 后提升最终命中、回避和暴击。"
+      "notes": "气力达到 130 后提升最终命中、回避和暴击；2026-08-28按再世篇对照确认名称。"
     },
     {
       "id": "skill/guard",
@@ -266,12 +268,13 @@
     {
       "id": "skill/mental-resistance",
       "source_terms": ["精神耐性"],
-      "translation": "精神抗性",
+      "translation": "精神耐性",
+      "deprecated_translations": ["精神抗性"],
       "category": "system",
-      "status": "proposed",
+      "status": "approved",
       "domains": ["menu", "story"],
       "enforce": true,
-      "notes": "使 P 系特殊效果无效。"
+      "notes": "使 P 系特殊效果无效；2026-08-28按再世篇对照确认名称。"
     },
     {
       "id": "skill/hit-and-away",
