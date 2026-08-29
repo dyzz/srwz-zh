@@ -115,6 +115,58 @@ class ReleaseWorkflowTest(unittest.TestCase):
         self.assertEqual(fragments["0x33DA60"], "」将被购买。")
         self.assertEqual(fragments["0x33DA98"], "」售　")
 
+    def test_v030_039_stage_107_feedback_decisions(self) -> None:
+        stage = _load("corpus/zh/story-dialogue/stage-107.json")
+        translations = {
+            entry["id"]: entry["translation"] for entry in stage["entries"]
+        }
+        expected = {
+            "story/107/dialogue/02.03/0054": (
+                "“然后，我一直惦记着你……\n"
+                "　一直想为那时的事跟你说声对不起……”"
+            ),
+            "story/107/dialogue/02.03/0091": (
+                "“然后，我一直惦记着你……\n"
+                "　一直想为那时的事跟你说声对不起……”"
+            ),
+            "story/107/dialogue/02.03/0053": (
+                "“胜平……我被外星人追捕，落到了他们手里，\n"
+                "　眼睁睁看着好多人死掉”"
+            ),
+            "story/107/dialogue/02.03/0090": (
+                "“胜平……我被外星人追捕，落到了他们手里，\n"
+                "　眼睁睁看着好多人死掉”"
+            ),
+            "story/107/dialogue/01.26/0007": (
+                "“就靠巨大的质量直接撞过去，\n"
+                "　连同亚空间力场一起碾碎……！”"
+            ),
+            "story/107/dialogue/01.26/0002": (
+                "“是亚空间力场……！\n"
+                "　人工太阳正利用过剩的能量扭曲着周围的时空！”"
+            ),
+            "story/107/dialogue/01.69/0002": (
+                "“是亚空间力场……！\n"
+                "　人工太阳正利用过剩的能量扭曲着周围的时空！”"
+            ),
+            "story/107/dialogue/01.25/0000": (
+                "“这样小打小闹地打下去，什么时候才是个头！”"
+            ),
+            "story/107/dialogue/01.84/0002": (
+                "“迪拉尔是个堂堂正正战斗的男子汉！\n"
+                "　你真该学学他的一星半点！”"
+            ),
+            "story/107/dialogue/01.16/0026": "“看来小菲果然是个好孩子呢。”",
+            "story/107/dialogue/01.17/0026": "“看来小菲果然是个好孩子呢。”",
+            "story/107/dialogue/01.06/0021": (
+                "“各位，请抓紧了！我们的逃脱地点就在那里！”"
+            ),
+        }
+        self.assertEqual(
+            {entry_id: translations[entry_id] for entry_id in expected},
+            expected,
+        )
+
     def test_chapter_intertitles_keep_linear_index_storage(self) -> None:
         corpus = _load("corpus/zh/chapter-intertitles.json")
         self.assertEqual(
