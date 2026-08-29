@@ -167,6 +167,33 @@ class ReleaseWorkflowTest(unittest.TestCase):
             expected,
         )
 
+    def test_v030_041_stage_001_tieba_floor_320_decisions(self) -> None:
+        stage = _load("corpus/zh/story-dialogue/stage-001.json")
+        translations = {
+            entry["id"]: entry["translation"] for entry in stage["entries"]
+        }
+        expected = {
+            "story/001/dialogue/02.01/0012": (
+                "“哼……看你那副害怕的样子……\n"
+                "　看来你很清楚我们是谁啊”"
+            ),
+            "story/001/dialogue/02.01/0017": (
+                "“果然，这帮家伙还是更适合‘玩娃娃’”"
+            ),
+            "story/001/dialogue/02.01/0036": (
+                "“我们重要的新人被人找茬，\n"
+                "　我怎么能干看着”"
+            ),
+            "story/001/dialogue/02.01/0124": (
+                "“……那就别着急。\n"
+                "　人嘛，从自己力所能及的事做起就行了”"
+            ),
+        }
+        self.assertEqual(
+            {entry_id: translations[entry_id] for entry_id in expected},
+            expected,
+        )
+
     def test_chapter_intertitles_keep_linear_index_storage(self) -> None:
         corpus = _load("corpus/zh/chapter-intertitles.json")
         self.assertEqual(
