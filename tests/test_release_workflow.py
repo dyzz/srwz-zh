@@ -309,8 +309,14 @@ class ReleaseWorkflowTest(unittest.TestCase):
         paths = sorted((PROJECT_ROOT / "corpus/zh/story-dialogue").glob("*.json"))
         paths.append(PROJECT_ROOT / "corpus/zh/battle/srvc-lines.json")
         allowed_compounds = ("流浪的修理屋", "流浪修理屋")
+        allowed_bare = {
+            "story/026/dialogue/02.01/0134": (
+                "“啊，是的。\n　这位是修理屋的$n。”"
+            ),
+        }
         unexpected: list[str] = []
         preserved: set[str] = set()
+        preserved_bare: set[str] = set()
 
         for path in paths:
             document = json.loads(path.read_text(encoding="utf-8"))
@@ -324,9 +330,13 @@ class ReleaseWorkflowTest(unittest.TestCase):
                         preserved.add(entry["id"])
                     remainder = remainder.replace(compound, "")
                 if "修理屋" in remainder:
-                    unexpected.append(entry["id"])
+                    if allowed_bare.get(entry["id"]) == translation:
+                        preserved_bare.add(entry["id"])
+                    else:
+                        unexpected.append(entry["id"])
 
         self.assertEqual(unexpected, [])
+        self.assertEqual(preserved_bare, set(allowed_bare))
         self.assertEqual(
             preserved,
             {
