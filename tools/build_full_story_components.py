@@ -58,6 +58,10 @@ try:
         MovementTypeLabelError,
         apply_runtime_movement_type_labels,
     )
+    from srwz.weapon_category_labels import (
+        WeaponCategoryLabelError,
+        apply_runtime_weapon_category_labels,
+    )
     from srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
         build_nisv_library_menu,
@@ -218,6 +222,10 @@ except ModuleNotFoundError:
     from tools.srwz.movement_type_labels import (
         MovementTypeLabelError,
         apply_runtime_movement_type_labels,
+    )
+    from tools.srwz.weapon_category_labels import (
+        WeaponCategoryLabelError,
+        apply_runtime_weapon_category_labels,
     )
     from tools.srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
@@ -624,6 +632,7 @@ CONFIG_SECTION_IMPACTS = {
     "world_map_titles": {MAPMODEL_MEMBER},
     "runtime_full_name_order": {SLPS_MEMBER},
     "runtime_movement_type_labels": {SLPS_MEMBER},
+    "runtime_weapon_category_labels": {SLPS_MEMBER},
     "runtime_keywords": {COMPDATA_MEMBER, STAGE_MEMBER},
     "composition": {SLPS_MEMBER, VT1_MEMBER},
     "intermission_list_font_geometry": {SLPS_MEMBER},
@@ -10057,6 +10066,18 @@ def build(
         ) from error
 
     try:
+        output_slps, weapon_category_label_report = (
+            apply_runtime_weapon_category_labels(
+                output_slps,
+                config["runtime_weapon_category_labels"],
+            )
+        )
+    except (KeyError, ValueError, WeaponCategoryLabelError) as error:
+        raise FullStoryComponentError(
+            f"runtime weapon-category label patch failed: {error}"
+        ) from error
+
+    try:
         output_slps, search_tab_alignment_report = (
             apply_search_tab_alignment(
                 output_slps,
@@ -10528,6 +10549,7 @@ def build(
         "library_default_unlock": library_default_unlock_report,
         "runtime_full_name_order": full_name_order_report,
         "runtime_movement_type_labels": movement_type_label_report,
+        "runtime_weapon_category_labels": weapon_category_label_report,
         "search_tab_alignment": search_tab_alignment_report,
         "intermission_library_alignment": (
             intermission_library_alignment_report
@@ -10861,6 +10883,24 @@ def build(
                 and movement_type_label_report["preserved_parallel_type"][
                     "preserved_byte_exact"
                 ]
+            ),
+            "runtime_weapon_category_labels_simplified": (
+                weapon_category_label_report["site_count"] == 2
+                and weapon_category_label_report[
+                    "all_matching_weapon_instances_covered_by_shared_branches"
+                ]
+                and weapon_category_label_report[
+                    "all_materialization_sequences_exact"
+                ]
+                and weapon_category_label_report["all_replacements_exact"]
+                and weapon_category_label_report[
+                    "executable_size_preserved"
+                ]
+                and [
+                    site["translation"]
+                    for site in weapon_category_label_report["sites"]
+                ]
+                == ["格斗武器（　　）", "射击武器（　　）"]
             ),
             "search_tabs_aligned_as_five_label_set": (
                 search_tab_alignment_report["surface_count"] == 5

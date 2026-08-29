@@ -46,8 +46,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 70239,
-      "sha256": "06f7f6a3e7293886d02a9c6545a082a28c80c25f1891d27c4f93d5b13ddfb510"
+      "size": 71971,
+      "sha256": "3ea17d96a1a9e583d8a5360e77be422b8e2db02a93c349538da2efce50909c5a"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -73574,6 +73574,49 @@
     "executable_size_preserved": true,
     "all_replacements_exact": true
   },
+  "runtime_weapon_category_labels": {
+    "policy": "replace_runtime_materialized_weapon_category_labels",
+    "site_count": 2,
+    "sites": [
+      {
+        "id": "melee",
+        "source_text": "格闘武器（　　）",
+        "translation": "格斗武器（　　）",
+        "virtual_address": 3735672,
+        "file_offset": 2693880,
+        "source_materialized_hex": "8A6993AC95908AED816981408140816A00",
+        "output_materialized_hex": "8A69936C95908AED816981408140816A00",
+        "original_prefix_instruction_hex": "93AC023C",
+        "replacement_prefix_instruction_hex": "936C023C",
+        "output_prefix_instruction_hex": "936C023C",
+        "changed_byte_count": 1,
+        "already_patched": false,
+        "shared_branch_applies_to_all_matching_weapons": true,
+        "full_materialization_sequence_exact": true
+      },
+      {
+        "id": "ranged",
+        "source_text": "射撃武器（　　）",
+        "translation": "射击武器（　　）",
+        "virtual_address": 3735752,
+        "file_offset": 2693960,
+        "source_materialized_hex": "8ECB8C8295908AED816981408140816A00",
+        "output_materialized_hex": "8ECB90CA95908AED816981408140816A00",
+        "original_prefix_instruction_hex": "8C82023C",
+        "replacement_prefix_instruction_hex": "90CA023C",
+        "output_prefix_instruction_hex": "90CA023C",
+        "changed_byte_count": 2,
+        "already_patched": false,
+        "shared_branch_applies_to_all_matching_weapons": true,
+        "full_materialization_sequence_exact": true
+      }
+    ],
+    "changed_byte_count": 3,
+    "all_matching_weapon_instances_covered_by_shared_branches": true,
+    "all_materialization_sequences_exact": true,
+    "all_replacements_exact": true,
+    "executable_size_preserved": true
+  },
   "search_tab_alignment": {
     "policy": "five_four_cjk_labels_share_verified_center",
     "member": "SLPS_258.87",
@@ -73667,8 +73710,8 @@
     "changed_byte_count": 3,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "a5137870549910925f88a27d6c644cde38a9a2b147dbdf23b7631e1213433659",
-    "output_sha256": "fd91f8e4b8e182d36fa6ec452f1a1335bfd921f4148831f283c2462b85fc999c",
+    "source_sha256": "05f8e3b75860e6b591dc7728294daa56cee5710c7ff7e9ad06994c6117272d16",
+    "output_sha256": "203a4d5e068cc00366ad24f53ae20e9aa07224c5a1d457f1d55e39ea7fc1e8c2",
     "all_replacements_exact": true,
     "executable_size_preserved": true
   },
@@ -73750,8 +73793,8 @@
     "sibling_rows_preserved": true,
     "target_tail_preserved": true,
     "executable_size_preserved": true,
-    "source_sha256": "fd91f8e4b8e182d36fa6ec452f1a1335bfd921f4148831f283c2462b85fc999c",
-    "output_sha256": "177ee3a8fb79396d6e96e98aa75ace60b9927b5ff2b157d66200048a2a0a23ac"
+    "source_sha256": "203a4d5e068cc00366ad24f53ae20e9aa07224c5a1d457f1d55e39ea7fc1e8c2",
+    "output_sha256": "a306992d175dade3929fbf099ac2ec2f1ca2d38044b307f3de62aa466dc317c3"
   },
   "remaining_squad_count_alignment": {
     "policy": "move_printf_number_right_without_touching_adjacent_text",
@@ -73772,8 +73815,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "177ee3a8fb79396d6e96e98aa75ace60b9927b5ff2b157d66200048a2a0a23ac",
-    "output_sha256": "6cc1d2152aecc2293cf54b94587feac8562c52c2f9e04e332fa67d36fc1c4542",
+    "source_sha256": "a306992d175dade3929fbf099ac2ec2f1ca2d38044b307f3de62aa466dc317c3",
+    "output_sha256": "c0957703758cbdd6f858d66d8da842419050693e660fab039b52cab514045de0",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -73818,8 +73861,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "6cc1d2152aecc2293cf54b94587feac8562c52c2f9e04e332fa67d36fc1c4542",
-    "output_sha256": "406a05e4d56589b4459502a99a97cf37aebd96c9b2843254329931a8f07df8b9",
+    "source_sha256": "c0957703758cbdd6f858d66d8da842419050693e660fab039b52cab514045de0",
+    "output_sha256": "9ae75279daffbe787bab1fd851e2f3613adb349c0998a32afaf95b55076d4dba",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -81697,7 +81740,7 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245"
+      "sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -81795,6 +81838,7 @@
     "library_all_four_surfaces_default_unlocked": true,
     "runtime_full_name_order_route_specific": true,
     "runtime_movement_type_labels_simplified": true,
+    "runtime_weapon_category_labels_simplified": true,
     "search_tabs_aligned_as_five_label_set": true,
     "intermission_library_robot_encyclopedia_centered": true,
     "remaining_squad_count_spacing_exact": true,

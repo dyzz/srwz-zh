@@ -2226,6 +2226,36 @@
       "encoded_hex": "8BF39085977000"
     }
   },
+  "runtime_weapon_category_labels": {
+    "member": "SLPS_258.87",
+    "policy": "replace_runtime_materialized_weapon_category_labels",
+    "elf_file_offset_base": "0x1A80",
+    "elf_virtual_address_base": "0x100000",
+    "sites": [
+      {
+        "id": "melee",
+        "source_text": "格闘武器（　　）",
+        "translation": "格斗武器（　　）",
+        "virtual_address": "0x390078",
+        "file_offset": "0x291AF8",
+        "source_materialized_hex": "8A6993AC95908AED816981408140816A00",
+        "output_materialized_hex": "8A69936C95908AED816981408140816A00",
+        "original_block_hex": "93AC023C0C0083A68A6943340E0083BA8AED023C95905034110083AA120090BA8140023C81694334150090AA160083BA816A023C190083AA814042341A0082BA1D0082AA160000101E0080A2",
+        "replacement_block_hex": "936C023C0C0083A68A6943340E0083BA8AED023C95905034110083AA120090BA8140023C81694334150090AA160083BA816A023C190083AA814042341A0082BA1D0082AA160000101E0080A2"
+      },
+      {
+        "id": "ranged",
+        "source_text": "射撃武器（　　）",
+        "translation": "射击武器（　　）",
+        "virtual_address": "0x3900C8",
+        "file_offset": "0x291B48",
+        "source_materialized_hex": "8ECB8C8295908AED816981408140816A00",
+        "output_materialized_hex": "8ECB90CA95908AED816981408140816A00",
+        "original_block_hex": "BE0102240C0082A68C82023C8ECB43348AED023C0E0083BA95905034110083AA8140023C120090BA81694334150090AA816A023C160083BA81404234190083AA1A0082BA1D0082AA1E0080A200000000",
+        "replacement_block_hex": "BE0102240C0082A690CA023C8ECB43348AED023C0E0083BA95905034110083AA8140023C120090BA81694334150090AA816A023C160083BA81404234190083AA1A0082BA1D0082AA1E0080A200000000"
+      }
+    ]
+  },
   "runtime_keywords": {
     "catalog": {
       "path": "corpus/runtime/stage-keywords-v1.json",

@@ -5,7 +5,7 @@
   "iso": {
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "size": 3758358528,
-    "sha256": "5656e20ca2ef0a5e0551d405d3bacedb2d83eab4e85bd19a2d3f42ec36b9c481"
+    "sha256": "a092a0ad9b9ad8398f71e949113a1b4dc475414b7df95e0ac7e6e1c96ea7bf08"
   },
   "stage_indices": [
     1,
@@ -895,8 +895,8 @@
     "changed_instruction_count": 0,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
-    "output_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
+    "source_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
+    "output_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -940,8 +940,8 @@
     "changed_byte_count": 0,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
-    "output_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
+    "source_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
+    "output_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
     "instruction_replacement_exact": true,
     "save_preview_formatter": {
       "virtual_address": "0x3E403C",
@@ -1046,6 +1046,50 @@
     "all_replacements_exact": true,
     "component_receipt_exact": true
   },
+  "runtime_weapon_category_labels": {
+    "policy": "replace_runtime_materialized_weapon_category_labels",
+    "site_count": 2,
+    "sites": [
+      {
+        "id": "melee",
+        "source_text": "格闘武器（　　）",
+        "translation": "格斗武器（　　）",
+        "virtual_address": 3735672,
+        "file_offset": 2693880,
+        "source_materialized_hex": "8A6993AC95908AED816981408140816A00",
+        "output_materialized_hex": "8A69936C95908AED816981408140816A00",
+        "original_prefix_instruction_hex": "93AC023C",
+        "replacement_prefix_instruction_hex": "936C023C",
+        "output_prefix_instruction_hex": "936C023C",
+        "changed_byte_count": 0,
+        "already_patched": true,
+        "shared_branch_applies_to_all_matching_weapons": true,
+        "full_materialization_sequence_exact": true
+      },
+      {
+        "id": "ranged",
+        "source_text": "射撃武器（　　）",
+        "translation": "射击武器（　　）",
+        "virtual_address": 3735752,
+        "file_offset": 2693960,
+        "source_materialized_hex": "8ECB8C8295908AED816981408140816A00",
+        "output_materialized_hex": "8ECB90CA95908AED816981408140816A00",
+        "original_prefix_instruction_hex": "8C82023C",
+        "replacement_prefix_instruction_hex": "90CA023C",
+        "output_prefix_instruction_hex": "90CA023C",
+        "changed_byte_count": 0,
+        "already_patched": true,
+        "shared_branch_applies_to_all_matching_weapons": true,
+        "full_materialization_sequence_exact": true
+      }
+    ],
+    "changed_byte_count": 0,
+    "all_matching_weapon_instances_covered_by_shared_branches": true,
+    "all_materialization_sequences_exact": true,
+    "all_replacements_exact": true,
+    "executable_size_preserved": true,
+    "component_receipt_exact": true
+  },
   "search_tab_alignment": {
     "policy": "five_four_cjk_labels_share_verified_center",
     "member": "SLPS_258.87",
@@ -1139,8 +1183,8 @@
     "changed_byte_count": 0,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
-    "output_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
+    "source_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
+    "output_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
     "all_replacements_exact": true,
     "executable_size_preserved": true,
     "component_receipt_exact": true
@@ -1223,8 +1267,8 @@
     "sibling_rows_preserved": true,
     "target_tail_preserved": true,
     "executable_size_preserved": true,
-    "source_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
-    "output_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
+    "source_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
+    "output_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
     "component_receipt_exact": true
   },
   "remaining_squad_count_alignment": {
@@ -1246,8 +1290,8 @@
     "changed_byte_count": 0,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
-    "output_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
+    "source_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
+    "output_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -1413,8 +1457,8 @@
         "changed_byte_count": 0,
         "source_size": 3471624,
         "output_size": 3471624,
-        "source_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
-        "output_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
+        "source_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
+        "output_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
         "instruction_replacement_exact": true,
         "executable_size_preserved": true,
         "metadata": {
@@ -1497,8 +1541,8 @@
       "changed_byte_count": 0,
       "source_size": 3471624,
       "output_size": 3471624,
-      "source_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
-      "output_sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
+      "source_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
+      "output_sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
       "all_instruction_replacements_exact": true,
       "save_writeback_functions_unchanged": true,
       "executable_size_preserved": true,
@@ -4826,7 +4870,7 @@
   "members": {
     "SLPS_258.87": {
       "size": 3471624,
-      "sha256": "dda19ff75bd116c35c9b1c9765ac9889d17adddcc9a430e1667dc0bb9ed07245",
+      "sha256": "a4f6886911b88e844710d6ec3c123aa8d19acde40f52e6f103670b1f25deeca5",
       "replacement_exact": true
     },
     "DATA/COMPDATA.BN": {
@@ -10703,6 +10747,7 @@
     "replacement_members_exact": true,
     "runtime_full_name_order_route_specific": true,
     "runtime_movement_type_labels_simplified": true,
+    "runtime_weapon_category_labels_simplified": true,
     "search_tab_five_label_alignment_exact": true,
     "intermission_library_robot_encyclopedia_centered": true,
     "remaining_squad_count_spacing_exact": true,

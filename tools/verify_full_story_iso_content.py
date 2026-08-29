@@ -73,6 +73,7 @@ from srwz.sound_select import (
 from srwz.library_unlock import apply_library_default_unlock
 from srwz.full_name_order import apply_route_specific_full_name_order
 from srwz.movement_type_labels import apply_runtime_movement_type_labels
+from srwz.weapon_category_labels import apply_runtime_weapon_category_labels
 from srwz.search_tab_alignment import apply_search_tab_alignment
 from srwz.intermission_library_alignment import (
     apply_intermission_library_alignment,
@@ -4600,6 +4601,76 @@ def main() -> int:
     ):
         raise SystemExit("final ISO runtime movement-type label readback drift")
     movement_type_readback["component_receipt_exact"] = True
+    weapon_category_contract = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )["runtime_weapon_category_labels"]
+    _verified_weapon_category_slps, weapon_category_readback = (
+        apply_runtime_weapon_category_labels(
+            members["SLPS_258.87"], weapon_category_contract
+        )
+    )
+    weapon_category_component = component.get(
+        "runtime_weapon_category_labels"
+    )
+    weapon_category_site_fields = (
+        "id",
+        "source_text",
+        "translation",
+        "virtual_address",
+        "file_offset",
+        "source_materialized_hex",
+        "output_materialized_hex",
+        "original_prefix_instruction_hex",
+        "replacement_prefix_instruction_hex",
+        "output_prefix_instruction_hex",
+        "shared_branch_applies_to_all_matching_weapons",
+        "full_materialization_sequence_exact",
+    )
+    readback_weapon_category_sites = weapon_category_readback.get("sites")
+    component_weapon_category_sites = (
+        weapon_category_component.get("sites")
+        if isinstance(weapon_category_component, dict)
+        else None
+    )
+    normalized_weapon_category_readback = (
+        [
+            tuple(site.get(field) for field in weapon_category_site_fields)
+            for site in readback_weapon_category_sites
+        ]
+        if isinstance(readback_weapon_category_sites, list)
+        else None
+    )
+    normalized_weapon_category_component = (
+        [
+            tuple(site.get(field) for field in weapon_category_site_fields)
+            for site in component_weapon_category_sites
+        ]
+        if isinstance(component_weapon_category_sites, list)
+        else None
+    )
+    if (
+        _verified_weapon_category_slps != members["SLPS_258.87"]
+        or normalized_weapon_category_readback is None
+        or normalized_weapon_category_readback
+        != normalized_weapon_category_component
+        or weapon_category_readback["site_count"] != 2
+        or weapon_category_readback["changed_byte_count"] != 0
+        or not all(
+            site["already_patched"]
+            for site in weapon_category_readback["sites"]
+        )
+        or not weapon_category_readback[
+            "all_matching_weapon_instances_covered_by_shared_branches"
+        ]
+        or not weapon_category_readback[
+            "all_materialization_sequences_exact"
+        ]
+        or not weapon_category_readback["all_replacements_exact"]
+    ):
+        raise SystemExit(
+            "final ISO runtime weapon-category label readback drift"
+        )
+    weapon_category_readback["component_receipt_exact"] = True
     search_alignment_contract = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )["remaining_ui"]["search_tab_alignment"]
@@ -6674,6 +6745,7 @@ def main() -> int:
         "weapon_special_effect_2": weapon_effect_2_readback,
         "runtime_full_name_order": full_name_order_readback,
         "runtime_movement_type_labels": movement_type_readback,
+        "runtime_weapon_category_labels": weapon_category_readback,
         "search_tab_alignment": search_tab_alignment_readback,
         "intermission_library_alignment": (
             intermission_library_alignment_readback
@@ -6854,6 +6926,23 @@ def main() -> int:
                 and movement_type_readback["preserved_parallel_type"][
                     "preserved_byte_exact"
                 ]
+            ),
+            "runtime_weapon_category_labels_simplified": (
+                weapon_category_readback["site_count"] == 2
+                and weapon_category_readback["changed_byte_count"] == 0
+                and weapon_category_readback["component_receipt_exact"]
+                and weapon_category_readback[
+                    "all_matching_weapon_instances_covered_by_shared_branches"
+                ]
+                and weapon_category_readback[
+                    "all_materialization_sequences_exact"
+                ]
+                and weapon_category_readback["all_replacements_exact"]
+                and [
+                    site["translation"]
+                    for site in weapon_category_readback["sites"]
+                ]
+                == ["格斗武器（　　）", "射击武器（　　）"]
             ),
             "search_tab_five_label_alignment_exact": (
                 search_tab_alignment_readback["surface_count"] == 5
