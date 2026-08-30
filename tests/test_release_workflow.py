@@ -329,7 +329,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "battle:18064": "“上了，你们两个！”",
             "battle:02138": "“那厮由我！”",
             "battle:02128": "“这次必打倒你！”",
-            "battle:00819": "“现在！”",
+            "battle:00819": "“就现在！”",
             "battle:25088": "“还没完！见识我们全部力量吧！”",
             "battle:24527": "“把所有谜团都吐出来！！”",
             "battle:24423": "“让你见识什么叫实力差距！”",
@@ -546,6 +546,76 @@ class ReleaseWorkflowTest(unittest.TestCase):
         self.assertEqual(
             battle_actual["battle:19220"],
             "“不能让他们送命！\\n　下令撤退！”",
+        )
+
+    def test_pending_review_high_linkage_copyedits_stay_consistent(self) -> None:
+        stage_109 = _load("corpus/zh/story-dialogue/stage-109.json")
+        stage_110 = _load("corpus/zh/story-dialogue/stage-110.json")
+        stage_111 = _load("corpus/zh/story-dialogue/stage-111.json")
+        entries_109 = {
+            entry["id"]: entry["translation"] for entry in stage_109["entries"]
+        }
+        entries_110 = {
+            entry["id"]: entry["translation"] for entry in stage_110["entries"]
+        }
+        entries_111 = {
+            entry["id"]: entry["translation"] for entry in stage_111["entries"]
+        }
+
+        self.assertNotIn("小生", "\n".join(entries_109.values()))
+        self.assertEqual(
+            {
+                entry_id: entries_109[entry_id]
+                for entry_id in (
+                    "story/109/dialogue/01.42/0000",
+                    "story/109/dialogue/01.50/0004",
+                    "story/109/dialogue/01.80/0001",
+                )
+            },
+            {
+                "story/109/dialogue/01.42/0000": (
+                    "“来吧，谁来做在下的对手！？”"
+                ),
+                "story/109/dialogue/01.50/0004": (
+                    "“再会了，$c！\n　下次可要好好领教在下的真本事！”"
+                ),
+                "story/109/dialogue/01.80/0001": (
+                    "“真是可笑！\n　在下和倒X岂会被你这种小鬼击落！”"
+                ),
+            },
+        )
+        for entry_id in (
+            "story/109/dialogue/01.41/0000",
+            "story/109/dialogue/01.50/0003",
+            "story/109/dialogue/01.57/0002",
+        ):
+            self.assertIn("Turn型", entries_109[entry_id])
+            self.assertNotIn("倒转类型", entries_109[entry_id])
+
+        message_ids = (
+            "story/109/dialogue/02.03/0005",
+            "story/109/dialogue/02.03/0006",
+            "story/109/dialogue/02.03/0062",
+            "story/109/dialogue/02.03/0067",
+            "story/109/dialogue/02.03/0108",
+            "story/109/dialogue/02.03/0133",
+        )
+        for entry_id in message_ids:
+            self.assertIn("讯息", entries_109[entry_id])
+        self.assertIn("情报", entries_109["story/109/dialogue/02.03/0133"])
+
+        name_line = "“终于到了使用蒂珐·阿迪尔力量的时候了……”"
+        self.assertEqual(
+            entries_110["story/110/dialogue/02.01/0089"],
+            name_line,
+        )
+        self.assertEqual(
+            entries_111["story/111/dialogue/02.01/0089"],
+            name_line,
+        )
+        self.assertNotIn(
+            "掰",
+            entries_111["story/111/dialogue/02.01/0231"],
         )
 
     def test_chapter_intertitles_keep_linear_index_storage(self) -> None:

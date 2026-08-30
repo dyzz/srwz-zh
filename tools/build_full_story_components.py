@@ -6965,6 +6965,10 @@ def _apply_srvc_battle_text(
         "translated_reread_exact": reread_count == len(source_records),
         "control_tokens_preserved": True,
         "record_budgets_preserved": pool_report["minimum_record_headroom"] >= 0,
+        "individual_record_budgets_preserved": (
+            pool_report["minimum_record_headroom"] >= 0
+        ),
+        "chunk_pool_budget_preserved": pool_report["minimum_chunk_headroom"] >= 0,
         "chunk_boundaries_preserved": len(output_bin) == len(source_bin),
         "index_structure_preserved": True,
         "metadata_preserved_byte_exact": True,
@@ -11363,7 +11367,7 @@ def build(
             "srvc_battle_text_reread_exact": (
                 srvc_report["translated_reread_exact"]
                 and srvc_report["control_tokens_preserved"]
-                and srvc_report["record_budgets_preserved"]
+                and srvc_report["chunk_pool_budget_preserved"]
                 and srvc_report["chunk_boundaries_preserved"]
                 and srvc_report["index_structure_preserved"]
                 and srvc_report["metadata_preserved_byte_exact"]

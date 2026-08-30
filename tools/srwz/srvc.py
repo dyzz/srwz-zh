@@ -338,12 +338,13 @@ def rebuild_srvc_archive(
     """Rebuild each indexed pool without changing its SEG-delimited chunk.
 
     SRVC string offsets are relative to the start of a chunk's text pool.  A
-    shorter translated record therefore cannot simply be NUL-padded in place:
-    the parser and runtime expect the next indexed string to start immediately
-    after the previous terminator.  This writer compacts translated payloads,
-    rewrites only the offset word in each eight-byte index record, zero-fills
-    the released pool bytes, and leaves metadata and the unindexed tail at its
-    original archive offset.
+    translated record therefore does not have an independent fixed slot: it may
+    grow by borrowing bytes released by other records in the same chunk, as
+    long as the complete rebuilt pool still fits before the source-bound
+    unindexed tail.  This writer compacts translated payloads, rewrites only the
+    offset word in each eight-byte index record, zero-fills the released pool
+    bytes, and leaves metadata and the unindexed tail at its original archive
+    offset.
 
     The corpus spells SRVC's two raw ASCII line-break marker bytes as ``\\n``.
     They are converted to raw-byte notation before the shared encoder so that
@@ -364,6 +365,7 @@ def rebuild_srvc_archive(
     output_pool_bytes = 0
     minimum_record_headroom: int | None = None
     minimum_chunk_headroom: int | None = None
+    expanded_record_count = 0
 
     for chunk in chunks:
         if not chunk.records:
@@ -393,12 +395,6 @@ def rebuild_srvc_archive(
                 stored_text,
                 terminate=True,
             )
-            if len(payload) > record.encoded_size:
-                raise SrvcParseError(
-                    "SRVC translation exceeds its original record budget in "
-                    f"chunk {chunk.chunk_index}, record {record.record_index}: "
-                    f"{len(payload)} > {record.encoded_size}"
-                )
             index_word = (
                 chunk.archive_start
                 + chunk.text_index_start
@@ -409,6 +405,7 @@ def rebuild_srvc_archive(
             payloads.append(payload)
             text_offset += len(payload)
             headroom = record.encoded_size - len(payload)
+            expanded_record_count += int(headroom < 0)
             minimum_record_headroom = (
                 headroom
                 if minimum_record_headroom is None
@@ -447,5 +444,6 @@ def rebuild_srvc_archive(
             "released_indexed_pool_bytes": original_pool_bytes - output_pool_bytes,
             "minimum_record_headroom": minimum_record_headroom or 0,
             "minimum_chunk_headroom": minimum_chunk_headroom or 0,
+            "expanded_record_count": expanded_record_count,
         },
     )
