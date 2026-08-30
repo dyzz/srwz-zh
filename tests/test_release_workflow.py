@@ -618,6 +618,78 @@ class ReleaseWorkflowTest(unittest.TestCase):
             entries_111["story/111/dialogue/02.01/0231"],
         )
 
+    def test_zambot_weapon_terms_follow_approved_community_wording(self) -> None:
+        glossary = _load("corpus/glossary/weapons-v1.json")
+        terms = {entry["id"]: entry for entry in glossary["terms"]}
+        expected_terms = {
+            "weapon/0134": ("赞波特冲击镖", "赞波特爆破炮"),
+            "weapon/0136": ("双尖叉攻击", "双铁尺组合攻击"),
+            "weapon/0137": ("赞波特月环攻击", "月环攻击"),
+            "weapon/0138": ("重型飞拳", "臂击"),
+            "weapon/0139": ("赞波特突击枪", "赞波特重击"),
+            "weapon/zambot-grap": ("赞波特钗", "赞波特双铁尺"),
+        }
+        for term_id, (translation, deprecated) in expected_terms.items():
+            self.assertEqual(terms[term_id]["translation"], translation)
+            self.assertIn(deprecated, terms[term_id]["deprecated_translations"])
+
+        menu = _load("corpus/zh/menu/weapons.json")
+        menu_entries = {
+            entry["id"]: entry["translation"] for entry in menu["entries"]
+        }
+        self.assertEqual(
+            {
+                entry_id: menu_entries[entry_id]
+                for entry_id in (
+                    "menu/Compdata/02/0134",
+                    "menu/Compdata/02/0136",
+                    "menu/Compdata/02/0137",
+                    "menu/Compdata/02/0138",
+                    "menu/Compdata/02/0139",
+                )
+            },
+            {
+                "menu/Compdata/02/0134": "赞波特冲击镖",
+                "menu/Compdata/02/0136": "双尖叉攻击",
+                "menu/Compdata/02/0137": "赞波特月环攻击",
+                "menu/Compdata/02/0138": "重型飞拳",
+                "menu/Compdata/02/0139": "赞波特突击枪",
+            },
+        )
+
+        battle = _load("corpus/zh/battle/srvc-lines.json")
+        battle_entries = {
+            entry["id"]: entry["translation"] for entry in battle["entries"]
+        }
+        expected_battle = {
+            "battle:22828": "“赞波特冲击镖！！”",
+            "battle:22844": "“赞波特突击枪！！”",
+            "battle:22847": "“让你见识赞波特钗的华丽招式！”",
+            "battle:22848": "“这里该用赞波特突击枪，嘿呀！！”",
+            "battle:22856": "“赞波特必杀！\\n　赞波特月环攻击！！”",
+            "battle:22857": "“用赞波特月环攻击一口气解决，\\n　胜平！”",
+            "battle:22859": "“赞波特月环攻击！！”",
+            "battle:23007": "“吃我一记赞波特冲击镖！”",
+            "battle:23014": "“赞波特突击枪——！！”",
+            "battle:23060": "“赞波特钗！”",
+        }
+        self.assertEqual(
+            {entry_id: battle_entries[entry_id] for entry_id in expected_battle},
+            expected_battle,
+        )
+
+        active_text = "\n".join(
+            path.read_text(encoding="utf-8")
+            for path in sorted((PROJECT_ROOT / "corpus" / "zh").rglob("*.json"))
+        )
+        for deprecated in (
+            "赞波特爆破炮",
+            "双铁尺组合攻击",
+            "赞波特重击",
+            "赞波特双铁尺",
+        ):
+            self.assertNotIn(deprecated, active_text)
+
     def test_chapter_intertitles_keep_linear_index_storage(self) -> None:
         corpus = _load("corpus/zh/chapter-intertitles.json")
         self.assertEqual(

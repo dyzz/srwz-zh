@@ -48,33 +48,33 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 72636,
-      "sha256": "849812f760ebf4580e1d90d8f2cf32c301452c654ff21196895cae78a1f8738a"
+      "sha256": "07bf2d793b51d31c55a6a7f7213afa0d05a5315a13b641e71bc48e48ee9364a8"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
     "slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "b48351f4706390df7caebf5c23b0d75ed176cda618ad7e9dbe3c88c565df0fb7"
+      "sha256": "ed4b5b4349dec86b76eca5cb2973e9314ded67cd0ec31b13798805d44ce48e3c"
     },
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "0066b658e0f1e0215599b8de54d967710ec8ca3229bcb7f7ec330645589b572b"
+      "sha256": "0a86139728789493bc65c5f02cb6c459fb9537ea5944add8a0bdc2b485550d07"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18278918,
-      "sha256": "fa16e4ad05c5731cf167a7a1394467c0d68803ccdaabe953b87c900f824e9356"
+      "size": 18278921,
+      "sha256": "2b4a756045a301b87a120cd1be5d94bbe6ba3c616d9f027b59371153fa96093a"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "6a1923df1ba3c22c4e2669e7507d9e38cc26e4e09726f92b600fc7969bfd6709"
+      "sha256": "45f9be50ff9f54fb37ec9b6a17ca8977e16f97bdbea3d8889cdb0f62148c7bb9"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -222,8 +222,8 @@
   "reviewed_weapons": {
     "corpus": {
       "path": "corpus/zh/menu/weapons.json",
-      "size": 215013,
-      "sha256": "ef7504242eea8816e00a523626850ecc3de6935e0ca6a281862a674b940d4d2a"
+      "size": 215030,
+      "sha256": "9ab596341bf3165c5a55dbfd0b714391bc19611e18bc2b2cd46e0bd0d32352ab"
     },
     "expected": {
       "entry_count": 711,
@@ -1307,8 +1307,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6971119,
-      "sha256": "b2a15beb44179fb010b621e08683aee89dc6bfc8a608c7e81f2734f3872b4983"
+      "size": 6971327,
+      "sha256": "0baa0bee71d9986d86f8c78f5353f2552ef75e185ee8eeb267cd755e45c4b173"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -2269,8 +2269,8 @@
     },
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
-      "size": 784629,
-      "sha256": "99fa92c20f5b1edbe1dc2541a800d70c93ae063dfb31de2533d2b924bab50fb6"
+      "size": 784626,
+      "sha256": "4bb883dc324edb79a568dc2e9fee11e97631af10a70bed30d1ee4f80d2acb0ac"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -2348,12 +2348,12 @@
       "mode": "direct-original-writeback",
       "menu_assignment_count": 1803,
       "menu_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
-      "release_assignment_count": 3451,
-      "release_assignment_mapping_sha256": "19360a755a79549690d884269fb0574cd45443dee7ae85afe85ef791671055b2",
-      "release_snapshot_primary_mapping_sha256": "e7cad754c7f931c2b818861bef8554e26d2f2779ba9f381ddbe67da73c388ba4",
+      "release_assignment_count": 3462,
+      "release_assignment_mapping_sha256": "c7899e1fb8d5bb91683aa38b52e3daf08c0ae58edcdbce9dbdbc8e685d386e1e",
+      "release_snapshot_primary_mapping_sha256": "6e513278652cfb031ef7453428593a06edcdd9a9e12cc7ff325b5550cb11e232",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "sha256": "d2a02a139fae7e120ca63db90c1cb7a414ee7e3eca7a18257567250a42c9037f",
+        "sha256": "8af36338102f4cf181ec10bd6355e9d6d7a2ae6b4186a8a793c119e1f3e25c9f",
         "snapshot_id": "srwz-zh-release-font-assignments-v1"
       },
       "reason": "The consolidated v0.3 menu selection is written directly into original members, normalized to the current font mapping, and never consumes a prepatched binary baseline."
