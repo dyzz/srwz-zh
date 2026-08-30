@@ -194,6 +194,71 @@ class ReleaseWorkflowTest(unittest.TestCase):
             expected,
         )
 
+    def test_v030_043_site_feedback_priority_decisions(self) -> None:
+        translations = {}
+        for stage_index in (13, 14, 15, 16, 17, 108):
+            stage = _load(
+                f"corpus/zh/story-dialogue/stage-{stage_index:03d}.json"
+            )
+            translations.update(
+                {entry["id"]: entry["translation"] for entry in stage["entries"]}
+            )
+
+        expected = {
+            "story/013/dialogue/01.03/0007": (
+                "“你居然又用那个名字叫我！”"
+            ),
+            "story/013/dialogue/01.13/0009": (
+                "“我要把你彻底解体！\n"
+                "　连一颗螺丝都给你拆下来！！”"
+            ),
+            "story/014/dialogue/01.03/0001": (
+                "“$n！别兴奋过头，\n"
+                "　千万别直接打中穹顶都市啊！”"
+            ),
+            "story/014/dialogue/02.02/0076": (
+                "“总之，停下脚步很危险。只能一边勉\n"
+                "　强维持运转，一边移动和修理了……”"
+            ),
+            "story/015/dialogue/01.19/0003": (
+                "“$n，梅尔！\n"
+                "　钢铁齿轮，刚刚到达！”"
+            ),
+            "story/015/dialogue/02.02/0059": "“……跟我没关系……”",
+            "story/016/dialogue/01.16/0008": (
+                "“我要上……！我要上了！！打倒所有\n"
+                "　碍事的家伙，让他们承认我的力量！！”"
+            ),
+            "story/017/dialogue/01.05/0003": (
+                "“真是的！都被扔到这种地方来了，\n"
+                "　就别把战火也带过来啊，混蛋！”"
+            ),
+            "story/108/dialogue/02.01/0035": (
+                "“大致情况我了解。\n"
+                "　但这件事，应该直接去问奎因斯坦博士本人。”"
+            ),
+            "story/108/dialogue/02.01/0100": (
+                "“那时，S-1星人应该被卷入了时空震动，\n"
+                "　跨越时间抵达了这个多元世界。”"
+            ),
+            "story/108/dialogue/02.01/0320": (
+                "“我们伊诺森特应用那项技术，\n"
+                "　创造了生存在佐拉大地上的新人类——平民。”"
+            ),
+            "story/108/dialogue/02.02/0072": (
+                "“只是不断宣扬那套无聊的逃避现实论调，\n"
+                "　白白浪费时间而已。……你已经明白了吧？”"
+            ),
+            "story/108/dialogue/02.02/0073": (
+                "“大众根本不在乎真相，也不会为真相行动。\n"
+                "　他们需要的，是响亮的呼声和强烈的刺激！”"
+            ),
+        }
+        self.assertEqual(
+            {entry_id: translations[entry_id] for entry_id in expected},
+            expected,
+        )
+
     def test_v030_042_escape_wording_is_context_bound(self) -> None:
         story_expected = {
             "story/028/dialogue/01.14/0010": (
