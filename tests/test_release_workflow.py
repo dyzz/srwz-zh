@@ -264,6 +264,10 @@ class ReleaseWorkflowTest(unittest.TestCase):
             entry["id"]: entry["translation"] for entry in battle["entries"]
         }
         battle_expected = {
+            "battle:24510": "“切换——波塞冬！！\\n　启动！！”",
+            "battle:24481": "“毕竟是对上我的狮虎，没办法啊。”",
+            "battle:22668": "“你对上了兜甲儿！”",
+            "battle:22157": "“先拿你开始血祭！”",
             "battle:24663": "“你吃奶的劲也打不倒我哦？\\n　呼呼呼呼…”",
             "battle:24648": "“比亚路星人的遗产，\\n　我要全部砸烂！”",
             "battle:24642": "“杰利……你这毛头小子\\n　休想超越老夫…！”",
@@ -317,6 +321,9 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 {entry["id"]: entry["translation"] for entry in stage["entries"]}
             )
         story_expected = {
+            "story/108/dialogue/02.01/0175": (
+                "“……关于疑似阿瑟·兰克那人的所在地，已经有了线索。”"
+            ),
             "story/016/dialogue/01.15/0004": "“你、你他妈说什么！”",
             "story/013/dialogue/01.02/0003": (
                 "“啊～啊～……现在正在测试麦克风。今天\n"
