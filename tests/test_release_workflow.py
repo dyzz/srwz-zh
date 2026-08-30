@@ -194,6 +194,156 @@ class ReleaseWorkflowTest(unittest.TestCase):
             expected,
         )
 
+    def test_v030_042_escape_wording_is_context_bound(self) -> None:
+        story_expected = {
+            "story/028/dialogue/01.14/0010": (
+                "“但今天也不一定是友军。\n　桂，回格罗玛！趁现在逃离吧！”"
+            ),
+            "story/031/dialogue/02.01/0078": (
+                "“……被黑色夹住的棋子会翻过来变成黑色。\n"
+                "　迅速撤离，密涅瓦…………这是谁给的？”"
+            ),
+            "story/032/dialogue/01.12/0004": "“本舰将突破敌方防卫部队，撤离奥布！”",
+            "story/032/dialogue/01.18/0001": "“引擎最大出力！趁现在撤离奥布！”",
+            "story/032/dialogue/02.03/0051": (
+                "“和平号也归航了。但是，\n　撤离奥布的大天使号依然下落不明。”"
+            ),
+            "story/032/dialogue/02.03/0117": (
+                "“彼此彼此。撤离奥布后的战斗表现，\n　议长也很满意。”"
+            ),
+            "story/032/dialogue/02.03/0160": (
+                "“彼此彼此。撤离奥布后的战斗表现，\n　议长也很满意。”"
+            ),
+            "story/036/dialogue/01.37/0001": "“哼！命更重要！快逃生！！”",
+            "story/043/dialogue/01.33/0000": (
+                "“可恶啊啊啊！结果到最后还是一直输！\n　干不下去了！逃生！！”"
+            ),
+            "story/043/dialogue/01.34/0000": (
+                "“我、我可是坚持到最后了！\n　相信评分不会降低！逃生！！”"
+            ),
+            "story/043/dialogue/01.35/0000": (
+                "“我、我要写调职申请，\n　离开西伯利亚！逃生！”"
+            ),
+            "story/048/dialogue/01.27/0010": "“逃吧，独眼鬼！至少我们得逃出去！”",
+            "story/055/dialogue/01.13/0004": (
+                "“户高一佐，我们逃吧！\n　不管用什么手段，我都要把他贬职！”"
+            ),
+            "story/055/dialogue/01.13/0012": "“我、我不知道！随你便！我要逃了！”",
+            "story/083/dialogue/01.20/0004": "“快逃生，师父！那台机体撑不住了！”",
+            "story/107/dialogue/01.09/0001": "“就这样逃出去！”",
+            "story/108/dialogue/01.17/0004": (
+                "“撤离吧，吉布利尔！\n　继续战斗只会让情况更糟！”"
+            ),
+            "story/108/dialogue/01.17/0005": "“但、但是！就算撤离，又能去哪里！？”",
+            "story/108/dialogue/01.20/0000": "“本机已经到极限了！逃生后从地面指挥！”",
+            "story/108/dialogue/02.01/0005": (
+                "“……我拒绝了逃生……\n　应该就这样被击坠了才对……”"
+            ),
+            "story/108/dialogue/02.02/0024": "“我去追诺尔布！吉隆，你先逃出去！！”",
+            "story/112/dialogue/01.13/0000": "“唔哦哦哦哦！古拉博士，快逃！”",
+            "story/112/dialogue/01.13/0002": (
+                "“博士还有完成时空控制装置的重任！\n　这里交给我，您快逃！！”"
+            ),
+            "story/118/dialogue/01.38/0000": "“咕哦哦哦！弹射逃生！！”",
+            "story/128/dialogue/01.39/0000": "“唔哦哦哦！古拉博士，快逃！”",
+            "story/128/dialogue/01.39/0005": (
+                "“来吧，古拉博士！这里交给我，您快逃！！”"
+            ),
+            "story/138/dialogue/01.91/0000": "“住手吧，雷！快弹射逃生！”",
+            "story/138/dialogue/01.168/0000": "“住手吧，雷！快弹射逃生！”",
+            "story/139/dialogue/02.01/0082": (
+                "“我和阿斯兰都错了很多次……\n"
+                "　逃离奥布后的战斗，也绝不能说正确……”"
+            ),
+            "story/141/dialogue/01.05/0003": (
+                "“全员，准备撤离！事已至此，\n"
+                "　就算用本舰撞上去，也要打倒他！”"
+            ),
+            "story/146/dialogue/01.05/0003": (
+                "“全员，准备撤离！事已至此，\n"
+                "　就算用本舰撞上去，也要打倒他！”"
+            ),
+        }
+        story_actual = {}
+        for stage_number in {
+            entry_id.split("/")[1] for entry_id in story_expected
+        }:
+            stage = _load(f"corpus/zh/story-dialogue/stage-{stage_number}.json")
+            story_actual.update(
+                {entry["id"]: entry["translation"] for entry in stage["entries"]}
+            )
+        self.assertEqual(len(story_expected), 31)
+        self.assertEqual(
+            {entry_id: story_actual[entry_id] for entry_id in story_expected},
+            story_expected,
+        )
+
+        stage_004 = _load("corpus/zh/story-dialogue/stage-004.json")
+        stage_004_translations = {
+            entry["id"]: entry["translation"] for entry in stage_004["entries"]
+        }
+        self.assertEqual(
+            stage_004_translations["story/004/dialogue/01.31/0001"],
+            "“爱玛中尉……顺利撤离了吗……”",
+        )
+
+        battle_expected = {
+            "battle:00113": "“可恶！逃生！”",
+            "battle:02429": "“到此为止了吗！逃生！！”",
+            "battle:02505": "“可恶，不行吗！逃生！”",
+            "battle:03190": "“快、快逃生！！”",
+            "battle:03194": "“全员撤离！！”",
+            "battle:03704": "“快、快逃生！”",
+            "battle:04049": "“超出极限了吗！我要逃生！”",
+            "battle:05241": "“可恶…逃生！！”",
+            "battle:06192": "“呃啊啊啊啊啊！！\\n　得逃生…得逃生才行！”",
+            "battle:07179": "“超出极限！逃生！！”",
+            "battle:07595": "“啊啊…！全员撤离！”",
+            "battle:07598": "“全员，以防万一做好撤离准备！”",
+            "battle:07771": "“啊啊！快、快逃生！”",
+            "battle:08443": "“这下完了！逃生！”",
+            "battle:08965": "“唔……逃生！”",
+            "battle:09563": "“不行！快逃生！！”",
+            "battle:09600": "“逃生！后面就拜托了！”",
+            "battle:10564": "“不行！得逃生！”",
+            "battle:10999": "“被干掉了吗…！得逃生！”",
+            "battle:12039": "“呃啊啊！\\n　不、不行了！我要逃生！”",
+            "battle:13080": "“全员撤离！”",
+            "battle:13109": "“逃、逃生！”",
+            "battle:13114": "“只能逃生了！”",
+            "battle:13762": "“呃…到此为止了吗！\\n　星1号，逃生！”",
+            "battle:14208": "“糟了，快逃生！”",
+            "battle:15177": "“我、我要逃生了！”",
+            "battle:16113": "“小的们，快逃生！”",
+            "battle:16444": "“不、不行了～！逃生！！”",
+            "battle:16672": "“被打中了！？快逃生！！”",
+            "battle:18408": "“准、准备逃生！\\n　先确保我的安全！”",
+            "battle:19690": "“收拾好行李，梅尔！\\n　情况不妙就逃！”",
+            "battle:19702": "“快逃，梅尔！\\n　别忘了值钱的东西！！！”",
+            "battle:20447": "“任务失败……！逃生！”",
+            "battle:21390": "“多萝西，万一的时候你就先逃！”",
+            "battle:21397": "“不必多说。逃生吧。”",
+            "battle:21605": "“逃生！\\n　不能在这里被打倒！”",
+            "battle:21743": "“呃！逃生！！”",
+            "battle:22355": "“多谢款待。…逃出来了吧？”",
+            "battle:23573": "“战斗不能！大家快逃生！”",
+            "battle:24244": "“可、可恶！逃生！”",
+            "battle:24888": "“哇啊！？快、快逃生…！！”",
+        }
+        battle = _load("corpus/zh/battle/srvc-lines.json")
+        battle_actual = {
+            entry["id"]: entry["translation"] for entry in battle["entries"]
+        }
+        self.assertEqual(len(battle_expected), 41)
+        self.assertEqual(
+            {entry_id: battle_actual[entry_id] for entry_id in battle_expected},
+            battle_expected,
+        )
+        self.assertEqual(
+            battle_actual["battle:19220"],
+            "“不能让他们送命！\\n　下令撤退！”",
+        )
+
     def test_chapter_intertitles_keep_linear_index_storage(self) -> None:
         corpus = _load("corpus/zh/chapter-intertitles.json")
         self.assertEqual(
