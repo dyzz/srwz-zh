@@ -32,6 +32,10 @@ from tools.srwz.release_font import (
     audit_entry_font,
     baseline_with_protected_original_glyphs,
 )
+from tools.srwz.release_font_policy import (
+    DEFAULT_WIDTH_CLASS,
+    allocation_width_class,
+)
 from tools.srwz.font import GLYPH_SIZE, standard_glyph_index
 from tools.srwz.chinese_layout import (
     dialogue_line_widths,
@@ -108,6 +112,50 @@ class ReleaseWorkflowTest(unittest.TestCase):
         self.assertEqual(coverage["missing_character_count"], 0)
         self.assertEqual(coverage["original_font_visible_character_count"], 0)
         self.assertEqual(coverage["selected_font_visible_character_count"], 1)
+
+    def test_v030_044_missing_glyphs_use_unique_default_width_slots(self) -> None:
+        snapshot = _load("config/encoding/zh-release-font-assignments.json")
+        expected = {
+            "齑": ("9670", 4080),
+            "糗": ("9674", 4084),
+            "犊": ("9675", 4085),
+            "阎": ("9678", 4088),
+            "黾": ("9689", 4105),
+            "锄": ("968A", 4106),
+            "剿": ("968F", 4111),
+            "噫": ("9690", 4112),
+            "欸": ("9691", 4113),
+        }
+        rows = {
+            row["character"]: row
+            for row in snapshot["primary_assignments"]
+            if row["character"] in expected
+        }
+        self.assertEqual(
+            {
+                character: (row["code"], row["glyph_index"])
+                for character, row in rows.items()
+            },
+            expected,
+        )
+        self.assertTrue(
+            all(
+                row["allocation_width_class"] == DEFAULT_WIDTH_CLASS
+                and allocation_width_class(int(row["code"], 16))
+                == DEFAULT_WIDTH_CLASS
+                for row in rows.values()
+            )
+        )
+        self.assertEqual(len({row["code"] for row in rows.values()}), 9)
+        self.assertEqual(len({row["glyph_index"] for row in rows.values()}), 9)
+        remaining_codes = {
+            row["code"] for row in snapshot["remaining_allocation_candidates"]
+        }
+        self.assertTrue(
+            remaining_codes.isdisjoint(
+                expected_code for expected_code, _ in expected.values()
+            )
+        )
 
     def test_bazaar_confirmation_fragments_keep_corner_brackets(self) -> None:
         remaining = _load("corpus/zh/menu/remaining-ui.json")
@@ -269,11 +317,11 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "battle:22668": "“你对上了兜甲儿！”",
             "battle:22157": "“先拿你开始血祭！”",
             "battle:24663": "“你吃奶的劲也打不倒我哦？\\n　呼呼呼呼…”",
-            "battle:24648": "“比亚路星人的遗产，\\n　我要全部砸烂！”",
+            "battle:24648": "“比亚路星人的遗产，\\n　我要全部化为齑粉！”",
             "battle:24642": "“杰利……你这毛头小子\\n　休想超越老夫…！”",
             "battle:24640": "“说到底，你只是人类之敌。\\n　呼呼呼呼呼…！”",
             "battle:24626": "“别碍老夫的事啊啊啊！”",
-            "battle:24247": "“可恶！真是丢脸！”",
+            "battle:24247": "“可恶！真是出大糗了！”",
             "battle:24110": "“看好，给你们开开眼！”",
             "battle:18104": "“阿芙罗蒂亚！\\n　看那片蓝色大海，你难道毫无反应吗！？”",
             "battle:18092": "“闭上你那张臭嘴！”",
@@ -297,7 +345,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "battle:22015": "“哈哈哈！去死吧！”",
             "battle:22014": "“去死！”",
             "battle:22020": "“你的勇气不管用！”",
-            "battle:22033": "“古连泰沙！去死吧！”",
+            "battle:22033": "“古连泰沙！见阎王去吧！”",
             "battle:22052": "“哈哈哈！拿你血祭！”",
             "battle:22067": "“天真，太天真！”",
             "battle:22101": "“该死，这是什么力量！”",
@@ -324,13 +372,13 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "story/108/dialogue/02.01/0175": (
                 "“……关于疑似阿瑟·兰克那人的所在地，已经有了线索。”"
             ),
-            "story/016/dialogue/01.15/0004": "“你、你他妈说什么！”",
+            "story/016/dialogue/01.15/0004": "“你、你他妈扯什么犊子！”",
             "story/013/dialogue/01.02/0003": (
                 "“啊～啊～……现在正在测试麦克风。今天\n"
-                "　是个晴天……水蜘蛛好红啊，啊伊乌诶哦……”"
+                "　是个晴天……水黾好红啊，啊伊乌诶哦……”"
             ),
             "story/108/dialogue/02.01/0058": (
-                "“对！扶弱惩强，以勇气为伴对抗巨大邪恶！\n"
+                "“对！锄强扶弱，以勇气为伴对抗巨大邪恶！\n"
                 "那正是男人的浪漫！”"
             ),
             "story/108/dialogue/01.09/0003": (
