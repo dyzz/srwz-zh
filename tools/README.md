@@ -23,7 +23,7 @@ vendor/upstream-python/       构建链读取的固定静态定义
 | 原版校验与提取 | `verify_original_disc.py`、`extract_iso_member.py` |
 | 工具链准备 | `bootstrap_mkps2iso.py`、`build_rust_compressor.py` |
 | 字体来源与组件 | `fetch_zh_font.py`、`prepare_zh_release_font.py`、`rebuild_zh_font.py` |
-| 领域组件 | `build_library_v02_component.py`、`build_story_component.py`、`build_zh_font_component.py`、`build_full_story_components.py`、`ui_atlas.py` |
+| 领域组件 | `build_library_v02_component.py`、`build_story_component.py`、`build_zh_font_component.py`、`build_full_story_components.py`、`build_aid_battle_prompts.py`、`ui_atlas.py` |
 | 最终组合 | `compose_full_story_library_components.py` |
 | ISO | `build_iso.py` |
 | 静态回读 | `verify_zh_release_font.py`、`verify_full_story_iso_content.py` |

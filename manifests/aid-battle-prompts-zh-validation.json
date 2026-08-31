@@ -1,0 +1,1019 @@
+{
+  "schema_version": 1,
+  "status": "aid_battle_prompts_static_validated_runtime_pending",
+  "profile_id": "aid-battle-prompts-zh-v1",
+  "scope": "Replace only Japanese AIDDATA battle prompt glyphs with reviewed Chinese text while preserving the indexed TIM2 palette, all Latin prompts, digits, symbols and the second compressed stream byte-exact.",
+  "inputs": {
+    "config": {
+      "path": "config/assets/aid-battle-prompts-zh.json",
+      "size": 6224,
+      "sha256": "a97c9c9f83faa3a6e56a6b93f7bd99c4de69bbfba5fcf1c41619b0fcba37dba2"
+    },
+    "source": {
+      "path": "work/disc/AID_DATA/AIDDATA.BIN",
+      "size": 50672,
+      "sha256": "e3a9dfda0b758c84417dcdd558dba3ef99360b5e9e633bb8697a891aaad4e948"
+    },
+    "corpus": {
+      "path": "corpus/zh/ui-atlas/aid-battle-prompts-v1.json",
+      "size": 2008,
+      "sha256": "64affedffb9498b98d070bcce2fb8392ce1b10b048278b96a05ab3121a1cf21b"
+    },
+    "font_flavor": {
+      "path": "config/fonts/zh-localization-font-light.json",
+      "size": 894,
+      "sha256": "9c6d630aff578653628598f751401a7440d721ddced6d19c3cd7aa0cef077010"
+    },
+    "font_file": {
+      "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Light.ttf",
+      "size": 8336364,
+      "sha256": "dd366290b40861bc6ced85801e850ab66d6fe4c5b33bc43095a9747fa29288d8"
+    }
+  },
+  "font": {
+    "font_flavor_id": "srwz-zh-harmonyos-sans-sc-light-v1",
+    "path": "config/fonts/zh-localization-font-light.json",
+    "sha256": "9c6d630aff578653628598f751401a7440d721ddced6d19c3cd7aa0cef077010",
+    "font_lock": "config/fonts/harmonyos-sans-sc-light.lock.json",
+    "font_lock_sha256": "d051c396cf5380f7a6a6e78bed7de0d33020ae5a3576bad36500f340764d4526"
+  },
+  "atlas": {
+    "stored_slot_size": 23232,
+    "source_encoded_size": 23232,
+    "output_encoded_size": 21528,
+    "padding_size": 1704,
+    "decoded_size": 33376,
+    "tim2_offset": 32,
+    "tim2_size": 33344,
+    "image_offset": 96,
+    "image_size": 32768,
+    "clut_size": 512,
+    "palette_bank_count": 8,
+    "palette_audit": [
+      {
+        "bank": 0,
+        "background_rgba": "00000000",
+        "outline_alpha_values": [
+          128
+        ],
+        "fill_alpha_values": [
+          128
+        ]
+      },
+      {
+        "bank": 1,
+        "background_rgba": "00000000",
+        "outline_alpha_values": [
+          128
+        ],
+        "fill_alpha_values": [
+          128
+        ]
+      },
+      {
+        "bank": 2,
+        "background_rgba": "04000000",
+        "outline_alpha_values": [
+          128
+        ],
+        "fill_alpha_values": [
+          128
+        ]
+      },
+      {
+        "bank": 3,
+        "background_rgba": "00000000",
+        "outline_alpha_values": [
+          128
+        ],
+        "fill_alpha_values": [
+          128
+        ]
+      },
+      {
+        "bank": 4,
+        "background_rgba": "00000000",
+        "outline_alpha_values": [
+          128
+        ],
+        "fill_alpha_values": [
+          112,
+          128
+        ]
+      },
+      {
+        "bank": 5,
+        "background_rgba": "00000000",
+        "outline_alpha_values": [
+          128
+        ],
+        "fill_alpha_values": [
+          128
+        ]
+      },
+      {
+        "bank": 6,
+        "background_rgba": "00000000",
+        "outline_alpha_values": [
+          128
+        ],
+        "fill_alpha_values": [
+          128
+        ]
+      },
+      {
+        "bank": 7,
+        "background_rgba": "00000000",
+        "outline_alpha_values": [
+          128
+        ],
+        "fill_alpha_values": [
+          128
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "entry_id": "aid/shield",
+        "source_text": "シールド",
+        "translation": "护盾",
+        "rect": [
+          142,
+          0,
+          63,
+          16
+        ],
+        "point_size": 14,
+        "source_indexes_sha256": "dcde26ac64ba516fcbea9623bdfd97f2ada30618f66854fe5bde91b07a53eaa3",
+        "source_index_counts": {
+          "0": 338,
+          "2": 220,
+          "4": 64,
+          "5": 14,
+          "6": 58,
+          "7": 112,
+          "8": 8,
+          "9": 41,
+          "10": 8,
+          "12": 12,
+          "13": 29,
+          "14": 47,
+          "15": 57
+        },
+        "output_indexes_sha256": "0109e1263ff7dfe5df6374be57fa7f72a4370568d3e669de642abcbfe11ebeb9",
+        "output_index_counts": {
+          "0": 723,
+          "1": 12,
+          "2": 13,
+          "3": 8,
+          "4": 7,
+          "5": 11,
+          "7": 1,
+          "8": 9,
+          "9": 17,
+          "10": 64,
+          "11": 19,
+          "12": 38,
+          "13": 45,
+          "14": 25,
+          "15": 16
+        },
+        "outline_mask_sha256": "9aaeb88c9fd8a3a83583de3e839fde2e3fbe704c20f6d90ff18ddaaef78148c3",
+        "outline_mask_nonzero_pixel_count": 285,
+        "outline_only_pixel_count": 52,
+        "fill_mask_sha256": "3ea39198e6b4719976f42a22f17d28dca2572a88c98f7c4293e90852bd837529",
+        "fill_mask_nonzero_pixel_count": 233,
+        "indexed_layer_counts": {
+          "outline": {
+            "1": 12,
+            "2": 13,
+            "3": 8,
+            "4": 7,
+            "5": 11,
+            "7": 1
+          },
+          "fill": {
+            "8": 9,
+            "9": 17,
+            "10": 64,
+            "11": 19,
+            "12": 38,
+            "13": 45,
+            "14": 25,
+            "15": 16
+          }
+        }
+      },
+      {
+        "entry_id": "aid/defense",
+        "source_text": "防御",
+        "translation": "防御",
+        "rect": [
+          205,
+          0,
+          34,
+          16
+        ],
+        "point_size": 14,
+        "source_indexes_sha256": "2efe217850260aa13d282b4f1703a080f09d8cc879e06d6b1ce5fbbb66a559a3",
+        "source_index_counts": {
+          "0": 12,
+          "2": 102,
+          "3": 2,
+          "4": 20,
+          "5": 12,
+          "6": 31,
+          "7": 92,
+          "8": 57,
+          "9": 28,
+          "10": 30,
+          "11": 24,
+          "12": 33,
+          "13": 57,
+          "14": 29,
+          "15": 15
+        },
+        "output_indexes_sha256": "cf29555c9dceb859c1018aa4521cd9a69e300097982657335c51b7d4a34d69ab",
+        "output_index_counts": {
+          "0": 233,
+          "1": 12,
+          "2": 6,
+          "3": 7,
+          "4": 7,
+          "5": 5,
+          "6": 23,
+          "7": 6,
+          "8": 18,
+          "9": 25,
+          "10": 37,
+          "11": 27,
+          "12": 49,
+          "13": 41,
+          "14": 24,
+          "15": 24
+        },
+        "outline_mask_sha256": "56f98928be8f460b1b4a128efabcd898bc573ee64aa9434a888146d5f846700c",
+        "outline_mask_nonzero_pixel_count": 311,
+        "outline_only_pixel_count": 66,
+        "fill_mask_sha256": "9d35bfe0a61634073e240440fb73cc71ce777a4c17474d4c7b5e0dcf718eec11",
+        "fill_mask_nonzero_pixel_count": 245,
+        "indexed_layer_counts": {
+          "outline": {
+            "1": 12,
+            "2": 6,
+            "3": 7,
+            "4": 7,
+            "5": 5,
+            "6": 23,
+            "7": 6
+          },
+          "fill": {
+            "8": 18,
+            "9": 25,
+            "10": 37,
+            "11": 27,
+            "12": 49,
+            "13": 41,
+            "14": 24,
+            "15": 24
+          }
+        }
+      },
+      {
+        "entry_id": "aid/morale",
+        "source_text": "気力",
+        "translation": "气力",
+        "rect": [
+          0,
+          16,
+          33,
+          16
+        ],
+        "point_size": 14,
+        "source_indexes_sha256": "edff142f273291868a212b3ecf165122e91097429808a7c0a89494afc22fab66",
+        "source_index_counts": {
+          "0": 63,
+          "2": 111,
+          "3": 6,
+          "4": 27,
+          "5": 20,
+          "6": 23,
+          "7": 75,
+          "8": 43,
+          "9": 25,
+          "10": 12,
+          "11": 9,
+          "12": 21,
+          "13": 47,
+          "14": 28,
+          "15": 18
+        },
+        "output_indexes_sha256": "8ceb0e841f5746150883b46248d7197abb09f79920518bb9894baed09a80f538",
+        "output_index_counts": {
+          "0": 310,
+          "1": 11,
+          "2": 17,
+          "3": 3,
+          "4": 14,
+          "5": 13,
+          "7": 2,
+          "8": 20,
+          "9": 14,
+          "10": 23,
+          "11": 8,
+          "12": 34,
+          "13": 25,
+          "14": 15,
+          "15": 19
+        },
+        "outline_mask_sha256": "22e95cd4f5344e736ececa5cd07773664d7d1aad173a6d42f08a705c2c3caa00",
+        "outline_mask_nonzero_pixel_count": 218,
+        "outline_only_pixel_count": 60,
+        "fill_mask_sha256": "81ec39539cdc97d82c21876efda761c8ae648ab9035e32c51b45855b14b150b8",
+        "fill_mask_nonzero_pixel_count": 158,
+        "indexed_layer_counts": {
+          "outline": {
+            "1": 11,
+            "2": 17,
+            "3": 3,
+            "4": 14,
+            "5": 13,
+            "7": 2
+          },
+          "fill": {
+            "8": 20,
+            "9": 14,
+            "10": 23,
+            "11": 8,
+            "12": 34,
+            "13": 25,
+            "14": 15,
+            "15": 19
+          }
+        }
+      },
+      {
+        "entry_id": "aid/canceller",
+        "source_text": "キャンセラー",
+        "translation": "完全抗性",
+        "rect": [
+          96,
+          16,
+          99,
+          16
+        ],
+        "point_size": 14,
+        "source_indexes_sha256": "55d468a28a07fbdc1c5d36ceea1dc5e7441b422bd88f611555ee92b82cc44035",
+        "source_index_counts": {
+          "0": 547,
+          "2": 336,
+          "3": 5,
+          "4": 92,
+          "5": 15,
+          "6": 67,
+          "7": 202,
+          "8": 11,
+          "9": 60,
+          "10": 20,
+          "11": 2,
+          "12": 20,
+          "13": 69,
+          "14": 72,
+          "15": 66
+        },
+        "output_indexes_sha256": "de209160d5cae75ce0c9d866c52a1886829458ef35dd0a4e9d4e4df43d712a5e",
+        "output_index_counts": {
+          "0": 997,
+          "1": 40,
+          "2": 38,
+          "3": 25,
+          "4": 8,
+          "5": 26,
+          "6": 7,
+          "7": 1,
+          "8": 50,
+          "9": 45,
+          "10": 80,
+          "11": 32,
+          "12": 81,
+          "13": 70,
+          "14": 44,
+          "15": 40
+        },
+        "outline_mask_sha256": "034649d8984a65aeab87f8c82b2f7544e3a990da2b69e05a58c3775363d8e615",
+        "outline_mask_nonzero_pixel_count": 587,
+        "outline_only_pixel_count": 145,
+        "fill_mask_sha256": "c940d27afd5a32e47a1bba4c85ce1f54cb3e205d6ff504e17d9a273eeacfb93b",
+        "fill_mask_nonzero_pixel_count": 442,
+        "indexed_layer_counts": {
+          "outline": {
+            "1": 40,
+            "2": 38,
+            "3": 25,
+            "4": 8,
+            "5": 26,
+            "6": 7,
+            "7": 1
+          },
+          "fill": {
+            "8": 50,
+            "9": 45,
+            "10": 80,
+            "11": 32,
+            "12": 81,
+            "13": 70,
+            "14": 44,
+            "15": 40
+          }
+        }
+      },
+      {
+        "entry_id": "aid/down",
+        "source_text": "ダウン",
+        "translation": "下降",
+        "rect": [
+          199,
+          16,
+          51,
+          16
+        ],
+        "point_size": 14,
+        "source_indexes_sha256": "537fb2961b0b887d44e9c66edb0e4aa7c8803cfd259727cacc9f671572d73a9e",
+        "source_index_counts": {
+          "0": 232,
+          "2": 169,
+          "3": 9,
+          "4": 62,
+          "5": 15,
+          "6": 37,
+          "7": 73,
+          "8": 17,
+          "9": 50,
+          "10": 9,
+          "11": 2,
+          "12": 18,
+          "13": 27,
+          "14": 46,
+          "15": 50
+        },
+        "output_indexes_sha256": "79e85361448e68ad868e57d29350f186fa5f21370613bc6648a0c1ddc8b98d0e",
+        "output_index_counts": {
+          "0": 572,
+          "1": 9,
+          "2": 7,
+          "3": 10,
+          "4": 10,
+          "5": 19,
+          "6": 10,
+          "7": 1,
+          "8": 11,
+          "9": 12,
+          "10": 41,
+          "11": 19,
+          "12": 17,
+          "13": 34,
+          "14": 26,
+          "15": 18
+        },
+        "outline_mask_sha256": "8600d56a2a392f5531665b4617c7d2944533fd97fbd9242e344aa8b3f402a736",
+        "outline_mask_nonzero_pixel_count": 244,
+        "outline_only_pixel_count": 66,
+        "fill_mask_sha256": "04d2018712e16e7988bf82249d1af0ad93379761288643274d051a77dde4b850",
+        "fill_mask_nonzero_pixel_count": 178,
+        "indexed_layer_counts": {
+          "outline": {
+            "1": 9,
+            "2": 7,
+            "3": 10,
+            "4": 10,
+            "5": 19,
+            "6": 10,
+            "7": 1
+          },
+          "fill": {
+            "8": 11,
+            "9": 12,
+            "10": 41,
+            "11": 19,
+            "12": 17,
+            "13": 34,
+            "14": 26,
+            "15": 18
+          }
+        }
+      },
+      {
+        "entry_id": "aid/mobility",
+        "source_text": "運動性",
+        "translation": "运动性",
+        "rect": [
+          0,
+          32,
+          52,
+          16
+        ],
+        "point_size": 14,
+        "source_indexes_sha256": "781c462045fd826dacc4855f8717079a3644a8c3b8b66b7edce21b9339d02070",
+        "source_index_counts": {
+          "0": 38,
+          "2": 125,
+          "3": 4,
+          "4": 23,
+          "5": 34,
+          "6": 47,
+          "7": 126,
+          "8": 88,
+          "9": 40,
+          "10": 45,
+          "11": 20,
+          "12": 53,
+          "13": 100,
+          "14": 54,
+          "15": 35
+        },
+        "output_indexes_sha256": "d67db41e68260f3518be2b7237b414ebfb9f7c4ebfb87b100c1b3e2b862f64c5",
+        "output_index_counts": {
+          "0": 377,
+          "1": 16,
+          "2": 40,
+          "3": 13,
+          "4": 27,
+          "5": 11,
+          "7": 3,
+          "8": 57,
+          "9": 37,
+          "10": 60,
+          "11": 30,
+          "12": 34,
+          "13": 43,
+          "14": 34,
+          "15": 50
+        },
+        "outline_mask_sha256": "4b59c918b8be3a7508030590cb10d0b01fdcbee8e39da3f07225b710e6ac3cdd",
+        "outline_mask_nonzero_pixel_count": 455,
+        "outline_only_pixel_count": 110,
+        "fill_mask_sha256": "c70872e8f375bf574c369af7f45d1a019cb0256b3933d7c7db6e657318429936",
+        "fill_mask_nonzero_pixel_count": 345,
+        "indexed_layer_counts": {
+          "outline": {
+            "1": 16,
+            "2": 40,
+            "3": 13,
+            "4": 27,
+            "5": 11,
+            "7": 3
+          },
+          "fill": {
+            "8": 57,
+            "9": 37,
+            "10": 60,
+            "11": 30,
+            "12": 34,
+            "13": 43,
+            "14": 34,
+            "15": 50
+          }
+        }
+      },
+      {
+        "entry_id": "aid/armor",
+        "source_text": "装甲値",
+        "translation": "装甲值",
+        "rect": [
+          52,
+          32,
+          51,
+          16
+        ],
+        "point_size": 14,
+        "source_indexes_sha256": "c98c5a7fc29c457bc9b9b409961942e89d374fdaf4868cc6879732a71426abc6",
+        "source_index_counts": {
+          "0": 54,
+          "2": 122,
+          "3": 1,
+          "4": 20,
+          "5": 22,
+          "6": 36,
+          "7": 127,
+          "8": 80,
+          "9": 40,
+          "10": 32,
+          "11": 23,
+          "12": 58,
+          "13": 75,
+          "14": 46,
+          "15": 80
+        },
+        "output_indexes_sha256": "17060e8cc213180ae10f3bfe7671fcd4eba20a94c4d932ebbfab66481935e022",
+        "output_index_counts": {
+          "0": 354,
+          "1": 40,
+          "2": 21,
+          "3": 9,
+          "4": 31,
+          "5": 9,
+          "6": 1,
+          "7": 2,
+          "8": 24,
+          "9": 28,
+          "10": 69,
+          "11": 37,
+          "12": 52,
+          "13": 69,
+          "14": 39,
+          "15": 31
+        },
+        "outline_mask_sha256": "90ed90f606168a9e5670ecc753f7c2ffdc471e14a2c028644d2aaba0ef63d546",
+        "outline_mask_nonzero_pixel_count": 462,
+        "outline_only_pixel_count": 113,
+        "fill_mask_sha256": "ef169c6152a2959256adc65cf2f4851085c77041fdd5e76630a8456509f214bc",
+        "fill_mask_nonzero_pixel_count": 349,
+        "indexed_layer_counts": {
+          "outline": {
+            "1": 40,
+            "2": 21,
+            "3": 9,
+            "4": 31,
+            "5": 9,
+            "6": 1,
+            "7": 2
+          },
+          "fill": {
+            "8": 24,
+            "9": 28,
+            "10": 69,
+            "11": 37,
+            "12": 52,
+            "13": 69,
+            "14": 39,
+            "15": 31
+          }
+        }
+      },
+      {
+        "entry_id": "aid/accuracy",
+        "source_text": "照準値",
+        "translation": "瞄准值",
+        "rect": [
+          103,
+          32,
+          51,
+          16
+        ],
+        "point_size": 14,
+        "source_indexes_sha256": "f95febeeec2bcf553fe91eb3e5881211d041c9ea23d5025a2ef30cf4e82f683c",
+        "source_index_counts": {
+          "0": 61,
+          "1": 23,
+          "2": 137,
+          "3": 7,
+          "4": 26,
+          "5": 35,
+          "6": 55,
+          "7": 91,
+          "8": 53,
+          "9": 37,
+          "10": 39,
+          "11": 19,
+          "12": 70,
+          "13": 77,
+          "14": 64,
+          "15": 22
+        },
+        "output_indexes_sha256": "88413dd618d8f0a4f0237df88632d1119c1c8f27f53153329b1b002a2f218e6b",
+        "output_index_counts": {
+          "0": 322,
+          "1": 22,
+          "2": 36,
+          "3": 10,
+          "4": 8,
+          "5": 15,
+          "6": 10,
+          "7": 8,
+          "8": 13,
+          "9": 34,
+          "10": 85,
+          "11": 32,
+          "12": 81,
+          "13": 64,
+          "14": 44,
+          "15": 32
+        },
+        "outline_mask_sha256": "6848d0c5bc48b0b46160510215283ec504549cfa98d9003b549b9f551488d513",
+        "outline_mask_nonzero_pixel_count": 494,
+        "outline_only_pixel_count": 109,
+        "fill_mask_sha256": "6cf8125154bdda3adc8877fbca889f8d3435098d10090242bd028e2f325cb967",
+        "fill_mask_nonzero_pixel_count": 385,
+        "indexed_layer_counts": {
+          "outline": {
+            "1": 22,
+            "2": 36,
+            "3": 10,
+            "4": 8,
+            "5": 15,
+            "6": 10,
+            "7": 8
+          },
+          "fill": {
+            "8": 13,
+            "9": 34,
+            "10": 85,
+            "11": 32,
+            "12": 81,
+            "13": 64,
+            "14": 44,
+            "15": 32
+          }
+        }
+      },
+      {
+        "entry_id": "aid/counter",
+        "source_text": "カウンター",
+        "translation": "先手反击",
+        "rect": [
+          168,
+          216,
+          80,
+          16
+        ],
+        "point_size": 14,
+        "source_indexes_sha256": "bf370767311c0e2a4703d260c4a38b0ad67a71aa933b54f6e6fb7887ae6fae60",
+        "source_index_counts": {
+          "0": 439,
+          "2": 269,
+          "3": 12,
+          "4": 85,
+          "5": 15,
+          "6": 50,
+          "7": 130,
+          "8": 16,
+          "9": 56,
+          "10": 12,
+          "11": 1,
+          "12": 18,
+          "13": 50,
+          "14": 54,
+          "15": 73
+        },
+        "output_indexes_sha256": "506d7b92522eec95e8e811745654c107ba5eb9caae5c324ddeb7c70f98ea6cfc",
+        "output_index_counts": {
+          "0": 755,
+          "1": 33,
+          "2": 44,
+          "3": 15,
+          "4": 8,
+          "5": 21,
+          "6": 8,
+          "7": 1,
+          "8": 25,
+          "9": 42,
+          "10": 84,
+          "11": 33,
+          "12": 61,
+          "13": 75,
+          "14": 47,
+          "15": 28
+        },
+        "outline_mask_sha256": "5b4f309f5dcbb55aa8a0e647c503e6773a3b479e7d50c662cfa3af38b5d0f05b",
+        "outline_mask_nonzero_pixel_count": 525,
+        "outline_only_pixel_count": 130,
+        "fill_mask_sha256": "c76ffe7db4585221f9697f1e0c0e9fecb9772723ea093afe3137874fa9791919",
+        "fill_mask_nonzero_pixel_count": 395,
+        "indexed_layer_counts": {
+          "outline": {
+            "1": 33,
+            "2": 44,
+            "3": 15,
+            "4": 8,
+            "5": 21,
+            "6": 8,
+            "7": 1
+          },
+          "fill": {
+            "8": 25,
+            "9": 42,
+            "10": 84,
+            "11": 33,
+            "12": 61,
+            "13": 75,
+            "14": 47,
+            "15": 28
+          }
+        }
+      },
+      {
+        "entry_id": "aid/tri-attack",
+        "source_text": "トライチャージ",
+        "translation": "TRI攻击",
+        "rect": [
+          107,
+          232,
+          145,
+          24
+        ],
+        "point_size": 18,
+        "source_indexes_sha256": "91a15ddab9e2965654d905432fc193d0a819051aeee1e2f672bc61ab875d0097",
+        "source_index_counts": {
+          "0": 1670,
+          "1": 741,
+          "2": 20,
+          "3": 48,
+          "4": 56,
+          "5": 27,
+          "6": 99,
+          "7": 40,
+          "8": 35,
+          "9": 120,
+          "10": 13,
+          "11": 36,
+          "12": 88,
+          "13": 93,
+          "14": 214,
+          "15": 180
+        },
+        "output_indexes_sha256": "4ae8e84d72176ff6c2f7ee4e0fa8acfb4d9a30290e8cbcf913eeff23c2cdf88c",
+        "output_index_counts": {
+          "0": 2913,
+          "1": 31,
+          "2": 24,
+          "3": 21,
+          "4": 21,
+          "5": 1,
+          "6": 11,
+          "7": 1,
+          "8": 33,
+          "9": 39,
+          "10": 54,
+          "11": 39,
+          "12": 87,
+          "13": 44,
+          "14": 88,
+          "15": 73
+        },
+        "outline_mask_sha256": "43b71a0cb08b2263d74a753ad1b358137cdcea804b9fb67c7136c98aac41f379",
+        "outline_mask_nonzero_pixel_count": 567,
+        "outline_only_pixel_count": 110,
+        "fill_mask_sha256": "f50d5cae8510038bb859e2bd2c009e4dde155b3a0ca7369e1855b78f0e90ea0b",
+        "fill_mask_nonzero_pixel_count": 457,
+        "indexed_layer_counts": {
+          "outline": {
+            "1": 31,
+            "2": 24,
+            "3": 21,
+            "4": 21,
+            "5": 1,
+            "6": 11,
+            "7": 1
+          },
+          "fill": {
+            "8": 33,
+            "9": 39,
+            "10": 54,
+            "11": 39,
+            "12": 87,
+            "13": 44,
+            "14": 88,
+            "15": 73
+          }
+        }
+      }
+    ],
+    "changed_logical_pixel_count": 8631,
+    "changed_logical_pixel_indexes_sha256": "5a3b5226b432c31cf07f512af5b8cd62310dda7bd44512da6a0c0659a2cf3d08",
+    "non_target_logical_indexes_sha256": "0f97aab4f60196afce2625554317d3b86922895555b61469c736648d1714d267",
+    "non_target_logical_indexes_preserved_byte_exact": true,
+    "tim2_metadata_preserved_byte_exact": true,
+    "clut_preserved_byte_exact": true,
+    "background_transparent_in_all_palette_banks": true,
+    "outline_and_fill_nontransparent_in_all_palette_banks": true
+  },
+  "compression": {
+    "strategy": "rust-fit",
+    "backend": "rust-only",
+    "round_trip_exact": true,
+    "fixed_slot_preserved": true
+  },
+  "animation_stream": {
+    "offset": 23232,
+    "size": 27440,
+    "sha256": "cab1e42c2675b5314af1bc17171cec63e05af2beb4e8befa5c95f06c1993250a",
+    "preserved_byte_exact": true
+  },
+  "toolchain": {
+    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+    "font_fallbacks": [
+      {
+        "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
+        "characters": "〜∀♪",
+        "character_count": 3,
+        "reason": "HarmonyOS Sans SC 1.0 has no visible glyph for these project-required characters. Use the locked Noto source only for this explicit set and retain the consuming scene's raster geometry.",
+        "font_source": {
+          "family": "Noto Sans CJK SC",
+          "version": "2.004",
+          "font_sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+          "license_spdx": "OFL-1.1",
+          "license_sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+          "commit": "f8d157532fbfaeda587e826d4cd5b21a49186f7c"
+        },
+        "uses_primary_rasterizer_geometry": true
+      }
+    ]
+  },
+  "expected": {
+    "source_atlas_decoded_sha256": "0c51ac905d0478936b5ae82fd17e4c4d6ca7dffd3e0692c998588c1017716b58",
+    "source_animation_sha256": "cab1e42c2675b5314af1bc17171cec63e05af2beb4e8befa5c95f06c1993250a",
+    "source_logical_indexes_sha256": "1b6f3d2d1023b3afaef083c142ebb4165a3d7b61ea99625cb2651dd26a092b16",
+    "source_clut_sha256": "34ae3e3d9558b9ed4407844f1580797b18b5ba23d026cf23c73f542a962dd225",
+    "label_preimages": {
+      "aid/shield": "dcde26ac64ba516fcbea9623bdfd97f2ada30618f66854fe5bde91b07a53eaa3",
+      "aid/defense": "2efe217850260aa13d282b4f1703a080f09d8cc879e06d6b1ce5fbbb66a559a3",
+      "aid/morale": "edff142f273291868a212b3ecf165122e91097429808a7c0a89494afc22fab66",
+      "aid/canceller": "55d468a28a07fbdc1c5d36ceea1dc5e7441b422bd88f611555ee92b82cc44035",
+      "aid/down": "537fb2961b0b887d44e9c66edb0e4aa7c8803cfd259727cacc9f671572d73a9e",
+      "aid/mobility": "781c462045fd826dacc4855f8717079a3644a8c3b8b66b7edce21b9339d02070",
+      "aid/armor": "c98c5a7fc29c457bc9b9b409961942e89d374fdaf4868cc6879732a71426abc6",
+      "aid/accuracy": "f95febeeec2bcf553fe91eb3e5881211d041c9ea23d5025a2ef30cf4e82f683c",
+      "aid/counter": "bf370767311c0e2a4703d260c4a38b0ad67a71aa933b54f6e6fb7887ae6fae60",
+      "aid/tri-attack": "91a15ddab9e2965654d905432fc193d0a819051aeee1e2f672bc61ab875d0097"
+    },
+    "render_masks": {
+      "aid/shield": {
+        "outline": "9aaeb88c9fd8a3a83583de3e839fde2e3fbe704c20f6d90ff18ddaaef78148c3",
+        "fill": "3ea39198e6b4719976f42a22f17d28dca2572a88c98f7c4293e90852bd837529"
+      },
+      "aid/defense": {
+        "outline": "56f98928be8f460b1b4a128efabcd898bc573ee64aa9434a888146d5f846700c",
+        "fill": "9d35bfe0a61634073e240440fb73cc71ce777a4c17474d4c7b5e0dcf718eec11"
+      },
+      "aid/morale": {
+        "outline": "22e95cd4f5344e736ececa5cd07773664d7d1aad173a6d42f08a705c2c3caa00",
+        "fill": "81ec39539cdc97d82c21876efda761c8ae648ab9035e32c51b45855b14b150b8"
+      },
+      "aid/canceller": {
+        "outline": "034649d8984a65aeab87f8c82b2f7544e3a990da2b69e05a58c3775363d8e615",
+        "fill": "c940d27afd5a32e47a1bba4c85ce1f54cb3e205d6ff504e17d9a273eeacfb93b"
+      },
+      "aid/down": {
+        "outline": "8600d56a2a392f5531665b4617c7d2944533fd97fbd9242e344aa8b3f402a736",
+        "fill": "04d2018712e16e7988bf82249d1af0ad93379761288643274d051a77dde4b850"
+      },
+      "aid/mobility": {
+        "outline": "4b59c918b8be3a7508030590cb10d0b01fdcbee8e39da3f07225b710e6ac3cdd",
+        "fill": "c70872e8f375bf574c369af7f45d1a019cb0256b3933d7c7db6e657318429936"
+      },
+      "aid/armor": {
+        "outline": "90ed90f606168a9e5670ecc753f7c2ffdc471e14a2c028644d2aaba0ef63d546",
+        "fill": "ef169c6152a2959256adc65cf2f4851085c77041fdd5e76630a8456509f214bc"
+      },
+      "aid/accuracy": {
+        "outline": "6848d0c5bc48b0b46160510215283ec504549cfa98d9003b549b9f551488d513",
+        "fill": "6cf8125154bdda3adc8877fbca889f8d3435098d10090242bd028e2f325cb967"
+      },
+      "aid/counter": {
+        "outline": "5b4f309f5dcbb55aa8a0e647c503e6773a3b479e7d50c662cfa3af38b5d0f05b",
+        "fill": "c76ffe7db4585221f9697f1e0c0e9fecb9772723ea093afe3137874fa9791919"
+      },
+      "aid/tri-attack": {
+        "outline": "43b71a0cb08b2263d74a753ad1b358137cdcea804b9fb67c7136c98aac41f379",
+        "fill": "f50d5cae8510038bb859e2bd2c009e4dde155b3a0ca7369e1855b78f0e90ea0b"
+      }
+    },
+    "output_logical_indexes_sha256": "af3758d4ed13d1fae70122fa304cfed17c968dd4a05e972f8e0a66678f5f2978",
+    "output_atlas_decoded_sha256": "6783d74a188b5044c2803f8746e5e1468c052b099e05974e3243f3e5b7627a94",
+    "output_atlas_encoded_size": 21528,
+    "output_atlas_encoded_sha256": "ef7d1879314a1547ebca67cec0846816f843b311c6be30307b9c47eae27119fc",
+    "output_member_sha256": "8002483e17d31a5b6777debe5c1db17cf19f172c3b7dc031a39b54e366501e09",
+    "reference_preview_sha256": "1c586a85a8b97eac24a7cfa50d41630493d5fc719c664abd97314f01316d4870",
+    "localized_preview_sha256": "88adeffd9054e9e2b86f8d654ffc5640df6895fb335b223bdb863b27ab164f6f"
+  },
+  "output_diff": {
+    "diff_count": 22807,
+    "range_count": 361,
+    "first_offset": 9,
+    "last_offset": 23231,
+    "offsets_sha256": "a4d56376d118c804e64956d5f25bf6558f4717a950d51f046fb22695aff5d49c",
+    "ranges_sha256": "24cb48f7bb21cba2f16066226a9fa3b65b40ea1921c6a688a084df8d2071a9b6",
+    "before_values_sha256": "2c68d00a912275b4a7792dd5cd6b2d50e2cbe0ccef026b98973b808aa580e1c7",
+    "after_values_sha256": "f17e444779babb12206cd57f1766d8bf448d259c714970eacddc0cb9c195654d"
+  },
+  "outputs": {
+    "AID_DATA/AIDDATA.BIN": {
+      "path": "work/build/aid-battle-prompts-zh/components/AID_DATA/AIDDATA.BIN",
+      "size": 50672,
+      "sha256": "8002483e17d31a5b6777debe5c1db17cf19f172c3b7dc031a39b54e366501e09"
+    }
+  },
+  "acceptance": {
+    "reviewed_translation_inventory_complete": true,
+    "latin_digits_and_symbols_preserved_via_non_target_indexes": true,
+    "indexed_outline_and_fill_layers_present": true,
+    "palette_and_alpha_preserved": true,
+    "atlas_round_trip_exact": true,
+    "animation_stream_preserved_byte_exact": true,
+    "member_size_preserved": true
+  },
+  "runtime": {
+    "status": "not_tested",
+    "reason": "Static indexed-texture and compressed-member proof only; exact-ISO PCSX2 battle-flow evidence remains pending."
+  }
+}

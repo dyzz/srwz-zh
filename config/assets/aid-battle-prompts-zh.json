@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "profile_id": "aid-battle-prompts-zh-v1",
+  "scope": "Replace only Japanese AIDDATA battle prompt glyphs with reviewed Chinese text while preserving the indexed TIM2 palette, all Latin prompts, digits, symbols and the second compressed stream byte-exact.",
+  "source": {
+    "member": "AID_DATA/AIDDATA.BIN",
+    "path": "work/disc/AID_DATA/AIDDATA.BIN",
+    "size": 50672,
+    "sha256": "e3a9dfda0b758c84417dcdd558dba3ef99360b5e9e633bb8697a891aaad4e948"
+  },
+  "streams": {
+    "atlas_offset": 0,
+    "atlas_slot_size": 23232,
+    "atlas_decoded_size": 33376,
+    "animation_offset": 23232,
+    "animation_size": 27440
+  },
+  "tim2": {
+    "offset": 32,
+    "width": 256,
+    "height": 256,
+    "image_type": 4,
+    "image_size": 32768,
+    "clut_color_count": 128,
+    "palette_bank_count": 8,
+    "background_index": 0,
+    "outline_indexes": [1, 2, 3, 4, 5, 6, 7],
+    "fill_indexes": [8, 9, 10, 11, 12, 13, 14, 15]
+  },
+  "corpus": {
+    "path": "corpus/zh/ui-atlas/aid-battle-prompts-v1.json",
+    "minimum_editorial_status": "reviewed"
+  },
+  "font_flavor": "config/fonts/zh-localization-font-light.json",
+  "render": {
+    "point_size": 14,
+    "stroke_width": 0.8,
+    "supersample_factor": 4,
+    "vertical_offset": 0
+  },
+  "labels": [
+    {"entry_id": "aid/shield", "rect": [142, 0, 63, 16]},
+    {"entry_id": "aid/defense", "rect": [205, 0, 34, 16]},
+    {"entry_id": "aid/morale", "rect": [0, 16, 33, 16]},
+    {"entry_id": "aid/canceller", "rect": [96, 16, 99, 16]},
+    {"entry_id": "aid/down", "rect": [199, 16, 51, 16]},
+    {"entry_id": "aid/mobility", "rect": [0, 32, 52, 16]},
+    {"entry_id": "aid/armor", "rect": [52, 32, 51, 16]},
+    {"entry_id": "aid/accuracy", "rect": [103, 32, 51, 16]},
+    {"entry_id": "aid/counter", "rect": [168, 216, 80, 16]},
+    {"entry_id": "aid/tri-attack", "rect": [107, 232, 145, 24], "point_size": 18}
+  ],
+  "compression": {
+    "strategy": "rust-fit",
+    "min_match_length": 2,
+    "max_match_chain": 16384,
+    "lazy_matching": false,
+    "padding_byte": 0
+  },
+  "expected": {
+    "source_atlas_decoded_sha256": "0c51ac905d0478936b5ae82fd17e4c4d6ca7dffd3e0692c998588c1017716b58",
+    "source_animation_sha256": "cab1e42c2675b5314af1bc17171cec63e05af2beb4e8befa5c95f06c1993250a",
+    "source_logical_indexes_sha256": "1b6f3d2d1023b3afaef083c142ebb4165a3d7b61ea99625cb2651dd26a092b16",
+    "source_clut_sha256": "34ae3e3d9558b9ed4407844f1580797b18b5ba23d026cf23c73f542a962dd225",
+    "label_preimages": {
+      "aid/shield": "dcde26ac64ba516fcbea9623bdfd97f2ada30618f66854fe5bde91b07a53eaa3",
+      "aid/defense": "2efe217850260aa13d282b4f1703a080f09d8cc879e06d6b1ce5fbbb66a559a3",
+      "aid/morale": "edff142f273291868a212b3ecf165122e91097429808a7c0a89494afc22fab66",
+      "aid/canceller": "55d468a28a07fbdc1c5d36ceea1dc5e7441b422bd88f611555ee92b82cc44035",
+      "aid/down": "537fb2961b0b887d44e9c66edb0e4aa7c8803cfd259727cacc9f671572d73a9e",
+      "aid/mobility": "781c462045fd826dacc4855f8717079a3644a8c3b8b66b7edce21b9339d02070",
+      "aid/armor": "c98c5a7fc29c457bc9b9b409961942e89d374fdaf4868cc6879732a71426abc6",
+      "aid/accuracy": "f95febeeec2bcf553fe91eb3e5881211d041c9ea23d5025a2ef30cf4e82f683c",
+      "aid/counter": "bf370767311c0e2a4703d260c4a38b0ad67a71aa933b54f6e6fb7887ae6fae60",
+      "aid/tri-attack": "91a15ddab9e2965654d905432fc193d0a819051aeee1e2f672bc61ab875d0097"
+    },
+    "render_masks": {
+      "aid/shield": {"outline": "9aaeb88c9fd8a3a83583de3e839fde2e3fbe704c20f6d90ff18ddaaef78148c3", "fill": "3ea39198e6b4719976f42a22f17d28dca2572a88c98f7c4293e90852bd837529"},
+      "aid/defense": {"outline": "56f98928be8f460b1b4a128efabcd898bc573ee64aa9434a888146d5f846700c", "fill": "9d35bfe0a61634073e240440fb73cc71ce777a4c17474d4c7b5e0dcf718eec11"},
+      "aid/morale": {"outline": "22e95cd4f5344e736ececa5cd07773664d7d1aad173a6d42f08a705c2c3caa00", "fill": "81ec39539cdc97d82c21876efda761c8ae648ab9035e32c51b45855b14b150b8"},
+      "aid/canceller": {"outline": "034649d8984a65aeab87f8c82b2f7544e3a990da2b69e05a58c3775363d8e615", "fill": "c940d27afd5a32e47a1bba4c85ce1f54cb3e205d6ff504e17d9a273eeacfb93b"},
+      "aid/down": {"outline": "8600d56a2a392f5531665b4617c7d2944533fd97fbd9242e344aa8b3f402a736", "fill": "04d2018712e16e7988bf82249d1af0ad93379761288643274d051a77dde4b850"},
+      "aid/mobility": {"outline": "4b59c918b8be3a7508030590cb10d0b01fdcbee8e39da3f07225b710e6ac3cdd", "fill": "c70872e8f375bf574c369af7f45d1a019cb0256b3933d7c7db6e657318429936"},
+      "aid/armor": {"outline": "90ed90f606168a9e5670ecc753f7c2ffdc471e14a2c028644d2aaba0ef63d546", "fill": "ef169c6152a2959256adc65cf2f4851085c77041fdd5e76630a8456509f214bc"},
+      "aid/accuracy": {"outline": "6848d0c5bc48b0b46160510215283ec504549cfa98d9003b549b9f551488d513", "fill": "6cf8125154bdda3adc8877fbca889f8d3435098d10090242bd028e2f325cb967"},
+      "aid/counter": {"outline": "5b4f309f5dcbb55aa8a0e647c503e6773a3b479e7d50c662cfa3af38b5d0f05b", "fill": "c76ffe7db4585221f9697f1e0c0e9fecb9772723ea093afe3137874fa9791919"},
+      "aid/tri-attack": {"outline": "43b71a0cb08b2263d74a753ad1b358137cdcea804b9fb67c7136c98aac41f379", "fill": "f50d5cae8510038bb859e2bd2c009e4dde155b3a0ca7369e1855b78f0e90ea0b"}
+    },
+    "output_logical_indexes_sha256": "af3758d4ed13d1fae70122fa304cfed17c968dd4a05e972f8e0a66678f5f2978",
+    "output_atlas_decoded_sha256": "6783d74a188b5044c2803f8746e5e1468c052b099e05974e3243f3e5b7627a94",
+    "output_atlas_encoded_size": 21528,
+    "output_atlas_encoded_sha256": "ef7d1879314a1547ebca67cec0846816f843b311c6be30307b9c47eae27119fc",
+    "output_member_sha256": "8002483e17d31a5b6777debe5c1db17cf19f172c3b7dc031a39b54e366501e09",
+    "reference_preview_sha256": "1c586a85a8b97eac24a7cfa50d41630493d5fc719c664abd97314f01316d4870",
+    "localized_preview_sha256": "88adeffd9054e9e2b86f8d654ffc5640df6895fb335b223bdb863b27ab164f6f"
+  },
+  "outputs": {
+    "component_root": "work/build/aid-battle-prompts-zh/components",
+    "reference_png": "work/review/aid-battle-prompts-zh/reference.png",
+    "localized_png": "work/review/aid-battle-prompts-zh/localized.png",
+    "report": "work/review/aid-battle-prompts-zh/component-validation.json",
+    "manifest": "manifests/aid-battle-prompts-zh-validation.json"
+  }
+}

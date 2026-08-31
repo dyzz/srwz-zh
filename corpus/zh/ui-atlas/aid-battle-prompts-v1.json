@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "corpus_id": "srwz-aid-battle-prompts-zh-v1",
+  "language": "zh-Hans",
+  "scope": "AIDDATA battle-result and weapon-effect prompt atlas labels. Existing Latin prompts, digits and symbols remain byte-exact.",
+  "entries": [
+    {
+      "id": "aid/shield",
+      "source_text": "シールド",
+      "translation": "护盾",
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "aid/defense",
+      "source_text": "防御",
+      "translation": "防御",
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "aid/morale",
+      "source_text": "気力",
+      "translation": "气力",
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "aid/canceller",
+      "source_text": "キャンセラー",
+      "translation": "完全抗性",
+      "editorial_status": "reviewed",
+      "notes": "The atlas shortens the オールキャンセラー effect prompt; use the approved ability term."
+    },
+    {
+      "id": "aid/down",
+      "source_text": "ダウン",
+      "translation": "下降",
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "aid/mobility",
+      "source_text": "運動性",
+      "translation": "运动性",
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "aid/armor",
+      "source_text": "装甲値",
+      "translation": "装甲值",
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "aid/accuracy",
+      "source_text": "照準値",
+      "translation": "瞄准值",
+      "editorial_status": "reviewed"
+    },
+    {
+      "id": "aid/counter",
+      "source_text": "カウンター",
+      "translation": "先手反击",
+      "editorial_status": "reviewed",
+      "notes": "Matches the approved Counter skill term rather than the generic verb 反击."
+    },
+    {
+      "id": "aid/tri-attack",
+      "source_text": "トライチャージ",
+      "translation": "TRI攻击",
+      "editorial_status": "reviewed",
+      "notes": "User-confirmed compact battle prompt; TRI remains Latin."
+    }
+  ]
+}

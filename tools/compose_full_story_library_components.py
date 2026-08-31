@@ -13,12 +13,14 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FULL = PROJECT_ROOT / "manifests/full-story-components-validation.json"
 DEFAULT_LIBRARY = PROJECT_ROOT / "manifests/library-v0.2-reviewed-validation.json"
+DEFAULT_AID = PROJECT_ROOT / "manifests/aid-battle-prompts-zh-validation.json"
 DEFAULT_OUTPUT = (
     PROJECT_ROOT / "manifests/full-story-library-components-validation.json"
 )
 INTEGRATED_COMPONENT_ROOT = PROJECT_ROOT / "work/build/zh-release-full-story/components"
 FULL_STATUS = "integrated_global_zh_release_components_validated_runtime_pending"
 LIBRARY_STATUS = "library_v0.2_reviewed_components_static_validated"
+AID_STATUS = "aid_battle_prompts_static_validated_runtime_pending"
 OUTPUT_STATUS = (
     "integrated_global_zh_release_library_components_validated_runtime_pending"
 )
@@ -29,6 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--full", type=Path, default=DEFAULT_FULL)
     parser.add_argument("--library", type=Path, default=DEFAULT_LIBRARY)
+    parser.add_argument("--aid", type=Path, default=DEFAULT_AID)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     return parser.parse_args()
 
@@ -53,8 +56,10 @@ def main() -> int:
     args = parse_args()
     full_path = args.full.resolve()
     library_path = args.library.resolve()
+    aid_path = args.aid.resolve()
     full = load(full_path)
     library = load(library_path)
+    aid = load(aid_path)
     if full.get("status") != FULL_STATUS:
         raise SystemExit("full-story component status drift")
     if (
@@ -63,13 +68,24 @@ def main() -> int:
         or not all(library.get("acceptance", {}).values())
     ):
         raise SystemExit("reviewed LIBRARY component acceptance is incomplete")
+    if aid.get("status") != AID_STATUS or not all(
+        aid.get("acceptance", {}).values()
+    ):
+        raise SystemExit("AID battle-prompt component acceptance is incomplete")
     full_outputs = full.get("outputs")
     library_outputs = library.get("outputs")
-    if not isinstance(full_outputs, dict) or not isinstance(library_outputs, dict):
+    aid_outputs = aid.get("outputs")
+    if not all(
+        isinstance(outputs, dict)
+        for outputs in (full_outputs, library_outputs, aid_outputs)
+    ):
         raise SystemExit("component outputs are malformed")
     overlap = set(full_outputs) & set(library_outputs)
     if overlap - SHARED_OUTPUT_MEMBERS:
         raise SystemExit(f"component output ownership overlap: {sorted(overlap)}")
+    aid_overlap = set(aid_outputs) & (set(full_outputs) | set(library_outputs))
+    if aid_overlap:
+        raise SystemExit(f"AID component output ownership overlap: {sorted(aid_overlap)}")
     if "DATA/NISVDATA.BIN" in overlap:
         full_runtime_menu = full.get("runtime_library_menu")
         library_runtime_menu = library.get("runtime_library_menu")
@@ -188,6 +204,24 @@ def main() -> int:
         temporary.replace(target)
         installed_library_outputs[member] = file_lock(target)
 
+    installed_aid_outputs = {}
+    for member, lock in aid_outputs.items():
+        if not isinstance(lock, dict):
+            raise SystemExit(f"invalid AID output lock: {member}")
+        source = PROJECT_ROOT / str(lock.get("path"))
+        data = source.read_bytes()
+        if (
+            len(data) != lock.get("size")
+            or hashlib.sha256(data).hexdigest() != lock.get("sha256")
+        ):
+            raise SystemExit(f"AID output drift: {member}")
+        target = INTEGRATED_COMPONENT_ROOT / member
+        target.parent.mkdir(parents=True, exist_ok=True)
+        temporary = target.with_suffix(target.suffix + ".tmp")
+        temporary.write_bytes(data)
+        temporary.replace(target)
+        installed_aid_outputs[member] = file_lock(target)
+
     combined = deepcopy(full)
     combined["status"] = OUTPUT_STATUS
     combined["profile_id"] = "srwz-global-zh-release-library-integrated-v1"
@@ -198,6 +232,24 @@ def main() -> int:
     combined.setdefault("inputs", {})["library_component_manifest"] = file_lock(
         library_path
     )
+    combined["inputs"]["aid_battle_prompt_component_manifest"] = file_lock(
+        aid_path
+    )
+    aid_inputs = aid.get("inputs")
+    if not isinstance(aid_inputs, dict) or not aid_inputs:
+        raise SystemExit("AID component input locks are missing")
+    for label, lock in aid_inputs.items():
+        if not isinstance(label, str) or not isinstance(lock, dict):
+            raise SystemExit("AID component input lock is malformed")
+        raw_path = lock.get("path")
+        source = PROJECT_ROOT / str(raw_path)
+        if (
+            not isinstance(raw_path, str)
+            or not source.is_file()
+            or file_lock(source) != lock
+        ):
+            raise SystemExit(f"AID component input drift: {label}")
+        combined["inputs"][f"aid_battle_prompt_{label}"] = deepcopy(lock)
     combined["library"] = {
         "status": library["status"],
         "profile_id": library["profile_id"],
@@ -219,7 +271,20 @@ def main() -> int:
         "archives": deepcopy(library["archives"]),
         "acceptance": deepcopy(library["acceptance"]),
     }
-    combined["outputs"] = {**full_outputs, **installed_library_outputs}
+    combined["aid_battle_prompts"] = {
+        "status": aid["status"],
+        "profile_id": aid["profile_id"],
+        "atlas": deepcopy(aid["atlas"]),
+        "compression": deepcopy(aid["compression"]),
+        "animation_stream": deepcopy(aid["animation_stream"]),
+        "acceptance": deepcopy(aid["acceptance"]),
+        "runtime": deepcopy(aid["runtime"]),
+    }
+    combined["outputs"] = {
+        **full_outputs,
+        **installed_library_outputs,
+        **installed_aid_outputs,
+    }
     build_groups = combined.get("build_groups")
     if not isinstance(build_groups, list):
         raise SystemExit("full-story build-group ownership is missing")
@@ -240,6 +305,15 @@ def main() -> int:
     group_by_id["localized_data_members"]["physical_member_count"] = len(
         localized_members
     )
+    rendered_members = group_by_id.get("rendered_archive_members", {}).get(
+        "members"
+    )
+    if not isinstance(rendered_members, list):
+        raise SystemExit("rendered-archive member ownership is malformed")
+    rendered_members.extend(sorted(installed_aid_outputs))
+    group_by_id["rendered_archive_members"]["physical_member_count"] = len(
+        rendered_members
+    )
     owned_members = [
         member
         for build_group in build_groups
@@ -255,6 +329,9 @@ def main() -> int:
     combined.setdefault("acceptance", {})[
         "reviewed_library_components_reread_exact"
     ] = all(library["acceptance"].values())
+    combined["acceptance"][
+        "aid_battle_prompt_component_reread_exact"
+    ] = all(aid["acceptance"].values())
     combined["runtime"] = {
         "status": "not_tested",
         "reason": (
@@ -265,7 +342,7 @@ def main() -> int:
             library.get("runtime", {}).get("required_flows", [])
         ),
     }
-    if len(combined["outputs"]) != 21 or not all(
+    if len(combined["outputs"]) != 22 or not all(
         combined["acceptance"].values()
     ):
         raise SystemExit("combined component acceptance failed")
@@ -281,6 +358,7 @@ def main() -> int:
     print(
         f"combined components: outputs={len(combined['outputs'])} "
         f"library_texts={library['translation']['unique_text_count']} "
+        f"aid_labels={len(aid['atlas']['labels'])} "
         f"status={OUTPUT_STATUS}"
     )
     print(output.relative_to(PROJECT_ROOT))

@@ -491,6 +491,11 @@ def main() -> int:
     _run(*library_args)
     if not args.skip_assets:
         _build_assets(chain, args)
+        aid_args = ["tools/build_aid_battle_prompts.py", "--force"]
+        if args.refresh_manifests:
+            aid_args.append("--refresh-manifest")
+        print("[font-consumer] AID battle prompts", flush=True)
+        _run(*aid_args)
         print("[font-consumer] compose full-story + LIBRARY", flush=True)
         _run("tools/compose_full_story_library_components.py")
     return 0
