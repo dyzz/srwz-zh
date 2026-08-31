@@ -827,6 +827,106 @@ class ReleaseWorkflowTest(unittest.TestCase):
         ]
         self.assertEqual(stale_paths, [])
 
+    def test_naikick_base_name_is_consistent_across_active_surfaces(self) -> None:
+        glossary = _load("corpus/glossary/global-variants-v1.json")
+        terms = {entry["id"]: entry for entry in glossary["terms"]}
+        expected_terms = {
+            "unit/naikick": ("奈基克", "耐基古"),
+            "unit/naikick-athena": (
+                "奈基克-雅典娜机",
+                "耐基古-雅典娜机",
+            ),
+            "unit/naikick-olson": (
+                "奈基克-奥尔森机",
+                "耐基古-奥尔森机",
+            ),
+        }
+        for term_id, (translation, deprecated) in expected_terms.items():
+            self.assertEqual(terms[term_id]["translation"], translation)
+            self.assertIn(deprecated, terms[term_id]["deprecated_translations"])
+
+        display_names = _load("corpus/zh/display-names/units-full.json")
+        unit_names: dict[int, str] = {}
+        for segment in display_names["segments"]:
+            start, end = segment["range"]
+            self.assertEqual(len(segment["translations"]), end - start + 1)
+            unit_names.update(
+                {
+                    start + offset: translation
+                    for offset, translation in enumerate(segment["translations"])
+                }
+            )
+        self.assertEqual(
+            {index: unit_names[index] for index in (81, 82, 83)},
+            {
+                81: "奈基克-雅典娜机",
+                82: "奈基克-奥尔森机",
+                83: "奈基克",
+            },
+        )
+
+        library = _load("corpus/zh/library/v0.2-reviewed.json")
+        library_entries = {
+            entry["id"]: entry["translation"] for entry in library["entries"]
+        }
+        self.assertEqual(
+            library_entries["library-text/0004617f45ab7a01"],
+            "奈基克-雅典娜机",
+        )
+        self.assertEqual(
+            library_entries["library-text/7cd99f5c267d3b9f"],
+            "奈基克-奥尔森机",
+        )
+        for entry_id in (
+            "library-text/af9ca9b96d3e4807",
+            "library-text/fc24ab37025308d4",
+            "library-text/fd87ffb798fdecba",
+        ):
+            self.assertIn("奈基克", library_entries[entry_id])
+
+        active_paths = sorted((PROJECT_ROOT / "corpus" / "zh").rglob("*.json"))
+        active_paths.append(PROJECT_ROOT / "guide" / "srwz-z-flow-guide.html")
+        stale_paths = [
+            path.relative_to(PROJECT_ROOT).as_posix()
+            for path in active_paths
+            if "耐基古" in path.read_text(encoding="utf-8")
+        ]
+        self.assertEqual(stale_paths, [])
+
+    def test_singularity_uses_confirmed_source_bound_translation(self) -> None:
+        stage_glossary = _load("corpus/glossary/stage-titles-v1.json")
+        stage_terms = {entry["id"]: entry for entry in stage_glossary["terms"]}
+        stage_term = stage_terms["technology/singularity"]
+        self.assertEqual(stage_term["translation"], "特异点")
+        self.assertIn("奇点", stage_term["deprecated_translations"])
+        self.assertIn("battle", stage_term["domains"])
+
+        glossary = _load("corpus/glossary/terms-v1.json")
+        terms = {entry["id"]: entry for entry in glossary["terms"]}
+        singularity = terms["technology/singularity"]
+        self.assertEqual(singularity["translation"], "特异点")
+        self.assertIn("奇点", singularity["deprecated_translations"])
+        self.assertIn("battle", singularity["domains"])
+
+        great_singularity = terms["technology/great-singularity"]
+        self.assertEqual(great_singularity["translation"], "大特异点")
+        self.assertIn("大奇点", great_singularity["deprecated_translations"])
+
+        active_paths = sorted((PROJECT_ROOT / "corpus" / "zh").rglob("*.json"))
+        active_paths.extend(
+            (
+                PROJECT_ROOT / "config" / "library" / "v0.2-editorial-overrides.json",
+                PROJECT_ROOT / "guide" / "srwz-z-flow-guide.html",
+                PROJECT_ROOT / "docs" / "STAGE_ROUTE_MAP.md",
+            )
+        )
+        stale_paths = [
+            path.relative_to(PROJECT_ROOT).as_posix()
+            for path in active_paths
+            if "奇点" in path.read_text(encoding="utf-8")
+        ]
+        self.assertEqual(stale_paths, [])
+
     def test_latest_person_names_propagate_through_active_text(self) -> None:
         corpus_paths = sorted((PROJECT_ROOT / "corpus" / "zh").rglob("*.json"))
         stale_unambiguous = (
