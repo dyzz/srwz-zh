@@ -927,6 +927,25 @@ class ReleaseWorkflowTest(unittest.TestCase):
         ]
         self.assertEqual(stale_paths, [])
 
+    def test_red_comet_uses_confirmed_translation(self) -> None:
+        glossary = _load("corpus/glossary/story-dialogue-stage-001-v1.json")
+        terms = {entry["id"]: entry for entry in glossary["terms"]}
+        red_comet = terms["people/red-comet"]
+        self.assertEqual(red_comet["source_terms"], ["赤い彗星"])
+        self.assertEqual(red_comet["translation"], "赤色彗星")
+        self.assertIn("红色彗星", red_comet["deprecated_translations"])
+        self.assertTrue(
+            {"battle", "library", "story"}.issubset(red_comet["domains"])
+        )
+
+        active_paths = sorted((PROJECT_ROOT / "corpus" / "zh").rglob("*.json"))
+        stale_paths = [
+            path.relative_to(PROJECT_ROOT).as_posix()
+            for path in active_paths
+            if "红色彗星" in path.read_text(encoding="utf-8")
+        ]
+        self.assertEqual(stale_paths, [])
+
     def test_latest_person_names_propagate_through_active_text(self) -> None:
         corpus_paths = sorted((PROJECT_ROOT / "corpus" / "zh").rglob("*.json"))
         stale_unambiguous = (
