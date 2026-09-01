@@ -827,6 +827,28 @@ class ReleaseWorkflowTest(unittest.TestCase):
         ]
         self.assertEqual(stale_paths, [])
 
+    def test_lalah_sune_uses_canonical_chinese_name(self) -> None:
+        battle = _load("corpus/zh/battle/srvc-lines.json")
+        battle_entries = {entry["id"]: entry for entry in battle["entries"]}
+        self.assertEqual(
+            battle_entries["battle:05982"]["translation"],
+            "“这种感觉，阿姆罗·雷…\\n　不，是拉拉·辛吗…！？”",
+        )
+
+        library = _load("corpus/zh/library/v0.2-reviewed.json")
+        library_entries = {entry["id"]: entry for entry in library["entries"]}
+        self.assertIn(
+            "拉拉·辛",
+            library_entries["library-text/a9ff296884773c4f"]["translation"],
+        )
+
+        stale_paths = [
+            path.relative_to(PROJECT_ROOT).as_posix()
+            for path in (PROJECT_ROOT / "corpus" / "zh").rglob("*.json")
+            if "拉拉·孙" in path.read_text(encoding="utf-8")
+        ]
+        self.assertEqual(stale_paths, [])
+
     def test_naikick_base_name_is_consistent_across_active_surfaces(self) -> None:
         glossary = _load("corpus/glossary/global-variants-v1.json")
         terms = {entry["id"]: entry for entry in glossary["terms"]}
