@@ -1112,6 +1112,31 @@ class ReleaseWorkflowTest(unittest.TestCase):
         ]
         self.assertEqual(stale_paths, [])
 
+    def test_big_web_uses_confirmed_shape_based_translation(self) -> None:
+        weapon_glossary = _load("corpus/glossary/weapons-v1.json")
+        weapon_terms = {entry["id"]: entry for entry in weapon_glossary["terms"]}
+        big_web = weapon_terms["weapon/daitarn-big-web"]
+        self.assertEqual(
+            big_web["source_terms"],
+            ["ビッグ・ウェッブ", "ビッグウェッブ"],
+        )
+        self.assertEqual(big_web["translation"], "巨型十字飞刃")
+        self.assertTrue(
+            {"大网", "巨型刃网", "巨面刃网"}.issubset(
+                big_web["deprecated_translations"]
+            )
+        )
+        self.assertIn("battle", big_web["domains"])
+        self.assertIn("普通 Web", big_web["notes"])
+        self.assertIn("Big Web", big_web["notes"])
+        self.assertIn("Guard Web", big_web["notes"])
+
+        battle = _load("corpus/zh/battle/srvc-lines.json")
+        battle_entries = {
+            entry["id"]: entry["translation"] for entry in battle["entries"]
+        }
+        self.assertEqual(battle_entries["battle:24981"], "“巨型十字飞刃！！”")
+
     def test_red_comet_uses_confirmed_translation(self) -> None:
         glossary = _load("corpus/glossary/story-dialogue-stage-001-v1.json")
         terms = {entry["id"]: entry for entry in glossary["terms"]}
