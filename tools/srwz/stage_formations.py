@@ -80,25 +80,48 @@ _LOCKED_LAYOUT_SPECS = {
 }
 
 
+def _is_stage_formation_pointer_record(
+    data: bytes,
+    pointer_offset: int,
+    text_address: int,
+) -> bool:
+    if (
+        pointer_offset < 16
+        or pointer_offset + 16 > len(data)
+        or struct.unpack_from("<I", data, pointer_offset)[0] != text_address
+        or data[pointer_offset - 8 : pointer_offset - 6] != b"\xFF\xFF"
+        or data[pointer_offset - 2 : pointer_offset] != b"\xFF\xFF"
+    ):
+        return False
+    selector, next_record, terminal = struct.unpack_from(
+        "<III", data, pointer_offset + 4
+    )
+    return (
+        selector == 0xFF and next_record == 0 and terminal == 0
+    ) or (
+        selector >> 16 == 0xFF
+        and selector & 0xFFFF
+        and next_record == 0xFFFFFFFF
+        and terminal == 0
+    )
+
+
 def has_stage_formation_pointer_owner(data: bytes, text_offset: int) -> bool:
     """Return whether a formation owner record points to *text_offset*.
 
     Some formation-name tables contain only one or two strings, so adjacency
     cannot prove ownership.  Their 32-byte owner records place the name pointer
-    at byte 16 and retain two sentinel halfwords, the ``0xFF`` name selector,
-    and two zero words after it.  Validate that complete local signature so a
-    glossary row or ordinary dialogue pointer cannot claim the same text.
+    at byte 16 and retain two sentinel halfwords.  A leader uses the plain
+    ``0xFF`` selector and zero tail; indexed squad members use ``0x00FFxxxx``
+    plus the ``0xFFFFFFFF, 0`` tail.  Validate the complete local signature so
+    a glossary row or ordinary dialogue pointer cannot claim the same text.
     """
 
     if not 0 <= text_offset < len(data):
         return False
     address = STAGE_BASE_ADDRESS + text_offset
     return any(
-        struct.unpack_from("<I", data, offset)[0] == address
-        and data[offset - 8 : offset - 6] == b"\xFF\xFF"
-        and data[offset - 2 : offset] == b"\xFF\xFF"
-        and struct.unpack_from("<I", data, offset + 4)[0] == 0xFF
-        and data[offset + 8 : offset + 16] == bytes(8)
+        _is_stage_formation_pointer_record(data, offset, address)
         for offset in range(16, len(data) - 15, 4)
     )
 
@@ -112,10 +135,11 @@ def _stage_formation_pointer_targets(data: bytes) -> frozenset[int]:
         if 0
         <= (target := struct.unpack_from("<I", data, offset)[0] - STAGE_BASE_ADDRESS)
         < len(data)
-        and data[offset - 8 : offset - 6] == b"\xFF\xFF"
-        and data[offset - 2 : offset] == b"\xFF\xFF"
-        and struct.unpack_from("<I", data, offset + 4)[0] == 0xFF
-        and data[offset + 8 : offset + 16] == bytes(8)
+        and _is_stage_formation_pointer_record(
+            data,
+            offset,
+            STAGE_BASE_ADDRESS + target,
+        )
     )
 
 
@@ -511,16 +535,20 @@ def _scan_packed8_groups(
     table: TextTable,
     *,
     stage_index: int,
-    source_texts: set[str] | frozenset[str],
+    source_texts: set[str] | frozenset[str] | None,
+    owner_data: bytes | None = None,
 ) -> tuple[FormationGroup, ...]:
-    """Find reviewed names inside eight-byte-aligned packed string tables.
+    """Find names inside eight-byte-aligned packed string tables.
 
     These tables store variable-size, NUL-terminated fields.  Each next field
     begins on an eight-byte boundary, so a fixed 23- or 32-byte probe misses a
     short field when another string immediately follows it.  Three linked
-    fields prove table ownership directly.  One- and two-field tables require
-    a word-aligned runtime pointer to every selected field and receive a
-    separate locked layout so later builds revalidate that ownership proof.
+    fields prove table ownership after a formation pointer roots the run.
+    One- and two-field tables require a formation pointer to every selected
+    field and receive a separate locked layout so later builds revalidate that
+    ownership proof.  A reviewed source set may additionally recover the same
+    name from other repeated formation tables; passing ``None`` performs the
+    owner-first discovery used to prevent source-inventory omissions.
     """
 
     starts: dict[int, tuple[FormationCell, int]] = {}
@@ -546,7 +574,9 @@ def _scan_packed8_groups(
                 next_by_offset[offset] = next_offset
                 break
 
-    pointer_targets = _stage_formation_pointer_targets(data)
+    pointer_targets = _stage_formation_pointer_targets(
+        data if owner_data is None else owner_data
+    )
     previous_offsets = set(next_by_offset.values())
     cells_by_layout: dict[str, list[FormationCell]] = {}
     for run_start in ordered_offsets:
@@ -556,10 +586,17 @@ def _scan_packed8_groups(
         while run[-1] in next_by_offset:
             run.append(next_by_offset[run[-1]])
         repeated_table = len(run) >= 3
+        if source_texts is None and repeated_table and not any(
+            offset in pointer_targets for offset in run
+        ):
+            continue
         for index, offset in enumerate(run):
             cell, minimum_slot_size = starts[offset]
             if (
-                cell.source_text not in source_texts
+                (
+                    source_texts is not None
+                    and cell.source_text not in source_texts
+                )
                 or (not repeated_table and offset not in pointer_targets)
             ):
                 continue
@@ -688,6 +725,51 @@ def discover_structural_stage_default_formations(
                         cells=cells,
                     )
                 )
+    return tuple(groups)
+
+
+def discover_owned_stage_formation_names(
+    stage: bytes,
+    hb: bytes,
+    table: TextTable,
+    *,
+    owner_stage: bytes | None = None,
+) -> tuple[FormationGroup, ...]:
+    """Return packed formation names rooted by their runtime owner records.
+
+    This scan intentionally does not accept a source-text inventory.  It is the
+    independent discovery side of an explicit refreeze: owner records prove the
+    table first, then the current-component preimage filter decides which fixed
+    slots remain safe to add to the locked occurrence inventory.
+    """
+
+    if owner_stage is not None and len(owner_stage) != len(stage):
+        raise ValueError("owner STAGE size differs from source STAGE")
+    offsets = read_executable_archive_offsets(hb, STAGE_OFFSET_SPEC, len(stage))
+    groups: list[FormationGroup] = []
+    for stage_index, (start, end) in enumerate(zip(offsets, offsets[1:])):
+        decoded = decode(stage[start:end])
+        owner_decoded = (
+            decoded if owner_stage is None else decode(owner_stage[start:end])
+        )
+        if any(stage[start + decoded.consumed : end]):
+            raise ValueError(f"STAGE {stage_index} has nonzero archive padding")
+        if owner_stage is not None and (
+            any(owner_stage[start + owner_decoded.consumed : end])
+            or len(owner_decoded.output) != len(decoded.output)
+        ):
+            raise ValueError(
+                f"owner STAGE {stage_index} decode or padding drift"
+            )
+        groups.extend(
+            _scan_packed8_groups(
+                decoded.output,
+                table,
+                stage_index=stage_index,
+                source_texts=None,
+                owner_data=owner_decoded.output,
+            )
+        )
     return tuple(groups)
 
 

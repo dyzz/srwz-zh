@@ -744,28 +744,55 @@ class ReleaseWorkflowTest(unittest.TestCase):
             [(text_offset, source)],
         )
 
-    def test_formation_inventory_covers_all_26_new_owned_slots(self) -> None:
+        # Indexed squad-member records use a different tail, and owner-first
+        # discovery must not require the missing source to be pre-registered.
+        source = "ゲイナー救出隊"
+        data = bytearray(96)
+        encoded = encode_text(source, table, terminate=True)
+        data[text_offset : text_offset + len(encoded)] = encoded
+        data[8:10] = b"\xFF\xFF"
+        data[14:16] = b"\xFF\xFF"
+        struct.pack_into("<I", data, 16, STAGE_BASE_ADDRESS + text_offset)
+        struct.pack_into("<I", data, 20, 0x00FF0201)
+        struct.pack_into("<I", data, 24, 0xFFFFFFFF)
+        groups = _scan_packed8_groups(
+            bytes(data),
+            table,
+            stage_index=128,
+            source_texts=None,
+        )
+        self.assertEqual(len(groups), 1)
+        self.assertEqual(groups[0].layout, "pointer8-16")
+        self.assertEqual(
+            [(cell.offset, cell.source_text) for cell in groups[0].cells],
+            [(text_offset, source)],
+        )
+
+    def test_formation_inventory_covers_all_owned_slots(self) -> None:
         corpus = _load("corpus/zh/menu/stage-default-formations.json")
         terms = corpus["translations_by_source_text"]
-        self.assertEqual(len(terms), 256)
+        self.assertEqual(len(terms), 328)
         self.assertEqual(terms["エゥーゴ１"], "奥古1")
         self.assertEqual(terms["アイアン・ギアー組"], "钢铁齿轮组")
         self.assertEqual(terms["アーサー親衛隊"], "阿瑟亲卫队")
         self.assertEqual(terms["ソレイユ（味方）"], "太阳号（我方）")
         self.assertEqual(terms["修理屋"], "修理工")
         self.assertEqual(terms["ガウリ隊"], "高富利队")
+        self.assertEqual(terms["ゲイナー救出隊"], "盖纳救援队")
+        self.assertEqual(terms["炎のＭＳ乗り"], "火焰MS驾驶员")
+        self.assertEqual(terms["∞ジャスティスガンダム"], "无限正义高达")
 
         inventory = _load("config/stage-default-formation-inventory.json")
         self.assertEqual(
             inventory["expected"],
             {
-                "entry_count": 11424,
-                "group_count": 828,
+                "entry_count": 11583,
+                "group_count": 855,
                 "inventory_sha256": (
-                    "32e53fa9b14fc39f41f4e08218e90585413f2dce5dd76ac203ce2c36ede9f013"
+                    "0817786634f3985ec716cc514cc0e572723dd21b8f86e8f6ad39f78e0ebda96c"
                 ),
                 "stage_count": 179,
-                "unique_source_count": 256,
+                "unique_source_count": 328,
             },
         )
 
@@ -802,6 +829,15 @@ class ReleaseWorkflowTest(unittest.TestCase):
             (166, 0x1010): ("ニルヴァーシュ", "pointer8-16"),
             (169, 0x1D78): ("アクエリオン", "pointer8-16"),
             (170, 0x1CF8): ("アクエリオン", "pointer8-16"),
+            (113, 0x1BAA8): ("ゲイナー救出隊", "packed8-16"),
+            (116, 0x7020): ("ゲイナー救出隊", "packed8-16"),
+            (128, 0x1E7C8): ("ゲイナー救出隊", "packed8-16"),
+            (129, 0x8F60): ("ゲイナー救出隊", "packed8-16"),
+            (15, 0xF7E0): ("サテライトキャノン", "packed8-24"),
+            (91, 0x11B68): ("サテリコン", "packed8-24"),
+            (109, 0x22450): ("∞ジャスティスガンダム", "packed8-24"),
+            (203, 0x1F90): ("小隊１", "packed8-8"),
+            (203, 0x1FD0): ("小隊９", "packed8-8"),
         }
         self.assertEqual(
             {position: positions.get(position) for position in expected},
