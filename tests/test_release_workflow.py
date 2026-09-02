@@ -948,6 +948,15 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 "“决一雌雄的时候到了……我们、LOGOS\n　"
                 "和新联邦……胜利者将肩负人类的明天。”"
             ),
+            "story/125/dialogue/01.03/0002": "“大家都赶来帮忙了啊！”",
+            "story/125/dialogue/02.02/0048": (
+                "“啊……也许我们已经被哈曼·卡恩\n　"
+                "释放出的压迫感震慑住了。”"
+            ),
+            "story/125/dialogue/02.02/0073": (
+                "“现在的我是克瓦特罗·巴吉纳。\n　"
+                "不多不少，仅此而已。”"
+            ),
         }
         story_entries: dict[str, str] = {}
         for stage in (27, 111, 115, 119, 122, 125):
