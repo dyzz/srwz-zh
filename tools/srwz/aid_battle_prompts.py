@@ -8,17 +8,6 @@ from pathlib import Path
 from typing import Mapping
 
 from .codec import decode_production, reencode_changed_suffix
-from .font_flavor import (
-    font_flavor_metadata,
-    load_font_flavor_reference,
-    verify_font_flavor_files,
-)
-from .imagemagick import (
-    imagemagick_version,
-    render_grayscale_text_mask,
-    require_imagemagick,
-    write_deterministic_rgba8_png,
-)
 from .patch_audit import sha256_bytes, summarize_diff
 from .psmt4 import swizzle_psmt4, unswizzle_psmt4
 from .tim2 import parse_tim2
@@ -193,6 +182,19 @@ def build_aid_battle_prompts(
     *,
     enforce_expected: bool = True,
 ) -> tuple[bytes, bytes, bytes, dict]:
+    """Authoring-only live renderer for explicitly refreezing the atlas."""
+
+    from .font_flavor import (
+        font_flavor_metadata,
+        load_font_flavor_reference,
+        verify_font_flavor_files,
+    )
+    from .imagemagick import (
+        imagemagick_version,
+        render_grayscale_text_mask,
+        require_imagemagick,
+    )
+
     root = project_root.resolve()
     config_path = config_path.resolve()
     config = _json(config_path)

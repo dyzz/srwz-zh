@@ -8,6 +8,11 @@
     "size": 50672,
     "sha256": "e3a9dfda0b758c84417dcdd558dba3ef99360b5e9e633bb8697a891aaad4e948"
   },
+  "frozen_snapshot": {
+    "path": "config/assets/aid-battle-prompts-zh-render-snapshot.json",
+    "size": 56370,
+    "sha256": "bb79de828ae6a6a8ae15ab1cfcd9020993cb77d416b9424db66ce9ff18eec675"
+  },
   "streams": {
     "atlas_offset": 0,
     "atlas_slot_size": 23232,
@@ -37,6 +42,11 @@
     "stroke_width": 0.8,
     "supersample_factor": 4,
     "vertical_offset": 0
+  },
+  "render_policy": {
+    "production_source": "frozen_snapshot",
+    "normal_build_rasterization": false,
+    "snapshot_update": "explicit_live_render_and_refreeze_only"
   },
   "labels": [
     {"entry_id": "aid/shield", "rect": [142, 0, 63, 16]},

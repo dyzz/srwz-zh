@@ -3,11 +3,12 @@
   "status": "aid_battle_prompts_static_validated_runtime_pending",
   "profile_id": "aid-battle-prompts-zh-v1",
   "scope": "Replace only Japanese AIDDATA battle prompt glyphs with reviewed Chinese text while preserving the indexed TIM2 palette, all Latin prompts, digits, symbols and the second compressed stream byte-exact.",
+  "build_mode": "locked_indexed_snapshot",
   "inputs": {
     "config": {
       "path": "config/assets/aid-battle-prompts-zh.json",
-      "size": 6224,
-      "sha256": "a97c9c9f83faa3a6e56a6b93f7bd99c4de69bbfba5fcf1c41619b0fcba37dba2"
+      "size": 6599,
+      "sha256": "3db6f3c5ecdea2fda443f3f324857c7c97de578b521053fe4a9eaaa4ece910ad"
     },
     "source": {
       "path": "work/disc/AID_DATA/AIDDATA.BIN",
@@ -19,23 +20,46 @@
       "size": 2008,
       "sha256": "64affedffb9498b98d070bcce2fb8392ce1b10b048278b96a05ab3121a1cf21b"
     },
-    "font_flavor": {
-      "path": "config/fonts/zh-localization-font-light.json",
-      "size": 894,
-      "sha256": "9c6d630aff578653628598f751401a7440d721ddced6d19c3cd7aa0cef077010"
-    },
-    "font_file": {
-      "path": "work/font-source/harmonyos-sans-sc-1.0/HarmonyOS_Sans_SC_Light.ttf",
-      "size": 8336364,
-      "sha256": "dd366290b40861bc6ced85801e850ab66d6fe4c5b33bc43095a9747fa29288d8"
+    "frozen_snapshot": {
+      "path": "config/assets/aid-battle-prompts-zh-render-snapshot.json",
+      "size": 56370,
+      "sha256": "bb79de828ae6a6a8ae15ab1cfcd9020993cb77d416b9424db66ce9ff18eec675"
     }
   },
-  "font": {
-    "font_flavor_id": "srwz-zh-harmonyos-sans-sc-light-v1",
-    "path": "config/fonts/zh-localization-font-light.json",
-    "sha256": "9c6d630aff578653628598f751401a7440d721ddced6d19c3cd7aa0cef077010",
-    "font_lock": "config/fonts/harmonyos-sans-sc-light.lock.json",
-    "font_lock_sha256": "d051c396cf5380f7a6a6e78bed7de0d33020ae5a3576bad36500f340764d4526"
+  "render": {
+    "source": "reviewed_locked_indexed_snapshot",
+    "update_policy": "explicit_refreeze_only",
+    "frozen_render_snapshot_consumed": true,
+    "normal_build_rasterization": false,
+    "authoring_provenance": {
+      "font": {
+        "font_flavor_id": "srwz-zh-harmonyos-sans-sc-light-v1",
+        "path": "config/fonts/zh-localization-font-light.json",
+        "sha256": "9c6d630aff578653628598f751401a7440d721ddced6d19c3cd7aa0cef077010",
+        "font_lock": "config/fonts/harmonyos-sans-sc-light.lock.json",
+        "font_lock_sha256": "d051c396cf5380f7a6a6e78bed7de0d33020ae5a3576bad36500f340764d4526"
+      },
+      "toolchain": {
+        "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
+        "font_fallbacks": [
+          {
+            "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
+            "characters": "〜∀♪",
+            "character_count": 3,
+            "reason": "HarmonyOS Sans SC 1.0 has no visible glyph for these project-required characters. Use the locked Noto source only for this explicit set and retain the consuming scene's raster geometry.",
+            "font_source": {
+              "family": "Noto Sans CJK SC",
+              "version": "2.004",
+              "font_sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+              "license_spdx": "OFL-1.1",
+              "license_sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+              "commit": "f8d157532fbfaeda587e826d4cd5b21a49186f7c"
+            },
+            "uses_primary_rasterizer_geometry": true
+          }
+        ]
+      }
+    }
   },
   "atlas": {
     "stored_slot_size": 23232,
@@ -885,7 +909,8 @@
     "tim2_metadata_preserved_byte_exact": true,
     "clut_preserved_byte_exact": true,
     "background_transparent_in_all_palette_banks": true,
-    "outline_and_fill_nontransparent_in_all_palette_banks": true
+    "outline_and_fill_nontransparent_in_all_palette_banks": true,
+    "frozen_render_snapshot_consumed": true
   },
   "compression": {
     "strategy": "rust-fit",
@@ -898,26 +923,6 @@
     "size": 27440,
     "sha256": "cab1e42c2675b5314af1bc17171cec63e05af2beb4e8befa5c95f06c1993250a",
     "preserved_byte_exact": true
-  },
-  "toolchain": {
-    "imagemagick": "Version: ImageMagick 7.1.2-27 Q16-HDRI aarch64 e4c2b403b:20260705 https://imagemagick.org",
-    "font_fallbacks": [
-      {
-        "font_lock": "config/fonts/noto-sans-cjk-sc.lock.json",
-        "characters": "〜∀♪",
-        "character_count": 3,
-        "reason": "HarmonyOS Sans SC 1.0 has no visible glyph for these project-required characters. Use the locked Noto source only for this explicit set and retain the consuming scene's raster geometry.",
-        "font_source": {
-          "family": "Noto Sans CJK SC",
-          "version": "2.004",
-          "font_sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
-          "license_spdx": "OFL-1.1",
-          "license_sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
-          "commit": "f8d157532fbfaeda587e826d4cd5b21a49186f7c"
-        },
-        "uses_primary_rasterizer_geometry": true
-      }
-    ]
   },
   "expected": {
     "source_atlas_decoded_sha256": "0c51ac905d0478936b5ae82fd17e4c4d6ca7dffd3e0692c998588c1017716b58",
@@ -1010,7 +1015,8 @@
     "palette_and_alpha_preserved": true,
     "atlas_round_trip_exact": true,
     "animation_stream_preserved_byte_exact": true,
-    "member_size_preserved": true
+    "member_size_preserved": true,
+    "frozen_render_snapshot_consumed": true
   },
   "runtime": {
     "status": "not_tested",
