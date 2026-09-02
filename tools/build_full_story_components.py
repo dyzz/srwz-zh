@@ -62,6 +62,10 @@ try:
         WeaponCategoryLabelError,
         apply_runtime_weapon_category_labels,
     )
+    from srwz.dialogue_speaker_colors import (
+        DialogueSpeakerColorError,
+        apply_dialogue_speaker_quote_constant,
+    )
     from srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
         build_nisv_library_menu,
@@ -226,6 +230,10 @@ except ModuleNotFoundError:
     from tools.srwz.weapon_category_labels import (
         WeaponCategoryLabelError,
         apply_runtime_weapon_category_labels,
+    )
+    from tools.srwz.dialogue_speaker_colors import (
+        DialogueSpeakerColorError,
+        apply_dialogue_speaker_quote_constant,
     )
     from tools.srwz.nisv_library_menu import (
         build_hsfc_scenario_chart,
@@ -632,6 +640,7 @@ CONFIG_SECTION_IMPACTS = {
     "world_map_titles": {MAPMODEL_MEMBER},
     "runtime_full_name_order": {SLPS_MEMBER},
     "runtime_movement_type_labels": {SLPS_MEMBER},
+    "dialogue_speaker_colors": {SLPS_MEMBER},
     "runtime_weapon_category_labels": {SLPS_MEMBER},
     "runtime_keywords": {COMPDATA_MEMBER, STAGE_MEMBER},
     "composition": {SLPS_MEMBER, VT1_MEMBER},
@@ -10070,6 +10079,18 @@ def build(
         ) from error
 
     try:
+        output_slps, dialogue_speaker_color_report = (
+            apply_dialogue_speaker_quote_constant(
+                output_slps,
+                config["dialogue_speaker_colors"],
+            )
+        )
+    except (KeyError, ValueError, DialogueSpeakerColorError) as error:
+        raise FullStoryComponentError(
+            f"dialogue speaker-color patch failed: {error}"
+        ) from error
+
+    try:
         output_slps, weapon_category_label_report = (
             apply_runtime_weapon_category_labels(
                 output_slps,
@@ -10553,6 +10574,7 @@ def build(
         "library_default_unlock": library_default_unlock_report,
         "runtime_full_name_order": full_name_order_report,
         "runtime_movement_type_labels": movement_type_label_report,
+        "dialogue_speaker_colors": dialogue_speaker_color_report,
         "runtime_weapon_category_labels": weapon_category_label_report,
         "search_tab_alignment": search_tab_alignment_report,
         "intermission_library_alignment": (
@@ -10905,6 +10927,26 @@ def build(
                     for site in weapon_category_label_report["sites"]
                 ]
                 == ["格斗武器（　　）", "射击武器（　　）"]
+            ),
+            "dialogue_speaker_colors_restored": (
+                dialogue_speaker_color_report["source_quote"] == "「"
+                and dialogue_speaker_color_report["output_quote"] == "“"
+                and dialogue_speaker_color_report[
+                    "preserved_parenthetical_quote"
+                ]
+                == "（"
+                and dialogue_speaker_color_report[
+                    "parenthetical_quote_preserved_byte_exact"
+                ]
+                and dialogue_speaker_color_report[
+                    "replacement_reread_exact"
+                ]
+                and dialogue_speaker_color_report[
+                    "ordinary_dialogue_and_back_log_share_recognizer"
+                ]
+                and dialogue_speaker_color_report[
+                    "executable_size_preserved"
+                ]
             ),
             "search_tabs_aligned_as_five_label_set": (
                 search_tab_alignment_report["surface_count"] == 5
