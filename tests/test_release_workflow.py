@@ -897,6 +897,69 @@ class ReleaseWorkflowTest(unittest.TestCase):
         self.assertIn("贤人会议", entries_111["story/111/dialogue/02.02/0285"])
         self.assertIn("贤人会议", entries_111["story/111/dialogue/02.02/0387"])
 
+    def test_latest_community_polish_keeps_source_meaning_and_natural_chinese(self) -> None:
+        battle = _load("corpus/zh/battle/srvc-lines.json")
+        battle_entries = {
+            entry["id"]: entry["translation"] for entry in battle["entries"]
+        }
+        expected_battle = {
+            "battle:03041": "“看来是想拖住我！”",
+            "battle:04393": "“莎、莎拉！我也……我也……！”",
+            "battle:04421": "“军队就是这样，从不尊重人的意志……！”",
+            "battle:04601": "“这就让我来结束一切！”",
+            "battle:04619": "“如果Z高达是将灵魂之力化为现实的\\n　机器……！”",
+            "battle:04745": "“蕾柯亚小姐！\\n　你这样未免太任性了吧！？”",
+            "battle:05962": "“提坦斯到底什么时候才会明白，\\n　地球和殖民卫星并非连成一体！”",
+            "battle:15431": "“啊啊啊！！\\n　我讨厌大家……讨厌所有人！！”",
+            "battle:15452": "“不肯坠落的话！”",
+            "battle:15702": "“敌军进入射程！”",
+            "battle:16012": "“我要打倒你，借此出人头地！”",
+            "battle:16522": "“确认情况，继续前进！”",
+            "battle:18653": "“瞄准这家伙的弱点了吗……！”",
+            "battle:22367": "“切，我早说过会这样！”",
+            "battle:22440": "“都说大块头脑子不灵……\\n　你倒还挺能干嘛”",
+        }
+        self.assertEqual(
+            {entry_id: battle_entries[entry_id] for entry_id in expected_battle},
+            expected_battle,
+        )
+
+        expected_story = {
+            "story/027/dialogue/01.20/0002": "“我可是听说你破坏狂的大名才雇你的！”",
+            "story/027/dialogue/01.21/0011": "“你还真冷淡啊……”",
+            "story/111/dialogue/01.37/0005": (
+                "“决定了，阿萨基姆！\n　你那扭曲的性子，"
+                "就由我这个修理工来修好！”"
+            ),
+            "story/119/dialogue/01.44/0029": (
+                "“你们就和那颗星球的黑暗未来\n　共存亡吧！！”"
+            ),
+            "story/122/dialogue/01.10/0032": (
+                "“你们就和那颗星球的黑暗未来\n　共存亡吧！！”"
+            ),
+            "story/122/dialogue/01.22/0004": (
+                "“看看$c遭到肃清的下场，\n　你就应该明白这一点！”"
+            ),
+            "story/115/dialogue/02.01/0067": (
+                "“决一雌雄的时候到了……我们、LOGOS\n　"
+                "和新联邦……胜利者将肩负人类的明天”"
+            ),
+            "story/125/dialogue/02.01/0067": (
+                "“决一雌雄的时候到了……我们、LOGOS\n　"
+                "和新联邦……胜利者将肩负人类的明天。”"
+            ),
+        }
+        story_entries: dict[str, str] = {}
+        for stage in (27, 111, 115, 119, 122, 125):
+            payload = _load(f"corpus/zh/story-dialogue/stage-{stage:03d}.json")
+            story_entries.update(
+                {entry["id"]: entry["translation"] for entry in payload["entries"]}
+            )
+        self.assertEqual(
+            {entry_id: story_entries[entry_id] for entry_id in expected_story},
+            expected_story,
+        )
+
     def test_gowri_name_is_consistent_across_current_corpus(self) -> None:
         glossary = _load("corpus/glossary/story-speakers-v1.json")
         entry = next(
