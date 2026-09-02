@@ -254,7 +254,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
 
         expected = {
             "story/013/dialogue/01.03/0007": (
-                "“第两次、你还敢叫这个名是吧！”"
+                "“第二次了，你还敢用那个名字叫我！”"
             ),
             "story/013/dialogue/01.13/0009": (
                 "“我要把你大解体！连螺丝都拆个稀碎！！”"
