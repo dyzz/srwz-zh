@@ -46,25 +46,29 @@ def _stored_location(
     y: int,
     width: int,
     height: int,
+    *,
+    row_major_pages: bool,
 ) -> tuple[int, int]:
     pages_horz = (width + 127) // 128
     pages_vert = (height + 127) // 128
     page_x = x & ~0x7F
     page_y = y & ~0x7F
     page_number = (page_y // 128) * pages_horz + (page_x // 128)
-    page32_y = (page_number // pages_vert) * 32
-    page32_x = (page_number % pages_vert) * 64
-    page_location = page32_y * height * 2 + page32_x * 4
+    page_divisor = pages_horz if row_major_pages else pages_vert
+    storage_stride = width if row_major_pages else height
+    page32_y = (page_number // page_divisor) * 32
+    page32_x = (page_number % page_divisor) * 64
+    page_location = page32_y * storage_stride * 2 + page32_x * 4
     local_x = x & 0x7F
     local_y = y & 0x7F
     block_location = (
-        ((local_x & ~0x1F) >> 1) * height
+        ((local_x & ~0x1F) >> 1) * storage_stride
         + (local_y & ~0x0F) * 2
     )
     swap_selector = (((y + 2) >> 2) & 1) * 4
     position_y = (((y & ~3) >> 1) + (y & 1)) & 7
     column_location = (
-        position_y * height * 2
+        position_y * storage_stride * 2
         + ((x + swap_selector) & 7) * 4
     )
     byte_number = (x >> 3) & 3
@@ -76,10 +80,19 @@ def unswizzle_psmt4(
     data: bytes,
     width: int = WIDTH,
     height: int = HEIGHT,
+    *,
+    row_major_pages: bool = False,
 ) -> bytes:
-    """Return one byte per logical pixel, with values in ``0..15``."""
+    """Return one byte per logical pixel, with values in ``0..15``.
+
+    ``row_major_pages`` is explicit because the 512x256 TRICMN record uses
+    width-stride page storage, while older verified SRWZ consumers retain the
+    module's historical height-stride layout.
+    """
 
     validate_psmt4_geometry(width, height)
+    if not isinstance(row_major_pages, bool):
+        raise Psmt4Error("PSMT4 row-major page selector must be a boolean")
     source = bytes(data)
     pixel_count = width * height
     packed_size = pixel_count // 2
@@ -91,7 +104,13 @@ def unswizzle_psmt4(
     seen = bytearray(pixel_count)
     for y in range(height):
         for x in range(width):
-            stored_offset, nibble = _stored_location(x, y, width, height)
+            stored_offset, nibble = _stored_location(
+                x,
+                y,
+                width,
+                height,
+                row_major_pages=row_major_pages,
+            )
             nibble_offset = stored_offset * 2 + nibble
             if not 0 <= nibble_offset < pixel_count:
                 raise Psmt4Error("PSMT4 stored nibble is outside the image")
@@ -110,10 +129,14 @@ def swizzle_psmt4(
     data: bytes,
     width: int = WIDTH,
     height: int = HEIGHT,
+    *,
+    row_major_pages: bool = False,
 ) -> bytes:
     """Pack logical 4-bpp pixels into the fixed GS storage permutation."""
 
     validate_psmt4_geometry(width, height)
+    if not isinstance(row_major_pages, bool):
+        raise Psmt4Error("PSMT4 row-major page selector must be a boolean")
     logical = bytes(data)
     pixel_count = width * height
     packed_size = pixel_count // 2
@@ -128,7 +151,13 @@ def swizzle_psmt4(
     seen = bytearray(pixel_count)
     for y in range(height):
         for x in range(width):
-            stored_offset, nibble = _stored_location(x, y, width, height)
+            stored_offset, nibble = _stored_location(
+                x,
+                y,
+                width,
+                height,
+                row_major_pages=row_major_pages,
+            )
             nibble_offset = stored_offset * 2 + nibble
             if not 0 <= nibble_offset < pixel_count:
                 raise Psmt4Error("PSMT4 stored nibble is outside the image")

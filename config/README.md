@@ -14,6 +14,8 @@ Git 历史。
 | `full-story-components.json` | 从锁定原版成员直接写回的最终组件与依赖顺序 |
 | `encoding/release-menu-codebook.json` | v0.3.0 菜单文本的固定字符编码 |
 | `assets/title-menu-zh.json` | 标题菜单四个中文标签的审核后像素掩码 |
+| `assets/tricmn-battle-overlays-zh.json` | `TRICMN` 六张逻辑纹理的完整盘点，以及 51 项战斗提示、状态与能力文字的索引贴图、透明度及边界锁 |
+| `assets/tricmn-battle-overlays-zh-render-snapshot.json` | 已经 ISO／LRPS2／ARMSX2 验收的三张 TRICMN PSMT4 索引图冻结快照；正式构建只消费该快照，不重新绘字 |
 | `story-component.json` | 含对白 STAGE 块的布局与写回契约 |
 | `fonts/zh-font-build-chain.json` | 全局字体及其组件消费者 |
 | `fonts/zh-release-font.json` | 当前 VT1 字体 profile |

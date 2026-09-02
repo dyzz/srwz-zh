@@ -496,6 +496,9 @@ def main() -> int:
             aid_args.append("--refresh-manifest")
         print("[font-consumer] AID battle prompts", flush=True)
         _run(*aid_args)
+        tricmn_args = ["tools/build_tricmn_battle_overlays.py", "--force"]
+        print("[font-consumer] TRICMN frozen battle overlays", flush=True)
+        _run(*tricmn_args)
         print("[font-consumer] compose full-story + LIBRARY", flush=True)
         _run("tools/compose_full_story_library_components.py")
     return 0

@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "status": "tricmn_battle_overlay_frozen_runtime_validated",
+  "profile_id": "tricmn-battle-overlays-zh-v1",
+  "scope": "Replace every visible Japanese label in the TRICMN indexed atlas while preserving exact transparent source masks, Latin acronyms, digits, CRITICAL, arrows, bracket frames, icons, all shared CLUT banks, TIM2 headers, non-text effect pictures, animation members and SEG boundaries.",
+  "build_mode": "locked_indexed_snapshot",
+  "inputs": {
+    "config": {
+      "path": "config/assets/tricmn-battle-overlays-zh.json",
+      "size": 15941,
+      "sha256": "17642e13f9726a097c4bd4315df1959d86fc8de4725e1f9282194db5a1125055"
+    },
+    "source_bin": {
+      "path": "work/disc/BTL/TRICMN.BIN",
+      "size": 677424,
+      "sha256": "3350ca529599ddc884b718eed635d067159e14ade3d642909b199138225ebac5"
+    },
+    "source_seg": {
+      "path": "work/disc/BTL/TRICMN.SEG",
+      "size": 24,
+      "sha256": "aec6fea631e8a0a05aa5d0090cd496480d5b23a0e5be2d2397d6f5f6f86151e8"
+    },
+    "corpus": {
+      "path": "corpus/zh/ui-atlas/tricmn-battle-overlays-v1.json",
+      "size": 7711,
+      "sha256": "7e74f2cedef3a48930d427a792978f16f3899e4341430e7a0cfa2227232e86ec"
+    },
+    "frozen_snapshot": {
+      "path": "config/assets/tricmn-battle-overlays-zh-render-snapshot.json",
+      "size": 122783,
+      "sha256": "2584f889c6b210bfcccab9fe173e26a6bba0553e37f62ffa2058b017e0234f9b"
+    }
+  },
+  "seg": {
+    "size": 24,
+    "sha256": "aec6fea631e8a0a05aa5d0090cd496480d5b23a0e5be2d2397d6f5f6f86151e8",
+    "offsets": [
+      0,
+      32,
+      486704,
+      548960,
+      617728,
+      677424
+    ],
+    "preserved_byte_exact": true
+  },
+  "atlas": {
+    "picture_count": 4,
+    "complete_six_picture_inventory": [
+      {
+        "record_offset": 89840,
+        "picture_index": 0,
+        "classification": "non_text_effects",
+        "source_indexes_sha256": "f6fc3dd375ed885224937e6d2792210e7f5c02e03664af4bdcb22b5792724f26",
+        "label_count": 0
+      },
+      {
+        "record_offset": 89840,
+        "picture_index": 1,
+        "classification": "non_text_effects",
+        "source_indexes_sha256": "ac7001b923f2325ae82b8ac296e7d9e1df0612cd9cbba22f29d91714603791c9",
+        "label_count": 0
+      },
+      {
+        "record_offset": 222560,
+        "picture_index": 0,
+        "classification": "localized_text",
+        "source_indexes_sha256": "3c5136e1c66f3a8d231d7307b15b8a528765a29fff995de3b094459ac0eb29db",
+        "label_count": 12
+      },
+      {
+        "record_offset": 222560,
+        "picture_index": 1,
+        "classification": "localized_text",
+        "source_indexes_sha256": "1e0632e74552a6900fd6d95905b4de40506bfed9032e0c97ae800420b6949078",
+        "label_count": 20
+      },
+      {
+        "record_offset": 222560,
+        "picture_index": 2,
+        "classification": "localized_text",
+        "source_indexes_sha256": "1e46fff0667cf10bffdbf233afaa0c6855f5db9b461e0fddb9799a59d22b3cee",
+        "label_count": 19
+      },
+      {
+        "record_offset": 222560,
+        "picture_index": 3,
+        "classification": "non_text_icons_and_frames",
+        "source_indexes_sha256": "549e15e866401e2585e238db76ed1caa1e30b084cf5bcf5a17d20c64f0f9bcb2",
+        "label_count": 0
+      }
+    ],
+    "label_count": 51,
+    "localized_picture_indexes": [
+      0,
+      1,
+      2
+    ],
+    "preserved_picture_indexes": [
+      3
+    ],
+    "output_picture_indexes_sha256": [
+      "afaa4c22ca8424d58de151973e540931e3935a5f581430283ab5b04c4de08f1a",
+      "98712021c913a3b9e12b4eec29c2195a96e18c9d752abb6ee560526b940d4679",
+      "df451bcf1321d0b08e8b7ffa704ff47e6085430ff432c66349e6c6daca9f58c1",
+      "549e15e866401e2585e238db76ed1caa1e30b084cf5bcf5a17d20c64f0f9bcb2"
+    ],
+    "output_member_sha256": "e5375ac8595a9550efb0cc7680e2131d66dfbfada9ae4534a5188e7dc8e07615",
+    "frozen_range_count": 3,
+    "frozen_snapshot_consumed": true
+  },
+  "frozen_snapshot": {
+    "status": "reviewed_locked",
+    "selection_authority": "user_accepted_exact_iso_runtime_review",
+    "selected_at": "2026-09-02",
+    "update_policy": "explicit_refreeze_only"
+  },
+  "outputs": {
+    "BTL/TRICMN.BIN": {
+      "path": "work/build/tricmn-battle-overlays-zh/components/BTL/TRICMN.BIN",
+      "size": 677424,
+      "sha256": "e5375ac8595a9550efb0cc7680e2131d66dfbfada9ae4534a5188e7dc8e07615"
+    }
+  },
+  "acceptance": {
+    "reviewed_translation_inventory_complete": true,
+    "all_six_atlas_pictures_classified": true,
+    "frozen_snapshot_consumed": true,
+    "localized_picture_ranges_reread_exact": true,
+    "non_localized_member_bytes_inherit_locked_source": true,
+    "seg_preserved": true,
+    "member_size_preserved": true,
+    "reviewed_member_sha256_exact": true,
+    "runtime_acceptance_complete": true
+  },
+  "runtime": {
+    "status": "accepted",
+    "acceptance_date": "2026-09-02",
+    "manual_acceptance": "User accepted the full TRICMN atlas after exact-ISO ARMSX2/LRPS2 battle-animation review.",
+    "lrps2_ability_sweep": {
+      "passed": 19,
+      "total": 19,
+      "frame": 6429,
+      "contact_sheet_sha256": "870b9f34a8420c6ea30e2bfd33e2726e4ec1bdebf9e6eb522fe65c527577c4a5",
+      "sequence_sha256": "4048794fa1634f7f9356fa111d178ad8fbbeb9b6dea679958b92efaf00e93bcc"
+    },
+    "current_iso_member_readback": {
+      "member": "BTL/TRICMN.BIN",
+      "lba": 1312883,
+      "sha256": "e5375ac8595a9550efb0cc7680e2131d66dfbfada9ae4534a5188e7dc8e07615",
+      "byte_exact": true
+    }
+  }
+}

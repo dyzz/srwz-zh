@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "profile_id": "tricmn-battle-overlays-zh-v1",
+  "scope": "Replace every visible Japanese label in the TRICMN indexed atlas while preserving exact transparent source masks, Latin acronyms, digits, CRITICAL, arrows, bracket frames, icons, all shared CLUT banks, TIM2 headers, non-text effect pictures, animation members and SEG boundaries.",
+  "source": {
+    "member": "BTL/TRICMN.BIN",
+    "path": "work/disc/BTL/TRICMN.BIN",
+    "size": 677424,
+    "sha256": "3350ca529599ddc884b718eed635d067159e14ade3d642909b199138225ebac5"
+  },
+  "seg": {
+    "member": "BTL/TRICMN.SEG",
+    "path": "work/disc/BTL/TRICMN.SEG",
+    "size": 24,
+    "sha256": "aec6fea631e8a0a05aa5d0090cd496480d5b23a0e5be2d2397d6f5f6f86151e8",
+    "offsets": [0, 32, 486704, 548960, 617728, 677424]
+  },
+  "frozen_snapshot": {
+    "path": "config/assets/tricmn-battle-overlays-zh-render-snapshot.json",
+    "size": 122783,
+    "sha256": "2584f889c6b210bfcccab9fe173e26a6bba0553e37f62ffa2058b017e0234f9b"
+  },
+  "tim2": {
+    "record_offset": 222560,
+    "record_size": 264144,
+    "background_index": 0,
+    "outline_indexes": [1, 2, 3, 4, 5, 6, 7],
+    "fill_indexes": [8, 9, 10, 11, 12, 13, 14, 15],
+    "clut_offset": 288160,
+    "clut_size": 1792,
+    "palette_bank_count": 28,
+    "pictures": [
+      {"width": 512, "height": 256, "image_size": 65536, "image_offset": 222624, "uses_shared_clut": false},
+      {"width": 512, "height": 256, "image_size": 65536, "image_offset": 290000, "uses_shared_clut": true},
+      {"width": 512, "height": 256, "image_size": 65536, "image_offset": 355584, "uses_shared_clut": true},
+      {"width": 512, "height": 256, "image_size": 65536, "image_offset": 421168, "uses_shared_clut": true}
+    ]
+  },
+  "atlas_inventory": [
+    {"record_offset":89840,"picture_index":0,"classification":"non_text_effects","source_indexes_sha256":"f6fc3dd375ed885224937e6d2792210e7f5c02e03664af4bdcb22b5792724f26","label_count":0},
+    {"record_offset":89840,"picture_index":1,"classification":"non_text_effects","source_indexes_sha256":"ac7001b923f2325ae82b8ac296e7d9e1df0612cd9cbba22f29d91714603791c9","label_count":0},
+    {"record_offset":222560,"picture_index":0,"classification":"localized_text","source_indexes_sha256":"3c5136e1c66f3a8d231d7307b15b8a528765a29fff995de3b094459ac0eb29db","label_count":12},
+    {"record_offset":222560,"picture_index":1,"classification":"localized_text","source_indexes_sha256":"1e0632e74552a6900fd6d95905b4de40506bfed9032e0c97ae800420b6949078","label_count":20},
+    {"record_offset":222560,"picture_index":2,"classification":"localized_text","source_indexes_sha256":"1e46fff0667cf10bffdbf233afaa0c6855f5db9b461e0fddb9799a59d22b3cee","label_count":19},
+    {"record_offset":222560,"picture_index":3,"classification":"non_text_icons_and_frames","source_indexes_sha256":"549e15e866401e2585e238db76ed1caa1e30b084cf5bcf5a17d20c64f0f9bcb2","label_count":0}
+  ],
+  "corpus": {
+    "path": "corpus/zh/ui-atlas/tricmn-battle-overlays-v1.json",
+    "minimum_editorial_status": "reviewed"
+  },
+  "font_flavor": "config/fonts/zh-localization-font.json",
+  "render_profiles": {
+    "large-formation": {"point_size":31,"outline_stroke_width":3.0,"fill_stroke_width":0.8,"character_spacing":5.0,"glow_radius":1,"render_style":"source_wordart_3d_index_layers","shadow_offset":[2,2],"coverage_floor":20,"side_direction_weight":3,"halo_direction_weight":0,"italic_shear_degrees":8,"supersample_factor":8,"vector_effects_before_downsample":true,"indexed_edge_filter_radius":1,"heightfield_bevel_width":1.0,"heightfield_relief_strength":1.25,"heightfield_ambient":0.42,"heightfield_diffuse":0.48,"heightfield_specular":0.10,"heightfield_flat_top_rim":true,"heightfield_flat_face":true,"inverse_tex1_enabled":false,"ink_left":2},
+    "large-action": {"point_size":30,"outline_stroke_width":3.0,"fill_stroke_width":0.8,"character_spacing":6.0,"glow_radius":1,"render_style":"source_wordart_3d_index_layers","shadow_offset":[2,2],"coverage_floor":20,"side_direction_weight":3,"halo_direction_weight":0,"italic_shear_degrees":8,"supersample_factor":8,"vector_effects_before_downsample":true,"indexed_edge_filter_radius":1,"heightfield_bevel_width":1.0,"heightfield_relief_strength":1.25,"heightfield_ambient":0.42,"heightfield_diffuse":0.48,"heightfield_specular":0.10,"heightfield_flat_top_rim":true,"heightfield_flat_face":true,"inverse_tex1_enabled":false,"ink_left":2},
+    "prompt": {"point_size":32,"outline_stroke_width":3.2,"fill_stroke_width":0.9,"character_spacing":0.8,"glow_radius":1,"render_style":"source_wordart_3d","shadow_offset":[2,2],"coverage_floor":14,"side_direction_weight":3,"halo_direction_weight":0,"italic_shear_degrees":0,"supersample_factor":8,"vector_effects_before_downsample":true,"indexed_edge_filter_radius":1,"heightfield_flat_top_rim":false,"heightfield_flat_face":false,"inverse_tex1_enabled":false,"ink_left":2},
+    "prompt-long": {"point_size":30,"outline_stroke_width":3.0,"fill_stroke_width":0.9,"character_spacing":0.8,"glow_radius":1,"render_style":"source_wordart_3d","shadow_offset":[2,2],"coverage_floor":14,"side_direction_weight":3,"halo_direction_weight":0,"italic_shear_degrees":0,"supersample_factor":8,"vector_effects_before_downsample":true,"indexed_edge_filter_radius":1,"heightfield_flat_top_rim":false,"heightfield_flat_face":false,"inverse_tex1_enabled":false,"ink_left":2},
+    "reason": {"point_size":28,"outline_stroke_width":2.6,"fill_stroke_width":0.0,"character_spacing":0.6,"glow_radius":1,"render_style":"source_wordart_3d","shadow_offset":[2,2],"coverage_floor":12,"side_direction_weight":3,"halo_direction_weight":0,"italic_shear_degrees":0,"supersample_factor":8,"vector_effects_before_downsample":true,"indexed_edge_filter_radius":1,"heightfield_flat_top_rim":false,"heightfield_flat_face":false,"inverse_tex1_enabled":false,"ink_left":1},
+    "status": {"point_size":19,"outline_stroke_width":1.2,"fill_stroke_width":0.0,"character_spacing":0.6,"glow_radius":2,"render_style":"source_wordart_3d_dark_core","shadow_offset":[1,1],"coverage_floor":8,"side_direction_weight":2,"halo_direction_weight":0,"italic_shear_degrees":0,"supersample_factor":8,"vector_effects_before_downsample":true,"indexed_edge_filter_radius":1,"inverse_tex1_enabled":false,"ink_left":0},
+    "ability": {"point_size":19,"outline_stroke_width":1.2,"fill_stroke_width":0.8,"character_spacing":0.6,"glow_radius":2,"render_style":"source_wordart_tight_down_dark_core_layers","shadow_offset":[0,1],"coverage_floor":8,"side_direction_weight":2,"halo_direction_weight":0,"italic_shear_degrees":0,"supersample_factor":8,"vector_effects_before_downsample":true,"indexed_edge_filter_radius":1,"inverse_tex1_enabled":false,"horizontal_alignment":"center","match_source_ink_width":true}
+  },
+  "frame_profiles": {
+    "ability-left": {"slot_x":0,"slot_width":160,"slot_height":24,"template_y":192,"text_inset":[16,0,128,24]},
+    "ability-center": {"slot_x":160,"slot_width":160,"slot_height":24,"template_y":120,"text_inset":[16,0,128,24]},
+    "ability-right": {"slot_x":320,"slot_width":160,"slot_height":24,"template_y":144,"text_inset":[16,0,128,24]}
+  },
+  "marker_profiles": {
+    "status-chevron": {"slot_x":384,"slot_width":128,"slot_height":24,"text_inset":[15,0,113,24],"marker_rect":[0,0,15,24],"source_template":{"picture_index":1,"x":384,"y":0,"width":15,"height":24,"row_count":10,"row_stride":24}}
+  },
+  "labels": [
+    {"entry_id":"tricmn/tri-formation","picture_index":0,"rect":[4,60,335,35],"render_profile":"large-formation"},
+    {"entry_id":"tricmn/single-attack","picture_index":0,"rect":[363,60,148,35],"render_profile":"large-action","render":{"character_spacing":7.0,"ink_left":1}},
+    {"entry_id":"tricmn/wide-formation","picture_index":0,"rect":[1,100,334,35],"render_profile":"large-formation"},
+    {"entry_id":"tricmn/squad-attack","picture_index":0,"rect":[364,100,147,35],"render_profile":"large-action"},
+    {"entry_id":"tricmn/center-formation","picture_index":0,"rect":[1,140,358,36],"render_profile":"large-formation"},
+    {"entry_id":"tricmn/all-attack","picture_index":0,"rect":[363,140,148,36],"render_profile":"large-action"},
+    {"entry_id":"tricmn/counter","picture_index":0,"rect":[3,178,162,37],"render_profile":"large-action"},
+    {"entry_id":"tricmn/support-attack","picture_index":0,"rect":[177,178,173,37],"render_profile":"large-action"},
+    {"entry_id":"tricmn/tri-attack","picture_index":0,"rect":[363,178,148,37],"render_profile":"large-action"},
+    {"entry_id":"tricmn/attack-again","picture_index":0,"rect":[2,218,128,37],"render_profile":"large-action"},
+    {"entry_id":"tricmn/support-defense","picture_index":0,"rect":[177,218,173,37],"render_profile":"large-action"},
+    {"entry_id":"tricmn/combined-attack","picture_index":0,"rect":[365,218,146,37],"render_profile":"large-action"},
+
+    {"entry_id":"tricmn/wait","picture_index":1,"rect":[0,0,99,40],"render_profile":"prompt"},
+    {"entry_id":"tricmn/no-target","picture_index":1,"rect":[153,0,214,40],"render_profile":"prompt"},
+    {"entry_id":"tricmn/disabled","picture_index":1,"rect":[0,40,152,40],"render_profile":"prompt-long"},
+    {"entry_id":"tricmn/attack-unavailable","picture_index":1,"rect":[152,40,152,40],"render_profile":"prompt-long"},
+    {"entry_id":"tricmn/ammo-reason","picture_index":1,"rect":[4,80,106,40],"render_profile":"reason"},
+    {"entry_id":"tricmn/missing-member-reason","picture_index":1,"rect":[116,80,106,40],"render_profile":"reason"},
+    {"entry_id":"tricmn/terrain-reason","picture_index":1,"rect":[228,80,106,40],"render_profile":"reason"},
+    {"entry_id":"tricmn/morale-reason","picture_index":1,"rect":[116,120,106,40],"render_profile":"reason"},
+    {"entry_id":"tricmn/range-reason","picture_index":1,"rect":[4,160,106,40],"render_profile":"reason"},
+    {"entry_id":"tricmn/ability-reason","picture_index":1,"rect":[116,160,106,40],"render_profile":"reason"},
+    {"entry_id":"tricmn/mobility-down","picture_index":1,"rect":[399,0,113,24],"render_profile":"status","marker_profile":"status-chevron"},
+    {"entry_id":"tricmn/armor-down","picture_index":1,"rect":[399,24,113,24],"render_profile":"status","marker_profile":"status-chevron"},
+    {"entry_id":"tricmn/accuracy-down","picture_index":1,"rect":[399,48,113,24],"render_profile":"status","marker_profile":"status-chevron"},
+    {"entry_id":"tricmn/en-down","picture_index":1,"rect":[399,72,113,24],"render_profile":"status","marker_profile":"status-chevron","render":{"bright_edge_character_indexes":[1],"bright_edge_minimum_index":14}},
+    {"entry_id":"tricmn/ability-down","picture_index":1,"rect":[399,96,113,24],"render_profile":"status","marker_profile":"status-chevron"},
+    {"entry_id":"tricmn/status-disabled","picture_index":1,"rect":[399,120,113,24],"render_profile":"status","marker_profile":"status-chevron"},
+    {"entry_id":"tricmn/morale-down","picture_index":1,"rect":[399,144,113,24],"render_profile":"status","marker_profile":"status-chevron"},
+    {"entry_id":"tricmn/sp-down","picture_index":1,"rect":[399,168,113,24],"render_profile":"status","marker_profile":"status-chevron","render":{"bright_edge_character_indexes":[0],"bright_edge_minimum_index":14}},
+    {"entry_id":"tricmn/mental-defense","picture_index":1,"rect":[399,192,113,24],"render_profile":"status","marker_profile":"status-chevron"},
+    {"entry_id":"tricmn/canceller","picture_index":1,"rect":[399,216,113,24],"render_profile":"status","marker_profile":"status-chevron"},
+
+    {"entry_id":"tricmn/support","picture_index":2,"rect":[16,0,128,24],"render_profile":"ability","frame_profile":"ability-left"},
+    {"entry_id":"tricmn/shield-defense","picture_index":2,"rect":[16,24,128,24],"render_profile":"ability","frame_profile":"ability-left"},
+    {"entry_id":"tricmn/cut-down","picture_index":2,"rect":[16,48,128,24],"render_profile":"ability","frame_profile":"ability-left"},
+    {"entry_id":"tricmn/afterimage","picture_index":2,"rect":[16,72,128,24],"render_profile":"ability","frame_profile":"ability-left"},
+    {"entry_id":"tricmn/mach-special","picture_index":2,"rect":[16,96,128,24],"render_profile":"ability","frame_profile":"ability-left"},
+    {"entry_id":"tricmn/subspace-dive","picture_index":2,"rect":[16,120,128,24],"render_profile":"ability","frame_profile":"ability-left"},
+    {"entry_id":"tricmn/overskill","picture_index":2,"rect":[16,144,128,24],"render_profile":"ability","frame_profile":"ability-left"},
+    {"entry_id":"tricmn/lift-technique","picture_index":2,"rect":[16,168,128,24],"render_profile":"ability","frame_profile":"ability-left"},
+    {"entry_id":"tricmn/beam-coat","picture_index":2,"rect":[176,0,128,24],"render_profile":"ability","frame_profile":"ability-center"},
+    {"entry_id":"tricmn/ps-armor","picture_index":2,"rect":[176,24,128,24],"render_profile":"ability","frame_profile":"ability-center"},
+    {"entry_id":"tricmn/vps-armor","picture_index":2,"rect":[176,48,128,24],"render_profile":"ability","frame_profile":"ability-center"},
+    {"entry_id":"tricmn/laminated-armor","picture_index":2,"rect":[176,72,128,24],"render_profile":"ability","frame_profile":"ability-center"},
+    {"entry_id":"tricmn/yata-no-kagami","picture_index":2,"rect":[176,96,128,24],"render_profile":"ability","frame_profile":"ability-center"},
+    {"entry_id":"tricmn/psycho-field","picture_index":2,"rect":[336,0,128,24],"render_profile":"ability","frame_profile":"ability-right"},
+    {"entry_id":"tricmn/i-field","picture_index":2,"rect":[336,24,128,24],"render_profile":"ability","frame_profile":"ability-right"},
+    {"entry_id":"tricmn/positron-reflector","picture_index":2,"rect":[336,48,128,24],"render_profile":"ability","frame_profile":"ability-right"},
+    {"entry_id":"tricmn/beam-barrier","picture_index":2,"rect":[336,72,128,24],"render_profile":"ability","frame_profile":"ability-right"},
+    {"entry_id":"tricmn/photon-mat","picture_index":2,"rect":[336,96,128,24],"render_profile":"ability","frame_profile":"ability-right"},
+    {"entry_id":"tricmn/barrier-field","picture_index":2,"rect":[336,120,128,24],"render_profile":"ability","frame_profile":"ability-right"}
+  ],
+  "expected": {
+    "source_picture_indexes_sha256": [
+      "3c5136e1c66f3a8d231d7307b15b8a528765a29fff995de3b094459ac0eb29db",
+      "1e0632e74552a6900fd6d95905b4de40506bfed9032e0c97ae800420b6949078",
+      "1e46fff0667cf10bffdbf233afaa0c6855f5db9b461e0fddb9799a59d22b3cee",
+      "549e15e866401e2585e238db76ed1caa1e30b084cf5bcf5a17d20c64f0f9bcb2"
+    ],
+    "source_clut_sha256": "a7bff1256ad1963697b39cc4ecbd2b57f54a16fa92c060f41d06fd4ef471b8e0",
+    "label_contract_count": 51,
+    "label_preimages_contract_sha256": "a4e4e91ca45696f2e413ae586210210cbce8750170cd0d949df3b0c6c58cdb1d",
+    "source_ink_masks_contract_sha256": "14b53bc2235e4ca70bf044bcad2e3b53b4b68c02ba0e2fa4f1b4c3f2f06247e9",
+    "render_masks_contract_sha256": "44c0284945f51d8c664afbf37d1b89416a07e28cbd62fcbb240855d155f58e1a",
+    "output_picture_indexes_sha256": [
+      "afaa4c22ca8424d58de151973e540931e3935a5f581430283ab5b04c4de08f1a",
+      "98712021c913a3b9e12b4eec29c2195a96e18c9d752abb6ee560526b940d4679",
+      "df451bcf1321d0b08e8b7ffa704ff47e6085430ff432c66349e6c6daca9f58c1",
+      "549e15e866401e2585e238db76ed1caa1e30b084cf5bcf5a17d20c64f0f9bcb2"
+    ],
+    "output_member_sha256": "e5375ac8595a9550efb0cc7680e2131d66dfbfada9ae4534a5188e7dc8e07615",
+    "reference_preview_sha256": "ad4ea0337354b5994ca41f6a259fe9559d50bf4984d28aa71e33c4b5ef78b71f",
+    "localized_preview_sha256": "f3eaaaf41322a25589ac292c093cffd025c591812ba1475587d315fc30cdd8d1"
+  },
+  "outputs": {
+    "component_root": "work/build/tricmn-battle-overlays-zh/components",
+    "reference_png": "work/review/tricmn-battle-overlays-zh/reference.png",
+    "localized_png": "work/review/tricmn-battle-overlays-zh/localized.png",
+    "report": "work/review/tricmn-battle-overlays-zh/component-validation.json",
+    "manifest": "manifests/tricmn-battle-overlays-zh-validation.json"
+  }
+}

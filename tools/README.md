@@ -23,7 +23,7 @@ vendor/upstream-python/       构建链读取的固定静态定义
 | 原版校验与提取 | `verify_original_disc.py`、`extract_iso_member.py` |
 | 工具链准备 | `bootstrap_mkps2iso.py`、`build_rust_compressor.py` |
 | 字体来源与组件 | `fetch_zh_font.py`、`prepare_zh_release_font.py`、`rebuild_zh_font.py` |
-| 领域组件 | `build_library_v02_component.py`、`build_story_component.py`、`build_zh_font_component.py`、`build_full_story_components.py`、`build_aid_battle_prompts.py`、`ui_atlas.py` |
+| 领域组件 | `build_library_v02_component.py`、`build_story_component.py`、`build_zh_font_component.py`、`build_full_story_components.py`、`build_aid_battle_prompts.py`、`build_tricmn_battle_overlays.py`、`ui_atlas.py` |
 | 最终组合 | `compose_full_story_library_components.py` |
 | ISO | `build_iso.py` |
 | 静态回读 | `verify_zh_release_font.py`、`verify_full_story_iso_content.py` |
@@ -49,6 +49,11 @@ python3 tools/build_release.py
 成员按依赖顺序生成全局字体、reviewed LIBRARY、STAGE、菜单、UI 图集和最终组合组件；
 `build_iso.py` 强制校验固定 LBA、成员预算与整盘哈希；`build_release.py` 生成 xdelta
 后会实际还原一次并核对目标 ISO，发布目录和 ZIP 均不得包含完整 ISO。
+
+`build_tricmn_battle_overlays.py` 是一个例外：正式构建只解码并写入审核后冻结的三张
+PSMT4 索引图，再校验完整 `BTL/TRICMN.BIN` 的固定哈希，不调用字体或 ImageMagick。
+维护时只有显式传入 `--live-render` 才会进入保留的绘制链；替换冻结件还必须额外传入
+`--refreeze-snapshot`，并在审图和运行验收后更新快照锁与清单。
 
 生产压缩、解压和压缩后回读只使用 `tools/native/srwz-codec-rs/`。Python 模块负责
 结构解析、前像检查、受控写回和结果核验，不提供另一套发布编码器。

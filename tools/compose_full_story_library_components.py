@@ -14,6 +14,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FULL = PROJECT_ROOT / "manifests/full-story-components-validation.json"
 DEFAULT_LIBRARY = PROJECT_ROOT / "manifests/library-v0.2-reviewed-validation.json"
 DEFAULT_AID = PROJECT_ROOT / "manifests/aid-battle-prompts-zh-validation.json"
+DEFAULT_TRICMN = PROJECT_ROOT / "manifests/tricmn-battle-overlays-zh-validation.json"
 DEFAULT_OUTPUT = (
     PROJECT_ROOT / "manifests/full-story-library-components-validation.json"
 )
@@ -21,6 +22,7 @@ INTEGRATED_COMPONENT_ROOT = PROJECT_ROOT / "work/build/zh-release-full-story/com
 FULL_STATUS = "integrated_global_zh_release_components_validated_runtime_pending"
 LIBRARY_STATUS = "library_v0.2_reviewed_components_static_validated"
 AID_STATUS = "aid_battle_prompts_static_validated_runtime_pending"
+TRICMN_STATUS = "tricmn_battle_overlay_frozen_runtime_validated"
 OUTPUT_STATUS = (
     "integrated_global_zh_release_library_components_validated_runtime_pending"
 )
@@ -32,13 +34,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--full", type=Path, default=DEFAULT_FULL)
     parser.add_argument("--library", type=Path, default=DEFAULT_LIBRARY)
     parser.add_argument("--aid", type=Path, default=DEFAULT_AID)
+    parser.add_argument("--tricmn", type=Path, default=DEFAULT_TRICMN)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     return parser.parse_args()
 
 
 def load(path: Path) -> dict:
     document = json.loads(path.resolve().read_text(encoding="utf-8"))
-    if not isinstance(document, dict) or document.get("schema_version") != 1:
+    if (
+        not isinstance(document, dict)
+        or document.get("schema_version") not in {1, 2}
+    ):
         raise SystemExit(f"unsupported component manifest: {path}")
     return document
 
@@ -57,9 +63,11 @@ def main() -> int:
     full_path = args.full.resolve()
     library_path = args.library.resolve()
     aid_path = args.aid.resolve()
+    tricmn_path = args.tricmn.resolve()
     full = load(full_path)
     library = load(library_path)
     aid = load(aid_path)
+    tricmn = load(tricmn_path)
     if full.get("status") != FULL_STATUS:
         raise SystemExit("full-story component status drift")
     if (
@@ -72,12 +80,17 @@ def main() -> int:
         aid.get("acceptance", {}).values()
     ):
         raise SystemExit("AID battle-prompt component acceptance is incomplete")
+    if tricmn.get("status") != TRICMN_STATUS or not all(
+        tricmn.get("acceptance", {}).values()
+    ):
+        raise SystemExit("TRICMN battle-overlay component acceptance is incomplete")
     full_outputs = full.get("outputs")
     library_outputs = library.get("outputs")
     aid_outputs = aid.get("outputs")
+    tricmn_outputs = tricmn.get("outputs")
     if not all(
         isinstance(outputs, dict)
-        for outputs in (full_outputs, library_outputs, aid_outputs)
+        for outputs in (full_outputs, library_outputs, aid_outputs, tricmn_outputs)
     ):
         raise SystemExit("component outputs are malformed")
     overlap = set(full_outputs) & set(library_outputs)
@@ -86,6 +99,13 @@ def main() -> int:
     aid_overlap = set(aid_outputs) & (set(full_outputs) | set(library_outputs))
     if aid_overlap:
         raise SystemExit(f"AID component output ownership overlap: {sorted(aid_overlap)}")
+    tricmn_overlap = set(tricmn_outputs) & (
+        set(full_outputs) | set(library_outputs) | set(aid_outputs)
+    )
+    if tricmn_overlap:
+        raise SystemExit(
+            f"TRICMN component output ownership overlap: {sorted(tricmn_overlap)}"
+        )
     if "DATA/NISVDATA.BIN" in overlap:
         full_runtime_menu = full.get("runtime_library_menu")
         library_runtime_menu = library.get("runtime_library_menu")
@@ -222,6 +242,24 @@ def main() -> int:
         temporary.replace(target)
         installed_aid_outputs[member] = file_lock(target)
 
+    installed_tricmn_outputs = {}
+    for member, lock in tricmn_outputs.items():
+        if not isinstance(lock, dict):
+            raise SystemExit(f"invalid TRICMN output lock: {member}")
+        source = PROJECT_ROOT / str(lock.get("path"))
+        data = source.read_bytes()
+        if (
+            len(data) != lock.get("size")
+            or hashlib.sha256(data).hexdigest() != lock.get("sha256")
+        ):
+            raise SystemExit(f"TRICMN output drift: {member}")
+        target = INTEGRATED_COMPONENT_ROOT / member
+        target.parent.mkdir(parents=True, exist_ok=True)
+        temporary = target.with_suffix(target.suffix + ".tmp")
+        temporary.write_bytes(data)
+        temporary.replace(target)
+        installed_tricmn_outputs[member] = file_lock(target)
+
     combined = deepcopy(full)
     combined["status"] = OUTPUT_STATUS
     combined["profile_id"] = "srwz-global-zh-release-library-integrated-v1"
@@ -234,6 +272,9 @@ def main() -> int:
     )
     combined["inputs"]["aid_battle_prompt_component_manifest"] = file_lock(
         aid_path
+    )
+    combined["inputs"]["tricmn_battle_overlay_component_manifest"] = file_lock(
+        tricmn_path
     )
     aid_inputs = aid.get("inputs")
     if not isinstance(aid_inputs, dict) or not aid_inputs:
@@ -250,6 +291,21 @@ def main() -> int:
         ):
             raise SystemExit(f"AID component input drift: {label}")
         combined["inputs"][f"aid_battle_prompt_{label}"] = deepcopy(lock)
+    tricmn_inputs = tricmn.get("inputs")
+    if not isinstance(tricmn_inputs, dict) or not tricmn_inputs:
+        raise SystemExit("TRICMN component input locks are missing")
+    for label, lock in tricmn_inputs.items():
+        if not isinstance(label, str) or not isinstance(lock, dict):
+            raise SystemExit("TRICMN component input lock is malformed")
+        raw_path = lock.get("path")
+        source = PROJECT_ROOT / str(raw_path)
+        if (
+            not isinstance(raw_path, str)
+            or not source.is_file()
+            or file_lock(source) != lock
+        ):
+            raise SystemExit(f"TRICMN component input drift: {label}")
+        combined["inputs"][f"tricmn_battle_overlay_{label}"] = deepcopy(lock)
     combined["library"] = {
         "status": library["status"],
         "profile_id": library["profile_id"],
@@ -280,10 +336,19 @@ def main() -> int:
         "acceptance": deepcopy(aid["acceptance"]),
         "runtime": deepcopy(aid["runtime"]),
     }
+    combined["tricmn_battle_overlays"] = {
+        "status": tricmn["status"],
+        "profile_id": tricmn["profile_id"],
+        "seg": deepcopy(tricmn["seg"]),
+        "atlas": deepcopy(tricmn["atlas"]),
+        "acceptance": deepcopy(tricmn["acceptance"]),
+        "runtime": deepcopy(tricmn["runtime"]),
+    }
     combined["outputs"] = {
         **full_outputs,
         **installed_library_outputs,
         **installed_aid_outputs,
+        **installed_tricmn_outputs,
     }
     build_groups = combined.get("build_groups")
     if not isinstance(build_groups, list):
@@ -311,6 +376,7 @@ def main() -> int:
     if not isinstance(rendered_members, list):
         raise SystemExit("rendered-archive member ownership is malformed")
     rendered_members.extend(sorted(installed_aid_outputs))
+    rendered_members.extend(sorted(installed_tricmn_outputs))
     group_by_id["rendered_archive_members"]["physical_member_count"] = len(
         rendered_members
     )
@@ -332,6 +398,9 @@ def main() -> int:
     combined["acceptance"][
         "aid_battle_prompt_component_reread_exact"
     ] = all(aid["acceptance"].values())
+    combined["acceptance"][
+        "tricmn_battle_overlay_component_reread_exact"
+    ] = all(tricmn["acceptance"].values())
     combined["runtime"] = {
         "status": "not_tested",
         "reason": (
@@ -342,7 +411,7 @@ def main() -> int:
             library.get("runtime", {}).get("required_flows", [])
         ),
     }
-    if len(combined["outputs"]) != 22 or not all(
+    if len(combined["outputs"]) != 23 or not all(
         combined["acceptance"].values()
     ):
         raise SystemExit("combined component acceptance failed")
@@ -359,6 +428,7 @@ def main() -> int:
         f"combined components: outputs={len(combined['outputs'])} "
         f"library_texts={library['translation']['unique_text_count']} "
         f"aid_labels={len(aid['atlas']['labels'])} "
+        f"tricmn_labels={tricmn['atlas']['label_count']} "
         f"status={OUTPUT_STATUS}"
     )
     print(output.relative_to(PROJECT_ROOT))

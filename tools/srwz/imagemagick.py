@@ -82,7 +82,7 @@ def _pixel_aligned_horizontal_shear(
     return bytes(sheared)
 
 
-def _box_downsample_grayscale(
+def box_downsample_grayscale(
     pixels: bytes,
     *,
     width: int,
@@ -283,8 +283,10 @@ def render_grayscale_text_mask(
     stroke_gray: str,
     stroke_width: float,
     fill_stroke_width: float = 0,
+    character_spacing: float = 0,
     italic_shear_degrees: float = 0,
     supersample_factor: int = 1,
+    preserve_supersample: bool = False,
     horizontal_offset: int = 0,
     vertical_offset: int = 0,
 ) -> bytes:
@@ -306,6 +308,15 @@ def render_grayscale_text_mask(
     if stroke_width < 0 or fill_stroke_width < 0:
         raise ImageMagickError("text mask stroke widths cannot be negative")
     if (
+        not isinstance(character_spacing, (int, float))
+        or isinstance(character_spacing, bool)
+        or not math.isfinite(float(character_spacing))
+        or not -2 <= float(character_spacing) <= 8
+    ):
+        raise ImageMagickError(
+            "text mask character spacing must be between -2 and 8 pixels"
+        )
+    if (
         not isinstance(supersample_factor, int)
         or isinstance(supersample_factor, bool)
         or not 1 <= supersample_factor <= 8
@@ -313,6 +324,8 @@ def render_grayscale_text_mask(
         raise ImageMagickError(
             "text mask supersample factor must be between 1 and 8"
         )
+    if not isinstance(preserve_supersample, bool):
+        raise ImageMagickError("preserve supersample must be a boolean")
     if (
         not isinstance(horizontal_offset, int)
         or isinstance(horizontal_offset, bool)
@@ -349,33 +362,41 @@ def render_grayscale_text_mask(
         str(font),
         "-pointsize",
         str(point_size * supersample_factor),
-        "-gravity",
-        "center",
-        "-fill",
-        stroke_gray,
-        "-stroke",
-        stroke_gray,
-        "-strokewidth",
-        str(stroke_width * supersample_factor),
-        "-annotate",
-        (
-            f"{horizontal_offset * supersample_factor:+d}"
-            f"{vertical_offset * supersample_factor:+d}"
-        ),
-        text,
-        "-fill",
-        "white",
-        "-stroke",
-        "white",
-        "-strokewidth",
-        str(fill_stroke_width * supersample_factor),
-        "-annotate",
-        (
-            f"{horizontal_offset * supersample_factor:+d}"
-            f"{vertical_offset * supersample_factor:+d}"
-        ),
-        text,
     ]
+    if character_spacing:
+        command.extend(
+            ["-kerning", str(float(character_spacing) * supersample_factor)]
+        )
+    command.extend(
+        [
+            "-gravity",
+            "center",
+            "-fill",
+            stroke_gray,
+            "-stroke",
+            stroke_gray,
+            "-strokewidth",
+            str(stroke_width * supersample_factor),
+            "-annotate",
+            (
+                f"{horizontal_offset * supersample_factor:+d}"
+                f"{vertical_offset * supersample_factor:+d}"
+            ),
+            text,
+            "-fill",
+            "white",
+            "-stroke",
+            "white",
+            "-strokewidth",
+            str(fill_stroke_width * supersample_factor),
+            "-annotate",
+            (
+                f"{horizontal_offset * supersample_factor:+d}"
+                f"{vertical_offset * supersample_factor:+d}"
+            ),
+            text,
+        ]
+    )
     command.extend(
         [
             "-alpha",
@@ -404,7 +425,9 @@ def render_grayscale_text_mask(
             height=canvas_height,
             degrees=float(italic_shear_degrees),
         )
-    pixels = _box_downsample_grayscale(
+    if preserve_supersample:
+        return pixels
+    pixels = box_downsample_grayscale(
         pixels,
         width=width,
         height=height,
@@ -415,6 +438,7 @@ def render_grayscale_text_mask(
 
 __all__ = [
     "ImageMagickError",
+    "box_downsample_grayscale",
     "imagemagick_version",
     "identify_dimensions",
     "read_rgba8",
