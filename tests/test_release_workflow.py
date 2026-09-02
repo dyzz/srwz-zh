@@ -810,6 +810,57 @@ class ReleaseWorkflowTest(unittest.TestCase):
         # This is runtime-keyword row 19, not a formation owner.
         self.assertNotIn((95, 0x106C8), positions)
 
+    def test_confirmed_community_terms_are_consistent_across_active_surfaces(self) -> None:
+        weapon_glossary = _load("corpus/glossary/weapons-v1.json")
+        weapon_terms = {
+            entry["id"]: entry["translation"]
+            for entry in weapon_glossary["terms"]
+        }
+        self.assertEqual(weapon_terms["weapon/0233"], "长程步枪")
+        self.assertEqual(weapon_terms["weapon/0239"], "米加火箭发射器")
+        self.assertEqual(weapon_terms["weapon/0268"], "米加光束加农")
+
+        speaker_glossary = _load("corpus/glossary/story-speakers-v1.json")
+        speaker_terms = {
+            entry["id"]: entry["translation"]
+            for entry in speaker_glossary["terms"]
+        }
+        self.assertEqual(speaker_terms["people/speaker-89c5bc3f5768"], "玛雅")
+
+        global_glossary = _load("corpus/glossary/global-variants-v1.json")
+        global_terms = {
+            entry["id"]: entry["translation"]
+            for entry in global_glossary["terms"]
+        }
+        self.assertEqual(global_terms["people/mouar-pharaoh-full"], "玛雅·法拉奥")
+
+        battle = _load("corpus/zh/battle/srvc-lines.json")
+        battle_entries = {
+            entry["id"]: entry["translation"] for entry in battle["entries"]
+        }
+        self.assertEqual(
+            battle_entries["battle:19822"],
+            "“可惜。\\n　我这可是有防护罩的哦♪”",
+        )
+        self.assertEqual(
+            battle_entries["battle:19823"],
+            "“可惜。\\n　我这可是有防护罩的♪”",
+        )
+        for entry_id in ("battle:16097", "battle:16120", "battle:16129"):
+            self.assertIn("陆地战舰", battle_entries[entry_id])
+
+        entries_110 = {
+            entry["id"]: entry["translation"]
+            for entry in _load("corpus/zh/story-dialogue/stage-110.json")["entries"]
+        }
+        entries_111 = {
+            entry["id"]: entry["translation"]
+            for entry in _load("corpus/zh/story-dialogue/stage-111.json")["entries"]
+        }
+        self.assertIn("贤人会议", entries_110["story/110/dialogue/02.02/0474"])
+        self.assertIn("贤人会议", entries_111["story/111/dialogue/02.02/0285"])
+        self.assertIn("贤人会议", entries_111["story/111/dialogue/02.02/0387"])
+
     def test_gowri_name_is_consistent_across_current_corpus(self) -> None:
         glossary = _load("corpus/glossary/story-speakers-v1.json")
         entry = next(

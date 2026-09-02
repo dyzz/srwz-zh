@@ -86,7 +86,7 @@ class ZReportCoverageTest(unittest.TestCase):
                 for target in targets
             ],
             [
-                (33, 0x2188, 0x5BA0, 47, "武装“巨型火箭炮”已追加"),
+                (33, 0x2188, 0x5BA0, 47, "武装“米加火箭发射器”已追加"),
                 (36, 0x54C8, 0xDD50, 23, "莎拉队获得PP+50"),
                 (36, 0x54E8, 0xDD70, 27, "阿蒂特队获得PP+50"),
                 (66, 0xB598, 0x1BF40, 39, "武装“金刚飞艇”已追加"),

@@ -3366,7 +3366,7 @@ def verify_post_release_runtime_surfaces(
         return result.output
 
     z_report_expected = {
-        33: {0x5BA0: "武装“巨型火箭炮”已追加"},
+        33: {0x5BA0: "武装“米加火箭发射器”已追加"},
         36: {
             0xDD50: "莎拉队获得PP+50",
             0xDD70: "阿蒂特队获得PP+50",
