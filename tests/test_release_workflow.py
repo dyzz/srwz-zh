@@ -903,10 +903,12 @@ class ReleaseWorkflowTest(unittest.TestCase):
             entry["id"]: entry["translation"] for entry in battle["entries"]
         }
         expected_battle = {
+            "battle:01955": "“这招能行吗！？”",
             "battle:03041": "“看来是想拖住我！”",
             "battle:04393": "“莎、莎拉！我也……我也……！”",
             "battle:04421": "“军队就是这样，从不尊重人的意志……！”",
             "battle:04601": "“这就让我来结束一切！”",
+            "battle:04638": "“这招能行吗？”",
             "battle:04619": "“如果Z高达是将灵魂之力化为现实的\\n　机器……！”",
             "battle:04745": "“蕾柯亚小姐！\\n　你这样未免太任性了吧！？”",
             "battle:05962": "“提坦斯到底什么时候才会明白，\\n　地球和殖民卫星并非连成一体！”",
@@ -916,6 +918,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "battle:16012": "“我要打倒你，借此出人头地！”",
             "battle:16522": "“确认情况，继续前进！”",
             "battle:18653": "“瞄准这家伙的弱点了吗……！”",
+            "battle:19868": "“既然这样\\n　说什么也要跟到底！”",
             "battle:22367": "“切，我早说过会这样！”",
             "battle:22440": "“都说大块头脑子不灵……\\n　你倒还挺能干嘛”",
         }
@@ -927,6 +930,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
         expected_story = {
             "story/027/dialogue/01.20/0002": "“我可是听说你破坏狂的大名才雇你的！”",
             "story/027/dialogue/01.21/0011": "“你还真冷淡啊……”",
+            "story/055/dialogue/01.22/0007": "“你为什么要这样！？”",
             "story/111/dialogue/01.37/0005": (
                 "“决定了，阿萨基姆！\n　你那扭曲的性子，"
                 "就由我这个修理工来修好！”"
@@ -959,7 +963,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             ),
         }
         story_entries: dict[str, str] = {}
-        for stage in (27, 111, 115, 119, 122, 125):
+        for stage in (27, 55, 111, 115, 119, 122, 125):
             payload = _load(f"corpus/zh/story-dialogue/stage-{stage:03d}.json")
             story_entries.update(
                 {entry["id"]: entry["translation"] for entry in payload["entries"]}
