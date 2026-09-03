@@ -6,15 +6,52 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from srwz.ui_atlas_suite import build_ui_atlas_suite
+from srwz.verified_cache import (
+    collect_locked_paths,
+    collect_tree_paths,
+    relative_path,
+    validate_verified_cache,
+    write_verified_cache,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CHAIN_CONFIG = PROJECT_ROOT / "config/fonts/zh-font-build-chain.json"
+MAX_ATLAS_WORKERS = 6
+DEFAULT_ATLAS_WORKERS = min(
+    MAX_ATLAS_WORKERS,
+    max(1, (os.cpu_count() or 1) // 2),
+)
+DEFAULT_CACHE = PROJECT_ROOT / "work/cache/zh-font-build-chain.json"
+CACHE_KIND = "zh-font-full-consumer-chain-v1"
+BUILD_DEFINITION_ROOTS = (
+    "tools/srwz",
+    "tools/native/srwz-codec-rs/Cargo.toml",
+    "tools/native/srwz-codec-rs/Cargo.lock",
+    "tools/native/srwz-codec-rs/src",
+    "tools/rebuild_zh_font.py",
+    "tools/prepare_zh_release_font.py",
+    "tools/build_zh_font_component.py",
+    "tools/verify_zh_release_font.py",
+    "tools/build_library_v02_component.py",
+    "tools/build_story_component.py",
+    "tools/ui_atlas.py",
+    "tools/build_full_story_components.py",
+    "tools/build_aid_battle_prompts.py",
+    "tools/build_tricmn_battle_overlays.py",
+    "tools/compose_full_story_library_components.py",
+    "config",
+    "corpus/ja",
+    "corpus/zh",
+    "corpus/glossary",
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -36,7 +73,31 @@ def parse_args() -> argparse.Namespace:
             "intentional global font change. Requires --refresh-manifests."
         ),
     )
-    return parser.parse_args()
+    parser.add_argument(
+        "--atlas-workers",
+        type=int,
+        default=DEFAULT_ATLAS_WORKERS,
+        help=(
+            "Build and verify this many independent UI atlases concurrently. "
+            f"The default is {DEFAULT_ATLAS_WORKERS}; use 1 for the serial "
+            "reference path."
+        ),
+    )
+    parser.add_argument(
+        "--force-rebuild",
+        action="store_true",
+        help="Ignore the validated content cache and rebuild every consumer.",
+    )
+    parser.add_argument(
+        "--cache",
+        type=Path,
+        default=DEFAULT_CACHE,
+        help="Validated full-chain cache receipt under work/.",
+    )
+    args = parser.parse_args()
+    if args.atlas_workers < 1:
+        parser.error("--atlas-workers must be at least 1")
+    return args
 
 
 def _run(*arguments: str) -> None:
@@ -92,6 +153,52 @@ def _file_lock(reference: str) -> dict:
     }
 
 
+def _chain_cache_metadata(config_path: Path) -> dict:
+    return {
+        "mode": "full-assets",
+        "validation": "content-sha256",
+        "chain_config": relative_path(PROJECT_ROOT, config_path),
+    }
+
+
+def _chain_cache_inventory(chain: dict) -> set[Path]:
+    """Return source, build-definition, receipt, and output files for reuse."""
+
+    paths = collect_tree_paths(PROJECT_ROOT, BUILD_DEFINITION_ROOTS)
+    paths.difference_update(
+        collect_tree_paths(PROJECT_ROOT, ("config/editorial",))
+    )
+    integrated_reference = chain.get("integrated_component")
+    if not isinstance(integrated_reference, str):
+        raise SystemExit("Chinese font integrated component is not registered")
+    integrated = _load(PROJECT_ROOT / integrated_reference)
+    manifest_reference = integrated.get("outputs", {}).get("manifest")
+    if not isinstance(manifest_reference, str):
+        raise SystemExit("integrated component manifest is not registered")
+    manifest_path = PROJECT_ROOT / manifest_reference
+    if not manifest_path.is_file():
+        return paths | {manifest_path.resolve()}
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    paths.add(manifest_path.resolve())
+    paths.update(collect_locked_paths(PROJECT_ROOT, manifest))
+    codec = PROJECT_ROOT / (
+        "work/toolchain/srwz-compressor-rs/target/release/srwz-compress"
+    )
+    if codec.is_file():
+        paths.add(codec.resolve())
+    return paths
+
+
+def _cache_eligible(args: argparse.Namespace) -> bool:
+    return bool(
+        args.skip_fetch
+        and not args.skip_assets
+        and not args.refresh_manifests
+        and not args.refresh_asset_ratchets
+        and not args.force_rebuild
+    )
+
+
 def _assignment_mapping_sha256(assignments: object) -> str:
     if not isinstance(assignments, list) or any(
         not isinstance(item, dict)
@@ -143,6 +250,109 @@ def _build_atlas(reference: str, *, refresh_manifest: bool) -> None:
     if refresh_manifest:
         arguments.append("--refresh-manifest")
     _run(*arguments)
+
+
+def _build_atlas_job(
+    reference: str,
+    *,
+    refresh_manifest: bool,
+    refresh_asset_ratchet: bool,
+) -> None:
+    """Build one atlas without sharing mutable state with other atlas jobs."""
+
+    if refresh_asset_ratchet:
+        _refresh_atlas_ratchet(reference)
+    _build_atlas(reference, refresh_manifest=refresh_manifest)
+
+
+def _integrated_component_args(
+    reference: str,
+    *,
+    refresh_manifest: bool,
+    force_rebuild: bool,
+) -> list[str]:
+    """Select the normal frozen-member path or the explicit cold rebuild."""
+
+    arguments = [
+        "tools/build_full_story_components.py",
+        "--config",
+        reference,
+        "--force",
+    ]
+    if not force_rebuild:
+        # Reviewed texture/archive members are already materialized in the
+        # component root.  The integrated builder validates their locked
+        # identities and only regenerates members whose declared inputs moved.
+        arguments.append("--incremental")
+    if refresh_manifest:
+        arguments.append("--refresh-manifest")
+    return arguments
+
+
+def _integrated_component_cache_ready(config: dict) -> bool:
+    """Return whether a prior reviewed member set can seed incremental work."""
+
+    component_root = config.get("outputs", {}).get("component_root")
+    if not isinstance(component_root, str):
+        return False
+    output_root = (PROJECT_ROOT / component_root).resolve()
+    try:
+        output_root.relative_to(PROJECT_ROOT.resolve())
+    except ValueError:
+        return False
+    return (output_root / "incremental-state.json").is_file()
+
+
+def _build_story_and_atlases(
+    story_reference: str,
+    atlas_references: list[str],
+    *,
+    refresh_manifest: bool,
+    refresh_asset_ratchets: bool,
+    atlas_workers: int,
+) -> None:
+    """Build independent story/atlas outputs, with a serial escape hatch."""
+
+    if atlas_workers == 1:
+        _run(
+            "tools/build_story_component.py",
+            "--config",
+            story_reference,
+            "--force",
+        )
+        for reference in atlas_references:
+            _build_atlas_job(
+                reference,
+                refresh_manifest=refresh_manifest,
+                refresh_asset_ratchet=refresh_asset_ratchets,
+            )
+        return
+
+    # The story component and each atlas have distinct output roots and only
+    # read the already-built global font. Running them together removes the
+    # otherwise idle gap between the two independent build groups.
+    with ThreadPoolExecutor(max_workers=atlas_workers + 1) as executor:
+        story_future = executor.submit(
+            _run,
+            "tools/build_story_component.py",
+            "--config",
+            story_reference,
+            "--force",
+        )
+        atlas_futures = [
+            executor.submit(
+                _build_atlas_job,
+                reference,
+                refresh_manifest=refresh_manifest,
+                refresh_asset_ratchet=refresh_asset_ratchets,
+            )
+            for reference in atlas_references
+        ]
+        # Surface failures in registration order while allowing all jobs to
+        # finish and clean up their own output directories first.
+        story_future.result()
+        for future in atlas_futures:
+            future.result()
 
 
 def _sync_suite_components(suite: dict, atlas_references: list[str]) -> None:
@@ -212,7 +422,12 @@ def _refresh_suite_ratchets(
     _write(config_path, suite)
 
 
-def _build_assets(chain: dict, args: argparse.Namespace) -> None:
+def _build_assets(
+    chain: dict,
+    args: argparse.Namespace,
+    *,
+    library_future=None,
+) -> None:
     atlas_references = list(chain.get("localized_atlases", []))
     suite_reference = chain.get("atlas_suite")
     story_reference = chain.get("story_component")
@@ -225,18 +440,15 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
         raise SystemExit("Chinese font asset registry is empty or malformed")
 
     print(f"[font-assets] {story_reference}", flush=True)
-    _run(
-        "tools/build_story_component.py",
-        "--config",
-        story_reference,
-        "--force",
-    )
-
     for reference in atlas_references:
         print(f"[font-assets] {reference}", flush=True)
-        if args.refresh_asset_ratchets:
-            _refresh_atlas_ratchet(reference)
-        _build_atlas(reference, refresh_manifest=args.refresh_manifests)
+    _build_story_and_atlases(
+        story_reference,
+        atlas_references,
+        refresh_manifest=args.refresh_manifests,
+        refresh_asset_ratchets=args.refresh_asset_ratchets,
+        atlas_workers=args.atlas_workers,
+    )
 
     if args.refresh_asset_ratchets:
         _refresh_suite_ratchets(suite_reference, atlas_references)
@@ -257,6 +469,11 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
     if args.refresh_manifests:
         suite_verify.append("--refresh-manifest")
     _run(*suite_verify)
+
+    if library_future is not None:
+        # The reviewed LIBRARY build runs independently after the global font
+        # is ready, but the integrated component consumes its manifest.
+        library_future.result()
 
     integrated_reference = chain.get("integrated_component")
     if not isinstance(integrated_reference, str):
@@ -427,15 +644,24 @@ def _build_assets(chain: dict, args: argparse.Namespace) -> None:
         )
     if dependency_drift:
         _write(integrated_path, integrated)
-    integrated_args = [
-        "tools/build_full_story_components.py",
-        "--config",
+    full_revalidation = args.force_rebuild or not _integrated_component_cache_ready(
+        integrated
+    )
+    integrated_args = _integrated_component_args(
         integrated_reference,
-        "--force",
-    ]
-    if args.refresh_manifests:
-        integrated_args.append("--refresh-manifest")
-    print(f"[font-assets] {integrated_reference}", flush=True)
+        refresh_manifest=args.refresh_manifests,
+        force_rebuild=full_revalidation,
+    )
+    if args.force_rebuild:
+        integrated_mode = "full-revalidation"
+    elif full_revalidation:
+        integrated_mode = "full-bootstrap"
+    else:
+        integrated_mode = "locked-member-cache"
+    print(
+        f"[font-assets] {integrated_reference} mode={integrated_mode}",
+        flush=True,
+    )
     _run(*integrated_args)
 
 
@@ -446,6 +672,25 @@ def main() -> int:
             "--refresh-asset-ratchets requires --refresh-manifests"
         )
     chain = _load(args.config.resolve())
+    cache_metadata = _chain_cache_metadata(args.config.resolve())
+    if _cache_eligible(args):
+        inventory = _chain_cache_inventory(chain)
+        validation = validate_verified_cache(
+            project_root=PROJECT_ROOT,
+            cache_path=args.cache,
+            kind=CACHE_KIND,
+            paths=inventory,
+            metadata=cache_metadata,
+        )
+        if validation.hit:
+            print(
+                "[cache] full Chinese build reused:",
+                f"files={validation.checked_file_count}",
+                f"bytes={validation.checked_byte_count}",
+                "validation=content-sha256",
+            )
+            return 0
+        print(f"[cache] miss: {validation.reason}", flush=True)
     if not args.skip_fetch:
         _run("tools/fetch_zh_font.py", "--flavor", chain["font_flavor"])
     refresh = ["--refresh-manifest"] if args.refresh_manifests else []
@@ -488,9 +733,21 @@ def main() -> int:
     if args.refresh_manifests:
         library_args.append("--refresh-manifest")
     print("[font-consumer] reviewed LIBRARY component", flush=True)
-    _run(*library_args)
     if not args.skip_assets:
-        _build_assets(chain, args)
+        if args.atlas_workers == 1:
+            _run(*library_args)
+            _build_assets(chain, args)
+        else:
+            with ThreadPoolExecutor(max_workers=2) as executor:
+                library_future = executor.submit(_run, *library_args)
+                _build_assets(
+                    chain,
+                    args,
+                    library_future=library_future,
+                )
+    else:
+        _run(*library_args)
+    if not args.skip_assets:
         aid_args = ["tools/build_aid_battle_prompts.py", "--force"]
         if args.refresh_manifests:
             aid_args.append("--refresh-manifest")
@@ -501,6 +758,19 @@ def main() -> int:
         _run(*tricmn_args)
         print("[font-consumer] compose full-story + LIBRARY", flush=True)
         _run("tools/compose_full_story_library_components.py")
+        inventory = _chain_cache_inventory(chain)
+        cache = write_verified_cache(
+            project_root=PROJECT_ROOT,
+            cache_path=args.cache,
+            kind=CACHE_KIND,
+            paths=inventory,
+            metadata=cache_metadata,
+        )
+        print(
+            "[cache] full Chinese build recorded:",
+            f"files={cache['file_count']}",
+            f"bytes={cache['byte_count']}",
+        )
     return 0
 
 

@@ -37,7 +37,7 @@ python3 tools/verify_original_disc.py
 python3 tools/extract_iso_member.py --force <主链成员...>
 python3 tools/bootstrap_mkps2iso.py
 python3 tools/build_rust_compressor.py
-python3 tools/rebuild_zh_font.py --skip-fetch
+python3 tools/rebuild_zh_font.py --skip-fetch --force-rebuild
 python3 tools/build_iso.py
 python3 tools/verify_full_story_iso_content.py --force
 python3 tools/build_release.py
@@ -54,6 +54,12 @@ python3 tools/build_release.py
 PSMT4 索引图，再校验完整 `BTL/TRICMN.BIN` 的固定哈希，不调用字体或 ImageMagick。
 维护时只有显式传入 `--live-render` 才会进入保留的绘制链；替换冻结件还必须额外传入
 `--refreeze-snapshot`，并在审图和运行验收后更新快照锁与清单。
+
+日常构建去掉 `rebuild_zh_font.py` 的 `--force-rebuild`。完整闭包一致时直接复用顶层
+cache；只有局部输入变化时，最终整合按物理成员增量生成，未受影响的已审核贴图/归档
+只核对锁和现有输出，不重新 rasterize、swizzle 或逐像素验证。`--force-rebuild` 是资源
+制作、生成器调试和发布可重现性复验入口。普通候选可在 `build_iso.py` 后停止；发布、
+固定 LBA/成员映射变更或专项排错再运行 `verify_full_story_iso_content.py --force`。
 
 生产压缩、解压和压缩后回读只使用 `tools/native/srwz-codec-rs/`。Python 模块负责
 结构解析、前像检查、受控写回和结果核验，不提供另一套发布编码器。

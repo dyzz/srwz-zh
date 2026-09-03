@@ -37,7 +37,7 @@ python3 tools/verify_original_disc.py
 python3 tools/extract_iso_member.py --force <主链成员...>
 python3 tools/bootstrap_mkps2iso.py
 python3 tools/build_rust_compressor.py
-python3 tools/rebuild_zh_font.py --skip-fetch
+python3 tools/rebuild_zh_font.py --skip-fetch --force-rebuild
 python3 tools/build_iso.py
 python3 tools/verify_full_story_iso_content.py --force
 python3 tools/build_release.py
@@ -85,3 +85,9 @@ ISO 采用 fixed-LBA 构建：replacement 可以比原成员小，但不能超�
 
 运行和画面验收是发布后的独立证据层，必须绑定精确 ISO 哈希；它们不由 Python 构建
 脚本自动执行。
+
+日常开发允许复用 `work/cache/` 下的完整闭包 receipt；闭包局部变化后，最终整合继续
+按物理成员复用已审核的冻结产物，只重建依赖确实变化的成员。贴图的逐像素、palette、
+PSMT4/8 和压缩流验收属于资源制作/变更门，不在每次整合时重复。普通候选生成可在
+`build_iso.py` 后停止；发布复验或固定布局变更使用 `rebuild_zh_font.py --force-rebuild`
+与 `verify_full_story_iso_content.py --force`。

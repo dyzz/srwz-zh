@@ -118,7 +118,14 @@ from srwz.text import (
     original_fullwidth_ascii_overrides,
     project_runtime_text_table,
 )
-from srwz.writers import encode_stage_message
+from srwz.writers import PreparedStageMessageEncoders, encode_stage_message
+from srwz.verified_cache import (
+    collect_locked_paths,
+    collect_tree_paths,
+    relative_path,
+    validate_verified_cache,
+    write_verified_cache,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -131,6 +138,21 @@ DEFAULT_REPORT = (
 )
 DEFAULT_MANIFEST = (
     PROJECT_ROOT / "manifests/zh-release-full-story-iso-content-validation.json"
+)
+DEFAULT_CACHE = (
+    PROJECT_ROOT / "work/cache/zh-release-full-story-content.json"
+)
+CACHE_KIND = "full-story-final-iso-content-readback-v1"
+VERIFICATION_DEFINITION_ROOTS = (
+    "tools/srwz",
+    "tools/native/srwz-codec-rs/Cargo.toml",
+    "tools/native/srwz-codec-rs/Cargo.lock",
+    "tools/native/srwz-codec-rs/src",
+    "tools/verify_full_story_iso_content.py",
+    "config",
+    "corpus/ja",
+    "corpus/zh",
+    "corpus/glossary",
 )
 
 
@@ -188,11 +210,127 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--refresh-manifest", action="store_true")
     parser.add_argument("--force", action="store_true")
+    parser.add_argument(
+        "--cache",
+        type=Path,
+        default=DEFAULT_CACHE,
+        help=(
+            "Reuse a prior full readback only when the ISO, build definitions, "
+            "inputs, outputs, report, and manifest still match by SHA-256."
+        ),
+    )
     return parser.parse_args()
 
 
 def project_path(path: Path) -> Path:
     return path if path.is_absolute() else PROJECT_ROOT / path
+
+
+def _verification_cache_metadata(args: argparse.Namespace) -> dict:
+    component_report = (
+        None
+        if args.component_report is None
+        else relative_path(PROJECT_ROOT, project_path(args.component_report))
+    )
+    return {
+        "mode": "full-static-iso-content-readback",
+        "validation": "content-sha256",
+        "iso": relative_path(PROJECT_ROOT, project_path(args.iso)),
+        "report": relative_path(PROJECT_ROOT, project_path(args.report)),
+        "manifest": relative_path(PROJECT_ROOT, project_path(args.manifest)),
+        "build_config": relative_path(
+            PROJECT_ROOT,
+            project_path(args.build_config),
+        ),
+        "component_report": component_report,
+        "font_manifest": relative_path(
+            PROJECT_ROOT,
+            project_path(args.font_manifest),
+        ),
+        "codebook_proposal": relative_path(
+            PROJECT_ROOT,
+            project_path(args.codebook_proposal),
+        ),
+    }
+
+
+def _load_json_if_file(path: Path) -> dict | None:
+    if not path.is_file():
+        return None
+    document = json.loads(path.read_text(encoding="utf-8"))
+    return document if isinstance(document, dict) else None
+
+
+def _verification_cache_inventory(args: argparse.Namespace) -> set[Path]:
+    """Return every file whose exact bytes make a readback reusable."""
+
+    paths = collect_tree_paths(PROJECT_ROOT, VERIFICATION_DEFINITION_ROOTS)
+    paths.difference_update(
+        collect_tree_paths(PROJECT_ROOT, ("config/editorial",))
+    )
+    iso_path = project_path(args.iso).resolve()
+    report_path = project_path(args.report).resolve()
+    manifest_path = project_path(args.manifest).resolve()
+    build_config_path = project_path(args.build_config).resolve()
+    font_manifest_path = project_path(args.font_manifest).resolve()
+    proposal_path = project_path(args.codebook_proposal).resolve()
+    paths.update(
+        {
+            iso_path,
+            report_path,
+            manifest_path,
+            build_config_path,
+            font_manifest_path,
+            proposal_path,
+            SOURCE_CONTENT_CONFIG.resolve(),
+            SOURCE_FONT_CONFIG.resolve(),
+            TEXT_TABLE.resolve(),
+            BASE_CODEBOOK.resolve(),
+            FULL_COMPONENT_CONFIG.resolve(),
+            MENU_DESCRIPTOR.resolve(),
+        }
+    )
+    config = _load_json_if_file(build_config_path)
+    if config is None:
+        return paths
+    component_path = args.component_report
+    if component_path is None:
+        component_reference = config.get("component_validation_manifest")
+        component_path = (
+            Path(component_reference)
+            if isinstance(component_reference, str) and component_reference
+            else COMPONENT_REPORT
+        )
+    component_path = project_path(component_path).resolve()
+    paths.add(component_path)
+    iso_report = config.get("output", {}).get("report")
+    if isinstance(iso_report, str) and iso_report:
+        paths.add(project_path(Path(iso_report)).resolve())
+    for document_path in (
+        component_path,
+        font_manifest_path,
+    ):
+        document = _load_json_if_file(document_path)
+        if document is not None:
+            paths.update(collect_locked_paths(PROJECT_ROOT, document))
+    codec = PROJECT_ROOT / (
+        "work/toolchain/srwz-compressor-rs/target/release/srwz-compress"
+    )
+    if codec.is_file():
+        paths.add(codec.resolve())
+    return paths
+
+
+def _print_cached_readback(report_path: Path, validation) -> None:
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    print(
+        "[cache] full-story final ISO readback reused:",
+        f"stages={report.get('stage_count', 'unknown')}",
+        f"translations={report.get('translation_entry_count', 'unknown')}",
+        f"files={validation.checked_file_count}",
+        f"bytes={validation.checked_byte_count}",
+        "validation=content-sha256",
+    )
 
 
 def load_translations(path: Path) -> dict[str, str]:
@@ -3858,6 +3996,21 @@ def main() -> int:
     iso_path = project_path(args.iso)
     report_path = project_path(args.report)
     manifest_path = project_path(args.manifest)
+    if report_path.exists() and not args.force and not args.refresh_manifest:
+        validation = validate_verified_cache(
+            project_root=PROJECT_ROOT,
+            cache_path=args.cache,
+            kind=CACHE_KIND,
+            paths=_verification_cache_inventory(args),
+            metadata=_verification_cache_metadata(args),
+        )
+        if validation.hit:
+            _print_cached_readback(report_path, validation)
+            return 0
+        raise SystemExit(
+            f"output exists and cached verification is unavailable "
+            f"({validation.reason}); use --force: {report_path}"
+        )
     if report_path.exists() and not args.force:
         raise SystemExit(f"output exists; use --force: {report_path}")
 
@@ -5128,6 +5281,10 @@ def main() -> int:
     stage_overrides = dict(overrides)
     stage_overrides.update(surface_aliases)
     stage_overrides.update(ascii_overrides)
+    stage_message_encoders = PreparedStageMessageEncoders(
+        source_table,
+        stage_overrides,
+    )
     stage_table = project_runtime_text_table(
         source_table,
         stage_overrides,
@@ -6436,6 +6593,7 @@ def main() -> int:
                 source_text=source_entry.text,
                 replacement=expected_translation,
                 terminate=True,
+                prepared_encoders=stage_message_encoders,
             )
             actual_payload = decoded.output[
                 translation_start : translation_start + len(expected_payload)
@@ -7571,6 +7729,18 @@ def main() -> int:
     )
     print(f"manifest {manifest_status}: {manifest_path}")
     print(f"report: {report_path}")
+    cache = write_verified_cache(
+        project_root=PROJECT_ROOT,
+        cache_path=args.cache,
+        kind=CACHE_KIND,
+        paths=_verification_cache_inventory(args),
+        metadata=_verification_cache_metadata(args),
+    )
+    print(
+        "verification cache recorded:",
+        f"files={cache['file_count']}",
+        f"bytes={cache['byte_count']}",
+    )
     return 0
 
 

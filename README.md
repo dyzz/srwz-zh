@@ -109,7 +109,7 @@ python3 tools/build_rust_compressor.py
 python3 tools/fetch_zh_font.py
 python3 tools/fetch_zh_font.py \
   --flavor config/fonts/zh-localization-font-light.json
-python3 tools/rebuild_zh_font.py --skip-fetch
+python3 tools/rebuild_zh_font.py --skip-fetch --force-rebuild
 
 python3 tools/build_iso.py \
   --config config/iso/zh-release-current-build.json

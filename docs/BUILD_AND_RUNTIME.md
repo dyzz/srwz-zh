@@ -57,7 +57,7 @@ python3 tools/build_rust_compressor.py
 python3 tools/fetch_zh_font.py
 python3 tools/fetch_zh_font.py \
   --flavor config/fonts/zh-localization-font-light.json
-python3 tools/rebuild_zh_font.py --skip-fetch
+python3 tools/rebuild_zh_font.py --skip-fetch --force-rebuild
 
 python3 tools/build_iso.py \
   --config config/iso/zh-release-current-build.json
@@ -72,6 +72,31 @@ python3 tools/build_release.py \
 `corpus/zh/menu/release-v0.3.json` 与 `config/assets/title-menu-zh.json` 直接写入；
 旧发布 ISO、旧汉化成员和发布用 xdelta 都不是构建依赖。普通构建不修改配置中的哈希
 与快照；只有确认生产输入发生变化后，才使用各入口提供的 `--refresh-*` 选项。
+
+## 日常构建缓存
+
+完整冷构建成功后，`rebuild_zh_font.py --skip-fetch` 会在 `work/cache/` 写入内容寻址
+receipt。后续相同命令先按 SHA-256 核对生产构建代码、配置、受管语料、锁定输入和最终
+组件输出；完整 inventory 一致就直接复用。若只有局部输入变化，最终组件整合会按成员
+依赖重建，继续复用输入未变且已经审核的 NISV、VEFF、MAPMODEL 等冻结成员；不会重演
+这些资源的 rasterize、PSMT4/8 swizzle 和逐像素验收。缺文件、锁漂移或未知依赖变化
+仍直接失败。`--force-rebuild` 才显式要求全量重算。
+
+`verify_full_story_iso_content.py` 的完整回读通过后也会保存独立 receipt。日常生成候选
+可以在 `build_iso.py` 后停止；完整 ISO 语义回读用于发布候选、固定 LBA/成员映射改动和
+专项排错。需要快速复核同一候选时，不带 `--force` 的调用只有在精确 ISO、构建定义、
+组件输入/输出、报告和 manifest 全部一致时才复用旧结果。
+
+日常生成候选可使用：
+
+```bash
+python3 tools/rebuild_zh_font.py --skip-fetch
+python3 tools/build_iso.py \
+  --config config/iso/zh-release-current-build.json
+```
+
+若要复用之前已通过的同一 ISO 回读结果，再单独运行
+`python3 tools/verify_full_story_iso_content.py`；缓存不匹配时该命令会要求显式复验。
 
 ## 固定输出
 

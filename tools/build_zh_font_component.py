@@ -5,7 +5,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import struct
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from srwz.font_rasterizer import rasterize_character, rasterizer_point_size
@@ -47,6 +49,11 @@ FONT_CONFIG = PROJECT_ROOT / "config/fonts/zh-release-font.json"
 ALLOCATION_REGISTRY = (
     PROJECT_ROOT / "config/encoding/zh-release-font-assignments.json"
 )
+MAX_RASTER_WORKERS = 6
+DEFAULT_RASTER_WORKERS = min(
+    MAX_RASTER_WORKERS,
+    max(1, (os.cpu_count() or 1) // 2),
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -59,8 +66,20 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=ALLOCATION_REGISTRY,
     )
+    parser.add_argument(
+        "--raster-workers",
+        type=int,
+        default=DEFAULT_RASTER_WORKERS,
+        help=(
+            "Rasterize independent glyphs concurrently; use 1 for the "
+            f"serial reference path (default: {DEFAULT_RASTER_WORKERS})."
+        ),
+    )
     parser.add_argument("--force", action="store_true")
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.raster_workers < 1:
+        parser.error("--raster-workers must be at least 1")
+    return args
 
 
 def main() -> int:
@@ -149,6 +168,36 @@ def main() -> int:
         *runtime_ascii_assignments,
     ]
 
+    raster_assignments = [
+        assignment
+        for assignment in all_assignments
+        if assignment.get("preserve_source_glyph") is not True
+    ]
+
+    def rasterize_assignment(assignment: dict) -> tuple[bytes, bytes, bytes]:
+        character = assignment["character"]
+        return rasterize_character(
+            rasterizer["executable"],
+            fallback_font_paths.get(character, font_path),
+            character,
+            rasterizer,
+        )
+
+    if args.raster_workers == 1:
+        raster_results = list(map(rasterize_assignment, raster_assignments))
+    else:
+        with ThreadPoolExecutor(
+            max_workers=min(args.raster_workers, len(raster_assignments)),
+            thread_name_prefix="srwz-font-raster",
+        ) as executor:
+            raster_results = list(
+                executor.map(rasterize_assignment, raster_assignments)
+            )
+    raster_results_by_assignment = {
+        id(assignment): result
+        for assignment, result in zip(raster_assignments, raster_results)
+    }
+
     for assignment in all_assignments:
         character = assignment["character"]
         code = int(assignment["code"], 16)
@@ -234,12 +283,7 @@ def main() -> int:
                 preserved_stock_primary_glyphs.add(glyph_index)
         else:
             assignment_rasterizer = rasterizer
-            gray, pixels, packed = rasterize_character(
-                assignment_rasterizer["executable"],
-                fallback_font_paths.get(character, font_path),
-                character,
-                assignment_rasterizer,
-            )
+            gray, pixels, packed = raster_results_by_assignment[id(assignment)]
             if not character.isspace() and not any(packed):
                 raise SystemExit(
                     "visible glyph raster is empty; add an explicit global "
