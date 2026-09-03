@@ -29,6 +29,7 @@
 | `TEXTURE_LOCALIZATION_INVENTORY.md` | 贴图中文化成员、格式和最终 ISO 落点 |
 | `KVMDATA_ATLAS_LOCALIZATION.md` | KVMDATA 图集结构与写回方法 |
 | `VEFF2DX_TEXTURE_LOCALIZATION.md` | VEFF2DX PSMT4 场景标题结构 |
+| `TRICMN_BATTLE_OVERLAY_LOCALIZATION.md` | TRICMN 战斗浮层图集、材质分组、浮雕索引分层与运行验收边界 |
 | `MAPMODEL_WORLD_MAP_TITLES.md` | MAPMODEL 世界地图标题结构与定位 |
 | `STAGE_ROUTE_MAP.md` | 章节、路线、资源号和分支映射 |
 | `LIBRARY_V02_SCOPE.md` | LIBRARY 资料库中文化范围与资源边界 |
