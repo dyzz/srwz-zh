@@ -48,7 +48,7 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 73284,
-      "sha256": "e841269f4f6b38331c63d1af1febce7adddc717df0a6540b760245759837baf3"
+      "sha256": "748e536ea0bd064083d4987eaf66760cac5bfef8b8fe595f6b709e865ca53f7d"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -100,8 +100,8 @@
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 109379,
-      "sha256": "731213ad1dc322b5715c5946c64db0b9dfeac1daed3ea851a3945b7aa7e0947a"
+      "size": 109384,
+      "sha256": "a0deab7d469c0e97e1efe1d4de084044eab0e1fa74c243a36745117e21d9dcb3"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -147,8 +147,8 @@
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 109379,
-      "sha256": "731213ad1dc322b5715c5946c64db0b9dfeac1daed3ea851a3945b7aa7e0947a"
+      "size": 109384,
+      "sha256": "a0deab7d469c0e97e1efe1d4de084044eab0e1fa74c243a36745117e21d9dcb3"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -619,8 +619,8 @@
   "remaining_ui": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 109379,
-      "sha256": "731213ad1dc322b5715c5946c64db0b9dfeac1daed3ea851a3945b7aa7e0947a"
+      "size": 109384,
+      "sha256": "a0deab7d469c0e97e1efe1d4de084044eab0e1fa74c243a36745117e21d9dcb3"
     },
     "parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
@@ -869,8 +869,8 @@
   "nisv_effect_names": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 109379,
-      "sha256": "731213ad1dc322b5715c5946c64db0b9dfeac1daed3ea851a3945b7aa7e0947a"
+      "size": 109384,
+      "sha256": "a0deab7d469c0e97e1efe1d4de084044eab0e1fa74c243a36745117e21d9dcb3"
     },
     "original_archive": {
       "path": "work/disc/DATA/NISVDATA.BIN",
@@ -1307,8 +1307,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6973451,
-      "sha256": "e0a64842a7c8a790d8613c4b46a294cc033594cfa707a5c8aeb62de6ac94ae62"
+      "size": 6973769,
+      "sha256": "0973bd403dd555abd8089477cd4d570fdb6a7b74d46ba00a7fe7287522b5d4ab"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -1578,8 +1578,76 @@
       ]
     },
     "geometry": {
-      "enabled": false,
-      "reason": "Each Chinese prefix and the shared mode suffix remain inside the original texture slices; runtime quad layout stays byte-exact."
+      "frame_base": "0xD0",
+      "frame_count": 180,
+      "frame_stride": "0x720",
+      "quad_size": "0x18",
+      "target_visible_center_twice": 0,
+      "groups": [
+        {
+          "label": "普通模式",
+          "x_shift": 7,
+          "quads": [
+            {
+              "relative_offset": "0x540",
+              "expected_x_bounds": [-72, 16],
+              "expected_y_bounds": [-76, -64],
+              "texture_x_bounds": [0, 88],
+              "texture_y_bounds": [74, 98]
+            },
+            {
+              "relative_offset": "0x558",
+              "x_shift": -28,
+              "expected_x_bounds": [14, 86],
+              "expected_y_bounds": [-76, -64],
+              "texture_x_bounds": [120, 192],
+              "texture_y_bounds": [98, 122]
+            }
+          ]
+        },
+        {
+          "label": "EX困难模式",
+          "x_shift": 5,
+          "quads": [
+            {
+              "relative_offset": "0x570",
+              "expected_x_bounds": [-84, 28],
+              "expected_y_bounds": [-41, -29],
+              "texture_x_bounds": [88, 200],
+              "texture_y_bounds": [74, 98]
+            },
+            {
+              "relative_offset": "0x588",
+              "x_shift": -19,
+              "expected_x_bounds": [24, 96],
+              "expected_y_bounds": [-41, -29],
+              "texture_x_bounds": [120, 192],
+              "texture_y_bounds": [98, 122]
+            }
+          ]
+        },
+        {
+          "label": "特殊模式",
+          "x_shift": 8,
+          "quads": [
+            {
+              "relative_offset": "0x5A0",
+              "expected_x_bounds": [-84, 28],
+              "expected_y_bounds": [4, 16],
+              "texture_x_bounds": [0, 112],
+              "texture_y_bounds": [98, 122]
+            },
+            {
+              "relative_offset": "0x5B8",
+              "x_shift": -39,
+              "expected_x_bounds": [24, 96],
+              "expected_y_bounds": [4, 16],
+              "texture_x_bounds": [120, 192],
+              "texture_y_bounds": [98, 122]
+            }
+          ]
+        }
+      ]
     },
     "codec_strategy": "rust-fit",
     "codec_max_match_chain": 1024
@@ -2189,6 +2257,318 @@
       "setsuko": "family_given"
     }
   },
+  "postgame_mode_unlock": {
+    "member": "SLPS_258.87",
+    "policy": "unlock_mode_selector_rows_without_save_flag_writeback",
+    "elf_file_offset_base": "0x1A80",
+    "elf_virtual_address_base": "0x100000",
+    "menu_modes": [
+      "NORMAL",
+      "EX-HARD",
+      "SP"
+    ],
+    "patches": [
+      {
+        "id": "sp_row_enable_on_enter",
+        "surface": "third-row enabled style when entering SP selection",
+        "virtual_address": "0x1A3680",
+        "file_offset": "0xA5100",
+        "original_instruction_hex": "05008310",
+        "replacement_instruction_hex": "05000010"
+      },
+      {
+        "id": "sp_row_enable_on_refresh",
+        "surface": "third-row enabled style while refreshing SP selection",
+        "virtual_address": "0x1A36E0",
+        "file_offset": "0xA5160",
+        "original_instruction_hex": "05008310",
+        "replacement_instruction_hex": "05000010"
+      },
+      {
+        "id": "sp_row_selected_style",
+        "surface": "third-row selected presentation",
+        "virtual_address": "0x1A3850",
+        "file_offset": "0xA52D0",
+        "original_instruction_hex": "05006210",
+        "replacement_instruction_hex": "05000010"
+      },
+      {
+        "id": "sp_help_text",
+        "surface": "SP mode help text instead of dual-route lock text",
+        "virtual_address": "0x1A38D4",
+        "file_offset": "0xA5354",
+        "original_instruction_hex": "0C006210",
+        "replacement_instruction_hex": "0C000010"
+      },
+      {
+        "id": "sp_help_text_layout",
+        "surface": "SP mode help text vertical layout",
+        "virtual_address": "0x1A3958",
+        "file_offset": "0xA53D8",
+        "original_instruction_hex": "0300A310",
+        "replacement_instruction_hex": "03000010"
+      },
+      {
+        "id": "sp_confirm_acceptance",
+        "surface": "confirm button accepts SP mode",
+        "virtual_address": "0x1A3B74",
+        "file_offset": "0xA55F4",
+        "original_instruction_hex": "08004310",
+        "replacement_instruction_hex": "08000010"
+      }
+    ],
+    "runtime_color_patches": [
+      {
+        "id": "ex_selected_line1_base_end",
+        "surface": "selected EX line 1 trailing base color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A35FC",
+        "file_offset": "0xA507C",
+        "original_instruction_hex": "4B0080A0",
+        "replacement_instruction_hex": "430080A0"
+      },
+      {
+        "id": "ex_selected_line1_base_after_parts",
+        "surface": "selected EX line 1 base color after no-purchase clause",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3604",
+        "file_offset": "0xA5084",
+        "original_instruction_hex": "330080A0",
+        "replacement_instruction_hex": "2D0080A0"
+      },
+      {
+        "id": "ex_selected_line1_base_after_upgrade",
+        "surface": "selected EX line 1 base color after no-upgrade clause",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3608",
+        "file_offset": "0xA5088",
+        "original_instruction_hex": "1B0080A0",
+        "replacement_instruction_hex": "190080A0"
+      },
+      {
+        "id": "ex_selected_line1_red_no_purchase",
+        "surface": "selected EX line 1 no-purchase red color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3610",
+        "file_offset": "0xA5090",
+        "original_instruction_hex": "410083A0",
+        "replacement_instruction_hex": "390083A0"
+      },
+      {
+        "id": "ex_selected_line1_red_no_training",
+        "surface": "selected EX line 1 no-training red color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3614",
+        "file_offset": "0xA5094",
+        "original_instruction_hex": "290083A0",
+        "replacement_instruction_hex": "230083A0"
+      },
+      {
+        "id": "ex_selected_line1_red_no_upgrade",
+        "surface": "selected EX line 1 no-upgrade red color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3618",
+        "file_offset": "0xA5098",
+        "original_instruction_hex": "110083A0",
+        "replacement_instruction_hex": "0F0083A0"
+      },
+      {
+        "id": "ex_selected_line2_base_after_upgraded",
+        "surface": "selected EX line 2 base color after upgraded clause",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3620",
+        "file_offset": "0xA50A0",
+        "original_instruction_hex": "170080A0",
+        "replacement_instruction_hex": "130080A0"
+      },
+      {
+        "id": "ex_selected_line2_red_hard",
+        "surface": "selected EX line 2 hard difficulty red color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3624",
+        "file_offset": "0xA50A4",
+        "original_instruction_hex": "230083A0",
+        "replacement_instruction_hex": "210083A0"
+      },
+      {
+        "id": "ex_selected_line2_red_upgraded",
+        "surface": "selected EX line 2 upgraded red color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A362C",
+        "file_offset": "0xA50AC",
+        "original_instruction_hex": "0F0083A0",
+        "replacement_instruction_hex": "0B0083A0"
+      },
+      {
+        "id": "ex_unselected_line1_base_end",
+        "surface": "unselected EX line 1 trailing color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A363C",
+        "file_offset": "0xA50BC",
+        "original_instruction_hex": "4B0083A0",
+        "replacement_instruction_hex": "430083A0"
+      },
+      {
+        "id": "ex_unselected_line1_special_no_purchase",
+        "surface": "unselected EX line 1 no-purchase color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3644",
+        "file_offset": "0xA50C4",
+        "original_instruction_hex": "410083A0",
+        "replacement_instruction_hex": "390083A0"
+      },
+      {
+        "id": "ex_unselected_line1_base_after_parts",
+        "surface": "unselected EX line 1 base color after no-purchase clause",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3648",
+        "file_offset": "0xA50C8",
+        "original_instruction_hex": "330083A0",
+        "replacement_instruction_hex": "2D0083A0"
+      },
+      {
+        "id": "ex_unselected_line1_special_no_training",
+        "surface": "unselected EX line 1 no-training color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A364C",
+        "file_offset": "0xA50CC",
+        "original_instruction_hex": "290083A0",
+        "replacement_instruction_hex": "230083A0"
+      },
+      {
+        "id": "ex_unselected_line1_base_after_upgrade",
+        "surface": "unselected EX line 1 base color after no-upgrade clause",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3650",
+        "file_offset": "0xA50D0",
+        "original_instruction_hex": "1B0083A0",
+        "replacement_instruction_hex": "190083A0"
+      },
+      {
+        "id": "ex_unselected_line1_special_no_upgrade",
+        "surface": "unselected EX line 1 no-upgrade color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3654",
+        "file_offset": "0xA50D4",
+        "original_instruction_hex": "110083A0",
+        "replacement_instruction_hex": "0F0083A0"
+      },
+      {
+        "id": "ex_unselected_line2_special_hard",
+        "surface": "unselected EX line 2 hard difficulty color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3660",
+        "file_offset": "0xA50E0",
+        "original_instruction_hex": "230083A0",
+        "replacement_instruction_hex": "210083A0"
+      },
+      {
+        "id": "ex_unselected_line2_base_after_upgraded",
+        "surface": "unselected EX line 2 base color after upgraded clause",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3664",
+        "file_offset": "0xA50E4",
+        "original_instruction_hex": "170083A0",
+        "replacement_instruction_hex": "130083A0"
+      },
+      {
+        "id": "ex_unselected_line2_special_upgraded",
+        "surface": "unselected EX line 2 upgraded color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A366C",
+        "file_offset": "0xA50EC",
+        "original_instruction_hex": "0F0083A0",
+        "replacement_instruction_hex": "0B0083A0"
+      },
+      {
+        "id": "sp_selected_special_color",
+        "surface": "selected SP special text preserves the brighter retail green palette entry 04",
+        "kind": "preserved_immediate_value",
+        "virtual_address": "0x1A36A0",
+        "file_offset": "0xA5120",
+        "original_instruction_hex": "04000324",
+        "replacement_instruction_hex": "04000324"
+      },
+      {
+        "id": "sp_selected_line1_green_upgrade_limit",
+        "surface": "selected SP line 1 fifteen-step clause green color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A36AC",
+        "file_offset": "0xA512C",
+        "original_instruction_hex": "110083A0",
+        "replacement_instruction_hex": "130083A0"
+      },
+      {
+        "id": "sp_selected_line2_green_all_parts",
+        "surface": "selected SP line 2 all-parts clause green color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A36B8",
+        "file_offset": "0xA5138",
+        "original_instruction_hex": "1D0083A0",
+        "replacement_instruction_hex": "130083A0"
+      },
+      {
+        "id": "sp_unselected_line1_special",
+        "surface": "unselected SP line 1 special clause color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3704",
+        "file_offset": "0xA5184",
+        "original_instruction_hex": "110083A0",
+        "replacement_instruction_hex": "130083A0"
+      },
+      {
+        "id": "sp_unselected_line2_special",
+        "surface": "unselected SP line 2 special clause color",
+        "kind": "store_offset",
+        "virtual_address": "0x1A3714",
+        "file_offset": "0xA5194",
+        "original_instruction_hex": "1D0083A0",
+        "replacement_instruction_hex": "130083A0"
+      }
+    ],
+    "text_layout_patches": [
+      {
+        "id": "ex_rule_line_1_centering",
+        "surface": "center the shortened EX restriction summary",
+        "record_file_offset": "0x319648",
+        "text_file_offset": "0x33BB00",
+        "text_virtual_address": "0x43A080",
+        "original_x": -270,
+        "replacement_x": -233,
+        "y": -26
+      },
+      {
+        "id": "ex_rule_line_2_centering",
+        "surface": "center the shortened EX enemy and difficulty summary",
+        "record_file_offset": "0x319650",
+        "text_file_offset": "0x33BB50",
+        "text_virtual_address": "0x43A0D0",
+        "original_x": -180,
+        "replacement_x": -139,
+        "y": -15
+      },
+      {
+        "id": "sp_rule_line_1_centering",
+        "surface": "center the SP fifteen-step-upgrade summary",
+        "record_file_offset": "0x319690",
+        "text_file_offset": "0x33BCD0",
+        "text_virtual_address": "0x43A250",
+        "original_x": -140,
+        "replacement_x": -115,
+        "y": 19
+      },
+      {
+        "id": "sp_rule_line_2_centering",
+        "surface": "center the SP starting-parts summary",
+        "record_file_offset": "0x319698",
+        "text_file_offset": "0x33BD00",
+        "text_virtual_address": "0x43A280",
+        "original_x": -200,
+        "replacement_x": -115,
+        "y": 30
+      }
+    ]
+  },
   "runtime_movement_type_labels": {
     "member": "SLPS_258.87",
     "policy": "replace_runtime_materialized_stock_dedicated_marker",
@@ -2285,7 +2665,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 784625,
-      "sha256": "872cbc9f2ca9155a87adc02fb7b1a8637e87f56532e4c804785e21207e000adb"
+      "sha256": "843fc76a304dc68c745fa4fd5ab4d42a34410b6ff8f7a464d1c0d16b0949741e"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",

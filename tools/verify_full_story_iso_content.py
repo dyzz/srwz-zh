@@ -72,6 +72,7 @@ from srwz.sound_select import (
 )
 from srwz.library_unlock import apply_library_default_unlock
 from srwz.full_name_order import apply_route_specific_full_name_order
+from srwz.game_mode_unlock import apply_postgame_mode_unlock
 from srwz.movement_type_labels import apply_runtime_movement_type_labels
 from srwz.weapon_category_labels import apply_runtime_weapon_category_labels
 from srwz.search_tab_alignment import apply_search_tab_alignment
@@ -4543,6 +4544,138 @@ def main() -> int:
     ):
         raise SystemExit("final ISO route-specific full-name order readback drift")
     full_name_order_readback["component_receipt_exact"] = True
+    postgame_mode_contract = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )["postgame_mode_unlock"]
+    _verified_mode_slps, postgame_mode_unlock_readback = (
+        apply_postgame_mode_unlock(
+            members["SLPS_258.87"],
+            postgame_mode_contract,
+        )
+    )
+    postgame_mode_component = component.get("postgame_mode_unlock")
+    mode_site_fields = (
+        "id",
+        "surface",
+        "virtual_address",
+        "file_offset",
+        "original_instruction_hex",
+        "replacement_instruction_hex",
+        "output_instruction_hex",
+        "branch_target_preserved",
+    )
+    readback_mode_sites = postgame_mode_unlock_readback.get("patches")
+    component_mode_sites = (
+        postgame_mode_component.get("patches")
+        if isinstance(postgame_mode_component, dict)
+        else None
+    )
+    mode_color_fields = (
+        "id",
+        "surface",
+        "kind",
+        "virtual_address",
+        "file_offset",
+        "original_instruction_hex",
+        "replacement_instruction_hex",
+        "output_instruction_hex",
+        "replacement_immediate",
+        "opcode_and_registers_preserved",
+    )
+    readback_mode_colors = postgame_mode_unlock_readback.get(
+        "runtime_color_patches"
+    )
+    component_mode_colors = (
+        postgame_mode_component.get("runtime_color_patches")
+        if isinstance(postgame_mode_component, dict)
+        else None
+    )
+    mode_layout_fields = (
+        "id",
+        "surface",
+        "record_file_offset",
+        "text_file_offset",
+        "text_virtual_address",
+        "original_x",
+        "replacement_x",
+        "output_x",
+        "y",
+    )
+    readback_mode_layout = postgame_mode_unlock_readback.get(
+        "text_layout_patches"
+    )
+    component_mode_layout = (
+        postgame_mode_component.get("text_layout_patches")
+        if isinstance(postgame_mode_component, dict)
+        else None
+    )
+    if (
+        not isinstance(readback_mode_sites, list)
+        or not isinstance(component_mode_sites, list)
+        or [
+            tuple(site.get(field) for field in mode_site_fields)
+            for site in readback_mode_sites
+        ]
+        != [
+            tuple(site.get(field) for field in mode_site_fields)
+            for site in component_mode_sites
+        ]
+        or not isinstance(readback_mode_colors, list)
+        or not isinstance(component_mode_colors, list)
+        or [
+            tuple(site.get(field) for field in mode_color_fields)
+            for site in readback_mode_colors
+        ]
+        != [
+            tuple(site.get(field) for field in mode_color_fields)
+            for site in component_mode_colors
+        ]
+        or not isinstance(readback_mode_layout, list)
+        or not isinstance(component_mode_layout, list)
+        or [
+            tuple(site.get(field) for field in mode_layout_fields)
+            for site in readback_mode_layout
+        ]
+        != [
+            tuple(site.get(field) for field in mode_layout_fields)
+            for site in component_mode_layout
+        ]
+        or postgame_mode_unlock_readback["menu_modes"]
+        != ["NORMAL", "EX-HARD", "SP"]
+        or postgame_mode_unlock_readback["site_count"] != 6
+        or postgame_mode_unlock_readback[
+            "all_instruction_replacements_exact"
+        ]
+        is not True
+        or postgame_mode_unlock_readback["runtime_color_patch_count"] != 23
+        or postgame_mode_unlock_readback[
+            "all_runtime_color_retargets_exact"
+        ]
+        is not True
+        or postgame_mode_unlock_readback[
+            "localized_color_parameter_writes_retargeted"
+        ]
+        is not True
+        or postgame_mode_unlock_readback["selected_ex_special_color"]
+        != "0x01"
+        or postgame_mode_unlock_readback["selected_sp_special_color"]
+        != "0x04"
+        or postgame_mode_unlock_readback["text_layout_patch_count"] != 4
+        or postgame_mode_unlock_readback[
+            "all_text_layout_replacements_exact"
+        ]
+        is not True
+        or postgame_mode_unlock_readback["text_descriptor_y_preserved"]
+        is not True
+        or postgame_mode_unlock_readback["save_flag_reads_bypassed"] is not True
+        or postgame_mode_unlock_readback[
+            "save_writeback_functions_unchanged"
+        ]
+        is not True
+        or postgame_mode_unlock_readback["changed_byte_count"] != 0
+    ):
+        raise SystemExit("final ISO post-game mode unlock readback drift")
+    postgame_mode_unlock_readback["component_receipt_exact"] = True
     movement_type_contract = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )["runtime_movement_type_labels"]
@@ -6744,6 +6877,7 @@ def main() -> int:
         "issue_036_tutorial": issue_036_tutorial,
         "weapon_special_effect_2": weapon_effect_2_readback,
         "runtime_full_name_order": full_name_order_readback,
+        "postgame_mode_unlock": postgame_mode_unlock_readback,
         "runtime_movement_type_labels": movement_type_readback,
         "runtime_weapon_category_labels": weapon_category_readback,
         "search_tab_alignment": search_tab_alignment_readback,

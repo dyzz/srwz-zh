@@ -54,6 +54,10 @@ try:
         FullNameOrderError,
         apply_route_specific_full_name_order,
     )
+    from srwz.game_mode_unlock import (
+        GameModeUnlockError,
+        apply_postgame_mode_unlock,
+    )
     from srwz.movement_type_labels import (
         MovementTypeLabelError,
         apply_runtime_movement_type_labels,
@@ -222,6 +226,10 @@ except ModuleNotFoundError:
     from tools.srwz.full_name_order import (
         FullNameOrderError,
         apply_route_specific_full_name_order,
+    )
+    from tools.srwz.game_mode_unlock import (
+        GameModeUnlockError,
+        apply_postgame_mode_unlock,
     )
     from tools.srwz.movement_type_labels import (
         MovementTypeLabelError,
@@ -639,6 +647,7 @@ CONFIG_SECTION_IMPACTS = {
     "kvmdata": {KVMDATA_MEMBER},
     "world_map_titles": {MAPMODEL_MEMBER},
     "runtime_full_name_order": {SLPS_MEMBER},
+    "postgame_mode_unlock": {SLPS_MEMBER},
     "runtime_movement_type_labels": {SLPS_MEMBER},
     "dialogue_speaker_colors": {SLPS_MEMBER},
     "runtime_weapon_category_labels": {SLPS_MEMBER},
@@ -7178,7 +7187,7 @@ def _apply_scenario_title_geometry(
         or texture_y_bounds[1] > 256
         or texture_y_bounds[0] >= texture_y_bounds[1]
         or not isinstance(groups, list)
-        or len(groups) != 2
+        or not groups
     ):
         raise FullStoryComponentError("scenario title geometry policy drift")
 
@@ -7198,7 +7207,7 @@ def _apply_scenario_title_geometry(
             or not label
             or not isinstance(x_shift, int)
             or not isinstance(quads, list)
-            or len(quads) != 2
+            or not quads
         ):
             raise FullStoryComponentError("scenario title group policy drift")
         quad_reports = []
@@ -7207,9 +7216,13 @@ def _apply_scenario_title_geometry(
                 raise FullStoryComponentError("scenario title quad is invalid")
             try:
                 relative_offset = int(quad["relative_offset"], 0)
+                quad_x_shift = quad.get("x_shift", 0)
                 expected_x_bounds = tuple(quad["expected_x_bounds"])
                 expected_y_bounds = tuple(quad["expected_y_bounds"])
                 texture_x_bounds = tuple(quad["texture_x_bounds"])
+                quad_texture_y_bounds = tuple(
+                    quad.get("texture_y_bounds", texture_y_bounds)
+                )
             except (KeyError, TypeError, ValueError) as error:
                 raise FullStoryComponentError(
                     "scenario title quad values are malformed"
@@ -7218,12 +7231,15 @@ def _apply_scenario_title_geometry(
                 len(expected_x_bounds) != 2
                 or len(expected_y_bounds) != 2
                 or len(texture_x_bounds) != 2
+                or len(quad_texture_y_bounds) != 2
+                or not isinstance(quad_x_shift, int)
                 or not all(
                     isinstance(value, int)
                     for value in (
                         *expected_x_bounds,
                         *expected_y_bounds,
                         *texture_x_bounds,
+                        *quad_texture_y_bounds,
                     )
                 )
                 or relative_offset < 0
@@ -7231,6 +7247,9 @@ def _apply_scenario_title_geometry(
                 or texture_x_bounds[0] < 0
                 or texture_x_bounds[1] > 256
                 or texture_x_bounds[0] >= texture_x_bounds[1]
+                or quad_texture_y_bounds[0] < texture_y_bounds[0]
+                or quad_texture_y_bounds[1] > texture_y_bounds[1]
+                or quad_texture_y_bounds[0] >= quad_texture_y_bounds[1]
             ):
                 raise FullStoryComponentError(
                     "scenario title quad values are invalid"
@@ -7262,19 +7281,23 @@ def _apply_scenario_title_geometry(
                     _write_signed_short(
                         output,
                         coordinate_offset,
-                        _signed_short(decoded, coordinate_offset) + x_shift,
+                        _signed_short(decoded, coordinate_offset)
+                        + x_shift
+                        + quad_x_shift,
                     )
                     changed_ranges.append(
                         (coordinate_offset, coordinate_offset + 2)
                     )
             shifted_x_bounds = (
-                expected_x_bounds[0] + x_shift,
-                expected_x_bounds[1] + x_shift,
+                expected_x_bounds[0] + x_shift + quad_x_shift,
+                expected_x_bounds[1] + x_shift + quad_x_shift,
             )
             texture_start, texture_end = texture_x_bounds
             ink_xs = [
                 x
-                for y in range(texture_y_bounds[0], texture_y_bounds[1])
+                for y in range(
+                    quad_texture_y_bounds[0], quad_texture_y_bounds[1]
+                )
                 for x in range(texture_start, texture_end)
                 if logical[y * 256 + x]
             ]
@@ -7290,10 +7313,12 @@ def _apply_scenario_title_geometry(
             quad_reports.append(
                 {
                     "relative_offset": relative_offset,
+                    "x_shift": quad_x_shift,
                     "source_x_bounds": list(expected_x_bounds),
                     "target_x_bounds": list(shifted_x_bounds),
                     "y_bounds": list(expected_y_bounds),
                     "texture_x_bounds": list(texture_x_bounds),
+                    "texture_y_bounds": list(quad_texture_y_bounds),
                     "ink_x_bounds": list(ink_bounds),
                     "visible_x_bounds": list(visible_bounds),
                 }
@@ -10067,6 +10092,16 @@ def build(
         ) from error
 
     try:
+        output_slps, postgame_mode_unlock_report = apply_postgame_mode_unlock(
+            output_slps,
+            config["postgame_mode_unlock"],
+        )
+    except (KeyError, ValueError, GameModeUnlockError) as error:
+        raise FullStoryComponentError(
+            f"post-game mode unlock failed: {error}"
+        ) from error
+
+    try:
         output_slps, movement_type_label_report = (
             apply_runtime_movement_type_labels(
                 output_slps,
@@ -10573,6 +10608,7 @@ def build(
         "sound_select_default_unlock": sound_select_unlock_report,
         "library_default_unlock": library_default_unlock_report,
         "runtime_full_name_order": full_name_order_report,
+        "postgame_mode_unlock": postgame_mode_unlock_report,
         "runtime_movement_type_labels": movement_type_label_report,
         "dialogue_speaker_colors": dialogue_speaker_color_report,
         "runtime_weapon_category_labels": weapon_category_label_report,
@@ -10895,6 +10931,40 @@ def build(
                     "rand": "given_middle_dot_family",
                     "setsuko": "family_given",
                 }
+            ),
+            "postgame_ex_and_sp_rows_selectable": (
+                postgame_mode_unlock_report["menu_modes"]
+                == ["NORMAL", "EX-HARD", "SP"]
+                and postgame_mode_unlock_report["ex_row_retail_selectable"]
+                and postgame_mode_unlock_report["sp_dual_route_gate_removed"]
+                and postgame_mode_unlock_report["site_count"] == 6
+                and postgame_mode_unlock_report[
+                    "all_instruction_replacements_exact"
+                ]
+                and postgame_mode_unlock_report["runtime_color_patch_count"]
+                == 23
+                and postgame_mode_unlock_report[
+                    "all_runtime_color_retargets_exact"
+                ]
+                and postgame_mode_unlock_report[
+                    "localized_color_parameter_writes_retargeted"
+                ]
+                and postgame_mode_unlock_report["selected_ex_special_color"]
+                == "0x01"
+                and postgame_mode_unlock_report["selected_sp_special_color"]
+                == "0x04"
+                and postgame_mode_unlock_report["text_layout_patch_count"] == 4
+                and postgame_mode_unlock_report[
+                    "all_text_layout_replacements_exact"
+                ]
+                and postgame_mode_unlock_report[
+                    "text_descriptor_y_preserved"
+                ]
+                and postgame_mode_unlock_report["save_flag_reads_bypassed"]
+                and postgame_mode_unlock_report[
+                    "save_writeback_functions_unchanged"
+                ]
+                and postgame_mode_unlock_report["executable_size_preserved"]
             ),
             "runtime_movement_type_labels_simplified": (
                 movement_type_label_report["site_count"] == 2
