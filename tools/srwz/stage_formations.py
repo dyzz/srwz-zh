@@ -126,6 +126,25 @@ def has_stage_formation_pointer_owner(data: bytes, text_offset: int) -> bool:
     )
 
 
+def discover_stage_formation_pointer_owners(data: bytes) -> dict[int, int]:
+    """Return text-pointer offsets owned by validated formation records."""
+
+    owners = {}
+    for pointer_offset in range(16, len(data) - 15, 4):
+        text_address = struct.unpack_from("<I", data, pointer_offset)[0]
+        text_offset = text_address - STAGE_BASE_ADDRESS
+        if (
+            0 <= text_offset < len(data)
+            and _is_stage_formation_pointer_record(
+                data,
+                pointer_offset,
+                text_address,
+            )
+        ):
+            owners[pointer_offset] = text_offset
+    return owners
+
+
 def _stage_formation_pointer_targets(data: bytes) -> frozenset[int]:
     """Return decoded name offsets owned by formation pointer records."""
 

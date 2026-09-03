@@ -18,6 +18,7 @@ from srwz.chinese_layout import fit_chinese_dialogue_layout
 from srwz.diagnostics import require_work_output
 from srwz.font import sha256_bytes
 from srwz.release_font_policy import DEFAULT_WIDTH_CLASS, allocation_width_class
+from srwz.runtime_keywords import discover_stage_keyword_pointer_owners
 from srwz.iso9660 import SECTOR_SIZE, member_map, scan_iso9660
 from srwz.iso_layout import ExecutableOffsetSpec, read_executable_archive_offsets
 from srwz.stage import (
@@ -26,6 +27,7 @@ from srwz.stage import (
     read_stage_function_addresses,
 )
 from srwz.story_quotes import evaluate_story_quote
+from srwz.stage_formations import discover_stage_formation_pointer_owners
 from srwz.text import (
     decode_text,
     encode_text,
@@ -36,6 +38,8 @@ from srwz.text import (
 )
 from srwz.writeback import rebuild_aligned_archive
 from srwz.writers import (
+    PreparedStageMessageEncoders,
+    StageExactAddressContract,
     build_executable_offset_patch_plan,
     repack_stage_texts_in_place,
 )
@@ -154,6 +158,116 @@ def _runtime_keyword_catalog(reference: Mapping[str, object]) -> dict[str, str]:
     if indices != set(range(52)):
         raise SystemExit("runtime-keyword catalog slots must be exactly 0..51")
     return by_source
+
+
+def _config_int(value: object, *, label: str) -> int:
+    if isinstance(value, int) and not isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        try:
+            return int(value, 0)
+        except ValueError as error:
+            raise SystemExit(f"{label} is not an integer") from error
+    raise SystemExit(f"{label} is not an integer")
+
+
+def _stage_repack_nonpointer_contracts(
+    reference: object,
+) -> tuple[dict[int, tuple[dict[str, object], ...]], dict[str, int]]:
+    if not isinstance(reference, dict):
+        raise SystemExit("stage repack ownership policy is missing")
+    raw_contracts = reference.get("preserved_nonpointer_candidates")
+    expected_counts = reference.get("expected_exact_address_owner_counts")
+    if not isinstance(raw_contracts, list) or not isinstance(expected_counts, dict):
+        raise SystemExit("stage repack ownership policy is malformed")
+    if (
+        set(expected_counts)
+        != {
+            "runtime_keyword_pointer",
+            "stage_formation_pointer",
+            "stage_u16_table_nonpointer",
+        }
+        or any(
+            not isinstance(count, int) or isinstance(count, bool) or count < 0
+            for count in expected_counts.values()
+        )
+    ):
+        raise SystemExit("stage repack ownership expected counts are invalid")
+
+    by_stage: dict[int, list[dict[str, object]]] = {}
+    seen = set()
+    for index, row in enumerate(raw_contracts):
+        if not isinstance(row, dict) or set(row) != {
+            "stage_index",
+            "pointer_offset",
+            "target_offset",
+            "owner",
+            "context_offset",
+            "context_hex",
+        }:
+            raise SystemExit(
+                f"stage repack nonpointer contract {index} is malformed"
+            )
+        stage_index = _config_int(
+            row["stage_index"],
+            label=f"stage repack nonpointer contract {index} stage_index",
+        )
+        pointer_offset = _config_int(
+            row["pointer_offset"],
+            label=f"stage repack nonpointer contract {index} pointer_offset",
+        )
+        target_offset = _config_int(
+            row["target_offset"],
+            label=f"stage repack nonpointer contract {index} target_offset",
+        )
+        context_offset = _config_int(
+            row["context_offset"],
+            label=f"stage repack nonpointer contract {index} context_offset",
+        )
+        owner = row["owner"]
+        context_hex = row["context_hex"]
+        try:
+            context = bytes.fromhex(context_hex)
+        except (TypeError, ValueError) as error:
+            raise SystemExit(
+                f"stage repack nonpointer contract {index} context is invalid"
+            ) from error
+        relative_pointer = pointer_offset - context_offset
+        if (
+            stage_index < 0
+            or pointer_offset < 0
+            or pointer_offset % 4
+            or target_offset < 0
+            or context_offset < 0
+            or not isinstance(owner, str)
+            or owner != "stage_u16_table_nonpointer"
+            or len(context) < 16
+            or relative_pointer < 0
+            or relative_pointer + 4 > len(context)
+            or context[relative_pointer : relative_pointer + 4]
+            != struct.pack("<I", STAGE_BASE_ADDRESS + target_offset)
+            or (stage_index, pointer_offset) in seen
+        ):
+            raise SystemExit(
+                f"stage repack nonpointer contract {index} is invalid"
+            )
+        seen.add((stage_index, pointer_offset))
+        by_stage.setdefault(stage_index, []).append(
+            {
+                "pointer_offset": pointer_offset,
+                "target_offset": target_offset,
+                "owner": owner,
+                "context_offset": context_offset,
+                "context": context,
+            }
+        )
+    return (
+        {
+            stage: tuple(rows)
+            for stage, rows in sorted(by_stage.items())
+        },
+        dict(expected_counts),
+    )
 
 
 def _validate_runtime_keywords(
@@ -402,7 +516,7 @@ def _load_z_reports(
 
 
 def _discover_z_reports(
-    source_chunks: list[bytes],
+    decoded_chunks: list[bytes],
     table,
     entries_by_source: Mapping[str, dict],
     reference: Mapping[str, object],
@@ -412,8 +526,7 @@ def _discover_z_reports(
     by_stage: dict[int, list[dict]] = {}
     inventory = []
     unknown_sources = set()
-    for stage_index, source_chunk in enumerate(source_chunks):
-        data = decode(source_chunk).output
+    for stage_index, data in enumerate(decoded_chunks):
         for record_offset in range(0, len(data) - 15, 4):
             if (
                 struct.unpack_from("<III", data, record_offset)
@@ -607,7 +720,7 @@ def _write_z_reports(
 
 
 def _discover_story_tickers(
-    source_chunks: list[bytes],
+    decoded_chunks: list[bytes],
     table,
     entries_by_source: Mapping[str, dict],
     reference: Mapping[str, object],
@@ -628,8 +741,7 @@ def _discover_story_tickers(
     unknown_sources = set()
     allocation_size = 140
     japanese = re.compile(r"[\u3040-\u30ff\u3400-\u9fff]")
-    for stage_index, source_chunk in enumerate(source_chunks):
-        data = decode(source_chunk).output
+    for stage_index, data in enumerate(decoded_chunks):
         for offset in range(12, len(data), 4):
             if offset + allocation_size > len(data):
                 continue
@@ -937,6 +1049,10 @@ def build(
         for stage, path in stage_files.items()
     }
     keyword_catalog = _runtime_keyword_catalog(translations["runtime_keywords"])
+    (
+        repack_nonpointer_contracts,
+        expected_exact_address_owner_counts,
+    ) = _stage_repack_nonpointer_contracts(config.get("stage_repack_ownership"))
     font = config["font"]
     proposal_path = _project_path(font["proposal"])
     allocation_path = _project_path(font["allocation_registry"])
@@ -949,6 +1065,7 @@ def build(
     )
     table = load_text_table(table_path)
     overrides.update(original_fullwidth_ascii_overrides(table))
+    stage_message_encoders = PreparedStageMessageEncoders(table, overrides)
 
     codec = config["codec"]
     if (
@@ -975,14 +1092,20 @@ def build(
         source_stage[offsets[index] : offsets[index + 1]]
         for index in range(len(offsets) - 1)
     ]
+    # Every source chunk is needed by the full-archive ticker and Z Report
+    # inventories.  Keep the immutable Rust decode result for the later
+    # coverage checks, per-stage rewrite, and compressor preimage instead of
+    # launching a fresh codec process at each consumer.
+    source_decodes = [decode(source_chunk) for source_chunk in source_chunks]
+    decoded_source_chunks = [result.output for result in source_decodes]
     tickers_by_stage, ticker_inventory = _discover_story_tickers(
-        source_chunks,
+        decoded_source_chunks,
         table,
         ticker_entries_by_source,
         translations["tickers"],
     )
     z_reports_by_stage, z_report_inventory = _discover_z_reports(
-        source_chunks,
+        decoded_source_chunks,
         table,
         z_report_entries_by_source,
         translations["z_reports"],
@@ -997,7 +1120,7 @@ def build(
     tutorial_source_names = {}
     for raw_stage, expected_name in tutorial_binding["stage_names"].items():
         stage_index = int(raw_stage)
-        decoded_stage = decode(source_chunks[stage_index]).output
+        decoded_stage = decoded_source_chunks[stage_index]
         raw_name = decoded_stage[0x30:0x50].split(b"\0", 1)[0]
         try:
             source_name = raw_name.decode("ascii")
@@ -1010,7 +1133,7 @@ def build(
         tutorial_source_names[raw_stage] = source_name
     missing = []
     for stage_index in sorted(set(range(len(source_chunks))) - stages):
-        source_output = decode(source_chunks[stage_index]).output
+        source_output = decoded_source_chunks[stage_index]
         if parse_stage(
             source_output,
             table,
@@ -1025,7 +1148,7 @@ def build(
         )
 
     def build_stage(stage: int) -> tuple[int, bytes, dict]:
-        decoded = decode(source_chunks[stage])
+        decoded = source_decodes[stage]
         parsed_source = parse_stage(
             decoded.output,
             table,
@@ -1115,14 +1238,94 @@ def build(
                     f"translation={translation!r}"
                 )
         replacements = {**fitted_dialogue, **stage_conditions}
+        selected_source_offsets = {
+            entry.text_offset
+            for entry in parsed_source.entries
+            if entry.kind in {"dialogue", "condition"}
+            and entry.pointer_offset is not None
+            and entry.text_offset is not None
+        }
+        exact_address_contracts = {}
+
+        def add_exact_address_contract(
+            pointer_offset: int,
+            target_offset: int,
+            owner: str,
+            action: str,
+        ) -> None:
+            if target_offset not in selected_source_offsets:
+                return
+            contract = StageExactAddressContract(
+                pointer_offset=pointer_offset,
+                target_offset=target_offset,
+                owner=owner,
+                action=action,
+            )
+            previous = exact_address_contracts.setdefault(
+                pointer_offset,
+                contract,
+            )
+            if previous != contract:
+                raise SystemExit(
+                    f"stage {stage:03d} exact-address owner conflict at "
+                    f"0x{pointer_offset:X}"
+                )
+
+        for pointer_offset, target_offset in (
+            discover_stage_keyword_pointer_owners(
+                decoded.output,
+                table,
+                tuple(keyword_catalog),
+                runtime_base=STAGE_BASE_ADDRESS,
+            ).items()
+        ):
+            add_exact_address_contract(
+                pointer_offset,
+                target_offset,
+                "runtime_keyword_pointer",
+                "rewrite_alias",
+            )
+        for pointer_offset, target_offset in (
+            discover_stage_formation_pointer_owners(decoded.output).items()
+        ):
+            add_exact_address_contract(
+                pointer_offset,
+                target_offset,
+                "stage_formation_pointer",
+                "rewrite_alias",
+            )
+        for row in repack_nonpointer_contracts.get(stage, ()):
+            context_offset = int(row["context_offset"])
+            context = row["context"]
+            assert isinstance(context, bytes)
+            if (
+                context_offset + len(context) > len(decoded.output)
+                or decoded.output[
+                    context_offset : context_offset + len(context)
+                ]
+                != context
+            ):
+                raise SystemExit(
+                    f"stage {stage:03d} nonpointer ownership preimage drift at "
+                    f"0x{int(row['pointer_offset']):X}"
+                )
+            add_exact_address_contract(
+                int(row["pointer_offset"]),
+                int(row["target_offset"]),
+                str(row["owner"]),
+                "preserve_nonpointer",
+            )
         write = repack_stage_texts_in_place(
             decoded.output,
             table,
             stage_index=stage,
             function_address=functions[stage],
             replacements=replacements,
+            parsed_source=parsed_source,
             speaker_replacements=speakers[stage],
             overrides=overrides,
+            message_encoders=stage_message_encoders,
+            exact_address_contracts=exact_address_contracts.values(),
         )
         stage_data, ticker_report = _write_story_tickers(
             write.data,
@@ -1191,7 +1394,7 @@ def build(
         }
 
     def build_auxiliary_only_stage(stage: int) -> tuple[int, bytes, dict]:
-        decoded = decode(source_chunks[stage])
+        decoded = source_decodes[stage]
         stage_data, ticker_report = _write_story_tickers(
             decoded.output,
             table,
@@ -1269,6 +1472,19 @@ def build(
             for source_hash in item["runtime_keyword_source_hashes"]
         }
     )
+    exact_address_owner_counts = Counter(
+        contract["owner"]
+        for item in stage_reports
+        for contract in item["exact_address_contracts"]
+    )
+    if dict(sorted(exact_address_owner_counts.items())) != dict(
+        sorted(expected_exact_address_owner_counts.items())
+    ):
+        raise SystemExit(
+            "stage exact-address ownership coverage drift: "
+            f"actual={dict(sorted(exact_address_owner_counts.items()))} "
+            f"expected={dict(sorted(expected_exact_address_owner_counts.items()))}"
+        )
     all_auxiliary_reports = [*stage_reports, *auxiliary_only_stage_reports]
     all_ticker_reports = all_auxiliary_reports
     story_ticker_count = sum(
@@ -1446,6 +1662,10 @@ def build(
         "runtime_keyword_links_exact": all(
             item["runtime_keyword_links_exact"] for item in stage_reports
         ),
+        "exact_address_owner_counts": dict(
+            sorted(exact_address_owner_counts.items())
+        ),
+        "exact_address_ownership_complete": True,
         "story_ticker_count": story_ticker_count,
         "story_ticker_source_count": len(story_ticker_source_hashes),
         "story_ticker_source_hashes": story_ticker_source_hashes,

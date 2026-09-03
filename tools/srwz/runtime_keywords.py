@@ -218,6 +218,67 @@ def _allocation_end(decoded: bytes, text_end: int) -> int:
     return end
 
 
+def discover_stage_keyword_pointer_owners(
+    data: bytes,
+    source_table: TextTable,
+    source_terms: Sequence[str],
+    *,
+    runtime_base: int,
+) -> dict[int, int]:
+    """Return structurally owned pointer fields from embedded keyword rows.
+
+    A row is accepted only when its WORD pointer targets an approved source
+    term and all four WORD/SRCE/DSCR/DSC2 pointers resolve inside the decoded
+    STAGE chunk.  The returned mapping is suitable for granting the story
+    repacker typed ownership of exact-address aliases without reviving a raw
+    whole-chunk pointer scan.
+    """
+
+    encoder = PreparedTextEncoder(source_table)
+    owners: dict[int, int] = {}
+    for source_term in source_terms:
+        source_payload = encoder.encode(source_term, terminate=True)
+        source_offset = 0
+        while True:
+            source_offset = data.find(source_payload, source_offset)
+            if source_offset < 0:
+                break
+            pointer_bytes = struct.pack("<I", runtime_base + source_offset)
+            row_offset = 0
+            while True:
+                row_offset = data.find(pointer_bytes, row_offset)
+                if row_offset < 0:
+                    break
+                if row_offset % 4 == 0 and row_offset + 16 <= len(data):
+                    pointers = struct.unpack_from("<4I", data, row_offset)
+                    field_offsets = tuple(
+                        pointer - runtime_base for pointer in pointers
+                    )
+                    if (
+                        field_offsets[0] == source_offset
+                        and all(0 <= offset < len(data) for offset in field_offsets)
+                    ):
+                        try:
+                            word = decode_text(data, field_offsets[0], source_table)
+                        except ValueError:
+                            word = None
+                        if word is not None and word.text == source_term:
+                            for field_index, target_offset in enumerate(field_offsets):
+                                pointer_offset = row_offset + field_index * 4
+                                previous = owners.setdefault(
+                                    pointer_offset,
+                                    target_offset,
+                                )
+                                if previous != target_offset:
+                                    raise RuntimeKeywordError(
+                                        "embedded STAGE keyword pointer ownership "
+                                        f"conflict at 0x{pointer_offset:X}"
+                                    )
+                row_offset += 1
+            source_offset += 1
+    return dict(sorted(owners.items()))
+
+
 def _discover_embedded_inventory(
     original_stage: bytes,
     hb: bytes,
@@ -1116,5 +1177,6 @@ __all__ = [
     "RuntimeKeywordError",
     "apply_compdata_keyword_names",
     "apply_stage_keyword_popups",
+    "discover_stage_keyword_pointer_owners",
     "load_keyword_authority",
 ]

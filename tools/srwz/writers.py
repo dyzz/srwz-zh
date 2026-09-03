@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import struct
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Iterable, Mapping
 
 from .codec import decode_production as decode, encode
@@ -11,6 +11,7 @@ from .iso_layout import ExecutableOffsetSpec
 from .menu import MenuParseResult
 from .stage import (
     STAGE_BASE_ADDRESS,
+    StageParseResult,
     parse_stage,
     parse_stage_system_dialogues,
 )
@@ -60,29 +61,20 @@ def _stage_keyword_span_count(text: str, *, label: str) -> int:
     return count
 
 
-def encode_stage_message(
+def _stage_message_variant(
     table: TextTable,
-    overrides: Mapping[str, int] | None,
     *,
     entry_id: str,
     source_text: str,
     replacement: str,
-    terminate: bool = False,
-) -> bytes:
-    """Encode one STAGE message while preserving source glossary links.
+) -> tuple[bool, bool]:
+    """Validate STAGE-only tokens and select the required encoder variant."""
 
-    In STAGE dialogue, source codes 0x8173/0x8174 are semantic keyword-link
-    delimiters.  They decode as ``《``/``》`` but are not ordinary visible book
-    title brackets.  Localized font overrides may assign those Unicode
-    characters to unrelated drawable slots, so keyword-bearing source records
-    must force the original codes back into the translated message.
-    """
-
-    message_overrides = dict(overrides or {})
-    if (
+    runtime_name_placeholder = (
         "/condition/" in entry_id
         and STAGE_RUNTIME_NAME_PLACEHOLDER in source_text
-    ):
+    )
+    if runtime_name_placeholder:
         source_placeholder_count = source_text.count(
             STAGE_RUNTIME_NAME_PLACEHOLDER
         )
@@ -95,6 +87,142 @@ def encode_stage_message(
                 f"source={source_placeholder_count}, "
                 f"replacement={replacement_placeholder_count}"
             )
+
+    source_keyword_count = _stage_keyword_span_count(
+        source_text,
+        label=f"{entry_id} source text",
+    )
+    if source_keyword_count == 0:
+        return runtime_name_placeholder, False
+
+    replacement_keyword_count = _stage_keyword_span_count(
+        replacement,
+        label=f"{entry_id} replacement",
+    )
+    if replacement_keyword_count != source_keyword_count:
+        raise WritebackError(
+            f"{entry_id} STAGE keyword marker count mismatch: "
+            f"source={source_keyword_count}, "
+            f"replacement={replacement_keyword_count}"
+        )
+    for character, code in STAGE_KEYWORD_CODES.items():
+        if table.characters.get(code) != character:
+            raise WritebackError(
+                f"{entry_id} source table does not map STAGE keyword code "
+                f"0x{code:04X} to {character!r}"
+            )
+    return runtime_name_placeholder, True
+
+
+@dataclass(frozen=True)
+class PreparedStageMessageEncoders:
+    """Reusable validated encoders for the four STAGE token variants."""
+
+    table: TextTable
+    overrides: Mapping[str, int] | None = field(
+        default=None,
+        repr=False,
+        compare=False,
+    )
+    standard: PreparedTextEncoder = field(init=False, repr=False)
+    runtime_name: PreparedTextEncoder = field(init=False, repr=False)
+    keyword: PreparedTextEncoder = field(init=False, repr=False)
+    runtime_name_keyword: PreparedTextEncoder = field(init=False, repr=False)
+
+    def __post_init__(self) -> None:
+        standard = PreparedTextEncoder(self.table, self.overrides)
+
+        def derived(extra: Mapping[str, int]) -> PreparedTextEncoder:
+            combined = dict(standard.overrides)
+            combined.update(extra)
+            return PreparedTextEncoder(self.table, combined)
+
+        object.__setattr__(self, "standard", standard)
+        object.__setattr__(
+            self,
+            "runtime_name",
+            derived(
+                {
+                    STAGE_RUNTIME_NAME_PLACEHOLDER: (
+                        STAGE_RUNTIME_NAME_PLACEHOLDER_CODE
+                    )
+                }
+            ),
+        )
+        object.__setattr__(self, "keyword", derived(STAGE_KEYWORD_CODES))
+        object.__setattr__(
+            self,
+            "runtime_name_keyword",
+            derived(
+                {
+                    **STAGE_KEYWORD_CODES,
+                    STAGE_RUNTIME_NAME_PLACEHOLDER: (
+                        STAGE_RUNTIME_NAME_PLACEHOLDER_CODE
+                    ),
+                }
+            ),
+        )
+
+    def encode(
+        self,
+        *,
+        entry_id: str,
+        source_text: str,
+        replacement: str,
+        terminate: bool = False,
+    ) -> bytes:
+        runtime_name_placeholder, keyword = _stage_message_variant(
+            self.table,
+            entry_id=entry_id,
+            source_text=source_text,
+            replacement=replacement,
+        )
+        if runtime_name_placeholder and keyword:
+            encoder = self.runtime_name_keyword
+        elif runtime_name_placeholder:
+            encoder = self.runtime_name
+        elif keyword:
+            encoder = self.keyword
+        else:
+            encoder = self.standard
+        return encoder.encode(replacement, terminate=terminate)
+
+
+def encode_stage_message(
+    table: TextTable,
+    overrides: Mapping[str, int] | None,
+    *,
+    entry_id: str,
+    source_text: str,
+    replacement: str,
+    terminate: bool = False,
+    prepared_encoders: PreparedStageMessageEncoders | None = None,
+) -> bytes:
+    """Encode one STAGE message while preserving source glossary links.
+
+    In STAGE dialogue, source codes 0x8173/0x8174 are semantic keyword-link
+    delimiters.  They decode as ``《``/``》`` but are not ordinary visible book
+    title brackets.  Localized font overrides may assign those Unicode
+    characters to unrelated drawable slots, so keyword-bearing source records
+    must force the original codes back into the translated message.
+    """
+
+    if prepared_encoders is not None:
+        return prepared_encoders.encode(
+            entry_id=entry_id,
+            source_text=source_text,
+            replacement=replacement,
+            terminate=terminate,
+        )
+
+    runtime_name_placeholder, keyword = _stage_message_variant(
+        table,
+        entry_id=entry_id,
+        source_text=source_text,
+        replacement=replacement,
+    )
+    message_overrides = dict(overrides or {})
+    if runtime_name_placeholder:
         # A raw ASCII colon is a runtime pilot-name substitution token in
         # STAGE condition strings.  The release-wide visible-ASCII mapping
         # normally projects ':' to a two-byte glyph, which looks similar but
@@ -103,31 +231,11 @@ def encode_stage_message(
             STAGE_RUNTIME_NAME_PLACEHOLDER_CODE
         )
 
-    source_count = _stage_keyword_span_count(
-        source_text,
-        label=f"{entry_id} source text",
-    )
-    if source_count == 0:
+    if not keyword:
         return PreparedTextEncoder(table, message_overrides).encode(
             replacement,
             terminate=terminate,
         )
-
-    replacement_count = _stage_keyword_span_count(
-        replacement,
-        label=f"{entry_id} replacement",
-    )
-    if replacement_count != source_count:
-        raise WritebackError(
-            f"{entry_id} STAGE keyword marker count mismatch: "
-            f"source={source_count}, replacement={replacement_count}"
-        )
-    for character, code in STAGE_KEYWORD_CODES.items():
-        if table.characters.get(code) != character:
-            raise WritebackError(
-                f"{entry_id} source table does not map STAGE keyword code "
-                f"0x{code:04X} to {character!r}"
-            )
     keyword_overrides = dict(message_overrides)
     keyword_overrides.update(STAGE_KEYWORD_CODES)
     return PreparedTextEncoder(table, keyword_overrides).encode(
@@ -235,6 +343,24 @@ class StageBatchAllocation:
 
 
 @dataclass(frozen=True)
+class StageExactAddressContract:
+    """Typed ownership for a word equal to one parsed STAGE text address."""
+
+    pointer_offset: int
+    target_offset: int
+    owner: str
+    action: str
+
+    def to_metadata(self) -> dict:
+        return {
+            "pointer_offset": self.pointer_offset,
+            "target_offset": self.target_offset,
+            "owner": self.owner,
+            "action": self.action,
+        }
+
+
+@dataclass(frozen=True)
 class StageBatchWrite:
     data: bytes
     stage_index: int
@@ -245,6 +371,7 @@ class StageBatchWrite:
     owned_regions: tuple[tuple[int, int], ...] = ()
     unique_payload_count: int = 0
     source_dialogue_count: int = 0
+    exact_address_contracts: tuple[StageExactAddressContract, ...] = ()
 
     @property
     def decoded_growth(self) -> int:
@@ -268,6 +395,11 @@ class StageBatchWrite:
             ],
             "owned_capacity": sum(end - start for start, end in self.owned_regions),
             "unique_payload_count": self.unique_payload_count,
+            "exact_address_contracts": [
+                contract.to_metadata()
+                for contract in self.exact_address_contracts
+            ],
+            "exact_address_contract_count": len(self.exact_address_contracts),
             "allocation_count": len(self.allocations),
             "allocations": [
                 allocation.to_metadata() for allocation in self.allocations
@@ -1141,8 +1273,11 @@ def repack_stage_texts_in_place(
     stage_index: int,
     function_address: int,
     replacements: Mapping[str, str],
+    parsed_source: StageParseResult | None = None,
     speaker_replacements: Mapping[int, str] | None = None,
     overrides: Mapping[str, int] | None = None,
+    message_encoders: PreparedStageMessageEncoders | None = None,
+    exact_address_contracts: Iterable[StageExactAddressContract] = (),
     alignment: int = 16,
     base_address: int = STAGE_BASE_ADDRESS,
 ) -> StageBatchWrite:
@@ -1159,13 +1294,21 @@ def repack_stage_texts_in_place(
         raise ValueError("stage pool alignment must be a power of two")
     if not replacements:
         raise WritebackError("stage in-place replacements are empty")
-    parsed = parse_stage(
-        data,
-        table,
-        stage_index=stage_index,
-        function_address=function_address,
-        base_address=base_address,
-    )
+    if parsed_source is None:
+        parsed = parse_stage(
+            data,
+            table,
+            stage_index=stage_index,
+            function_address=function_address,
+            base_address=base_address,
+        )
+    else:
+        if (
+            parsed_source.stage_index != stage_index
+            or parsed_source.decoded_size != len(data)
+        ):
+            raise ValueError("parsed STAGE source context mismatch")
+        parsed = parsed_source
     relocatable = {
         entry.entry_id: entry
         for entry in parsed.entries
@@ -1206,7 +1349,11 @@ def repack_stage_texts_in_place(
     if unknown_speakers:
         raise WritebackError(f"unknown stage speaker ids: {unknown_speakers!r}")
 
-    encoder = PreparedTextEncoder(table, overrides)
+    if message_encoders is None:
+        message_encoders = PreparedStageMessageEncoders(table, overrides)
+    elif message_encoders.table is not table or message_encoders.overrides is not overrides:
+        raise ValueError("prepared STAGE message encoder context mismatch")
+    encoder = message_encoders.standard
     records = []
     source_regions = []
     for entry in selected:
@@ -1254,9 +1401,18 @@ def repack_stage_texts_in_place(
             source_text=message.text,
             replacement=replacement,
             terminate=True,
+            prepared_encoders=message_encoders,
+        )
+        # A parsed string owns only the zero padding in its original aligned
+        # slot.  A longer run of zeroes can belong to an adjacent table or an
+        # unparsed runtime structure and must not silently become text-pool
+        # capacity.
+        aligned_end = min(
+            len(data),
+            (source_end + alignment - 1) & ~(alignment - 1),
         )
         slack_end = source_end
-        while slack_end < len(data) and data[slack_end] == 0:
+        while slack_end < aligned_end and data[slack_end] == 0:
             slack_end += 1
         source_regions.append((entry.text_offset, slack_end))
         records.append(
@@ -1276,26 +1432,83 @@ def repack_stage_texts_in_place(
     if not owned_regions:
         raise WritebackError("stage in-place repack has no owned regions")
 
-    # Repoint exact aliases of a parsed source string together with its
-    # dialogue records. Do not treat arbitrary words that merely resolve
-    # inside a text span as pointers: aligned CP932 text routinely forms such
-    # values by coincidence. Parser completeness is enforced structurally
-    # before this ownership pass.
+    # Do not infer pointer ownership from a matching 32-bit value.  Real
+    # cross-owner aliases may be rewritten only through an exact typed contract;
+    # proven non-pointer words may be preserved through the same mechanism.
+    # Anything else remains a fail-closed error.
     selected_pointer_offsets = set(pointer_offsets)
     selected_source_offsets = {entry.text_offset for entry in selected}
-    alias_pointer_offsets: dict[int, list[int]] = {}
+    contracts_by_offset = {}
+    for contract in exact_address_contracts:
+        if not isinstance(contract, StageExactAddressContract):
+            raise WritebackError("stage exact-address contract has invalid type")
+        if (
+            contract.pointer_offset < 0
+            or contract.pointer_offset % 4
+            or contract.pointer_offset + 4 > len(data)
+            or contract.target_offset not in selected_source_offsets
+            or not contract.owner
+            or contract.action not in {"rewrite_alias", "preserve_nonpointer"}
+            or contract.pointer_offset in selected_pointer_offsets
+            or any(
+                start <= contract.pointer_offset < end
+                for start, end in owned_regions
+            )
+        ):
+            raise WritebackError(
+                f"stage {stage_index:03d} exact-address contract is invalid at "
+                f"0x{contract.pointer_offset:X}"
+            )
+        actual_target = (
+            struct.unpack_from("<I", data, contract.pointer_offset)[0]
+            - base_address
+        )
+        if actual_target != contract.target_offset:
+            raise WritebackError(
+                f"stage {stage_index:03d} exact-address contract preimage "
+                f"mismatch at 0x{contract.pointer_offset:X}"
+            )
+        if contract.pointer_offset in contracts_by_offset:
+            raise WritebackError(
+                f"stage {stage_index:03d} has duplicate exact-address "
+                f"contract at 0x{contract.pointer_offset:X}"
+            )
+        contracts_by_offset[contract.pointer_offset] = contract
+
+    untyped_alias_candidates = []
+    observed_contract_offsets = set()
     for pointer_offset in range(0, len(data) - 3, 4):
         if any(start <= pointer_offset < end for start, end in owned_regions):
+            continue
+        if pointer_offset in selected_pointer_offsets:
             continue
         target_offset = (
             struct.unpack_from("<I", data, pointer_offset)[0] - base_address
         )
-        if any(start <= target_offset < end for start, end in owned_regions):
-            if pointer_offset not in selected_pointer_offsets:
-                if target_offset in selected_source_offsets:
-                    alias_pointer_offsets.setdefault(target_offset, []).append(
-                        pointer_offset
-                    )
+        if target_offset in selected_source_offsets:
+            contract = contracts_by_offset.get(pointer_offset)
+            if contract is None or contract.target_offset != target_offset:
+                untyped_alias_candidates.append((pointer_offset, target_offset))
+            else:
+                observed_contract_offsets.add(pointer_offset)
+    if untyped_alias_candidates:
+        detail = ", ".join(
+            f"0x{pointer_offset:X}->0x{target_offset:X}"
+            for pointer_offset, target_offset in untyped_alias_candidates
+        )
+        raise WritebackError(
+            f"stage {stage_index:03d} has untyped exact-address candidates: "
+            f"{detail}; automatic STAGE alias rewriting is disabled"
+        )
+    unused_contract_offsets = sorted(
+        set(contracts_by_offset) - observed_contract_offsets
+    )
+    if unused_contract_offsets:
+        detail = ", ".join(f"0x{offset:X}" for offset in unused_contract_offsets)
+        raise WritebackError(
+            f"stage {stage_index:03d} exact-address contracts were not "
+            f"observed: {detail}"
+        )
     pools = [
         AllocationPool(
             owner=f"stage {stage_index:03d} text region {index}",
@@ -1343,24 +1556,26 @@ def repack_stage_texts_in_place(
     placements_by_source: dict[int, set[int]] = {}
     for (source_offset, _payload), position in placements.items():
         placements_by_source.setdefault(source_offset, set()).add(position)
-    for source_offset, aliases in alias_pointer_offsets.items():
-        source_placements = placements_by_source.get(source_offset, set())
+    for contract in contracts_by_offset.values():
+        if contract.action != "rewrite_alias":
+            continue
+        source_placements = placements_by_source.get(
+            contract.target_offset,
+            set(),
+        )
         if len(source_placements) != 1:
             raise WritebackError(
-                f"stage {stage_index:03d} direct-pointer alias has "
-                f"ambiguous replacement at source 0x{source_offset:X}"
+                f"stage {stage_index:03d} typed alias {contract.owner!r} has "
+                f"ambiguous replacement for source 0x{contract.target_offset:X}"
             )
-        replacement_offset = next(iter(source_placements))
-        for pointer_offset in aliases:
-            struct.pack_into(
-                "<I",
-                output,
-                pointer_offset,
-                base_address + replacement_offset,
-            )
+        struct.pack_into(
+            "<I",
+            output,
+            contract.pointer_offset,
+            base_address + next(iter(source_placements)),
+        )
 
     allocations = []
-    expected_speakers = {}
     for record in records:
         entry = record["entry"]
         key = (entry.text_offset, record["payload"])
@@ -1380,33 +1595,37 @@ def repack_stage_texts_in_place(
                 payload_size=len(record["payload"]),
             )
         )
-        expected_speakers[entry.entry_id] = record["expected_speaker"]
-
     rebuilt = bytes(output)
     if len(rebuilt) != len(data):
         raise WritebackError("stage in-place repack changed decoded size")
     output_table = _table_with_overrides(table, overrides)
-    reparsed = parse_stage(
-        rebuilt,
-        output_table,
-        stage_index=stage_index,
-        function_address=function_address,
-        base_address=base_address,
-    )
-    actual_messages = {entry.entry_id: entry.text for entry in reparsed.entries}
     for allocation in allocations:
-        expected_message = replacements[allocation.entry_id]
-        if actual_messages.get(allocation.entry_id) != expected_message:
+        actual_address = struct.unpack_from(
+            "<I",
+            rebuilt,
+            allocation.pointer_offset,
+        )[0]
+        if actual_address != base_address + allocation.arena_offset:
             raise WritebackError(
-                f"{allocation.entry_id} reparse mismatch after in-place "
-                f"repack: expected {expected_message!r}, got "
-                f"{actual_messages.get(allocation.entry_id)!r}"
+                f"{allocation.entry_id} pointer reread mismatch after "
+                "in-place repack"
             )
-        expected_speaker = expected_speakers[allocation.entry_id]
+
+    # The full STAGE parser already established the source structure above.
+    # Reread only each unique allocation written by this transform: this still
+    # proves the pointer, speaker, message, terminator, and payload boundary,
+    # without rediscovering every untouched block in the stage a second time.
+    for key, group in grouped.items():
+        position = placements[key]
+        payload = key[1]
+        representative = group[0]
+        entry = representative["entry"]
+        expected_speaker = representative["expected_speaker"]
+        message_offset = position
         if expected_speaker is not None:
             actual_speaker = decode_text(
                 rebuilt,
-                allocation.arena_offset,
+                position,
                 output_table,
                 stop_at_newline=True,
             )
@@ -1414,7 +1633,24 @@ def repack_stage_texts_in_place(
                 actual_speaker.terminator != "newline"
                 or actual_speaker.text != expected_speaker
             ):
-                raise WritebackError(f"{allocation.entry_id} speaker reparse mismatch")
+                raise WritebackError(f"{entry.entry_id} speaker reread mismatch")
+            message_offset = actual_speaker.end
+        actual_message = decode_text(
+            rebuilt,
+            message_offset,
+            output_table,
+        )
+        expected_message = replacements[entry.entry_id]
+        if (
+            actual_message.terminator != "nul"
+            or actual_message.end != position + len(payload)
+            or actual_message.text != expected_message
+        ):
+            raise WritebackError(
+                f"{entry.entry_id} message reread mismatch after in-place "
+                f"repack: expected {expected_message!r}, got "
+                f"{actual_message.text!r}"
+            )
 
     return StageBatchWrite(
         data=rebuilt,
@@ -1426,6 +1662,10 @@ def repack_stage_texts_in_place(
         owned_regions=tuple((start, end) for start, end in owned_regions),
         unique_payload_count=len(placements),
         source_dialogue_count=parsed.dialogue_count,
+        exact_address_contracts=tuple(
+            contracts_by_offset[offset]
+            for offset in sorted(contracts_by_offset)
+        ),
     )
 
 
@@ -1678,6 +1918,7 @@ __all__ = [
     "CodecArchiveRebuild",
     "FixedMenuTargetWrite",
     "FixedMenuWrite",
+    "PreparedStageMessageEncoders",
     "StageArenaWrite",
     "TextPoolAllocation",
     "TextPoolWrite",

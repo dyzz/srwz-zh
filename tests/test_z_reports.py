@@ -51,10 +51,11 @@ class ZReportCoverageTest(unittest.TestCase):
             source_stage[offsets[index] : offsets[index + 1]]
             for index in range(len(offsets) - 1)
         ]
+        decoded_chunks = [decode(chunk).output for chunk in source_chunks]
         table = load_text_table(PROJECT_ROOT / source["text_table"]["path"])
 
         by_stage, inventory = _discover_z_reports(
-            source_chunks,
+            decoded_chunks,
             table,
             entries,
             translations["z_reports"],
@@ -103,13 +104,13 @@ class ZReportCoverageTest(unittest.TestCase):
         reports = []
         for stage_index, targets in sorted(by_stage.items()):
             output, report = _write_z_reports(
-                decode(source_chunks[stage_index]).output,
+                decoded_chunks[stage_index],
                 table,
                 stage_index=stage_index,
                 targets=targets,
                 overrides=overrides,
             )
-            self.assertNotEqual(output, decode(source_chunks[stage_index]).output)
+            self.assertNotEqual(output, decoded_chunks[stage_index])
             reports.append(report)
         self.assertEqual(sum(item["z_report_count"] for item in reports), 6)
         self.assertTrue(all(item["z_report_fixed_slots_exact"] for item in reports))

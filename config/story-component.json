@@ -79,6 +79,23 @@
     "expected_stage_count": 170,
     "expected_stage_indices_sha256": "41945d709e491f1fd8c77dbc51f4a4e9c55c71b91fe42be3e36735b2d8db20d3"
   },
+  "stage_repack_ownership": {
+    "expected_exact_address_owner_counts": {
+      "runtime_keyword_pointer": 1,
+      "stage_formation_pointer": 7,
+      "stage_u16_table_nonpointer": 1
+    },
+    "preserved_nonpointer_candidates": [
+      {
+        "stage_index": 140,
+        "pointer_offset": "0xF720",
+        "target_offset": "0x19910",
+        "owner": "stage_u16_table_nonpointer",
+        "context_offset": "0xF710",
+        "context_hex": "490200008E033D003D00000000000000000077006E00490200008E033D003D00"
+      }
+    ]
+  },
   "font": {
     "proposal": "work/writeback/zh-release-codebook-proposal.json",
     "allocation_registry": "config/encoding/zh-release-font-assignments.json",

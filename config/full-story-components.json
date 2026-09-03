@@ -66,15 +66,15 @@
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18278925,
-      "sha256": "7abf860d8554bd29b8715471f92fc40d9e0c83ae4ab23ce1913150cfdb37bc12"
+      "size": 18293988,
+      "sha256": "e4c98be95d2e70197322638e334c181d08ce23b54205b5daf1cacbdade26ed96"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "83195250f0bedc3096ce05e8e6c5a5ddf08ed93596840a89d8fa6c89b55de20c"
+      "sha256": "a7a4098fb5e37ac6c95e51cacae91033d6c35bc560b460958b073ba392dd0786"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -1590,18 +1590,42 @@
           "quads": [
             {
               "relative_offset": "0x540",
-              "expected_x_bounds": [-72, 16],
-              "expected_y_bounds": [-76, -64],
-              "texture_x_bounds": [0, 88],
-              "texture_y_bounds": [74, 98]
+              "expected_x_bounds": [
+                -72,
+                16
+              ],
+              "expected_y_bounds": [
+                -76,
+                -64
+              ],
+              "texture_x_bounds": [
+                0,
+                88
+              ],
+              "texture_y_bounds": [
+                74,
+                98
+              ]
             },
             {
               "relative_offset": "0x558",
               "x_shift": -28,
-              "expected_x_bounds": [14, 86],
-              "expected_y_bounds": [-76, -64],
-              "texture_x_bounds": [120, 192],
-              "texture_y_bounds": [98, 122]
+              "expected_x_bounds": [
+                14,
+                86
+              ],
+              "expected_y_bounds": [
+                -76,
+                -64
+              ],
+              "texture_x_bounds": [
+                120,
+                192
+              ],
+              "texture_y_bounds": [
+                98,
+                122
+              ]
             }
           ]
         },
@@ -1611,18 +1635,42 @@
           "quads": [
             {
               "relative_offset": "0x570",
-              "expected_x_bounds": [-84, 28],
-              "expected_y_bounds": [-41, -29],
-              "texture_x_bounds": [88, 200],
-              "texture_y_bounds": [74, 98]
+              "expected_x_bounds": [
+                -84,
+                28
+              ],
+              "expected_y_bounds": [
+                -41,
+                -29
+              ],
+              "texture_x_bounds": [
+                88,
+                200
+              ],
+              "texture_y_bounds": [
+                74,
+                98
+              ]
             },
             {
               "relative_offset": "0x588",
               "x_shift": -19,
-              "expected_x_bounds": [24, 96],
-              "expected_y_bounds": [-41, -29],
-              "texture_x_bounds": [120, 192],
-              "texture_y_bounds": [98, 122]
+              "expected_x_bounds": [
+                24,
+                96
+              ],
+              "expected_y_bounds": [
+                -41,
+                -29
+              ],
+              "texture_x_bounds": [
+                120,
+                192
+              ],
+              "texture_y_bounds": [
+                98,
+                122
+              ]
             }
           ]
         },
@@ -1632,18 +1680,42 @@
           "quads": [
             {
               "relative_offset": "0x5A0",
-              "expected_x_bounds": [-84, 28],
-              "expected_y_bounds": [4, 16],
-              "texture_x_bounds": [0, 112],
-              "texture_y_bounds": [98, 122]
+              "expected_x_bounds": [
+                -84,
+                28
+              ],
+              "expected_y_bounds": [
+                4,
+                16
+              ],
+              "texture_x_bounds": [
+                0,
+                112
+              ],
+              "texture_y_bounds": [
+                98,
+                122
+              ]
             },
             {
               "relative_offset": "0x5B8",
               "x_shift": -39,
-              "expected_x_bounds": [24, 96],
-              "expected_y_bounds": [4, 16],
-              "texture_x_bounds": [120, 192],
-              "texture_y_bounds": [98, 122]
+              "expected_x_bounds": [
+                24,
+                96
+              ],
+              "expected_y_bounds": [
+                4,
+                16
+              ],
+              "texture_x_bounds": [
+                120,
+                192
+              ],
+              "texture_y_bounds": [
+                98,
+                122
+              ]
             }
           ]
         }

@@ -24,6 +24,7 @@
 | `SRWZ_COMPRESSION.md` | SRWZ 压缩格式、Rust codec 和容量约束 |
 | `FONT_ANALYSIS.md` | VT1 字库结构、码位与 glyph 映射 |
 | `WRITEBACK_CONTRACT.md` | 文本、指针、归档和前像写回契约 |
+| `TEXT_CAPACITY_EXPANSION.md` | STAGE 剧情与 SRVC 战斗文本扩容方案、安全门和 canary 证据 |
 | `TEXTURE_LOCALIZATION_INVENTORY.md` | 贴图中文化成员、格式和最终 ISO 落点 |
 | `KVMDATA_ATLAS_LOCALIZATION.md` | KVMDATA 图集结构与写回方法 |
 | `VEFF2DX_TEXTURE_LOCALIZATION.md` | VEFF2DX PSMT4 场景标题结构 |

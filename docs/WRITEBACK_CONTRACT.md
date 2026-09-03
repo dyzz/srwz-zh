@@ -68,9 +68,14 @@ todo -> draft -> reviewed -> final -> runtime_verified
 
 - 每个剧情块使用已登记 allocation／arena；
 - 对白、说话人、条件和指针分别拥有明确 owner；
+- 整关重排只使用 parser 识别的源文本 span 及其到下一 16 字节边界的零填充；
+- owned region 外的同值地址候选必须有 typed owner，否则 fail closed，禁止自动 alias 改写；
 - 重建 205-chunk archive 时保持 16-byte alignment；
 - 写回 `HEDBDY/HB.BIN` offset 表后逐项重读；
 - 每个变更块必须严格解码并逐 ID 回读目标译文。
+
+STAGE 与 SRVC 的具体扩容单位、当前阻断项和运行 canary 见
+`TEXT_CAPACITY_EXPANSION.md`。
 
 ### SLPS／COMPDATA
 
