@@ -125,6 +125,7 @@ class ReleaseWorkflowTest(unittest.TestCase):
             "剿": ("968F", 4111),
             "噫": ("9690", 4112),
             "欸": ("9691", 4113),
+            "炬": ("969B", 4123),
         }
         rows = {
             row["character"]: row
@@ -146,8 +147,8 @@ class ReleaseWorkflowTest(unittest.TestCase):
                 for row in rows.values()
             )
         )
-        self.assertEqual(len({row["code"] for row in rows.values()}), 9)
-        self.assertEqual(len({row["glyph_index"] for row in rows.values()}), 9)
+        self.assertEqual(len({row["code"] for row in rows.values()}), 10)
+        self.assertEqual(len({row["glyph_index"] for row in rows.values()}), 10)
         remaining_codes = {
             row["code"] for row in snapshot["remaining_allocation_candidates"]
         }
