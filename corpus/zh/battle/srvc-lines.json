@@ -41,7 +41,8 @@
     "preserve_index_structure_and_metadata_byte_exact": true,
     "rewrite_only_index_text_offsets": true,
     "preserve_unindexed_tails_byte_exact": true,
-    "preserve_control_tokens": true
+    "preserve_control_tokens": true,
+    "allow_explicit_added_line_breaks": true
   },
   "unique_text_count": 25708,
   "record_count": 58740,
@@ -33862,14 +33863,14 @@
     {
       "id": "battle:04773",
       "source_text_sha256": "c7e8374751d38882e5952e4b2c1aa65c8c13255dda0ca81f14b9913e76d7b5e4",
-      "translation": "“我会驾驭给你看…G比特！”",
+      "translation": "“我会驾驭给你看…G-Bit！”",
       "occurrence_count": 1,
       "editorial_status": "reviewed"
     },
     {
       "id": "battle:04774",
       "source_text_sha256": "999dfb85cfdcc7e18b7c1d0c4958ff4d27e02ca6f928785fc98a81705b9e38c6",
-      "translation": "“敌人的动作看得见……\\n　上吧，G比特！”",
+      "translation": "“敌人的动作看得见……\\n　上吧，G-Bit！”",
       "occurrence_count": 1,
       "editorial_status": "reviewed"
     },
@@ -34289,7 +34290,7 @@
     {
       "id": "battle:04834",
       "source_text_sha256": "ba09cab050c07a0d71f6af18793c8538d8b695888ab9730556b72988de34890b",
-      "translation": "“要用G比特！\\n　蒂珐，借我力量！”",
+      "translation": "“要用G-Bit！\\n　蒂珐，借我力量！”",
       "occurrence_count": 1,
       "editorial_status": "reviewed"
     },
@@ -34303,7 +34304,7 @@
     {
       "id": "battle:04836",
       "source_text_sha256": "a8d52003e996674128e255a97b0fbcc97cccbf39bc92be48fbca8fc9bcb06ac3",
-      "translation": "“好嘞…\\n　拜托了，G比特！上啊！”",
+      "translation": "“好嘞…\\n　拜托了，G-Bit！上啊！”",
       "occurrence_count": 2,
       "editorial_status": "reviewed"
     },
@@ -55766,7 +55767,7 @@
     {
       "id": "battle:07863",
       "source_text_sha256": "ef15cb70cf71c250efb250088b11e24386f5b6fe126330a8fc423ce5de0cec7e",
-      "translation": "“别小看\\n　超重神西格玛的速度”",
+      "translation": "“别小看\\n　巨神Σ格兰维昂的速度”",
       "occurrence_count": 1,
       "editorial_status": "reviewed"
     },
@@ -55850,7 +55851,7 @@
     {
       "id": "battle:07875",
       "source_text_sha256": "9046aca3631f155842890d24cf2ed36c923d5acceafb4c445af4ba6eab3de755",
-      "translation": "“可别小看这架\\n　超重神西格玛”",
+      "translation": "“可别小看这架\\n　巨神Σ格兰维昂”",
       "occurrence_count": 1,
       "editorial_status": "reviewed"
     },
@@ -55906,7 +55907,7 @@
     {
       "id": "battle:07883",
       "source_text_sha256": "b262158888243179f047f56c2d52d1f2212bc06dfa2def69e949ddc038ad07ce",
-      "translation": "“别小看\\n　我和超重神西格玛的力量！”",
+      "translation": "“别小看\\n　我和巨神Σ格兰维昂的力量！”",
       "occurrence_count": 1,
       "editorial_status": "reviewed"
     },
@@ -63822,7 +63823,7 @@
     {
       "id": "battle:09004",
       "source_text_sha256": "cd8ffa50fa82a09209c02d28af82c78e9374a46f089592660f45838486a6f3db",
-      "translation": "“G比特！讨伐敌人！”",
+      "translation": "“G-Bit！讨伐敌人！”",
       "occurrence_count": 1,
       "editorial_status": "reviewed"
     },
@@ -63836,7 +63837,7 @@
     {
       "id": "battle:09006",
       "source_text_sha256": "935b9b0026c5116e2e7d5fe93c10c68fe35575270e3c54a70e5d8449f61e0987",
-      "translation": "“去吧，G比特！”",
+      "translation": "“去吧，G-Bit！”",
       "occurrence_count": 1,
       "editorial_status": "reviewed"
     },
@@ -64958,9 +64959,10 @@
     {
       "id": "battle:09162",
       "source_text_sha256": "155e4fc78238b189e41a1971ef09ace35fb1126e8b6932a8d2ce1aa6f17d10d9",
-      "translation": "“你该退场了！”",
+      "translation": "“Du musst fortgehen！\\n（你该退场了！）”",
       "occurrence_count": 1,
-      "editorial_status": "reviewed"
+      "editorial_status": "reviewed",
+      "production_line_break_override": "User-confirmed bilingual gloss layout."
     },
     {
       "id": "battle:09163",
@@ -136533,7 +136535,7 @@
     {
       "id": "battle:19268",
       "source_text_sha256": "a9ed59f9cd5c735bc7c52ac1dd0371953f1b59e722d8ce372086f3ddc251280d",
-      "translation": "“G比特，拜托了！！”",
+      "translation": "“G-Bit，拜托了！！”",
       "occurrence_count": 1,
       "editorial_status": "reviewed"
     },
@@ -136547,7 +136549,7 @@
     {
       "id": "battle:19270",
       "source_text_sha256": "f12c51cbff22dce2be614cfe6cc402724dd066c1f448b117e2473afdcf9b1077",
-      "translation": "“上吧！G比特！！”",
+      "translation": "“上吧！G-Bit！！”",
       "occurrence_count": 1,
       "editorial_status": "reviewed"
     },
@@ -150646,9 +150648,10 @@
     {
       "id": "battle:21270",
       "source_text_sha256": "44f76ba1171f099b67db5077a3cd0bf14d81fa6cceffe78aa67e148f2fdeb484",
-      "translation": "“Grand Finale”",
+      "translation": "“It's Grand Finale！\\n（终幕到了！）”",
       "occurrence_count": 2,
-      "editorial_status": "reviewed"
+      "editorial_status": "reviewed",
+      "production_line_break_override": "User-confirmed bilingual gloss layout."
     },
     {
       "id": "battle:21271",
@@ -151710,7 +151713,7 @@
     {
       "id": "battle:21422",
       "source_text_sha256": "0d907d1838f9e41b6ba71025b21d21f8a828a5f0db025a9b2b0e8e70cb3f7bac",
-      "translation": "“黑色不错，黑色……\\n　但驾驶员不行！”",
+      "translation": "“黑色不错，黑色……\\n　但驾驶员另谈！”",
       "occurrence_count": 4,
       "editorial_status": "reviewed"
     },

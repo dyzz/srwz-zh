@@ -4821,8 +4821,10 @@ def _apply_fixed_span_translations(
     accepted_current_texts: dict[str, str] | None = None,
     accepted_current_table=None,
     accepted_current_data: bytes | None = None,
+    trailing_zero_padding_offsets: set[int] | None = None,
+    protected_target_offsets: set[int] | None = None,
 ) -> tuple[bytes, dict]:
-    """Write a locked offset map using only original terminated capacities."""
+    """Write a locked offset map inside audited fixed or zero-padded spans."""
 
     if not isinstance(replacements, dict) or not replacements:
         raise FullStoryComponentError(f"{label} translation map is invalid")
@@ -4832,6 +4834,9 @@ def _apply_fixed_span_translations(
     no_op_count = 0
     minimum_headroom = None
     changed_offsets = set()
+    zero_padding_extension_count = 0
+    padding_offsets = trailing_zero_padding_offsets or set()
+    protected_offsets = sorted(protected_target_offsets or set())
     for raw_offset, raw_translation in sorted(
         replacements.items(), key=lambda item: int(item[0], 16)
     ):
@@ -4851,7 +4856,8 @@ def _apply_fixed_span_translations(
                 f"{label} translation is invalid at {raw_offset!r}"
             )
         source = decode_text(original, offset, table)
-        end = offset + source.consumed
+        capacity = source.consumed
+        end = offset + capacity
         if end > len(current):
             raise FullStoryComponentError(
                 f"{label} span is outside current member: {raw_offset}"
@@ -4878,14 +4884,34 @@ def _apply_fixed_span_translations(
             raise FullStoryComponentError(
                 f"{label} encoding failed at {raw_offset}: {error}"
             ) from error
-        if len(encoded) > source.consumed:
-            raise FullStoryComponentError(
-                f"{label} overflow at {raw_offset}: need {len(encoded)}, "
-                f"capacity {source.consumed}"
+        if len(encoded) > capacity:
+            requested_end = offset + len(encoded)
+            next_target_index = bisect_left(protected_offsets, offset + 1)
+            next_target = (
+                protected_offsets[next_target_index]
+                if next_target_index < len(protected_offsets)
+                else len(original)
             )
+            if (
+                offset not in padding_offsets
+                or requested_end > next_target
+                or any(original[end:requested_end])
+                or any(current[end:requested_end])
+                or (
+                    accepted_current_data is not None
+                    and any(accepted_current_data[end:requested_end])
+                )
+            ):
+                raise FullStoryComponentError(
+                    f"{label} overflow at {raw_offset}: need {len(encoded)}, "
+                    f"capacity {capacity}"
+                )
+            capacity = len(encoded)
+            end = requested_end
+            zero_padding_extension_count += 1
         current_span = current[offset:end]
         original_span = original[offset:end]
-        replacement = encoded + bytes(source.consumed - len(encoded))
+        replacement = encoded + bytes(capacity - len(encoded))
         accepted_span = (
             accepted_current_data[offset:end]
             if accepted_current_data is not None
@@ -4921,7 +4947,7 @@ def _apply_fixed_span_translations(
                         accepted_current,
                     }
                 )
-                or current_text.consumed > source.consumed
+                or current_text.consumed > capacity
             ):
                 raise FullStoryComponentError(
                     f"{label} current preimage drift at {raw_offset}: "
@@ -4929,7 +4955,7 @@ def _apply_fixed_span_translations(
                     f"historical={None if historical_current_text is None else historical_current_text.text!r} "
                     f"expected={translation!r}"
                 )
-        headroom = source.consumed - len(encoded)
+        headroom = capacity - len(encoded)
         minimum_headroom = (
             headroom
             if minimum_headroom is None
@@ -4958,6 +4984,7 @@ def _apply_fixed_span_translations(
         "write_entry_count": write_count,
         "no_op_entry_count": no_op_count,
         "minimum_output_headroom": minimum_headroom,
+        "zero_padding_extension_count": zero_padding_extension_count,
         "changed_byte_count": len(changed_offsets),
         "fixed_spans_preserved": True,
         "pointer_bytes_unchanged": True,
@@ -6648,6 +6675,15 @@ def _apply_reviewed_weapon_names(
 
     if not isinstance(reference, dict):
         raise FullStoryComponentError("reviewed weapon configuration is invalid")
+    padding_entry_ids = reference.get("allow_trailing_zero_padding_entry_ids", [])
+    if (
+        not isinstance(padding_entry_ids, list)
+        or len(padding_entry_ids) != len(set(padding_entry_ids))
+        or any(not isinstance(entry_id, str) for entry_id in padding_entry_ids)
+    ):
+        raise FullStoryComponentError(
+            "reviewed weapon trailing-zero-padding policy is invalid"
+        )
     corpus_path, corpus_data = _locked_file(
         reference.get("corpus"), label="reviewed weapon corpus"
     )
@@ -6708,6 +6744,14 @@ def _apply_reviewed_weapon_names(
         raise FullStoryComponentError("reviewed weapon COMPDATA decode drift")
     original_menu = parse_menu_file(original_decoded.output, descriptor, table)
     original_by_id = {item.entry_id: item for item in original_menu.entries}
+    unknown_padding_entry_ids = sorted(
+        set(padding_entry_ids) - set(original_by_id)
+    )
+    if unknown_padding_entry_ids:
+        raise FullStoryComponentError(
+            "reviewed weapon trailing-zero-padding entry drift: "
+            f"{unknown_padding_entry_ids!r}"
+        )
     replacements: dict[str, str] = {}
     accepted_current: dict[str, str] = {}
     selected_ids = []
@@ -6774,6 +6818,16 @@ def _apply_reviewed_weapon_names(
         encoding_overrides=encoding_overrides,
         label="reviewed weapon names",
         accepted_current_texts=accepted_current,
+        trailing_zero_padding_offsets={
+            offset
+            for entry_id in padding_entry_ids
+            for offset in original_by_id[entry_id].target_offsets
+        },
+        protected_target_offsets={
+            offset
+            for menu_entry in original_menu.entries
+            for offset in menu_entry.target_offsets
+        },
     )
     # Output parser ordinals are not stable when two reviewed names become
     # identical (records 10 and 11 intentionally both use 终极豪烈特攻), because
@@ -6856,6 +6910,7 @@ def _apply_srvc_battle_text(
         or policy.get("rewrite_only_index_text_offsets") is not True
         or policy.get("preserve_unindexed_tails_byte_exact") is not True
         or policy.get("preserve_control_tokens") is not True
+        or policy.get("allow_explicit_added_line_breaks") is not True
     ):
         raise FullStoryComponentError("SRVC production corpus contract drift")
 
@@ -6892,10 +6947,28 @@ def _apply_srvc_battle_text(
     translations: dict[str, str] = {}
     source_id_by_text: dict[str, str] = {}
     override_count = 0
+    added_line_break_override_count = 0
     for index, (source_text, entry) in enumerate(zip(ordered_source_texts, entries)):
         entry_id = f"battle:{index:05d}"
         source_hash = sha256_bytes(source_text.encode("utf-8"))
         translation = entry.get("translation") if isinstance(entry, dict) else None
+        source_line_break_count = source_text.count("\\n")
+        translation_line_break_count = (
+            translation.count("\\n") if isinstance(translation, str) else -1
+        )
+        line_break_override = (
+            entry.get("production_line_break_override")
+            if isinstance(entry, dict)
+            else None
+        )
+        line_break_policy_satisfied = (
+            translation_line_break_count == source_line_break_count
+            and line_break_override is None
+        ) or (
+            translation_line_break_count == source_line_break_count + 1
+            and isinstance(line_break_override, str)
+            and bool(line_break_override.strip())
+        )
         if (
             not isinstance(entry, dict)
             or entry.get("id") != entry_id
@@ -6909,7 +6982,7 @@ def _apply_srvc_battle_text(
             or "{" in translation
             or "}" in translation
             or "\n" in translation
-            or translation.count("\\n") != source_text.count("\\n")
+            or not line_break_policy_satisfied
             or _control_signature(translation) != _control_signature(source_text)
         ):
             raise FullStoryComponentError(
@@ -6918,6 +6991,7 @@ def _apply_srvc_battle_text(
         translations[source_text] = _two_byte_visible_spaces(translation)
         source_id_by_text[source_text] = entry_id
         override_count += int("production_override" in entry)
+        added_line_break_override_count += int(line_break_override is not None)
 
     _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
         font_manifest
@@ -7004,6 +7078,7 @@ def _apply_srvc_battle_text(
         "unique_text_count": len(entries),
         "record_count": len(source_records),
         "production_override_count": override_count,
+        "added_line_break_override_count": added_line_break_override_count,
         "chunk_count": len(source_chunks),
         "indexed_chunk_count": sum(bool(chunk.records) for chunk in source_chunks),
         "zero_record_chunk_count": sum(not chunk.records for chunk in source_chunks),

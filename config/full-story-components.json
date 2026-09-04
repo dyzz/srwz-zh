@@ -48,7 +48,7 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 73284,
-      "sha256": "c9456eee3be64dcf0a6de2884bb84cde69e98bd74bfe7b38df5460ed84e2db9c"
+      "sha256": "581c4294a9ae0bd147da373409b0ebb724c3e70baefbcb802b20610bf6260ede"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -67,14 +67,14 @@
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18293987,
-      "sha256": "a813281bdbc8e4bf5f673befaf94d9e1de2aadc1dd34fcec7909d2f0a22e2574"
+      "sha256": "4744d692f7ac42cb2d739826e9196a96d15d8bdac5b59fa64e522060080e954f"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "0aafad613081cb92951827c1051d28222198d0899ca6e3bfc607348c5fe57083"
+      "sha256": "a775b9d44e5dfd78cbe292e6f18b2874c157150480d94685c041a85dda088084"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -106,7 +106,7 @@
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
       "size": 15958,
-      "sha256": "2baded33f1ceb42bbd13249febb3cc7eb4f7005f30bd0f07d7c2fc64af0146d9"
+      "sha256": "5e3da436d8dd733f087028d504522cfa34d102aa6d092bb57a830124f10394fe"
     },
     "unit_name_relocations": [],
     "expected": {
@@ -153,7 +153,7 @@
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
       "size": 15958,
-      "sha256": "2baded33f1ceb42bbd13249febb3cc7eb4f7005f30bd0f07d7c2fc64af0146d9"
+      "sha256": "5e3da436d8dd733f087028d504522cfa34d102aa6d092bb57a830124f10394fe"
     },
     "battle_archives": [
       {
@@ -222,15 +222,18 @@
   "reviewed_weapons": {
     "corpus": {
       "path": "corpus/zh/menu/weapons.json",
-      "size": 215025,
-      "sha256": "1e3ebc8a3df60f92371c45bdd585648e49b85c86c445bd18877b46f3ab853c18"
+      "size": 215023,
+      "sha256": "8efb30753e0c7504b366be0bb671ef191d8d113212c448e7d382cbf482041831"
     },
     "expected": {
       "entry_count": 711,
       "target_occurrence_count": 5920,
       "unique_target_count": 711,
       "shared_nonweapon_owner_count": 1
-    }
+    },
+    "allow_trailing_zero_padding_entry_ids": [
+      "menu/Compdata/02/0310"
+    ]
   },
   "special_abilities": {
     "corpus": {
@@ -413,8 +416,8 @@
   "stage_overviews": {
     "corpus": {
       "path": "corpus/zh/menu/stage-overviews.json",
-      "size": 88969,
-      "sha256": "d14bdbbc4e25dc4a055ebab02bccc9066f9e551bf5bcb103db55fce6b3608791"
+      "size": 88973,
+      "sha256": "2349b87f510a08f5fac598fcbd7dad835b5a947aff9441ffcbf4a52985af4ee8"
     },
     "expected": {
       "inventory_entry_count": 110,
@@ -650,12 +653,12 @@
     "stage_default_formations": {
       "path": "corpus/zh/menu/stage-default-formations.json",
       "size": 13168,
-      "sha256": "62a0449716681afbb1e1c0c52e378209267bb7e659b96ae4215f209b97d66fef"
+      "sha256": "645ea5dd72d018cc448f85955b141533d09a29610ecad6bdffabe9c086759a32"
     },
     "stage_default_formation_inventory": {
       "path": "config/stage-default-formation-inventory.json",
       "size": 187817,
-      "sha256": "e6c26f55df479bfee31e74ed0b943f98179a67165532ab19ec4c158b0ad9321b"
+      "sha256": "bfbc9aec49a9ef1713539dff144e3330910dcd53da3cf43f5b1017fd68a72318"
     },
     "search_tab_alignment": {
       "member": "SLPS_258.87",
@@ -1365,8 +1368,8 @@
   "srvc_battle_text": {
     "corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6974141,
-      "sha256": "b48e19f3d765db097eb4f96684b154a259aa6a0bcac7abc4bdf83ce7cbdd51bf"
+      "size": 6974398,
+      "sha256": "2a7ff40c41b3ce087b9208838a31cb3836de2910e13ef90584f71ac01f05daf6"
     },
     "original_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -2794,8 +2797,8 @@
     },
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
-      "size": 784625,
-      "sha256": "0c9c572772e6210a52e9a89fa0b448e31b2e6e2412642bb6b4a4d40963d114a3"
+      "size": 784624,
+      "sha256": "26ea448fe02487b145a69274b8b83e76f5e952294895dd627efe9f453a1219f3"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -2879,7 +2882,7 @@
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
         "size": 1135719,
-        "sha256": "b276c8157719018b86ac775f0a894c085e94f54b9e177c419159364a63492a09"
+        "sha256": "ded948c858eb48fcbaaefae42925fb833518b4ef34e7963a13add05438985df6"
       },
       "reason": "The consolidated v0.3 menu selection is written directly into original members, normalized to the current font mapping, and never consumes a prepatched binary baseline."
     },

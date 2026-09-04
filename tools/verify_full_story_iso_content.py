@@ -3514,8 +3514,8 @@ def verify_post_release_runtime_surfaces(
             0xDD70: "阿蒂特队获得PP+50",
         },
         66: {0x1BF40: "武装“大魔神推进器”已追加"},
-        119: {0x25A80: "武装“G比特”已追加"},
-        127: {0x2B1D0: "武装“G比特”已追加"},
+        119: {0x25A80: "武装“G-Bit”已追加"},
+        127: {0x2B1D0: "武装“G-Bit”已追加"},
     }
     z_report_readbacks = {}
     for stage_index, expected_by_offset in z_report_expected.items():
