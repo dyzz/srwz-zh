@@ -144,6 +144,61 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
             self.assertIn("F类", entry["translation"])
             self.assertNotIn("伪新人类", entry["translation"])
 
+    def test_spazer_family_stays_unified_and_breast_fire_is_restored(self) -> None:
+        unit_glossary = load_payload(
+            "corpus/glossary/story-dialogue-stage-006-v1.json"
+        )
+        unit_terms = {entry["id"]: entry for entry in unit_glossary["terms"]}
+        expected_units = {
+            "unit/spazer": "飞天神机",
+            "unit/double-spazer": "双重飞天神机",
+            "unit/marine-spazer": "海洋飞天神机",
+            "unit/drill-spazer": "钻头飞天神机",
+        }
+        self.assertEqual(
+            {entry_id: unit_terms[entry_id]["translation"] for entry_id in expected_units},
+            expected_units,
+        )
+        self.assertIn("斯派扎", unit_terms["unit/spazer"]["deprecated_translations"])
+        self.assertIn(
+            "双重斯派扎",
+            unit_terms["unit/double-spazer"]["deprecated_translations"],
+        )
+        for marker in ("专用圆盘型机械", "合体形态", "不与“斯派扎”音译混用"):
+            self.assertIn(marker, unit_terms["unit/spazer"]["notes"])
+
+        weapon_glossary = load_payload("corpus/glossary/weapons-v1.json")
+        weapon_terms = {entry["id"]: entry for entry in weapon_glossary["terms"]}
+        breast_fire = weapon_terms["weapon/0007"]
+        self.assertEqual(breast_fire["translation"], "胸部火焰")
+        self.assertIn("胸甲烈焰", breast_fire["deprecated_translations"])
+        self.assertNotIn("胸部火焰", breast_fire["deprecated_translations"])
+
+        menu = load_payload("corpus/zh/menu/weapons.json")
+        menu_entries = {entry["id"]: entry for entry in menu["entries"]}
+        self.assertEqual(menu_entries["menu/Compdata/02/0007"]["translation"], "胸部火焰")
+
+        battle = load_payload("corpus/zh/battle/srvc-lines.json")
+        battle_entries = {entry["id"]: entry for entry in battle["entries"]}
+        expected_battle = {
+            "battle:07273": "“胸部火焰！！”",
+            "battle:20161": "“胸部火焰！”",
+        }
+        for entry_id, translation in expected_battle.items():
+            self.assertEqual(battle_entries[entry_id]["translation"], translation)
+            self.assertIn("weapon/0007", battle_entries[entry_id]["glossary_refs"])
+            self.assertLessEqual(max(dialogue_line_widths(translation)), 21, entry_id)
+
+        library = load_payload("corpus/zh/library/v0.2-reviewed.json")
+        library_entry = next(
+            entry
+            for entry in library["entries"]
+            if entry["id"] == "library-text/1b2ed9e8e9afc711"
+        )
+        self.assertIn("胸部火焰", library_entry["translation"])
+        self.assertNotIn("胸甲烈焰", library_entry["translation"])
+        self.assertIn("weapon/0007", library_entry["glossary_refs"])
+
 
 if __name__ == "__main__":
     unittest.main()
