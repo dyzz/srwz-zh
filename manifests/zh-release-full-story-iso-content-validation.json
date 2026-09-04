@@ -5,7 +5,7 @@
   "iso": {
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "size": 3758358528,
-    "sha256": "277a22acbf7d611ecaeb232a4e50b95ca111ad4e1f80d5dbdc1d29bc2ef3a7ac"
+    "sha256": "90f928d0d65da13b17c251f2ad40f51e76bf0956a05be65d8eec37fa9a6561ff"
   },
   "stage_indices": [
     1,
@@ -5295,9 +5295,9 @@
         {
           "stage_index": 31,
           "record_count": 2,
-          "encoded_size": 29537,
+          "encoded_size": 29545,
           "slot_size": 32336,
-          "output_headroom": 2799,
+          "output_headroom": 2791,
           "changed_byte_count": 0,
           "pretranslated_pointer_count": 8,
           "codec_round_trip_exact": true
@@ -5395,9 +5395,9 @@
         {
           "stage_index": 55,
           "record_count": 1,
-          "encoded_size": 31179,
+          "encoded_size": 31193,
           "slot_size": 34304,
-          "output_headroom": 3125,
+          "output_headroom": 3111,
           "changed_byte_count": 0,
           "pretranslated_pointer_count": 4,
           "codec_round_trip_exact": true
@@ -5535,9 +5535,9 @@
         {
           "stage_index": 125,
           "record_count": 2,
-          "encoded_size": 14529,
+          "encoded_size": 14547,
           "slot_size": 16320,
-          "output_headroom": 1791,
+          "output_headroom": 1773,
           "changed_byte_count": 0,
           "pretranslated_pointer_count": 8,
           "codec_round_trip_exact": true
@@ -5814,7 +5814,7 @@
     },
     "DATA/STAGE.BIN": {
       "size": 3910128,
-      "sha256": "caab48e91adeebc06e272ec67747fa43e6081fcba7686797c67d87e2effae748",
+      "sha256": "71aacd8a19973278ecee2ca6807d2e3628c354afb6003cceb74f9aebaf4556e1",
       "replacement_exact": true
     },
     "DATA/HSFC.BIN": {
@@ -5849,7 +5849,7 @@
     },
     "BTL/SRVC.BIN": {
       "size": 3313040,
-      "sha256": "97a725f1801ab1100c7f3bb2677c8df3649eda152c122bac9def178d9656b3b2",
+      "sha256": "c5f2e13bafa67d2afb7689dd052be9831b85cbba1d534fd2198e39ffe7e4527d",
       "replacement_exact": true
     },
     "BTL/SRVC.SEG": {
@@ -7468,12 +7468,12 @@
       "stage_index": 31,
       "archive_offset": 691728,
       "archive_next_offset": 724064,
-      "encoded_size": 29537,
-      "encoded_sha256": "643e54420e4888db66c006e603088a57b264e0e375d1dee5175aa24573483104",
-      "padding_size": 2799,
+      "encoded_size": 29545,
+      "encoded_sha256": "5aef6521036ae4c94abb04b610cabbe478728e9682276bdb895366baacffb963",
+      "padding_size": 2791,
       "padding_all_zero": true,
       "decoded_size": 94096,
-      "decoded_sha256": "f8b2bbca4d51d07079ea031e9c53c7e28f92536df2fe3a5ef10649443a1ee215",
+      "decoded_sha256": "7beca6f1a6dbca019aa4edfe223b95730267ac7c90a0079b3a2126d953868839",
       "dialogue_count": 669,
       "condition_count": 7,
       "speaker_count": 56,
@@ -8188,12 +8188,12 @@
       "stage_index": 55,
       "archive_offset": 1228224,
       "archive_next_offset": 1262528,
-      "encoded_size": 31179,
-      "encoded_sha256": "e96c234a8b54500021781585661aa22e319811f1d763479d550ca95d1be8136c",
-      "padding_size": 3125,
+      "encoded_size": 31193,
+      "encoded_sha256": "24f37f14108e4818845d7000b2cb9b5973cb6a173fe6cc3fd5059bfda62825d8",
+      "padding_size": 3111,
       "padding_all_zero": true,
       "decoded_size": 105744,
-      "decoded_sha256": "9261969296386f718108a5571680ef1c88270999c629d1b5ad88438b6b1ae86e",
+      "decoded_sha256": "39c8d0ea4b7a573c3fa93c4658b840d583147f3ef332d71e688cc8b09ed17642",
       "dialogue_count": 790,
       "condition_count": 8,
       "speaker_count": 63,
@@ -10288,12 +10288,12 @@
       "stage_index": 125,
       "archive_offset": 2856464,
       "archive_next_offset": 2872784,
-      "encoded_size": 14529,
-      "encoded_sha256": "29576a527425e3514fb63a3682c4c2f15634aee6ccce02bbc4eafd4c9b0d845a",
-      "padding_size": 1791,
+      "encoded_size": 14547,
+      "encoded_sha256": "806ef05ff8640a79af507a81f41110a822b8de108c6f86af12c0d7df7e0e3b5e",
+      "padding_size": 1773,
       "padding_all_zero": true,
       "decoded_size": 41872,
-      "decoded_sha256": "7302fedc44ff88f91fe16c54320ca6b6703847cf59a0d99701b04cb0fa733cfa",
+      "decoded_sha256": "18e2f7258d9199b88a69bc180e2919e2fc8c9634e5f86f381c98ff7623d29e9c",
       "dialogue_count": 297,
       "condition_count": 3,
       "speaker_count": 57,
@@ -10304,7 +10304,7 @@
       "speaker_translation_by_source_id_exact": true,
       "unknown_code_count": 0,
       "maximum_dialogue_line_width": 21,
-      "maximum_dialogue_line_count": 2,
+      "maximum_dialogue_line_count": 3,
       "runtime_substitution_token_entry_count": 10,
       "runtime_substitution_token_occurrence_count": 10,
       "runtime_substitution_tokens_raw_ascii": true,
