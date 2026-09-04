@@ -68,6 +68,68 @@
           "palette_index": 15
         }
       ]
+    },
+    "bazaar-group-heading": {
+      "outline": [
+        {
+          "rgba": "101010ff",
+          "palette_index": 1
+        },
+        {
+          "rgba": "202020ff",
+          "palette_index": 2
+        },
+        {
+          "rgba": "303030ff",
+          "palette_index": 3
+        },
+        {
+          "rgba": "404040ff",
+          "palette_index": 4
+        },
+        {
+          "rgba": "505050ff",
+          "palette_index": 5
+        },
+        {
+          "rgba": "606060ff",
+          "palette_index": 6
+        },
+        {
+          "rgba": "707070ff",
+          "palette_index": 7
+        }
+      ],
+      "fill": [
+        {
+          "rgba": "101010ff",
+          "palette_index": 9
+        },
+        {
+          "rgba": "202020ff",
+          "palette_index": 10
+        },
+        {
+          "rgba": "303030ff",
+          "palette_index": 11
+        },
+        {
+          "rgba": "404040ff",
+          "palette_index": 12
+        },
+        {
+          "rgba": "505050ff",
+          "palette_index": 13
+        },
+        {
+          "rgba": "606060ff",
+          "palette_index": 14
+        },
+        {
+          "rgba": "707070ff",
+          "palette_index": 15
+        }
+      ]
     }
   },
   "base_mapping": {
@@ -250,11 +312,13 @@
         ]
       },
       "render": {
-        "point_size": 16,
+        "point_size": 17,
         "stroke_gray": "#303030",
-        "stroke_width": 0.5,
+        "stroke_width": 1.5,
         "fill_stroke_width": 0,
         "supersample_factor": 4,
+        "horizontal_offset": -2,
+        "vertical_offset": -1,
         "ramp_rgba": [
           "101010ff",
           "202020ff",
@@ -264,7 +328,12 @@
           "606060ff",
           "707070ff"
         ],
-        "indexed_layer_profile": "source-text"
+        "indexed_layer_profile": "bazaar-group-heading",
+        "indexed_outline_coverage_maximum": 255,
+        "indexed_shadow_offset": {
+          "x": 0,
+          "y": 1
+        }
       }
     },
     {
@@ -284,11 +353,13 @@
         ]
       },
       "render": {
-        "point_size": 16,
+        "point_size": 17,
         "stroke_gray": "#303030",
-        "stroke_width": 0.5,
+        "stroke_width": 1.5,
         "fill_stroke_width": 0,
         "supersample_factor": 4,
+        "horizontal_offset": -9,
+        "vertical_offset": -1,
         "ramp_rgba": [
           "101010ff",
           "202020ff",
@@ -298,7 +369,12 @@
           "606060ff",
           "707070ff"
         ],
-        "indexed_layer_profile": "source-text"
+        "indexed_layer_profile": "bazaar-group-heading",
+        "indexed_outline_coverage_maximum": 255,
+        "indexed_shadow_offset": {
+          "x": 0,
+          "y": 1
+        }
       }
     },
     {
@@ -318,11 +394,12 @@
         ]
       },
       "render": {
-        "point_size": 16,
+        "point_size": 17,
         "stroke_gray": "#303030",
-        "stroke_width": 0.5,
+        "stroke_width": 1.5,
         "fill_stroke_width": 0,
         "supersample_factor": 4,
+        "vertical_offset": -1,
         "ramp_rgba": [
           "101010ff",
           "202020ff",
@@ -332,7 +409,12 @@
           "606060ff",
           "707070ff"
         ],
-        "indexed_layer_profile": "source-text"
+        "indexed_layer_profile": "bazaar-group-heading",
+        "indexed_outline_coverage_maximum": 255,
+        "indexed_shadow_offset": {
+          "x": 0,
+          "y": 1
+        }
       }
     },
     {
@@ -577,8 +659,8 @@
   ],
   "render_snapshot": {
     "path": "config/assets/ui-bazaar-atlas-render-snapshot.json",
-    "size": 40777,
-    "sha256": "36482c5d6e4e5e8aafb47b44e3da0fd916d70726f5ec17ca0ec7113ba698c3ce"
+    "size": 43721,
+    "sha256": "923ec4146af109377ed9e08b9f1e703334d29f9572b4a3974495ecf3f68066a7"
   },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 5 supplies the bazaar and shared profile surfaces, that the detached Japanese long mark is gone, and that every selected localized label renders in its intended fixed rectangle.",
@@ -608,22 +690,22 @@
       "sha256": "4c2da38c2ba01b513ea06f12a06dac930948860ca0adb27853c9590031d17673"
     },
     "localized_png": {
-      "size": 13169,
-      "sha256": "4f30d0c6f244ed734d103f737c14977a058f1d31af1241ab6eda38337ad0da9d"
+      "size": 13190,
+      "sha256": "10dafb35f617375004f9d50af98b71f477a68f6559cdc2be7354c4536093a1e5"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "02d0f874ca20f3cf7929958e7052819353e89226cd0816db94f3e1241070d86a"
+      "sha256": "31131dd3911d2b5e5e65c4b6d13b7f2604a072ed0a23a51940c3ca25cbce67fc"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "e99e8cc2ad69f68ae87da15a7af1d7e57639005547f53ded6855efad6e3598d9"
+      "sha256": "c6738b35555ffaee4b2b0d7c8de4b6fe5c35d64e5e9175c0cca9d86cb5d0ab89"
     },
-    "added_pixel_count": 8615,
-    "original_changed_pixel_count": 14487,
-    "original_changed_pixel_indexes_sha256": "d707764b74e37009cc97027ac3179cda0a75c7cb90ad35e570e9b5354319a188",
-    "changed_archive_byte_count": 7417,
-    "changed_archive_range_count": 776,
+    "added_pixel_count": 9168,
+    "original_changed_pixel_count": 14389,
+    "original_changed_pixel_indexes_sha256": "63114d745add7ce84b4d81143c374b715c5591b09e050ad2e60ecaf5da34d8d2",
+    "changed_archive_byte_count": 7415,
+    "changed_archive_range_count": 819,
     "additional_text_masks": [
       {
         "semantic_locator_sha256": "80ebe4f118802a72d8ed2b0076434895eadf99658f50d6e162c6733fe2809485",
@@ -646,20 +728,20 @@
       {
         "semantic_locator_sha256": "23b6f62de61859aaccf93a995740ebef3f31acec96add95b106a479b3b224137",
         "size": 1278,
-        "sha256": "edd436f4c84f74d83123d113e0b9aa917f0e73b452e72cc2c362debf7d042ac4",
-        "nonzero_pixel_count": 697
+        "sha256": "ee56e9915c002fca5812b291c163981e522ab1187fb277f6d526153f19d9e9dc",
+        "nonzero_pixel_count": 909
       },
       {
         "semantic_locator_sha256": "597a80237c94958ee72b3fd641207796a27d401e9ac7b70d6db132e09d63976a",
         "size": 900,
-        "sha256": "c49c538c8f427e724f2dfe3f717632ec1b4b98fb91ae07eebc57592d93b41c02",
-        "nonzero_pixel_count": 401
+        "sha256": "27cdb266ab8c5bd11e671d48064fb7bed92d032f148e6e3b6fd636e7b5c67718",
+        "nonzero_pixel_count": 467
       },
       {
         "semantic_locator_sha256": "411af9b288fb3385dafecfdc0ac3e1da517282ce9a6f37bc93f01c64cc1765a2",
         "size": 612,
-        "sha256": "ed1a85fb386f07e966a25357d9633a4b318aaf80ffa95f0a66e9dd01b88f7d7c",
-        "nonzero_pixel_count": 345
+        "sha256": "862dfc43e06f43acb339dcb54b2127d5b978c57d1a3b227763949ba3fb3ea043",
+        "nonzero_pixel_count": 457
       },
       {
         "semantic_locator_sha256": "eac170cddbc4dccad418bfa144a6c5ede5a8c9551ed7555949c1e7b651da0f5d",

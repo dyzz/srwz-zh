@@ -114,6 +114,10 @@ try:
         IntermissionLibraryAlignmentError,
         apply_intermission_library_alignment,
     )
+    from srwz.bazaar_top_help_alignment import (
+        BazaarTopHelpAlignmentError,
+        apply_bazaar_top_help_alignment,
+    )
     from srwz.remaining_squad_count_alignment import (
         RemainingSquadCountAlignmentError,
         apply_remaining_squad_count_alignment,
@@ -286,6 +290,10 @@ except ModuleNotFoundError:
     from tools.srwz.intermission_library_alignment import (
         IntermissionLibraryAlignmentError,
         apply_intermission_library_alignment,
+    )
+    from tools.srwz.bazaar_top_help_alignment import (
+        BazaarTopHelpAlignmentError,
+        apply_bazaar_top_help_alignment,
     )
     from tools.srwz.remaining_squad_count_alignment import (
         RemainingSquadCountAlignmentError,
@@ -10162,6 +10170,18 @@ def build(
         ) from error
 
     try:
+        output_slps, bazaar_top_help_alignment_report = (
+            apply_bazaar_top_help_alignment(
+                output_slps,
+                config["remaining_ui"]["bazaar_top_help_alignment"],
+            )
+        )
+    except (KeyError, ValueError, BazaarTopHelpAlignmentError) as error:
+        raise FullStoryComponentError(
+            f"Bazaar top-help alignment failed: {error}"
+        ) from error
+
+    try:
         output_slps, remaining_squad_count_alignment_report = (
             apply_remaining_squad_count_alignment(
                 output_slps,
@@ -10616,6 +10636,7 @@ def build(
         "intermission_library_alignment": (
             intermission_library_alignment_report
         ),
+        "bazaar_top_help_alignment": bazaar_top_help_alignment_report,
         "remaining_squad_count_alignment": (
             remaining_squad_count_alignment_report
         ),
@@ -11043,6 +11064,28 @@ def build(
                     "target_tail_preserved"
                 ]
                 and intermission_library_alignment_report[
+                    "executable_size_preserved"
+                ]
+            ),
+            "bazaar_purchase_help_shifted_left": (
+                bazaar_top_help_alignment_report["site_count"] == 4
+                and bazaar_top_help_alignment_report["shift_pixels"] == -12
+                and bazaar_top_help_alignment_report[
+                    "confirm_replacement_x"
+                ]
+                == -251
+                and bazaar_top_help_alignment_report[
+                    "secondary_replacement_x"
+                ]
+                == -166
+                and bazaar_top_help_alignment_report[
+                    "changed_bytes_confined_to_coordinate_instructions"
+                ]
+                and bazaar_top_help_alignment_report[
+                    "all_instruction_replacements_exact"
+                ]
+                and bazaar_top_help_alignment_report["text_bytes_untouched"]
+                and bazaar_top_help_alignment_report[
                     "executable_size_preserved"
                 ]
             ),

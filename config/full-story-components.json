@@ -778,6 +778,64 @@
         }
       ]
     },
+    "bazaar_top_help_alignment": {
+      "member": "SLPS_258.87",
+      "policy": "shift_purchase_help_left_without_changing_text",
+      "source_reference": "original Japanese executable Bazaar purchase-screen draw routine",
+      "elf_file_offset_base": "0x0",
+      "elf_virtual_address_base": "0xFE580",
+      "shift_pixels": -12,
+      "patches": [
+        {
+          "surface": "confirm",
+          "text": "：确定",
+          "source_text": "：決定",
+          "source_string_file_offset": "0x33D918",
+          "original_x": -239,
+          "replacement_x": -251,
+          "instruction_virtual_address": "0x1CEABC",
+          "instruction_file_offset": "0xD053C",
+          "original_instruction_hex": "11FF0524",
+          "replacement_instruction_hex": "05FF0524"
+        },
+        {
+          "surface": "owned_parts",
+          "text": "：持有部件",
+          "source_text": "：所持パーツ",
+          "source_string_file_offset": "0x33D920",
+          "original_x": -154,
+          "replacement_x": -166,
+          "instruction_virtual_address": "0x1CEAF8",
+          "instruction_file_offset": "0xD0578",
+          "original_instruction_hex": "66FF0524",
+          "replacement_instruction_hex": "5AFF0524"
+        },
+        {
+          "surface": "eligible_pilots",
+          "text": "：可搭乘者",
+          "source_text": "：搭乗可能者",
+          "source_string_file_offset": "0x33D930",
+          "original_x": -154,
+          "replacement_x": -166,
+          "instruction_virtual_address": "0x1CEB38",
+          "instruction_file_offset": "0xD05B8",
+          "original_instruction_hex": "66FF0524",
+          "replacement_instruction_hex": "5AFF0524"
+        },
+        {
+          "surface": "owned_items",
+          "text": "：持有道具",
+          "source_text": "：所持アイテム",
+          "source_string_file_offset": "0x33D940",
+          "original_x": -154,
+          "replacement_x": -166,
+          "instruction_virtual_address": "0x1CEB78",
+          "instruction_file_offset": "0xD05F8",
+          "original_instruction_hex": "66FF0524",
+          "replacement_instruction_hex": "5AFF0524"
+        }
+      ]
+    },
     "remaining_squad_count_alignment": {
       "member": "SLPS_258.87",
       "policy": "move_printf_number_right_without_touching_adjacent_text",
@@ -2155,7 +2213,7 @@
   "kvmdata": {
     "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
     "size": 3335408,
-    "sha256": "9d830f7d6a97bfd4dd4be1303840b7ae4c274a0927eefd39e38aea2c16ced914"
+    "sha256": "cb627092decad99d09cc9a3be3412b091d35cef1172492a47951477cfd606fb4"
   },
   "world_map_titles": {
     "original_slps": {

@@ -46,8 +46,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 86902,
-      "sha256": "79c9c9a78680cb667fe463bb3f80da5e1edcb9c3068c6e3d66201ce31bafc9cf"
+      "size": 89090,
+      "sha256": "af6b57ca481b29043e955c1b68800ee0477d39c08ea75188a3f7decae3ae937f"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -327,7 +327,7 @@
     "kvmdata": {
       "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "9d830f7d6a97bfd4dd4be1303840b7ae4c274a0927eefd39e38aea2c16ced914"
+      "sha256": "cb627092decad99d09cc9a3be3412b091d35cef1172492a47951477cfd606fb4"
     },
     "original_veff2dx": {
       "path": "work/disc/EFF/VEFF2DX.BIN",
@@ -74649,6 +74649,89 @@
     "source_sha256": "8ab4f8a35ff41ecf0049152a527c8b1d089fcc6b1d3470e860075bcc11357bef",
     "output_sha256": "7c09b4c17f9c703f4764ac7c98084144628301e6c3aaa57f74cd1828edbb8597"
   },
+  "bazaar_top_help_alignment": {
+    "policy": "shift_purchase_help_left_without_changing_text",
+    "member": "SLPS_258.87",
+    "shift_pixels": -12,
+    "confirm_original_x": -239,
+    "confirm_replacement_x": -251,
+    "secondary_original_x": -154,
+    "secondary_replacement_x": -166,
+    "patches": [
+      {
+        "surface": "confirm",
+        "text": "：确定",
+        "source_text": "：決定",
+        "source_string_file_offset": "0x33D918",
+        "instruction_virtual_address": "0x1CEABC",
+        "instruction_file_offset": "0xD053C",
+        "original_x": -239,
+        "replacement_x": -251,
+        "shift_pixels": -12,
+        "original_instruction_hex": "11FF0524",
+        "replacement_instruction_hex": "05FF0524",
+        "source_instruction_hex": "11FF0524",
+        "output_instruction_hex": "05FF0524",
+        "already_patched": false
+      },
+      {
+        "surface": "owned_parts",
+        "text": "：持有部件",
+        "source_text": "：所持パーツ",
+        "source_string_file_offset": "0x33D920",
+        "instruction_virtual_address": "0x1CEAF8",
+        "instruction_file_offset": "0xD0578",
+        "original_x": -154,
+        "replacement_x": -166,
+        "shift_pixels": -12,
+        "original_instruction_hex": "66FF0524",
+        "replacement_instruction_hex": "5AFF0524",
+        "source_instruction_hex": "66FF0524",
+        "output_instruction_hex": "5AFF0524",
+        "already_patched": false
+      },
+      {
+        "surface": "eligible_pilots",
+        "text": "：可搭乘者",
+        "source_text": "：搭乗可能者",
+        "source_string_file_offset": "0x33D930",
+        "instruction_virtual_address": "0x1CEB38",
+        "instruction_file_offset": "0xD05B8",
+        "original_x": -154,
+        "replacement_x": -166,
+        "shift_pixels": -12,
+        "original_instruction_hex": "66FF0524",
+        "replacement_instruction_hex": "5AFF0524",
+        "source_instruction_hex": "66FF0524",
+        "output_instruction_hex": "5AFF0524",
+        "already_patched": false
+      },
+      {
+        "surface": "owned_items",
+        "text": "：持有道具",
+        "source_text": "：所持アイテム",
+        "source_string_file_offset": "0x33D940",
+        "instruction_virtual_address": "0x1CEB78",
+        "instruction_file_offset": "0xD05F8",
+        "original_x": -154,
+        "replacement_x": -166,
+        "shift_pixels": -12,
+        "original_instruction_hex": "66FF0524",
+        "replacement_instruction_hex": "5AFF0524",
+        "source_instruction_hex": "66FF0524",
+        "output_instruction_hex": "5AFF0524",
+        "already_patched": false
+      }
+    ],
+    "site_count": 4,
+    "changed_byte_count": 4,
+    "changed_bytes_confined_to_coordinate_instructions": true,
+    "all_instruction_replacements_exact": true,
+    "text_bytes_untouched": true,
+    "executable_size_preserved": true,
+    "source_sha256": "7c09b4c17f9c703f4764ac7c98084144628301e6c3aaa57f74cd1828edbb8597",
+    "output_sha256": "515c3d0814cd29834a3055897dcffc76304346cc1d7b3019da3e02b0a87969a1"
+  },
   "remaining_squad_count_alignment": {
     "policy": "move_printf_number_right_without_touching_adjacent_text",
     "member": "SLPS_258.87",
@@ -74668,8 +74751,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "7c09b4c17f9c703f4764ac7c98084144628301e6c3aaa57f74cd1828edbb8597",
-    "output_sha256": "37b7203c3febb579e7853d437eacb8b663d94f34997f4f12c7020f1840c2eb11",
+    "source_sha256": "515c3d0814cd29834a3055897dcffc76304346cc1d7b3019da3e02b0a87969a1",
+    "output_sha256": "473b02c1b4b26a966e1bb7e46de74222e1e17a00a5ca5b051239c46f9fc99a17",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -74714,8 +74797,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "37b7203c3febb579e7853d437eacb8b663d94f34997f4f12c7020f1840c2eb11",
-    "output_sha256": "b16037233afeca604a7333c55bdb01b2bdea872a648e0b74f7a6839ede814f78",
+    "source_sha256": "473b02c1b4b26a966e1bb7e46de74222e1e17a00a5ca5b051239c46f9fc99a17",
+    "output_sha256": "23f42065d548a13792be7e30a953fc0f36c0d2a343605be0c441fe6f7e01a5e7",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -82848,7 +82931,7 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "204f6ca4ad4af6b8ccad6409d9661b156d63226e6fff91a8a712f645aa3f38d5"
+      "sha256": "eac8167fafb2de63f9c680b74ea570b1bd831d8d70e50886fd174906e489c2a7"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -82893,7 +82976,7 @@
     "KURODATA/KVMDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "9d830f7d6a97bfd4dd4be1303840b7ae4c274a0927eefd39e38aea2c16ced914"
+      "sha256": "cb627092decad99d09cc9a3be3412b091d35cef1172492a47951477cfd606fb4"
     },
     "BTL/SRVC.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
@@ -82951,6 +83034,7 @@
     "dialogue_speaker_colors_restored": true,
     "search_tabs_aligned_as_five_label_set": true,
     "intermission_library_robot_encyclopedia_centered": true,
+    "bazaar_purchase_help_shifted_left": true,
     "remaining_squad_count_spacing_exact": true,
     "weapon_special_effect_2_reread_exact": true,
     "all_localized_text_written_with_release_codebook": true,

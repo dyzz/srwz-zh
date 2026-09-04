@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import copy
 import hashlib
 import json
 import tempfile
@@ -243,6 +244,57 @@ def _resolve_indexed_layers(
     return profiles[profile_name]
 
 
+def _indexed_outline_coverage_maximum(render: Mapping) -> int | None:
+    """Return an optional absolute coverage ceiling for indexed outlines.
+
+    The default indexed renderer normalizes the outline-only fringe to its
+    local maximum.  Small, supersampled text can leave only low-coverage
+    fringe pixels after the fill wins the overlap; normalizing that fringe
+    makes its outer edge use the light end of the outline ramp.  A locked
+    absolute ceiling keeps those pixels in the source palette's dark roles.
+    """
+
+    value = render.get("indexed_outline_coverage_maximum")
+    if value is None:
+        return None
+    if (
+        not isinstance(value, int)
+        or isinstance(value, bool)
+        or not 1 <= value <= 0xFF
+    ):
+        raise UiAtlasLocalizationError(
+            "indexed outline coverage maximum must be an integer from 1 to 255"
+        )
+    return value
+
+
+def _indexed_shadow_offset(render: Mapping) -> tuple[int, int] | None:
+    """Return an optional pixel offset for a darkest-outline shadow layer."""
+
+    raw = render.get("indexed_shadow_offset")
+    if raw is None:
+        return None
+    if not isinstance(raw, Mapping) or set(raw) != {"x", "y"}:
+        raise UiAtlasLocalizationError(
+            "indexed shadow offset must define exactly x and y"
+        )
+    x = raw.get("x")
+    y = raw.get("y")
+    if (
+        not isinstance(x, int)
+        or isinstance(x, bool)
+        or not isinstance(y, int)
+        or isinstance(y, bool)
+        or not -8 <= x <= 8
+        or not -8 <= y <= 8
+        or (x == 0 and y == 0)
+    ):
+        raise UiAtlasLocalizationError(
+            "indexed shadow offset must be a nonzero integer pixel offset"
+        )
+    return x, y
+
+
 def apply_text_mask(
     erased_rgba: bytes,
     grayscale_mask: bytes,
@@ -340,8 +392,11 @@ def apply_indexed_text_layers(
     fill_mask: bytes,
     mask: AtlasMask,
     layers: Mapping[str, Sequence[tuple[bytes, int]]],
+    *,
+    outline_coverage_maximum: int | None = None,
+    shadow_offset: tuple[int, int] | None = None,
 ) -> tuple[bytes, dict, dict[int, int]]:
-    """Render a dark indexed outline plus a separately indexed light fill."""
+    """Render indexed fill, outline, and an optional darkest-outline shadow."""
 
     expected_rgba_size = CANARY_WIDTH * CANARY_HEIGHT * 4
     expected_mask_size = mask.width * mask.height
@@ -364,15 +419,45 @@ def apply_indexed_text_layers(
         raise UiAtlasLocalizationError(
             "indexed text layers require visible outline and fill pixels"
         )
+    if (
+        outline_coverage_maximum is not None
+        and (
+            not isinstance(outline_coverage_maximum, int)
+            or isinstance(outline_coverage_maximum, bool)
+            or not max(outline_only) <= outline_coverage_maximum <= 0xFF
+        )
+    ):
+        raise UiAtlasLocalizationError(
+            "indexed outline coverage maximum is below visible coverage "
+            "or exceeds 255"
+        )
     layer_maximum = {
-        "outline": max(outline_only),
+        "outline": outline_coverage_maximum or max(outline_only),
         "fill": max(visible_fill),
+        **({"shadow": 1} if shadow_offset is not None else {}),
     }
+    if shadow_offset is not None and (
+        not isinstance(shadow_offset, tuple)
+        or len(shadow_offset) != 2
+        or any(
+            not isinstance(value, int) or isinstance(value, bool)
+            for value in shadow_offset
+        )
+        or shadow_offset == (0, 0)
+    ):
+        raise UiAtlasLocalizationError(
+            "indexed shadow offset must be a nonzero integer pair"
+        )
     edited = bytearray(erased_rgba)
     exact_indexes = {}
     counts = {
         "outline": {index: 0 for _color, index in outline},
         "fill": {index: 0 for _color, index in fill},
+        **(
+            {"shadow": {outline[0][1]: 0}}
+            if shadow_offset is not None
+            else {}
+        ),
     }
     added_indexes = []
     for local_y in range(mask.height):
@@ -380,6 +465,17 @@ def apply_indexed_text_layers(
             local_index = local_y * mask.width + local_x
             fill_coverage = fill_mask[local_index]
             outline_coverage = outline_mask[local_index]
+            shadow_coverage = 0
+            if shadow_offset is not None:
+                source_x = local_x - shadow_offset[0]
+                source_y = local_y - shadow_offset[1]
+                if (
+                    0 <= source_x < mask.width
+                    and 0 <= source_y < mask.height
+                ):
+                    shadow_coverage = outline_mask[
+                        source_y * mask.width + source_x
+                    ]
             if fill_coverage:
                 layer_name = "fill"
                 coverage = fill_coverage
@@ -388,6 +484,10 @@ def apply_indexed_text_layers(
                 layer_name = "outline"
                 coverage = outline_coverage
                 layer = outline
+            elif shadow_coverage:
+                layer_name = "shadow"
+                coverage = 1
+                layer = (outline[0],)
             else:
                 continue
             maximum = layer_maximum[layer_name]
@@ -427,6 +527,28 @@ def apply_indexed_text_layers(
         },
         "fill_mask_sha256": sha256_bytes(fill_mask),
         "fill_mask_nonzero_pixel_count": len(visible_fill),
+        **(
+            {
+                "shadow_offset": {
+                    "x": shadow_offset[0],
+                    "y": shadow_offset[1],
+                },
+                "shadow_palette_index": outline[0][1],
+                "shadow_pixel_count": sum(
+                    counts["shadow"].values()
+                ),
+            }
+            if shadow_offset is not None
+            else {}
+        ),
+        **(
+            {
+                "outline_coverage_maximum": layer_maximum["outline"],
+                "outline_coverage_normalization": "absolute_locked",
+            }
+            if outline_coverage_maximum is not None
+            else {}
+        ),
         "outside_mask_rgba_exact": True,
         "erased_background_preimage_exact": True,
     }, exact_indexes
@@ -526,8 +648,18 @@ def build_ui_atlas_localization(
     enforce_expected: bool = True,
     live_render: bool = False,
     render_snapshot_sink: dict | None = None,
+    refreeze_existing_masks: bool = False,
 ) -> tuple[dict[str, bytes], dict]:
     """Build one localized atlas from frozen masks or an explicit refreeze."""
+
+    if live_render and refreeze_existing_masks:
+        raise UiAtlasLocalizationError(
+            "live rendering cannot reuse frozen render masks"
+        )
+    if refreeze_existing_masks and render_snapshot_sink is None:
+        raise UiAtlasLocalizationError(
+            "refreezing existing masks requires a render snapshot sink"
+        )
 
     root = project_root.resolve()
     work = work_root.resolve()
@@ -684,6 +816,7 @@ def build_ui_atlas_localization(
     italic_shear_degrees = render.get("italic_shear_degrees", 0)
     supersample_factor = render.get("supersample_factor", 1)
     horizontal_offset = render.get("horizontal_offset", 0)
+    vertical_offset = render.get("vertical_offset", 0)
     if (
         not isinstance(point_size, int)
         or isinstance(point_size, bool)
@@ -700,11 +833,28 @@ def build_ui_atlas_localization(
         or not 1 <= supersample_factor <= 8
         or not isinstance(horizontal_offset, int)
         or isinstance(horizontal_offset, bool)
+        or not isinstance(vertical_offset, int)
+        or isinstance(vertical_offset, bool)
     ):
         raise UiAtlasLocalizationError(
             "localized atlas render contract is invalid"
         )
     ramp = _decode_ramp(render.get("ramp_rgba"))
+    indexed_layers = _resolve_indexed_layers(
+        render,
+        indexed_layer_profiles,
+    )
+    indexed_outline_coverage_maximum = (
+        _indexed_outline_coverage_maximum(render)
+    )
+    indexed_shadow_offset = _indexed_shadow_offset(render)
+    if (
+        indexed_outline_coverage_maximum is not None
+        or indexed_shadow_offset is not None
+    ) and indexed_layers is None:
+        raise UiAtlasLocalizationError(
+            "indexed outline controls require indexed text layers"
+        )
 
     label_specs = [
         {
@@ -721,11 +871,13 @@ def build_ui_atlas_localization(
             "italic_shear_degrees": italic_shear_degrees,
             "supersample_factor": supersample_factor,
             "horizontal_offset": horizontal_offset,
+            "vertical_offset": vertical_offset,
             "ramp": ramp,
-            "indexed_layers": _resolve_indexed_layers(
-                render,
-                indexed_layer_profiles,
+            "indexed_layers": indexed_layers,
+            "indexed_outline_coverage_maximum": (
+                indexed_outline_coverage_maximum
             ),
+            "indexed_shadow_offset": indexed_shadow_offset,
             "source_element_id": label.get("source_element_id"),
             "source_element_rgba_sha256": label.get(
                 "source_element_rgba_sha256"
@@ -794,6 +946,9 @@ def build_ui_atlas_localization(
         additional_horizontal_offset = additional_render.get(
             "horizontal_offset", 0
         )
+        additional_vertical_offset = additional_render.get(
+            "vertical_offset", 0
+        )
         if (
             not isinstance(additional_point_size, int)
             or isinstance(additional_point_size, bool)
@@ -814,9 +969,31 @@ def build_ui_atlas_localization(
             or not 1 <= additional_supersample_factor <= 8
             or not isinstance(additional_horizontal_offset, int)
             or isinstance(additional_horizontal_offset, bool)
+            or not isinstance(additional_vertical_offset, int)
+            or isinstance(additional_vertical_offset, bool)
         ):
             raise UiAtlasLocalizationError(
                 "additional localized atlas render contract is invalid"
+            )
+        additional_indexed_layers = _resolve_indexed_layers(
+            additional_render,
+            indexed_layer_profiles,
+        )
+        additional_indexed_outline_coverage_maximum = (
+            _indexed_outline_coverage_maximum(additional_render)
+        )
+        additional_indexed_shadow_offset = _indexed_shadow_offset(
+            additional_render
+        )
+        if (
+            (
+                additional_indexed_outline_coverage_maximum is not None
+                or additional_indexed_shadow_offset is not None
+            )
+            and additional_indexed_layers is None
+        ):
+            raise UiAtlasLocalizationError(
+                "indexed outline controls require indexed text layers"
             )
         label_specs.append(
             {
@@ -835,11 +1012,13 @@ def build_ui_atlas_localization(
                 ),
                 "supersample_factor": additional_supersample_factor,
                 "horizontal_offset": additional_horizontal_offset,
+                "vertical_offset": additional_vertical_offset,
                 "ramp": _decode_ramp(additional_render.get("ramp_rgba")),
-                "indexed_layers": _resolve_indexed_layers(
-                    additional_render,
-                    indexed_layer_profiles,
+                "indexed_layers": additional_indexed_layers,
+                "indexed_outline_coverage_maximum": (
+                    additional_indexed_outline_coverage_maximum
                 ),
+                "indexed_shadow_offset": additional_indexed_shadow_offset,
                 "source_element_id": raw.get("source_element_id"),
                 "source_element_rgba_sha256": raw.get(
                     "source_element_rgba_sha256"
@@ -949,11 +1128,35 @@ def build_ui_atlas_localization(
                 else {}
             ),
             "horizontal_offset": spec["horizontal_offset"],
+            **(
+                {"vertical_offset": spec["vertical_offset"]}
+                if spec["vertical_offset"]
+                else {}
+            ),
             "ramp_rgba": [color.hex() for color in spec["ramp"]],
             "indexed_layers": (
                 _indexed_layers_metadata(spec["indexed_layers"])
                 if spec["indexed_layers"] is not None
                 else None
+            ),
+            **(
+                {
+                    "indexed_outline_coverage_maximum": spec[
+                        "indexed_outline_coverage_maximum"
+                    ]
+                }
+                if spec["indexed_outline_coverage_maximum"] is not None
+                else {}
+            ),
+            **(
+                {
+                    "indexed_shadow_offset": {
+                        "x": spec["indexed_shadow_offset"][0],
+                        "y": spec["indexed_shadow_offset"][1],
+                    }
+                }
+                if spec["indexed_shadow_offset"] is not None
+                else {}
             ),
         }
         for spec in label_specs
@@ -995,8 +1198,11 @@ def build_ui_atlas_localization(
             or render_snapshot.get("translation_source_sha256")
             != translation_sha256
             or render_snapshot.get("font_sha256") != font_sha256
-            or render_snapshot.get("render_contract_sha256")
-            != render_contract_sha256
+            or (
+                not refreeze_existing_masks
+                and render_snapshot.get("render_contract_sha256")
+                != render_contract_sha256
+            )
             or render_snapshot.get("base_reference_png_sha256")
             != base_reference_png_sha256
             or render_snapshot.get("base_erased_png_sha256")
@@ -1139,6 +1345,7 @@ def build_ui_atlas_localization(
                     ),
                     supersample_factor=spec["supersample_factor"],
                     horizontal_offset=spec["horizontal_offset"],
+                    vertical_offset=spec["vertical_offset"],
                 )
             else:
                 if (
@@ -1181,6 +1388,7 @@ def build_ui_atlas_localization(
                         ),
                         supersample_factor=spec["supersample_factor"],
                         horizontal_offset=spec["horizontal_offset"],
+                        vertical_offset=spec["vertical_offset"],
                     )
                 else:
                     fill_mask = _thaw_bytes(
@@ -1200,6 +1408,10 @@ def build_ui_atlas_localization(
                     fill_mask,
                     spec["mask"],
                     indexed_layers,
+                    outline_coverage_maximum=spec[
+                        "indexed_outline_coverage_maximum"
+                    ],
+                    shadow_offset=spec["indexed_shadow_offset"],
                 )
                 forced_palette_indexes_by_pixel.update(
                     current_exact_indexes
@@ -1321,7 +1533,7 @@ def build_ui_atlas_localization(
             raise UiAtlasLocalizationError(
                 "localized atlas TIM2 RGBA reread mismatch"
             )
-        if render_snapshot is None:
+        if render_snapshot is None or refreeze_existing_masks:
             write_deterministic_rgba8_png(
                 magick,
                 localized_rgba,
@@ -1368,7 +1580,30 @@ def build_ui_atlas_localization(
         base_archive,
         localized_archive,
     ).to_mapping()
-    if live_render and render_snapshot_sink is not None:
+    if (live_render or refreeze_existing_masks) and render_snapshot_sink is not None:
+        frozen_labels = (
+            [
+                {
+                    "entry_id": spec["entry_id"],
+                    "text_sha256": sha256_bytes(
+                        spec["text"].encode("utf-8")
+                    ),
+                    "outline_mask": _frozen_bytes(current_mask),
+                    "fill_mask": (
+                        _frozen_bytes(fill_mask)
+                        if fill_mask is not None
+                        else None
+                    ),
+                }
+                for spec, current_mask, fill_mask in zip(
+                    label_specs,
+                    grayscale_masks,
+                    fill_masks,
+                )
+            ]
+            if live_render
+            else copy.deepcopy(render_snapshot["labels"])
+        )
         render_snapshot_sink.update(
             {
                 "schema_version": 1,
@@ -1381,25 +1616,7 @@ def build_ui_atlas_localization(
                 "base_reference_png_sha256": base_reference_png_sha256,
                 "base_erased_png_sha256": base_erased_png_sha256,
                 "imagemagick_version": version,
-                "labels": [
-                    {
-                        "entry_id": spec["entry_id"],
-                        "text_sha256": sha256_bytes(
-                            spec["text"].encode("utf-8")
-                        ),
-                        "outline_mask": _frozen_bytes(current_mask),
-                        "fill_mask": (
-                            _frozen_bytes(fill_mask)
-                            if fill_mask is not None
-                            else None
-                        ),
-                    }
-                    for spec, current_mask, fill_mask in zip(
-                        label_specs,
-                        grayscale_masks,
-                        fill_masks,
-                    )
-                ],
+                "labels": frozen_labels,
                 "preview_png": _frozen_bytes(localized_png),
             }
         )
@@ -1605,6 +1822,11 @@ def build_ui_atlas_localization(
                     if horizontal_offset
                     else {}
                 ),
+                **(
+                    {"vertical_offset": vertical_offset}
+                    if vertical_offset
+                    else {}
+                ),
                 "ramp_rgba": [color.hex() for color in ramp],
                 **(
                     {
@@ -1613,6 +1835,28 @@ def build_ui_atlas_localization(
                         )
                     }
                     if label_specs[0]["indexed_layers"] is not None
+                    else {}
+                ),
+                **(
+                    {
+                        "indexed_outline_coverage_maximum": label_specs[0][
+                            "indexed_outline_coverage_maximum"
+                        ]
+                    }
+                    if label_specs[0][
+                        "indexed_outline_coverage_maximum"
+                    ]
+                    is not None
+                    else {}
+                ),
+                **(
+                    {
+                        "indexed_shadow_offset": {
+                            "x": label_specs[0]["indexed_shadow_offset"][0],
+                            "y": label_specs[0]["indexed_shadow_offset"][1],
+                        }
+                    }
+                    if label_specs[0]["indexed_shadow_offset"] is not None
                     else {}
                 ),
                 "text_mask": expected["text_mask"],
@@ -1664,6 +1908,15 @@ def build_ui_atlas_localization(
                                 if spec["horizontal_offset"]
                                 else {}
                             ),
+                            **(
+                                {
+                                    "vertical_offset": spec[
+                                        "vertical_offset"
+                                    ]
+                                }
+                                if spec["vertical_offset"]
+                                else {}
+                            ),
                             "ramp_rgba": [
                                 color.hex() for color in spec["ramp"]
                             ],
@@ -1676,6 +1929,32 @@ def build_ui_atlas_localization(
                                     )
                                 }
                                 if spec["indexed_layers"] is not None
+                                else {}
+                            ),
+                            **(
+                                {
+                                    "indexed_outline_coverage_maximum": spec[
+                                        "indexed_outline_coverage_maximum"
+                                    ]
+                                }
+                                if spec[
+                                    "indexed_outline_coverage_maximum"
+                                ]
+                                is not None
+                                else {}
+                            ),
+                            **(
+                                {
+                                    "indexed_shadow_offset": {
+                                        "x": spec[
+                                            "indexed_shadow_offset"
+                                        ][0],
+                                        "y": spec[
+                                            "indexed_shadow_offset"
+                                        ][1],
+                                    }
+                                }
+                                if spec["indexed_shadow_offset"] is not None
                                 else {}
                             ),
                             "text_mask": expected[
@@ -1715,7 +1994,11 @@ def build_ui_atlas_localization(
                     "text_render_source": (
                         "live_explicit_refreeze"
                         if live_render
-                        else "locked_snapshot"
+                        else (
+                            "frozen_masks_explicit_refreeze"
+                            if refreeze_existing_masks
+                            else "locked_snapshot"
+                        )
                     )
                 }
                 if live_render or render_snapshot is not None

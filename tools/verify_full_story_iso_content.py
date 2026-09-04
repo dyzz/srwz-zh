@@ -79,6 +79,9 @@ from srwz.search_tab_alignment import apply_search_tab_alignment
 from srwz.intermission_library_alignment import (
     apply_intermission_library_alignment,
 )
+from srwz.bazaar_top_help_alignment import (
+    apply_bazaar_top_help_alignment,
+)
 from srwz.remaining_squad_count_alignment import (
     apply_remaining_squad_count_alignment,
 )
@@ -5087,6 +5090,89 @@ def main() -> int:
     intermission_library_alignment_readback[
         "component_receipt_exact"
     ] = True
+    bazaar_top_help_alignment_contract = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )["remaining_ui"]["bazaar_top_help_alignment"]
+    (
+        _verified_bazaar_top_help_slps,
+        bazaar_top_help_alignment_readback,
+    ) = apply_bazaar_top_help_alignment(
+        members["SLPS_258.87"], bazaar_top_help_alignment_contract
+    )
+    component_bazaar_top_help_alignment = component.get(
+        "bazaar_top_help_alignment"
+    )
+    bazaar_top_help_receipt_fields = (
+        "policy",
+        "member",
+        "shift_pixels",
+        "confirm_original_x",
+        "confirm_replacement_x",
+        "secondary_original_x",
+        "secondary_replacement_x",
+        "site_count",
+    )
+    bazaar_top_help_patch_fields = (
+        "surface",
+        "text",
+        "source_text",
+        "source_string_file_offset",
+        "instruction_virtual_address",
+        "instruction_file_offset",
+        "original_x",
+        "replacement_x",
+        "shift_pixels",
+        "original_instruction_hex",
+        "replacement_instruction_hex",
+        "output_instruction_hex",
+    )
+    normalized_bazaar_top_help_readback = (
+        tuple(
+            bazaar_top_help_alignment_readback.get(field)
+            for field in bazaar_top_help_receipt_fields
+        ),
+        tuple(
+            tuple(entry.get(field) for field in bazaar_top_help_patch_fields)
+            for entry in bazaar_top_help_alignment_readback.get("patches", [])
+        ),
+    )
+    normalized_bazaar_top_help_component = (
+        (
+            tuple(
+                component_bazaar_top_help_alignment.get(field)
+                for field in bazaar_top_help_receipt_fields
+            ),
+            tuple(
+                tuple(entry.get(field) for field in bazaar_top_help_patch_fields)
+                for entry in component_bazaar_top_help_alignment.get(
+                    "patches", []
+                )
+            ),
+        )
+        if isinstance(component_bazaar_top_help_alignment, dict)
+        else None
+    )
+    if (
+        normalized_bazaar_top_help_readback
+        != normalized_bazaar_top_help_component
+        or bazaar_top_help_alignment_readback["site_count"] != 4
+        or bazaar_top_help_alignment_readback["shift_pixels"] != -12
+        or bazaar_top_help_alignment_readback["confirm_replacement_x"] != -251
+        or bazaar_top_help_alignment_readback["secondary_replacement_x"] != -166
+        or bazaar_top_help_alignment_readback["changed_byte_count"] != 0
+        or not bazaar_top_help_alignment_readback[
+            "changed_bytes_confined_to_coordinate_instructions"
+        ]
+        or not bazaar_top_help_alignment_readback[
+            "all_instruction_replacements_exact"
+        ]
+        or not bazaar_top_help_alignment_readback["text_bytes_untouched"]
+        or not bazaar_top_help_alignment_readback[
+            "executable_size_preserved"
+        ]
+    ):
+        raise SystemExit("final ISO Bazaar top-help alignment readback drift")
+    bazaar_top_help_alignment_readback["component_receipt_exact"] = True
     remaining_count_alignment_contract = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )["remaining_ui"]["remaining_squad_count_alignment"]
@@ -7042,6 +7128,7 @@ def main() -> int:
         "intermission_library_alignment": (
             intermission_library_alignment_readback
         ),
+        "bazaar_top_help_alignment": bazaar_top_help_alignment_readback,
         "remaining_squad_count_alignment": (
             remaining_squad_count_alignment_readback
         ),
@@ -7263,6 +7350,30 @@ def main() -> int:
                     "target_tail_preserved"
                 ]
                 and intermission_library_alignment_readback[
+                    "component_receipt_exact"
+                ]
+            ),
+            "bazaar_purchase_help_shifted_left": (
+                bazaar_top_help_alignment_readback["site_count"] == 4
+                and bazaar_top_help_alignment_readback["shift_pixels"] == -12
+                and bazaar_top_help_alignment_readback[
+                    "confirm_replacement_x"
+                ]
+                == -251
+                and bazaar_top_help_alignment_readback[
+                    "secondary_replacement_x"
+                ]
+                == -166
+                and bazaar_top_help_alignment_readback["changed_byte_count"]
+                == 0
+                and bazaar_top_help_alignment_readback[
+                    "changed_bytes_confined_to_coordinate_instructions"
+                ]
+                and bazaar_top_help_alignment_readback[
+                    "all_instruction_replacements_exact"
+                ]
+                and bazaar_top_help_alignment_readback["text_bytes_untouched"]
+                and bazaar_top_help_alignment_readback[
                     "component_receipt_exact"
                 ]
             ),
