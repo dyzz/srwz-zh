@@ -78,6 +78,72 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
         for marker in ("卡嘉莉因牺牲痛哭", "なのに", "非要", "全都", "避免超出原文"):
             self.assertIn(marker, retained["notes"])
 
+    def test_category_f_is_a_classification_in_every_current_surface(self) -> None:
+        glossary = load_payload("corpus/glossary/skills-v1.json")
+        category_f = next(
+            entry for entry in glossary["terms"] if entry["id"] == "skill/category-f"
+        )
+        self.assertEqual(category_f["translation"], "F类")
+        self.assertEqual(category_f["domains"], ["menu", "story", "battle", "library"])
+        for marker in ("Flash System", "Newtype", "Category F", "Fake", "研究分类", "F等级"):
+            self.assertIn(marker, category_f["notes"])
+
+        menu = load_payload("corpus/zh/menu/system-ui-skills.json")
+        menu_entries = {entry["id"]: entry for entry in menu["entries"]}
+        self.assertEqual(menu_entries["menu/SLPS/09/0069"]["translation"], "F类")
+
+        expected_story = {
+            "story/068/dialogue/02.01/0213": "“情报部的特工吗……我记得是被\n　称为F类的失败的新人类……”",
+            "story/076/dialogue/02.04/0012": "“F类！”",
+            "story/076/dialogue/02.04/0015": "“创造未来的不是新人类。\n　而是被称为F类的我们。”",
+            "story/097/dialogue/02.01/0226": "“情报部的特工吗……\n　听说是什么F类的新人类残次品……”",
+            "story/119/dialogue/01.15/0002": "“F类！你们这些失败的新人类！”",
+            "story/119/dialogue/01.15/0004": "“F类……没能成为新人类的人……”",
+            "story/119/dialogue/01.19/0042": "“仅仅因为这个理由，我们被称为F类，\n　被打上了无能的烙印！”",
+            "story/127/dialogue/01.17/0002": "“F类！不成器的新人类！”",
+            "story/127/dialogue/01.17/0004": "“F类……没能成为新人类的人……”",
+            "story/127/dialogue/01.21/0043": "“仅仅因为那个理由，我们就被称为F类，\n　被打上了无能的烙印！”",
+            "story/127/dialogue/01.38/0015": "“我对你们这些不成器的家伙可\n　没抱过分的期待，F类。”",
+            "story/130/dialogue/01.09/0003": "“人类就是这样啊。也难怪西利乌斯\n　和F类的兄弟们会绝望。”",
+            "story/135/dialogue/02.01/0175": "“关于所谓F类者的报告，我也听说过。”",
+            "story/138/dialogue/02.01/0179": "“关于所谓F类者的报告，我也听说过”",
+        }
+        actual_story = {}
+        for stage_index in (68, 76, 97, 119, 127, 130, 135, 138):
+            stage = load_payload(f"corpus/zh/story-dialogue/stage-{stage_index:03d}.json")
+            for entry in stage["entries"]:
+                if "skill/category-f" in entry.get("glossary_refs", []):
+                    actual_story[entry["id"]] = entry["translation"]
+        self.assertEqual(actual_story, expected_story)
+        for entry_id, translation in expected_story.items():
+            self.assertLessEqual(max(dialogue_line_widths(translation)), 21, entry_id)
+
+        battle = load_payload("corpus/zh/battle/srvc-lines.json")
+        battle_entries = {entry["id"]: entry for entry in battle["entries"]}
+        expected_battle = {
+            "battle:08667": "“创造未来的不是你们…\\n　而是被称为F类的我们”",
+            "battle:08684": "“难道要说F类\\n　比新人类差吗！”",
+        }
+        for entry_id, translation in expected_battle.items():
+            self.assertEqual(battle_entries[entry_id]["translation"], translation)
+            self.assertIn("skill/category-f", battle_entries[entry_id]["glossary_refs"])
+            self.assertLessEqual(
+                max(dialogue_line_widths(translation.replace("\\n", "\n"))),
+                21,
+                entry_id,
+            )
+
+        library = load_payload("corpus/zh/library/v0.2-reviewed.json")
+        library_entries = [
+            entry
+            for entry in library["entries"]
+            if "skill/category-f" in entry.get("glossary_refs", [])
+        ]
+        self.assertEqual(len(library_entries), 4)
+        for entry in library_entries:
+            self.assertIn("F类", entry["translation"])
+            self.assertNotIn("伪新人类", entry["translation"])
+
 
 if __name__ == "__main__":
     unittest.main()
