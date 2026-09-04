@@ -199,6 +199,26 @@ class CommunityFeedbackFinalPendingTest(unittest.TestCase):
         self.assertNotIn("胸甲烈焰", library_entry["translation"])
         self.assertIn("weapon/0007", library_entry["glossary_refs"])
 
+    def test_kappei_questioned_lines_match_confirmed_tone(self) -> None:
+        battle = load_payload("corpus/zh/battle/srvc-lines.json")
+        entries = {entry["id"]: entry for entry in battle["entries"]}
+        expected = {
+            "battle:22831": "“可恶的家伙！”",
+            "battle:22837": "“都猴年马月了等个屁！”",
+            "battle:22850": "“死了吗！？”",
+            "battle:22851": "“接招，接招啊啊啊！”",
+        }
+        self.assertEqual(
+            {entry_id: entries[entry_id]["translation"] for entry_id in expected},
+            expected,
+        )
+        for entry_id, translation in expected.items():
+            self.assertLessEqual(max(dialogue_line_widths(translation)), 21, entry_id)
+            self.assertIn("2026-09-04", entries[entry_id]["notes"])
+        self.assertIn("直接采用投稿", entries["battle:22837"]["notes"])
+        self.assertIn("直接采用投稿", entries["battle:22850"]["notes"])
+        self.assertIn("连读歧义", entries["battle:22851"]["notes"])
+
 
 if __name__ == "__main__":
     unittest.main()
