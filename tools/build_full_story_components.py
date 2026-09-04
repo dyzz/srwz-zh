@@ -673,8 +673,11 @@ INPUT_IMPACTS = {
     "title_menu_contract": {VT1_MEMBER},
     "release_menu_corpus": {SLPS_MEMBER, COMPDATA_MEMBER},
     "release_menu_codebook": {SLPS_MEMBER, COMPDATA_MEMBER},
-    "full_story_font_manifest": CONFIG_SECTION_IMPACTS["full_story_font"],
-    "full_story_stage_report": {STAGE_MEMBER, HB_MEMBER},
+    # These reports bind validation metadata. Their byte-producing outputs are
+    # independently locked below, so report-only drift requires a new
+    # component report but no physical member rewrite.
+    "full_story_font_manifest": set(),
+    "full_story_stage_report": set(),
     "pilot_name_structure": {COMPDATA_MEMBER},
     "story_speakers": {COMPDATA_MEMBER, *AUTO_DEMO_MEMBERS},
     "full_unit_names": {COMPDATA_MEMBER, SLPS_MEMBER, *AUTO_DEMO_MEMBERS},
@@ -682,7 +685,7 @@ INPUT_IMPACTS = {
     "stage_names": {SLPS_MEMBER, VT1_MEMBER, COMPDATA_MEMBER},
     "stage_title_format": {COMPDATA_MEMBER},
     "stage_overviews": {STAGE_MEMBER},
-    "world_history_corpus": {MTV_PROS_MEMBER},
+    "world_history_corpus": {SLPS_MEMBER, MTV_PROS_MEMBER},
     "chapter_intertitle_corpus": {MTV_PROP_MEMBER},
     "chapter_intertitle_font": {MTV_PROP_MEMBER},
     "original_mtv_prop": {MTV_PROP_MEMBER},
@@ -735,14 +738,18 @@ INPUT_IMPACTS = {
     "auto_demo_unit_names": {SLPS_MEMBER, *AUTO_DEMO_MEMBERS},
     "runtime_keyword_catalog": {COMPDATA_MEMBER, STAGE_MEMBER},
     "runtime_keyword_library_archive": {COMPDATA_MEMBER, STAGE_MEMBER},
-    "reviewed_library_component_manifest": {
-        SLPS_MEMBER,
-        COMPDATA_MEMBER,
-        STAGE_MEMBER,
-    },
+    "reviewed_library_component_manifest": set(),
     "runtime_keyword_executable": {COMPDATA_MEMBER, STAGE_MEMBER},
     "weapon_special_effect_2_corpus": {SLPS_MEMBER},
 }
+
+INCREMENTAL_FIXED_SLPS_REASONS = frozenset(
+    {
+        "remaining-ui:slps_context_ui_by_offset",
+        "remaining-ui:slps_by_offset",
+        "remaining-ui:accepted_current_preimages_by_offset",
+    }
+)
 
 
 REMAINING_UI_IMPACTS = {
@@ -1091,6 +1098,23 @@ def _plan_incremental_members(
             )
         affected.update(impact)
         reasons.append(f"input:{label}")
+
+    # MTV_PROS is not an independently replaceable archive: rebuilding its
+    # aligned chunks also rewrites the archive offset table embedded in SLPS.
+    # Conversely, an SLPS reconstructed from the original executable must
+    # receive the offsets for the current MTV_PROS payload.  Keep the pair
+    # closed even when a future dependency rule initially selects only one.
+    world_history_pair = {SLPS_MEMBER, MTV_PROS_MEMBER}
+    fixed_slps_only = affected == {SLPS_MEMBER} and set(reasons) <= (
+        INCREMENTAL_FIXED_SLPS_REASONS
+    )
+    if (
+        affected & world_history_pair
+        and not world_history_pair <= affected
+        and not fixed_slps_only
+    ):
+        affected.update(world_history_pair)
+        reasons.append("closure:slps-mtv-pros-layout")
 
     if not affected <= ALL_COMPONENT_MEMBERS:
         raise FullStoryComponentError("incremental dependency graph emitted an unknown member")
@@ -11693,14 +11717,9 @@ def main() -> int:
                     ", ".join(reasons),
                     flush=True,
                 )
-            if affected_members:
-                fixed_slps_reasons = {
-                    "remaining-ui:slps_context_ui_by_offset",
-                    "remaining-ui:slps_by_offset",
-                    "remaining-ui:accepted_current_preimages_by_offset",
-                }
+            if affected_members or reasons:
                 if affected_members == {SLPS_MEMBER} and set(reasons) <= (
-                    fixed_slps_reasons
+                    INCREMENTAL_FIXED_SLPS_REASONS
                 ):
                     payloads, report = _build_incremental_fixed_slps(
                         config_path=config_path,

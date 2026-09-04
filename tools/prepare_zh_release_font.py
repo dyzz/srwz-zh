@@ -60,6 +60,15 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument(
+        "--reuse-raster-cache",
+        action="store_true",
+        help=(
+            "Reuse per-character raster hashes from the existing proposal "
+            "only when the font source, flavor, fallbacks, rasterizer, and "
+            "allocation snapshot still match. Text selection is rescanned."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -90,6 +99,52 @@ def _mapping_sha256(rows: list[dict]) -> str:
     )
 
 
+def _reusable_rasters(
+    prior_proposal: dict | None,
+    *,
+    expected_metadata: dict,
+    allocation_sha256: str,
+) -> tuple[dict[str, dict], str]:
+    if prior_proposal is None:
+        return {}, "no reusable proposal"
+    metadata_matches = all(
+        prior_proposal.get(key) == value
+        for key, value in expected_metadata.items()
+    ) and prior_proposal.get("allocation_registry", {}).get(
+        "sha256"
+    ) == allocation_sha256
+    if not metadata_matches:
+        return {}, "font or allocation identity changed"
+
+    groups = tuple(
+        prior_proposal.get(key)
+        for key in (
+            "assignments",
+            "surface_alias_assignments",
+            "source_compatibility_assignments",
+        )
+    )
+    if any(not isinstance(group, list) for group in groups):
+        return {}, "cached character rasters are malformed"
+    rasters = {}
+    for item in (item for group in groups for item in group):
+        if not isinstance(item, dict):
+            return {}, "cached character rasters are malformed"
+        character = item.get("character")
+        raster = item.get("raster")
+        if (
+            not isinstance(character, str)
+            or len(character) != 1
+            or not isinstance(raster, dict)
+            or raster.get("mode") == "preserve_original_iso_glyph"
+        ):
+            continue
+        prior = rasters.setdefault(character, raster)
+        if prior != raster:
+            return {}, "cached character rasters conflict"
+    return rasters, "font and allocation identities match"
+
+
 def main() -> int:
     args = parse_args()
     config_path = args.config.resolve()
@@ -103,6 +158,12 @@ def main() -> int:
     readiness_path = require_work_output(
         PROJECT_ROOT / outputs["readiness"], WORK_ROOT
     )
+    prior_proposal = None
+    if args.reuse_raster_cache and proposal_path.is_file():
+        try:
+            prior_proposal = _load(proposal_path)
+        except (OSError, json.JSONDecodeError, SystemExit):
+            prior_proposal = None
     for output in (proposal_path, readiness_path):
         if output.exists() and not args.force:
             raise SystemExit(f"output exists; use --force: {output}")
@@ -269,8 +330,35 @@ def main() -> int:
             "packed_glyph_sha256": sha256_bytes(packed),
         }
 
-    with ThreadPoolExecutor(max_workers=8) as executor:
-        rasters = dict(executor.map(rasterize, characters))
+    rasters, raster_cache_reason = _reusable_rasters(
+        prior_proposal,
+        expected_metadata={
+            "font_source": font_source_metadata(font_lock),
+            "font_flavor": profile["font_flavor"],
+            "unsupported_character_fallbacks": list(fallback_reports),
+            "rasterizer": rasterizer,
+        },
+        allocation_sha256=sha256_bytes(snapshot_bytes),
+    )
+
+    required_raster_characters = {
+        row["character"]
+        for row in primary_rows
+        if not (
+            LOW_STOCK_START <= int(row["code"], 16) <= LOW_STOCK_END
+            and text_table.characters.get(int(row["code"], 16))
+            == row["character"]
+        )
+    } | {row["character"] for row in alias_rows}
+    if not required_raster_characters <= set(rasters):
+        with ThreadPoolExecutor(max_workers=8) as executor:
+            rasters = dict(executor.map(rasterize, characters))
+        print(f"[cache] release font rasters rebuilt: {raster_cache_reason}")
+    else:
+        print(
+            "[cache] release font rasters reused: "
+            f"characters={len(required_raster_characters)}; {raster_cache_reason}"
+        )
 
     def expand(
         row: dict,

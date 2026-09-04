@@ -73,6 +73,58 @@ python3 tools/build_release.py \
 旧发布 ISO、旧汉化成员和发布用 xdelta 都不是构建依赖。普通构建不修改配置中的哈希
 与快照；只有确认生产输入发生变化后，才使用各入口提供的 `--refresh-*` 选项。
 
+## 文本审阅后的 ISO 构建
+
+只修改剧情、战斗、菜单或资料库文本后，统一使用：
+
+```bash
+python3 tools/build_text_update_iso.py --refresh-manifests
+```
+
+该入口首次对完整原版 ISO 与关键成员做哈希验证，并在 `work/cache/` 保存绑定仓库
+原版 manifest、ISO 锁以及文件 size/inode/mtime/ctime 的本机 receipt。后续文件身份与
+仓库锁完全不变时复用该证明；任一项变化、receipt 缺失或执行 `--release-proof` 时都会
+重新读取整盘。之后从所有 Git 跟踪的配置收集 `work/disc/` 原版成员锁；缓存缺失或
+漂移时会从原版镜像重新提取，不能把旧组件当作事实源。Rust codec 从仓库
+源码以 `Cargo.lock` 重建，`mkps2iso` 与字体分别按固定 commit／哈希准备。已经审核的
+UI 图集只有在配置、各组件 manifest、组件归档和最终 `KVMDATA` 全部确定性吻合时才会
+复用。clean checkout 缺少图集输出时会自动 bootstrap；已有输出与锁发生漂移时快速
+失败，要求先完成资源审核，或显式使用 `--force-full`，避免文本构建悄悄变成全资源构建。
+
+文本路径使用 `build_full_story_components.py --incremental`，根据已审核的完整组件
+manifest 和输入锁只重建受影响的物理成员。`SLPS_258.87` 与 `MTV_PROS.BIN` 是强制
+闭合的依赖组：任一侧需要重建时会同时重建，并要求 SLPS 内偏移表末值与实际归档
+大小完全相等。字体准备仍会重新扫描当前文本覆盖范围；字体来源、fallback、raster
+参数和分配表锁未变化时复用 proposal 中逐字形的 raster 哈希。如果字体的二进制
+proposal 也未变化，则继续复用字体组件，只更新文本选择验证元数据。默认只生成一次
+ISO，并执行固定 LBA、成员扇区预算和结构校验。各阶段
+耗时和最终哈希记录在
+`work/build/zh-release-full-story/text-update-build.json`；运行时状态仍保持 pending，
+不会由该入口自动执行 PCSX2。
+
+剧情和 reviewed LIBRARY 也分别按输入与输出 SHA-256 判断是否需要重建。字体覆盖
+manifest 变化、但字体 proposal 与 LIBRARY 二进制输入均未变化时，只更新二者之间的
+验证绑定，不重新压缩资料库。所有这类复用都要求已有输出与受跟踪锁完全一致；clean
+checkout 缺少缓存时仍会自动走完整 bootstrap。
+
+准备发布候选、刷新完整 ISO 内容回读 manifest，或需要当前构建的确定性证明时使用：
+
+```bash
+python3 tools/build_text_update_iso.py --refresh-manifests --release-proof
+```
+
+`--release-proof` 会在正常 ISO 构建之后强制执行完整语义回读，再生成一次 ISO 验证
+确定性。这两步保留为发布门禁，不再占用每轮文本审阅候选的等待时间。
+
+只准备或核对可重建前提而不写组件／ISO，可使用：
+
+```bash
+python3 tools/build_text_update_iso.py --prepare-only
+```
+
+需要显式重建全部 UI 图集时再加 `--force-full`。构建后应提交文本事实源、随其变化的
+配置和 manifest；不得提交 `work/`、`build/` 或完整 ISO。
+
 ## 日常构建缓存
 
 完整冷构建成功后，`rebuild_zh_font.py --skip-fetch` 会在 `work/cache/` 写入内容寻址
