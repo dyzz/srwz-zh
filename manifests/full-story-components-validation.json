@@ -3,6 +3,7 @@
   "status": "integrated_global_zh_release_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-integrated-v1",
   "scope": "Build the complete Simplified Chinese release directly from the original disc members, including UI, global font, story, overviews, battle text, title and menu textures, archives, and executable layout changes.",
+  "stage_postprocess_signature": "854232fe77f18b6ceba10b527ebd38ff7c4568f3e984d215ab6cf3c6d1e89e40",
   "build_groups": [
     {
       "id": "core_runtime_members",
@@ -46,8 +47,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 89137,
-      "sha256": "03c754c3bf9b1079c46990117db78e587bef7b624eb8fdf91bb3161fc396d171"
+      "size": 89228,
+      "sha256": "c6bdb86845ab115a18fe28ce21a2569753482d90943db5c33ff7e94a3b5a21ac"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -76,8 +77,8 @@
     },
     "release_menu_corpus": {
       "path": "corpus/zh/menu/release-v0.3.json",
-      "size": 254724,
-      "sha256": "9a27840411ac59262d79b6f598393f4d19df72de7a90b81641829bfbe2b4638e"
+      "size": 254723,
+      "sha256": "8d3d3bc52f8e1ebe48d28a073e23565a7778ce2abe677b21da86054a7eadb8fd"
     },
     "release_menu_codebook": {
       "path": "config/encoding/release-menu-codebook.json",
@@ -87,17 +88,17 @@
     "full_story_font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 73284,
-      "sha256": "a127ca1cde57e63f7f330c1910f84293d41b7ec052e2e2e8f74ef44ffc5f5c50"
+      "sha256": "a0f399d60c2b7bc7c1afeb6d6f22995ce08847ca7f2638ff7159b1e6121bf028"
     },
     "reviewed_library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
-      "size": 784624,
-      "sha256": "cd5f53455f7551c43be7fa76eb01a6dd368527a6b4f7b2abfc72f764814da022"
+      "size": 816166,
+      "sha256": "6043f41ca23c6302aaafb9ef7b81e9711519e8f274c9197318114763557731a3"
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18293988,
-      "sha256": "7be90fb6f11600a8b1bd5d3b5ad8657c51aee6215a7e7ce60bba0848a31e6c68"
+      "size": 18307891,
+      "sha256": "f9f747a9ca33b09ae4cd6737a261e071ba9143512640bce7487e9f6087475eca"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -111,8 +112,8 @@
     },
     "remaining_display_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 109381,
-      "sha256": "2e001b35df9d630a5005b0f145347bafffeda61a48afbac4018f8f70197d5caa"
+      "size": 109987,
+      "sha256": "1f9d614a136c8f3fc6b4b8955115bf768144a948cab22c061ce70a344957048c"
     },
     "full_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -122,7 +123,7 @@
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
       "size": 3236631,
-      "sha256": "e86107dfc0f0309ab9a0310a61bc620204bd349adbdbd1fd8b79b9784f319843"
+      "sha256": "b204fe30e335fc9e18d494988a23da0e55c8b1bfc241ce820a9f8ec073944382"
     },
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
@@ -186,8 +187,8 @@
     },
     "remaining_ui_translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 109381,
-      "sha256": "2e001b35df9d630a5005b0f145347bafffeda61a48afbac4018f8f70197d5caa"
+      "size": 109987,
+      "sha256": "1f9d614a136c8f3fc6b4b8955115bf768144a948cab22c061ce70a344957048c"
     },
     "stage_default_formation_corpus": {
       "path": "corpus/zh/menu/stage-default-formations.json",
@@ -211,8 +212,8 @@
     },
     "special_abilities": {
       "path": "corpus/zh/menu/system-ui-special-abilities.json",
-      "size": 55097,
-      "sha256": "eda046522f642224856a682da625142b9c6599307521d25c0a7382d904810957"
+      "size": 55041,
+      "sha256": "b157f3d2c4409f3cc3185918986f872663478742211c28c5e022b59719c92936"
     },
     "compdata_battle_lines": {
       "path": "corpus/zh/menu/battle-lines.json",
@@ -237,7 +238,7 @@
     "nisv_strategy_qa_corpus": {
       "path": "corpus/zh/menu/nisv-strategy-qa.json",
       "size": 903050,
-      "sha256": "83a11a2c319aee0ef863d9a9e70239fbd415456c56c2af7a61797af13e2f4fb7"
+      "sha256": "a681c1c9d0529c13f18304c110652f68b565874a2babf31cb02990a9961b0377"
     },
     "runtime_library_menu_scope": {
       "path": "config/library/v0.2.0.json",
@@ -286,8 +287,8 @@
     },
     "srvc_battle_text_corpus": {
       "path": "corpus/zh/battle/srvc-lines.json",
-      "size": 6976289,
-      "sha256": "43f1d8f4a7080e38432f2ab1572da679ede26c2e61aebdfece86dc6081428ab2"
+      "size": 6976406,
+      "sha256": "c93a9ebe14f4e81adf8f0a97eece34064a6abef68341a34512457f2517c5a7f6"
     },
     "original_srvc_bin": {
       "path": "work/disc/BTL/SRVC.BIN",
@@ -317,7 +318,7 @@
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "ee308caae062c1201db525beb2f66d0b47df82c2a971b3a645b9a8085a3235a0"
+      "sha256": "4a04ea966d2d08c51d2d91dd26ba38fab174aaba40d71a4f684535b98a2f70fc"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -381,8 +382,8 @@
     },
     "auto_demo_residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 109381,
-      "sha256": "2e001b35df9d630a5005b0f145347bafffeda61a48afbac4018f8f70197d5caa"
+      "size": 109987,
+      "sha256": "1f9d614a136c8f3fc6b4b8955115bf768144a948cab22c061ce70a344957048c"
     },
     "auto_demo_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -430,17 +431,17 @@
       "decoder_backend": "rust",
       "compressor_backend": "rust-fit",
       "initial_decode_count": 1,
-      "write_stage_count": 9,
+      "write_stage_count": 10,
       "compression_count": 1,
       "final_readback_decode_count": 1,
       "source_stored_size": 144990,
-      "output_stored_size": 141320,
+      "output_stored_size": 141327,
       "decoded_size": 524032,
       "sector_budget": 145408,
       "stages": [
         {
           "stage": "release menu COMPDATA",
-          "changed_byte_count": 11242
+          "changed_byte_count": 11235
         },
         {
           "stage": "release menu normalization COMPDATA",
@@ -473,6 +474,10 @@
         {
           "stage": "runtime keyword encyclopedia list labels",
           "changed_byte_count": 572
+        },
+        {
+          "stage": "Best COMPDATA four-field corrections",
+          "changed_byte_count": 4
         }
       ],
       "final_round_trip_exact": true
@@ -487,7 +492,7 @@
       "compression_count": 1,
       "final_readback_decode_count": 1,
       "source_stored_size": 41312,
-      "output_stored_size": 36338,
+      "output_stored_size": 36337,
       "decoded_size": 102288,
       "sector_budget": 41312,
       "stages": [
@@ -567,7 +572,7 @@
       "release_proposal": {
         "path": "work/writeback/zh-release-codebook-proposal.json",
         "size": 3236631,
-        "sha256": "e86107dfc0f0309ab9a0310a61bc620204bd349adbdbd1fd8b79b9784f319843"
+        "sha256": "b204fe30e335fc9e18d494988a23da0e55c8b1bfc241ce820a9f8ec073944382"
       },
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
@@ -979,7 +984,7 @@
       "reread_exact": true
     },
     "source_compressed_size": 144990,
-    "output_compressed_size": 141320,
+    "output_compressed_size": 141327,
     "compressed_sector_budget": 145408,
     "codec": {
       "strategy": "rust-fit",
@@ -1024,9 +1029,9 @@
     "raw_visible_ascii_count": 0,
     "relocation": {
       "source_size": 524032,
-      "source_sha256": "6fc16ec458e57bd27013beb7efc7c6ed79732c9b20ef4d57e7aaac92608e16eb",
+      "source_sha256": "cdd17599bbb3064d635d43d35f1a6772c7a8e1d677ded95605363c1f95adbac7",
       "output_size": 524032,
-      "output_sha256": "4cddc0e975a2bd0460530a3346675447c7f4efc85dc87e848544cb22ce9283b5",
+      "output_sha256": "e7ca2455a59f00272ab08fcaf98d68ddb9d64246eeedaf46dfb22472cee01f00",
       "pool_start": 523928,
       "pool_end": 524032,
       "pool_capacity": 104,
@@ -1087,7 +1092,7 @@
       "patch_plan": {
         "source_name": "full-story relocated stage titles",
         "source_size": 524032,
-        "source_sha256": "6fc16ec458e57bd27013beb7efc7c6ed79732c9b20ef4d57e7aaac92608e16eb",
+        "source_sha256": "cdd17599bbb3064d635d43d35f1a6772c7a8e1d677ded95605363c1f95adbac7",
         "operation_count": 13,
         "operations": [
           {
@@ -1199,7 +1204,7 @@
     },
     "available_surface_safe_aliases_used": true,
     "compdata_source_size": 144990,
-    "compdata_output_size": 141320,
+    "compdata_output_size": 141327,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
     "slps_size_preserved": true,
@@ -4512,7 +4517,7 @@
     "all_translations_reread_exact": true,
     "release_binary_required_at_build_time": false,
     "compression_deferred_to_workspace": true,
-    "compdata_output_size": 141320,
+    "compdata_output_size": 141327,
     "compdata_round_trip_exact": true
   },
   "stage_overviews": {
@@ -4667,7 +4672,7 @@
     "offset_patch_plan": {
       "source_name": "SLPS_258.87",
       "source_size": 3471624,
-      "source_sha256": "9c9cbdcccf13c16a98212fd5a48be4a01e6c6f742998c74cdf5c49816e50868e",
+      "source_sha256": "8cda398e6a03fd238d63d4064b68447351aa00dc60acf8395a0ec96250ed66eb",
       "operation_count": 1,
       "operations": [
         {
@@ -5321,8 +5326,8 @@
     "parts": {
       "source_size": 524032,
       "output_size": 524032,
-      "source_sha256": "216f4c139066a5b6de83011a83154998fdb606e4c3d0795c35e1c5bf6fe927e2",
-      "output_sha256": "65a2485633a0494bcca2b132a4d74592b4c0e0a38ec215ba8509a21a4020c331",
+      "source_sha256": "476dbd83808801c81e51fbc21f00b2975a373f93d82f4117b5337c44ff93269b",
+      "output_sha256": "0606ec5c9451aed46503d95b39ea9371428bff342f5f5e9fb6d4fa154a2def07",
       "entry_count": 132,
       "target_count": 132,
       "payload_size": 3036,
@@ -6388,7 +6393,7 @@
       "patch_plan": {
         "source_name": "remaining UI strengthening parts",
         "source_size": 524032,
-        "source_sha256": "216f4c139066a5b6de83011a83154998fdb606e4c3d0795c35e1c5bf6fe927e2",
+        "source_sha256": "476dbd83808801c81e51fbc21f00b2975a373f93d82f4117b5337c44ff93269b",
         "operation_count": 132,
         "operations": [
           {
@@ -7493,7 +7498,7 @@
       "single_character_regions_untouched": true
     },
     "compdata_source_size": 144990,
-    "compdata_output_size": 141320,
+    "compdata_output_size": 141327,
     "compdata_sector_budget": 145408,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
@@ -9049,7 +9054,12 @@
           "output_encoded_size": 16207,
           "output_encoded_sha256": "a533d50d8062b7f0ef6565fd3b361bdd6b4e5401c4cfb14f062a030b2dd163f0",
           "output_padding_size": 817,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 116,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 18
+          }
         },
         {
           "stage_index": 2,
@@ -9059,7 +9069,12 @@
           "output_encoded_size": 21439,
           "output_encoded_sha256": "a70f1534b7e276522448f9c761597ad9c8b0cf2cd68dd3825813caf890e4538b",
           "output_padding_size": 1169,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 198,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 3,
@@ -9069,7 +9084,12 @@
           "output_encoded_size": 2771,
           "output_encoded_sha256": "8228ede419937fa7fceeb694d8bfde5aedf10f6b1df3ee0947cfb5b7f7299f2e",
           "output_padding_size": 173,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 176,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 4,
@@ -9079,7 +9099,12 @@
           "output_encoded_size": 24921,
           "output_encoded_sha256": "ca38ebcd299f75320bd329b03f94c14f133b9e08a477cbd8fb5effa062022e74",
           "output_padding_size": 1831,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 448,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 5,
@@ -9089,7 +9114,12 @@
           "output_encoded_size": 16199,
           "output_encoded_sha256": "915d6f3a888b83fdae50d4b692d22f6114263e3ab393d34c0c22c217f276fc90",
           "output_padding_size": 1017,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 290,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 6,
@@ -9099,7 +9129,12 @@
           "output_encoded_size": 19817,
           "output_encoded_sha256": "51655b9811a90fd82fc3962f904528466ddca29562f0c6ee9a3f17f1b77b1a54",
           "output_padding_size": 1767,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 316,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 7,
@@ -9109,7 +9144,12 @@
           "output_encoded_size": 24421,
           "output_encoded_sha256": "422ec1af6042209aa375af7cb07ee668f394ae0ebcc7137196346d39358258ba",
           "output_padding_size": 3227,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 426,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 9,
@@ -9119,7 +9159,12 @@
           "output_encoded_size": 16989,
           "output_encoded_sha256": "feec83c673c822ced8a58d872bb9f5c075409eea4ffe1b7c80b64f6f4de090fd",
           "output_padding_size": 1635,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 340,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 10,
@@ -9129,7 +9174,12 @@
           "output_encoded_size": 28740,
           "output_encoded_sha256": "ff2086e936d24e8cb2da3a6a736124436f592c2e0253bb5e67d1afa28c32f17d",
           "output_padding_size": 2012,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 534,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 11,
@@ -9139,7 +9189,12 @@
           "output_encoded_size": 3068,
           "output_encoded_sha256": "9f05e081b123132d5ffbb883babdea23a3ca2ac4016e9969ba253416d60f1569",
           "output_padding_size": 308,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 84,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 12,
@@ -9149,7 +9204,12 @@
           "output_encoded_size": 11521,
           "output_encoded_sha256": "873652369f6ad5f9d07dd0871f502e299d688b9fa18025923a43f3b09902c911",
           "output_padding_size": 1407,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 34,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 13,
@@ -9159,7 +9219,12 @@
           "output_encoded_size": 13193,
           "output_encoded_sha256": "721f766b2b605fd819cf09e187c2e3a38a8b51df3253862cabf42ba108a32c3f",
           "output_padding_size": 1367,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 130,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 0
+          }
         },
         {
           "stage_index": 14,
@@ -9169,7 +9234,12 @@
           "output_encoded_size": 17128,
           "output_encoded_sha256": "8a61c0e18b87fc53f06d02b0c8e9e650c725990e6ea53f8666379e429a1f8b7c",
           "output_padding_size": 2104,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 172,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 0
+          }
         },
         {
           "stage_index": 15,
@@ -9179,7 +9249,12 @@
           "output_encoded_size": 20606,
           "output_encoded_sha256": "98bd1a43db27c52ac8c7d8e09ef8573dadf4d90168e4774393a8fd0318718507",
           "output_padding_size": 1714,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 280,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 0
+          }
         },
         {
           "stage_index": 16,
@@ -9189,7 +9264,12 @@
           "output_encoded_size": 23644,
           "output_encoded_sha256": "e2588e952dd18c75b5e916983b2840506a9bea0c2c2dd90d568b765c60b5786b",
           "output_padding_size": 2804,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 279,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 0
+          }
         },
         {
           "stage_index": 17,
@@ -9199,7 +9279,12 @@
           "output_encoded_size": 11944,
           "output_encoded_sha256": "4202149f391ed90c661945923c842bbe16bafb4334a92393d872cdf2b69dfb1f",
           "output_padding_size": 1448,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 140,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 8
+          }
         },
         {
           "stage_index": 18,
@@ -9209,7 +9294,12 @@
           "output_encoded_size": 1383,
           "output_encoded_sha256": "a28bb4aebdc521f6686ceb8d435ec319a3f98cb0624e90ebb31b3ffbe8ffe137",
           "output_padding_size": 57,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 71,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 12
+          }
         },
         {
           "stage_index": 19,
@@ -9219,7 +9309,12 @@
           "output_encoded_size": 14666,
           "output_encoded_sha256": "ab5160ba225147ae8c89733dc4174b3d4fc042822c1cfa06d8f8f2dba37f461c",
           "output_padding_size": 1702,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 328,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 10
+          }
         },
         {
           "stage_index": 20,
@@ -9229,7 +9324,12 @@
           "output_encoded_size": 25414,
           "output_encoded_sha256": "62f92ac265c8bb22fa7fbf34a96e9bf66e2a01cc1bfa9732fc233192b75bae8b",
           "output_padding_size": 2666,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 470,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 21,
@@ -9239,7 +9339,12 @@
           "output_encoded_size": 21625,
           "output_encoded_sha256": "f937dc3fe78217960092ef303fe26024368d3f3219aa38a23640747204cbc279",
           "output_padding_size": 2247,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 275,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 22,
@@ -9249,7 +9354,12 @@
           "output_encoded_size": 18045,
           "output_encoded_sha256": "c720d16fe281afb6b1e0deba70616caa1cd6d3c58aa46b4c35be1908d3a12d42",
           "output_padding_size": 1923,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 192,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 10
+          }
         },
         {
           "stage_index": 23,
@@ -9259,7 +9369,12 @@
           "output_encoded_size": 10322,
           "output_encoded_sha256": "99b7743773ac03df7ae882da0ab8b465c22abe74fa64ffb60e581b039116bcde",
           "output_padding_size": 1454,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 166,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 11
+          }
         },
         {
           "stage_index": 24,
@@ -9269,7 +9384,12 @@
           "output_encoded_size": 24058,
           "output_encoded_sha256": "bb2a37e5e7f2169dc4e37f10512b4ee4561f91f35b9700bbd22501245f4333b0",
           "output_padding_size": 2470,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 82,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 0
+          }
         },
         {
           "stage_index": 25,
@@ -9279,7 +9399,12 @@
           "output_encoded_size": 36950,
           "output_encoded_sha256": "a055be8633df677892f668eef9716f9cb4a6dc4b3a555ca8164f078d04ad6e73",
           "output_padding_size": 2906,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 351,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 0
+          }
         },
         {
           "stage_index": 26,
@@ -9289,7 +9414,12 @@
           "output_encoded_size": 27456,
           "output_encoded_sha256": "c2bd9e1e5fb2de519a711bcd9f9422159186a4743d9828b5cda913db8cc813f5",
           "output_padding_size": 3312,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 443,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 0
+          }
         },
         {
           "stage_index": 27,
@@ -9299,7 +9429,12 @@
           "output_encoded_size": 28243,
           "output_encoded_sha256": "9f10321b62b2fb8d1b99f2edb2aaad7c1761bb1229b1e7e3c316ff6c8de9f634",
           "output_padding_size": 3613,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 414,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 0
+          }
         },
         {
           "stage_index": 28,
@@ -9309,7 +9444,12 @@
           "output_encoded_size": 36908,
           "output_encoded_sha256": "31e720134b9470917424bbc5d5e5da95fda1c41c5abb55366568560c645baaa6",
           "output_padding_size": 3700,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 901,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 0
+          }
         },
         {
           "stage_index": 29,
@@ -9319,7 +9459,12 @@
           "output_encoded_size": 25355,
           "output_encoded_sha256": "0a443eca7e7b22758c542264c1b73bf4c38f8b517211a7ba2f790d05dff89002",
           "output_padding_size": 2933,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 298,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 30,
@@ -9329,7 +9474,12 @@
           "output_encoded_size": 28809,
           "output_encoded_sha256": "afe8e8ce847ce4d2037959b7475bd5ea6025c21882410ba16cb27d3f781b2afe",
           "output_padding_size": 2647,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 933,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 0
+          }
         },
         {
           "stage_index": 31,
@@ -9339,7 +9489,12 @@
           "output_encoded_size": 29679,
           "output_encoded_sha256": "3de8fae9d2ff89bf14b7c332a7d886d32f76541ae41c2e974f5e7aeb2bfcb0a7",
           "output_padding_size": 2657,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 584,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 32,
@@ -9349,7 +9504,12 @@
           "output_encoded_size": 20883,
           "output_encoded_sha256": "85094b8b909d3cdff066ffd3bf9aa9e0648d7cb95dee6fbeeb3a44beda23e801",
           "output_padding_size": 2061,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 357,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 15
+          }
         },
         {
           "stage_index": 33,
@@ -9359,7 +9519,12 @@
           "output_encoded_size": 9268,
           "output_encoded_sha256": "3cc799892d7a8ec24d0ed61066121cdd1cc2e01a03803fd690862a5f81c53f06",
           "output_padding_size": 1020,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 329,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 34,
@@ -9369,7 +9534,12 @@
           "output_encoded_size": 22962,
           "output_encoded_sha256": "c274832b50032a6091b1f261c5504ec39f0eeb9b44289af6de0ff3247153cfbe",
           "output_padding_size": 2510,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 919,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 35,
@@ -9379,7 +9549,12 @@
           "output_encoded_size": 12874,
           "output_encoded_sha256": "c2fa016f805d94af6ae575d0ac3b1babb2816be67fd2704e5e9d96c5e3ff1535",
           "output_padding_size": 1878,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 234,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 36,
@@ -9389,7 +9564,12 @@
           "output_encoded_size": 17651,
           "output_encoded_sha256": "d221c76c494cf38c7396179033e3769db7fcfb39b3ec52f70a0e25bce399fb99",
           "output_padding_size": 2173,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 914,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 37,
@@ -9399,7 +9579,12 @@
           "output_encoded_size": 23099,
           "output_encoded_sha256": "fe21ee19aa4e30a1d8b382bb4592b5e31fea6e126ccef05f78c6146e05eb46ef",
           "output_padding_size": 2565,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 834,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 38,
@@ -9409,7 +9594,12 @@
           "output_encoded_size": 32444,
           "output_encoded_sha256": "ca11a99baba932feb10e9d33cef16346a42675824106a5639dcd55a0f77d9d02",
           "output_padding_size": 3076,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1064,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 39,
@@ -9419,7 +9609,12 @@
           "output_encoded_size": 13154,
           "output_encoded_sha256": "de465965033fd5e17be3cf3800e6fb1e2f33809f97e5d472e6ade90eda1d25fa",
           "output_padding_size": 1326,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 339,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 40,
@@ -9429,7 +9624,12 @@
           "output_encoded_size": 30077,
           "output_encoded_sha256": "db881784e3e19ec624e1f7336bfdd3308f896ae437ce75c93eae710ff25d7485",
           "output_padding_size": 3571,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1263,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 41,
@@ -9439,7 +9639,12 @@
           "output_encoded_size": 20651,
           "output_encoded_sha256": "bed63f5e14055f2988bbea2b9fc525a908d85d6a825faad1b35078d34cde0612",
           "output_padding_size": 2197,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 420,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 42,
@@ -9449,7 +9654,12 @@
           "output_encoded_size": 20169,
           "output_encoded_sha256": "f1e247f6b7175b12d0fcc74f1064aaa61075c28106d28b02b85a5a5e3b26c44a",
           "output_padding_size": 2327,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 538,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 43,
@@ -9459,7 +9669,12 @@
           "output_encoded_size": 25982,
           "output_encoded_sha256": "f612538139efd2011ff2c0d98addcffbee17b1e24376a50138cd639e15b81225",
           "output_padding_size": 2146,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1134,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 44,
@@ -9469,7 +9684,12 @@
           "output_encoded_size": 4317,
           "output_encoded_sha256": "29cbe9ff5b74a64365d340315eb2400e9707b2d5c6c3d530a5f3f2f9ef74480a",
           "output_padding_size": 339,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 76,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 45,
@@ -9479,7 +9699,12 @@
           "output_encoded_size": 31653,
           "output_encoded_sha256": "1cdfecfec6d49fae4067e447e4cfd5d55282cb91f9896fcadacbd60298a1f1c2",
           "output_padding_size": 3147,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 524,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 46,
@@ -9489,7 +9714,12 @@
           "output_encoded_size": 2308,
           "output_encoded_sha256": "4b119edd341e237ab431af61a644acdd31aec143f0b8815c0d78c72df645fc82",
           "output_padding_size": 204,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 44,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 9
+          }
         },
         {
           "stage_index": 47,
@@ -9499,7 +9729,12 @@
           "output_encoded_size": 22533,
           "output_encoded_sha256": "1340647de9ccb24084e5a3278631a424a373c62a4475ae26b637fc963a3162c7",
           "output_padding_size": 2667,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 530,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 48,
@@ -9509,7 +9744,12 @@
           "output_encoded_size": 35319,
           "output_encoded_sha256": "c3ce562acb1203c937b5c0e7693f93ec0fe4a7fc7c0e3bb4d7a354de3b130b67",
           "output_padding_size": 3257,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 278,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 49,
@@ -9519,7 +9759,12 @@
           "output_encoded_size": 5351,
           "output_encoded_sha256": "b61c2181084620f08777f908ff2ba8325239751ab43a34636bfc89e808433ff0",
           "output_padding_size": 633,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 62,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 50,
@@ -9529,7 +9774,12 @@
           "output_encoded_size": 28696,
           "output_encoded_sha256": "16e3327b9f3aea6d5a82ded555b5e5807f13f28400b193748ebfe060431534d8",
           "output_padding_size": 3352,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1146,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 51,
@@ -9539,7 +9789,12 @@
           "output_encoded_size": 1556,
           "output_encoded_sha256": "8f04b82a77ce158b9a29f55d9f7e453363ec0e6be327deaa65b08d4cbeb23568",
           "output_padding_size": 76,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 250,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 52,
@@ -9549,7 +9804,12 @@
           "output_encoded_size": 24903,
           "output_encoded_sha256": "5d9b3fa4aad904a46f35ba5f6a2d33c22bbd502f7836e36aa70e04a016f57e3e",
           "output_padding_size": 2361,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 800,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 53,
@@ -9559,7 +9819,12 @@
           "output_encoded_size": 26176,
           "output_encoded_sha256": "e54fad55b38ef0654a5ac688d17f05ae55ae1ebf68e28f60caff65579b4bd4da",
           "output_padding_size": 2272,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 872,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 54,
@@ -9569,7 +9834,12 @@
           "output_encoded_size": 24730,
           "output_encoded_sha256": "a8c6fe8a89120f2c680d9577419be9701bbe2c630e49336b7741a4cea5b3f8cb",
           "output_padding_size": 2246,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1453,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 55,
@@ -9579,7 +9849,12 @@
           "output_encoded_size": 31298,
           "output_encoded_sha256": "ff6401d91af552805db213e6fdb3d32947b1cbede166a55929f71f0c89fc5479",
           "output_padding_size": 3006,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1161,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 56,
@@ -9589,7 +9864,12 @@
           "output_encoded_size": 22217,
           "output_encoded_sha256": "8b697e180686a0de365021257f45a7503c0d9122b471d610a4814f912ecbdcb1",
           "output_padding_size": 2071,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 366,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 57,
@@ -9599,7 +9879,12 @@
           "output_encoded_size": 17342,
           "output_encoded_sha256": "2a681943773348918fa2fb7b4b4648559606e4d55d8fb7f82230f9e283d5a54c",
           "output_padding_size": 1890,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 218,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 58,
@@ -9609,7 +9894,12 @@
           "output_encoded_size": 20446,
           "output_encoded_sha256": "b7521a9647b37c94fc2facf9c1339b95d906f8fbbf4b32f202d537cff9ec9930",
           "output_padding_size": 1954,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 699,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 59,
@@ -9619,7 +9909,12 @@
           "output_encoded_size": 5585,
           "output_encoded_sha256": "0b44d1bb5ad65b7fb0fbb4491a9e9feaab92d5db69ba54d43b495af1193f2c16",
           "output_padding_size": 671,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 44,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 60,
@@ -9629,7 +9924,12 @@
           "output_encoded_size": 27816,
           "output_encoded_sha256": "9c38e874ae1f6bd321cd1044347a589a118ecc4cdbe0d93f6a4a57f176c2ddbd",
           "output_padding_size": 3144,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1074,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 61,
@@ -9639,7 +9939,12 @@
           "output_encoded_size": 22873,
           "output_encoded_sha256": "1d9d447b43f098b9770e9465a649ee179494afd6005cd8cf0c4bdfb446ee3241",
           "output_padding_size": 2471,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 853,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 62,
@@ -9649,7 +9954,12 @@
           "output_encoded_size": 18409,
           "output_encoded_sha256": "ce261b9b926a50d3638a175038b750da826e35e6d5de5534c826f828f20d8050",
           "output_padding_size": 2071,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 556,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 63,
@@ -9659,7 +9969,12 @@
           "output_encoded_size": 20723,
           "output_encoded_sha256": "55d3b60784c1275bfb8e7ab33808a39360e4cb613e16f9632ceb1586985d6671",
           "output_padding_size": 2173,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 480,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 64,
@@ -9669,7 +9984,12 @@
           "output_encoded_size": 14180,
           "output_encoded_sha256": "baeade3ad7212b70a04bb68245423db57ffa72d5c8a8aa76b2253e2b71314bfe",
           "output_padding_size": 1676,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 266,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 65,
@@ -9679,7 +9999,12 @@
           "output_encoded_size": 16775,
           "output_encoded_sha256": "603c273165094261d627332c040a3350090f2c7f899a30ce55bb76247444a352",
           "output_padding_size": 1705,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1026,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 66,
@@ -9689,7 +10014,12 @@
           "output_encoded_size": 34182,
           "output_encoded_sha256": "606c988324f8f6d78041290310cb108ec589ad928203e97a110b1e2ab2854934",
           "output_padding_size": 2666,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 662,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 67,
@@ -9699,7 +10029,12 @@
           "output_encoded_size": 5197,
           "output_encoded_sha256": "2de0a1f894d632b85e4390cb6dac7e125df9e0622b879fc96b8ecf035d7631a2",
           "output_padding_size": 643,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 96,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 68,
@@ -9709,7 +10044,12 @@
           "output_encoded_size": 18397,
           "output_encoded_sha256": "91cedd9bff80bcdf43f94e8f51e7b56f81c9ae8b08104e255f4e5b2799aa6998",
           "output_padding_size": 1619,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 490,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 69,
@@ -9719,7 +10059,12 @@
           "output_encoded_size": 48692,
           "output_encoded_sha256": "d985166190198aca90199dcad6015021bd9cb960540498775c582692f3faea69",
           "output_padding_size": 4380,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 674,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 70,
@@ -9729,7 +10074,12 @@
           "output_encoded_size": 7144,
           "output_encoded_sha256": "9de35ca497970741fc42abd53673300dfce73c491f5153e3b614aec400af7e6c",
           "output_padding_size": 728,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 732,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 71,
@@ -9739,7 +10089,12 @@
           "output_encoded_size": 13366,
           "output_encoded_sha256": "720c6ae1db9dd93531fb4760e121fc2e0bca60964fc4990e2839ce8d53cb11ae",
           "output_padding_size": 1386,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1054,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 72,
@@ -9749,7 +10104,12 @@
           "output_encoded_size": 23096,
           "output_encoded_sha256": "9bb2217988f7779dee89ff4ceb72a99e982005eef62dca93e2d63383ee491e64",
           "output_padding_size": 2504,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 733,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 73,
@@ -9759,7 +10119,12 @@
           "output_encoded_size": 22463,
           "output_encoded_sha256": "d6e043b3f55a0d19f2a3fe838cd1f89781342d3396c3500be266cf50b547b235",
           "output_padding_size": 2753,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 290,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 74,
@@ -9769,7 +10134,12 @@
           "output_encoded_size": 5743,
           "output_encoded_sha256": "30b27a25967a6751ec0d03e6f2572e17aec4e2f53cca15f291dc923ecb80d35b",
           "output_padding_size": 561,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 266,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 75,
@@ -9779,7 +10149,12 @@
           "output_encoded_size": 18377,
           "output_encoded_sha256": "042c2016c56f67a9b03764a660eef43c99b81e83b53ad3f89de528a2e2a7ce63",
           "output_padding_size": 2951,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 128,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 76,
@@ -9789,7 +10164,12 @@
           "output_encoded_size": 21654,
           "output_encoded_sha256": "7f1d8cfc9a3fde62bfa5e998e74f97df577008786a3cc0f2d38e1ca91b325da2",
           "output_padding_size": 2202,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 512,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 77,
@@ -9799,7 +10179,12 @@
           "output_encoded_size": 12129,
           "output_encoded_sha256": "16f5b7bea27f1e18d660e0233f116398a2f191bd8a89020af97a7f762bb341d6",
           "output_padding_size": 1855,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 120,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 78,
@@ -9809,7 +10194,12 @@
           "output_encoded_size": 19479,
           "output_encoded_sha256": "a01bdbc3e87b3df8932f5afcd7c311d1c1bbac95bf5f7ae20d2840bcc43e193a",
           "output_padding_size": 1689,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 304,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 79,
@@ -9819,7 +10209,12 @@
           "output_encoded_size": 10267,
           "output_encoded_sha256": "b2319fa175951057569ed3a50614ea0b69c28588988916cd23577c498649ba4b",
           "output_padding_size": 1317,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 274,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 9
+          }
         },
         {
           "stage_index": 80,
@@ -9829,7 +10224,12 @@
           "output_encoded_size": 22439,
           "output_encoded_sha256": "0a389272415f1639fa2d57600fdd3e32fc9ba498655801041e5a0bd6aab3df92",
           "output_padding_size": 2185,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 726,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 81,
@@ -9839,7 +10239,12 @@
           "output_encoded_size": 4221,
           "output_encoded_sha256": "6d3f3f7ffcb14cbaf5c220ca9ebafc4caec4c9bd5526d39ca68997b16ccac7d3",
           "output_padding_size": 595,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 64,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 82,
@@ -9849,7 +10254,12 @@
           "output_encoded_size": 21878,
           "output_encoded_sha256": "1fb17f787699281c01426fdab0aeeb833dfb230660902069d4be8ab1be9b96f9",
           "output_padding_size": 1770,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 720,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 9
+          }
         },
         {
           "stage_index": 83,
@@ -9859,17 +10269,27 @@
           "output_encoded_size": 29259,
           "output_encoded_sha256": "3567606b52c03670db6cdb4ff8710b2f3e0268cd5d01910216b3a8680909e86f",
           "output_padding_size": 3141,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 580,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 9
+          }
         },
         {
           "stage_index": 84,
           "entry_count": 19,
           "source_stored_size": 29536,
-          "source_encoded_size": 26548,
-          "output_encoded_size": 26450,
-          "output_encoded_sha256": "f91b643395287c455e13eba346b7691c371a370db253fa4eba42d499cb1ad956",
-          "output_padding_size": 3086,
-          "codec_round_trip_exact": true
+          "source_encoded_size": 26547,
+          "output_encoded_size": 26449,
+          "output_encoded_sha256": "213ae81db2ef6e68c93ec5b26551c1d074341b61b9a57cada46c78302ea83b29",
+          "output_padding_size": 3087,
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 236,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 9
+          }
         },
         {
           "stage_index": 85,
@@ -9879,7 +10299,12 @@
           "output_encoded_size": 20070,
           "output_encoded_sha256": "5bdbeef54d03725d37d4bdf1b2248b68c26e9c4f824cc13636c5ae1ba8689fbf",
           "output_padding_size": 2794,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 553,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 86,
@@ -9889,7 +10314,12 @@
           "output_encoded_size": 9292,
           "output_encoded_sha256": "ee606fc207a6367e493f0209e91cd273a6c8830ee8a86382f1d282199fdf33a9",
           "output_padding_size": 1204,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 2,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 16
+          }
         },
         {
           "stage_index": 87,
@@ -9899,7 +10329,12 @@
           "output_encoded_size": 17359,
           "output_encoded_sha256": "0598a96f2ddba6c8c3bb7ad7ad2980b978c84c03dcf2cdd93f2dd1996ba1cfba",
           "output_padding_size": 1905,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 773,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 88,
@@ -9909,7 +10344,12 @@
           "output_encoded_size": 24220,
           "output_encoded_sha256": "947e61d8b0364be56091cd732befc3a966a3599048f3ad1d50bf17870ab72062",
           "output_padding_size": 2132,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 366,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 9
+          }
         },
         {
           "stage_index": 89,
@@ -9919,7 +10359,12 @@
           "output_encoded_size": 5363,
           "output_encoded_sha256": "7d2da77f79ebba61d692c1a4ccce7b1c6e8fcacca43c3ec2426a7301c0caad6f",
           "output_padding_size": 541,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 178,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 90,
@@ -9929,7 +10374,12 @@
           "output_encoded_size": 25582,
           "output_encoded_sha256": "c36963b971a7d47d60ce88ca843b1bdf47881a0cdef2980c88518e93637d9770",
           "output_padding_size": 2578,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 737,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 91,
@@ -9939,7 +10389,12 @@
           "output_encoded_size": 22922,
           "output_encoded_sha256": "b09edc9856a0232b5a60984c08033dcd54120e388d0ca21c4531dfc9c1888046",
           "output_padding_size": 2582,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 829,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 92,
@@ -9949,7 +10404,12 @@
           "output_encoded_size": 16383,
           "output_encoded_sha256": "05cdd66872c0c1f5d867a6defca2b8d9459cc8d3bf91cea9d01bb916dd2a4ff2",
           "output_padding_size": 1777,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 592,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 93,
@@ -9959,7 +10419,12 @@
           "output_encoded_size": 5954,
           "output_encoded_sha256": "f22a2bf109755a0c25ff07fd505fb875d6e5d849cd8cd5e88c33c3aaabd16932",
           "output_padding_size": 526,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 50,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 9
+          }
         },
         {
           "stage_index": 94,
@@ -9969,7 +10434,12 @@
           "output_encoded_size": 4231,
           "output_encoded_sha256": "ac9de4f5dad568f0e644a761ee6d68d85f4169d36cb62bf02acd7e7a662b0316",
           "output_padding_size": 377,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 178,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 95,
@@ -9979,7 +10449,12 @@
           "output_encoded_size": 29262,
           "output_encoded_sha256": "d1b3130bf74cf605cd48ca7d9ffe7774d75aa0004a73ae278a2563b9c6730529",
           "output_padding_size": 2034,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 748,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 96,
@@ -9987,9 +10462,14 @@
           "source_stored_size": 5264,
           "source_encoded_size": 4754,
           "output_encoded_size": 4742,
-          "output_encoded_sha256": "c2d03133f60b490fb749f6c465d062d400a9f532012daf7aea38eaf0806f4e9e",
+          "output_encoded_sha256": "5e4fa0055d0ca568131487f952876795c2bf095ecd063c02c01533525c9d78f7",
           "output_padding_size": 522,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 104,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 97,
@@ -9999,7 +10479,12 @@
           "output_encoded_size": 18226,
           "output_encoded_sha256": "dc0bd1b47af236e613b9057c0f8883687b61b7130716840dcc385a679cbb7b43",
           "output_padding_size": 2494,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 528,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 98,
@@ -10009,7 +10494,12 @@
           "output_encoded_size": 44288,
           "output_encoded_sha256": "7e8a4e162e1abc4c24d4c648dddb52a6c9eeaa162a875497c75f6c997126b6ad",
           "output_padding_size": 3520,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 684,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 99,
@@ -10019,7 +10509,12 @@
           "output_encoded_size": 14108,
           "output_encoded_sha256": "cb5610ca383dbc750160e58a9949c2d7ed58c71a92fdb2017125d1a64e88bc3c",
           "output_padding_size": 1668,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 732,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 100,
@@ -10029,7 +10524,12 @@
           "output_encoded_size": 22499,
           "output_encoded_sha256": "43e4a06f5d218e67eb35180c40dadebf7cd8e155bc292ae0b49440621504a3b1",
           "output_padding_size": 2317,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1230,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 101,
@@ -10039,7 +10539,12 @@
           "output_encoded_size": 29085,
           "output_encoded_sha256": "2c85bc3f162fff793d8cd121784d8ca27cd9415100d8db7afa9363b1c1dd39e7",
           "output_padding_size": 2723,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 775,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 102,
@@ -10049,7 +10554,12 @@
           "output_encoded_size": 21780,
           "output_encoded_sha256": "61568a250f2ebb0527d0ad52132fe9b58806bd3762b823a3d919b1dec14bc39b",
           "output_padding_size": 2380,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 62,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 103,
@@ -10059,7 +10569,12 @@
           "output_encoded_size": 22846,
           "output_encoded_sha256": "3bfa245822f2e5a97a6ad35feaab2cf4bf040b51b5151b30c95955ab28716835",
           "output_padding_size": 2658,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1114,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 104,
@@ -10069,7 +10584,12 @@
           "output_encoded_size": 35380,
           "output_encoded_sha256": "e371d6a35a15f86e855a5dfe38fdcd9d5b2de38df5b65c01244f0a7d3f09d610",
           "output_padding_size": 3500,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 875,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 105,
@@ -10079,7 +10599,12 @@
           "output_encoded_size": 15073,
           "output_encoded_sha256": "c258e16348619f3e5d73f6e9be8aa7fa8fb00d274a44c1b21428b3825b6b2606",
           "output_padding_size": 1791,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 16,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 106,
@@ -10089,7 +10614,12 @@
           "output_encoded_size": 17847,
           "output_encoded_sha256": "02b9b281c10056e75560162434c23ca7a651cb308a200ba0110ef7b989d57439",
           "output_padding_size": 1385,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 527,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 107,
@@ -10099,7 +10629,12 @@
           "output_encoded_size": 43878,
           "output_encoded_sha256": "5701bbe7f83daea8d33c2b34db61b67734b762b5d010e92e97ca2eca9a22f959",
           "output_padding_size": 3402,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1911,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 0
+          }
         },
         {
           "stage_index": 108,
@@ -10109,7 +10644,12 @@
           "output_encoded_size": 36843,
           "output_encoded_sha256": "0f6ddf190657b93f056d9fdf93190b9e25163c3f4e60eddc388d027ab75113bf",
           "output_padding_size": 2869,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 819,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 109,
@@ -10119,7 +10659,12 @@
           "output_encoded_size": 41131,
           "output_encoded_sha256": "fe41c7b3ba65d56806e61d813f671e89250a50c6ad7b0b54098e4b11107e7187",
           "output_padding_size": 3013,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 996,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 110,
@@ -10129,7 +10674,12 @@
           "output_encoded_size": 37450,
           "output_encoded_sha256": "e941e3b1c4a36d8b521ffee26875edfe49f8b1a41084570cbfc5b3dd16ecf3a2",
           "output_padding_size": 4438,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 750,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 111,
@@ -10139,7 +10689,12 @@
           "output_encoded_size": 40937,
           "output_encoded_sha256": "18c459f389a7e814c4418a30d8ead7fc95af48ec1894a0928931673ba8ac326c",
           "output_padding_size": 4487,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 748,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 112,
@@ -10149,7 +10704,12 @@
           "output_encoded_size": 34413,
           "output_encoded_sha256": "7bb378aa6d6a92bc2114fde860632d8fdc563006ec87472247f8b5a0fa46db7c",
           "output_padding_size": 2723,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 648,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 113,
@@ -10159,7 +10719,12 @@
           "output_encoded_size": 32535,
           "output_encoded_sha256": "6819da1b8abae1cc07cd57664f4e2147db17e03a0f9db27833fc4563dadbc3fd",
           "output_padding_size": 2825,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 696,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 114,
@@ -10169,7 +10734,12 @@
           "output_encoded_size": 3613,
           "output_encoded_sha256": "2dfec5abc7dc451511ef65e95062fa0c7be7d6e098ced8b5d92a2c80bb638ad7",
           "output_padding_size": 307,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 158,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 12
+          }
         },
         {
           "stage_index": 115,
@@ -10179,7 +10749,12 @@
           "output_encoded_size": 5301,
           "output_encoded_sha256": "a1f65b65cd9af1318ec07b90c9e120c8c6d2dda7390f4f1cc1c981abb073c80f",
           "output_padding_size": 715,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 106,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 12
+          }
         },
         {
           "stage_index": 116,
@@ -10189,7 +10764,12 @@
           "output_encoded_size": 8967,
           "output_encoded_sha256": "5cf16c9f5f19c45d78032f08babcd702570f2c1ba0337415c81e77363d583e4e",
           "output_padding_size": 1097,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 519,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 117,
@@ -10199,7 +10779,12 @@
           "output_encoded_size": 36978,
           "output_encoded_sha256": "7345b7d5723d3354c09c98c3e6870971bd5abbc0655d78b42eaa2e9b65eba31c",
           "output_padding_size": 2942,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1480,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 118,
@@ -10209,7 +10794,12 @@
           "output_encoded_size": 40352,
           "output_encoded_sha256": "75d63aad0e8142a0a8ed8f6bba956dd76560674f4fd1ae618ef1aff8990e630f",
           "output_padding_size": 2976,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1073,
+            "compact_ascii_entry_count": 1,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 119,
@@ -10219,7 +10809,12 @@
           "output_encoded_size": 45858,
           "output_encoded_sha256": "4ff9c42079a8159de2cad6e14cc368dc834c691c15c92f54a1812abc1437ed6b",
           "output_padding_size": 3550,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1322,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 120,
@@ -10229,7 +10824,12 @@
           "output_encoded_size": 32316,
           "output_encoded_sha256": "db70ac3cc48c79092c239d78bdf4f1067d043e1812316bf7a28a06f161bbe734",
           "output_padding_size": 2676,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1341,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 121,
@@ -10239,7 +10839,12 @@
           "output_encoded_size": 1416,
           "output_encoded_sha256": "c91f1e33257c3e888a6020d64d262ab4cc81e7c0f061d453dec8de6aa76fcbfa",
           "output_padding_size": 136,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 4,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 16
+          }
         },
         {
           "stage_index": 122,
@@ -10249,7 +10854,12 @@
           "output_encoded_size": 28402,
           "output_encoded_sha256": "67b61fd100a2160798f06cf7a74abb04dc7b581a4619324031b794ec6006a9ec",
           "output_padding_size": 2286,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1310,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 3
+          }
         },
         {
           "stage_index": 123,
@@ -10259,7 +10869,12 @@
           "output_encoded_size": 1821,
           "output_encoded_sha256": "e56df41c401cb602d9736375bcbebab6fedad7bd95a9c6648bbcd2897573e705",
           "output_padding_size": 147,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 158,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 12
+          }
         },
         {
           "stage_index": 124,
@@ -10269,7 +10884,12 @@
           "output_encoded_size": 2404,
           "output_encoded_sha256": "6cb79aece5fc774883cb38832d5fda1cf031481af27ab379d39e91e9e35a471f",
           "output_padding_size": 156,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 308,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 125,
@@ -10279,7 +10899,12 @@
           "output_encoded_size": 14878,
           "output_encoded_sha256": "c84091642795f16a295c2241894596ea75ae5fa3fd5e43200b11b984fca8387e",
           "output_padding_size": 1442,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 108,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 126,
@@ -10289,7 +10914,12 @@
           "output_encoded_size": 24918,
           "output_encoded_sha256": "9db125df7c4edb91d7a04b7e3c21c36771c22168f280d6a7545900b4b5f8713a",
           "output_padding_size": 2538,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 784,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 127,
@@ -10299,7 +10929,12 @@
           "output_encoded_size": 52308,
           "output_encoded_sha256": "1f905753ddd6af246ee993bc23d44aec91293038e2868309b0e9ddda9353be20",
           "output_padding_size": 3980,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1218,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 128,
@@ -10309,7 +10944,12 @@
           "output_encoded_size": 37623,
           "output_encoded_sha256": "1242a95f556a720e03775424cc00049b7d4d229e1545ff7f670aa0df22f6d84a",
           "output_padding_size": 2809,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 798,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 129,
@@ -10319,7 +10959,12 @@
           "output_encoded_size": 11372,
           "output_encoded_sha256": "bc1a26c8d86a7a36059fe30d74c55e3d0c85acc44bb6310f7f1888250f4d428d",
           "output_padding_size": 1556,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 330,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 130,
@@ -10329,7 +10974,12 @@
           "output_encoded_size": 30508,
           "output_encoded_sha256": "eca8409e1e783323548a6c8af3ba068e90d07c0646daa557848fd44839ab6cff",
           "output_padding_size": 2116,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1830,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 131,
@@ -10339,7 +10989,12 @@
           "output_encoded_size": 45139,
           "output_encoded_sha256": "d9849f8a13eeb1026292f6ba901543017e4b4b47a9fe453b227f54a444ff3c0d",
           "output_padding_size": 3453,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1096,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 132,
@@ -10349,7 +11004,12 @@
           "output_encoded_size": 31989,
           "output_encoded_sha256": "e6fcc466f002f4fa4e0dc1e5a1794a7b2f4b2cb8567345668819c1a4ebb37502",
           "output_padding_size": 2347,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 2975,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 133,
@@ -10359,7 +11019,12 @@
           "output_encoded_size": 21791,
           "output_encoded_sha256": "ac12c826438b514d4ae10e61e248b4413fbd3be0677d9df50310d3e357c98111",
           "output_padding_size": 1521,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1527,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 134,
@@ -10369,7 +11034,12 @@
           "output_encoded_size": 6964,
           "output_encoded_sha256": "063861fa2dc66c73384c273bc04300bba715eba498b0e63cc11c3ee57121482b",
           "output_padding_size": 444,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 212,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 135,
@@ -10379,7 +11049,12 @@
           "output_encoded_size": 53055,
           "output_encoded_sha256": "5afb47f3cbccdacb1ec72970b0658569ece1232637b99866c1206838c587e004",
           "output_padding_size": 3377,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1768,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 136,
@@ -10389,7 +11064,12 @@
           "output_encoded_size": 35626,
           "output_encoded_sha256": "e367554d2ef5a9f2cf5536685d482aed0fb540321eff157cb66f117beca8b228",
           "output_padding_size": 2198,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1614,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 137,
@@ -10399,7 +11079,12 @@
           "output_encoded_size": 9372,
           "output_encoded_sha256": "21c90337ce47ae9bdcbad6c7be895dd68c6c86ea7ce5b9070fc91c75f8d63db2",
           "output_padding_size": 628,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 604,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 138,
@@ -10409,7 +11094,12 @@
           "output_encoded_size": 59010,
           "output_encoded_sha256": "046eba4f2c38228a75e7fc3ad3a667f4e46491a3c64ca82b2a9aba88a3ecc395",
           "output_padding_size": 3694,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1978,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 139,
@@ -10419,7 +11109,12 @@
           "output_encoded_size": 45975,
           "output_encoded_sha256": "c6420215cbf77f6574bf50e2666fb1048a0ef589a8834971d2359d8dd7ca58c4",
           "output_padding_size": 2777,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1694,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 140,
@@ -10429,7 +11124,12 @@
           "output_encoded_size": 33943,
           "output_encoded_sha256": "bc66845d4602a7e71287c785c020db8b15678e380622c6908e4db35b32447057",
           "output_padding_size": 3017,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1127,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 141,
@@ -10439,7 +11139,12 @@
           "output_encoded_size": 14560,
           "output_encoded_sha256": "9c89f422e3905808dfce8f939828d095da1dcf9ede13a99df1baeecc4734ba2a",
           "output_padding_size": 1824,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 372,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 9
+          }
         },
         {
           "stage_index": 142,
@@ -10449,7 +11154,12 @@
           "output_encoded_size": 29306,
           "output_encoded_sha256": "56e113455d07dc50f5ba29fc79bb868cf81ee96a6e64a08d45600d69f57dcccb",
           "output_padding_size": 2134,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1130,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 16
+          }
         },
         {
           "stage_index": 143,
@@ -10459,7 +11169,12 @@
           "output_encoded_size": 52920,
           "output_encoded_sha256": "0c1b8f08e9c85e18af441314ab1b09fb9d976f94290b56cddc75f42d4bbce630",
           "output_padding_size": 4008,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1092,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 144,
@@ -10469,7 +11184,12 @@
           "output_encoded_size": 43838,
           "output_encoded_sha256": "39699e00443d529cb40b1cf85424bd813f1e31faa3456f735a5a84df0d2c8966",
           "output_padding_size": 3426,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 3256,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 145,
@@ -10479,7 +11199,12 @@
           "output_encoded_size": 21076,
           "output_encoded_sha256": "9469d0dfe7d26ecb7f1dbe41645e09a606735658644654ecdb78bb5d6888fbb3",
           "output_padding_size": 1852,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 370,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 146,
@@ -10489,7 +11214,12 @@
           "output_encoded_size": 13974,
           "output_encoded_sha256": "fb53e8fc1fee9e1d172e408ddfc7105e4bb6730739b0bc89d227e383a207246c",
           "output_padding_size": 1754,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 98,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 9
+          }
         },
         {
           "stage_index": 147,
@@ -10499,7 +11229,12 @@
           "output_encoded_size": 29809,
           "output_encoded_sha256": "0fa1ff0390706242cd6ea525accf01622e1da0bdf147b1ac78ef42e15972dfa6",
           "output_padding_size": 2351,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1404,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 11
+          }
         },
         {
           "stage_index": 148,
@@ -10509,7 +11244,12 @@
           "output_encoded_size": 55146,
           "output_encoded_sha256": "72f48b3ca76c001498c06dbcd11fe4a80bb7b0513b4fc1c28ebf88f399ff3fdd",
           "output_padding_size": 5158,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 1104,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 149,
@@ -10519,17 +11259,27 @@
           "output_encoded_size": 47909,
           "output_encoded_sha256": "30c1b3881b55bd18f77ec3ad806a412bf24056a716c56ce1f7678c545eda543a",
           "output_padding_size": 3771,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 2808,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 150,
           "entry_count": 31,
           "source_stored_size": 23936,
-          "source_encoded_size": 22534,
-          "output_encoded_size": 22409,
-          "output_encoded_sha256": "03d931db0fbe6f941b2d1513fa315a4570bdc37467fc29eb10cf5c14c2d960f9",
-          "output_padding_size": 1527,
-          "codec_round_trip_exact": true
+          "source_encoded_size": 22529,
+          "output_encoded_size": 22404,
+          "output_encoded_sha256": "147bbe36da9fd400c7769838b48de2b0d044dead5941e5927f71d730f385b8af",
+          "output_padding_size": 1532,
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 372,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 151,
@@ -10539,7 +11289,12 @@
           "output_encoded_size": 15391,
           "output_encoded_sha256": "65568e467f9a73e393b527cd8e44e20e5e9a98c5bcd7725b506c8091fe3779a4",
           "output_padding_size": 1505,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 972,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 152,
@@ -10549,7 +11304,12 @@
           "output_encoded_size": 4182,
           "output_encoded_sha256": "ae5979926adf4abf7c35f610295f3ffffc8aeaf565d77328e0e31fa74cda8ba5",
           "output_padding_size": 282,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 410,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 153,
@@ -10559,7 +11319,12 @@
           "output_encoded_size": 4130,
           "output_encoded_sha256": "c78bfa134c2e97d85e72a87ba2a70989e0e382dfaba903459762cc4040d1f21a",
           "output_padding_size": 238,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 821,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 9
+          }
         },
         {
           "stage_index": 155,
@@ -10569,7 +11334,12 @@
           "output_encoded_size": 2519,
           "output_encoded_sha256": "af7cf9f2b1303cdcc64e73b4519af2f907e4a80d18f81cc81944e620591dfdd3",
           "output_padding_size": 217,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 76,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 24
+          }
         },
         {
           "stage_index": 156,
@@ -10579,7 +11349,12 @@
           "output_encoded_size": 2575,
           "output_encoded_sha256": "aab142f238b511c6e4c6b91e49f68a8611e19dfb19e513c12867eb95a15cad49",
           "output_padding_size": 241,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 125,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 20
+          }
         },
         {
           "stage_index": 158,
@@ -10589,7 +11364,12 @@
           "output_encoded_size": 1225,
           "output_encoded_sha256": "922435f4827d6e2222757531d4912e141487bb61462f347367aa8882b8ff0499",
           "output_padding_size": 39,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 100,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 159,
@@ -10599,7 +11379,12 @@
           "output_encoded_size": 1263,
           "output_encoded_sha256": "3abebfa7a433c78af187dc6920370f239a19dd00e949b5c23288ff752d8d111f",
           "output_padding_size": 49,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 86,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 161,
@@ -10609,7 +11394,12 @@
           "output_encoded_size": 1558,
           "output_encoded_sha256": "a13b640966026ab61133cfd0cdef2ae19a0b28d7106748fd300ba5eb38869bb0",
           "output_padding_size": 42,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 75,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         },
         {
           "stage_index": 162,
@@ -10619,7 +11409,12 @@
           "output_encoded_size": 1121,
           "output_encoded_sha256": "4a07a0ec6228e68ce3306e18f19400b1b16b87220097adf96923f16aac393998",
           "output_padding_size": 63,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 106,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 163,
@@ -10629,7 +11424,12 @@
           "output_encoded_size": 2730,
           "output_encoded_sha256": "7aba2f42898d8ab3015b0b737796f2a92aa3c8e69ae805933b3297870a1c08fd",
           "output_padding_size": 310,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 116,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 164,
@@ -10639,7 +11439,12 @@
           "output_encoded_size": 2719,
           "output_encoded_sha256": "15f0ce98e74727bf7fedc765e30b10f3a3bcd36a4b691421b2fa96c2d81a8563",
           "output_padding_size": 305,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 116,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 165,
@@ -10649,7 +11454,12 @@
           "output_encoded_size": 1683,
           "output_encoded_sha256": "1a95745a372a961bdb58f613c11f6fb53b7bce3e0a383cf01561a09a97f8b01d",
           "output_padding_size": 77,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 158,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 166,
@@ -10659,7 +11469,12 @@
           "output_encoded_size": 1507,
           "output_encoded_sha256": "459f69d78a1b99ba2b889f15674188e5a05b52f935172f846da31bddb7da4359",
           "output_padding_size": 61,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 120,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 7
+          }
         },
         {
           "stage_index": 167,
@@ -10669,7 +11484,12 @@
           "output_encoded_size": 1271,
           "output_encoded_sha256": "712ed75367e14f195209dbdcbaa1e0df4b0f1498cf63c9d0aaaf611c9e92f12b",
           "output_padding_size": 89,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 226,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 168,
@@ -10679,7 +11499,12 @@
           "output_encoded_size": 1271,
           "output_encoded_sha256": "82618a05464dd9c40a6a879f760cda1fb1479dc7733ea1285dd4e7b823844906",
           "output_padding_size": 89,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 226,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 169,
@@ -10689,7 +11514,12 @@
           "output_encoded_size": 2941,
           "output_encoded_sha256": "81608c4c56c104960dcb79a3d43b453b4419ac76546579abf055632f30bf8d20",
           "output_padding_size": 355,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 236,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 170,
@@ -10699,7 +11529,12 @@
           "output_encoded_size": 2856,
           "output_encoded_sha256": "771b4dd550d8100b19027e861b1206de0ee70ad73bbcbbf7ffa72e2daed113a8",
           "output_padding_size": 344,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 236,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 5
+          }
         },
         {
           "stage_index": 171,
@@ -10709,7 +11544,12 @@
           "output_encoded_size": 1239,
           "output_encoded_sha256": "6374d3fc6c249a501878f586e1d9b7a0749a023c26f4e6cb15d9e5977f3a9f3f",
           "output_padding_size": 105,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 232,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 20
+          }
         },
         {
           "stage_index": 172,
@@ -10719,7 +11559,12 @@
           "output_encoded_size": 1254,
           "output_encoded_sha256": "239ec9094e330b70de2b5b60211446e8975f249aba5abd293eca07bb2d83bdb7",
           "output_padding_size": 106,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 242,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 20
+          }
         },
         {
           "stage_index": 173,
@@ -10729,7 +11574,12 @@
           "output_encoded_size": 1355,
           "output_encoded_sha256": "89218220d926f50d76ffe72dd335d5c0e90f688a93fb25975cce81a6b2c9a62f",
           "output_padding_size": 101,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 274,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 22
+          }
         },
         {
           "stage_index": 174,
@@ -10739,7 +11589,12 @@
           "output_encoded_size": 1356,
           "output_encoded_sha256": "79270bb3e7d758ac532844489870601406819aaf913f221f912c98b878aca17e",
           "output_padding_size": 100,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 274,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 22
+          }
         },
         {
           "stage_index": 175,
@@ -10749,7 +11604,12 @@
           "output_encoded_size": 3090,
           "output_encoded_sha256": "8f9c73ae906adaaee0b45bcf7d67f0af20baa5000e6e38de0e06f2eca4db880f",
           "output_padding_size": 350,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 228,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 20
+          }
         },
         {
           "stage_index": 176,
@@ -10759,7 +11619,12 @@
           "output_encoded_size": 3025,
           "output_encoded_sha256": "a66ba2f9c3254a8702a9e3c13552599b27f4b2fce7b9943d81114978c090450d",
           "output_padding_size": 351,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 228,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 20
+          }
         },
         {
           "stage_index": 177,
@@ -10769,7 +11634,12 @@
           "output_encoded_size": 1548,
           "output_encoded_sha256": "adea387a41eb8751655b33982afda624b4f29cc0ddf77c875ad780f07d65f98d",
           "output_padding_size": 100,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 288,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 178,
@@ -10779,7 +11649,12 @@
           "output_encoded_size": 1510,
           "output_encoded_sha256": "daf217c04796e6304aa88846d35eed6efae520b8b82be7823b66142f29f760ed",
           "output_padding_size": 106,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 292,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 22
+          }
         },
         {
           "stage_index": 179,
@@ -10789,7 +11664,12 @@
           "output_encoded_size": 1548,
           "output_encoded_sha256": "c3b9df0f8b78ce31878b59d23485b91b146e57b8f2f33547afe7f31ae762bdbc",
           "output_padding_size": 100,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 288,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 14
+          }
         },
         {
           "stage_index": 180,
@@ -10799,7 +11679,12 @@
           "output_encoded_size": 1510,
           "output_encoded_sha256": "76f54520ca1b1a3c1bb5ba665b127b4d0983b492a0cc100cb09552902e5f7d36",
           "output_padding_size": 106,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 292,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 22
+          }
         },
         {
           "stage_index": 185,
@@ -10809,7 +11694,12 @@
           "output_encoded_size": 14776,
           "output_encoded_sha256": "ec9e7ba554cd07271ae4e68b3cd90f936058ffdffd512344df1d1ed3830b6b55",
           "output_padding_size": 2040,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 83,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 12
+          }
         },
         {
           "stage_index": 186,
@@ -10819,7 +11709,12 @@
           "output_encoded_size": 16871,
           "output_encoded_sha256": "a1bce69f376bddd831a5e9640e6c30cba346ed387ac778462db923c72b343e5e",
           "output_padding_size": 2425,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 71,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 12
+          }
         },
         {
           "stage_index": 203,
@@ -10829,7 +11724,12 @@
           "output_encoded_size": 5976,
           "output_encoded_sha256": "03fb0da47d95e102147ce2567bf10845a842bdc72c6be6172462fdeefc1a56ce",
           "output_padding_size": 24,
-          "codec_round_trip_exact": true
+          "codec_round_trip_exact": true,
+          "rewrite_summary": {
+            "changed_byte_count": 74,
+            "compact_ascii_entry_count": 0,
+            "minimum_slot_headroom": 1
+          }
         }
       ],
       "source_preimages_exact": true,
@@ -15451,8 +16351,8 @@
     "term_count": 2,
     "occurrence_count": 6,
     "source_stored_size": 41312,
-    "output_encoded_size": 36338,
-    "output_padding_size": 4974,
+    "output_encoded_size": 36337,
+    "output_padding_size": 4975,
     "compression_deferred_to_workspace": true,
     "codec": {
       "strategy": "rust-fit",
@@ -45536,9 +46436,9 @@
           },
           {
             "id": "page/060/record/025",
-            "translation": "0。发动时消耗EN5。",
+            "translation": "0。发动时消耗EN10。",
             "source_size": 28,
-            "translation_size": 22,
+            "translation_size": 24,
             "style": [
               2,
               0
@@ -45616,9 +46516,9 @@
           },
           {
             "id": "page/060/record/029",
-            "translation": "时消耗EN10。",
+            "translation": "时消耗EN5。",
             "source_size": 28,
-            "translation_size": 16,
+            "translation_size": 14,
             "style": [
               2,
               0
@@ -69197,8 +70097,8 @@
       "04:06": 102
     },
     "source_stored_size": 41312,
-    "output_encoded_size": 36338,
-    "output_padding_size": 4974,
+    "output_encoded_size": 36337,
+    "output_padding_size": 4975,
     "compression_deferred_to_workspace": true,
     "archive_size_preserved": true,
     "archive_offsets_preserved": true,
@@ -73654,8 +74554,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "789356659e1d80f697b5c0d1be770a3fb6ea7049cdfee75b79f077b568f6f3c3",
-    "output_sha256": "e88d667d76fd0d017c2633ce994f1b24cd9a676e5247c168b491833d095af902",
+    "source_sha256": "c2656f7736bc9af321d6d3f0dc874d93194b4db01917793a2593e6845a6c3aee",
+    "output_sha256": "b08be5d4f5a6ff807468bfcdd15a09e1202bf1fd8e8c22cd3911fbb8903479e0",
     "instruction_replacement_exact": true,
     "executable_size_preserved": true,
     "metadata": {
@@ -73736,8 +74636,8 @@
     "changed_byte_count": 4,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "e88d667d76fd0d017c2633ce994f1b24cd9a676e5247c168b491833d095af902",
-    "output_sha256": "c7e4b71e78508036a7365bbcedf2f9991fcd8b3131ad389f64fd9f8fbe2da909",
+    "source_sha256": "b08be5d4f5a6ff807468bfcdd15a09e1202bf1fd8e8c22cd3911fbb8903479e0",
+    "output_sha256": "0d7a0c03140363f43ca0766b6292ea735b7c87d355356668c82c9a52558f581e",
     "all_instruction_replacements_exact": true,
     "save_writeback_functions_unchanged": true,
     "executable_size_preserved": true
@@ -73767,8 +74667,8 @@
     "changed_byte_count": 16,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "c7e4b71e78508036a7365bbcedf2f9991fcd8b3131ad389f64fd9f8fbe2da909",
-    "output_sha256": "2f153ac9b70f565ea3bd0ca4495e50a7ba24f8d207e7ea9619f1502e7a3235ae",
+    "source_sha256": "0d7a0c03140363f43ca0766b6292ea735b7c87d355356668c82c9a52558f581e",
+    "output_sha256": "0ee5255d9216341628e5fef57c6b4401fb23d92a33b102cf5a06621cafa98938",
     "instruction_replacement_exact": true,
     "save_preview_formatter": {
       "virtual_address": "0x3E403C",
@@ -74350,8 +75250,8 @@
     "changed_byte_count": 33,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "2f153ac9b70f565ea3bd0ca4495e50a7ba24f8d207e7ea9619f1502e7a3235ae",
-    "output_sha256": "ef5514cf11b23feae86b29f97277d6d1cf27d291460ebd33b673baac89c8d68c",
+    "source_sha256": "0ee5255d9216341628e5fef57c6b4401fb23d92a33b102cf5a06621cafa98938",
+    "output_sha256": "7a6d7477e5d2389f0986a98a4f0c417749b798261adeed55bf6f97a57b1ba707",
     "all_instruction_replacements_exact": true,
     "all_text_layout_replacements_exact": true,
     "all_runtime_color_retargets_exact": true,
@@ -74569,8 +75469,8 @@
     "changed_byte_count": 3,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "4467c4fa71368442932e7d91c3d119cdc5d765a87566675f94b5d770c8c8f520",
-    "output_sha256": "bf0aeb4d800b49ae22e0202d70d089294d127fad909eb220fddc5d29e067620d",
+    "source_sha256": "46c505389f15fd15b93bd6a6dd6b4417452a93738c2ac0da238795e00f1a35a5",
+    "output_sha256": "f1d5d12813c4b385f00f0063fec8434f39061b5a89bfd6267a053a23feac0f8f",
     "all_replacements_exact": true,
     "executable_size_preserved": true
   },
@@ -74652,8 +75552,8 @@
     "sibling_rows_preserved": true,
     "target_tail_preserved": true,
     "executable_size_preserved": true,
-    "source_sha256": "bf0aeb4d800b49ae22e0202d70d089294d127fad909eb220fddc5d29e067620d",
-    "output_sha256": "924cfb0e07c4c6b80fab7055edbfcad4a31c619e91f1bf757a5dea34cd4bfc38"
+    "source_sha256": "f1d5d12813c4b385f00f0063fec8434f39061b5a89bfd6267a053a23feac0f8f",
+    "output_sha256": "75b1e0e23c82e441de312f66cd3793dd8a51e271e393a5883b23e79704107088"
   },
   "bazaar_top_help_alignment": {
     "policy": "shift_purchase_help_left_without_changing_text",
@@ -74735,8 +75635,8 @@
     "all_instruction_replacements_exact": true,
     "text_bytes_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "924cfb0e07c4c6b80fab7055edbfcad4a31c619e91f1bf757a5dea34cd4bfc38",
-    "output_sha256": "17ca5ef6d496343761d8800fe76dcea8a4a8e4a4479fbf0a44ec9c7b149d3c45"
+    "source_sha256": "75b1e0e23c82e441de312f66cd3793dd8a51e271e393a5883b23e79704107088",
+    "output_sha256": "e1339fe562ad3500fb90c347a7d4c186d40260f02cb97d60970f131a29480d91"
   },
   "remaining_squad_count_alignment": {
     "policy": "move_printf_number_right_without_touching_adjacent_text",
@@ -74757,8 +75657,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "17ca5ef6d496343761d8800fe76dcea8a4a8e4a4479fbf0a44ec9c7b149d3c45",
-    "output_sha256": "5f5f949f8359f0858e9939c35b69f217963601eff7919667752340645bd17e87",
+    "source_sha256": "e1339fe562ad3500fb90c347a7d4c186d40260f02cb97d60970f131a29480d91",
+    "output_sha256": "d3a61db34d8cd0502e2702ee7ba9ffaf266afe99648b34356d6a262b32416742",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -74803,8 +75703,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "5f5f949f8359f0858e9939c35b69f217963601eff7919667752340645bd17e87",
-    "output_sha256": "a290c482cabc62aec4c3a4fbe9f83beee57bace96c059159785f8ec2edae6951",
+    "source_sha256": "d3a61db34d8cd0502e2702ee7ba9ffaf266afe99648b34356d6a262b32416742",
+    "output_sha256": "66cad0ac83e52d34a4ae70d3c86d8bf71403846e263d51a72a86ec1f28e4fd32",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -74843,7 +75743,7 @@
     "all_editorial_statuses_draft": true,
     "target_offset_reread_exact": true,
     "compdata_source_size": 144990,
-    "compdata_output_size": 141320,
+    "compdata_output_size": 141327,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
@@ -74852,6 +75752,65 @@
       "offset": "0x64100",
       "translation": "“今、今天只是身体不舒服！\n　你们给我记住！”"
     }
+  },
+  "compdata_best_corrections": {
+    "profile_id": "original-best-compdata-fields-v1",
+    "decoded_size": 524032,
+    "runtime_base": "0x6D6800",
+    "field_count": 4,
+    "fields": [
+      {
+        "field_id": "pilot/0116/name_format",
+        "decoded_offset": "0x7165",
+        "width": 1,
+        "original_value": 1,
+        "corrected_value": 0,
+        "original_hex": "01",
+        "corrected_hex": "00"
+      },
+      {
+        "field_id": "unit/0800/encyclopedia_id",
+        "decoded_offset": "0x59F9E",
+        "width": 2,
+        "original_value": 315,
+        "corrected_value": 316,
+        "original_hex": "3b01",
+        "corrected_hex": "3c01"
+      },
+      {
+        "field_id": "unit/0607/encyclopedia_lookup",
+        "decoded_offset": "0x5B02E",
+        "width": 2,
+        "original_value": 254,
+        "corrected_value": 252,
+        "original_hex": "fe00",
+        "corrected_hex": "fc00"
+      },
+      {
+        "field_id": "unit/0607/franchise_lookup",
+        "decoded_offset": "0x5D4FF",
+        "width": 1,
+        "original_value": 18,
+        "corrected_value": 17,
+        "original_hex": "12",
+        "corrected_hex": "11"
+      }
+    ],
+    "all_corrected_fields_exact": true,
+    "owner_and_duplicate_associations_exact": true,
+    "source_decoded_sha256": "aba8b8688b21957d5255dab0f060fb065c13eefdfdb1c1a4f72e9fa7cc7ebee8",
+    "output_decoded_sha256": "96368300101283b78150f8fce139dff2a984ac694eb474c3ba7d4ea87e34b960",
+    "source_preimages_exact": true,
+    "changed_byte_count": 4,
+    "changed_decoded_offsets": [
+      "0x7165",
+      "0x59F9E",
+      "0x5B02E",
+      "0x5D4FF"
+    ],
+    "non_target_bytes_exact": true,
+    "embedded_code_unchanged": true,
+    "decoded_size_preserved": true
   },
   "reviewed_weapons": {
     "entry_count": 711,
@@ -74875,7 +75834,7 @@
     "all_editorial_statuses_reviewed": true,
     "target_offset_reread_exact": true,
     "compdata_source_size": 144990,
-    "compdata_output_size": 141320,
+    "compdata_output_size": 141327,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true,
     "compression_deferred_to_workspace": true
@@ -74915,6 +75874,7 @@
     "record_count": 58740,
     "production_override_count": 7,
     "added_line_break_override_count": 2,
+    "removed_line_break_override_count": 1,
     "chunk_count": 353,
     "indexed_chunk_count": 288,
     "zero_record_chunk_count": 65,
@@ -74922,8 +75882,8 @@
     "pool": {
       "translated_record_count": 58740,
       "original_indexed_pool_bytes": 2165802,
-      "output_indexed_pool_bytes": 1653074,
-      "released_indexed_pool_bytes": 512728,
+      "output_indexed_pool_bytes": 1653034,
+      "released_indexed_pool_bytes": 512768,
       "minimum_record_headroom": -24,
       "minimum_chunk_headroom": 0,
       "expanded_record_count": 88
@@ -82226,7 +83186,7 @@
       "selected_entry_count": 469,
       "selected_target_count": 1166,
       "merged_text_range_count": 1165,
-      "substituted_code_count": 1242,
+      "substituted_code_count": 1241,
       "preserved_original_clean_code_count": 0,
       "original_stock_reinterpretation_count": 190,
       "nested_raw_overlap_mismatch_count": 1,
@@ -82251,7 +83211,7 @@
       "reread_exact": true
     },
     "compdata_source_size": 144990,
-    "compdata_output_size": 141320,
+    "compdata_output_size": 141327,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true
   },
@@ -82291,7 +83251,7 @@
       "all_list_labels_match_library_word": true,
       "pointer_table_reread_exact": true,
       "decoded_size_preserved": true,
-      "compdata_output_size": 141320,
+      "compdata_output_size": 141327,
       "codec_round_trip_exact": true
     },
     "stage": {
@@ -82941,7 +83901,7 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "9dbee77af30f4681beff100eb360221ddd8004712d940af140cbc7ffb03c52ef"
+      "sha256": "b31dcd74a3627815901da0e1b439867444ef189b17fd560ec16b099a8956dd8d"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -82950,13 +83910,13 @@
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 141320,
-      "sha256": "f2829364921e703a2b0da4530e5c505f6656c187c31a70d001210ab76bfb5269"
+      "size": 141327,
+      "sha256": "5901eb7245e8d1deef1474e5ab35c3c9c30a4a9605c0403c54272f9de7fb7b96"
     },
     "DATA/NISVDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
       "size": 555056,
-      "sha256": "8f9b08d08b8fe8c8b132adb27411a20d39320c8b2d8753e37b1f9b7519b5c5a5"
+      "sha256": "aea13119d457224e37c641175f13962cdc110721271ffac4d138fdf6443a8911"
     },
     "DATA/MTV_PROS.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
@@ -82971,7 +83931,7 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "53bcd01a7ea1d1bd1ff79818ba631185ffdd00e5630e11d50a1c85d33977e6df"
+      "sha256": "65430bc0f0024458fefa7ffe93322567d51b306458f48a63e0c651409d68cf31"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
@@ -82991,7 +83951,7 @@
     "BTL/SRVC.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
       "size": 3313040,
-      "sha256": "162b2133c16eccde05023054cf34a803d9ec4f6fea607379f486eeaa920aac95"
+      "sha256": "42d5bb1b40daf03aaf9da1b60a7d77e645aee0ef794483123ecd3bad8b3fcf6a"
     },
     "BTL/SRVC.SEG": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.SEG",
@@ -83008,15 +83968,15 @@
       "size": 55136688,
       "sha256": "0ee0cdf372b32eb255a3fa77967cf7c7bbe7de2c33c7b16a81c85a97a1c5e385"
     },
-    "BTL/OP0.BIN": {
-      "path": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
-      "size": 266224,
-      "sha256": "4338048b8a6e05c6b0d4ea520e5d1efaa3d071c0db44babf95ec8a028aabb023"
-    },
     "BTL/OP1.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/OP1.BIN",
       "size": 265872,
       "sha256": "e3a3cada48da284f434f7761d6eab68697f08bf4a9c3777f4ddcadfdcefdb756"
+    },
+    "BTL/OP0.BIN": {
+      "path": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
+      "size": 266224,
+      "sha256": "4338048b8a6e05c6b0d4ea520e5d1efaa3d071c0db44babf95ec8a028aabb023"
     },
     "BTL/OP2.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/OP2.BIN",
