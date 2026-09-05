@@ -22,6 +22,7 @@ from srwz.chinese_layout import (
     fit_chinese_dialogue_layout,
 )
 from srwz.codec import decode_production as decode
+from srwz.compdata_best_corrections import audit_compdata_best_corrections
 from srwz.display_names import (
     load_display_name_source,
     load_full_unit_name_corpus,
@@ -2168,6 +2169,9 @@ def verify_final_compdata(
     decoded_compdata = decode(stored_compdata)
     if decoded_compdata.consumed != len(stored_compdata):
         raise SystemExit("final ISO COMPDATA has trailing compressed bytes")
+    best_corrections_report = audit_compdata_best_corrections(
+        decoded_compdata.output, component_config.get("compdata_best_corrections")
+    )
     reread = parse_display_names(
         decoded_compdata.output,
         output_table,
@@ -3350,6 +3354,7 @@ def verify_final_compdata(
 
     return {
         "decoded_size": len(decoded_compdata.output),
+        "best_field_corrections": best_corrections_report,
         "selected_entry_count": len(selected),
         "field_entry_counts": field_counts,
         "unique_source_count": len(by_source),

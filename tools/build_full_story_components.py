@@ -378,8 +378,10 @@ except ModuleNotFoundError:
 
 try:
     from srwz.build_fingerprints import font_binary_signature
+    from srwz.compdata_best_corrections import apply_compdata_best_corrections
 except ModuleNotFoundError:
     from tools.srwz.build_fingerprints import font_binary_signature
+    from tools.srwz.compdata_best_corrections import apply_compdata_best_corrections
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -653,6 +655,7 @@ CONFIG_SECTION_IMPACTS = {
     "full_pilot_names": {COMPDATA_MEMBER, STAGE_MEMBER, HSFC_MEMBER},
     "auto_demo_overlays": {SLPS_MEMBER, COMPDATA_MEMBER, *AUTO_DEMO_MEMBERS},
     "compdata_battle_lines": {COMPDATA_MEMBER},
+    "compdata_best_corrections": {COMPDATA_MEMBER},
     "reviewed_weapons": {COMPDATA_MEMBER},
     "special_abilities": {COMPDATA_MEMBER},
     "full_stage_titles": {SLPS_MEMBER, VT1_MEMBER, COMPDATA_MEMBER},
@@ -9982,6 +9985,17 @@ def _build_components(
             f"runtime-keyword COMPDATA write failed: {error}"
         ) from error
     try:
+        corrected_compdata, compdata_best_corrections_report = (
+            apply_compdata_best_corrections(
+                compdata_workspace.current, config.get("compdata_best_corrections")
+            )
+        )
+        compdata_workspace.replace(
+            corrected_compdata, stage="Best COMPDATA four-field corrections"
+        )
+    except ValueError as error:
+        raise FullStoryComponentError(str(error)) from error
+    try:
         output_compdata, compdata_workspace_report = compdata_workspace.finalize(
             **config["full_pilot_names"]["codec"]
         )
@@ -11018,6 +11032,7 @@ def _build_components(
         ),
         "weapon_special_effect_2": weapon_effect_2_report,
         "compdata_battle_lines": compdata_battle_line_report,
+        "compdata_best_corrections": compdata_best_corrections_report,
         "reviewed_weapons": reviewed_weapon_report,
         "special_abilities": special_ability_report,
         "srvc_battle_text": srvc_report,
