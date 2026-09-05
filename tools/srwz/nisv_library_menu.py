@@ -626,10 +626,9 @@ def _build_nisv_text_texture(
                 "source_indexes_sha256": _sha256(source_crop),
                 "restored_indexes_sha256": _sha256(restored_crop),
                 "restored_pixel_count": len(restore_offsets),
-                "source_transparent_pixel_count": sum(
-                    _alpha_plane(source_crop, palette)[pixel] == 0
-                    for pixel in range(len(source_crop))
-                ),
+                "source_transparent_pixel_count": _alpha_plane(
+                    source_crop, palette
+                ).count(0),
             }
             if selective_restore:
                 background_restore_report.update(

@@ -8,6 +8,8 @@ so this module rejects them instead of guessing.
 
 from __future__ import annotations
 
+from functools import lru_cache
+
 
 WIDTH = 256
 HEIGHT = 256
@@ -76,6 +78,32 @@ def _stored_location(
     return page_location + block_location + column_location + byte_number, nibble
 
 
+@lru_cache(maxsize=8)
+def _validated_layout(
+    width: int, height: int, row_major_pages: bool
+) -> tuple[tuple[int, ...], tuple[int, ...]]:
+    """Prove each geometry's permutation once, then reuse it for every texture."""
+
+    pixel_count = width * height
+    forward = []
+    inverse = [-1] * pixel_count
+    for y in range(height):
+        for x in range(width):
+            offset, nibble = _stored_location(
+                x, y, width, height, row_major_pages=row_major_pages
+            )
+            target = offset * 2 + nibble
+            if not 0 <= target < pixel_count:
+                raise Psmt4Error("PSMT4 stored nibble is outside the image")
+            if inverse[target] != -1:
+                raise Psmt4Error("PSMT4 stored nibble is not unique")
+            inverse[target] = len(forward)
+            forward.append(target)
+    if -1 in inverse:
+        raise Psmt4Error("PSMT4 mapping does not cover the image")
+    return tuple(forward), tuple(inverse)
+
+
 def unswizzle_psmt4(
     data: bytes,
     width: int = WIDTH,
@@ -100,29 +128,10 @@ def unswizzle_psmt4(
         raise Psmt4Error(
             f"PSMT4 source has {len(source)} bytes, expected {packed_size}"
         )
-    logical = bytearray(pixel_count)
-    seen = bytearray(pixel_count)
-    for y in range(height):
-        for x in range(width):
-            stored_offset, nibble = _stored_location(
-                x,
-                y,
-                width,
-                height,
-                row_major_pages=row_major_pages,
-            )
-            nibble_offset = stored_offset * 2 + nibble
-            if not 0 <= nibble_offset < pixel_count:
-                raise Psmt4Error("PSMT4 stored nibble is outside the image")
-            if seen[nibble_offset]:
-                raise Psmt4Error("PSMT4 stored nibble is not unique")
-            seen[nibble_offset] = 1
-            logical[y * width + x] = (
-                source[stored_offset] >> (nibble * 4)
-            ) & 0x0F
-    if not all(seen):
-        raise Psmt4Error("PSMT4 mapping does not cover the image")
-    return bytes(logical)
+    forward, _inverse = _validated_layout(width, height, row_major_pages)
+    return bytes(
+        (source[target >> 1] >> ((target & 1) * 4)) & 0x0F for target in forward
+    )
 
 
 def swizzle_psmt4(
@@ -145,32 +154,13 @@ def swizzle_psmt4(
             f"PSMT4 logical image has {len(logical)} pixels, "
             f"expected {pixel_count}"
         )
-    if any(pixel > 0x0F for pixel in logical):
+    if max(logical, default=0) > 0x0F:
         raise Psmt4Error("PSMT4 logical pixel exceeds 4-bpp range")
-    stored = bytearray(packed_size)
-    seen = bytearray(pixel_count)
-    for y in range(height):
-        for x in range(width):
-            stored_offset, nibble = _stored_location(
-                x,
-                y,
-                width,
-                height,
-                row_major_pages=row_major_pages,
-            )
-            nibble_offset = stored_offset * 2 + nibble
-            if not 0 <= nibble_offset < pixel_count:
-                raise Psmt4Error("PSMT4 stored nibble is outside the image")
-            if seen[nibble_offset]:
-                raise Psmt4Error("PSMT4 stored nibble is not unique")
-            seen[nibble_offset] = 1
-            shift = nibble * 4
-            stored[stored_offset] = (
-                stored[stored_offset] & (0x0F if nibble else 0xF0)
-            ) | (logical[y * width + x] << shift)
-    if not all(seen):
-        raise Psmt4Error("PSMT4 mapping does not cover the image")
-    return bytes(stored)
+    _forward, inverse = _validated_layout(width, height, row_major_pages)
+    return bytes(
+        logical[inverse[index]] | (logical[inverse[index + 1]] << 4)
+        for index in range(0, pixel_count, 2)
+    )
 
 
 __all__ = [

@@ -60,6 +60,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--raster-output", type=Path,
+                        help="Pass freshly rendered grayscale glyphs to the font component.")
     parser.add_argument(
         "--reuse-raster-cache",
         action="store_true",
@@ -311,6 +313,8 @@ def main() -> int:
     if any(not isinstance(character, str) or len(character) != 1 for character in characters):
         raise SystemExit("release font mapping contains an invalid character")
 
+    raster_grays = {}
+
     def rasterize(character: str) -> tuple[str, dict]:
         gray, pixels, packed = rasterize_character(
             rasterizer["executable"],
@@ -318,6 +322,8 @@ def main() -> int:
             character,
             rasterizer,
         )
+        if args.raster_output is not None:
+            raster_grays[character] = gray.hex()
         if not character.isspace() and not any(packed):
             raise SystemExit(
                 "visible glyph raster is empty; add an explicit global "
@@ -645,6 +651,14 @@ def main() -> int:
         f"aliases={len(aliases)}",
         "runtime=pending",
     )
+    if args.raster_output is not None:
+        raster_output = require_work_output(args.raster_output, WORK_ROOT)
+        raster_output.parent.mkdir(parents=True, exist_ok=True)
+        raster_output.write_text(json.dumps({
+            "schema_version": 1,
+            "proposal_sha256": sha256_bytes(proposal_path.read_bytes()),
+            "gray_by_character": raster_grays,
+        }, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
     print(f"proposal: {proposal_path}")
     print(f"readiness: {readiness_path}")
     return 0

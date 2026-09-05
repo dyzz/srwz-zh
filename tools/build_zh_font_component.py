@@ -10,14 +10,21 @@ import struct
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from srwz.font_rasterizer import rasterize_character, rasterizer_point_size
+from srwz.font_rasterizer import (
+    quantize_gray_4bpp,
+    rasterize_character,
+    rasterizer_point_size,
+)
 from srwz.codec import decode_production as decode, reencode_changed_suffix
 from srwz.diagnostics import require_work_output
 from srwz.font import (
     GLYPH_COUNT,
     GLYPH_SIZE,
+    GLYPH_HEIGHT,
+    GLYPH_WIDTH,
     ascii_glyph_index,
     decode_vt1_font_segment,
+    encode_glyph,
     glyph_raster_metrics,
     glyph_index_for_code,
     read_extended_glyph_table,
@@ -59,6 +66,8 @@ DEFAULT_RASTER_WORKERS = min(
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--proposal", type=Path, default=PROPOSAL)
+    parser.add_argument("--raster-input", type=Path,
+                        help="Reuse proposal-bound grayscale glyphs from font preparation.")
     parser.add_argument("--output-root", type=Path, default=OUTPUT_ROOT)
     parser.add_argument("--font-config", type=Path, default=FONT_CONFIG)
     parser.add_argument(
@@ -80,6 +89,24 @@ def parse_args() -> argparse.Namespace:
     if args.raster_workers < 1:
         parser.error("--raster-workers must be at least 1")
     return args
+
+
+def _load_raster_handoff(path: Path, proposal_data: bytes) -> dict:
+    handoff = json.loads(path.read_text(encoding="utf-8"))
+    if (not isinstance(handoff, dict) or handoff.get("schema_version") != 1
+            or handoff.get("proposal_sha256") != sha256_bytes(proposal_data)
+            or not isinstance(handoff.get("gray_by_character"), dict)):
+        raise ValueError("font raster handoff proposal drift")
+    return handoff["gray_by_character"]
+
+
+def _handoff_raster(gray_hex: str, expected_sha256: str) -> tuple[bytes, bytes, bytes]:
+    gray = bytes.fromhex(gray_hex)
+    if (len(gray) != GLYPH_WIDTH * GLYPH_HEIGHT
+            or sha256_bytes(gray) != expected_sha256):
+        raise ValueError("font raster handoff glyph drift")
+    pixels = quantize_gray_4bpp(gray)
+    return gray, pixels, encode_glyph(pixels)
 
 
 def main() -> int:
@@ -174,8 +201,15 @@ def main() -> int:
         if assignment.get("preserve_source_glyph") is not True
     ]
 
+    raster_grays = {}
+    if args.raster_input is not None:
+        raster_grays = _load_raster_handoff(
+            require_work_output(args.raster_input, WORK_ROOT), proposal_path.read_bytes())
+
     def rasterize_assignment(assignment: dict) -> tuple[bytes, bytes, bytes]:
         character = assignment["character"]
+        if character in raster_grays:
+            return _handoff_raster(raster_grays[character], assignment["raster"]["raw_gray_sha256"])
         return rasterize_character(
             rasterizer["executable"],
             fallback_font_paths.get(character, font_path),

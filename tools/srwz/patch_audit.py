@@ -58,11 +58,21 @@ class DiffSummary:
 def changed_offsets(before: bytes, after: bytes) -> tuple[int, ...]:
     if len(before) != len(after):
         raise PatchAuditError("binary patch changes file size")
-    return tuple(
-        index
-        for index, (old, new) in enumerate(zip(before, after))
-        if old != new
-    )
+    # Compare unchanged blocks in C, entering Python only for touched blocks.
+    # Large archives commonly change a few small spans; every byte still
+    # participates in the comparison and offsets keep their original order.
+    offsets = []
+    block_size = 4096
+    for start in range(0, len(before), block_size):
+        old_block = before[start : start + block_size]
+        new_block = after[start : start + block_size]
+        if old_block != new_block:
+            offsets.extend(
+                start + index
+                for index, (old, new) in enumerate(zip(old_block, new_block))
+                if old != new
+            )
+    return tuple(offsets)
 
 
 def contiguous_ranges(

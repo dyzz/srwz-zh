@@ -26,6 +26,39 @@ def _load_config(path: Path) -> tuple[Path, dict]:
     return resolved, document
 
 
+def _verify_written_build(config: dict, payloads: dict[Path, bytes], report: dict) -> None:
+    """Check disk writes against the already validated in-memory build once."""
+
+    for path, payload in payloads.items():
+        if path.read_bytes() != payload:
+            raise SystemExit(f"atlas written output differs: {path}")
+    validation = require_work_output(
+        PROJECT_ROOT / config["outputs"]["validation"], WORK_ROOT
+    )
+    validation.parent.mkdir(parents=True, exist_ok=True)
+    validation.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+
+
+def _finish_build(
+    args: argparse.Namespace, config: dict, payloads: dict[Path, bytes], report: dict
+) -> None:
+    if not (
+        getattr(args, "verify_output", False)
+        or getattr(args, "refresh_manifest", False)
+    ):
+        return
+    _verify_written_build(config, payloads, report)
+    status = _verify_or_refresh_manifest(
+        report,
+        PROJECT_ROOT / config["outputs"]["manifest"],
+        refresh=args.refresh_manifest,
+        label="atlas",
+    )
+    print(f"manifest {status}; written outputs match validated build")
+
+
 def _command_build(args: argparse.Namespace) -> int:
     config_path, config = _load_config(args.config)
     outputs = config["outputs"]
@@ -75,6 +108,15 @@ def _command_build(args: argparse.Namespace) -> int:
     report_path.write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
+    )
+    _finish_build(
+        args, config,
+        {
+            archive_path: payloads["archive"],
+            reference_path: payloads["reference_png"],
+            localized_path: payloads["localized_png"],
+        },
+        report,
     )
     print(
         "UI atlas localization:",
@@ -206,6 +248,7 @@ def _command_build_suite(args: argparse.Namespace) -> int:
         json.dumps(report, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+    _finish_build(args, config, {archive_path: archive}, report)
     print(
         "UI atlas suite:",
         f"profile={report['profile_id']}",
@@ -286,6 +329,11 @@ def parse_args() -> argparse.Namespace:
     _add_common_atlas_arguments(build)
     build.add_argument("--force", action="store_true")
     build.add_argument("--print-output-locks", action="store_true")
+    build.add_argument(
+        "--verify-output", action="store_true",
+        help="Verify written bytes and manifest using this build result, without rebuilding again.",
+    )
+    build.add_argument("--refresh-manifest", action="store_true")
     build.set_defaults(handler=_command_build)
 
     verify = commands.add_parser("verify")
@@ -298,6 +346,8 @@ def parse_args() -> argparse.Namespace:
     build_suite.add_argument("--output-root", type=Path)
     build_suite.add_argument("--force", action="store_true")
     build_suite.add_argument("--print-output-locks", action="store_true")
+    build_suite.add_argument("--verify-output", action="store_true")
+    build_suite.add_argument("--refresh-manifest", action="store_true")
     build_suite.set_defaults(handler=_command_build_suite)
 
     verify_suite = commands.add_parser("verify-suite")
