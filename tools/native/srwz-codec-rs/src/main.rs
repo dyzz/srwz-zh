@@ -99,6 +99,9 @@ fn parse_arguments() -> Result<Arguments, String> {
 }
 
 fn run() -> Result<(), String> {
+    if env::args().nth(1).as_deref() == Some("worker-stdio") {
+        return run_worker();
+    }
     if env::args().nth(1).as_deref() == Some("decode-stdio") {
         let mut data = Vec::new();
         std::io::stdin()
@@ -187,6 +190,98 @@ fn run() -> Result<(), String> {
         encoded.len()
     );
     Ok(())
+}
+
+// Each build thread owns a worker. Codec algorithms and locked decode limits
+// are shared with the one-shot CLI; only transport and process lifetime differ.
+fn run_worker() -> Result<(), String> {
+    let mut input = std::io::stdin().lock();
+    let mut output = std::io::BufWriter::new(std::io::stdout().lock());
+    loop {
+        let mut header = [0u8; 64];
+        match input.read(&mut header[..1]) {
+            Ok(0) => return Ok(()),
+            Ok(_) => (),
+            Err(error) => return Err(error.to_string()),
+        }
+        input
+            .read_exact(&mut header[1..])
+            .map_err(|error| error.to_string())?;
+        if &header[..8] != b"SRWZQ001" {
+            return Err("worker request magic drift".to_owned());
+        }
+        let field = |index: usize| -> u64 {
+            let start = 8 + index * 8;
+            u64::from_le_bytes(header[start..start + 8].try_into().unwrap())
+        };
+        let size = field(1);
+        if size > 512 * 1024 * 1024 {
+            return Err("worker input exceeds frame limit".to_owned());
+        }
+        let mut data = vec![0; size as usize];
+        input
+            .read_exact(&mut data)
+            .map_err(|error| error.to_string())?;
+        let result = match field(0) {
+            0 => decode_worker_response(&data),
+            1 if field(6) == u64::MAX || field(6) <= 8 => encode_payload(
+                &data,
+                EncodeOptions {
+                    window_size: field(2) as usize,
+                    prefix_size: field(3) as usize,
+                    min_match_length: field(4) as usize,
+                    max_match_chain: field(5) as usize,
+                    lazy_bias: if field(6) == u64::MAX {
+                        None
+                    } else {
+                        Some(field(6) as u8)
+                    },
+                },
+            )
+            .map_err(|error| error.to_string()),
+            _ => Err("invalid worker operation or lazy bias".to_owned()),
+        };
+        let (status, body) = match result {
+            Ok(body) => (0u64, body),
+            Err(error) => (1u64, error.into_bytes()),
+        };
+        output
+            .write_all(b"SRWZR001")
+            .map_err(|error| error.to_string())?;
+        output
+            .write_all(&status.to_le_bytes())
+            .map_err(|error| error.to_string())?;
+        output
+            .write_all(&(body.len() as u64).to_le_bytes())
+            .map_err(|error| error.to_string())?;
+        output.write_all(&body).map_err(|error| error.to_string())?;
+        output.flush().map_err(|error| error.to_string())?;
+    }
+}
+
+fn decode_worker_response(data: &[u8]) -> Result<Vec<u8>, String> {
+    let decoded = decode_stream(data, 256 * 1024 * 1024, 10, 10_000_000)
+        .map_err(|error| error.to_string())?;
+    let fields = [
+        decoded.consumed as u64,
+        decoded.declared_size as u64,
+        decoded.flags as u64,
+        decoded.header_size as u64,
+        decoded.window_size as u64,
+        decoded
+            .header_unknown_0
+            .map(|value| value as u64)
+            .unwrap_or(u64::MAX),
+        decoded.header_unknown_1 as u64,
+        decoded.output.len() as u64,
+    ];
+    let mut result = Vec::with_capacity(72 + decoded.output.len());
+    result.extend_from_slice(b"SRWZD001");
+    for field in fields {
+        result.extend_from_slice(&field.to_le_bytes());
+    }
+    result.extend_from_slice(&decoded.output);
+    Ok(result)
 }
 
 fn main() -> ExitCode {

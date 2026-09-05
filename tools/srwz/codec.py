@@ -8,14 +8,14 @@ meaning.
 
 from __future__ import annotations
 
-import subprocess
 import struct
 import sys
-import tempfile
 from array import array
 from collections import defaultdict, deque
 from pathlib import Path
 from typing import Callable, Deque, Dict, Mapping, Optional, Union
+
+from .codec_worker import request as _worker_request, CodecWorkerError
 
 from .codec_contract import (
     CodedInteger,
@@ -781,18 +781,12 @@ def decode_production(
             "Rust codec is not built; run "
             "`python3 tools/build_rust_compressor.py --force`"
         )
-    completed = subprocess.run(
-        [str(binary), "decode-stdio"],
-        input=source,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        check=False,
-    )
-    if completed.returncode != 0:
-        detail = completed.stderr.decode("utf-8", errors="replace").strip()
-        raise SrwzCodecError(detail or "Rust production decoder failed")
+    try:
+        response = _worker_request(binary, 0, source)
+    except CodecWorkerError as error:
+        raise SrwzCodecError(str(error)) from error
     header_struct = struct.Struct("<8s8Q")
-    if len(completed.stdout) < header_struct.size:
+    if len(response) < header_struct.size:
         raise SrwzCodecError("Rust production decoder returned a truncated header")
     (
         magic,
@@ -804,8 +798,8 @@ def decode_production(
         header_unknown_0,
         header_unknown_1,
         output_size,
-    ) = header_struct.unpack_from(completed.stdout)
-    output = completed.stdout[header_struct.size :]
+    ) = header_struct.unpack_from(response)
+    output = response[header_struct.size :]
     if magic != b"SRWZD001" or len(output) != output_size:
         raise SrwzCodecError("Rust production decoder response contract drift")
     metadata = {
@@ -833,12 +827,7 @@ def _rust_payload(
     prefix_size: int = 0,
     lazy_bias: int | None = None,
 ) -> bytes:
-    """Run one repository-owned Rust payload encoder profile.
-
-    Generated inputs and outputs stay inside the ignored work tree. Production
-    round trips use the Rust decoder; the retained Python implementation is not
-    entered by this path.
-    """
+    """Encode in a persistent thread-local Rust worker without temporary files."""
 
     binary = _rust_compressor_path()
     if not binary.is_file():
@@ -846,51 +835,10 @@ def _rust_payload(
             "Rust compressor is not built; run "
             "`python3 tools/build_rust_compressor.py --force`"
         )
-    project_root = Path(__file__).resolve().parents[2]
-    work_root = project_root / "work"
-    work_root.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(
-        prefix="srwz-rust-compressor-",
-        dir=work_root,
-    ) as temporary:
-        temporary_root = Path(temporary)
-        input_path = temporary_root / "decoded.bin"
-        output_path = temporary_root / "payload.bin"
-        input_path.write_bytes(data)
-        command = [
-            str(binary),
-            "payload",
-            "--input",
-            str(input_path),
-            "--output",
-            str(output_path),
-            "--window-size",
-            str(window_size),
-            "--prefix-size",
-            str(prefix_size),
-            "--min-match-length",
-            str(min_match_length),
-            "--max-match-chain",
-            str(search_chain),
-        ]
-        if lazy_bias is not None:
-            command.extend(("--lazy-bias", str(lazy_bias)))
-        completed = subprocess.run(
-            command,
-            check=False,
-            cwd=project_root,
-            capture_output=True,
-            text=True,
-        )
-        if completed.returncode != 0:
-            detail = completed.stderr.strip() or completed.stdout.strip()
-            raise RuntimeError(
-                f"Rust compressor failed with status "
-                f"{completed.returncode}: {detail}"
-            )
-        if not output_path.is_file():
-            raise RuntimeError("Rust compressor did not produce a payload")
-        return output_path.read_bytes()
+    return _worker_request(binary, 1, data, window_size=window_size,
+                           min_match_length=min_match_length,
+                           search_chain=search_chain, prefix_size=prefix_size,
+                           lazy_bias=lazy_bias)
 
 
 def _rust_maximum_payload(
