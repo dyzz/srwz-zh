@@ -7,7 +7,7 @@
     "config": {
       "path": "config/fonts/zh-release-font.json",
       "size": 5108,
-      "sha256": "0ee1d411565d678ee198f8694b798f99a7fee8b9db13d4f00c13b557bde2b024"
+      "sha256": "0aa2b05fe22ebcfb0069adbcb70e71ac46443e72da704fd563cdde6bccbd3efd"
     },
     "base_config": {
       "path": "config/fonts/zh-font-base.json",
@@ -26,8 +26,8 @@
     },
     "allocation_snapshot": {
       "path": "config/encoding/zh-release-font-assignments.json",
-      "size": 1135719,
-      "sha256": "ded948c858eb48fcbaaefae42925fb833518b4ef34e7963a13add05438985df6"
+      "size": 1136646,
+      "sha256": "a78b08fd7a365e66652c7d05344604f779ecc6d08ae9198723b3bc16c6e83556"
     },
     "translation_selection": {
       "kind": "global_translation_tree",
@@ -848,12 +848,12 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-118.json",
-          "sha256": "53cdac97ff553f571570b2a7871a108a6c567c61b9240607d7d8653e94f37277",
+          "sha256": "7f6f7779f4e0b573ea71452af6435d4ab620476226eb0cf9e57d024143bcdd07",
           "entry_count": 999
         },
         {
           "path": "corpus/zh/story-dialogue/stage-119.json",
-          "sha256": "77069d799ffb15853e44feaa5935d7628772d955eaf2a4907a49affa37843d78",
+          "sha256": "bae8c0c00aef633732fb122c7b792657844a1e7a9f3ad117a56777985194b210",
           "entry_count": 1110
         },
         {
@@ -888,12 +888,12 @@
         },
         {
           "path": "corpus/zh/story-dialogue/stage-126.json",
-          "sha256": "975632f34283d45d874f4cacaceb03cf58c76c6c086199005d170409a1fad50b",
+          "sha256": "8c81bdcd54b65ad820c07fd18a06812a059a8164a7c51a5b20a06fb8a4309411",
           "entry_count": 550
         },
         {
           "path": "corpus/zh/story-dialogue/stage-127.json",
-          "sha256": "c02d44f300149bc4739f0712de99f78c26b7c2b62ea3941d76c34541a113ce73",
+          "sha256": "8e169ef168c7542ddd2b826fca90aebb8adab187434d6a9cd4cd024a3fd699b5",
           "entry_count": 1276
         },
         {
@@ -1226,20 +1226,20 @@
         "entry_count": 248,
         "occurrence_count": 268
       },
-      "selection_sha256": "a79dcb72acf6c06634cd0c7e1600211435d31fa5c95cb8294c61c79ce5fb93df"
+      "selection_sha256": "2aed4a05f74cbc1b0e5174e898f0f7bdc3b675923022103cdb30cce078113709"
     }
   },
   "mapping": {
-    "primary_assignment_count": 3463,
+    "primary_assignment_count": 3465,
     "surface_alias_assignment_count": 48,
     "source_compatibility_assignment_count": 36,
-    "allocation_assignment_count": 1843,
+    "allocation_assignment_count": 1845,
     "reraster_existing_assignment_count": 1620,
-    "primary_mapping_sha256": "0d633b34160159a5822110c3bda53ac0f1ad382aa56a07862eb2ba9fdb924db7",
+    "primary_mapping_sha256": "1b08a4455ae49f269439b5b30e3a4e1993a70b7b9acbe67bffb3607178a6ab3b",
     "surface_alias_mapping_sha256": "36ad2ee280d87aac3639743a738d690a6c54b8ab1a2c9f9df6c8c26ca8dbd4c2",
     "source_compatibility_mapping_sha256": "2a01296e8138d6343232359cb3818de870d704222de0d26a0ba53a38319beb62",
-    "remaining_allocation_candidates_sha256": "e7e1f2f5aa1a24a204599c9dfa434c837a68a087b8890a05a5075bb9a6d3ff4e",
-    "remaining_candidate_slot_count": 88,
+    "remaining_allocation_candidates_sha256": "fe2446534f9b01b3dfc04adc3b36decd58e87c6b28f086b4c8220df9f91bd91f",
+    "remaining_candidate_slot_count": 86,
     "new_character_allocation_policy": {
       "required_width_class": "renderer_addressable_double_byte",
       "reclaim_unused_japanese_positions": true,
@@ -1266,9 +1266,9 @@
         "requires_explicit_assignment_metadata": true
       }
     },
-    "guarded_post_migration_assignment_count": 305,
-    "guarded_extension_assignment_count": 286,
-    "remaining_renderer_double_byte_candidate_count": 88,
+    "guarded_post_migration_assignment_count": 307,
+    "guarded_extension_assignment_count": 288,
+    "remaining_renderer_double_byte_candidate_count": 86,
     "conditional_width_assignment_count": 3,
     "conditional_width_candidate_count": 0
   },
@@ -1276,20 +1276,20 @@
     "mode": "flattened_release_baseline_with_legacy_save_compatibility",
     "historical_primary_assignment_count": 3158,
     "historical_primary_mapping_sha256": "b4a9efad8c9c4636503572dc8d38ea4d147938af26c8f309fc7cdbd4b374a183",
-    "added_global_assignment_count": 41,
+    "added_global_assignment_count": 43,
     "historical_profiles_are_active_build_dependencies": false
   },
   "coverage": {
-    "literal_character_count": 2325486,
-    "unique_literal_character_count": 3457,
+    "literal_character_count": 2325491,
+    "unique_literal_character_count": 3459,
     "missing_character_count": 0,
     "missing_character_occurrence_count": 0,
     "missing_characters": "",
     "missing": [],
-    "selected_font_han_count": 3307,
+    "selected_font_han_count": 3309,
     "original_font_han_count": 0,
     "original_font_han_characters": "",
-    "selected_font_visible_character_count": 3438,
+    "selected_font_visible_character_count": 3440,
     "original_font_visible_character_count": 0,
     "original_font_visible_characters": "",
     "vt1_missing_character_count_before_raw_ascii_policy": 18,
@@ -2300,32 +2300,32 @@
   },
   "proposal": {
     "path": "work/writeback/zh-release-codebook-proposal.json",
-    "size": 3236631,
-    "sha256": "b204fe30e335fc9e18d494988a23da0e55c8b1bfc241ce820a9f8ec073944382"
+    "size": 3238561,
+    "sha256": "4f68497acc03bc6a6a2632ae5ec3afd30e5fe67e8fccef479e35262f80229602"
   },
   "readiness": {
     "path": "work/writeback/zh-release-font-readiness.json",
     "size": 64940,
-    "sha256": "27003ab9cd218840686c177f63931b28a9fc853db136d42ebf20627f799c8684"
+    "sha256": "d8b335195705a246119b5103f2bcae81ec057b028641d61dc9ef9a8b8d97561a"
   },
   "font_component": {
     "report": {
       "path": "work/build/zh-release-font/components/font-validation.json",
-      "size": 1749238,
-      "sha256": "7a1ad50302f8b4f0bd128fcd425f7f40ef496bee7abd05fa1c8afa5cb3cb8422"
+      "size": 1750229,
+      "sha256": "ed6260b97da74dc582228ecd7bcb088a0cdfaa5e2434877744929af9591dcd08"
     },
     "slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "549761986fa29693ec99a05f8b223c6ed63f4e3aaf51455b8a42392139b92bb9"
+      "sha256": "72053c73b7b530d781e82bdc80b7b439810db00785a515ef3c98bdc7e03c37ac"
     },
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "d8df831c45a0f4a73f852e5253ab574399d692cbb546afcfe6cffb3b7cd51617"
+      "sha256": "c1d2f8a778b52b0efbd4d668fbed6d051c2b26265af9605a303ea57fef4621ec"
     },
-    "assignment_count": 3547,
-    "changed_glyph_count": 3455,
+    "assignment_count": 3549,
+    "changed_glyph_count": 3457,
     "preserved_source_compatibility_glyph_count": 36,
     "source_compatibility_glyphs_byte_exact_to_original_iso": true,
     "preserved_stock_primary_glyph_count": 55,
@@ -2333,7 +2333,7 @@
     "low_zone_stock_glyphs_byte_exact_to_original_iso": true,
     "complete_low_zone_stock_glyph_count": 658,
     "complete_low_zone_byte_exact_to_original_iso": true,
-    "decoded_font_sha256": "7363e6384e7a7884600d4dc8442ece2e326d35d9c305b7543c548e00dded588b"
+    "decoded_font_sha256": "bf0d0d9d6ebe50cbca7ab93b0b7ba36e969ddf6bdbe391f10da9edd58d6c558f"
   },
   "acceptance": {
     "flattened_snapshot_is_self_contained": true,

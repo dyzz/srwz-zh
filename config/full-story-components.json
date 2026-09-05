@@ -48,33 +48,33 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 73284,
-      "sha256": "a0f399d60c2b7bc7c1afeb6d6f22995ce08847ca7f2638ff7159b1e6121bf028"
+      "sha256": "23784a8ea662aee46af4a1a21b7f76bcbfdcdde39400fc07da58493a79fdbc93"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
     "slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "549761986fa29693ec99a05f8b223c6ed63f4e3aaf51455b8a42392139b92bb9"
+      "sha256": "72053c73b7b530d781e82bdc80b7b439810db00785a515ef3c98bdc7e03c37ac"
     },
     "vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "d8df831c45a0f4a73f852e5253ab574399d692cbb546afcfe6cffb3b7cd51617"
+      "sha256": "c1d2f8a778b52b0efbd4d668fbed6d051c2b26265af9605a303ea57fef4621ec"
     }
   },
   "full_story_stage": {
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18307891,
-      "sha256": "f9f747a9ca33b09ae4cd6737a261e071ba9143512640bce7487e9f6087475eca"
+      "size": 18307890,
+      "sha256": "29bcbcff925f8c6ceda4bc5301948db9226a94624e8320a72dfaac5714a0f8e9"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "4a04ea966d2d08c51d2d91dd26ba38fab174aaba40d71a4f684535b98a2f70fc"
+      "sha256": "ed0077cccf79d3daca5e3e285555ed62f7815ea277c00ecfe3dd451ec90a1898"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -2801,7 +2801,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816166,
-      "sha256": "6043f41ca23c6302aaafb9ef7b81e9711519e8f274c9197318114763557731a3"
+      "sha256": "5bac3a7d94101ff9884f3f5cf85c96b6ffba7d1d5e046808f229eec846b501e1"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -2879,13 +2879,13 @@
       "mode": "direct-original-writeback",
       "menu_assignment_count": 1803,
       "menu_assignment_mapping_sha256": "8fc2647a77d4206efd5df3a8ac6d1e17266fbce8e3a3ef7d3a8ac7b736856c27",
-      "release_assignment_count": 3463,
-      "release_assignment_mapping_sha256": "5188158e549dda32ad77840d78652997759d7c5fca506e3463dff34878cbdeb7",
-      "release_snapshot_primary_mapping_sha256": "0d633b34160159a5822110c3bda53ac0f1ad382aa56a07862eb2ba9fdb924db7",
+      "release_assignment_count": 3465,
+      "release_assignment_mapping_sha256": "40ca92f6e9d949d99d849cfe3d8eab5a95381d3548ca360f3617266fcd8fd8f3",
+      "release_snapshot_primary_mapping_sha256": "1b08a4455ae49f269439b5b30e3a4e1993a70b7b9acbe67bffb3607178a6ab3b",
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "size": 1135719,
-        "sha256": "ded948c858eb48fcbaaefae42925fb833518b4ef34e7963a13add05438985df6"
+        "size": 1136646,
+        "sha256": "a78b08fd7a365e66652c7d05344604f779ecc6d08ae9198723b3bc16c6e83556"
       },
       "reason": "The consolidated v0.3 menu selection is written directly into original members, normalized to the current font mapping, and never consumes a prepatched binary baseline."
     },

@@ -54,7 +54,7 @@
     "config": {
       "path": "config/full-story-components.json",
       "size": 89228,
-      "sha256": "c6bdb86845ab115a18fe28ce21a2569753482d90943db5c33ff7e94a3b5a21ac"
+      "sha256": "7bdfb02ebb3ffb2e09a39bbe3d19b41de038aa922ca4c975d6be922410c3a759"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -94,17 +94,17 @@
     "full_story_font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 73284,
-      "sha256": "a0f399d60c2b7bc7c1afeb6d6f22995ce08847ca7f2638ff7159b1e6121bf028"
+      "sha256": "23784a8ea662aee46af4a1a21b7f76bcbfdcdde39400fc07da58493a79fdbc93"
     },
     "reviewed_library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816166,
-      "sha256": "6043f41ca23c6302aaafb9ef7b81e9711519e8f274c9197318114763557731a3"
+      "sha256": "5bac3a7d94101ff9884f3f5cf85c96b6ffba7d1d5e046808f229eec846b501e1"
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
-      "size": 18307891,
-      "sha256": "f9f747a9ca33b09ae4cd6737a261e071ba9143512640bce7487e9f6087475eca"
+      "size": 18307890,
+      "sha256": "29bcbcff925f8c6ceda4bc5301948db9226a94624e8320a72dfaac5714a0f8e9"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -128,8 +128,8 @@
     },
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
-      "size": 3236631,
-      "sha256": "b204fe30e335fc9e18d494988a23da0e55c8b1bfc241ce820a9f8ec073944382"
+      "size": 3238561,
+      "sha256": "4f68497acc03bc6a6a2632ae5ec3afd30e5fe67e8fccef479e35262f80229602"
     },
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
@@ -309,22 +309,22 @@
     "font_slps": {
       "path": "work/build/zh-release-font/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "549761986fa29693ec99a05f8b223c6ed63f4e3aaf51455b8a42392139b92bb9"
+      "sha256": "72053c73b7b530d781e82bdc80b7b439810db00785a515ef3c98bdc7e03c37ac"
     },
     "font_vt1": {
       "path": "work/build/zh-release-font/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "d8df831c45a0f4a73f852e5253ab574399d692cbb546afcfe6cffb3b7cd51617"
+      "sha256": "c1d2f8a778b52b0efbd4d668fbed6d051c2b26265af9605a303ea57fef4621ec"
     },
     "font_component_report": {
       "path": "work/build/zh-release-font/components/font-validation.json",
-      "size": 1749238,
-      "sha256": "7a1ad50302f8b4f0bd128fcd425f7f40ef496bee7abd05fa1c8afa5cb3cb8422"
+      "size": 1750229,
+      "sha256": "ed6260b97da74dc582228ecd7bcb088a0cdfaa5e2434877744929af9591dcd08"
     },
     "stage": {
       "path": "work/build/full-story-stage/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "4a04ea966d2d08c51d2d91dd26ba38fab174aaba40d71a4f684535b98a2f70fc"
+      "sha256": "ed0077cccf79d3daca5e3e285555ed62f7815ea277c00ecfe3dd451ec90a1898"
     },
     "hb": {
       "path": "work/build/full-story-stage/components/HEDBDY/HB.BIN",
@@ -429,7 +429,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816166,
-      "sha256": "6043f41ca23c6302aaafb9ef7b81e9711519e8f274c9197318114763557731a3"
+      "sha256": "5bac3a7d94101ff9884f3f5cf85c96b6ffba7d1d5e046808f229eec846b501e1"
     },
     "aid_battle_prompt_component_manifest": {
       "path": "manifests/aid-battle-prompts-zh-validation.json",
@@ -619,10 +619,10 @@
   },
   "composition": {
     "font_chunk_index": 2,
-    "font_encoded_size": 629702,
-    "font_decoded_sha256": "7363e6384e7a7884600d4dc8442ece2e326d35d9c305b7543c548e00dded588b",
-    "font_padding_size": 10,
-    "additional_borrowed_preceding_zero_slack": 30368,
+    "font_encoded_size": 629673,
+    "font_decoded_sha256": "bf0d0d9d6ebe50cbca7ab93b0b7ba36e969ddf6bdbe391f10da9edd58d6c558f",
+    "font_padding_size": 7,
+    "additional_borrowed_preceding_zero_slack": 30336,
     "preserved_non_font_vt1_chunk_count": 13,
     "archive_size_preserved": true,
     "slps_offset_reread_exact": true,
@@ -637,16 +637,16 @@
       "mode": "direct-original-writeback",
       "release_proposal": {
         "path": "work/writeback/zh-release-codebook-proposal.json",
-        "size": 3236631,
-        "sha256": "b204fe30e335fc9e18d494988a23da0e55c8b1bfc241ce820a9f8ec073944382"
+        "size": 3238561,
+        "sha256": "4f68497acc03bc6a6a2632ae5ec3afd30e5fe67e8fccef479e35262f80229602"
       },
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
-        "size": 1135719,
-        "sha256": "ded948c858eb48fcbaaefae42925fb833518b4ef34e7963a13add05438985df6"
+        "size": 1136646,
+        "sha256": "a78b08fd7a365e66652c7d05344604f779ecc6d08ae9198723b3bc16c6e83556"
       },
-      "release_assignment_count": 3463,
-      "release_assignment_mapping_sha256": "5188158e549dda32ad77840d78652997759d7c5fca506e3463dff34878cbdeb7"
+      "release_assignment_count": 3465,
+      "release_assignment_mapping_sha256": "40ca92f6e9d949d99d849cfe3d8eab5a95381d3548ca360f3617266fcd8fd8f3"
     },
     "library_archive_offset_tables": {
       "archive_count": 3,
@@ -4738,7 +4738,7 @@
     "offset_patch_plan": {
       "source_name": "SLPS_258.87",
       "source_size": 3471624,
-      "source_sha256": "8cda398e6a03fd238d63d4064b68447351aa00dc60acf8395a0ec96250ed66eb",
+      "source_sha256": "d665f17e375083b91564da148190a2ef165b74ccc3cbbc4227b194f9c8bcb68b",
       "operation_count": 1,
       "operations": [
         {
@@ -10856,10 +10856,10 @@
           "stage_index": 118,
           "entry_count": 149,
           "source_stored_size": 43328,
-          "source_encoded_size": 40515,
-          "output_encoded_size": 40352,
-          "output_encoded_sha256": "75d63aad0e8142a0a8ed8f6bba956dd76560674f4fd1ae618ef1aff8990e630f",
-          "output_padding_size": 2976,
+          "source_encoded_size": 40508,
+          "output_encoded_size": 40347,
+          "output_encoded_sha256": "962e352620e18c946e6f8a8e8a7e16e5b81117734609aad964f40f03778950c9",
+          "output_padding_size": 2981,
           "codec_round_trip_exact": true,
           "rewrite_summary": {
             "changed_byte_count": 1073,
@@ -10871,10 +10871,10 @@
           "stage_index": 119,
           "entry_count": 147,
           "source_stored_size": 49408,
-          "source_encoded_size": 46067,
-          "output_encoded_size": 45858,
-          "output_encoded_sha256": "4ff9c42079a8159de2cad6e14cc368dc834c691c15c92f54a1812abc1437ed6b",
-          "output_padding_size": 3550,
+          "source_encoded_size": 46065,
+          "output_encoded_size": 45857,
+          "output_encoded_sha256": "9a9a46f16976519ba6ced045c4cea4c2980efa8e4cbe8aa3e959b539cf92d384",
+          "output_padding_size": 3551,
           "codec_round_trip_exact": true,
           "rewrite_summary": {
             "changed_byte_count": 1322,
@@ -10976,10 +10976,10 @@
           "stage_index": 126,
           "entry_count": 124,
           "source_stored_size": 27456,
-          "source_encoded_size": 25046,
-          "output_encoded_size": 24918,
-          "output_encoded_sha256": "9db125df7c4edb91d7a04b7e3c21c36771c22168f280d6a7545900b4b5f8713a",
-          "output_padding_size": 2538,
+          "source_encoded_size": 25101,
+          "output_encoded_size": 24975,
+          "output_encoded_sha256": "3449e50344f39207c8f17619c81caa4e487753d978f1e15a08e9806a7a7ed049",
+          "output_padding_size": 2481,
           "codec_round_trip_exact": true,
           "rewrite_summary": {
             "changed_byte_count": 784,
@@ -10991,10 +10991,10 @@
           "stage_index": 127,
           "entry_count": 141,
           "source_stored_size": 56288,
-          "source_encoded_size": 52530,
-          "output_encoded_size": 52308,
-          "output_encoded_sha256": "1f905753ddd6af246ee993bc23d44aec91293038e2868309b0e9ddda9353be20",
-          "output_padding_size": 3980,
+          "source_encoded_size": 52564,
+          "output_encoded_size": 52339,
+          "output_encoded_sha256": "babfe139f63c1fbdc217d41b4d9114bf7f581cac7e9afa5c81e0390d168a77b0",
+          "output_padding_size": 3949,
           "codec_round_trip_exact": true,
           "rewrite_summary": {
             "changed_byte_count": 1218,
@@ -74620,8 +74620,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "c2656f7736bc9af321d6d3f0dc874d93194b4db01917793a2593e6845a6c3aee",
-    "output_sha256": "b08be5d4f5a6ff807468bfcdd15a09e1202bf1fd8e8c22cd3911fbb8903479e0",
+    "source_sha256": "2fac2ac2f8bf8bd6bba8861b00f87576cde2c59c74d6ff1d812372d4e4c933dc",
+    "output_sha256": "26cb041eef09eeea0e8ca161cda42ae16302c1cf41191935690271f9412ed592",
     "instruction_replacement_exact": true,
     "executable_size_preserved": true,
     "metadata": {
@@ -74702,8 +74702,8 @@
     "changed_byte_count": 4,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "b08be5d4f5a6ff807468bfcdd15a09e1202bf1fd8e8c22cd3911fbb8903479e0",
-    "output_sha256": "0d7a0c03140363f43ca0766b6292ea735b7c87d355356668c82c9a52558f581e",
+    "source_sha256": "26cb041eef09eeea0e8ca161cda42ae16302c1cf41191935690271f9412ed592",
+    "output_sha256": "24be1933f4cb99291bf196c7d9e10e24fab96a8266834a953b93f4bca6be6911",
     "all_instruction_replacements_exact": true,
     "save_writeback_functions_unchanged": true,
     "executable_size_preserved": true
@@ -74733,8 +74733,8 @@
     "changed_byte_count": 16,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "0d7a0c03140363f43ca0766b6292ea735b7c87d355356668c82c9a52558f581e",
-    "output_sha256": "0ee5255d9216341628e5fef57c6b4401fb23d92a33b102cf5a06621cafa98938",
+    "source_sha256": "24be1933f4cb99291bf196c7d9e10e24fab96a8266834a953b93f4bca6be6911",
+    "output_sha256": "38085f04520d85d848adc910481d0e9e5d8bdd4f12029b4559d3ce63bffb4132",
     "instruction_replacement_exact": true,
     "save_preview_formatter": {
       "virtual_address": "0x3E403C",
@@ -75316,8 +75316,8 @@
     "changed_byte_count": 33,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "0ee5255d9216341628e5fef57c6b4401fb23d92a33b102cf5a06621cafa98938",
-    "output_sha256": "7a6d7477e5d2389f0986a98a4f0c417749b798261adeed55bf6f97a57b1ba707",
+    "source_sha256": "38085f04520d85d848adc910481d0e9e5d8bdd4f12029b4559d3ce63bffb4132",
+    "output_sha256": "5b32c5201ec6249dbf04d6dad90431161b787e29799ff808e6c0a25034837db8",
     "all_instruction_replacements_exact": true,
     "all_text_layout_replacements_exact": true,
     "all_runtime_color_retargets_exact": true,
@@ -75535,8 +75535,8 @@
     "changed_byte_count": 3,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "46c505389f15fd15b93bd6a6dd6b4417452a93738c2ac0da238795e00f1a35a5",
-    "output_sha256": "f1d5d12813c4b385f00f0063fec8434f39061b5a89bfd6267a053a23feac0f8f",
+    "source_sha256": "ff627efd1af9dc6b9ecc03df8424045c4cff64ce51a2fdef826057deda83fc69",
+    "output_sha256": "f5edb6d8562c0560bef5c93f91d7944612a54b566a2d9748aa356ef31446a6f0",
     "all_replacements_exact": true,
     "executable_size_preserved": true
   },
@@ -75618,8 +75618,8 @@
     "sibling_rows_preserved": true,
     "target_tail_preserved": true,
     "executable_size_preserved": true,
-    "source_sha256": "f1d5d12813c4b385f00f0063fec8434f39061b5a89bfd6267a053a23feac0f8f",
-    "output_sha256": "75b1e0e23c82e441de312f66cd3793dd8a51e271e393a5883b23e79704107088"
+    "source_sha256": "f5edb6d8562c0560bef5c93f91d7944612a54b566a2d9748aa356ef31446a6f0",
+    "output_sha256": "83bbfbf6539b1ad1b9cf99d2e6f69a67daa731bcbf7b9d75430434e21b3de78f"
   },
   "bazaar_top_help_alignment": {
     "policy": "shift_purchase_help_left_without_changing_text",
@@ -75701,8 +75701,8 @@
     "all_instruction_replacements_exact": true,
     "text_bytes_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "75b1e0e23c82e441de312f66cd3793dd8a51e271e393a5883b23e79704107088",
-    "output_sha256": "e1339fe562ad3500fb90c347a7d4c186d40260f02cb97d60970f131a29480d91"
+    "source_sha256": "83bbfbf6539b1ad1b9cf99d2e6f69a67daa731bcbf7b9d75430434e21b3de78f",
+    "output_sha256": "70b861c60682f14107e3f2ea88c58377e487200daef5fa791c81fb5bb501d030"
   },
   "remaining_squad_count_alignment": {
     "policy": "move_printf_number_right_without_touching_adjacent_text",
@@ -75723,8 +75723,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "e1339fe562ad3500fb90c347a7d4c186d40260f02cb97d60970f131a29480d91",
-    "output_sha256": "d3a61db34d8cd0502e2702ee7ba9ffaf266afe99648b34356d6a262b32416742",
+    "source_sha256": "70b861c60682f14107e3f2ea88c58377e487200daef5fa791c81fb5bb501d030",
+    "output_sha256": "093c2403a435a1ddc571a947455035fbca2486afe904ac75adcf3732fe084a23",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -75769,8 +75769,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "d3a61db34d8cd0502e2702ee7ba9ffaf266afe99648b34356d6a262b32416742",
-    "output_sha256": "66cad0ac83e52d34a4ae70d3c86d8bf71403846e263d51a72a86ec1f28e4fd32",
+    "source_sha256": "093c2403a435a1ddc571a947455035fbca2486afe904ac75adcf3732fe084a23",
+    "output_sha256": "b119a49f0f3754c04d6b6f86cd75aad0670b6095146e5d9377c8850b8e4401da",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -83866,11 +83866,11 @@
         {
           "stage_index": 118,
           "record_count": 2,
-          "source_encoded_size": 40352,
-          "output_encoded_size": 40015,
-          "output_encoded_sha256": "9041da883a6586e8fe041277c26f02358b2f336425ac388cf59bf490f7cadc48",
+          "source_encoded_size": 40347,
+          "output_encoded_size": 40011,
+          "output_encoded_sha256": "f64601734749e1dd52315e84258734221e25d06ae28deab2a9188b66033a6390",
           "slot_size": 43328,
-          "output_headroom": 3313,
+          "output_headroom": 3317,
           "changed_byte_count": 1696,
           "pretranslated_pointer_count": 0,
           "codec_strategy": "rust-fit",
@@ -83892,11 +83892,11 @@
         {
           "stage_index": 127,
           "record_count": 1,
-          "source_encoded_size": 52308,
-          "output_encoded_size": 52240,
-          "output_encoded_sha256": "6eb9c9b3df8a66c17b9dd8bf23976ac49bbf0f97055cafd078ecf05649670f7b",
+          "source_encoded_size": 52339,
+          "output_encoded_size": 52272,
+          "output_encoded_sha256": "66451860ad1d3bc941563210266ad18aade157889915bbdadd5ed3ea469f9941",
           "slot_size": 56288,
-          "output_headroom": 4048,
+          "output_headroom": 4016,
           "changed_byte_count": 597,
           "pretranslated_pointer_count": 0,
           "codec_strategy": "rust-fit",
@@ -83967,12 +83967,12 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "b31dcd74a3627815901da0e1b439867444ef189b17fd560ec16b099a8956dd8d"
+      "sha256": "7dc0221472c91f4c46a9c29f06c989bd4c144f9ad42cf230663cc4f2907fed64"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
       "size": 127500736,
-      "sha256": "96672a1e49dfa85a700d62377cd53dd19ce992a719e1b1bc35526adc4892b618"
+      "sha256": "275e08b51c85769998da894fd6f0dafd6070a829a2304c5016e53921aa42a807"
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
@@ -83997,7 +83997,7 @@
     "DATA/STAGE.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/STAGE.BIN",
       "size": 3910128,
-      "sha256": "65430bc0f0024458fefa7ffe93322567d51b306458f48a63e0c651409d68cf31"
+      "sha256": "848dfc4caa8ac810151112fa114765cfdddd68ab158889596037144878e4e9b7"
     },
     "DATA/HSFC.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/HSFC.BIN",
@@ -84034,15 +84034,15 @@
       "size": 55136688,
       "sha256": "0ee0cdf372b32eb255a3fa77967cf7c7bbe7de2c33c7b16a81c85a97a1c5e385"
     },
-    "BTL/OP1.BIN": {
-      "path": "work/build/zh-release-full-story/components/BTL/OP1.BIN",
-      "size": 265872,
-      "sha256": "e3a3cada48da284f434f7761d6eab68697f08bf4a9c3777f4ddcadfdcefdb756"
-    },
     "BTL/OP0.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/OP0.BIN",
       "size": 266224,
       "sha256": "4338048b8a6e05c6b0d4ea520e5d1efaa3d071c0db44babf95ec8a028aabb023"
+    },
+    "BTL/OP1.BIN": {
+      "path": "work/build/zh-release-full-story/components/BTL/OP1.BIN",
+      "size": 265872,
+      "sha256": "e3a3cada48da284f434f7761d6eab68697f08bf4a9c3777f4ddcadfdcefdb756"
     },
     "BTL/OP2.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/OP2.BIN",
