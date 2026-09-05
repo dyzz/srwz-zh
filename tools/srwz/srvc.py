@@ -24,6 +24,20 @@ HEADER_SIZE = 8
 INDEX_RECORD_SIZE = 8
 
 
+def subtitle_line_break_policy_satisfied(source: str, translation: str, entry: Mapping) -> bool:
+    """Require an explicit editorial decision for a one-line layout change."""
+    added = entry.get("production_line_break_override")
+    removed = entry.get("production_removed_line_break_override")
+    delta = translation.count("\\n") - source.count("\\n")
+    if added is None and removed is None:
+        return delta == 0
+    if added is not None and removed is None:
+        return delta == 1 and isinstance(added, str) and bool(added.strip())
+    if removed is not None and added is None:
+        return delta == -1 and isinstance(removed, str) and bool(removed.strip())
+    return False
+
+
 class SrvcParseError(ValueError):
     """An SRVC chunk does not contain one unambiguous indexed text pool."""
 

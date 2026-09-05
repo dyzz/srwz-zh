@@ -12,6 +12,11 @@ from itertools import combinations
 from pathlib import Path
 from typing import Mapping
 
+from srwz.scoped_translations import (
+    load_scoped_translations,
+    resolve_scoped_translation,
+    verify_scoped_translation_coverage,
+)
 from srwz.chinese_layout import (
     ChineseLayoutProfile,
     load_layout_profiles,
@@ -396,6 +401,8 @@ def main() -> int:
         != corpus_ref.get("expected_deterministic_reviewed_count")
     ):
         raise SystemExit("LIBRARY reviewed corpus contract drift")
+    scoped_fields = load_scoped_translations(corpus.get("field_translation_overrides", []))
+    used_scoped_fields = set()
     translation_by_hash = {}
     for entry in entries:
         if not isinstance(entry, dict):
@@ -624,6 +631,7 @@ def main() -> int:
             replacements = {}
             body_variants = {}
             chunk_hashes = set()
+            chunk_scoped_fields = []
             for field in document.fields:
                 if field.text is None:
                     continue
@@ -637,6 +645,13 @@ def main() -> int:
                     chunk_hashes.add(source_hash)
                 else:
                     translation = field.text
+                field_id = f"{domain}/{index:03d}/{field.tag}"
+                if field_id in scoped_fields:
+                    translation = resolve_scoped_translation(
+                        scoped_fields, field_id, field.text, translation,
+                        context_text=document.field("CHFN").text if expected_kind == "CHAR" else None,
+                    )
+                    chunk_scoped_fields.append(field_id)
                 if field.tag in BODY_TAGS:
                     try:
                         dense_text, dense_widths = reflow_body(
@@ -780,6 +795,7 @@ def main() -> int:
                             fallback_body_tags
                         ),
                         "translation_hashes": sorted(chunk_hashes),
+                        "scoped_translation_ids": chunk_scoped_fields,
                         "capacity_failure": str(dense_error),
                         "codec_round_trip_exact": False,
                         "runtime_text_reread_exact": False,
@@ -882,6 +898,7 @@ def main() -> int:
                 "dense_body_layout": not fallback_body_tags,
                 "capacity_fallback_body_tags": list(fallback_body_tags),
                 "translation_hashes": sorted(chunk_hashes),
+                "scoped_translation_ids": chunk_scoped_fields,
                 "codec_round_trip_exact": True,
                 "runtime_text_reread_exact": True,
                 "binary_fields_preserved": True,
@@ -904,6 +921,8 @@ def main() -> int:
             built = list(executor.map(build_chunk, work))
         built.sort(key=lambda item: item[0])
         reports = [item[2] for item in built]
+        for report in reports:
+            used_scoped_fields.update(report["scoped_translation_ids"])
         offset_patch = None
         if repack_enabled and not args.audit_capacity:
             minimum_repacked_size = sum(
@@ -1061,6 +1080,7 @@ def main() -> int:
         )
         return 1 if capacity_failures else 0
 
+    verify_scoped_translation_coverage(scoped_fields, used_scoped_fields)
     if used_hashes != set(translation_by_hash):
         raise SystemExit(
             "LIBRARY translation usage coverage drift: "
@@ -1107,6 +1127,7 @@ def main() -> int:
             },
         },
         "translation": {
+            "scoped_translation_ids": sorted(used_scoped_fields),
             "unique_text_count": len(translation_by_hash),
             "used_unique_text_count": len(used_hashes),
             "field_reference_count": summary["field_reference_count"],

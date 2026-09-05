@@ -9,11 +9,22 @@ from tools.srwz.srvc import (
     parse_srvc_archive,
     parse_srvc_archive_with_layout,
     rebuild_srvc_archive,
+    subtitle_line_break_policy_satisfied,
 )
 from tools.srwz.text import TextTable
 
 
 class SrvcPoolRebuildTest(unittest.TestCase):
+    def test_best_shortening_requires_explicit_line_removal_decision(self):
+        source, translated = "first\\nsecond", "first"
+        self.assertFalse(subtitle_line_break_policy_satisfied(source, translated, {}))
+        decision = {"production_removed_line_break_override": "Best subtitle corrected for identical audio"}
+        self.assertTrue(subtitle_line_break_policy_satisfied(source, translated, decision))
+        self.assertFalse(subtitle_line_break_policy_satisfied(source, source, decision))
+        self.assertFalse(subtitle_line_break_policy_satisfied("a\\nb\\nc", translated, decision))
+        self.assertFalse(subtitle_line_break_policy_satisfied(source, translated,
+            {**decision, "production_line_break_override": "add"}))
+
     def test_record_can_borrow_released_bytes_within_its_chunk(self) -> None:
         table = TextTable(
             characters={0x8141: "A", 0x8142: "B"},

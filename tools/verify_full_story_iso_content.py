@@ -9,6 +9,11 @@ import struct
 from collections import Counter
 from pathlib import Path
 
+from srwz.scoped_translations import (
+    load_scoped_translations,
+    resolve_scoped_translation,
+    verify_scoped_translation_coverage,
+)
 from srwz.archive import sha256_file
 from srwz.chinese_layout import (
     DEFAULT_LINE_WIDTH,
@@ -47,6 +52,8 @@ from srwz.hsfc_overview import (
 from srwz.image_export import parse_seg_offsets
 from srwz.library import (
     SoundTitleSpanLock,
+    parse_runtime_zkn_decoded_chunk,
+    parse_zkn_decoded_chunk,
     verify_sound_title_source,
     verify_sound_titles_preserved,
 )
@@ -2155,6 +2162,9 @@ def verify_final_compdata(
     ):
         raise SystemExit("display-name source selection drift")
 
+    scoped_names = load_scoped_translations(remaining_document.get("pilot_name_overrides", []))
+    verify_scoped_translation_coverage(scoped_names, (entry.entry_id for entry in selected))
+
     decoded_compdata = decode(stored_compdata)
     if decoded_compdata.consumed != len(stored_compdata):
         raise SystemExit("final ISO COMPDATA has trailing compressed bytes")
@@ -2181,7 +2191,10 @@ def verify_final_compdata(
                 f"final ISO pilot entry missing: {source_entry.entry_id}"
             )
         actual = actual_entry.text
-        target = by_source[source_entry.source_text_sha256]
+        target = normalize_original_fullwidth_ascii(resolve_scoped_translation(
+            scoped_names, source_entry.entry_id, source_entry.text,
+            by_source[source_entry.source_text_sha256],
+        ))
         if actual != target:
             raise SystemExit(
                 f"final ISO pilot-name mismatch: {source_entry.entry_id}: "
@@ -3994,6 +4007,47 @@ def verify_issue_036_tutorial(
     }
 
 
+def verify_library_scoped_actor_corrections(slps: bytes, archive: bytes, table: TextTable) -> dict:
+    """Read corrected actors and other users of their shared source strings."""
+    corpus = json.loads((PROJECT_ROOT / "corpus/zh/library/v0.2-reviewed.json").read_text())
+    overrides = load_scoped_translations(corpus.get("field_translation_overrides", []))
+    if any(not key.startswith("character/") or not key.endswith("/ACTR") for key in overrides):
+        raise SystemExit("LIBRARY scoped readback requires an explicit new field verifier")
+    scope = json.loads((PROJECT_ROOT / "config/library/v0.2.0.json").read_text())
+    locks = scope["source_member_locks"]
+    source_elf = (PROJECT_ROOT / locks["SLPS_258.87"]["path"]).read_bytes()
+    member = "DATA/MTVZKNPT.BIN"
+    lock = locks[member]
+    source_archive = (PROJECT_ROOT / lock["path"]).read_bytes()
+    for data, ref in ((source_elf, locks["SLPS_258.87"]), (source_archive, lock)):
+        if len(data) != ref["size"] or sha256_bytes(data) != ref["sha256"]:
+            raise SystemExit("LIBRARY scoped readback source lock drift")
+    spec = ExecutableOffsetSpec(name=member, member=member,
+        table_start=int(lock["slps_table_start"], 0), table_end=int(lock["slps_table_end"], 0))
+    original_offsets = read_executable_archive_offsets(source_elf, spec, len(source_archive))
+    final_offsets = read_executable_archive_offsets(slps, spec, len(archive))
+    translations = {entry["source_text_sha256"]: entry["translation"] for entry in corpus["entries"]}
+    shared_sources = {row["source_text_sha256"] for row in overrides.values()}
+    rows = []
+    for index, (start, end) in enumerate(zip(original_offsets, original_offsets[1:])):
+        original = parse_zkn_decoded_chunk(decode(source_archive[start:end]).output)
+        source = original.field("ACTR").text
+        source_hash = sha256_bytes(source.encode("utf-8"))
+        entry_id = f"character/{index:03d}/ACTR"
+        if entry_id not in overrides and source_hash not in shared_sources:
+            continue
+        expected = resolve_scoped_translation(overrides, entry_id, source,
+            translations[source_hash], context_text=original.field("CHFN").text)
+        actual_doc = parse_runtime_zkn_decoded_chunk(
+            decode(archive[final_offsets[index]:final_offsets[index + 1]]).output, table)
+        actual = actual_doc.field("ACTR").text
+        if actual != expected:
+            raise SystemExit(f"LIBRARY actor readback mismatch: {entry_id}: {actual!r} != {expected!r}")
+        rows.append({"id": entry_id, "translation": actual, "scoped_correction": entry_id in overrides})
+    verify_scoped_translation_coverage(overrides, (row["id"] for row in rows))
+    return {"entries": rows, "all_exact": True, "shared_source_other_characters_checked": True}
+
+
 def main() -> int:
     args = parse_args()
     iso_path = project_path(args.iso)
@@ -5334,6 +5388,9 @@ def main() -> int:
     )
     compdata_table = project_runtime_text_table(
         compdata_table, ascii_overrides
+    )
+    library_scoped_actor_readback = verify_library_scoped_actor_corrections(
+        slps, members["DATA/MTVZKNPT.BIN"], compdata_table,
     )
     auto_demo_overlays = verify_auto_demo_overlays(
         slps,
@@ -7150,6 +7207,7 @@ def main() -> int:
             "glossary_entry_count": 52,
             "total_entry_count": 784,
             **library_translation,
+            "scoped_actor_readback": library_scoped_actor_readback,
             "component_acceptance": library_acceptance,
             "main_menu": library_menu_readback,
             "sound_select": sound_select_readback,

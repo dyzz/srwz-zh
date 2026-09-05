@@ -12,6 +12,11 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 try:
+    from srwz.scoped_translations import (
+        load_scoped_translations,
+        resolve_scoped_translation,
+        verify_scoped_translation_coverage,
+    )
     from srwz.auto_demo import (
         AutoDemoError,
         discover_auto_demo_name_slots,
@@ -128,6 +133,7 @@ try:
     )
     from srwz.hsfc_overview import replace_hsfc_overviews_in_place
     from srwz.srvc import (
+        subtitle_line_break_policy_satisfied,
         parse_srvc_archive,
         parse_srvc_archive_with_layout,
         rebuild_srvc_archive,
@@ -185,6 +191,11 @@ try:
         replace_stage_system_dialogues_in_place,
     )
 except ModuleNotFoundError:
+    from tools.srwz.scoped_translations import (
+        load_scoped_translations,
+        resolve_scoped_translation,
+        verify_scoped_translation_coverage,
+    )
     from tools.srwz.auto_demo import (
         AutoDemoError,
         discover_auto_demo_name_slots,
@@ -305,6 +316,7 @@ except ModuleNotFoundError:
     )
     from tools.srwz.hsfc_overview import replace_hsfc_overviews_in_place
     from tools.srwz.srvc import (
+        subtitle_line_break_policy_satisfied,
         parse_srvc_archive,
         parse_srvc_archive_with_layout,
         rebuild_srvc_archive,
@@ -770,6 +782,7 @@ REMAINING_UI_IMPACTS = {
     "stage_fixed_formation_by_offset": {STAGE_MEMBER},
     "stage_scenario_chart_prompts_by_offset": {STAGE_MEMBER},
     "display_names_by_source_text": {COMPDATA_MEMBER, *AUTO_DEMO_MEMBERS},
+    "pilot_name_overrides": {COMPDATA_MEMBER},
     # This inventory is currently validation-only, but recomputing COMPDATA
     # keeps policy changes fail-closed instead of silently accepting them.
     "atlas_by_source_text": {COMPDATA_MEMBER},
@@ -1912,6 +1925,15 @@ def _apply_full_pilot_names(
     ):
         raise FullStoryComponentError("full display-name selection drift")
 
+    scoped_names = load_scoped_translations(residual_document.get("pilot_name_overrides", []))
+    verify_scoped_translation_coverage(scoped_names, (entry.entry_id for entry in selected))
+    translation_by_id = {
+        entry.entry_id: normalize_original_fullwidth_ascii(resolve_scoped_translation(
+            scoped_names, entry.entry_id, entry.text, by_source[entry.source_text_sha256]
+        ))
+        for entry in selected
+    }
+
     decoded = workspace.view() if workspace is not None else decode(stored_compdata)
     if decoded.consumed != len(stored_compdata):
         raise FullStoryComponentError("base COMPDATA has trailing compressed bytes")
@@ -1960,7 +1982,7 @@ def _apply_full_pilot_names(
                 f"pilot-name structure drift: {original.entry_id}"
             )
         translation = normalize_original_fullwidth_ascii(
-            by_source[original.source_text_sha256]
+            translation_by_id[original.entry_id]
         )
         try:
             encoded = encode_text(
@@ -2348,7 +2370,7 @@ def _apply_full_pilot_names(
     for original in selected:
         if (
             reread_by_id[original.entry_id].text
-            != by_source[original.source_text_sha256]
+            != translation_by_id[original.entry_id]
         ):
             raise FullStoryComponentError(
                 f"pilot-name readback mismatch: {original.entry_id}"
@@ -7077,12 +7099,8 @@ def _apply_srvc_battle_text(
             else None
         )
         line_break_policy_satisfied = (
-            translation_line_break_count == source_line_break_count
-            and line_break_override is None
-        ) or (
-            translation_line_break_count == source_line_break_count + 1
-            and isinstance(line_break_override, str)
-            and bool(line_break_override.strip())
+            isinstance(entry, dict) and isinstance(translation, str)
+            and subtitle_line_break_policy_satisfied(source_text, translation, entry)
         )
         if (
             not isinstance(entry, dict)
@@ -7194,6 +7212,7 @@ def _apply_srvc_battle_text(
         "record_count": len(source_records),
         "production_override_count": override_count,
         "added_line_break_override_count": added_line_break_override_count,
+        "removed_line_break_override_count": sum("production_removed_line_break_override" in entry for entry in entries),
         "chunk_count": len(source_chunks),
         "indexed_chunk_count": sum(bool(chunk.records) for chunk in source_chunks),
         "zero_record_chunk_count": sum(not chunk.records for chunk in source_chunks),
