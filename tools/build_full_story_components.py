@@ -364,6 +364,12 @@ except ModuleNotFoundError:
     )
 
 
+try:
+    from srwz.build_fingerprints import font_binary_signature
+except ModuleNotFoundError:
+    from tools.srwz.build_fingerprints import font_binary_signature
+
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORK_ROOT = PROJECT_ROOT / "work"
 DEFAULT_CONFIG = PROJECT_ROOT / "config/full-story-components.json"
@@ -845,7 +851,7 @@ def _load_or_seed_incremental_state(
     if state_path.is_file():
         state = _json(state_path)
         if (
-            state.get("schema_version") in {1, 2}
+            state.get("schema_version") in {1, 2, 3, 4}
             and state.get("component_manifest")
             == _file_lock(manifest_path, manifest_data)
             and isinstance(state.get("config"), dict)
@@ -892,8 +898,14 @@ def _write_incremental_state(
         remaining_reference,
         label="remaining UI translations",
     )
+    font_manifest = _json(_project_path(config["full_story_font"]["manifest"]["path"]))
+    _proposal_path, proposal_data = _locked_file(
+        font_manifest["proposal"], label="font proposal"
+    )
     state = {
-        "schema_version": 2,
+        "schema_version": 4,
+        "stage_chunk_sha256": _stage_chunk_hashes(config),
+        "font_binary_signature": font_binary_signature(json.loads(proposal_data)),
         "component_manifest": _file_lock(
             manifest_path,
             manifest_path.read_bytes(),
@@ -1011,6 +1023,7 @@ def _plan_incremental_members(
     baseline_remaining_ui: dict,
     current_remaining_ui: dict,
     prior_report: dict,
+    baseline_font_signature: str | None = None,
 ) -> tuple[set[str], list[str]]:
     """Resolve input drift to binary members; reject every unknown edge."""
 
@@ -1085,6 +1098,11 @@ def _plan_incremental_members(
         if label in remaining_labels and prior_inputs[label].get("path") == remaining_path:
             continue
         impact = INPUT_IMPACTS.get(label)
+        if label == "full_story_font_proposal" and baseline_font_signature is not None:
+            proposal = _json(_project_path(prior_inputs[label]["path"]))
+            if font_binary_signature(proposal) == baseline_font_signature:
+                impact = set()
+
         if impact is None and label.startswith("auto_demo_original_op") and (
             label.endswith("_bin") or label.endswith("_seg")
         ):
@@ -1119,6 +1137,66 @@ def _plan_incremental_members(
     if not affected <= ALL_COMPONENT_MEMBERS:
         raise FullStoryComponentError("incremental dependency graph emitted an unknown member")
     return affected, reasons
+
+
+def _rebind_metadata_report(config_path: Path, prior_report: dict) -> dict:
+    """Reuse the validated bytes when the dependency plan has no binary changes."""
+
+    current_locks = {}
+    for lock in prior_report["inputs"].values():
+        path = _project_path(lock["path"])
+        current_locks[lock["path"]] = _file_lock(path, path.read_bytes())
+    current_locks[str(config_path.relative_to(PROJECT_ROOT))] = _file_lock(
+        config_path, config_path.read_bytes()
+    )
+
+    def rebind(value):
+        if isinstance(value, dict):
+            path = value.get("path")
+            if isinstance(path, str) and path in current_locks and "sha256" in value:
+                return {**value, **current_locks[path]}
+            return {key: rebind(child) for key, child in value.items()}
+        if isinstance(value, list):
+            return [rebind(child) for child in value]
+        return value
+
+    return rebind(prior_report)
+
+
+def _validate_metadata_proofs(config: dict) -> None:
+    """Retain upstream acceptance checks without reexecuting their writers."""
+
+    font_config = config["full_story_font"]
+    _path, font = _manifest(font_config["manifest"], label="full-story font manifest")
+    if (
+        font.get("status") != font_config.get("required_status")
+        or font.get("font_profile_id") != font_config.get("required_profile_id")
+        or not font.get("acceptance")
+        or not all(font["acceptance"].values())
+        or any(
+            font.get("coverage", {}).get(key) != 0
+            for key in (
+                "missing_character_count", "original_font_han_count",
+                "original_font_visible_character_count",
+            )
+        )
+    ):
+        raise FullStoryComponentError("font metadata proof failed")
+    stage_config = config["full_story_stage"]
+    _path, stage = _manifest(stage_config["report"], label="full-story STAGE report")
+    if (
+        stage.get("status") != stage_config.get("required_status")
+        or len(stage.get("stage_indices", [])) != stage_config.get("expected_stage_count")
+        or stage.get("stage_layout_preserved") is not True
+        or stage.get("hb_offset_reread_exact") is not True
+        or not stage.get("stages")
+        or not all(
+            item.get("translated_reread_exact") is True
+            and item.get("codec_round_trip_exact") is True
+            for item in stage["stages"]
+        )
+    ):
+        raise FullStoryComponentError("STAGE metadata proof failed")
 
 
 def _sha_locked_json(reference: dict, *, label: str) -> tuple[Path, dict]:
@@ -3538,6 +3616,10 @@ def _apply_stage_default_formation_names(
     reference: dict,
     font_manifest: dict,
     codec: dict,
+    *,
+    changed_stages: set[int] | None = None,
+    prior_default_report: dict | None = None,
+    prior_fixed_report: dict | None = None,
 ) -> tuple[bytes, dict, dict, Path, Path, Path]:
     """Rewrite only reviewed, fixed-position default formation names."""
 
@@ -3724,7 +3806,17 @@ def _apply_stage_default_formation_names(
         thread_name_prefix="srwz-formation",
     )
     pending_chunks = []
+    prior_chunks = {
+        row["stage_index"]: row
+        for row in (prior_default_report or {}).get("chunks", [])
+    }
     for stage_index, stage_groups in sorted(groups_by_stage.items()):
+        if changed_stages is not None and stage_index not in changed_stages:
+            chunk_reports.append(prior_chunks[stage_index])
+            continue
+        before_changed = changed_byte_count
+        before_compact = compact_ascii_entry_count
+        chunk_minimum_headroom = None
         if stage_index + 1 >= len(offsets):
             raise FullStoryComponentError(
                 f"default formation-name STAGE chunk is missing: {stage_index}"
@@ -3921,6 +4013,10 @@ def _apply_stage_default_formation_names(
                     f"default formation-name readback drift at {raw_offset}"
                 )
             headroom = slot_size - reread.consumed
+            chunk_minimum_headroom = (
+                headroom if chunk_minimum_headroom is None
+                else min(chunk_minimum_headroom, headroom)
+            )
             minimum_headroom = (
                 headroom
                 if minimum_headroom is None
@@ -3956,6 +4052,11 @@ def _apply_stage_default_formation_names(
                 current_decoded,
                 rewritten_bytes,
                 chunk_entry_count,
+                {
+                    "changed_byte_count": changed_byte_count - before_changed,
+                    "compact_ascii_entry_count": compact_ascii_entry_count - before_compact,
+                    "minimum_slot_headroom": chunk_minimum_headroom,
+                },
                 compression_future,
             )
         )
@@ -3968,6 +4069,7 @@ def _apply_stage_default_formation_names(
         current_decoded,
         rewritten_bytes,
         chunk_entry_count,
+        rewrite_summary,
         compression_future,
     ) in pending_chunks:
         try:
@@ -3988,11 +4090,20 @@ def _apply_stage_default_formation_names(
             "output_encoded_sha256": sha256_bytes(rebuilt),
             "output_padding_size": len(rebuilt_stored) - len(rebuilt),
             "codec_round_trip_exact": True,
+            "rewrite_summary": rewrite_summary,
         }
         chunk_reports.append(chunk_report)
         if stage_index == fixed_stage_index:
             fixed_chunk_report = chunk_report
     compression_executor.shutdown(wait=True, cancel_futures=True)
+
+    chunk_reports.sort(key=lambda row: row["stage_index"])
+    compact_ascii_entry_count = sum(row["rewrite_summary"]["compact_ascii_entry_count"] for row in chunk_reports)
+    changed_byte_count = sum(row["rewrite_summary"]["changed_byte_count"] for row in chunk_reports)
+    minimum_headroom = min(row["rewrite_summary"]["minimum_slot_headroom"] for row in chunk_reports)
+    if changed_stages is not None:
+        translations.update((row["source"], row["translation"])
+                            for row in prior_default_report["translations"])
 
     if compact_ascii_entry_count != expected.get(
         "stage_default_formation_compact_ascii_entry_count"
@@ -4015,6 +4126,8 @@ def _apply_stage_default_formation_names(
             raise FullStoryComponentError(
                 f"default formation-name changed non-target chunk: {index}"
             )
+    if fixed_chunk_report is None and changed_stages is not None:
+        fixed_chunk_report = prior_chunks[fixed_stage_index]
     if fixed_chunk_report is None:
         raise FullStoryComponentError("fixed formation-name fused chunk is missing")
     fixed_report = {
@@ -4071,6 +4184,8 @@ def _apply_stage_default_formation_names(
         "non_target_chunks_preserved_byte_exact": True,
         "placeholder_control_tokens_preserved": True,
     }
+    if changed_stages is not None and fixed_stage_index not in changed_stages:
+        fixed_report = prior_fixed_report
     return (
         result,
         default_report,
@@ -8660,10 +8775,291 @@ def _build_incremental_fixed_slps(
     return {SLPS_MEMBER: output_slps}, report
 
 
+def _stage_postprocess_signature() -> str:
+    paths = [Path(__file__), *sorted((PROJECT_ROOT / "tools/srwz").glob("*.py"))]
+    return sha256_bytes(b"".join(path.read_bytes() for path in paths))
+
+
+def _stage_chunk_hashes(config: dict) -> list[str]:
+    stage = _project_path(config["full_story_stage"]["stage"]["path"]).read_bytes()
+    hb = _project_path(config["full_story_stage"]["hb"]["path"]).read_bytes()
+    offsets = read_executable_archive_offsets(hb, STAGE_OFFSET_SPEC, len(stage))
+    return [sha256_bytes(stage[start:end]) for start, end in zip(offsets, offsets[1:])]
+
+
+def _incremental_stage_indices(config: dict, state: dict, prior_report: dict,
+                               reasons: list[str]) -> set[int] | None:
+    # Only the primary story output and metadata may change on this shortcut.
+    # A font mapping, postprocessor, inventory, layout or UI change takes the
+    # full integration path, as does an older cache without per-chunk evidence.
+    if set(reasons) - {
+        "input:stage", "input:full_story_stage_report",
+        "input:full_story_font_manifest", "input:full_story_font_proposal",
+        "input:reviewed_library_component_manifest",
+    }:
+        return None
+    if prior_report.get("stage_postprocess_signature") != _stage_postprocess_signature():
+        return None
+    previous = state.get("stage_chunk_sha256")
+    current = _stage_chunk_hashes(config)
+    if not isinstance(previous, list) or len(previous) != len(current):
+        return None
+    changed = {index for index, (old, new) in enumerate(zip(previous, current)) if old != new}
+    if 0 in changed or any("rewrite_summary" not in row
+                          for row in prior_report["remaining_ui"]["stage_default_formation"]["chunks"]):
+        return None
+    return changed
+
+
+def _build_incremental_stage(config_path: Path, config: dict, output_root: Path,
+                             prior_report: dict, changed_stages: set[int]) -> tuple[dict, dict]:
+    _validate_metadata_proofs(config)
+    stage_config = config["full_story_stage"]
+    _, stage = _locked_file(stage_config["stage"], label="STAGE")
+    _, hb = _locked_file(stage_config["hb"], label="HB")
+    _, stage_report = _manifest(stage_config["report"], label="STAGE report")
+    for name, data in (("stage", stage), ("hb", hb)):
+        if stage_report["outputs"][name] != {"size": len(data), "sha256": sha256_bytes(data)}:
+            raise FullStoryComponentError(f"STAGE report output drift: {name}")
+    _, font_manifest = _manifest(config["full_story_font"]["manifest"], label="font manifest")
+    offsets = read_executable_archive_offsets(hb, STAGE_OFFSET_SPEC, len(stage))
+    merged = bytearray(_prior_output_payload(output_root, STAGE_MEMBER))
+    for index in sorted(changed_stages):
+        start, end = offsets[index:index + 2]
+        merged[start:end] = stage[start:end]
+    stage = bytes(merged)
+    remaining = prior_report["remaining_ui"]
+    stage, defaults, fixed, _, _, _ = _apply_stage_default_formation_names(
+        stage, hb, config["remaining_ui"], font_manifest,
+        config["full_pilot_names"]["codec"], changed_stages=changed_stages,
+        prior_default_report=remaining["stage_default_formation"],
+        prior_fixed_report=remaining["stage_fixed_formation"],
+    )
+
+    keyword_report = prior_report["runtime_keywords"]["stage"]
+    if changed_stages & {row["stage_index"] for row in keyword_report["chunks"]}:
+        reference = config["runtime_keywords"]
+        _, catalog = _locked_file(reference["catalog"], label="keyword catalog")
+        _, library = _locked_file(reference["library_archive"], label="keyword library")
+        _, executable = _locked_file(reference["original_executable"], label="keyword executable")
+        _, patches, _ = _library_archive_offset_patches(reference["library_component_manifest"])
+        executable, _ = _apply_library_archive_offset_patches(executable, patches)
+        table = load_text_table(PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json")
+        _, primary, aliases, _ = _full_story_overrides(font_manifest)
+        output_table = project_runtime_text_table(table, primary)
+        output_table = project_runtime_text_table(output_table, aliases)
+        output_table = project_runtime_text_table(output_table, original_fullwidth_ascii_overrides(table))
+        authority = load_keyword_authority(catalog, library, executable, output_table,
+            table_start=int(str(reference["keyword_table_start"]), 0),
+            table_end=int(str(reference["keyword_table_end"]), 0),
+            expected_count=reference["expected"]["keyword_count"])
+        _, original_stage = _locked_file(config["remaining_ui"]["original_stage"], label="original STAGE")
+        stage, keyword_report = apply_stage_keyword_popups(
+            stage, original_stage, hb, authority, table, reference,
+            config["full_pilot_names"]["codec"], changed_stages=changed_stages,
+            prior_report=keyword_report,
+        )
+    report = _rebind_metadata_report(config_path, prior_report)
+    report["story"] = _story_summary(stage_report)
+    report["compression"]["stage_strategies"] = sorted({row["codec_strategy"] for row in stage_report["stages"]})
+    report["remaining_ui"]["stage_default_formation"] = defaults
+    report["remaining_ui"]["stage_fixed_formation"] = fixed
+    report["runtime_keywords"]["stage"] = keyword_report
+    report["outputs"][STAGE_MEMBER] = _output_lock(output_root / STAGE_MEMBER, stage)
+    print(f"[incremental] STAGE chunks rebuilt={len(changed_stages)} reused={len(offsets) - 1 - len(changed_stages)}", flush=True)
+    return {STAGE_MEMBER: stage}, report
+
+
+def _story_summary(stage_report: dict) -> dict:
+    stage_headrooms = [row["source_chunk_size"] - row["output_encoded_size"]
+                       for row in stage_report["stages"]]
+    return {
+            "stage_count": len(stage_report["stage_indices"]),
+            "stage_indices": stage_report["stage_indices"],
+            "translated_allocation_count": sum(
+                item["allocation_count"] for item in stage_report["stages"]
+            ),
+            "speaker_count": sum(
+                item["speaker_count"] for item in stage_report["stages"]
+            ),
+            "minimum_compressed_chunk_headroom": min(stage_headrooms),
+            "stage_layout_preserved": True,
+            "translated_reread_exact": all(
+                item["translated_reread_exact"] for item in stage_report["stages"]
+            ),
+            "codec_round_trip_exact": all(
+                item["codec_round_trip_exact"] for item in stage_report["stages"]
+            ),
+            "ticker_source_count": stage_report["story_ticker_source_count"],
+            "ticker_target_count": stage_report["story_ticker_count"],
+            "ticker_stage_count": stage_report["story_ticker_stage_count"],
+            "ticker_stage_indices": stage_report[
+                "story_ticker_stage_indices"
+            ],
+            "ticker_prefix_kind_counts": stage_report[
+                "story_ticker_prefix_kind_counts"
+            ],
+            "ticker_inventory_sha256": stage_report[
+                "story_ticker_inventory_sha256"
+            ],
+            "ticker_structural_slots_exact": stage_report[
+                "story_ticker_structural_slots_exact"
+            ],
+            "ticker_fixed_slots_exact": stage_report[
+                "story_ticker_fixed_slots_exact"
+            ],
+            "ticker_translated_reread_exact": stage_report[
+                "story_ticker_translated_reread_exact"
+            ],
+            "z_report_source_count": stage_report["z_report_source_count"],
+            "z_report_target_count": stage_report["z_report_count"],
+            "z_report_stage_indices": stage_report[
+                "z_report_stage_indices"
+            ],
+            "z_report_inventory_sha256": stage_report[
+                "z_report_inventory_sha256"
+            ],
+            "z_report_structural_slots_exact": stage_report[
+                "z_report_structural_slots_exact"
+            ],
+            "z_report_fixed_slots_exact": stage_report[
+                "z_report_fixed_slots_exact"
+            ],
+            "z_report_translated_reread_exact": stage_report[
+                "z_report_translated_reread_exact"
+            ],
+            "tutorial_binding": stage_report["tutorial_binding"],
+        }
+
+
+def _build_veff(config: dict, output_slps: bytes, final_font: bytes,
+                release_by_character: dict, scenario_description_layout_report: dict):
+    (
+        output_veff,
+        scenario_select_report,
+        scenario_select_source_path,
+    ) = _apply_scenario_select_effect(
+        output_slps,
+        final_font,
+        release_by_character,
+        config.get("scenario_select_effect"),
+    )
+    scenario_select_report["description_layout"] = (
+        scenario_description_layout_report
+    )
+    (
+        output_veff,
+        mode_select_report,
+        mode_select_source_path,
+    ) = _apply_scenario_select_effect(
+        output_slps,
+        final_font,
+        release_by_character,
+        config.get("mode_select_effect"),
+        archive_payload=output_veff,
+    )
+    if mode_select_source_path != scenario_select_source_path:
+        raise FullStoryComponentError("VEFF2DX source path drift between targets")
+    tutorial_title_config = config.get("tutorial_title_effects")
+    if not isinstance(tutorial_title_config, dict):
+        raise FullStoryComponentError(
+            "tutorial title-effect configuration is invalid"
+        )
+    tutorial_title_source_path, tutorial_title_source = _locked_file(
+        tutorial_title_config.get("original_archive"),
+        label="tutorial title-effect original VEFF2DX",
+    )
+    tutorial_title_font_path, _tutorial_title_font = _locked_file(
+        tutorial_title_config.get("font"),
+        label="tutorial title-effect font",
+    )
+    if (
+        tutorial_title_source_path != scenario_select_source_path
+        or tutorial_title_source
+        != scenario_select_source_path.read_bytes()
+    ):
+        raise FullStoryComponentError(
+            "tutorial and menu effect VEFF2DX sources disagree"
+        )
+    try:
+        output_veff, tutorial_title_report = build_veff_tutorial_titles(
+            tutorial_title_source,
+            output_slps,
+            tutorial_title_font_path,
+            tutorial_title_config,
+            archive_payload=output_veff,
+        )
+    except VeffTutorialTitleError as error:
+        raise FullStoryComponentError(
+            f"tutorial title-effect writeback failed: {error}"
+        ) from error
+
+    return (output_veff, scenario_select_report, mode_select_report,
+            tutorial_title_report, scenario_select_source_path, tutorial_title_font_path)
+
+
+def _build_mapmodel(config: dict, font_manifest: dict, output_root: Path):
+    mapmodel_decoded_cache = {}
+    (
+        output_mapmodel,
+        world_map_title_report,
+        world_map_title_input_paths,
+    ) = build_world_map_titles(
+        PROJECT_ROOT,
+        WORK_ROOT,
+        config.get("world_map_titles"),
+        preview_root=output_root / "previews/world-map-titles",
+        decoded_cache=mapmodel_decoded_cache,
+    )
+    table = load_text_table(
+        PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
+    )
+    _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
+        font_manifest
+    )
+    encoding_overrides = _stored_text_overrides(table, primary, aliases)
+    try:
+        (
+            output_mapmodel,
+            terrain_name_report,
+            terrain_name_input_paths,
+        ) = build_terrain_names(
+            PROJECT_ROOT,
+            config.get("world_map_titles", {}).get("terrain_names"),
+            archive_payload=output_mapmodel,
+            table=table,
+            encoding_overrides=encoding_overrides,
+            decoded_cache=mapmodel_decoded_cache,
+        )
+    except TerrainNameError as error:
+        raise FullStoryComponentError(
+            f"MAPMODEL terrain-name write failed: {error}"
+        ) from error
+    world_map_title_report["terrain_names"] = terrain_name_report
+
+    return (output_mapmodel, world_map_title_report, world_map_title_input_paths,
+            terrain_name_report, terrain_name_input_paths)
+
+
 def build(
     config_path: Path,
     output_root: Path,
     *,
+    affected_members: set[str] | None = None,
+    prior_report: dict | None = None,
+) -> tuple[dict[str, bytes], dict]:
+    # Each archive job reads immutable inputs and owns its output bytes/report.
+    # Join both jobs on success and on any failure in the main component chain.
+    with ThreadPoolExecutor(max_workers=2, thread_name_prefix="srwz-archive") as executor:
+        return _build_components(config_path, output_root, executor=executor,
+                                 affected_members=affected_members, prior_report=prior_report)
+
+
+def _build_components(
+    config_path: Path,
+    output_root: Path,
+    *,
+    executor: ThreadPoolExecutor,
     affected_members: set[str] | None = None,
     prior_report: dict | None = None,
 ) -> tuple[dict[str, bytes], dict]:
@@ -8701,6 +9097,9 @@ def build(
         or font_manifest.get("font_profile_id") != font.get("required_profile_id")
     ):
         raise FullStoryComponentError("full-story font manifest identity drift")
+    mapmodel_future = None
+    if not reuse_group({MAPMODEL_MEMBER}):
+        mapmodel_future = executor.submit(_build_mapmodel, config, font_manifest, output_root)
     composition = config.get("composition", {})
     compatibility = composition.get("release_codebook")
     if (
@@ -9628,6 +10027,32 @@ def build(
         output_slps,
         config["scenario_select_effect"].get("description_layout"),
     )
+    if reuse_group({MTV_PROS_MEMBER}):
+        output_mtv_pros = _prior_output_payload(output_root, MTV_PROS_MEMBER)
+        world_history_report = json.loads(
+            json.dumps(prior_report["world_history"])
+        )
+        world_history_corpus_path = _prior_input_path(
+            prior_report, "world_history_corpus"
+        )
+    else:
+        (
+            output_slps,
+            output_mtv_pros,
+            world_history_report,
+            world_history_corpus_path,
+        ) = _apply_world_history_layout(
+            output_slps,
+            original_payloads["mtv_pros"],
+            config.get("world_history"),
+            font_manifest,
+        )
+
+    veff_future = None
+    if not reuse_group({VEFF_MEMBER}):
+        veff_future = executor.submit(_build_veff, config, output_slps, final_font,
+                                      release_by_character, scenario_description_layout_report)
+
     if reuse_group(SRVC_MEMBERS):
         output_srvc_bin = _prior_output_payload(output_root, "BTL/SRVC.BIN")
         output_srvc_seg = _prior_output_payload(output_root, "BTL/SRVC.SEG")
@@ -9851,27 +10276,6 @@ def build(
         stage_scenario_chart_prompt_report
     )
 
-    if reuse_group({MTV_PROS_MEMBER}):
-        output_mtv_pros = _prior_output_payload(output_root, MTV_PROS_MEMBER)
-        world_history_report = json.loads(
-            json.dumps(prior_report["world_history"])
-        )
-        world_history_corpus_path = _prior_input_path(
-            prior_report, "world_history_corpus"
-        )
-    else:
-        (
-            output_slps,
-            output_mtv_pros,
-            world_history_report,
-            world_history_corpus_path,
-        ) = _apply_world_history_layout(
-            output_slps,
-            original_payloads["mtv_pros"],
-            config.get("world_history"),
-            font_manifest,
-        )
-
     if reuse_group({MTV_PROP_MEMBER}):
         output_mtv_prop = _prior_output_payload(output_root, MTV_PROP_MEMBER)
         chapter_intertitle_report = json.loads(
@@ -10007,65 +10411,9 @@ def build(
             prior_report, "tutorial_title_font"
         )
     else:
-        (
-            output_veff,
-            scenario_select_report,
-            scenario_select_source_path,
-        ) = _apply_scenario_select_effect(
-            output_slps,
-            final_font,
-            release_by_character,
-            config.get("scenario_select_effect"),
-        )
-        scenario_select_report["description_layout"] = (
-            scenario_description_layout_report
-        )
-        (
-            output_veff,
-            mode_select_report,
-            mode_select_source_path,
-        ) = _apply_scenario_select_effect(
-            output_slps,
-            final_font,
-            release_by_character,
-            config.get("mode_select_effect"),
-            archive_payload=output_veff,
-        )
-        if mode_select_source_path != scenario_select_source_path:
-            raise FullStoryComponentError("VEFF2DX source path drift between targets")
-        tutorial_title_config = config.get("tutorial_title_effects")
-        if not isinstance(tutorial_title_config, dict):
-            raise FullStoryComponentError(
-                "tutorial title-effect configuration is invalid"
-            )
-        tutorial_title_source_path, tutorial_title_source = _locked_file(
-            tutorial_title_config.get("original_archive"),
-            label="tutorial title-effect original VEFF2DX",
-        )
-        tutorial_title_font_path, _tutorial_title_font = _locked_file(
-            tutorial_title_config.get("font"),
-            label="tutorial title-effect font",
-        )
-        if (
-            tutorial_title_source_path != scenario_select_source_path
-            or tutorial_title_source
-            != scenario_select_source_path.read_bytes()
-        ):
-            raise FullStoryComponentError(
-                "tutorial and menu effect VEFF2DX sources disagree"
-            )
-        try:
-            output_veff, tutorial_title_report = build_veff_tutorial_titles(
-                tutorial_title_source,
-                output_slps,
-                tutorial_title_font_path,
-                tutorial_title_config,
-                archive_payload=output_veff,
-            )
-        except VeffTutorialTitleError as error:
-            raise FullStoryComponentError(
-                f"tutorial title-effect writeback failed: {error}"
-            ) from error
+        (output_veff, scenario_select_report, mode_select_report,
+         tutorial_title_report, scenario_select_source_path,
+         tutorial_title_font_path) = veff_future.result()
 
     tutorial_title_config = config.get("tutorial_title_effects")
     if not isinstance(tutorial_title_config, dict):
@@ -10102,43 +10450,8 @@ def build(
             _prior_input_path(prior_report, "terrain_name_inventory"),
         )
     else:
-        mapmodel_decoded_cache = {}
-        (
-            output_mapmodel,
-            world_map_title_report,
-            world_map_title_input_paths,
-        ) = build_world_map_titles(
-            PROJECT_ROOT,
-            WORK_ROOT,
-            config.get("world_map_titles"),
-            preview_root=output_root / "previews/world-map-titles",
-            decoded_cache=mapmodel_decoded_cache,
-        )
-        table = load_text_table(
-            PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
-        )
-        _proposal_path, primary, aliases, _alias_report = _full_story_overrides(
-            font_manifest
-        )
-        encoding_overrides = _stored_text_overrides(table, primary, aliases)
-        try:
-            (
-                output_mapmodel,
-                terrain_name_report,
-                terrain_name_input_paths,
-            ) = build_terrain_names(
-                PROJECT_ROOT,
-                config.get("world_map_titles", {}).get("terrain_names"),
-                archive_payload=output_mapmodel,
-                table=table,
-                encoding_overrides=encoding_overrides,
-                decoded_cache=mapmodel_decoded_cache,
-            )
-        except TerrainNameError as error:
-            raise FullStoryComponentError(
-                f"MAPMODEL terrain-name write failed: {error}"
-            ) from error
-        world_map_title_report["terrain_names"] = terrain_name_report
+        (output_mapmodel, world_map_title_report, world_map_title_input_paths,
+         terrain_name_report, terrain_name_input_paths) = mapmodel_future.result()
 
     try:
         sound_title_span = SoundTitleSpanLock.from_mapping(
@@ -10368,6 +10681,7 @@ def build(
         "status": "integrated_global_zh_release_components_validated_runtime_pending",
         "profile_id": config["profile_id"],
         "scope": config["scope"],
+        "stage_postprocess_signature": _stage_postprocess_signature(),
         "build_groups": _validated_component_build_groups(),
         "inputs": {
             "config": _file_lock(config_path, config_path.read_bytes()),
@@ -10654,63 +10968,7 @@ def build(
             },
             "library_archive_offset_tables": library_offset_table_report,
         },
-        "story": {
-            "stage_count": len(stage_report["stage_indices"]),
-            "stage_indices": stage_report["stage_indices"],
-            "translated_allocation_count": sum(
-                item["allocation_count"] for item in stage_report["stages"]
-            ),
-            "speaker_count": sum(
-                item["speaker_count"] for item in stage_report["stages"]
-            ),
-            "minimum_compressed_chunk_headroom": min(stage_headrooms),
-            "stage_layout_preserved": True,
-            "translated_reread_exact": all(
-                item["translated_reread_exact"] for item in stage_report["stages"]
-            ),
-            "codec_round_trip_exact": all(
-                item["codec_round_trip_exact"] for item in stage_report["stages"]
-            ),
-            "ticker_source_count": stage_report["story_ticker_source_count"],
-            "ticker_target_count": stage_report["story_ticker_count"],
-            "ticker_stage_count": stage_report["story_ticker_stage_count"],
-            "ticker_stage_indices": stage_report[
-                "story_ticker_stage_indices"
-            ],
-            "ticker_prefix_kind_counts": stage_report[
-                "story_ticker_prefix_kind_counts"
-            ],
-            "ticker_inventory_sha256": stage_report[
-                "story_ticker_inventory_sha256"
-            ],
-            "ticker_structural_slots_exact": stage_report[
-                "story_ticker_structural_slots_exact"
-            ],
-            "ticker_fixed_slots_exact": stage_report[
-                "story_ticker_fixed_slots_exact"
-            ],
-            "ticker_translated_reread_exact": stage_report[
-                "story_ticker_translated_reread_exact"
-            ],
-            "z_report_source_count": stage_report["z_report_source_count"],
-            "z_report_target_count": stage_report["z_report_count"],
-            "z_report_stage_indices": stage_report[
-                "z_report_stage_indices"
-            ],
-            "z_report_inventory_sha256": stage_report[
-                "z_report_inventory_sha256"
-            ],
-            "z_report_structural_slots_exact": stage_report[
-                "z_report_structural_slots_exact"
-            ],
-            "z_report_fixed_slots_exact": stage_report[
-                "z_report_fixed_slots_exact"
-            ],
-            "z_report_translated_reread_exact": stage_report[
-                "z_report_translated_reread_exact"
-            ],
-            "tutorial_binding": stage_report["tutorial_binding"],
-        },
+        "story": _story_summary(stage_report),
         "pilot_names": pilot_name_report,
         "stage_titles": stage_title_report,
         "title_menu": title_menu_report,
@@ -11780,6 +12038,7 @@ def main() -> int:
                 baseline_remaining_ui=state["remaining_ui"],
                 current_remaining_ui=remaining_ui,
                 prior_report=prior_report,
+                baseline_font_signature=state.get("font_binary_signature"),
             )
             print(
                 "[incremental] affected members:",
@@ -11792,8 +12051,25 @@ def main() -> int:
                     ", ".join(reasons),
                     flush=True,
                 )
-            if affected_members or reasons:
-                if affected_members == {SLPS_MEMBER} and set(reasons) <= (
+            if not affected_members:
+                payloads = {}
+                if reasons or prior_report["inputs"].get("config") != _file_lock(
+                    config_path, config_path.read_bytes()
+                ):
+                    _validate_metadata_proofs(config)
+                    report = _rebind_metadata_report(config_path, prior_report)
+                else:
+                    report = prior_report
+            else:
+                changed_stages = (
+                    _incremental_stage_indices(config, state, prior_report, reasons)
+                    if affected_members == {STAGE_MEMBER} else None
+                )
+                if changed_stages is not None:
+                    payloads, report = _build_incremental_stage(
+                        config_path, config, output_root, prior_report, changed_stages
+                    )
+                elif affected_members == {SLPS_MEMBER} and set(reasons) <= (
                     INCREMENTAL_FIXED_SLPS_REASONS
                 ):
                     payloads, report = _build_incremental_fixed_slps(
@@ -11811,8 +12087,6 @@ def main() -> int:
                         affected_members=affected_members,
                         prior_report=prior_report,
                     )
-            else:
-                payloads, report = {}, prior_report
         else:
             payloads, report = build(config_path, output_root)
     except (

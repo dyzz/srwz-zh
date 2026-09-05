@@ -777,6 +777,8 @@ def apply_stage_keyword_popups(
     codec: Mapping[str, object],
     *,
     verify_only: bool = False,
+    changed_stages: set[int] | None = None,
+    prior_report: Mapping[str, object] | None = None,
 ) -> tuple[bytes, dict[str, object]]:
     """Rewrite or verify all 77 embedded story-popup records."""
 
@@ -816,7 +818,11 @@ def apply_stage_keyword_popups(
             thread_name_prefix="srwz-keyword",
         )
     chunk_reports = []
+    prior_chunks = {row["stage_index"]: row for row in (prior_report or {}).get("chunks", [])}
     for stage_index in stage_indices:
+        if changed_stages is not None and stage_index not in changed_stages:
+            chunk_reports.append(prior_chunks[stage_index])
+            continue
         start, end = offsets[stage_index : stage_index + 2]
         stored = stage[start:end]
         current_decoded = decode_production(stored)

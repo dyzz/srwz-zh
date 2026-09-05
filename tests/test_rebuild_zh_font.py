@@ -1,5 +1,6 @@
 import sys
 import tempfile
+import threading
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
@@ -13,6 +14,34 @@ from tools import rebuild_zh_font
 
 
 class RebuildZhFontTests(unittest.TestCase):
+    def test_atlas_suite_finishes_while_story_is_still_running(self):
+        suite_finished = threading.Event()
+        completed_atlases = []
+
+        def story(*arguments):
+            self.assertTrue(suite_finished.wait(2), "suite unnecessarily waited for story")
+
+        def suite():
+            self.assertCountEqual(completed_atlases, ["a", "b"])
+            suite_finished.set()
+
+        with patch.object(rebuild_zh_font, "_run", side_effect=story), \
+             patch.object(rebuild_zh_font, "_build_atlas_job",
+                          side_effect=lambda reference, **kwargs: completed_atlases.append(reference)):
+            rebuild_zh_font._build_story_and_atlases(
+                "story", ["a", "b"], refresh_manifest=False,
+                refresh_asset_ratchets=False, atlas_workers=2, after_atlases=suite)
+
+    def test_atlas_failure_prevents_suite_composition(self):
+        with patch.object(rebuild_zh_font, "_run"), \
+             patch.object(rebuild_zh_font, "_build_atlas_job", side_effect=ValueError("atlas failed")), \
+             patch.object(rebuild_zh_font, "_refresh_suite_ratchets") as suite:
+            with self.assertRaisesRegex(ValueError, "atlas failed"):
+                rebuild_zh_font._build_story_and_atlases(
+                    "story", ["a"], refresh_manifest=False,
+                    refresh_asset_ratchets=False, atlas_workers=2, after_atlases=suite)
+            suite.assert_not_called()
+
     def test_parser_defaults_to_bounded_parallel_atlases(self):
         with patch.object(sys, "argv", ["rebuild_zh_font.py"]):
             args = rebuild_zh_font.parse_args()
@@ -22,6 +51,7 @@ class RebuildZhFontTests(unittest.TestCase):
             rebuild_zh_font.MAX_ATLAS_WORKERS,
         )
         self.assertFalse(args.force_rebuild)
+        self.assertTrue(rebuild_zh_font._cache_eligible(args))
         self.assertEqual(args.cache, rebuild_zh_font.DEFAULT_CACHE)
 
     def test_parser_rejects_non_positive_atlas_workers(self):
@@ -146,7 +176,6 @@ class RebuildZhFontTests(unittest.TestCase):
 
         for extra in (
             "--skip-assets",
-            "--refresh-manifests",
             "--force-rebuild",
         ):
             with patch.object(
@@ -156,6 +185,10 @@ class RebuildZhFontTests(unittest.TestCase):
             ):
                 args = rebuild_zh_font.parse_args()
             self.assertFalse(rebuild_zh_font._cache_eligible(args), extra)
+
+        args.refresh_manifests = True
+        args.force_rebuild = False
+        self.assertTrue(rebuild_zh_font._cache_eligible(args))
 
     def test_main_cache_hit_skips_build_commands(self):
         with (

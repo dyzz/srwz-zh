@@ -11,6 +11,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -755,6 +756,9 @@ def validate_output(
     config: dict,
     source_image,
     output_path: Path,
+    *,
+    cached_member_hashes: dict | None = None,
+    cached_udf_hashes: dict | None = None,
 ) -> dict:
     output_image = scan_iso9660(output_path)
     source_members = member_map(source_image)
@@ -823,7 +827,9 @@ def validate_output(
     for path in extent_order(source_image):
         source_member = source_members[path]
         output_member = output_members[path]
-        output_hash = sha256_member(output_path, output_member)
+        output_hash = (cached_member_hashes or {}).get(path)
+        if output_hash is None:
+            output_hash = sha256_member(output_path, output_member)
         semantic_entries.append((path, output_member.size, output_hash))
         replacement = replacement_config.get(path)
         if replacement is not None:
@@ -841,7 +847,9 @@ def validate_output(
             )
             continue
 
-        source_hash = sha256_member(source_image.path, source_member)
+        source_hash = (cached_member_hashes or {}).get(path)
+        if source_hash is None:
+            source_hash = sha256_member(source_image.path, source_member)
         if output_member.size != source_member.size or output_hash != source_hash:
             raise IsoBuildError(f"unchanged member differs: {path}")
         unchanged_count += 1
@@ -859,9 +867,11 @@ def validate_output(
         expected_hash = (
             replacement_config[path]["sha256"]
             if path in replacement_config
-            else sha256_member(source_image.path, source_members[path])
+            else (cached_member_hashes or {}).get(path) or sha256_member(source_image.path, source_members[path])
         )
-        actual_hash = sha256_7z_member(seven_zip, output_path, path)
+        actual_hash = (cached_udf_hashes or {}).get(path)
+        if actual_hash is None:
+            actual_hash = sha256_7z_member(seven_zip, output_path, path)
         if actual_hash != expected_hash:
             raise IsoBuildError(f"independent UDF bytes differ: {path}")
         udf_hashes[path] = actual_hash
@@ -946,6 +956,7 @@ def validate_output(
         },
         "independent_udf_reads": udf_hashes,
         "replacements": replacements,
+        "member_hashes": {path: digest for path, _size, digest in semantic_entries},
         "runtime_acceptance": "not tested by ISO builder",
         "runtime_evidence_manifest": config.get(
             "runtime_evidence_manifest"
@@ -961,6 +972,8 @@ def parse_args() -> argparse.Namespace:
         )
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    parser.add_argument("--incremental", action="store_true",
+                        help="Clone a validated working ISO and replace only equal-size changed members.")
     parser.add_argument(
         "--refresh-extraction",
         action="store_true",
@@ -976,6 +989,130 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     return parser.parse_args()
+
+
+def _stat_identity(path: Path) -> dict:
+    stat = path.stat()
+    return {"device": stat.st_dev, "inode": stat.st_ino, "size": stat.st_size,
+            "mtime_ns": stat.st_mtime_ns, "ctime_ns": stat.st_ctime_ns}
+
+
+def _incremental_policy(config: dict) -> dict:
+    policy = json.loads(json.dumps(config))
+    for replacement in policy["replacements"]:
+        replacement.pop("sha256", None)
+    for key in ("expected_sha256", "expected_member_manifest_sha256"):
+        policy["output"].pop(key, None)
+    return policy
+
+
+def _iso_cache_path(config: dict) -> Path:
+    return resolve_project_path(config["output"]["report"]).with_suffix(".incremental.json")
+
+
+def _iso_implementation_signature() -> str:
+    paths = [Path(__file__), PROJECT_ROOT / "tools/srwz/iso9660.py",
+             PROJECT_ROOT / "tools/srwz/iso_config.py"]
+    return hashlib.sha256(b"".join(path.read_bytes() for path in paths)).hexdigest()
+
+
+def _record_iso_cache(config: dict, report_path: Path) -> None:
+    if config.get("release_tag") is not None:
+        return
+    receipt = {
+        "schema_version": 1,
+        "implementation": _iso_implementation_signature(),
+        "policy": _incremental_policy(config),
+        "source_stat": _stat_identity(resolve_project_path(config["source_iso"]["path"])),
+        "output_stat": _stat_identity(resolve_project_path(config["output"]["path"])),
+        "report_sha256": sha256_file(report_path)[1],
+    }
+    _iso_cache_path(config).write_text(json.dumps(receipt, ensure_ascii=False) + "\n")
+
+
+def _load_iso_cache(config: dict) -> dict | None:
+    if config.get("release_tag") is not None:
+        return None
+    try:
+        cache = json.loads(_iso_cache_path(config).read_text())
+        report_path = resolve_project_path(config["output"]["report"])
+        if (cache.get("schema_version") != 1
+                or cache.get("implementation") != _iso_implementation_signature()
+                or cache.get("policy") != _incremental_policy(config)
+                or cache.get("source_stat") != _stat_identity(resolve_project_path(config["source_iso"]["path"]))
+                or cache.get("output_stat") != _stat_identity(resolve_project_path(config["output"]["path"]))
+                or cache.get("report_sha256") != sha256_file(report_path)[1]):
+            return None
+        report = json.loads(report_path.read_text())
+        if not isinstance(report.get("member_hashes"), dict):
+            return None
+        return report
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
+def _build_incremental_iso(config: dict, component_binding: dict) -> dict | None:
+    previous = _load_iso_cache(config)
+    if previous is None:
+        print("[cache] ISO baseline unavailable or changed; using full builder")
+        return None
+    previous_replacements = {row["member"]: row for row in previous["replacements"]}
+    changed = [row for row in config["replacements"]
+               if previous_replacements[row["member"]]["sha256"] != row["sha256"]]
+    output_path = resolve_project_path(config["output"]["path"])
+    source_image = scan_iso9660(resolve_project_path(config["source_iso"]["path"]))
+    sector_budget = validate_replacement_sector_budget(config, source_image)
+    if not changed:
+        for key, value in (
+            ("expected_sha256", previous["output_iso"]["sha256"]),
+            ("expected_member_manifest_sha256", previous["layout"]["member_manifest_sha256"]),
+        ):
+            if config["output"].get(key, value) != value:
+                raise IsoBuildError(f"cached ISO does not match {key}")
+        # Rebind metadata without rewriting the already validated image.
+        previous["component_binding"] = component_binding
+        previous["incremental"] = {"changed_members": [], "baseline_sha256": previous["output_iso"]["sha256"]}
+        print("[cache] ISO reused; changed members=0")
+        return previous
+    source_identity = _stat_identity(output_path)
+    members = member_map(scan_iso9660(output_path))
+    # The policy check includes every member size and all layout settings.
+    # A size change therefore falls back before touching the previous ISO.
+    with tempfile.TemporaryDirectory(prefix=".iso-update-", dir=output_path.parent) as temporary:
+        candidate = Path(temporary) / output_path.name
+        if sys.platform == "darwin":
+            cloned = subprocess.run(["cp", "-c", str(output_path), str(candidate)], capture_output=True)
+            if cloned.returncode:
+                shutil.copyfile(output_path, candidate)
+        else:
+            shutil.copyfile(output_path, candidate)
+        with candidate.open("r+b") as target:
+            for row in changed:
+                source = resolve_project_path(row["source"])
+                verify_file(source, row["size"], row["sha256"])
+                if members[row["member"]].size != row["size"]:
+                    raise IsoBuildError("incremental ISO member size drift")
+                target.seek(members[row["member"]].extent_lba * SECTOR_SIZE)
+                target.write(source.read_bytes())
+            target.flush()
+            os.fsync(target.fileno())
+        changed_members = {row["member"] for row in changed}
+        report = validate_output(config, source_image, candidate,
+            cached_member_hashes={key: value for key, value in previous["member_hashes"].items() if key not in changed_members},
+            cached_udf_hashes={key: value for key, value in previous["independent_udf_reads"].items() if key not in changed_members})
+        if _stat_identity(output_path) != source_identity:
+            raise IsoBuildError("previous ISO changed during incremental build")
+        candidate.replace(output_path)
+    report["output_iso"]["path"] = output_path.relative_to(PROJECT_ROOT).as_posix()
+    report["component_binding"] = component_binding
+    report["sector_budget"] = sector_budget
+    report["output_gap_overrides"] = previous["output_gap_overrides"]
+    report["builder"] = previous["builder"]
+    report["incremental"] = {"changed_members": sorted(changed_members),
+                             "baseline_sha256": previous["output_iso"]["sha256"],
+                             "method": "clone-and-replace-equal-size-members"}
+    print(f"[cache] ISO updated; changed members={len(changed_members)}; unchanged bytes cloned")
+    return report
 
 
 def main() -> int:
@@ -1001,116 +1138,120 @@ def main() -> int:
                     "[OK] component manifest live inputs: "
                     f"{current_inputs['input_lock_count']} locks"
                 )
-        source_iso = resolve_project_path(config["source_iso"]["path"])
-        verify_file(
-            source_iso,
-            config["source_iso"]["size"],
-            config["source_iso"]["sha256"],
-        )
-        print("[OK] original ISO baseline")
-
-        source_image = scan_iso9660(source_iso)
-        if len(source_image.members) != config["source_iso"]["member_count"]:
-            raise IsoBuildError("original ISO member count changed")
-        if source_image.system_id != config["source_iso"]["iso9660_system_id"]:
-            raise IsoBuildError("original ISO system ID changed")
-        if (
-            source_image.udf_volume_recognition_sequence
-            != config["source_iso"]["udf_volume_recognition_sequence"]
-        ):
-            raise IsoBuildError(
-                "original ISO UDF volume recognition sequence changed"
+        report = None
+        if args.incremental and not args.refresh_extraction:
+            report = _build_incremental_iso(config, component_binding)
+        if report is None:
+            source_iso = resolve_project_path(config["source_iso"]["path"])
+            verify_file(
+                source_iso,
+                config["source_iso"]["size"],
+                config["source_iso"]["sha256"],
             )
-        print(
-            f"[OK] original PS2 DVD layout: "
-            f"{len(source_image.members)} members, "
-            f"UDF {source_image.udf_volume_recognition_sequence}"
-        )
+            print("[OK] original ISO baseline")
 
-        sector_budget = validate_replacement_sector_budget(
-            config,
-            source_image,
-        )
-        if sector_budget["enforced"]:
+            source_image = scan_iso9660(source_iso)
+            if len(source_image.members) != config["source_iso"]["member_count"]:
+                raise IsoBuildError("original ISO member count changed")
+            if source_image.system_id != config["source_iso"]["iso9660_system_id"]:
+                raise IsoBuildError("original ISO system ID changed")
+            if (
+                source_image.udf_volume_recognition_sequence
+                != config["source_iso"]["udf_volume_recognition_sequence"]
+            ):
+                raise IsoBuildError(
+                    "original ISO UDF volume recognition sequence changed"
+                )
             print(
-                "[OK] fixed-LBA sector budget: every replacement stays "
-                "within its original member sectors"
+                f"[OK] original PS2 DVD layout: "
+                f"{len(source_image.members)} members, "
+                f"UDF {source_image.udf_volume_recognition_sequence}"
             )
 
-        mkps2iso = resolve_tool(config["toolchain"]["mkps2iso"])
-        dumps2iso = resolve_tool(config["toolchain"]["dumps2iso"])
-        print(
-            f"[OK] mkps2iso toolchain {config['toolchain']['version']} "
-            f"({config['toolchain']['commit'][:12]})"
-        )
-
-        original_tree = resolve_project_path(
-            config["workspace"]["original_tree"]
-        )
-        staging_tree = resolve_project_path(
-            config["workspace"]["staging_tree"]
-        )
-        base_xml = resolve_project_path(config["workspace"]["base_xml"])
-        build_xml = resolve_project_path(config["workspace"]["build_xml"])
-        lba_log = resolve_project_path(config["workspace"]["lba_log"])
-        expected_paths = set(member_map(source_image))
-        extract_original_layout(
-            dumps2iso,
-            source_iso,
-            original_tree,
-            base_xml,
-            expected_paths,
-            volume_id=config["layout"]["volume_id"],
-            refresh=args.refresh_extraction,
-        )
-        verify_extracted_members(source_image, original_tree)
-
-        hardlink_tree(original_tree, staging_tree)
-        install_replacements(config, staging_tree)
-        shift_by_member = dict(expected_shift_segments(config))
-        current_shift = 0
-        pinned_lbas = {}
-        for member_path in extent_order(source_image):
-            if member_path in shift_by_member:
-                current_shift = shift_by_member[member_path]
-            pinned_lbas[member_path] = (
-                member_map(source_image)[member_path].extent_lba
-                + current_shift
+            sector_budget = validate_replacement_sector_budget(
+                config,
+                source_image,
             )
-        write_build_xml(
-            base_xml,
-            build_xml,
-            staging_tree,
-            config["layout"]["volume_id"],
-            pinned_lbas,
-        )
+            if sector_budget["enforced"]:
+                print(
+                    "[OK] fixed-LBA sector budget: every replacement stays "
+                    "within its original member sectors"
+                )
 
-        output_path = resolve_project_path(config["output"]["path"])
-        command = run_mkps2iso(
-            mkps2iso,
-            build_xml,
-            output_path,
-            lba_log,
-        )
-        gap_overrides = apply_output_gap_overrides(config, output_path)
-        report = validate_output(config, source_image, output_path)
-        report["component_binding"] = component_binding
-        report["sector_budget"] = sector_budget
-        report["output_gap_overrides"] = gap_overrides
-        report["builder"] = {
-            "name": "mkps2iso",
-            "version": config["toolchain"]["version"],
-            "repository": config["toolchain"]["repository"],
-            "tag": config["toolchain"]["tag"],
-            "commit": config["toolchain"]["commit"],
-            "license_spdx": config["toolchain"]["license_spdx"],
-            "command": [
-                str(Path(value).relative_to(PROJECT_ROOT))
-                if value.startswith(str(PROJECT_ROOT))
-                else value
-                for value in command
-            ],
-        }
+            mkps2iso = resolve_tool(config["toolchain"]["mkps2iso"])
+            dumps2iso = resolve_tool(config["toolchain"]["dumps2iso"])
+            print(
+                f"[OK] mkps2iso toolchain {config['toolchain']['version']} "
+                f"({config['toolchain']['commit'][:12]})"
+            )
+
+            original_tree = resolve_project_path(
+                config["workspace"]["original_tree"]
+            )
+            staging_tree = resolve_project_path(
+                config["workspace"]["staging_tree"]
+            )
+            base_xml = resolve_project_path(config["workspace"]["base_xml"])
+            build_xml = resolve_project_path(config["workspace"]["build_xml"])
+            lba_log = resolve_project_path(config["workspace"]["lba_log"])
+            expected_paths = set(member_map(source_image))
+            extract_original_layout(
+                dumps2iso,
+                source_iso,
+                original_tree,
+                base_xml,
+                expected_paths,
+                volume_id=config["layout"]["volume_id"],
+                refresh=args.refresh_extraction,
+            )
+            verify_extracted_members(source_image, original_tree)
+
+            hardlink_tree(original_tree, staging_tree)
+            install_replacements(config, staging_tree)
+            shift_by_member = dict(expected_shift_segments(config))
+            current_shift = 0
+            pinned_lbas = {}
+            for member_path in extent_order(source_image):
+                if member_path in shift_by_member:
+                    current_shift = shift_by_member[member_path]
+                pinned_lbas[member_path] = (
+                    member_map(source_image)[member_path].extent_lba
+                    + current_shift
+                )
+            write_build_xml(
+                base_xml,
+                build_xml,
+                staging_tree,
+                config["layout"]["volume_id"],
+                pinned_lbas,
+            )
+
+            output_path = resolve_project_path(config["output"]["path"])
+            command = run_mkps2iso(
+                mkps2iso,
+                build_xml,
+                output_path,
+                lba_log,
+            )
+            gap_overrides = apply_output_gap_overrides(config, output_path)
+            report = validate_output(config, source_image, output_path)
+            report["component_binding"] = component_binding
+            report["sector_budget"] = sector_budget
+            report["output_gap_overrides"] = gap_overrides
+            report["builder"] = {
+                "name": "mkps2iso",
+                "version": config["toolchain"]["version"],
+                "repository": config["toolchain"]["repository"],
+                "tag": config["toolchain"]["tag"],
+                "commit": config["toolchain"]["commit"],
+                "license_spdx": config["toolchain"]["license_spdx"],
+                "command": [
+                    str(Path(value).relative_to(PROJECT_ROOT))
+                    if value.startswith(str(PROJECT_ROOT))
+                    else value
+                    for value in command
+                ],
+            }
 
         report_path = resolve_project_path(config["output"]["report"])
         report_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1128,6 +1269,7 @@ def main() -> int:
                 encoding="utf-8",
             )
             print(f"[refresh] working ISO locks: {config_path}")
+        _record_iso_cache(config, report_path)
         print(
             f"[OK] ISO: {report['output_iso']['size']} bytes, "
             f"SHA-256 {report['output_iso']['sha256']}"

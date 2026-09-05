@@ -45,6 +45,9 @@ from srwz.writers import (
 )
 
 
+from srwz.build_fingerprints import font_binary_signature
+
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORK_ROOT = PROJECT_ROOT / "work"
 DEFAULT_CONFIG = PROJECT_ROOT / "config/story-component.json"
@@ -63,6 +66,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--incremental", action="store_true",
+                        help="Reuse unchanged validated STAGE chunks.")
     parser.add_argument(
         "--workers",
         type=int,
@@ -1013,6 +1018,7 @@ def build(
     config_path: Path,
     *,
     workers: int = 4,
+    incremental: bool = False,
 ) -> tuple[dict[Path, bytes], dict]:
     if workers <= 0:
         raise SystemExit("story component workers must be positive")
@@ -1066,6 +1072,38 @@ def build(
     table = load_text_table(table_path)
     overrides.update(original_fullwidth_ascii_overrides(table))
     stage_message_encoders = PreparedStageMessageEncoders(table, overrides)
+
+    # Shared dependencies invalidate every chunk. Dialogue file hashes below
+    # invalidate only their own stage; editorial-only font selection is ignored.
+    cache_signature = sha256_bytes(json.dumps({
+        "config": config,
+        "font": font_binary_signature(proposal),
+        "files": {str(path.relative_to(PROJECT_ROOT)): _sha256(path) for path in [
+            Path(__file__), *sorted((PROJECT_ROOT / "tools/srwz").glob("*.py")),
+            conditions_path, speakers_path, allocation_path,
+        ]},
+    }, sort_keys=True, ensure_ascii=False).encode())
+    dialogue_hashes = {str(stage): _sha256(path) for stage, path in stage_files.items()}
+    cached_reports = {}
+    cached_stage = b""
+    output_root = require_work_output(
+        _project_path(config["outputs"]["component_root"]), WORK_ROOT
+    )
+    if incremental:
+        try:
+            previous = _json(output_root / "component-validation.json")
+            receipt = previous["chunk_cache"]
+            cached_stage = (output_root / "DATA/STAGE.BIN").read_bytes()
+            if (receipt["shared_signature"] == cache_signature
+                    and sha256_bytes(cached_stage) == previous["outputs"]["stage"]["sha256"]):
+                cached_reports = {
+                    row["stage_index"]: row for row in
+                    previous["stages"] + previous["auxiliary_only_stages"]
+                    if receipt["dialogue_sha256"].get(str(row["stage_index"]))
+                    == dialogue_hashes.get(str(row["stage_index"]))
+                }
+        except (OSError, ValueError, KeyError, TypeError):
+            pass  # Missing or damaged cache falls back to the reference builder.
 
     codec = config["codec"]
     if (
@@ -1436,15 +1474,20 @@ def build(
         }
 
     ordered_stages = sorted(stages)
+    def build_or_reuse(stage):
+        if stage in cached_reports:
+            return stage, cached_stage[offsets[stage]:offsets[stage + 1]], cached_reports[stage]
+        return build_stage(stage)
+
     if workers == 1:
-        built_stages = map(build_stage, ordered_stages)
+        built_stages = map(build_or_reuse, ordered_stages)
         executor = None
     else:
         executor = ThreadPoolExecutor(
             max_workers=min(workers, len(ordered_stages)),
             thread_name_prefix="srwz-stage",
         )
-        built_stages = executor.map(build_stage, ordered_stages)
+        built_stages = executor.map(build_or_reuse, ordered_stages)
     output_chunks = list(source_chunks)
     stage_reports = []
     try:
@@ -1458,7 +1501,11 @@ def build(
     auxiliary_stages = set(tickers_by_stage) | set(z_reports_by_stage)
     auxiliary_only_stage_reports = []
     for stage in sorted(auxiliary_stages - stages):
-        stage, output_chunk, stage_report = build_auxiliary_only_stage(stage)
+        if stage in cached_reports:
+            output_chunk = cached_stage[offsets[stage]:offsets[stage + 1]]
+            stage_report = cached_reports[stage]
+        else:
+            stage, output_chunk, stage_report = build_auxiliary_only_stage(stage)
         output_chunks[stage] = output_chunk
         auxiliary_only_stage_reports.append(stage_report)
 
@@ -1603,6 +1650,11 @@ def build(
         "schema_version": 1,
         "status": "offline_components_validated_runtime_not_tested",
         "profile_id": config["profile_id"],
+        "font_binary_signature": font_binary_signature(proposal),
+        "chunk_cache": {
+            "shared_signature": cache_signature,
+            "dialogue_sha256": dialogue_hashes,
+        },
         "inputs": {
             "config": {"path": str(config_path.relative_to(PROJECT_ROOT)), "sha256": _sha256(config_path)},
             "source_slps": {"path": str(slps_path.relative_to(PROJECT_ROOT)), "sha256": sha256_bytes(source_slps)},
@@ -1731,7 +1783,7 @@ def build(
 def main() -> int:
     args = parse_args()
     config_path = args.config.resolve()
-    outputs, report = build(config_path, workers=args.workers)
+    outputs, report = build(config_path, workers=args.workers, incremental=args.incremental)
     report_path = next(iter(outputs)).parents[1] / "component-validation.json"
     if report_path.exists() and not args.force:
         raise SystemExit(f"output exists; use --force: {report_path}")

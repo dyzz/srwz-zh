@@ -20,6 +20,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path, PurePosixPath
 from typing import Callable, Iterable, Mapping
 
+from srwz.build_fingerprints import font_binary_signature as _font_binary_signature
 from srwz.iso_layout import CORE_ARCHIVE_SPECS
 from srwz.ui_atlas_suite import UiAtlasSuiteError, build_ui_atlas_suite
 
@@ -59,6 +60,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--iso-config", type=Path, default=DEFAULT_ISO_CONFIG)
     parser.add_argument("--chain-config", type=Path, default=DEFAULT_CHAIN_CONFIG)
+    parser.add_argument("--components-only", action="store_true",
+                        help="Build the complete component set without writing an ISO.")
     parser.add_argument(
         "--refresh-manifests",
         action="store_true",
@@ -596,26 +599,74 @@ def _assert_full_component_dependencies_current() -> None:
         )
 
 
-def _ui_atlas_cache_is_current(chain: Mapping[str, object]) -> tuple[bool, str]:
+def _ui_atlas_cache_is_current(
+    chain: Mapping[str, object], *, reconstruct: bool = False,
+    verified_files: Mapping[str, str] | None = None,
+) -> tuple[bool, str]:
     raw_suite = chain.get("atlas_suite")
     if not isinstance(raw_suite, str):
         return False, "font chain has no atlas suite"
     suite_path = _project_path(raw_suite)
     try:
         suite = _load_object(suite_path)
-        archive, report = build_ui_atlas_suite(PROJECT_ROOT, suite_path)
         archive_path = _project_path(
             f"{suite['outputs']['component_root']}/KURODATA/KVMDATA.BIN"
         )
         manifest_path = _project_path(suite["outputs"]["manifest"])
-        if not archive_path.is_file() or archive_path.read_bytes() != archive:
-            return False, "combined atlas output is missing or stale"
-        if not manifest_path.is_file() or _load_object(manifest_path) != report:
-            return False, "combined atlas manifest is missing or stale"
+        if not manifest_path.is_file():
+            return False, "combined atlas manifest is missing"
+        report = _load_object(manifest_path)
+        if reconstruct:
+            archive, expected_report = build_ui_atlas_suite(PROJECT_ROOT, suite_path)
+            if not archive_path.is_file() or archive_path.read_bytes() != archive:
+                return False, "combined atlas output is missing or stale"
+            if report != expected_report:
+                return False, "combined atlas manifest is stale"
+        else:
+            # A reviewed composition is already bound to each component's
+            # config, report and archive. Recheck those identities; rebuilding
+            # the same byte ownership map adds no information for a text edit.
+            if (
+                report.get("inputs", {}).get("config", {}).get("sha256")
+                != _sha256(suite_path)
+                or not report.get("acceptance")
+                or not all(report["acceptance"].values())
+                or report.get("outputs", {}).get("archive") != suite.get("expected_output")
+            ):
+                return False, "combined atlas proof no longer matches its config"
+            pending = [suite, report]
+            component_manifests = {
+                item["manifest"]["path"] for item in suite["components"]
+            }
+            checked = dict(verified_files or {})
+            while pending:
+                document = pending.pop()
+                for reference in _iter_path_references(document):
+                    if "sha256" not in reference:
+                        continue
+                    raw = reference["path"]
+                    if raw == suite["source"]["member"]["member"]:
+                        continue  # ISO-relative archive name, not a project file.
+                    expected = reference["sha256"]
+                    if raw in checked:
+                        if checked[raw] != expected:
+                            return False, f"conflicting atlas input locks: {raw}"
+                        continue
+                    if not _content_reference_matches(reference):
+                        return False, f"atlas input or output changed: {raw}"
+                    checked[raw] = expected
+                    if raw in component_manifests:
+                        pending.append(_load_object(_project_path(raw))["inputs"])
+            archive_reference = {
+                "path": str(archive_path.relative_to(PROJECT_ROOT.resolve())),
+                **suite["expected_output"],
+            }
+            if not _reference_matches(archive_reference):
+                return False, "combined atlas output is missing or stale"
         integrated = _load_object(PROJECT_ROOT / "config/full-story-components.json")
         if not _reference_matches(integrated.get("kvmdata", {})):
             return False, "integrated KVMDATA lock is missing or stale"
-        return True, "deterministic suite, manifest, and KVMDATA lock match"
+        return True, "reviewed suite inputs, manifests, and KVMDATA SHA-256 match"
     except (KeyError, OSError, TextUpdateBuildError, UiAtlasSuiteError) as error:
         return False, str(error)
 
@@ -694,24 +745,6 @@ def _incremental_component_arguments(*, refresh_manifest: bool) -> list[str]:
     if refresh_manifest:
         arguments.append("--refresh-manifest")
     return arguments
-
-
-def _font_binary_signature(proposal: Mapping[str, object]) -> str:
-    """Hash proposal fields that can affect font component bytes."""
-
-    binary = {
-        key: value
-        for key, value in proposal.items()
-        if key != "ui_selection"
-    }
-    return hashlib.sha256(
-        json.dumps(
-            binary,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        ).encode("utf-8")
-    ).hexdigest()
 
 
 def _assignment_mapping_sha256(assignments: list[object]) -> str:
@@ -842,10 +875,18 @@ def _story_component_cache_is_current(
     inputs = report.get("inputs")
     if not isinstance(inputs, dict):
         return False, "story component input locks are missing"
+    proposal_reference = inputs.get("proposal", {})
+    proposal_path = proposal_reference.get("path")
+    same_font = bool(
+        isinstance(proposal_path, str)
+        and report.get("font_binary_signature")
+        == _font_binary_signature(_load_object(_project_path(proposal_path)))
+    )
     stale_inputs = [
         label
         for label, reference in inputs.items()
-        if isinstance(reference, dict)
+        if not (label == "proposal" and same_font)
+        and isinstance(reference, dict)
         and isinstance(reference.get("path"), str)
         and not _content_reference_matches(reference)
     ]
@@ -860,6 +901,23 @@ def _story_component_cache_is_current(
     if stale_outputs:
         return False, "story component output changed: " + ", ".join(stale_outputs)
     return True, "story inputs and outputs match locked SHA-256"
+
+
+def _rebind_story_font_proposal(*, refresh_manifests: bool) -> None:
+    integrated = _load_object(PROJECT_ROOT / "config/full-story-components.json")
+    path = _project_path(integrated["full_story_stage"]["report"]["path"])
+    report = _load_object(path)
+    reference = report["inputs"]["proposal"]
+    if _content_reference_matches(reference):
+        return
+    proposal = _load_object(_project_path(reference["path"]))
+    if report.get("font_binary_signature") != _font_binary_signature(proposal):
+        raise TextUpdateBuildError("story font mapping changed; rebuild STAGE")
+    if not refresh_manifests:
+        raise TextUpdateBuildError("story font proof drift; rerun with --refresh-manifests")
+    reference["sha256"] = _sha256(_project_path(reference["path"]))
+    _write_object(path, report)
+    print("[refresh] rebound unchanged STAGE bytes to current font selection", flush=True)
 
 
 def _library_component_cache_is_current(
@@ -965,6 +1023,7 @@ def _rebuild_release_font(
     prior_proposal = (
         _load_object(proposal_path) if strict_cache_current else None
     )
+    raster_handoff = str(proposal_path.with_suffix(".rasters.json"))
     _run_python(
         [
             "tools/prepare_zh_release_font.py",
@@ -972,6 +1031,8 @@ def _rebuild_release_font(
             raw_release,
             "--force",
             "--reuse-raster-cache",
+            "--raster-output",
+            raster_handoff,
         ]
     )
     current_proposal = _load_object(proposal_path)
@@ -999,6 +1060,8 @@ def _rebuild_release_font(
                 raw_release,
                 "--proposal",
                 str(outputs["proposal"]),
+                "--raster-input",
+                raster_handoff,
                 "--allocation-registry",
                 str(snapshot["path"]),
                 "--output-root",
@@ -1032,6 +1095,7 @@ def _rebuild_story_and_library(
 ) -> dict[str, bool]:
     story = [
         "tools/build_story_component.py",
+        "--incremental",
         "--config",
         "config/story-component.json",
         "--workers",
@@ -1107,11 +1171,12 @@ def build(args: argparse.Namespace) -> dict[str, object]:
     text_component_cache: dict[str, object] | None = None
     source_iso = _project_path(iso_config.get("source_iso", {}).get("path"))
 
-    _timed(
-        timings,
-        "reject untracked production JSON",
-        _assert_no_untracked_production_json,
-    )
+    if args.release_proof:
+        _timed(
+            timings,
+            "reject untracked production JSON",
+            _assert_no_untracked_production_json,
+        )
 
     original_iso_cache = _timed(
         timings,
@@ -1209,7 +1274,10 @@ def build(args: argparse.Namespace) -> dict[str, object]:
     cache_current, cache_reason = _timed(
         timings,
         "validate reusable rendered UI assets",
-        lambda: _ui_atlas_cache_is_current(chain),
+        lambda: _ui_atlas_cache_is_current(
+            chain, reconstruct=args.release_proof,
+            verified_files={iso_config["source_iso"]["path"]: iso_config["source_iso"]["sha256"]},
+        ),
     )
     existing_ui_output = _ui_atlas_output_exists(chain)
     if not cache_current and existing_ui_output and not args.force_full:
@@ -1280,6 +1348,12 @@ def build(args: argparse.Namespace) -> dict[str, object]:
                 build_library=rebuild_library,
             ),
         )
+        if not rebuild_story:
+            _timed(
+                timings,
+                "rebind unchanged STAGE to current font selection",
+                lambda: _rebind_story_font_proposal(refresh_manifests=args.refresh_manifests),
+            )
         if not rebuild_library and font_component_cache["reused"]:
             _timed(
                 timings,
@@ -1341,7 +1415,16 @@ def build(args: argparse.Namespace) -> dict[str, object]:
         ),
     )
 
+    if getattr(args, "components_only", False):
+        return {
+            "schema_version": 1, "status": "components_validated_runtime_pending",
+            "mode": "full-assets" if full_mode else "incremental-components",
+            "phases": timings, "total_seconds": round(time.perf_counter() - started, 3),
+        }
+
     iso_arguments = ["tools/build_iso.py", "--config", str(iso_config_path)]
+    if not args.release_proof and not args.force_full:
+        iso_arguments.append("--incremental")
     if args.refresh_manifests:
         iso_arguments.append("--refresh-output-locks")
     _timed(
@@ -1377,7 +1460,11 @@ def build(args: argparse.Namespace) -> dict[str, object]:
 
     final_config = _load_object(iso_config_path)
     output_path = _project_path(final_config["output"]["path"])
-    output_size, output_digest = _file_identity(output_path)
+    # The ISO builder has just read back the image and recorded its full hash.
+    # Rehashing the same 3.7 GB a second time adds no independent evidence.
+    iso_report = _load_object(_project_path(final_config["output"]["report"]))
+    output_size = iso_report["output_iso"]["size"]
+    output_digest = iso_report["output_iso"]["sha256"]
     return {
         "schema_version": 1,
         "status": (

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import json
+import os
 import struct
 import subprocess
 import zlib
@@ -900,7 +901,7 @@ def build_world_map_titles(
         return member, start, end, output_stored, headroom, same_text, report
 
     with ThreadPoolExecutor(
-        max_workers=min(4, len(expected_members)),
+        max_workers=min(8, max(1, (os.cpu_count() or 1) // 2), len(expected_members)),
         thread_name_prefix="srwz-mapmodel-title",
     ) as executor:
         built_members = executor.map(build_member, expected_members)

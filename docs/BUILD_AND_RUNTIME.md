@@ -68,10 +68,19 @@ python3 tools/build_release.py \
 
 `extract_iso_member.py` 只建立 `work/disc/` 原版成员缓存。`rebuild_zh_font.py` 从这些
 原版成员开始，生成全局字体，构建 reviewed LIBRARY、剧情和 UI 图集，再合并全部
-21 个最终成员。菜单文本和标题菜单分别由
+23 个最终成员。菜单文本和标题菜单分别由
 `corpus/zh/menu/release-v0.3.json` 与 `config/assets/title-menu-zh.json` 直接写入；
 旧发布 ISO、旧汉化成员和发布用 xdelta 都不是构建依赖。普通构建不修改配置中的哈希
 与快照；只有确认生产输入发生变化后，才使用各入口提供的 `--refresh-*` 选项。
+
+强制全量路径会重新生成全部资源，但同一次构建的字体灰度图只生成一遍：proposal
+准备步骤通过 `.rasters.json` 传给字体组件，组件核对 proposal 摘要、逐字灰度摘要、
+量化像素及 packed glyph 摘要后写入。独立运行字体组件且没有 `--raster-input` 时仍
+重新光栅化。MAPMODEL 标题／地形链与其他集成资源并行，VEFF 菜单／教学标题链在
+所需 SLPS 数据完成后与 STAGE 后处理并行；各归档内部写入顺序保持不变，全部任务
+成功才落盘最终组件。Rust 编解码为每个线程复用进程，通过管道传输，保持原有算法、
+解码限制和压缩预算。更新 codec 源码后先执行 `python3 tools/build_rust_compressor.py --force`；
+文本构建入口会自动重建该工具。
 
 ## 文本审阅后的 ISO 构建
 
@@ -87,8 +96,9 @@ python3 tools/build_text_update_iso.py --refresh-manifests
 重新读取整盘。之后从所有 Git 跟踪的配置收集 `work/disc/` 原版成员锁；缓存缺失或
 漂移时会从原版镜像重新提取，不能把旧组件当作事实源。Rust codec 从仓库
 源码以 `Cargo.lock` 重建，`mkps2iso` 与字体分别按固定 commit／哈希准备。已经审核的
-UI 图集只有在配置、各组件 manifest、组件归档和最终 `KVMDATA` 全部确定性吻合时才会
-复用。clean checkout 缺少图集输出时会自动 bootstrap；已有输出与锁发生漂移时快速
+UI 图集按配置、各组件 manifest、直接输入和最终 `KVMDATA` 的 SHA-256 复用，日常检查
+不再重新组合归档和重算逐字节所有权。`--release-proof` 保留确定性重组复验。
+clean checkout 缺少图集输出时会自动 bootstrap；已有输出与锁发生漂移时快速
 失败，要求先完成资源审核，或显式使用 `--force-full`，避免文本构建悄悄变成全资源构建。
 
 文本路径使用 `build_full_story_components.py --incremental`，根据已审核的完整组件
@@ -96,16 +106,31 @@ manifest 和输入锁只重建受影响的物理成员。`SLPS_258.87` 与 `MTV_
 闭合的依赖组：任一侧需要重建时会同时重建，并要求 SLPS 内偏移表末值与实际归档
 大小完全相等。字体准备仍会重新扫描当前文本覆盖范围；字体来源、fallback、raster
 参数和分配表锁未变化时复用 proposal 中逐字形的 raster 哈希。如果字体的二进制
-proposal 也未变化，则继续复用字体组件，只更新文本选择验证元数据。默认只生成一次
-ISO，并执行固定 LBA、成员扇区预算和结构校验。各阶段
+proposal 也未变化，则继续复用字体组件，只更新文本选择验证元数据。日常 ISO 使用
+`build_iso.py --incremental`：已有工作镜像、原盘文件身份及配置均匹配上次证明，且
+替换成员大小不变时，克隆原镜像并只写入变更成员。macOS 使用 APFS clone；其他平台
+退回文件复制。变更成员重新回读，并执行固定 LBA、成员扇区预算、结构校验和最终
+整盘 SHA-256；未改区域沿用克隆前的证明。文件身份、布局、成员大小、构建实现或
+receipt 不匹配时自动使用完整 mkps2iso 路径；冻结 release profile 不使用此复用。
+各阶段
 耗时和最终哈希记录在
 `work/build/zh-release-full-story/text-update-build.json`；运行时状态仍保持 pending，
 不会由该入口自动执行 PCSX2。
 
-剧情和 reviewed LIBRARY 也分别按输入与输出 SHA-256 判断是否需要重建。字体覆盖
-manifest 变化、但字体 proposal 与 LIBRARY 二进制输入均未变化时，只更新二者之间的
-验证绑定，不重新压缩资料库。所有这类复用都要求已有输出与受跟踪锁完全一致；clean
+剧情和 reviewed LIBRARY 也分别按输入与输出 SHA-256 判断是否需要重建。字体 proposal
+的 `ui_selection` 只记录语料选择；它变化而其余字体字段不变时，继续复用未受影响的
+STAGE、LIBRARY、NISV、VEFF 和 MAPMODEL，并更新报告绑定。真正的映射、字形、字体源、
+alias 等变化仍使相关消费者失效。整合阶段没有受影响成员时，只验证上游验收状态并
+重绑报告，不再进入全量 writer。旧增量状态没有字体语义指纹时会保守重建；一次成功
+构建后自动写入新版状态。所有这类复用都要求已有输出与受跟踪锁完全一致；clean
 checkout 缺少缓存时仍会自动走完整 bootstrap。
+
+对白文件变化现在按关卡处理。`build_story_component.py --incremental` 把共享输入和
+逐关卡对白摘要分开，未变关卡复用上一份已验证的压缩块及报告；条件、说话人、编码、
+共享配置或实现变化会使相关缓存失效。集成层只重新执行变更关卡的编队名和关键词
+写入，其他关卡沿用最终产物。第 0 块、后处理输入或实现变化，以及旧版缓存没有逐块
+证明时，回退完整 STAGE 集成。压缩预算、文本控制标记、写入前像、指针和回读检查继续
+在实际修改的关卡上执行。
 
 准备发布候选、刷新完整 ISO 内容回读 manifest，或需要当前构建的确定性证明时使用：
 
@@ -113,8 +138,9 @@ checkout 缺少缓存时仍会自动走完整 bootstrap。
 python3 tools/build_text_update_iso.py --refresh-manifests --release-proof
 ```
 
-`--release-proof` 会在正常 ISO 构建之后强制执行完整语义回读，再生成一次 ISO 验证
-确定性。这两步保留为发布门禁，不再占用每轮文本审阅候选的等待时间。
+`--release-proof` 使用完整 ISO 构建，之后强制执行完整语义回读，再生成一次 ISO 验证
+确定性，并检查生产 JSON 是否被 Git 跟踪。日常候选允许尚未 `git add` 的生产 JSON；
+源文件、编码、容量和输出校验照常执行。
 
 只准备或核对可重建前提而不写组件／ISO，可使用：
 
@@ -127,12 +153,23 @@ python3 tools/build_text_update_iso.py --prepare-only
 
 ## 日常构建缓存
 
-完整冷构建成功后，`rebuild_zh_font.py --skip-fetch` 会在 `work/cache/` 写入内容寻址
+完整冷构建成功后，`rebuild_zh_font.py` 会在 `work/cache/` 写入内容寻址
 receipt。后续相同命令先按 SHA-256 核对生产构建代码、配置、受管语料、锁定输入和最终
-组件输出；完整 inventory 一致就直接复用。若只有局部输入变化，最终组件整合会按成员
-依赖重建，继续复用输入未变且已经审核的 NISV、VEFF、MAPMODEL 等冻结成员；不会重演
-这些资源的 rasterize、PSMT4/8 swizzle 和逐像素验收。缺文件、锁漂移或未知依赖变化
-仍直接失败。`--force-rebuild` 才显式要求全量重算。
+组件输出；完整 inventory 一致就直接复用。构建实现和图集未变、只有局部输入变化时，
+全量入口直接使用与文本入口相同的组件依赖流程，生成完整组件集合，复用字体、资料库
+及未变关卡；不会先重跑全部字体、图集和剧情。最终组件整合按成员依赖重建，继续复用
+输入未变且已经审核的 NISV、VEFF、MAPMODEL 等冻结成员；不会重演
+这些资源的 rasterize、PSMT4/8 swizzle 和逐像素验收。缺失或过期的可重建缓存回退
+相应构建；无法解释的输入锁漂移或未知依赖变化仍报错。`--force-rebuild` 才显式要求
+全量重算。正常缓存命中也不再要求 `--skip-fetch`，已有完整内容证明时不重复获取字体。
+
+`--refresh-manifests` 也可以命中完整缓存：若所有输入、manifest 和输出原本就一致，
+没有需要刷新或重建的内容。全量重建中的 UI atlas 和 suite 各生成一次，随后直接核对
+落盘字节与本次内存产物并核对／刷新 manifest，不再自动调用 verify 重建第二次。
+独立的 `ui_atlas.py verify` 和 `verify-suite` 仍可用于显式重现性检查。
+
+只需完整组件集合、暂不生成 ISO，也可以直接运行
+`python3 tools/build_text_update_iso.py --refresh-manifests --components-only`。
 
 `verify_full_story_iso_content.py` 的完整回读通过后也会保存独立 receipt。日常生成候选
 可以在 `build_iso.py` 后停止；完整 ISO 语义回读用于发布候选、固定 LBA/成员映射改动和

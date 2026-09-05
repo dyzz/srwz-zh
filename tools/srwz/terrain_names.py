@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import struct
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
@@ -391,7 +392,7 @@ def build_terrain_names(
 
     ordered_members = sorted(rows_by_member.items())
     with ThreadPoolExecutor(
-        max_workers=min(4, len(ordered_members)),
+        max_workers=min(8, max(1, (os.cpu_count() or 1) // 2), len(ordered_members)),
         thread_name_prefix="srwz-terrain",
     ) as executor:
         for start, end, rebuilt, member_report in executor.map(

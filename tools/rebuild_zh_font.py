@@ -42,6 +42,7 @@ BUILD_DEFINITION_ROOTS = (
     "tools/verify_zh_release_font.py",
     "tools/build_library_v02_component.py",
     "tools/build_story_component.py",
+    "tools/build_text_update_iso.py",
     "tools/ui_atlas.py",
     "tools/build_full_story_components.py",
     "tools/build_aid_battle_prompts.py",
@@ -181,6 +182,15 @@ def _chain_cache_inventory(chain: dict) -> set[Path]:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     paths.add(manifest_path.resolve())
     paths.update(collect_locked_paths(PROJECT_ROOT, manifest))
+    # The final composition also owns LIBRARY, AID and TRICMN outputs. Include
+    # those before allowing --refresh-manifests to reuse the complete chain.
+    combined_path = (
+        PROJECT_ROOT / "manifests/full-story-library-components-validation.json"
+    )
+    paths.add(combined_path.resolve())
+    if combined_path.is_file():
+        combined = json.loads(combined_path.read_text(encoding="utf-8"))
+        paths.update(collect_locked_paths(PROJECT_ROOT, combined))
     codec = PROJECT_ROOT / (
         "work/toolchain/srwz-compressor-rs/target/release/srwz-compress"
     )
@@ -191,9 +201,7 @@ def _chain_cache_inventory(chain: dict) -> set[Path]:
 
 def _cache_eligible(args: argparse.Namespace) -> bool:
     return bool(
-        args.skip_fetch
-        and not args.skip_assets
-        and not args.refresh_manifests
+        not args.skip_assets
         and not args.refresh_asset_ratchets
         and not args.force_rebuild
     )
@@ -233,19 +241,9 @@ def _refresh_atlas_ratchet(reference: str) -> None:
 
 
 def _build_atlas(reference: str, *, refresh_manifest: bool) -> None:
-    _run(
-        "tools/ui_atlas.py",
-        "build",
-        "--config",
-        reference,
-        "--force",
-    )
     arguments = [
-        "tools/ui_atlas.py",
-        "verify",
-        "--config",
-        reference,
-        "--force",
+        "tools/ui_atlas.py", "build", "--config", reference,
+        "--force", "--verify-output",
     ]
     if refresh_manifest:
         arguments.append("--refresh-manifest")
@@ -310,6 +308,7 @@ def _build_story_and_atlases(
     refresh_manifest: bool,
     refresh_asset_ratchets: bool,
     atlas_workers: int,
+    after_atlases=None,
 ) -> None:
     """Build independent story/atlas outputs, with a serial escape hatch."""
 
@@ -326,6 +325,8 @@ def _build_story_and_atlases(
                 refresh_manifest=refresh_manifest,
                 refresh_asset_ratchet=refresh_asset_ratchets,
             )
+        if after_atlases is not None:
+            after_atlases()
         return
 
     # The story component and each atlas have distinct output roots and only
@@ -348,11 +349,12 @@ def _build_story_and_atlases(
             )
             for reference in atlas_references
         ]
-        # Surface failures in registration order while allowing all jobs to
-        # finish and clean up their own output directories first.
-        story_future.result()
         for future in atlas_futures:
             future.result()
+        # The suite needs only atlas outputs; compose it while story continues.
+        if after_atlases is not None:
+            after_atlases()
+        story_future.result()
 
 
 def _sync_suite_components(suite: dict, atlas_references: list[str]) -> None:
@@ -442,33 +444,25 @@ def _build_assets(
     print(f"[font-assets] {story_reference}", flush=True)
     for reference in atlas_references:
         print(f"[font-assets] {reference}", flush=True)
+    def build_suite():
+        if args.refresh_asset_ratchets:
+            _refresh_suite_ratchets(suite_reference, atlas_references)
+        suite_arguments = [
+            "tools/ui_atlas.py", "build-suite", "--config", suite_reference,
+            "--force", "--verify-output",
+        ]
+        if args.refresh_manifests:
+            suite_arguments.append("--refresh-manifest")
+        _run(*suite_arguments)
+
     _build_story_and_atlases(
         story_reference,
         atlas_references,
         refresh_manifest=args.refresh_manifests,
         refresh_asset_ratchets=args.refresh_asset_ratchets,
         atlas_workers=args.atlas_workers,
+        after_atlases=build_suite,
     )
-
-    if args.refresh_asset_ratchets:
-        _refresh_suite_ratchets(suite_reference, atlas_references)
-    _run(
-        "tools/ui_atlas.py",
-        "build-suite",
-        "--config",
-        suite_reference,
-        "--force",
-    )
-    suite_verify = [
-        "tools/ui_atlas.py",
-        "verify-suite",
-        "--config",
-        suite_reference,
-        "--force",
-    ]
-    if args.refresh_manifests:
-        suite_verify.append("--refresh-manifest")
-    _run(*suite_verify)
 
     if library_future is not None:
         # The reviewed LIBRARY build runs independently after the global font
@@ -665,6 +659,26 @@ def _build_assets(
     _run(*integrated_args)
 
 
+def _can_reuse_component_pipeline(chain: dict, args: argparse.Namespace) -> bool:
+    """Use the same per-component graph for a normal complete build."""
+    if not _cache_eligible(args):
+        return False
+    try:
+        cached = _load(args.cache)
+        locks = {row["path"]: row for row in cached["files"]}
+        tooling = collect_tree_paths(PROJECT_ROOT, (
+            raw for raw in BUILD_DEFINITION_ROOTS if raw.startswith("tools/")
+        ))
+        if any(locks.get(relative_path(PROJECT_ROOT, path)) != _file_lock(relative_path(PROJECT_ROOT, path))
+               for path in tooling):
+            return False
+        import build_text_update_iso as pipeline
+        current, _ = pipeline._ui_atlas_cache_is_current(chain)
+        return current and not pipeline._font_cache_requires_force(chain)
+    except (OSError, ValueError, KeyError, TypeError):
+        return False
+
+
 def main() -> int:
     args = parse_args()
     if args.refresh_asset_ratchets and not args.refresh_manifests:
@@ -691,6 +705,22 @@ def main() -> int:
             )
             return 0
         print(f"[cache] miss: {validation.reason}", flush=True)
+    if _can_reuse_component_pipeline(chain, args):
+        import build_text_update_iso as pipeline
+        print("[build-mode] complete component set; reuse unchanged consumers", flush=True)
+        report = pipeline.build(argparse.Namespace(
+            iso_config=pipeline.DEFAULT_ISO_CONFIG, chain_config=args.config,
+            refresh_manifests=args.refresh_manifests, release_proof=False,
+            force_full=False, prepare_only=False, components_only=True,
+            story_workers=4, library_workers=4, atlas_workers=args.atlas_workers,
+        ))
+        pipeline._write_timing_report(
+            PROJECT_ROOT / "work/build/zh-release-full-story/component-update-build.json", report
+        )
+        write_verified_cache(project_root=PROJECT_ROOT, cache_path=args.cache,
+            kind=CACHE_KIND, paths=_chain_cache_inventory(chain), metadata=cache_metadata)
+        print(f"[OK] complete component set: {report['total_seconds']}s; runtime=pending")
+        return 0
     if not args.skip_fetch:
         _run("tools/fetch_zh_font.py", "--flavor", chain["font_flavor"])
     refresh = ["--refresh-manifest"] if args.refresh_manifests else []
@@ -706,13 +736,17 @@ def main() -> int:
     if not isinstance(outputs, dict) or not isinstance(snapshot, dict):
         raise SystemExit("Chinese release font outputs are malformed")
     print(f"[font-release] {release['font_profile_id']}", flush=True)
-    _run("tools/prepare_zh_release_font.py", "--config", release_reference, "--force")
+    raster_handoff = str(Path(outputs["proposal"]).with_suffix(".rasters.json"))
+    _run("tools/prepare_zh_release_font.py", "--config", release_reference,
+         "--raster-output", raster_handoff, "--force")
     _run(
         "tools/build_zh_font_component.py",
         "--font-config",
         release_reference,
         "--proposal",
         outputs["proposal"],
+        "--raster-input",
+        raster_handoff,
         "--allocation-registry",
         snapshot["path"],
         "--output-root",
