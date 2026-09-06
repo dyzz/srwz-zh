@@ -775,6 +775,7 @@ INCREMENTAL_FIXED_SLPS_REASONS = frozenset(
 
 REMAINING_UI_IMPACTS = {
     "compdata_direct_by_offset": {COMPDATA_MEMBER},
+    "compdata_render_control_prefixes_by_offset": {COMPDATA_MEMBER},
     "compdata_library_work_titles_by_offset": {COMPDATA_MEMBER},
     "compdata_context_help_by_offset": {COMPDATA_MEMBER},
     "compdata_inline_by_offset": {COMPDATA_MEMBER},
@@ -4963,6 +4964,7 @@ def _apply_fixed_span_translations(
     accepted_current_data: bytes | None = None,
     trailing_zero_padding_offsets: set[int] | None = None,
     protected_target_offsets: set[int] | None = None,
+    storage_control_prefixes: dict[str, str] | None = None,
 ) -> tuple[bytes, dict]:
     """Write a locked offset map inside audited fixed or zero-padded spans."""
 
@@ -4977,6 +4979,12 @@ def _apply_fixed_span_translations(
     zero_padding_extension_count = 0
     padding_offsets = trailing_zero_padding_offsets or set()
     protected_offsets = sorted(protected_target_offsets or set())
+    prefixes = storage_control_prefixes or {}
+    if not isinstance(prefixes, dict) or not set(prefixes).issubset(replacements):
+        raise FullStoryComponentError(
+            f"{label} storage-control prefix selection is invalid"
+        )
+    applied_prefixes = {}
     for raw_offset, raw_translation in sorted(
         replacements.items(), key=lambda item: int(item[0], 16)
     ):
@@ -5013,9 +5021,27 @@ def _apply_fixed_span_translations(
                 f"{label} placeholder/control drift at {raw_offset}: "
                 f"source={source.text!r} translation={translation!r}"
             )
+        storage_prefix = prefixes.get(raw_offset, "")
+        if storage_prefix:
+            if not isinstance(storage_prefix, str):
+                raise FullStoryComponentError(
+                    f"{label} storage-control prefix is invalid at {raw_offset}"
+                )
+            prefix_tokens = control_notation_tokens(storage_prefix)
+            if (
+                not prefix_tokens
+                or "".join(token.text for token in prefix_tokens)
+                != storage_prefix
+                or any(token.kind != "text_tag" for token in prefix_tokens)
+            ):
+                raise FullStoryComponentError(
+                    f"{label} storage-control prefix is invalid at {raw_offset}"
+                )
+            applied_prefixes[raw_offset] = storage_prefix
+        stored_translation = storage_prefix + translation
         try:
             encoded = encode_text(
-                translation,
+                stored_translation,
                 table,
                 overrides=encoding_overrides,
                 terminate=True,
@@ -5048,6 +5074,7 @@ def _apply_fixed_span_translations(
                 )
             capacity = len(encoded)
             end = requested_end
+            ranges[-1] = (offset, end)
             zero_padding_extension_count += 1
         current_span = current[offset:end]
         original_span = original[offset:end]
@@ -5075,7 +5102,7 @@ def _apply_fixed_span_translations(
             )
             if (
                 normalize_original_fullwidth_ascii(current_text.text)
-                not in {translation, accepted_current}
+                not in {translation, stored_translation, accepted_current}
                 and (
                     historical_current_text is None
                     or normalize_original_fullwidth_ascii(
@@ -5084,6 +5111,7 @@ def _apply_fixed_span_translations(
                     not in {
                         normalize_original_fullwidth_ascii(source.text),
                         translation,
+                        stored_translation,
                         accepted_current,
                     }
                 )
@@ -5114,12 +5142,12 @@ def _apply_fixed_span_translations(
                 if before != after
             )
         reread = decode_text(bytes(output), offset, output_table)
-        if reread.text != translation:
+        if reread.text != stored_translation:
             raise FullStoryComponentError(
                 f"{label} readback mismatch at {raw_offset}: "
-                f"expected={translation!r} actual={reread.text!r}"
+                f"expected={stored_translation!r} actual={reread.text!r}"
             )
-    return bytes(output), {
+    report = {
         "entry_count": len(replacements),
         "write_entry_count": write_count,
         "no_op_entry_count": no_op_count,
@@ -5131,6 +5159,10 @@ def _apply_fixed_span_translations(
         "placeholder_control_tokens_preserved": True,
         "reread_exact": True,
     }
+    if storage_control_prefixes is not None:
+        report["storage_control_prefix_entry_count"] = len(applied_prefixes)
+        report["storage_control_prefixes"] = applied_prefixes
+    return bytes(output), report
 
 
 def _raw_visible_ascii_glyphs(payload: bytes) -> tuple[tuple[int, str], ...]:
@@ -5756,6 +5788,9 @@ def _apply_remaining_ui(
 
     expected = reference.get("expected")
     direct = translations.get("compdata_direct_by_offset")
+    render_control_prefixes = translations.get(
+        "compdata_render_control_prefixes_by_offset", {}
+    )
     library_work_titles = translations.get(
         "compdata_library_work_titles_by_offset"
     )
@@ -5797,6 +5832,8 @@ def _apply_remaining_ui(
         )
         or not isinstance(part_entries, list)
         or len(part_entries) != expected.get("parts_entry_count")
+        or not isinstance(render_control_prefixes, dict)
+        or not set(render_control_prefixes).issubset(direct)
     ):
         raise FullStoryComponentError("remaining UI selection drift")
 
@@ -5836,6 +5873,11 @@ def _apply_remaining_ui(
         accepted_current_texts=accepted_current,
         accepted_current_table=current_table,
         accepted_current_data=release_menu_compdata,
+        storage_control_prefixes=render_control_prefixes,
+        trailing_zero_padding_offsets={
+            int(raw_offset, 16) for raw_offset in render_control_prefixes
+        },
+        protected_target_offsets={int(raw_offset, 16) for raw_offset in direct},
     )
     compdata_output, library_work_title_report = (
         _apply_library_work_title_slots(

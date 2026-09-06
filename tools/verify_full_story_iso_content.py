@@ -2627,8 +2627,20 @@ def verify_final_compdata(
         original: bytes,
         translations: dict[str, str],
         label: str,
+        *,
+        storage_control_prefixes: dict[str, str] | None = None,
     ) -> dict:
         minimum_headroom = None
+        zero_padding_extension_count = 0
+        prefixes = storage_control_prefixes or {}
+        if (
+            not isinstance(prefixes, dict)
+            or not set(prefixes).issubset(translations)
+        ):
+            raise SystemExit(f"{label} storage-control prefix selection drift")
+        protected_offsets = sorted(
+            int(raw_offset, 16) for raw_offset in translations
+        )
         for raw_offset, raw_translation in translations.items():
             offset = int(raw_offset, 16)
             source = decode_text(original, offset, source_table)
@@ -2646,23 +2658,70 @@ def verify_final_compdata(
                 raise SystemExit(
                     f"{label} control-token drift at {raw_offset}"
                 )
-            if actual.text != translation or actual.consumed > source.consumed:
+            storage_prefix = prefixes.get(raw_offset, "")
+            if storage_prefix:
+                if not isinstance(storage_prefix, str):
+                    raise SystemExit(
+                        f"{label} storage-control prefix drift at {raw_offset}"
+                    )
+                prefix_tokens = control_notation_tokens(storage_prefix)
+                if (
+                    not prefix_tokens
+                    or "".join(token.text for token in prefix_tokens)
+                    != storage_prefix
+                    or any(token.kind != "text_tag" for token in prefix_tokens)
+                ):
+                    raise SystemExit(
+                        f"{label} storage-control prefix drift at {raw_offset}"
+                    )
+            expected_stored = storage_prefix + translation
+            verified_capacity = source.consumed
+            if actual.consumed > source.consumed:
+                next_target = next(
+                    (
+                        protected_offset
+                        for protected_offset in protected_offsets
+                        if protected_offset > offset
+                    ),
+                    len(original),
+                )
+                extension_end = offset + actual.consumed
+                if (
+                    not storage_prefix
+                    or extension_end > next_target
+                    or any(
+                        original[
+                            offset + source.consumed : extension_end
+                        ]
+                    )
+                ):
+                    raise SystemExit(
+                        f"{label} unaudited span extension at {raw_offset}"
+                    )
+                verified_capacity = actual.consumed
+                zero_padding_extension_count += 1
+            if actual.text != expected_stored:
                 raise SystemExit(
                     f"{label} mismatch at {raw_offset}: "
-                    f"expected={translation!r} actual={actual.text!r}"
+                    f"expected={expected_stored!r} actual={actual.text!r}"
                 )
-            headroom = source.consumed - actual.consumed
+            headroom = verified_capacity - actual.consumed
             minimum_headroom = (
                 headroom
                 if minimum_headroom is None
                 else min(minimum_headroom, headroom)
             )
-        return {
+        report = {
             "entry_count": len(translations),
             "minimum_output_headroom": minimum_headroom,
+            "zero_padding_extension_count": zero_padding_extension_count,
             "placeholder_control_tokens_preserved": True,
             "readback_exact": True,
         }
+        if storage_control_prefixes is not None:
+            report["storage_control_prefix_entry_count"] = len(prefixes)
+            report["storage_control_prefixes"] = prefixes
+        return report
 
     def verify_inline_offset_map(
         data: bytes,
@@ -2824,6 +2883,9 @@ def verify_final_compdata(
         original_compdata.output,
         remaining_document["compdata_direct_by_offset"],
         "remaining COMPDATA UI",
+        storage_control_prefixes=remaining_document.get(
+            "compdata_render_control_prefixes_by_offset", {}
+        ),
     )
     canonical_work_titles = json.loads(
         (

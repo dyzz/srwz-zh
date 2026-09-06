@@ -15,9 +15,57 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from tools import build_full_story_components as full_components
 from tools import build_text_update_iso
 from tools import prepare_zh_release_font
+from tools.srwz.text import TextTable
 
 
 class TextUpdateIsoTests(unittest.TestCase):
+    def test_fixed_span_translation_can_add_a_locked_storage_control_prefix(self):
+        table = TextTable(
+            characters={},
+            tags={0x32: "width", 0x33: "height", 0x34: "space"},
+        )
+        original = b"ABC\x00" + bytes(6) + b"NEXT\x00"
+        output, report = full_components._apply_fixed_span_translations(
+            original,
+            original,
+            {"0x0": "AB", "0xA": "NEXT"},
+            table=table,
+            output_table=table,
+            encoding_overrides={},
+            label="test text",
+            storage_control_prefixes={
+                "0x0": "<width:15><height:15><space:15>"
+            },
+            trailing_zero_padding_offsets={0},
+            protected_target_offsets={0, 10},
+        )
+        self.assertEqual(output[:9], b"\x32\x15\x33\x15\x34\x15AB\x00")
+        self.assertEqual(output[9:], b"\x00NEXT\x00")
+        self.assertEqual(report["zero_padding_extension_count"], 1)
+        self.assertEqual(report["storage_control_prefix_entry_count"], 1)
+        self.assertEqual(
+            report["storage_control_prefixes"],
+            {"0x0": "<width:15><height:15><space:15>"},
+        )
+
+    def test_fixed_span_translation_rejects_visible_storage_prefix_text(self):
+        table = TextTable(characters={}, tags={0x32: "width"})
+        original = b"ABCDEFGHIJK\x00"
+        with self.assertRaisesRegex(
+            full_components.FullStoryComponentError,
+            "storage-control prefix is invalid",
+        ):
+            full_components._apply_fixed_span_translations(
+                original,
+                original,
+                {"0x0": "AB"},
+                table=table,
+                output_table=table,
+                encoding_overrides={},
+                label="test text",
+                storage_control_prefixes={"0x0": "X<width:15>"},
+            )
+
     def test_release_proof_is_opt_in(self):
         with patch.object(sys, "argv", ["build_text_update_iso.py"]):
             args = build_text_update_iso.parse_args()

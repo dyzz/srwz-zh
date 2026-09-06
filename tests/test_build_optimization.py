@@ -31,6 +31,21 @@ def lock(root, path):
 
 
 class BuildOptimizationTests(unittest.TestCase):
+    def test_compdata_render_control_prefix_invalidates_only_compdata(self):
+        affected, reasons = full._changed_remaining_ui_impacts(
+            {},
+            {
+                "compdata_render_control_prefixes_by_offset": {
+                    "0x7F520": "<width:15><height:15><space:15>"
+                }
+            },
+        )
+        self.assertEqual(affected, {full.COMPDATA_MEMBER})
+        self.assertEqual(
+            reasons,
+            ["remaining-ui:compdata_render_control_prefixes_by_offset"],
+        )
+
     def test_cached_iso_noop_still_requires_expected_output_hash(self):
         config = {
             "source_iso": {"path": "source.iso"},
