@@ -110,9 +110,15 @@ def apply_bazaar_top_help_alignment(
                 f"duplicate Bazaar top-help surface: {surface}"
             )
         seen_surfaces.add(surface)
-        if not isinstance(text, str) or not text.startswith("："):
+        if (
+            not isinstance(text, str)
+            or not text.startswith("　")
+            or text.startswith("　　")
+            or "：" in text
+        ):
             raise BazaarTopHelpAlignmentError(
-                f"{surface} translated help text is invalid"
+                f"{surface} translated help text must replace the colon "
+                "with one fullwidth space"
             )
         if not isinstance(source_text, str) or not source_text.startswith("："):
             raise BazaarTopHelpAlignmentError(

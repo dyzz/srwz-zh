@@ -40,12 +40,33 @@ class BazaarTopHelpAlignmentTest(unittest.TestCase):
         self.assertEqual(report["site_count"], 4)
         self.assertEqual(report["changed_byte_count"], 4)
         self.assertTrue(report["text_bytes_untouched"])
+        self.assertTrue(
+            all(
+                patch["text"].startswith("　")
+                and not patch["text"].startswith("　　")
+                and "：" not in patch["text"]
+                for patch in report["patches"]
+            )
+        )
         for patch in self.contract["patches"]:
             offset = int(patch["instruction_file_offset"], 0)
             self.assertEqual(
                 output[offset : offset + 4],
                 bytes.fromhex(patch["replacement_instruction_hex"]),
             )
+
+    def test_translated_help_hides_colons_with_fullwidth_spaces(self) -> None:
+        translations = json.loads(
+            (
+                PROJECT_ROOT / "corpus/zh/menu/remaining-ui.json"
+            ).read_text(encoding="utf-8")
+        )["slps_context_ui_by_offset"]
+
+        for patch in self.contract["patches"]:
+            text = translations[patch["source_string_file_offset"]]
+            self.assertEqual(text, patch["text"])
+            self.assertTrue(text.startswith("　"))
+            self.assertNotIn("：", text)
 
     def test_rejects_coordinate_preimage_drift(self) -> None:
         slps = bytearray(0xD0600)

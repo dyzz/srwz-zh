@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import unittest
 from pathlib import Path
@@ -16,6 +17,29 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 class UiAtlasLocalizationTest(unittest.TestCase):
+    def test_bazaar_render_snapshot_is_reviewed_and_locked(self) -> None:
+        config = json.loads(
+            (
+                PROJECT_ROOT / "config/assets/ui-bazaar-atlas-zh.json"
+            ).read_text(encoding="utf-8")
+        )
+        reference = config["render_snapshot"]
+        snapshot_path = PROJECT_ROOT / reference["path"]
+        snapshot_data = snapshot_path.read_bytes()
+        snapshot = json.loads(snapshot_data.decode("utf-8"))
+
+        self.assertEqual(len(snapshot_data), reference["size"])
+        self.assertEqual(
+            hashlib.sha256(snapshot_data).hexdigest(),
+            reference["sha256"],
+        )
+        self.assertEqual(snapshot["status"], "reviewed_locked")
+        self.assertEqual(
+            snapshot["selection_authority"],
+            "frozen_rendered_text_masks",
+        )
+        self.assertEqual(snapshot["profile_id"], config["profile_id"])
+
     def test_absolute_outline_coverage_keeps_low_fringe_pixels_dark(self) -> None:
         mask = AtlasMask.from_mapping(
             {
