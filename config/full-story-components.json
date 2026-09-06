@@ -842,6 +842,25 @@
         }
       ]
     },
+    "command_status_label_alignment": {
+      "member": "SLPS_258.87",
+      "policy": "align_chinese_sr_points_with_turn_count",
+      "source_reference": "original Japanese executable map-command status draw routine",
+      "elf_file_offset_base": "0x0",
+      "elf_virtual_address_base": "0xFE580",
+      "shift_pixels": 8,
+      "patch": {
+        "surface": "map_command_status_sr_points",
+        "source_text": "ＳＲポイント",
+        "translated_text": "SR点数",
+        "original_x": -20,
+        "replacement_x": -12,
+        "instruction_virtual_address": "0x351EA4",
+        "instruction_file_offset": "0x253924",
+        "original_instruction_hex": "ECFF0526",
+        "replacement_instruction_hex": "F4FF0526"
+      }
+    },
     "remaining_squad_count_alignment": {
       "member": "SLPS_258.87",
       "policy": "move_printf_number_right_without_touching_adjacent_text",

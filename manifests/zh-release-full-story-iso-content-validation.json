@@ -5,7 +5,7 @@
   "iso": {
     "path": "build/iso/zh-release-full-story/srwz-zh-current.iso",
     "size": 3758358528,
-    "sha256": "968d0e7cd0cc0ec09ad2f12cb68b37a88a601444d97780a5d34b943620f0021b"
+    "sha256": "40f9b8d90dd0e445f9702dbe09c3e05a641619ceda01cb6037e6434c6ce4680a"
   },
   "stage_indices": [
     1,
@@ -895,8 +895,8 @@
     "changed_instruction_count": 0,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
-    "output_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
+    "source_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
+    "output_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -940,8 +940,8 @@
     "changed_byte_count": 0,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
-    "output_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
+    "source_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
+    "output_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
     "instruction_replacement_exact": true,
     "save_preview_formatter": {
       "virtual_address": "0x3E403C",
@@ -1524,8 +1524,8 @@
     "changed_byte_count": 0,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
-    "output_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
+    "source_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
+    "output_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
     "all_instruction_replacements_exact": true,
     "all_text_layout_replacements_exact": true,
     "all_runtime_color_retargets_exact": true,
@@ -1724,8 +1724,8 @@
     "changed_byte_count": 0,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
-    "output_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
+    "source_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
+    "output_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
     "all_replacements_exact": true,
     "executable_size_preserved": true,
     "component_receipt_exact": true
@@ -1808,8 +1808,8 @@
     "sibling_rows_preserved": true,
     "target_tail_preserved": true,
     "executable_size_preserved": true,
-    "source_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
-    "output_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
+    "source_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
+    "output_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
     "component_receipt_exact": true
   },
   "bazaar_top_help_alignment": {
@@ -1892,8 +1892,40 @@
     "all_instruction_replacements_exact": true,
     "text_bytes_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
-    "output_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
+    "source_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
+    "output_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
+    "component_receipt_exact": true
+  },
+  "command_status_label_alignment": {
+    "policy": "align_chinese_sr_points_with_turn_count",
+    "member": "SLPS_258.87",
+    "shift_pixels": 8,
+    "original_x": -20,
+    "replacement_x": -12,
+    "site_count": 1,
+    "patch": {
+      "surface": "map_command_status_sr_points",
+      "source_text": "ＳＲポイント",
+      "translated_text": "SR点数",
+      "instruction_virtual_address": "0x351EA4",
+      "instruction_file_offset": "0x253924",
+      "original_x": -20,
+      "replacement_x": -12,
+      "shift_pixels": 8,
+      "original_instruction_hex": "ECFF0526",
+      "replacement_instruction_hex": "F4FF0526",
+      "source_instruction_hex": "F4FF0526",
+      "output_instruction_hex": "F4FF0526",
+      "already_patched": true
+    },
+    "changed_byte_count": 0,
+    "changed_bytes_confined_to_coordinate_instruction": true,
+    "instruction_replacement_exact": true,
+    "text_bytes_untouched": true,
+    "turn_count_coordinate_untouched": true,
+    "executable_size_preserved": true,
+    "source_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
+    "output_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
     "component_receipt_exact": true
   },
   "remaining_squad_count_alignment": {
@@ -1915,8 +1947,8 @@
     "changed_byte_count": 0,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
-    "output_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
+    "source_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
+    "output_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -2107,8 +2139,8 @@
         "changed_byte_count": 0,
         "source_size": 3471624,
         "output_size": 3471624,
-        "source_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
-        "output_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
+        "source_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
+        "output_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
         "instruction_replacement_exact": true,
         "executable_size_preserved": true,
         "metadata": {
@@ -2191,8 +2223,8 @@
       "changed_byte_count": 0,
       "source_size": 3471624,
       "output_size": 3471624,
-      "source_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
-      "output_sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
+      "source_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
+      "output_sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
       "all_instruction_replacements_exact": true,
       "save_writeback_functions_unchanged": true,
       "executable_size_preserved": true,
@@ -5885,7 +5917,7 @@
   "members": {
     "SLPS_258.87": {
       "size": 3471624,
-      "sha256": "e7d0b23622b73c84662c57d511b0fde2168cb291f6237a705a2faccd8faf405d",
+      "sha256": "7d47e3eddc9f6cea3eb4f6d0b010148482d3ae9689954eeb416e98d77d9117e5",
       "replacement_exact": true
     },
     "DATA/COMPDATA.BN": {
@@ -11776,6 +11808,7 @@
     "search_tab_five_label_alignment_exact": true,
     "intermission_library_robot_encyclopedia_centered": true,
     "bazaar_purchase_help_shifted_left": true,
+    "command_status_labels_aligned": true,
     "remaining_squad_count_spacing_exact": true,
     "reviewed_library_components_exact": true,
     "runtime_keyword_surfaces_exact": true,

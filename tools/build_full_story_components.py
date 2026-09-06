@@ -123,6 +123,10 @@ try:
         BazaarTopHelpAlignmentError,
         apply_bazaar_top_help_alignment,
     )
+    from srwz.command_status_label_alignment import (
+        CommandStatusLabelAlignmentError,
+        apply_command_status_label_alignment,
+    )
     from srwz.remaining_squad_count_alignment import (
         RemainingSquadCountAlignmentError,
         apply_remaining_squad_count_alignment,
@@ -305,6 +309,10 @@ except ModuleNotFoundError:
     from tools.srwz.bazaar_top_help_alignment import (
         BazaarTopHelpAlignmentError,
         apply_bazaar_top_help_alignment,
+    )
+    from tools.srwz.command_status_label_alignment import (
+        CommandStatusLabelAlignmentError,
+        apply_command_status_label_alignment,
     )
     from tools.srwz.remaining_squad_count_alignment import (
         RemainingSquadCountAlignmentError,
@@ -10669,6 +10677,18 @@ def _build_components(
         ) from error
 
     try:
+        output_slps, command_status_label_alignment_report = (
+            apply_command_status_label_alignment(
+                output_slps,
+                config["remaining_ui"]["command_status_label_alignment"],
+            )
+        )
+    except (KeyError, ValueError, CommandStatusLabelAlignmentError) as error:
+        raise FullStoryComponentError(
+            f"command-status label alignment failed: {error}"
+        ) from error
+
+    try:
         output_slps, remaining_squad_count_alignment_report = (
             apply_remaining_squad_count_alignment(
                 output_slps,
@@ -11069,6 +11089,9 @@ def _build_components(
             intermission_library_alignment_report
         ),
         "bazaar_top_help_alignment": bazaar_top_help_alignment_report,
+        "command_status_label_alignment": (
+            command_status_label_alignment_report
+        ),
         "remaining_squad_count_alignment": (
             remaining_squad_count_alignment_report
         ),
@@ -11519,6 +11542,27 @@ def _build_components(
                 ]
                 and bazaar_top_help_alignment_report["text_bytes_untouched"]
                 and bazaar_top_help_alignment_report[
+                    "executable_size_preserved"
+                ]
+            ),
+            "command_status_labels_aligned": (
+                command_status_label_alignment_report["site_count"] == 1
+                and command_status_label_alignment_report["shift_pixels"] == 8
+                and command_status_label_alignment_report["original_x"] == -20
+                and command_status_label_alignment_report["replacement_x"] == -12
+                and command_status_label_alignment_report[
+                    "changed_bytes_confined_to_coordinate_instruction"
+                ]
+                and command_status_label_alignment_report[
+                    "instruction_replacement_exact"
+                ]
+                and command_status_label_alignment_report[
+                    "text_bytes_untouched"
+                ]
+                and command_status_label_alignment_report[
+                    "turn_count_coordinate_untouched"
+                ]
+                and command_status_label_alignment_report[
                     "executable_size_preserved"
                 ]
             ),

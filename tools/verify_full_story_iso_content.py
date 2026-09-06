@@ -90,6 +90,9 @@ from srwz.intermission_library_alignment import (
 from srwz.bazaar_top_help_alignment import (
     apply_bazaar_top_help_alignment,
 )
+from srwz.command_status_label_alignment import (
+    apply_command_status_label_alignment,
+)
 from srwz.remaining_squad_count_alignment import (
     apply_remaining_squad_count_alignment,
 )
@@ -5294,6 +5297,87 @@ def main() -> int:
     ):
         raise SystemExit("final ISO Bazaar top-help alignment readback drift")
     bazaar_top_help_alignment_readback["component_receipt_exact"] = True
+    command_status_alignment_contract = json.loads(
+        FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
+    )["remaining_ui"]["command_status_label_alignment"]
+    (
+        _verified_command_status_slps,
+        command_status_label_alignment_readback,
+    ) = apply_command_status_label_alignment(
+        members["SLPS_258.87"], command_status_alignment_contract
+    )
+    component_command_status_alignment = component.get(
+        "command_status_label_alignment"
+    )
+    command_status_receipt_fields = (
+        "policy",
+        "member",
+        "shift_pixels",
+        "original_x",
+        "replacement_x",
+        "site_count",
+    )
+    command_status_patch_fields = (
+        "surface",
+        "source_text",
+        "translated_text",
+        "instruction_virtual_address",
+        "instruction_file_offset",
+        "original_x",
+        "replacement_x",
+        "shift_pixels",
+        "original_instruction_hex",
+        "replacement_instruction_hex",
+        "output_instruction_hex",
+    )
+    normalized_command_status_readback = (
+        tuple(
+            command_status_label_alignment_readback.get(field)
+            for field in command_status_receipt_fields
+        ),
+        tuple(
+            command_status_label_alignment_readback["patch"].get(field)
+            for field in command_status_patch_fields
+        ),
+    )
+    normalized_command_status_component = (
+        (
+            tuple(
+                component_command_status_alignment.get(field)
+                for field in command_status_receipt_fields
+            ),
+            tuple(
+                component_command_status_alignment.get("patch", {}).get(field)
+                for field in command_status_patch_fields
+            ),
+        )
+        if isinstance(component_command_status_alignment, dict)
+        else None
+    )
+    if (
+        normalized_command_status_readback
+        != normalized_command_status_component
+        or command_status_label_alignment_readback["site_count"] != 1
+        or command_status_label_alignment_readback["shift_pixels"] != 8
+        or command_status_label_alignment_readback["original_x"] != -20
+        or command_status_label_alignment_readback["replacement_x"] != -12
+        or command_status_label_alignment_readback["changed_byte_count"] != 0
+        or not command_status_label_alignment_readback[
+            "changed_bytes_confined_to_coordinate_instruction"
+        ]
+        or not command_status_label_alignment_readback[
+            "instruction_replacement_exact"
+        ]
+        or not command_status_label_alignment_readback["text_bytes_untouched"]
+        or not command_status_label_alignment_readback[
+            "turn_count_coordinate_untouched"
+        ]
+        or not command_status_label_alignment_readback[
+            "executable_size_preserved"
+        ]
+    ):
+        raise SystemExit("final ISO command-status label alignment drift")
+    command_status_label_alignment_readback["component_receipt_exact"] = True
     remaining_count_alignment_contract = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )["remaining_ui"]["remaining_squad_count_alignment"]
@@ -7253,6 +7337,9 @@ def main() -> int:
             intermission_library_alignment_readback
         ),
         "bazaar_top_help_alignment": bazaar_top_help_alignment_readback,
+        "command_status_label_alignment": (
+            command_status_label_alignment_readback
+        ),
         "remaining_squad_count_alignment": (
             remaining_squad_count_alignment_readback
         ),
@@ -7499,6 +7586,31 @@ def main() -> int:
                 ]
                 and bazaar_top_help_alignment_readback["text_bytes_untouched"]
                 and bazaar_top_help_alignment_readback[
+                    "component_receipt_exact"
+                ]
+            ),
+            "command_status_labels_aligned": (
+                command_status_label_alignment_readback["site_count"] == 1
+                and command_status_label_alignment_readback["shift_pixels"] == 8
+                and command_status_label_alignment_readback["original_x"] == -20
+                and command_status_label_alignment_readback["replacement_x"] == -12
+                and command_status_label_alignment_readback[
+                    "changed_byte_count"
+                ]
+                == 0
+                and command_status_label_alignment_readback[
+                    "changed_bytes_confined_to_coordinate_instruction"
+                ]
+                and command_status_label_alignment_readback[
+                    "instruction_replacement_exact"
+                ]
+                and command_status_label_alignment_readback[
+                    "text_bytes_untouched"
+                ]
+                and command_status_label_alignment_readback[
+                    "turn_count_coordinate_untouched"
+                ]
+                and command_status_label_alignment_readback[
                     "component_receipt_exact"
                 ]
             ),
