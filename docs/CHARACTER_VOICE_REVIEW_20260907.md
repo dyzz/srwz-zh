@@ -101,3 +101,5 @@
 - **查尔斯**：`story/085/dialogue/02.02/0076` 的便利店／雷料理句已有明确暂缓决定，本轮保留。
 
 结构化清单：[story-battle-character-holds-20260907.json](../config/editorial/story-battle-character-holds-20260907.json)。全量意见与发声归属索引位于 `work/review/story-battle-polish-20260907/`。
+
+人物性格与口吻的后续工作已汇总到[人物优化待办](CHARACTER_PERSONALITY_BACKLOG_20260907.md)；该阶段只整理，不写回台词。

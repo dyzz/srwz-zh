@@ -1,0 +1,546 @@
+{
+  "schema_version": 1,
+  "review_id": "character-personality-backlog-20260907",
+  "date": "2026-09-07",
+  "status": "inventory_only",
+  "translation_writeback": false,
+  "requires_user_confirmation": false,
+  "authority": "用户要求先完成当前润色并commit，性格人设优化暂时只整理。",
+  "text_closeout_commits": [
+    {
+      "commit": "2b76c2d",
+      "scope": "普通润色92条"
+    },
+    {
+      "commit": "9120379",
+      "scope": "金卡拉姆自称114条"
+    },
+    {
+      "commit": "79cf63a",
+      "scope": "梅尔与兰德文字游戏25条及收尾记录"
+    }
+  ],
+  "counts": {
+    "attitude_semantics_issues": 3,
+    "context_or_existing_hold_cases": 2,
+    "reference_evidence_followups": 1,
+    "preserved_rule_groups": 6
+  },
+  "items": [
+    {
+      "id": "MAIL-H01",
+      "character": "梅尔",
+      "title": "排斥恶女被写成高攀不起",
+      "status": "attitude_semantics_issue_recorded",
+      "priority": "P1",
+      "reason": "お呼びじゃない是‘不欢迎／没你的份’，这里梅尔在赶人；‘我可高攀不起’把人物立场写成自低身份。按本轮人设问题只登记的要求暂不处理。",
+      "next_review": "核对对立角色登场与兰德前句，恢复拒绝、排斥的立场；另评估梅尔当场的反击强度。",
+      "translation_writeback": false,
+      "evidence": [
+        {
+          "id": "story/084/dialogue/01.35/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "source_ja": "「そいつはどうも。\n　だが、俺は性格の悪い女は\n　好みじゃねえんだよ！」",
+          "source_text_sha256": "8dcdc54e3e52e6375f633b920348a93e4d0c19ecaeac6c781ecfbeaf89e3ac84",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 1.35",
+            "ordinal": 1,
+            "text_offset": 56480
+          },
+          "current_translation": "“多谢了。但是，我不喜欢性格恶劣的女人！”",
+          "context": [
+            {
+              "id": "story/084/dialogue/01.35/0000",
+              "relation": "previous",
+              "source_ja": "「タフな男だね、あんたは…。\n　こんな出会いでなければ\n　ホレてしまいそうだよ」",
+              "current_translation": "“真是个硬汉啊，你……\n　要不是这种相遇，我都要爱上你了。”"
+            },
+            {
+              "id": "story/084/dialogue/01.35/0001",
+              "relation": "target",
+              "source_ja": "「そいつはどうも。\n　だが、俺は性格の悪い女は\n　好みじゃねえんだよ！」",
+              "current_translation": "“多谢了。但是，我不喜欢性格恶劣的女人！”"
+            },
+            {
+              "id": "story/084/dialogue/01.35/0002",
+              "relation": "next",
+              "source_ja": "「味方のふりして近づいてくる\n　悪女なんてお呼びじゃないんだから！」",
+              "current_translation": "“装成同伴接近的恶女，我可高攀不起！”"
+            }
+          ]
+        },
+        {
+          "id": "story/084/dialogue/01.35/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "source_ja": "「味方のふりして近づいてくる\n　悪女なんてお呼びじゃないんだから！」",
+          "source_text_sha256": "e62419545fba2839cd82046c5a588634f029a808308a95c52eb3eafe61630ce1",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 1.35",
+            "ordinal": 2,
+            "text_offset": 56560
+          },
+          "current_translation": "“装成同伴接近的恶女，我可高攀不起！”",
+          "context": [
+            {
+              "id": "story/084/dialogue/01.35/0001",
+              "relation": "previous",
+              "source_ja": "「そいつはどうも。\n　だが、俺は性格の悪い女は\n　好みじゃねえんだよ！」",
+              "current_translation": "“多谢了。但是，我不喜欢性格恶劣的女人！”"
+            },
+            {
+              "id": "story/084/dialogue/01.35/0002",
+              "relation": "target",
+              "source_ja": "「味方のふりして近づいてくる\n　悪女なんてお呼びじゃないんだから！」",
+              "current_translation": "“装成同伴接近的恶女，我可高攀不起！”"
+            },
+            {
+              "id": "story/084/dialogue/01.35/0003",
+              "relation": "next",
+              "source_ja": "「言ってくれるね、お嬢ちゃん。\n　人間じゃないくせに\n　悪態だけは一人前かい？」",
+              "current_translation": "“说得真够呛啊，小姑娘。\n　明明不是人类，嘴倒挺厉害？”"
+            }
+          ]
+        },
+        {
+          "id": "story/084/dialogue/01.35/0003",
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "source_ja": "「言ってくれるね、お嬢ちゃん。\n　人間じゃないくせに\n　悪態だけは一人前かい？」",
+          "source_text_sha256": "6366dc19b03ab24310569a63cd3ed548a8d0cb6fa20a4b69fb4053c09b856f1e",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 1.35",
+            "ordinal": 3,
+            "text_offset": 56640
+          },
+          "current_translation": "“说得真够呛啊，小姑娘。\n　明明不是人类，嘴倒挺厉害？”",
+          "context": [
+            {
+              "id": "story/084/dialogue/01.35/0002",
+              "relation": "previous",
+              "source_ja": "「味方のふりして近づいてくる\n　悪女なんてお呼びじゃないんだから！」",
+              "current_translation": "“装成同伴接近的恶女，我可高攀不起！”"
+            },
+            {
+              "id": "story/084/dialogue/01.35/0003",
+              "relation": "target",
+              "source_ja": "「言ってくれるね、お嬢ちゃん。\n　人間じゃないくせに\n　悪態だけは一人前かい？」",
+              "current_translation": "“说得真够呛啊，小姑娘。\n　明明不是人类，嘴倒挺厉害？”"
+            },
+            {
+              "id": "story/084/dialogue/01.35/0004",
+              "relation": "next",
+              "source_ja": "「そ、そっちだって\n　人間離れしたデカおっぱいのくせに！」",
+              "current_translation": "“你、你那边不也是，长着非人类的巨乳！”"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MAIL-H02",
+      "character": "兰德对梅尔",
+      "title": "兰德承担梅尔性命被写成夺命",
+      "status": "attitude_semantics_issue_recorded",
+      "priority": "P1",
+      "reason": "お前の命、俺が預かる是接下对方性命的托付，现稿‘你的命，我收下了’容易读成杀人台词。这是搭档关系的语义问题，暂只登记。",
+      "next_review": "按搭档间性命托付理解，核对战斗触发情境及兰德后续接话，避免写成对敌夺命宣言。",
+      "translation_writeback": false,
+      "evidence": [
+        {
+          "id": "battle:19545",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「メール！　お前の命、俺が預かる！！」",
+          "source_text_sha256": "bc64dcb42cf7c23befb240dadcab63fb84762aa7904d0d3aadfb3d4983e42096",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 438,
+                "archive_text_start": 2509136,
+                "encoded_size": 39
+              }
+            ]
+          },
+          "current_translation": "“梅尔！你的命，我收下了！！”",
+          "context": []
+        }
+      ]
+    },
+    {
+      "id": "MAIL-H03",
+      "character": "梅尔",
+      "title": "受击后的怒斥被写成称赞",
+      "status": "attitude_semantics_issue_recorded",
+      "priority": "P1",
+      "reason": "やったわね接もう許さない是在责怪对方‘竟敢动手’，现稿‘干得好’接‘绝不原谅’态度冲突。暂只登记。",
+      "next_review": "核对受击语境和梅尔的恼怒程度，检查同类やったわね是否存在同样的态度误读。",
+      "translation_writeback": false,
+      "evidence": [
+        {
+          "id": "battle:19753",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「やったわね！　もう許さないんだから！」",
+          "source_text_sha256": "722cf9ed1c9309d5fca599c7bcdf433ec1819d7c0cafe377655bf49dc77d8cc4",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 800,
+                "archive_text_start": 2525118,
+                "encoded_size": 41
+              }
+            ]
+          },
+          "current_translation": "“干得好！我绝不原谅你！”",
+          "context": []
+        }
+      ]
+    },
+    {
+      "id": "CHAR-H01",
+      "character": "查尔斯",
+      "title": "便利店饭与雷的料理一段沿用暂缓决定",
+      "status": "existing_hold_no_new_error_claim",
+      "priority": "P2",
+      "reason": "已有明确暂缓决定。本次仅重新绑定现稿与前后句，不把“便利店”本身判成错译。",
+      "next_review": "连同兰顿的迟疑和查尔斯邀请吃饭的后句复核亲近程度、体贴与调侃；保留既有暂缓决定。",
+      "translation_writeback": false,
+      "evidence": [
+        {
+          "id": "story/085/dialogue/02.02/0076",
+          "corpus_path": "corpus/zh/story-dialogue/stage-085.json",
+          "source_ja": "「家出してコンビニの飯しか食ってないんだろ？\n　レイの料理は天下一品だぜ」",
+          "source_text_sha256": "fef09cd08d80142bc481240344a2277fccb2017343ba861a1b72a1b526341208",
+          "original_location": {
+            "stage_index": 85,
+            "section": "Section 2.2",
+            "ordinal": 76,
+            "text_offset": 59744
+          },
+          "current_translation": "“离家出走只吃便利店的东西吧？\n　雷的料理可是一绝。”",
+          "context": [
+            {
+              "id": "story/085/dialogue/02.02/0075",
+              "relation": "previous",
+              "source_ja": "「でも、俺…」",
+              "current_translation": "“可是，我……”"
+            },
+            {
+              "id": "story/085/dialogue/02.02/0076",
+              "relation": "target",
+              "source_ja": "「家出してコンビニの飯しか食ってないんだろ？\n　レイの料理は天下一品だぜ」",
+              "current_translation": "“离家出走只吃便利店的东西吧？\n　雷的料理可是一绝。”"
+            },
+            {
+              "id": "story/085/dialogue/02.02/0077",
+              "relation": "next",
+              "source_ja": "「来いよ、レントン。\n　俺もお前と飯を食いたいんだ」",
+              "current_translation": "“来吧，兰顿。我也想跟你一起吃顿饭。”"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MAIL-W01",
+      "character": "梅尔／兰德",
+      "title": "うますぎ的具体典故尚未确认",
+      "status": "reference_evidence_needed",
+      "priority": "P2",
+      "reason": "原文自己就让梅尔在危急时喊うますぎ、兰德吐槽她此时说什么。不能因为现译‘太棒了’反常，就按普通危急场景改成‘糟了’。是否存在广播或声优典故缺少可靠出处，本轮不作断言、不改稿。",
+      "next_review": "先核实可靠典故出处和战斗触发语境；保留原文反常称赞与兰德吐槽，不将其自行归类为普通惊慌。",
+      "translation_writeback": false,
+      "evidence": [
+        {
+          "id": "battle:19691",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「う、うますぎ！　\\n　うますぎだよ、ダーリン！！」",
+          "source_text_sha256": "3ed99cc400030f490963037d0f0b13cde935a086d289b498a1ded14c319c5ca7",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 732,
+                "archive_text_start": 2522264,
+                "encoded_size": 51
+              }
+            ]
+          },
+          "current_translation": "“太、太棒了！\\n　太棒了，达令！！！”",
+          "context": []
+        },
+        {
+          "id": "battle:19692",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「お前、こんな時に何言ってんだ！？」",
+          "source_text_sha256": "a122110a372ec64b566a53e00325c874c6f6d09e854e482e1805c99686f70360",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 733,
+                "archive_text_start": 2522315,
+                "encoded_size": 37
+              }
+            ]
+          },
+          "current_translation": "“你这家伙，这时候说什么呢！？”",
+          "context": []
+        }
+      ]
+    },
+    {
+      "id": "VOICE-08",
+      "character": "阿斯哈姆",
+      "title": "友情讽刺的中文语气需整段复核",
+      "status": "context_review_only_not_confirmed_error",
+      "priority": "P2",
+      "reason": "现译“真是美丽的友情啊”承接超限恶魔会冻结人心的威胁。投稿“真挚的友情”可能弱化讽刺；现稿保留，不预设必须改写。",
+      "next_review": "连同对峙整段比较讽刺、威胁和转折，只有具体上下文出现问题时再拟稿。",
+      "translation_writeback": false,
+      "evidence": [
+        {
+          "id": "story/130/dialogue/01.02/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-130.json",
+          "source_ja": "「麗しい友情だな！\n　だが、オーバーデビルの前では、\n　人の心さえも凍りつく！」",
+          "source_text_sha256": "71ffd3794c86d77a7cdb9315e78a2890bf4da5de889a5573b5d6dbb1ea12eb1b",
+          "original_location": {
+            "stage_index": 130,
+            "section": "Section 1.2",
+            "ordinal": 4,
+            "text_offset": 70256
+          },
+          "current_translation": "“真是美丽的友情啊！\n　但在超限恶魔面前，连人心都会冻结！”",
+          "context": [
+            {
+              "id": "story/130/dialogue/01.02/0003",
+              "relation": "previous",
+              "source_ja": "「勝手に過去形にするな！\n　あいつらは今でも俺達の仲間だ！」",
+              "current_translation": "“别擅自用过去式！\n　他们现在也还是我们的同伴！”"
+            },
+            {
+              "id": "story/130/dialogue/01.02/0004",
+              "relation": "target",
+              "source_ja": "「麗しい友情だな！\n　だが、オーバーデビルの前では、\n　人の心さえも凍りつく！」",
+              "current_translation": "“真是美丽的友情啊！\n　但在超限恶魔面前，连人心都会冻结！”"
+            },
+            {
+              "id": "story/130/dialogue/01.02/0005",
+              "relation": "next",
+              "source_ja": "「それを思い知るがいい！」",
+              "current_translation": "“好好体会这一点吧！”"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "preserved_rules": [
+    {
+      "id": "RULE-01",
+      "characters": "梅尔／兰德",
+      "rule": "VOICE-01“一百发”、VOICE-02“也够拽哦！”保持用户定稿；达令、HEAT SMILE、THE CRUSHER按现有专项记录处理。"
+    },
+    {
+      "id": "RULE-02",
+      "characters": "英司",
+      "rule": "桑德曼谚语保持“佛也有三分火，何况是桑德曼！”，两路线一致。"
+    },
+    {
+      "id": "RULE-03",
+      "characters": "金卡拉姆",
+      "rule": "广泛使用在下已落实；保留集体意义的我们，不给原文无自称的喝声或武器名强加在下。"
+    },
+    {
+      "id": "RULE-04",
+      "characters": "霍兰德",
+      "rule": "沿用逞强、嘴硬、独自承担的既有理解；不能据驾驶能力退化或队友不信任的旧误解改稿。",
+      "evidence": [
+        {
+          "id": "story/088/dialogue/01.02/0003",
+          "corpus_path": "corpus/zh/story-dialogue/stage-088.json",
+          "source_ja": "「ここまで来たら意地を通すぜ！\n　死ぬんじゃねえぞ、お前ら！」",
+          "source_text_sha256": "ffa54227882b26a84adbb00f1fc43f8d69fc742ee889c8f23d71315bfe9f0c6d",
+          "original_location": {
+            "stage_index": 88,
+            "section": "Section 1.2",
+            "ordinal": 3,
+            "text_offset": 42528
+          },
+          "current_translation": "“都走到这一步了，就坚持到底！\n　别死了，你们！”",
+          "context": [
+            {
+              "id": "story/088/dialogue/01.02/0002",
+              "relation": "previous",
+              "source_ja": "「ホランド！\n　我々のリーダーはお前だ！\n　指示を出せ！」",
+              "current_translation": "“霍兰德！你是我们的领袖！下命令吧！”"
+            },
+            {
+              "id": "story/088/dialogue/01.02/0003",
+              "relation": "target",
+              "source_ja": "「ここまで来たら意地を通すぜ！\n　死ぬんじゃねえぞ、お前ら！」",
+              "current_translation": "“都走到这一步了，就坚持到底！\n　别死了，你们！”"
+            },
+            {
+              "id": "story/088/dialogue/01.02/0004",
+              "relation": "next",
+              "source_ja": "「あんたもね、ホランド！」",
+              "current_translation": "“你也是，霍兰德！”"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "RULE-05",
+      "characters": "胜平／Dove／风见",
+      "rule": "VOICE-05～07沿用审阅站处理结果；既有单句决定不自动推广为全人物固定粗口或语气词。"
+    },
+    {
+      "id": "RULE-06",
+      "characters": "节子／罗杰／哈曼",
+      "rule": "敬语不擅自改成顶撞；俗物不是某一人物独占词；保留站内已有说明的具体处理结果。"
+    }
+  ],
+  "review_order": [
+    "优先收集梅尔／兰德3处态度与关系偏差的完整语境",
+    "阿斯哈姆、查尔斯按既有暂缓记录做上下文复核；典故项另查出处",
+    "后续若开展系统审校，再按审校条目量安排高覆盖人物；本清单不诊断尚未审查的人物"
+  ],
+  "high_volume_candidates": {
+    "metric": "审校条目量：剧情记录 + 对应人物资源的非空唯一战斗字幕；不是逐句实际发声数量或单周目出现次数。",
+    "story_dedup": "日文源文忽略空白和换行后，在人物内去重。",
+    "ranking_is_not_a_defect_count": true,
+    "rows": [
+      {
+        "rank": 1,
+        "name": "兰德",
+        "story_count": 2428,
+        "story_unique_text_count": 2146,
+        "battle_resource_unique_count": 439,
+        "review_entry_total": 2867,
+        "display_names": [
+          "兰德"
+        ]
+      },
+      {
+        "rank": 2,
+        "name": "节子",
+        "story_count": 2125,
+        "story_unique_text_count": 1638,
+        "battle_resource_unique_count": 354,
+        "review_entry_total": 2479,
+        "display_names": [
+          "节子"
+        ]
+      },
+      {
+        "rank": 3,
+        "name": "兰顿",
+        "story_count": 2034,
+        "story_unique_text_count": 1387,
+        "battle_resource_unique_count": 285,
+        "review_entry_total": 2319,
+        "display_names": [
+          "兰顿"
+        ]
+      },
+      {
+        "rank": 4,
+        "name": "真",
+        "story_count": 1750,
+        "story_unique_text_count": 1101,
+        "battle_resource_unique_count": 253,
+        "review_entry_total": 2003,
+        "display_names": [
+          "真"
+        ]
+      },
+      {
+        "rank": 5,
+        "name": "盖纳",
+        "story_count": 1499,
+        "story_unique_text_count": 1069,
+        "battle_resource_unique_count": 297,
+        "review_entry_total": 1796,
+        "display_names": [
+          "盖纳"
+        ]
+      },
+      {
+        "rank": 6,
+        "name": "卡洛德",
+        "story_count": 1404,
+        "story_unique_text_count": 1061,
+        "battle_resource_unique_count": 323,
+        "review_entry_total": 1727,
+        "display_names": [
+          "卡洛德"
+        ]
+      },
+      {
+        "rank": 7,
+        "name": "卡缪",
+        "story_count": 1419,
+        "story_unique_text_count": 941,
+        "battle_resource_unique_count": 223,
+        "review_entry_total": 1642,
+        "display_names": [
+          "卡缪"
+        ]
+      },
+      {
+        "rank": 8,
+        "name": "霍兰德",
+        "story_count": 1427,
+        "story_unique_text_count": 1068,
+        "battle_resource_unique_count": 211,
+        "review_entry_total": 1638,
+        "display_names": [
+          "霍兰德"
+        ]
+      },
+      {
+        "rank": 9,
+        "name": "极·艾岱尔",
+        "story_count": 1467,
+        "story_unique_text_count": 684,
+        "battle_resource_unique_count": 157,
+        "review_entry_total": 1624,
+        "display_names": [
+          "极·艾岱尔",
+          "极艾",
+          "黑之卡里斯马"
+        ]
+      },
+      {
+        "rank": 10,
+        "name": "胜平",
+        "story_count": 1339,
+        "story_unique_text_count": 1034,
+        "battle_resource_unique_count": 272,
+        "review_entry_total": 1611,
+        "display_names": [
+          "胜平"
+        ]
+      }
+    ],
+    "battle_attribution_note": "战斗数字为人物资源包含的唯一字幕，并非本人发声句数；兰德439条包含梅尔。",
+    "source_snapshot": "work/review/dialogue-speaker-counts-20260907/counts.json",
+    "source_sha256": "da00511323178c688c89e9f394b3495bd5fde50fb44a3cfa96a7503715020278",
+    "source_file_hash_checks_passed": 27,
+    "current_corpus_source_ids_hashes_verified": 109376
+  },
+  "verification": {
+    "target_translations_and_source_hashes_checked_against_current_corpus": true,
+    "no_corpus_files_changed": true,
+    "site_writeback": false,
+    "runtime_validation": "not_run"
+  }
+}

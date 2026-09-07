@@ -2,7 +2,7 @@
   "schema_version": 1,
   "review_id": "story-battle-character-voice-20260907",
   "translation_writeback": "forbidden_for_deferred_items",
-  "purpose": "人物口吻审校记录：区分已确认恢复、待用户定稿和保留现稿的后续复核；不是自动替换输入。",
+  "purpose": "人物口吻审校记录：区分已确认处理、沿用既有定稿和仅供上下文复核的条目；没有待用户确认项，不是自动替换输入。",
   "snapshot_at": "2026-09-07T02:41:19.179654+00:00",
   "holds": [
     {
@@ -1627,5 +1627,6 @@
       "VOICE-07"
     ],
     "unapproved_translation_writeback": false
-  }
+  },
+  "personality_backlog_path": "config/editorial/character-personality-backlog-20260907.json"
 }
