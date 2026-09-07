@@ -2809,8 +2809,8 @@
   "runtime_keywords": {
     "catalog": {
       "path": "corpus/runtime/stage-keywords-v1.json",
-      "size": 9697,
-      "sha256": "26da0433ae0d797ab0a24469f58c25b4f87547f87cd2a4f8abfcc10173776d75"
+      "size": 9699,
+      "sha256": "a93347efbfa8b18c9e9269f6c702fda8fc8c28efe1ea54b8562dea03c4a2186b"
     },
     "library_archive": {
       "path": "work/build/library-v0.2-reviewed/components/DATA/MTVZKNKW.BIN",
@@ -2846,6 +2846,12 @@
         "donor_index": 16,
         "relocation_offset": "0x71FD0",
         "reason": "fixed_allocation_overflow"
+      },
+      {
+        "keyword_index": 41,
+        "donor_index": 51,
+        "relocation_offset": "0x7225A",
+        "reason": "fixed_allocation_overflow"
       }
     ],
     "stage_relocations": [
@@ -2857,6 +2863,15 @@
         "donor_offset": "0xEA30",
         "relocation_offset": "0xEAA6",
         "reason": "occupied_current_allocation"
+      },
+      {
+        "stage_index": 38,
+        "keyword_index": 41,
+        "tag": "WORD",
+        "source_offset": "0x12620",
+        "donor_offset": "0x12630",
+        "relocation_offset": "0x12646",
+        "reason": "fixed_allocation_overflow"
       },
       {
         "stage_index": 55,
@@ -2879,17 +2894,26 @@
     ],
     "expected": {
       "keyword_count": 52,
-      "compdata_relocation_count": 2,
+      "compdata_relocation_count": 3,
       "stage_record_count": 77,
       "stage_chunk_count": 44,
       "stage_keyword_count": 52,
       "stage_field_reference_count": 308,
       "stage_allocation_count": 233,
       "stage_shared_reference_count": 75,
-      "stage_relocation_count": 3,
+      "stage_relocation_count": 4,
       "stage_occupied_source_relocation_count": 1,
-      "story_link_occurrence_count": 122
-    }
+      "story_link_occurrence_count": 122,
+      "compdata_empty_label_relocation_count": 1
+    },
+    "compdata_empty_label_relocations": [
+      {
+        "donor_index": 51,
+        "pointer_offset": "0x5DFE0",
+        "source_offset": "0x72268",
+        "relocation_offset": "0x7226C"
+      }
+    ]
   },
   "composition": {
     "font_chunk_index": 2,

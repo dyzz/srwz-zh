@@ -7681,13 +7681,15 @@ def main() -> int:
                 runtime_keyword_report["all_three_runtime_surfaces_exact"]
                 and runtime_keyword_report["authority_keyword_count"] == 52
                 and runtime_keyword_compdata_report["list_label_count"] == 52
-                and runtime_keyword_compdata_report["relocation_count"] == 2
+                and runtime_keyword_compdata_report["relocation_count"]
+                == runtime_keyword_reference["expected"]["compdata_relocation_count"]
                 and runtime_keyword_compdata_report["changed_byte_count"] == 0
                 and runtime_keyword_stage_report["record_count"] == 77
                 and runtime_keyword_stage_report["stage_chunk_count"] == 44
                 and runtime_keyword_stage_report["field_reference_count"] == 308
                 and runtime_keyword_stage_report["allocation_count"] == 233
-                and runtime_keyword_stage_report["relocation_count"] == 3
+                and runtime_keyword_stage_report["relocation_count"]
+                == runtime_keyword_reference["expected"]["stage_relocation_count"]
                 and runtime_keyword_stage_report[
                     "all_four_fields_match_library"
                 ]

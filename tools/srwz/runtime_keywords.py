@@ -1090,6 +1090,67 @@ def apply_compdata_keyword_names(
             final_slots[index] = allocation["target"] + bytes(
                 allocation["capacity"] - len(allocation["target"])
             )
+    # A later UI list may point at an empty string inside reclaimed padding.
+    # Move only explicitly declared empty labels; unknown references still fail.
+    empty_labels = {}
+    empty_label_rows = reference.get("compdata_empty_label_relocations", [])
+    if not isinstance(empty_label_rows, list):
+        raise RuntimeKeywordError("COMPDATA empty-label relocations are malformed")
+    for row in empty_label_rows:
+        if not isinstance(row, dict):
+            raise RuntimeKeywordError("COMPDATA empty-label relocation is malformed")
+        donor_index = _number(row.get("donor_index"), label="donor_index")
+        pointer_offset = _number(row.get("pointer_offset"), label="pointer_offset")
+        source_offset = _number(row.get("source_offset"), label="source_offset")
+        target_offset = _number(row.get("relocation_offset"), label="relocation_offset")
+        donor = allocations.get(donor_index)
+        if (
+            donor is None
+            or donor_index not in donor_payloads
+            or pointer_offset in empty_labels
+            or pointer_offset % 4
+            or not 0 <= pointer_offset <= len(original) - 4
+            or (
+                pointer_offset < pointer_end
+                and pointer_offset + 4 > pointer_table_offset
+            )
+            or any(
+                pointer_offset < slot["offset"] + slot["capacity"]
+                and pointer_offset + 4 > slot["offset"]
+                for slot in allocations.values()
+            )
+        ):
+            raise RuntimeKeywordError("COMPDATA empty-label relocation owner drift")
+        slack_start = donor["offset"] + _aligned(len(donor["target"]))
+        slack_end = donor["offset"] + donor["capacity"]
+        current_pointer = struct.unpack_from("<I", current, pointer_offset)[0]
+        if (
+            not slack_start <= source_offset < slack_end
+            or not slack_start <= target_offset < slack_end
+            or source_offset == target_offset
+            or original[source_offset] != 0
+            or original[target_offset] != 0
+            or struct.unpack_from("<I", original, pointer_offset)[0]
+            != runtime_base + source_offset
+            or current_pointer not in {
+                runtime_base + source_offset,
+                runtime_base + target_offset,
+            }
+            or current[current_pointer - runtime_base] != 0
+            or any(
+                start <= target_offset < start + len(payload)
+                for start, payload in donor_payloads[donor_index]
+            )
+        ):
+            raise RuntimeKeywordError("COMPDATA empty-label text/pointer drift")
+        empty_labels[pointer_offset] = (source_offset, target_offset, donor_index)
+    _require_expected(
+        len(empty_labels),
+        {"compdata_empty_label_relocation_count": expected.get(
+            "compdata_empty_label_relocation_count", 0
+        )},
+        "compdata_empty_label_relocation_count",
+    )
     for donor_index, payloads in donor_payloads.items():
         donor = allocations[donor_index]
         reclaimed_start = donor["offset"] + _aligned(len(donor["target"]))
@@ -1098,6 +1159,12 @@ def apply_compdata_keyword_names(
             (pointer_table_offset + keyword_index * 4, relocation_offset)
             for keyword_index, (_donor_index, relocation_offset) in plan.items()
         }
+        expected_relocated_pointers.update(
+            (pointer_offset, offset)
+            for pointer_offset, (source_offset, target_offset, owner) in empty_labels.items()
+            if owner == donor_index
+            for offset in (source_offset, target_offset)
+        )
         for word_offset in range(0, len(current) - 3, 4):
             pointer = struct.unpack_from("<I", current, word_offset)[0]
             pointed_offset = pointer - runtime_base
@@ -1148,6 +1215,11 @@ def apply_compdata_keyword_names(
         output[start : start + len(final)] = final
         allowed.update(range(start, start + len(final)))
     struct.pack_into(f"<{count}I", output, pointer_table_offset, *final_pointers)
+    for pointer_offset, (_source_offset, target_offset, _donor_index) in empty_labels.items():
+        if output[target_offset] != 0:
+            raise RuntimeKeywordError("COMPDATA relocated empty label is not empty")
+        struct.pack_into("<I", output, pointer_offset, runtime_base + target_offset)
+        allowed.update(range(pointer_offset, pointer_offset + 4))
     changed = {
         offset
         for offset, (before, after) in enumerate(zip(current, output))
@@ -1171,6 +1243,17 @@ def apply_compdata_keyword_names(
         "runtime_base": runtime_base,
         "relocations": relocation_report,
         "relocation_count": len(relocation_report),
+        "empty_label_relocations": [
+            {
+                "pointer_offset": pointer_offset,
+                "source_offset": source_offset,
+                "relocation_offset": target_offset,
+                "donor_index": donor_index,
+                "empty_text_preserved": True,
+            }
+            for pointer_offset, (source_offset, target_offset, donor_index) in empty_labels.items()
+        ],
+        "empty_label_relocation_count": len(empty_labels),
         "changed_byte_count": len(changed),
         "all_list_labels_match_library_word": True,
         "pointer_table_reread_exact": True,
