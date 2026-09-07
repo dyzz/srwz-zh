@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "input_digest": "19afde6ea4a4b4fe19b2e718cd05bc575ec4f060aad2e643db46d368591d2614",
+  "source_head": "3761b7a17f4bdb80e41919998852108d93f071ed",
+  "batch_manifest": "work/editions/19afde6ea4a4b4fe19b2e718cd05bc575ec4f060aad2e643db46d368591d2614/original-best.json",
+  "verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "19afde6ea4a4b4fe19b2e718cd05bc575ec4f060aad2e643db46d368591d2614",
+    "verified_editions": [
+      "original",
+      "best"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "source_inventory_matches_frozen_snapshot": true,
+  "generated_locks": [
+    "config/full-story-components.json",
+    "config/iso/zh-release-current-build.json",
+    "manifests/full-story-components-validation.json",
+    "manifests/full-story-library-components-validation.json",
+    "manifests/library-v0.2-reviewed-validation.json",
+    "manifests/zh-release-font-validation.json",
+    "manifests/zh-release-full-story-iso-content-validation.json"
+  ],
+  "outputs": {
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "b5dca662d4bd8e6124b133a99db26536ccc1ba26409fe957c7cc96eb73381275",
+      "size": 3758358528
+    },
+    "best": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "4a1ad707b0732a82148e8750b157c69e87b1438fb3de8eaf3c89cadbfe22c691",
+      "size": 3755081728
+    }
+  },
+  "original_production_slot": "build/iso/zh-release-full-story/current-original.iso",
+  "text_verification": {
+    "status": "passed",
+    "translation_fields_changed": 26,
+    "story": 15,
+    "battle": 11,
+    "changed_corpus_files": 9,
+    "other_corpus_files_byte_exact": 237,
+    "other_entry_fields_unchanged": true,
+    "source_ids_and_hashes_matched": 109376,
+    "unrelated_dirty_files_byte_exact": 5,
+    "no_candidate_entries_unchanged": true,
+    "existing_user_confirmed_phrases_unchanged": true,
+    "line_width_and_battle_break_validation": "passed_during_apply",
+    "note": "Only the 26 enumerated translation fields differ; all non-target translations and metadata remain exact."
+  },
+  "tests": {
+    "command": "python3 -m unittest discover -s tests",
+    "passed": 245,
+    "scope": "root working tree; includes 3 pre-existing pilot tests, whose source was unchanged and excluded from production build inputs"
+  },
+  "runtime": "not_tested_for_new_iso_hashes",
+  "prior_user_runtime_acceptance": "manifests/editions/runtime-user-acceptance-20260907.json"
+}

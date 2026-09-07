@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-07",
+  "status": "dual_edition_build_and_static_readback_passed",
+  "source_head": "1ccd07054e7292028a878e1f4991034cee995741",
+  "input_digest": "52b5dd4084b8a3066e1d286ca994b1542f05382ed1052742ea76b2eec37067b4",
+  "batch_manifest": "work/editions/52b5dd4084b8a3066e1d286ca994b1542f05382ed1052742ea76b2eec37067b4/original-best.json",
+  "verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "52b5dd4084b8a3066e1d286ca994b1542f05382ed1052742ea76b2eec37067b4",
+    "verified_editions": [
+      "original",
+      "best"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "all_nongenerated_frozen_inputs_still_exact": true,
+  "generated_locks_promoted": [
+    "config/full-story-components.json",
+    "config/iso/zh-release-current-build.json",
+    "manifests/full-story-components-validation.json",
+    "manifests/full-story-library-components-validation.json",
+    "manifests/library-v0.2-reviewed-validation.json",
+    "manifests/zh-release-font-validation.json",
+    "manifests/zh-release-full-story-iso-content-validation.json"
+  ],
+  "root_components_match_independent_original_build": 23,
+  "outputs": {
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "8b108e7915750ef4d7f26fd6c72ec5fc05519b15a01cb10967868a2412523762",
+      "size": 3758358528
+    },
+    "best": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "1d63d03fc2d5e5634e293e0489af0087878cc557405a52758fbeed2d35004c7c",
+      "size": 3755081728
+    }
+  },
+  "original_production_slot": "build/iso/zh-release-full-story/current-original.iso",
+  "text_verification": {
+    "status": "passed",
+    "baseline_head": "f5137cb551fbcea74b72dbe9b11f09ccd5e9b7ae",
+    "translation_changes": 232,
+    "story": 185,
+    "battle": 47,
+    "prior_approved_changes": 26,
+    "low_hanging_changes": 206,
+    "application_receipts_cover_all_changes_exactly": true,
+    "all_source_hashes_unchanged": true,
+    "entry_fields_changed": {
+      "translation": 232,
+      "glossary_refs": 24
+    },
+    "sirius_user_retention_exact": true,
+    "font_append": {
+      "character": "舅",
+      "code": "96B7",
+      "glyph_index": 4151,
+      "mapping": "reclaimed_unique_default_width_candidate",
+      "source_character": "鵡",
+      "allocation_width_class": "default_width"
+    },
+    "existing_primary_alias_compatibility_mappings_exact": true,
+    "changed_corpus_files": 61
+  },
+  "font_authoring": {
+    "historical_updater": "03863d8^:tools/update_zh_release_font_snapshot.py",
+    "updater_sha256": "4fdcca5c0187f13018757b1fe6885d1b87cdf1638d556680f4a7d7a1bde60352",
+    "added_characters": "舅",
+    "new_code": "96B7",
+    "new_glyph": 4151,
+    "existing_mappings_unchanged": true,
+    "missing_visible_characters": 0
+  },
+  "tests": {
+    "command": "python3 -m unittest discover -s tests",
+    "passed": 245,
+    "log_sha256": "09ddbe82b9c2abd3a8cab74f517bea745c5e5a42e520b2ce62e56009f4ced045"
+  },
+  "unrelated_capacity_notes_byte_exact": true,
+  "runtime": "not_tested_for_new_iso_hashes",
+  "prior_user_runtime_acceptance": "manifests/editions/runtime-user-acceptance-20260907.json"
+}

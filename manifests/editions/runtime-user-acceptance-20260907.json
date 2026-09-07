@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-07",
+  "status": "passed_user_reported",
+  "evidence_type": "user_manual_runtime_acceptance",
+  "statement": "补双版本运行验收 可以认为通过，我自己跑过",
+  "reported_by": "user",
+  "recorded_at_head": "3761b7a17f4bdb80e41919998852108d93f071ed",
+  "scope": "用户确认当前双版本运行验收总体通过。",
+  "binding_basis": "本次对话紧接3761b7a双版本构建验证及push；绑定该批次已记录产物身份。",
+  "input_digest": "c5fbc6cdcabc1a4cd130174c45d5bae7e741ce8f974b7297f3a991f1351601a3",
+  "editions": [
+    {
+      "edition": "original",
+      "iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "6339a3f09d61ef35b9d1fd9a08946c49d14351a4acda75ee3ef3f86d0f6be760",
+        "size": 3758358528
+      }
+    },
+    {
+      "edition": "best",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "54eac67cb927ba92fb810e2a391ca782d868f63afc72c065ae94962eeab6ed23",
+        "size": 3755081728
+      }
+    }
+  ],
+  "emulator_details": "not_specified_by_user",
+  "individual_test_case_results": "not_enumerated_by_user",
+  "assistant_runtime_execution": false,
+  "supersedes_runtime_pending_for_this_batch": true,
+  "automated_build_receipts": "保留构建当时not_tested状态；用户实测验收单独记录，不伪装成自动执行的模拟器测试。"
+}
