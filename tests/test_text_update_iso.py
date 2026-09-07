@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import struct
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -330,6 +331,38 @@ class TextUpdateIsoTests(unittest.TestCase):
                 "conflicting original-member locks",
             ):
                 build_text_update_iso.collect_original_member_locks((first, second))
+
+    def test_historical_editorial_locks_do_not_replace_production_contracts(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            corpus = root / "corpus/zh/sample.json"
+            corpus.parent.mkdir(parents=True)
+            payload = b'{"translation":"current"}\n'
+            corpus.write_bytes(payload)
+            history = root / "config/editorial/history.json"
+            history.parent.mkdir(parents=True)
+            stale = {"input": {"path": "corpus/zh/sample.json", "size": 1,
+                               "sha256": "0" * 64}}
+            history.write_text(json.dumps(stale), encoding="utf-8")
+            original_history = history.read_bytes()
+            specialized = root / "config/editorial-contract.json"
+            specialized.write_text(json.dumps({"input": {
+                "path": "corpus/zh/sample.json", "size": len(payload),
+                "sha256": hashlib.sha256(payload).hexdigest(),
+            }}), encoding="utf-8")
+            subprocess.run(["git", "init", "-q", str(root)], check=True)
+            subprocess.run(["git", "-C", str(root), "add", "config"], check=True)
+            with patch.object(build_text_update_iso, "PROJECT_ROOT", root):
+                configs = build_text_update_iso._tracked_config_paths()
+                self.assertEqual(configs, (specialized,))
+                build_text_update_iso._audit_other_text_locks(configs)
+                specialized.write_text(json.dumps(stale), encoding="utf-8")
+                with self.assertRaisesRegex(
+                    build_text_update_iso.TextUpdateBuildError,
+                    "refresh that specialized contract first",
+                ):
+                    build_text_update_iso._audit_other_text_locks(configs)
+            self.assertEqual(history.read_bytes(), original_history)
 
     def test_text_lock_refresh_is_explicit(self):
         with tempfile.TemporaryDirectory() as temporary:

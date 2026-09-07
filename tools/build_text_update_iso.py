@@ -277,7 +277,11 @@ def _tracked_config_paths() -> tuple[Path, ...]:
         if not raw:
             continue
         path = PROJECT_ROOT / raw.decode("utf-8")
-        if path.suffix == ".json":
+        # Editorial ledgers retain historical before/after file identities.
+        # They are audit evidence, not current production input contracts.
+        if path.suffix == ".json" and not path.is_relative_to(
+            PROJECT_ROOT / "config/editorial"
+        ):
             paths.append(path)
     if not paths:
         raise TextUpdateBuildError("Git has no tracked JSON build configs")
