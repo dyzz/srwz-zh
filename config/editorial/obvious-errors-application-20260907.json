@@ -1,0 +1,3614 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-07",
+  "authority": "用户确认：这部分写回并commit；范围为紧邻确认答复中的14条。",
+  "status": "applied_component_readback_and_static_tests_passed",
+  "translation_writeback": true,
+  "source_head": "3761b7a17f4bdb80e41919998852108d93f071ed",
+  "scope": {
+    "unique_entries": 14,
+    "story": 2,
+    "battle": 12,
+    "corpus_files": 3,
+    "remaining_candidates_not_applied": 35
+  },
+  "changes": [
+    {
+      "id": "story/095/dialogue/01.13/0000",
+      "corpus_path": "corpus/zh/story-dialogue/stage-095.json",
+      "source_text_sha256": "b5858bbc81098732f2e9a12b9d9dd7fc04db40e78ea66d9b99a2b1b0bafaab07",
+      "source_ja": "「ステラはやらせん！」",
+      "before": "“我不会让史黛拉动手！”",
+      "after": "“我不会让你动史黛拉！”",
+      "line_widths": [
+        12
+      ],
+      "review_case_id": "EX-01",
+      "rationale": "逐条核对人物／机体宾语及上下文；这些やらせない表达阻止对方伤害被保护者，现译却变成阻止被保护者出手、得逞或交出机体。不能把全部やらせない机械归为保护句。",
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/095/dialogue/01.13/0000",
+            "speaker": "穆／尼奥",
+            "source_ja": "「ステラはやらせん！」",
+            "current_translation": "“我不会让史黛拉动手！”",
+            "source_text_sha256": "b5858bbc81098732f2e9a12b9d9dd7fc04db40e78ea66d9b99a2b1b0bafaab07",
+            "corpus_path": "corpus/zh/story-dialogue/stage-095.json",
+            "original_location": {
+              "stage_index": 95,
+              "section": "Section 1.13",
+              "ordinal": 0,
+              "text_offset": 58576
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/095/speaker/009",
+              "source_name": "ネオ",
+              "visual_id": 452,
+              "linked_person_id": "person/14/106441f8ce6d",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/095/dialogue/01.13/0001",
+            "speaker": "基拉",
+            "source_ja": "「！」",
+            "current_translation": "“！”",
+            "source_text_sha256": "34368aa8863a39b65209577a75f10dac6789c2d354755b1712786b26792dc22a",
+            "corpus_path": "corpus/zh/story-dialogue/stage-095.json",
+            "original_location": {
+              "stage_index": 95,
+              "section": "Section 1.13",
+              "ordinal": 1,
+              "text_offset": 58560
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/095/speaker/025",
+              "source_name": "キラ",
+              "visual_id": 406,
+              "linked_person_id": "person/14/e736d927afdd",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:13929",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "b5858bbc81098732f2e9a12b9d9dd7fc04db40e78ea66d9b99a2b1b0bafaab07",
+      "source_ja": "「ステラはやらせん！」",
+      "before": "“我不会让史黛拉上！”",
+      "after": "“我不会让你动史黛拉！”",
+      "line_widths": [
+        12
+      ],
+      "review_case_id": "EX-01",
+      "rationale": "逐条核对人物／机体宾语及上下文；这些やらせない表达阻止对方伤害被保护者，现译却变成阻止被保护者出手、得逞或交出机体。不能把全部やらせない机械归为保护句。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 184,
+        "record_index": 28,
+        "entries": [
+          {
+            "record_index": 25,
+            "entry": {
+              "id": "battle:13926",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「すぐに離脱しろ！」",
+              "current_translation": "“立刻脱离！”",
+              "source_text_sha256": "5e60ede0b2fdda3575577ff1961b1edbb72621ddd759a4be24cf57c2f85db921",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 184,
+                    "record_index": 25,
+                    "archive_text_start": 1779653,
+                    "encoded_size": 21
+                  }
+                ]
+              },
+              "resource_owners": [
+                "尼奥",
+                "穆"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 26,
+            "entry": {
+              "id": "battle:13927",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「後退しろ、スティング！」",
+              "current_translation": "“后退，斯汀！”",
+              "source_text_sha256": "8be4bf6afe13d1dbe26c91996bec326a8622d13cd71db3f82c3b941546217b99",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 184,
+                    "record_index": 26,
+                    "archive_text_start": 1779674,
+                    "encoded_size": 27
+                  }
+                ]
+              },
+              "resource_owners": [
+                "尼奥",
+                "穆"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 27,
+            "entry": {
+              "id": "battle:13928",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「下がれ、アウル！　前に出過ぎだ！」",
+              "current_translation": "“退下，奥尔！你冲太前了！”",
+              "source_text_sha256": "8ec884b47f9bee0e9fee9e86697548ea7c4db2920434bbad975b5fc1ae6d4ce3",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 184,
+                    "record_index": 27,
+                    "archive_text_start": 1779701,
+                    "encoded_size": 37
+                  }
+                ]
+              },
+              "resource_owners": [
+                "尼奥",
+                "穆"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 28,
+            "entry": {
+              "id": "battle:13929",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ステラはやらせん！」",
+              "current_translation": "“我不会让史黛拉上！”",
+              "source_text_sha256": "b5858bbc81098732f2e9a12b9d9dd7fc04db40e78ea66d9b99a2b1b0bafaab07",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 184,
+                    "record_index": 28,
+                    "archive_text_start": 1779738,
+                    "encoded_size": 23
+                  }
+                ]
+              },
+              "resource_owners": [
+                "尼奥",
+                "穆"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 29,
+            "entry": {
+              "id": "battle:13930",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「一対一で遅れはとらんさ！」",
+              "current_translation": "“一对一我可不会输！”",
+              "source_text_sha256": "76702e11decc7b87e8f4236c4c622c1003928c8f988e4d0e4e9ead3d3cd72082",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 184,
+                    "record_index": 29,
+                    "archive_text_start": 1779761,
+                    "encoded_size": 29
+                  }
+                ]
+              },
+              "resource_owners": [
+                "尼奥",
+                "穆"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 30,
+            "entry": {
+              "id": "battle:13931",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「悪いな…君の相手は俺だ！」",
+              "current_translation": "“抱歉…你的对手是我！”",
+              "source_text_sha256": "ceb06c6014f7a681ff7cacd87cfb7fa1c6b306c609a0778ea132458c11e1a379",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 184,
+                    "record_index": 30,
+                    "archive_text_start": 1779790,
+                    "encoded_size": 29
+                  }
+                ]
+              },
+              "resource_owners": [
+                "尼奥",
+                "穆"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 31,
+            "entry": {
+              "id": "battle:06872",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「そこをどけっ！」",
+              "current_translation": "“给我让开！”",
+              "source_text_sha256": "2bec8b1993d6253b7d9a45a15ad26f3d1646b06c68c4de979360a98fd94fbc9c",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 4,
+                "occurrences": [
+                  {
+                    "chunk_index": 94,
+                    "record_index": 14,
+                    "archive_text_start": 904726,
+                    "encoded_size": 19
+                  },
+                  {
+                    "chunk_index": 184,
+                    "record_index": 31,
+                    "archive_text_start": 1779819,
+                    "encoded_size": 19
+                  },
+                  {
+                    "chunk_index": 184,
+                    "record_index": 299,
+                    "archive_text_start": 1790875,
+                    "encoded_size": 19
+                  },
+                  {
+                    "chunk_index": 184,
+                    "record_index": 368,
+                    "archive_text_start": 1793974,
+                    "encoded_size": 19
+                  }
+                ]
+              },
+              "resource_owners": [
+                "尼奥",
+                "穆",
+                "佐藤"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:15329",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "9757d87b38303cb10e968e76b57aa0cf1d5dbb1580b243a6b7e7efa4af79626d",
+      "source_ja": "「サンドマンおじ様はやらせない！」",
+      "before": "“我不会让桑德曼叔叔出手！”",
+      "after": "“我不会让你伤害桑德曼叔叔！”",
+      "line_widths": [
+        15
+      ],
+      "review_case_id": "EX-01",
+      "rationale": "逐条核对人物／机体宾语及上下文；这些やらせない表达阻止对方伤害被保护者，现译却变成阻止被保护者出手、得逞或交出机体。不能把全部やらせない机械归为保护句。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 206,
+        "record_index": 66,
+        "entries": [
+          {
+            "record_index": 63,
+            "entry": {
+              "id": "battle:15326",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「どきなさい！　ここは私が！」",
+              "current_translation": "“让开！这里交给我！”",
+              "source_text_sha256": "9d9ef8a9779582d634e107c58e7eef41c2610af30a23d83c6942034c54c0d6a2",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 206,
+                    "record_index": 63,
+                    "archive_text_start": 1981023,
+                    "encoded_size": 31
+                  }
+                ]
+              },
+              "resource_owners": [
+                "飞"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 64,
+            "entry": {
+              "id": "battle:15327",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「何やってるの、斗牙！」",
+              "current_translation": "“你在干什么，斗牙！”",
+              "source_text_sha256": "7f0d29e757cbaa84a40df928f58e998595e72dd42c568fa7d9a877797bc36e68",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 206,
+                    "record_index": 64,
+                    "archive_text_start": 1981054,
+                    "encoded_size": 25
+                  }
+                ]
+              },
+              "resource_owners": [
+                "飞"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 65,
+            "entry": {
+              "id": "battle:15328",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「下がりなさい！　斗牙！」",
+              "current_translation": "“退下！斗牙！”",
+              "source_text_sha256": "8c6e4740e06622d1dce3ca121944e764e6fae7713e33c2f5d91e8233d8dc4c97",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 206,
+                    "record_index": 65,
+                    "archive_text_start": 1981079,
+                    "encoded_size": 27
+                  }
+                ]
+              },
+              "resource_owners": [
+                "飞"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 66,
+            "entry": {
+              "id": "battle:15329",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「サンドマンおじ様はやらせない！」",
+              "current_translation": "“我不会让桑德曼叔叔出手！”",
+              "source_text_sha256": "9757d87b38303cb10e968e76b57aa0cf1d5dbb1580b243a6b7e7efa4af79626d",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 206,
+                    "record_index": 66,
+                    "archive_text_start": 1981106,
+                    "encoded_size": 35
+                  }
+                ]
+              },
+              "resource_owners": [
+                "飞"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 67,
+            "entry": {
+              "id": "battle:15330",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「おじ様、後退を！」",
+              "current_translation": "“叔叔，请后退！”",
+              "source_text_sha256": "2c90e8f99a77b44b067bd7952a03fd71c863c406c1dbd801fb4b4c47df60db04",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 206,
+                    "record_index": 67,
+                    "archive_text_start": 1981141,
+                    "encoded_size": 21
+                  }
+                ]
+              },
+              "resource_owners": [
+                "飞"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 68,
+            "entry": {
+              "id": "battle:15331",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「一対一なら負けないわよ！」",
+              "current_translation": "“一对一我可不会输！”",
+              "source_text_sha256": "462ab6331917395eea67d087dd2c66ed9cc140c75ad63ac1c23e7d8d5985d1c8",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 206,
+                    "record_index": 68,
+                    "archive_text_start": 1981162,
+                    "encoded_size": 29
+                  }
+                ]
+              },
+              "resource_owners": [
+                "飞"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 69,
+            "entry": {
+              "id": "battle:15332",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「さあ！　私が相手よ！」",
+              "current_translation": "“来吧！我来当对手！”",
+              "source_text_sha256": "5d512c2795bd1ba6b222d7bb7a2c8288ca881931d4bb31b2e81e5d7ae51c764d",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 206,
+                    "record_index": 69,
+                    "archive_text_start": 1981191,
+                    "encoded_size": 25
+                  }
+                ]
+              },
+              "resource_owners": [
+                "飞"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:16373",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "8a5fa07b0ef47fe39e57c0571fc09407fa25b2e31b88b43f48be1ddf3b4d60d8",
+      "source_ja": "「ゲインをやらせちゃお終いだ！」",
+      "before": "“让该隐得手就完了！”",
+      "after": "“要是该隐被打倒就完了！”",
+      "line_widths": [
+        13
+      ],
+      "review_case_id": "EX-01",
+      "rationale": "逐条核对人物／机体宾语及上下文；这些やらせない表达阻止对方伤害被保护者，现译却变成阻止被保护者出手、得逞或交出机体。不能把全部やらせない机械归为保护句。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 225,
+        "record_index": 49,
+        "entries": [
+          {
+            "record_index": 46,
+            "entry": {
+              "id": "battle:16370",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「俺ってこんな役ばかりなの！？」",
+              "current_translation": "“我怎么老干这种角色！？”",
+              "source_text_sha256": "269a351f5308eae6e286698d8b00cab64e1a7e0f16e9789d1bb48976b58bcff6",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 225,
+                    "record_index": 46,
+                    "archive_text_start": 2109186,
+                    "encoded_size": 33
+                  }
+                ]
+              },
+              "resource_owners": [
+                "贝罗"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 47,
+            "entry": {
+              "id": "battle:16371",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「何やってんの！　狙われてるでしょうが！」",
+              "current_translation": "“干什么呢！你被盯上了！”",
+              "source_text_sha256": "69ae717e730e26c38572f1b7f39cd3c7327000e1e845a50184d173eb18d01fe1",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 225,
+                    "record_index": 47,
+                    "archive_text_start": 2109219,
+                    "encoded_size": 43
+                  }
+                ]
+              },
+              "resource_owners": [
+                "贝罗"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 48,
+            "entry": {
+              "id": "battle:16372",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「俺が頑張ってるから、\\n　ゲイナーも頑張れるってことよ！」",
+              "current_translation": "“正因为我在努力，\\n　盖纳才能努力！”",
+              "source_text_sha256": "bcbd870ed9f0b4312af706965db61d51b6bad143fc98a03dced5d76b985d17fe",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 225,
+                    "record_index": 48,
+                    "archive_text_start": 2109262,
+                    "encoded_size": 59
+                  }
+                ]
+              },
+              "resource_owners": [
+                "贝罗"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 49,
+            "entry": {
+              "id": "battle:16373",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ゲインをやらせちゃお終いだ！」",
+              "current_translation": "“让该隐得手就完了！”",
+              "source_text_sha256": "8a5fa07b0ef47fe39e57c0571fc09407fa25b2e31b88b43f48be1ddf3b4d60d8",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 225,
+                    "record_index": 49,
+                    "archive_text_start": 2109321,
+                    "encoded_size": 33
+                  }
+                ]
+              },
+              "resource_owners": [
+                "贝罗"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 50,
+            "entry": {
+              "id": "battle:16374",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「クラスメートを\\n　危ない目に遭わせられっかよぉ！」",
+              "current_translation": "“怎么能让\\n　同学陷入危险！”",
+              "source_text_sha256": "49f719b051c8b3449b42d8cfab5ab5801e9c4c37aee4a7fca015d34058557cc7",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 225,
+                    "record_index": 50,
+                    "archive_text_start": 2109354,
+                    "encoded_size": 53
+                  }
+                ]
+              },
+              "resource_owners": [
+                "贝罗"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 51,
+            "entry": {
+              "id": "battle:16375",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「あぶねえ、ガウリ隊長！」",
+              "current_translation": "“危险，高富利队长！”",
+              "source_text_sha256": "a5f08deff0e547c24ad058d842f2597dad2ea7c0bf2bb9f86e7ca232f7170efc",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 225,
+                    "record_index": 51,
+                    "archive_text_start": 2109407,
+                    "encoded_size": 27
+                  }
+                ]
+              },
+              "resource_owners": [
+                "贝罗"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 52,
+            "entry": {
+              "id": "battle:16376",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「やる事が危なっかしいんだよ、\\n　先生はよぉ！」",
+              "current_translation": "“做事太冒失了，\\n　老师！”",
+              "source_text_sha256": "7665a3748e2804fa952db3cff3c8366bea116e7115d724aea493d3e6cd3eec4e",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 225,
+                    "record_index": 52,
+                    "archive_text_start": 2109434,
+                    "encoded_size": 49
+                  }
+                ]
+              },
+              "resource_owners": [
+                "贝罗"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:24277",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "fc6b56b3583c5f3e1d63a83d4d9f4825797ae374fce966f7fb991ac96ce9c200",
+      "source_ja": "「ジュリィ、キラケン！　\\n　お前達の命、預かった！」",
+      "before": "“杰利，吉良谦！\\n　你们的命，我收下了！”",
+      "after": "“杰利，吉良谦！\\n　你们的性命就交给我了！”",
+      "line_widths": [
+        8,
+        12
+      ],
+      "review_case_id": "EX-03",
+      "rationale": "命を預かった是接受同伴的托付并承担责任；“你们的命，我收下了”通常成了夺命宣言。斗志也向杰利和吉良谦说话，与此前已修托付句同类。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 330,
+        "record_index": 212,
+        "entries": [
+          {
+            "record_index": 209,
+            "entry": {
+              "id": "battle:24274",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ゴッドシグマの切り札、見せてやる！」",
+              "current_translation": "“让你见识下巨神Σ的杀手锏！”",
+              "source_text_sha256": "601996843edad8a01784fe434457221fbc4b10674404b5483f5970695932b42c",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 5,
+                "occurrences": [
+                  {
+                    "chunk_index": 330,
+                    "record_index": 209,
+                    "archive_text_start": 3113041,
+                    "encoded_size": 39
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 234,
+                    "archive_text_start": 3114052,
+                    "encoded_size": 39
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 249,
+                    "archive_text_start": 3114641,
+                    "encoded_size": 39
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 746,
+                    "archive_text_start": 3135728,
+                    "encoded_size": 39
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 751,
+                    "archive_text_start": 3135907,
+                    "encoded_size": 39
+                  }
+                ]
+              },
+              "resource_owners": [
+                "斗志也"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 210,
+            "entry": {
+              "id": "battle:24275",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ビッグウイングを…\\n　最後の切り札を使うんだ！！」",
+              "current_translation": "“用巨翼……\\n　使出最后的王牌！！”",
+              "source_text_sha256": "c06e9e15cf2fc5caba05fa4ecae6df47192afdc6f7a89a4ebc99379ffb538e72",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 4,
+                "occurrences": [
+                  {
+                    "chunk_index": 330,
+                    "record_index": 210,
+                    "archive_text_start": 3113080,
+                    "encoded_size": 53
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 235,
+                    "archive_text_start": 3114091,
+                    "encoded_size": 53
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 250,
+                    "archive_text_start": 3114680,
+                    "encoded_size": 53
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 752,
+                    "archive_text_start": 3135946,
+                    "encoded_size": 53
+                  }
+                ]
+              },
+              "resource_owners": [
+                "斗志也"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 211,
+            "entry": {
+              "id": "battle:24276",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「いけ、闘志也！　ワシも覚悟を決めた！」",
+              "current_translation": "“上吧，斗志也！我也做好觉悟了！”",
+              "source_text_sha256": "ab5124c5e45908c30b947f813b05f03f540c82969fd6e2d705d4814e3481cdd8",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 4,
+                "occurrences": [
+                  {
+                    "chunk_index": 330,
+                    "record_index": 211,
+                    "archive_text_start": 3113133,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 236,
+                    "archive_text_start": 3114144,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 251,
+                    "archive_text_start": 3114733,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 753,
+                    "archive_text_start": 3135999,
+                    "encoded_size": 41
+                  }
+                ]
+              },
+              "resource_owners": [
+                "斗志也"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 212,
+            "entry": {
+              "id": "battle:24277",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ジュリィ、キラケン！　\\n　お前達の命、預かった！」",
+              "current_translation": "“杰利，吉良谦！\\n　你们的命，我收下了！”",
+              "source_text_sha256": "fc6b56b3583c5f3e1d63a83d4d9f4825797ae374fce966f7fb991ac96ce9c200",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 330,
+                    "record_index": 212,
+                    "archive_text_start": 3113174,
+                    "encoded_size": 53
+                  }
+                ]
+              },
+              "resource_owners": [
+                "斗志也"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 213,
+            "entry": {
+              "id": "battle:01470",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「うおおおおっ！！」",
+              "current_translation": "“呜噢噢噢噢！！”",
+              "source_text_sha256": "c7244a24f5a8b97cefea0ad170b576182e5094ea007adca23b187bd2f38f9024",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 22,
+                "occurrences": [
+                  {
+                    "chunk_index": 19,
+                    "record_index": 48,
+                    "archive_text_start": 165744,
+                    "encoded_size": 21
+                  },
+                  {
+                    "chunk_index": 20,
+                    "record_index": 70,
+                    "archive_text_start": 185646,
+                    "encoded_size": 21
+                  },
+                  {
+                    "chunk_index": 22,
+                    "record_index": 49,
+                    "archive_text_start": 214503,
+                    "encoded_size": 21
+                  },
+                  {
+                    "chunk_index": 51,
+                    "record_index": 19,
+                    "archive_text_start": 468295,
+                    "encoded_size": 21
+                  },
+                  {
+                    "chunk_index": 76,
+                    "record_index": 14,
+                    "archive_text_start": 755264,
+                    "encoded_size": 21
+                  },
+                  {
+                    "chunk_index": 79,
+                    "record_index": 213,
+                    "archive_text_start": 799809,
+                    "encoded_size": 21
+                  },
+                  {
+                    "chunk_index": 79,
+                    "record_index": 455,
+                    "archive_text_start": 811657,
+                    "encoded_size": 21
+                  },
+                  {
+                    "chunk_index": 79,
+                    "record_index": 470,
+                    "archive_text_start": 812254,
+                    "encoded_size": 21
+                  }
+                ],
+                "occurrences_truncated": true,
+                "occurrences_total": 22,
+                "note": "共有无音或喊声仅展示前8个位置；上下文的外层chunk/record字段给出本次核对的准确位置。"
+              },
+              "resource_owners": [
+                "杜克",
+                "大介",
+                "百人众",
+                "百鬼兵",
+                "弗里克",
+                "斗志也",
+                "亨利",
+                "奥尔森",
+                "阿姆罗",
+                "阿波利",
+                "罗伯托",
+                "身份不明士兵",
+                "联邦军舰长",
+                "联合军军官",
+                "联邦军士兵",
+                "暗杀部队",
+                "盖纳",
+                "格伦",
+                "阿波罗"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 214,
+            "entry": {
+              "id": "battle:24278",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「こうなったらイチかバチかだ…！　\\n　やるぞ！」",
+              "current_translation": "“事到如今只能孤注一掷了……！\\n　上吧！”",
+              "source_text_sha256": "0d7e6cc4945414b48077777e1ac1be2bc588e30b8bbf6d042a6f37b6fe8e7ddd",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 3,
+                "occurrences": [
+                  {
+                    "chunk_index": 330,
+                    "record_index": 214,
+                    "archive_text_start": 3113248,
+                    "encoded_size": 49
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 224,
+                    "archive_text_start": 3113648,
+                    "encoded_size": 49
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 244,
+                    "archive_text_start": 3114436,
+                    "encoded_size": 49
+                  }
+                ]
+              },
+              "resource_owners": [
+                "斗志也"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 215,
+            "entry": {
+              "id": "battle:24279",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「おう！　\\n　トリニティエネルギー、チャージ！」",
+              "current_translation": "“哦！\\n　三位一体能量，充能！”",
+              "source_text_sha256": "4ccf1dc65cea0e9278cd097c5fb7dea128760baa9fbe6660e481615926958dba",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 3,
+                "occurrences": [
+                  {
+                    "chunk_index": 330,
+                    "record_index": 215,
+                    "archive_text_start": 3113297,
+                    "encoded_size": 49
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 225,
+                    "archive_text_start": 3113697,
+                    "encoded_size": 49
+                  },
+                  {
+                    "chunk_index": 330,
+                    "record_index": 245,
+                    "archive_text_start": 3114485,
+                    "encoded_size": 49
+                  }
+                ]
+              },
+              "resource_owners": [
+                "斗志也"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:11301",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "3783b2bfd707d7a8e6f1e759f635c2f4ba89df4852722fc928d1f1ebaa2e93c0",
+      "source_ja": "「私は遊び気分では倒せないわよ、\\n　ツィーネ！」",
+      "before": "“我可不会抱着玩心\\n　被你打倒，兹妮！”",
+      "after": "“抱着玩玩的心态可打不倒我，\\n　兹妮！”",
+      "line_widths": [
+        14,
+        4
+      ],
+      "review_case_id": "EX-05",
+      "rationale": "私は是受事话题，遊び気分では倒せない指兹妮若抱着玩玩的心态便无法打倒节子。现译把玩心安在节子一方，施受与修饰关系错位。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 141,
+        "record_index": 239,
+        "entries": [
+          {
+            "record_index": 236,
+            "entry": {
+              "id": "battle:11298",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「相手の動きが…見える…！」",
+              "current_translation": "“对手的动作…看得见…！”",
+              "source_text_sha256": "369c43aead6e50e90026a690c54c0ed70f6ac369678749bf0b9574dd8ba129db",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 141,
+                    "record_index": 236,
+                    "archive_text_start": 1441132,
+                    "encoded_size": 29
+                  }
+                ]
+              },
+              "resource_owners": [
+                "节子"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 237,
+            "entry": {
+              "id": "battle:11299",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「アサキム…！　\\n　あなたの思い通りにはさせない！」",
+              "current_translation": "“阿萨基姆…！\\n　我不会让你为所欲为！”",
+              "source_text_sha256": "476c1cd51c783c6678fc1dcd81464098923cfdc83e4e239256555b7ed072bcc1",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 141,
+                    "record_index": 237,
+                    "archive_text_start": 1441161,
+                    "encoded_size": 53
+                  }
+                ]
+              },
+              "resource_owners": [
+                "节子"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 238,
+            "entry": {
+              "id": "battle:11300",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「そうやって私を油断させるつもり…！？」",
+              "current_translation": "“你是想让我大意…！？”",
+              "source_text_sha256": "caaf12fa8d31081d6a4535f801604350d5f5251c0974ca6cceb4f89329e5f29a",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 141,
+                    "record_index": 238,
+                    "archive_text_start": 1441214,
+                    "encoded_size": 41
+                  }
+                ]
+              },
+              "resource_owners": [
+                "节子"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 239,
+            "entry": {
+              "id": "battle:11301",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「私は遊び気分では倒せないわよ、\\n　ツィーネ！」",
+              "current_translation": "“我可不会抱着玩心\\n　被你打倒，兹妮！”",
+              "source_text_sha256": "3783b2bfd707d7a8e6f1e759f635c2f4ba89df4852722fc928d1f1ebaa2e93c0",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 141,
+                    "record_index": 239,
+                    "archive_text_start": 1441255,
+                    "encoded_size": 49
+                  }
+                ]
+              },
+              "resource_owners": [
+                "节子"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 240,
+            "entry": {
+              "id": "battle:11302",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「攻撃に当たれば、\\n　あなたを喜ばせる事になる…！」",
+              "current_translation": "“打中你的攻击，\\n　只会让你得意…！”",
+              "source_text_sha256": "67fbefff58e8f0c4709c1adf671c353e4731701272d5b0df0cee86589ad09673",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 141,
+                    "record_index": 240,
+                    "archive_text_start": 1441304,
+                    "encoded_size": 53
+                  }
+                ]
+              },
+              "resource_owners": [
+                "节子"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 241,
+            "entry": {
+              "id": "battle:11303",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「レーベン大尉…！　\\n　私だって強くなっているんです！」",
+              "current_translation": "“雷本上尉…！\\n　我也在变强！”",
+              "source_text_sha256": "956fa711b987d0d555970d66a72ed613d5eb54fa4fe8ef7962933366834de803",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 141,
+                    "record_index": 241,
+                    "archive_text_start": 1441357,
+                    "encoded_size": 57
+                  }
+                ]
+              },
+              "resource_owners": [
+                "节子"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 242,
+            "entry": {
+              "id": "battle:11304",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「そんな敵意むき出しの攻撃…\\n　みたくなかったです…」",
+              "current_translation": "“那种敌意满满的攻击…\\n　真不想看到…”",
+              "source_text_sha256": "fae865ba1499768cb9e45f7e181f6d528bdbb3c92ed7da7ca29a785d7c9f9174",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 141,
+                    "record_index": 242,
+                    "archive_text_start": 1441414,
+                    "encoded_size": 55
+                  }
+                ]
+              },
+              "resource_owners": [
+                "节子"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "story/007/dialogue/02.01/0025",
+      "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+      "source_text_sha256": "7729f9d69d2c2c59e2028c159e08c2212327af94fa92d38ee6283a2b5c40bb54",
+      "source_ja": "「かてえ事言うなよ、じいちゃん！\n　甲児の兄ちゃん達は、町のみんなを\n　助けてくれたんだぜ！」",
+      "before": "“爷爷！甲儿他们帮了镇上所有人！”",
+      "after": "“爷爷，别那么死板嘛！\n　甲儿他们可是帮了镇上所有人的！”",
+      "line_widths": [
+        11,
+        16
+      ],
+      "review_case_id": "EX-10",
+      "rationale": "胜平是在反对爷爷不肯向救命恩人透露情况；かてえ事言うなよ这一劝说句现译完全没有。补回明确内容，不额外改变其人物口吻。",
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/007/dialogue/02.01/0017",
+            "speaker": "丹泽尔",
+            "source_ja": "「ミスター神北。\n　まずは我々を保護していただいた事について、\n　お礼を述べさせていただきます」",
+            "current_translation": "“神北先生。首先感谢您保护了我们。”",
+            "source_text_sha256": "81142f0843d957a8225d91433777637a6a0727fe3d3d8d5167eef95c872c9953",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 17,
+              "text_offset": 54976
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/014",
+              "source_name": "デンゼル",
+              "visual_id": 708,
+              "linked_person_id": "person/21/f1d76bb6f5a7",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0018",
+            "speaker": "兵左卫门",
+            "source_ja": "「………」",
+            "current_translation": "“……”",
+            "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 18,
+              "text_offset": 55088
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/009",
+              "source_name": "兵左衛門",
+              "visual_id": 147,
+              "linked_person_id": "person/06/4fb50752e6af",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0019",
+            "speaker": "丹泽尔",
+            "source_ja": "「今後の事もあります。\n　あのアンノウン…ガイゾックについて\n　教えていただきたいのですが」",
+            "current_translation": "“今后还会发生事情。我想请您告诉我们\n　关于那个未知机体……盖佐克的情报。”",
+            "source_text_sha256": "c1fa84c63b6fc1673841927ee996040c451c3245f7f178f171e7630b70c68b0d",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 19,
+              "text_offset": 55120
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/014",
+              "source_name": "デンゼル",
+              "visual_id": 708,
+              "linked_person_id": "person/21/f1d76bb6f5a7",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0020",
+            "speaker": "兵左卫门",
+            "source_ja": "「…それについては我々も調査中でな。\n　現段階で話せる事はない」",
+            "current_translation": "“……我们也在调查。目前无可奉告。”",
+            "source_text_sha256": "7c4c25905d45e212e05e9bb87d9246e5e10caa60257a5113d1362a986e1e0b67",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 20,
+              "text_offset": 55232
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/009",
+              "source_name": "兵左衛門",
+              "visual_id": 147,
+              "linked_person_id": "person/06/4fb50752e6af",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0021",
+            "speaker": "甲儿",
+            "source_ja": "「じゃあ、このビアルⅠ世と\n　ザンボエースについて教えて下さいよ」",
+            "current_translation": "“那么，\n　请告诉我们比亚路I世和赞波王牌的事。”",
+            "source_text_sha256": "82c5080c3c66950f51bfca3cbf97efd2b19295cca5edcf0057b2999a8e6cfc7f",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 21,
+              "text_offset": 55312
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/011",
+              "source_name": "甲児",
+              "visual_id": 3,
+              "linked_person_id": "person/00/123b7f4ed278",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0022",
+            "speaker": "甲儿",
+            "source_ja": "「ご先祖様のお宝ってのは、\n　どういう意味なんです？」",
+            "current_translation": "“祖先的宝物，究竟是什么意思？”",
+            "source_text_sha256": "0a71873c23f1410da1bf9fba3de9bd4cc36bfed4c53a78f4434681abde120362",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 22,
+              "text_offset": 55392
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/011",
+              "source_name": "甲児",
+              "visual_id": 3,
+              "linked_person_id": "person/00/123b7f4ed278",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0023",
+            "speaker": "兵左卫门",
+            "source_ja": "「それについては話す事は出来ん」",
+            "current_translation": "“我不能谈论这个。”",
+            "source_text_sha256": "338ba7d70bfc01b507f64d66d0cc438c80d96bf19f0dc3b27428b379edb9683e",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 23,
+              "text_offset": 55456
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/009",
+              "source_name": "兵左衛門",
+              "visual_id": 147,
+              "linked_person_id": "person/06/4fb50752e6af",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0024",
+            "speaker": "节子",
+            "source_ja": "「え…」",
+            "current_translation": "“诶……”",
+            "source_text_sha256": "6fabd32f4374540741642ed446234b3357d188a0822fe8a2101731d7363bef2b",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 24,
+              "text_offset": 50808
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/012",
+              "source_name": "$n",
+              "visual_id": 702,
+              "linked_person_id": "person/21/2f7848c97400",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0025",
+            "speaker": "胜平",
+            "source_ja": "「かてえ事言うなよ、じいちゃん！\n　甲児の兄ちゃん達は、町のみんなを\n　助けてくれたんだぜ！」",
+            "current_translation": "“爷爷！甲儿他们帮了镇上所有人！”",
+            "source_text_sha256": "7729f9d69d2c2c59e2028c159e08c2212327af94fa92d38ee6283a2b5c40bb54",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 25,
+              "text_offset": 55504
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/007",
+              "source_name": "勝平",
+              "visual_id": 137,
+              "linked_person_id": "person/06/9de073ef00c8",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0026",
+            "speaker": "兵左卫门",
+            "source_ja": "「駄目だ」",
+            "current_translation": "“不行。”",
+            "source_text_sha256": "2851cba2a4e503a2236fb3c53a41440adb70a0aef85de4f074d169a2eb4fc0f9",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 26,
+              "text_offset": 55616
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/009",
+              "source_name": "兵左衛門",
+              "visual_id": 147,
+              "linked_person_id": "person/06/4fb50752e6af",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0027",
+            "speaker": "玛丽亚",
+            "source_ja": "「どうしてよ！\n　操縦してたんなら、おじいちゃん達は\n　この艦の事を知っていたんでしょう」",
+            "current_translation": "“为什么！既然你们驾驶过，\n　肯定知道这艘船的事吧？”",
+            "source_text_sha256": "e74eaf7bb400bee5d3cf6109775b9fb0d86abf29cfcfd740ae09af2b6a1faa67",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 27,
+              "text_offset": 55648
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/016",
+              "source_name": "マリア",
+              "visual_id": 33,
+              "linked_person_id": "person/02/3fbb90b74ae5",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0028",
+            "speaker": "杜克／大介",
+            "source_ja": "「やめるんだ、マリア。\n　…申し訳ありません、兵左衛門さん」",
+            "current_translation": "“住手，玛丽亚。……抱歉，兵左卫门先生。”",
+            "source_text_sha256": "dc18e5af1f373dd041ddfcb694579a3594688d0bc2bed56deb35744fe8f4795d",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 28,
+              "text_offset": 55744
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/030",
+              "source_name": "大介",
+              "visual_id": 26,
+              "linked_person_id": "person/02/a8e3b38169e5",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/007/dialogue/02.01/0029",
+            "speaker": "兵左卫门",
+            "source_ja": "「………」",
+            "current_translation": "“……”",
+            "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+            "corpus_path": "corpus/zh/story-dialogue/stage-007.json",
+            "original_location": {
+              "stage_index": 7,
+              "section": "Section 2.1",
+              "ordinal": 29,
+              "text_offset": 55088
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/007/speaker/009",
+              "source_name": "兵左衛門",
+              "visual_id": 147,
+              "linked_person_id": "person/06/4fb50752e6af",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:03591",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "417e396abf1d5a36e9061c0631e2c0ea42910c113cb8584ee7b2ac8a79cb8c89",
+      "source_ja": "「田舎者にしてやられるほど\\n　マヌケじゃねえんでな！」",
+      "before": "“我可没那么努科，\\n　会被乡下人打败！”",
+      "after": "“我可没蠢到\\n　会被乡下人摆一道！”",
+      "line_widths": [
+        6,
+        10
+      ],
+      "review_case_id": "EX-15",
+      "rationale": "マヌケ在这三句里是蠢货，不是人物ヌケ；现译分别出现“那么努科”“个努科”和凭空添加的称呼努科。这里只能确认词义／人名混淆，尚不能断言由哪一轮术语处理造成。另有真正ムチャ、ヌケ的称呼作为保留反例。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 46,
+        "record_index": 88,
+        "entries": [
+          {
+            "record_index": 85,
+            "entry": {
+              "id": "battle:03588",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ゲイン・ビジョウも噂ほどじゃないな！」",
+              "current_translation": "“该隐·比琼也没传说中那么厉害！”",
+              "source_text_sha256": "658a166455f6c2b04c229b3016e108e71d8d2b02bc2704133bbf7f49468e1926",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 46,
+                    "record_index": 85,
+                    "archive_text_start": 447295,
+                    "encoded_size": 41
+                  }
+                ]
+              },
+              "resource_owners": [
+                "恩盖"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 86,
+            "entry": {
+              "id": "battle:03589",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ピープル上がりのヤーパンじゃ、\\n　無理ってことよ！」",
+              "current_translation": "“人民出身的雅邦，\\n　果然不行啊！”",
+              "source_text_sha256": "839869c6ac974551b58967d5e4f1010dc0668d1b387251ca9ab43ce08a95cd1f",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 46,
+                    "record_index": 86,
+                    "archive_text_start": 447336,
+                    "encoded_size": 55
+                  }
+                ]
+              },
+              "resource_owners": [
+                "恩盖"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 87,
+            "entry": {
+              "id": "battle:03590",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「手加減ってわけじゃなさそうですね、\\n　姐さん！」",
+              "current_translation": "“看来不是手下留情啊，\\n　大姐！”",
+              "source_text_sha256": "171845d528dfc4c69abe91ecf585aa69f87b85f9c5a353549b8ff73cd720c6f3",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 46,
+                    "record_index": 87,
+                    "archive_text_start": 447391,
+                    "encoded_size": 51
+                  }
+                ]
+              },
+              "resource_owners": [
+                "恩盖"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 88,
+            "entry": {
+              "id": "battle:03591",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「田舎者にしてやられるほど\\n　マヌケじゃねえんでな！」",
+              "current_translation": "“我可没那么努科，\\n　会被乡下人打败！”",
+              "source_text_sha256": "417e396abf1d5a36e9061c0631e2c0ea42910c113cb8584ee7b2ac8a79cb8c89",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 46,
+                    "record_index": 88,
+                    "archive_text_start": 447442,
+                    "encoded_size": 55
+                  }
+                ]
+              },
+              "resource_owners": [
+                "恩盖"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 89,
+            "entry": {
+              "id": "battle:03592",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「便利なオーバースキルだぜ！」",
+              "current_translation": "“方便的超限技！”",
+              "source_text_sha256": "674094076695faae71f27ea36e098a070c1d071d654cf5835c70823875eb1b2d",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 46,
+                    "record_index": 89,
+                    "archive_text_start": 447497,
+                    "encoded_size": 31
+                  }
+                ]
+              },
+              "resource_owners": [
+                "恩盖"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 90,
+            "entry": {
+              "id": "battle:03593",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ああん？　何のつもりだ？」",
+              "current_translation": "“啊嗯？你想干什么？”",
+              "source_text_sha256": "db09bfac1a11fa61645c4646676e6b950be29d5a0e890a189e98241635aa4130",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 46,
+                    "record_index": 90,
+                    "archive_text_start": 447528,
+                    "encoded_size": 29
+                  }
+                ]
+              },
+              "resource_owners": [
+                "恩盖"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 91,
+            "entry": {
+              "id": "battle:03594",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「いけるぜ、フォトン・バリアっての！」",
+              "current_translation": "“能行，光子屏障！”",
+              "source_text_sha256": "9f70dfac6b3a5699b670fbb03c36d35fce8ef0aa15058fc878b6ce94c41e25eb",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 46,
+                    "record_index": 91,
+                    "archive_text_start": 447557,
+                    "encoded_size": 39
+                  }
+                ]
+              },
+              "resource_owners": [
+                "恩盖"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:06799",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "60b9dd34e74994e3f2efdf18faa3c45774acf0d50d671bc92c38928b3c0def96",
+      "source_ja": "「ハッ、私を狙うとは、\\n　とんだマヌケもいたものだ！」",
+      "before": "“哈，敢瞄准我，\\n　还真是个努科啊！”",
+      "after": "“哈，竟敢瞄准我，\\n　还真是个蠢货啊！”",
+      "line_widths": [
+        9,
+        9
+      ],
+      "review_case_id": "EX-15",
+      "rationale": "マヌケ在这三句里是蠢货，不是人物ヌケ；现译分别出现“那么努科”“个努科”和凭空添加的称呼努科。这里只能确认词义／人名混淆，尚不能断言由哪一轮术语处理造成。另有真正ムチャ、ヌケ的称呼作为保留反例。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 93,
+        "record_index": 46,
+        "entries": [
+          {
+            "record_index": 43,
+            "entry": {
+              "id": "battle:06796",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「その程度の逃げ足で生き延びられると\\n　思うなよ！　くそーっ！」",
+              "current_translation": "“别以为那种逃跑速度\\n　就能活命！可恶——！”",
+              "source_text_sha256": "5e5572adc4083833a2b35ca7ff33a82cf8f057ef5d015a7cd18179dd6f5bcfe7",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 93,
+                    "record_index": 43,
+                    "archive_text_start": 897279,
+                    "encoded_size": 65
+                  }
+                ]
+              },
+              "resource_owners": [
+                "扎奇"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 44,
+            "entry": {
+              "id": "battle:06797",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「こちらの間合いを見切ったか…\\n　やってくれる…！」",
+              "current_translation": "“看穿了我的攻击范围吗……\\n　有两下子……！”",
+              "source_text_sha256": "62b6997ab0a42cc6d8a18f4a8731312f22ce5b0a5493037c56b2dc2c627a8bfb",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 93,
+                    "record_index": 44,
+                    "archive_text_start": 897344,
+                    "encoded_size": 53
+                  }
+                ]
+              },
+              "resource_owners": [
+                "扎奇"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 45,
+            "entry": {
+              "id": "battle:06798",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「フフフ、いいぞ。\\n　機体の調子は万全だ」",
+              "current_translation": "“呵呵，不错。\\n　机体状态完美。”",
+              "source_text_sha256": "6b7d7bd9c6d499e32038ed19dbfabc7cec1f6bcf621815d8c60db0128716bec1",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 93,
+                    "record_index": 45,
+                    "archive_text_start": 897397,
+                    "encoded_size": 43
+                  }
+                ]
+              },
+              "resource_owners": [
+                "扎奇"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 46,
+            "entry": {
+              "id": "battle:06799",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ハッ、私を狙うとは、\\n　とんだマヌケもいたものだ！」",
+              "current_translation": "“哈，敢瞄准我，\\n　还真是个努科啊！”",
+              "source_text_sha256": "60b9dd34e74994e3f2efdf18faa3c45774acf0d50d671bc92c38928b3c0def96",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 93,
+                    "record_index": 46,
+                    "archive_text_start": 897440,
+                    "encoded_size": 55
+                  }
+                ]
+              },
+              "resource_owners": [
+                "扎奇"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 47,
+            "entry": {
+              "id": "battle:06800",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「当たると思ってたか？　とんでもない！」",
+              "current_translation": "“以为能打中吗？想得美！”",
+              "source_text_sha256": "9e953332e0e0cee30d335abe6c945e3aa63752ce41327f1774fb15f4625dddf6",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 93,
+                    "record_index": 47,
+                    "archive_text_start": 897495,
+                    "encoded_size": 41
+                  }
+                ]
+              },
+              "resource_owners": [
+                "扎奇"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 48,
+            "entry": {
+              "id": "battle:06801",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「下手さ加減に驚いた！」",
+              "current_translation": "“这拙劣程度真惊人！”",
+              "source_text_sha256": "cce910f2798f2741833b6354a2c0dc4b19c25600d6944856ff447e4855154ef6",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 93,
+                    "record_index": 48,
+                    "archive_text_start": 897536,
+                    "encoded_size": 25
+                  }
+                ]
+              },
+              "resource_owners": [
+                "扎奇"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 49,
+            "entry": {
+              "id": "battle:06802",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「セント・レーガンを甘く見るなよ！」",
+              "current_translation": "“别小看圣雷根！”",
+              "source_text_sha256": "e11868ebb21e78583534a459a16b57a189b1939b3cb42ca8b267b9a0220b7b1c",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 93,
+                    "record_index": 49,
+                    "archive_text_start": 897561,
+                    "encoded_size": 37
+                  }
+                ]
+              },
+              "resource_owners": [
+                "扎奇"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:20575",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "bbdcdb92834f3301876944252f92a89c04d3f0537b133788af09e526b3b4c9df",
+      "source_ja": "「グズが！　マヌケが！　ウスノロが！　\\n　出直してこい！」",
+      "before": "“废物！蠢货！呆子！\\n　重来一遍，努科！”",
+      "after": "“废物！蠢货！呆子！\\n　回去重练再来！”",
+      "line_widths": [
+        10,
+        8
+      ],
+      "review_case_id": "EX-15",
+      "rationale": "マヌケ在这三句里是蠢货，不是人物ヌケ；现译分别出现“那么努科”“个努科”和凭空添加的称呼努科。这里只能确认词义／人名混淆，尚不能断言由哪一轮术语处理造成。另有真正ムチャ、ヌケ的称呼作为保留反例。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 277,
+        "record_index": 100,
+        "entries": [
+          {
+            "record_index": 97,
+            "entry": {
+              "id": "battle:20572",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「獅子の身体に触れる事は許さん！」",
+              "current_translation": "“不许触碰狮子的身体！”",
+              "source_text_sha256": "960fbd798b1f4e180a84fbaa940e8a181d73d857b6fda8ab8c12ff280f61106e",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 277,
+                    "record_index": 97,
+                    "archive_text_start": 2628285,
+                    "encoded_size": 35
+                  }
+                ]
+              },
+              "resource_owners": [
+                "雷本"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 98,
+            "entry": {
+              "id": "battle:20573",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「フフフ…\\n　この華麗な動きをエーデル准将に捧げよう」",
+              "current_translation": "“呵呵…\\n　把这华丽的动作献给艾岱尔准将”",
+              "source_text_sha256": "d9c48d9f1a6e4eb0fcf13a00a666b6f105e580b1529ea3a45469326ef4300244",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 277,
+                    "record_index": 98,
+                    "archive_text_start": 2628320,
+                    "encoded_size": 55
+                  }
+                ]
+              },
+              "resource_owners": [
+                "雷本"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 99,
+            "entry": {
+              "id": "battle:20574",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「エーデル准将に仕える身…。\\n　傷など受けるわけにはいかぬ」",
+              "current_translation": "“身为艾岱尔准将的侍从…\\n　岂能受伤”",
+              "source_text_sha256": "9f1fe75dcac33ce5569a455b8355d4a6f09bd1f1feabbc3e58778423af82f7a9",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 277,
+                    "record_index": 99,
+                    "archive_text_start": 2628375,
+                    "encoded_size": 61
+                  }
+                ]
+              },
+              "resource_owners": [
+                "雷本"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 100,
+            "entry": {
+              "id": "battle:20575",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「グズが！　マヌケが！　ウスノロが！　\\n　出直してこい！」",
+              "current_translation": "“废物！蠢货！呆子！\\n　重来一遍，努科！”",
+              "source_text_sha256": "bbdcdb92834f3301876944252f92a89c04d3f0537b133788af09e526b3b4c9df",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 277,
+                    "record_index": 100,
+                    "archive_text_start": 2628436,
+                    "encoded_size": 59
+                  }
+                ]
+              },
+              "resource_owners": [
+                "雷本"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 101,
+            "entry": {
+              "id": "battle:20576",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ウスノロ女が。\\n　お前ごときに触れさせるか」",
+              "current_translation": "“蠢女人。\\n　岂能让你碰到我”",
+              "source_text_sha256": "e72d17c19302ee37216f103bc883a952411275b842feb61a5fe540dac7c33854",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 2,
+                "occurrences": [
+                  {
+                    "chunk_index": 277,
+                    "record_index": 101,
+                    "archive_text_start": 2628495,
+                    "encoded_size": 47
+                  },
+                  {
+                    "chunk_index": 277,
+                    "record_index": 103,
+                    "archive_text_start": 2628601,
+                    "encoded_size": 47
+                  }
+                ]
+              },
+              "resource_owners": [
+                "雷本"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 102,
+            "entry": {
+              "id": "battle:20577",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「俺の身体に触れていい女性は、\\n　この世界でただ一人だ！」",
+              "current_translation": "“能碰我身体的女人，\\n　这世上只有一个！”",
+              "source_text_sha256": "a77f47f42ee935b4f1172e07a8e13efcee0dc4593d9c6b93039c953fc871f119",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 2,
+                "occurrences": [
+                  {
+                    "chunk_index": 277,
+                    "record_index": 102,
+                    "archive_text_start": 2628542,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 277,
+                    "record_index": 104,
+                    "archive_text_start": 2628648,
+                    "encoded_size": 59
+                  }
+                ]
+              },
+              "resource_owners": [
+                "雷本"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 103,
+            "entry": {
+              "id": "battle:20576",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ウスノロ女が。\\n　お前ごときに触れさせるか」",
+              "current_translation": "“蠢女人。\\n　岂能让你碰到我”",
+              "source_text_sha256": "e72d17c19302ee37216f103bc883a952411275b842feb61a5fe540dac7c33854",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 2,
+                "occurrences": [
+                  {
+                    "chunk_index": 277,
+                    "record_index": 101,
+                    "archive_text_start": 2628495,
+                    "encoded_size": 47
+                  },
+                  {
+                    "chunk_index": 277,
+                    "record_index": 103,
+                    "archive_text_start": 2628601,
+                    "encoded_size": 47
+                  }
+                ]
+              },
+              "resource_owners": [
+                "雷本"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:03285",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "c5c3c61aefad51d5d74076cd230f73fab95f60283e676e665f670979849868a4",
+      "source_ja": "「ゴ、ゴッドシグマめ！　奴だけは！」　",
+      "before": "“狗、狗头Σ！唯独不能放过它！”",
+      "after": "“巨、巨神Σ！唯独不能放过它！”",
+      "line_widths": [
+        16
+      ],
+      "review_case_id": "EX-16",
+      "rationale": "四句日文均为机体正式名称ゴッドシグマ，没有狗头之类的绰号词义。词表unit/god-sigma已定名巨神Σ（enforce范围为story）；战斗邻条03286也用巨神Σ。本次按每条原文和同机体译例提出战斗修正，不宣称现有词表已跨域强制覆盖，也不改巨神Σ格兰维昂。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 42,
+        "record_index": 116,
+        "entries": [
+          {
+            "record_index": 113,
+            "entry": {
+              "id": "battle:03282",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「残った砲塔で、敵を撃ち落とせ！」",
+              "current_translation": "“用剩下的炮塔，击落敌人！”",
+              "source_text_sha256": "156e4f347aab6f7ac71caac843d2e698023f3542104e6d5005fe68c6df631fc1",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 3,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 113,
+                    "archive_text_start": 396861,
+                    "encoded_size": 35
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 113,
+                    "archive_text_start": 404589,
+                    "encoded_size": 35
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 113,
+                    "archive_text_start": 412521,
+                    "encoded_size": 35
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 114,
+            "entry": {
+              "id": "battle:03283",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「くっ…！　\\n　このままでは艦が丸裸にされるぞ！」",
+              "current_translation": "“唔…！\\n　这样下去舰会完全暴露！”",
+              "source_text_sha256": "268fef2cd9175b76504085397257802ccd8dbe3a2bde8a80fdd23bd34e90f6fe",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 3,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 114,
+                    "archive_text_start": 396896,
+                    "encoded_size": 51
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 114,
+                    "archive_text_start": 404624,
+                    "encoded_size": 51
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 114,
+                    "archive_text_start": 412556,
+                    "encoded_size": 51
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 115,
+            "entry": {
+              "id": "battle:03284",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ちいっ！　\\n　あれがトリニティエネルギーの力か！」",
+              "current_translation": "“切！\\n　那就是三位一体能量的力量吗！”",
+              "source_text_sha256": "850687874ee817cc6653d18dfdefca2be0cf0ea6bb7fc1c09e6a0ab3d8d78b4c",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 3,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 115,
+                    "archive_text_start": 396947,
+                    "encoded_size": 53
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 115,
+                    "archive_text_start": 404675,
+                    "encoded_size": 53
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 115,
+                    "archive_text_start": 412607,
+                    "encoded_size": 53
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 116,
+            "entry": {
+              "id": "battle:03285",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ゴ、ゴッドシグマめ！　奴だけは！」　",
+              "current_translation": "“狗、狗头Σ！唯独不能放过它！”",
+              "source_text_sha256": "c5c3c61aefad51d5d74076cd230f73fab95f60283e676e665f670979849868a4",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 3,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 116,
+                    "archive_text_start": 397000,
+                    "encoded_size": 39
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 116,
+                    "archive_text_start": 404728,
+                    "encoded_size": 39
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 116,
+                    "archive_text_start": 412660,
+                    "encoded_size": 39
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 117,
+            "entry": {
+              "id": "battle:03286",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「あ、あのゴッドシグマも油断ならん！！」",
+              "current_translation": "“那、那个巨神Σ也不能大意！！”",
+              "source_text_sha256": "c5c26fbe0ccfbec69e72e9d6c3b9eb57fee2f7871be3f5864088d707dca2521c",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 6,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 117,
+                    "archive_text_start": 397039,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 42,
+                    "record_index": 119,
+                    "archive_text_start": 397139,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 117,
+                    "archive_text_start": 404767,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 119,
+                    "archive_text_start": 404867,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 117,
+                    "archive_text_start": 412699,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 119,
+                    "archive_text_start": 412799,
+                    "encoded_size": 41
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 118,
+            "entry": {
+              "id": "battle:03287",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ゴ、ゴッドシグマと名の付くものは、\\n　全て破壊せねば！」",
+              "current_translation": "“凡、凡是名为狗头Σ的，\\n　统统都要摧毁！”",
+              "source_text_sha256": "840d7afe67a6c7fddb39fc9222a305d605a794b0cf28cf20be26bca2998f96a1",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 6,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 118,
+                    "archive_text_start": 397080,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 42,
+                    "record_index": 120,
+                    "archive_text_start": 397180,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 118,
+                    "archive_text_start": 404808,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 120,
+                    "archive_text_start": 404908,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 118,
+                    "archive_text_start": 412740,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 120,
+                    "archive_text_start": 412840,
+                    "encoded_size": 59
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 119,
+            "entry": {
+              "id": "battle:03286",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「あ、あのゴッドシグマも油断ならん！！」",
+              "current_translation": "“那、那个巨神Σ也不能大意！！”",
+              "source_text_sha256": "c5c26fbe0ccfbec69e72e9d6c3b9eb57fee2f7871be3f5864088d707dca2521c",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 6,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 117,
+                    "archive_text_start": 397039,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 42,
+                    "record_index": 119,
+                    "archive_text_start": 397139,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 117,
+                    "archive_text_start": 404767,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 119,
+                    "archive_text_start": 404867,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 117,
+                    "archive_text_start": 412699,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 119,
+                    "archive_text_start": 412799,
+                    "encoded_size": 41
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:03287",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "840d7afe67a6c7fddb39fc9222a305d605a794b0cf28cf20be26bca2998f96a1",
+      "source_ja": "「ゴ、ゴッドシグマと名の付くものは、\\n　全て破壊せねば！」",
+      "before": "“凡、凡是名为狗头Σ的，\\n　统统都要摧毁！”",
+      "after": "“凡、凡是名为巨神Σ的，\\n　统统都要摧毁！”",
+      "line_widths": [
+        12,
+        8
+      ],
+      "review_case_id": "EX-16",
+      "rationale": "四句日文均为机体正式名称ゴッドシグマ，没有狗头之类的绰号词义。词表unit/god-sigma已定名巨神Σ（enforce范围为story）；战斗邻条03286也用巨神Σ。本次按每条原文和同机体译例提出战斗修正，不宣称现有词表已跨域强制覆盖，也不改巨神Σ格兰维昂。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 42,
+        "record_index": 118,
+        "entries": [
+          {
+            "record_index": 115,
+            "entry": {
+              "id": "battle:03284",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ちいっ！　\\n　あれがトリニティエネルギーの力か！」",
+              "current_translation": "“切！\\n　那就是三位一体能量的力量吗！”",
+              "source_text_sha256": "850687874ee817cc6653d18dfdefca2be0cf0ea6bb7fc1c09e6a0ab3d8d78b4c",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 3,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 115,
+                    "archive_text_start": 396947,
+                    "encoded_size": 53
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 115,
+                    "archive_text_start": 404675,
+                    "encoded_size": 53
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 115,
+                    "archive_text_start": 412607,
+                    "encoded_size": 53
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 116,
+            "entry": {
+              "id": "battle:03285",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ゴ、ゴッドシグマめ！　奴だけは！」　",
+              "current_translation": "“狗、狗头Σ！唯独不能放过它！”",
+              "source_text_sha256": "c5c3c61aefad51d5d74076cd230f73fab95f60283e676e665f670979849868a4",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 3,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 116,
+                    "archive_text_start": 397000,
+                    "encoded_size": 39
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 116,
+                    "archive_text_start": 404728,
+                    "encoded_size": 39
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 116,
+                    "archive_text_start": 412660,
+                    "encoded_size": 39
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 117,
+            "entry": {
+              "id": "battle:03286",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「あ、あのゴッドシグマも油断ならん！！」",
+              "current_translation": "“那、那个巨神Σ也不能大意！！”",
+              "source_text_sha256": "c5c26fbe0ccfbec69e72e9d6c3b9eb57fee2f7871be3f5864088d707dca2521c",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 6,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 117,
+                    "archive_text_start": 397039,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 42,
+                    "record_index": 119,
+                    "archive_text_start": 397139,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 117,
+                    "archive_text_start": 404767,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 119,
+                    "archive_text_start": 404867,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 117,
+                    "archive_text_start": 412699,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 119,
+                    "archive_text_start": 412799,
+                    "encoded_size": 41
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 118,
+            "entry": {
+              "id": "battle:03287",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ゴ、ゴッドシグマと名の付くものは、\\n　全て破壊せねば！」",
+              "current_translation": "“凡、凡是名为狗头Σ的，\\n　统统都要摧毁！”",
+              "source_text_sha256": "840d7afe67a6c7fddb39fc9222a305d605a794b0cf28cf20be26bca2998f96a1",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 6,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 118,
+                    "archive_text_start": 397080,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 42,
+                    "record_index": 120,
+                    "archive_text_start": 397180,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 118,
+                    "archive_text_start": 404808,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 120,
+                    "archive_text_start": 404908,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 118,
+                    "archive_text_start": 412740,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 120,
+                    "archive_text_start": 412840,
+                    "encoded_size": 59
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 119,
+            "entry": {
+              "id": "battle:03286",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「あ、あのゴッドシグマも油断ならん！！」",
+              "current_translation": "“那、那个巨神Σ也不能大意！！”",
+              "source_text_sha256": "c5c26fbe0ccfbec69e72e9d6c3b9eb57fee2f7871be3f5864088d707dca2521c",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 6,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 117,
+                    "archive_text_start": 397039,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 42,
+                    "record_index": 119,
+                    "archive_text_start": 397139,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 117,
+                    "archive_text_start": 404767,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 119,
+                    "archive_text_start": 404867,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 117,
+                    "archive_text_start": 412699,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 119,
+                    "archive_text_start": 412799,
+                    "encoded_size": 41
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 120,
+            "entry": {
+              "id": "battle:03287",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ゴ、ゴッドシグマと名の付くものは、\\n　全て破壊せねば！」",
+              "current_translation": "“凡、凡是名为狗头Σ的，\\n　统统都要摧毁！”",
+              "source_text_sha256": "840d7afe67a6c7fddb39fc9222a305d605a794b0cf28cf20be26bca2998f96a1",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 6,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 118,
+                    "archive_text_start": 397080,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 42,
+                    "record_index": 120,
+                    "archive_text_start": 397180,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 118,
+                    "archive_text_start": 404808,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 120,
+                    "archive_text_start": 404908,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 118,
+                    "archive_text_start": 412740,
+                    "encoded_size": 59
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 120,
+                    "archive_text_start": 412840,
+                    "encoded_size": 59
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 121,
+            "entry": {
+              "id": "battle:03288",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ま、まともに食らってしまった！」",
+              "current_translation": "“完、完全吃满了吗！”",
+              "source_text_sha256": "c6f139624bf9f70c411706d62fce21110c4963b4c7367484abb9156e9e2d64df",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 3,
+                "occurrences": [
+                  {
+                    "chunk_index": 42,
+                    "record_index": 121,
+                    "archive_text_start": 397239,
+                    "encoded_size": 35
+                  },
+                  {
+                    "chunk_index": 43,
+                    "record_index": 121,
+                    "archive_text_start": 404967,
+                    "encoded_size": 35
+                  },
+                  {
+                    "chunk_index": 44,
+                    "record_index": 121,
+                    "archive_text_start": 412899,
+                    "encoded_size": 35
+                  }
+                ]
+              },
+              "resource_owners": [
+                "伊尔塔士兵"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:04178",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "58b027d4274f8d302e4cd04b1f49b2cf02f6344cbcf6447d3f45214f40c1920d",
+      "source_ja": "「ぬおお！　ゴッドシグマごときに倒される\\n　このガルゴスではない！」",
+      "before": "“唔哦哦！加尔戈斯可不会\\n　败给区区狗头Σ！”",
+      "after": "“唔哦哦！加尔戈斯可不会\\n　败给区区巨神Σ！”",
+      "line_widths": [
+        12,
+        9
+      ],
+      "review_case_id": "EX-16",
+      "rationale": "四句日文均为机体正式名称ゴッドシグマ，没有狗头之类的绰号词义。词表unit/god-sigma已定名巨神Σ（enforce范围为story）；战斗邻条03286也用巨神Σ。本次按每条原文和同机体译例提出战斗修正，不宣称现有词表已跨域强制覆盖，也不改巨神Σ格兰维昂。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 57,
+        "record_index": 104,
+        "entries": [
+          {
+            "record_index": 101,
+            "entry": {
+              "id": "battle:04176",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ええい！　今に見ておれよ！」",
+              "current_translation": "“哎呀！给我等着！”",
+              "source_text_sha256": "69d9f106304d22ca280eba4e06060f514b1d3eb796938c8e3ca12947667d5f37",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 57,
+                    "record_index": 101,
+                    "archive_text_start": 518345,
+                    "encoded_size": 31
+                  }
+                ]
+              },
+              "resource_owners": [
+                "加根"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 102,
+            "entry": {
+              "id": "battle:04177",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「女ごときに、\\n　このガガーン、殺されはせぬ！」",
+              "current_translation": "“被一个女人，\\n　我加根可不会死！”",
+              "source_text_sha256": "61ba0469c12d7acafeabe3384b6d6e55666cd9c01bba95d56cc4b14360b18924",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 2,
+                "occurrences": [
+                  {
+                    "chunk_index": 57,
+                    "record_index": 102,
+                    "archive_text_start": 518376,
+                    "encoded_size": 49
+                  },
+                  {
+                    "chunk_index": 57,
+                    "record_index": 103,
+                    "archive_text_start": 518425,
+                    "encoded_size": 49
+                  }
+                ]
+              },
+              "resource_owners": [
+                "加根"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 103,
+            "entry": {
+              "id": "battle:04177",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「女ごときに、\\n　このガガーン、殺されはせぬ！」",
+              "current_translation": "“被一个女人，\\n　我加根可不会死！”",
+              "source_text_sha256": "61ba0469c12d7acafeabe3384b6d6e55666cd9c01bba95d56cc4b14360b18924",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 2,
+                "occurrences": [
+                  {
+                    "chunk_index": 57,
+                    "record_index": 102,
+                    "archive_text_start": 518376,
+                    "encoded_size": 49
+                  },
+                  {
+                    "chunk_index": 57,
+                    "record_index": 103,
+                    "archive_text_start": 518425,
+                    "encoded_size": 49
+                  }
+                ]
+              },
+              "resource_owners": [
+                "加根"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 104,
+            "entry": {
+              "id": "battle:04178",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ぬおお！　ゴッドシグマごときに倒される\\n　このガルゴスではない！」",
+              "current_translation": "“唔哦哦！加尔戈斯可不会\\n　败给区区狗头Σ！”",
+              "source_text_sha256": "58b027d4274f8d302e4cd04b1f49b2cf02f6344cbcf6447d3f45214f40c1920d",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 57,
+                    "record_index": 104,
+                    "archive_text_start": 518474,
+                    "encoded_size": 69
+                  }
+                ]
+              },
+              "resource_owners": [
+                "加根"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 105,
+            "entry": {
+              "id": "battle:04179",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「うぐっ！　\\n　シグマめ、私と差し違える気か！？」",
+              "current_translation": "“呃！\\n　臭Σ，想和我同归于尽吗！？”",
+              "source_text_sha256": "71886a570759bd6d3018ebbc1fab4885e53cd4a1f2f0b83068134cce3a0ef15f",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 57,
+                    "record_index": 105,
+                    "archive_text_start": 518543,
+                    "encoded_size": 51
+                  }
+                ]
+              },
+              "resource_owners": [
+                "加根"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 106,
+            "entry": {
+              "id": "battle:04180",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ま、まだだ！　まだ、私には…！」",
+              "current_translation": "“还、还没完！我还能……！”",
+              "source_text_sha256": "eea7c8a13e55930dc476ad1ef99480d45083e83e1c1694a243434f64ebc720ae",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 57,
+                    "record_index": 106,
+                    "archive_text_start": 518594,
+                    "encoded_size": 35
+                  }
+                ]
+              },
+              "resource_owners": [
+                "加根"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 107,
+            "entry": {
+              "id": "battle:04151",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「まあいい…楽しみは長い方がいい」",
+              "current_translation": "“也罢……乐趣长点好”",
+              "source_text_sha256": "484a9837c9a5d408ad3f43dfa0b7199d6f17b60d83281197df02fd96c20d07fa",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 3,
+                "occurrences": [
+                  {
+                    "chunk_index": 57,
+                    "record_index": 71,
+                    "archive_text_start": 517057,
+                    "encoded_size": 35
+                  },
+                  {
+                    "chunk_index": 57,
+                    "record_index": 75,
+                    "archive_text_start": 517179,
+                    "encoded_size": 35
+                  },
+                  {
+                    "chunk_index": 57,
+                    "record_index": 107,
+                    "archive_text_start": 518629,
+                    "encoded_size": 35
+                  }
+                ]
+              },
+              "resource_owners": [
+                "加根"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle:12041",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "source_text_sha256": "f3feee67a5d26fc707af7141a64d1637f653c6d5aae4c8cc528073f2c068e6ca",
+      "source_ja": "「お、おのれ！　ゴッドシグマめぇっ！！」",
+      "before": "“可、可恶！狗头Σ！！”",
+      "after": "“可、可恶！巨神Σ！！”",
+      "line_widths": [
+        12
+      ],
+      "review_case_id": "EX-16",
+      "rationale": "四句日文均为机体正式名称ゴッドシグマ，没有狗头之类的绰号词义。词表unit/god-sigma已定名巨神Σ（enforce范围为story）；战斗邻条03286也用巨神Σ。本次按每条原文和同机体译例提出战斗修正，不宣称现有词表已跨域强制覆盖，也不改巨神Σ格兰维昂。",
+      "context": {
+        "kind": "physical_battle_resource_neighbors_not_playback_sequence",
+        "chunk_index": 150,
+        "record_index": 78,
+        "entries": [
+          {
+            "record_index": 75,
+            "entry": {
+              "id": "battle:12038",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ひいい…！　\\n　命だけは…どうか命だけは！」",
+              "current_translation": "“咿咿……！\\n　至少饶我一命……求你了！”",
+              "source_text_sha256": "44b07351fa18a4a0ef484ec0c74f8bcbe3d9a612b1ddfda5ac906bf70df9bedd",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 150,
+                    "record_index": 75,
+                    "archive_text_start": 1546441,
+                    "encoded_size": 47
+                  }
+                ]
+              },
+              "resource_owners": [
+                "达尔顿"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 76,
+            "entry": {
+              "id": "battle:12039",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ぐおおっ！　\\n　だ、駄目だ！　脱出する！」",
+              "current_translation": "“呃啊啊！\\n　不、不行了！我要逃生！”",
+              "source_text_sha256": "13c402f9968bf9a6fb578de7755a84c0204578778e7f64f6c8f754fac6b14b73",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 150,
+                    "record_index": 76,
+                    "archive_text_start": 1546488,
+                    "encoded_size": 45
+                  }
+                ]
+              },
+              "resource_owners": [
+                "达尔顿"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 77,
+            "entry": {
+              "id": "battle:12040",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ガ、ガガーン様、お許しを！！」",
+              "current_translation": "“加、加根大人，请饶恕我！！”",
+              "source_text_sha256": "17defe86bb2263d03c3f4672f09e7375afa11457a4c6fa77a3115bcdee03fb7a",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 150,
+                    "record_index": 77,
+                    "archive_text_start": 1546533,
+                    "encoded_size": 33
+                  }
+                ]
+              },
+              "resource_owners": [
+                "达尔顿"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 78,
+            "entry": {
+              "id": "battle:12041",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「お、おのれ！　ゴッドシグマめぇっ！！」",
+              "current_translation": "“可、可恶！狗头Σ！！”",
+              "source_text_sha256": "f3feee67a5d26fc707af7141a64d1637f653c6d5aae4c8cc528073f2c068e6ca",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 150,
+                    "record_index": 78,
+                    "archive_text_start": 1546566,
+                    "encoded_size": 41
+                  }
+                ]
+              },
+              "resource_owners": [
+                "达尔顿"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 79,
+            "entry": {
+              "id": "battle:12042",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「もう一度だ！　もう一度攻撃しろ！」",
+              "current_translation": "“再来一次！再攻击一次！”",
+              "source_text_sha256": "bb614135f3b1d5fd066ec987db273597553bf658e8b6a3fff2b1ca36964d111f",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 150,
+                    "record_index": 79,
+                    "archive_text_start": 1546607,
+                    "encoded_size": 37
+                  }
+                ]
+              },
+              "resource_owners": [
+                "达尔顿"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 80,
+            "entry": {
+              "id": "battle:12043",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「ちっ！　ええい、弾切れか！」",
+              "current_translation": "“切！哼，没弹药了吗！”",
+              "source_text_sha256": "ae2c7867a65ea6033cb9008533a650c7e019802ca2ad5ea3e1301b656b73cf60",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 1,
+                "occurrences": [
+                  {
+                    "chunk_index": 150,
+                    "record_index": 80,
+                    "archive_text_start": 1546644,
+                    "encoded_size": 31
+                  }
+                ]
+              },
+              "resource_owners": [
+                "达尔顿"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          },
+          {
+            "record_index": 81,
+            "entry": {
+              "id": "battle:12009",
+              "speaker": "战斗字幕／实际发声者未确认",
+              "source_ja": "「攻撃不可能だと！　どういうことだ！？」",
+              "current_translation": "“无法攻击！？怎么回事！？”",
+              "source_text_sha256": "9e21090178d0a2f8366c0ac15e802b0c9ef581a1677d63200ea981061a74dfe8",
+              "corpus_path": "corpus/zh/battle/srvc-lines.json",
+              "original_location": {
+                "occurrence_count": 2,
+                "occurrences": [
+                  {
+                    "chunk_index": 150,
+                    "record_index": 45,
+                    "archive_text_start": 1545091,
+                    "encoded_size": 41
+                  },
+                  {
+                    "chunk_index": 150,
+                    "record_index": 81,
+                    "archive_text_start": 1546675,
+                    "encoded_size": 41
+                  }
+                ]
+              },
+              "resource_owners": [
+                "达尔顿"
+              ],
+              "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "source_verification": {
+    "review_id": "obvious-errors-context-20260907",
+    "target_ids": [
+      "story/095/dialogue/01.13/0000",
+      "battle:13929",
+      "battle:15329",
+      "battle:16373",
+      "battle:03591",
+      "battle:06799",
+      "battle:20575",
+      "battle:03285",
+      "battle:03287",
+      "battle:04178",
+      "battle:12041",
+      "battle:24277",
+      "battle:11301",
+      "story/007/dialogue/02.01/0025"
+    ],
+    "unique_targets": 14,
+    "unique_target_context_and_support_sources_verified": 95,
+    "method": "fresh_parse_of_locked_original_STAGE_and_SRVC_sources",
+    "source_ids_text_and_hashes_match": true,
+    "battle_neighbors_do_not_prove_playback_sequence": true,
+    "runtime_or_audio_validation": false
+  },
+  "supporting_sources": [
+    {
+      "id": "story/066/dialogue/01.30/0000",
+      "speaker": "穆／尼奥",
+      "source_ja": "「ステラはやらせん！」",
+      "current_translation": "“我不会让你动史黛拉！”",
+      "source_text_sha256": "b5858bbc81098732f2e9a12b9d9dd7fc04db40e78ea66d9b99a2b1b0bafaab07",
+      "corpus_path": "corpus/zh/story-dialogue/stage-066.json",
+      "original_location": {
+        "stage_index": 66,
+        "section": "Section 1.30",
+        "ordinal": 0,
+        "text_offset": 75680
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/066/speaker/009",
+        "source_name": "ネオ",
+        "visual_id": 452,
+        "linked_person_id": "person/14/106441f8ce6d",
+        "method": "source_name_and_portrait_identity"
+      }
+    },
+    {
+      "id": "story/066/dialogue/01.41/0000",
+      "speaker": "穆／尼奥",
+      "source_ja": "「ステラはやらせん！」",
+      "current_translation": "“我不会让你动史黛拉！”",
+      "source_text_sha256": "b5858bbc81098732f2e9a12b9d9dd7fc04db40e78ea66d9b99a2b1b0bafaab07",
+      "corpus_path": "corpus/zh/story-dialogue/stage-066.json",
+      "original_location": {
+        "stage_index": 66,
+        "section": "Section 1.41",
+        "ordinal": 0,
+        "text_offset": 75680
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/066/speaker/009",
+        "source_name": "ネオ",
+        "visual_id": 452,
+        "linked_person_id": "person/14/106441f8ce6d",
+        "method": "source_name_and_portrait_identity"
+      }
+    },
+    {
+      "id": "battle:03286",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「あ、あのゴッドシグマも油断ならん！！」",
+      "current_translation": "“那、那个巨神Σ也不能大意！！”",
+      "source_text_sha256": "c5c26fbe0ccfbec69e72e9d6c3b9eb57fee2f7871be3f5864088d707dca2521c",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 6,
+        "occurrences": [
+          {
+            "chunk_index": 42,
+            "record_index": 117,
+            "archive_text_start": 397039,
+            "encoded_size": 41
+          },
+          {
+            "chunk_index": 42,
+            "record_index": 119,
+            "archive_text_start": 397139,
+            "encoded_size": 41
+          },
+          {
+            "chunk_index": 43,
+            "record_index": 117,
+            "archive_text_start": 404767,
+            "encoded_size": 41
+          },
+          {
+            "chunk_index": 43,
+            "record_index": 119,
+            "archive_text_start": 404867,
+            "encoded_size": 41
+          },
+          {
+            "chunk_index": 44,
+            "record_index": 117,
+            "archive_text_start": 412699,
+            "encoded_size": 41
+          },
+          {
+            "chunk_index": 44,
+            "record_index": 119,
+            "archive_text_start": 412799,
+            "encoded_size": 41
+          }
+        ]
+      },
+      "resource_owners": [
+        "伊尔塔士兵"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+    },
+    {
+      "id": "battle:16899",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「ムチャ、ヌケ！　行くわよ〜っ！」",
+      "current_translation": "“穆查、努科！上喽！”",
+      "source_text_sha256": "fef47cdb669b5fa04e191379a0a6b9360a0e437f83a4f7e477c48bf15ec429f7",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 1,
+        "occurrences": [
+          {
+            "chunk_index": 232,
+            "record_index": 68,
+            "archive_text_start": 2178378,
+            "encoded_size": 35
+          }
+        ]
+      },
+      "resource_owners": [
+        "波士"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+    },
+    {
+      "id": "battle:16909",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「ムチャ！　\\n　俺様の台詞を取るんじゃないだわさ！」",
+      "current_translation": "“穆查！\\n　别抢本大爷的台词！”",
+      "source_text_sha256": "0184da45977e63008c9bcf4e9b8c69fc5c256978a3131f4e8d5ddb28543fa56d",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 1,
+        "occurrences": [
+          {
+            "chunk_index": 232,
+            "record_index": 79,
+            "archive_text_start": 2178823,
+            "encoded_size": 53
+          }
+        ]
+      },
+      "resource_owners": [
+        "波士"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+    },
+    {
+      "id": "battle:16923",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「ヌケ、ムチャ！　どうせやられるなら\\n　アイツを道連れにするんだー！」",
+      "current_translation": "“努科、穆查！反正要完蛋，\\n　就拉那家伙垫背！”",
+      "source_text_sha256": "25a46d09b3ca3fdfb7c797ec8b4ec27fb3a4452d169bb2bfb56ba64e5d3f3719",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 1,
+        "occurrences": [
+          {
+            "chunk_index": 232,
+            "record_index": 93,
+            "archive_text_start": 2179533,
+            "encoded_size": 71
+          }
+        ]
+      },
+      "resource_owners": [
+        "波士"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+    }
+  ],
+  "files": [
+    {
+      "path": "corpus/zh/story-dialogue/stage-095.json",
+      "working_before_sha256": "bcbac95512fa4fb4d6809183e37b2147e73b33ac8bccca4d7c7d0d800829b7a6",
+      "working_after_sha256": "c6f2961671d752312d06502baa463dfd3bb9fcfb2ae1b9f8954f042b5c799bf0",
+      "commit_view_sha256": "c6f2961671d752312d06502baa463dfd3bb9fcfb2ae1b9f8954f042b5c799bf0"
+    },
+    {
+      "path": "corpus/zh/battle/srvc-lines.json",
+      "working_before_sha256": "d511712e9b044d90d174662e06856ca5c7a83c31b4516b70afd53c2c36d91e63",
+      "working_after_sha256": "c1e59933c9595f73478d93b3642d29184bbebebe237762201ec314c30c037666",
+      "commit_view_sha256": "b31db7f039299382fd4247926f4e5d0c6576d69ef844a4c32d4ba4ee50e99823"
+    },
+    {
+      "path": "corpus/zh/story-dialogue/stage-007.json",
+      "working_before_sha256": "072311f784746c6590c81f5c6fc2e38f77259a3836597d738dcec89a60c689e9",
+      "working_after_sha256": "f50f63702c4f089f438a232c36899a3434c33e8d97a62e6773ed7df6f94f5f05",
+      "commit_view_sha256": "f50f63702c4f089f438a232c36899a3434c33e8d97a62e6773ed7df6f94f5f05"
+    }
+  ],
+  "verification": {
+    "line_width_variables_and_battle_breaks": "passed",
+    "new_iso_build": false,
+    "runtime": "not_tested_for_this_batch",
+    "commit_validation_scope": "isolated HEAD plus these 14 translation fields and direct battle-corpus lock; previous 26 working-tree edits excluded",
+    "scope_audit": {
+      "translation_fields_changed_from_start": 14,
+      "other_corpus_fields_preserved": true,
+      "other_corpus_files_byte_exact": 243,
+      "prior_dirty_files_preserved_except_overlapping_battle_corpus_direct_lock_and_review_note": 36,
+      "commit_data_has_only_the_14_confirmed_fields": true,
+      "working_and_commit_battle_input_locks_match_their_respective_corpora": true
+    },
+    "unittest": {
+      "command": "python3 -m unittest discover -s tests",
+      "tests": 242,
+      "seconds": 68.922,
+      "status": "passed",
+      "log_sha256": "3febb5789c03050a9e6f38b151a041dbde9ec3d465b3af7c389f9ba733749d86"
+    },
+    "story_component": {
+      "command": "python3 tools/build_story_component.py --incremental --force",
+      "stage_count": 170,
+      "dialogue_count": 83668,
+      "all_translated_reread_exact": true,
+      "all_codec_round_trip_exact": true,
+      "stage_layout_preserved": true,
+      "hb_offset_reread_exact": true,
+      "minimum_compressed_chunk_headroom": 20,
+      "outputs": {
+        "stage": {
+          "size": 3910128,
+          "sha256": "da96548bf6eb215daa635ef230e6e7f042bc043f9b8500d62be732392cfcade3"
+        },
+        "hb": {
+          "size": 31152,
+          "sha256": "332b759b0810e7177e5aad6bc7492e53a85c73d0ec190188ae20b2d863e04e21"
+        }
+      },
+      "report_sha256": "1d5aec97606991c5a0b09891902ba3f8c244d0e0fac083b563b87d3764812835"
+    },
+    "battle_component": {
+      "builder": "build_full_story_components._apply_srvc_battle_text",
+      "source_font_manifest": "HEAD manifests/zh-release-font-validation.json and its matching locked proposal",
+      "report": {
+        "corpus_id": "srwz-srvc-battle-lines-zh-v1",
+        "unique_text_count": 25708,
+        "record_count": 58740,
+        "production_override_count": 7,
+        "added_line_break_override_count": 2,
+        "removed_line_break_override_count": 1,
+        "chunk_count": 353,
+        "indexed_chunk_count": 288,
+        "zero_record_chunk_count": 65,
+        "unindexed_tail_bytes": 88582,
+        "pool": {
+          "translated_record_count": 58740,
+          "original_indexed_pool_bytes": 2165802,
+          "output_indexed_pool_bytes": 1653616,
+          "released_indexed_pool_bytes": 512186,
+          "minimum_record_headroom": -24,
+          "minimum_chunk_headroom": 0,
+          "expanded_record_count": 114
+        },
+        "translated_reread_count": 58740,
+        "translated_reread_exact": true,
+        "control_tokens_preserved": true,
+        "record_budgets_preserved": false,
+        "individual_record_budgets_preserved": false,
+        "chunk_pool_budget_preserved": true,
+        "chunk_boundaries_preserved": true,
+        "index_structure_preserved": true,
+        "metadata_preserved_byte_exact": true,
+        "unindexed_tails_preserved_byte_exact": true,
+        "zero_record_chunks_preserved_byte_exact": true,
+        "seg_preserved_byte_exact": true
+      },
+      "output_bin_sha256": "2dcc1d4721300071b5f17299be6b0339bf2547b9df53049bd518d0daef125096",
+      "output_seg_sha256": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987"
+    },
+    "release_outputs": "Existing Original and BEST ISO files and their generated manifests are unchanged; refresh them on the next dual-edition build.",
+    "commit_view_sha256": {
+      "corpus/zh/story-dialogue/stage-007.json": "f50f63702c4f089f438a232c36899a3434c33e8d97a62e6773ed7df6f94f5f05",
+      "corpus/zh/story-dialogue/stage-095.json": "c6f2961671d752312d06502baa463dfd3bb9fcfb2ae1b9f8954f042b5c799bf0",
+      "corpus/zh/battle/srvc-lines.json": "b31db7f039299382fd4247926f4e5d0c6576d69ef844a4c32d4ba4ee50e99823",
+      "config/full-story-components.json": "d4d4626e6038eae4f5cc1d2f673721e649d6b413ba447c957923e8afcec2bc41"
+    }
+  }
+}
