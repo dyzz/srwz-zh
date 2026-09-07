@@ -1,0 +1,1631 @@
+{
+  "schema_version": 1,
+  "review_id": "story-battle-character-voice-20260907",
+  "translation_writeback": "forbidden_for_deferred_items",
+  "purpose": "人物口吻审校记录：区分已确认恢复、待用户定稿和保留现稿的后续复核；不是自动替换输入。",
+  "snapshot_at": "2026-09-07T02:41:19.179654+00:00",
+  "holds": [
+    {
+      "id": "VOICE-01",
+      "status": "confirmed_applied",
+      "character": "梅尔／兰德",
+      "title": "已将误译“花”纠正为“一百发”",
+      "issue_is_confirmed": true,
+      "reason": "用户要求修正“花”；已据原文百発改为“一百发”，保留原句数字错说。兰德下一句吐槽维持现稿。",
+      "next_review": "明确词义错误已修正，无需等待新的中文笑点定稿。",
+      "targets": [
+        {
+          "id": "battle:19349",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_text_sha256": "a8a1ff742066df43ba653f14a91216396569ef62278d18bc21455be7cd58f49b",
+          "source_ja": "「ダーリン！　ファイトォ、百発！」",
+          "translation": "“达令！加油，一百发！”",
+          "speaker": null,
+          "battle_resource_owners": [
+            "兰德"
+          ],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“达令！加油，花！”"
+        },
+        {
+          "id": "battle:19350",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_text_sha256": "a5a59642d22373f2cb9a88250f78fd13db6116522a441f53ed516070dc303f5a",
+          "source_ja": "「気が抜ける応援は勘弁してくれ！」",
+          "translation": "“别给我泄气的声援！”",
+          "speaker": null,
+          "battle_resource_owners": [
+            "兰德"
+          ],
+          "site_feedback": []
+        }
+      ],
+      "requires_user_confirmation": false,
+      "resolution": {
+        "date": "2026-09-07",
+        "authority": "用户：VOICE-01 的花要修正",
+        "target_id": "battle:19349",
+        "before": "“达令！加油，花！”",
+        "after": "“达令！加油，一百发！”",
+        "site_writeback": false
+      }
+    },
+    {
+      "id": "VOICE-02",
+      "status": "confirmed_applied",
+      "character": "梅尔／塔尔荷",
+      "title": "已恢复“也够拽哦！”定稿",
+      "issue_is_confirmed": true,
+      "reason": "用户重申此前已确认“也够拽”；站内历史记录 currentTranslation 保留完整稿“也够拽哦！”。本次据此恢复，下一句月光洲纠正句保持。",
+      "next_review": "已按用户确认恢复，无需重新选择误听词。",
+      "targets": [
+        {
+          "id": "story/017/dialogue/01.09/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-017.json",
+          "source_text_sha256": "038aef080f3bc875ac7423ee475b872e9f8db7560caefa14a38ae96fc7b5f195",
+          "source_ja": "「『結構、スゲえぞ！』って人達だよ。\n　成り行きで手伝ってるの」",
+          "translation": "“是叫‘也够拽哦！’的那帮人。\n　现在顺便来帮忙。”",
+          "speaker": "梅尔",
+          "battle_resource_owners": [],
+          "site_feedback": [
+            {
+              "id": "45c4d123-3137-4333-ab16-513933175d31",
+              "clientRequestId": "legacy-stage-fd5e1cfa-0b23-4690-916c-caf0a23f11e3",
+              "targetType": "dialogue",
+              "targetId": "story/017/dialogue/01.09/0004",
+              "baseCommit": "a80cbdabaa362ee7da1fae1199c6f0cfc927de4b",
+              "sourceText": "「『結構、スゲえぞ！』って人達だよ。\n　成り行きで手伝ってるの」",
+              "currentTranslation": "“是叫‘也够拽哦！’的那帮人。\n　现在顺便来帮忙。”",
+              "proposedTranslation": "“是叫‘还挺厉害喔！’的那帮人。\n　现在顺便来帮忙。”",
+              "reason": "",
+              "context": {
+                "stageIndex": 17,
+                "resourceName": "stg_014a.bin",
+                "stageTitle": "月之骑手",
+                "episode": 5,
+                "speaker": "梅尔",
+                "terminologyRelated": false
+              },
+              "displayNameSnapshot": "史黛拉",
+              "createdAt": "2026-08-30T00:58:20.629Z",
+              "updatedAt": "2026-08-30T00:58:20.629Z",
+              "currentSiteTranslation": "“是叫‘还挺厉害喔！’的那帮人。\n　现在顺便来帮忙。”",
+              "stale": true,
+              "merged": true,
+              "processed": true,
+              "resolution": "adopted",
+              "author": {
+                "groupKey": "57e6e51ffa019f54c779",
+                "displayName": "桑德曼",
+                "avatarPath": "/portraits-web/tici/tici-070.webp"
+              },
+              "ownedByViewer": false
+            }
+          ],
+          "translation_at_initial_audit": "“是叫‘还挺厉害喔！’的那帮人。\n　现在顺便来帮忙。”"
+        },
+        {
+          "id": "story/017/dialogue/01.09/0005",
+          "corpus_path": "corpus/zh/story-dialogue/stage-017.json",
+          "source_text_sha256": "555d2eaadb8e5d97142f2f5c3def8b2213ae57d2ce11f12d9243204cc99d3b79",
+          "source_ja": "「ゲッコーステイト！\n　ったく！　どういう耳してんのよ！」",
+          "translation": "“是月光洲！真是的，你耳朵怎么长的！”",
+          "speaker": "塔尔荷",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        }
+      ],
+      "requires_user_confirmation": false,
+      "resolution": {
+        "date": "2026-09-07",
+        "authority": "用户：VOICE-02 我们之前确认过是\"也够拽“",
+        "target_id": "story/017/dialogue/01.09/0004",
+        "before": "“是叫‘还挺厉害喔！’的那帮人。\n　现在顺便来帮忙。”",
+        "after": "“是叫‘也够拽哦！’的那帮人。\n　现在顺便来帮忙。”",
+        "previous_site_feedback_id": "45c4d123-3137-4333-ab16-513933175d31",
+        "site_writeback": false
+      }
+    },
+    {
+      "id": "VOICE-03",
+      "status": "confirmed_applied",
+      "character": "英司",
+      "title": "桑德曼谚语已按确认统一",
+      "issue_is_confirmed": true,
+      "reason": "用户确认“佛也有三分火，何况是桑德曼”；两路线均采用该版本，一条已正确，实际修改另一条。",
+      "next_review": "已写回并核对两路线，无需再确认。",
+      "targets": [
+        {
+          "id": "story/120/dialogue/01.14/0011",
+          "corpus_path": "corpus/zh/story-dialogue/stage-120.json",
+          "source_text_sha256": "41f90fcbf9f7647433582dc004a8c5a498d1fc6e399ac41d02af190e9ffb857e",
+          "source_ja": "「覚悟しやがれよ、お前ら！\n　仏の顔もサンドマンって奴だ！」",
+          "translation": "“觉悟吧，你们！\n　佛也有三分火，何况是桑德曼！”",
+          "speaker": "英司",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/131/dialogue/01.26/0009",
+          "corpus_path": "corpus/zh/story-dialogue/stage-131.json",
+          "source_text_sha256": "41f90fcbf9f7647433582dc004a8c5a498d1fc6e399ac41d02af190e9ffb857e",
+          "source_ja": "「覚悟しやがれよ、お前ら！\n　仏の顔もサンドマンって奴だ！」",
+          "translation": "“觉悟吧，你们！\n　佛也有三分火，何况是桑德曼！”",
+          "speaker": "英司",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“觉悟吧，你们！\n　佛也有三分火，这就是桑德曼！”"
+        }
+      ],
+      "requires_user_confirmation": false,
+      "proposal_is_applied": true,
+      "proposal": "“觉悟吧，你们！\n　佛也有三分火，何况是桑德曼！”",
+      "attribution_correction": "初稿误标为兰德；两路线 speaker-map 均为エイジ／英司，speaker/034。",
+      "resolution": {
+        "date": "2026-09-07",
+        "authority": "用户：佛也有三分火，何况是桑德曼",
+        "changed_ids": [
+          "story/131/dialogue/01.26/0009"
+        ],
+        "site_writeback": false
+      }
+    },
+    {
+      "id": "VOICE-04",
+      "status": "confirmed_applied",
+      "character": "金卡拉姆",
+      "title": "金卡拉姆广泛使用“在下”已落实",
+      "issue_is_confirmed": true,
+      "reason": "用户明确要求广泛使用“在下”，范围扩展至本人276条剧情与118条战斗字幕；实际修订87条剧情、27条战斗。89条含小生的本人对白全部体现“在下”。",
+      "next_review": "已按用户定调完成本轮扩展审校；后续沿用项目中的金卡拉姆自称规则。",
+      "targets": [
+        {
+          "id": "story/053/dialogue/02.02/0101",
+          "corpus_path": "corpus/zh/story-dialogue/stage-053.json",
+          "source_text_sha256": "c9dc5ae211357b7ed9d6798e69b321595ea372cffaa10685034370cf7340cc26",
+          "source_ja": "「確かに面白い…。\n　だが、小生には、その穴の存在の方が\n　興味深いな」",
+          "translation": "“确实有趣……不过，\n　在下对那个洞的存在本身更感兴趣。”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/053/dialogue/02.02/0103",
+          "corpus_path": "corpus/zh/story-dialogue/stage-053.json",
+          "source_text_sha256": "4a865c06ac6b5ac0075d032da13439f8b5fece871ebba6c322d1bb0467a9be25",
+          "source_ja": "「いい機会だ。\n　…ディアナは小生というものがありながら、\n　デュランダルに尻尾を振っている」",
+          "translation": "“好机会。……迪安娜明明有在下在，\n　却还在向迪兰达尔摇尾巴。”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/053/dialogue/02.02/0110",
+          "corpus_path": "corpus/zh/story-dialogue/stage-053.json",
+          "source_text_sha256": "46743ea810a925de0e7a596f8bf6fce6e3e556eb7bb99b4095b1863196c3c2ca",
+          "source_ja": "「待て、メリーベル。\n　お前は小生と共に例の物の発掘に\n　付き合え」",
+          "translation": "“等等，梅莉贝儿。\n　你得跟在下一起去发掘那个东西。”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/106/dialogue/01.05/0012",
+          "corpus_path": "corpus/zh/story-dialogue/stage-106.json",
+          "source_text_sha256": "c66a35d4920f110d4cb7209cfefdb94e24927c6b1933b08bd58a6178e1ac7c80",
+          "source_ja": "「その通りだ。\n　後は小生に任せて帰っていいぞ。\n　このターンＸ一機で事足りる」",
+          "translation": "“正是如此。后面的事交给在下，\n　你们可以回去了。这台倒X一架就足够了。”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/106/dialogue/01.05/0018",
+          "corpus_path": "corpus/zh/story-dialogue/stage-106.json",
+          "source_text_sha256": "3fbb88663186d8e9dc63bd82592bc5966966796d24462ec9a20c67cbe5d6dedd",
+          "source_ja": "「だが、まだ小生も不慣れ！\n　手が滑る事にはご容赦願おう！」",
+          "translation": "“不过，在下也还不熟练！\n　手滑了的话还请见谅！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/106/dialogue/01.05/0020",
+          "corpus_path": "corpus/zh/story-dialogue/stage-106.json",
+          "source_text_sha256": "685d6374466976de8b3efa4a583efaa64ea6d1359f39da4b6d27fe4691aa25c7",
+          "source_ja": "「さあ行くぞ、ターンＸ！\n　小生とお前の力を今ここに！！」",
+          "translation": "“来吧，倒X！在下与你的力量，\n　现在就在这里！！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/106/dialogue/01.16/0006",
+          "corpus_path": "corpus/zh/story-dialogue/stage-106.json",
+          "source_text_sha256": "dc86ce1a3dc0df37e6aeaeb89ca9953eabfcc7cbfa438e3e8c0659f9b18892ad",
+          "source_ja": "「だが、小生はギンガナム家の総領。\n　ディアナ・ソレルは貰い受ける」",
+          "translation": "“不过，在下是金卡拉姆家的总领。\n　迪安娜·索雷尔，就由在下带走。”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“不过，在下是金卡拉姆家的总领。\n　迪安娜·索雷尔我要带走。”"
+        },
+        {
+          "id": "story/106/dialogue/01.16/0016",
+          "corpus_path": "corpus/zh/story-dialogue/stage-106.json",
+          "source_text_sha256": "7758c9657c3f6cb94712a23e63cc591c35313a74dd8c1667918941a371e0aa32",
+          "source_ja": "「面白い！\n　戦乱の時代…黒歴史！\n　小生もあれには興味がある！」",
+          "translation": "“有趣！战乱的时代……黑历史！\n　在下也对那东西很感兴趣！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/106/dialogue/01.16/0017",
+          "corpus_path": "corpus/zh/story-dialogue/stage-106.json",
+          "source_text_sha256": "8ad98f6d22d1827055b2b1d1331fc83a61021c2605fab6451a3997568da983dc",
+          "source_ja": "「いいだろう、ディアナ・ソレル。\n　黒歴史を明らかにするのであれば、\n　小生はそなたを月へお連れしよう」",
+          "translation": "“好吧，迪安娜·索雷尔。\n　既然要查明黑历史，在下就带你去月球。”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/106/dialogue/01.16/0032",
+          "corpus_path": "corpus/zh/story-dialogue/stage-106.json",
+          "source_text_sha256": "21ecd9f4a723c5faf8e7b8418eda7fa0f44b4a5d70640d4e23b0040184d08a0e",
+          "source_ja": "「小生にはわかるぞ、小娘。\n　いかにお前が綺麗事を並べようと\n　その言葉で戦いが起きる」",
+          "translation": "“在下看得出来，小姑娘。无论你说多\n　少漂亮话，你的话语都会引发战争。”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/106/dialogue/01.31/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-106.json",
+          "source_text_sha256": "60e0b1d5967d87a731397d71dd20c0f4d5dd127961f81bf29b03b0cd2b9e7846",
+          "source_ja": "「いいぞ、貴様！\n　その荒武者のごとき戦いぶり\n　小生とターンＸの相手に相応しい！」",
+          "translation": "“不错嘛，你这家伙！这种猛将般的战斗方式，\n　正配得上做在下和倒X的对手！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/106/dialogue/01.31/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-106.json",
+          "source_text_sha256": "3e39f4fef46a070ff4326d1b3501183ba668b37c14261b6eca59f996d3816322",
+          "source_ja": "「小生にとって戦は芸事！」",
+          "translation": "“对在下而言，战斗就是艺术！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.23/0005",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "2f7eb83f6dbcd62c9a0b7071ebd259c8111f54576136cb327d07475bad0cbd4a",
+          "source_ja": "「そして、小生に相応しい相手が\n　選り取り見取りか！」",
+          "translation": "“而且，配得上在下的对手还可任意挑选！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“而且，适合在下的对手任我挑选！”"
+        },
+        {
+          "id": "story/109/dialogue/01.28/0005",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "2f7eb83f6dbcd62c9a0b7071ebd259c8111f54576136cb327d07475bad0cbd4a",
+          "source_ja": "「そして、小生に相応しい相手が\n　選り取り見取りか！」",
+          "translation": "“而且，配得上在下的对手还可任意挑选！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“而且，适合在下的对手任我挑选！”"
+        },
+        {
+          "id": "story/109/dialogue/01.35/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "c87501e28f99438b730a3a4c034f30b79fbf0163748c391fccc27c8d775455a6",
+          "source_ja": "「この前の小僧！\n　小生とターンＸの相手をしてくれるか！」",
+          "translation": "“之前的小子！来当在下和倒X的对手吧！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.36/0003",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "45216ae132b34514669f60d0a6ee8c573352085347a76f65bc8847675a0fa7d3",
+          "source_ja": "「その通り！\n　小生はここに戦に来たのだ！」",
+          "translation": "“正是如此！在下来这里就是为了打仗！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.36/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "0b67b9766614bc42c12ae0ee105026734dde352c931445b1588d86a9bc5427c3",
+          "source_ja": "「そして、小生と同じ目的の者達も\n　やってきたようだ！」",
+          "translation": "“看来，和在下目的相同的人也来了！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“而且，看来抱有同样目的的人也来了！”"
+        },
+        {
+          "id": "story/109/dialogue/01.42/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "46425e757af3e79e1162ca90048188152100110c95060fd35953e9f86749c7d7",
+          "source_ja": "「さあ、小生の相手をしてくれるのは\n　誰かな！？」",
+          "translation": "“来吧，谁来做在下的对手！？”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [
+            {
+              "id": "58578296-ce4e-4e5a-91b7-4a6f56b0d26b",
+              "clientRequestId": "3afffc68-e5d9-476e-915c-55d42a4237e7",
+              "targetType": "dialogue",
+              "targetId": "story/109/dialogue/01.42/0000",
+              "baseCommit": "56cff495e4d779ea4d2211f21f0f92d382bc1f97",
+              "sourceText": "「さあ、小生の相手をしてくれるのは\n　誰かな！？」",
+              "currentTranslation": "“来吧，谁来做我的对手！？”",
+              "proposedTranslation": "“来吧，谁来做在下的对手！？”",
+              "reason": "",
+              "context": {
+                "stageIndex": 109,
+                "resourceName": "stg_081.bin",
+                "stageTitle": "混乱中的正义",
+                "episode": 46,
+                "speaker": "金卡拉姆",
+                "terminologyRelated": false,
+                "href": "/stage?id=stage-080&episode=46#story-109-dialogue-01.42-0000"
+              },
+              "displayNameSnapshot": "兰德",
+              "createdAt": "2026-08-30T07:54:15.982Z",
+              "updatedAt": "2026-08-30T07:54:15.982Z",
+              "currentSiteTranslation": "“来吧，谁来做在下的对手！？”",
+              "stale": true,
+              "merged": true,
+              "processed": true,
+              "resolution": "adopted",
+              "author": {
+                "groupKey": "8fa51487d75c203feb40",
+                "displayName": "兰德",
+                "avatarPath": "/portraits-web/tici/tici-118.webp"
+              },
+              "ownedByViewer": false
+            }
+          ]
+        },
+        {
+          "id": "story/109/dialogue/01.44/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "12fb52935cba7def7208512a69d7589dada8afbcd2c31cd30e706f0a52b6621f",
+          "source_ja": "「ハリー・オード！\n　今日は小生と敵対するか！？」",
+          "translation": "“哈利·奥德！今天你要与在下对抗吗！？”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“哈利·奥德！今天你要与我对抗吗！？”"
+        },
+        {
+          "id": "story/109/dialogue/01.50/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "a45193f8099224d50c14fd250376a8557b865b015290235a7541a9ac85095dfc",
+          "source_ja": "「また会おう、$c！\n　次は本気の小生の相手を\n　してもらうぞ！」",
+          "translation": "“再会了，$c！\n　下次可要好好领教在下的真本事！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [
+            {
+              "id": "8e448c87-0fb0-4de3-85fc-cf4accf0e4d4",
+              "clientRequestId": "62ecccd4-c632-41ce-94d2-697a394d3a18",
+              "targetType": "dialogue",
+              "targetId": "story/109/dialogue/01.50/0004",
+              "baseCommit": "83309ebc982c3585b25c509b265bb0be2f546a9a",
+              "sourceText": "「また会おう、$c！\n　次は本気の小生の相手を\n　してもらうぞ！」",
+              "currentTranslation": "“再会了，$c！\n　下次可要好好领教小生的真本事！”",
+              "proposedTranslation": "“再会了，$c！\n　下次可要好好领教在下的真本事！”",
+              "reason": "到底用在下还是小生，需要统一，这种称呼一大堆",
+              "context": {
+                "stageIndex": 109,
+                "resourceName": "stg_081.bin",
+                "stageTitle": "混乱中的正义",
+                "episode": 46,
+                "speaker": "金卡拉姆",
+                "terminologyRelated": false,
+                "href": "/stage?id=stage-080&episode=46#story-109-dialogue-01.50-0004"
+              },
+              "displayNameSnapshot": "兰德",
+              "createdAt": "2026-08-30T09:37:28.449Z",
+              "updatedAt": "2026-08-30T09:37:28.449Z",
+              "currentSiteTranslation": "“再会了，$c！\n　下次可要好好领教在下的真本事！”",
+              "stale": true,
+              "merged": true,
+              "processed": true,
+              "resolution": "adopted",
+              "author": {
+                "groupKey": "8fa51487d75c203feb40",
+                "displayName": "兰德",
+                "avatarPath": "/portraits-web/tici/tici-118.webp"
+              },
+              "ownedByViewer": false
+            }
+          ]
+        },
+        {
+          "id": "story/109/dialogue/01.56/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "b2c8611a3cda498f5663aa38158f0d54b821a5c328879d950376a753f678b4a8",
+          "source_ja": "「だが、この程度では\n　小生は満足は出来んな！」",
+          "translation": "“不过，这种程度可无法让在下满足！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.57/0003",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "a45193f8099224d50c14fd250376a8557b865b015290235a7541a9ac85095dfc",
+          "source_ja": "「また会おう、$c！\n　次は本気の小生の相手を\n　してもらうぞ！」",
+          "translation": "“再会了，$c！\n　下次可要好好领教在下的真本事！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.62/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "058eade4dfe99a2bea8b77dd83fe06af8bdb1c9cb46780e53bc3dcf0e55a389b",
+          "source_ja": "「貴様には理解出来んか！\n　小生のこの胸の高鳴りが！！」",
+          "translation": "“你难道不明白吗！在下这胸中的激荡！！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.62/0003",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "a96d9cc6c122f36e51e3c69d20573f3291205ba2e1fe804c79764ea6549390b8",
+          "source_ja": "「それは小生にとって生きる意味！\n　今、小生はこのターンＸと共に\n　命を実感している！！」",
+          "translation": "“那对在下而言就是活着的意义！\n　现在，在下正与这倒X一同感受生命！！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.63/0003",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "aba5715716d25b9160be719e15fab7c24b317961cec4f4362c79cf3503d2ea07",
+          "source_ja": "「小生の求めた戦いが\n　今ここにある！」",
+          "translation": "“在下所求的战斗，就在这里！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.64/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "cbbc3a3c82f78d757ee1e428ea7ca9facbaa8b20c9b66e07b093edd1c4b9c88b",
+          "source_ja": "「異星の王子よ！\n　小生の相手を務めてもらおう！」",
+          "translation": "“异星的王子！就请你来做在下的对手吧！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.64/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "1e2a6c0945e2dc89d0855fd2973318d19e265cc3ed3de6e89e16066a3c08e1ba",
+          "source_ja": "「ここに来れば小生の望む戦いが\n　味わえると思ったからだ！」",
+          "translation": "“因为来这里就能体验到在下所渴望的战斗！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“因为我觉得来这里就能品\n　尝到在下所渴望的战斗！”"
+        },
+        {
+          "id": "story/109/dialogue/01.64/0003",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "103ad162c82026256e5096791a360ab7a6cce55cd86353478377f31fa2ebfee0",
+          "source_ja": "「さあ約束だ！\n　小生を満足させるよう\n　力の限りに戦うがいい！」",
+          "translation": "“来吧，约定好了！\n　尽全力战斗，让在下满足吧！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.65/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "36451c403f41232a804a6636cabb5ebb74d2eded1f963c1626a97514a85343e1",
+          "source_ja": "「貴様の機体、面白いな！\n　分離合体を繰り返すとは\n　まるで小生のターンＸのようだ！」",
+          "translation": "“你的机体，真有趣！反复分离合体，\n　简直就像在下的倒X一样！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.65/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "761ed05b70011046156618757028c974a30194b65ee92f2e43cfae4fb04e9e3e",
+          "source_ja": "「だが、何人集まろうと\n　小生とターンＸの敵ではない事を\n　教えてやろう！」",
+          "translation": "“不过，不管来多少人，都不是在下\n　和倒X的对手！就让你见识一下！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“不过，我要让你知道，不管来多少人，\n　都不是在下和倒X的对手！”"
+        },
+        {
+          "id": "story/109/dialogue/01.66/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "0dfc64769d78efaa4e647bbc346b97b19dbafc378ed83e292637717dc9235256",
+          "source_ja": "「月は我が物！\n　それをいただく者は小生以外にあっては\n　ならんな！」",
+          "translation": "“月亮归在下所有！任何人都休想染指！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“月亮是我的东西！\n　除了在下之外，谁都不能占有它！”"
+        },
+        {
+          "id": "story/109/dialogue/01.67/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "82efdcce78ecd9f858d19754f0d9b664ef8a2d0fca351a8d97306b0dde4f3673",
+          "source_ja": "「だから、小生の力を見せ付ける事で\n　自らの愚かさを後悔させてやるのよ！」",
+          "translation": "“所以，就让她见识在下的力量，\n　让她为自己的愚蠢后悔！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“所以，我要用我的力量让\n　她为自己的愚蠢而后悔！”"
+        },
+        {
+          "id": "story/109/dialogue/01.68/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "5a30016cfd337fe948c44fae81d97acb70aa60ba56fe567eecb65b698cfde504",
+          "source_ja": "「その心意気や良し！\n　小生の心を躍らせるだけの使い手で\n　あるのを期待するぞ！」",
+          "translation": "“这份气概不错！\n　期待你是个能让在下心潮澎湃的高手！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.69/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "caf4a1521cac7666c89421dacf47097f79093c88930a54881ca6b3c425dc1343",
+          "source_ja": "「その通りよ！\n　貴様に小生の胸の高鳴りを\n　伝えてやろう！」",
+          "translation": "“正是如此！就让你感受一下，\n　在下胸中的激荡吧！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“正是如此！让我来告诉你，\n　在下胸中的激荡吧！”"
+        },
+        {
+          "id": "story/109/dialogue/01.70/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "70755af2fbf43072dc82f9e784d292f55ad0a857caaa6dc3ca2b997ad556026e",
+          "source_ja": "「フフフ…隠してもわかるぞ。\n　貴様も小生と同じく戦いを生業と\n　する者だな…！」",
+          "translation": "“呵呵……就算隐藏也瞒不过在下。\n　你也是以战斗为生的人吧……！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“呵呵……就算藏着也瞒不过我。\n　你和我一样，都是以战斗为生的人吧……！”"
+        },
+        {
+          "id": "story/109/dialogue/01.70/0005",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "625c8312777ddfd3418bc6fcc998e257e92fefb4cc5a80f17c95a50acbb18007",
+          "source_ja": "「小生は世界を変える！\n　戦いという我が世の春を起こす事でな！」",
+          "translation": "“在下要改变世界！\n　以战斗开创属于在下的盛世！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“我要改变世界！\n　通过掀起战斗这属于我的盛世！”"
+        },
+        {
+          "id": "story/109/dialogue/01.72/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "c678425b057520003361f090f76754944848b4073657ff7e01f780048f02224e",
+          "source_ja": "「そうこなくてはな！\n　やはり貴様は小生が目を付けた通りの\n　男だったようだ！」",
+          "translation": "“就该这样！你果然没让在下看走眼！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“就该这样！你果然没让我看走眼！”"
+        },
+        {
+          "id": "story/109/dialogue/01.74/0003",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "fa60d111a4f0ab99d9e77cf4b8ab2d2203906ef32bb716a1baf60e59162572a7",
+          "source_ja": "「だが、だからこそ面白い！\n　小生の求めた戦いがここにはある！」",
+          "translation": "“但正因为如此才有趣！\n　在下所追求的战斗就在这里！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“但正因为如此才有趣！\n　我所追求的战斗就在这里！”"
+        },
+        {
+          "id": "story/109/dialogue/01.75/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "e9c97f38665d21c116cd9f51c8897270d5343783b4f76add133f4bad501f91c6",
+          "source_ja": "「さあ、存分に力を振るうがいい！\n　小生はやはり人間同士の戦いに\n　魅力を感じるのでな！」",
+          "translation": "“来吧，尽管施展全力！\n　在下还是觉得人与人之间的战斗更有魅力！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“来吧，尽管施展全力！\n　我还是觉得人与人之间的战斗更有魅力！”"
+        },
+        {
+          "id": "story/109/dialogue/01.76/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "9c062db098c8fa2caf07abc135ae0548fbe4779cad890f87d27e9f0c27896976",
+          "source_ja": "「小生はついている！\n　地球に降りた直後にターンタイプの\n　モビルスーツに遭遇するとはな！」",
+          "translation": "“在下运气真好！\n　刚降落到地球就遇到了回合型MS！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“我运气真好！\n　刚降落到地球就遇到了回合型MS！”"
+        },
+        {
+          "id": "story/109/dialogue/01.78/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "91b909b2f4655df80b489b7ad43d8039f8157286ab54973ae162938b10207956",
+          "source_ja": "「理由はただ一つ！\n　小生がギンガナム家の総領だからよ！」",
+          "translation": "“理由只有一个！\n　因为在下是金卡拉姆家的当家！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“理由只有一个！\n　因为我是金卡拉姆家的当家！”"
+        },
+        {
+          "id": "story/109/dialogue/01.78/0003",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "21632fe4f17e4415d06b5a3abd16e0efb1f2169a81b93e18c9c40c5d91bccddd",
+          "source_ja": "「小生は戦うために生まれ、育ってきた！\n　この戦乱の世は小生のために\n　あるようなものだ！」",
+          "translation": "“在下生来就是为了战斗，在战斗中成长！\n　这个战乱之世就像是为在下而存在的！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“我生来就是为了战斗，在战斗中成长！\n　这个战乱之世就像是为我而存在的！”"
+        },
+        {
+          "id": "story/109/dialogue/01.78/0006",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "d6991acf3cf3d043cf0a922655a30ac3b7c280933eef691a80da8359857feffd",
+          "source_ja": "「威勢のいい事だ！\n　だが、そんなへっぴり腰で小生の相手が\n　務まるかな！？」",
+          "translation": "“口气不小！但就凭你那副畏缩的样子，\n　能当在下的对手吗！？”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“口气不小！但就凭你那副畏缩的样子，\n　能当我的对手吗！？”"
+        },
+        {
+          "id": "story/109/dialogue/01.78/0008",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "951251ada7e1b775d9217a280d4a9e06d99581cc23570798cdcc911101126acc",
+          "source_ja": "「命のやり取りをする気がないのなら\n　下がっていろ！\n　小生は腑抜けには用はないわ！」",
+          "translation": "“要是没打算以命相搏，就退下！\n　在下对软脚虾没兴趣！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“要是没打算以命相搏，就给我退下！\n　我对软脚虾没兴趣！”"
+        },
+        {
+          "id": "story/109/dialogue/01.80/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "db2ed2462b225de2ce5b71246183b144be7058386c1617958c7b9396f0d71291",
+          "source_ja": "「笑わせてくれる！\n　小僧ごときに墜とされる小生と\n　ターンＸではないわ！」",
+          "translation": "“真是可笑！\n　在下和倒X岂会被你这种小鬼击落！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.81/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "4e5777026dee13cf1016ca42ee8d61c63dbfefaa5ab52cb2c943a5b210984423",
+          "source_ja": "「ここにも小生を喜ばせるだけの\n　腕を持つ男がいるか！」",
+          "translation": "“这里也有能让在下尽兴的男人吗！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.82/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "1c246450b0f5174257fe2b7c3c07afaf90443592022cfd3c454602cb84987bf3",
+          "source_ja": "「いいぞ、貴様！\n　その傲慢なまでの強気ぶり、\n　小生の相手に相応しいぞ！」",
+          "translation": "“不错嘛，你这家伙！那傲慢到极点\n　的强硬态度，正配做在下的对手！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.83/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "d11723a7abd82f0dddf91f608ad238b448b0d5b028479691b47d2e56bb6386f3",
+          "source_ja": "「小僧！　戦場でじゃれあうな！\n　そんな甘えを見るために\n　小生はここにいるのではないぞ！」",
+          "translation": "“小鬼！别在战场上嬉闹！\n　在下可不是为了看这种撒娇才来这里的！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.84/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "13269f0e409cf83c2a8b232777e14499c0217e91986121003954e0b01b84aef6",
+          "source_ja": "「相手はウォーカーマシンか！\n　袂を分かった父祖の造り上げたマシン、\n　小生が叩き潰してやろう！」",
+          "translation": "“对手是WM吗！那是与祖先分道扬镳\n　后造出的机器，在下要把它砸个粉碎！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.85/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "130064e830efdd9b65c2f943583bc632b5dffeaa6e88254e5fa695ef185458b9",
+          "source_ja": "「過去の因縁は知らぬが、\n　貴様は小生の敵としてここにいる！\n　相手をしてもらうぞ！」",
+          "translation": "“过去的恩怨在下不清楚，\n　但你现在就是敌人！来打一场吧！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“过去的恩怨我不清楚，\n　但你现在是在下的敌人！陪我打一场吧！”"
+        },
+        {
+          "id": "story/109/dialogue/01.86/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "1253fa3f70d23aae3b1480d6154e015b451edc5e1fa235ff157db24fcae2247c",
+          "source_ja": "「やるな…！\n　小生を懐に入らせぬように\n　一定の距離を保つか！」",
+          "translation": "“有两下子……！为了不让在下近身，\n　一直保持一定距离吗！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.87/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "c2f76a9e30840bfaf5f4196aedc23cf4abab50aef8cba696a29cedaee4e69667",
+          "source_ja": "「貴様には理解出来んようだな、\n　小生を震わす我が世の春が！」",
+          "translation": "“看来你无法理解，\n　在下因这盛世之春而激荡的心情！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“看来你无法理解，\n　让在下心潮澎湃的我的盛世之春！”"
+        },
+        {
+          "id": "story/109/dialogue/01.88/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "5b140eb0d5c879a938cdeacb26857d294f3e124eb04000e5f34abe8aa733ef70",
+          "source_ja": "「その通りよ！\n　女には理解出来まい！\n　小生の胸の高鳴りが！」",
+          "translation": "“正是如此！女人是不会懂的！\n　在下这胸中的激昂！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.88/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "ea87ee6c63d0690804cb9ad37f463fdce5534f4fd990bc6ab9e6cef729a054fe",
+          "source_ja": "「ならば、小生に教えてみせよ！\n　お前の言う悲しみとやらを！」",
+          "translation": "“那就让在下见识一下吧！\n　你所说的那种悲伤！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/109/dialogue/01.89/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "source_text_sha256": "75cce268ddff20db0a52cca26fad002ff26a98e5426d5c881cbd22c15f98e383",
+          "source_ja": "「いいぞ、貴様！\n　貴様の戦いぶりは小生を\n　熱くしてくれる！」",
+          "translation": "“不错嘛，你这家伙！\n　你的战斗方式让在下热血沸腾！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/119/dialogue/01.23/0005",
+          "corpus_path": "corpus/zh/story-dialogue/stage-119.json",
+          "source_text_sha256": "fd4e897e768cd02f5fde74cb5930156c474074c07164bc46944d22eabb5fa703",
+          "source_ja": "「当然、両方よ！\n　ディアナの示した黒歴史こそ\n　小生が望む世の姿よ！」",
+          "translation": "“当然是两个都要！迪安娜揭示的\n　黑历史正是在下渴望的世界形态！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“当然是两个都要！迪安娜揭示的\n　黑历史正是我渴望的世界形态！”"
+        },
+        {
+          "id": "story/119/dialogue/01.23/0008",
+          "corpus_path": "corpus/zh/story-dialogue/stage-119.json",
+          "source_text_sha256": "5344f516adcfe52c21eae531efdcc35e4f261f3f3554969bf774cdca7f5c2dc5",
+          "source_ja": "「今回は好きにやらせてもらうぞ！\n　そのための力を小生は得たのだ！」",
+          "translation": "“这次，在下要随心所欲地大干一场！\n　为此所需的力量已经到手了！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“这次我要随心所欲地大干一场！\n　我已经得到了为此所需的力量！”"
+        },
+        {
+          "id": "story/119/dialogue/01.23/0014",
+          "corpus_path": "corpus/zh/story-dialogue/stage-119.json",
+          "source_text_sha256": "a105ba03647eb02e6dae479789d756249019b1375020b3926ff2a52464d9e223",
+          "source_ja": "「よかろう！\n　戦う気になったのならば、\n　小生としては文句は無い！」",
+          "translation": "“很好！既然你们有战斗的觉悟，\n　在下也没有异议！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“很好！既然你们有战斗的觉悟，\n　我也没有异议！”"
+        },
+        {
+          "id": "story/119/dialogue/01.30/0008",
+          "corpus_path": "corpus/zh/story-dialogue/stage-119.json",
+          "source_text_sha256": "91a23736787087224f7880424cb7cafc3be3be1025bf33686a5bfa1ce7e04a9c",
+          "source_ja": "「そうではない…！\n　小生の求めるものは…」",
+          "translation": "“不是……！在下所追求的是……”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“不是……！我所追求的是……”"
+        },
+        {
+          "id": "story/119/dialogue/01.52/0008",
+          "corpus_path": "corpus/zh/story-dialogue/stage-119.json",
+          "source_text_sha256": "91a23736787087224f7880424cb7cafc3be3be1025bf33686a5bfa1ce7e04a9c",
+          "source_ja": "「そうではない…！\n　小生の求めるものは…」",
+          "translation": "“不是……！在下所追求的是……”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“不是……！我所追求的是……”"
+        },
+        {
+          "id": "story/127/dialogue/01.10/0011",
+          "corpus_path": "corpus/zh/story-dialogue/stage-127.json",
+          "source_text_sha256": "3e5b29ae97981b1609429c4c73ff94bdb7d6db1c84d2d074f43cca50c43fb8ca",
+          "source_ja": "「小生が望むのは戦いだ！\n　新連邦にもアプリリウス同盟にも、\n　肩入れする気はない！」",
+          "translation": "“在下渴望的是战斗！对新联邦也好，\n　对阿普里利乌斯同盟也好，都没兴趣偏袒！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/127/dialogue/01.10/0012",
+          "corpus_path": "corpus/zh/story-dialogue/stage-127.json",
+          "source_text_sha256": "1bf81db816e9e5362f8297c9aaee242bdf18835170b984811cccacaf58f2b241",
+          "source_ja": "「小生は心の赴くままに\n　戦場を駆けるのみ…！\n　このターンＸと共にな！！」",
+          "translation": "“在下只是随心所欲地驰骋战场……！\n　与这架倒X一起！！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/127/dialogue/01.14/0020",
+          "corpus_path": "corpus/zh/story-dialogue/stage-127.json",
+          "source_text_sha256": "4703c56c642872d59571abac79e6cecc03e654a110727568ccbb0d132a693186",
+          "source_ja": "「下らんな。\n　小生はそのようなおとぎ話には\n　興味はない」",
+          "translation": "“无聊。在下对这种童话故事没兴趣。”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/127/dialogue/01.14/0022",
+          "corpus_path": "corpus/zh/story-dialogue/stage-127.json",
+          "source_text_sha256": "551a0d7aa18f3ee75edc6428e62b528efba2b34e3235f029ff422cd6c245c08f",
+          "source_ja": "「フン…ならば、小生は\n　ターンＸのコックピットにて、\n　その話を聞かせてもらおう」",
+          "translation": "“哼……那么，\n　在下就在倒X的驾驶舱里听你说吧。”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/127/dialogue/01.71/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-127.json",
+          "source_text_sha256": "c3cba37339fc8a46cd9bd338f0177e468173106a8e2e1a210de730234603de10",
+          "source_ja": "「つれないな、$c！\n　もっと小生の血を沸き立たせてくれ！」",
+          "translation": "“真冷淡啊，$c！\n　再让在下的热血沸腾起来吧！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“真冷淡啊，$c！\n　再让我的热血沸腾起来吧！”"
+        },
+        {
+          "id": "story/133/dialogue/01.19/0008",
+          "corpus_path": "corpus/zh/story-dialogue/stage-133.json",
+          "source_text_sha256": "8a33f7fd7fc0b784e2b0f8a1214b0b107e048fc11bfd75a106c6a15bfc14d10f",
+          "source_ja": "「ハハハハ！\n　やる気になったのなら、それでいい！\n　小生も楽しませてもらおう！」",
+          "translation": "“哈哈哈！既然有了干劲，那就好！\n　在下也来享受一番吧！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“哈哈哈！既然有了干劲，那就好！\n　我也来享受一番吧！”"
+        },
+        {
+          "id": "story/133/dialogue/01.33/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-133.json",
+          "source_text_sha256": "f3931998493b191881bcd0369eddc6beaa160a330f45aed30877926c74d8f5c2",
+          "source_ja": "「見事と言っておこう、ディアナ！\n　それに免じて、小生もここは退いてやる」",
+          "translation": "“就称赞你一句吧，迪安娜！\n　看在你的份上，在下也就此退下”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“就称赞你一句吧，迪安娜！\n　看在你的份上，我也就此退下”"
+        },
+        {
+          "id": "story/133/dialogue/01.33/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-133.json",
+          "source_text_sha256": "f22326c2dd1f2afe540a5b2edea3f3d3251ccc9397ec4074ea60e14f4472c5ea",
+          "source_ja": "「あのような壊れた機械などに\n　頼らずとも、黒歴史は起きる！\n　小生の手によってな！」",
+          "translation": "“就算不依赖那种破烂机器，\n　在下也会亲手重现黑历史！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“就算不依赖那种破烂机器，\n　黑历史也会发生！由我亲手！”"
+        },
+        {
+          "id": "story/133/dialogue/01.46/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-133.json",
+          "source_text_sha256": "8bb24591af804e331041c3c4ea7c83d390bd1c8d6e606bc609890ad82020c489",
+          "source_ja": "「ハハハハハ！\n　小生のターンＸが、この程度で\n　落ちるわけなかろうが！」",
+          "translation": "“哈哈哈哈！\n　在下的倒X怎么可能这么容易就掉下去！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“哈哈哈哈！\n　我的倒X怎么可能这么容易就掉下去！”"
+        },
+        {
+          "id": "story/136/dialogue/01.09/0003",
+          "corpus_path": "corpus/zh/story-dialogue/stage-136.json",
+          "source_text_sha256": "f6c500454348cbd02ce96828b92d426b35cd30e074bff6bcb94eef5c4bc8f6fd",
+          "source_ja": "「何より戦争を望んでいるのは\n　小生と同じなのでな！」",
+          "translation": "“最重要的是，他们和在下一样渴望战争！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“最重要的是，他们和我一样渴望战争！”"
+        },
+        {
+          "id": "story/136/dialogue/01.09/0005",
+          "corpus_path": "corpus/zh/story-dialogue/stage-136.json",
+          "source_text_sha256": "8f408fcc14b3939a0f317725bdcd1aacc7b1823eb7378148fcd7ddcd3fe1c519",
+          "source_ja": "「そうは考えてはいない。\n　訳もわからぬ内に世界が崩壊しては、\n　小生の望む戦いは出来んからな」",
+          "translation": "“在下可没那么想。世界若莫名其妙地崩溃，\n　就没法进行在下渴望的战斗了。”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“我可没那么想。糊里糊涂地世界就崩溃了，\n　那可不是我想要的战斗。”"
+        },
+        {
+          "id": "story/136/dialogue/01.09/0009",
+          "corpus_path": "corpus/zh/story-dialogue/stage-136.json",
+          "source_text_sha256": "b1e01762663ba5f1fcbdfec19b22e6592a7a941c358eb022cfeeaff372843216",
+          "source_ja": "「よって小生達はお前達と戦おう！」",
+          "translation": "“所以，在下等人要和你们战斗！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“所以，我们要和你们战斗！”"
+        },
+        {
+          "id": "story/136/dialogue/01.10/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-136.json",
+          "source_text_sha256": "bb4a213bb09269f9b6e5e7e7f94a2a8b99d751ee122b63738ab4ab97c3636fbe",
+          "source_ja": "「いいだろう、$c！\n　お前達の本気を小生に見せろ！」",
+          "translation": "“很好，$c！\n　让在下见识一下你们的真本事！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“很好，$c！\n　让我见识一下你们的真本事！”"
+        },
+        {
+          "id": "story/136/dialogue/01.11/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-136.json",
+          "source_text_sha256": "bb4a213bb09269f9b6e5e7e7f94a2a8b99d751ee122b63738ab4ab97c3636fbe",
+          "source_ja": "「いいだろう、$c！\n　お前達の本気を小生に見せろ！」",
+          "translation": "“很好，$c！\n　让在下见识一下你们的真本事！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“很好，$c！\n　让我见识一下你们的真本事！”"
+        },
+        {
+          "id": "story/136/dialogue/01.50/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-136.json",
+          "source_text_sha256": "26390503faa74b679fc1fe1dcd2893a68e5a91590ef6ba814aae6c6f12a2d1b2",
+          "source_ja": "「ハハハハハ！　まだだ！\n　まだ終わらんよ、このターンＸと\n　小生は！！」",
+          "translation": "“哈哈哈！还没完！\n　在下和这台倒X还没结束！！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“哈哈哈！还没完！\n　我和这台倒X还没结束！！”"
+        },
+        {
+          "id": "story/136/dialogue/01.100/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-136.json",
+          "source_text_sha256": "ecb294956e993fde069331c6962a257f9449cc42df8c77de52c1f2a5f9bf5e42",
+          "source_ja": "「この期に及んで、\n　まだ小生に命令するか、ディアナ！」",
+          "translation": "“事到如今，还要命令在下吗，迪安娜！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“事到如今，还要命令我吗，迪安娜！”"
+        },
+        {
+          "id": "story/136/dialogue/01.100/0005",
+          "corpus_path": "corpus/zh/story-dialogue/stage-136.json",
+          "source_text_sha256": "6320ea34cfffcbf165eb32208a92b71b105a11fc9aca668494e5853dda309282",
+          "source_ja": "「全てはお前の責任だ！\n　小生を止めたくば、お前の命を\n　差し出すがいい！」",
+          "translation": "“一切都是你的责任！\n　想阻止在下，就拿你的命来换！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“一切都是你的责任！\n　想阻止我，就拿你的命来换！”"
+        },
+        {
+          "id": "story/137/dialogue/01.15/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-137.json",
+          "source_text_sha256": "e1e7d589f6f5830ea784deb3d5df17f46e6b76e6213b0d88d3e7e3568ab9fc41",
+          "source_ja": "「ハハハハハ！\n　勝手な世界創りなど、\n　小生が認めぬわ！」",
+          "translation": "“哈哈哈哈！自作主张创造世界，\n　在下可不答应！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“哈哈哈哈！\n　自作主张创造世界，我可不答应！”"
+        },
+        {
+          "id": "story/137/dialogue/01.18/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-137.json",
+          "source_text_sha256": "36b51d6ac04a47af0f8de57d3615c59f937e7f88f4e5393e525d4ab43df63803",
+          "source_ja": "「小生のターンＸが、\n　真の力を目覚めさせてやる！」",
+          "translation": "“在下的倒X，将唤醒真正的力量！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“我的倒X，让你见识真正的力量！”"
+        },
+        {
+          "id": "story/139/dialogue/01.08/0005",
+          "corpus_path": "corpus/zh/story-dialogue/stage-139.json",
+          "source_text_sha256": "41e322eaf740dce511c446886bdff73ae41ff784bc88154663c24778642084be",
+          "source_ja": "「何より戦争を望んでいるのは、\n　小生と同じなのでな！」",
+          "translation": "“最重要的是，他们渴望战争，与在下一样！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/139/dialogue/01.08/0008",
+          "corpus_path": "corpus/zh/story-dialogue/stage-139.json",
+          "source_text_sha256": "abc0c0a227eeb3c1115553619daf9de82a34e4799860cf961e068bd986c8b172",
+          "source_ja": "「それで戦いの世となるのなら、\n　小生も地球に降りる意味が\n　あるというものだ！」",
+          "translation": "“如果因此能迎来战争的时代，\n　那在下降临地球也算有意义了！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/139/dialogue/01.09/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-139.json",
+          "source_text_sha256": "bb4a213bb09269f9b6e5e7e7f94a2a8b99d751ee122b63738ab4ab97c3636fbe",
+          "source_ja": "「いいだろう、$c！\n　お前達の本気を小生に見せろ！」",
+          "translation": "“很好，$c！\n　让在下见识一下你们的真本事！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/139/dialogue/01.10/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-139.json",
+          "source_text_sha256": "bb4a213bb09269f9b6e5e7e7f94a2a8b99d751ee122b63738ab4ab97c3636fbe",
+          "source_ja": "「いいだろう、$c！\n　お前達の本気を小生に見せろ！」",
+          "translation": "“很好，$c！\n　让在下见识一下你们的真本事！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/139/dialogue/01.13/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-139.json",
+          "source_text_sha256": "e6386947b8699232f0855d481508224afba0b4df2af368f5ae61ed8ce372a718",
+          "source_ja": "「貴様は小生の純粋な想いを\n　腐っていると称すか！」",
+          "translation": "“你竟敢将在下纯粹的心意称为腐朽！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/139/dialogue/01.40/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-139.json",
+          "source_text_sha256": "e1e7d589f6f5830ea784deb3d5df17f46e6b76e6213b0d88d3e7e3568ab9fc41",
+          "source_ja": "「ハハハハハ！\n　勝手な世界創りなど、\n　小生が認めぬわ！」",
+          "translation": "“哈哈哈哈！擅自创造世界这种事，\n　在下绝不认可！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/139/dialogue/01.42/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-139.json",
+          "source_text_sha256": "36b51d6ac04a47af0f8de57d3615c59f937e7f88f4e5393e525d4ab43df63803",
+          "source_ja": "「小生のターンＸが、\n　真の力を目覚めさせてやる！」",
+          "translation": "“在下的倒X，将唤醒真正的力量！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": []
+        },
+        {
+          "id": "story/139/dialogue/01.70/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-139.json",
+          "source_text_sha256": "26390503faa74b679fc1fe1dcd2893a68e5a91590ef6ba814aae6c6f12a2d1b2",
+          "source_ja": "「ハハハハハ！　まだだ！\n　まだ終わらんよ、このターンＸと\n　小生は！！」",
+          "translation": "“哈哈哈哈！还没完！\n　这台倒X和在下还没结束！！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“哈哈哈哈！还没完！\n　这台倒X和我还没结束！！”"
+        },
+        {
+          "id": "story/139/dialogue/01.117/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-139.json",
+          "source_text_sha256": "ecb294956e993fde069331c6962a257f9449cc42df8c77de52c1f2a5f9bf5e42",
+          "source_ja": "「この期に及んで、\n　まだ小生に命令するか、ディアナ！」",
+          "translation": "“事到如今，还要命令在下吗，迪安娜！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“事到如今，还要命令我吗，迪安娜！”"
+        },
+        {
+          "id": "story/139/dialogue/01.117/0005",
+          "corpus_path": "corpus/zh/story-dialogue/stage-139.json",
+          "source_text_sha256": "6320ea34cfffcbf165eb32208a92b71b105a11fc9aca668494e5853dda309282",
+          "source_ja": "「全てはお前の責任だ！\n　小生を止めたくば、お前の命を\n　差し出すがいい！」",
+          "translation": "“一切都是你的责任！\n　想阻止在下，就拿你的命来换！”",
+          "speaker": "金卡拉姆",
+          "battle_resource_owners": [],
+          "site_feedback": [],
+          "translation_at_initial_audit": "“一切都是你的责任！\n　想阻止我，就拿你的命来换！”"
+        }
+      ],
+      "requires_user_confirmation": false,
+      "self_address_policy": "config/editorial/gingham-self-address-20260907.json",
+      "resolution": {
+        "date": "2026-09-07",
+        "authority": "用户：金卡拉姆的在下要广泛",
+        "scope_counts": {
+          "story_rows_reviewed": 276,
+          "battle_rows_reviewed": 118,
+          "changed_story_rows": 87,
+          "changed_battle_rows": 27,
+          "source_shosei_rows": 89,
+          "source_shosei_with_zai_xia_before": 53,
+          "source_shosei_with_zai_xia_after": 89,
+          "all_zai_xia_rows_before": 53,
+          "all_zai_xia_rows_after": 158
+        },
+        "changed_ids": [
+          "story/053/dialogue/02.02/0113",
+          "story/106/dialogue/01.05/0003",
+          "story/106/dialogue/01.05/0006",
+          "story/106/dialogue/01.05/0016",
+          "story/106/dialogue/01.16/0006",
+          "story/106/dialogue/01.16/0035",
+          "story/106/dialogue/01.26/0001",
+          "story/109/dialogue/01.23/0005",
+          "story/109/dialogue/01.28/0005",
+          "story/109/dialogue/01.36/0004",
+          "story/109/dialogue/01.40/0002",
+          "story/109/dialogue/01.41/0000",
+          "story/109/dialogue/01.44/0002",
+          "story/109/dialogue/01.64/0002",
+          "story/109/dialogue/01.65/0002",
+          "story/109/dialogue/01.66/0002",
+          "story/109/dialogue/01.66/0004",
+          "story/109/dialogue/01.67/0002",
+          "story/109/dialogue/01.69/0002",
+          "story/109/dialogue/01.70/0000",
+          "story/109/dialogue/01.70/0005",
+          "story/109/dialogue/01.71/0003",
+          "story/109/dialogue/01.72/0004",
+          "story/109/dialogue/01.74/0003",
+          "story/109/dialogue/01.75/0002",
+          "story/109/dialogue/01.76/0000",
+          "story/109/dialogue/01.76/0004",
+          "story/109/dialogue/01.78/0002",
+          "story/109/dialogue/01.78/0003",
+          "story/109/dialogue/01.78/0006",
+          "story/109/dialogue/01.78/0008",
+          "story/109/dialogue/01.82/0000",
+          "story/109/dialogue/01.85/0000",
+          "story/109/dialogue/01.85/0004",
+          "story/109/dialogue/01.86/0002",
+          "story/109/dialogue/01.87/0001",
+          "story/119/dialogue/01.23/0003",
+          "story/119/dialogue/01.23/0005",
+          "story/119/dialogue/01.23/0007",
+          "story/119/dialogue/01.23/0008",
+          "story/119/dialogue/01.23/0014",
+          "story/119/dialogue/01.30/0002",
+          "story/119/dialogue/01.30/0006",
+          "story/119/dialogue/01.30/0008",
+          "story/119/dialogue/01.35/0001",
+          "story/119/dialogue/01.52/0000",
+          "story/119/dialogue/01.52/0002",
+          "story/119/dialogue/01.52/0006",
+          "story/119/dialogue/01.52/0008",
+          "story/119/dialogue/01.57/0001",
+          "story/119/dialogue/01.93/0010",
+          "story/127/dialogue/01.10/0005",
+          "story/127/dialogue/01.10/0006",
+          "story/127/dialogue/01.10/0009",
+          "story/127/dialogue/01.25/0012",
+          "story/127/dialogue/01.28/0001",
+          "story/127/dialogue/01.70/0000",
+          "story/127/dialogue/01.71/0002",
+          "story/127/dialogue/01.107/0009",
+          "story/133/dialogue/01.09/0003",
+          "story/133/dialogue/01.19/0008",
+          "story/133/dialogue/01.33/0000",
+          "story/133/dialogue/01.33/0001",
+          "story/133/dialogue/01.46/0000",
+          "story/136/dialogue/01.09/0003",
+          "story/136/dialogue/01.09/0005",
+          "story/136/dialogue/01.09/0009",
+          "story/136/dialogue/01.09/0015",
+          "story/136/dialogue/01.10/0002",
+          "story/136/dialogue/01.11/0004",
+          "story/136/dialogue/01.50/0000",
+          "story/136/dialogue/01.50/0013",
+          "story/136/dialogue/01.100/0002",
+          "story/136/dialogue/01.100/0005",
+          "story/137/dialogue/01.15/0001",
+          "story/137/dialogue/01.17/0002",
+          "story/137/dialogue/01.17/0005",
+          "story/137/dialogue/01.18/0001",
+          "story/137/dialogue/01.23/0001",
+          "story/139/dialogue/01.08/0018",
+          "story/139/dialogue/01.41/0002",
+          "story/139/dialogue/01.41/0005",
+          "story/139/dialogue/01.46/0001",
+          "story/139/dialogue/01.70/0000",
+          "story/139/dialogue/01.70/0013",
+          "story/139/dialogue/01.117/0002",
+          "story/139/dialogue/01.117/0005",
+          "battle:05544",
+          "battle:05545",
+          "battle:05547",
+          "battle:05555",
+          "battle:05557",
+          "battle:05559",
+          "battle:05561",
+          "battle:05565",
+          "battle:05566",
+          "battle:05573",
+          "battle:05574",
+          "battle:05583",
+          "battle:05603",
+          "battle:05608",
+          "battle:05609",
+          "battle:05611",
+          "battle:05620",
+          "battle:05621",
+          "battle:05625",
+          "battle:05628",
+          "battle:05629",
+          "battle:05636",
+          "battle:05639",
+          "battle:05640",
+          "battle:05646",
+          "battle:05660",
+          "battle:05661"
+        ],
+        "site_writeback": false
+      }
+    },
+    {
+      "id": "VOICE-05",
+      "status": "retain_existing_site_decision",
+      "character": "胜平",
+      "title": "粗口和致死表达的强度",
+      "issue_is_confirmed": false,
+      "reason": "审阅站已采用“等个屁”“死了吗”，并说明要保留胜平直白急躁的口吻。此处仍涉及“等待太久”与“猴年马月”、击倒与死亡的表达强度，需要角色整体标准。",
+      "next_review": "保留已有站内处理结果；现有证据不足以重新要求用户确认。若将来发现具体上下文冲突，再带完整例句复核。",
+      "targets": [
+        {
+          "id": "battle:22837",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_text_sha256": "58c4fe59b3f3a554c956461230068c57d57fd231b6b46ae0d62d8cbccdb11586",
+          "source_ja": "「んなもん待ってたら日が暮れちまうよ！」",
+          "translation": "“都猴年马月了等个屁！”",
+          "speaker": null,
+          "battle_resource_owners": [
+            "胜平"
+          ],
+          "site_feedback": [
+            {
+              "id": "9e495ca0-895e-494d-914c-a71e2cb06e73",
+              "clientRequestId": "7bd43c9a-d22d-40cd-8bf9-c59666b3e251",
+              "targetType": "battle-line",
+              "targetId": "battle:22837",
+              "baseCommit": "6356afd4c0412fd82b6aa4d1579228ac259957a2",
+              "sourceText": "「んなもん待ってたら日が暮れちまうよ！」",
+              "currentTranslation": "“等那玩意儿天都黑了！”",
+              "proposedTranslation": "“都猴年马月了等个屁！”",
+              "reason": "",
+              "context": {
+                "workId": 6,
+                "workTitle": "无敌超人赞波特3",
+                "targetLabel": "胜平",
+                "href": "/?catalog=6"
+              },
+              "displayNameSnapshot": "桑德曼",
+              "createdAt": "2026-08-31T02:22:09.222Z",
+              "updatedAt": "2026-08-31T02:22:09.222Z",
+              "currentSiteTranslation": "“都猴年马月了等个屁！”",
+              "stale": true,
+              "merged": true,
+              "processed": true,
+              "resolution": "adopted",
+              "adminReason": "采用更强的口语表达，以体现胜平粗鲁、急躁的口吻。",
+              "adminReviewedAt": "2026-09-04T15:08:41.848Z",
+              "author": {
+                "groupKey": "baf354b26bf892ea602b",
+                "displayName": "桑德曼",
+                "avatarPath": "/portraits-web/tici/tici-072.webp"
+              },
+              "ownedByViewer": false
+            }
+          ]
+        },
+        {
+          "id": "battle:22850",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_text_sha256": "f3e2b4fc3006a6b58dfaa8ed0d677730a62b82950e4b524b17e83ba919f04724",
+          "source_ja": "「やったか！？」",
+          "translation": "“死了吗！？”",
+          "speaker": null,
+          "battle_resource_owners": [
+            "胜平"
+          ],
+          "site_feedback": [
+            {
+              "id": "c3247198-f00b-4d05-9b01-7b2d5caf6b5a",
+              "clientRequestId": "d58bc4d5-527f-41c9-9d39-effe3d3cf140",
+              "targetType": "battle-line",
+              "targetId": "battle:22850",
+              "baseCommit": "6356afd4c0412fd82b6aa4d1579228ac259957a2",
+              "sourceText": "「やったか！？」",
+              "currentTranslation": "“干掉了吗！？”",
+              "proposedTranslation": "“死了吗！？”",
+              "reason": "",
+              "context": {
+                "workId": 6,
+                "workTitle": "无敌超人赞波特3",
+                "targetLabel": "胜平",
+                "href": "/?catalog=6"
+              },
+              "displayNameSnapshot": "桑德曼",
+              "createdAt": "2026-08-31T02:26:42.748Z",
+              "updatedAt": "2026-08-31T02:26:42.748Z",
+              "currentSiteTranslation": "“死了吗！？”",
+              "stale": true,
+              "merged": true,
+              "processed": true,
+              "resolution": "adopted",
+              "adminReason": "“死了吗！？”保留了胜平在战斗语境中的直白口吻。",
+              "adminReviewedAt": "2026-09-04T15:08:42.741Z",
+              "author": {
+                "groupKey": "baf354b26bf892ea602b",
+                "displayName": "桑德曼",
+                "avatarPath": "/portraits-web/tici/tici-072.webp"
+              },
+              "ownedByViewer": false
+            }
+          ]
+        }
+      ],
+      "requires_user_confirmation": false
+    },
+    {
+      "id": "VOICE-06",
+      "status": "retain_existing_site_decision",
+      "character": "Dove",
+      "title": "句末语气的角色表现",
+      "issue_is_confirmed": false,
+      "reason": "投稿要求强化该角色的特定说话方式，现稿“快点消失啦”。单凭なさいよ无法确定所有场景都应使用相同中文语气词。",
+      "next_review": "保留已有站内处理结果；现有证据不足以重新要求用户确认。若将来发现具体上下文冲突，再带完整例句复核。",
+      "targets": [
+        {
+          "id": "battle:11662",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_text_sha256": "cf65742e584d0707302f60cb422ce23ba1f3773363d7e2ab4f6d3bda812ab137",
+          "source_ja": "「とっとと消えなさいよ！」",
+          "translation": "“快点消失啦！”",
+          "speaker": null,
+          "battle_resource_owners": [
+            "Dove"
+          ],
+          "site_feedback": [
+            {
+              "id": "9464c1dc-feab-453d-82c0-05beb9315db0",
+              "clientRequestId": "2750527a-a38e-4979-903d-e6acd813d615",
+              "targetType": "battle-line",
+              "targetId": "battle:11662",
+              "baseCommit": "a5dde596736c13513d8b97e50340c9f16e7cd921",
+              "sourceText": "「とっとと消えなさいよ！」",
+              "currentTranslation": "“赶紧给我消失！”",
+              "proposedTranslation": "“快点给我消失呀！”",
+              "reason": "得有娘娘腔的感觉",
+              "context": {
+                "workId": 16,
+                "workTitle": "The Big O",
+                "targetLabel": "Dove",
+                "href": "/?catalog=16"
+              },
+              "displayNameSnapshot": "桑德曼",
+              "createdAt": "2026-09-03T01:26:45.152Z",
+              "updatedAt": "2026-09-03T01:26:45.152Z",
+              "currentSiteTranslation": "“快点消失啦！”",
+              "stale": true,
+              "merged": false,
+              "processed": true,
+              "resolution": "alternative",
+              "author": {
+                "groupKey": "baf354b26bf892ea602b",
+                "displayName": "桑德曼",
+                "avatarPath": "/portraits-web/tici/tici-072.webp"
+              },
+              "ownedByViewer": false
+            }
+          ]
+        }
+      ],
+      "requires_user_confirmation": false
+    },
+    {
+      "id": "VOICE-07",
+      "status": "retain_existing_site_decision",
+      "character": "风见",
+      "title": "对机械天使的辱骂增补",
+      "issue_is_confirmed": false,
+      "reason": "现稿含“你这垃圾”，源文以貴様表达敌意，是否要额外增补垃圾取决于整段敌对口吻。名称已符合本轮阿克艾里昂定稿，辱骂强度不改。",
+      "next_review": "保留已有站内处理结果；现有证据不足以重新要求用户确认。若将来发现具体上下文冲突，再带完整例句复核。",
+      "targets": [
+        {
+          "id": "battle:24651",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_text_sha256": "b69aebfe765b75e28da1a71d92d8cf2ff4f4209014c25d326899b849553753fc",
+          "source_ja": "「機械天使アクエリオン！　\\n　貴様の翅をむしってやる！」",
+          "translation": "“机械天使阿克艾里昂！\\n　看我拔掉你这垃圾的翅膀！”",
+          "speaker": null,
+          "battle_resource_owners": [
+            "风见"
+          ],
+          "site_feedback": [
+            {
+              "id": "ec15093a-effb-4625-9320-23d6a3f96358",
+              "clientRequestId": "e2ddf249-daa1-4d6d-b4b7-a3de2aee45cb",
+              "targetType": "battle-line",
+              "targetId": "battle:24651",
+              "baseCommit": "8b5c748a846338e9fb63adaacb3ed8b54a151c15",
+              "sourceText": "「機械天使アクエリオン！　\\n　貴様の翅をむしってやる！」",
+              "currentTranslation": "“机械天使亚库艾里翁！\\n　我要拔掉你的翅膀！”",
+              "proposedTranslation": "“机械天使阿克艾里昂！\\n　看我拔掉你这垃圾的翅膀！”",
+              "reason": "",
+              "context": {
+                "workId": 5,
+                "workTitle": "宇宙大帝神西格玛",
+                "targetLabel": "风见",
+                "href": "/?catalog=5"
+              },
+              "displayNameSnapshot": "桑德曼",
+              "createdAt": "2026-08-30T06:43:42.507Z",
+              "updatedAt": "2026-08-30T06:43:42.507Z",
+              "currentSiteTranslation": "“机械天使阿克艾里昂！\\n　看我拔掉你这垃圾的翅膀！”",
+              "stale": true,
+              "merged": true,
+              "processed": true,
+              "resolution": "adopted",
+              "author": {
+                "groupKey": "baf354b26bf892ea602b",
+                "displayName": "桑德曼",
+                "avatarPath": "/portraits-web/tici/tici-072.webp"
+              },
+              "ownedByViewer": false
+            }
+          ]
+        }
+      ],
+      "requires_user_confirmation": false
+    },
+    {
+      "id": "VOICE-08",
+      "status": "deferred_editorial_follow_up",
+      "character": "阿斯哈姆",
+      "title": "讽刺友情的语气",
+      "issue_is_confirmed": false,
+      "reason": "现译“真是美丽的友情啊”，投稿为“多么真挚的友情啊”。“真挚”可能使讽刺听起来像真诚赞美，本轮保留，后续可按整段对峙语气再润色。",
+      "next_review": "本轮保留现译及讽刺转折，作为普通上下文复核记录；不要求用户另定人设规则。",
+      "targets": [
+        {
+          "id": "story/130/dialogue/01.02/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-130.json",
+          "source_text_sha256": "71ffd3794c86d77a7cdb9315e78a2890bf4da5de889a5573b5d6dbb1ea12eb1b",
+          "source_ja": "「麗しい友情だな！\n　だが、オーバーデビルの前では、\n　人の心さえも凍りつく！」",
+          "translation": "“真是美丽的友情啊！\n　但在超限恶魔面前，连人心都会冻结！”",
+          "speaker": "阿斯哈姆",
+          "battle_resource_owners": [],
+          "site_feedback": [
+            {
+              "id": "00bcaa35-e82d-434d-a6da-54c141b5db40",
+              "clientRequestId": "3eeb9d7b-cfab-4b42-8f28-d12b2acdc090",
+              "targetType": "dialogue",
+              "targetId": "story/130/dialogue/01.02/0004",
+              "baseCommit": "698096c28b5d554c350bcfcf2f89a1fe0016b0d9",
+              "sourceText": "「麗しい友情だな！\n　だが、オーバーデビルの前では、\n　人の心さえも凍りつく！」",
+              "currentTranslation": "“真是美丽的友情啊！\n　但在超限恶魔面前，连人心都会冻结！”",
+              "proposedTranslation": "“多么真挚的友情啊！\n　但在超限恶魔面前，连人心都会冻结！”",
+              "reason": "",
+              "context": {
+                "stageIndex": 130,
+                "resourceName": "stg_094b.bin",
+                "stageTitle": "Gain Over",
+                "episode": 52,
+                "speaker": "阿斯哈姆",
+                "terminologyRelated": false,
+                "href": "/stage?id=stage-093&episode=52#story-130-dialogue-01.02-0004"
+              },
+              "displayNameSnapshot": "兰德",
+              "createdAt": "2026-09-07T01:54:04.086Z",
+              "updatedAt": "2026-09-07T01:54:04.086Z",
+              "currentSiteTranslation": "“真是美丽的友情啊！\n　但在超限恶魔面前，连人心都会冻结！”",
+              "stale": false,
+              "merged": false,
+              "processed": false,
+              "resolution": "pending",
+              "author": {
+                "groupKey": "8fa51487d75c203feb40",
+                "displayName": "兰德",
+                "avatarPath": "/portraits-web/tici/tici-118.webp"
+              },
+              "ownedByViewer": false
+            }
+          ]
+        }
+      ],
+      "requires_user_confirmation": false
+    }
+  ],
+  "preserved_boundaries": [
+    {
+      "id": "story/085/dialogue/02.02/0076",
+      "reason": "查尔斯便利店／雷料理句已有明确暂缓决定，继续保留。"
+    },
+    {
+      "id": "story/088/dialogue/01.02/0003",
+      "reason": "霍兰德以逞强、嘴硬、独自承担为既有基准，不据能力退化或队友不信任的旧误解润色。"
+    }
+  ],
+  "mail_address_audit": {
+    "source_bound_rows": 231,
+    "darling_rows": 230,
+    "other_rows": 1,
+    "conclusion": "本次范围已基本统一为达令，不沿用旧快照中亲爱的／达令混用的计数。SRVC归属兰德机组，不能将资源归属误当作逐句发声人。"
+  },
+  "confirmation_summary": {
+    "requires_user_draft_decision": [],
+    "confirmed_applied": [
+      "VOICE-01",
+      "VOICE-02",
+      "VOICE-03",
+      "VOICE-04"
+    ],
+    "editorial_follow_up_only": [
+      "VOICE-08"
+    ],
+    "retain_existing_site_decision": [
+      "VOICE-05",
+      "VOICE-06",
+      "VOICE-07"
+    ],
+    "unapproved_translation_writeback": false
+  }
+}

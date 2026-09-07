@@ -1,0 +1,2155 @@
+{
+  "schema_version": 1,
+  "review_id": "mail-pun-review-20260907",
+  "translation_writeback": true,
+  "purpose": "当前普通润色已收尾：梅尔21条及兰德独立2条已修复；人物态度与典故问题仅整理。",
+  "feedback_snapshot_at": "2026-09-07T02:41:19.179654+00:00",
+  "feedback_snapshot_total": 1784,
+  "scope": {
+    "mail_story_entries": 843,
+    "story_stage_blocks": 82,
+    "story_unique_ja_ignoring_whitespace": 704,
+    "land_crew_battle_subtitle_entries": 439,
+    "battle_attribution_note": "439是兰德资源可引用的去重字幕，包含兰德与梅尔，不能当成梅尔本人439句。",
+    "darling_source_entries": 231,
+    "darling_translated_explicitly": 230,
+    "darling_implicit_ids": [
+      "story/084/dialogue/02.03/0112"
+    ],
+    "source_bound_scope_path": "work/review/mail-pun-audit-20260907/source-bound-scope.json",
+    "source_bound_scope_sha256": "759788ae4f06b2e0024d0631aef7fdebc6a354f04634c4b79f53fada7d6e952c",
+    "additional_context": "已扩展核对兰德铺垫、他人纠正、跨路线副本，以及全剧情特异点误读与HEAT SMILE变体。"
+  },
+  "cases": [
+    {
+      "case_id": "MAIL-P01",
+      "title": "平胸自嘲被音译成人名",
+      "status": "applied",
+      "priority": "high",
+      "reason": "兰德询问有没有撞伤，梅尔说多亏胸部平才没事。ペチャ是对自己平胸的自嘲，不能音译成‘佩查’；剧情中的ペチャパイ也可互证。",
+      "entries": [
+        {
+          "id": "battle:19666",
+          "source_ja": "「メール！　どっかぶつけてねえか！？」",
+          "source_text_sha256": "5aacb72eccd63430032d45930716d377d0416b9dbd2990544d90d012c12db230",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 707,
+                "archive_text_start": 2520979,
+                "encoded_size": 39
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“梅尔！没撞到哪儿吧！？”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "battle:19667",
+          "source_ja": "「だ、大丈夫！　\\n　ペチャのおかげで助かった！」",
+          "source_text_sha256": "e6ba5d9060ee4aef09c3b2ce1c406fe41b52b0aa9ec4acdd602099b61177e5ad",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 708,
+                "archive_text_start": 2521018,
+                "encoded_size": 49
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“没、没事！\\n　多亏胸口平，才没撞着！”",
+          "proposed_translation": "“没、没事！\\n　多亏胸口平，才没撞着！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“没、没事！\\n　多亏了佩查才得救！”",
+          "applied_translation": "“没、没事！\\n　多亏胸口平，才没撞着！”"
+        },
+        {
+          "id": "story/084/dialogue/02.01/0114",
+          "source_ja": "「だって、１６歳にもなって\n　こんなペチャパイとポンポンお腹だよ？\n　おかしいと思うわよ、そりゃ…」",
+          "source_text_sha256": "362fe3dddea1740b5c809779f13e5452015fee68cde7ce77ad002416ce38b056",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 2.1",
+            "ordinal": 114,
+            "text_offset": 65520
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "“毕竟都16岁了，还是这么平的胸和\n　圆滚滚的肚子？那当然觉得奇怪了……”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "correction_candidate",
+      "resolution": {
+        "authority": "用户：先修复梅尔的吧",
+        "batch_id": "mail-pun-fixes-20260907",
+        "changed_ids": [
+          "battle:19667"
+        ]
+      }
+    },
+    {
+      "case_id": "MAIL-P02",
+      "title": "特异点的假人名误读跨章节不一致",
+      "status": "applied",
+      "priority": "high",
+      "reason": "这是兰德先把特异点当成人名、梅尔接话、后面才被纠正的贯穿梗。当前混有特伊点、托·奎滕、托克·伊滕、特·特异点与特·异点。沿用第079个STAGE已有的特·异点／特异·点，保留故意拆错的效果；正常术语仍为特异点。共8条误读台词，其中5条建议修改。没有追溯版本历史，因此不把现状断言为某一轮替换造成的回归。",
+      "entries": [
+        {
+          "id": "story/028/dialogue/01.62/0000",
+          "source_ja": "「人をト・クイテンとか言う奴と\n　間違えた事は、まあ許してやる」",
+          "source_text_sha256": "b2dcde411f5726d8b0a891d10950192ab2a53f4df8134fb4cbca6085accb2123",
+          "original_location": {
+            "stage_index": 28,
+            "section": "Section 1.62",
+            "ordinal": 0,
+            "text_offset": 89184
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-028.json",
+          "current_translation": "“把我错认成什么‘特·异点’，\n　这事我就不跟你计较了。”",
+          "proposed_translation": "“把我错认成什么‘特·异点’，\n　这事我就不跟你计较了。”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“把人和什么‘特伊点’搞错，\n　我就原谅你了。”",
+          "applied_translation": "“把我错认成什么‘特·异点’，\n　这事我就不跟你计较了。”"
+        },
+        {
+          "id": "story/028/dialogue/02.01/0107",
+          "source_ja": "「見つけたぞ、特異点…！\n　大人しくこちらの指示に従え」",
+          "source_text_sha256": "11f873218c602a6d754e0789cbbd8f5202f574db810017fc4da4bf221fbccc91",
+          "original_location": {
+            "stage_index": 28,
+            "section": "Section 2.1",
+            "ordinal": 107,
+            "text_offset": 100192
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-028.json",
+          "current_translation": "“找到了，特异点……！乖乖听从我们的指示。”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/028/dialogue/02.01/0108",
+          "source_ja": "「人違いだよ、兄さん。\n　俺はト・クイテンなんて名前じゃねえ」",
+          "source_text_sha256": "caa23171a650bfd7e60066c637422a1107ccad6c4009ac5cbf46d7acf6b1ee75",
+          "original_location": {
+            "stage_index": 28,
+            "section": "Section 2.1",
+            "ordinal": 108,
+            "text_offset": 101712
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-028.json",
+          "current_translation": "“你认错人了，大哥。我可不叫特·异点。”",
+          "proposed_translation": "“你认错人了，大哥。我可不叫特·异点。”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“你认错人了，大哥。我不叫什么托·奎滕。”",
+          "applied_translation": "“你认错人了，大哥。我可不叫特·异点。”"
+        },
+        {
+          "id": "story/028/dialogue/02.01/0109",
+          "source_ja": "「…それともトク・イテンか？」",
+          "source_text_sha256": "6e6ec966805deb1beaa5835d4e92d7fd34262ce380ab53738390b2373fd00f91",
+          "original_location": {
+            "stage_index": 28,
+            "section": "Section 2.1",
+            "ordinal": 109,
+            "text_offset": 101792
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-028.json",
+          "current_translation": "“……还是叫特异·点来着？”",
+          "proposed_translation": "“……还是叫特异·点来着？”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“……还是托克·伊滕？”",
+          "applied_translation": "“……还是叫特异·点来着？”"
+        },
+        {
+          "id": "story/034/dialogue/01.29/0001",
+          "source_ja": "「チラムの連中、\n　また俺の事、ト・クイテンだと\n　勘違いしてやがるか！」",
+          "source_text_sha256": "134d9d402fd5d6a9cc099143d4cfa88e2ee0d35c7636a2bc3678a2cd54f0eb76",
+          "original_location": {
+            "stage_index": 34,
+            "section": "Section 1.29",
+            "ordinal": 1,
+            "text_offset": 47344
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-034.json",
+          "current_translation": "“奇拉姆那帮家伙，\n　又把老子当成什么特·异点了吧！”",
+          "proposed_translation": "“奇拉姆那帮家伙，\n　又把老子当成什么特·异点了吧！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“奇拉姆那帮家伙，\n　又把老子当成什么特·特异点了吧！”",
+          "applied_translation": "“奇拉姆那帮家伙，\n　又把老子当成什么特·异点了吧！”"
+        },
+        {
+          "id": "story/034/dialogue/01.29/0002",
+          "source_ja": "「何？　そのト・クイテンって？」",
+          "source_text_sha256": "4b53b55c09b192591425c24e81ea265193aff1ca3e0894309ad38859df8c215c",
+          "original_location": {
+            "stage_index": 34,
+            "section": "Section 1.29",
+            "ordinal": 2,
+            "text_offset": 47424
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-034.json",
+          "current_translation": "“什么？那个特·异点是谁？”",
+          "proposed_translation": "“什么？那个特·异点是谁？”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“什么？那个特·特异点是？”",
+          "applied_translation": "“什么？那个特·异点是谁？”"
+        },
+        {
+          "id": "story/034/dialogue/01.29/0003",
+          "source_ja": "「知らん！\n　だが、奴らが俺を狙っているのは\n　間違いねえようだ！」",
+          "source_text_sha256": "21f46be6222a771acd40ae31ab31cd8741090505fbfa8412b2073adf5aba2a9b",
+          "original_location": {
+            "stage_index": 34,
+            "section": "Section 1.29",
+            "ordinal": 3,
+            "text_offset": 47472
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-034.json",
+          "current_translation": "“不知道！不过，\n　那些家伙盯上老子是没错了！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/079/dialogue/02.01/0029",
+          "source_ja": "「ト・クイテンって奴だからだろうさ。\n　それが理由で桂はチラムにも\n　追われてたらしいぜ」",
+          "source_text_sha256": "69012208d8f2c59cdcc55c65f36872ca8db525b23beaebc75e81cf3df353f6cc",
+          "original_location": {
+            "stage_index": 79,
+            "section": "Section 2.1",
+            "ordinal": 29,
+            "text_offset": 18544
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-079.json",
+          "current_translation": "“大概是因为他是那个‘特·异点’吧。\n　好像因为这个原因，桂才被奇拉姆追捕。”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/079/dialogue/02.01/0030",
+          "source_ja": "「ト・クイテン？」",
+          "source_text_sha256": "05ac28539c2f9d63405756f05b94c859be4816b31e38134df6bdcaea33555e17",
+          "original_location": {
+            "stage_index": 79,
+            "section": "Section 2.1",
+            "ordinal": 30,
+            "text_offset": 18640
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-079.json",
+          "current_translation": "“特·异点？”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/079/dialogue/02.01/0031",
+          "source_ja": "「トクイテ・ンかも知れないけどな」",
+          "source_text_sha256": "96177431bc33c0035ea94618ac1a51c569beb43b19278194d1964f8ec38e51e2",
+          "original_location": {
+            "stage_index": 79,
+            "section": "Section 2.1",
+            "ordinal": 31,
+            "text_offset": 18672
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-079.json",
+          "current_translation": "“也可能是‘特异·点’吧。”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/079/dialogue/02.01/0032",
+          "source_ja": "「もしかして、それは\n　特異点じゃないですか？」",
+          "source_text_sha256": "a849db47b517bf47050e9493991646b4f4d7fb52c12ce170af6310ab7dea38bf",
+          "original_location": {
+            "stage_index": 79,
+            "section": "Section 2.1",
+            "ordinal": 32,
+            "text_offset": 18720
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-079.json",
+          "current_translation": "“难道说，那不是特异点吗？”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/079/dialogue/02.01/0033",
+          "source_ja": "「そうそう！\n　チラムの連中もそういう発音だった！」",
+          "source_text_sha256": "77170f33850fd8cabcfd6b31f7dd9869a5f2f2d28788f50f111c067223d8dddc",
+          "original_location": {
+            "stage_index": 79,
+            "section": "Section 2.1",
+            "ordinal": 33,
+            "text_offset": 18784
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-079.json",
+          "current_translation": "“对对！奇拉姆那帮人也是这么发音的！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/079/dialogue/02.01/0034",
+          "source_ja": "「テキトー過ぎだよ、ダーリン！」",
+          "source_text_sha256": "c132f65a84d07f6eceff8a4c06f698442dfb541c5939ee6d9f4e8fe8cca86d3b",
+          "original_location": {
+            "stage_index": 79,
+            "section": "Section 2.1",
+            "ordinal": 34,
+            "text_offset": 18848
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-079.json",
+          "current_translation": "“太随便了吧，达令！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "correction_candidate",
+      "resolution": {
+        "authority": "用户：先修复梅尔的吧",
+        "batch_id": "mail-pun-fixes-20260907",
+        "changed_ids": [
+          "story/028/dialogue/01.62/0000",
+          "story/028/dialogue/02.01/0108",
+          "story/028/dialogue/02.01/0109",
+          "story/034/dialogue/01.29/0001",
+          "story/034/dialogue/01.29/0002"
+        ]
+      }
+    },
+    {
+      "case_id": "MAIL-P03",
+      "title": "怕馒头脸接不上怕豆沙馅",
+      "status": "applied",
+      "priority": "high",
+      "reason": "原文借落语‘まんじゅう怖い’暗指口头说怕、其实喜欢，梅尔却按食物字面理解。现译添加‘脸’把话题变成相貌，接不到下一句豆沙馅。最小修法是恢复‘怕豆沙包’，不额外给梅尔补解释。这个最小修法仍不能保证不了解典故的读者读出兰德的反话。",
+      "references": [
+        {
+          "url": "https://laits.utexas.edu/japanese/joshu/reading/mukashibanashi/mukashibahashi_3_rakugo_manjuu_kowai.pdf",
+          "title": "UT Austin Japanese JOSHU：まんじゅうこわい",
+          "supports": "豆沙点心及假装害怕、实际喜欢的故事结构；用于识别典故，不代表游戏的官方译法。"
+        }
+      ],
+      "entries": [
+        {
+          "id": "story/091/dialogue/02.01/0118",
+          "source_ja": "「あ…その…すみませんが\n　もう少し離れて下さい…！\n　自分は…その女性にくっつかれると…」",
+          "source_text_sha256": "682fa4510cd13127d14a40486bbafa0db079f3454261d7a6b29bce533cd44e1e",
+          "original_location": {
+            "stage_index": 91,
+            "section": "Section 2.1",
+            "ordinal": 118,
+            "text_offset": 62112
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-091.json",
+          "current_translation": "“啊……那个……抱歉，请离我远一点……！\n　我……被女性靠近的话……”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/091/dialogue/02.01/0119",
+          "source_ja": "「あ…ごめんなさぁい！\n　大尉って女性恐怖症でしたっけ！」",
+          "source_text_sha256": "062594a53ad7eef76abecb1ed0d09f0af3865f46847c75019ef2763afc96e8d3",
+          "original_location": {
+            "stage_index": 91,
+            "section": "Section 2.1",
+            "ordinal": 119,
+            "text_offset": 62224
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-091.json",
+          "current_translation": "“啊……对不起！上尉有女性恐惧症来着！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/091/dialogue/02.01/0120",
+          "source_ja": "「へ…本当は『まんじゅう怖い』ってやつかも\n　知れないぜ」",
+          "source_text_sha256": "867c45a805420e212b7ae8270fd6ebbca5c38ccc0f9369b0383ef447908a9dc9",
+          "original_location": {
+            "stage_index": 91,
+            "section": "Section 2.1",
+            "ordinal": 120,
+            "text_offset": 62304
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-091.json",
+          "current_translation": "“嘿……说不定其实是‘怕豆沙包’呢。”",
+          "proposed_translation": "“嘿……说不定其实是‘怕豆沙包’呢。”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“嘿……说不定其实是‘怕馒头脸’呢。”",
+          "applied_translation": "“嘿……说不定其实是‘怕豆沙包’呢。”"
+        },
+        {
+          "id": "story/091/dialogue/02.01/0121",
+          "source_ja": "「え！　レーベン大尉って\n　女の人だけじゃなくアンコも苦手なの！？」",
+          "source_text_sha256": "8f945ab3a71128fca0f5fc51bff225401e46a911a12fc05b65f3a7d737a2612e",
+          "original_location": {
+            "stage_index": 91,
+            "section": "Section 2.1",
+            "ordinal": 121,
+            "text_offset": 62368
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-091.json",
+          "current_translation": "“诶！雷本上尉不仅怕女人，\n　还怕豆沙馅吗！？”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/091/dialogue/02.01/0122",
+          "source_ja": "「勘弁してくださいよ、$nさん。\n　それにメールさんも…」",
+          "source_text_sha256": "9cef2b9b004272a4ad7e9948dae980b207db4f69c354c4159d8a284e46e763a0",
+          "original_location": {
+            "stage_index": 91,
+            "section": "Section 2.1",
+            "ordinal": 122,
+            "text_offset": 62448
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-091.json",
+          "current_translation": "“饶了我吧，$n先生。\n　还有梅尔小姐也是……”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "correction_candidate",
+      "resolution": {
+        "authority": "用户：先修复梅尔的吧",
+        "batch_id": "mail-pun-fixes-20260907",
+        "changed_ids": [
+          "story/091/dialogue/02.01/0120"
+        ]
+      }
+    },
+    {
+      "case_id": "MAIL-P04",
+      "title": "终盘省略冠词的CRUSHER漏过称号统一",
+      "status": "applied",
+      "priority": "high",
+      "reason": "完整ザ・クラッシャー在本次范围内10条均为THE CRUSHER，但终盘3条ザ・ヒートでクラッシャー译成THE HEAT兼破坏者。这里仍然是兰德的称号，需同时匹配省略ザ・的写法；不能对普通ブレーカー做中文全局替换。",
+      "entries": [
+        {
+          "id": "story/149/dialogue/01.96/0006",
+          "source_ja": "「だってダーリンは負けないもん！\n　ザ・ヒートでクラッシャーだから！」",
+          "source_text_sha256": "ce65f7fdeeb3c6ba2310187d68b06413615d0cee6750c95e02519e910dc98d7d",
+          "original_location": {
+            "stage_index": 149,
+            "section": "Section 1.96",
+            "ordinal": 6,
+            "text_offset": 185024
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-149.json",
+          "current_translation": "“因为达令不会输！他可是THE HEAT\n　兼THE CRUSHER！”",
+          "proposed_translation": "“因为达令不会输！\n　他可是THE HEAT兼THE CRUSHER！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“因为达令不会输！\n　他可是THE HEAT兼破坏者！”",
+          "applied_translation": "“因为达令不会输！他可是THE HEAT\n　兼THE CRUSHER！”"
+        },
+        {
+          "id": "story/149/dialogue/01.133/0006",
+          "source_ja": "「だってダーリンは負けないもん！\n　ザ・ヒートでクラッシャーだから！」",
+          "source_text_sha256": "ce65f7fdeeb3c6ba2310187d68b06413615d0cee6750c95e02519e910dc98d7d",
+          "original_location": {
+            "stage_index": 149,
+            "section": "Section 1.133",
+            "ordinal": 6,
+            "text_offset": 185024
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-149.json",
+          "current_translation": "“因为达令不会输！他可是THE HEAT\n　兼THE CRUSHER！”",
+          "proposed_translation": "“因为达令不会输！\n　他可是THE HEAT兼THE CRUSHER！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“因为达令不会输！\n　他可是THE HEAT兼破坏者！”",
+          "applied_translation": "“因为达令不会输！他可是THE HEAT\n　兼THE CRUSHER！”"
+        },
+        {
+          "id": "story/149/dialogue/01.170/0006",
+          "source_ja": "「だってダーリンは負けないもん！\n　ザ・ヒートでクラッシャーだから！」",
+          "source_text_sha256": "ce65f7fdeeb3c6ba2310187d68b06413615d0cee6750c95e02519e910dc98d7d",
+          "original_location": {
+            "stage_index": 149,
+            "section": "Section 1.170",
+            "ordinal": 6,
+            "text_offset": 185024
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-149.json",
+          "current_translation": "“因为达令不会输！他可是THE HEAT\n　兼THE CRUSHER！”",
+          "proposed_translation": "“因为达令不会输！\n　他可是THE HEAT兼THE CRUSHER！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“因为达令不会输！\n　他可是THE HEAT兼破坏者！”",
+          "applied_translation": "“因为达令不会输！他可是THE HEAT\n　兼THE CRUSHER！”"
+        }
+      ],
+      "status_at_initial_audit": "correction_candidate",
+      "resolution": {
+        "authority": "用户：先修复梅尔的吧",
+        "batch_id": "mail-pun-fixes-20260907",
+        "changed_ids": [
+          "story/149/dialogue/01.96/0006",
+          "story/149/dialogue/01.133/0006",
+          "story/149/dialogue/01.170/0006"
+        ]
+      }
+    },
+    {
+      "case_id": "MAIL-P05",
+      "title": "HEAT SMILE贯穿叫法仍有四种",
+      "status": "applied",
+      "priority": "medium",
+      "reason": "全剧情检出6条ヒートスマイル／ヒート・スマイル，现译有热浪微笑、热力微笑、热火微笑、HEAT SMILE。这是人物招牌笑容及情感回扣，带不带中点应识别为同一词。已按用户要求统一为HEAT SMILE；4条中文变体已修改，2条已有英文稿保留。",
+      "entries": [
+        {
+          "id": "story/027/dialogue/02.02/0141",
+          "source_ja": "「出た！　ヒートスマイル！」",
+          "source_text_sha256": "453f1432a83fe9d56f755b9691d38122f87e77e4e5ea9ba7d1f98f42fa54a583",
+          "original_location": {
+            "stage_index": 27,
+            "section": "Section 2.2",
+            "ordinal": 141,
+            "text_offset": 91344
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-027.json",
+          "current_translation": "“来了！HEAT SMILE！”",
+          "proposed_translation": "“来了！HEAT SMILE！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“来了！热浪微笑！”",
+          "applied_translation": "“来了！HEAT SMILE！”"
+        },
+        {
+          "id": "story/028/dialogue/02.02/0138",
+          "source_ja": "「な、何だよ！\n　このヒート・スマイルは\n　お前のお気に入りじゃねえか！」",
+          "source_text_sha256": "995f4dd3d92f8092ebb89b7cf869cff5fb2bea556b8638ffeac3bcbecd1e8841",
+          "original_location": {
+            "stage_index": 28,
+            "section": "Section 2.2",
+            "ordinal": 138,
+            "text_offset": 112944
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-028.json",
+          "current_translation": "“干、干嘛啊！这个HEAT SMILE\n　不是你最喜欢的吗！”",
+          "proposed_translation": "“干、干嘛啊！\n　这个HEAT SMILE不是你最喜欢的吗！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“干、干嘛啊！\n　这个热力微笑不是你最喜欢的吗！”",
+          "applied_translation": "“干、干嘛啊！这个HEAT SMILE\n　不是你最喜欢的吗！”"
+        },
+        {
+          "id": "story/042/dialogue/02.01/0111",
+          "source_ja": "「ううん。\n　あの笑顔…ヒート・スマイルは\n　あたしのためのものなの」",
+          "source_text_sha256": "e8ed74b78a537bc0d15d73cb53224e59dd4fe4e254923c29d84219670d126ebf",
+          "original_location": {
+            "stage_index": 42,
+            "section": "Section 2.1",
+            "ordinal": 111,
+            "text_offset": 48192
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-042.json",
+          "current_translation": "“不。那个笑容……\n　HEAT SMILE，是为了我而露出的。”",
+          "proposed_translation": "“不。那个笑容……\n　HEAT SMILE，是为了我而露出的。”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“不。那个笑容……\n　热火微笑，是为了我而做的。”",
+          "applied_translation": "“不。那个笑容……\n　HEAT SMILE，是为了我而露出的。”"
+        },
+        {
+          "id": "story/084/dialogue/01.16/0008",
+          "source_ja": "「でも、全部そのヒートスマイルで\n　乗り切ってきた…。\n　ダーリンの暑苦しさで…」",
+          "source_text_sha256": "0e018ee0635c65633519a78baeeb7fd805afce1c45029272c76c250dd576ea5a",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 1.16",
+            "ordinal": 8,
+            "text_offset": 50144
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "“但是，全都用那个HEAT SMILE\n　挺过来了……靠达令的热度……”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/084/dialogue/02.01/0200",
+          "source_ja": "（俺のヒートスマイルを\n　マドンナスマイルで返した…。\n　やってくれるぜ、准将さんよ…）",
+          "source_text_sha256": "bf79d738f03ff2abdf8cc7a8541e1d5e57be7365447af2ae96fa70b19e2a8e0d",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 2.1",
+            "ordinal": 200,
+            "text_offset": 71408
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "（用麦当娜微笑回应了我的HEAT \n　SMILE……真有你的，准将……）",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/103/dialogue/01.06/0011",
+          "source_ja": "「出た！　ヒートスマイル！」",
+          "source_text_sha256": "453f1432a83fe9d56f755b9691d38122f87e77e4e5ea9ba7d1f98f42fa54a583",
+          "original_location": {
+            "stage_index": 103,
+            "section": "Section 1.6",
+            "ordinal": 11,
+            "text_offset": 50416
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-103.json",
+          "current_translation": "“来了！HEAT SMILE！”",
+          "proposed_translation": "“来了！HEAT SMILE！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“来了！热力微笑！”",
+          "applied_translation": "“来了！HEAT SMILE！”"
+        }
+      ],
+      "status_at_initial_audit": "correction_candidate",
+      "resolution": {
+        "authority": "用户：先修复梅尔的吧",
+        "batch_id": "mail-pun-fixes-20260907",
+        "changed_ids": [
+          "story/027/dialogue/02.02/0141",
+          "story/028/dialogue/02.02/0138",
+          "story/042/dialogue/02.01/0111",
+          "story/103/dialogue/01.06/0011"
+        ]
+      },
+      "reason_at_initial_audit": "全剧情检出6条ヒートスマイル／ヒート・スマイル，现译有热浪微笑、热力微笑、热火微笑、HEAT SMILE。这是人物招牌笑容及情感回扣，带不带中点应识别为同一词。候选沿用当前已有HEAT SMILE；4条中文变体需改，2条已有英文稿保留。本次仅提出候选，未宣称该新统一方案已定稿。"
+    },
+    {
+      "case_id": "MAIL-P06",
+      "title": "小鸡被泛化成雏鸟",
+      "status": "applied",
+      "priority": "medium",
+      "reason": "兰德说自己只是刚长出毛的ヒヨコ，梅尔纠正‘ヒヨコ一开始就有毛’。两句应明确用‘小鸡’，保留故意讲错比喻与较真纠正的关系。不能顺手把兰德的荒唐比喻润成正确俗语。",
+      "entries": [
+        {
+          "id": "story/148/dialogue/01.10/0023",
+          "source_ja": "「ついでに言っておくが、\n　俺は親方に比べりゃ、まだヒヨコに\n　毛が生えたようなもんだ！」",
+          "source_text_sha256": "49e61b97e5d87fec37dd34c5611b1d97d138891653fe291a741a91d9618d4b29",
+          "original_location": {
+            "stage_index": 148,
+            "section": "Section 1.10",
+            "ordinal": 23,
+            "text_offset": 103872
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-148.json",
+          "current_translation": "“顺便说一句，和师傅比起来，\n　我还只是刚长出毛的小鸡！”",
+          "proposed_translation": "“顺便说一句，和师傅比起来，\n　我还只是刚长出毛的小鸡！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“顺便说一句，和师傅比起来，\n　我还只是刚长出毛的雏鸟！”",
+          "applied_translation": "“顺便说一句，和师傅比起来，\n　我还只是刚长出毛的小鸡！”"
+        },
+        {
+          "id": "story/148/dialogue/01.10/0024",
+          "source_ja": "「ヒヨコは最初から毛が生えてるよ」",
+          "source_text_sha256": "460f61034ea3254ce2c26593f97661da76ce3d06a979a51b713f1d34cf9f6221",
+          "original_location": {
+            "stage_index": 148,
+            "section": "Section 1.10",
+            "ordinal": 24,
+            "text_offset": 103968
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-148.json",
+          "current_translation": "“小鸡一出生就有毛啊。”",
+          "proposed_translation": "“小鸡一出生就有毛啊。”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“雏鸟一开始就有毛。”",
+          "applied_translation": "“小鸡一出生就有毛啊。”"
+        },
+        {
+          "id": "story/148/dialogue/01.10/0025",
+          "source_ja": "「そういう事を言ってんじゃねえ！」",
+          "source_text_sha256": "5fa585c204b86ab9288f1aa3228ef32f2bb43ecbda14d6f77a6104e191b27b54",
+          "original_location": {
+            "stage_index": 148,
+            "section": "Section 1.10",
+            "ordinal": 25,
+            "text_offset": 104016
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-148.json",
+          "current_translation": "“我不是说那个！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "correction_candidate",
+      "resolution": {
+        "authority": "用户：先修复梅尔的吧",
+        "batch_id": "mail-pun-fixes-20260907",
+        "changed_ids": [
+          "story/148/dialogue/01.10/0023",
+          "story/148/dialogue/01.10/0024"
+        ]
+      }
+    },
+    {
+      "case_id": "MAIL-P07",
+      "title": "尽管用THE CRUSHER搞定把称号当成工具",
+      "status": "applied",
+      "priority": "low",
+      "reason": "意思是梅尔这次允许兰德放手当破坏狂，现稿‘用THE CRUSHER’容易让人理解成武器或招式。两条同源台词应一起处理。",
+      "entries": [
+        {
+          "id": "story/136/dialogue/01.11/0001",
+          "source_ja": "「そうなる前に、その元凶の方を\n　ぶっ壊させてもらうぜ！！」",
+          "source_text_sha256": "ed07ab1bc635cabf396204f6e27cd8e8ff66731c05e3903a5d6101d5fe9ec1b3",
+          "original_location": {
+            "stage_index": 136,
+            "section": "Section 1.11",
+            "ordinal": 1,
+            "text_offset": 93680
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-136.json",
+          "current_translation": "“在那之前，我先把罪魁祸首砸个稀烂！！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/136/dialogue/01.11/0002",
+          "source_ja": "「許す、ダーリン！\n　思いっ切りザ・クラッシャーでＯＫ！」",
+          "source_text_sha256": "2e7dcf52bec5c2f109eaa4d9e18a84296267a773bbe103cf8fb4d311b6d1d3ea",
+          "original_location": {
+            "stage_index": 136,
+            "section": "Section 1.11",
+            "ordinal": 2,
+            "text_offset": 93744
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-136.json",
+          "current_translation": "“准了，达令！\n　这次尽管当你的THE CRUSHER吧！”",
+          "proposed_translation": "“准了，达令！\n　这次就尽情当你的THE CRUSHER吧！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“允许你，达令！\n　尽管用THE CRUSHER搞定！”",
+          "applied_translation": "“准了，达令！\n　这次尽管当你的THE CRUSHER吧！”"
+        },
+        {
+          "id": "story/139/dialogue/01.10/0002",
+          "source_ja": "「許す、ダーリン！\n　思いっ切りザ・クラッシャーでＯＫ！」",
+          "source_text_sha256": "2e7dcf52bec5c2f109eaa4d9e18a84296267a773bbe103cf8fb4d311b6d1d3ea",
+          "original_location": {
+            "stage_index": 139,
+            "section": "Section 1.10",
+            "ordinal": 2,
+            "text_offset": 105072
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-139.json",
+          "current_translation": "“准了，达令！\n　这次尽管当你的THE CRUSHER吧！”",
+          "proposed_translation": "“准了，达令！\n　这次就尽情当你的THE CRUSHER吧！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“允许了，达令！\n　尽管用THE CRUSHER搞定！”",
+          "applied_translation": "“准了，达令！\n　这次尽管当你的THE CRUSHER吧！”"
+        }
+      ],
+      "status_at_initial_audit": "polish_candidate",
+      "resolution": {
+        "authority": "用户：先修复梅尔的吧",
+        "batch_id": "mail-pun-fixes-20260907",
+        "changed_ids": [
+          "story/136/dialogue/01.11/0002",
+          "story/139/dialogue/01.10/0002"
+        ]
+      }
+    },
+    {
+      "case_id": "MAIL-P08",
+      "title": "达令甜心缺少的",
+      "status": "applied",
+      "priority": "low",
+      "reason": "ハニー与ダーリン的区别仍在，普通中文语病只需补‘的’。",
+      "entries": [
+        {
+          "id": "story/013/dialogue/02.02/0011",
+          "source_ja": "「ついでにダーリンのハニーです」",
+          "source_text_sha256": "034538289b4ea40c33d20adc411cee8aa48e7c1c43ce50750fbd5d3c8f5c8d0b",
+          "original_location": {
+            "stage_index": 13,
+            "section": "Section 2.2",
+            "ordinal": 11,
+            "text_offset": 33728
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-013.json",
+          "current_translation": "“顺便也是达令的甜心。”",
+          "proposed_translation": "“顺便也是达令的甜心。”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“顺便也是达令甜心。”",
+          "applied_translation": "“顺便也是达令的甜心。”"
+        },
+        {
+          "id": "story/013/dialogue/02.02/0012",
+          "source_ja": "「へえへえ…もう否定するのも疲れた。\n　あんたらもガキの冗談って事で\n　聞き流してくれ」",
+          "source_text_sha256": "073803fe00c92c3b51a882bf4e1560a736ab4aef535781d421b3d30a4f838aef",
+          "original_location": {
+            "stage_index": 13,
+            "section": "Section 2.2",
+            "ordinal": 12,
+            "text_offset": 33776
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-013.json",
+          "current_translation": "“唉唉……我已经懒得否认了。\n　你们就当是小孩子的玩笑话，别当真。”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "polish_candidate",
+      "resolution": {
+        "authority": "用户：先修复梅尔的吧",
+        "batch_id": "mail-pun-fixes-20260907",
+        "changed_ids": [
+          "story/013/dialogue/02.02/0011"
+        ]
+      }
+    },
+    {
+      "case_id": "LAND-P01",
+      "title": "修理店找零梗误成不钓鱼",
+      "status": "applied",
+      "priority": "high",
+      "reason": "检查梅尔所在的兰德机组战斗资源时发现。釣り在客人语境下指找零，现译破坏了这组把反击、追击说成找零和售后服务的职业梗。梅尔自己的お釣り句已正确。",
+      "entries": [
+        {
+          "id": "battle:19448",
+          "source_ja": "「…釣りは要らないぜ、お客さん」",
+          "source_text_sha256": "facd20c6f138b1b204f3c7c2a21a9a4b35c4731a627fb03129c3a5495f1d9ebd",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 154,
+                "archive_text_start": 2499444,
+                "encoded_size": 33
+              },
+              {
+                "chunk_index": 267,
+                "record_index": 204,
+                "archive_text_start": 2501002,
+                "encoded_size": 33
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“……不用找零了，客人。”",
+          "proposed_translation": "“……不用找零了，客人。”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“…不钓鱼了，客人。”",
+          "applied_translation": "“……不用找零了，客人。”"
+        },
+        {
+          "id": "battle:19556",
+          "source_ja": "「お客さん！　お釣りを忘れてるぜ！」",
+          "source_text_sha256": "785be71d5611e47069f4bbc6ea26b60ce37d319cd1fc9869565b830206856ecb",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 504,
+                "archive_text_start": 2511452,
+                "encoded_size": 37
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“客人！你忘了找零了！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "battle:19565",
+          "source_ja": "「おっと！　こいつはアフターサービスだ！」",
+          "source_text_sha256": "d9f7d56d3c1095f32667e679bc6f00f2e97d3fe54c89478acab0075802c6e0bd",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 513,
+                "archive_text_start": 2511849,
+                "encoded_size": 43
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“哦！这是售后服务！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "battle:19731",
+          "source_ja": "「お釣りはいらないからね！」",
+          "source_text_sha256": "1ec9a17fcd319bf4750dc81c675894215b6a44e4711ac9369587c26063d1d4e9",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 776,
+                "archive_text_start": 2524112,
+                "encoded_size": 29
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“不用找零了！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "battle:19732",
+          "source_ja": "「アフターサービス！　行くよっ！」",
+          "source_text_sha256": "81dc4d85b703664c1ed741812f375aa12c5ef0fd58941244a3bcc8b99b2debc4",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 777,
+                "archive_text_start": 2524141,
+                "encoded_size": 35
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“售后服务！上吧！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "adjacent_correction_candidate",
+      "resolution": {
+        "authority": "用户要求处理完当前润色任务后commit",
+        "batch_id": "polish-closeout-20260907",
+        "changed_ids": [
+          "battle:19448"
+        ]
+      }
+    },
+    {
+      "case_id": "LAND-P02",
+      "title": "甘いが間合い的说反再纠正变成普通改口",
+      "status": "applied",
+      "priority": "low",
+      "reason": "原文故意交换甘い和間合い，随后自我纠正。现译‘太远了／距离没拿捏好’没有保留说反。候选保留错序，不增加新典故。",
+      "entries": [
+        {
+          "id": "battle:19592",
+          "source_ja": "「甘いが間合い…\\n　じゃなくて、間合いが甘かった！」",
+          "source_text_sha256": "30afaf389b30f421b04dd605ce6bd9ed18a8de4f3d64175d92d5df70e4a13564",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 624,
+                "archive_text_start": 2517106,
+                "encoded_size": 53
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“拿捏没距离……\\n　不对，是距离没拿捏好！”",
+          "proposed_translation": "“拿捏没距离……\\n　不对，是距离没拿捏好！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“太远了……\\n　不对，是距离没拿捏好！”",
+          "applied_translation": "“拿捏没距离……\\n　不对，是距离没拿捏好！”"
+        }
+      ],
+      "status_at_initial_audit": "adjacent_polish_candidate",
+      "resolution": {
+        "authority": "用户要求处理完当前润色任务后commit",
+        "batch_id": "polish-closeout-20260907",
+        "changed_ids": [
+          "battle:19592"
+        ]
+      }
+    },
+    {
+      "case_id": "MAIL-A01",
+      "title": "蛇形机体误作重型机甲",
+      "status": "applied",
+      "priority": "medium",
+      "reason": "ヘビメカ的ヘビ是蛇，不是heavy。紧接着休兰登场，是梅尔按外形给机体起的叫法；两条同源记录都需更正。",
+      "entries": [
+        {
+          "id": "story/117/dialogue/01.06/0000",
+          "source_ja": "「カイメラのヘビメカだ！」",
+          "source_text_sha256": "a5d8591136f545d499b282f7532919776da751fa3d6a0bcea82408231029f533",
+          "original_location": {
+            "stage_index": 117,
+            "section": "Section 1.6",
+            "ordinal": 0,
+            "text_offset": 83712
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-117.json",
+          "current_translation": "“是奇美拉的蛇形机体！”",
+          "proposed_translation": "“是奇美拉的蛇形机体！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“是奇美拉的重机甲！”",
+          "applied_translation": "“是奇美拉的蛇形机体！”"
+        },
+        {
+          "id": "story/117/dialogue/01.06/0001",
+          "source_ja": "「メガネの兄さんが来たか！」",
+          "source_text_sha256": "e26f1bde10a6e2c14c1e6119bae4dbeda97684f6e55c6ba65cd0ec1fb7760b00",
+          "original_location": {
+            "stage_index": 117,
+            "section": "Section 1.6",
+            "ordinal": 1,
+            "text_offset": 83760
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-117.json",
+          "current_translation": "“眼镜大哥来了啊！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/117/dialogue/01.06/0002",
+          "source_ja": "「私にはシュラン・オペルという名がある。\n　…忘れてもらっても構わんがな」",
+          "source_text_sha256": "a2d38368d2c5b87b58322472e013b154d1b752477d49e120348cdac2f85d45b2",
+          "original_location": {
+            "stage_index": 117,
+            "section": "Section 1.6",
+            "ordinal": 2,
+            "text_offset": 83792
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-117.json",
+          "current_translation": "“我有休兰·奥佩尔这个名字。……\n　不过你忘了也无所谓。”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/126/dialogue/01.14/0000",
+          "source_ja": "「カイメラのヘビメカだ！」",
+          "source_text_sha256": "a5d8591136f545d499b282f7532919776da751fa3d6a0bcea82408231029f533",
+          "original_location": {
+            "stage_index": 126,
+            "section": "Section 1.14",
+            "ordinal": 0,
+            "text_offset": 56432
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-126.json",
+          "current_translation": "“是奇美拉的蛇形机体！”",
+          "proposed_translation": "“是奇美拉的蛇形机体！”",
+          "site_feedback": [],
+          "translation_at_initial_audit": "“是奇美拉的重型机甲！”",
+          "applied_translation": "“是奇美拉的蛇形机体！”"
+        }
+      ],
+      "status_at_initial_audit": "adjacent_correction_candidate",
+      "resolution": {
+        "authority": "用户：先修复梅尔的吧",
+        "batch_id": "mail-pun-fixes-20260907",
+        "changed_ids": [
+          "story/117/dialogue/01.06/0000",
+          "story/126/dialogue/01.14/0000"
+        ]
+      }
+    },
+    {
+      "case_id": "MAIL-H01",
+      "title": "排斥恶女被写成高攀不起",
+      "status": "hold_no_change",
+      "priority": "high",
+      "reason": "お呼びじゃない是‘不欢迎／没你的份’，这里梅尔在赶人；‘我可高攀不起’把人物立场写成自低身份。按本轮人设问题只登记的要求暂不处理。",
+      "entries": [
+        {
+          "id": "story/084/dialogue/01.35/0001",
+          "source_ja": "「そいつはどうも。\n　だが、俺は性格の悪い女は\n　好みじゃねえんだよ！」",
+          "source_text_sha256": "8dcdc54e3e52e6375f633b920348a93e4d0c19ecaeac6c781ecfbeaf89e3ac84",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 1.35",
+            "ordinal": 1,
+            "text_offset": 56480
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "“多谢了。但是，我不喜欢性格恶劣的女人！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/084/dialogue/01.35/0002",
+          "source_ja": "「味方のふりして近づいてくる\n　悪女なんてお呼びじゃないんだから！」",
+          "source_text_sha256": "e62419545fba2839cd82046c5a588634f029a808308a95c52eb3eafe61630ce1",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 1.35",
+            "ordinal": 2,
+            "text_offset": 56560
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "“装成同伴接近的恶女，我可高攀不起！”",
+          "proposed_translation": "“装成同伴混进来的恶女，\n　我们才不欢迎呢！”",
+          "site_feedback": []
+        },
+        {
+          "id": "story/084/dialogue/01.35/0003",
+          "source_ja": "「言ってくれるね、お嬢ちゃん。\n　人間じゃないくせに\n　悪態だけは一人前かい？」",
+          "source_text_sha256": "6366dc19b03ab24310569a63cd3ed548a8d0cb6fa20a4b69fb4053c09b856f1e",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 1.35",
+            "ordinal": 3,
+            "text_offset": 56640
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "“说得真够呛啊，小姑娘。\n　明明不是人类，嘴倒挺厉害？”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "hold_no_change"
+    },
+    {
+      "case_id": "MAIL-H02",
+      "title": "兰德承担梅尔性命被写成夺命",
+      "status": "hold_no_change",
+      "priority": "high",
+      "reason": "お前の命、俺が預かる是接下对方性命的托付，现稿‘你的命，我收下了’容易读成杀人台词。这是搭档关系的语义问题，暂只登记。",
+      "entries": [
+        {
+          "id": "battle:19545",
+          "source_ja": "「メール！　お前の命、俺が預かる！！」",
+          "source_text_sha256": "bc64dcb42cf7c23befb240dadcab63fb84762aa7904d0d3aadfb3d4983e42096",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 438,
+                "archive_text_start": 2509136,
+                "encoded_size": 39
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“梅尔！你的命，我收下了！！”",
+          "proposed_translation": "“梅尔！你的性命，就交给我来守护！！”",
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "hold_no_change"
+    },
+    {
+      "case_id": "MAIL-H03",
+      "title": "受击后的怒斥被写成称赞",
+      "status": "hold_no_change",
+      "priority": "high",
+      "reason": "やったわね接もう許さない是在责怪对方‘竟敢动手’，现稿‘干得好’接‘绝不原谅’态度冲突。暂只登记。",
+      "entries": [
+        {
+          "id": "battle:19753",
+          "source_ja": "「やったわね！　もう許さないんだから！」",
+          "source_text_sha256": "722cf9ed1c9309d5fca599c7bcdf433ec1819d7c0cafe377655bf49dc77d8cc4",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 800,
+                "archive_text_start": 2525118,
+                "encoded_size": 41
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“干得好！我绝不原谅你！”",
+          "proposed_translation": "“你竟敢打我！这下绝不饶你！”",
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "hold_no_change"
+    },
+    {
+      "case_id": "MAIL-W01",
+      "title": "うますぎ的具体典故尚未确认",
+      "status": "reference_followup_no_change",
+      "priority": "low",
+      "reason": "原文自己就让梅尔在危急时喊うますぎ、兰德吐槽她此时说什么。不能因为现译‘太棒了’反常，就按普通危急场景改成‘糟了’。是否存在广播或声优典故缺少可靠出处，本轮不作断言、不改稿。",
+      "entries": [
+        {
+          "id": "battle:19691",
+          "source_ja": "「う、うますぎ！　\\n　うますぎだよ、ダーリン！！」",
+          "source_text_sha256": "3ed99cc400030f490963037d0f0b13cde935a086d289b498a1ded14c319c5ca7",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 732,
+                "archive_text_start": 2522264,
+                "encoded_size": 51
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“太、太棒了！\\n　太棒了，达令！！！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "battle:19692",
+          "source_ja": "「お前、こんな時に何言ってんだ！？」",
+          "source_text_sha256": "a122110a372ec64b566a53e00325c874c6f6d09e854e482e1805c99686f70360",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 733,
+                "archive_text_start": 2522315,
+                "encoded_size": 37
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“你这家伙，这时候说什么呢！？”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "reference_followup_no_change"
+    },
+    {
+      "case_id": "KEEP-01",
+      "title": "也够拽哦沿用用户已确认稿",
+      "status": "keep_confirmed",
+      "priority": "none",
+      "reason": "用户已明确确认‘也够拽’；现稿保留历史完整形式‘也够拽哦！’，不重新列为待决定。",
+      "entries": [
+        {
+          "id": "story/017/dialogue/01.09/0004",
+          "source_ja": "「『結構、スゲえぞ！』って人達だよ。\n　成り行きで手伝ってるの」",
+          "source_text_sha256": "038aef080f3bc875ac7423ee475b872e9f8db7560caefa14a38ae96fc7b5f195",
+          "original_location": {
+            "stage_index": 17,
+            "section": "Section 1.9",
+            "ordinal": 4,
+            "text_offset": 23536
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-017.json",
+          "current_translation": "“是叫‘也够拽哦！’的那帮人。\n　现在顺便来帮忙。”",
+          "proposed_translation": null,
+          "site_feedback": [
+            {
+              "id": "45c4d123-3137-4333-ab16-513933175d31",
+              "resolution": "adopted",
+              "processed": true,
+              "merged": true,
+              "proposedTranslation": "“是叫‘还挺厉害喔！’的那帮人。\n　现在顺便来帮忙。”",
+              "reason": ""
+            }
+          ]
+        },
+        {
+          "id": "story/017/dialogue/01.09/0005",
+          "source_ja": "「ゲッコーステイト！\n　ったく！　どういう耳してんのよ！」",
+          "source_text_sha256": "555d2eaadb8e5d97142f2f5c3def8b2213ae57d2ce11f12d9243204cc99d3b79",
+          "original_location": {
+            "stage_index": 17,
+            "section": "Section 1.9",
+            "ordinal": 5,
+            "text_offset": 23616
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-017.json",
+          "current_translation": "“是月光洲！真是的，你耳朵怎么长的！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_confirmed"
+    },
+    {
+      "case_id": "KEEP-02",
+      "title": "一百发已完成花的修正",
+      "status": "keep_confirmed",
+      "priority": "none",
+      "reason": "VOICE-01的词义错误已按用户要求修正。‘一百发’在中文中作为喊错口号仍不容易独立识别，下一句‘泄气的声援’也略生硬；这只是后续可选整组润色，不重开已确认事项。原文百発对一発口号的改写属于文本判断。",
+      "references": [
+        {
+          "url": "https://www.taisho.co.jp/company/news/2022/20220506001008/",
+          "title": "大正制药2022年新闻稿",
+          "supports": "官方搜索摘要列出CMキャッチフレーズ‘ファイト・一発！’；游戏百発是在改写该口号的判断属于推断。网页正文抓取失败，未依赖正文新增事实。"
+        }
+      ],
+      "entries": [
+        {
+          "id": "battle:19349",
+          "source_ja": "「ダーリン！　ファイトォ、百発！」",
+          "source_text_sha256": "a8a1ff742066df43ba653f14a91216396569ef62278d18bc21455be7cd58f49b",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 18,
+                "archive_text_start": 2493752,
+                "encoded_size": 35
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“达令！加油，一百发！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "battle:19350",
+          "source_ja": "「気が抜ける応援は勘弁してくれ！」",
+          "source_text_sha256": "a5a59642d22373f2cb9a88250f78fd13db6116522a441f53ed516070dc303f5a",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 19,
+                "archive_text_start": 2493787,
+                "encoded_size": 35
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“别给我泄气的声援！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_confirmed"
+    },
+    {
+      "case_id": "KEEP-03",
+      "title": "两分火与三分火纠正成立",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "兰德故意说错‘两分火’，梅尔点出‘三分火’，不能把兰德也正常化为三分火。与英司的桑德曼谚语是不同场景。",
+      "entries": [
+        {
+          "id": "story/038/dialogue/01.48/0007",
+          "source_ja": "「二回言いやがったな！\n　仏の顔も二度までだ！\n　覚悟しやがれよ！」",
+          "source_text_sha256": "8ba9ce1b31c5bc7dd90b01968bd82425be955121d34df101cb8f4557ac978913",
+          "original_location": {
+            "stage_index": 38,
+            "section": "Section 1.48",
+            "ordinal": 7,
+            "text_offset": 74624
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+          "current_translation": "“你说两次了！佛也只有两分火！\n　给我觉悟吧！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/038/dialogue/01.48/0008",
+          "source_ja": "「ダーリン…いくら何でも\n　ことわざまで壊しちゃ駄目よ…」",
+          "source_text_sha256": "c178594594c47443d0516534a8cdd713dcf3d41987d6ae69a557a6b29fb9eb3b",
+          "original_location": {
+            "stage_index": 38,
+            "section": "Section 1.48",
+            "ordinal": 8,
+            "text_offset": 74704
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+          "current_translation": "“达令……明明是三分火！\n　别连俗语都乱改啊……”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    },
+    {
+      "case_id": "KEEP-04",
+      "title": "金光混混的小闪闪成立",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "后句明确纠正成‘金光闪闪的小混混’，换词顺序的笑点成立。",
+      "entries": [
+        {
+          "id": "story/038/dialogue/01.50/0001",
+          "source_ja": "「了解！\n　ドロボウとキンピラのチンピカを\n　倒せばいいのね！」",
+          "source_text_sha256": "e129e26e957d7132561eb67b90b057b8d7365b4dec1440962733607e20cc3648",
+          "original_location": {
+            "stage_index": 38,
+            "section": "Section 1.50",
+            "ordinal": 1,
+            "text_offset": 75024
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+          "current_translation": "“明白！只要打倒小偷和\n　金光混混的小闪闪就行了吧！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/038/dialogue/01.50/0002",
+          "source_ja": "「それを言うなら、\n　金ピカのチンピラだ！」",
+          "source_text_sha256": "80ad95bac76197e0f5614305259214d4b0d86f8c8d9d532dd24a3828c79f8d5e",
+          "original_location": {
+            "stage_index": 38,
+            "section": "Section 1.50",
+            "ordinal": 2,
+            "text_offset": 75104
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+          "current_translation": "“你是想说‘金光闪闪的小混混’吧！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    },
+    {
+      "case_id": "KEEP-05",
+      "title": "机体解体大会成立",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "当前‘机体／解体／大会’有音节回环，能接住后句‘冷笑话真够烂’。不要改成普通‘拆解大会’。",
+      "entries": [
+        {
+          "id": "story/042/dialogue/01.13/0008",
+          "source_ja": "「それじゃ今日は解体大会だよ！\n　みんな、ダーリンに続けっ！！」",
+          "source_text_sha256": "774c983dcb036e3f525b0106fa06a65546828c403ba2aa33f32c4883b6e864be",
+          "original_location": {
+            "stage_index": 42,
+            "section": "Section 1.13",
+            "ordinal": 8,
+            "text_offset": 35520
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-042.json",
+          "current_translation": "“那今天就开一场机体解体大会！\n　大家，跟上达令！！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/042/dialogue/01.13/0009",
+          "source_ja": "（何て下手なシャレなんだ…！）",
+          "source_text_sha256": "3c11938bd52d87097ddd359864e865dbaa3e915e032667180773249254a09f8a",
+          "original_location": {
+            "stage_index": 42,
+            "section": "Section 1.13",
+            "ordinal": 9,
+            "text_offset": 35600
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-042.json",
+          "current_translation": "（这冷笑话真够烂的……！）",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    },
+    {
+      "case_id": "KEEP-06",
+      "title": "摩登的过时口吻成立",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "兰德前句用‘摩登的玩法’，梅尔再吐槽词太老，中文铺垫与接话一致。",
+      "entries": [
+        {
+          "id": "story/086/dialogue/02.01/0044",
+          "source_ja": "「んじゃ、若者のカリスマに代わって、\n　この俺が一つナウな遊びを\n　考案しようじゃないの！」",
+          "source_text_sha256": "a99b97e4d625cdf25a5fb34e326b71f0f3dc48905f7e44b6b22cd3ea04f0881d",
+          "original_location": {
+            "stage_index": 86,
+            "section": "Section 2.1",
+            "ordinal": 44,
+            "text_offset": 14080
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-086.json",
+          "current_translation": "“那就由本大爷来想个\n　摩登的玩法吧！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/086/dialogue/02.01/0046",
+          "source_ja": "「ナウって、いつの言葉？」",
+          "source_text_sha256": "76eea4a6b1a0aca47ad111863360c83901f3c4efd67dc438ba4fafcf87b637a4",
+          "original_location": {
+            "stage_index": 86,
+            "section": "Section 2.1",
+            "ordinal": 46,
+            "text_offset": 14208
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-086.json",
+          "current_translation": "“‘摩登’？这词都什么年代了？”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    },
+    {
+      "case_id": "KEEP-07",
+      "title": "干劲满满侠保留孩子气造词",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "やる気満々マン没有再被压成普通‘干劲满满’。",
+      "entries": [
+        {
+          "id": "story/109/dialogue/01.89/0002",
+          "source_ja": "「喜んでる場合じゃないわよ、ダーリン！\n　あの人、やる気満々マンよ！」",
+          "source_text_sha256": "55c783aedc189f5a2780c08359ad315580c51ef4a128898482158802660d9b70",
+          "original_location": {
+            "stage_index": 109,
+            "section": "Section 1.89",
+            "ordinal": 2,
+            "text_offset": 110400
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-109.json",
+          "current_translation": "“现在可不是高兴的时候啊，达令！\n　那个人可是干劲满满侠！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    },
+    {
+      "case_id": "KEEP-08",
+      "title": "冰原告白热到爆两处同稿",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "第117／130个STAGE同源台词已均为‘那次冰原上的告白，简直热到爆了’，冷与热的反差成立。",
+      "entries": [
+        {
+          "id": "story/117/dialogue/01.43/0003",
+          "source_ja": "「あの氷原の告白！\n　もう激アツだったよ！」",
+          "source_text_sha256": "af83956a733370e14c24fdd43da3dcaf06733b8c7a053b85d217b60c28e6d2f9",
+          "original_location": {
+            "stage_index": 117,
+            "section": "Section 1.43",
+            "ordinal": 3,
+            "text_offset": 97728
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-117.json",
+          "current_translation": "“那次冰原上的告白，\n　简直热到爆了！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/130/dialogue/01.23/0003",
+          "source_ja": "「あの氷原の告白！\n　もう激アツだったよ！」",
+          "source_text_sha256": "af83956a733370e14c24fdd43da3dcaf06733b8c7a053b85d217b60c28e6d2f9",
+          "original_location": {
+            "stage_index": 130,
+            "section": "Section 1.23",
+            "ordinal": 3,
+            "text_offset": 79216
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-130.json",
+          "current_translation": "“那次冰原上的告白，\n　简直热到爆了！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    },
+    {
+      "case_id": "KEEP-09",
+      "title": "安抚马的吁吁接我不是马成立",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "梅尔把兰德当马安抚，兰德明说‘我不是马’，中文不用靠日语词源也能理解。",
+      "entries": [
+        {
+          "id": "battle:19541",
+          "source_ja": "「どうどう、ダーリン！　どうどうっ！」",
+          "source_text_sha256": "b3de40353c1b7814dcf7e59da4aef007e28ac7d38dd9c4bbc56387efc20d859e",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 424,
+                "archive_text_start": 2508632,
+                "encoded_size": 39
+              },
+              {
+                "chunk_index": 267,
+                "record_index": 474,
+                "archive_text_start": 2510428,
+                "encoded_size": 39
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“吁吁，达令！吁吁！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "battle:19542",
+          "source_ja": "「俺は馬じゃねえっ！！」",
+          "source_text_sha256": "3baf70a117480385d2cfc59f8f9b1d2c45444e5a374f2e473cd82cfe29b9aac0",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 425,
+                "archive_text_start": 2508671,
+                "encoded_size": 25
+              },
+              {
+                "chunk_index": 267,
+                "record_index": 475,
+                "archive_text_start": 2510467,
+                "encoded_size": 25
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“我不是马！！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    },
+    {
+      "case_id": "KEEP-10",
+      "title": "蜂蜇与其实很疼成立",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "兰德用蜂蜇表示轻伤，梅尔较真指出那也很疼，两句保留。",
+      "entries": [
+        {
+          "id": "battle:19633",
+          "source_ja": "「ふん…\\n　この程度、蜂に刺されたようなもんだぜ」",
+          "source_text_sha256": "1afe713558748a50c9a2dbcb3bc8e4a689edd3417a42e8515e4c0b015ec9b954",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 666,
+                "archive_text_start": 2518924,
+                "encoded_size": 51
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“哼…\\n　这种程度就像被蜂蜇了一下”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "battle:19634",
+          "source_ja": "「それって…結構、痛いんじゃないの？」",
+          "source_text_sha256": "fb0bef21793c6ee2c96c266450aee65d03b7ac03a35bf729744901db1bb3a748",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 667,
+                "archive_text_start": 2518975,
+                "encoded_size": 39
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“那…不是很疼吗？”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    },
+    {
+      "case_id": "KEEP-11",
+      "title": "钢钢模式与MAGNA模式的命名争执成立",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "剧情里兰德乱起钢钢模式、梅尔嫌土改名；战斗里兰德再叫钢钢模式、梅尔再纠正。两处回扣一致。",
+      "entries": [
+        {
+          "id": "story/084/dialogue/01.17/0000",
+          "source_ja": "「へ…ガンレオンのガンガンモードに\n　びびったようだな！」",
+          "source_text_sha256": "c4775703233f42e774aa96887fedc9c2cd0223bc8cfcf4d18f4dd20a9a882c10",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 1.17",
+            "ordinal": 0,
+            "text_offset": 50560
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "“哼……看来被钢狮子的钢钢模式吓到了！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/084/dialogue/01.17/0001",
+          "source_ja": "「超ダサッ！！」",
+          "source_text_sha256": "8be16bc5a47c8f702f3b60c3accd7e3b1f279c36f1a57cd27a3c9a0b1454f21f",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 1.17",
+            "ordinal": 1,
+            "text_offset": 50624
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "“超土！！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/084/dialogue/01.17/0002",
+          "source_ja": "「あれはマグナモードって名前にするの！\n　反論は認めないからね！」",
+          "source_text_sha256": "9eccf56451d6e447de8e2b29d72732d504d73edc2f43ba070672e9aa6df3de7d",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 1.17",
+            "ordinal": 2,
+            "text_offset": 50656
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "“那个要叫MAGNA模式！不许反驳！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "battle:19513",
+          "source_ja": "「ガンレオン・ガンガンモード！」",
+          "source_text_sha256": "7b14019635f5b2c372bc592b8ae338676b77c5618ffe441789faea949b0b53b8",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 338,
+                "archive_text_start": 2505582,
+                "encoded_size": 33
+              },
+              {
+                "chunk_index": 267,
+                "record_index": 366,
+                "archive_text_start": 2506580,
+                "encoded_size": 33
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“钢狮子·钢钢模式！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "battle:19514",
+          "source_ja": "「じゃなくて、マグナモード！」",
+          "source_text_sha256": "20a07c007760d36ee11f5a056f73ed86665c623c0bf4e73f20ba64d2c738e700",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 339,
+                "archive_text_start": 2505615,
+                "encoded_size": 31
+              },
+              {
+                "chunk_index": 267,
+                "record_index": 367,
+                "archive_text_start": 2506613,
+                "encoded_size": 31
+              }
+            ]
+          },
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "current_translation": "“不对，是MAGNA模式！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    },
+    {
+      "case_id": "KEEP-12",
+      "title": "帕拉迪姆与帕拉迪斯已有近音处理",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "已不再是旧审计里的帕拉迪姆城／天堂城。当前音近关系成立；Paradise的字义没有展开，可接受。",
+      "entries": [
+        {
+          "id": "story/038/dialogue/02.02/0078",
+          "source_ja": "「…ねえ、ダーリン。\n　ロジャーと会った場所って、\n　パラダイムシティって言ったよね…」",
+          "source_text_sha256": "985feb4a9b85370231ee83db8771550e60c410a0d9cba5351cf42e0a0abece90",
+          "original_location": {
+            "stage_index": 38,
+            "section": "Section 2.2",
+            "ordinal": 78,
+            "text_offset": 100544
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+          "current_translation": "“……喂，达令。你和罗杰相遇的地方，\n　是叫帕拉迪姆城对吧……”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/038/dialogue/02.02/0082",
+          "source_ja": "「うん…。\n　あたし、最初はパラダイスシティだと\n　思ってたけど…」",
+          "source_text_sha256": "08ff19d5495bc1557981a254c4ced5ce1f33d4b20d582975eee193d875934233",
+          "original_location": {
+            "stage_index": 38,
+            "section": "Section 2.2",
+            "ordinal": 82,
+            "text_offset": 100816
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+          "current_translation": "“嗯……我一开始还以为是帕拉迪斯城……”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/038/dialogue/02.02/0083",
+          "source_ja": "「今、思い返せば\n　パラダイムだったような気がする」",
+          "source_text_sha256": "e9f2a3b34d77608f206dfd5d950a6ace8e7a6e33c8cc5f9d0e18bd255437b6c7",
+          "original_location": {
+            "stage_index": 38,
+            "section": "Section 2.2",
+            "ordinal": 83,
+            "text_offset": 100896
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+          "current_translation": "“现在回想起来，感觉应该是帕拉迪姆。”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    },
+    {
+      "case_id": "KEEP-13",
+      "title": "长高与头发及肩的约定已清楚",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "当前长得比兰德高的条件已清楚，头发及肩结婚的后续回扣亦保留。唯一未显式译达令的那句使用‘你’，不是漏掉称呼所指。应保留情感转折，不把这一段全按搞笑腔重写。",
+      "entries": [
+        {
+          "id": "story/042/dialogue/02.02/0125",
+          "source_ja": "「ダーリンの馬鹿！\n　女の子が、そんなウスラ馬鹿デカくなるわけ\n　ないでしょ！」",
+          "source_text_sha256": "6dbfd8e7ac4e063390c16a62c8819bf001ba08efb00a0f88492a0f62194c8ea4",
+          "original_location": {
+            "stage_index": 42,
+            "section": "Section 2.2",
+            "ordinal": 125,
+            "text_offset": 59152
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-042.json",
+          "current_translation": "“达令笨蛋！女孩子怎么可能长那么高啊！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/084/dialogue/02.03/0112",
+          "source_ja": "「ダーリンの背を追い抜いたら、\n　パパの事を話してくれるって約束」",
+          "source_text_sha256": "6a2628e1866fa93f42b1b44391c454cd24b72877649f0c2ccdb556563d50a750",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 2.3",
+            "ordinal": 112,
+            "text_offset": 81712
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "“你答应过，等我长得比你还高，\n　就把爸爸的事告诉我。”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/084/dialogue/02.03/0114",
+          "source_ja": "「ダーリンの馬鹿！\n　いくら成長したって、女の子が\n　そんなに大きくなるわけないでしょ！」",
+          "source_text_sha256": "230125f270513d9c742e5c0f5bf19c308792cae4166a7c029bf7de2dd58ac4d1",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 2.3",
+            "ordinal": 114,
+            "text_offset": 81872
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "“达令，你这个笨蛋！再怎么长，\n　女孩子也不可能长那么高吧！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/084/dialogue/02.03/0122",
+          "source_ja": "「あたしの髪が肩まで伸びたら…」",
+          "source_text_sha256": "bd4b1355256cce83d0013305e56c2b6a8fa1ede8944516e1758c0ab121dea219",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 2.3",
+            "ordinal": 122,
+            "text_offset": 82368
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "current_translation": "“等我的头发长到肩膀……”",
+          "proposed_translation": null,
+          "site_feedback": []
+        },
+        {
+          "id": "story/150/dialogue/02.01/0382",
+          "source_ja": "「でも約束だよ、ダーリン。\n　あたしの髪の毛が肩まで伸びたら\n　結婚するって」",
+          "source_text_sha256": "bd9b7c40e18c3bce2cdd7d02887068b9bd3b2567d398e126d0a0b0fa9f1c78df",
+          "original_location": {
+            "stage_index": 150,
+            "section": "Section 2.1",
+            "ordinal": 382,
+            "text_offset": 94512
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-150.json",
+          "current_translation": "“但是说好了哦，达令。\n　等我头发长到肩膀就结婚。”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    },
+    {
+      "case_id": "KEEP-14",
+      "title": "饰品与助手不强行补谐音",
+      "status": "keep_current",
+      "priority": "none",
+      "reason": "アクセ／アシスト的声音呼应较弱。当前‘挑饰品就交给我吧！所以我来当助手！’意义连贯，没有证据要求为了押音再造一个中文包袱。",
+      "entries": [
+        {
+          "id": "story/111/dialogue/02.01/0142",
+          "source_ja": "「アクセの見立ては、あたしに任せてよ！\n　って事で、アシスト役！」",
+          "source_text_sha256": "6b1cfc0e222eb8e5620a6b0c8cd5d0383d447d8e1893814bc998b5d10930fa6d",
+          "original_location": {
+            "stage_index": 111,
+            "section": "Section 2.1",
+            "ordinal": 142,
+            "text_offset": 103696
+          },
+          "corpus_path": "corpus/zh/story-dialogue/stage-111.json",
+          "current_translation": "“挑饰品就交给我吧！所以我来当助手！”",
+          "proposed_translation": null,
+          "site_feedback": []
+        }
+      ],
+      "status_at_initial_audit": "keep_current"
+    }
+  ],
+  "case_status_counts": {
+    "applied": 11,
+    "hold_no_change": 3,
+    "reference_followup_no_change": 1,
+    "keep_confirmed": 2,
+    "keep_current": 12
+  },
+  "verification": {
+    "status": "passed",
+    "mail_translation_changes": 21,
+    "story_changes": 20,
+    "battle_changes": 1,
+    "dependency_keyword_link_changes": 1,
+    "only_documented_translation_fields_changed": true,
+    "non_target_records_and_metadata_preserved": true,
+    "source_ids_hashes_and_runtime_variables_preserved": true,
+    "current_decisions_and_held_cases_preserved": true,
+    "preserved_evidence_entries": 46,
+    "line_width_and_line_break_policy_passed": true,
+    "input_locks_verified": true,
+    "story_stage_count": 170,
+    "story_record_count": 84338,
+    "story_translated_reread_exact": true,
+    "story_minimum_compressed_chunk_headroom": 20,
+    "battle_unique_text_count": 25708,
+    "battle_reread_count": 58740,
+    "battle_reread_exact": true,
+    "battle_chunk_pool_budget_preserved": true,
+    "battle_seg_preserved_byte_exact": true,
+    "evidence_path": "work/review/mail-pun-audit-20260907/applied",
+    "iso_build": false,
+    "runtime_validation": "not_run"
+  },
+  "application": {
+    "batch_id": "mail-pun-fixes-20260907",
+    "authorization": "用户：先修复梅尔的吧",
+    "files": [
+      {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "before_sha256": "bff2dfe24edb7373705ac540a2ecd070d9b6bbd33f7ebf5855d2befe073b51cc",
+        "after_sha256": "9198a8c528033739654715828e8a1ae70ca030f9185e841d890d833236fafb8c"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-028.json",
+        "before_sha256": "3093cd3ab41a9c259022653419d34db24470f62ea3c878c5e7d38c460b8a73b4",
+        "after_sha256": "e23af768f017060cb897546aebc9c27d5b7d4a04386cdb75f6e40e5312bf10bc"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-034.json",
+        "before_sha256": "85825d5c65ff9fd90b651bd0d199177f66072faf9796f2bf4c980573513b4cc1",
+        "after_sha256": "952577ca77e8d75893e3a65085092b9324af302f972b9207ca5b88c5d399c3c5"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-091.json",
+        "before_sha256": "874ad898fc2a0fdb94d898ec50cf969bd6922a9937d261eaf81a1c4a9d97ca6e",
+        "after_sha256": "cbb06f7ccf2e1e32f134926ca26f15f1043326ec5700ce74f62c79bc46f4ab65"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-149.json",
+        "before_sha256": "6a6b1252972b60d56204b863bb60f55f1a75ff44e9c597a5061fccf5a373f0a0",
+        "after_sha256": "8a5cdb9ffdd7895ebdeef2716a0c1da15f582729223a39eb37a8179cb1fb5894"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-027.json",
+        "before_sha256": "99b0393d530f2b265df275704314786daf5e0d212cda7e35a3b92519277c1023",
+        "after_sha256": "f11991d196c74dd081ff4c054e6440120338b72978f95175fed6aa66b7bd7b2d"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-042.json",
+        "before_sha256": "e7205b227094b09ab8f7926f76315d29ae3f74bc28d16ccd18bc84daf3afd21b",
+        "after_sha256": "9631d067b2f71a44baa8fd2b0064f44539be60c819d5384459e99d94e53619b3"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-103.json",
+        "before_sha256": "a7d2403ac76c6a679ac065d080c9a954999d02ce7a370c378135155297e9c6d4",
+        "after_sha256": "006c32ca406a1c4f057120cf25e90d248174549a7d4999e71d5fa7c129ba7b76"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-148.json",
+        "before_sha256": "8e6a5616497ecfdc3166a3181792d98179cd8218f0e9bfb856d71994b442d77b",
+        "after_sha256": "0058a290fdc2bbd3961e9a47040e782fd635e2b5eb4ee8d00672b8454e32d8b1"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-136.json",
+        "before_sha256": "eb46ca3a6a4e31ec7c9612817295e1cbac6d1b6dc9d86889e42ca7511b1959c2",
+        "after_sha256": "2dbeeb698e3815e333f3fd728fbdad5b33973f4b3b793d0bc7bb49f0ae3d626e"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-139.json",
+        "before_sha256": "d0f70c034fd4e1ea9cec270fc805cf12703d2188041cbc25cdf00b3c8dea63db",
+        "after_sha256": "e12eb073864871f8b7cd09bed0d72dce1642a3a28cbce75bf3f906a982677e09"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-013.json",
+        "before_sha256": "6918d9babb6f35b8c28ec67925ebaa549a8e0574bf6f651b4b2f0369ca1941e7",
+        "after_sha256": "e40e1157e1425bf07fb12da90fc3501fc642390706aff083db91dd413b2fd5ea"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-117.json",
+        "before_sha256": "298b09d948870e9ab5c89634396f93b18517cfdb0f9544275abd0c760d985f7b",
+        "after_sha256": "38f3c13705b737c9e69a48f6e0cb93b1b6f7862819621039f2ad98753b4f8bbb"
+      },
+      {
+        "path": "corpus/zh/story-dialogue/stage-126.json",
+        "before_sha256": "bf32a0ca322344bd7883e135ba6baeb09491260c226e27a05353253766fcee55",
+        "after_sha256": "c0eeaec96cec9c1cbe29af3c209805ccfd4aebd8cf553459be92b7b9a0ae01a8"
+      }
+    ],
+    "input_lock_refresh": {
+      "before": {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "size": 6977283,
+        "sha256": "bff2dfe24edb7373705ac540a2ecd070d9b6bbd33f7ebf5855d2befe073b51cc"
+      },
+      "after": {
+        "path": "corpus/zh/battle/srvc-lines.json",
+        "size": 6977289,
+        "sha256": "9198a8c528033739654715828e8a1ae70ca030f9185e841d890d833236fafb8c"
+      }
+    },
+    "deferred_independent_land_cases": [],
+    "held_personality_cases": [
+      "MAIL-H01",
+      "MAIL-H02",
+      "MAIL-H03"
+    ],
+    "site_writeback": false,
+    "iso_build": false,
+    "changed_story_rows": 20,
+    "changed_battle_rows": 1,
+    "dependency_changes": [
+      {
+        "case_id": "BUILD-K01",
+        "id": "story/038/dialogue/02.01/0021",
+        "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+        "source_text_sha256": "2d987d91402a498bab92298dd3b7e1c84705adf60d37cc5388c64cce5a80459f",
+        "source_ja": "「アスハム大尉殿、\n　そいつに着せる《オーバーコート》の\n　準備も出来ましたぜ」",
+        "before": "“阿斯哈姆上尉，\n　给那家伙穿的《外套》也准备好了。”",
+        "after": "“阿斯哈姆上尉，\n　给那家伙穿的《Overcoat》也准备好了。”",
+        "reason": "Keep the linked story term identical to the approved runtime catalog: オーバーコート -> Overcoat. One preexisting mismatch prevented full story component validation."
+      }
+    ],
+    "dependency_files": [
+      {
+        "path": "corpus/zh/story-dialogue/stage-038.json",
+        "before_sha256": "c536550ee5ba87a65ca214363cf2e8659e34a01a4a9f1845d405aaf881611e9b",
+        "after_sha256": "23c494b9f4bd5ce3befc5ed123253535318ad530d3d3a282b59ce1da17f53299"
+      }
+    ],
+    "runtime_keyword_lock_refresh": {
+      "reason": "Approved runtime catalog equals HEAD and full-story component lock; story component retained old metadata. Update only size and SHA-256.",
+      "before": {
+        "path": "corpus/runtime/stage-keywords-v1.json",
+        "size": 9697,
+        "sha256": "26da0433ae0d797ab0a24469f58c25b4f87547f87cd2a4f8abfcc10173776d75"
+      },
+      "after": {
+        "path": "corpus/runtime/stage-keywords-v1.json",
+        "size": 9699,
+        "sha256": "a93347efbfa8b18c9e9269f6c702fda8fc8c28efe1ea54b8562dea03c4a2186b"
+      }
+    },
+    "closeout_changes": [
+      {
+        "id": "battle:19448",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "facd20c6f138b1b204f3c7c2a21a9a4b35c4731a627fb03129c3a5495f1d9ebd",
+        "source_ja": "「…釣りは要らないぜ、お客さん」",
+        "case_id": "LAND-P01",
+        "before": "“…不钓鱼了，客人。”",
+        "after": "“……不用找零了，客人。”",
+        "reason": "修理店找零梗误成不钓鱼",
+        "batch_id": "polish-closeout-20260907",
+        "date": "2026-09-07"
+      },
+      {
+        "id": "battle:19592",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "30afaf389b30f421b04dd605ce6bd9ed18a8de4f3d64175d92d5df70e4a13564",
+        "source_ja": "「甘いが間合い…\\n　じゃなくて、間合いが甘かった！」",
+        "case_id": "LAND-P02",
+        "before": "“太远了……\\n　不对，是距离没拿捏好！”",
+        "after": "“拿捏没距离……\\n　不对，是距离没拿捏好！”",
+        "reason": "甘いが間合い的说反再纠正变成普通改口",
+        "batch_id": "polish-closeout-20260907",
+        "date": "2026-09-07"
+      }
+    ]
+  },
+  "closeout_verification": {
+    "status": "passed",
+    "baseline_commit": "cd9d9b60a9064845ca4bb21a75151b364a27d3b4",
+    "historical_unique_translation_fields": 470,
+    "current_batch_translation_fields": 231,
+    "current_batch_story_rows": 189,
+    "current_batch_battle_rows": 42,
+    "commit_slice_translation_counts": {
+      "general": 92,
+      "self_address": 114,
+      "puns": 25
+    },
+    "only_documented_translation_fields_changed": true,
+    "source_ids_hashes_runtime_variables_and_other_metadata_preserved": true,
+    "line_width_and_line_break_policy_passed": true,
+    "held_personality_cases_unchanged": [
+      "MAIL-H01",
+      "MAIL-H02",
+      "MAIL-H03"
+    ],
+    "story_validation_path": "work/review/mail-pun-audit-20260907/applied/story-components/component-validation.json",
+    "story_validation_sha256": "e51d16266c29bb83609a837a499a1ba01c87178c614d96818e730a4a4a2a35c3",
+    "all_170_current_story_corpus_hashes_match_component_validation": true,
+    "story_record_count": 84338,
+    "story_translated_reread_exact": true,
+    "story_minimum_compressed_chunk_headroom": 20,
+    "battle_validation_path": "work/review/polish-closeout-20260907/battle-component-validation.json",
+    "battle_corpus_sha256": "6ec2ba66cf808f25cc935d121d8f96b295d982a7eac44136bb539f59ac857169",
+    "battle_unique_text_count": 25708,
+    "battle_translated_reread_count": 58740,
+    "battle_reread_exact": true,
+    "battle_chunk_pool_budget_preserved": true,
+    "battle_seg_preserved_byte_exact": true,
+    "unittest_count": 243,
+    "unittest_passed": true,
+    "unittest_scope": "current shared worktree, including unrelated in-progress code",
+    "unittest_log_sha256": "b7fece2ceb42b8723905af3c8e62926ab9cb0d5deee70342cc63f491c25543e5",
+    "iso_build": false,
+    "runtime_validation": "not_run",
+    "site_writeback": false,
+    "evidence_path": "work/review/polish-closeout-20260907"
+  }
+}
