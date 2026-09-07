@@ -108,9 +108,9 @@ def verify_config_bindings(config: dict[str, Any]) -> None:
         or any(character in redump_filename for character in ('"', "\r", "\n"))
     ):
         raise ReleaseBuildError("invalid Redump ISO filename")
-    if Path(source["path"]).name != redump_filename:
+    if Path(source["path"]).name != original_disc["local_file_name"]:
         raise ReleaseBuildError(
-            "source ISO path must use the Redump canonical filename"
+            "source ISO path must use the pinned local filename"
         )
 
     if source["size"] != original_disc["file_size"]:
@@ -120,10 +120,6 @@ def verify_config_bindings(config: dict[str, Any]) -> None:
     if source["sha256"] != original_disc["sha256"]:
         raise ReleaseBuildError(
             "source_iso.sha256 is not bound to the original-disc manifest"
-        )
-    if redump_filename != original_disc["local_file_name"]:
-        raise ReleaseBuildError(
-            "Redump filename is not bound to the original-disc manifest"
         )
     original_redump = original_disc["redump"]
     for release_key, manifest_key in (

@@ -291,7 +291,7 @@ STAGE/HB 与 SLPS/MTV_PROS 的偏移关系、固定 LBA 和扇区预算。完整
 - Python：3.9.6；检测到 16 个 CPU 逻辑核心；默认 atlas worker 上限为 6。
 - 构建输入：现有锁定字体、manifest、组件和原版成员缓存；字体步骤使用
   `--skip-fetch`，没有把网络下载时间计入。
-- 目标 ISO：`build/iso/zh-release-full-story/srwz-zh-current.iso`。
+- 目标 ISO：`build/iso/zh-release-full-story/current-original.iso`。
 
 ## 端到端实测
 
@@ -542,7 +542,7 @@ cd /Users/nate/Super-Robot-Wars-Z/srwz-zh
   --config config/iso/zh-release-current-build.json
 
 /usr/bin/time -p python3 tools/verify_full_story_iso_content.py \
-  --iso build/iso/zh-release-full-story/srwz-zh-current.iso \
+  --iso build/iso/zh-release-full-story/current-original.iso \
   --build-config config/iso/zh-release-current-build.json \
   --force
 

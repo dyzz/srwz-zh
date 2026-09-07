@@ -44,7 +44,7 @@ CANARY_DIALOGUE_COUNT = 50
 CANARY_MARKER = "测试测试"
 CANARY_RUNTIME_SCENE_PREFIX = "story/001/dialogue/02.01/"
 DEFAULT_BASE_ISO = (
-    PROJECT_ROOT / "build/iso/zh-release-full-story/srwz-zh-current.iso"
+    PROJECT_ROOT / "build/iso/zh-release-full-story/current-original.iso"
 )
 DEFAULT_OUTPUT_ISO = (
     PROJECT_ROOT / "build/iso/stage-canary-001/srwz-zh-stage-001-canary.iso"

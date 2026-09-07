@@ -184,7 +184,7 @@ python3 tools/verify_full_story_iso_content.py --force
 用户在 2026-08-31 对当前大标题方案给出“完美”的运行观感确认。对应候选为：
 
 ```text
-ISO:       build/iso/zh-release-full-story/srwz-zh-current.iso
+ISO:       build/iso/zh-release-full-story/current-original.iso
 ISO SHA:   a9992f514e73a05da32f43421035ab66ddd2f317fe8b45ecd93c7930ddd35807
 TRICMN:    02cf8c527fc6bc1599dc6bfefeba01092469dae738822d7ed344cd7bc40e7fc4
 ```
@@ -195,7 +195,7 @@ TRICMN:    02cf8c527fc6bc1599dc6bfefeba01092469dae738822d7ed344cd7bc40e7fc4
 2026-08-31 又完成了其余三组的结构化边缘与材质分层，当前待实机测试候选为：
 
 ```text
-ISO:       build/iso/zh-release-full-story/srwz-zh-current.iso
+ISO:       build/iso/zh-release-full-story/current-original.iso
 ISO SHA:   d02813daf64fc47b24c017794b40ae16bcc9db59758802a9f58096b246a07812
 TRICMN:    838f3128ac1c718cd518f29b6b3630ea6129f35218765b4a48fcfec5fed3b098
 ```
@@ -221,7 +221,7 @@ TRICMN:    838f3128ac1c718cd518f29b6b3630ea6129f35218765b4a48fcfec5fed3b098
 修正后的待实机复测候选为：
 
 ```text
-ISO:       build/iso/zh-release-full-story/srwz-zh-current.iso
+ISO:       build/iso/zh-release-full-story/current-original.iso
 ISO SHA:   12398ce814468407fcfa014b4dd37834fe2c64d4078a52d9227c252bac3fb85e
 TRICMN:    2f9f3ad2057f69ede8eb5608cbeae13b3769f5566be93046e4ff10889288b395
 ```
@@ -236,7 +236,7 @@ picture 1 的十个状态文字矩形，箭头、大标题、不可用原因、�
 待实机复测候选为：
 
 ```text
-ISO:       build/iso/zh-release-full-story/srwz-zh-current.iso
+ISO:       build/iso/zh-release-full-story/current-original.iso
 ISO SHA:   c3e242f41871c5640cbeecdf50894ce040beaa11dc55828e3bb4e3fcbb9f325c
 TRICMN:    7efa86073f3df019e195c8d5018c75329953e41e37584ad740f258ccf9f7e607
 ```
@@ -254,7 +254,7 @@ stroke 与内部负空间已经合适；同时截图仍显示中文白色柔光�
 逐像素众数（平票取较高索引）。其余字号、字重、紫色分层与其他 41 项贴图不变：
 
 ```text
-ISO:       build/iso/zh-release-full-story/srwz-zh-current.iso
+ISO:       build/iso/zh-release-full-story/current-original.iso
 ISO SHA:   df975ef58b045117a293aca524a03af5132197be16d5467942438eeb1f37d457
 TRICMN:    d06cb1059a3b34f5277a929af14d1f26f30825f8ec832eb12b808d03c736f6d4
 ```
@@ -277,7 +277,7 @@ work/review/tricmn-battle-overlays-zh/ability-tuning/reference-vs-candidate-bank
 写入后的待实机复测候选为：
 
 ```text
-ISO:       build/iso/zh-release-full-story/srwz-zh-current.iso
+ISO:       build/iso/zh-release-full-story/current-original.iso
 ISO SHA:   a621a01ba08a4ceea26734a22bdef0f9ea8e0b4daaaa129b2b79ab366beab7fc
 TRICMN:    c8669aff6e3dfead6093ac3ed8bcd02cfbaf30e77cd2480f1b5d15e30bb16c23
 ```
@@ -303,7 +303,7 @@ work/review/tricmn-battle-overlays-zh/ability-fusion12/reference-vs-candidate-gl
 写入后的待实机复测候选为：
 
 ```text
-ISO:       build/iso/zh-release-full-story/srwz-zh-current.iso
+ISO:       build/iso/zh-release-full-story/current-original.iso
 ISO SHA:   ca07c0f15fdacef0ef682e00b16a8c4c2254218c87c0c0f3e3835ff57d7aad2f
 TRICMN:    164ab4c4c7b66faddd2fc32a6c8c894163d2c192b16815fd3ff231d5ab2fe80a
 Fusion:    7dda18bac79c841a9a545c45b3c2d9d00f1cbbca3217fd8d291dd27298932bbb
@@ -326,7 +326,7 @@ work/review/tricmn-battle-overlays-zh/status-left-join/reference-vs-candidate-ba
 写入后的待实机复测候选为：
 
 ```text
-ISO:       build/iso/zh-release-full-story/srwz-zh-current.iso
+ISO:       build/iso/zh-release-full-story/current-original.iso
 ISO SHA:   2ee2409d16f1153affe0dec045d8099543a2c157010a870ab942a09604922d49
 TRICMN:    5b1dc1e1c6cf9b2df8f16c226c58214764257df09439d14dbd4e7e8c6ecfe899
 ```
@@ -364,7 +364,7 @@ work/review/tricmn-battle-overlays-zh/ability-harmony17-thin-down1/reference-vs-
 写入后的待实机复测候选为：
 
 ```text
-ISO:       build/iso/zh-release-full-story/srwz-zh-current.iso
+ISO:       build/iso/zh-release-full-story/current-original.iso
 ISO SHA:   187341ec7be0a1ad32908db04741193f94e49e824da423816e2ca58b32c2e9db
 TRICMN:    6e343660db8fa4177afe2dabf74c4a41621c40710a78fc5a3529a74f856792d4
 HarmonyOS: 297b088424be212207df2ce8b98e335468b782aa6b96832af0b8b773d711e2b1
@@ -400,7 +400,7 @@ work/review/tricmn-battle-overlays-zh/ability-harmony17-wide-dark-halo/reference
 写入 current 测试 ISO 的精确产物为：
 
 ```text
-ISO:       build/iso/zh-release-full-story/srwz-zh-current.iso
+ISO:       build/iso/zh-release-full-story/current-original.iso
 ISO SHA:   c4a7dc43276da4e68243e415582b58eb11b1b2e2b0f23cc3833f7fbac17f74ab
 TRICMN:    a9be4fd270d64b994045def0d1ee675c5f404cdad3059addd1fa3cf1b22d6805
 ```

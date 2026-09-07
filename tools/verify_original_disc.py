@@ -14,7 +14,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ISO = (
-    PROJECT_ROOT / "rom" / "Super Robot Taisen Z (Japan, Korea).iso"
+    PROJECT_ROOT / "rom" / "original.iso"
 )
 DEFAULT_MANIFEST = PROJECT_ROOT / "manifests" / "original-disc.json"
 CHUNK_SIZE = 4 * 1024 * 1024
@@ -140,14 +140,10 @@ def main() -> int:
 
     success = True
     disc = manifest["disc"]
-    expected_names = {
-        disc["local_file_name"],
-        disc["redump"]["canonical_filename"],
-    }
-    if iso_path.name not in expected_names or len(expected_names) != 1:
+    if iso_path.name != disc["local_file_name"]:
         print(
             f"[FAIL] ISO filename: {iso_path.name} "
-            f"(expected {disc['redump']['canonical_filename']})"
+            f"(expected {disc['local_file_name']})"
         )
         success = False
     if not args.skip_full_iso:

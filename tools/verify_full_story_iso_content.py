@@ -145,7 +145,7 @@ from srwz.verified_cache import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ISO = (
     PROJECT_ROOT
-    / "build/iso/zh-release-full-story/srwz-zh-current.iso"
+    / "build/iso/zh-release-full-story/current-original.iso"
 )
 DEFAULT_REPORT = (
     PROJECT_ROOT / "work/verification/zh-release-full-story-content.json"
