@@ -1,0 +1,4440 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-07",
+  "request": "还有没有意义不明的文字，比如之前的特米哈之类的",
+  "status": "applied_in_low_hanging_followup",
+  "translation_writeback": true,
+  "source_head": "f5137cb551fbcea74b72dbe9b11f09ccd5e9b7ae",
+  "scope": {
+    "machine_scanned_story_and_battle_entries": 109376,
+    "manual_review": "按疑似音译、普通口语误当专名、日文词族及中文残留选取候选复核，未逐条人工审阅全部语料。",
+    "confirmed_unique_entries": 26,
+    "story": 12,
+    "battle": 14,
+    "confirmed_issue_groups": 2,
+    "held_issue_groups": 1,
+    "held_entry_overlaps_confirmed": true
+  },
+  "cases": [
+    {
+      "id": "OPAQUE-01",
+      "title": "ピープル被音译为皮普尔",
+      "confirmed_entries": 5,
+      "source_family_entries": 39,
+      "rationale": "指穹顶都市居民／平民。其他34条已按语境译成人们、居民、平民、民众等；5条突兀音译会让玩家误认成新人物或势力。",
+      "evidence_ids": [
+        "story/014/dialogue/02.01/0086",
+        "story/016/dialogue/01.29/0001",
+        "story/035/dialogue/02.01/0074",
+        "story/035/dialogue/02.01/0076"
+      ]
+    },
+    {
+      "id": "OPAQUE-02",
+      "title": "エルゴ被译为工学",
+      "confirmed_entries": 21,
+      "rationale": "本项目已审词表、资料库使用埃尔戈形态系统、埃尔戈风暴。21条剧情／战斗仍把同词干译为工学，割裂同一设定。此处按项目定名确认词干问题，未另行裁定ブレイク、エンド等后缀的正式译名。",
+      "glossary_path": "corpus/glossary/global-variants-v1.json",
+      "approved_glossary_terms": [
+        {
+          "id": "technology/ergo-storm",
+          "source_terms": [
+            "エルゴストーム"
+          ],
+          "translation": "埃尔戈风暴",
+          "deprecated_translations": [
+            "艾尔戈风暴"
+          ],
+          "variant_scope": "source_bound",
+          "category": "technology",
+          "status": "approved",
+          "domains": [
+            "library",
+            "story",
+            "battle"
+          ],
+          "enforce": true,
+          "notes": "与埃尔戈形态系统的译名统一。"
+        },
+        {
+          "id": "technology/ergo-form-system",
+          "source_terms": [
+            "エルゴフォームシステム"
+          ],
+          "translation": "埃尔戈形态系统",
+          "deprecated_translations": [
+            "艾尔戈形态系统"
+          ],
+          "variant_scope": "global",
+          "category": "technology",
+          "status": "approved",
+          "domains": [
+            "library",
+            "story"
+          ],
+          "enforce": true,
+          "notes": "按当前项目专名写法统一。"
+        }
+      ],
+      "library_path": "corpus/zh/library/v0.2-reviewed.json",
+      "library_evidence": [
+        {
+          "id": "library-text/1fba29a4c7172ea5",
+          "source_text_sha256": "1fba29a4c7172ea5497a7c4989216db71239f9d241a1738aeb7739111bc756c8",
+          "translation": "为迎接与义兄修基的决战，桑德曼开发的超级机器人。右足装备Geo圣剑，左足装备Geo刺针，双臂装备Geo投枪，胸部和头部装备Geo幻象，核心的格兰凯撒与共计4台Sol Grandiva合神后完成。通过埃尔戈形态系统增幅驾驶员的精神力，能够爆发性地释放重量子。理论上不仅能够破坏一颗星球，甚至蕴含创造星球的力量。因此对操纵它的格兰骑士团也要求相应的实力，在骑士们成长为配得上这份力量的战士之前，一直被桑德曼秘藏于月球基地。主要武器有装备在双肩的“炎阳超重加农”、从胸部发射的“炎阳超重弧光”、将两者集中发射的“炎阳超重爆炎霸”、以及旋转左臂钻头突击的“炎阳超重使者”等。格兰维昂曾使用的“超重剑”原本也是炎阳格兰维昂的武器。",
+          "editorial_status": "reviewed",
+          "review_origin": "first_pass_revision_adjudicated",
+          "domains": [
+            "robot"
+          ],
+          "tags": [
+            "DSCR"
+          ],
+          "glossary_refs": [
+            "organization/gran-knights",
+            "people/sandman",
+            "people/speaker-389b01366661",
+            "spirit/focus",
+            "system/combine",
+            "system/pilot",
+            "technology/ergo-form-system",
+            "unit/geo-javelin",
+            "unit/geo-mirage",
+            "unit/god-gravion",
+            "unit/gran-kaiser",
+            "unit/sol-grandiva",
+            "unit/sol-gravion",
+            "weapon/0091",
+            "weapon/0129",
+            "weapon/0573",
+            "weapon/0577",
+            "weapon/0578",
+            "weapon/0581",
+            "weapon/sol-graviton-arc"
+          ]
+        },
+        {
+          "id": "library-text/632de3f450cd2d56",
+          "source_text_sha256": "632de3f450cd2d56f5db734d2d21a382b78aa5b633c673cfce60052507e57f0e",
+          "translation": "桑德曼为对抗泽拉拜亚而制造的机器人。以格兰凯撒为核心，与4架超重机组完成合神后完成格兰维昂。该机搭载埃尔戈形态系统，通过进行重力子循环在自身周围形成重力子场，可将武器威力提升数倍。埃尔戈形态发动期间，武器与驾驶员承受巨大负荷，因此无法长时间使用。英司因燃起对抗斗牙的竞争心而擅自搭乘时，便因埃尔戈形态的反作用力而身受重伤。由此可见其威力与危险性。不过，格兰凯撒本身不受重力子负荷影响，因此不存在重力子临界。",
+          "editorial_status": "reviewed",
+          "review_origin": "library_full_entry_audit_20260907",
+          "domains": [
+            "robot"
+          ],
+          "tags": [
+            "DSC2"
+          ],
+          "glossary_refs": [
+            "faction/zeravire",
+            "people/sandman",
+            "people/speaker-03754cfe760d",
+            "people/speaker-e00210e47303",
+            "system/combine",
+            "system/load",
+            "system/pilot",
+            "technology/ergo-form-system",
+            "technology/graviton-critical",
+            "unit/god-gravion",
+            "unit/gran-diva",
+            "unit/gran-kaiser"
+          ]
+        },
+        {
+          "id": "library-text/b33affc4012ea13c",
+          "source_text_sha256": "b33affc4012ea13c5e93eb7480ab63b626bf16af272297812643d1b469347091",
+          "translation": "为应对即将到来的与义兄修基的决战，由桑德曼开发的超级机器人。右腿装备Geo圣剑、左腿装备Geo刺针、双臂装备Geo投枪、胸部和头部装备Geo幻象，核心格兰凯撒与共计4架Sol Grandiva合神后完成。通过埃尔戈形态系统增幅驾驶员的精神力，能够爆发性地释放重量子。理论上拥有不仅破坏一颗星球，甚至创造星球的力量。因此对操纵它的格兰骑士团也要求相应的实力，在骑士们成长为配得上该力量的战士之前，被桑德曼秘藏于月球基地。主要武器有双肩装备的“炎阳超重加农”、从胸部发射的“炎阳超重弧光”、将两者集中发射的“炎阳超重爆炎霸”、旋转左臂钻头突击的“炎阳超重使者”等。格兰维昂使用的“超重剑”原本也是炎阳格兰维昂的武器。与巨神Σ格兰维昂进行最凶合神后，可以成为最强最后的形态“终极超重神”。",
+          "editorial_status": "reviewed",
+          "review_origin": "noop_revision_rejected",
+          "domains": [
+            "robot"
+          ],
+          "tags": [
+            "DSC2"
+          ],
+          "glossary_refs": [
+            "organization/gran-knights",
+            "people/sandman",
+            "people/speaker-389b01366661",
+            "spirit/focus",
+            "system/combine",
+            "system/pilot",
+            "technology/ergo-form-system",
+            "unit/geo-javelin",
+            "unit/geo-mirage",
+            "unit/god-gravion",
+            "unit/god-sigma-gravion",
+            "unit/gran-kaiser",
+            "unit/sol-grandiva",
+            "unit/sol-gravion",
+            "weapon/0091",
+            "weapon/0129",
+            "weapon/0573",
+            "weapon/0577",
+            "weapon/0578",
+            "weapon/0581",
+            "weapon/sol-graviton-arc"
+          ]
+        },
+        {
+          "id": "library-text/fa1e08b0c0a994bf",
+          "source_text_sha256": "fa1e08b0c0a994bf0e86a929ef053892a182cbf738cce6366106a1e6ab6f979b",
+          "translation": "桑德曼为对抗泽拉拜亚开发的超级机器人。右腿为G攻击机、左腿为G打击机、双臂为G钻机、胸部和头部为G战影，核心的格兰凯撒与4架超重机组通过合神完成。凭借埃尔戈形态系统的效果，使驾驶员持有的G因子与重力子产生呼应，可将武器威力提升数倍。但合神存在名为重力子临界的时限。超过时限各超重机组就会被破坏，因此具有临界前强制解除合神的弱点。攻击使用各超重机组内置的各种武器。包括从G攻击机发射诱导性高的“超重飞弹”、从G打击机发射的激光鞭“超重毒蛇”、旋转G钻机发射的“超重龙卷拳”、投掷G战影机翼的“超重新月镖”、从胸部释放重力子能量的“超重弧光”等。",
+          "editorial_status": "reviewed",
+          "review_origin": "first_pass_revision_adjudicated",
+          "domains": [
+            "robot"
+          ],
+          "tags": [
+            "DSCR"
+          ],
+          "glossary_refs": [
+            "faction/zeravire",
+            "people/sandman",
+            "system/combine",
+            "system/pilot",
+            "technology/ergo-form-system",
+            "technology/graviton-critical",
+            "technology/graviton-tornado-punch",
+            "technology/gravity-crescent",
+            "unit/g-attacker",
+            "unit/g-driller",
+            "unit/g-shadow",
+            "unit/g-striker",
+            "unit/gran-diva",
+            "unit/gran-kaiser",
+            "weapon/0100",
+            "weapon/0567",
+            "weapon/0570",
+            "weapon/0571",
+            "weapon/0572"
+          ]
+        },
+        {
+          "id": "library-text/ff7b0a2b9ce6e544",
+          "source_text_sha256": "ff7b0a2b9ce6e544c9da94bc1874ad47ab550901b4632f787a70553feeb70c9e",
+          "translation": "桑德曼为对抗泽拉拜亚而制造的机器人。以格兰凯撒为核心，与四架超重机组完成合神后便完成格兰维昂。通过进行重力子循环，能在自身周围形成重力子场域，搭载可将武器威力提升数倍的埃尔戈形态系统。埃尔戈形态发动期间，武器和驾驶员会承受巨大负荷，因此无法长时间使用。不过，格兰凯撒本身不受重力子负担影响，因此也不存在重力子临界。",
+          "editorial_status": "reviewed",
+          "review_origin": "library_full_entry_audit_20260907",
+          "domains": [
+            "robot"
+          ],
+          "tags": [
+            "DSCR"
+          ],
+          "glossary_refs": [
+            "faction/zeravire",
+            "people/sandman",
+            "system/combine",
+            "system/load",
+            "system/pilot",
+            "technology/ergo-form-system",
+            "technology/graviton-critical",
+            "unit/god-gravion",
+            "unit/gran-diva",
+            "unit/gran-kaiser"
+          ]
+        },
+        {
+          "id": "library-text/ffa62b35e10c4057",
+          "source_text_sha256": "ffa62b35e10c405799f2904921a28d665a54eeb48a0e8a28a0e4f349b400ee97",
+          "translation": "桑德曼为对抗泽拉拜亚而开发的超级机器人。右腿为G攻击机、左腿为G打击机、双臂为G钻机、胸部和头部为G战影，核心格兰凯撒与四架超重机组合神后完成。凭借埃尔戈形态系统的效果，使驾驶员所持的G因子与重力子相互呼应，可将武器威力提升数倍。但合神存在名为重力子临界的时限，一旦超过，各超重机组便会被破坏，因此在临界前会强制解除合神，这是其弱点。攻击时使用各超重机组内置的多种武器，包括G攻击机发射高诱导性的“超重飞弹”、G打击机射出激光状鞭“超重毒蛇”、旋转G钻机发射的“超重龙卷拳”、投掷G战影机翼的“超重新月镖”、从胸部释放重力子能量的“超重弧光”等。第13话中桑德曼带来的“超重剑”是连空间一并斩断的最强之剑。除直接斩击外，还有先用埃尔戈风暴封住泽拉拜亚行动再斩击等变化用法。不过，这把剑原本是炎阳格兰维昂用的武器。",
+          "editorial_status": "reviewed",
+          "review_origin": "library_full_entry_audit_20260907",
+          "domains": [
+            "robot"
+          ],
+          "tags": [
+            "DSC2"
+          ],
+          "glossary_refs": [
+            "faction/zeravire",
+            "people/sandman",
+            "system/combine",
+            "system/pilot",
+            "technology/ergo-form-system",
+            "technology/ergo-storm",
+            "technology/graviton-critical",
+            "technology/graviton-tornado-punch",
+            "technology/gravity-crescent",
+            "unit/g-attacker",
+            "unit/g-driller",
+            "unit/g-shadow",
+            "unit/g-striker",
+            "unit/gran-diva",
+            "unit/gran-kaiser",
+            "unit/sol-gravion",
+            "weapon/0100",
+            "weapon/0567",
+            "weapon/0570",
+            "weapon/0571",
+            "weapon/0572",
+            "weapon/0573",
+            "weapon/0589",
+            "weapon/graviton-viper"
+          ]
+        }
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "id": "story/016/dialogue/01.15/0005",
+      "speaker": "霍拉",
+      "source_ja": "「ヤッサバを殺る間、ピープルを\n　足止めしとけって言ったのは\n　お前だろうが！」",
+      "current_translation": "“杀亚萨巴的时候，\n　叫我把皮普尔拖住的不就是你吗！”",
+      "source_text_sha256": "bea5cc131cb61b70ebcadf8409dfd6763c71732a1e65fa80aa5e0fe10465829c",
+      "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+      "original_location": {
+        "stage_index": 16,
+        "section": "Section 1.15",
+        "ordinal": 5,
+        "text_offset": 40768
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/016/speaker/008",
+        "source_name": "ホーラ",
+        "visual_id": 188,
+        "linked_person_id": "person/09/732bb78f64c8",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-01",
+      "suggested_translation": "“杀亚萨巴的时候，\n　叫我拖住那些平民的不就是你吗！”",
+      "suggested_line_widths": [
+        9,
+        16
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/016/dialogue/01.15/0002",
+            "speaker": "亚萨巴",
+            "source_ja": "「ケジナン！\n　俺を殺そうとしたからには\n　覚悟は出来てるんだろうな！」",
+            "current_translation": "“凯吉南！既然想杀我，应该做好觉悟了吧！”",
+            "source_text_sha256": "4ad79c94a93275ce1e3d5be0cceb7e3c606b167ac12f8df8ca350897a4c3fc6e",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 2,
+              "text_offset": 40544
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/014",
+              "source_name": "ヤッサバ",
+              "visual_id": 512,
+              "linked_person_id": "person/15/f28c67be7763",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/016/dialogue/01.15/0003",
+            "speaker": "凯吉南",
+            "source_ja": "「ち、違うんです、隊長！\n　俺は…あのホーラの野郎に\n　そそのかされて！！」",
+            "current_translation": "“不、不是的，队长！我是……\n　被那个霍拉混蛋唆使的！！”",
+            "source_text_sha256": "09c1eb0adbd75e9920a40176c396de3b042c29025e505dc6cc88f7d7b61719e6",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 3,
+              "text_offset": 40624
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/015",
+              "source_name": "ケジナン",
+              "visual_id": 515,
+              "linked_person_id": "person/15/6e8c4729a871",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/016/dialogue/01.15/0004",
+            "speaker": "霍拉",
+            "source_ja": "「な、何を言ってやがる！」",
+            "current_translation": "“你、你在胡说什么！”",
+            "source_text_sha256": "5464a3212be6395fee4d0be4a0f0b770b41abc2e1290f13815ac8e9d621cf10f",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 4,
+              "text_offset": 40720
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/008",
+              "source_name": "ホーラ",
+              "visual_id": 188,
+              "linked_person_id": "person/09/732bb78f64c8",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/016/dialogue/01.15/0005",
+            "speaker": "霍拉",
+            "source_ja": "「ヤッサバを殺る間、ピープルを\n　足止めしとけって言ったのは\n　お前だろうが！」",
+            "current_translation": "“杀亚萨巴的时候，\n　叫我把皮普尔拖住的不就是你吗！”",
+            "source_text_sha256": "bea5cc131cb61b70ebcadf8409dfd6763c71732a1e65fa80aa5e0fe10465829c",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 5,
+              "text_offset": 40768
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/008",
+              "source_name": "ホーラ",
+              "visual_id": 188,
+              "linked_person_id": "person/09/732bb78f64c8",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/016/dialogue/01.15/0006",
+            "speaker": "凯吉南",
+            "source_ja": "「黙れ、田舎モンが！\n　そのタレ目で嘘をつく気かよ！」",
+            "current_translation": "“闭嘴，乡巴佬！想用那双下垂眼撒谎吗！”",
+            "source_text_sha256": "9e3ae16c0bb926858738170635f3d17bf1cf351cc53d57c9eb1f3a8d984002b2",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 6,
+              "text_offset": 40864
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/015",
+              "source_name": "ケジナン",
+              "visual_id": 515,
+              "linked_person_id": "person/15/6e8c4729a871",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/016/dialogue/01.15/0007",
+            "speaker": "霍拉",
+            "source_ja": "「何だと、ガニ股！\n　所詮、貴様は隊長の器じゃ\n　ないんだよ！！」",
+            "current_translation": "“你说你妈，罗圈腿！\n　说到底，你他妈有当队长的斤两吗！！”",
+            "source_text_sha256": "7bc433bcb4f680303a8d547d81cda69149adb3b37875519a8d7b3d5ba84a463d",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 7,
+              "text_offset": 40928
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/008",
+              "source_name": "ホーラ",
+              "visual_id": 188,
+              "linked_person_id": "person/09/732bb78f64c8",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/016/dialogue/01.15/0008",
+            "speaker": "贾博利",
+            "source_ja": "「醜い争い…」",
+            "current_translation": "“丑陋的争斗……”",
+            "source_text_sha256": "0449b18be54a9dc46aa8d2f103a12c2a151c01fc088d0a1411af99ddd72f9e7f",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 8,
+              "text_offset": 41008
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/021",
+              "source_name": "ジャボリ",
+              "visual_id": 518,
+              "linked_person_id": "person/15/b821b2bbeaa7",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "story/016/dialogue/01.15/0010",
+      "speaker": "亚萨巴",
+      "source_ja": "「ピープルの連中を片付けたら\n　お前らの馬鹿を許してやる！」",
+      "current_translation": "“收拾掉皮普尔那帮人，\n　我就饶了你们的愚蠢！”",
+      "source_text_sha256": "fb31dbaf455546d7b60dfa391ccdd1a5c4317e997099dc88427dca27dc37e875",
+      "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+      "original_location": {
+        "stage_index": 16,
+        "section": "Section 1.15",
+        "ordinal": 10,
+        "text_offset": 41136
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/016/speaker/014",
+        "source_name": "ヤッサバ",
+        "visual_id": 512,
+        "linked_person_id": "person/15/f28c67be7763",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-01",
+      "suggested_translation": "“收拾掉那帮平民，\n　我就不追究你们的蠢事了！”",
+      "suggested_line_widths": [
+        9,
+        13
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/016/dialogue/01.15/0007",
+            "speaker": "霍拉",
+            "source_ja": "「何だと、ガニ股！\n　所詮、貴様は隊長の器じゃ\n　ないんだよ！！」",
+            "current_translation": "“你说你妈，罗圈腿！\n　说到底，你他妈有当队长的斤两吗！！”",
+            "source_text_sha256": "7bc433bcb4f680303a8d547d81cda69149adb3b37875519a8d7b3d5ba84a463d",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 7,
+              "text_offset": 40928
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/008",
+              "source_name": "ホーラ",
+              "visual_id": 188,
+              "linked_person_id": "person/09/732bb78f64c8",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/016/dialogue/01.15/0008",
+            "speaker": "贾博利",
+            "source_ja": "「醜い争い…」",
+            "current_translation": "“丑陋的争斗……”",
+            "source_text_sha256": "0449b18be54a9dc46aa8d2f103a12c2a151c01fc088d0a1411af99ddd72f9e7f",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 8,
+              "text_offset": 41008
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/021",
+              "source_name": "ジャボリ",
+              "visual_id": 518,
+              "linked_person_id": "person/15/b821b2bbeaa7",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/016/dialogue/01.15/0009",
+            "speaker": "亚萨巴",
+            "source_ja": "「この際、どうでもいい！\n　ホーラ、ケジナン！　死にたくなけりゃ、\n　命懸けで戦え！」",
+            "current_translation": "“事到如今，怎样都行！霍拉、凯吉南！\n　不想死的话，就拼上性命战斗！”",
+            "source_text_sha256": "39492918056b5453ec15f3215b8d3813bff7dc0982f85c8bb84aadd377284150",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 9,
+              "text_offset": 41040
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/014",
+              "source_name": "ヤッサバ",
+              "visual_id": 512,
+              "linked_person_id": "person/15/f28c67be7763",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/016/dialogue/01.15/0010",
+            "speaker": "亚萨巴",
+            "source_ja": "「ピープルの連中を片付けたら\n　お前らの馬鹿を許してやる！」",
+            "current_translation": "“收拾掉皮普尔那帮人，\n　我就饶了你们的愚蠢！”",
+            "source_text_sha256": "fb31dbaf455546d7b60dfa391ccdd1a5c4317e997099dc88427dca27dc37e875",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 10,
+              "text_offset": 41136
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/014",
+              "source_name": "ヤッサバ",
+              "visual_id": 512,
+              "linked_person_id": "person/15/f28c67be7763",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/016/dialogue/01.15/0011",
+            "speaker": "凯吉南",
+            "source_ja": "「りょ、了解です！」",
+            "current_translation": "“了、了解！”",
+            "source_text_sha256": "6a7000805dbc6c52e008d6116abd502b64430b83a7297be5eb149bafa68e9a23",
+            "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+            "original_location": {
+              "stage_index": 16,
+              "section": "Section 1.15",
+              "ordinal": 11,
+              "text_offset": 41216
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/016/speaker/015",
+              "source_name": "ケジナン",
+              "visual_id": 515,
+              "linked_person_id": "person/15/6e8c4729a871",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "story/035/dialogue/01.03/0001",
+      "speaker": "恩盖",
+      "source_ja": "「ピープルの援軍か！？」",
+      "current_translation": "“是皮普尔的援军吗！？”",
+      "source_text_sha256": "e6f57378f67260712d9df9551393706930f24be7609f65fcf23dee64b98e31a2",
+      "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+      "original_location": {
+        "stage_index": 35,
+        "section": "Section 1.3",
+        "ordinal": 1,
+        "text_offset": 21120
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/035/speaker/003",
+        "source_name": "エンゲ",
+        "visual_id": 516,
+        "linked_person_id": "person/15/838e452fe1a7",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-01",
+      "suggested_translation": "“是那些平民的援军吗！？”",
+      "suggested_line_widths": [
+        13
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/035/dialogue/01.03/0000",
+            "speaker": "凯吉南",
+            "source_ja": "「な、何だぁ！？」",
+            "current_translation": "“什、什么啊！？”",
+            "source_text_sha256": "34ff212a6a96ad68878b1105fbc2ae5c48a3048bff3e61c9f7c5307d21694831",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 1.3",
+              "ordinal": 0,
+              "text_offset": 21088
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/002",
+              "source_name": "ケジナン",
+              "visual_id": 514,
+              "linked_person_id": "person/15/6e8c4729a871",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/01.03/0001",
+            "speaker": "恩盖",
+            "source_ja": "「ピープルの援軍か！？」",
+            "current_translation": "“是皮普尔的援军吗！？”",
+            "source_text_sha256": "e6f57378f67260712d9df9551393706930f24be7609f65fcf23dee64b98e31a2",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 1.3",
+              "ordinal": 1,
+              "text_offset": 21120
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/003",
+              "source_name": "エンゲ",
+              "visual_id": 516,
+              "linked_person_id": "person/15/838e452fe1a7",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "story/035/dialogue/02.01/0075",
+      "speaker": "马马杜",
+      "source_ja": "「そこに食糧の配給だ。\n　ピープルのテンションは\n　最高潮に達しているだろう」",
+      "current_translation": "“再加上粮食配给。\n　皮普尔们的情绪应该达到了最高潮。”",
+      "source_text_sha256": "0bf5d236dbd8d92d5b179cffc9081f4ae1335cb9ac27967546ad4ad2b59d1a0c",
+      "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+      "original_location": {
+        "stage_index": 35,
+        "section": "Section 2.1",
+        "ordinal": 75,
+        "text_offset": 27488
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/035/speaker/006",
+        "source_name": "ママドゥ",
+        "visual_id": 502,
+        "linked_person_id": "person/15/efe139919714",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-01",
+      "suggested_translation": "“再加上粮食配给，\n　居民们的情绪应该已经高涨到顶点了。”",
+      "suggested_line_widths": [
+        9,
+        18
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/035/dialogue/02.01/0072",
+            "speaker": "吉隆",
+            "source_ja": "「いや…そうじゃない。\n　お祭り騒ぎが盛り上がり過ぎて、\n　喧嘩になってるらしい」",
+            "current_translation": "“不……不是那样。\n　好像是庆祝活动太热烈，结果打起来了。”",
+            "source_text_sha256": "60916e1eb8e34584b514bc0426f82728dc66e79a28852f1f35db1b21889fca9b",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 72,
+              "text_offset": 27264
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/014",
+              "source_name": "ジロン",
+              "visual_id": 169,
+              "linked_person_id": "person/09/22032b5bdfcb",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0073",
+            "speaker": "该隐",
+            "source_ja": "「何だ、そりゃ？」",
+            "current_translation": "“什么啊，那是？”",
+            "source_text_sha256": "427ca36bd9cbb7e57f9b7cf63e1eb4a34df30e5952cd6a36f3720fcb63af5f92",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 73,
+              "text_offset": 27360
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/012",
+              "source_name": "ゲイン",
+              "visual_id": 484,
+              "linked_person_id": "person/15/e27e4ec5f4bc",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0074",
+            "speaker": "马马杜",
+            "source_ja": "「…無理もないな。\n　ここまでエクソダスは順調に進み、\n　黒いサザンクロスも戻ってきた」",
+            "current_translation": "“……也难怪。大逃亡一直很顺利，\n　黑色南十字星也回来了。”",
+            "source_text_sha256": "54d12c6e97cf03b1c714e179c1c392557cac6d8e1cc1ed9978e56b5a0c682fb0",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 74,
+              "text_offset": 27392
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/006",
+              "source_name": "ママドゥ",
+              "visual_id": 502,
+              "linked_person_id": "person/15/efe139919714",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0075",
+            "speaker": "马马杜",
+            "source_ja": "「そこに食糧の配給だ。\n　ピープルのテンションは\n　最高潮に達しているだろう」",
+            "current_translation": "“再加上粮食配给。\n　皮普尔们的情绪应该达到了最高潮。”",
+            "source_text_sha256": "0bf5d236dbd8d92d5b179cffc9081f4ae1335cb9ac27967546ad4ad2b59d1a0c",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 75,
+              "text_offset": 27488
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/006",
+              "source_name": "ママドゥ",
+              "visual_id": 502,
+              "linked_person_id": "person/15/efe139919714",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0076",
+            "speaker": "安娜",
+            "source_ja": "「要するに嬉しくなって、\n　暴れてしまっているって事ですね」",
+            "current_translation": "“总之就是太高兴了，结果闹过头了是吧。”",
+            "source_text_sha256": "5d8bfc98eaed8db43f42daf4d9c4005da9837dcd90b078667930651c8362b616",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 76,
+              "text_offset": 27584
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/009",
+              "source_name": "アナ",
+              "visual_id": 500,
+              "linked_person_id": "person/15/ccea4c4175cf",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0077",
+            "speaker": "马马杜",
+            "source_ja": "「しかし、このままでは不味いな。\n　こんな状況で本気のセント・レーガンが\n　攻めてきたら、パニックが起きる」",
+            "current_translation": "“但是，这样下去可不行。在这种状况下，如\n　果圣雷根动真格地攻过来，会引起恐慌的。”",
+            "source_text_sha256": "d8dbf4413b88172fd0981203a28b4cad2bfb50d09a5a6d15edefc992b72fadf3",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 77,
+              "text_offset": 27664
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/006",
+              "source_name": "ママドゥ",
+              "visual_id": 502,
+              "linked_person_id": "person/15/efe139919714",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0078",
+            "speaker": "该隐",
+            "source_ja": "「………」",
+            "current_translation": "“……”",
+            "source_text_sha256": "c28c880421ba36259600230d6ddbb64a6ea5083e516b1acb2062087cb8e890ce",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 78,
+              "text_offset": 27792
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/012",
+              "source_name": "ゲイン",
+              "visual_id": 484,
+              "linked_person_id": "person/15/e27e4ec5f4bc",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "story/035/dialogue/02.01/0093",
+      "speaker": "马马杜",
+      "source_ja": "「そこに食糧の配給だ。\n　ピープルのテンションは\n　最高潮に達しているだろう」",
+      "current_translation": "“再加上粮食配给。\n　皮普尔们的情绪应该达到了最高潮。”",
+      "source_text_sha256": "0bf5d236dbd8d92d5b179cffc9081f4ae1335cb9ac27967546ad4ad2b59d1a0c",
+      "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+      "original_location": {
+        "stage_index": 35,
+        "section": "Section 2.1",
+        "ordinal": 93,
+        "text_offset": 27488
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/035/speaker/006",
+        "source_name": "ママドゥ",
+        "visual_id": 502,
+        "linked_person_id": "person/15/efe139919714",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-01",
+      "suggested_translation": "“再加上粮食配给，\n　居民们的情绪应该已经高涨到顶点了。”",
+      "suggested_line_widths": [
+        9,
+        18
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/035/dialogue/02.01/0090",
+            "speaker": "兰德",
+            "source_ja": "「よくわからんが、\n　ヤーパン伝来の喜びの儀式だって\n　池に飛び込む奴や…」",
+            "current_translation": "“虽然不太明白，但说是雅邦传统的喜悦仪式，\n　有跳进池子的家伙……”",
+            "source_text_sha256": "a0a7708534810e3829d86773399791afc27f8047ed5924db867be5eb454f4a04",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 90,
+              "text_offset": 28288
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/023",
+              "source_name": "$n",
+              "visual_id": 713,
+              "linked_person_id": "person/21/e60b40c3463a",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0091",
+            "speaker": "兰德",
+            "source_ja": "「感極まって、輪になって踊る奴や\n　ボンサイを地面に叩きつける奴まで\n　出てるらしいぜ」",
+            "current_translation": "“听说还有人激动得围成圈跳舞，\n　甚至把盆栽摔在地上。”",
+            "source_text_sha256": "2f98f588fc90fa2a62fee6500e697e9a8f6cd1755df87fa1e0724361bde4d1ed",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 91,
+              "text_offset": 28368
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/023",
+              "source_name": "$n",
+              "visual_id": 713,
+              "linked_person_id": "person/21/e60b40c3463a",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0092",
+            "speaker": "马马杜",
+            "source_ja": "「…無理もないな。\n　ここまでエクソダスは順調に進み、\n　黒いサザンクロスも戻ってきた」",
+            "current_translation": "“……也难怪。大逃亡一直很顺利，\n　黑色南十字星也回来了。”",
+            "source_text_sha256": "54d12c6e97cf03b1c714e179c1c392557cac6d8e1cc1ed9978e56b5a0c682fb0",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 92,
+              "text_offset": 27392
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/006",
+              "source_name": "ママドゥ",
+              "visual_id": 502,
+              "linked_person_id": "person/15/efe139919714",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0093",
+            "speaker": "马马杜",
+            "source_ja": "「そこに食糧の配給だ。\n　ピープルのテンションは\n　最高潮に達しているだろう」",
+            "current_translation": "“再加上粮食配给。\n　皮普尔们的情绪应该达到了最高潮。”",
+            "source_text_sha256": "0bf5d236dbd8d92d5b179cffc9081f4ae1335cb9ac27967546ad4ad2b59d1a0c",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 93,
+              "text_offset": 27488
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/006",
+              "source_name": "ママドゥ",
+              "visual_id": 502,
+              "linked_person_id": "person/15/efe139919714",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0094",
+            "speaker": "安娜",
+            "source_ja": "「要するに嬉しくなって、\n　暴れてしまっているって事ですね」",
+            "current_translation": "“总之就是太高兴了，结果闹过头了是吧。”",
+            "source_text_sha256": "5d8bfc98eaed8db43f42daf4d9c4005da9837dcd90b078667930651c8362b616",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 94,
+              "text_offset": 27584
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/009",
+              "source_name": "アナ",
+              "visual_id": 500,
+              "linked_person_id": "person/15/ccea4c4175cf",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0095",
+            "speaker": "兰德",
+            "source_ja": "「だがよ、こいつは不味いぜ。\n　いくら何でも浮かれ過ぎだ」",
+            "current_translation": "“但是，这可不好。\n　再怎么着也太兴奋过头了。”",
+            "source_text_sha256": "4af3611369c665dc034cb4948a6b01a27d0a8413ef2ed55221eb6d95e18995b4",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 95,
+              "text_offset": 28464
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/023",
+              "source_name": "$n",
+              "visual_id": 713,
+              "linked_person_id": "person/21/e60b40c3463a",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/035/dialogue/02.01/0096",
+            "speaker": "马马杜",
+            "source_ja": "「うむ…。\n　こんな状況で本気のセント・レーガンが\n　攻めてきたら、パニックが起きる」",
+            "current_translation": "“嗯……在这种状况下，如果圣雷根\n　动真格地攻过来，会引起恐慌的。”",
+            "source_text_sha256": "2a09a4a99531c1b7df02c9b7d6af4297530cb1695b1faf74328d0633fb67c096",
+            "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+            "original_location": {
+              "stage_index": 35,
+              "section": "Section 2.1",
+              "ordinal": 96,
+              "text_offset": 28528
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/035/speaker/006",
+              "source_name": "ママドゥ",
+              "visual_id": 502,
+              "linked_person_id": "person/15/efe139919714",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "story/053/dialogue/01.28/0006",
+      "speaker": "斗牙",
+      "source_ja": "「エルゴフォオオオオオオムッ！！」",
+      "current_translation": "“工学形态！！”",
+      "source_text_sha256": "cee1f57ff1ed14287500b151f632a0184c0770b57eec3aaf222908fea48917cf",
+      "corpus_path": "corpus/zh/story-dialogue/stage-053.json",
+      "original_location": {
+        "stage_index": 53,
+        "section": "Section 1.28",
+        "ordinal": 6,
+        "text_offset": 62400
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/053/speaker/017",
+        "source_name": "斗牙",
+        "visual_id": 557,
+        "linked_person_id": "person/17/a389bc4dbb7f",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“埃尔戈形态！！”",
+      "suggested_line_widths": [
+        9
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/053/dialogue/01.28/0003",
+            "speaker": "英司",
+            "source_ja": "「生で指令が来たぜ、斗牙！」",
+            "current_translation": "“现场指令来了，斗牙！”",
+            "source_text_sha256": "87bbdd8b39f19ad648fa02914dae9305c48a34e32e7fa58170303d9e1a5a88ab",
+            "corpus_path": "corpus/zh/story-dialogue/stage-053.json",
+            "original_location": {
+              "stage_index": 53,
+              "section": "Section 1.28",
+              "ordinal": 3,
+              "text_offset": 62304
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/053/speaker/002",
+              "source_name": "エイジ",
+              "visual_id": 562,
+              "linked_person_id": "person/17/30978386f71d",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/053/dialogue/01.28/0004",
+            "speaker": "斗牙",
+            "source_ja": "「やるぞ、みんな！」",
+            "current_translation": "“上吧，大家！”",
+            "source_text_sha256": "cd0383cf2b9f2a37d9f046ad29848f0fc46f3758c517ea695774a36c40341d25",
+            "corpus_path": "corpus/zh/story-dialogue/stage-053.json",
+            "original_location": {
+              "stage_index": 53,
+              "section": "Section 1.28",
+              "ordinal": 4,
+              "text_offset": 62352
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/053/speaker/017",
+              "source_name": "斗牙",
+              "visual_id": 557,
+              "linked_person_id": "person/17/a389bc4dbb7f",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/053/dialogue/01.28/0005",
+            "speaker": "琉菜",
+            "source_ja": "「うん！」",
+            "current_translation": "“嗯！”",
+            "source_text_sha256": "c4536ac2fc2e0ffb00755a1b0f4af76a033d2d66a1356a464a60fa47fbcc1586",
+            "corpus_path": "corpus/zh/story-dialogue/stage-053.json",
+            "original_location": {
+              "stage_index": 53,
+              "section": "Section 1.28",
+              "ordinal": 5,
+              "text_offset": 62384
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/053/speaker/018",
+              "source_name": "琉菜",
+              "visual_id": 564,
+              "linked_person_id": "person/17/0a5de28d8915",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/053/dialogue/01.28/0006",
+            "speaker": "斗牙",
+            "source_ja": "「エルゴフォオオオオオオムッ！！」",
+            "current_translation": "“工学形态！！”",
+            "source_text_sha256": "cee1f57ff1ed14287500b151f632a0184c0770b57eec3aaf222908fea48917cf",
+            "corpus_path": "corpus/zh/story-dialogue/stage-053.json",
+            "original_location": {
+              "stage_index": 53,
+              "section": "Section 1.28",
+              "ordinal": 6,
+              "text_offset": 62400
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/053/speaker/017",
+              "source_name": "斗牙",
+              "visual_id": 557,
+              "linked_person_id": "person/17/a389bc4dbb7f",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "story/107/dialogue/01.37/0000",
+      "speaker": "修基",
+      "source_ja": "「瞬間最大エネルギー\n　３２億タムクラネルド…。\n　エルゴ値５００グラン…」",
+      "current_translation": "“瞬间最大能量32亿Tam克拉内尔德……\n　工学值500格兰……”",
+      "source_text_sha256": "0990c2fb6a1cdc5d8a062a83c5ed40d1c0172b16f00b423aba2e7b51dbdac29a",
+      "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+      "original_location": {
+        "stage_index": 107,
+        "section": "Section 1.37",
+        "ordinal": 0,
+        "text_offset": 106368
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/107/speaker/067",
+        "source_name": "ヒューギ",
+        "visual_id": 598,
+        "linked_person_id": "person/18/41da89be527e",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“瞬间最大能量32亿Tam克拉内尔德……\n　埃尔戈值500格兰……”",
+      "suggested_line_widths": [
+        20,
+        12
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/107/dialogue/01.37/0000",
+            "speaker": "修基",
+            "source_ja": "「瞬間最大エネルギー\n　３２億タムクラネルド…。\n　エルゴ値５００グラン…」",
+            "current_translation": "“瞬间最大能量32亿Tam克拉内尔德……\n　工学值500格兰……”",
+            "source_text_sha256": "0990c2fb6a1cdc5d8a062a83c5ed40d1c0172b16f00b423aba2e7b51dbdac29a",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.37",
+              "ordinal": 0,
+              "text_offset": 106368
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/067",
+              "source_name": "ヒューギ",
+              "visual_id": 598,
+              "linked_person_id": "person/18/41da89be527e",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.37/0001",
+            "speaker": "修基",
+            "source_ja": "「ジークめ！\n　ソルグラヴィオンのコアにグラン═を\n　持ち出してくるとはな！」",
+            "current_translation": "“齐格！竟然把Gran Σ\n　拿来做炎阳格兰维昂的核心！”",
+            "source_text_sha256": "26385bd232d4fe37784ca92c4342c0445f0d78987d69197b871102aa70bcec1b",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.37",
+              "ordinal": 1,
+              "text_offset": 106464
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/067",
+              "source_name": "ヒューギ",
+              "visual_id": 598,
+              "linked_person_id": "person/18/41da89be527e",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "story/107/dialogue/01.40/0000",
+      "speaker": "爱娜",
+      "source_ja": "「エルゴ・フォォォォォォム！」",
+      "current_translation": "“工学形态！”",
+      "source_text_sha256": "318114d70c24cf2b2bde124584abc408d1344c833e58860788e30069ec0c5882",
+      "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+      "original_location": {
+        "stage_index": 107,
+        "section": "Section 1.40",
+        "ordinal": 0,
+        "text_offset": 107984
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/107/speaker/068",
+        "source_name": "エィナ",
+        "visual_id": 568,
+        "linked_person_id": "person/18/728f8719e043",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“埃尔戈形态！”",
+      "suggested_line_widths": [
+        8
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/107/dialogue/01.40/0000",
+            "speaker": "爱娜",
+            "source_ja": "「エルゴ・フォォォォォォム！」",
+            "current_translation": "“工学形态！”",
+            "source_text_sha256": "318114d70c24cf2b2bde124584abc408d1344c833e58860788e30069ec0c5882",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.40",
+              "ordinal": 0,
+              "text_offset": 107984
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/068",
+              "source_name": "エィナ",
+              "visual_id": 568,
+              "linked_person_id": "person/18/728f8719e043",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "story/107/dialogue/01.41/0003",
+      "speaker": "桑德曼",
+      "source_ja": "「搭乗者の精神力を増幅して\n　エルゴの力を爆発的に解放する…」",
+      "current_translation": "“增幅驾驶者的精神力，\n　爆发性地解放工学之力……”",
+      "source_text_sha256": "7d58d9dec4a192d9572dbb3c92419df5902c7b447a5416b21b34c9983228d9d8",
+      "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+      "original_location": {
+        "stage_index": 107,
+        "section": "Section 1.41",
+        "ordinal": 3,
+        "text_offset": 108192
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/107/speaker/032",
+        "source_name": "サンドマン",
+        "visual_id": 573,
+        "linked_person_id": "person/17/9b569c6102ca",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“增幅驾驶者的精神力，\n　爆发性地解放埃尔戈之力……”",
+      "suggested_line_widths": [
+        11,
+        14
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/107/dialogue/01.41/0000",
+            "speaker": "阿姆罗",
+            "source_ja": "「温かい…。\n　これは人の優しさ…？」",
+            "current_translation": "“好温暖……这是人的温柔……？”",
+            "source_text_sha256": "780a3581cc14705342d29efdc0170fd326895f23aeb5a6537b9fa37317e62516",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 0,
+              "text_offset": 108032
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/021",
+              "source_name": "アムロ",
+              "visual_id": 205,
+              "linked_person_id": "person/10/4c88f205db4f",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0001",
+            "speaker": "罗兰",
+            "source_ja": "「何だ…？\n　身体に力がみなぎっていく…！」",
+            "current_translation": "“什么……？身体里充满了力量……！”",
+            "source_text_sha256": "80dbc361be0a23e8970ddb1e8c38e955b8ebf1c2e82adb34a95abf116b864dcc",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 1,
+              "text_offset": 108080
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/039",
+              "source_name": "ロラン",
+              "visual_id": 281,
+              "linked_person_id": "person/12/97b51e34690c",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0002",
+            "speaker": "西尔维娅",
+            "source_ja": "「これ…エィナの力なの！？」",
+            "current_translation": "“这……是爱娜的力量吗！？”",
+            "source_text_sha256": "04515a7bb7ec54436098c4a836b605bd1b75cb6c6cea82dd715dd9946b2494e2",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 2,
+              "text_offset": 108144
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/060",
+              "source_name": "シルヴィア",
+              "visual_id": 606,
+              "linked_person_id": "person/19/f76b755efee9",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0003",
+            "speaker": "桑德曼",
+            "source_ja": "「搭乗者の精神力を増幅して\n　エルゴの力を爆発的に解放する…」",
+            "current_translation": "“增幅驾驶者的精神力，\n　爆发性地解放工学之力……”",
+            "source_text_sha256": "7d58d9dec4a192d9572dbb3c92419df5902c7b447a5416b21b34c9983228d9d8",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 3,
+              "text_offset": 108192
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/032",
+              "source_name": "サンドマン",
+              "visual_id": 573,
+              "linked_person_id": "person/17/9b569c6102ca",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0004",
+            "speaker": "桑德曼",
+            "source_ja": "「それが…ソルグランディーヴァの\n　システムだ！」",
+            "current_translation": "“那就是……\n　Sol Grandiva的系统！”",
+            "source_text_sha256": "f7bcfbb903fd568de2ccc7ace61054e269102d3bbc1d540fe21ac841e74ebc25",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 4,
+              "text_offset": 108272
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/032",
+              "source_name": "サンドマン",
+              "visual_id": 573,
+              "linked_person_id": "person/17/9b569c6102ca",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0005",
+            "speaker": "斗牙",
+            "source_ja": "「エィナ…」",
+            "current_translation": "“爱娜……”",
+            "source_text_sha256": "3227237c014ded9f314d55b02c644a8b518495025b8dc130054058ca4e3c20d5",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 5,
+              "text_offset": 108336
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/033",
+              "source_name": "斗牙",
+              "visual_id": 558,
+              "linked_person_id": "person/17/a389bc4dbb7f",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0006",
+            "speaker": "爱娜",
+            "source_ja": "「はい！」",
+            "current_translation": "“是！”",
+            "source_text_sha256": "4c38322a55c51fcc6c5d3f0ac1818b798427a05d73b616a66e1ade1e0219d063",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 6,
+              "text_offset": 108368
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/068",
+              "source_name": "エィナ",
+              "visual_id": 568,
+              "linked_person_id": "person/18/728f8719e043",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "story/107/dialogue/01.41/0008",
+      "speaker": "桑德曼",
+      "source_ja": "「エィナの想いと共振したエルゴの力は\n　物理空間全てに影響を及ぼす\n　マインドフィールドとなる」",
+      "current_translation": "“与爱娜的心意共振的工学之\n　力会成为影响所有物理空间的心灵领域。”",
+      "source_text_sha256": "1eb37b61047a0c3dbb50e4b7395a4e0bc99becd8c202ce2328670ced1035cda3",
+      "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+      "original_location": {
+        "stage_index": 107,
+        "section": "Section 1.41",
+        "ordinal": 8,
+        "text_offset": 108448
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/107/speaker/032",
+        "source_name": "サンドマン",
+        "visual_id": 573,
+        "linked_person_id": "person/17/9b569c6102ca",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“与爱娜的心意共振的埃尔戈之力，\n　会成为影响所有物理空间的心灵领域。”",
+      "suggested_line_widths": [
+        16,
+        18
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/107/dialogue/01.41/0005",
+            "speaker": "斗牙",
+            "source_ja": "「エィナ…」",
+            "current_translation": "“爱娜……”",
+            "source_text_sha256": "3227237c014ded9f314d55b02c644a8b518495025b8dc130054058ca4e3c20d5",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 5,
+              "text_offset": 108336
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/033",
+              "source_name": "斗牙",
+              "visual_id": 558,
+              "linked_person_id": "person/17/a389bc4dbb7f",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0006",
+            "speaker": "爱娜",
+            "source_ja": "「はい！」",
+            "current_translation": "“是！”",
+            "source_text_sha256": "4c38322a55c51fcc6c5d3f0ac1818b798427a05d73b616a66e1ade1e0219d063",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 6,
+              "text_offset": 108368
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/068",
+              "source_name": "エィナ",
+              "visual_id": 568,
+              "linked_person_id": "person/18/728f8719e043",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0007",
+            "speaker": "桑德曼",
+            "source_ja": "「システムは搭乗者の脳と双方向性…」",
+            "current_translation": "“系统与驾驶者的大脑双向互动……”",
+            "source_text_sha256": "dd6435c5d3ca8cc6912762ddda1b7ec658e97d8b4a9eeb8fb9b9fea5d6c339e1",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 7,
+              "text_offset": 108400
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/032",
+              "source_name": "サンドマン",
+              "visual_id": 573,
+              "linked_person_id": "person/17/9b569c6102ca",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0008",
+            "speaker": "桑德曼",
+            "source_ja": "「エィナの想いと共振したエルゴの力は\n　物理空間全てに影響を及ぼす\n　マインドフィールドとなる」",
+            "current_translation": "“与爱娜的心意共振的工学之\n　力会成为影响所有物理空间的心灵领域。”",
+            "source_text_sha256": "1eb37b61047a0c3dbb50e4b7395a4e0bc99becd8c202ce2328670ced1035cda3",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 8,
+              "text_offset": 108448
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/032",
+              "source_name": "サンドマン",
+              "visual_id": 573,
+              "linked_person_id": "person/17/9b569c6102ca",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0009",
+            "speaker": "桑德曼",
+            "source_ja": "「そう…ディーヴァ…\n　エィナの愛が超重神復活の力と\n　なるのだ！」",
+            "current_translation": "“没错……女神……\n　爱娜的爱会成为超重神复活的力量！”",
+            "source_text_sha256": "74b789f753175968710fe23b1816f7bf74dddce3bdfe4f49fdf67be177cb0ed6",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 9,
+              "text_offset": 108560
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/032",
+              "source_name": "サンドマン",
+              "visual_id": 573,
+              "linked_person_id": "person/17/9b569c6102ca",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0010",
+            "speaker": "莉露",
+            "source_ja": "「う…うう…」",
+            "current_translation": "“唔……唔唔……”",
+            "source_text_sha256": "f29f9395fd0e95d35fae05a29127bebac0373f00338c4efc705f390c31add570",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 10,
+              "text_offset": 108640
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/070",
+              "source_name": "リィル",
+              "visual_id": 571,
+              "linked_person_id": "person/17/76eb8b16acba",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.41/0011",
+            "speaker": "斗牙",
+            "source_ja": "「リィル！」",
+            "current_translation": "“莉露！”",
+            "source_text_sha256": "13c43ccd66ec4232ca7e1c550939777471e66e4050d8ad2fe5c3bff41e49a796",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.41",
+              "ordinal": 11,
+              "text_offset": 108672
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/033",
+              "source_name": "斗牙",
+              "visual_id": 558,
+              "linked_person_id": "person/17/a389bc4dbb7f",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "story/107/dialogue/01.45/0010",
+      "speaker": "斗牙",
+      "source_ja": "「行こう、みんな！\n　エルゴブレイク！！」",
+      "current_translation": "“走吧，大家！工学分解！！”",
+      "source_text_sha256": "f7a561a42a8d640f80152a23a626a846bb77089a84cd773ecf264a1e8c411531",
+      "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+      "original_location": {
+        "stage_index": 107,
+        "section": "Section 1.45",
+        "ordinal": 10,
+        "text_offset": 110304
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/107/speaker/033",
+        "source_name": "斗牙",
+        "visual_id": 558,
+        "linked_person_id": "person/17/a389bc4dbb7f",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“走吧，大家！埃尔戈分解！！”",
+      "suggested_line_widths": [
+        15
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/107/dialogue/01.45/0007",
+            "speaker": "莉露",
+            "source_ja": "「待って、エイジさん！\n　あなたはＧｅｏミラージュに\n　乗ってください！」",
+            "current_translation": "“等等，英司先生！请你乘坐Geo幻象！”",
+            "source_text_sha256": "ec40f99d9c4cd5f43f22e4711c172a087c44a73b2a75e6121a6f1e09a48f8f6d",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.45",
+              "ordinal": 7,
+              "text_offset": 110032
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/070",
+              "source_name": "リィル",
+              "visual_id": 571,
+              "linked_person_id": "person/17/76eb8b16acba",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.45/0008",
+            "speaker": "桑德曼",
+            "source_ja": "「Ｇｅｏミラージュは\n　ソルグラヴィオンの中核となる機体だ。\n　エイジ…君にその力を託す」",
+            "current_translation": "“Geo幻象是炎阳格兰维昂的核心机体。\n　英司……我把那份力量托付给你。”",
+            "source_text_sha256": "290e95fa77a60f7da4c317f1d4edb45805f7deb675ee3ffabdd15aafe9523150",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.45",
+              "ordinal": 8,
+              "text_offset": 110112
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/032",
+              "source_name": "サンドマン",
+              "visual_id": 573,
+              "linked_person_id": "person/17/9b569c6102ca",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.45/0009",
+            "speaker": "英司",
+            "source_ja": "「任せとけ、リィル！\n　そこまで言われて断っちゃ、\n　男じゃねえからな！」",
+            "current_translation": "“交给我吧，莉露！\n　话都说到这份上了还拒绝，就不算男人了！”",
+            "source_text_sha256": "47ed90a3c2eaaa265eee937a31fc93489e8444b7764bd0fdc638581802cf866d",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.45",
+              "ordinal": 9,
+              "text_offset": 110224
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/038",
+              "source_name": "エイジ",
+              "visual_id": 562,
+              "linked_person_id": "person/17/30978386f71d",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/107/dialogue/01.45/0010",
+            "speaker": "斗牙",
+            "source_ja": "「行こう、みんな！\n　エルゴブレイク！！」",
+            "current_translation": "“走吧，大家！工学分解！！”",
+            "source_text_sha256": "f7a561a42a8d640f80152a23a626a846bb77089a84cd773ecf264a1e8c411531",
+            "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+            "original_location": {
+              "stage_index": 107,
+              "section": "Section 1.45",
+              "ordinal": 10,
+              "text_offset": 110304
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/107/speaker/033",
+              "source_name": "斗牙",
+              "visual_id": 558,
+              "linked_person_id": "person/17/a389bc4dbb7f",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "story/132/dialogue/02.02/0169",
+      "speaker": "修基",
+      "source_ja": "「そして、エルゴの戦士達よ…。\n　決して負けるな…」",
+      "current_translation": "“还有，工学战士们……绝对不要输……”",
+      "source_text_sha256": "3367971be794d7113d706777b5e2c567c44eee9256d3796f8554f329ff74ac67",
+      "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+      "original_location": {
+        "stage_index": 132,
+        "section": "Section 2.2",
+        "ordinal": 169,
+        "text_offset": 116016
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/132/speaker/020",
+        "source_name": "ヒューギ",
+        "visual_id": 598,
+        "linked_person_id": "person/18/41da89be527e",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“还有，埃尔戈战士们……绝对不要输……”",
+      "suggested_line_widths": [
+        20
+      ],
+      "context": {
+        "kind": "same_story_section",
+        "entries": [
+          {
+            "id": "story/132/dialogue/02.02/0166",
+            "speaker": "桑德曼",
+            "source_ja": "「義兄さん…これは…！」",
+            "current_translation": "“义兄……这是……！”",
+            "source_text_sha256": "b5f9130ac84fe7aea63e3fa8c95c079c623af421cf167fac80f9914a1765f55e",
+            "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+            "original_location": {
+              "stage_index": 132,
+              "section": "Section 2.2",
+              "ordinal": 166,
+              "text_offset": 115744
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/132/speaker/011",
+              "source_name": "サンドマン",
+              "visual_id": 574,
+              "linked_person_id": "person/18/c75472a7eec9",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/132/dialogue/02.02/0167",
+            "speaker": "修基",
+            "source_ja": "「フ…俺の生命活動が停止しかけた事で、\n　ジェノサイドロンシステムの呪縛から\n　解放されたようだ…」",
+            "current_translation": "“呵……我的生命活动快要停止，\n　似乎从杰诺赛德隆系统的束缚中解放了……”",
+            "source_text_sha256": "2d5e9cbb4d21e2558a8265a3d2cd12ae6c7f0348aa382a76b57805ed55773354",
+            "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+            "original_location": {
+              "stage_index": 132,
+              "section": "Section 2.2",
+              "ordinal": 167,
+              "text_offset": 115792
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/132/speaker/020",
+              "source_name": "ヒューギ",
+              "visual_id": 598,
+              "linked_person_id": "person/18/41da89be527e",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/132/dialogue/02.02/0168",
+            "speaker": "修基",
+            "source_ja": "「こうやって人の心を取り戻す時を\n　俺はずっと待っていたのかも知れない…。\n　ありがとう…ジーク…」",
+            "current_translation": "“也许我一直在等待这样恢复人心的时刻……\n　谢谢你……齐格……”",
+            "source_text_sha256": "af231a915c4e35da16b4397f1ad25f9d3ea566601741c2009917a58bfe8e46a8",
+            "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+            "original_location": {
+              "stage_index": 132,
+              "section": "Section 2.2",
+              "ordinal": 168,
+              "text_offset": 115904
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/132/speaker/020",
+              "source_name": "ヒューギ",
+              "visual_id": 598,
+              "linked_person_id": "person/18/41da89be527e",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/132/dialogue/02.02/0169",
+            "speaker": "修基",
+            "source_ja": "「そして、エルゴの戦士達よ…。\n　決して負けるな…」",
+            "current_translation": "“还有，工学战士们……绝对不要输……”",
+            "source_text_sha256": "3367971be794d7113d706777b5e2c567c44eee9256d3796f8554f329ff74ac67",
+            "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+            "original_location": {
+              "stage_index": 132,
+              "section": "Section 2.2",
+              "ordinal": 169,
+              "text_offset": 116016
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/132/speaker/020",
+              "source_name": "ヒューギ",
+              "visual_id": 598,
+              "linked_person_id": "person/18/41da89be527e",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/132/dialogue/02.02/0170",
+            "speaker": "露菲拉",
+            "source_ja": "「兄さん…私も共に…」",
+            "current_translation": "“哥哥……我也一起……”",
+            "source_text_sha256": "03d915db34ae38b1f7f067eb7782b55d2faa096db62e064ff9aa03b00db9a707",
+            "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+            "original_location": {
+              "stage_index": 132,
+              "section": "Section 2.2",
+              "ordinal": 170,
+              "text_offset": 116080
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/132/speaker/080",
+              "source_name": "ルフィーラ",
+              "visual_id": 600,
+              "linked_person_id": "person/18/af0f46d06eaa",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/132/dialogue/02.02/0171",
+            "speaker": "英司",
+            "source_ja": "「二人共…消えた…」",
+            "current_translation": "“两人……都消失了……”",
+            "source_text_sha256": "f8e6def1a39fd8f1888d507804f7d13fe0abdfe87c1195de630758bf901d55e6",
+            "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+            "original_location": {
+              "stage_index": 132,
+              "section": "Section 2.2",
+              "ordinal": 171,
+              "text_offset": 116128
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/132/speaker/009",
+              "source_name": "エイジ",
+              "visual_id": 562,
+              "linked_person_id": "person/17/30978386f71d",
+              "method": "source_name_and_portrait_identity"
+            }
+          },
+          {
+            "id": "story/132/dialogue/02.02/0172",
+            "speaker": "莉露",
+            "source_ja": "「伯父さま…」",
+            "current_translation": "“伯父……”",
+            "source_text_sha256": "f47aab74a022597bc8c0bf3f672839153f3aacd0d187f6f4086785ceed58c373",
+            "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+            "original_location": {
+              "stage_index": 132,
+              "section": "Section 2.2",
+              "ordinal": 172,
+              "text_offset": 116160
+            },
+            "speaker_evidence": {
+              "speaker_id": "story/132/speaker/022",
+              "source_name": "リィル",
+              "visual_id": 571,
+              "linked_person_id": "person/17/76eb8b16acba",
+              "method": "source_name_and_portrait_identity"
+            }
+          }
+        ]
+      },
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:02793",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「エルゴの力も創星の力も、\\n　私にひざまずけ！」",
+      "current_translation": "“工学之力和创星之力，\\n　都向我臣服！”",
+      "source_text_sha256": "94f9a652cc62848532208e9aefb5a52ee167cdd780e08eab18c8fab60b4c98b0",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 3,
+        "occurrences": [
+          {
+            "chunk_index": 38,
+            "record_index": 29,
+            "archive_text_start": 339843,
+            "encoded_size": 49
+          },
+          {
+            "chunk_index": 38,
+            "record_index": 56,
+            "archive_text_start": 341128,
+            "encoded_size": 49
+          },
+          {
+            "chunk_index": 38,
+            "record_index": 177,
+            "archive_text_start": 346055,
+            "encoded_size": 49
+          }
+        ]
+      },
+      "resource_owners": [
+        "艾岱尔"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“埃尔戈之力和创星之力，\\n　都向我臣服！”",
+      "suggested_line_widths": [
+        12,
+        7
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:07799",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「エルゴ・エェェェンド！」",
+      "current_translation": "“工学终结！”",
+      "source_text_sha256": "334d24a1e11739978fe145309ab68d8253e71c186a043d83a6f180be60621c64",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 1,
+        "occurrences": [
+          {
+            "chunk_index": 105,
+            "record_index": 32,
+            "archive_text_start": 1018128,
+            "encoded_size": 27
+          }
+        ]
+      },
+      "resource_owners": [
+        "桑德曼",
+        "桑德曼",
+        "齐格"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“埃尔戈终结！”",
+      "suggested_line_widths": [
+        8
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:07801",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「エルゴ・エンド！」",
+      "current_translation": "“工学终结！”",
+      "source_text_sha256": "a406480ee9aadfb8ed6b6cba33f84824426a0361d2fba6f2d9d967e783f4bea0",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 1,
+        "occurrences": [
+          {
+            "chunk_index": 105,
+            "record_index": 35,
+            "archive_text_start": 1018209,
+            "encoded_size": 21
+          }
+        ]
+      },
+      "resource_owners": [
+        "桑德曼",
+        "桑德曼",
+        "齐格"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“埃尔戈终结！”",
+      "suggested_line_widths": [
+        8
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:07808",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「エルゴ・エンド」",
+      "current_translation": "“工学终结”",
+      "source_text_sha256": "9b3310536386daa34eed6ca4aefb8ed00cfd4faff041c9d4381ae7b8d2434f84",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 10,
+        "occurrences": [
+          {
+            "chunk_index": 105,
+            "record_index": 45,
+            "archive_text_start": 1018485,
+            "encoded_size": 19
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 116,
+            "archive_text_start": 3024882,
+            "encoded_size": 19
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 121,
+            "archive_text_start": 3025041,
+            "encoded_size": 19
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 555,
+            "archive_text_start": 3040581,
+            "encoded_size": 19
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 560,
+            "archive_text_start": 3040708,
+            "encoded_size": 19
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 572,
+            "archive_text_start": 3041130,
+            "encoded_size": 19
+          },
+          {
+            "chunk_index": 323,
+            "record_index": 80,
+            "archive_text_start": 3050898,
+            "encoded_size": 19
+          },
+          {
+            "chunk_index": 323,
+            "record_index": 85,
+            "archive_text_start": 3051015,
+            "encoded_size": 19
+          }
+        ],
+        "occurrences_truncated": true,
+        "occurrences_total": 10,
+        "note": "共有无音或喊声仅展示前8个位置；上下文的外层chunk/record字段给出本次核对的准确位置。"
+      },
+      "resource_owners": [
+        "桑德曼",
+        "斗牙",
+        "桑德曼",
+        "齐格"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“埃尔戈终结”",
+      "suggested_line_widths": [
+        7
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:07812",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「これがエルゴの力だ…」",
+      "current_translation": "“这就是工学之力…”",
+      "source_text_sha256": "80699c71d4524b5744fe914fb7f13739e02123b72a510ae7c314c0d50340ab85",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 1,
+        "occurrences": [
+          {
+            "chunk_index": 105,
+            "record_index": 55,
+            "archive_text_start": 1018765,
+            "encoded_size": 25
+          }
+        ]
+      },
+      "resource_owners": [
+        "桑德曼",
+        "桑德曼",
+        "齐格"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“这就是埃尔戈之力…”",
+      "suggested_line_widths": [
+        11
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:07819",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「斗牙、エルゴフォームだ！」",
+      "current_translation": "“斗牙，用工学形态！”",
+      "source_text_sha256": "3cdc3609889a73e5c33992fff239371007d955365823ac7690b98a3ea19e3454",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 5,
+        "occurrences": [
+          {
+            "chunk_index": 105,
+            "record_index": 67,
+            "archive_text_start": 1019155,
+            "encoded_size": 29
+          },
+          {
+            "chunk_index": 105,
+            "record_index": 80,
+            "archive_text_start": 1019588,
+            "encoded_size": 29
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 191,
+            "archive_text_start": 3027501,
+            "encoded_size": 29
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 204,
+            "archive_text_start": 3027934,
+            "encoded_size": 29
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 574,
+            "archive_text_start": 3041192,
+            "encoded_size": 29
+          }
+        ]
+      },
+      "resource_owners": [
+        "桑德曼",
+        "斗牙",
+        "桑德曼",
+        "齐格"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“斗牙，用埃尔戈形态！”",
+      "suggested_line_widths": [
+        12
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:07820",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「エルゴ・フォォォォムッ！！」",
+      "current_translation": "“工学形态！！”",
+      "source_text_sha256": "c63b8a879d81c26b6f6544493cdee330ad36058892fd768b4f13b161a20ca2c8",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 3,
+        "occurrences": [
+          {
+            "chunk_index": 105,
+            "record_index": 68,
+            "archive_text_start": 1019184,
+            "encoded_size": 31
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 192,
+            "archive_text_start": 3027530,
+            "encoded_size": 31
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 575,
+            "archive_text_start": 3041221,
+            "encoded_size": 31
+          }
+        ]
+      },
+      "resource_owners": [
+        "桑德曼",
+        "斗牙",
+        "桑德曼",
+        "齐格"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“埃尔戈形态！！”",
+      "suggested_line_widths": [
+        9
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:07829",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「エルゴ・エンド！！」",
+      "current_translation": "“工学终结！！”",
+      "source_text_sha256": "fb6763ee9cc3b0b79be56cfaa63fe83b7add7eb3abbc905d9f124566137e1ddb",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 5,
+        "occurrences": [
+          {
+            "chunk_index": 105,
+            "record_index": 78,
+            "archive_text_start": 1019504,
+            "encoded_size": 23
+          },
+          {
+            "chunk_index": 105,
+            "record_index": 91,
+            "archive_text_start": 1019945,
+            "encoded_size": 23
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 202,
+            "archive_text_start": 3027850,
+            "encoded_size": 23
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 215,
+            "archive_text_start": 3028291,
+            "encoded_size": 23
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 585,
+            "archive_text_start": 3041541,
+            "encoded_size": 23
+          }
+        ]
+      },
+      "resource_owners": [
+        "桑德曼",
+        "斗牙",
+        "桑德曼",
+        "齐格"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“埃尔戈终结！！”",
+      "suggested_line_widths": [
+        9
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:07831",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「了解！　エルゴ・フォォォォォム！！」",
+      "current_translation": "“明白！工学形态！！”",
+      "source_text_sha256": "64c5efbb653d340a704d90461e9243db9ca21d435c06a592720ae8297b67a824",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 2,
+        "occurrences": [
+          {
+            "chunk_index": 105,
+            "record_index": 81,
+            "archive_text_start": 1019617,
+            "encoded_size": 39
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 205,
+            "archive_text_start": 3027963,
+            "encoded_size": 39
+          }
+        ]
+      },
+      "resource_owners": [
+        "桑德曼",
+        "斗牙",
+        "桑德曼",
+        "齐格"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“明白！埃尔戈形态！！”",
+      "suggested_line_widths": [
+        12
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:23422",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「エルゴ・エェェェンド！！」",
+      "current_translation": "“工学终结！！”",
+      "source_text_sha256": "4dd8763ea01cc7d0a89743010167a45d2e726c2464465429be7f879b72f1b4a6",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 6,
+        "occurrences": [
+          {
+            "chunk_index": 322,
+            "record_index": 85,
+            "archive_text_start": 3023841,
+            "encoded_size": 29
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 89,
+            "archive_text_start": 3023975,
+            "encoded_size": 29
+          },
+          {
+            "chunk_index": 323,
+            "record_index": 53,
+            "archive_text_start": 3049933,
+            "encoded_size": 29
+          },
+          {
+            "chunk_index": 323,
+            "record_index": 322,
+            "archive_text_start": 3059050,
+            "encoded_size": 29
+          },
+          {
+            "chunk_index": 323,
+            "record_index": 326,
+            "archive_text_start": 3059180,
+            "encoded_size": 29
+          },
+          {
+            "chunk_index": 324,
+            "record_index": 18,
+            "archive_text_start": 3061742,
+            "encoded_size": 29
+          }
+        ]
+      },
+      "resource_owners": [
+        "斗牙"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“埃尔戈终结！！”",
+      "suggested_line_widths": [
+        9
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:23439",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「超重剣！　エルゴストォォォム！！」",
+      "current_translation": "“超重剑！工学风暴！！”",
+      "source_text_sha256": "5b0a5ae8c92d3d22b4946477e6bdb0f3f0b25c18c66b7c70f1ebc283823c94de",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 6,
+        "occurrences": [
+          {
+            "chunk_index": 322,
+            "record_index": 113,
+            "archive_text_start": 3024793,
+            "encoded_size": 37
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 182,
+            "archive_text_start": 3027200,
+            "encoded_size": 37
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 188,
+            "archive_text_start": 3027398,
+            "encoded_size": 37
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 557,
+            "archive_text_start": 3040619,
+            "encoded_size": 37
+          },
+          {
+            "chunk_index": 323,
+            "record_index": 77,
+            "archive_text_start": 3050809,
+            "encoded_size": 37
+          },
+          {
+            "chunk_index": 324,
+            "record_index": 59,
+            "archive_text_start": 3062945,
+            "encoded_size": 37
+          }
+        ]
+      },
+      "resource_owners": [
+        "斗牙"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“超重剑！埃尔戈风暴！！”",
+      "suggested_line_widths": [
+        13
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:23443",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「エルゴストォォォム！！」",
+      "current_translation": "“工学风暴！！”",
+      "source_text_sha256": "ba8d54d7f8e5af814685926483122bcee2c670e4fdcdf936381ccd90452dadfc",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 5,
+        "occurrences": [
+          {
+            "chunk_index": 322,
+            "record_index": 118,
+            "archive_text_start": 3024962,
+            "encoded_size": 27
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 552,
+            "archive_text_start": 3040502,
+            "encoded_size": 27
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 569,
+            "archive_text_start": 3041051,
+            "encoded_size": 27
+          },
+          {
+            "chunk_index": 323,
+            "record_index": 82,
+            "archive_text_start": 3050936,
+            "encoded_size": 27
+          },
+          {
+            "chunk_index": 324,
+            "record_index": 64,
+            "archive_text_start": 3063114,
+            "encoded_size": 27
+          }
+        ]
+      },
+      "resource_owners": [
+        "斗牙"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“埃尔戈风暴！！”",
+      "suggested_line_widths": [
+        9
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:23485",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「エルゴ・エンド…！」",
+      "current_translation": "“工学终结…！”",
+      "source_text_sha256": "52442496665bfd3a06be3a1aa763fe27f610f3f599e84289f016840ccc874110",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 2,
+        "occurrences": [
+          {
+            "chunk_index": 322,
+            "record_index": 183,
+            "archive_text_start": 3027237,
+            "encoded_size": 23
+          },
+          {
+            "chunk_index": 322,
+            "record_index": 189,
+            "archive_text_start": 3027435,
+            "encoded_size": 23
+          }
+        ]
+      },
+      "resource_owners": [
+        "斗牙"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“埃尔戈终结…！”",
+      "suggested_line_widths": [
+        9
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    },
+    {
+      "id": "battle:23770",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「エルゴの力を超える敵がいたとは！」",
+      "current_translation": "“竟有超越工学力量的敌人！”",
+      "source_text_sha256": "083bd110b66d958cb0e9903c0b00d88554d1f00240fe5f4eb0b840df113def49",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 1,
+        "occurrences": [
+          {
+            "chunk_index": 323,
+            "record_index": 146,
+            "archive_text_start": 3052888,
+            "encoded_size": 37
+          }
+        ]
+      },
+      "resource_owners": [
+        "斗牙"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "case_id": "OPAQUE-02",
+      "suggested_translation": "“竟有超越埃尔戈力量的敌人！”",
+      "suggested_line_widths": [
+        15
+      ],
+      "source_verified_from_locked_original": true,
+      "status": "confirmed_issue_draft_not_applied"
+    }
+  ],
+  "held": [
+    {
+      "id": "story/107/dialogue/01.37/0000",
+      "speaker": "修基",
+      "source_ja": "「瞬間最大エネルギー\n　３２億タムクラネルド…。\n　エルゴ値５００グラン…」",
+      "current_translation": "“瞬间最大能量32亿Tam克拉内尔德……\n　工学值500格兰……”",
+      "source_text_sha256": "0990c2fb6a1cdc5d8a062a83c5ed40d1c0172b16f00b423aba2e7b51dbdac29a",
+      "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+      "original_location": {
+        "stage_index": 107,
+        "section": "Section 1.37",
+        "ordinal": 0,
+        "text_offset": 106368
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/107/speaker/067",
+        "source_name": "ヒューギ",
+        "visual_id": 598,
+        "linked_person_id": "person/18/41da89be527e",
+        "method": "source_name_and_portrait_identity"
+      },
+      "case_id": "OPAQUE-H01",
+      "term": "Tam克拉内尔德",
+      "source_term": "タムクラネルド",
+      "status": "hold_naming_evidence_needed",
+      "rationale": "同一句中的独立单位名称，日文前接32亿，现译混用拉丁字母和音译汉字。不能仅因陌生就判错；尚未核定原作单位拼写及本项目定名，保留待查。本行工学值问题另计入OPAQUE-02，不增加独立条数。",
+      "suggested_translation": null
+    }
+  ],
+  "excluded_examples": [
+    {
+      "id": "story/050/dialogue/02.01/0060",
+      "speaker": "贝托蒂嘉",
+      "source_ja": "「それにしても、アムロ大尉…\n　いい趣味をしてますね。\n　その香り…ヘレンヘレンでしょ？」",
+      "current_translation": "“话说回来，阿姆罗上尉……你品味不错啊。\n　这香味……是海伦海伦吧？”",
+      "source_text_sha256": "df5974de0d3b14ee2b92fb7c5abefe514711646409aab2df49e7ac4ef5374f02",
+      "corpus_path": "corpus/zh/story-dialogue/stage-050.json",
+      "original_location": {
+        "stage_index": 50,
+        "section": "Section 2.1",
+        "ordinal": 60,
+        "text_offset": 65888
+      },
+      "speaker_evidence": {
+        "speaker_id": "story/050/speaker/022",
+        "source_name": "ベルトーチカ",
+        "visual_id": 275,
+        "linked_person_id": "person/10/8e6769b32a1e",
+        "method": "source_name_and_portrait_identity"
+      },
+      "disposition": "excluded_from_confirmed_errors",
+      "rationale": "ヘレンヘレン前有その香り，语境明确指香水名称，不能当作ヘロヘロ等普通词误译。"
+    },
+    {
+      "id": "battle:06765",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「アンダースティックゥゥッ！！」",
+      "current_translation": "“安德斯蒂克！！”",
+      "source_text_sha256": "e9b1d1ea899ce68c8d33912978c0a07f6396c43ef5511af34403bf6de6659052",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 1,
+        "occurrences": [
+          {
+            "chunk_index": 93,
+            "record_index": 12,
+            "archive_text_start": 896070,
+            "encoded_size": 33
+          }
+        ]
+      },
+      "resource_owners": [
+        "扎奇"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "disposition": "excluded_from_confirmed_errors",
+      "rationale": "原文为アンダースティック武器呼喊，不能仅因音译陌生就判成アンダースタンド等普通词。"
+    },
+    {
+      "id": "battle:11962",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「インディゴ５３、\\n　マーク２２ブラボーにボギーワン確認！」",
+      "current_translation": "“靛蓝53，\\n　在标记22布拉沃确认不明舰1号！”",
+      "source_text_sha256": "91584b332f065cdd7851b80142140d1f59a5f41b798123bc0d15f81ae4c2fb05",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 5,
+        "occurrences": [
+          {
+            "chunk_index": 149,
+            "record_index": 316,
+            "archive_text_start": 1532340,
+            "encoded_size": 61
+          },
+          {
+            "chunk_index": 149,
+            "record_index": 356,
+            "archive_text_start": 1533900,
+            "encoded_size": 61
+          },
+          {
+            "chunk_index": 149,
+            "record_index": 397,
+            "archive_text_start": 1535503,
+            "encoded_size": 61
+          },
+          {
+            "chunk_index": 149,
+            "record_index": 452,
+            "archive_text_start": 1537584,
+            "encoded_size": 61
+          },
+          {
+            "chunk_index": 149,
+            "record_index": 523,
+            "archive_text_start": 1540359,
+            "encoded_size": 61
+          }
+        ]
+      },
+      "resource_owners": [
+        "塔丽亚"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "disposition": "excluded_from_confirmed_errors",
+      "rationale": "ブラボー与インディゴ53、マーク22共同出现在方位／识别口令中，不能直接改成表示喝彩的好极了。"
+    },
+    {
+      "id": "battle:03975",
+      "speaker": "战斗字幕／实际发声者未确认",
+      "source_ja": "「何を突っ立ってんだ、\\n　ベロー・コリッシュは！」",
+      "current_translation": "“你杵在那干嘛，\\n　贝罗·库利修！”",
+      "source_text_sha256": "11979026150c00dc054cf248879ce7ce9ac414589f97207107a131fe0af49673",
+      "corpus_path": "corpus/zh/battle/srvc-lines.json",
+      "original_location": {
+        "occurrence_count": 1,
+        "occurrences": [
+          {
+            "chunk_index": 55,
+            "record_index": 47,
+            "archive_text_start": 499585,
+            "encoded_size": 51
+          }
+        ]
+      },
+      "resource_owners": [
+        "高富利"
+      ],
+      "runtime_trigger_status": "not_decoded_or_observed_for_this_line",
+      "disposition": "excluded_from_confirmed_errors",
+      "rationale": "コリッシュ跟在ベロー后，属于人物姓氏，不应拆作普通词。"
+    }
+  ],
+  "source_family_evidence": {
+    "ピープル": [
+      {
+        "id": "story/014/dialogue/01.03/0000",
+        "speaker": "兰德",
+        "source_ja": "「ウルグスクに残るピープルには悪いが、\n　騒ぎが大きくなればなるほど\n　こっちの仕事はやりやすくなる」",
+        "current_translation": "“虽然对不起留在乌鲁古斯克的人们，\n　但动静越大，我们的活儿越好干。”",
+        "source_text_sha256": "a73e61de553bdf3d70c9366e41e36ea55147b8e48c2b0daa84c8c103b45992f0",
+        "corpus_path": "corpus/zh/story-dialogue/stage-014.json",
+        "original_location": {
+          "stage_index": 14,
+          "section": "Section 1.3",
+          "ordinal": 0,
+          "text_offset": 25232
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/014/speaker/001",
+          "source_name": "$n",
+          "visual_id": 713,
+          "linked_person_id": "person/21/e60b40c3463a",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/014/dialogue/02.01/0086",
+        "speaker": "该隐",
+        "source_ja": "「不平不満はあっても、自分からは何もしない…。\n　それがドームポリスのピープルの\n　習性だもんな」",
+        "current_translation": "“就算有不满，自己也不行动……\n　这就是穹顶都市居民的习惯啊。”",
+        "source_text_sha256": "3ee8593b876a391f5a38330c2e4ebd03c1d95f09f07804bac60115ee7726481d",
+        "corpus_path": "corpus/zh/story-dialogue/stage-014.json",
+        "original_location": {
+          "stage_index": 14,
+          "section": "Section 2.1",
+          "ordinal": 86,
+          "text_offset": 38848
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/014/speaker/011",
+          "source_name": "ゲイン",
+          "visual_id": 484,
+          "linked_person_id": "person/15/e27e4ec5f4bc",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/014/dialogue/02.01/0119",
+        "speaker": "兰德",
+        "source_ja": "「ピープルが勝手に動き回れば、\n　シベ鉄が独占している利益や権利が\n　パーになっちまうからな」",
+        "current_translation": "“因为居民要是随便乱跑，\n　西伯铁独占的利益和权利就全泡汤了。”",
+        "source_text_sha256": "2dec5811a14d24d3a09d9a7d829e1d465f7c38017f84e0bffc10186b6afba790",
+        "corpus_path": "corpus/zh/story-dialogue/stage-014.json",
+        "original_location": {
+          "stage_index": 14,
+          "section": "Section 2.1",
+          "ordinal": 119,
+          "text_offset": 40896
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/014/speaker/001",
+          "source_name": "$n",
+          "visual_id": 713,
+          "linked_person_id": "person/21/e60b40c3463a",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/014/dialogue/02.02/0012",
+        "speaker": "阿蒂特",
+        "source_ja": "「じゃあ、ピープルの連中、\n　勝手に都市ユニットを動かして\n　エクソダスしたってわけですか」",
+        "current_translation": "“那就是说，\n　居民们擅自移动都市单元搞了大逃亡？”",
+        "source_text_sha256": "2b10973fa6730fc2a7264e5386b505d83a8a7ab72089775a2e87395fe75445b2",
+        "corpus_path": "corpus/zh/story-dialogue/stage-014.json",
+        "original_location": {
+          "stage_index": 14,
+          "section": "Section 2.2",
+          "ordinal": 12,
+          "text_offset": 45024
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/014/speaker/010",
+          "source_name": "アデット",
+          "visual_id": 496,
+          "linked_person_id": "person/15/4f53063ec9ce",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/015/dialogue/01.08/0005",
+        "speaker": "亚萨巴",
+        "source_ja": "「ヤーパンの天井のピープル！\n　俺が来たからには、お前達の下らん\n　エクソダスは終わりだ！」",
+        "current_translation": "“雅邦天井的平民们！既然我来了，\n　你们那无聊的大逃亡就到此为止了！”",
+        "source_text_sha256": "0124930390407acccb81fd4cc6762ab20d4ec981dac1a82318df314341928800",
+        "corpus_path": "corpus/zh/story-dialogue/stage-015.json",
+        "original_location": {
+          "stage_index": 15,
+          "section": "Section 1.8",
+          "ordinal": 5,
+          "text_offset": 37456
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/015/speaker/015",
+          "source_name": "ヤッサバ",
+          "visual_id": 512,
+          "linked_person_id": "person/15/f28c67be7763",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/015/dialogue/01.08/0006",
+        "speaker": "亚萨巴",
+        "source_ja": "「ここでお前達を叩き潰し、\n　次はピープル共を皆殺しにしてやる！」",
+        "current_translation": "“我要在这里把你们全部击溃，\n　接下来再把平民们统统杀光！”",
+        "source_text_sha256": "84069e03ca670b4e53bac61305951c2f68922f03c3512b9b26fae37fdcc458bf",
+        "corpus_path": "corpus/zh/story-dialogue/stage-015.json",
+        "original_location": {
+          "stage_index": 15,
+          "section": "Section 1.8",
+          "ordinal": 6,
+          "text_offset": 37568
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/015/speaker/015",
+          "source_name": "ヤッサバ",
+          "visual_id": 512,
+          "linked_person_id": "person/15/f28c67be7763",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/015/dialogue/02.01/0043",
+        "speaker": "该隐",
+        "source_ja": "「やれやれ…\n　少しは見所がありそうだと思ったが、\n　結局は飼いならされたピープルか」",
+        "current_translation": "“哎呀呀……我还以为他多少有点可取之处，\n　结果终究只是个被驯服的平民吗。”",
+        "source_text_sha256": "80c5b44995c9df48039709f810a13cd798e7882f0df3ec00c66036cfe5d4b923",
+        "corpus_path": "corpus/zh/story-dialogue/stage-015.json",
+        "original_location": {
+          "stage_index": 15,
+          "section": "Section 2.1",
+          "ordinal": 43,
+          "text_offset": 53312
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/015/speaker/006",
+          "source_name": "ゲイン",
+          "visual_id": 484,
+          "linked_person_id": "person/15/e27e4ec5f4bc",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/016/dialogue/01.15/0005",
+        "speaker": "霍拉",
+        "source_ja": "「ヤッサバを殺る間、ピープルを\n　足止めしとけって言ったのは\n　お前だろうが！」",
+        "current_translation": "“杀亚萨巴的时候，\n　叫我把皮普尔拖住的不就是你吗！”",
+        "source_text_sha256": "bea5cc131cb61b70ebcadf8409dfd6763c71732a1e65fa80aa5e0fe10465829c",
+        "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+        "original_location": {
+          "stage_index": 16,
+          "section": "Section 1.15",
+          "ordinal": 5,
+          "text_offset": 40768
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/016/speaker/008",
+          "source_name": "ホーラ",
+          "visual_id": 188,
+          "linked_person_id": "person/09/732bb78f64c8",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/016/dialogue/01.15/0010",
+        "speaker": "亚萨巴",
+        "source_ja": "「ピープルの連中を片付けたら\n　お前らの馬鹿を許してやる！」",
+        "current_translation": "“收拾掉皮普尔那帮人，\n　我就饶了你们的愚蠢！”",
+        "source_text_sha256": "fb31dbaf455546d7b60dfa391ccdd1a5c4317e997099dc88427dca27dc37e875",
+        "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+        "original_location": {
+          "stage_index": 16,
+          "section": "Section 1.15",
+          "ordinal": 10,
+          "text_offset": 41136
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/016/speaker/014",
+          "source_name": "ヤッサバ",
+          "visual_id": 512,
+          "linked_person_id": "person/15/f28c67be7763",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/016/dialogue/01.29/0001",
+        "speaker": "该隐",
+        "source_ja": "「やめときな。\n　シベ鉄にとっちゃ、ドームのピープルは\n　金を貢ぐ働きアリみたいなもんなのさ」",
+        "current_translation": "“算了吧。对西伯铁来说，\n　穹顶的平民就跟供钱的工蚁一样。”",
+        "source_text_sha256": "9f4ffa10f977113125a013f2a38a2b898fe04b8f29b6259e62574c6ecf19ffea",
+        "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+        "original_location": {
+          "stage_index": 16,
+          "section": "Section 1.29",
+          "ordinal": 1,
+          "text_offset": 44928
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/016/speaker/012",
+          "source_name": "ゲイン",
+          "visual_id": 484,
+          "linked_person_id": "person/15/e27e4ec5f4bc",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/016/dialogue/01.36/0003",
+        "speaker": "拉格",
+        "source_ja": "「ピープルから金を掠め取る事しか\n　考えてないシベ鉄野郎に、\n　どうこう言われる筋はないね！！」",
+        "current_translation": "“轮不到只想着从平民身上榨钱\n　的西伯铁混蛋来说三道四！！”",
+        "source_text_sha256": "a30d935866a42e32d24af42651ae23f5610fb2d5df0b7f860fb6e3b8315861d6",
+        "corpus_path": "corpus/zh/story-dialogue/stage-016.json",
+        "original_location": {
+          "stage_index": 16,
+          "section": "Section 1.36",
+          "ordinal": 3,
+          "text_offset": 47584
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/016/speaker/018",
+          "source_name": "ラグ",
+          "visual_id": 177,
+          "linked_person_id": "person/09/fffba835e72e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/035/dialogue/01.03/0001",
+        "speaker": "恩盖",
+        "source_ja": "「ピープルの援軍か！？」",
+        "current_translation": "“是皮普尔的援军吗！？”",
+        "source_text_sha256": "e6f57378f67260712d9df9551393706930f24be7609f65fcf23dee64b98e31a2",
+        "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+        "original_location": {
+          "stage_index": 35,
+          "section": "Section 1.3",
+          "ordinal": 1,
+          "text_offset": 21120
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/035/speaker/003",
+          "source_name": "エンゲ",
+          "visual_id": 516,
+          "linked_person_id": "person/15/838e452fe1a7",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/035/dialogue/02.01/0075",
+        "speaker": "马马杜",
+        "source_ja": "「そこに食糧の配給だ。\n　ピープルのテンションは\n　最高潮に達しているだろう」",
+        "current_translation": "“再加上粮食配给。\n　皮普尔们的情绪应该达到了最高潮。”",
+        "source_text_sha256": "0bf5d236dbd8d92d5b179cffc9081f4ae1335cb9ac27967546ad4ad2b59d1a0c",
+        "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+        "original_location": {
+          "stage_index": 35,
+          "section": "Section 2.1",
+          "ordinal": 75,
+          "text_offset": 27488
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/035/speaker/006",
+          "source_name": "ママドゥ",
+          "visual_id": 502,
+          "linked_person_id": "person/15/efe139919714",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/035/dialogue/02.01/0093",
+        "speaker": "马马杜",
+        "source_ja": "「そこに食糧の配給だ。\n　ピープルのテンションは\n　最高潮に達しているだろう」",
+        "current_translation": "“再加上粮食配给。\n　皮普尔们的情绪应该达到了最高潮。”",
+        "source_text_sha256": "0bf5d236dbd8d92d5b179cffc9081f4ae1335cb9ac27967546ad4ad2b59d1a0c",
+        "corpus_path": "corpus/zh/story-dialogue/stage-035.json",
+        "original_location": {
+          "stage_index": 35,
+          "section": "Section 2.1",
+          "ordinal": 93,
+          "text_offset": 27488
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/035/speaker/006",
+          "source_name": "ママドゥ",
+          "visual_id": 502,
+          "linked_person_id": "person/15/efe139919714",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/036/dialogue/01.02/0002",
+        "speaker": "科特塞特",
+        "source_ja": "「盛り上がってきましたな、御曹司。\n　全ピープルが、このレースに\n　注目してますよ」",
+        "current_translation": "“气氛热烈起来了呢，少爷。\n　所有民众都在关注这场比赛。”",
+        "source_text_sha256": "ea06c8365aa8fb3fcc989a032a4441b92a88e39e1f33bfab70647eb03db2e00e",
+        "corpus_path": "corpus/zh/story-dialogue/stage-036.json",
+        "original_location": {
+          "stage_index": 36,
+          "section": "Section 1.2",
+          "ordinal": 2,
+          "text_offset": 34800
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/036/speaker/005",
+          "source_name": "コトセット",
+          "visual_id": 174,
+          "linked_person_id": "person/09/797e2abc29bd",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/036/dialogue/01.10/0002",
+        "speaker": "阿斯哈姆",
+        "source_ja": "「いいだろう！\n　ピープル達よ、請負人の最期を\n　その目で確かめるがいい！」",
+        "current_translation": "“很好！民众们，\n　用你们的眼睛见证这位承包人的末日吧！”",
+        "source_text_sha256": "0e21e76a3fd577099dfcb5cc7417d16ded5a47a4ef6f0188c450fd30e5376bb3",
+        "corpus_path": "corpus/zh/story-dialogue/stage-036.json",
+        "original_location": {
+          "stage_index": 36,
+          "section": "Section 1.10",
+          "ordinal": 2,
+          "text_offset": 38768
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/036/speaker/027",
+          "source_name": "アスハム",
+          "visual_id": 521,
+          "linked_person_id": "person/15/7480f4727daa",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/036/dialogue/01.24/0004",
+        "speaker": "阿斯哈姆",
+        "source_ja": "「行くぞ！\n　ブラックメンもウルグスクのピープルも\n　私がこの手で葬ってくれる！」",
+        "current_translation": "“上吧！不管是黑方还是乌鲁古斯克的民众，\n　我都要亲手埋葬！”",
+        "source_text_sha256": "eb1f88f003a38402a5335202e09e3864bf246f5c7b65a7b4f8c80a2c58a09383",
+        "corpus_path": "corpus/zh/story-dialogue/stage-036.json",
+        "original_location": {
+          "stage_index": 36,
+          "section": "Section 1.24",
+          "ordinal": 4,
+          "text_offset": 45136
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/036/speaker/027",
+          "source_name": "アスハム",
+          "visual_id": 521,
+          "linked_person_id": "person/15/7480f4727daa",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/038/dialogue/01.01/0003",
+        "speaker": "菲尔",
+        "source_ja": "「カテズのピープルめ…！\n　法外な金額の要求に飽き足らず、\n　盗みまでしてくるとは！」",
+        "current_translation": "“卡泰兹的那些平民……！\n　不仅漫天要价，还敢偷东西！”",
+        "source_text_sha256": "99c7adab3bec142915a09e8e0a24c21fd91df22c11cbf150028a2e64ff0b39af",
+        "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+        "original_location": {
+          "stage_index": 38,
+          "section": "Section 1.1",
+          "ordinal": 3,
+          "text_offset": 53312
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/038/speaker/003",
+          "source_name": "フィル",
+          "visual_id": 310,
+          "linked_person_id": "person/12/9276cbbf5ca3",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/038/dialogue/01.03/0002",
+        "speaker": "罗杰",
+        "source_ja": "「いや…私の受けた依頼は\n　ドームのピープルとムーンレィスの\n　衝突の回避だ」",
+        "current_translation": "“不……我接到的委托是避免\n　穹顶居民与月之民的冲突。”",
+        "source_text_sha256": "135e5b6a0de8b7017f1665d42f58a49c974e65c729d62524c0e4b1f0b5fe997a",
+        "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+        "original_location": {
+          "stage_index": 38,
+          "section": "Section 1.3",
+          "ordinal": 2,
+          "text_offset": 54208
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/038/speaker/007",
+          "source_name": "ロジャー",
+          "visual_id": 534,
+          "linked_person_id": "person/16/f1917abcb2ab",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/038/dialogue/01.27/0000",
+        "speaker": "扎奇",
+        "source_ja": "「こんな事になるなら、\n　黒いサザンクロスが帰還する前に\n　ピープルを討てばよかったものを！」",
+        "current_translation": "“早知道会这样，\n　就该在黑色南十字星回来之前把平民干掉！”",
+        "source_text_sha256": "bf6a48f575ce346a8d95b00adcffa6335df96b8fd2fc727f0dd3e3a6420f5ec7",
+        "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+        "original_location": {
+          "stage_index": 38,
+          "section": "Section 1.27",
+          "ordinal": 0,
+          "text_offset": 69584
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/038/speaker/054",
+          "source_name": "ザッキ",
+          "visual_id": 524,
+          "linked_person_id": "person/15/b52c785064f8",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/038/dialogue/02.01/0118",
+        "speaker": "米兰",
+        "source_ja": "「…ロジャー君…そして、グエン卿。\n　カテズのピープルの要求を\n　我々は承諾する事は出来ない」",
+        "current_translation": "“……罗杰君……还有高安卿。\n　我们不能接受卡泰兹平民的要求。”",
+        "source_text_sha256": "3ef63a706d661752bd5edf518bcae398614cf8806a207a34771b934e21d22b12",
+        "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+        "original_location": {
+          "stage_index": 38,
+          "section": "Section 2.1",
+          "ordinal": 118,
+          "text_offset": 83712
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/038/speaker/005",
+          "source_name": "ミラン",
+          "visual_id": 288,
+          "linked_person_id": "person/12/ea1dad87d603",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/038/dialogue/02.01/0138",
+        "speaker": "罗杰",
+        "source_ja": "「カテズのピープルにも\n　相応の考えがあると申し上げておきます」",
+        "current_translation": "“我会告诉您，\n　卡泰兹的平民也有相应的想法。”",
+        "source_text_sha256": "854dd9b4e85d07c6636148ed722c743a3266301c3dc98dc7311677b23fa0762e",
+        "corpus_path": "corpus/zh/story-dialogue/stage-038.json",
+        "original_location": {
+          "stage_index": 38,
+          "section": "Section 2.1",
+          "ordinal": 138,
+          "text_offset": 85456
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/038/speaker/007",
+          "source_name": "ロジャー",
+          "visual_id": 534,
+          "linked_person_id": "person/16/f1917abcb2ab",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/043/dialogue/02.01/0059",
+        "speaker": "高富利",
+        "source_ja": "「それはピープルの生活だけでなく、\n　意識を変えていくものだ」",
+        "current_translation": "“那不仅会改变人民的生活，\n　还会改变他们的意识。”",
+        "source_text_sha256": "f235f22309451f0460ea02341249faf42256c7b188dcd54bf17545b7e81ca2c1",
+        "corpus_path": "corpus/zh/story-dialogue/stage-043.json",
+        "original_location": {
+          "stage_index": 43,
+          "section": "Section 2.1",
+          "ordinal": 59,
+          "text_offset": 71024
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/043/speaker/009",
+          "source_name": "ガウリ",
+          "visual_id": 493,
+          "linked_person_id": "person/15/99d9c2bc083e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/043/dialogue/02.01/0140",
+        "speaker": "高富利",
+        "source_ja": "「それはピープルの生活だけでなく、\n　意識を変えていくものだ」",
+        "current_translation": "“那不仅会改变人民的生活，\n　还会改变他们的意识。”",
+        "source_text_sha256": "f235f22309451f0460ea02341249faf42256c7b188dcd54bf17545b7e81ca2c1",
+        "corpus_path": "corpus/zh/story-dialogue/stage-043.json",
+        "original_location": {
+          "stage_index": 43,
+          "section": "Section 2.1",
+          "ordinal": 140,
+          "text_offset": 71024
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/043/speaker/009",
+          "source_name": "ガウリ",
+          "visual_id": 493,
+          "linked_person_id": "person/15/99d9c2bc083e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/043/dialogue/02.02/0105",
+        "speaker": "莎拉",
+        "source_ja": "「ウルグスクのピープルとして\n　あなたの素行を監視しないと」",
+        "current_translation": "“作为乌鲁古斯克的人民，\n　我必须监视你的品行。”",
+        "source_text_sha256": "dc23cba49019b04ab2814e3f3826833299eb90d6257833cddc9b6e610066876e",
+        "corpus_path": "corpus/zh/story-dialogue/stage-043.json",
+        "original_location": {
+          "stage_index": 43,
+          "section": "Section 2.2",
+          "ordinal": 105,
+          "text_offset": 81536
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/043/speaker/015",
+          "source_name": "サラ",
+          "visual_id": 487,
+          "linked_person_id": "person/15/d10aab36a42e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/145/dialogue/02.01/0012",
+        "speaker": "高富利",
+        "source_ja": "「我々はウルグスクのピープルとして\n　新しい生活が始まる」",
+        "current_translation": "“我们作为乌鲁古斯克的民众，\n　将开始新的生活。”",
+        "source_text_sha256": "d53799f869a89528e44964106f523e1ae273a852a20f85349c46f2ec89554728",
+        "corpus_path": "corpus/zh/story-dialogue/stage-145.json",
+        "original_location": {
+          "stage_index": 145,
+          "section": "Section 2.1",
+          "ordinal": 12,
+          "text_offset": 73024
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/145/speaker/034",
+          "source_name": "ガウリ",
+          "visual_id": 493,
+          "linked_person_id": "person/15/99d9c2bc083e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/145/dialogue/02.01/0382",
+        "speaker": "高富利",
+        "source_ja": "「我々はウルグスクのピープルとして\n　新しい生活が始まる」",
+        "current_translation": "“我们作为乌鲁古斯克的民众，\n　将开始新的生活。”",
+        "source_text_sha256": "d53799f869a89528e44964106f523e1ae273a852a20f85349c46f2ec89554728",
+        "corpus_path": "corpus/zh/story-dialogue/stage-145.json",
+        "original_location": {
+          "stage_index": 145,
+          "section": "Section 2.1",
+          "ordinal": 382,
+          "text_offset": 73024
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/145/speaker/034",
+          "source_name": "ガウリ",
+          "visual_id": 493,
+          "linked_person_id": "person/15/99d9c2bc083e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/145/dialogue/02.01/0779",
+        "speaker": "高富利",
+        "source_ja": "「我々はウルグスクのピープルとして\n　新しい生活が始まる」",
+        "current_translation": "“我们作为乌鲁古斯克的民众，\n　将开始新的生活。”",
+        "source_text_sha256": "d53799f869a89528e44964106f523e1ae273a852a20f85349c46f2ec89554728",
+        "corpus_path": "corpus/zh/story-dialogue/stage-145.json",
+        "original_location": {
+          "stage_index": 145,
+          "section": "Section 2.1",
+          "ordinal": 779,
+          "text_offset": 73024
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/145/speaker/034",
+          "source_name": "ガウリ",
+          "visual_id": 493,
+          "linked_person_id": "person/15/99d9c2bc083e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/150/dialogue/02.01/0332",
+        "speaker": "高富利",
+        "source_ja": "「我々はウルグスクのピープルとして\n　新しい生活が始まる」",
+        "current_translation": "“我们作为乌鲁古斯克的民众，\n　将开始新的生活。”",
+        "source_text_sha256": "d53799f869a89528e44964106f523e1ae273a852a20f85349c46f2ec89554728",
+        "corpus_path": "corpus/zh/story-dialogue/stage-150.json",
+        "original_location": {
+          "stage_index": 150,
+          "section": "Section 2.1",
+          "ordinal": 332,
+          "text_offset": 91568
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/150/speaker/102",
+          "source_name": "ガウリ",
+          "visual_id": 493,
+          "linked_person_id": "person/15/99d9c2bc083e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/150/dialogue/02.01/0718",
+        "speaker": "高富利",
+        "source_ja": "「我々はウルグスクのピープルとして\n　新しい生活が始まる」",
+        "current_translation": "“我们作为乌鲁古斯克的民众，\n　将开始新的生活。”",
+        "source_text_sha256": "d53799f869a89528e44964106f523e1ae273a852a20f85349c46f2ec89554728",
+        "corpus_path": "corpus/zh/story-dialogue/stage-150.json",
+        "original_location": {
+          "stage_index": 150,
+          "section": "Section 2.1",
+          "ordinal": 718,
+          "text_offset": 91568
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/150/speaker/102",
+          "source_name": "ガウリ",
+          "visual_id": 493,
+          "linked_person_id": "person/15/99d9c2bc083e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/150/dialogue/02.01/1111",
+        "speaker": "高富利",
+        "source_ja": "「我々はウルグスクのピープルとして\n　新しい生活が始まる」",
+        "current_translation": "“我们作为乌鲁古斯克的民众，\n　将开始新的生活。”",
+        "source_text_sha256": "d53799f869a89528e44964106f523e1ae273a852a20f85349c46f2ec89554728",
+        "corpus_path": "corpus/zh/story-dialogue/stage-150.json",
+        "original_location": {
+          "stage_index": 150,
+          "section": "Section 2.1",
+          "ordinal": 1111,
+          "text_offset": 91568
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/150/speaker/102",
+          "source_name": "ガウリ",
+          "visual_id": 493,
+          "linked_person_id": "person/15/99d9c2bc083e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/154/dialogue/00.01/0090",
+        "speaker": "高富利",
+        "source_ja": "「だから、ピープル達はヤーパン式の\n　生活様式や文化を学び、その地に\n　想いを馳せているんだ」",
+        "current_translation": "“所以，人民们学习雅邦式的生活方式与文化，\n　对那片土地心怀向往。”",
+        "source_text_sha256": "1dcab79b2bfbbfff7690985391d1da0026b9956697f463071806a514639d0401",
+        "corpus_path": "corpus/zh/story-dialogue/stage-154.json",
+        "original_location": {
+          "stage_index": 154,
+          "section": "Section 0.1",
+          "ordinal": 90,
+          "text_offset": 19392
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/154/speaker/035",
+          "source_name": "ガウリ",
+          "visual_id": 493,
+          "linked_person_id": "person/15/99d9c2bc083e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "battle:00017",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「ピープルはドームポリスに\\n　住んでいればいい！」",
+        "current_translation": "“居民就该住在穹顶都市里！\\n　”",
+        "source_text_sha256": "cec9d5c369f40907f58ec526740cde9c7d8d08c6208c05259101a0b448488208",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 8,
+          "occurrences": [
+            {
+              "chunk_index": 4,
+              "record_index": 16,
+              "archive_text_start": 6090,
+              "encoded_size": 51
+            },
+            {
+              "chunk_index": 4,
+              "record_index": 115,
+              "archive_text_start": 9113,
+              "encoded_size": 51
+            },
+            {
+              "chunk_index": 4,
+              "record_index": 154,
+              "archive_text_start": 10170,
+              "encoded_size": 51
+            },
+            {
+              "chunk_index": 4,
+              "record_index": 159,
+              "archive_text_start": 10357,
+              "encoded_size": 51
+            },
+            {
+              "chunk_index": 5,
+              "record_index": 16,
+              "archive_text_start": 14394,
+              "encoded_size": 51
+            },
+            {
+              "chunk_index": 5,
+              "record_index": 115,
+              "archive_text_start": 17417,
+              "encoded_size": 51
+            },
+            {
+              "chunk_index": 5,
+              "record_index": 154,
+              "archive_text_start": 18474,
+              "encoded_size": 51
+            },
+            {
+              "chunk_index": 5,
+              "record_index": 159,
+              "archive_text_start": 18661,
+              "encoded_size": 51
+            }
+          ]
+        },
+        "resource_owners": [
+          "SL兵"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:00837",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「生意気なピープルとその他風情が！」",
+        "current_translation": "“狂妄的平民和杂碎！”",
+        "source_text_sha256": "0795b8191b7c1596ece0749b4497d6de4521401a38ade6409019c21719c00156",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 3,
+          "occurrences": [
+            {
+              "chunk_index": 13,
+              "record_index": 13,
+              "archive_text_start": 97683,
+              "encoded_size": 37
+            },
+            {
+              "chunk_index": 13,
+              "record_index": 250,
+              "archive_text_start": 107568,
+              "encoded_size": 37
+            },
+            {
+              "chunk_index": 13,
+              "record_index": 292,
+              "archive_text_start": 109098,
+              "encoded_size": 37
+            }
+          ]
+        },
+        "resource_owners": [
+          "阿蒂特"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:03589",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「ピープル上がりのヤーパンじゃ、\\n　無理ってことよ！」",
+        "current_translation": "“人民出身的雅邦，\\n　果然不行啊！”",
+        "source_text_sha256": "839869c6ac974551b58967d5e4f1010dc0668d1b387251ca9ab43ce08a95cd1f",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 1,
+          "occurrences": [
+            {
+              "chunk_index": 46,
+              "record_index": 86,
+              "archive_text_start": 447336,
+              "encoded_size": 55
+            }
+          ]
+        },
+        "resource_owners": [
+          "恩盖"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:05201",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「ピープルは税金を納めていれば\\n　よいというのに…！」",
+        "current_translation": "“平民只要好好纳税\\n　就行了…！”",
+        "source_text_sha256": "cfae006e43fa5b83cd91a498d76cd16caee29610ffb945c1b391ca212aff63e5",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 1,
+          "occurrences": [
+            {
+              "chunk_index": 69,
+              "record_index": 81,
+              "archive_text_start": 683575,
+              "encoded_size": 55
+            }
+          ]
+        },
+        "resource_owners": [
+          "基兹"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:08865",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「なんて乱暴なピープルなんでしょ！」",
+        "current_translation": "“真是个粗暴的人啊！”",
+        "source_text_sha256": "5bb5ba3c5f96d976fd3aa78e4257a8c8c1fbe07d5d842f92d39d52b441dfce96",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 1,
+          "occurrences": [
+            {
+              "chunk_index": 116,
+              "record_index": 97,
+              "archive_text_start": 1141889,
+              "encoded_size": 37
+            }
+          ]
+        },
+        "resource_owners": [
+          "贾博利"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:18804",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「ぐうっ！　ウルグスクのピープルに\\n　こんな根性があったのか！？」",
+        "current_translation": "“呃！乌鲁古斯克的平民\\n　居然有这样的骨气！？”",
+        "source_text_sha256": "4cdc9b5301457d51754864bf7a595beb40131779f7517ddcf17a7af37fe8c472",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 1,
+          "occurrences": [
+            {
+              "chunk_index": 260,
+              "record_index": 100,
+              "archive_text_start": 2397734,
+              "encoded_size": 67
+            }
+          ]
+        },
+        "resource_owners": [
+          "亚萨巴"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:18814",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「ピープルが２本足のマシンを\\n　使うんじゃねェ！」",
+        "current_translation": "“平民不能用\\n　两条腿的机器！”",
+        "source_text_sha256": "3f7cf96349dcb4b813bc660b4d045b6a1a76168039b41c7f9557225069c5b10a",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 5,
+          "occurrences": [
+            {
+              "chunk_index": 260,
+              "record_index": 118,
+              "archive_text_start": 2398530,
+              "encoded_size": 51
+            },
+            {
+              "chunk_index": 260,
+              "record_index": 125,
+              "archive_text_start": 2398895,
+              "encoded_size": 51
+            },
+            {
+              "chunk_index": 260,
+              "record_index": 136,
+              "archive_text_start": 2399510,
+              "encoded_size": 51
+            },
+            {
+              "chunk_index": 260,
+              "record_index": 145,
+              "archive_text_start": 2400011,
+              "encoded_size": 51
+            },
+            {
+              "chunk_index": 260,
+              "record_index": 158,
+              "archive_text_start": 2400664,
+              "encoded_size": 51
+            }
+          ]
+        },
+        "resource_owners": [
+          "亚萨巴"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      }
+    ],
+    "エルゴ": [
+      {
+        "id": "story/053/dialogue/01.28/0006",
+        "speaker": "斗牙",
+        "source_ja": "「エルゴフォオオオオオオムッ！！」",
+        "current_translation": "“工学形态！！”",
+        "source_text_sha256": "cee1f57ff1ed14287500b151f632a0184c0770b57eec3aaf222908fea48917cf",
+        "corpus_path": "corpus/zh/story-dialogue/stage-053.json",
+        "original_location": {
+          "stage_index": 53,
+          "section": "Section 1.28",
+          "ordinal": 6,
+          "text_offset": 62400
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/053/speaker/017",
+          "source_name": "斗牙",
+          "visual_id": 557,
+          "linked_person_id": "person/17/a389bc4dbb7f",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/107/dialogue/01.37/0000",
+        "speaker": "修基",
+        "source_ja": "「瞬間最大エネルギー\n　３２億タムクラネルド…。\n　エルゴ値５００グラン…」",
+        "current_translation": "“瞬间最大能量32亿Tam克拉内尔德……\n　工学值500格兰……”",
+        "source_text_sha256": "0990c2fb6a1cdc5d8a062a83c5ed40d1c0172b16f00b423aba2e7b51dbdac29a",
+        "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+        "original_location": {
+          "stage_index": 107,
+          "section": "Section 1.37",
+          "ordinal": 0,
+          "text_offset": 106368
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/107/speaker/067",
+          "source_name": "ヒューギ",
+          "visual_id": 598,
+          "linked_person_id": "person/18/41da89be527e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/107/dialogue/01.40/0000",
+        "speaker": "爱娜",
+        "source_ja": "「エルゴ・フォォォォォォム！」",
+        "current_translation": "“工学形态！”",
+        "source_text_sha256": "318114d70c24cf2b2bde124584abc408d1344c833e58860788e30069ec0c5882",
+        "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+        "original_location": {
+          "stage_index": 107,
+          "section": "Section 1.40",
+          "ordinal": 0,
+          "text_offset": 107984
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/107/speaker/068",
+          "source_name": "エィナ",
+          "visual_id": 568,
+          "linked_person_id": "person/18/728f8719e043",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/107/dialogue/01.41/0003",
+        "speaker": "桑德曼",
+        "source_ja": "「搭乗者の精神力を増幅して\n　エルゴの力を爆発的に解放する…」",
+        "current_translation": "“增幅驾驶者的精神力，\n　爆发性地解放工学之力……”",
+        "source_text_sha256": "7d58d9dec4a192d9572dbb3c92419df5902c7b447a5416b21b34c9983228d9d8",
+        "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+        "original_location": {
+          "stage_index": 107,
+          "section": "Section 1.41",
+          "ordinal": 3,
+          "text_offset": 108192
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/107/speaker/032",
+          "source_name": "サンドマン",
+          "visual_id": 573,
+          "linked_person_id": "person/17/9b569c6102ca",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/107/dialogue/01.41/0008",
+        "speaker": "桑德曼",
+        "source_ja": "「エィナの想いと共振したエルゴの力は\n　物理空間全てに影響を及ぼす\n　マインドフィールドとなる」",
+        "current_translation": "“与爱娜的心意共振的工学之\n　力会成为影响所有物理空间的心灵领域。”",
+        "source_text_sha256": "1eb37b61047a0c3dbb50e4b7395a4e0bc99becd8c202ce2328670ced1035cda3",
+        "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+        "original_location": {
+          "stage_index": 107,
+          "section": "Section 1.41",
+          "ordinal": 8,
+          "text_offset": 108448
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/107/speaker/032",
+          "source_name": "サンドマン",
+          "visual_id": 573,
+          "linked_person_id": "person/17/9b569c6102ca",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/107/dialogue/01.45/0010",
+        "speaker": "斗牙",
+        "source_ja": "「行こう、みんな！\n　エルゴブレイク！！」",
+        "current_translation": "“走吧，大家！工学分解！！”",
+        "source_text_sha256": "f7a561a42a8d640f80152a23a626a846bb77089a84cd773ecf264a1e8c411531",
+        "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+        "original_location": {
+          "stage_index": 107,
+          "section": "Section 1.45",
+          "ordinal": 10,
+          "text_offset": 110304
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/107/speaker/033",
+          "source_name": "斗牙",
+          "visual_id": 558,
+          "linked_person_id": "person/17/a389bc4dbb7f",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "story/132/dialogue/02.02/0169",
+        "speaker": "修基",
+        "source_ja": "「そして、エルゴの戦士達よ…。\n　決して負けるな…」",
+        "current_translation": "“还有，工学战士们……绝对不要输……”",
+        "source_text_sha256": "3367971be794d7113d706777b5e2c567c44eee9256d3796f8554f329ff74ac67",
+        "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+        "original_location": {
+          "stage_index": 132,
+          "section": "Section 2.2",
+          "ordinal": 169,
+          "text_offset": 116016
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/132/speaker/020",
+          "source_name": "ヒューギ",
+          "visual_id": 598,
+          "linked_person_id": "person/18/41da89be527e",
+          "method": "source_name_and_portrait_identity"
+        }
+      },
+      {
+        "id": "battle:02793",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「エルゴの力も創星の力も、\\n　私にひざまずけ！」",
+        "current_translation": "“工学之力和创星之力，\\n　都向我臣服！”",
+        "source_text_sha256": "94f9a652cc62848532208e9aefb5a52ee167cdd780e08eab18c8fab60b4c98b0",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 3,
+          "occurrences": [
+            {
+              "chunk_index": 38,
+              "record_index": 29,
+              "archive_text_start": 339843,
+              "encoded_size": 49
+            },
+            {
+              "chunk_index": 38,
+              "record_index": 56,
+              "archive_text_start": 341128,
+              "encoded_size": 49
+            },
+            {
+              "chunk_index": 38,
+              "record_index": 177,
+              "archive_text_start": 346055,
+              "encoded_size": 49
+            }
+          ]
+        },
+        "resource_owners": [
+          "艾岱尔"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:07799",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「エルゴ・エェェェンド！」",
+        "current_translation": "“工学终结！”",
+        "source_text_sha256": "334d24a1e11739978fe145309ab68d8253e71c186a043d83a6f180be60621c64",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 1,
+          "occurrences": [
+            {
+              "chunk_index": 105,
+              "record_index": 32,
+              "archive_text_start": 1018128,
+              "encoded_size": 27
+            }
+          ]
+        },
+        "resource_owners": [
+          "桑德曼",
+          "桑德曼",
+          "齐格"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:07801",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「エルゴ・エンド！」",
+        "current_translation": "“工学终结！”",
+        "source_text_sha256": "a406480ee9aadfb8ed6b6cba33f84824426a0361d2fba6f2d9d967e783f4bea0",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 1,
+          "occurrences": [
+            {
+              "chunk_index": 105,
+              "record_index": 35,
+              "archive_text_start": 1018209,
+              "encoded_size": 21
+            }
+          ]
+        },
+        "resource_owners": [
+          "桑德曼",
+          "桑德曼",
+          "齐格"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:07808",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「エルゴ・エンド」",
+        "current_translation": "“工学终结”",
+        "source_text_sha256": "9b3310536386daa34eed6ca4aefb8ed00cfd4faff041c9d4381ae7b8d2434f84",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 10,
+          "occurrences": [
+            {
+              "chunk_index": 105,
+              "record_index": 45,
+              "archive_text_start": 1018485,
+              "encoded_size": 19
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 116,
+              "archive_text_start": 3024882,
+              "encoded_size": 19
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 121,
+              "archive_text_start": 3025041,
+              "encoded_size": 19
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 555,
+              "archive_text_start": 3040581,
+              "encoded_size": 19
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 560,
+              "archive_text_start": 3040708,
+              "encoded_size": 19
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 572,
+              "archive_text_start": 3041130,
+              "encoded_size": 19
+            },
+            {
+              "chunk_index": 323,
+              "record_index": 80,
+              "archive_text_start": 3050898,
+              "encoded_size": 19
+            },
+            {
+              "chunk_index": 323,
+              "record_index": 85,
+              "archive_text_start": 3051015,
+              "encoded_size": 19
+            }
+          ],
+          "occurrences_truncated": true,
+          "occurrences_total": 10,
+          "note": "共有无音或喊声仅展示前8个位置；上下文的外层chunk/record字段给出本次核对的准确位置。"
+        },
+        "resource_owners": [
+          "桑德曼",
+          "斗牙",
+          "桑德曼",
+          "齐格"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:07812",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「これがエルゴの力だ…」",
+        "current_translation": "“这就是工学之力…”",
+        "source_text_sha256": "80699c71d4524b5744fe914fb7f13739e02123b72a510ae7c314c0d50340ab85",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 1,
+          "occurrences": [
+            {
+              "chunk_index": 105,
+              "record_index": 55,
+              "archive_text_start": 1018765,
+              "encoded_size": 25
+            }
+          ]
+        },
+        "resource_owners": [
+          "桑德曼",
+          "桑德曼",
+          "齐格"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:07819",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「斗牙、エルゴフォームだ！」",
+        "current_translation": "“斗牙，用工学形态！”",
+        "source_text_sha256": "3cdc3609889a73e5c33992fff239371007d955365823ac7690b98a3ea19e3454",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 5,
+          "occurrences": [
+            {
+              "chunk_index": 105,
+              "record_index": 67,
+              "archive_text_start": 1019155,
+              "encoded_size": 29
+            },
+            {
+              "chunk_index": 105,
+              "record_index": 80,
+              "archive_text_start": 1019588,
+              "encoded_size": 29
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 191,
+              "archive_text_start": 3027501,
+              "encoded_size": 29
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 204,
+              "archive_text_start": 3027934,
+              "encoded_size": 29
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 574,
+              "archive_text_start": 3041192,
+              "encoded_size": 29
+            }
+          ]
+        },
+        "resource_owners": [
+          "桑德曼",
+          "斗牙",
+          "桑德曼",
+          "齐格"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:07820",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「エルゴ・フォォォォムッ！！」",
+        "current_translation": "“工学形态！！”",
+        "source_text_sha256": "c63b8a879d81c26b6f6544493cdee330ad36058892fd768b4f13b161a20ca2c8",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 3,
+          "occurrences": [
+            {
+              "chunk_index": 105,
+              "record_index": 68,
+              "archive_text_start": 1019184,
+              "encoded_size": 31
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 192,
+              "archive_text_start": 3027530,
+              "encoded_size": 31
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 575,
+              "archive_text_start": 3041221,
+              "encoded_size": 31
+            }
+          ]
+        },
+        "resource_owners": [
+          "桑德曼",
+          "斗牙",
+          "桑德曼",
+          "齐格"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:07829",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「エルゴ・エンド！！」",
+        "current_translation": "“工学终结！！”",
+        "source_text_sha256": "fb6763ee9cc3b0b79be56cfaa63fe83b7add7eb3abbc905d9f124566137e1ddb",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 5,
+          "occurrences": [
+            {
+              "chunk_index": 105,
+              "record_index": 78,
+              "archive_text_start": 1019504,
+              "encoded_size": 23
+            },
+            {
+              "chunk_index": 105,
+              "record_index": 91,
+              "archive_text_start": 1019945,
+              "encoded_size": 23
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 202,
+              "archive_text_start": 3027850,
+              "encoded_size": 23
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 215,
+              "archive_text_start": 3028291,
+              "encoded_size": 23
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 585,
+              "archive_text_start": 3041541,
+              "encoded_size": 23
+            }
+          ]
+        },
+        "resource_owners": [
+          "桑德曼",
+          "斗牙",
+          "桑德曼",
+          "齐格"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:07831",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「了解！　エルゴ・フォォォォォム！！」",
+        "current_translation": "“明白！工学形态！！”",
+        "source_text_sha256": "64c5efbb653d340a704d90461e9243db9ca21d435c06a592720ae8297b67a824",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 2,
+          "occurrences": [
+            {
+              "chunk_index": 105,
+              "record_index": 81,
+              "archive_text_start": 1019617,
+              "encoded_size": 39
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 205,
+              "archive_text_start": 3027963,
+              "encoded_size": 39
+            }
+          ]
+        },
+        "resource_owners": [
+          "桑德曼",
+          "斗牙",
+          "桑德曼",
+          "齐格"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:23422",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「エルゴ・エェェェンド！！」",
+        "current_translation": "“工学终结！！”",
+        "source_text_sha256": "4dd8763ea01cc7d0a89743010167a45d2e726c2464465429be7f879b72f1b4a6",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 6,
+          "occurrences": [
+            {
+              "chunk_index": 322,
+              "record_index": 85,
+              "archive_text_start": 3023841,
+              "encoded_size": 29
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 89,
+              "archive_text_start": 3023975,
+              "encoded_size": 29
+            },
+            {
+              "chunk_index": 323,
+              "record_index": 53,
+              "archive_text_start": 3049933,
+              "encoded_size": 29
+            },
+            {
+              "chunk_index": 323,
+              "record_index": 322,
+              "archive_text_start": 3059050,
+              "encoded_size": 29
+            },
+            {
+              "chunk_index": 323,
+              "record_index": 326,
+              "archive_text_start": 3059180,
+              "encoded_size": 29
+            },
+            {
+              "chunk_index": 324,
+              "record_index": 18,
+              "archive_text_start": 3061742,
+              "encoded_size": 29
+            }
+          ]
+        },
+        "resource_owners": [
+          "斗牙"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:23439",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「超重剣！　エルゴストォォォム！！」",
+        "current_translation": "“超重剑！工学风暴！！”",
+        "source_text_sha256": "5b0a5ae8c92d3d22b4946477e6bdb0f3f0b25c18c66b7c70f1ebc283823c94de",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 6,
+          "occurrences": [
+            {
+              "chunk_index": 322,
+              "record_index": 113,
+              "archive_text_start": 3024793,
+              "encoded_size": 37
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 182,
+              "archive_text_start": 3027200,
+              "encoded_size": 37
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 188,
+              "archive_text_start": 3027398,
+              "encoded_size": 37
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 557,
+              "archive_text_start": 3040619,
+              "encoded_size": 37
+            },
+            {
+              "chunk_index": 323,
+              "record_index": 77,
+              "archive_text_start": 3050809,
+              "encoded_size": 37
+            },
+            {
+              "chunk_index": 324,
+              "record_index": 59,
+              "archive_text_start": 3062945,
+              "encoded_size": 37
+            }
+          ]
+        },
+        "resource_owners": [
+          "斗牙"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:23443",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「エルゴストォォォム！！」",
+        "current_translation": "“工学风暴！！”",
+        "source_text_sha256": "ba8d54d7f8e5af814685926483122bcee2c670e4fdcdf936381ccd90452dadfc",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 5,
+          "occurrences": [
+            {
+              "chunk_index": 322,
+              "record_index": 118,
+              "archive_text_start": 3024962,
+              "encoded_size": 27
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 552,
+              "archive_text_start": 3040502,
+              "encoded_size": 27
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 569,
+              "archive_text_start": 3041051,
+              "encoded_size": 27
+            },
+            {
+              "chunk_index": 323,
+              "record_index": 82,
+              "archive_text_start": 3050936,
+              "encoded_size": 27
+            },
+            {
+              "chunk_index": 324,
+              "record_index": 64,
+              "archive_text_start": 3063114,
+              "encoded_size": 27
+            }
+          ]
+        },
+        "resource_owners": [
+          "斗牙"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:23485",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「エルゴ・エンド…！」",
+        "current_translation": "“工学终结…！”",
+        "source_text_sha256": "52442496665bfd3a06be3a1aa763fe27f610f3f599e84289f016840ccc874110",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 2,
+          "occurrences": [
+            {
+              "chunk_index": 322,
+              "record_index": 183,
+              "archive_text_start": 3027237,
+              "encoded_size": 23
+            },
+            {
+              "chunk_index": 322,
+              "record_index": 189,
+              "archive_text_start": 3027435,
+              "encoded_size": 23
+            }
+          ]
+        },
+        "resource_owners": [
+          "斗牙"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      },
+      {
+        "id": "battle:23770",
+        "speaker": "战斗字幕／实际发声者未确认",
+        "source_ja": "「エルゴの力を超える敵がいたとは！」",
+        "current_translation": "“竟有超越工学力量的敌人！”",
+        "source_text_sha256": "083bd110b66d958cb0e9903c0b00d88554d1f00240fe5f4eb0b840df113def49",
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "original_location": {
+          "occurrence_count": 1,
+          "occurrences": [
+            {
+              "chunk_index": 323,
+              "record_index": 146,
+              "archive_text_start": 3052888,
+              "encoded_size": 37
+            }
+          ]
+        },
+        "resource_owners": [
+          "斗牙"
+        ],
+        "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+      }
+    ],
+    "タムクラネルド": [
+      {
+        "id": "story/107/dialogue/01.37/0000",
+        "speaker": "修基",
+        "source_ja": "「瞬間最大エネルギー\n　３２億タムクラネルド…。\n　エルゴ値５００グラン…」",
+        "current_translation": "“瞬间最大能量32亿Tam克拉内尔德……\n　工学值500格兰……”",
+        "source_text_sha256": "0990c2fb6a1cdc5d8a062a83c5ed40d1c0172b16f00b423aba2e7b51dbdac29a",
+        "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+        "original_location": {
+          "stage_index": 107,
+          "section": "Section 1.37",
+          "ordinal": 0,
+          "text_offset": 106368
+        },
+        "speaker_evidence": {
+          "speaker_id": "story/107/speaker/067",
+          "source_name": "ヒューギ",
+          "visual_id": 598,
+          "linked_person_id": "person/18/41da89be527e",
+          "method": "source_name_and_portrait_identity"
+        }
+      }
+    ]
+  },
+  "validation": {
+    "original_source": {
+      "status": "passed",
+      "verification": "fresh_decode_locked_original_STAGE_and_SRVC",
+      "stage_indices": [
+        14,
+        15,
+        16,
+        35,
+        36,
+        38,
+        43,
+        53,
+        107,
+        132,
+        145,
+        150,
+        154
+      ],
+      "checked_entries": 104,
+      "confirmed_target_entries": 26
+    },
+    "suggested_text": {
+      "entries": 26,
+      "maximum_line_width": 20,
+      "line_limit": 21,
+      "variables_preserved": true,
+      "battle_line_break_policy": "passed"
+    },
+    "preservation": {
+      "corpus_json_files_unchanged": 246,
+      "preexisting_dirty_files_unchanged": 38,
+      "head_unchanged": true
+    },
+    "build": "not_run_for_read_only_review",
+    "runtime": "not_run_for_read_only_review"
+  },
+  "future_scan_focus": [
+    "按日文完整口语／俚语词形复核，避免从マヌケ等普通词中截出人名。",
+    "专有词族复核包括缩写、分隔点和拉长呼喊，避免只有完整词条通过词表校验而剧情／战斗短称漏检。",
+    "音译仅用于找候选；必须确认是普通词还是人物、武器、代号、设定单位，不能按汉字外形批量替换。"
+  ],
+  "application_record": "config/editorial/low-hanging-application-20260907.json",
+  "translation_snapshot_semantics": "current_translation and suggested_translation preserve the original pre-writeback review; see application_record for current validation."
+}

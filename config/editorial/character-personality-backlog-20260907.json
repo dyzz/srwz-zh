@@ -2,8 +2,8 @@
   "schema_version": 1,
   "review_id": "character-personality-backlog-20260907",
   "date": "2026-09-07",
-  "status": "inventory_only",
-  "translation_writeback": false,
+  "status": "known_semantic_issues_resolved_remaining_holds_retained",
+  "translation_writeback": true,
   "requires_user_confirmation": false,
   "authority": "用户要求先完成当前润色并commit，性格人设优化暂时只整理。",
   "text_closeout_commits": [
@@ -21,21 +21,22 @@
     }
   ],
   "counts": {
-    "attitude_semantics_issues": 3,
+    "attitude_semantics_issues": 0,
     "context_or_existing_hold_cases": 2,
     "reference_evidence_followups": 1,
-    "preserved_rule_groups": 6
+    "preserved_rule_groups": 6,
+    "resolved_attitude_semantics_issues": 3
   },
   "items": [
     {
       "id": "MAIL-H01",
       "character": "梅尔",
       "title": "排斥恶女被写成高攀不起",
-      "status": "attitude_semantics_issue_recorded",
+      "status": "applied_user_approved",
       "priority": "P1",
       "reason": "お呼びじゃない是‘不欢迎／没你的份’，这里梅尔在赶人；‘我可高攀不起’把人物立场写成自低身份。按本轮人设问题只登记的要求暂不处理。",
-      "next_review": "核对对立角色登场与兰德前句，恢复拒绝、排斥的立场；另评估梅尔当场的反击强度。",
-      "translation_writeback": false,
+      "next_review": "已按用户确认修正，继续保留具体音频和战斗触发证据边界。",
+      "translation_writeback": true,
       "evidence": [
         {
           "id": "story/084/dialogue/01.35/0001",
@@ -136,17 +137,31 @@
             }
           ]
         }
-      ]
+      ],
+      "context_review_20260907": {
+        "status": "语义问题确认；仅列候选",
+        "conclusion": "完整八句呈现：兹妮调情→兰德拒绝→梅尔赶人→兹妮攻击身份→梅尔拿胸部反击→兰德点破吃醋→兹妮威胁。高攀不起会破坏赶人这一立场。",
+        "candidate_translation": "“装成同伴接近的恶女，\n　我们才不欢迎呢！”",
+        "evidence_path": "config/editorial/mail-rand-personality-pilot-20260907.json",
+        "evidence_section": "known_case_dossiers",
+        "translation_writeback": false
+      },
+      "status_at_inventory": "attitude_semantics_issue_recorded",
+      "application": {
+        "record": "config/editorial/character-personality-application-20260907.json",
+        "id": "story/084/dialogue/01.35/0002",
+        "after": "“装成同伴接近的恶女，我们才不欢迎呢！”"
+      }
     },
     {
       "id": "MAIL-H02",
       "character": "兰德对梅尔",
       "title": "兰德承担梅尔性命被写成夺命",
-      "status": "attitude_semantics_issue_recorded",
+      "status": "applied_user_approved",
       "priority": "P1",
       "reason": "お前の命、俺が預かる是接下对方性命的托付，现稿‘你的命，我收下了’容易读成杀人台词。这是搭档关系的语义问题，暂只登记。",
-      "next_review": "按搭档间性命托付理解，核对战斗触发情境及兰德后续接话，避免写成对敌夺命宣言。",
-      "translation_writeback": false,
+      "next_review": "已按用户确认修正，继续保留具体音频和战斗触发证据边界。",
+      "translation_writeback": true,
       "evidence": [
         {
           "id": "battle:19545",
@@ -167,17 +182,31 @@
           "current_translation": "“梅尔！你的命，我收下了！！”",
           "context": []
         }
-      ]
+      ],
+      "context_review_20260907": {
+        "status": "语义问题确认；具体战斗触发未解码",
+        "conclusion": "メール是搭档梅尔。預かる表示把对方性命接在自己手里负责。资源物理记录438两侧439/437均为无音占位，不能虚构梅尔答应托付的接话。",
+        "candidate_translation": "“梅尔！你的性命就交给我了！！”",
+        "evidence_path": "config/editorial/mail-rand-personality-pilot-20260907.json",
+        "evidence_section": "known_case_dossiers",
+        "translation_writeback": false
+      },
+      "status_at_inventory": "attitude_semantics_issue_recorded",
+      "application": {
+        "record": "config/editorial/character-personality-application-20260907.json",
+        "id": "battle:19545",
+        "after": "“梅尔！你的性命就交给我了！！”"
+      }
     },
     {
       "id": "MAIL-H03",
       "character": "梅尔",
       "title": "受击后的怒斥被写成称赞",
-      "status": "attitude_semantics_issue_recorded",
+      "status": "applied_user_approved",
       "priority": "P1",
       "reason": "やったわね接もう許さない是在责怪对方‘竟敢动手’，现稿‘干得好’接‘绝不原谅’态度冲突。暂只登记。",
-      "next_review": "核对受击语境和梅尔的恼怒程度，检查同类やったわね是否存在同样的态度误读。",
-      "translation_writeback": false,
+      "next_review": "已按用户确认修正，继续保留具体音频和战斗触发证据边界。",
+      "translation_writeback": true,
       "evidence": [
         {
           "id": "battle:19753",
@@ -198,7 +227,21 @@
           "current_translation": "“干得好！我绝不原谅你！”",
           "context": []
         }
-      ]
+      ],
+      "context_review_20260907": {
+        "status": "语义问题确认；同类已作定向核查",
+        "conclusion": "もう許さない明确表达不原谅。物理记录799担心达令，800本句，801惊叫，802撞额头，支持受击／恼怒类语境；不把这些记录说成必然连续对白。",
+        "candidate_translation": "“你竟敢这样！我绝不饶你！”",
+        "evidence_path": "config/editorial/mail-rand-personality-pilot-20260907.json",
+        "evidence_section": "known_case_dossiers",
+        "translation_writeback": false
+      },
+      "status_at_inventory": "attitude_semantics_issue_recorded",
+      "application": {
+        "record": "config/editorial/character-personality-application-20260907.json",
+        "id": "battle:19753",
+        "after": "“你竟敢这样！我绝不饶你！”"
+      }
     },
     {
       "id": "CHAR-H01",
@@ -207,7 +250,7 @@
       "status": "existing_hold_no_new_error_claim",
       "priority": "P2",
       "reason": "已有明确暂缓决定。本次仅重新绑定现稿与前后句，不把“便利店”本身判成错译。",
-      "next_review": "连同兰顿的迟疑和查尔斯邀请吃饭的后句复核亲近程度、体贴与调侃；保留既有暂缓决定。",
+      "next_review": "保留既有暂缓决定；本次没有需要用户重新确认的候选。",
       "translation_writeback": false,
       "evidence": [
         {
@@ -243,7 +286,15 @@
             }
           ]
         }
-      ]
+      ],
+      "context_review_20260907": {
+        "status": "复核完成，继续保留现译",
+        "conclusion": "查尔斯先找离家少年，提雷想道谢；兰顿迟疑后，他用饭食消除顾虑，再说自己也想一起吃饭，兰顿答应。整体是带调侃的邀请，未发现需要更改人际关系的证据。",
+        "candidate_translation": null,
+        "evidence_path": "config/editorial/mail-rand-personality-pilot-20260907.json",
+        "evidence_section": "known_case_dossiers",
+        "translation_writeback": false
+      }
     },
     {
       "id": "MAIL-W01",
@@ -252,7 +303,7 @@
       "status": "reference_evidence_needed",
       "priority": "P2",
       "reason": "原文自己就让梅尔在危急时喊うますぎ、兰德吐槽她此时说什么。不能因为现译‘太棒了’反常，就按普通危急场景改成‘糟了’。是否存在广播或声优典故缺少可靠出处，本轮不作断言、不改稿。",
-      "next_review": "先核实可靠典故出处和战斗触发语境；保留原文反常称赞与兰德吐槽，不将其自行归类为普通惊慌。",
+      "next_review": "本轮完成可得一手资料核查；保持现译，日后有制作人员说明或原始录音出处再推进。",
       "translation_writeback": false,
       "evidence": [
         {
@@ -293,7 +344,15 @@
           "current_translation": "“你这家伙，这时候说什么呢！？”",
           "context": []
         }
-      ]
+      ],
+      "context_review_20260907": {
+        "status": "节目与演员关联已证；具体引用意图未证",
+        "conclusion": "官方2007年公告列出相沢舞参加うますぎWAVE；2008年本人在官方博客确认饰演梅尔。可支持节目／演员关联，但两篇均未解释这句游戏台词。原文うますぎ与兰德不合时宜的吐槽应保留。",
+        "candidate_translation": null,
+        "evidence_path": "config/editorial/mail-rand-personality-pilot-20260907.json",
+        "evidence_section": "known_case_dossiers",
+        "translation_writeback": false
+      }
     },
     {
       "id": "VOICE-08",
@@ -302,7 +361,7 @@
       "status": "context_review_only_not_confirmed_error",
       "priority": "P2",
       "reason": "现译“真是美丽的友情啊”承接超限恶魔会冻结人心的威胁。投稿“真挚的友情”可能弱化讽刺；现稿保留，不预设必须改写。",
-      "next_review": "连同对峙整段比较讽刺、威胁和转折，只有具体上下文出现问题时再拟稿。",
+      "next_review": "目前没有具体上下文冲突，不再当作已确认的人设错误。",
       "translation_writeback": false,
       "evidence": [
         {
@@ -338,7 +397,15 @@
             }
           ]
         }
-      ]
+      ],
+      "context_review_20260907": {
+        "status": "复核完成，继续保留现译",
+        "conclusion": "阿斯哈姆先揶揄追兵，该隐拒绝奉承；他故意称以前的同伴，卡洛德否认过去式；再讽刺友情并威胁冻结人心。真是美丽的友情啊仍能承接讽刺。",
+        "candidate_translation": null,
+        "evidence_path": "config/editorial/mail-rand-personality-pilot-20260907.json",
+        "evidence_section": "known_case_dossiers",
+        "translation_writeback": false
+      }
     }
   ],
   "preserved_rules": [
@@ -409,9 +476,9 @@
     }
   ],
   "review_order": [
-    "优先收集梅尔／兰德3处态度与关系偏差的完整语境",
-    "阿斯哈姆、查尔斯按既有暂缓记录做上下文复核；典故项另查出处",
-    "后续若开展系统审校，再按审校条目量安排高覆盖人物；本清单不诊断尚未审查的人物"
+    "已完成6组个案补证，见follow_up_review。",
+    "已完成梅尔／兰德145条小样及两类词组定向扩查，候选未写回。",
+    "后续优先处理明确词义、主宾关系和同源漏改；可选口吻和典故独立保留。"
   ],
   "high_volume_candidates": {
     "metric": "审校条目量：剧情记录 + 对应人物资源的非空唯一战斗字幕；不是逐句实际发声数量或单周目出现次数。",
@@ -542,5 +609,41 @@
     "no_corpus_files_changed": true,
     "site_writeback": false,
     "runtime_validation": "not_run"
+  },
+  "follow_up_review": {
+    "status": "approved_candidates_applied_and_verified",
+    "authority": "用户确认双版本运行验收通过，并要求继续已知个案补证与梅尔／兰德小样（步骤2-3）。",
+    "case_report": "docs/CHARACTER_PERSONALITY_CASE_REVIEW_20260907.md",
+    "pilot_report": "docs/MAIL_RAND_PERSONALITY_PILOT_20260907.md",
+    "structured_review": "config/editorial/mail-rand-personality-pilot-20260907.json",
+    "fixed_sample_entries": 145,
+    "fixed_sample_counts": {
+      "keep_current": 130,
+      "optional_polish_candidate": 6,
+      "expression_fix_candidate": 3,
+      "semantic_fix_candidate": 4,
+      "reference_hold": 2
+    },
+    "translation_writeback": true,
+    "application": {
+      "status": "applied_and_dual_build_static_verified",
+      "date": "2026-09-07",
+      "authority": "用户确认：很好，这部份都可以修正",
+      "record": "config/editorial/character-personality-application-20260907.json",
+      "report": "docs/CHARACTER_PERSONALITY_APPLICATION_20260907.md",
+      "unique_entries": 26,
+      "story": 15,
+      "battle": 11,
+      "corpus_files": 9,
+      "translation_writeback": true,
+      "snapshot_note": "current_translation、context 与既有 verification 保存写回前审校快照；实际写回文本和后续构建验证见 application 记录。",
+      "build_validation": "manifests/editions/personality-polish-20260907.json"
+    }
+  },
+  "counts_at_inventory": {
+    "attitude_semantics_issues": 3,
+    "context_or_existing_hold_cases": 2,
+    "reference_evidence_followups": 1,
+    "preserved_rule_groups": 6
   }
 }

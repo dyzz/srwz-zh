@@ -143,7 +143,9 @@
         "アクエリオン"
       ],
       "translation": "阿克艾里昂",
-      "deprecated_translations": ["亚库艾里翁"],
+      "deprecated_translations": [
+        "亚库艾里翁"
+      ],
       "category": "unit",
       "status": "approved",
       "domains": [
@@ -172,7 +174,9 @@
         "強攻型アクエリオン"
       ],
       "translation": "强攻型阿克艾里昂",
-      "deprecated_translations": ["强攻型亚库艾里翁"],
+      "deprecated_translations": [
+        "强攻型亚库艾里翁"
+      ],
       "category": "unit",
       "status": "approved",
       "domains": [
@@ -900,6 +904,26 @@
       ],
       "enforce": true,
       "notes": "优莱卡收养的三个孩子因兰顿曾经呕吐而给他起的嘲弄性外号；用户于 2026-08-25 定稿为“呕吐鬼”。"
+    },
+    {
+      "id": "organization/big-o-union",
+      "source_terms": [
+        "ユニオン"
+      ],
+      "translation": "Union",
+      "category": "organization",
+      "status": "approved",
+      "domains": [
+        "story"
+      ],
+      "deprecated_translations": [
+        "联盟",
+        "联合"
+      ],
+      "variant_scope": "source_bound",
+      "registry_match": "explicit_only",
+      "enforce": true,
+      "notes": "用户于 2026-09-07 确认其余六组定稿，BIG-O 组织统一为 Union；作为项目定名，不声称官方中文译名。只约束本次源文含ユニオン的 23 条剧情显式引用，不全局替换中文联盟或联合。"
     }
   ]
 }

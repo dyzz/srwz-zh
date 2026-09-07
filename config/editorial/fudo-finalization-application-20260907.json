@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-07",
+  "source_head": "f5137cb551fbcea74b72dbe9b11f09ccd5e9b7ae",
+  "user_request": "定稿双手合十，其间有什么？目前的都可以build,commit,push，更新审阅站了",
+  "status": "applied_component_validated",
+  "changes": [
+    {
+      "id": "story/078/dialogue/02.01/0086",
+      "corpus_path": "corpus/zh/story-dialogue/stage-078.json",
+      "source_ja": "「両の手を叩き合わせた\n　その間に何がある」",
+      "source_text_sha256": "647d91bc40bd0d6ab2f914e71a24be6752758e1ebfddbf1dd523194208210589",
+      "before": "“双手合击的瞬间，其中有什么。”",
+      "after": "“双手合十，其间有什么？”"
+    },
+    {
+      "id": "story/144/dialogue/01.39/0000",
+      "corpus_path": "corpus/zh/story-dialogue/stage-144.json",
+      "source_ja": "「両の手を叩き合わせた、\n　その間に何がある」",
+      "source_text_sha256": "e04a2780afb4b75693addd55e2eb2a3c480ae3e812e2867589b0439b04dbcfda",
+      "before": "“双手合十，那之间有什么。”",
+      "after": "“双手合十，其间有什么？”"
+    },
+    {
+      "id": "story/078/dialogue/02.01/0079",
+      "corpus_path": "corpus/zh/story-dialogue/stage-078.json",
+      "source_ja": "「両の手を叩き合わせた\n　その間に何がある…」",
+      "source_text_sha256": "feb6d907ada88e96ffcf66153d3c9c0dfd0cbf13afc85c00e3054bec9429489d",
+      "before": "“双手合击的瞬间，其中有什么……”",
+      "after": "“双手合十，其间有什么……”"
+    },
+    {
+      "id": "story/078/dialogue/02.01/0093",
+      "corpus_path": "corpus/zh/story-dialogue/stage-078.json",
+      "source_ja": "「両の手を叩き合わせた間か…。\n　深いな…」",
+      "source_text_sha256": "67d3989f68958c47e2b95c8651f4e28b7e564776859fbf4c47809b28f61e1b2b",
+      "before": "“双手合击的瞬间吗……真深奥啊……”",
+      "after": "“合十的双手之间吗……真深奥啊……”"
+    },
+    {
+      "id": "story/099/dialogue/02.01/0091",
+      "corpus_path": "corpus/zh/story-dialogue/stage-099.json",
+      "source_ja": "「両の手を叩き合わせた\n　その間に何がある…というやつか…」",
+      "source_text_sha256": "2d67ba7641e0be776f8dde2f53b8e571513e1c0fe81e0dd7cbb803d0300f6a9b",
+      "before": "“就是那个……双手合拍时，中间有什么……”",
+      "after": "“是那句‘双手合十，\n　其间有什么’吗……”"
+    }
+  ],
+  "retained": [
+    {
+      "id": "story/149/dialogue/01.50/0000",
+      "corpus_path": "corpus/zh/story-dialogue/stage-149.json",
+      "source_ja": "「両の手を叩き合わせた、\n　その間に何がある」",
+      "source_text_sha256": "e04a2780afb4b75693addd55e2eb2a3c480ae3e812e2867589b0439b04dbcfda",
+      "before": "“双手合十，其间有什么？”",
+      "after": "“双手合十，其间有什么？”"
+    }
+  ],
+  "counts": {
+    "story_translation_changes": 5,
+    "already_final": 1,
+    "all_eight_group_changes": 40,
+    "all_eight_group_retained": 13,
+    "cumulative_low_hanging": 206,
+    "cumulative_story": 170,
+    "cumulative_battle": 36
+  },
+  "validation": {
+    "original_source_records_redecoded": 6,
+    "source_hashes_exact": true,
+    "before_text_exact": true,
+    "layout_21_columns_3_lines": true
+  },
+  "prior_application_receipt": "config/editorial/held-eight-application-20260907.json",
+  "build_receipt": "manifests/editions/text-closeout-20260907.json"
+}

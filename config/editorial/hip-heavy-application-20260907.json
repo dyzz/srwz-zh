@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-07",
+  "status": "applied_battle_component_readback_and_targeted_tests_passed",
+  "source_head": "f5137cb551fbcea74b72dbe9b11f09ccd5e9b7ae",
+  "request": "User clarified Hip Heavy is a fighter aircraft in Turn A Gundam, continuing the authorized obvious-error correction.",
+  "entry": {
+    "id": "battle:18458",
+    "speaker": "战斗字幕／实际发声者未确认",
+    "source_ja": "「ははっ、\\n　そんなんじゃヒップヘビー以下だね！」",
+    "current_translation": "“哈哈，\\n　那样连Hip Heavy都不如！”",
+    "source_text_sha256": "b64a804b278fc31619578d10226ebd8d857da338e8280e48217f38aae07831e5",
+    "corpus_path": "corpus/zh/battle/srvc-lines.json",
+    "original_location": {
+      "occurrence_count": 1,
+      "occurrences": [
+        {
+          "chunk_index": 256,
+          "record_index": 44,
+          "archive_text_start": 2356172,
+          "encoded_size": 51
+        }
+      ]
+    },
+    "resource_owners": [
+      "美雪"
+    ],
+    "runtime_trigger_status": "not_decoded_or_observed_for_this_line"
+  },
+  "before": "“哈哈，\\n　那样连臀部重都不如！”",
+  "after": "“哈哈，\\n　那样连Hip Heavy都不如！”",
+  "glossary_id": "unit/hip-heavy",
+  "classification": "proper_name_mistranslated_as_common_words",
+  "evidence": {
+    "user_supplied_identity": "Hip Heavy是Turn A里的一种战斗机",
+    "official_page": "https://www.turn-a-gundam.net/character/27.html",
+    "official_evidence_type": "Search index of the original official page identifies 戦闘爆撃機ヒップヘビー; direct URL now redirects to the new series site.",
+    "original_source_fresh_decoded": true,
+    "source_family_unique_hits": [
+      "battle:18458"
+    ],
+    "machine_scanned_story_and_battle_entries": 109376,
+    "resource_owner_note": "Resource ownership is only a catalog association, not runtime speaker or trigger proof."
+  },
+  "static_checks": {
+    "line_widths": [
+      4,
+      17
+    ],
+    "maximum_width": 21,
+    "original_battle_line_break_policy_preserved": true,
+    "explicit_glossary_ref_resolves": true,
+    "common_hip_word_not_matched": true
+  },
+  "prior_low_hanging_batch": {
+    "record": "config/editorial/low-hanging-application-20260907.json",
+    "previous_count": 77,
+    "additional_count": 1,
+    "cumulative_translation_count": 78
+  },
+  "commit": false,
+  "push": false,
+  "new_iso_build": false,
+  "runtime": "not_tested_for_this_followup",
+  "validation": {
+    "tests": {
+      "patterns": [
+        "test_glossary_explicit_only.py",
+        "test_srvc.py"
+      ],
+      "count": 4,
+      "status": "passed",
+      "log_sha256": "feabb4add9e2ca3374e538560634d1ec97dc4f4ce89aab12f3d726e36ea9b2f6"
+    },
+    "battle_component": {
+      "report": {
+        "corpus_id": "srwz-srvc-battle-lines-zh-v1",
+        "unique_text_count": 25708,
+        "record_count": 58740,
+        "production_override_count": 7,
+        "added_line_break_override_count": 2,
+        "removed_line_break_override_count": 1,
+        "chunk_count": 353,
+        "indexed_chunk_count": 288,
+        "zero_record_chunk_count": 65,
+        "unindexed_tail_bytes": 88582,
+        "pool": {
+          "translated_record_count": 58740,
+          "original_indexed_pool_bytes": 2165802,
+          "output_indexed_pool_bytes": 1653694,
+          "released_indexed_pool_bytes": 512108,
+          "minimum_record_headroom": -24,
+          "minimum_chunk_headroom": 0,
+          "expanded_record_count": 114
+        },
+        "translated_reread_count": 58740,
+        "translated_reread_exact": true,
+        "control_tokens_preserved": true,
+        "record_budgets_preserved": false,
+        "individual_record_budgets_preserved": false,
+        "chunk_pool_budget_preserved": true,
+        "chunk_boundaries_preserved": true,
+        "index_structure_preserved": true,
+        "metadata_preserved_byte_exact": true,
+        "unindexed_tails_preserved_byte_exact": true,
+        "zero_record_chunks_preserved_byte_exact": true,
+        "seg_preserved_byte_exact": true
+      },
+      "bin_sha256": "c8a9d6222991ec308e2999895b58da102704f9d2b191beec38ff43e6c6b65422",
+      "seg_sha256": "f31e5fb9a579df398211142e04c528db1ff6e01eb2c4c5980746094528d2f987",
+      "font_manifest_source": "HEAD manifest matching the available locked proposal; mapping and font_component identical to working-tree manifest"
+    },
+    "scope": {
+      "one_translation_and_explicit_glossary_ref": true,
+      "one_new_glossary_term": true,
+      "direct_battle_input_lock_refreshed": true,
+      "other_corpus_files_byte_exact": 244,
+      "prior_uncommitted_work_preserved": true
+    },
+    "current_corpus_sha256": "4f5e278b2175c03f8c6bff64fae2768a7e8c2b5e811c52c3fc8caa48869b9201"
+  },
+  "scan_gap": "A single occurrence cannot be discovered by same-Japanese translation-variant comparison. This unregistered proper name was translated as ordinary words; the explicit glossary entry now gives terminology checks a source-bound rule."
+}

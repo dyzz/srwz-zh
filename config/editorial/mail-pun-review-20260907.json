@@ -2,7 +2,7 @@
   "schema_version": 1,
   "review_id": "mail-pun-review-20260907",
   "translation_writeback": true,
-  "purpose": "当前普通润色已收尾：梅尔21条及兰德独立2条已修复；人物态度与典故问题仅整理。",
+  "purpose": "普通润色已完成；后续人物个案补证和用户确认后，MAIL-H01～03已修正。原条目译文、提案及既有核验保留各阶段快照，最新写回见 personality_follow_up_application。",
   "feedback_snapshot_at": "2026-09-07T02:41:19.179654+00:00",
   "feedback_snapshot_total": 1784,
   "scope": {
@@ -1043,9 +1043,9 @@
     {
       "case_id": "MAIL-H01",
       "title": "排斥恶女被写成高攀不起",
-      "status": "hold_no_change",
+      "status": "applied",
       "priority": "high",
-      "reason": "お呼びじゃない是‘不欢迎／没你的份’，这里梅尔在赶人；‘我可高攀不起’把人物立场写成自低身份。按本轮人设问题只登记的要求暂不处理。",
+      "reason": "お呼びじゃない为排斥；前句兰德拒绝兹妮，后句兹妮反击梅尔，不能写成高攀不起。",
       "entries": [
         {
           "id": "story/084/dialogue/01.35/0001",
@@ -1093,14 +1093,21 @@
           "site_feedback": []
         }
       ],
-      "status_at_initial_audit": "hold_no_change"
+      "status_at_initial_audit": "hold_no_change",
+      "status_before_personality_application": "hold_no_change",
+      "reason_before_personality_application": "お呼びじゃない是‘不欢迎／没你的份’，这里梅尔在赶人；‘我可高攀不起’把人物立场写成自低身份。按本轮人设问题只登记的要求暂不处理。",
+      "resolution": {
+        "status": "applied_user_approved",
+        "record": "config/editorial/character-personality-application-20260907.json",
+        "translation": "“装成同伴接近的恶女，我们才不欢迎呢！”"
+      }
     },
     {
       "case_id": "MAIL-H02",
       "title": "兰德承担梅尔性命被写成夺命",
-      "status": "hold_no_change",
+      "status": "applied",
       "priority": "high",
-      "reason": "お前の命、俺が預かる是接下对方性命的托付，现稿‘你的命，我收下了’容易读成杀人台词。这是搭档关系的语义问题，暂只登记。",
+      "reason": "点名梅尔，預かる为承担对方托付；候选不追加永不受伤的保证。",
       "entries": [
         {
           "id": "battle:19545",
@@ -1123,14 +1130,21 @@
           "site_feedback": []
         }
       ],
-      "status_at_initial_audit": "hold_no_change"
+      "status_at_initial_audit": "hold_no_change",
+      "status_before_personality_application": "hold_no_change",
+      "reason_before_personality_application": "お前の命、俺が預かる是接下对方性命的托付，现稿‘你的命，我收下了’容易读成杀人台词。这是搭档关系的语义问题，暂只登记。",
+      "resolution": {
+        "status": "applied_user_approved",
+        "record": "config/editorial/character-personality-application-20260907.json",
+        "translation": "“梅尔！你的性命就交给我了！！”"
+      }
     },
     {
       "case_id": "MAIL-H03",
       "title": "受击后的怒斥被写成称赞",
-      "status": "hold_no_change",
+      "status": "applied",
       "priority": "high",
-      "reason": "やったわね接もう許さない是在责怪对方‘竟敢动手’，现稿‘干得好’接‘绝不原谅’态度冲突。暂只登记。",
+      "reason": "もう許さない明确否定态度；候选不需猜测被打的是本人还是机体。",
       "entries": [
         {
           "id": "battle:19753",
@@ -1153,7 +1167,14 @@
           "site_feedback": []
         }
       ],
-      "status_at_initial_audit": "hold_no_change"
+      "status_at_initial_audit": "hold_no_change",
+      "status_before_personality_application": "hold_no_change",
+      "reason_before_personality_application": "やったわね接もう許さない是在责怪对方‘竟敢动手’，现稿‘干得好’接‘绝不原谅’态度冲突。暂只登记。",
+      "resolution": {
+        "status": "applied_user_approved",
+        "record": "config/editorial/character-personality-application-20260907.json",
+        "translation": "“你竟敢这样！我绝不饶你！”"
+      }
     },
     {
       "case_id": "MAIL-W01",
@@ -1922,8 +1943,7 @@
     }
   ],
   "case_status_counts": {
-    "applied": 11,
-    "hold_no_change": 3,
+    "applied": 14,
     "reference_followup_no_change": 1,
     "keep_confirmed": 2,
     "keep_current": 12
@@ -2151,5 +2171,19 @@
     "runtime_validation": "not_run",
     "site_writeback": false,
     "evidence_path": "work/review/polish-closeout-20260907"
+  },
+  "personality_follow_up_application": {
+    "status": "applied_and_dual_build_static_verified",
+    "date": "2026-09-07",
+    "authority": "用户确认：很好，这部份都可以修正",
+    "record": "config/editorial/character-personality-application-20260907.json",
+    "report": "docs/CHARACTER_PERSONALITY_APPLICATION_20260907.md",
+    "unique_entries": 26,
+    "story": 15,
+    "battle": 11,
+    "corpus_files": 9,
+    "translation_writeback": true,
+    "snapshot_note": "current_translation、context 与既有 verification 保存写回前审校快照；实际写回文本和后续构建验证见 application 记录。",
+    "build_validation": "manifests/editions/personality-polish-20260907.json"
   }
 }
