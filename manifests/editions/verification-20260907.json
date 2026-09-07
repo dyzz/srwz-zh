@@ -1,0 +1,53 @@
+{
+  "batch_manifest": "work/editions/c5fbc6cdcabc1a4cd130174c45d5bae7e741ce8f974b7297f3a991f1351601a3/original-best.json",
+  "identity_checks": [
+    {
+      "edition": "original",
+      "native_text_pointer_preserved": true,
+      "sr_point_instruction_offset": "0x253924",
+      "sr_point_label": "ＳＲ点数",
+      "system_cnf": "BOOT2 = cdrom0:\\SLPS_258.87;1\r\nVER = 1.04\r\nVMODE = NTSC"
+    },
+    {
+      "edition": "best",
+      "native_text_pointer_preserved": true,
+      "sr_point_instruction_offset": "0x253f24",
+      "sr_point_label": "ＳＲ点数",
+      "system_cnf": "BOOT2 = cdrom0:\\SLPS_732.70;1\r\nVER = 2.00\r\nVMODE = NTSC"
+    }
+  ],
+  "input_digest": "c5fbc6cdcabc1a4cd130174c45d5bae7e741ce8f974b7297f3a991f1351601a3",
+  "original_legacy_equivalence": {
+    "baseline_iso_sha256": "6339a3f09d61ef35b9d1fd9a08946c49d14351a4acda75ee3ef3f86d0f6be760",
+    "member_count": 23,
+    "passed": true,
+    "required": true
+  },
+  "outputs": {
+    "best": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "54eac67cb927ba92fb810e2a391ca782d868f63afc72c065ae94962eeab6ed23",
+      "size": 3755081728
+    },
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "6339a3f09d61ef35b9d1fd9a08946c49d14351a4acda75ee3ef3f86d0f6be760",
+      "size": 3758358528
+    }
+  },
+  "runtime": "not_tested",
+  "source_inventory_matches_snapshot": true,
+  "status": "passed",
+  "tests": 242,
+  "verification": {
+    "both_editions": true,
+    "input_digest": "c5fbc6cdcabc1a4cd130174c45d5bae7e741ce8f974b7297f3a991f1351601a3",
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes",
+    "status": "edition_batch_receipt_integrity_passed",
+    "verified_editions": [
+      "original",
+      "best"
+    ]
+  }
+}

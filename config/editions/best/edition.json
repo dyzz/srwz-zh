@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "edition_id": "best",
+  "adapter": "best-current-source-v1",
+  "profile_id": "zh-release-best",
+  "source_iso": {
+    "path": "rom/best.iso",
+    "size": 3755081728,
+    "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77"
+  },
+  "executable": {
+    "member": "SLPS_732.70",
+    "size": 3473672,
+    "sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb"
+  },
+  "layout": {
+    "stage_base": "0x756EF0",
+    "stage_function_table": "0x2FF830",
+    "compdata_base": "0x6D7000"
+  },
+  "compdata_corrections": "preserve_best_native_fields"
+}

@@ -9,7 +9,7 @@
 - Python 3、Git、CMake、Rust／Cargo 和 ImageMagick 7；
 - 生成可分发补丁时另外需要 xdelta3 与 7-Zip；
 - 用户合法持有的 Redump Disc 4932 原版镜像；
-- 原版文件放在 `rom/Super Robot Taisen Z (Japan, Korea).iso`；
+- 原版文件放在 `rom/original.iso`；
 - 原版大小为 `3758358528` 字节，SHA-256 为
   `ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2`；
 - 构建工具按 `config/upstream.lock.json` 与 ISO 配置锁定版本。
@@ -17,6 +17,11 @@
 `rom/` 只读；`work/` 是可重建的提取与组件目录；`build/` 保存本地 ISO 和发布包。
 不得在旧汉化 ISO 上重复打补丁，也不得让 `rom/`、完整 ISO、存档或本地运行记录进入
 Git 或发布 ZIP。
+
+ISO 长期保留 `0.3.0`、`current-original`、`current-best`、`original`、`best`
+五份，实际路径及清理规则见 [ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。普通生产入口
+构建 Original；同批双版本入口为 `python3 tools/build_editions.py --editions original,best`，
+会从当前源码生成 Original 与 BEST，详见 [当前 BEST 构建](BEST_CURRENT_BUILD.md)。
 
 ## 按物理文件构建
 
@@ -192,7 +197,7 @@ python3 tools/build_iso.py \
 最终 ISO：
 
 ```text
-build/iso/zh-release-full-story/srwz-zh-current.iso
+build/iso/zh-release-full-story/current-original.iso
 ```
 
 - 大小：`3758358528` 字节

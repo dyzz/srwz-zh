@@ -75,7 +75,7 @@ v0.3.0 可分发补丁包已通过 xdelta 还原校验，并在
 联网下载锁定版本的开源构建工具与字体。将自己合法持有的日文原版镜像放到：
 
 ```text
-rom/Super Robot Taisen Z (Japan, Korea).iso
+rom/original.iso
 ```
 
 原版镜像应为 `3,758,358,528` 字节，SHA-256 为：
@@ -84,9 +84,9 @@ rom/Super Robot Taisen Z (Japan, Korea).iso
 ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2
 ```
 
-文件名必须保持为 Redump 规范名称
-`Super Robot Taisen Z (Japan, Korea).iso`；发布补丁附带的 xdelta 命令也固定使用
-这个文件名。Redump 校验值为 CRC-32 `0d9deb37`、MD5
+工作区统一使用本地文件名 `original.iso`；Redump 规范名称
+`Super Robot Taisen Z (Japan, Korea).iso` 仍保留在来源元数据和玩家补丁说明中。
+Redump 校验值为 CRC-32 `0d9deb37`、MD5
 `b8ea8ff82ce2d6e09aa550635a5f61b4`、SHA-1
 `e8dbe37e88afe8f82d48889b0775274ccde3cf99`。
 
@@ -121,8 +121,13 @@ python3 tools/build_release.py \
 构建成功后，镜像位于：
 
 ```text
-build/iso/zh-release-full-story/srwz-zh-current.iso
+build/iso/zh-release-full-story/current-original.iso
 ```
+
+同批构建 Original 与 BEST 时，另需 `rom/best.iso`，再运行
+`python3 tools/build_editions.py --editions original,best`。此入口冻结同一份中文输入，
+为两版生成独立 ISO 和回读记录；原盘身份、输出位置及运行验证边界见
+[当前 BEST 构建](docs/BEST_CURRENT_BUILD.md)。
 
 本地完整 ISO 只用于开发和运行验证，不进入发布包。可分发文件位于：
 

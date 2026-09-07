@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "edition_id": "original",
+  "adapter": "original-production-v1",
+  "profile_id": "zh-release-original",
+  "source_iso": {
+    "path": "rom/original.iso",
+    "size": 3758358528,
+    "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2"
+  },
+  "executable": {
+    "member": "SLPS_258.87",
+    "size": 3471624,
+    "sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50"
+  },
+  "layout": {
+    "stage_base": "0x7566F0",
+    "stage_function_table": "0x2FF0B0",
+    "compdata_base": "0x6D6800"
+  },
+  "compdata_corrections": "apply_original_four_fields"
+}

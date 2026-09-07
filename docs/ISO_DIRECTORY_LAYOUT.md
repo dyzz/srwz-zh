@@ -4,11 +4,40 @@
 分层，并以 ISO profile ID 隔离。`tools/build_iso.py` 会在读取配置时
 校验这些边界，错误路径不会开始构建。
 
+## 长期保留的五份 ISO
+
+自 2026-09-05 起只保留下列五个槽位，实际文件名与槽位一致。
+机器可读路径见 `config/iso/retained-isos.json`。
+
+| 槽位 | 实际路径 | 用途 |
+| --- | --- | --- |
+| `0.3.0` | `build/iso/v0.3.0/0.3.0.iso` | 冻结发布镜像，不随日常构建覆盖 |
+| `current-original` | `build/iso/zh-release-full-story/current-original.iso` | 当前 Original 中文工作镜像 |
+| `current-best` | `build/iso/zh-release-best/current-best.iso` | 当前 BEST 中文工作镜像；身份及回读记录见 `manifests/editions/best/current.json` |
+| `original` | `rom/original.iso` | Original 原盘，只读输入 |
+| `best` | `rom/best.iso` | BEST 原盘，只读输入 |
+
+目录仍按构建 profile 隔离；统一文件名不更换底盘、不修改镜像字节。Redump 的规范
+文件名继续保留在来源元数据中，本地原盘路径使用上表名称。
+
+构建期间允许在 `work/` 或版本隔离目录生成临时副本。验收、核对哈希并选定当前
+产物后，移除重复 ISO 和旧候选，只保留五个槽位；日志、组件、布局、输入快照、
+存档和截图单独保留。阶段 1 的 Original 隔离输出
+`build/iso/zh-release-original/current-original.iso` 属于此类临时副本，
+它与当前生产输出逐字节相同时不重复长期保留。后续 BEST 构建仍写入
+`current-best` 槽位；当前源码构建能力见 [BEST 构建](BEST_CURRENT_BUILD.md)，历史候选身份由新的本版构建记录替换。
+
+清理先保存旧路径、大小、SHA-256，并确认文件未被构建或模拟器使用，再按用户
+要求直接删除五个槽位之外的旧 ISO 和重复副本，不在废纸篓长期保留。
+被清理副本的历史 receipt 保留原始路径与哈希；复验历史批次时，从固定输入重建，
+或从哈希一致的保留镜像重新制作所需临时副本。清理不构成新的构建或运行验收。
+
 ## 1. 目录结构
 
 ```text
 rom/
-  Super Robot Taisen Z (Japan, Korea).iso
+  original.iso
+  best.iso
 
 work/
   disc/
@@ -37,9 +66,13 @@ work/
 
 build/
   iso/
-    v0.1.0/
-      srwz-zh-v0.1.0.iso
-      iso-validation-v0.1.0.json
+    v0.3.0/
+      0.3.0.iso
+    zh-release-full-story/
+      current-original.iso
+      iso-validation-current.json
+    zh-release-best/
+      current-best.iso
 ```
 
 ## 2. 各层所有权
@@ -47,8 +80,8 @@ build/
 ### `rom/`：用户输入
 
 - 只保存用户合法持有的原版镜像。
-- 当前唯一默认输入是 `rom/Super Robot Taisen Z (Japan, Korea).iso`。
-- 工具可以读取和校验，绝不修改、重命名、自动搜索或写回。
+- 当前唯一默认输入是 `rom/original.iso`。
+- 普通构建工具只读取和校验，不修改、重命名、自动搜索或写回。
 - 原盘大小和 SHA-256 由 `manifests/original-disc.json` 与 ISO build config
   固定。
 
@@ -78,7 +111,7 @@ build/
 ### `build/iso/<profile>/`：最终产物
 
 - 只保存用户实际拿来运行的候选 ISO 和同次构建报告。
-- 当前只保留一个实际运行候选；精确路径由选中的 ISO build config 声明。
+- 长期保留冻结 `0.3.0`、`current-original` 和 `current-best`；精确路径见上表。
 - ISO 必须从对应 `work/build/<profile>/components` 和 authoring workspace
   一次生成，不允许 patch-over-patch。
 - 输出路径由 config 固定，禁止回退到 `work/iso/` 或仓库根目录。
@@ -102,7 +135,7 @@ build/
 
 | 路径 | 是否可直接清理 | 恢复方式 |
 | --- | --- | --- |
-| `rom/Super Robot Taisen Z (Japan, Korea).iso` | 否 | 用户重新提供合法原盘 |
+| `rom/original.iso` | 否 | 用户重新提供合法原盘 |
 | `work/disc/` | 是 | 重新选择性提取 |
 | `work/build/<profile>/components/` | 是 | 重跑 component build |
 | `work/build/<profile>/iso/` | 是 | 重跑 ISO build；必要时 refresh extraction |
@@ -126,7 +159,7 @@ build/
 目录校验只证明所有权边界。成员 byte-exact、ISO9660/UDF、DVD 识别、LBA、
 整镜像哈希和 PCSX2 运行结论仍由各自独立 gate 验证。
 
-当前单一候选 profile 为 `zh-release-full-story`，ISO 为
-`build/iso/zh-release-full-story/srwz-zh-current.iso`；其静态报告
+当前默认生产 profile 为 `zh-release-full-story`，Original ISO 为
+`build/iso/zh-release-full-story/current-original.iso`；其静态报告
 已通过；当前精确哈希的 fresh-process 启动和目标路线 runtime 仍待完成。构建与运行命令见
 `BUILD_AND_RUNTIME.md`。

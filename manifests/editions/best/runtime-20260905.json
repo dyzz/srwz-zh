@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "edition": "best",
+  "status": "lrps2_new_game_stage001_observed",
+  "iso": {
+    "path": "build/iso/zh-release-best/current-best.iso",
+    "sha256": "ed0c2e04b60db631593dae6da0ef556561883fcc37d588187c82f97b21383825",
+    "size": 3755081728
+  },
+  "input_digest": "6830228fe417ae77093ea770a23dd168bd2d55f0c66c6bb0fcf9e53507d82a84",
+  "runtime_receipt": {
+    "path": "work/runtime/lrps2/best-current-source-newgame-20260905/receipt.json",
+    "sha256": "18e210c20b9f5658c68506c00e87804095f13545e8cc956fcc741b33d62cdf4e"
+  },
+  "exercised_copy_path": "work/build/zh-release-best/975464cd4f4538442586218c78fa134ccc48fead8e330dc57f6ba1fdecd73806/project/build/iso/zh-release-best/srwz-zh-best-current.iso",
+  "exercised_copy_equals_final_iso_sha256": true,
+  "source_memory_card_unchanged": true,
+  "captures": [
+    {
+      "path": "work/runtime/lrps2/best-current-source-newgame-20260905/frames/02220-scenario-selection-menu.png",
+      "sha256": "101710060a154e1595b91dca3cb4c28973a645705fb0d25274e291e608d540d5",
+      "observation": "Chinese scenario selection menu rendered normally"
+    },
+    {
+      "path": "work/runtime/lrps2/best-current-source-newgame-20260905/frames/05552-first-dialogue.png",
+      "sha256": "5b35d3632174b071624b81181b084822b0502c242c1bd2276f13cca1b2338c19",
+      "observation": "STAGE 001 Jerid first Chinese dialogue visible"
+    },
+    {
+      "path": "work/runtime/lrps2/best-current-source-newgame-20260905/frames/05764-second-dialogue.png",
+      "sha256": "bb505820e56a8e035d095a48d2349e2235b671b44b4bb60fa25924d4e33230f0",
+      "observation": "Setsuko reply rendered in Chinese"
+    },
+    {
+      "path": "work/runtime/lrps2/best-current-source-newgame-20260905/frames/05976-third-dialogue.png",
+      "sha256": "8ff6253bcbea867e9b526c9df876e423334084d9b47909df25601bd487b60212",
+      "observation": "Following Chinese dialogue and highlighted keyword rendered; dialogue advances"
+    }
+  ],
+  "coverage": [
+    "scenario selection",
+    "Setsuko new game",
+    "STAGE 001 entry",
+    "three advancing Chinese dialogue screens"
+  ],
+  "pcsx2": "not_tested",
+  "remaining_runtime": [
+    "Rand new game",
+    "ordinary save load and save/reload",
+    "B-Save ammunition display",
+    "battle subtitles/audio",
+    "library visibility in gameplay"
+  ]
+}

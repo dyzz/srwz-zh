@@ -57,8 +57,10 @@ def prepare():
     required={x['member'] for x in config['replacements']}
     # Best edition identity is checked from the full source image.
     for v in ['original','best']:
-        iso=Path(comp[v]['path']);progress(f'[snapshot] verify {v} ISO')
+        edition=load(ROOT/f'config/editions/{v}/edition.json')
+        iso=ROOT/edition['source_iso']['path'];progress(f'[snapshot] verify {v} ISO')
         assert file_sha(iso)==comp[v]['hashes']['sha256'],v
+        comp[v]['path']=str(iso)
         with iso.open('rb') as f:
             for m in comp[v]['members']:
                 if m['path'] in required or m['path']=='SLPS_732.70':

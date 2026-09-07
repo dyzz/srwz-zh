@@ -301,10 +301,19 @@ def _condition_entries(
     stage_index: int,
     base_address: int,
 ) -> tuple:
+    # The native BEST executable stores these three globals 0x800 later.
+    # Select signatures from the explicit load base; never rewrite input code
+    # merely to make it parse as another edition.
+    signatures = {
+        0x7566F0: ("b05222ac", "b85222ac", "c05222ac"),
+        0x756EF0: ("b05a22ac", "b85a22ac", "c05a22ac"),
+    }
+    if base_address not in signatures:
+        raise ValueError(f"unsupported STAGE condition layout: 0x{base_address:X}")
     labels = (
-        ("_Victory Conditions", bytes.fromhex("b05222ac")),
-        ("_Defeat Condtions", bytes.fromhex("b85222ac")),
-        ("_SR Conditions", bytes.fromhex("c05222ac")),
+        ("_Victory Conditions", bytes.fromhex(signatures[base_address][0])),
+        ("_Defeat Condtions", bytes.fromhex(signatures[base_address][1])),
+        ("_SR Conditions", bytes.fromhex(signatures[base_address][2])),
     )
     function_offset = function_address - base_address
     if not 0 <= function_offset < len(data):

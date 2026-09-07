@@ -1,5 +1,7 @@
 # BEST 订正回迁清单：当前 Original 汉化版
 
+> 后续版本安排：下一版计划同时构建 Original 与 BEST，见 [双版本构建方案](DUAL_EDITION_BUILD_PLAN.md)。以下仍是本轮 Original 回迁范围和历史验证记录；双版本构建不会将 BEST 动画移植到 Original。
+
 2026-09-05。当前采用 **Original 底盘 + 必要文字订正 + 四处 COMPDATA 字段订正**。图鉴继续全开放。战斗动画不列入回迁范围；正式切换 BEST 底盘目前不作为执行前提。
 
 ## 1. 本轮四处数据订正
@@ -64,7 +66,7 @@ D02–D04 修复主记录和查找表之间的不一致；不新增机体，不�
 | 最终 ISO | 四字段独立回读通过；完整回读 170 个关卡块、93,071 条文本；原有图鉴全开放及存档写入保护检查通过。 |
 | 动画与布局 | `BTL/TWP.BIN`、`BTL/TWP.SEG`、`BTL/TWPSIZE.BIN` 与 Original 内容及 LBA 一致；66 个成员的 LBA 全部保留。 |
 
-回迁实施时的共享工作区构建：[`build/iso/zh-release-full-story/srwz-zh-current.iso`](../build/iso/zh-release-full-story/srwz-zh-current.iso)，3,758,358,528 字节。此快照含当时工作区已有的并行润色；提交范围的独立验证见下一节。
+回迁实施时的共享工作区构建：[`build/iso/zh-release-full-story/current-original.iso`](../build/iso/zh-release-full-story/current-original.iso)，3,758,358,528 字节。此快照含当时工作区已有的并行润色；提交范围的独立验证见下一节。
 
 ```text
 ISO SHA-256

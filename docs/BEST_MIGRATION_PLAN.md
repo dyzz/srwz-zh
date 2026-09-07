@@ -1,5 +1,9 @@
 # The Best 汉化迁移计划与 alpha1 结果
 
+> 当前源码构建已接入 BEST 后端，见 [当前 BEST 构建](BEST_CURRENT_BUILD.md)。下面的 alpha1/r1 是历史实验，不作为当前源码构建输入。
+
+> 最新安排（2026-09-05）：下一汉化版本计划同时构建 Original 与 BEST；共享中文、码表和已审核图片，两版各自保留原生程序/资源并应用全开放策略。正式代码结构、分版契约和六步实施顺序见 [双版本构建方案](DUAL_EDITION_BUILD_PLAN.md)。本文保留 alpha1 历史实验记录。
+
 > 后续决定（2026-09-05）：当前保留 Original 默认底盘，先迁回必要中文修订；图鉴沿用全开放查询，不迁入 Best 的显示限制。16 个条目已回迁并构建当前 ISO，详细冲突与验证见 [本轮回迁报告](BEST_BACKPORT_AND_PROGRAM_REVIEW.md)。旧 alpha1 的 STAGE 150 姓名占位实际有误，已修正脚本并生成独立 alpha1-r1；下面的 alpha1 哈希与运行结果保留为历史记录。
 
 2026-09-05。用户授权规划、评估并尝试第一版 Best 汉化 build。

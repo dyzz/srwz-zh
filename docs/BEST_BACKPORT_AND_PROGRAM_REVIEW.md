@@ -129,7 +129,7 @@ Best `0x154190` 对人物 ID `0x1B/0x1E`，`0x1544B0` 对机体 ID `0x0E/0x0F/0x
 
 ## 4. 构建与验证结果
 
-- 当前 Original ISO：`build/iso/zh-release-full-story/srwz-zh-current.iso`
+- 当前 Original ISO：`build/iso/zh-release-full-story/current-original.iso`
 - 大小：3,758,358,528 字节。
 - SHA-256：`85f92fdd135a0c166ba78562573806388d410538ea30b1c4b1bc13495ff625d8`。
 - 相对回迁前的中文 ISO，6 个成员变化：`SLPS_258.87`、`DATA/COMPDATA.BN`、`DATA/NISVDATA.BIN`、`DATA/STAGE.BIN`、`DATA/MTVZKNPT.BIN`、`BTL/SRVC.BIN`。SRVC 的 SEG 和索引元数据仍按原版保留。
@@ -142,7 +142,7 @@ Best `0x154190` 对人物 ID `0x1B/0x1E`，`0x1544B0` 对机体 ID `0x0E/0x0F/0x
 
 复核发现旧 alpha1 对 STAGE 150 的姓名代入误用了 `:`。已经修正试作脚本，新增回归测试，并输出独立 alpha1-r1：
 
-- `build/iso/best-alpha1-r1/srwz-zh-best-alpha1-r1.iso`
+- `build/iso/best-alpha1-r1/srwz-zh-best-alpha1-r1.iso`（历史产物路径；当前 BEST 源码构建及产物见 [当前 BEST 构建](BEST_CURRENT_BUILD.md)）
 - SHA-256：`e369a6216f9b4bb79b8aacdce4c65766153f3b1dffe1bc5889ac22237da734b3`
 - 与旧 alpha1 相比，仅 STAGE 第 150 块的姓名片段不同，回读确认存储 `24 6e`；利用原压缩槽的容量，HB 目录与其他 65 个成员均保持字节一致。
 - 66/66 个成员回读通过。旧 alpha1 保留，既有运行记录仍指向旧哈希；r1 本身尚无新的运行记录。

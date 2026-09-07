@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "policy": "Keep one ISO per slot after build verification; retain reports and runtime evidence separately.",
+  "slots": {
+    "0.3.0": {
+      "path": "build/iso/v0.3.0/0.3.0.iso",
+      "role": "frozen_release"
+    },
+    "current-original": {
+      "path": "build/iso/zh-release-full-story/current-original.iso",
+      "role": "working"
+    },
+    "current-best": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "role": "working",
+      "candidate": "best-current-source-v1; current build identity is recorded in manifests/editions/best/current.json"
+    },
+    "original": {
+      "path": "rom/original.iso",
+      "role": "source"
+    },
+    "best": {
+      "path": "rom/best.iso",
+      "role": "source"
+    }
+  }
+}
