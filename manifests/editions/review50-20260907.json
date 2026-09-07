@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-07",
+  "status": "dual_edition_build_and_static_readback_passed",
+  "source_head": "c70b757ef4a8ec45ac7727b032e2601ca55c8198",
+  "input_digest": "3f269e3f2b10e5c7545700999fc52b860463aad4bc38b116bbaf383d7efce26b",
+  "batch_manifest": "work/editions/3f269e3f2b10e5c7545700999fc52b860463aad4bc38b116bbaf383d7efce26b/original-best.json",
+  "verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "3f269e3f2b10e5c7545700999fc52b860463aad4bc38b116bbaf383d7efce26b",
+    "verified_editions": [
+      "original",
+      "best"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "all_nongenerated_frozen_inputs_still_exact": true,
+  "generated_locks_promoted": [
+    "config/full-story-components.json",
+    "config/iso/zh-release-current-build.json",
+    "manifests/full-story-components-validation.json",
+    "manifests/full-story-library-components-validation.json",
+    "manifests/library-v0.2-reviewed-validation.json",
+    "manifests/zh-release-font-validation.json",
+    "manifests/zh-release-full-story-iso-content-validation.json"
+  ],
+  "root_components_match_independent_original_build": 23,
+  "outputs": {
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "f44af1d4b8cf04b73b952208fbfe86e3dcb1b91faa0362cd9e55cc0441572705",
+      "size": 3758358528
+    },
+    "best": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "11e6266fcbf7ff1c89440332afb706e5c2b47a2681387081a6ab12e86ddd0767",
+      "size": 3755081728
+    }
+  },
+  "original_production_slot": "build/iso/zh-release-full-story/current-original.iso",
+  "text_verification": {
+    "review_decisions": 50,
+    "choice_counts": {
+      "proposal": 40,
+      "current": 1,
+      "candidate": 8,
+      "custom": 1
+    },
+    "changed_entries": 51,
+    "name_sync_entries": 2,
+    "translation_fields_only": true,
+    "input_draft_sha256": "c10261a7ddc197aea0c08c3eff4826ddf9d3c3c67f72bb791233dfcb26ac4f41",
+    "application_receipt_sha256": "9467e35260d40c06e9afa8e50eeda4ac0fe37ad9ee7625de097a538b085beffc",
+    "subtitle_evidence_sha256": "2fcad313d999cacbe6fe9614d7acc90c7628d29f30047eb071d6354efd1b374f"
+  },
+  "tests": {
+    "command": "python3 -m unittest discover -s tests",
+    "passed": 245,
+    "log_sha256": "822e16a41409552d0939e7cf1b5f835ac9c48c749a29e96f22defe89fca9a9a6"
+  },
+  "unrelated_capacity_notes_byte_exact": true,
+  "runtime": "not_tested_for_new_iso_hashes",
+  "prior_user_runtime_acceptance": "manifests/editions/runtime-user-acceptance-20260907.json"
+}
