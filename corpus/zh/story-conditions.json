@@ -1110,7 +1110,7 @@
     {
       "id": "story/022/condition/01/01",
       "source_text_sha256": "f4a11d6478ad4b4936f22dc36123e9520cf4da5215f1ee5ddc1d222c655245df",
-      "translation": "亚库艾里翁被击坠。",
+      "translation": "阿克艾里昂被击坠。",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -1362,7 +1362,8 @@
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
-        "unit/king-beal"
+        "unit/king-beal",
+        "unit/king-bial"
       ],
       "notes": ""
     },
@@ -1576,7 +1577,7 @@
     {
       "id": "story/028/condition/01/03",
       "source_text_sha256": "f4a11d6478ad4b4936f22dc36123e9520cf4da5215f1ee5ddc1d222c655245df",
-      "translation": "亚库艾里翁被击坠。",
+      "translation": "阿克艾里昂被击坠。",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -2096,7 +2097,7 @@
     {
       "id": "story/037/condition/01/03",
       "source_text_sha256": "f4a11d6478ad4b4936f22dc36123e9520cf4da5215f1ee5ddc1d222c655245df",
-      "translation": "亚库艾里翁被击坠。",
+      "translation": "阿克艾里昂被击坠。",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -2506,7 +2507,8 @@
       "translation_action": "translate",
       "glossary_refs": [
         "people/gainer",
-        "system/condition-shot-down"
+        "system/condition-shot-down",
+        "people/speaker-980ee4d20d74"
       ],
       "notes": ""
     },
@@ -2572,7 +2574,8 @@
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
-        "unit/big-duo"
+        "unit/big-duo",
+        "people/speaker-be29ed800edf"
       ],
       "notes": ""
     },
@@ -2653,7 +2656,8 @@
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
-        "system/turn"
+        "system/turn",
+        "people/speaker-be29ed800edf"
       ],
       "notes": ""
     },
@@ -2703,7 +2707,7 @@
     {
       "id": "story/048/condition/01/01",
       "source_text_sha256": "f4a11d6478ad4b4936f22dc36123e9520cf4da5215f1ee5ddc1d222c655245df",
-      "translation": "亚库艾里翁被击坠。",
+      "translation": "阿克艾里昂被击坠。",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -3618,7 +3622,8 @@
       "glossary_refs": [
         "system/damage",
         "system/clear-map",
-        "unit/king-beal"
+        "unit/king-beal",
+        "unit/king-bial"
       ],
       "notes": ""
     },
@@ -4039,7 +4044,6 @@
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "unit/nirvash",
         "system/condition-shot-down",
         "unit/nirvash-the-end"
       ],
@@ -4084,7 +4088,6 @@
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
-        "unit/nirvash",
         "system/condition-shot-down",
         "system/turn",
         "unit/nirvash-the-end"
@@ -4297,7 +4300,7 @@
     {
       "id": "story/078/condition/01/02",
       "source_text_sha256": "783cc624d0c4e941a594726314a764e110c87c7d7771c4aa11d504f54869a9d2",
-      "translation": "盖塔机器人或亚库艾里翁被击坠。",
+      "translation": "盖塔机器人或阿克艾里昂被击坠。",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
@@ -4639,12 +4642,14 @@
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
-        "people/rey-za-burrel-short",
         "people/ray",
         "system/condition-shot-down",
         "people/charles"
       ],
-      "notes": "本轮全量动态条件表审计补齐并人工复核。"
+      "notes": "此处レイ指与查尔斯并列的雷·比姆斯，保留people/ray绑定，不绑定《高达SEED DESTINY》的同名角色。",
+      "glossary_exceptions": [
+        "people/rey-za-burrel-short"
+      ]
     },
     {
       "id": "story/085/condition/02/00",
@@ -4765,7 +4770,10 @@
         "people/charles",
         "people/ray"
       ],
-      "notes": ""
+      "notes": "此处レイ指与查尔斯并列的雷·比姆斯，保留people/ray绑定，不绑定《高达SEED DESTINY》的同名角色。",
+      "glossary_exceptions": [
+        "people/rey-za-burrel-short"
+      ]
     },
     {
       "id": "story/088/condition/01/00",
@@ -5279,7 +5287,6 @@
       "glossary_refs": [
         "system/condition-shot-down",
         "people/roberto",
-        "unit/ishkick-commander",
         "unit/ishkick-commander-ii"
       ],
       "notes": ""
@@ -5862,8 +5869,8 @@
     {
       "id": "story/112/condition/00/01",
       "source_text_sha256": "4c655fb95ec45541e5c44caf7cc42baddc6a78f1728d9fefe59b107718b851d2",
-      "translation": "击坠阿尔法机械天使。",
-      "editorial_status": "draft",
+      "translation": "击坠强攻型机械天使·阿尔法。",
+      "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
@@ -5885,7 +5892,7 @@
     {
       "id": "story/112/condition/01/01",
       "source_text_sha256": "f4a11d6478ad4b4936f22dc36123e9520cf4da5215f1ee5ddc1d222c655245df",
-      "translation": "亚库艾里翁被击坠。",
+      "translation": "阿克艾里昂被击坠。",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -5925,7 +5932,6 @@
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
-        "unit/big-duo",
         "unit/big-duo-inferno"
       ],
       "notes": ""
@@ -5974,7 +5980,6 @@
       "glossary_refs": [
         "system/condition-shot-down",
         "system/turn",
-        "unit/big-duo",
         "unit/big-duo-inferno"
       ],
       "notes": ""
@@ -6451,7 +6456,7 @@
     {
       "id": "story/127/condition/00/02",
       "source_text_sha256": "d1d595769d7d36208cf733c47b1d25182b4130a6e8b266d27bec0c2dfb22ed21",
-      "translation": "击坠奥尔巴或夏基亚，\n并击坠阿尔法机械天使。",
+      "translation": "击坠奥尔巴或夏基亚，\n并击坠强攻型机械天使·阿尔法。",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
@@ -6465,8 +6470,8 @@
     {
       "id": "story/127/condition/00/03",
       "source_text_sha256": "4c655fb95ec45541e5c44caf7cc42baddc6a78f1728d9fefe59b107718b851d2",
-      "translation": "击坠阿尔法机械天使。",
-      "editorial_status": "draft",
+      "translation": "击坠强攻型机械天使·阿尔法。",
+      "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
@@ -6501,7 +6506,7 @@
     {
       "id": "story/127/condition/01/01",
       "source_text_sha256": "fcff92bc0f7cc0375a8adc434c99bed6ea32e90309fe7d212c901c52540a3e11",
-      "translation": "罗兰或亚库艾里翁被击坠。",
+      "translation": "罗兰或阿克艾里昂被击坠。",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -6525,7 +6530,7 @@
     {
       "id": "story/127/condition/01/03",
       "source_text_sha256": "f4a11d6478ad4b4936f22dc36123e9520cf4da5215f1ee5ddc1d222c655245df",
-      "translation": "亚库艾里翁被击坠。",
+      "translation": "阿克艾里昂被击坠。",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -6560,8 +6565,8 @@
     {
       "id": "story/128/condition/00/00",
       "source_text_sha256": "4c655fb95ec45541e5c44caf7cc42baddc6a78f1728d9fefe59b107718b851d2",
-      "translation": "击坠阿尔法机械天使。",
-      "editorial_status": "draft",
+      "translation": "击坠强攻型机械天使·阿尔法。",
+      "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
@@ -6572,8 +6577,8 @@
     {
       "id": "story/128/condition/00/01",
       "source_text_sha256": "e02713ad60477b097f1e5413dd3fbbf79eb7bb3ee494f15f5689447a8750cbea",
-      "translation": "击坠阿尔法机械天使、凯鲁宾·伊斯库隆或\n凯鲁宾·火星中的任意一台，并击坠机械要塞鬼。",
-      "editorial_status": "draft",
+      "translation": "击坠强攻型机械天使·阿尔法、\n凯鲁宾·伊斯库隆或凯鲁宾·火星中的任意一机，\n并击坠机械要塞鬼。",
+      "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
@@ -6587,7 +6592,7 @@
     {
       "id": "story/128/condition/00/02",
       "source_text_sha256": "96b3c75e714f39fd85a16c8341f3a174452af475dbc91cd72d99766dc61548aa",
-      "translation": "击坠阿尔法机械天使、凯鲁宾·伊斯库隆或\n凯鲁宾·火星中的任意一机。",
+      "translation": "击坠强攻型机械天使·阿尔法、\n凯鲁宾·伊斯库隆或凯鲁宾·火星中的任意一机。",
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
@@ -6624,7 +6629,7 @@
     {
       "id": "story/128/condition/01/01",
       "source_text_sha256": "f4a11d6478ad4b4936f22dc36123e9520cf4da5215f1ee5ddc1d222c655245df",
-      "translation": "亚库艾里翁被击坠。",
+      "translation": "阿克艾里昂被击坠。",
       "editorial_status": "draft",
       "translation_action": "translate",
       "glossary_refs": [
@@ -7079,7 +7084,8 @@
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
-        "system/turn"
+        "system/turn",
+        "unit/ginga-ship"
       ],
       "notes": "本轮全量动态条件表审计补齐并人工复核。"
     },
@@ -7091,7 +7097,8 @@
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
-        "system/turn"
+        "system/turn",
+        "unit/ginga-ship"
       ],
       "notes": "本轮全量动态条件表审计补齐并人工复核。"
     },
@@ -7103,7 +7110,8 @@
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
-        "system/turn"
+        "system/turn",
+        "unit/ginga-ship"
       ],
       "notes": "本轮全量动态条件表审计补齐并人工复核。"
     },
@@ -7121,8 +7129,8 @@
     {
       "id": "story/136/condition/01/01",
       "source_text_sha256": "82078f0ae99e4ae7195a3f0bd1feb84b7d71b25f897ffb8fef48f6f021656d4a",
-      "translation": "Aquarion或强攻型亚库艾里翁被击坠。",
-      "editorial_status": "draft",
+      "translation": "阿克艾里昂或强攻型阿克艾里昂被击坠。",
+      "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
@@ -7138,7 +7146,8 @@
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
-        "system/turn"
+        "system/turn",
+        "unit/ginga-ship"
       ],
       "notes": "本轮全量动态条件表审计补齐并人工复核。"
     },
@@ -7149,7 +7158,8 @@
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
-        "system/turn"
+        "system/turn",
+        "unit/ginga-ship"
       ],
       "notes": "本轮全量动态条件表审计补齐并人工复核。"
     },
@@ -7160,7 +7170,8 @@
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
-        "system/turn"
+        "system/turn",
+        "unit/ginga-ship"
       ],
       "notes": "本轮全量动态条件表审计补齐并人工复核。"
     },
@@ -7280,7 +7291,8 @@
       "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
-        "system/condition-shot-down"
+        "system/condition-shot-down",
+        "unit/ginga-ship"
       ],
       "notes": "本轮全量动态条件表审计补齐并人工复核。"
     },
@@ -7298,8 +7310,8 @@
     {
       "id": "story/139/condition/01/01",
       "source_text_sha256": "82078f0ae99e4ae7195a3f0bd1feb84b7d71b25f897ffb8fef48f6f021656d4a",
-      "translation": "Aquarion或强攻型亚库艾里翁被击坠。",
-      "editorial_status": "draft",
+      "translation": "阿克艾里昂或强攻型阿克艾里昂被击坠。",
+      "editorial_status": "reviewed",
       "translation_action": "translate",
       "glossary_refs": [
         "system/condition-shot-down",
