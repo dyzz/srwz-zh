@@ -1,0 +1,517 @@
+{
+  "schema_version": 1,
+  "pilot_id": "srwz-polish-feedback-distillation-v1",
+  "description": "Curated adjudication examples distilled from post-v0.3.0 polishing feedback. This is an evaluation and retrieval seed, never a translation writeback source.",
+  "source_register": "docs/V0.3.0_POST_RELEASE_ISSUES.md",
+  "status": "curated_pilot",
+  "policy": {
+    "purpose": [
+      "retrieval_examples",
+      "failure_pattern_analysis",
+      "evaluation_seed"
+    ],
+    "translation_writeback": "forbidden",
+    "promotion": {
+      "allowed": false,
+      "requires_human_confirmation": true
+    }
+  },
+  "decisions": [
+    {
+      "decision_id": "PFV1-001",
+      "contributor": "天敌Nep",
+      "batch_id": "V030-035",
+      "feedback": {
+        "finding": "认为这里的制止语气应改为住口。",
+        "proposal": "“住口，胜平君！”"
+      },
+      "baseline_by_target": {
+        "story/095/dialogue/01.08/0014": "“住手，胜平君！”"
+      },
+      "adjudication": {
+        "finding_validity": "invalid",
+        "proposal_disposition": "reject_keep_current",
+        "issue_types": [
+          "lexical_sense",
+          "scene_action"
+        ],
+        "severity": "none",
+        "scope": "single_target",
+        "accepted_elements": [],
+        "rejected_elements": [
+          "将制止行动的やめろ解释成要求闭嘴"
+        ],
+        "rationale": "杜克是在制止胜平继续冲动行事；やめろ在该场景是停下、住手，不是住口。"
+      },
+      "targets": [
+        {
+          "id": "story/095/dialogue/01.08/0014",
+          "role": "primary",
+          "expected_source_text_sha256": "5bba373a2d4b15c431dfcc8133d8e6bddb19a0fbd981068c483c43f5358bff47",
+          "expected_translation": "“住手，胜平君！”"
+        }
+      ],
+      "approval": {
+        "status": "confirmed",
+        "promotion": {
+          "allowed": false
+        }
+      }
+    },
+    {
+      "decision_id": "PFV1-002",
+      "contributor": "天敌Nep",
+      "batch_id": "V030-035",
+      "feedback": {
+        "finding": "认为判断句需要再补一个是。",
+        "proposal": "“坐在上面的是……是史黛拉！”"
+      },
+      "baseline_by_target": {
+        "story/095/dialogue/01.10/0008": "“坐在那上面的是……史黛拉！”",
+        "story/066/dialogue/01.08/0007": "“坐在那上面的是……史黛拉！”"
+      },
+      "adjudication": {
+        "finding_validity": "invalid",
+        "proposal_disposition": "reject_keep_current",
+        "issue_types": [
+          "redundancy",
+          "chinese_fluency"
+        ],
+        "severity": "none",
+        "scope": "same_source_all_occurrences",
+        "accepted_elements": [],
+        "rejected_elements": [
+          "在的是结构后重复添加判断词是"
+        ],
+        "rationale": "现译已经是完整的中文判断句；再补一个是会产生不必要的重复，两条同源路线均应保留。"
+      },
+      "targets": [
+        {
+          "id": "story/095/dialogue/01.10/0008",
+          "role": "primary",
+          "expected_source_text_sha256": "dc99135f9e8cc370d8894a4b11aefb5fd1e1df87709a7f99feb0e7fd0a9c4978",
+          "expected_translation": "“坐在那上面的是……史黛拉！”"
+        },
+        {
+          "id": "story/066/dialogue/01.08/0007",
+          "role": "same_source",
+          "expected_source_text_sha256": "dc99135f9e8cc370d8894a4b11aefb5fd1e1df87709a7f99feb0e7fd0a9c4978",
+          "expected_translation": "“坐在那上面的是……史黛拉！”"
+        }
+      ],
+      "approval": {
+        "status": "confirmed",
+        "promotion": {
+          "allowed": false
+        }
+      }
+    },
+    {
+      "decision_id": "PFV1-003",
+      "contributor": "天敌Nep",
+      "batch_id": "V030-032",
+      "feedback": {
+        "finding": "认为原句不够口语，建议改写。",
+        "proposal": "“可他们自己不也在奥布绑架新娘了嘛！？”"
+      },
+      "baseline_by_target": {
+        "story/095/dialogue/01.06/0012": "“可你们自己不也从奥布绑架了新娘吗！？”"
+      },
+      "adjudication": {
+        "finding_validity": "partially_valid",
+        "proposal_disposition": "accept_partial",
+        "issue_types": [
+          "spoken_register",
+          "participant_reference",
+          "case_relation"
+        ],
+        "severity": "minor",
+        "scope": "single_target",
+        "accepted_elements": [
+          "用嘛强化当面反驳的口语感"
+        ],
+        "rejected_elements": [
+          "将当面指向对方的自分達改成他们",
+          "将オーブから的从奥布改成在奥布"
+        ],
+        "rationale": "反馈捕捉到句尾口语感，但人物指向和格关系不能随顺口改写而改变。"
+      },
+      "targets": [
+        {
+          "id": "story/095/dialogue/01.06/0012",
+          "role": "primary",
+          "expected_source_text_sha256": "1bdcd52126cd282f3d632c5475acd52abbd2bd6514027e2f9f60b81b0a26f5a3",
+          "expected_translation": "“可你们自己不也从奥布绑架了新娘嘛！？”"
+        }
+      ],
+      "approval": {
+        "status": "confirmed",
+        "promotion": {
+          "allowed": false
+        }
+      }
+    },
+    {
+      "decision_id": "PFV1-004",
+      "contributor": "天敌Nep",
+      "batch_id": "V030-033",
+      "feedback": {
+        "finding": "认为句子语序和手段一词生硬。",
+        "proposal": "“把居民连同整座城市一起抹杀。这就是他们的做法。”"
+      },
+      "baseline_by_target": {
+        "story/095/dialogue/02.02/0093": "“他们就是这样，将居民连同整座城市一并烧尽。这就是他们的手段……！”"
+      },
+      "adjudication": {
+        "finding_validity": "partially_valid",
+        "proposal_disposition": "accept_partial",
+        "issue_types": [
+          "chinese_fluency",
+          "source_action"
+        ],
+        "severity": "minor",
+        "scope": "single_target",
+        "accepted_elements": [
+          "把居民连同整座城市的语序",
+          "将手段顺为做法"
+        ],
+        "rejected_elements": [
+          "用抹杀替换焼き払った并丢失烧毁动作"
+        ],
+        "rationale": "中文组织方式可吸收，但日文明确写的是烧尽、焚毁，不能为了顺句改成泛化的抹杀。"
+      },
+      "targets": [
+        {
+          "id": "story/095/dialogue/02.02/0093",
+          "role": "primary",
+          "expected_source_text_sha256": "ebbd919765030128ecc72edc5df502bce4510134cd93fe87c7b4171a19583d33",
+          "expected_translation": "“他们就是这样，把居民连同整座城市\n　一并烧尽。这就是他们的做法……！”"
+        }
+      ],
+      "approval": {
+        "status": "confirmed",
+        "promotion": {
+          "allowed": false
+        }
+      }
+    },
+    {
+      "decision_id": "PFV1-005",
+      "contributor": "天敌Nep",
+      "batch_id": "V030-034",
+      "feedback": {
+        "finding": "认为斥责力度不足。",
+        "proposal": "“你给我记住了！！”"
+      },
+      "baseline_by_target": {
+        "story/095/dialogue/01.46/0001": "“就算是战争，也有不能做的事！你给我明白这一点！！”"
+      },
+      "adjudication": {
+        "finding_validity": "partially_valid",
+        "proposal_disposition": "accept_direction_rewrite",
+        "issue_types": [
+          "emotional_force",
+          "lexical_sense"
+        ],
+        "severity": "minor",
+        "scope": "single_target",
+        "accepted_elements": [
+          "强化霍兰德斥责对手的力度"
+        ],
+        "rejected_elements": [
+          "把わかりやがれ从搞明白改成记住"
+        ],
+        "rationale": "语气方向正确，但源词仍是理解、搞明白；定稿通过绝不能和搞明白强化，而不改变谓语含义。"
+      },
+      "targets": [
+        {
+          "id": "story/095/dialogue/01.46/0001",
+          "role": "primary",
+          "expected_source_text_sha256": "6078a731ec7198ff0cb9b3e087794e0b9c70db43dd585aae3f195fbd9fa73f27",
+          "expected_translation": "“就算是战争，也有绝不能做的事！\n　你给我搞明白这一点！！”"
+        }
+      ],
+      "approval": {
+        "status": "confirmed",
+        "promotion": {
+          "allowed": false
+        }
+      }
+    },
+    {
+      "decision_id": "PFV1-006",
+      "contributor": "天敌Nep",
+      "batch_id": "V030-036",
+      "feedback": {
+        "finding": "认为现译漏掉了凭借这股力量行动的关系。",
+        "proposal": "“就用这力量！”"
+      },
+      "baseline_by_target": {
+        "battle:05339": "“这力量！”"
+      },
+      "adjudication": {
+        "finding_validity": "valid",
+        "proposal_disposition": "accept_direction_rewrite",
+        "issue_types": [
+          "case_relation",
+          "technical_budget"
+        ],
+        "severity": "major",
+        "scope": "single_target",
+        "accepted_elements": [
+          "补回手段格で表达的用"
+        ],
+        "rejected_elements": [
+          "超过原记录十五字节容量的就用版本"
+        ],
+        "rationale": "语义问题成立；原建议需十七字节，最终等义收束为十五字节的用这力量，恰好原位容纳。"
+      },
+      "targets": [
+        {
+          "id": "battle:05339",
+          "role": "primary",
+          "expected_source_text_sha256": "dc52ae3f801e610fd3a77ef596ce5a4653cdac1fa390d0ad69a9badd42e28df1",
+          "expected_translation": "“用这力量！”"
+        }
+      ],
+      "approval": {
+        "status": "confirmed",
+        "promotion": {
+          "allowed": false
+        }
+      }
+    },
+    {
+      "decision_id": "PFV1-007",
+      "contributor": "天敌Nep",
+      "batch_id": "V030-035",
+      "feedback": {
+        "finding": "认为砲撃開始采用名词性命令更自然。",
+        "proposal": "“和平号，炮击开始！”"
+      },
+      "baseline_by_target": {
+        "battle:07583": "“和平号，开始炮击！”"
+      },
+      "adjudication": {
+        "finding_validity": "valid",
+        "proposal_disposition": "accept_exact",
+        "issue_types": [
+          "command_register",
+          "chinese_fluency"
+        ],
+        "severity": "minor",
+        "scope": "single_target",
+        "accepted_elements": [
+          "完整采用简洁命令式表达"
+        ],
+        "rejected_elements": [],
+        "rationale": "反馈稿语义、舰桥命令语气和中文自然度均成立，可直接采用。"
+      },
+      "targets": [
+        {
+          "id": "battle:07583",
+          "role": "primary",
+          "expected_source_text_sha256": "08a7baa007fc50488847c2f9db7d723dabc0c3785a81b69320150254bfb85827",
+          "expected_translation": "“和平号，炮击开始！”"
+        }
+      ],
+      "approval": {
+        "status": "confirmed",
+        "promotion": {
+          "allowed": false
+        }
+      }
+    },
+    {
+      "decision_id": "PFV1-008",
+      "contributor": "要开心",
+      "batch_id": "V030-024",
+      "feedback": {
+        "finding": "指出不把全部弹药打中读起来生硬。",
+        "proposal": "改成把弹药打光或用尽。"
+      },
+      "baseline_by_target": {
+        "story/098/dialogue/01.142/0000": "“我不会手下留情的，甲儿！不把全部弹药打中，是打不穿魔神Z的装甲的！”"
+      },
+      "adjudication": {
+        "finding_validity": "valid",
+        "proposal_disposition": "accept_direction_rewrite",
+        "issue_types": [
+          "chinese_fluency",
+          "source_action"
+        ],
+        "severity": "major",
+        "scope": "single_target",
+        "accepted_elements": [
+          "重写生硬的双重条件句"
+        ],
+        "rejected_elements": [
+          "把全弾当てる误解为耗尽弹药"
+        ],
+        "rationale": "反馈正确识别中文病句，但当てる是命中，不是打光；定稿保留每一发都必须命中的战术含义。"
+      },
+      "targets": [
+        {
+          "id": "story/098/dialogue/01.142/0000",
+          "role": "primary",
+          "expected_source_text_sha256": "adc93611642d057a85cc6fa319e50c84f362dd1aa1e339fb1097cdfea35f8499",
+          "expected_translation": "“我可不会手下留情，甲儿！\n　非得每一发都打中，才能击穿魔神Z的装甲！”"
+        }
+      ],
+      "approval": {
+        "status": "confirmed",
+        "promotion": {
+          "allowed": false
+        }
+      }
+    },
+    {
+      "decision_id": "PFV1-009",
+      "contributor": "要开心",
+      "batch_id": "V030-024",
+      "feedback": {
+        "finding": "认为快男儿在当句上下文中可以译成行动派。",
+        "proposal": "“不愧是行动派。”"
+      },
+      "baseline_by_target": {
+        "story/098/dialogue/02.01/0092": "“不愧是快男儿。”",
+        "story/069/dialogue/01.19/0006": "“传闻中的快男儿吗。”"
+      },
+      "adjudication": {
+        "finding_validity": "partially_valid",
+        "proposal_disposition": "accept_direction_rewrite",
+        "issue_types": [
+          "chinese_fluency",
+          "character_epithet",
+          "cross_scene_consistency"
+        ],
+        "severity": "minor",
+        "scope": "cross_scene_term",
+        "accepted_elements": [
+          "快男儿需要改成现代中文更自然的人物评语"
+        ],
+        "rejected_elements": [
+          "使用会与原作行動派混同的行动派"
+        ],
+        "rationale": "单句里行动派读得通，但原作另有行動派，且快男児跨场景复现；最终两处统一为豪杰。"
+      },
+      "targets": [
+        {
+          "id": "story/098/dialogue/02.01/0092",
+          "role": "primary",
+          "expected_source_text_sha256": "6e291daa376c5ee52aeda104812d74248b0819f0cc434d8f723f326cde8fe067",
+          "expected_translation": "“我知道他在追踪新联邦的行动，没想到\n　他活动范围这么广……不愧是位豪杰。”"
+        },
+        {
+          "id": "story/069/dialogue/01.19/0006",
+          "role": "related_term",
+          "expected_source_text_sha256": "c50aa4062066f5fe106f8ecdd273c7bff7267a004fbfa3ebcaf8be72a8b5a935",
+          "expected_translation": "“他就是破岚万丈……\n　风暴……传闻中的豪杰吗。”"
+        }
+      ],
+      "approval": {
+        "status": "confirmed",
+        "promotion": {
+          "allowed": false
+        }
+      }
+    },
+    {
+      "decision_id": "PFV1-010",
+      "contributor": "要开心",
+      "batch_id": "V030-025",
+      "feedback": {
+        "finding": "怀疑黑之卡里斯马是把普通词误作人名的音译。",
+        "proposal": "按普通语义重译，不保留卡里斯马。"
+      },
+      "baseline_by_target": {
+        "story/100/dialogue/02.01/0236": "“嗯……就叫我黑之卡里斯马吧。”",
+        "story/071/dialogue/02.01/0071": "“嗯……就叫我黑之卡里斯马吧。”"
+      },
+      "adjudication": {
+        "finding_validity": "invalid",
+        "proposal_disposition": "reject_keep_current",
+        "issue_types": [
+          "approved_terminology",
+          "character_epithet"
+        ],
+        "severity": "none",
+        "scope": "same_source_all_occurrences",
+        "accepted_elements": [],
+        "rejected_elements": [
+          "将角色主动给出的定稿称号当成误音译"
+        ],
+        "rationale": "黑之卡里斯马是项目定稿人物称号U49，且角色在原文中主动自称；两条同源路线均保留。"
+      },
+      "targets": [
+        {
+          "id": "story/100/dialogue/02.01/0236",
+          "role": "primary",
+          "expected_source_text_sha256": "14bca6abd23368bed0fd2f6683802fd479712ee6f93900d1e40b836f853e5d46",
+          "expected_translation": "“嗯……就叫我黑之卡里斯马吧。”"
+        },
+        {
+          "id": "story/071/dialogue/02.01/0071",
+          "role": "same_source",
+          "expected_source_text_sha256": "14bca6abd23368bed0fd2f6683802fd479712ee6f93900d1e40b836f853e5d46",
+          "expected_translation": "“嗯……就叫我黑之卡里斯马吧。”"
+        }
+      ],
+      "approval": {
+        "status": "confirmed",
+        "promotion": {
+          "allowed": false
+        }
+      }
+    },
+    {
+      "decision_id": "PFV1-011",
+      "contributor": "要开心",
+      "batch_id": "V030-029",
+      "feedback": {
+        "finding": "询问小嘿是否为人名误译。",
+        "proposal": "改成小菲或正式角色名。"
+      },
+      "baseline_by_target": {
+        "story/104/dialogue/01.35/0009": "“这是……小嘿的格兰骑警啊！”",
+        "story/104/dialogue/01.36/0008": "“这是……小嘿的格兰骑警啊！”"
+      },
+      "adjudication": {
+        "finding_validity": "invalid",
+        "proposal_disposition": "reject_keep_current",
+        "issue_types": [
+          "continuity",
+          "character_voice",
+          "intentional_error"
+        ],
+        "severity": "none",
+        "scope": "cross_scene_continuity",
+        "accepted_elements": [],
+        "rejected_elements": [
+          "把角色故意持续叫错名字的笑点当成普通错译"
+        ],
+        "rationale": "梅江此前已被明确纠正不是小嘿，是小菲，之后仍持续叫错；保留小嘿才能维持笑点和人物特征。"
+      },
+      "targets": [
+        {
+          "id": "story/104/dialogue/01.35/0009",
+          "role": "primary",
+          "expected_source_text_sha256": "fc8c6c68ab9101c3218ea7f1aa982224180b315e73b0932db9687840245df7f0",
+          "expected_translation": "“这是……小嘿的格兰骑警啊！”"
+        },
+        {
+          "id": "story/104/dialogue/01.36/0008",
+          "role": "same_source",
+          "expected_source_text_sha256": "fc8c6c68ab9101c3218ea7f1aa982224180b315e73b0932db9687840245df7f0",
+          "expected_translation": "“这是……小嘿的格兰骑警啊！”"
+        }
+      ],
+      "approval": {
+        "status": "confirmed",
+        "promotion": {
+          "allowed": false
+        }
+      }
+    }
+  ]
+}
