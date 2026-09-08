@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-08",
+  "status": "dual_edition_build_and_static_readback_passed",
+  "source_head": "0edf6b38f912782acdf9427df38aa11370817e87",
+  "input_digest": "b6f5b03d155a639ac8d9bdd492a4076b9a888c3bc252e2098fc8363dc5737825",
+  "batch_manifest": "work/editions/b6f5b03d155a639ac8d9bdd492a4076b9a888c3bc252e2098fc8363dc5737825/original-best.json",
+  "verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "b6f5b03d155a639ac8d9bdd492a4076b9a888c3bc252e2098fc8363dc5737825",
+    "verified_editions": [
+      "original",
+      "best"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "all_nongenerated_frozen_inputs_still_exact": true,
+  "generated_locks_refreshed": [
+    "config/full-story-components.json",
+    "config/iso/zh-release-current-build.json",
+    "manifests/full-story-components-validation.json",
+    "manifests/full-story-library-components-validation.json",
+    "manifests/library-v0.2-reviewed-validation.json",
+    "manifests/zh-release-font-validation.json",
+    "manifests/zh-release-full-story-iso-content-validation.json"
+  ],
+  "root_components_match_independent_original_build": 23,
+  "outputs": {
+    "original": {
+      "path": "build/iso/zh-release-original/current-original.iso",
+      "sha256": "a50841b505b6cd0b4e21a7f818d840141b2f9bc4289a94246fb7b5b86ad7fa7a",
+      "size": 3758358528
+    },
+    "best": {
+      "path": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "5a8052ff9067ff2224eef1a1349325d958978ba7ba4f1f13e9be581d1c930aa2",
+      "size": 3755081728
+    }
+  },
+  "original_production_slot": "build/iso/zh-release-full-story/current-original.iso",
+  "production_build_proof": {
+    "path": "work/build/zh-release-full-story/text-update-build.json",
+    "sha256": "9d20a563e978aebbebac748d2ba659de3188c52fa0afff20d2e64ceaca3654bb",
+    "full_iso_readback": "passed",
+    "deterministic_rebuild": "passed"
+  },
+  "text_verification": {
+    "reviewed_entries": 89,
+    "final_decisions": 88,
+    "pending_entries": 0,
+    "kept_entries": 58,
+    "newly_changed_entries": 30,
+    "previously_changed_entry": 1,
+    "total_changed_entries": 31,
+    "translation_fields_only": true,
+    "decisions_path": "config/editorial/japanese-calques-decisions-20260908.json",
+    "decisions_sha256": "b95463530b389d314cc3c3dc2ad77c14d7925946dccdeee1826a35125d8e48d5",
+    "review_interface": "retired_after_finalization"
+  },
+  "tests": {
+    "command": "python3 -m unittest discover -s tests",
+    "passed": 246,
+    "log_sha256": "096008aaf2df9a5406ec32aabb8fae9c869e24413c2ff006d59c097a899889f0"
+  },
+  "incremental_library_fix": {
+    "commit": "0edf6b3",
+    "regression": "LIBRARY repacking must rebuild the SLPS offset tables and its coupled MTV_PROS archive",
+    "prior_mismatched_character_offsets": 375,
+    "regression_evidence_sha256": "9077ff6d01d8b5419dccd4a42f57bbca6dadab1e17bd1cf3c866cda92b82ed83"
+  },
+  "unrelated_notes_byte_exact": true,
+  "runtime": "not_tested_for_new_iso_hashes",
+  "post_snapshot_generated_lock_changes": [
+    "config/iso/zh-release-current-build.json",
+    "manifests/zh-release-full-story-iso-content-validation.json"
+  ]
+}

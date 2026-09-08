@@ -2,7 +2,7 @@
   "schema_version": 1,
   "date": "2026-09-08",
   "review_id": "japanese-calques-20260908",
-  "status": "all_final_decisions_applied_components_validated_runtime_pending",
+  "status": "finalized_dual_edition_iso_static_validated_runtime_pending",
   "source_head": "61ef29249311970624f114eaafb068562936b1ca",
   "feedback": {
     "contributor": "大根1112",
@@ -3287,8 +3287,7 @@
     ],
     "unit_tests": {
       "command": "python3 -m unittest discover -s tests",
-      "passed": 251,
-      "scope": "historical finalization run before retiring six page-only tests"
+      "passed": 246
     },
     "components": {
       "story": {
@@ -3307,8 +3306,10 @@
         "static_validated": true
       }
     },
-    "iso_build": false,
-    "runtime_test": false
+    "iso_build": true,
+    "runtime_test": false,
+    "iso_build_record": "manifests/editions/japanese-calques-20260908.json",
+    "review_interface": "retired_after_finalization"
   },
   "scan_input_hashes": {
     "corpus/zh/auto-demo-work-titles.json": "dab96c21a671df278e817611537451ced804b5f2ad04fb227255845cadf4c64d",
