@@ -1,0 +1,4081 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-08",
+  "review_id": "japanese-calques-20260908",
+  "status": "all_final_decisions_applied_components_validated_runtime_pending",
+  "source_head": "61ef29249311970624f114eaafb068562936b1ca",
+  "feedback": {
+    "contributor": "大根1112",
+    "reported_version": "v0.3.0",
+    "quote": "哈哈哈，建议“手下留情”那个精神改成寸止攻击",
+    "interpretation": "针对剧情生硬直译的调侃，不是精神名称变更指令。",
+    "source": "本任务用户提供的截图和转述；未提交外部审阅站。"
+  },
+  "scope": {
+    "lexical_scanned_translation_records": 125945,
+    "record_count_note": "遍历corpus/zh下entries[].translation；含发布选择等同ID副本，不是独立文本数，不含以其他键存储的所有显示映射。",
+    "original_verified_story_entries": 83668,
+    "original_verified_battle_entries": 25708,
+    "original_verified_library_entries": 2709,
+    "story_stages": 170,
+    "manual_review": "关键词筛查后对本清单逐项查看原文与可用上下文；未对全部语料逐句精读。",
+    "case_count": 20,
+    "unique_review_entries": 89,
+    "status_counts": {
+      "applied": 1,
+      "recommended": 19,
+      "wording_review": 39,
+      "terminology_review": 14,
+      "style_review": 16
+    }
+  },
+  "external_references": [
+    {
+      "title": "商务印书馆《日汉同形异义语词典》",
+      "url": "https://www.cp.com.cn/book/b62b7fb3-9.html",
+      "kind": "publisher_catalog",
+      "use": "约1400组同形异义词的正式辞书；本轮只核对书目信息，未取得或导入完整词典。"
+    },
+    {
+      "title": "维基词典：汉语和日语的同形异义词",
+      "url": "https://zh.wiktionary.org/zh-hans/Appendix:漢語和日語的同形異義詞",
+      "kind": "community_word_list",
+      "use": "免费对照表，可补充筛查词；不是自动替换规则。本轮未整表导入。"
+    },
+    {
+      "title": "萌娘百科：翻译腔",
+      "url": "https://moegirl.uk/翻译腔",
+      "kind": "community_examples",
+      "use": "动画游戏对白的词汇与句式线索；社区用法判断不作为错误裁决。"
+    },
+    {
+      "title": "宮偉《日中翻訳の特異性―観光資料の日中翻訳に基づいて―》",
+      "url": "https://www.jiu.ac.jp/files/user/education/books/pdf/2021g_002.pdf",
+      "kind": "research_paper",
+      "use": "2022年论文讨论同形词及文化词字面搬用风险，支持按语境区分的审阅方法，不是完整词表。"
+    }
+  ],
+  "excluded_or_preserved": [
+    {
+      "family": "間合い",
+      "source_count": 21,
+      "reason": "当前已译为距离、射程或攻击范围；未残留间合。个别句法是否还需润色不在本次同形搬用裁决中。"
+    },
+    {
+      "family": "意趣返し",
+      "source_count": 1,
+      "reason": "当前为想报复吗，已自然转译。"
+    },
+    {
+      "family": "人望、器量、觉悟",
+      "reason": "都是可成立的中文词；只按具体句子评估可读性，不能列为禁词。"
+    },
+    {
+      "family": "素人／手前／往生／面倒等子串误检",
+      "reason": "元素人、触手前端、前往生命之树、这方面倒等不构成日语搬用。"
+    },
+    {
+      "family": "人柱",
+      "reason": "图鉴的世界再生设定具有具体祭献与支撑含义；本轮不据陌生程度改名。"
+    },
+    {
+      "family": "食物土产",
+      "id": "story/078/dialogue/02.02/0005",
+      "reason": "上下文谈食物腐坏，不能跟玩具或土産話统一判错。"
+    }
+  ],
+  "cases": [
+    {
+      "id": "JC-01",
+      "title": "寸止め → 寸止攻击",
+      "status": "applied",
+      "rationale": "媚月说明基拉故意避开驾驶舱、攻击有所保留。直接搬用寸止会让普通中文读者误认成招式名；句末保留推测和补充语气，キラって子改作中性的那个叫基拉的孩子。",
+      "direction": "手下留情；精神名称保持现有定名。",
+      "entry_count": 1,
+      "entries": [
+        {
+          "id": "story/055/dialogue/02.03/0017",
+          "corpus_path": "corpus/zh/story-dialogue/stage-055.json",
+          "source_ja": "「あのフリーダムのキラって子、\n　わざとコックピットを外して\n　寸止めで攻撃しているみたいだけどね」",
+          "source_text_sha256": "904894f6d493701c55ddceb4b8a02c271af776de3ae20ca9b222c20aed1512cf",
+          "translation_at_scan": "“那个自由高达的基拉小子，\n　好像故意避开驾驶舱，用寸止攻击呢。”",
+          "current_translation": "“不过，驾驶自由高达的那个叫基拉的孩子，\n　攻击时好像会故意避开驾驶舱，手下留情呢。”",
+          "current_translation_sha256": "1172d55390fbd260d4fe409530e27c927e60f1b2b320b9151d2852d60a4963d7",
+          "original_location": {
+            "stage_index": 55,
+            "section": "Section 2.3",
+            "ordinal": 17,
+            "text_offset": 99792
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/055/dialogue/02.03/0016",
+              "relation": "previous",
+              "source_ja": "「おかげで戦線は大混乱…」",
+              "current_translation": "“搞得战线一片混乱……”"
+            },
+            {
+              "id": "story/055/dialogue/02.03/0017",
+              "relation": "target",
+              "source_ja": "「あのフリーダムのキラって子、\n　わざとコックピットを外して\n　寸止めで攻撃しているみたいだけどね」",
+              "current_translation": "“不过，驾驶自由高达的那个叫基拉的孩子，\n　攻击时好像会故意避开驾驶舱，手下留情呢。”"
+            },
+            {
+              "id": "story/055/dialogue/02.03/0018",
+              "relation": "next",
+              "source_ja": "「少しは自分達のしている事を\n　悪いって思ってるのかしら？」",
+              "current_translation": "“他们是不是多少觉得自己做的事不对啊？”"
+            }
+          ],
+          "glossary_refs": [
+            "people/kira",
+            "system/cockpit"
+          ],
+          "proposal": null,
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-02",
+      "title": "戦力外 → 战力外",
+      "status": "recommended",
+      "rationale": "此处评价敌方LFO已不顶用，紧接着命令部下进攻。战力外直接沿用日语构词。",
+      "direction": "不顶用／算不上战力。",
+      "entry_count": 1,
+      "entries": [
+        {
+          "id": "story/040/dialogue/01.13/0016",
+          "corpus_path": "corpus/zh/story-dialogue/stage-040.json",
+          "source_ja": "「ホホホ…あのＬＦＯは\n　戦力外と見てもいいみたいね」",
+          "source_text_sha256": "5c657282568ad65595cbbb38dddc70615adfbaef84aed65a79ceb2d036c0faa8",
+          "translation_at_scan": "“呵呵……那台LFO看来可以算作战力外了”",
+          "current_translation": "“呵呵……那台LFO看来可以算作战力外了”",
+          "current_translation_sha256": "242663e78a3368bf4ec2cc4b7495edbab49ed334c87aad542e47e32dde8083e7",
+          "original_location": {
+            "stage_index": 40,
+            "section": "Section 1.13",
+            "ordinal": 16,
+            "text_offset": 63504
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/040/dialogue/01.13/0015",
+              "relation": "previous",
+              "source_ja": "「は、はい…！」",
+              "current_translation": "“是、是的……！”"
+            },
+            {
+              "id": "story/040/dialogue/01.13/0016",
+              "relation": "target",
+              "source_ja": "「ホホホ…あのＬＦＯは\n　戦力外と見てもいいみたいね」",
+              "current_translation": "“呵呵……那台LFO看来可以算作战力外了”"
+            },
+            {
+              "id": "story/040/dialogue/01.13/0017",
+              "relation": "next",
+              "source_ja": "「やっておしまいなさい、お前達！\n　ダイヤを乱すエクソダスなど、\n　完膚なきまでに叩き潰すのです！」",
+              "current_translation": "“你们，干掉他们！\n　扰乱运行图的大逃亡，给我彻底粉碎！”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": "“呵呵……看来那台LFO已经不顶用了。”",
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-03",
+      "title": "大活躍 → 大活跃",
+      "status": "recommended",
+      "rationale": "是在称赞真表现出色，不是说今天特别活泼。",
+      "direction": "大显身手／表现出色。",
+      "entry_count": 1,
+      "entries": [
+        {
+          "id": "story/031/dialogue/02.02/0232",
+          "corpus_path": "corpus/zh/story-dialogue/stage-031.json",
+          "source_ja": "「やったね、シン！\n　今日は大活躍じゃない！」",
+          "source_text_sha256": "96425d40f6a11cf1447951d9250991c6ee7fb3ff0f2850078ebab282f3dfb091",
+          "translation_at_scan": "“干得好啊，真！今天真是大活跃啊！”",
+          "current_translation": "“干得好啊，真！今天真是大活跃啊！”",
+          "current_translation_sha256": "d066ea1c0e9632065a0580bc518d682466e1af18cc8d6128724462aeea80cfc7",
+          "original_location": {
+            "stage_index": 31,
+            "section": "Section 2.2",
+            "ordinal": 232,
+            "text_offset": 91744
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/031/dialogue/02.02/0231",
+              "relation": "previous",
+              "source_ja": "「………」",
+              "current_translation": "“……”"
+            },
+            {
+              "id": "story/031/dialogue/02.02/0232",
+              "relation": "target",
+              "source_ja": "「やったね、シン！\n　今日は大活躍じゃない！」",
+              "current_translation": "“干得好啊，真！今天真是大活跃啊！”"
+            },
+            {
+              "id": "story/031/dialogue/02.02/0233",
+              "relation": "next",
+              "source_ja": "「え…」",
+              "current_translation": "“嗯？”"
+            }
+          ],
+          "glossary_refs": [
+            "people/shinn"
+          ],
+          "proposal": "“干得好啊，真！今天可是大显身手了呢！”",
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-04",
+      "title": "土産話 → 土特产",
+      "status": "recommended",
+      "rationale": "两处都是回去后讲给别人听的见闻。022要求做好记录以便讲给师父听；084把见闻与照片并列期待，均不是实物特产。",
+      "direction": "回去讲给别人听的见闻／故事。",
+      "entry_count": 2,
+      "entries": [
+        {
+          "id": "story/022/dialogue/01.42/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-022.json",
+          "source_ja": "「下らねえ事考えてないで\n　ちゃんと記録つけとけ！\n　親方への土産話にするんだからよ！」",
+          "source_text_sha256": "e7972dfb718aae09c218b8f7ef38d3c0b0c6b7c9fa1f5dba4f4302e37283d6d3",
+          "translation_at_scan": "“别想那些没用的，好好做记录！\n　这可是给师父的土特产！”",
+          "current_translation": "“别想那些没用的，好好做记录！\n　这可是给师父的土特产！”",
+          "current_translation_sha256": "165a15aacd6b88e8bd9961a20645ab5e788c5a0e4f72c09f6c16bdaedbb38a84",
+          "original_location": {
+            "stage_index": 22,
+            "section": "Section 1.42",
+            "ordinal": 2,
+            "text_offset": 44224
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/022/dialogue/01.42/0001",
+              "relation": "previous",
+              "source_ja": "「あの鬼マッチョが、あの程度の奴に\n　やられるタマかよ！」",
+              "current_translation": "“那个肌肉男会被那种程度的家伙干掉吗！”"
+            },
+            {
+              "id": "story/022/dialogue/01.42/0002",
+              "relation": "target",
+              "source_ja": "「下らねえ事考えてないで\n　ちゃんと記録つけとけ！\n　親方への土産話にするんだからよ！」",
+              "current_translation": "“别想那些没用的，好好做记录！\n　这可是给师父的土特产！”"
+            },
+            {
+              "id": "story/022/dialogue/01.42/0003",
+              "relation": "next",
+              "source_ja": "「うん！」",
+              "current_translation": "“嗯！”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": "“别想那些没用的，好好做记录！\n　回去还得讲给师父听呢！”",
+          "domain": "story"
+        },
+        {
+          "id": "story/084/dialogue/02.03/0108",
+          "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+          "source_ja": "「ちぇ…シュランは固いのぉ…。\n　レーベン…土産話とお宝フォトを\n　楽しみにしてるぞい」",
+          "source_text_sha256": "58090de7592346d645218ae092554639b4d012f1dd34d729243f089acd025f35",
+          "translation_at_scan": "“切……休兰真死板啊……雷本……\n　我等着你的土特产和宝贝照片哦。”",
+          "current_translation": "“切……休兰真死板啊……雷本……\n　我等着你的土特产和宝贝照片哦。”",
+          "current_translation_sha256": "d075be0f8e94fa249334ba5819221548acbfb8e36f5aacd0cdc4e46f5b186a7e",
+          "original_location": {
+            "stage_index": 84,
+            "section": "Section 2.3",
+            "ordinal": 108,
+            "text_offset": 81488
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/084/dialogue/02.03/0107",
+              "relation": "previous",
+              "source_ja": "「博士には、やっていただかないと\n　いけない事が数多くあるのですから」",
+              "current_translation": "“博士还有很多必须做的事情。”"
+            },
+            {
+              "id": "story/084/dialogue/02.03/0108",
+              "relation": "target",
+              "source_ja": "「ちぇ…シュランは固いのぉ…。\n　レーベン…土産話とお宝フォトを\n　楽しみにしてるぞい」",
+              "current_translation": "“切……休兰真死板啊……雷本……\n　我等着你的土特产和宝贝照片哦。”"
+            },
+            {
+              "id": "story/084/dialogue/02.03/0109",
+              "relation": "next",
+              "source_ja": "「わかりました、ジエー博士」",
+              "current_translation": "“明白了，极艾博士。”"
+            }
+          ],
+          "glossary_refs": [
+            "people/leben",
+            "people/speaker-2d2e8757e174"
+          ],
+          "proposal": "“切……休兰真死板啊……雷本……\n　我等着听你的见闻、看你的宝贝照片哦。”",
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-05",
+      "title": "余興 → 余兴",
+      "status": "recommended",
+      "rationale": "前句在问伊尔塔的笑话是否不合胃口，后句转入攻打地球的正事。这里是说笑、消遣；中文余兴容易理解为活动过后的余兴。",
+      "direction": "说笑／消遣，并理顺转入正事的句子。",
+      "entry_count": 1,
+      "entries": [
+        {
+          "id": "story/106/dialogue/02.02/0111",
+          "corpus_path": "corpus/zh/story-dialogue/stage-106.json",
+          "source_ja": "「このような余興にふけるより、\n　我々にはやるべき事がある」",
+          "source_text_sha256": "43d01329411760e33aa6c9f7d91b591a8613c68ee4c05b092f25d824102310dd",
+          "translation_at_scan": "“与其沉迷于这种余兴，我们有该做的事。”",
+          "current_translation": "“与其沉迷于这种余兴，我们有该做的事。”",
+          "current_translation_sha256": "d8320f374b7f8b510f57ea5d20278f52b2b96127659c5c899c3c100e72e06198",
+          "original_location": {
+            "stage_index": 106,
+            "section": "Section 2.2",
+            "ordinal": 111,
+            "text_offset": 51536
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/106/dialogue/02.02/0110",
+              "relation": "previous",
+              "source_ja": "「どうされたかな、ガットラー総統？\n　エルダーのジョークはお気に召さないかな？」",
+              "current_translation": "“怎么了，加特勒总帅？\n　伊尔塔的笑话不合您胃口吗？”"
+            },
+            {
+              "id": "story/106/dialogue/02.02/0111",
+              "relation": "target",
+              "source_ja": "「このような余興にふけるより、\n　我々にはやるべき事がある」",
+              "current_translation": "“与其沉迷于这种余兴，我们有该做的事。”"
+            },
+            {
+              "id": "story/106/dialogue/02.02/0112",
+              "relation": "next",
+              "source_ja": "「新たな戦力を得た今、\n　一気に地球を攻め落とすぞ」",
+              "current_translation": "“既然得到了新的战力，\n　就一口气攻下地球吧。”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": "“别在这里消遣了，我们还有正事要做。”",
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-06",
+      "title": "拝見 → 拜见收藏",
+      "status": "recommended",
+      "rationale": "拝見是看的谦语，宾语是藏品；中文拜见通常以人为对象。保留礼貌，用欣赏或一睹。",
+      "direction": "欣赏一下您的收藏／一睹您的藏品。",
+      "entry_count": 1,
+      "entries": [
+        {
+          "id": "story/104/dialogue/02.02/0133",
+          "corpus_path": "corpus/zh/story-dialogue/stage-104.json",
+          "source_ja": "「しかし、さすがは芸術公爵と名高いメダイユ公。\n　是非ともそのコレクションも\n　拝見させていただきたいものです」",
+          "source_text_sha256": "d671cd118d98db51ac92913a5e20bff9330d400c537a21379679982e1936066e",
+          "translation_at_scan": "“不过，不愧是被称为艺术公爵的梅黛尤公。\n　真希望能拜见您的收藏。”",
+          "current_translation": "“不过，不愧是被称为艺术公爵的梅黛尤公。\n　真希望能拜见您的收藏。”",
+          "current_translation_sha256": "5e122bcf7c5836a9d867c38ffc10bccc2f74e14a22364f05126fe8a4134ef5e1",
+          "original_location": {
+            "stage_index": 104,
+            "section": "Section 2.2",
+            "ordinal": 133,
+            "text_offset": 114256
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/104/dialogue/02.02/0132",
+              "relation": "previous",
+              "source_ja": "「え…ええ、まあ…。\n　旅の途中に何度か会った事がありまして…」",
+              "current_translation": "“呃……嗯，算是吧……旅途中见过几次……”"
+            },
+            {
+              "id": "story/104/dialogue/02.02/0133",
+              "relation": "target",
+              "source_ja": "「しかし、さすがは芸術公爵と名高いメダイユ公。\n　是非ともそのコレクションも\n　拝見させていただきたいものです」",
+              "current_translation": "“不过，不愧是被称为艺术公爵的梅黛尤公。\n　真希望能拜见您的收藏。”"
+            },
+            {
+              "id": "story/104/dialogue/02.02/0134",
+              "relation": "next",
+              "source_ja": "「このシベリアには大変動前の遺物が\n　そこかしこに埋まっているのだ」",
+              "current_translation": "“这个西伯利亚到处埋藏着大变动前的遗物。”"
+            }
+          ],
+          "glossary_refs": [
+            "people/speaker-71462da7547f"
+          ],
+          "proposal": "“不过，不愧是被称为艺术公爵的梅黛尤公。\n　真希望能欣赏一下您的收藏。”",
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-07",
+      "title": "根性の曲がった／腐った → 扭曲或腐败的根性",
+      "status": "recommended",
+      "rationale": "这六处根性指性情、心术，不是毅力或精神指令。兰德说修理工和敲直时须保留修理比喻，不能只替换成抽象的性格。",
+      "direction": "心术／心眼；两处同源剧情联动审阅。",
+      "entry_count": 6,
+      "entries": [
+        {
+          "id": "battle:13777",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「根性は曲がっていても、\\n　弾道は真っ直ぐだ！」",
+          "source_text_sha256": "ad98f1c0b84160da731b4a9efea10b3b231e46092186440e960c15360ac79301",
+          "translation_at_scan": "“就算根性扭曲，\\n　弹道也是笔直的！”",
+          "current_translation": "“就算根性扭曲，\\n　弹道也是笔直的！”",
+          "current_translation_sha256": "b470a8637e05e68595167031824e4fd06845c9067e041636d7d575f9190fbd45",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 179,
+                "record_index": 15,
+                "archive_text_start": 1755735,
+                "encoded_size": 49
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": "“就算心术不正，\\n　弹道也是笔直的！”",
+          "domain": "battle"
+        },
+        {
+          "id": "battle:19336",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「俺は修理屋だ！　\\n　曲がった根性は叩き直す！！」",
+          "source_text_sha256": "165683b35084fec2377cf1ac469ee9a7e56661da4a9d8514973d5ccd174c94fd",
+          "translation_at_scan": "“我是修理工！\\n　歪掉的根性我来敲直！！”",
+          "current_translation": "“我是修理工！\\n　歪掉的根性我来敲直！！”",
+          "current_translation_sha256": "63bd36d9319e3d3adae3c89bfac4f0dfadb898a6bd78d247c4b8654795543b05",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 5,
+                "archive_text_start": 2493291,
+                "encoded_size": 51
+              },
+              {
+                "chunk_index": 267,
+                "record_index": 839,
+                "archive_text_start": 2526819,
+                "encoded_size": 51
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": "“我是修理工！\\n　歪掉的心眼我来敲正！！”",
+          "domain": "battle"
+        },
+        {
+          "id": "battle:19399",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「みっともねえぞ、レーベン！　\\n　その根性、叩き直してやる！」",
+          "source_text_sha256": "68266bf03a43901486ab66642c18e7ce329f3ce9ad4506379eefeb8899139ba2",
+          "translation_at_scan": "“真难看啊，雷本！\\n　你那根性，我来敲直！”",
+          "current_translation": "“真难看啊，雷本！\\n　你那根性，我来敲直！”",
+          "current_translation_sha256": "a1538eccda919afab1031a7350427aff64cd1e5ee4b9927f8718d885aea6f51a",
+          "original_location": {
+            "occurrence_count": 3,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 84,
+                "archive_text_start": 2497020,
+                "encoded_size": 63
+              },
+              {
+                "chunk_index": 267,
+                "record_index": 583,
+                "archive_text_start": 2515293,
+                "encoded_size": 63
+              },
+              {
+                "chunk_index": 267,
+                "record_index": 910,
+                "archive_text_start": 2530240,
+                "encoded_size": 63
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": "“真难看啊，雷本！\\n　你那歪心眼，我来给你敲正！”",
+          "domain": "battle"
+        },
+        {
+          "id": "story/043/dialogue/02.01/0083",
+          "corpus_path": "corpus/zh/story-dialogue/stage-043.json",
+          "source_ja": "「いいじゃないのさ。\n　あいつの腐った根性には、\n　そっちの名前の方がぴったりだよ」",
+          "source_text_sha256": "2f94408f1cf66299a9b3c6e8e46d19cb516eca5c9cc745bec7649d2fdec80b4a",
+          "translation_at_scan": "“有什么关系嘛。那家伙的腐败根性，\n　叫那个名字更合适。”",
+          "current_translation": "“有什么关系嘛。那家伙的腐败根性，\n　叫那个名字更合适。”",
+          "current_translation_sha256": "d4fc2e547421026975274f88ffbc8e6b377bbe76d1ad7bde00ef92efb01513a4",
+          "original_location": {
+            "stage_index": 43,
+            "section": "Section 2.1",
+            "ordinal": 83,
+            "text_offset": 72752
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/043/dialogue/02.01/0082",
+              "relation": "previous",
+              "source_ja": "「運行部長でしょ、チル！」",
+              "current_translation": "“是运行部长吧，琪露！”"
+            },
+            {
+              "id": "story/043/dialogue/02.01/0083",
+              "relation": "target",
+              "source_ja": "「いいじゃないのさ。\n　あいつの腐った根性には、\n　そっちの名前の方がぴったりだよ」",
+              "current_translation": "“有什么关系嘛。那家伙的腐败根性，\n　叫那个名字更合适。”"
+            },
+            {
+              "id": "story/043/dialogue/02.01/0084",
+              "relation": "next",
+              "source_ja": "「そうだね。\n　今度は僕もそう呼んでみようかな」",
+              "current_translation": "“说得对。下次我也试着那么叫吧。”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": "“有什么关系嘛。那家伙一肚子坏水，\n　叫那个名字更合适。”",
+          "domain": "story"
+        },
+        {
+          "id": "story/043/dialogue/02.01/0164",
+          "corpus_path": "corpus/zh/story-dialogue/stage-043.json",
+          "source_ja": "「いいじゃないのさ。\n　あいつの腐った根性には、\n　そっちの名前の方がぴったりだよ」",
+          "source_text_sha256": "2f94408f1cf66299a9b3c6e8e46d19cb516eca5c9cc745bec7649d2fdec80b4a",
+          "translation_at_scan": "“有什么关系嘛。那家伙的腐败根性，\n　叫那个名字更合适。”",
+          "current_translation": "“有什么关系嘛。那家伙的腐败根性，\n　叫那个名字更合适。”",
+          "current_translation_sha256": "d4fc2e547421026975274f88ffbc8e6b377bbe76d1ad7bde00ef92efb01513a4",
+          "original_location": {
+            "stage_index": 43,
+            "section": "Section 2.1",
+            "ordinal": 164,
+            "text_offset": 72752
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/043/dialogue/02.01/0163",
+              "relation": "previous",
+              "source_ja": "「運行部長でしょ、チル！」",
+              "current_translation": "“是运行部长吧，琪露！”"
+            },
+            {
+              "id": "story/043/dialogue/02.01/0164",
+              "relation": "target",
+              "source_ja": "「いいじゃないのさ。\n　あいつの腐った根性には、\n　そっちの名前の方がぴったりだよ」",
+              "current_translation": "“有什么关系嘛。那家伙的腐败根性，\n　叫那个名字更合适。”"
+            },
+            {
+              "id": "story/043/dialogue/02.01/0165",
+              "relation": "next",
+              "source_ja": "「そうだね。\n　今度は僕もそう呼んでみようかな」",
+              "current_translation": "“说得对。下次我也试着那么叫吧。”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": "“有什么关系嘛。那家伙一肚子坏水，\n　叫那个名字更合适。”",
+          "domain": "story"
+        },
+        {
+          "id": "story/098/dialogue/01.66/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-098.json",
+          "source_ja": "「俺が司令の代わりに\n　そのひねた根性を叩き直してやるぜ！」",
+          "source_text_sha256": "8bdb69d72ace7238dbba42a2f704814b91c63d9467de5c409b84c94ca678cbfb",
+          "translation_at_scan": "“我来代替司令，重新敲打你那扭曲的根性！”",
+          "current_translation": "“我来代替司令，重新敲打你那扭曲的根性！”",
+          "current_translation_sha256": "685f7ba9b2dbef7ca3859b3d1a00208a6cbddf1e27f0b5fc9e66c3313f195ba6",
+          "original_location": {
+            "stage_index": 98,
+            "section": "Section 1.66",
+            "ordinal": 4,
+            "text_offset": 100624
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/098/dialogue/01.66/0003",
+              "relation": "previous",
+              "source_ja": "「結局、感情任せか！\n　お前達のやってる事は\n　ガキの喧嘩と同じなんだよ！」",
+              "current_translation": "“说到底还是感情用事！\n　你们做的事和小孩子打架没两样！”"
+            },
+            {
+              "id": "story/098/dialogue/01.66/0004",
+              "relation": "target",
+              "source_ja": "「俺が司令の代わりに\n　そのひねた根性を叩き直してやるぜ！」",
+              "current_translation": "“我来代替司令，重新敲打你那扭曲的根性！”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": "“我来代替司令，\n　好好改改你那歪心眼！”",
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-08",
+      "title": "自重する → 攻击自重",
+      "status": "recommended",
+      "rationale": "原句劝对方克制轻率的攻击。中文让攻击自重搭配不通，应落到别贸然出手。",
+      "direction": "别轻率出手。",
+      "entry_count": 1,
+      "entries": [
+        {
+          "id": "battle:09711",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「迂闊な攻撃は自重することだな…！」",
+          "source_text_sha256": "9d44ca80e55703725f2438db4d1ecbbc222dc1045124a6494672c972524f9224",
+          "translation_at_scan": "“轻率的攻击还是自重为好…！”",
+          "current_translation": "“轻率的攻击还是自重为好…！”",
+          "current_translation_sha256": "bc95fd1c00a3e2554e735001366b32c6a9bbb17cf1a4a782af6ddef52f48c9e2",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 127,
+                "record_index": 111,
+                "archive_text_start": 1248681,
+                "encoded_size": 37
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": "“还是别轻率出手为好……！”",
+          "domain": "battle"
+        }
+      ]
+    },
+    {
+      "id": "JC-09",
+      "title": "人情家 → 人情家／人情派",
+      "status": "recommended",
+      "rationale": "神胜平图鉴前后期共享段落，强调心肠好、见不得他人有难；不是某个流派或专门职业。两份正文一起审。",
+      "direction": "局部改为“但他本性善良，是个见不得别人有难的热心肠。”，其余图鉴正文保持原样。",
+      "entry_count": 2,
+      "entries": [
+        {
+          "id": "library-text/09b1c8a017d809f8",
+          "corpus_path": "corpus/zh/library/v0.2-reviewed.json",
+          "source_ja": "　神家の次男で、ザンボット３のメ\nインパイロット。１２歳。中学一年\n生。\n　喧嘩に明け暮れ、無免許でバイク\nを乗り回すなど、地元では有名な不\n良少年。しかしその性根は優しく、\n困った人は放っておけない人情家。\n　睡眠学習で身に付けた操縦方法と、\n持ち前の運動神経、勘の鋭さで、ザ\nンバード、ザンボエース、ザンボッ\nト３を手足のように操る。だが、必\n死でガイゾックと戦っても周囲の人\n人に理解してもらえないことに苛立\nちを募らせていた。しかし、勢いを\n増す破壊活動や人間爆弾などの非情\nな作戦を目の当たりにした事、また\n軋轢のあった者と和解した事などを\n経て、人間として成長していった。\n　最後の決戦では、ザンボエース単\n体になりながらもガイゾックを討ち\n滅ぼし、意識のないまま単身生まれ\n故郷へと帰還する。そして歓喜の声\nをあげる群集の中、ミチの膝枕の上\nで目を覚まし、もはや戦いのなくな\nった宇宙を仰いだ。",
+          "source_text_sha256": "09b1c8a017d809f8cdf609cd9ffe14261dfefe36a74dcb6e9a3e68852119e71b",
+          "translation_at_scan": "神家的次子，赞波特3的主驾驶员。12岁，初中一年级。终日打架、无证骑摩托车，是当地有名的坏少年。但本性善良，是个见不得别人有难的人情家。凭借睡眠学习掌握的驾驶方法、天生的运动神经和敏锐直觉，将桑巴德、赞波王牌和赞波特3操纵得如同手足。但拼命与盖佐克战斗却不被周围人理解，让他日益焦躁。然而，通过目睹日益加剧的破坏活动和人体炸弹等无情作战，以及与曾有龃龉之人和解等经历，他逐渐成长、成熟起来。最后决战中，即使只剩赞波王牌单机，仍消灭了盖佐克，在失去意识的状态下独自返回故乡。然后在欢呼的人群中，于美知的膝枕上醒来，仰望已无战争的宇宙。",
+          "current_translation": "神家的次子，赞波特3的主驾驶员。12岁，初中一年级。终日打架、无证骑摩托车，是当地有名的坏少年。但本性善良，是个见不得别人有难的人情家。凭借睡眠学习掌握的驾驶方法、天生的运动神经和敏锐直觉，将桑巴德、赞波王牌和赞波特3操纵得如同手足。但拼命与盖佐克战斗却不被周围人理解，让他日益焦躁。然而，通过目睹日益加剧的破坏活动和人体炸弹等无情作战，以及与曾有龃龉之人和解等经历，他逐渐成长、成熟起来。最后决战中，即使只剩赞波王牌单机，仍消灭了盖佐克，在失去意识的状态下独自返回故乡。然后在欢呼的人群中，于美知的膝枕上醒来，仰望已无战争的宇宙。",
+          "current_translation_sha256": "8deba2922176b8960379bd1a37c80ea2771bd17644ed7a8938b82188537a5a2e",
+          "original_location": [
+            {
+              "field_id": "character/084/DSC2",
+              "source_name": "神勝平"
+            }
+          ],
+          "source_context_at_scan": [],
+          "glossary_refs": [
+            "people/michi",
+            "people/speaker-5549386e1f3c",
+            "people/speaker-749ca4675490",
+            "unit/zambird",
+            "unit/zambot-ace",
+            "unit/zambot-three"
+          ],
+          "proposal": null,
+          "domain": "library"
+        },
+        {
+          "id": "library-text/bf81ed7864376541",
+          "corpus_path": "corpus/zh/library/v0.2-reviewed.json",
+          "source_ja": "　神家の次男で、ザンボット３のメ\nインパイロット。１２歳。中学一年\n生。\n　喧嘩に明け暮れ、無免許でバイク\nを乗り回すなど、地元では有名な不\n良少年。しかしその性根は優しく、\n困った人は放っておけない人情家。\n　睡眠学習で身に付けた操縦方法と、\n持ち前の運動神経、勘の鋭さで、ザ\nンバード、ザンボエース、ザンボッ\nト３を手足のように操る。だが、必\n死でガイゾックと戦っても周囲の人\n人に理解してもらえないことに苛立\nちを募らせていた。しかし、勢いを\n増す破壊活動や人間爆弾などの非情\nな作戦を目の当たりにした事、また\n軋轢のあった者と和解した事などを\n経て、人間として成長していった。",
+          "source_text_sha256": "bf81ed7864376541b5bf7676f7c1413914232507deb0c252b3ab2d0a4b2eda8e",
+          "translation_at_scan": "神家的次子，赞波特3的主驾驶员。12岁，初中一年级。终日打架、无证骑摩托，是当地有名的坏小子。但本性善良，是见不得别人有难的人情派。凭借睡眠学习掌握的驾驶方法、天生的运动神经和敏锐直觉，将桑巴德、赞波王牌、赞波特3操纵得如同手足。但拼命与盖佐克战斗却不被周围人理解，令他日益焦躁。然而，目睹愈演愈烈的破坏活动和人体炸弹等无情作战，以及与有嫌隙之人和解等经历，使他不断成长、日渐成熟。",
+          "current_translation": "神家的次子，赞波特3的主驾驶员。12岁，初中一年级。终日打架、无证骑摩托，是当地有名的坏小子。但本性善良，是见不得别人有难的人情派。凭借睡眠学习掌握的驾驶方法、天生的运动神经和敏锐直觉，将桑巴德、赞波王牌、赞波特3操纵得如同手足。但拼命与盖佐克战斗却不被周围人理解，令他日益焦躁。然而，目睹愈演愈烈的破坏活动和人体炸弹等无情作战，以及与有嫌隙之人和解等经历，使他不断成长、日渐成熟。",
+          "current_translation_sha256": "8cac8c7c87f6e35838312cf7388130084241929b37a29249d3e765e74bae3f3a",
+          "original_location": [
+            {
+              "field_id": "character/084/DSCR",
+              "source_name": "神勝平"
+            }
+          ],
+          "source_context_at_scan": [],
+          "glossary_refs": [
+            "unit/zambird",
+            "unit/zambot-ace",
+            "unit/zambot-three"
+          ],
+          "proposal": null,
+          "domain": "library"
+        }
+      ]
+    },
+    {
+      "id": "JC-10",
+      "title": "砲術担当 → 炮术担当",
+      "status": "recommended",
+      "rationale": "图鉴在介绍月光号成员的工作职责；可以用负责火炮操作，避免把日语职务后缀直接搬入正文。",
+      "direction": "开头改为“月光号上负责操纵火炮的成员。45岁。”",
+      "entry_count": 1,
+      "entries": [
+        {
+          "id": "library-text/0511b7baee9adbb2",
+          "corpus_path": "corpus/zh/library/v0.2-reviewed.json",
+          "source_ja": "　月光号の砲術担当。４５歳。\n　外見や言動からもわかる通り堅物\nの軍人であったが、ホランドとの出\n会いで人生観が大きく揺さぶられ、\n以後は月光号と共に行動するように\nなった。\n　正式なゲッコーステイトのメンバ\nーの中では最年長であり、主とも呼\nべる存在感と深い戦闘経験を持つ、\n頼りになる男である。\n　火器の扱いにおいても、射程外か\nら敵艦にレーザー砲を命中させたり、\n主砲の反動を使って緊急回避を行う\nなど、かなりの腕を持っている。\n　タルホに代わってムーンドギーが\n操艦を担当するようになると、慣れ\nない実戦に戸惑う姿を叱咤激励して\n奮起させ、その才能を十分に発揮さ\nせた。それを見たハップには「いい\nコンビだ」と称されている。",
+          "source_text_sha256": "0511b7baee9adbb2f535ad6c99845168f22c53b95023d774d13492c10b5c7f26",
+          "translation_at_scan": "月光号的炮术担当。45岁。从外表和言行可以看出是个刻板的军人，但与霍兰德的相遇使人生观受到巨大冲击，此后便与月光号共同行动。在正式的月光洲成员中最为年长，拥有堪称主心骨的存在感和丰富的战斗经验，是位可靠的男子。在火器操作方面也技艺高超，能从射程外以激光炮命中敌舰，或利用主炮后坐力进行紧急回避等。当蒙·多吉代替塔尔荷负责操舰后，他对不熟悉实战而不知所措的蒙·多吉加以激励鞭策，使其充分发挥了才能。看到这一幕的哈普称赞道“真是好搭档”。",
+          "current_translation": "月光号的炮术担当。45岁。从外表和言行可以看出是个刻板的军人，但与霍兰德的相遇使人生观受到巨大冲击，此后便与月光号共同行动。在正式的月光洲成员中最为年长，拥有堪称主心骨的存在感和丰富的战斗经验，是位可靠的男子。在火器操作方面也技艺高超，能从射程外以激光炮命中敌舰，或利用主炮后坐力进行紧急回避等。当蒙·多吉代替塔尔荷负责操舰后，他对不熟悉实战而不知所措的蒙·多吉加以激励鞭策，使其充分发挥了才能。看到这一幕的哈普称赞道“真是好搭档”。",
+          "current_translation_sha256": "a8eeaa2d845ae652be0ab3551f9741300b6df5bc6b10237209488dc92ac184fb",
+          "original_location": [
+            {
+              "field_id": "character/366/DSC2",
+              "source_name": "ケンゴウ"
+            }
+          ],
+          "source_context_at_scan": [],
+          "glossary_refs": [
+            "organization/gekkostate",
+            "people/holland",
+            "people/speaker-b3a6e71cada9",
+            "people/speaker-c42b03f788ed",
+            "people/speaker-e34a61115dfb",
+            "spirit/rouse",
+            "system/accuracy",
+            "system/evasion",
+            "system/range",
+            "weapon/0101",
+            "weapon/0266"
+          ],
+          "proposal": null,
+          "domain": "library"
+        }
+      ]
+    },
+    {
+      "id": "JC-11",
+      "title": "お土産 → 玩具、三角旗的土特产",
+      "status": "recommended",
+      "rationale": "080谈的是旅游纪念三角旗，130明确承接坏掉的玩具。中文土特产常指地方出产的物品，此处用纪念品或带回去的礼物更准确。080的ペナント还应与现有三角旗定名一致。",
+      "direction": "纪念品／带回去的礼物。",
+      "entry_count": 3,
+      "entries": [
+        {
+          "id": "story/080/dialogue/02.04/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-080.json",
+          "source_ja": "「これはね、アポロ君。\n　ペナントって言って、観光地のお土産物で\n　不人気ナンバーワンなんだよ」",
+          "source_text_sha256": "73e63bb5851dd86a87709abbd723d05c5b1b1362f7338b78d43a3f7961f64114",
+          "translation_at_scan": "“这个啊，阿波罗君。这叫锦旗，\n　是旅游景点土特产里人气倒数第一的东西。”",
+          "current_translation": "“这个啊，阿波罗君。这叫锦旗，\n　是旅游景点土特产里人气倒数第一的东西。”",
+          "current_translation_sha256": "f8e2ea89723402f1e5ab00f87801a55e5e36eead3dec7622cd36598fcade0547",
+          "original_location": {
+            "stage_index": 80,
+            "section": "Section 2.4",
+            "ordinal": 4,
+            "text_offset": 70560
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/080/dialogue/02.04/0003",
+              "relation": "previous",
+              "source_ja": "「何だ、この三角の布っきれは？」",
+              "current_translation": "“这是什么，这块三角布片？”"
+            },
+            {
+              "id": "story/080/dialogue/02.04/0004",
+              "relation": "target",
+              "source_ja": "「これはね、アポロ君。\n　ペナントって言って、観光地のお土産物で\n　不人気ナンバーワンなんだよ」",
+              "current_translation": "“这个啊，阿波罗君。这叫锦旗，\n　是旅游景点土特产里人气倒数第一的东西。”"
+            },
+            {
+              "id": "story/080/dialogue/02.04/0005",
+              "relation": "next",
+              "source_ja": "「そのありがたい代物が\n　どうしてグローマにあるんだよ」",
+              "current_translation": "“那宝贝玩意儿怎么会出现在格罗玛？”"
+            }
+          ],
+          "glossary_refs": [
+            "people/apollo"
+          ],
+          "proposal": "“这个啊，阿波罗君。这叫三角旗，\n　在旅游纪念品里是最不受欢迎的。”",
+          "domain": "story"
+        },
+        {
+          "id": "story/080/dialogue/02.04/0008",
+          "corpus_path": "corpus/zh/story-dialogue/stage-080.json",
+          "source_ja": "「そう言うなよ、ジュン。\n　確かに土産物としちゃイマイチだが、\n　こいつはこいつで喜ぶ人もいるんだぜ」",
+          "source_text_sha256": "93fa0f91c4a8bde5110eb519d62cc9cd6e9f6a3280500321bf92d915d5ab1603",
+          "translation_at_scan": "“别这么说嘛，纯。虽然作为土特产是差了点，\n　但也会有人喜欢它的。”",
+          "current_translation": "“别这么说嘛，纯。虽然作为土特产是差了点，\n　但也会有人喜欢它的。”",
+          "current_translation_sha256": "3a6bb15a5e1560d9ed8d24a194f15ffc4578bbb22bba66095fa45d7f36c988db",
+          "original_location": {
+            "stage_index": 80,
+            "section": "Section 2.4",
+            "ordinal": 8,
+            "text_offset": 70864
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/080/dialogue/02.04/0007",
+              "relation": "previous",
+              "source_ja": "「えーっ！\n　本気でペナントなんて買う人が\n　いたんだ！？」",
+              "current_translation": "“诶——！还真有人认真买锦旗啊！？”"
+            },
+            {
+              "id": "story/080/dialogue/02.04/0008",
+              "relation": "target",
+              "source_ja": "「そう言うなよ、ジュン。\n　確かに土産物としちゃイマイチだが、\n　こいつはこいつで喜ぶ人もいるんだぜ」",
+              "current_translation": "“别这么说嘛，纯。虽然作为土特产是差了点，\n　但也会有人喜欢它的。”"
+            },
+            {
+              "id": "story/080/dialogue/02.04/0009",
+              "relation": "next",
+              "source_ja": "「その喜ぶ人って…？」",
+              "current_translation": "“那个喜欢的人……？”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": "“别这么说嘛，纯。虽然这纪念品不怎么样，\n　但也会有人喜欢它的。”",
+          "domain": "story"
+        },
+        {
+          "id": "story/130/dialogue/02.02/0029",
+          "corpus_path": "corpus/zh/story-dialogue/stage-130.json",
+          "source_ja": "「まあ、いいじゃない。\n　メーテルやリンクへのお土産になるし」",
+          "source_text_sha256": "07d8f42b6ebdc764eb2592e57eecfa8c9ea7239e5201d300cd4cdffbba954f3d",
+          "translation_at_scan": "“哎呀，不是挺好的嘛。\n　可以当给梅蒂儿和林克的土特产。”",
+          "current_translation": "“哎呀，不是挺好的嘛。\n　可以当给梅蒂儿和林克的土特产。”",
+          "current_translation_sha256": "54705e791fd09573c7219877a6cccbf0687e9e2985e1f09c4ba1185ca480d5ee",
+          "original_location": {
+            "stage_index": 130,
+            "section": "Section 2.2",
+            "ordinal": 29,
+            "text_offset": 106656
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/130/dialogue/02.02/0028",
+              "relation": "previous",
+              "source_ja": "「でもよ、レアアイテムが\n　壊れたオモチャになっちまったぜ」",
+              "current_translation": "“不过啊，稀有道具变成了坏掉的玩具。”"
+            },
+            {
+              "id": "story/130/dialogue/02.02/0029",
+              "relation": "target",
+              "source_ja": "「まあ、いいじゃない。\n　メーテルやリンクへのお土産になるし」",
+              "current_translation": "“哎呀，不是挺好的嘛。\n　可以当给梅蒂儿和林克的土特产。”"
+            },
+            {
+              "id": "story/130/dialogue/02.02/0030",
+              "relation": "next",
+              "source_ja": "「でも、もしかしたら\n　この子…凄い秘密を持ってたりして…」",
+              "current_translation": "“不过，说不定这家伙……\n　藏着什么惊人的秘密……”"
+            }
+          ],
+          "glossary_refs": [
+            "people/speaker-2f4ab2f9b243"
+          ],
+          "proposal": "“哎呀，不是挺好的嘛。\n　可以当礼物带给梅蒂儿和林克。”",
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-12",
+      "title": "本命 → 本命登场",
+      "status": "wording_review",
+      "rationale": "原句连用本命、真打ち、主役、二枚目自我夸耀。本命不是中文命理义，也不宜引入现代粉圈最爱之义；改稿须保留夸张列举的角色口吻。",
+      "direction": "可考虑“头号人物、压轴、主角，英俊小生登场了哦～！”；先审角色口吻。",
+      "entry_count": 1,
+      "entries": [
+        {
+          "id": "battle:16868",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「本命、真打ち、主役、\\n　二枚目の登場だわよ〜ん！」",
+          "source_text_sha256": "ce3048f9302539fdd24a88970ed66fd38f24be8a0777f1993e7596544ed520cd",
+          "translation_at_scan": "“本命、压轴、主角、\\n　英俊小生登场了哦～！”",
+          "current_translation": "“本命、压轴、主角、\\n　英俊小生登场了哦～！”",
+          "current_translation_sha256": "107d0c3a659d8e4668073de18f11e52531aa3b03a488bc777a1aa5dfaaee4d79",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 232,
+                "record_index": 27,
+                "archive_text_start": 2176707,
+                "encoded_size": 53
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        }
+      ]
+    },
+    {
+      "id": "JC-13",
+      "title": "花道作り → 铺条花道",
+      "status": "wording_review",
+      "rationale": "花道有舞台出场通道的比喻；单句不足以决定为自己登场还是为同伴开道。已保留原始SRVC位置供继续核对使用角色与场景。",
+      "direction": "按喊话对象选择开道／铺好登场的路，暂不补入未经证实的主角或退场含义。",
+      "entry_count": 1,
+      "entries": [
+        {
+          "id": "battle:00890",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「花道作りといこうか！」",
+          "source_text_sha256": "b767e4c38cb65a27fbf274196ae1c013e3688f797dfcc3a6951ab0dbb9e38aa3",
+          "translation_at_scan": "“来铺条花道吧！”",
+          "current_translation": "“来铺条花道吧！”",
+          "current_translation_sha256": "2cc212857205848f847775763a69af2dd8714373a3f5a9dbbe0ddc953f53a9d3",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 13,
+                "record_index": 85,
+                "archive_text_start": 100355,
+                "encoded_size": 25
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        }
+      ]
+    },
+    {
+      "id": "JC-14",
+      "title": "義兄 → 义兄（修基与桑德曼）",
+      "status": "wording_review",
+      "rationale": "story/064/dialogue/01.05/0004原文直接解释为妻の兄，关系是妻子的哥哥。当前37条仍用义兄，中文容易被读作结拜兄长。关系已确认，叙述用妻兄、大舅哥还是内兄，直呼用大哥还是修基大哥，需要统一口吻。story/133/dialogue/01.19/0010另有“修基格”多余格字，一并标出。",
+      "direction": "叙述明确为妻子的哥哥，直呼优先考虑大哥；先统一称呼方案，再联动37条。",
+      "entry_count": 37,
+      "entries": [
+        {
+          "id": "battle:07867",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「ヒューギ義兄さん！　\\n　私はまだ死ねないのです！」",
+          "source_text_sha256": "512868666200e983f8981d09d9ed703dbf13e27a8cfd1c6aaa446cef65e9c87d",
+          "translation_at_scan": "“修基义兄！\\n　我还不能死！”",
+          "current_translation": "“修基义兄！\\n　我还不能死！”",
+          "current_translation_sha256": "58d8e0066b4d21d3788fca29151f1669577bdbce51ca119ccb9dfa59765faa68",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 105,
+                "record_index": 133,
+                "archive_text_start": 1021403,
+                "encoded_size": 53
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:07878",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「創星機の能力を知らない\\n　義兄さんではないでしょう！？」",
+          "source_text_sha256": "6db0e9d1d8ba87d1a6f67d70b8b22e90d2dc7c3b1a1ea84183e1561b9804d583",
+          "translation_at_scan": "“义兄不会不知道\\n　创星机的性能吧！？”",
+          "current_translation": "“义兄不会不知道\\n　创星机的性能吧！？”",
+          "current_translation_sha256": "f53f6a9a81312ccd6a40877e9ed8be93aff11f97994a0807c8b6f4bfd54a600d",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 105,
+                "record_index": 144,
+                "archive_text_start": 1021928,
+                "encoded_size": 59
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:07889",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「ヒューギ義兄さん…！　さすがだ！」",
+          "source_text_sha256": "16bb99d18eb75616e3b5b36393ed4ce273862aab85216a6ecf52fb52d5a084e1",
+          "translation_at_scan": "“修基义兄…！果然厉害！”",
+          "current_translation": "“修基义兄…！果然厉害！”",
+          "current_translation_sha256": "c4d646bab3a806c3c10a022fa7d7b361b51f1545c369bf4727ff7e13e5dc41bf",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 105,
+                "record_index": 155,
+                "archive_text_start": 1022421,
+                "encoded_size": 37
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:07900",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「何というパワーだ…！　\\n　義兄さんの執念の力か…！」",
+          "source_text_sha256": "7d4a6c1c0cfeecb70288227f990186724855950a7a8464e75202fb60756d36f7",
+          "translation_at_scan": "“何等力量…！\\n　这就是义兄的执念之力吗…！”",
+          "current_translation": "“何等力量…！\\n　这就是义兄的执念之力吗…！”",
+          "current_translation_sha256": "43e645d6c1a41fdf9012314d09fd7f76a634566531a579e6aaa0f7c838fdfd98",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 105,
+                "record_index": 166,
+                "archive_text_start": 1023012,
+                "encoded_size": 55
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:07910",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「決着をつけるぞ、ヒューギ義兄さん！」",
+          "source_text_sha256": "3a04246f12978e7098338e8b8ab0d5ae7e60aa6c501b81460f6537f966db1ade",
+          "translation_at_scan": "“做个了断吧，修基义兄！”",
+          "current_translation": "“做个了断吧，修基义兄！”",
+          "current_translation_sha256": "f97a055ca4b5fd8620e8a9366dcb44523147843e824100f6317363c05661e283",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 105,
+                "record_index": 182,
+                "archive_text_start": 1023682,
+                "encoded_size": 39
+              },
+              {
+                "chunk_index": 105,
+                "record_index": 208,
+                "archive_text_start": 1024932,
+                "encoded_size": 39
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:07911",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「ヒューギ義兄さん！　\\n　あなただけは私の手で！」",
+          "source_text_sha256": "252682ee18722ad405a35f59aeeceb6315fee36fdaa2647b92d9c1d5588f1806",
+          "translation_at_scan": "“修基义兄！\\n　你只能由我亲手！”",
+          "current_translation": "“修基义兄！\\n　你只能由我亲手！”",
+          "current_translation_sha256": "9431805f9b4fbd53d5334e96035120fa4fe44f96f4330290ce43172a3010aec9",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 105,
+                "record_index": 183,
+                "archive_text_start": 1023721,
+                "encoded_size": 51
+              },
+              {
+                "chunk_index": 105,
+                "record_index": 206,
+                "archive_text_start": 1024838,
+                "encoded_size": 51
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "library-text/1fba29a4c7172ea5",
+          "corpus_path": "corpus/zh/library/v0.2-reviewed.json",
+          "source_ja": "　来るべき義兄ヒューギとの決戦に備え、サンドマンが開\n発したスーパーロボット。\n　右足にＧｅｏキャリバー、左足にＧｅｏスティンガー、\n両腕にＧｅｏジャベリン、胸と頭にＧｅｏミラージュと、\nコアとなるグランカイザーに計４機のソルグランディーヴ\nァが合神する事で完成する。\n　エルゴフォームシステムによってパイロットの精神力を\n増幅させ、重量子を爆発的に開放させる事ができる。理論\n上は星１つを破壊する事はおろか、創造する事すら可能な\n力を秘めている。それゆえ扱うグランナイツにも相応の力\n量が問われるため、彼らがその力に見合った戦士に成長す\nるまで、サンドマンによって月の基地に秘匿されていた。\n　主な武器は、両肩に装備されている『ソルグラヴィトン\nキャノン』、胸部から発射される『ソルグラヴィトンアー\nク』、その２つを集中させた『ソルグラヴィトンノヴァ』、\n左腕のドリルを回転させて突撃する『ソルグラヴィトンブ\nリンガー』などがある。ゴッドグラヴィオンが使っていた\n『超重剣』も、本来はソルグラヴィオンの武器である。",
+          "source_text_sha256": "1fba29a4c7172ea5497a7c4989216db71239f9d241a1738aeb7739111bc756c8",
+          "translation_at_scan": "为迎接与义兄修基的决战，桑德曼开发的超级机器人。右足装备Geo圣剑，左足装备Geo刺针，双臂装备Geo投枪，胸部和头部装备Geo幻象，核心的格兰凯撒与共计4台Sol Grandiva合神后完成。通过埃尔戈形态系统增幅驾驶员的精神力，能够爆发性地释放重量子。理论上不仅能够破坏一颗星球，甚至蕴含创造星球的力量。因此对操纵它的格兰骑士团也要求相应的实力，在骑士们成长为配得上这份力量的战士之前，一直被桑德曼秘藏于月球基地。主要武器有装备在双肩的“炎阳超重加农”、从胸部发射的“炎阳超重弧光”、将两者集中发射的“炎阳超重爆炎霸”、以及旋转左臂钻头突击的“炎阳超重使者”等。格兰维昂曾使用的“超重剑”原本也是炎阳格兰维昂的武器。",
+          "current_translation": "为迎接与义兄修基的决战，桑德曼开发的超级机器人。右足装备Geo圣剑，左足装备Geo刺针，双臂装备Geo投枪，胸部和头部装备Geo幻象，核心的格兰凯撒与共计4台Sol Grandiva合神后完成。通过埃尔戈形态系统增幅驾驶员的精神力，能够爆发性地释放重量子。理论上不仅能够破坏一颗星球，甚至蕴含创造星球的力量。因此对操纵它的格兰骑士团也要求相应的实力，在骑士们成长为配得上这份力量的战士之前，一直被桑德曼秘藏于月球基地。主要武器有装备在双肩的“炎阳超重加农”、从胸部发射的“炎阳超重弧光”、将两者集中发射的“炎阳超重爆炎霸”、以及旋转左臂钻头突击的“炎阳超重使者”等。格兰维昂曾使用的“超重剑”原本也是炎阳格兰维昂的武器。",
+          "current_translation_sha256": "2e1c62ff8dc3a6210153cc5091cdc9829e9c157e7fe150b5268db2bac5bae3fe",
+          "original_location": [
+            {
+              "field_id": "robot/253/DSCR",
+              "source_name": "ソルグラヴィオン"
+            }
+          ],
+          "source_context_at_scan": [],
+          "glossary_refs": [
+            "organization/gran-knights",
+            "people/sandman",
+            "people/speaker-389b01366661",
+            "spirit/focus",
+            "system/combine",
+            "system/pilot",
+            "technology/ergo-form-system",
+            "unit/geo-javelin",
+            "unit/geo-mirage",
+            "unit/god-gravion",
+            "unit/gran-kaiser",
+            "unit/sol-grandiva",
+            "unit/sol-gravion",
+            "weapon/0091",
+            "weapon/0129",
+            "weapon/0573",
+            "weapon/0577",
+            "weapon/0578",
+            "weapon/0581",
+            "weapon/sol-graviton-arc"
+          ],
+          "proposal": null,
+          "domain": "library"
+        },
+        {
+          "id": "library-text/28e1c052c98e58de",
+          "corpus_path": "corpus/zh/library/v0.2-reviewed.json",
+          "source_ja": "　クライン・サンドマンとは仮の名\nで、本名は『ジーク・エリクマイヤ\nー』。\n　惑星ランビアス出身の科学者で、\n滅びに向かう故郷を救うために惑星\nの破壊や創造すら可能な創星機『グ\nランΣ』を開発する。だが見解の相\n違から義兄ヒューギと衝突、その結\n果ランビアスは崩壊してしまう。\n　『グランΣ』でランビアスを脱出\nし、やがて地球に辿り着く。そして\nいつの日か復讐に訪れるだろう義兄\nから地球を守るため、長い年月をか\nけてプロトグランディーヴァやゴッ\nドグラヴィオンなどを作り上げた。\n　体内のＧ因子を新陳代謝機能とし\nて使用する事で髪の色が紫に変化し、\n不老不死となっていた。だが戦うた\nめに『グランΣ』に乗り込んでＧ因\n子を解放したため、本来の金髪へと\n戻っている。\n　ゼラバイアとの戦いが終わった後、\n自分を心身共に救ってくれたアヤカ\nと結ばれた。",
+          "source_text_sha256": "28e1c052c98e58dee5b934db7cf82269ecefa6b7ba76863e011013b55546622b",
+          "translation_at_scan": "克莱因·桑德曼是假名，本名是“齐格·埃里克迈尔”。出身于兰比亚斯星的科学家，为了拯救走向毁灭的故乡，开发了能够破坏甚至创造行星的创星机“Gran Σ”。但因见解不同与义兄修基发生冲突，结果导致兰比亚斯崩坏。他乘坐“Gran Σ”逃离兰比亚斯，最终抵达地球。为了防备总有一天会来复仇的义兄，他花费漫长岁月制造了原型超重机组和格兰维昂等。通过将体内的G因子用作新陈代谢功能，发色变为紫色，获得了不老不死之身。但为了战斗而搭乘“Gran Σ”解放了G因子，因此恢复了原本的金发。与泽拉拜亚的战斗结束后，他与身心都拯救了自己的彩香结为连理。",
+          "current_translation": "克莱因·桑德曼是假名，本名是“齐格·埃里克迈尔”。出身于兰比亚斯星的科学家，为了拯救走向毁灭的故乡，开发了能够破坏甚至创造行星的创星机“Gran Σ”。但因见解不同与义兄修基发生冲突，结果导致兰比亚斯崩坏。他乘坐“Gran Σ”逃离兰比亚斯，最终抵达地球。为了防备总有一天会来复仇的义兄，他花费漫长岁月制造了原型超重机组和格兰维昂等。通过将体内的G因子用作新陈代谢功能，发色变为紫色，获得了不老不死之身。但为了战斗而搭乘“Gran Σ”解放了G因子，因此恢复了原本的金发。与泽拉拜亚的战斗结束后，他与身心都拯救了自己的彩香结为连理。",
+          "current_translation_sha256": "89cf508d66471144cf686068e71435835aa931017708916d99ab968aa268f6e1",
+          "original_location": [
+            {
+              "field_id": "character/306/DSC2",
+              "source_name": "ジーク・エリクマイヤー"
+            }
+          ],
+          "source_context_at_scan": [],
+          "glossary_refs": [
+            "faction/zeravire",
+            "people/sandman",
+            "people/speaker-389b01366661",
+            "people/speaker-6a8f5a239bbb",
+            "people/speaker-a101ce11bce3",
+            "unit/god-gravion",
+            "unit/gran-sigma",
+            "unit/proto-gran-diva"
+          ],
+          "proposal": null,
+          "domain": "library"
+        },
+        {
+          "id": "library-text/a813220416f13c40",
+          "corpus_path": "corpus/zh/library/v0.2-reviewed.json",
+          "source_ja": "　クライン・サンドマンとは仮の名\nで、本名は『ジーク・エリクマイヤ\nー』。\n　惑星ランビアス出身の科学者で、\n滅びに向かう故郷を救うために惑星\nの破壊や創造すら可能な創星機『グ\nランΣ』を開発する。だが見解の相\n違から義兄ヒューギと衝突、その結\n果ランビアスは崩壊してしまう。\n　『グランΣ』でランビアスを脱出\nし、やがて地球に辿り着く。そして\nいつの日か復讐に訪れるだろう義兄\nから地球を守るため、長い年月をか\nけてプロトグランディーヴァやゴッ\nドグラヴィオンなどを作り上げた。\n　体内のＧ因子を新陳代謝機能とし\nて使用する事で髪の色が紫に変化し、\n不老不死となっていた。だが戦うた\nめに『グランΣ』に乗り込んでＧ因\n子を解放したため、本来の金髪へと\n戻っている。",
+          "source_text_sha256": "a813220416f13c40440c8ff1002e84fccb342a246cc245ea20f82bf400b00e83",
+          "translation_at_scan": "克莱因·桑德曼是假名，本名为齐格·埃里克迈尔。出身于兰比亚斯星的科学家，为了拯救走向毁灭的故乡，开发了甚至能够破坏和创造行星的创星机“Gran Σ”。然而由于见解不同与义兄修基发生冲突，结果导致兰比亚斯崩溃。他乘坐“Gran Σ”逃离兰比亚斯，最终抵达地球。为了从总有一天会前来复仇的义兄手中保护地球，花费漫长岁月制造了原型超重机组和格兰维昂等机体。通过将体内的G因子用作新陈代谢功能，发色变为紫色，获得了不老不死之身。但为了战斗而搭乘“Gran Σ”并解放了G因子，因此恢复为原本的金发。",
+          "current_translation": "克莱因·桑德曼是假名，本名为齐格·埃里克迈尔。出身于兰比亚斯星的科学家，为了拯救走向毁灭的故乡，开发了甚至能够破坏和创造行星的创星机“Gran Σ”。然而由于见解不同与义兄修基发生冲突，结果导致兰比亚斯崩溃。他乘坐“Gran Σ”逃离兰比亚斯，最终抵达地球。为了从总有一天会前来复仇的义兄手中保护地球，花费漫长岁月制造了原型超重机组和格兰维昂等机体。通过将体内的G因子用作新陈代谢功能，发色变为紫色，获得了不老不死之身。但为了战斗而搭乘“Gran Σ”并解放了G因子，因此恢复为原本的金发。",
+          "current_translation_sha256": "b3f489d8a1a6b409a3ee482291f78e4047604e486d8167f23bde58e09e87d44c",
+          "original_location": [
+            {
+              "field_id": "character/306/DSCR",
+              "source_name": "ジーク・エリクマイヤー"
+            }
+          ],
+          "source_context_at_scan": [],
+          "glossary_refs": [
+            "people/sandman",
+            "people/speaker-389b01366661",
+            "people/speaker-a101ce11bce3",
+            "unit/god-gravion",
+            "unit/gran-sigma",
+            "unit/proto-gran-diva"
+          ],
+          "proposal": null,
+          "domain": "library"
+        },
+        {
+          "id": "library-text/b33affc4012ea13c",
+          "corpus_path": "corpus/zh/library/v0.2-reviewed.json",
+          "source_ja": "　来るべき義兄ヒューギとの決戦に備え、サンドマンが開\n発したスーパーロボット。\n　右足にＧｅｏキャリバー、左足にＧｅｏスティンガー、\n両腕にＧｅｏジャベリン、胸と頭にＧｅｏミラージュと、\nコアとなるグランカイザーに計４機のソルグランディーヴ\nァが合神する事で完成する。\n　エルゴフォームシステムによってパイロットの精神力を\n増幅させ、重量子を爆発的に開放させる事ができる。理論\n上は星１つを破壊する事はおろか、創造する事すら可能な\n力を秘めている。それゆえ扱うグランナイツにも相応の力\n量が問われるため、彼らがその力に見合った戦士に成長す\nるまで、サンドマンによって月の基地に秘匿されていた。\n　主な武器は、両肩に装備されている『ソルグラヴィトン\nキャノン』、胸部から発射される『ソルグラヴィトンアー\nク』、その２つを集中させた『ソルグラヴィトンノヴァ』、\n左腕のドリルを回転させて突撃する『ソルグラヴィトンブ\nリンガー』などがある。ゴッドグラヴィオンが使っていた\n『超重剣』も、本来はソルグラヴィオンの武器である。\n　ゴッドΣグラヴィオンと最凶合神することで、最強最後\nの形態である『アルティメットグラヴィオン』となる事が\n可能である。",
+          "source_text_sha256": "b33affc4012ea13c5e93eb7480ab63b626bf16af272297812643d1b469347091",
+          "translation_at_scan": "为应对即将到来的与义兄修基的决战，由桑德曼开发的超级机器人。右腿装备Geo圣剑、左腿装备Geo刺针、双臂装备Geo投枪、胸部和头部装备Geo幻象，核心格兰凯撒与共计4架Sol Grandiva合神后完成。通过埃尔戈形态系统增幅驾驶员的精神力，能够爆发性地释放重量子。理论上拥有不仅破坏一颗星球，甚至创造星球的力量。因此对操纵它的格兰骑士团也要求相应的实力，在骑士们成长为配得上该力量的战士之前，被桑德曼秘藏于月球基地。主要武器有双肩装备的“炎阳超重加农”、从胸部发射的“炎阳超重弧光”、将两者集中发射的“炎阳超重爆炎霸”、旋转左臂钻头突击的“炎阳超重使者”等。格兰维昂使用的“超重剑”原本也是炎阳格兰维昂的武器。与巨神Σ格兰维昂进行最凶合神后，可以成为最强最后的形态“终极超重神”。",
+          "current_translation": "为应对即将到来的与义兄修基的决战，由桑德曼开发的超级机器人。右腿装备Geo圣剑、左腿装备Geo刺针、双臂装备Geo投枪、胸部和头部装备Geo幻象，核心格兰凯撒与共计4架Sol Grandiva合神后完成。通过埃尔戈形态系统增幅驾驶员的精神力，能够爆发性地释放重量子。理论上拥有不仅破坏一颗星球，甚至创造星球的力量。因此对操纵它的格兰骑士团也要求相应的实力，在骑士们成长为配得上该力量的战士之前，被桑德曼秘藏于月球基地。主要武器有双肩装备的“炎阳超重加农”、从胸部发射的“炎阳超重弧光”、将两者集中发射的“炎阳超重爆炎霸”、旋转左臂钻头突击的“炎阳超重使者”等。格兰维昂使用的“超重剑”原本也是炎阳格兰维昂的武器。与巨神Σ格兰维昂进行最凶合神后，可以成为最强最后的形态“终极超重神”。",
+          "current_translation_sha256": "e2a9ee22f6de02e6af7c587ea116de00b891aabb7559e983b0f8cb3cc85c9123",
+          "original_location": [
+            {
+              "field_id": "robot/253/DSC2",
+              "source_name": "ソルグラヴィオン"
+            }
+          ],
+          "source_context_at_scan": [],
+          "glossary_refs": [
+            "organization/gran-knights",
+            "people/sandman",
+            "people/speaker-389b01366661",
+            "spirit/focus",
+            "system/combine",
+            "system/pilot",
+            "technology/ergo-form-system",
+            "unit/geo-javelin",
+            "unit/geo-mirage",
+            "unit/god-gravion",
+            "unit/god-sigma-gravion",
+            "unit/gran-kaiser",
+            "unit/sol-grandiva",
+            "unit/sol-gravion",
+            "weapon/0091",
+            "weapon/0129",
+            "weapon/0573",
+            "weapon/0577",
+            "weapon/0578",
+            "weapon/0581",
+            "weapon/sol-graviton-arc"
+          ],
+          "proposal": null,
+          "domain": "library"
+        },
+        {
+          "id": "story/064/dialogue/01.04/0007",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「全ては…事故だった…。\n　そして、ヒューギ義兄さんも…」",
+          "source_text_sha256": "dd983e873967cc3409dcafd04e5ab0a705e35b0fe4ca3d445d20442c79a3bd40",
+          "translation_at_scan": "“一切……都是事故……\n　而且，修基义兄也……”",
+          "current_translation": "“一切……都是事故……\n　而且，修基义兄也……”",
+          "current_translation_sha256": "6633b6931e16fb49c2fd2b64586ff5ce09af8e94212d4b52b3d09215b4b6fbfe",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.4",
+            "ordinal": 7,
+            "text_offset": 22256
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.04/0006",
+              "relation": "previous",
+              "source_ja": "「どういう事です！？」",
+              "current_translation": "“这是什么意思！？”"
+            },
+            {
+              "id": "story/064/dialogue/01.04/0007",
+              "relation": "target",
+              "source_ja": "「全ては…事故だった…。\n　そして、ヒューギ義兄さんも…」",
+              "current_translation": "“一切……都是事故……\n　而且，修基义兄也……”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/064/dialogue/01.05/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「ゼラバイア博士…？\n　ヒューギ義兄さん…？」",
+          "source_text_sha256": "efc1a620323d7ca74b2844c434433942795df1dc9ef88320b04327980fbd8618",
+          "translation_at_scan": "“泽拉拜亚博士……？修基义兄……？”",
+          "current_translation": "“泽拉拜亚博士……？修基义兄……？”",
+          "current_translation_sha256": "0f7253f62e612913a394306da8bea4965bf9f741b6da97ddaf30f5dc0c42bbe2",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.5",
+            "ordinal": 0,
+            "text_offset": 22336
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.05/0000",
+              "relation": "target",
+              "source_ja": "「ゼラバイア博士…？\n　ヒューギ義兄さん…？」",
+              "current_translation": "“泽拉拜亚博士……？修基义兄……？”"
+            },
+            {
+              "id": "story/064/dialogue/01.05/0001",
+              "relation": "next",
+              "source_ja": "「どういう事だ、サンドマン！？\n　あの金髪の男はあんたなのか！？」",
+              "current_translation": "“这是怎么回事，桑德曼！？\n　那个金发男是你吗！？”"
+            }
+          ],
+          "glossary_refs": [
+            "faction/zeravire"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/064/dialogue/01.05/0004",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「それを開発したのは私の義兄…\n　妻の兄、ヒューギ・ゼラバイア博士だ」",
+          "source_text_sha256": "c60c25cb2b054adacf7ff1c3e02d89282b15080deb5e048ebe4c91db2de85ad1",
+          "translation_at_scan": "“开发它的是我的义兄……\n　我妻子的哥哥，修基·泽拉拜亚博士。”",
+          "current_translation": "“开发它的是我的义兄……\n　我妻子的哥哥，修基·泽拉拜亚博士。”",
+          "current_translation_sha256": "9d669e84f1cd9461f1b7aefebd0a0a827c0d77b8045135c114403d6c87362346",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.5",
+            "ordinal": 4,
+            "text_offset": 22672
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.05/0003",
+              "relation": "previous",
+              "source_ja": "「そして、我々がゼラバイアと呼ぶ敵の\n　本当の名はジェノサイドロンシステムと\n　言い…」",
+              "current_translation": "“而且，我们称为泽拉拜亚的敌人，\n　其真名是杰诺赛德隆系统……”"
+            },
+            {
+              "id": "story/064/dialogue/01.05/0004",
+              "relation": "target",
+              "source_ja": "「それを開発したのは私の義兄…\n　妻の兄、ヒューギ・ゼラバイア博士だ」",
+              "current_translation": "“开发它的是我的义兄……\n　我妻子的哥哥，修基·泽拉拜亚博士。”"
+            },
+            {
+              "id": "story/064/dialogue/01.05/0005",
+              "relation": "next",
+              "source_ja": "「何ですって！？」",
+              "current_translation": "“什么！？”"
+            }
+          ],
+          "glossary_refs": [
+            "faction/zeravire"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/064/dialogue/01.05/0006",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「あんたの義兄さんは\n　どうして、そんな危険なものを\n　作り上げたんだ！？」",
+          "source_text_sha256": "aa7f11442c9e2aa4818ffb3ab3b89b935d54140dd357274a7400792a6c102d27",
+          "translation_at_scan": "“你的义兄为什么要制造那种危险的东西！？”",
+          "current_translation": "“你的义兄为什么要制造那种危险的东西！？”",
+          "current_translation_sha256": "0d77c328ab548f699dbb51e381ddf750674139baeff7cf35ca9125f18ba2b70c",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.5",
+            "ordinal": 6,
+            "text_offset": 22800
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.05/0005",
+              "relation": "previous",
+              "source_ja": "「何ですって！？」",
+              "current_translation": "“什么！？”"
+            },
+            {
+              "id": "story/064/dialogue/01.05/0006",
+              "relation": "target",
+              "source_ja": "「あんたの義兄さんは\n　どうして、そんな危険なものを\n　作り上げたんだ！？」",
+              "current_translation": "“你的义兄为什么要制造那种危险的东西！？”"
+            },
+            {
+              "id": "story/064/dialogue/01.05/0007",
+              "relation": "next",
+              "source_ja": "「…全ては惑星ランビアスとセリアスという\n　二つの星の争いに端を発する」",
+              "current_translation": "“……一切源于兰比亚斯和塞利\n　亚斯这两个星球之间的争斗。”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/064/dialogue/01.05/0023",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「だが、ヒューギ義兄さんは\n　それを待てなかった…」",
+          "source_text_sha256": "b8fcad5294a6e9497da71a91cbf804be41d91eabfc31c036b5d33c2090ed58af",
+          "translation_at_scan": "“但是，修基义兄等不及了……”",
+          "current_translation": "“但是，修基义兄等不及了……”",
+          "current_translation_sha256": "db3d4cdf2622fa3f1f3f015621f4e224448c23c35b90f701694e56245a01ac1e",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.5",
+            "ordinal": 23,
+            "text_offset": 24256
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.05/0022",
+              "relation": "previous",
+              "source_ja": "「戦争のための\n　ジェノサイドロンシステムなど\n　不要となったはずでしたのに…」",
+              "current_translation": "“本应不再需要用于战争\n　的杰诺赛德隆系统了……”"
+            },
+            {
+              "id": "story/064/dialogue/01.05/0023",
+              "relation": "target",
+              "source_ja": "「だが、ヒューギ義兄さんは\n　それを待てなかった…」",
+              "current_translation": "“但是，修基义兄等不及了……”"
+            },
+            {
+              "id": "story/064/dialogue/01.05/0024",
+              "relation": "next",
+              "source_ja": "「そして、僕は…」",
+              "current_translation": "“然后，我……”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/064/dialogue/01.06/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「…あの日、私は\n　ジェノサイドロンシステムの是非を巡って\n　義兄さんと言い争いになり…」",
+          "source_text_sha256": "4d8b2e49a90f5d4232e76b0bcb386738094f452e36d5fc0cf36ea49b27308ad4",
+          "translation_at_scan": "“……那天，我就杰诺赛德隆系\n　统的是非与义兄发生了争执……”",
+          "current_translation": "“……那天，我就杰诺赛德隆系\n　统的是非与义兄发生了争执……”",
+          "current_translation_sha256": "e500b0efd0d5c60f2675296df29d642a1831c9905f00eadd373621288bc56f9f",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.6",
+            "ordinal": 0,
+            "text_offset": 24352
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.06/0000",
+              "relation": "target",
+              "source_ja": "「…あの日、私は\n　ジェノサイドロンシステムの是非を巡って\n　義兄さんと言い争いになり…」",
+              "current_translation": "“……那天，我就杰诺赛德隆系\n　统的是非与义兄发生了争执……”"
+            },
+            {
+              "id": "story/064/dialogue/01.06/0001",
+              "relation": "next",
+              "source_ja": "「そして、激昂した義兄さんは\n　私に向けて銃を撃った…」",
+              "current_translation": "“然后，激怒的义兄向我开了枪……”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/064/dialogue/01.06/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「そして、激昂した義兄さんは\n　私に向けて銃を撃った…」",
+          "source_text_sha256": "4a553e74edede9ddebae6735c7a475f759b31cf89ee4eb24edc528a9bf293467",
+          "translation_at_scan": "“然后，激怒的义兄向我开了枪……”",
+          "current_translation": "“然后，激怒的义兄向我开了枪……”",
+          "current_translation_sha256": "6dd6a36f611b2358774a044ee766c6b0e34e91d0ebd1a47e96eaba7b0bafe3bc",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.6",
+            "ordinal": 1,
+            "text_offset": 24464
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.06/0000",
+              "relation": "previous",
+              "source_ja": "「…あの日、私は\n　ジェノサイドロンシステムの是非を巡って\n　義兄さんと言い争いになり…」",
+              "current_translation": "“……那天，我就杰诺赛德隆系\n　统的是非与义兄发生了争执……”"
+            },
+            {
+              "id": "story/064/dialogue/01.06/0001",
+              "relation": "target",
+              "source_ja": "「そして、激昂した義兄さんは\n　私に向けて銃を撃った…」",
+              "current_translation": "“然后，激怒的义兄向我开了枪……”"
+            },
+            {
+              "id": "story/064/dialogue/01.06/0002",
+              "relation": "next",
+              "source_ja": "「待てよ！\n　いくら言い争いになったからって、\n　そこまでやるのかよ！」",
+              "current_translation": "“等等！就算争执再激烈，\n　也不至于做到那一步吧！”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/064/dialogue/01.06/0005",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「妻のルフィーラは身体が弱く、\n　私の子を宿した際、義兄の下へ\n　引き取られていった…」",
+          "source_text_sha256": "855b348cc4bf9e9a5dae4af69d33260fac6ce41e1d9a5b0c2cf463e927adb35a",
+          "translation_at_scan": "“妻子露菲拉身体虚弱，怀上我的孩子后，\n　被接到义兄那里照顾……”",
+          "current_translation": "“妻子露菲拉身体虚弱，怀上我的孩子后，\n　被接到义兄那里照顾……”",
+          "current_translation_sha256": "ed7c948ab7dfec129c0013de7bfd93051da0fb0712784b1723cafe38627aef85",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.6",
+            "ordinal": 5,
+            "text_offset": 24768
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.06/0004",
+              "relation": "previous",
+              "source_ja": "「サンドマンの奥さん…」",
+              "current_translation": "“桑德曼的太太……”"
+            },
+            {
+              "id": "story/064/dialogue/01.06/0005",
+              "relation": "target",
+              "source_ja": "「妻のルフィーラは身体が弱く、\n　私の子を宿した際、義兄の下へ\n　引き取られていった…」",
+              "current_translation": "“妻子露菲拉身体虚弱，怀上我的孩子后，\n　被接到义兄那里照顾……”"
+            },
+            {
+              "id": "story/064/dialogue/01.06/0006",
+              "relation": "next",
+              "source_ja": "「だが、出産の負担に身体が耐えられず、\n　命を落としたのだ…」",
+              "current_translation": "“但是，她的身体承受不住分娩的负担，\n　失去了生命……”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/064/dialogue/01.06/0008",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「銃を向けた義兄に対して、\n　私は自衛のためにグラン═を\n　呼び寄せた…」",
+          "source_text_sha256": "e73df37bdf5476183e57308a3d1c4912ca8124af5fdd5f9496b3c47d439cd7d5",
+          "translation_at_scan": "“面对举枪相向的义兄，\n　我为了自卫召来了Gran Σ……”",
+          "current_translation": "“面对举枪相向的义兄，\n　我为了自卫召来了Gran Σ……”",
+          "current_translation_sha256": "de434def4180f55a66aa79ce096a94539f014136c890c0bcc2d2476af0780b94",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.6",
+            "ordinal": 8,
+            "text_offset": 25040
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.06/0007",
+              "relation": "previous",
+              "source_ja": "「ヒューギって奴は\n　それをサンドマンのせいだって\n　考えたのか…」",
+              "current_translation": "“那个叫修基的家伙，\n　把这归咎于桑德曼吗……”"
+            },
+            {
+              "id": "story/064/dialogue/01.06/0008",
+              "relation": "target",
+              "source_ja": "「銃を向けた義兄に対して、\n　私は自衛のためにグラン═を\n　呼び寄せた…」",
+              "current_translation": "“面对举枪相向的义兄，\n　我为了自卫召来了Gran Σ……”"
+            },
+            {
+              "id": "story/064/dialogue/01.06/0009",
+              "relation": "next",
+              "source_ja": "「…そして、その時の衝撃により、\n　義兄の背後にあったジェノサイドロン\n　システムの制御装置は破壊された…」",
+              "current_translation": "“……然后，当时的冲击破坏了义兄\n　身后的杰诺赛德隆系统控制装置……”"
+            }
+          ],
+          "glossary_refs": [
+            "unit/gran-sigma"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/064/dialogue/01.06/0009",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「…そして、その時の衝撃により、\n　義兄の背後にあったジェノサイドロン\n　システムの制御装置は破壊された…」",
+          "source_text_sha256": "4ecc52cf0bd1956db3fb8cc3dcca880e68c15ff58f76e1242078464c79c828cf",
+          "translation_at_scan": "“……然后，当时的冲击破坏了义兄\n　身后的杰诺赛德隆系统控制装置……”",
+          "current_translation": "“……然后，当时的冲击破坏了义兄\n　身后的杰诺赛德隆系统控制装置……”",
+          "current_translation_sha256": "f76eb595e3a71bcb75531244be07220a7b52ef475baada2a1eb0ba0e34e8a3a5",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.6",
+            "ordinal": 9,
+            "text_offset": 25136
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.06/0008",
+              "relation": "previous",
+              "source_ja": "「銃を向けた義兄に対して、\n　私は自衛のためにグラン═を\n　呼び寄せた…」",
+              "current_translation": "“面对举枪相向的义兄，\n　我为了自卫召来了Gran Σ……”"
+            },
+            {
+              "id": "story/064/dialogue/01.06/0009",
+              "relation": "target",
+              "source_ja": "「…そして、その時の衝撃により、\n　義兄の背後にあったジェノサイドロン\n　システムの制御装置は破壊された…」",
+              "current_translation": "“……然后，当时的冲击破坏了义兄\n　身后的杰诺赛德隆系统控制装置……”"
+            },
+            {
+              "id": "story/064/dialogue/01.06/0010",
+              "relation": "next",
+              "source_ja": "「では、制御装置を失った\n　ゼラバイアは…！」",
+              "current_translation": "“那么，失去控制装置的泽拉拜亚……！”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/064/dialogue/01.10/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「僕は…何も守れない…。\n　この星も人々も…ルフィーラも\n　義兄さんも…」",
+          "source_text_sha256": "c35b8670779912c810300c90a482102bd054c582ae0581a9ac6e5dee4987009a",
+          "translation_at_scan": "“我……什么都保护不了……\n　这个星球、人们……露菲拉、义兄……”",
+          "current_translation": "“我……什么都保护不了……\n　这个星球、人们……露菲拉、义兄……”",
+          "current_translation_sha256": "981cd8af2fd5963de3803fa423f39fc2e69a07990c0226ea819d6e2e2165cd08",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.10",
+            "ordinal": 0,
+            "text_offset": 25776
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.10/0000",
+              "relation": "target",
+              "source_ja": "「僕は…何も守れない…。\n　この星も人々も…ルフィーラも\n　義兄さんも…」",
+              "current_translation": "“我……什么都保护不了……\n　这个星球、人们……露菲拉、义兄……”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/064/dialogue/01.11/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-064.json",
+          "source_ja": "「ルフィーラ…僕を許して…。\n　こ、こんなはずじゃ…\n　義兄さん…」",
+          "source_text_sha256": "009ec67ee0fe2315a22e29d0b31210a7e2fd83ee979c55c73b518e7aea9e44d5",
+          "translation_at_scan": "“露菲拉……原谅我……\n　不、不该是这样的……义兄……”",
+          "current_translation": "“露菲拉……原谅我……\n　不、不该是这样的……义兄……”",
+          "current_translation_sha256": "431be00b7aff7db743ea1644bb52baea137547b150f621fd4279914ee60e74be",
+          "original_location": {
+            "stage_index": 64,
+            "section": "Section 1.11",
+            "ordinal": 1,
+            "text_offset": 25888
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/064/dialogue/01.11/0000",
+              "relation": "previous",
+              "source_ja": "「痛い…胸が痛い…」",
+              "current_translation": "“好痛……胸口好痛……”"
+            },
+            {
+              "id": "story/064/dialogue/01.11/0001",
+              "relation": "target",
+              "source_ja": "「ルフィーラ…僕を許して…。\n　こ、こんなはずじゃ…\n　義兄さん…」",
+              "current_translation": "“露菲拉……原谅我……\n　不、不该是这样的……义兄……”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/065/dialogue/02.01/0012",
+          "corpus_path": "corpus/zh/story-dialogue/stage-065.json",
+          "source_ja": "「あの子はあんたの義兄の\n　ヒューギ・ゼラバイアの娘なのか？」",
+          "source_text_sha256": "1772aec6d8fee6b1403ede0d91e1c3d26d4ecefc83d956ee91b3585122944306",
+          "translation_at_scan": "“那孩子是你义兄修基·泽拉拜亚的女儿吗？”",
+          "current_translation": "“那孩子是你义兄修基·泽拉拜亚的女儿吗？”",
+          "current_translation_sha256": "127b3298f0bf8126c74ff1071b2d58f3a5c5ca44938c6fb6380de004ecf91d90",
+          "original_location": {
+            "stage_index": 65,
+            "section": "Section 2.1",
+            "ordinal": 12,
+            "text_offset": 44256
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/065/dialogue/02.01/0011",
+              "relation": "previous",
+              "source_ja": "「リィルは自分の事を\n　リィル・ゼラバイアと名乗った…」",
+              "current_translation": "“莉露自称莉露·泽拉拜亚……”"
+            },
+            {
+              "id": "story/065/dialogue/02.01/0012",
+              "relation": "target",
+              "source_ja": "「あの子はあんたの義兄の\n　ヒューギ・ゼラバイアの娘なのか？」",
+              "current_translation": "“那孩子是你义兄修基·泽拉拜亚的女儿吗？”"
+            },
+            {
+              "id": "story/065/dialogue/02.01/0013",
+              "relation": "next",
+              "source_ja": "「違う…。\n　私の娘だ」",
+              "current_translation": "“不……是我的女儿。”"
+            }
+          ],
+          "glossary_refs": [
+            "faction/zeravire"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/102/dialogue/01.01/0455",
+          "corpus_path": "corpus/zh/story-dialogue/stage-102.json",
+          "source_ja": "「ジェノサイドロンの使用に反対した\n　サンドマンは義兄ヒューギと言い争いになり、\n　事故でその制御装置を破壊してしまった」",
+          "source_text_sha256": "32348199a66a71322cf1de529a19f3a73b67f662359574cb6cfa967cb5471e7d",
+          "translation_at_scan": "“反对使用杰诺赛德隆的桑德曼与义兄修基\n　发生争执，在事故中破坏了其控制装置。”",
+          "current_translation": "“反对使用杰诺赛德隆的桑德曼与义兄修基\n　发生争执，在事故中破坏了其控制装置。”",
+          "current_translation_sha256": "b07963b90fcd62ccdbb9101c5e34097de497de37271ae85abc879bb1e6e1c7fd",
+          "original_location": {
+            "stage_index": 102,
+            "section": "Section 1.1",
+            "ordinal": 455,
+            "text_offset": 55680
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/102/dialogue/01.01/0454",
+              "relation": "previous",
+              "source_ja": "「じゃあ、ゼラバイアは\n　その製作者から取られた名前なんですね」",
+              "current_translation": "“也就是说，\n　泽拉拜亚的名字取自它的制造者。”"
+            },
+            {
+              "id": "story/102/dialogue/01.01/0455",
+              "relation": "target",
+              "source_ja": "「ジェノサイドロンの使用に反対した\n　サンドマンは義兄ヒューギと言い争いになり、\n　事故でその制御装置を破壊してしまった」",
+              "current_translation": "“反对使用杰诺赛德隆的桑德曼与义兄修基\n　发生争执，在事故中破坏了其控制装置。”"
+            },
+            {
+              "id": "story/102/dialogue/01.01/0456",
+              "relation": "next",
+              "source_ja": "「制御装置が破壊されたという事は…」",
+              "current_translation": "“控制装置被破坏意味着……”"
+            }
+          ],
+          "glossary_refs": [
+            "people/sandman",
+            "people/speaker-389b01366661"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/105/dialogue/02.01/0019",
+          "corpus_path": "corpus/zh/story-dialogue/stage-105.json",
+          "source_ja": "「そんな事が出来るのは\n　ヒューギ義兄さんしかいない…。\n　あの人がまさか生きていたなんて…」",
+          "source_text_sha256": "29066fcb8594c0fcb43f177fa23a9101e823535f4445508770a928032a4bb9a5",
+          "translation_at_scan": "“能做到这种事的……只有修基义兄……\n　那个人居然还活着……”",
+          "current_translation": "“能做到这种事的……只有修基义兄……\n　那个人居然还活着……”",
+          "current_translation_sha256": "d2bed9bc3316e364224ef513136697dd6b553c898ea564c1c293d9079576a800",
+          "original_location": {
+            "stage_index": 105,
+            "section": "Section 2.1",
+            "ordinal": 19,
+            "text_offset": 27312
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/105/dialogue/02.01/0018",
+              "relation": "previous",
+              "source_ja": "「重力子エネルギーを吸収して、\n　ゴッドグラヴィオンごと爆発する…」",
+              "current_translation": "“吸收重力子能量，\n　然后连同格兰维昂一起爆炸……”"
+            },
+            {
+              "id": "story/105/dialogue/02.01/0019",
+              "relation": "target",
+              "source_ja": "「そんな事が出来るのは\n　ヒューギ義兄さんしかいない…。\n　あの人がまさか生きていたなんて…」",
+              "current_translation": "“能做到这种事的……只有修基义兄……\n　那个人居然还活着……”"
+            },
+            {
+              "id": "story/105/dialogue/02.01/0020",
+              "relation": "next",
+              "source_ja": "「ジェノサイドロンシステムを開発した\n　ヒューギ・ゼラバイア…」",
+              "current_translation": "“开发了杰诺赛德隆系统\n　的修基·泽拉拜亚……”"
+            }
+          ],
+          "glossary_refs": [
+            "people/speaker-389b01366661"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/107/dialogue/01.30/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-107.json",
+          "source_ja": "「義兄さん…！\n　ヒューギ・ゼラバイア！」",
+          "source_text_sha256": "ce6b7f9145623a5e2a763b6a5306ff35f6b9196c31cc5879002904b4f59ad794",
+          "translation_at_scan": "“义兄……！修基·泽拉拜亚！”",
+          "current_translation": "“义兄……！修基·泽拉拜亚！”",
+          "current_translation_sha256": "df9a1d40af331f6d42e99197a34524f3b21baa7a19a5aa2a036937525bf2fac0",
+          "original_location": {
+            "stage_index": 107,
+            "section": "Section 1.30",
+            "ordinal": 1,
+            "text_offset": 104992
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/107/dialogue/01.30/0000",
+              "relation": "previous",
+              "source_ja": "「この声は…！？」",
+              "current_translation": "“这个声音是……！？”"
+            },
+            {
+              "id": "story/107/dialogue/01.30/0001",
+              "relation": "target",
+              "source_ja": "「義兄さん…！\n　ヒューギ・ゼラバイア！」",
+              "current_translation": "“义兄……！修基·泽拉拜亚！”"
+            }
+          ],
+          "glossary_refs": [
+            "faction/zeravire",
+            "people/speaker-389b01366661"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/120/dialogue/01.09/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-120.json",
+          "source_ja": "「ヒューギ・ゼラバイア…！\n　サンドマンさんの義理の兄…」",
+          "source_text_sha256": "7e855cb0f795354365c7b7fe329f4c8e1f17a8674a39f89642e5055216069c2d",
+          "translation_at_scan": "“修基·泽拉拜亚……！\n　桑德曼先生的义兄……”",
+          "current_translation": "“修基·泽拉拜亚……！\n　桑德曼先生的义兄……”",
+          "current_translation_sha256": "2267e37f53a39db5cb6df5ed7a5eb43bc43f9a99574df7ffa8424018b4542942",
+          "original_location": {
+            "stage_index": 120,
+            "section": "Section 1.9",
+            "ordinal": 1,
+            "text_offset": 64864
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/120/dialogue/01.09/0000",
+              "relation": "previous",
+              "source_ja": "「ヒューギ伯父さま…」",
+              "current_translation": "“修基伯父……”"
+            },
+            {
+              "id": "story/120/dialogue/01.09/0001",
+              "relation": "target",
+              "source_ja": "「ヒューギ・ゼラバイア…！\n　サンドマンさんの義理の兄…」",
+              "current_translation": "“修基·泽拉拜亚……！\n　桑德曼先生的义兄……”"
+            },
+            {
+              "id": "story/120/dialogue/01.09/0002",
+              "relation": "next",
+              "source_ja": "「そして、ジェノサイドロンシステムの\n　開発者！」",
+              "current_translation": "“以及，杰诺赛德隆系统开发者！”"
+            }
+          ],
+          "glossary_refs": [
+            "faction/zeravire",
+            "people/sandman",
+            "people/speaker-389b01366661"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/120/dialogue/01.10/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-120.json",
+          "source_ja": "「ヒューギ・ゼラバイア…！\n　サンドマンの義理のアニキ…！」",
+          "source_text_sha256": "567d58bf3b4b84128d2b6b2d61adaff52c66c29ce4db337b13d0a081cbc5d7c5",
+          "translation_at_scan": "“修基·泽拉拜亚……！桑德曼的义兄……！”",
+          "current_translation": "“修基·泽拉拜亚……！桑德曼的义兄……！”",
+          "current_translation_sha256": "9b3203b8e9f00df3b9951604de403288250fabaa7123c1cf8d6105e649fb1e2c",
+          "original_location": {
+            "stage_index": 120,
+            "section": "Section 1.10",
+            "ordinal": 1,
+            "text_offset": 65056
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/120/dialogue/01.10/0000",
+              "relation": "previous",
+              "source_ja": "「ヒューギ伯父さま…」",
+              "current_translation": "“修基伯父……”"
+            },
+            {
+              "id": "story/120/dialogue/01.10/0001",
+              "relation": "target",
+              "source_ja": "「ヒューギ・ゼラバイア…！\n　サンドマンの義理のアニキ…！」",
+              "current_translation": "“修基·泽拉拜亚……！桑德曼的义兄……！”"
+            },
+            {
+              "id": "story/120/dialogue/01.10/0002",
+              "relation": "next",
+              "source_ja": "「そして、ジェノサイドロンシステムの\n　開発者！」",
+              "current_translation": "“以及，杰诺赛德隆系统开发者！”"
+            }
+          ],
+          "glossary_refs": [
+            "faction/zeravire",
+            "people/sandman",
+            "people/speaker-389b01366661"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/131/dialogue/01.31/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-131.json",
+          "source_ja": "「ヒューギ・ゼラバイア…！\n　サンドマンの義理の兄…」",
+          "source_text_sha256": "fc5eb1ff8704d00c2bf5762d43517b265a8ad5be75479c70c597110f57ae935a",
+          "translation_at_scan": "“修基·泽拉拜亚……！桑德曼的义兄……”",
+          "current_translation": "“修基·泽拉拜亚……！桑德曼的义兄……”",
+          "current_translation_sha256": "42617e3995600b4eb118958fc392bbe2e593d0c50916303046ecbd0030f7ae1b",
+          "original_location": {
+            "stage_index": 131,
+            "section": "Section 1.31",
+            "ordinal": 1,
+            "text_offset": 108960
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/131/dialogue/01.31/0000",
+              "relation": "previous",
+              "source_ja": "「ヒューギ伯父さま…」",
+              "current_translation": "“修基伯父……”"
+            },
+            {
+              "id": "story/131/dialogue/01.31/0001",
+              "relation": "target",
+              "source_ja": "「ヒューギ・ゼラバイア…！\n　サンドマンの義理の兄…」",
+              "current_translation": "“修基·泽拉拜亚……！桑德曼的义兄……”"
+            },
+            {
+              "id": "story/131/dialogue/01.31/0002",
+              "relation": "next",
+              "source_ja": "「そして、ジェノサイドロンシステムの\n　開発者！」",
+              "current_translation": "“以及杰诺赛德隆系统的开发者！”"
+            }
+          ],
+          "glossary_refs": [
+            "faction/zeravire",
+            "people/sandman",
+            "people/speaker-389b01366661"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/132/dialogue/01.04/0013",
+          "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+          "source_ja": "「義兄さん！」",
+          "source_text_sha256": "9eb2a22dc686e7463a903c7d0bbfc067123a164bcb4bcd81b353241c35b97ef8",
+          "translation_at_scan": "“义兄！”",
+          "current_translation": "“义兄！”",
+          "current_translation_sha256": "d4420c6b43b820c91348c0d2ddee83594b5f01a850f101ddd7021538a37fd1d7",
+          "original_location": {
+            "stage_index": 132,
+            "section": "Section 1.4",
+            "ordinal": 13,
+            "text_offset": 80704
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/132/dialogue/01.04/0012",
+              "relation": "previous",
+              "source_ja": "「星をも焼き尽くす滅びの太陽、\n　ソルグラヴィオン。\n　そして、我が弟ジークよ」",
+              "current_translation": "“焚尽星辰的毁灭之阳，炎阳格兰维昂。\n　还有，我的弟弟齐格啊。”"
+            },
+            {
+              "id": "story/132/dialogue/01.04/0013",
+              "relation": "target",
+              "source_ja": "「義兄さん！」",
+              "current_translation": "“义兄！”"
+            },
+            {
+              "id": "story/132/dialogue/01.04/0014",
+              "relation": "next",
+              "source_ja": "「不死の身体を捨ててまで、\n　俺との決着を望むか…。\n　その覚悟に免じて相手をしてやろう」",
+              "current_translation": "“宁愿舍弃不死之身也要与我一决胜负吗……\n　看在这份觉悟上，我就陪你玩玩。”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/132/dialogue/01.51/0001",
+          "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+          "source_ja": "「ヒューギ義兄さん…！\n　僕はまだ死ねない！」",
+          "source_text_sha256": "f94a85413238260949d593394da687134f84ca274796afb1c77094e9e26bf5d3",
+          "translation_at_scan": "“修基义兄……！我还不能死！”",
+          "current_translation": "“修基义兄……！我还不能死！”",
+          "current_translation_sha256": "f2663761bdf60180596af824e9f708b6a4ab96ebdfb9a05a86f53a800b47684e",
+          "original_location": {
+            "stage_index": 132,
+            "section": "Section 1.51",
+            "ordinal": 1,
+            "text_offset": 93536
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/132/dialogue/01.51/0000",
+              "relation": "previous",
+              "source_ja": "「ジークよ！\n　ついに貴様を、この手で葬る日が\n　来たか！」",
+              "current_translation": "“齐格啊！终于到了亲手埋葬你的这一天！”"
+            },
+            {
+              "id": "story/132/dialogue/01.51/0001",
+              "relation": "target",
+              "source_ja": "「ヒューギ義兄さん…！\n　僕はまだ死ねない！」",
+              "current_translation": "“修基义兄……！我还不能死！”"
+            },
+            {
+              "id": "story/132/dialogue/01.51/0002",
+              "relation": "next",
+              "source_ja": "「あの日、僕の過ちによって暴走した\n　ジェノサイドロンシステムを止めるまで、\n　この命…渡すわけにはいかないんだ！」",
+              "current_translation": "“在阻止那天因我的过错而暴走的杰诺赛德\n　隆系统之前，这条命……绝不能交出去！”"
+            }
+          ],
+          "glossary_refs": [
+            "people/speaker-389b01366661"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/132/dialogue/01.51/0005",
+          "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+          "source_ja": "「義兄さん…！\n　あなたを倒し、私もタナトスの招きに\n　応えよう！」",
+          "source_text_sha256": "ef565cc4113f0f9a27301b941fa85fa34572a53c94376e31c4ed8a6a0ebe25b4",
+          "translation_at_scan": "“义兄……！打倒你之后，\n　我也将回应塔纳托斯的召唤！”",
+          "current_translation": "“义兄……！打倒你之后，\n　我也将回应塔纳托斯的召唤！”",
+          "current_translation_sha256": "919d897b017daeb5bb7812ee1cc047015a81196bde3f89113f8e8dbb1e97eab2",
+          "original_location": {
+            "stage_index": 132,
+            "section": "Section 1.51",
+            "ordinal": 5,
+            "text_offset": 93888
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/132/dialogue/01.51/0004",
+              "relation": "previous",
+              "source_ja": "「ジーク！\n　貴様もここで死ぬがいい！」",
+              "current_translation": "“齐格！你也死在这里吧！”"
+            },
+            {
+              "id": "story/132/dialogue/01.51/0005",
+              "relation": "target",
+              "source_ja": "「義兄さん…！\n　あなたを倒し、私もタナトスの招きに\n　応えよう！」",
+              "current_translation": "“义兄……！打倒你之后，\n　我也将回应塔纳托斯的召唤！”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/132/dialogue/02.02/0159",
+          "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+          "source_ja": "「思い出してくれ、義兄さん！\n　ルフィーラやリィルを想うあなたには\n　人の心が残っているんだ！」",
+          "source_text_sha256": "e7aa4760b01cec0e541c991f5b7dc3228552ffc572b36796d45c14c0c44917a7",
+          "translation_at_scan": "“回想起来吧，义兄！思念露菲拉和莉露的你，\n　心中还残留着人性！”",
+          "current_translation": "“回想起来吧，义兄！思念露菲拉和莉露的你，\n　心中还残留着人性！”",
+          "current_translation_sha256": "90df19dd5d7d565a08265793ade19f6c659204e9c128e0912f0baea65e77c72b",
+          "original_location": {
+            "stage_index": 132,
+            "section": "Section 2.2",
+            "ordinal": 159,
+            "text_offset": 115296
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/132/dialogue/02.02/0158",
+              "relation": "previous",
+              "source_ja": "「リィル…！」",
+              "current_translation": "“莉露……！”"
+            },
+            {
+              "id": "story/132/dialogue/02.02/0159",
+              "relation": "target",
+              "source_ja": "「思い出してくれ、義兄さん！\n　ルフィーラやリィルを想うあなたには\n　人の心が残っているんだ！」",
+              "current_translation": "“回想起来吧，义兄！思念露菲拉和莉露的你，\n　心中还残留着人性！”"
+            },
+            {
+              "id": "story/132/dialogue/02.02/0160",
+              "relation": "next",
+              "source_ja": "「ええい、黙れ！\n　ゴーマを止めたいのなら、\n　この俺を倒してみろ、ジーク！」",
+              "current_translation": "“哼，闭嘴！想阻止戈玛的话，\n　就来打倒我吧，齐格！”"
+            }
+          ],
+          "glossary_refs": [
+            "people/speaker-0f0824173296"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/132/dialogue/02.02/0161",
+          "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+          "source_ja": "「義兄さんっ！」",
+          "source_text_sha256": "cdb5f822b1cc22d11e71fb62bd4b39019811400d54907ab6077eb1ac7aa12eb5",
+          "translation_at_scan": "“义兄！”",
+          "current_translation": "“义兄！”",
+          "current_translation_sha256": "d4420c6b43b820c91348c0d2ddee83594b5f01a850f101ddd7021538a37fd1d7",
+          "original_location": {
+            "stage_index": 132,
+            "section": "Section 2.2",
+            "ordinal": 161,
+            "text_offset": 115504
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/132/dialogue/02.02/0160",
+              "relation": "previous",
+              "source_ja": "「ええい、黙れ！\n　ゴーマを止めたいのなら、\n　この俺を倒してみろ、ジーク！」",
+              "current_translation": "“哼，闭嘴！想阻止戈玛的话，\n　就来打倒我吧，齐格！”"
+            },
+            {
+              "id": "story/132/dialogue/02.02/0161",
+              "relation": "target",
+              "source_ja": "「義兄さんっ！」",
+              "current_translation": "“义兄！”"
+            },
+            {
+              "id": "story/132/dialogue/02.02/0162",
+              "relation": "next",
+              "source_ja": "「…見事…だ…ジーク…」",
+              "current_translation": "“……漂亮……齐格……”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/132/dialogue/02.02/0163",
+          "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+          "source_ja": "「ヒューギ義兄さん…」",
+          "source_text_sha256": "41ea735d6d6dbb2057a0c58365b5a29224dbbc5e71310fffcf09a89342b20ca6",
+          "translation_at_scan": "“修基义兄……”",
+          "current_translation": "“修基义兄……”",
+          "current_translation_sha256": "f9cf919c8bacf59e952bc656b87151fff6af9e40d60dac40ee14f7058573dbd3",
+          "original_location": {
+            "stage_index": 132,
+            "section": "Section 2.2",
+            "ordinal": 163,
+            "text_offset": 115584
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/132/dialogue/02.02/0162",
+              "relation": "previous",
+              "source_ja": "「…見事…だ…ジーク…」",
+              "current_translation": "“……漂亮……齐格……”"
+            },
+            {
+              "id": "story/132/dialogue/02.02/0163",
+              "relation": "target",
+              "source_ja": "「ヒューギ義兄さん…」",
+              "current_translation": "“修基义兄……”"
+            },
+            {
+              "id": "story/132/dialogue/02.02/0164",
+              "relation": "next",
+              "source_ja": "「見ろ！　あいつの髪の色が変わっていく…！」",
+              "current_translation": "“看！那家伙的头发颜色在变……！”"
+            }
+          ],
+          "glossary_refs": [
+            "people/speaker-389b01366661"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/132/dialogue/02.02/0166",
+          "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+          "source_ja": "「義兄さん…これは…！」",
+          "source_text_sha256": "b5f9130ac84fe7aea63e3fa8c95c079c623af421cf167fac80f9914a1765f55e",
+          "translation_at_scan": "“义兄……这是……！”",
+          "current_translation": "“义兄……这是……！”",
+          "current_translation_sha256": "5dff33bfe40b6b79a302307527d8f1b6b61e3f1b49ab06c592c43447bc73f5b7",
+          "original_location": {
+            "stage_index": 132,
+            "section": "Section 2.2",
+            "ordinal": 166,
+            "text_offset": 115744
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/132/dialogue/02.02/0165",
+              "relation": "previous",
+              "source_ja": "「あれがあの人の…本当の姿なのか…」",
+              "current_translation": "“那就是那个人……真正的样子吗……”"
+            },
+            {
+              "id": "story/132/dialogue/02.02/0166",
+              "relation": "target",
+              "source_ja": "「義兄さん…これは…！」",
+              "current_translation": "“义兄……这是……！”"
+            },
+            {
+              "id": "story/132/dialogue/02.02/0167",
+              "relation": "next",
+              "source_ja": "「フ…俺の生命活動が停止しかけた事で、\n　ジェノサイドロンシステムの呪縛から\n　解放されたようだ…」",
+              "current_translation": "“呵……我的生命活动快要停止，\n　似乎从杰诺赛德隆系统的束缚中解放了……”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/133/dialogue/01.19/0010",
+          "corpus_path": "corpus/zh/story-dialogue/stage-133.json",
+          "source_ja": "（ヒューギ義兄さん…！\n　我々は人間の心と力を信じて\n　戦うだけです！）",
+          "source_text_sha256": "bf184bd0d2455619f000826dbf73f9401b9994255552d9b3d7e845ac7c51b407",
+          "translation_at_scan": "（修基格义兄……！\n　我们只能相信人类的心与力量去战斗！）",
+          "current_translation": "（修基格义兄……！\n　我们只能相信人类的心与力量去战斗！）",
+          "current_translation_sha256": "abe51578bf89537b2b55c124cde5d59d61f1b361e99e3e930b77b23f8734275b",
+          "original_location": {
+            "stage_index": 133,
+            "section": "Section 1.19",
+            "ordinal": 10,
+            "text_offset": 58352
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/133/dialogue/01.19/0009",
+              "relation": "previous",
+              "source_ja": "「あなたという人は…！」",
+              "current_translation": "“你这个人真是……！”"
+            },
+            {
+              "id": "story/133/dialogue/01.19/0010",
+              "relation": "target",
+              "source_ja": "（ヒューギ義兄さん…！\n　我々は人間の心と力を信じて\n　戦うだけです！）",
+              "current_translation": "（修基格义兄……！\n　我们只能相信人类的心与力量去战斗！）"
+            },
+            {
+              "id": "story/133/dialogue/01.19/0011",
+              "relation": "next",
+              "source_ja": "（今は亡きあなたと我が妻ルフィーラに、\n　この戦いを捧げます！）",
+              "current_translation": "（将这场战斗献给已故的\n　你和我的妻子露菲拉！）"
+            }
+          ],
+          "glossary_refs": [
+            "people/speaker-389b01366661"
+          ],
+          "proposal": null,
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-15",
+      "title": "連携／連係 → 连携",
+      "status": "terminology_review",
+      "rationale": "普通合击对白可用配合、协同作战，但菜单已有技能连携攻击，且受skill/cooperative-attack词表约束。必须逐句区分普通配合与点名技能，不能全局替换连携。",
+      "direction": "普通对白拟改配合／协同攻击；技能名称的变更单独裁定。",
+      "entry_count": 12,
+      "entries": [
+        {
+          "id": "battle:00035",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「この連係、かわせまい！」",
+          "source_text_sha256": "aa875db7e20cf222205ed33ad305b1a8c4f13083de23395fac2dc1e953a5c73e",
+          "translation_at_scan": "“这连携，躲不开！”",
+          "current_translation": "“这连携，躲不开！”",
+          "current_translation_sha256": "1301751444b6ec7a90eda1dca2fe4891f5495901670d48a0c8441df0c429e99b",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 4,
+                "record_index": 34,
+                "archive_text_start": 6714,
+                "encoded_size": 27
+              },
+              {
+                "chunk_index": 5,
+                "record_index": 34,
+                "archive_text_start": 15018,
+                "encoded_size": 27
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:00047",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「連係攻撃だ！」",
+          "source_text_sha256": "fba3f7eae22e22d23366f7a50e255f8ad812668b476c86c0f5dfcb5f21676f9d",
+          "translation_at_scan": "“连携攻击！”",
+          "current_translation": "“连携攻击！”",
+          "current_translation_sha256": "3f940cf480228b086da1055721eb07ca74f04b810d1326082a360293fa2a22c2",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 4,
+                "record_index": 46,
+                "archive_text_start": 7028,
+                "encoded_size": 17
+              },
+              {
+                "chunk_index": 5,
+                "record_index": 46,
+                "archive_text_start": 15332,
+                "encoded_size": 17
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:01444",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「連携でいくぞ！」",
+          "source_text_sha256": "f13ee5e5b61f1911d8d5d82b9cf6ecf96b3b930d44bea80651b9a9ac5ed656a5",
+          "translation_at_scan": "“用连携上！”",
+          "current_translation": "“用连携上！”",
+          "current_translation_sha256": "4013ca3d53c5967c0f301083d3ef7d5a361613398e5622b380e44fc4f7cba0d4",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 19,
+                "record_index": 21,
+                "archive_text_start": 164985,
+                "encoded_size": 19
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:03662",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「我らの連係を見よ！」",
+          "source_text_sha256": "e3b77971b50d5e79410fcced4f3b854058772a904b543504c03fa2e912c6adc9",
+          "translation_at_scan": "“见识我们的连携！”",
+          "current_translation": "“见识我们的连携！”",
+          "current_translation_sha256": "b9b7a4e4b39c5af8f448470c0703c7ae963cca3f816e5f9eefde2519c891546f",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 48,
+                "record_index": 14,
+                "archive_text_start": 459650,
+                "encoded_size": 23
+              },
+              {
+                "chunk_index": 49,
+                "record_index": 14,
+                "archive_text_start": 464098,
+                "encoded_size": 23
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:07204",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「我らの連係、見せてやる！」",
+          "source_text_sha256": "ec3d23f881853921dfecc80c85758a7be04e0d0c19a8562948efb0ee3e83e244",
+          "translation_at_scan": "“让你们见识我们的连携！”",
+          "current_translation": "“让你们见识我们的连携！”",
+          "current_translation_sha256": "97c4f010f1368d33aa51d4328dbd97b49358f0512aa7112e9fc1297d216fa6cf",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 98,
+                "record_index": 165,
+                "archive_text_start": 939197,
+                "encoded_size": 29
+              },
+              {
+                "chunk_index": 99,
+                "record_index": 167,
+                "archive_text_start": 956301,
+                "encoded_size": 29
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:07832",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「我らの連係から逃れることは出来ない」",
+          "source_text_sha256": "40efe1b39937879f39b56925248fcf3e87d7051d2fb784ae42a1fcee4df2950a",
+          "translation_at_scan": "“你们逃不出我们的连携”",
+          "current_translation": "“你们逃不出我们的连携”",
+          "current_translation_sha256": "415e7766725661f1dc3ba2b988973e7e6ca72ace6274fd7e510042230e2bb837",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 105,
+                "record_index": 92,
+                "archive_text_start": 1019968,
+                "encoded_size": 39
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:11269",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「こちらがコンビネーションを合わせます！」",
+          "source_text_sha256": "f7f71bd08270068529d5141e84364f45cd817ec974304fc41022b76f25c06f67",
+          "translation_at_scan": "“这边来配合连携！”",
+          "current_translation": "“这边来配合连携！”",
+          "current_translation_sha256": "6b2be46bedb64d704715ff37934d779149a9d762bda481023e69343acc9767ab",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 141,
+                "record_index": 206,
+                "archive_text_start": 1439920,
+                "encoded_size": 43
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:13976",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「ボヤボヤするな！　\\n　連係で追い込むんだ！」",
+          "source_text_sha256": "50ccbff2d9d802aaf16c9fe4455e402422e3a4f7c923858b948853c112d013dd",
+          "translation_at_scan": "“别发呆！\\n　用连携攻击把目标逼入绝境！”",
+          "current_translation": "“别发呆！\\n　用连携攻击把目标逼入绝境！”",
+          "current_translation_sha256": "89bfbc04e120acfd558d08826aa8a2d59b4ebc2f829c90273c48dd45cd5a7e60",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 184,
+                "record_index": 81,
+                "archive_text_start": 1781495,
+                "encoded_size": 47
+              },
+              {
+                "chunk_index": 184,
+                "record_index": 82,
+                "archive_text_start": 1781542,
+                "encoded_size": 47
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:21180",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「連携で仕掛ければ、やれる！」",
+          "source_text_sha256": "4d6a3d23f5584d5394b0acd807c8cb58ca2d99e16b53b3e9619f9d32a5e60a34",
+          "translation_at_scan": "“用连携攻击的话，就能行！”",
+          "current_translation": "“用连携攻击的话，就能行！”",
+          "current_translation_sha256": "c3542cc723cc0618a7fa10a05712483a2a60bb65ff369ad12fdcccb8c5664839",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 284,
+                "record_index": 31,
+                "archive_text_start": 2720643,
+                "encoded_size": 31
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:25495",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「この連携で！」",
+          "source_text_sha256": "028054ee8d2ec2691ce682db050082bdb0a2b53c302d971808c75b5e870b763a",
+          "translation_at_scan": "“用这个连携！”",
+          "current_translation": "“用这个连携！”",
+          "current_translation_sha256": "0df6542f9cadc3cd36e1bd691099e265c370495b569a8191077534bbcb50e5f2",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 349,
+                "record_index": 19,
+                "archive_text_start": 3281763,
+                "encoded_size": 17
+              },
+              {
+                "chunk_index": 350,
+                "record_index": 80,
+                "archive_text_start": 3297860,
+                "encoded_size": 17
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "story/058/dialogue/01.08/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-058.json",
+          "source_ja": "「マウアー、カクリコン！\n　連携で仕掛けるぞ！」",
+          "source_text_sha256": "2a00d51ac27367751a9d1e6052fe8943316232c511d4ca58000500e4d3e6045e",
+          "translation_at_scan": "“玛雅，卡克利孔！用连携攻击！”",
+          "current_translation": "“玛雅，卡克利孔！用连携攻击！”",
+          "current_translation_sha256": "0425fd51039f71f34eb7234a07d7746d3e78ad371e9f895930c43110c888d692",
+          "original_location": {
+            "stage_index": 58,
+            "section": "Section 1.8",
+            "ordinal": 0,
+            "text_offset": 43424
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/058/dialogue/01.08/0000",
+              "relation": "target",
+              "source_ja": "「マウアー、カクリコン！\n　連携で仕掛けるぞ！」",
+              "current_translation": "“玛雅，卡克利孔！用连携攻击！”"
+            },
+            {
+              "id": "story/058/dialogue/01.08/0001",
+              "relation": "next",
+              "source_ja": "「了解！」",
+              "current_translation": "“了解！”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/078/dialogue/01.18/0000",
+          "corpus_path": "corpus/zh/story-dialogue/stage-078.json",
+          "source_ja": "「やだ！　あいつら、\n　連携で攻撃してくる気よ！」",
+          "source_text_sha256": "009f9cc6e1111ea8c678b976da29e88182476f8a96b121cd3defa5ec18007eb1",
+          "translation_at_scan": "“讨厌！它们打算用连携攻击！”",
+          "current_translation": "“讨厌！它们打算用连携攻击！”",
+          "current_translation_sha256": "ced0e0bcff2c750b65aec0c61df78342524adf67464f26efa6bc809966d9313b",
+          "original_location": {
+            "stage_index": 78,
+            "section": "Section 1.18",
+            "ordinal": 0,
+            "text_offset": 41376
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/078/dialogue/01.18/0000",
+              "relation": "target",
+              "source_ja": "「やだ！　あいつら、\n　連携で攻撃してくる気よ！」",
+              "current_translation": "“讨厌！它们打算用连携攻击！”"
+            },
+            {
+              "id": "story/078/dialogue/01.18/0001",
+              "relation": "next",
+              "source_ja": "「ずるい！\n　ただでさえアクエリオンが\n　３機いるようなものなのに！」",
+              "current_translation": "“太狡猾了！\n　本来就相当于有三台阿克艾里昂了！”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-16",
+      "title": "人望 → 没人望",
+      "status": "style_review",
+      "rationale": "人望本身也是中文词，不能算确定误译；但兰德嘲讽手下全逃光，用不得人心更口语。",
+      "direction": "可选“不过，大叔……你也太不得人心了。手下全跑光了。”，列为润色项。",
+      "entry_count": 1,
+      "entries": [
+        {
+          "id": "story/013/dialogue/01.05/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-013.json",
+          "source_ja": "「しっかし、オッサン…人望無いな。\n　手下はみんな、逃げちまったぜ」",
+          "source_text_sha256": "bf543415c61130c0637aac687565404f9edeb246e3a7942237b01f4a84b8e060",
+          "translation_at_scan": "“不过，大叔……你真没人望啊。\n　手下全跑光了。”",
+          "current_translation": "“不过，大叔……你真没人望啊。\n　手下全跑光了。”",
+          "current_translation_sha256": "388b227708293ad0e9ad816128b3f7214b13d009fc58331d5ad05f572dee939e",
+          "original_location": {
+            "stage_index": 13,
+            "section": "Section 1.5",
+            "ordinal": 2,
+            "text_offset": 20944
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/013/dialogue/01.05/0001",
+              "relation": "previous",
+              "source_ja": "「安心しな。\n　命まで奪うつもりはねえよ」",
+              "current_translation": "“放心。我没打算要你的命。”"
+            },
+            {
+              "id": "story/013/dialogue/01.05/0002",
+              "relation": "target",
+              "source_ja": "「しっかし、オッサン…人望無いな。\n　手下はみんな、逃げちまったぜ」",
+              "current_translation": "“不过，大叔……你真没人望啊。\n　手下全跑光了。”"
+            },
+            {
+              "id": "story/013/dialogue/01.05/0003",
+              "relation": "next",
+              "source_ja": "「やるぅ、ダーリン！\n　さっすがぁ、ラブラブ！」",
+              "current_translation": "“真厉害，达令！果然爱意满满！”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-17",
+      "title": "義理 → 义理",
+      "status": "style_review",
+      "rationale": "中文也有义理，当前两处分别涉及祖国与人情责任、对ZAFT或议长的情分。可按关系改为情义、情分，但不一律说成忠诚。",
+      "direction": "按上下文考虑情义／情分。",
+      "entry_count": 2,
+      "entries": [
+        {
+          "id": "story/087/dialogue/01.17/0006",
+          "corpus_path": "corpus/zh/story-dialogue/stage-087.json",
+          "source_ja": "「お前こそ祖国や義理みたいなものに\n　囚われて、本当に大事なものを\n　忘れてるんじゃないか？」",
+          "source_text_sha256": "5cd4909403cbfa8c6e8fc922637a08f6ad0fba8ca8d0c1436a96664769b3467e",
+          "translation_at_scan": "“倒是你，被祖国和所谓的义理束缚，\n　是不是忘了真正重要的东西？”",
+          "current_translation": "“倒是你，被祖国和所谓的义理束缚，\n　是不是忘了真正重要的东西？”",
+          "current_translation_sha256": "c442c1194a7be4d900e38e5014b13c43f4a5c4236dc58abfc642d4f1165cbae9",
+          "original_location": {
+            "stage_index": 87,
+            "section": "Section 1.17",
+            "ordinal": 6,
+            "text_offset": 42080
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/087/dialogue/01.17/0005",
+              "relation": "previous",
+              "source_ja": "「…それとこれとは話は別だ。\n　俺の決心は変わらない」",
+              "current_translation": "“……那件事和这个是两码事。\n　我的决心不会变。”"
+            },
+            {
+              "id": "story/087/dialogue/01.17/0006",
+              "relation": "target",
+              "source_ja": "「お前こそ祖国や義理みたいなものに\n　囚われて、本当に大事なものを\n　忘れてるんじゃないか？」",
+              "current_translation": "“倒是你，被祖国和所谓的义理束缚，\n　是不是忘了真正重要的东西？”"
+            },
+            {
+              "id": "story/087/dialogue/01.17/0007",
+              "relation": "next",
+              "source_ja": "「桂…」",
+              "current_translation": "“桂……”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/118/dialogue/02.02/0087",
+          "corpus_path": "corpus/zh/story-dialogue/stage-118.json",
+          "source_ja": "「固すぎんだよ、タリアはよ…。\n　今さら、ザフトに義理立てする必要なんて\n　ねえってのによ」",
+          "source_text_sha256": "ae8d21cbf6c81f43603bf9f126a358ecb07fbad462cff9e02df645aec1e11226",
+          "translation_at_scan": "“塔丽亚太死板了……事到如今，\n　根本没必要对ZAFT讲什么义理。”",
+          "current_translation": "“塔丽亚太死板了……事到如今，\n　根本没必要对ZAFT讲什么义理。”",
+          "current_translation_sha256": "d9a610e0244c377c129b9338b4300035470474a687413d430a1afaccb923de2e",
+          "original_location": {
+            "stage_index": 118,
+            "section": "Section 2.2",
+            "ordinal": 87,
+            "text_offset": 118560
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/118/dialogue/02.02/0086",
+              "relation": "previous",
+              "source_ja": "「だけど、グラディス艦長は\n　もういないわ…」",
+              "current_translation": "“但是，库拉迪斯舰长已经不在了……”"
+            },
+            {
+              "id": "story/118/dialogue/02.02/0087",
+              "relation": "target",
+              "source_ja": "「固すぎんだよ、タリアはよ…。\n　今さら、ザフトに義理立てする必要なんて\n　ねえってのによ」",
+              "current_translation": "“塔丽亚太死板了……事到如今，\n　根本没必要对ZAFT讲什么义理。”"
+            },
+            {
+              "id": "story/118/dialogue/02.02/0088",
+              "relation": "next",
+              "source_ja": "「ザフトと言うより、\n　議長個人に対してだろうがな」",
+              "current_translation": "“与其说是对ZAFT，\n　不如说是对议长个人吧。”"
+            }
+          ],
+          "glossary_refs": [
+            "organization/zaft",
+            "people/speaker-aa16fea188ec"
+          ],
+          "proposal": null,
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-18",
+      "title": "修羅場 → 修罗场",
+      "status": "style_review",
+      "rationale": "原文五处都在强调经历过危险战斗。修罗场已有中文读者群，但也常用于人际冲突，是否统一为险境或恶战属于可读性取舍。",
+      "direction": "经历过多少恶战／闯过多少险境；可保留原词，等待统一风格决定。",
+      "entry_count": 5,
+      "entries": [
+        {
+          "id": "battle:01510",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「これぐらいの修羅場…！　\\n　これまでだってくぐってきた！」",
+          "source_text_sha256": "023e9f66ce623a82f29108944ff23b5e4602aecbe77d6ae3759629fd133f3732",
+          "translation_at_scan": "“这种修罗场…！\\n　我早就经历过无数次了！”",
+          "current_translation": "“这种修罗场…！\\n　我早就经历过无数次了！”",
+          "current_translation_sha256": "489350ac0fc8cfa692381bc32fb82824195221e83cf8a8e8e03568ec635d63a4",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 19,
+                "record_index": 88,
+                "archive_text_start": 167218,
+                "encoded_size": 61
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:19083",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「あんたとはくぐって来た\\n　修羅場の数ってのが違うんだよ！」",
+          "source_text_sha256": "2e564d8a8e116d45b626a7f24fc8514aed82767fc742ef400eae045b0b03cf0c",
+          "translation_at_scan": "“我跟你经历的\\n　修罗场数量可不一样！”",
+          "current_translation": "“我跟你经历的\\n　修罗场数量可不一样！”",
+          "current_translation_sha256": "a1cf3a387e1ecfc0c016eac07e1f997fd48e8f18f8116c2c2d993ad75cd52469",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 263,
+                "record_index": 108,
+                "archive_text_start": 2428694,
+                "encoded_size": 61
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "story/013/dialogue/01.04/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-013.json",
+          "source_ja": "「ガキだと思って、ナメんなよ！\n　こっちは、この程度の修羅場なら\n　何度もくぐってんだ！」",
+          "source_text_sha256": "f297ae00f612cd490a43c77fad12916e198629faf43bda0f2f244aa6c760b67b",
+          "translation_at_scan": "“别以为我是小鬼就小看我！\n　这种程度的修罗场老子经历多了！”",
+          "current_translation": "“别以为我是小鬼就小看我！\n　这种程度的修罗场老子经历多了！”",
+          "current_translation_sha256": "cc42f9c0f94b068667580f022581ecdf2c4b99b4fcb65b13125e9e53852cc091",
+          "original_location": {
+            "stage_index": 13,
+            "section": "Section 1.4",
+            "ordinal": 2,
+            "text_offset": 20016
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/013/dialogue/01.04/0001",
+              "relation": "previous",
+              "source_ja": "「あのガキ、モビルスーツの操縦が\n　出来るのかよ！」",
+              "current_translation": "“那小鬼会开MS吗！”"
+            },
+            {
+              "id": "story/013/dialogue/01.04/0002",
+              "relation": "target",
+              "source_ja": "「ガキだと思って、ナメんなよ！\n　こっちは、この程度の修羅場なら\n　何度もくぐってんだ！」",
+              "current_translation": "“别以为我是小鬼就小看我！\n　这种程度的修罗场老子经历多了！”"
+            },
+            {
+              "id": "story/013/dialogue/01.04/0003",
+              "relation": "next",
+              "source_ja": "「やれんのか、腹ペコ小僧？」",
+              "current_translation": "“能行吗，饿肚子小鬼？”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/085/dialogue/01.10/0009",
+          "corpus_path": "corpus/zh/story-dialogue/stage-085.json",
+          "source_ja": "「悪いわね、お姐さん。\n　これでもそれなりの修羅場は\n　くぐってるの」",
+          "source_text_sha256": "b6495ac6167e4450e93ef7a075f0cb5d27bba3595b750329d464777909cc66f1",
+          "translation_at_scan": "“抱歉啊，大姐。\n　好歹我也是经历过修罗场的。”",
+          "current_translation": "“抱歉啊，大姐。\n　好歹我也是经历过修罗场的。”",
+          "current_translation_sha256": "11651a61920c84824c5b9eb94f301cbf189de93c6a9874167aeaec5432466f0d",
+          "original_location": {
+            "stage_index": 85,
+            "section": "Section 1.10",
+            "ordinal": 9,
+            "text_offset": 37120
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/085/dialogue/01.10/0008",
+              "relation": "previous",
+              "source_ja": "「ええい！　またあたしの邪魔をする\n　小娘が出てきたよ！」",
+              "current_translation": "“哎呀！又来个小丫头坏我好事！”"
+            },
+            {
+              "id": "story/085/dialogue/01.10/0009",
+              "relation": "target",
+              "source_ja": "「悪いわね、お姐さん。\n　これでもそれなりの修羅場は\n　くぐってるの」",
+              "current_translation": "“抱歉啊，大姐。\n　好歹我也是经历过修罗场的。”"
+            },
+            {
+              "id": "story/085/dialogue/01.10/0010",
+              "relation": "next",
+              "source_ja": "「青臭いガキでもなければ、\n　無駄に年食ったオバサンでもないわよ」",
+              "current_translation": "“既不是乳臭未干的小鬼，\n　也不是白活一把年纪的老太婆。”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/110/dialogue/01.40/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-110.json",
+          "source_ja": "「どうやら、それなりの修羅場は\n　くぐってきたらしいな！」",
+          "source_text_sha256": "f60fe845d1c8bc7bc0da7408c9f3c4e6ae20951a80227f209b1e8af6873ad66e",
+          "translation_at_scan": "“看来你经历过不少修罗场啊！”",
+          "current_translation": "“看来你经历过不少修罗场啊！”",
+          "current_translation_sha256": "e6a5f9735206199fe0f1bd858503870c70557ae0517dc9679e7fa676a8c45547",
+          "original_location": {
+            "stage_index": 110,
+            "section": "Section 1.40",
+            "ordinal": 2,
+            "text_offset": 82240
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/110/dialogue/01.40/0001",
+              "relation": "previous",
+              "source_ja": "「チーフに教えてもらった戦い方と\n　私が今までやってきた戦い方で\n　あなたを倒します…！」",
+              "current_translation": "“用队长教我的战斗方式和至今\n　为止的战斗方式，打倒你……！”"
+            },
+            {
+              "id": "story/110/dialogue/01.40/0002",
+              "relation": "target",
+              "source_ja": "「どうやら、それなりの修羅場は\n　くぐってきたらしいな！」",
+              "current_translation": "“看来你经历过不少修罗场啊！”"
+            },
+            {
+              "id": "story/110/dialogue/01.40/0003",
+              "relation": "next",
+              "source_ja": "「だが、俺達は誇り高き栄光の星だ！\n　場所がどこだろうと相手が誰だろうと\n　負ける事は許されないのだ！」",
+              "current_translation": "“但是，我们是高傲的荣耀之星！\n　无论身在何处，对手是谁，都不允许失败！”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-19",
+      "title": "土産作为既有强化零件名或死亡比喻",
+      "status": "terminology_review",
+      "rationale": "香港影碟在剧情中对应part/hong-kong-video，菜单定名为香港土产影碟；埃曼三角旗同样有固定定名。另有冥土の土産的战斗比喻。它们不能跟土産話误译一起机械改。",
+      "direction": "若改物品名，联动两份菜单语料和parts词表；冥土的土产单独按威吓比喻润色。",
+      "entry_count": 2,
+      "entries": [
+        {
+          "id": "story/080/dialogue/02.03/0003",
+          "corpus_path": "corpus/zh/story-dialogue/stage-080.json",
+          "source_ja": "「桂様、そのホンコン土産のビデオ…\n　売っちゃうんですか？」",
+          "source_text_sha256": "47bb83812a2036508bbd70d6b406f42029f2251de9d7d0ac6b04089cb3a55b0e",
+          "translation_at_scan": "“桂大人，那个香港土产的录像带……\n　要卖掉吗？”",
+          "current_translation": "“桂大人，那个香港土产的录像带……\n　要卖掉吗？”",
+          "current_translation_sha256": "c78aae549263c09b3f879375c5a5afadb2e6388f78448e37e0d33b8bb18bb808",
+          "original_location": {
+            "stage_index": 80,
+            "section": "Section 2.3",
+            "ordinal": 3,
+            "text_offset": 69856
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/080/dialogue/02.03/0002",
+              "relation": "previous",
+              "source_ja": "バザー会場",
+              "current_translation": "集市会场"
+            },
+            {
+              "id": "story/080/dialogue/02.03/0003",
+              "relation": "target",
+              "source_ja": "「桂様、そのホンコン土産のビデオ…\n　売っちゃうんですか？」",
+              "current_translation": "“桂大人，那个香港土产的录像带……\n　要卖掉吗？”"
+            },
+            {
+              "id": "story/080/dialogue/02.03/0004",
+              "relation": "next",
+              "source_ja": "「ああ…。\n　落ち着いたら、スレイに見せてやろうと\n　思ってたんだが…」",
+              "current_translation": "“啊……本来想等安定下来后，\n　给斯雷看看的……”"
+            }
+          ],
+          "glossary_refs": [
+            "people/kei"
+          ],
+          "proposal": null,
+          "domain": "story"
+        },
+        {
+          "id": "story/132/dialogue/01.61/0002",
+          "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+          "source_ja": "「行くぞぉぉぉぉぉ！\n　地球の人間のド根性を\n　冥土の土産にしろぉぉぉぉ！！」",
+          "source_text_sha256": "c6b2afb2f393323cdf95ec642e06a04f6fa32e0ae58bae38a0f1dde8370d458a",
+          "translation_at_scan": "“上吧啊啊啊啊！\n　把地球人的骨气带去阴间当土产吧！！”",
+          "current_translation": "“上吧啊啊啊啊！\n　把地球人的骨气带去阴间当土产吧！！”",
+          "current_translation_sha256": "241379696ec6253c0351bc44e3bd72a72743a8472cdb0bf1e7b202cf70124925",
+          "original_location": {
+            "stage_index": 132,
+            "section": "Section 1.61",
+            "ordinal": 2,
+            "text_offset": 95840
+          },
+          "source_context_at_scan": [
+            {
+              "id": "story/132/dialogue/01.61/0001",
+              "relation": "previous",
+              "source_ja": "「俺達の星を荒らすために来たんなら、\n　相手になってやるまでだ！」",
+              "current_translation": "“但若你们是为糟蹋我们的星球而来，\n　那我就奉陪到底！”"
+            },
+            {
+              "id": "story/132/dialogue/01.61/0002",
+              "relation": "target",
+              "source_ja": "「行くぞぉぉぉぉぉ！\n　地球の人間のド根性を\n　冥土の土産にしろぉぉぉぉ！！」",
+              "current_translation": "“上吧啊啊啊啊！\n　把地球人的骨气带去阴间当土产吧！！”"
+            }
+          ],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "story"
+        }
+      ]
+    },
+    {
+      "id": "JC-20",
+      "title": "根性其余用法：毅力、气概与精神名双关",
+      "status": "style_review",
+      "rationale": "排除JC-07后，剩余八条含根性的有源剧情／战斗／图鉴记录。普通毅力可改毅力或骨气，但“ド根性使わなきゃ”和伤害后回复等台词可能点名精神或有双关，应保留机制相关用词。",
+      "direction": "普通语境考虑毅力／骨气；精神名根性、大根性保持定名。",
+      "entry_count": 8,
+      "entries": [
+        {
+          "id": "battle:09392",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「ジュン！　\\n　お前の根性、見せてもらうぜ！」",
+          "source_text_sha256": "eb025d258b2e481b79048235824b69223cdecde1a05afa58df2cdcbbfe944bd0",
+          "translation_at_scan": "“纯！\\n　让我看看你的根性！”",
+          "current_translation": "“纯！\\n　让我看看你的根性！”",
+          "current_translation_sha256": "64770bf2f41bcba8faf364b1da1c2a58b920ea2554bf05c99b31099ecb536a7f",
+          "original_location": {
+            "occurrence_count": 4,
+            "occurrences": [
+              {
+                "chunk_index": 125,
+                "record_index": 12,
+                "archive_text_start": 1215982,
+                "encoded_size": 47
+              },
+              {
+                "chunk_index": 125,
+                "record_index": 282,
+                "archive_text_start": 1226222,
+                "encoded_size": 47
+              },
+              {
+                "chunk_index": 125,
+                "record_index": 296,
+                "archive_text_start": 1226776,
+                "encoded_size": 47
+              },
+              {
+                "chunk_index": 125,
+                "record_index": 310,
+                "archive_text_start": 1227330,
+                "encoded_size": 47
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:10215",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「わわっ！　根性、ド根性で持ち直す！」",
+          "source_text_sha256": "34c4b9ef1bda9d7e261b9596c23979a19465236fa2c14e2d7075a96818eaa189",
+          "translation_at_scan": "“哇哇！靠毅力，大根性稳住！”",
+          "current_translation": "“哇哇！靠毅力，大根性稳住！”",
+          "current_translation_sha256": "bce448ea85a6f980e62adc78eb31d2bc819684511e16b011b8172519dae6ab0c",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 130,
+                "record_index": 127,
+                "archive_text_start": 1309119,
+                "encoded_size": 39
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:12691",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「ド根性使わなきゃ、やられちゃうよ〜」",
+          "source_text_sha256": "7b25128789b6d184b69abe89451aca1afc5fcea6286e2ee2efd2ad0bc9a12c70",
+          "translation_at_scan": "“不用大根性的话，会被干掉的啦～”",
+          "current_translation": "“不用大根性的话，会被干掉的啦～”",
+          "current_translation_sha256": "d984647215fa101a134245b5e36d3863dad1b116c19bc0069ad249bdf5402f5b",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 160,
+                "record_index": 27,
+                "archive_text_start": 1619783,
+                "encoded_size": 39
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:18042",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「駄目だ！　\\n　もう残っているのは、根性ぐらいだ！」",
+          "source_text_sha256": "55205e59921149e39db3eb6a9ffb7cd77474b0da10c4148a03a8657a4f45fc4c",
+          "translation_at_scan": "“不行！\\n　剩下的只有根性了！”",
+          "current_translation": "“不行！\\n　剩下的只有根性了！”",
+          "current_translation_sha256": "a2d8831d62f5629265b8b28324054001cc49fdd2f8c2cfddecb1004f50930947",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 241,
+                "record_index": 283,
+                "archive_text_start": 2300411,
+                "encoded_size": 53
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:19675",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「根性で耐えるにゃ、\\n　こいつは、ちと厳しいか…！」",
+          "source_text_sha256": "31d653cb5fbdb3045b12b76e70d2e1ba7078754eb11ffdc4db533078deeed5e3",
+          "translation_at_scan": "“靠根性硬扛，\\n　这玩意儿有点勉强啊…！”",
+          "current_translation": "“靠根性硬扛，\\n　这玩意儿有点勉强啊…！”",
+          "current_translation_sha256": "8d7f2e12636df35358c273d01ef7313693f3f7ebb9ebe90874e9eef83e322139",
+          "original_location": {
+            "occurrence_count": 4,
+            "occurrences": [
+              {
+                "chunk_index": 267,
+                "record_index": 716,
+                "archive_text_start": 2521464,
+                "encoded_size": 53
+              },
+              {
+                "chunk_index": 267,
+                "record_index": 822,
+                "archive_text_start": 2526034,
+                "encoded_size": 53
+              },
+              {
+                "chunk_index": 267,
+                "record_index": 823,
+                "archive_text_start": 2526087,
+                "encoded_size": 53
+              },
+              {
+                "chunk_index": 267,
+                "record_index": 824,
+                "archive_text_start": 2526140,
+                "encoded_size": 53
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:24353",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「エルダーめ、\\n　ワシの根性はこの程度じゃ折れんぞ！」",
+          "source_text_sha256": "9e33e3237a33d9943a390fc8c1c213c8429faf11b70457183cf378d4e0fd52a8",
+          "translation_at_scan": "“伊尔塔的家伙，\\n　可别小看我的根性！”",
+          "current_translation": "“伊尔塔的家伙，\\n　可别小看我的根性！”",
+          "current_translation_sha256": "d43789a8ef4316455df83ebaac77d6e0d39f0c2f8dd9558bff75babb27144dd2",
+          "original_location": {
+            "occurrence_count": 2,
+            "occurrences": [
+              {
+                "chunk_index": 330,
+                "record_index": 594,
+                "archive_text_start": 3129194,
+                "encoded_size": 55
+              },
+              {
+                "chunk_index": 330,
+                "record_index": 611,
+                "archive_text_start": 3129925,
+                "encoded_size": 55
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "battle:24354",
+          "corpus_path": "corpus/zh/battle/srvc-lines.json",
+          "source_ja": "「根性根性、根性か。\\n　他に何かないのか？」",
+          "source_text_sha256": "3680f1102d36c06981fd41d4d5a1b2eb613483a42276e9fd647deece0c3d2eb3",
+          "translation_at_scan": "“根性根性，又是根性。\\n　就没别的了吗？”",
+          "current_translation": "“根性根性，又是根性。\\n　就没别的了吗？”",
+          "current_translation_sha256": "98677b2808d5a5e413ae466c41703e5e594c27e0aa199f68788c89234e47258a",
+          "original_location": {
+            "occurrence_count": 1,
+            "occurrences": [
+              {
+                "chunk_index": 330,
+                "record_index": 595,
+                "archive_text_start": 3129249,
+                "encoded_size": 45
+              }
+            ]
+          },
+          "source_context_at_scan": [],
+          "glossary_refs": [],
+          "proposal": null,
+          "domain": "battle"
+        },
+        {
+          "id": "library-text/5800dba923af6aff",
+          "corpus_path": "corpus/zh/library/v0.2-reviewed.json",
+          "source_ja": "　陸震王のパイロット。\n　エルダーの攻撃によって目の前で\n両親を失っているが、その悲壮さを\n感じさせない明るく真っ直ぐな性格。\nただし、お調子者で目立ちたがり屋、\nさらに無鉄砲なところもある。\n精神年齢が近いのか、理恵の弟のシ\nョウタとは特に仲が良く、兄貴分と\nして慕われている。\n　根っからの機械オンチで、当初は\n陸震王すらも上手く乗りこなせてい\nなかった。だがゴッドシグマへの合\n体が可能であること、かつ空雷王が\nそのメインとなることを知った時に\nは、闘志也を差し置いて空雷王に乗\nり込んでしまった。しかし空雷王の\n内蔵コンピュータに、操縦条件とし\nて「ファイトだけでは足りません。\n冷静な頭脳と、鍛えられた技術がい\nります」と宣言され、自分に不足し\nている部分を痛感する。以降はその\n持ち前の根性で、陸震王だけはどう\nにか扱えるようになっていった。\n　エルダーとの戦いが終わり、未来\nへ旅立とうとする闘志也に対しては、\n「必ず帰ってこい」という親愛に満\nちた言葉で送り出した。",
+          "source_text_sha256": "5800dba923af6aff87918275202052f6b540b0dcafb4cb8b2fe3b0e3cfd9b23d",
+          "translation_at_scan": "陆震王的驾驶员。虽然伊尔塔的攻击使他亲眼目睹了双亲的离世，但他却有着不显悲壮的明朗直率性格。不过，他也有爱出风头、喜欢引人注目，甚至鲁莽冒失的一面。或许是因为精神年龄相近，他与理惠的弟弟翔太关系特别好，被对方当作兄长般仰慕。他天生对机械一窍不通，起初甚至连陆震王都无法熟练驾驭。但当他得知可以合体为巨神Σ、且空雷王是合体主体时，便不顾斗志也抢先坐进了空雷王。然而空雷王的内置计算机宣告了操纵条件——“仅凭斗志是不够的，需要冷静的头脑和经过锻炼的技术”，这让他深刻认识到自身的不足。此后，他凭借天生的根性，总算能够勉强驾驭陆震王。在与伊尔塔的战斗结束后，面对即将启程前往未来的斗志也，他以充满亲情的“一定要回来”送别了对方。",
+          "current_translation": "陆震王的驾驶员。虽然伊尔塔的攻击使他亲眼目睹了双亲的离世，但他却有着不显悲壮的明朗直率性格。不过，他也有爱出风头、喜欢引人注目，甚至鲁莽冒失的一面。或许是因为精神年龄相近，他与理惠的弟弟翔太关系特别好，被对方当作兄长般仰慕。他天生对机械一窍不通，起初甚至连陆震王都无法熟练驾驭。但当他得知可以合体为巨神Σ、且空雷王是合体主体时，便不顾斗志也抢先坐进了空雷王。然而空雷王的内置计算机宣告了操纵条件——“仅凭斗志是不够的，需要冷静的头脑和经过锻炼的技术”，这让他深刻认识到自身的不足。此后，他凭借天生的根性，总算能够勉强驾驭陆震王。在与伊尔塔的战斗结束后，面对即将启程前往未来的斗志也，他以充满亲情的“一定要回来”送别了对方。",
+          "current_translation_sha256": "2ee1311d80feb3c99d8fa84f9334e9063298afdc5fa66f636d362128c6d750a6",
+          "original_location": [
+            {
+              "field_id": "character/035/DSC2",
+              "source_name": "吉良謙作"
+            }
+          ],
+          "source_context_at_scan": [],
+          "glossary_refs": [
+            "faction/elder-short",
+            "people/speaker-82abdde1d865",
+            "people/toshiya",
+            "spirit/guts",
+            "spirit/love",
+            "system/combine-action",
+            "system/pilot",
+            "unit/air-rai-oh",
+            "unit/god-sigma"
+          ],
+          "proposal": null,
+          "domain": "library"
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "status": "all_final_decisions_applied_components_validated_runtime_pending",
+    "decisions_revision": 19,
+    "decided_entries": 88,
+    "pending_entries": 0,
+    "kept_entries": 58,
+    "newly_applied_translation_fields": 30,
+    "already_applied_translation_fields": 1,
+    "newly_applied_by_domain": {
+      "story": 16,
+      "battle": 11,
+      "library": 3
+    },
+    "source_binding_exact": true,
+    "only_approved_translation_fields_changed": true,
+    "preserved_term_groups": [
+      "义兄",
+      "连携",
+      "修罗场"
+    ],
+    "unit_tests": {
+      "command": "python3 -m unittest discover -s tests",
+      "passed": 251,
+      "scope": "historical finalization run before retiring six page-only tests"
+    },
+    "components": {
+      "story": {
+        "report": "work/review/japanese-calques-20260908/story-components/component-validation.json",
+        "sha256": "acd2f6f8272cdf33ce29fc7098fa793f99f1169b83456c7ac731ae4c0a34c293",
+        "static_validated": true
+      },
+      "battle": {
+        "report": "work/review/japanese-calques-20260908/battle-components/component-validation.json",
+        "sha256": "a0fbf7d44c2fc62714d329e7db9de1ca48441f268cc7d06bdc099516d67fea85",
+        "static_validated": true
+      },
+      "library": {
+        "report": "work/review/japanese-calques-20260908/library-components/component-validation.json",
+        "sha256": "94ab4c4211b4c29f8e6165d3e56ecf3e7e6deb8b1524d687745a1c1ecb63fa5c",
+        "static_validated": true
+      }
+    },
+    "iso_build": false,
+    "runtime_test": false
+  },
+  "scan_input_hashes": {
+    "corpus/zh/auto-demo-work-titles.json": "dab96c21a671df278e817611537451ced804b5f2ad04fb227255845cadf4c64d",
+    "corpus/zh/battle/srvc-lines.json": "4ef6c2cd4f017cb04f8685b62fc6072ceb26cc34d01b4e7ee8e925d153911e84",
+    "corpus/zh/chapter-intertitles.json": "656acd351eaf250ff7746e484324f65d4a6f0d20d6812ab4bb30a77fe12541d7",
+    "corpus/zh/display-names/p0-opening.json": "f8b1aa60c9261e66137578aa921b11a933f0fa406cbc791ee2e0945e12c1d910",
+    "corpus/zh/library/v0.2-reviewed.json": "1d07fdd6e62ee33899174a68774c959a5580834e93df480eb099b99ae0a34c97",
+    "corpus/zh/menu/battle-lines.json": "5b485c40a2e2cf84af5c2b2dfe726e41905970a3f22e6ac55b49aa76997470e9",
+    "corpus/zh/menu/hsfc-overviews.json": "403d2f40038da0d069a618b8799a3ce2ecadb057ff6b64b271cc1d5a9ac6fb85",
+    "corpus/zh/menu/mapmodel-terrain-names.json": "ae89600614f4bb2150d905f58bc49a8914f3a5266dbd0271d89629d7e477d492",
+    "corpus/zh/menu/opening-protagonist-profile.json": "425209556571f7a04acb333610c95f07465449f4e516abf937293403d6d75e29",
+    "corpus/zh/menu/release-v0.3.json": "15e0d97dc2cc36128f4a62d5c603768da2700a74988e17cfcee66cce988a089b",
+    "corpus/zh/menu/stage-names.json": "f53fa5ddb37941295c35ade23a0fa76d55340145e1d6eabc825d80eb16c8cf41",
+    "corpus/zh/menu/stage-overviews.json": "3da8ce8ad373200ca6951ebfc037d6d4ddde6076c62256bed2b3da823e94fde6",
+    "corpus/zh/menu/system-ui-battle-conditions.json": "cae198c16a65f3880d23a55953c84e64dab24806724939a4703f42ccc5947637",
+    "corpus/zh/menu/system-ui-buttons.json": "4d54e3f1b3528a106171a6bdfd3c50e9acc9c08c2bfdbcc5adde8f9ab9160f65",
+    "corpus/zh/menu/system-ui-character-setup.json": "292c24aef4a03928763ee6a262cfad6c5db915492cd90affa2b8f08366c20106",
+    "corpus/zh/menu/system-ui-command-menu.json": "79fe94d7a56ab8e23bfbe73fa215108afab06a1bb7f17c8a4016b90c01c7fedc",
+    "corpus/zh/menu/system-ui-leadership.json": "0800b26fe8e6ba3a32a76172830a4c69bb973ac0f30d4bcd0e5544b9f85ef64a",
+    "corpus/zh/menu/system-ui-map-data.json": "a02d046bb257a571a019a84f587e4346153822a4253b38e44f57c73cee7e05e4",
+    "corpus/zh/menu/system-ui-name-screen.json": "0b71544bccf2e78d6ea6873bec50f6d0bab4b91479c78029efcada200d1e0af2",
+    "corpus/zh/menu/system-ui-parts.json": "aba3fef18277c881c5fa919c33f02534b15865cec0fb9bf2e0014b8fe1f9eb6d",
+    "corpus/zh/menu/system-ui-results.json": "d2fbd3a29ca471bc39ecbb05d4240c0077b92f324682f7f958ab971ead00550c",
+    "corpus/zh/menu/system-ui-search-menu.json": "6f966c933dc9ffdcd778eb5b1e8410d66166237d6d94699c50dc016420eeba17",
+    "corpus/zh/menu/system-ui-search.json": "a9ae22d3b8ca427338464c2d2aa0ec622783f47e8d968c05e52ecb488463b098",
+    "corpus/zh/menu/system-ui-skills.json": "52c8b72aefbd76a71068d73e2c15854bd3c5042f8467600850928e9fa68547f1",
+    "corpus/zh/menu/system-ui-special-abilities.json": "b157f3d2c4409f3cc3185918986f872663478742211c28c5e022b59719c92936",
+    "corpus/zh/menu/system-ui-spirit-acronyms.json": "4b8f5b78999cf8dca13428907b8447fd6b83f2fc803897aeaad6f7f613d3ff2e",
+    "corpus/zh/menu/system-ui-spirit-commands.json": "6320217e73076b578f7c5ef4027588d6d85d831c03a76a43c816f6f89c55c02d",
+    "corpus/zh/menu/system-ui-tactical.json": "08b3d5e0c7e7aace1f8884ae967c3b32c65da6c1dac74754b730d3b05a1089c0",
+    "corpus/zh/menu/system-ui-unit-mech-pilot-weapons.json": "337d3e144471e4956be41f02b0134d31fe1306819c2bd232fe20dc286efe5661",
+    "corpus/zh/menu/unclassified.json": "6abf16cd53dc4528d43ae513bebc32f83663fb51f8f580d83978fa905682e1a5",
+    "corpus/zh/menu/weapon-special-effect-2.json": "e19e722f03dfd17629ef3c5c84886dd1c20f74d41e65eaa0499b968e0cfc5fa3",
+    "corpus/zh/menu/weapons.json": "c864cb9311687ec786a8496d59fa6cb35b1837b993b2bd4038e7fbab6d121f87",
+    "corpus/zh/story-conditions.json": "30ed3f4d17803720456b7b17c8c9bc252cb53c86bf0d5492bdabfae83326ff4c",
+    "corpus/zh/story-dialogue/stage-001.json": "7346fcc2a0dd8517fe69ed1296e74dd89166d84d42b21b758654118b6a6d04a4",
+    "corpus/zh/story-dialogue/stage-002.json": "01a4bb908e3b8db7abb3bfc1866e031f6e9cbf2d3d78cbfd98dd0f2cafcb6e13",
+    "corpus/zh/story-dialogue/stage-003.json": "bb7d7108aceeff24b7e89fbc3cb43e69a3d2991f97679fb32904e84dd2e0ad08",
+    "corpus/zh/story-dialogue/stage-004.json": "1c947d817e614dc9a07ce861255553c0e8980c7365618f77b7f933ef2cec9fa6",
+    "corpus/zh/story-dialogue/stage-005.json": "7ba4df694b5bcec929f6d45b9f94b0ad6774fcb59cfe0562ca9f6401091beb5a",
+    "corpus/zh/story-dialogue/stage-006.json": "c13a0dc521799acbddf050856c850210457499586cbc506c30ab1064d1b51105",
+    "corpus/zh/story-dialogue/stage-007.json": "f50f63702c4f089f438a232c36899a3434c33e8d97a62e6773ed7df6f94f5f05",
+    "corpus/zh/story-dialogue/stage-008.json": "7dc93fff9c2be3c805ed343c0f76ed592e9c98f9d6498f2e6da23387aa936791",
+    "corpus/zh/story-dialogue/stage-009.json": "f0bf6d020de37880897dc02adc15b10cce510fb54342b93de976665c93b0feb9",
+    "corpus/zh/story-dialogue/stage-010.json": "02a84fd25e0af81e3ad2f0265b4f766b29672cbea8a611778f3bdc2c7407e251",
+    "corpus/zh/story-dialogue/stage-011.json": "8368884d0c23c8e4b7c169b30bdfcc1698aa8d2371c662000f9fbfe4e01fa9a4",
+    "corpus/zh/story-dialogue/stage-012.json": "73b75ded19b9069d816e14e9ab64397edcf6fae20226634fc672c291291ca862",
+    "corpus/zh/story-dialogue/stage-013.json": "fea9fae7c080cd8985d8f03ef2c615b798ac08e99dfdf5fcc020b69b4ed1761b",
+    "corpus/zh/story-dialogue/stage-014.json": "4aca0ea136c5dd21d8447155419fc41e150cf7287c83910c40dfd4d4814f1f61",
+    "corpus/zh/story-dialogue/stage-015.json": "73f6a963225c12661e7f5ddfbcddca9c428896b64715d6695ec3056503c6ae65",
+    "corpus/zh/story-dialogue/stage-016.json": "67c5b8769ba2b49eb18e6a34c1d2710874890d17849e6f82b4551eaf9560dc10",
+    "corpus/zh/story-dialogue/stage-017.json": "09ceb62156bc2ea90af358f605caf139e1347fe097900caee83bca847db26768",
+    "corpus/zh/story-dialogue/stage-018.json": "00804af80fae9787c233b03d989d541bdd01fea51253da215897332cbde9f604",
+    "corpus/zh/story-dialogue/stage-019.json": "4a637a9c8e0bd0bc692b6b26f77f2deb4aafe2dc53d03b2877175ac3bc9e2b5f",
+    "corpus/zh/story-dialogue/stage-020.json": "67ce58be013a06539c9248bdb43af51bb8eb69c5a5751abea323730a307ef0f8",
+    "corpus/zh/story-dialogue/stage-021.json": "6ef595f7a61f3fa67df1f4982aa9807c5060307f7fadae1a8c6fa9ea5e044a76",
+    "corpus/zh/story-dialogue/stage-022.json": "d4113754b1981485ddadc146f6d4c0a47c4925a70436c7a1c832ce4faedb3421",
+    "corpus/zh/story-dialogue/stage-023.json": "32fa9377d79f06d06658874258417ae1a6b3fba657b50b06a672d5d6d7a02c62",
+    "corpus/zh/story-dialogue/stage-024.json": "cdde58a2dd43bcebc70b45ec21b13b89c167409c5918e9b02b50abbef4a5fb58",
+    "corpus/zh/story-dialogue/stage-025.json": "cd0530ee7bfa3b9ed53ef9a7cd662f07ea0fd00863b111ee74ceb3a8f43afbe9",
+    "corpus/zh/story-dialogue/stage-026.json": "4c12db3d6309d838bf86bf0705f496dc665ac86d9723e1ce4671051728d2b759",
+    "corpus/zh/story-dialogue/stage-027.json": "845a756cb85567c023bafac23b7a0415d47b89a573b40b6d8e468961a6ab8ccc",
+    "corpus/zh/story-dialogue/stage-028.json": "e23af768f017060cb897546aebc9c27d5b7d4a04386cdb75f6e40e5312bf10bc",
+    "corpus/zh/story-dialogue/stage-029.json": "e0569aabbe300a24cdb230c71866db59d05ac7b7429b4ebd4130cb7dbc03ed35",
+    "corpus/zh/story-dialogue/stage-030.json": "e3803a968df4a3e1bcd736f6187c395d32d2da836a399f1096dc1af2d9415eb7",
+    "corpus/zh/story-dialogue/stage-031.json": "df353b8dc2f0a777d13e28551045d704579c34e83dbf9fd1f8224e044ce05b1f",
+    "corpus/zh/story-dialogue/stage-032.json": "662dc21b3beff0971dcfab06c830469e093372ef8023cd9b84ccf0d46522a969",
+    "corpus/zh/story-dialogue/stage-033.json": "91fb7de335472b8b0f801aa3e379204ef4e10d4c0d15d44140a471177f5348a8",
+    "corpus/zh/story-dialogue/stage-034.json": "952577ca77e8d75893e3a65085092b9324af302f972b9207ca5b88c5d399c3c5",
+    "corpus/zh/story-dialogue/stage-035.json": "820ff1c512eb7c58b32f6b6ba02aca95e83dd477810042852b42f5b96445b384",
+    "corpus/zh/story-dialogue/stage-036.json": "142965f41fc659e35771fbae8f7e74cba0424a021453fd891ee204ddbf180a8d",
+    "corpus/zh/story-dialogue/stage-037.json": "a509f7e4f8bf1a1a744f2c61ec2cd62fa647840f11e1bec66f4765ec7857b068",
+    "corpus/zh/story-dialogue/stage-038.json": "23c494b9f4bd5ce3befc5ed123253535318ad530d3d3a282b59ce1da17f53299",
+    "corpus/zh/story-dialogue/stage-039.json": "811b25d5be29a613e67ad1b92113f569c33712fa68e312870bb90bcb00df5522",
+    "corpus/zh/story-dialogue/stage-040.json": "9cde97ecad49e908c70911fc531af1ad456828f8cf31fbdde538789330511266",
+    "corpus/zh/story-dialogue/stage-041.json": "74c4a4b0c139f044a9ebd1fd5ac1a23795b21aa0d05d0f9b71e6841f28e1900d",
+    "corpus/zh/story-dialogue/stage-042.json": "c8a74a0be256756076f31bea9d17ef5e66053429c5327a2dfc243e116e5b52d7",
+    "corpus/zh/story-dialogue/stage-043.json": "4428e6ffdcae48b45943c131d3fa4250a61e23f67ccfbe3f3ff4c2d1da06868a",
+    "corpus/zh/story-dialogue/stage-044.json": "544f44e65e8a5d55571f8b5a8201430ebd178f31b61a7a00593197cc71137faa",
+    "corpus/zh/story-dialogue/stage-045.json": "65f5d77c6c72b41a830651d4329ae4253d5c712f3b455d880228cad2ca922757",
+    "corpus/zh/story-dialogue/stage-046.json": "72287fc9a1be0eb6305e8de69ff93a439a76f5fa5453800dfad5708530453e9f",
+    "corpus/zh/story-dialogue/stage-047.json": "350263188b550bf791dd35c2fa137189cf79161c356afdea5ead1ad4161dd139",
+    "corpus/zh/story-dialogue/stage-048.json": "414042c5ee23b36f2f4d269f46c0f201f2fdf47fd35d5ef3b4fe5756c6de8b46",
+    "corpus/zh/story-dialogue/stage-049.json": "1ef836da06e63e6726651c216c45fcc97d8c031d90c2c727356792737402f506",
+    "corpus/zh/story-dialogue/stage-050.json": "8aa4fb76652cdbff477819b71de32b655695086f93167b48c24620204ddbd2ca",
+    "corpus/zh/story-dialogue/stage-051.json": "f45357eb34bea0663d5dde19ff08897ffe160cc0fb40471d8fd72c93df22bd35",
+    "corpus/zh/story-dialogue/stage-052.json": "516ace33f56bc6d39de0673522f04ed0746bffc72a0ae8eceb5099cd785cbb6d",
+    "corpus/zh/story-dialogue/stage-053.json": "948e8c86df99caa0757d85a86e0d21ebd1fefc2a1e2e6c715f44b8e46bc4a359",
+    "corpus/zh/story-dialogue/stage-054.json": "53520af1d24beb31537dd2c027950b10dcbb91ceb448d053ce2890eefa2aeb2b",
+    "corpus/zh/story-dialogue/stage-055.json": "daebe76fe25cf43e84e4ff6b0d8374947ddc1969e4624d9bef0bce190e75deb2",
+    "corpus/zh/story-dialogue/stage-056.json": "635b729d22d9c708982370267be2fcc4f0531b1a1c22c8b124d108885eff3efd",
+    "corpus/zh/story-dialogue/stage-057.json": "7a7f8e73df48164dcd4ff42aecfc47d7e0c90644bf6b440bf0aa1f0335be187c",
+    "corpus/zh/story-dialogue/stage-058.json": "3995db3dd43df859430ef5cc1235517e565a1e2786aaed54a54330e1c7e685d5",
+    "corpus/zh/story-dialogue/stage-059.json": "c9eca99630f484acc23f97ace80a3760dbb5cedb01f5f6698f6d6246c50a37b8",
+    "corpus/zh/story-dialogue/stage-060.json": "03cf4b77d6fb75938826dfd7e4506142f59f89d13eab98e00c2add46e913df31",
+    "corpus/zh/story-dialogue/stage-061.json": "f738c9343c9200836c5e206439581a38c4afebea61a38e5bf2c7f4e7de2272f8",
+    "corpus/zh/story-dialogue/stage-062.json": "20ada6e1349c11cda63ad32ec939242b81456b092bb1b2388e8fe0532e5c5b38",
+    "corpus/zh/story-dialogue/stage-063.json": "61f500417bceb29cbaf2efe7fc836aacd37c853e1cbd41e678229ded27ce9cc6",
+    "corpus/zh/story-dialogue/stage-064.json": "aba28e3ff15b13712de4d2ff783fad23e2fe0146273d6818e1cd4d689e201aae",
+    "corpus/zh/story-dialogue/stage-065.json": "6fb72dff009368e5629140a0b7f672b0523eebd32e8aeecfdfd28422cc1ee59a",
+    "corpus/zh/story-dialogue/stage-066.json": "241f305b956aa5e245b779b4a61318ffc24b237b852571803be11eb9ea351ffc",
+    "corpus/zh/story-dialogue/stage-067.json": "788c4bc7e30c947a51168b593a973c59d5a541d80bf300231f4351615923c953",
+    "corpus/zh/story-dialogue/stage-068.json": "cf510373b6724f0c333f52fcb3dc767a6b09367684fed695071e6ef495f46921",
+    "corpus/zh/story-dialogue/stage-069.json": "6647962ff89e3c08d66d77742c735b0ef17a76c131508a962059469a6117e26c",
+    "corpus/zh/story-dialogue/stage-070.json": "6634336e6013f20ef81332afbd721e810654dc4f73ec0d6ac974ae69b008c868",
+    "corpus/zh/story-dialogue/stage-071.json": "911a357804084d086910b0069ff1ecd8dedba6021b38e77c72ee69e4e22eaed6",
+    "corpus/zh/story-dialogue/stage-072.json": "0a4038b0d1fb96f0288290e3a67ec31133b23d8896b740f054ab3ed5f10aa6c5",
+    "corpus/zh/story-dialogue/stage-073.json": "85eb9b3fd6447adf63f390d8ac638c34279e03b62de4b7799871240c6f1be362",
+    "corpus/zh/story-dialogue/stage-074.json": "ec988edd5428ad245b28ad825c1fddd4586402c8a1ac14eb057feab8846780e0",
+    "corpus/zh/story-dialogue/stage-075.json": "22cc4084eea5682f341918011f69ff6dccaabb16c30f599ae87c965561d927bc",
+    "corpus/zh/story-dialogue/stage-076.json": "ebabff5ff7923c93a5d1a4578c83eb6d365115aa2e970405d92c3241ce3ee2b8",
+    "corpus/zh/story-dialogue/stage-077.json": "97c09d4ef872e2fbb3ea573928cecd299ef97e73d7a8ca98b93bb1039271d0e3",
+    "corpus/zh/story-dialogue/stage-078.json": "4341563f98f8078442da170d6b0da45d828dece93f805a30c08880525e11ed14",
+    "corpus/zh/story-dialogue/stage-079.json": "58092993c89deda73f2b1a7ed555e8b435f1f0390bbe3934fd0a34945df780e4",
+    "corpus/zh/story-dialogue/stage-080.json": "8f5867357443ebafa69b5e781664b2d4be1b2c09822ceedbf902e01d23529feb",
+    "corpus/zh/story-dialogue/stage-081.json": "872e4932945de014cec77064ab47db429ec9adbb9f5b33686d964321a5a23fec",
+    "corpus/zh/story-dialogue/stage-082.json": "72e4d31e4417d77e8aeaca575a454055ef301a580a83ba7170a021114d316514",
+    "corpus/zh/story-dialogue/stage-083.json": "c5fc13ad1bef1b52140f326d4ab4d67e50c17d4d455b724da4e7cd5adefb7d0e",
+    "corpus/zh/story-dialogue/stage-084.json": "f2a601ea8663a57b5f9f3740276475312b25d712bfb6a3f00ad09b8b83f84606",
+    "corpus/zh/story-dialogue/stage-085.json": "f58978542667203c7dbe229a008d9e0bdcbd5c547532b485f21f541960b12cc4",
+    "corpus/zh/story-dialogue/stage-086.json": "5d2e2972f7db5c4f6494e73e508baf771daca112c65a0883c4289e5a8d0ceb0d",
+    "corpus/zh/story-dialogue/stage-087.json": "61d6c35ed902f3646c527c7bf93721dbc51847b48c89866156b2348a68c8f2ca",
+    "corpus/zh/story-dialogue/stage-088.json": "9036d3567b289135f35b7b74afd834061c53dd9387f3a929ea211131f686483a",
+    "corpus/zh/story-dialogue/stage-089.json": "0ef18bbdb250554f3485d4b4a671009a264b202c39b473b8deb8a8a351488de5",
+    "corpus/zh/story-dialogue/stage-090.json": "897317db8979b83f1762c092bf8f78c75a1a4e7bdbe6e5f9130653edfaf94f24",
+    "corpus/zh/story-dialogue/stage-091.json": "cbb06f7ccf2e1e32f134926ca26f15f1043326ec5700ce74f62c79bc46f4ab65",
+    "corpus/zh/story-dialogue/stage-092.json": "a7959ffdf839293057be6ee61e8621fae004dcb626c852c6bfb21095c80fed78",
+    "corpus/zh/story-dialogue/stage-093.json": "085c351353791357040edbaa238a7031d23da46c8c24b3cc4afb448eb6229f97",
+    "corpus/zh/story-dialogue/stage-094.json": "66dd4d190f59fb89cb317003aac7dce71335c906a0c663daca35fd87ea59fff0",
+    "corpus/zh/story-dialogue/stage-095.json": "bfa3984bd14b0718cad1c4c83b8243860732f96a87beca06651748c506366de0",
+    "corpus/zh/story-dialogue/stage-096.json": "aaa1dfb62e4240eec5c1d8430eda034da4dfc10d9920b220ebeae777aee4d5ba",
+    "corpus/zh/story-dialogue/stage-097.json": "3a90cc7193084031b97bdebc2c4e44ebfe0768ca60663a0faa459e061f96bd53",
+    "corpus/zh/story-dialogue/stage-098.json": "9bff9a7754133a5b7baa4e1941c79a648b778fb8194a4c258d3857fdde174444",
+    "corpus/zh/story-dialogue/stage-099.json": "9ff2a83d9bf37c1c88ec8bfbf41b2100131ab166a9bc48a25e87b374b5019296",
+    "corpus/zh/story-dialogue/stage-100.json": "89fbbf52db80ef22b067bbb48114f65a57ca13940f15f177a3a9723ee1498736",
+    "corpus/zh/story-dialogue/stage-101.json": "0706d357720b56cf685081df62660d88238d5b4a354323bf92dd338903c85982",
+    "corpus/zh/story-dialogue/stage-102.json": "fccbfac1ddc4737e51c8d7f8464b9f0376cb98a13ddf7eb731b9d20fcf8fbce1",
+    "corpus/zh/story-dialogue/stage-103.json": "006c32ca406a1c4f057120cf25e90d248174549a7d4999e71d5fa7c129ba7b76",
+    "corpus/zh/story-dialogue/stage-104.json": "87a14db23ea5933eb28d004dc0cd10751a865606f9144ad5a0ed69bba11d1f76",
+    "corpus/zh/story-dialogue/stage-105.json": "39e4239ad32731d3f67a11438355856fa6762c31d4049b52563401f29da298be",
+    "corpus/zh/story-dialogue/stage-106.json": "a825c2447eddfedf8dcb1de198471d86d0dbd19dc7890363df7545b467735446",
+    "corpus/zh/story-dialogue/stage-107.json": "aa764652dac300b5a5e15b37d205b866ff7e294a01c49cba07832bd2a2b5f683",
+    "corpus/zh/story-dialogue/stage-108.json": "eab5f6a3b7ea2608eb864887ac92e240eeeb46d72bda712845b795d6c0b5e3f4",
+    "corpus/zh/story-dialogue/stage-109.json": "8769bb11b597c5523522c90e0568b9b1ae0e4d5fcb29cfc8389001c411f23bb3",
+    "corpus/zh/story-dialogue/stage-110.json": "c6a90ba916b08a4264884652e8e8d685dbd3417827b7dedb362c45f646dbc296",
+    "corpus/zh/story-dialogue/stage-111.json": "91880aa9116b6e25e2a9d33cfcfa0fb41009b557d023e3a08bd8b91a8821c7de",
+    "corpus/zh/story-dialogue/stage-112.json": "31bc2225ee71e90c141a309eab4f0c2b83f40528c9a533b829c6db135cc3910a",
+    "corpus/zh/story-dialogue/stage-113.json": "7d2b1cc1824f349d3c6e977103fa1b16863c82fe94557e85376781268bce789c",
+    "corpus/zh/story-dialogue/stage-114.json": "11862b99db3fdf1b95bad341ff13328bc83db8e821411482a978bbe7d718c2b0",
+    "corpus/zh/story-dialogue/stage-115.json": "6a18dc54a90b56c688a93296b812892a6be12eae80be57e289a921b5aeab5d3f",
+    "corpus/zh/story-dialogue/stage-116.json": "30cd85eb387aa83e65a48b92dfa3596193a4463a246aee9b720a3524fd63077a",
+    "corpus/zh/story-dialogue/stage-117.json": "76bfc82e58e0f18033be4d0580d6fb5d2a5a082e851dd0f4c99d8c6d74499638",
+    "corpus/zh/story-dialogue/stage-118.json": "d71398682dba03b96f2d11e62c7e7d10d2765e379cd2c0656a5fa90f52d7375b",
+    "corpus/zh/story-dialogue/stage-119.json": "6435fa026a0a14f11b3a94d3a353e22bede388e94d9c2cc67c76b1b397cc03e0",
+    "corpus/zh/story-dialogue/stage-120.json": "3abd37cf440e6097b2d537a09febaf88281d4ac2974f378f8cbd0551002fddbd",
+    "corpus/zh/story-dialogue/stage-121.json": "5843c709ae609b4370504740a6d703a5a1094e8be954eff7657274cce52c1e7b",
+    "corpus/zh/story-dialogue/stage-122.json": "dc5da97825e628b8db1e138b91571198152908b0524d210b82533e9b4db334cf",
+    "corpus/zh/story-dialogue/stage-123.json": "a8f00f23e0661f2c78529335de944d4cc91f018b19e4f07f16f14f6d561204d8",
+    "corpus/zh/story-dialogue/stage-124.json": "dafa4ced301a09d0b1bea3144291174a90a4cd465dccdad54751aef62645b8b2",
+    "corpus/zh/story-dialogue/stage-125.json": "d0625e949e0ce3a7020d33ecbc9daffe5d1851ac73ec1b0e3f04d189cd8492fc",
+    "corpus/zh/story-dialogue/stage-126.json": "7f4b53d77e4dcdd6b374e98df0e4e669837483cd2533e280dc7cc2f73505a78b",
+    "corpus/zh/story-dialogue/stage-127.json": "aae0dda8dfbc91438baeda97a726ebe4e928daa94229a54be67d03ec493e542b",
+    "corpus/zh/story-dialogue/stage-128.json": "4a0c0b85e87342b195fef245240e4e0ed53744f487cab684a1acea8f52490fef",
+    "corpus/zh/story-dialogue/stage-129.json": "14ae0381d37ccdccd0465a4585e217168cd8f38597a867d6585cef2ef3ab3e0a",
+    "corpus/zh/story-dialogue/stage-130.json": "17a1df7aec191c1b967ccef0308cb837649a783936c36e35d75e1874e765c5ed",
+    "corpus/zh/story-dialogue/stage-131.json": "bb3da8c6f64bab90901f50fc41ae479f1a142d0aabd51668443226409ea708c4",
+    "corpus/zh/story-dialogue/stage-132.json": "8e05b0548ccacf483bfb30701995158291f070958ee4e011519464ccf52dbea1",
+    "corpus/zh/story-dialogue/stage-133.json": "af32ffaaa78d4e26dbe57c19d38a3f11aab44275313e1bcdd9d8b75987a8cac2",
+    "corpus/zh/story-dialogue/stage-134.json": "1143bf519344347b9a443ed8d605aba73d6835b356b40e55d69640746214d2a6",
+    "corpus/zh/story-dialogue/stage-135.json": "63f63e8fb60256e57fbc0e6c133270f6745eb8dad20d9a8e42ff1c60097e6a90",
+    "corpus/zh/story-dialogue/stage-136.json": "78f1f7082abe477cdc5af816954942bcb2ce415f55879732dc1d4501838d7ab0",
+    "corpus/zh/story-dialogue/stage-137.json": "71ea44f60b58815b6f1fdcc179d45d4e2ee63da6a8d22e7bd47191e575563ce2",
+    "corpus/zh/story-dialogue/stage-138.json": "bcc019167184e50c8321cdbd954be02297ccb750c7057cc1d48ea826e0e60b3c",
+    "corpus/zh/story-dialogue/stage-139.json": "23e21d6cfee77a16df0bebf05c041863031d1f931e5d59f059f8db994621a591",
+    "corpus/zh/story-dialogue/stage-140.json": "409948a872cc6f8fd73b018891a9d6f38455f9ed419cfb79a2338b1a50b3c881",
+    "corpus/zh/story-dialogue/stage-141.json": "091a651160eb35817b06abbd484c633995fcae64443db46bf259d0d34f79fd05",
+    "corpus/zh/story-dialogue/stage-142.json": "f9b3655aa7cfb8f0cb7abf363542b11ca86344d784928197a77ee712670561f7",
+    "corpus/zh/story-dialogue/stage-143.json": "cfbb425396d0d46968dcb607293a64032374d402491345e69f43ec57dfecaed0",
+    "corpus/zh/story-dialogue/stage-144.json": "e7a249e229bac03f685126bbd87078f88d6b8e93675e372a17f77626ec26787e",
+    "corpus/zh/story-dialogue/stage-145.json": "c86675e9cf18dacacf9a82aaad8a609641d04a117dbd9e41de2f7d4b88ec2cf8",
+    "corpus/zh/story-dialogue/stage-146.json": "e90f6b3c476d84c9e1ed4f57a0c0c7c54a280ed03a3acce82f1915cc0665b6f5",
+    "corpus/zh/story-dialogue/stage-147.json": "b494c99cefc4a5c83d571cd6470e3f14def98e22c08025c64bec579673eb88f2",
+    "corpus/zh/story-dialogue/stage-148.json": "081510abc7177e48465038fbff4e2da115865bcd97e1348614c48830d6697790",
+    "corpus/zh/story-dialogue/stage-149.json": "604dfad025f2545d75c9773a2c76f7c5bbf004017ded6fcb690b9ff19630b574",
+    "corpus/zh/story-dialogue/stage-150.json": "e471fefebb856a09305e3f3bc9354c437896cfcc6a8fa2bc9f4ccce716fc0ef3",
+    "corpus/zh/story-dialogue/stage-151.json": "770cc934de0a019ad2d5b24b204f28632d31c65b20229003aee905eab7a52b77",
+    "corpus/zh/story-dialogue/stage-152.json": "d8904c82bc1d0a110d16e7c0f2b6e197bc73dc8a771c3f17333b25a55afff75a",
+    "corpus/zh/story-dialogue/stage-153.json": "c030858703da11037f29b623afd58479154cd408f352d97c9323259428dd52c5",
+    "corpus/zh/story-dialogue/stage-154.json": "3d585b9dd97e2e9a39ef721884533d5f3089002e90f26f7daa004df2daea3ff7",
+    "corpus/zh/story-dialogue/stage-155.json": "d62414ee821771bff6448d08d59c6401106794b2c97c705528062f538e53b394",
+    "corpus/zh/story-dialogue/stage-156.json": "ed7f287843edce1f7aa0845b1d7686a67e05c8c90be9de922dc7a46604a0b84f",
+    "corpus/zh/story-dialogue/stage-157.json": "2dc87e1b67b44d839ee93bba5c822c0553152ccb77b26b4cea92f79d9b3e2542",
+    "corpus/zh/story-dialogue/stage-160.json": "8a106db97f78edd3194bf3721832ed8b149d63760954d2ed19bc7cfded28b483",
+    "corpus/zh/story-dialogue/stage-163.json": "c653fd59cff1289ed6354b06ba037a6cc49cce1fc9408ef4e595e95fcb4ef689",
+    "corpus/zh/story-dialogue/stage-164.json": "e5420acb4eadd950963c40ba69abb16c5fb36642df91884baea9fc9512f00a69",
+    "corpus/zh/story-dialogue/stage-169.json": "133ad6cef5dc887fdefac154f980df88e41a439703097dd7b483900fd491101f",
+    "corpus/zh/story-dialogue/stage-170.json": "a1181fee8db95f4558975e124a87eea7ad7bd9cfcf26ff64c29ce7ed8ab4b180",
+    "corpus/zh/story-dialogue/stage-175.json": "37ebcd46ec4320227503ea3001d3d8376ac94279104cc0455fbbf654a0865827",
+    "corpus/zh/story-dialogue/stage-176.json": "6aa4c4c2c6f0d1be3d35edcc319c5d9dbca1a05e679e156d674b8759d4c410ad",
+    "corpus/zh/story-dialogue/stage-177.json": "96b43514be3aec294120a0eaf06c1687f2f909d74cb1afcecc6de00d251729a3",
+    "corpus/zh/story-dialogue/stage-178.json": "13f7a02f9afc40a388fe313453f96848c7224ad519f3635626eaf144f8867418",
+    "corpus/zh/story-dialogue/stage-179.json": "fa6cd53a7a21b87a794180adfd8b4aff1db288dd3a26dba862296617b2a278b7",
+    "corpus/zh/story-dialogue/stage-180.json": "de7a20a8aa42e616204cbb3d7273cef17af51176f0e9b5536121af25924c2dc5",
+    "corpus/zh/story-dialogue/stage-185.json": "2466a2b26f43ba8a32a7ff18019a00ef0668eeda29103a50dadc459327169b84",
+    "corpus/zh/story-dialogue/stage-186.json": "0b8f07673f894e441ce3ebc1ed2653b7c4deaedeedfab5807375bd0a93e2ef1a",
+    "corpus/zh/story-speakers.json": "01d554ae95eea5422cc31bc6c0c4a282c45877293f44a5a8491fb5a76d489c49",
+    "corpus/zh/story-system-dialogue.json": "7cc539cc0d7fc949f3b938418d55bc643059389c9517c4260c175a512d80aac0",
+    "corpus/zh/story-tickers.json": "06a8c684c7e09141986500fdd3be9358b45cf62b40c4be013a0b1bc455be354c",
+    "corpus/zh/story-z-reports.json": "4671ecd5b49dca757b6e6500c0f7347074ecf875be4efa92907f8619db533987",
+    "corpus/zh/summary.json": "5a8cf152a78ff96066dd4ef24e470414a7d8e83f0362893d71310abb447146db",
+    "corpus/zh/ui-atlas/aid-battle-prompts-v1.json": "64affedffb9498b98d070bcce2fb8392ce1b10b048278b96a05ab3121a1cf21b",
+    "corpus/zh/ui-atlas/bazaar-v2.json": "09df2208d044cfbae5a21be1233c1292cbcc4f54702aacda0b8a94020a276fb3",
+    "corpus/zh/ui-atlas/core-menus-v1.json": "6ac311a4239fe2d57d46c69954158c67bf27ef69eef0393ec7e0401a6e6748ab",
+    "corpus/zh/ui-atlas/info-v1.json": "5c964d0390ea024179146c81bba853c05850a120a3e9cf2e2122821db372fb70",
+    "corpus/zh/ui-atlas/stage-clear-v1.json": "2464cebf741044014384ac2b3901f16c6b3351d959ea81b6e48051aec9b91e19",
+    "corpus/zh/ui-atlas/tricmn-battle-overlays-v1.json": "7e74f2cedef3a48930d427a792978f16f3899e4341430e7a0cfa2227232e86ec",
+    "corpus/zh/ui-atlas/world-map-titles-v1.json": "2f20a96f3ff7b20dba7e9402b0bb1ff8292556657522799b67ba3929a8d65a4c"
+  },
+  "japanese_explanations": {
+    "JC-01": {
+      "term": "寸止め",
+      "reading": "すんどめ",
+      "gloss_ja": "相手に打撃が届く直前で、意図的に技を止めること。",
+      "meaning_zh": "格斗中的本义是主动把攻击停在命中对方身体之前，强调控制和收手。",
+      "in_context": "这里借这个形象说明基拉攻击时有所保留。前半句明确说故意避开驾驶舱，因此译成“手下留情”能承接语境；不能据此理解成射击完全没有命中机体。",
+      "usage_note": "「寸止めで」说明攻击方式；「みたいだけどね」是观察后的推测和补充语气。词典解释的是格斗本义，“避免致命攻击”是根据本句作出的语境判断。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：寸止め",
+          "url": "https://kotobank.jp/word/寸止め-678519"
+        }
+      ]
+    },
+    "JC-02": {
+      "term": "戦力外",
+      "reading": "せんりょくがい",
+      "gloss_ja": "働き手として期待されず、戦力に数えられないこと。",
+      "meaning_zh": "指不能算作可用人手或有效战力。体育语境里还可指不在球队用人计划内。",
+      "in_context": "说话人在评估敌方那台LFO：看来已经不能发挥战力，可以不把它当成有效威胁。“不顶用了”保留这种轻蔑评价。",
+      "usage_note": "「〜と見てもいい」是“可以视为……”，「みたいね」保留判断语气。“外”是排除在战力计算之外，不表示处在射程或战场之外，也不必推成已经完全报废。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：戦力外",
+          "url": "https://kotobank.jp/word/戦力外-551515"
+        }
+      ]
+    },
+    "JC-03": {
+      "term": "大活躍",
+      "reading": "だいかつやく",
+      "gloss_ja": "能力を発揮して、ひときわ目立つ働きをすること。",
+      "meaning_zh": "“活躍”着重于发挥本领、表现突出；加“大”进一步加强称赞。",
+      "in_context": "「やったね、シン！」接着夸真今天的战斗表现，可理解为“大显身手”或“表现出色”。只写“大活跃”不容易传达立功、发挥本事的意思。",
+      "usage_note": "这里的「じゃない！」是带赞叹的确认口吻，可译“不是很……嘛／可是……呢”，不能按字面读成否定。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：活躍",
+          "url": "https://kotobank.jp/word/活躍-464593"
+        }
+      ]
+    },
+    "JC-04": {
+      "term": "土産話",
+      "reading": "みやげばなし",
+      "gloss_ja": "出先での体験や見聞を、帰ってから人に聞かせる話。",
+      "meaning_zh": "把旅途或外出见闻当作带给别人的“礼物”来讲，是见闻故事，不是实物土特产。",
+      "in_context": "022要求记下来，回去讲给师父听；084把“土産話”和“お宝フォト”并列期待，一项是故事，一项是照片。两处都应把“讲／听”的含义译出来。",
+      "usage_note": "「土産話にする」是“留作回去讲的故事”；「土産話を楽しみにする」是“期待听你的见闻”。“土産”和“土産話”不能按同一条替换规则处理。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：土産話",
+          "url": "https://kotobank.jp/word/土産話-639862"
+        }
+      ]
+    },
+    "JC-05": {
+      "term": "余興",
+      "reading": "よきょう",
+      "gloss_ja": "集まりの本題とは別に、場を楽しませるための出し物や遊び。",
+      "meaning_zh": "常指宴会、聚会中助兴的节目或消遣；词典也收录兴致仍未消退的义项，要由搭配判断。",
+      "in_context": "前一句在谈笑话，这里转入该做的正事。「このような余興にふけるより」是在说别继续耽于这种说笑、消遣。",
+      "usage_note": "「ふける」带沉浸、耽于之意。「より」把消遣与正事作比较。“余兴”在中文也有用法，这里的改译重点是让对白自然，并明确转入正事的语气。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：余興",
+          "url": "https://kotobank.jp/word/余興-653633"
+        }
+      ]
+    },
+    "JC-06": {
+      "term": "拝見",
+      "reading": "はいけん",
+      "gloss_ja": "自分が見る行為を控えめに述べ、相手への敬意を示す表現。",
+      "meaning_zh": "“看”的谦敬表达，可以用于书信、作品、藏品等对象。核心动作仍是看。",
+      "in_context": "宾语是公爵的コレクション，即收藏品。说话人希望有机会欣赏藏品，用“一睹／欣赏一下您的收藏”可以同时保留动作和礼貌。",
+      "usage_note": "「是非とも」加强愿望；「拝見させていただきたいものです」把请求说得委婉郑重。中文“拜见”通常指见人，容易把此处的观看误写成拜访。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：拝見",
+          "url": "https://kotobank.jp/word/拝見-598696"
+        }
+      ]
+    },
+    "JC-07": {
+      "term": "根性が曲がる／根性が腐る",
+      "reading": "こんじょうがまがる／こんじょうがくさる",
+      "gloss_ja": "人の性質や心のあり方が、ひねくれていたり悪かったりすること。",
+      "meaning_zh": "这里“根性”取性情、心性的义项。“曲がる／腐る”把它评价为歪斜、败坏，可对应心术不正、心眼歪。",
+      "in_context": "本组六句在批评或自嘲心性。弹道那句用“歪”与“直”作对照；兰德自称修理工时，又把纠正性情说成修理、敲直。改成“心术／心眼”后仍须保留这些比喻。",
+      "usage_note": "“根性”另有毅力、韧劲的义项，见JC-20。「叩き直す」把敲打与纠正连在一起，因此“歪心眼我来敲正”比只写“纠正你的性格”更能保留角色口吻。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：根性",
+          "url": "https://kotobank.jp/word/根性-506159"
+        }
+      ]
+    },
+    "JC-08": {
+      "term": "自重する",
+      "reading": "じちょうする",
+      "gloss_ja": "軽率な言動を避けるよう、自分の行動を抑えること。",
+      "meaning_zh": "此处是克制自己的行动、避免轻率行事。“自重”还可表示自尊、自爱；读作じじゅう时又是自身重量的另一词义。",
+      "in_context": "「迂闊な攻撃は自重することだな」是在告诫对方别贸然攻击。被省略的行动者是对方本人，并非让“攻击”自己学会自重。",
+      "usage_note": "「〜することだ」在这里带忠告、告诫意味；「だな…！」使口吻更强。译成“还是别轻率出手为好”能把施事者和动作关系说清楚。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：自重（じちょう）",
+          "url": "https://kotobank.jp/word/自重-519248"
+        }
+      ]
+    },
+    "JC-09": {
+      "term": "人情家",
+      "reading": "にんじょうか",
+      "gloss_ja": "他人への思いやりが深く、情の温かい人。",
+      "meaning_zh": "富有人情味、心地温厚的人。“家”在这个词中指具有这种性情的人，不表示专家、职业或流派。",
+      "in_context": "胜平图鉴紧接着说明「困った人は放っておけない」——看见别人有难不能放着不管。这里用“热心肠”能与前面的“不良少年”形成性格反差。",
+      "usage_note": "「性根は優しく」先说本性善良，后面的“人情家”进一步描述待人方式。“人情派”会平添派别意味；两份图鉴共有此段，应一起审阅。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：人情家",
+          "url": "https://kotobank.jp/word/人情家-689760"
+        }
+      ]
+    },
+    "JC-10": {
+      "term": "砲術担当",
+      "reading": "ほうじゅつたんとう",
+      "gloss_ja": "砲の扱いを受け持つ役割、またはその役割の人。",
+      "meaning_zh": "“担当”表示负责某项工作，也可指负责该工作的人。“砲術担当”按组成理解，就是负责火炮操作的人员。",
+      "in_context": "图鉴第一句在介绍月光号成员的职责，后文还具体描写其激光炮射击和利用主炮后坐力回避的本领，支持“负责操纵火炮”的理解。",
+      "usage_note": "「月光号の砲術担当」是省略判断句末尾的名词短句。中文可补出“成员／人员”，不必据此另设“炮术官”等原文未明确给出的军衔。此处为构词解释，词典链接核对的是“担当”。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：担当",
+          "url": "https://kotobank.jp/word/担当-564493"
+        }
+      ]
+    },
+    "JC-11": {
+      "term": "お土産／土産物",
+      "reading": "おみやげ／みやげもの",
+      "gloss_ja": "旅先から持ち帰る品や、人を訪ねる際に持参する贈り物。",
+      "meaning_zh": "可指旅行买回的纪念品、给别人带的礼物，也可指登门时带的礼品，范围比“地方特产”更广。",
+      "in_context": "080说的是旅游纪念三角旗，130承接的是玩具。按物件和送礼关系分别写成“纪念品”“带给……的礼物”更明确。",
+      "usage_note": "「お」是美化表达的前缀，无须单独翻译。「〜へのお土産になる」强调送给谁；「土産話」则是见闻故事，另见JC-04。已成为游戏物品名称的例子见JC-19。",
+      "sources": [
+        {
+          "title": "小学馆《日本大百科全书》：土産",
+          "url": "https://kotobank.jp/word/土産-583333"
+        }
+      ]
+    },
+    "JC-12": {
+      "term": "本命・真打ち・主役・二枚目",
+      "reading": "ほんめい・しんうち・しゅやく・にまいめ",
+      "gloss_ja": "最有力の候補、実力者、中心となる役、そして美男子を並べた自己紹介。",
+      "meaning_zh": "“本命”可指最有希望的候选；“真打ち”有压阵的高手、重要人物之意；“主役”是主角；“二枚目”在此是美男子、英俊小生。",
+      "in_context": "整句把四种称号连着往自己身上堆，是夸张的登场宣言。“头号人物、压轴、主角、英俊小生”是保留这种排比口吻的一种方向。",
+      "usage_note": "此处没有把“本命”用于最喜爱的偶像或命理。“二枚目”也不是第二名。「だわよ〜ん」配合拖长音形成刻意夸张的口吻；具体中文措辞仍留待审阅。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：本命",
+          "url": "https://kotobank.jp/word/本命-632578"
+        },
+        {
+          "title": "小学馆《デジタル大辞泉》：真打",
+          "url": "https://kotobank.jp/word/真打-536669"
+        },
+        {
+          "title": "小学馆《デジタル大辞泉》：二枚目",
+          "url": "https://kotobank.jp/word/二枚目-162216"
+        }
+      ]
+    },
+    "JC-13": {
+      "term": "花道作り",
+      "reading": "はなみちづくり",
+      "gloss_ja": "晴れやかな登場や活躍、退場のための道筋や場を用意する、という比喩。",
+      "meaning_zh": "“花道”本指歌舞伎演员出入舞台的通道，也用于华丽登场、引人注目的时刻，尤其有体面引退的比喻义。这里按“花道＋作り”理解。",
+      "in_context": "「花道作りといこうか！」可以理解为“来开道／为登场铺路吧”。这句没有说清给谁铺路，单凭它也不能认定正在退场，因此保留不同翻译方向。",
+      "usage_note": "此处读はなみち，不是插花之道的かどう。「〜といこうか」带“那就来……吧”的提议、自我鼓劲语气。上面的日文说明是构词和比喻分析，不是词典的整词原句。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：花道",
+          "url": "https://kotobank.jp/word/花道-115726"
+        }
+      ]
+    },
+    "JC-14": {
+      "term": "義兄／義理の兄",
+      "reading": "ぎけい／ぎりのあに",
+      "gloss_ja": "婚姻などによって兄にあたる関係になった男性。この場面では妻の兄。",
+      "meaning_zh": "日语可用这类称谓表示姻亲中的哥哥，例如配偶的哥哥或姐姐的丈夫；仅凭“義兄”两个字，不能锁定是哪一种关系。",
+      "in_context": "剧情在story/064/dialogue/01.05/0004直接解释为「妻の兄」，所以修基是桑德曼妻子的哥哥。叙述可用“妻兄／妻子的哥哥”，当面称呼再斟酌“大哥／修基大哥”。",
+      "usage_note": "本栏给的是词典读法；台词中的「義兄さん」属于称呼写法，不据此推定配音读音。中文“义兄”容易让人想到结拜关系。37条应按叙述与直呼的差别统一方案，而非一律替成“大舅哥”。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：兄（含義兄表记）",
+          "url": "https://kotobank.jp/word/兄-426189"
+        }
+      ]
+    },
+    "JC-15": {
+      "term": "連携／連係",
+      "reading": "れんけい",
+      "gloss_ja": "連携は協力して動くこと。連係は、互いの動きなどがつながり合うこと。",
+      "meaning_zh": "两者都读れんけい。“連携”偏相互联系、协作；“連係”偏相互关联、动作衔接。在这些攻击台词里，中文常可落到“配合／协同”。",
+      "in_context": "「この連係、かわせまい」夸的是这番配合难以躲开；「連携でいくぞ」是招呼同伴协同进攻。遇到「連係攻撃」仍须核对是否在点名游戏技能。",
+      "usage_note": "不能仅凭日文写成“係”还是“携”就决定它是不是专名。现有技能“连携攻击”另受术语表约束；词义解释帮助审句，不自动改动技能名称。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：連携",
+          "url": "https://kotobank.jp/word/連携-662050"
+        },
+        {
+          "title": "小学馆《デジタル大辞泉》：連係",
+          "url": "https://kotobank.jp/word/連係-662049"
+        }
+      ]
+    },
+    "JC-16": {
+      "term": "人望",
+      "reading": "じんぼう",
+      "gloss_ja": "人柄を信頼され、多くの人に慕われること。",
+      "meaning_zh": "别人对一个人的信任、敬重和拥戴，着重他在人群中的威望与人心所向。",
+      "in_context": "兰德接着说“手下全跑光了”，是在嘲笑对方留不住人、不得人心。换成这种口语表达，能让两句的因果关系更直接。",
+      "usage_note": "「人望無いな」是省去助词的口语说法；「逃げちまった」又把语气变得随意粗直。“人望”本身也是中文词，本项是口吻取舍，不应标成必然误译。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：人望",
+          "url": "https://kotobank.jp/word/人望-538968"
+        }
+      ]
+    },
+    "JC-17": {
+      "term": "義理／義理立て",
+      "reading": "ぎり／ぎりだて",
+      "gloss_ja": "立場や世話になった関係から、相手に果たすべきだと感じる務め。それを守ろうとすること。",
+      "meaning_zh": "本组取人际关系中的道义、情分和应尽责任之意，可以是顾念旧情、报答照顾而觉得有义务，不只指抽象道理。",
+      "in_context": "087说被祖国和这种责任牵制；118说事到如今无须再对ZAFT尽这份情义。是否写成“情分”“情义”或“人情上的责任”，要结合每句口气。",
+      "usage_note": "「義理立てする」强调守住这份关系上的义务。不能只凭这个词补出政治忠诚，也不能套用JC-14中“義理の兄”的姻亲义项。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：義理",
+          "url": "https://kotobank.jp/word/義理-53569"
+        }
+      ]
+    },
+    "JC-18": {
+      "term": "修羅場をくぐる",
+      "reading": "しゅらばをくぐる",
+      "gloss_ja": "激しい戦いや危険な状況を、実際に経験して切り抜けること。",
+      "meaning_zh": "“修羅場”可指激战、争斗的场所；搭配“くぐる／くぐり抜ける”，着重亲身经过并闯过这种险境。",
+      "in_context": "本组人物在拿出生入死的经验说话：“这种程度的险境经历过很多次”“我经历的恶战比你多”。重点是老练和底气。",
+      "usage_note": "此处没有人际恋爱冲突的语境。“修罗场”可以作为既有读者熟悉的表达保留；若改为“恶战／险境”，要保留闯过来的经历感，而不仅是到过某个地方。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：修羅場",
+          "url": "https://kotobank.jp/word/修羅場-78328"
+        }
+      ]
+    },
+    "JC-19": {
+      "term": "土産／冥土の土産",
+      "reading": "みやげ／めいどのみやげ",
+      "gloss_ja": "土産は持ち帰る品。冥土の土産は、死ぬ前に得た思い出などを、あの世へ持っていく品に見立てる表現。",
+      "meaning_zh": "“土産”可以是带回来的物品；“冥土の土産”把临终前获得的体验等比作带往阴间的礼物，是固定比喻。",
+      "in_context": "香港录像带是可识别的游戏物品，要与菜单名称一起处理；132则是在战斗中叫对方领教地球人的骨气，再把这份领教带去阴间，具有威吓意味。",
+      "usage_note": "词典中“冥土の土産”常指得偿所愿后可安心死去的体验；132把这个比喻用于对敌人的喊话，是本句的语境用法。不能把物品名、死亡比喻和“土産話”当成同一种问题。",
+      "sources": [
+        {
+          "title": "小学馆《日本大百科全书》：土産",
+          "url": "https://kotobank.jp/word/土産-583333"
+        },
+        {
+          "title": "小学馆《デジタル大辞泉》：冥土の土産",
+          "url": "https://kotobank.jp/word/冥土の土産-643157"
+        }
+      ]
+    },
+    "JC-20": {
+      "term": "根性／ド根性",
+      "reading": "こんじょう／どこんじょう",
+      "gloss_ja": "困難に負けず、最後までやり抜こうとする気力。「ど」はその強さを際立たせる。",
+      "meaning_zh": "此处的“根性”偏毅力、韧劲、骨气；“ド根性”更用力地强调这股劲。与JC-07批评心性的用法属于不同义项。",
+      "in_context": "「お前の根性、見せてもらうぜ」可落到“让我看看你的骨气”；但「ド根性使わなきゃ」明确用了“使用”，又处在战斗台词中，应优先核对是否点名精神指令。",
+      "usage_note": "「根性、ド根性で持ち直す」可能同时利用毅力本义与精神名称形成双关。普通用词可润色，精神“根性／大根性”的定名和笑点则需保留；不能整组统一换成“毅力”。",
+      "sources": [
+        {
+          "title": "小学馆《デジタル大辞泉》：根性",
+          "url": "https://kotobank.jp/word/根性-506159"
+        }
+      ]
+    }
+  },
+  "japanese_explanations_note": "词义参考所列辞书，以自己的语言概括；日文释义为整理稿，非词典逐字引文。本句用法和搭配分析依据项目日文及已核对的上下文，属于审阅解释。词典读音不等同于游戏配音核验。",
+  "writeback": {
+    "date": "2026-09-08T12:39:26.038604+00:00",
+    "dataset_sha256": "d687f63e3818f41e632228fcfc78a537ab95e236bfc4904a961b912309bb3762",
+    "decisions_revision": 19,
+    "authorization": "用户逐项讨论后确认：好，定稿",
+    "entries": {
+      "story/040/dialogue/01.13/0016": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-040.json",
+        "source_text_sha256": "5c657282568ad65595cbbb38dddc70615adfbaef84aed65a79ceb2d036c0faa8",
+        "before_sha256": "242663e78a3368bf4ec2cc4b7495edbab49ed334c87aad542e47e32dde8083e7",
+        "translation": "“呵呵……看来那台LFO已经不顶用了。”",
+        "after_sha256": "3eabac6c5a88326f3ff0661dd15e14ecac15cc4b644fd9afc1a0f92bd659dce7",
+        "decision": "accept"
+      },
+      "story/031/dialogue/02.02/0232": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-031.json",
+        "source_text_sha256": "96425d40f6a11cf1447951d9250991c6ee7fb3ff0f2850078ebab282f3dfb091",
+        "before_sha256": "d066ea1c0e9632065a0580bc518d682466e1af18cc8d6128724462aeea80cfc7",
+        "translation": "“干得好啊，真！今天可是大显身手了呢！”",
+        "after_sha256": "770ddda39c0e791446eef6554d31dae056abd49219a0cd2557063d1fd31ce8e4",
+        "decision": "accept"
+      },
+      "story/022/dialogue/01.42/0002": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-022.json",
+        "source_text_sha256": "e7972dfb718aae09c218b8f7ef38d3c0b0c6b7c9fa1f5dba4f4302e37283d6d3",
+        "before_sha256": "165a15aacd6b88e8bd9961a20645ab5e788c5a0e4f72c09f6c16bdaedbb38a84",
+        "translation": "“别想那些没用的，好好做记录！\n　回去还得讲给师父听呢！”",
+        "after_sha256": "be9ef62f9eedf7323fea0bd393870c0b5e022c6abfddc3cd8cca6d545f0922ca",
+        "decision": "accept"
+      },
+      "story/084/dialogue/02.03/0108": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-084.json",
+        "source_text_sha256": "58090de7592346d645218ae092554639b4d012f1dd34d729243f089acd025f35",
+        "before_sha256": "d075be0f8e94fa249334ba5819221548acbfb8e36f5aacd0cdc4e46f5b186a7e",
+        "translation": "“切……休兰真死板啊……雷本……\n　我等着听你的见闻、看你的宝贝照片哦。”",
+        "after_sha256": "c7f84aaecbdda5bd10e40c11bd15ca79c3c1aaf4a6e335d5ac7f2c6b628bbd50",
+        "decision": "accept"
+      },
+      "story/106/dialogue/02.02/0111": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-106.json",
+        "source_text_sha256": "43d01329411760e33aa6c9f7d91b591a8613c68ee4c05b092f25d824102310dd",
+        "before_sha256": "d8320f374b7f8b510f57ea5d20278f52b2b96127659c5c899c3c100e72e06198",
+        "translation": "“别在这里消遣了，我们还有正事要做。”",
+        "after_sha256": "be1a926f7838a23a56518dbc13292e7df9c456c65f60ce7d523dc57ffe71fe1f",
+        "decision": "accept"
+      },
+      "story/104/dialogue/02.02/0133": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-104.json",
+        "source_text_sha256": "d671cd118d98db51ac92913a5e20bff9330d400c537a21379679982e1936066e",
+        "before_sha256": "5e122bcf7c5836a9d867c38ffc10bccc2f74e14a22364f05126fe8a4134ef5e1",
+        "translation": "“不过，不愧是被称为艺术公爵的梅黛尤公。\n　真希望能欣赏一下您的收藏。”",
+        "after_sha256": "f2be88e9494bdba7576523eac1e29291786a73588b8460a52a551815d6363b95",
+        "decision": "accept"
+      },
+      "battle:13777": {
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "ad98f1c0b84160da731b4a9efea10b3b231e46092186440e960c15360ac79301",
+        "before_sha256": "b470a8637e05e68595167031824e4fd06845c9067e041636d7d575f9190fbd45",
+        "translation": "“就算心术不正，\\n　弹道也是笔直的！”",
+        "after_sha256": "13d27e84958af0f936d66188fccbf5715cbfaf10cfca73504e1d3cb322caa732",
+        "decision": "accept"
+      },
+      "battle:19336": {
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "165683b35084fec2377cf1ac469ee9a7e56661da4a9d8514973d5ccd174c94fd",
+        "before_sha256": "63bd36d9319e3d3adae3c89bfac4f0dfadb898a6bd78d247c4b8654795543b05",
+        "translation": "“我是修理工！\\n　歪掉的心眼我来敲正！！”",
+        "after_sha256": "de12fff2681d41f41c0ca7005deee17d6967869c0f918f88b01fda4e90966b19",
+        "decision": "accept"
+      },
+      "battle:19399": {
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "68266bf03a43901486ab66642c18e7ce329f3ce9ad4506379eefeb8899139ba2",
+        "before_sha256": "a1538eccda919afab1031a7350427aff64cd1e5ee4b9927f8718d885aea6f51a",
+        "translation": "“真难看啊，雷本！\\n　你那歪心眼，我来给你敲正！”",
+        "after_sha256": "faa86c0d45bceed06422342e89da8d8c12b5990fc3249fe9b0c8d5d8cbb88402",
+        "decision": "accept"
+      },
+      "story/043/dialogue/02.01/0083": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-043.json",
+        "source_text_sha256": "2f94408f1cf66299a9b3c6e8e46d19cb516eca5c9cc745bec7649d2fdec80b4a",
+        "before_sha256": "d4fc2e547421026975274f88ffbc8e6b377bbe76d1ad7bde00ef92efb01513a4",
+        "translation": "“有什么关系嘛。那家伙一肚子坏水，\n　叫那个名字更合适。”",
+        "after_sha256": "4dd8ed892da6335ec8a4191a48baa70ce1625817e325de7cdb0939de16f994b7",
+        "decision": "accept"
+      },
+      "story/043/dialogue/02.01/0164": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-043.json",
+        "source_text_sha256": "2f94408f1cf66299a9b3c6e8e46d19cb516eca5c9cc745bec7649d2fdec80b4a",
+        "before_sha256": "d4fc2e547421026975274f88ffbc8e6b377bbe76d1ad7bde00ef92efb01513a4",
+        "translation": "“有什么关系嘛。那家伙一肚子坏水，\n　叫那个名字更合适。”",
+        "after_sha256": "4dd8ed892da6335ec8a4191a48baa70ce1625817e325de7cdb0939de16f994b7",
+        "decision": "accept"
+      },
+      "story/098/dialogue/01.66/0004": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-098.json",
+        "source_text_sha256": "8bdb69d72ace7238dbba42a2f704814b91c63d9467de5c409b84c94ca678cbfb",
+        "before_sha256": "685f7ba9b2dbef7ca3859b3d1a00208a6cbddf1e27f0b5fc9e66c3313f195ba6",
+        "translation": "“我来代替司令，\n　好好改改你那歪心眼！”",
+        "after_sha256": "b1f6719a2edcb2f89c9bc8499c9592ef06c206c113c12e2f47e390002a391660",
+        "decision": "accept"
+      },
+      "battle:09711": {
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "9d44ca80e55703725f2438db4d1ecbbc222dc1045124a6494672c972524f9224",
+        "before_sha256": "bc95fd1c00a3e2554e735001366b32c6a9bbb17cf1a4a782af6ddef52f48c9e2",
+        "translation": "“还是别轻率出手为好……！”",
+        "after_sha256": "a29c0276b57afaee4545844d4db83ebc0bcf20f1f59eab34acf4e060c1204cc5",
+        "decision": "accept"
+      },
+      "story/080/dialogue/02.04/0008": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-080.json",
+        "source_text_sha256": "93fa0f91c4a8bde5110eb519d62cc9cd6e9f6a3280500321bf92d915d5ab1603",
+        "before_sha256": "3a6bb15a5e1560d9ed8d24a194f15ffc4578bbb22bba66095fa45d7f36c988db",
+        "translation": "“别这么说嘛，纯。虽然这纪念品不怎么样，\n　但也会有人喜欢它的。”",
+        "after_sha256": "c8c7f45c1375460c6a07a603e1b308365a678382b9d6c8e4dd57eacae18a8898",
+        "decision": "rewrite"
+      },
+      "story/130/dialogue/02.02/0029": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-130.json",
+        "source_text_sha256": "07d8f42b6ebdc764eb2592e57eecfa8c9ea7239e5201d300cd4cdffbba954f3d",
+        "before_sha256": "54705e791fd09573c7219877a6cccbf0687e9e2985e1f09c4ba1185ca480d5ee",
+        "translation": "“哎呀，不是挺好的嘛。\n　可以当礼物带给梅蒂儿和林克。”",
+        "after_sha256": "487017b6cc4648fba437739dde180da7f79292bb02af316f8f4645f7fee6332b",
+        "decision": "rewrite"
+      },
+      "battle:00890": {
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "b767e4c38cb65a27fbf274196ae1c013e3688f797dfcc3a6951ab0dbb9e38aa3",
+        "before_sha256": "2cc212857205848f847775763a69af2dd8714373a3f5a9dbbe0ddc953f53a9d3",
+        "translation": "“来开路吧！”",
+        "after_sha256": "709fe8fe6446daf54b5a7b865df0da2c64af5113743aa839f71cb85d4dde8305",
+        "decision": "rewrite"
+      },
+      "battle:09392": {
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "eb025d258b2e481b79048235824b69223cdecde1a05afa58df2cdcbbfe944bd0",
+        "before_sha256": "64770bf2f41bcba8faf364b1da1c2a58b920ea2554bf05c99b31099ecb536a7f",
+        "translation": "“纯！\\n　让我看看你的骨气！”",
+        "after_sha256": "1a0e3e84dac86ee84b0a90314142a8fc254fca11599614ce5b30524c19296797",
+        "decision": "rewrite"
+      },
+      "battle:10215": {
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "34c4b9ef1bda9d7e261b9596c23979a19465236fa2c14e2d7075a96818eaa189",
+        "before_sha256": "bce448ea85a6f980e62adc78eb31d2bc819684511e16b011b8172519dae6ab0c",
+        "translation": "“哇哇！靠根性、大根性稳住！”",
+        "after_sha256": "9744f0cb4aa193a8dca6adf7e7ea0a603857e13d40aed750d89ed1112c71744e",
+        "decision": "rewrite"
+      },
+      "battle:16868": {
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "ce3048f9302539fdd24a88970ed66fd38f24be8a0777f1993e7596544ed520cd",
+        "before_sha256": "107d0c3a659d8e4668073de18f11e52531aa3b03a488bc777a1aa5dfaaee4d79",
+        "translation": "“王牌、台柱、主角——\\n　英俊小生登场了哦～！”",
+        "after_sha256": "22dbed0943d8c71d52d4db854d167230866c4a392fae07fae642ceff8f4224f8",
+        "decision": "rewrite"
+      },
+      "battle:18042": {
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "55205e59921149e39db3eb6a9ffb7cd77474b0da10c4148a03a8657a4f45fc4c",
+        "before_sha256": "a2d8831d62f5629265b8b28324054001cc49fdd2f8c2cfddecb1004f50930947",
+        "translation": "“不行！\\n　现在只能靠毅力撑着了！”",
+        "after_sha256": "47b1107af33356a0cb9db1fa935df9762f9699488bbb7947c1028a287b772bac",
+        "decision": "rewrite"
+      },
+      "battle:19675": {
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "31d653cb5fbdb3045b12b76e70d2e1ba7078754eb11ffdc4db533078deeed5e3",
+        "before_sha256": "8d7f2e12636df35358c273d01ef7313693f3f7ebb9ebe90874e9eef83e322139",
+        "translation": "“光靠毅力硬扛，\\n　这下有点勉强啊……！”",
+        "after_sha256": "3889515088f9a2b15aaf16625a866efeec6d809a04e77bc1a6e84aeea5b56c29",
+        "decision": "rewrite"
+      },
+      "battle:24353": {
+        "corpus_path": "corpus/zh/battle/srvc-lines.json",
+        "source_text_sha256": "9e33e3237a33d9943a390fc8c1c213c8429faf11b70457183cf378d4e0fd52a8",
+        "before_sha256": "d43789a8ef4316455df83ebaac77d6e0d39f0c2f8dd9558bff75babb27144dd2",
+        "translation": "“伊尔塔的家伙们，\\n　这点程度可动摇不了老夫的意志！”",
+        "after_sha256": "84f77d60e585d73b3dec34dd975f9b4c752d3c8aca94af7698d6beae221ad661",
+        "decision": "rewrite"
+      },
+      "library-text/09b1c8a017d809f8": {
+        "corpus_path": "corpus/zh/library/v0.2-reviewed.json",
+        "source_text_sha256": "09b1c8a017d809f8cdf609cd9ffe14261dfefe36a74dcb6e9a3e68852119e71b",
+        "before_sha256": "8deba2922176b8960379bd1a37c80ea2771bd17644ed7a8938b82188537a5a2e",
+        "translation": "神家的次子，赞波特3的主驾驶员。12岁，初中一年级。终日打架、无证骑摩托车，是当地有名的坏少年。但他本性善良，是个见不得别人有难的热心肠。凭借睡眠学习掌握的驾驶方法、天生的运动神经和敏锐直觉，将桑巴德、赞波王牌和赞波特3操纵得如同手足。但拼命与盖佐克战斗却不被周围人理解，让他日益焦躁。然而，通过目睹日益加剧的破坏活动和人体炸弹等无情作战，以及与曾有龃龉之人和解等经历，他逐渐成长、成熟起来。最后决战中，即使只剩赞波王牌单机，仍消灭了盖佐克，在失去意识的状态下独自返回故乡。然后在欢呼的人群中，于美知的膝枕上醒来，仰望已无战争的宇宙。",
+        "after_sha256": "039c5d087577c4f09b27f08967a38a6b27f60b2fca4b8413836e530b0c2a3946",
+        "decision": "rewrite"
+      },
+      "library-text/5800dba923af6aff": {
+        "corpus_path": "corpus/zh/library/v0.2-reviewed.json",
+        "source_text_sha256": "5800dba923af6aff87918275202052f6b540b0dcafb4cb8b2fe3b0e3cfd9b23d",
+        "before_sha256": "2ee1311d80feb3c99d8fa84f9334e9063298afdc5fa66f636d362128c6d750a6",
+        "translation": "陆震王的驾驶员。虽然伊尔塔的攻击使他亲眼目睹了双亲的离世，但他却有着不显悲壮的明朗直率性格。不过，他也有爱出风头、喜欢引人注目，甚至鲁莽冒失的一面。或许是因为精神年龄相近，他与理惠的弟弟翔太关系特别好，被对方当作兄长般仰慕。他天生对机械一窍不通，起初甚至连陆震王都无法熟练驾驭。但当他得知可以合体为巨神Σ、且空雷王是合体主体时，便不顾斗志也抢先坐进了空雷王。然而空雷王的内置计算机宣告了操纵条件——“仅凭斗志是不够的，需要冷静的头脑和经过锻炼的技术”，这让他深刻认识到自身的不足。此后，他凭着那股不服输的劲头，总算能够勉强驾驭陆震王。在与伊尔塔的战斗结束后，面对即将启程前往未来的斗志也，他以充满亲情的“一定要回来”送别了对方。",
+        "after_sha256": "d16aaae53f81f285c5f0977c5c51f14147ee1a36a5ee62536421f88668be52c1",
+        "decision": "rewrite"
+      },
+      "library-text/bf81ed7864376541": {
+        "corpus_path": "corpus/zh/library/v0.2-reviewed.json",
+        "source_text_sha256": "bf81ed7864376541b5bf7676f7c1413914232507deb0c252b3ab2d0a4b2eda8e",
+        "before_sha256": "8cac8c7c87f6e35838312cf7388130084241929b37a29249d3e765e74bae3f3a",
+        "translation": "神家的次子，赞波特3的主驾驶员。12岁，初中一年级。终日打架、无证骑摩托，是当地有名的坏小子。但他本性善良，是个见不得别人有难的热心肠。凭借睡眠学习掌握的驾驶方法、天生的运动神经和敏锐直觉，将桑巴德、赞波王牌、赞波特3操纵得如同手足。但拼命与盖佐克战斗却不被周围人理解，令他日益焦躁。然而，目睹愈演愈烈的破坏活动和人体炸弹等无情作战，以及与有嫌隙之人和解等经历，使他不断成长、日渐成熟。",
+        "after_sha256": "6555b84cb4d6e98258389e78a700396a5fd18e5dd54a3b5d9353a4cede8201b6",
+        "decision": "rewrite"
+      },
+      "story/013/dialogue/01.05/0002": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-013.json",
+        "source_text_sha256": "bf543415c61130c0637aac687565404f9edeb246e3a7942237b01f4a84b8e060",
+        "before_sha256": "388b227708293ad0e9ad816128b3f7214b13d009fc58331d5ad05f572dee939e",
+        "translation": "“不过，大叔……你可真不得人心啊。\n　手下全跑光了。”",
+        "after_sha256": "4a956527357c83fc7cdd96fdd65cf06f912a323906e11f8741ce97de5eb652e9",
+        "decision": "rewrite"
+      },
+      "story/080/dialogue/02.03/0003": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-080.json",
+        "source_text_sha256": "47bb83812a2036508bbd70d6b406f42029f2251de9d7d0ac6b04089cb3a55b0e",
+        "before_sha256": "c78aae549263c09b3f879375c5a5afadb2e6388f78448e37e0d33b8bb18bb808",
+        "translation": "“桂大人，那盘从香港带回来的录像带……\n　要卖掉吗？”",
+        "after_sha256": "0393e66c06d4638f102ef689ce4bc205e9c19bf13375ee43b87accdc80a0d914",
+        "decision": "rewrite"
+      },
+      "story/087/dialogue/01.17/0006": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-087.json",
+        "source_text_sha256": "5cd4909403cbfa8c6e8fc922637a08f6ad0fba8ca8d0c1436a96664769b3467e",
+        "before_sha256": "c442c1194a7be4d900e38e5014b13c43f4a5c4236dc58abfc642d4f1165cbae9",
+        "translation": "“倒是你，被祖国、人情这些东西束缚，\n　是不是忘了真正重要的东西？”",
+        "after_sha256": "174ab4ae3d35710dea83c142fa4e2f3bb9aa44d2f045f63b1df523bd25260295",
+        "decision": "rewrite"
+      },
+      "story/118/dialogue/02.02/0087": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-118.json",
+        "source_text_sha256": "ae8d21cbf6c81f43603bf9f126a358ecb07fbad462cff9e02df645aec1e11226",
+        "before_sha256": "d9a610e0244c377c129b9338b4300035470474a687413d430a1afaccb923de2e",
+        "translation": "“塔丽亚太死板了……事到如今，\n　根本没必要再跟ZAFT讲什么情分。”",
+        "after_sha256": "d731a749e7ca6d52b714c09645805cf2a3647e193ffebd2e07bec1865471309b",
+        "decision": "rewrite"
+      },
+      "story/132/dialogue/01.61/0002": {
+        "corpus_path": "corpus/zh/story-dialogue/stage-132.json",
+        "source_text_sha256": "c6b2afb2f393323cdf95ec642e06a04f6fa32e0ae58bae38a0f1dde8370d458a",
+        "before_sha256": "241379696ec6253c0351bc44e3bd72a72743a8472cdb0bf1e7b202cf70124925",
+        "translation": "“上啊啊啊啊！\n　好好领教地球人的骨气，\n　带着这份见识去阴间吧！！”",
+        "after_sha256": "3bd7228ef211ec6af6c950a40bd13e2a9a9abc2383325c738a7eddefe2aff7b8",
+        "decision": "rewrite"
+      }
+    }
+  },
+  "review_interface": {
+    "status": "retired_after_finalization",
+    "reason": "用户确认全部定稿后要求不要网页，保留静态记录。"
+  }
+}
