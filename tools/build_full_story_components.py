@@ -767,7 +767,8 @@ INPUT_IMPACTS = {
     "auto_demo_unit_names": {SLPS_MEMBER, *AUTO_DEMO_MEMBERS},
     "runtime_keyword_catalog": {COMPDATA_MEMBER, STAGE_MEMBER},
     "runtime_keyword_library_archive": {COMPDATA_MEMBER, STAGE_MEMBER},
-    "reviewed_library_component_manifest": set(),
+    # Repacked LIBRARY chunks change the offset tables stored in the executable.
+    "reviewed_library_component_manifest": {SLPS_MEMBER},
     "runtime_keyword_executable": {COMPDATA_MEMBER, STAGE_MEMBER},
     "weapon_special_effect_2_corpus": {SLPS_MEMBER},
 }

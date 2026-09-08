@@ -31,6 +31,24 @@ def lock(root, path):
 
 
 class BuildOptimizationTests(unittest.TestCase):
+    def test_repacked_library_offsets_rebuild_the_executable_and_coupled_archive(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp).resolve()
+            manifest = {"archives": [{"member": "DATA/MTVZKNPT.BIN",
+                                      "offset_table_patch": {"values": [0, 16, 32]}}]}
+            prior_lock = write_json(root, "library.json", manifest)
+            arguments = dict(baseline_config={}, current_config={}, baseline_remaining_ui={},
+                             current_remaining_ui={}, prior_report={"inputs": {
+                                 "reviewed_library_component_manifest": prior_lock}})
+            with patch.object(full, "PROJECT_ROOT", root):
+                self.assertEqual(full._plan_incremental_members(**arguments)[0], set())
+                manifest["archives"][0]["offset_table_patch"]["values"][1] = 20
+                write_json(root, "library.json", manifest)
+                affected, reasons = full._plan_incremental_members(**arguments)
+            self.assertEqual(affected, {full.SLPS_MEMBER, full.MTV_PROS_MEMBER})
+            self.assertIn("input:reviewed_library_component_manifest", reasons)
+            self.assertIn("closure:slps-mtv-pros-layout", reasons)
+
     def test_compdata_render_control_prefix_invalidates_only_compdata(self):
         affected, reasons = full._changed_remaining_ui_impacts(
             {},
