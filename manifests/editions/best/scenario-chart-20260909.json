@@ -2,7 +2,7 @@
   "schema_version": 1,
   "issue_id": "V040-BEST-SCENARIO-CHART",
   "date": "2026-09-09",
-  "status": "source_fixed_static_and_lrps2_passed_pcsx2_pending",
+  "status": "source_fixed_static_and_lrps2_passed_accepted",
   "user_report": "v0.4.0 The Best：资料库→剧情流程黑屏卡死，BGM继续，按键无响应。",
   "root_cause": {
     "member": "DATA/HSFC.BIN",
@@ -374,8 +374,9 @@
       }
     },
     "pcsx2_manual": {
-      "status": "pending",
-      "reason": "No current-hash PCSX2 manual acceptance in this task."
+      "status": "not_required",
+      "performed": false,
+      "reason": "User confirmed LRPS2 passing is sufficient for acceptance on 2026-09-09."
     }
   },
   "fix_source_files": [
@@ -420,5 +421,12 @@
     "batch_replay": "Before replaying verify_editions.py, copy the retained equivalent Original ISO to its historical isolated output path. Runtime regression uses current-best directly."
   },
   "reporter": "AL-E",
-  "github_issue": "https://github.com/dyzz/srwz-zh/issues/21"
+  "github_issue": "https://github.com/dyzz/srwz-zh/issues/21",
+  "acceptance": {
+    "date": "2026-09-09",
+    "policy": "User confirmed that passing LRPS2 is sufficient for acceptance; PCSX2 validation is not required.",
+    "status": "passed",
+    "basis": "Existing LRPS2 runs for the recorded exact ISO and documented coverage.",
+    "pcsx2_required": false
+  }
 }

@@ -1,9 +1,9 @@
 # v0.4.0 BEST 剧情流程黑屏修复
 
-2026-09-09。状态：源码修复、完整构建／静态回读和 LRPS2 回归通过；当前哈希的
-PCSX2 手工验收待确认。问题编号 `V040-BEST-SCENARIO-CHART`。
+2026-09-09。状态：源码修复、完整构建／静态回读和 LRPS2 回归通过，验收通过。
+用户确认 LRPS2 通过即视为通过，无需另做 PCSX2 验证。问题编号 `V040-BEST-SCENARIO-CHART`。
 
-GitHub：[issue #21](https://github.com/dyzz/srwz-zh/issues/21)（保持开放，待手工验收）。
+GitHub：[issue #21](https://github.com/dyzz/srwz-zh/issues/21)（已修复，LRPS2 验收通过）。
 
 反馈人：**AL-E**。v0.4.0 The Best 版从“资料库 → 剧情流程”进入后黑屏卡死，BGM 继续，
 按键无响应。冻结发布镜像的 LRPS2 运行复现了持续黑屏及叉键无法返回；BGM 为用户
@@ -74,8 +74,9 @@ arch -x86_64 work/runtime/lrps2/python-x86_64-3.12.14/bin/python3.12 \
   --scenario work/analysis/v040-best-chart-20260909/fixed-scenario.json
 ```
 
-运行记录单独保存，静态构建 receipt 的 `runtime=not_tested` 不改写为手工验收。
-PCSX2 待用上述当前 BEST 哈希验证同一路线；LRPS2 通过不自动关闭该手工验收项。
+运行记录单独保存，静态构建 receipt 的 `runtime=not_tested` 保留其原始含义。
+2026-09-09 用户确认验收标准：LRPS2 回归通过即视为通过，无需另做 PCSX2 验证。
+本问题以已记录的正式 BEST 镜像 LRPS2 回归作为运行验收依据；PCSX2 未执行且不再是待办。
 
 按六个 ISO 槽位契约，本轮临时诊断镜像、隔离构建中的原盘／输出副本，以及与
 当前 Original 相同的隔离输出在哈希核对后移除，日志与回读凭据保留。后续重跑历史

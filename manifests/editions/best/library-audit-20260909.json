@@ -2,7 +2,7 @@
   "schema_version": 1,
   "date": "2026-09-09",
   "edition": "best",
-  "status": "no_additional_functional_failure_found_lrps2_static_passed_pcsx2_pending",
+  "status": "no_additional_functional_failure_found_lrps2_static_passed_accepted",
   "iso": {
     "path": "build/iso/zh-release-best/current-best.iso",
     "sha256": "33e71eabc2aa2c84799e2d24c57aa78f0035e8a4633a1964735bfbb3e392894f",
@@ -2455,5 +2455,12 @@
     "Exploratory deep sequences use page-boundary labels for L1 in lists; that key did not page the list. Actual all-page coverage is from the separate right-direction page sweeps.",
     "The exploratory music-last-page audio window was actually a replay on page 1; final-page acceptance is from music-pages/music-page-11-final-track.",
     "No game code, corpus, or ISO changed in this audit."
-  ]
+  ],
+  "acceptance": {
+    "date": "2026-09-09",
+    "policy": "User confirmed that passing LRPS2 is sufficient for acceptance; PCSX2 validation is not required.",
+    "status": "passed",
+    "basis": "Existing LRPS2 runs for the recorded exact ISO and documented coverage.",
+    "pcsx2_required": false
+  }
 }
