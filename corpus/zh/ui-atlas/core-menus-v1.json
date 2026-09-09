@@ -150,6 +150,28 @@
         "config/assets/ui-formation-atlas-zh.json"
       ],
       "notes": "Replace only the original squad-group label rectangle and preserve the large number immediately to its right."
+    },
+    {
+      "id": "ui-atlas/kvm4/charge",
+      "source_text": "チャージ",
+      "source_text_sha256": "cd25194ae75d9e777c336d73f9364e37c0ea212beef371c5279d4fe02826b933",
+      "translation": "充能",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "config/assets/ui-battle-command-atlas-zh.json"
+      ],
+      "notes": "Generic charge/turn label; preserve the separate colon and runtime number. Satellite-cannon usage is consistent with game mechanics; exact UV consumer remains pending."
+    },
+    {
+      "id": "ui-atlas/kvm4/turn",
+      "source_text": "ターン",
+      "source_text_sha256": "aee7e141d60573ebeb56518432a47daa789a34d65ae04e8c4c9bf263ff31b5f7",
+      "translation": "回合",
+      "editorial_status": "reviewed",
+      "source_refs": [
+        "config/assets/ui-battle-command-atlas-zh.json"
+      ],
+      "notes": "Generic charge/turn label; preserve the separate colon and runtime number. Satellite-cannon usage is consistent with game mechanics; exact UV consumer remains pending."
     }
   ]
 }

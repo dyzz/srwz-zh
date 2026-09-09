@@ -7,8 +7,8 @@
   "inputs": {
     "config": {
       "path": "config/assets/ui-atlas-suite-zh.json",
-      "size": 6781,
-      "sha256": "3a135a167013faa233b7d2d4c616eb1078e6a8a8e3afb8463da36d86dea870a2"
+      "size": 6782,
+      "sha256": "84178058ad36d2966f86ee54cfc741f4b8f52200ad2b084b4105c7dbe8bba35f"
     },
     "source_iso": {
       "path": "rom/original.iso",
@@ -63,18 +63,18 @@
         "chunk_index": 4,
         "config": {
           "path": "config/assets/ui-battle-command-atlas-zh.json",
-          "size": 5753,
-          "sha256": "e0078d9fa097a46c66abf9c8a0e924ffee9e45fa5c830846706dbb4c17523a4d"
+          "size": 8372,
+          "sha256": "e386336694ed1ef17def37075d387c47eb1c4e3ba8e3c76d7de00657b8b3e725"
         },
         "manifest": {
           "path": "manifests/ui-battle-command-atlas-zh-validation.json",
-          "size": 14600,
-          "sha256": "20dbd79d1f0a098281032544436c69eb055588d3f72aaa2d72b71c596ae81035"
+          "size": 27824,
+          "sha256": "77c2bdaadc8ebc43fe737534dfac1fc8d1135874a40731cd16d2a21586792ead"
         },
         "archive": {
           "path": "work/build/ui-battle-command-atlas-zh/components/KURODATA/KVMDATA.BIN",
           "size": 3335408,
-          "sha256": "ad2de747bc59a1d80b863e568273ca72cc3a4c5f99fd60b2b9d5b55531b631cb"
+          "sha256": "34a4da04c9482f11a69630bccb6526b46a9039c52934a7b23efeb00156dbf426"
         },
         "target": {
           "member": "KURODATA/KVMDATA.BIN",
@@ -82,14 +82,14 @@
           "chunk_end": 166720
         },
         "diff": {
-          "diff_count": 1255,
-          "range_count": 80,
-          "first_offset": 146243,
+          "diff_count": 1671,
+          "range_count": 149,
+          "first_offset": 135566,
           "last_offset": 148340,
-          "offsets_sha256": "700c437854cca7953832d9479b78535fa6851b55ea7978a1e4699c07bdfea6c1",
-          "ranges_sha256": "365a281039453b88a21415b095b9883e35b6677f4704d693db85c58e4495d25a",
-          "before_values_sha256": "e6b98b03b2887e0bcd9e788be2707cc5d611295e5c1cbfe9aba0c91a8b337ee1",
-          "after_values_sha256": "a7d62ae15d8b252fba07d892701e7042f956317212964aa48cb4f1ea04e04712"
+          "offsets_sha256": "c101aff5e8966a8fa3344449400de0073475c8bf55a50902d5b96f2ad1d07139",
+          "ranges_sha256": "d07849b0a8a00a9ddce83ab76b707cf7bfc782e528249fbf4f2b7945abfbd97d",
+          "before_values_sha256": "130821fff2f2444914ca225d550c96527b84ac5f44b72adc7596472216c7a4a5",
+          "after_values_sha256": "08887f1a580da1de590d2ce8f4c3240accc59891c3509b4af6992343e75f255e"
         },
         "runtime_status": "not_tested",
         "exact": true
@@ -136,12 +136,12 @@
         "config": {
           "path": "config/assets/ui-intermission-atlas-zh.json",
           "size": 18340,
-          "sha256": "3c099993a5a7fbbcfe6ba3224a94ee90b76fa3e0d6d46d8762721eac55ea741f"
+          "sha256": "2b7e44fc03ccb2851f91c86bd6f3b2dfc7f1963e40069016abeea885c58171d1"
         },
         "manifest": {
           "path": "manifests/ui-intermission-atlas-zh-validation.json",
           "size": 105919,
-          "sha256": "cc2b9def1612fe689dd9b51353bed70e7b465deffe39ce0571dc8b6ded307e09"
+          "sha256": "b54cfd4e97140dd0bdb5861c8665200804ddde0502306a6e94c05aa2aef7d612"
         },
         "archive": {
           "path": "work/build/ui-intermission-atlas-zh/components/KURODATA/KVMDATA.BIN",
@@ -172,12 +172,12 @@
         "config": {
           "path": "config/assets/ui-formation-atlas-zh.json",
           "size": 8314,
-          "sha256": "3941fe71f65319a1287839cb3fcea8629e8309556cb377959224a26efb33f83c"
+          "sha256": "91bc1d6bdb54289b6ba2adcbd303d9c6122237d2a30f280927d07ef6e57543fd"
         },
         "manifest": {
           "path": "manifests/ui-formation-atlas-zh-validation.json",
           "size": 30251,
-          "sha256": "063f6ae7c8c8f73711793337ffdc7a30129dd4e22ff03446ebe3da782f2fdbde"
+          "sha256": "ba61582ad9a70b35c7dd62aa5caf0e7c71dc1e32b5ad0edc3e5aa7f3b369f255"
         },
         "archive": {
           "path": "work/build/ui-formation-atlas-zh/components/KURODATA/KVMDATA.BIN",
@@ -252,23 +252,23 @@
       11
     ],
     "ownership_overlap_count": 0,
-    "changed_byte_count": 18305,
-    "changed_range_count": 2381,
+    "changed_byte_count": 18721,
+    "changed_range_count": 2450,
     "combined_diff": {
-      "diff_count": 18305,
-      "range_count": 2381,
+      "diff_count": 18721,
+      "range_count": 2450,
       "first_offset": 66798,
       "last_offset": 338543,
-      "offsets_sha256": "04a99c8e0f924f80b04e239f8194118e42726654ba0b5b76c3a8cc34c94d413d",
-      "ranges_sha256": "d4fce9cf8fc2aaa76ab4da7f249c4041c0893d5da86bd3b46ed873f9e58eac43",
-      "before_values_sha256": "c79746afad8cb904cb8a3e06c7850bfdea9e2ef3a02fcfdc3d494b0658358b3d",
-      "after_values_sha256": "2aa0fecfcfde1ee6fabd04f643ca06df0514f5a0924d4a808dfc61d8c92282e5"
+      "offsets_sha256": "8288a3827a24cc22554b6d4a4589d4e89b17f401fd249907508df8fae62f0a1f",
+      "ranges_sha256": "391f0f23e6853004d88f55875ebbab5cd685edc10616b46a5b90d6baf3487b8f",
+      "before_values_sha256": "d4012e725d17a2dcb8471e229e1afc6e28a052d3af7a4fd5ec1d9d7035d1e637",
+      "after_values_sha256": "f2fd6c56f4c41dc641f844558f417d1637be3ac113eb9e190860678fef24b0be"
     }
   },
   "outputs": {
     "archive": {
       "size": 3335408,
-      "sha256": "cb627092decad99d09cc9a3be3412b091d35cef1172492a47951477cfd606fb4"
+      "sha256": "14168e0c374d876069912b8929acea5140cde9162ae29b355fd707cb1db4f7b4"
     }
   },
   "acceptance": {

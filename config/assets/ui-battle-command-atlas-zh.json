@@ -90,7 +90,7 @@
     "source_element_rgba_sha256": "139d00a1f7d711aab1699301eece440d6c43de68fcd6492483b413fd41a1c5a7",
     "translation_source": {
       "path": "corpus/zh/ui-atlas/core-menus-v1.json",
-      "sha256": "6ac311a4239fe2d57d46c69954158c67bf27ef69eef0393ec7e0401a6e6748ab",
+      "sha256": "2a09f7941294df459697229df8d84902c2191d48a2af166bb99adde0b92dc886",
       "entry_id": "ui-atlas/kvm4/command-menu",
       "minimum_editorial_status": "reviewed"
     },
@@ -117,8 +117,8 @@
   },
   "render_snapshot": {
     "path": "config/assets/ui-battle-command-atlas-render-snapshot.json",
-    "size": 38111,
-    "sha256": "337053215df45dd3179cc9592fc8bbf2454b0ee14f81145e715e20a0efe00930"
+    "size": 39993,
+    "sha256": "c4add474ff4847c451edea643457a342ec75af9b071d49016e8c751a8ac4f1a6"
   },
   "runtime": {
     "purpose": "Prove that KVMDATA chunk 4 supplies the tactical command-menu locator and that the localized label renders at the intended position.",
@@ -147,22 +147,36 @@
       "sha256": "feb03a5c2ef32cf4ed6fa3cc73646a4b7fb5f447723559639a2ab8717bf07212"
     },
     "localized_png": {
-      "size": 26533,
-      "sha256": "617e5ea7f7b31db06e09d59d0dfb6caa7e23750492a26f9d7d47473cbd469518"
+      "size": 26382,
+      "sha256": "853135ed1b3830cc714e6c2fd4c97bc09f6c7b52a373b03afedc1bce6ad7f7cf"
     },
     "archive": {
       "size": 3335408,
-      "sha256": "ad2de747bc59a1d80b863e568273ca72cc3a4c5f99fd60b2b9d5b55531b631cb"
+      "sha256": "34a4da04c9482f11a69630bccb6526b46a9039c52934a7b23efeb00156dbf426"
     },
     "chunk": {
       "size": 33344,
-      "sha256": "c07e26085e60548c10ddd8fe608c2213b1f2c371d251a880872318104cca45c5"
+      "sha256": "ce68b63f913664cb6ffe41022c6aa208077c8c92b183b69b97d135e24581a617"
     },
-    "added_pixel_count": 554,
-    "original_changed_pixel_count": 2343,
-    "original_changed_pixel_indexes_sha256": "4cc6f39ecfcf4e7b1c4630ba7edd36377fa21564e18afaf04455a5ec753ca66c",
-    "changed_archive_byte_count": 306,
-    "changed_archive_range_count": 56
+    "added_pixel_count": 1049,
+    "original_changed_pixel_count": 3046,
+    "original_changed_pixel_indexes_sha256": "dd25475d544988e2faf7a2c66791293db1eeb45302d1f656283ad4673fc01c5b",
+    "changed_archive_byte_count": 722,
+    "changed_archive_range_count": 125,
+    "additional_text_masks": [
+      {
+        "semantic_locator_sha256": "cd25194ae75d9e777c336d73f9364e37c0ea212beef371c5279d4fe02826b933",
+        "size": 736,
+        "sha256": "8c453f52d640b3b6d06470196344edbf8a073fd862de03bd0b08e1c09356c7e2",
+        "nonzero_pixel_count": 253
+      },
+      {
+        "semantic_locator_sha256": "aee7e141d60573ebeb56518432a47daa789a34d65ae04e8c4c9bf263ff31b5f7",
+        "size": 592,
+        "sha256": "3e83a931e6032a5c3b031ab92f996e39f4e19322d10e15a2be567b49dd2c0fde",
+        "nonzero_pixel_count": 242
+      }
+    ]
   },
   "outputs": {
     "component_root": "work/build/ui-battle-command-atlas-zh/components",
@@ -170,5 +184,83 @@
     "localized_png": "work/build/ui-battle-command-atlas-zh/localized.png",
     "validation": "work/review/ui-battle-command-atlas-zh/component-validation.json",
     "manifest": "manifests/ui-battle-command-atlas-zh-validation.json"
-  }
+  },
+  "additional_localized_labels": [
+    {
+      "entry_id": "ui-atlas/kvm4/charge",
+      "semantic_locator": "チャージ",
+      "minimum_editorial_status": "reviewed",
+      "source_element_id": "charge-46x16",
+      "source_element_rgba_sha256": "9068cab22c345aad2db4ed2b963002aabe210d17073aa487d4c700ad4e8dd459",
+      "mask": {
+        "x": 114,
+        "y": 16,
+        "width": 46,
+        "height": 16,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "render": {
+        "point_size": 13,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.35,
+        "fill_stroke_width": 0,
+        "supersample_factor": 4,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "606060ff",
+          "686868ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layer_profile": "source-text",
+        "horizontal_offset": 0,
+        "vertical_offset": 0
+      }
+    },
+    {
+      "entry_id": "ui-atlas/kvm4/turn",
+      "semantic_locator": "ターン",
+      "minimum_editorial_status": "reviewed",
+      "source_element_id": "turn-37x16",
+      "source_element_rgba_sha256": "adb183a3b0967a2fe9bc7e49c9c16d6f26b49a25d4986245a1344cecd6b79b28",
+      "mask": {
+        "x": 171,
+        "y": 16,
+        "width": 37,
+        "height": 16,
+        "replacement_rgba": "00000000",
+        "preserve_rgba": [
+          "00000000"
+        ]
+      },
+      "render": {
+        "point_size": 13,
+        "stroke_gray": "#303030",
+        "stroke_width": 0.35,
+        "fill_stroke_width": 0,
+        "supersample_factor": 4,
+        "ramp_rgba": [
+          "101010ff",
+          "202020ff",
+          "303030ff",
+          "404040ff",
+          "505050ff",
+          "606060ff",
+          "686868ff",
+          "707070ff",
+          "787878ff"
+        ],
+        "indexed_layer_profile": "source-text",
+        "horizontal_offset": 0,
+        "vertical_offset": 0
+      }
+    }
+  ]
 }
