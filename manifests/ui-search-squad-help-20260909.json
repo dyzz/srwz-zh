@@ -1,0 +1,686 @@
+{
+  "schema_version": 1,
+  "issue_id": "SEARCH-SQUAD-HELP-20260909",
+  "reporter": "蒙古王者风行烈",
+  "scope": [
+    "EN补给效果说明漏译",
+    "干扰功能效果说明漏译"
+  ],
+  "fix_commit": "bc0c667",
+  "source_corpus": "corpus/zh/menu/remaining-ui.json",
+  "source_offsets": [
+    "0x73E50",
+    "0x73EC0"
+  ],
+  "reported_screenshots": [
+    {
+      "file": "work/verification/ui-omissions-fix-20260909/reported-en-supply.png",
+      "sha256": "d9eb2b2d3a3a5edd794183fb73faa75caac8d5efe697e79f71739700adaa4ea2",
+      "reporter": "蒙古王者风行烈"
+    },
+    {
+      "file": "work/verification/ui-omissions-fix-20260909/reported-jamming.png",
+      "sha256": "597528fb83e38c3a1c64d2abe9b37050c194b420b07a77bec2349f2aa10fa8b2",
+      "reporter": "蒙古王者风行烈"
+    }
+  ],
+  "static_readback": {
+    "reporter": "蒙古王者风行烈",
+    "fix_commit": "bc0c667",
+    "rows": [
+      {
+        "edition": "original",
+        "iso": "build/iso/zh-release-original/current-original.iso",
+        "offset": "0x73E50",
+        "label": "EN补给",
+        "translation": "小队内每有1台持有补给装置的单位，\n小队全机便获得EN回复10%的效果。",
+        "reread_exact": true,
+        "nul_terminated": true,
+        "zero_padding": true
+      },
+      {
+        "edition": "original",
+        "iso": "build/iso/zh-release-original/current-original.iso",
+        "offset": "0x73EC0",
+        "label": "干扰功能",
+        "translation": "小队内有持有干扰功能的单位时，\n最终命中率和回避率均提升10%。",
+        "reread_exact": true,
+        "nul_terminated": true,
+        "zero_padding": true
+      },
+      {
+        "edition": "best",
+        "iso": "build/iso/zh-release-best/current-best.iso",
+        "offset": "0x73E50",
+        "label": "EN补给",
+        "translation": "小队内每有1台持有补给装置的单位，\n小队全机便获得EN回复10%的效果。",
+        "reread_exact": true,
+        "nul_terminated": true,
+        "zero_padding": true
+      },
+      {
+        "edition": "best",
+        "iso": "build/iso/zh-release-best/current-best.iso",
+        "offset": "0x73EC0",
+        "label": "干扰功能",
+        "translation": "小队内有持有干扰功能的单位时，\n最终命中率和回避率均提升10%。",
+        "reread_exact": true,
+        "nul_terminated": true,
+        "zero_padding": true
+      }
+    ]
+  },
+  "tests": {
+    "passed": 259
+  },
+  "runtime": {
+    "original": {
+      "status": "passed",
+      "receipt_path": "work/runtime/lrps2/search-squad-help-20260909/original-locked/receipt.json",
+      "receipt_sha256": "2c4c894ff6b3525b5721947d40feb2b8116209c55da68df78a6801a8ef7a72aa",
+      "iso": {
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/zh-release-original/current-original.iso",
+        "size": 3758358528,
+        "sha256": "c0e4e751d7705390766ec69fc921496fe295c7a8afb53c7f64efa6ddd5512b8a",
+        "build_config": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/config/iso/zh-release-current-build.json"
+      },
+      "core": {
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+        "size": 11447720,
+        "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+        "library_name": "LRPS2",
+        "library_version": "v2.0.0-16e520b",
+        "valid_extensions": "elf|iso|ciso|cue|gz|chd|cso|zso|m3u",
+        "need_fullpath": true
+      },
+      "core_options": {
+        "pcsx2_renderer": "Software (SW)",
+        "pcsx2_shared_memory_cards": "disabled",
+        "pcsx2_fastboot": "enabled"
+      },
+      "source_memory_card_sha256": "78256c215676e5f732e7b5c1373ad718a1e56fe411334c4b5491a174ffdc3ac8",
+      "source_memory_card_unchanged": true,
+      "scenario": {
+        "scenario_id": "search-squad-help-original-locked",
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/verification/ui-omissions-fix-20260909/runtime-original-locked.json",
+        "size": 4961,
+        "sha256": "272f907f7ea550db5b0ad7a3034ce54f982a97baac5da2f8c5c8af0f53829892"
+      },
+      "actions": [
+        {
+          "frame": 1801,
+          "button": "start",
+          "duration_frames": 3,
+          "label": "skip-opening-cg"
+        },
+        {
+          "frame": 1981,
+          "button": "down",
+          "duration_frames": 3,
+          "label": "select-load"
+        },
+        {
+          "frame": 2041,
+          "button": "circle",
+          "duration_frames": 3,
+          "label": "open-load-menu"
+        },
+        {
+          "frame": 2280,
+          "button": "circle",
+          "duration_frames": 3,
+          "label": "load-selected-source-save"
+        },
+        {
+          "frame": 3240,
+          "button": "circle",
+          "duration_frames": 3,
+          "label": "open-unit-menu"
+        },
+        {
+          "frame": 3440,
+          "button": "up",
+          "duration_frames": 3,
+          "label": "select-search"
+        },
+        {
+          "frame": 3500,
+          "button": "circle",
+          "duration_frames": 3,
+          "label": "open-search"
+        },
+        {
+          "frame": 3720,
+          "button": "right",
+          "duration_frames": 3,
+          "label": "select-squad-bonus"
+        },
+        {
+          "frame": 3780,
+          "button": "circle",
+          "duration_frames": 3,
+          "label": "open-squad-bonus"
+        },
+        {
+          "frame": 3930,
+          "button": "down",
+          "duration_frames": 3,
+          "label": "select-en-supply"
+        },
+        {
+          "frame": 4030,
+          "button": "down",
+          "duration_frames": 3,
+          "label": "select-jamming"
+        },
+        {
+          "frame": 4130,
+          "button": "cross",
+          "duration_frames": 3,
+          "label": "return-search-tabs"
+        },
+        {
+          "frame": 4230,
+          "button": "cross",
+          "duration_frames": 3,
+          "label": "return-unit-menu"
+        }
+      ],
+      "captures": [
+        {
+          "id": "hp-repair-adjacent",
+          "frame": 3900,
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/search-squad-help-20260909/original-locked/frames/03900-hp-repair-adjacent.png",
+          "width": 640,
+          "height": 448,
+          "pixel_format": "XRGB8888",
+          "mean_luma": 53.206128,
+          "dhash": "71e998988c9c615f",
+          "dhash_region": {
+            "x": 18,
+            "y": 335,
+            "width": 604,
+            "height": 80
+          },
+          "assertion_dhash": "016060eaeab20000",
+          "rgba_sha256": "30d384608871b14a31388b8fc4d6f599697e7ce8794d1976a5ff9ce670863508",
+          "png_sha256": "50f99900aea5747048e43b2ee80bd74b1178c79a04068234b61ee1b5648acd44",
+          "assertions": [
+            {
+              "assertion": "expected_width",
+              "passed": true,
+              "detail": "actual=640 expected=640"
+            },
+            {
+              "assertion": "expected_height",
+              "passed": true,
+              "detail": "actual=448 expected=448"
+            },
+            {
+              "assertion": "dhash_distance",
+              "passed": true,
+              "detail": "actual=016060eaeab20000 expected=016060eaeab20000 distance=0 maximum=0"
+            }
+          ]
+        },
+        {
+          "id": "en-supply-help",
+          "frame": 4000,
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/search-squad-help-20260909/original-locked/frames/04000-en-supply-help.png",
+          "width": 640,
+          "height": 448,
+          "pixel_format": "XRGB8888",
+          "mean_luma": 53.418126,
+          "dhash": "71e99898cc9c414b",
+          "dhash_region": {
+            "x": 18,
+            "y": 335,
+            "width": 604,
+            "height": 80
+          },
+          "assertion_dhash": "0130f0c0c8480000",
+          "rgba_sha256": "418a1feacc85599a1650fb70e738335992fadc81d4fc3d539785c52de428e0bb",
+          "png_sha256": "ab5407cb88ac440836159f644480ab3b23ca0d0cb15fad10172a3a3a8fbefa6d",
+          "assertions": [
+            {
+              "assertion": "expected_width",
+              "passed": true,
+              "detail": "actual=640 expected=640"
+            },
+            {
+              "assertion": "expected_height",
+              "passed": true,
+              "detail": "actual=448 expected=448"
+            },
+            {
+              "assertion": "dhash_distance",
+              "passed": true,
+              "detail": "actual=0130f0c0c8480000 expected=0130f0c0c8480000 distance=0 maximum=0"
+            }
+          ]
+        },
+        {
+          "id": "jamming-help",
+          "frame": 4100,
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/search-squad-help-20260909/original-locked/frames/04100-jamming-help.png",
+          "width": 640,
+          "height": 448,
+          "pixel_format": "XRGB8888",
+          "mean_luma": 53.572506,
+          "dhash": "71e998988c9c614b",
+          "dhash_region": {
+            "x": 18,
+            "y": 335,
+            "width": 604,
+            "height": 80
+          },
+          "assertion_dhash": "016060e0a0200000",
+          "rgba_sha256": "941ffcdd03daf1c550ff5dc81e354e0f56318007d84e79bbaf467e0811de3c0a",
+          "png_sha256": "89990a7a23935119103b80086cbbd7006c2a2fe610a640f84b14d4c9571fb176",
+          "assertions": [
+            {
+              "assertion": "expected_width",
+              "passed": true,
+              "detail": "actual=640 expected=640"
+            },
+            {
+              "assertion": "expected_height",
+              "passed": true,
+              "detail": "actual=448 expected=448"
+            },
+            {
+              "assertion": "dhash_distance",
+              "passed": true,
+              "detail": "actual=016060e0a0200000 expected=016060e0a0200000 distance=0 maximum=0"
+            }
+          ]
+        },
+        {
+          "id": "search-tabs-returned",
+          "frame": 4200,
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/search-squad-help-20260909/original-locked/frames/04200-search-tabs-returned.png",
+          "width": 640,
+          "height": 448,
+          "pixel_format": "XRGB8888",
+          "mean_luma": 45.46498,
+          "dhash": "794198988c9c690b",
+          "dhash_region": {
+            "x": 12,
+            "y": 8,
+            "width": 615,
+            "height": 76
+          },
+          "assertion_dhash": "30585980295529c0",
+          "rgba_sha256": "a1d81f4111235a337c3bd664d72fa40b7eefbe55c38feef298a00d8bc6aa78b5",
+          "png_sha256": "6d22f9e6c1e8070040f2e8a2fd14cbc2fac12cbafedc8918d894415328201e48",
+          "assertions": [
+            {
+              "assertion": "expected_width",
+              "passed": true,
+              "detail": "actual=640 expected=640"
+            },
+            {
+              "assertion": "expected_height",
+              "passed": true,
+              "detail": "actual=448 expected=448"
+            },
+            {
+              "assertion": "dhash_distance",
+              "passed": true,
+              "detail": "actual=30585980295529c0 expected=30585980295529c0 distance=0 maximum=0"
+            }
+          ]
+        },
+        {
+          "id": "unit-menu-returned",
+          "frame": 4300,
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/search-squad-help-20260909/original-locked/frames/04300-unit-menu-returned.png",
+          "width": 640,
+          "height": 448,
+          "pixel_format": "XRGB8888",
+          "mean_luma": 49.153017,
+          "dhash": "9a3131313475023e",
+          "dhash_region": {
+            "x": 96,
+            "y": 62,
+            "width": 152,
+            "height": 252
+          },
+          "assertion_dhash": "c574596969657539",
+          "rgba_sha256": "052e0a5469b253bc576eb40bfe9af1b6db7ca754fca9f2febb20b1ab92fc7984",
+          "png_sha256": "a2d2ebf74c79dcc746eb2942f644bd8cfdcf22989de58895464e94c2c7053572",
+          "assertions": [
+            {
+              "assertion": "expected_width",
+              "passed": true,
+              "detail": "actual=640 expected=640"
+            },
+            {
+              "assertion": "expected_height",
+              "passed": true,
+              "detail": "actual=448 expected=448"
+            },
+            {
+              "assertion": "dhash_distance",
+              "passed": true,
+              "detail": "actual=c574596969657539 expected=c574596969657539 distance=0 maximum=0"
+            }
+          ]
+        }
+      ],
+      "manual_image_review": "Chinese help is complete, two-line layout fits, adjacent help and return menus are intact."
+    },
+    "best": {
+      "status": "passed",
+      "receipt_path": "work/runtime/lrps2/search-squad-help-20260909/best-locked/receipt.json",
+      "receipt_sha256": "cadafe87019d154bbebb2b876afba85aa84703985d851743f656566701aa981c",
+      "iso": {
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/build/zh-release-best/024ad6079f51c83af51d7025ae332a310e08cb5f54b61b4a118529bd79bc29bd/project/build/iso/zh-release-best/current-best.iso",
+        "size": 3755081728,
+        "sha256": "27e097d94403ee0e765741ac8821730dc095f5863ff4dcb382247a67bdd754e2",
+        "build_config": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/verification/ui-omissions-fix-20260909/runtime-best-iso-contract.json"
+      },
+      "core": {
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+        "size": 11447720,
+        "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+        "library_name": "LRPS2",
+        "library_version": "v2.0.0-16e520b",
+        "valid_extensions": "elf|iso|ciso|cue|gz|chd|cso|zso|m3u",
+        "need_fullpath": true
+      },
+      "core_options": {
+        "pcsx2_renderer": "Software (SW)",
+        "pcsx2_shared_memory_cards": "disabled",
+        "pcsx2_fastboot": "enabled"
+      },
+      "source_memory_card_sha256": "78256c215676e5f732e7b5c1373ad718a1e56fe411334c4b5491a174ffdc3ac8",
+      "source_memory_card_unchanged": true,
+      "scenario": {
+        "scenario_id": "search-squad-help-best-locked",
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/verification/ui-omissions-fix-20260909/runtime-best-locked.json",
+        "size": 4991,
+        "sha256": "15fcf451d218ed9726de99f24905487ac247f92129ce56d23eda9c58c552c337"
+      },
+      "actions": [
+        {
+          "frame": 1801,
+          "button": "start",
+          "duration_frames": 3,
+          "label": "skip-opening-cg"
+        },
+        {
+          "frame": 1981,
+          "button": "down",
+          "duration_frames": 3,
+          "label": "select-load"
+        },
+        {
+          "frame": 2041,
+          "button": "circle",
+          "duration_frames": 3,
+          "label": "open-load-menu"
+        },
+        {
+          "frame": 2280,
+          "button": "circle",
+          "duration_frames": 3,
+          "label": "load-selected-source-save"
+        },
+        {
+          "frame": 3240,
+          "button": "circle",
+          "duration_frames": 3,
+          "label": "open-unit-menu"
+        },
+        {
+          "frame": 3440,
+          "button": "up",
+          "duration_frames": 3,
+          "label": "select-search"
+        },
+        {
+          "frame": 3500,
+          "button": "circle",
+          "duration_frames": 3,
+          "label": "open-search"
+        },
+        {
+          "frame": 3720,
+          "button": "right",
+          "duration_frames": 3,
+          "label": "select-squad-bonus"
+        },
+        {
+          "frame": 3780,
+          "button": "circle",
+          "duration_frames": 3,
+          "label": "open-squad-bonus"
+        },
+        {
+          "frame": 3930,
+          "button": "down",
+          "duration_frames": 3,
+          "label": "select-en-supply"
+        },
+        {
+          "frame": 4030,
+          "button": "down",
+          "duration_frames": 3,
+          "label": "select-jamming"
+        },
+        {
+          "frame": 4130,
+          "button": "cross",
+          "duration_frames": 3,
+          "label": "return-search-tabs"
+        },
+        {
+          "frame": 4230,
+          "button": "cross",
+          "duration_frames": 3,
+          "label": "return-unit-menu"
+        }
+      ],
+      "captures": [
+        {
+          "id": "hp-repair-adjacent",
+          "frame": 3900,
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/search-squad-help-20260909/best-locked/frames/03900-hp-repair-adjacent.png",
+          "width": 640,
+          "height": 448,
+          "pixel_format": "XRGB8888",
+          "mean_luma": 53.204973,
+          "dhash": "71e998988c9c615f",
+          "dhash_region": {
+            "x": 18,
+            "y": 335,
+            "width": 604,
+            "height": 80
+          },
+          "assertion_dhash": "016060eaeab20000",
+          "rgba_sha256": "2e0ebc61a853785b11858086e9ea65a251986b3c175003a320d0a663c2a6992e",
+          "png_sha256": "98be104d6060237e29e8ba2efc6cf1385ef3c7e547a4cceb06097da7e72a04e8",
+          "assertions": [
+            {
+              "assertion": "expected_width",
+              "passed": true,
+              "detail": "actual=640 expected=640"
+            },
+            {
+              "assertion": "expected_height",
+              "passed": true,
+              "detail": "actual=448 expected=448"
+            },
+            {
+              "assertion": "dhash_distance",
+              "passed": true,
+              "detail": "actual=016060eaeab20000 expected=016060eaeab20000 distance=0 maximum=0"
+            }
+          ]
+        },
+        {
+          "id": "en-supply-help",
+          "frame": 4000,
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/search-squad-help-20260909/best-locked/frames/04000-en-supply-help.png",
+          "width": 640,
+          "height": 448,
+          "pixel_format": "XRGB8888",
+          "mean_luma": 53.418945,
+          "dhash": "71e99898cc9c414b",
+          "dhash_region": {
+            "x": 18,
+            "y": 335,
+            "width": 604,
+            "height": 80
+          },
+          "assertion_dhash": "0130f0c0c8480000",
+          "rgba_sha256": "fb2383af80c2d8c36ac5597d18e69cae050bbd85b783e447adfd538bce5833ae",
+          "png_sha256": "8c3e2dd3084e98cac243ec870fad23408c98d8e1bf4259f4ed634b3207807ae1",
+          "assertions": [
+            {
+              "assertion": "expected_width",
+              "passed": true,
+              "detail": "actual=640 expected=640"
+            },
+            {
+              "assertion": "expected_height",
+              "passed": true,
+              "detail": "actual=448 expected=448"
+            },
+            {
+              "assertion": "dhash_distance",
+              "passed": true,
+              "detail": "actual=0130f0c0c8480000 expected=0130f0c0c8480000 distance=0 maximum=0"
+            }
+          ]
+        },
+        {
+          "id": "jamming-help",
+          "frame": 4100,
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/search-squad-help-20260909/best-locked/frames/04100-jamming-help.png",
+          "width": 640,
+          "height": 448,
+          "pixel_format": "XRGB8888",
+          "mean_luma": 53.567006,
+          "dhash": "71e998988c9c614b",
+          "dhash_region": {
+            "x": 18,
+            "y": 335,
+            "width": 604,
+            "height": 80
+          },
+          "assertion_dhash": "016060e0a0200000",
+          "rgba_sha256": "99f9199c6ac291e88c2eb003127d7ea090a5c44cfb1c804fc1332a6317498a23",
+          "png_sha256": "827346400fb1513ed9262df2643bedc1443bb481447baaa168947d2e7846027f",
+          "assertions": [
+            {
+              "assertion": "expected_width",
+              "passed": true,
+              "detail": "actual=640 expected=640"
+            },
+            {
+              "assertion": "expected_height",
+              "passed": true,
+              "detail": "actual=448 expected=448"
+            },
+            {
+              "assertion": "dhash_distance",
+              "passed": true,
+              "detail": "actual=016060e0a0200000 expected=016060e0a0200000 distance=0 maximum=0"
+            }
+          ]
+        },
+        {
+          "id": "search-tabs-returned",
+          "frame": 4200,
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/search-squad-help-20260909/best-locked/frames/04200-search-tabs-returned.png",
+          "width": 640,
+          "height": 448,
+          "pixel_format": "XRGB8888",
+          "mean_luma": 45.456707,
+          "dhash": "794198988c9c690b",
+          "dhash_region": {
+            "x": 12,
+            "y": 8,
+            "width": 615,
+            "height": 76
+          },
+          "assertion_dhash": "30585981295529c0",
+          "rgba_sha256": "a7491b8f48574d80ce56f8852b9daada8e0fcc6cb8d4cf4a250a53298b1de655",
+          "png_sha256": "6e38d222e5f936c970ff69e1bb1579073623301074f7d69ce7d7a96e60f59bc6",
+          "assertions": [
+            {
+              "assertion": "expected_width",
+              "passed": true,
+              "detail": "actual=640 expected=640"
+            },
+            {
+              "assertion": "expected_height",
+              "passed": true,
+              "detail": "actual=448 expected=448"
+            },
+            {
+              "assertion": "dhash_distance",
+              "passed": true,
+              "detail": "actual=30585981295529c0 expected=30585981295529c0 distance=0 maximum=0"
+            }
+          ]
+        },
+        {
+          "id": "unit-menu-returned",
+          "frame": 4300,
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/search-squad-help-20260909/best-locked/frames/04300-unit-menu-returned.png",
+          "width": 640,
+          "height": 448,
+          "pixel_format": "XRGB8888",
+          "mean_luma": 49.163738,
+          "dhash": "9a3131313475023e",
+          "dhash_region": {
+            "x": 96,
+            "y": 62,
+            "width": 152,
+            "height": 252
+          },
+          "assertion_dhash": "c574596969657539",
+          "rgba_sha256": "b9fdd2407a5f04e27699ec49a956fd02331f5b28a8747204c4049a4a49ab8cce",
+          "png_sha256": "decea26296e335fa532d253fd67742012514adcddc4bb0e981a8fab20abf4fb4",
+          "assertions": [
+            {
+              "assertion": "expected_width",
+              "passed": true,
+              "detail": "actual=640 expected=640"
+            },
+            {
+              "assertion": "expected_height",
+              "passed": true,
+              "detail": "actual=448 expected=448"
+            },
+            {
+              "assertion": "dhash_distance",
+              "passed": true,
+              "detail": "actual=c574596969657539 expected=c574596969657539 distance=0 maximum=0"
+            }
+          ]
+        }
+      ],
+      "manual_image_review": "Chinese help is complete, two-line layout fits, adjacent help and return menus are intact."
+    }
+  },
+  "pcsx2": "not_performed",
+  "en_recovery_formula": {
+    "source": "original retail help at COMPDATA decoded 0x77AF0, both editions",
+    "formula": "squad resupply unit count * 10% of each unit maximum EN at allied phase start",
+    "three_units_imply": "30%",
+    "runtime_EN_measurement": "not_performed"
+  },
+  "status": "both_editions_static_and_lrps2_verified",
+  "github_issue": "https://github.com/dyzz/srwz-zh/issues/23",
+  "committed_source_check": {
+    "status": "passed",
+    "head": "bc0c667c5972afc5f16a305a9d9d4fb5a69a6756",
+    "input_digest": "d9d76026a041df34f4ea425ad657a73e0b7c0ab05c3e2db5cff84cd63b061ad4",
+    "checked_source_files": 441,
+    "differences": []
+  }
+}
