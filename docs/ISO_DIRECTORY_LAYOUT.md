@@ -4,13 +4,15 @@
 分层，并以 ISO profile ID 隔离。`tools/build_iso.py` 会在读取配置时
 校验这些边界，错误路径不会开始构建。
 
-## 长期保留的五份 ISO
+## 长期保留的 ISO
 
-自 2026-09-05 起只保留下列五个槽位，实际文件名与槽位一致。
+v0.4.0 在原有五个槽位外增加两版冻结发布镜像。
 机器可读路径见 `config/iso/retained-isos.json`。
 
 | 槽位 | 实际路径 | 用途 |
 | --- | --- | --- |
+| `0.4.0-original` | `build/iso/v0.4.0/srwz-zh-v0.4.0-original.iso` | v0.4.0 初版冻结镜像 |
+| `0.4.0-best` | `build/iso/v0.4.0/srwz-zh-v0.4.0-best.iso` | v0.4.0 The Best 冻结镜像 |
 | `0.3.0` | `build/iso/v0.3.0/0.3.0.iso` | 冻结发布镜像，不随日常构建覆盖 |
 | `current-original` | `build/iso/zh-release-full-story/current-original.iso` | 当前 Original 中文工作镜像 |
 | `current-best` | `build/iso/zh-release-best/current-best.iso` | 当前 BEST 中文工作镜像；身份及回读记录见 `manifests/editions/best/current.json` |
@@ -21,14 +23,15 @@
 文件名继续保留在来源元数据中，本地原盘路径使用上表名称。
 
 构建期间允许在 `work/` 或版本隔离目录生成临时副本。验收、核对哈希并选定当前
-产物后，移除重复 ISO 和旧候选，只保留五个槽位；日志、组件、布局、输入快照、
+产物后，移除重复 ISO 和旧候选，保留上述槽位；日志、组件、布局、输入快照、
 存档和截图单独保留。阶段 1 的 Original 隔离输出
 `build/iso/zh-release-original/current-original.iso` 属于此类临时副本，
 它与当前生产输出逐字节相同时不重复长期保留。后续 BEST 构建仍写入
 `current-best` 槽位；当前源码构建能力见 [BEST 构建](BEST_CURRENT_BUILD.md)，历史候选身份由新的本版构建记录替换。
 
-清理先保存旧路径、大小、SHA-256，并确认文件未被构建或模拟器使用，再按用户
-要求直接删除五个槽位之外的旧 ISO 和重复副本，不在废纸篓长期保留。
+清理先登记旧路径及文件身份，并确认文件未被构建或模拟器使用，再处理上述槽位
+之外的旧 ISO 和重复副本。v0.4.0 本次清理采用带恢复清单的可恢复归档，并保留
+原路径的报告与预览。
 被清理副本的历史 receipt 保留原始路径与哈希；复验历史批次时，从固定输入重建，
 或从哈希一致的保留镜像重新制作所需临时副本。清理不构成新的构建或运行验收。
 

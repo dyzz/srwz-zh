@@ -1,0 +1,66 @@
+{
+  "schema_version": 2,
+  "version": "0.4.0",
+  "tag": "v0.4.0",
+  "channel": "stable",
+  "validation": "manifests/releases/v0.4.0/validation.json",
+  "editions": {
+    "original": {
+      "edition_config": "config/editions/original/edition.json",
+      "source_iso": {
+        "path": "rom/original.iso",
+        "size": 3758358528,
+        "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2"
+      },
+      "target_iso": {
+        "path": "build/iso/v0.4.0/srwz-zh-v0.4.0-original.iso",
+        "size": 3758358528,
+        "sha256": "d4fce948600e347ea92d38920eabe1539f6e4b1541d90767c045d3f7f89817b6"
+      },
+      "patch_filename": "srwz-zh-v0.4.0-original.xdelta"
+    },
+    "best": {
+      "edition_config": "config/editions/best/edition.json",
+      "source_iso": {
+        "path": "rom/best.iso",
+        "size": 3755081728,
+        "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77"
+      },
+      "target_iso": {
+        "path": "build/iso/v0.4.0/srwz-zh-v0.4.0-best.iso",
+        "sha256": "4ccb2355ab6d18e08db4183f06333f1d9d58b7cb7e3e4e98e6d972ae9784a18a",
+        "size": 3755081728
+      },
+      "patch_filename": "srwz-zh-v0.4.0-best.xdelta"
+    }
+  },
+  "xdelta": {
+    "executable": "xdelta3",
+    "version_line": "Xdelta version 3.2.0, Copyright (C) Joshua MacDonald",
+    "encode_args": [
+      "-e",
+      "-9",
+      "-S",
+      "djw",
+      "-A",
+      "-a"
+    ]
+  },
+  "output": {
+    "directory": "build/release/v0.4.0"
+  },
+  "known_limitations": [
+    "两版最终镜像已完成构建和静态内容回读；本次精确发布镜像未重新执行 PCSX2 人工验收，全路线运行测试仍在继续。",
+    "请备份普通记忆卡存档；不承诺即时存档或所有跨版本存档兼容。"
+  ],
+  "evidence": [
+    "config/release/v0.4.0.json",
+    "tools/build_release.py",
+    "manifests/releases/v0.4.0/validation.json",
+    "docs/RELEASE_NOTES_V0.4.0.md",
+    "config/editions/original/edition.json",
+    "manifests/releases/v0.4.0/original-readback.json",
+    "config/editions/best/edition.json",
+    "manifests/releases/v0.4.0/best-readback.json"
+  ]
+}

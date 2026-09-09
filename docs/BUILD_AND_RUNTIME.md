@@ -1,13 +1,14 @@
-# v0.3.0 构建与验收
+# 当前构建与验收
 
-本文记录 v0.3.0 当前可执行的 ISO、静态回读、发布包和运行验收边界。LRPS2 自动
+本文记录当前可执行的 ISO、静态回读、发布包和运行验收边界。
+v0.4.0 双版本冻结与打包步骤见 [发布记录](RELEASE_BUILD_V0.4.0.md)。LRPS2 自动
 验证与 PCSX2 手工验收都不属于生产构建闭包；前者由仓库内独立 runner 执行，后者
 只由测试者人工完成。
 
 ## 前提
 
 - Python 3、Git、CMake、Rust／Cargo 和 ImageMagick 7；
-- 生成可分发补丁时另外需要 xdelta3 与 7-Zip；
+- 生成可分发补丁时另外需要 xdelta3；
 - 用户合法持有的 Redump Disc 4932 原版镜像；
 - 原版文件放在 `rom/original.iso`；
 - 原版大小为 `3758358528` 字节，SHA-256 为
@@ -19,13 +20,13 @@
 Git 或发布 ZIP。
 
 ISO 长期保留 `0.3.0`、`current-original`、`current-best`、`original`、`best`
-五份，实际路径及清理规则见 [ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。普通生产入口
+五个既有槽位及 v0.4.0 两版冻结镜像，实际路径及清理规则见 [ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。普通生产入口
 构建 Original；同批双版本入口为 `python3 tools/build_editions.py --editions original,best`，
 会从当前源码生成 Original 与 BEST，详见 [当前 BEST 构建](BEST_CURRENT_BUILD.md)。
 
 ## 按物理文件构建
 
-P0–P10 只属于开发历史，不是 v0.3.0 的生产输入。当前链从锁定原版成员直接写回，
+P0–P10 只属于开发历史，不是当前生产输入。当前链从锁定原版成员直接写回，
 不先生成一套“基础汉化”二进制，也不在内部叠加 xdelta。组件阶段只有三个互斥的
 构建组：
 
@@ -67,8 +68,6 @@ python3 tools/rebuild_zh_font.py --skip-fetch --force-rebuild
 python3 tools/build_iso.py \
   --config config/iso/zh-release-current-build.json
 python3 tools/verify_full_story_iso_content.py --force
-python3 tools/build_release.py \
-  --config config/release/v0.3.0.json
 ```
 
 `extract_iso_member.py` 只建立 `work/disc/` 原版成员缓存。`rebuild_zh_font.py` 从这些
@@ -200,18 +199,20 @@ python3 tools/build_iso.py \
 build/iso/zh-release-full-story/current-original.iso
 ```
 
-- 大小：`3758358528` 字节
-- SHA-256：`64b42bf2134b368037fcfdd20abc068a417f95817ff10fb801d06fd6f28961f9`
+当前工作镜像的大小和 SHA-256 由 `config/iso/zh-release-current-build.json` 锁定，
+与版本化发布镜像分别保存。双版本工作输出及 v0.4.0 冻结路径见
+[ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。
 
-可分发包：
+可分发补丁为：
 
 ```text
-build/release/v0.3.0/srwz-zh-v0.3.0.zip
+build/release/v0.4.0/srwz-zh-v0.4.0-original.xdelta
+build/release/v0.4.0/srwz-zh-v0.4.0-best.xdelta
 ```
 
-发布工具会核对原版与目标 ISO 的文件名、大小和 SHA-256，使用锁定的 xdelta3 生成
-补丁，再从原版实际还原目标 ISO 并复核哈希。发布目录和 ZIP 只允许包含 xdelta、
-说明、清单与校验文件，不得包含完整 ISO。
+发布工具核对两版原盘契约、冻结目标和最终回读证据，使用锁定的 xdelta3 分别生成
+补丁，再从对应原盘实际还原目标 ISO 并复核哈希。发布目录只包含 xdelta、说明、
+清单与校验文件，不包含完整 ISO。
 
 ## 构建硬门
 
@@ -222,7 +223,7 @@ ISO builder 和静态 verifier 必须 fail closed：
 3. replacement 不超过原成员扇区预算，后续 LBA 不移动；
 4. 未替换成员 byte-exact；
 5. 字体、文本、控制 token、指针、图集和压缩流可以独立回读；
-6. 最终镜像大小和 SHA-256 与 v0.3.0 配置一致；
+6. 最终镜像大小和 SHA-256 与对应构建或冻结发布配置一致；
 7. 发布补丁可以从固定原版还原出同一目标镜像。
 
 ## LRPS2 自动运行验证

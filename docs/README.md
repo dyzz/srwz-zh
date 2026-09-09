@@ -1,12 +1,14 @@
 # 文档索引
 
-当前文档只保留 v0.3.0 发布说明、可执行构建流程和仍适用的工程约束。研究过程、
-内部问题记录、候选比较和历史发布文档需要追溯时使用 Git 历史。
+当前文档包含 v0.4.0 双版本发布说明、可执行构建流程、工程约束和带日期的历史验证记录。
+判断发布状态时以相应版本的精确镜像哈希为准。
 
 | 文档 | 内容 |
 | --- | --- |
-| `../README.md` | 项目介绍、v0.3.0 内容、下载与源码构建 |
-| `RELEASE_NOTES_V0.3.0.md` | v0.3.0 发布说明 |
+| `../README.md` | 项目介绍、v0.4.0 内容、下载与源码构建 |
+| [RELEASE_NOTES_V0.4.0.md](RELEASE_NOTES_V0.4.0.md) | v0.4.0 双版本发布说明、安装与校验 |
+| [RELEASE_BUILD_V0.4.0.md](RELEASE_BUILD_V0.4.0.md) | 冻结镜像、补丁、自动验证和清理范围 |
+| `RELEASE_NOTES_V0.3.0.md` | v0.3.0 历史发布说明 |
 | `BUILD_AND_RUNTIME.md` | ISO、发布包和运行验收边界 |
 | `BUILD_TIME_ANALYSIS.md` | 冷/热构建计时、内容寻址缓存方案与验证边界 |
 | `AUTOMATED_RUNTIME.md` | LRPS2/libretro.py 逐帧按键、截图与本地 receipt |
@@ -18,13 +20,14 @@
 ## 技术参考
 
 以下文档保留格式研究、资源定位和写回约束。部分文档会记录形成当前配置时使用的
-维护命令；v0.3.0 的现行发布入口仍以 `BUILD_AND_RUNTIME.md` 为准。
+维护命令；v0.4.0 发布入口以 `RELEASE_BUILD_V0.4.0.md` 为准。
 
 | 文档 | 内容 |
 | --- | --- |
 | `SRWZ_COMPRESSION.md` | SRWZ 压缩格式、Rust codec 和容量约束 |
 | `FONT_ANALYSIS.md` | VT1 字库结构、码位与 glyph 映射 |
 | `WRITEBACK_CONTRACT.md` | 文本、指针、归档和前像写回契约 |
+| [TEXT_CAPACITY_SAFETY_AUDIT_20260905.md](TEXT_CAPACITY_SAFETY_AUDIT_20260905.md) | 2026-09-05 扩容审计快照及未闭合检查 |
 | `TEXT_CAPACITY_EXPANSION.md` | STAGE 剧情与 SRVC 战斗文本扩容方案、安全门和 canary 证据 |
 | `TEXTURE_LOCALIZATION_INVENTORY.md` | 贴图中文化成员、格式和最终 ISO 落点 |
 | `KVMDATA_ATLAS_LOCALIZATION.md` | KVMDATA 图集结构与写回方法 |

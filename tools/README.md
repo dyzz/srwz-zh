@@ -1,16 +1,14 @@
-# v0.3.0 构建工具
+# v0.4.0 构建工具
 
-`tools/` 只保留重建 v0.3.0 所需的 Python 入口和它们直接使用的 clean-room
-模块。实验、分析、机器翻译、审校网页、迁移和一次性快照脚本不属于发布构建闭包，
-已从当前树移除；需要追溯时使用 Git 历史。唯一保留的运行入口是独立的
-`run_lrps2_validation.py`，它不参与 ISO 或发布包构建。
+`tools/` 包含当前双版本构建、回读、发布及研究维护入口。发布主链见下表；
+分析和运行工具独立于 ISO 构建。`run_lrps2_validation.py` 不参与发布包生成。
 
 该入口通过 `--sequence` 选择已登记的 title/new-game/load/continue/library 路线，
 通过可重复的 `--append-input-sequence` 追加 issue 专用相对帧按键和截图检查点；所有
 运行产物仍只写入忽略的 `work/runtime/lrps2/`。
 
 ```text
-tools/*.py                    v0.3.0 构建与回读入口
+tools/*.py                    v0.4.0 构建与回读入口
 tools/srwz/*.py               入口直接依赖的解析、写回和验证模块
 tools/native/srwz-codec-rs/   生产压缩与解压工具
 vendor/upstream-python/       构建链读取的固定静态定义
@@ -29,6 +27,7 @@ vendor/upstream-python/       构建链读取的固定静态定义
 | 静态回读 | `verify_zh_release_font.py`、`verify_full_story_iso_content.py` |
 | 文本审阅候选 | `build_text_update_iso.py`（受控输入准备、成员级增量重建、单次结构化 ISO；`--release-proof` 执行完整回读和确定性复建） |
 | 自动运行验证（构建闭包外） | `run_lrps2_validation.py` |
+| 同批双版本 | `build_editions.py`、`verify_editions.py` |
 | 发布包 | `build_release.py` |
 
 通常按以下顺序构建：
@@ -41,15 +40,15 @@ python3 tools/build_rust_compressor.py
 python3 tools/rebuild_zh_font.py --skip-fetch --force-rebuild
 python3 tools/build_iso.py
 python3 tools/verify_full_story_iso_content.py --force
-python3 tools/build_release.py
 ```
 
 不带 `--config` 时，ISO 与发布入口分别读取
-`config/iso/zh-release-current-build.json` 和 `config/release/v0.3.0.json`。
+`config/iso/zh-release-current-build.json` 和 `config/release/v0.4.0.json`。
 完整的原版成员列表见 `docs/BUILD_AND_RUNTIME.md`。`rebuild_zh_font.py` 会从锁定原版
 成员按依赖顺序生成全局字体、reviewed LIBRARY、STAGE、菜单、UI 图集和最终组合组件；
 `build_iso.py` 强制校验固定 LBA、成员预算与整盘哈希；`build_release.py` 生成 xdelta
-后会实际还原一次并核对目标 ISO，发布目录和 ZIP 均不得包含完整 ISO。
+后会分别实际还原并核对两版目标 ISO；发布目录不得包含完整 ISO。
+双版本冻结及打包步骤见 [发布记录](../docs/RELEASE_BUILD_V0.4.0.md)。
 
 `build_tricmn_battle_overlays.py` 是一个例外：正式构建只解码并写入审核后冻结的三张
 PSMT4 索引图，再校验完整 `BTL/TRICMN.BIN` 的固定哈希，不调用字体或 ImageMagick。

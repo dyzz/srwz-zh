@@ -1,13 +1,15 @@
-# v0.3.0 配置入口
+# v0.4.0 配置入口
 
-配置树只保存可复现的 v0.3.0 构建输入。历史发布配置和实验配置需要追溯时使用
-Git 历史。
+配置树保存当前双版本构建输入、审核契约与版本化发布配置。历史配置按其版本解释，
+不能用旧发布目标哈希替代当前产物身份。
 
 | 文件 | 作用 |
 | --- | --- |
 | `iso/zh-release-chain.json` | 当前 ISO、哈希和状态 |
-| `iso/zh-release-current-build.json` | v0.3.0 固定原盘、replacement、LBA 和输出哈希 |
-| `release/v0.3.0.json` | v0.3.0 原版／目标 ISO、xdelta 和发布包契约 |
+| `iso/zh-release-current-build.json` | Original 固定原盘、replacement、LBA 和输出哈希 |
+| `release/v0.4.0.json` | 双版本原盘、冻结目标 ISO、独立 xdelta 和验证契约 |
+| `release/dual-current.json` | 同批双版本构建入口 |
+| `editions/{original,best}/edition.json` | 两版原盘和可执行文件身份 |
 | `runtime/lrps2-common-sequences.json` | LRPS2 常见路线别名、场景入口和按键表 |
 | `runtime/lrps2-{title,new-game-menu,load-menu,continue-menu,library-menu}.json` | 常见路线的完整逐帧输入与画面断言 |
 | `runtime/examples/lrps2-custom-open-load.json` | 相对帧自定义按键与截图检查点示例 |

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-09",
+  "status": "dual_edition_build_and_static_readback_passed",
+  "source_head": "71cbb2b74bfd22b3367f931fd4ca9f6c4147d074",
+  "input_digest": "4b6c661d17edf5eb1a822ced92e29034ed3f985ee4a942f2d9fa27dd04391706",
+  "batch_manifest": "work/editions/4b6c661d17edf5eb1a822ced92e29034ed3f985ee4a942f2d9fa27dd04391706/original-best.json",
+  "verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "4b6c661d17edf5eb1a822ced92e29034ed3f985ee4a942f2d9fa27dd04391706",
+    "verified_editions": [
+      "original",
+      "best"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "outputs": {
+    "original": {
+      "path": "build/iso/v0.4.0/srwz-zh-v0.4.0-original.iso",
+      "size": 3758358528,
+      "sha256": "d4fce948600e347ea92d38920eabe1539f6e4b1541d90767c045d3f7f89817b6"
+    },
+    "best": {
+      "path": "build/iso/v0.4.0/srwz-zh-v0.4.0-best.iso",
+      "sha256": "4ccb2355ab6d18e08db4183f06333f1d9d58b7cb7e3e4e98e6d972ae9784a18a",
+      "size": 3755081728
+    }
+  },
+  "readbacks": {
+    "original": {
+      "path": "manifests/releases/v0.4.0/original-readback.json",
+      "size": 410790,
+      "sha256": "ac79c4a523dc0e382e4e8a5f6ff9f78f8d0e01f229bd99bb85eb2e20d626f55e"
+    },
+    "best": {
+      "path": "manifests/releases/v0.4.0/best-readback.json",
+      "size": 894,
+      "sha256": "c3c6933682322581caa1b0b187426fe0c2c5e898edfc041915b54199a5c14dc2"
+    }
+  },
+  "runtime": "not_tested_for_release_iso_hashes",
+  "historical_runtime_evidence": "manifests/editions/runtime-user-acceptance-20260907.json",
+  "tests": {
+    "command": "python3 -m unittest discover -s tests",
+    "passed": 253,
+    "log_sha256": "362147067b3fa467db55867f31ccb7c072abffd5253393e5f8580de40093a626"
+  }
+}

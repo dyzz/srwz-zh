@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build and verify a deterministic xdelta release package.
 
-The full source and target ISOs remain local.  The release directory contains
-only the patch, checksums, manifest, instructions, and their deterministic ZIP.
+The full source and target ISOs remain local. Schema 2 packages both editions
+as separate patches; schema 1 preserves the historical single-patch ZIP format.
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.3.0.json"
+DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.4.0.json"
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 ZIP_TIMESTAMP = (2020, 1, 1, 0, 0, 0)
 
@@ -270,6 +270,8 @@ def write_deterministic_zip(
 
 def build_release(config_path: Path, *, force: bool = False) -> Path:
     config = load_json(config_path)
+    if config.get("schema_version") == 2:
+        return build_dual_release(config, force=force)
     verify_config_bindings(config)
 
     source_path = project_path(config["source_iso"]["path"])
@@ -396,13 +398,124 @@ def build_release(config_path: Path, *, force: bool = False) -> Path:
     return output_dir
 
 
+def verify_dual_config_bindings(config: dict[str, Any]) -> dict[str, Any]:
+    """Bind both patches to edition contracts and frozen final readbacks."""
+    tag = config.get("tag", "")
+    if config.get("schema_version") != 2 or tag != f"v{config.get('version')}" or not config.get("version"):
+        raise ReleaseBuildError("invalid dual release version")
+    if config.get("output", {}).get("directory") != f"build/release/{tag}":
+        raise ReleaseBuildError("invalid dual release output directory")
+    editions = config.get("editions", {})
+    if set(editions) != {"original", "best"}:
+        raise ReleaseBuildError("dual release requires exactly original and best")
+    validation = load_json(project_path(config["validation"]))
+    if (validation.get("status") != "dual_edition_build_and_static_readback_passed"
+            or not validation.get("verification", {}).get("both_editions")
+            or validation.get("verification", {}).get("status") != "edition_batch_receipt_integrity_passed"):
+        raise ReleaseBuildError("dual build verification is incomplete")
+    if set(validation.get("outputs", {})) != set(editions):
+        raise ReleaseBuildError("release validation must cover both outputs")
+    for edition, item in editions.items():
+        contract_path = f"config/editions/{edition}/edition.json"
+        if item["edition_config"] != contract_path:
+            raise ReleaseBuildError(f"{edition}: wrong edition contract")
+        contract = load_json(project_path(contract_path))
+        if contract.get("edition_id") != edition or item["source_iso"] != contract["source_iso"]:
+            raise ReleaseBuildError(f"{edition}: source ISO is not bound to edition contract")
+        if item["target_iso"] != validation["outputs"][edition]:
+            raise ReleaseBuildError(f"{edition}: target ISO is not bound to final validation")
+        if item["target_iso"]["path"] != f"build/iso/{tag}/srwz-zh-{tag}-{edition}.iso":
+            raise ReleaseBuildError(f"{edition}: target must use the frozen release path")
+        if item["patch_filename"] != f"srwz-zh-{tag}-{edition}.xdelta":
+            raise ReleaseBuildError(f"{edition}: patch filename does not identify the edition")
+        lock = validation["readbacks"][edition]
+        proof_path = project_path(lock["path"])
+        verify_locked_file(proof_path, lock, f"{edition} readback")
+        proof = load_json(proof_path)
+        expected = {"original": "full_story_final_iso_static_content_readback_passed",
+                    "best": "best_final_iso_static_content_readback_passed"}[edition]
+        if (proof.get("status") != expected or any(
+                proof.get("iso", {}).get(key) != item["target_iso"][key]
+                for key in ("size", "sha256"))):
+            raise ReleaseBuildError(f"{edition}: semantic readback does not match target")
+        if edition == "best" and proof.get("input_digest") != validation["input_digest"]:
+            raise ReleaseBuildError("BEST readback belongs to a different input batch")
+    return validation
+
+
+def build_dual_release(config: dict[str, Any], *, force: bool = False) -> Path:
+    validation = verify_dual_config_bindings(config)
+    # Preflight both editions before encoding either patch.
+    for edition, item in config["editions"].items():
+        for role in ("source_iso", "target_iso"):
+            verify_locked_file(project_path(item[role]["path"]), item[role], f"{edition} {role}")
+    xdelta = config["xdelta"]
+    version_line = xdelta_version(xdelta["executable"])
+    if version_line != xdelta["version_line"]:
+        raise ReleaseBuildError("xdelta version mismatch")
+    executable = shutil.which(xdelta["executable"])
+    assert executable is not None
+    output_dir = project_path(config["output"]["directory"])
+    release_root = project_path("build/release")
+    if output_dir.parent != release_root:
+        raise ReleaseBuildError("refusing release output outside build/release")
+    if output_dir.exists() and not force:
+        raise ReleaseBuildError(f"release output already exists: {output_dir}; pass --force to rebuild")
+    release_root.mkdir(parents=True, exist_ok=True)
+    temp_dir = Path(tempfile.mkdtemp(prefix=f".{config['tag']}-", dir=release_root))
+    try:
+        patches = {}
+        readme = [f"《超级机器人大战 Z》简体中文补丁 {config['tag']}\n",
+                  "按日文原盘版本选一个补丁；不要在旧汉化镜像上重复打补丁。",
+                  "操作前备份原盘与存档。本项目不提供 ISO、存档或原版游戏数据。\n"]
+        for edition in ("original", "best"):
+            item = config["editions"][edition]
+            source = project_path(item["source_iso"]["path"])
+            target = project_path(item["target_iso"]["path"])
+            patch = temp_dir / item["patch_filename"]
+            print(f"[{edition}] encode and reconstruct", flush=True)
+            run_xdelta([executable, *xdelta["encode_args"], "-s", str(source), str(target), str(patch)], "encode")
+            # Keep full reconstruction outside the distributable directory.
+            with tempfile.TemporaryDirectory(prefix="srwz-release-verify-") as scratch:
+                reconstructed = Path(scratch) / target.name
+                run_xdelta([executable, "-d", "-s", str(source), str(patch), str(reconstructed)], "decode")
+                verify_locked_file(reconstructed, item["target_iso"], f"{edition} reconstructed ISO")
+            patches[edition] = {"filename": patch.name, "size": patch.stat().st_size,
+                                "sha256": sha256_file(patch), "source_iso": item["source_iso"],
+                                "target_iso": item["target_iso"], "reconstructed_size_matches": True,
+                                "reconstructed_sha256_matches": True}
+            readme.extend([f"{edition}: {patch.name}",
+                           f"原盘大小：{item['source_iso']['size']} 字节",
+                           f"原盘 SHA-256：{item['source_iso']['sha256']}",
+                           f'xdelta3 -d -s "{source.name}" "{patch.name}" "{target.name}"',
+                           f"生成镜像 SHA-256：{item['target_iso']['sha256']}\n"])
+        readme.extend(config.get("known_limitations", []))
+        (temp_dir / "README.txt").write_text("\n".join(readme) + "\n", encoding="utf-8")
+        evidence = [{"path": value, "sha256": sha256_file(project_path(value))} for value in config["evidence"]]
+        manifest = {"schema_version": 2, "version": config["version"], "tag": config["tag"],
+                    "channel": config["channel"], "format": "xdelta3-vcdiff", "patches": patches,
+                    "input_digest": validation["input_digest"], "runtime": validation["runtime"],
+                    "tool": xdelta, "iso_in_release_package": False, "evidence": evidence}
+        (temp_dir / "release-manifest.json").write_bytes(json_bytes(manifest))
+        members = sorted(temp_dir.iterdir())
+        (temp_dir / "SHA256SUMS.txt").write_text("".join(
+            f"{sha256_file(path)}  {path.name}\n" for path in members), encoding="utf-8")
+        if output_dir.exists():
+            shutil.rmtree(output_dir)
+        temp_dir.rename(output_dir)
+    except Exception:
+        shutil.rmtree(temp_dir, ignore_errors=True)
+        raise
+    return output_dir
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--config",
         type=Path,
         default=DEFAULT_CONFIG,
-        help="release config (default: config/release/v0.3.0.json)",
+        help="release config (default: config/release/v0.4.0.json)",
     )
     parser.add_argument(
         "--force",
