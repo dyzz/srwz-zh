@@ -1,7 +1,7 @@
 # 当前构建与验收
 
 本文记录当前可执行的 ISO、静态回读、发布包和运行验收边界。
-v0.4.0 双版本冻结与打包步骤见 [发布记录](RELEASE_BUILD_V0.4.0.md)。LRPS2 自动
+v0.4.1 双版本冻结与打包步骤见 [发布记录](RELEASE_BUILD_V0.4.1.md)。LRPS2 自动
 验证与 PCSX2 手工验收都不属于生产构建闭包；前者由仓库内独立 runner 执行，后者
 只由测试者人工完成。
 
@@ -201,14 +201,14 @@ build/iso/zh-release-full-story/current-original.iso
 ```
 
 当前工作镜像的大小和 SHA-256 由 `config/iso/zh-release-current-build.json` 锁定，
-与版本化发布镜像分别保存。双版本工作输出及 v0.4.0 冻结路径见
+与版本化发布镜像分别保存。双版本工作输出及 v0.4.1 冻结路径见
 [ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。
 
 可分发补丁为：
 
 ```text
-build/release/v0.4.0/srwz-zh-v0.4.0-original.xdelta
-build/release/v0.4.0/srwz-zh-v0.4.0-best.xdelta
+build/release/v0.4.1/srwz-zh-v0.4.1-original.xdelta
+build/release/v0.4.1/srwz-zh-v0.4.1-best.xdelta
 ```
 
 发布工具核对两版原盘契约、冻结目标和最终回读证据，使用锁定的 xdelta3 分别生成

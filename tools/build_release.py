@@ -19,7 +19,7 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.4.0.json"
+DEFAULT_CONFIG = PROJECT_ROOT / "config/release/v0.4.1.json"
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 ZIP_TIMESTAMP = (2020, 1, 1, 0, 0, 0)
 
@@ -515,7 +515,7 @@ def parse_args() -> argparse.Namespace:
         "--config",
         type=Path,
         default=DEFAULT_CONFIG,
-        help="release config (default: config/release/v0.4.0.json)",
+        help="release config (default: config/release/v0.4.1.json)",
     )
     parser.add_argument(
         "--force",

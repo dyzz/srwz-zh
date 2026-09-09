@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-09",
+  "status": "dual_edition_build_and_static_readback_passed",
+  "source_head": "180663c37b28713cb91a8db900bd86e53a8c5b83",
+  "input_digest": "3e738e23a2b3dc3962b06bf07ea4406d0179acef242034fe7e1bace6f24f6746",
+  "batch_manifest": "work/editions/3e738e23a2b3dc3962b06bf07ea4406d0179acef242034fe7e1bace6f24f6746/original-best.json",
+  "verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "3e738e23a2b3dc3962b06bf07ea4406d0179acef242034fe7e1bace6f24f6746",
+    "verified_editions": [
+      "original",
+      "best"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "outputs": {
+    "original": {
+      "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-original.iso",
+      "size": 3758358528,
+      "sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6"
+    },
+    "best": {
+      "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso",
+      "size": 3755081728,
+      "sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c"
+    }
+  },
+  "readbacks": {
+    "original": {
+      "path": "manifests/releases/v0.4.1/original-readback.json",
+      "size": 411246,
+      "sha256": "f518377c2e25ddaf757b471b6a271a09c59b7825b6a6bd77a4e82b9496fce415"
+    },
+    "best": {
+      "path": "manifests/releases/v0.4.1/best-readback.json",
+      "size": 894,
+      "sha256": "76f495c277c0646cf23c45dd42e2fbefd5c68aed0b7b429dc98162cb61067787"
+    }
+  },
+  "runtime": "targeted_lrps2_passed_for_release_iso_hashes",
+  "runtime_evidence": {
+    "path": "manifests/releases/v0.4.1/runtime.json",
+    "size": 15952,
+    "sha256": "660d3690b08450829fa6a85339ebf4b65775c1a73bdbf96f940a0174bfc314f0"
+  },
+  "source_binding": {
+    "path": "manifests/releases/v0.4.1/source-binding.json",
+    "size": 3884,
+    "sha256": "6002c8c11cbed950e14a9c4d0ec6d26ca498d93628e685f9739255379a2ed457"
+  },
+  "tests": {
+    "command": "python3 -m unittest discover -s tests",
+    "passed": 263,
+    "log_sha256": "82321d2f76812ab48abff5f6d5b31417d6d7e6467fa6e8d045bcaced94773fec"
+  }
+}

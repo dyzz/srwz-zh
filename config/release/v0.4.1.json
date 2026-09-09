@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "version": "0.4.1",
+  "tag": "v0.4.1",
+  "channel": "stable",
+  "validation": "manifests/releases/v0.4.1/validation.json",
+  "editions": {
+    "original": {
+      "edition_config": "config/editions/original/edition.json",
+      "source_iso": {
+        "path": "rom/original.iso",
+        "size": 3758358528,
+        "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2"
+      },
+      "target_iso": {
+        "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-original.iso",
+        "size": 3758358528,
+        "sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6"
+      },
+      "patch_filename": "srwz-zh-v0.4.1-original.xdelta"
+    },
+    "best": {
+      "edition_config": "config/editions/best/edition.json",
+      "source_iso": {
+        "path": "rom/best.iso",
+        "size": 3755081728,
+        "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77"
+      },
+      "target_iso": {
+        "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso",
+        "size": 3755081728,
+        "sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c"
+      },
+      "patch_filename": "srwz-zh-v0.4.1-best.xdelta"
+    }
+  },
+  "xdelta": {
+    "executable": "xdelta3",
+    "version_line": "Xdelta version 3.2.0, Copyright (C) Joshua MacDonald",
+    "encode_args": [
+      "-e",
+      "-9",
+      "-S",
+      "djw",
+      "-A",
+      "-a"
+    ]
+  },
+  "output": {
+    "directory": "build/release/v0.4.1"
+  },
+  "known_limitations": [
+    "最终 Best 镜像的剧情流程路线和两版最终镜像的 SR 点数 Q&A 已通过 LRPS2；本次未执行 PCSX2，未覆盖全路线及全部分支。",
+    "新增菜单帮助、名称表及充能贴图完成静态回读，尚未逐项运行验收；剩余 Q&A 标点候选见 issue #24。",
+    "请备份普通记忆卡存档；不承诺即时存档或所有跨版本存档兼容。"
+  ],
+  "evidence": [
+    "config/release/v0.4.1.json",
+    "tools/build_release.py",
+    "manifests/releases/v0.4.1/validation.json",
+    "docs/RELEASE_NOTES_V0.4.0.md",
+    "config/editions/original/edition.json",
+    "manifests/releases/v0.4.1/original-readback.json",
+    "config/editions/best/edition.json",
+    "manifests/releases/v0.4.1/best-readback.json",
+    "manifests/releases/v0.4.1/runtime.json",
+    "manifests/releases/v0.4.1/source-binding.json",
+    "docs/BEST_SCENARIO_CHART_FIX_20260909.md",
+    "docs/QA_PUNCTUATION_FIX_20260909.md"
+  ]
+}

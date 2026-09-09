@@ -1,0 +1,451 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-09",
+  "status": "targeted_lrps2_regressions_passed",
+  "acceptance_policy": "LRPS2 passes are accepted per the user-confirmed 2026-09-09 policy; PCSX2 is not required for these issues.",
+  "best_scenario_chart": {
+    "receipt": {
+      "path": "work/runtime/lrps2/v041-best-chart/receipt.json",
+      "size": 16075,
+      "sha256": "4677c9f9ad8e8802f5bbad3380bb7e3c1a2a90e051e2b66995f4c04560f04230"
+    },
+    "iso": {
+      "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso",
+      "size": 3755081728,
+      "sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c"
+    },
+    "core": {
+      "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/core-x86_64/pcsx2_libretro.dylib",
+      "size": 11447720,
+      "sha256": "e0aa4d6c1b68fca49f9088acacb2a8dddaa6d9d62f21a14766f8023b0217fdf4",
+      "library_name": "LRPS2",
+      "library_version": "v2.0.0-16e520b",
+      "valid_extensions": "elf|iso|ciso|cue|gz|chd|cso|zso|m3u",
+      "need_fullpath": true
+    },
+    "status": "passed",
+    "source_memory_card_unchanged": true,
+    "visual_review_frames": [
+      3000,
+      4500,
+      5100
+    ],
+    "captures": [
+      {
+        "id": "title-library-selected",
+        "frame": 2160,
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/v041-best-chart/frames/02160-title-library-selected.png",
+        "width": 640,
+        "height": 448,
+        "pixel_format": "XRGB8888",
+        "mean_luma": 122.763027,
+        "dhash": "422f2b83a3291955",
+        "dhash_region": null,
+        "assertion_dhash": "422f2b83a3291955",
+        "rgba_sha256": "1e1b8c124fa9acb4f433fde3d3e0eab7ed5098f090ef081e1d1a44d2b62b5ab3",
+        "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+        "assertions": [
+          {
+            "assertion": "expected_width",
+            "passed": true,
+            "detail": "actual=640 expected=640"
+          },
+          {
+            "assertion": "expected_height",
+            "passed": true,
+            "detail": "actual=448 expected=448"
+          },
+          {
+            "assertion": "min_mean_luma",
+            "passed": true,
+            "detail": "actual=122.763027 minimum=25.0"
+          },
+          {
+            "assertion": "dhash_distance",
+            "passed": true,
+            "detail": "actual=422f2b83a3291955 expected=422f2b83a3291955 distance=0 maximum=2"
+          }
+        ]
+      },
+      {
+        "id": "library-result-2400",
+        "frame": 2400,
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/v041-best-chart/frames/02400-library-result-2400.png",
+        "width": 640,
+        "height": 448,
+        "pixel_format": "XRGB8888",
+        "mean_luma": 75.769029,
+        "dhash": "8d910d2b2b2b3d0f",
+        "dhash_region": null,
+        "assertion_dhash": "8d910d2b2b2b3d0f",
+        "rgba_sha256": "ca28f5f1840da1b607920cbb4a3e6a2a3fd10c68bb9373697017c8e03642b92d",
+        "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+        "assertions": [
+          {
+            "assertion": "expected_width",
+            "passed": true,
+            "detail": "actual=640 expected=640"
+          },
+          {
+            "assertion": "expected_height",
+            "passed": true,
+            "detail": "actual=448 expected=448"
+          },
+          {
+            "assertion": "min_mean_luma",
+            "passed": true,
+            "detail": "actual=75.769029 minimum=25.0"
+          },
+          {
+            "assertion": "dhash_distance",
+            "passed": true,
+            "detail": "actual=8d910d2b2b2b3d0f expected=8d910d2b2b2b3d0f distance=0 maximum=2"
+          }
+        ]
+      },
+      {
+        "id": "chart-selected",
+        "frame": 2760,
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/v041-best-chart/frames/02760-chart-selected.png",
+        "width": 640,
+        "height": 448,
+        "pixel_format": "XRGB8888",
+        "mean_luma": 75.561614,
+        "dhash": "8d910d2b2b2b3d0f",
+        "dhash_region": null,
+        "assertion_dhash": "8d910d2b2b2b3d0f",
+        "rgba_sha256": "7e22a077303020b7a3173b16df549bc01a158c2d31e866ae8d9ff976e182e1aa",
+        "png_sha256": "61575e1d5ca2e53a3f8277db0a2b72692e03eab2cd0fb8aeb1e6c22a8c5b37d0",
+        "assertions": [
+          {
+            "assertion": "expected_width",
+            "passed": true,
+            "detail": "actual=640 expected=640"
+          },
+          {
+            "assertion": "expected_height",
+            "passed": true,
+            "detail": "actual=448 expected=448"
+          },
+          {
+            "assertion": "min_mean_luma",
+            "passed": true,
+            "detail": "actual=75.561614 minimum=25.0"
+          },
+          {
+            "assertion": "dhash_distance",
+            "passed": true,
+            "detail": "actual=8d910d2b2b2b3d0f expected=8d910d2b2b2b3d0f distance=0 maximum=2"
+          }
+        ]
+      },
+      {
+        "id": "chart-open-3000",
+        "frame": 3000,
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/v041-best-chart/frames/03000-chart-open-3000.png",
+        "width": 640,
+        "height": 448,
+        "pixel_format": "XRGB8888",
+        "mean_luma": 48.713539,
+        "dhash": "733f3e1e368e8e76",
+        "dhash_region": null,
+        "assertion_dhash": "733f3e1e368e8e76",
+        "rgba_sha256": "84843633ca5ef8fce5b12a9c5b10a5420f8e0a27894f761bd17c721e2e7088d8",
+        "png_sha256": "f69ee5e4e92681ffbca821192be3cbff4c465b6200bf1d52a67257beddea2541",
+        "assertions": [
+          {
+            "assertion": "expected_width",
+            "passed": true,
+            "detail": "actual=640 expected=640"
+          },
+          {
+            "assertion": "expected_height",
+            "passed": true,
+            "detail": "actual=448 expected=448"
+          },
+          {
+            "assertion": "min_mean_luma",
+            "passed": true,
+            "detail": "actual=48.713539 minimum=25.0"
+          },
+          {
+            "assertion": "dhash_distance",
+            "passed": true,
+            "detail": "actual=733f3e1e368e8e76 expected=733f3e1e368e8e76 distance=0 maximum=2"
+          }
+        ]
+      },
+      {
+        "id": "chart-open-3540",
+        "frame": 3540,
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/v041-best-chart/frames/03540-chart-open-3540.png",
+        "width": 640,
+        "height": 448,
+        "pixel_format": "XRGB8888",
+        "mean_luma": 46.875868,
+        "dhash": "712b3f1e26161e66",
+        "dhash_region": null,
+        "assertion_dhash": "712b3f1e26161e66",
+        "rgba_sha256": "44d9149e951b3601abc4683cf5257d3dc463e4dded19f245dbb7ad2a3e6c3e47",
+        "png_sha256": "67ff435f365d49493711e44930436cbd49f4f8041ac373f72873f2386e112e38",
+        "assertions": [
+          {
+            "assertion": "expected_width",
+            "passed": true,
+            "detail": "actual=640 expected=640"
+          },
+          {
+            "assertion": "expected_height",
+            "passed": true,
+            "detail": "actual=448 expected=448"
+          },
+          {
+            "assertion": "min_mean_luma",
+            "passed": true,
+            "detail": "actual=46.875868 minimum=25.0"
+          },
+          {
+            "assertion": "dhash_distance",
+            "passed": true,
+            "detail": "actual=712b3f1e26161e66 expected=712b3f1e26161e66 distance=0 maximum=2"
+          }
+        ]
+      },
+      {
+        "id": "chart-return",
+        "frame": 3900,
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/v041-best-chart/frames/03900-chart-return.png",
+        "width": 640,
+        "height": 448,
+        "pixel_format": "XRGB8888",
+        "mean_luma": 75.561614,
+        "dhash": "8d910d2b2b2b3d0f",
+        "dhash_region": null,
+        "assertion_dhash": "8d910d2b2b2b3d0f",
+        "rgba_sha256": "7e22a077303020b7a3173b16df549bc01a158c2d31e866ae8d9ff976e182e1aa",
+        "png_sha256": "61575e1d5ca2e53a3f8277db0a2b72692e03eab2cd0fb8aeb1e6c22a8c5b37d0",
+        "assertions": [
+          {
+            "assertion": "expected_width",
+            "passed": true,
+            "detail": "actual=640 expected=640"
+          },
+          {
+            "assertion": "expected_height",
+            "passed": true,
+            "detail": "actual=448 expected=448"
+          },
+          {
+            "assertion": "min_mean_luma",
+            "passed": true,
+            "detail": "actual=75.561614 minimum=25.0"
+          },
+          {
+            "assertion": "dhash_distance",
+            "passed": true,
+            "detail": "actual=8d910d2b2b2b3d0f expected=8d910d2b2b2b3d0f distance=0 maximum=2"
+          }
+        ]
+      },
+      {
+        "id": "chart-reopened",
+        "frame": 4200,
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/v041-best-chart/frames/04200-chart-reopened.png",
+        "width": 640,
+        "height": 448,
+        "pixel_format": "XRGB8888",
+        "mean_luma": 48.669081,
+        "dhash": "733f3e1e368e8e76",
+        "dhash_region": null,
+        "assertion_dhash": "733f3e1e368e8e76",
+        "rgba_sha256": "bc74434663419e71cb7d20047a097f10c2c9bfa31daba730c7b8354804ed4b94",
+        "png_sha256": "97e907061062a5b259d0520f322b61096a306e9482cd03ef8ad111b8aced583f",
+        "assertions": [
+          {
+            "assertion": "expected_width",
+            "passed": true,
+            "detail": "actual=640 expected=640"
+          },
+          {
+            "assertion": "expected_height",
+            "passed": true,
+            "detail": "actual=448 expected=448"
+          },
+          {
+            "assertion": "min_mean_luma",
+            "passed": true,
+            "detail": "actual=48.669081 minimum=25.0"
+          }
+        ]
+      },
+      {
+        "id": "chapter-overview",
+        "frame": 4500,
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/v041-best-chart/frames/04500-chapter-overview.png",
+        "width": 640,
+        "height": 448,
+        "pixel_format": "XRGB8888",
+        "mean_luma": 86.571749,
+        "dhash": "377741694169016b",
+        "dhash_region": null,
+        "assertion_dhash": "377741694169016b",
+        "rgba_sha256": "72d9a12babff8c97c898812c891327b3953fba23fc22a6ccbc2cf6ab0f75e81b",
+        "png_sha256": "4769933387300409b51ad80456d2cf8761dbbfc3f6d3ea06c277564217a0ab0a",
+        "assertions": [
+          {
+            "assertion": "expected_width",
+            "passed": true,
+            "detail": "actual=640 expected=640"
+          },
+          {
+            "assertion": "expected_height",
+            "passed": true,
+            "detail": "actual=448 expected=448"
+          },
+          {
+            "assertion": "min_mean_luma",
+            "passed": true,
+            "detail": "actual=86.571749 minimum=25.0"
+          }
+        ]
+      },
+      {
+        "id": "chart-after-overview",
+        "frame": 4800,
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/v041-best-chart/frames/04800-chart-after-overview.png",
+        "width": 640,
+        "height": 448,
+        "pixel_format": "XRGB8888",
+        "mean_luma": 48.697307,
+        "dhash": "733f3e1e368e8e76",
+        "dhash_region": null,
+        "assertion_dhash": "733f3e1e368e8e76",
+        "rgba_sha256": "3d5a2f93e7dc40b08543e95b440f00abbb7cbbbaeffb118f5cf5a50d885cfb63",
+        "png_sha256": "6d5317c5dc169a9f57e1b9cc49ca6b098a734b8cb1dd5a5aa5bee184bc60fded",
+        "assertions": [
+          {
+            "assertion": "expected_width",
+            "passed": true,
+            "detail": "actual=640 expected=640"
+          },
+          {
+            "assertion": "expected_height",
+            "passed": true,
+            "detail": "actual=448 expected=448"
+          },
+          {
+            "assertion": "min_mean_luma",
+            "passed": true,
+            "detail": "actual=48.697307 minimum=25.0"
+          }
+        ]
+      },
+      {
+        "id": "library-after-second-return",
+        "frame": 5100,
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/v041-best-chart/frames/05100-library-after-second-return.png",
+        "width": 640,
+        "height": 448,
+        "pixel_format": "XRGB8888",
+        "mean_luma": 75.561614,
+        "dhash": "8d910d2b2b2b3d0f",
+        "dhash_region": null,
+        "assertion_dhash": "8d910d2b2b2b3d0f",
+        "rgba_sha256": "7e22a077303020b7a3173b16df549bc01a158c2d31e866ae8d9ff976e182e1aa",
+        "png_sha256": "61575e1d5ca2e53a3f8277db0a2b72692e03eab2cd0fb8aeb1e6c22a8c5b37d0",
+        "assertions": [
+          {
+            "assertion": "expected_width",
+            "passed": true,
+            "detail": "actual=640 expected=640"
+          },
+          {
+            "assertion": "expected_height",
+            "passed": true,
+            "detail": "actual=448 expected=448"
+          },
+          {
+            "assertion": "min_mean_luma",
+            "passed": true,
+            "detail": "actual=75.561614 minimum=25.0"
+          },
+          {
+            "assertion": "dhash_distance",
+            "passed": true,
+            "detail": "actual=8d910d2b2b2b3d0f expected=8d910d2b2b2b3d0f distance=0 maximum=2"
+          }
+        ]
+      }
+    ]
+  },
+  "qa_sr_points": {
+    "original": {
+      "receipt": {
+        "path": "work/runtime/lrps2/qa-punctuation-fix-20260909/original/receipt.json",
+        "size": 11718,
+        "sha256": "7b79f0e22a926100d5718afd4fed7b862c4064f55b765a30f0ae223d0d93f5ac"
+      },
+      "iso": {
+        "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-original.iso",
+        "size": 3758358528,
+        "sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6"
+      },
+      "status": "passed",
+      "visual_acceptance": {
+        "full_red_warning_and_both_quotes": true,
+        "normal_color_period_on_same_row": true,
+        "scroll_and_return": true,
+        "frames_viewed": [
+          3900,
+          4500
+        ]
+      },
+      "source_memory_card_unchanged": true,
+      "captures": [
+        {
+          "path": "work/runtime/lrps2/qa-punctuation-fix-20260909/original/frames/03900-sr-answer.png",
+          "sha256": "1c4e2afb6121d30d6fc9122d17887ad98d9a00dc82a6f6524caba42b182b3254"
+        },
+        {
+          "path": "work/runtime/lrps2/qa-punctuation-fix-20260909/original/frames/04500-sr-return-top.png",
+          "sha256": "46878520bc5ca9e4e164924a43bd869810b43e60f4baa93a9259d7e8776c8946"
+        }
+      ]
+    },
+    "best": {
+      "receipt": {
+        "path": "work/runtime/lrps2/qa-punctuation-fix-20260909/best/receipt.json",
+        "size": 11658,
+        "sha256": "3c6a65813dbc8fd82a88feb9d85fd8089d6b318ede03a54c0d06ae5926b2ce1b"
+      },
+      "iso": {
+        "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso",
+        "size": 3755081728,
+        "sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c"
+      },
+      "status": "passed",
+      "visual_acceptance": {
+        "full_red_warning_and_both_quotes": true,
+        "normal_color_period_on_same_row": true,
+        "scroll_and_return": true,
+        "frames_viewed": [
+          3900,
+          4500
+        ]
+      },
+      "source_memory_card_unchanged": true,
+      "captures": [
+        {
+          "path": "work/runtime/lrps2/qa-punctuation-fix-20260909/best/frames/03900-sr-answer.png",
+          "sha256": "dd458afd3ed96a240a09ec46f900b48fa1fd44951a4d00a7ead886074b2787fc"
+        },
+        {
+          "path": "work/runtime/lrps2/qa-punctuation-fix-20260909/best/frames/04500-sr-return-top.png",
+          "sha256": "9cecd31a3e85e42154e77fb096de38efc20df700318544d8c32517597034e2ca"
+        }
+      ]
+    }
+  },
+  "pcsx2": "not_executed",
+  "scope_limit": "Only the recorded routes and exact ISO hashes; no full-route or all-save compatibility claim."
+}

@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "source_head": "180663c37b28713cb91a8db900bd86e53a8c5b83",
+  "build_snapshot_source_head": "bc0c667c5972afc5f16a305a9d9d4fb5a69a6756",
+  "input_digest": "3e738e23a2b3dc3962b06bf07ea4406d0179acef242034fe7e1bace6f24f6746",
+  "scope": "Working tree compared before release metadata edits. All tools, corpus, edition layout and font inputs match the actual build snapshot. Differences are generated output locks and byte-free validation reports. The Q&A implementation that was uncommitted at build time is committed in source_head.",
+  "differences": [
+    {
+      "path": "config/full-story-components.json",
+      "before": {
+        "mode": 420,
+        "path": "config/full-story-components.json",
+        "sha256": "86c2d572fb677a9e3741627149e3f5e810f52e3ea019149ce728ddcc64541ed9",
+        "size": 91265
+      },
+      "after": {
+        "path": "config/full-story-components.json",
+        "size": 91265,
+        "sha256": "c482ebde31fb4104109901bf28240714a89744144c16a60dc4606b976a7a83f9",
+        "mode": 420
+      }
+    },
+    {
+      "path": "config/iso/zh-release-current-build.json",
+      "before": {
+        "mode": 420,
+        "path": "config/iso/zh-release-current-build.json",
+        "sha256": "7bd436c57e19f579d81e6d0d009f705407543948238d4f4194e2b08dc6644a23",
+        "size": 8993
+      },
+      "after": {
+        "path": "config/iso/zh-release-current-build.json",
+        "size": 8993,
+        "sha256": "580da294322cc733dec430118c5279a4c3f69c606aded3c41872a2462c1a26aa",
+        "mode": 420
+      }
+    },
+    {
+      "path": "manifests/full-story-components-validation.json",
+      "before": {
+        "mode": 420,
+        "path": "manifests/full-story-components-validation.json",
+        "sha256": "7f9d20934db10b887d8e9dfea0fa4e9ee1397e001fd8975a20bd9cc3daab7705",
+        "size": 2217586
+      },
+      "after": {
+        "path": "manifests/full-story-components-validation.json",
+        "size": 2217585,
+        "sha256": "3cfaeb947ecc62e0c090686085350b587cb3a088b9c46d91c1fa7844ad765694",
+        "mode": 420
+      }
+    },
+    {
+      "path": "manifests/full-story-library-components-validation.json",
+      "before": {
+        "mode": 420,
+        "path": "manifests/full-story-library-components-validation.json",
+        "sha256": "c3738695d04d6831c3ad80f72edb56adbd3dc5e357aae2496acde41eadc30ee9",
+        "size": 3102843
+      },
+      "after": {
+        "path": "manifests/full-story-library-components-validation.json",
+        "size": 3102842,
+        "sha256": "0faaa9562407a6cf7e39179c4ce891ac1be2abf7a62d756cf7cdbb1e88ce8760",
+        "mode": 420
+      }
+    },
+    {
+      "path": "manifests/qa-punctuation-fix-20260909.json",
+      "before": null,
+      "after": {
+        "path": "manifests/qa-punctuation-fix-20260909.json",
+        "size": 35979,
+        "sha256": "8febf7674f12f97b8444fec9d2098cfdd82d2826d39b775369baae640106f77c",
+        "mode": 420
+      }
+    },
+    {
+      "path": "manifests/ui-search-squad-help-20260909.json",
+      "before": null,
+      "after": {
+        "path": "manifests/ui-search-squad-help-20260909.json",
+        "size": 23846,
+        "sha256": "559fb7f9ed82cefadae3ba089278ee4a034d2cd1b2a48b85c6f60806bf52e608",
+        "mode": 420
+      }
+    },
+    {
+      "path": "manifests/zh-release-full-story-iso-content-validation.json",
+      "before": {
+        "mode": 420,
+        "path": "manifests/zh-release-full-story-iso-content-validation.json",
+        "sha256": "a6a5014e1b80f912a52080b90a385f091c1c6c8945dee4f97aea46cd2b590890",
+        "size": 411246
+      },
+      "after": {
+        "path": "manifests/zh-release-full-story-iso-content-validation.json",
+        "size": 411246,
+        "sha256": "f518377c2e25ddaf757b471b6a271a09c59b7825b6a6bd77a4e82b9496fce415",
+        "mode": 420
+      }
+    }
+  ],
+  "release_metadata_changes_do_not_change_game_bytes": true
+}

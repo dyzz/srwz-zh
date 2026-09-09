@@ -9,23 +9,25 @@
 
 ## 长期保留的 ISO
 
-自 v0.4.0 发布后，本地长期保留以下六份 ISO：两版冻结发布镜像、两版日文原盘、
-两版 current 工作镜像。原盘使用 `original.iso` 与 `best.iso`。
+自 v0.4.1 发布后，本地长期保留以下八份 ISO：v0.4.0 与 v0.4.1 各两版冻结发布镜像、
+两版日文原盘、两版 current 工作镜像。原盘使用 `original.iso` 与 `best.iso`。
 机器可读路径见 `config/iso/retained-isos.json`。
 
 | 槽位 | 实际路径 | 用途 |
 | --- | --- | --- |
 | `0.4.0-original` | `build/iso/v0.4.0/0.4.0-original.iso` | v0.4.0 初版冻结镜像 |
 | `0.4.0-best` | `build/iso/v0.4.0/0.4.0-best.iso` | v0.4.0 The Best 冻结镜像 |
+| `0.4.1-original` | `build/iso/v0.4.1/srwz-zh-v0.4.1-original.iso` | v0.4.1 初版冻结镜像 |
+| `0.4.1-best` | `build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso` | v0.4.1 The Best 冻结镜像 |
 | `current-original` | `build/iso/zh-release-full-story/current-original.iso` | 当前 Original 中文工作镜像 |
 | `current-best` | `build/iso/zh-release-best/current-best.iso` | 当前 BEST 中文工作镜像；身份及回读记录见 `manifests/editions/best/current.json` |
 | `original` | `rom/original.iso` | Original 原盘，只读输入 |
 | `best` | `rom/best.iso` | BEST 原盘，只读输入 |
 
 v0.3.0、旧 `srwz-zh-current.iso` 与各工作区中的重复 ISO 不再长期保留。两版 current
-可以随后续开发更新；两份 0.4.0 镜像保持发布时字节不变。两份 0.4.0 未压缩 ISO
+可以随后续开发更新；四份版本化镜像保持各自发布时字节不变。两份 0.4.0 未压缩 ISO
 同时作为后续玩家反馈的固定复现与调试基准，打包 ZIP 后也继续保留；不另增调试副本。
-上传用 ZIP 独立保存，不计入六个 ISO 槽位。
+上传用 ZIP 独立保存，不计入八个 ISO 槽位。
 
 目录仍按构建 profile 隔离；统一文件名不更换底盘、不修改镜像字节。Redump 的规范
 文件名继续保留在来源元数据中，本地原盘路径使用上表名称。
@@ -86,6 +88,9 @@ build/
     v0.4.0/
       0.4.0-original.iso
       0.4.0-best.iso
+    v0.4.1/
+      srwz-zh-v0.4.1-original.iso
+      srwz-zh-v0.4.1-best.iso
     zh-release-full-story/
       current-original.iso
       iso-validation-current.json
@@ -129,7 +134,7 @@ build/
 ### `build/iso/<profile>/`：最终产物
 
 - 只保存用户实际拿来运行的候选 ISO 和同次构建报告。
-- 长期保留两份冻结 `0.4.0` 镜像、`current-original` 和 `current-best`；精确路径见上表。
+- 长期保留四份冻结 `0.4.0`／`0.4.1` 镜像、`current-original` 和 `current-best`；精确路径见上表。
 - ISO 必须从对应 `work/build/<profile>/components` 和 authoring workspace
   一次生成，不允许 patch-over-patch。
 - 输出路径由 config 固定，禁止回退到 `work/iso/` 或仓库根目录。

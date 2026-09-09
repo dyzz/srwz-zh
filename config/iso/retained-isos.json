@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "policy": "After verification retain only these six ISO slots; build copies are temporary. Keep reports, components, runtime evidence and saves separately.",
+  "policy": "After verification retain these eight ISO slots: both v0.4.0 and v0.4.1 release editions, two source discs and two current outputs. Build copies are temporary. Keep reports, components, runtime evidence and saves separately.",
   "slots": {
     "current-original": {
       "path": "build/iso/zh-release-full-story/current-original.iso",
@@ -28,6 +28,16 @@
       "path": "build/iso/v0.4.0/0.4.0-best.iso",
       "role": "frozen_release",
       "purpose": "Fixed ISO for reproducing and debugging v0.4.0 player reports; retain the unpacked ISO even when a ZIP exists."
+    },
+    "0.4.1-original": {
+      "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-original.iso",
+      "role": "frozen_release",
+      "purpose": "Fixed v0.4.1 hotfix ISO for reproducing player reports; preserve the published bytes independently of current development."
+    },
+    "0.4.1-best": {
+      "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso",
+      "role": "frozen_release",
+      "purpose": "Fixed v0.4.1 hotfix ISO for reproducing player reports; preserve the published bytes independently of current development."
     }
   }
 }

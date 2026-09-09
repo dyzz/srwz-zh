@@ -1,0 +1,108 @@
+{
+  "schema_version": 2,
+  "version": "0.4.1",
+  "tag": "v0.4.1",
+  "channel": "stable",
+  "format": "xdelta3-vcdiff",
+  "patches": {
+    "original": {
+      "filename": "srwz-zh-v0.4.1-original.xdelta",
+      "size": 15124945,
+      "sha256": "b0928e4aacde772c1f7f802aa10d08702a112feaed4efdf9147b9925c5fb71cd",
+      "source_iso": {
+        "path": "rom/original.iso",
+        "size": 3758358528,
+        "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2"
+      },
+      "target_iso": {
+        "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-original.iso",
+        "size": 3758358528,
+        "sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6"
+      },
+      "reconstructed_size_matches": true,
+      "reconstructed_sha256_matches": true
+    },
+    "best": {
+      "filename": "srwz-zh-v0.4.1-best.xdelta",
+      "size": 15209519,
+      "sha256": "4dde8e49a00f0bd1ed0580b4ae7364caf5a5de243265a7c8e16ce8982fac8dfb",
+      "source_iso": {
+        "path": "rom/best.iso",
+        "size": 3755081728,
+        "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77"
+      },
+      "target_iso": {
+        "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso",
+        "size": 3755081728,
+        "sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c"
+      },
+      "reconstructed_size_matches": true,
+      "reconstructed_sha256_matches": true
+    }
+  },
+  "input_digest": "3e738e23a2b3dc3962b06bf07ea4406d0179acef242034fe7e1bace6f24f6746",
+  "runtime": "targeted_lrps2_passed_for_release_iso_hashes",
+  "tool": {
+    "executable": "xdelta3",
+    "version_line": "Xdelta version 3.2.0, Copyright (C) Joshua MacDonald",
+    "encode_args": [
+      "-e",
+      "-9",
+      "-S",
+      "djw",
+      "-A",
+      "-a"
+    ]
+  },
+  "iso_in_release_package": false,
+  "evidence": [
+    {
+      "path": "config/release/v0.4.1.json",
+      "sha256": "fc3f745324124d48c4623e2d36ed35ba0895b8918f5ae2367340e5e8bcb63e6e"
+    },
+    {
+      "path": "tools/build_release.py",
+      "sha256": "0dde9fe13085a0abcfce9e04eddd1751c83a3b2796fedf479a71038d8b25f581"
+    },
+    {
+      "path": "manifests/releases/v0.4.1/validation.json",
+      "sha256": "803542817954c313bd6221bdc9abcce5d3f417470f697e90b8cd1e8ee6d6ce5d"
+    },
+    {
+      "path": "docs/RELEASE_NOTES_V0.4.0.md",
+      "sha256": "fa702454d4c9da9fca43776bf275261f8921f3d919669a9fb7c1ef98953c883b"
+    },
+    {
+      "path": "config/editions/original/edition.json",
+      "sha256": "ee1d500ef89147e128b0270ae03c01b5cbe738876bc64f07da062659ca236e1a"
+    },
+    {
+      "path": "manifests/releases/v0.4.1/original-readback.json",
+      "sha256": "f518377c2e25ddaf757b471b6a271a09c59b7825b6a6bd77a4e82b9496fce415"
+    },
+    {
+      "path": "config/editions/best/edition.json",
+      "sha256": "7aadd5ec5860d0e6e33cbee79edcbb41e3482d70ac937b05fbe3b2fb8fa660f9"
+    },
+    {
+      "path": "manifests/releases/v0.4.1/best-readback.json",
+      "sha256": "76f495c277c0646cf23c45dd42e2fbefd5c68aed0b7b429dc98162cb61067787"
+    },
+    {
+      "path": "manifests/releases/v0.4.1/runtime.json",
+      "sha256": "660d3690b08450829fa6a85339ebf4b65775c1a73bdbf96f940a0174bfc314f0"
+    },
+    {
+      "path": "manifests/releases/v0.4.1/source-binding.json",
+      "sha256": "6002c8c11cbed950e14a9c4d0ec6d26ca498d93628e685f9739255379a2ed457"
+    },
+    {
+      "path": "docs/BEST_SCENARIO_CHART_FIX_20260909.md",
+      "sha256": "9680dbc8af01b97bab0cfe8718c53bc240fb47dcc794084b6fafeceb446a491a"
+    },
+    {
+      "path": "docs/QA_PUNCTUATION_FIX_20260909.md",
+      "sha256": "0df230d63c23ef271862c5904e0d438a1c762ac67e53302dd62c322d26c34174"
+    }
+  ]
+}
