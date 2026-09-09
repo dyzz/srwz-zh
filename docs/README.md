@@ -15,6 +15,7 @@
 | `PRODUCTION_PIPELINE.md` | 生产事实源、构建顺序与失败门 |
 | `ARCHITECTURE.md` | 数据边界、构建分层和工具链归属 |
 | `ISO_DIRECTORY_LAYOUT.md` | `rom/work/build` 的目录所有权与清理边界 |
+| [WORK_DIRECTORY_LAYOUT.md](WORK_DIRECTORY_LAYOUT.md) | 唯一 work 目录、存档迁移位置与缓存恢复规则 |
 | `THIRD_PARTY_FONTS.md` | 字体来源、版本和许可证 |
 
 ## 技术参考

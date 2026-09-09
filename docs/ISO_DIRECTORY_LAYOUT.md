@@ -4,6 +4,9 @@
 分层，并以 ISO profile ID 隔离。`tools/build_iso.py` 会在读取配置时
 校验这些边界，错误路径不会开始构建。
 
+本地工作数据统一放在本仓库的 `work/`，父目录同名目录已合并；分类、存档迁移
+与历史缓存恢复方式见 [work 目录说明](WORK_DIRECTORY_LAYOUT.md)。
+
 ## 长期保留的 ISO
 
 自 v0.4.0 发布后，本地长期保留以下六份 ISO：两版冻结发布镜像、两版日文原盘、
@@ -125,7 +128,7 @@ build/
 ### `build/iso/<profile>/`：最终产物
 
 - 只保存用户实际拿来运行的候选 ISO 和同次构建报告。
-- 长期保留冻结 `0.3.0`、`current-original` 和 `current-best`；精确路径见上表。
+- 长期保留两份冻结 `0.4.0` 镜像、`current-original` 和 `current-best`；精确路径见上表。
 - ISO 必须从对应 `work/build/<profile>/components` 和 authoring workspace
   一次生成，不允许 patch-over-patch。
 - 输出路径由 config 固定，禁止回退到 `work/iso/` 或仓库根目录。
@@ -153,7 +156,7 @@ build/
 | `work/disc/` | 是 | 重新选择性提取 |
 | `work/build/<profile>/components/` | 是 | 重跑 component build |
 | `work/build/<profile>/iso/` | 是 | 重跑 ISO build；必要时 refresh extraction |
-| `build/iso/<profile>/` | 是 | 从固定输入重新构建 |
+| `build/iso/<profile>/` | 仅旧候选和临时副本 | 按固定输入重建；上表中的冻结镜像及 current 槽位须保留 |
 | `work/runtime/<profile>/` | 审核后 | 重跑 LRPS2 场景或重新执行 PCSX2 手工验收 |
 
 清理命令不得把 `rom/`、仓库根目录或未解析变量作为递归目标。需要保留运行证明
