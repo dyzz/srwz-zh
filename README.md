@@ -123,10 +123,15 @@ python3 tools/build_release.py --config config/release/v0.4.0.json
 AL-E、丸子行者、yagamitmd、紫荆花火、八翼大天使小鹿、苏苏千层饼、
 Selkie诗依路、EVA高达、往常99、木扣螺丝、菠蘿达、qw3r4y、jegun、
 蒙古王者风行烈、帝王松哥、贴吧用户_aZMJb7Q、白鸟九十九、bgcnh、
-bili1040142989、内阁学士、审阅站用户「兰德与桑德曼」、hhbbghjjbbhhhg。
+bili1040142989、内阁学士、hhbbghjjbbhhhg、大根1112、ReniMil。
 
-也感谢所有参与测试、提供反馈并持续关注项目的玩家。大家的帮助让许多低频路线、
-特殊界面和文本细节得以被发现和完善。
+审阅站（含历史昵称）：
+
+兰德与桑德曼、兰德、桑德曼、巨蟹、优莱卡、理惠、平成鱼、蒂珐、
+丹泽尔、卡洛德、艾法、卡缪、亚伯、史黛拉、裘露。
+
+也感谢 Ae1b 的留言鼓励，以及所有参与测试、提供反馈并持续关注项目的朋友。
+大家的帮助让许多低频路线、特殊界面和文本细节得以被发现和完善。
 
 特别感谢 [fortiersteven/Super-Robot-Wars-Z](https://github.com/fortiersteven/Super-Robot-Wars-Z)
 提供的早期研究与工具基础。本项目参考并固定引用了该项目提交
