@@ -43,6 +43,7 @@ QA_METADATA_GROUPS = (
 )
 QA_METADATA_STRING_COUNT = sum(count for _name, count in QA_METADATA_GROUPS)
 QA_TEXT_RECORD_COUNT = 2609
+QA_CLOSING_PUNCTUATION = frozenset("。，、；：！？”’」』）】》〉")
 
 
 class NisvStrategyQaError(ValueError):
@@ -405,6 +406,37 @@ def layout_nisv_strategy_qa_page(
         cursor_x: int | None = None
         visible_in_block = False
 
+        # A colour boundary is not a legal break before closing punctuation.
+        # Keep a punctuation-only continuation with its preceding record when
+        # the complete group fits on a continuation row. Do not reinterpret
+        # fixed table columns or join separate paragraphs.
+        flow_ordinals = [
+            ordinal for source_y, ordinals in block for ordinal in ordinals
+            if str(corpus_records[ordinal].get("translation", ""))
+        ]
+        fixed_ordinals = {
+            ordinal for source_y, ordinals in block if source_y in fixed_lines
+            for ordinal in ordinals
+        }
+        attached_widths = {}
+        for index, ordinal in enumerate(flow_ordinals):
+            if ordinal in fixed_ordinals:
+                continue
+            text = str(corpus_records[ordinal]["translation"])
+            suffix_length = 0
+            for following in flow_ordinals[index + 1:]:
+                following_text = str(corpus_records[following]["translation"])
+                if following in fixed_ordinals or not all(
+                    char in QA_CLOSING_PUNCTUATION for char in following_text
+                ):
+                    break
+                suffix_length += len(following_text)
+            if suffix_length and (
+                continuation_x + (len(text) + suffix_length - 1) * glyph_advance_px
+                <= max_last_glyph_x
+            ):
+                attached_widths[ordinal] = len(text) + suffix_length
+
         for source_y, ordinals in block:
             visible_ordinals = [
                 ordinal
@@ -466,7 +498,8 @@ def layout_nisv_strategy_qa_page(
                         if gap < glyph_advance_px:
                             preserved_gap = gap
                     output_x = cursor_x + preserved_gap
-                last_x = output_x + (len(translation) - 1) * glyph_advance_px
+                fitting_length = attached_widths.get(ordinal, len(translation))
+                last_x = output_x + (fitting_length - 1) * glyph_advance_px
                 if last_x > max_last_glyph_x:
                     output_y += line_step_y
                     output_x = continuation_x

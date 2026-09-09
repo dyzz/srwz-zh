@@ -1,0 +1,1525 @@
+{
+  "date": "2026-09-09",
+  "issue": "https://github.com/dyzz/srwz-zh/issues/22",
+  "status": "fixed_static_and_dual_lrps2_accepted",
+  "tests": {
+    "passed": 263,
+    "new_regressions": 4
+  },
+  "iso_readback": [
+    {
+      "edition": "original",
+      "iso": {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6",
+        "size": 3758358528
+      },
+      "input_digest": "3e738e23a2b3dc3962b06bf07ea4406d0179acef242034fe7e1bace6f24f6746",
+      "qa_sha256": "8f92e516a961b483108f794ba636f6112b878d0f51b1f1f180ec600491646ef9",
+      "all_text_styles_metadata_and_nonposition_bytes_unchanged": true,
+      "changes": [
+        {
+          "id": "page/031/record/013",
+          "before": [
+            513,
+            47
+          ],
+          "after": [
+            19,
+            58
+          ]
+        },
+        {
+          "id": "page/031/record/014",
+          "before": [
+            19,
+            58
+          ],
+          "after": [
+            57,
+            58
+          ]
+        },
+        {
+          "id": "page/051/record/018",
+          "before": [
+            399,
+            102
+          ],
+          "after": [
+            19,
+            113
+          ]
+        },
+        {
+          "id": "page/051/record/019",
+          "before": [
+            19,
+            113
+          ],
+          "after": [
+            171,
+            113
+          ]
+        },
+        {
+          "id": "page/093/record/013",
+          "before": [
+            361,
+            80
+          ],
+          "after": [
+            19,
+            91
+          ]
+        },
+        {
+          "id": "page/093/record/014",
+          "before": [
+            19,
+            91
+          ],
+          "after": [
+            209,
+            91
+          ]
+        }
+      ]
+    },
+    {
+      "edition": "best",
+      "iso": {
+        "path": "build/iso/zh-release-best/current-best.iso",
+        "sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c",
+        "size": 3755081728
+      },
+      "input_digest": "3e738e23a2b3dc3962b06bf07ea4406d0179acef242034fe7e1bace6f24f6746",
+      "qa_sha256": "8f92e516a961b483108f794ba636f6112b878d0f51b1f1f180ec600491646ef9",
+      "all_text_styles_metadata_and_nonposition_bytes_unchanged": true,
+      "changes": [
+        {
+          "id": "page/031/record/013",
+          "before": [
+            513,
+            47
+          ],
+          "after": [
+            19,
+            58
+          ]
+        },
+        {
+          "id": "page/031/record/014",
+          "before": [
+            19,
+            58
+          ],
+          "after": [
+            57,
+            58
+          ]
+        },
+        {
+          "id": "page/051/record/018",
+          "before": [
+            399,
+            102
+          ],
+          "after": [
+            19,
+            113
+          ]
+        },
+        {
+          "id": "page/051/record/019",
+          "before": [
+            19,
+            113
+          ],
+          "after": [
+            171,
+            113
+          ]
+        },
+        {
+          "id": "page/093/record/013",
+          "before": [
+            361,
+            80
+          ],
+          "after": [
+            19,
+            91
+          ]
+        },
+        {
+          "id": "page/093/record/014",
+          "before": [
+            19,
+            91
+          ],
+          "after": [
+            209,
+            91
+          ]
+        }
+      ]
+    }
+  ],
+  "batch_verification": {
+    "status": "edition_batch_receipt_integrity_passed",
+    "input_digest": "3e738e23a2b3dc3962b06bf07ea4406d0179acef242034fe7e1bace6f24f6746",
+    "verified_editions": [
+      "original",
+      "best"
+    ],
+    "both_editions": true,
+    "runtime": "not_tested",
+    "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+  },
+  "remaining_candidates": {
+    "remaining_count": 44,
+    "remaining_pages": 30,
+    "resolved_ids": [
+      "page/031/record/014",
+      "page/051/record/019",
+      "page/093/record/014"
+    ],
+    "remaining_candidates": [
+      {
+        "id": "page/002/record/006",
+        "question_source": "トライフォーメーションとは？",
+        "text": "，其他",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          47,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/002/record/005",
+          "text": "TRI攻击",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            456,
+            36,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/013/record/020",
+        "question_source": "ダメージを増やすためには？（武器編）",
+        "text": "，从S起伤害依次降低，－表示无法攻击该地形的敌人。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          102,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/013/record/019",
+          "text": "级",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            266,
+            91,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/016/record/004",
+        "question_source": "攻撃方法の種類",
+        "text": "。编成小队并选择队形后，还能使用其他攻击方法。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          36,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/016/record/003",
+          "text": "通常攻击",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            399,
+            25,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/016/record/011",
+        "question_source": "攻撃方法の種類",
+        "text": "，以及应对敌方攻击进行的",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          69,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/016/record/010",
+          "text": "护攻击",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            323,
+            58,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/019/record/010",
+        "question_source": "ワイド・フォーメーションの攻撃",
+        "text": "。若敌小队中没有对应位置的单位，该机就无法参与攻击。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          58,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/019/record/009",
+          "text": "2",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            475,
+            47,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/020/record/017",
+        "question_source": "援護攻撃",
+        "text": "，且仍有援护次数（＝援",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          57,
+          113,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/020/record/016",
+          "text": "援护攻击",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            361,
+            102,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/026/record/016",
+        "question_source": "マップ兵器とは？",
+        "text": "，不受队形对全体攻击的伤害减少影响。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          102,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/026/record/015",
+          "text": "有所不同",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            266,
+            91,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/027/record/009",
+        "question_source": "追加効果武器とは？",
+        "text": "。命中后，除伤害外还会对敌人施加其他效果。效果持",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          36,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/027/record/008",
+          "text": "效果武器",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            437,
+            25,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/028/record/005",
+        "question_source": "敵からのダメージを受けると？",
+        "text": "。我方单位被击坠会导致战力下降，可能影响后续战",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          36,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/028/record/003",
+          "text": "HP变为0时，该单位被击坠",
+          "style": [
+            2,
+            7
+          ],
+          "position": [
+            171,
+            25,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/030/record/011",
+        "question_source": "ダメージ減少の方法は？（パイロット編）",
+        "text": "，视情况可减少受到的伤",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          58,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/030/record/010",
+          "text": "特殊技能",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            418,
+            47,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/030/record/018",
+        "question_source": "ダメージ減少の方法は？（パイロット編）",
+        "text": "。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          190,
+          91,
+          1
+        ],
+        "punctuation_only_row": true,
+        "previous": {
+          "id": "page/030/record/016",
+          "text": "受到的伤害变为80%",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            342,
+            80,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/030/record/027",
+        "question_source": "ダメージ減少の方法は？（パイロット編）",
+        "text": "。发动概率取决于",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          171,
+          135,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/030/record/026",
+          "text": "盾牌防御",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            380,
+            124,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/038/record/004",
+        "question_source": "命中率を上げるためには？（距離編）",
+        "text": "。使用移动后可攻击的P属性武器时，请尽量接近敌人后再攻",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          36,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/038/record/003",
+          "text": "距离越近，命中率越高",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            152,
+            25,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/039/record/005",
+        "question_source": "命中率を上げるためには？（攻撃方法編）",
+        "text": "，队长的最终命中率获得+20%修正。虽然无法使用全体",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          36,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/039/record/004",
+          "text": "时",
+          "style": [
+            2,
+            0
+          ],
+          "position": [
+            266,
+            25,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/044/record/004",
+        "question_source": "回避率を上げるためには？（距離編）",
+        "text": "。不想被击坠的小队应远离敌人，可能的话移动到射程范围",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          36,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/044/record/003",
+          "text": "距离越远，回避率越高",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            114,
+            25,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/045/record/007",
+        "question_source": "回避率を上げるためには？（回避方法編）",
+        "text": "，就是最可靠的避险方法。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          47,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/045/record/006",
+          "text": "回避",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            456,
+            36,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/054/record/005",
+        "question_source": "ＨＰやＥＮを回復させるには？（その２）",
+        "text": "。此外，搭载在战舰内的单位也能获得回复。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          36,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/054/record/003",
+          "text": "可回复HP或EN的地形",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            171,
+            25,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/054/record/025",
+        "question_source": "ＨＰやＥＮを回復させるには？（その２）",
+        "text": "。气力不会因此降至100以下。若已低于10",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          57,
+          146,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/054/record/023",
+          "text": "在搭载时气力-5",
+          "style": [
+            2,
+            7
+          ],
+          "position": [
+            361,
+            135,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/058/record/019",
+        "question_source": "攻撃の役に立つ特殊能力とは？",
+        "text": "。发动后，对应能力值会更新为最",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          228,
+          135,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/058/record/017",
+          "text": "高值",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            513,
+            124,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/059/record/015",
+        "question_source": "防御の役に立つ特殊能力とは？（その１）",
+        "text": "。发动概率由",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          114,
+          102,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/059/record/014",
+          "text": "斩击防御",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            437,
+            91,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/059/record/028",
+        "question_source": "防御の役に立つ特殊能力とは？（その１）",
+        "text": "。发动概率",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          114,
+          168,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/059/record/027",
+          "text": "盾牌防御",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            475,
+            157,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/064/record/018",
+        "question_source": "攻撃の役に立つ特殊スキルとは？",
+        "text": "。建议让援护攻击技能等级高的驾驶员",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          38,
+          102,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/064/record/017",
+          "text": "倍）",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            323,
+            91,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/064/record/023",
+        "question_source": "攻撃の役に立つ特殊スキルとは？",
+        "text": "。作为队员运用的驾驶员习得后效果显著。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          38,
+          135,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/064/record/021",
+          "text": "参与小队攻击时，对敌伤害+20%",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            95,
+            124,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/064/record/052",
+        "question_source": "攻撃の役に立つ特殊スキルとは？",
+        "text": "。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          38,
+          300,
+          1
+        ],
+        "punctuation_only_row": true,
+        "previous": {
+          "id": "page/064/record/051",
+          "text": "驾驶小型机体（S～M尺寸）的驾驶员习得，有助于提升伤害",
+          "style": [
+            2,
+            0
+          ],
+          "position": [
+            38,
+            289,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/065/record/006",
+        "question_source": "命中・回避の役に立つ特殊スキルとは？",
+        "text": "。技能等级越高，需要损失的HP越少便可发",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          38,
+          36,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/065/record/005",
+          "text": "高",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            456,
+            25,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/066/record/010",
+        "question_source": "防御の役に立つ特殊スキルとは？",
+        "text": "。两者发动率均由与敌",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          38,
+          47,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/066/record/009",
+          "text": "盾牌防御",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            456,
+            36,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/070/record/015",
+        "question_source": "ＰＰとは？",
+        "text": "。此外，精神指令",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          91,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/070/record/013",
+          "text": "组队时，队员的PP获得量减少至75%",
+          "style": [
+            2,
+            7
+          ],
+          "position": [
+            133,
+            80,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/070/record/029",
+        "question_source": "ＰＰとは？",
+        "text": "。但蓝色修复者的成员中，只有玛琳能成为主驾驶员，",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          146,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/070/record/027",
+          "text": "无论何种形态全员都能获得相同PP",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            19,
+            135,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/074/record/011",
+        "question_source": "隊員の役割とは？",
+        "text": "。小队攻击中武器受限且伤害降低，但可集中火力",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          57,
+          80,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/074/record/010",
+          "text": "击",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            418,
+            69,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/076/record/044",
+        "question_source": "小隊編成のコツ（移動編）",
+        "text": "”。这表示空可移动、陆移动困难，意",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          95,
+          300,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/076/record/043",
+          "text": "陆－",
+          "style": [
+            2,
+            11
+          ],
+          "position": [
+            456,
+            289,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/076/record/062",
+        "question_source": "小隊編成のコツ（移動編）",
+        "text": "”。此时",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          95,
+          399,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/076/record/061",
+          "text": "空陆－",
+          "style": [
+            2,
+            11
+          ],
+          "position": [
+            437,
+            388,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/079/record/010",
+        "question_source": "小隊編成のコツ（特殊能力編）",
+        "text": "，作用于全小",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          69,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/079/record/009",
+          "text": "小队加成",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            456,
+            58,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/079/record/029",
+        "question_source": "小隊編成のコツ（特殊能力編）",
+        "text": "。大型单位容易被命中，建议在同小队编入1台。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          114,
+          201,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/079/record/027",
+          "text": "有机体HP回复（配备修理装置的机体数×10）%",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            57,
+            190,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/079/record/042",
+        "question_source": "小隊編成のコツ（特殊能力編）",
+        "text": "。建议与武器EN消耗较大的单位组队。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          114,
+          289,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/079/record/040",
+          "text": "有机体EN回复（配备补给装置的机体数×10）%",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            57,
+            278,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/085/record/011",
+        "question_source": "養成のコツ（能力値）",
+        "text": "，达到上限后，便无法再通过升级或",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          80,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/085/record/010",
+          "text": "各能力值上限为400",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            95,
+            69,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/086/record/010",
+        "question_source": "養成のコツ（地形適応）",
+        "text": "，会影响命中率、回避率和",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          47,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/086/record/009",
+          "text": "单位的地形适应",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            228,
+            36,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/088/record/022",
+        "question_source": "機体改造とは？",
+        "text": "，因此也建议为飞行机体改造EN。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          57,
+          146,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/088/record/020",
+          "text": "飞行中的机体每回合消耗10点EN",
+          "style": [
+            2,
+            7
+          ],
+          "position": [
+            57,
+            135,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/093/record/041",
+        "question_source": "ＳＲポイントとは？",
+        "text": "。此外，我方整体气力也更难提升，进一步增加了难",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          95,
+          289,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/093/record/039",
+          "text": "行动模式也更复杂",
+          "style": [
+            2,
+            7
+          ],
+          "position": [
+            95,
+            278,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/093/record/049",
+        "question_source": "ＳＲポイントとは？",
+        "text": "。我方整体气力也比困难模式更",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          95,
+          366,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/093/record/048",
+          "text": "困难的1.2倍",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            247,
+            355,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/093/record/058",
+        "question_source": "ＳＲポイントとは？",
+        "text": "。比普通模式我方整体气力更容易上升。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          95,
+          443,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/093/record/057",
+          "text": "5倍",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            437,
+            432,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/094/record/010",
+        "question_source": "バザーとは？",
+        "text": "。有时会出现意想不到的好物，建议常备一些B",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          80,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/094/record/009",
+          "text": "用",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            418,
+            69,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/100/record/022",
+        "question_source": "難しくてクリアできない時は？",
+        "text": "。因此可利用提升后的驾驶",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          57,
+          146,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/100/record/020",
+          "text": "戏结束前获得的资金、PP、经验值、击坠数",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            57,
+            135,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/100/record/029",
+        "question_source": "難しくてクリアできない時は？",
+        "text": "。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          456,
+          190,
+          1
+        ],
+        "punctuation_only_row": true,
+        "previous": {
+          "id": "page/100/record/027",
+          "text": "复挑战强化我方部队，逐步战胜强敌、达成胜利条件",
+          "style": [
+            2,
+            3
+          ],
+          "position": [
+            57,
+            179,
+            1
+          ]
+        }
+      },
+      {
+        "id": "page/102/record/011",
+        "question_source": "一度クリアした後の楽しみ方とは？",
+        "text": "。具体内容请在通关后亲自确认。",
+        "style": [
+          2,
+          0
+        ],
+        "position": [
+          19,
+          47,
+          1
+        ],
+        "punctuation_only_row": false,
+        "previous": {
+          "id": "page/102/record/010",
+          "text": "始游戏",
+          "style": [
+            2,
+            14
+          ],
+          "position": [
+            418,
+            36,
+            1
+          ]
+        }
+      }
+    ],
+    "github_issue": "https://github.com/dyzz/srwz-zh/issues/24"
+  },
+  "runtime": {
+    "original": {
+      "receipt": "work/runtime/lrps2/qa-punctuation-fix-20260909/original/receipt.json",
+      "receipt_sha256": "7b79f0e22a926100d5718afd4fed7b862c4064f55b765a30f0ae223d0d93f5ac",
+      "iso": {
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/zh-release-original/current-original.iso",
+        "size": 3758358528,
+        "sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6",
+        "build_config": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/qa-punctuation-fix-20260909/original-iso.json"
+      },
+      "status": "passed",
+      "visual_acceptance": {
+        "full_red_warning_and_both_quotes": true,
+        "normal_color_period_on_same_row": true,
+        "scroll_and_return": true,
+        "frames_viewed": [
+          3900,
+          4500
+        ]
+      },
+      "source_memory_card_unchanged": true,
+      "captures": [
+        {
+          "path": "work/runtime/lrps2/qa-punctuation-fix-20260909/original/frames/03900-sr-answer.png",
+          "sha256": "1c4e2afb6121d30d6fc9122d17887ad98d9a00dc82a6f6524caba42b182b3254"
+        },
+        {
+          "path": "work/runtime/lrps2/qa-punctuation-fix-20260909/original/frames/04500-sr-return-top.png",
+          "sha256": "46878520bc5ca9e4e164924a43bd869810b43e60f4baa93a9259d7e8776c8946"
+        }
+      ]
+    },
+    "best": {
+      "receipt": "work/runtime/lrps2/qa-punctuation-fix-20260909/best/receipt.json",
+      "receipt_sha256": "3c6a65813dbc8fd82a88feb9d85fd8089d6b318ede03a54c0d06ae5926b2ce1b",
+      "iso": {
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/zh-release-best/current-best.iso",
+        "size": 3755081728,
+        "sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c",
+        "build_config": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/qa-punctuation-fix-20260909/best-iso.json"
+      },
+      "status": "passed",
+      "visual_acceptance": {
+        "full_red_warning_and_both_quotes": true,
+        "normal_color_period_on_same_row": true,
+        "scroll_and_return": true,
+        "frames_viewed": [
+          3900,
+          4500
+        ]
+      },
+      "source_memory_card_unchanged": true,
+      "captures": [
+        {
+          "path": "work/runtime/lrps2/qa-punctuation-fix-20260909/best/frames/03900-sr-answer.png",
+          "sha256": "dd458afd3ed96a240a09ec46f900b48fa1fd44951a4d00a7ead886074b2787fc"
+        },
+        {
+          "path": "work/runtime/lrps2/qa-punctuation-fix-20260909/best/frames/04500-sr-return-top.png",
+          "sha256": "9cecd31a3e85e42154e77fb096de38efc20df700318544d8c32517597034e2ca"
+        }
+      ]
+    }
+  },
+  "iso_cleanup": [
+    {
+      "removed": "work/build/zh-release-original/bd10624321f2591fdc06f57b5de1d16b2ad5b8160e5b7025e3f35a6610351bb7/project/rom/original.iso",
+      "retained": "rom/original.iso",
+      "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+      "size": 3758358528
+    },
+    {
+      "removed": "work/build/zh-release-original/bd10624321f2591fdc06f57b5de1d16b2ad5b8160e5b7025e3f35a6610351bb7/project/build/iso/zh-release-full-story/current-original.iso",
+      "retained": "build/iso/zh-release-full-story/current-original.iso",
+      "sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6",
+      "size": 3758358528
+    },
+    {
+      "removed": "work/build/zh-release-best/c8dd5677dbaae0b24054774ce69ea873149d210ce81c5cfee6be0722c6dd4401/project/rom/best.iso",
+      "retained": "rom/best.iso",
+      "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+      "size": 3755081728
+    },
+    {
+      "removed": "work/build/zh-release-best/c8dd5677dbaae0b24054774ce69ea873149d210ce81c5cfee6be0722c6dd4401/project/build/iso/zh-release-best/current-best.iso",
+      "retained": "build/iso/zh-release-best/current-best.iso",
+      "sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c",
+      "size": 3755081728
+    },
+    {
+      "removed": "build/iso/zh-release-original/current-original.iso",
+      "retained": "build/iso/zh-release-full-story/current-original.iso",
+      "sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6",
+      "size": 3758358528
+    }
+  ],
+  "canonical_original": {
+    "path": "build/iso/zh-release-full-story/current-original.iso",
+    "sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6",
+    "locked_rebuild_and_content_readback": "passed"
+  }
+}

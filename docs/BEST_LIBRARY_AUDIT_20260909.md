@@ -47,7 +47,8 @@
 其他 → 关于 SR 点数 → 什么是 SR 点数？
 正文中的彩色“SR 点数获得不可”后，句号单独换到下一行。
 
-GitHub：[issue #22](https://github.com/dyzz/srwz-zh/issues/22)（两版共通，未修改）。
+GitHub：[issue #22](https://github.com/dyzz/srwz-zh/issues/22)（两版共通；后续已修复目标页，
+见 [修复及验收记录](QA_PUNCTUATION_FIX_20260909.md)）。下列内容保留本轮修复前观察。
 
 后续已定位为跨颜色记录的整条换行缺少行首标点约束，详见
 [Q&A 格式排查](QA_PUNCTUATION_LAYOUT_AUDIT_20260909.md)。全量扫描有 47 处行首标点

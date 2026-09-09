@@ -3,7 +3,7 @@
   "status": "integrated_global_zh_release_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-integrated-v1",
   "scope": "Build the complete Simplified Chinese release directly from the original disc members, including UI, global font, story, overviews, battle text, title and menu textures, archives, and executable layout changes.",
-  "stage_postprocess_signature": "f2f44aaedd7954cdd00e19fa2f3913b1202458f211db01ab9fc4a48e3d606a75",
+  "stage_postprocess_signature": "622eaf1437acdd5c9218e5797e04d91edce34b13fe826024cc59d14a7a2c7c0c",
   "build_groups": [
     {
       "id": "core_runtime_members",
@@ -49,7 +49,7 @@
     "config": {
       "path": "config/full-story-components.json",
       "size": 91265,
-      "sha256": "86c2d572fb677a9e3741627149e3f5e810f52e3ea019149ce728ddcc64541ed9"
+      "sha256": "c482ebde31fb4104109901bf28240714a89744144c16a60dc4606b976a7a83f9"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -99,7 +99,7 @@
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307905,
-      "sha256": "4e6d19a3b7c41b2cd175aacb27a69a972c26318a0c258ea0a375593d68e728da"
+      "sha256": "18c0f6715b05a15a20e1e7c4c65fdca6164faafb7181e4fbaa2b4561c65a8f70"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -503,7 +503,7 @@
       "compression_count": 1,
       "final_readback_decode_count": 1,
       "source_stored_size": 41312,
-      "output_stored_size": 35907,
+      "output_stored_size": 35906,
       "decoded_size": 102288,
       "sector_budget": 41312,
       "stages": [
@@ -16387,8 +16387,8 @@
     "term_count": 2,
     "occurrence_count": 6,
     "source_stored_size": 41312,
-    "output_encoded_size": 35907,
-    "output_padding_size": 5405,
+    "output_encoded_size": 35906,
+    "output_padding_size": 5406,
     "compression_deferred_to_workspace": true,
     "codec": {
       "strategy": "rust-fit",
@@ -31885,8 +31885,8 @@
               14
             ],
             "position": [
-              513,
-              47,
+              19,
+              58,
               1
             ],
             "source_position": [
@@ -31905,7 +31905,7 @@
               0
             ],
             "position": [
-              19,
+              57,
               58,
               1
             ],
@@ -41585,8 +41585,8 @@
               3
             ],
             "position": [
-              399,
-              102,
+              19,
+              113,
               1
             ],
             "source_position": [
@@ -41605,7 +41605,7 @@
               0
             ],
             "position": [
-              19,
+              171,
               113,
               1
             ],
@@ -65095,8 +65095,8 @@
               7
             ],
             "position": [
-              361,
-              80,
+              19,
+              91,
               1
             ],
             "source_position": [
@@ -65115,7 +65115,7 @@
               0
             ],
             "position": [
-              19,
+              209,
               91,
               1
             ],
@@ -70133,8 +70133,8 @@
       "04:06": 102
     },
     "source_stored_size": 41312,
-    "output_encoded_size": 35907,
-    "output_padding_size": 5405,
+    "output_encoded_size": 35906,
+    "output_padding_size": 5406,
     "compression_deferred_to_workspace": true,
     "archive_size_preserved": true,
     "archive_offsets_preserved": true,
@@ -85282,7 +85282,7 @@
     "DATA/NISVDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
       "size": 555056,
-      "sha256": "33c7753a316043934ee957e31b4fcd258bc243a1062f26b96f5a616c7fbbde1d"
+      "sha256": "b9e513b288242d0592222ee0584b83b7e7593ff6b749d187e96edc23526870d5"
     },
     "DATA/MTV_PROS.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
