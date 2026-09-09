@@ -1,0 +1,2459 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-09",
+  "edition": "best",
+  "status": "no_additional_functional_failure_found_lrps2_static_passed_pcsx2_pending",
+  "iso": {
+    "path": "build/iso/zh-release-best/current-best.iso",
+    "sha256": "33e71eabc2aa2c84799e2d24c57aa78f0035e8a4633a1964735bfbb3e392894f",
+    "size": 3755081728
+  },
+  "entry_route": "Title screen → LIBRARY",
+  "coverage": {
+    "units": {
+      "static_records": 321,
+      "runtime_list_pages": 14,
+      "checks": [
+        "name/work sort toggle",
+        "long description scroll",
+        "R1 switches unit",
+        "all list pages",
+        "last-page detail",
+        "return to LIBRARY"
+      ],
+      "detail_samples": [
+        "魔神Z",
+        "戴安娜A",
+        "原型",
+        "雷欧"
+      ]
+    },
+    "characters": {
+      "static_records": 411,
+      "runtime_list_pages": 12,
+      "checks": [
+        "name/work sort toggle",
+        "long description scroll",
+        "R1 switches character",
+        "square voice button with PCM capture",
+        "all list pages",
+        "last-page detail",
+        "return to LIBRARY",
+        "circle changes expression, confirmed against no-button control at the same frame"
+      ],
+      "detail_samples": [
+        "兜甲儿",
+        "弓沙也加",
+        "安雅",
+        "布拉亚"
+      ],
+      "expression_button": "Koji expression changes were confirmed by a fresh paired run; initial portraits matched, then the button run showed a different smiling portrait."
+    },
+    "keywords": {
+      "static_records": 52,
+      "runtime_list_pages": 3,
+      "checks": [
+        "name/work sort toggle",
+        "L1/R1 switches keyword popup",
+        "all list pages",
+        "last-page detail",
+        "return to LIBRARY"
+      ],
+      "detail_samples": [
+        "宇宙科学研究所",
+        "恐龙帝国",
+        "阿恶",
+        "补陀落"
+      ]
+    },
+    "music": {
+      "static_native_titles": 101,
+      "runtime_list_pages": 11,
+      "checks": [
+        "track selection and playback",
+        "page forward/back",
+        "last-page track playback",
+        "return to LIBRARY"
+      ],
+      "distinct_track_audio_samples": [
+        "マジンガーZ",
+        "おれはグレートマジンガー",
+        "あしたに生きるバルディオス",
+        "BANPRESTO! Ver.Z"
+      ]
+    },
+    "qa": {
+      "static_pages": 102,
+      "static_text_records": 2609,
+      "runtime_categories": [
+        "战斗篇",
+        "编成篇",
+        "强化篇",
+        "其他"
+      ],
+      "answer_samples": [
+        "什么是队形？",
+        "什么是小队？",
+        "什么是驾驶员养成？",
+        "什么是SR点数？"
+      ],
+      "checks": [
+        "category switch",
+        "topic list",
+        "question list",
+        "answer body",
+        "long answer scroll",
+        "return through all levels to LIBRARY"
+      ]
+    }
+  },
+  "static": {
+    "evidence": {
+      "path": "work/analysis/best-library-audit-20260909/static-audit.json",
+      "sha256": "cb95a47280446eb58c2bfb239e2f004a4f3fc63c8f52865c2cedfa74d97af916"
+    },
+    "script": {
+      "path": "work/analysis/best-library-audit-20260909/audit_static.py",
+      "sha256": "fca00a9420c9c041e35612822d3984e153a3b3329e81752b3a8f760398364ced"
+    },
+    "archives": [
+      {
+        "member": "DATA/MTVZKNRT.BIN",
+        "chunk_count": 321
+      },
+      {
+        "member": "DATA/MTVZKNKW.BIN",
+        "chunk_count": 52
+      },
+      {
+        "member": "DATA/MTVZKNPT.BIN",
+        "chunk_count": 411
+      },
+      {
+        "member": "DATA/NISVDATA.BIN",
+        "chunk_count": 7
+      }
+    ],
+    "native_table_occurrences": [
+      {
+        "member": "EFF/VEFF2DX.BIN",
+        "count": 302,
+        "file_offsets": [
+          "0x31b330"
+        ]
+      },
+      {
+        "member": "KURODATA/KVMDATA.BIN",
+        "count": 22,
+        "file_offsets": [
+          "0x330c20"
+        ]
+      },
+      {
+        "member": "DATA/MTV_BGC.BIN",
+        "count": 197,
+        "file_offsets": [
+          "0x32c720"
+        ]
+      },
+      {
+        "member": "DATA/MTV_PROS.BIN",
+        "count": 15,
+        "file_offsets": [
+          "0x32c2d0"
+        ]
+      },
+      {
+        "member": "DATA/MTV_PROP.BIN",
+        "count": 24,
+        "file_offsets": [
+          "0x32c3a0"
+        ]
+      },
+      {
+        "member": "DATA/MTVZKNRT.BIN",
+        "count": 322,
+        "file_offsets": [
+          "0x32bbc0"
+        ]
+      },
+      {
+        "member": "DATA/MTVZKNKW.BIN",
+        "count": 52,
+        "file_offsets": [
+          "0x32c1b0"
+        ]
+      },
+      {
+        "member": "DATA/MTVZKNPT.BIN",
+        "count": 411,
+        "file_offsets": [
+          "0x32b040"
+        ]
+      },
+      {
+        "member": "DATA/VT1.BIN",
+        "count": 15,
+        "file_offsets": [
+          "0x2fa880"
+        ]
+      },
+      {
+        "member": "DATA/NISVDATA.BIN",
+        "count": 7,
+        "file_offsets": [
+          "0x3296c0"
+        ]
+      },
+      {
+        "member": "AID_DATA/AIDDATA.BIN",
+        "count": 2,
+        "file_offsets": [
+          "0x322c70"
+        ]
+      },
+      {
+        "member": "DATA/HSFC.BIN",
+        "count": 4,
+        "file_offsets": [
+          "0x33c610",
+          "0x347e90"
+        ]
+      },
+      {
+        "member": "MAP/MAPMODEL.BIN",
+        "count": 4,
+        "file_offsets": [
+          "0x2fb250"
+        ]
+      }
+    ],
+    "native_binary_fields_look_lorr_voic_preserved_for_all_784": true,
+    "music_titles": {
+      "count": 101,
+      "span": [
+        453616,
+        456240
+      ],
+      "sha256": "785b440ffbcfcc70d578822e06fc4473c75a9f92c9046a03192f4fa6544f51a6",
+      "native_byte_exact": true
+    },
+    "qa": {
+      "page_count": 102,
+      "text_record_count": 2609,
+      "shared_frontend_decoded_byte_exact": true,
+      "shared_frontend_readback_sha256": "d214dff7b077d4df48cb63c2993b67a269cda7da460cf96979901aadb4ef5cfd"
+    }
+  },
+  "runtime": {
+    "engine": "pinned LRPS2 x86_64 Software renderer",
+    "successful_sessions": 17,
+    "capture_count": 214,
+    "runs": [
+      {
+        "session": "characters-deep-audio-v2",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/receipt.json",
+          "sha256": "7271689ed12f64d5a52cca6b414b645c604f827a2cde0c9127b114be1f2134ca"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/characters-deep.json",
+          "sha256": "73bf1217c20cd0339df69887a0e2593a3d545e430438d43dcf64574fe2ab2585"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "characters-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/02760-characters-selected.png",
+            "png_sha256": "f6afddf31646a795887a110ae98984d19a8fe366b3e3418a910fbaa448e527fc",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.53117
+          },
+          {
+            "id": "characters-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/03000-characters-list.png",
+            "png_sha256": "c09ec15817925d7587cdd243ba4596545ada2d56e359db0d39659871b6dcd375",
+            "dhash": "6cd2dadadada9bac",
+            "mean_luma": 36.433943
+          },
+          {
+            "id": "characters-first-detail",
+            "frame": 3300,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/03300-characters-first-detail.png",
+            "png_sha256": "66768def401bb6dada16eb6f80637e40dd3ac5d52f5f66d19a9e8c360b241254",
+            "dhash": "c170795939593990",
+            "mean_luma": 42.153798
+          },
+          {
+            "id": "characters-expression",
+            "frame": 3540,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/03540-characters-expression.png",
+            "png_sha256": "e0316f23e07e9f2a39f1f09200b41c3dc0dd83b5cc00bdc5654d799d0ce8bb09",
+            "dhash": "d170f85819593990",
+            "mean_luma": 42.139219
+          },
+          {
+            "id": "characters-voice",
+            "frame": 3900,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/03900-characters-voice.png",
+            "png_sha256": "00933f4963e0d6d494f3f97e25081d95748a8e6853ad0356fdeba755cc7b2ba2",
+            "dhash": "c160785839593990",
+            "mean_luma": 42.164286
+          },
+          {
+            "id": "characters-scrolled",
+            "frame": 4200,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/04200-characters-scrolled.png",
+            "png_sha256": "b4f39523d83fe6c7f1b1de84de9b6daf1891f01377bb79597741b2cb5c6f3507",
+            "dhash": "c170f83c39b95998",
+            "mean_luma": 42.237908
+          },
+          {
+            "id": "characters-next-character",
+            "frame": 4440,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/04440-characters-next-character.png",
+            "png_sha256": "f643b73f0460afff5dfd2cc83b025c26affdafdb3b6e651c1165ad336c3aa7e1",
+            "dhash": "c160783899191999",
+            "mean_luma": 43.077375
+          },
+          {
+            "id": "characters-back-list",
+            "frame": 4680,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/04680-characters-back-list.png",
+            "png_sha256": "a63bd09ecae22093be82f27a53c76256edbcb33f161af857c112b2da4fa90d20",
+            "dhash": "68d2dadadada9bac",
+            "mean_luma": 36.431403
+          },
+          {
+            "id": "characters-sorted",
+            "frame": 4920,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/04920-characters-sorted.png",
+            "png_sha256": "6f1b2a8f7be94c92606d217f5b9ad6581b2ab871289ef04d9fed5ea5d6b8ab5c",
+            "dhash": "68dbdadb5a5a5bbc",
+            "mean_luma": 38.666518
+          },
+          {
+            "id": "characters-page-boundary",
+            "frame": 5160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/05160-characters-page-boundary.png",
+            "png_sha256": "a4bc1b80d399cfd743053a333ae1a697d786d8a012cc0dbe889fb3966e66e40c",
+            "dhash": "68dbdadb5a5a5bbc",
+            "mean_luma": 38.660672
+          },
+          {
+            "id": "characters-boundary-detail",
+            "frame": 5400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/05400-characters-boundary-detail.png",
+            "png_sha256": "9e7fdd56a7e913651bc31d938c4f0f91d1faeb7323af01a3921f780a644e49b3",
+            "dhash": "c1f8185839b91999",
+            "mean_luma": 41.989544
+          },
+          {
+            "id": "characters-returned-library",
+            "frame": 5880,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/frames/05880-characters-returned-library.png",
+            "png_sha256": "f6afddf31646a795887a110ae98984d19a8fe366b3e3418a910fbaa448e527fc",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.53117
+          }
+        ]
+      },
+      {
+        "session": "characters-pages",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/receipt.json",
+          "sha256": "acad81cb2fa9e6b2255994cc61662e8d9f21cb8bf919fb5753b0552c7537c69b"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/characters-pages.json",
+          "sha256": "145adba5198ba3762ca475dd28a64abb3b199334f7aff41012e84febbeea5d37"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "characters-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/02760-characters-selected.png",
+            "png_sha256": "f6afddf31646a795887a110ae98984d19a8fe366b3e3418a910fbaa448e527fc",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.53117
+          },
+          {
+            "id": "characters-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/03000-characters-list.png",
+            "png_sha256": "c09ec15817925d7587cdd243ba4596545ada2d56e359db0d39659871b6dcd375",
+            "dhash": "6cd2dadadada9bac",
+            "mean_luma": 36.433943
+          },
+          {
+            "id": "characters-right-1",
+            "frame": 3091,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/03091-characters-right-1.png",
+            "png_sha256": "c820b753f74ed757a5344b15c5b9f006e7420ad83586517cee0796ffe9286988",
+            "dhash": "68d2dadadada9bcc",
+            "mean_luma": 36.606484
+          },
+          {
+            "id": "characters-right-3",
+            "frame": 3181,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/03181-characters-right-3.png",
+            "png_sha256": "a60c77e4ef89ef18799f5f01182d22a7921328eba71eaf6f1467a0a6b1a15734",
+            "dhash": "69dadadbdada9b9c",
+            "mean_luma": 36.912036
+          },
+          {
+            "id": "characters-right-6",
+            "frame": 3316,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/03316-characters-right-6.png",
+            "png_sha256": "9786839b84b04d2cb05d016156d350009090bba7feb9bc9c47b186737cb9f6ea",
+            "dhash": "68dadadb5ada7b9c",
+            "mean_luma": 37.560686
+          },
+          {
+            "id": "characters-right-9",
+            "frame": 3451,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/03451-characters-right-9.png",
+            "png_sha256": "35db90d88f733d4f9cc84f4d2a6e555904972de6f24af96836a1ca06b8ef260f",
+            "dhash": "695adadadadbdb9c",
+            "mean_luma": 37.489914
+          },
+          {
+            "id": "characters-right-12",
+            "frame": 3586,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/03586-characters-right-12.png",
+            "png_sha256": "9e249e1bb7da5edac27dc67194765cef181a4af47d512ea2318c97af1381dde8",
+            "dhash": "6cdadadadadadb9c",
+            "mean_luma": 37.371634
+          },
+          {
+            "id": "characters-right-15",
+            "frame": 3721,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/03721-characters-right-15.png",
+            "png_sha256": "e46601a04c5d0dea161d40cc0ca7277c31a56ca07540e048c842ffe2b15b1522",
+            "dhash": "68dad3dbdadbdbac",
+            "mean_luma": 37.534898
+          },
+          {
+            "id": "characters-right-18",
+            "frame": 3856,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/03856-characters-right-18.png",
+            "png_sha256": "6f7174934628c18435c17407607bdb6704de9b9d151bf4bfeaf73109b51e5d2a",
+            "dhash": "68dbdadbdada5b9f",
+            "mean_luma": 37.715447
+          },
+          {
+            "id": "characters-right-21",
+            "frame": 3991,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/03991-characters-right-21.png",
+            "png_sha256": "492a273d39c6227f05b33f2f5796d2b65dac5a00c4efb292ffe1fd4014df7fe7",
+            "dhash": "69dbdadbdadadbbc",
+            "mean_luma": 37.449697
+          },
+          {
+            "id": "characters-right-24",
+            "frame": 4126,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/04126-characters-right-24.png",
+            "png_sha256": "e5436a10f6faf1a371b81b44b69d23678526b9dbfb1e5d5a2652570fe1f156e3",
+            "dhash": "68dbdadadadbdbcc",
+            "mean_luma": 37.088961
+          },
+          {
+            "id": "characters-right-27",
+            "frame": 4261,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/04261-characters-right-27.png",
+            "png_sha256": "70d32c1b6ef92189abb3a86f0ada67436f891c12a029cbc6d1d6317c132f3e71",
+            "dhash": "68dadbdadadadbbe",
+            "mean_luma": 37.47199
+          },
+          {
+            "id": "characters-right-30",
+            "frame": 4396,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/04396-characters-right-30.png",
+            "png_sha256": "8326bf7bf79cd3588d5247f1b40423cdee44ea83f4a7945f0444eb4344c02b2f",
+            "dhash": "68dadbdadadbdbbc",
+            "mean_luma": 37.965391
+          },
+          {
+            "id": "characters-right-33",
+            "frame": 4531,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/04531-characters-right-33.png",
+            "png_sha256": "af7138ff7b45c1ad6b4a6826d15a17877168392e06019f7facc6a8bf2a397bed",
+            "dhash": "69d8d8d8eccccdbc",
+            "mean_luma": 33.986795
+          },
+          {
+            "id": "characters-last-page-detail",
+            "frame": 4906,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/04906-characters-last-page-detail.png",
+            "png_sha256": "8dec4b458e581d2c1b2a3c5540f92d30774057cd3279ae5c2426ccce20fb3c4a",
+            "dhash": "e1f838393189099a",
+            "mean_luma": 35.395288
+          },
+          {
+            "id": "characters-page-sweep-return",
+            "frame": 5506,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-pages/frames/05506-characters-page-sweep-return.png",
+            "png_sha256": "f6afddf31646a795887a110ae98984d19a8fe366b3e3418a910fbaa448e527fc",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.53117
+          }
+        ]
+      },
+      {
+        "session": "characters-probe",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/characters-probe/receipt.json",
+          "sha256": "51d88357f05f7a6c8d70478d07833ac3df56c2a30bfd1281327b0137273020b5"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/characters-probe.json",
+          "sha256": "790bc2eb2b4ae1692d8b98fe4aaf63ddd06bee3a89fd17642c3ecfd2627800b4"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-probe/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-probe/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "characters-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-probe/frames/02760-characters-selected.png",
+            "png_sha256": "f6afddf31646a795887a110ae98984d19a8fe366b3e3418a910fbaa448e527fc",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.53117
+          },
+          {
+            "id": "characters-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-probe/frames/03000-characters-list.png",
+            "png_sha256": "c09ec15817925d7587cdd243ba4596545ada2d56e359db0d39659871b6dcd375",
+            "dhash": "6cd2dadadada9bac",
+            "mean_luma": 36.433943
+          },
+          {
+            "id": "characters-first-detail",
+            "frame": 3300,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-probe/frames/03300-characters-first-detail.png",
+            "png_sha256": "66768def401bb6dada16eb6f80637e40dd3ac5d52f5f66d19a9e8c360b241254",
+            "dhash": "c170795939593990",
+            "mean_luma": 42.153798
+          }
+        ]
+      },
+      {
+        "session": "keywords-deep",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/receipt.json",
+          "sha256": "8015f8d3312e3d764abd5fabb26d32994407e1643e2bea909007e9ad65ef85a1"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/keywords-deep.json",
+          "sha256": "4dd1f4f8d5485ccd4add1fdf9e9cf70c4d6d03087991d0f2b4153bfcb530d3e4"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "keywords-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/02760-keywords-selected.png",
+            "png_sha256": "827f0b4e0c86b21ed90225c029db19d9a2cb52e42912543857022745261a886b",
+            "dhash": "8d910d0f2b2b3d0f",
+            "mean_luma": 75.522185
+          },
+          {
+            "id": "keywords-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/03000-keywords-list.png",
+            "png_sha256": "d4e4aba29696505d900d67b653b02da48599dddb15d9f6d5d9999cccefc40e6f",
+            "dhash": "6c6664c4c4c7e7cc",
+            "mean_luma": 37.268474
+          },
+          {
+            "id": "keywords-first-detail",
+            "frame": 3300,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/03300-keywords-first-detail.png",
+            "png_sha256": "bfe3e57e5f57f2f89696df5836ff55926c833ca17d934a9a83100a636efc77d5",
+            "dhash": "60636d6d57454fcc",
+            "mean_luma": 49.872335
+          },
+          {
+            "id": "keywords-next-keyword",
+            "frame": 3540,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/03540-keywords-next-keyword.png",
+            "png_sha256": "dd658175b4b5ba9f427a242ed677b7dbdb3e6804759d82c3b719f0c208a86477",
+            "dhash": "4063676b6f6b4f9e",
+            "mean_luma": 51.709434
+          },
+          {
+            "id": "keywords-previous-keyword",
+            "frame": 3780,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/03780-keywords-previous-keyword.png",
+            "png_sha256": "d7243fc02b5534e24ef4b983e8bd951ab0e85d762cea64a163f7c2afeb0e1dc5",
+            "dhash": "40636d6d574d4fce",
+            "mean_luma": 49.885899
+          },
+          {
+            "id": "keywords-back-list",
+            "frame": 4020,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/04020-keywords-back-list.png",
+            "png_sha256": "b49e74501849b089f5d31c106999a1151dd9c0050308167c6c24772599a24b9d",
+            "dhash": "6c6644c4e4c7e7cc",
+            "mean_luma": 37.295044
+          },
+          {
+            "id": "keywords-sorted",
+            "frame": 4260,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/04260-keywords-sorted.png",
+            "png_sha256": "16540f4724a88cc9d879d10f0d6df60ebfa04fbe68e00676e9ca37fd466d259f",
+            "dhash": "68c364c4e4c4ed9c",
+            "mean_luma": 37.153805
+          },
+          {
+            "id": "keywords-page-boundary",
+            "frame": 4440,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/04440-keywords-page-boundary.png",
+            "png_sha256": "00163bae1433bf363a693b5473db0d2fb9521d9b2d9cd6cec6f586ae3791f54e",
+            "dhash": "6ce364c4e4c4c59c",
+            "mean_luma": 37.07801
+          },
+          {
+            "id": "keywords-boundary-detail",
+            "frame": 4680,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/04680-keywords-boundary-detail.png",
+            "png_sha256": "bdc54c1a7f8ebc981d99bab89c6813db600220226b6d1c9f369fc1bdb8838c58",
+            "dhash": "60e3676f276d0fdc",
+            "mean_luma": 51.426932
+          },
+          {
+            "id": "keywords-returned-library",
+            "frame": 5160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-deep/frames/05160-keywords-returned-library.png",
+            "png_sha256": "827f0b4e0c86b21ed90225c029db19d9a2cb52e42912543857022745261a886b",
+            "dhash": "8d910d0f2b2b3d0f",
+            "mean_luma": 75.522185
+          }
+        ]
+      },
+      {
+        "session": "keywords-pages",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-pages/receipt.json",
+          "sha256": "a338fe7ece6920ec3f50e114387f9ca5f259af401555e1f218db9ad00636ab1d"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/keywords-pages.json",
+          "sha256": "19a65868bd4ad2f43d94c6ff63e730c9c825435dbd234fd336436ffaaea5d83f"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-pages/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-pages/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "keywords-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-pages/frames/02760-keywords-selected.png",
+            "png_sha256": "827f0b4e0c86b21ed90225c029db19d9a2cb52e42912543857022745261a886b",
+            "dhash": "8d910d0f2b2b3d0f",
+            "mean_luma": 75.522185
+          },
+          {
+            "id": "keywords-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-pages/frames/03000-keywords-list.png",
+            "png_sha256": "d4e4aba29696505d900d67b653b02da48599dddb15d9f6d5d9999cccefc40e6f",
+            "dhash": "6c6664c4c4c7e7cc",
+            "mean_luma": 37.268474
+          },
+          {
+            "id": "keywords-right-1",
+            "frame": 3091,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-pages/frames/03091-keywords-right-1.png",
+            "png_sha256": "380b3dea7d39144f8cb0399cdc22e61045cd341cbfc1624dc3be42dc9d38c03e",
+            "dhash": "686764c4c4c7e79c",
+            "mean_luma": 37.180179
+          },
+          {
+            "id": "keywords-right-2",
+            "frame": 3136,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-pages/frames/03136-keywords-right-2.png",
+            "png_sha256": "7c3f6f7e4f5c6707d82285bc8a476d68bd8524154b728f440649cd7bf8f7ebb6",
+            "dhash": "696364c66466ed9f",
+            "mean_luma": 37.81415
+          },
+          {
+            "id": "keywords-right-4",
+            "frame": 3226,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-pages/frames/03226-keywords-right-4.png",
+            "png_sha256": "8087512562273d26dd485019423220565dd6aef42842bb83341c6cb7095f39a0",
+            "dhash": "6978f0d8888cafbc",
+            "mean_luma": 32.782408
+          },
+          {
+            "id": "keywords-last-page-detail",
+            "frame": 3601,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-pages/frames/03601-keywords-last-page-detail.png",
+            "png_sha256": "25c999c650c3ba3de1878e683c84fe4c35851b8f14200b1b1e3faa67f5213bed",
+            "dhash": "617977572b4d4ddc",
+            "mean_luma": 50.2875
+          },
+          {
+            "id": "keywords-page-sweep-return",
+            "frame": 4201,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-pages/frames/04201-keywords-page-sweep-return.png",
+            "png_sha256": "827f0b4e0c86b21ed90225c029db19d9a2cb52e42912543857022745261a886b",
+            "dhash": "8d910d0f2b2b3d0f",
+            "mean_luma": 75.522185
+          }
+        ]
+      },
+      {
+        "session": "keywords-probe",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-probe/receipt.json",
+          "sha256": "4f1a42fb4a299cfe8102c29f7ed56144e3ec10349b230c378cceabe3ddc5f56c"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/keywords-probe.json",
+          "sha256": "290eb4d7638b9d138325ff5dfec10e93706712d4c9cf59ed2e86b9bcff967b12"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-probe/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-probe/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "keywords-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-probe/frames/02760-keywords-selected.png",
+            "png_sha256": "827f0b4e0c86b21ed90225c029db19d9a2cb52e42912543857022745261a886b",
+            "dhash": "8d910d0f2b2b3d0f",
+            "mean_luma": 75.522185
+          },
+          {
+            "id": "keywords-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-probe/frames/03000-keywords-list.png",
+            "png_sha256": "d4e4aba29696505d900d67b653b02da48599dddb15d9f6d5d9999cccefc40e6f",
+            "dhash": "6c6664c4c4c7e7cc",
+            "mean_luma": 37.268474
+          },
+          {
+            "id": "keywords-first-detail",
+            "frame": 3300,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/keywords-probe/frames/03300-keywords-first-detail.png",
+            "png_sha256": "bfe3e57e5f57f2f89696df5836ff55926c833ca17d934a9a83100a636efc77d5",
+            "dhash": "60636d6d57454fcc",
+            "mean_luma": 49.872335
+          }
+        ]
+      },
+      {
+        "session": "music-deep-audio-v2",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/receipt.json",
+          "sha256": "e046ccf2488e6c8cbaabfa654cea839953eb55121720503c47b026047b88b9e0"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/music-deep.json",
+          "sha256": "b03b77bdb4d7f11f0e4fccc464ed8589ccc87cd5164a3141b256e2adb5cc8597"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "music-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/02760-music-selected.png",
+            "png_sha256": "b5288225c5273b88f7bd2e04496d340ac0c919969359a2e233d1db8031ec38fb",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.584204
+          },
+          {
+            "id": "music-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/03000-music-list.png",
+            "png_sha256": "9c34fb0fdfc5900f4aedcefafe00248ae0c482a87b95f4a4ef58fe8b4aed43d6",
+            "dhash": "55372d2f3f7f2f0f",
+            "mean_luma": 92.223936
+          },
+          {
+            "id": "music-first-detail",
+            "frame": 3300,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/03300-music-first-detail.png",
+            "png_sha256": "9311355c9d660b99b5d6d94c1b15122939c87be24c93bc55857b19aea5c814b8",
+            "dhash": "4c170c0c470f0f0b",
+            "mean_luma": 80.902577
+          },
+          {
+            "id": "music-track-two-selected",
+            "frame": 3540,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/03540-music-track-two-selected.png",
+            "png_sha256": "22b5c25c82abc56f2790c605a62c2b0d5feb697a42695af5456f8b016b4d3b76",
+            "dhash": "5d292d0dff7f7f0f",
+            "mean_luma": 88.834392
+          },
+          {
+            "id": "music-track-two-playing",
+            "frame": 3840,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/03840-music-track-two-playing.png",
+            "png_sha256": "a870afa562f4bd42f2ed2fd8e031de25da4b15f1ae461b58d3b2d6fd9e6c69c0",
+            "dhash": "5c0f0e0c0e0e0f03",
+            "mean_luma": 82.930165
+          },
+          {
+            "id": "music-next-page",
+            "frame": 4080,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/04080-music-next-page.png",
+            "png_sha256": "8f128881d6b20a35c69bef45aa303aabd047d802ed389de7b574c34377f47eb9",
+            "dhash": "4d0b058cdded3f33",
+            "mean_luma": 80.626618
+          },
+          {
+            "id": "music-previous-page",
+            "frame": 4620,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/04620-music-previous-page.png",
+            "png_sha256": "6567e5ecd1b9abdf1d7ac8cec22064d7c2fdfb3d67ff049b4d63ee12ddfa7ea7",
+            "dhash": "4c0b0f8f8e8d3f23",
+            "mean_luma": 76.234155
+          },
+          {
+            "id": "music-last-page",
+            "frame": 4860,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/04860-music-last-page.png",
+            "png_sha256": "3aa9f29a6d43e10324e35c660588a8fdede1e7569edab9f3f13608a4469485fc",
+            "dhash": "742b2f3e9e9f0f0f",
+            "mean_luma": 94.69118
+          },
+          {
+            "id": "music-last-page-playing",
+            "frame": 5160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/05160-music-last-page-playing.png",
+            "png_sha256": "d12d2bdd137fe7e05335f992a7f3a1d50095fb39246760eb246c30320fd1af67",
+            "dhash": "4c0b0ecdc40f1f03",
+            "mean_luma": 78.506407
+          },
+          {
+            "id": "music-returned-library",
+            "frame": 5400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/frames/05400-music-returned-library.png",
+            "png_sha256": "a0a3884892206e4970d0b23c7d263436d43756737b06de05e280097ec12a3c0a",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.291127
+          }
+        ]
+      },
+      {
+        "session": "music-pages",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/receipt.json",
+          "sha256": "47c26f903c45e03b961a3f1764b7b0b83dfcc013968fc9fe2cc7fc62b40c44f0"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/music-pages.json",
+          "sha256": "8876637086cbca81f6a8a9fe44656d339e7fa25f41672a2cb8996ba596366d02"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "music-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/02760-music-selected.png",
+            "png_sha256": "b5288225c5273b88f7bd2e04496d340ac0c919969359a2e233d1db8031ec38fb",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.584204
+          },
+          {
+            "id": "music-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/03000-music-list.png",
+            "png_sha256": "9c34fb0fdfc5900f4aedcefafe00248ae0c482a87b95f4a4ef58fe8b4aed43d6",
+            "dhash": "55372d2f3f7f2f0f",
+            "mean_luma": 92.223936
+          },
+          {
+            "id": "music-page-2",
+            "frame": 3106,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/03106-music-page-2.png",
+            "png_sha256": "b90040a625ec8d1defb82dcaa60422007d836c6a46653cf7c271932f59ccd049",
+            "dhash": "65373d1e9f9f0e0f",
+            "mean_luma": 84.282896
+          },
+          {
+            "id": "music-page-3",
+            "frame": 3166,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/03166-music-page-3.png",
+            "png_sha256": "77afcd89394e09fcba0410218eabac425c73b119c09b077fc76938d0304b2895",
+            "dhash": "491f9f9e9e0e0e07",
+            "mean_luma": 84.13427
+          },
+          {
+            "id": "music-page-4",
+            "frame": 3226,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/03226-music-page-4.png",
+            "png_sha256": "613046211c3cd4ab5e77e60b3b528526284ae52a4782c9e60e33567aa1f09172",
+            "dhash": "5d1f8e0c0e0e0f17",
+            "mean_luma": 82.886823
+          },
+          {
+            "id": "music-page-5",
+            "frame": 3286,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/03286-music-page-5.png",
+            "png_sha256": "55561c2810f7800ad96bb033b1f5c37371151257edc586e3fef7c3ee7833406e",
+            "dhash": "4c170c08060f0f03",
+            "mean_luma": 80.566738
+          },
+          {
+            "id": "music-page-6",
+            "frame": 3346,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/03346-music-page-6.png",
+            "png_sha256": "a6f827b767fbde5c790b0be4630caf05280864934bd20f927d62d63de73d036b",
+            "dhash": "4d2b8ccd450f0d03",
+            "mean_luma": 75.19344
+          },
+          {
+            "id": "music-page-7",
+            "frame": 3406,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/03406-music-page-7.png",
+            "png_sha256": "50e03d81f4916200cb87fa15ae59d13a64c4bebfc1f1c819d6c031adfebe4195",
+            "dhash": "4d178d8f8f0d3f23",
+            "mean_luma": 68.247353
+          },
+          {
+            "id": "music-page-8",
+            "frame": 3466,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/03466-music-page-8.png",
+            "png_sha256": "15ca4dbe681c5a641d786f1b7de1a3ba0ed21c026ff5d082bb862b762a9ed278",
+            "dhash": "4d2b8d8ccded3f23",
+            "mean_luma": 76.320501
+          },
+          {
+            "id": "music-page-9",
+            "frame": 3526,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/03526-music-page-9.png",
+            "png_sha256": "4f07ca513d98e4ac7d91c8d8e37646e3abe6c4cdd831bb11a4c800f40307c296",
+            "dhash": "4d230c1ded7f3f27",
+            "mean_luma": 86.805605
+          },
+          {
+            "id": "music-page-10",
+            "frame": 3586,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/03586-music-page-10.png",
+            "png_sha256": "bafb812d152e1776e6a1280ac0d17107637b01cc680a24091b459bbfb3a46f31",
+            "dhash": "55373d3f3f7f2f0f",
+            "mean_luma": 90.759012
+          },
+          {
+            "id": "music-page-11",
+            "frame": 3646,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/03646-music-page-11.png",
+            "png_sha256": "609ebd878949b4f6d97021237afe5ddbdf3101568d457d5dbd3b6eff54881b39",
+            "dhash": "75233f3f3f3f0f0f",
+            "mean_luma": 120.989178
+          },
+          {
+            "id": "music-final-track-playing",
+            "frame": 4140,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/04140-music-final-track-playing.png",
+            "png_sha256": "591e4175edfdd7ce22a016113f6f91c51fdbd4d58830f40d643cd6937d41e0b5",
+            "dhash": "5d2f3d3d3b3b3f0f",
+            "mean_luma": 123.508548
+          },
+          {
+            "id": "music-back-page-10",
+            "frame": 4380,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/04380-music-back-page-10.png",
+            "png_sha256": "6e2203fa66b27de81e5f799a61d95723895281129ec3f58bb9e2fef750e23fb3",
+            "dhash": "4c0f9e9e8e0e0c07",
+            "mean_luma": 88.577731
+          },
+          {
+            "id": "music-back-page-11",
+            "frame": 4620,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/04620-music-back-page-11.png",
+            "png_sha256": "3d0bc38f457516ffc8600e5eefef385fc79b4853fe8651efbb1e6147e6be292d",
+            "dhash": "4d078d07870d3f23",
+            "mean_luma": 95.888403
+          },
+          {
+            "id": "music-all-pages-returned",
+            "frame": 4920,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/frames/04920-music-all-pages-returned.png",
+            "png_sha256": "a0a3884892206e4970d0b23c7d263436d43756737b06de05e280097ec12a3c0a",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.291127
+          }
+        ]
+      },
+      {
+        "session": "music-probe",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/music-probe/receipt.json",
+          "sha256": "debef21908b8a98279ab79beaed69be85e4c312745d16ff1e48d28c25af16fb5"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/music-probe.json",
+          "sha256": "56411ee09532c08ff1f4af0b399c7bce7cd4124283740804375902d171990953"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-probe/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-probe/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "music-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-probe/frames/02760-music-selected.png",
+            "png_sha256": "b5288225c5273b88f7bd2e04496d340ac0c919969359a2e233d1db8031ec38fb",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.584204
+          },
+          {
+            "id": "music-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-probe/frames/03000-music-list.png",
+            "png_sha256": "9c34fb0fdfc5900f4aedcefafe00248ae0c482a87b95f4a4ef58fe8b4aed43d6",
+            "dhash": "55372d2f3f7f2f0f",
+            "mean_luma": 92.223936
+          },
+          {
+            "id": "music-first-detail",
+            "frame": 3300,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-probe/frames/03300-music-first-detail.png",
+            "png_sha256": "9311355c9d660b99b5d6d94c1b15122939c87be24c93bc55857b19aea5c814b8",
+            "dhash": "4c170c0c470f0f0b",
+            "mean_luma": 80.902577
+          }
+        ]
+      },
+      {
+        "session": "qa-answers",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/receipt.json",
+          "sha256": "355a01c87269c9eb9dae33a90c4705002af7b8c94899016b34443d425aa3120d"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/qa-answers.json",
+          "sha256": "6ea42db7d2341b115f38511ad3132428f1973a853c0542f6d06e7a6b925a86ee"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "qa-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/02760-qa-selected.png",
+            "png_sha256": "0f9734bdce1e71b2c1cb3348880b9eb168854bf5b9074291db4aeee5ccfb5ac5",
+            "dhash": "8d910d2b2b2b3f0f",
+            "mean_luma": 75.499993
+          },
+          {
+            "id": "qa-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/03000-qa-list.png",
+            "png_sha256": "e7e7f8902d7fb965a01676fcfe7c157322561862ebfd0033264d9048d14296fe",
+            "dhash": "7075644263c37119",
+            "mean_luma": 46.691127
+          },
+          {
+            "id": "qa-battle-questions",
+            "frame": 3361,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/03361-qa-battle-questions.png",
+            "png_sha256": "82fc8176ccdef6accd984c198771c6c7174b6f1907a8fc22d66189f574ba89dd",
+            "dhash": "607839393c8c210d",
+            "mean_luma": 55.630783
+          },
+          {
+            "id": "qa-battle-answer",
+            "frame": 3661,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/03661-qa-battle-answer.png",
+            "png_sha256": "faa1023d13435d7959dbca9fa3a6f3597ced623196a3bdcc493023825dc4df39",
+            "dhash": "70701117272d2919",
+            "mean_luma": 44.102972
+          },
+          {
+            "id": "qa-battle-answer-scrolled",
+            "frame": 3961,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/03961-qa-battle-answer-scrolled.png",
+            "png_sha256": "7802a66e27f043779878e43920a516d1981c5a4fcd23ed25743cae6eadd93b6e",
+            "dhash": "70701117272d2919",
+            "mean_luma": 44.109891
+          },
+          {
+            "id": "qa-battle-category-return",
+            "frame": 4381,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/04381-qa-battle-category-return.png",
+            "png_sha256": "f2afe7e767813fff914fa7d3fc7aa8b79bccc9bcccff826076882582a4777498",
+            "dhash": "7075644263c37149",
+            "mean_luma": 46.697803
+          },
+          {
+            "id": "qa-formation-questions",
+            "frame": 4861,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/04861-qa-formation-questions.png",
+            "png_sha256": "5205a8ca1e32fa7e1e9ea79c864dbf49f53f1132ff864d5f666bcca482987ac2",
+            "dhash": "607830398c84611b",
+            "mean_luma": 55.274951
+          },
+          {
+            "id": "qa-formation-answer",
+            "frame": 5161,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/05161-qa-formation-answer.png",
+            "png_sha256": "6b7ef9ee33f347c9d82948e9c239fdba7fbbead8c400c5040a56959d7021cfc3",
+            "dhash": "707009370b010109",
+            "mean_luma": 42.425725
+          },
+          {
+            "id": "qa-formation-answer-scrolled",
+            "frame": 5461,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/05461-qa-formation-answer-scrolled.png",
+            "png_sha256": "1af6f40466a2f1cffe9321fe7fb1f887e2672fdd600728fb9f2ff118cdef78c1",
+            "dhash": "707009370b010109",
+            "mean_luma": 42.431784
+          },
+          {
+            "id": "qa-formation-category-return",
+            "frame": 5881,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/05881-qa-formation-category-return.png",
+            "png_sha256": "07d217638978bf609fe2df0388063fbd59c5a6279543764fc6382047525ebe48",
+            "dhash": "781d7868cc847109",
+            "mean_luma": 46.048814
+          },
+          {
+            "id": "qa-upgrade-questions",
+            "frame": 6361,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/06361-qa-upgrade-questions.png",
+            "png_sha256": "99cea2311e2e5769eba98133b6116664d4b848055d19e2f9ba623b1817205edc",
+            "dhash": "60783119da8c1509",
+            "mean_luma": 55.938299
+          },
+          {
+            "id": "qa-upgrade-answer",
+            "frame": 6661,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/06661-qa-upgrade-answer.png",
+            "png_sha256": "dac816280352267f1b308a2652502e1cdecfbaf0284c20c2c93e59b3fa38d2a8",
+            "dhash": "7078411b37370109",
+            "mean_luma": 42.97229
+          },
+          {
+            "id": "qa-upgrade-answer-scrolled",
+            "frame": 6961,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/06961-qa-upgrade-answer-scrolled.png",
+            "png_sha256": "c622388f24590f829e0c18a38541c7c2bddc195ae6611a93b097867cc9f79527",
+            "dhash": "7078411b37370109",
+            "mean_luma": 42.967899
+          },
+          {
+            "id": "qa-upgrade-category-return",
+            "frame": 7381,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/07381-qa-upgrade-category-return.png",
+            "png_sha256": "c13ab2300282921b78f1d8b178e6469cf49dea05df41aba876ab2dd67946046d",
+            "dhash": "70453868ac885159",
+            "mean_luma": 45.518722
+          },
+          {
+            "id": "qa-other-questions",
+            "frame": 7861,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/07861-qa-other-questions.png",
+            "png_sha256": "8d25b96f25bd9710ea7bae61adee86a5b43be0e62ac80264991747a32f22383b",
+            "dhash": "607831c88c8c1119",
+            "mean_luma": 54.564655
+          },
+          {
+            "id": "qa-other-answer",
+            "frame": 8161,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/08161-qa-other-answer.png",
+            "png_sha256": "3e800b6f8c2ce6dc4485c8846b6b27d45a3ae5dc3e4f9107021d4e3ee1eda9da",
+            "dhash": "7078013b0f531b4b",
+            "mean_luma": 45.301597
+          },
+          {
+            "id": "qa-other-answer-scrolled",
+            "frame": 8461,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/08461-qa-other-answer-scrolled.png",
+            "png_sha256": "8a4818ff6d7c8256d29c04d91ccc5b8651e6a4e0914fd62f060d5a290305de04",
+            "dhash": "70780f333735154d",
+            "mean_luma": 44.833688
+          },
+          {
+            "id": "qa-other-category-return",
+            "frame": 8881,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/08881-qa-other-category-return.png",
+            "png_sha256": "dd98a041f6639b606b03539818b4661790b611ff3bbfc30e298ebfa04f28d4fb",
+            "dhash": "71517848cc883109",
+            "mean_luma": 46.217463
+          },
+          {
+            "id": "qa-answers-returned-library",
+            "frame": 9300,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/09300-qa-answers-returned-library.png",
+            "png_sha256": "0f9734bdce1e71b2c1cb3348880b9eb168854bf5b9074291db4aeee5ccfb5ac5",
+            "dhash": "8d910d2b2b2b3f0f",
+            "mean_luma": 75.499993
+          }
+        ]
+      },
+      {
+        "session": "qa-deep",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/receipt.json",
+          "sha256": "dab8f7f14ca344fe156db66e7af152a23a67304c5281c35a6960d9c352b2bd5d"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/qa-deep.json",
+          "sha256": "ab1e035e1b159f57fbb3c4181e8ab8aeaa6d13111b66e825ad6ec67d89eca814"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "qa-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/02760-qa-selected.png",
+            "png_sha256": "0f9734bdce1e71b2c1cb3348880b9eb168854bf5b9074291db4aeee5ccfb5ac5",
+            "dhash": "8d910d2b2b2b3f0f",
+            "mean_luma": 75.499993
+          },
+          {
+            "id": "qa-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/03000-qa-list.png",
+            "png_sha256": "e7e7f8902d7fb965a01676fcfe7c157322561862ebfd0033264d9048d14296fe",
+            "dhash": "7075644263c37119",
+            "mean_luma": 46.691127
+          },
+          {
+            "id": "qa-first-detail",
+            "frame": 3300,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/03300-qa-first-detail.png",
+            "png_sha256": "e1971a5dedb10a9263c803d965000c29c3bf15b620da314a5d8bf64150ba9404",
+            "dhash": "6074466363430115",
+            "mean_luma": 58.335223
+          },
+          {
+            "id": "qa-battle-page1",
+            "frame": 3540,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/03540-qa-battle-page1.png",
+            "png_sha256": "2fda2a470ba305b8a5e70fafed59fae4a1927644c8c43567fff0cd96deedc150",
+            "dhash": "607831383c84212b",
+            "mean_luma": 55.580396
+          },
+          {
+            "id": "qa-battle-page2",
+            "frame": 3780,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/03780-qa-battle-page2.png",
+            "png_sha256": "ccefe582b117d17edb0bb39d4a2a701edce02a97b4f75cfb460b8f1143d8dc22",
+            "dhash": "607831393c84210b",
+            "mean_luma": 55.634222
+          },
+          {
+            "id": "qa-battle-next-topic",
+            "frame": 4020,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/04020-qa-battle-next-topic.png",
+            "png_sha256": "a3c900ed435974b732541f8ac22cc51c7d635ef0b9aac8d1a208ac9a24603302",
+            "dhash": "607831383c84212d",
+            "mean_luma": 55.612322
+          },
+          {
+            "id": "qa-category-restored",
+            "frame": 4500,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/04500-qa-category-restored.png",
+            "png_sha256": "94360c1629d770f0168c62e4522ae96d43bc74a4e17901eb01d72953d3e38fd8",
+            "dhash": "7075444263c37119",
+            "mean_luma": 46.363058
+          },
+          {
+            "id": "qa-formation-category",
+            "frame": 4740,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/04740-qa-formation-category.png",
+            "png_sha256": "3781b06ed8074239d80f68ac873c0f8e8f947758c492b0971052e4f7422b862d",
+            "dhash": "701d6868cc887145",
+            "mean_luma": 45.727609
+          },
+          {
+            "id": "qa-formation-list",
+            "frame": 4980,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/04980-qa-formation-list.png",
+            "png_sha256": "ea8416207eb5ec2617d2710bd8123b3051f8e7406642388365775f68a288675c",
+            "dhash": "609c7868cc8a2109",
+            "mean_luma": 54.863379
+          },
+          {
+            "id": "qa-formation-topic",
+            "frame": 5220,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/05220-qa-formation-topic.png",
+            "png_sha256": "48ecb618999d881c6ffa2165825d991a22b30218cc57e146b048512e3f343484",
+            "dhash": "607831398c8c611d",
+            "mean_luma": 55.23576
+          },
+          {
+            "id": "qa-upgrade-category",
+            "frame": 5940,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/05940-qa-upgrade-category.png",
+            "png_sha256": "34bda31735707b6c34fc9c4b9bf182e5a56df63781ae171e3a9d4879e636184c",
+            "dhash": "70453868ac885109",
+            "mean_luma": 45.510498
+          },
+          {
+            "id": "qa-upgrade-list",
+            "frame": 6180,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/06180-qa-upgrade-list.png",
+            "png_sha256": "b1d273448981aeac4a722f0968fbeeee16e68ac3e2546ec3f6f4f4881b9f9090",
+            "dhash": "60c6786dac8c010d",
+            "mean_luma": 54.985665
+          },
+          {
+            "id": "qa-upgrade-topic",
+            "frame": 6420,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/06420-qa-upgrade-topic.png",
+            "png_sha256": "924654310ef7e60144e0b88e5dcf3ac9de8daa6fe4d72016f990010f569a812f",
+            "dhash": "60783119de8c151d",
+            "mean_luma": 55.989631
+          },
+          {
+            "id": "qa-other-category",
+            "frame": 7140,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/07140-qa-other-category.png",
+            "png_sha256": "ca105336de6ddd6d48f864f33a669d7f30333a5e82a5ace4d01e03fd8359fadd",
+            "dhash": "70517848cc883109",
+            "mean_luma": 45.858475
+          },
+          {
+            "id": "qa-other-list",
+            "frame": 7380,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/07380-qa-other-list.png",
+            "png_sha256": "57354fc783070e5dde25b2c5afdaabb66219d91dbf106a87211be9290a566b27",
+            "dhash": "60d17848cc8c0119",
+            "mean_luma": 54.949752
+          },
+          {
+            "id": "qa-other-topic",
+            "frame": 7620,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/07620-qa-other-topic.png",
+            "png_sha256": "8b749c1c1f9e42a7fbbc8eefe9605e293cfee730855e1a9b89f9058d45f9108f",
+            "dhash": "6078318d8a8c1115",
+            "mean_luma": 54.556114
+          },
+          {
+            "id": "qa-returned-library",
+            "frame": 8400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-deep/frames/08400-qa-returned-library.png",
+            "png_sha256": "0f9734bdce1e71b2c1cb3348880b9eb168854bf5b9074291db4aeee5ccfb5ac5",
+            "dhash": "8d910d2b2b2b3f0f",
+            "mean_luma": 75.499993
+          }
+        ]
+      },
+      {
+        "session": "qa-probe",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/qa-probe/receipt.json",
+          "sha256": "07ff5f6bc043fd6a4abe6f2315dd53b8395dc28dbca17d23fa35394a14c09633"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/qa-probe.json",
+          "sha256": "fbe8608b248efdff826af2912a2d25cfb468ffa89955063de7a26d79e98b23b1"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-probe/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-probe/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "qa-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-probe/frames/02760-qa-selected.png",
+            "png_sha256": "0f9734bdce1e71b2c1cb3348880b9eb168854bf5b9074291db4aeee5ccfb5ac5",
+            "dhash": "8d910d2b2b2b3f0f",
+            "mean_luma": 75.499993
+          },
+          {
+            "id": "qa-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-probe/frames/03000-qa-list.png",
+            "png_sha256": "e7e7f8902d7fb965a01676fcfe7c157322561862ebfd0033264d9048d14296fe",
+            "dhash": "7075644263c37119",
+            "mean_luma": 46.691127
+          },
+          {
+            "id": "qa-first-detail",
+            "frame": 3300,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/qa-probe/frames/03300-qa-first-detail.png",
+            "png_sha256": "e1971a5dedb10a9263c803d965000c29c3bf15b620da314a5d8bf64150ba9404",
+            "dhash": "6074466363430115",
+            "mean_luma": 58.335223
+          }
+        ]
+      },
+      {
+        "session": "units-deep",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/receipt.json",
+          "sha256": "77d942431e925a057f504c9405a6176da771c4719c36438f485a6d55446ed52b"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/units-deep.json",
+          "sha256": "af5715109724d9a293c6ea62b5d6730e80784f27bdbf70c68cef8c978e36ddd2"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "units-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/02760-units-selected.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "units-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/03000-units-list.png",
+            "png_sha256": "c5e20cdbac6e316f4088b7a4141ed6e37d3432adaf574e1cf1ede7d9fbe4a98c",
+            "dhash": "6ce6e4446464e7ac",
+            "mean_luma": 37.971655
+          },
+          {
+            "id": "units-first-detail",
+            "frame": 3300,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/03300-units-first-detail.png",
+            "png_sha256": "34bf83cae1336ac1a905ac2aebe243147b2d065f83742529a04ebb02753284b4",
+            "dhash": "80898d0c5cd7178e",
+            "mean_luma": 38.718025
+          },
+          {
+            "id": "units-scrolled",
+            "frame": 3480,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/03480-units-scrolled.png",
+            "png_sha256": "f537d7029c85c64ca0e21e8aff1b168d4c04a4dae06c01382a31c1edab5ad649",
+            "dhash": "80090d4c5c67cf1d",
+            "mean_luma": 39.269308
+          },
+          {
+            "id": "units-next-unit",
+            "frame": 3720,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/03720-units-next-unit.png",
+            "png_sha256": "5073a0af5fef1873f9793b2767be22ebe5c7e9a7e43e517a918d4492e2558b6e",
+            "dhash": "c0096d4c5c656d5d",
+            "mean_luma": 39.666473
+          },
+          {
+            "id": "units-back-list",
+            "frame": 3960,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/03960-units-back-list.png",
+            "png_sha256": "e0227b5f0b24ecdc85730d87061037cfc61dc290f75adc567359a8b3e5c1a7e1",
+            "dhash": "68e6e4446464c5bc",
+            "mean_luma": 37.947461
+          },
+          {
+            "id": "units-sorted",
+            "frame": 4200,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/04200-units-sorted.png",
+            "png_sha256": "b00dcd91faac491892b719fd71c4dc7b3c98646345e36b0bc454167d495f1245",
+            "dhash": "6cc7466664646dcc",
+            "mean_luma": 38.891553
+          },
+          {
+            "id": "units-page-boundary",
+            "frame": 4440,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/04440-units-page-boundary.png",
+            "png_sha256": "7c98e487d144fd1e9dc06e32919b00038eadc27844c580209c76fff579285a17",
+            "dhash": "6ce7666664646ddc",
+            "mean_luma": 38.822506
+          },
+          {
+            "id": "units-boundary-detail",
+            "frame": 4680,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/04680-units-boundary-detail.png",
+            "png_sha256": "b19c7f71b7f63457300b1c29968aa5e0f7ff3f516f72a5a1e007540470e7b054",
+            "dhash": "80911d565cb62ece",
+            "mean_luma": 38.324212
+          },
+          {
+            "id": "units-returned-library",
+            "frame": 5160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-deep/frames/05160-units-returned-library.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          }
+        ]
+      },
+      {
+        "session": "units-pages",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/receipt.json",
+          "sha256": "c1d51bf355b6dc9b7f457dbd1b174677855da1bb90c9d9a775e64c088bb238c2"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/units-pages.json",
+          "sha256": "9006af03d9cc41ab039a3c97ebb43805b5b610937cca77dc0be151606ca96aed"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "units-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/02760-units-selected.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "units-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03000-units-list.png",
+            "png_sha256": "c5e20cdbac6e316f4088b7a4141ed6e37d3432adaf574e1cf1ede7d9fbe4a98c",
+            "dhash": "6ce6e4446464e7ac",
+            "mean_luma": 37.971655
+          },
+          {
+            "id": "units-right-1",
+            "frame": 3091,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03091-units-right-1.png",
+            "png_sha256": "f396c408de908d569f1cde82652a20f481771a2935a3ccbdd7d61ae9ed528fe7",
+            "dhash": "68e7e4446464e5cc",
+            "mean_luma": 38.112061
+          },
+          {
+            "id": "units-right-2",
+            "frame": 3136,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03136-units-right-2.png",
+            "png_sha256": "af9aff0bc7482704e70d4c7970f49a570c4b9e8d419dae3449aaadebac34a54f",
+            "dhash": "69646c44c44665bc",
+            "mean_luma": 37.467505
+          },
+          {
+            "id": "units-right-4",
+            "frame": 3226,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03226-units-right-4.png",
+            "png_sha256": "e4558e236a718f29a5cb087a7be0378fc0050d501d85d9b7b74a6e7f8467c857",
+            "dhash": "68e6666446c7679c",
+            "mean_luma": 38.879332
+          },
+          {
+            "id": "units-right-6",
+            "frame": 3316,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03316-units-right-6.png",
+            "png_sha256": "e483844cd91cea97b1e2aedaea59790b92da0153fff468038ef826db3d33ae56",
+            "dhash": "686cc44564c4cd9c",
+            "mean_luma": 37.363843
+          },
+          {
+            "id": "units-right-8",
+            "frame": 3406,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03406-units-right-8.png",
+            "png_sha256": "5f4286203b60b280cdaa53148e1511e1c124f3a12ff5348ad7d6e94ba3f9fbea",
+            "dhash": "68ece6e466e4ed9c",
+            "mean_luma": 37.109933
+          },
+          {
+            "id": "units-right-10",
+            "frame": 3496,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03496-units-right-10.png",
+            "png_sha256": "80f2ed5a06ba6c33765e87aaed8334cdfe5a798346f6b0dec62f7406b95ccdf2",
+            "dhash": "6cece4c6e664e79c",
+            "mean_luma": 36.98441
+          },
+          {
+            "id": "units-right-12",
+            "frame": 3586,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03586-units-right-12.png",
+            "png_sha256": "cc516c05f75e8c699ea19b3f62a64df4765495fddc137b16ad5296efd63e0fdf",
+            "dhash": "6c4466c6e6c7c5bc",
+            "mean_luma": 37.748657
+          },
+          {
+            "id": "units-right-14",
+            "frame": 3676,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03676-units-right-14.png",
+            "png_sha256": "8af6b0dd654e0649ce3dd756c33affe430db8d07aa37bef250c7bcca0644e3e3",
+            "dhash": "6866e6c6e664679c",
+            "mean_luma": 39.299159
+          },
+          {
+            "id": "units-right-16",
+            "frame": 3766,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03766-units-right-16.png",
+            "png_sha256": "7d27e668610d4d09902e60e87928a316d2fc9576f0d0386165fb5033a860d853",
+            "dhash": "68a4e4cc44446d9f",
+            "mean_luma": 37.530716
+          },
+          {
+            "id": "units-right-18",
+            "frame": 3856,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03856-units-right-18.png",
+            "png_sha256": "0221aae6621dbb1b728c4d3d7414a7c61e51c34a2564b3deb3b1e5ed31fcabfb",
+            "dhash": "6864e445c4c6e79f",
+            "mean_luma": 36.977724
+          },
+          {
+            "id": "units-right-20",
+            "frame": 3946,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/03946-units-right-20.png",
+            "png_sha256": "3a8f4d17319dd1c647763ecb615cbd33f0c4dcd69f3e72d6cae94c8aacb24c55",
+            "dhash": "6866e66664c44dbc",
+            "mean_luma": 37.888072
+          },
+          {
+            "id": "units-right-22",
+            "frame": 4036,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/04036-units-right-22.png",
+            "png_sha256": "971154940f92fa06cd38a92d44d670d631c0b35ad781818e6295e32b5d8a1511",
+            "dhash": "686666666767279e",
+            "mean_luma": 41.786091
+          },
+          {
+            "id": "units-right-24",
+            "frame": 4126,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/04126-units-right-24.png",
+            "png_sha256": "2bd9e5b1a8780de677f5ce9d2b5caa6cdfce74ad80b7fc5dedd96c1284796688",
+            "dhash": "6866c64666c6e5bc",
+            "mean_luma": 38.692477
+          },
+          {
+            "id": "units-right-26",
+            "frame": 4216,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/04216-units-right-26.png",
+            "png_sha256": "a8ad57be752896d715597c124de87cf5672d57f1004a4cec660da119ae1c4653",
+            "dhash": "69d8f0d86c8c6dbc",
+            "mean_luma": 34.011597
+          },
+          {
+            "id": "units-last-page-detail",
+            "frame": 4591,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/04591-units-last-page-detail.png",
+            "png_sha256": "8db0a9e1f5a6d4c8d6c797a331bb549c6bbcaf737e8fc1f787731143479a5318",
+            "dhash": "808d8d4454bcaccc",
+            "mean_luma": 37.52711
+          },
+          {
+            "id": "units-page-sweep-return",
+            "frame": 5191,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-pages/frames/05191-units-page-sweep-return.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          }
+        ]
+      },
+      {
+        "session": "units-probe",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/units-probe/receipt.json",
+          "sha256": "4695c5dd5cc013da19ce97194c3bf14505091e1f25c1c15b6cdeed3145c691b8"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/units-probe.json",
+          "sha256": "2c9eb3acd344d17a758a54cf8990855fe768ad9e7a53cedad7b9b94458281888"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-probe/frames/02160-title-library-selected.png",
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-probe/frames/02400-library-result-2400.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "units-selected",
+            "frame": 2760,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-probe/frames/02760-units-selected.png",
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029
+          },
+          {
+            "id": "units-list",
+            "frame": 3000,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-probe/frames/03000-units-list.png",
+            "png_sha256": "c5e20cdbac6e316f4088b7a4141ed6e37d3432adaf574e1cf1ede7d9fbe4a98c",
+            "dhash": "6ce6e4446464e7ac",
+            "mean_luma": 37.971655
+          },
+          {
+            "id": "units-first-detail",
+            "frame": 3300,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/units-probe/frames/03300-units-first-detail.png",
+            "png_sha256": "34bf83cae1336ac1a905ac2aebe243147b2d065f83742529a04ebb02753284b4",
+            "dhash": "80898d0c5cd7178e",
+            "mean_luma": 38.718025
+          }
+        ]
+      },
+      {
+        "session": "expression-buttons",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/receipt.json",
+          "sha256": "eb5948bb3cf8c32895cc4d0c22a5d33d7bbe79877e05d4436b31159c691fd427"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/expression-buttons.json",
+          "sha256": "4571293ef59a75c81cfe75e7d2ef6dbdb0538c3a44a7d877d7efb48f32b13b30"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/02160-title-library-selected.png"
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/02400-library-result-2400.png"
+          },
+          {
+            "id": "characters-selected",
+            "frame": 2760,
+            "png_sha256": "f6afddf31646a795887a110ae98984d19a8fe366b3e3418a910fbaa448e527fc",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.53117,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/02760-characters-selected.png"
+          },
+          {
+            "id": "characters-list",
+            "frame": 3000,
+            "png_sha256": "c09ec15817925d7587cdd243ba4596545ada2d56e359db0d39659871b6dcd375",
+            "dhash": "6cd2dadadada9bac",
+            "mean_luma": 36.433943,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03000-characters-list.png"
+          },
+          {
+            "id": "characters-first-detail",
+            "frame": 3300,
+            "png_sha256": "66768def401bb6dada16eb6f80637e40dd3ac5d52f5f66d19a9e8c360b241254",
+            "dhash": "c170795939593990",
+            "mean_luma": 42.153798,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03300-characters-first-detail.png"
+          },
+          {
+            "id": "expression-buttons-3360",
+            "frame": 3360,
+            "png_sha256": "21930bfeda3980f88872a20168900926d4b6c28abcdbdf18649d961472ff476a",
+            "dhash": "c160785939593990",
+            "mean_luma": 42.145557,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03360-expression-buttons-3360.png"
+          },
+          {
+            "id": "expression-buttons-3364",
+            "frame": 3364,
+            "png_sha256": "2a7b21c81298686fb637c2e535edfc01d6877aa0635d30e432116b55740a3c33",
+            "dhash": "c1607858395b3898",
+            "mean_luma": 37.649048,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03364-expression-buttons-3364.png"
+          },
+          {
+            "id": "expression-buttons-3370",
+            "frame": 3370,
+            "png_sha256": "8e41a9dc6295346ab12672cc197dc6cb60f4becc034ea965fefff202b2775577",
+            "dhash": "c160705839593990",
+            "mean_luma": 42.128366,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03370-expression-buttons-3370.png"
+          },
+          {
+            "id": "expression-buttons-3390",
+            "frame": 3390,
+            "png_sha256": "c500b7ed9c112250535fbfe92d76b9db03aa1d12c9e7092d27fdb0a86c8d4f10",
+            "dhash": "c160795839593998",
+            "mean_luma": 42.121966,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03390-expression-buttons-3390.png"
+          },
+          {
+            "id": "expression-buttons-3420",
+            "frame": 3420,
+            "png_sha256": "bd0752156b73a84f2bc7b9c156eff97dd215683d72b6f7f4b9b26735ba77e1b1",
+            "dhash": "c160785839593990",
+            "mean_luma": 42.159577,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03420-expression-buttons-3420.png"
+          },
+          {
+            "id": "expression-buttons-3484",
+            "frame": 3484,
+            "png_sha256": "53e3a0035c33c873dcc64beb16196b461ccb4b60fd2c94d545c5692f1c9ec30d",
+            "dhash": "e1607858191b3898",
+            "mean_luma": 37.644479,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03484-expression-buttons-3484.png"
+          },
+          {
+            "id": "expression-buttons-3510",
+            "frame": 3510,
+            "png_sha256": "a45c71c005d7b97d58ff18b6d2ed4671ae3d87c1bf988f7d51eaf5713fd48980",
+            "dhash": "f1607858191939b0",
+            "mean_luma": 42.114837,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03510-expression-buttons-3510.png"
+          },
+          {
+            "id": "expression-buttons-3540",
+            "frame": 3540,
+            "png_sha256": "f17c4a0893b32c1dcdfba1982f4ae6b2b4dbb382d9f451e51c09bdacf3e1b574",
+            "dhash": "d170f85819593990",
+            "mean_luma": 42.114083,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03540-expression-buttons-3540.png"
+          },
+          {
+            "id": "expression-buttons-3570",
+            "frame": 3570,
+            "png_sha256": "aaeea5187813c19437b66b7af14882e02a406f6227796a407fab116399d47030",
+            "dhash": "c168585839593990",
+            "mean_luma": 42.115077,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03570-expression-buttons-3570.png"
+          },
+          {
+            "id": "expression-buttons-3660",
+            "frame": 3660,
+            "png_sha256": "30412031e8872a14c06ec0211bd3ab957b47961978112419085c28a5e3c5fffe",
+            "dhash": "c160795839593990",
+            "mean_luma": 42.124187,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03660-expression-buttons-3660.png"
+          },
+          {
+            "id": "expression-buttons-3900",
+            "frame": 3900,
+            "png_sha256": "a5483bfa699cd776bb1fb70e41e472289942bc2354f8ba264482a8c68a0b3ba6",
+            "dhash": "c160785839593990",
+            "mean_luma": 42.139146,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/03900-expression-buttons-3900.png"
+          },
+          {
+            "id": "expression-return-buttons",
+            "frame": 4260,
+            "png_sha256": "f6afddf31646a795887a110ae98984d19a8fe366b3e3418a910fbaa448e527fc",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.53117,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/frames/04260-expression-return-buttons.png"
+          }
+        ]
+      },
+      {
+        "session": "expression-control",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/receipt.json",
+          "sha256": "25fd64d990d65ef0343c543f448e495be3d5194de2d363878192699930caae9f"
+        },
+        "scenario": {
+          "path": "work/analysis/best-library-audit-20260909/expression-control.json",
+          "sha256": "0a32e5b7996245e45c5c6f2c8ff323bd7935d4bd45185c70d342a9a833c1a00d"
+        },
+        "status": "passed",
+        "source_card_unchanged": true,
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/02160-title-library-selected.png"
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/02400-library-result-2400.png"
+          },
+          {
+            "id": "characters-selected",
+            "frame": 2760,
+            "png_sha256": "f6afddf31646a795887a110ae98984d19a8fe366b3e3418a910fbaa448e527fc",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.53117,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/02760-characters-selected.png"
+          },
+          {
+            "id": "characters-list",
+            "frame": 3000,
+            "png_sha256": "c09ec15817925d7587cdd243ba4596545ada2d56e359db0d39659871b6dcd375",
+            "dhash": "6cd2dadadada9bac",
+            "mean_luma": 36.433943,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03000-characters-list.png"
+          },
+          {
+            "id": "characters-first-detail",
+            "frame": 3300,
+            "png_sha256": "66768def401bb6dada16eb6f80637e40dd3ac5d52f5f66d19a9e8c360b241254",
+            "dhash": "c170795939593990",
+            "mean_luma": 42.153798,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03300-characters-first-detail.png"
+          },
+          {
+            "id": "expression-control-3360",
+            "frame": 3360,
+            "png_sha256": "21930bfeda3980f88872a20168900926d4b6c28abcdbdf18649d961472ff476a",
+            "dhash": "c160785939593990",
+            "mean_luma": 42.145557,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03360-expression-control-3360.png"
+          },
+          {
+            "id": "expression-control-3364",
+            "frame": 3364,
+            "png_sha256": "64b727d39d1af74c1a30fc98aecc40c1c9f11a2e427618acb9102345aa490952",
+            "dhash": "c160785839593990",
+            "mean_luma": 42.152968,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03364-expression-control-3364.png"
+          },
+          {
+            "id": "expression-control-3370",
+            "frame": 3370,
+            "png_sha256": "9843e48955257c0f1a5921613454380e53a2c5c87615b7a31ef6e3e8839d2b63",
+            "dhash": "c160705839593990",
+            "mean_luma": 42.145281,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03370-expression-control-3370.png"
+          },
+          {
+            "id": "expression-control-3390",
+            "frame": 3390,
+            "png_sha256": "6d3b02c2d6a370ae955173e12aadb1d422a57a6588852aa936771ed5dacfdc05",
+            "dhash": "c160795839593998",
+            "mean_luma": 42.132833,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03390-expression-control-3390.png"
+          },
+          {
+            "id": "expression-control-3420",
+            "frame": 3420,
+            "png_sha256": "f9567bd9ddbdc10e8eb095ed07a3fa8ecf13110a81c82f54749937b20b0cb095",
+            "dhash": "c160785839593990",
+            "mean_luma": 42.170445,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03420-expression-control-3420.png"
+          },
+          {
+            "id": "expression-control-3484",
+            "frame": 3484,
+            "png_sha256": "4af404f803ab2d1754d9c9ebdcba35ab58f12ca533c869a7ffa30bb67ab33d2c",
+            "dhash": "e160785819193990",
+            "mean_luma": 42.148511,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03484-expression-control-3484.png"
+          },
+          {
+            "id": "expression-control-3510",
+            "frame": 3510,
+            "png_sha256": "e180f7528860d38a3d93be0c856920650131eed674c1d3b5bdc9d4fcb8083ed5",
+            "dhash": "f1607858191939b0",
+            "mean_luma": 42.150848,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03510-expression-control-3510.png"
+          },
+          {
+            "id": "expression-control-3540",
+            "frame": 3540,
+            "png_sha256": "3eac121d7b4307d05ec8067563108f601914b6675bdca4528eeaeb03e91be605",
+            "dhash": "d170f85819593990",
+            "mean_luma": 42.150087,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03540-expression-control-3540.png"
+          },
+          {
+            "id": "expression-control-3570",
+            "frame": 3570,
+            "png_sha256": "07f007dfbdecaafb94d88d2b8c02661024ae30b12cf2e811110d1685bf6a027a",
+            "dhash": "c168585839593990",
+            "mean_luma": 42.151085,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03570-expression-control-3570.png"
+          },
+          {
+            "id": "expression-control-3660",
+            "frame": 3660,
+            "png_sha256": "0bb6a908f7fef7b0a7cda6ae4a2cc32277917d2dc689331119ec6a7d662c68a2",
+            "dhash": "c160795839593990",
+            "mean_luma": 42.160195,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03660-expression-control-3660.png"
+          },
+          {
+            "id": "expression-control-3900",
+            "frame": 3900,
+            "png_sha256": "77225614dbd125630770a8b09e263d415e4cc5986ec7ee5eb2a831687b4a04ce",
+            "dhash": "c160785839593990",
+            "mean_luma": 42.175153,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/03900-expression-control-3900.png"
+          },
+          {
+            "id": "expression-return-control",
+            "frame": 4260,
+            "png_sha256": "f6afddf31646a795887a110ae98984d19a8fe366b3e3418a910fbaa448e527fc",
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.53117,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/frames/04260-expression-return-control.png"
+          }
+        ]
+      }
+    ],
+    "audio_harness": {
+      "path": "work/analysis/best-library-audit-20260909/run_audio_probe.py",
+      "sha256": "a771cbb8c8eb2d532f9aafa7632c9f9cc781e1f54ec0b421ce6f21fafb261339"
+    },
+    "audio": [
+      {
+        "session": "characters-deep-audio-v2",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/audio-evidence.json",
+          "sha256": "e1d7b4da1e2358b7f922d0139115ed5f37abf566f3ba4bf1d2f0b1e78faf5598"
+        },
+        "windows": [
+          {
+            "id": "character-before-voice",
+            "start_frame": 3420,
+            "end_frame": 3570,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/character-before-voice.wav",
+            "sample_rate": 48000,
+            "sample_count": 241846,
+            "nonzero_samples": 241806,
+            "peak": 15372,
+            "rms": 2785.6077408856495,
+            "pcm_sha256": "b56139c5602ee7929828ae8ac32cdcfd42fda05d054c7c3226812af2e0ea7c97",
+            "wav_sha256": "5af759bf69039ec67d9716baf208ced0338dbc3ca2b21aae897dbcd34751a225"
+          },
+          {
+            "id": "character-voice",
+            "start_frame": 3601,
+            "end_frame": 3900,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/characters-deep-audio-v2/character-voice.wav",
+            "sample_rate": 48000,
+            "sample_count": 480490,
+            "nonzero_samples": 480438,
+            "peak": 28900,
+            "rms": 5595.691474078739,
+            "pcm_sha256": "fd91f7b6500c692dce14f6ff2d9c68636b38fbcf91971fc57a6147405ccc78df",
+            "wav_sha256": "9873160805e360eb359864e3dfb3820f1baede22e847d731d5a66da291f25690"
+          }
+        ]
+      },
+      {
+        "session": "music-deep-audio-v2",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/audio-evidence.json",
+          "sha256": "95ce8709084ee5ba04ba7834f470e2584f8df00d8400270e3f44dac906d19b6e"
+        },
+        "windows": [
+          {
+            "id": "music-first",
+            "start_frame": 3120,
+            "end_frame": 3290,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/music-first.wav",
+            "sample_rate": 48000,
+            "sample_count": 273878,
+            "nonzero_samples": 273820,
+            "peak": 20951,
+            "rms": 2731.3657193475087,
+            "pcm_sha256": "5cf1de23a370922712116d110c6264cc196b461afb73ce9f51731c8801d934ce",
+            "wav_sha256": "5318c2de828cb942d0048838c217796f8e0bcbe40645cd318d3dc5b1875774b1"
+          },
+          {
+            "id": "music-second",
+            "start_frame": 3660,
+            "end_frame": 3830,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/music-second.wav",
+            "sample_rate": 48000,
+            "sample_count": 273880,
+            "nonzero_samples": 273842,
+            "peak": 23546,
+            "rms": 4271.518643582127,
+            "pcm_sha256": "c1df84acbc228fd2b45e58395829643cdf464ec3193e0264f9fe658db873868a",
+            "wav_sha256": "028bca97b1719a49a59c64d5f8a83f11ba2e6adbd63b659c683cb211e759af59"
+          },
+          {
+            "id": "music-next-page",
+            "start_frame": 4200,
+            "end_frame": 4370,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/music-next-page.wav",
+            "sample_rate": 48000,
+            "sample_count": 273878,
+            "nonzero_samples": 273843,
+            "peak": 19042,
+            "rms": 3662.3488053295027,
+            "pcm_sha256": "062a6b534df7e95663eea5ea73017410402b5b14a37773a99f9ab89a8e054550",
+            "wav_sha256": "e01977122036a65232a78ed96ea151c462c44d30022e3dae8d84b64a01c95e41"
+          },
+          {
+            "id": "music-last-page",
+            "start_frame": 4980,
+            "end_frame": 5150,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-deep-audio-v2/music-last-page.wav",
+            "sample_rate": 48000,
+            "sample_count": 273878,
+            "nonzero_samples": 273843,
+            "peak": 23506,
+            "rms": 4212.549397466436,
+            "pcm_sha256": "02246062d8a622170e7c63af3a8ba8f8d899256b9a120fe00b8bd83c8b22a40a",
+            "wav_sha256": "ae2d930137cef1c78d6a75a7fc471e522075c1ebc5cf658decb5b9caf306f035"
+          }
+        ]
+      },
+      {
+        "session": "music-pages",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/audio-evidence.json",
+          "sha256": "9f693804c7f5956707ca86235b22576119ea1cf7d51cbd83d0f7229f5a02a0a8"
+        },
+        "windows": [
+          {
+            "id": "music-page-11-final-track",
+            "start_frame": 3960,
+            "end_frame": 4130,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/music-pages/music-page-11-final-track.wav",
+            "sample_rate": 48000,
+            "sample_count": 273878,
+            "nonzero_samples": 273786,
+            "peak": 14108,
+            "rms": 2764.9971205317165,
+            "pcm_sha256": "0df907ab03d860b6ea3a2225cfa8c8cccbeb12eb73b3b7df982eed76df118c33",
+            "wav_sha256": "ec7180d6011094f3b29c8e21e849aeb822d2c92af8992106e4125698759c4d9c"
+          }
+        ]
+      },
+      {
+        "session": "expression-buttons",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/audio-evidence.json",
+          "sha256": "d97fa05cafe19a2586e7bde9e9fa8a2f6d5714bce0c31399ccc83d639390c6c1"
+        },
+        "windows": [
+          {
+            "id": "voice-comparison",
+            "start_frame": 3601,
+            "end_frame": 3900,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-buttons/voice-comparison.wav",
+            "sample_rate": 48000,
+            "sample_count": 480490,
+            "nonzero_samples": 480438,
+            "peak": 28900,
+            "rms": 5595.691474078739,
+            "pcm_sha256": "fd91f7b6500c692dce14f6ff2d9c68636b38fbcf91971fc57a6147405ccc78df",
+            "wav_sha256": "9873160805e360eb359864e3dfb3820f1baede22e847d731d5a66da291f25690"
+          }
+        ]
+      },
+      {
+        "session": "expression-control",
+        "receipt": {
+          "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/audio-evidence.json",
+          "sha256": "0129cbbcc2e8d921aa8ceeb512dc7db184dedde0a20bd79d7869b77c7dfb6c4e"
+        },
+        "windows": [
+          {
+            "id": "voice-comparison",
+            "start_frame": 3601,
+            "end_frame": 3900,
+            "path": "work/runtime/lrps2/best-library-audit-20260909/expression-control/voice-comparison.wav",
+            "sample_rate": 48000,
+            "sample_count": 480490,
+            "nonzero_samples": 480425,
+            "peak": 15232,
+            "rms": 2827.482184251599,
+            "pcm_sha256": "1e255305eb9176e6f388c31b9f581e7f48739c5812c34f90c1871ce0de755709",
+            "wav_sha256": "7d5e3175a17f69906074ca496b76a14b9f091874b60348198d79e41dd109283f"
+          }
+        ]
+      }
+    ],
+    "excluded_harness_failures": [
+      {
+        "session": "characters-deep",
+        "reason": "Initial audio harness used array.clear(), unavailable in this Python; failed before screenshots. Replaced with slice deletion and passed in deep-audio-v2."
+      },
+      {
+        "session": "music-deep",
+        "reason": "Initial audio harness used array.clear(), unavailable in this Python; failed before screenshots. Replaced with slice deletion and passed in deep-audio-v2."
+      }
+    ],
+    "pcsx2_manual": "not_run",
+    "button_comparison": {
+      "evidence": {
+        "path": "work/analysis/best-library-audit-20260909/button-comparison.json",
+        "sha256": "fbe985282c9273812bde92b2aa8e7563edf4fbb787714a278a2a8400913bd1ef"
+      },
+      "script": {
+        "path": "work/analysis/best-library-audit-20260909/compare_buttons.py",
+        "sha256": "dc47dcd76dd234f60986461f204dd1f3d6a59b4ff51f21047d1f600d6d4b7bc4"
+      },
+      "same_initial_portrait": true,
+      "expression_visually_changed": true,
+      "portrait_changed_pixels_at_3510": 4717,
+      "voice_rms_ratio_to_control": 1.9790368636964029
+    }
+  },
+  "findings": [
+    {
+      "id": "V040-COMMON-QA-093-PUNCTUATION",
+      "severity": "low",
+      "category": "layout",
+      "status": "recorded_not_modified",
+      "summary": "Q&A 其他 → 关于SR点数 → 什么是SR点数？：彩色“SR点数获得不可”之后的句号单独换行。",
+      "corpus": "corpus/zh/menu/nisv-strategy-qa.json",
+      "record_id": "page/093/record/014",
+      "evidence": {
+        "path": "work/runtime/lrps2/best-library-audit-20260909/qa-answers/frames/08161-qa-other-answer.png",
+        "sha256": "3e800b6f8c2ce6dc4485c8846b6b27d45a3ae5dc3e4f9107021d4e3ee1eda9da"
+      },
+      "functionality": "Answer scrolling, return, and further menu use remained responsive.",
+      "legacy_id": "BEST-LIBRARY-QA-093-PUNCTUATION",
+      "related_feedback_reporter": "AL-E",
+      "affected_editions": [
+        "original",
+        "best"
+      ],
+      "cross_edition_readback": {
+        "date": "2026-09-09",
+        "member": "DATA/NISVDATA.BIN",
+        "chunk_index": 6,
+        "decoded_sha256": "6a9ea5433fb25ebfad56ea6ab1586bab603ec1dbd4d552cd3240304759355cbe",
+        "all_four_byte_identical": true,
+        "iso_paths": [
+          "build/iso/v0.4.0/0.4.0-original.iso",
+          "build/iso/v0.4.0/0.4.0-best.iso",
+          "build/iso/zh-release-full-story/current-original.iso",
+          "build/iso/zh-release-best/current-best.iso"
+        ],
+        "runtime_limit": "Screenshot verified on Best only; Original runtime screenshot not independently captured."
+      },
+      "github_issue": "https://github.com/dyzz/srwz-zh/issues/22"
+    }
+  ],
+  "limits": [
+    "Runtime sampled representative detail records; all 784 details, all 101 music tracks, and all 102 Q&A answers were not individually opened/played.",
+    "PCM captures establish non-silent audio output after the selected actions; no per-track/per-voice listening or full audio-fidelity acceptance.",
+    "Exploratory deep sequences use page-boundary labels for L1 in lists; that key did not page the list. Actual all-page coverage is from the separate right-direction page sweeps.",
+    "The exploratory music-last-page audio window was actually a replay on page 1; final-page acceptance is from music-pages/music-page-11-final-track.",
+    "No game code, corpus, or ISO changed in this audit."
+  ]
+}
