@@ -17,6 +17,60 @@ def packed(*values):
 
 
 class BestBackendTests(unittest.TestCase):
+    def hsfc_table_compiler(self):
+        repo = Path(__file__).resolve().parents[1]
+        contract = json.loads((repo / 'config/editions/best/source-layout.json').read_text())
+        member = 'DATA/HSFC.BIN'
+        spec = next(r for r in contract['archive_tables'] if r['member'] == member)
+        compiler = BestCompiler.__new__(BestCompiler)
+        compiler.archive_tables = {member: spec}
+        compiler.native = {}
+        # Real HSFC native layouts: the Best credits block is 0x90 bytes larger.
+        for version, name, offsets in [
+            ('original', 'SLPS_258.87', [0, 0x2570, 0x39B00, 0x3D030, 0x3D100]),
+            ('best', 'SLPS_732.70', [0, 0x2570, 0x39B00, 0x3D0C0, 0x3D190]),
+        ]:
+            elf = bytearray(b'\xA5' * 0x350000)
+            for site in (spec, *spec['aliases']):
+                start, count = site[f'{version}_start'], site['count']
+                elf[start:start+4*count] = packed(*offsets[:count])
+            compiler.native[version] = {name: bytes(elf), member: bytes(offsets[-1])}
+        compiler.outputs = {member: bytes(0x3D190)}
+        compiler.tables = {member: [0, 0x1D50, 0x36450, 0x39A10, 0x3D190]}
+        compiler.elf_writes = []
+        return compiler, spec
+
+    def test_hsfc_repacking_updates_both_runtime_consumers_and_preserves_neighbors(self):
+        compiler, spec = self.hsfc_table_compiler()
+        self.assertEqual(spec['best_start'], 0x347E90)
+        self.assertEqual(spec['aliases'][0]['best_start'], 0x33C610)
+        self.assertEqual(spec['aliases'][0]['original_start'], 0x33BE20)
+        self.assertEqual(spec['aliases'][0]['count'], 5)
+        native = compiler.native['best']['SLPS_732.70']
+        elf = bytearray(native)
+        proof = compiler.write_archive_tables(elf)
+        offsets = compiler.tables['DATA/HSFC.BIN']
+        # The loader uses [index+1]-[index], including the final end sentinel.
+        loader = struct.unpack_from('<5I', elf, 0x33C610)
+        self.assertEqual(list(loader), offsets)
+        self.assertEqual(list(struct.unpack_from('<4I', elf, 0x347E90)), offsets[:4])
+        self.assertEqual([b-a for a, b in zip(loader, loader[1:])],
+                         [0x1D50, 0x34700, 0x35C0, 0x3780])
+        self.assertEqual(len(proof), 2)
+        for start, end in compiler.elf_writes:
+            elf[start:end] = native[start:end]
+        self.assertEqual(elf, native)  # Includes the adjacent decoded-size table.
+
+    def test_hsfc_stale_or_unknown_native_alias_fails_closed(self):
+        for version, name in [('original', 'SLPS_258.87'), ('best', 'SLPS_732.70')]:
+            with self.subTest(version=version):
+                compiler, spec = self.hsfc_table_compiler()
+                elf = bytearray(compiler.native[version][name])
+                elf[spec['aliases'][0][f'{version}_start'] + 4] ^= 0x10
+                compiler.native[version][name] = bytes(elf)
+                with self.assertRaisesRegex(EditionError, 'alias preimage drift'):
+                    compiler.write_archive_tables(bytearray(compiler.native['best']['SLPS_732.70']))
+
     def test_sr_point_alignment_maps_to_best_without_replacing_native_text_pointer(self):
         repo = Path(__file__).resolve().parents[1]
         contract = json.loads((repo / 'config/editions/best/source-layout.json').read_text())

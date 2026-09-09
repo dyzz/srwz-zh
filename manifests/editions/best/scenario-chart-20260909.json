@@ -1,0 +1,424 @@
+{
+  "schema_version": 1,
+  "issue_id": "V040-BEST-SCENARIO-CHART",
+  "date": "2026-09-09",
+  "status": "source_fixed_static_and_lrps2_passed_pcsx2_pending",
+  "user_report": "v0.4.0 The Best：资料库→剧情流程黑屏卡死，BGM继续，按键无响应。",
+  "root_cause": {
+    "member": "DATA/HSFC.BIN",
+    "primary_table_best_file_offset": "0x347E90",
+    "missed_loader_table_best_file_offset": "0x33C610",
+    "loader_best_runtime_address": "0x1A6C60",
+    "native_loader_table": [
+      "0x0",
+      "0x2570",
+      "0x39B00",
+      "0x3D0C0",
+      "0x3D190"
+    ],
+    "fixed_loader_table": [
+      "0x0",
+      "0x1D50",
+      "0x36450",
+      "0x39A10",
+      "0x3D190"
+    ],
+    "explanation": "HSFC repacking updated only the summary table; the Scenario Chart loader consumed a separate stale table with an end sentinel.",
+    "neighbor_decoded_size_table_best_file_offset": "0x33C630",
+    "native_full_table_search": "13 primary table patterns audited; HSFC alone had a second exact full-table match"
+  },
+  "static_audit": {
+    "current_iso_sha256": "33e71eabc2aa2c84799e2d24c57aa78f0035e8a4633a1964735bfbb3e392894f",
+    "frozen_release_sha256": "4ccb2355ab6d18e08db4183f06333f1d9d58b7cb7e3e4e98e6d972ae9784a18a",
+    "changed_members_vs_release": [
+      "DATA/COMPDATA.BN",
+      "SLPS_732.70"
+    ],
+    "changed_elf_bytes_vs_release": [
+      "0x33c614",
+      "0x33c615",
+      "0x33c618",
+      "0x33c619",
+      "0x33c61c",
+      "0x33c61d"
+    ],
+    "runtime_tables": {
+      "0x347e90": [
+        0,
+        7504,
+        222288,
+        236048
+      ],
+      "0x33c610": [
+        0,
+        7504,
+        222288,
+        236048,
+        250256
+      ]
+    },
+    "all_member_sizes_and_lbas_match_release": true
+  },
+  "isolated_causal_test": {
+    "diagnostic_only": true,
+    "source_iso_sha256": "4ccb2355ab6d18e08db4183f06333f1d9d58b7cb7e3e4e98e6d972ae9784a18a",
+    "iso_sha256": "30bf60ea7c84d2f33f997f46ccf8861094e6e8f37d89e014c976fa205c832d2f",
+    "changed_elf_bytes": [
+      "0x33c614",
+      "0x33c615",
+      "0x33c618",
+      "0x33c619",
+      "0x33c61c",
+      "0x33c61d"
+    ],
+    "tables": [
+      {
+        "member": "DATA/HSFC.BIN",
+        "best_start": 3440272,
+        "count": 4,
+        "offsets": [
+          0,
+          7504,
+          222288,
+          236048
+        ]
+      },
+      {
+        "member": "DATA/HSFC.BIN",
+        "best_start": 3393040,
+        "count": 5,
+        "offsets": [
+          0,
+          7504,
+          222288,
+          236048,
+          250256
+        ]
+      }
+    ]
+  },
+  "build": {
+    "batch": {
+      "path": "work/editions/724b7fe79029b7f62195a0df325fb4ac110282e82140e6fe6d4f7651cd98631d/original-best.json",
+      "sha256": "0b6fde80faeb737b5a37ff0109a64ccd9507e84a6206899455af7efbfc06f896"
+    },
+    "verification": {
+      "status": "edition_batch_receipt_integrity_passed",
+      "input_digest": "724b7fe79029b7f62195a0df325fb4ac110282e82140e6fe6d4f7651cd98631d",
+      "verified_editions": [
+        "original",
+        "best"
+      ],
+      "both_editions": true,
+      "runtime": "not_tested",
+      "scope": "input snapshot and existing semantic-readback receipts bound to actual ISO bytes"
+    },
+    "original_legacy_equivalence": {
+      "baseline_iso_sha256": "414f54f052a9c930f4e8e627a9ed58fef1df13a3111b6bcdfd14907117ca63bb",
+      "member_count": 23,
+      "passed": true,
+      "required": true
+    },
+    "input_digest": "724b7fe79029b7f62195a0df325fb4ac110282e82140e6fe6d4f7651cd98631d",
+    "tests": {
+      "command": "python3 -m unittest discover -s tests",
+      "count": 255,
+      "result": "passed",
+      "log": {
+        "path": "work/analysis/v040-best-chart-20260909/tests.log",
+        "sha256": "0f32bc57009be44fdd2ac75801f462ee3f78d827e37f1038b3e37d1acf9dd2c2"
+      }
+    }
+  },
+  "concurrent_work": "The shared frontend already included separate supply-device and jamming-help COMPDATA edits. Those edits and their existing locks were preserved; only the 6-byte ELF table change belongs to this runtime fix. The isolated causal ISO excludes those COMPDATA edits.",
+  "runtime": {
+    "lrps2": {
+      "release": {
+        "receipt": {
+          "path": "work/runtime/lrps2/v040-best-chart-20260909/before-valid/receipt.json",
+          "sha256": "509af4fbdd5178e23419d21934ea57aedb7c7f7e0003be3446331f316dcbdb11"
+        },
+        "iso": {
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/v0.4.0/0.4.0-best.iso",
+          "size": 3755081728,
+          "sha256": "4ccb2355ab6d18e08db4183f06333f1d9d58b7cb7e3e4e98e6d972ae9784a18a",
+          "build_config": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/v040-best-chart-20260909/iso-contract.json"
+        },
+        "observed_result": "black_after_chart_entry_and_cross_did_not_return",
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027,
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/before-valid/frames/02160-title-library-selected.png"
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029,
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/before-valid/frames/02400-library-result-2400.png"
+          },
+          {
+            "id": "chart-selected",
+            "frame": 2760,
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.561614,
+            "png_sha256": "61575e1d5ca2e53a3f8277db0a2b72692e03eab2cd0fb8aeb1e6c22a8c5b37d0",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/before-valid/frames/02760-chart-selected.png"
+          },
+          {
+            "id": "chart-open-3000",
+            "frame": 3000,
+            "dhash": "0000000000000000",
+            "mean_luma": 0.0,
+            "png_sha256": "6f91de3f5c7621e9000e80d9d92c756123fd6bfedc43be322b0df9863508acb4",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/before-valid/frames/03000-chart-open-3000.png"
+          },
+          {
+            "id": "chart-open-3540",
+            "frame": 3540,
+            "dhash": "0000000000000000",
+            "mean_luma": 0.0,
+            "png_sha256": "6f91de3f5c7621e9000e80d9d92c756123fd6bfedc43be322b0df9863508acb4",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/before-valid/frames/03540-chart-open-3540.png"
+          },
+          {
+            "id": "chart-return",
+            "frame": 3900,
+            "dhash": "0000000000000000",
+            "mean_luma": 0.0,
+            "png_sha256": "6f91de3f5c7621e9000e80d9d92c756123fd6bfedc43be322b0df9863508acb4",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/before-valid/frames/03900-chart-return.png"
+          }
+        ],
+        "source_card_sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+        "source_card_unchanged": true,
+        "scenario": {
+          "path": "work/analysis/v040-best-chart-20260909/scenario.json",
+          "sha256": "c68ac1bbf4d99a136fa122112f027f9fea1caf5ea99a10dd7d27b9b7b86772a4"
+        }
+      },
+      "table_only": {
+        "receipt": {
+          "path": "work/runtime/lrps2/v040-best-chart-20260909/table-only-run/receipt.json",
+          "sha256": "f60e5977b209b78a0e852569e2331865e6fb069cca13a152fe704a30d2f9b91d"
+        },
+        "iso": {
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/runtime/lrps2/v040-best-chart-20260909/table-only.iso",
+          "size": 3755081728,
+          "sha256": "30bf60ea7c84d2f33f997f46ccf8861094e6e8f37d89e014c976fa205c832d2f",
+          "build_config": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/v040-best-chart-20260909/table-only-contract.json"
+        },
+        "observed_result": "chart_open_and_return_to_library",
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027,
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/table-only-run/frames/02160-title-library-selected.png"
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029,
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/table-only-run/frames/02400-library-result-2400.png"
+          },
+          {
+            "id": "chart-selected",
+            "frame": 2760,
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.561614,
+            "png_sha256": "61575e1d5ca2e53a3f8277db0a2b72692e03eab2cd0fb8aeb1e6c22a8c5b37d0",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/table-only-run/frames/02760-chart-selected.png"
+          },
+          {
+            "id": "chart-open-3000",
+            "frame": 3000,
+            "dhash": "733f3e1e368e8e76",
+            "mean_luma": 48.713539,
+            "png_sha256": "f69ee5e4e92681ffbca821192be3cbff4c465b6200bf1d52a67257beddea2541",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/table-only-run/frames/03000-chart-open-3000.png"
+          },
+          {
+            "id": "chart-open-3540",
+            "frame": 3540,
+            "dhash": "712b3f1e26161e66",
+            "mean_luma": 46.875868,
+            "png_sha256": "67ff435f365d49493711e44930436cbd49f4f8041ac373f72873f2386e112e38",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/table-only-run/frames/03540-chart-open-3540.png"
+          },
+          {
+            "id": "chart-return",
+            "frame": 3900,
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.561614,
+            "png_sha256": "61575e1d5ca2e53a3f8277db0a2b72692e03eab2cd0fb8aeb1e6c22a8c5b37d0",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/table-only-run/frames/03900-chart-return.png"
+          }
+        ],
+        "source_card_sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+        "source_card_unchanged": true,
+        "scenario": {
+          "path": "work/analysis/v040-best-chart-20260909/table-only-scenario.json",
+          "sha256": "769a59dfadb3dd372d2acba2aeacbd12217256ac9c23fb8d18cf38af1abe2d56"
+        }
+      },
+      "fixed_current": {
+        "receipt": {
+          "path": "work/runtime/lrps2/v040-best-chart-20260909/fixed-production/receipt.json",
+          "sha256": "f6a46548d18806f5dde8765dbebf8acfa48a238a970aa563d7cf3e162e9f362a"
+        },
+        "iso": {
+          "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/zh-release-best/current-best.iso",
+          "size": 3755081728,
+          "sha256": "33e71eabc2aa2c84799e2d24c57aa78f0035e8a4633a1964735bfbb3e392894f",
+          "build_config": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/analysis/v040-best-chart-20260909/fixed-contract.json"
+        },
+        "observed_result": "chart_open_return_reopen_chapter_21_overview_close_and_return",
+        "captures": [
+          {
+            "id": "title-library-selected",
+            "frame": 2160,
+            "dhash": "422f2b83a3291955",
+            "mean_luma": 122.763027,
+            "png_sha256": "a00f4a7fea7fdd092d9066c8aefcb61cc0a749d619cae268bd3aba2221335662",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/fixed-production/frames/02160-title-library-selected.png"
+          },
+          {
+            "id": "library-result-2400",
+            "frame": 2400,
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.769029,
+            "png_sha256": "c5a74b4f00e19b870da7ed7c0710eebb508c1f20ac64135fbc80bd5463a08bd9",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/fixed-production/frames/02400-library-result-2400.png"
+          },
+          {
+            "id": "chart-selected",
+            "frame": 2760,
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.561614,
+            "png_sha256": "61575e1d5ca2e53a3f8277db0a2b72692e03eab2cd0fb8aeb1e6c22a8c5b37d0",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/fixed-production/frames/02760-chart-selected.png"
+          },
+          {
+            "id": "chart-open-3000",
+            "frame": 3000,
+            "dhash": "733f3e1e368e8e76",
+            "mean_luma": 48.713539,
+            "png_sha256": "f69ee5e4e92681ffbca821192be3cbff4c465b6200bf1d52a67257beddea2541",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/fixed-production/frames/03000-chart-open-3000.png"
+          },
+          {
+            "id": "chart-open-3540",
+            "frame": 3540,
+            "dhash": "712b3f1e26161e66",
+            "mean_luma": 46.875868,
+            "png_sha256": "67ff435f365d49493711e44930436cbd49f4f8041ac373f72873f2386e112e38",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/fixed-production/frames/03540-chart-open-3540.png"
+          },
+          {
+            "id": "chart-return",
+            "frame": 3900,
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.561614,
+            "png_sha256": "61575e1d5ca2e53a3f8277db0a2b72692e03eab2cd0fb8aeb1e6c22a8c5b37d0",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/fixed-production/frames/03900-chart-return.png"
+          },
+          {
+            "id": "chart-reopened",
+            "frame": 4200,
+            "dhash": "733f3e1e368e8e76",
+            "mean_luma": 48.669081,
+            "png_sha256": "97e907061062a5b259d0520f322b61096a306e9482cd03ef8ad111b8aced583f",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/fixed-production/frames/04200-chart-reopened.png"
+          },
+          {
+            "id": "chapter-overview",
+            "frame": 4500,
+            "dhash": "377741694169016b",
+            "mean_luma": 86.571749,
+            "png_sha256": "4769933387300409b51ad80456d2cf8761dbbfc3f6d3ea06c277564217a0ab0a",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/fixed-production/frames/04500-chapter-overview.png"
+          },
+          {
+            "id": "chart-after-overview",
+            "frame": 4800,
+            "dhash": "733f3e1e368e8e76",
+            "mean_luma": 48.697307,
+            "png_sha256": "6d5317c5dc169a9f57e1b9cc49ca6b098a734b8cb1dd5a5aa5bee184bc60fded",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/fixed-production/frames/04800-chart-after-overview.png"
+          },
+          {
+            "id": "library-after-second-return",
+            "frame": 5100,
+            "dhash": "8d910d2b2b2b3d0f",
+            "mean_luma": 75.561614,
+            "png_sha256": "61575e1d5ca2e53a3f8277db0a2b72692e03eab2cd0fb8aeb1e6c22a8c5b37d0",
+            "path": "work/runtime/lrps2/v040-best-chart-20260909/fixed-production/frames/05100-library-after-second-return.png"
+          }
+        ],
+        "source_card_sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+        "source_card_unchanged": true,
+        "scenario": {
+          "path": "work/analysis/v040-best-chart-20260909/fixed-scenario.json",
+          "sha256": "6c3fd4e6c95825358d0d923ab7cba00af85e36948f376a04af47d7e1adf2e351"
+        }
+      }
+    },
+    "pcsx2_manual": {
+      "status": "pending",
+      "reason": "No current-hash PCSX2 manual acceptance in this task."
+    }
+  },
+  "fix_source_files": [
+    "tools/srwz/best_build.py",
+    "config/editions/best/source-layout.json",
+    "tests/test_best_build.py"
+  ],
+  "temporary_iso_cleanup": {
+    "policy": "retain the six canonical ISO slots",
+    "removed": [
+      {
+        "path": "work/build/zh-release-original/36fcd50ee5ef24dd2e400e391236c7ed5e0e9c8d537d01c6fde6565dfa223adf/project/rom/original.iso",
+        "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+        "retained_equivalent": "rom/original.iso"
+      },
+      {
+        "path": "work/build/zh-release-original/36fcd50ee5ef24dd2e400e391236c7ed5e0e9c8d537d01c6fde6565dfa223adf/project/build/iso/zh-release-full-story/current-original.iso",
+        "sha256": "414f54f052a9c930f4e8e627a9ed58fef1df13a3111b6bcdfd14907117ca63bb",
+        "retained_equivalent": "build/iso/zh-release-full-story/current-original.iso"
+      },
+      {
+        "path": "work/build/zh-release-best/39fd1df720b72e5ea0338e6a33f3a70f37865a41df2bf067e21de82970817215/project/rom/best.iso",
+        "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+        "retained_equivalent": "rom/best.iso"
+      },
+      {
+        "path": "work/build/zh-release-best/39fd1df720b72e5ea0338e6a33f3a70f37865a41df2bf067e21de82970817215/project/build/iso/zh-release-best/current-best.iso",
+        "sha256": "33e71eabc2aa2c84799e2d24c57aa78f0035e8a4633a1964735bfbb3e392894f",
+        "retained_equivalent": "build/iso/zh-release-best/current-best.iso"
+      },
+      {
+        "path": "build/iso/zh-release-original/current-original.iso",
+        "sha256": "414f54f052a9c930f4e8e627a9ed58fef1df13a3111b6bcdfd14907117ca63bb",
+        "retained_equivalent": "build/iso/zh-release-full-story/current-original.iso"
+      },
+      {
+        "path": "work/runtime/lrps2/v040-best-chart-20260909/table-only.iso",
+        "sha256": "30bf60ea7c84d2f33f997f46ccf8861094e6e8f37d89e014c976fa205c832d2f",
+        "retained_equivalent": null
+      }
+    ],
+    "batch_replay": "Before replaying verify_editions.py, copy the retained equivalent Original ISO to its historical isolated output path. Runtime regression uses current-best directly."
+  },
+  "reporter": "AL-E",
+  "github_issue": "https://github.com/dyzz/srwz-zh/issues/21"
+}

@@ -248,7 +248,9 @@ class BestCompiler:
         out, writes, used = bytearray(b), [], set()
         instructions = {r['original_offset']: r for r in self.contract['elf_instructions']}
         slot = self.contract['elf_support_attack_slot']
-        archive_offsets = {o for r in self.archive_tables.values() for o in range(r['original_start'], r['original_start']+4*r['count'], 4)}
+        archive_offsets = {o for spec in self.archive_tables.values()
+                           for r in (spec, *spec.get('aliases', []))
+                           for o in range(r['original_start'], r['original_start']+4*r['count'], 4)}
         for offset in range(0, len(c)-3, 4):
             if a[offset:offset+4] == c[offset:offset+4] or slot['original_start'] <= offset < slot['original_end'] or offset in archive_offsets:
                 continue
@@ -408,6 +410,39 @@ class BestCompiler:
         self.outputs[member], self.tables[member], self.archive_proofs[member] = output, table, proofs
         print(f'[best] {member}: {len(items)} decoded chunks', flush=True)
 
+    def write_archive_tables(self, elf):
+        """Update every declared runtime consumer of each packed archive.
+
+        HSFC has separate summary and Scenario Chart loader tables. The latter
+        includes an end sentinel and must move with the same compressed streams.
+        Validate each native alias against the primary table before writing it.
+        """
+        proofs = []
+        for member, spec in self.archive_tables.items():
+            if member not in self.outputs:
+                continue
+            table = self.tables.get(member)
+            if table is None:
+                table = self.offsets(member, 'compiled')
+                table[-1] = len(self.outputs[member])
+            native_tables = {v: self.offsets(member, v) for v in ('original', 'best')}
+            for site in (spec, *spec.get('aliases', [])):
+                start, count = site['best_start'], site['count']
+                require(len(table) in (count, count+1), f'{member}: table slot count drift')
+                for version, name in [('original', 'SLPS_258.87'), ('best', 'SLPS_732.70')]:
+                    source_start = site[f'{version}_start']
+                    actual = words(self.native[version][name][source_start:source_start+4*count])
+                    require(actual == native_tables[version][:count],
+                            f'{member}: {version} archive table alias preimage drift at 0x{source_start:X}')
+                payload = struct.pack('<'+'I'*count, *table[:count])
+                elf[start:start+len(payload)] = payload
+                self.elf_writes.append([start, start+len(payload)])
+                require(words(elf[start:start+len(payload)]) == table[:count],
+                        f'{member}: runtime archive table readback')
+                proofs.append({'member': member, 'best_start': start, 'count': count,
+                               'offsets': table[:count]})
+        return proofs
+
     def compile(self):
         elf = self.compile_elf()
         changed = {'SLPS_258.87','DATA/COMPDATA.BN','DATA/STAGE.BIN','DATA/NISVDATA.BIN','DATA/HSFC.BIN','DATA/MTVZKNPT.BIN','EFF/VEFF2DX.BIN','HEDBDY/HB.BIN','BTL/SRVC.BIN','BTL/SRVC.SEG'}
@@ -450,16 +485,7 @@ class BestCompiler:
         hb = bytearray(self.native['best']['HEDBDY/HB.BIN'])
         hb[30320:31144] = struct.pack('<206I',*self.tables['DATA/STAGE.BIN'])
         self.outputs['HEDBDY/HB.BIN'] = bytes(hb)
-        for member,spec in self.archive_tables.items():
-            if member not in self.outputs:
-                continue
-            table = self.tables.get(member)
-            if table is None:
-                table = self.offsets(member,'compiled'); table[-1] = len(self.outputs[member])
-            start,count = spec['best_start'],spec['count']
-            require(len(table) in (count,count+1), f'{member}: table slot count drift')
-            elf[start:start+4*count] = struct.pack('<'+'I'*count,*table[:count])
-            self.elf_writes.append([start,start+4*count])
+        archive_table_proofs = self.write_archive_tables(elf)
         self.outputs['SLPS_732.70'] = bytes(elf)
         self.verify_elf_policy(elf)
         rows = []
@@ -470,6 +496,7 @@ class BestCompiler:
             rows.append({'member':member,'path':target.relative_to(self.root).as_posix(),'size':len(data),'sha256':sha(data)})
         report = {'schema_version':1,'edition':'best','input_digest':self.input_digest,'status':'best_components_semantic_readback_passed',
                   'components':rows,'stages':self.stage_proofs,'archives':self.archive_proofs,'srvc':self.srvc_proof,
+                  'runtime_archive_tables':archive_table_proofs,
                   'native_elf_outside_declared_writes_preserved':True,'elf_write_ranges':self.elf_writes,
                   'compdata_native_corrections_preserved':True,'library_policy':'all_valid_entries_without_save_writeback','runtime':'not_tested'}
         write_json(self.work/'component-validation.json',report)
