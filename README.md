@@ -121,7 +121,9 @@ python3 tools/build_release.py --config config/release/v0.4.0.json
 
 要开心💛、天敌Nep、Fanta-_、巨蟹fhhfhh、爱笑的ll206、贴吧用户_7EyM723、
 AL-E、丸子行者、yagamitmd、紫荆花火、八翼大天使小鹿、苏苏千层饼、
-Selkie诗依路、EVA高达、往常99、木扣螺丝、菠蘿达、qw3r4y 与 jegun。
+Selkie诗依路、EVA高达、往常99、木扣螺丝、菠蘿达、qw3r4y、jegun、
+蒙古王者风行烈、帝王松哥、贴吧用户_aZMJb7Q、白鸟九十九、bgcnh、
+bili1040142989、内阁学士、兰德与桑德曼、hhbbghjjbbhhhg。
 
 也感谢所有参与测试、提供反馈并持续关注项目的玩家。大家的帮助让许多低频路线、
 特殊界面和文本细节得以被发现和完善。
