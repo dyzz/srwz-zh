@@ -19,8 +19,9 @@ v0.4.0 双版本冻结与打包步骤见 [发布记录](RELEASE_BUILD_V0.4.0.md)
 不得在旧汉化 ISO 上重复打补丁，也不得让 `rom/`、完整 ISO、存档或本地运行记录进入
 Git 或发布 ZIP。
 
-ISO 长期保留 `0.3.0`、`current-original`、`current-best`、`original`、`best`
-五个既有槽位及 v0.4.0 两版冻结镜像，实际路径及清理规则见 [ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。普通生产入口
+ISO 长期保留 `0.4.0-original`、`0.4.0-best`、`current-original`、`current-best`、
+`original`、`best` 六个槽位，实际路径及清理规则见
+[ISO 目录契约](ISO_DIRECTORY_LAYOUT.md)。普通生产入口
 构建 Original；同批双版本入口为 `python3 tools/build_editions.py --editions original,best`，
 会从当前源码生成 Original 与 BEST，详见 [当前 BEST 构建](BEST_CURRENT_BUILD.md)。
 

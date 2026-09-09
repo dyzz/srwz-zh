@@ -1,11 +1,7 @@
 {
   "schema_version": 1,
-  "policy": "Keep one ISO per slot after build verification; retain reports and runtime evidence separately.",
+  "policy": "After verification retain only these six ISO slots; build copies are temporary. Keep reports, components, runtime evidence and saves separately.",
   "slots": {
-    "0.3.0": {
-      "path": "build/iso/v0.3.0/0.3.0.iso",
-      "role": "frozen_release"
-    },
     "current-original": {
       "path": "build/iso/zh-release-full-story/current-original.iso",
       "role": "working"
@@ -24,11 +20,11 @@
       "role": "source"
     },
     "0.4.0-original": {
-      "path": "build/iso/v0.4.0/srwz-zh-v0.4.0-original.iso",
+      "path": "build/iso/v0.4.0/0.4.0-original.iso",
       "role": "frozen_release"
     },
     "0.4.0-best": {
-      "path": "build/iso/v0.4.0/srwz-zh-v0.4.0-best.iso",
+      "path": "build/iso/v0.4.0/0.4.0-best.iso",
       "role": "frozen_release"
     }
   }
