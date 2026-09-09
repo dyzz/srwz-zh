@@ -49,6 +49,10 @@
 
 GitHub：[issue #22](https://github.com/dyzz/srwz-zh/issues/22)（两版共通，未修改）。
 
+后续已定位为跨颜色记录的整条换行缺少行首标点约束，详见
+[Q&A 格式排查](QA_PUNCTUATION_LAYOUT_AUDIT_20260909.md)。全量扫描有 47 处行首标点
+候选，其中 6 处整行只有句号；候选范围不等同于逐页运行确认。
+
 - 关联反馈人：**AL-E**；在其剧情流程黑屏反馈后的资料库扩展检查中记录。
 - 影响 **Original 和 The Best 两版**。从 v0.4.0 两版冻结发行 ISO 和两版当前 ISO
   直接读回并解压 `DATA/NISVDATA.BIN` 第 6 块，四份字节完全一致，SHA-256 均为

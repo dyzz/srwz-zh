@@ -2446,7 +2446,16 @@
         ],
         "runtime_limit": "Screenshot verified on Best only; Original runtime screenshot not independently captured."
       },
-      "github_issue": "https://github.com/dyzz/srwz-zh/issues/22"
+      "github_issue": "https://github.com/dyzz/srwz-zh/issues/22",
+      "root_cause_audit": {
+        "date": "2026-09-09",
+        "status": "diagnosed_not_modified",
+        "cause": "Whole-record wrapping across style boundaries does not prevent closing punctuation at line start.",
+        "report": "docs/QA_PUNCTUATION_LAYOUT_AUDIT_20260909.md",
+        "evidence": "manifests/qa-punctuation-layout-20260909.json",
+        "line_leading_punctuation_candidates": 47,
+        "punctuation_only_rows": 6
+      }
     }
   ],
   "limits": [
