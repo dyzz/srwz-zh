@@ -3,7 +3,7 @@
   "status": "integrated_global_zh_release_components_validated_runtime_pending",
   "profile_id": "srwz-global-zh-release-integrated-v1",
   "scope": "Build the complete Simplified Chinese release directly from the original disc members, including UI, global font, story, overviews, battle text, title and menu textures, archives, and executable layout changes.",
-  "stage_postprocess_signature": "66eef2a98590a812b16d8ea888fd23264944c1ff6126afd9d94c2d2d47e4d38e",
+  "stage_postprocess_signature": "f2f44aaedd7954cdd00e19fa2f3913b1202458f211db01ab9fc4a48e3d606a75",
   "build_groups": [
     {
       "id": "core_runtime_members",
@@ -20,13 +20,14 @@
       "members": [
         "DATA/COMPDATA.BN",
         "DATA/NISVDATA.BIN",
+        "MAP/MAPNAME.BIN",
         "DATA/MTV_PROS.BIN",
         "DATA/MTV_PROP.BIN",
         "DATA/STAGE.BIN",
         "DATA/HSFC.BIN",
         "HEDBDY/HB.BIN"
       ],
-      "physical_member_count": 7
+      "physical_member_count": 8
     },
     {
       "id": "rendered_archive_members",
@@ -47,8 +48,8 @@
   "inputs": {
     "config": {
       "path": "config/full-story-components.json",
-      "size": 90641,
-      "sha256": "020ff09e82de1fec0dc4b613d4fffb3ebd7657374258cfd69dfd1e0cff7ed8c3"
+      "size": 91265,
+      "sha256": "86c2d572fb677a9e3741627149e3f5e810f52e3ea019149ce728ddcc64541ed9"
     },
     "original_release_slps": {
       "path": "work/disc/SLPS_258.87",
@@ -87,18 +88,18 @@
     },
     "full_story_font_manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 73284,
-      "sha256": "1e748bd4b0a603e87dda17e1897e2c00c80f095fb9ac1edc533aa0b8cc163588"
+      "size": 73478,
+      "sha256": "a526eda3b2733f489163e71a70dd2330d83c021bdc4de4b5c7660781dfb0a2d0"
     },
     "reviewed_library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816171,
-      "sha256": "7236135c82477a9102a92d10233df335943a99590d7e3584038157c99c20e5aa"
+      "sha256": "1dddec558f11a61145acd2e79a579b5be73e068f915e5bdb9960345f2712c8f8"
     },
     "full_story_stage_report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307905,
-      "sha256": "7cb831a3bda2937f4f6f0ac56b21c98eccca9e790a9c398732d908f6b2787e95"
+      "sha256": "4e6d19a3b7c41b2cd175aacb27a69a972c26318a0c258ea0a375593d68e728da"
     },
     "pilot_name_structure": {
       "path": "config/display-names/compdata.json",
@@ -112,8 +113,8 @@
     },
     "remaining_display_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111142,
-      "sha256": "6c56025a9a24cf4628bec6981ad39399b0bc6e084dcf307e944a69904953abf6"
+      "size": 111816,
+      "sha256": "06e5773954c1bb1f6fb9e23a8e226bc0b5b23c068b8b14c47bada94d9f757892"
     },
     "full_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -122,8 +123,8 @@
     },
     "full_story_font_proposal": {
       "path": "work/writeback/zh-release-codebook-proposal.json",
-      "size": 3244351,
-      "sha256": "3803471b30d0633ac4fb1527d55313dcbb9a62407287e78032216e9c56fafd08"
+      "size": 3244535,
+      "sha256": "1e0d8777bbbab802bf879dcba05d85b65ff3f319de718cced400dcb1191748e8"
     },
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
@@ -187,8 +188,8 @@
     },
     "remaining_ui_translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111142,
-      "sha256": "6c56025a9a24cf4628bec6981ad39399b0bc6e084dcf307e944a69904953abf6"
+      "size": 111816,
+      "sha256": "06e5773954c1bb1f6fb9e23a8e226bc0b5b23c068b8b14c47bada94d9f757892"
     },
     "stage_default_formation_corpus": {
       "path": "corpus/zh/menu/stage-default-formations.json",
@@ -229,6 +230,16 @@
       "path": "work/disc/DATA/NISVDATA.BIN",
       "size": 555056,
       "sha256": "63afc46aeb19b41cf7332c7c298ab8bb1c7089f306d4eb4e77bce72e8dbece9c"
+    },
+    "ui_name_tables_corpus": {
+      "path": "corpus/zh/menu/ui-name-tables.json",
+      "size": 49227,
+      "sha256": "14f96a322aa182caf440a7238863f01e72f0c1b4790e6af8092bdfb110cebca8"
+    },
+    "original_mapnames": {
+      "path": "work/disc/MAP/MAPNAME.BIN",
+      "size": 49920,
+      "sha256": "095abc616a5336f4d8590b194fb6744a53816bc637e1075b272dcbbacfdc498e"
     },
     "nisv_tutorial_corpus": {
       "path": "corpus/zh/menu/nisv-tutorial-pages.json",
@@ -328,7 +339,7 @@
     "kvmdata": {
       "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "cb627092decad99d09cc9a3be3412b091d35cef1172492a47951477cfd606fb4"
+      "sha256": "14168e0c374d876069912b8929acea5140cde9162ae29b355fd707cb1db4f7b4"
     },
     "original_veff2dx": {
       "path": "work/disc/EFF/VEFF2DX.BIN",
@@ -382,8 +393,8 @@
     },
     "auto_demo_residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111142,
-      "sha256": "6c56025a9a24cf4628bec6981ad39399b0bc6e084dcf307e944a69904953abf6"
+      "size": 111816,
+      "sha256": "06e5773954c1bb1f6fb9e23a8e226bc0b5b23c068b8b14c47bada94d9f757892"
     },
     "auto_demo_unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -435,7 +446,7 @@
       "compression_count": 1,
       "final_readback_decode_count": 1,
       "source_stored_size": 144990,
-      "output_stored_size": 141331,
+      "output_stored_size": 141040,
       "decoded_size": 524032,
       "sector_budget": 145408,
       "stages": [
@@ -457,7 +468,7 @@
         },
         {
           "stage": "remaining UI COMPDATA",
-          "changed_byte_count": 42316
+          "changed_byte_count": 42832
         },
         {
           "stage": "COMPDATA battle-line",
@@ -571,8 +582,8 @@
       "mode": "direct-original-writeback",
       "release_proposal": {
         "path": "work/writeback/zh-release-codebook-proposal.json",
-        "size": 3244351,
-        "sha256": "3803471b30d0633ac4fb1527d55313dcbb9a62407287e78032216e9c56fafd08"
+        "size": 3244535,
+        "sha256": "1e0d8777bbbab802bf879dcba05d85b65ff3f319de718cced400dcb1191748e8"
       },
       "release_snapshot": {
         "path": "config/encoding/zh-release-font-assignments.json",
@@ -984,7 +995,7 @@
       "reread_exact": true
     },
     "source_compressed_size": 144990,
-    "output_compressed_size": 141331,
+    "output_compressed_size": 141040,
     "compressed_sector_budget": 145408,
     "codec": {
       "strategy": "rust-fit",
@@ -1204,7 +1215,7 @@
     },
     "available_surface_safe_aliases_used": true,
     "compdata_source_size": 144990,
-    "compdata_output_size": 141331,
+    "compdata_output_size": 141040,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
     "slps_size_preserved": true,
@@ -4517,7 +4528,7 @@
     "all_translations_reread_exact": true,
     "release_binary_required_at_build_time": false,
     "compression_deferred_to_workspace": true,
-    "compdata_output_size": 141331,
+    "compdata_output_size": 141040,
     "compdata_round_trip_exact": true
   },
   "stage_overviews": {
@@ -4672,7 +4683,7 @@
     "offset_patch_plan": {
       "source_name": "SLPS_258.87",
       "source_size": 3471624,
-      "source_sha256": "bad9642c4307c195524fca97ee528356f40f81137949dc9640990221d5f93865",
+      "source_sha256": "d17198569b2ad7a5d392fab241f4fddaee5753160af3abb2f2a7dceb41c62b6f",
       "operation_count": 1,
       "operations": [
         {
@@ -5276,12 +5287,12 @@
       "reread_exact": true
     },
     "compdata_context_help": {
-      "entry_count": 357,
-      "write_entry_count": 356,
+      "entry_count": 364,
+      "write_entry_count": 363,
       "no_op_entry_count": 1,
       "minimum_output_headroom": 0,
       "zero_padding_extension_count": 0,
-      "changed_byte_count": 31593,
+      "changed_byte_count": 32109,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -5313,12 +5324,12 @@
       "reread_exact": true
     },
     "slps_context_ui": {
-      "entry_count": 613,
-      "write_entry_count": 467,
+      "entry_count": 614,
+      "write_entry_count": 468,
       "no_op_entry_count": 146,
       "minimum_output_headroom": 0,
       "zero_padding_extension_count": 0,
-      "changed_byte_count": 11406,
+      "changed_byte_count": 11422,
       "fixed_spans_preserved": true,
       "pointer_bytes_unchanged": true,
       "placeholder_control_tokens_preserved": true,
@@ -5351,8 +5362,8 @@
     "parts": {
       "source_size": 524032,
       "output_size": 524032,
-      "source_sha256": "19f50e87509b5419923c9f6a70e0fd61cc30f14148159ccc55ecab616d6a3243",
-      "output_sha256": "8c988629cf2ef6dca1bd5c372240551385b781ffa5edef6f7340bf5225ecf620",
+      "source_sha256": "0c7616ca238da02aa9300c8b7c52832573cd825e74fd0e1fe523ed19006b2dc6",
+      "output_sha256": "27a0c00001135846b69727291b234a2a05bcd11bfe9a6629a8c2c191be74c584",
       "entry_count": 132,
       "target_count": 132,
       "payload_size": 3036,
@@ -6418,7 +6429,7 @@
       "patch_plan": {
         "source_name": "remaining UI strengthening parts",
         "source_size": 524032,
-        "source_sha256": "19f50e87509b5419923c9f6a70e0fd61cc30f14148159ccc55ecab616d6a3243",
+        "source_sha256": "0c7616ca238da02aa9300c8b7c52832573cd825e74fd0e1fe523ed19006b2dc6",
         "operation_count": 132,
         "operations": [
           {
@@ -7523,7 +7534,7 @@
       "single_character_regions_untouched": true
     },
     "compdata_source_size": 144990,
-    "compdata_output_size": 141331,
+    "compdata_output_size": 141040,
     "compdata_sector_budget": 145408,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
@@ -74247,6 +74258,1268 @@
     "page_allocations_preserved": true,
     "translated_reread_exact": true
   },
+  "ui_name_tables": {
+    "squad_names": {
+      "entry_count": 104,
+      "rows": [
+        {
+          "index": 0,
+          "offset": 34,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "豪烈小队"
+        },
+        {
+          "index": 1,
+          "offset": 320,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "魔神小队"
+        },
+        {
+          "index": 2,
+          "offset": 606,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "双魔神"
+        },
+        {
+          "index": 3,
+          "offset": 892,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "铁之城"
+        },
+        {
+          "index": 4,
+          "offset": 1178,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "伟大的勇者"
+        },
+        {
+          "index": 5,
+          "offset": 1464,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "宇宙王者"
+        },
+        {
+          "index": 6,
+          "offset": 1750,
+          "capacity": 28,
+          "encoded_size": 13,
+          "translation": "飞天神机小队"
+        },
+        {
+          "index": 7,
+          "offset": 2036,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "盖塔机器人"
+        },
+        {
+          "index": 8,
+          "offset": 2322,
+          "capacity": 28,
+          "encoded_size": 13,
+          "translation": "光子力研究所"
+        },
+        {
+          "index": 9,
+          "offset": 2608,
+          "capacity": 28,
+          "encoded_size": 15,
+          "translation": "科学要塞研究所"
+        },
+        {
+          "index": 10,
+          "offset": 2894,
+          "capacity": 28,
+          "encoded_size": 15,
+          "translation": "宇宙科学研究所"
+        },
+        {
+          "index": 11,
+          "offset": 3180,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "淑女机器人"
+        },
+        {
+          "index": 12,
+          "offset": 3466,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "波士一家"
+        },
+        {
+          "index": 13,
+          "offset": 3752,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "弗里德王家"
+        },
+        {
+          "index": 14,
+          "offset": 4038,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "盖塔小队"
+        },
+        {
+          "index": 15,
+          "offset": 4324,
+          "capacity": 28,
+          "encoded_size": 13,
+          "translation": "早乙女研究所"
+        },
+        {
+          "index": 16,
+          "offset": 4610,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "浅间学园"
+        },
+        {
+          "index": 17,
+          "offset": 4896,
+          "capacity": 28,
+          "encoded_size": 13,
+          "translation": "三位一体小队"
+        },
+        {
+          "index": 18,
+          "offset": 5182,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "宇宙大帝"
+        },
+        {
+          "index": 19,
+          "offset": 5468,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "工厂"
+        },
+        {
+          "index": 20,
+          "offset": 5754,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "特异点"
+        },
+        {
+          "index": 21,
+          "offset": 6040,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "埃曼"
+        },
+        {
+          "index": 22,
+          "offset": 6326,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "格罗玛队"
+        },
+        {
+          "index": 23,
+          "offset": 6612,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "奇拉姆"
+        },
+        {
+          "index": 24,
+          "offset": 6898,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "蓝色修复者"
+        },
+        {
+          "index": 25,
+          "offset": 7184,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "宇宙战士"
+        },
+        {
+          "index": 26,
+          "offset": 7470,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "BFS"
+        },
+        {
+          "index": 27,
+          "offset": 7756,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "神家族"
+        },
+        {
+          "index": 28,
+          "offset": 8042,
+          "capacity": 28,
+          "encoded_size": 13,
+          "translation": "帝皇比亚路队"
+        },
+        {
+          "index": 29,
+          "offset": 8328,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "无敌超人"
+        },
+        {
+          "index": 30,
+          "offset": 8614,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "无敌机器人"
+        },
+        {
+          "index": 31,
+          "offset": 8900,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "无敌钢人"
+        },
+        {
+          "index": 32,
+          "offset": 9186,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "钢铁齿轮队"
+        },
+        {
+          "index": 33,
+          "offset": 9472,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "步行机甲队"
+        },
+        {
+          "index": 34,
+          "offset": 9758,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "破坏者"
+        },
+        {
+          "index": 35,
+          "offset": 10044,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "佐拉"
+        },
+        {
+          "index": 36,
+          "offset": 10330,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "卡戈一家"
+        },
+        {
+          "index": 37,
+          "offset": 10616,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "沙鼠团"
+        },
+        {
+          "index": 38,
+          "offset": 10902,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "奥古"
+        },
+        {
+          "index": 39,
+          "offset": 11188,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "阿伽玛队"
+        },
+        {
+          "index": 40,
+          "offset": 11474,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "阿克西斯"
+        },
+        {
+          "index": 41,
+          "offset": 11760,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "新人类"
+        },
+        {
+          "index": 42,
+          "offset": 12046,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "赤色彗星"
+        },
+        {
+          "index": 43,
+          "offset": 12332,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "白色流星"
+        },
+        {
+          "index": 44,
+          "offset": 12618,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "民兵"
+        },
+        {
+          "index": 45,
+          "offset": 12904,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "白色人偶"
+        },
+        {
+          "index": 46,
+          "offset": 13190,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "机械人偶"
+        },
+        {
+          "index": 47,
+          "offset": 13476,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "GX"
+        },
+        {
+          "index": 48,
+          "offset": 13762,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "DX"
+        },
+        {
+          "index": 49,
+          "offset": 14048,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "第二世代"
+        },
+        {
+          "index": 50,
+          "offset": 14334,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "新千年"
+        },
+        {
+          "index": 51,
+          "offset": 14620,
+          "capacity": 28,
+          "encoded_size": 13,
+          "translation": "迪安娜回归军"
+        },
+        {
+          "index": 52,
+          "offset": 14906,
+          "capacity": 28,
+          "encoded_size": 13,
+          "translation": "迪安娜亲卫队"
+        },
+        {
+          "index": 53,
+          "offset": 15192,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "太阳号队"
+        },
+        {
+          "index": 54,
+          "offset": 15478,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "和平号队"
+        },
+        {
+          "index": 55,
+          "offset": 15764,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "塞文堡"
+        },
+        {
+          "index": 56,
+          "offset": 16050,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "宇宙革命军"
+        },
+        {
+          "index": 57,
+          "offset": 16336,
+          "capacity": 28,
+          "encoded_size": 15,
+          "translation": "火焰MS驾驶员"
+        },
+        {
+          "index": 58,
+          "offset": 16622,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "秃鹰"
+        },
+        {
+          "index": 59,
+          "offset": 16908,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "ZAFT"
+        },
+        {
+          "index": 60,
+          "offset": 17194,
+          "capacity": 28,
+          "encoded_size": 13,
+          "translation": "ZAFT红衣"
+        },
+        {
+          "index": 61,
+          "offset": 17480,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "FAITH"
+        },
+        {
+          "index": 62,
+          "offset": 17766,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "密涅瓦队"
+        },
+        {
+          "index": 63,
+          "offset": 18052,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "大天使队"
+        },
+        {
+          "index": 64,
+          "offset": 18338,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "幻痛部队"
+        },
+        {
+          "index": 65,
+          "offset": 18624,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "永恒队"
+        },
+        {
+          "index": 66,
+          "offset": 18910,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "奥布"
+        },
+        {
+          "index": 67,
+          "offset": 19196,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "超限人队"
+        },
+        {
+          "index": 68,
+          "offset": 19482,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "剪影机队"
+        },
+        {
+          "index": 69,
+          "offset": 19768,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "雅邦天井"
+        },
+        {
+          "index": 70,
+          "offset": 20054,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "乌尔古斯克"
+        },
+        {
+          "index": 71,
+          "offset": 20340,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "大逃亡"
+        },
+        {
+          "index": 72,
+          "offset": 20626,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "西伯利亚"
+        },
+        {
+          "index": 73,
+          "offset": 20912,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "国王"
+        },
+        {
+          "index": 74,
+          "offset": 21198,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "女王"
+        },
+        {
+          "index": 75,
+          "offset": 21484,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "游戏冠军"
+        },
+        {
+          "index": 76,
+          "offset": 21770,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "高富利队"
+        },
+        {
+          "index": 77,
+          "offset": 22056,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "阿蒂特队"
+        },
+        {
+          "index": 78,
+          "offset": 22342,
+          "capacity": 28,
+          "encoded_size": 5,
+          "translation": "巨神"
+        },
+        {
+          "index": 79,
+          "offset": 22628,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "谈判专家"
+        },
+        {
+          "index": 80,
+          "offset": 22914,
+          "capacity": 28,
+          "encoded_size": 15,
+          "translation": "The Big"
+        },
+        {
+          "index": 81,
+          "offset": 23200,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "多米纳斯"
+        },
+        {
+          "index": 82,
+          "offset": 23486,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "地球战骑队"
+        },
+        {
+          "index": 83,
+          "offset": 23772,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "格兰骑士团"
+        },
+        {
+          "index": 84,
+          "offset": 24058,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "超重神"
+        },
+        {
+          "index": 85,
+          "offset": 24344,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "超重神"
+        },
+        {
+          "index": 86,
+          "offset": 24630,
+          "capacity": 28,
+          "encoded_size": 21,
+          "translation": "G-Soldier队"
+        },
+        {
+          "index": 87,
+          "offset": 24916,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "元素能力者"
+        },
+        {
+          "index": 88,
+          "offset": 25202,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "阿克艾里昂"
+        },
+        {
+          "index": 89,
+          "offset": 25488,
+          "capacity": 28,
+          "encoded_size": 11,
+          "translation": "DEAVA"
+        },
+        {
+          "index": 90,
+          "offset": 25774,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "月光洲"
+        },
+        {
+          "index": 91,
+          "offset": 26060,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "滑空者"
+        },
+        {
+          "index": 92,
+          "offset": 26346,
+          "capacity": 28,
+          "encoded_size": 13,
+          "translation": "LFO驾驶员"
+        },
+        {
+          "index": 93,
+          "offset": 26632,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "LFO队"
+        },
+        {
+          "index": 94,
+          "offset": 26918,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "月光号队"
+        },
+        {
+          "index": 95,
+          "offset": 27204,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "荣耀之星"
+        },
+        {
+          "index": 96,
+          "offset": 27490,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "荣耀之星"
+        },
+        {
+          "index": 97,
+          "offset": 27776,
+          "capacity": 28,
+          "encoded_size": 17,
+          "translation": "THE HEAT"
+        },
+        {
+          "index": 98,
+          "offset": 28062,
+          "capacity": 28,
+          "encoded_size": 9,
+          "translation": "比特服务"
+        },
+        {
+          "index": 99,
+          "offset": 28348,
+          "capacity": 28,
+          "encoded_size": 13,
+          "translation": "流浪的修理工"
+        },
+        {
+          "index": 100,
+          "offset": 28634,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "奇美拉"
+        },
+        {
+          "index": 101,
+          "offset": 28920,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "MS队"
+        },
+        {
+          "index": 102,
+          "offset": 29206,
+          "capacity": 28,
+          "encoded_size": 7,
+          "translation": "高达队"
+        },
+        {
+          "index": 103,
+          "offset": 29492,
+          "capacity": 28,
+          "encoded_size": 13,
+          "translation": "黑色南十字星"
+        }
+      ],
+      "non_name_bytes_preserved": true,
+      "translated_reread_exact": true
+    },
+    "map_names": {
+      "entry_count": 73,
+      "rows": [
+        {
+          "index": 1,
+          "offset": 256,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "月面　军事基地"
+        },
+        {
+          "index": 2,
+          "offset": 512,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "月面　荒野"
+        },
+        {
+          "index": 3,
+          "offset": 768,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "宇宙空间（1）"
+        },
+        {
+          "index": 4,
+          "offset": 1024,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "宇宙空间（2）"
+        },
+        {
+          "index": 6,
+          "offset": 1536,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "宇宙空间（4）"
+        },
+        {
+          "index": 7,
+          "offset": 1792,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "通用都市（1）"
+        },
+        {
+          "index": 8,
+          "offset": 2048,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "通用都市（2）"
+        },
+        {
+          "index": 9,
+          "offset": 2304,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "通用都市（3）"
+        },
+        {
+          "index": 10,
+          "offset": 2560,
+          "capacity": 256,
+          "encoded_size": 9,
+          "translation": "半毁都市"
+        },
+        {
+          "index": 11,
+          "offset": 2816,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "奇拉姆都市"
+        },
+        {
+          "index": 12,
+          "offset": 3072,
+          "capacity": 256,
+          "encoded_size": 13,
+          "translation": "联邦议会都市"
+        },
+        {
+          "index": 13,
+          "offset": 3328,
+          "capacity": 256,
+          "encoded_size": 9,
+          "translation": "废墟都市"
+        },
+        {
+          "index": 14,
+          "offset": 3584,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "荒地（1）"
+        },
+        {
+          "index": 15,
+          "offset": 3840,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "荒地（2）"
+        },
+        {
+          "index": 16,
+          "offset": 4096,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "荒地（3）"
+        },
+        {
+          "index": 17,
+          "offset": 4352,
+          "capacity": 256,
+          "encoded_size": 5,
+          "translation": "森林"
+        },
+        {
+          "index": 18,
+          "offset": 4608,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "平原（1）"
+        },
+        {
+          "index": 19,
+          "offset": 4864,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "平原（2）"
+        },
+        {
+          "index": 20,
+          "offset": 5120,
+          "capacity": 256,
+          "encoded_size": 5,
+          "translation": "溪谷"
+        },
+        {
+          "index": 21,
+          "offset": 5376,
+          "capacity": 256,
+          "encoded_size": 5,
+          "translation": "海岸"
+        },
+        {
+          "index": 22,
+          "offset": 5632,
+          "capacity": 256,
+          "encoded_size": 5,
+          "translation": "雪山"
+        },
+        {
+          "index": 23,
+          "offset": 5888,
+          "capacity": 256,
+          "encoded_size": 19,
+          "translation": "西伯利亚平原（1）"
+        },
+        {
+          "index": 24,
+          "offset": 6144,
+          "capacity": 256,
+          "encoded_size": 19,
+          "translation": "西伯利亚平原（2）"
+        },
+        {
+          "index": 25,
+          "offset": 6400,
+          "capacity": 256,
+          "encoded_size": 19,
+          "translation": "西伯利亚平原（3）"
+        },
+        {
+          "index": 26,
+          "offset": 6656,
+          "capacity": 256,
+          "encoded_size": 19,
+          "translation": "西伯利亚平原（4）"
+        },
+        {
+          "index": 27,
+          "offset": 6912,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "海上（1）"
+        },
+        {
+          "index": 28,
+          "offset": 7168,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "海上（2）"
+        },
+        {
+          "index": 29,
+          "offset": 7424,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "海上（3）"
+        },
+        {
+          "index": 30,
+          "offset": 7680,
+          "capacity": 256,
+          "encoded_size": 9,
+          "translation": "军事基地"
+        },
+        {
+          "index": 31,
+          "offset": 7936,
+          "capacity": 256,
+          "encoded_size": 7,
+          "translation": "异次元"
+        },
+        {
+          "index": 32,
+          "offset": 8192,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "军械库一号外部"
+        },
+        {
+          "index": 33,
+          "offset": 8448,
+          "capacity": 256,
+          "encoded_size": 23,
+          "translation": "坠落的尤尼乌斯7（1）"
+        },
+        {
+          "index": 34,
+          "offset": 8704,
+          "capacity": 256,
+          "encoded_size": 23,
+          "translation": "坠落的尤尼乌斯7（2）"
+        },
+        {
+          "index": 35,
+          "offset": 8960,
+          "capacity": 256,
+          "encoded_size": 13,
+          "translation": "直布罗陀基地"
+        },
+        {
+          "index": 36,
+          "offset": 9216,
+          "capacity": 256,
+          "encoded_size": 13,
+          "translation": "罗恩格林炮台"
+        },
+        {
+          "index": 37,
+          "offset": 9472,
+          "capacity": 256,
+          "encoded_size": 9,
+          "translation": "天堂基地"
+        },
+        {
+          "index": 38,
+          "offset": 9728,
+          "capacity": 256,
+          "encoded_size": 9,
+          "translation": "奥布沿岸"
+        },
+        {
+          "index": 39,
+          "offset": 9984,
+          "capacity": 256,
+          "encoded_size": 5,
+          "translation": "奥布"
+        },
+        {
+          "index": 40,
+          "offset": 10240,
+          "capacity": 256,
+          "encoded_size": 13,
+          "translation": "镇魂曲中继站"
+        },
+        {
+          "index": 41,
+          "offset": 10496,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "月面镇魂曲"
+        },
+        {
+          "index": 42,
+          "offset": 10752,
+          "capacity": 256,
+          "encoded_size": 7,
+          "translation": "弥赛亚"
+        },
+        {
+          "index": 43,
+          "offset": 11008,
+          "capacity": 256,
+          "encoded_size": 13,
+          "translation": "骏河湾（1）"
+        },
+        {
+          "index": 44,
+          "offset": 11264,
+          "capacity": 256,
+          "encoded_size": 13,
+          "translation": "骏河湾（2）"
+        },
+        {
+          "index": 45,
+          "offset": 11520,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "三位一体城"
+        },
+        {
+          "index": 46,
+          "offset": 11776,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "轨道电梯（1）"
+        },
+        {
+          "index": 47,
+          "offset": 12032,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "轨道电梯（2）"
+        },
+        {
+          "index": 48,
+          "offset": 12288,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "乌尔古斯克"
+        },
+        {
+          "index": 49,
+          "offset": 12544,
+          "capacity": 256,
+          "encoded_size": 9,
+          "translation": "穹顶都市"
+        },
+        {
+          "index": 50,
+          "offset": 12800,
+          "capacity": 256,
+          "encoded_size": 13,
+          "translation": "阿加特的结晶"
+        },
+        {
+          "index": 51,
+          "offset": 13056,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "利曼大都市"
+        },
+        {
+          "index": 52,
+          "offset": 13312,
+          "capacity": 256,
+          "encoded_size": 7,
+          "translation": "诺克斯"
+        },
+        {
+          "index": 53,
+          "offset": 13568,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "帕拉迪姆城"
+        },
+        {
+          "index": 54,
+          "offset": 13824,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "新早乙女研究所"
+        },
+        {
+          "index": 55,
+          "offset": 14080,
+          "capacity": 256,
+          "encoded_size": 19,
+          "translation": "光子力研究所（1）"
+        },
+        {
+          "index": 56,
+          "offset": 14336,
+          "capacity": 256,
+          "encoded_size": 7,
+          "translation": "香港城"
+        },
+        {
+          "index": 57,
+          "offset": 14592,
+          "capacity": 256,
+          "encoded_size": 15,
+          "translation": "殖民卫星激光炮"
+        },
+        {
+          "index": 58,
+          "offset": 14848,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "佐达艾普塔"
+        },
+        {
+          "index": 59,
+          "offset": 15104,
+          "capacity": 256,
+          "encoded_size": 13,
+          "translation": "贝尔弗莱斯特"
+        },
+        {
+          "index": 60,
+          "offset": 15360,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "科拉利安云"
+        },
+        {
+          "index": 61,
+          "offset": 15616,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "珊瑚洞窟内"
+        },
+        {
+          "index": 62,
+          "offset": 15872,
+          "capacity": 256,
+          "encoded_size": 9,
+          "translation": "优莱卡街"
+        },
+        {
+          "index": 63,
+          "offset": 16128,
+          "capacity": 256,
+          "encoded_size": 5,
+          "translation": "南极"
+        },
+        {
+          "index": 64,
+          "offset": 16384,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "圣日耳曼城"
+        },
+        {
+          "index": 65,
+          "offset": 16640,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "戈玛（1）"
+        },
+        {
+          "index": 66,
+          "offset": 16896,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "戈玛（2）"
+        },
+        {
+          "index": 67,
+          "offset": 17152,
+          "capacity": 256,
+          "encoded_size": 13,
+          "translation": "骷髅月球基地"
+        },
+        {
+          "index": 68,
+          "offset": 17408,
+          "capacity": 256,
+          "encoded_size": 11,
+          "translation": "亚特兰迪亚"
+        },
+        {
+          "index": 69,
+          "offset": 17664,
+          "capacity": 256,
+          "encoded_size": 19,
+          "translation": "奥拉托里奥No.8"
+        },
+        {
+          "index": 70,
+          "offset": 17920,
+          "capacity": 256,
+          "encoded_size": 9,
+          "translation": "补陀落宫"
+        },
+        {
+          "index": 71,
+          "offset": 18176,
+          "capacity": 256,
+          "encoded_size": 13,
+          "translation": "轨道电梯上空"
+        },
+        {
+          "index": 72,
+          "offset": 18432,
+          "capacity": 256,
+          "encoded_size": 19,
+          "translation": "光子力研究所（2）"
+        },
+        {
+          "index": 73,
+          "offset": 18688,
+          "capacity": 256,
+          "encoded_size": 9,
+          "translation": "夜间海面"
+        },
+        {
+          "index": 74,
+          "offset": 18944,
+          "capacity": 256,
+          "encoded_size": 13,
+          "translation": "异次元（2）"
+        }
+      ],
+      "non_name_bytes_preserved": true,
+      "translated_reread_exact": true
+    },
+    "squad_chunk": 4,
+    "squad_decoded_sha256": "4b1f0da2dfc85c5df7153b1675310820faf2a8ee367e9b9f091ba36e63e4dadf",
+    "squad_stored_size": 2544,
+    "squad_encoded_size": 2290,
+    "archive_offsets_preserved": true,
+    "non_target_chunks_preserved": true,
+    "map_placeholder_count_preserved": 122
+  },
   "runtime_library_menu": {
     "member": "DATA/NISVDATA.BIN",
     "chunk_index": 0,
@@ -74579,8 +75852,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "a92d831857a3b7535d31e885e000ec11406281cf3e10dece6ed6752c5e7969a8",
-    "output_sha256": "4cc419f2788632b783b5d9eade9d16f55024c50bb6ee5c0f613dcda374090370",
+    "source_sha256": "402d73e20c2eb08cd08f2d3679b320cd2545ba789141063d18e6f0a3664bf4da",
+    "output_sha256": "aa8a1faaa4f0692f2c9234e1a659686b5d07458e502e5cf79d3db6eedbcf9918",
     "instruction_replacement_exact": true,
     "executable_size_preserved": true,
     "metadata": {
@@ -74661,8 +75934,8 @@
     "changed_byte_count": 4,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "4cc419f2788632b783b5d9eade9d16f55024c50bb6ee5c0f613dcda374090370",
-    "output_sha256": "c2ee4a8e524fa38f6f92e2f8de5d84cb5d864e17100719d6dc8194d4186f152c",
+    "source_sha256": "aa8a1faaa4f0692f2c9234e1a659686b5d07458e502e5cf79d3db6eedbcf9918",
+    "output_sha256": "048bef79ca97bf827c8719333cd7ae8dd7f9b754f68534631b684d7253eabeff",
     "all_instruction_replacements_exact": true,
     "save_writeback_functions_unchanged": true,
     "executable_size_preserved": true
@@ -74692,8 +75965,8 @@
     "changed_byte_count": 16,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "c2ee4a8e524fa38f6f92e2f8de5d84cb5d864e17100719d6dc8194d4186f152c",
-    "output_sha256": "11caa50ee06803bcdfc037cd5d0d065d14f7eb8b33d09a8a2c30e14953810d36",
+    "source_sha256": "048bef79ca97bf827c8719333cd7ae8dd7f9b754f68534631b684d7253eabeff",
+    "output_sha256": "7a26f2399bee8de46170b105fd7ca955c72628d14c7e36170af290bb18c18c0d",
     "instruction_replacement_exact": true,
     "save_preview_formatter": {
       "virtual_address": "0x3E403C",
@@ -75275,8 +76548,8 @@
     "changed_byte_count": 33,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "11caa50ee06803bcdfc037cd5d0d065d14f7eb8b33d09a8a2c30e14953810d36",
-    "output_sha256": "542cb620fa5ecef68804a4c3214b1cb4b9c80cf0809f03a8e1f30c6b895f1439",
+    "source_sha256": "7a26f2399bee8de46170b105fd7ca955c72628d14c7e36170af290bb18c18c0d",
+    "output_sha256": "43f5706ad99fcc89c4437dbdb81b729dec6a45522f387bd8d1df02331d77c36d",
     "all_instruction_replacements_exact": true,
     "all_text_layout_replacements_exact": true,
     "all_runtime_color_retargets_exact": true,
@@ -75494,8 +76767,8 @@
     "changed_byte_count": 3,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "52e60a6bf4a2dcfb4b101f0396d5996c746a8d14d4b71e3bbf10bc8f192da80d",
-    "output_sha256": "7ac235f50e46d639bac102590ae6dbe4f1f0ec13a099e6a87371b5ab0c882f60",
+    "source_sha256": "2d0027ed27c5474c907dff364b1cc2106dda61d81dafae4d4a4028ffbce671da",
+    "output_sha256": "c8d01ea99ce1a2fad091b8c0b28b092447523f19dcd6e5066850615accd4d9ec",
     "all_replacements_exact": true,
     "executable_size_preserved": true
   },
@@ -75577,8 +76850,8 @@
     "sibling_rows_preserved": true,
     "target_tail_preserved": true,
     "executable_size_preserved": true,
-    "source_sha256": "7ac235f50e46d639bac102590ae6dbe4f1f0ec13a099e6a87371b5ab0c882f60",
-    "output_sha256": "e13d2c5d1daa879fea47998621e6f84b516342cba0f9180c31cacebdeec8f760"
+    "source_sha256": "c8d01ea99ce1a2fad091b8c0b28b092447523f19dcd6e5066850615accd4d9ec",
+    "output_sha256": "730433eea8cce00c3d769d9113cdf7d49bcf6e55ab0c34526d0c606397f85ee4"
   },
   "bazaar_top_help_alignment": {
     "policy": "shift_purchase_help_left_without_changing_text",
@@ -75660,8 +76933,8 @@
     "all_instruction_replacements_exact": true,
     "text_bytes_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "e13d2c5d1daa879fea47998621e6f84b516342cba0f9180c31cacebdeec8f760",
-    "output_sha256": "9e443915064dff0312a8496eaecf0380f06aa84f67dcffa895362cbc9707ae70"
+    "source_sha256": "730433eea8cce00c3d769d9113cdf7d49bcf6e55ab0c34526d0c606397f85ee4",
+    "output_sha256": "a9da1a40bcc7862769f3e2bc08f2caf352ccd84dfb17b8bee4cd2da16c9ec9d9"
   },
   "command_status_label_alignment": {
     "policy": "align_chinese_sr_points_with_turn_count",
@@ -75691,8 +76964,8 @@
     "text_bytes_untouched": true,
     "turn_count_coordinate_untouched": true,
     "executable_size_preserved": true,
-    "source_sha256": "9e443915064dff0312a8496eaecf0380f06aa84f67dcffa895362cbc9707ae70",
-    "output_sha256": "d2afe411fce21a4aeb19cd4ae1c28216e385fa66efad03c46da8dfcc353ef559"
+    "source_sha256": "a9da1a40bcc7862769f3e2bc08f2caf352ccd84dfb17b8bee4cd2da16c9ec9d9",
+    "output_sha256": "4c834a244090fc2d5f7521c4d8ce2b93b42d854470e800a40154462826dbb11a"
   },
   "remaining_squad_count_alignment": {
     "policy": "move_printf_number_right_without_touching_adjacent_text",
@@ -75713,8 +76986,8 @@
     "changed_byte_count": 2,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "d2afe411fce21a4aeb19cd4ae1c28216e385fa66efad03c46da8dfcc353ef559",
-    "output_sha256": "95af42574dc4c13ad37b37a5defbcbea71a679af3e628bcafda95a24ef62dba5",
+    "source_sha256": "4c834a244090fc2d5f7521c4d8ce2b93b42d854470e800a40154462826dbb11a",
+    "output_sha256": "0e5f5c4641c7758cd21ddf4df726525d5ac714763bfbf5568588223101891fed",
     "adjacent_coordinates_preserved": true,
     "format_token_untouched": true,
     "instruction_replacement_exact": true,
@@ -75759,8 +77032,8 @@
     "changed_instruction_count": 12,
     "source_size": 3471624,
     "output_size": 3471624,
-    "source_sha256": "95af42574dc4c13ad37b37a5defbcbea71a679af3e628bcafda95a24ef62dba5",
-    "output_sha256": "474e4892c861d489bfd24aa454e3ec1bd328ef107c0c0b12f80492b77fe9e9de",
+    "source_sha256": "0e5f5c4641c7758cd21ddf4df726525d5ac714763bfbf5568588223101891fed",
+    "output_sha256": "3880d500f06f99d9d5276b90f3c302c3fdeb0211342f5f7fc156a320feba4737",
     "instruction_offsets": [
       "0x2925A4",
       "0x2925AC",
@@ -75799,7 +77072,7 @@
     "all_editorial_statuses_draft": true,
     "target_offset_reread_exact": true,
     "compdata_source_size": 144990,
-    "compdata_output_size": 141331,
+    "compdata_output_size": 141040,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true,
     "compression_deferred_to_workspace": true,
@@ -75854,8 +77127,8 @@
     ],
     "all_corrected_fields_exact": true,
     "owner_and_duplicate_associations_exact": true,
-    "source_decoded_sha256": "4e56ba04dd35d72765dfb04ce4a3900b056fbbe24d90e63517303892aeb5c3d6",
-    "output_decoded_sha256": "8dd5a48c74b0f033eaf9db4684de7d70c40bdcf6675f8bbe932d932611d0e4ac",
+    "source_decoded_sha256": "848194b45a4527e6b219fc2e3e158f798927111759ad43d115b38e43ba0f4f33",
+    "output_decoded_sha256": "0e36fbe333e75b0e51f21d800601375b11af61a2b9c6077c4665e7fd80072f81",
     "source_preimages_exact": true,
     "changed_byte_count": 4,
     "changed_decoded_offsets": [
@@ -75890,7 +77163,7 @@
     "all_editorial_statuses_reviewed": true,
     "target_offset_reread_exact": true,
     "compdata_source_size": 144990,
-    "compdata_output_size": 141331,
+    "compdata_output_size": 141040,
     "compdata_sector_budget": 145408,
     "codec_round_trip_exact": true,
     "compression_deferred_to_workspace": true
@@ -83267,7 +84540,7 @@
       "reread_exact": true
     },
     "compdata_source_size": 144990,
-    "compdata_output_size": 141331,
+    "compdata_output_size": 141040,
     "compdata_round_trip_exact": true,
     "compression_deferred_to_workspace": true
   },
@@ -83328,7 +84601,7 @@
       "all_list_labels_match_library_word": true,
       "pointer_table_reread_exact": true,
       "decoded_size_preserved": true,
-      "compdata_output_size": 141331,
+      "compdata_output_size": 141040,
       "codec_round_trip_exact": true
     },
     "stage": {
@@ -83994,7 +85267,7 @@
     "SLPS_258.87": {
       "path": "work/build/zh-release-full-story/components/SLPS_258.87",
       "size": 3471624,
-      "sha256": "3996df714a700658317926a7b9378e922511418c89d9e02657858da5723bbade"
+      "sha256": "c7b068f53d5ccfc1a8f6e711e5f14bc518d9aac0a86437ce7f47518e325e486c"
     },
     "DATA/VT1.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/VT1.BIN",
@@ -84003,13 +85276,13 @@
     },
     "DATA/COMPDATA.BN": {
       "path": "work/build/zh-release-full-story/components/DATA/COMPDATA.BN",
-      "size": 141331,
-      "sha256": "36f67e754ab87bc5acc2a89d5797ad34ed6f16f7fd277a817ee892fc504dbacf"
+      "size": 141040,
+      "sha256": "72d6d785ec49f00744746d5ef0e47228739e9cfcd7f4880c40244288f28bf502"
     },
     "DATA/NISVDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/NISVDATA.BIN",
       "size": 555056,
-      "sha256": "09b9cccf025f28e1cb79f52aa90697c5e9b029f4679ae4ffbd26a84efe41e44a"
+      "sha256": "33c7753a316043934ee957e31b4fcd258bc243a1062f26b96f5a616c7fbbde1d"
     },
     "DATA/MTV_PROS.BIN": {
       "path": "work/build/zh-release-full-story/components/DATA/MTV_PROS.BIN",
@@ -84039,7 +85312,7 @@
     "KURODATA/KVMDATA.BIN": {
       "path": "work/build/zh-release-full-story/components/KURODATA/KVMDATA.BIN",
       "size": 3335408,
-      "sha256": "cb627092decad99d09cc9a3be3412b091d35cef1172492a47951477cfd606fb4"
+      "sha256": "14168e0c374d876069912b8929acea5140cde9162ae29b355fd707cb1db4f7b4"
     },
     "BTL/SRVC.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/SRVC.BIN",
@@ -84060,6 +85333,11 @@
       "path": "work/build/zh-release-full-story/components/MAP/MAPMODEL.BIN",
       "size": 55136688,
       "sha256": "0ee0cdf372b32eb255a3fa77967cf7c7bbe7de2c33c7b16a81c85a97a1c5e385"
+    },
+    "MAP/MAPNAME.BIN": {
+      "path": "work/build/zh-release-full-story/components/MAP/MAPNAME.BIN",
+      "size": 49920,
+      "sha256": "f983e28db3707226530d365a11ea7e3b8267061dc8bfa96e7f634e93564a3eaa"
     },
     "BTL/OP0.BIN": {
       "path": "work/build/zh-release-full-story/components/BTL/OP0.BIN",

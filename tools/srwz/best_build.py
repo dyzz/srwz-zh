@@ -18,7 +18,8 @@ from .compdata_best_corrections import CORRECTIONS
 from .edition import EditionError, json_bytes, load_json, project_path
 from .iso9660 import member_map, scan_iso9660
 from .release_inputs import copy_file, sha256_file
-from .text import TextTable, decode_text, load_text_table
+from .text import TextTable, decode_text, load_text_table, original_fullwidth_ascii_overrides, project_runtime_text_table
+from .ui_name_tables import verify_name_table
 
 
 def require(condition, message):
@@ -85,7 +86,7 @@ class BestCompiler:
         require(self.contract['schema_version'] == 1, 'BEST layout schema drift')
         self.config = load_json(common / 'config/iso/zh-release-current-build.json')
         self.names = [r['member'] for r in self.config['replacements']]
-        require(len(self.names) == len(set(self.names)) == 23, 'shared component membership drift')
+        require(len(self.names) == len(set(self.names)) == 24, 'shared component membership drift')
         self.native = {}
         self.images = {}
         for version, directory, elf in [('original', common, 'SLPS_258.87'), ('best', root, 'SLPS_732.70')]:
@@ -488,6 +489,21 @@ class BestCompiler:
         archive_table_proofs = self.write_archive_tables(elf)
         self.outputs['SLPS_732.70'] = bytes(elf)
         self.verify_elf_policy(elf)
+        name_corpus = load_json(self.common / 'corpus/zh/menu/ui-name-tables.json')
+        name_table = project_runtime_text_table(self.zh_table, original_fullwidth_ascii_overrides(self.table))
+        original_offsets = self.offsets('DATA/NISVDATA.BIN', 'original')
+        lo, hi = original_offsets[4:6]
+        original_names = decode(self.native['original']['DATA/NISVDATA.BIN'][lo:hi]).output
+        lo, hi = self.tables['DATA/NISVDATA.BIN'][4:6]
+        current_names = decode(self.outputs['DATA/NISVDATA.BIN'][lo:hi]).output
+        name_proof = {
+            'squad_names': verify_name_table(original_names, current_names, name_corpus['squad_names'],
+                                            kind='squad', source_table=self.table, runtime_table=name_table),
+            'map_names': verify_name_table(self.native['best']['MAP/MAPNAME.BIN'], self.outputs['MAP/MAPNAME.BIN'],
+                                          name_corpus['map_names'], kind='map', source_table=self.table,
+                                          runtime_table=name_table),
+        }
+
         rows = []
         for member,data in self.outputs.items():
             require(len(data) == len(self.native['best'][member]), f'{member}: fixed native size drift')
@@ -496,7 +512,7 @@ class BestCompiler:
             rows.append({'member':member,'path':target.relative_to(self.root).as_posix(),'size':len(data),'sha256':sha(data)})
         report = {'schema_version':1,'edition':'best','input_digest':self.input_digest,'status':'best_components_semantic_readback_passed',
                   'components':rows,'stages':self.stage_proofs,'archives':self.archive_proofs,'srvc':self.srvc_proof,
-                  'runtime_archive_tables':archive_table_proofs,
+                  'runtime_archive_tables':archive_table_proofs,'ui_name_tables':name_proof,
                   'native_elf_outside_declared_writes_preserved':True,'elf_write_ranges':self.elf_writes,
                   'compdata_native_corrections_preserved':True,'library_policy':'all_valid_entries_without_save_writeback','runtime':'not_tested'}
         write_json(self.work/'component-validation.json',report)

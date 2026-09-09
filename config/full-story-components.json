@@ -47,8 +47,8 @@
   "full_story_font": {
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
-      "size": 73284,
-      "sha256": "1e748bd4b0a603e87dda17e1897e2c00c80f095fb9ac1edc533aa0b8cc163588"
+      "size": 73478,
+      "sha256": "a526eda3b2733f489163e71a70dd2330d83c021bdc4de4b5c7660781dfb0a2d0"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -67,7 +67,7 @@
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307905,
-      "sha256": "7cb831a3bda2937f4f6f0ac56b21c98eccca9e790a9c398732d908f6b2787e95"
+      "sha256": "4e6d19a3b7c41b2cd175aacb27a69a972c26318a0c258ea0a375593d68e728da"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
@@ -100,8 +100,8 @@
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111142,
-      "sha256": "6c56025a9a24cf4628bec6981ad39399b0bc6e084dcf307e944a69904953abf6"
+      "size": 111816,
+      "sha256": "06e5773954c1bb1f6fb9e23a8e226bc0b5b23c068b8b14c47bada94d9f757892"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -147,8 +147,8 @@
     },
     "residual_names": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111142,
-      "sha256": "6c56025a9a24cf4628bec6981ad39399b0bc6e084dcf307e944a69904953abf6"
+      "size": 111816,
+      "sha256": "06e5773954c1bb1f6fb9e23a8e226bc0b5b23c068b8b14c47bada94d9f757892"
     },
     "unit_names": {
       "path": "corpus/zh/display-names/units-full.json",
@@ -625,8 +625,8 @@
   "remaining_ui": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111142,
-      "sha256": "6c56025a9a24cf4628bec6981ad39399b0bc6e084dcf307e944a69904953abf6"
+      "size": 111816,
+      "sha256": "06e5773954c1bb1f6fb9e23a8e226bc0b5b23c068b8b14c47bada94d9f757892"
     },
     "parts": {
       "path": "corpus/zh/menu/system-ui-parts.json",
@@ -895,10 +895,10 @@
     "expected": {
       "compdata_direct_entry_count": 309,
       "compdata_library_work_title_entry_count": 22,
-      "compdata_context_help_entry_count": 357,
+      "compdata_context_help_entry_count": 364,
       "compdata_inline_entry_count": 6,
       "leadership_effect_entry_count": 59,
-      "slps_context_ui_entry_count": 613,
+      "slps_context_ui_entry_count": 614,
       "stage_fixed_formation_entry_count": 9,
       "stage_fixed_formation_chunk_index": 101,
       "stage_default_formation_group_count": 855,
@@ -952,8 +952,8 @@
   "nisv_effect_names": {
     "translations": {
       "path": "corpus/zh/menu/remaining-ui.json",
-      "size": 111142,
-      "sha256": "6c56025a9a24cf4628bec6981ad39399b0bc6e084dcf307e944a69904953abf6"
+      "size": 111816,
+      "sha256": "06e5773954c1bb1f6fb9e23a8e226bc0b5b23c068b8b14c47bada94d9f757892"
     },
     "original_archive": {
       "path": "work/disc/DATA/NISVDATA.BIN",
@@ -2238,7 +2238,7 @@
   "kvmdata": {
     "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
     "size": 3335408,
-    "sha256": "cb627092decad99d09cc9a3be3412b091d35cef1172492a47951477cfd606fb4"
+    "sha256": "14168e0c374d876069912b8929acea5140cde9162ae29b355fd707cb1db4f7b4"
   },
   "world_map_titles": {
     "original_slps": {
@@ -2820,7 +2820,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816171,
-      "sha256": "7236135c82477a9102a92d10233df335943a99590d7e3584038157c99c20e5aa"
+      "sha256": "1dddec558f11a61145acd2e79a579b5be73e068f915e5bdb9960345f2712c8f8"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",
@@ -2944,5 +2944,24 @@
   "outputs": {
     "component_root": "work/build/zh-release-full-story/components",
     "manifest": "manifests/full-story-components-validation.json"
+  },
+  "ui_name_tables": {
+    "corpus": {
+      "path": "corpus/zh/menu/ui-name-tables.json",
+      "size": 49227,
+      "sha256": "14f96a322aa182caf440a7238863f01e72f0c1b4790e6af8092bdfb110cebca8"
+    },
+    "original_mapnames": {
+      "path": "work/disc/MAP/MAPNAME.BIN",
+      "size": 49920,
+      "sha256": "095abc616a5336f4d8590b194fb6744a53816bc637e1075b272dcbbacfdc498e"
+    },
+    "squad_decoded_sha256": "ebb4b3150503e754eeeb7d6e9b52503ddd5ee556bdf763d93e2b05cf1e1a540e",
+    "codec": {
+      "strategy": "rust-fit",
+      "min_match_length": 2,
+      "max_match_chain": 16384,
+      "lazy_matching": false
+    }
   }
 }

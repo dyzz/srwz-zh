@@ -22,6 +22,7 @@ from srwz.chinese_layout import (
     fit_chinese_dialogue_layout,
 )
 from srwz.codec import decode_production as decode
+from srwz.ui_name_tables import NISV_SPEC, verify_name_table
 from srwz.compdata_best_corrections import audit_compdata_best_corrections
 from srwz.display_names import (
     load_display_name_source,
@@ -5572,6 +5573,22 @@ def main() -> int:
         component_manifest,
     )
     nisv_effect_names = nisv_strategy_qa["effect_names"]
+    name_config = json.loads((PROJECT_ROOT / "config/full-story-components.json").read_text())["ui_name_tables"]
+    name_corpus = json.loads((PROJECT_ROOT / name_config["corpus"]["path"]).read_text())
+    original_name_members = read_members(PROJECT_ROOT / "rom/original.iso",
+                                        ("DATA/NISVDATA.BIN", "MAP/MAPNAME.BIN"))
+    name_offsets = read_executable_archive_offsets(slps, NISV_SPEC, len(members["DATA/NISVDATA.BIN"]))
+    lo, hi = name_offsets[4:6]
+    source_names = decode(original_name_members["DATA/NISVDATA.BIN"][lo:hi]).output
+    actual_names = decode(members["DATA/NISVDATA.BIN"][lo:hi]).output
+    ui_name_tables = {
+        "squad_names": verify_name_table(source_names, actual_names, name_corpus["squad_names"],
+                                        kind="squad", source_table=source_table, runtime_table=compdata_table),
+        "map_names": verify_name_table(original_name_members["MAP/MAPNAME.BIN"], members["MAP/MAPNAME.BIN"],
+                                      name_corpus["map_names"], kind="map", source_table=source_table,
+                                      runtime_table=compdata_table),
+    }
+
     stage_overrides = dict(overrides)
     stage_overrides.update(surface_aliases)
     stage_overrides.update(ascii_overrides)
@@ -7453,6 +7470,7 @@ def main() -> int:
         "mode_select_effect": mode_select_effect,
         "nisv_strategy_qa": nisv_strategy_qa,
         "nisv_effect_names": nisv_effect_names,
+        "ui_name_tables": ui_name_tables,
         "auto_demo_overlays": auto_demo_overlays,
         "world_history": world_history_report,
         "runtime_keywords": runtime_keyword_report,

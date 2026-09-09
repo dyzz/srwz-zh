@@ -80,6 +80,7 @@ try:
         build_nisv_library_menu,
         build_nisv_sound_select,
     )
+    from srwz.ui_name_tables import build_ui_name_tables
     from srwz.nisv_tutorial import (
         NisvTutorialError,
         build_nisv_tutorial_pages,
@@ -267,6 +268,7 @@ except ModuleNotFoundError:
         build_nisv_library_menu,
         build_nisv_sound_select,
     )
+    from tools.srwz.ui_name_tables import build_ui_name_tables
     from tools.srwz.nisv_tutorial import (
         NisvTutorialError,
         build_nisv_tutorial_pages,
@@ -563,6 +565,7 @@ KVMDATA_MEMBER = "KURODATA/KVMDATA.BIN"
 SRVC_MEMBERS = frozenset({"BTL/SRVC.BIN", "BTL/SRVC.SEG"})
 VEFF_MEMBER = "EFF/VEFF2DX.BIN"
 MAPMODEL_MEMBER = "MAP/MAPMODEL.BIN"
+MAPNAME_MEMBER = "MAP/MAPNAME.BIN"
 AUTO_DEMO_MEMBERS = frozenset(
     {"BTL/OP0.BIN", "BTL/OP1.BIN", "BTL/OP2.BIN"}
 )
@@ -581,6 +584,7 @@ ALL_COMPONENT_MEMBERS = frozenset(
         *SRVC_MEMBERS,
         VEFF_MEMBER,
         MAPMODEL_MEMBER,
+        MAPNAME_MEMBER,
         *AUTO_DEMO_MEMBERS,
     }
 )
@@ -599,6 +603,7 @@ COMPONENT_BUILD_GROUPS = (
         "members": (
             COMPDATA_MEMBER,
             NISVDATA_MEMBER,
+            MAPNAME_MEMBER,
             MTV_PROS_MEMBER,
             MTV_PROP_MEMBER,
             STAGE_MEMBER,
@@ -676,6 +681,7 @@ CONFIG_SECTION_IMPACTS = {
     "nisv_effect_names": {NISVDATA_MEMBER},
     "nisv_strategy_qa": {NISVDATA_MEMBER, SLPS_MEMBER},
     "nisv_tutorial_pages": {NISVDATA_MEMBER, SLPS_MEMBER},
+    "ui_name_tables": {NISVDATA_MEMBER, MAPNAME_MEMBER},
     "runtime_library_menu": {SLPS_MEMBER, NISVDATA_MEMBER, HSFC_MEMBER},
     "srvc_battle_text": set(SRVC_MEMBERS),
     "scenario_select_effect": {SLPS_MEMBER, VEFF_MEMBER},
@@ -733,6 +739,8 @@ INPUT_IMPACTS = {
     "original_nisvdata": {NISVDATA_MEMBER},
     "nisv_strategy_qa_corpus": {NISVDATA_MEMBER},
     "nisv_tutorial_corpus": {NISVDATA_MEMBER},
+    "ui_name_tables_corpus": {NISVDATA_MEMBER, MAPNAME_MEMBER},
+    "original_mapnames": {MAPNAME_MEMBER},
     "runtime_library_menu_scope": {SLPS_MEMBER, NISVDATA_MEMBER, HSFC_MEMBER},
     "runtime_library_menu_font": {NISVDATA_MEMBER, HSFC_MEMBER},
     "original_slps": {
@@ -9964,6 +9972,22 @@ def _build_components(
             runtime_library_menu_scope_path,
             runtime_library_menu_font_path,
         )
+    ui_name_config = config["ui_name_tables"]
+    ui_name_corpus_path, ui_name_corpus_data = _locked_file(
+        ui_name_config["corpus"], label="UI name tables corpus",
+    )
+    original_mapname_path, original_mapnames = _locked_file(
+        ui_name_config["original_mapnames"], label="original map names",
+    )
+    _, ui_name_original_nisv = _locked_file(
+        config["nisv_tutorial_pages"]["original_archive"], label="original squad names",
+    )
+    output_nisvdata, output_mapnames, ui_name_tables_report = build_ui_name_tables(
+        output_nisvdata, ui_name_original_nisv, output_slps, original_mapnames,
+        ui_name_config, json.loads(ui_name_corpus_data), runtime_keyword_source_table,
+        _stored_text_overrides(runtime_keyword_source_table,
+                               runtime_keyword_primary, runtime_keyword_aliases),
+    )
     (
         output_compdata,
         compdata_battle_line_report,
@@ -10762,6 +10786,7 @@ def _build_components(
         "BTL/SRVC.SEG": output_srvc_seg,
         "EFF/VEFF2DX.BIN": output_veff,
         "MAP/MAPMODEL.BIN": output_mapmodel,
+        MAPNAME_MEMBER: output_mapnames,
         **output_auto_demo_archives,
     }
     if incremental:
@@ -10912,6 +10937,8 @@ def _build_components(
                 nisv_effect_names_input_paths[1],
                 nisv_effect_names_input_paths[1].read_bytes(),
             ),
+            "ui_name_tables_corpus": _file_lock(ui_name_corpus_path, ui_name_corpus_data),
+            "original_mapnames": _file_lock(original_mapname_path, original_mapnames),
             "nisv_tutorial_corpus": _file_lock(
                 nisv_tutorial_corpus_path,
                 nisv_tutorial_corpus_path.read_bytes(),
@@ -11077,6 +11104,7 @@ def _build_components(
         "nisv_effect_names": nisv_effect_names_report,
         "nisv_strategy_qa": nisv_strategy_qa_report,
         "nisv_tutorial_pages": nisv_tutorial_report,
+        "ui_name_tables": ui_name_tables_report,
         "runtime_library_menu": runtime_library_menu_report,
         "sound_select_default_unlock": sound_select_unlock_report,
         "library_default_unlock": library_default_unlock_report,

@@ -411,7 +411,7 @@ def main() -> int:
             library.get("runtime", {}).get("required_flows", [])
         ),
     }
-    if len(combined["outputs"]) != 23 or not all(
+    if len(combined["outputs"]) != 24 or not all(
         combined["acceptance"].values()
     ):
         raise SystemExit("combined component acceptance failed")
