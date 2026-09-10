@@ -1,0 +1,528 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-10",
+  "feedback_source": {
+    "platform": "百度贴吧",
+    "username": "zj83519",
+    "attribution_source": "user_provided_in_conversation"
+  },
+  "status": "fixed_both_editions_full_build_readback_and_lrps2_verified",
+  "policy": "preserve_custom_names_normalize_only_exact_japanese_defaults_and_use_character_name_order",
+  "baseline_release": "v0.4.1",
+  "version_comparison": [
+    {
+      "tag": "v0.2.0",
+      "commit": "5e7839391f6e07886472f225c1473f9f28d4bc36",
+      "setsuko": {
+        "library_chfn": "节子·大原",
+        "elf_identity_name": "节子·小原",
+        "dynamic_override_identity_matches": false
+      },
+      "rand": {
+        "library_chfn": "兰德·特拉维斯",
+        "elf_identity_name": "兰德·特拉维斯",
+        "dynamic_override_identity_matches": true
+      }
+    },
+    {
+      "tag": "v0.3.0",
+      "commit": "de2d03f31a1f7a3e954f07d283f1a0e7e7f304c2",
+      "setsuko": {
+        "library_chfn": "节子·大原",
+        "elf_identity_name": "节子·小原",
+        "dynamic_override_identity_matches": false
+      },
+      "rand": {
+        "library_chfn": "兰德·特拉维斯",
+        "elf_identity_name": "兰德·特拉维斯",
+        "dynamic_override_identity_matches": true
+      }
+    },
+    {
+      "tag": "v0.4.0",
+      "commit": "8c741db5ff88ff91bdf97561cd56d07a935bafd7",
+      "setsuko": {
+        "library_chfn": "小原节子",
+        "elf_identity_name": "小原节子",
+        "dynamic_override_identity_matches": true
+      },
+      "rand": {
+        "library_chfn": "兰德·特拉维斯",
+        "elf_identity_name": "兰德·特拉维斯",
+        "dynamic_override_identity_matches": true
+      }
+    },
+    {
+      "tag": "v0.4.1",
+      "commit": "bac5dec78724f0b834059f5e934685bccbeee43b",
+      "setsuko": {
+        "library_chfn": "小原节子",
+        "elf_identity_name": "小原节子",
+        "dynamic_override_identity_matches": true
+      },
+      "rand": {
+        "library_chfn": "兰德·特拉维斯",
+        "elf_identity_name": "兰德·特拉维斯",
+        "dynamic_override_identity_matches": true
+      }
+    }
+  ],
+  "test_run": {
+    "path": "work/verification/library-protagonist-names-fix-20260910/tests-final.log",
+    "size": 1372,
+    "sha256": "310c7000185af4c96fb1783d9b68d3cc89afe9b54c90bdf658802a08126b3284"
+  },
+  "tests": {
+    "count": 269,
+    "passed": true,
+    "seconds": 76.38
+  },
+  "candidates": {
+    "original": {
+      "path": "work/verification/library-protagonist-names-fix-20260910/candidate-original.iso",
+      "size": 3758358528,
+      "sha256": "aa0d6f2f56518644dbb22c11050509a0038d308a757fab4116ef3085d6341b9d",
+      "source_sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6",
+      "patch": {
+        "policy": "preserve_custom_names_normalize_exact_japanese_defaults_and_chinese_order",
+        "edition": "original",
+        "file_offset": "0x125F40",
+        "virtual_address": "0x2244C0",
+        "allocation_size": 560,
+        "original_sha256": "1ec9c979bb450d1bfe7dc4700be845c0dabbef3c211f3f3881ee5de9f57c9b7d",
+        "output_sha256": "a88d015d4f1018322999c4cb6b0fe81c9aceaf72e06eed41b596be1ae666ee21",
+        "changed_byte_count": 482,
+        "already_patched": false,
+        "executable_size_preserved": true,
+        "save_writeback": false
+      },
+      "only_formatter_changed": true,
+      "changed_iso_bytes": 482
+    },
+    "best": {
+      "path": "work/verification/library-protagonist-names-fix-20260910/candidate-best.iso",
+      "size": 3755081728,
+      "sha256": "dc8fe15791a0a2bae0e33ee0c1ee0bf7b26895eb387206bcae7f046caf88fbc0",
+      "source_sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c",
+      "patch": {
+        "policy": "preserve_custom_names_normalize_exact_japanese_defaults_and_chinese_order",
+        "edition": "best",
+        "file_offset": "0x126300",
+        "virtual_address": "0x224880",
+        "allocation_size": 560,
+        "original_sha256": "86b68e07cea60aa6100ce1068a1d98bcc013c6bc1a092cd63558d2a779ed3689",
+        "output_sha256": "9db4da215bd7f04f678924f839b154c716100e71882ea8c3ea3c154e04713bb8",
+        "changed_byte_count": 482,
+        "already_patched": false,
+        "executable_size_preserved": true,
+        "save_writeback": false
+      },
+      "only_formatter_changed": true,
+      "changed_iso_bytes": 482
+    }
+  },
+  "editions": {
+    "original": {
+      "runtime_receipt": {
+        "path": "work/runtime/lrps2/library-protagonist-names-fix-20260910/original-final/receipt.json",
+        "size": 22579,
+        "sha256": "eb6ba785731695b84cb06929af2ec65698b9d0396ec55cdb01c7fbee9f924b4b"
+      },
+      "complete_build_receipt": {
+        "path": "work/verification/library-protagonist-names-fix-20260910/build-checkout/manifests/editions/original/current.json",
+        "size": 1363,
+        "sha256": "e544a688387b024f5117e4e53d9a729db9f3220dad8a648b1c5052234635810c"
+      },
+      "complete_build_output_sha256_matches_runtime_candidate": true,
+      "live_name_observations": {
+        "path": "work/runtime/lrps2/library-protagonist-names-fix-20260910/original-final/observations.json",
+        "size": 2221,
+        "sha256": "6c77a2154b97ce3175ee83e86802e60fbed4a33c175e4417b08b8a0310b0f1dc"
+      },
+      "synthetic_writes": {
+        "path": "work/runtime/lrps2/library-protagonist-names-fix-20260910/original-final/ram-writes.json",
+        "size": 3609,
+        "sha256": "8218369d0be783c1a142080b7a1837f2807f1240f9a819c90c1d1be149c0421a"
+      },
+      "source_and_isolated_memory_cards_unchanged": true,
+      "entry_route": "Cold boot → Title → LIBRARY → page 12 → protagonist detail → L1/R1 navigation",
+      "visual_verification": "Direct frame inspection; generic runner assertions alone do not validate name text.",
+      "cases": [
+        {
+          "case": "chinese-default-setsuko",
+          "title": "小原节子",
+          "nickname": "节子",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/original-chinese-default-setsuko.png",
+            "size": 234085,
+            "sha256": "93ec4fdd0eef1d712b49f4ce7826b44999a0e9a8b79fc7e24f52d9622030f89c"
+          }
+        },
+        {
+          "case": "chinese-default-rand",
+          "title": "兰德·特拉维斯",
+          "nickname": "兰德",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/original-chinese-default-rand.png",
+            "size": 231175,
+            "sha256": "48c95251c00ba45cfe40b13780aa427fbf29d21f853ca8540a6a09c7bed5124a"
+          }
+        },
+        {
+          "case": "japanese-default-setsuko",
+          "title": "小原节子",
+          "nickname": "节子",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/original-japanese-default-setsuko.png",
+            "size": 233864,
+            "sha256": "69d75c87385e469657fbaf8ccf79e92744006bcfc4f11e9beb3c865fba9dcb88"
+          }
+        },
+        {
+          "case": "japanese-default-rand",
+          "title": "兰德·特拉维斯",
+          "nickname": "兰德",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/original-japanese-default-rand.png",
+            "size": 231269,
+            "sha256": "d8e1bb9cc70b38013c6460c600b9891cc38c97964095ede4ed37e331bcd7af21"
+          }
+        },
+        {
+          "case": "custom-setsuko",
+          "title": "兜甲儿",
+          "nickname": "甲儿",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/original-custom-setsuko.png",
+            "size": 233030,
+            "sha256": "0534bcaab6bcac37a0c311f7ef5a682f8b659c9ca055e48ac8353aa3b7647b24"
+          }
+        },
+        {
+          "case": "custom-rand",
+          "title": "丹泽尔·哈默",
+          "nickname": "队长",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/original-custom-rand.png",
+            "size": 231450,
+            "sha256": "45c35ffd3b35e27cd4bb0926fe70c73b990c4cd2dabfad4e5f4e69aaad5a2388"
+          }
+        },
+        {
+          "case": "mixed-setsuko",
+          "title": "小原甲儿",
+          "nickname": "甲儿",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/original-mixed-setsuko.png",
+            "size": 234111,
+            "sha256": "6677a9ffd4dee76158147f341577ad6b1114d96f6b314a3e70c094f0a2466ef1"
+          }
+        },
+        {
+          "case": "mixed-rand",
+          "title": "兰德·哈默",
+          "nickname": "队长",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/original-mixed-rand.png",
+            "size": 230184,
+            "sha256": "a331a651d5de6826f7f4aaf3750e15bbf52856cb35cb234eab51bfb0296680a2"
+          }
+        },
+        {
+          "case": "ordinary-character-control",
+          "title": "丹泽尔·哈默",
+          "nickname": "丹泽尔",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/original-ordinary-character-control.png",
+            "size": 219034,
+            "sha256": "fbf4814e7894aed8e592402c8aa20762907914044a32298a6d39a7293f6234cb"
+          }
+        }
+      ]
+    },
+    "best": {
+      "runtime_receipt": {
+        "path": "work/runtime/lrps2/library-protagonist-names-fix-20260910/best-final/receipt.json",
+        "size": 22501,
+        "sha256": "527a486f8cc98a0d20c4a84a925508cf1f30f7f2688d7e935b812f1d4e16fb22"
+      },
+      "complete_build_receipt": {
+        "path": "work/verification/library-protagonist-names-fix-20260910/build-checkout/manifests/editions/best/current.json",
+        "size": 1451,
+        "sha256": "bee0664d307dba3bc4a969cbfcfb231da71953e4e4580d598782a6b0089221a6"
+      },
+      "complete_build_output_sha256_matches_runtime_candidate": true,
+      "live_name_observations": {
+        "path": "work/runtime/lrps2/library-protagonist-names-fix-20260910/best-final/observations.json",
+        "size": 2221,
+        "sha256": "6c77a2154b97ce3175ee83e86802e60fbed4a33c175e4417b08b8a0310b0f1dc"
+      },
+      "synthetic_writes": {
+        "path": "work/runtime/lrps2/library-protagonist-names-fix-20260910/best-final/ram-writes.json",
+        "size": 3609,
+        "sha256": "28d0600c1ea9bd1c3525cd171afdfe8d04ed22f315354c6e08f813cf1437b90a"
+      },
+      "source_and_isolated_memory_cards_unchanged": true,
+      "entry_route": "Cold boot → Title → LIBRARY → page 12 → protagonist detail → L1/R1 navigation",
+      "visual_verification": "Direct frame inspection; generic runner assertions alone do not validate name text.",
+      "cases": [
+        {
+          "case": "chinese-default-setsuko",
+          "title": "小原节子",
+          "nickname": "节子",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/best-chinese-default-setsuko.png",
+            "size": 233939,
+            "sha256": "0d2bd70f87ad0ab219f573fcc9c29c2e625924e9659c85a7e996a84d57b4d414"
+          }
+        },
+        {
+          "case": "chinese-default-rand",
+          "title": "兰德·特拉维斯",
+          "nickname": "兰德",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/best-chinese-default-rand.png",
+            "size": 230984,
+            "sha256": "d1ae51986b64da94b7f128dbd7f0949c8f36da785c79866952fd1cc86753d0d3"
+          }
+        },
+        {
+          "case": "japanese-default-setsuko",
+          "title": "小原节子",
+          "nickname": "节子",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/best-japanese-default-setsuko.png",
+            "size": 233871,
+            "sha256": "d228f646c5e7d48265dcaf2ea86af5fe91796c81daae299384d4b09160376671"
+          }
+        },
+        {
+          "case": "japanese-default-rand",
+          "title": "兰德·特拉维斯",
+          "nickname": "兰德",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/best-japanese-default-rand.png",
+            "size": 231143,
+            "sha256": "7b7970f9b11f10639c79747bcbcef820b8bdedc523e07cd5e46bde0a46d28a8f"
+          }
+        },
+        {
+          "case": "custom-setsuko",
+          "title": "兜甲儿",
+          "nickname": "甲儿",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/best-custom-setsuko.png",
+            "size": 233043,
+            "sha256": "355b78782cb7a3ac19f6484faf7a7ec52744fb2d51ec4778e7b7dfe74b5b9b4a"
+          }
+        },
+        {
+          "case": "custom-rand",
+          "title": "丹泽尔·哈默",
+          "nickname": "队长",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/best-custom-rand.png",
+            "size": 231382,
+            "sha256": "824a65294dc599e6cffb4d04dfec56d64ecd51b95a4bd9046c8bd5741476240e"
+          }
+        },
+        {
+          "case": "mixed-setsuko",
+          "title": "小原甲儿",
+          "nickname": "甲儿",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/best-mixed-setsuko.png",
+            "size": 234239,
+            "sha256": "eeb6bf1d6493a321eb863fa78f17f6be7563098ad9f9f03bd736f63151dada29"
+          }
+        },
+        {
+          "case": "mixed-rand",
+          "title": "兰德·哈默",
+          "nickname": "队长",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/best-mixed-rand.png",
+            "size": 229823,
+            "sha256": "8917eb90b2f349a7108ec0cd7f1b990c5a0a8b629eef458cc0e7ca7384dd1a3b"
+          }
+        },
+        {
+          "case": "ordinary-character-control",
+          "title": "丹泽尔·哈默",
+          "nickname": "丹泽尔",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-fix-20260910/best-ordinary-character-control.png",
+            "size": 219228,
+            "sha256": "f11fd0242420ad49ac52fe92dbe230503f1ef5a83befe119b789b5b1563091db"
+          }
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "The Japanese/custom/mixed record scenarios are explicit RAM diagnostic inputs, not the feedback save.",
+    "Feedback ISO identity and the original source of its Japanese live names remain unknown.",
+    "PCSX2 was not executed.",
+    "Frozen release images and patches have not been updated."
+  ],
+  "batch_build": {
+    "path": "work/verification/library-protagonist-names-fix-20260910/build-checkout/work/editions/67acdbbc4e774361f1b1f2c7cefbe11c15f9f990a1c6d7dfe7269cd705b0a3cc/original-best.json",
+    "size": 3505,
+    "sha256": "09e7058dbc31257de756d37861ad11fd58aafe9802df1850f8887d770823bf59"
+  },
+  "source_files": [
+    {
+      "path": "tools/srwz/library_protagonist_names.py",
+      "size": 9347,
+      "sha256": "cd1101e8ed4e3ec6f1f49b7ae3675d9931cdee3bd66e9b798ddcb2fb34474cf4"
+    },
+    {
+      "path": "tools/build_full_story_components.py",
+      "size": 499280,
+      "sha256": "0607613cde137742767139a2a14b346447cebaa8e1ded1e8c00207c8c4def49e"
+    },
+    {
+      "path": "tools/srwz/best_build.py",
+      "size": 36698,
+      "sha256": "4f856c97dfcb12d7ba1b9124cd24911c7cf22a8af5b4ccaee6cf6caf546ee518"
+    },
+    {
+      "path": "tools/verify_full_story_iso_content.py",
+      "size": 328235,
+      "sha256": "cb2d2cdd45c6a9a6aaae7ad11e2ceee63adf206a9b152ae002f39c2816ee5a3b"
+    },
+    {
+      "path": "tests/test_library_protagonist_names.py",
+      "size": 10814,
+      "sha256": "4f9600cfb74e4e1f88c66b8481f0813e1030226c954b0e6c6301e8f4d6358bc3"
+    }
+  ],
+  "reproduction": [
+    {
+      "path": "work/verification/library-protagonist-names-fix-20260910/build_candidates.py",
+      "size": 2134,
+      "sha256": "0f37360babdb33d539cb6405d6ed9d15dd26084e2618f22c884e8e4b461a1deb"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-fix-20260910/prepare_build.py",
+      "size": 675,
+      "sha256": "5a83790fa076d97e199e6b9db5803d594816d08bdfe9f1b0d2fa6fdfb278d9b4"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-fix-20260910/prepare_runtime.py",
+      "size": 1572,
+      "sha256": "f80ae46d32a54598d3615fb4e88c1d2bff80c6c463434dcd5498bbe95147f8df"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-fix-20260910/runtime_probe.py",
+      "size": 2713,
+      "sha256": "5b4ba33488f57967364db01f008a30029ada8b34eaceac06f09a3a24bd0af7be"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-fix-20260910/original-scenario.json",
+      "size": 10518,
+      "sha256": "504bdec263ec0e3b1ea83627a69a684c36bbbd5b22bab55092083a71946ec749"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-fix-20260910/best-scenario.json",
+      "size": 10510,
+      "sha256": "13bf53f41e524398a58af3e693f138d4993478b265aa6c4c81dfd8e65c93b0db"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-fix-20260910/original-iso-contract.json",
+      "size": 240,
+      "sha256": "c9beab010b11bb3adec7f4b339535f918289373536f365a5d4c55ef4ef007d58"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-fix-20260910/best-iso-contract.json",
+      "size": 236,
+      "sha256": "0af83f740f54d7af57d4dc8a19a51e1bda1154f9660eb07c644fb0f84613079b"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-fix-20260910/build-final.log",
+      "size": 3833,
+      "sha256": "74e590e7462d6091dd098dca6fd0bf1e4dff5685b0a128215a6823ff617fd5b2"
+    }
+  ],
+  "v020_release_readback": {
+    "tag": "v0.2.0",
+    "commit": "5e7839391f6e07886472f225c1473f9f28d4bc36",
+    "edition": "original",
+    "evidence_level": "release_patch_reconstruction_and_static_iso_readback",
+    "source_iso_sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+    "patch_sha256": "0edfd9d72bfa50bed7889a29d2716fc19ad1bf89e395fd6b43bace701d589326",
+    "iso_path": "work/verification/library-protagonist-names-fix-20260910/release-v0.2.0-reconstructed.iso",
+    "iso_sha256": "24319f1bc509beab4e838bc7078b22d576280b55aece18948901fc7c0fa01bba",
+    "function_offset": "0x125F40",
+    "function_sha256": "1ec9c979bb450d1bfe7dc4700be845c0dabbef3c211f3f3881ee5de9f57c9b7d",
+    "retail_formatter_unchanged": true,
+    "rows": [
+      {
+        "character": 397,
+        "pilot": 702,
+        "library_chfn": "节子·大原",
+        "library_chnn": "节子",
+        "library_chfn_hex": "94cd8e71904b91e58cb4",
+        "elf_identity": {
+          "text": "节子·小原",
+          "hex": "94cd8e71904b8fac8cb4"
+        },
+        "dynamic_override_identity_matches": false,
+        "compdata_names": {
+          "display": {
+            "text": "节子",
+            "hex": "94cd8e71"
+          },
+          "family": {
+            "text": "小原",
+            "hex": "8fac8cb4"
+          },
+          "given": {
+            "text": "节子",
+            "hex": "94cd8e71"
+          }
+        }
+      },
+      {
+        "character": 400,
+        "pilot": 713,
+        "library_chfn": "兰德·特拉维斯",
+        "library_chnn": "兰德",
+        "library_chfn_hex": "909e9270904b93c19d6695cf8e7a",
+        "elf_identity": {
+          "text": "兰德·特拉维斯",
+          "hex": "909e9270904b93c19d6695cf8e7a"
+        },
+        "dynamic_override_identity_matches": true,
+        "compdata_names": {
+          "display": {
+            "text": "兰德",
+            "hex": "909e9270"
+          },
+          "family": {
+            "text": "特拉维斯",
+            "hex": "93c19d6695cf8e7a"
+          },
+          "given": {
+            "text": "兰德",
+            "hex": "909e9270"
+          }
+        }
+      }
+    ],
+    "runtime": "not_executed",
+    "evidence_files": [
+      {
+        "path": "work/verification/library-protagonist-names-fix-20260910/readback_v020.py",
+        "size": 4447,
+        "sha256": "47d174000254c5fd21cf36b242040e904f93f0928a0aa0867d5771b850b6db10"
+      },
+      {
+        "path": "work/verification/library-protagonist-names-fix-20260910/v020-readback.json",
+        "size": 2049,
+        "sha256": "735ae09eca46e43b2c65b37b0a77683b0083e728469fb2677da1dcd2543e0678"
+      }
+    ]
+  },
+  "implementation_commit": "a0086ef19362ab583639d5d1952d14cf969883f8"
+}

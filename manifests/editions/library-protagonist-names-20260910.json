@@ -1,0 +1,635 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-10",
+  "feedback_source": {
+    "platform": "百度贴吧",
+    "username": "zj83519",
+    "attribution_source": "user_provided_in_conversation"
+  },
+  "status": "investigated_runtime_defect_confirmed_no_fix",
+  "release": "v0.4.1",
+  "source_head": "bac5dec",
+  "reported_screenshot": {
+    "evidence": {
+      "path": "docs/issue-assets/library-protagonist-names-20260910/reported-setsuko.png",
+      "size": 598394,
+      "sha256": "3516512d607cba2d307914551aef945e47b8281bbd60613c7cd196ff60345d5b"
+    },
+    "observed_title": "セツコ・オハラ",
+    "observed_nickname": "セツコ",
+    "edition": "unknown",
+    "patch_version": "unknown",
+    "save_provenance": "unknown"
+  },
+  "static_readback": {
+    "release": "v0.4.1",
+    "evidence_level": "static_iso_readback",
+    "images": [
+      {
+        "edition": "original",
+        "kind": "source_iso",
+        "path": "rom/original.iso",
+        "sha256": "ddbedefc0061213c50928fb213a7fb277c0345f01dab7386adc0383638a78cd2",
+        "system_cnf": "BOOT2 = cdrom0:\\SLPS_258.87;1\r\nVER = 1.04\r\nVMODE = NTSC\r\n",
+        "elf_sha256": "6c4c81c4e5aa3db1f52d70b8183ce11c01fc6b265ae4d53fa4d6a657c5019b50",
+        "archive_sha256": "5dc3e8277d39a0f7a57e78b5e95a0ba74a24c2c9d9db93ad75a77a1775ad78b7",
+        "table_offset": "0x32a810",
+        "entries": [
+          {
+            "id": "character/397",
+            "offset": "0x45b90",
+            "fields": {
+              "CHFN": {
+                "text": "セツコ・オハラ",
+                "hex": "835a8363835281458349836e8389"
+              },
+              "CHNN": {
+                "text": "セツコ",
+                "hex": "835a83638352"
+              },
+              "ACTR": {
+                "text": "高口幸子",
+                "hex": "8d828cfb8d4b8e71"
+              },
+              "PRDC": {
+                "text": "オリジナル",
+                "hex": "8349838a83578369838b"
+              }
+            },
+            "body_start": "　地球連邦軍戦技研究班『グローリ\nー・スター』所属のパイロット。階\n級は少尉。１９歳。\n　生真面目な性格で、与えられた任\n務や役割を懸命に果たそうとする。\n　しかし、自信"
+          },
+          {
+            "id": "character/400",
+            "offset": "0x461d0",
+            "fields": {
+              "CHFN": {
+                "text": "ランド・トラビス",
+                "hex": "83898393836881458367838983728358"
+              },
+              "CHNN": {
+                "text": "ランド",
+                "hex": "838983938368"
+              },
+              "ACTR": {
+                "text": "川原慶久",
+                "hex": "90ec8cb48c638b76"
+              },
+              "PRDC": {
+                "text": "バンプレストオリジナル",
+                "hex": "836f83938376838c835883678349838a83578369838b"
+              }
+            },
+            "body_start": "　さすらいの修理屋『ビーター・サ\nービス』を営む男。２７歳。\n　『ザ・ヒート』を自称する豪放磊\n落な熱血漢。しかし、頭に血が上る\nとやり過ぎてしまう事が多く、陰で\nは『ザ"
+          }
+        ],
+        "elf_japanese_name_occurrences": {
+          "セツコ・オハラ": [
+            "0x33e318"
+          ],
+          "セツコ": [
+            "0x337728",
+            "0x33b458",
+            "0x33e318",
+            "0x3421b0",
+            "0x342220",
+            "0x342228",
+            "0x3479f0"
+          ],
+          "ランド・トラビス": [
+            "0x33e300"
+          ],
+          "ランド": [
+            "0x337700",
+            "0x33b440",
+            "0x33e300",
+            "0x342190",
+            "0x342238",
+            "0x342240",
+            "0x3479c8"
+          ]
+        }
+      },
+      {
+        "edition": "original",
+        "kind": "target_iso",
+        "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-original.iso",
+        "sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6",
+        "system_cnf": "BOOT2 = cdrom0:\\SLPS_258.87;1\r\nVER = 1.04\r\nVMODE = NTSC\r\n",
+        "elf_sha256": "c7b068f53d5ccfc1a8f6e711e5f14bc518d9aac0a86437ce7f47518e325e486c",
+        "archive_sha256": "4aa715c119b0d380707dfffe1184c56e21cf5268de03503ed72c6dc939eab3d3",
+        "table_offset": "0x32a810",
+        "entries": [
+          {
+            "id": "character/397",
+            "offset": "0x3e750",
+            "fields": {
+              "CHFN": {
+                "text": "小原节子",
+                "hex": "8fac8cb494cd8e71"
+              },
+              "CHNN": {
+                "text": "节子",
+                "hex": "94cd8e71"
+              },
+              "ACTR": {
+                "text": "高口幸子",
+                "hex": "8d828cfb8d4b8e71"
+              },
+              "PRDC": {
+                "text": "机战Ｚ原创",
+                "hex": "8af7929e82798cb494d1"
+              }
+            },
+            "body_start": "隶属于地球联邦军战技研究\n班“荣耀之星”的驾驶员，\n军衔为少尉，１９岁。性格认真，\n努力完成被交付的任务和职责。\n但由于缺乏自信和性格软弱，\n对事物往往持消极态度，内心也"
+          },
+          {
+            "id": "character/400",
+            "offset": "0x3ec70",
+            "fields": {
+              "CHFN": {
+                "text": "兰德·特拉维斯",
+                "hex": "909e9270904b93c19d6695cf8e7a"
+              },
+              "CHNN": {
+                "text": "兰德",
+                "hex": "909e9270"
+              },
+              "ACTR": {
+                "text": "川原庆久",
+                "hex": "90ec8cb492d88b76"
+              },
+              "PRDC": {
+                "text": "机战Ｚ原创",
+                "hex": "8af7929e82798cb494d1"
+              }
+            },
+            "body_start": "经营流浪修理店“比特\n服务”的男人。２７岁。\n自称“ＴＨＥ　ＨＥＡＴ”的豪\n放磊落热血汉。但一热血上头就\n常常做得过火，暗地里被人称为\n“ＴＨＥ　ＣＲＵＳＨＥＲ”。\n本人"
+          }
+        ],
+        "elf_japanese_name_occurrences": {
+          "セツコ・オハラ": [],
+          "セツコ": [],
+          "ランド・トラビス": [],
+          "ランド": []
+        },
+        "compdata_pilot_names": [
+          {
+            "pilot_index": 702,
+            "decoded_record_offset": "0x20400",
+            "fields": {
+              "display": "节子",
+              "family": "小原",
+              "given": "节子"
+            }
+          },
+          {
+            "pilot_index": 713,
+            "decoded_record_offset": "0x20b90",
+            "fields": {
+              "display": "兰德",
+              "family": "特拉维斯",
+              "given": "兰德"
+            }
+          }
+        ]
+      },
+      {
+        "edition": "best",
+        "kind": "source_iso",
+        "path": "rom/best.iso",
+        "sha256": "950e2759d0d7482387d97d6df31325d9e352097a23e0bb4724073d1538d8cf77",
+        "system_cnf": "BOOT2 = cdrom0:\\SLPS_732.70;1\r\nVER = 2.00\r\nVMODE = NTSC\r\n",
+        "elf_sha256": "3a3dcd48565d826de04718b227b59184db28f0cd969f594c77dfd2f12492f5bb",
+        "archive_sha256": "d582054de42be0cb88c0845fe547fc56d2e09038adf5f30c6475b321d257f4b3",
+        "table_offset": "0x32b040",
+        "entries": [
+          {
+            "id": "character/397",
+            "offset": "0x45b90",
+            "fields": {
+              "CHFN": {
+                "text": "セツコ・オハラ",
+                "hex": "835a8363835281458349836e8389"
+              },
+              "CHNN": {
+                "text": "セツコ",
+                "hex": "835a83638352"
+              },
+              "ACTR": {
+                "text": "高口幸子",
+                "hex": "8d828cfb8d4b8e71"
+              },
+              "PRDC": {
+                "text": "オリジナル",
+                "hex": "8349838a83578369838b"
+              }
+            },
+            "body_start": "　地球連邦軍戦技研究班『グローリ\nー・スター』所属のパイロット。階\n級は少尉。１９歳。\n　生真面目な性格で、与えられた任\n務や役割を懸命に果たそうとする。\n　しかし、自信"
+          },
+          {
+            "id": "character/400",
+            "offset": "0x461d0",
+            "fields": {
+              "CHFN": {
+                "text": "ランド・トラビス",
+                "hex": "83898393836881458367838983728358"
+              },
+              "CHNN": {
+                "text": "ランド",
+                "hex": "838983938368"
+              },
+              "ACTR": {
+                "text": "川原慶久",
+                "hex": "90ec8cb48c638b76"
+              },
+              "PRDC": {
+                "text": "バンプレストオリジナル",
+                "hex": "836f83938376838c835883678349838a83578369838b"
+              }
+            },
+            "body_start": "　さすらいの修理屋『ビーター・サ\nービス』を営む男。２７歳。\n　『ザ・ヒート』を自称する豪放磊\n落な熱血漢。しかし、頭に血が上る\nとやり過ぎてしまう事が多く、陰で\nは『ザ"
+          }
+        ],
+        "elf_japanese_name_occurrences": {
+          "セツコ・オハラ": [
+            "0x33eb08"
+          ],
+          "セツコ": [
+            "0x337f18",
+            "0x33bc48",
+            "0x33eb08",
+            "0x3429a0",
+            "0x342a10",
+            "0x342a18",
+            "0x3481e0"
+          ],
+          "ランド・トラビス": [
+            "0x33eaf0"
+          ],
+          "ランド": [
+            "0x337ef0",
+            "0x33bc30",
+            "0x33eaf0",
+            "0x342980",
+            "0x342a28",
+            "0x342a30",
+            "0x3481b8"
+          ]
+        }
+      },
+      {
+        "edition": "best",
+        "kind": "target_iso",
+        "path": "build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso",
+        "sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c",
+        "system_cnf": "BOOT2 = cdrom0:\\SLPS_732.70;1\r\nVER = 2.00\r\nVMODE = NTSC\r\n",
+        "elf_sha256": "52f42448474ad814d8747a5d95bb61f4f143ff0b8e301ab17208b38d0260d432",
+        "archive_sha256": "3fb774b2d9d89684bf370dec2b214bb368806c0f7277d1e46d8a19c6bb765980",
+        "table_offset": "0x32b040",
+        "entries": [
+          {
+            "id": "character/397",
+            "offset": "0x3e820",
+            "fields": {
+              "CHFN": {
+                "text": "小原节子",
+                "hex": "8fac8cb494cd8e71"
+              },
+              "CHNN": {
+                "text": "节子",
+                "hex": "94cd8e71"
+              },
+              "ACTR": {
+                "text": "高口幸子",
+                "hex": "8d828cfb8d4b8e71"
+              },
+              "PRDC": {
+                "text": "机战Ｚ原创",
+                "hex": "8af7929e82798cb494d1"
+              }
+            },
+            "body_start": "隶属于地球联邦军战技研究\n班“荣耀之星”的驾驶员，\n军衔为少尉，１９岁。性格认真，\n努力完成被交付的任务和职责。\n但由于缺乏自信和性格软弱，\n对事物往往持消极态度，内心也"
+          },
+          {
+            "id": "character/400",
+            "offset": "0x3ed30",
+            "fields": {
+              "CHFN": {
+                "text": "兰德·特拉维斯",
+                "hex": "909e9270904b93c19d6695cf8e7a"
+              },
+              "CHNN": {
+                "text": "兰德",
+                "hex": "909e9270"
+              },
+              "ACTR": {
+                "text": "川原庆久",
+                "hex": "90ec8cb492d88b76"
+              },
+              "PRDC": {
+                "text": "机战Ｚ原创",
+                "hex": "8af7929e82798cb494d1"
+              }
+            },
+            "body_start": "经营流浪修理店“比特\n服务”的男人。２７岁。\n自称“ＴＨＥ　ＨＥＡＴ”的豪\n放磊落热血汉。但一热血上头就\n常常做得过火，暗地里被人称为\n“ＴＨＥ　ＣＲＵＳＨＥＲ”。\n本人"
+          }
+        ],
+        "elf_japanese_name_occurrences": {
+          "セツコ・オハラ": [],
+          "セツコ": [],
+          "ランド・トラビス": [],
+          "ランド": []
+        },
+        "compdata_pilot_names": [
+          {
+            "pilot_index": 702,
+            "decoded_record_offset": "0x20400",
+            "fields": {
+              "display": "节子",
+              "family": "小原",
+              "given": "节子"
+            }
+          },
+          {
+            "pilot_index": 713,
+            "decoded_record_offset": "0x20b90",
+            "fields": {
+              "display": "兰德",
+              "family": "特拉维斯",
+              "given": "兰德"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "runtime": {
+    "original": {
+      "evidence_level": "LRPS2_unmodified_release_iso_normal_button_navigation",
+      "entry_route": "Cold boot → Title → LIBRARY → Character encyclopedia → page 12 → Setsuko → R1 three times → Rand",
+      "receipt": {
+        "path": "work/runtime/lrps2/library-protagonist-names-20260910/original/receipt.json",
+        "size": 12831,
+        "sha256": "5225e2daff0465b65bc8766ce9265b4974663933b0c82c460a2f962553990ec3"
+      },
+      "iso": {
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/v0.4.1/srwz-zh-v0.4.1-original.iso",
+        "size": 3758358528,
+        "sha256": "7ee310d80d6167a85ab4a4fe4ea373df45817e02b0ebd1838f4506e1fdcea6e6",
+        "build_config": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/config/iso/zh-release-current-build.json"
+      },
+      "memory_card_source_sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "memory_card_source_unchanged": true,
+      "visual_observations": {
+        "setsuko": {
+          "title": "节子·小原",
+          "nickname": "节子",
+          "expected_title": "小原节子",
+          "status": "wrong_full_name_order",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-20260910/original-setsuko.png",
+            "size": 234182,
+            "sha256": "5ba66965694a1f3a43a6db4956cd0047f6407249e06ebd215e06d10ac35e5ac0"
+          }
+        },
+        "rand": {
+          "title": "兰德·特拉维斯",
+          "nickname": "兰德",
+          "status": "correct_chinese_default",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-20260910/original-rand.png",
+            "size": 231208,
+            "sha256": "8753754ae44b16786528a29f06db4b121e7bb641c98d5316ae204fb33d9d38aa"
+          }
+        }
+      },
+      "names_verified_by": "Direct visual inspection of captured frames; runner assertions alone do not validate text."
+    },
+    "best": {
+      "evidence_level": "LRPS2_unmodified_release_iso_normal_button_navigation",
+      "entry_route": "Cold boot → Title → LIBRARY → Character encyclopedia → page 12 → Setsuko → R1 three times → Rand",
+      "receipt": {
+        "path": "work/runtime/lrps2/library-protagonist-names-20260910/best-probe/receipt.json",
+        "size": 12875,
+        "sha256": "77b9053bacf49abaf07d0d0078b8161ab6472476cd940ee0f2c68cecf26cc6e5"
+      },
+      "iso": {
+        "path": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/build/iso/v0.4.1/srwz-zh-v0.4.1-best.iso",
+        "size": 3755081728,
+        "sha256": "d7a92841d3981ef0fb59d67f1f794692103b00730d6936fdec767a216ab6af9c",
+        "build_config": "/Users/nate/Super-Robot-Wars-Z/srwz-zh/work/verification/library-protagonist-names-20260910/best-iso-contract.json"
+      },
+      "memory_card_source_sha256": "8880c03560fa0d436d005d8c9dde199239820a03c5106eecdb273186fcaabff0",
+      "memory_card_source_unchanged": true,
+      "visual_observations": {
+        "setsuko": {
+          "title": "节子·小原",
+          "nickname": "节子",
+          "expected_title": "小原节子",
+          "status": "wrong_full_name_order",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-20260910/best-setsuko.png",
+            "size": 234031,
+            "sha256": "53e4a71b6c96ec3ba9bde68e1cdccbd7c4ba339fd207a02fadd0c4c2a4f83d4e"
+          }
+        },
+        "rand": {
+          "title": "兰德·特拉维斯",
+          "nickname": "兰德",
+          "status": "correct_chinese_default",
+          "image": {
+            "path": "docs/issue-assets/library-protagonist-names-20260910/best-rand.png",
+            "size": 231016,
+            "sha256": "e560f641b94856b4efadff79a2c3ce7d2a3840ce91fa401b75eb5d2aafa9f86d"
+          }
+        }
+      },
+      "names_verified_by": "Direct visual inspection of captured frames; runner assertions alone do not validate text."
+    }
+  },
+  "scope": {
+    "production_code_changed": false,
+    "iso_rebuilt": false,
+    "pcsx2_executed": false,
+    "feedback_save_available": false
+  },
+  "followup": [
+    "Cover the LIBRARY-specific formatter with the confirmed Setsuko family+given / Rand given+middle-dot+family policy.",
+    "Investigate reported Japanese-name persistence using the exact ISO hash and save; any default-name migration must preserve deliberate custom names."
+  ],
+  "formatter": {
+    "original": {
+      "virtual_address": "0x2244c0",
+      "file_offset": "0x125f40",
+      "name_identity_table_file_offset": "0x3216d0",
+      "pilot_indexes": [
+        713,
+        702
+      ],
+      "route_values": [
+        0,
+        1
+      ],
+      "name_order_flag_base": "0x58b2e8",
+      "name_order_flag_stride": 46,
+      "pilot_record_base": "0x6d8960",
+      "pilot_record_stride": 176,
+      "pilot_field_offsets": {
+        "display": 2,
+        "family": 23,
+        "given": 46
+      },
+      "behavior": "Recognize the protagonist from CHFN, replace title and nickname from the live COMPDATA pilot record, concatenate family+given if the order flag equals 1, otherwise given+middle-dot+family.",
+      "disassembly": {
+        "path": "work/verification/library-protagonist-names-20260910/original-library-name-routine.txt",
+        "size": 6817,
+        "sha256": "cd1be1a16cb4d9a3188c1eefe3e08dc9fcff42b1be93d304fe9c2d7ef614dafd"
+      }
+    },
+    "best": {
+      "virtual_address": "0x224880",
+      "file_offset": "0x126300",
+      "name_identity_table_file_offset": "0x321f00",
+      "pilot_indexes": [
+        713,
+        702
+      ],
+      "route_values": [
+        0,
+        1
+      ],
+      "name_order_flag_base": "0x58bae8",
+      "name_order_flag_stride": 46,
+      "pilot_record_base": "0x6d9160",
+      "pilot_record_stride": 176,
+      "pilot_field_offsets": {
+        "display": 2,
+        "family": 23,
+        "given": 46
+      },
+      "behavior": "Recognize the protagonist from CHFN, replace title and nickname from the live COMPDATA pilot record, concatenate family+given if the order flag equals 1, otherwise given+middle-dot+family.",
+      "disassembly": {
+        "path": "work/verification/library-protagonist-names-20260910/best-library-name-routine.txt",
+        "size": 6814,
+        "sha256": "9f07bdc9ad6fd9780c5a9269d5a822fdc5a716371ff8098649e35a5e86bbdf31"
+      },
+      "observed_order_flags_at_setsuko_frame": [
+        0,
+        0
+      ]
+    }
+  },
+  "synthetic_diagnostic": {
+    "edition": "original",
+    "evidence_level": "LRPS2_with_explicit_RAM_only_name_substitution",
+    "not_feedback_save_reproduction": true,
+    "purpose": "Test whether Japanese live names override already-Chinese archive fields for both protagonists.",
+    "receipt": {
+      "path": "work/runtime/lrps2/library-protagonist-names-20260910/original-japanese-diagnostic/receipt.json",
+      "size": 15886,
+      "sha256": "d59bfbf4084aef3b0baebd1871279d3e24cc3b3232635f9d4eadf85445b00efa"
+    },
+    "ram_writes": {
+      "diagnostic_only": true,
+      "frame": 5900,
+      "changes": [
+        {
+          "address": "0x6f6c02",
+          "before_hex": "94cd8e710000000000000000000000000000000000",
+          "after_text": "セツコ",
+          "after_hex": "835a8363835200"
+        },
+        {
+          "address": "0x6f6c17",
+          "before_hex": "8fac8cb400000000000000000000000000000000000000",
+          "after_text": "オハラ",
+          "after_hex": "8349836e838900"
+        },
+        {
+          "address": "0x6f6c2e",
+          "before_hex": "94cd8e7100000000000000000000000000000000000000",
+          "after_text": "セツコ",
+          "after_hex": "835a8363835200"
+        },
+        {
+          "address": "0x6f7392",
+          "before_hex": "909e92700000000000000000000000000000000000",
+          "after_text": "ランド",
+          "after_hex": "83898393836800"
+        },
+        {
+          "address": "0x6f73a7",
+          "before_hex": "93c19d6695cf8e7a000000000000000000000000000000",
+          "after_text": "トラビス",
+          "after_hex": "836783898372835800"
+        },
+        {
+          "address": "0x6f73be",
+          "before_hex": "909e927000000000000000000000000000000000000000",
+          "after_text": "ランド",
+          "after_hex": "83898393836800"
+        }
+      ]
+    },
+    "memory_card_source_unchanged": true,
+    "iso_changed": false,
+    "observations": {
+      "setsuko": {
+        "title": "セツコ・オハラ",
+        "nickname": "セツコ",
+        "image": {
+          "path": "docs/issue-assets/library-protagonist-names-20260910/diagnostic-original-japanese-setsuko.png",
+          "size": 234500,
+          "sha256": "7726f3660800e3b7e257b61b1778b144d4ff4561fd88d3f70fb9b49688dc8b1d"
+        }
+      },
+      "rand": {
+        "title": "ランド・トラビス",
+        "nickname": "ランド",
+        "image": {
+          "path": "docs/issue-assets/library-protagonist-names-20260910/diagnostic-original-japanese-rand.png",
+          "size": 230275,
+          "sha256": "7c3909a94c0f3db43999be0a6ef7850e9ce4096408df12fa1bcf28cfb0cca6c6"
+        }
+      }
+    },
+    "best_scope": "Same override algorithm and both pilot IDs verified statically; Japanese RAM substitution not run on Best."
+  },
+  "local_reproduction_files": [
+    {
+      "path": "work/verification/library-protagonist-names-20260910/readback.py",
+      "size": 3167,
+      "sha256": "0b9b8683fd6852d9da55738f4df5f42d82c37bf4682feb1acd6af275e5f38e39"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-20260910/readback.json",
+      "size": 11699,
+      "sha256": "cd5f9ec97a3618a8524ea09b6d627021f6c62887c842ff342828add30f17bb07"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-20260910/scenario.json",
+      "size": 7223,
+      "sha256": "31c608d15acc02dd7b1917d6b692b74c3d2724a99141a14b34755309828d0446"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-20260910/best-scenario.json",
+      "size": 7258,
+      "sha256": "060e50abca30b187eb155d13a848bb12b815d078133d65f92b7d7b94f1753228"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-20260910/ram_probe.py",
+      "size": 743,
+      "sha256": "d147b9be2c73cf9594bd7c97083b3cf59114d2825079bd13752c72da08046852"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-20260910/japanese-diagnostic-scenario.json",
+      "size": 8281,
+      "sha256": "97b2d8fe0d139d71efcee4e6aeb51f2d9c4a0f3faf9267c094ecf505e22753e6"
+    },
+    {
+      "path": "work/verification/library-protagonist-names-20260910/japanese_ram_probe.py",
+      "size": 1441,
+      "sha256": "67aaa3cda17764482ce1694c6b6401edc1b67b0f6780be1cddb53c6d43715fb4"
+    }
+  ]
+}
