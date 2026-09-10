@@ -23,6 +23,7 @@ FULL_STATUS = "integrated_global_zh_release_components_validated_runtime_pending
 LIBRARY_STATUS = "library_v0.2_reviewed_components_static_validated"
 AID_STATUS = "aid_battle_prompts_static_validated_runtime_pending"
 TRICMN_STATUS = "tricmn_battle_overlay_frozen_runtime_validated"
+TRICMN_STATIC_STATUS = "tricmn_battle_overlay_frozen_static_validated_runtime_pending"
 OUTPUT_STATUS = (
     "integrated_global_zh_release_library_components_validated_runtime_pending"
 )
@@ -80,7 +81,7 @@ def main() -> int:
         aid.get("acceptance", {}).values()
     ):
         raise SystemExit("AID battle-prompt component acceptance is incomplete")
-    if tricmn.get("status") != TRICMN_STATUS or not all(
+    if tricmn.get("status") not in {TRICMN_STATUS, TRICMN_STATIC_STATUS} or not all(
         tricmn.get("acceptance", {}).values()
     ):
         raise SystemExit("TRICMN battle-overlay component acceptance is incomplete")

@@ -843,7 +843,7 @@ def verify_targeted_ui_glyphs(
         "male_default_unit_name": "钢狮子",
         "female_default_unit_name": "巴尔戈拉",
         "formation_action_labels": "攻击反击参与攻击",
-        "formation_names": "TRI中央广域",
+        "formation_names": "TRI集中分散",
         "spirit_acronyms": "热魂闪不铁集必加迅觉手狙直幸努乱分",
         "reported_land_dialogue": "哦把自己机器弄坏的那家伙罚你帮忙修理",
         "reported_kejinan_retreat": "今今天只是身体不舒服你们给我记住",
@@ -2987,8 +2987,8 @@ def verify_final_compdata(
         raise SystemExit("formation action-label offset contract drift")
     map_formation_name_expectations = {
         "0x345DC8": "TRI",
-        "0x345DD0": "中央",
-        "0x345DE0": "广域",
+        "0x345DD0": "集中",
+        "0x345DE0": "分散",
     }
     if {
         offset: remaining_document["slps_by_offset"].get(offset)
@@ -3011,12 +3011,12 @@ def verify_final_compdata(
     } != weapon_effect_1_expectations:
         raise SystemExit("weapon special-effect-1 offset contract drift")
     squad_formation_name_expectations = {
-        "0x7F580": "TRI队形",
-        "0x7F5A0": "中央队形",
-        "0x7F5C0": "广域队形",
+        "0x7F580": "TRI阵型",
+        "0x7F5A0": "集中阵型",
+        "0x7F5C0": "分散阵型",
         "0x7F5E0": "TRI",
-        "0x7F5E8": "中央",
-        "0x7F5F8": "广域",
+        "0x7F5E8": "集中",
+        "0x7F5F8": "分散",
     }
     if {
         offset: remaining_document["compdata_direct_by_offset"].get(offset)

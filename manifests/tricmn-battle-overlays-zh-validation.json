@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "tricmn_battle_overlay_frozen_runtime_validated",
+  "status": "tricmn_battle_overlay_frozen_static_validated_runtime_pending",
   "profile_id": "tricmn-battle-overlays-zh-v1",
   "scope": "Replace every visible Japanese label in the TRICMN indexed atlas while preserving exact transparent source masks, Latin acronyms, digits, CRITICAL, arrows, bracket frames, icons, all shared CLUT banks, TIM2 headers, non-text effect pictures, animation members and SEG boundaries.",
   "build_mode": "locked_indexed_snapshot",
@@ -8,7 +8,7 @@
     "config": {
       "path": "config/assets/tricmn-battle-overlays-zh.json",
       "size": 15941,
-      "sha256": "17642e13f9726a097c4bd4315df1959d86fc8de4725e1f9282194db5a1125055"
+      "sha256": "6930639661aa6d4020df5d20b5f83bc8d7123eae422c75ba4a8a6ebc1210648f"
     },
     "source_bin": {
       "path": "work/disc/BTL/TRICMN.BIN",
@@ -23,12 +23,12 @@
     "corpus": {
       "path": "corpus/zh/ui-atlas/tricmn-battle-overlays-v1.json",
       "size": 7711,
-      "sha256": "7e74f2cedef3a48930d427a792978f16f3899e4341430e7a0cfa2227232e86ec"
+      "sha256": "574f7db2d6795a5b778687028a719984782c184013e5c166586a3547638d654e"
     },
     "frozen_snapshot": {
       "path": "config/assets/tricmn-battle-overlays-zh-render-snapshot.json",
-      "size": 122783,
-      "sha256": "2584f889c6b210bfcccab9fe173e26a6bba0553e37f62ffa2058b017e0234f9b"
+      "size": 123379,
+      "sha256": "425d181dd5bc58ecf3e1740d0b32b31a21d88193c8787b70740420be36e396c7"
     }
   },
   "seg": {
@@ -100,26 +100,26 @@
       3
     ],
     "output_picture_indexes_sha256": [
-      "afaa4c22ca8424d58de151973e540931e3935a5f581430283ab5b04c4de08f1a",
+      "ada3988233172bf018f54ee66fb1df25d82ef4f2cf3bedf9e41c7b135fcb415e",
       "98712021c913a3b9e12b4eec29c2195a96e18c9d752abb6ee560526b940d4679",
       "df451bcf1321d0b08e8b7ffa704ff47e6085430ff432c66349e6c6daca9f58c1",
       "549e15e866401e2585e238db76ed1caa1e30b084cf5bcf5a17d20c64f0f9bcb2"
     ],
-    "output_member_sha256": "e5375ac8595a9550efb0cc7680e2131d66dfbfada9ae4534a5188e7dc8e07615",
+    "output_member_sha256": "10d5ad0d907e7e1038c35206b6a586cf093f96b017011be8a055a5a7021347f8",
     "frozen_range_count": 3,
     "frozen_snapshot_consumed": true
   },
   "frozen_snapshot": {
     "status": "reviewed_locked",
-    "selection_authority": "user_accepted_exact_iso_runtime_review",
-    "selected_at": "2026-09-02",
+    "selection_authority": "explicit_static_texture_refreeze",
+    "selected_at": "2026-09-10",
     "update_policy": "explicit_refreeze_only"
   },
   "outputs": {
     "BTL/TRICMN.BIN": {
       "path": "work/build/tricmn-battle-overlays-zh/components/BTL/TRICMN.BIN",
       "size": 677424,
-      "sha256": "e5375ac8595a9550efb0cc7680e2131d66dfbfada9ae4534a5188e7dc8e07615"
+      "sha256": "10d5ad0d907e7e1038c35206b6a586cf093f96b017011be8a055a5a7021347f8"
     }
   },
   "acceptance": {
@@ -130,25 +130,10 @@
     "non_localized_member_bytes_inherit_locked_source": true,
     "seg_preserved": true,
     "member_size_preserved": true,
-    "reviewed_member_sha256_exact": true,
-    "runtime_acceptance_complete": true
+    "reviewed_member_sha256_exact": true
   },
   "runtime": {
-    "status": "accepted",
-    "acceptance_date": "2026-09-02",
-    "manual_acceptance": "User accepted the full TRICMN atlas after exact-ISO ARMSX2/LRPS2 battle-animation review.",
-    "lrps2_ability_sweep": {
-      "passed": 19,
-      "total": 19,
-      "frame": 6429,
-      "contact_sheet_sha256": "870b9f34a8420c6ea30e2bfd33e2726e4ec1bdebf9e6eb522fe65c527577c4a5",
-      "sequence_sha256": "4048794fa1634f7f9356fa111d178ad8fbbeb9b6dea679958b92efaf00e93bcc"
-    },
-    "current_iso_member_readback": {
-      "member": "BTL/TRICMN.BIN",
-      "lba": 1312883,
-      "sha256": "e5375ac8595a9550efb0cc7680e2131d66dfbfada9ae4534a5188e7dc8e07615",
-      "byte_exact": true
-    }
+    "status": "pending",
+    "reason": "New rasterized text requires review in the exact rebuilt ISO."
   }
 }

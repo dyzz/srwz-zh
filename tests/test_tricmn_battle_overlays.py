@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from tools.srwz.tricmn_battle_overlay import (
     _add_indexed_glow,
@@ -27,7 +28,8 @@ from tools.srwz.gs_indexed_texture import (
     simulate_tex1_bilinear_rgba,
 )
 from tools.build_tricmn_battle_overlays import (
-    FROZEN_STATUS,
+    STATIC_STATUS,
+    FrozenTricmnError,
     _frozen_component,
     _load_object,
 )
@@ -43,16 +45,16 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
 
         self.assertEqual(
             report["status"],
-            FROZEN_STATUS,
+            STATIC_STATUS,
         )
         self.assertEqual(report["build_mode"], "locked_indexed_snapshot")
         self.assertEqual(report["atlas"]["label_count"], 51)
         self.assertTrue(report["atlas"]["frozen_snapshot_consumed"])
-        self.assertEqual(report["runtime"]["status"], "accepted")
+        self.assertEqual(report["runtime"]["status"], "pending")
         self.assertTrue(all(report["acceptance"].values()))
         self.assertEqual(
             report["outputs"]["BTL/TRICMN.BIN"]["sha256"],
-            "e5375ac8595a9550efb0cc7680e2131d66dfbfada9ae4534a5188e7dc8e07615",
+            "10d5ad0d907e7e1038c35206b6a586cf093f96b017011be8a055a5a7021347f8",
         )
         self.assertEqual(len(payload), 677424)
 
@@ -68,8 +70,22 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
             [item["picture_index"] for item in snapshot["frozen_image_ranges"]],
             [0, 1, 2],
         )
-        self.assertEqual(snapshot["runtime"]["lrps2_ability_sweep"]["passed"], 19)
-        self.assertEqual(snapshot["runtime"]["lrps2_ability_sweep"]["total"], 19)
+        self.assertEqual(snapshot["runtime"]["status"], "pending")
+        self.assertNotIn("current_iso_member_readback", snapshot["runtime"])
+
+    def test_frozen_snapshot_rejects_changed_translation_corpus(self) -> None:
+        corpus_path = PROJECT_ROOT / _load_object(CONFIG)["corpus"]["path"]
+        original_read = Path.read_bytes
+
+        def changed_read(path):
+            payload = original_read(path)
+            if path == corpus_path:
+                return payload.replace("集中阵型".encode(), "中央阵型".encode())
+            return payload
+
+        with patch.object(Path, "read_bytes", changed_read):
+            with self.assertRaisesRegex(FrozenTricmnError, "translation corpus drift"):
+                _frozen_component(PROJECT_ROOT, CONFIG)
 
     def test_tex1_palette_sampling_resolves_colours_before_bilinear_mix(self) -> None:
         palette = tuple(
@@ -385,7 +401,7 @@ class TricmnBattleOverlaysTest(unittest.TestCase):
         labels = {
             item["entry_id"]: item for item in report["atlas"]["labels"]
         }
-        self.assertEqual(labels["tricmn/tri-formation"]["translation"], "TRI队形")
+        self.assertEqual(labels["tricmn/tri-formation"]["translation"], "TRI阵型")
         self.assertEqual(labels["tricmn/no-target"]["translation"], "无目标")
         self.assertEqual(
             labels["tricmn/missing-member-reason"]["translation"],

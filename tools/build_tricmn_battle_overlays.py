@@ -14,6 +14,7 @@ import base64
 import hashlib
 import json
 import zlib
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Mapping
 
@@ -21,6 +22,7 @@ from typing import Mapping
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = PROJECT_ROOT / "config/assets/tricmn-battle-overlays-zh.json"
 FROZEN_STATUS = "tricmn_battle_overlay_frozen_runtime_validated"
+STATIC_STATUS = "tricmn_battle_overlay_frozen_static_validated_runtime_pending"
 SNAPSHOT_STATUS = "reviewed_locked"
 
 
@@ -190,6 +192,8 @@ def _frozen_component(
         raise FrozenTricmnError("TRICMN corpus reference is missing")
     corpus_path = _path(root, corpus_reference.get("path"))
     corpus = corpus_path.read_bytes()
+    if snapshot.get("corpus_sha256") != _sha256(corpus):
+        raise FrozenTricmnError("TRICMN frozen translation corpus drift; refreeze required")
     labels = config.get("labels")
     inventory = config.get("atlas_inventory")
     if not isinstance(labels, list) or not isinstance(inventory, list):
@@ -199,7 +203,10 @@ def _frozen_component(
     component_path = component_root / str(source_reference.get("member"))
     report = {
         "schema_version": 1,
-        "status": FROZEN_STATUS,
+        "status": (
+            FROZEN_STATUS if snapshot.get("runtime", {}).get("status") == "accepted"
+            else STATIC_STATUS
+        ),
         "profile_id": config.get("profile_id"),
         "scope": config.get("scope"),
         "build_mode": "locked_indexed_snapshot",
@@ -250,8 +257,6 @@ def _frozen_component(
             "member_size_preserved": len(payload) == len(source),
             "reviewed_member_sha256_exact": _sha256(payload)
             == expected_member_sha256,
-            "runtime_acceptance_complete": snapshot.get("runtime", {}).get("status")
-            == "accepted",
         },
         "runtime": snapshot.get("runtime"),
     }
@@ -260,7 +265,9 @@ def _frozen_component(
     return payload, report
 
 
-def _snapshot_from_reviewed_payload(config: Mapping, payload: bytes) -> dict:
+def _snapshot_from_reviewed_payload(
+    config: Mapping, payload: bytes, *, corpus_sha256: str
+) -> dict:
     source = config.get("source")
     tim2 = config.get("tim2")
     expected = config.get("expected")
@@ -301,8 +308,9 @@ def _snapshot_from_reviewed_payload(config: Mapping, payload: bytes) -> dict:
         "schema_version": 1,
         "status": SNAPSHOT_STATUS,
         "profile_id": config.get("profile_id"),
-        "selection_authority": "user_accepted_exact_iso_runtime_review",
-        "selected_at": "2026-09-02",
+        "selection_authority": "explicit_static_texture_refreeze",
+        "selected_at": datetime.now(timezone.utc).date().isoformat(),
+        "corpus_sha256": corpus_sha256,
         "update_policy": "explicit_refreeze_only",
         "source_member_size": source.get("size"),
         "source_member_sha256": source.get("sha256"),
@@ -313,29 +321,8 @@ def _snapshot_from_reviewed_payload(config: Mapping, payload: bytes) -> dict:
         ),
         "frozen_image_ranges": frozen_ranges,
         "runtime": {
-            "status": "accepted",
-            "acceptance_date": "2026-09-02",
-            "manual_acceptance": (
-                "User accepted the full TRICMN atlas after exact-ISO ARMSX2/"
-                "LRPS2 battle-animation review."
-            ),
-            "lrps2_ability_sweep": {
-                "passed": 19,
-                "total": 19,
-                "frame": 6429,
-                "contact_sheet_sha256": (
-                    "870b9f34a8420c6ea30e2bfd33e2726e4ec1bdebf9e6eb522fe65c527577c4a5"
-                ),
-                "sequence_sha256": (
-                    "4048794fa1634f7f9356fa111d178ad8fbbeb9b6dea679958b92efaf00e93bcc"
-                ),
-            },
-            "current_iso_member_readback": {
-                "member": "BTL/TRICMN.BIN",
-                "lba": 1312883,
-                "sha256": _sha256(payload),
-                "byte_exact": True,
-            },
+            "status": "pending",
+            "reason": "New rasterized text requires review in the exact rebuilt ISO.",
         },
     }
 
@@ -391,7 +378,10 @@ def _run_live_render(args: argparse.Namespace, config_path: Path, config: dict) 
         if not isinstance(snapshot_reference, Mapping):
             raise SystemExit("TRICMN frozen snapshot reference is missing")
         snapshot_path = _path(PROJECT_ROOT, snapshot_reference.get("path"))
-        snapshot = _snapshot_from_reviewed_payload(config, payload)
+        snapshot = _snapshot_from_reviewed_payload(
+            config, payload,
+            corpus_sha256=_sha256(_path(PROJECT_ROOT, config["corpus"]["path"]).read_bytes()),
+        )
         _write_json(snapshot_path, snapshot)
         print(json.dumps(_lock(PROJECT_ROOT, snapshot_path), indent=2))
     print(
@@ -462,7 +452,7 @@ def main() -> int:
         f"labels={report['atlas']['label_count']}",
         f"member_size={len(payload)}",
         "mode=locked-indexed-snapshot",
-        "runtime=accepted",
+        f"runtime={report['runtime']['status']}",
     )
     print(f"component: {component_path.relative_to(PROJECT_ROOT)}")
     print(f"report: {report_path.relative_to(PROJECT_ROOT)}")

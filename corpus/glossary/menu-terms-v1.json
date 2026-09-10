@@ -93,27 +93,40 @@
       "status": "proposed",
       "domains": ["menu", "story"],
       "enforce": true,
-      "notes": "SRWZ 三机小队在 TRI 队形下发动的攻击；与 Trinity Charge 专有指令区分。"
+      "notes": "SRWZ 三机小队在 TRI 阵型下发动的攻击；与 Trinity Charge 专有指令区分。"
     },
     {
       "id": "system/wide-formation",
       "source_terms": ["ワイド・フォーメーション"],
-      "translation": "广域队形",
+      "translation": "分散阵型",
+      "deprecated_translations": ["广域队形", "广域阵型", "Wide队形", "宽幅队形"],
       "category": "system",
-      "status": "proposed",
+      "status": "approved",
       "domains": ["menu", "story"],
       "enforce": true,
-      "notes": "SRWZ 小队队形名；界面统一使用中文队形名。"
+      "notes": "队长与队员分散展开、分别攻击目标的阵型；简称为“分散”，原界面 W 标记保留。"
+    },
+    {
+      "id": "system/center-formation",
+      "source_terms": ["センター・フォーメーション"],
+      "translation": "集中阵型",
+      "deprecated_translations": ["中央队形", "中央阵型", "CENTER队形"],
+      "category": "system",
+      "status": "approved",
+      "domains": ["menu", "story"],
+      "enforce": true,
+      "notes": "按小队集中攻击单个目标的特点命名；简称为“集中”，原界面 C 标记保留。"
     },
     {
       "id": "system/tri-formation",
       "source_terms": ["トライ・フォーメーション"],
-      "translation": "TRI队形",
+      "translation": "TRI阵型",
+      "deprecated_translations": ["TRI队形", "三重队形"],
       "category": "system",
-      "status": "proposed",
+      "status": "approved",
       "domains": ["menu", "story"],
       "enforce": true,
-      "notes": "SRWZ 小队队形名；界面统一使用“TRI队形”。"
+      "notes": "SRWZ 小队阵型名；界面统一使用“TRI阵型”。"
     },
     {
       "id": "system/reboard",
