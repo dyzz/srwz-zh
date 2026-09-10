@@ -59,6 +59,7 @@ try:
         FullNameOrderError,
         apply_route_specific_full_name_order,
     )
+    from srwz.library_protagonist_names import apply_library_protagonist_names
     from srwz.game_mode_unlock import (
         GameModeUnlockError,
         apply_postgame_mode_unlock,
@@ -247,6 +248,7 @@ except ModuleNotFoundError:
         FullNameOrderError,
         apply_route_specific_full_name_order,
     )
+    from tools.srwz.library_protagonist_names import apply_library_protagonist_names
     from tools.srwz.game_mode_unlock import (
         GameModeUnlockError,
         apply_postgame_mode_unlock,
@@ -690,6 +692,7 @@ CONFIG_SECTION_IMPACTS = {
     "kvmdata": {KVMDATA_MEMBER},
     "world_map_titles": {MAPMODEL_MEMBER},
     "runtime_full_name_order": {SLPS_MEMBER},
+    "library_protagonist_names": {SLPS_MEMBER},
     "postgame_mode_unlock": {SLPS_MEMBER},
     "runtime_movement_type_labels": {SLPS_MEMBER},
     "dialogue_speaker_colors": {SLPS_MEMBER},
@@ -10619,6 +10622,10 @@ def _build_components(
             f"route-specific full-name order patch failed: {error}"
         ) from error
 
+    output_slps, library_protagonist_names_report = apply_library_protagonist_names(
+        output_slps,
+    )
+
     try:
         output_slps, postgame_mode_unlock_report = apply_postgame_mode_unlock(
             output_slps,
@@ -11109,6 +11116,7 @@ def _build_components(
         "sound_select_default_unlock": sound_select_unlock_report,
         "library_default_unlock": library_default_unlock_report,
         "runtime_full_name_order": full_name_order_report,
+        "library_protagonist_names": library_protagonist_names_report,
         "postgame_mode_unlock": postgame_mode_unlock_report,
         "runtime_movement_type_labels": movement_type_label_report,
         "dialogue_speaker_colors": dialogue_speaker_color_report,
@@ -11420,6 +11428,10 @@ def _build_components(
                 and library_default_unlock_report[
                     "executable_size_preserved"
                 ]
+            ),
+            "library_protagonist_names_custom_preserved": (
+                library_protagonist_names_report["executable_size_preserved"]
+                and not library_protagonist_names_report["save_writeback"]
             ),
             "runtime_full_name_order_route_specific": (
                 full_name_order_report["all_instruction_replacements_exact"]

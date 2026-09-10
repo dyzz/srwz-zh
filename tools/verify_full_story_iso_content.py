@@ -81,6 +81,7 @@ from srwz.sound_select import (
 )
 from srwz.library_unlock import apply_library_default_unlock
 from srwz.full_name_order import apply_route_specific_full_name_order
+from srwz.library_protagonist_names import apply_library_protagonist_names
 from srwz.game_mode_unlock import apply_postgame_mode_unlock
 from srwz.movement_type_labels import apply_runtime_movement_type_labels
 from srwz.weapon_category_labels import apply_runtime_weapon_category_labels
@@ -4825,6 +4826,18 @@ def main() -> int:
     ):
         raise SystemExit("final ISO route-specific full-name order readback drift")
     full_name_order_readback["component_receipt_exact"] = True
+    _library_names_slps, library_names_readback = apply_library_protagonist_names(
+        members["SLPS_258.87"],
+    )
+    library_names_component = component.get("library_protagonist_names", {})
+    if (
+        library_names_readback["changed_byte_count"] != 0
+        or any(library_names_readback[key] != library_names_component.get(key)
+               for key in ("policy", "edition", "file_offset", "allocation_size",
+                           "original_sha256", "output_sha256", "save_writeback"))
+    ):
+        raise SystemExit("final ISO LIBRARY protagonist-name formatter drift")
+    library_names_readback["component_receipt_exact"] = True
     postgame_mode_contract = json.loads(
         FULL_COMPONENT_CONFIG.read_text(encoding="utf-8")
     )["postgame_mode_unlock"]
@@ -7346,6 +7359,7 @@ def main() -> int:
         "issue_036_tutorial": issue_036_tutorial,
         "weapon_special_effect_2": weapon_effect_2_readback,
         "runtime_full_name_order": full_name_order_readback,
+        "library_protagonist_names": library_names_readback,
         "postgame_mode_unlock": postgame_mode_unlock_readback,
         "runtime_movement_type_labels": movement_type_readback,
         "runtime_weapon_category_labels": weapon_category_readback,
@@ -7507,6 +7521,10 @@ def main() -> int:
             "iso_size_exact": iso_size == output["expected_size"],
             "iso_sha256_exact": iso_sha256 == output["expected_sha256"],
             "replacement_members_exact": True,
+            "library_protagonist_names_custom_preserved": (
+                library_names_readback["changed_byte_count"] == 0
+                and library_names_readback["component_receipt_exact"]
+            ),
             "runtime_full_name_order_route_specific": (
                 full_name_order_readback[
                     "all_instruction_replacements_exact"

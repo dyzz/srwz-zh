@@ -20,6 +20,10 @@ from .iso9660 import member_map, scan_iso9660
 from .release_inputs import copy_file, sha256_file
 from .text import TextTable, decode_text, load_text_table, original_fullwidth_ascii_overrides, project_runtime_text_table
 from .ui_name_tables import verify_name_table
+from .library_protagonist_names import (
+    EDITIONS as LIBRARY_NAME_EDITIONS, FUNCTION_SIZE as LIBRARY_NAME_SIZE,
+    apply_library_protagonist_names,
+)
 
 
 def require(condition, message):
@@ -249,12 +253,20 @@ class BestCompiler:
         out, writes, used = bytearray(b), [], set()
         instructions = {r['original_offset']: r for r in self.contract['elf_instructions']}
         slot = self.contract['elf_support_attack_slot']
+        library_start = LIBRARY_NAME_EDITIONS['original']['offset']
+        library_end = library_start + LIBRARY_NAME_SIZE
+        library_changed = a[library_start:library_end] != c[library_start:library_end]
+        if library_changed:
+            _, shared_library_names = apply_library_protagonist_names(c)
+            require(shared_library_names['already_patched'], 'shared LIBRARY name formatter missing')
         archive_offsets = {o for spec in self.archive_tables.values()
                            for r in (spec, *spec.get('aliases', []))
                            for o in range(r['original_start'], r['original_start']+4*r['count'], 4)}
         for offset in range(0, len(c)-3, 4):
             if a[offset:offset+4] == c[offset:offset+4] or slot['original_start'] <= offset < slot['original_end'] or offset in archive_offsets:
                 continue
+            if library_start <= offset < library_end:
+                continue  # Compile from the independently pinned native function below.
             target = self.mapped_elf_offset(offset)
             require(target not in used, 'duplicate ELF destination')
             used.add(target)
@@ -279,11 +291,18 @@ class BestCompiler:
         require(len(payload) <= hi-lo, 'BEST support attack description exceeds native slot')
         out[lo:hi] = payload + bytes(hi-lo-len(payload))
         writes.append([lo, hi])
+        if library_changed:
+            patched, self.library_name_proof = apply_library_protagonist_names(bytes(out), 'best')
+            out = bytearray(patched)
+            start = LIBRARY_NAME_EDITIONS['best']['offset']
+            writes.append([start, start + LIBRARY_NAME_SIZE])
         self.elf_writes = writes
         return out
 
     def verify_elf_policy(self, output):
         native = self.native['best']['SLPS_732.70']
+        _, names = apply_library_protagonist_names(bytes(output), 'best')
+        require(names['already_patched'], 'BEST LIBRARY name formatter missing')
         guards = [(0x153E94,0x00A21024,0x00A21025), (0x15408C,0x00821024,0x00821025),
                   (0x154134,0x00A21024,0x00A21025), (0x154454,0x00451024,0x00451025),
                   (0x1A3DE0,0x0C04E64C,0x0C04E64C), (0x1A3F14,0x10430008,0x10000008),
@@ -513,6 +532,7 @@ class BestCompiler:
         report = {'schema_version':1,'edition':'best','input_digest':self.input_digest,'status':'best_components_semantic_readback_passed',
                   'components':rows,'stages':self.stage_proofs,'archives':self.archive_proofs,'srvc':self.srvc_proof,
                   'runtime_archive_tables':archive_table_proofs,'ui_name_tables':name_proof,
+                  'library_protagonist_names':self.library_name_proof,
                   'native_elf_outside_declared_writes_preserved':True,'elf_write_ranges':self.elf_writes,
                   'compdata_native_corrections_preserved':True,'library_policy':'all_valid_entries_without_save_writeback','runtime':'not_tested'}
         write_json(self.work/'component-validation.json',report)
