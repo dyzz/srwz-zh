@@ -6,6 +6,7 @@
 | 文档 | 内容 |
 | --- | --- |
 | `../README.md` | 项目介绍、v0.4.1 内容、下载与源码构建 |
+| [初版与 The Best 详细差异（面向玩家）](BEST_VERSION_GUIDE.md) | 单篇完整比较：程序、战斗演出、音库细查、文字前后对照、图鉴和片尾修订 |
 | [RELEASE_NOTES_V0.4.1.md](RELEASE_NOTES_V0.4.1.md) | v0.4.1 双版本发布说明、安装与校验 |
 | [RELEASE_BUILD_V0.4.1.md](RELEASE_BUILD_V0.4.1.md) | 冻结镜像、补丁、自动验证和清理范围 |
 | [RELEASE_NOTES_V0.4.0.md](RELEASE_NOTES_V0.4.0.md) | v0.4.0 历史发布说明 |
