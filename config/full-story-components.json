@@ -48,7 +48,7 @@
     "manifest": {
       "path": "manifests/zh-release-font-validation.json",
       "size": 73655,
-      "sha256": "eefcab1ee39cf04b134b99bb89ec3ea3cc27ce065a44908f83b113f71611657e"
+      "sha256": "d48fa9f0c44fc6358a6348309b0ec911a588a31c1094bc6ffd3881f2fe3b7edd"
     },
     "required_status": "offline_global_zh_release_font_coverage_passed_runtime_pending",
     "required_profile_id": "srwz-zh-release-font-v1",
@@ -67,7 +67,7 @@
     "report": {
       "path": "work/build/full-story-stage/components/component-validation.json",
       "size": 18307905,
-      "sha256": "3f802612946aab96683e16f871b80c1914c5059d53101a403392df3927f417ad"
+      "sha256": "5bb21a644d3ecbb9bba2b3c20a69416176d2c08e5a280fcbb45c6f1bae079c7a"
     },
     "required_status": "offline_components_validated_runtime_not_tested",
     "expected_stage_count": 170,
@@ -287,8 +287,8 @@
   "full_stage_titles": {
     "stage_names": {
       "path": "corpus/zh/menu/stage-names.json",
-      "size": 28889,
-      "sha256": "f53fa5ddb37941295c35ade23a0fa76d55340145e1d6eabc825d80eb16c8cf41",
+      "size": 31620,
+      "sha256": "dba23edf9a835b2285b7db3ed4af943567f9495deccca10b8a3e2c1e6b82693c",
       "expected_entry_count": 122
     },
     "title_format": {
@@ -306,17 +306,21 @@
     "encoding": {
       "visible_ascii_storage": "original_fullwidth_two_byte",
       "use_available_surface_safe_aliases": true,
-      "allow_trailing_zero_padding": true,
-      "relocation": {
-        "pool_start": "0x7FE98",
-        "pool_end": "0x7FF00",
-        "alignment": 2,
-        "entry_ids": [
-          "menu/Compdata/03/0059",
-          "menu/Compdata/03/0061",
-          "menu/Compdata/03/0069",
-          "menu/Compdata/03/0093"
-        ]
+      "latin_text_width": {
+        "mode": "trailing_latin_run",
+        "width": "0E",
+        "space": "0C",
+        "restore_width": "12",
+        "restore_space": "12",
+        "reason": "COMPDATA text chain only: a trailing ASCII run (English titles, 灵魂的Cosplayer) is wrapped in the stock renderer's width/space control tags so the save-detail and scenario-chart surfaces show half-cell Latin; the restore pair matches the save-detail default advance (18 px). Titles whose Latin is followed by CJK stay fullwidth. VT1 textures never see these tags."
+      },
+      "block_repack": {
+        "section": "Stage Name",
+        "block_start": "0x72DA0",
+        "block_end": "0x73840",
+        "alignment": 8,
+        "entry_count": 122,
+        "reason": "All 122 Stage Name strings are referenced only by the 204 scenario-record title pointers, so the contiguous block is re-laid out as one fail-closed transaction and any title may grow within the shared 2,720-byte span."
       }
     },
     "graphics": {
@@ -396,8 +400,17 @@
         "y": 4,
         "quantization_levels": [
           16,
-          8
-        ]
+          8,
+          7,
+          6,
+          5,
+          4
+        ],
+        "latin_layout": {
+          "mode": "proportional_stock_glyphs",
+          "letter_gap": 2,
+          "space_width": 8
+        }
       },
       "codec": {
         "strategy": "rust-fit",
@@ -408,10 +421,11 @@
         "stage_name_entry_count": 122,
         "texture_entry_count": 107,
         "text_only_entry_count": 15,
-        "full_precision_count": 105,
+        "full_precision_count": 104,
         "reduced_precision_ordinals": [
+          67,
           70,
-          97
+          92
         ]
       }
     }
@@ -2820,7 +2834,7 @@
     "library_component_manifest": {
       "path": "manifests/library-v0.2-reviewed-validation.json",
       "size": 816171,
-      "sha256": "edb1c306788de6a304f1aeb404580dfc57f7d4edb62607a3969b7c7bc53827a1"
+      "sha256": "7d56ebd1beb14052d8b1f674a5fe42d938bdaa785306a58ffb994ac527c91622"
     },
     "original_executable": {
       "path": "work/disc/SLPS_258.87",

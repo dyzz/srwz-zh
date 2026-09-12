@@ -163,6 +163,7 @@ try:
         TITLE_WIDTH as STAGE_TITLE_WIDTH,
         pack_linear_4bpp,
         render_stage_title,
+        LatinLayout as StageTitleLatinLayout,
         unpack_linear_4bpp,
     )
     from srwz.tim2 import scan_tim2
@@ -181,6 +182,7 @@ try:
         encode_text,
         load_text_table,
         normalize_original_fullwidth_ascii,
+        wrap_trailing_latin_run,
         original_fullwidth_ascii_overrides,
         project_runtime_text_table,
     )
@@ -194,6 +196,7 @@ try:
         apply_summary_replacements,
         build_executable_offset_patch_plan,
         relocate_menu_texts_to_pool,
+        repack_menu_texts_in_block,
         replace_menu_texts_in_place,
         replace_stage_system_dialogues_in_place,
     )
@@ -352,6 +355,7 @@ except ModuleNotFoundError:
         TITLE_WIDTH as STAGE_TITLE_WIDTH,
         pack_linear_4bpp,
         render_stage_title,
+        LatinLayout as StageTitleLatinLayout,
         unpack_linear_4bpp,
     )
     from tools.srwz.tim2 import scan_tim2
@@ -370,6 +374,7 @@ except ModuleNotFoundError:
         encode_text,
         load_text_table,
         normalize_original_fullwidth_ascii,
+        wrap_trailing_latin_run,
         original_fullwidth_ascii_overrides,
         project_runtime_text_table,
     )
@@ -385,6 +390,7 @@ except ModuleNotFoundError:
         apply_summary_replacements,
         build_executable_offset_patch_plan,
         relocate_menu_texts_to_pool,
+        repack_menu_texts_in_block,
         replace_menu_texts_in_place,
         replace_stage_system_dialogues_in_place,
     )
@@ -2615,6 +2621,7 @@ def _apply_full_stage_title_graphics(
         advance = raster_config["advance"]
         raster_y = raster_config["y"]
         quantization_levels = raster_config["quantization_levels"]
+        latin_layout_config = raster_config.get("latin_layout")
         codec_strategy = codec["strategy"]
         codec_min_match_length = codec["min_match_length"]
         codec_max_match_chain = codec["max_match_chain"]
@@ -2653,7 +2660,24 @@ def _apply_full_stage_title_graphics(
         or advance != 50
         or raster_y != 4
         or not isinstance(quantization_levels, list)
-        or quantization_levels != [16, 8]
+        or not quantization_levels
+        or quantization_levels[0] != 16
+        or any(
+            not isinstance(level, int)
+            or isinstance(level, bool)
+            or not 4 <= level <= 16
+            for level in quantization_levels
+        )
+        or any(
+            later >= earlier
+            for earlier, later in zip(quantization_levels, quantization_levels[1:])
+        )
+        or latin_layout_config is not None
+        and (
+            not isinstance(latin_layout_config, dict)
+            or set(latin_layout_config) != {"mode", "letter_gap", "space_width"}
+            or latin_layout_config["mode"] != "proportional_stock_glyphs"
+        )
         or codec_strategy != "rust-fit"
         or codec_min_match_length != 2
         or not isinstance(codec_max_match_chain, int)
@@ -2662,6 +2686,20 @@ def _apply_full_stage_title_graphics(
         raise FullStoryComponentError(
             "full stage-title graphic policy drift"
         )
+
+    latin_layout = None
+    if latin_layout_config is not None:
+        try:
+            latin_layout = StageTitleLatinLayout(
+                mode=latin_layout_config["mode"],
+                letter_gap=latin_layout_config["letter_gap"],
+                space_width=latin_layout_config["space_width"],
+            )
+            latin_layout.validate()
+        except (StageTitleGraphicError, KeyError, TypeError) as error:
+            raise FullStoryComponentError(
+                f"stage-title Latin layout policy is invalid: {error}"
+            ) from error
 
     try:
         record_base_address = int(scenario_records["base_address"], 0)
@@ -2834,14 +2872,26 @@ def _apply_full_stage_title_graphics(
     )
     glyphs = {}
     for character in needed_characters:
+        release_mapping = release_by_character.get(character)
         if character == " ":
             glyph = bytes(STAGE_TITLE_GLYPH_SIZE)
             glyph_index = None
+        elif (
+            " " < character <= "~"
+            and not character.isalnum()
+            and isinstance(release_mapping, tuple)
+            and len(release_mapping) == 2
+            and isinstance(release_mapping[1], int)
+        ):
+            # ASCII punctuation such as "." has no stock glyph at its raw
+            # ASCII slot; use the glyph the global release ledger binds to
+            # that character. Letters and digits keep the stock glyphs.
+            glyph_index = release_mapping[1]
+            glyph = decode_glyph(final_font, glyph_index)
         elif " " <= character <= "~":
             glyph_index = ascii_glyph_index(ord(character))
             glyph = decode_glyph(final_font, glyph_index)
         else:
-            release_mapping = release_by_character.get(character)
             if (
                 not isinstance(release_mapping, tuple)
                 or len(release_mapping) != 2
@@ -2921,6 +2971,7 @@ def _apply_full_stage_title_graphics(
                 advance=advance,
                 y=raster_y,
                 quantization_levels=levels,
+                latin_layout=latin_layout,
             )
             packed = pack_linear_4bpp(raster.indexes)
             modified_decoded = (
@@ -2998,6 +3049,9 @@ def _apply_full_stage_title_graphics(
                 "raster_width": raster.width,
                 "raster_height": raster.height,
                 "natural_width": raster.natural_width,
+                "cell_count": raster.cell_count,
+                "latin_cell_count": raster.latin_cell_count,
+                "layout_mode": raster.layout_mode,
                 "source_indexes_sha256": sha256_bytes(source_indexes),
                 "output_indexes_sha256": sha256_bytes(raster.indexes),
             }
@@ -3032,7 +3086,13 @@ def _apply_full_stage_title_graphics(
         or reduced_ordinals != expected.get("reduced_precision_ordinals")
     ):
         raise FullStoryComponentError(
-            "stage-title graphic output expectation drift"
+            "stage-title graphic output expectation drift: "
+            f"texture_entry_count={len(title_reports)} "
+            f"full_precision_count="
+            f"{sum(item['quantization_levels'] == 16 for item in title_reports)} "
+            f"reduced_precision_ordinals={reduced_ordinals} "
+            f"reduced_levels="
+            f"{[(item['ordinal'], item['quantization_levels']) for item in title_reports if item['quantization_levels'] < 16]}"
         )
     stage_37 = title_reports[71]
     stage_38 = title_reports[72]
@@ -3040,7 +3100,7 @@ def _apply_full_stage_title_graphics(
         stage_37["text"] != "肃清风暴"
         or stage_37["selector"] != 72
         or stage_37["loader_table_index"] != 80
-        or stage_38["text"] != "被安排的决战"
+        or stage_38["text"] != "被设计的决战"
         or stage_38["selector"] != 73
         or stage_38["loader_table_index"] != 81
     ):
@@ -3069,6 +3129,13 @@ def _apply_full_stage_title_graphics(
         ),
         "reduced_precision_ordinals": reduced_ordinals,
         "raster_storage": tim2["storage"],
+        "latin_layout": (
+            None if latin_layout is None else latin_layout.to_metadata()
+        ),
+        "proportional_latin_title_count": sum(
+            item["latin_cell_count"] > 0 and item["layout_mode"] != "fixed_cells"
+            for item in title_reports
+        ),
         "codec": dict(codec),
         "stage_37": stage_37,
         "stage_38": stage_38,
@@ -3129,9 +3196,43 @@ def _apply_full_stage_titles(
     }
     if len(stage_replacements) != len(stage_entries):
         raise FullStoryComponentError("full stage-title IDs are not unique")
+    latin_text_width = reference.get("encoding", {}).get("latin_text_width")
+    if not isinstance(latin_text_width, dict) or (
+        latin_text_width.get("mode") != "trailing_latin_run"
+    ):
+        raise FullStoryComponentError(
+            "stage-title Latin text-width policy is missing or invalid"
+        )
+    try:
+        latin_width_values = {
+            key: int(latin_text_width[key], 16)
+            for key in ("width", "space", "restore_width", "restore_space")
+        }
+    except (KeyError, TypeError, ValueError) as error:
+        raise FullStoryComponentError(
+            "stage-title Latin text-width values are malformed"
+        ) from error
+    decorated_stage_replacements = {}
+    latin_text_width_entry_ids = []
+    for entry_id, translation in stage_replacements.items():
+        try:
+            decorated = wrap_trailing_latin_run(
+                translation,
+                width=latin_width_values["width"],
+                space=latin_width_values["space"],
+                restore_width=latin_width_values["restore_width"],
+                restore_space=latin_width_values["restore_space"],
+            )
+        except ValueError as error:
+            raise FullStoryComponentError(
+                f"stage-title Latin text-width policy is invalid: {error}"
+            ) from error
+        if decorated != translation:
+            latin_text_width_entry_ids.append(entry_id)
+        decorated_stage_replacements[entry_id] = decorated
     stored_stage_replacements = {
         entry_id: _two_byte_visible_spaces(translation)
-        for entry_id, translation in stage_replacements.items()
+        for entry_id, translation in decorated_stage_replacements.items()
     }
 
     format_document = json.loads(format_bytes.decode("utf-8"))
@@ -3173,30 +3274,28 @@ def _apply_full_stage_titles(
         encoding.get("visible_ascii_storage")
         != "original_fullwidth_two_byte"
         or encoding.get("use_available_surface_safe_aliases") is not True
-        or encoding.get("allow_trailing_zero_padding") is not True
     ):
         raise FullStoryComponentError("stage-title encoding policy drift")
-    relocation = encoding.get("relocation")
-    if not isinstance(relocation, dict):
-        raise FullStoryComponentError("stage-title relocation policy is missing")
+    block_repack = encoding.get("block_repack")
+    if not isinstance(block_repack, dict):
+        raise FullStoryComponentError("stage-title block repack policy is missing")
     try:
-        pool_start = int(relocation.get("pool_start"), 0)
-        pool_end = int(relocation.get("pool_end"), 0)
-        pool_alignment = int(relocation.get("alignment"))
+        block_start = int(block_repack.get("block_start"), 0)
+        block_end = int(block_repack.get("block_end"), 0)
+        block_alignment = int(block_repack.get("alignment"))
+        block_entry_count = int(block_repack.get("entry_count"))
     except (TypeError, ValueError) as error:
         raise FullStoryComponentError(
-            "stage-title relocation pool is malformed"
+            "stage-title block repack contract is malformed"
         ) from error
-    relocated_entry_ids = relocation.get("entry_ids")
     if (
-        not isinstance(relocated_entry_ids, list)
-        or len(relocated_entry_ids) != 4
-        or len(set(relocated_entry_ids)) != len(relocated_entry_ids)
-        or any(entry_id not in stage_replacements for entry_id in relocated_entry_ids)
+        block_repack.get("section") != "Stage Name"
+        or block_start != 0x72DA0
+        or block_end != 0x73840
+        or block_alignment != 8
+        or block_entry_count != expected_stage_count
     ):
-        raise FullStoryComponentError(
-            "stage-title relocation selection drift"
-        )
+        raise FullStoryComponentError("stage-title block repack policy drift")
     table = load_text_table(
         PROJECT_ROOT / "vendor/upstream-python/project/tbl_all.json"
     )
@@ -3222,57 +3321,29 @@ def _apply_full_stage_titles(
         descriptor_by_name["SLPS"],
         current_table,
     )
-    pool_conflicts = []
-    for entry in parsed_compdata.entries:
-        for target_offset in set(entry.target_offsets):
-            source = decode_text(decoded.output, target_offset, current_table)
-            target_end = target_offset + source.consumed
-            if pool_start < target_end and target_offset < pool_end:
-                pool_conflicts.append(
-                    (entry.entry_id, target_offset, target_end)
-                )
-    if pool_conflicts:
-        raise FullStoryComponentError(
-            "stage-title relocation pool overlaps owned menu text: "
-            f"{pool_conflicts[:8]!r}"
-        )
     try:
-        relocated_replacements = {
-            entry_id: stored_stage_replacements[entry_id]
-            for entry_id in relocated_entry_ids
-        }
-        in_place_replacements = {
-            entry_id: replacement
-            for entry_id, replacement in stored_stage_replacements.items()
-            if entry_id not in relocated_replacements
-        }
-        compdata_write = replace_menu_texts_in_place(
+        compdata_repack = repack_menu_texts_in_block(
             decoded.output,
             parsed_compdata,
             table,
-            replacements=in_place_replacements,
+            replacements=stored_stage_replacements,
+            block_start=block_start,
+            block_end=block_end,
             overrides=title_overrides,
             source_table=current_table,
-            source_name="full-story stage titles",
-            allow_trailing_zero_padding=True,
+            alignment=block_alignment,
+            source_name="full-story stage-title block",
         )
-        compdata_relocation = relocate_menu_texts_to_pool(
-            compdata_write.data,
-            parsed_compdata,
-            table,
-            replacements=relocated_replacements,
-            pool_start=pool_start,
-            pool_end=pool_end,
-            overrides=title_overrides,
-            source_table=current_table,
-            alignment=pool_alignment,
-            source_name="full-story relocated stage titles",
-        )
+        if len(compdata_repack.allocations) != block_entry_count:
+            raise FullStoryComponentError(
+                "stage-title block repack placement count drift: "
+                f"{len(compdata_repack.allocations)}"
+            )
         output_title_table = project_runtime_text_table(
             table, title_overrides
         )
         reread_titles = parse_menu_file(
-            compdata_relocation.data,
+            compdata_repack.data,
             descriptor_by_name["Compdata"],
             output_title_table,
         )
@@ -3289,9 +3360,17 @@ def _apply_full_stage_titles(
                     f"stage-title reread mismatch: {entry_id}"
                 )
             for target_offset in set(entry.target_offsets):
+                if not block_start <= target_offset < block_end:
+                    raise FullStoryComponentError(
+                        f"stage-title reread target escaped the block: {entry_id}"
+                    )
                 position = target_offset
-                while compdata_relocation.data[position] != 0:
-                    first = compdata_relocation.data[position]
+                while compdata_repack.data[position] != 0:
+                    first = compdata_repack.data[position]
+                    if first in table.tags:
+                        # Registered inline control tag with one parameter byte.
+                        position += 2
+                        continue
                     if 0x20 <= first <= 0x7E:
                         raw_visible_ascii.append((entry_id, position, first))
                         position += 1
@@ -3320,14 +3399,14 @@ def _apply_full_stage_titles(
 
     rebuilt_compdata = _commit_compdata_stage(
         stored_compdata,
-        compdata_relocation.data,
+        compdata_repack.data,
         decoded,
         codec,
         label="stage-title COMPDATA",
         workspace=workspace,
     )
     example_id = "menu/Compdata/03/0072"
-    if stage_replacements.get(example_id) != "被安排的决战":
+    if stage_replacements.get(example_id) != "被设计的决战":
         raise FullStoryComponentError("stage 38 title decision drift")
     output_vt1, graphic_report = _apply_full_stage_title_graphics(
         slps_write.data,
@@ -3344,13 +3423,20 @@ def _apply_full_stage_titles(
         "title_format_entry_id": format_id,
         "title_format_translation": format_translation,
         "stage_38_title": stage_replacements[example_id],
-        "non_relocated_fixed_spans_preserved": True,
+        "block_unowned_bytes_zero": True,
+        "block_repack_entry_count": len(compdata_repack.allocations),
         "pointer_bytes_unchanged": False,
         "pointer_relocations_exact": True,
         "visible_ascii_storage": "original_fullwidth_two_byte",
         "raw_visible_ascii_absent": True,
         "raw_visible_ascii_count": len(raw_visible_ascii),
-        "relocation": compdata_relocation.to_metadata(),
+        "block_repack": compdata_repack.to_metadata(),
+        "latin_text_width": {
+            "mode": latin_text_width["mode"],
+            **{key: f"{value:02X}" for key, value in latin_width_values.items()},
+            "entry_ids": latin_text_width_entry_ids,
+            "entry_count": len(latin_text_width_entry_ids),
+        },
         "available_surface_safe_aliases_used": True,
         "compdata_source_size": len(stored_compdata),
         "compdata_output_size": (
@@ -11718,11 +11804,12 @@ def _build_components(
             ],
             "full_story_stage_titles_reread_exact": (
                 stage_title_report["stage_title_entry_count"] == 122
-                and stage_title_report["stage_38_title"] == "被安排的决战"
+                and stage_title_report["stage_38_title"] == "被设计的决战"
                 and stage_title_report["compdata_round_trip_exact"]
-                and stage_title_report[
-                    "non_relocated_fixed_spans_preserved"
-                ]
+                and stage_title_report["block_unowned_bytes_zero"]
+                and stage_title_report["block_repack_entry_count"] == 122
+                and stage_title_report["block_repack"]["allocation_count"]
+                == 122
                 and stage_title_report["pointer_relocations_exact"]
                 and stage_title_report["raw_visible_ascii_absent"]
                 and stage_title_report["slps_size_preserved"]
@@ -11750,7 +11837,7 @@ def _build_components(
                     "translated_reread_exact"
                 ]
                 and stage_title_report["graphics"]["stage_38"]["text"]
-                == "被安排的决战"
+                == "被设计的决战"
             ),
             "stage_overviews_reread_exact": (
                 stage_overview_report["translated_readback_exact"]
