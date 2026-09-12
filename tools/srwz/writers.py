@@ -853,6 +853,368 @@ def relocate_menu_texts_to_pool(
     )
 
 
+@dataclass(frozen=True)
+class TextBlockAllocation:
+    entry_ids: tuple
+    source_target_offset: int
+    block_offset: int
+    pointer_address: int
+    payload_size: int
+    direct_pointer_offsets: tuple
+    embedded_hi_offsets: tuple
+    embedded_lo_offsets: tuple
+
+    def to_metadata(self) -> dict:
+        return {
+            "entry_ids": list(self.entry_ids),
+            "source_target_offset": self.source_target_offset,
+            "block_offset": self.block_offset,
+            "pointer_address": self.pointer_address,
+            "payload_size": self.payload_size,
+            "direct_pointer_offsets": list(self.direct_pointer_offsets),
+            "embedded_hi_offsets": list(self.embedded_hi_offsets),
+            "embedded_lo_offsets": list(self.embedded_lo_offsets),
+        }
+
+
+@dataclass(frozen=True)
+class TextBlockRepackWrite:
+    data: bytes
+    source_size: int
+    source_sha256: str
+    block_start: int
+    block_end: int
+    block_used: int
+    alignment: int
+    source_owned_bytes: int
+    allocations: tuple
+    patch_plan: PatchPlan
+
+    def to_metadata(self) -> dict:
+        return {
+            "source_size": self.source_size,
+            "source_sha256": self.source_sha256,
+            "output_size": len(self.data),
+            "output_sha256": sha256_bytes(self.data),
+            "block_start": self.block_start,
+            "block_end": self.block_end,
+            "block_capacity": self.block_end - self.block_start,
+            "block_used": self.block_used,
+            "source_owned_bytes": self.source_owned_bytes,
+            "alignment": self.alignment,
+            "allocation_count": len(self.allocations),
+            "moved_allocation_count": sum(
+                allocation.block_offset != allocation.source_target_offset
+                for allocation in self.allocations
+            ),
+            "allocations": [
+                allocation.to_metadata() for allocation in self.allocations
+            ],
+            "patch_plan": self.patch_plan.to_metadata(),
+        }
+
+
+def repack_menu_texts_in_block(
+    data: bytes,
+    parsed: MenuParseResult,
+    table: TextTable,
+    *,
+    replacements: Mapping[str, str],
+    block_start: int,
+    block_end: int,
+    overrides: Mapping[str, int] | None = None,
+    source_table: TextTable | None = None,
+    alignment: int = 8,
+    source_name: str | None = None,
+) -> TextBlockRepackWrite:
+    """Re-lay out every pointer-owned menu string of one contiguous block.
+
+    The block must be exactly the union of the selected entries' terminated
+    source strings plus zero padding: any other non-zero byte, any selected
+    target outside the block, or any unselected entry targeting the block
+    fails closed.  Every reference must be an ordinary 32-bit pointer or a
+    recorded MIPS HI/LO pair whose preimage resolves to the source string;
+    inline ``T`` records have no pointer semantics and are rejected.  Strings
+    are placed in their original order with the requested alignment, the
+    freed remainder is zeroed, and overflow fails instead of truncating.
+    Bytes outside the block and the pointer sites never change.
+    """
+
+    if parsed.source_size != len(data):
+        raise WritebackError(f"{parsed.friendly_name} parse/source size mismatch")
+    if alignment <= 0 or alignment & (alignment - 1):
+        raise ValueError("text block alignment must be a power of two")
+    if not 0 <= block_start < block_end <= len(data):
+        raise WritebackError("text block is outside source")
+
+    entries = {entry.entry_id: entry for entry in parsed.entries}
+    unknown = sorted(set(replacements) - set(entries))
+    if unknown:
+        raise WritebackError(f"unknown menu replacement ids: {unknown!r}")
+
+    def in_block(offset: int) -> bool:
+        return block_start <= offset < block_end
+
+    selected = {}
+    for entry_id in sorted(replacements):
+        entry = entries[entry_id]
+        if not entry.target_offsets:
+            raise WritebackError(f"{entry_id} has no writable text target")
+        if not all(in_block(target) for target in entry.target_offsets):
+            raise WritebackError(f"{entry_id} owns a text target outside the block")
+        if len(entry.pointer_offsets) != len(entry.target_offsets):
+            raise WritebackError(f"{entry_id} pointer provenance is incomplete")
+        if len(entry.embedded_hi) != len(entry.embedded_lo):
+            raise WritebackError(f"{entry_id} has unmatched MIPS HI/LO references")
+        selected[entry_id] = entry
+    for entry in parsed.entries:
+        if entry.entry_id in selected:
+            continue
+        if any(in_block(target) for target in entry.target_offsets):
+            raise WritebackError(
+                f"{entry.entry_id} targets the block but is not selected"
+            )
+
+    decode_table = source_table or table
+    owners_by_target: dict[int, set] = {}
+    for entry_id, entry in selected.items():
+        for target in set(entry.target_offsets):
+            owners_by_target.setdefault(target, set()).add(entry_id)
+
+    payloads = {
+        entry_id: encode_text(
+            replacement,
+            table,
+            overrides=overrides,
+            terminate=True,
+        )
+        for entry_id, replacement in replacements.items()
+    }
+
+    source_spans = []
+    previous_end = block_start
+    for target in sorted(owners_by_target):
+        owners = owners_by_target[target]
+        source = decode_text(data, target, decode_table)
+        for entry_id in sorted(owners):
+            if source.text != selected[entry_id].text:
+                raise WritebackError(f"{entry_id} source text preimage mismatch")
+        if target < previous_end or source.end > block_end:
+            raise WritebackError(
+                f"block string at 0x{target:X} overlaps or escapes the block"
+            )
+        owner_payloads = {payloads[entry_id] for entry_id in owners}
+        if len(owner_payloads) != 1:
+            raise WritebackError(
+                f"block target 0x{target:X} has conflicting replacement payloads"
+            )
+        source_spans.append((target, source.end, owners, owner_payloads.pop()))
+        previous_end = source.end
+
+    covered = bytearray(block_end - block_start)
+    for start, end, _owners, _payload in source_spans:
+        covered[start - block_start : end - block_start] = b"\x01" * (end - start)
+    stray = [
+        block_start + index
+        for index, flag in enumerate(covered)
+        if not flag and data[block_start + index]
+    ]
+    if stray:
+        raise WritebackError(
+            "text block contains unowned non-zero bytes at "
+            f"0x{stray[0]:X} ({len(stray)} bytes)"
+        )
+
+    direct_sites_by_entry = {}
+    embedded_sites_by_entry = {}
+    for entry_id, entry in selected.items():
+        source_addresses = {
+            parsed.base_offset + target for target in entry.target_offsets
+        }
+        direct_sites = []
+        for pointer_offset, target_offset in zip(
+            entry.pointer_offsets,
+            entry.target_offsets,
+        ):
+            if not 0 <= pointer_offset <= len(data) - 4:
+                raise WritebackError(f"{entry_id} direct pointer is outside source")
+            if in_block(pointer_offset):
+                raise WritebackError(
+                    f"{entry_id} pointer site lies inside the text block"
+                )
+            before = data[pointer_offset : pointer_offset + 4]
+            if struct.unpack("<I", before)[0] != parsed.base_offset + target_offset:
+                raise WritebackError(f"{entry_id} direct pointer preimage mismatch")
+            direct_sites.append((pointer_offset, target_offset, before))
+        embedded_sites = []
+        for hi_address, lo_address in zip(entry.embedded_hi, entry.embedded_lo):
+            hi_offset = hi_address - parsed.base_offset
+            lo_offset = lo_address - parsed.base_offset
+            if not (
+                0 <= hi_offset <= len(data) - 2 and 0 <= lo_offset <= len(data) - 2
+            ):
+                raise WritebackError(f"{entry_id} embedded pointer is outside source")
+            if in_block(hi_offset) or in_block(lo_offset):
+                raise WritebackError(
+                    f"{entry_id} embedded pointer site lies inside the text block"
+                )
+            before_hi = data[hi_offset : hi_offset + 2]
+            before_lo = data[lo_offset : lo_offset + 2]
+            old_hi = struct.unpack("<H", before_hi)[0]
+            old_lo = struct.unpack("<h", before_lo)[0]
+            actual_address = (old_hi << 16) + old_lo
+            if actual_address not in source_addresses:
+                raise WritebackError(f"{entry_id} embedded pointer preimage mismatch")
+            embedded_sites.append(
+                (hi_offset, lo_offset, actual_address, before_hi, before_lo)
+            )
+        direct_sites_by_entry[entry_id] = direct_sites
+        embedded_sites_by_entry[entry_id] = embedded_sites
+
+    pool = AllocationPool(
+        f"{parsed.friendly_name} text block",
+        block_start,
+        block_end,
+    )
+    new_block = bytearray(block_end - block_start)
+    placements = {}
+    allocations = []
+    for target, _end, owners, payload in source_spans:
+        block_offset = pool.allocate(len(payload), alignment=alignment)
+        new_block[
+            block_offset - block_start : block_offset - block_start + len(payload)
+        ] = payload
+        pointer_address = parsed.base_offset + block_offset
+        placements[target] = (block_offset, pointer_address)
+        allocations.append(
+            (target, block_offset, pointer_address, len(payload), tuple(sorted(owners)))
+        )
+
+    operations = [
+        PatchOperation(
+            owner=f"{parsed.friendly_name} text block repack",
+            offset=block_start,
+            before=data[block_start:block_end],
+            after=bytes(new_block),
+        )
+    ]
+    pointer_reports = {}
+    for entry_id in sorted(selected):
+        direct_offsets = []
+        for pointer_offset, target_offset, before in direct_sites_by_entry[entry_id]:
+            _block_offset, pointer_address = placements[target_offset]
+            operations.append(
+                PatchOperation(
+                    owner=f"{entry_id} direct pointer",
+                    offset=pointer_offset,
+                    before=before,
+                    after=struct.pack("<I", pointer_address),
+                )
+            )
+            direct_offsets.append(pointer_offset)
+        hi_offsets = []
+        lo_offsets = []
+        for hi_offset, lo_offset, actual_address, before_hi, before_lo in (
+            embedded_sites_by_entry[entry_id]
+        ):
+            _block_offset, pointer_address = placements[
+                actual_address - parsed.base_offset
+            ]
+            new_hi, new_lo = _split_mips_address(pointer_address)
+            operations.extend(
+                (
+                    PatchOperation(
+                        owner=f"{entry_id} MIPS HI",
+                        offset=hi_offset,
+                        before=before_hi,
+                        after=struct.pack("<H", new_hi),
+                    ),
+                    PatchOperation(
+                        owner=f"{entry_id} MIPS LO",
+                        offset=lo_offset,
+                        before=before_lo,
+                        after=struct.pack("<H", new_lo),
+                    ),
+                )
+            )
+            hi_offsets.append(hi_offset)
+            lo_offsets.append(lo_offset)
+        pointer_reports[entry_id] = (
+            tuple(direct_offsets),
+            tuple(hi_offsets),
+            tuple(lo_offsets),
+        )
+
+    plan = PatchPlan(
+        source_name=source_name or parsed.friendly_name,
+        source_size=len(data),
+        source_sha256=sha256_bytes(data),
+        operations=tuple(operations),
+    )
+    output = plan.apply(data)
+    output_table = _table_with_overrides(table, overrides)
+
+    results = []
+    for target, block_offset, pointer_address, payload_size, owners in allocations:
+        decoded = decode_text(output, block_offset, output_table)
+        expected = replacements[owners[0]]
+        if decoded.text != expected or decoded.consumed != payload_size:
+            raise WritebackError(
+                f"block text reparse mismatch at 0x{block_offset:X}: "
+                f"expected={expected!r} actual={decoded.text!r}"
+            )
+        direct_offsets = []
+        hi_offsets = []
+        lo_offsets = []
+        for entry_id in owners:
+            entry_direct, entry_hi, entry_lo = pointer_reports[entry_id]
+            for pointer_offset, target_offset, _before in direct_sites_by_entry[entry_id]:
+                if target_offset != target:
+                    continue
+                if struct.unpack_from("<I", output, pointer_offset)[0] != pointer_address:
+                    raise WritebackError(f"{entry_id} direct pointer reread mismatch")
+                direct_offsets.append(pointer_offset)
+            for hi_offset, lo_offset, actual_address, _hi, _lo in (
+                embedded_sites_by_entry[entry_id]
+            ):
+                if actual_address - parsed.base_offset != target:
+                    continue
+                hi = struct.unpack_from("<H", output, hi_offset)[0]
+                lo = struct.unpack_from("<h", output, lo_offset)[0]
+                if (hi << 16) + lo != pointer_address:
+                    raise WritebackError(f"{entry_id} MIPS pointer reread mismatch")
+                hi_offsets.append(hi_offset)
+                lo_offsets.append(lo_offset)
+            del entry_direct, entry_hi, entry_lo
+        results.append(
+            TextBlockAllocation(
+                entry_ids=owners,
+                source_target_offset=target,
+                block_offset=block_offset,
+                pointer_address=pointer_address,
+                payload_size=payload_size,
+                direct_pointer_offsets=tuple(sorted(direct_offsets)),
+                embedded_hi_offsets=tuple(sorted(hi_offsets)),
+                embedded_lo_offsets=tuple(sorted(lo_offsets)),
+            )
+        )
+    if any(output[pool.cursor:block_end]):
+        raise WritebackError("text block tail was not zeroed")
+
+    return TextBlockRepackWrite(
+        data=output,
+        source_size=len(data),
+        source_sha256=sha256_bytes(data),
+        block_start=block_start,
+        block_end=block_end,
+        block_used=pool.cursor - block_start,
+        alignment=alignment,
+        source_owned_bytes=sum(end - start for start, end, _o, _p in source_spans),
+        allocations=tuple(results),
+        patch_plan=plan,
+    )
+
+
 def build_summary_patch_plan(
     data: bytes,
     table: TextTable,

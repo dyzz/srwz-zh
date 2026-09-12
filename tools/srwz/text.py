@@ -197,6 +197,62 @@ def normalize_original_fullwidth_ascii(text: str) -> str:
     )
 
 
+def trailing_latin_run(text: str) -> tuple[str, str]:
+    """Split ``text`` into (head, trailing ASCII run).
+
+    The run is the maximal suffix of printable ASCII characters and must
+    contain at least one Latin letter; otherwise the whole text is the head.
+    Used to wrap English stage titles in renderer width control tags without
+    touching mixed titles whose Latin sits before trailing CJK text.
+    """
+
+    if not isinstance(text, str):
+        raise TypeError("text must be a string")
+    index = len(text)
+    while index > 0 and " " <= text[index - 1] <= "~":
+        index -= 1
+    run = text[index:]
+    if not any(character.isascii() and character.isalpha() for character in run):
+        return text, ""
+    return text[:index], run
+
+
+def wrap_trailing_latin_run(
+    text: str,
+    *,
+    width: int,
+    space: int,
+    restore_width: int,
+    restore_space: int,
+) -> str:
+    """Wrap the trailing ASCII run of ``text`` in width/space control tags.
+
+    Emits ``<width:XX><space:XX>`` before the run and the restore pair after
+    it, in the lossless control notation understood by :func:`encode_text`.
+    Text without a trailing Latin run is returned unchanged.
+    """
+
+    for label, value in (
+        ("width", width),
+        ("space", space),
+        ("restore_width", restore_width),
+        ("restore_space", restore_space),
+    ):
+        if (
+            not isinstance(value, int)
+            or isinstance(value, bool)
+            or not 1 <= value <= 0x3F
+        ):
+            raise ValueError(f"{label} must be an integer within 1..63")
+    head, run = trailing_latin_run(text)
+    if not run:
+        return text
+    return (
+        f"{head}<width:{width:02X}><space:{space:02X}>{run}"
+        f"<width:{restore_width:02X}><space:{restore_space:02X}>"
+    )
+
+
 def two_byte_visible_spaces(text: str) -> str:
     """Store visible word separators through the stock ``0x8140`` glyph.
 
