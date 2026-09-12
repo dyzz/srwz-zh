@@ -606,12 +606,12 @@
       "source_terms": [
         "ミネルバ　個室"
       ],
-      "translation": "密涅瓦单人房",
+      "translation": "密涅瓦号单人房",
       "deprecated_translations": [
-        "密涅瓦号单人房",
         "密涅瓦　个人房间",
         "密涅瓦个人房间",
-        "密涅瓦　单人房"
+        "密涅瓦　单人房",
+        "密涅瓦单人房"
       ],
       "category": "place",
       "status": "approved",
@@ -619,7 +619,8 @@
         "story"
       ],
       "enforce": true,
-      "notes": "统一密涅瓦舰内地点标签；舰名不加“号”。"
+      "notes": "2026-09-12 用户明确确认三艘 SEED 舰船均补回“号”；对应舰名、舰内地点及关联用例统一。仅按日文源词绑定，保留普通词义和原文对“大天使”一词的修辞用法。",
+      "variant_scope": "source_bound"
     },
     {
       "id": "place/iron-gear-private-room",
