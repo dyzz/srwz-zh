@@ -13,6 +13,7 @@ from tools import build_text_update_iso as text_build
 from tools import ui_atlas
 from tools import rebuild_zh_font
 from tools import build_iso
+from tools import compose_full_story_library_components as compose
 from tools.srwz.patch_audit import PatchAuditError, changed_offsets
 from tools.srwz.psmt4 import Psmt4Error, swizzle_psmt4, unswizzle_psmt4
 
@@ -31,6 +32,19 @@ def lock(root, path):
 
 
 class BuildOptimizationTests(unittest.TestCase):
+    def test_composition_requires_exact_iso_members_including_heading_pair(self):
+        config = json.loads((Path(rebuild_zh_font.PROJECT_ROOT) /
+                             "config/iso/zh-release-current-build.json").read_text())
+        outputs = {row["member"]: {} for row in config["replacements"]}
+        self.assertIn("KURODATA/KVPDATA.BIN", outputs)
+        compose.validate_output_members(outputs, config)
+        del outputs["KURODATA/KVPDATA.BIN"]
+        with self.assertRaisesRegex(SystemExit, "KVPDATA"):
+            compose.validate_output_members(outputs, config)
+        outputs["unexpected.BIN"] = {}
+        with self.assertRaisesRegex(SystemExit, "unexpected.BIN"):
+            compose.validate_output_members(outputs, config)
+
     def test_repacked_library_offsets_rebuild_the_executable_and_coupled_archive(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp).resolve()
@@ -212,6 +226,35 @@ class BuildOptimizationTests(unittest.TestCase):
             with patch.object(rebuild_zh_font, "PROJECT_ROOT", root):
                 inventory = rebuild_zh_font._chain_cache_inventory({"integrated_component": "config/chain.json"})
             self.assertIn(target, inventory)
+
+    def test_full_chain_cache_tracks_heading_pair_before_first_integration(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp).resolve()
+            atlas = write_json(root, "work/headings/KVMDATA.BIN", {"pixels": 1})
+            drawings = write_json(root, "work/headings/KVPDATA.BIN", {"drawings": 1})
+            entry = root / "tools/build_ui_headings.py"
+            entry.parent.mkdir()
+            entry.write_text("# heading builder v1\n")
+            write_json(root, "config/chain.json", {
+                "schema_version": 1, "kvmdata": atlas, "kvpdata": drawings,
+                "outputs": {"manifest": "manifests/full.json"},
+            })
+            # Receipts from before the heading integration have neither output.
+            write_json(root, "manifests/full.json", {"outputs": {}})
+            write_json(root, "manifests/full-story-library-components-validation.json", {"outputs": {}})
+            with patch.object(rebuild_zh_font, "PROJECT_ROOT", root):
+                inventory = rebuild_zh_font._chain_cache_inventory({"integrated_component": "config/chain.json"})
+            self.assertTrue({root / atlas["path"], root / drawings["path"], entry} <= inventory)
+            options = dict(project_root=root, cache_path=root / "work/cache.json",
+                           kind="test", paths=inventory)
+            rebuild_zh_font.write_verified_cache(**options)
+            self.assertTrue(rebuild_zh_font.validate_verified_cache(**options).hit)
+            (root / drawings["path"]).unlink()
+            self.assertFalse(rebuild_zh_font.validate_verified_cache(**options).hit)
+            write_json(root, drawings["path"], {"drawings": 1})
+            self.assertTrue(rebuild_zh_font.validate_verified_cache(**options).hit)
+            entry.write_text("# heading builder v2\n")
+            self.assertFalse(rebuild_zh_font.validate_verified_cache(**options).hit)
 
     def test_failed_upstream_proof_cannot_be_rebound_as_passed(self):
         config = {"full_story_font": {"manifest": {}, "required_status": "passed", "required_profile_id": "font"}}

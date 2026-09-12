@@ -38,12 +38,14 @@ BUILD_DEFINITION_ROOTS = (
     "tools/native/srwz-codec-rs/src",
     "tools/rebuild_zh_font.py",
     "tools/prepare_zh_release_font.py",
+    "tools/update_zh_release_font_snapshot.py",
     "tools/build_zh_font_component.py",
     "tools/verify_zh_release_font.py",
     "tools/build_library_v02_component.py",
     "tools/build_story_component.py",
     "tools/build_text_update_iso.py",
     "tools/ui_atlas.py",
+    "tools/build_ui_headings.py",
     "tools/build_full_story_components.py",
     "tools/build_aid_battle_prompts.py",
     "tools/build_tricmn_battle_overlays.py",
@@ -173,6 +175,10 @@ def _chain_cache_inventory(chain: dict) -> set[Path]:
     if not isinstance(integrated_reference, str):
         raise SystemExit("Chinese font integrated component is not registered")
     integrated = _load(PROJECT_ROOT / integrated_reference)
+    # A prior receipt may predate a newly registered generated dependency.
+    # Include the current contract so missing heading pairs cannot be hidden
+    # by an otherwise valid old component receipt.
+    paths.update(collect_locked_paths(PROJECT_ROOT, integrated))
     manifest_reference = integrated.get("outputs", {}).get("manifest")
     if not isinstance(manifest_reference, str):
         raise SystemExit("integrated component manifest is not registered")
@@ -298,7 +304,24 @@ def _integrated_component_cache_ready(config: dict) -> bool:
         output_root.relative_to(PROJECT_ROOT.resolve())
     except ValueError:
         return False
-    return (output_root / "incremental-state.json").is_file()
+    if not (output_root / "incremental-state.json").is_file():
+        return False
+    # A state file alone does not prove the old build has today's members.
+    # Missing generated members (including newly added KVPDATA) require a
+    # complete integration; existing-byte drift is still checked by its writer.
+    from build_full_story_components import ALL_COMPONENT_MEMBERS
+    try:
+        manifest_path = (PROJECT_ROOT / config["outputs"]["manifest"]).resolve()
+        manifest_path.relative_to(PROJECT_ROOT.resolve())
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        return (
+            isinstance(manifest, dict)
+            and isinstance(manifest.get("outputs"), dict)
+            and set(manifest["outputs"]) == ALL_COMPONENT_MEMBERS
+            and all((output_root / member).is_file() for member in ALL_COMPONENT_MEMBERS)
+        )
+    except (OSError, ValueError, KeyError, TypeError):
+        return False
 
 
 def _build_story_and_atlases(
@@ -671,6 +694,10 @@ def _can_reuse_component_pipeline(chain: dict, args: argparse.Namespace) -> bool
     if not _cache_eligible(args):
         return False
     try:
+        if not _integrated_component_cache_ready(
+            _load(PROJECT_ROOT / chain["integrated_component"])
+        ):
+            return False
         cached = _load(args.cache)
         locks = {row["path"]: row for row in cached["files"]}
         tooling = collect_tree_paths(PROJECT_ROOT, (
@@ -712,6 +739,16 @@ def main() -> int:
             )
             return 0
         print(f"[cache] miss: {validation.reason}", flush=True)
+    # Full builds and text builds must bind the same current corpus, including
+    # the embedded menu selection digest. Never refresh rendered-asset locks.
+    import build_text_update_iso as pipeline
+    try:
+        pipeline._refresh_release_menu_selection_lock(refresh=args.refresh_manifests)
+        pipeline._refresh_text_locks(
+            pipeline.TEXT_LOCK_CONFIGS, refresh=args.refresh_manifests
+        )
+    except pipeline.TextUpdateBuildError as error:
+        raise SystemExit(str(error)) from error
     if _can_reuse_component_pipeline(chain, args):
         import build_text_update_iso as pipeline
         print("[build-mode] complete component set; reuse unchanged consumers", flush=True)
@@ -743,6 +780,9 @@ def main() -> int:
     if not isinstance(outputs, dict) or not isinstance(snapshot, dict):
         raise SystemExit("Chinese release font outputs are malformed")
     print(f"[font-release] {release['font_profile_id']}", flush=True)
+    # Fail on unmapped corpus characters before doing expensive raster work.
+    # Allocation changes remain an explicit source update, never a cache fix.
+    _run("tools/update_zh_release_font_snapshot.py", "--config", release_reference)
     raster_handoff = str(Path(outputs["proposal"]).with_suffix(".rasters.json"))
     _run("tools/prepare_zh_release_font.py", "--config", release_reference,
          "--raster-output", raster_handoff, "--force")

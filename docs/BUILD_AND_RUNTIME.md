@@ -35,7 +35,7 @@ P0–P10 只属于开发历史，不是当前生产输入。当前链从锁定�
 2. **文本与资料归档**：`COMPDATA`、`NISVDATA`、`STAGE`、`MTV_PROS/PROP`、
    `HSFC/HB` 和三个 ZKAN 资料库；
 3. **战斗、地图、特效与演示归档**：`SRVC`、`OP0/1/2`、`MAPMODEL`、
-   `KVMDATA` 与 `VEFF2DX`。
+   `KVMDATA/KVPDATA` 与 `VEFF2DX`。
 
 同一物理文件只属于一个构建组。每个压缩流先解压一次，在同一 decoded workspace
 内完成该流的字体、文本、布局和 UI 写入，通过结构检查后再统一压缩一次。组件完成后，
@@ -73,10 +73,35 @@ python3 tools/verify_full_story_iso_content.py --force
 
 `extract_iso_member.py` 只建立 `work/disc/` 原版成员缓存。`rebuild_zh_font.py` 从这些
 原版成员开始，生成全局字体，构建 reviewed LIBRARY、剧情和 UI 图集，再合并全部
-23 个最终成员。菜单文本和标题菜单分别由
+25 个最终成员。菜单文本和标题菜单分别由
 `corpus/zh/menu/release-v0.3.json` 与 `config/assets/title-menu-zh.json` 直接写入；
 旧发布 ISO、旧汉化成员和发布用 xdelta 都不是构建依赖。普通构建不修改配置中的哈希
 与快照；只有确认生产输入发生变化后，才使用各入口提供的 `--refresh-*` 选项。
+
+阵型／说明标题在 UI atlas suite 完成后自动生成：`build_ui_headings.py` 直接读取
+`rom/original.iso` 内的 `KURODATA/KVPDATA.BIN`，校验原始成员并应用固定绘制记录配方；
+标题像素来自已审核的索引快照。它与修改后的 `KVMDATA.BIN` 成对生成、验证和整合，
+不需要单独下载 BIN，也不依赖旧汉化镜像。代码、配方、语料和快照纳入 Git；生成的
+`work/build/ui-headings-zh/` 与最终组件目录是可重建产物。
+
+清理产物后，使用完整组件入口恢复依赖；不要仅向最终组件目录手工复制 KVPDATA。
+普通复建使用上面的命令。确认源码／配方更新后，需要同步当前构建锁时执行：
+
+```bash
+python3 tools/rebuild_zh_font.py --skip-fetch --refresh-manifests
+python3 tools/build_iso.py --config config/iso/zh-release-current-build.json --refresh-output-locks
+python3 tools/verify_full_story_iso_content.py --refresh-manifest --force
+```
+
+完整缓存同时检查当前配置登记的依赖、标题生成入口和最终组件输出。任一配对产物
+缺失都不能命中完整缓存，即使旧组件 manifest 尚未登记该成员。重建只更新当前工作
+镜像；版本化发布镜像保持独立。
+
+完整构建在绘制字体前先审计全局字形分配。语料新增字符而账本缺少映射时会停止，
+并列出待追加的字符、码位和字槽。确认分配后执行
+`python3 tools/update_zh_release_font_snapshot.py --apply`，再重新构建。
+该维护入口只追加安全双字节位置，保留已有主映射、别名和原版兼容字形；普通构建
+不会自动改变映射，也不能用改写台词来绕过缺字校验。
 
 强制全量路径会重新生成全部资源，但同一次构建的字体灰度图只生成一遍：proposal
 准备步骤通过 `.rasters.json` 传给字体组件，组件核对 proposal 摘要、逐字灰度摘要、

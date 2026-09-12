@@ -1,4 +1,5 @@
 import sys
+import json
 import tempfile
 import threading
 import unittest
@@ -153,7 +154,8 @@ class RebuildZhFontTests(unittest.TestCase):
             component_root = Path(tmp).relative_to(
                 rebuild_zh_font.PROJECT_ROOT
             )
-            config = {"outputs": {"component_root": str(component_root)}}
+            config = {"outputs": {"component_root": str(component_root),
+                                  "manifest": str(component_root / "manifest.json")}}
             self.assertFalse(
                 rebuild_zh_font._integrated_component_cache_ready(config)
             )
@@ -161,9 +163,26 @@ class RebuildZhFontTests(unittest.TestCase):
                 "{}\n",
                 encoding="utf-8",
             )
-            self.assertTrue(
+            self.assertFalse(
                 rebuild_zh_font._integrated_component_cache_ready(config)
             )
+            from build_full_story_components import ALL_COMPONENT_MEMBERS
+            outputs = {}
+            for member in ALL_COMPONENT_MEMBERS:
+                path = Path(tmp) / member
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b"generated")
+                outputs[member] = {}
+            manifest_path = Path(tmp) / "manifest.json"
+            manifest_path.write_text(json.dumps({"outputs": outputs}))
+            self.assertTrue(rebuild_zh_font._integrated_component_cache_ready(config))
+            drawings = Path(tmp) / "KURODATA/KVPDATA.BIN"
+            drawings.unlink()
+            self.assertFalse(rebuild_zh_font._integrated_component_cache_ready(config))
+            drawings.write_bytes(b"generated")
+            del outputs["KURODATA/KVPDATA.BIN"]
+            manifest_path.write_text(json.dumps({"outputs": outputs}))
+            self.assertFalse(rebuild_zh_font._integrated_component_cache_ready(config))
 
     def test_cache_requires_standard_local_full_chain_mode(self):
         with patch.object(
