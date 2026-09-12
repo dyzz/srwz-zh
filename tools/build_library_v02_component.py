@@ -49,6 +49,7 @@ from srwz.sound_select import (
 )
 from srwz.text import (
     load_text_table,
+    normalize_original_fullwidth_ascii,
     original_fullwidth_ascii_overrides,
     project_runtime_text_table,
     two_byte_visible_spaces,
@@ -652,6 +653,7 @@ def main() -> int:
                         context_text=document.field("CHFN").text if expected_kind == "CHAR" else None,
                     )
                     chunk_scoped_fields.append(field_id)
+                translation = normalize_original_fullwidth_ascii(translation)
                 if field.tag in BODY_TAGS:
                     try:
                         dense_text, dense_widths = reflow_body(
