@@ -248,9 +248,16 @@ class BuildOptimizationTests(unittest.TestCase):
             suite_lock = write_json(root, "config/suite.json", suite)
             write_json(root, "manifests/suite.json", {"inputs": {"config": suite_lock},
                                                      "acceptance": {"exact": True}, "outputs": {"archive": output}})
-            write_json(root, "config/full-story-components.json", {"kvmdata": archive})
+            drawings_path = archive_path.with_name("KVPDATA.BIN")
+            drawings_path.write_bytes(b"drawings")
+            write_json(root, "config/full-story-components.json", {"kvmdata": archive, "kvpdata": lock(root, drawings_path)})
+            write_json(root, "manifests/ui-headings-zh-validation.json", {"verified": True})
             with patch.object(text_build, "PROJECT_ROOT", root), patch.object(
                 text_build, "build_ui_atlas_suite", side_effect=AssertionError("must reuse reviewed output")
+            ), patch.object(
+                text_build, "build_ui_headings", return_value=(
+                    {"KURODATA/KVMDATA.BIN": b"archive", "KURODATA/KVPDATA.BIN": b"drawings"}, {"verified": True}
+                )
             ):
                 current, _ = text_build._ui_atlas_cache_is_current({"atlas_suite": "config/suite.json"})
                 self.assertTrue(current)

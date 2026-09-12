@@ -454,6 +454,10 @@ def _build_assets(
         if args.refresh_manifests:
             suite_arguments.append("--refresh-manifest")
         _run(*suite_arguments)
+        heading_arguments = ["tools/build_ui_headings.py"]
+        if args.refresh_manifests:
+            heading_arguments.append("--refresh-manifest")
+        _run(*heading_arguments)
 
     _build_story_and_atlases(
         story_reference,
@@ -492,6 +496,9 @@ def _build_assets(
             integrated["full_story_stage"]["hb"]["path"],
         ),
         (integrated["kvmdata"], integrated["kvmdata"]["path"]),
+        (integrated["kvpdata"], integrated["kvpdata"]["path"]),
+        (integrated["ui_headings"]["config"], integrated["ui_headings"]["config"]["path"]),
+        (integrated["ui_headings"]["manifest"], integrated["ui_headings"]["manifest"]["path"]),
         (
             integrated["runtime_keywords"]["library_component_manifest"],
             integrated["runtime_keywords"]["library_component_manifest"][

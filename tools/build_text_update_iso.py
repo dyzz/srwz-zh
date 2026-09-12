@@ -23,6 +23,7 @@ from typing import Callable, Iterable, Mapping
 from srwz.build_fingerprints import font_binary_signature as _font_binary_signature
 from srwz.iso_layout import CORE_ARCHIVE_SPECS
 from srwz.ui_atlas_suite import UiAtlasSuiteError, build_ui_atlas_suite
+from srwz.ui_headings import UiHeadingError, build_ui_headings
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -588,6 +589,7 @@ def _assert_full_component_dependencies_current() -> None:
         config["full_story_stage"]["stage"],
         config["full_story_stage"]["hb"],
         config["kvmdata"],
+        config["kvpdata"],
         config["runtime_keywords"]["library_archive"],
         config["runtime_keywords"]["library_component_manifest"],
         config["remaining_ui"]["stage_default_formation_inventory"],
@@ -670,8 +672,18 @@ def _ui_atlas_cache_is_current(
         integrated = _load_object(PROJECT_ROOT / "config/full-story-components.json")
         if not _reference_matches(integrated.get("kvmdata", {})):
             return False, "integrated KVMDATA lock is missing or stale"
-        return True, "reviewed suite inputs, manifests, and KVMDATA SHA-256 match"
-    except (KeyError, OSError, TextUpdateBuildError, UiAtlasSuiteError) as error:
+        if not _reference_matches(integrated.get("kvpdata", {})):
+            return False, "integrated KVPDATA lock is missing or stale"
+        heading_outputs, heading_report = build_ui_headings(
+            PROJECT_ROOT, PROJECT_ROOT / "config/assets/ui-headings-zh.json"
+        )
+        for key, member in (("kvmdata", "KURODATA/KVMDATA.BIN"), ("kvpdata", "KURODATA/KVPDATA.BIN")):
+            if _project_path(integrated[key]["path"]).read_bytes() != heading_outputs[member]:
+                return False, "heading texture and drawing pair is stale"
+        if _load_object(PROJECT_ROOT / "manifests/ui-headings-zh-validation.json") != heading_report:
+            return False, "heading proof is stale"
+        return True, "reviewed atlas and paired heading texture/drawing inputs match"
+    except (KeyError, OSError, TextUpdateBuildError, UiAtlasSuiteError, UiHeadingError) as error:
         return False, str(error)
 
 

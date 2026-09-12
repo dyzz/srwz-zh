@@ -398,7 +398,7 @@ def port_compdata(a,b,c):
     for lo,hi in [(0x244cc,0x244dc),(0x2457c,0x2458c),(0x6c4c0,0x6c5c0)]:mask[lo:hi]=b'\1'*(hi-lo)
     out=port_word_changes(a,b,c,text_mask=mask,label='COMPDATA')
     # Whole fixed allocations prevent remnants of a longer Best source line.
-    fixed_text(out,0x6c4c0,0x6c550,'使2000以下的伤害无效化。\n气力100以上时发动，消耗5EN。\n采用中央队形时，对小队全机生效。')
+    fixed_text(out,0x6c4c0,0x6c550,'使2000以下的伤害无效化。\n气力100以上时发动，消耗5EN。\n采用集中阵型时，对小队全机生效。')
     from srwz.text import decode_text
     old=decode_text(c,0x6c550,ZH_TABLE).text;assert '10EN' in old or '１０ＥＮ' in old,old
     fixed_text(out,0x6c550,0x6c5e0,old.replace('10EN','5EN').replace('１０ＥＮ','5EN'))

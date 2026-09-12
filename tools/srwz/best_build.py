@@ -90,7 +90,8 @@ class BestCompiler:
         require(self.contract['schema_version'] == 1, 'BEST layout schema drift')
         self.config = load_json(common / 'config/iso/zh-release-current-build.json')
         self.names = [r['member'] for r in self.config['replacements']]
-        require(len(self.names) == len(set(self.names)) == 24, 'shared component membership drift')
+        expected_count = 24 + int('KURODATA/KVPDATA.BIN' in self.names)
+        require(len(self.names) == len(set(self.names)) == expected_count, 'shared component membership drift')
         self.native = {}
         self.images = {}
         for version, directory, elf in [('original', common, 'SLPS_258.87'), ('best', root, 'SLPS_732.70')]:

@@ -12,6 +12,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 try:
+    from srwz.ui_headings import UiHeadingError, build_ui_headings
     from srwz.scoped_translations import (
         load_scoped_translations,
         resolve_scoped_translation,
@@ -197,6 +198,7 @@ try:
         replace_stage_system_dialogues_in_place,
     )
 except ModuleNotFoundError:
+    from tools.srwz.ui_headings import UiHeadingError, build_ui_headings
     from tools.srwz.scoped_translations import (
         load_scoped_translations,
         resolve_scoped_translation,
@@ -564,6 +566,7 @@ STAGE_MEMBER = "DATA/STAGE.BIN"
 HSFC_MEMBER = "DATA/HSFC.BIN"
 HB_MEMBER = "HEDBDY/HB.BIN"
 KVMDATA_MEMBER = "KURODATA/KVMDATA.BIN"
+KVPDATA_MEMBER = "KURODATA/KVPDATA.BIN"
 SRVC_MEMBERS = frozenset({"BTL/SRVC.BIN", "BTL/SRVC.SEG"})
 VEFF_MEMBER = "EFF/VEFF2DX.BIN"
 MAPMODEL_MEMBER = "MAP/MAPMODEL.BIN"
@@ -583,6 +586,7 @@ ALL_COMPONENT_MEMBERS = frozenset(
         HSFC_MEMBER,
         HB_MEMBER,
         KVMDATA_MEMBER,
+        KVPDATA_MEMBER,
         *SRVC_MEMBERS,
         VEFF_MEMBER,
         MAPMODEL_MEMBER,
@@ -620,6 +624,7 @@ COMPONENT_BUILD_GROUPS = (
             sorted(
                 {
                     KVMDATA_MEMBER,
+                    KVPDATA_MEMBER,
                     *SRVC_MEMBERS,
                     VEFF_MEMBER,
                     MAPMODEL_MEMBER,
@@ -665,7 +670,7 @@ CONFIG_SECTION_IMPACTS = {
     "title_menu": {VT1_MEMBER},
     "menu_text_release": {SLPS_MEMBER, COMPDATA_MEMBER},
     "full_story_font": ALL_COMPONENT_MEMBERS
-    - {MTV_PROS_MEMBER, HB_MEMBER, KVMDATA_MEMBER},
+    - {MTV_PROS_MEMBER, HB_MEMBER, KVMDATA_MEMBER, KVPDATA_MEMBER},
     "full_story_stage": {STAGE_MEMBER, HB_MEMBER},
     "full_pilot_names": {COMPDATA_MEMBER, STAGE_MEMBER, HSFC_MEMBER},
     "auto_demo_overlays": {SLPS_MEMBER, COMPDATA_MEMBER, *AUTO_DEMO_MEMBERS},
@@ -690,6 +695,8 @@ CONFIG_SECTION_IMPACTS = {
     "mode_select_effect": {VEFF_MEMBER},
     "tutorial_title_effects": {VEFF_MEMBER},
     "kvmdata": {KVMDATA_MEMBER},
+    "kvpdata": {KVPDATA_MEMBER},
+    "ui_headings": {KVMDATA_MEMBER, KVPDATA_MEMBER},
     "world_map_titles": {MAPMODEL_MEMBER},
     "runtime_full_name_order": {SLPS_MEMBER},
     "library_protagonist_names": {SLPS_MEMBER},
@@ -764,6 +771,9 @@ INPUT_IMPACTS = {
     "stage": {STAGE_MEMBER},
     "hb": {STAGE_MEMBER, HB_MEMBER},
     "kvmdata": {KVMDATA_MEMBER},
+    "kvpdata": {KVPDATA_MEMBER},
+    **{f"ui_headings_{name}": {KVMDATA_MEMBER, KVPDATA_MEMBER}
+       for name in ("config", "base_atlas", "corpus", "snapshot", "manifest")},
     "original_veff2dx": {VEFF_MEMBER},
     "tutorial_title_font": {VEFF_MEMBER},
     "world_map_title_corpus": {MAPMODEL_MEMBER},
@@ -9347,6 +9357,19 @@ def _build_components(
     kvm_path, kvm_payload = _locked_file(
         config["kvmdata"], label="localized KVMDATA.BIN"
     )
+    kvp_path, kvp_payload = _locked_file(
+        config["kvpdata"], label="localized KVPDATA.BIN"
+    )
+    heading_config_path, _ = _locked_file(config["ui_headings"]["config"], label="UI heading config")
+    heading_manifest_path, heading_manifest_data = _locked_file(config["ui_headings"]["manifest"], label="UI heading manifest")
+    try:
+        heading_outputs, heading_report = build_ui_headings(PROJECT_ROOT, heading_config_path)
+    except UiHeadingError as error:
+        raise FullStoryComponentError(str(error)) from error
+    if (heading_outputs[KVMDATA_MEMBER] != kvm_payload
+            or heading_outputs[KVPDATA_MEMBER] != kvp_payload
+            or json.loads(heading_manifest_data) != heading_report):
+        raise FullStoryComponentError("UI heading texture/drawing pair or manifest differs")
 
     runtime_keyword_reference = config.get("runtime_keywords")
     if not isinstance(runtime_keyword_reference, dict):
@@ -10789,6 +10812,7 @@ def _build_components(
         "DATA/HSFC.BIN": output_hsfc,
         "HEDBDY/HB.BIN": hb_payload,
         "KURODATA/KVMDATA.BIN": kvm_payload,
+        "KURODATA/KVPDATA.BIN": kvp_payload,
         "BTL/SRVC.BIN": output_srvc_bin,
         "BTL/SRVC.SEG": output_srvc_seg,
         "EFF/VEFF2DX.BIN": output_veff,
@@ -11008,6 +11032,9 @@ def _build_components(
             "stage": _file_lock(stage_path, stage_payload),
             "hb": _file_lock(hb_path, hb_payload),
             "kvmdata": _file_lock(kvm_path, kvm_payload),
+            "kvpdata": _file_lock(kvp_path, kvp_payload),
+            **{f"ui_headings_{name}": reference for name, reference in heading_report["inputs"].items()},
+            "ui_headings_manifest": _file_lock(heading_manifest_path, heading_manifest_data),
             "original_veff2dx": _file_lock(
                 scenario_select_source_path,
                 scenario_select_source_path.read_bytes(),

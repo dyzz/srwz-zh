@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "profile_id": "formation-help-headings-zh",
+  "status": "static_component_validated_runtime_pending",
+  "inputs": {
+    "config": {
+      "path": "config/assets/ui-headings-zh.json",
+      "size": 29518,
+      "sha256": "df31d3e0adf7d789b9bc75af7e3458caa363849ccf31ff7d64de22f180679386"
+    },
+    "base_atlas": {
+      "path": "work/build/ui-atlas-suite-zh/components/KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "14168e0c374d876069912b8929acea5140cde9162ae29b355fd707cb1db4f7b4"
+    },
+    "corpus": {
+      "path": "corpus/zh/ui-atlas/formation-help-headings.json",
+      "size": 1055,
+      "sha256": "18dfd8ac3d0ec6b6309fed7abfcf99573e980adc0f06cf60d61966fd137297a6"
+    },
+    "snapshot": {
+      "path": "config/assets/ui-headings-render-snapshot.json",
+      "size": 3712,
+      "sha256": "c26cc19cd14d206c2d1f6053511b000a7eb63acf33355b94f978922d711156a9"
+    }
+  },
+  "source_drawings": {
+    "member": "KURODATA/KVPDATA.BIN",
+    "size": 239664,
+    "sha256": "39caf7f108b6f98226d9bd5860fc6287389e5ba69a69f3e443434ccec55c5e2a"
+  },
+  "heading_count": 6,
+  "cell_count": 7,
+  "drawing_patch_count": 79,
+  "outputs": {
+    "KURODATA/KVMDATA.BIN": {
+      "path": "work/build/ui-headings-zh/components/KURODATA/KVMDATA.BIN",
+      "size": 3335408,
+      "sha256": "343068888b22cca5dab5cf9a2c55204a9dd57f987ffe8539e2318deced83e09c"
+    },
+    "KURODATA/KVPDATA.BIN": {
+      "path": "work/build/ui-headings-zh/components/KURODATA/KVPDATA.BIN",
+      "size": 239664,
+      "sha256": "d9250f51eaff4eb5a36a39ea66eb90d3bde2f2a17a69e7b1d21fe01c7661c256"
+    }
+  },
+  "acceptance": {
+    "locked_translation_and_index_snapshot": true,
+    "non_target_indices_exact": true,
+    "headers_clut_and_trailing_bytes_exact": true,
+    "polygon_preimages_and_non_target_bytes_exact": true,
+    "polygon_topology_material_color_and_termination_preserved": true,
+    "member_sizes_preserved": true,
+    "indexed_round_trip_exact": true
+  },
+  "runtime": {
+    "status": "not_tested"
+  }
+}

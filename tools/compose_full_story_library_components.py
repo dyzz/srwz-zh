@@ -19,6 +19,7 @@ DEFAULT_OUTPUT = (
     PROJECT_ROOT / "manifests/full-story-library-components-validation.json"
 )
 INTEGRATED_COMPONENT_ROOT = PROJECT_ROOT / "work/build/zh-release-full-story/components"
+CURRENT_ISO_CONFIG = PROJECT_ROOT / "config/iso/zh-release-current-build.json"
 FULL_STATUS = "integrated_global_zh_release_components_validated_runtime_pending"
 LIBRARY_STATUS = "library_v0.2_reviewed_components_static_validated"
 AID_STATUS = "aid_battle_prompts_static_validated_runtime_pending"
@@ -57,6 +58,18 @@ def file_lock(path: Path) -> dict[str, object]:
         "size": len(data),
         "sha256": hashlib.sha256(data).hexdigest(),
     }
+
+
+def validate_output_members(outputs: dict, iso_config: dict) -> None:
+    """Match the current ISO member contract, including paired UI resources."""
+    members = [row["member"] for row in iso_config["replacements"]]
+    expected = set(members)
+    if len(members) != len(expected) or set(outputs) != expected:
+        raise SystemExit(
+            "combined component member contract differs: "
+            f"missing={sorted(expected - set(outputs))}, "
+            f"unexpected={sorted(set(outputs) - expected)}"
+        )
 
 
 def main() -> int:
@@ -412,9 +425,8 @@ def main() -> int:
             library.get("runtime", {}).get("required_flows", [])
         ),
     }
-    if len(combined["outputs"]) != 24 or not all(
-        combined["acceptance"].values()
-    ):
+    validate_output_members(combined["outputs"], load(CURRENT_ISO_CONFIG))
+    if not all(combined["acceptance"].values()):
         raise SystemExit("combined component acceptance failed")
 
     output = args.output.resolve()
