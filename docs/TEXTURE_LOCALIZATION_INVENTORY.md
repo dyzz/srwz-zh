@@ -121,21 +121,23 @@ TIM2 metadata 和 CLUT 保持不变。低层 8-bpp TIM2 解析／写回仍位于
 | picture | `512×64`、4-bpp、image size `0x4000`、32 色 CLUT |
 | 像素顺序 | 线性、low-nibble-first；不是 PSMT4 swizzle |
 | 字形排版 | 24px 原字形横向扩为 48px，advance 50，`y=4`，整体居中 |
+| 拉丁字排版 | 2026-09-12 起 ASCII 范围字符按原版字形墨迹宽度比例推进（字母间距 2、空格 8，24px 域）；汉字单元不变。场间底部跑马灯显示的也是这张贴图。见 `STAGE_TITLE_LAYOUT_20260912.md` |
 
 第一张和最后一张当前落点为：
 
 | 标题 | ordinal / selector / loader index | VT1 槽位 |
 | --- | --- | --- |
 | 太空先锋 | `0 / 1 / 9` | `[0xBA8500, 0xBA8BF0)` |
-| 迈向无尽战争之环 | `106 / 107 / 115` | `[0xBD6070, 0xBD6A50)` |
+| 走向无尽战斗的轮回 | `106 / 107 / 115` | `[0xBD6070, 0xBD6A50)` |
 
-用户重点检查的第 38 话标题“被安排的决战”对应 Stage Name ordinal 72、selector 73、
+用户重点检查的第 38 话标题“被安排的决战”（2026-09-12 起改为“被设计的决战”，构建脚本的对应锁已同步）对应 Stage Name ordinal 72、selector 73、
 loader index 81，槽位为 `DATA/VT1.BIN [0xBC7BE0, 0xBC8440)`。这里的“第”“话”
 不在这张 512×64 标题贴图内，也没有被标题 writer 修改。
 
-107 张中 105 张使用完整 16 级索引。为满足各自原压缩槽预算，ordinal 70
-“被昭示的明天”和 ordinal 97“你与我的身影”使用 8 级量化；尺寸、CLUT、TIM2
-header 和槽边界仍保持不变。
+107 张中 104 张使用完整 16 级索引。为满足各自原压缩槽预算，ordinal 67
+“致远方的友人”使用 7 级量化，ordinal 70“被昭示的明天”和 ordinal 92
+“绯红之路”使用 8 级量化；ordinal 97“你的身影，我的身影”现为 16 级。
+尺寸、CLUT、TIM2 header 和槽边界仍保持不变。
 
 selector 的来源不是假设的 Stage Name 顺序，而是 COMPDATA 中 204 条场景记录：
 

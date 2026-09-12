@@ -1,0 +1,603 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-09-12",
+  "status": "iso_title_readback_passed_existing_lrps2_captures_reviewed",
+  "iso": {
+    "path": "build/iso/zh-release-full-story/current-original.iso",
+    "sha256": "4995c0b078195c67be2c9c287d2fa2adaae46255f1185cd66f279b5248c5a241",
+    "size": 3758358528
+  },
+  "inputs": [
+    {
+      "path": "corpus/zh/menu/stage-names.json",
+      "size": 31620,
+      "sha256": "dba23edf9a835b2285b7db3ed4af943567f9495deccca10b8a3e2c1e6b82693c"
+    },
+    {
+      "path": "config/full-story-components.json",
+      "size": 92743,
+      "sha256": "b90ce25de5c1afc6c5faf5d71c4af2644b926188fead545694eade91f7411837"
+    },
+    {
+      "path": "manifests/full-story-library-components-validation.json",
+      "size": 3233336,
+      "sha256": "a0ee36de76ef98505e08c66afef7c1b97297ed706ee3adf3de70379b7da6f4fa"
+    },
+    {
+      "path": "manifests/zh-release-full-story-iso-content-validation.json",
+      "size": 411643,
+      "sha256": "ca0396d82b1f2f51b5fda19f34a405edec1e05473dd781fa6eda2f8c6d9ecaea"
+    }
+  ],
+  "checks": {
+    "reconciliation_rows": 107,
+    "changed_translations": 16,
+    "source_text_identities_preserved": true,
+    "iso_text_titles_reread": 122,
+    "iso_texture_titles_reread": 107,
+    "title_block_used": 2207,
+    "title_block_capacity": 2720,
+    "python_tests_passed": 294
+  },
+  "textures": [
+    {
+      "entry_id": "menu/Compdata/03/0000",
+      "indexes_sha256": "cdd5e813b42cf5773b9d36722f49ba29fa3b45619de4f4e74ee03cb33c2fc98f"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0001",
+      "indexes_sha256": "098c8e6d2b8c36470ca27a6244deab73a8e674f5dcdae62a22f35a81f8efbc2a"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0002",
+      "indexes_sha256": "cedd4eff6c4c1b72754bbadeadf0ffcb20cb134ff923dcaca784e3122320548c"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0003",
+      "indexes_sha256": "09a84c7cf86feac67dd7de9539e6cd9b6bfe33657732cd4fdcf99ae7e833a4ff"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0004",
+      "indexes_sha256": "480966e1c692ca3277c9f3de6ada745e8344edcac80031d11ad281e73f3f7efb"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0005",
+      "indexes_sha256": "cf6dd6f29ab504390e615ba58d3dee6c8372cfcc7e2e21cfffff9d7ac80ee4d7"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0006",
+      "indexes_sha256": "c611b007040315f909e45e140c2c802357d3a1c8ed1d5cf505ed6f83f995e17b"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0007",
+      "indexes_sha256": "c6ed33f9cb7f652b3b51f5dd2fb64e6dffe3b8c0c41276359918c3b21ccfc65d"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0008",
+      "indexes_sha256": "f269148292742669accbc2c065b8ebfbbc72d2ca508b2d28021bcc4c9a6dd5b0"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0009",
+      "indexes_sha256": "22bb445d461e1b18a12248d15f1ff187139ab53987c85e79fb8d282a7bf40a8a"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0010",
+      "indexes_sha256": "f81b823af6e5188044ce6b4bcef4e54e745127432d6a5cdffeddec5e0afe32cf"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0011",
+      "indexes_sha256": "1167fd447682fbf86339b3bb13423a8707a12f71a0190a694fc1ff3770277fd3"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0012",
+      "indexes_sha256": "922066ab351dfed908b2ae3b3a7484e00ddf44e83f6e228b7116043c151cbd84"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0013",
+      "indexes_sha256": "f238a672cb9a4e3f6abc609be8de688e45f745e2b3c1e71296dd1159571b77bf"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0014",
+      "indexes_sha256": "82230f5be9e4d6225b2d93e4b25bfa79eb601f50682a0cef6a3e2e0e76c042e4"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0015",
+      "indexes_sha256": "846d8cf83aee4fc6970624ffe995171e722fb60ea252b2355fb020bec8556dd3"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0016",
+      "indexes_sha256": "f694049b81c3c5c29c52d5e50b08f4c7290a48e5b3dadd21901c372f754186df"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0017",
+      "indexes_sha256": "a4793592e41b4f9b1dfd04521683f85f1a2a4b375463dd5b5dcce7b74f5e820d"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0018",
+      "indexes_sha256": "4ebc8fb0ffb5ee35f6c894f4b9920ed564b50d89492eda96dc58d9c6c17013de"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0019",
+      "indexes_sha256": "49ebefe921fe7ab083dc7e2a6c825290dd46190d3f2568c553fdcbb9edb3c888"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0020",
+      "indexes_sha256": "6d85f6c2b4f281d07c4b8144032230658680cf3fba2f9d1a83c18be62927df4a"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0021",
+      "indexes_sha256": "5f8b6ef52982725d5e67ec255f95e20bf7b20fb61f5adbc044dda242732dd53f"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0022",
+      "indexes_sha256": "0acf8f6ef442315136a2effbfee9cd27018ad3be7972bb6cb9d97baf33ac3202"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0023",
+      "indexes_sha256": "0752ca7d8fde2869ed9b38c29435174139e2bc8e5133a8532b75df7b3030e5eb"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0024",
+      "indexes_sha256": "1d64e1d2ace9e458a09426e1e9e5b286fed0b391a1abdba6bc9933ae8ad3c01f"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0025",
+      "indexes_sha256": "aa22679b3f0a2d30988ae065e04a4bd4e50ee33b4eeaf64bd7eaaf554d164d8f"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0026",
+      "indexes_sha256": "81c103ef74c973b17756ed59a6affb487ad5600e02f376715f39f8433c8ace3e"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0027",
+      "indexes_sha256": "418d38b7cad26d916b260f90f809ab7a22287ee0d46de8ca58f06651e89679a4"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0028",
+      "indexes_sha256": "c3fdb7f1bb71f6e27248ba162d6209bccf365c3a10fee4c07ea1b23b5b48d314"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0029",
+      "indexes_sha256": "d8091cf0679bfe83be21bf51b8739106181b1e2370a8288f163e0faf898ffe64"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0030",
+      "indexes_sha256": "03fe7388af167c004bd298c73ee296ced0050220e0cdc2e3b4c9377beb5b2e00"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0031",
+      "indexes_sha256": "2b8b66747abc055088bbd77a9ace48c6117720f34c37c3059a8926cfccdfd643"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0032",
+      "indexes_sha256": "659cd212de725071c572effb91ea85574f522dfff5b1c379c22990fe88aeeeac"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0033",
+      "indexes_sha256": "af6bd99de3ceb12e3e9fafea8c66820eaf2f05a12f9a3aac0c18dc5fd2ea7cf9"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0034",
+      "indexes_sha256": "36881e3074c49e2d66011aa70fecd8daa4bbdcc057a157797592f0381757204b"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0035",
+      "indexes_sha256": "c61a2d4d5541e560f0243d4170d0a01d4741461182c92b8c7618288c62d2cb52"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0036",
+      "indexes_sha256": "c474a98ff838ee3ed0fe45c11aa2815520edd66029c395b8c5cd9e8ccecface2"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0037",
+      "indexes_sha256": "6af11637c8e97c571e8812f260e0f3b153a9bdf25a475c7b17f205f38f262d3d"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0038",
+      "indexes_sha256": "5fc2b43a6969a7325fc2977675184d1fb7b7ef3b84600053a350060e375fbf79"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0039",
+      "indexes_sha256": "8b4dc5bfa0726391fff5ed3f79165f5c3fdef07e20e30421c5e3520959c64466"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0040",
+      "indexes_sha256": "d1e335adf26a8a5b4af78afe5146c5d135dab30983045fd6b1aed6a70836b7c9"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0041",
+      "indexes_sha256": "7c1cfdc8f3e5036b7297614b39c62f1465b2e1673fad26ba1f5efd284cf78fa9"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0042",
+      "indexes_sha256": "f0d552c7e568770ef50d18e91ba20fd92ba02673eb9705c067ccfd0390e01a8d"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0043",
+      "indexes_sha256": "b1dff13cb3023a7ec902079aaf2973e5f26f48e4754308fbb7940b258879ec8e"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0044",
+      "indexes_sha256": "4e3eed147f9d2df70af06e134e0c69e7c4305109b93cd4a64abaefd5b2538b0d"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0045",
+      "indexes_sha256": "8311542eb814903029592411710553b6e6c652fde39a77192f3a5dabf6790858"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0046",
+      "indexes_sha256": "f6f97f7a20b44369094b8da2776edf0a8c44f073433c6b6c384876eea14ee6dc"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0047",
+      "indexes_sha256": "ee2d468f73586e3bcbf08863b93c080588e442e9dc6003fb91faab477d7474c0"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0048",
+      "indexes_sha256": "ba464687427c8d5d338115c35ea141404996a262adbc1c2f23f0f224408e100f"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0049",
+      "indexes_sha256": "aa38802a7973fe29bbc238a69826b3776772f46f92f185cdeec257a71aae820d"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0050",
+      "indexes_sha256": "ab6b96cb55563d9b3ddebd1f1611d147c7897b0e844a7df2273c5ba3847c68eb"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0051",
+      "indexes_sha256": "c1a4fec4302f741edce8a41f58a3ceb72967e58454076311a94576039cecdb8c"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0052",
+      "indexes_sha256": "0f6c39628afe1db3c935a33b21066e793398b242ea90294e1de4d53c2bc62436"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0053",
+      "indexes_sha256": "6c775a8f6ecaf3a7badb15a67c2ce69bfa883465f8b7c5a9e3227b1494eb1110"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0054",
+      "indexes_sha256": "4bfe3749847363b19ffa63cf3844c11278e4f269700cec2f6ec2c5fc0615892f"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0055",
+      "indexes_sha256": "75ab275b46a872d7269000545e1d0000f69ba23e3b4a7be35454fe15b8e7641e"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0056",
+      "indexes_sha256": "84f1dbdbc29faff7ff73d4bb3791e2a2ca98719526ebea860ff9faf9b5032934"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0057",
+      "indexes_sha256": "a43ca0133a9606d279b63d396c7d889cfd4a3bae0ebd0182a5e40e3fb52904dd"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0058",
+      "indexes_sha256": "243d72faaa00140a29a70e18ae9cde47ca577afd497c8e8b9e65f2265915f772"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0059",
+      "indexes_sha256": "f3842c050bc69a1f28a10d816a48ceb6785c0c180326c577e7d11e654ed3cd20"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0060",
+      "indexes_sha256": "d526d1a76d66fcb9775ffaf8a135a86940c17c12b522430044658f53db9fecfb"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0061",
+      "indexes_sha256": "23644fdac51e367d7b8be9fb5650b0f6841d7ea874840763679e0a419a8fb808"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0062",
+      "indexes_sha256": "ad7d5ea26c7662ea53cbd43b01a85b025a7b1aa055b8aabf304eddf721ae55c8"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0063",
+      "indexes_sha256": "76932acc728c0ad5f6dfdff2fe0ba8ac341a2d3edb608a6149cf4050ffff9de4"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0064",
+      "indexes_sha256": "e83c92e079ab66ba455f0567c8b1eac55c9dcee10aebabfb847a9fb571a587a8"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0065",
+      "indexes_sha256": "c550bc8195970bac946b464fae784d36e712a6b6d9eef9e096c96407e783d688"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0066",
+      "indexes_sha256": "010145bd93a9dbd99ef25705576d054d9703e39745e112a2ffeb92b1acf2d145"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0067",
+      "indexes_sha256": "d4bed94d1be18f18e90e17076b4ea4a07d0bbf8b73110d3f62d0725eec36ee57"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0068",
+      "indexes_sha256": "c3fe026a4354ae54314f8dd2903375c6c056e4583966c344954340282189e238"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0069",
+      "indexes_sha256": "94b9d368b34c0f7fe8891669ddf9b19a28e1fa941dadcba56cde794d27230e9d"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0070",
+      "indexes_sha256": "c1d73461d818f600770ad93c2a70a44ffca2e5bc4d53c4ff5f85898ddd7dd763"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0071",
+      "indexes_sha256": "f87baac5636da8cf4b31650710ab1a849590265c070c31a1b615465ce05892ba"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0072",
+      "indexes_sha256": "2258b171edac72d6c22874a909aeb6a9a825d357fd09caaf37f9035196440d10"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0073",
+      "indexes_sha256": "3fe8f5acb70e01519aa99af0dde641413dd816f588a9c4cc543b787e21231efe"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0074",
+      "indexes_sha256": "3039619b9668d38482f932a8c212af1dfdb281d45741e6270af7580dd7f34a86"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0075",
+      "indexes_sha256": "91b4ee17320433e4cf8a17068a588038f54a1b1d4e07051e7b36f94658599a49"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0076",
+      "indexes_sha256": "d1f87498f91801489c9da66b2cd630ccc96e4fde059ca72e33f23ad38711522f"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0077",
+      "indexes_sha256": "c9e0f97c3350617862192cd61f99d460d7718b4d02dfcc70d6c76ae9e623cca6"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0078",
+      "indexes_sha256": "c993392d39830036824579cbdd39233684cd77774b99b9df5b78da545494514d"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0079",
+      "indexes_sha256": "78d1d82cad242e6ba65c705e5056616ff121db2aab960948be74ea492b512cfa"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0080",
+      "indexes_sha256": "f89eee4cf7381ea7e9fe1ef7110ec4b0587dfe5d137259172fd2e502d3020fe1"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0081",
+      "indexes_sha256": "7e6980c90e5f119844378466fe11d0862e6e65bdc075a4804ebccda9f28d8c1a"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0082",
+      "indexes_sha256": "50bc843eed712ab81140fcbd8748e27b57a18f82b7a3a12e61582e04ec7091e8"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0083",
+      "indexes_sha256": "af317276494b6defedaa7d2e7164c170b5ace9b11ce0d2afcef3bba266945116"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0084",
+      "indexes_sha256": "c1a26a5e5ef49778a8ef82a719be076755140bbbc674ab4089377aa6e104cdc0"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0085",
+      "indexes_sha256": "4ded7772b48de0c56ce37b81deb70ff54510998af16db0de9fc649b29793ddef"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0086",
+      "indexes_sha256": "4ac24dacd2e4f84ddcc4ead7c64ead3c6582b17aa911f5ba3d5a456b2785aa04"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0087",
+      "indexes_sha256": "be7bbbfa564f0832c55c25f897c515c0c06a7bf79dae5245416fdad1085c0ecd"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0088",
+      "indexes_sha256": "c8257c6e1d72d851cc5b72e07a4ba7ff3c8ab9cfdba2ac6d8c5b5c457a9a5bbe"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0089",
+      "indexes_sha256": "89096042089ecc3e1d9d23709e0f7a241b074fed4de5005a1a320f2d9f3750f2"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0090",
+      "indexes_sha256": "ee290f781ed57fdf052b1bea753e714917c9c958b2a88ff60a75722340e04d70"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0091",
+      "indexes_sha256": "4367db21c15dd2018aac43501f9997ea0d9bb07aeba394d487d80480d7858e3d"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0092",
+      "indexes_sha256": "a3ebe32e6f682a4a39a1f251a8ab9c2597483139a7d0305e88429aea6458a716"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0093",
+      "indexes_sha256": "59186d6dc85961a330e894e72e0e57b1e118b40b9b5e82ba063d548c77372962"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0094",
+      "indexes_sha256": "864dbff4db2ce3b2ffbc04c84d702859501b8329d9fb412ed33ca0332d8384f8"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0095",
+      "indexes_sha256": "db1bb218540d6b62ad2727d2fb833a723008df2626dd32c73c8a7898439ff4a2"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0096",
+      "indexes_sha256": "7e8c3dca9ce4675ea1cc297b6cba9fbe1ddb0ca53063a0c8947d59506e6676a9"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0097",
+      "indexes_sha256": "63689e31e709f0e1fffb65389fb272abe86b76f24d33ee1ec8f8ec7da9872c36"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0098",
+      "indexes_sha256": "c53950d2c60174962bac9205c60710243dc5cbddf78940dec119c190691ed668"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0099",
+      "indexes_sha256": "e268cb912a9d87de3512b5e36dec4cad78ba8fec361c72731b382a4d5616a5b8"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0100",
+      "indexes_sha256": "11d7a89c1c0e564681a5f85bd255e3110f586d36b26d334876af6e47029e08d2"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0101",
+      "indexes_sha256": "fc20dbc5ee1e98aa2319dd22827b1f69c8582627ea62cc10ac942aa70856b56a"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0102",
+      "indexes_sha256": "7d1b33fd50a21869fb430cfeb54bc3d04578ca5dc1c335f392fc830cfe78abcb"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0103",
+      "indexes_sha256": "76ba93a15e0a6621429b13906a3f3c059c2adcbd210c04ba4a7da964ba44b804"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0104",
+      "indexes_sha256": "6ba3e2a582e3d1234ec19256c326c77e8a7e37fc3892f3f689f719de3482b054"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0105",
+      "indexes_sha256": "c57c7d2ffd90f05a342857033edec45cc52426d375ecba2cb88058e8a33937b8"
+    },
+    {
+      "entry_id": "menu/Compdata/03/0106",
+      "indexes_sha256": "220da3f7f6c0743acf45d52d9c553fba0bf567a146f98ea7fafdfedcdd113871"
+    }
+  ],
+  "existing_lrps2_captures": [
+    {
+      "title": "blue-sky-fish",
+      "receipt": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-blue-sky-fish-20260912/receipt.json",
+        "size": 7427,
+        "sha256": "da4586b08bf133c977aec0c2db67f42bab3d3cbb36e9ccda971000eec86553ae"
+      },
+      "capture": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-blue-sky-fish-20260912/frames/02220-populated-load-list.png",
+        "size": 183348,
+        "sha256": "189e9752ddfc38054137dafcb6883d8e1b498abd65854a996847a909e21f1812"
+      },
+      "visual_review": "title_visible_without_clipping_closing_quote_and_overview_present"
+    },
+    {
+      "title": "into-the-nature",
+      "receipt": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-into-the-nature-20260912/receipt.json",
+        "size": 7439,
+        "sha256": "34d01297a15d33a10808a8252c9074282678881a3606136cd8f1d42be7fbf3eb"
+      },
+      "capture": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-into-the-nature-20260912/frames/02220-populated-load-list.png",
+        "size": 138549,
+        "sha256": "83bf11289ebd1b2ac02836dd255f13c0a7e3986ea37bcde2f3eb2e71b0dd593e"
+      },
+      "visual_review": "title_visible_without_clipping_closing_quote_and_overview_present"
+    },
+    {
+      "title": "cosplayer",
+      "receipt": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-cosplayer-20260912/receipt.json",
+        "size": 7403,
+        "sha256": "ca36966212b11e819209157c3c137a886aa08c8add7bbd3a9e0998fb252e2e42"
+      },
+      "capture": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-cosplayer-20260912/frames/02220-populated-load-list.png",
+        "size": 139226,
+        "sha256": "7388ec5e9b6a20e4a571e08480903e950a18078a174cf80319268f289bda8a72"
+      },
+      "visual_review": "title_visible_without_clipping_closing_quote_and_overview_present"
+    },
+    {
+      "title": "acperience",
+      "receipt": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-acperience-20260912/receipt.json",
+        "size": 7408,
+        "sha256": "2c4cbac009689b9ec6dc00d5aceba8b68e3b28220f63948d6384e064f9353ecb"
+      },
+      "capture": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-acperience-20260912/frames/02220-populated-load-list.png",
+        "size": 137248,
+        "sha256": "5b5a0035a1012515cdeb4a036f3c3336ee6972245600a87cf5258b5aee618f45"
+      },
+      "visual_review": "title_visible_without_clipping_closing_quote_and_overview_present"
+    },
+    {
+      "title": "morning-glory",
+      "receipt": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-morning-glory-20260912/receipt.json",
+        "size": 7427,
+        "sha256": "cbc65de2b216eee64f4625b4f28b67c8cb1188122d00693fc0aaad99806119f8"
+      },
+      "capture": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-morning-glory-20260912/frames/02220-populated-load-list.png",
+        "size": 138370,
+        "sha256": "8fba8e662381d686077f03db689e12c19eec2e233baa38ddbec3993ff90d9368"
+      },
+      "visual_review": "title_visible_without_clipping_closing_quote_and_overview_present"
+    },
+    {
+      "title": "over-battle",
+      "receipt": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-over-battle-20260912/receipt.json",
+        "size": 7415,
+        "sha256": "ea335e96bdb971d244f746c18c0c61db981c270209fd03481a5a1d6246a72887"
+      },
+      "capture": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-over-battle-20260912/frames/02220-populated-load-list.png",
+        "size": 136475,
+        "sha256": "61d176ea795b19fc6d8356cf5c19d6749235c787ad09aa75be5965adf66cead3"
+      },
+      "visual_review": "title_visible_without_clipping_closing_quote_and_overview_present"
+    },
+    {
+      "title": "start-it-up",
+      "receipt": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-start-it-up-20260912/receipt.json",
+        "size": 7415,
+        "sha256": "7c5c57cbd58112ca428704abc2d3e9d7470a1ffce718c898410d1c714189c98c"
+      },
+      "capture": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-start-it-up-20260912/frames/02220-populated-load-list.png",
+        "size": 137854,
+        "sha256": "1e432390c0b7857c724d01734ac4ead32cfb46ef92f0211b054dbb598da525fc"
+      },
+      "visual_review": "title_visible_without_clipping_closing_quote_and_overview_present"
+    },
+    {
+      "title": "gain-over",
+      "receipt": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-gain-over-20260912/receipt.json",
+        "size": 7403,
+        "sha256": "d9c65bb9dc47716f1f0c5dbcad04e859f84a02341998beb9b6296cad9288e73a"
+      },
+      "capture": {
+        "path": "work/runtime/lrps2/stage-title-textwidth-prod-gain-over-20260912/frames/02220-populated-load-list.png",
+        "size": 182322,
+        "sha256": "82508e78c542fcc5bbc300fde8fbdb6c4b5f78336feee433cd4ce98f620948b4"
+      },
+      "visual_review": "title_visible_without_clipping_closing_quote_and_overview_present"
+    }
+  ],
+  "runtime_scope": {
+    "new_emulator_execution": false,
+    "reviewed_surface": "load_details",
+    "pcsx2_manual_acceptance": "pending",
+    "current_iso_scenario_chart": "not_rerun",
+    "current_best_build": "pending"
+  },
+  "known_separate_issue": {
+    "path": "config/stage-default-formation-inventory.json",
+    "locked_source_corpus_sha256": "1b7a4bb08d66f6b19ab67814bd3fef67bf502ada21bff0a90f47c564f0782b01",
+    "actual_source_corpus": {
+      "path": "corpus/zh/menu/stage-default-formations.json",
+      "size": 13171,
+      "sha256": "134080f0485dcd0cd8802a4838ceb9aa3d78e4db34d61bbad3517ffd0fdafcc7"
+    },
+    "status": "preexisting_lock_mismatch_not_changed_by_title_slice"
+  }
+}
