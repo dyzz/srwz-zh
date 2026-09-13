@@ -3554,11 +3554,11 @@ def verify_post_release_runtime_surfaces(
         0x31B660: "格罗玛",
         0x31B674: "和平号",
         0x31B688: "月光号",
-        0x31B69C: "大天使",
-        0x31B6B0: "密涅瓦",
+        0x31B69C: "大天使号",
+        0x31B6B0: "密涅瓦号",
         0x31B6C4: "太阳号",
-        0x31B6D8: "永恒",
-        0x31B6EC: "永恒",
+        0x31B6D8: "永恒号",
+        0x31B6EC: "永恒号",
         0x31B700: "拉迪修",
     }
     auto_root_readbacks = {}
